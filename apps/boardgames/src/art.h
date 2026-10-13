@@ -92,6 +92,14 @@ void art_plank(int w, int h, int fr, uint8_t *rgba);
 /* the green felt of the dice games over a rectangle [x0, x1) x [y0, y1) of a picture (w x h): fine fibres, darker
  * towards its edges (under the walls) */
 void art_felt(uint8_t *rgba, int w, int h, int x0, int y0, int x1, int y1);
+/* a rectangle (pixels, any fractions) tinted rgb at alpha a over a picture (w x h), the pixels it covers in part
+ * tinted in part, clipped: a line ruled on a board, a well's dark edges */
+void art_tint_rect(uint8_t *rgba, int w, int h, float x0, float y0, float x1, float y1, const uint8_t rgb[3], float a);
+/* a dice cup upside down, seen from the side, size x size, a band of the player's colour round it near its mouth:
+ * ART_CUP_LEATHER stitched brown leather (liar's dice), ART_CUP_WALNUT turned walnut, a flared lip, two brass rings
+ * (mexico) */
+enum { ART_CUP_LEATHER, ART_CUP_WALNUT };
+void art_cup(int kind, int player, int size, uint8_t *rgba);
 /* a steady noise for a pixel, -0.5..0.5 (fibres, grain) */
 float art_noise(int x, int y);
 /* a round hole carved in the wood (its radius r and bevelled rim b, pixels), lit from the upper left: the factor for
@@ -113,6 +121,9 @@ void art_icon(int which, int size, uint8_t *rgba);
 
 /* a rounded rectangle filled with one colour, its edge smoothed */
 void art_roundrect(int w, int h, float radius, const uint8_t rgba_fill[4], uint8_t *rgba);
+/* the same, rw x rh, rgb at alpha a, painted over a picture (w x h) at (x, y): a square of a board, a rail */
+void art_roundrect_put(uint8_t *rgba, int w, int h, int x, int y, int rw, int rh, float radius, const uint8_t rgb[3],
+                       float a);
 
 /* a disc fading from alpha a0 at its centre to 0 at its rim (power: how fast), or a hard disc (power 0) */
 void art_disc(int size, const uint8_t rgb[3], float a0, float power, uint8_t *rgba);

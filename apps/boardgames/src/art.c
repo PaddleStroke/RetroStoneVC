@@ -585,6 +585,84 @@ void art_felt(uint8_t *o, int w, int h, int x0, int y0, int x1, int y1)
         }
 }
 
+void art_tint_rect(uint8_t *o, int w, int h, float x0, float y0, float x1, float y1, const uint8_t rgb[3], float a)
+{
+    int ix0 = (int)floorf(x0), iy0 = (int)floorf(y0), ix1 = (int)ceilf(x1), iy1 = (int)ceilf(y1);
+    for (int y = iy0 < 0 ? 0 : iy0; y < iy1 && y < h; y++)
+        for (int x = ix0 < 0 ? 0 : ix0; x < ix1 && x < w; x++) {
+            float cx = fminf(x + 1.0f, x1) - fmaxf((float)x, x0), cy = fminf(y + 1.0f, y1) - fmaxf((float)y, y0);
+            float k = a * clampf(cx, 0, 1) * clampf(cy, 0, 1);
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            for (int c = 0; c < 3; c++) p[c] = (uint8_t)(p[c] + (rgb[c] - p[c]) * k);
+            if (p[3] < 255) p[3] = (uint8_t)(p[3] + (255 - p[3]) * k);
+        }
+}
+
+/* the band of a player's colour round a cup: the quad (x, y four times, of the unit square) */
+static void cup_band(uint8_t *o, int s, const float band[8], int player)
+{
+    art_fig *f = art_fig_new();
+    art_poly(f, ART_PART, band, 4);
+    art_style bs = art_player[player < 0 ? 0 : player % ART_PLAYERS];
+    bs.line = 0.012f;
+    uint8_t *b = calloc((size_t)s * s, 4);
+    if (b) {
+        art_render(f, &bs, s, s, (float)s, 0, 0, b);
+        art_blend(o, s, s, b, s, s, 0, 0);
+        free(b);
+    }
+    art_fig_free(f);
+}
+
+void art_cup(int kind, int player, int s, uint8_t *o)
+{
+    memset(o, 0, (size_t)s * s * 4);
+    art_fig *f = art_fig_new();
+    if (kind == ART_CUP_LEATHER) {
+        static const uint8_t leather[3] = {122, 74, 44}, ink[3] = {58, 34, 20}, top[3] = {150, 96, 60},
+                             stitch[3] = {214, 182, 140};
+        static const float body[] = {0.3f, 0.12f, 0.7f, 0.12f, 0.86f, 0.88f, 0.14f, 0.88f},
+                           band[] = {0.188f, 0.68f, 0.812f, 0.68f, 0.835f, 0.79f, 0.165f, 0.79f};
+        art_poly(f, ART_PART, body, 4);
+        art_ellipse(f, ART_PART, 0.5f, 0.88f, 0.36f, 0.06f);
+        art_style st = art_flat(leather, ink, 0.025f, 0.45f);
+        art_render(f, &st, s, s, (float)s, 0, 0, o);
+        art_fig_free(f);
+        f = art_fig_new();                      /* the top, a little lighter */
+        art_ellipse(f, ART_PART, 0.5f, 0.12f, 0.2f, 0.045f);
+        art_fig_paint(o, s, f, top, ink, 0.015f, 0.1f);
+        cup_band(o, s, band, player);
+        f = art_fig_new();                      /* stitches */
+        for (int i = 0; i < 7; i++) {
+            float y = 0.2f + i * 0.065f;
+            art_rect(f, ART_PART, 0.5f - 0.006f, y, 0.5f + 0.006f, y + 0.03f);
+        }
+        art_fig_paint(o, s, f, stitch, NULL, 0, 0.1f);
+        return;
+    }
+    static const uint8_t wood[3] = {124, 80, 50}, ink[3] = {52, 32, 20}, brass[3] = {206, 164, 84},
+                         brass_ink[3] = {120, 88, 36}, top[3] = {160, 110, 72};
+    static const float body[] = {0.29f, 0.14f, 0.71f, 0.14f, 0.77f, 0.8f, 0.23f, 0.8f},
+                       band[] = {0.255f, 0.42f, 0.745f, 0.42f, 0.755f, 0.56f, 0.245f, 0.56f},
+                       r1[] = {0.27f, 0.3f, 0.73f, 0.3f, 0.734f, 0.345f, 0.266f, 0.345f},
+                       r2[] = {0.226f, 0.66f, 0.774f, 0.66f, 0.778f, 0.705f, 0.222f, 0.705f};
+    art_poly(f, ART_PART, body, 4);
+    art_ellipse(f, ART_PART, 0.5f, 0.14f, 0.21f, 0.05f);
+    art_fig_paint(o, s, f, wood, ink, 0.022f, 0.55f);
+    f = art_fig_new();                          /* the lip */
+    art_rect(f, ART_PART, 0.17f, 0.8f, 0.83f, 0.88f);
+    art_ellipse(f, ART_PART, 0.5f, 0.88f, 0.33f, 0.05f);
+    art_fig_paint(o, s, f, wood, ink, 0.02f, 0.4f);
+    f = art_fig_new();                          /* the rounded top, lighter */
+    art_ellipse(f, ART_PART, 0.5f, 0.14f, 0.18f, 0.035f);
+    art_fig_paint(o, s, f, top, ink, 0.012f, 0.1f);
+    cup_band(o, s, band, player);
+    f = art_fig_new();                          /* the brass rings */
+    art_poly(f, ART_PART, r1, 4);
+    art_poly(f, ART_PART, r2, 4);
+    art_fig_paint(o, s, f, brass, brass_ink, 0.01f, 0.5f);
+}
+
 /* ---- the buttons' icons ------------------------------------------------------------------------------------------ */
 void art_icon(int which, int size, uint8_t *rgba)
 {
@@ -783,6 +861,18 @@ void art_roundrect(int w, int h, float rad, const uint8_t fill[4], uint8_t *o)
             memcpy(p, fill, 3);
             p[3] = (uint8_t)(fill[3] * clampf(0.5f - d, 0, 1));
         }
+}
+
+void art_roundrect_put(uint8_t *o, int w, int h, int x, int y, int rw, int rh, float rad, const uint8_t rgb[3],
+                       float a)
+{
+    if (rw < 1 || rh < 1) return;
+    const uint8_t fill[4] = {rgb[0], rgb[1], rgb[2], (uint8_t)(255 * a)};
+    uint8_t *b = malloc((size_t)rw * rh * 4);
+    if (!b) return;
+    art_roundrect(rw, rh, rad, fill, b);
+    art_blend(o, w, h, b, rw, rh, x, y);
+    free(b);
 }
 
 void art_disc(int size, const uint8_t rgb[3], float a0, float power, uint8_t *o)

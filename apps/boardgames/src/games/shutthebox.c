@@ -267,13 +267,7 @@ static void paint_round(uint8_t *o, int n, int q, float x0, float y0, float x1, 
 {
     int x, y, w, h;
     rect_px(q, x0, y0, x1, y1, n, &x, &y, &w, &h);
-    if (w < 1 || h < 1) return;
-    const uint8_t fill[4] = {rgb[0], rgb[1], rgb[2], (uint8_t)(255 * a)};
-    uint8_t *b = malloc((size_t)w * h * 4);
-    if (!b) return;
-    art_roundrect(w, h, rad * n, fill, b);
-    art_blend(o, n, n, b, w, h, x, y);
-    free(b);
+    art_roundrect_put(o, n, n, x, y, w, h, rad * n, rgb, a);
 }
 
 /* a tile, w x h: standing (num: its number, painted in ink on maple) or lying (num 0: its plain back); the token: a

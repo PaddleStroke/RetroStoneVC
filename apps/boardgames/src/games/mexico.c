@@ -93,47 +93,6 @@ static void cup_at(float *cx, float *cy, float *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-static const uint8_t WOOD[3] = {124, 80, 50}, WOOD_INK[3] = {52, 32, 20}, BRASS[3] = {206, 164, 84},
-                     BRASS_INK[3] = {120, 88, 36};
-
-/* a dice cup of turned walnut upside down, seen from the side: a flared lip at its mouth, two brass rings, a band of
- * the player's colour between them, its rounded top lighter */
-static void paint_cup(int player, int s, uint8_t *o)
-{
-    memset(o, 0, (size_t)s * s * 4);
-    art_fig *f = art_fig_new();
-    static const float body[] = {0.29f, 0.14f, 0.71f, 0.14f, 0.77f, 0.8f, 0.23f, 0.8f};
-    art_poly(f, ART_PART, body, 4);
-    art_ellipse(f, ART_PART, 0.5f, 0.14f, 0.21f, 0.05f);
-    art_fig_paint(o, s, f, WOOD, WOOD_INK, 0.022f, 0.55f);
-    f = art_fig_new();                          /* the lip */
-    art_rect(f, ART_PART, 0.17f, 0.8f, 0.83f, 0.88f);
-    art_ellipse(f, ART_PART, 0.5f, 0.88f, 0.33f, 0.05f);
-    art_fig_paint(o, s, f, WOOD, WOOD_INK, 0.02f, 0.4f);
-    f = art_fig_new();
-    static const uint8_t top[3] = {160, 110, 72};
-    art_ellipse(f, ART_PART, 0.5f, 0.14f, 0.18f, 0.035f);
-    art_fig_paint(o, s, f, top, WOOD_INK, 0.012f, 0.1f);
-    f = art_fig_new();                          /* the band of the player's colour */
-    static const float band[] = {0.255f, 0.42f, 0.745f, 0.42f, 0.755f, 0.56f, 0.245f, 0.56f};
-    art_poly(f, ART_PART, band, 4);
-    art_style bs = art_player[player < 0 ? 0 : player % ART_PLAYERS];
-    bs.line = 0.012f;
-    uint8_t *b = calloc((size_t)s * s, 4);
-    if (b) {
-        art_render(f, &bs, s, s, (float)s, 0, 0, b);
-        art_blend(o, s, s, b, s, s, 0, 0);
-        free(b);
-    }
-    art_fig_free(f);
-    f = art_fig_new();                          /* the brass rings */
-    static const float r1[] = {0.27f, 0.3f, 0.73f, 0.3f, 0.734f, 0.345f, 0.266f, 0.345f},
-                       r2[] = {0.226f, 0.66f, 0.774f, 0.66f, 0.778f, 0.705f, 0.222f, 0.705f};
-    art_poly(f, ART_PART, r1, 4);
-    art_poly(f, ART_PART, r2, 4);
-    art_fig_paint(o, s, f, BRASS, BRASS_INK, 0.01f, 0.5f);
-}
-
 static SDL_Texture *t_cup[MX_MAXP], *t_tok[MX_MAXP], *t_chip, *t_chip_on;
 static int made_cup = -1, made_tok = -1, made_chip = -1;
 
@@ -144,7 +103,7 @@ static void paint_knob(int kind, int s, uint8_t *o)
     int c = (int)(0.6f * s);
     uint8_t *b = malloc((size_t)c * c * 4);
     if (!b) return;
-    paint_cup(0, c, b);
+    art_cup(ART_CUP_WALNUT, 0, c, b);
     art_blend_rot(o, s, s, b, c, c, 0.56f * s, 0.34f * s, 16);
     free(b);
     art_die_blend(o, s, s, 0.36f * s, 0.72f * s, (int)(0.24f * s), 0, 2, -8);
@@ -160,7 +119,7 @@ static void textures(void)
         made_cup = cs;
         for (int q = 0; q < MX_MAXP; q++) {
             ui_free(&t_cup[q]);
-            paint_cup(q, cs, ui_buf(cs, cs));
+            art_cup(ART_CUP_WALNUT, q, cs, ui_buf(cs, cs));
             t_cup[q] = ui_tex(cs, cs, ui_buf(cs, cs));
         }
     }
@@ -483,10 +442,10 @@ static void thumb(int variant, int size, uint8_t *rgba)
         }
         art_die_blend(rgba, size, size, 0.2f * size, 0.72f * size, (int)(0.22f * size), 0, 2, -12);
         art_die_blend(rgba, size, size, 0.46f * size, 0.74f * size, (int)(0.22f * size), 0, 1, 9);
-        paint_cup(2, cs, b);
+        art_cup(ART_CUP_WALNUT, 2, cs, b);
         art_blend_rot(rgba, size, size, b, cs, cs, 0.68f * size, 0.38f * size, 26);
     } else {
-        paint_cup(variant ? 3 : 2, cs, b);
+        art_cup(ART_CUP_WALNUT, variant ? 3 : 2, cs, b);
         art_blend(rgba, size, size, b, cs, cs, (int)(0.19f * size), (int)(0.02f * size));
         int n = variant ? 6 : 3, c = (int)(0.2f * size);
         uint8_t *ch = malloc((size_t)c * c * 4);

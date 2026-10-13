@@ -260,8 +260,8 @@ static void paint_icon(uint8_t *o, int n, int kind, int cat, int variant, float 
         return;
     }
     if (kind == ROW_TOTAL) {                    /* an equals sign: the sum */
-        cup_rect(o, n, n, cx - 0.16f * w, cy - 0.17f * h, cx + 0.16f * w, cy - 0.06f * h, CUP_INK, 0.85f);
-        cup_rect(o, n, n, cx - 0.16f * w, cy + 0.06f * h, cx + 0.16f * w, cy + 0.17f * h, CUP_INK, 0.85f);
+        art_tint_rect(o, n, n, cx - 0.16f * w, cy - 0.17f * h, cx + 0.16f * w, cy - 0.06f * h, CUP_INK, 0.85f);
+        art_tint_rect(o, n, n, cx - 0.16f * w, cy + 0.06f * h, cx + 0.16f * w, cy + 0.17f * h, CUP_INK, 0.85f);
         return;
     }
     if (ya_is_upper(cat)) {
@@ -319,14 +319,14 @@ static void paint_board(uint8_t *o, int n, geom g, int variant, int players)
     for (int r = 0; r < g.nrows; r++) {         /* the rules: strong round the bonus, double above the total */
         float y = row_y(g, r) * n;
         int strong = r == 0 || g.kind[r] != ROW_CAT || (r > 0 && g.kind[r - 1] == ROW_BONUS);
-        cup_rect(o, n, n, x0 + 0.004f * n, y - lw / 2, x1 - 0.004f * n, y + lw / 2, CUP_INK, strong ? 0.7f : 0.35f);
+        art_tint_rect(o, n, n, x0 + 0.004f * n, y - lw / 2, x1 - 0.004f * n, y + lw / 2, CUP_INK, strong ? 0.7f : 0.35f);
         if (g.kind[r] == ROW_TOTAL)
-            cup_rect(o, n, n, x0 + 0.004f * n, y - 2.5f * lw, x1 - 0.004f * n, y - 1.5f * lw, CUP_INK, 0.7f);
+            art_tint_rect(o, n, n, x0 + 0.004f * n, y - 2.5f * lw, x1 - 0.004f * n, y - 1.5f * lw, CUP_INK, 0.7f);
     }
     float yt = row_y(g, 0) * n - 0.6f * g.hdr * n, yb = row_y(g, g.nrows) * n;
     for (int p = 0; p < players; p++) {         /* the columns */
         float x = col_x(g, p) * n;
-        cup_rect(o, n, n, x - lw / 2, yt, x + lw / 2, yb, CUP_INK, p ? 0.3f : 0.6f);
+        art_tint_rect(o, n, n, x - lw / 2, yt, x + lw / 2, yb, CUP_INK, p ? 0.3f : 0.6f);
     }
     for (int r = 0; r < g.nrows; r++) {
         float cy = (row_y(g, r) + g.row / 2) * n;
@@ -334,8 +334,8 @@ static void paint_board(uint8_t *o, int n, geom g, int variant, int players)
     }
     cup_well(o, n, g.fx0, IN0, g.fx1, IN1);
     static const uint8_t dark[3] = {18, 60, 36};
-    cup_rect(o, n, n, g.fx0 * n, IN0 * n, (g.fx0 + LANE) * n, IN1 * n, dark, 0.35f);   /* the kept lane */
-    cup_rect(o, n, n, (g.fx0 + LANE) * n - lw, IN0 * n, (g.fx0 + LANE) * n, IN1 * n, CUP_INK, 0.3f);
+    art_tint_rect(o, n, n, g.fx0 * n, IN0 * n, (g.fx0 + LANE) * n, IN1 * n, dark, 0.35f);   /* the kept lane */
+    art_tint_rect(o, n, n, (g.fx0 + LANE) * n - lw, IN0 * n, (g.fx0 + LANE) * n, IN1 * n, CUP_INK, 0.3f);
 }
 
 static box laid;                                /* the board's square, as layout() last had it */
@@ -543,7 +543,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
                0.02f * size, maple, 0.008f * size);
     for (int r = 0; r < g.nrows; r++) {
         float y = row_y(g, r) * size;
-        if (r) cup_rect(rgba, size, size, g.sx0 * size + 2, y - 0.5f, g.sx1 * size - 2, y + 0.5f, CUP_INK, 0.4f);
+        if (r) art_tint_rect(rgba, size, size, g.sx0 * size + 2, y - 0.5f, g.sx1 * size - 2, y + 0.5f, CUP_INK, 0.4f);
         paint_icon(rgba, size, ROW_CAT, g.cat[r], v, (g.sx0 + g.sx1) / 2 * size, y + g.row * size / 2,
                    (g.sx1 - g.sx0) * size, g.row * size);
     }

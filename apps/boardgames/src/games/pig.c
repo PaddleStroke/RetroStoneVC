@@ -153,11 +153,11 @@ static void paint_board(uint8_t *o, int n, int players)
         race_inlay(o, n, n, (TX0 - 0.03f) * n, (y - gh / 2) * n, (TX1 - TX0 + 0.06f) * n, gh * n, gh / 2 * n,
                    groove, 0.004f * n);
         for (int k = 1; k < 10; k++)
-            cup_rect(o, n, n, (TX0 + (TX1 - TX0) * k / 10 - 0.0015f) * n, (y - gh * 0.3f) * n,
+            art_tint_rect(o, n, n, (TX0 + (TX1 - TX0) * k / 10 - 0.0015f) * n, (y - gh * 0.3f) * n,
                      (TX0 + (TX1 - TX0) * k / 10 + 0.0015f) * n, (y + gh * 0.3f) * n, CUP_CREAM, 0.5f);
     }
     static const uint8_t gold[3] = {214, 168, 64};   /* the finish post */
-    cup_rect(o, n, n, (TX1 - 0.003f) * n, (TRACK0 - 0.004f) * n, (TX1 + 0.003f) * n, (TRACK1 + 0.004f) * n, gold, 0.9f);
+    art_tint_rect(o, n, n, (TX1 - 0.003f) * n, (TRACK0 - 0.004f) * n, (TX1 + 0.003f) * n, (TRACK1 + 0.004f) * n, gold, 0.9f);
 }
 
 static void layout(box b)
@@ -326,7 +326,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
                    groove, 0.005f * size);
         art_die_blend(rgba, size, size, at[q] * size, y * size, (int)(0.075f * size), q, 5, 0);
     }
-    cup_rect(rgba, size, size, 0.84f * size, 0.05f * size, 0.85f * size, 0.31f * size, gold, 0.9f);
+    art_tint_rect(rgba, size, size, 0.84f * size, 0.05f * size, 0.85f * size, 0.31f * size, gold, 0.9f);
     if (variant == PIG_TWO) {
         art_die_blend(rgba, size, size, 0.36f * size, 0.6f * size, (int)(0.26f * size), 0, 4, -14);
         art_die_blend(rgba, size, size, 0.64f * size, 0.64f * size, (int)(0.26f * size), 0, 6, 12);

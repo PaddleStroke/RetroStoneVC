@@ -122,52 +122,8 @@ static void other_at(int i, int k, float *cx, float *cy, float *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-static const uint8_t LEATHER[3] = {122, 74, 44}, LEATHER_INK[3] = {58, 34, 20};
-
-/* a dice cup upside down, seen from the side: brown leather, a band of the player's colour near its mouth */
-static void cup_paint(int player, int s, uint8_t *o)
-{
-    memset(o, 0, (size_t)s * s * 4);
-    art_fig *f = art_fig_new();
-    static const float body[] = {0.3f, 0.12f, 0.7f, 0.12f, 0.86f, 0.88f, 0.14f, 0.88f};
-    art_poly(f, ART_PART, body, 4);
-    art_ellipse(f, ART_PART, 0.5f, 0.88f, 0.36f, 0.06f);
-    art_style st = art_flat(LEATHER, LEATHER_INK, 0.025f, 0.45f);
-    art_render(f, &st, s, s, (float)s, 0, 0, o);
-    art_fig_free(f);
-    f = art_fig_new();                          /* the top, a little lighter */
-    art_ellipse(f, ART_PART, 0.5f, 0.12f, 0.2f, 0.045f);
-    const uint8_t top[3] = {150, 96, 60};
-    art_fig_paint(o, s, f, top, LEATHER_INK, 0.015f, 0.1f);
-    f = art_fig_new();                          /* the band */
-    static const float band[] = {0.188f, 0.68f, 0.812f, 0.68f, 0.835f, 0.79f, 0.165f, 0.79f};
-    art_poly(f, ART_PART, band, 4);
-    art_style bs = art_player[player < 0 ? 0 : player % ART_PLAYERS];
-    bs.line = 0.012f;
-    uint8_t *b = calloc((size_t)s * s, 4);
-    if (b) {
-        art_render(f, &bs, s, s, (float)s, 0, 0, b);
-        art_blend(o, s, s, b, s, s, 0, 0);
-        free(b);
-    }
-    art_fig_free(f);
-    f = art_fig_new();                          /* stitches */
-    for (int i = 0; i < 7; i++) {
-        float y = 0.2f + i * 0.065f;
-        art_rect(f, ART_PART, 0.5f - 0.006f, y, 0.5f + 0.006f, y + 0.03f);
-    }
-    const uint8_t stitch[3] = {214, 182, 140};
-    art_fig_paint(o, s, f, stitch, NULL, 0, 0.1f);
-}
-
 static SDL_Texture *t_cup[LD_MAXP], *t_tok[LD_MAXP], *t_chip, *t_chip_on, *t_small[LD_MAXP];
 static int made_cup = -1, made_tok = -1, made_chip = -1, made_small = -1;
-
-/* a die at (cx, cy), turned, lifted (its shadow stays down), faded */
-static void die_at(int player, int value, float cx, float cy, float size, float deg, float lift, float alpha)
-{
-    ui_die(cx, cy, size, player, value, deg, lift, alpha, 1);
-}
 
 /* the buttons' pictures (the bid is the shell's tick): next, an arrow going round; liar, a cup lifted off two dice,
  * an arrow up beside it */
@@ -205,7 +161,7 @@ static void textures(void)
         made_cup = cs;
         for (int q = 0; q < LD_MAXP; q++) {
             ui_free(&t_cup[q]);
-            cup_paint(q, cs, ui_buf(cs, cs));
+            art_cup(ART_CUP_LEATHER, q, cs, ui_buf(cs, cs));
             t_cup[q] = ui_tex(cs, cs, ui_buf(cs, cs));
         }
     }
@@ -380,7 +336,7 @@ static void draw_bid_row(float cx, float cy, float h, int player, int count, int
     x += tw + gap;
     ui_number(x + nw / 2, cy, h, count, 1);
     x += nw + gap;
-    die_at(player, face, x + dw / 2, cy, dw, 0, 0, alpha);
+    ui_die(x + dw / 2, cy, dw, player, face, 0, 0, alpha, 1);
 }
 
 static void draw_bid(void)
@@ -451,7 +407,7 @@ static void draw_picker(void)
         float cx, cy;
         face_at(f, &cx, &cy);
         if (f == sel_face && my) ui_mark_gold(cx, cy, 1.7f * T.die);
-        die_at(T.me >= 0 ? T.me : 0, f, cx, cy, T.die * (f == sel_face ? 1.06f : 0.92f), 0, 0, my ? 1 : 0.5f);
+        ui_die(cx, cy, T.die * (f == sel_face ? 1.06f : 0.92f), T.me >= 0 ? T.me : 0, f, 0, 0, my ? 1 : 0.5f, 1);
     }
     float x, y, d;
     knob_xy(K_LIAR, &x, &y, &d);
@@ -508,7 +464,7 @@ static void draw_reveal(void)
                 ui_mark_glow(px, cy, 1.8f * s * (1 - 0.4f * f));
                 a *= 1 - f;
             }
-            die_at(q, v, px, cy, s, (race_hash(P->round * 13 + q, d) - 0.5f) * 16, 0, a);
+            ui_die(px, cy, s, q, v, (race_hash(P->round * 13 + q, d) - 0.5f) * 16, 0, a, 1);
         }
         /* the cup lifting off */
         float f = clampf((t - 60 * i) / (float)LIFT_MS, 0, 1);
@@ -615,9 +571,9 @@ static void thumb(int v, int size, uint8_t *rgba)
             art_die(faces[i], 0, ds, d);
             art_blend(rgba, size, size, d, ds, ds, x, y);
         }
-        cup_paint(1, cs, b);
+        art_cup(ART_CUP_LEATHER, 1, cs, b);
         art_blend(rgba, size, size, b, cs, cs, (int)(0.44f * size), (int)(0.02f * size));
-        cup_paint(2, cs, b);
+        art_cup(ART_CUP_LEATHER, 2, cs, b);
         art_blend(rgba, size, size, b, cs, cs, (int)(0.0f * size), (int)(0.04f * size));
     }
     free(b);

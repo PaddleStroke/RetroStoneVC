@@ -26,21 +26,6 @@
 static const uint8_t CUP_INK[3] = {84, 56, 36}, CUP_CREAM[3] = {246, 238, 220};
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
-/* a rectangle tinted over a picture (a line, a well): rgb at alpha a, clipped */
-static inline void cup_rect(uint8_t *o, int w, int h, float x0, float y0, float x1, float y1, const uint8_t rgb[3],
-                            float a)
-{
-    int ix0 = (int)floorf(x0), iy0 = (int)floorf(y0), ix1 = (int)ceilf(x1), iy1 = (int)ceilf(y1);
-    for (int y = iy0 < 0 ? 0 : iy0; y < iy1 && y < h; y++)
-        for (int x = ix0 < 0 ? 0 : ix0; x < ix1 && x < w; x++) {
-            float cx = fminf(x + 1.0f, x1) - fmaxf((float)x, x0), cy = fminf(y + 1.0f, y1) - fmaxf((float)y, y0);
-            float k = a * clampf(cx, 0, 1) * clampf(cy, 0, 1);
-            uint8_t *p = o + 4 * ((size_t)y * w + x);
-            for (int c = 0; c < 3; c++) p[c] = (uint8_t)(p[c] + (rgb[c] - p[c]) * k);
-            if (p[3] < 255) p[3] = (uint8_t)(p[3] + (255 - p[3]) * k);
-        }
-}
-
 /* the board: a plank of the house wood in its walnut frame (n x n) */
 static inline void cup_board(uint8_t *o, int n)
 {
@@ -54,10 +39,10 @@ static inline void cup_well(uint8_t *o, int n, float x0, float y0, float x1, flo
     int ix0 = (int)(x0 * n), iy0 = (int)(y0 * n), ix1 = (int)(x1 * n), iy1 = (int)(y1 * n);
     art_felt(o, n, n, ix0, iy0, ix1, iy1);
     float e = 0.004f * n;
-    cup_rect(o, n, n, ix0 - e, iy0 - e, ix1 + e, iy0 + 0.5f * e, CUP_INK, 0.45f);
-    cup_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, CUP_INK, 0.45f);
-    cup_rect(o, n, n, ix0 - e, iy0, ix0 + 0.5f * e, iy1, CUP_INK, 0.45f);
-    cup_rect(o, n, n, ix1 - 0.5f * e, iy0, ix1 + e, iy1, CUP_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy0 - e, ix1 + e, iy0 + 0.5f * e, CUP_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, CUP_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy0, ix0 + 0.5f * e, iy1, CUP_INK, 0.45f);
+    art_tint_rect(o, n, n, ix1 - 0.5f * e, iy0, ix1 + e, iy1, CUP_INK, 0.45f);
 }
 
 /* a die's rest on the felt after throw `key`: a small steady tilt (degrees) and offset (-1..1) for die i */
@@ -194,37 +179,6 @@ static inline void cup_token(int player, int size, uint8_t *rgba)
     art_die(5, player, d, b);
     art_blend(rgba, size, size, b, d, d, (size - d) / 2, (size - d) / 2);
     free(b);
-}
-
-/* ---- kept for the games written with them (new code: ui_die, ui_die_thrown, art_die_blend, art_felt...) -------- */
-static inline float cup_noise(int x, int y) { return art_noise(x, y); }
-static inline void cup_felt(uint8_t *o, int w, int h, int x0, int y0, int x1, int y1)
-{
-    art_felt(o, w, h, x0, y0, x1, y1);
-}
-static inline void cup_blend_rot(uint8_t *o, int w, int h, const uint8_t *src, int sw, int sh, float cx, float cy,
-                                 float deg)
-{
-    art_blend_rot(o, w, h, src, sw, sh, cx, cy, deg);
-}
-static inline void cup_paint_die(uint8_t *o, int w, int h, float cx, float cy, int size, int player, int value,
-                                 float deg)
-{
-    art_die_blend(o, w, h, cx, cy, size, player, value, deg);
-}
-static inline void cup_die_ex(float cx, float cy, float size, int player, int value, float deg, float lift,
-                              float alpha, float shade)
-{
-    ui_die(cx, cy, size, player, value, deg, lift, alpha, shade);
-}
-static inline void cup_die(float cx, float cy, float size, int player, int value, float deg, float lift, float alpha)
-{
-    ui_die(cx, cy, size, player, value, deg, lift, alpha, 1);
-}
-static inline int cup_die_thrown(float cx, float cy, float size, int player, int value, float deg, int i, int t,
-                                 float shade)
-{
-    return ui_die_thrown(cx, cy, size, player, value, deg, i, t, shade);
 }
 
 #endif
