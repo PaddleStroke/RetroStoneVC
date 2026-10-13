@@ -341,10 +341,11 @@ static int step(pencil *s)
     return -1;
 }
 
-int su_rate(const uint8_t *grid)
+int su_rate_steps(const uint8_t *grid, int *steps)
 {
     init();
     pencil s;
+    if (steps) memset(steps, 0, 4 * sizeof *steps);
     if (!pencil_load(&s, grid)) return 4;
     int level = 0;
     for (;;) {
@@ -357,8 +358,97 @@ int su_rate(const uint8_t *grid)
         if (!left) return level;
         int l = step(&s);
         if (l < 0) return 4;
+        if (steps) steps[l]++;
         if (l > level) level = l;
     }
+}
+
+int su_rate(const uint8_t *grid) { return su_rate_steps(grid, NULL); }
+
+/* ---- the bench's view (bench.h): each cell an unknown, its digits still possible (bit d) ---------------------- */
+static void pencil_of(const bench_grid *g, pencil *s)
+{
+    for (int c = 0; c < SU_CELLS; c++) {
+        int one = bench_one(g->d[c]);
+        s->v[c] = (uint8_t)(one ? bench_low(g->d[c]) : 0);
+        s->cand[c] = one ? 0 : g->d[c];
+    }
+}
+
+static int pencil_back(bench_grid *g, const pencil *s)
+{
+    for (int c = 0; c < SU_CELLS; c++)
+        if (!bench_one(g->d[c])) g->d[c] = s->v[c] ? (uint16_t)(1u << s->v[c]) : s->cand[c];
+    return 1;
+}
+
+/* tier 0 the singles (a decided digit taken from its peers, a digit with one place left in a unit); tier 1 locked
+ * candidates and pairs; tier 2 triples, quads, fish and the XY-wing */
+static int bench_deduce(bench_grid *g, int tier, void *ctx)
+{
+    (void)ctx;
+    if (tier == 0) {
+        int found = 0;
+        for (int c = 0; c < SU_CELLS; c++) {
+            if (!bench_one(g->d[c])) continue;
+            for (int i = 0; i < 20; i++) {
+                int p = PEER[c][i];
+                if (!(g->d[p] & g->d[c])) continue;
+                if (bench_one(g->d[p])) return -1;
+                g->d[p] &= (uint16_t)~g->d[c];
+                found = 1;
+            }
+        }
+        if (found) return 1;
+        for (int u = 0; u < 27; u++)
+            for (int d = 1; d <= 9; d++) {
+                int n = 0, at = -1;
+                for (int j = 0; j < 9; j++)
+                    if (g->d[UNIT[u][j]] >> d & 1) n++, at = UNIT[u][j];
+                if (!n) return -1;
+                if (n == 1 && !bench_one(g->d[at])) {
+                    g->d[at] = (uint16_t)(1u << d);
+                    return 1;
+                }
+            }
+        return 0;
+    }
+    pencil s;
+    pencil_of(g, &s);
+    int found = tier == 1 ? locked(&s) || naked(&s, 2) || hidden(&s, 2)
+                          : naked(&s, 3) || hidden(&s, 3) || fish(&s, 2) || naked(&s, 4) || hidden(&s, 4) ||
+                                fish(&s, 3) || xy_wing(&s);
+    return found ? pencil_back(g, &s) : 0;
+}
+
+static int bench_valid(const bench_grid *g, void *ctx)
+{
+    (void)ctx;
+    for (int u = 0; u < 27; u++) {
+        unsigned m = 0;
+        for (int j = 0; j < 9; j++) m |= g->d[UNIT[u][j]];
+        if (m != ALL) return 0;
+    }
+    return 1;
+}
+
+int su_bench(const uint8_t *grid, long *passes)
+{
+    init();
+    bench_rules r;
+    bench_grid g;
+    memset(&r, 0, sizeof r);
+    r.vars = SU_CELLS;
+    r.tiers = 3;
+    r.probe_tiers = 2;
+    r.order = BENCH_PAIRS;
+    r.deduce = bench_deduce;
+    r.valid = bench_valid;
+    r.budget = 400000;
+    for (int c = 0; c < SU_CELLS; c++) g.d[c] = grid[c] ? (uint16_t)(1u << grid[c]) : (uint16_t)ALL;
+    int res = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    return res;
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -425,6 +515,19 @@ void su_new(su_game *g, int level, uint32_t seed)
     su_make(level, seed, p, s);
     su_load(g, level, p, s);
     g->seed = seed;
+}
+
+int su_decode(su_game *g, const char *s)
+{
+    uint8_t p[SU_CELLS], sol[SU_CELLS];
+    for (int c = 0; c < SU_CELLS; c++) {
+        if (s[c] != '.' && (s[c] < '1' || s[c] > '9')) return 0;
+        p[c] = s[c] == '.' ? 0 : (uint8_t)(s[c] - '0');
+    }
+    if (s[SU_CELLS] || su_count(p, 2, sol) != 1) return 0;
+    int r = su_rate(p);
+    su_load(g, r == 0 ? SU_EASY : r == 1 ? SU_MEDIUM : r < 4 ? SU_HARD : SU_EXPERT, p, sol);
+    return 1;
 }
 
 /* the history (bench.h): each cell's state before a change (its digit, its notes), an action undone whole */

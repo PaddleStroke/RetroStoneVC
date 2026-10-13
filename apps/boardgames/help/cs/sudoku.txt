@@ -9,6 +9,8 @@ Vyplň mřížku 9 × 9 políček tak, aby každý řádek, každý sloupec a 
 Napiš číslici do prázdného políčka. Kdykoli ji můžeš změnit nebo smazat; dané číslice zůstávají. Malé poznámky v políčku ti pomohou zapamatovat si, které číslice tam ještě mohou být.
 # Konec hry
 Úloha je vyřešená, když je mřížka plná a správně: po desce přeběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, každá s jediným řešením: první dávají mnoho číslic a stačí v nich hledat jedinou možnou číslici či jediné místo, poslední po tobě chtějí zkusit číslici a sledovat ji, dokud se něco nerozbije. Vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří novou úlohu náhodně, v obtížnosti, kterou zvolíš. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatnou číslici.
 # Hra na zařízení
 Klepni na políčko a pak na klávesu pod deskou: její číslice se zapíše modrým inkoustem (dané číslice jsou tmavé). Dalším klepnutím na stejnou klávesu ji smažeš, nebo klávesu přetáhni na políčko. Řádek, sloupec a čtverec políčka se jemně rozsvítí a políčka se stejnou číslicí výrazněji. Když není vybrané žádné prázdné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak do políčka píší malé číslice, nebo je mažou. Zapsaná číslice smaže tuto poznámku ze svého řádku, sloupce a čtverce.

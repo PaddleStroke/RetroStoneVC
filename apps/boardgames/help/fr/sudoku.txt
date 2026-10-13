@@ -9,6 +9,8 @@ Remplis la grille de 9 × 9 cases pour que chaque ligne, chaque colonne et cha
 Mets un chiffre dans une case vide. Tu peux le changer ou l'enlever à tout moment ; les chiffres donnés restent. De petites notes dans une case t'aident à retenir les chiffres qu'elle peut encore recevoir.
 # La fin de la partie
 La grille est résolue quand elle est pleine et juste : une vague de lumière dorée parcourt le plateau.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, chacun avec une seule solution : les premiers donnent beaucoup de chiffres et ne demandent que les déductions les plus simples, les derniers te font essayer un chiffre et le suivre jusqu'à ce que quelque chose casse. Choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée une nouvelle grille au hasard, au niveau que tu choisis. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
 Touche une case, puis une touche sous le plateau : son chiffre s'y inscrit, à l'encre bleue (les chiffres donnés sont foncés). Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne, la colonne et le carré de la case s'éclairent légèrement, et les cases qui portent son chiffre plus chaudement. Sans case vide choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
 - Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent. Un chiffre posé efface cette note de sa ligne, sa colonne et son carré.

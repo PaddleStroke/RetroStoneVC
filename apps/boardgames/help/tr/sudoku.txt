@@ -9,6 +9,8 @@ Sudoku
 Boş bir kareye bir rakam yaz. Onu istediğin zaman değiştirebilir ya da silebilirsin; verilen rakamlar kalır. Bir karedeki küçük notlar, oraya hâlâ hangi rakamların gelebileceğini hatırlamana yardım eder.
 # Oyunun sonu
 Izgara dolu ve doğru olduğunda bulmaca çözülür: tahtanın üzerinden altın renkli bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var ve her birinin tek bir çözümü var: ilkler çok sayıda rakam verir ve tek seçeneği kalan kareler ile rakamlar yeter, sonuncular ise bir rakamı deneyip bir şey bozulana kadar izlemeni ister. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, seçtiğin seviyede rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, geri al ile sildiğin yanlış bir rakamdır.
 # Cihazda oynamak
 Bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır (verilen rakamlar koyudur). Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı, sütunu ve kutusu hafifçe aydınlanır, aynı rakamı taşıyan kareler daha belirgin. Boş bir kare seçili değilse bir tuş, kendi rakamının olduğu kareleri aydınlatır. Tahtanın yanındaki düğmeler:
 - Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları kaldırır. Yazdığın bir rakam, o notu satırından, sütunundan ve kutusundan siler.

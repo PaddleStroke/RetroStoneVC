@@ -9,6 +9,8 @@ Rellena la cuadrícula de 9 × 9 casillas para que cada fila, cada columna y c
 Pon una cifra en una casilla vacía. Puedes cambiarla o quitarla cuando quieras; las cifras dadas se quedan. Unas notas pequeñas en una casilla te ayudan a recordar las cifras que aún puede llevar.
 # El final de la partida
 El sudoku está resuelto cuando la cuadrícula está llena y bien: una ola de luz dorada recorre el tablero.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, cada uno con una sola solución: los primeros dan muchas cifras y solo piden los pasos más sencillos, los últimos te hacen probar una cifra y seguirla hasta que algo falle. Elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un sudoku nuevo al azar, del nivel que elijas. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.
 # Jugar en el dispositivo
 Toca una casilla y luego una tecla bajo el tablero: su cifra entra, en tinta azul (las cifras dadas son oscuras). Toca otra vez la misma tecla para quitarla, o arrastra una tecla hasta una casilla. La fila, la columna y el bloque de la casilla se iluminan un poco, y las casillas con su cifra, más. Sin ninguna casilla vacía elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
 - Lápiz: notas. Las teclas ponen entonces cifras pequeñas en la casilla, o las quitan. Una cifra que pones borra esa nota de su fila, columna y bloque.

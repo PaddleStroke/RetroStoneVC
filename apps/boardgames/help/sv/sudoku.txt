@@ -9,6 +9,8 @@ Fyll rutnätet med 9 × 9 rutor så att varje rad, varje kolumn och varje 3 �
 Sätt en siffra i en tom ruta. Du kan ändra den eller ta bort den när du vill; de givna siffrorna ligger kvar. Små anteckningar i en ruta hjälper dig att minnas vilka siffror den fortfarande kan få.
 # Partiets slut
 Pusslet är löst när rutnätet är fullt och rätt: en våg av guldljus sveper över brädet.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, var och en med bara en lösning: de första kräver bara singlar och ger många siffror, de sista ber dig pröva en siffra och följa den tills något går sönder. Välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, på den nivå du väljer. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du sedan ångrar.
 # Spela på enheten
 Tryck på en ruta och sedan på en tangent under brädet: siffran skrivs in med blått bläck (de givna siffrorna är mörka). Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans rad, kolumn och box lyser svagt, och alla rutor med samma siffra varmare. Om ingen tom ruta är vald tänder en tangent rutorna med dess siffra. Knapparna bredvid brädet:
 - Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem. En siffra som du skriver in suddar den anteckningen i sin rad, kolumn och box.

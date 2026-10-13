@@ -1,7 +1,7 @@
 /*
  * Sudoku's rules: the solver and the grader on known grids, the puzzles made from many seeds (one solution, the
  * level they were made for, their clues a subset of the solution), the player's digits, notes, hints and undo, and
- * whole games played from a seed with hints and wrong digits.
+ * whole games played from a seed with hints and wrong digits; every designed level.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "games/sudoku.h"
+#include "games/sudoku_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -95,6 +96,32 @@ int main(void)
            counts[0], (double)(clock() - t0) / CLOCKS_PER_SEC, clues[0][0], clues[0][1], clues[1][0], clues[1][1],
            clues[2][0], clues[2][1], clues[3][0], clues[3][1], rated[2][2], rated[2][3], slowest[0], slowest[1],
            slowest[2], slowest[3]);
+
+    /* every designed level (sudoku_levels.h): one solution, the bench's grade never a guess, its chapter's ways of
+     * reasoning (1 singles, 2 singles then pairs, 3 pairs, 4 triples and the X-wing, 5 quads, the swordfish and the
+     * XY-wing, 6 a digit tried), no two the same; hints alone solve it */
+    {
+        static const int lo[SU_CHAPTERS] = {0, 0, 1, 2, 3, 4}, hi[SU_CHAPTERS] = {0, 1, 1, 2, 3, 4};
+        int per = SU_LEVELS / SU_CHAPTERS, bad = 0;
+        for (int i = 0; i < SU_LEVELS; i++) {
+            su_game L;
+            uint8_t p[SU_CELLS];
+            int ok = (int)strlen(su_levels[i]) == SU_CELLS && su_decode(&L, su_levels[i]);
+            for (int c = 0; ok && c < SU_CELLS; c++) p[c] = L.given[c] ? L.val[c] : 0;
+            ok = ok && su_count(p, 2, NULL) == 1 && valid_full(L.sol);
+            long passes;
+            int b = ok ? su_bench(p, &passes) : BENCH_NONE, r = ok ? su_rate(p) : -1, ch = i / per;
+            ok = ok && b >= BENCH_EASY && b < BENCH_GUESS && r >= lo[ch] && r <= hi[ch];
+            for (int j = 0; ok && j < i; j++) ok = strcmp(su_levels[i], su_levels[j]) != 0;
+            for (int guard = 0; ok && !su_solved(&L) && guard < 100; guard++) ok = su_hint(&L) >= 0;
+            ok = ok && su_solved(&L);
+            if (!ok) printf("sudoku level %d: bad (rate %d, bench %d)\n", i + 1, r, b);
+            bad += !ok;
+        }
+        CHECK(bad == 0);
+        su_game L;
+        CHECK(!su_decode(&L, "123") && !su_decode(&L, su_levels[0] + 1));
+    }
 
     /* the same seed: the same puzzle */
     su_game a, b;

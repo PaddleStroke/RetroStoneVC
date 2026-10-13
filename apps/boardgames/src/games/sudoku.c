@@ -13,6 +13,8 @@
  * board fades. Undo takes back one action (a digit, a note, an erasure, a hint), all the way to the start.
  * The bar: the moves. Solved: a wave of gold light runs over the board from the last cell filled; the stars count the
  * hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, sudoku_levels.h: singles with many clues first, a
+ * digit tried and followed last), or its die tab a puzzle made at random at one of the four levels.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -20,6 +22,7 @@
 
 #include "games/bench_ui.h"
 #include "games/sudoku.h"
+#include "games/sudoku_levels.h"
 #include "shell.h"
 
 static su_game G;
@@ -134,13 +137,24 @@ static const bench_dg_game digits = {cell_at, cell_xy, NULL, editable, given, va
                                      solved, clash, full, peer};
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
-static void start(int variant)
+static void begin(void)
 {
-    su_new(&G, variant < 0 || variant >= SU_VARIANTS ? SU_EASY : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     bench_dg_start(&dg, &digits, 9, 9);
     dg.look = BENCH_DG_LOOK;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!su_decode(&G, su_levels[level < 0 || level >= SU_LEVELS ? 0 : level])) su_new(&G, SU_EASY, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* the die tab: a puzzle made at random at the variant's level */
+{
+    su_new(&G, variant < 0 || variant >= SU_VARIANTS ? SU_EASY : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return su_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -207,11 +221,39 @@ static void thumb(int variant, int size, uint8_t *rgba)
     if (variant >= 0) bench_stones(rgba, size, w, level);
 }
 
+/* a chapter's tab: the board of its middle level, its boxes ruled and its clues' cells inked: fewer as the chapters
+ * go */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= SU_CHAPTERS ? SU_CHAPTERS - 1 : chapter;
+    uint8_t p[SU_CELLS];
+    const char *s = su_levels[ch * (SU_LEVELS / SU_CHAPTERS) + SU_LEVELS / SU_CHAPTERS / 2];
+    for (int c = 0; c < SU_CELLS; c++) p[c] = s[c] != '.';
+    int side = (int)(0.8f * size), f = (int)fmaxf(1, side * 0.05f), q = (side - 2 * f) / 9, w = 9 * q + 2 * f;
+    if (q < 2) return;
+    uint8_t *b = calloc((size_t)w * w, 4);
+    if (!b) return;
+    art_board_n(9, 9, q, f, 0, b);
+    for (int c = 0; c < SU_CELLS; c++)
+        if (p[c]) {
+            float x = f + c % 9 * q, y = f + c / 9 * q;
+            puz_ink_rect(b, w, w, x + 0.5f, y + 0.5f, x + q - 0.5f, y + q - 0.5f, BENCH_GIVEN, 0.7f);
+        }
+    for (int i = 0; i <= 9; i += 3) {
+        float pp = f + i * q, t = fmaxf(1, 0.4f * q);
+        puz_ink_rect(b, w, w, pp - t / 2, (float)f, pp + t / 2, (float)(w - f), PUZ_INK, 0.85f);
+        puz_ink_rect(b, w, w, (float)f, pp - t / 2, (float)(w - f), pp + t / 2, PUZ_INK, 0.85f);
+    }
+    art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
+    free(b);
+}
+
 static const game sudoku_game = {
     .id = "sudoku", .order = 350, .variants = SU_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .score = score, .level_stars = stars, .fill = 1, .tools = BENCH_TOOLS,
+    .levels = SU_LEVELS, .chapters = SU_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
 };
 REGISTER_GAME(sudoku_game)

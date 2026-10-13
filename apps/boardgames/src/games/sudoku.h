@@ -30,6 +30,8 @@
 
 #define SU_VARIANTS 4
 #define SU_CELLS 81
+#define SU_LEVELS 150                           /* the designed levels (sudoku_levels.h) */
+#define SU_CHAPTERS 6
 
 enum { SU_EASY, SU_MEDIUM, SU_HARD, SU_EXPERT };
 
@@ -47,11 +49,21 @@ typedef struct {
 int  su_count(const uint8_t *grid, int limit, uint8_t *sol);
 /* the grade of a grid (0..4 as above: the hardest way its solving needs; 4: more than every way known here) */
 int  su_rate(const uint8_t *grid);
+/* the same, and the steps each grade's ways took (steps[0..3]: singles, pairs and locked candidates, triples and the
+ * X-wing, quads, the swordfish and the XY-wing; may be NULL) */
+int  su_rate_steps(const uint8_t *grid, int *steps);
+/* the bench's grade (bench.h): BENCH_EASY singles, BENCH_MEDIUM pairs and locked candidates, BENCH_HARD the harder
+ * ways or a digit tried and followed (with the easy and medium ways) to a contradiction, BENCH_GUESS beyond, BENCH_NONE
+ * no solution; *passes (may be NULL): the solver's passes, its work */
+int  su_bench(const uint8_t *grid, long *passes);
 /* a puzzle of the level from the seed: its clues (0 elsewhere) and its solution */
 void su_make(int level, uint32_t seed, uint8_t *puzzle, uint8_t *sol);
 
 void su_new(su_game *g, int level, uint32_t seed);
 void su_load(su_game *g, int level, const uint8_t *puzzle, const uint8_t *sol);
+/* a designed level (sudoku_levels.h): 81 characters, '.' empty or a clue 1..9, row by row; 0: not one puzzle with
+ * one solution */
+int  su_decode(su_game *g, const char *s);
 int  su_put(su_game *g, int cell, int digit);   /* a digit (0: empty the cell); the notes of that digit in its row,
                                                  * column and box go; 0: not allowed (a clue, the same digit) */
 int  su_note(su_game *g, int cell, int digit);  /* a note on or off (an empty cell only); 0: not allowed */

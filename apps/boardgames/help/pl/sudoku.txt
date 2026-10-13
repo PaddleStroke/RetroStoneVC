@@ -9,6 +9,8 @@ Wypełnij diagram 9 × 9 pól tak, aby każdy wiersz, każda kolumna i każdy 
 Wpisz cyfrę w puste pole. Możesz ją zmienić lub usunąć w każdej chwili; podane cyfry zostają. Małe notatki w polu pomagają zapamiętać, jakie cyfry mogą tam jeszcze być.
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny: po planszy przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, każdy z jednym rozwiązaniem: pierwsze podają wiele cyfr i wystarczy w nich szukać pola z jedyną możliwą cyfrą albo cyfry z jedynym miejscem, ostatnie każą wypróbować cyfrę i śledzić ją, aż coś się nie zgodzi. Wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, na wybranym przez ciebie poziomie. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra, którą usuwasz przyciskiem Cofnij.
 # Gra na urządzeniu
 Dotknij pola, a potem klawisza pod planszą: jego cyfra zostaje wpisana niebieskim atramentem (podane cyfry są ciemne). Dotknij tego samego klawisza jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Wiersz, kolumna i kwadrat pola lekko się podświetlają, a pola z tą samą cyfrą mocniej. Gdy nie wybrano pustego pola, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
 - Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają. Wpisana cyfra kasuje tę notatkę ze swojego wiersza, kolumny i kwadratu.

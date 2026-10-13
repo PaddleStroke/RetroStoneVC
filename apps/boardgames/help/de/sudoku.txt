@@ -9,6 +9,8 @@ Fülle das Gitter aus 9 × 9 Feldern so, dass jede Zeile, jede Spalte und jede
 Setze eine Ziffer in ein leeres Feld. Du kannst sie jederzeit ändern oder herausnehmen; die vorgegebenen Ziffern bleiben. Kleine Notizen in einem Feld helfen dir, dir die Ziffern zu merken, die dort noch möglich sind.
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn das Gitter voll und richtig ist: Eine Welle goldenen Lichts läuft über das Brett.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, jedes mit nur einer Lösung: Die ersten geben viele Ziffern vor und brauchen nur die einfachsten Schlüsse, die letzten verlangen, eine Ziffer auszuprobieren und zu verfolgen, bis etwas nicht mehr passt. Wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, in der Stufe, die du wählst. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Ziffer, die du mit Rückgängig zurücknimmst.
 # Spielen auf dem Gerät
 Tippe ein Feld an, dann eine Taste unter dem Brett: Ihre Ziffer kommt hinein, in blauer Tinte (die vorgegebenen Ziffern sind dunkel). Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Zeile, Spalte und Block des Felds leuchten leicht auf, alle Felder mit seiner Ziffer wärmer. Ist kein leeres Feld gewählt, lässt eine Taste die Felder ihrer Ziffer aufleuchten. Die Knöpfe neben dem Brett:
 - Bleistift: Notizen. Die Tasten setzen dann kleine Ziffern ins Feld oder nehmen sie heraus. Eine gesetzte Ziffer löscht diese Notiz in ihrer Zeile, Spalte und ihrem Block.
