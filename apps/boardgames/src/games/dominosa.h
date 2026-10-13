@@ -41,6 +41,8 @@
 #define DSA_SIZES 3
 #define DSA_LEVELS 3
 #define DSA_VARIANTS (DSA_SIZES * DSA_LEVELS)
+#define DSA_STAGES 150                          /* the designed levels (dominosa_levels.h), in six chapters */
+#define DSA_CHAPTERS 6
 
 enum { DSA_EASY, DSA_MEDIUM, DSA_HARD, DSA_BEYOND };
 
@@ -72,11 +74,17 @@ typedef struct {
 int  dsa_count(const dsa_puz *p, int limit, uint8_t *sol);
 /* the grade of a puzzle (DSA_EASY..DSA_HARD; DSA_BEYOND: more than the grader's ways, or no single solution) */
 int  dsa_rate(const dsa_puz *p);
-/* a puzzle of the set (4, 6, 8) and level from the seed, and its solution */
+/* the same, and the grader's steps weighed (1 an easy one, 3 a medium one, 10 a hard one): its effort */
+int  dsa_effort(const dsa_puz *p, int *steps);
+/* the levels' code (dominosa_levels.h): "<n>:" and a digit a cell, row by row; 0: does not fit, or not a set */
+int  dsa_encode(const dsa_puz *p, char *out, int size);
+int  dsa_decode(const char *code, dsa_puz *p);
+/* a puzzle of the set (double-2 to double-8; the variants: 4, 6, 8) and level from the seed, and its solution */
 void dsa_make(int n, int level, uint32_t seed, dsa_puz *p, uint8_t *sol);
 
 void dsa_new(dsa_game *g, int variant, uint32_t seed);
 void dsa_load(dsa_game *g, int level, const dsa_puz *p, const uint8_t *sol);
+int  dsa_open(dsa_game *g, const char *code); /* a level from its code (its solution found): 0 not one */
 int  dsa_lay(dsa_game *g, int a, int b);        /* a domino on the neighbouring cells a and b (the ones on them go);
                                                  * 0: not neighbours, or nothing changed */
 int  dsa_lift(dsa_game *g, int cell);           /* the domino on the cell taken away; 0: none */

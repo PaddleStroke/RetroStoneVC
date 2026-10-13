@@ -8,5 +8,7 @@ Een volledig dominospel is op het rooster gelegd, en daarna zijn de lijnen tusse
 Maak van twee buurvakjes een steen, of haal een steen weg. Een nieuwe steen vervangt de stenen die op zijn vakjes lagen.
 # Het einde van het spel
 De puzzel is opgelost als de stenen het rooster bedekken, elke steen van het spel één keer: een golf van gouden licht loopt over het bord.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het dubbel-3-spel tot het dubbel-8-spel, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde steen die je met Ongedaan maken terugneemt.
 # Spelen op het apparaat
-Sleep van een vakje naar zijn buur, of tik op het ene en dan op het andere: er wordt een ivoren steen op gelegd, waarvan de ogen de twee getallen tonen. Tik op een steen om hem weg te halen. Een steen die twee keer ligt, wordt rood. De lamp rechts in de balk geeft een hint: hij haalt een foute steen weg, of legt anders de makkelijkste goede, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Sleep van een vakje naar zijn buur, of tik op het ene en dan op het andere: er wordt een ivoren steen op gelegd, waarvan de ogen de twee getallen tonen. Tik op een steen om hem weg te halen. Een steen die twee keer ligt, wordt rood. De lampknop geeft een hint: hij haalt een foute steen weg, of legt anders de makkelijkste goede, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

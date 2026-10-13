@@ -1,7 +1,8 @@
 /*
  * Dominosa's rules: the solver and the grader on a puzzle by hand, the puzzles made from many seeds at every set and
  * level (one solution, counted apart from the grader; the full set, each domino once; the level they were made for),
- * the time the biggest take, the player's dominoes, clashes, hints and undo, and whole games from a seed.
+ * the time the biggest take, the 150 designed levels (one solution each, the chapters growing), the player's
+ * dominoes, clashes, hints and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/dominosa.h"
+#include "games/dominosa_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -82,6 +84,34 @@ int main(void)
     dsa_new(&a, 4, 42);
     dsa_new(&b, 4, 42);
     CHECK(!memcmp(&a.p, &b.p, sizeof a.p) && !memcmp(a.sol, b.sol, DSA_CELLS));
+
+    /* the designed levels: each decodes (its code again the same), has one solution the grader finds; the chapters
+     * grow (their sets and grades) */
+    {
+        int last_n = 0, weight[DSA_CHAPTERS] = {0};
+        for (int i = 0; i < DSA_STAGES; i++) {
+            dsa_puz p;
+            uint8_t mate[DSA_CELLS];
+            char again[DSA_CELLS + 8];
+            int ok = dsa_decode(dsa_levels[i], &p);
+            CHECK(ok);
+            if (!ok) continue;
+            CHECK(dsa_count(&p, 2, mate) == 1 && solution_ok(&p, mate));
+            int r = dsa_rate(&p);
+            CHECK(r >= DSA_EASY && r <= DSA_HARD);
+            weight[i / (DSA_STAGES / DSA_CHAPTERS)] += p.n + 2 * r;
+            CHECK(dsa_encode(&p, again, sizeof again) && !strcmp(again, dsa_levels[i]));
+            if (i % (DSA_STAGES / DSA_CHAPTERS) == 0) {
+                CHECK(p.n >= last_n);
+                last_n = p.n;
+            }
+        }
+        for (int c = 1; c < DSA_CHAPTERS; c++) CHECK(weight[c] > weight[c - 1]);
+        static dsa_game lv;
+        CHECK(dsa_open(&lv, dsa_levels[0]) && lv.p.n == 3 && !dsa_solved(&lv));
+        CHECK(dsa_script(&lv, "+10") && dsa_solved(&lv));
+        CHECK(!dsa_open(&lv, "1:000111") && !dsa_open(&lv, "1:00011") && !dsa_open(&lv, "1:002111"));
+    }
 
     /* the player's dominoes: laid over others, lifted, clashes, undo */
     dsa_game G;

@@ -8,5 +8,7 @@ A full set of dominoes was laid on the grid, then the lines between them were wi
 Join two neighbouring cells into a domino, or take a domino away. A new domino replaces the ones on its cells.
 # The end of the game
 The puzzle is solved when the dominoes cover the grid, each domino of the set once: a wave of gold light runs over the board.
+# Levels and stars
+There are 150 levels in six chapters, from the double-3 set up to the double-8, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong domino that you take back with undo.
 # Playing on the device
-Drag from a cell to its neighbour, or tap one and then the other: an ivory domino is laid on them, its pips showing the two numbers. Tap a domino to take it away. A domino laid twice turns red. The lamp at the right of the bar gives a hint: it takes a wrong domino away, or else lays the easiest right one, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+Drag from a cell to its neighbour, or tap one and then the other: an ivory domino is laid on them, its pips showing the two numbers. Tap a domino to take it away. A domino laid twice turns red. The lamp button gives a hint: it takes a wrong domino away, or else lays the easiest right one, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

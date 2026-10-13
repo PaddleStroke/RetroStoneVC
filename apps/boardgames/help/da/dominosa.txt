@@ -8,5 +8,7 @@ Et helt sæt dominobrikker blev lagt ud på gitteret, og derefter blev stregerne
 Saml to nabofelter til en brik, eller fjern en brik. En ny brik erstatter dem, der lå på dens felter.
 # Spillets afslutning
 Opgaven er løst, når brikkerne dækker gitteret, hver brik i sættet én gang: en bølge af gyldent lys løber over brættet.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra sættet med 3-3 som højeste dobbelte op til sættet med 8-8, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert brik, som du tager tilbage med Fortryd.
 # Spil på enheden
-Træk fra et felt til dets nabo, eller tryk på det ene og så på det andet: en brik af elfenben lægges på dem, med øjne, der viser de to tal. Tryk på en brik for at fjerne den. En brik, der ligger to gange, bliver rød. Lampen til højre i bjælken giver et tip: den fjerner en forkert brik eller lægger ellers den letteste rigtige, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Træk fra et felt til dets nabo, eller tryk på det ene og så på det andet: en brik af elfenben lægges på dem, med øjne, der viser de to tal. Tryk på en brik for at fjerne den. En brik, der ligger to gange, bliver rød. Lampeknappen giver et tip: den fjerner en forkert brik eller lægger ellers den letteste rigtige, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

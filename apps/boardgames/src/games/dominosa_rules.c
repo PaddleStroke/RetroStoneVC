@@ -5,6 +5,7 @@
  */
 #include "games/dominosa.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -234,12 +235,14 @@ static int step(state *s, int cap, int *cell)
 
 static state S;                                 /* the grader's last state */
 static int left_after;                          /* the cells it left unsettled when it got stuck (0: solved) */
+static int effort;                              /* its steps, weighed: 1 an easy one, 3 a medium one, 10 a hard one */
 
 static int rate_cap(const dsa_puz *p, int cap)
 {
     tables_load(p);
     state_init(&S);
     int level = DSA_EASY;
+    effort = 0;
     for (;;) {
         left_after = 0;
         for (int c = 0; c < T.cells; c++) left_after += !S.cdone[c];
@@ -247,11 +250,48 @@ static int rate_cap(const dsa_puz *p, int cap)
         if (!left_after) return level;
         int l = step(&S, cap, NULL);
         if (l < 0) return DSA_BEYOND;
+        effort += l == DSA_EASY ? 1 : l == DSA_MEDIUM ? 3 : 10;
         if (l > level) level = l;
     }
 }
 
 int dsa_rate(const dsa_puz *p) { return rate_cap(p, DSA_HARD); }
+
+int dsa_effort(const dsa_puz *p, int *steps)
+{
+    int r = rate_cap(p, DSA_HARD);
+    if (steps) *steps = effort;
+    return r;
+}
+
+/* ---- the levels' code: "<n>:" and a digit a cell, row by row (n + 2 columns, n + 1 rows) ------------------------- */
+int dsa_encode(const dsa_puz *p, char *out, int size)
+{
+    int k = snprintf(out, (size_t)size, "%d:", p->n);
+    if (k < 0 || k + p->w * p->h + 1 > size) return 0;
+    for (int c = 0; c < p->w * p->h; c++) out[k++] = (char)('0' + p->num[c]);
+    out[k] = 0;
+    return 1;
+}
+
+int dsa_decode(const char *s, dsa_puz *p)
+{
+    int n = 0, seen[DSA_MAXN + 1] = {0};
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 1 || n > DSA_MAXN) return 0;
+    memset(p, 0, sizeof *p);
+    p->n = n;
+    p->w = n + 2;
+    p->h = n + 1;
+    for (int c = 0; c < p->w * p->h; c++, s++) {
+        if (*s < '0' || *s > '0' + n) return 0;
+        p->num[c] = (uint8_t)(*s - '0');
+        seen[p->num[c]]++;
+    }
+    for (int v = 0; v <= n; v++)                /* each number on n + 2 halves of the set */
+        if (seen[v] != n + 2) return 0;
+    return !*s;
+}
 
 /* ---- counting solutions: the easy ways, then each pair of the cell with the fewest ------------------------------- */
 typedef struct { int count, limit; uint8_t *sol; } counter;
@@ -349,7 +389,7 @@ static void nudge(dsa_puz *p, const uint8_t *mate, const uint8_t *focus, uint32_
 
 void dsa_make(int n, int level, uint32_t seed, dsa_puz *out, uint8_t *sol)
 {
-    if (n != 4 && n != 6 && n != 8) n = 6;
+    if (n < 2 || n > DSA_MAXN) n = 6;
     if (level < DSA_EASY || level > DSA_HARD) level = DSA_EASY;
     uint32_t s = pr_seed(seed);
     int w = n + 2, h = n + 1, nt = (n + 1) * (n + 2) / 2, best_score = 1 << 30;
@@ -399,6 +439,15 @@ void dsa_load(dsa_game *g, int level, const dsa_puz *p, const uint8_t *sol)
     g->level = level;
     g->p = *p;
     memcpy(g->sol, sol, DSA_CELLS);
+}
+
+int dsa_open(dsa_game *g, const char *code)
+{
+    dsa_puz p;
+    uint8_t sol[DSA_CELLS];
+    if (!dsa_decode(code, &p) || dsa_count(&p, 2, sol) != 1) return 0;
+    dsa_load(g, -1, &p, sol);
+    return 1;
 }
 
 void dsa_new(dsa_game *g, int variant, uint32_t seed)

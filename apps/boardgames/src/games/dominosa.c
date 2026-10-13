@@ -13,6 +13,9 @@
  *
  * The bones are drawn here, not with the dominoes game's code (that is private to dominoes.c, and draws pips up to
  * six only): the same look, eight pips at most.
+ *
+ * The shell's level screen chooses a level (150 in six chapters, dominosa_levels.h), or its die tab a puzzle made at
+ * random (the variants). The grid stands turned a quarter when that makes its cells bigger (a phone held upright).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -20,7 +23,7 @@
 
 #include "games/bench_ui.h"
 #include "games/dominosa.h"
-#include "games/race.h"
+#include "games/dominosa_levels.h"
 #include "shell.h"
 
 #define CACHE 64
@@ -38,7 +41,7 @@ static bench_wave win;
 
 static box last_box;
 static float bx, by, bw, bh, gx, gy, cs;
-static int fr, made_key = -1, made_small = -1;
+static int fr, turned, made_key = -1, made_small = -1;
 static SDL_Texture *t_board, *t_small;
 
 /* ---- the bones --------------------------------------------------------------------------------------------------- */
@@ -162,14 +165,38 @@ static void draw_bone(int a, int b, float cx, float cy, float len, float deg, in
 }
 
 /* ---- the board --------------------------------------------------------------------------------------------------- */
-/* the plank, each cell a lighter inlay with its number burned in */
-static void paint_board(uint8_t *o, int W, int H, int f, const dsa_puz *p, float q, float ox, float oy, int digits)
+/* a cell's inlay: the wood under a rounded square tinted (the grain stays), a darker seam round it (seam pixels) */
+static void inlay(uint8_t *o, int pw, int ph, float x0, float y0, float s, float rad, float seam)
+{
+    for (int y = (int)floorf(y0); y < (int)ceilf(y0 + s); y++)
+        for (int x = (int)floorf(x0); x < (int)ceilf(x0 + s); x++) {
+            if (x < 0 || y < 0 || x >= pw || y >= ph) continue;
+            float px = x + 0.5f - x0, py = y + 0.5f - y0;
+            float dx = fmaxf(rad - px, px - (s - rad)), dy = fmaxf(rad - py, py - (s - rad)), d;
+            if (dx > 0 && dy > 0) d = rad - hypotf(dx, dy);                 /* in a rounded corner */
+            else d = fminf(fminf(px, s - px), fminf(py, s - py));           /* inside: to the nearest side */
+            float in = clampf(d + 0.5f, 0, 1);
+            if (in <= 0) continue;
+            float k = d < seam ? 0.72f + 0.28f * clampf(d / seam - 0.4f, 0, 1) : 1;   /* the seam */
+            uint8_t *p = o + 4 * ((size_t)y * pw + x);
+            for (int c = 0; c < 3; c++) {
+                float v = p[c] * CELL_TONE[c] * k;
+                p[c] = (uint8_t)clampf(p[c] + (v - p[c]) * in, 0, 255);
+            }
+        }
+}
+
+/* the plank, each cell a lighter inlay with its number burned in; turned: the grid transposed (the game's columns
+ * running down) */
+static void paint_board(uint8_t *o, int W, int H, int f, const dsa_puz *p, float q, float ox, float oy, int digits,
+                        int turned)
 {
     bench_plank(o, W, H, f);
     float in = 0.05f * q;
     for (int c = 0; c < p->w * p->h; c++) {
-        float x = ox + c % p->w * q, y = oy + c / p->w * q;
-        race_inlay(o, W, H, x + in, y + in, q - 2 * in, q - 2 * in, 0.1f * q, CELL_TONE, fmaxf(1.5f, 0.06f * q));
+        int col = c % p->w, row = c / p->w;
+        float x = ox + (turned ? row : col) * q, y = oy + (turned ? col : row) * q;
+        inlay(o, W, H, x + in, y + in, q - 2 * in, 0.1f * q, fmaxf(1.5f, 0.06f * q));
         if (digits) puz_burn(o, W, H, p->num[c], x + q / 2, y + q * 0.53f, 0.58f * q);
     }
 }
@@ -186,24 +213,30 @@ static void token(int player, int size, uint8_t *rgba)
     free(b);
 }
 
+
+/* the grid as big as the room allows, turned a quarter (its columns running down) when that makes the cells bigger:
+ * a wide grid on a phone held upright (ui_grid_fit) */
 static void layout(box b)
 {
     last_box = b;
     int w = G.p.w ? G.p.w : 8, h = G.p.h ? G.p.h : 7;
     float S = floorf(fminf(b.w, b.h)), m = floorf(S * BENCH_FRAME + 0.15f * S / w);   /* the room round the grid */
+    ui_grid fit = ui_grid_fit(b, w, h, m / fmaxf(1, S / (w > h ? w : h)));
+    turned = fit.turned;
+    int sw = turned ? h : w, sh = turned ? w : h;   /* the grid as it stands on the screen */
     fr = (int)(S * BENCH_FRAME);
-    cs = floorf(fminf((b.w - 2 * m) / w, (b.h - 2 * m) / h));   /* the grid as big as the room allows */
-    bw = w * cs + 2 * m;
-    bh = h * cs + 2 * m;
+    cs = floorf(fminf((b.w - 2 * m) / sw, (b.h - 2 * m) / sh));
+    bw = sw * cs + 2 * m;
+    bh = sh * cs + 2 * m;
     bx = floorf(b.x + (b.w - bw) / 2);
     by = floorf(b.y + (b.h - bh) / 2);
     gx = bx + m;
     gy = by + m;
-    int key = ((int)bw * 16 + w) * 64 + serial % 64;
+    int key = (((int)bw * 16 + w) * 64 + serial % 64) * 2 + turned;
     if (made_key != key) {
         made_key = key;
         ui_free(&t_board);
-        paint_board(ui_buf((int)bw, (int)bh), (int)bw, (int)bh, fr, &G.p, cs, m, m, 1);
+        paint_board(ui_buf((int)bw, (int)bh), (int)bw, (int)bh, fr, &G.p, cs, m, m, 1, turned);
         t_board = ui_tex((int)bw, (int)bh, ui_buf((int)bw, (int)bh));
         for (int i = 0; i < CACHE; i++) ui_free(&cache[i].t);
     }
@@ -219,12 +252,27 @@ static void calm(void)
     memset(&ptr, 0, sizeof ptr);
 }
 
-static void start(int variant)
+
+static void begin(void)
 {
-    dsa_new(&G, variant < 0 || variant >= DSA_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+/* a level of the shell's level screen (dominosa_levels.h) */
+static void start(int level)
+{
+    level = level < 0 ? 0 : level >= DSA_STAGES ? DSA_STAGES - 1 : level;
+    if (!dsa_open(&G, dsa_levels[level])) dsa_new(&G, 0, 1);
+    begin();
+}
+
+/* a puzzle made at random (the level screen's die tab): a set and a level */
+static void start_random(int variant)
+{
+    dsa_new(&G, variant < 0 || variant >= DSA_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return dsa_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -257,23 +305,50 @@ static int script(const char *moves)
     return ok;
 }
 
-/* ---- the board on the screen ------------------------------------------------------------------------------------- */
+/* ---- the board on the screen (turned: the game's columns run down the screen, its rows across) ------------------- */
+static void screen_of(int c, int *col, int *row)   /* a cell's place on the screen */
+{
+    int x = c % G.p.w, y = c / G.p.w;
+    *col = turned ? y : x;
+    *row = turned ? x : y;
+}
+
+static int cell_of(int col, int row)            /* the cell at a place on the screen (-1: none) */
+{
+    int x = turned ? row : col, y = turned ? col : row;
+    return x < 0 || y < 0 || x >= G.p.w || y >= G.p.h ? -1 : y * G.p.w + x;
+}
+
+static float mid_x(int c)
+{
+    int col, row;
+    screen_of(c, &col, &row);
+    return gx + (col + 0.5f) * cs;
+}
+
+static float mid_y(int c)
+{
+    int col, row;
+    screen_of(c, &col, &row);
+    return gy + (row + 0.5f) * cs;
+}
+
 static int cell_at(float x, float y)
 {
-    int cx = (int)floorf((x - gx) / cs), cy = (int)floorf((y - gy) / cs);
-    if (cx < 0 || cy < 0 || cx >= G.p.w || cy >= G.p.h) return -1;
-    return cy * G.p.w + cx;
+    if (x < gx || y < gy) return -1;
+    return cell_of((int)((x - gx) / cs), (int)((y - gy) / cs));
 }
 
 /* the neighbour of a the finger points at (the way it has gone furthest), -1 while it stays on a */
 static int toward(int a, float x, float y)
 {
-    int w = G.p.w;
-    float dx = x - (gx + (a % w + 0.5f) * cs), dy = y - (gy + (a / w + 0.5f) * cs);
+    int col, row;
+    screen_of(a, &col, &row);
+    float dx = x - mid_x(a), dy = y - mid_y(a);
     if (fabsf(dx) < 0.55f * cs && fabsf(dy) < 0.55f * cs) return -1;
-    int b = fabsf(dx) >= fabsf(dy) ? (dx > 0 ? a + 1 : a - 1) : (dy > 0 ? a + w : a - w);
-    if (b < 0 || b >= w * G.p.h || (fabsf(dx) >= fabsf(dy) && b / w != a / w)) return -1;
-    return b;
+    if (fabsf(dx) >= fabsf(dy)) col += dx > 0 ? 1 : -1;
+    else row += dy > 0 ? 1 : -1;
+    return cell_of(col, row);
 }
 
 static int adjacent(int a, int b)
@@ -282,13 +357,19 @@ static int adjacent(int a, int b)
     return (a / w == b / w && abs(a - b) == 1) || abs(a - b) == w;
 }
 
+/* a cell picked out, or the two of a bone being laid */
+static void select_cells(int a, int b)
+{
+    float x0 = fminf(mid_x(a), mid_x(b)) - cs / 2, y0 = fminf(mid_y(a), mid_y(b)) - cs / 2;
+    ui_mark_select(x0, y0, fabsf(mid_x(a) - mid_x(b)) + cs, fabsf(mid_y(a) - mid_y(b)) + cs);
+}
+
+/* the bone on c and o: its lower-numbered cell at its left or top end (turning the grid keeps that) */
 static void bone_between(int c, int o, float k)
 {
-    int w = G.p.w, a = c < o ? c : o, b = c < o ? o : c;
-    float x = gx + (a % w + 0.5f) * cs, y = gy + (a / w + 0.5f) * cs;
-    int vertical = b - a == w;
-    float cx = vertical ? x : x + cs / 2, cy = vertical ? y + cs / 2 : y;
-    draw_bone(G.p.num[a], G.p.num[b], cx, cy, 1.92f * cs, vertical ? 90.0f : 0.0f, !dsa_solved(&G) && dsa_clash(&G, a), k);
+    int a = c < o ? c : o, b = c < o ? o : c, standing = fabsf(mid_x(a) - mid_x(b)) < 1;
+    draw_bone(G.p.num[a], G.p.num[b], (mid_x(a) + mid_x(b)) / 2, (mid_y(a) + mid_y(b)) / 2, 1.92f * cs,
+              standing ? 90.0f : 0.0f, !dsa_solved(&G) && dsa_clash(&G, a), k);
 }
 
 static void draw(void)
@@ -298,14 +379,13 @@ static void draw(void)
     ui_put(t_board, bx, by, bw, bh);
     if (hint.at >= 0) {
         int o = G.link[hint.at] ? G.link[hint.at] - 1 : hint.at;
-        float x = gx + ((hint.at % w + o % w) / 2.0f + 0.5f) * cs, y = gy + ((hint.at / w + o / w) / 2.0f + 0.5f) * cs;
-        bench_glow(&hint, x, y, 2.6f * 1.4f * cs);
+        bench_glow(&hint, (mid_x(hint.at) + mid_x(o)) / 2, (mid_y(hint.at) + mid_y(o)) / 2, 2.6f * 1.4f * cs);
     }
     for (int c = 0; c < w * h; c++) {
-        bench_wave_at(&win, c % w + 0.5f, c / w + 0.5f, gx + (c % w + 0.5f) * cs, gy + (c / w + 0.5f) * cs, 2.3f * cs);
+        bench_wave_at(&win, c % w + 0.5f, c / w + 0.5f, mid_x(c), mid_y(c), 2.3f * cs);
         if (dsa_clash(&G, c) && !dsa_solved(&G) && G.link[c] - 1 > c) {
             int o = G.link[c] - 1;
-            ui_mark_glow(gx + ((c % w + o % w) / 2.0f + 0.5f) * cs, gy + ((c / w + o / w) / 2.0f + 0.5f) * cs, 2.2f * cs);
+            ui_mark_glow((mid_x(c) + mid_x(o)) / 2, (mid_y(c) + mid_y(o)) / 2, 2.2f * cs);
         }
     }
     for (int c = 0; c < w * h; c++) {           /* the bones */
@@ -316,11 +396,8 @@ static void draw(void)
     }
     bench_wave_tick(&win);
     ui_tool(0, ICON_HINT, dsa_solved(&G) ? UI_DIM : 0);
-    if (pending >= 0) ui_mark_select(gx + pending % w * cs, gy + pending / w * cs, cs, cs);
-    if (ptr.on && ptr.b >= 0) {                 /* the bone being laid */
-        int a = ptr.a < ptr.b ? ptr.a : ptr.b, b = ptr.a < ptr.b ? ptr.b : ptr.a;
-        ui_mark_select(gx + a % w * cs, gy + a / w * cs, b - a == 1 ? 2 * cs : cs, b - a == 1 ? cs : 2 * cs);
-    }
+    if (pending >= 0) select_cells(pending, pending);
+    if (ptr.on && ptr.b >= 0) select_cells(ptr.a, ptr.b);   /* the bone being laid */
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -393,35 +470,46 @@ static void bar(int player, box b)
 
 /* ---- the menu's and the picker's cards: a puzzle of the set and level, some of its bones laid, and as many ebony
  * stones as its level; the menu's a double-4 half done ------------------------------------------------------------- */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+/* a puzzle on a picture W wide (its height in *H): every `every`-th bone of the solution laid, the numbers when big
+ * enough; NULL when out of memory (the caller frees it) */
+static uint8_t *paint_card(const dsa_puz *p, const uint8_t *sol, int every, int W, int *H)
 {
-    int v = variant < 0 ? 0 : variant, n = dsa_set_of(v);
-    dsa_puz p;
-    uint8_t sol[DSA_CELLS];
-    dsa_make(n, dsa_level_of(v), 2026u + (uint32_t)v, &p, sol);
-    int W = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(W * BENCH_FRAME);
-    float q = floorf((W - 2 * f - 0.3f * W / p.w) / p.w), m = floorf((W - p.w * q) / 2);
-    int H = (int)(p.h * q + 2 * m);
-    uint8_t *b = calloc((size_t)W * H, 4);
-    if (!b) return;
-    paint_board(b, W, H, f, &p, q, m, m, q >= 9);
+    int f = (int)(W * BENCH_FRAME);
+    float q = floorf((W - 2 * f - 0.3f * W / p->w) / p->w), m = floorf((W - p->w * q) / 2);
+    *H = (int)(p->h * q + 2 * m);
+    uint8_t *b = calloc((size_t)W * *H, 4);
+    if (!b) return NULL;
+    paint_board(b, W, *H, f, p, q, m, m, q >= 9, 0);
     int len = (int)(1.92f * q) & ~1, k = 0;
     uint8_t *bone = len >= 8 ? malloc((size_t)len * (len / 2) * 4) : NULL;
     uint8_t *turned = bone ? malloc((size_t)len * (len / 2) * 4) : NULL;
-    for (int c = 0; bone && turned && c < p.w * p.h; c++) {
+    for (int c = 0; bone && turned && c < p->w * p->h; c++) {
         int o = sol[c];
-        if (o < c || k++ % (variant < 0 ? 2 : 4)) continue;
-        paint_bone(p.num[c], p.num[o], len, bone);
-        int vertical = o - c == p.w, bwid = vertical ? len / 2 : len, bhgt = vertical ? len : len / 2;
+        if (o < c || k++ % every) continue;
+        paint_bone(p->num[c], p->num[o], len, bone);
+        int vertical = o - c == p->w, bwid = vertical ? len / 2 : len, bhgt = vertical ? len : len / 2;
         if (vertical)                           /* standing: the picture turned a quarter (its left end on top) */
             for (int y = 0; y < len; y++)
                 for (int x = 0; x < len / 2; x++)
                     memcpy(turned + 4 * (y * (len / 2) + x), bone + 4 * ((len / 2 - 1 - x) * len + y), 4);
-        float cx = m + (c % p.w + 0.5f) * q + (vertical ? 0 : q / 2), cy = m + (c / p.w + 0.5f) * q + (vertical ? q / 2 : 0);
-        art_blend(b, W, H, vertical ? turned : bone, bwid, bhgt, (int)(cx - bwid / 2.0f), (int)(cy - bhgt / 2.0f));
+        float cx = m + (c % p->w + 0.5f) * q + (vertical ? 0 : q / 2);
+        float cy = m + (c / p->w + 0.5f) * q + (vertical ? q / 2 : 0);
+        art_blend(b, W, *H, vertical ? turned : bone, bwid, bhgt, (int)(cx - bwid / 2.0f), (int)(cy - bhgt / 2.0f));
     }
     free(bone);
     free(turned);
+    return b;
+}
+
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    int v = variant < 0 ? 0 : variant, n = dsa_set_of(v), H;
+    dsa_puz p;
+    uint8_t sol[DSA_CELLS];
+    dsa_make(n, dsa_level_of(v), 2026u + (uint32_t)v, &p, sol);
+    int W = variant < 0 || bare ? size : (int)(0.84f * size);
+    uint8_t *b = paint_card(&p, sol, variant < 0 ? 2 : 4, W, &H);
+    if (!b) return;
     int ox = (size - W) / 2, oy = variant < 0 || bare ? (size - H) / 2 : (int)(0.84f * size - H) / 2;
     art_blend(rgba, size, size, b, W, H, ox, oy);
     free(b);
@@ -433,8 +521,22 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest set), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= DSA_CHAPTERS ? DSA_CHAPTERS - 1 : chapter, H;
+    static dsa_game T;
+    if (!dsa_open(&T, dsa_levels[(ch + 1) * DSA_STAGES / DSA_CHAPTERS - 1])) return;
+    int W = (int)(0.94f * size);
+    uint8_t *b = paint_card(&T.p, T.sol, 1, W, &H);
+    if (!b) return;
+    art_blend(rgba, size, size, b, W, H, (size - W) / 2, (size - H) / 2);
+    free(b);
+}
+
 static const game dominosa_game = {
     .id = "dominosa", .order = 417, .variants = DSA_VARIANTS,
+    .levels = DSA_STAGES, .chapters = DSA_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,

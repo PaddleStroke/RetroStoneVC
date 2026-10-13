@@ -8,5 +8,7 @@ Un jeu complet de dominos a été posé sur la grille, puis les traits entre eux
 Réunis deux cases voisines en un domino, ou enlève un domino. Un nouveau domino remplace ceux qui étaient sur ses cases.
 # La fin de la partie
 La grille est résolue quand les dominos la couvrent, chaque domino du jeu une fois : une vague de lumière dorée parcourt le plateau.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, du jeu du double 3 jusqu'à celui du double 8, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un domino faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
-Fais glisser ton doigt d'une case à sa voisine, ou touche l'une puis l'autre : un domino d'ivoire s'y pose, ses points montrant les deux nombres. Touche un domino pour l'enlever. Un domino posé deux fois devient rouge. La lampe à droite de la barre donne un indice : elle enlève un domino faux, ou sinon pose le plus facile des bons, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+Fais glisser ton doigt d'une case à sa voisine, ou touche l'une puis l'autre : un domino d'ivoire s'y pose, ses points montrant les deux nombres. Touche un domino pour l'enlever. Un domino posé deux fois devient rouge. Le bouton de la lampe donne un indice : il enlève un domino faux, ou sinon pose le plus facile des bons, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

@@ -8,5 +8,7 @@ Tam bir domino takımı ızgaraya dizildi, sonra taşların arasındaki çizgile
 İki komşu kareyi bir taşta birleştir ya da bir taşı kaldır. Yeni bir taş, karelerinin üzerindeki taşların yerini alır.
 # Oyunun sonu
 Taşlar ızgarayı kapladığında ve takımın her taşı bir kez yer aldığında bulmaca çözülmüştür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en büyük çifti 3-3 olan takımdan en büyük çifti 8-8 olan takıma kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, geri al ile kaldırdığın yanlış bir taştır.
 # Cihazda oynamak
-Bir kareden komşusuna sürükle ya da önce birine, sonra ötekine dokun: üzerlerine fildişi bir taş yerleşir, benekleri iki sayıyı gösterir. Bir taşı kaldırmak için ona dokun. İki kez konmuş bir taş kırmızıya döner. Çubuğun sağındaki lamba ipucu verir: yanlış bir taşı kaldırır, yoksa doğru taşların en kolayını altın bir ışık içinde yerleştirir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
+Bir kareden komşusuna sürükle ya da önce birine, sonra ötekine dokun: üzerlerine fildişi bir taş yerleşir, benekleri iki sayıyı gösterir. Bir taşı kaldırmak için ona dokun. İki kez konmuş bir taş kırmızıya döner. Lamba düğmesi ipucu verir: yanlış bir taşı kaldırır, yoksa doğru taşların en kolayını altın bir ışık içinde yerleştirir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
