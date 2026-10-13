@@ -87,4 +87,8 @@ int  dom_auto(const dpos *p);                    /* a plain action */
 int  dom_script(dgame *g, const char *moves);    /* 0: an action is bad */
 unsigned dom_winners(const dpos *p);             /* the game over: the highest total (all tied for it) */
 
+/* the screen's game (dominoes.c), for its bot (dominoes_bot.c) */
+const dgame *dominoes_live(void);               /* read-only: the bot copies it at entry */
+int dominoes_show(const char *move);            /* main thread: one action of the notation, as a tap plays it */
+
 #endif

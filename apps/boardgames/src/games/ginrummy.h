@@ -95,4 +95,8 @@ int  gin_auto(const gnpos *p);                  /* a plain action (the "#" of th
 int  gin_card_name(const char *s, int *card);   /* "7h": the card; the letters read (0: bad) */
 int  gin_script(gngame *g, const char *moves);  /* 0: an action is bad */
 
+/* the screen's game (ginrummy.c), for its bot (ginrummy_bot.c) */
+const gngame *ginrummy_live(void);              /* read-only: the bot copies it at entry */
+int ginrummy_show(const char *move);            /* main thread: one action of the notation, as a tap plays it */
+
 #endif

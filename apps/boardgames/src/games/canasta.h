@@ -118,4 +118,8 @@ int  ca_auto(const capos *p, ca_act *a);        /* a plain action (the "a" of th
 int  ca_card_name(const char *s, int *card);    /* "Kh", "X": the card; the letters read (0: bad) */
 int  ca_script(cagame *g, const char *moves);   /* 0: an action is bad */
 
+/* the screen's game (canasta.c), for its bot (canasta_bot.c) */
+const cagame *canasta_live(void);               /* read-only: the bot copies it at entry */
+int canasta_show(const char *move);             /* main thread: one action of the notation, as a tap plays it */
+
 #endif

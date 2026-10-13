@@ -365,6 +365,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (canasta_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const cagame *canasta_live(void) { return &G; }
+
+int canasta_show(const char *move)
+{
+    static cagame t;
+    t = G;
+    if (!move[0] || strchr("a#*", move[0]) || !ca_script(&t, move) || t.n != G.n + 1) return 0;
+    act(&t.act[G.n]);
+    return 1;
+}
+
 /* ---- what the chosen cards can do -------------------------------------------------------------------------------- */
 static ca_act make(int kind, int rank)
 {

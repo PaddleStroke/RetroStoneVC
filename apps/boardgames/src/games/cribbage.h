@@ -97,4 +97,8 @@ int  crib_winner(const cpos *p);                /* CP_OVER: who reached 121 (-1:
 int  crib_auto(const cpos *p);                  /* a plain action (the "#" of the notation) */
 int  crib_script(cgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the screen's game (cribbage.c), for its bot (cribbage_bot.c) */
+const cgame *cribbage_live(void);               /* read-only: the bot copies it at entry */
+int cribbage_show(const char *move);            /* main thread: one action of the notation, as a tap plays it */
+
 #endif

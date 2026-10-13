@@ -538,6 +538,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (dominoes_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const dgame *dominoes_live(void) { return &G; }
+
+int dominoes_show(const char *move)
+{
+    static dgame t;
+    t = G;
+    if (!move[0] || strchr("a#*", move[0]) || !dom_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static SDL_Texture *t_piece;
 static int tok_size, piece_d;
