@@ -64,7 +64,8 @@ static void layout(box b)
         T.mine = (box){b.x, y += hb + gap, b.w, hm};
         T.nums = (box){b.x, y += hm + gap, b.w, hn};
         T.faces = (box){b.x, y += hn + gap, b.w, hf};
-        T.knobs = (box){b.x, y += hf + gap, b.w, b.y + b.h - y};
+        y += hf + gap;
+        T.knobs = (box){b.x, y, b.w, b.y + b.h - y};
         T.cols = 10;
     } else {
         float lw = floorf(b.w * 0.55f), rx = b.x + lw + 0.2f * u, rw = b.x + b.w - rx;

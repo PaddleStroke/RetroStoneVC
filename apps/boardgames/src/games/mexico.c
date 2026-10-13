@@ -58,7 +58,8 @@ static void layout(box b)
         T.claim = (box){b.x, y, b.w, hc};
         T.cup = (box){b.x, y += hc + gap, b.w, hu};
         T.pad = (box){b.x, y += hu + gap, b.w, hp};
-        T.knobs = (box){b.x, y += hp + gap, b.w, b.y + b.h - y};
+        y += hp + gap;
+        T.knobs = (box){b.x, y, b.w, b.y + b.h - y};
     } else {
         float lw = floorf(b.w * 0.45f), rx = b.x + lw + 0.2f * u, rw = b.x + b.w - rx;
         T.claim = (box){b.x, b.y, lw, b.h * 0.45f};
