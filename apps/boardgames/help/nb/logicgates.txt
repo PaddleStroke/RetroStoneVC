@@ -1,6 +1,6 @@
 Logiske porter
 # Målet
-Et kretskort: brytere nederst, logiske porter over dem, lamper øverst. Hver ledning fører et signal oppover, 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket. Det er 150 brett i 6 kapitler.
+Et kretskort: brytere nederst, logiske porter over dem, lamper øverst. Hver ledning fører et signal oppover, 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket. Det er 150 nivåer i 6 kapitler.
 # Portene
 Hver port er en messingfigur på en plate av valnøtt: inngangene kommer inn nederst, utgangen går ut øverst. En liten ring øverst på en port snur svaret dens. Nedenfor inngangene og utgangen i hvert tilfelle: 01 → 1 betyr første inngang 0, andre inngang 1, utgang 1.
 - NOT (IKKE), en trekant med en ring i spissen: det motsatte av inngangen. 0 → 1, 1 → 0.
@@ -13,15 +13,15 @@ Senere har noen porter tre innganger: AND, OR, NAND og NOR virker på samme måt
 # Sporvekslere
 En plate der ledningen deler seg, til venstre og til høyre. Signalet fortsetter den veien messingsporet peker; den andre veien fører 0. Trykk på den for å sende signalet den andre veien.
 # Ledninger som kan kuttes
-Noen ledninger har en liten kremfarget sikring. Trykk på sikringen for å kutte ledningen: gnistene spruter, og etter sikringen fører ledningen 0, som om den var koblet fra. Et kutt kan ikke repareres, bortsett fra med Angre eller ved å starte brettet på nytt. Noen brett tillater færre kutt enn de har sikringer: linjen viser hvor mange du har igjen.
+Noen ledninger har en liten kremfarget sikring. Trykk på sikringen for å kutte ledningen: gnistene spruter, og etter sikringen fører ledningen 0, som om den var koblet fra. Et kutt kan ikke repareres, bortsett fra med Angre eller ved å starte nivået på nytt. Noen nivåer tillater færre kutt enn de har sikringer: linjen viser hvor mange du har igjen.
 # Låste brytere
 En bryter med en fastskrudd messingstang over seg blir som den er.
-# Brett og stjerner
+# Nivåer og stjerner
 Kapitlene: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporvekslere; 4 ledninger som kan kuttes; 5 lengre kjeder, én bryter til flere porter, porter med tre innganger; 6 store kretser med alt om hverandre.
-Et trekk er ett skifte eller ett kutt. Hvert brett har en par, færrest trekk som løser det. Løst på par: 3 stjerner; opptil to trekk mer: 2 stjerner; ellers 1. Ber du om et hint, gir brettet høyst 2 stjerner. Angre tar tilbake et trekk, og det teller ikke lenger. Løste brett forblir åpne, og det gjør også de tre første uløste.
+Et trekk er ett skifte eller ett kutt. Hvert nivå har en par: færrest trekk som løser det. Løst på par: 3 stjerner; opptil to trekk mer: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner. Angre tar tilbake et trekk, og det teller ikke lenger. Løste nivåer forblir åpne, og det gjør også de tre første uløste.
 # Spill på enheten
-- Brettoversikten: en fane for hvert kapittel, deretter brettene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et brett for å spille det. Stjernene dine lagres på enheten.
+- Nivåskjermen: en fane for hvert kapittel, deretter nivåene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et nivå for å spille det. Stjernene dine lagres på enheten.
 - Trykk på en bryter for å slå den om, på en sporveksler for å snu den, på en sikring for å kutte ledningen. Endringen løper opp ledningene, port for port.
-- Ved siden av kortet: kapitlet og brettets nummer; den runde pilen starter brettet på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
-- Når alle lampene lyser, blusser de opp i gull; så vises stjernene dine med knappen til neste brett. Nytt spill (rutenettknappen) går tilbake til brettoversikten.
+- Ved siden av kortet: kapitlet og nivåets nummer; den runde pilen starter nivået på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
+- Når alle lampene lyser, blusser de opp i gull; så vises stjernene dine med knappen til neste nivå. Nytt spill (rutenettknappen) går tilbake til nivåskjermen.
 - Linjen viser trekkene dine, kuttene som er igjen og, ytterst til høyre, par ved siden av tre stjerner.

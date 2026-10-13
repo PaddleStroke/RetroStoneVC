@@ -8,7 +8,7 @@ Et helt sett dominobrikker ble lagt ut på rutenettet, og så ble strekene mello
 Sett sammen to naboruter til en brikke, eller ta bort en brikke. En ny brikke erstatter dem som lå på rutene dens.
 # Slutten på spillet
 Oppgaven er løst når brikkene dekker rutenettet, hver brikke i settet én gang: en bølge av gyllent lys går over brettet.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra settet med 3-3 som høyeste dobbel opp til settet med 8-8, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra settet med 3-3 som høyeste dobbel opp til settet med 8-8, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.
 # Spill på enheten
-Dra fra en rute til naboen, eller trykk på den ene og så på den andre: en brikke av elfenben legges på dem, med øyne som viser de to tallene. Trykk på en brikke for å ta den bort. En brikke som ligger to ganger, blir rød. Lampeknappen gir et tips: den tar bort en feil brikke, eller legger ellers den letteste riktige, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Dra fra en rute til naboen, eller trykk på den ene og så på den andre: en brikke av elfenben legges på dem, med øyne som viser de to tallene. Trykk på en brikke for å ta den bort. En brikke som ligger to ganger, blir rød. Lampeknappen gir et hint: den tar bort en feil brikke, eller legger ellers den letteste riktige, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

@@ -9,10 +9,10 @@ Fyll rutenettet på 9 × 9 ruter slik at hver rad, hver kolonne og hver 3 ×�
 Sett et siffer i en tom rute. Du kan endre det eller ta det bort når som helst; de gitte sifrene blir stående. Små notater i en rute hjelper deg å huske hvilke sifre den fortsatt kan få.
 # Slutten på spillet
 Oppgaven er løst når rutenettet er fullt og riktig: en bølge av gyllent lys går over brettet.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, hvert med bare én løsning: de første krever bare singler og gir mange sifre, de siste ber deg prøve et siffer og følge det til noe går galt. Velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, på nivået du velger. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil siffer som du siden angrer.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, hvert med bare én løsning: de første krever bare singler og gir mange sifre, de siste ber deg prøve et siffer og følge det til noe går galt. Velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, på nivået du velger. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil siffer som du tar tilbake med Angre.
 # Spill på enheten
-Trykk på en rute og så på en tast under brettet: sifferet skrives inn med blått blekk (de gitte sifrene er mørke). Trykk på samme tast igjen for å ta det bort, eller dra en tast til en rute. Rutens rad, kolonne og boks lyser svakt, og alle ruter med samme siffer varmere. Er ingen tom rute valgt, lyser en tast opp rutene med sitt siffer. Knappene ved siden av brettet:
+Trykk på en rute og så på en tast ved siden av brettet: sifferet skrives inn med blått blekk (de gitte sifrene er mørke). Trykk på samme tast igjen for å ta det bort, eller dra en tast til en rute. Rutens rad, kolonne og boks lyser svakt, og alle ruter med samme siffer varmere. Er ingen tom rute valgt, lyser en tast opp rutene med sitt siffer. Knappene ved siden av brettet:
 - Blyant: notater. Tastene setter da små sifre i ruten, eller tar dem bort. Et siffer du skriver inn, sletter det notatet i raden, kolonnen og boksen sin.
 - Viskelær: tar bort sifferet i ruten, eller notatene.
 - Lampe: et hint. Den retter et feil siffer, eller fyller ellers den letteste ruten, i gyllent lys.

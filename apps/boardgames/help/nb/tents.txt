@@ -9,13 +9,13 @@ Hver mark har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg
 Sett opp et telt i en rute, eller ta det ned. Du kan også legge gress i en rute for å huske at det ikke skal stå et telt der; gresset er bare et notat til deg selv.
 # Slutten på spillet
 Marken er løst når hvert tre har sitt telt, ingen telt berører hverandre og hvert tall stemmer: En bølge av gyllent lys går over marken.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil telt eller gress som du siden angrer.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil telt eller gress som du tar tilbake med Angre.
 # Spill på enheten
 - Trykk på en rute for å sette opp et telt; trykk igjen for å ta det ned.
 - Hold fingeren et øyeblikk på en rute for å legge gress, eller ta det bort.
 - Dra langs en rad eller kolonne for å legge gress i et helt stykke (eller ta det bort fra et stykke med gress).
-Telt som berører hverandre, gløder rødt, og det samme gjør et tre uten plass til teltet sitt. Et tall blir rødt når linjen har for mange telt, og blekner når den har alle. Knappene ytterst til høyre på linjen (i liggende format i sidekolonnen):
+Telt som berører hverandre, gløder rødt, og det samme gjør et tre uten plass til teltet sitt. Et tall blir rødt når linjen har for mange telt, og blekner når den har alle. Knappene ved siden av brettet:
 - Telt eller gress: hva et trykk setter. Trykk på den for å bytte om trykk og hold.
 - Lyspære: et hint. Den retter en feil rute eller viser ellers neste rute resonneringen finner, i gyllent lys.
 Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

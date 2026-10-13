@@ -9,10 +9,10 @@ Noen brikker er gitt fra start, på mørkere ruter. Hver oppgave har nøyaktig �
 Sett en brikke i en tom rute, bytt fargen eller ta den bort. De gitte brikkene blir stående.
 # Slutten på spillet
 Oppgaven er løst når rutenettet er fullt og følger alle reglene: En bølge av gyllent lys går over brettet.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 6 × 6 opp til 12 × 12, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke i feil farge som du siden angrer.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 6 × 6 opp til 12 × 12, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke i feil farge som du tar tilbake med Angre.
 # Spill på enheten
 - Trykk på en tom rute for en lys brikke, igjen for en mørk, én gang til for å tømme den.
 - Hold fingeren et øyeblikk på en rute for å gå andre veien rundt: mørk først.
 - Dra langs en rad eller kolonne for å gjøre det samme med et helt stykke. Bare ruter som var som den første, endres.
-Tre like på rad gløder rødt; en rad eller kolonne med for mange brikker av én farge, eller full og lik en annen, blir rød. Knappen ytterst til høyre på linjen (i liggende format i sidekolonnen) er lyspæren: et hint. Den retter en feil brikke eller viser ellers neste rute resonneringen finner, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Tre like på rad gløder rødt; en rad eller kolonne med for mange brikker av én farge, eller full og lik en annen, blir rød. Lyspæreknappen ved siden av brettet er et hint. Den retter en feil brikke eller viser ellers neste rute resonneringen finner, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.

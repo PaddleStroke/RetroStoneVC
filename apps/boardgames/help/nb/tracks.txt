@@ -9,10 +9,10 @@ Hver oppgave har nøyaktig én løsning, som finnes ved å resonnere. De større
 Legg et sporstykke i en rute, bytt det, eller sett et kryss i en rute du vet forblir tom. Kryssene er bare notater for deg.
 # Slutten på spillet
 Når linjen er hel og hvert tall stemmer, er oppgaven løst: et lite tog kjører fra innkjørselen til utkjørselen, og rutene lyser opp i gull bak det.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 5 × 5 opp til 10 × 10, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en skinnebit i en rute som linjen ikke bruker, eller et kryss i en rute som den bruker; Angre sletter den ikke.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 10 × 10, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en skinnebit i en rute som linjen ikke bruker, eller et kryss i en rute som den bruker; Angre sletter den ikke.
 # Spill på enheten
 - Dra fra rute til rute for å legge sporet under fingeren; det kobler seg til stykkene som allerede ligger der.
 - Trykk på en rute for et stykke (det som passer best til naboene kommer først), igjen for det neste; etter det sjette er ruten tom igjen.
-- Hold på en rute et øyeblikk for å krysse den av. Kryssknappen i linjen får trykk og dra til å sette kryss i stedet; den viser hva et trykk gjør.
-Et tall blekner når linjen dets har så mange stykker, og blir rødt ved for mange. Lampen i linjen er et hint: den setter én rute riktig og lyser den opp i gull. Angre tar tilbake én handling om gangen, helt til begynnelsen. Linjen viser trekkene dine.
+- Hold på en rute et øyeblikk for å krysse den av. Kryssknappen får trykk og dra til å sette kryss i stedet; den viser hva et trykk gjør.
+Et tall blekner når linjen dets har så mange stykker, og blir rødt ved for mange. Lampen er et hint: den setter én rute riktig og lyser den opp i gull. Angre tar tilbake én handling om gangen, helt til begynnelsen. Linjen viser trekkene dine.

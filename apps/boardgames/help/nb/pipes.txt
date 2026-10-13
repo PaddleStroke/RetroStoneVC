@@ -6,10 +6,10 @@ Hver oppgave kan løses med ren tankekraft og har bare én løsning.
 Drei en brikke en kvart omdreining med klokken.
 # Slutten på spillet
 Når alle brikkene henger sammen og ingen rør er åpne, når vannet hver brikke, og et gyllent lys går ut fra tanken.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 4 × 4 opp til 11 × 11 og brett uten kanter, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest kvarte omdreininger som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1. Angre tar tilbake et trekk, og det teller ikke lenger.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 11 × 11 og brett uten kanter, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest kvarte omdreininger som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1. Angre tar tilbake et trekk, og det teller ikke lenger.
 # Spill på enheten
 - Trykk på en brikke for å dreie den en kvart omdreining.
 - Vannet renner fra tanken gjennom alle rør som er koblet til den. Der det når et åpent rør, renner det over: se etter dråpene.
-- Lampen i høyre ende av linjen gir et hint: den dreier en feil brikke riktig (ved siden av vannet når den kan), i gyllent lys.
+- Lampen gir et hint: den dreier en feil brikke riktig (ved siden av vannet når den kan), i gyllent lys.
 Angre tar tilbake én dreiing eller ett hint om gangen, helt til starten. Linjen viser trekkene dine.

@@ -6,8 +6,8 @@ Hver ramme her er laget for dette spillet: datamaskinen har prøvd hver stilling
 En kloss glir inn i tomme ruter, én rute om gangen, opp, ned, til venstre eller til høyre; den løftes aldri. Etter tradisjonen er ett trekk én kloss skjøvet så langt du vil, også rundt et hjørne, før du rører en annen kloss.
 # Slutten på spillet
 Når den store klossen står midt på nederste rad, glir den ut gjennom åpningen i gyllent lys: løst.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra noen få trekk til godt over hundre; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny ramme tilfeldig: lett, middels eller vanskelig. Hver ramme har en par: færrest trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra noen få trekk til godt over hundre; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny ramme tilfeldig: lett, middels eller vanskelig. Hver ramme har en par: færrest trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
 # Spill på enheten
 - Dra en kloss: den følger fingeren din rute for rute.
 - Eller trykk på en kloss. Har den bare ett sted å gå, går den dit. Har den flere, blir den valgt, og prikker viser rutene den kan nå: trykk på én, så går den dit den korteste veien.

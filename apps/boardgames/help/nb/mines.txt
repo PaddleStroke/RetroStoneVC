@@ -8,8 +8,8 @@ Sett et flagg på en flis du er sikker på skjuler en mine. Flagg er notater for
 # Slutten på spillet
 Feltet er ryddet når hver flis uten mine er løftet: minene kommer til syne under flaggene, og en bølge av gyllent lys går over feltet.
 En løftet mine gløder rødt. Ingenting er tapt: angre tar den tilbake, og du fortsetter.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 5 × 5 med 3 miner opp til 16 × 30 med 99; velg et i brettoversikten. Et brett begynner med det første området allerede løftet, fra en flis i gyllent lys, og kan derfra ryddes med ren logikk. Fanen med terningen etter kapitlene lager et nytt felt tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en løftet mine (angre tar den tilbake, men den teller likevel) eller et feil flagg som lampen må ta opp.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 5 × 5 med 3 miner opp til 16 × 30 med 99; velg et på nivåskjermen. Et nivå begynner med det første området allerede løftet, fra en flis i gyllent lys, og kan derfra ryddes med ren logikk. Fanen med terningen etter kapitlene lager et nytt felt tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en løftet mine (Angre tar den tilbake, men den teller likevel) eller et feil flagg som lampen må ta opp.
 # Spill på enheten
 - Trykk på en flis for å løfte den.
 - Hold på en flis et øyeblikk for å sette eller ta opp et flagg. Flaggknappen ved siden av feltet gjør at trykk setter flagg i stedet (da løfter et langt trykk).

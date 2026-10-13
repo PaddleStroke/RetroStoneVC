@@ -4,7 +4,7 @@ På brettet ligger øyer, hver med et tall. Forbind dem med bruer, rett vannrett
 - Lett: det holder alltid å telle: en øys tall mot det naboene fortsatt kan ta (en 4 med bare to naboer trenger to doble bruer).
 - Middels: du må også holde øyene i én gruppe: ingen bru kan stenge en liten gruppe ute fra de andre.
 - Vanskelig: lengre resonnementer: prøv en bru og følg den til noe går galt.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 5 × 5 opp til 16 × 16, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en bru som løsningen ikke har, og som du siden angrer.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 16 × 16, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en bru som løsningen ikke har, og som du tar tilbake med Angre.
 # Spill på enheten
 Dra fra en øy mot en annen: en bru blir lagt. Gjør det igjen for en bru til, og én gang til for å fjerne begge. Du kan også trykke på en øy og så på en annen på linje med den, eller trykke på en bru eller vannet mellom to øyer. En bru som ville krysset en annen, blir avvist. En øy med alle brueene sine lyser gyllent; en med for mange lyser rødt. Lampen ved siden av brettet gir et hint: den fjerner en feil bru, eller legger ellers en som resonneringen finner, i gyllent lys. Angre tar tilbake én bru om gangen, helt til starten. Linjen viser trekkene dine. Når hver øy er riktig og alle henger sammen, blir bruene gylne.

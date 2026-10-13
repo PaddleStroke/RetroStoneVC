@@ -5,7 +5,7 @@ Skiver i ulike størrelser står på tre pinner, aldri en skive oppå en mindre.
 Ta den øverste skiven fra en pinne og legg den på en annen pinne, som er tom eller har en større skive øverst. En skive havner aldri oppå en mindre.
 # Slutten på spillet
 Oppgaven er løst når alle skivene står på målpinnen. Det klassiske tårnet krever minst 7 trekk med 3 skiver, 15 med 4, 31 med 5, 63 med 6 og 127 med 7 (hver skive til dobler dem, pluss én). Klarer du det på færrest mulige, gløder hele tårnet gyllent.
-# Brett og stjerner
-Det er 100 brett i fem kapitler, ett for hvert antall skiver fra 3 til 7: skivene ligger først spredt på pinnene, og hvert kapittel slutter med det klassiske tårnet. Velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig: 4, 5, 6 eller 7 skiver spredt tilfeldig og en målpinne. Par er færrest mulige trekk. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
+# Nivåer og stjerner
+Det er 100 nivåer i fem kapitler, ett for hvert antall skiver fra 3 til 7: skivene ligger først spredt på pinnene, og hvert kapittel slutter med det klassiske tårnet. Velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig: 4, 5, 6 eller 7 skiver spredt tilfeldig og en målpinne. Hver oppgave har en par: færrest trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
 # Spill på enheten
 Trykk på en pinne: den øverste skiven løftes. Trykk på en annen pinne: skiven havner der (får den ikke ligge der, rister den og blir oppe). Trykk på dens egen pinne for å legge den tilbake. Du kan også dra en skive fra en pinne til en annen. Angre tar tilbake ett trekk om gangen, helt til starten. Linjen viser trekkene dine og, ytterst til høyre, færrest mulige.

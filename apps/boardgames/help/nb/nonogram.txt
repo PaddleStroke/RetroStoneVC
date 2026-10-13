@@ -6,8 +6,8 @@ Hvert bilde kan finnes ved å resonnere én linje om gangen, uten å gjette.
 Fyll en rute, eller merk en rute du vet er tom med et kryss. Kryssene er bare notater til deg selv.
 # Slutten på spillet
 Når hver rad og hver kolonne stemmer med hintene sine, er oppgaven løst: kryssene forsvinner, bildet kommer fram i fargene sine, og et gyllent lys går over det.
-# Brett og stjerner
-Det er 150 brett i seks kapitler: små bilder tegnet for spillet, fra 5 × 5 opp til 15 × 15, som hvert kan finnes linje for linje; velg et i brettoversikten. Et brett du har løst, viser bildet sitt i oversikten. Fanen med terningen etter kapitlene tegner et bilde tilfeldig, i størrelsen du velger. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en rute fylt utenfor bildet, eller et kryss på det, som du siden angrer.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler: små bilder tegnet for spillet, fra 5 × 5 opp til 15 × 15, som hvert kan finnes linje for linje; velg et på nivåskjermen. Et nivå du har løst, viser bildet sitt på nivåskjermen. Fanen med terningen etter kapitlene tegner et bilde tilfeldig, i størrelsen du velger. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en rute fylt utenfor bildet, eller et kryss på det, som du tar tilbake med Angre.
 # Spill på enheten
 - Trykk på en rute for å fylle den; trykk igjen for å tømme den.
 - Hold fingeren et øyeblikk på en rute for å krysse den i stedet. Kryssknappen ved siden av brettet får trykk til å krysse (eller fylle igjen); den viser hva et trykk gjør.

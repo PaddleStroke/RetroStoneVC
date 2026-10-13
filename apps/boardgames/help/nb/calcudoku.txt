@@ -4,10 +4,10 @@ Fyll rutenettet slik at hver rad og hver kolonne har hvert siffer fra 1 til nett
 - Lett: måtene å lage hvert burs resultat på, og et siffer med bare én plass igjen i raden eller kolonnen, er alltid nok.
 - Middels: du trenger også sifrene et bur må sette i én rad eller kolonne, og par.
 - Vanskelig: lengre resonnementer: prøv et siffer og følg det til noe går galt.
-# Brett og stjerner
-Det er 150 brett i seks kapitler, fra 4 × 4 opp til 9 × 9, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et galt siffer som du tar tilbake med Angre.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 9 × 9, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et galt siffer som du tar tilbake med Angre.
 # Spill på enheten
-Trykk på en rute og så på en tast under brettet: sifferet kommer inn med blått blekk. Trykk på samme tast igjen for å fjerne det, eller dra en tast til en rute. Rutens rad og kolonne lyser svakt, buret litt mer, og alle ruter med samme siffer varmt. Uten valgt rute lyser en tast opp rutene med sifferet sitt. Knappene ved siden av brettet:
+Trykk på en rute og så på en tast ved siden av brettet: sifferet kommer inn med blått blekk. Trykk på samme tast igjen for å fjerne det, eller dra en tast til en rute. Rutens rad og kolonne lyser svakt, buret litt mer, og alle ruter med samme siffer varmt. Uten valgt rute lyser en tast opp rutene med sifferet sitt. Knappene ved siden av brettet:
 - Blyant: notater. Tastene setter da små sifre i ruten, eller fjerner dem.
 - Viskelær: fjerner rutens siffer, eller notatene.
 - Lampe: et hint. Den retter et feil siffer, eller fyller ellers en rute som resonneringen finner, i gyllent lys.
