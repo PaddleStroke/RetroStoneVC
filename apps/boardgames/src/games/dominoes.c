@@ -178,6 +178,7 @@ static struct {
     int ed[ENDS];
     float hs, hy0, hstep;                       /* the hand: a bone's width (standing: twice as tall), rows */
     int per;                                    /* bones a row */
+    int hn;                                     /* the hand laid out for this many bones */
     float hx0;
     float yx, yy, yl;                           /* the boneyard: its middle, a bone's length there */
     float cx, cy, cr;                           /* All Fives: the count of the open ends */
@@ -329,6 +330,7 @@ static void hand_layout(void)
     box b = T.b;
     float u = ui.unit, side = 1.7f * u, hh = fminf(2.5f * u, b.h * 0.3f), aw = b.w - 2 * side;
     int n = p->nhand[T.me] > 0 ? p->nhand[T.me] : 1, rows = 1;
+    T.hn = p->nhand[T.me];
     T.hs = fminf(0.95f * u, fminf(aw / (n * 1.12f), hh / 2.35f));
     if (T.hs < 0.62f * u && n > 7) {            /* many bones: two rows */
         rows = 2;
@@ -418,6 +420,7 @@ static int busy(void)
 static void sync(void)
 {
     const dpos *p = &G.pos;
+    if (T.hn != p->nhand[T.me]) hand_layout();   /* a bone played, drawn, undone or scripted: the hand fitted again */
     if (T.made != G.n) line_layout();
     int seen[DOM_BONES] = {0};
     for (int i = 0; i < T.nsp; i++) {
@@ -535,8 +538,8 @@ static int script(const char *s)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_disc, *t_piece;
-static int tok_size, disc_d, piece_d;
+static SDL_Texture *t_piece;
+static int tok_size, piece_d;
 
 static int legal_end(int bone, int e)
 {
@@ -590,19 +593,20 @@ static void draw_yard(int glow)
     ui_number(T.yx, T.yy + 0.52f * T.yl, 0.36f * ui.unit, n, 1);
 }
 
+/* All Fives: the open ends' pips added up, in ebony on an ivory bone face, in gold light on a multiple of 5 (it scores);
+ * nothing while the line is empty */
 static void draw_count(void)
 {
-    int c = dom_count(&G.pos), d = (int)(2 * T.cr);
-    if (disc_d != d) {
-        static const uint8_t dark[3] = {28, 34, 32};
-        disc_d = d;
-        ui_free(&t_disc);
-        art_disc(d, dark, 0.85f, 0, ui_buf(d, d));
-        t_disc = ui_tex(d, d, ui_buf(d, d));
-    }
+    static const uint8_t SHADE[4] = {0, 0, 0, 70}, RIM[4] = {58, 52, 50, 255}, FACE[4] = {244, 236, 218, 255};
+    static const uint8_t PIPS[3] = {30, 26, 24};
+    if (!T.nsp) return;
+    int c = dom_count(&G.pos), s = (int)(1.7f * T.cr), f = s - 2 * (int)fmaxf(2, 0.07f * s);
     if (c > 0 && c % 5 == 0) ui_mark_gold(T.cx, T.cy, 2.6f * T.cr);
-    ui_put_c(t_disc, T.cx, T.cy, 2 * T.cr, 2 * T.cr);
-    ui_number(T.cx, T.cy, 0.8f * T.cr, c, 1);
+    float off = 0.035f * 2 * s;
+    ui_put_c(ct_round(s, s, 0.16f * s, SHADE), T.cx + 0.6f * off, T.cy + off, (float)s, (float)s);
+    ui_put_c(ct_round(s, s, 0.16f * s, RIM), T.cx, T.cy, (float)s, (float)s);
+    ui_put_c(ct_round(f, f, 0.12f * f, FACE), T.cx, T.cy, (float)f, (float)f);
+    ui_number_ex(T.cx, T.cy, 0.62f * f, c, PIPS, 255, 0);
 }
 
 static void draw(void)
@@ -713,7 +717,8 @@ static void press(float x, float y)
 {
     const dpos *p = &G.pos;
     drag.on = 0;
-    if (T.made != G.n) line_layout();           /* where the ends are (no frame may have been drawn since) */
+    if (T.hn != p->nhand[T.me]) hand_layout();   /* the hand fitted, the ends found: no frame may have been drawn since */
+    if (T.made != G.n) line_layout();
     if (p->phase == DP_ROUND) { if (!busy()) act(DA_NEXT); return; }
     if (p->phase != DP_PLAY || busy()) return;
     if (!my_turn()) { ui_sound(SND_DENY); return; }
