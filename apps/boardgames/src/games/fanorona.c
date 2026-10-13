@@ -453,7 +453,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
-static int busy(void) { return anim.on; }     /* the end waits for the last capture to finish */
+static int busy(void) { return anim.on || queue.at < queue.n; }   /* the end waits for the last capture to finish */
 
 static const game fanorona_game = {
     .id = "fanorona", .order = 245, .variants = 1, .fill = 1,

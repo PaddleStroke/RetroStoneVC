@@ -68,5 +68,5 @@ static int think(int seat, int level, char *move, int cap)
     return !ai_cancelled();
 }
 
-static const bot slap_bot = {.think = think, .play = slap_show};
+static const bot slap_bot = {.think = think, .play = slap_show, .realtime = 1};
 REGISTER_BOT(slap, &slap_bot)
