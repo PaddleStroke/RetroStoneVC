@@ -96,6 +96,25 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (konane_bot.c) -------------------------------------------------------------------------------------- */
+const kngame *konane_live(void) { return &G; }
+
+/* "e4" (a removal) or "c4-e4" (a jump, "c4-g4" a longer one): one move, played as taps play it (animated); 0: not
+ * legal now */
+int konane_show(const char *move)
+{
+    int len, a = kn_square(n, move, &len), b = a;
+    if (a >= 0 && (move[len] == '-' || move[len] == 'x')) {
+        int k = len + 1;
+        b = kn_square(n, move + k, &len);
+        len += k;
+    }
+    int i = b >= 0 && !move[len] ? find(a, b) : -1;
+    if (i < 0 || status() != GS_PLAY) return 0;
+    play(legal[i], 1);
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {

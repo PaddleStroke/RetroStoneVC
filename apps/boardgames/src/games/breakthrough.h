@@ -49,4 +49,11 @@ int  bt_undo(btgame *g);                        /* 0: nothing to undo */
 int  bt_script(btgame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define bt_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (breakthrough_bot.c, bots.h), and what the screen (breakthrough.c) gives it; a headless test defines those
+ * two */
+const btgame *breakthrough_live(void);          /* the game on the screen, read-only: the bot copies it at entry */
+int breakthrough_show(const char *move);        /* main thread: plays "a2-a3" as a tap does (animated); 0: not legal */
+struct ai_stats;
+int btb_choose(const btpos *p, int level, uint64_t seed, struct ai_stats *stats);   /* from | to << 6; -1: none */
+
 #endif

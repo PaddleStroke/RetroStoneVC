@@ -10,6 +10,7 @@
  * captures the piece stays picked up; the pass button in the bar, or a tap on the piece itself, ends the turn.
  */
 #include <math.h>
+#include <string.h>
 
 #include "games/fanorona.h"
 #include "games/lines.h"
@@ -31,6 +32,7 @@ static int sel = -1;
 static struct { int on, to, i[2]; } choice;     /* a step that approaches and withdraws: legal[i[0]], legal[i[1]] */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, who, n; fnmove m; int8_t took[FN_MAX_TAKE]; Uint32 t0; } anim;
+static struct { fnmove m[FN_POINTS]; int n, at; } queue;   /* a bot's chain of captures: shown one after another */
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int status(void)
@@ -55,6 +57,7 @@ static void start(int variant)
     (void)variant;
     fn_new(&G);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
 }
 
@@ -117,6 +120,7 @@ static int undo(void)
 {
     if (!fn_undo(&G)) return 0;
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return 1;
 }
@@ -126,8 +130,50 @@ static int script(const char *s)
 {
     int ok = fn_script(&G, s);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return ok;
+}
+
+/* ---- the bot (fanorona_bot.c) ------------------------------------------------------------------------------------ */
+const fngame *fanorona_live(void) { return &G; }
+
+/* one turn, one word of the notation: "d2-e3", "d3-e3w-e4a" (the word's end stops the chain), "stop" (a chain
+ * ended), played as taps play it: each step animated after the last (the queue, draw()); 0: not legal now (nothing
+ * played) */
+int fanorona_show(const char *move)
+{
+    if (status() != GS_PLAY || anim.on || queue.at < queue.n || strchr(move, ' ')) return 0;
+    fnpos p = *fn_pos(&G);
+    int side = p.side, n = 0;
+    if (!strcmp(move, "stop")) {
+        if (p.chain < 0) return 0;
+        play((fnmove){p.chain, p.chain, FN_STOP}, 0);
+        return 1;
+    }
+    int a = fn_point(move);
+    const char *s = move + 2;
+    if (a < 0 || (p.chain >= 0 && a != p.chain)) return 0;
+    do {                                        /* each next point: a move of the rules, the same turn */
+        if (*s == '-' || *s == 'x') s++;
+        int b = fn_point(s), kind = -1, k = -1, found = 0;
+        if (b < 0) return 0;
+        s += 2;
+        if ((*s == 'a' || *s == 'w') && !(s[1] >= '0' && s[1] <= '9')) kind = *s++ == 'a' ? FN_APPROACH : FN_WITHDRAW;
+        fnmove l[FN_MAX_MOVES];
+        int nl = p.side == side && n < FN_POINTS - 1 ? fn_legal(&p, l) : 0;
+        for (int i = 0; i < nl; i++)
+            if (l[i].from == a && l[i].to == b && (kind < 0 || l[i].kind == kind)) k = i, found++;
+        if (found != 1) return 0;               /* none, or approach and withdrawal: say which */
+        queue.m[n++] = l[k];
+        fn_make(&p, l[k]);
+        a = b;
+    } while (*s);
+    if (p.side == side && p.chain >= 0) queue.m[n++] = (fnmove){p.chain, p.chain, FN_STOP};   /* the word ends */
+    queue.n = n;
+    queue.at = 1;
+    play(queue.m[0], 1);
+    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -253,6 +299,7 @@ static void draw_marks(void)
 
 static void draw(void)
 {
+    if (!anim.on && queue.at < queue.n) play(queue.m[queue.at++], 1);   /* a bot's chain: the next step */
     const fnpos *p = fn_pos(&G);
     float w = (float)FN_COLS * P.sq + 2 * P.fr, h = (float)FN_ROWS * P.sq + 2 * P.fr, d = DISC * P.sq, x, y;
     ui_put(t_board, P.x - P.fr, P.y - P.fr, w, h);
@@ -269,8 +316,8 @@ static void draw(void)
     float t = 1, total = anim.n ? STEP_MS * 0.5f + (anim.n - 1) * FADE_GAP + FADE_MS : STEP_MS;
     if (anim.on) {
         t = (ui_ms() - anim.t0) / total;
+        if (t < 1 || queue.at < queue.n) ui_animate();   /* (a chain: the next frame plays the next step) */
         if (t >= 1) t = 1, anim.on = 0;
-        else ui_animate();
     }
     int st = status();
     if ((st == GS_WIN0 || st == GS_WIN1) && G.ply && G.pos[G.ply - 1].side == st - GS_WIN0 && !anim.on) {

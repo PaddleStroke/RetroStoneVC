@@ -110,6 +110,24 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (baghchal_bot.c) ------------------------------------------------------------------------------------ */
+const bcgame *baghchal_live(void) { return &G; }
+
+/* "c3" (a goat set down), "a1-a2" or "a1xc3": one move, played as taps play it (animated); 0: not legal now */
+int baghchal_show(const char *move)
+{
+    int a = bc_point(move), b = -1, k = -1;
+    if (a >= 0 && !move[2]) k = find(-1, a);
+    else if (a >= 0) {
+        int sep = move[2] == '-' || move[2] == 'x';
+        b = bc_point(move + 2 + sep);
+        k = b >= 0 && !move[4 + sep] ? find(a, b) : -1;
+    }
+    if (k < 0 || status() != GS_PLAY) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the plank with its 16 lines, each drawn whole from end to end (the 5 rows, the 5 columns, the two long diagonals and
  * the diamond joining the middles of the sides), and its 25 points; cells of s pixels in a frame of f; (5 s + 2 f)

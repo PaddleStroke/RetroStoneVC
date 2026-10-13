@@ -23,6 +23,7 @@ static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, who; aqmove m; Uint32 t0; } anim;
+static struct { aqmove m[AQ_PIECES]; int n, at; } queue;   /* a bot's chain of captures: shown one after another */
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int status(void)
@@ -48,6 +49,7 @@ static void start(int variant)
     (void)variant;
     aq_new(&G);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
 }
 
@@ -89,6 +91,7 @@ static int undo(void)
 {
     if (!aq_undo(&G)) return 0;
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return 1;
 }
@@ -98,8 +101,39 @@ static int script(const char *s)
 {
     int ok = aq_script(&G, s);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return ok;
+}
+
+/* ---- the bot (alquerque_bot.c) ----------------------------------------------------------------------------------- */
+const aqgame *alquerque_live(void) { return &G; }
+
+/* one turn: "c2-c3" (a step), "b2xd4" or a chain "b2xd4xb4", played as taps play it: each capture animated after the
+ * last (the queue, draw()); 0: not legal now (nothing played) */
+int alquerque_show(const char *move)
+{
+    if (status() != GS_PLAY || anim.on || queue.at < queue.n) return 0;
+    aqpos p = *aq_pos(&G);
+    int side = p.side, n = 0, a = aq_point(move);
+    const char *s = move + 2;
+    if (a < 0) return 0;
+    do {                                        /* each next point: a move of the rules, the same turn */
+        if (*s == '-' || *s == 'x') s++;
+        aqmove l[AQ_MAX_MOVES];
+        int b = aq_point(s), k = -1, nl = b >= 0 && p.side == side && n < AQ_PIECES ? aq_legal(&p, l) : 0;
+        for (int i = 0; i < nl; i++)
+            if (l[i].from == a && l[i].to == b) k = i;
+        if (k < 0) return 0;
+        queue.m[n++] = l[k];
+        aq_make(&p, l[k]);
+        s += 2;
+        a = b;
+    } while (*s);
+    queue.n = n;
+    queue.at = 1;
+    play(queue.m[0], 1);
+    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -163,6 +197,7 @@ static void disc_at(int who, float cx, float cy, float d, float alpha) { ui_flat
 
 static void draw(void)
 {
+    if (!anim.on && queue.at < queue.n) play(queue.m[queue.at++], 1);   /* a bot's chain: the next capture */
     const aqpos *p = aq_pos(&G);
     float n = lines_side(&L), d = DISC * L.sq, x, y;
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
@@ -177,8 +212,8 @@ static void draw(void)
     float t = 1;
     if (anim.on) {
         t = (ui_ms() - anim.t0) / (float)(anim.m.over >= 0 ? JUMP_MS : STEP_MS);
+        if (t < 1 || queue.at < queue.n) ui_animate();   /* (a chain: the next frame plays the next capture) */
         if (t >= 1) t = 1, anim.on = 0;
-        else ui_animate();
     }
     for (int i = 0; i < AQ_POINTS; i++) {
         if (p->at[i] < 0 || (drag.on && drag.moved && i == drag.from) || (anim.on && i == anim.m.to)) continue;
@@ -291,7 +326,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
-static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
+static int busy(void) { return anim.on || queue.at < queue.n; }   /* the end waits for the last move to finish */
 
 static const game alquerque_game = {
     .id = "alquerque", .order = 240, .variants = 1,

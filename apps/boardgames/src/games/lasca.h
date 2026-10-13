@@ -82,4 +82,14 @@ lsstatus ls_status(const lsgame *g);
 int  ls_script(lsgame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define ls_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (lasca_bot.c, bots.h), and what the screen (lasca.c) gives it; a headless test defines those two */
+const lsgame *lasca_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int lasca_show(const char *move);               /* main thread: plays a turn ("c3xe5xc7") as taps do, each jump
+                                                 * animated; 0: not legal */
+struct ai_stats;
+/* the side to move's whole turn in g at a level (its moves, encoded, in out; their count; g read at once: the
+ * position and the ones before it that may come again) and its notation */
+int lsb_turn(const lsgame *g, int level, uint64_t seed, int *out, int max, struct ai_stats *stats);
+void lsb_write(const int *moves, int n, char *out, int cap);
+
 #endif

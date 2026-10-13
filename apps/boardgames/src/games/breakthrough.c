@@ -88,6 +88,20 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (breakthrough_bot.c) -------------------------------------------------------------------------------- */
+const btgame *breakthrough_live(void) { return &G; }
+
+/* "a2-a3", "a2xb3" (or "a2a3"): one move, played as a tap plays it (animated); 0: not a legal move now */
+int breakthrough_show(const char *move)
+{
+    int from = bt_square(move), sep = from >= 0 && (move[2] == '-' || move[2] == 'x');
+    int to = from >= 0 ? bt_square(move + 2 + sep) : -1;
+    int k = to >= 0 && !move[4 + sep] ? target(from, to) : -1;
+    if (k < 0 || status() != GS_PLAY) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {

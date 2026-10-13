@@ -25,6 +25,7 @@ static SDL_Texture *t_piece[2], *t_small, *t_board;
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; fgmove m; Uint32 t0; } anim;
+static struct { fgmove m[FG_GEESE]; int n, at; } queue;   /* a bot's chain of jumps: shown one jump after another */
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int status(void)
@@ -51,6 +52,7 @@ static void start(int variant)
     (void)variant;
     fg_new(&G);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
 }
 
@@ -84,6 +86,7 @@ static int undo(void)
 {
     if (!fg_undo(&G)) return 0;
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return 1;
 }
@@ -93,8 +96,39 @@ static int script(const char *s)
 {
     int ok = fg_script(&G, s);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return ok;
+}
+
+/* ---- the bot (foxgeese_bot.c) ------------------------------------------------------------------------------------ */
+const fggame *foxgeese_live(void) { return &G; }
+
+/* one turn: "c3-c4" (a step), "d4xd2" or a chain "d4xd2xb2", played as taps play it: each jump animated after the
+ * last (the queue, draw()); 0: not legal now (nothing played) */
+int foxgeese_show(const char *move)
+{
+    if (status() != GS_PLAY || anim.on || queue.at < queue.n) return 0;
+    fgpos p = *fg_pos(&G);
+    int side = p.side, n = 0, a = fg_point(move);
+    const char *s = move + 2;
+    if (a < 0) return 0;
+    do {                                        /* each next point: a move of the rules, the same turn */
+        if (*s == '-' || *s == 'x') s++;
+        fgmove l[FG_MAX_MOVES];
+        int b = fg_point(s), k = -1, nl = b >= 0 && p.side == side && n < FG_GEESE ? fg_legal(&p, l) : 0;
+        for (int i = 0; i < nl; i++)
+            if (l[i].from == a && l[i].to == b) k = i;
+        if (k < 0) return 0;
+        queue.m[n++] = l[k];
+        fg_make(&p, l[k]);
+        s += 2;
+        a = b;
+    } while (*s);
+    queue.n = n;
+    queue.at = 1;
+    play(queue.m[0], 1);
+    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -207,6 +241,7 @@ static void mark_last(int pt) { lines_mark_last(&L, fg_x[pt], fg_y[pt]); }
 
 static void draw(void)
 {
+    if (!anim.on && queue.at < queue.n) play(queue.m[queue.at++], 1);   /* a bot's chain: the next jump */
     const fgpos *p = fg_pos(&G);
     float n = lines_side(&L), d = DISC * L.sq, x, y;
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
@@ -222,8 +257,8 @@ static void draw(void)
     if (anim.on) {
         int ms = anim.m.over >= 0 ? JUMP_MS : STEP_MS;
         t = (ui_ms() - anim.t0) / (float)ms;
+        if (t < 1 || queue.at < queue.n) ui_animate();   /* (a chain: the next frame plays the next jump) */
         if (t >= 1) t = 1, anim.on = 0;
-        else ui_animate();
     }
     float e = 1 - (1 - t) * (1 - t) * (1 - t);
     for (int i = 0; i < FG_POINTS; i++) {
@@ -348,7 +383,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
-static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
+static int busy(void) { return anim.on || queue.at < queue.n; }   /* the end waits for the last move to finish */
 
 static const game foxgeese_game = {
     .id = "foxgeese", .order = 120, .variants = 1,

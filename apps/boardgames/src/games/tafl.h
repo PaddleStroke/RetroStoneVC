@@ -74,4 +74,13 @@ tstatus tf_status(const tgame *g);
 int  tf_script(tgame *g, const char *moves);
 #define tf_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (tafl_bot.c, bots.h: either side, every board), and what the screen (tafl.c) gives it; a headless test
+ * defines those two */
+const tgame *tafl_live(void);                   /* the game on the screen, read-only: the bot copies it at entry */
+int tafl_show(const char *move);                /* main thread: plays "a4-d4" as a tap does (animated); 0: not legal */
+struct ai_stats;
+/* the move (from | to << 7) in the game g, its side to move, at a level (g read at once: the position and the ones
+ * before it that may come again); -1: none */
+int tfb_choose(const tgame *g, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

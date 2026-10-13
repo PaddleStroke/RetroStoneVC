@@ -60,4 +60,11 @@ int  kn_winner(const kngame *g);                /* the winner (the player to mov
 int  kn_script(kngame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define kn_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (konane_bot.c, bots.h), and what the screen (konane.c) gives it; a headless test defines those two */
+const kngame *konane_live(void);                /* the game on the screen, read-only: the bot copies it at entry */
+int konane_show(const char *move);              /* main thread: plays "e4" or "c4-e4" as taps do (animated); 0: not
+                                                 * legal */
+struct ai_stats;
+int knb_choose(const knpos *p, int level, uint64_t seed, struct ai_stats *stats);  /* from | to << 7; -1: none */
+
 #endif

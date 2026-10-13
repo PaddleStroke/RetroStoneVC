@@ -104,4 +104,14 @@ int  dr_undo(dgame *g);                                    /* 0: nothing to undo
 dstatus dr_status(const dgame *g);                         /* no move (or no piece) left: the side to move lost */
 #define dr_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (draughts_bot.c, bots.h: every variant), and what the screen (draughts.c) gives it; a headless test defines
+ * those two */
+const dgame *draughts_live(void);               /* the game on the screen, read-only: the bot reads it at entry */
+int draughts_show(const char *move);            /* main thread: plays "26x37x48" as taps do (animated); 0: not legal */
+struct ai_stats;
+/* the move in the game g (its side to move; g read at once: the position and the ones before it that may come again)
+ * at a level, in out; 0: none. dgb_write(): a move in the variant's notation, every landing square */
+int dgb_choose(const dgame *g, int level, uint64_t seed, dmove *out, struct ai_stats *stats);
+void dgb_write(int variant, const dmove *m, char *out, int cap);
+
 #endif

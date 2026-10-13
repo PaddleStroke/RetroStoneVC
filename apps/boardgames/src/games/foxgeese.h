@@ -68,4 +68,15 @@ fgstatus fg_status(const fggame *g);
 int  fg_script(fggame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define fg_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (foxgeese_bot.c, bots.h: either side), and what the screen (foxgeese.c) gives it; a headless test defines
+ * those two */
+const fggame *foxgeese_live(void);              /* the game on the screen, read-only: the bot copies it at entry */
+int foxgeese_show(const char *move);            /* main thread: plays a turn ("d4xd2xb2") as taps do, each jump
+                                                 * animated; 0: not legal */
+struct ai_stats;
+/* the side to move's whole turn at a level (its moves, encoded, in out; their count; g read at once: the position
+ * and the ones before it that may come again) and its notation */
+int fgb_turn(const fggame *g, int level, uint64_t seed, int *out, int max, struct ai_stats *stats);
+void fgb_write(const int *moves, int n, char *out, int cap);
+
 #endif

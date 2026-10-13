@@ -112,6 +112,20 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (surakarta_bot.c) ----------------------------------------------------------------------------------- */
+const skgame *surakarta_live(void) { return &G; }
+
+/* "b2-c3", "b2xe5" (or "b2c3"): one move, played as a tap plays it (a capture runs round its loops); 0: not legal */
+int surakarta_show(const char *move)
+{
+    int a = sk_point(move), sep = a >= 0 && (move[2] == '-' || move[2] == 'x');
+    int b = a >= 0 ? sk_point(move + 2 + sep) : -1;
+    int k = b >= 0 && !move[4 + sep] ? find(a, b) : -1;
+    if (k < 0 || status() != GS_PLAY) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the plank: the board's edge lines in ink, the circuits in colour with their loops, the 36 points; cells of s pixels
  * in a frame of f; (10 s + 2 f) squared */

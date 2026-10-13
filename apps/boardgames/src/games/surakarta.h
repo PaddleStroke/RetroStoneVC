@@ -79,4 +79,11 @@ int  sk_winner(const skgame *g);
 int  sk_script(skgame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define sk_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (surakarta_bot.c, bots.h), and what the screen (surakarta.c) gives it; a headless test defines those two */
+const skgame *surakarta_live(void);             /* the game on the screen, read-only: the bot copies it at entry */
+int surakarta_show(const char *move);           /* main thread: plays "b2-c3" as a tap does (animated); 0: not legal */
+struct ai_stats;
+/* the move (from | to << 6) in the game g (read at once: the position and the ones before it); -1: none */
+int skb_choose(const skgame *g, int level, uint64_t seed, struct ai_stats *stats);
+
 #endif

@@ -123,6 +123,24 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (tafl_bot.c) ---------------------------------------------------------------------------------------- */
+const tgame *tafl_live(void) { return &G; }
+
+/* "a4-d4" (or "a4d4", "a4xd4"): one move, played as a tap plays it (it slides, the pieces taken fade); 0: not legal */
+int tafl_show(const char *move)
+{
+    int used, a = tf_square(G.variant, move, &used), b = -1;
+    if (a >= 0) {
+        move += used;
+        if (*move == '-' || *move == 'x') move++;
+        b = tf_square(G.variant, move, &used);
+    }
+    int i = b >= 0 && !move[used] ? target(a, b) : -1;
+    if (i < 0 || state != GS_PLAY) return 0;
+    play(i, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the inlay of a marked square, s x s: a walnut square, a light wood star (the throne) or diamond (a corner) */
 static void paint_inlay(int throne, int s, uint8_t *rgba)

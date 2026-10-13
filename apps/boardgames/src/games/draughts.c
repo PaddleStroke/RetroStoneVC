@@ -142,6 +142,22 @@ static int script(const char *s)
     return 1;
 }
 
+/* ---- the bot (draughts_bot.c) ------------------------------------------------------------------------------------ */
+const dgame *draughts_live(void) { return &G; }
+
+/* one move in the variant's notation ("32-28", "26x37x48", "c3:e5:g3"), played as taps play it: the piece slides
+ * through every landing square; 0: not legal now */
+int draughts_show(const char *move)
+{
+    int used, k = state == GS_PLAY && !anim.on ? dr_parse(legal, nlegal, G.variant, move, &used) : -1;
+    if (k < 0 || move[used]) return 0;
+    sel = -1;
+    steps = 0;
+    drag.on = 0;
+    play(k, 1);
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 /* the board's picture, k x k squares of s pixels in a frame of f: the checkered wood, or (plain: Turkish draughts,
  * every square used) one plank ruled into squares */

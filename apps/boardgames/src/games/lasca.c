@@ -25,6 +25,7 @@ static SDL_Texture *t_pc[2][2], *t_small[2], *t_board;   /* [player][officer] */
 static int sel = -1;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; lsmove m; Uint32 t0; } anim;
+static struct { lsmove m[LS_PIECES * 2]; int n, at; } queue;   /* a bot's chain of jumps: shown one after another */
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int status(void)
@@ -50,6 +51,7 @@ static void start(int variant)
     (void)variant;
     ls_new(&G);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
 }
 
@@ -90,6 +92,7 @@ static int undo(void)
 {
     if (!ls_undo(&G)) return 0;
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return 1;
 }
@@ -99,8 +102,39 @@ static int script(const char *s)
 {
     int ok = ls_script(&G, s);
     anim.on = 0;
+    queue.n = queue.at = 0;
     refresh();
     return ok;
+}
+
+/* ---- the bot (lasca_bot.c) --------------------------------------------------------------------------------------- */
+const lsgame *lasca_live(void) { return &G; }
+
+/* one turn: "c3-d4" (a step), "c3xe5" or a chain "c3xe5xc7", played as taps play it: each jump animated after the
+ * last (the queue, draw()); 0: not legal now (nothing played) */
+int lasca_show(const char *move)
+{
+    if (status() != GS_PLAY || anim.on || queue.at < queue.n) return 0;
+    lspos p = *ls_pos(&G);
+    int side = p.side, n = 0, a = ls_square(move);
+    const char *s = move + 2;
+    if (a < 0) return 0;
+    do {                                        /* each next square: a move of the rules, the same turn */
+        if (*s == '-' || *s == 'x') s++;
+        lsmove l[LS_MAX_MOVES];
+        int b = ls_square(s), k = -1, nl = b >= 0 && p.side == side && n < LS_PIECES * 2 ? ls_legal(&p, l) : 0;
+        for (int i = 0; i < nl; i++)
+            if (l[i].from == a && l[i].to == b) k = i;
+        if (k < 0) return 0;
+        queue.m[n++] = l[k];
+        ls_make(&p, l[k]);
+        s += 2;
+        a = b;
+    } while (*s);
+    queue.n = n;
+    queue.at = 1;
+    play(queue.m[0], 1);
+    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -150,6 +184,7 @@ static void column_on(lscol c, float cx, float cy, float size, float lift, float
 
 static void draw(void)
 {
+    if (!anim.on && queue.at < queue.n) play(queue.m[queue.at++], 1);   /* a bot's chain: the next jump */
     const lspos *p = ls_pos(&G);
     float n = lines_side(&L), d = PIECE * L.sq, x, y;
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
@@ -165,8 +200,8 @@ static void draw(void)
     if (anim.on) {
         int jump = anim.m.over >= 0;
         t = (ui_ms() - anim.t0) / (float)(jump ? JUMP_MS : STEP_MS);
+        if (t < 1 || queue.at < queue.n) ui_animate();   /* (a chain: the next frame plays the next jump) */
         if (t >= 1) t = 1, anim.on = 0;
-        else ui_animate();
     }
     const lspos *before = anim.on ? &G.pos[G.ply - 1] : p;
     float handover = 0.3f;                      /* a capture: the piece taken leaves its column then */
@@ -285,7 +320,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
         }
 }
 
-static int busy(void) { return anim.on; }     /* the end waits for the last move to finish */
+static int busy(void) { return anim.on || queue.at < queue.n; }   /* the end waits for the last move to finish */
 
 static const game lasca_game = {
     .id = "lasca", .order = 25, .variants = 1,
