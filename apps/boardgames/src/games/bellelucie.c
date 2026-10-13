@@ -32,8 +32,13 @@ static void layout(box b)
     U.b = b;
     int wide = b.w > b.h, cols = wide ? 6 : 3, rows = LB_FANS / cols;
     float cw = b.w / cols, w = floorf(fminf(cw / 2.05f, b.h / ((rows + 1) * 1.4f * 1.13f + 0.45f)));
-    float h = SOLUI_ASPECT * w, rh = fminf(1.3f * h, (b.h - 0.3f * w - h) / rows), pitch = 1.16f * w;
+    /* the top row in the width: the hand, the merci, an empty place, the foundations (8.16 cards wide); a narrow
+     * table drops the empty place and closes the row up (6.45 cards), the cards smaller if they must */
+    int close = 8.4f * w > b.w, last = close ? 5 : 6, split = close ? 2 : 3;
+    if (close) w = floorf(fminf(w, b.w / 6.61f));
+    float h = SOLUI_ASPECT * w, rh = fminf(1.3f * h, (b.h - 0.3f * w - h) / rows), pitch = (close ? 1.05f : 1.16f) * w;
     float ty = b.y + 0.12f * w + h / 2, fy = ty + h / 2 + 0.25f * w + (b.h - 0.12f * w - h - 0.25f * w - rows * rh) / 2;
+    float x0 = b.x + b.w / 2 - (last * pitch + 0.2f * w) / 2;
     U.w = w;
     for (int i = 0; i < LB_PILES; i++) {
         solspot *s = &U.at[i];
@@ -45,11 +50,10 @@ static void layout(box b)
             s->y = fy + r * rh + rh / 2;
             s->room = cw - 1.24f * w;
             s->bare = 1;
-        } else {                                /* the top row: the hand, the merci, a gap, the foundations */
-            int slot = i < LB_MERCI ? i - LB_FOUND + 3 : i == LB_MERCI ? 1 : 0;
-            float x0 = b.x + b.w / 2 - 3 * pitch - 0.1f * w;
+        } else {                                /* the top row: the hand, the merci, (a gap,) the foundations */
+            int k = i < LB_MERCI ? i - LB_FOUND + split : i == LB_MERCI ? 1 : 0;
             s->fan = i == LB_MERCI ? SF_SLOT : SF_PILE;
-            s->x = x0 + slot * pitch + (slot >= 3 ? 0.2f * w : 0);
+            s->x = x0 + k * pitch + (k >= split ? 0.2f * w : 0);
             s->y = ty;
         }
     }
@@ -94,8 +98,8 @@ static void draw(void)
         ui_number(U.at[LB_HAND].x, U.at[LB_HAND].y + 0.4f * U.w, 0.3f * U.w, lb_redeals_left(p), 1);
     }
     const solspot *m = &U.at[LB_MERCI];
-    if (lb_merci_open(p) && !p->n[LB_MERCI]) {  /* the merci's place, open: in gold light */
-        ui_mark_gold(m->x, m->y, 1.25f * U.w);
+    if (lb_merci_open(p) && !p->n[LB_MERCI]) {  /* the merci's place, open: in gold light while the game goes on */
+        if (!U.won && status() == GS_PLAY) ui_mark_gold(m->x, m->y, 1.25f * U.w);
         cards_place(U.deck, m->x, m->y, U.w);
     } else if (p->redeals > LB_REDEALS && !solui_hidden(&U, LB_MERCI, 0)) {
         cards_place(U.deck, m->x, m->y, U.w);   /* used: its place stays, empty or holding the card */
