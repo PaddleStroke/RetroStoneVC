@@ -361,6 +361,21 @@ static int script(const char *s)
 
 static int busy(void) { return shown.on && sc_status(&G) != SC_PLAY && (int)(ui_ms() - shown.t0) < lid_end(); }
 
+/* the bot (secretcode_bot.c): the game read-only; a guess played as taps do (its pegs, then the check, animated) */
+const sc_game *secretcode_live(void) { return &G; }
+
+int secretcode_show(const char *move)
+{
+    if (sc_status(&G) != SC_PLAY || (int)strlen(move) != P) return 0;
+    for (int i = 0; i < P; i++)
+        if (sc_colour(move[i]) < 0 || sc_colour(move[i]) >= K) return 0;
+    hold.on = 0;
+    for (int i = 0; i < P; i++) sc_put(&G, i, sc_colour(move[i]));
+    ui_sound(SND_PLACE);
+    check();
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the board's and the tray's size on the screen */
 static float board_sw(void) { return (float)(turned ? board_h(N, q, fr) : board_w(P, q, fr)); }

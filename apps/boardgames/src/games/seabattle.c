@@ -291,6 +291,34 @@ static void fire(void)
     ui_animate();
 }
 
+/* ---- the bot (seabattle_bot.c): the game read-only; its move played as taps do ----------------------------------- */
+const sbgame *seabattle_live(void) { return &G; }
+
+int seabattle_show(const char *move)
+{
+    if (P->phase == SP_SHOOT) {                 /* "e5", "a1+b2+c3": aimed, then fired */
+        int n = 0;
+        for (const char *s = move; *s;) {
+            char *e;
+            int x = *s - 'a';
+            long y = x >= 0 && x < SB_N ? strtol(s + 1, &e, 10) : 0;
+            if (y < 1 || y > SB_N || n == SB_MAXSHIPS) return 0;
+            aim[n++] = (int)(y - 1) * SB_N + x;
+            s = *e == '+' ? e + 1 : e;
+            if (*e && *e != '+') return 0;
+        }
+        naim = n;
+        fire();
+        if (naim) { naim = 0; return 0; }       /* refused (fire() keeps the aim then) */
+        return 1;
+    }
+    if (P->phase != SP_PLACE || !sb_script(&G, move)) return 0;   /* "0=a1h 1=c3v ... ok", or "ok" */
+    calm();
+    ui_sound(SND_PLACE);
+    ui_handoff(P->turn);
+    return 1;
+}
+
 /* ---- the places on the screen ------------------------------------------------------------------------------------ */
 static int cell_at(float x, float y)            /* the big sea's square under (x, y) (-1: none) */
 {

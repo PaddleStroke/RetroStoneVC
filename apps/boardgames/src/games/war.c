@@ -129,6 +129,17 @@ static void tap(int q)
     animate(&before, q);
 }
 
+/* the bot (war_bot.c): the game read-only; a pile tapped */
+const wgame *war_live(void) { return &G; }
+
+int war_show(const char *move)
+{
+    int q = move[0] - '0';
+    if (move[0] < '0' || move[0] > '9' || move[1] || !war_legal(&G.pos, q)) return 0;
+    tap(q);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!war_undo(&G)) return 0;

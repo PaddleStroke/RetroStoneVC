@@ -63,4 +63,10 @@ int  mf_undo(mfgame *g);
 int  mf_up(const mfpos *p, int player);         /* the faces still standing on the player's board */
 int  mf_script(mfgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (mysteryface_bot.c, bots.h), and what the screen (mysteryface.c) gives it; a headless test defines both */
+const mfgame *mysteryface_live(void);           /* the game on the screen, read-only: the bot copies it at entry */
+int mysteryface_show(const char *move);         /* main thread: the move's actions, as taps do (animated); 0: refused */
+void mfb_view(const mfpos *live, int seat, mfpos *view);    /* the seat's view: the other face forgotten */
+int  mfb_move(const mfpos *view, int level, uint64_t seed, char *move, int cap);   /* its move there; 0: none */
+
 #endif

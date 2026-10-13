@@ -76,4 +76,10 @@ int  slap_touch(const slpos *p, int q, int on_pile);   /* what a touch in player
 int  slap_auto(const slpos *p);                  /* a plain action (the "." of the notation) */
 int  slap_script(slgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the bot (slap_bot.c, bots.h), and what the screen (slap.c) gives it; a headless test defines all three */
+const slgame *slap_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int slap_show(const char *move);                /* main thread: "p", "c", "s1" as touches do; a slap no longer right
+                                                 * (a human was quicker) does nothing; 0: not legal */
+int slap_realtime(void);                        /* 1: the bot waits its reaction time before a slap (0: the tests) */
+
 #endif

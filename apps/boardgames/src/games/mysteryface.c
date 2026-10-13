@@ -518,6 +518,18 @@ static void act(int a)
     ui_animate();
 }
 
+/* ---- the bot (mysteryface_bot.c): the game read-only; its move's actions played as taps do -------------------- */
+const mfgame *mysteryface_live(void) { return &G; }
+
+int mysteryface_show(const char *move)
+{
+    static mfgame t;                            /* the move tried first on a copy: all of it legal, or nothing */
+    t = G;
+    if (!move[0] || !mf_script(&t, move)) return 0;
+    for (int i = G.n; i < t.n; i++) act(t.act[i]);
+    return 1;
+}
+
 static void start(int v)
 {
     (void)v;

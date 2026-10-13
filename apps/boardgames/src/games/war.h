@@ -58,4 +58,8 @@ int  war_cards(const wpos *p, int player);      /* their pile and their cards on
 unsigned war_winners(const wpos *p);            /* WP_OVER: the most cards (bit n: player n) */
 int  war_script(wgame *g, const char *moves);   /* 0: a tap is bad */
 
+/* the bot (war_bot.c, bots.h), and what the screen (war.c) gives it; a headless test defines both */
+const wgame *war_live(void);                    /* the game on the screen, read-only: the bot copies it at entry */
+int war_show(const char *move);                 /* main thread: "1" turns player 1's card as a tap does; 0: not now */
+
 #endif

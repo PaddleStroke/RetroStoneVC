@@ -64,4 +64,11 @@ unsigned pr_winners(const prpos *p);            /* PP_OVER: the players with the
 int  pr_auto(const prpos *p);                   /* a plain action */
 int  pr_script(prgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (pairs_bot.c, bots.h), and what the screen (pairs.c) gives it; a headless test defines both */
+const prgame *pairs_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int pairs_show(const char *move);               /* main thread: "t5" turns a card up as a tap does; "h" turns the two
+                                                 * back; 0: not legal */
+void prb_view(prgame *g);                       /* the pictures of the cards never turned up wiped */
+int  prb_choose(const prgame *view, int level, uint64_t seed);   /* its action (PA_*); -1: none */
+
 #endif

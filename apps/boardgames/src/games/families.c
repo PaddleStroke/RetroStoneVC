@@ -216,6 +216,20 @@ static void ask(int card)
     if (G.pos.turn != before.turn) target = -1;
 }
 
+/* the bot (families_bot.c): the game read-only; a question asked as taps do (the player, then the card) */
+const fgame *families_live(void) { return &G; }
+
+int families_show(const char *move)
+{
+    if (move[0] != 'a' || strlen(move) != 4) return 0;
+    int q = move[1] - '0', f = move[2] - '0', m = move[3] - '0';
+    if (f < 0 || f >= FAM_FAMILIES || m < 0 || m >= FAM_MEMBERS || !fam_legal(&G.pos, FAM_ASK(q, FAM_CARD(f, m))))
+        return 0;
+    target = q;
+    ask(FAM_CARD(f, m));
+    return 1;
+}
+
 static int undo(void) { return 0; }             /* every answer shows a card: none taken back */
 
 static int script(const char *s)

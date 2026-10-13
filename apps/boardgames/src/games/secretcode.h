@@ -51,4 +51,11 @@ int  sc_status(const sc_game *g);               /* SC_* */
 int  sc_left(const sc_game *g);                 /* the guesses left (this one included) */
 int  sc_colour(char letter);                    /* a letter of the notation: its colour; -1: none */
 
+/* the bot (secretcode_bot.c, bots.h), and what the screen (secretcode.c) gives it; a headless test defines those two */
+const sc_game *secretcode_live(void);           /* the game on the screen, read-only: the bot copies it at entry */
+int secretcode_show(const char *move);          /* main thread: one guess ("RRGB") placed and checked, animated */
+/* the breaker's guess at a level (AI_EASY..AI_HARD) from the guesses and their key pegs only (never g->code); 0: the
+ * code found, or the rows used up */
+int scb_guess(const sc_game *g, int level, uint64_t seed, int8_t *out);
+
 #endif

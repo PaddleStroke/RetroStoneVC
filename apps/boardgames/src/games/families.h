@@ -65,4 +65,9 @@ unsigned fam_winners(const fpos *p);            /* FP_OVER: the most families (b
 int  fam_auto(const fpos *p);                   /* a plain question (it knows the hands: for the tests) */
 int  fam_script(fgame *g, const char *moves);   /* 0: a question is bad */
 
+/* the bot (families_bot.c, bots.h), and what the screen (families.c) gives it; a headless test defines both */
+const fgame *families_live(void);               /* the game on the screen, read-only: the bot copies it at entry */
+int families_show(const char *move);            /* main thread: "a<p><f><m>" asked as taps do; 0: not legal */
+int famb_ask(const fgame *g, int level, uint64_t seed);   /* the question (FAM_ASK) for the player to move; -1 */
+
 #endif

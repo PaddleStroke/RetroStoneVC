@@ -175,6 +175,31 @@ static void act(int a)
 
 static int busy(void) { return ct_busy(&MV); }
 
+/* ---- the bot (slap_bot.c): the game read-only; its action played as a touch does; its reaction time is real here.
+ * The humans may touch while it thinks (slaps are real time): the actions it saw are noted when it reads the game
+ * (the worker thread: an atomic), and a move made for a game that has moved on since is let go, as a hand too late
+ * (the bot looks again). */
+static _Atomic int bot_saw = -1;
+
+const slgame *slap_live(void)
+{
+    bot_saw = G.n;
+    return &G;
+}
+
+int slap_realtime(void) { return 1; }
+
+int slap_show(const char *move)
+{
+    int a = !strcmp(move, "p") ? SLA_PLAY : !strcmp(move, "c") ? SLA_CLAIM : -1;
+    if (move[0] == 's' && move[1] >= '0' && move[1] <= '9' && !move[2]) a = SLA_SLAP | (move[1] - '0');
+    if (a < 0) return 0;
+    if (bot_saw != G.n || (SLA_KIND(a) == SLA_SLAP && !slap_right(&G.pos))) return 1;   /* too late: nothing */
+    if (!slap_legal(&G.pos, a)) return 0;
+    act(a);
+    return 1;
+}
+
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void start(int v)
 {

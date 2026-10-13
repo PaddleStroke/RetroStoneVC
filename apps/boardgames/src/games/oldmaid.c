@@ -175,6 +175,17 @@ static void draw_card(int index)
     if (G.pos.phase == OP_DRAW) ui_handoff(G.pos.turn);
 }
 
+/* the bot (oldmaid_bot.c): the game read-only; a card drawn as a tap does */
+const ogame *oldmaid_live(void) { return &G; }
+
+int oldmaid_show(const char *move)
+{
+    int o = om_offerer(&G.pos), i = move[0] == 'd' && move[1] >= '0' && move[1] <= '9' ? atoi(move + 1) : -1;
+    if (o < 0 || i < 0 || i >= G.pos.n[o]) return 0;
+    draw_card(i);
+    return 1;
+}
+
 static int undo(void) { return 0; }             /* every draw shows a hidden card: none taken back */
 
 static int script(const char *s)

@@ -52,4 +52,8 @@ int  om_undo(ogame *g);                         /* back one draw (a replay from 
 unsigned om_winners(const opos *p);             /* OP_OVER: everyone but the loser (bit n: player n) */
 int  om_script(ogame *g, const char *moves);    /* 0: a draw is bad */
 
+/* the bot (oldmaid_bot.c, bots.h), and what the screen (oldmaid.c) gives it; a headless test defines both */
+const ogame *oldmaid_live(void);                /* the game on the screen, read-only: the bot copies it at entry */
+int oldmaid_show(const char *move);             /* main thread: "d3" draws as a tap does; 0: not legal */
+
 #endif

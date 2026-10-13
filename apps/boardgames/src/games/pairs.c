@@ -218,6 +218,19 @@ static void act(int a)
     } else if (p->phase == PP_SHOW) back_at = ui_ms() + FLIP_MS + SHOW_MS;
 }
 
+/* the bot (pairs_bot.c): the game read-only; its card turned as a tap does */
+const prgame *pairs_live(void) { return &G; }
+
+int pairs_show(const char *move)
+{
+    int a = move[0] == 'h' && !move[1] ? PA_BACK : -1;
+    if (move[0] == 't' && move[1] >= '0' && move[1] <= '9') a = PA_TURN | (atoi(move + 1) & 0x3f);
+    if (a < 0 || (move[0] == 't' && atoi(move + 1) >= PR_MAX) || !pr_legal(&G.pos, a)) return 0;
+    if (a == PA_BACK && busy()) return 0;
+    act(a);
+    return 1;
+}
+
 /* undo: one card turned; a pair turned back is taken back with the card that missed */
 static int undo(void)
 {

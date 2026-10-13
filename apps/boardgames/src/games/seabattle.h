@@ -64,4 +64,12 @@ int  sb_fire(sbgame *g, const int *cells, int n);   /* SP_SHOOT: n == sb_shots()
 int  sb_undo(sbgame *g);
 int  sb_script(sbgame *g, const char *moves);   /* 0: a word is bad */
 
+/* the bot (seabattle_bot.c, bots.h), and what the screen (seabattle.c) gives it; a headless test defines those two */
+const sbgame *seabattle_live(void);             /* the game on the screen, read-only: the bot copies it at entry */
+int seabattle_show(const char *move);           /* main thread: a fleet placed and ready, or the shots fired (animated,
+                                                 * as taps do); 0: not legal */
+/* the seat's view (the other fleet's ships afloat wiped, sunk[i]: the other fleet's ships sunk), and its move there */
+void sbb_view(const sbpos *live, int seat, sbpos *view, uint8_t *sunk);
+int  sbb_move(const sbpos *view, const uint8_t *sunk, int level, uint64_t seed, char *move, int cap);
+
 #endif
