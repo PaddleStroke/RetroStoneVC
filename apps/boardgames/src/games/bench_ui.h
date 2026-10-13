@@ -435,14 +435,18 @@ enum { BENCH_T_NOTES, BENCH_T_ERASE, BENCH_T_HINT, BENCH_T_CLASH, BENCH_TOOLS };
 static const int BENCH_ICON[BENCH_TOOLS] = {ICON_PENCIL, ICON_ERASER, ICON_HINT, ICON_EYE};
 
 /* ---- the digit keys beside a number grid ------------------------------------------------------------------------ *
- * The board (a square) as big as the room allows, its keys (as many as the digits) in a row under it, or, in a wide
- * room (landscape), in a block three keys wide at its right; the two in the room's middle. A key tapped gives its
- * digit; a key carried onto a cell, the same there. */
+ * The board (a square) as big as the room allows, and its keys (as many as the digits):
+ * - in a tall room (portrait), in a row at the room's foot, next to the shell's tools under it (two rows of bigger
+ *   keys when the room has height to spare and the keys are many), the board in the middle of the room above them;
+ * - in a wide room (landscape), in an even block at its right (2 x 2 for four keys, three keys wide for more, a short
+ *   last row centred), the block and the board side by side in the room's middle.
+ * A key tapped gives its digit; a key carried onto a cell, the same there. */
 #define BENCH_KEYS 9
 typedef struct {
     int nkeys;
     box board;                                  /* the board's square */
     float kx[BENCH_KEYS + 1], ky[BENCH_KEYS + 1], kw, kh, kp;   /* each key's centre (1..nkeys), a key, their pitch */
+    float kv;                                   /* how far up and down a key's touch reaches */
     int made_w, made_h;
     SDL_Texture *t_key;
     struct { int on, key, moved; float x, y, x0, y0; } drag;
@@ -453,27 +457,46 @@ static inline void bench_pad_layout(bench_pad *k, box b, int nkeys)
     float u = ui.unit, gap = 0.3f * u;
     nkeys = nkeys < 1 ? 1 : nkeys > BENCH_KEYS ? BENCH_KEYS : nkeys;
     k->nkeys = nkeys;
-    int rows = (nkeys + 2) / 3;
-    float bw = 3 * 1.15f * u, beside = fminf(b.h, b.w - bw - gap), under = fminf(b.w, b.h - 0.98f * u - gap);
-    if (beside > under) {                       /* a block at the board's right: a bigger board */
-        float side = floorf(beside), x0 = floorf(b.x + (b.w - side - gap - bw) / 2);
+    int cols = nkeys == 4 ? 2 : nkeys < 3 ? nkeys : 3, rows = (nkeys + cols - 1) / cols;
+    float kh1 = floorf(0.98f * u);
+    float bw = cols * 1.15f * u, beside = fminf(b.h, b.w - bw - gap), under = fminf(b.w, b.h - kh1 - gap);
+    if (beside > under) {                       /* an even block at the board's right: a bigger board */
+        float side = floorf(beside);
+        k->kp = fminf(fminf(1.3f * u, side / rows), (b.w - side - 2 * gap) / cols);
+        bw = cols * k->kp;
+        float x0 = floorf(b.x + (b.w - side - gap - bw) / 2);
         k->board = (box){x0, floorf(b.y + (b.h - side) / 2), side, side};
-        k->kp = fminf(1.15f * u, side / rows);
         k->kh = k->kw = floorf(0.9f * k->kp);
+        k->kv = k->kp / 2;
         for (int d = 1; d <= nkeys; d++) {
-            k->kx[d] = x0 + side + gap + ((d - 1) % 3 + 0.5f) * k->kp + (bw - 3 * k->kp) / 2;
-            k->ky[d] = b.y + b.h / 2 + ((d - 1) / 3 - (rows - 1) / 2.0f) * k->kp;
+            int r = (d - 1) / cols, in_row = r == rows - 1 ? nkeys - r * cols : cols;
+            k->kx[d] = x0 + side + gap + ((d - 1) % cols + 0.5f + (cols - in_row) / 2.0f) * k->kp;
+            k->ky[d] = b.y + b.h / 2 + (r - (rows - 1) / 2.0f) * k->kp;
         }
-    } else {                                    /* a row under it */
-        float side = floorf(under), y0 = floorf(b.y + (b.h - side - gap - 0.98f * u) / 2);
-        k->board = (box){floorf(b.x + (b.w - side) / 2), y0, side, side};
-        float span = fminf(b.w, fmaxf(side, nkeys * 1.1f * u));   /* wider than the board if need be */
-        k->kp = span / nkeys;
-        k->kh = floorf(0.98f * u);
+    } else {                                    /* a row (or two) at the room's foot, the board above */
+        int two = 0;
+        float kh = kh1, kgap = 0.25f * u;
+        if (nkeys > 5) {                        /* two rows of bigger keys, if the board keeps its size */
+            float kh2 = floorf(1.05f * u);
+            two = fminf(b.w, b.h - 2 * kh2 - kgap - 2 * gap) >= under;
+            if (two) kh = kh2;
+        }
+        int per = two ? (nkeys + 1) / 2 : nkeys, nrows = two ? 2 : 1;
+        float pad_h = nrows * kh + (nrows - 1) * kgap;
+        float side = floorf(fminf(b.w, b.h - pad_h - gap));
+        float spare = b.h - side - pad_h - gap;
+        float foot = b.y + b.h - fminf(0.1f * u, fmaxf(0, spare));   /* the keys' bottom */
+        float top = foot - pad_h;                /* the board in the middle of the room above the keys */
+        k->board = (box){floorf(b.x + (b.w - side) / 2), floorf(b.y + (top - gap - b.y - side) / 2), side, side};
+        float span = fminf(b.w, fmaxf(side, per * (two ? 1.45f : 1.1f) * u));   /* wider than the board if need be */
+        k->kp = span / per;
+        k->kh = kh;
         k->kw = floorf(fminf(1.3f * u, 0.88f * k->kp));
+        k->kv = two ? (kh + kgap) / 2 : fmaxf(0.62f * kh, k->kp / 2);
         for (int d = 1; d <= nkeys; d++) {
-            k->kx[d] = floorf(b.x + (b.w - span) / 2) + (d - 0.5f) * k->kp;
-            k->ky[d] = y0 + side + gap + k->kh / 2;
+            int r = (d - 1) / per, in_row = r == nrows - 1 ? nkeys - r * per : per;
+            k->kx[d] = floorf(b.x + (b.w - span) / 2) + ((d - 1) % per + 0.5f + (per - in_row) / 2.0f) * k->kp;
+            k->ky[d] = floorf(top + r * (kh + kgap) + kh / 2);
         }
     }
     int w = (int)k->kw, h = (int)k->kh;
@@ -491,7 +514,7 @@ static inline void bench_pad_layout(bench_pad *k, box b, int nkeys)
 static inline int bench_key_at(const bench_pad *k, float x, float y)
 {
     for (int d = 1; d <= k->nkeys; d++)
-        if (fabsf(x - k->kx[d]) <= k->kp / 2 && fabsf(y - k->ky[d]) <= fmaxf(0.62f * k->kh, k->kp / 2)) return d;
+        if (fabsf(x - k->kx[d]) <= k->kp / 2 && fabsf(y - k->ky[d]) <= k->kv) return d;
     return 0;
 }
 
