@@ -9,6 +9,6 @@ Połącz dwa sąsiednie pola w kostkę albo usuń kostkę. Nowa kostka zastępuj
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy kostki zakrywają diagram, każda kostka kompletu jeden raz: po planszy przebiega fala złotego światła.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od kompletu z dubletem 3-3 do kompletu z dubletem 8-8, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką do gry za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna kostka, którą zdejmujesz przyciskiem Cofnij.
+Jest 150 poziomów w sześciu rozdziałach, od kompletu z dubletem 3-3 do kompletu z dubletem 8-8, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką do gry za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna kostka; liczy się w chwili cofnięcia przyciskiem Cofnij.
 # Gra na urządzeniu
 Przeciągnij palcem z pola na jego sąsiada albo dotknij jednego, a potem drugiego: kładzie się na nich kostka z kości słoniowej, której oczka pokazują obie liczby. Dotknij kostki, aby ją usunąć. Kostka położona dwa razy robi się czerwona. Przycisk z lampą daje podpowiedź: usuwa błędną kostkę, a jeśli takiej nie ma, kładzie najłatwiejszą poprawną, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

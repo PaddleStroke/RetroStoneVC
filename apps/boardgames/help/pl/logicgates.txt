@@ -18,7 +18,7 @@ Niektóre przewody mają mały kremowy bezpiecznik. Dotknij bezpiecznika, by prz
 Przełącznik z przykręconą mosiężną listwą zostaje taki, jaki jest.
 # Poziomy i gwiazdki
 Rozdziały: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 zwrotnice; 4 przewody do przecięcia; 5 dłuższe łańcuchy, jeden przełącznik zasilający kilka bramek, bramki o trzech wejściach; 6 duże układy, w których jest wszystko.
-Ruch to jedno przełączenie albo jedno cięcie. Każdy poziom ma par, najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; do dwóch ruchów więcej: 2 gwiazdki; inaczej 1. Prośba o podpowiedź ogranicza poziom do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć. Rozwiązane poziomy pozostają otwarte, tak samo jak trzy pierwsze nierozwiązane.
+Ruch to jedno przełączenie albo jedno cięcie. Każdy poziom ma par: najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; najwyżej dwa ruchy więcej: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza poziom do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć. Rozwiązane poziomy pozostają otwarte, tak samo jak trzy pierwsze nierozwiązane.
 # Gra na urządzeniu
 - Siatka poziomów: zakładka dla każdego rozdziału, a pod nią jego poziomy: rozwiązane złote z gwiazdkami, otwarte drewniane, zamknięte z ciemnego drewna. Dotknij poziomu, aby w niego zagrać. Twoje gwiazdki zostają zapisane na urządzeniu.
 - Dotknij przełącznika, by go przełączyć, zwrotnicy, by ją obrócić, bezpiecznika, by przeciąć jego przewód. Zmiana biegnie w górę przewodów, bramka po bramce.

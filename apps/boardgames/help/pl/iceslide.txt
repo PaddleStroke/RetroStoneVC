@@ -7,7 +7,7 @@ Pchnij krążek w górę, w dół, w lewo lub w prawo. Na lodzie sam się nie za
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy krążek wpadnie do dziury. Gdy liczba pchnięć równa się parowi, złote światło przebiega po lodzie.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od lodu 5 × 5 pól do 10 × 9; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Par to najmniejsza liczba pchnięć. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej pchnięć: 2 gwiazdki; inaczej 1. Cofnij cofa pchnięcie, które przestaje się liczyć.
+Jest 150 poziomów w sześciu rozdziałach, od lodu 5 × 5 pól do 10 × 9; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: najmniejszą liczbę pchnięć, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej pchnięć: 2 gwiazdki; inaczej 1. Cofnij cofa pchnięcie, które przestaje się liczyć.
 # Gra na urządzeniu
-Przesuń palcem po lodzie w wybranym kierunku, dotknij pola w wierszu lub kolumnie krążka albo dotknij jednej z czterech strzałek pod planszą (na komputerze działają też klawisze strzałek). Strzałka jest przygaszona, gdy krążek nie może pojechać w tę stronę.
+Przesuń palcem po lodzie w wybranym kierunku, dotknij pola w wierszu lub kolumnie krążka albo dotknij jednej z czterech strzałek obok planszy (na komputerze działają też klawisze strzałek). Strzałka jest przygaszona, gdy krążek nie może pojechać w tę stronę.
 Lampa daje podpowiedź: następne pchnięcie najkrótszej drogi, jego strzałkę w złotym świetle i trasę wykropkowaną złotem. Jeśli do dziury nie da się już dotrzeć, podpowiedź najpierw cofa pchnięcia, które tam doprowadziły. Cofnij cofa po jednym pchnięciu, aż do początku. Pasek pokazuje twoje pchnięcia, a na prawym końcu par.

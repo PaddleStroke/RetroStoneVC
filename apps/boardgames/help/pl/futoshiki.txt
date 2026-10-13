@@ -9,9 +9,9 @@ Wpisz liczbę w puste pole. W każdej chwili możesz ją zmienić lub usunąć; 
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny: po planszy przebiega fala złotego światła.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 7 × 7, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Jeśli cofniesz przyciskiem Cofnij złą liczbę, liczy się to jako błąd.
+Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 7 × 7, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna liczba; liczy się w chwili cofnięcia przyciskiem Cofnij.
 # Gra na urządzeniu
-Dotknij pola, a potem klawisza pod planszą: jego liczba wpisze się niebieskim atramentem (podane liczby są ciemne). Dotknij tego samego klawisza jeszcze raz, aby ją usunąć, albo przeciągnij klawisz na pole. Wiersz i kolumna pola lekko się podświetlają, a pola z tą samą liczbą mocniej. Gdy nie wybrano pustego pola, klawisz podświetla pola ze swoją liczbą. Przyciski obok planszy:
+Dotknij pola, a potem klawisza obok planszy: jego liczba wpisze się niebieskim atramentem (podane liczby są ciemne). Dotknij tego samego klawisza jeszcze raz, aby ją usunąć, albo przeciągnij klawisz na pole. Wiersz i kolumna pola lekko się podświetlają, a pola z tą samą liczbą mocniej. Gdy nie wybrano pustego pola, klawisz podświetla pola ze swoją liczbą. Przyciski obok planszy:
 - Ołówek: notatki. Klawisze wpisują wtedy do pola małe liczby albo je usuwają. Wpisana liczba usuwa tę notatkę ze swojego wiersza i kolumny.
 - Gumka: usuwa liczbę z pola albo jego notatki.
 - Lampa: podpowiedź. Poprawia błędną liczbę, a jeśli takiej nie ma, wypełnia najłatwiejsze pole, w złotym świetle.

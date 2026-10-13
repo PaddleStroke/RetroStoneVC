@@ -11,5 +11,5 @@ Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 11 × 11 i plansz bez b
 # Gra na urządzeniu
 - Dotknij kafelka, aby obrócić go o ćwierć obrotu.
 - Woda płynie ze zbiornika do każdej połączonej z nim rury. Gdzie dociera do otwartej rury, wylewa się: szukaj kropel.
-- Lampa na prawym końcu paska daje podpowiedź: obraca jeden zły kafelek dobrze (obok wody, gdy się da), w złotym świetle.
+- Lampa daje podpowiedź: obraca jeden zły kafelek dobrze (obok wody, gdy się da), w złotym świetle.
 Cofnij cofa jeden obrót lub podpowiedź naraz, aż do początku. Pasek pokazuje twoje ruchy.

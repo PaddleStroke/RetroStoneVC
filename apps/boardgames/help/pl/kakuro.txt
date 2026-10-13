@@ -1,13 +1,13 @@
 Kakuro
 # Cel gry
-Wpisz w każde białe pole cyfrę od 1 do 9. Odcinek to ciąg białych pól, poziomy lub pionowy, między ciemnymi polami; ciemne pole przed nim zawiera jego sumę. Cyfry odcinka dają razem tę sumę i żadna cyfra nie powtarza się w odcinku. W ciemnym polu suma nad przekątną dotyczy odcinka po prawej, a suma pod nią odcinka poniżej. Każde zadanie ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
+Wpisz w każde białe pole cyfrę od 1 do 9. Odcinek to ciąg białych pól, poziomy lub pionowy, między ciemnymi polami; ciemne pole przed nim zawiera jego sumę. Cyfry odcinka dają razem tę sumę i żadna cyfra nie powtarza się w odcinku. W ciemnym polu suma nad przekątną dotyczy odcinka po prawej, a suma pod nią odcinka poniżej. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
 - Łatwy: zawsze wystarczą sposoby uzyskania każdej sumy przy długości jej odcinka (3 w dwóch polach to tylko 1 i 2).
 - Średni: potrzebna będzie też cyfra, której wymagają wszystkie sposoby i dla której zostało jedno pole, oraz pary w odcinku.
 - Trudny: trzeba przemyśleć cały odcinek naraz (która cyfra może trafić do którego pola) albo wypróbować cyfrę i śledzić ją.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nowe zadanie losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra, którą usuwasz przyciskiem Cofnij.
+Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.
 # Gra na urządzeniu
-Stuknij białe pole, a potem klawisz pod planszą: jego cyfra wpisuje się niebieskim atramentem. Stuknij ten sam klawisz jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Oba odcinki pola się podświetlają, ich sumy na złoto, a pola z tą samą cyfrą ciepłym światłem. Gdy żadne pole nie jest wybrane, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
+Dotknij białego pola, a potem klawisza obok planszy: jego cyfra wpisuje się niebieskim atramentem. Dotknij tego samego klawisza jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Oba odcinki pola się podświetlają, ich sumy na złoto, a pola z tą samą cyfrą ciepłym światłem. Gdy żadne pole nie jest wybrane, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
 - Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają.
 - Gumka: usuwa cyfrę z pola albo jego notatki.
 - Lampa: podpowiedź. Poprawia błędną cyfrę, a jeśli takiej nie ma, wypełnia pole znalezione rozumowaniem, w złotym świetle.

@@ -10,9 +10,9 @@ Połóż odcinek toru na polu, zmień go albo oznacz krzyżykiem pole, o którym
 # Koniec gry
 Gdy linia jest kompletna i każda liczba się zgadza, łamigłówka jest rozwiązana: mały pociąg jedzie od wjazdu do wyjazdu, a pola rozbłyskują za nim złotem.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 10 × 10, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to kawałek toru na polu, którego linia nie używa, albo krzyżyk na polu, którego używa; Cofnij go nie usuwa.
+Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 10 × 10, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to odcinek toru na polu, którego linia nie używa, albo krzyżyk na polu, którego używa; liczy się od razu i Cofnij go nie usuwa.
 # Gra na urządzeniu
 - Przeciągaj z pola na pole, aby układać tor pod palcem; łączy się z odcinkami, które już leżą.
 - Dotknij pola, aby położyć odcinek (najpierw ten, który najlepiej pasuje do sąsiadów), ponownie dla następnego; po szóstym pole znów jest puste.
-- Przytrzymaj chwilę pole, aby postawić na nim krzyżyk. Przycisk z krzyżykiem na pasku sprawia, że dotknięcia i przeciągnięcia stawiają krzyżyki; pokazuje, co robi dotknięcie.
-Liczba blednie, gdy jej linia ma tyle odcinków, i czerwienieje, gdy ma ich za dużo. Lampa na pasku to podpowiedź: poprawia jedno pole i rozświetla je złotem. Cofnij cofa jedną czynność naraz, aż do początku. Pasek pokazuje twoje ruchy.
+- Przytrzymaj chwilę pole, aby postawić na nim krzyżyk. Przycisk z krzyżykiem sprawia, że dotknięcia i przeciągnięcia stawiają krzyżyki; pokazuje, co robi dotknięcie.
+Liczba blednie, gdy jej linia ma tyle odcinków, i czerwienieje, gdy ma ich za dużo. Lampa to podpowiedź: poprawia jedno pole i rozświetla je złotem. Cofnij cofa jedną czynność naraz, aż do początku. Pasek pokazuje twoje ruchy.
