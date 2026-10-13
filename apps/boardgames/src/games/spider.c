@@ -3,7 +3,8 @@
  * and the win: solitaire_ui.h). The eight foundations in a row at the top (each complete run shows its king), the
  * stock at the right end (a back for each row still to deal), the ten columns under them, the cards narrow enough
  * for a phone held upright and overlapping. A tap sends a run to its best place (onto its own suit first), a drag
- * carries it where it is dropped; a tap on the stock deals a row. The bar: the moves, the hint.
+ * carries it where it is dropped; a tap on the stock deals a row. The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -24,25 +25,22 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 10.9f, b.h / 7.0f)), pitch = fminf(1.12f * w, (b.w - w) / 9);
-    float x0 = b.x + b.w / 2 - 4.5f * pitch, ty = b.y + 0.06f * w + 0.7f * w, cy = ty + 1.58f * w;
-    U.w = w;
+    soltable t = solui_table(&U, b, 10, 2.8f, 20);
     for (int i = 0; i < SPI_PILES; i++) {
         solspot *s = &U.at[i];
         int col = i < SPI_FOUND ? i : i < SPI_STOCK ? i - SPI_FOUND : 9;
-        s->x = x0 + col * pitch;
-        s->y = i < SPI_FOUND ? cy : ty;
+        s->x = t.x0 + col * t.pitch;
+        s->y = i < SPI_FOUND ? t.cy : t.ty;
         s->fan = i < SPI_FOUND ? SF_COLUMN : i < SPI_STOCK ? SF_PILE : SF_ROW;
         s->first = i >= SPI_FOUND && i < SPI_STOCK;
-        s->room = b.y + b.h - 0.72f * w - cy;
+        s->room = t.room;
     }
 }
 
 static void start(int v)
 {
     sp_new(&G, v, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -50,15 +48,7 @@ static int status(void) { return sp_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int busy(void) { return dealing || solui_busy(&U); }
 
-static int undo(void)
-{
-    if (!sol_undo(&G)) return 0;
-    solui_calm(&U);
-    U.won = 0;
-    dealing = 0;
-    ui_handoff(0);
-    return 1;
-}
+static int undo(void) { dealing = 0; return solui_undo(&U); }
 
 static int script(const char *s)
 {
@@ -89,11 +79,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -122,6 +109,7 @@ static const game spider_game = {
     .id = "spider", .order = 340, .variants = SP_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(spider_game)

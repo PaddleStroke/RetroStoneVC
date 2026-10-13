@@ -3,7 +3,8 @@
  * hint and the win: solitaire_ui.h). The stock, the waste (draw three: its last three cards fanned) and the four
  * foundations in a row at the top, the seven columns under them. A tap sends a card or a run to its best place (a
  * foundation first), a quick second tap only to a foundation; a drag carries a run where it is dropped; a tap on
- * the stock draws (an empty stock, marked by an arrow going round, takes the waste back). The bar: the moves, the hint.
+ * the stock draws (an empty stock, marked by an arrow going round, takes the waste back). The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -24,16 +25,14 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 7.9f, b.h / 6.6f)), pitch = fminf(1.16f * w, (b.w - w) / 6);
-    float x0 = b.x + b.w / 2 - 3 * pitch, ty = b.y + 0.06f * w + 0.7f * w, cy = ty + 1.62f * w;
-    U.w = w;
+    soltable t = solui_table(&U, b, 7, 2.4f, 16);
     for (int i = 0; i < KL_PILES; i++) {
         solspot *s = &U.at[i];
         int col = i < KL_FOUND ? i : i < KL_STOCK ? i - KL_FOUND + 3 : i == KL_STOCK ? 0 : 1;
-        s->x = x0 + col * pitch;
-        s->y = i < KL_FOUND ? cy : ty;
+        s->x = t.x0 + col * t.pitch;
+        s->y = i < KL_FOUND ? t.cy : t.ty;
         s->fan = i < KL_FOUND ? SF_COLUMN : i == KL_WASTE ? SF_WASTE : SF_PILE;
-        s->room = b.y + b.h - 0.72f * w - cy;
+        s->room = t.room;
         s->first = 0;
     }
 }
@@ -41,8 +40,7 @@ static void layout(box b)
 static void start(int v)
 {
     kl_new(&G, v, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     U.waste_fan = G.pos.draw;
     dealing = 1;
 }
@@ -51,15 +49,7 @@ static int status(void) { return kl_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int busy(void) { return dealing || solui_busy(&U); }
 
-static int undo(void)
-{
-    if (!sol_undo(&G)) return 0;
-    solui_calm(&U);
-    U.won = 0;
-    dealing = 0;
-    ui_handoff(0);
-    return 1;
-}
+static int undo(void) { dealing = 0; return solui_undo(&U); }
 
 static int script(const char *s)
 {
@@ -92,11 +82,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -130,6 +117,7 @@ static const game klondike_game = {
     .id = "klondike", .order = 320, .variants = KL_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(klondike_game)

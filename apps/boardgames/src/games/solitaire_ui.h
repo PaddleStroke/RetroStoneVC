@@ -6,8 +6,10 @@
  * each move (a move and what the game then did by itself, chained; a shuffle: each card flying to its new place), the
  * finger (a tap sends a card or a run to its best place, a quick second tap only to a foundation; a drag carries a
  * run where the finger drops it; or, `pairs`, two taps pair two cards: the first one is lifted), the hint (the move
- * blinks), the bar (the deal's number, the move counter, the hint button), the empty stock's arrow going round, and
- * the win: the cards leaping off the foundations and bouncing across the table, each with a trail of copies.
+ * blinks), the table's size (solui_table: the cards as big as the room allows), the bar (the level or the deal's
+ * number, the move counter), the hint button (the shell's tool), the stars (hints and undos counted), the empty
+ * stock's arrow going round, and the win: the cards leaping off the foundations and bouncing across the table, each
+ * with a trail of copies.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #ifndef SOLITAIRE_UI_H
@@ -62,9 +64,10 @@ typedef struct solui {
     solmove hm;
     int won;                                    /* the win: the cards leap off from win_t0 */
     Uint32 win_t0;
-    box bar;
+    int hints, undos;                           /* asked for since the deal (the stars: solui_stars) */
+    float base_down, base_up;                   /* the steps as the game set them (solui_table grows them) */
     int made_bar;
-    SDL_Texture *t_disc, *t_bulb, *t_back;
+    SDL_Texture *t_back;
     /* pairs (Pyramid): a tap chooses a card (lifted), a tap on another plays the move from the first one's pile to
      * the second one's (the game's rules pair them); a card that goes alone (a king) goes on one tap. sel: the chosen
      * card's pile + 1 (0: none). */
@@ -115,6 +118,37 @@ static inline void solui_xy(const solui *u, const solpos *p, int pile, int i, fl
         break;
     }
     }
+}
+
+static inline void solui_tool(const solui *u);
+static inline int solui_tool_press(solui *u, float x, float y);
+
+/* ---- the table: a row of piles over the columns ----------------------------------------------------------------- */
+/* where solui_table put things: the card's width, the pitch across, the first place's centre x, the top row's centre
+ * y, the columns' first card's centre y, how far down a column's last card may go from it */
+typedef struct { float w, pitch, x0, ty, cy, room; } soltable;
+
+/* the card as big as the table allows: `across` places side by side (the columns, or the top row when it is wider; a
+ * gap between two piles counted as a part of a place), and under the top row at least `need` card widths of room
+ * for a column's cards below its first one (a longer column closes up: ct_column_steps). So a phone held upright gets
+ * cards as wide as the columns allow, and a wide screen cards as tall as its height allows, the table centred across.
+ * The steps grow with the room left (a column of `longest` cards reaching down to the bottom), the face-up one up to
+ * a little over half a card: an upright phone's height used, each card shown more. */
+static inline soltable solui_table(solui *u, box b, float across, float need, int longest)
+{
+    soltable t;
+    if (u->base_up <= 0) u->base_up = u->up_step, u->base_down = u->down_step;
+    float w = floorf(fminf(b.w / ((across - 1) * 1.06f + 1.1f), b.h / (3.06f + need)));
+    t.w = u->w = w;
+    t.pitch = across > 1 ? fminf(1.16f * w, (b.w - 1.1f * w) / (across - 1)) : 0;
+    t.x0 = b.x + b.w / 2 - (across - 1) / 2 * t.pitch;
+    t.ty = b.y + 0.06f * w + 0.7f * w;
+    t.cy = t.ty + 1.58f * w;
+    t.room = b.y + b.h - 0.72f * w - t.cy;
+    float up = clampf(t.room / w / (longest > 1 ? longest - 1 : 1), u->base_up, 0.56f);
+    u->up_step = up;
+    u->down_step = fminf(0.2f, u->base_down * up / u->base_up);
+    return t;
 }
 
 /* ---- the slides -------------------------------------------------------------------------------------------------- */
@@ -363,14 +397,31 @@ static inline int solui_busy(const solui *u)
     return ct_busy(&u->mv) || solui_leaping(u);
 }
 
-/* the game's undo(): back one move of the player's, the cards at rest */
+/* the game's undo(): back one move of the player's, the cards at rest (counted for the stars) */
 static inline int solui_undo(solui *u)
 {
     if (!sol_undo(u->rec)) return 0;
     solui_calm(u);
     u->won = 0;
+    u->undos++;
     ui_handoff(0);
     return 1;
+}
+
+/* a new deal on the table: nothing moving, no win, no hint nor undo asked for yet */
+static inline void solui_new(solui *u)
+{
+    solui_calm(u);
+    u->won = 0;
+    u->hints = u->undos = 0;
+}
+
+/* the stars for a deal won (the family's rule, as the logic puzzles'): 3 without a hint or an undo, 2 with up to two
+ * of them together, else 1 */
+static inline int solui_stars(const solui *u)
+{
+    int n = u->hints + u->undos;
+    return n == 0 ? 3 : n <= 2 ? 2 : 1;
 }
 
 /* the game's script() after its rules played the moves (ok: they all could): the cards at rest, the win at once */
@@ -472,6 +523,7 @@ static inline void solui_draw(solui *u)
         if (p->kind[u->pile] == SP_TAB) solui_steps(u, p, u->pile, &dd, &du);
         ct_run(u->deck, &p->c[u->pile][u->idx], p->n[u->pile] - u->idx, u->fx - u->gx, u->fy - u->gy, u->w, du);
     }
+    solui_tool(u);
 }
 
 /* ---- the finger -------------------------------------------------------------------------------------------------- */
@@ -486,7 +538,8 @@ static inline int solui_hit(const solui *u, float x, float y, int *idx)
             *idx = p->n[pile] - 1;
             return pile;
         }
-    for (int pile = 0; pile < p->npiles; pile++) {
+    for (int pile = p->npiles - 1; pile >= 0; pile--) {   /* the later ones first: they lie over the earlier
+                                                         * ones (Montana's places overlapping) */
         const solspot *s = &u->at[pile];
         int n = p->n[pile];
         if (s->fan == SF_SLOT) continue;
@@ -524,9 +577,10 @@ static inline int solui_play(solui *u, solmove m, const float *drag)
 
 static inline void solui_press(solui *u, float x, float y)
 {
-    u->hint = 0;
     u->drag = 0;
     u->pile = -1;
+    if (solui_tool_press(u, x, y)) return;
+    u->hint = 0;
     if (u->won) return;
     int idx, pile = solui_hit(u, x, y, &idx);
     if (pile < 0) return;
@@ -682,42 +736,13 @@ static inline void solui_again(solui *u, float x, float y)
     ui_put_c(u->t_again, x, y, (float)d, (float)d);
 }
 
-/* ---- the bar: the deal's number (FreeCell), the moves, the hint button ------------------------------------------ */
-static inline void solui_bulb(int size, uint8_t *o)   /* the hint's icon: a lamp, lit */
-{
-    art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
-    art_ellipse(f, ART_PART, 0.5f, 0.44f, 0.2f, 0.2f);
-    const float neck[] = {0.36f, 0.56f, 0.64f, 0.56f, 0.6f, 0.69f, 0.4f, 0.69f};
-    art_poly(f, ART_PART, neck, 4);
-    art_rect(f, ART_PART, 0.4f, 0.71f, 0.6f, 0.75f);
-    art_rect(f, ART_PART, 0.42f, 0.77f, 0.58f, 0.81f);
-    art_rect(f, ART_PART, 0.46f, 0.83f, 0.54f, 0.86f);
-    for (int i = -2; i <= 2; i++) {             /* the light: short strokes round its top */
-        float a = (90 + 38 * i) * 3.14159265f / 180, c = cosf(a), s = -sinf(a), r0 = 0.27f, r1 = 0.36f, t = 0.024f;
-        float px = -s * t, py = c * t, x0 = 0.5f + c * r0, y0 = 0.44f + s * r0, x1 = 0.5f + c * r1, y1 = 0.44f + s * r1;
-        const float ray[] = {x0 + px, y0 + py, x1 + px, y1 + py, x1 - px, y1 - py, x0 - px, y0 - py};
-        art_poly(f, ART_PART, ray, 4);
-    }
-    art_render(f, &st, size, size, (float)size, 0, 0, o);
-    art_fig_free(f);
-}
-
+/* ---- the bar: the level or the deal's number, the moves; the hint, the shell's tool 0 ---------------------------- */
 static inline void solui_bar_textures(solui *u)
 {
     int key = (int)ui.unit * 8 + u->deck;
     if (u->made_bar == key) return;
     u->made_bar = key;
-    static const uint8_t house[3] = {54, 72, 64};
-    int d = (int)(0.84f * ui.unit), ic = (int)(0.56f * ui.unit), cw = (int)(0.36f * ui.unit);
-    int ch = (int)(cw * SOLUI_ASPECT);
-    ui_free(&u->t_disc);
-    art_disc(d, house, 1, 0, ui_buf(d, d));
-    u->t_disc = ui_tex(d, d, ui_buf(d, d));
-    ui_free(&u->t_bulb);
-    solui_bulb(ic, ui_buf(ic, ic));
-    u->t_bulb = ui_tex(ic, ic, ui_buf(ic, ic));
-    SDL_SetTextureColorMod(u->t_bulb, 252, 236, 170);
+    int cw = (int)(0.36f * ui.unit), ch = (int)(cw * SOLUI_ASPECT);
     ui_free(&u->t_back);
     cards_paint(u->deck, CARD_NONE, cw, ch, ui_buf(cw, ch));
     u->t_back = ui_tex(cw, ch, ui_buf(cw, ch));
@@ -730,49 +755,44 @@ static inline float solui_digits_w(int v, float h)
     return (0.74f * (d - 1) + 0.62f) * h;
 }
 
-static inline void solui_hint_at(const solui *u, float *x, float *y, float *r)
-{
-    *r = 0.42f * ui.unit;
-    *x = u->bar.x + u->bar.w - *r - 0.05f * ui.unit;
-    *y = u->bar.y + u->bar.h / 2;
-}
-
-/* deal > 0: its number after a small card back; then the move counter; the hint button at the right end */
+/* the level in play (ui.level: a star and its number from 1), else deal > 0 (FreeCell's number) after a small card
+ * back; then the move counter */
 static inline void solui_bar(solui *u, box b, int deal)
 {
     solui_bar_textures(u);
-    u->bar = b;
     float cy = b.y + b.h / 2, nh = 0.46f * ui.unit, x = b.x;
-    if (deal > 0) {
+    int n = ui.level >= 0 ? ui.level + 1 : deal;
+    if (n > 0) {
         float cw = 0.36f * ui.unit;
-        ui_put_c(u->t_back, x + cw / 2, cy, cw, cw * SOLUI_ASPECT);
-        x += cw + 0.14f * ui.unit;
-        float dw = solui_digits_w(deal, 0.4f * ui.unit);
-        ui_number(x + dw / 2, cy, 0.4f * ui.unit, deal, 1);
+        if (ui.level >= 0) ui_star(x + cw / 2 + 0.04f * ui.unit, cy, 0.5f * ui.unit, 1);
+        else ui_put_c(u->t_back, x + cw / 2, cy, cw, cw * SOLUI_ASPECT);
+        x += cw + 0.16f * ui.unit;
+        float dw = solui_digits_w(n, 0.4f * ui.unit);
+        ui_number(x + dw / 2, cy, 0.4f * ui.unit, n, 1);
         x += dw + 0.45f * ui.unit;
     }
     float mw = solui_digits_w(u->rec->moves, nh);
     ui_number(x + mw / 2, cy, nh, u->rec->moves, 1);
-    if (u->won) return;
-    float hx, hy, r;
-    solui_hint_at(u, &hx, &hy, &r);
-    int lit = u->hint && (ui_ms() - u->hint_t0) / 300 % 2 == 0;
-    if (lit) ui_mark_gold(hx, hy, 3.0f * r);
-    ui_put_c(u->t_disc, hx, hy, 2 * r, 2 * r);
-    ui_put_c(u->t_bulb, hx, hy, 1.32f * r, 1.32f * r);
 }
 
-static inline int solui_bar_press(solui *u, float x, float y)
+/* the hint button: the shell's tool 0 (game.tools 1), in gold while the hint blinks, dim once won */
+static inline void solui_tool(const solui *u)
 {
-    if (!u->bar.w || u->won) return 0;
-    float hx, hy, r;
-    solui_hint_at(u, &hx, &hy, &r);
-    if (hypotf(x - hx, y - hy) > 1.15f * r) return 0;
+    int lit = u->hint && (ui_ms() - u->hint_t0) / 300 % 2 == 0;
+    ui_tool(0, ICON_HINT, u->won ? UI_DIM : lit ? UI_ON : 0);
+}
+
+/* a press on the hint: its move blinks (none: a refusal); 1: it was there */
+static inline int solui_tool_press(solui *u, float x, float y)
+{
+    if (ui_tool_hit(x, y) != 0) return 0;
+    if (u->won) return 1;
     solmove m = u->R->hint(&u->rec->pos);
     if (m.kind == SM_NONE) { ui_sound(SND_DENY); return 1; }
     u->hm = m;
     u->hint = 1;
     u->hint_t0 = ui_ms();
+    u->hints++;
     ui_sound(SND_TAP);
     ui_animate();
     return 1;

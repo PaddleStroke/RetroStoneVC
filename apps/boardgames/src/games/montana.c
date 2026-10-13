@@ -4,7 +4,7 @@
  * the hand: an arrow going round while a redeal is left, the redeals left in digits under it (a tap there redeals,
  * each card flying to its new place). A tap on a card sends it to the gap it fills; a tap on a gap brings the card
  * that fills it; a card can also be dragged to its gap. The rows' runs in order lie in a soft gold light. The bar: the
- * moves, the hint.
+ * moves; the hint is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -22,32 +22,55 @@ static solrec G;
 static solui U = {.R = &mt_rules, .rec = &G, .deck = DECK_FRENCH, .waste_fan = 1, .down_step = 0.13f,
                   .up_step = 0.4f, .pile = -1, .made_bar = -1, .animate = animate};
 static int dealing;
-static float pitch, row_h;
+static float pitch, row_h;                    /* turned: the rows stand as columns (an upright screen) */
+static int turned;
 
 /* ---- the table --------------------------------------------------------------------------------------------------- */
+/* a wide screen: the four rows across, the cards overlapping a little when the width is short (each card's index
+ * still shows), the hand on the right. An upright one: the rows turned to stand as four columns down the screen, each
+ * card lying over the one before it like a patience's column, the hand on their right (or under them). */
 static void layout(box b)
 {
     U.b = b;
-    int wide = b.w > b.h;
-    float w = floorf(wide ? fminf(b.w / 15.4f, b.h / 6.5f) : fminf(b.w / 13.4f, b.h / 8.6f)), h = SOLUI_ASPECT * w;
-    pitch = fminf(1.03f * w, (b.w - w - (wide ? 2.2f * w : 0)) / 12);
-    row_h = 1.12f * h;
-    float grid_w = 12 * pitch + w, grid_h = 3 * row_h + h, tall = grid_h + (wide ? 0 : 0.5f * w + h + 0.5f * w);
-    float x0 = b.x + (b.w - grid_w - (wide ? 2.2f * w : 0)) / 2 + w / 2, y0 = b.y + (b.h - tall) / 2 + h / 2;
+    float w, h, x0, y0, hx, hy;
+    turned = b.h > b.w;
+    if (!turned) {
+        w = floorf(fminf(b.w / (12 * 0.8f + 1.1f + 1.9f), b.h / (3 * 1.1f * SOLUI_ASPECT + SOLUI_ASPECT + 0.2f)));
+        h = SOLUI_ASPECT * w;
+        pitch = clampf((b.w - 3.0f * w) / 12, 0.8f * w, 1.04f * w);
+        row_h = fminf(1.12f * h, (b.h - 0.2f * w - h) / 3);
+        float grid_w = 12 * pitch + w;
+        x0 = b.x + (b.w - grid_w - 1.9f * w) / 2 + w / 2;
+        y0 = b.y + (b.h - 3 * row_h - h) / 2 + h / 2;
+        hx = x0 + grid_w + 1.4f * w - w / 2;
+        hy = y0 + 1.5f * row_h;
+    } else {                                    /* the hand on the right, or under the columns: the bigger cards */
+        float wr = fminf(b.w / (3 * 1.12f + 1.1f + 1.4f), b.h / (12 * 0.5f * SOLUI_ASPECT + SOLUI_ASPECT + 0.2f));
+        float wb = fminf(b.w / (3 * 1.12f + 1.1f), b.h / (12 * 0.5f * SOLUI_ASPECT + 2 * SOLUI_ASPECT + 1.2f));
+        int under = wb > wr;
+        w = floorf(under ? wb : wr);
+        h = SOLUI_ASPECT * w;
+        pitch = fminf(1.16f * w, (b.w - 1.1f * w - (under ? 0 : 1.4f * w)) / 3);
+        float room = b.h - 0.2f * w - h - (under ? h + 1.0f * w : 0);
+        row_h = clampf(room / 12, 0.5f * h, 0.75f * h);
+        float grid_w = 3 * pitch + w, grid_h = 12 * row_h + h, tall = grid_h + (under ? 0.6f * w + h : 0);
+        x0 = b.x + (b.w - grid_w - (under ? 0 : 1.4f * w)) / 2 + w / 2;
+        y0 = b.y + (b.h - tall) / 2 + h / 2;
+        hx = under ? b.x + b.w / 2 : x0 + 3 * pitch + 1.4f * w;
+        hy = under ? y0 + grid_h + 0.6f * w : y0 + 6 * row_h;
+    }
     U.w = w;
     for (int i = 0; i < MT_PILES; i++) {
         solspot *s = &U.at[i];
         memset(s, 0, sizeof *s);
         s->fan = SF_PILE;
         if (i < MT_HAND) {
-            s->x = x0 + (i % 13) * pitch;
-            s->y = y0 + (i / 13) * row_h;
-        } else if (wide) {
-            s->x = x0 + grid_w + 1.2f * w;
-            s->y = y0 + 1.5f * row_h;
+            int r = i / 13, c = i % 13;
+            s->x = x0 + (turned ? r : c) * pitch;
+            s->y = y0 + (turned ? c : r) * row_h;
         } else {
-            s->x = b.x + b.w / 2;
-            s->y = y0 + grid_h - h / 2 + 0.5f * w + h / 2;
+            s->x = hx;
+            s->y = hy;
         }
     }
 }
@@ -64,8 +87,7 @@ static void start(int v)
 {
     (void)v;
     mt_new(&G, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -127,11 +149,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -166,6 +185,7 @@ static const game montana_game = {
     .id = "montana", .order = 348, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(montana_game)

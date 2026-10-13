@@ -7,7 +7,8 @@
  * each fanned to the right and closing up when it grows long. A tap sends a top card to its best place (a foundation
  * first, then the fan it follows), a quick second tap only to a foundation; a drag carries it where it is dropped; on
  * the last deal, a tap on a buried card draws it out (the merci). A redeal and the merci fly each card to its new
- * place. The bar: the moves, the hint.
+ * place. The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -67,8 +68,7 @@ static void start(int v)
 {
     (void)v;
     lb_new(&G, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -115,11 +115,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -149,6 +146,7 @@ static const game bellelucie_game = {
     .id = "bellelucie", .order = 341, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(bellelucie_game)

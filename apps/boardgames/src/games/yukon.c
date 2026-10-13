@@ -2,7 +2,8 @@
  * Yukon in RetroStone Board, for one player (the rules: yukon_rules.c, yukon.h; the table, the finger, the hint and
  * the win: solitaire_ui.h). The four foundations at the top right, the seven columns under them; no stock. A tap
  * sends a card, or any face-up card with all the cards on it, to its best place (a foundation first), a quick second
- * tap only to a foundation; a drag carries them where they are dropped. The bar: the moves, the hint.
+ * tap only to a foundation; a drag carries them where they are dropped. The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -23,16 +24,14 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 7.9f, b.h / 6.6f)), pitch = fminf(1.16f * w, (b.w - w) / 6);
-    float x0 = b.x + b.w / 2 - 3 * pitch, ty = b.y + 0.06f * w + 0.7f * w, cy = ty + 1.62f * w;
-    U.w = w;
+    soltable t = solui_table(&U, b, 7, 2.8f, 17);
     for (int i = 0; i < YK_PILES; i++) {
         solspot *s = &U.at[i];
         memset(s, 0, sizeof *s);
-        s->x = x0 + (i < YK_FOUND ? i : i - YK_FOUND + 3) * pitch;
-        s->y = i < YK_FOUND ? cy : ty;
+        s->x = t.x0 + (i < YK_FOUND ? i : i - YK_FOUND + 3) * t.pitch;
+        s->y = i < YK_FOUND ? t.cy : t.ty;
         s->fan = i < YK_FOUND ? SF_COLUMN : SF_PILE;
-        s->room = b.y + b.h - 0.72f * w - cy;
+        s->room = t.room;
     }
 }
 
@@ -40,8 +39,7 @@ static void start(int v)
 {
     (void)v;
     yk_new(&G, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -76,11 +74,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -108,6 +103,7 @@ static const game yukon_game = {
     .id = "yukon", .order = 342, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(yukon_game)

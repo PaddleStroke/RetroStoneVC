@@ -3,7 +3,8 @@
  * tilerummy.h). Every rack is secret (VIEW_HIDDEN): the device passes after each turn.
  * The view: the table's sets on the green table, laid out in rows (the tiles shrink as the table fills); under it a
  * strip with the pool, the first meld's worth so far, and three buttons (sort the rack, back to the turn's start, end
- * the turn); the player's rack at the bottom, a wooden rack of one or two rows.
+ * the turn); the player's rack at the bottom, across the whole width, a wooden rack of one or two rows (whichever
+ * gives the bigger tiles).
  * Moving tiles, by taps: tap tiles to pick them up (from the rack, or from one set), then tap a tile of another set
  * to put them there, the table's empty room (or the place at its end) for a new set, or the rack to take your own
  * tiles back; a second quick tap on a table tile picks up its whole set. Or drag a tile (or the tiles picked up) and
@@ -77,9 +78,9 @@ static void place_rack(void)
     float fr = 0.16f * ui.unit, iw = r.w - 2 * fr - 0.2f * ui.unit, ih = r.h - 2 * fr - 0.1f * ui.unit;
     int k = n > 0 ? n : 1;
     float w1 = fminf(iw / (k * 1.02f), ih / 1.3f), w2 = fminf(iw / (((k + 1) / 2) * 1.02f), ih / (2 * 1.3f + 0.1f));
-    int rows = n > 1 ? 2 : 1;                   /* two rows, as on a real rack */
-    (void)w1;
-    T.rw = floorf(fminf(rows == 2 ? w2 : w1, 0.98f * ui.unit));
+    int rows = n > 1 && w2 > w1 ? 2 : 1;        /* two rows as on a real rack, or one along a wide one: the bigger
+                                                 * tiles */
+    T.rw = floorf(fminf(rows == 2 ? w2 : w1, 1.3f * ui.unit));
     int per = rows == 2 ? (n + 1) / 2 : n;
     float rh = T.rw * 1.3f, top = r.y + r.h / 2 - (rows * rh + (rows - 1) * 0.1f * T.rw) / 2;
     for (int i = 0; i < n; i++) {
@@ -94,7 +95,7 @@ static void place_rack(void)
 static void place(void)
 {
     memset(T.vis, 0, sizeof T.vis);
-    float tw = floorf(fminf(0.86f * ui.unit, T.table.w / 7.5f));
+    float tw = floorf(fminf(fminf(1.6f * ui.unit, T.table.w / 8), T.table.h / 4.2f));   /* as big as the room allows */
     int fits = 0;
     for (int i = 0; i < 60; i++, tw = floorf(tw * 0.95f)) {
         place_table(tw, 0, &fits);
@@ -183,33 +184,19 @@ static void layout(box b)
     T.b = b;
     float u = ui.unit, m = 0.12f * u;
     int wide = b.w > b.h * 1.05f;
-    float rh = fminf(wide ? 2.6f * u : 3.0f * u, b.h * (wide ? 0.34f : 0.27f)), ch = 1.25f * u;
-    if (!wide) {                                /* portrait: the table, the strip, the rack */
-        T.rack = (box){b.x, b.y + b.h - rh, b.w, rh};
-        float sy = T.rack.y - ch / 2 - 0.05f * u;
-        T.table = (box){b.x + m, b.y + m, b.w - 2 * m, sy - ch / 2 - b.y - 2 * m};
-        T.pw = 0.72f * u;
-        T.px = b.x + 0.2f * u + T.pw / 2;
-        T.py = sy;
-        T.mr = 0.42f * u;
-        T.mx = T.px + T.pw / 2 + 1.5f * u;
-        T.my = sy;
-        T.br = 0.5f * u;
-        for (int i = 0; i < 3; i++) T.bx[i] = b.x + b.w - 0.2f * u - T.br - (2 - i) * 1.3f * u, T.by[i] = sy;
-    } else {                                    /* landscape: the table; under it the rack, the controls beside it */
-        float cw = 4.0f * u;
-        T.rack = (box){b.x, b.y + b.h - rh, b.w - cw, rh};
-        T.table = (box){b.x + m, b.y + m, b.w - 2 * m, T.rack.y - b.y - 2 * m};
-        float cx = b.x + b.w - cw, r1 = T.rack.y + rh * 0.3f, r2 = T.rack.y + rh * 0.74f;
-        T.pw = 0.66f * u;
-        T.px = cx + 0.9f * u;
-        T.py = r1;
-        T.mr = 0.42f * u;
-        T.mx = cx + 2.9f * u;
-        T.my = r1;
-        T.br = 0.5f * u;
-        for (int i = 0; i < 3; i++) T.bx[i] = cx + 0.75f * u + i * 1.25f * u, T.by[i] = r2;
-    }
+    /* the table, a strip (the pool, the first meld's worth, the buttons), the rack across the whole width */
+    float rh = wide ? fminf(2.4f * u, b.h * 0.28f) : fminf(3.4f * u, b.h * 0.3f), ch = 1.25f * u;
+    T.rack = (box){b.x, b.y + b.h - rh, b.w, rh};
+    float sy = T.rack.y - ch / 2 - 0.05f * u;
+    T.table = (box){b.x + m, b.y + m, b.w - 2 * m, sy - ch / 2 - b.y - 2 * m};
+    T.pw = 0.72f * u;
+    T.px = b.x + 0.2f * u + T.pw / 2;
+    T.py = sy;
+    T.mr = 0.42f * u;
+    T.mx = T.px + T.pw / 2 + 1.5f * u;
+    T.my = sy;
+    T.br = 0.5f * u;
+    for (int i = 0; i < 3; i++) T.bx[i] = b.x + b.w - 0.2f * u - T.br - (2 - i) * 1.3f * u, T.by[i] = sy;
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */

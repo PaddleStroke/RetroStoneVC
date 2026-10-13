@@ -4,7 +4,8 @@
  * sideways) the stock, the turned card, the waste, and the pile of the cards taken off. A tap on a card lifts it, a
  * tap on another one pairs them (a king goes off on one tap); a card can also be dragged onto its pair. A tap on the
  * stock turns a card (an empty stock, marked by an arrow going round, turns the waste over while passes are left;
- * three passes: the passes left in digits under the stock). The bar: the moves, the hint.
+ * three passes: the passes left in digits under the stock). The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -23,12 +24,18 @@ static int dealing;
 static float passes_x, passes_y;                /* where the passes left are written */
 
 /* ---- the table --------------------------------------------------------------------------------------------------- */
+/* the pyramid's cards side by side, or overlapping a little when the width is short (each card's index still
+ * shows): the cards as big as the room allows; the stock under it, or in a column on its left on a wide screen */
 static void layout(box b)
 {
     U.b = b;
     int wide = b.w > 1.25f * b.h;
-    float w = floorf(wide ? fminf(b.w / 11.2f, b.h / 6.4f) : fminf(b.w / 7.9f, b.h / 8.7f));
-    float h = SOLUI_ASPECT * w, pitch = fminf(1.1f * w, (b.w - w) / 6), vs = 0.55f * h, cx = b.x + b.w / 2;
+    float k = wide ? 0.5f : 0.55f;              /* a row's step down, in card heights */
+    float w = floorf(wide ? fminf(b.w / 9.9f, b.h / (6 * k * SOLUI_ASPECT + SOLUI_ASPECT + 0.2f))
+                          : fminf(b.w / (6 * 0.85f + 1.15f), b.h / ((6 * k + 2) * SOLUI_ASPECT + 1.3f)));
+    float h = SOLUI_ASPECT * w, vs = k * h, cx = b.x + b.w / 2;
+    float pitch = wide ? clampf((b.w / 2 - 2.1f * w) / 3, 0.9f * w, 1.1f * w)
+                       : clampf((b.w - 1.15f * w) / 6, 0.85f * w, 1.1f * w);
     float tall = 6 * vs + h + (wide ? 0 : 0.5f * w + h + 0.6f * w);
     float top = b.y + (b.h - tall) / 2 + h / 2;
     U.w = w;
@@ -40,8 +47,9 @@ static void layout(box b)
             s->x = cx + (py_slots[i].col - py_slots[i].row / 2.0f) * pitch;
             s->y = top + py_slots[i].row * vs;
         } else if (!wide) {                     /* a row under the pyramid: stock, turned card, waste; off right */
+            float x = fminf(1.15f * w, (b.w - w) / 6);
             int col = i == PY_STOCK ? 0 : i == PY_TURN ? 1 : i == PY_WASTE ? 2 : 6;
-            s->x = cx + (col - 3) * pitch;
+            s->x = cx + (col - 3) * x;
             s->y = top + 6 * vs + h + 0.5f * w;
         } else {                                /* a column on the left: stock, turned card, waste; off right */
             float side = 3 * pitch + 1.55f * w;
@@ -57,8 +65,7 @@ static void layout(box b)
 static void start(int v)
 {
     py_new(&G, v, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -66,15 +73,7 @@ static int status(void) { return py_won(&G.pos) ? GS_WIN0 : py_stuck(&G.pos) ? G
 static int turn(void) { return 0; }
 static int busy(void) { return dealing || solui_busy(&U); }
 
-static int undo(void)
-{
-    if (!sol_undo(&G)) return 0;
-    solui_calm(&U);
-    U.won = 0;
-    dealing = 0;
-    ui_handoff(0);
-    return 1;
-}
+static int undo(void) { dealing = 0; return solui_undo(&U); }
 
 static int script(const char *s)
 {
@@ -108,11 +107,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -144,6 +140,7 @@ static const game pyramid_game = {
     .id = "pyramid", .order = 345, .variants = PY_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(pyramid_game)

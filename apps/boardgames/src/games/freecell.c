@@ -3,7 +3,8 @@
  * hint and the win: solitaire_ui.h). The four free cells and the four foundations in a row at the top, the eight
  * columns under them. A tap sends a card or a run to its best place (a foundation, a column, an empty column, a free
  * cell), a quick second tap only to a foundation; a drag carries a run where it is dropped. A new game deals a
- * numbered deal at random (1 to 32000); the bar shows its number by a small card back, then the moves and the hint.
+ * numbered deal at random (1 to 32000); the bar shows its number by a small card back, then the moves; the hint is
+ * the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -24,17 +25,16 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 8.9f, b.h / 6.6f)), pitch = fminf(1.14f * w, (b.w - w) / 7);
-    float x0 = b.x + b.w / 2 - 3.5f * pitch, ty = b.y + 0.06f * w + 0.7f * w, cy = ty + 1.62f * w;
-    float gap = fminf(0.3f * w, (b.w - w - 7 * pitch) / 2);   /* the cells and the foundations a little apart */
-    U.w = w;
+    soltable t = solui_table(&U, b, 8, 2.4f, 15);
+    float w = t.w, gap = fminf(0.3f * w, (b.w - 1.1f * w - 7 * t.pitch) / 2);   /* the cells and the foundations a
+                                                                                 * little apart */
     for (int i = 0; i < FC_PILES; i++) {
         solspot *s = &U.at[i];
         int col = i < FC_CELL ? i : i - FC_CELL;
-        s->x = x0 + col * pitch + (i >= FC_CELL ? (col < 4 ? -gap : gap) : 0);
-        s->y = i < FC_CELL ? cy : ty;
+        s->x = t.x0 + col * t.pitch + (i >= FC_CELL ? (col < 4 ? -gap : gap) : 0);
+        s->y = i < FC_CELL ? t.cy : t.ty;
         s->fan = i < FC_CELL ? SF_COLUMN : SF_PILE;
-        s->room = b.y + b.h - 0.72f * w - cy;
+        s->room = t.room;
         s->first = 0;
     }
 }
@@ -43,8 +43,7 @@ static void start(int v)
 {
     (void)v;
     fc_new(&G, 1 + ui_random(FC_DEALS));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -52,15 +51,7 @@ static int status(void) { return fc_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int busy(void) { return dealing || solui_busy(&U); }
 
-static int undo(void)
-{
-    if (!sol_undo(&G)) return 0;
-    solui_calm(&U);
-    U.won = 0;
-    dealing = 0;
-    ui_handoff(0);
-    return 1;
-}
+static int undo(void) { dealing = 0; return solui_undo(&U); }
 
 static int script(const char *s)
 {
@@ -91,11 +82,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, (int)G.seed);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -131,6 +119,7 @@ static const game freecell_game = {
     .id = "freecell", .order = 330, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(freecell_game)

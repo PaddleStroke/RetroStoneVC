@@ -3,7 +3,8 @@
  * finger, the hint and the win: solitaire_ui.h). The stock, the waste and the eight foundations in a row at the top,
  * the ten columns under them, the cards narrow enough for a phone held upright. A tap sends a top card to its best
  * place (a foundation first, then the next card of its suit, then an empty column), a quick second tap only to a
- * foundation; a drag carries it where it is dropped; a tap on the stock turns a card. The bar: the moves, the hint.
+ * foundation; a drag carries it where it is dropped; a tap on the stock turns a card. The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -24,18 +25,17 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 10.9f, b.h / 7.0f)), pitch = fminf(1.12f * w, (b.w - w) / 9);
-    float x0 = b.x + b.w / 2 - 4.5f * pitch, ty = b.y + 0.06f * w + 0.7f * w, cy = ty + 1.58f * w;
-    float gap = fminf(0.25f * w, (b.w - w - 9 * pitch) / 2);   /* the stock and the waste a little apart */
-    U.w = w;
+    soltable t = solui_table(&U, b, 10, 2.5f, 16);
+    float w = t.w, gap = fminf(0.25f * w, (b.w - 1.1f * w - 9 * t.pitch) / 2);   /* the stock and the waste a little
+                                                                                 * apart */
     for (int i = 0; i < FT_PILES; i++) {
         solspot *s = &U.at[i];
         memset(s, 0, sizeof *s);
         int col = i < FT_FOUND ? i : i < FT_STOCK ? i - FT_FOUND + 2 : i - FT_STOCK;
-        s->x = x0 + col * pitch + (i >= FT_FOUND ? (col < 2 ? -gap : gap) : 0);
-        s->y = i < FT_FOUND ? cy : ty;
+        s->x = t.x0 + col * t.pitch + (i >= FT_FOUND ? (col < 2 ? -gap : gap) : 0);
+        s->y = i < FT_FOUND ? t.cy : t.ty;
         s->fan = i < FT_FOUND ? SF_COLUMN : i == FT_WASTE ? SF_WASTE : SF_PILE;
-        s->room = b.y + b.h - 0.72f * w - cy;
+        s->room = t.room;
     }
 }
 
@@ -43,8 +43,7 @@ static void start(int v)
 {
     (void)v;
     ft_new(&G, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -79,11 +78,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -113,6 +109,7 @@ static const game fortythieves_game = {
     .id = "fortythieves", .order = 343, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(fortythieves_game)

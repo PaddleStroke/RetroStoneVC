@@ -3,8 +3,9 @@
  * crapette_rules.c, crapette.h). Nothing is secret but the talons (VIEW_OPEN): the view turns each turn so that the
  * player to move sits at the bottom, the table turned round with them. The classic layout: the 8 foundations in two
  * columns in the middle, the 8 houses beside them (yours on the right, fanned outwards), your talon, the card you
- * turned, your waste and your crapette along the bottom; the other's the same way round at the top. Player 0's pack
- * has the kit's green back, player 1's a red one (the kit's back tinted).
+ * turned, your waste and your crapette along the bottom (a wide screen: in a column on the right, the houses then as
+ * tall as the height allows); the other's the same way round at the top (on the left). Player 0's pack has the kit's
+ * green back, player 1's a red one (the kit's back tinted).
  * Tap a card (it rises, the places it may go show a dot) then tap where it goes, or drag it there; tap it again to
  * send it to a foundation. Tap your talon to turn a card, your waste to put the turned card on it (your turn ends).
  * A move that breaks a priority is allowed but marked: the card that should have gone first glows red, and the
@@ -34,7 +35,7 @@ enum { UP_TALON = CL_N, UP_WASTE };
 /* ---- the table's geometry: the viewer (the player to move) at the bottom; the other's side turned round ---------- */
 static struct {
     box b;
-    int me;
+    int me, side;                               /* side: the piles in a column beside the houses (a wide screen) */
     float w, h, cx, cy;                         /* the cards' width and height, the table's centre */
     float ry[4], yb;                            /* the house rows (top to bottom), the viewer's pile row */
     float xr, edge;                             /* the right-hand houses' first card; how far they may fan */
@@ -50,7 +51,12 @@ static void layout(box b)
     T.me = ui_bottom();
     if (T.me < 0 || T.me > 1) T.me = 0;
     float asp = cards_aspect(DECK_FRENCH);
-    T.w = floorf(fminf(b.h * 0.97f / (6.54f * asp), b.w / 7.0f));
+    /* upright: the piles in a row under the houses (and the other's over them); wide: in a column on the right (the
+     * other's on the left), the houses as tall as the height allows: the bigger cards */
+    float wu = floorf(fminf(b.h * 0.97f / (6.54f * asp), b.w / 7.0f));
+    float ws = floorf(fminf(b.h * 0.97f / (4.18f * asp), b.w / 11.4f));
+    T.side = b.w > 1.3f * b.h && ws > wu;
+    T.w = T.side ? ws : wu;
     T.h = T.w * asp;
     T.cx = b.x + b.w / 2;
     T.cy = b.y + b.h / 2;
@@ -60,6 +66,11 @@ static void layout(box b)
     T.fx[0] = T.cx - 0.56f * T.w;
     T.fx[1] = T.cx + 0.56f * T.w;
     T.xr = T.cx + 1.72f * T.w;
+    if (T.side) {
+        T.kx = T.cx + fminf(b.w / 2 - 0.6f * T.w, 6.4f * T.w);
+        T.edge = T.kx - 1.2f * T.w;
+        return;
+    }
     float left = T.cx - fminf(b.w, 7.4f * T.w) / 2, right = T.cx + fminf(b.w, 7.4f * T.w) / 2;
     T.edge = T.cx + fminf(b.w / 2, 4.8f * T.w) - 0.55f * T.w;   /* landscape: the houses may fan wider */
     T.tx = left + 0.6f * T.w;
@@ -96,8 +107,13 @@ static void found_at(int f, float *x, float *y)
 enum { PILE_TALON, PILE_HELD, PILE_WASTE, PILE_CRAP };
 static void pile_at(int owner, int which, float *x, float *y)
 {
-    *x = which == PILE_TALON ? T.tx : which == PILE_HELD ? T.hx : which == PILE_WASTE ? T.wx : T.kx;
-    *y = T.yb;
+    if (T.side) {                               /* the column on the right: talon, turned card, waste, crapette */
+        *x = T.kx;
+        *y = T.ry[which];
+    } else {
+        *x = which == PILE_TALON ? T.tx : which == PILE_HELD ? T.hx : which == PILE_WASTE ? T.wx : T.kx;
+        *y = T.yb;
+    }
     turned(owner, x, y);
 }
 

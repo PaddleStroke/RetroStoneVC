@@ -3,7 +3,8 @@
  * table, the finger, the hint and the win: solitaire_ui.h). The seven columns of five; under them the stock and the
  * waste, the score beside the waste (the cards left in the columns; once they are cleared, minus the stock's, in gold
  * light). A tap sends a column's top card onto the waste when it follows (a drag too); a tap on the stock turns its
- * next card. The bar: the moves, the hint.
+ * next card. The bar: the moves; the hint
+ * is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -24,8 +25,10 @@ static int dealing;
 static void layout(box b)
 {
     U.b = b;
-    float w = floorf(fminf(b.w / 7.9f, b.h / 5.9f)), h = SOLUI_ASPECT * w;
-    float pitch = fminf(1.16f * w, (b.w - w) / 6), x0 = b.x + b.w / 2 - 3 * pitch;
+    float w = floorf(fminf(b.w / 7.46f, b.h / 4.86f)), h = SOLUI_ASPECT * w;
+    float pitch = fminf(1.16f * w, (b.w - 1.1f * w) / 6), x0 = b.x + b.w / 2 - 3 * pitch;
+    /* the columns' step: as set, more on a tall screen (each card shown more), never closer: five cards always fit */
+    U.up_step = clampf((b.h / w - 3.5f) / 4, 0.36f, 0.6f);
     float col_h = h + 4 * U.up_step * w, gap = fminf(1.4f * w, fmaxf(0.5f * w, (b.h - col_h - h) / 3));
     float top = b.y + (b.h - col_h - gap - h) / 2 + h / 2;
     U.w = w;
@@ -36,7 +39,7 @@ static void layout(box b)
         if (i < PG_STOCK) {
             s->x = x0 + i * pitch;
             s->y = top;
-            s->room = col_h;                    /* never closer: five cards always fit */
+            s->room = col_h;
         } else {
             s->x = b.x + b.w / 2 + (i == PG_STOCK ? -0.7f : 0.7f) * w;
             s->y = top + col_h - h / 2 + gap + h / 2;
@@ -47,8 +50,7 @@ static void layout(box b)
 static void start(int v)
 {
     pg_new(&G, v, (uint32_t)ui_random(1 << 30));
-    solui_calm(&U);
-    U.won = 0;
+    solui_new(&U);
     dealing = 1;
 }
 
@@ -104,11 +106,8 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    return solui_bar_press(&U, x, y);
-}
+static int level_stars(void) { return solui_stars(&U); }
+static int score(void) { return G.moves; }
 
 static void token(int player, int size, uint8_t *rgba)
 {
@@ -139,6 +138,7 @@ static const game golfpatience_game = {
     .id = "golfpatience", .order = 344, .variants = PG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1, .view = VIEW_OPEN,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(golfpatience_game)

@@ -1,9 +1,10 @@
 /*
  * Pairs (Concentration) in RetroStone Board: 1 to 4 players passing the device round (the rules: pairs_rules.c,
  * pairs.h). Nothing is secret (VIEW_OPEN): the view just turns to the player to move. The cards lie face down in a
- * grid (portrait; in landscape the same grid turned on its side, so every card keeps its neighbours). Their backs are
- * the card kit's house back; their faces the house's own pictures: the family deck's animals (families_deck.h) and
- * chess pieces in the players' colours (art.h), each on an ivory card. Tap a card: it turns over. A pair glows gold
+ * grid as big as the screen allows (the portrait grid, or turned on its side so that every card keeps its
+ * neighbours; 36 cards nine by four along a wide screen). Their backs are the card kit's house back; their faces the
+ * house's own pictures: the family deck's animals (families_deck.h) and chess pieces in the players' colours (art.h),
+ * each on an ivory card. Tap a card: it turns over. A pair glows gold
  * and stays up, dimmed, with the finder's chip in its corner; two cards that differ turn back by themselves after a
  * moment (or at a tap), and the device passes. The bars: the pairs found (one player: the moves).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -29,32 +30,51 @@ static int variant;
 /* ---- the grid ---------------------------------------------------------------------------------------------------- */
 static struct {
     box b;
-    int land, cols, rows;                       /* as shown */
+    int land, cols, rows;                       /* 0 the portrait grid, 1 turned on its side, 2 another shape;
+                                                 * cols x rows as shown */
     float w, x0, y0;                            /* a card's width; the grid's top left */
 } T;
 
 static float aspect(void) { return cards_aspect(DECK_FRENCH); }
 
+/* a card's width with the grid cols x rows in the box */
+static float fit_w(box b, int cols, int rows)
+{
+    const float gap = 0.12f;
+    return floorf(fminf(b.w * 0.96f / (cols + (cols - 1) * gap), b.h * 0.96f / (rows * aspect() + (rows - 1) * gap)));
+}
+
+/* the grid as big as the room allows: the portrait grid as it is, or turned on its side (every card keeps its
+ * neighbours); another shape of the same cards (36: nine by four along a wide screen) only when it gives clearly
+ * bigger cards, the cards then in reading order */
 static void layout(box b)
 {
     const prpos *p = &G.pos;
     T.b = b;
-    T.land = b.w > b.h * 1.05f;
-    T.cols = T.land ? p->rows : p->cols;
-    T.rows = T.land ? p->cols : p->rows;
-    float gap = 0.12f;
-    T.w = floorf(fminf(b.w * 0.96f / (T.cols + (T.cols - 1) * gap),
-                       b.h * 0.96f / (T.rows * aspect() + (T.rows - 1) * gap)));
+    T.land = 0;
+    T.cols = p->cols;
+    T.rows = p->rows;
+    T.w = fit_w(b, p->cols, p->rows);
+    float tw = fit_w(b, p->rows, p->cols);
+    if (tw > T.w) T.land = 1, T.cols = p->rows, T.rows = p->cols, T.w = tw;
+    for (int c = 2; c <= p->n / 2; c++) {
+        int r = p->n / c;
+        if (c * r != p->n || c > 4 * r || r > 4 * c) continue;
+        float w = fit_w(b, c, r);
+        if (w > 1.08f * T.w) T.land = 2, T.cols = c, T.rows = r, T.w = w;
+    }
+    const float gap = 0.12f;
     float gw = T.w * (T.cols + (T.cols - 1) * gap), gh = T.w * (T.rows * aspect() + (T.rows - 1) * gap);
     T.x0 = floorf(b.x + (b.w - gw) / 2);
     T.y0 = floorf(b.y + (b.h - gh) / 2);
 }
 
-/* a card's centre: its place in the portrait grid, turned on its side in landscape */
+/* a card's centre: its place in the portrait grid, that grid turned on its side, or in reading order */
 static void spot(int i, float *x, float *y)
 {
     const prpos *p = &G.pos;
-    int r = i / p->cols, c = i % p->cols, col = T.land ? r : c, row = T.land ? c : r;
+    int r = i / p->cols, c = i % p->cols, col = T.land == 1 ? r : c, row = T.land == 1 ? c : r;
+    if (T.land == 2) col = i % T.cols, row = i / T.cols;
     *x = T.x0 + col * 1.12f * T.w + T.w / 2;
     *y = T.y0 + row * (aspect() + 0.12f) * T.w + T.w * aspect() / 2;
 }
