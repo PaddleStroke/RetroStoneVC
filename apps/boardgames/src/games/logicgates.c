@@ -54,7 +54,19 @@ static float ox, oy, cw, ch, tw;                /* grid (x, y) at (ox + x cw, oy
 enum { T_RESET, T_HINT, TOOLS };                /* the shell's tools (game.tools): restart, hint */
 
 static float PX(float x) { return ox + x * cw; }
-static float PY(float y) { return oy - y * ch; }
+/* the gaps between rows stretched (gs times) when the room is taller than the parts need; the parts keep their size */
+static float gs = 1;
+static float stretched(float y)
+{
+    float extra = 0;
+    for (int k = 0; gs > 1 && k + 1 < G.L.layers; k++) {
+        float g0 = G.L.ly[k] + LG_NH, g1 = G.L.ly[k + 1];
+        if (y <= g0) break;
+        extra += (fminf(y, g1) - g0) * (gs - 1);
+    }
+    return y + extra;
+}
+static float PY(float y) { return oy - stretched(y) * ch; }
 
 /* ---- the colours ------------------------------------------------------------------------------------------------- */
 static const uint8_t GOLD[3] = {255, 206, 84}, BRASS[3] = {128, 102, 56}, WALNUT[3] = {92, 60, 40},
@@ -182,17 +194,94 @@ done:
 }
 
 static int plain;                              /* the gates painted without their names (the emblems) */
+static float name_size;                        /* the names' letters, the same on every gate (0: each its own) */
 
-/* where a gate's name goes down its body (0 its top, 1 its bottom), upright or turned: low in the NOT's triangle,
- * low in the AND's dome, the XOR's above its second back line */
-static float name_at(int kind, int turn)
+/* a name's width for letters of 1 pixel (its ink, the spaces between) */
+static float word_ratio(int kind)
 {
-    return kind == LG_NOT ? (turn ? 0.72f : 0.68f) : kind == LG_AND || kind == LG_NAND ? (turn ? 0.56f : 0.6f)
-         : kind == LG_XOR ? (turn ? 0.42f : 0.44f) : 0.5f;
+    static const char *const NAME[] = {"", "NOT", "AND", "OR", "XOR", "NAND", "NOR"};
+    static float r[LG_KINDS];
+    if (kind < LG_NOT || kind > LG_NOR) return 1;
+    if (r[kind] > 0) return r[kind];
+    const float em = 64;
+    static const uint8_t white[3] = {255, 255, 255};
+    int c = (int)(1.6f * em) + 2, n = (int)strlen(NAME[kind]);
+    float total = (n - 1) * 0.14f * em;
+    uint8_t *g = malloc((size_t)c * c * 4);
+    if (!g) return 3;
+    for (int i = 0; i < n; i++) {
+        memset(g, 0, (size_t)c * c * 4);
+        int x0 = c, x1 = -1;
+        if (text_glyph(NAME[kind][i], em, 1, white, g, c, c))
+            for (int y = 0; y < c; y++)
+                for (int x = 0; x < c; x++)
+                    if (g[4 * (y * c + x) + 3] > 12) {
+                        if (x < x0) x0 = x;
+                        if (x > x1) x1 = x;
+                    }
+        total += x1 >= x0 ? x1 - x0 + 1 : 0.6f * em;
+    }
+    free(g);
+    return r[kind] = total / em;
+}
+
+/* where a gate's name goes on its picture and how big it may be there: its centre, its letters at most, its width at
+ * most. w x h: the upright picture's size; turned, the centre is on the picture turned a quarter (h x w). Upright the
+ * name lies across the body where the shape is wide: low in the NOT's triangle and in the AND's dome, the XOR's above
+ * its second back line; turned, along the body. */
+static void name_room(int kind, int w, int h, int turn, float *cx, float *cy, float *em, float *maxw)
+{
+    float xl = 0.1f * w, xr = 0.9f * w, yb = 0.94f * h, yt = 0.07f * h;
+    if (kind == LG_NOT || kind == LG_NAND || kind == LG_NOR) yt += 2 * 0.085f * fminf(w, 1.6f * h);
+    float body = yb - yt, f, wf;                /* how far down the body; the share of the width free there */
+    switch (kind) {
+    case LG_NOT: f = 0.8f; wf = 0.58f; break;
+    case LG_AND: case LG_NAND: f = 0.62f; wf = 0.86f; break;
+    case LG_XOR: f = 0.44f; wf = 0.76f; break;
+    default: f = 0.52f; wf = 0.78f;
+    }
+    float y = yt + f * body;
+    if (!turn) {
+        *cx = 0.5f * w;
+        *cy = y;
+        *em = 0.42f * body;
+        *maxw = wf * (xr - xl);
+    } else {                                    /* along the body, in its middle; the NOT's nearer its base */
+        y = yt + (kind == LG_NOT ? 0.62f : kind == LG_XOR ? 0.46f : 0.5f) * body;
+        *cx = h - 1 - y;
+        *cy = 0.5f * w;
+        *em = fminf(0.42f * body, (kind == LG_NOT ? 0.26f : 0.34f) * (xr - xl));
+        *maxw = (kind == LG_NOT ? 0.46f : kind == LG_AND || kind == LG_NAND ? 0.8f : 0.7f) * body;
+    }
+}
+
+static float name_fit(int kind, int w, int h, int turn)   /* the biggest letters a gate's name can have */
+{
+    float cx, cy, em, maxw;
+    name_room(kind, w, h, turn, &cx, &cy, &em, &maxw);
+    return fminf(em, maxw / word_ratio(kind));
+}
+
+/* one size for every gate's name: the most the two-input gates allow (the NOT's triangle may need smaller) */
+static float name_common(int w, int h, int turn)
+{
+    float em = 1e9f;
+    for (int k = LG_AND; k <= LG_NOR; k++) em = fminf(em, name_fit(k, w, h, turn));
+    return floorf(em);
+}
+
+/* a gate's name on its picture: o is w x h upright, or h x w turned */
+static void gate_name(uint8_t *o, int w, int h, int turn, int kind, int lit)
+{
+    float cx, cy, em, maxw;
+    name_room(kind, w, h, turn, &cx, &cy, &em, &maxw);
+    float fit = fminf(em, maxw / word_ratio(kind));
+    em = name_size > 0 ? fminf(name_size, fit) : fit;
+    gate_word(o, turn ? h : w, turn ? w : h, kind, cx, cy, em, 1e9f, lit);
 }
 
 /* a gate's brass shape, pointing up, in a w x h picture (pixels); its output's lead from its top to the picture's
- * top edge (lw wide); its name engraved on it (big enough). Lit: gold. */
+ * top edge (lw wide); its name engraved on it (big enough; not plain). Lit: gold. */
 static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
@@ -216,7 +305,7 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
         }
         art_poly(f, ART_PART, p, n / 2);
     } else if (kind == LG_NOT) {
-        float q[] = {xl + 0.06f * w, yb, xr - 0.06f * w, yb, xc, yt};
+        float q[] = {xl + 0.03f * w, yb, xr - 0.03f * w, yb, xc, yt};
         art_poly(f, ART_PART, q, 3);
     } else {                                    /* OR, NOR, XOR: a curved shield, its back hollow */
         float back = 0.17f * (yb - yt), gap = kind == LG_XOR ? 0.13f * (yb - yt) : 0;
@@ -238,25 +327,7 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
     if (bubble) art_ellipse(f, ART_PART, xc, yt - rb, rb, rb);
     art_render(f, &st, w, h, 1, 0, 0, o);
     art_fig_free(f);
-    /* its name engraved across its body, where it is widest: the NOT's low in its triangle, the OR's above its
-     * hollow back */
-    if (h < 26 || plain) return;               /* a small picture, an emblem: the shape alone */
-    float body = yb - yt, cy = yt + name_at(kind, 0) * body;
-    float maxw = kind == LG_NOT ? 0.54f * (xr - xl) : kind == LG_AND || kind == LG_NAND ? 0.86f * (xr - xl)
-                                                                                     : 0.68f * (xr - xl);
-    gate_word(o, w, h, kind, xc, cy, 0.42f * body, maxw, lit);
-}
-
-/* a gate's name on its picture turned a quarter (W x H: the gate pointing right), level, along its body */
-static void gate_name_turned(uint8_t *o, int W, int H, int kind, int lit)
-{
-    int gw = H, gh = W;                         /* the upright picture's size */
-    float xl = 0.1f * gw, xr = 0.9f * gw, yb = 0.94f * gh, yt = 0.07f * gh;
-    if (kind == LG_NOT || kind == LG_NAND || kind == LG_NOR) yt += 2 * 0.085f * fminf(gw, 1.6f * gh);
-    float body = yb - yt, cy = yt + name_at(kind, 1) * body;
-    float maxw = (kind == LG_NOT ? 0.42f : kind == LG_AND || kind == LG_NAND ? 0.66f : 0.56f) * body;
-    float em = fminf(0.42f * body, (kind == LG_NOT ? 0.26f : 0.32f) * (xr - xl));
-    gate_word(o, W, H, kind, gh - 1 - cy, 0.5f * gw, em, maxw, lit);
+    if (h >= 26 && !plain) gate_name(o, w, h, 0, kind, lit);   /* a small picture, an emblem: the shape alone */
 }
 
 /* a route switch's brass way on its plaque (w x h): from the input at the bottom middle up to the output at off
@@ -631,9 +702,11 @@ static void part_textures(void)
     uint8_t *b = calloc((size_t)w * h, 4);
     if (b) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_up(w, h, b); }
     gate_h = floorf(0.92f * ph);
-    for (int wide3 = 0; wide3 < 2; wide3++) {   /* two inputs, or three: wider */
+    for (int wide3 = 0; wide3 < 2; wide3++)    /* two inputs, or three: wider */
         /* wide enough for its inputs (up to 0.22 columns from its middle: the rules' PIN_MAX) */
         gate_w[wide3] = floorf(fminf(0.94f * pw, fmaxf(0.6f * cw, wide3 ? 1.6f * gate_h : 1.2f * gate_h)));
+    name_size = name_common((int)gate_w[0], (int)gate_h, turned);   /* the names all alike */
+    for (int wide3 = 0; wide3 < 2; wide3++) {
         int gw = (int)gate_w[wide3], gh = (int)gate_h;
         for (int k = LG_NOT; k <= LG_NOR; k++)
             for (int lit = 0; lit < 2; lit++) {
@@ -645,13 +718,14 @@ static void part_textures(void)
                 plain = 0;
                 if (turned) {
                     b = quarter(b, gw, gh);
-                    gate_name_turned(b, gh, gw, k, lit);
+                    gate_name(b, gw, gh, 1, k, lit);
                     t_gate[k][lit][wide3] = tex_buf(gh, gw, b);
                 } else {
                     t_gate[k][lit][wide3] = tex_buf(gw, gh, b);
                 }
             }
     }
+    name_size = 0;
     for (int way = 0; way < 2; way++)
         for (int lit = 0; lit < 2; lit++) {
             ui_free(&t_route[way][lit]);
@@ -751,6 +825,16 @@ static void fit(void)
     float up = cells(B.w, B.h, &cw, &ch), side = cells(B.h, B.w, &c2, &r2);
     turned = wide && side > 1.1f * up;          /* lying: on its side when its parts come out bigger */
     if (turned) { cw = c2; ch = r2; }
+    /* a room taller than the circuit needs: the gaps between its rows stretched to fill it, 2.5 times a part's
+     * height at most on average */
+    float gaps = 0, room = (turned ? B.w : B.h) - 2 * fr - 2 * m;
+    for (int k = 0; k + 1 < G.L.layers; k++) gaps += G.L.ly[k + 1] - G.L.ly[k] - LG_NH;
+    gs = 1;
+    if (gaps > 0 && room > span * ch) {
+        float most = 2.5f * LG_NH * (G.L.layers - 1) / gaps;
+        gs = fmaxf(1, fminf(1 + (room - span * ch) / (gaps * ch), most));
+    }
+    span += gaps * (gs - 1);
     float ext = turned ? span * ch : cols * cw, cell = turned ? ch : cw;
     if (wide && ext < B.w - 2 * fr - 2 * m - 1.2f * cell) {   /* the board no wider than the circuit, centred */
         float w = ext + 1.2f * cell + 2 * fr + 2 * m;
