@@ -70,7 +70,12 @@ One look across the app, like the Arcade games' house kit:
   alpha, regular or bold, set tight (a number in a cell); `ui_number_w` its width.
 - **The bars**: `ui_bar_count(box, piece, n)` for a small piece and how many (the pieces taken; 0 shows nothing),
   `ui_bar_number` the same showing 0 too, the piece optional (a move counter; it returns the x after the number).
-  `ui_bar_box(player, &upside)`: where a player's bar is (something flying to it).
+  `ui_bar_box(player, &upside)`: where a player's bar is (something flying to it). `ui_bar_fit(box, counts, n,
+  buttons)`: counts (`ui_count`: a small picture or NULL, a number) and room for round buttons at the right end, fitted
+  to a narrow bar (the first picture goes, then all is set smaller); it returns the buttons' size, `ui_bar_spot` each
+  one's centre. `ui_bar_countdown(box, left)`: the turns left before a draw (an hourglass, the number) at the bar's
+  right end; it returns the room left of it. `ui_tokens_changed()`: `token()` now paints other pictures (banqi's
+  colours, given at the first flip).
 - **Buttons** of a game's own (on its table, in its bar): `ui_button(cx, cy, d, ICON_*, how)` the shell's disc with
   one of its icons (`ICON_TICK` done, `ICON_ARROW` next, `ICON_HINT` a lamp, `ICON_DEVICE`...), or
   `ui_button_paint(cx, cy, d, paint, kind, k, how)` with the game's picture (a painter: `paint(kind, size, rgba)`, k
@@ -100,6 +105,15 @@ One look across the app, like the Arcade games' house kit:
 - **Sounds**: a move `SND_MOVE`, a capture `SND_CAPTURE`, a stone or disc set down `SND_PLACE`, a disc dropped in a
   slot `SND_DROP`. The shell plays the end of the game and the buttons.
 - **The board's square**: `layout(box)` gives it (side about 9 * `ui.unit`); the game fits its frame and grid in it.
+  Portrait: the top bar at the top of the screen, the bottom bar and the buttons at its bottom, the square in the room
+  between. **The whole room** (`fill` 1): `layout(box)` gets all of it, a rectangle (portrait: the bars' width, all the
+  height between them; landscape: all the width left of the side column), as the card games' tables;
+  `ui_grid_fit(box, cols, rows, frame)` fits a grid of square cells in it, turned a quarter when the cells grow
+  (`ui_grid_cell`, `ui_grid_hit`); `art_plank(w, h, fr)` a plain plank of any shape. **Tools** (`tools` n, up to
+  `UI_MAX_TOOLS`): the game's own round buttons, laid out by the shell where they cost the board least (portrait: up
+  to three at the right end of the bottom bar, more in a row above it; landscape: in the side column); the game draws
+  them (`ui_tool(i, ICON_*, how)`, `ui_tool_paint`) and finds them in `press()` (`ui_tool_hit`); `ui_tools_shown(n)`
+  the first n only.
 - **The game's pictures for the shell**: `thumb(variant, size)` (the menu's card, -1, and the picker's cards),
   `token(player, size)` (the bars, the end-of-game card: a piece of that player).
 - **Undo** goes back one move (all the way to the start), **status** says who won, **turn** who moves,
@@ -110,6 +124,14 @@ One look across the app, like the Arcade games' house kit:
   page or the hand-off cover is up, nor on another screen. No game watches SDL's events itself.
 - **A score** (optional `score()`, one player): the end card shows it in big digits beside the token (the final
   score, the moves a puzzle took).
+- **A puzzle solved** (one player, `level_stars()`, with levels or without): the end card shows the stars popping in,
+  the moves (`score()`) beside `par()` (optional: the fewest moves; 0 not known) after a flag, a replay button (the
+  same puzzle: the shell gives `start()` the random state it had) and a next one (a new puzzle of the variant; the next
+  level). `ui_par_stars(moves, par)`, `ui_logic_stars(hints, mistakes)`: the house's rules for stars.
+- **Variants on two axes** (`axes` {sizes, levels}, variant = size * levels + level; `axis_pic[2]` optional): the
+  picker shows the sizes above a row of the levels (by default as many ebony stones) instead of a card each.
+- **Secret hands in some games only** (optional `hidden()`): asked at each hand-off instead of `VIEW_HIDDEN` (Durak
+  with open hands).
 
 ## Levels
 
@@ -121,16 +143,21 @@ of the picker, and keeps the progress.
   `level_thumb(level, size, rgba)` (a tile's picture; else its number), `level_stars()` (the level solved: 0..3; NULL:
   no stars), `levels_open` (the unsolved levels open at once; 0: 3).
 - The screen: home at the top left, the stars won at the right, the chapters' tabs (the menu's), then the chapter's
-  levels as tiles, numbered from 1 in each chapter: solved in gold with their stars, open in the house's wood, locked
-  in dim walnut; the next level to play in gold light. A tap on an open tile, a swipe or the arrow keys for another
-  chapter. It opens at the chapter of the level last played (else of the first one not solved).
+  levels as tiles right under the tabs, numbered from the first level to the last (a second chapter of 25: 26..50):
+  solved in gold with their stars, open in the house's wood, locked in dim walnut; the next level to play in gold
+  light. A tap on an open tile, a swipe or the arrow keys for another chapter. It opens at the chapter of the level
+  last played (else of the first one not solved).
 - A tile calls `start(level)` (0..`levels`-1): a new game of that level. Solved is `status()` `GS_WIN0`: the shell asks
   `level_stars()` and keeps the best (`ui_level_best(level)` reads it: 0..3, -1 not solved). Its end card shows the
-  stars and a next button (after the last level: back to the level screen). The new game button shows the level
-  grid's icon and goes back to the level screen (a level in play: tapped twice, as usual).
+  stars, replay (the same level) and a next button (after the last level: back to the level screen). The new game
+  button shows the level grid's icon and goes back to the level screen (a level in play: tapped twice, as usual).
 - The game draws no level grid, keeps no progress, and has no next-level button of its own; it shows its level (a
   chapter's picture and number) and its moves as it likes.
 - `ui_star(cx, cy, d, lit)`: the shell's star (gold, or a hollow), for a game's bar.
+- **Levels and random play** (optional `start_random(variant)`, the game's `variants` kept): one more tab after the
+  chapters, a die: the variant picker under the same tabs, and a card picked there starts `start_random(variant)`;
+  `ui.level` tells the game which way it was started (the level, or -1 at random). The end card's next button: a new
+  random puzzle of the variant; stars are kept per level only.
 
 ## What the app keeps
 
@@ -138,7 +165,8 @@ of the picker, and keeps the progress.
 the game (`"logicgates/x"`; `"shell/..."` are the shell's), up to 4096 bytes each, written as bytes (numbers wider than
 a byte little-endian). The shell keeps the sound (`shell/mute`), the menu's tab (`shell/tab`), each game's choice
 (`shell/game/<id>`: its variant, the last level played, how many play; the picker then shows that count, and the
-variant chosen in gold light) and each game's levels (`shell/levels/<id>`: a byte a level, 0 not solved, else 1 + its
+variant chosen in gold light; a game of levels with random play: also its random variant and which way it was last
+played) and each game's levels (`shell/levels/<id>`: a byte a level, 0 not solved, else 1 + its
 stars).
 
 - **Where**: `board.sav` in `SDL_GetPrefPath("8BCraft", "RetroStoneBoard")`: Windows `%APPDATA%\8BCraft\RetroStoneBoard`,
@@ -244,7 +272,7 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
                 [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--flip] [--f2f] [--keep] [--pick] [--players n]
                 [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal] [--keys "Up Left"]
-                [--level n] [--solved "1-12 13-14:2 15:0"] [--save DIR]
+                [--level n] [--solved "1-12 13-14:2 15:0"] [--random] [--icons] [--save DIR]
 ```
 
 No window: the menu (no `--game`; `--tab n` a section), a game's picker (`--pick`), or a game after its moves
@@ -255,8 +283,10 @@ itself takes `--lang` too (else the device's language).
   the level screen: of the screen): `--taps` (several), `--drag` (the finger down, slid to the second point, lifted),
   `--hold` (the finger down `ms` long; as the last gesture, the picture is taken with the finger still down), `--keys`
   (keys by SDL's names: `Up`, `Left`, `Return`, `1`...).
-- **Levels**: `--pick` the level screen (`--tab n` its chapter, from 0), `--level n` level n (from 1) at once,
+- **Levels**: `--pick` the level screen (`--tab n` its chapter, from 0) (`--tab` the chapters' count: the random tab),
+  `--random` a random puzzle (`--variant n`), `--level n` level n (from 1) at once,
   `--solved` the progress first (ranges, `:k` the stars, 3 by default).
+- `--icons`: every icon of the shell on its buttons (plain, in gold light, on the gold disc).
 - **Nothing kept**: the picture mode reads and writes no file; its values live in memory, empty at first, so the
   same picture comes out every time. `--save DIR` uses that folder's `board.sav` (read first, written at the end): the
   tests of what the app keeps.
