@@ -44,8 +44,9 @@
  * ---- What the shell does with it (shell.c: bot_step, the picker's seats; README "Bots") --------------------------
  *   - The picker: a human / bot choice per seat when bot_find(game.id) is not NULL, and a level (AI_EASY..AI_HARD),
  *     kept in the save store with the players' count (a chip a seat: a tap goes person, easy, medium, hard).
- *   - The bots alone (no person): watched, 900 ms a move, no cover. A real-time bot (realtime): no pause, the people's
- *     input never held, its move dropped when a person's input changed the seat to act.
+ *   - The bots alone (no person): watched, 900 ms a move, no cover; a game waiting for a tap with nobody to act
+ *     (actor() -1: a score sheet) gets one in the middle of its table after 2.5 s. A real-time bot (realtime): no
+ *     pause, the people's input never held, its move dropped when a person's input changed the seat to act.
  *   - Each frame in a game: if no bot is thinking, the game isn't busy(), no hand-off waits, status() is GS_PLAY and
  *     the actor (b->actor ? b->actor() : game.turn()) is a bot seat: ai_set_seed(ui_random-made seed);
  *     bot_begin(b, seat, level). Then bot_done(move, cap) each frame; when it returns 1 and at least the minimum

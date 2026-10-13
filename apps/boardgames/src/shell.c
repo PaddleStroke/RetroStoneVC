@@ -2158,17 +2158,23 @@ static void view_start(int fresh)
  * BOT_PAUSE ms (BOT_WATCH with no person playing: the bots alone are paced for watching; a real-time bot's at once).
  * An empty or refused move: logged, and the seat goes to the people for the rest of the game (never a loop). Undo, a
  * new game, leaving and quitting stop the worker first (bot_stop); the rules page only holds the move until it
- * closes. */
+ * closes. With no person playing (the bots alone), a game that waits for a tap with nobody to act (a round's score
+ * sheet: actor() -1) gets one after WATCH_TAP ms, in the middle of its table, as a person's tap would come. */
 #define BOT_PAUSE 600
 #define BOT_WATCH 900
+#define WATCH_TAP 2500
 static struct {
-    int seat, held, played;                     /* the seat thinking; a move ready, held for its pause; moves played */
+    int seat, held, played, taps;               /* the seat thinking; a move ready, held for its pause; moves played;
+                                                 * taps given in watch mode */
     unsigned ms;                                /* how long the move took (the picture mode's log) */
+    Uint32 idle;                                /* watch mode: since when nobody has had anything to do (0: not) */
     char move[BOT_MOVE_CAP];
-} BT = {-1, 0, 0, 0, ""};
+} BT = {-1, 0, 0, 0, 0, 0, ""};
 static int held_press;                          /* a finger put down while a bot's turn held the input: its motion
                                                  * and its release are not the game's either */
 static void after_input(void);
+static void press(float x, float y);
+static void release(float x, float y);
 
 /* a real-time game (a race: slaps): its bot's flag, or a game played with several fingers at once */
 static int realtime(void) { return cbot && (cbot->realtime || games[cur]->finger); }
@@ -2236,8 +2242,21 @@ static void bot_step(void)
         after_input();
         return;
     }
-    if (help.open || g->status() != GS_PLAY || (g->busy && g->busy()) || ui_handing()) return;
-    int a = bot_actor();
+    int a = help.open || g->status() != GS_PLAY || (g->busy && g->busy()) || ui_handing() ? -2 : bot_actor();
+    if (a == -1 && !humans()) {                 /* the bots alone, nobody to act: the tap a person would give */
+        Uint32 now = SDL_GetTicks();
+        if (!BT.idle) BT.idle = now ? now : 1;
+        need_frame = 1;
+        if (!instant && now - BT.idle < WATCH_TAP) return;
+        BT.idle = 0;
+        BT.taps++;
+        if (instant) fprintf(stderr, "watch: a tap (nobody to act)\n");
+        press(L.board.x + L.board.w / 2, L.board.y + L.board.h / 2);
+        release(L.board.x + L.board.w / 2, L.board.y + L.board.h / 2);
+        after_input();
+        return;
+    }
+    BT.idle = 0;
     if (!is_bot(a)) return;
     uint64_t seed = (uint64_t)ui_random(1 << 30) << 34 ^ (uint64_t)ui_random(1 << 30) << 4 ^ (uint64_t)ui_random(16);
     ai_set_seed(seed);
@@ -3878,15 +3897,21 @@ static int shot_seats(const char *s)
  * move was played (--at ms catches its animation). */
 static void shot_bots(int steps, int reveal, Uint32 *base)
 {
-    int start = BT.played, idle = 0;
+    int start = BT.played, idle = 0, taps = BT.taps;
     Uint32 t0 = SDL_GetTicks();
     while (BT.played - start < steps) {
         if (is_view()) shot_settle(reveal, 0);
         shot_wait();
-        int before = BT.played, was = bot_thinking();
+        int before = BT.played, was = bot_thinking(), tapped = BT.taps;
         Uint32 now = ms_ahead;
         bot_step();
         if (!was && bot_thinking()) t0 = SDL_GetTicks();
+        if (BT.taps > tapped && BT.taps - taps <= steps) {   /* watch mode's tap (a score sheet): on to the next */
+            *base = now;
+            idle = 0;
+            draw();
+            continue;
+        }
         if (BT.played > before) {
             *base = now;
             idle = 0;
@@ -3909,7 +3934,8 @@ static void shot_bots(int steps, int reveal, Uint32 *base)
     }
     const game *g = games[cur];
     int a = g->status() == GS_PLAY ? bot_actor() : -1;
-    fprintf(stderr, "bots: %d moves played; status %d, to act: %d (%s)%s%s\n", BT.played - start, g->status(), a,
+    fprintf(stderr, "bots: %d moves played, %d taps; status %d, to act: %d (%s)%s%s\n", BT.played - start,
+            BT.taps - taps, g->status(), a,
             a < 0 ? "nobody" : is_bot(a) ? "a bot" : "a person", g->busy && g->busy() ? ", busy" : "",
             ui_handing() ? ", handing" : "");
 }

@@ -338,8 +338,10 @@ board: hot seat, face to face, the hand-off covers between people.
   with it); a new game, home and quitting stop it too; the rules page only holds its move until it closes. Hand-off
   covers come only between two people: a hand-off to a bot's seat keeps the view on the last person; with one
   person, there is never a cover and the view stays theirs; with nobody (every seat the device's) the view follows
-  the game and nothing is covered: a game to watch. Flip and face to face are for people: with one person they are
-  hidden and that person sits at the bottom; face to face never turns a bot's pieces.
+  the game and nothing is covered: a game to watch, where a game waiting for a tap with nobody to act (a round's score
+  sheet: `actor()` -1) gets one in the middle of its table after 2.5 s, through the same path as a person's tap. Flip
+  and face to face are for people: with one person they are hidden and that person sits at the bottom; face to face
+  never turns a bot's pieces.
 
 ## Picture mode
 
