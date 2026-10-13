@@ -73,4 +73,12 @@ int  hearts_winner(const hpos *p);              /* HP_OVER: the lowest total (-1
 uint32_t hearts_auto(const hpos *p);            /* a plain action (the "." of the notation) */
 int  hearts_script(hgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (hearts_bot.c, bots.h), and what the screen (hearts.c) gives it; a headless test defines those two */
+const hgame *hearts_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int hearts_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+uint32_t hb_choose(const hgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* 0: none */
+void hb_view(const hgame *g, int me, struct tb_state *v, hgame *scratch);   /* seat me's knowledge (trickbot.h) */
+
 #endif

@@ -193,6 +193,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (hearts_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const hgame *hearts_live(void) { return &G; }
+
+int hearts_show(const char *move)
+{
+    static hgame t;
+    t = G;
+    if (!hearts_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_pass(int live)
 {
