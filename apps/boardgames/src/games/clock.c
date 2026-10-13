@@ -169,6 +169,12 @@ static void bar(int player, box b)
     solui_bar(&U, b, 0);
 }
 
+/* the end card as the other patiences': the stars, the cards turned, replay and the next deal. The clock deals its own
+ * game: no choice, no hint nor undo, changes how it ends, so a deal that comes out is three stars (solui_stars would
+ * take them away for a hint that only shows the card a tap turns anyway); one that does not, the usual card. */
+static int level_stars(void) { return ck_won(&G.pos) ? 3 : 0; }
+static int score(void) { return G.moves; }
+
 static void token(int player, int size, uint8_t *rgba)
 {
     (void)player;
@@ -208,6 +214,6 @@ static const game clock_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
-    .tools = 1,
+    .tools = 1, .level_stars = level_stars, .score = score,
 };
 REGISTER_GAME(clock_game)
