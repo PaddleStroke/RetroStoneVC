@@ -65,6 +65,7 @@ typedef struct {
     int made_key, made_small, fr, rows, per[SUI_ROWS], show;   /* show: the places drawn (the menu's card: a few); 0
                                                                  * all */
     float bx, by, bs, bh, pitch, tw, th, lh, gw, iw, base_y[SUI_ROWS];
+    float row_need;                             /* the height a row of tubes takes: its layers, head room, shelf, lift */
     float area[SRT_CAP + 1];                    /* the interior's area below each layer's top, upright */
     float poly[2 * SUI_ARC];                    /* the interior, the tube's centre at 0, 0 */
     SDL_Texture *t_board, *t_back, *t_front, *t_cork, *t_band, *t_plus, *t_small, *t_ball[HUE_N + 1],
@@ -115,6 +116,7 @@ static inline void sui_fit_rows(sui *s, float W, float H, int rows)
     s->gw = fmaxf(2, roundf(0.075f * s->tw));
     s->iw = s->tw - 2 * s->gw;
     s->th = floorf(4 * s->lh + 0.62f * s->tw);
+    s->row_need = need * s->tw;
     for (int r = 0; r < s->rows; r++) {         /* the tubes' feet: low in each row, the lift's room above */
         float top = s->by + s->fr + r * rh, used = need * s->tw;
         s->base_y[r] = floorf(top + (rh - used) / 2 + lift * s->lh + s->th);
@@ -408,6 +410,14 @@ static inline void sui_layout(sui *s, box b)
     s->bx = floorf(b.x);
     s->by = floorf(b.y);
     sui_fit(s, s->bs, s->bh);
+    /* the plank no taller than its shelves need (a little wood above each row's tubes), in the room's middle: one
+     * shelf of a few tubes in a tall room does not stand in a sea of bare wood */
+    float want = floorf(2 * s->fr + s->rows * 1.25f * s->row_need / 0.93f);
+    if (want < s->bh) {
+        s->by = floorf(b.y + (s->bh - want) / 2);
+        s->bh = want;
+        sui_fit_rows(s, s->bs, s->bh, s->rows);
+    }
     sui_interior(s, s->poly);
     float xy[2 * SUI_ARC], tmp[80];
     sui_turned(s, 0, 0, 0, xy);
