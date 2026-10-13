@@ -16,7 +16,7 @@
 #define SN_SIDE 10
 #define SN_LAST 100
 #define SN_LINKS 16                     /* 8 ladders, then 8 snakes */
-#define SN_MAX_THROWS 16384             /* a game takes about 80 throws */
+#define SN_MAX_THROWS 16384             /* kept for undo (a game takes about 80); longer, the first go to base */
 #define SN_PLAYERS 4                    /* the most who can play */
 
 enum { SN_PLAY, SN_WIN0, SN_WIN1, SN_WIN2, SN_WIN3 };   /* SN_WIN0 + the winner */
@@ -36,6 +36,8 @@ typedef struct {
     int n, known;
     int players;                        /* 2..4 */
     int pos[SN_PLAYERS];                /* each player's square, 0: off the board */
+    int base[SN_PLAYERS], base_turn;    /* the position before roll[0]: the start, or after a long game's first
+                                         * throws */
     int turn, winner;                   /* winner -1: nobody yet */
     sn_move last;                       /* the last throw's move (n > 0) */
 } sn_game;

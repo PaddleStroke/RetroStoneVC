@@ -1,9 +1,9 @@
 /*
  * The Royal Game of Ur's bot (src/games/ur_bot.c): its position-only throw and move against the rules' own on random
- * games, its registry entry, the throw it makes ("roll"), a capture and the central rosette it takes, the cancel,
- * then self-play at every level (tests/ai_selfplay.h). Headless: this file plays the screen's part (ur_live(),
- * ur_show(): "roll" throws dice of its own, from the session's seed the harness sets before each think, so every game
- * repeats). --full for the 200 games and the table.
+ * games, its registry entry, the throw it makes ("roll"), a capture and the central rosette it takes, the cancel, a
+ * very long game (past the rules' history), then self-play at every level (tests/ai_selfplay.h). Headless: this file
+ * plays the screen's part (ur_live(), ur_show(): "roll" throws dice of its own, from the session's seed the harness
+ * sets before each think, so every game repeats). --full for the 200 games and the table.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
@@ -164,6 +164,30 @@ int main(int argc, char **argv)
             puts(name);
         }
     }
+    {   /* a very long game: 3 x UR_MAX_EVENTS lost throws (0), then bots of random levels to the end: the rules keep
+         * going (their history forgets its oldest events), and undo still takes a move back */
+        ur_new(&T);
+        int ok = 1, undone = 0;
+        for (int i = 0; i < 3 * UR_MAX_EVENTS && ok; i++) ok = ur_throw(&T, 0) == UT_PASS;
+        ai_seed(&r, 11);
+        int lv[2] = {ai_rand_n(&r, 2), ai_rand_n(&r, 2)};
+        for (int ply = 0; ok && T.pos.phase != UR_OVER && ply < 5000; ply++) {
+            char m[BOT_MOVE_CAP] = "";
+            int seat = T.pos.turn;
+            ai_set_seed(ai_mix(77, (uint64_t)ply));
+            ok = b->think(seat, lv[seat], m, sizeof m);
+            if (ok && T.pos.phase == UR_MOVE && ply % 5 == 0) {   /* undo, then the same move again */
+                upos before = T.pos;
+                ok = one(m) && ur_undo(&T) && !memcmp(&before, &T.pos, sizeof before);
+                undone += ok;
+            }
+            ok = ok && one(m) && T.n <= UR_MAX_EVENTS;
+        }
+        snprintf(name, sizeof name, "a game of %d throws and more: it ends, undo works (%d undone)",
+                 3 * UR_MAX_EVENTS, undone);
+        check(name, ok && T.pos.phase == UR_OVER && undone > 10);
+    }
+
     if (fails) return 1;
 
     static const sp_game G = {

@@ -52,12 +52,26 @@ int ur_movable(const upos *p)
     return m;
 }
 
+/* a new event: the position before it, kept for undo. The history full, its oldest quarter is forgotten (undo goes
+ * back that far at most): a game never stops for its length. */
+static void record(ugame *g, int ev)
+{
+    if (g->n >= UR_MAX_EVENTS) {
+        int drop = UR_MAX_EVENTS / 4;
+        memmove(g->past, g->past + drop, (size_t)(UR_MAX_EVENTS - drop) * sizeof g->past[0]);
+        memmove(g->ev, g->ev + drop, (size_t)(UR_MAX_EVENTS - drop) * sizeof g->ev[0]);
+        g->n -= drop;
+    }
+    g->past[g->n] = g->pos;
+    g->ev[g->n++] = (uint8_t)ev;
+}
+
+
 int ur_throw(ugame *g, int value)
 {
     upos *p = &g->pos;
-    if (p->phase != UR_THROW || value < 0 || value > 4 || g->n >= UR_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)value;
+    if (p->phase != UR_THROW || value < 0 || value > 4) return 0;
+    record(g, (uint8_t)value);
     p->roll = (uint8_t)value;
     p->throws++;
     p->phase = UR_MOVE;
@@ -71,9 +85,8 @@ int ur_move(ugame *g, int from)
 {
     upos *p = &g->pos;
     int to = ur_dest(p, from), me = p->turn, caught = 0;
-    if (to < 0 || g->n >= UR_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)(UR_MOVE_EV + from);
+    if (to < 0) return 0;
+    record(g, (uint8_t)(UR_MOVE_EV + from));
     p->n[me][from]--;
     p->n[me][to]++;
     if (ur_shared(to) && p->n[!me][to]) {       /* sent back off the board */

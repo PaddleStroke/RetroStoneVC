@@ -31,7 +31,9 @@ static int cs, fr, ps, made = -1, made_flip = -1, made_var = -1, made_np = -1, m
 static float bx, by;                            /* the cells' top left corner */
 static SDL_Texture *t_board, *t_pawn[LUDO_PLAYERS], *t_small[LUDO_PLAYERS];
 static int fresh;                               /* the shell's die shows the last throw (not after an undo) */
-static uint8_t rolls[LUDO_MAX_EVENTS];          /* the game's throws so far, kept through undo: undo never rethrows */
+static uint8_t rolls[LUDO_MAX_EVENTS];          /* the game's throws so far, kept through undo: undo never rethrows; a
+                                                 * ring (throw k at k % its size: undo never goes back further than the
+                                                 * rules keep) */
 static int nrolls;
 static struct { int on, token, moved; float x, y; } drag;
 static struct { int on, player, token, from, hops, heard, caught; Uint32 t0; lpos before; } anim;
@@ -154,11 +156,10 @@ static void home(int player, float *fx, float *fy)
 static void throw_die(void)
 {
     int k = G.pos.throws, me = G.pos.turn, v;
-    if (G.n >= LUDO_MAX_EVENTS) return;
-    if (k < nrolls) v = rolls[k];               /* thrown before an undo: the same number again */
+    if (k < nrolls) v = rolls[k % LUDO_MAX_EVENTS];   /* thrown before an undo: the same number again */
     else {
         v = 1 + ui_random(6);
-        rolls[k] = (uint8_t)v;
+        rolls[k % LUDO_MAX_EVENTS] = (uint8_t)v;
         nrolls = k + 1;
     }
     if (!ludo_throw(&G, v)) return;
@@ -198,7 +199,7 @@ static int script(const char *s)
 {
     int ok = ludo_script(&G, s);
     for (int i = 0; i < G.n; i++)               /* its throws are the game's from now on */
-        if (G.ev[i] < LUDO_MOVE_EV) rolls[G.past[i].throws] = G.ev[i];
+        if (G.ev[i] < LUDO_MOVE_EV) rolls[G.past[i].throws % LUDO_MAX_EVENTS] = G.ev[i];
     nrolls = G.pos.throws;
     anim.on = 0;
     drag.on = 0;

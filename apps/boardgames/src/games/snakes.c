@@ -100,7 +100,7 @@ int snakes_show(const char *move)
 static int last_throw(int player)
 {
     int v = 0;
-    for (int i = 0, p = 0; i < G.n; i++) {
+    for (int i = 0, p = G.base_turn; i < G.n; i++) {
         if (p == player) v = G.roll[i];
         if (G.roll[i] != 6) p = (p + 1) % G.players;
     }

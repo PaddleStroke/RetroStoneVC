@@ -27,7 +27,7 @@
 
 #define GOO_LAST 63
 #define GOO_PLAYERS 6
-#define GOO_MAX_THROWS 8192
+#define GOO_MAX_THROWS 8192                     /* kept for undo; longer, the first go into the base position */
 #define GOO_STEPS 160
 #define GOO_HELD (-1)                            /* wait[]: held in the well or the prison until freed */
 
@@ -54,6 +54,8 @@ typedef struct {
     int players;
     int pos[GOO_PLAYERS];                        /* each pawn's square (0: the start) */
     int wait[GOO_PLAYERS];                       /* turns still to miss at the inn; GOO_HELD */
+    /* the position before dice[0]: the start, or after a long game's first throws */
+    int base_pos[GOO_PLAYERS], base_wait[GOO_PLAYERS], base_turn;
     int turn, winner;                           /* winner -1: nobody yet */
     goo_move last;                               /* the last throw's move (n > 0) */
 } goo_game;

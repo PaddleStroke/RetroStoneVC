@@ -58,9 +58,39 @@ static void apply(sn_game *g, int roll)
     g->last = m;
 }
 
+/* back to the position before the first throw kept (the start, or the base of a long game), no throw played */
+static void restart(sn_game *g)
+{
+    g->n = 0;
+    memcpy(g->pos, g->base, sizeof g->pos);
+    g->turn = g->base_turn;
+    g->winner = -1;
+    memset(&g->last, 0, sizeof g->last);
+}
+
+/* the throws full: the oldest quarter goes into the base position (undo goes back that far at most), so a game
+ * never stops for its length */
+static void fold(sn_game *g)
+{
+    int drop = SN_MAX_THROWS / 4, n = g->n, pos[SN_PLAYERS], turn = g->turn;
+    sn_move last = g->last;
+    memcpy(pos, g->pos, sizeof pos);
+    restart(g);
+    while (g->n < drop) apply(g, g->roll[g->n++]);
+    memcpy(g->base, g->pos, sizeof g->base);
+    g->base_turn = g->turn;
+    memmove(g->roll, g->roll + drop, (size_t)(g->known - drop));
+    g->n = n - drop;
+    g->known -= drop;
+    memcpy(g->pos, pos, sizeof pos);
+    g->turn = turn;
+    g->last = last;
+}
+
 int sn_play(sn_game *g, int roll)
 {
-    if (roll < 1 || roll > 6 || g->winner >= 0 || g->n >= SN_MAX_THROWS) return 0;
+    if (roll < 1 || roll > 6 || g->winner >= 0) return 0;
+    if (g->n >= SN_MAX_THROWS) fold(g);
     if (g->n >= g->known || g->roll[g->n] != roll) g->known = g->n + 1;   /* a new throw: what was undone is gone */
     g->roll[g->n++] = (uint8_t)roll;
     apply(g, roll);
@@ -71,11 +101,7 @@ int sn_undo(sn_game *g)
 {
     if (!g->n) return 0;
     int n = g->n - 1;
-    g->n = 0;
-    memset(g->pos, 0, sizeof g->pos);
-    g->turn = 0;
-    g->winner = -1;
-    memset(&g->last, 0, sizeof g->last);
+    restart(g);
     while (g->n < n) apply(g, g->roll[g->n++]);
     return 1;
 }

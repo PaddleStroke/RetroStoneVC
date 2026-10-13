@@ -129,8 +129,9 @@ static void throw_dice(void)
 
 static void play(bmove m, int animate)
 {
-    int side = bg_pos(&G)->side;
+    int side = bg_pos(&G)->side, n = G.n;
     if (!bg_play(&G, m)) return;
+    if (G.n <= n && shown >= 0) shown -= n + 1 - G.n;   /* a long game: the rules forgot their first events */
     anim.on = animate;
     anim.player = side;
     anim.m = m;

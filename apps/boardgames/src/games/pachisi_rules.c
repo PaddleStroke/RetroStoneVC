@@ -129,12 +129,26 @@ static void next(ppos *p, int again)
     if (!again) p->turn = (uint8_t)((p->turn + 1) % p->players);   /* round the table */
 }
 
+/* a new event: the position before it, kept for undo. The history full, its oldest quarter is forgotten (undo goes
+ * back that far at most): a game never stops for its length. */
+static void record(pgame *g, int ev)
+{
+    if (g->n >= PA_MAX_EVENTS) {
+        int drop = PA_MAX_EVENTS / 4;
+        memmove(g->past, g->past + drop, (size_t)(PA_MAX_EVENTS - drop) * sizeof g->past[0]);
+        memmove(g->ev, g->ev + drop, (size_t)(PA_MAX_EVENTS - drop) * sizeof g->ev[0]);
+        g->n -= drop;
+    }
+    g->past[g->n] = g->pos;
+    g->ev[g->n++] = (uint8_t)ev;
+}
+
+
 int pa_throw(pgame *g, int mouths)
 {
     ppos *p = &g->pos;
-    if (p->phase != PA_THROW || mouths < 0 || mouths > 6 || g->n >= PA_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)mouths;
+    if (p->phase != PA_THROW || mouths < 0 || mouths > 6) return 0;
+    record(g, (uint8_t)mouths);
     p->roll = (uint8_t)pa_value(mouths);
     p->throws++;
     p->phase = PA_MOVE;
@@ -147,9 +161,8 @@ int pa_move(pgame *g, int piece)
 {
     ppos *p = &g->pos;
     int to = pa_dest(p, piece), me = p->turn, caught = 0;
-    if (to < 0 || g->n >= PA_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)(PA_MOVE_EV + piece);
+    if (to < 0) return 0;
+    record(g, (uint8_t)(PA_MOVE_EV + piece));
     int a = pa_army(p, piece), sq = pa_square(a, to);
     p->at[a][piece % PA_PIECES] = (uint8_t)to;
     p->out |= (uint8_t)(1 << a);
@@ -172,9 +185,8 @@ int pa_move(pgame *g, int piece)
 int pa_decline(pgame *g)
 {
     ppos *p = &g->pos;
-    if (p->phase != PA_MOVE || g->n >= PA_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = PA_DECLINE_EV;
+    if (p->phase != PA_MOVE) return 0;
+    record(g, PA_DECLINE_EV);
     next(p, pa_grace(p->roll));
     return 1;
 }

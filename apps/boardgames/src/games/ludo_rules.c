@@ -94,12 +94,26 @@ static void next_player(lpos *p)
     p->phase = LUDO_THROW;
 }
 
+/* a new event: the position before it, kept for undo. The history full, its oldest quarter is forgotten (undo goes
+ * back that far at most): a game never stops for its length. */
+static void record(lgame *g, int ev)
+{
+    if (g->n >= LUDO_MAX_EVENTS) {
+        int drop = LUDO_MAX_EVENTS / 4;
+        memmove(g->past, g->past + drop, (size_t)(LUDO_MAX_EVENTS - drop) * sizeof g->past[0]);
+        memmove(g->ev, g->ev + drop, (size_t)(LUDO_MAX_EVENTS - drop) * sizeof g->ev[0]);
+        g->n -= drop;
+    }
+    g->past[g->n] = g->pos;
+    g->ev[g->n++] = (uint8_t)ev;
+}
+
+
 int ludo_throw(lgame *g, int value)
 {
     lpos *p = &g->pos;
-    if (p->phase != LUDO_THROW || value < 1 || value > 6 || g->n >= LUDO_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)value;
+    if (p->phase != LUDO_THROW || value < 1 || value > 6) return 0;
+    record(g, (uint8_t)value);
     p->die = (uint8_t)value;
     p->throws++;
     if (p->variant == LUDO_CLASSIC && value == 6 && ++p->sixes == 3) {    /* Ludo's third 6: lost, the turn ends */
@@ -120,9 +134,8 @@ int ludo_move(lgame *g, int token)
 {
     lpos *p = &g->pos;
     int to = ludo_dest(p, token), hits = ludo_hits(p, token), me = p->turn, caught = 0;
-    if (to < 0 || g->n >= LUDO_MAX_EVENTS) return 0;
-    g->past[g->n] = *p;
-    g->ev[g->n++] = (uint8_t)(LUDO_MOVE_EV + token);
+    if (to < 0) return 0;
+    record(g, (uint8_t)(LUDO_MOVE_EV + token));
     p->at[me][token] = (int8_t)to;
     for (int i = 0; i < LUDO_PLAYERS * LUDO_TOKENS; i++)   /* the other players' tokens there go back to their yards */
         if (hits >> i & 1) {

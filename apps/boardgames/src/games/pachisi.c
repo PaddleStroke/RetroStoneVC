@@ -36,7 +36,8 @@ static float bx, by;                            /* the cells' top left corner */
 static box sq;                                  /* the board's square */
 static SDL_Texture *t_board, *t_piece[PA_ARMIES], *t_small[PA_ARMIES], *t_shell[2];
 static uint8_t shells[PA_MAX_EVENTS];           /* each throw's cowries (bit i: shell i's mouth up), kept through
-                                                 * undo: undo never rethrows */
+                                                 * undo: undo never rethrows; a ring (throw k at k % its size: undo
+                                                 * never goes back further than the rules keep) */
 static int nshells;
 static struct { int on, k; Uint32 t0; } roll;   /* the throw in the air (k: the throws before it) */
 static int pass_snd;                            /* a throw lost: its sound once the cowries lie still */
@@ -232,11 +233,10 @@ static int mask_of(int k, int up)
 static void throw_shells(void)
 {
     int k = G.pos.throws, m = 0;
-    if (G.n >= PA_MAX_EVENTS) return;
-    if (k < nshells) m = shells[k];             /* thrown before an undo: the same cowries again */
+    if (k < nshells) m = shells[k % PA_MAX_EVENTS];   /* thrown before an undo: the same cowries again */
     else {
         for (int i = 0; i < 6; i++) m |= ui_random(2) << i;
-        shells[k] = (uint8_t)m;
+        shells[k % PA_MAX_EVENTS] = (uint8_t)m;
         nshells = k + 1;
     }
     int r = pa_throw(&G, mouths(m));
@@ -294,7 +294,8 @@ static int script(const char *s)
 {
     int ok = pa_script(&G, s);
     for (int i = 0; i < G.n; i++)               /* its throws are the game's from now on */
-        if (G.ev[i] < PA_DECLINE_EV) shells[G.past[i].throws] = (uint8_t)mask_of(G.past[i].throws, G.ev[i]);
+        if (G.ev[i] < PA_DECLINE_EV)
+            shells[G.past[i].throws % PA_MAX_EVENTS] = (uint8_t)mask_of(G.past[i].throws, G.ev[i]);
     nshells = G.pos.throws;
     calm();
     return ok;
@@ -527,7 +528,7 @@ static void draw_shells(int q)
     const ppos *p = &G.pos;
     int e = last_throw(q), k = e >= 0 ? G.past[e].throws : -1, flying = tumbling() && roll.k == k && k >= 0;
     int active = p->phase != PA_OVER && p->turn == q, invite = active && p->phase == PA_THROW && !tumbling();
-    int top = tray_top(q), mask = e >= 0 ? shells[k] : 0;
+    int top = tray_top(q), mask = e >= 0 ? shells[k % PA_MAX_EVENTS] : 0;
     int lost = e >= 0 && e == G.n - 1 && p->turn != q && !flying;
     if (e < 0 && !invite) return;
     float cu, cv, x, y, s = SHELL * cs, alpha = active || flying ? 1 : 0.45f, t = 1;

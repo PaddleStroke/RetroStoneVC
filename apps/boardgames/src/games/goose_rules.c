@@ -101,9 +101,44 @@ static void apply(goo_game *g, int d1, int d2)
 
 static int valid(int d) { return d >= 1 && d <= 6; }
 
+/* back to the position before the first throw kept (the start, or the base of a long game), no throw played */
+static void restart(goo_game *g)
+{
+    g->n = 0;
+    memcpy(g->pos, g->base_pos, sizeof g->pos);
+    memcpy(g->wait, g->base_wait, sizeof g->wait);
+    g->turn = g->base_turn;
+    g->winner = -1;
+    memset(&g->last, 0, sizeof g->last);
+}
+
+/* the throws full: the oldest quarter goes into the base position (undo goes back that far at most), so a game
+ * never stops for its length */
+static void fold(goo_game *g)
+{
+    int drop = GOO_MAX_THROWS / 4, n = g->n, pos[GOO_PLAYERS], wait[GOO_PLAYERS], turn = g->turn;
+    goo_move last = g->last;
+    memcpy(pos, g->pos, sizeof pos);
+    memcpy(wait, g->wait, sizeof wait);
+    restart(g);
+    while (g->n < drop) apply(g, g->dice[g->n][0], g->dice[g->n][1]), g->n++;
+    memcpy(g->base_pos, g->pos, sizeof g->base_pos);
+    memcpy(g->base_wait, g->wait, sizeof g->base_wait);
+    g->base_turn = g->turn;
+    memmove(g->dice, g->dice + drop, (size_t)(g->known - drop) * sizeof g->dice[0]);
+    memmove(g->who, g->who + drop, (size_t)(g->known - drop) * sizeof g->who[0]);
+    g->n = n - drop;
+    g->known -= drop;
+    memcpy(g->pos, pos, sizeof pos);
+    memcpy(g->wait, wait, sizeof wait);
+    g->turn = turn;
+    g->last = last;
+}
+
 int goo_play(goo_game *g, int d1, int d2)
 {
-    if (!valid(d1) || !valid(d2) || g->winner >= 0 || g->n >= GOO_MAX_THROWS) return 0;
+    if (!valid(d1) || !valid(d2) || g->winner >= 0) return 0;
+    if (g->n >= GOO_MAX_THROWS) fold(g);
     if (g->n >= g->known || g->dice[g->n][0] != d1 || g->dice[g->n][1] != d2) g->known = g->n + 1;
     g->dice[g->n][0] = (uint8_t)d1;
     g->dice[g->n][1] = (uint8_t)d2;
@@ -115,17 +150,13 @@ int goo_play(goo_game *g, int d1, int d2)
 int goo_undo(goo_game *g)
 {
     if (!g->n) return 0;
-    int n = g->n - 1, known = g->known, players = g->players;
-    static uint8_t dice[GOO_MAX_THROWS][2];
-    memcpy(dice, g->dice, sizeof dice);
-    goo_new(g, players);
-    memcpy(g->dice, dice, sizeof dice);
+    int n = g->n - 1;
+    restart(g);
     for (int i = 0; i < n; i++) {
         g->who[i] = (uint8_t)g->turn;
         apply(g, g->dice[i][0], g->dice[i][1]);
         g->n = i + 1;
     }
-    g->known = known;
     return 1;
 }
 

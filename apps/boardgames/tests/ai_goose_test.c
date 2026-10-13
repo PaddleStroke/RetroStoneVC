@@ -1,9 +1,10 @@
 /*
  * The Game of the Goose's bot (src/games/goose_bot.c): no decision in the game, so the bot only throws ("roll") when
- * its turn comes (the rules' turn: the inn, the well and the prison), and never otherwise. Then self-play for two to
- * six players: every game ends, every move is the rules' (tests/ai_selfplay.h; the levels play alike). Headless: this
- * file plays the screen's part (goose_live(), goose_show(): "roll" throws dice of its own, from the session's seed
- * the harness sets before each think, so every game repeats). --full for the 200 games.
+ * its turn comes (the rules' turn: the inn, the well and the prison), and never otherwise. A very long game, past the
+ * rules' history. Then self-play for two to six players: every game ends, every move is the rules'
+ * (tests/ai_selfplay.h; the levels play alike). Headless: this file plays the screen's part (goose_live(),
+ * goose_show(): "roll" throws dice of its own, from the session's seed the harness sets before each think, so every
+ * game repeats). --full for the 200 games.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
@@ -59,6 +60,42 @@ int main(int argc, char **argv)
     check("the turn goes on: the next player's", goo_turn(&T) == 1 && b->think(1, AI_EASY, m, sizeof m));
     T.winner = 1;
     check("the game over: no move", !b->think(1, AI_HARD, m, sizeof m));
+    {   /* a very long game, six players: 3 x GOO_MAX_THROWS throws that never reach 63, then the bots' own throws
+         * to the end: the rules keep going (the first throws go into a base position), and undo still takes a throw
+         * back */
+        NP = 6;
+        reset();
+        ai_rng r;
+        ai_seed(&r, 11);
+        int ok = 1, undone = 0;
+        for (int i = 0; i < 3 * GOO_MAX_THROWS && ok; i++) {
+            int tries = 0;
+            do {                                /* a throw that does not win (taken back if it does) */
+                ok = goo_play(&T, 1 + ai_rand_n(&r, 6), 1 + ai_rand_n(&r, 6));
+            } while (ok && T.winner >= 0 && ++tries < 100 && goo_undo(&T));
+            ok = ok && T.winner < 0 && T.n <= GOO_MAX_THROWS;
+            if (ok && i % 997 == 0) {           /* undo, then the same throw again */
+                goo_game *keep = malloc(sizeof *keep);
+                *keep = T;
+                int d1, d2;
+                ok = goo_undo(&T) && goo_next(&T, &d1, &d2) && goo_play(&T, d1, d2) &&
+                     !memcmp(keep->pos, T.pos, sizeof T.pos) && !memcmp(keep->wait, T.wait, sizeof T.wait) &&
+                     keep->turn == T.turn;
+                undone += ok;
+                free(keep);
+            }
+        }
+        int ply = 0;
+        for (; ok && T.winner < 0 && ply < 5000; ply++) {
+            ai_set_seed(ai_mix(77, (uint64_t)ply));
+            ok = b->think(T.turn, AI_EASY, m, sizeof m) && one(m);
+        }
+        char name[160];
+        snprintf(name, sizeof name, "a game of %d throws and %d more: it ends, undo works (%d undone)",
+                 3 * GOO_MAX_THROWS, ply, undone);
+        check(name, ok && T.winner >= 0 && undone > 10);
+    }
+
     if (fails) return 1;
 
     int bad = 0;

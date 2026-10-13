@@ -1,10 +1,11 @@
 /*
  * Ludo's bot (src/games/ludo_bot.c), both rules and two to four players: its position-only throw and move against the
- * rules' own on random games, its registry entry, the throw it makes ("roll"), a capture, the cancel, then self-play
- * at every level for each rule and count (tests/ai_selfplay.h; with three or four players the seats take turns by
- * twos: the even players one level, the odd ones the other, swapped every other game). Headless: this file plays
- * the screen's part (ludo_live(), ludo_show(): "roll" throws a die of its own, from the session's seed the harness
- * sets before each think, so every game repeats). --full for the 200 games and the tables.
+ * rules' own on random games, its registry entry, the throw it makes ("roll"), a capture, the cancel, a very long
+ * game (past the rules' history), then self-play at every level for each rule and count (tests/ai_selfplay.h; with
+ * three or four players the seats take turns by twos: the even players one level, the odd ones the other, swapped
+ * every other game). Headless: this file plays the screen's part (ludo_live(), ludo_show(): "roll" throws a die of
+ * its own, from the session's seed the harness sets before each think, so every game repeats). --full for the 200
+ * games and the tables; --run n for one rule and count only.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
@@ -32,22 +33,7 @@ int ludo_show(const char *move) { return one(move); }
 
 static void reset(void) { ludo_new(&T, V, NP); }
 static int actor(void) { return T.pos.turn; }
-/* the winner's side (even or odd players). A game the rules can no longer go on with (LUDO_MAX_EVENTS: a long game of
- * petits chevaux, four players) is scored by the tokens' way, and counted (capped) */
-static int *capped;
-static int result(void)
-{
-    if (T.pos.winner >= 0) return T.pos.winner & 1;
-    if (T.n < LUDO_MAX_EVENTS - 1) return -1;
-    __atomic_fetch_add(capped, 1, __ATOMIC_SEQ_CST);
-    int best = 0, bv = -1;
-    for (int pl = 0; pl < NP; pl++) {
-        int v = 0;
-        for (int t = 0; t < LUDO_TOKENS; t++) v += T.pos.at[pl][t] + 1;
-        if (v > bv) bv = v, best = pl;
-    }
-    return best & 1;
-}
+static int result(void) { return T.pos.winner < 0 ? -1 : T.pos.winner & 1; }   /* the side: even or odd players */
 
 static int random_move(ai_rng *r, char *m, int cap)
 {
@@ -163,6 +149,33 @@ int main(int argc, char **argv)
             printf("     %-6s %6.2f ms a choice (worst %6.2f)\n", sp_name(lv), ms / npos, worst);
         }
     }
+    {   /* a very long game: petits chevaux, four players, 3 x LUDO_MAX_EVENTS lost throws (all in the stables), then
+         * bots of random levels (easy, medium) to the end: the rules keep going (their history forgets its oldest
+         * events), and undo still takes a move back */
+        V = LUDO_CHEVAUX, NP = 4;
+        reset();
+        int ok = 1, undone = 0, lv[LUDO_PLAYERS];
+        for (int i = 0; i < 3 * LUDO_MAX_EVENTS && ok; i++) ok = ludo_throw(&T, 1 + i % 5) == LT_PASS;
+        ai_seed(&r, 11);
+        for (int i = 0; i < LUDO_PLAYERS; i++) lv[i] = ai_rand_n(&r, 2);
+        int ply = 0;
+        for (; ok && T.pos.phase != LUDO_OVER && ply < 20000; ply++) {
+            char m[BOT_MOVE_CAP] = "";
+            int seat = T.pos.turn;
+            ai_set_seed(ai_mix(77, (uint64_t)ply));
+            ok = b->think(seat, lv[seat], m, sizeof m);
+            if (ok && T.pos.phase == LUDO_MOVE && ply % 7 == 0) {   /* undo, then the same move again */
+                lpos before = T.pos;
+                ok = one(m) && ludo_undo(&T) && !memcmp(&before, &T.pos, sizeof before);
+                undone += ok;
+            }
+            ok = ok && one(m) && T.n <= LUDO_MAX_EVENTS;
+        }
+        snprintf(name, sizeof name, "a game of %d throws and %d more: it ends, undo works (%d undone)",
+                 3 * LUDO_MAX_EVENTS, ply, undone);
+        check(name, ok && T.pos.phase == LUDO_OVER && undone > 10);
+    }
+
     if (fails) return 1;
 
     static const struct { int v, np, games; } RUNS[] = {
@@ -172,7 +185,6 @@ int main(int argc, char **argv)
     int bad = 0, only = -1;
     for (int i = 1; i + 1 < argc; i++)
         if (!strcmp(argv[i], "--run")) only = atoi(argv[i + 1]);
-    capped = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     for (size_t i = 0; i < sizeof RUNS / sizeof RUNS[0]; i++) {
         if (only >= 0 && (int)i != only) continue;
         V = RUNS[i].v;
@@ -181,7 +193,7 @@ int main(int argc, char **argv)
         snprintf(name, sizeof name, "== %s, %d players", V ? "petits chevaux" : "ludo", NP);
         puts(name);
         const sp_game G = {
-            .id = "ludo", .max_plies = 6000, .opening = 0, .reset = reset, .actor = actor, .result = result,
+            .id = "ludo", .max_plies = 20000, .opening = 0, .reset = reset, .actor = actor, .result = result,
             .random_move = random_move, .script = one,
         };
         const sp_pair P[] = {
@@ -190,11 +202,7 @@ int main(int argc, char **argv)
             {AI_HARD, AI_EASY, g, 40},
             {AI_HARD, AI_MEDIUM, g, 30},
         };
-        *capped = 0;
         bad |= sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
-        if (*capped)
-            printf("     %d games stopped by the rules' LUDO_MAX_EVENTS (%d), scored by the tokens' way\n", *capped,
-                   LUDO_MAX_EVENTS);
     }
     return bad;
 }

@@ -1,10 +1,11 @@
 /*
  * Pachisi's bot (src/games/pachisi_bot.c), two and four players: its position-only throw, move and decline against
- * the rules' own on random games, its registry entry, the throw it makes ("roll"), a capture, the cancel, then
- * self-play at every level (tests/ai_selfplay.h; four players: partners 0 and 2 one level, 1 and 3 the other, swapped
- * every other game). Headless: this file plays the screen's part (pachisi_live(), pachisi_show(): "roll" throws
- * cowries of its own, from the session's seed the harness sets before each think, so every game repeats). --full
- * for the 200 games and the tables; --run n for one player count only (0: two, 1: four).
+ * the rules' own on random games, its registry entry, the throw it makes ("roll"), a capture, the cancel, a very long
+ * game (past the rules' history), then self-play at every level (tests/ai_selfplay.h; four players: partners 0 and 2
+ * one level, 1 and 3 the other, swapped every other game). Headless: this file plays the screen's part
+ * (pachisi_live(), pachisi_show(): "roll" throws cowries of its own, from the session's seed the harness sets before
+ * each think, so every game repeats). --full for the 200 games and the tables; --run n for one player count only
+ * (0: two, 1: four).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
@@ -165,6 +166,34 @@ int main(int argc, char **argv)
             printf("     %-6s %6.2f ms a choice (worst %6.2f)\n", sp_name(lv), ms / npos, worst);
         }
     }
+    {   /* a very long game: four players, 3 x PA_MAX_EVENTS events of throws declined, then bots of random levels
+         * (easy, medium) to the end: the rules keep going (their history forgets its oldest events), and undo still
+         * takes a choice back */
+        NP = 4;
+        reset();
+        int ok = 1, undone = 0, lv[PA_ARMIES];
+        for (int i = 0; i < 3 * PA_MAX_EVENTS / 2 && ok; i++) ok = pa_throw(&T, 3) && pa_decline(&T);
+        ai_seed(&r, 11);
+        for (int i = 0; i < PA_ARMIES; i++) lv[i] = ai_rand_n(&r, 2);
+        int ply = 0;
+        for (; ok && T.pos.phase != PA_OVER && ply < 30000; ply++) {
+            char m[BOT_MOVE_CAP] = "";
+            int seat = T.pos.turn;
+            ai_set_seed(ai_mix(77, (uint64_t)ply));
+            ok = b->think(seat, lv[seat], m, sizeof m);
+            if (ok && T.pos.phase == PA_MOVE && ply % 7 == 0) {   /* undo, then the same choice again */
+                ppos before = T.pos;
+                ok = one(m) && pa_undo(&T) && !memcmp(&before, &T.pos, sizeof before);
+                undone += ok;
+            }
+            ok = ok && one(m) && T.n <= PA_MAX_EVENTS;
+        }
+        char name[160];
+        snprintf(name, sizeof name, "a game of %d events and %d more: it ends, undo works (%d undone)",
+                 3 * PA_MAX_EVENTS, ply, undone);
+        check(name, ok && T.pos.phase == PA_OVER && undone > 10);
+    }
+
     if (fails) return 1;
 
     static const int COUNTS[] = {2, 4};

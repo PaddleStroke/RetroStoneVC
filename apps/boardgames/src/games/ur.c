@@ -48,7 +48,8 @@ static int ends, two;
 static float rk_s = RACK, rk_v = RACK_V, rk_step = RACK_STEP, die_s = DIE, die_v = DICE_V;
 static SDL_Texture *t_board, *t_piece[2], *t_small[2], *t_die[2][2];
 static uint8_t rolls[UR_MAX_EVENTS];            /* each throw's dice (bit i: die i's marked tip up), kept through
-                                                 * undo: undo never rethrows */
+                                                 * undo: undo never rethrows; a ring (throw k at k % its size: undo
+                                                 * never goes back further than the rules keep) */
 static int nrolls;
 static struct { int on, k; Uint32 t0; } roll;   /* the throw that tumbles (k: the throws before it) */
 static int pass_snd;                            /* a throw lost: its sound once the dice lie still */
@@ -142,11 +143,10 @@ static int mask_of(int k, int value)
 static void throw_dice(void)
 {
     int k = G.pos.throws, m = 0;
-    if (G.n >= UR_MAX_EVENTS) return;
-    if (k < nrolls) m = rolls[k];               /* thrown before an undo: the same dice again */
+    if (k < nrolls) m = rolls[k % UR_MAX_EVENTS];   /* thrown before an undo: the same dice again */
     else {
         for (int i = 0; i < 4; i++) m |= ui_random(2) << i;
-        rolls[k] = (uint8_t)m;
+        rolls[k % UR_MAX_EVENTS] = (uint8_t)m;
         nrolls = k + 1;
     }
     int r = ur_throw(&G, count(m));
@@ -190,7 +190,8 @@ static int script(const char *s)
 {
     int ok = ur_script(&G, s);
     for (int i = 0; i < G.n; i++)               /* its throws are the game's from now on */
-        if (G.ev[i] < UR_MOVE_EV) rolls[G.past[i].throws] = (uint8_t)mask_of(G.past[i].throws, G.ev[i]);
+        if (G.ev[i] < UR_MOVE_EV)
+            rolls[G.past[i].throws % UR_MAX_EVENTS] = (uint8_t)mask_of(G.past[i].throws, G.ev[i]);
     nrolls = G.pos.throws;
     calm();
     return ok;
@@ -437,7 +438,7 @@ static void draw_dice(int q)
     int e = last_throw(q), k = e >= 0 ? G.past[e].throws : -1, rolling = tumbling() && roll.k == k && k >= 0;
     int active = p->phase != UR_OVER && p->turn == q, invite = active && p->phase == UR_THROW && !tumbling();
     if (e < 0 && !invite) return;
-    int mask = e >= 0 ? rolls[k] : 0, lost = e == G.n - 1 && p->turn != q && !rolling;
+    int mask = e >= 0 ? rolls[k % UR_MAX_EVENTS] : 0, lost = e == G.n - 1 && p->turn != q && !rolling;
     float alpha = active || rolling ? 1 : 0.45f, s = die_s * cs, k_s = die_s / DIE, x, y;
     if (invite && e >= 0) alpha = 0.8f;
     float rot = ui_upside(q) ? 180 : 0;

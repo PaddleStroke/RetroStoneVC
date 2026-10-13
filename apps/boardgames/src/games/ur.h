@@ -30,7 +30,7 @@
 #define UR_SHARED_LO 5                          /* the shared row: 5..12 */
 #define UR_SHARED_HI 12
 #define UR_CENTRE 8                             /* the central rosette (safe) */
-#define UR_MAX_EVENTS 4096                      /* throws and moves: far more than a game lasts */
+#define UR_MAX_EVENTS 4096                      /* events kept for undo (a power of 2): longer, the first go */
 #define UR_MOVE_EV 16                           /* an event: 0..4 a throw, UR_MOVE_EV + place a move */
 
 enum { UR_THROW, UR_MOVE, UR_OVER };            /* what comes next: a throw, a piece to move, nothing */

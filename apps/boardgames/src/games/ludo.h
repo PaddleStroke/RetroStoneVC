@@ -42,7 +42,7 @@
 #define LUDO_FOOT 50                            /* petits chevaux: the foot of the staircase (the lap's last square) */
 #define LUDO_STEPS 6                            /* its steps, 51..56 */
 #define CHEVAUX_HOME (LUDO_FOOT + LUDO_STEPS + 1)   /* petits chevaux: the centre */
-#define LUDO_MAX_EVENTS 4096                    /* throws and moves: far more than a game lasts */
+#define LUDO_MAX_EVENTS 4096                    /* events kept for undo (a power of 2): longer, the first go */
 #define LUDO_MOVE_EV 16                         /* an event: 1..6 a throw, LUDO_MOVE_EV + token a move */
 
 enum { LUDO_CLASSIC, LUDO_CHEVAUX, LUDO_VARIANTS };

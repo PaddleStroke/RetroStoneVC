@@ -41,7 +41,7 @@
 #define PA_UP 76                                /* the arm's end again, on the way home */
 #define PA_HOME 84
 #define PA_SQUARES (PA_LAP + PA_ARMIES * 7)     /* the track, then each arm's 7 middle squares (the charkoni: -1) */
-#define PA_MAX_EVENTS 8192                      /* throws and moves: far more than a game lasts */
+#define PA_MAX_EVENTS 8192                      /* events kept for undo (a power of 2): longer, the first go */
 #define PA_DECLINE_EV 30                        /* an event: 0..6 a throw (the mouths up), PA_DECLINE_EV,
                                                  * PA_MOVE_EV + piece a move (a piece: 0..7 of the mover's) */
 #define PA_MOVE_EV 32
