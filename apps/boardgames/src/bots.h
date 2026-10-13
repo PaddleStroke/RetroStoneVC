@@ -15,6 +15,16 @@
  *       simultaneous call), -1 none; NULL: game.turn().
  *   int play(const char *move);             optional (MAIN THREAD): plays the move with the game's usual animation and
  *       sounds, as if the human had tapped it; 0: refused. NULL: game.script() (instant).
+ *   int realtime;                           optional: 1, a race (slaps): the shell plays the move as soon as it is
+ *       ready (no pause: think() waits its own reaction time) and the humans' input is never held while it thinks;
+ *       a move made stale by a human's input is dropped by play() (return 1) or by the shell (the actor changed).
+ *   int plays(int variant);                 optional (MAIN THREAD): 0 for a variant the bot cannot play (the picker
+ *       then offers no bot seat for it: those seats are played by people). NULL: every variant.
+ *
+ * ---- Which seats the device plays --------------------------------------------------------------------------------
+ *   bot_seats() (MAIN THREAD, or a test): the seats the bots play in the game on the screen (bit n: player n), set by
+ *   the shell when a game starts or the seats change; a real-time game's actor() may name any bot seat with it (the
+ *   fastest bot to a double). The shell's ui_bot_seats() is the same mask.
  *
  * ---- What think() may touch (thread safety) --------------------------------------------------------------------
  * The main thread keeps drawing while think() runs; it never changes the game's rules state then (the shell sends no
@@ -31,9 +41,11 @@
  * The UI file exposes the live rules state read-only to its bot file (games/<id>.h: `const rgame *reversi_live(void)`)
  * and the animated play (`int reversi_show(const char *move)`); a headless test defines both itself.
  *
- * ---- The shell's pass (the integration plan) ---------------------------------------------------------------------
+ * ---- What the shell does with it (shell.c: bot_step, the picker's seats; README "Bots") --------------------------
  *   - The picker: a human / bot choice per seat when bot_find(game.id) is not NULL, and a level (AI_EASY..AI_HARD),
- *     kept in the save store with the players' count.
+ *     kept in the save store with the players' count (a chip a seat: a tap goes person, easy, medium, hard).
+ *   - The bots alone (no person): watched, 900 ms a move, no cover. A real-time bot (realtime): no pause, the people's
+ *     input never held, its move dropped when a person's input changed the seat to act.
  *   - Each frame in a game: if no bot is thinking, the game isn't busy(), no hand-off waits, status() is GS_PLAY and
  *     the actor (b->actor ? b->actor() : game.turn()) is a bot seat: ai_set_seed(ui_random-made seed);
  *     bot_begin(b, seat, level). Then bot_done(move, cap) each frame; when it returns 1 and at least the minimum
@@ -54,6 +66,8 @@ typedef struct bot {
     int (*think)(int seat, int level, char *move, int cap);
     int (*actor)(void);
     int (*play)(const char *move);
+    int realtime;                               /* 1: a race (slaps): played at once, the humans never held */
+    int (*plays)(int variant);                  /* 0: the bot cannot play that variant; NULL: it plays them all */
 } bot;
 
 #define BOT_MOVE_CAP 64                         /* a move's notation, at most (the worker's buffer) */
@@ -66,6 +80,8 @@ void bot_register(const char *id, const bot *b);
 const bot *bot_find(const char *id);            /* the game's bot, or NULL */
 int bot_count(void);
 const char *bot_id(int i);                      /* 0..bot_count()-1 */
+unsigned bot_seats(void);                       /* the seats the device plays now (bit n: player n) */
+void bot_seats_set(unsigned mask);              /* the shell's (a test's): the seats it gives the bots */
 
 /* ---- the worker (ai_worker.c, SDL threads; main thread only) ------------------------------------------------- */
 int  bot_begin(const bot *b, int seat, int level);  /* clears the cancel flag, starts think(); 0: already thinking */

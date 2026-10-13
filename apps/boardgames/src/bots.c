@@ -29,3 +29,7 @@ const bot *bot_find(const char *id)
 
 int bot_count(void) { return nreg; }
 const char *bot_id(int i) { return i >= 0 && i < nreg ? reg[i].id : NULL; }
+
+static unsigned seats;                          /* the main thread's only (the shell, or a test) */
+unsigned bot_seats(void) { return seats; }
+void bot_seats_set(unsigned mask) { seats = mask; }

@@ -881,9 +881,37 @@ void art_icon(int which, int size, uint8_t *rgba)
             art_ellipse(f, ART_PART, 0.73f, y, 0.04f, 0.04f);
         }
         break;
+    case ICON_PERSON:                               /* a person: the head, the shoulders */
+        art_ellipse(f, ART_PART, 0.5f, 0.335f, 0.145f, 0.145f);
+        art_arc(f, ART_PART, 0.5f, 0.87f, 0.0f, 0.31f, 0, 180);
+        break;
+    case ICON_BOT: {                                /* a robot's head: the antenna, the ears, a rounded head */
+        float x0 = 0.21f, x1 = 0.79f, y0 = 0.29f, y1 = 0.80f, r = 0.09f;
+        art_ellipse(f, ART_PART, 0.5f, 0.135f, 0.06f, 0.06f);
+        art_rect(f, ART_PART, 0.47f, 0.17f, 0.53f, 0.30f);
+        art_rect(f, ART_PART, 0.12f, 0.45f, 0.22f, 0.64f);
+        art_rect(f, ART_PART, 0.78f, 0.45f, 0.88f, 0.64f);
+        art_rect(f, ART_PART, x0 + r, y0, x1 - r, y1);
+        art_rect(f, ART_PART, x0, y0 + r, x1, y1 - r);
+        for (int k = 0; k < 4; k++) art_ellipse(f, ART_PART, k & 1 ? x1 - r : x0 + r, k & 2 ? y1 - r : y0 + r, r, r);
+        break;
+    }
     }
     art_render(f, &st, size, size, (float)size, 0, 0, rgba);
     art_fig_free(f);
+    if (which == ICON_BOT) {                        /* its eyes and mouth cut out: the button shows through */
+        art_fig *c = art_fig_new();
+        uint8_t *cut = calloc((size_t)size * size, 4);
+        if (c && cut) {
+            art_ellipse(c, ART_PART, 0.385f, 0.49f, 0.075f, 0.075f);
+            art_ellipse(c, ART_PART, 0.615f, 0.49f, 0.075f, 0.075f);
+            art_rect(c, ART_PART, 0.36f, 0.645f, 0.64f, 0.70f);
+            art_render(c, &st, size, size, (float)size, 0, 0, cut);
+            for (int i = 0; i < size * size; i++) rgba[4 * i + 3] = (uint8_t)(rgba[4 * i + 3] * (255 - cut[4 * i + 3]) / 255);
+        }
+        free(cut);
+        if (c) art_fig_free(c);
+    }
 }
 
 /* ---- plain shapes ------------------------------------------------------------------------------------------------ */

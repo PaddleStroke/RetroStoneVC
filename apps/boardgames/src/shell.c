@@ -9,7 +9,7 @@
  *   retrostoneboard --shot out.bmp [--size 720x1280] [--game chess] [--variant 0] [--moves "e2e4 e7e5"]
  *                   [--taps "0.5,0.9 0.5,0.7"] [--drag "0.1,0.9 0.5,0.5"] [--hold "0.5,0.5 800"] [--flip] [--f2f]
  *                   [--keep] [--pick] [--players n] [--reveal] [--at ms] [--level n] [--solved "1-12:3 13:2"]
- *                   [--keys "Up Left"] [--random] [--icons] [--save DIR]
+ *                   [--keys "Up Left"] [--random] [--icons] [--save DIR] [--bots "1:h,2:m"] [--steps n]
  *                                     one picture, no window: the menu (no --game), the picker (--pick) or a game
  *                                     after its moves (its own notation) and gestures (fractions of the board; of the
  *                                     screen on the menu and the pickers); the hand-off cover lifted (--reveal: the
@@ -17,10 +17,14 @@
  *                                     kept from a past run (--save DIR: that folder's); a game with levels:
  *                                     --pick its level screen, --level n (1..) that level, --solved the progress;
  *                                     --random a random puzzle of a game of levels (--variant n); --pick --tab n,
- *                                     n its chapters' count: its random tab
+ *                                     n its chapters' count: its random tab; --bots the seats the device plays
+ *                                     (players from 0: e easy, m medium, h hard; "all:m"), --steps n: the bots play
+ *                                     n moves after --moves (each move logged on stderr)
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
+#include "ai.h"
+#include "bots.h"
 #include "cards.h"
 #include "games/chess.h"
 #include "text.h"
@@ -57,6 +61,16 @@ static int view_of[MAX_GAMES];
 static struct { int up, player, pending; } hand = {0, 0, -1};
 static int is_view(void) { return cur >= 0 && games[cur]->view != VIEW_BOARD; }
 static unsigned winners_of(int st);
+
+/* the bots (bots.h): each game's seats (0 a person, else 1 + the bot's level AI_EASY..AI_HARD: the picker's choice,
+ * kept), the seats given back to the people in the game in play (a move refused), and what that makes of the game on
+ * the screen: its bot (NULL: none, or a game of levels), the seats the device plays (botmask) */
+static uint8_t seat_lv[MAX_GAMES][MAX_PLAYERS];
+static unsigned bot_off[MAX_GAMES];
+static const bot *cbot;
+static unsigned botmask;
+static int is_bot(int p) { return p >= 0 && p < MAX_PLAYERS && (botmask >> p & 1); }
+static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~botmask); }
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
@@ -139,6 +153,8 @@ static struct {
     float snd_x, snd_y, snd_r;
     box pills[MAX_PLAYERS + 1];                 /* the picker: how many players (pill_n[i] each) */
     int npills, pill_n[MAX_PLAYERS + 1], pill_rows;
+    box seats[MAX_PLAYERS];                     /* the picker of a game with a bot: who plays each seat */
+    int nseats;
     float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
     box tabs[SECTIONS];                         /* the menu's tabs, one a section with games */
     int ntabs, tab_sec[SECTIONS];
@@ -227,7 +243,8 @@ static int seat_top(int p)
     return ui.flipped ? fy > 0.5f : fy < 0.5f;
 }
 
-int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player); }
+/* face to face turns the people's pieces only (a bot's seat faces nobody) */
+int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player) && !is_bot(player); }
 /* the picture mode's clock is its own (shot_clock): it stands still, and moves on only past a gesture (its
  * animations have ended) or to --at ms after the last one, so the same picture comes out every time */
 static Uint32 ms_ahead;
@@ -909,16 +926,21 @@ static void game_key(int g, char *k, size_t n) { snprintf(k, n, "shell/game/%s",
 
 static int nlevels(int g) { return games[g]->levels < MAX_LEVELS ? games[g]->levels : MAX_LEVELS; }
 
-/* a game's choice: its variant (a game with levels: the last level played) and how many play */
+static int has_bot(int g);
+
+/* a game's choice: its variant (a game with levels: the last level played) and how many play; a game of levels that
+ * also plays at random: the variant picked for it, and which way it was last played; a game with a bot: who plays
+ * each seat (bytes 5..10: 0 a person, else 1 + the bot's level) */
+#define SAVE_GAME (5 + MAX_PLAYERS)
 static void remember_game(int g)
 {
     char k[96];
     game_key(g, k, sizeof k);
     int v = chosen[g] ? variant[g] + 1 : 0;
-    /* a game of levels that also plays at random: the variant picked for it, and which way it was last played */
-    uint8_t b[5] = {(uint8_t)v, (uint8_t)(v >> 8), (uint8_t)nplayers[g], (uint8_t)(rvariant[g] + 1),
-                    (uint8_t)rnd_mode[g]};
-    ui_save_set(k, b, has_random(g) ? 5 : 3);
+    uint8_t b[SAVE_GAME] = {(uint8_t)v, (uint8_t)(v >> 8), (uint8_t)nplayers[g], (uint8_t)(rvariant[g] + 1),
+                            (uint8_t)rnd_mode[g]};
+    memcpy(b + 5, seat_lv[g], MAX_PLAYERS);
+    ui_save_set(k, b, has_bot(g) ? SAVE_GAME : has_random(g) ? 5 : 3);
 }
 
 static void remember_mute(void)
@@ -930,13 +952,13 @@ static void remember_mute(void)
 /* the kept settings, each checked (a game gone, fewer variants: left as new) */
 static void settings_load(void)
 {
-    uint8_t b[5];
+    uint8_t b[SAVE_GAME];
     if (ui_save_get("shell/mute", b, 1) == 1) snd_muted = b[0] == 1;
     if (ui_save_get("shell/tab", b, 1) == 1 && b[0] < SECTIONS) menu.tab = b[0];
     for (int g = 0; g < ngames; g++) {
         char k[96];
         game_key(g, k, sizeof k);
-        int len = ui_save_get(k, b, 5);
+        int len = ui_save_get(k, b, SAVE_GAME);
         if (len < 3) continue;
         int v = (b[0] | b[1] << 8) - 1, most = games[g]->levels ? nlevels(g) : games[g]->variants;
         if (v >= 0 && v < most) {
@@ -944,10 +966,12 @@ static void settings_load(void)
             chosen[g] = 1;
         }
         if (b[2] >= 1 && b[2] <= MAX_PLAYERS && player_counts(g) >> b[2] & 1) nplayers[g] = b[2];
-        if (len == 5 && has_random(g) && b[3] >= 1 && b[3] <= games[g]->variants) {
+        if (len >= 5 && has_random(g) && b[3] >= 1 && b[3] <= games[g]->variants) {
             rvariant[g] = b[3] - 1;
             rnd_mode[g] = b[4] == 1;
         }
+        for (int p = 0; len >= SAVE_GAME && has_bot(g) && p < MAX_PLAYERS; p++)
+            seat_lv[g][p] = b[5 + p] <= 1 + AI_HARD ? b[5 + p] : 0;
     }
 }
 
@@ -1130,8 +1154,8 @@ static void game_textures(void)
 }
 
 /* ---- layout ------------------------------------------------------------------------------------------------------ */
-/* the buttons shown: alone (one player), no flip nor face to face */
-static int shown(int i) { return (ui.players > 1 && !is_view()) || (i != B_FLIP && i != B_F2F); }
+/* the buttons shown: alone (one player, or one person against the bots), no flip nor face to face */
+static int shown(int i) { return (humans() > 1 && !is_view()) || (i != B_FLIP && i != B_F2F); }
 
 /* the game's own round buttons (game.tools): the room the shell gave them (right: packed against its right end, the
  * bottom bar's), their size; where each is, worked out again when the count shown changes */
@@ -1619,11 +1643,11 @@ static void settings_layout(float th)
 /* a picture of one colour, rounded (a panel, a switch's track), kept by its size and colour (a few) */
 static SDL_Texture *rounded(int w, int h, float rad, const uint8_t c[4])
 {
-    static struct { SDL_Texture *t; int w, h; uint8_t c[4]; } k[6];
+    static struct { SDL_Texture *t; int w, h; uint8_t c[4]; } k[12];
     static int next;
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 12; i++)
         if (k[i].t && k[i].w == w && k[i].h == h && !memcmp(k[i].c, c, 4)) return k[i].t;
-    int i = next++ % 6;
+    int i = next++ % 12;
     ui_free(&k[i].t);
     if (w < 1 || h < 1) return NULL;
     art_roundrect(w, h, rad, c, ui_buf(w, h));
@@ -1795,6 +1819,29 @@ static void layout_cards(int n)
             free(b);
         }
     }
+    L.nseats = 0;
+    if (screen == SCR_PICK && has_bot(cur)) {   /* who plays each seat: a chip each (its token, then a person or the
+                                                 * device's robot), under the counts: one row, or two on a narrow
+                                                 * screen */
+        int ns = ui.players, per = ns;
+        float sh = fminf(ui.w, ui.h) * 0.12f, sw = sh * 1.95f, sg = sh * 0.3f;
+        float fit = (ui.w - 2 * m) / (ns * sw + (ns - 1) * sg);
+        if (fit < 0.8f && ns > 2) {
+            per = (ns + 1) / 2;
+            fit = (ui.w - 2 * m) / (per * sw + (per - 1) * sg);
+        }
+        if (fit < 1) { sh *= fit; sw *= fit; sg *= fit; }
+        sh = floorf(sh);
+        sw = floorf(sw);
+        for (int k = 0; k < ns; k++) {
+            int r = k / per, inrow = r ? ns - per : per;
+            float x = (ui.w - (inrow * sw + (inrow - 1) * sg)) / 2;
+            L.seats[k] = (box){floorf(x + (k - r * per) * (sw + sg)), floorf(head + r * (sh + sg)), sw, sh};
+        }
+        L.nseats = ns;
+        int rows = (ns + per - 1) / per;
+        head += rows * sh + (rows - 1) * sg + g;
+    }
     float lab = screen == SCR_MENU ? 0.22f : screen == SCR_PICK && vnames(cur) ? PICK_LAB : 0;   /* a name under each */
     int cols = ui.w > ui.h ? (n > 3 ? 3 : n) : (n > 1 ? 2 : 1);
     if (screen == SCR_PICK) {                   /* the picker: the grid that makes the cards biggest */
@@ -1856,10 +1903,14 @@ static void layout_cards(int n)
         menu.max = fmaxf(0, y0 + tall + m - ui.h);
         menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
     }
-    if (L.npills) {                             /* the picker: the pills and the cards, one block in the middle */
-        float ph = L.pills[L.npills - 1].y + L.pills[0].h - L.pills[0].y;   /* their rows */
-        float start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2), dy = floorf(start) - L.pills[0].y;
+    if (L.npills || L.nseats) {                 /* the picker: the pills, the seats and the cards, one block in the
+                                                 * middle */
+        float t0 = L.npills ? L.pills[0].y : L.seats[0].y;
+        float t1 = L.nseats ? L.seats[L.nseats - 1].y + L.seats[0].h : L.pills[L.npills - 1].y + L.pills[0].h;
+        float ph = t1 - t0;                     /* their rows */
+        float start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2), dy = floorf(start) - t0;
         for (int k = 0; k < L.npills; k++) L.pills[k].y += dy;
+        for (int k = 0; k < L.nseats; k++) L.seats[k].y += dy;
         y0 = start + ph + g;
     }
     for (int i = 0; i < n; i++) L.cards[i].y = floorf(L.cards[i].y + y0);
@@ -1957,9 +2008,72 @@ static void layout(void)
     else layout_cards(screen == SCR_MENU ? ngames : games[cur]->variants);
 }
 
+/* ---- the bots' seats (bots.h) ------------------------------------------------------------------------------------ */
+/* a game's bot (one that thinks; never for a game of levels: a puzzle is the player's own) */
+static const bot *bot_of(int g)
+{
+    const bot *b = g >= 0 && !games[g]->levels ? bot_find(games[g]->id) : NULL;
+    return b && b->think ? b : NULL;
+}
+static int has_bot(int g) { return bot_of(g) != NULL; }
+static int bot_plays(int g, int v) { const bot *b = bot_of(g); return b && (!b->plays || b->plays(v)); }
+static int any_bot_seat(int g)                  /* the picker gives the device a seat (of those that play) */
+{
+    for (int p = 0; p < players_of(g); p++)
+        if (seat_lv[g][p]) return 1;
+    return 0;
+}
+
+/* the seats the device plays in the game on the screen: those the picker gave it, when its bot plays the variant,
+ * less those given back to the people (a move refused) */
+static void bots_update(void)
+{
+    cbot = bot_of(cur);
+    botmask = 0;
+    if (cbot && bot_plays(cur, variant[cur]))
+        for (int p = 0; p < ui.players; p++)
+            if (seat_lv[cur][p] && !(bot_off[cur] >> p & 1)) botmask |= 1u << p;
+    bot_seats_set(botmask);
+}
+
+unsigned ui_bot_seats(void) { return botmask; }
+
+/* the first person's seat from p on, in turn order (p itself when no person plays: the bots alone) */
+static int human_from(int p)
+{
+    for (int k = 0; k < ui.players && humans(); k++)
+        if (!is_bot((p + k) % ui.players)) return (p + k) % ui.players;
+    return p;
+}
+
+/* one person, or nobody (a game for one, one person against the bots, the bots alone): no flip nor face to face
+ * (their buttons are hidden), the person at the bottom; the settings come back for the next game of two people or
+ * more */
+static void seats_view(void)
+{
+    static int saved = -1, saved_f2f;
+    int h = humans();
+    if (h <= 1) {
+        if (saved < 0) {
+            saved = ui.flipped;
+            saved_f2f = ui.f2f;
+        }
+        ui.flipped = ui.f2f = 0;
+        if (h == 1 && ui.players > 1 && cur >= 0 && !is_view()) ui.flipped = seat_top(human_from(0));
+    } else if (saved >= 0) {
+        ui.flipped = saved;
+        ui.f2f = saved_f2f;
+        saved = -1;
+    }
+}
+
 /* ---- the screens ------------------------------------------------------------------------------------------------- */
-/* the picker comes before a new game when there is something to choose: a variant, how many play, a level */
-static int needs_picker(int g) { return games[g]->variants > 1 || many_counts(g) || games[g]->levels > 0; }
+/* the picker comes before a new game when there is something to choose: a variant, how many play, a level, who plays
+ * (a game with a bot) */
+static int needs_picker(int g)
+{
+    return games[g]->variants > 1 || many_counts(g) || games[g]->levels > 0 || has_bot(g);
+}
 
 /* the picker, or a game with levels its level screen (random play: its picker, under the level screen's tabs) */
 static void show_picker(int g)
@@ -1978,13 +2092,14 @@ static void show_picker(int g)
 }
 
 /* ---- the hand-off ------------------------------------------------------------------------------------------------ */
-/* the view goes to `player`: covered first (VIEW_HIDDEN, while the game is on), or at once */
+/* the view goes to `player`: covered first (VIEW_HIDDEN, while the game is on, between two people: one person
+ * against the bots, or the bots alone, never see a cover), or at once */
 static void view_to(int player)
 {
     hand.pending = -1;
     view_of[cur] = player;
     const game *g = games[cur];
-    if ((g->hidden ? g->hidden() : g->view == VIEW_HIDDEN) && g->status() == GS_PLAY) {
+    if ((g->hidden ? g->hidden() : g->view == VIEW_HIDDEN) && g->status() == GS_PLAY && humans() > 1) {
         hand.up = 1;
         hand.player = player;
         ui.viewer = -1;
@@ -2007,6 +2122,7 @@ static void uncover(void)
 void ui_handoff(int player)
 {
     if (!is_view() || player < 0 || player >= ui.players) return;
+    if (is_bot(player) && humans()) return;     /* to a bot: the view stays the last person's */
     if (player == ui.viewer && !hand.up) { hand.pending = -1; return; }
     hand.pending = player;
     need_frame = 1;
@@ -2024,36 +2140,136 @@ static void handoff_settle(void)
     view_to(hand.pending);
 }
 
-/* a new game: the player to move gets the view (covered: VIEW_HIDDEN); a game opened again: the cover first */
+/* a new game: the player to move gets the view (covered: VIEW_HIDDEN), the first person after them when a bot moves
+ * first; a game opened again: the cover first */
 static void view_start(int fresh)
 {
     hand.pending = -1;
     hand.up = 0;
     if (!is_view()) { ui.viewer = -1; return; }
     int p = fresh ? games[cur]->turn() : view_of[cur];
-    view_to(p < 0 || p >= ui.players ? 0 : p);
+    view_to(human_from(p < 0 || p >= ui.players ? 0 : p));
 }
 
-/* one player: no flip nor face to face (their buttons are hidden); the settings come back for the next game of
- * two or more */
-static void solo_view(void)
+/* ---- the bots at play (bots.h's integration plan) -----------------------------------------------------------------
+ * Each frame (bot_step): a bot starts when none thinks, the game is on (GS_PLAY), not busy(), no hand-off waits, the
+ * rules page is shut and the seat that must act (its bot's actor(), else turn()) is the device's; the worker thinks
+ * while the screen keeps drawing; its move is played (the bot's play(), else script()) once it has thought at least
+ * BOT_PAUSE ms (BOT_WATCH with no person playing: the bots alone are paced for watching; a real-time bot's at once).
+ * An empty or refused move: logged, and the seat goes to the people for the rest of the game (never a loop). Undo, a
+ * new game, leaving and quitting stop the worker first (bot_stop); the rules page only holds the move until it
+ * closes. */
+#define BOT_PAUSE 600
+#define BOT_WATCH 900
+static struct {
+    int seat, held, played;                     /* the seat thinking; a move ready, held for its pause; moves played */
+    unsigned ms;                                /* how long the move took (the picture mode's log) */
+    char move[BOT_MOVE_CAP];
+} BT = {-1, 0, 0, 0, ""};
+static int held_press;                          /* a finger put down while a bot's turn held the input: its motion
+                                                 * and its release are not the game's either */
+static void after_input(void);
+
+/* a real-time game (a race: slaps): its bot's flag, or a game played with several fingers at once */
+static int realtime(void) { return cbot && (cbot->realtime || games[cur]->finger); }
+
+/* the seat that must act now (-1: nobody) */
+static int bot_actor(void) { return cbot && cbot->actor ? cbot->actor() : games[cur]->turn(); }
+
+/* the worker stopped (cancelled, joined) and its move forgotten */
+static void bot_stop(void)
 {
-    static int saved = -1, saved_f2f;
-    if (ui.players == 1 && saved < 0) {
-        saved = ui.flipped;
-        saved_f2f = ui.f2f;
-        ui.flipped = ui.f2f = 0;
-    } else if (ui.players > 1 && saved >= 0) {
-        ui.flipped = saved;
-        ui.f2f = saved_f2f;
-        saved = -1;
+    bot_halt();
+    BT.held = 0;
+    BT.seat = -1;
+}
+
+/* the game's own input held: a bot's turn (not in a race), the game on */
+static int bot_holds(void)
+{
+    if (!botmask || cur < 0 || screen != SCR_GAME || realtime() || games[cur]->status() != GS_PLAY) return 0;
+    return is_bot(bot_actor()) || bot_thinking() || BT.held;
+}
+
+/* the seat's bot could not move: the people play that seat for the rest of the game */
+static void bot_gives_up(int seat, const char *why)
+{
+    fprintf(stderr, "bots: %s, seat %d: %s \"%s\"; the seat goes to the people\n", games[cur]->id, seat, why, BT.move);
+    bot_off[cur] |= 1u << seat;
+    bots_update();
+    seats_view();
+    layout();
+}
+
+static void bot_step(void)
+{
+    if (screen != SCR_GAME || cur < 0 || !botmask) {
+        if (bot_thinking() || BT.held) bot_stop();
+        return;
     }
+    const game *g = games[cur];
+    if (bot_thinking()) {
+        need_frame = 1;                         /* the thinking sign moves */
+        if (!bot_done(BT.move, sizeof BT.move)) return;
+        BT.held = 1;
+        BT.ms = bot_ms();
+    }
+    if (BT.held) {
+        need_frame = 1;
+        unsigned pause = realtime() || instant ? 0 : humans() ? BOT_PAUSE : BOT_WATCH;
+        if (help.open || bot_ms() < pause) return;
+        int seat = BT.seat;
+        BT.held = 0;
+        BT.seat = -1;
+        if (g->status() != GS_PLAY || bot_actor() != seat) return;   /* stale (a person acted first: a race) */
+        if (!BT.move[0]) {
+            bot_gives_up(seat, "no move");
+            return;
+        }
+        int ok = cbot->play ? cbot->play(BT.move) : g->script ? g->script(BT.move) : 0;
+        if (!ok) {
+            bot_gives_up(seat, "move refused");
+            return;
+        }
+        BT.played++;
+        if (instant) fprintf(stderr, "bot %d: %s (%u ms)\n", seat, BT.move, BT.ms);
+        after_input();
+        return;
+    }
+    if (help.open || g->status() != GS_PLAY || (g->busy && g->busy()) || ui_handing()) return;
+    int a = bot_actor();
+    if (!is_bot(a)) return;
+    uint64_t seed = (uint64_t)ui_random(1 << 30) << 34 ^ (uint64_t)ui_random(1 << 30) << 4 ^ (uint64_t)ui_random(16);
+    ai_set_seed(seed);
+    BT.move[0] = 0;
+    if (!bot_begin(cbot, a, seat_lv[cur][a] - 1)) {
+        bot_gives_up(a, "no worker");
+        return;
+    }
+    BT.seat = a;
+    need_frame = 1;
+}
+
+/* undo against the bots: back to the last person's move (the bots' replies taken back with it); the bots alone: one
+ * move */
+static int undo_human(void)
+{
+    const game *g = games[cur];
+    bot_stop();
+    if (!g->undo()) return 0;
+    for (int k = 0; k < 256 && botmask && humans() && g->status() == GS_PLAY && is_bot(bot_actor()); k++)
+        if (!g->undo()) break;
+    return 1;
 }
 
 /* a new game of the open one: start(v), given a fresh random state (kept), or the one it was given last (same: a
  * replay, the same deal or puzzle) */
 static void start_game(int v, int same)
 {
+    bot_stop();
+    bot_off[cur] = 0;                           /* every seat as the picker gave it */
+    bots_update();
+    seats_view();
     if (same) rng = start_rng[cur];
     else start_rng[cur] = rng;
     ui.level = games[cur]->levels && !in_random(cur) ? v : -1;
@@ -2065,9 +2281,11 @@ static void start_game(int v, int same)
 
 static void open_game(int i, int fresh_variant)
 {
+    if (cur != i) bot_stop();
     cur = i;
     ui.players = players_of(i);
-    solo_view();
+    bots_update();
+    seats_view();
     int fresh = 0;
     if (fresh_variant >= 0) {
         if (in_random(i)) rvariant[i] = fresh_variant;
@@ -2095,6 +2313,7 @@ static void open_game(int i, int fresh_variant)
 
 static void go_home(void)
 {
+    bot_stop();                                 /* a bot thinking: it starts again when the game is opened again */
     if (is_view() && hand.pending >= 0) view_of[cur] = hand.pending;   /* the next player's, when it comes back */
     hand.pending = -1;
     screen = SCR_MENU;
@@ -2115,6 +2334,7 @@ static void restart(int same)
 static void new_game(void)
 {
     armed = 0;
+    bot_stop();
     if (needs_picker(cur)) {
         started[cur] = 0;
         show_picker(cur);
@@ -2140,7 +2360,9 @@ static void card_next(void)
     else restart(0);
 }
 
-/* after anything a player did: a new end of the game (or none any more) is noticed; draw_game() shows it */
+/* after anything a player did: a new end of the game (or none any more) is noticed; draw_game() shows it. A race (a
+ * real-time game): a bot's move made stale by a person's (the seat to act has changed) is dropped, and it thinks
+ * again. */
 static void after_input(void)
 {
     if (screen != SCR_GAME) return;
@@ -2148,6 +2370,7 @@ static void after_input(void)
     int s = games[cur]->status();
     if (s != last_status) { over_hidden = 0; end_seen = 0; card_t0 = 0; }
     last_status = s;
+    if (BT.seat >= 0 && realtime() && (s != GS_PLAY || bot_actor() != BT.seat)) bot_stop();
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
@@ -2161,7 +2384,32 @@ static void draw_button(float x, float y, float r, int icon, SDL_Texture *disc)
 static int shows_pass(int p)
 {
     const game *g = games[cur];
-    return g->can_pass && g->status() == GS_PLAY && g->turn() == p && g->can_pass();
+    return g->can_pass && g->status() == GS_PLAY && g->turn() == p && !is_bot(p) && g->can_pass();
+}
+
+/* a bot's seat in its bar: a small robot on a dark disc at the token's lower right; while it thinks, three dots on
+ * the disc instead, rising one after the other */
+static void bot_badge(float tx, float cy, float tk, int thinking)
+{
+    static const uint8_t disc_c[4] = {28, 34, 32, 235}, dot_c[4] = {246, 238, 220, 255};
+    float d = floorf(0.62f * tk), bx = tx + 0.4f * tk, by = cy + 0.3f * tk;
+    SDL_Texture *disc = rounded((int)d, (int)d, d / 2, disc_c);
+    ui_put_c(disc, bx, by, d, d);
+    if (!thinking) {
+        SDL_Texture *t = btn_tex(paint_btn_icon, ICON_BOT, (int)(0.78f * d));
+        if (!t) return;
+        SDL_SetTextureColorMod(t, BTN_CREAM);
+        ui_put_c(t, bx, by - 0.02f * d, 0.78f * d, 0.78f * d);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        return;
+    }
+    float dd = fmaxf(2, floorf(0.17f * d)), t = (float)(ui_ms() % 1200) / 1200;
+    SDL_Texture *dot = rounded((int)dd, (int)dd, dd / 2, dot_c);
+    for (int k = 0; k < 3; k++) {
+        float ph = t * 3 - k * 0.5f, lift = ph > 0 && ph < 1 ? sinf(ph * ART_PI) : 0;
+        ui_put_c(dot, bx + (k - 1) * 0.27f * d, by - lift * 0.16f * d, dd, dd);
+    }
+    ui_animate();
 }
 
 static void bar_content(int p, box b)
@@ -2172,11 +2420,17 @@ static void bar_content(int p, box b)
     int narrow = b.w < 1.9f * ui.unit;          /* five bars side by side: closer, the token smaller */
     float tk = narrow ? 0.6f * ui.unit : L.tk;
     float cy = b.y + b.h / 2, tx = b.x + (narrow ? 0.04f : 0.15f) * ui.unit + tk / 2;
-    if (turn || won) {                          /* the gold light: whose turn it is, or who won */
-        float k = turn ? 1.8f : 2.3f;
+    int thinking = is_bot(p) && BT.seat == p && (bot_thinking() || BT.held);
+    if (turn || won || thinking) {              /* the gold light: whose turn it is, or who won; a bot thinking:
+                                                 * breathing */
+        float k = turn || thinking ? 1.8f : 2.3f, a = 1;
+        if (thinking) a = 0.55f + 0.45f * cosf((float)(ui_ms() % 1400) / 1400 * 2 * ART_PI);
+        SDL_SetTextureAlphaMod(t_gold, (Uint8)(255 * a));
         ui_put_c(t_gold, tx, cy, tk * k, tk * k);
+        SDL_SetTextureAlphaMod(t_gold, 255);
     }
     ui_put_c(t_tok[p], tx, cy, tk, tk);
+    if (is_bot(p)) bot_badge(tx, cy, tk, thinking);
     float right = b.x + b.w;
     if (shows_pass(p)) {
         float r = 0.42f * ui.unit;
@@ -2766,6 +3020,48 @@ static void draw_axes(void)
     }
 }
 
+/* the picker's seats (a game with a bot): a chip each, the seat's token on its left; on its right a person, or the
+ * device's robot with its level under it (one to three gold lights). A tap: a person, then the robot easy, medium,
+ * hard, then a person again. */
+static void draw_seats(void)
+{
+    static SDL_Texture *tok[MAX_PLAYERS];
+    static int key = -1;
+    static const uint8_t person_c[4] = {54, 72, 64, 255}, bot_c[4] = {30, 40, 46, 255}, gold[4] = {255, 200, 80, 255};
+    if (!L.nseats) return;
+    float h = L.seats[0].h, w = L.seats[0].w;
+    int ts = (int)(0.62f * h), k0 = ((cur * 64 + ts) * 8 + tok_gen % 8);
+    if (key != k0) {                            /* the seats' tokens, at their size (their own buffer) */
+        key = k0;
+        uint8_t *b = calloc((size_t)ts * ts, 4);
+        for (int p = 0; p < MAX_PLAYERS && b; p++) {
+            ui_free(&tok[p]);
+            memset(b, 0, (size_t)ts * ts * 4);
+            games[cur]->token(p, ts, b);
+            tok[p] = ui_tex(ts, ts, b);
+        }
+        free(b);
+    }
+    for (int k = 0; k < L.nseats; k++) {
+        box b = L.seats[k];
+        int lv = seat_lv[cur][k];
+        float cy = b.y + h / 2, fx = b.x + w - 0.64f * h;
+        ui_put(rounded((int)w, (int)h, h / 2, lv ? bot_c : person_c), b.x, b.y, w, h);
+        ui_put_c(tok[k], b.x + 0.52f * h, cy, (float)ts, (float)ts);
+        float id = floorf((lv ? 0.58f : 0.66f) * h);
+        SDL_Texture *t = btn_tex(paint_btn_icon, lv ? ICON_BOT : ICON_PERSON, (int)id);
+        if (t) {
+            SDL_SetTextureColorMod(t, BTN_CREAM);
+            ui_put_c(t, fx, lv ? cy - 0.1f * h : cy, id, id);
+            SDL_SetTextureColorMod(t, 255, 255, 255);
+        }
+        float pd = floorf(fmaxf(3, 0.12f * h));
+        for (int i = 0; i < lv; i++)            /* the level: one, two or three lights */
+            ui_put_c(rounded((int)pd, (int)pd, pd / 2, gold), fx + (i - (lv - 1) / 2.0f) * 0.19f * h, cy + 0.3f * h,
+                     pd, pd);
+    }
+}
+
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
@@ -2788,6 +3084,7 @@ static void draw_cards(void)
         ui_put(np == ui.players ? t_pill_on : t_pill, b.x, b.y, b.w, b.h);
         for (int p = 0; p < np; p++) ui_put_c(t_ptok[p], x0 + p * step, b.y + b.h / 2, ts, ts);
     }
+    if (screen == SCR_PICK) draw_seats();
     float dy = 0;
     if (screen == SCR_MENU && menu.max > 0) {   /* the cards' window, below the buttons */
         if (menu.vel != 0 && !menu.grabbing) {  /* the fling: slows down, stops at the ends */
@@ -2813,9 +3110,16 @@ static void draw_cards(void)
             (screen == SCR_PICK && (games[cur]->levels ? in_random(cur) && rvariant[cur] == i
                                     : chosen[cur] && variant[cur] == i)))   /* the variant chosen last */
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
+        /* a variant the bot cannot play, the device given a seat: dimmed (it starts with people in every seat) */
+        Uint8 a = screen == SCR_PICK && L.nseats && any_bot_seat(cur) && !bot_plays(cur, i) ? 110 : 255;
+        SDL_Texture *th = thumb(gi, v);
+        SDL_SetTextureAlphaMod(t_menu_card, a);
+        if (th) SDL_SetTextureAlphaMod(th, a);
         ui_put(t_menu_card, c.x, c.y, c.w, c.h);
         float s = c.w * 0.86f;
-        ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.w / 2, s, s);
+        ui_put_c(th, c.x + c.w / 2, c.y + c.w / 2, s, s);
+        SDL_SetTextureAlphaMod(t_menu_card, 255);
+        if (th) SDL_SetTextureAlphaMod(th, 255);
         if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
         else card_name(i, c);
     }
@@ -3196,7 +3500,18 @@ static void press(float x, float y)
             snd_play(SND_TAP);
             nplayers[cur] = ui.players = L.pill_n[k];
             remember_game(cur);
-            solo_view();
+            bots_update();
+            seats_view();
+            if (L.nseats) layout();             /* as many seats as play */
+            return;
+        }
+        for (int k = 0; k < L.nseats; k++) {    /* a seat: a person, the bot easy, medium, hard, a person again */
+            if (!in_box(L.seats[k], x, y)) continue;
+            snd_play(SND_TAP);
+            seat_lv[cur][k] = (uint8_t)((seat_lv[cur][k] + 1) % (2 + AI_HARD));
+            remember_game(cur);
+            bots_update();
+            seats_view();
             return;
         }
         for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {
@@ -3263,7 +3578,7 @@ static void press(float x, float y)
         if (!shown(i) || !in_circle(x, y, L.bx[i], L.by[i], L.br)) continue;
         if (i == B_HOME) { snd_play(SND_TAP); go_home(); }
         else if (i == B_UNDO && ui_handing()) snd_play(SND_DENY);   /* the turn has passed: no going back */
-        else if (i == B_UNDO) { snd_play(games[cur]->undo() ? SND_TAP : SND_DENY); over_hidden = 0; }
+        else if (i == B_UNDO) { snd_play(undo_human() ? SND_TAP : SND_DENY); over_hidden = 0; }
         else if (i == B_FLIP) { snd_play(SND_TAP); ui.flipped = !ui.flipped; layout(); }
         else if (i == B_F2F) { snd_play(SND_TAP); ui.f2f = !ui.f2f; }
         else if (i == B_HELP) { snd_play(SND_TAP); open_help(cur); }
@@ -3292,6 +3607,10 @@ static void press(float x, float y)
     }
     if (games[cur]->status() == GS_WIN0 && (games[cur]->levels || (ui.players == 1 && games[cur]->level_stars))) {
         over_hidden = 0;                        /* a solved puzzle: its card again */
+        return;
+    }
+    if (bot_holds()) {                          /* a bot's turn: the game's input waits (the finger's whole way) */
+        held_press = 1;
         return;
     }
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
@@ -3325,7 +3644,7 @@ static void motion(float x, float y)
     }
     if (screen == SCR_LEVELS && LV.grabbing && hypotf(x - LV.grab_x, y - LV.grab_y) > fminf(ui.w, ui.h) * 0.02f)
         LV.moved = 1;
-    if (screen == SCR_GAME && !(is_view() && hand.up)) games[cur]->motion(x, y);
+    if (screen == SCR_GAME && !(is_view() && hand.up) && !held_press) games[cur]->motion(x, y);
 }
 
 static void release(float x, float y)
@@ -3361,7 +3680,8 @@ static void release(float x, float y)
         }
         return;
     }
-    if (screen == SCR_GAME && !(is_view() && hand.up)) games[cur]->release(x, y);
+    if (held_press) held_press = 0;           /* a finger put down on a bot's turn: none of it the game's */
+    else if (screen == SCR_GAME && !(is_view() && hand.up)) games[cur]->release(x, y);
 }
 
 static void menu_wheel(float dy)
@@ -3526,6 +3846,74 @@ static int shot_solved(const char *s)
     return 1;
 }
 
+/* --bots "1:h,2:m" (or "all:e"): the device plays those seats (players from 0), easy, medium or hard; the others are
+ * people. 0: wrong (or the game has no bot). */
+static int shot_seats(const char *s)
+{
+    if (!has_bot(cur)) return 0;
+    memset(seat_lv[cur], 0, MAX_PLAYERS);
+    for (;;) {
+        int p = -1, n = 0;
+        while (*s == ' ' || *s == ',') s++;
+        if (!*s) return 1;
+        if (!strncmp(s, "all:", 4)) {
+            p = MAX_PLAYERS;
+            s += 4;
+        } else if (sscanf(s, "%d:%n", &p, &n) == 1 && n > 0) {
+            s += n;
+        } else {
+            return 0;
+        }
+        int lv = *s == 'e' ? 1 + AI_EASY : *s == 'm' ? 1 + AI_MEDIUM : *s == 'h' ? 1 + AI_HARD : 0;
+        if (!lv || p < 0 || p > MAX_PLAYERS) return 0;
+        s++;
+        for (int q = 0; q < MAX_PLAYERS; q++)
+            if (q == p || p == MAX_PLAYERS) seat_lv[cur][q] = (uint8_t)lv;
+    }
+}
+
+/* --steps n: the bots play n moves, each as in the app (the worker, the bot's play(); the pause left out), the board
+ * at rest between them, hand-offs done (--reveal: the cover lifted). It stops sooner when a person must play, the
+ * game is over or nothing moves; it says so on stderr, with each move and its time. base: the clock when the last
+ * move was played (--at ms catches its animation). */
+static void shot_bots(int steps, int reveal, Uint32 *base)
+{
+    int start = BT.played, idle = 0;
+    Uint32 t0 = SDL_GetTicks();
+    while (BT.played - start < steps) {
+        if (is_view()) shot_settle(reveal, 0);
+        shot_wait();
+        int before = BT.played, was = bot_thinking();
+        Uint32 now = ms_ahead;
+        bot_step();
+        if (!was && bot_thinking()) t0 = SDL_GetTicks();
+        if (BT.played > before) {
+            *base = now;
+            idle = 0;
+            draw();                             /* what draw() starts (a deal, a slide) starts now */
+            continue;
+        }
+        if (bot_thinking() || BT.held) {
+            idle = 0;
+            if (SDL_GetTicks() - t0 > 60000) {
+                fprintf(stderr, "bots: seat %d has thought for a minute: stopped\n", BT.seat);
+                bot_stop();
+                break;
+            }
+            SDL_Delay(1);
+            continue;
+        }
+        if (++idle > 2) break;                  /* nothing to do: the board's animations run on, then look again */
+        ms_ahead += 600000;
+        draw();
+    }
+    const game *g = games[cur];
+    int a = g->status() == GS_PLAY ? bot_actor() : -1;
+    fprintf(stderr, "bots: %d moves played; status %d, to act: %d (%s)%s%s\n", BT.played - start, g->status(), a,
+            a < 0 ? "nobody" : is_bot(a) ? "a bot" : "a person", g->busy && g->busy() ? ", busy" : "",
+            ui_handing() ? ", handing" : "");
+}
+
 /* --icons: every icon of the shell on a button, in rows of six, as games show them (plain, then in gold light, then
  * on the gold disc) */
 static void draw_icons(void)
@@ -3543,11 +3931,12 @@ static void draw_icons(void)
 
 static int shot(int argc, char **argv)
 {
-    const char *out = NULL, *id = NULL, *moves = NULL, *lang = NULL, *save_dir = NULL, *solved = NULL;
+    const char *out = NULL, *id = NULL, *moves = NULL, *lang = NULL, *save_dir = NULL, *solved = NULL, *seats = NULL;
     int v = 0, keep = 0, pick = 0, show_help = 0, np = 0, tab = -1, reveal = 0, level = 0, rnd = 0, icons = 0;
     float scroll = 0;
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
+    int steps = 0, think = 0;                   /* --steps n: the bots play n moves; --think: one starts */
     int held = -1;                              /* held: the last gesture's hold (ms), the finger still down */
     Uint32 base = 0;                            /* the clock before the last tap */
     ui.w = 720;
@@ -3583,6 +3972,9 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--save") && i + 1 < argc) save_dir = argv[++i];
         else if (!strcmp(argv[i], "--level") && i + 1 < argc) level = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--solved") && i + 1 < argc) solved = argv[++i];
+        else if (!strcmp(argv[i], "--bots") && i + 1 < argc) seats = argv[++i];
+        else if (!strcmp(argv[i], "--steps") && i + 1 < argc) steps = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--think")) think = 1;
     }
     seed_random(seed);                          /* the same dice every time: tests and screenshots repeat */
     text_init(lang ? lang : "en");
@@ -3603,6 +3995,8 @@ static int shot(int argc, char **argv)
         if (np) nplayers[cur] = np;             /* --players n: how many play */
         ui.players = players_of(cur);
         if (solved && !shot_solved(solved)) { fprintf(stderr, "bad --solved\n"); return 1; }
+        if (seats && !shot_seats(seats)) { fprintf(stderr, "bad --bots (or no bot for %s)\n", id); return 1; }
+        bots_update();                          /* (the picker shows the seats; a game starts with them) */
         if (pick) {                             /* the picker, or the level screen (--tab n: its chapter n, 0..) */
             show_picker(cur);
             if (screen == SCR_LEVELS && tab >= 0 && tab == LV.nch && has_random(cur)) random_tab();
@@ -3621,6 +4015,7 @@ static int shot(int argc, char **argv)
             }
             draw();                             /* once before the taps, as the app always has: the bars' layout */
             if (reveal) shot_settle(1, 0);
+            if (steps > 0) shot_bots(steps, reveal, &base);   /* --steps n: the bots' moves */
         }
     } else {
         layout();
@@ -3640,6 +4035,7 @@ static int shot(int argc, char **argv)
             if (reveal) shot_settle(1, 0);
         }
     }
+    if (think && id && !pick) bot_step();       /* --think: the next bot starts thinking (its sign in its bar) */
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
         open_help(id ? cur : -1);
         help_scroll(scroll);
@@ -3650,6 +4046,7 @@ static int shot(int argc, char **argv)
     if (!out || SDL_SaveBMP(surf, out)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     int st = id && started[cur] ? games[cur]->status() : -1;   /* -1: the menu, or a game not started (--pick) */
     printf("%s: %dx%d %s status %d\n", out, ui.w, ui.h, id ? id : "menu", st);
+    bot_stop();
     save_flush();                               /* --save DIR: written back (else nothing to write) */
     return 0;
 }
@@ -3700,11 +4097,12 @@ static void key(SDL_Keycode k, int repeat)
         return;
     }
     if (screen != SCR_GAME || help.open) return;
-    if (k == SDLK_u || k == SDLK_BACKSPACE) { if (!ui_handing()) games[cur]->undo(); }
+    if (k == SDLK_u || k == SDLK_BACKSPACE) { if (!ui_handing()) undo_human(); }
     else if (k == SDLK_f && shown(B_FLIP)) { ui.flipped = !ui.flipped; layout(); }
     else if (k == SDLK_t && shown(B_F2F)) ui.f2f = !ui.f2f;
     else if (k == SDLK_n) new_game();
-    else if (k != SDLK_f && k != SDLK_t && games[cur]->key && !repeat && !(is_view() && hand.up) && !ui_handing())
+    else if (k != SDLK_f && k != SDLK_t && games[cur]->key && !repeat && !(is_view() && hand.up) && !ui_handing() &&
+             !bot_holds())
         games[cur]->key(k);                     /* the game's own keys (the arrows: a push) */
 }
 
@@ -3744,8 +4142,8 @@ int main(int argc, char **argv)
                 float fx, fy;
                 switch (e.type) {
                 case SDL_QUIT: quit = 1; break;
-                case SDL_APP_WILLENTERBACKGROUND:
-                case SDL_APP_TERMINATING: save_flush(); break;
+                case SDL_APP_WILLENTERBACKGROUND:     /* the bot thinking stops (it starts again on return) */
+                case SDL_APP_TERMINATING: bot_stop(); save_flush(); break;
                 case SDL_FINGERDOWN:
                 case SDL_FINGERMOTION:
                 case SDL_FINGERUP:
@@ -3784,6 +4182,7 @@ int main(int argc, char **argv)
                 }
             } while (SDL_PollEvent(&e));
         }
+        bot_step();                             /* a bot's turn: it starts, or its move is played */
         int w, h;
         SDL_GetRendererOutputSize(ui.r, &w, &h);
         if (w != ui.w || h != ui.h) {
@@ -3797,6 +4196,7 @@ int main(int argc, char **argv)
         save_flush();                           /* what changed, written at once (nothing: no write) */
     }
     save_flush();
+    bot_stop();
     SDL_Quit();
     return 0;
 }

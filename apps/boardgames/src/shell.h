@@ -353,6 +353,14 @@ void ui_handoff(int player);
 int  ui_handing(void);                          /* 1 while a hand-off waits or the cover is up (the game's input waits:
                                                  * the shell sends none) */
 
+/* the bots (bots.h: a game's bot in games/<id>_bot.c): the seats the device plays in the game on the screen (bit n:
+ * player n; 0: people only), as the picker gave them. The shell runs them: it starts the bot when its seat must act,
+ * plays its move with the bot's play(), holds the people's input meanwhile (not in a real-time game), turns the view
+ * and covers only between people (a hand-off to a bot's seat: the view stays the last person's), turns face to face
+ * for people only, and undoes back to the last person's move. bot_seats() (bots.h) is the same mask, for a bot's
+ * actor(). */
+unsigned ui_bot_seats(void);
+
 /* the end card. ui_over(): 1 while it shows (this frame: the game is over, its last move landed, the final position
  * shown a moment, the card not tapped away). A game with a final table (its rounds' scores) draws that table inside
  * the card instead of over its own table: in draw(), while ui_over(), box r = ui_end_room(w, h) asks for a room w x h
