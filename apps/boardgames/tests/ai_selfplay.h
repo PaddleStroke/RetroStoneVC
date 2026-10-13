@@ -186,7 +186,9 @@ static int sp_run(const sp_game *g, const sp_pair *pairs, int npairs, int argc, 
         snprintf(name, sizeof name, "%s-%s", sp_name(pairs[pi].a), sp_name(pairs[pi].b));
         printf("  %-16s %5d %5d %5d %5d %5d%%  %.1f\n", name, count[pi], wa, wb, dr, pct, n ? (double)plies / n : 0);
         if (bad) fails += bad;
-        if (pct < pairs[pi].min_pct) {
+        /* a short run's few games are luck: it checks the games are legal, end and keep time; only the full run
+         * holds the levels to their targets */
+        if (pct < pairs[pi].min_pct && full) {
             printf("FAIL %s %s: a scored %d%%, under %d%%\n", g->id, name, pct, pairs[pi].min_pct);
             fails++;
         }

@@ -500,8 +500,8 @@ static inline int tb_heuristic(const tb_state *st, const uint8_t *L, int n, ai_r
     if (ai_rand_n(r, 100) < st->eps) return L[ai_rand_n(r, n)];
     int me = st->turn, want = tb_want(st, me), pointy = st->R->points != NULL;
     int best = -1;
-    long bs = -(1L << 40);
-#define TB_PICK(score) do { long s_ = (score); if (s_ > bs) { bs = s_; best = i; } } while (0)
+    long long bs = -(1LL << 40);
+#define TB_PICK(score) do { long long s_ = (score); if (s_ > bs) { bs = s_; best = i; } } while (0)
     if (!st->ntrick) {                          /* leading */
         int len[TB_SUITS] = {0}, mytr = 0, optr = 0;
         const uint8_t *h = st->hand[me];

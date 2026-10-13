@@ -256,10 +256,10 @@ static inline int sb_policy(const sb_st *st, const int *mv, int n, ai_rng *r, in
     for (int q = 0; q < p->players; q++)
         if (q != pl && shed_active(p, q) && p->n[q] <= 2) danger = 1;
     int best = mv[0];
-    long bs = -(1L << 40);
+    long long bs = -(1LL << 40);
     for (int i = 0; i < n; i++) {
         int m = mv[i], cnt = sb_count(m), top = sb_top_power(m);
-        long sc;
+        long long sc;
         if (!m) sc = danger ? -5000 : cards > 6 ? -300 : -900;   /* a pass */
         else if (!p->top.n) sc = cnt * 120 - top * 14 + (cnt == cards ? 100000 : 0);
         else {
