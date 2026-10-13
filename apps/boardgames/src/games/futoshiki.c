@@ -23,7 +23,6 @@
 #include "games/bench_ui.h"
 #include "games/futoshiki.h"
 #include "games/futoshiki_levels.h"
-#include "games/race.h"
 #include "shell.h"
 
 #define GAP 0.42f                               /* the room between two cells (the signs), a part of a cell */
@@ -66,7 +65,7 @@ static void paint_board(uint8_t *o, int w, int f, const fsk_puz *p, float c, flo
     bench_plank(o, w, w, f);
     for (int y = 0; y < n; y++)
         for (int x = 0; x < n; x++)
-            race_inlay(o, w, w, place_of(x, org, c), place_of(y, org, c), c, c, 0.08f * c,
+            art_inlay(o, w, w, place_of(x, org, c), place_of(y, org, c), c, c, 0.08f * c,
                        p->g[y * n + x] ? GIVEN_TONE : CELL_TONE, fmaxf(1.5f, 0.07f * c));
 }
 

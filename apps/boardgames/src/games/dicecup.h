@@ -6,7 +6,7 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="yacht" builds
- * yacht.c and yacht_*.c), so a shared .c file would be left out of one game's build or the other's (as race.h).
+ * yacht.c and yacht_*.c), so a shared .c file would be left out of one game's build or the other's.
  */
 #ifndef DICECUP_H
 #define DICECUP_H

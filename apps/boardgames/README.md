@@ -59,7 +59,7 @@ One look across the app, like the Arcade games' house kit:
   it), in its walnut frame, on the shell's green table. The shared headers draw the boards of a kind: `grid.h` (go's
   points; `grid_lines` and `grid_ink` for any plank ruled in squares: makruk, shogi), `lines.h` (lines and points,
   square or wider than tall, `lines_arc` for round lines: morris, alquerque, fanorona, surakarta), `palace.h`
-  (xiangqi, janggi), `race.h` (inlays, hops), `dicecup.h` (the felt's dice games).
+  (xiangqi, janggi), `dicecup.h` (the felt's dice games); inlays and hops are `art_inlay`, `ui_ease`, `ui_hop`.
 - **Pieces** from `art.c` (`art_piece`, `art_counter`), with `ui_shadow()` under the standing ones and
   `ui_shadow_flat()` under the flat ones (discs, stones, men); `ui_flat_at()` draws a flat piece with its shadow,
   faded or turned round.
