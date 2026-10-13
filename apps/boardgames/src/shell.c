@@ -26,6 +26,7 @@
 #include "ai.h"
 #include "bots.h"
 #include "cards.h"
+#include "edition.h"
 #include "games/chess.h"
 #include "text.h"
 
@@ -52,7 +53,8 @@ static int nplayers[MAX_GAMES];                 /* how many play each game (the 
 /* a game of levels that also plays at random (start_random): in random play (the level screen's last tab), and the
  * variant picked there */
 static int rnd_mode[MAX_GAMES], rvariant[MAX_GAMES];
-static int has_random(int g) { return games[g]->levels > 0 && games[g]->start_random; }
+/* (the free edition: no random play, its levels only) */
+static int has_random(int g) { return games[g]->levels > 0 && games[g]->start_random && !ed_free; }
 static int in_random(int g) { return has_random(g) && rnd_mode[g]; }
 
 /* the hand-off (VIEW_* games): whose view each game shows (kept while away in the menu); the cover (up: hiding the
@@ -117,6 +119,22 @@ static int section_of(const game *g)
         if (!strcmp(SECTION_OF[i].id, g->id)) return SECTION_OF[i].section;
     return SEC_STRATEGY;
 }
+
+/* the free edition (edition.h): every puzzle (its first ed_free_levels levels) and the games of ed_free_games are
+ * played; the others show locked (after the playable ones in their tab), and a tap opens the full version's panel.
+ * The paid app: nothing locked. */
+static int locked_game(const game *g)
+{
+    if (!ed_free || !ed_free_games[0] || section_of(g) == SEC_PUZZLE) return 0;
+    const char *id = g->id;
+    size_t n = strlen(id);
+    for (const char *s = ed_free_games; (s = strstr(s, id)) != NULL; s += n)
+        if ((s == ed_free_games || s[-1] == ' ') && (s[n] == 0 || s[n] == ' ')) return 0;
+    return 1;
+}
+static int locked(int g) { return locked_game(games[g]); }
+static int level_locked(int l) { return ed_free && ed_free_levels > 0 && l >= ed_free_levels; }
+static void full_open(void);
 
 /* the counts a game can be played with: bit n, n players */
 static unsigned player_counts(int g) { return games[g]->players ? games[g]->players : 1u << 2; }
@@ -223,6 +241,8 @@ static int by_order(const void *a, const void *b)
 {
     int sa = section_of(*(const game *const *)a), sb = section_of(*(const game *const *)b);
     if (sa != sb) return sa - sb;
+    int la = locked_game(*(const game *const *)a), lb = locked_game(*(const game *const *)b);
+    if (la != lb) return la - lb;               /* the free edition: the playable games first */
     return (*(const game *const *)a)->order - (*(const game *const *)b)->order;
 }
 
@@ -1017,11 +1037,11 @@ static void chapters_make(int g)
     LV.first[LV.nch] = n;
 }
 
-/* open: solved, or among the first unsolved ones (levels_open, else 3) */
+/* open: solved, or among the first unsolved ones (levels_open, else 3); never one the free edition locks */
 static int level_open(int g, int l)
 {
     progress_load(g);
-    if (l < 0 || l >= nlevels(g)) return 0;
+    if (l < 0 || l >= nlevels(g) || level_locked(l)) return 0;
     if (LV.best[l]) return 1;
     int ahead = games[g]->levels_open > 0 ? games[g]->levels_open : 3, before = 0;
     for (int k = 0; k < l && before < ahead; k++) before += !LV.best[k];
@@ -1706,6 +1726,244 @@ static int settings_press(float x, float y)
     return 1;
 }
 
+/* ---- the full version's panel (the free edition: a locked game or level tapped) ----------------------------------
+ * The settings' panel's look: the paid app's icon (its gold frame round the green table, the knight, the die, the
+ * card: make_icon.py's, drawn by the app's own code) and its name, two lines (help/<lang>/_full.txt: a title line for
+ * the translators, the two lines, the button's word), and a gold button in gold light that opens the paid app's
+ * page: market://details?id=<PAID_APP_ID> on Android (PAID_STORE_URL when there is no Play Store), PAID_STORE_URL on
+ * a computer. Its close button, a tap outside it or Back closes it. */
+static struct {
+    int open, made;                             /* made: the screen's short side its pictures were made for */
+    box card, btn;
+    float xx, xy, xr;                           /* its close button */
+    float icon_y, name_y, line_y[2];
+    int icon_d;
+    SDL_Texture *icon, *name, *line[2], *get;
+    int tw[4], th[4];                           /* name, line 0, line 1, the button's word: their sizes */
+} FV;
+
+static const uint8_t FV_CREAM[3] = {246, 238, 220};
+
+/* one line of text in cream (bold or not), px pixels, no wider than maxw (made smaller to fit) */
+static SDL_Texture *fv_text(const char *s, float px, int bold, float maxw, int *w, int *h)
+{
+    int tw = text_line(s, px, bold, FV_CREAM, NULL, 0, 0, 0, 0);
+    if (tw > maxw && tw > 0) {
+        px = fmaxf(6, px * maxw / tw);
+        tw = text_line(s, px, bold, FV_CREAM, NULL, 0, 0, 0, 0);
+    }
+    int W = tw + 4, H = (int)ceilf(px * 1.55f);
+    uint8_t *b = calloc((size_t)W * H, 4);
+    if (!b) return NULL;
+    text_line(s, px, bold, FV_CREAM, b, W, H, 2, (int)((H - 1.25f * px) / 2));
+    SDL_Texture *t = ui_tex(W, H, b);
+    free(b);
+    *w = W;
+    *h = H;
+    return t;
+}
+
+/* the alpha of a picture blurred (a box blur, r pixels, twice): a soft shadow */
+static void fv_blur(uint8_t *a, int w, int h, int r)
+{
+    uint8_t *t = malloc((size_t)w * h);
+    if (!t || r < 1) { free(t); return; }
+    for (int pass = 0; pass < 4; pass++) {      /* across, down, across, down */
+        int across = !(pass & 1), n = across ? w : h, m = across ? h : w;
+        for (int j = 0; j < m; j++) {
+            int sum = 0, cnt = 0;
+            for (int i = -r; i < n + r; i++) {
+                if (i + r < n) { sum += a[across ? j * w + i + r : (i + r) * w + j]; cnt++; }
+                if (i - r - 1 >= 0) { sum -= a[across ? j * w + i - r - 1 : (i - r - 1) * w + j]; cnt--; }
+                if (i >= 0 && i < n) t[across ? j * w + i : i * w + j] = (uint8_t)(cnt ? sum / cnt : 0);
+            }
+        }
+        memcpy(a, t, (size_t)w * h);
+    }
+    free(t);
+}
+
+/* a picture laid on the icon centred at (cx, cy) (fractions of it), turned deg, over its soft shadow */
+static void fv_lay(uint8_t *o, int d, const uint8_t *p, int pw, int ph, float cx, float cy, float deg)
+{
+    uint8_t *sh = calloc((size_t)d * d, 4), *a = malloc((size_t)d * d);
+    if (sh && a) {
+        art_blend_rot(sh, d, d, p, pw, ph, cx * d + 7.0f * d / 480, cy * d + 9.0f * d / 480, deg);
+        for (int i = 0; i < d * d; i++) a[i] = sh[4 * i + 3];
+        fv_blur(a, d, d, (int)fmaxf(1, 4.0f * d / 480));
+        for (int i = 0; i < d * d; i++) {
+            sh[4 * i] = sh[4 * i + 1] = sh[4 * i + 2] = 0;
+            sh[4 * i + 3] = (uint8_t)(a[i] * 0.55f);
+        }
+        art_blend(o, d, d, sh, d, d, 0, 0);
+    }
+    free(sh);
+    free(a);
+    art_blend_rot(o, d, d, p, pw, ph, cx * d, cy * d, deg);
+}
+
+/* the paid app's icon, d x d: apps/android/tools/make_icon.py's board_icon, smaller */
+static void fv_icon(int d, uint8_t *o)
+{
+    static const uint8_t out[4] = {22, 18, 40, 255}, gold_d[4] = {186, 128, 22, 255}, gold[4] = {252, 216, 72, 255},
+                         gold_l[4] = {255, 240, 150, 255};
+    static const struct { float x0, y0, x1, y1, r; const uint8_t *c; } ring[] = {
+        {0, 0, 480, 480, 60, out}, {5, 5, 475, 475, 56, gold_d}, {5, 5, 469, 469, 56, gold},
+        {10, 10, 464, 464, 52, gold_l}, {15, 15, 464, 464, 48, gold}, {22, 22, 458, 458, 42, out}};
+    memset(o, 0, (size_t)d * d * 4);
+    float k = d / 480.0f;
+    for (size_t i = 0; i < sizeof ring / sizeof ring[0]; i++) {
+        int x = (int)lroundf(ring[i].x0 * k), y = (int)lroundf(ring[i].y0 * k);
+        int w = (int)lroundf((ring[i].x1 - ring[i].x0) * k), h = (int)lroundf((ring[i].y1 - ring[i].y0) * k);
+        art_roundrect_put(o, d, d, x, y, w, h, ring[i].r * k, ring[i].c, 1);
+    }
+    int x0 = (int)lroundf(26 * k), w = (int)lroundf(428 * k);
+    uint8_t *t = calloc((size_t)w * w, 4);      /* the table, lighter in the middle */
+    if (t) {
+        const uint8_t fill[4] = {255, 255, 255, 255};
+        art_roundrect(w, w, 38 * k, fill, t);
+        for (int y = 0; y < w; y++)
+            for (int x = 0; x < w; x++) {
+                float dd = fminf(1, hypotf((x + x0) / k - 240, (y + x0) / k - 200) / 300), f = 1.25f - 0.45f * dd;
+                uint8_t *p = t + 4 * (y * w + x);
+                p[0] = (uint8_t)clampf(34 * f, 0, 255);
+                p[1] = (uint8_t)clampf(52 * f, 0, 255);
+                p[2] = (uint8_t)clampf(46 * f, 0, 255);
+            }
+        art_blend(o, d, d, t, w, w, x0, x0);
+        free(t);
+    }
+    int ps = (int)(320 * k), ds = (int)(150 * k), cw = (int)(200 * k), ch = (int)(cw * cards_aspect(DECK_FRENCH) + 0.5f);
+    uint8_t *b = calloc((size_t)ps * ps + (size_t)cw * ch, 4);
+    if (!b) return;
+    cards_paint(DECK_FRENCH, CARD(SUIT_HEARTS, RANK_ACE), cw, ch, b);
+    fv_lay(o, d, b, cw, ch, 322 / 480.0f, 190 / 480.0f, 14);
+    memset(b, 0, (size_t)ds * ds * 4);
+    art_die(5, 1, ds, b);
+    fv_lay(o, d, b, ds, ds, 356 / 480.0f, 366 / 480.0f, -16);
+    memset(b, 0, (size_t)ps * ps * 4);
+    art_piece(KNIGHT, WHITE, ps, b);
+    fv_lay(o, d, b, ps, ps, 182 / 480.0f, 258 / 480.0f, 0);
+    free(b);
+}
+
+static void fv_layout(void)
+{
+    float s = fminf(ui.w, ui.h), m = floorf(s * 0.05f), pad = floorf(s * 0.05f);
+    float pw = floorf(fminf(s * 0.84f, ui.w - 2 * m)), maxw = pw - 2 * pad;
+    if (FV.made != (int)s) {                    /* the pictures, at this size */
+        FV.made = (int)s;
+        ui_free(&FV.icon);
+        ui_free(&FV.name);
+        ui_free(&FV.get);
+        for (int i = 0; i < 2; i++) ui_free(&FV.line[i]);
+        FV.icon_d = (int)(s * 0.27f);
+        uint8_t *b = calloc((size_t)FV.icon_d * FV.icon_d, 4);   /* its own: cards_paint may use ui_buf() */
+        if (b) {
+            fv_icon(FV.icon_d, b);
+            FV.icon = ui_tex(FV.icon_d, FV.icon_d, b);
+            free(b);
+        }
+        FV.name = fv_text(ed_paid_name[0] ? ed_paid_name : "RetroStone Board", s * 0.054f, 1, maxw, &FV.tw[0],
+                          &FV.th[0]);
+        char t[128];
+        for (int i = 0; i < 2; i++)
+            FV.line[i] = text_word("_full", i, t, sizeof t) ? fv_text(t, s * 0.04f, 0, maxw, &FV.tw[1 + i], &FV.th[1 + i])
+                                                            : NULL;
+        FV.get = text_word("_full", 2, t, sizeof t) ? fv_text(t, s * 0.05f, 1, maxw * 0.8f, &FV.tw[3], &FV.th[3])
+                                                    : NULL;
+    }
+    float bh = floorf(s * 0.12f), lh = FV.line[0] ? (float)FV.th[1] : s * 0.062f;
+    float h = pad + FV.icon_d + s * 0.03f + FV.th[0] + s * 0.02f + 2 * lh + s * 0.06f + bh + pad;
+    FV.card = (box){floorf((ui.w - pw) / 2), floorf((ui.h - h) / 2), pw, floorf(h)};
+    float y = FV.card.y + pad;
+    FV.icon_y = y + FV.icon_d / 2.0f;
+    y += FV.icon_d + s * 0.03f;
+    FV.name_y = y + FV.th[0] / 2.0f;
+    y += FV.th[0] + s * 0.02f;
+    for (int i = 0; i < 2; i++, y += lh) FV.line_y[i] = y + lh / 2;
+    y += s * 0.06f;
+    float bw = floorf(fmaxf(pw * 0.5f, (FV.get ? FV.tw[3] : 0) + s * 0.12f));
+    FV.btn = (box){floorf((ui.w - bw) / 2), floorf(y), bw, bh};
+    FV.xr = floorf(s * 0.045f);
+    FV.xx = FV.card.x + FV.card.w - pad * 0.3f - FV.xr;
+    FV.xy = FV.card.y + pad * 0.3f + FV.xr;
+}
+
+static void full_open(void)
+{
+    if (!ed_free) return;
+    FV.open = 1;
+    SET.open = 0;
+}
+
+/* the paid app's page: the Play Store's (market://) on Android, its web page when that cannot open, or on a computer;
+ * the picture mode opens nothing (it says so on stderr) */
+static void open_store(void)
+{
+    char url[256];
+#ifdef __ANDROID__
+    snprintf(url, sizeof url, "market://details?id=%s", ed_paid_id);
+#else
+    snprintf(url, sizeof url, "%s", ed_paid_url[0] ? ed_paid_url : "");
+#endif
+    if (shot_clock) {
+        fprintf(stderr, "store: %s\n", url);
+        return;
+    }
+    if (!url[0] || SDL_OpenURL(url) != 0) {
+        SDL_Log("cannot open %s (%s): %s", url, SDL_GetError(), ed_paid_url);
+        if (ed_paid_url[0]) SDL_OpenURL(ed_paid_url);
+    }
+}
+
+static void draw_full(void)
+{
+    static const uint8_t panel[4] = {28, 34, 32, 250}, gold[4] = {150, 118, 46, 255};
+    fv_layout();
+    float s = fminf(ui.w, ui.h), cx = ui.w / 2.0f;
+    ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 120);
+    box c = FV.card;
+    ui_put(rounded((int)c.w, (int)c.h, floorf(s * 0.028f), panel), c.x, c.y, c.w, c.h);
+    if (FV.icon) ui_put_c(FV.icon, cx, FV.icon_y, (float)FV.icon_d, (float)FV.icon_d);
+    if (FV.name) ui_put_c(FV.name, cx, FV.name_y, (float)FV.tw[0], (float)FV.th[0]);
+    for (int i = 0; i < 2; i++)
+        if (FV.line[i]) ui_put_c(FV.line[i], cx, FV.line_y[i], (float)FV.tw[1 + i], (float)FV.th[1 + i]);
+    box b = FV.btn;                             /* the button: gold, in gold light */
+    ui_put_c(t_gold, b.x + b.w / 2, b.y + b.h / 2, b.w * 1.3f, b.h * 2.4f);
+    ui_put(rounded((int)b.w, (int)b.h, b.h / 2, gold), b.x, b.y, b.w, b.h);
+    if (FV.get) ui_put_c(FV.get, b.x + b.w / 2, b.y + b.h / 2, (float)FV.tw[3], (float)FV.th[3]);
+    else ui_put_c(t_icon[ICON_ARROW], b.x + b.w / 2, b.y + b.h / 2, b.h * 0.5f, b.h * 0.5f);
+    draw_button(FV.xx, FV.xy, FV.xr, ICON_CLOSE, NULL);
+}
+
+/* a press while the panel is open: its button, else it closes (its close button, outside it) */
+static void full_press(float x, float y)
+{
+    fv_layout();                                /* (the screen may have turned since it was drawn) */
+    box b = FV.btn, c = FV.card;
+    if (x >= b.x && y >= b.y && x < b.x + b.w && y < b.y + b.h) {
+        snd_play(SND_TAP);
+        open_store();
+        return;
+    }
+    if (hypotf(x - FV.xx, y - FV.xy) < FV.xr * 1.2f || x < c.x || y < c.y || x >= c.x + c.w || y >= c.y + c.h) {
+        FV.open = 0;
+        snd_play(SND_TAP);
+    }
+}
+
+/* a lock on a dark disc, d across: a locked game's card, a locked level's tile */
+static void lock_badge(float cx, float cy, float d)
+{
+    ui_put_c(btn_tex(paint_badge, 0, (int)d), cx, cy, d, d);
+    SDL_Texture *t = btn_tex(paint_btn_icon, ICON_LOCK, (int)(0.72f * d));
+    if (!t) return;
+    SDL_SetTextureColorMod(t, BTN_CREAM);
+    ui_put_c(t, cx, cy, 0.72f * d, 0.72f * d);
+    SDL_SetTextureColorMod(t, 255, 255, 255);
+}
+
 /* the picker's names: help/<lang>/<id>_variants.txt, a line a card in its order (two axes: the sizes, then the levels;
  * a game of levels: its random play's variants). Line `line` in the language, else in English; 0: none (no file, an
  * empty line). */
@@ -2372,7 +2630,10 @@ static void level_next(void)
 {
     int l = variant[cur] + 1;
     if (l < nlevels(cur) && level_open(cur, l)) open_game(cur, l);
-    else new_game();
+    else {
+        new_game();
+        if (l < nlevels(cur) && level_locked(l)) full_open();   /* the free edition's last level: the full version */
+    }
 }
 
 /* the solved puzzle's card: replay (the same puzzle, the same level), next (the next level; a new puzzle of the same
@@ -3136,6 +3397,8 @@ static void draw_cards(void)
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
         /* a variant the bot cannot play, the device given a seat: dimmed (it starts with people in every seat) */
         Uint8 a = screen == SCR_PICK && L.nseats && any_bot_seat(cur) && !bot_plays(cur, i) ? 110 : 255;
+        int lk = screen == SCR_MENU && locked(i);   /* the free edition: dimmed, a lock (its picture still seen) */
+        if (lk) a = 130;
         SDL_Texture *th = thumb(gi, v);
         SDL_SetTextureAlphaMod(t_menu_card, a);
         if (th) SDL_SetTextureAlphaMod(th, a);
@@ -3144,8 +3407,15 @@ static void draw_cards(void)
         ui_put_c(th, c.x + c.w / 2, c.y + c.w / 2, s, s);
         SDL_SetTextureAlphaMod(t_menu_card, 255);
         if (th) SDL_SetTextureAlphaMod(th, 255);
-        if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
-        else card_name(i, c);
+        if (screen == SCR_MENU) {
+            SDL_Texture *lb = label(i);
+            if (lk && lb) SDL_SetTextureAlphaMod(lb, 170);
+            ui_put(lb, c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
+            if (lk && lb) SDL_SetTextureAlphaMod(lb, 255);
+            if (lk) lock_badge(c.x + 0.83f * c.w, c.y + 0.17f * c.w, 0.25f * c.w);
+        } else {
+            card_name(i, c);
+        }
     }
     for (int s = 0; s < SECTIONS && screen == SCR_MENU; s++) {
         float y = L.sec_y[s] + dy;
@@ -3195,7 +3465,8 @@ static void draw_tile(int l, int i, box t, int next)
 {
     static const uint8_t dim[3] = {150, 120, 90};
     const game *G = games[cur];
-    int best = LV.best[l], open = level_open(cur, l), n = l + 1, stars = best && G->level_stars;
+    int lk = level_locked(l), best = lk ? 0 : LV.best[l], open = level_open(cur, l), n = l + 1,
+        stars = best && G->level_stars;
     float T = t.w, cx = t.x + T / 2, cy = t.y + T / 2;
     if (l == next && open) ui_mark_gold(cx, cy, 1.5f * T);
     ui_shadow_flat(cx + 0.04f * T, cy + 0.06f * T, T, T, 0.55f);
@@ -3260,7 +3531,11 @@ static void draw_levels(void)
     draw_level_tabs(LV.chapter);
     int first = LV.first[LV.chapter], n = LV.first[LV.chapter + 1] - first, next = first_unsolved(cur);
     if (n > CHAPTER_MAX) n = CHAPTER_MAX;
-    for (int i = 0; i < n; i++) draw_tile(first + i, i, LV.tiles[i], next);
+    for (int i = 0; i < n; i++) {
+        draw_tile(first + i, i, LV.tiles[i], next);
+        box t = LV.tiles[i];                    /* the free edition: a lock on the full version's */
+        if (level_locked(first + i)) lock_badge(t.x + 0.84f * t.w, t.y + 0.16f * t.w, 0.3f * t.w);
+    }
     draw_button(fminf(ui.w, ui.h) * 0.05f + L.snd_r, L.snd_y, L.snd_r, ICON_HOME, NULL);
     if (G->level_stars) {                       /* the stars won, at the top right */
         int total = 0;
@@ -3374,6 +3649,7 @@ static void draw(void)
         draw_settings();
     }
     if (help.open) draw_help();
+    if (FV.open) draw_full();
 }
 
 /* ---- input ------------------------------------------------------------------------------------------------------- */
@@ -3482,6 +3758,7 @@ static void levels_release(float x, float y)
     int first = LV.first[LV.chapter], n = LV.first[LV.chapter + 1] - first;
     for (int i = 0; i < n && i < CHAPTER_MAX; i++)
         if (in_box(LV.tiles[i], x, y)) {
+            if (level_locked(first + i)) { snd_play(SND_TAP); full_open(); return; }   /* the full version's */
             if (!level_open(cur, first + i)) { snd_play(SND_DENY); return; }
             snd_play(SND_TAP);
             rnd_mode[cur] = 0;
@@ -3492,6 +3769,10 @@ static void levels_release(float x, float y)
 
 static void press(float x, float y)
 {
+    if (FV.open) {                              /* the full version's panel: its button, or it closes */
+        full_press(x, y);
+        return;
+    }
     if (help.open) {                            /* the rules page: scroll it, or close it */
         box c = help.card;
         if (in_circle(x, y, help.close_x, help.close_y, help.close_r) || x < c.x || y < c.y || x > c.x + c.w ||
@@ -3650,6 +3931,7 @@ static void press(float x, float y)
 
 static void motion(float x, float y)
 {
+    if (FV.open) return;
     if (help.open) {
         if (help.grabbing) help.scroll = fminf(help_max(), fmaxf(0, help.grab_scroll - (y - help.grab_y)));
         return;
@@ -3674,6 +3956,10 @@ static void motion(float x, float y)
 
 static void release(float x, float y)
 {
+    if (FV.open) {
+        menu.grabbing = LV.grabbing = held_press = 0;
+        return;
+    }
     if (help.open) {
         help.grabbing = 0;
         return;
@@ -3699,7 +3985,8 @@ static void release(float x, float y)
             c.y -= menu.scroll;
             if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
                 snd_play(SND_TAP);
-                open_game(i, -1);
+                if (locked(i)) full_open();     /* the free edition: the full version's */
+                else open_game(i, -1);
                 return;
             }
         }
@@ -4024,6 +4311,7 @@ static int shot(int argc, char **argv)
     if (id) {
         cur = find_game(id);
         if (cur < 0) { fprintf(stderr, "no game %s\n", id); return 1; }
+        if (locked(cur)) { fprintf(stderr, "%s is locked in %s\n", id, ed_app_name); return 1; }
         if (np) nplayers[cur] = np;             /* --players n: how many play */
         ui.players = players_of(cur);
         if (solved && !shot_solved(solved)) { fprintf(stderr, "bad --solved\n"); return 1; }
@@ -4038,6 +4326,10 @@ static int shot(int argc, char **argv)
             }
         } else {
             if (level > nlevels(cur)) { fprintf(stderr, "no level %d\n", level); return 1; }
+            if (level > 0 && level_locked(level - 1)) {
+                fprintf(stderr, "level %d is locked in %s\n", level, ed_app_name);
+                return 1;
+            }
             if (rnd && !has_random(cur)) { fprintf(stderr, "no random play\n"); return 1; }
             rnd_mode[cur] = rnd;                /* --random: a game of levels at random (--variant n) */
             open_game(cur, level > 0 ? level - 1 : v);   /* --level n: level n (1..) */
@@ -4096,12 +4388,14 @@ static void to_pixels(int x, int y, float *fx, float *fy)
 static void key(SDL_Keycode k, int repeat)
 {
     if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) {
-        if (help.open) help.open = 0;
+        if (FV.open) FV.open = 0;
+        else if (help.open) help.open = 0;
         else if (screen == SCR_MENU && SET.open) SET.open = 0;
         else if (screen == SCR_MENU) quit = 1;
         else go_home();
         return;
     }
+    if (FV.open) return;                        /* the full version's panel: only Back */
     if (k == SDLK_m) {
         snd_muted = !snd_muted;
         remember_mute();
@@ -4158,7 +4452,7 @@ int main(int argc, char **argv)
     settings_load();
     seed_random((uint32_t)SDL_GetPerformanceCounter());
     snd_init();
-    win = SDL_CreateWindow("RetroStone Board", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
+    win = SDL_CreateWindow(ed_app_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
                            SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     ui.r = win ? SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC) : NULL;
     if (win && !ui.r) ui.r = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);

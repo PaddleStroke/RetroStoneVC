@@ -6,6 +6,9 @@
 #   make -f apps/boardgames/Makefile win64      dist/windows/RetroStoneBoard.exe (mingw, SDL2 static: build/deps)
 # GAMES="chess go": build only these games (src/games/<id>*.c; default: all). B=<dir>: another build directory
 # (parallel work: each its own).
+# EDITION=boardfree: RetroStone Board Free (apps/android/app-boardfree.conf: its FREE_GAMES and FREE_LEVELS, the other
+# games locked; win64: dist/windows/RetroStoneBoardFree.exe); the default, board: the paid app (app-board.conf, every
+# game). CONF=<file>: another .conf. Read at build time by tools/gen_edition.py ($(B)/gen/edition.c, src/edition.h).
 # DEMO=1: with a little game of levels (tests/levels_demo.c, "levelsdemo": the level screen's test), never shipped.
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 
@@ -24,10 +27,17 @@ GEN    := $(B)/gen
 TEXT   := $(GEN)/text_data.c
 # the pictures (art/: the tarot's 1898 faces, JPEG) as bytes: tools/gen_art.py (python3)
 ART    := $(GEN)/art_data.c
+# the edition: the app's name, the games and levels playable, the paid app (tools/gen_edition.py, from its .conf;
+# written only when it changes)
+EDITION ?= board
+CONF   ?= apps/android/app-$(EDITION).conf
+$(if $(wildcard $(CONF)),,$(error no edition $(EDITION): $(CONF) is missing))
+EXE_NAME := $(shell sed -n 's/^EXE_NAME=//p' $(CONF))
+ED     := $(GEN)/edition.c
 # the AI kit and the bots' registry (no SDL: the tests link them); ai_worker.c runs a bot on a thread (SDL)
 AI_SRC := $(D)/src/ai.c $(D)/src/bots.c
 SRC    := $(D)/src/shell.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
-          $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(GAME_SRC) \
+          $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(ED) $(GAME_SRC) \
           $(if $(DEMO),$(D)/tests/levels_demo.c)
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
 CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
@@ -36,6 +46,11 @@ $(TEXT): $(wildcard $(D)/help/*/*.txt $(D)/help/*.txt) $(D)/tools/gen_text.py
 	python3 $(D)/tools/gen_text.py --out $(GEN)
 $(ART): $(wildcard $(D)/art/*/*.jpg) $(D)/tools/gen_art.py
 	python3 $(D)/tools/gen_art.py --out $(GEN)
+# looked at on every build (the edition asked for may differ from the last one); its date moves only when it changes
+$(ED): FORCE
+	@python3 $(D)/tools/gen_edition.py --conf $(CONF) --out $(GEN)
+.PHONY: FORCE
+FORCE:
 # a game's tests: tests/<id>_test.c (its rules) and tests/ai_<id>_test.c (its bot); the AI kit's always
 TESTS  := $(if $(filter all,$(GAMES)),$(wildcard $(D)/tests/*_test.c),\
               $(D)/tests/ai_kit_test.c \
@@ -87,9 +102,9 @@ shots: $(B)/host/retrostoneboard
 	$< --shot $(B)/shots/chess-wide.bmp --size 1280x720 --game chess --moves "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4"
 	python3 -c "import glob; from PIL import Image; [Image.open(f).save(f[:-3] + 'png') for f in glob.glob('$(B)/shots/*.bmp')]"
 
-win64: dist/windows/RetroStoneBoard.exe
+win64: dist/windows/$(EXE_NAME).exe
 
-dist/windows/RetroStoneBoard.exe: $(SRC) $(HDR)
+dist/windows/$(EXE_NAME).exe: $(SRC) $(HDR)
 	@mkdir -p $(@D)
 	x86_64-w64-mingw32-gcc $(CFLAGS) -I$(SDL2_MINGW)/include/SDL2 -Dmain=SDL_main -o $@ $(SRC) $(WIN_LIBS)
 

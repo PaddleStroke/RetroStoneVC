@@ -11,6 +11,7 @@ make -f apps/boardgames/Makefile shots           # build/boardgames/shots/*.png
 make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.exe
 ```
 
+`EDITION=boardfree` builds **RetroStone Board Free** instead of the paid app (see "The free edition");
 `GAMES="chess go"` builds only these games; `B=build/boardgames-go` another build directory (parallel work). A game
 built on another one's rules names them in the Makefile (`NEEDS_chesspuzzles := .../chess.c`), so `GAMES="id"` alone
 links. `DEMO=1` adds `tests/levels_demo.c` (five tiny games: the level screen, the keys, the score,
@@ -22,6 +23,7 @@ the solved puzzle's card, levels with random play; never shipped).
 |---|---|
 | `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the level screen, the picture mode. Everything the games share, written once. |
 | `src/save.c` | what the app keeps between two runs (`ui_save_get` / `ui_save_set`): one small file on the device (see "What the app keeps"). |
+| `src/edition.h`, `tools/gen_edition.py` | the edition: the paid app, or RetroStone Board Free (see "The free edition"). |
 | `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`; strokes `art_band`, arrow heads `art_head`, one-colour styles `art_flat`, a figure into a picture `art_fig_blend` / `art_fig_paint`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings, `art_die`), the wooden boards (`art_board_n`), carved holes (`art_recess`), inlaid tiles (`art_inlay`), the dice games' felt (`art_felt`) and cups (`art_cup`), tinted shapes in a picture (`art_tint_rect`, `art_roundrect_put`), the house inks (`ART_INK`, `ART_PALE`), a steady hash (`art_hash`), a flat piece and its shadow in a thumbnail (`art_flat_put`), icons. |
 | `src/cards.c` `cards.h` | the card and tile kit: the house's decks drawn by code (and a game's own, `cards_deck_add`), a texture cache, cards drawn and moved, hands, piles (see "Card and tile games"). |
 | `src/cards_italian.c` | the Italian pack of 40 (`DECK_ITALIAN`), drawn by code. |
@@ -182,6 +184,28 @@ of the picker, and keeps the progress.
   chapters, a die: the variant picker under the same tabs, and a card picked there starts `start_random(variant)`;
   `ui.level` tells the game which way it was started (the level, or -1 at random). The end card's next button: a new
   random puzzle of the variant; stars are kept per level only.
+
+## The free edition
+
+Two apps from the same code, like the Arcade's: **RetroStone Board** (paid, `apps/android/app-board.conf`, the
+default) and **RetroStone Board Free** (`apps/android/app-boardfree.conf`; `make ... EDITION=boardfree`,
+`apps/android/build.sh boardfree`, `dist/windows/RetroStoneBoardFree.exe`). `tools/gen_edition.py` reads the .conf at
+build time into `$(B)/gen/edition.c` (`src/edition.h`: `ed_free`, `ed_free_games`, `ed_free_levels`, the paid app's
+name, id and store page; written only when it changes). The paid app shows and plays everything as before.
+
+- **What Free plays**: every game of the Puzzles tab (peg solitaire too), only its first `FREE_LEVELS` levels (40) and
+  no random play (no die tab); a puzzle without levels whole. In the other tabs, the games of `FREE_GAMES` (ids, with
+  their bots and variants). Changing the list or the number is a .conf change only (an unknown id stops the build).
+- **Locked**: a locked game's menu card is dimmed, its picture still seen, a lock on a dark disc at its top right; the
+  playable games come first in their tab. A locked level's tile is the dim walnut of a locked level, with the same
+  lock. A tap on either (and the next button after the last free level) opens the panel.
+- **The panel** (shell.c, `draw_full`): the settings' panel's look; the paid app's icon (`make_icon.py`'s gold frame
+  round the table with the knight, the die and the card, drawn by the app's code) and name, two lines
+  (`help/<lang>/_full.txt`: a title line for the translators, the two lines, the button's word), a gold button in gold
+  light: `SDL_OpenURL("market://details?id=<PAID_APP_ID>")` on Android, `PAID_STORE_URL` when that fails and on a
+  computer (the picture mode opens nothing: `store: <url>` on stderr). Its close button, a tap outside or Back close it.
+- **Kept apart**: Free keeps its file under its own name (`SDL_GetPrefPath("8BCraft", EXE_NAME)`); on Android it is
+  another package. The picture mode refuses a locked game or level (`--game`, `--level`) and `--random`.
 
 ## What the app keeps
 

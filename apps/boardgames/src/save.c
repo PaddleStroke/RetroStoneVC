@@ -5,6 +5,8 @@
  *
  * The file: board.sav in SDL_GetPrefPath("8BCraft", "RetroStoneBoard") (Windows %APPDATA%\8BCraft\RetroStoneBoard,
  * Linux ~/.local/share/8BCraft/RetroStoneBoard, Android the app's own files), or in the folder given by --save DIR.
+ * RetroStone Board Free: its own, under its EXE_NAME (edition.h: %APPDATA%\8BCraft\RetroStoneBoardFree; on Android
+ * another package, its own files), so the two editions never share progress.
  *   20 bytes: "RSBS", the version (1), three zero bytes, the records' count, the records' length in bytes, their
  *             CRC-32 (the numbers four bytes each, little-endian);
  *   then each record: the key's length (1 byte, 1..63), the key (printable ASCII), the value's length (2 bytes,
@@ -25,6 +27,7 @@
 #include <unistd.h>
 #endif
 
+#include "edition.h"
 #include "shell.h"
 
 #include <stdio.h>
@@ -216,7 +219,7 @@ void save_open(const char *dir)
     path = NULL;
     dirty = 0;
     char *pref = NULL;
-    if (!dir) dir = pref = SDL_GetPrefPath("8BCraft", "RetroStoneBoard");
+    if (!dir) dir = pref = SDL_GetPrefPath("8BCraft", ed_exe_name);   /* the edition's: RetroStoneBoard */
     if (!dir || !*dir) {                        /* no place to keep it: memory only */
         SDL_free(pref);
         return;
