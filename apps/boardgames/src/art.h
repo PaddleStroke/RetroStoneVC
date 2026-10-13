@@ -124,10 +124,10 @@ float art_recess(float dx, float dy, float r, float b, float deep, float wall_li
  * ICON_EYE: an eye (look, show); ICON_PENCIL: a pencil (write notes); ICON_ERASER: an eraser (rub out);
  * ICON_HOURGLASS: an hourglass (turns left before a draw); ICON_MENU: three bars (the menu's settings); ICON_PERSON:
  * a person's head and shoulders (a seat played by a person); ICON_BOT: a robot's head, its eyes and mouth cut out (a
- * seat the device plays) */
+ * seat the device plays); ICON_LOCK: a padlock, its keyhole cut out (a game or a level of the full version only) */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
        ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICON_GRID, ICON_STAR, ICON_REPLAY, ICON_PAR,
-       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICON_MENU, ICON_PERSON, ICON_BOT, ICONS };
+       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICON_MENU, ICON_PERSON, ICON_BOT, ICON_LOCK, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 
