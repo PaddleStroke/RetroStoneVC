@@ -25,15 +25,17 @@
  * - an input: the cell of the part it comes from; a route switch's outputs: "c2<" (its left) and "c2>" (its right);
  *   then an x for a wire with a fuse: "OR@d4(c3x,e2>x)".
  * - "%n": the cuts allowed (else as many as there are fuses).
- * Every wire goes up (from a lower row); every output feeds at least one input; the drawing's wires never overlap
- * (lg_route checks it: each wire rises from its source, runs along a track in the gap under its destination's row,
- * and rises into it).
+ * Every wire goes up (from a lower row); every output feeds at least one input.
+ * The cells only name the parts: the drawing is laid out from the circuit alone (lg_route): the switches evenly
+ * spaced on the bottom row, the gates in rows by depth, the lamps on the top row; each row ordered for the fewest
+ * crossings, each part centred over its inputs; a wire rises from its source, bends in the gap under a row, and rises
+ * into its pin; a crossing left gets a hop, a branching a dot.
  *
  * The notation (script, the screenshots, the tests), in the level open (lg_open; the screenshots: --level n): "s3"
- * flips switch 3, "r2" route switch 2, "c5" cuts fuse 5 (numbered from 1: the switches and the route switches in
- * reading order from the bottom left, row by row; the fuses by the part they lead into, in the same order, then from
- * the left); "u" undoes, "x" restarts the level, "h" asks a hint (the screen shows it blinking; lg_script plays it);
- * "=" plays the level's best solution.
+ * flips switch 3, "r2" route switch 2, "c5" cuts fuse 5 (numbered from 1 in the level's text: the switches and the
+ * route switches in reading order of their cells from the bottom left, row by row; the fuses by the part they lead
+ * into, in the same order, then from the left); "u" undoes, "x" restarts the level, "h" asks a hint (the screen shows
+ * it blinking; lg_script plays it); "=" plays the level's best solution.
  */
 #ifndef LOGICGATES_H
 #define LOGICGATES_H
@@ -45,7 +47,8 @@
 #define LG_NODES 40
 #define LG_WIRES 64
 #define LG_VARS 16                              /* the most parts a level lets the player change */
-#define LG_TRACKS 4                             /* the most tracks in the gap between two rows */
+#define LG_PTS 20                               /* the most points on a wire's drawing */
+#define LG_MARKS 48                             /* the most hops, and the most branchings */
 #define LG_CHAPTERS 6
 #define LG_PER_CHAPTER 25
 #define LG_LEVELS (LG_CHAPTERS * LG_PER_CHAPTER)
@@ -57,10 +60,12 @@ enum { LG_SWITCH, LG_NOT, LG_AND, LG_OR, LG_XOR, LG_NAND, LG_NOR, LG_ROUTE, LG_L
 enum { LG_MSWITCH, LG_MROUTE, LG_MCUT };        /* a move's kind */
 
 typedef struct {
-    uint8_t kind, col, row, nin;
+    uint8_t kind, col, row, nin;                /* col, row: its cell in the text (its name, not its place) */
     uint8_t locked;                             /* a switch the player cannot flip */
     uint8_t init;                               /* a switch's value, a route switch's way (0 left, 1 right) */
-    int8_t in[3];                               /* the wires into it, from the left */
+    int8_t in[3];                               /* the wires into it, in the text's order */
+    uint8_t layer;                              /* its row in the drawing (0: the switches) */
+    float x, y;                                 /* its place: its middle (columns), its bottom (rows) */
 } lg_node;
 
 typedef struct {
@@ -69,14 +74,16 @@ typedef struct {
     int net;                                    /* from * 3 + port: the wires carrying one signal */
     /* the drawing, in grid units: x columns from the left, y rows up from the bottom */
     int npt;
-    float px[4], py[4];
+    float px[LG_PTS], py[LG_PTS];
     float len;                                  /* its length */
     float fs, fx, fy;                           /* the fuse: how far along, its centre */
     int fvert;                                  /* 1: the fuse lies on a vertical stretch */
 } lg_wire;
 
+typedef struct { float x, y, s; int wire; } lg_mark;   /* a hop or a branching: where, and how far along a wire */
+
 typedef struct {
-    int cols, rows, nn, nw, cut_limit;
+    int cols, rows, nn, nw, cut_limit;          /* cols, rows: the text's cells */
     lg_node n[LG_NODES];                        /* in reading order from the bottom left (so inputs come first) */
     lg_wire w[LG_WIRES];
     int nsw, sw[LG_COLS * LG_ROWS];             /* the switches, routes and fuses in the notation's order */
@@ -86,8 +93,14 @@ typedef struct {
     uint8_t var_kind[LG_VARS], var_idx[LG_VARS];   /* LG_M*, and the node or the wire */
     int depth[LG_NODES];                        /* switches 0, a part one more than its deepest input */
     int maxdepth;
-    int tracks[LG_ROWS];                        /* the tracks used in the gap above each row */
-    int crossings;                              /* wires crossing in the drawing */
+    /* the drawing (lg_route) */
+    int layers;                                 /* its rows, the switches' to the lamps' */
+    float ly[LG_ROWS];                          /* each row's bottom (the gaps between rows grow with their tracks) */
+    float width, height;                        /* its size: the parts' middles at least half a column in */
+    int crossings;                              /* wires crossing (each one drawn with a hop) */
+    int nhop, njoint;
+    lg_mark hop[LG_MARKS];                      /* the crossings: on the wire running sideways */
+    lg_mark joint[LG_MARKS];                    /* the branchings (a dot) */
 } lg_level;
 
 typedef struct { uint8_t kind, idx; } lg_move;  /* LG_M*, and the switch's, route's or fuse's number (0..) */
@@ -120,8 +133,12 @@ extern const uint8_t lg_pars[LG_LEVELS];
 int  lg_gate(int kind, const uint8_t *in, int nin);
 /* a level from its text: 0 and a reason in err (when not NULL) if it is wrong (its parts, its wires, its drawing) */
 int  lg_parse(const char *src, lg_level *L, char *err, int errsize);
-/* the drawing's tracks and fuses (lg_parse calls it): 0 when wires would overlap or a fuse has no room */
+/* the drawing: the parts' places, the wires' paths, the fuses, hops and dots (lg_parse calls it); 0 when lg_check
+ * finds it unclear */
 int  lg_route(lg_level *L);
+/* the drawing is clear: no two parts overlap, no wire runs through a part, no two signals run along one line or
+ * touch but by crossing squarely, every fuse has room; 0 and why in err (when not NULL) */
+int  lg_check(const lg_level *L, char *err, int errsize);
 /* the values everywhere for these settings; 1: solved */
 int  lg_eval(const lg_level *L, const uint8_t *val, const uint8_t *cut, uint8_t out[][2], uint8_t *wsrc,
              uint8_t *wend);

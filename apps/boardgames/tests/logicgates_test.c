@@ -5,6 +5,7 @@
  * solved from the start nor by any single move; random play then solved; the generator the same for the same seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -257,6 +258,107 @@ static void levels(void)
     for (int i = 0; i < 6; i++) CHECK(lg_pars[i] == first[i]);
 }
 
+/* the crossings in the drawing before it was laid out from the circuit (the parts on their text's cells): the new
+ * one never has more */
+static const uint8_t old_cross[LG_LEVELS] = {
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 2, 0, 0, 2, 1, 1, 1, 0, 1, 2, 1,
+    0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 2, 3, 1, 0, 1, 1, 1, 2, 1, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 3,
+    0, 0, 1, 1, 0, 1, 1, 2, 1, 1, 1, 4, 2, 1, 3, 1, 3, 1, 5, 1, 2, 0, 2, 2, 0,
+    0, 1, 1, 5, 2, 3, 1, 1, 4, 1, 2, 3, 3, 2, 1, 6, 5, 2, 4, 4, 1, 2, 2, 1, 3,
+};
+
+/* the points where wires of two different signals cross (a cut wire's is its own signal) */
+static int crossings(const lg_level *L)
+{
+    float px[256], py[256];
+    int np = 0;
+    for (int a = 0; a < L->nw; a++)
+        for (int b = 0; b < L->nw; b++) {
+            const lg_wire *A = &L->w[a], *B = &L->w[b];
+            if (a == b || (A->net == B->net && !A->cuttable && !B->cuttable)) continue;
+            for (int i = 0; i + 1 < A->npt; i++)
+                for (int j = 0; j + 1 < B->npt; j++) {
+                    float ax = A->px[i], ay0 = A->py[i], ay1 = A->py[i + 1];
+                    float by = B->py[j], bx0 = B->px[j], bx1 = B->px[j + 1];
+                    if (fabsf(ax - A->px[i + 1]) > 1e-4f || fabsf(by - B->py[j + 1]) > 1e-4f) continue;
+                    if (ax <= fminf(bx0, bx1) + 1e-3f || ax >= fmaxf(bx0, bx1) - 1e-3f) continue;
+                    if (by <= fminf(ay0, ay1) + 1e-3f || by >= fmaxf(ay0, ay1) - 1e-3f) continue;
+                    int dup = 0;
+                    for (int k = 0; k < np; k++) dup |= fabsf(px[k] - ax) < 1e-3f && fabsf(py[k] - by) < 1e-3f;
+                    if (!dup && np < 256) { px[np] = ax; py[np++] = by; }
+                }
+        }
+    return np;
+}
+
+/* every level's drawing: rows by depth, the switches evenly spaced at the bottom, the lamps on top; no two parts
+ * overlapping, no wire through a part; each wire rising from its source, square bends, rising into its pin; never
+ * more crossings than the old drawing, each one hopped */
+static void drawing(void)
+{
+    int total = 0, old_total = 0, worst = 0, worst_level = 0;
+    for (int l = 0; l < LG_LEVELS; l++) {
+        static lg_level L;
+        char err[128];
+        if (!lg_parse(lg_levels[l], &L, err, sizeof err)) continue;   /* levels() says why */
+        CHECK(lg_check(&L, err, sizeof err));
+        int top = L.layers - 1, nsw = 0;
+        float sx[LG_NODES];
+        for (int i = 0; i < L.nn; i++) {
+            const lg_node *N = &L.n[i];
+            int lamp = N->kind == LG_LAMP || N->kind == LG_ALARM;
+            CHECK((N->kind == LG_SWITCH) == (N->layer == 0) && lamp == (N->layer == top));
+            CHECK(N->x >= 0.5f - 1e-3f && N->x <= L.width - 0.5f + 1e-3f && N->y + LG_NH <= L.height + 1e-3f);
+            for (int s = 0; s < N->nin; s++) CHECK(L.n[L.w[N->in[s]].from].layer < N->layer);
+            if (N->kind == LG_SWITCH) sx[nsw++] = N->x;
+            for (int j = i + 1; j < L.nn; j++) {   /* no two parts overlap */
+                const lg_node *M = &L.n[j];
+                int apart = fabsf(N->x - M->x) >= 2 * LG_HALF + 0.1f || N->y + LG_NH <= M->y || M->y + LG_NH <= N->y;
+                if (!apart) printf("level %d: parts %d and %d overlap\n", l + 1, i, j);
+                CHECK(apart);
+            }
+        }
+        for (int i = 1; i < nsw; i++)           /* the switches a whole number of columns apart */
+            for (int j = 0; j < i; j++) {
+                float d = fabsf(sx[i] - sx[j]);
+                CHECK(d > 0.5f && fabsf(d - floorf(d + 0.5f)) < 1e-3f);
+            }
+        for (int w = 0; w < L.nw; w++) {
+            const lg_wire *W = &L.w[w];
+            const lg_node *F = &L.n[W->from], *D = &L.n[W->to];
+            int n = W->npt;
+            CHECK(n >= 2 && n <= LG_PTS);
+            CHECK(fabsf(W->py[0] - (F->y + LG_NH)) < 1e-3f && fabsf(W->px[0] - F->x) < 0.2f);
+            CHECK(fabsf(W->py[n - 1] - D->y) < 1e-3f && fabsf(W->px[n - 1] - D->x) <= LG_HALF);
+            CHECK(fabsf(W->px[1] - W->px[0]) < 1e-4f && W->py[1] > W->py[0]);   /* up from its source */
+            CHECK(fabsf(W->px[n - 1] - W->px[n - 2]) < 1e-4f && W->py[n - 1] > W->py[n - 2]);   /* up into its pin */
+            for (int i = 0; i + 1 < n; i++) {
+                float x0 = W->px[i], y0 = W->py[i], x1 = W->px[i + 1], y1 = W->py[i + 1];
+                CHECK(fabsf(x0 - x1) < 1e-4f || fabsf(y0 - y1) < 1e-4f);   /* square */
+                CHECK(y1 >= y0 - 1e-4f);                                     /* never down */
+                for (int k = 0; k < L.nn; k++) {                             /* never through a part */
+                    const lg_node *N = &L.n[k];
+                    if (k == W->from || k == W->to) continue;
+                    int through = fminf(x0, x1) < N->x + LG_HALF && fmaxf(x0, x1) > N->x - LG_HALF &&
+                                  fminf(y0, y1) < N->y + LG_NH && fmaxf(y0, y1) > N->y;
+                    if (through) printf("level %d: wire %d through part %d\n", l + 1, w, k);
+                    CHECK(!through);
+                }
+            }
+        }
+        int c = crossings(&L);
+        CHECK(c == L.crossings && L.nhop == c);
+        if (c > old_cross[l]) printf("level %d: %d crossings, %d before\n", l + 1, c, old_cross[l]);
+        CHECK(c <= old_cross[l]);
+        total += c;
+        old_total += old_cross[l];
+        if (c > worst) { worst = c; worst_level = l + 1; }
+    }
+    printf("logicgates: %d crossings in all (%d before), at most %d (level %d)\n", total, old_total, worst, worst_level);
+}
+
 static void generator(void)
 {
     lg_params p = {.cols = 6, .rows = 7, .sw = 5, .kinds = 0x7e, .routes = 1, .fuses = 2, .locked = 1, .lamps = 2,
@@ -292,6 +394,7 @@ int main(void)
     stars();
     undo_all();
     levels();
+    drawing();
     generator();
     if (fails) {
         printf("logicgates: %d failures\n", fails);

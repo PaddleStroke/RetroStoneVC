@@ -453,7 +453,8 @@ static void part_textures(void)
     if (b) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_buf(w, h, b); }
     gate_h = floorf(0.92f * ph);
     for (int wide3 = 0; wide3 < 2; wide3++) {   /* two inputs, or three: wider */
-        gate_w[wide3] = floorf(fminf(0.9f * pw, wide3 ? 1.6f * gate_h : 1.2f * gate_h));
+        /* wide enough for its inputs (up to 0.22 columns from its middle: the rules' PIN_MAX) */
+        gate_w[wide3] = floorf(fminf(0.9f * pw, fmaxf(0.6f * cw, wide3 ? 1.6f * gate_h : 1.2f * gate_h)));
         int gw = (int)gate_w[wide3], gh = (int)gate_h;
         for (int k = LG_NOT; k <= LG_NOR; k++)
             for (int lit = 0; lit < 2; lit++) {
@@ -548,11 +549,10 @@ static void fit(void)
 {
     float m = 0.16f * ui.unit;
     float iw = panel.w - 2 * fr - 2 * m, ih = panel.h - 2 * fr - 2 * m;
-    int cols = G.L.cols, rows = G.L.rows;
-    float span = rows - 1 + LG_NH + PAD_B + PAD_T, cap = fminf(iw, ih) / 3.0f;
+    float cols = G.L.width, span = G.L.height + PAD_B + PAD_T, cap = fminf(iw, ih) / 3.0f;
     cw = iw / cols;
     ch = ih / span;
-    cw = fminf(cw, fminf(cap, 1.15f * ch));
+    cw = fminf(cw, fminf(cap, 1.25f * ch));   /* a wide room: the columns further apart */
     ch = fminf(ch, fminf(1.15f * ih / 3.0f, 1.6f * cw));   /* a tall room: the rows further apart */
     cw = floorf(cw);
     ch = floorf(ch);
@@ -723,6 +723,32 @@ static void trace(float x0, float y0, float x1, float y1, int lit, int layer)
     }
 }
 
+static float hop_r(void) { return fmaxf(4, 1.8f * tw); }   /* a hop's radius (px) */
+
+/* a straight stretch (grid units) of a wire of signal net: a sideways one broken where it hops over another wire */
+static void stretch(float x0, float y0, float x1, float y1, int net, int lit, int layer)
+{
+    if (fabsf(y1 - y0) > 1e-4f) {
+        trace(PX(x0), PY(y0), PX(x1), PY(y1), lit, layer);
+        return;
+    }
+    float a = fminf(x0, x1), b = fmaxf(x0, x1), r = hop_r() / cw;
+    while (a < b) {
+        float next = 1e9f;                      /* the next hop along */
+        for (int h = 0; h < G.L.nhop; h++) {
+            const lg_mark *m = &G.L.hop[h];
+            if (G.L.w[m->wire].net == net && fabsf(m->y - y0) < 1e-3f && m->x + r > a && m->x - r < b && m->x < next)
+                next = m->x;
+        }
+        if (next > 1e8f) {
+            trace(PX(a), PY(y0), PX(b), PY(y0), lit, layer);
+            return;
+        }
+        if (next - r > a) trace(PX(a), PY(y0), PX(next - r), PY(y0), lit, layer);
+        a = next + r;
+    }
+}
+
 /* the part of a wire from arc a to arc b: its vertical (vert) or horizontal stretches */
 static void path(const lg_wire *W, float a, float b, int vert, int lit, int layer)
 {
@@ -735,11 +761,38 @@ static void path(const lg_wire *W, float a, float b, int vert, int lit, int laye
         float lo = fmaxf(a, s), hi = fminf(b, s + len);
         if (v == vert && hi > lo) {
             float f0 = (lo - s) / len, f1 = (hi - s) / len;
-            trace(PX(x0 + (x1 - x0) * f0), PY(y0 + (y1 - y0) * f0), PX(x0 + (x1 - x0) * f1), PY(y0 + (y1 - y0) * f1),
-                  lit, layer);
+            stretch(x0 + (x1 - x0) * f0, y0 + (y1 - y0) * f0, x0 + (x1 - x0) * f1, y0 + (y1 - y0) * f1, W->net, lit,
+                    layer);
         }
         s += len;
     }
+}
+
+/* the hops (a bridge over the wire crossed) and the branchings (a dot), dark-edged */
+static void marks(void)
+{
+    static const uint8_t EDGE[3] = {6, 18, 12};
+    float r = hop_r(), d = 2.1f * tw;
+    for (int pass = 0; pass < 2; pass++) {
+        for (int h = 0; h < G.L.nhop; h++) {
+            const lg_mark *m = &G.L.hop[h];
+            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? GOLD : TRACE) : EDGE;
+            float cx = PX(m->x), cy = PY(m->y), s = pass ? tw : tw + 2;
+            SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
+            for (int i = 0; i <= 18; i++) {
+                float a = 3.14159265f * i / 18;
+                ui_put_c(t_dot, cx - r * cosf(a), cy - r * sinf(a), s, s);
+            }
+        }
+        for (int j = 0; j < G.L.njoint; j++) {
+            const lg_mark *m = &G.L.joint[j];
+            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? GOLD : TRACE) : EDGE;
+            float s = pass ? d : d + 2;
+            SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
+            ui_put_c(t_dot, PX(m->x), PY(m->y), s, s);
+        }
+    }
+    SDL_SetTextureColorMod(t_dot, 255, 255, 255);
 }
 
 /* a wire's pieces by value: cut at its fuse and at the change's front */
@@ -785,21 +838,7 @@ static void draw_wires(void)
                     for (int i = 0; i < k; i++)
                         if (lit[i] == on) path(&G.L.w[w], a[i], b[i], vert, on, layer);
                 }
-    /* the corners and the branchings: round */
-    float d = 1.55f * tw;
-    for (int on = 0; on < 2; on++)
-        for (int w = 0; w < G.L.nw; w++) {
-            const lg_wire *W = &G.L.w[w];
-            if (W->npt < 4) continue;
-            float f = front(w), s1 = fabsf(W->py[1] - W->py[0]), s2 = s1 + fabsf(W->px[2] - W->px[1]);
-            for (int c = 1; c <= 2; c++) {
-                if (lit_at(w, c == 1 ? s1 : s2, f) != on) continue;
-                const uint8_t *col = on ? GOLD : TRACE;
-                SDL_SetTextureColorMod(t_dot, col[0], col[1], col[2]);
-                ui_put_c(t_dot, PX(W->px[c]), PY(W->py[c]), d, d);
-            }
-        }
-    SDL_SetTextureColorMod(t_dot, 255, 255, 255);
+    marks();
 }
 
 static void draw_fuses(void)
@@ -845,7 +884,7 @@ static void glow(float x, float y, float d, float a)
 static void node_box(int i, float *x0, float *y0, float *x1, float *y1)
 {
     const lg_node *N = &G.L.n[i];
-    float cx = PX(N->col + 0.5f);
+    float cx = PX(N->x);
     if (N->kind == LG_SWITCH) {
         *x0 = cx - sw_w / 2;
         *x1 = cx + sw_w / 2;
@@ -854,15 +893,15 @@ static void node_box(int i, float *x0, float *y0, float *x1, float *y1)
     } else {
         *x0 = cx - pw / 2;
         *x1 = cx + pw / 2;
-        *y0 = PY(N->row + LG_NH);
-        *y1 = PY(N->row);
+        *y0 = PY(N->y + LG_NH);
+        *y1 = PY(N->y);
     }
 }
 
 static void draw_node(int i)
 {
     const lg_node *N = &G.L.n[i];
-    float cx = PX(N->col + 0.5f), yt = PY(N->row + LG_NH), yb = PY(N->row);
+    float cx = PX(N->x), yt = PY(N->y + LG_NH), yb = PY(N->y);
     int out = arrived(i) ? G.out[i][0] : old_out[i][0];
     switch (N->kind) {
     case LG_SWITCH: {
@@ -957,7 +996,7 @@ static void burst(void)
     for (int i = 0; i < G.L.nn; i++) {
         const lg_node *N = &G.L.n[i];
         if (N->kind != LG_LAMP) continue;
-        float cx = PX(N->col + 0.5f), cy = PY(N->row) - 0.62f * lamp_h;
+        float cx = PX(N->x), cy = PY(N->y) - 0.62f * lamp_h;
         glow(cx, cy, lamp_w * (2.2f + 0.8f * sinf(3.14159f * fminf(1, q * 1.4f))), 1);
         if (q >= 1) continue;
         glow(cx, cy, lamp_w * (1.5f + 4.5f * puz_ease(q)), 1 - q);

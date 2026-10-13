@@ -205,20 +205,555 @@ int lg_parse(const char *src, lg_level *L, char *err, int errsize)
         L->depth[i] = d;
         if (d > L->maxdepth) L->maxdepth = d;
     }
-    if (!lg_route(L)) return fail(err, errsize, "the wires cannot be drawn apart");
+    if (!lg_route(L)) {
+        lg_check(L, err, errsize);
+        return 0;
+    }
     return 1;
 }
 
-/* ---- the drawing: tracks, crossings, fuses ----------------------------------------------------------------------- */
-static float in_off(int nin, int slot)          /* an input's place under a part, columns from its middle */
+/* ---- the drawing ------------------------------------------------------------------------------------------------- */
+/* Laid out from the circuit alone (the cells in the text only name the parts).
+ * - The rows: the switches, the gates by depth, the lamps on top. A wire rising past a row is an item of that row too,
+ *   a trunk (one for the wires of a signal; a cuttable wire has its own).
+ * - Each row's order: the fewest crossings, by an exact search of the orders (rows of up to EXACT items; else swaps of
+ *   neighbours), swept up and down the rows until nothing improves. The switches' order means nothing to the puzzle;
+ *   a route switch's left way stays on its left.
+ * - The places: the switches a column apart; then row by row upwards, each part centred over its inputs, a trunk over
+ *   its source, the row pushed apart only as far as it must be. A gate's input lies straight over its source when it
+ *   can.
+ * - Each gap between rows: one track for each signal going sideways there, the tracks ordered for the fewest
+ *   crossings, those not side by side sharing a height, evenly spaced; the gap grows with its tracks (and when a fuse
+ *   needs room). A wire rises from its source, runs along its track, and rises into its pin.
+ * - A crossing left gets a hop (on the wire running sideways), a branching a dot. */
+static float in_off(int nin, int slot)          /* an input's place under a part, columns from its middle (at first) */
 {
     return nin == 1 ? 0 : nin == 2 ? (slot ? 0.18f : -0.18f) : (slot - 1) * 0.24f;
 }
 static float out_off(int port) { return port == 1 ? -0.18f : port == 2 ? 0.18f : 0; }
 
-typedef struct { float a, b, c; int vert, wire, net; } lg_seg;   /* vertical: x = c, y a..b; horizontal: y = c */
-
 #define EPS 1e-4f
+#define IDS (LG_NODES + LG_WIRES)               /* an item: a part (its index), or LG_NODES + a trunk */
+#define EXACT 10                                /* rows ordered by an exact search: up to this many items */
+#define SEP_PART 1.0f                           /* side by side, their middles at least (columns): two parts */
+#define SEP_SIDE 0.55f                          /* a part and a trunk */
+#define SEP_PASS 0.4f                           /* two trunks */
+#define PIN_MAX 0.22f                           /* a gate's inputs: at most this far from its middle */
+#define PIN_GAP 0.16f                           /* and this far apart */
+#define SLACK 0.08f                             /* the room given up to keep a wire straight */
+#define NOT_MAX 0.12f                           /* a NOT's input: this far */
+#define GAP_MIN 0.5f                            /* a gap between rows, at least (rows) */
+#define TRACK 0.14f                             /* its tracks at least this far apart */
+#define BESIDE 0.15f                            /* two runs closer than this sideways need two heights */
+#define TOUCH 0.06f                             /* a rise this near a run's end would seem to join it */
+#define FUSE_ROOM 0.32f
+#define BIG 1000
+
+typedef struct { int u, v, port, key; } lg_edge;   /* in a gap: from item u (the row below) to item v */
+typedef struct { int key, nd, lev; float src, lo, hi, dst[LG_WIRES]; } lg_run;   /* a signal in a gap */
+
+static struct {
+    int nl, ntr;
+    int cnt[LG_ROWS], ord[LG_ROWS][IDS];        /* each row's items from the left */
+    float pos[LG_ROWS][IDS], x[LG_ROWS][IDS];   /* an item's rank in its row, its place */
+    int ne[LG_ROWS];
+    lg_edge e[LG_ROWS][LG_WIRES];               /* the gap above each row */
+    int tr_key[LG_WIRES], tr_bot[LG_WIRES], tr_top[LG_WIRES];   /* a trunk: its signal, the rows it passes */
+    int tr_from[LG_WIRES], tr_port[LG_WIRES];
+    int wtr[LG_WIRES];                          /* a wire's trunk (-1: it rises one row) */
+    float pin[LG_WIRES];                        /* where it enters its part */
+    int nr[LG_ROWS];
+    lg_run run[LG_ROWS][LG_WIRES];              /* the signals in each gap */
+    int wrun[LG_ROWS][LG_WIRES];                /* a wire's run in each gap */
+    int nt[LG_ROWS];                            /* the heights used in each gap */
+    float gap[LG_ROWS], grow[LG_ROWS];
+} lay;
+
+static int is_part(int id) { return id < LG_NODES; }
+static int wkey(const lg_level *L, int w) { return L->w[w].cuttable ? 1000 + w : L->w[w].net; }
+static float rank_off(int port) { return port == 1 ? -0.25f : port == 2 ? 0.25f : 0; }
+
+/* the rows, the trunks, the edges in each gap */
+static void build(lg_level *L)
+{
+    memset(&lay, 0, sizeof lay);
+    int top = 0;
+    for (int i = 0; i < L->nn; i++) {
+        int k = L->n[i].kind;
+        if (k != LG_LAMP && k != LG_ALARM && L->depth[i] > top) top = L->depth[i];
+    }
+    top++;                                      /* the lamps' row */
+    for (int i = 0; i < L->nn; i++) {
+        int k = L->n[i].kind;
+        L->n[i].layer = (uint8_t)(k == LG_LAMP || k == LG_ALARM ? top : L->depth[i]);
+    }
+    lay.nl = top + 1;
+    for (int w = 0; w < L->nw; w++) {
+        const lg_wire *W = &L->w[w];
+        int a = L->n[W->from].layer, b = L->n[W->to].layer, key = wkey(L, w), t = -1;
+        lay.wtr[w] = -1;
+        if (b <= a + 1) continue;
+        for (int s = 0; s < lay.ntr; s++)
+            if (lay.tr_key[s] == key) t = s;
+        if (t < 0) {
+            t = lay.ntr++;
+            lay.tr_key[t] = key;
+            lay.tr_bot[t] = a + 1;
+            lay.tr_from[t] = W->from;
+            lay.tr_port[t] = W->port;
+        }
+        if (b - 1 > lay.tr_top[t]) lay.tr_top[t] = b - 1;
+        lay.wtr[w] = t;
+    }
+    /* the items, at first in the order of the text's columns */
+    float key0[LG_ROWS][IDS];
+    for (int i = 0; i < L->nn; i++) {
+        int k = L->n[i].layer;
+        key0[k][lay.cnt[k]] = L->n[i].col + 0.5f;
+        lay.ord[k][lay.cnt[k]++] = i;
+    }
+    for (int t = 0; t < lay.ntr; t++)
+        for (int k = lay.tr_bot[t]; k <= lay.tr_top[t]; k++) {
+            key0[k][lay.cnt[k]] = L->n[lay.tr_from[t]].col + 0.5f + out_off(lay.tr_port[t]) + 0.01f * (t + 1);
+            lay.ord[k][lay.cnt[k]++] = LG_NODES + t;
+        }
+    for (int k = 0; k < lay.nl; k++) {
+        for (int i = 1; i < lay.cnt[k]; i++)
+            for (int j = i; j > 0 && key0[k][j - 1] > key0[k][j]; j--) {
+                float tk = key0[k][j];
+                key0[k][j] = key0[k][j - 1];
+                key0[k][j - 1] = tk;
+                int ti = lay.ord[k][j];
+                lay.ord[k][j] = lay.ord[k][j - 1];
+                lay.ord[k][j - 1] = ti;
+            }
+        for (int i = 0; i < lay.cnt[k]; i++) lay.pos[k][lay.ord[k][i]] = (float)i;
+    }
+    for (int w = 0; w < L->nw; w++) {
+        const lg_wire *W = &L->w[w];
+        int a = L->n[W->from].layer, b = L->n[W->to].layer, t = lay.wtr[w];
+        for (int k = a; k < b; k++) {
+            lg_edge e = {k == a ? W->from : LG_NODES + t, k + 1 == b ? W->to : LG_NODES + t, k == a ? W->port : 0,
+                         wkey(L, w)};
+            int dup = 0;
+            for (int i = 0; i < lay.ne[k]; i++) {
+                const lg_edge *f = &lay.e[k][i];
+                dup |= f->u == e.u && f->v == e.v && f->port == e.port && f->key == e.key;
+            }
+            if (!dup) lay.e[k][lay.ne[k]++] = e;
+        }
+    }
+}
+
+/* ---- the rows' order --------------------------------------------------------------------------------------------- */
+static float src_rank(int k, const lg_edge *e) { return lay.pos[k][e->u] + (is_part(e->u) ? rank_off(e->port) : 0); }
+
+static int gap_cross(int k)                     /* the crossings in the gap above row k, for the rows' orders */
+{
+    int n = 0;
+    for (int i = 0; i < lay.ne[k]; i++)
+        for (int j = i + 1; j < lay.ne[k]; j++) {
+            const lg_edge *a = &lay.e[k][i], *b = &lay.e[k][j];
+            if (a->key == b->key) continue;
+            float s = src_rank(k, a) - src_rank(k, b), d = lay.pos[k + 1][a->v] - lay.pos[k + 1][b->v];
+            n += s * d < 0;
+        }
+    return n;
+}
+
+static int all_cross(void)
+{
+    int n = 0;
+    for (int k = 0; k + 1 < lay.nl; k++) n += gap_cross(k);
+    return n;
+}
+
+/* row k's best order against its neighbours: c[i][j], the crossings when item i (its index now) is left of item j */
+static void reorder(int k)
+{
+    int n = lay.cnt[k];
+    if (n < 2) return;
+    static int c[IDS][IDS];
+    float bary[IDS], nb[IDS];
+    for (int i = 0; i < n; i++) {
+        memset(c[i], 0, sizeof(int) * (size_t)n);
+        bary[i] = 0;
+        nb[i] = 0;
+    }
+    if (k > 0)                                  /* the gap below: by where their edges come from */
+        for (int i = 0; i < lay.ne[k - 1]; i++) {
+            const lg_edge *a = &lay.e[k - 1][i];
+            int ia = (int)lay.pos[k][a->v];
+            bary[ia] += src_rank(k - 1, a);
+            nb[ia]++;
+            for (int j = i + 1; j < lay.ne[k - 1]; j++) {
+                const lg_edge *b = &lay.e[k - 1][j];
+                int ib = (int)lay.pos[k][b->v];
+                if (a->key == b->key || ia == ib) continue;
+                float sa = src_rank(k - 1, a), sb = src_rank(k - 1, b);
+                if (sa > sb) c[ia][ib]++;
+                else if (sa < sb) c[ib][ia]++;
+            }
+        }
+    if (k + 1 < lay.nl)                         /* the gap above: by where their edges go */
+        for (int i = 0; i < lay.ne[k]; i++) {
+            const lg_edge *a = &lay.e[k][i];
+            int ia = (int)lay.pos[k][a->u];
+            bary[ia] += lay.pos[k + 1][a->v];
+            nb[ia]++;
+            for (int j = i + 1; j < lay.ne[k]; j++) {
+                const lg_edge *b = &lay.e[k][j];
+                int ib = (int)lay.pos[k][b->u];
+                if (a->key == b->key || ia == ib) continue;
+                float da = lay.pos[k + 1][a->v], db = lay.pos[k + 1][b->v];
+                if (da > db) c[ia][ib]++;
+                else if (da < db) c[ib][ia]++;
+            }
+        }
+    for (int i = 0; i < n; i++) bary[i] = nb[i] > 0 ? bary[i] / nb[i] : (float)i;
+    /* the cost: the crossings first; then the barycentres' order, then the order now */
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (i != j)
+                c[i][j] = c[i][j] * 256 + (bary[i] > bary[j] + EPS ? 2 : fabsf(bary[i] - bary[j]) <= EPS && i > j);
+    int perm[IDS];
+    if (n <= EXACT) {                           /* every order: the best of each set of leftmost items */
+        static int f[1 << EXACT];
+        static signed char last[1 << EXACT];
+        f[0] = 0;
+        for (int S = 1; S < 1 << n; S++) {
+            f[S] = 1 << 30;
+            for (int j = 0; j < n; j++) {
+                if (!(S >> j & 1)) continue;
+                int R = S ^ (1 << j), cost = f[R];
+                for (int i = 0; i < n; i++)
+                    if (R >> i & 1) cost += c[i][j];
+                if (cost < f[S]) { f[S] = cost; last[S] = (signed char)j; }
+            }
+        }
+        for (int S = (1 << n) - 1, p = n - 1; S; p--) {
+            perm[p] = last[S];
+            S ^= 1 << last[S];
+        }
+    } else {                                    /* neighbours swapped while it helps */
+        for (int i = 0; i < n; i++) perm[i] = i;
+        for (int again = 1; again;) {
+            again = 0;
+            for (int p = 0; p + 1 < n; p++)
+                if (c[perm[p + 1]][perm[p]] < c[perm[p]][perm[p + 1]]) {
+                    int t = perm[p];
+                    perm[p] = perm[p + 1];
+                    perm[p + 1] = t;
+                    again = 1;
+                }
+        }
+    }
+    int was[IDS];
+    memcpy(was, lay.ord[k], sizeof(int) * (size_t)n);
+    for (int p = 0; p < n; p++) {
+        lay.ord[k][p] = was[perm[p]];
+        lay.pos[k][lay.ord[k][p]] = (float)p;
+    }
+}
+
+static void order_rows(void)
+{
+    static int best_ord[LG_ROWS][IDS], prev[LG_ROWS][IDS];
+    int best = all_cross();
+    memcpy(best_ord, lay.ord, sizeof best_ord);
+    for (int round = 0; round < 8; round++) {
+        memcpy(prev, lay.ord, sizeof prev);
+        for (int k = 0; k < lay.nl; k++) reorder(k);
+        for (int k = lay.nl - 1; k >= 0; k--) reorder(k);
+        int n = all_cross();
+        if (n < best) {
+            best = n;
+            memcpy(best_ord, lay.ord, sizeof best_ord);
+        }
+        if (!memcmp(prev, lay.ord, sizeof prev)) break;
+    }
+    memcpy(lay.ord, best_ord, sizeof best_ord);
+    for (int k = 0; k < lay.nl; k++)
+        for (int i = 0; i < lay.cnt[k]; i++) lay.pos[k][lay.ord[k][i]] = (float)i;
+}
+
+/* ---- the places -------------------------------------------------------------------------------------------------- */
+/* x[i] as near d[i] as can be (weights w) with x[i + 1] >= x[i] + s[i]: the blocks pooled at their mean */
+static void spread(int n, const float *d, const float *w, const float *s, float *x)
+{
+    float bv[IDS], bw[IDS], off = 0;
+    int bn[IDS], nb = 0;
+    for (int i = 0; i < n; i++) {
+        if (i) off += s[i - 1];
+        bv[nb] = d[i] - off;
+        bw[nb] = w[i];
+        bn[nb++] = 1;
+        while (nb > 1 && bv[nb - 2] > bv[nb - 1]) {
+            float W = bw[nb - 2] + bw[nb - 1];
+            bv[nb - 2] = (bv[nb - 2] * bw[nb - 2] + bv[nb - 1] * bw[nb - 1]) / W;
+            bw[nb - 2] = W;
+            bn[nb - 2] += bn[nb - 1];
+            nb--;
+        }
+    }
+    off = 0;
+    for (int b = 0, i = 0; b < nb; b++)
+        for (int k = 0; k < bn[b]; k++, i++) {
+            if (i) off += s[i - 1];
+            x[i] = bv[b] + off;
+        }
+}
+
+static float sep(int a, int b)
+{
+    return is_part(a) && is_part(b) ? SEP_PART : is_part(a) || is_part(b) ? SEP_SIDE : SEP_PASS;
+}
+
+/* where a wire leaves row k (its source's output, or its trunk) and where it reaches row k + 1 */
+static float wire_src(const lg_level *L, int w, int k)
+{
+    const lg_wire *W = &L->w[w];
+    return k == L->n[W->from].layer ? lay.x[k][W->from] + out_off(W->port) : lay.x[k][LG_NODES + lay.wtr[w]];
+}
+static float wire_dst(const lg_level *L, int w, int k)
+{
+    return k + 1 == L->n[L->w[w].to].layer ? lay.pin[w] : lay.x[k + 1][LG_NODES + lay.wtr[w]];
+}
+
+/* x is where another signal rises from row k: a pin there would seem to join it */
+static int on_rise(const lg_level *L, int k, int w, float x)
+{
+    for (int v = 0; v < L->nw; v++) {
+        const lg_wire *V = &L->w[v];
+        if (V->net == L->w[w].net || L->n[V->from].layer > k || L->n[V->to].layer <= k) continue;
+        if (fabsf(wire_src(L, v, k) - x) < 0.1f) return 1;
+    }
+    return 0;
+}
+
+/* pin s of a part at x (its inputs p, from its middle) may move to c: under the part, apart from its neighbours */
+static int pin_ok(const lg_level *L, int k, int w, float x, const float *p, int nin, int s, float c, float lim)
+{
+    return fabsf(c) <= lim + EPS && (s == 0 || c - p[s - 1] >= PIN_GAP - EPS) &&
+           (s == nin - 1 || p[s + 1] - c >= PIN_GAP - EPS) && !on_rise(L, k, w, x + c);
+}
+
+static void place(lg_level *L)
+{
+    for (int i = 0; i < lay.cnt[0]; i++) lay.x[0][lay.ord[0][i]] = i * SEP_PART;
+    for (int k = 1; k < lay.nl; k++) {
+        int n = lay.cnt[k];
+        float d[IDS], w[IDS], s[IDS], r[IDS];
+        for (int i = 0; i < n; i++) {
+            int id = lay.ord[k][i], m = 0;
+            float sum = 0;
+            for (int j = 0; j < lay.ne[k - 1]; j++) {
+                const lg_edge *e = &lay.e[k - 1][j];
+                if (e->v != id) continue;
+                sum += lay.x[k - 1][e->u] + (is_part(e->u) ? out_off(e->port) : 0);
+                m++;
+            }
+            d[i] = m ? sum / m : (i ? d[i - 1] + 1 : 0);
+            w[i] = is_part(id) ? 1.0f : 3.0f;
+            if (i) s[i - 1] = sep(lay.ord[k][i - 1], id);
+        }
+        spread(n, d, w, s, r);
+        /* pushed a hair off straight: straight, if its neighbours stay nearly as far */
+        for (int i = 0; i < n; i++)
+            if (fabsf(r[i] - d[i]) < 0.12f && (i == 0 || d[i] - r[i - 1] >= s[i - 1] - SLACK) &&
+                (i == n - 1 || r[i + 1] - d[i] >= s[i] - SLACK))
+                r[i] = d[i];
+        for (int i = 0; i < n; i++) lay.x[k][lay.ord[k][i]] = r[i];
+    }
+    /* from half a column in */
+    float lo = 1e9f, hi = -1e9f;
+    for (int k = 0; k < lay.nl; k++)
+        for (int i = 0; i < lay.cnt[k]; i++) {
+            int id = lay.ord[k][i];
+            float m = is_part(id) ? 0.5f : 0.3f;
+            lo = fminf(lo, lay.x[k][id] - m);
+            hi = fmaxf(hi, lay.x[k][id] + m);
+        }
+    for (int k = 0; k < lay.nl; k++)
+        for (int i = 0; i < lay.cnt[k]; i++) lay.x[k][lay.ord[k][i]] -= lo;
+    L->width = hi - lo;
+    for (int i = 0; i < L->nn; i++) L->n[i].x = lay.x[L->n[i].layer][i];
+    /* the pins: spread under the part, or straight over their sources when they can be */
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        int k = N->layer - 1, w[3];
+        float xs[3] = {0, 0, 0}, p[3];
+        for (int s = 0; s < N->nin; s++) {
+            w[s] = N->in[s];
+            xs[s] = wire_src(L, w[s], k);
+        }
+        for (int a = 1; a < N->nin; a++)
+            for (int b = a; b > 0 && xs[b - 1] > xs[b]; b--) {
+                float t = xs[b];
+                xs[b] = xs[b - 1];
+                xs[b - 1] = t;
+                int tw = w[b];
+                w[b] = w[b - 1];
+                w[b - 1] = tw;
+            }
+        for (int s = 0; s < N->nin; s++) p[s] = in_off(N->nin, s);
+        if (N->nin == 1 && N->kind == LG_NOT && fabsf(xs[0] - N->x) <= NOT_MAX) p[0] = xs[0] - N->x;
+        if (N->nin > 1)
+            for (int pass = 0; pass < 3; pass++)
+                for (int s = 0; s < N->nin; s++) {
+                    /* straight over its source; else its place, or near it, off the other signals' rises */
+                    static const float nudge[] = {0, 0.04f, -0.04f, 0.08f, -0.08f, 0.12f, -0.12f};
+                    float c = xs[s] - N->x;
+                    if (pass && pin_ok(L, k, w[s], N->x, p, N->nin, s, c, PIN_MAX)) { p[s] = c; continue; }
+                    if (pass) continue;
+                    for (size_t q = 0; q < sizeof nudge / sizeof nudge[0]; q++)
+                        if (pin_ok(L, k, w[s], N->x, p, N->nin, s, p[s] + nudge[q], PIN_MAX)) {
+                            p[s] += nudge[q];
+                            break;
+                        }
+                }
+        for (int s = 0; s < N->nin; s++) lay.pin[w[s]] = N->x + p[s];
+    }
+}
+
+/* ---- the tracks -------------------------------------------------------------------------------------------------- */
+static int inside(float x, float lo, float hi)  /* a rise at x against a run lo..hi: 1 crossing, BIG touching it */
+{
+    if (x > lo + TOUCH && x < hi - TOUCH) return 1;
+    return x > lo - TOUCH && x < hi + TOUCH ? BIG : 0;
+}
+
+static int below_cost(const lg_run *A, const lg_run *B)   /* A's track under B's */
+{
+    int c = inside(B->src, A->lo, A->hi);       /* B rises from below past A's track */
+    for (int d = 0; d < A->nd; d++) {
+        c += inside(A->dst[d], B->lo, B->hi);   /* A rises above past B's track */
+        if (fabsf(A->dst[d] - B->src) < 0.1f) c += BIG;   /* one line: B's rise and A's */
+    }
+    return c;
+}
+
+static void tracks(const lg_level *L, int k)
+{
+    lay.nr[k] = 0;
+    for (int w = 0; w < L->nw; w++) {
+        const lg_wire *W = &L->w[w];
+        int a = L->n[W->from].layer, b = L->n[W->to].layer, key = wkey(L, w), r = -1;
+        lay.wrun[k][w] = -1;
+        if (k < a || k >= b) continue;
+        for (int i = 0; i < lay.nr[k]; i++)
+            if (lay.run[k][i].key == key) r = i;
+        if (r < 0) {
+            r = lay.nr[k]++;
+            lg_run *R = &lay.run[k][r];
+            R->key = key;
+            R->nd = 0;
+            R->src = R->lo = R->hi = wire_src(L, w, k);
+        }
+        lg_run *R = &lay.run[k][r];
+        float xd = wire_dst(L, w, k);
+        int dup = 0;
+        for (int d = 0; d < R->nd; d++) dup |= fabsf(R->dst[d] - xd) < EPS;
+        if (!dup) R->dst[R->nd++] = xd;
+        R->lo = fminf(R->lo, xd);
+        R->hi = fmaxf(R->hi, xd);
+        lay.wrun[k][w] = r;
+    }
+    /* the runs going sideways: their order from the bottom */
+    int m = 0, id[LG_WIRES];
+    for (int r = 0; r < lay.nr[k]; r++) {
+        lay.run[k][r].lev = 0;
+        if (lay.run[k][r].hi - lay.run[k][r].lo > EPS) id[m++] = r;
+    }
+    int perm[LG_WIRES];
+    static int c[LG_WIRES][LG_WIRES];
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < m; j++)
+            c[i][j] = i == j ? 0 : below_cost(&lay.run[k][id[i]], &lay.run[k][id[j]]) * 4 + (i > j);
+    if (m <= 12) {
+        static int f[1 << 12];
+        static signed char last[1 << 12];
+        f[0] = 0;
+        for (int S = 1; S < 1 << m; S++) {
+            f[S] = 1 << 30;
+            for (int j = 0; j < m; j++) {
+                if (!(S >> j & 1)) continue;
+                int R = S ^ (1 << j), cost = f[R];
+                for (int i = 0; i < m; i++)
+                    if (R >> i & 1) cost += c[i][j];
+                if (cost < f[S]) { f[S] = cost; last[S] = (signed char)j; }
+            }
+        }
+        for (int S = (1 << m) - 1, p = m - 1; S; p--) {
+            perm[p] = last[S];
+            S ^= 1 << last[S];
+        }
+    } else {
+        for (int i = 0; i < m; i++) perm[i] = i;
+        for (int again = 1; again;) {
+            again = 0;
+            for (int p = 0; p + 1 < m; p++)
+                if (c[perm[p + 1]][perm[p]] < c[perm[p]][perm[p + 1]]) {
+                    int t = perm[p];
+                    perm[p] = perm[p + 1];
+                    perm[p + 1] = t;
+                    again = 1;
+                }
+        }
+    }
+    /* their heights: each above the ones under it that it runs beside */
+    lay.nt[k] = 0;
+    for (int p = 0; p < m; p++) {
+        lg_run *R = &lay.run[k][id[perm[p]]];
+        int lev = 1;
+        for (int q = 0; q < p; q++) {
+            const lg_run *Q = &lay.run[k][id[perm[q]]];
+            if (Q->lo < R->hi + BESIDE && R->lo < Q->hi + BESIDE && Q->lev + 1 > lev) lev = Q->lev + 1;
+        }
+        R->lev = lev;
+        if (lev > lay.nt[k]) lay.nt[k] = lev;
+    }
+}
+
+/* the rows' heights and the wires' points */
+static void paths(lg_level *L)
+{
+    L->ly[0] = 0;
+    for (int k = 0; k + 1 < lay.nl; k++) {
+        lay.gap[k] = fmaxf(GAP_MIN, TRACK * (lay.nt[k] + 1)) + lay.grow[k];
+        L->ly[k + 1] = L->ly[k] + LG_NH + lay.gap[k];
+    }
+    L->layers = lay.nl;
+    L->height = L->ly[lay.nl - 1] + LG_NH;
+    for (int i = 0; i < L->nn; i++) L->n[i].y = L->ly[L->n[i].layer];
+    for (int w = 0; w < L->nw; w++) {
+        lg_wire *W = &L->w[w];
+        int a = L->n[W->from].layer, b = L->n[W->to].layer, n = 0;
+        float cur = wire_src(L, w, a);
+        W->px[n] = cur;
+        W->py[n++] = L->ly[a] + LG_NH;
+        for (int k = a; k < b; k++) {
+            float xd = wire_dst(L, w, k);
+            if (fabsf(xd - cur) > EPS) {
+                const lg_run *R = &lay.run[k][lay.wrun[k][w]];
+                float ty = L->ly[k] + LG_NH + lay.gap[k] * R->lev / (lay.nt[k] + 1);
+                W->px[n] = cur;
+                W->py[n++] = ty;
+                W->px[n] = xd;
+                W->py[n++] = ty;
+                cur = xd;
+            }
+        }
+        W->px[n] = cur;
+        W->py[n++] = L->ly[b];
+        W->npt = n;
+        W->len = 0;
+        for (int i = 0; i + 1 < n; i++) W->len += fabsf(W->px[i + 1] - W->px[i]) + fabsf(W->py[i + 1] - W->py[i]);
+    }
+}
+
+/* ---- the fuses, the hops, the dots, the checks ------------------------------------------------------------------- */
+typedef struct { float a, b, c; int vert, wire, net; } lg_seg;   /* vertical: x = c, y a..b; horizontal: y = c */
 
 static int segments(const lg_level *L, lg_seg *S)
 {
@@ -240,47 +775,13 @@ static int segments(const lg_level *L, lg_seg *S)
     return n;
 }
 
-/* the drawing is clear: no two signals touch but by crossing squarely, no wire runs through a part; crossings */
-static int check(const lg_level *L, int *crossings)
+/* a cuttable wire's fuse: the middle of the longest stretch of it that is its own (no other wire along it) and clear
+ * of crossings; its length */
+static float fuse_spot(const lg_level *L, int w, float *fs, float *fx, float *fy, int *fvert)
 {
-    static lg_seg S[LG_WIRES * 3];
-    int n = segments(L, S), cross = 0;
-    for (int i = 0; i < n; i++) {
-        const lg_seg *s = &S[i];
-        if (s->vert)
-            for (int k = 0; k < L->nn; k++) {
-                const lg_node *N = &L->n[k];
-                if (k == L->w[s->wire].from || k == L->w[s->wire].to) continue;
-                float nx = N->col + 0.5f;
-                if (fabsf(s->c - nx) < LG_HALF + 0.03f && s->a < N->row + LG_NH + 0.02f && s->b > N->row - 0.02f)
-                    return 0;
-            }
-        for (int j = i + 1; j < n; j++) {
-            const lg_seg *t = &S[j];
-            if (s->net == t->net) continue;
-            if (s->vert == t->vert) {
-                float gap = s->vert ? 0.07f : 0.05f;
-                if (fabsf(s->c - t->c) < gap && s->a < t->b + 0.04f && t->a < s->b + 0.04f) return 0;
-                continue;
-            }
-            const lg_seg *h = s->vert ? t : s, *v = s->vert ? s : t;
-            if (v->c < h->a - 0.04f || v->c > h->b + 0.04f || h->c < v->a - 0.04f || h->c > v->b + 0.04f) continue;
-            if (v->c < h->a + 0.06f || v->c > h->b - 0.06f || h->c < v->a + 0.06f || h->c > v->b - 0.06f) return 0;
-            cross++;
-        }
-    }
-    *crossings = cross;
-    return 1;
-}
-
-/* a cuttable wire's fuse: the longest stretch of it that is its own (no other wire of its signal along it) and clear of
- * crossings; 0 when there is none long enough */
-#define FUSE_ROOM 0.32f
-static int place_fuse(lg_level *L, int w)
-{
-    static lg_seg S[LG_WIRES * 3];
+    static lg_seg S[LG_WIRES * LG_PTS];
     int n = segments(L, S);
-    lg_wire *W = &L->w[w];
+    const lg_wire *W = &L->w[w];
     float best = 0, along = 0;
     for (int i = 0; i + 1 < W->npt; i++) {
         float x0 = W->px[i], y0 = W->py[i], x1 = W->px[i + 1], y1 = W->py[i + 1];
@@ -289,7 +790,7 @@ static int place_fuse(lg_level *L, int w)
               c = vert ? x0 : y0, len = b - a;
         if (len < EPS) continue;
         /* the blocked spans along it */
-        float lo[LG_WIRES * 3 + 2], hi[LG_WIRES * 3 + 2];
+        static float lo[LG_WIRES * LG_PTS + 2], hi[LG_WIRES * LG_PTS + 2];
         int nb = 0;
         lo[nb] = a - 1;
         hi[nb++] = a + 0.07f;
@@ -305,8 +806,7 @@ static int place_fuse(lg_level *L, int w)
                 hi[nb++] = t->c + 0.1f;
             }
         }
-        /* the free spans: sweep the blocked ones in order */
-        for (int p = 0; p < nb; p++)
+        for (int p = 0; p < nb; p++)            /* the free spans: sweep the blocked ones in order */
             for (int q = p + 1; q < nb; q++)
                 if (lo[q] < lo[p]) {
                     float tl = lo[p], th = hi[p];
@@ -321,18 +821,183 @@ static int place_fuse(lg_level *L, int w)
             if (end > start && end - start > best) {
                 float m = (start + end) / 2;
                 best = end - start;
-                W->fvert = vert;
-                W->fx = vert ? c : m;
-                W->fy = vert ? m : c;
-                /* how far along the wire */
-                float d = vert ? fabsf(m - y0) : fabsf(m - x0);
-                W->fs = along + d;
+                *fvert = vert;
+                *fx = vert ? c : m;
+                *fy = vert ? m : c;
+                *fs = along + (vert ? fabsf(m - y0) : fabsf(m - x0));
             }
             if (p < nb && hi[p] > reach) reach = hi[p];
         }
         along += len;
     }
-    return best >= FUSE_ROOM;
+    return best;
+}
+
+static float along(const lg_wire *W, float x, float y)   /* how far along the wire a point of it lies */
+{
+    float s = 0;
+    for (int i = 0; i + 1 < W->npt; i++) {
+        float x0 = W->px[i], y0 = W->py[i], x1 = W->px[i + 1], y1 = W->py[i + 1];
+        if (x >= fminf(x0, x1) - EPS && x <= fmaxf(x0, x1) + EPS && y >= fminf(y0, y1) - EPS &&
+            y <= fmaxf(y0, y1) + EPS)
+            return s + fabsf(x - x0) + fabsf(y - y0);
+        s += fabsf(x1 - x0) + fabsf(y1 - y0);
+    }
+    return s;
+}
+
+/* the crossings (a hop on the wire running sideways) and the branchings (a dot where a signal goes three ways) */
+static void marks(lg_level *L)
+{
+    static lg_seg S[LG_WIRES * LG_PTS];
+    int n = segments(L, S);
+    L->nhop = L->njoint = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            const lg_seg *v = &S[i], *h = &S[j];
+            if (!v->vert || h->vert || wkey(L, v->wire) == wkey(L, h->wire)) continue;
+            if (v->c <= h->a + 1e-3f || v->c >= h->b - 1e-3f || h->c <= v->a + 1e-3f || h->c >= v->b - 1e-3f) continue;
+            int dup = 0;
+            for (int k = 0; k < L->nhop; k++) dup |= fabsf(L->hop[k].x - v->c) < 1e-3f && fabsf(L->hop[k].y - h->c) < 1e-3f;
+            if (dup || L->nhop >= LG_MARKS) continue;
+            lg_mark *m = &L->hop[L->nhop++];
+            m->x = v->c;
+            m->y = h->c;
+            m->wire = h->wire;
+            m->s = along(&L->w[h->wire], m->x, m->y);
+        }
+    L->crossings = L->nhop;
+    for (int w = 0; w < L->nw; w++) {
+        const lg_wire *W = &L->w[w];
+        for (int p = 1; p + 1 < W->npt; p++) {
+            float x = W->px[p], y = W->py[p];
+            int ways = 0;                       /* 1 down, 2 up, 4 left, 8 right */
+            for (int i = 0; i < n; i++) {
+                const lg_seg *s = &S[i];
+                if (s->net != W->net) continue;
+                if (s->vert && fabsf(s->c - x) < EPS && y > s->a - EPS && y < s->b + EPS)
+                    ways |= (y > s->a + EPS) | (y < s->b - EPS) << 1;
+                if (!s->vert && fabsf(s->c - y) < EPS && x > s->a - EPS && x < s->b + EPS)
+                    ways |= (x > s->a + EPS) << 2 | (x < s->b - EPS) << 3;
+            }
+            if ((ways & 1) + (ways >> 1 & 1) + (ways >> 2 & 1) + (ways >> 3 & 1) < 3) continue;
+            int dup = 0;
+            for (int k = 0; k < L->njoint; k++)
+                dup |= fabsf(L->joint[k].x - x) < 1e-3f && fabsf(L->joint[k].y - y) < 1e-3f;
+            if (dup || L->njoint >= LG_MARKS) continue;
+            L->joint[L->njoint++] = (lg_mark){x, y, along(W, x, y), w};
+        }
+    }
+}
+
+int lg_check(const lg_level *L, char *err, int size)
+{
+    static lg_seg S[LG_WIRES * LG_PTS];
+    int n = segments(L, S);
+    for (int i = 0; i < L->nn; i++)             /* the parts apart */
+        for (int j = i + 1; j < L->nn; j++) {
+            const lg_node *A = &L->n[i], *B = &L->n[j];
+            if (fabsf(A->x - B->x) < 2 * LG_HALF + 0.1f && A->y < B->y + LG_NH + 0.05f && B->y < A->y + LG_NH + 0.05f)
+                return fail(err, size, "parts %d and %d overlap", i, j);
+        }
+    for (int i = 0; i < n; i++) {
+        const lg_seg *s = &S[i];
+        for (int k = 0; k < L->nn; k++) {       /* no wire through a part */
+            const lg_node *N = &L->n[k];
+            if (k == L->w[s->wire].from || k == L->w[s->wire].to) continue;
+            float x0 = N->x - LG_HALF - 0.03f, x1 = N->x + LG_HALF + 0.03f, y0 = N->y - 0.02f, y1 = N->y + LG_NH + 0.02f;
+            int hit = s->vert ? s->c > x0 && s->c < x1 && s->a < y1 && s->b > y0
+                              : s->c > y0 && s->c < y1 && s->a < x1 && s->b > x0;
+            if (hit) return fail(err, size, "wire %d through part %d", s->wire, k);
+        }
+        for (int j = i + 1; j < n; j++) {
+            const lg_seg *t = &S[j];
+            if (s->net == t->net) continue;
+            if (s->vert == t->vert) {           /* two signals along one line */
+                float gap = s->vert ? 0.07f : 0.05f;
+                if (fabsf(s->c - t->c) < gap && s->a < t->b + 0.04f && t->a < s->b + 0.04f)
+                    return fail(err, size, "wires %d and %d along one line", s->wire, t->wire);
+                continue;
+            }
+            const lg_seg *h = s->vert ? t : s, *v = s->vert ? s : t;   /* a crossing: square, not at an end */
+            if (v->c < h->a - 0.04f || v->c > h->b + 0.04f || h->c < v->a - 0.04f || h->c > v->b + 0.04f) continue;
+            if (v->c < h->a + TOUCH || v->c > h->b - TOUCH || h->c < v->a + TOUCH || h->c > v->b - TOUCH)
+                return fail(err, size, "wires %d and %d touch", v->wire, h->wire);
+        }
+    }
+    for (int w = 0; w < L->nw; w++) {           /* each fuse has room */
+        float fs, fx, fy;
+        int fv;
+        if (L->w[w].cuttable && fuse_spot(L, w, &fs, &fx, &fy, &fv) < FUSE_ROOM)
+            return fail(err, size, "no room for the fuse on wire %d", w);
+    }
+    return 1;
+}
+
+/* from the rows' order: the places, the tracks, the paths (the gaps grown for fuses without room), the hops and dots */
+static void finish(lg_level *L)
+{
+    memset(lay.grow, 0, sizeof lay.grow);
+    place(L);
+    for (int k = 0; k + 1 < lay.nl; k++) tracks(L, k);
+    for (int tries = 0;; tries++) {
+        paths(L);
+        int short_of = 0;
+        float grow[LG_ROWS] = {0};
+        for (int w = 0; w < L->nw; w++) {
+            lg_wire *W = &L->w[w];
+            if (!W->cuttable || fuse_spot(L, w, &W->fs, &W->fx, &W->fy, &W->fvert) >= FUSE_ROOM) continue;
+            short_of = 1;
+            for (int k = L->n[W->from].layer; k < L->n[W->to].layer; k++) grow[k] = 0.1f;
+        }
+        if (!short_of || tries == 12) break;
+        for (int k = 0; k < LG_ROWS; k++) lay.grow[k] += grow[k];
+    }
+    marks(L);
+}
+
+/* several first orders (the text's, reversed, shuffled), each swept to its best; kept: the clear drawing with the
+ * fewest crossings, then the shortest wires */
+#define STARTS 40
+int lg_route(lg_level *L)
+{
+    static int first[LG_ROWS][IDS], best[LG_ROWS][IDS];
+    build(L);
+    memcpy(first, lay.ord, sizeof first);
+    float best_cost = 1e30f;
+    uint32_t r = 12345;
+    for (int c = 0; c < STARTS; c++) {
+        memcpy(lay.ord, first, sizeof first);
+        for (int k = 0; k < lay.nl; k++) {
+            int n = lay.cnt[k], *o = lay.ord[k];
+            for (int i = 0; c == 1 && i < n / 2; i++) {
+                int t = o[i];
+                o[i] = o[n - 1 - i];
+                o[n - 1 - i] = t;
+            }
+            for (int i = n - 1; c > 1 && i > 0; i--) {
+                r = r * 1103515245u + 12345u;
+                int j = (int)((r >> 16) % (uint32_t)(i + 1)), t = o[i];
+                o[i] = o[j];
+                o[j] = t;
+            }
+            for (int i = 0; i < n; i++) lay.pos[k][o[i]] = (float)i;
+        }
+        order_rows();
+        finish(L);
+        float cost = L->crossings * 1000.0f;
+        for (int w = 0; w < L->nw; w++) cost += L->w[w].len;
+        if (!lg_check(L, NULL, 0)) cost += 1e6f;
+        if (cost < best_cost) {
+            best_cost = cost;
+            memcpy(best, lay.ord, sizeof best);
+        }
+    }
+    memcpy(lay.ord, best, sizeof best);
+    for (int k = 0; k < lay.nl; k++)
+        for (int i = 0; i < lay.cnt[k]; i++) lay.pos[k][lay.ord[k][i]] = (float)i;
+    finish(L);
+    return lg_check(L, NULL, 0);
 }
 
 static uint32_t mix(uint32_t x)
@@ -343,115 +1008,6 @@ static uint32_t mix(uint32_t x)
     x *= 0x846ca68bU;
     x ^= x >> 16;
     return x;
-}
-
-/* the wires' points for given tracks (track[w]: in the gap under the wire's destination; -1: straight up) */
-static void points(lg_level *L, const int *track)
-{
-    for (int w = 0; w < L->nw; w++) {
-        lg_wire *W = &L->w[w];
-        const lg_node *F = &L->n[W->from], *D = &L->n[W->to];
-        float xs = F->col + 0.5f + out_off(W->port), ys = F->row + LG_NH;
-        float xd = D->col + 0.5f + in_off(D->nin, W->slot), yd = D->row;
-        if (track[w] < 0) {
-            W->npt = 2;
-            W->px[0] = xs; W->py[0] = ys;
-            W->px[1] = xd; W->py[1] = yd;
-        } else {
-            int k = D->row - 1;
-            float ty = k + LG_NH + (1 - LG_NH) * (track[w] + 1) / (L->tracks[k] + 1);
-            W->npt = 4;
-            W->px[0] = xs; W->py[0] = ys;
-            W->px[1] = xs; W->py[1] = ty;
-            W->px[2] = xd; W->py[2] = ty;
-            W->px[3] = xd; W->py[3] = yd;
-        }
-        W->len = 0;
-        for (int i = 0; i + 1 < W->npt; i++) W->len += fabsf(W->px[i + 1] - W->px[i]) + fabsf(W->py[i + 1] - W->py[i]);
-    }
-}
-
-int lg_route(lg_level *L)
-{
-    /* the groups: in each gap, the wires of one signal going sideways share a track (a cuttable wire has its own) */
-    int group[LG_WIRES], ng = 0, gk[LG_WIRES];
-    float ga[LG_WIRES], gb[LG_WIRES];
-    for (int w = 0; w < L->nw; w++) {
-        lg_wire *W = &L->w[w];
-        const lg_node *F = &L->n[W->from], *D = &L->n[W->to];
-        float xs = F->col + 0.5f + out_off(W->port), xd = D->col + 0.5f + in_off(D->nin, W->slot);
-        group[w] = -1;
-        if (fabsf(xs - xd) < EPS) continue;
-        int k = D->row - 1, g = -1;
-        if (!W->cuttable)
-            for (int v = 0; v < w; v++)
-                if (group[v] >= 0 && !L->w[v].cuttable && L->w[v].net == W->net && gk[group[v]] == k) g = group[v];
-        if (g < 0) {
-            g = ng++;
-            gk[g] = k;
-            ga[g] = gb[g] = xs;
-        }
-        group[w] = g;
-        ga[g] = fminf(ga[g], fminf(xs, xd));
-        gb[g] = fmaxf(gb[g], fmaxf(xs, xd));
-    }
-    int best = -1, best_cross = 1 << 30, gtrack[LG_WIRES], best_track[LG_WIRES], best_tracks[LG_ROWS];
-    for (int attempt = 0; attempt < 64; attempt++) {
-        int order[LG_WIRES];
-        for (int g = 0; g < ng; g++) order[g] = g;
-        for (int i = 1; i < ng; i++) {          /* attempt 0: from the left; then shuffled */
-            int g = order[i], j = i;
-            uint32_t kg = attempt ? mix((uint32_t)(attempt * 977 + g)) : (uint32_t)(ga[g] * 1000);
-            while (j > 0) {
-                int h = order[j - 1];
-                uint32_t kh = attempt ? mix((uint32_t)(attempt * 977 + h)) : (uint32_t)(ga[h] * 1000);
-                if (kh <= kg) break;
-                order[j] = h;
-                j--;
-            }
-            order[j] = g;
-        }
-        int ok = 1;
-        memset(L->tracks, 0, sizeof L->tracks);
-        for (int i = 0; i < ng; i++) {
-            int g = order[i], t = 0;
-            for (;; t++) {
-                int clash = 0;
-                for (int j = 0; j < i && !clash; j++) {
-                    int h = order[j];
-                    clash = gk[h] == gk[g] && gtrack[h] == t && ga[h] < gb[g] + 0.12f && ga[g] < gb[h] + 0.12f;
-                }
-                if (!clash) break;
-            }
-            gtrack[g] = t;
-            if (t + 1 > L->tracks[gk[g]]) L->tracks[gk[g]] = t + 1;
-            if (t >= LG_TRACKS) ok = 0;
-        }
-        if (!ok) continue;
-        int track[LG_WIRES];
-        for (int w = 0; w < L->nw; w++) track[w] = group[w] < 0 ? -1 : gtrack[group[w]];
-        points(L, track);
-        int cross;
-        if (!check(L, &cross)) continue;
-        int fuses = 1;
-        for (int w = 0; w < L->nw && fuses; w++)
-            if (L->w[w].cuttable) fuses = place_fuse(L, w);
-        if (!fuses) continue;
-        if (cross < best_cross) {
-            best_cross = cross;
-            best = attempt;
-            memcpy(best_track, track, sizeof track);
-            memcpy(best_tracks, L->tracks, sizeof best_tracks);
-        }
-        if (!cross) break;
-    }
-    if (best < 0) return 0;
-    memcpy(L->tracks, best_tracks, sizeof best_tracks);
-    points(L, best_track);
-    for (int w = 0; w < L->nw; w++)
-        if (L->w[w].cuttable) place_fuse(L, w);
-    L->crossings = best_cross;
-    return 1;
 }
 
 /* ---- the values -------------------------------------------------------------------------------------------------- */
