@@ -8,6 +8,8 @@ Vul het vierkante rooster zo dat elke rij en elke kolom elk getal van 1 tot de g
 Zet een getal in een leeg vakje. Je kunt het altijd veranderen of weghalen; de gegeven getallen blijven staan. Kleine notities in een vakje helpen je te onthouden welke getallen er nog in kunnen.
 # Het einde van het spel
 De puzzel is opgelost als het rooster vol en goed is: een golf van gouden licht loopt over het bord.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 7 × 7, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Neem je een verkeerd getal terug met Ongedaan maken, dan telt dat als fout.
 # Spelen op het apparaat
 Tik op een vakje en dan op een toets onder het bord: het getal komt erin, in blauwe inkt (de gegeven getallen zijn donker). Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij en kolom van het vakje lichten zacht op, en de vakjes met hetzelfde getal sterker. Is er geen leeg vakje gekozen, dan laat een toets de vakjes van zijn getal oplichten. De knoppen naast het bord:
 - Potlood: notities. De toetsen zetten dan kleine getallen in het vakje of halen ze weg. Een getal dat je invult, wist die notitie in zijn rij en kolom.

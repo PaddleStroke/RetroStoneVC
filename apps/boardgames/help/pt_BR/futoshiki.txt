@@ -8,6 +8,8 @@ Preencha a grade quadrada para que cada linha e cada coluna tenha uma vez cada n
 Coloque um número numa casa vazia. Você pode trocá-lo ou tirá-lo quando quiser; os números dados ficam. Pequenas anotações numa casa ajudam a lembrar os números que ela ainda pode ter.
 # O fim da partida
 A grade está resolvida quando está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que você depois tira com Desfazer.
 # Jogando no aparelho
 Toque numa casa e depois numa tecla abaixo do tabuleiro: o número dela entra, em tinta azul (os números dados são escuros). Toque de novo na mesma tecla para tirá-lo, ou arraste uma tecla até uma casa. A linha e a coluna da casa se iluminam de leve, e as casas com o mesmo número, mais forte. Sem uma casa vazia escolhida, uma tecla ilumina as casas do seu número. Os botões ao lado do tabuleiro:
 - Lápis: anotações. As teclas passam a pôr números pequenos na casa, ou a tirá-los. Um número que você coloca apaga essa anotação da sua linha e da sua coluna.

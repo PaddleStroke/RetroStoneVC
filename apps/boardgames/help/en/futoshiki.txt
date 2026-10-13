@@ -8,6 +8,8 @@ Fill the square grid so that every row and every column holds each number from 1
 Put a number in an empty cell. You can change it or take it out at any time; the given numbers stay. Small notes in a cell help you remember the numbers it could still hold.
 # The end of the game
 The puzzle is solved when the grid is full and right: a wave of gold light runs over the board.
+# Levels and stars
+There are 150 levels in six chapters, from 4 × 4 up to 7 × 7, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong number that you then take back with undo.
 # Playing on the device
 Tap a cell, then a key under the board: its number goes in, in blue ink (the given numbers are dark). Tap the same key again to take it out, or drag a key onto a cell. The cell's row and column are lit faintly, and every cell holding its number more warmly. With no empty cell picked, a key lights the cells of its number. The buttons beside the board:
 - Pencil: notes. The keys then put small numbers in the cell, or take them out. A number you put in clears that note from its row and column.

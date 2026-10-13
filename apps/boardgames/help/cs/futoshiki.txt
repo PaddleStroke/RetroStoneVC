@@ -8,6 +8,8 @@ Vyplň čtvercovou mřížku tak, aby každý řádek a každý sloupec obsahova
 Napiš číslo do prázdného políčka. Kdykoli ho můžeš změnit nebo smazat; daná čísla zůstávají. Malé poznámky v políčku ti pomohou zapamatovat si čísla, která do něj ještě patří.
 # Konec hry
 Úloha je vyřešena, když je mřížka plná a správně: deskou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatné číslo.
 # Hra na zařízení
 Klepni na políčko a pak na klávesu pod deskou: její číslo se zapíše modrým inkoustem (daná čísla jsou tmavá). Dalším klepnutím na stejnou klávesu ho smažeš, nebo můžeš klávesu přetáhnout na políčko. Řádek a sloupec políčka se jemně rozsvítí a políčka se stejným číslem výrazněji. Když není vybráno prázdné políčko, klávesa rozsvítí políčka se svým číslem. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak do políčka píšou malá čísla nebo je mažou. Zapsané číslo smaže tuto poznámku ve svém řádku a sloupci.

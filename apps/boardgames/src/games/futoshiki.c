@@ -13,6 +13,8 @@
  * does a sign that does not hold; on at first). A key whose n digits are all on the board fades. Undo takes back one
  * action, all the way to the start. The bar: the moves. Solved: a wave of gold light from the last cell; the stars
  * count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, made by tools/futoshiki_gen.c: futoshiki_levels.h),
+ * or its die tab a puzzle made at random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -20,6 +22,7 @@
 
 #include "games/bench_ui.h"
 #include "games/futoshiki.h"
+#include "games/futoshiki_levels.h"
 #include "games/race.h"
 #include "shell.h"
 
@@ -178,14 +181,27 @@ static const bench_dg_game digits = {cell_at, cell_xy, NULL, editable, given, va
                                      solved, clash, full, peer};
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
-static void start(int variant)
+static void begin(void)
 {
-    fsk_new(&G, variant < 0 || variant >= FSK_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     bench_dg_start(&dg, &digits, G.n, G.n);
     dg.look = BENCH_DG_LOOK;
     dg.look.nh = 0.28f;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    fsk_puz p;
+    if (!fsk_decode(fsk_levels[level < 0 || level >= FSK_NLEVELS ? 0 : level], &p) || !fsk_load_level(&G, &p))
+        fsk_new(&G, 3, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    fsk_new(&G, variant < 0 || variant >= FSK_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return fsk_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -251,8 +267,24 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a puzzle of the size and level (its signs and digits), and as many ebony
- * stones as its level; the menu's a 5 x 5 puzzle half done ------------------------------------------------------- */
+/* ---- the pictures of puzzles: the menu's and the picker's cards (a puzzle of the size and level, its signs and
+ * digits, and as many ebony stones as its level; the menu's a 5 x 5 puzzle half done), the chapters' tabs ------- */
+/* a puzzle (its digits given and those shown) on a side x side plank, at the top of a size x size picture (in its
+ * middle when mid) */
+static void paint_puzzle(const fsk_puz *p, const uint8_t *shown, int size, int side, int mid, uint8_t *rgba)
+{
+    int n = p->n, f = (int)(side * BENCH_FRAME);
+    float c = floorf((side - 2 * f) / (n + GAP * (n - 1) + 2 * MARGIN));
+    float org = floorf((side - (n * c + (n - 1) * GAP * c)) / 2);
+    uint8_t *b = calloc((size_t)side * side, 4);
+    if (!b) return;
+    paint_board(b, side, f, p, c, org);
+    paint_clues(b, side, p, c, org, shown);
+    int o = (size - side) / 2;
+    art_blend(rgba, size, size, b, side, side, o, mid ? o : 0);
+    free(b);
+}
+
 static void card(int variant, int size, int bare, uint8_t *rgba)
 {
     int v = variant < 0 ? 4 : variant, n = fsk_size_of(v);
@@ -260,16 +292,8 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     uint8_t sol[FSK_CELLS], shown[FSK_CELLS];
     fsk_make(n, fsk_level_of(v), 2026u + (uint32_t)v, &p, sol);
     for (int c = 0; c < n * n; c++) shown[c] = p.g[c] ? p.g[c] : variant < 0 && c % 3 == 0 ? sol[c] : 0;
-    int side = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(side * BENCH_FRAME);
-    float c = floorf((side - 2 * f) / (n + GAP * (n - 1) + 2 * MARGIN));
-    float org = floorf((side - (n * c + (n - 1) * GAP * c)) / 2);
-    uint8_t *b = calloc((size_t)side * side, 4);
-    if (!b) return;
-    paint_board(b, side, f, &p, c, org);
-    paint_clues(b, side, &p, c, org, shown);
-    int o = (size - side) / 2;
-    art_blend(rgba, size, size, b, side, side, o, variant < 0 ? o : 0);
-    free(b);
+    int side = variant < 0 || bare ? size : (int)(0.84f * size);
+    paint_puzzle(&p, shown, size, side, variant < 0, rgba);
     if (variant >= 0 && !bare) bench_stones(rgba, size, side, fsk_level_of(v));
 }
 
@@ -278,12 +302,23 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= FSK_CHAPTERS ? FSK_CHAPTERS - 1 : chapter;
+    static fsk_game T;
+    fsk_puz p;
+    if (!fsk_decode(fsk_levels[(ch + 1) * FSK_NLEVELS / FSK_CHAPTERS - 1], &p) || !fsk_load_level(&T, &p)) return;
+    paint_puzzle(&p, T.sol, size, (int)(0.92f * size), 1, rgba);
+}
+
 static const game futoshiki_game = {
     .id = "futoshiki", .order = 414, .variants = FSK_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {FSK_MAX - FSK_MIN + 1, 3}, .axis_pic = {size_pic, NULL},
+    .levels = FSK_NLEVELS, .chapters = FSK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .score = score, .level_stars = stars, .fill = 1, .tools = BENCH_TOOLS,
 };
 REGISTER_GAME(futoshiki_game)

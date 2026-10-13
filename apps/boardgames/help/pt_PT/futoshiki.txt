@@ -8,6 +8,8 @@ Preenche a grelha quadrada de modo que cada linha e cada coluna tenha uma vez ca
 Põe um número numa casa vazia. Podes mudá-lo ou tirá-lo quando quiseres; os números dados ficam. Pequenas notas numa casa ajudam-te a lembrar os números que ela ainda pode ter.
 # O fim do jogo
 A grelha está resolvida quando está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que depois tiras com Anular.
 # Jogar no dispositivo
 Toca numa casa e depois numa tecla por baixo do tabuleiro: o número dela entra, a tinta azul (os números dados são escuros). Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. A linha e a coluna da casa acendem-se levemente, e as casas com o mesmo número com mais força. Sem uma casa vazia escolhida, uma tecla acende as casas do seu número. Os botões ao lado do tabuleiro:
 - Lápis: notas. As teclas passam a pôr números pequenos na casa, ou a tirá-los. Um número que pões apaga essa nota da sua linha e da sua coluna.

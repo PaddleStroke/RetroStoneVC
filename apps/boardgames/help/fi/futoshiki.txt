@@ -8,6 +8,8 @@ Täytä neliön muotoinen ruudukko niin, että jokaisella rivillä ja jokaisessa
 Kirjoita luku tyhjään ruutuun. Voit muuttaa tai poistaa sen milloin tahansa; annetut luvut pysyvät. Pienet muistiinpanot ruudussa auttavat muistamaan, mitkä luvut siihen vielä sopivat.
 # Pelin loppu
 Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein: kultainen valoaalto kulkee laudan yli.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 7 × 7, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä luku, jonka sitten perut Kumoa-napilla.
 # Pelaaminen laitteella
 Napauta ruutua ja sitten laudan alla olevaa näppäintä: sen luku kirjoittuu ruutuun sinisellä musteella (annetut luvut ovat tummia). Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun rivi ja sarake valaistuvat himmeästi ja saman luvun ruudut lämpimämmin. Jos tyhjää ruutua ei ole valittu, näppäin valaisee lukunsa ruudut. Painikkeet laudan vieressä:
 - Kynä: muistiinpanot. Näppäimet lisäävät silloin ruutuun pieniä lukuja tai poistavat niitä. Kirjoittamasi luku poistaa saman muistiinpanon rivistään ja sarakkeestaan.

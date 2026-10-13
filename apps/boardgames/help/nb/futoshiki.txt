@@ -8,6 +8,8 @@ Fyll det kvadratiske rutenettet slik at hver rad og hver kolonne inneholder hver
 Skriv et tall i en tom rute. Du kan endre det eller ta det bort når som helst; de gitte tallene blir stående. Små notater i en rute hjelper deg å huske hvilke tall den fortsatt kan romme.
 # Slutten på spillet
 Oppgaven er løst når rutenettet er fullt og riktig: en bølge av gyllent lys går over brettet.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 4 × 4 opp til 7 × 7, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil tall som du siden angrer.
 # Spill på enheten
 Trykk på en rute og så på en tast under brettet: tallet kommer inn med blått blekk (de gitte tallene er mørke). Trykk på samme tast igjen for å ta det bort, eller dra en tast til en rute. Rutens rad og kolonne lyser svakt opp, og ruter med samme tall varmere. Er ingen tom rute valgt, lyser en tast opp rutene med tallet sitt. Knappene ved siden av brettet:
 - Blyant: notater. Tastene setter da små tall i ruten eller tar dem bort. Et tall du skriver inn, sletter det notatet i raden og kolonnen sin.

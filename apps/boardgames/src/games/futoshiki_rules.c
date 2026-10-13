@@ -5,6 +5,7 @@
  */
 #include "games/futoshiki.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -251,7 +252,8 @@ static int step(pen *s, int cap, int *cell)
     return -1;
 }
 
-static int rate_cap(const fsk_puz *p, int cap)
+/* the grade, no further than cap; the steps it took, and those of each level (may be NULL) */
+static int rate_work(const fsk_puz *p, int cap, long *steps, long *by_level)
 {
     pen s;
     if (!pen_load(&s, p, p->g)) return FSK_BEYOND;
@@ -262,10 +264,55 @@ static int rate_cap(const fsk_puz *p, int cap)
         int l = step(&s, cap, NULL);
         if (l < 0) return FSK_BEYOND;
         if (l > level) level = l;
+        if (steps) (*steps)++;
+        if (by_level) by_level[l]++;
     }
 }
 
+static int rate_cap(const fsk_puz *p, int cap) { return rate_work(p, cap, NULL, NULL); }
+
 int fsk_rate(const fsk_puz *p) { return rate_cap(p, FSK_HARD); }
+
+int fsk_effort(const fsk_puz *p, long *steps, long *harder)
+{
+    long n = 0, by[FSK_HARD + 1] = {0, 0, 0};
+    int lv = rate_work(p, FSK_HARD, &n, by);
+    if (steps) *steps = n;
+    if (harder) *harder = by[FSK_MEDIUM] + 3 * by[FSK_HARD];
+    return lv;
+}
+
+/* ---- a puzzle as text (the levels) ------------------------------------------------------------------------------- */
+int fsk_encode(const fsk_puz *p, char *out, int size)
+{
+    int n = p->n, len = snprintf(out, (size_t)size, "%d:", n);
+    if (len < 0 || len + 3 * n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) out[len++] = p->g[c] ? (char)('0' + p->g[c] % 10) : '.';
+    for (int way = 0; way < 2; way++)
+        for (int c = 0; c < n * n; c++) out[len++] = (way ? ".^v" : ".<>")[p->rel[way][c] % 3];
+    out[len] = 0;
+    return len;
+}
+
+int fsk_decode(const char *s, fsk_puz *p)
+{
+    memset(p, 0, sizeof *p);
+    int n = 0;
+    for (; *s >= '0' && *s <= '9'; s++) n = n * 10 + *s - '0';
+    if (*s++ != ':' || n < FSK_MIN || n > FSK_MAX) return 0;
+    p->n = n;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s != '.' && (*s < '1' || *s > '0' + n)) return 0;
+        p->g[c] = (uint8_t)(*s == '.' ? 0 : *s - '0');
+    }
+    for (int way = 0; way < 2; way++)
+        for (int c = 0; c < n * n; c++, s++) {
+            const char *k = way ? ".^v" : ".<>", *at = *s ? strchr(k, *s) : NULL;
+            if (!at || (*s != '.' && (way ? c / n >= n - 1 : c % n >= n - 1))) return 0;
+            p->rel[way][c] = (uint8_t)(at - k);
+        }
+    return !*s;
+}
 
 /* ---- counting solutions: the easy ways, then a guess in the cell with the fewest digits left -------------------- */
 typedef struct {
@@ -389,6 +436,15 @@ void fsk_load(fsk_game *g, int level, const fsk_puz *p, const uint8_t *sol)
     g->p = *p;
     memcpy(g->sol, sol, FSK_CELLS);
     memcpy(g->val, p->g, FSK_CELLS);
+}
+
+int fsk_load_level(fsk_game *g, const fsk_puz *p)
+{
+    uint8_t sol[FSK_CELLS];
+    memset(sol, 0, sizeof sol);
+    int one = fsk_count(p, 2, sol) == 1, lv = fsk_rate(p);
+    fsk_load(g, lv, p, sol);
+    return one && lv <= FSK_HARD;
 }
 
 void fsk_new(fsk_game *g, int variant, uint32_t seed)

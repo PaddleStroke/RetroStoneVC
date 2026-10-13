@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "games/futoshiki.h"
+#include "games/futoshiki_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -201,6 +202,31 @@ int main(void)
     CHECK(fsk_script(&G, moves) && G.val[c0] == G.sol[c0]);
     CHECK(!fsk_script(&G, "z9=1"));
     CHECK(fsk_script(&G, "+99") && fsk_solved(&G));
+
+    /* the levels: each decodes and encodes back, has one solution found by the grader's ways (easy in chapter 1, hard
+     * at the end), and the sizes never shrink */
+    {
+        int last_n = 0, grades[3] = {0, 0, 0};
+        clock_t t1 = clock();
+        for (int l = 0; l < FSK_NLEVELS; l++) {
+            fsk_puz q;
+            static fsk_game L;
+            char back[3 * FSK_CELLS + 8];
+            int ok = fsk_decode(fsk_levels[l], &q) && fsk_load_level(&L, &q);
+            ok = ok && fsk_script(&L, "+99") && fsk_solved(&L);   /* its solution keeps the rules */
+            if (!ok) printf("futoshiki level %d: not one solution\n", l + 1);
+            CHECK(ok);
+            CHECK(fsk_encode(&q, back, sizeof back) && !strcmp(back, fsk_levels[l]));
+            CHECK(q.n >= last_n);
+            last_n = q.n;
+            if (ok) grades[L.level]++;
+            if (l < FSK_NLEVELS / FSK_CHAPTERS) CHECK(L.level == FSK_EASY);
+        }
+        fsk_puz q;
+        CHECK(fsk_decode(fsk_levels[FSK_NLEVELS - 1], &q) && fsk_rate(&q) == FSK_HARD);
+        printf("futoshiki: %d levels, one solution each (easy %d, medium %d, hard %d) in %.1f s\n", FSK_NLEVELS,
+               grades[0], grades[1], grades[2], (double)(clock() - t1) / CLOCKS_PER_SEC);
+    }
 
     if (fails) printf("futoshiki: %d checks failed\n", fails);
     else printf("futoshiki: all checks passed\n");

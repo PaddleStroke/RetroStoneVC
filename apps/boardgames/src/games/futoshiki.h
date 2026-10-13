@@ -32,6 +32,8 @@
 #define FSK_CELLS (FSK_MAX * FSK_MAX)
 #define FSK_LEVELS 3
 #define FSK_VARIANTS ((FSK_MAX - FSK_MIN + 1) * FSK_LEVELS)
+#define FSK_NLEVELS 150                         /* the designed levels (futoshiki_levels.h), in six chapters */
+#define FSK_CHAPTERS 6
 
 enum { FSK_EASY, FSK_MEDIUM, FSK_HARD, FSK_BEYOND };
 enum { FSK_NONE, FSK_LT, FSK_GT };              /* a sign: the first cell (left, top) less / greater */
@@ -62,9 +64,19 @@ int  fsk_count(const fsk_puz *p, int limit, uint8_t *sol);
 int  fsk_rate(const fsk_puz *p);
 /* a puzzle of the size and level from the seed, and its solution */
 void fsk_make(int n, int level, uint32_t seed, fsk_puz *p, uint8_t *sol);
+/* the levels (futoshiki_levels.h, made by tools/futoshiki_gen.c): a puzzle as text, "<n>:", a character a cell row
+ * by row (a digit given, '.' none), then the signs to the right of each cell ('<', '>', '.' none), then those below
+ * it ('^': the upper one less, 'v': greater, '.' none) */
+int  fsk_encode(const fsk_puz *p, char *out, int size);   /* its length; 0: no room */
+int  fsk_decode(const char *s, fsk_puz *p);    /* 1: a puzzle */
+/* the work a puzzle asks of the grader: its grade (fsk_rate), its steps, and the harder ones (a medium step counts
+ * one, a hard one three) */
+int  fsk_effort(const fsk_puz *p, long *steps, long *harder);
 
 void fsk_new(fsk_game *g, int variant, uint32_t seed);
 void fsk_load(fsk_game *g, int level, const fsk_puz *p, const uint8_t *sol);
+int  fsk_load_level(fsk_game *g, const fsk_puz *p);   /* a puzzle given (a level), graded and solved; 1: one
+                                                       * solution, within the grader's ways */
 int  fsk_put(fsk_game *g, int cell, int digit); /* a digit (0: empty the cell); its notes in the row and column go;
                                                  * 0: not allowed (a given cell, the same digit) */
 int  fsk_note(fsk_game *g, int cell, int digit);   /* a note on or off (an empty cell only); 0: not allowed */
