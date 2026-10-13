@@ -7,11 +7,11 @@ Tracciare o cambiare un percorso.
 # La fine della partita
 Quando tutte le coppie sono collegate e nessuna casella resta vuota, il rompicapo è risolto: una luce dorata corre lungo ogni percorso.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 12 × 12, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un tratto che stende un percorso su una casella che nella soluzione è di un altro colore; Annulla non lo cancella.
+Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 12 × 12, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un tratto che stende un percorso su una casella che nella soluzione è di un altro colore; Annulla non lo toglie.
 # Giocare sul dispositivo
 - Trascina da un punto: il suo percorso riparte da lì e segue il dito. Trascina da una casella di un percorso per proseguire da lì (il resto di quel percorso sparisce).
 - Tornare indietro accorcia il percorso. Passare su un altro percorso lo taglia; torna com'era se arretri prima di alzare il dito. Un percorso non passa mai su un punto di un altro colore.
 - Quando un percorso raggiunge l'altro punto, la coppia è collegata e i suoi punti suonano.
 - Solo con tocchi: tocca un punto o una casella di un percorso (la sua estremità viene segnata), poi una casella della stessa riga o colonna: il percorso va dritto fin lì. Tocca di nuovo l'estremità segnata per lasciarla.
-- La lampada in fondo alla barra dà un aiuto: traccia il percorso di una coppia come nella soluzione, in luce dorata.
-Le caselle di un percorso prendono una tinta del suo colore. Annulla toglie un tratto o un aiuto alla volta, fino all'inizio. La barra mostra le tue mosse.
+- La lampada dà un suggerimento: traccia il percorso di una coppia come nella soluzione, in luce dorata.
+Le caselle di un percorso prendono una tinta del suo colore. Annulla toglie un tratto o un suggerimento alla volta, fino all'inizio. La barra mostra le tue mosse.

@@ -18,7 +18,7 @@ Alcuni fili hanno un piccolo fusibile color crema. Tocca il fusibile per tagliar
 Un interruttore con una barra d'ottone avvitata sopra resta com'è.
 # Livelli e stelle
 I capitoli: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 deviatori; 4 fili da tagliare; 5 catene più lunghe, un interruttore che alimenta più porte, porte a tre ingressi; 6 grandi circuiti che mescolano tutto.
-Una mossa è uno scatto o un taglio. Ogni livello ha un par, il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Chiedere un suggerimento limita il livello a 2 stelle. Annulla toglie una mossa, che non conta più. I livelli risolti restano aperti, e così i primi tre non risolti.
+Una mossa è uno scatto o un taglio. Ogni livello ha un par: il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il livello a 2 stelle. Annulla toglie una mossa, che non conta più. I livelli risolti restano aperti, e così i primi tre non risolti.
 # Giocare sul dispositivo
 - La griglia dei livelli: una scheda per capitolo, poi i suoi livelli: risolti in oro con le loro stelle, aperti in legno, chiusi in legno scuro. Tocca un livello per giocarlo. Le tue stelle restano salvate sul dispositivo.
 - Tocca un interruttore per farlo scattare, un deviatore per girarlo, un fusibile per tagliarne il filo. Il cambiamento sale lungo i fili, porta dopo porta.

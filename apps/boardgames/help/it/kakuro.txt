@@ -7,9 +7,9 @@ Riempi ogni casella bianca con una cifra da 1 a 9. Una fila è una linea di case
 # Livelli e stelle
 Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 12 × 12, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una cifra sbagliata che togli con Annulla.
 # Giocare sul dispositivo
-Tocca una casella bianca, poi un tasto sotto il tavoliere: la sua cifra entra, in inchiostro blu. Tocca di nuovo lo stesso tasto per toglierla, o trascina un tasto su una casella. Le due file della casella si illuminano, le loro somme in oro, e le caselle con la sua cifra con una luce calda. Senza una casella scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
+Tocca una casella bianca, poi un tasto accanto al tavoliere: la sua cifra entra, in inchiostro blu. Tocca di nuovo lo stesso tasto per toglierla, o trascina un tasto su una casella. Le due file della casella si illuminano, le loro somme in oro, e le caselle con la sua cifra con una luce calda. Senza una casella scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
 - Matita: le note. I tasti mettono allora piccole cifre nella casella, o le tolgono.
 - Gomma: toglie la cifra della casella, o le sue note.
-- Lampada: un aiuto. Corregge una cifra sbagliata, oppure riempie una casella che il ragionamento trova, in luce dorata.
+- Lampada: un suggerimento. Corregge una cifra sbagliata, oppure riempie una casella che il ragionamento trova, in luce dorata.
 - Occhio: mostra gli errori in rosso (una cifra due volte in una fila, una fila che supera la sua somma, o una fila piena con la somma sbagliata). All'inizio è acceso.
 Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse. Quando tutte le caselle sono giuste, un'onda di luce dorata percorre il tavoliere.

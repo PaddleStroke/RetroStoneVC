@@ -11,5 +11,5 @@ Ci sono 150 livelli in sei capitoli, dal 4 × 4 all'11 × 11 e ai tavolieri senz
 # Giocare sul dispositivo
 - Tocca una tessera per ruotarla di un quarto di giro.
 - L'acqua scorre dal serbatoio in tutti i tubi collegati. Dove raggiunge un tubo aperto, trabocca: cerca le gocce.
-- La lampada in fondo alla barra dà un aiuto: gira nel verso giusto una tessera sbagliata (accanto all'acqua se può), in luce dorata.
-Annulla toglie un giro o un aiuto alla volta, fino all'inizio. La barra mostra le tue mosse.
+- La lampada dà un suggerimento: gira nel verso giusto una tessera sbagliata (accanto all'acqua se può), in luce dorata.
+Annulla toglie un giro o un suggerimento alla volta, fino all'inizio. La barra mostra le tue mosse.

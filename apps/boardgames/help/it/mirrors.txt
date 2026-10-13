@@ -2,7 +2,7 @@ Specchi
 # Lo scopo
 Una lampada d'ottone manda un raggio di luce sul tavoliere. Gira e sistema gli specchi perché il raggio illumini tutte le gemme senza toccare nessuna bomba. Scegli prima il livello (le pietre sotto ogni immagine): facile, medio, difficile o esperto.
 - Uno specchio devia il raggio ad angolo retto. Gli specchi su un perno di noce restano nella loro casella: li giri soltanto in un verso (/) o nell'altro (\).
-- Gli specchi liberi aspettano nel vassoio sotto il tavoliere: posali sulle caselle vuote.
+- Gli specchi liberi aspettano nel vassoio sul bordo del tavoliere: posali sulle caselle vuote.
 - Il raggio prosegue dritto attraverso le gemme e le caselle vuote. Un blocco di legno lo ferma, e così il bordo del tavoliere.
 - Dal livello difficile in poi, una lastra di vetro lascia passare metà della luce e devia l'altra metà.
 Ogni rompicapo ha una sola soluzione, che si trova seguendo il raggio e ragionando.
@@ -15,4 +15,4 @@ Ci sono 150 livelli in sei capitoli, dai tavolieri 5 × 5 con soli specchi su pe
 # Giocare sul dispositivo
 - Tocca uno specchio sul perno per girarlo.
 - Tocca una casella vuota per posarvi uno specchio libero; toccala di nuovo per girarlo, una terza volta per rimandarlo nel vassoio. Puoi anche trascinare uno specchio dal vassoio a una casella, da una casella all'altra o fuori dal tavoliere.
-Il raggio segue subito ogni cambiamento. Una gemma illuminata risplende; una bomba toccata dal raggio si accende di rosso. La lampada nella barra è un aiuto: sistema uno specchio e lo illumina d'oro. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
+Il raggio segue subito ogni cambiamento. Una gemma illuminata risplende; una bomba toccata dal raggio si accende di rosso. La lampada è un suggerimento: sistema uno specchio e lo illumina d'oro. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

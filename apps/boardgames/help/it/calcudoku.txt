@@ -7,9 +7,9 @@ Riempi la griglia in modo che ogni riga e ogni colonna contenga una volta ogni c
 # Livelli e stelle
 Ci sono 150 livelli in sei capitoli, dal 4 × 4 al 9 × 9, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una cifra sbagliata che togli con Annulla.
 # Giocare sul dispositivo
-Tocca una casella, poi un tasto sotto il tavoliere: la sua cifra entra, in inchiostro blu. Tocca di nuovo lo stesso tasto per toglierla, o trascina un tasto su una casella. La riga e la colonna della casella si illuminano appena, la sua gabbia un po' di più, e le caselle con la sua cifra con una luce calda. Senza una casella scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
+Tocca una casella, poi un tasto accanto al tavoliere: la sua cifra entra, in inchiostro blu. Tocca di nuovo lo stesso tasto per toglierla, o trascina un tasto su una casella. La riga e la colonna della casella si illuminano appena, la sua gabbia un po' di più, e le caselle con la sua cifra con una luce calda. Senza una casella scelta, un tasto illumina le caselle della sua cifra. I pulsanti accanto al tavoliere:
 - Matita: le note. I tasti mettono allora piccole cifre nella casella, o le tolgono.
 - Gomma: toglie la cifra della casella, o le sue note.
-- Lampada: un aiuto. Corregge una cifra sbagliata, oppure riempie una casella che il ragionamento trova, in luce dorata.
+- Lampada: un suggerimento. Corregge una cifra sbagliata, oppure riempie una casella che il ragionamento trova, in luce dorata.
 - Occhio: mostra gli errori in rosso (una cifra due volte in una linea, una gabbia piena che non dà il suo risultato). All'inizio è acceso.
 Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse. Quando la griglia è piena e giusta, un'onda di luce dorata percorre il tavoliere.

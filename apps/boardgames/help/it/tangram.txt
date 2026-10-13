@@ -4,10 +4,10 @@ Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i
 # Una mossa
 Sposta un tan, giralo di un ottavo di giro o capovolgi il parallelogramma (gli altri sono uguali da entrambi i lati). I tan restano piatti e non si sovrappongono mai.
 # La fine della partita
-La figura è risolta quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Vale ogni modo di riempire la sagoma, non solo quello con cui è stata fatta. Tre stelle senza aiuti, due con uno o due aiuti, una con di più.
+La figura è risolta quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Vale ogni modo di riempire la sagoma, non solo quello con cui è stata fatta. Tre stelle senza suggerimenti, due con uno o due suggerimenti, una con di più.
 # Giocare sul dispositivo
 Scegli una figura nella schermata dei livelli; quelle risolte mostrano le loro stelle.
 - Trascina un tan. Quando lo lasci, si sistema in un posto adatto: i suoi angoli incontrano quelli della sagoma o di un altro tan.
 - Tocca un tan: gira di un ottavo di giro.
 - Tocca due volte in fretta il parallelogramma: si capovolge.
-L'ultimo tan toccato sta sopra. La lampada dà un aiuto: porta un tan al suo posto, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni.
+L'ultimo tan toccato sta sopra. La lampada dà un suggerimento: porta un tan al suo posto, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni.
