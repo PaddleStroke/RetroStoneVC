@@ -303,8 +303,10 @@ static void draw(void)
             float px = cell_x(x) + gap, py = cell_y(y) + gap, fade = 1;
             if (win.on && t == KLT_BIG && now > win.t0) {   /* leaving: the gold light round it, fading out */
                 float f = clampf((now - win.t0) / (float)OUT_MS, 0, 1);
-                ui_mark_gold(px + pw / 2, py + ph / 2, 2.4f * q * sinf(PUZ_PI * fminf(1, f * 1.2f)) + 0.4f * q);
                 fade = 1 - clampf((f - 0.5f) / 0.45f, 0, 1);
+                if (fade > 0)                   /* gone with the block: no light left below the tray */
+                    ui_mark_gold_a(px + pw / 2, py + ph / 2, 2.4f * q * sinf(PUZ_PI * fminf(1, f * 1.2f)) + 0.4f * q,
+                                   fminf(1, 2 * fade));
                 SDL_SetTextureAlphaMod(t_piece[t], (Uint8)(255 * fade));
             }
             if (hint.piece == i) {
