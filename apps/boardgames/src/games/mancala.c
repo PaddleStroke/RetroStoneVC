@@ -3,8 +3,12 @@
  * by one, the captured seeds flying to the store (the rules, Oware and Kalah: mancala_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The board lies across the square: 8 columns (a store, 6 pits, a store) by 3 squares of the house plank, each row of
- * pits 1.5 squares high. Every seed is someone: it keeps its pebble and its tint from pit to pit.
+ * The board lies across the room the shell gives, each player's row of pits next to them: 8 columns (a store, 6 pits,
+ * a store) by 3 squares of the house plank, each row of pits 1.5 squares high, as wide as the room allows (landscape).
+ * Where the width is short (portrait) the stores leave the plank's ends for planks of their own beyond its long sides,
+ * each next to its player at the corner where the sowing turns (ivory's below the plank's right end, ebony's above
+ * its left end, the board turning round when flipped): the six columns of pits take the whole width, the stores the
+ * height left over. Every seed is someone: it keeps its pebble and its tint from pit to pit.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -21,6 +25,12 @@
 #define STORE_RY 1.32f
 #define SEED 0.34f                              /* a seed, in columns */
 #define NUM 0.34f                               /* the counts' digits, in columns */
+#define NUM_V 0.42f                             /* a count's centre beyond the plank's frame */
+#define STORE_W 3.0f                            /* a store on its own plank (portrait): its length, in columns... */
+#define STORE_H0 1.1f                           /* ...its height, at least and at most */
+#define STORE_H1 1.8f
+#define STORE_RX 1.3f                           /* its hollow's half length */
+#define STORE_GAP 0.72f                         /* from the board's frame to the store's (the pits' counts between) */
 #define TINTS 4
 #define SHAPES 4
 #define LIFT_MS 140                             /* the seeds picked up */
@@ -32,9 +42,11 @@ typedef struct { uint8_t n[MC_SLOTS], id[MC_SLOTS][MC_SEEDS]; } heap;   /* which
 
 static mc_game G, scratch;
 static heap H;                                  /* the seeds after the last move */
-static int variant, sq, fr, sd, made = -1, made_small = -1;   /* sd: a seed, pixels */
+static int variant, sq, fr, sd, made = -1, made_out = -1, made_small = -1;   /* sd: a seed, pixels */
+static int out, ncol = COLS;                    /* out: the stores on their own planks, the plank 6 columns long */
 static float bx, by;                            /* the plank's top left corner */
-static SDL_Texture *t_board, *t_seed[TINTS][SHAPES], *t_small[TINTS], *t_num;
+static float store_h, made_h;                   /* out: a store's height, in columns */
+static SDL_Texture *t_board, *t_store, *t_seed[TINTS][SHAPES], *t_small[TINTS], *t_num;
 static int num_w, num_h;
 static struct { int on, step, heard; Uint32 t0; heap before; mc_move m; } anim;
 typedef struct { int id; float x0, y0, h0, x1, y1, h1, t, arc; } flight;   /* a seed in the air */
@@ -195,19 +207,43 @@ static void make_seed(int tint, int shape, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+/* a store on its own plank: w x h pixels inside a frame of f, its hollow along it */
+static void make_store(int w, int h, int s, int f, uint8_t *o)
+{
+    art_plank(w, h, f, o);
+    carve(o, w + 2 * f, h + 2 * f, f + w / 2.0f, f + h / 2.0f, STORE_RX * s, h / 2.0f - 0.12f * s);
+}
+
+/* the room: the plank with its stores at its ends and the counts along it (as wide as it may be: landscape), or the
+ * plank of pits alone with a store on a plank beyond each long side (the narrow room of portrait), whichever gives
+ * the bigger pits */
 static void layout(box b)
 {
-    sq = (int)floorf(b.w / (COLS + 2 * FRAME));
+    float h_in = ROWS + 2 * FRAME + 2 * (NUM_V + 0.2f);
+    float h_out = ROWS + 2 * FRAME + 2 * (STORE_GAP + STORE_H0 + 2 * FRAME);
+    float s_in = fminf(b.w / (COLS + 2 * FRAME), b.h / h_in), s_out = fminf(b.w / (6 + 2 * FRAME), b.h / h_out);
+    out = s_out > s_in;
+    ncol = out ? 6 : COLS;
+    sq = (int)floorf(out ? s_out : s_in);
     fr = (int)(sq * FRAME);
-    float w = (float)COLS * sq + 2 * fr, h = (float)ROWS * sq + 2 * fr;
+    store_h = clampf((b.h / sq - ROWS - 2 * FRAME) / 2 - STORE_GAP - 2 * FRAME, STORE_H0, STORE_H1);
+    float w = (float)ncol * sq + 2 * fr, h = (float)ROWS * sq + 2 * fr;
     bx = floorf(b.x + (b.w - w) / 2) + fr;
     by = floorf(b.y + (b.h - h) / 2) + fr;
-    if (made != sq) {
+    if (made != sq || made_out != out || (out && made_h != store_h)) {
         made = sq;
+        made_out = out;
+        made_h = store_h;
         int bw = (int)w, bh = (int)h, d = sd = (int)(SEED * sq + 0.5f);
         ui_free(&t_board);
-        make_board(COLS, 1u | 1u << (COLS - 1), sq, fr, ui_buf(bw, bh));
+        make_board(ncol, out ? 0 : 1u | 1u << (COLS - 1), sq, fr, ui_buf(bw, bh));
         t_board = ui_tex(bw, bh, ui_buf(bw, bh));
+        ui_free(&t_store);
+        if (out) {
+            int sw = (int)(STORE_W * sq), sh = (int)(store_h * sq);
+            make_store(sw, sh, sq, fr, ui_buf(sw + 2 * fr, sh + 2 * fr));
+            t_store = ui_tex(sw + 2 * fr, sh + 2 * fr, ui_buf(sw + 2 * fr, sh + 2 * fr));
+        }
         for (int t = 0; t < TINTS; t++)
             for (int s = 0; s < SHAPES; s++) {
                 ui_free(&t_seed[t][s]);
@@ -235,17 +271,23 @@ static void layout(box b)
 /* board units (columns from the plank's top left, ivory's row at the bottom) to pixels; flipped: turned round */
 static void at(float u, float v, float *x, float *y)
 {
-    if (ui.flipped) { u = COLS - u; v = ROWS - v; }
+    if (ui.flipped) { u = ncol - u; v = ROWS - v; }
     *x = bx + u * sq;
     *y = by + v * sq;
 }
 
+/* out: a store's centre beyond the plank's long side (board units from the plank's edge) */
+static float store_v(void) { return FRAME + STORE_GAP + FRAME + store_h / 2; }
+
 static void slot_uv(int s, float *u, float *v)  /* a pit's or a store's centre, board units */
 {
-    if (s == MC_STORE) { *u = COLS - 0.5f; *v = 1.5f; }
+    float p0 = out ? 0.5f : 1.5f;               /* the first pit's column */
+    if (out && s == MC_STORE) { *u = ncol - STORE_W / 2; *v = ROWS + store_v(); }
+    else if (out && s == MC_STORE + 1) { *u = STORE_W / 2; *v = -store_v(); }
+    else if (s == MC_STORE) { *u = COLS - 0.5f; *v = 1.5f; }
     else if (s == MC_STORE + 1) { *u = 0.5f; *v = 1.5f; }
-    else if (s < 6) { *u = 1.5f + s; *v = 2.25f; }
-    else { *u = 1.5f + (11 - s); *v = 0.75f; }
+    else if (s < 6) { *u = p0 + s; *v = 2.25f; }
+    else { *u = p0 + (11 - s); *v = 0.75f; }
 }
 
 static void centre(int s, float *x, float *y)
@@ -257,27 +299,47 @@ static void centre(int s, float *x, float *y)
 
 /* the k-th seed of a pit or a store, from its centre (board units): a sunflower spiral, a little jostled (salt: the
  * pit's own jostle); more than a layer makes a heap */
-static void spot(int store, int salt, int k, float *du, float *dv)
+static void spot_in(float hx, float hy, int cap, int salt, int k, float *du, float *dv)
 {
-    int cap = store ? 16 : 6, layer = k / cap < 4 ? k / cap : 4, j = k % cap;
-    float rx = PIT_RX - 0.56f * SEED, ry = (store ? STORE_RY : PIT_RY) - 0.56f * SEED;
+    int layer = k / cap < 4 ? k / cap : 4, j = k % cap;
+    float rx = hx - 0.56f * SEED, ry = hy - 0.56f * SEED;
     float r = sqrtf((j + 0.5f) / cap) * (1 - 0.16f * layer), a = j * 2.39996f + k / cap * 1.3f + salt;
     *du = cosf(a) * r * rx + 0.05f * (hash(salt * 64 + k, 1) - 0.5f);
     *dv = sinf(a) * r * ry + 0.05f * (hash(salt * 64 + k, 2) - 0.5f) - 0.03f * layer;
+}
+
+static void spot(int store, int salt, int k, float *du, float *dv)
+{
+    spot_in(PIT_RX, store ? STORE_RY : PIT_RY, store ? 16 : 6, salt, k, du, dv);
 }
 
 static void seed_xy(int s, int k, float *x, float *y)
 {
     float u, v, du, dv;
     slot_uv(s, &u, &v);
-    spot(s >= MC_STORE, s, k, &du, &dv);
+    if (out && s >= MC_STORE) {                 /* a store on its plank: a layer as big as its hollow's room */
+        float hy = store_h / 2 - 0.12f, room = (STORE_RX - 0.56f * SEED) * (hy - 0.56f * SEED);
+        int cap = (int)clampf(16 * room / ((PIT_RX - 0.56f * SEED) * (STORE_RY - 0.56f * SEED)), 16, 40);
+        spot_in(STORE_RX, hy, cap, s, k, &du, &dv);
+    } else {
+        spot(s >= MC_STORE, s, k, &du, &dv);
+    }
     at(u + du, v + dv, x, y);
 }
 
 static int slot_at(float x, float y)            /* the pit or store under a point, or -1 */
 {
-    if (ui.flipped) { x = 2 * bx + COLS * sq - x; y = 2 * by + ROWS * sq - y; }
+    if (ui.flipped) { x = 2 * bx + ncol * sq - x; y = 2 * by + ROWS * sq - y; }
     float u = (x - bx) / sq, v = (y - by) / sq;
+    if (out) {                                  /* the stores on their planks, the pits */
+        for (int s = MC_STORE; s < MC_SLOTS; s++) {
+            float su, sv;
+            slot_uv(s, &su, &sv);
+            if (fabsf(u - su) < STORE_W / 2 + FRAME && fabsf(v - sv) < store_h / 2 + FRAME) return s;
+        }
+        if (u < 0 || u >= ncol || v < 0 || v >= ROWS) return -1;
+        return v >= 1.5f ? (int)u : 11 - (int)u;
+    }
     if (u < 0 || u >= COLS || v < 0 || v >= ROWS) return -1;
     int c = (int)u;
     if (c == 0) return MC_STORE + 1;
@@ -462,7 +524,13 @@ static int shown(int s)
 static void draw(void)
 {
     float x, y, x1, y1;
-    ui_put(t_board, bx - fr, by - fr, (float)COLS * sq + 2 * fr, (float)ROWS * sq + 2 * fr);
+    ui_put(t_board, bx - fr, by - fr, (float)ncol * sq + 2 * fr, (float)ROWS * sq + 2 * fr);
+    if (out && t_store)                         /* the stores on their own planks */
+        for (int s = MC_STORE; s < MC_SLOTS; s++) {
+            centre(s, &x, &y);
+            float w = floorf(STORE_W * sq) + 2 * fr, h = floorf(store_h * sq) + 2 * fr;
+            ui_put(t_store, floorf(x - w / 2), floorf(y - h / 2), w, h);
+        }
     int playing = status() == GS_PLAY;
     if (G.n && !anim.on) {                      /* the last pit sown */
         float u, v;
@@ -483,7 +551,10 @@ static void draw(void)
         int owner = s >= MC_STORE ? s - MC_STORE : MC_OWNER(s);
         float u, v;
         slot_uv(s, &u, &v);
-        at(u, owner ? -FRAME - 0.42f : ROWS + FRAME + 0.42f, &x, &y);
+        if (out && s >= MC_STORE)               /* a store on its plank: its count beside it, towards the middle */
+            at(owner ? STORE_W + FRAME + 0.5f : ncol - STORE_W - FRAME - 0.5f, v, &x, &y);
+        else
+            at(u, owner ? -FRAME - NUM_V : ROWS + FRAME + NUM_V, &x, &y);
         number(x, y, shown(s), ui_upside(owner));
     }
 }
@@ -549,6 +620,6 @@ static const game mancala_game = {
     .id = "mancala", .order = 90, .variants = 2,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .fill = 1,
 };
 REGISTER_GAME(mancala_game)
