@@ -17,5 +17,7 @@ Llevar las 52 cartas a las cuatro bases, una por palo. Un juego para un jugador.
 Toca el mazo para pasar tres cartas al descarte (menos al final); solo se juega la carta de arriba del descarte. Cuando el mazo se acaba, toca su sitio para darle la vuelta al descarte, tantas veces como quieras.
 # El final de la partida
 Ganas cuando todas las cartas están en las bases. En cuanto el mazo, el descarte y la reserva están vacíos y las cartas que quedan pueden subir una tras otra, suben solas. Vacía primero la reserva: es la clave del juego.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta para mandarla a su mejor sitio: una base si puede ir, si no, una columna. Toca la primera carta de una columna para mover la columna entera. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar cartas donde quieras. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para mandarla a su mejor sitio: una base si puede ir, si no, una columna. Toca la primera carta de una columna para mover la columna entera. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar cartas donde quieras. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

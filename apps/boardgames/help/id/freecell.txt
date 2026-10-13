@@ -14,5 +14,7 @@ Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai ra
 Setiap pembagian bernomor 1 sampai 32000, tampil di samping kartu kecil di bilahmu. Pembagian 1 di sini juga pembagian 1 di permainan FreeCell lain. Semua bisa dimenangkan kecuali pembagian 11982.
 # Akhir permainan
 Kamu menang bila semua kartu sudah di fondasi. Kalau buntu, urungkan langkah atau mulai pembagian baru.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
 # Bermain di perangkat
-Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi, kolom, kolom kosong, atau sel bebas. Ketuk kartu di tengah deret untuk memindahkan deret mulai dari kartu itu. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu atau deret dan melepasnya di mana saja. Lampu di bilahmu menunjukkan langkah yang berguna; angka setelah nomor pembagian menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi, kolom, kolom kosong, atau sel bebas. Ketuk kartu di tengah deret untuk memindahkan deret mulai dari kartu itu. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu atau deret dan melepasnya di mana saja. Lampu menunjukkan langkah yang berguna; angka setelah nomor pembagian menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

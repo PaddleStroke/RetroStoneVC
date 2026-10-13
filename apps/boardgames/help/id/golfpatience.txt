@@ -13,5 +13,7 @@ Jika tidak ada kartu yang bisa masuk, ketuk tumpukan untuk membalik kartu terata
 Seperti golf, makin sedikit makin baik. Angka di samping tumpukan buangan menghitung kartu yang tersisa di kolom. Jika semua kolom sudah kosong, skornya adalah kartu yang tersisa di tumpukan, di bawah nol.
 # Akhir permainan
 Kamu menang saat kolom-kolom kosong. Permainan selesai saat tumpukan habis dan tidak ada kartu yang bisa masuk. Tidak semua pembagian bisa dimenangkan.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Di bab 1 sampai 3 as dan raja berurutan, di bab 4 sampai 6 tidak. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
 # Bermain di perangkat
-Ketuk kartu teratas untuk memainkannya ke tumpukan buangan, atau seret ke sana. Lampu di bilahmu menunjukkan langkah yang bagus: kartu yang memulai deret terpanjang yang bisa dilihatnya. Angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk kartu teratas untuk memainkannya ke tumpukan buangan, atau seret ke sana. Lampu menunjukkan langkah yang bagus: kartu yang memulai deret terpanjang yang bisa dilihatnya. Angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

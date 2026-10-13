@@ -13,4 +13,4 @@ Tre gånger per parti kan du trycka på handen (platsen med pilen som går runt)
 # Partiets slut
 Du vinner när de fyra raderna ligger i ordning, var och en med sin lucka sist. Partiet är slut när ingen lucka kan fyllas och inga givar finns kvar. Alla givar går inte ut.
 # Spela på enheten
-Tryck på ett kort för att skicka det till luckan det fyller, eller tryck på en lucka för att hämta kortet som fyller den. Du kan också dra ett kort till sin lucka. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett kort för att skicka det till luckan det fyller, eller tryck på en lucka för att hämta kortet som fyller den. Du kan också dra ett kort till sin lucka. Lampan visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

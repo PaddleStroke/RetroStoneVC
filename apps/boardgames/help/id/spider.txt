@@ -18,5 +18,7 @@ Susun delapan deret dari raja sampai as, masing-masing satu jenis, lalu singkirk
 Ketuk tumpukan untuk membagikan satu kartu terbuka ke setiap kolom. Seperti aturan klasiknya, pembagian hanya boleh jika tidak ada kolom yang kosong.
 # Akhir permainan
 Kamu menang bila kedelapan deret sudah lengkap. Kalau buntu, urungkan langkah atau mulai pembagian baru.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Bab 1 sampai 4 dimainkan dengan satu jenis, bab 5 dan 6 dengan dua. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas (termasuk empat jenis). Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
 # Bermain di perangkat
-Ketuk kartu untuk memindahkannya, bersama kartu di atasnya, ke tempat terbaiknya: ke kartu yang sejenis jika bisa, kalau tidak ke kartu mana saja yang satu tingkat lebih tinggi, kalau tidak ke kolom kosong. Kamu juga bisa menyeret deret dan melepasnya di mana saja. Lampu di bilahmu menunjukkan langkah yang berguna; angka di bilahmu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk kartu untuk memindahkannya, bersama kartu di atasnya, ke tempat terbaiknya: ke kartu yang sejenis jika bisa, kalau tidak ke kartu mana saja yang satu tingkat lebih tinggi, kalau tidak ke kolom kosong. Kamu juga bisa menyeret deret dan melepasnya di mana saja. Lampu menunjukkan langkah yang berguna; angka di bilahmu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

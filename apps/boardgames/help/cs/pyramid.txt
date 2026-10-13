@@ -16,5 +16,7 @@ Vyčisti pyramidu z 28 karet tak, že odebíráš dvojice karet, které dávají
 - Tři projití: když je balíček prázdný, klepni na jeho místo a odhazovací hromádka se otočí zpět jako nový balíček. Číslo pod balíčkem ukazuje zbývající projití.
 # Konec hry
 Vyhráváš, jakmile je pyramida prázdná, i když v balíčku nebo na odhazovací hromádce zůstanou karty. Hra je prohraná, když už nezbývá žádný tah. Karty se míchají náhodně, takže ne každé rozdání se dá vyhrát.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. V kapitolách 1 až 5 se balíčkem projde třikrát, v kapitole 6 jednou. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
 # Hra na zařízení
-Klepnutím kartu zvedneš, pak klepni na kartu, která s ní dává 13; dalším klepnutím na zvednutou kartu ji vrátíš. Král odejde jedním klepnutím. Kartu můžeš také přetáhnout na její dvojici. Lampička v tvé liště ukáže možný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepnutím kartu zvedneš, pak klepni na kartu, která s ní dává 13; dalším klepnutím na zvednutou kartu ji vrátíš. Král odejde jedním klepnutím. Kartu můžeš také přetáhnout na její dvojici. Lampa ukáže možný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

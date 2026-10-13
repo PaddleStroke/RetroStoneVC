@@ -16,5 +16,7 @@ Vaciar la pirámide de 28 cartas quitando parejas de cartas que sumen 13. Un jue
 - Tres pasadas: cuando el mazo está vacío, toca su sitio para dar la vuelta al descarte y usarlo de nuevo como mazo. El número bajo el mazo indica las pasadas que quedan.
 # El final de la partida
 Ganas en cuanto la pirámide queda vacía, aunque queden cartas en el mazo o en el descarte. La partida se pierde cuando no queda ningún movimiento. Las cartas se barajan al azar, así que no todos los repartos se pueden ganar.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. En los capítulos 1 a 5 el mazo se recorre tres veces, en el capítulo 6 una sola vez. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar, con la elección descrita arriba. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta para levantarla y luego toca la carta que suma 13 con ella; vuelve a tocar una carta levantada para dejarla. Un rey se va con un solo toque. También puedes arrastrar una carta sobre su pareja. La lámpara de tu barra muestra un movimiento posible; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para levantarla y luego toca la carta que suma 13 con ella; vuelve a tocar una carta levantada para dejarla. Un rey se va con un solo toque. También puedes arrastrar una carta sobre su pareja. La lámpara muestra un movimiento posible; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

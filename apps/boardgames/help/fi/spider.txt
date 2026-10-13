@@ -18,5 +18,7 @@ Rakenna kahdeksan jonoa kuninkaasta ässään, kukin yhtä maata, ja poista ne k
 Napauta pakkaa jakaaksesi yhden kortin kuvapuoli ylöspäin jokaiseen sarakkeeseen. Kuten perinteisissä säännöissä, jakaa saa vain, kun yksikään sarake ei ole tyhjä.
 # Pelin loppu
 Voitat, kun kaikki kahdeksan jonoa ovat valmiita. Jos jäät jumiin, kumoa siirtoja tai aloita uusi jako.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–4 pelataan yhdellä maalla, luvuissa 5 ja 6 kahdella. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla (myös neljällä maalla). Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
 # Pelaaminen laitteella
-Napauta korttia siirtääksesi sen päällä olevine kortteineen parhaaseen paikkaan: saman maan kortin päälle, jos voi, muuten minkä tahansa yhtä suuremman kortin päälle, muuten tyhjään sarakkeeseen. Voit myös vetää jonon minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; palkkisi luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta korttia siirtääksesi sen päällä olevine kortteineen parhaaseen paikkaan: saman maan kortin päälle, jos voi, muuten minkä tahansa yhtä suuremman kortin päälle, muuten tyhjään sarakkeeseen. Voit myös vetää jonon minne haluat. Lamppu näyttää hyödyllisen siirron; palkkisi luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

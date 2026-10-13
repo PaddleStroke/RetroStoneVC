@@ -16,5 +16,7 @@ Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um 
 - Quando o baralho acaba, toca no seu lugar para voltar a virar o descarte, as vezes que quiseres.
 # O fim do jogo
 Ganhas quando todas as cartas estão nas fundações. Assim que o baralho e o descarte estão vazios e todas as cartas estão voltadas para cima, as cartas sobem sozinhas. Se ficares bloqueado, começa uma nova distribuição.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Nos capítulos 1 a 4 tira-se uma carta de cada vez, nos capítulos 5 e 6, três. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
 # Jogar no dispositivo
-Toca numa carta para a mandar para o melhor lugar: uma fundação, se puder lá ir, senão uma coluna. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta ou uma sequência e largá-la onde quiseres. A lâmpada na tua barra mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta para a mandar para o melhor lugar: uma fundação, se puder lá ir, senão uma coluna. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta ou uma sequência e largá-la onde quiseres. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

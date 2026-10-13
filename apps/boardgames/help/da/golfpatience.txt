@@ -13,5 +13,7 @@ Når intet kort kan gå, så tryk på bunken for at vende dens øverste kort ove
 Som i golf: jo færre, jo bedre. Tallet ved siden af kastebunken tæller de kort, der er tilbage i rækkerne. Når alle rækker er tømt, er pointene de kort, der er tilbage i bunken, under nul.
 # Spillets afslutning
 Du vinder, når rækkerne er tømt. Spillet er slut, når bunken er tom og intet kort kan gå. Ikke alle kabaler kan gå op.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. I kapitel 1 til 3 følger es og konge hinanden, i kapitel 4 til 6 gør de ikke. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
 # Spil på enheden
-Tryk på et øverste kort for at spille det over på kastebunken, eller træk det derhen. Lampen i dit panel viser et godt træk: det kort, der starter den længste række, den kan se. Tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et øverste kort for at spille det over på kastebunken, eller træk det derhen. Lampen viser et godt træk: det kort, der starter den længste række, den kan se. Tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

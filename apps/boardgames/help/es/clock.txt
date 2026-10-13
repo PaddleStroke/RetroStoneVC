@@ -11,4 +11,4 @@ Poner todas las cartas boca arriba antes de que salga el cuarto rey. Un juego pe
 # El final de la partida
 Ganas si todas las cartas están boca arriba cuando sale el cuarto rey. Si el cuarto rey llega cuando aún quedan cartas boca abajo, la partida se pierde. No hay nada que elegir: disfruta viendo cómo gira el reloj.
 # Jugar en el dispositivo
-Toca cualquier sitio de la mesa para dar la vuelta a la siguiente carta: vuela hasta su hora. La lámpara de tu barra muestra la siguiente carta; el número junto a tus cartas cuenta las cartas vueltas. Deshacer retira movimientos, hasta el reparto.
+Toca cualquier sitio de la mesa para dar la vuelta a la siguiente carta: vuela hasta su hora. La lámpara muestra la siguiente carta; el número junto a tus cartas cuenta las cartas vueltas. Deshacer retira movimientos, hasta el reparto.

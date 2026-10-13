@@ -13,4 +13,4 @@ Třikrát za hru klepni na ruku (místo s kroužící šipkou): karty, které je
 # Konec hry
 Vyhraješ, když jsou všechny čtyři řady seřazené, každá s mezerou na konci. Hra končí, když nejde zaplnit žádná mezera a nezbývá žádné rozdání. Ne každé rozdání se dá vyhrát.
 # Hra na zařízení
-Klepni na kartu a pošleš ji do mezery, kterou zaplní, nebo klepni na mezeru a přivoláš kartu, která do ní patří. Kartu můžeš také přetáhnout do její mezery. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepni na kartu a pošleš ji do mezery, kterou zaplní, nebo klepni na mezeru a přivoláš kartu, která do ní patří. Kartu můžeš také přetáhnout do její mezery. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

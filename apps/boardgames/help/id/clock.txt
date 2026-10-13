@@ -11,4 +11,4 @@ Buka semua kartu sebelum raja keempat muncul. Permainan kecil yang murni untung-
 # Akhir permainan
 Kamu menang jika semua kartu sudah terbuka saat raja keempat muncul. Jika raja keempat datang saat masih ada kartu tertutup, permainan kalah. Tidak ada yang perlu dipilih: nikmati saja jamnya berputar.
 # Bermain di perangkat
-Ketuk di mana saja di meja untuk membuka kartu berikutnya: kartu itu terbang ke jamnya. Lampu di bilahmu menunjukkan kartu berikutnya; angka di samping kartumu menghitung kartu yang sudah dibuka. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk di mana saja di meja untuk membuka kartu berikutnya: kartu itu terbang ke jamnya. Lampu menunjukkan kartu berikutnya; angka di samping kartumu menghitung kartu yang sudah dibuka. Urungkan membatalkan langkah, sampai ke awal pembagian.

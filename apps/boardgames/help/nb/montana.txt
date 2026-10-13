@@ -13,4 +13,4 @@ Tre ganger i et spill kan du trykke på hånden (plassen med pila som går rundt
 # Slutten på spillet
 Du vinner når de fire radene ligger i rekkefølge, hver med hullet sitt til slutt. Spillet er slutt når ingen hull kan fylles og det ikke er flere utdelinger. Ikke alle kabaler går opp.
 # Spill på enheten
-Trykk på et kort for å sende det til hullet det passer i, eller trykk på et hull for å hente kortet som passer der. Du kan også dra et kort til hullet sitt. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å sende det til hullet det passer i, eller trykk på et hull for å hente kortet som passer der. Du kan også dra et kort til hullet sitt. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

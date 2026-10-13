@@ -16,5 +16,7 @@ Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess
 - Når bunken er tom, trykker du på plassen dens for å snu kastebunken igjen, så ofte du vil.
 # Slutten på spillet
 Du vinner når alle kortene ligger på grunnbunkene. Så snart bunken og kastebunken er tomme og alle kortene er synlige, går kortene opp av seg selv. Står du fast, start en ny kabal.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. I kapittel 1 til 4 trekkes ett kort om gangen, i kapittel 5 og 6 tre. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et kort for å sende det til den beste plassen: en grunnbunke hvis det passer der, ellers en rekke. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort eller en rekke dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å sende det til den beste plassen: en grunnbunke hvis det passer der, ellers en rekke. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort eller en rekke dit du vil. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

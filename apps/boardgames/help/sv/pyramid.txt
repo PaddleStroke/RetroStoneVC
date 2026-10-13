@@ -16,5 +16,7 @@ Töm pyramiden på 28 kort genom att ta bort par av kort som tillsammans blir 13
 - Tre omgångar: när talongen är tom trycker du på dess plats för att vända slänghögen till en ny talong. Talet under talongen visar omgångarna som är kvar.
 # Partiets slut
 Du vinner så fort pyramiden är tom, även om det finns kort kvar i talongen eller slänghögen. Partiet är förlorat när inget drag finns kvar. Korten blandas slumpvis, så alla givar går inte att vinna.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. I kapitel 1 till 5 gås talongen igenom tre gånger, i kapitel 6 en gång. Fliken med tärningen efter kapitlen delar ut en ny giv på slump, med det val som beskrivs ovan. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
 # Spela på enheten
-Tryck på ett kort för att lyfta det, och tryck sedan på kortet som blir 13 tillsammans med det; tryck på ett lyft kort igen för att lägga tillbaka det. En kung går bort med ett tryck. Du kan också dra ett kort till dess partner. Lampan i ditt fält visar ett möjligt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett kort för att lyfta det, och tryck sedan på kortet som blir 13 tillsammans med det; tryck på ett lyft kort igen för att lägga tillbaka det. En kung går bort med ett tryck. Du kan också dra ett kort till dess partner. Lampan visar ett möjligt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

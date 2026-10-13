@@ -17,5 +17,7 @@ Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle. Peli yhde
 Napauta pakkaa kääntääksesi kolme korttia poistopinoon (lopussa vähemmän); vain poistopinon päällimmäistä korttia voi pelata. Kun pakka on tyhjä, napauta sen paikkaa kääntääksesi poistopinon takaisin pakaksi, niin monta kertaa kuin haluat.
 # Pelin loppu
 Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka, poistopino ja reservi ovat tyhjät ja loput kortit pääsevät nousemaan vuorotellen, ne nousevat itsestään. Tyhjennä reservi ensin: se on pelin avain.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
 # Pelaaminen laitteella
-Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten pelipinoon. Napauta pinon ensimmäistä korttia siirtääksesi koko pinon. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortteja minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten pelipinoon. Napauta pinon ensimmäistä korttia siirtääksesi koko pinon. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortteja minne haluat. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

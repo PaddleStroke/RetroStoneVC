@@ -13,5 +13,7 @@ Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufstei
 - Eine Karte von einem Ablagestapel darf zurück auf eine Spalte.
 # Das Ende der Partie
 Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sobald alle Karten offen liegen und alle der Reihe nach hinaufkönnen, wandern sie von selbst nach oben. Kommst du nicht weiter, nimm Züge zurück oder beginne ein neues Spiel.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
 # Spielen auf dem Gerät
-Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst Karten auch ziehen und ablegen, wo du willst. Die Lampe in deiner Leiste zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst Karten auch ziehen und ablegen, wo du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

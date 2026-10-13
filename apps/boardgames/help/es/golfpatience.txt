@@ -13,5 +13,7 @@ Cuando ninguna carta puede ir, toca el mazo para poner su carta de arriba en el 
 Como en el golf, cuanto menos, mejor. El número junto al descarte cuenta las cartas que quedan en las columnas. Cuando todas las columnas están vacías, la puntuación baja de cero: menos las cartas que quedan en el mazo.
 # El final de la partida
 Ganas cuando las columnas quedan vacías. La partida se pierde cuando el mazo está vacío y ninguna carta puede ir. No todos los repartos se pueden ganar.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. En los capítulos 1 a 3 el as y el rey se siguen, en los capítulos 4 a 6 no. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar, con la elección descrita arriba. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta de arriba para jugarla en el descarte, o arrástrala hasta allí. La lámpara de tu barra muestra un buen movimiento: la carta que empieza la racha más larga que ve. El número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta de arriba para jugarla en el descarte, o arrástrala hasta allí. La lámpara muestra un buen movimiento: la carta que empieza la racha más larga que ve. El número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

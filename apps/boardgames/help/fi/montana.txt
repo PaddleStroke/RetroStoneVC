@@ -13,4 +13,4 @@ Kolmesti pelin aikana voit napauttaa kättä (paikkaa, jossa nuoli kiertää): k
 # Pelin loppu
 Voitat, kun kaikki neljä riviä ovat järjestyksessä ja kunkin aukko on lopussa. Peli päättyy, kun yhtään aukkoa ei voi täyttää eikä uudelleenjakoja ole jäljellä. Kaikkia jakoja ei voi voittaa.
 # Pelaaminen laitteella
-Napauta korttia lähettääksesi sen aukkoon, johon se käy, tai napauta aukkoa tuodaksesi siihen sopivan kortin. Voit myös vetää kortin aukkoonsa. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta korttia lähettääksesi sen aukkoon, johon se käy, tai napauta aukkoa tuodaksesi siihen sopivan kortin. Voit myös vetää kortin aukkoonsa. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

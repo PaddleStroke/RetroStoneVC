@@ -16,5 +16,7 @@ Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy ko
 - Gdy talia się skończy, dotknij jej miejsca, by odwrócić stos odrzuconych, tyle razy, ile chcesz.
 # Koniec gry
 Wygrywasz, gdy wszystkie karty leżą na stosach docelowych. Gdy talia i stos odrzuconych są puste, a wszystkie karty odkryte, karty same wędrują na stosy. Jeśli utkniesz, zacznij nowe rozdanie.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 4 dobiera się po jednej karcie, w rozdziałach 5 i 6 po trzy. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
 # Gra na urządzeniu
-Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, jeśli tam pasuje, a jeśli nie, na kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę lub ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, jeśli tam pasuje, a jeśli nie, na kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę lub ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

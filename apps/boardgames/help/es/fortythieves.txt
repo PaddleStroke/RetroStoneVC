@@ -15,4 +15,4 @@ Toca el mazo para pasar una carta al descarte; la carta de arriba del descarte s
 # El final de la partida
 Ganas cuando todas las cartas están en las bases. En cuanto el mazo y el descarte están vacíos y las cartas que quedan pueden subir una tras otra, suben solas. Pocos repartos se pueden ganar: piensa con antelación y guarda tus columnas vacías.
 # Jugar en el dispositivo
-Toca una carta de arriba para mandarla a su mejor sitio: una base, la carta de su palo con un valor más o una columna vacía. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta donde quieras. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta de arriba para mandarla a su mejor sitio: una base, la carta de su palo con un valor más o una columna vacía. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta donde quieras. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

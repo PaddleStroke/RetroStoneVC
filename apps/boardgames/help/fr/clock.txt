@@ -1,14 +1,14 @@
 L'horloge
 # Le but
-Retourner toutes les cartes face visible avant que le quatrième roi ne sorte. Un petit jeu de pur hasard pour un joueur, parfait pour les enfants : les cartes jouent toutes seules.
+Retourner toutes les cartes face visible avant que le quatrième roi ne sorte. Un petit jeu de pur hasard pour un joueur, parfait pour les enfants : les cartes jouent toutes seules.
 # La mise en place
-- Les cartes sont posées face cachée en 13 tas de quatre : douze autour d'un cadran d'horloge, un pour chaque heure, et le tas des rois au milieu.
-- L'as va à une heure, le 2 à deux heures, et ainsi de suite : le valet à onze heures, la dame à midi.
+- Les cartes sont posées face cachée en 13 tas de quatre : douze autour d'un cadran d'horloge, un pour chaque heure, et le tas des rois au milieu.
+- L'as va à une heure, le 2 à deux heures, et ainsi de suite : le valet à onze heures, la dame à midi.
 # Déplacer les cartes
-- Retourne la carte du dessus du tas du milieu et glisse-la face visible sous le tas de son heure ; un roi va sous le tas du milieu.
+- Retourne la carte du dessus du tas du milieu et glisse-la face visible sous le tas de son heure ; un roi va sous le tas du milieu.
 - Puis retourne la carte du dessus du tas sous lequel tu viens de glisser une carte, et continue.
 - L'aiguille dorée montre le tas d'où vient la prochaine carte.
 # La fin de la partie
-Tu gagnes si toutes les cartes sont face visible quand le quatrième roi arrive. Si le quatrième roi arrive alors que des cartes sont encore cachées, la partie est perdue. Il n'y a rien à choisir : regarde simplement l'horloge tourner et amuse-toi bien.
+Tu gagnes si toutes les cartes sont face visible quand le quatrième roi arrive. Si le quatrième roi arrive alors que des cartes sont encore cachées, la partie est perdue. Il n'y a rien à choisir : regarde simplement l'horloge tourner et amuse-toi bien.
 # Jouer sur l'appareil
-Touche la table n'importe où pour retourner la carte suivante : elle s'envole vers son heure. La lampe de ta barre montre la prochaine carte ; le nombre à côté de tes cartes compte les cartes retournées. Annuler reprend les coups, jusqu'à la donne.
+Touche la table n'importe où pour retourner la carte suivante : elle s'envole vers son heure. La lampe montre la prochaine carte ; le nombre à côté de tes cartes compte les cartes retournées. Annuler reprend les coups, jusqu'à la donne.

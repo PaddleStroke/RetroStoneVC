@@ -14,5 +14,7 @@ Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess
 Hvert spill har et nummer fra 1 til 32000, ved siden av det lille kortet i panelet ditt. Spill 1 er også spill 1 i andre FreeCell-spill. Alle spill kan vinnes unntatt spill 11982.
 # Slutten på spillet
 Du vinner når alle kortene ligger på grunnbunkene. Står du fast, angre eller start et nytt spill.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et kort for å sende det til den beste plassen: en grunnbunke, en rekke, en tom rekke eller en ledig celle. Trykk på et kort midt i en rekke for å flytte rekken fra det kortet. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort eller en rekke dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet etter spillnummeret teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å sende det til den beste plassen: en grunnbunke, en rekke, en tom rekke eller en ledig celle. Trykk på et kort midt i en rekke for å flytte rekken fra det kortet. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort eller en rekke dit du vil. Lampen viser et nyttig trekk; tallet etter spillnummeret teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

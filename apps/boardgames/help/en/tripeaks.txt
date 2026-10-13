@@ -13,5 +13,7 @@ Clear the three peaks by playing their cards onto the waste, one rank up or down
 When no card can go, tap the stock to turn its top card onto the waste. The stock is gone through only once.
 # The end of the game
 You win when the three peaks are cleared. The game is lost when the stock is empty and no card can go. The deals are shuffled at random, so not every deal can be won.
+# Levels and stars
+There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. In chapters 1 to 4 a king and an ace follow each other, in chapters 5 and 6 they do not. The die tab after the chapters deals a new game at random, with the choice described above. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
 # Playing on the device
-Tap a free card to play it onto the waste, or drag it there. The lamp in your bar shows a good move: the card that starts the longest run it can see. The number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a free card to play it onto the waste, or drag it there. The lamp shows a good move: the card that starts the longest run it can see. The number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

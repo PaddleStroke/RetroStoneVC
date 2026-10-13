@@ -18,5 +18,7 @@ Formar oito sequências do rei ao ás, cada uma de um só naipe, e tirá-las tod
 Toca no baralho para dar uma carta voltada para cima a cada coluna. Como nas regras clássicas, só se pode dar quando nenhuma coluna está vazia.
 # O fim do jogo
 Ganhas quando as oito sequências estão completas. Se ficares bloqueado, anula ou começa uma nova distribuição.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Os capítulos 1 a 4 jogam-se com um naipe, os capítulos 5 e 6, com dois. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima (também com quatro naipes). Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
 # Jogar no dispositivo
-Toca numa carta para a mover, com as cartas que tem por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta de um valor acima, senão para uma coluna vazia. Também podes arrastar uma sequência e largá-la onde quiseres. A lâmpada na tua barra mostra uma jogada útil; o número na tua barra conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta para a mover, com as cartas que tem por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta de um valor acima, senão para uma coluna vazia. Também podes arrastar uma sequência e largá-la onde quiseres. A lâmpada mostra uma jogada útil; o número na tua barra conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

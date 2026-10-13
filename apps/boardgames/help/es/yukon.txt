@@ -13,5 +13,7 @@ Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego p
 - Una carta de una base puede volver a bajar a una columna.
 # El final de la partida
 Ganas cuando todas las cartas están en las bases. En cuanto todas las cartas están boca arriba y pueden subir una tras otra, suben solas. Si te atascas, deshaz o empieza un reparto nuevo.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta para mandarla, con las que tiene encima, a su mejor sitio: una base si puede ir, si no, una columna. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar cartas y soltarlas donde quieras. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para mandarla, con las que tiene encima, a su mejor sitio: una base si puede ir, si no, una columna. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar cartas y soltarlas donde quieras. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

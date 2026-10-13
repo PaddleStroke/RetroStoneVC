@@ -18,5 +18,7 @@ Byg otte rækker fra konge ned til es, hver i én kulør, og få dem alle væk f
 Tryk på bunken for at give ét synligt kort til hver række. Som i de klassiske regler må der kun gives, når ingen plads er tom.
 # Spillets afslutning
 Du vinder, når alle otte rækker er færdige. Sidder du fast, så fortryd eller start et nyt spil.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. Kapitel 1 til 4 spilles med én kulør, kapitel 5 og 6 med to. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt, med det valg, der er beskrevet ovenfor (også fire kulører). Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
 # Spil på enheden
-Tryk på et kort for at flytte det, med kortene ovenpå, til dets bedste plads: på et kort i samme kulør, hvis det kan, ellers på et hvilket som helst kort én højere, ellers til en tom plads. Du kan også trække en række hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet i dit panel tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et kort for at flytte det, med kortene ovenpå, til dets bedste plads: på et kort i samme kulør, hvis det kan, ellers på et hvilket som helst kort én højere, ellers til en tom plads. Du kan også trække en række hen, hvor du vil. Lampen viser et nyttigt træk; tallet i din bjælke tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

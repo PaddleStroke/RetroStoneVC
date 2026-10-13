@@ -13,5 +13,7 @@ Hiçbir kart gidemiyorsa desteye dokunarak en üstteki kartını açılanlara ç
 Golfteki gibi, ne kadar az o kadar iyi. Açılanların yanındaki sayı sütunlarda kalan kartları sayar. Bütün sütunlar boşalınca puan, destede kalan kartların sıfırın altındaki sayısıdır.
 # Oyunun sonu
 Sütunlar boşalınca kazanırsın. Deste bitip hiçbir kart gidemeyince oyun biter. Her dağıtım kazanılamaz.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 3'e kadar olan bölümlerde as ile papaz birbirini izler, 4'ten 6'ya kadar olan bölümlerde izlemez. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-En üstteki bir kartı açılanlara oynamak için ona dokun ya da onu oraya sürükle. Şeridindeki lamba iyi bir hamle gösterir: görebildiği en uzun diziyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+En üstteki bir kartı açılanlara oynamak için ona dokun ya da onu oraya sürükle. Lamba iyi bir hamle gösterir: görebildiği en uzun diziyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

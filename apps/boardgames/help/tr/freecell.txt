@@ -14,5 +14,7 @@ FreeCell
 Her dağıtımın 1 ile 32000 arasında bir numarası vardır; şeridindeki küçük kartın yanında görünür. Buradaki 1 numaralı dağıtım, başka FreeCell oyunlarında da 1 numaralı dağıtımdır. 11982 dışındaki bütün dağıtımlar kazanılabilir.
 # Oyunun sonu
 Bütün kartlar temel yığınlara çıkınca kazanırsın. Takılırsan hamleleri geri al ya da yeni bir dağıtım başlat.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Bir kartı en iyi yerine göndermek için ona dokun: temel yığına, bir sütuna, boş bir sütuna ya da boş bir hücreye. Bir dizinin ortasındaki karta dokunarak diziyi o karttan itibaren taşı. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı ya da diziyi sürükleyip istediğin yere de bırakabilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; dağıtım numarasından sonraki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı en iyi yerine göndermek için ona dokun: temel yığına, bir sütuna, boş bir sütuna ya da boş bir hücreye. Bir dizinin ortasındaki karta dokunarak diziyi o karttan itibaren taşı. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı ya da diziyi sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; dağıtım numarasından sonraki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

@@ -18,5 +18,7 @@ Build eight runs from king down to ace, each in one suit, and clear them all fro
 Tap the stock to deal one card face up onto every column. As in the classic rules, you can only deal when no column is empty.
 # The end of the game
 You win when all eight runs are complete. If you are stuck, undo or start a new deal.
+# Levels and stars
+There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. Chapters 1 to 4 are played with one suit, chapters 5 and 6 with two. The die tab after the chapters deals a new game at random, with the choice described above (four suits too). No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
 # Playing on the device
-Tap a card to move it, with the cards on top of it, to its best place: onto a card of its own suit if it can, otherwise onto any card one rank higher, otherwise to an empty column. You can also drag a run and drop it where you want. The lamp in your bar shows a useful move; the number in your bar counts your moves. Undo takes back moves, all the way to the deal.
+Tap a card to move it, with the cards on top of it, to its best place: onto a card of its own suit if it can, otherwise onto any card one rank higher, otherwise to an empty column. You can also drag a run and drop it where you want. The lamp shows a useful move; the number in your bar counts your moves. Undo takes back moves, all the way to the deal.

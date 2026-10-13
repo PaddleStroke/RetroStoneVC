@@ -17,5 +17,7 @@ Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge. Et spil
 Trykk på bunken for å snu tre kort over på kastebunken (færre til slutt); bare kastebunkens øverste kort kan spilles. Når bunken er tom, trykker du på plassen dens for å snu kastebunken igjen, så ofte du vil.
 # Slutten på spillet
 Du vinner når alle kortene ligger på grunnbunkene. Så snart bunken, kastebunken og reserven er tomme og resten av kortene kan gå opp etter hverandre, går de opp av seg selv. Tøm reserven først: den er nøkkelen til spillet.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et kort for å sende det til den beste plassen: en grunnbunke hvis det passer der, ellers en spillebunke. Trykk på det første kortet i en bunke for å flytte hele bunken. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra kort dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å sende det til den beste plassen: en grunnbunke hvis det passer der, ellers en spillebunke. Trykk på det første kortet i en bunke for å flytte hele bunken. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra kort dit du vil. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

@@ -15,4 +15,4 @@ Dotknij talii, by odkryć jedną kartę na stos odrzuconych; wierzchnią kartę 
 # Koniec gry
 Wygrywasz, gdy wszystkie karty są na stosach docelowych. Gdy talia i stos odrzuconych są puste, a pozostałe karty mogą po kolei trafić na stosy, przechodzą tam same. Niewiele rozdań da się wygrać: planuj z wyprzedzeniem i oszczędzaj puste kolumny.
 # Gra na urządzeniu
-Dotknij wierzchniej karty, by wysłać ją na najlepsze miejsce: na stos docelowy, na następną kartę w jej kolorze albo na pustą kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę możesz też przeciągnąć, gdzie chcesz. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij wierzchniej karty, by wysłać ją na najlepsze miejsce: na stos docelowy, na następną kartę w jej kolorze albo na pustą kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę możesz też przeciągnąć, gdzie chcesz. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

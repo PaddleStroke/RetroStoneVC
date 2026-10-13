@@ -13,4 +13,4 @@ Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy ko
 # Koniec gry
 Wygrywasz, gdy wszystkie karty są na stosach docelowych; gdy wszystkie mogą tam po kolei trafić, przechodzą same. Gra kończy się, gdy nie ma już żadnego ruchu. Nie każde rozdanie da się wygrać.
 # Gra na urządzeniu
-Dotknij wierzchniej karty, by wysłać ją na jej stos docelowy albo wachlarz, lub przeciągnij ją tam. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij wierzchniej karty, by wysłać ją na jej stos docelowy albo wachlarz, lub przeciągnij ją tam. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

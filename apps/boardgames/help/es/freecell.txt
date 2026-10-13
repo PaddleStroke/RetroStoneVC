@@ -14,5 +14,7 @@ Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego p
 Cada reparto tiene un número del 1 al 32000, junto a la cartita de tu barra. El reparto 1 es también el reparto 1 de otros juegos de FreeCell. Todos se pueden ganar salvo el 11982.
 # El final de la partida
 Ganas cuando todas las cartas están en las bases. Si te atascas, deshaz o empieza un reparto nuevo.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta para mandarla a su mejor sitio: una base, una columna, una columna vacía o una celda libre. Toca una carta en medio de una escalera para mover la escalera desde esa carta. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta o una escalera y soltarla donde quieras. La lámpara de tu barra muestra un movimiento útil; el número tras el del reparto cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para mandarla a su mejor sitio: una base, una columna, una columna vacía o una celda libre. Toca una carta en medio de una escalera para mover la escalera desde esa carta. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta o una escalera y soltarla donde quieras. La lámpara muestra un movimiento útil; el número tras el del reparto cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

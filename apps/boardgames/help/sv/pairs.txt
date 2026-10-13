@@ -1,6 +1,6 @@
 Hitta paren
 # Målet
-Hitta paren av bilder. För 1 till 4 spelare. Ensam är det en gåta: hitta alla på så få drag som möjligt.
+Hitta paren av bilder. För 1 till 4 spelare. Ensam är det ett pussel: hitta alla på så få drag som möjligt.
 # Korten
 - 12, 24 eller 36 kort ligger med baksidan upp i ett rutnät. Varje bild finns på två kort.
 - Bilderna: djuren från familjespelet och schackpjäser i spelarnas färger.

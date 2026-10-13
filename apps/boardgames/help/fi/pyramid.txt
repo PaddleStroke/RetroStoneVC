@@ -16,5 +16,7 @@ Tyhjennä 28 kortin pyramidi poistamalla korttipareja, joiden summa on 13. Peli 
 - Kolme kierrosta: kun pakka on tyhjä, napauta sen paikkaa, niin poistopino käännetään uudeksi pakaksi. Pakan alla oleva luku näyttää jäljellä olevat kierrokset.
 # Pelin loppu
 Voitat heti, kun pyramidi on tyhjä, vaikka pakkaan tai poistopinoon jäisi kortteja. Peli on hävitty, kun siirtoja ei enää ole. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–5 pakka käydään läpi kolme kertaa, luvussa 6 kerran. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
 # Pelaaminen laitteella
-Napauta korttia nostaaksesi sen ja napauta sitten korttia, jonka kanssa summa on 13; napauta nostettua korttia uudelleen laskeaksesi sen takaisin. Kuningas poistuu yhdellä napautuksella. Voit myös vetää kortin parinsa päälle. Lamppu palkissasi näyttää mahdollisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta korttia nostaaksesi sen ja napauta sitten korttia, jonka kanssa summa on 13; napauta nostettua korttia uudelleen laskeaksesi sen takaisin. Kuningas poistuu yhdellä napautuksella. Voit myös vetää kortin parinsa päälle. Lamppu näyttää mahdollisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

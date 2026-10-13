@@ -11,4 +11,4 @@ Decke alle Karten auf, bevor der vierte König erscheint. Ein kleines Spiel für
 # Das Ende der Partie
 Du gewinnst, wenn alle Karten offen liegen, sobald der vierte König erscheint. Kommt der vierte König, während noch Karten verdeckt sind, ist die Partie verloren. Es gibt nichts zu entscheiden: Schau einfach zu, wie die Uhr ihre Runden dreht.
 # Spielen auf dem Gerät
-Tippe irgendwo auf den Tisch, um die nächste Karte aufzudecken: Sie fliegt zu ihrer Stunde. Die Lampe in deiner Leiste zeigt die nächste Karte; die Zahl neben deinen Karten zählt die aufgedeckten Karten. Rückgängig nimmt Züge zurück, bis zum Geben.
+Tippe irgendwo auf den Tisch, um die nächste Karte aufzudecken: Sie fliegt zu ihrer Stunde. Die Lampe zeigt die nächste Karte; die Zahl neben deinen Karten zählt die aufgedeckten Karten. Rückgängig nimmt Züge zurück, bis zum Geben.

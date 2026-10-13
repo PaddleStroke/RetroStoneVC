@@ -16,5 +16,7 @@ Rydd pyramiden av 28 kort ved å fjerne par av kort som til sammen blir 13. Et s
 - Tre runder: når bunken er tom, trykker du på plassen dens for å snu kastebunken til en ny bunke. Tallet under bunken viser rundene som er igjen.
 # Slutten på spillet
 Du vinner så snart pyramiden er ryddet, selv om det er kort igjen i bunken eller kastebunken. Spillet er tapt når det ikke er flere trekk. Kortene stokkes tilfeldig, så ikke alle spill kan vinnes.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. I kapittel 1 til 5 gås bunken gjennom tre ganger, i kapittel 6 én gang. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et kort for å løfte det, og trykk så på kortet som blir 13 sammen med det; trykk på et løftet kort igjen for å legge det tilbake. En konge går med ett trykk. Du kan også dra et kort over på makkeren sin. Lampen i panelet ditt viser et mulig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å løfte det, og trykk så på kortet som blir 13 sammen med det; trykk på et løftet kort igjen for å legge det tilbake. En konge går med ett trykk. Du kan også dra et kort over på makkeren sin. Lampen viser et mulig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

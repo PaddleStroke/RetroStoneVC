@@ -13,5 +13,7 @@ Kan er geen kaart meer, tik dan op de stapel om de bovenste kaart open te leggen
 Net als bij golf: hoe minder, hoe beter. Het getal naast de getrokken kaarten telt de kaarten die nog in de kolommen liggen. Zijn alle kolommen leeg, dan is de score het aantal kaarten dat nog in de stapel zit, onder nul.
 # Het einde van de partij
 Je wint als de kolommen leeg zijn. De partij is voorbij als de stapel op is en er geen kaart meer kan. Niet elk spel is te winnen.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. In de hoofdstukken 1 tot 3 volgen aas en heer op elkaar, in de hoofdstukken 4 tot 6 niet. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
 # Spelen op het apparaat
-Tik op een bovenste kaart om hem te spelen, of sleep hem erheen. De lamp in je balk toont een goede zet: de kaart waarmee de langste reeks begint die hij kan zien. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een bovenste kaart om hem te spelen, of sleep hem erheen. De lamp toont een goede zet: de kaart waarmee de langste reeks begint die hij kan zien. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

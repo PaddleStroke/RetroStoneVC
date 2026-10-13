@@ -18,5 +18,7 @@ Montar oito sequências do rei ao ás, cada uma de um só naipe, e tirar todas d
 Toque no monte para dar uma carta virada para cima em cada coluna. Como nas regras clássicas, só se pode dar quando nenhuma coluna está vazia.
 # O fim da partida
 Você vence quando as oito sequências estão completas. Se ficar travado, desfaça ou comece uma nova distribuição.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolha um na tela de níveis. Os capítulos 1 a 4 são jogados com um naipe, os capítulos 5 e 6, com dois. A aba do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima (também com quatro naipes). Sem dicas nem jogadas desfeitas: 3 estrelas; até duas dicas e jogadas desfeitas no total: 2 estrelas; senão, 1.
 # Jogando no aparelho
-Toque numa carta para movê-la, com as cartas que estão por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta um valor acima, senão para uma coluna vazia. Você também pode arrastar uma sequência e soltá-la onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número na sua barra conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Toque numa carta para movê-la, com as cartas que estão por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta um valor acima, senão para uma coluna vazia. Você também pode arrastar uma sequência e soltá-la onde quiser. A lâmpada mostra uma jogada útil; o número na sua barra conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

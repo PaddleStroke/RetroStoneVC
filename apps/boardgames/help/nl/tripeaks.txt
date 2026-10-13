@@ -13,5 +13,7 @@ Maak de drie toppen leeg door hun kaarten op de aflegstapel te spelen, één ran
 Als geen kaart kan, tik dan op de stapel om de bovenste kaart op de aflegstapel te leggen. De stapel gaat maar één keer rond.
 # Het einde van de partij
 Je wint als de drie toppen leeg zijn. De partij is verloren als de stapel leeg is en geen kaart meer kan. De kaarten worden willekeurig geschud, dus niet elk spel is te winnen.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. In de hoofdstukken 1 tot 4 volgen aas en heer op elkaar, in de hoofdstukken 5 en 6 niet. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
 # Spelen op het apparaat
-Tik op een vrije kaart om hem op de aflegstapel te spelen, of sleep hem erheen. De lamp in je balk toont een goede zet: de kaart waarmee de langste reeks begint die hij ziet. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een vrije kaart om hem op de aflegstapel te spelen, of sleep hem erheen. De lamp toont een goede zet: de kaart waarmee de langste reeks begint die hij ziet. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

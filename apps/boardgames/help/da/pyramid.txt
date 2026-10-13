@@ -16,5 +16,7 @@ Ryd pyramiden af 28 kort ved at fjerne par af kort, der tilsammen giver 13. Et s
 - Tre gennemgange: når bunken er tom, så tryk på dens plads for at vende kastebunken om til en ny bunke. Tallet under bunken viser de gennemgange, der er tilbage.
 # Spillets afslutning
 Du vinder, så snart pyramiden er ryddet, også selv om der er kort tilbage i bunken eller kastebunken. Spillet er tabt, når der ikke er flere træk. Kortene blandes tilfældigt, så ikke alle spil kan vindes.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. I kapitel 1 til 5 gennemgås bunken tre gange, i kapitel 6 én gang. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
 # Spil på enheden
-Tryk på et kort for at løfte det, og tryk så på det kort, der giver 13 sammen med det; tryk igen på et løftet kort for at lægge det tilbage. En konge går med ét tryk. Du kan også trække et kort hen på dets makker. Lampen i dit panel viser et muligt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et kort for at løfte det, og tryk så på det kort, der giver 13 sammen med det; tryk igen på et løftet kort for at lægge det tilbage. En konge går med ét tryk. Du kan også trække et kort hen på dets makker. Lampen viser et muligt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

@@ -13,4 +13,4 @@ Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässäst�
 # Pelin loppu
 Voitat, kun kaikki kortit ovat peruspinoissa; heti kun ne kaikki pääsevät nousemaan vuorotellen, ne nousevat itsestään. Peli päättyy, kun siirtoja ei ole jäljellä. Kaikkia jakoja ei voi voittaa.
 # Pelaaminen laitteella
-Napauta päällimmäistä korttia lähettääksesi sen peruspinoonsa tai viuhkaansa, tai vedä se sinne. Nopea toinen napautus lähettää kortin vain peruspinoon. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta päällimmäistä korttia lähettääksesi sen peruspinoonsa tai viuhkaansa, tai vedä se sinne. Nopea toinen napautus lähettää kortin vain peruspinoon. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

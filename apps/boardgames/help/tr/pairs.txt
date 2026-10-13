@@ -1,14 +1,14 @@
 Eşini Bul
 # Amaç
-Resim çiftlerini bulun. 1-4 oyuncu için. Tek başına bir bulmacadır: hepsini olabildiğince az hamlede bulun.
+Resim çiftlerini bul. 1-4 oyuncu için. Tek başına bir bulmacadır: hepsini olabildiğince az hamlede bul.
 # Kartlar
 - 12, 24 ya da 36 kart bir ızgarada kapalı durur. Her resim iki kartta vardır.
 - Resimler: aile oyununun hayvanları ve oyuncuların renklerinde satranç taşları.
 # Bir sıra
-- İki kartı çevirin.
-- Bir çift: onu alırsınız ve yeniden oynarsınız.
-- Çift değil: iki kart yeniden kapanır ve sıra sonraki oyuncuya geçer. Nerede olduklarını aklınızda tutmaya çalışın!
+- İki kartı çevir.
+- Bir çift: onu alırsın ve yeniden oynarsın.
+- Çift değil: iki kart yeniden kapanır ve sıra sonraki oyuncuya geçer. Nerede olduklarını aklında tutmaya çalış!
 # Oyunun sonu
-Bütün çiftler bulununca en çok çifti olan kazanır; eşit olanlar galibiyeti paylaşır. Tek başına sonucunuz hamle sayısıdır: çevrilen iki kart bir hamledir.
+Bütün çiftler bulununca en çok çifti olan kazanır; eşit olanlar galibiyeti paylaşır. Tek başına oynarken sonucun hamle sayısıdır: çevrilen iki kart bir hamledir.
 # Cihazda oynamak
-Bir kartı çevirmek için ona dokunun. Bir çift altın renginde parlar, sonra açık ve soluk kalır, köşesinde onu bulan oyuncunun pulu olur. Farklı iki kart bir an sonra ya da bir dokunuşla kendiliğinden kapanır. Her çubuk o oyuncunun çiftlerini gösterir; tek başına oynarken hamlelerinizi gösterir. Geri al, son çevrilen kartı geri alır.
+Bir kartı çevirmek için ona dokun. Bir çift altın renginde parlar, sonra açık ve soluk kalır, köşesinde onu bulan oyuncunun pulu olur. Farklı iki kart bir an sonra ya da bir dokunuşla kendiliğinden kapanır. Her şerit o oyuncunun çiftlerini gösterir; tek başına oynarken hamlelerini gösterir. Geri al son çevrilen kartı geri alır.

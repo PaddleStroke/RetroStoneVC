@@ -13,4 +13,4 @@ Tiga kali dalam satu permainan, ketuk tangan (tempat dengan panah yang berputar)
 # Akhir permainan
 Kamu menang saat keempat baris sudah urut, masing-masing dengan celahnya di ujung. Permainan selesai saat tidak ada celah yang bisa diisi dan tidak ada pembagian ulang lagi. Tidak semua pembagian bisa dimenangkan.
 # Bermain di perangkat
-Ketuk kartu untuk mengirimnya ke celah yang diisinya, atau ketuk celah untuk memanggil kartu yang cocok. Kamu juga bisa menyeret kartu ke celahnya. Lampu di bilahmu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk kartu untuk mengirimnya ke celah yang diisinya, atau ketuk celah untuk memanggil kartu yang cocok. Kamu juga bisa menyeret kartu ke celahnya. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

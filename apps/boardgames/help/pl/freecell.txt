@@ -14,5 +14,7 @@ Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy ko
 Każde rozdanie ma numer od 1 do 32000, obok małej karty na twoim pasku. Rozdanie 1 jest rozdaniem 1 także w innych grach FreeCell. Wszystkie rozdania da się wygrać oprócz rozdania 11982.
 # Koniec gry
 Wygrywasz, gdy wszystkie karty leżą na stosach docelowych. Jeśli utkniesz, cofnij ruchy albo zacznij nowe rozdanie.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami rozdaje nową grę losowo. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
 # Gra na urządzeniu
-Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, na kolumnę, do pustej kolumny albo do wolnej komórki. Dotknij karty w środku ciągu, by przesunąć ciąg od tej karty. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę lub ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampka na twoim pasku pokazuje przydatny ruch; liczba za numerem rozdania liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, na kolumnę, do pustej kolumny albo do wolnej komórki. Dotknij karty w środku ciągu, by przesunąć ciąg od tej karty. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę lub ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampa pokazuje przydatny ruch; liczba za numerem rozdania liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

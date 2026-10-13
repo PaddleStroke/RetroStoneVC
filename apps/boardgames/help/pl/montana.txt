@@ -13,4 +13,4 @@ Trzy razy w grze dotknij ręki (miejsca z krążącą strzałką): karty, które
 # Koniec gry
 Wygrywasz, gdy cztery rzędy są ułożone, każdy z luką na końcu. Gra kończy się, gdy żadnej luki nie da się zająć i nie zostało już żadne rozdanie. Nie każde rozdanie da się wygrać.
 # Gra na urządzeniu
-Dotknij karty, by wysłać ją do luki, którą zajmuje, albo dotknij luki, by przywołać pasującą do niej kartę. Kartę możesz też przeciągnąć do jej luki. Lampka na twoim pasku pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij karty, by wysłać ją do luki, którą zajmuje, albo dotknij luki, by przywołać pasującą do niej kartę. Kartę możesz też przeciągnąć do jej luki. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

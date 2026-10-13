@@ -13,4 +13,4 @@ Tres veces por partida, toca el sitio de la flecha que gira: las cartas que aún
 # El final de la partida
 Ganas cuando las cuatro filas están en orden, cada una con su hueco al final. La partida se pierde cuando ningún hueco se puede llenar y no queda ningún nuevo reparto. No todos los repartos se pueden ganar.
 # Jugar en el dispositivo
-Toca una carta para mandarla al hueco que llena, o toca un hueco para traer la carta que lo llena. También puedes arrastrar una carta a su hueco. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para mandarla al hueco que llena, o toca un hueco para traer la carta que lo llena. También puedes arrastrar una carta a su hueco. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

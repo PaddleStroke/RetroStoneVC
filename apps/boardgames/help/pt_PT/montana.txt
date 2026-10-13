@@ -13,4 +13,4 @@ Três vezes no jogo, toca na mão (o lugar com a seta a girar): as cartas que ai
 # O fim do jogo
 Ganhas quando as quatro filas estão em ordem, cada uma com o seu buraco no fim. O jogo acaba quando nenhum buraco se pode preencher e não resta nenhuma redistribuição. Nem todas as distribuições se podem ganhar.
 # Jogar no dispositivo
-Toca numa carta para a mandar para o buraco que preenche, ou toca num buraco para trazer a carta que o preenche. Também podes arrastar uma carta até ao seu buraco. A lâmpada na tua barra mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta para a mandar para o buraco que preenche, ou toca num buraco para trazer a carta que o preenche. Também podes arrastar uma carta até ao seu buraco. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

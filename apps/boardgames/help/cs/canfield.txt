@@ -17,5 +17,7 @@ Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barv
 Klepni na balíček a otočíš tři karty na odhazovací hromádku (na konci méně); hrát lze jen její horní kartu. Když je balíček prázdný, klepni na jeho místo a odhazovací hromádka se znovu otočí, kolikrát chceš.
 # Konec hry
 Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile jsou balíček, odhazovací hromádka i rezerva prázdné a zbylé karty tam mohou postupně dojít, přesunou se samy. Nejdřív vyprázdni rezervu: je to klíč ke hře.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami rozdá novou hru náhodně. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
 # Hra na zařízení
-Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na herní hromádku. Klepni na první kartu hromádky a přesuneš celou hromádku. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Karty můžeš také přetáhnout, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na herní hromádku. Klepni na první kartu hromádky a přesuneš celou hromádku. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Karty můžeš také přetáhnout, kam chceš. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

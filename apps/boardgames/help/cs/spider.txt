@@ -18,5 +18,7 @@ Složit osm řad od krále po eso, každou v jedné barvě, a všechny je odklid
 Klepni na balíček a na každý sloupec se rozdá jedna karta lícem nahoru. Jako v klasických pravidlech se smí rozdávat, jen když není žádný sloupec prázdný.
 # Konec hry
 Vyhráváš, když je všech osm řad hotových. Když se zasekneš, vrať tahy nebo začni nové rozdání.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. Kapitoly 1 až 4 se hrají s jednou barvou, kapitoly 5 a 6 se dvěma. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše (i se čtyřmi barvami). Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
 # Hra na zařízení
-Klepni na kartu a přesuneš ji i s kartami na ní na nejlepší místo: na kartu stejné barvy, pokud to jde, jinak na jakoukoli kartu o jednu vyšší, jinak do prázdného sloupce. Řadu můžeš také přetáhnout a pustit, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo v tvé liště počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepni na kartu a přesuneš ji i s kartami na ní na nejlepší místo: na kartu stejné barvy, pokud to jde, jinak na jakoukoli kartu o jednu vyšší, jinak do prázdného sloupce. Řadu můžeš také přetáhnout a pustit, kam chceš. Lampa ukáže užitečný tah; číslo v tvé liště počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

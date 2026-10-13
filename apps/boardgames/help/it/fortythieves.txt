@@ -15,4 +15,4 @@ Tocca il mazzo per girare una carta sugli scarti; la carta in cima agli scarti s
 # La fine della partita
 Vinci quando tutte le carte sono sulle basi. Appena il mazzo e gli scarti sono vuoti e le carte rimaste possono salire tutte una dopo l'altra, salgono da sole. Poche smazzate si possono vincere: pensa in anticipo e tieniti care le colonne vuote.
 # Giocare sul dispositivo
-Tocca una carta in cima per mandarla al posto migliore: una base, la carta del suo seme con un valore in più o una colonna vuota. Un secondo tocco rapido manda una carta solo su una base. Puoi anche trascinare una carta dove vuoi. La lampada nella tua barra mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.
+Tocca una carta in cima per mandarla al posto migliore: una base, la carta del suo seme con un valore in più o una colonna vuota. Un secondo tocco rapido manda una carta solo su una base. Puoi anche trascinare una carta dove vuoi. La lampada mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.

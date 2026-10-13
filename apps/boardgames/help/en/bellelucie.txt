@@ -13,4 +13,4 @@ Move all 52 cards to the four foundations, one for each suit, built up from the 
 # The end of the game
 You win when all the cards are on the foundations; once they can all go up in turn, they go up by themselves. The game is over when no move is left. Not every deal can be won.
 # Playing on the device
-Tap a top card to send it to its foundation or its fan, or drag it there. A quick second tap sends a card only to a foundation. The lamp in your bar shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a top card to send it to its foundation or its fan, or drag it there. A quick second tap sends a card only to a foundation. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

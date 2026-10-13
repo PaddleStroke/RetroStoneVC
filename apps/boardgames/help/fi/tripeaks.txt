@@ -13,5 +13,7 @@ Tyhjennä kolme huippua pelaamalla niiden kortit poistopinoon, yhtä arvoa suure
 Kun mikään kortti ei sovi, napauta pakkaa kääntääksesi sen päällimmäisen kortin poistopinoon. Pakka käydään läpi vain kerran.
 # Pelin loppu
 Voitat, kun kolme huippua on tyhjennetty. Peli on hävitty, kun pakka on tyhjä eikä mikään kortti sovi. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–4 ässä ja kuningas seuraavat toisiaan, luvuissa 5 ja 6 eivät. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
 # Pelaaminen laitteella
-Napauta vapaata korttia pelataksesi sen poistopinoon, tai vedä se sinne. Lamppu palkissasi näyttää hyvän siirron: kortin, josta alkaa pisin putki, jonka se näkee. Korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta vapaata korttia pelataksesi sen poistopinoon, tai vedä se sinne. Lamppu näyttää hyvän siirron: kortin, josta alkaa pisin putki, jonka se näkee. Korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

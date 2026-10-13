@@ -13,5 +13,7 @@ Opróżnij trzy szczyty, kładąc ich karty na stos odrzuconych, o jeden stopie�
 Gdy żadna karta nie pasuje, dotknij talii, by odwrócić jej wierzchnią kartę na stos odrzuconych. Talię przechodzi się tylko raz.
 # Koniec gry
 Wygrywasz, gdy trzy szczyty są puste. Gra jest przegrana, gdy talia jest pusta i żadna karta nie pasuje. Karty są tasowane losowo, więc nie każde rozdanie da się wygrać.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 4 as i król następują po sobie, w rozdziałach 5 i 6 nie. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
 # Gra na urządzeniu
-Dotknij wolnej karty, by zagrać ją na stos odrzuconych, albo przeciągnij ją tam. Lampka na twoim pasku pokazuje dobry ruch: kartę, od której zaczyna się najdłuższa seria, jaką widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij wolnej karty, by zagrać ją na stos odrzuconych, albo przeciągnij ją tam. Lampa pokazuje dobry ruch: kartę, od której zaczyna się najdłuższa seria, jaką widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

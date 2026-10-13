@@ -15,4 +15,4 @@ Desteye dokunarak bir kartı açılanlara çevir; açılanların en üstteki kar
 # Oyunun sonu
 Bütün kartlar temel yığınlardayken kazanırsın. Deste ve açılan kartlar bitip kalan kartlar sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Pek az dağıtım kazanılır: önceden düşün ve boş sütunlarını koru.
 # Cihazda oynamak
-En üstteki bir kartı en iyi yerine göndermek için ona dokun: bir temel yığına, kendi takımının bir sonraki kartına ya da boş bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı istediğin yere de sürükleyebilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+En üstteki bir kartı en iyi yerine göndermek için ona dokun: bir temel yığına, kendi takımının bir sonraki kartına ya da boş bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı istediğin yere de sürükleyebilirsin. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

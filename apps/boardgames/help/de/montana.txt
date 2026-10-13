@@ -13,4 +13,4 @@ Dreimal in einer Partie kannst du auf den Platz mit dem kreisenden Pfeil tippen:
 # Das Ende der Partie
 Du gewinnst, wenn alle vier Reihen geordnet sind, jede mit ihrer Lücke am Ende. Die Partie ist verloren, wenn sich keine Lücke mehr füllen lässt und du nicht mehr neu mischen kannst. Nicht jedes Spiel ist zu gewinnen.
 # Spielen auf dem Gerät
-Tippe auf eine Karte, um sie in die Lücke zu schicken, die sie füllt, oder tippe auf eine Lücke, um die passende Karte zu holen. Du kannst eine Karte auch in ihre Lücke ziehen. Die Lampe in deiner Leiste zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Tippe auf eine Karte, um sie in die Lücke zu schicken, die sie füllt, oder tippe auf eine Lücke, um die passende Karte zu holen. Du kannst eine Karte auch in ihre Lücke ziehen. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

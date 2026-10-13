@@ -11,4 +11,4 @@ Alle kaarten opendraaien voordat de vierde heer verschijnt. Een klein spel van p
 # Het einde van de partij
 Je wint als alle kaarten open liggen wanneer de vierde heer verschijnt. Komt de vierde heer terwijl er nog gedekte kaarten zijn, dan is de partij verloren. Er valt niets te kiezen: kijk gewoon hoe de klok rondgaat.
 # Spelen op het apparaat
-Tik ergens op de tafel om de volgende kaart om te draaien: hij vliegt naar zijn uur. De lamp in je balk toont de volgende kaart; het getal naast je kaarten telt de omgedraaide kaarten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik ergens op de tafel om de volgende kaart om te draaien: hij vliegt naar zijn uur. De lamp toont de volgende kaart; het getal naast je kaarten telt de omgedraaide kaarten. Ongedaan maken neemt zetten terug, tot aan het delen.

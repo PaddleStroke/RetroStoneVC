@@ -15,4 +15,4 @@ Tryk på bunken for at vende ét kort over på kastebunken; det øverste kort p�
 # Spillets afslutning
 Du vinder, når alle kort ligger på grundbunkerne. Så snart bunken og kastebunken er tomme og de resterende kort kan gå op efter hinanden, går de op af sig selv. Kun få kabaler går op: tænk dig om og pas på dine tomme pladser.
 # Spil på enheden
-Tryk på et øverste kort for at sende det til dets bedste plads: en grundbunke, det næste kort i samme kulør eller en tom plads. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et øverste kort for at sende det til dets bedste plads: en grundbunke, det næste kort i samme kulør eller en tom plads. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort hen, hvor du vil. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

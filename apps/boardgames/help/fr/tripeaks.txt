@@ -2,16 +2,18 @@ TriPeaks
 # Le but
 Vider les trois pics en jouant leurs cartes sur le talon, d'un rang de plus ou de moins. Un jeu pour un joueur.
 # La mise en place
-- 28 cartes en trois pics côte à côte, en rangées de 3, 6, 9 et 10 cartes ; chaque rangée recouvre à moitié celle du dessus. Seule la rangée du bas est face visible.
-- Une carte face visible sur le talon ; les 23 autres cartes forment la pioche, face cachée, à côté.
+- 28 cartes en trois pics côte à côte, en rangées de 3, 6, 9 et 10 cartes ; chaque rangée recouvre à moitié celle du dessus. Seule la rangée du bas est face visible.
+- Une carte face visible sur le talon ; les 23 autres cartes forment la pioche, face cachée, à côté.
 # Déplacer les cartes
-- Une carte est libre quand plus aucune carte ne la recouvre. Une carte libre va sur le talon si elle a un rang de plus ou de moins que la carte du dessus du talon, quelle que soit sa couleur : un 7 ou un 9 sur un 8.
-- En boucle (la règle classique) : l'as et le roi se suivent aussi. L'autre choix : ils ne se suivent pas.
+- Une carte est libre quand plus aucune carte ne la recouvre. Une carte libre va sur le talon si elle a un rang de plus ou de moins que la carte du dessus du talon, quelle que soit sa couleur : un 7 ou un 9 sur un 8.
+- En boucle (la règle classique) : l'as et le roi se suivent aussi. L'autre choix : ils ne se suivent pas.
 - Une carte cachée se retourne dès qu'elle est libre.
-- La série : le nombre à côté du talon compte les cartes jouées d'affilée depuis les pics. Elle repart de zéro quand tu retournes une carte de la pioche.
+- La série : le nombre à côté du talon compte les cartes jouées d'affilée depuis les pics. Elle repart de zéro quand tu retournes une carte de la pioche.
 # La pioche
 Quand aucune carte ne peut aller sur le talon, touche la pioche pour y retourner sa carte du dessus. La pioche ne se parcourt qu'une fois.
 # La fin de la partie
-Tu gagnes quand les trois pics sont vides. La partie est perdue quand la pioche est vide et qu'aucune carte ne peut aller sur le talon. Les donnes sont mélangées au hasard : toutes ne peuvent pas être gagnées.
+Tu gagnes quand les trois pics sont vides. La partie est perdue quand la pioche est vide et qu'aucune carte ne peut aller sur le talon. Les donnes sont mélangées au hasard : toutes ne peuvent pas être gagnées.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. Dans les chapitres 1 à 4, l'as et le roi se suivent, dans les chapitres 5 et 6 ils ne se suivent pas. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard, avec le choix décrit plus haut. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
 # Jouer sur l'appareil
-Touche une carte libre pour la jouer sur le talon, ou fais-la glisser dessus. La lampe de ta barre montre un bon coup : la carte qui commence la plus longue série qu'elle voit. Le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+Touche une carte libre pour la jouer sur le talon, ou fais-la glisser dessus. La lampe montre un bon coup : la carte qui commence la plus longue série qu'elle voit. Le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

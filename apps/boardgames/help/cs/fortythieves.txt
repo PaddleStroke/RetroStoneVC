@@ -15,4 +15,4 @@ Klepni na balíček a otočíš jednu kartu na odhazovací hromádku; její horn
 # Konec hry
 Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile jsou balíček i odhazovací hromádka prázdné a zbylé karty tam mohou postupně dojít, přesunou se samy. Vyhrát jde jen málokteré rozdání: plánuj dopředu a šetři prázdné sloupce.
 # Hra na zařízení
-Klepni na horní kartu a pošleš ji na nejlepší místo: na cílovou hromádku, na další kartu její barvy nebo do prázdného sloupce. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu můžeš také přetáhnout, kam chceš. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepni na horní kartu a pošleš ji na nejlepší místo: na cílovou hromádku, na další kartu její barvy nebo do prázdného sloupce. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu můžeš také přetáhnout, kam chceš. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

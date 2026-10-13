@@ -14,5 +14,7 @@ Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess
 Varje giv har ett nummer från 1 till 32000, bredvid det lilla kortet i ditt fält. Giv 1 är giv 1 även i andra FreeCell-spel. Alla givar går att vinna utom giv 11982.
 # Partiets slut
 Du vinner när alla kort ligger på grundhögarna. Sitter du fast, ångra eller börja en ny giv.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. Fliken med tärningen efter kapitlen delar ut en ny giv på slump. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
 # Spela på enheten
-Tryck på ett kort för att skicka det till sin bästa plats: en grundhög, en kolumn, en tom kolumn eller en fri cell. Tryck på ett kort mitt i en följd för att flytta följden från det kortet. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort eller en följd dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet efter givens nummer räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett kort för att skicka det till sin bästa plats: en grundhög, en kolumn, en tom kolumn eller en fri cell. Tryck på ett kort mitt i en följd för att flytta följden från det kortet. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort eller en följd dit du vill. Lampan visar ett nyttigt drag; talet efter givens nummer räknar dina drag. Ångra tar tillbaka drag, ända till given.

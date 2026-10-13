@@ -11,4 +11,4 @@ Turn every card face up before the fourth king comes out. A little game of pure 
 # The end of the game
 You win if all the cards are face up when the fourth king turns up. If the fourth king comes while cards are still face down, the game is lost. There is nothing to choose: just enjoy watching the clock go round.
 # Playing on the device
-Tap anywhere on the table to turn the next card: it flies to its hour. The lamp in your bar shows the next card; the number next to your cards counts the cards turned. Undo takes back moves, all the way to the deal.
+Tap anywhere on the table to turn the next card: it flies to its hour. The lamp shows the next card; the number next to your cards counts the cards turned. Undo takes back moves, all the way to the deal.

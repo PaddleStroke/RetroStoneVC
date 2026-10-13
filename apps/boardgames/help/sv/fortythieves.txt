@@ -15,4 +15,4 @@ Tryck på talongen för att vända upp ett kort på slänghögen; slänghögens 
 # Partiets slut
 Du vinner när alla kort ligger på grundhögarna. Så snart talongen och slänghögen är tomma och resten av korten kan gå upp ett efter ett går de upp av sig själva. Få givar går ut: tänk framåt och spara dina tomma kolumner.
 # Spela på enheten
-Tryck på ett översta kort för att skicka det till sin bästa plats: en grundhög, nästa kort i samma färg eller en tom kolumn. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett översta kort för att skicka det till sin bästa plats: en grundhög, nästa kort i samma färg eller en tom kolumn. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort dit du vill. Lampan visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

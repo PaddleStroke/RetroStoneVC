@@ -17,5 +17,7 @@ Move all 52 cards to the four foundations, one for each suit. A game for one pla
 Tap the stock to turn three cards onto the waste (fewer at its end); only the top card of the waste can be played. When the stock is empty, tap its place to turn the waste back over, as many times as you like.
 # The end of the game
 You win when all the cards are on the foundations. Once the stock, the waste and the reserve are empty and the cards left can all go up in turn, they go up by themselves. Empty the reserve first: it is the key to the game.
+# Levels and stars
+There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. The die tab after the chapters deals a new game at random. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
 # Playing on the device
-Tap a card to send it to its best place: a foundation if it can go there, otherwise the tableau. Tap the first card of a pile to move the whole pile. A quick second tap sends a card only to a foundation. You can also drag cards where you want. The lamp in your bar shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a card to send it to its best place: a foundation if it can go there, otherwise the tableau. Tap the first card of a pile to move the whole pile. A quick second tap sends a card only to a foundation. You can also drag cards where you want. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

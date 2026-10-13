@@ -15,4 +15,4 @@ Napauta pakkaa kääntääksesi yhden kortin poistopinoon; poistopinon päällim
 # Pelin loppu
 Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka ja poistopino ovat tyhjät ja loput kortit pääsevät nousemaan vuorotellen, ne nousevat itsestään. Vain harva jako menee läpi: suunnittele etukäteen ja säästä tyhjät sarakkeesi.
 # Pelaaminen laitteella
-Napauta päällimmäistä korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, oman maansa seuraavan kortin päälle tai tyhjään sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin minne haluat. Lamppu palkissasi näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Napauta päällimmäistä korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, oman maansa seuraavan kortin päälle tai tyhjään sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin minne haluat. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.

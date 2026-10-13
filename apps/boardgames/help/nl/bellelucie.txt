@@ -13,4 +13,4 @@ Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van
 # Het einde van de partij
 Je wint als alle kaarten op de aflegstapels liggen; zodra ze er een voor een heen kunnen, gaan ze vanzelf omhoog. De partij is voorbij als er geen zet meer is. Niet elk spel is te winnen.
 # Spelen op het apparaat
-Tik op een bovenste kaart om hem naar zijn aflegstapel of zijn waaier te sturen, of sleep hem erheen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een bovenste kaart om hem naar zijn aflegstapel of zijn waaier te sturen, of sleep hem erheen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

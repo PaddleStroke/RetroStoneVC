@@ -16,5 +16,7 @@ Clear the pyramid of 28 cards by taking off pairs of cards that add up to 13. A 
 - Three passes: when the stock is empty, tap its place to turn the waste back over as the stock. The number under the stock shows the passes left.
 # The end of the game
 You win as soon as the pyramid is cleared, even if cards are left in the stock or the waste. The game is lost when no move is left. The deals are shuffled at random, so not every deal can be won.
+# Levels and stars
+There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. In chapters 1 to 5 you go through the stock three times, in chapter 6 once. The die tab after the chapters deals a new game at random, with the choice described above. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
 # Playing on the device
-Tap a card to lift it, then tap the card that makes 13 with it; tap a lifted card again to put it back. A king goes off with one tap. You can also drag a card onto its pair. The lamp in your bar shows a possible move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a card to lift it, then tap the card that makes 13 with it; tap a lifted card again to put it back. A king goes off with one tap. You can also drag a card onto its pair. The lamp shows a possible move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

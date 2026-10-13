@@ -18,5 +18,7 @@ Acht Reihen vom König bis zum Ass in je einer Farbe bilden und alle vom Tisch r
 Tippe auf den Stapel, um auf jede Spalte eine Karte offen zu geben. Wie in den klassischen Regeln darf nur gegeben werden, wenn keine Spalte leer ist.
 # Das Ende der Partie
 Du gewinnst, wenn alle acht Reihen fertig sind. Kommst du nicht weiter, nimm Züge zurück oder beginne ein neues Spiel.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. Die Kapitel 1 bis 4 werden mit einer Farbe gespielt, die Kapitel 5 und 6 mit zwei. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall, mit der oben beschriebenen Wahl (auch mit vier Farben). Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
 # Spielen auf dem Gerät
-Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf eine Karte ihrer Farbe, wenn es geht, sonst auf eine beliebige Karte einen Rang höher, sonst in eine leere Spalte. Du kannst eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe in deiner Leiste zeigt einen nützlichen Zug; die Zahl in deiner Leiste zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf eine Karte ihrer Farbe, wenn es geht, sonst auf eine beliebige Karte einen Rang höher, sonst in eine leere Spalte. Du kannst eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl in deiner Leiste zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

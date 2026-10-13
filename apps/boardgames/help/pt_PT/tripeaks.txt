@@ -13,5 +13,7 @@ Esvaziar os três picos jogando as cartas deles no descarte, um valor acima ou a
 Quando nenhuma carta pode ir, toca no baralho para virar a carta de cima para o descarte. O baralho só é percorrido uma vez.
 # O fim do jogo
 Ganhas quando os três picos ficam vazios. O jogo está perdido quando o baralho está vazio e nenhuma carta pode ir. As cartas são baralhadas ao acaso, por isso nem todas as distribuições se podem ganhar.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Nos capítulos 1 a 4 o ás e o rei seguem-se, nos capítulos 5 e 6, não. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
 # Jogar no dispositivo
-Toca numa carta livre para a jogar no descarte, ou arrasta-a até lá. A lâmpada na tua barra mostra uma boa jogada: a carta que começa a sequência mais longa que ela vê. O número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta livre para a jogar no descarte, ou arrasta-a até lá. A lâmpada mostra uma boa jogada: a carta que começa a sequência mais longa que ela vê. O número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

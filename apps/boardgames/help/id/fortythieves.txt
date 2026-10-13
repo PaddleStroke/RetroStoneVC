@@ -15,4 +15,4 @@ Ketuk tumpukan untuk membalik satu kartu ke tumpukan buangan; kartu teratas tump
 # Akhir permainan
 Kamu menang saat semua kartu ada di fondasi. Begitu tumpukan dan tumpukan buangan kosong dan sisa kartu bisa naik satu per satu, kartu-kartu itu naik sendiri. Hanya sedikit pembagian yang bisa dimenangkan: rencanakan ke depan dan jaga kolom kosongmu.
 # Bermain di perangkat
-Ketuk kartu teratas untuk mengirimnya ke tempat terbaiknya: fondasi, kartu berikutnya dari jenisnya, atau kolom kosong. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu di bilahmu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Ketuk kartu teratas untuk mengirimnya ke tempat terbaiknya: fondasi, kartu berikutnya dari jenisnya, atau kolom kosong. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.

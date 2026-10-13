@@ -13,4 +13,4 @@ Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego p
 # El final de la partida
 Ganas cuando todas las cartas están en las bases; en cuanto todas pueden subir una tras otra, suben solas. La partida se pierde cuando no queda ningún movimiento. No todos los repartos se pueden ganar.
 # Jugar en el dispositivo
-Toca una carta de arriba para mandarla a su base o a su abanico, o arrástrala hasta allí. Un segundo toque rápido manda una carta solo a una base. La lámpara de tu barra muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta de arriba para mandarla a su base o a su abanico, o arrástrala hasta allí. Un segundo toque rápido manda una carta solo a una base. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

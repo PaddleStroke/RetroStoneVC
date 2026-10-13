@@ -17,5 +17,7 @@ Canfield
 Desteye dokunarak üç kartı açılanlara çevir (sona doğru daha az); yalnızca açılanların en üstteki kartı oynanabilir. Deste bitince yerine dokunarak açılan kartları yeniden çevir, istediğin kadar.
 # Oyunun sonu
 Bütün kartlar temel yığınlardayken kazanırsın. Deste, açılanlar ve yedek bitip kalan kartlar sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Önce yedeği boşalt: oyunun anahtarı odur.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Bir kartı en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir oyun yığınına. Bütün yığını taşımak için yığının ilk kartına dokun. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları istediğin yere de sürükleyebilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir oyun yığınına. Bütün yığını taşımak için yığının ilk kartına dokun. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları istediğin yere de sürükleyebilirsin. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

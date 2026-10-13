@@ -13,5 +13,7 @@ Gdy żadna karta nie pasuje, dotknij talii, by odkryć jej wierzchnią kartę na
 Jak w golfie: im mniej, tym lepiej. Liczba obok stosu odrzuconych liczy karty, które zostały w kolumnach. Gdy wszystkie kolumny są puste, wynikiem są karty, które zostały w talii, poniżej zera.
 # Koniec gry
 Wygrywasz, gdy kolumny są puste. Gra kończy się, gdy talia jest pusta i żadna karta nie pasuje. Nie każde rozdanie da się wygrać.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 3 as i król następują po sobie, w rozdziałach od 4 do 6 nie. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
 # Gra na urządzeniu
-Dotknij wierzchniej karty, by zagrać ją na stos odrzuconych, lub przeciągnij ją tam. Lampka na twoim pasku pokazuje dobry ruch: kartę, od której zaczyna się najdłuższy ciąg, jaki widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Dotknij wierzchniej karty, by zagrać ją na stos odrzuconych, lub przeciągnij ją tam. Lampa pokazuje dobry ruch: kartę, od której zaczyna się najdłuższy ciąg, jaki widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

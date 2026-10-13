@@ -17,5 +17,7 @@ Få upp alla 52 korten på de fyra grundhögarna, en för varje färg. Ett spel 
 Tryck på talongen för att vända upp tre kort på slänghögen (färre i slutet); bara slänghögens översta kort kan spelas. När talongen är tom trycker du på dess plats för att vända slänghögen igen, så många gånger du vill.
 # Partiets slut
 Du vinner när alla kort ligger på grundhögarna. Så snart talongen, slänghögen och reserven är tomma och resten av korten kan gå upp ett efter ett går de upp av sig själva. Töm reserven först: den är nyckeln till spelet.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. Fliken med tärningen efter kapitlen delar ut en ny giv på slump. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
 # Spela på enheten
-Tryck på ett kort för att skicka det till sin bästa plats: en grundhög om det passar där, annars en spelhög. Tryck på det första kortet i en hög för att flytta hela högen. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra kort dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett kort för att skicka det till sin bästa plats: en grundhög om det passar där, annars en spelhög. Tryck på det första kortet i en hög för att flytta hela högen. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra kort dit du vill. Lampan visar ett nyttigt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.

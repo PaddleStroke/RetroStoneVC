@@ -16,5 +16,7 @@ Toplamı 13 eden kart çiftlerini kaldırarak 28 kartlık piramidi boşaltmak. T
 - Üç tur: deste boşalınca yerine dokun, açılan kartlar ters çevrilip yeniden deste olur. Destenin altındaki sayı kalan turları gösterir.
 # Oyunun sonu
 Piramit boşalır boşalmaz kazanırsın, destede ya da açılan kartlarda kart kalsa bile. Hiç hamle kalmayınca oyun kaybedilir. Kartlar rastgele karıştırılır, bu yüzden her dağıtım kazanılamaz.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 5'e kadar olan bölümlerde deste üç kez, 6. bölümde bir kez dolaşılır. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Bir kartı kaldırmak için ona dokun, sonra onunla 13 eden karta dokun; kaldırılmış bir karta yeniden dokunursan yerine iner. Papaz tek dokunuşla gider. Bir kartı eşinin üstüne sürükleyebilirsin de. Şeridindeki lamba olası bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı kaldırmak için ona dokun, sonra onunla 13 eden karta dokun; kaldırılmış bir karta yeniden dokunursan yerine iner. Papaz tek dokunuşla gider. Bir kartı eşinin üstüne sürükleyebilirsin de. Lamba olası bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

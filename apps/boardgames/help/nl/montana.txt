@@ -13,4 +13,4 @@ Drie keer per partij tik je op de hand (de plaats met de draaiende pijl): de kaa
 # Het einde van de partij
 Je wint als de vier rijen op volgorde liggen, elk met het gat aan het eind. De partij is voorbij als geen gat meer gevuld kan worden en je niet meer opnieuw kunt delen. Niet elk spel is te winnen.
 # Spelen op het apparaat
-Tik op een kaart om hem naar het gat te sturen dat hij vult, of tik op een gat om de kaart te halen die erin past. Je kunt een kaart ook naar zijn gat slepen. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een kaart om hem naar het gat te sturen dat hij vult, of tik op een gat om de kaart te halen die erin past. Je kunt een kaart ook naar zijn gat slepen. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

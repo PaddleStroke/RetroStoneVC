@@ -13,4 +13,4 @@ Tre gange i et spil kan du trykke på hånden (pladsen med pilen, der drejer run
 # Spillets afslutning
 Du vinder, når de fire rækker ligger i orden, hver med sit hul til sidst. Spillet er slut, når intet hul kan fyldes og der ikke er flere uddelinger. Ikke alle kabaler kan gå op.
 # Spil på enheden
-Tryk på et kort for at sende det til det hul, det passer i, eller tryk på et hul for at hente det kort, der passer i det. Du kan også trække et kort hen til sit hul. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et kort for at sende det til det hul, det passer i, eller tryk på et hul for at hente det kort, der passer i det. Du kan også trække et kort hen til sit hul. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

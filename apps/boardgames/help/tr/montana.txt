@@ -13,4 +13,4 @@ Oyunda üç kez ele dokun (dönen okun olduğu yer): henüz sıralı olmayan kar
 # Oyunun sonu
 Dört sıra da sıralı olup her birinin boşluğu sonda olunca kazanırsın. Hiçbir boşluk doldurulamaz ve yeniden dağıtım kalmazsa oyun biter. Her dağıtım kazanılamaz.
 # Cihazda oynamak
-Bir kartı dolduracağı boşluğa göndermek için ona dokun ya da bir boşluğa dokunarak onu dolduran kartı getir. Bir kartı boşluğuna sürükleyebilirsin de. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı dolduracağı boşluğa göndermek için ona dokun ya da bir boşluğa dokunarak onu dolduran kartı getir. Bir kartı boşluğuna sürükleyebilirsin de. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

@@ -16,5 +16,7 @@ Esvaziar a pirâmide de 28 cartas tirando pares de cartas que somam 13. Um jogo 
 - Três passagens: quando o baralho fica vazio, toca no lugar dele para voltar o descarte e usá-lo outra vez como baralho. O número por baixo do baralho mostra as passagens que restam.
 # O fim do jogo
 Ganhas assim que a pirâmide fica vazia, mesmo que sobrem cartas no baralho ou no descarte. O jogo está perdido quando já não há nenhuma jogada. As cartas são baralhadas ao acaso, por isso nem todas as distribuições se podem ganhar.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Nos capítulos 1 a 5 o baralho é percorrido três vezes, no capítulo 6, só uma vez. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
 # Jogar no dispositivo
-Toca numa carta para a levantar e depois na carta que soma 13 com ela; toca outra vez numa carta levantada para a pousar. Um rei sai com um só toque. Também podes arrastar uma carta até ao par dela. A lâmpada na tua barra mostra uma jogada possível; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta para a levantar e depois na carta que soma 13 com ela; toca outra vez numa carta levantada para a pousar. Um rei sai com um só toque. Também podes arrastar uma carta até ao par dela. A lâmpada mostra uma jogada possível; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

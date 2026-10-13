@@ -13,4 +13,4 @@ Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess
 # Slutten på spillet
 Du vinner når alle kortene ligger på grunnbunkene; så snart de kan gå opp etter hverandre, går de opp av seg selv. Spillet er slutt når det ikke finnes flere trekk. Ikke alle kabaler går opp.
 # Spill på enheten
-Trykk på et øverste kort for å sende det til grunnbunken eller vifta si, eller dra det dit. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et øverste kort for å sende det til grunnbunken eller vifta si, eller dra det dit. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

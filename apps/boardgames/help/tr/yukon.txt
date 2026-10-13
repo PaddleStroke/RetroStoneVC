@@ -13,5 +13,7 @@ Yukon
 - Temel yığındaki bir kart yeniden bir sütuna inebilir.
 # Oyunun sonu
 Bütün kartlar temel yığınlardayken kazanırsın. Bütün kartlar açılıp hepsi sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Takılırsan hamleleri geri al ya da yeni bir dağıtıma başla.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Bir kartı, üstündeki kartlarla birlikte en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları sürükleyip istediğin yere de bırakabilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı, üstündeki kartlarla birlikte en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

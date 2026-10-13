@@ -2,15 +2,15 @@ La Belle Lucie
 # Le but
 Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Un jeu pour un joueur, aussi appelé l'Éventail.
 # La mise en place
-- Les cartes sont posées face visible en 18 éventails de trois ; le dernier éventail n'a qu'une carte.
-- En haut : la place des redonnes, celle du « merci » et les quatre fondations.
+- Les cartes sont posées face visible en 18 éventails de trois ; le dernier éventail n'a qu'une carte.
+- En haut : la place des redonnes, celle du « merci » et les quatre fondations.
 # Déplacer les cartes
-- Seule la carte du dessus d'un éventail peut bouger : sur sa fondation, ou sur la carte du dessus d'un autre éventail si celle-ci est de la même couleur et d'un rang de plus : le 6 de cœur sur le 7 de cœur.
+- Seule la carte du dessus d'un éventail peut bouger : sur sa fondation, ou sur la carte du dessus d'un autre éventail si celle-ci est de la même couleur et d'un rang de plus : le 6 de cœur sur le 7 de cœur.
 - Un éventail vidé reste vide.
 # Les redonnes
-- Deux fois par partie, touche la place à la flèche qui tourne, en haut à gauche : les cartes qui restent dans les éventails sont ramassées, mélangées et redistribuées en éventails de trois. Le nombre sur cette place indique les redonnes qui restent.
-- À la dernière donne vient le « merci », le cadeau de la règle classique : une seule fois, touche une carte enfouie dans un éventail pour la tirer. Elle attend sur sa propre place jusqu'à ce que tu la joues sur une fondation ou un éventail.
+- Deux fois par partie, touche la place à la flèche qui tourne, en haut à gauche : les cartes qui restent dans les éventails sont ramassées, mélangées et redistribuées en éventails de trois. Le nombre sur cette place indique les redonnes qui restent.
+- À la dernière donne vient le « merci », le cadeau de la règle classique : une seule fois, touche une carte enfouie dans un éventail pour la tirer. Elle attend sur sa propre place jusqu'à ce que tu la joues sur une fondation ou un éventail.
 # La fin de la partie
-Tu gagnes quand toutes les cartes sont sur les fondations ; dès qu'elles peuvent toutes monter à la suite, elles montent toutes seules. La partie est perdue quand il ne reste aucun coup. Toutes les donnes ne peuvent pas être gagnées.
+Tu gagnes quand toutes les cartes sont sur les fondations ; dès qu'elles peuvent toutes monter à la suite, elles montent toutes seules. La partie est perdue quand il ne reste aucun coup. Toutes les donnes ne peuvent pas être gagnées.
 # Jouer sur l'appareil
-Touche une carte du dessus pour l'envoyer sur sa fondation ou sur son éventail, ou fais-la glisser. Une seconde touche rapide envoie une carte seulement sur une fondation. La lampe de ta barre montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+Touche une carte du dessus pour l'envoyer sur sa fondation ou sur son éventail, ou fais-la glisser. Une seconde touche rapide envoie une carte seulement sur une fondation. La lampe montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.

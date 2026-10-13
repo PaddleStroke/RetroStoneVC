@@ -11,4 +11,4 @@ Vänd upp alla kort innan den fjärde kungen kommer fram. Ett litet spel av ren 
 # Partiets slut
 Du vinner om alla kort är uppvända när den fjärde kungen kommer fram. Kommer den fjärde kungen medan kort fortfarande är dolda är partiet förlorat. Det finns inget att välja: njut bara av att se klockan gå runt.
 # Spela på enheten
-Tryck var som helst på bordet för att vända upp nästa kort: det flyger till sin timme. Lampan i ditt fält visar nästa kort; talet bredvid dina kort räknar de uppvända korten. Ångra tar tillbaka drag, ända till given.
+Tryck var som helst på bordet för att vända upp nästa kort: det flyger till sin timme. Lampan visar nästa kort; talet bredvid dina kort räknar de uppvända korten. Ångra tar tillbaka drag, ända till given.

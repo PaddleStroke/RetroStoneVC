@@ -1,6 +1,6 @@
 Finn parene
 # Målet
-Finn parene av bilder. For 1 til 4 spillere. Alene er det en gåte: finn alle med så få trekk som mulig.
+Finn parene av bilder. For 1 til 4 spillere. Alene er det en oppgave: finn alle med så få trekk som mulig.
 # Kortene
 - 12, 24 eller 36 kort ligger med baksiden opp i et rutenett. Hvert bilde finnes på to kort.
 - Bildene: dyrene fra familiespillet og sjakkbrikker i spillernes farger.

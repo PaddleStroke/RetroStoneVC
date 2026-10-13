@@ -11,4 +11,4 @@ Scoprire tutte le carte prima che esca il quarto re. Un piccolo gioco di puro ca
 # La fine della partita
 Vinci se tutte le carte sono scoperte quando esce il quarto re. Se il quarto re arriva mentre ci sono ancora carte coperte, la partita è persa. Non c'è niente da scegliere: goditi l'orologio che gira.
 # Giocare sul dispositivo
-Tocca un punto qualsiasi del tavolo per girare la prossima carta: vola alla sua ora. La lampada nella tua barra mostra la prossima carta; il numero accanto alle tue carte conta le carte girate. Annulla ritira le mosse, fino alla smazzata.
+Tocca un punto qualsiasi del tavolo per girare la prossima carta: vola alla sua ora. La lampada mostra la prossima carta; il numero accanto alle tue carte conta le carte girate. Annulla ritira le mosse, fino alla smazzata.

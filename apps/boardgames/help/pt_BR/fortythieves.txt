@@ -15,4 +15,4 @@ Toque no monte para virar uma carta no descarte; a carta de cima do descarte pod
 # O fim da partida
 Você vence quando todas as cartas estão nas fundações. Assim que o monte e o descarte estão vazios e as cartas que restam podem subir uma após a outra, elas sobem sozinhas. Poucas distribuições podem ser vencidas: planeje com antecedência e guarde as colunas vazias.
 # Jogando no aparelho
-Toque numa carta de cima para mandá-la para o melhor lugar: uma fundação, a carta seguinte do seu naipe ou uma coluna vazia. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar uma carta para onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Toque numa carta de cima para mandá-la para o melhor lugar: uma fundação, a carta seguinte do seu naipe ou uma coluna vazia. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar uma carta para onde quiser. A lâmpada mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

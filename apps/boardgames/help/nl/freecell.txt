@@ -14,5 +14,7 @@ Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van
 Elk spel heeft een nummer van 1 tot 32000, naast het kaartje in je balk. Spel 1 is ook in andere FreeCell-spellen spel 1. Elk spel is te winnen, behalve spel 11982.
 # Het einde van de partij
 Je wint als alle kaarten op de aflegstapels liggen. Zit je vast, neem dan zetten terug of begin een nieuw spel.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
 # Spelen op het apparaat
-Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel, een kolom, een lege kolom of een vrije cel. Tik op een kaart midden in een reeks om de reeks vanaf die kaart te verplaatsen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp in je balk toont een nuttige zet; het getal na het spelnummer telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel, een kolom, een lege kolom of een vrije cel. Tik op een kaart midden in een reeks om de reeks vanaf die kaart te verplaatsen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp toont een nuttige zet; het getal na het spelnummer telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

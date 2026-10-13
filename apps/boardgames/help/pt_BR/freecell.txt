@@ -14,5 +14,7 @@ Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um 
 Cada distribuição tem um número de 1 a 32000, ao lado da cartinha na sua barra. A distribuição 1 é a distribuição 1 também em outros jogos de FreeCell. Todas podem ser vencidas, menos a 11982.
 # O fim da partida
 Você vence quando todas as cartas estão nas fundações. Se ficar travado, desfaça ou comece uma nova distribuição.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolha um na tela de níveis. A aba do dado, depois dos capítulos, dá uma nova distribuição ao acaso. Sem dicas nem jogadas desfeitas: 3 estrelas; até duas dicas e jogadas desfeitas no total: 2 estrelas; senão, 1.
 # Jogando no aparelho
-Toque numa carta para mandá-la para o melhor lugar: uma fundação, uma coluna, uma coluna vazia ou uma célula livre. Toque numa carta no meio de uma sequência para mover a sequência a partir dela. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar uma carta ou uma sequência e soltá-la onde quiser. A lâmpada na sua barra mostra uma jogada útil; o número depois do da distribuição conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Toque numa carta para mandá-la para o melhor lugar: uma fundação, uma coluna, uma coluna vazia ou uma célula livre. Toque numa carta no meio de uma sequência para mover a sequência a partir dela. Um segundo toque rápido manda a carta só para uma fundação. Você também pode arrastar uma carta ou uma sequência e soltá-la onde quiser. A lâmpada mostra uma jogada útil; o número depois do da distribuição conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

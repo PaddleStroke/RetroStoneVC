@@ -15,4 +15,4 @@ Toca no baralho para virar uma carta para o descarte; a carta de cima do descart
 # O fim do jogo
 Ganhas quando todas as cartas estão nas fundações. Assim que o baralho e o descarte estão vazios e as cartas que restam podem subir uma a uma, sobem sozinhas. Poucas distribuições se podem ganhar: pensa com antecedência e guarda as colunas vazias.
 # Jogar no dispositivo
-Toca numa carta de cima para a mandar para o melhor lugar: uma fundação, a carta seguinte do seu naipe ou uma coluna vazia. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta para onde quiseres. A lâmpada na tua barra mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Toca numa carta de cima para a mandar para o melhor lugar: uma fundação, a carta seguinte do seu naipe ou uma coluna vazia. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta para onde quiseres. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.

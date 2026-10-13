@@ -11,8 +11,10 @@ Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til kon
 - Et kort på en grundbunke bliver der.
 - Kort, som bordet ikke længere har brug for, går selv op på grundbunkerne.
 # Spillene
-Hvert spil har et nummer fra 1 til 32000, ved siden af det lille kort i dit panel. Spil 1 er også spil 1 i andre FreeCell-spil. Alle spil kan vindes undtagen spil 11982.
+Hvert spil har et nummer fra 1 til 32000, ved siden af det lille kort i din bjælke. Spil 1 er også spil 1 i andre FreeCell-spil. Alle spil kan vindes undtagen spil 11982.
 # Spillets afslutning
 Du vinder, når alle kort ligger på grundbunkerne. Sidder du fast, så fortryd eller start et nyt spil.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
 # Spil på enheden
-Tryk på et kort for at sende det til dets bedste plads: en grundbunke, en række, en tom række eller en fri celle. Tryk på et kort midt i en række for at flytte rækken fra det kort. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort eller en række hen, hvor du vil. Lampen i dit panel viser et nyttigt træk; tallet efter spillets nummer tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et kort for at sende det til dets bedste plads: en grundbunke, en række, en tom række eller en fri celle. Tryk på et kort midt i en række for at flytte rækken fra det kort. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort eller en række hen, hvor du vil. Lampen viser et nyttigt træk; tallet efter spillets nummer tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

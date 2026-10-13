@@ -15,4 +15,4 @@ Trykk på bunken for å snu ett kort over på kastebunken; det øverste kortet p
 # Slutten på spillet
 Du vinner når alle kortene ligger på grunnbunkene. Så snart bunken og kastebunken er tomme og resten av kortene kan gå opp etter hverandre, går de opp av seg selv. Få kabaler går opp: tenk fremover og ta vare på de tomme plassene.
 # Spill på enheten
-Trykk på et øverste kort for å sende det til den beste plassen: en grunnbunke, neste kort i samme farge eller en tom plass. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et øverste kort for å sende det til den beste plassen: en grunnbunke, neste kort i samme farge eller en tom plass. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort dit du vil. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

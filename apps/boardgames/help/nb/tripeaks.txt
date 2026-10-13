@@ -13,5 +13,7 @@ Rydd de tre toppene ved å spille kortene deres over på kastebunken, én verdi 
 Når ingen kort kan spilles, trykker du på bunken for å snu det øverste kortet over på kastebunken. Bunken gås gjennom bare én gang.
 # Slutten på spillet
 Du vinner når de tre toppene er ryddet. Spillet er tapt når bunken er tom og ingen kort kan spilles. Kortene stokkes tilfeldig, så ikke alle spill kan vinnes.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. I kapittel 1 til 4 følger ess og konge hverandre, i kapittel 5 og 6 gjør de ikke det. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et fritt kort for å spille det over på kastebunken, eller dra det dit. Lampen i panelet ditt viser et godt trekk: kortet som starter den lengste serien den kan se. Tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et fritt kort for å spille det over på kastebunken, eller dra det dit. Lampen viser et godt trekk: kortet som starter den lengste serien den kan se. Tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

@@ -18,5 +18,7 @@ Formar ocho escaleras del rey al as, cada una de un solo palo, y quitarlas todas
 Toca el mazo para repartir una carta boca arriba sobre cada columna. Como en las reglas clásicas, solo se puede repartir si no hay ninguna columna vacía.
 # El final de la partida
 Ganas cuando las ocho escaleras están completas. Si te atascas, deshaz o empieza un reparto nuevo.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. Los capítulos 1 a 4 se juegan con un palo, los capítulos 5 y 6 con dos. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar, con la elección descrita arriba (también cuatro palos). Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
-Toca una carta para moverla, con las que tiene encima, a su mejor sitio: sobre una carta de su palo si puede, si no, sobre cualquier carta de un valor más, y si no, a una columna vacía. También puedes arrastrar una escalera y soltarla donde quieras. La lámpara de tu barra muestra un movimiento útil; el número de tu barra cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Toca una carta para moverla, con las que tiene encima, a su mejor sitio: sobre una carta de su palo si puede, si no, sobre cualquier carta de un valor más, y si no, a una columna vacía. También puedes arrastrar una escalera y soltarla donde quieras. La lámpara muestra un movimiento útil; el número de tu barra cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.

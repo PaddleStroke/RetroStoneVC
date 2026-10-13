@@ -11,4 +11,4 @@ Odkryć wszystkie karty, zanim pojawi się czwarty król. Mała gra czystego szc
 # Koniec gry
 Wygrywasz, jeśli wszystkie karty są odkryte, gdy pojawia się czwarty król. Jeśli czwarty król przyjdzie, gdy są jeszcze zakryte karty, gra jest przegrana. Nie ma tu nic do wybierania: po prostu patrz, jak zegar się kręci.
 # Gra na urządzeniu
-Dotknij stołu w dowolnym miejscu, by odkryć następną kartę: poleci do swojej godziny. Lampka na twoim pasku pokazuje następną kartę; liczba obok twoich kart liczy odkryte karty. Cofnij cofa ruchy, aż do rozdania.
+Dotknij stołu w dowolnym miejscu, by odkryć następną kartę: poleci do swojej godziny. Lampa pokazuje następną kartę; liczba obok twoich kart liczy odkryte karty. Cofnij cofa ruchy, aż do rozdania.

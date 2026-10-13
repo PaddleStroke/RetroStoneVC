@@ -11,4 +11,4 @@ Dördüncü papaz çıkmadan bütün kartları açmak. Tek kişilik, tamamen şa
 # Oyunun sonu
 Dördüncü papaz açıldığında bütün kartlar açıksa kazanırsın. Hâlâ kapalı kartlar varken dördüncü papaz gelirse oyun kaybedilir. Seçecek bir şey yok: saatin dönüşünü izlemenin tadını çıkar.
 # Cihazda oynamak
-Bir sonraki kartı açmak için masada herhangi bir yere dokun: kart kendi saatine uçar. Şeridindeki lamba bir sonraki kartı gösterir; kartlarının yanındaki sayı açılan kartları sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir sonraki kartı açmak için masada herhangi bir yere dokun: kart kendi saatine uçar. Lamba bir sonraki kartı gösterir; kartlarının yanındaki sayı açılan kartları sayar. Geri al hamleleri dağıtıma kadar geri alır.

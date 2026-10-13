@@ -11,4 +11,4 @@ Virar todas as cartas para cima antes de aparecer o quarto rei. Um pequeno jogo 
 # O fim do jogo
 Ganhas se todas as cartas estiverem voltadas para cima quando aparecer o quarto rei. Se o quarto rei vier quando ainda há cartas voltadas para baixo, o jogo está perdido. Não há nada para escolher: é só ver o relógio a andar.
 # Jogar no dispositivo
-Toca em qualquer sítio da mesa para virar a próxima carta: ela voa até à sua hora. A lâmpada na tua barra mostra a próxima carta; o número ao lado das tuas cartas conta as cartas viradas. Anular desfaz as jogadas, até à distribuição.
+Toca em qualquer sítio da mesa para virar a próxima carta: ela voa até à sua hora. A lâmpada mostra a próxima carta; o número ao lado das tuas cartas conta as cartas viradas. Anular desfaz as jogadas, até à distribuição.

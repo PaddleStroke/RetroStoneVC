@@ -15,4 +15,4 @@ Tik op de stapel om één kaart open te leggen; de bovenste getrokken kaart is s
 # Het einde van de partij
 Je wint als alle kaarten op de aflegstapels liggen. Zodra de stapel en de getrokken kaarten op zijn en de overige kaarten er een voor een heen kunnen, gaan ze vanzelf omhoog. Weinig spellen zijn te winnen: denk vooruit en houd je lege kolommen vrij.
 # Spelen op het apparaat
-Tik op een bovenste kaart om hem naar zijn beste plek te sturen: een aflegstapel, de volgende kaart van zijn kleur of een lege kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart ook slepen waar je wilt. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een bovenste kaart om hem naar zijn beste plek te sturen: een aflegstapel, de volgende kaart van zijn kleur of een lege kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart ook slepen waar je wilt. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

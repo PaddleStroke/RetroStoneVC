@@ -13,5 +13,7 @@ TriPeaks
 Hiçbir kart oynanamıyorsa, en üstteki kartını açılan kartların üstüne çevirmek için desteye dokun. Deste yalnızca bir kez dolaşılır.
 # Oyunun sonu
 Üç tepe boşalınca kazanırsın. Deste boşken hiçbir kart oynanamıyorsa oyun kaybedilir. Kartlar rastgele karıştırılır, bu yüzden her dağıtım kazanılamaz.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 4'e kadar olan bölümlerde as ile papaz birbirini izler, 5. ve 6. bölümlerde izlemez. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Serbest bir kartı açılan kartların üstüne oynamak için ona dokun ya da onu oraya sürükle. Şeridindeki lamba iyi bir hamle gösterir: görebildiği en uzun seriyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Serbest bir kartı açılan kartların üstüne oynamak için ona dokun ya da onu oraya sürükle. Lamba iyi bir hamle gösterir: görebildiği en uzun seriyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

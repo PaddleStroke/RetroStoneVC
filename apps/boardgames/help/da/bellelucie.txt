@@ -13,4 +13,4 @@ Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til kon
 # Spillets afslutning
 Du vinder, når alle kort ligger på grundbunkerne; så snart de alle kan gå op efter hinanden, går de op af sig selv. Spillet er slut, når der ikke er flere træk. Ikke alle kabaler kan gå op.
 # Spil på enheden
-Tryk på et øverste kort for at sende det til sin grundbunke eller sin vifte, eller træk det derhen. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Lampen i dit panel viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk på et øverste kort for at sende det til sin grundbunke eller sin vifte, eller træk det derhen. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

@@ -11,4 +11,4 @@ Käännä kaikki kortit kuvapuoli ylöspäin ennen kuin neljäs kuningas tulee e
 # Pelin loppu
 Voitat, jos kaikki kortit ovat kuvapuoli ylöspäin, kun neljäs kuningas kääntyy. Jos neljäs kuningas tulee, kun kortteja on vielä piilossa, peli on hävitty. Mitään ei tarvitse valita: nauti vain, kun kello kiertää.
 # Pelaaminen laitteella
-Napauta mitä tahansa kohtaa pöydällä kääntääksesi seuraavan kortin: se lentää tunnilleen. Lamppu palkissasi näyttää seuraavan kortin; korttiesi vieressä oleva luku laskee käännetyt kortit. Kumoa peruu siirtoja aina jakoon asti.
+Napauta mitä tahansa kohtaa pöydällä kääntääksesi seuraavan kortin: se lentää tunnilleen. Lamppu näyttää seuraavan kortin; korttiesi vieressä oleva luku laskee käännetyt kortit. Kumoa peruu siirtoja aina jakoon asti.

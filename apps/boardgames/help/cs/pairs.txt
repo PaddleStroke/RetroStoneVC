@@ -11,4 +11,4 @@ Najdi dvojice obrázků. Pro 1 až 4 hráče. Sám je to hlavolam: najdi všechn
 # Konec hry
 Když jsou nalezeny všechny dvojice, vyhrává ten, kdo jich má nejvíc; při rovnosti se vítězství dělí. Sám je tvým výsledkem počet tahů: dvě otočené karty jsou jeden tah.
 # Hra na zařízení
-Klepnutím kartu otočíš. Dvojice zazáří zlatě a pak zůstane lícem nahoru, ztmavená, se žetonem hráče, který ji našel. Dvě různé karty se po chvíli otočí zpět samy, nebo po klepnutí. Každá lišta ukazuje dvojice daného hráče; když hraješ sám, ukazuje tvé tahy. Zpět vrátí naposledy otočenou kartu.
+Klepnutím kartu otočíš. Dvojice zazáří zlatě a pak zůstane lícem nahoru, ztmavená, se žetonem hráče, který ji našel. Dvě různé karty se po chvíli otočí zpět samy, nebo po klepnutí. Každá lišta ukazuje dvojice daného hráče; když hraješ sám, ukazuje tvé tahy. Vrátit vezme zpět naposledy otočenou kartu.

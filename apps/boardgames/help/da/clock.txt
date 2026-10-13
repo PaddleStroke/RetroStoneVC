@@ -11,4 +11,4 @@ Vend alle kort, før den fjerde konge kommer frem. Et lille spil, der kun handle
 # Spillets afslutning
 Du vinder, hvis alle kort er vendt, når den fjerde konge kommer frem. Kommer den fjerde konge, mens der stadig er skjulte kort, er spillet tabt. Der er intet at vælge: nyd bare at se uret gå rundt.
 # Spil på enheden
-Tryk hvor som helst på bordet for at vende det næste kort: det flyver hen til sin time. Lampen i dit panel viser det næste kort; tallet ved siden af dine kort tæller de vendte kort. Fortryd tager træk tilbage, helt til kortene blev givet.
+Tryk hvor som helst på bordet for at vende det næste kort: det flyver hen til sin time. Lampen viser det næste kort; tallet ved siden af dine kort tæller de vendte kort. Fortryd tager træk tilbage, helt til kortene blev givet.

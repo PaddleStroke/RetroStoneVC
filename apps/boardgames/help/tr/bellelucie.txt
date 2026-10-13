@@ -13,4 +13,4 @@ La Belle Lucie
 # Oyunun sonu
 Bütün kartlar temel yığınlardayken kazanırsın; hepsi sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Hiç hamle kalmayınca oyun biter. Her dağıtım kazanılamaz.
 # Cihazda oynamak
-En üstteki bir kartı temel yığınına ya da yelpazesine göndermek için ona dokun ya da onu oraya sürükle. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Şeridindeki lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+En üstteki bir kartı temel yığınına ya da yelpazesine göndermek için ona dokun ya da onu oraya sürükle. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

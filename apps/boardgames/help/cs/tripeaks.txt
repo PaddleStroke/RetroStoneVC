@@ -13,5 +13,7 @@ Vyčisti tři vrcholy tak, že jejich karty hraješ na odhazovací hromádku, o 
 Když žádná karta nejde zahrát, klepni na balíček a jeho horní karta se otočí na odhazovací hromádku. Balíčkem se projde jen jednou.
 # Konec hry
 Vyhráváš, když jsou všechny tři vrcholy prázdné. Hra je prohraná, když je balíček prázdný a žádná karta nejde zahrát. Karty se míchají náhodně, takže ne každé rozdání se dá vyhrát.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. V kapitolách 1 až 4 na sebe eso a král navazují, v kapitolách 5 a 6 ne. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
 # Hra na zařízení
-Klepnutím zahraješ volnou kartu na odhazovací hromádku, nebo ji tam přetáhni. Lampička v tvé liště ukáže dobrý tah: kartu, kterou začíná nejdelší série, jakou vidí. Číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepnutím zahraješ volnou kartu na odhazovací hromádku, nebo ji tam přetáhni. Lampa ukáže dobrý tah: kartu, kterou začíná nejdelší série, jakou vidí. Číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

@@ -13,5 +13,7 @@ When no card can go, tap the stock to turn its top card onto the waste. The stoc
 As in golf, the fewer the better. The number next to the waste counts the cards left in the columns. When all the columns are cleared, the score is the cards left in the stock, below zero.
 # The end of the game
 You win when the columns are cleared. The game is over when the stock is empty and no card can go. Not every deal can be won.
+# Levels and stars
+There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. In chapters 1 to 3 a king and an ace follow each other, in chapters 4 to 6 they do not. The die tab after the chapters deals a new game at random, with the choice described above. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
 # Playing on the device
-Tap a top card to play it onto the waste, or drag it there. The lamp in your bar shows a good move: the card that starts the longest run it can see. The number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a top card to play it onto the waste, or drag it there. The lamp shows a good move: the card that starts the longest run it can see. The number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

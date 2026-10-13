@@ -18,5 +18,7 @@ Her biri tek takımdan, papazdan asa sekiz dizi kurmak ve hepsini masadan kaldı
 Her sütuna birer açık kart dağıtmak için desteye dokun. Klasik kurallardaki gibi, ancak hiçbir sütun boş değilken dağıtılabilir.
 # Oyunun sonu
 Sekiz dizinin hepsi tamamlanınca kazanırsın. Takılırsan hamleleri geri al ya da yeni bir dağıtım başlat.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 4'e kadar olan bölümler tek takımla, 5. ve 6. bölümler iki takımla oynanır. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle (dört takım da seçilebilir) rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
 # Cihazda oynamak
-Bir kartı, üstündeki kartlarla birlikte en iyi yerine taşımak için ona dokun: olabiliyorsa kendi takımından bir kartın üstüne, olmuyorsa bir yüksek değerdeki herhangi bir kartın üstüne, o da olmuyorsa boş bir sütuna. Bir diziyi sürükleyip istediğin yere de bırakabilirsin. Şeridindeki lamba işe yarar bir hamle gösterir; şeridindeki sayı hamlelerini sayar. Geri al, hamleleri dağıtıma kadar geri alır.
+Bir kartı, üstündeki kartlarla birlikte en iyi yerine taşımak için ona dokun: olabiliyorsa kendi takımından bir kartın üstüne, olmuyorsa bir yüksek değerdeki herhangi bir kartın üstüne, o da olmuyorsa boş bir sütuna. Bir diziyi sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; şeridindeki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.

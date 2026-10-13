@@ -1,15 +1,15 @@
 Spider
 # Le but
-Former huit suites, du roi à l'as dans une seule couleur, et les retirer toutes de la table. Un jeu pour un joueur avec deux jeux de cartes : 104 cartes.
+Former huit suites, du roi à l'as dans une seule couleur, et les retirer toutes de la table. Un jeu pour un joueur avec deux jeux de cartes : 104 cartes.
 # Les variantes
-- Une couleur : toutes les cartes sont des piques. La plus facile.
-- Deux couleurs : piques et cœurs.
-- Quatre couleurs : deux jeux complets. La plus difficile.
+- Une couleur : toutes les cartes sont des piques. La plus facile.
+- Deux couleurs : piques et cœurs.
+- Quatre couleurs : deux jeux complets. La plus difficile.
 # La mise en place
-- Dix colonnes : 6 cartes dans chacune des quatre premières, 5 dans les autres ; seule la carte du dessus de chaque colonne est face visible.
-- Les 50 autres cartes forment la pioche, en haut à droite : un dos pour chaque distribution de dix cartes à venir. En haut à gauche, huit places pour les suites terminées.
+- Dix colonnes : 6 cartes dans chacune des quatre premières, 5 dans les autres ; seule la carte du dessus de chaque colonne est face visible.
+- Les 50 autres cartes forment la pioche, en haut à droite : un dos pour chaque distribution de dix cartes à venir. En haut à gauche, huit places pour les suites terminées.
 # Déplacer les cartes
-- Sur une colonne, pose une carte d'un rang de moins, de n'importe quelle couleur : un 6 sur n'importe quel 7.
+- Sur une colonne, pose une carte d'un rang de moins, de n'importe quelle couleur : un 6 sur n'importe quel 7.
 - Plusieurs cartes ne se déplacent ensemble que si elles se suivent dans une même couleur.
 - N'importe quelle carte ou suite peut aller dans une colonne vide.
 - Quand une carte cachée se retrouve sur le dessus d'une colonne, elle se retourne.
@@ -18,5 +18,7 @@ Former huit suites, du roi à l'as dans une seule couleur, et les retirer toutes
 Touche la pioche pour distribuer une carte face visible sur chaque colonne. Comme dans la règle classique, on ne peut distribuer que si aucune colonne n'est vide.
 # La fin de la partie
 Tu gagnes quand les huit suites sont complètes. Si tu es bloqué, annule ou commence une nouvelle donne.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. Les chapitres 1 à 4 se jouent avec une couleur, les chapitres 5 et 6 avec deux. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard, avec le choix décrit plus haut (quatre couleurs aussi). Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
 # Jouer sur l'appareil
-Touche une carte pour la déplacer, avec les cartes posées dessus, à sa meilleure place : sur une carte de sa couleur si possible, sinon sur n'importe quelle carte d'un rang de plus, sinon dans une colonne vide. Tu peux aussi faire glisser une suite et la poser où tu veux. La lampe de ta barre montre un coup utile ; le nombre dans ta barre compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+Touche une carte pour la déplacer, avec les cartes posées dessus, à sa meilleure place : sur une carte de sa couleur si possible, sinon sur n'importe quelle carte d'un rang de plus, sinon dans une colonne vide. Tu peux aussi faire glisser une suite et la poser où tu veux. La lampe montre un coup utile ; le nombre dans ta barre compte tes coups. Annuler reprend les coups, jusqu'à la donne.

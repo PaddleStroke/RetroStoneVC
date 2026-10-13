@@ -11,4 +11,4 @@ Snu alle kortene før den fjerde kongen kommer fram. Et lite spill som bare hand
 # Slutten på spillet
 Du vinner hvis alle kortene er snudd når den fjerde kongen kommer fram. Kommer den fjerde kongen mens det fortsatt er skjulte kort, er spillet tapt. Det er ingenting å velge: bare kos deg med å se klokka gå rundt.
 # Spill på enheten
-Trykk hvor som helst på bordet for å snu neste kort: det flyr til timen sin. Lampen i panelet ditt viser neste kort; tallet ved siden av kortene dine teller de snudde kortene. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk hvor som helst på bordet for å snu neste kort: det flyr til timen sin. Lampen viser neste kort; tallet ved siden av kortene dine teller de snudde kortene. Angre tar tilbake trekk, helt til kortene ble delt ut.

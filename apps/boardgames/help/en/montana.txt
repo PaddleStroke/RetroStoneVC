@@ -13,4 +13,4 @@ Three times in a game, tap the hand (the place with the arrow going round): the 
 # The end of the game
 You win when the four rows are in order, each with its gap at the end. The game is over when no gap can be filled and no redeal is left. Not every deal can be won.
 # Playing on the device
-Tap a card to send it to the gap it fills, or tap a gap to bring the card that fills it. You can also drag a card to its gap. The lamp in your bar shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+Tap a card to send it to the gap it fills, or tap a gap to bring the card that fills it. You can also drag a card to its gap. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.

@@ -13,4 +13,4 @@ Três vezes na partida, toque na mão (o lugar com a seta girando): as cartas qu
 # O fim da partida
 Você vence quando as quatro fileiras estão em ordem, cada uma com o buraco no fim. A partida termina quando nenhum buraco pode ser preenchido e não resta redistribuição. Nem toda distribuição pode ser vencida.
 # Jogando no aparelho
-Toque numa carta para mandá-la para o buraco que ela preenche, ou toque num buraco para trazer a carta que o preenche. Você também pode arrastar uma carta até o buraco dela. A lâmpada na sua barra mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Toque numa carta para mandá-la para o buraco que ela preenche, ou toque num buraco para trazer a carta que o preenche. Você também pode arrastar uma carta até o buraco dela. A lâmpada mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

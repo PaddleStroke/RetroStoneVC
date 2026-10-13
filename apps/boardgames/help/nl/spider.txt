@@ -18,5 +18,7 @@ Acht reeksen van heer tot aas leggen, elk in één kleur, en ze allemaal van taf
 Tik op de stapel om op elke kolom één kaart open te delen. Zoals in de klassieke regels mag je alleen delen als er geen kolom leeg is.
 # Het einde van de partij
 Je wint als alle acht reeksen voltooid zijn. Zit je vast, neem dan zetten terug of begin een nieuw spel.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. De hoofdstukken 1 tot 4 speel je met één kleur, de hoofdstukken 5 en 6 met twee. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat (ook met vier kleuren). Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
 # Spelen op het apparaat
-Tik op een kaart om hem met de kaarten erop naar zijn beste plek te sturen: op een kaart van zijn eigen kleur als het kan, anders op een willekeurige kaart die één hoger is, anders naar een lege kolom. Je kunt een reeks ook slepen en neerleggen waar je wilt. De lamp in je balk toont een nuttige zet; het getal in je balk telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een kaart om hem met de kaarten erop naar zijn beste plek te sturen: op een kaart van zijn eigen kleur als het kan, anders op een willekeurige kaart die één hoger is, anders naar een lege kolom. Je kunt een reeks ook slepen en neerleggen waar je wilt. De lamp toont een nuttige zet; het getal in je balk telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

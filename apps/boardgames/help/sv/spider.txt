@@ -18,5 +18,7 @@ Bygg åtta följder från kung ned till ess, var och en i en färg, och få bort
 Tryck på talongen för att ge ett synligt kort till varje kolumn. Som i de klassiska reglerna får man bara ge när ingen kolumn är tom.
 # Partiets slut
 Du vinner när alla åtta följderna är klara. Sitter du fast, ångra eller börja en ny giv.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. Kapitel 1 till 4 spelas med en färg, kapitel 5 och 6 med två. Fliken med tärningen efter kapitlen delar ut en ny giv på slump, med det val som beskrivs ovan (även fyra färger). Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
 # Spela på enheten
-Tryck på ett kort för att flytta det, med korten ovanpå, till sin bästa plats: på ett kort i samma färg om det går, annars på vilket kort som helst som är ett steg högre, annars till en tom kolumn. Du kan också dra en följd dit du vill. Lampan i ditt fält visar ett nyttigt drag; talet i ditt fält räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Tryck på ett kort för att flytta det, med korten ovanpå, till sin bästa plats: på ett kort i samma färg om det går, annars på vilket kort som helst som är ett steg högre, annars till en tom kolumn. Du kan också dra en följd dit du vill. Lampan visar ett nyttigt drag; talet i ditt fält räknar dina drag. Ångra tar tillbaka drag, ända till given.

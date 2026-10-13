@@ -16,5 +16,7 @@ Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van
 - Is de stapel op, tik dan op zijn plaats om de getrokken kaarten weer om te draaien, zo vaak als je wilt.
 # Het einde van de partij
 Je wint als alle kaarten op de aflegstapels liggen. Zodra de stapel en de getrokken kaarten op zijn en alle kaarten open liggen, gaan de kaarten vanzelf omhoog. Zit je vast, begin dan een nieuw spel.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. In de hoofdstukken 1 tot 4 trek je één kaart tegelijk, in de hoofdstukken 5 en 6 drie. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
 # Spelen op het apparaat
-Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel als hij daar past, anders een kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp in je balk toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel als hij daar past, anders een kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

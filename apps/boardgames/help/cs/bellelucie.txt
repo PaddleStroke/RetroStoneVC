@@ -13,4 +13,4 @@ Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barv
 # Konec hry
 Vyhraješ, když jsou všechny karty na cílových hromádkách; jakmile tam mohou postupně dojít všechny, přesunou se samy. Hra končí, když nezbývá žádný tah. Ne každé rozdání se dá vyhrát.
 # Hra na zařízení
-Klepni na horní kartu a pošleš ji na její cílovou hromádku nebo na její vějíř, nebo ji tam přetáhni. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Lampička v tvé liště ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Klepni na horní kartu a pošleš ji na její cílovou hromádku nebo na její vějíř, nebo ji tam přetáhni. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.

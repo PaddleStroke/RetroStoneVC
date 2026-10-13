@@ -18,5 +18,7 @@ Bygg åtte rekker fra konge ned til ess, hver i én farge, og få dem alle vekk 
 Trykk på bunken for å dele ut ett synlig kort på hver rekke. Som i de klassiske reglene kan du bare dele ut når ingen plass er tom.
 # Slutten på spillet
 Du vinner når alle åtte rekkene er ferdige. Står du fast, angre eller start et nytt spill.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. Kapittel 1 til 4 spilles med én farge, kapittel 5 og 6 med to. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor (også fire farger). Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
 # Spill på enheten
-Trykk på et kort for å flytte det, med kortene oppå, til den beste plassen: på et kort i samme farge hvis det går, ellers på et hvilket som helst kort én høyere, ellers til en tom plass. Du kan også dra en rekke dit du vil. Lampen i panelet ditt viser et nyttig trekk; tallet i panelet ditt teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Trykk på et kort for å flytte det, med kortene oppå, til den beste plassen: på et kort i samme farge hvis det går, ellers på et hvilket som helst kort én høyere, ellers til en tom plass. Du kan også dra en rekke dit du vil. Lampen viser et nyttig trekk; tallet i panelet ditt teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.

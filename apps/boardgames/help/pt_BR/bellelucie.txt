@@ -13,4 +13,4 @@ Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um 
 # O fim da partida
 Você vence quando todas as cartas estão nas fundações; assim que todas podem subir uma após a outra, elas sobem sozinhas. A partida termina quando não resta nenhuma jogada. Nem toda distribuição pode ser vencida.
 # Jogando no aparelho
-Toque numa carta de cima para mandá-la para a fundação ou o leque dela, ou arraste-a até lá. Um segundo toque rápido manda a carta só para uma fundação. A lâmpada na sua barra mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Toque numa carta de cima para mandá-la para a fundação ou o leque dela, ou arraste-a até lá. Um segundo toque rápido manda a carta só para uma fundação. A lâmpada mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
