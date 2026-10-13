@@ -10,8 +10,10 @@
  * or down, either colour) along a line, any distance, onto an enemy's face-up piece of any rank; it steps like the
  * others to an empty square. Face-down pieces cannot be captured.
  * Colours: the first piece turned over gives its colour to the player who turned it; the other player has the other.
- * Players are the colours here: 0 red, 1 black. Before the first flip the player to move counts as red; if they turn
- * a black piece they are black, and red moves next.
+ * The rules count in colours (0 red, 1 black: side, taken[], BQ_WIN0 red's win); the players are seats: seat 0 turns
+ * the first piece over and takes its colour (bqpos.first), seat 1 the other: bq_seat() maps a colour to its seat
+ * (before the first flip seat 0 is to move and counts as red). Turning a black piece first: seat 0 plays black, and
+ * red (seat 1) moves next.
  * The end: a player whose sixteen pieces are all captured, or who has no move, loses; 50 turns in a row (both players'
  * counted) without a flip or a capture: a draw.
  * Squares: x + 8 * y, x the file a..h along the long side, y the rank 1..4. The notation: "c2" turns c2 over, "c2c3"
@@ -40,6 +42,7 @@ typedef struct {
     uint8_t sq[BQ_N];                           /* 0 empty, else a piece (| BQ_HIDDEN: face down) */
     uint8_t side;                               /* the colour to move */
     uint8_t decided;                            /* 1: the first piece has been turned over */
+    uint8_t first;                              /* the colour of seat 0 (who turned the first piece over); 0 before */
     uint8_t quiet;                              /* turns since the last flip or capture */
     uint8_t taken[2];                           /* each colour's pieces captured */
 } bqpos;
@@ -47,6 +50,10 @@ typedef struct {
 enum { BQ_FLIP, BQ_STEP, BQ_TAKE };
 typedef struct { uint8_t kind, from, to, pc; } bqmove;   /* pc: the piece turned over, or the piece captured */
 #define BQ_MAX_MOVES 96
+
+/* the seat that plays a colour, and the colour a seat plays (the same map both ways) */
+#define bq_seat(p, colour) ((colour) ^ (p)->first)
+#define bq_colour(p, seat) ((seat) ^ (p)->first)
 
 #define BQ_QUIET 50                             /* turns without a flip or a capture: a draw */
 #define BQ_MAX_PLY 4096                         /* 32 flips and 31 captures, at most 50 turns apart */

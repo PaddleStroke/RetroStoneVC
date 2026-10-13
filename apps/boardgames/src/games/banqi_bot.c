@@ -63,7 +63,7 @@ static void a_make(void *st, int mv)
         s->pending = -1;
         if (!p->decided) {
             p->decided = 1;
-            p->side = (uint8_t)BQ_COLOUR(pc);
+            p->side = p->first = (uint8_t)BQ_COLOUR(pc);
         }
         p->quiet = 0;
         p->side ^= 1;
@@ -262,8 +262,10 @@ static int think(int seat, int level, char *move, int cap)
     bqb_root(banqi_live(), root);
     bqmove l[BQ_MAX_MOVES];
     char m[8];
-    int ok = root->p.side == seat && cap >= 5 && root->p.taken[seat] < 16 && root->p.quiet < BQ_QUIET &&
-             bq_legal(&root->p, l) > 0 && bqb_choose(root, level, ai_session_seed(), m, NULL) && !ai_cancelled();
+    /* the seat whose colour moves (seat 0 plays the colour it turned over first) */
+    int ok = bq_seat(&root->p, root->p.side) == seat && cap >= 5 && root->p.taken[root->p.side] < 16 &&
+             root->p.quiet < BQ_QUIET && bq_legal(&root->p, l) > 0 &&
+             bqb_choose(root, level, ai_session_seed(), m, NULL) && !ai_cancelled();
     free(root);
     if (ok) memcpy(move, m, 5);
     return ok;

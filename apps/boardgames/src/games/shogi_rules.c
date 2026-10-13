@@ -224,9 +224,8 @@ static int pawn_drop_mates(const spos *after)
 
 static int legal(const spos *p, smove *out, int stop_at_one)
 {
-    static smove buf[SG_MAX_MOVES * 2];         /* the pseudo-moves; the pawn drop test's own on the stack */
-    smove local[SG_MAX_MOVES * 2];
-    smove *all = stop_at_one ? local : buf;
+    smove all[SG_MAX_MOVES * 2];                /* the pseudo-moves, on the stack: no static state, safe on a bot's
+                                                 * worker thread (5 KB; the pawn drop test nests one more) */
     list l = {all, 0};
     pseudo(p, &l);
     int n = 0;

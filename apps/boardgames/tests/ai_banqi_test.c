@@ -25,11 +25,12 @@ static int one(const char *s)
 int banqi_show(const char *move) { return one(move); }
 
 static void reset(void) { bq_new(&T, 1000 + deals++ * 7919); }
-static int actor(void) { return bq_pos(&T)->side; }
+/* the seats, as banqi.c's turn() and status(): seat 0 plays the colour it turned over first */
+static int actor(void) { return bq_seat(bq_pos(&T), bq_pos(&T)->side); }
 static int result(void)
 {
     int s = bq_status(&T);
-    return s == BQ_PLAY ? -1 : s == BQ_WIN0 ? 0 : s == BQ_WIN1 ? 1 : 2;
+    return s == BQ_PLAY ? -1 : s == BQ_DRAW ? 2 : bq_seat(bq_pos(&T), s == BQ_WIN1);
 }
 
 static void notation(bqmove m, char *out)
@@ -78,6 +79,38 @@ int main(int argc, char **argv)
         int ok = b->think(0, AI_EASY, m, sizeof m);
         check("the first turn: a piece turned over", ok && strlen(m) == 2 && one(m) && bq_pos(&T)->decided);
     }
+    {   /* the seats: one human (random moves) and the bot, either first; after the first flip each seat moves only
+         * its own colour's pieces, the bot is asked only on its seat (and refuses the other), the turns alternate
+         * between the seats: 60 games through the notation, some begun with a black piece */
+        ai_rng r;
+        ai_seed(&r, 21);
+        int good = 1, black_first = 0, games = 0;
+        for (int gn = 0; gn < 60 && good; gn++) {
+            int bot_seat = gn & 1;
+            bq_new(&T, 300 + (unsigned)gn);
+            for (int ply = 0; ply < 400 && good && bq_status(&T) == BQ_PLAY; ply++) {
+                const bqpos *p = bq_pos(&T);
+                int seat = actor(), colour = p->side, before = T.ply;
+                char m[BOT_MOVE_CAP] = "", no[BOT_MOVE_CAP] = "";
+                good = ply || seat == 0;        /* seat 0 begins */
+                if (seat == bot_seat)
+                    good &= !b->think(!seat, AI_EASY, no, sizeof no) && b->think(seat, AI_EASY, m, sizeof m);
+                else random_move(&r, m, sizeof m);
+                if (!good || !one(m)) { good = 0; break; }
+                bqmove x = T.move[before];
+                if (x.kind != BQ_FLIP) good = BQ_COLOUR(T.pos[before].sq[x.from]) == colour;   /* its own piece */
+                if (!ply) {
+                    black_first += BQ_COLOUR(x.pc) == 1;
+                    good &= bq_pos(&T)->first == BQ_COLOUR(x.pc) && actor() == 1;   /* seat 0 has that colour */
+                } else good &= actor() == !seat || bq_status(&T) != BQ_PLAY;   /* the seats take turns */
+            }
+            games++;
+        }
+        char name[160];
+        snprintf(name, sizeof name, "the seats keep their colours (%d games, %d begun with black), the bot either seat",
+                 games, black_first);
+        check(name, good && games == 60 && black_first > 10 && black_first < 50);
+    }
     {   /* the pool: as many pieces as squares face down, at every ply of random games */
         ai_rng r;
         ai_seed(&r, 3);
@@ -106,7 +139,7 @@ int main(int argc, char **argv)
         for (int k = 0; k < 24 && same; k++) {
             random_game(100 + (unsigned)k, 10 + k, &r);
             if (bq_status(&T) != BQ_PLAY || !bq_pos(&T)->decided) continue;
-            int seat = bq_pos(&T)->side;
+            int seat = actor();
             for (int lv = AI_EASY; lv <= AI_HARD && same; lv++) {
                 char a[BOT_MOVE_CAP] = "", c[BOT_MOVE_CAP] = "";
                 ai_set_seed(77);
@@ -157,7 +190,7 @@ int main(int argc, char **argv)
         random_game(9, 12, &r);
         ai_cancel();
         double t0 = ai_now_ms();
-        int ok = b->think(bq_pos(&T)->side, AI_HARD, m, sizeof m);
+        int ok = b->think(actor(), AI_HARD, m, sizeof m);
         double dt = ai_now_ms() - t0;
         ai_cancel_clear();
         check("cancelled: no move, at once", !ok && dt < 50);

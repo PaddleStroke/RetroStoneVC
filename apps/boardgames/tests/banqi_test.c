@@ -73,15 +73,17 @@ static void test_deal(void)
     CHECK(!bq_script(&G, "@8"));
 }
 
-/* the first flip gives its colour to the flipper; the other colour moves next */
+/* the first flip gives its colour to the flipper (seat 0); the other colour (seat 1) moves next */
 static void test_first_flip(void)
 {
     for (uint32_t seed = 1; seed < 40; seed++) {
         bq_new(&G, seed);
         int s = 5, c = BQ_COLOUR(bq_pos(&G)->sq[s]);
+        CHECK(bq_seat(bq_pos(&G), bq_pos(&G)->side) == 0);   /* seat 0 begins */
         CHECK(bq_script(&G, "f1"));
         const bqpos *p = bq_pos(&G);
         CHECK(p->decided && p->side == !c && !(p->sq[s] & BQ_HIDDEN));
+        CHECK(p->first == c && bq_colour(p, 0) == c && bq_colour(p, 1) == !c && bq_seat(p, p->side) == 1);
         CHECK(!bq_script(&G, "f1"));            /* face up now: not a flip */
         CHECK(bq_undo(&G) && !bq_pos(&G)->decided && bq_pos(&G)->side == 0);
     }

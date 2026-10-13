@@ -57,9 +57,9 @@ void bq_make(bqpos *p, bqmove m)
 {
     if (m.kind == BQ_FLIP) {
         p->sq[m.from] &= (uint8_t)~BQ_HIDDEN;
-        if (!p->decided) {                      /* the flipper takes this colour: the other moves next */
+        if (!p->decided) {                      /* the flipper (seat 0) takes this colour: the other moves next */
             p->decided = 1;
-            p->side = (uint8_t)BQ_COLOUR(p->sq[m.from]);
+            p->side = p->first = (uint8_t)BQ_COLOUR(p->sq[m.from]);
         }
         p->quiet = 0;
     } else {

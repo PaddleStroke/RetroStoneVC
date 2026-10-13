@@ -5,9 +5,10 @@
  * move. The board stands up in portrait and lies down in landscape, whichever gives the bigger squares.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The players are the colours: 0 red, 1 black (their bars show their general; before the first flip, when nobody has a
- * colour yet, a piece face down). Before the first flip the player to move counts as red; turning a black piece over
- * makes them black, and red moves next.
+ * The players are seats: seat 0 turns the first piece over and plays its colour, seat 1 the other (bq_seat(): a black
+ * piece first, and seat 0 plays black while red, seat 1, moves next). turn(), the end, the bars and the tokens are by
+ * seat (their bars show the general of the seat's colour; before the first flip, when nobody has a colour yet, a piece
+ * face down).
  * The script's notation: "c2" turns c2 over, "c2c3" moves (files a..h along the long side, ranks 1..4); "@7" first:
  * the deal of seed 7 (the screenshots).
  */
@@ -56,13 +57,14 @@ static void start(int variant)
     refresh();
 }
 
-static int status(void)
+static int status(void)                         /* the rules' winner is a colour: its seat won */
 {
-    static const int map[] = {[BQ_PLAY] = GS_PLAY, [BQ_WIN0] = GS_WIN0, [BQ_WIN1] = GS_WIN1, [BQ_DRAW] = GS_DRAW};
-    return map[bq_status(&G)];
+    int s = bq_status(&G);
+    if (s != BQ_WIN0 && s != BQ_WIN1) return s == BQ_DRAW ? GS_DRAW : GS_PLAY;
+    return bq_seat(bq_pos(&G), s == BQ_WIN1) ? GS_WIN1 : GS_WIN0;
 }
 
-static int turn(void) { return bq_pos(&G)->side; }
+static int turn(void) { return bq_seat(bq_pos(&G), bq_pos(&G)->side); }   /* the seat whose colour moves */
 
 static int target(int from, int to)
 {
@@ -353,18 +355,18 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* the pieces the player captured, the strongest first; the turns left before the draw once they are few */
+/* the pieces the player (a seat) captured, the strongest first; the turns left before the draw once they are few */
 static void bar(int player, box b)
 {
     static const int start_n[8] = {0, 1, 2, 2, 2, 2, 2, 5};
     const bqpos *p = bq_pos(&G);
-    int c = !player, gone[8];
+    int c = !bq_colour(p, player), gone[8];     /* the other colour's pieces gone */
     memcpy(gone, start_n, sizeof gone);
     for (int q = 0; q < BQ_N; q++)
         if (p->sq[q] && BQ_COLOUR(p->sq[q]) == c) gone[BQ_TYPE(p->sq[q])]--;
     float end = b.x + b.w;
     int left = BQ_QUIET - p->quiet;
-    if (left <= 20 && p->side == player && bq_status(&G) == BQ_PLAY) {
+    if (left <= 20 && turn() == player && bq_status(&G) == BQ_PLAY) {
         box r = ui_bar_countdown(b, left);
         end = r.x + r.w;
     }
@@ -372,10 +374,10 @@ static void bar(int player, box b)
     cbar_draw(b, end, &t_small[c][BQ_GENERAL], &gone[BQ_GENERAL], BQ_SOLDIER - BQ_GENERAL + 1, 0.86f, 0.12f, 0.6f);
 }
 
-/* a player's general; before the first flip a piece face down (no colour yet) */
+/* a player's (a seat's) general, in its colour; before the first flip a piece face down (no colour yet) */
 static void token(int player, int size, uint8_t *rgba)
 {
-    if (bq_pos(&G)->decided) xq_piece_paint(XQ_GENERAL, player, size, rgba);
+    if (bq_pos(&G)->decided) xq_piece_paint(XQ_GENERAL, bq_colour(bq_pos(&G), player), size, rgba);
     else back_pic(size, rgba);
 }
 
