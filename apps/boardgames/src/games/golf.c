@@ -14,6 +14,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/golf.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define SLIDE_MS 320
@@ -273,8 +274,7 @@ static void draw_summary(void)
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     int cs = (int)(0.42f * rh), ts = (int)(0.6f * u);
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     int low = 0;
     for (int q = 1; q < p->players; q++)
         if (p->total[q] < p->total[low]) low = q;
@@ -291,6 +291,7 @@ static void draw_summary(void)
         ui_number_signed(x0 + pw * 0.8f, cy, 0.56f * rh, p->total[q], 1, 0);
         if (q < p->players - 1) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static void draw(void)

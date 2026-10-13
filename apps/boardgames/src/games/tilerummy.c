@@ -19,6 +19,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/tilerummy.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define SLIDE_MS 260
@@ -397,8 +398,7 @@ static void draw_summary(void)
     float u = ui.unit, rh = fminf(1.4f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.96f, 8.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     tok_size = (int)(0.6f * u);
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     int match = p->variant == TR_MATCH;
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.6f * u, d = fminf(0.7f * rh, 0.8f * u);
@@ -414,6 +414,7 @@ static void draw_summary(void)
         if (q < p->players - 1)
             ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static int dragging(int t) { return drag.on && drag.moved && (t == drag.tile || (sel[drag.tile] && sel[t])); }

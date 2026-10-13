@@ -15,6 +15,7 @@
 
 #include "cards_table.h"
 #include "games/crazyeights.h"
+#include "games/endtable.h"
 
 #define SLIDE_MS 300
 #define DEAL_MS 220
@@ -290,8 +291,7 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     for (int q = 0; q < p->players; q++) {
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);
         if (q == p->winner) ui_mark_gold(tx, cy, 2.0f * d);
@@ -307,6 +307,7 @@ static void draw_summary(void)
         ui_number(x0 + pw * 0.8f, cy, 0.56f * rh, p->score[q], 1);
         if (q < p->players - 1) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 /* a card of the hand can be played (else the stock glows) */

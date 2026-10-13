@@ -15,6 +15,7 @@
 
 #include "cards_table.h"
 #include "games/scopa.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define SLIDE_MS 300
@@ -386,8 +387,7 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, pw = fminf(b.w * 0.96f, 9.4f * u), rh = fminf(1.25f * u, b.h * 0.2f), hh = 1.1f * rh;
     float ph = hh + 2 * rh + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 80, &x0, &y0);   /* over the table, or in the end card */
     /* the columns: tokens, 5 counts, the round, the total */
     float tw = (p->players == 4 ? 2.1f : 1.0f) * 0.8f * rh, cw = (pw - tw - 0.4f * u) / 7.2f;
     float cx[8], hy = y0 + 0.2f * u + hh / 2, ic = fminf(0.62f * hh, 0.92f * cw);
@@ -425,6 +425,7 @@ static void draw_summary(void)
         ui_number_signed(cx[6], y, nh, p->pts[s], 1, 1);
         ui_number(cx[7], y, 0.56f * rh, p->score[s], 1);
     }
+    endt_done();
 }
 
 static void draw(void)

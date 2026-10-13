@@ -23,6 +23,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/piquet.h"
+#include "games/endtable.h"
 #include "games/tricks.h"
 #include "shell.h"
 
@@ -399,7 +400,7 @@ static void draw_seats(void)
 
 /* the deal's summary: a row a player: the chip, the declarations, the play (capot: a crown), the pique or repique,
  * the deal, the total; the six deals; at the end the Rubicon line */
-static void draw_summary(void)
+static void summary_table(void)
 {
     const piquet_pos *p = &G.pos;
     box b = T.b;
@@ -407,8 +408,7 @@ static void draw_summary(void)
     int over = p->phase == PQ_OVER && piquet_winner(p) >= 0;
     float ph = 0.25f * u + hh + 2 * rh + 0.5f * u + (over ? 1.3f * u : 0) + 0.3f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2, col = pw / 8.6f;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 80, &x0, &y0);   /* over the table, or in the end card */
     float y = y0 + 0.25f * u + hh / 2, cx[6] = {x0 + 0.75f * col, x0 + 2.2f * col, x0 + 3.55f * col, x0 + 4.9f * col,
                                                x0 + 6.25f * col, x0 + 7.75f * col};
     float id = 0.62f * u;
@@ -443,6 +443,12 @@ static void draw_summary(void)
     ui_put_c(ct_token(l, (int)(0.6f * td)), x0 + pw * 0.68f, y, 0.6f * td, 0.6f * td);
     ui_number(x0 + pw * 0.68f + 1.1f * td, y, floorf(0.4f * u), 100, 1);
     ct_pic(CT_SLASH, x0 + pw * 0.68f + 1.1f * td, y, 0.6f * u, 0, 214, 70, 60, 255);
+}
+
+static void draw_summary(void)
+{
+    summary_table();
+    endt_done();
 }
 
 static void draw(void)

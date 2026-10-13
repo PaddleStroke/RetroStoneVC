@@ -25,6 +25,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/barbu.h"
+#include "games/endtable.h"
 #include "games/chess.h"
 #include "games/tricks.h"
 #include "shell.h"
@@ -501,8 +502,7 @@ static void draw_table(void)
     float dot = floorf(fminf(0.32f * u, (pw - 0.6f * u) / (n * 1.25f + (groups - 1) * 1.0f)));
     float ph = 0.25f * u + hh + 0.15f * u + 4 * rh + 0.25f * u + dot + 0.35f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 80, &x0, &y0);   /* over the table, or in the end card */
     float y = y0 + 0.25f * u + hh / 2, cx[10];
     cx[0] = x0 + 0.75f * cw;
     for (int c = 0; c < 7; c++) cx[c + 1] = x0 + (1.6f + c) * cw + 0.5f * cw;
@@ -534,6 +534,7 @@ static void draw_table(void)
     uint8_t who[BARBU_P * BARBU_CONTRACTS];
     for (int i = 0; i < n; i++) who[i] = (uint8_t)barbu_declarer_of(p->variant, i);
     ct_dots(x0 + pw / 2, y, dot, n, per, who, p->deal);
+    endt_done();
 }
 
 static void draw(void)

@@ -18,6 +18,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/president.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -421,8 +422,7 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.0f * u, b.h * 0.8f / p->players), pw = fminf(b.w * 0.92f, 7.0f * u);
     float ph = rh * p->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     int best = -1;
     for (int q = 0; q < p->players; q++) best = p->score[q] > best ? p->score[q] : best;
     for (int i = 0; i < p->nout; i++) {
@@ -436,6 +436,7 @@ static void draw_summary(void)
         ui_number(x0 + pw * 0.83f, cy, 0.56f * rh, p->score[q], 1);
         if (i < p->nout - 1) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static int legal_choice(const ppos *p, const uint8_t *cards, int n)

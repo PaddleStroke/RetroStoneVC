@@ -20,6 +20,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/koikoi.h"
+#include "games/endtable.h"
 #include "games/koikoi_deck.h"
 #include "shell.h"
 
@@ -670,9 +671,9 @@ static void draw_round(const kpos *p)
     int win = r->kind != KR_DRAW;
     float pw = fminf(T.b.w * 0.94f, 8.2f * u), ph = 2 * rh + 0.5f * u;
     if (win) ph += 2.0f * bh + 0.2f * u + (r->seven || r->koi ? 0.7f * u : 0);
-    float px = T.b.x + (T.b.w - pw) / 2, py = T.b.y + (T.b.h - ph) / 2, y = py + 0.3f * u;
-    dim();
-    panel(px, py, pw, ph);
+    float px, py;
+    endt_begin(T.b, pw, ph, 110, &px, &py);   /* over the table, or in the end card */
+    float y = py + 0.3f * u;
     if (win) {
         int pts[YAKU_N];
         for (int i = 0; i < YAKU_N; i++) pts[i] = r->pts[i];
@@ -706,6 +707,7 @@ static void draw_round(const kpos *p)
         ui_number(px + pw * 0.8f, cy, 0.56f * rh, p->score[q], 1);
         if (k == 0) ct_rule(px + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static void draw(void)

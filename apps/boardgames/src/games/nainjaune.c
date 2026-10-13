@@ -16,6 +16,7 @@
 
 #include "cards_table.h"
 #include "games/dicecup.h"
+#include "games/endtable.h"
 #include "games/nainjaune.h"
 
 #define SLIDE_MS 380
@@ -385,8 +386,7 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.0f * u, b.h * 0.7f / (p->players + 1)), pw = fminf(b.w * 0.94f, 7.8f * u);
     float ph = rh * (p->players + 1) + 0.4f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     float c1 = x0 + pw * 0.36f, c2 = x0 + pw * 0.6f, c3 = x0 + pw * 0.84f, hy = y0 + 0.2f * u + rh / 2;
     float cw = 0.42f * rh;                      /* the column heads */
     cards_draw(DECK_FRENCH, CARD_NONE, c1, hy, cw, 0, CD_DOWN);
@@ -405,6 +405,7 @@ static void draw_summary(void)
         ui_number(c3, cy, 0.52f * rh, p->chips[q], 1);
         ct_rule(x0 + 0.3f * u, cy - rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static void draw(void)

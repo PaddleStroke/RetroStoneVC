@@ -18,6 +18,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/belote.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -396,8 +397,7 @@ static void draw_summary(void)
     box b = T.b;
     float u = ui.unit, rh = fminf(1.5f * u, b.h * 0.3f), pw = fminf(b.w * 0.96f, 8.6f * u), ph = 2 * rh + 0.5f * u;
     float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     int lead = p->total[1] > p->total[0];
     float col = pw / 8.6f;
     for (int t = 0; t < 2; t++) {
@@ -421,6 +421,7 @@ static void draw_summary(void)
         ui_number(x0 + 7.55f * col, cy, 1.3f * nh, p->total[t], 1);
         if (!t) ct_rule(x0 + 0.3f * u, cy + rh / 2, pw - 0.6f * u);
     }
+    endt_done();
 }
 
 static void draw(void)

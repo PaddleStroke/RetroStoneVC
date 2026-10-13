@@ -22,6 +22,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/tarot.h"
+#include "games/endtable.h"
 #include "shell.h"
 #include "text.h"
 
@@ -793,8 +794,6 @@ static SDL_Texture *cross(float size)          /* a gold cross: "times" */
     return t;
 }
 
-static void panel(float x, float y, float w, float h) { ct_panel(x, y, w, h, 255); }
-
 /* the deal's count: the contract, the taker's side's oudlers and points against the points needed, the bonuses,
  * then each player's points and total (the highest in gold light), the button for the next deal */
 static void draw_summary(void)
@@ -807,8 +806,7 @@ static void draw_summary(void)
     int rows = 2 + bonus + p->players + more;
     float rh = fminf(1.0f * u, b.h * 0.92f / (rows + 0.4f)), pw = fminf(b.w * 0.94f, 8.2f * u);
     float ph = rh * (rows + 0.4f), x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    panel(x0, y0, pw, ph);
+    endt_begin(b, pw, ph, 70, &x0, &y0);   /* over the table, or in the end card */
     float y = y0 + 0.2f * rh + rh / 2, d = fminf(0.7f * rh, 0.75f * u), lx = x0 + 0.7f * u;
     /* the contract */
     if (r->made) ui_mark_gold(lx, y, 2.0f * d);
@@ -868,6 +866,7 @@ static void draw_summary(void)
         ui_number_signed(x0 + pw * 0.78f, y, 0.52f * rh, p->total[q], 1, 0);
     }
     if (more) round_button(x0 + pw / 2, y + 0.05f * rh, 0.4f * rh, 1);
+    endt_done();
 }
 
 /* a cancelled deal: the Petit sec shown (its holder's hand), or everyone passed; the button for the next deal */

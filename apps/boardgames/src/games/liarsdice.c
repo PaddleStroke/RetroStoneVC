@@ -19,6 +19,7 @@
 #include <string.h>
 
 #include "cards.h"
+#include "games/endtable.h"
 #include "games/liarsdice.h"
 #include "shell.h"
 
@@ -447,10 +448,22 @@ static void draw_reveal(void)
     float y0 = top + 1.2f * h, rh = fminf(1.25f * T.u, (b.y + b.h - y0 - 1.6f * T.u) / n);
     float s = fminf(0.8f * rh, b.w / 8.5f);
     y0 += (b.y + b.h - 1.6f * T.u - y0 - n * rh) * 0.4f;     /* the rows in the middle of the room left */
+    float left = b.x;
+    int card = over && ui_over();               /* the game over: the rows in the end card */
+    if (card) {
+        int most = 1;
+        for (int q = 0; q < n; q++) {
+            int m = P->ndice[q] + (q == P->loser);
+            most = m > most ? m : most;
+        }
+        float pw = 1.75f * T.u + most * 1.18f * s;
+        endt_begin(b, pw, n * rh + 0.4f * T.u, 0, &left, &y0);
+        y0 += 0.2f * T.u;
+    }
     int k = 0;                                  /* the counting goes row by row, die by die */
     for (int i = 0; i < n; i++, row++) {
         int q = (T.me + i) % n, nd = P->ndice[q] + (q == P->loser), last = q == P->loser ? P->ndice[q] : -1;
-        float cy = y0 + (row + 0.5f) * rh, x = b.x + 0.7f * T.u;
+        float cy = y0 + (row + 0.5f) * rh, x = left + 0.7f * T.u;
         if (!nd) {
             SDL_SetTextureAlphaMod(t_tok[q], 70);
             ui_put_c(t_tok[q], x, cy, 0.6f * s, 0.6f * s);
@@ -484,6 +497,7 @@ static void draw_reveal(void)
             SDL_SetTextureAlphaMod(t_cup[q], 255);
         }
     }
+    if (card) endt_done();
     if (P->phase == LP_REVEAL && t >= (int)reveal_ms()) {   /* next round: a button */
         float x, y, d;
         knob_xy(K_NEXT, &x, &y, &d);

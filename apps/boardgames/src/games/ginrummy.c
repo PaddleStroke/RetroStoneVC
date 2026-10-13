@@ -16,6 +16,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/ginrummy.h"
+#include "games/endtable.h"
 #include "shell.h"
 
 #define SLIDE_MS 320
@@ -469,10 +470,15 @@ static void draw_result(const gnpos *p)
         return;
     }
     if (p->phase == GN_OVER) {                  /* the game: points, boxes, the game bonus, a shutout; the totals */
-        float rh = 1.3f * u, y0 = cy - rh / 2;
+        float rh = 1.3f * u, y0 = cy - rh / 2, left = T.b.x, pw = T.b.w;
+        if (ui_over()) {                        /* in the end card */
+            pw = fminf(T.b.w, 9.8f * u);
+            endt_begin(T.b, pw, 2 * rh + 0.4f * u, 0, &left, &y0);
+            y0 += 0.2f * u + rh / 2;
+        }
         for (int k = 0; k < 2; k++) {
             int q = k ? T.me : 1 - T.me, w = gin_winner(p) == q;
-            float y = y0 + k * rh, x = T.b.x + 0.5f * u;
+            float y = y0 + k * rh, x = left + 0.5f * u;
             if (w) ui_mark_gold(x, y, 1.3f * u);
             ui_put_c(ct_token(q, tok_size), x, y, (float)tok_size, (float)tok_size);
             x += 1.0f * u;
@@ -489,9 +495,10 @@ static void draw_result(const gnpos *p)
                 ui_put_c(t_cross, x - 0.15f * u, y, (float)cross_size, (float)cross_size);
                 ui_number(x + 0.25f * u, y, 0.4f * u, 2, 1);
             }
-            ui_put_c(t_disc, T.b.x + T.b.w - 0.75f * u, y, 1.12f * u, 1.12f * u);
-            ui_number(T.b.x + T.b.w - 0.75f * u, y, 0.42f * u, p->final[q], 1);
+            ui_put_c(t_disc, left + pw - 0.75f * u, y, 1.12f * u, 1.12f * u);
+            ui_number(left + pw - 0.75f * u, y, 0.42f * u, p->final[q], 1);
         }
+        if (ui_over()) endt_done();
         return;
     }
     int w = s->winner, bonus = s->bonus;

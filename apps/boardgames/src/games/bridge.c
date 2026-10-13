@@ -23,6 +23,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/bridge.h"
+#include "games/endtable.h"
 #include "games/tricks.h"
 #include "shell.h"
 
@@ -684,8 +685,7 @@ static void draw_sheet(void)
         n = k;
     }
     float ph = n * rh + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
-    ct_panel(x0, y0, pw, ph, 255);
+    endt_begin(b, pw, ph, 80, &x0, &y0);   /* over the table, or in the end card */
     int we = brg_side(L.me), they = we ^ 1;
     float c_no = x0 + 0.06f * pw, c_k = x0 + 0.12f * pw, c_we = x0 + 0.68f * pw, c_they = x0 + 0.88f * pw;
     float y = y0 + 0.25f * u, nh = fminf(0.42f * rh, 0.4f * u);
@@ -741,6 +741,7 @@ static void draw_sheet(void)
         }
         }
     }
+    endt_done();
 }
 
 /* ---- drawing --------------------------------------------------------------------------------------------------------- */
