@@ -139,7 +139,8 @@ static void view_of(const cgame *g, int me, cview *v)
             crib_play(t, g->act[i]);
             if (q->phase == CP_PLAY)
                 for (int o = 0; o < q->players; o++)
-                    if (o != me && crib_said_go(q, o) && 31 - q->count > v->low[o]) v->low[o] = (uint8_t)(31 - q->count);
+                    if (o != me && crib_said_go(q, o) && 31 - q->count > v->low[o])
+                        v->low[o] = (uint8_t)(31 - q->count);
         }
         free(t);
     }
