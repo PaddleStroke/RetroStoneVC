@@ -7,7 +7,7 @@ Stoße den Puck nach oben, unten, links oder rechts. Auf dem Eis hält er nicht 
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn der Puck ins Loch fällt. Im Par gelöst, läuft ein goldenes Licht über das Eis.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 Feldern Eis bis 10 × 9; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Das Par ist die kleinste Zahl an Stößen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Stößen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Stoß zurück, und er zählt nicht mehr.
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 Feldern Eis bis 10 × 9; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Stöße, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Stößen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Stoß zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
-Wische auf dem Eis in die gewünschte Richtung, tippe auf ein Feld in der Zeile oder Spalte des Pucks oder auf einen der vier Pfeile unter dem Brett (am Computer gehen auch die Pfeiltasten). Ein Pfeil ist abgeblendet, wenn der Puck nicht in diese Richtung kann.
+Wische auf dem Eis in die gewünschte Richtung, tippe auf ein Feld in der Zeile oder Spalte des Pucks oder auf einen der vier Pfeile neben dem Brett (am Computer gehen auch die Pfeiltasten). Ein Pfeil ist abgeblendet, wenn der Puck nicht in diese Richtung kann.
 Die Lampe gibt einen Tipp: den nächsten Stoß eines kürzesten Wegs, sein Pfeil golden und seine Bahn golden gepunktet. Ist das Loch nicht mehr erreichbar, nimmt der Tipp zuerst die Stöße zurück, die dorthin geführt haben. Rückgängig nimmt einen Stoß nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Stöße und an ihrem rechten Ende das Par.

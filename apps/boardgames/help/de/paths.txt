@@ -7,11 +7,11 @@ Einen Pfad ziehen oder ändern.
 # Das Ende der Partie
 Wenn alle Paare verbunden sind und kein Feld leer bleibt, ist das Rätsel gelöst: Ein goldenes Licht läuft jeden Pfad entlang.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein Strich, der einen Weg über ein Feld legt, das in der Lösung zu einer anderen Farbe gehört; Rückgängig löscht ihn nicht.
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein Strich, der einen Weg über ein Feld legt, das in der Lösung zu einer anderen Farbe gehört; Rückgängig nimmt ihn nicht zurück.
 # Spielen auf dem Gerät
 - Ziehe von einem Punkt aus: Sein Pfad beginnt dort neu und folgt deinem Finger. Ziehe von einem Feld eines Pfads aus, um dort weiterzumachen (der Rest dieses Pfads verschwindet).
 - Zurückgehen verkürzt den Pfad. Über einen anderen Pfad zu ziehen schneidet ihn ab; er kommt zurück, wenn du vor dem Loslassen zurückgehst. Ein Pfad führt nie über einen Punkt einer anderen Farbe.
 - Erreicht ein Pfad seinen anderen Punkt, ist das Paar verbunden, und seine Punkte klingen.
 - Nur mit Tippen: Tippe auf einen Punkt oder ein Feld eines Pfads (sein Ende wird markiert), dann auf ein Feld in derselben Zeile oder Spalte: Der Pfad läuft gerade dorthin. Tippe noch einmal auf das markierte Ende, um es loszulassen.
-- Die Lampe am rechten Ende der Leiste gibt einen Tipp: Sie legt den Pfad eines Paars wie in der Lösung, in goldenem Licht.
+- Die Lampe gibt einen Tipp: Sie legt den Pfad eines Paars wie in der Lösung, in goldenem Licht.
 Die Felder eines Pfads sind in seiner Farbe getönt. Rückgängig nimmt einen Zug oder Tipp nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

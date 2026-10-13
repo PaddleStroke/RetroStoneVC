@@ -7,7 +7,7 @@ Fülle ein Feld, oder markiere ein Feld, das sicher leer ist, mit einem Kreuz. D
 # Das Ende der Partie
 Passt jede Zeile und jede Spalte zu ihren Hinweisen, ist das Rätsel gelöst: Die Kreuze verschwinden, das Bild erscheint in seinen Farben, und ein goldenes Licht läuft darüber.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln: kleine Bilder, für das Spiel gezeichnet, von 5 × 5 bis 15 × 15, jedes Linie für Linie zu erschließen; wähle eines in der Levelübersicht. Ein gelöstes Level zeigt sein Bild auf seiner Kachel. Der Reiter mit dem Würfel nach den Kapiteln lässt ein Bild nach Zufall entstehen, in der Größe, die du wählst. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du mit Rückgängig ein gefülltes Feld außerhalb des Bilds zurück, oder ein Kreuz darauf, zählt das als Fehler.
+Es gibt 150 Level in sechs Kapiteln: kleine Bilder, für das Spiel gezeichnet, von 5 × 5 bis 15 × 15, jedes Linie für Linie zu erschließen; wähle eines in der Levelübersicht. Ein gelöstes Level zeigt sein Bild auf seiner Kachel. Der Reiter mit dem Würfel nach den Kapiteln lässt ein Bild nach Zufall entstehen, in der Größe, die du wählst. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein gefülltes Feld außerhalb des Bilds oder ein Kreuz darauf, das du mit Rückgängig zurücknimmst.
 # Spielen auf dem Gerät
 - Tippe ein Feld an, um es zu füllen; tippe es noch einmal an, um es zu leeren.
 - Halte ein Feld einen Moment gedrückt, um es stattdessen anzukreuzen. Der Kreuzknopf neben dem Brett lässt Tippen ankreuzen (oder wieder füllen); er zeigt, was ein Tippen bewirkt.

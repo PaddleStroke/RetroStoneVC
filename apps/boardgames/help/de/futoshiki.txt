@@ -9,9 +9,9 @@ Setze eine Zahl in ein leeres Feld. Du kannst sie jederzeit ändern oder herausn
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn das Gitter voll und richtig ist: Eine Welle goldenen Lichts läuft über das Brett.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 4 × 4 bis 7 × 7, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du eine falsche Zahl mit Rückgängig zurück, zählt das als Fehler.
+Es gibt 150 Level in sechs Kapiteln, von 4 × 4 bis 7 × 7, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Zahl, die du mit Rückgängig zurücknimmst.
 # Spielen auf dem Gerät
-Tippe ein Feld an, dann eine Taste unter dem Brett: Ihre Zahl kommt hinein, in blauer Tinte (die vorgegebenen Zahlen sind dunkel). Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Zeile und Spalte des Felds leuchten leicht auf, alle Felder mit seiner Zahl wärmer. Ist kein leeres Feld gewählt, lässt eine Taste die Felder ihrer Zahl aufleuchten. Die Knöpfe neben dem Brett:
+Tippe ein Feld an, dann eine Taste neben dem Brett: Ihre Zahl kommt hinein, in blauer Tinte (die vorgegebenen Zahlen sind dunkel). Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Zeile und Spalte des Felds leuchten leicht auf, alle Felder mit seiner Zahl wärmer. Ist kein leeres Feld gewählt, lässt eine Taste die Felder ihrer Zahl aufleuchten. Die Knöpfe neben dem Brett:
 - Bleistift: Notizen. Die Tasten setzen dann kleine Zahlen ins Feld oder nehmen sie heraus. Eine gesetzte Zahl löscht diese Notiz in ihrer Zeile und Spalte.
 - Radiergummi: nimmt die Zahl des Felds heraus oder seine Notizen.
 - Lampe: ein Tipp. Sie berichtigt eine falsche Zahl oder füllt sonst das leichteste Feld, in goldenem Licht.

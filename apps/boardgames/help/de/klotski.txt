@@ -7,7 +7,7 @@ Ein Klotz gleitet in leere Felder, ein Feld nach dem anderen, nach oben, unten, 
 # Das Ende der Partie
 Steht der große Klotz in der Mitte der unteren Reihe, gleitet er in goldenem Licht durch die Öffnung hinaus: gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von wenigen Zügen bis weit über hundert; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht einen neuen Rahmen nach Zufall: leicht, mittel oder schwer. Jeder Rahmen hat ein Par: die wenigsten Züge, die ihn lösen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
+Es gibt 150 Level in sechs Kapiteln, von wenigen Zügen bis weit über hundert; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht einen neuen Rahmen nach Zufall: leicht, mittel oder schwer. Jeder Rahmen hat ein Par: die wenigsten Züge, mit denen er sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
 - Ziehe einen Klotz: Er folgt deinem Finger Feld für Feld.
 - Oder tippe einen Klotz an. Kann er nur an einen Platz, geht er dorthin. Kann er an mehrere, wird er ausgewählt, und Punkte zeigen die Felder, die er erreichen kann: Tippe eines an, und er geht auf dem kürzesten Weg dorthin.

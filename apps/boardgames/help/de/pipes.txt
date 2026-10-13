@@ -7,9 +7,9 @@ Eine Kachel eine Vierteldrehung im Uhrzeigersinn drehen.
 # Das Ende der Partie
 Wenn alle Kacheln verbunden sind und kein Rohr offen ist, erreicht das Wasser jede Kachel, und ein goldenes Licht läuft vom Tank aus.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 4 × 4 bis 11 × 11 und Brettern ohne Rand, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Vierteldrehungen, die es lösen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
+Es gibt 150 Level in sechs Kapiteln, von 4 × 4 bis 11 × 11 und Brettern ohne Rand, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Vierteldrehungen, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
 - Tippe auf eine Kachel, um sie eine Vierteldrehung im Uhrzeigersinn zu drehen.
 - Das Wasser fließt vom Tank durch jedes damit verbundene Rohr. Wo es ein offenes Rohr erreicht, läuft es über: Achte auf die Tropfen.
-- Die Lampe am rechten Ende der Leiste gibt einen Tipp: Sie dreht eine falsche Kachel richtig (wenn möglich neben dem Wasser), in goldenem Licht.
+- Die Lampe gibt einen Tipp: Sie dreht eine falsche Kachel richtig (wenn möglich neben dem Wasser), in goldenem Licht.
 Rückgängig nimmt eine Drehung oder einen Tipp nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

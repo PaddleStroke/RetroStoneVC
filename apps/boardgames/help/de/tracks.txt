@@ -10,9 +10,9 @@ Lege ein Gleisstück in ein Feld, ändere es, oder markiere ein Feld, das sicher
 # Das Ende der Partie
 Wenn die Linie vollständig ist und jede Zahl stimmt, ist das Rätsel gelöst: Ein kleiner Zug fährt von der Einfahrt zur Ausfahrt, und hinter ihm leuchten die Felder golden auf.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 10 × 10, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein Gleisstück auf einem Feld, das die Strecke nicht benutzt, oder ein Kreuz auf einem Feld, das sie benutzt; Rückgängig löscht ihn nicht.
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 10 × 10, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein Gleisstück auf einem Feld, das die Strecke nicht benutzt, oder ein Kreuz auf einem Feld, das sie benutzt; Rückgängig nimmt ihn nicht zurück.
 # Spielen auf dem Gerät
 - Ziehe von Feld zu Feld, um das Gleis unter deinem Finger zu legen; es schließt an die vorhandenen Stücke an.
 - Tippe auf ein Feld für ein Stück (das am besten an die Nachbarn passende zuerst), erneut für das nächste; nach dem sechsten ist das Feld wieder leer.
-- Halte ein Feld einen Moment, um es anzukreuzen. Der Kreuzknopf in der Leiste lässt Tippen und Ziehen stattdessen ankreuzen; er zeigt, was ein Tippen bewirkt.
-Eine Zahl verblasst, wenn ihre Linie so viele Stücke hat, und wird rot, wenn es zu viele sind. Die Lampe in der Leiste ist ein Tipp: Sie setzt ein Feld richtig und lässt es golden aufleuchten. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+- Halte ein Feld einen Moment, um es anzukreuzen. Der Kreuzknopf lässt Tippen und Ziehen stattdessen ankreuzen; er zeigt, was ein Tippen bewirkt.
+Eine Zahl verblasst, wenn ihre Linie so viele Stücke hat, und wird rot, wenn es zu viele sind. Die Lampe ist ein Tipp: Sie setzt ein Feld richtig und lässt es golden aufleuchten. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
