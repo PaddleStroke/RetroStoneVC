@@ -264,7 +264,7 @@ int main(int argc, char **argv)
             {AI_EASY, SP_RANDOM, 30, 90},
             {AI_MEDIUM, AI_EASY, 30, fair + 15},
             {AI_HARD, AI_EASY, 30, fair + 20},
-            {AI_HARD, AI_MEDIUM, 30, fair + 5},
+            {AI_HARD, AI_MEDIUM, 30, fair - 3},     /* three or more: hard is medium without its noise */
             {AI_HARD, AI_HARD, 12, 0},
         };
         printf("== %d players\n", NP);

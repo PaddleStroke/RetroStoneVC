@@ -236,9 +236,9 @@ static int best_next(const hbpos *s, int me, plan *m, long *work)
 }
 
 /* the move: easy, the best by the position it makes, give or take two or three steps; medium, by the best its next
- * move can make too (every pair looked at), give or take a little; hard, the best twelve of those by a third move
- * after the best sixteen second ones. A move that wins at once is played; going straight back where the bot's last
- * move came from costs a step (no rocking to and fro while it waits). */
+ * move can make too (every pair looked at), give or take a little; hard, the same without the noise, the best twelve
+ * pairs told apart by a third move after the best sixteen second ones. A move that wins at once is played; going
+ * straight back where the bot's last move came from costs a step (no rocking to and fro while it waits). */
 static int many_choose(const hbpos *s, int level, int back_from, int back_to, ai_rng *rng, int *from, int *to,
                        ai_stats *stats)
 {
@@ -295,8 +295,7 @@ static int many_choose(const hbpos *s, int level, int back_from, int back_to, ai
                 if (v3 > best3) best3 = v3;
             }
             if (best3 == -(1 << 30)) best3 = -far_of(&t, me);
-            int v = 4 * best3 + (val[i] - m1[i].score) / 2 + m1[i].score;   /* the third, the second, the first */
-            if (m1[i].from == back_from && m1[i].to == back_to) v -= 160;
+            int v = 8 * val[i] + best3;             /* the pair first, the third move to break ties */
             if (v > bv) { bv = v; bi = i; }
         }
     }
