@@ -74,7 +74,7 @@ static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
-enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_PUZZLE, SECTIONS };
+enum { SEC_PUZZLE, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SECTIONS };
 static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
     {"jungle", SEC_CHESS},
