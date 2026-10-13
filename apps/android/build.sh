@@ -1,10 +1,12 @@
 #!/bin/bash
 # RetroStone Arcade and RetroStone Board: builds the Android apps in one command (WSL / Linux).
 #
-#   apps/android/build.sh [free|full|board] [--release]
+#   apps/android/build.sh [free|full|board|boardfree] [--release]
 #     free (the default)   RetroStone Arcade Free (apps/android/app.conf): dist/android/RetroStoneArcadeFree-debug.apk
 #     full                 RetroStone Arcade, the paid app (apps/android/app-full.conf): dist/android/RetroStoneArcade-debug.apk
 #     board                RetroStone Board, the board games (apps/android/app-board.conf): dist/android/RetroStoneBoard-debug.apk
+#     boardfree            RetroStone Board Free, its free edition (apps/android/app-boardfree.conf: FREE_GAMES, FREE_LEVELS):
+#                          dist/android/RetroStoneBoardFree-debug.apk
 #                          (any other name: apps/android/app-<name>.conf)
 #     --release            also <EXE_NAME>-release.aab (Google Play) and <EXE_NAME>-release.apk (sideloading), signed with
 #                          YOUR upload key: ~/.retrostone-keys/arcade.properties (apps/android/make-keystore.sh makes it;
@@ -15,7 +17,7 @@
 #   1. SDL2's source release (tools/fetch_sdl2_src.sh) and libSDL2.so for each ABI (ndk-build, build/android/sdl2)
 #   2. libmain.so for each ABI, by the .conf's NATIVE. launcher (the default, the Arcade apps): the launcher, the games
 #      as modules, the SDK (apps/launcher/bundle.mk CONF=<the .conf>); boardgames: RetroStone Board
-#      (make -f apps/boardgames/Makefile android ABI=<abi>)
+#      (make -f apps/boardgames/Makefile android ABI=<abi> CONF=<the .conf>: the edition, tools/gen_edition.py)
 #   3. the icons (apps/android/tools/make_icon.py), then Gradle (the APK, the AAB), then checks (ABIs, alignment,
 #      the signature of the release files)
 # Everything goes to build/android/<profile>/ (SDL2: build/android/sdl2) and dist/android/. The root Makefile's
@@ -34,12 +36,12 @@ for a in "$@"; do
     case "$a" in
     --release) RELEASE=1 ;;
     [a-z]*) PROFILE=$a ;;
-    *) echo "usage: $0 [free|full|board] [--release]" >&2; exit 2 ;;
+    *) echo "usage: $0 [free|full|board|boardfree] [--release]" >&2; exit 2 ;;
     esac
 done
 CONF="$HERE/app.conf"
 [ "$PROFILE" != free ] && CONF="$HERE/app-$PROFILE.conf"
-[ -f "$CONF" ] || { echo "no app $PROFILE: $CONF is missing (usage: $0 [free|full|board] [--release])" >&2; exit 2; }
+[ -f "$CONF" ] || { echo "no app $PROFILE: $CONF is missing (usage: $0 [free|full|board|boardfree] [--release])" >&2; exit 2; }
 SIGNING=${RSA_SIGNING:-$HOME/.retrostone-keys/arcade.properties}
 
 if [ ! -f "$SDK_ROOT/env.sh" ]; then
@@ -82,7 +84,7 @@ SKIP=                                       # the games' assets: copied once (th
 for abi in $ABIS; do
     say "libmain.so ($PROFILE, $abi)"
     if [ "$NATIVE" = boardgames ]; then     # RetroStone Board: apps/boardgames, built in build/android/<profile>/native
-        make --no-print-directory -f apps/boardgames/Makefile -j"$JOBS" android ABI=$abi B="$OUT/native" \
+        make --no-print-directory -f apps/boardgames/Makefile -j"$JOBS" android ABI=$abi B="$OUT/native" CONF="$CONF" \
             NDK="$ANDROID_NDK_HOME" > "$OUT/libmain-$abi.log" 2>&1 \
             || { grep -E "error|Error" "$OUT/libmain-$abi.log" | head -30; exit 1; }
         LIBMAIN=$OUT/native/android-$abi/libmain.so
@@ -101,7 +103,7 @@ done
 say "icons"
 ART=()
 if [ "$(conf ICON_STYLE)" = board ]; then   # the app's own pictures, drawn by its code (apps/boardgames/android/icon_art.c)
-    make --no-print-directory -f apps/boardgames/Makefile icon-art B="$OUT/native" ICON_DIR="$OUT/icon-art" \
+    make --no-print-directory -f apps/boardgames/Makefile icon-art B="$OUT/native" CONF="$CONF" ICON_DIR="$OUT/icon-art" \
         > "$OUT/icon-art.log" 2>&1 || { tail -20 "$OUT/icon-art.log"; exit 1; }
     ART=(--art "$OUT/icon-art")
 fi

@@ -2,8 +2,11 @@
  * RetroStone Board: the Android activity. Everything happens in native code (libmain.so: apps/boardgames/src, built
  * by make -f apps/boardgames/Makefile android); SDL's SDLActivity (org.libsdl.app) runs it: the surface, the touches
  * (each finger, and the first one as the mouse), audio, the Back key (SDLK_AC_BACK: the rules page closes, a game
- * goes home, the menu quits), the orientation (the app's SDL_HINT_ORIENTATIONS) and the app's lifecycle.
- * Built into the app by apps/android/build.sh board (apps/android/app-board.conf).
+ * goes home, the menu quits), the orientation (the app's SDL_HINT_ORIENTATIONS), the app's lifecycle and SDL_OpenURL
+ * (the free edition's "full version" button: market://details?id=<the paid app>, an ACTION_VIEW intent; it fails
+ * without a Play Store, and the native code then opens the store's web page, as the Arcade does).
+ * Built into both editions: apps/android/build.sh board (app-board.conf) and boardfree (app-boardfree.conf, another
+ * package id, the same class).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 package com.eightbcraft.retrostoneboard;

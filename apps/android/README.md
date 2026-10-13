@@ -246,14 +246,23 @@ Everything else Google Play asks for is in [`store/`](store/):
 ## 7. RetroStone Board
 
 The board games app (`apps/boardgames`, plain C + SDL2, its own README) is built by the same script, Gradle module
-and toolchain, from its config `apps/android/app-board.conf`:
+and toolchain, in two editions like the Arcade: the paid app from `apps/android/app-board.conf`, the free one from
+`apps/android/app-boardfree.conf`:
 
-| | **RetroStone Board** |
-|---|---|
-| Package id | `com.eightbcraft.retrostoneboard` (a new app on Google Play, apart from the Arcade's) |
-| Build | `apps/android/build.sh board` (`--release`: the signed `.aab` and `.apk`, the same upload key) |
-| Debug APK | `dist/android/RetroStoneBoard-debug.apk` |
-| Desktop | `make -f apps/boardgames/Makefile win64`: `dist/windows/RetroStoneBoard.exe` |
+| | **RetroStone Board** (paid) | **RetroStone Board Free** |
+|---|---|---|
+| Package id | `com.eightbcraft.retrostoneboard` (a new app on Google Play, apart from the Arcade's) | `com.eightbcraft.retrostoneboard.free` (permanent) |
+| Build | `apps/android/build.sh board` (`--release`: the signed `.aab` and `.apk`, the same upload key) | `apps/android/build.sh boardfree` |
+| Debug APK | `dist/android/RetroStoneBoard-debug.apk` | `dist/android/RetroStoneBoardFree-debug.apk` |
+| Desktop | `make -f apps/boardgames/Makefile win64`: `dist/windows/RetroStoneBoard.exe` | `... win64 EDITION=boardfree`: `dist/windows/RetroStoneBoardFree.exe` |
+| Games | every game, every level | every puzzle (its first `FREE_LEVELS` levels, no random play) and the `FREE_GAMES`; the others locked |
+
+The free edition's keys (read at build time by `apps/boardgames/tools/gen_edition.py`: changing them needs no code
+change): `FREE_GAMES` (the games playable besides the puzzles, by id; an unknown id stops the build), `FREE_LEVELS`
+(40), `PAID_APP_NAME`, `PAID_APP_ID`, `PAID_STORE_URL`. A locked game's card (dimmed, a lock) or a locked level's
+tile opens the "full version" panel; its gold button opens `market://details?id=<PAID_APP_ID>` with `SDL_OpenURL`
+(SDL's activity: an `ACTION_VIEW` intent), `PAID_STORE_URL` when that fails (no Play Store) and on a computer. The
+two editions keep their progress apart (another package; on a computer another folder).
 
 What its config changes (each key's default is the Arcade's, so app.conf and app-full.conf need none of them):
 
