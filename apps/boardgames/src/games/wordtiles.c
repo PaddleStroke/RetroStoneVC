@@ -28,6 +28,7 @@
 
 #include "cards.h"
 #include "cards_table.h"
+#include "games/loupe.h"
 #include "games/race.h"
 #include "games/wordtiles.h"
 #include "shell.h"
@@ -37,7 +38,6 @@
 #define DRAW_GAP 90                             /* the drawn tiles one after another */
 #define REST_MS 300                             /* after the last tile lands: a moment before the device passes */
 #define FLASH_MS 650                            /* the tiles of a play settling in a gold light */
-#define LOUPE_Z 2.3f                            /* the loupe's magnification */
 #define LOUPE_CELLS 3.3f                        /* the squares it shows across */
 
 static wgame G;
@@ -911,15 +911,13 @@ static void draw_knobs(void)
     ui_number(T.kx[K_BAG], T.ky[K_BAG] + 0.14f * bs, 0.3f * bs, P->nbag, 0);
 }
 
-/* the loupe: the squares round the finger, magnified, above it (below it near the top of the screen) */
+/* the loupe (loupe.h): the squares round the finger, magnified, above it (below it near the top of the screen) */
 static void draw_loupe(void)
 {
     if (!fing.down || !mine() || pick.on) return;
     if (!(fing.src == SRC_CELL || (fing.moved && (fing.src == SRC_RACK || fing.src == SRC_BOARD)))) return;
     if (!on_board(fing.x, fing.y)) return;
-    float z = LOUPE_Z, side = LOUPE_CELLS * T.sq * z, gap = 0.75f * T.rs;
-    float cx = clampf(fing.x, side / 2 + 4, ui.w - side / 2 - 4), cy = fing.y - gap - side / 2;
-    if (cy - side / 2 < 4) cy = fing.y + gap + side / 2;
+    loupe l = loupe_at(fing.x, fing.y, T.sq, LOUPE_CELLS, 0, (box){0, 0, (float)ui.w, (float)ui.h});
     int target = cell_at(fing.x, fing.y), held = 0;
     if (target >= 0 && (P->board[target] || placed_cell(target) >= 0)) {
         if (!(fing.src == SRC_BOARD && placed_cell(target) == fing.idx)) held = -1;
@@ -930,15 +928,11 @@ static void draw_loupe(void)
         held = P->rack[T.me][s] == WT_BLANK ? WT_BLANK | pl[fing.idx].letter : P->rack[T.me][s];
     }
     if (held == WT_BLANK) held = 0;             /* a blank: its letter comes after */
-    float x0 = cx - side / 2, y0 = cy - side / 2, e = fmaxf(3, 0.08f * T.sq);
-    ui_shadow_flat(cx + 0.03f * side, cy + 0.05f * side, side * 1.08f, side * 1.08f, 0.8f);
-    ui_fill(x0 - e, y0 - e, side + 2 * e, side + 2 * e, 92, 60, 40, 255);   /* a walnut frame */
-    ui_fill(x0 - e * 0.4f, y0 - e * 0.4f, side + 0.8f * e, side + 0.8f * e, 52, 34, 22, 255);
-    SDL_Rect clip = {(int)x0, (int)y0, (int)side, (int)side};
-    SDL_RenderSetClipRect(ui.r, &clip);
-    ui_fill(x0, y0, side, side, 30, 60, 44, 255);
-    draw_board(cx + (T.ox - fing.x) * z, cy + (T.oy - fing.y) * z, T.sq * z, target, held > 0 ? held : 0);
-    SDL_RenderSetClipRect(ui.r, NULL);
+    float ox, oy;
+    loupe_map(&l, T.ox, T.oy, &ox, &oy);
+    loupe_begin(&l);
+    draw_board(ox, oy, T.sq * l.z, target, held > 0 ? held : 0);
+    loupe_end();
 }
 
 /* the blank's letters: a grid of tiles on a dark panel */
