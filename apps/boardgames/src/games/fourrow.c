@@ -9,6 +9,7 @@
 #include <stdlib.h>
 
 #include "games/fourrow.h"
+#include "games/trays.h"
 #include "shell.h"
 
 #define FRAME 0.32f                             /* the board's frame, in holes */
@@ -22,7 +23,10 @@ static fr_game G;
 static int sq, fr, made = -1, made_small = -1;
 static float bx, by, top;                       /* the top left hole's corner; the top of the room above the board */
 static SDL_Texture *t_board, *t_disc[2], *t_small[2], *t_win, *t_last;
-static struct { int on, col, down; } aim;       /* the column chosen: a finger down, or the mouse over the board */
+static trays T;                                 /* the discs each player still has, by their side */
+/* the column chosen: a finger down, or the mouse over the board; tray: the finger took a disc from the player's tray
+ * (it is over a column once on the board: on), x, y: where the finger is */
+static struct { int on, col, down, tray; float x, y; } aim;
 static struct { int on, col, row, landed; Uint32 t0; } fall;
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -31,7 +35,7 @@ static void start(int variant)
     (void)variant;
     fr_new(&G);
     fall.on = 0;
-    aim.on = aim.down = 0;
+    aim.on = aim.down = aim.tray = 0;
 }
 
 static int status(void)
@@ -122,9 +126,10 @@ static void layout(box b)
 {
     sq = (int)floorf(fminf(b.w / (FR_COLS + 2 * FRAME), b.h / (FR_ROWS + 2 * FRAME + ROOM)));
     fr = (int)(sq * FRAME);
-    float w = (float)FR_COLS * sq + 2 * fr, h = (float)FR_ROWS * sq + 2 * fr + ROOM * sq;
-    top = floorf(b.y + (b.h - h) / 2);
-    bx = floorf(b.x + (b.w - w) / 2) + fr;
+    float w = (float)FR_COLS * sq + 2 * fr, h = (float)FR_ROWS * sq + 2 * fr + ROOM * sq, x;
+    /* the room the board leaves (above and below it, or beside it): each player's discs in a tray by their side */
+    trays_place(&T, b, w, h, FR_HOLES / 2, 0.9f * sq, 0.7f * ui.unit, &x, &top);
+    bx = x + fr;
     by = top + floorf(ROOM * sq) + fr;
     if (made != sq) {
         made = sq;
@@ -181,11 +186,26 @@ static int fall_y(float *y)
     return 0;
 }
 
+/* the discs each player still has, in the tray by their side (the one taken in the finger out of it) */
+static void draw_trays(void)
+{
+    if (!trays_on(&T)) return;
+    for (int p = 0; p < 2; p++) {
+        int n = fr_left(&G, p) - (aim.tray && p == turn());
+        for (int i = 0; i < n; i++) {
+            float x, y;
+            trays_slot(&T, p, i, &x, &y);
+            ui_flat_at(t_disc[p], x, y, 0.9f * T.pitch, 1, 0);
+        }
+    }
+}
+
 static void draw(void)
 {
     float d = DISC * sq, x, y, fy = 0;
     if (fall.on && !fall_y(&fy)) fall.on = 0;
     if (fall.on) ui_animate();
+    draw_trays();
     ui_fill(bx, by, (float)FR_COLS * sq, (float)FR_ROWS * sq, 0, 0, 0, 36);    /* the darkness behind the holes */
     for (int r = 0; r < FR_ROWS; r++)
         for (int c = 0; c < FR_COLS; c++) {
@@ -223,6 +243,8 @@ static void draw(void)
         ui_put_c(t_disc[p], x, aim_y(), d, d);
         SDL_SetTextureAlphaMod(t_disc[p], 255);
     }
+    if (playing && aim.tray && !aim.on)         /* the disc taken from the tray, in the finger, not yet over a column */
+        ui_flat_at(t_disc[p], aim.x, aim.y - (ui_upside(p) ? -0.3f : 0.3f) * d, d, 1, 0);
 }
 
 /* ---- the pointer: a tap in a column, or a drag along the top, drops a disc there --------------------------------- */
@@ -234,9 +256,20 @@ static int col_of(float x)
     return c < 0 ? 0 : c >= FR_COLS ? FR_COLS - 1 : c;
 }
 
+static int in_board(float x, float y) { return over_board(x) && y >= top && y < by + FR_ROWS * sq + fr; }
+
 static void press(float x, float y)
 {
-    if (status() != GS_PLAY || !over_board(x) || y < top || y >= by + FR_ROWS * sq + fr) return;
+    if (status() != GS_PLAY) return;
+    if (!in_board(x, y)) {                      /* a disc taken from the player's tray, to drag over a column */
+        if (!trays_hit(&T, turn(), x, y) || !fr_left(&G, turn())) return;
+        aim.tray = aim.down = 1;
+        aim.on = 0;
+        aim.x = x;
+        aim.y = y;
+        ui_animate();
+        return;
+    }
     aim.on = aim.down = 1;
     aim.col = col_of(x);
     ui_animate();
@@ -244,7 +277,15 @@ static void press(float x, float y)
 
 static void motion(float x, float y)
 {
-    int on = aim.down || (status() == GS_PLAY && over_board(x) && y >= top && y < by + FR_ROWS * sq + fr);
+    if (aim.tray) {                             /* over the board: held above its column */
+        aim.on = in_board(x, y);
+        aim.col = col_of(x);
+        aim.x = x;
+        aim.y = y;
+        ui_animate();
+        return;
+    }
+    int on = aim.down || (status() == GS_PLAY && in_board(x, y));
     int col = col_of(x);
     if (on == aim.on && (!on || col == aim.col)) return;
     aim.on = on;
@@ -254,17 +295,22 @@ static void motion(float x, float y)
 
 static void release(float x, float y)
 {
-    (void)y;
     if (!aim.down) return;
-    aim.on = aim.down = 0;                      /* a lifted finger holds nothing up (the mouse: again on moving) */
-    if (over_board(x)) drop(col_of(x));         /* dragged off the side: nothing */
+    int tray = aim.tray;
+    aim.on = aim.down = aim.tray = 0;           /* a lifted finger holds nothing up (the mouse: again on moving) */
+    if (tray ? in_board(x, y) : over_board(x)) drop(col_of(x));   /* dragged off the side: nothing */
+    else if (tray) ui_animate();                /* the disc back in its tray */
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* the discs a player still has: a row of them, then their number */
+/* the discs a player still has: a row of them, then their number (with the trays: their number) */
 static void bar(int player, box b)
 {
     int n = fr_left(&G, player);
+    if (trays_on(&T)) {
+        ui_bar_number(b, t_small[player], n);
+        return;
+    }
     float u = ui.unit, sz = 0.5f * u, h = 0.46f * u, cy = b.y + b.h / 2, x = b.x;
     float nw = (n >= 10 ? 0.74f : 0) * h + 0.62f * h, step = n > 1 ? (b.w - sz - nw - 0.3f * u) / (n - 1) : 0;
     step = clampf(step, 0, 0.14f * u);
@@ -303,7 +349,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return fall.on; }     /* the end waits for the last disc to land */
 
 static const game fourrow_game = {
-    .id = "fourrow", .order = 40, .variants = 1,
+    .id = "fourrow", .order = 40, .variants = 1, .fill = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
