@@ -69,4 +69,12 @@ int  spades_winner(const spos *p);              /* SP_OVER: the winning side (0 
 int  spades_auto(const spos *p);                /* a plain action (the "." of the notation) */
 int  spades_script(sgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (spades_bot.c, bots.h), and what the screen (spades.c) gives it; a headless test defines those two */
+const sgame *spades_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int spades_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+int spb_choose(const sgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* the action; 0: none */
+void spb_view(const sgame *g, int me, struct tb_state *v, sgame *scratch);   /* seat me's knowledge (trickbot.h) */
+
 #endif

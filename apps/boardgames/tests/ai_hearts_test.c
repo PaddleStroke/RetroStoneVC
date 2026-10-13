@@ -7,9 +7,9 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
+#include "ai_tricks.h"
 
 #include "games/hearts.h"
-#include "games/trickbot.h"
 
 static hgame T, U, S;                           /* the "screen's" game; a scratch copy; the view's replay */
 static int NP = 4, dealt;
@@ -79,13 +79,6 @@ static int random_move(ai_rng *r, char *m, int cap)
     }
 }
 
-static int fails;
-static void check(const char *name, int ok)
-{
-    printf("%s %s\n", ok ? "ok  " : "FAIL", name);
-    fails += !ok;
-}
-
 /* the view of the seat to move, its hidden cards then revealed (a test may look): the deal as the core plays it */
 static void reveal(tb_state *v, const hpos *p)
 {
@@ -111,7 +104,7 @@ int main(int argc, char **argv)
             hearts_new(&T, NP, 500 + gn);
             dealt = 1;
             int fresh = 1;
-            while (T.pos.phase != HP_OVER && same && tricks_ok) {
+            while (T.pos.phase != HP_OVER && T.pos.round < 3 && same && tricks_ok) {
                 const hpos *p = &T.pos;
                 char m[BOT_MOVE_CAP];
                 if (p->phase == HP_PLAY) {
@@ -145,8 +138,8 @@ int main(int argc, char **argv)
             }
         }
         snprintf(name, sizeof name, "the core's legal cards = the game's (%d turns, 3 to 6 players)", plays);
-        check(name, same);
-        check("a revealed deal played by the core: the same points, turns and end", tricks_ok);
+        tt_check(name, same);
+        tt_check("a revealed deal played by the core: the same points, turns and end", tricks_ok);
     }
     /* the determinisation keeps the counts, the voids and the passed cards where they went */
     {
@@ -187,11 +180,11 @@ int main(int argc, char **argv)
             }
         }
         snprintf(name, sizeof name, "determinised deals keep counts, voids, own hand, passed cards (%d)", tried);
-        check(name, ok && tried > 100);
+        tt_check(name, ok && tried > 100);
     }
 
     const bot *b = bot_find("hearts");
-    check("registered: bot_find(\"hearts\")", b && b->think && b->play == hearts_show && b->actor);
+    tt_check("registered: bot_find(\"hearts\")", b && b->think && b->play == hearts_show && b->actor);
 
     /* honest: the others' hidden cards swapped (same suits, so every void still holds): the same move */
     {
@@ -231,7 +224,7 @@ int main(int argc, char **argv)
             tried++;
         }
         snprintf(name, sizeof name, "the others' hidden cards swapped: the same move (%d positions)", tried);
-        check(name, same && tried >= 20);
+        tt_check(name, same && tried >= 20);
     }
     /* void in the suit led, holding the queen of spades, another taking the trick: she goes (medium and hard) */
     {
@@ -267,7 +260,7 @@ int main(int argc, char **argv)
         }
         snprintf(name, sizeof name, "void in the suit led, holding the queen of spades: it sheds points: %d of %d",
                  shed, found);
-        check(name, found >= 20 && shed * 10 >= found * 9);
+        tt_check(name, found >= 20 && shed * 10 >= found * 9);
     }
     {   /* cancelled: no move, at once */
         char m[BOT_MOVE_CAP] = "";
@@ -280,20 +273,25 @@ int main(int argc, char **argv)
         int ok = b->think(T.pos.turn, AI_HARD, m, sizeof m);
         double dt = ai_now_ms() - t0;
         ai_cancel_clear();
-        check("cancelled: no move, at once", !ok && dt < 50);
-        check("not the seat to move: no move", !b->think((T.pos.turn + 1) % 4, AI_HARD, m, sizeof m));
+        tt_check("cancelled: no move, at once", !ok && dt < 50);
+        tt_check("not the seat to move: no move", !b->think((T.pos.turn + 1) % 4, AI_HARD, m, sizeof m));
     }
     {   /* the levels' work: iterations and time on positions of random deals */
         int npos = 6;
         for (int i = 1; i < argc; i++) npos = strcmp(argv[i], "--full") ? npos : 30;
         for (int lv = AI_EASY; lv <= AI_HARD; lv++) {
             double ms = 0, worst = 0, nodes = 0;
+            int retry = 0;
             for (int k = 0; k < npos; k++) {
                 NP = 4;
                 hearts_new(&T, NP, 40 + k);
                 dealt = 1;
-                ai_seed(&r, 99 + k);
-                for (int i = 0; i < 12 + k % 20; i++) { char m[BOT_MOVE_CAP]; random_move(&r, m, sizeof m); one(m); }
+                ai_seed(&r, 99 + k + 1000 * (uint64_t)retry++);
+                for (int i = 0; i < 12 + k % 20 + retry; i++) {
+                    char m[BOT_MOVE_CAP];
+                    random_move(&r, m, sizeof m);
+                    one(m);
+                }
                 if (T.pos.phase != HP_PLAY) { k--; continue; }
                 ai_stats s;
                 double t0 = ai_now_ms();
@@ -305,18 +303,19 @@ int main(int argc, char **argv)
             printf("     %-6s %7.0f iterations %6.1f ms (worst %6.1f)\n", sp_name(lv), nodes / npos, ms / npos, worst);
         }
     }
-    if (fails) return 1;
+    if (tt_fails) return 1;
 
     static const sp_game G = {
         .id = "hearts", .max_plies = 4000, .opening = 1, .reset = reset, .actor = actor, .result = result,
         .random_move = random_move, .script = one,
     };
-    static const sp_pair P[] = {
+    static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 60, 75},
         {AI_MEDIUM, AI_EASY, 60, 52},
         {AI_HARD, AI_MEDIUM, 60, 50},
         {AI_HARD, AI_EASY, 40, 55},
     };
+    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     NP = 4;
     int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static const sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 20, 0}};

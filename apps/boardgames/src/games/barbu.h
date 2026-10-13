@@ -102,4 +102,13 @@ unsigned barbu_winners(const barbu_pos *p);     /* BBP_OVER: the highest total (
 int  barbu_auto(const barbu_pos *p);            /* a plain action (the "." of the notation) */
 int  barbu_script(barbu_game *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (barbu_bot.c, bots.h), and what the screen (barbu.c) gives it; a headless test defines those two */
+const barbu_game *barbu_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int barbu_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+/* the action (0: none); seat me's knowledge (trickbot.h) */
+int bab_choose(const barbu_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+void bab_view(const barbu_game *g, int me, struct tb_state *v, barbu_game *scratch);
+
 #endif

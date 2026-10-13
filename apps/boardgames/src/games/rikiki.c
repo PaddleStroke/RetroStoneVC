@@ -161,6 +161,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (rikiki_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const rikiki_game *rikiki_live(void) { return &G; }
+
+int rikiki_show(const char *move)
+{
+    static rikiki_game t;
+    t = G;
+    if (!rikiki_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_pad(int live)
 {

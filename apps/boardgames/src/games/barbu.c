@@ -340,6 +340,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (barbu_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const barbu_game *barbu_live(void) { return &G; }
+
+int barbu_show(const char *move)
+{
+    static barbu_game t;
+    t = G;
+    if (!barbu_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int can_pass(void) { return !ui_handing() && !busy() && G.pos.turn == T.me && barbu_must_pass(&G.pos); }
 
 static void pass(void) { act(BBA_PASS); }

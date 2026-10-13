@@ -79,4 +79,12 @@ int  euchre_winner(const epos *p);              /* EP_OVER: the winning side (0 
 int  euchre_auto(const epos *p);                /* a plain action (the "." of the notation) */
 int  euchre_script(egame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (euchre_bot.c, bots.h), and what the screen (euchre.c) gives it; a headless test defines those two */
+const egame *euchre_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int euchre_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+int eub_choose(const egame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* the action; 0: none */
+void eub_view(const egame *g, int me, struct tb_state *v, egame *scratch);   /* seat me's knowledge (trickbot.h) */
+
 #endif

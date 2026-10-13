@@ -123,6 +123,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (manille_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const mgame *manille_live(void) { return &G; }
+
+int manille_show(const char *move)
+{
+    static mgame t;
+    t = G;
+    if (!man_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int can_pass(void) { return G.pos.phase == MP_SPEAK && !ui_handing() && !busy(); }
 static void pass(void) { act(MA_PASS); }
 

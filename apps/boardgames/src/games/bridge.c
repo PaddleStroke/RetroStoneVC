@@ -310,6 +310,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot's side (bridge_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const brg_game *bridge_live(void) { return &G; }
+
+int bridge_show(const char *move)
+{
+    static brg_game t;
+    t = G;
+    if (!brg_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- small pictures ---------------------------------------------------------------------------------------------- */
 static void paint(int kind, int size, uint8_t *rgba)
 {

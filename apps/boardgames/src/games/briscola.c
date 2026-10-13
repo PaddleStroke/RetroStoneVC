@@ -157,6 +157,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (briscola_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const brgame *briscola_live(void) { return &G; }
+
+int briscola_show(const char *move)
+{
+    static brgame t;
+    t = G;
+    if (!briscola_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing (the trick table with the Italian pack: T.deck) -----------------------------------------------------*/
 /* the stock on the briscola lying across; once all is drawn, the trumps' symbol in its place */
 static void stock_draw(const brpos *p)

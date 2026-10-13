@@ -83,4 +83,12 @@ int  man_winner_team(const mpos *p);            /* MP_OVER: 0 or 1; else -1 */
 int  man_auto(const mpos *p);                   /* a plain action (the "." of the notation) */
 int  man_script(mgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (manille_bot.c, bots.h), and what the screen (manille.c) gives it; a headless test defines those two */
+const mgame *manille_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int manille_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+int manb_choose(const mgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* the action; 0: none */
+void manb_view(const mgame *g, int me, struct tb_state *v, mgame *scratch);   /* seat me's knowledge (trickbot.h) */
+
 #endif

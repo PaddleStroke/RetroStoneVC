@@ -70,4 +70,13 @@ unsigned rikiki_winners(const rikiki_pos *p);   /* RK_OVER: the highest total (b
 int  rikiki_auto(const rikiki_pos *p);          /* a plain action (the "." of the notation) */
 int  rikiki_script(rikiki_game *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (rikiki_bot.c, bots.h), and what the screen (rikiki.c) gives it; a headless test defines those two */
+const rikiki_game *rikiki_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int rikiki_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+/* the action (0: none); seat me's knowledge (trickbot.h) */
+int rkb_choose(const rikiki_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+void rkb_view(const rikiki_game *g, int me, struct tb_state *v, rikiki_game *scratch);
+
 #endif

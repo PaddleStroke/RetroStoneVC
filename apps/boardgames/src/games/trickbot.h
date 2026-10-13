@@ -51,9 +51,12 @@
  *   want(st, seat)            for the playouts: +1 the seat wants tricks now, -1 it avoids them, 0 indifferent.
  *                             NULL: +1.
  *   infer(st, seat, card, trick, who, n)   a play's meaning beyond a void (tb_note calls it before adding the card):
- *                             set st->cap[seat][suit] (the seat holds no card of that suit whose order() is above).
+ *                             set st->cap[seat][suit] (the seat holds no card of that suit whose order() is above),
+ *                             or tb_exclude(st, seat, card) (it does not hold that card).
  *   dealt(st)                 after each determinisation: what the game derives from the hands (hidden partners).
  *   draw                      1: after each trick each seat draws one card from the stock, the winner first.
+ *   nofollow                  1: any card may be played, suit led or not (briscola): no voids to read, and any
+ *                             opponent holding a trump may take a side card.
  *
  * ==== The state ====================================================================================================
  * Cards are cards.h's bytes; duplicates are allowed (a 48-card pack of pairs). hand[s][0..nknown[s]-1] are the
@@ -96,6 +99,7 @@ typedef struct tb_rules {
     void (*infer)(tb_state *st, int seat, int card, const uint8_t *trick, const uint8_t *who, int n);
     void (*dealt)(tb_state *st);
     int  draw;
+    int  nofollow;
 } tb_rules;
 
 struct tb_state {
@@ -107,6 +111,7 @@ struct tb_state {
     uint8_t trick[TB_MAXP], who[TB_MAXP];       /* the trick on the table and who played each */
     uint8_t hand[TB_MAXP][TB_HAND], n[TB_MAXP], nknown[TB_MAXP];
     uint8_t cap[TB_MAXP][TB_SUITS];             /* seat s holds no card of suit u with order() over cap (0: void) */
+    uint8_t ex[TB_MAXP][32];                    /* seat s holds no card c with bit c set (tb_exclude) */
     uint8_t stock[TB_STOCK], nstock, nstock_known;   /* drawn from the end; stock[0..nstock_known-1] known */
     uint8_t rest[TB_STOCK], nrest;              /* cards out of play (a kitty, the skat): unknown slots, then dealt */
     uint8_t unseen[TB_PACK], nunseen;           /* the view: the cards the observer has not seen (tb_finish) */
@@ -173,7 +178,7 @@ static inline int tb_next(const tb_state *st, int seat)
 /* follow suit if you can (the plain rule) */
 static inline int tb_legal_follow(const tb_state *st, const uint8_t *h, int n, uint8_t *out)
 {
-    int k = 0, led = tb_led(st);
+    int k = 0, led = st->R->nofollow ? -1 : tb_led(st);
     if (led >= 0)
         for (int i = 0; i < n; i++)
             if (tb_suit(st, h[i]) == led) out[k++] = h[i];
@@ -304,12 +309,18 @@ static inline void tb_seen(tb_state *st, int card)
     if (st->ngone < TB_PACK) st->gone[st->ngone++] = (uint8_t)card;
 }
 
+/* what a play showed: the seat does not hold this card (infer()) */
+static inline void tb_exclude(tb_state *st, int seat, int card)
+{
+    st->ex[seat][(card & 255) >> 3] |= (uint8_t)(1u << (card & 7));
+}
+
 /* the deal's plays replayed, one by one, with the trick as it stood before the card (who: the seats): a suit not
  * followed shows a void; the game's infer() reads the rest */
 static inline void tb_note(tb_state *st, int seat, int card, const uint8_t *trick, const uint8_t *who, int n)
 {
     if (seat < 0 || seat >= st->players) return;
-    if (n > 0) {
+    if (n > 0 && !st->R->nofollow) {
         int led = tb_suit(st, trick[0]);
         if (tb_suit(st, card) != led && led < TB_SUITS) st->cap[seat][led] = 0;
     }
@@ -351,6 +362,7 @@ static inline void tb_finish(tb_state *st, const uint8_t *pack, int npack)
 static inline int tb_fits(const tb_state *st, int seat, int c)
 {
     int u = tb_suit(st, c);
+    if (st->ex[seat][(c & 255) >> 3] >> (c & 7) & 1) return 0;
     return u >= TB_SUITS || st->cap[seat][u] == TB_NOCAP || tb_order(st, c) <= st->cap[seat][u];
 }
 
@@ -439,7 +451,7 @@ static inline int tb_master(const tb_state *st, int c)
                 if (tb_power(st, d, u) > p) return 0;
             } else if (tb_is_trump(st, d)) trumps = 1;
         }
-        if (!trump && !has && trumps && tb_opponent(st, me, q)) return 0;
+        if (!trump && (!has || st->R->nofollow) && trumps && tb_opponent(st, me, q)) return 0;
     }
     return 1;
 }
@@ -456,7 +468,7 @@ static inline int tb_beatable(const tb_state *st, int p, int led, int opponents_
             if (tb_suit(st, d) == led) { has_led = 1; if (dp > best_led) best_led = dp; }
             else if (dp > best_other) best_other = dp;
         }
-        if ((has_led ? best_led : best_other) > p) return 1;
+        if ((has_led && !st->R->nofollow ? best_led : best_led > best_other ? best_led : best_other) > p) return 1;
     }
     return 0;
 }

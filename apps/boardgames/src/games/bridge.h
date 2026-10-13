@@ -132,4 +132,13 @@ int  brg_honours(const uint8_t hand[BRG_HAND], int n, int strain);   /* 150, 100
 int  brg_auto(const brg_pos *p);                /* a plain action (the "." of the notation) */
 int  brg_script(brg_game *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (bridge_bot.c, bots.h), and what the screen (bridge.c) gives it; a headless test defines those two */
+const brg_game *bridge_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int bridge_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+/* the action (0: none); seat me's knowledge (trickbot.h) */
+int brb_choose(const brg_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+void brb_view(const brg_game *g, int me, struct tb_state *v, brg_game *scratch);
+
 #endif

@@ -61,4 +61,13 @@ int  briscola_winner(const brpos *p);           /* BR_OVER: the winning side (-1
 int  briscola_auto(const brpos *p);             /* a plain action (the "." of the notation) */
 int  briscola_script(brgame *g, const char *moves);   /* 0: a card is bad */
 
+/* the bot (briscola_bot.c, bots.h), and what the screen (briscola.c) gives it; a headless test defines those two */
+const brgame *briscola_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int briscola_show(const char *move);   /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+/* the action (-1: none); seat me's knowledge (trickbot.h) */
+int brib_choose(const brgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);
+void brib_view(const brgame *g, int me, struct tb_state *v, brgame *scratch);
+
 #endif

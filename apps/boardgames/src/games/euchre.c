@@ -182,6 +182,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (euchre_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const egame *euchre_live(void) { return &G; }
+
+int euchre_show(const char *move)
+{
+    static egame t;
+    t = G;
+    if (!euchre_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 /* the alone button: the viewer's chip, the partner's struck through */
 static void draw_alone(float x, float y, float d)

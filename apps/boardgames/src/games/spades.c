@@ -147,6 +147,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* ---- the bot's side (spades_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
+const sgame *spades_live(void) { return &G; }
+
+int spades_show(const char *move)
+{
+    static sgame t;
+    t = G;
+    if (!spades_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 /* a bid in a dark disc (nil: the 0 struck through) */
 static void badge(float x, float y, float d, int v, int nil)
