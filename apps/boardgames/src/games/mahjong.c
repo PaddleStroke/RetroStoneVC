@@ -8,12 +8,17 @@
  * the dots, the bamboo (the one a bird), the characters (the numeral over 萬), the winds 東南西北, the dragons 中, 發
  * and the white one (a blue frame), the flowers and the seasons (a picture, and their number in a corner).
  *
+ * The layout takes all the room the shell gives (game.fill): the tiles as big as it lets them be (a wide screen gives
+ * the Turtle much bigger tiles; never turned, as the free tiles' rule goes by left and right).
+ *
  * The input: tap a free tile (the select mark), then its match: both lift away. A tap on the tile picked lets it
  * go; on another free tile, picks that one. Only free tiles can be played, so a tap goes to the free tile under the
  * finger, or the free tile nearest to it if the finger is just beside one (the Turtle's tiles are small on a phone).
- * The tiles that are not free are dimmed. The bar: the tiles left, a hint button (two matching free tiles blink),
- * and, when no pair is left, the shuffle button (big in the middle of the board, and in the bar when it has room):
- * the tiles left are dealt again so that they can be cleared. Undo takes back a pair, or a shuffle.
+ * The tiles that are not free are dimmed. The shell's tools: the hint (two matching free tiles blink), the shuffle
+ * (lit when no pair is left, and then big in the middle of the board too: the tiles left are dealt again so that they
+ * can be cleared) and, when the whole layout leaves the tiles small (the Turtle on a phone held upright), the
+ * magnifying glass: the tiles near, bigger, the layout dragged sideways with a finger (a tap still picks a tile).
+ * Undo takes back a pair, or a shuffle.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -21,11 +26,18 @@
 
 #include "games/mahjong.h"
 #include "games/mjtiles.h"
+#include "games/pztools.h"
 #include "shell.h"
 
 #define TAKE_MS 420                             /* a pair lifting away */
 #define HINT_MS 2400
 #define PI_F 3.14159265f
+#define SMALL 0.075f                            /* tiles narrower than this part of the screen's short side: the
+                                                 * magnifier is offered */
+#define NEAR 1.7f                               /* near: the tiles this much bigger (at most as the room's height
+                                                 * lets them) */
+
+enum { T_HINT, T_SHUFFLE, T_ZOOM, TOOLS };     /* the shell's tools */
 
 /* ---- the state --------------------------------------------------------------------------------------------------- */
 static mjgame G;
@@ -34,9 +46,13 @@ static int order[MJ_MAX];                       /* the drawing order: layer by l
 static uint8_t freeish[MJ_MAX];                 /* the free tiles (worked out once a frame) */
 static struct { int on, a, b; uint8_t fa, fb; Uint32 t0; } anim;
 static struct { int on, a, b, shuffle; Uint32 t0; } hint;
-static box last_box, barbox;
+static box last_box;                            /* the shell's room (game.fill) */
 static int fw, fh, th, made_key = -1, made_bar = -1;
 static float ox, oy;                            /* where the layout's (0, 0) on layer 0 is drawn */
+static int zoom, zoomable;                      /* the magnifier on (kept from game to game); offered */
+static float lx0, ly0, lw, lh, pan_x, pan_y;    /* the layout's box (from its origin) at the size shown; the view's
+                                                 * offset into it (near) */
+static struct { int on, panning; float x0, y0, px, py; } ptr;   /* a finger down on the layout, near */
 static SDL_Texture *t_tile, *t_shadow, *t_face[MJ_FACES], *t_small;
 
 static void layout(box b);
@@ -63,6 +79,7 @@ static void calm(void)
     sel = -1;
     anim.on = 0;
     hint.on = 0;
+    ptr.on = 0;
 }
 
 static void start(int variant)
@@ -71,6 +88,7 @@ static void start(int variant)
     for (int t = 0; t < 8 && !mj_deal(&G, v, ui_random); t++) {}
     sort_places(G.pos, G.n, order);
     calm();
+    pan_x = pan_y = 1e9f;                       /* near: the view in the middle (clamped below) */
     if (made_key >= 0) layout(last_box);        /* another layout: another size of tiles */
 }
 
@@ -140,26 +158,65 @@ static void extent(const mjpos *pos, int n, int w, int h, int d, float *x0, floa
     }
 }
 
+static void tile_size(int w, int *h, int *d)    /* a tile w wide: its face's height, its thickness */
+{
+    *h = 2 * (int)lroundf(MJT_ASPECT * w / 2);
+    *d = (int)fmaxf(2, lroundf(MJT_THICK * w));
+}
+
 /* the largest tiles (even sizes) for which the layout fits in W x H */
 static void fit(const mjpos *pos, int n, float W, float H, int *w, int *h, int *d)
 {
     for (*w = 400; *w > 6; *w -= 2) {
-        *h = 2 * (int)lroundf(MJT_ASPECT * *w / 2);
-        *d = (int)fmaxf(2, lroundf(MJT_THICK * *w));
+        tile_size(*w, h, d);
         float x0, y0, x1, y1;
         extent(pos, n, *w, *h, *d, &x0, &y0, &x1, &y1);
         if (x1 - x0 <= W && y1 - y0 <= H) return;
     }
 }
 
+/* the layout on the screen: centred in the room, or (near, larger than the room) the view pan_x, pan_y into it */
+static void place_view(void)
+{
+    box b = last_box;
+    if (pan_x > 1e8f) pan_x = (lw - b.w) / 2;  /* a new game: the middle */
+    if (pan_y > 1e8f) pan_y = (lh - b.h) / 2;
+    pan_x = clampf(pan_x, 0, fmaxf(0, lw - b.w));
+    pan_y = clampf(pan_y, 0, fmaxf(0, lh - b.h));
+    ox = floorf(lw <= b.w ? b.x + (b.w - lw) / 2 - lx0 : b.x - pan_x - lx0);
+    oy = floorf(lh <= b.h ? b.y + (b.h - lh) / 2 - ly0 : b.y - pan_y - ly0);
+}
+
+static int near_view(void) { return zoom && zoomable; }
+
+/* near: the view's middle on the point (x, y) of the layout (from its origin) */
+static void centre_view(float x, float y)
+{
+    pan_x = x - lx0 - last_box.w / 2;
+    pan_y = y - ly0 - last_box.h / 2;
+    place_view();
+}
+
+/* the whole layout in all the room (as big as it goes; never turned); near, the tiles bigger and the view dragged */
 static void layout(box b)
 {
     last_box = b;
     fit(G.pos, G.n, 0.99f * b.w, 0.99f * b.h, &fw, &fh, &th);
+    zoomable = fw < SMALL * fminf(ui.w, ui.h);
+    ui_tools_shown(zoomable ? TOOLS : T_ZOOM);
+    if (near_view()) {                          /* bigger, at most as tall as the room */
+        int w, h, d;
+        fit(G.pos, G.n, 1e9f, 0.99f * b.h, &w, &h, &d);
+        fw = (int)fminf((float)w, 2 * floorf(NEAR * fw / 2));
+        tile_size(fw, &fh, &th);
+    }
     float x0, y0, x1, y1;
     extent(G.pos, G.n, fw, fh, th, &x0, &y0, &x1, &y1);
-    ox = floorf(b.x + (b.w - (x1 - x0)) / 2 - x0);
-    oy = floorf(b.y + (b.h - (y1 - y0)) / 2 - y0);
+    lx0 = x0;
+    ly0 = y0;
+    lw = x1 - x0;
+    lh = y1 - y0;
+    place_view();
     int key = fw * 1000 + fh;
     if (made_key == key) return;
     made_key = key;
@@ -178,7 +235,7 @@ static void layout(box b)
     }
 }
 
-/* ---- the buttons: the hint (the shell's lamp), the shuffle (two arrows crossing, white: tinted) ------------------ */
+/* ---- the tools: the hint (the shell's lamp), the shuffle (two arrows crossing, white: tinted), the magnifier ----- */
 static void paint_shuffle(int kind, int size, uint8_t *o)
 {
     (void)kind;
@@ -196,6 +253,8 @@ static void paint_shuffle(int kind, int size, uint8_t *o)
     art_render(f, &st, size, size, (float)size, 0, 0, o);
     art_fig_free(f);
 }
+
+static void paint_glass(int plus, int size, uint8_t *o) { pzt_pic_glass(o, size, plus); }
 
 /* a tile standing, seen from the front, size x size: the token (the red dragon), the bar's count */
 static void token(int player, int size, uint8_t *rgba)
@@ -227,13 +286,7 @@ static void bar_textures(void)
     t_small = ui_tex(s, s, ui_buf(s, s));
 }
 
-static void button(float x, float y, float r, int shuffle, int on)
-{
-    if (shuffle) ui_button_paint(x, y, 2 * r, paint_shuffle, 0, 0.65f, (on ? UI_ON : 0) | UI_TINT);
-    else ui_button(x, y, 2 * r, ICON_HINT, on ? UI_ON : 0);
-}
-
-/* the big shuffle button in the middle of the board, when no pair is left */
+/* the big shuffle button in the middle of the room, when no pair is left */
 static int big_shuffle(float *x, float *y, float *r)
 {
     *x = last_box.x + last_box.w / 2;
@@ -267,7 +320,10 @@ static void draw(void)
     if (anim.on && now - anim.t0 >= TAKE_MS) anim.on = 0;
     if (hint.on && now - hint.t0 >= HINT_MS) hint.on = 0;
     if (anim.on || hint.on) ui_animate();
-    int blink = hint.on && (now - hint.t0) / 300 % 2 == 0;
+    int blink = hint.on && (now - hint.t0) / 300 % 2 == 0, near = near_view();
+    box b = last_box;
+    SDL_Rect clip = {(int)b.x, (int)b.y, (int)b.w, (int)b.h};
+    if (near) SDL_RenderSetClipRect(ui.r, &clip);   /* near: the tiles kept inside the room */
     for (int k = 0; k < G.n;) {                 /* a layer at a time: its shadows on the layer under it, then it */
         int z = G.pos[order[k]].z, e = k;
         while (e < G.n && G.pos[order[e]].z == z) e++;
@@ -294,8 +350,24 @@ static void draw(void)
             tile_at(x - e * 0.3f * fw, y - e * 0.6f * fh, k ? anim.fb : anim.fa, 255, (Uint8)(255 * (1 - e)));
         }
     }
+    if (near) {
+        SDL_RenderSetClipRect(ui.r, NULL);
+        float t = fmaxf(2, floorf(0.06f * ui.unit));   /* where the view is: a thin bar under the layout */
+        float yb = fminf(oy + ly0 + lh + 0.3f * ui.unit, b.y + b.h - t);
+        if (lw > b.w) {
+            ui_fill(b.x, yb, b.w, t, 246, 238, 220, 60);
+            ui_fill(b.x + b.w * pan_x / lw, yb, b.w * b.w / lw, t, 246, 238, 220, 190);
+        }
+        if (lh > b.h) ui_fill(b.x + b.w - t, b.y + b.h * pan_y / lh, t, b.h * b.h / lh, 246, 238, 220, 190);
+    }
     float r;
-    if (big_shuffle(&x, &y, &r)) button(x, y, r, 1, !hint.on || blink);
+    int stuck = big_shuffle(&x, &y, &r), lit = !hint.on || blink;
+    if (stuck)
+        ui_button_paint(x, y, 2 * r, paint_shuffle, 0, 0.65f, (lit ? UI_ON : 0) | UI_TINT);
+    int play = status() == GS_PLAY;             /* the shell's tools: where it put them */
+    ui_tool(T_HINT, ICON_HINT, play ? 0 : UI_DIM);
+    ui_tool_paint(T_SHUFFLE, paint_shuffle, 0, 0.65f, UI_TINT | (stuck ? (lit ? UI_ON : 0) : UI_DIM));
+    if (zoomable) ui_tool_paint(T_ZOOM, paint_glass, !zoom, 1, 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -304,6 +376,8 @@ static void draw(void)
 static int tile_under(float x, float y, int *hit)
 {
     *hit = 0;
+    box b = last_box;
+    if (near_view() && (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h)) return -1;   /* out of view */
     for (int j = G.n - 1; j >= 0; j--) {        /* the top tile there */
         int i = order[j];
         if (G.face[i] == MJ_NONE) continue;
@@ -327,11 +401,8 @@ static int tile_under(float x, float y, int *hit)
     return best;
 }
 
-static void press(float x, float y)
+static void tap(float x, float y)               /* a tap on the layout */
 {
-    if (status() != GS_PLAY) return;
-    float bx, by, br;
-    if (big_shuffle(&bx, &by, &br) && hypotf(x - bx, y - by) < 1.1f * br) { shuffle(); return; }
     anim.on = 0;
     int hit, t = tile_under(x, y, &hit);
     if (t < 0) {
@@ -347,65 +418,96 @@ static void press(float x, float y)
     ui_animate();
 }
 
-static void motion(float x, float y) { (void)x; (void)y; }
-static void release(float x, float y) { (void)x; (void)y; }
-
-/* ---- the bar: the tiles left, the hint, and when stuck the shuffle ---------------------------------------------- */
-static void bar_button(int which, float *x, float *y, float *r)   /* 0 the hint (at the right end), 1 the shuffle */
+/* near: the middle of a tile in view (else the view brought to it) */
+static void show_tile(int i)
 {
-    *r = 0.42f * ui.unit;
-    *x = barbox.x + barbox.w - *r - 0.05f * ui.unit - which * (2 * *r + 0.25f * ui.unit);
-    *y = barbox.y + barbox.h / 2;
+    float x, y;
+    place_xy(i, &x, &y);
+    box b = last_box;
+    if (x < b.x || y < b.y || x + fw + th > b.x + b.w || y + fh + th > b.y + b.h)
+        centre_view(x - ox + fw / 2.0f, y - oy + fh / 2.0f);
 }
 
-/* the shuffle in the bar: when no pair is left, and the bar has room for it beside the count (a narrow bar, in
- * landscape: only the big one in the middle of the board) */
-static int bar_shuffle(void)
+static void use_hint(void)
 {
-    float x, y, r;
-    bar_button(1, &x, &y, &r);
-    return mj_status(&G) == MJ_STUCK && x - r >= barbox.x + 1.75f * ui.unit;
+    anim.on = 0;
+    hint.on = 1;
+    hint.t0 = ui_ms();
+    hint.shuffle = !mj_hint(&G, &hint.a, &hint.b);
+    sel = -1;
+    if (!hint.shuffle && near_view()) {         /* the pair brought into view (both, when they fit) */
+        float ax, ay, bx, by;
+        place_xy(hint.a, &ax, &ay);
+        place_xy(hint.b, &bx, &by);
+        if (fabsf(ax - bx) + fw < last_box.w && fabsf(ay - by) + fh < last_box.h)
+            centre_view((ax + bx) / 2 - ox + fw / 2.0f, (ay + by) / 2 - oy + fh / 2.0f);
+        else show_tile(hint.a);
+    }
+    ui_sound(hint.shuffle ? SND_DENY : SND_TAP);
+    ui_animate();
 }
 
+static void use_tool(int t)
+{
+    if (t == T_ZOOM) {                          /* near or whole: the tile picked (or the view's middle) kept */
+        float mx = (last_box.x + last_box.w / 2 - ox) / fw, my = (last_box.y + last_box.h / 2 - oy) / fw;
+        zoom = !zoom;
+        layout(last_box);
+        if (sel >= 0) show_tile(sel);
+        else centre_view(mx * fw, my * fw);
+        ui_sound(SND_TAP);
+        ui_animate();
+        return;
+    }
+    if (status() != GS_PLAY) { ui_sound(SND_DENY); return; }
+    if (t == T_HINT) use_hint();
+    else if (mj_status(&G) == MJ_STUCK && !anim.on) shuffle();
+    else ui_sound(SND_DENY);                    /* the shuffle: only when no pair is left */
+}
+
+static void press(float x, float y)
+{
+    ptr.on = 0;
+    int t = ui_tool_hit(x, y);
+    if (t >= 0) { use_tool(t); return; }
+    if (status() != GS_PLAY) return;
+    float bx, by, br;
+    if (big_shuffle(&bx, &by, &br) && hypotf(x - bx, y - by) < 1.1f * br) { shuffle(); return; }
+    if (!near_view()) { tap(x, y); return; }
+    ptr.on = 1;                                 /* near: a tap, or the view dragged (decided as the finger moves) */
+    ptr.panning = 0;
+    ptr.x0 = x;
+    ptr.y0 = y;
+    ptr.px = pan_x;
+    ptr.py = pan_y;
+}
+
+static void motion(float x, float y)
+{
+    if (!ptr.on) return;
+    if (!ptr.panning && hypotf(x - ptr.x0, y - ptr.y0) > 0.25f * ui.unit) ptr.panning = 1;
+    if (!ptr.panning) return;
+    pan_x = ptr.px - (x - ptr.x0);
+    pan_y = ptr.py - (y - ptr.y0);
+    place_view();
+    ui_animate();
+}
+
+static void release(float x, float y)
+{
+    (void)x;
+    (void)y;
+    if (!ptr.on) return;
+    ptr.on = 0;
+    if (!ptr.panning) tap(ptr.x0, ptr.y0);
+}
+
+/* ---- the bar: the tiles left ------------------------------------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
     bar_textures();
-    barbox = b;
     ui_bar_count(b, t_small, G.tiles);
-    if (status() != GS_PLAY) return;
-    float x, y, r;
-    int blink = hint.on && (ui_ms() - hint.t0) / 300 % 2 == 0;
-    bar_button(0, &x, &y, &r);
-    button(x, y, r, 0, 0);
-    if (bar_shuffle()) {
-        bar_button(1, &x, &y, &r);
-        button(x, y, r, 1, !hint.on || blink);
-    }
-}
-
-static int bar_press(int player, float x, float y)
-{
-    (void)player;
-    if (!barbox.w || status() != GS_PLAY) return 0;
-    float bx, by, r;
-    bar_button(0, &bx, &by, &r);
-    if (hypotf(x - bx, y - by) < 1.1f * r) {    /* the hint: a pair, or (none left) the shuffle */
-        anim.on = 0;
-        hint.on = 1;
-        hint.t0 = ui_ms();
-        hint.shuffle = !mj_hint(&G, &hint.a, &hint.b);
-        sel = -1;
-        ui_sound(hint.shuffle ? SND_DENY : SND_TAP);
-        ui_animate();
-        return 1;
-    }
-    bar_button(1, &bx, &by, &r);
-    if (bar_shuffle() && hypotf(x - bx, y - by) < 1.1f * r) {
-        shuffle();
-        return 1;
-    }
-    return 0;
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */
@@ -456,6 +558,6 @@ static const game mahjong_game = {
     .id = "mahjong", .order = 310, .variants = MJ_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .players = 1u << 1,
+    .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(mahjong_game)
