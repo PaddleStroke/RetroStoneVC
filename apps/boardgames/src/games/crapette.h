@@ -94,4 +94,8 @@ int  crap_left(const cpos *p, int player);      /* cards still in their crapette
 int  crap_auto(const cpos *p);                  /* a plain action (the "." of the notation) */
 int  crap_script(cgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the screen's game (crapette.c), for its bot (crapette_bot.c) */
+const cgame *crapette_live(void);               /* read-only: the bot copies it at entry */
+int crapette_show(const char *move);            /* main thread: one action of the notation, as a tap plays it */
+
 #endif

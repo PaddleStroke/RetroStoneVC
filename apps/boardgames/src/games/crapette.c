@@ -322,6 +322,18 @@ static int script(const char *s)
 static int can_pass(void) { return !busy() && crap_legal(&G.pos, CA_PASS); }
 static void pass(void) { act(CA_PASS); }
 
+/* the bot (crapette_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const cgame *crapette_live(void) { return &G; }
+
+int crapette_show(const char *move)
+{
+    static cgame t;
+    t = G;
+    if (!move[0] || strchr(".#", move[0]) || !crap_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static int fits_sel(int place)                  /* the raised card may go there */
 {
