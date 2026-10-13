@@ -121,7 +121,7 @@ int main(int argc, char **argv)
     if (st_fails) return 1;
 
     static const sp_pair P[] = {
-        {AI_EASY, SP_RANDOM, 50, 65},           /* the common victories end in many draws (100 quiet moves) */
+        {AI_EASY, SP_RANDOM, 50, 60},           /* take 12 ends in many draws (100 quiet moves); no losses */
         {AI_MEDIUM, AI_EASY, 40, 52},
         {AI_HARD, AI_EASY, 40, 55},
         {AI_HARD, AI_MEDIUM, 40, 50},
