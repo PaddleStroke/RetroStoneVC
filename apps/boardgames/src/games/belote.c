@@ -273,6 +273,17 @@ static int script(const char *s)
     return ok;
 }
 
+const bgame *belote_live(void) { return &G; }
+
+int belote_show(const char *move)
+{
+    static bgame t;
+    t = G;
+    if (!bel_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int can_pass(void)
 {
     const bpos *p = &G.pos;

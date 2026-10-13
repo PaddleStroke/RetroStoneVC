@@ -103,4 +103,8 @@ int  jas_winners(const jspos *p);               /* JP_OVER: the winning team's p
 int  jas_auto(const jspos *p);                  /* a plain action (the "." of the notation) */
 int  jas_script(jsgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the bot (jass_bot.c) and the screen (jass.c) */
+const jsgame *jass_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int jass_show(const char *move);                /* main thread: plays one action of the notation as a tap does */
+
 #endif

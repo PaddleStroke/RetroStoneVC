@@ -112,6 +112,17 @@ static int script(const char *s)
     return ok;
 }
 
+const kvgame *klaverjas_live(void) { return &G; }
+
+int klaverjas_show(const char *move)
+{
+    static kvgame t;
+    t = G;
+    if (!kvj_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int busy(void) { return ct_busy(&U.A); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */

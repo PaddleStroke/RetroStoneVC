@@ -119,6 +119,17 @@ static int script(const char *s)
     return ok;
 }
 
+const jsgame *jass_live(void) { return &G; }
+
+int jass_show(const char *move)
+{
+    static jsgame t;
+    t = G;
+    if (!jas_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int busy(void) { return ct_busy(&U.A); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */

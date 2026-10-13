@@ -127,4 +127,8 @@ int  bel_winner_team(const bpos *p);            /* BP_OVER: 0 or 1; else -1 */
 int  bel_auto(const bpos *p);                   /* a plain action (the "." of the notation) */
 int  bel_script(bgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (belote_bot.c) and the screen (belote.c) */
+const bgame *belote_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int belote_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+
 #endif

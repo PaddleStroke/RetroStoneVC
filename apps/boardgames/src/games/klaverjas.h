@@ -83,4 +83,8 @@ int  kvj_winners(const kvpos *p);               /* KP_OVER: the winning players 
 int  kvj_auto(const kvpos *p);                  /* a plain action (the "." of the notation) */
 int  kvj_script(kvgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the bot (klaverjas_bot.c) and the screen (klaverjas.c) */
+const kvgame *klaverjas_live(void);             /* the game on the screen, read-only: the bot copies it at entry */
+int klaverjas_show(const char *move);           /* main thread: plays one action of the notation as a tap does */
+
 #endif
