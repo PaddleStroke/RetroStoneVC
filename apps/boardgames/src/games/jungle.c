@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "games/jungle.h"
+#include "games/trays.h"
 #include "shell.h"
 #include "text.h"
 
@@ -28,6 +29,7 @@ static int sq, fr, made = -1, made_small = -1;
 static float bx, by;                            /* the squares' top left corner (inside the frame) */
 static SDL_Texture *t_piece[2][9], *t_small[2][9], *t_board;
 static int sel = -1;
+static trays T;                                 /* the animals each player took, by their side */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; jgmove m; Uint32 t0; } anim;
 
@@ -444,13 +446,16 @@ static void paint_board(int f0, int r0, int nx, int ny, int s, int fr0, uint8_t 
     }
 }
 
+/* the board as big as the room lets it be (the room's width in portrait: taller than the square); the animals each
+ * player took in a tray by their side, in the room it leaves (above and below it, or beside it) */
 static void layout(box b)
 {
     sq = (int)floorf(fminf(b.h / (JG_H + 2 * FRAME), b.w / (JG_W + 2 * FRAME)));
     fr = (int)(sq * FRAME);
     int w = JG_W * sq + 2 * fr, h = JG_H * sq + 2 * fr;
-    bx = floorf(b.x + (b.w - w) / 2) + fr;
-    by = floorf(b.y + (b.h - h) / 2) + fr;
+    trays_place(&T, b, (float)w, (float)h, 8, (float)sq, 0.7f * ui.unit, &bx, &by);
+    bx += fr;
+    by += fr;
     if (made != sq) {
         made = sq;
         ui_free(&t_board);
@@ -509,11 +514,42 @@ static void mark_square(int s, void (*mark)(float, float, float, float))
     mark(x - sq / 2.0f, y - sq / 2.0f, (float)sq, (float)sq);
 }
 
+/* the animals the player took (gone[rank] 1: the other player's animal is off the board); their number */
+static int taken(int player, int gone[9])
+{
+    const jgpos *p = jg_pos(&G);
+    int c = !player, n = 0;
+    for (int r = 0; r <= JG_ELEPHANT; r++) gone[r] = r >= JG_RAT;
+    for (int s = 0; s < JG_SQUARES; s++)
+        if (p->sq[s] && JG_OWNER(p->sq[s]) == c) gone[JG_RANK(p->sq[s])] = 0;
+    for (int r = JG_RAT; r <= JG_ELEPHANT; r++) n += gone[r];
+    return n;
+}
+
+/* the animals each player took, in the tray by their side, the strongest first, turned to face them; the one just
+ * taken joins them once it has faded from the board */
+static void draw_trays(void)
+{
+    if (!trays_on(&T)) return;
+    for (int c = 0; c < 2; c++) {
+        int gone[9], i = 0;
+        taken(c, gone);
+        if (anim.on && anim.m.taken && JG_OWNER(anim.m.taken) != c) gone[JG_RANK(anim.m.taken)] = 0;
+        for (int r = JG_ELEPHANT; r >= JG_RAT; r--) {
+            if (!gone[r]) continue;
+            float x, y;
+            trays_slot(&T, c, i++, &x, &y);
+            ui_flat_at(t_piece[!c][r], x, y, DISC * T.pitch, 1, ui_upside(c));
+        }
+    }
+}
+
 static void draw(void)
 {
     const jgpos *p = jg_pos(&G);
     float d = DISC * sq, x, y;
     ui_put(t_board, bx - fr, by - fr, JG_W * sq + 2.0f * fr, JG_H * sq + 2.0f * fr);
+    draw_trays();
     if (G.ply) {
         mark_square(G.move[G.ply - 1].from, ui_mark_last);
         mark_square(G.move[G.ply - 1].to, ui_mark_last);
@@ -602,15 +638,11 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* the animals a player took, the strongest first */
+/* the animals a player took, the strongest first (in the bar when there are no trays) */
 static void bar(int player, box b)
 {
-    const jgpos *p = jg_pos(&G);
-    int c = !player, gone[9] = {0}, n = 0;
-    for (int r = JG_RAT; r <= JG_ELEPHANT; r++) gone[r] = 1;
-    for (int s = 0; s < JG_SQUARES; s++)
-        if (p->sq[s] && JG_OWNER(p->sq[s]) == c) gone[JG_RANK(p->sq[s])] = 0;
-    for (int r = JG_RAT; r <= JG_ELEPHANT; r++) n += gone[r];
+    if (trays_on(&T)) return;
+    int c = !player, gone[9], n = taken(player, gone);
     float sz = 0.6f * ui.unit, x = b.x, cy = b.y + b.h / 2;
     float step = n > 1 ? fminf(0.66f * ui.unit, (b.w - sz) / (n - 1)) : 0;
     for (int r = JG_ELEPHANT; r >= JG_RAT; r--) {
@@ -647,7 +679,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last move to arrive */
 
 static const game jungle_game = {
-    .id = "jungle", .order = 190, .variants = 1,
+    .id = "jungle", .order = 190, .variants = 1, .fill = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
