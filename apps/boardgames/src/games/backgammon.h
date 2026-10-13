@@ -91,4 +91,13 @@ int bg_status(const bgame *g);                  /* BG_PLAY, BG_WIN*, BG_DRAW */
 int bg_moves(bgame *g, const char *s);          /* plays the notation; 0: something not legal */
 static inline const bpos *bg_pos(const bgame *g) { return &g->pos[g->n]; }
 
+/* the bot (backgammon_bot.c, bots.h) */
+int bg_singles(const bpos *p, int di, bmove *out);   /* die di's moves, before the rule of the most dice */
+void bg_apply(bpos *p, bmove m);                /* a move on the position alone (the turn does not pass) */
+int bg_settle(bpos *p);                         /* after a move: 1, the game over (the winner in side, a draw: tie) */
+const bgame *backgammon_live(void);             /* the game on the screen, read-only: the bot copies its position */
+/* main thread: plays a move as a tap does (animated): "roll" throws the dice (the game's own), "13/8" (or "bar/22",
+ * "6/off", a hit marked "13/8*" or not) moves one checker by one die; 0: not now, or not legal */
+int backgammon_show(const char *move);
+
 #endif

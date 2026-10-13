@@ -159,6 +159,40 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (backgammon_bot.c) ---------------------------------------------------------------------------------- */
+static int busy(void);
+
+const bgame *backgammon_live(void) { return &G; }
+
+static int place_of(const char **s)             /* "bar", "off" or a point 1..24; -1: none */
+{
+    if (!strncmp(*s, "bar", 3)) { *s += 3; return BG_BAR; }
+    if (!strncmp(*s, "off", 3)) { *s += 3; return BG_OFF; }
+    char *end;
+    long v = strtol(*s, &end, 10);
+    if (end == *s || v < 1 || v > 24) return -1;
+    *s = end;
+    return (int)v;
+}
+
+int backgammon_show(const char *move)
+{
+    const bpos *p = bg_pos(&G);
+    if (busy() || status() != GS_PLAY) return 0;
+    if (!strcmp(move, "roll")) {
+        if (p->phase != BG_OPENING && p->phase != BG_THROW) return 0;
+        throw_dice();
+        return 1;
+    }
+    const char *s = move;
+    int from = place_of(&s), to = *s == '/' ? (s++, place_of(&s)) : -1;
+    if (*s == '*') s++;
+    bmove m;
+    if (from < 0 || to < 0 || *s || !bg_find(p, from, to, &m)) return 0;
+    play(m, 1);
+    return 1;
+}
+
 /* ---- where things are -------------------------------------------------------------------------------------------- */
 static int on_top(const geo *g, int player) { return player ^ g->flip; }
 

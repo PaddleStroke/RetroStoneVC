@@ -309,6 +309,20 @@ static int mother_end(bpos *p)
     return 0;
 }
 
+/* ---- for the bot (backgammon_bot.c): one die's moves before the rule of the most dice, a move on the position
+ * alone, the end it may make --------------------------------------------------------------------------------------- */
+int bg_singles(const bpos *p, int di, bmove *out) { return singles(p, di, out, 0); }
+void bg_apply(bpos *p, bmove m) { apply(p, m); }
+
+int bg_settle(bpos *p)
+{
+    if (p->n[(int)p->side][BG_OFF] == 15 || (p->variant == BG_PLAKOTO && mother_end(p))) {
+        p->phase = BG_OVER;
+        return 1;
+    }
+    return 0;
+}
+
 int bg_play(bgame *g, bmove m)
 {
     bmove l[BG_MAXMOVES];
@@ -321,9 +335,8 @@ int bg_play(bgame *g, bmove m)
     bpos *p = push(g, BG_EV_MOVE, bg_pos(g)->side, m);
     apply(p, m);
     p->passed = -1;
-    if (p->n[(int)p->side][BG_OFF] == 15) p->phase = BG_OVER;
-    else if (p->variant == BG_PLAKOTO && mother_end(p)) p->phase = BG_OVER;
-    else if (!most(p)) {                        /* the dice used, or the rest cannot be: the other player's turn */
+    if (bg_settle(p)) {
+    } else if (!most(p)) {                        /* the dice used, or the rest cannot be: the other player's turn */
         p->side = !p->side;
         p->phase = BG_THROW;
     }
