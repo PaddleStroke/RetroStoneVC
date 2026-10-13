@@ -41,8 +41,11 @@ static struct { int cell; Uint32 t0; } hint = {-1, 0};
 static struct { int on; Uint32 t0; } win;
 
 static box last_box;
-static float bx, by, side, gx, gy, tray_y, tray_h;
-static int fr, cs, made_key = -1, made_small = -1;
+static float bx, by, bw, bh, gx, gy;          /* the board's picture on the screen; the grid's top left */
+static float tx, ty, tw, th;                    /* the tray (tw 0: none), under the grid or beside it */
+static int tray_side;
+static long long made_board = -1;
+static int fr, cs, made_small = -1;
 static SDL_Texture *t_board, *t_plate, *t_glass, *t_base, *t_rivet, *t_lamp, *t_gem[2], *t_bomb, *t_small;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -153,26 +156,28 @@ static void paint_bomb(uint8_t *o, int s)
     pzk_ball(o, s, s, 0.4f * S, 0.43f * S, 0.06f * S, white, 0.5f, 0);
 }
 
-/* the board: the plank, the cells ruled, the blocks raised in dark wood, the tray's groove */
-static void paint_board(uint8_t *o, int S, int fr, const mr_game *g, float ox, float oy, int q, float ty, float th)
+/* the board (W x H): the plank, the cells ruled from (ox, oy), the blocks raised in dark wood, the tray's groove (at
+ * (px, py), pw x ph; pw 0: none) */
+static void paint_board(uint8_t *o, int W, int H, int fr, const mr_game *g, float ox, float oy, int q, float px,
+                        float py, float pw, float ph)
 {
     int n = g->n;
-    art_board_n(1, 1, S - 2 * fr, fr, 0, o);
+    art_plank(W - 2 * fr, H - 2 * fr, fr, o);
     float gw = (float)n * q;
     for (int i = 0; i <= n; i++) {
         float t = i == 0 || i == n ? fmaxf(2, 0.05f * q) : fmaxf(1, 0.022f * q), a = i == 0 || i == n ? 0.8f : 0.4f;
         float p = i * q, lo = p - t / 2, hi = p + t / 2;
         if (i == 0) lo = 0, hi = t;
         if (i == n) lo = gw - t, hi = gw;
-        puz_ink_rect(o, S, S, ox + lo, oy, ox + hi, oy + gw, PUZ_INK, a);
-        puz_ink_rect(o, S, S, ox, oy + lo, ox + gw, oy + hi, PUZ_INK, a);
+        puz_ink_rect(o, W, H, ox + lo, oy, ox + hi, oy + gw, PUZ_INK, a);
+        puz_ink_rect(o, W, H, ox, oy + lo, ox + gw, oy + hi, PUZ_INK, a);
     }
     for (int c = 0; c < n * n; c++) {
         if (g->kind[c] != MR_WALL) continue;
         float x0 = ox + c % n * q + 0.06f * q, y0 = oy + c / n * q + 0.06f * q, w = 0.88f * q, b = fmaxf(2, 0.1f * q);
         for (int y = (int)y0; y < (int)(y0 + w); y++)
             for (int x = (int)x0; x < (int)(x0 + w); x++) {
-                uint8_t *p = o + 4 * (y * S + x);
+                uint8_t *p = o + 4 * (y * W + x);
                 float ex = x + 0.5f - x0, ey = y + 0.5f - y0, k = 0.5f;
                 if (ex < b && ex < ey && ex < w - ey) k = 0.78f;        /* lit from the left and the top */
                 else if (ey < b && ey < w - ex) k = 0.82f;
@@ -181,10 +186,9 @@ static void paint_board(uint8_t *o, int S, int fr, const mr_game *g, float ox, f
                 for (int i = 0; i < 3; i++) p[i] = (uint8_t)(BLOCK[i] * k * 2.0f * p[i] / 200.0f);
             }
     }
-    if (th > 0) {                               /* the tray: a groove, a slot for each loose mirror */
+    if (pw > 0) {                               /* the tray: a groove, a slot for each loose mirror */
         const float tone[3] = {0.66f, 0.62f, 0.6f};
-        float tw = fminf(gw, (g->loose + 0.6f) * 1.35f * q), tx = ox + (gw - tw) / 2;
-        pzk_inlay(o, S, S, tx, ty, tw, th, th * 0.3f, tone, fmaxf(1, 0.04f * q));
+        pzk_inlay(o, W, H, px, py, pw, ph, fminf(pw, ph) * 0.3f, tone, fmaxf(1, 0.04f * q));
     }
 }
 
@@ -234,30 +238,41 @@ static void paint_sq(uint8_t *o, int w, int h, int kind)
     }
 }
 
+/* the board in all the room (game.fill): the grid, and the tray under it or beside it, whichever gives bigger cells */
 static void layout(box b)
 {
     last_box = b;
-    float S = floorf(fminf(b.w, b.h));
-    side = S;
-    bx = floorf(b.x + (b.w - S) / 2);
-    by = floorf(b.y + (b.h - S) / 2);
-    fr = (int)(S * FRAME);
-    int n = G.n ? G.n : 5;
-    float inner = S - 2 * fr;
-    cs = (int)(G.loose ? inner / (n + 1.25f) : inner * 0.97f / n);
-    tray_h = G.loose ? floorf(0.95f * cs) : 0;
-    float total = n * cs + (G.loose ? 0.3f * cs + tray_h : 0);
-    float ox = floorf((S - n * cs) / 2), oy = floorf(fr + (inner - total) / 2);
+    int n = G.n ? G.n : 5, L = G.loose > 0;
+    const float M = 0.08f, T = 1.25f;          /* the plank's margin round the grid, the tray's room (cells) */
+    fr = (int)(fminf(b.w, b.h) * FRAME);
+    float aw = b.w - 2 * fr, ah = b.h - 2 * fr;
+    float under = fminf(aw / (n + 2 * M), ah / (n + 2 * M + T * L));
+    float beside = fminf(aw / (n + 2 * M + T * L), ah / (n + 2 * M));
+    tray_side = L && beside > under;
+    cs = (int)(tray_side ? beside : under);
+    int W = (int)ceilf((n + 2 * M + (tray_side ? T : 0)) * cs) + 2 * fr;
+    int H = (int)ceilf((n + 2 * M + (L && !tray_side ? T : 0)) * cs) + 2 * fr;
+    bw = (float)W;
+    bh = (float)H;
+    bx = floorf(b.x + (b.w - W) / 2);
+    by = floorf(b.y + (b.h - H) / 2);
+    float ox = floorf(fr + M * cs), oy = ox;
     gx = bx + ox;
     gy = by + oy;
-    tray_y = gy + n * cs + 0.3f * cs;
-    int key = ((int)S * 64 + serial % 64) * 8 + n;
-    if (made_key != key) {
-        made_key = key;
-        int w = (int)S;
+    tw = th = 0;
+    if (L) {
+        float len = fminf((float)n * cs, (G.loose + 0.6f) * 1.35f * cs), thick = floorf(0.95f * cs);
+        tw = tray_side ? thick : len;
+        th = tray_side ? len : thick;
+        tx = tray_side ? gx + (n + 0.3f) * cs : gx + (n * cs - len) / 2;
+        ty = tray_side ? gy + (n * cs - len) / 2 : gy + (n + 0.3f) * cs;
+    }
+    long long key = (((long long)W * 8192 + H) * 64 + serial % 64) * 16 + n;
+    if (made_board != key) {
+        made_board = key;
         ui_free(&t_board);
-        paint_board(ui_buf(w, w), w, fr, &G, ox, oy, cs, tray_y - by, tray_h);
-        t_board = ui_tex(w, w, ui_buf(w, w));
+        paint_board(ui_buf(W, H), W, H, fr, &G, ox, oy, cs, tx - bx, ty - by, tw, th);
+        t_board = ui_tex(W, H, ui_buf(W, H));
         int pw = (int)(1.12f * cs), ph = (int)fmaxf(4, 0.2f * cs);
         ui_free(&t_plate);
         ui_free(&t_glass);
@@ -376,14 +391,15 @@ static int cell_at(float x, float y)
 
 static int in_tray(float x, float y)
 {
-    return G.loose && y >= tray_y - 0.15f * cs && y <= tray_y + tray_h + 0.3f * cs && x >= gx && x <= gx + G.n * cs;
+    float m = 0.2f * cs;
+    return G.loose && tw > 0 && x >= tx - m && x <= tx + tw + m && y >= ty - m && y <= ty + th + m;
 }
 
-static void slot_mid(int i, float *x, float *y)  /* the tray's slot i */
+static void slot_mid(int i, float *x, float *y)  /* the tray's slot i, along the tray */
 {
-    float pitch = 1.35f * cs;
-    *x = gx + G.n * cs / 2.0f + (i - (G.loose - 1) / 2.0f) * pitch;
-    *y = tray_y + tray_h / 2;
+    float along = (i - (G.loose - 1) / 2.0f) * 1.35f * cs;
+    *x = tx + tw / 2 + (tray_side ? 0 : along);
+    *y = ty + th / 2 + (tray_side ? along : 0);
 }
 
 static void draw_plate(SDL_Texture *t, float cx, float cy, float deg, float scale, Uint8 a)
@@ -446,10 +462,10 @@ static void draw_beam(void)
 
 static void draw(void)
 {
-    if (made_key < 0) layout(last_box);
+    if (made_board < 0) layout(last_box);
     Uint32 now = ui_ms();
     int n = G.n;
-    ui_put(t_board, bx, by, side, side);
+    ui_put(t_board, bx, by, bw, bh);
     float x, y, wt = win.on ? (float)(now - win.t0) : -1;
     for (int c = 0; c < n * n; c++) {           /* the pivots' bases under the beam */
         if (G.kind[c] != MR_PIVOT) continue;
@@ -505,7 +521,7 @@ static void draw(void)
         int left = mr_loose_left(&G) - (ptr.on && ptr.moved && ptr.from < 0);
         for (int i = 0; i < left; i++) {
             slot_mid(i, &x, &y);
-            draw_plate(t_plate, x, y, 0, 0.95f, 255);
+            draw_plate(t_plate, x, y, tray_side ? 90 : 0, 0.95f, 255);
         }
     }
     if (wt >= 0) {                              /* the win: the light along the beam, then the gems */
@@ -643,7 +659,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     float ox = (S - n * q) / 2.0f, oy = ox;
     uint8_t *b = calloc((size_t)S * S, 4);
     if (!b) return;
-    paint_board(b, S, f, &T, ox, oy, q, 0, 0);
+    paint_board(b, S, S, f, &T, ox, oy, q, 0, 0, 0, 0);
     static const int DX[4] = {1, 0, -1, 0}, DY[4] = {0, -1, 0, 1};
     const uint8_t glow[3] = {230, 80, 30}, core[3] = {255, 236, 170};
     float *m = calloc((size_t)S * S, sizeof *m);

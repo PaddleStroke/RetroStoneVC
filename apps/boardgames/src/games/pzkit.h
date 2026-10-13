@@ -24,10 +24,11 @@ static const uint8_t PZK_WALNUT[3] = {108, 72, 47}, PZK_DARK[3] = {50, 33, 22}, 
 
 /* ---- the stars: one rule for the family -------------------------------------------------------------------------
  * A solved puzzle's stars: `base` from its own rule (the moves against par: ui_par_stars; 3 for the puzzles rated by
- * their help alone), then no more than the help allows: no hint and no mistake keeps 3, up to two of them 2, more 1. */
+ * their help alone), then no more than the help allows (the shell's ui_logic_stars: no hint and no mistake 3, up to
+ * two of them 2, more 1). */
 static inline int pzk_stars(int base, int hints, int mistakes)
 {
-    int help = hints + mistakes, cap = help == 0 ? 3 : help <= 2 ? 2 : 1;
+    int cap = ui_logic_stars(hints, mistakes);
     return base < cap ? base : cap;
 }
 

@@ -37,7 +37,8 @@ static struct { int v; float fx, fy; Uint32 t0; } slide = {-1, 0, 0, 0};
 static struct { int on, from; Uint32 t0; } win;
 
 static box last_box;
-static float bx, by, side, px0, py0, pw, dot;   /* the field: its corner, its side; a pin's size */
+static float bx, by, bw, bh, px0, py0, pwx, pwy, dot;   /* the field: its corner, its size; the pins' room (a place
+                                                         * 0..1 across and down it); a pin's size */
 static int fr, made_key = -1, made_small = -1, made_dot = -1;
 static SDL_Texture *t_board, *t_pin, *t_small, *t_knot;
 
@@ -85,26 +86,30 @@ static void paint_knot(uint8_t *o, int s)
     pzk_ball(o, s, s, 0.85f * S, 0.25f * S, 0.1f * S, BRASS, 1, 0.6f);
 }
 
+/* the field stretched over all the room (game.fill): a place is a part of its width and of its height (stretching
+ * the board never makes or undoes a crossing) */
 static void layout(box b)
 {
     last_box = b;
-    float S = floorf(fminf(b.w, b.h));
-    side = S;
-    bx = floorf(b.x + (b.w - S) / 2);
-    by = floorf(b.y + (b.h - S) / 2);
-    fr = (int)(S * FRAME);
+    int W = (int)floorf(b.w), H = (int)floorf(b.h);
+    bw = (float)W;
+    bh = (float)H;
+    bx = floorf(b.x + (b.w - W) / 2);
+    by = floorf(b.y + (b.h - H) / 2);
+    fr = (int)(fminf(bw, bh) * FRAME);
     int nv = G.nv ? G.nv : 10;
-    dot = floorf(fminf(0.52f * ui.unit, 0.3f * (S - 2 * fr) / sqrtf((float)nv)));
-    pw = S - 2 * fr - dot;
+    float iw = bw - 2 * fr, ih = bh - 2 * fr;
+    dot = floorf(fminf(fminf(0.52f * ui.unit, 0.3f * sqrtf(iw * ih / nv)), 0.42f * fminf(iw, ih) / sqrtf((float)nv)));
+    pwx = iw - dot;
+    pwy = ih - dot;
     px0 = bx + fr + dot / 2;
     py0 = by + fr + dot / 2;
-    int key = (int)S;
+    int key = W * 8192 + H;
     if (made_key != key) {
         made_key = key;
-        int w = (int)S;
         ui_free(&t_board);
-        art_board_n(1, 1, w - 2 * fr, fr, 0, ui_buf(w, w));
-        t_board = ui_tex(w, w, ui_buf(w, w));
+        art_plank(W - 2 * fr, H - 2 * fr, fr, ui_buf(W, H));
+        t_board = ui_tex(W, H, ui_buf(W, H));
     }
     if (made_dot != (int)dot) {
         made_dot = (int)dot;
@@ -199,8 +204,8 @@ static void at(int v, Uint32 now, float *x, float *y)   /* a pin on the screen (
             ui_animate();
         }
     }
-    *x = px0 + fx * pw;
-    *y = py0 + fy * pw;
+    *x = px0 + fx * pwx;
+    *y = py0 + fy * pwy;
 }
 
 static void draw(void)
@@ -208,7 +213,7 @@ static void draw(void)
     if (made_key < 0) layout(last_box);
     Uint32 now = ui_ms();
     int solved = ut_solved(&G);
-    ui_put(t_board, bx, by, side, side);
+    ui_put(t_board, bx, by, bw, bh);
     float X[UT_MAXV], Y[UT_MAXV], cw = fmaxf(2.5f, 0.15f * dot);
     for (int v = 0; v < G.nv; v++) at(v, now, &X[v], &Y[v]);
     uint8_t crossed[UT_MAXE];
@@ -263,7 +268,7 @@ static int pin_at(float x, float y)
     int best = -1;
     float bd = fmaxf(0.75f * dot, 0.42f * ui.unit);
     for (int v = 0; v < G.nv; v++) {
-        float d = hypotf(px0 + G.x[v] * pw - x, py0 + G.y[v] * pw - y);
+        float d = hypotf(px0 + G.x[v] * pwx - x, py0 + G.y[v] * pwy - y);
         if (d < bd) bd = d, best = v;
     }
     return best;
@@ -288,8 +293,8 @@ static void press(float x, float y)
     ptr.v = v;
     ptr.ox = G.x[v];
     ptr.oy = G.y[v];
-    ptr.dx = px0 + G.x[v] * pw - x;
-    ptr.dy = py0 + G.y[v] * pw - y;
+    ptr.dx = px0 + G.x[v] * pwx - x;
+    ptr.dy = py0 + G.y[v] * pwy - y;
     ptr.x0 = x;
     ptr.y0 = y;
     ui_sound(SND_TAP);
@@ -301,8 +306,8 @@ static void motion(float x, float y)
     if (!ptr.on) return;
     if (!ptr.moved && hypotf(x - ptr.x0, y - ptr.y0) > 0.12f * dot) ptr.moved = 1;
     if (!ptr.moved) return;
-    G.x[ptr.v] = clampf((x + ptr.dx - px0) / pw, UT_MIN, 1 - UT_MIN);   /* live: the crossings as it goes */
-    G.y[ptr.v] = clampf((y + ptr.dy - py0) / pw, UT_MIN, 1 - UT_MIN);
+    G.x[ptr.v] = clampf((x + ptr.dx - px0) / pwx, UT_MIN, 1 - UT_MIN);   /* live: the crossings as it goes */
+    G.y[ptr.v] = clampf((y + ptr.dy - py0) / pwy, UT_MIN, 1 - UT_MIN);
     ui_animate();
 }
 
