@@ -970,13 +970,23 @@ static void draw_pick(void)
         tile_at(WT_BLANK | (i + 1), x0 + (i % cols + 0.5f) * cell, y0 + (i / cols + 0.5f) * cell, 0.86f * cell, 1, 1);
 }
 
+/* the game over: a row a player (the token, the tiles left on the rack, what they cost or gave, the score); in the
+ * shell's end card while it shows (ui_end_room, fitted to the room it gives), else on its own panel */
 static void draw_summary(void)
 {
     box b = T.b;
     float u = ui.unit, rh = fminf(1.05f * u, b.h * 0.8f / P->players), pw = fminf(b.w * 0.92f, 7.6f * u);
     float ph = rh * P->players + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    ct_panel(x0, y0, pw, ph, 255);
+    if (ui_over()) {                            /* the shell veils the table and draws the card round it */
+        box r = ui_end_room(pw, ph);
+        float k = fminf(1, fminf(r.w / pw, r.h / ph));
+        u *= k, rh *= k, pw *= k, ph *= k;
+        x0 = r.x + (r.w - pw) / 2;
+        y0 = r.y + (r.h - ph) / 2;
+    } else {
+        ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
+        ct_panel(x0, y0, pw, ph, 255);
+    }
     unsigned w = wt_winners(P);
     for (int q = 0; q < P->players; q++) {      /* a row each: the token, the tiles left (lost or gained), the score */
         float cy = y0 + 0.25f * u + (q + 0.5f) * rh, tx = x0 + 0.75f * u, d = fminf(0.72f * rh, 0.8f * u);

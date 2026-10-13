@@ -661,8 +661,9 @@ static void draw_middle(void)
     if (!deal_pending) ui_number(T.cx, T.cy + 1.15f * W, 0.6f * W, m4_live(p), 1);
 }
 
-/* the hand over: the winning hand set by set, its faan; each player's points and total */
-static void draw_summary(void)
+/* the hand over: the winning hand set by set, its faan; each player's points and total. in_card: the game over, the
+ * last hand's in the shell's end card (ui_end_room), fitted to the room it gives */
+static void draw_summary(int in_card)
 {
     const m4pos *p = &G.pos;
     const m4result *r = &p->result;
@@ -699,12 +700,31 @@ static void draw_summary(void)
                                                                   (p->meld[w][m].type == MS_CHOW ? i : 0);
         for (int i = 0; i < p->nflower[w]; i++) flat[n] = gaps, kind[n++] = (uint8_t)m4_kind(p->flower[w][i]);
     }
-    float tw = n ? fminf(0.6f * u, (pw - 0.5f * u) / (n + gaps * 0.3f + 0.2f)) : 0.5f * u;
-    float th = face_h((int)tw) + thick((int)tw), rh = fminf(0.78f * u, b.h * 0.08f);
-    float ph = 0.35f * u + th + 0.3f * u + 1.0f * u + M4_P * rh + 0.3f * u;
-    float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2, y = y0 + 0.35f * u + th / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
-    panel(x0, y0, pw, ph, 255);
+    float tw, th, rh, ph;
+    for (int pass = 0;; pass++) {               /* the sizes; in the card, smaller if its room is */
+        tw = n ? fminf(0.6f * u, (pw - 0.5f * u) / (n + gaps * 0.3f + 0.2f)) : 0.5f * u;
+        th = face_h((int)tw) + thick((int)tw);
+        rh = fminf(0.78f * u, b.h * 0.08f);
+        ph = 0.35f * u + th + 0.3f * u + 1.0f * u + M4_P * rh + 0.3f * u;
+        if (!in_card || pass) break;
+        box r = ui_end_room(pw, ph);
+        if (r.w <= 0) return;
+        float k = fminf(1, fminf(r.w / pw, r.h / ph));
+        if (k >= 1) break;
+        u *= k;
+        pw *= k;
+    }
+    float x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2, cx = T.cx;
+    if (in_card) {                              /* the shell veils the table and draws the card */
+        box r = ui_end_room(pw, ph);
+        x0 = r.x + (r.w - pw) / 2;
+        y0 = r.y + (r.h - ph) / 2;
+        cx = x0 + pw / 2;
+    } else {
+        ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 70);
+        panel(x0, y0, pw, ph, 255);
+    }
+    float y = y0 + 0.35f * u + th / 2;
     if (r->winner != M4_NONE) {
         float x = x0 + (pw - (n * (tw + 1) + gaps * 0.3f * tw)) / 2 + tw / 2;
         for (int i = 0; i < n; i++) {
@@ -713,18 +733,18 @@ static void draw_summary(void)
             draw_tile(kind[i], gx, y, fl ? 0.8f * tw : tw, 0, i == gold ? TD_GOLD | TD_RAISED : 0);
         }
         y += th / 2 + 0.3f * u + 0.5f * u;
-        gold_disc(T.cx, y, 0.95f * u);          /* the faan */
-        ui_number(T.cx, y, 0.5f * u, r->score.faan, 0);
+        gold_disc(cx, y, 0.95f * u);            /* the faan */
+        ui_number(cx, y, 0.5f * u, r->score.faan, 0);
         tok_d = (int)(0.62f * u);
-        ui_mark_gold(T.cx - 1.6f * u, y, 1.5f * u);
-        ui_put_c(ct_token(r->winner, tok_d), T.cx - 1.6f * u, y, 0.62f * u, 0.62f * u);
+        ui_mark_gold(cx - 1.6f * u, y, 1.5f * u);
+        ui_put_c(ct_token(r->winner, tok_d), cx - 1.6f * u, y, 0.62f * u, 0.62f * u);
         if (r->payer != M4_NONE) {              /* who paid most: their token, dimmed */
             SDL_Texture *pt = ct_token(r->payer, tok_d);
             SDL_SetTextureAlphaMod(pt, 150);
-            ui_put_c(pt, T.cx + 1.6f * u, y, 0.5f * u, 0.5f * u);
-        } else draw_tile(-1, T.cx + 1.6f * u, y, 0.36f * u, 0, TD_BACK);   /* self-drawn: from the wall */
+            ui_put_c(pt, cx + 1.6f * u, y, 0.5f * u, 0.5f * u);
+        } else draw_tile(-1, cx + 1.6f * u, y, 0.36f * u, 0, TD_BACK);     /* self-drawn: from the wall */
     } else {                                    /* a drawn hand: the wall used up */
-        for (int i = 0; i < 4; i++) draw_tile(-1, T.cx + (i - 1.5f) * 0.52f * u, y, 0.5f * u, 0, TD_BACK);
+        for (int i = 0; i < 4; i++) draw_tile(-1, cx + (i - 1.5f) * 0.52f * u, y, 0.5f * u, 0, TD_BACK);
         y += th / 2 + 0.3f * u + 0.5f * u;
     }
     y += 0.5f * u + 0.2f * u;
@@ -775,13 +795,14 @@ static void draw(void)
     int b = busy();
     make_offers();
     if (!b) draw_offers();
-    if (p->phase == MP_SCORE && !b) draw_summary();
+    if (p->phase == MP_SCORE && !b) draw_summary(0);
     /* the device's holder with nothing to claim: on at once (the next player: their draw), or after a moment */
     if (mine() && !b && (p->phase == MP_CLAIM || p->phase == MP_ROB) && !m4_options(p, NULL, NULL)) {
         int draws = p->phase == MP_CLAIM && p->k == p->nask - 1;
         if (draws || (int32_t)(ui_ms() - seen_t0) >= AUTO_MS) act(MA_PASS);
         else ui_animate();
     }
+    if (ui_over()) draw_summary(1);             /* the game over: the last hand and the totals in the end card */
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
