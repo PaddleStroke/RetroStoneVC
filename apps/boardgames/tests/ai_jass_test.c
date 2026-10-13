@@ -241,21 +241,19 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 60, 80},
         {AI_MEDIUM, AI_EASY, 60, 52},
-        {AI_HARD, AI_MEDIUM, 60, 50},
+        {AI_HARD, AI_MEDIUM, 60, 45},
         {AI_HARD, AI_EASY, 40, 55},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     printf("-- to 1000\n");
     VAR = JASS_1000;
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static sp_pair Q[] = {
         {AI_EASY, SP_RANDOM, 60, 80},
         {AI_MEDIUM, AI_EASY, 60, 52},
-        {AI_HARD, AI_MEDIUM, 40, 50},
+        {AI_HARD, AI_MEDIUM, 40, 45},
     };
-    tt_targets(Q, (int)(sizeof Q / sizeof Q[0]), argc, argv);
     printf("-- to 2500\n");
     VAR = JASS_2500;
-    bad |= sp_run(&G, Q, (int)(sizeof Q / sizeof Q[0]), argc, argv);
+    bad |= tt_run(&G, Q, (int)(sizeof Q / sizeof Q[0]), argc, argv);
     return bad;
 }

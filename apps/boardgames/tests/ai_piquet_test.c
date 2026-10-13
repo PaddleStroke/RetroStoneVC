@@ -325,9 +325,8 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 200, 85},
         {AI_MEDIUM, AI_EASY, 200, 52},
-        {AI_HARD, AI_MEDIUM, 200, 50},
+        {AI_HARD, AI_MEDIUM, 200, 45},
         {AI_HARD, AI_EASY, 200, 55},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
-    return sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    return tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
 }

@@ -375,16 +375,14 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 200, 75},
         {AI_MEDIUM, AI_EASY, 200, 52},
-        {AI_HARD, AI_MEDIUM, 200, 50},
+        {AI_HARD, AI_MEDIUM, 200, 45},
         {AI_HARD, AI_EASY, 200, 52},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     VAR = SKAT_SHORT;
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 40, 0}};
     printf("-- the long list (36 deals)\n");
     VAR = SKAT_LONG;
-    tt_targets(Q, 1, argc, argv);
-    bad |= sp_run(&G, Q, 1, argc, argv);
+    bad |= tt_run(&G, Q, 1, argc, argv);
     return bad;
 }

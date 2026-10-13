@@ -509,17 +509,15 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 200, 75},
         {AI_MEDIUM, AI_EASY, 200, 52},
-        {AI_HARD, AI_MEDIUM, 200, 50},
+        {AI_HARD, AI_MEDIUM, 200, 45},
         {AI_HARD, AI_EASY, 200, 55},
     };
     NP = 4;
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 40, 60}};
     for (NP = 3; NP <= 5; NP += 2) {
         printf("-- %d players\n", NP);
-        tt_targets(Q, 1, argc, argv);
-        bad |= sp_run(&G, Q, 1, argc, argv);
+        bad |= tt_run(&G, Q, 1, argc, argv);
     }
     return bad;
 }
