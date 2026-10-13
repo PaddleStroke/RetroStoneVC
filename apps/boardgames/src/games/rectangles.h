@@ -36,6 +36,8 @@
 #define RCT_SIZES 4
 #define RCT_LEVELS 3
 #define RCT_VARIANTS (RCT_SIZES * RCT_LEVELS)
+#define RCT_STAGES 150                          /* the designed levels (rectangles_levels.h), in six chapters */
+#define RCT_CHAPTERS 6
 
 enum { RCT_EASY, RCT_MEDIUM, RCT_HARD, RCT_BEYOND };
 
@@ -72,11 +74,18 @@ typedef struct {
 int  rct_count(const rct_puz *p, int limit, uint32_t *sol);
 /* the grade of a puzzle (RCT_EASY..RCT_HARD; RCT_BEYOND: more than the grader's ways, or no single solution) */
 int  rct_rate(const rct_puz *p);
-/* a puzzle of the size and level from the seed, and its solution */
+/* the same, and the grader's steps weighed (1 an easy one, 3 a medium one, 10 a hard one): its effort */
+int  rct_effort(const rct_puz *p, int *steps);
+/* the levels' code (rectangles_levels.h): "<n>:" and a character a cell, row by row: '.' none, '1'..'9', 'a' 10,
+ * 'b' 11...; 0: does not fit, or not a puzzle (the areas not adding up to the grid) */
+int  rct_encode(const rct_puz *p, char *out, int size);
+int  rct_decode(const char *code, rct_puz *p);
+/* a puzzle of the size (4..16) and level from the seed, and its solution */
 void rct_make(int n, int level, uint32_t seed, rct_puz *p, uint32_t *sol);
 
 void rct_new(rct_game *g, int variant, uint32_t seed);
 void rct_load(rct_game *g, int level, const rct_puz *p, const uint32_t *sol);
+int  rct_open(rct_game *g, const char *code); /* a level from its code (its solution found): 0 not one */
 int  rct_draw(rct_game *g, int a, int b);       /* the rectangle with corners a and b (cells): the ones under it go;
                                                  * 0: nothing changed */
 int  rct_erase(rct_game *g, int cell);          /* the rectangle on the cell taken away; 0: none */

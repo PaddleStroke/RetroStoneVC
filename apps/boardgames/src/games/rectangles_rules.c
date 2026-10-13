@@ -6,6 +6,7 @@
  */
 #include "games/rectangles.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -272,21 +273,61 @@ static int step(const board *b, state *s, int cap)
 }
 
 static state S;                                /* the grader's last state (the maker reads where it got stuck) */
+static int effort;                              /* its steps, weighed: 1 an easy one, 3 a medium one, 10 a hard one */
 
 static int rate_cap(const rct_puz *p, int cap)
 {
     if (!board_load(&B, p)) return RCT_BEYOND;
     state_init(&B, &S);
     int level = RCT_EASY;
+    effort = 0;
     for (;;) {
         int l = step(&B, &S, cap);
         if (l == -2) return RCT_BEYOND;
+        effort += l == RCT_EASY ? 1 : l == RCT_MEDIUM ? 3 : l == RCT_HARD ? 10 : 0;
         if (l == -1) return done(&B, &S) ? level : RCT_BEYOND;
         if (l > level) level = l;
     }
 }
 
 int rct_rate(const rct_puz *p) { return rate_cap(p, RCT_HARD); }
+
+int rct_effort(const rct_puz *p, int *steps)
+{
+    int r = rate_cap(p, RCT_HARD);
+    if (steps) *steps = effort;
+    return r;
+}
+
+/* ---- the levels' code: "<n>:" and a character a cell, row by row: '.' none, '1'..'9', then 'a' 10, 'b' 11... ---- */
+int rct_encode(const rct_puz *p, char *out, int size)
+{
+    int n = p->n, k = snprintf(out, (size_t)size, "%d:", n);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) {
+        int v = p->clue[c];
+        out[k++] = (char)(!v ? '.' : v < 10 ? '0' + v : 'a' + v - 10);
+    }
+    out[k] = 0;
+    return 1;
+}
+
+int rct_decode(const char *s, rct_puz *p)
+{
+    int n = 0, total = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 2 || n > RCT_MAX) return 0;
+    memset(p, 0, sizeof *p);
+    p->n = n;
+    for (int c = 0; c < n * n; c++, s++) {
+        int v = *s == '.' ? 0 : *s >= '1' && *s <= '9' ? *s - '0' : -1;
+        if (*s >= 'a' && *s <= 'z') v = *s - 'a' + 10;
+        if (v < 0) return 0;
+        p->clue[c] = (uint8_t)v;
+        total += v;
+    }
+    return !*s && total == n * n;
+}
 
 /* ---- counting solutions: the easy ways, then each rectangle of the number with the fewest ------------------------ */
 typedef struct { int count, limit; uint32_t *sol; } counter;
@@ -368,9 +409,9 @@ static void cut(int n, int maxa, uint32_t *rng, uint32_t *own)
 
 void rct_make(int n, int level, uint32_t seed, rct_puz *out, uint32_t *sol)
 {
-    int si = 0;
+    n = n < 4 ? 4 : n > RCT_MAX ? RCT_MAX : n;
+    int si = 0;                                 /* the biggest area: as for the variants' size at or above n */
     while (si < RCT_SIZES - 1 && rct_sizes[si] < n) si++;
-    n = rct_sizes[si];
     if (level < RCT_EASY || level > RCT_HARD) level = RCT_EASY;
     uint32_t s = pr_seed(seed);
     static uint32_t own[RCT_CELLS], best_own[RCT_CELLS];
@@ -433,6 +474,15 @@ void rct_load(rct_game *g, int level, const rct_puz *p, const uint32_t *sol)
     g->level = level;
     g->p = *p;
     memcpy(g->sol, sol, sizeof g->sol);
+}
+
+int rct_open(rct_game *g, const char *code)
+{
+    rct_puz p;
+    static uint32_t sol[RCT_CELLS];
+    if (!rct_decode(code, &p) || rct_count(&p, 2, sol) != 1) return 0;
+    rct_load(g, -1, &p, sol);
+    return 1;
 }
 
 void rct_new(rct_game *g, int variant, uint32_t seed)

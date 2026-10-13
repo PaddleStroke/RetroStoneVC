@@ -1,7 +1,8 @@
 /*
  * Rectangles' rules: the solver and the grader on puzzles by hand, the puzzles made from many seeds at every size and
  * level (one solution, counted apart from the grader; the level they were made for; each number in its rectangle,
- * its area), the time the biggest take, the player's rectangles, hints and undo, and whole games from a seed.
+ * its area), the time the biggest take, the 150 designed levels (one solution each, the chapters growing), the
+ * player's rectangles, hints and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/rectangles.h"
+#include "games/rectangles_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -96,6 +98,33 @@ int main(void)
     rct_new(&a, 4, 42);
     rct_new(&b, 4, 42);
     CHECK(!memcmp(&a.p, &b.p, sizeof a.p) && !memcmp(a.sol, b.sol, sizeof a.sol));
+
+    /* the designed levels: each decodes (its code again the same), has one solution the grader finds; the chapters
+     * grow (their sizes and grades) */
+    {
+        int last_n = 0, weight[RCT_CHAPTERS] = {0};
+        for (int i = 0; i < RCT_STAGES; i++) {
+            rct_puz p;
+            char again[RCT_CELLS + 8];
+            int ok = rct_decode(rct_levels[i], &p);
+            CHECK(ok);
+            if (!ok) continue;
+            CHECK(rct_count(&p, 2, NULL) == 1);
+            int r = rct_rate(&p);
+            CHECK(r >= RCT_EASY && r <= RCT_HARD);
+            weight[i / (RCT_STAGES / RCT_CHAPTERS)] += p.n + 2 * r;
+            CHECK(rct_encode(&p, again, sizeof again) && !strcmp(again, rct_levels[i]));
+            if (i % (RCT_STAGES / RCT_CHAPTERS) == 0) {
+                CHECK(p.n >= last_n);
+                last_n = p.n;
+            }
+        }
+        for (int c = 1; c < RCT_CHAPTERS; c++) CHECK(weight[c] > weight[c - 1]);
+        static rct_game lv;
+        CHECK(rct_open(&lv, rct_levels[0]) && lv.n == 5 && !rct_solved(&lv));
+        CHECK(rct_script(&lv, "+30") && rct_solved(&lv));
+        CHECK(!rct_open(&lv, "3:33.......") && !rct_open(&lv, "2:22.") && !rct_open(&lv, "2:2..2"));
+    }
 
     /* the player's rectangles: drawn over others, taken away, undone */
     static rct_game G;

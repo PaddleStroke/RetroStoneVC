@@ -11,14 +11,17 @@
  * shell's tool, the lamp: a hint (a wrong tile taken away, else the easiest right one laid, in gold light). Undo
  * takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light over the tiles;
  * the stars count the hints and the mistakes (bench.h).
+ *
+ * The shell's level screen chooses a level (150 in six chapters, rectangles_levels.h), or its die tab a puzzle made at
+ * random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "games/bench_ui.h"
-#include "games/race.h"
 #include "games/rectangles.h"
+#include "games/rectangles_levels.h"
 #include "shell.h"
 
 #define INSET 0.055f                            /* a tile's gap to its cells' edges, a part of a cell */
@@ -138,12 +141,26 @@ static void calm(void)
     memset(&ptr, 0, sizeof ptr);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    rct_new(&G, variant < 0 || variant >= RCT_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+/* a level of the shell's level screen (rectangles_levels.h) */
+static void start(int level)
+{
+    level = level < 0 ? 0 : level >= RCT_STAGES ? RCT_STAGES - 1 : level;
+    if (!rct_open(&G, rct_levels[level])) rct_new(&G, 0, 1);
+    begin();
+}
+
+/* a puzzle made at random (the level screen's die tab): a size and a level */
+static void start_random(int variant)
+{
+    rct_new(&G, variant < 0 || variant >= RCT_VARIANTS ? 3 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return rct_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -188,6 +205,16 @@ static int cell_at(float x, float y, int clamp)
     return cy * n + cx;
 }
 
+/* a steady choice 0..k-1 for a rectangle (its corner c, its packed size r): the same every time it is drawn */
+static int pick_of(int c, uint32_t r, int k)
+{
+    uint32_t h = (uint32_t)c * 73856093u ^ (r * 19349663u + 0x5bd1e995u);
+    h ^= h >> 13;
+    h *= 0x5bd1e995u;
+    h ^= h >> 15;
+    return (int)((h & 0xffff) * (uint32_t)k >> 16);
+}
+
 /* the tones: each rectangle its own (a steady choice from its place), never the same as a touching one before it */
 static int tones_of(uint8_t *tone)
 {
@@ -209,7 +236,7 @@ static int tones_of(uint8_t *tone)
                 rct_unpack(o, &ox, &oy, &ow, &oh);
                 if (oy * n + ox < c) used |= 1u << tone[oy * n + ox];
             }
-        int t = (int)(race_hash(c, (int)r) * BENCH_TONES) % BENCH_TONES;
+        int t = pick_of(c, r, BENCH_TONES);
         for (int i = 0; i < BENCH_TONES && (used >> t & 1); i++) t = (t + 1) % BENCH_TONES;
         tone[c] = (uint8_t)t;
         k++;
@@ -355,22 +382,18 @@ static void bar(int player, box b)
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level, some tiles laid, and as many ebony stones
  * as its level; the menu's a 7 x 7 half done ----------------------------------------------------------------------- */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+/* a puzzle on a card S wide: the board, every `every`-th rectangle of the solution laid as a tile (0: none), the
+ * numbers when big enough */
+static void paint_card(const rct_puz *p, const uint32_t *sol, int every, int S, uint8_t *b)
 {
-    int v = variant < 0 ? 1 : variant, n = rct_size_of(v);
-    rct_puz p;
-    static uint32_t sol[RCT_CELLS];
-    rct_make(n, rct_level_of(v), 2026u + (uint32_t)v, &p, sol);
-    int S = variant < 0 || bare ? size : (int)(0.84f * size), f = (int)(S * BENCH_FRAME);
+    int n = p->n, f = (int)(S * BENCH_FRAME);
     float q = floorf((S - 2 * f - 0.3f * S / n) / n), o = floorf((S - n * q) / 2);
-    uint8_t *b = calloc((size_t)S * S, 4);
-    if (!b) return;
     paint_board(b, S, f, n, q, o, o);
     int k = 0;
-    for (int c = 0; c < n * n; c++) {           /* some tiles: the first few rectangles (the menu's: half) */
+    for (int c = 0; every && c < n * n; c++) {
         int x, y, w, h;
         rct_unpack(sol[c], &x, &y, &w, &h);
-        if (y * n + x != c || (k++ % (variant < 0 ? 2 : 3)) != 0) continue;
+        if (y * n + x != c || (k++ % every) != 0) continue;
         float in = fmaxf(1, INSET * q);
         int tw = (int)(w * q - 2 * in), th = (int)(h * q - 2 * in);
         if (tw < 3 || th < 3) continue;
@@ -382,9 +405,21 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     }
     if (q >= 8)
         for (int c = 0; c < n * n; c++)
-            if (p.clue[c])
-                puz_digits(b, S, S, p.clue[c], o + (c % n + 0.5f) * q, o + (c / n + 0.55f) * q,
-                           0.62f * q * (p.clue[c] >= 10 ? 0.85f : 1), PUZ_INK, 1, 1);
+            if (p->clue[c])
+                puz_digits(b, S, S, p->clue[c], o + (c % n + 0.5f) * q, o + (c / n + 0.55f) * q,
+                           0.62f * q * (p->clue[c] >= 10 ? 0.85f : 1), PUZ_INK, 1, 1);
+}
+
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    int v = variant < 0 ? 1 : variant, n = rct_size_of(v);
+    rct_puz p;
+    static uint32_t sol[RCT_CELLS];
+    rct_make(n, rct_level_of(v), 2026u + (uint32_t)v, &p, sol);
+    int S = variant < 0 || bare ? size : (int)(0.84f * size);
+    uint8_t *b = calloc((size_t)S * S, 4);
+    if (!b) return;
+    paint_card(&p, sol, variant < 0 ? 2 : 3, S, b);   /* some tiles: a third of the rectangles (the menu's: half) */
     int ox = (size - S) / 2;
     art_blend(rgba, size, size, b, S, S, ox, variant < 0 ? ox : 0);
     free(b);
@@ -396,8 +431,24 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), solved, without its numbers */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= RCT_CHAPTERS ? RCT_CHAPTERS - 1 : chapter;
+    static rct_game T;
+    if (!rct_open(&T, rct_levels[(ch + 1) * RCT_STAGES / RCT_CHAPTERS - 1])) return;
+    memset(T.p.clue, 0, sizeof T.p.clue);
+    int S = (int)(0.92f * size);
+    uint8_t *b = calloc((size_t)S * S, 4);
+    if (!b) return;
+    paint_card(&T.p, T.sol, 1, S, b);
+    art_blend(rgba, size, size, b, S, S, (size - S) / 2, (size - S) / 2);
+    free(b);
+}
+
 static const game rectangles_game = {
     .id = "rectangles", .order = 415, .variants = RCT_VARIANTS,
+    .levels = RCT_STAGES, .chapters = RCT_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
