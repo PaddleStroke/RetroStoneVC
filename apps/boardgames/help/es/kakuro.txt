@@ -5,9 +5,9 @@ Rellena cada casilla blanca con una cifra del 1 al 9. Una fila es una línea de 
 - Medio: también te hará falta una cifra que todas las formas necesitan y a la que solo le queda una casilla, y las parejas de una fila.
 - Difícil: tendrás que estudiar una fila entera de una vez (qué cifra puede ir en qué casilla), o probar una cifra y seguirla.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 5 × 5 al 12 × 12, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.
+Hay 150 niveles en seis capítulos, del 5 × 5 al 12 × 12, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.
 # Jugar en el dispositivo
-Toca una casilla blanca y luego una tecla bajo el tablero: su cifra entra, en tinta azul. Toca otra vez la misma tecla para quitarla, o arrastra una tecla a una casilla. Las dos filas de la casilla se iluminan, sus sumas en dorado, y las casillas con su cifra con un tono cálido. Sin casilla elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
+Toca una casilla blanca y luego una tecla junto al tablero: su cifra entra, en tinta azul. Toca otra vez la misma tecla para quitarla, o arrastra una tecla a una casilla. Las dos filas de la casilla se iluminan, sus sumas en dorado, y las casillas con su cifra con un tono cálido. Sin casilla elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
 - Lápiz: notas. Las teclas ponen entonces cifras pequeñas en la casilla, o las quitan.
 - Goma: quita la cifra de la casilla, o sus notas.
 - Lámpara: una pista. Corrige una cifra equivocada o, si no, rellena una casilla que el razonamiento encuentra, con luz dorada.

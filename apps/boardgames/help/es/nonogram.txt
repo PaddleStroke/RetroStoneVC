@@ -7,7 +7,7 @@ Rellena una casilla, o marca con una cruz una casilla que sabes vacía. Las cruc
 # El final de la partida
 Cuando cada fila y cada columna cumple sus pistas, el nonograma está resuelto: las cruces se van, el dibujo aparece con sus colores y una luz dorada lo recorre.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos: pequeños dibujos hechos para el juego, del 5 × 5 al 15 × 15, que se encuentran línea a línea; elige uno en la pantalla de niveles. Un nivel resuelto muestra su dibujo en su miniatura. La pestaña del dado, tras los capítulos, saca un dibujo al azar, del tamaño que elijas. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla rellena fuera del dibujo, o una cruz sobre él, que quitas con Deshacer.
+Hay 150 niveles en seis capítulos: pequeños dibujos hechos para el juego, del 5 × 5 al 15 × 15, que se encuentran línea a línea; elige uno en la pantalla de niveles. Un nivel resuelto muestra su dibujo en su miniatura. La pestaña del dado, tras los capítulos, saca un dibujo al azar, del tamaño que elijas. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla rellena fuera del dibujo, o una cruz sobre él, que quitas con Deshacer.
 # Jugar en el dispositivo
 - Toca una casilla para rellenarla; tócala otra vez para vaciarla.
 - Mantén el dedo un momento sobre una casilla para marcarla con una cruz. El botón de la cruz junto al tablero hace que cada toque ponga cruces (o vuelva a rellenar); muestra lo que hace un toque.

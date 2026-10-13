@@ -9,9 +9,9 @@ Pon un número en una casilla vacía. Puedes cambiarlo o quitarlo cuando quieras
 # El final de la partida
 La cuadrícula está resuelta cuando está llena y es correcta: una ola de luz dorada recorre el tablero.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 4 × 4 al 7 × 7, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es un número equivocado que luego quitas con Deshacer.
+Hay 150 niveles en seis capítulos, del 4 × 4 al 7 × 7, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es un número equivocado que quitas con Deshacer.
 # Jugar en el dispositivo
-Toca una casilla y luego una tecla bajo el tablero: su número entra, en tinta azul (los números dados son oscuros). Toca otra vez la misma tecla para quitarlo, o arrastra una tecla sobre una casilla. La fila y la columna de la casilla se iluminan un poco, y las casillas con su número, más. Sin casilla vacía elegida, una tecla ilumina las casillas de su número. Los botones junto al tablero:
+Toca una casilla y luego una tecla junto al tablero: su número entra, en tinta azul (los números dados son oscuros). Toca otra vez la misma tecla para quitarlo, o arrastra una tecla sobre una casilla. La fila y la columna de la casilla se iluminan un poco, y las casillas con su número, más. Sin casilla vacía elegida, una tecla ilumina las casillas de su número. Los botones junto al tablero:
 - Lápiz: notas. Las teclas ponen entonces números pequeños en la casilla, o los quitan. Un número que pones borra esa nota de su fila y su columna.
 - Goma: quita el número de la casilla, o sus notas.
 - Lámpara: una pista. Corrige un número equivocado o, si no, rellena la casilla más fácil, con luz dorada.

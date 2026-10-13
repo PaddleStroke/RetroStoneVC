@@ -9,6 +9,6 @@ Une dos casillas vecinas en una ficha, o quita una ficha. Una ficha nueva sustit
 # El final de la partida
 La cuadrícula está resuelta cuando las fichas la cubren, cada ficha del juego una vez: una ola de luz dorada recorre el tablero.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del juego del doble 3 al del doble 8, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una ficha equivocada que quitas con Deshacer.
+Hay 150 niveles en seis capítulos, del juego del doble 3 al del doble 8, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una ficha equivocada que quitas con Deshacer.
 # Jugar en el dispositivo
 Arrastra de una casilla a su vecina, o toca una y luego la otra: se coloca encima una ficha de marfil, cuyos puntos muestran los dos números. Toca una ficha para quitarla. Una ficha colocada dos veces se vuelve roja. El botón de la lámpara da una pista: quita una ficha equivocada o, si no, coloca la correcta más fácil, con luz dorada. Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas.
