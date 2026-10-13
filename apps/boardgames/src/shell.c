@@ -118,9 +118,11 @@ static int players_of(int g)
     }
     return nplayers[g];
 }
+static box grid_ext;                            /* the board as the game fitted it (ui_grid_fit; w 0: not known) */
 static int last_status, over_hidden, instant;   /* instant: the picture mode (no pause before the end card) */
 static Uint32 end_seen;                         /* when the end of the game was first shown (0: not yet) */
 #define END_PAUSE 900                           /* ms of the final position before the end card */
+#define SOLVED_W 4.6f                           /* a solved puzzle's card: its width (units; 3.8 high) */
 static Uint32 armed;                            /* "new game" tapped once: a second tap within 2.5 s confirms */
 
 enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, B_HELP, NBTN };
@@ -128,6 +130,7 @@ static const int BTN_ICON[NBTN] = {ICON_HOME, ICON_UNDO, ICON_FLIP, ICON_F2F, IC
 
 static struct {
     box board, bar[MAX_PLAYERS];                /* bar[player] */
+    box room;                                   /* all the room between the bars (the board: a square in it) */
     float bx[NBTN], by[NBTN], br;               /* the buttons: centres, radius */
     float tk;                                   /* a token's size */
     /* the menu and the picker */
@@ -141,7 +144,7 @@ static struct {
     int ntabs, tab_sec[SECTIONS];
 } L;
 
-static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
+static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_card_s, *t_gold, *t_shadow, *t_ring,
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_menu_card_on, *t_thumb[MAX_GAMES][MAX_VARIANTS + 1],
     *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
     *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
@@ -1085,6 +1088,10 @@ static void shared_textures(void)
     ui_free(&t_card);
     art_roundrect(cw, ch, 0.4f * u, card_c, ui_buf(cw, ch));
     t_card = ui_tex(cw, ch, ui_buf(cw, ch));
+    int sw = (int)(SOLVED_W * u);                 /* a solved puzzle's card: narrower (stars, moves, two buttons) */
+    ui_free(&t_card_s);
+    art_roundrect(sw, ch, 0.4f * u, card_c, ui_buf(sw, ch));
+    t_card_s = ui_tex(sw, ch, ui_buf(sw, ch));
     if (!t_bg) {                                /* the table: a dark green, lighter in the middle */
         uint8_t *b = ui_buf(2, 256);
         for (int y = 0; y < 256; y++)
@@ -1259,7 +1266,8 @@ static void layout_game(void)
             TL.room = (box){x, r1 - extra * u, 9 * u, extra * u};
             r1 -= extra * u + 0.1f * u;
         }
-        if (fill) L.board = (box){x, r0, 9 * u, r1 - r0};
+        L.room = (box){x, r0, 9 * u, r1 - r0};
+        if (fill) L.board = L.room;
         else L.board = (box){x, floorf(r0 + fmaxf(0, r1 - r0 - 9 * u) / 2), 9 * u, 9 * u};
     } else if (view) {                          /* the table on the left; others' bars, buttons, the viewer's bar */
         u = floorf(fminf((ui.h - 2 * m) / 9, (ui.w - 2 * m) / 13.45f));
@@ -1301,6 +1309,8 @@ static void layout_game(void)
         TL.d0 = 0.84f * u;
     }
     ui.unit = u;
+    if (ui.w > ui.h) L.room = L.board;
+    grid_ext = (box){0, 0, 0, 0};               /* the board's grid, once the game fits it (ui_grid_fit) */
     /* each player's bar on their side: side by side sharing the bar's width (portrait), or stacked (landscape: the
      * column is narrow) */
     for (int s = 0; s < 2; s++) {
@@ -1351,6 +1361,11 @@ ui_grid ui_grid_fit(box b, int cols, int rows, float frame)
     g.rows = g.turned ? cols : rows;
     g.x = floorf(b.x + (b.w - g.cols * g.cell) / 2);
     g.y = floorf(b.y + (b.h - g.rows * g.cell) / 2);
+    if (screen == SCR_GAME) {                   /* the biggest grid fitted: the board (a solved puzzle's card goes
+                                                 * beside it) */
+        float fw = (g.cols + 2 * frame) * g.cell, fh = (g.rows + 2 * frame) * g.cell;
+        if (fw * fh > grid_ext.w * grid_ext.h) grid_ext = (box){g.x - frame * g.cell, g.y - frame * g.cell, fw, fh};
+    }
     return g;
 }
 
@@ -1753,20 +1768,17 @@ static float level_tabs(float head)
 }
 
 /* the level screen: home at the top left (the stars won at the right), the chapters' tabs under it (as the menu's),
- * then the chapter's tiles in a grid right under them, as big as the room allows (at most 0.28 of the screen's short
- * side), the same grid for every chapter */
+ * then the chapter's tiles in a grid right under them, as big as the room allows (at most 0.31 of the screen's short
+ * side): a chapter of few levels gets bigger tiles */
 static void layout_levels(void)
 {
     float s = fminf(ui.w, ui.h), m = s * 0.05f, head = s * 0.16f;
     chapters_make(cur);
     LV.chapter = LV.chapter >= LV.nch ? LV.nch - 1 : LV.chapter < 0 ? 0 : LV.chapter;
     float top = level_tabs(head);
-    int most = 1;
-    for (int c = 0; c < LV.nch; c++) {
-        int n = LV.first[c + 1] - LV.first[c];
-        if (n > most) most = n < CHAPTER_MAX ? n : CHAPTER_MAX;
-    }
-    float W = ui.w - 2 * m, H = ui.h - m - top, cap = s * 0.28f, bp = 0, bs = 0, ba = 0;
+    int most = LV.first[LV.chapter + 1] - LV.first[LV.chapter];   /* the chapter shown: few levels, bigger tiles */
+    most = most < 1 ? 1 : most > CHAPTER_MAX ? CHAPTER_MAX : most;
+    float W = ui.w - 2 * m, H = ui.h - m - top, cap = s * 0.31f, bp = 0, bs = 0, ba = 0;
     int cols = 1;
     for (int c = 1; c <= most; c++) {           /* big tiles, few gaps in the last row (25: five by five, not four
                                                  * by seven); even: the grid's shape nearest the room's */
@@ -2286,6 +2298,45 @@ static int end_veil_whole(void)
     return ui.players > 1 && (g->view == VIEW_HIDDEN || (g->hidden && g->hidden()));
 }
 
+/* a solved puzzle's card goes where it covers the board least (the player looks at what they solved): in the band of
+ * the room the board leaves (below it, above it, beside it) that shows it nearly whole (else the biggest, down to 0.65
+ * of its size); none so big: smaller, against the edge of the room with the most room, over the board's edge. The board: the square (a
+ * board game's), else the biggest grid the game fitted (ui_grid_fit), else the whole room. A tap hides it. */
+static void solved_place(float *cx, float *cy, float *k)
+{
+    box r = L.room, e = games[cur]->fill || is_view() ? grid_ext : L.board;
+    if (e.w <= 0) e = r;
+    float x0 = fmaxf(e.x, r.x), y0 = fmaxf(e.y, r.y), x1 = fminf(e.x + e.w, r.x + r.w), y1 = fminf(e.y + e.h, r.y + r.h);
+    float u = ui.unit, cw = SOLVED_W * u, ch = 3.8f * u, m = 0.15f * u;
+    float band[4] = {y0 - r.y, r.y + r.h - y1, x0 - r.x, r.x + r.w - x1};   /* above, below, left, right */
+    static const int order[4] = {1, 0, 3, 2};   /* below first, then above, at the right, at the left */
+    int best = 1;
+    float kb = 0;
+    for (int j = 0; j < 4; j++) {               /* the first where it shows nearly whole, else the biggest */
+        int i = order[j];
+        float ki = i < 2 ? fminf((band[i] - m) / ch, r.w / cw) : fminf((band[i] - m) / cw, r.h / ch);
+        ki = fminf(1, ki);
+        if (ki > kb + 0.01f && kb < 0.85f) { kb = ki; best = i; }
+    }
+    if (kb >= 0.65f) {                          /* in the band, centred on the board's side */
+        *k = kb;
+        *cx = best < 2 ? clampf((x0 + x1) / 2, r.x + cw * kb / 2, r.x + r.w - cw * kb / 2)
+                       : best == 2 ? r.x + band[2] / 2 : x1 + band[3] / 2;
+        *cy = best >= 2 ? clampf((y0 + y1) / 2, r.y + ch * kb / 2, r.y + r.h - ch * kb / 2)
+                        : best == 0 ? r.y + band[0] / 2 : y1 + band[1] / 2;
+        return;
+    }
+    *k = fminf(0.85f, fminf(r.w / cw, r.h / ch));   /* against the room's edge: below (portrait), at the right */
+    int vertical = ui.w <= ui.h;
+    if (vertical) {
+        *cx = r.x + r.w / 2;
+        *cy = band[0] > band[1] ? r.y + ch * *k / 2 + m : r.y + r.h - ch * *k / 2 - m;
+    } else {
+        *cy = r.y + r.h / 2;
+        *cx = band[2] > band[3] ? r.x + cw * *k / 2 + m : r.x + r.w - cw * *k / 2 - m;
+    }
+}
+
 static void draw_over(void)
 {
     if (E.room) {                               /* the game's table is in the card: the result above it */
@@ -2294,6 +2345,14 @@ static void draw_over(void)
     }
     box b = L.board;
     float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    const game *g = games[cur];
+    if (g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars))) {   /* a puzzle solved */
+        float k;
+        solved_place(&cx, &cy, &k);
+        ui_put_c(t_card_s, cx, cy, SOLVED_W * u * k, 3.8f * u * k);
+        draw_result(cx, cy, u * k);
+        return;
+    }
     if (end_veil_whole()) ui_fill(b.x, b.y, b.w, b.h, 14, 20, 18, 250);
     else ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
     ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
@@ -2638,7 +2697,7 @@ static void draw_tile(int l, int i, box t, int next)
     ui_shadow_flat(cx + 0.04f * T, cy + 0.06f * T, T, T, 0.55f);
     ui_put(btn_tex(paint_tile, best ? 0 : open ? 1 : 2, (int)T), t.x, t.y, T, T);
     if (G->level_thumb) {
-        float ps = floorf(0.8f * T), bd = 0.36f * T, bx = t.x + 0.17f * T, by = t.y + 0.17f * T;
+        float ps = floorf(0.8f * T), bd = floorf(0.44f * T), bx = t.x + 0.17f * T, by = t.y + 0.17f * T;
         SDL_Texture *p = level_pic(i, l, (int)ps);
         if (p) {
             SDL_SetTextureAlphaMod(p, open ? 255 : 90);
@@ -2646,7 +2705,7 @@ static void draw_tile(int l, int i, box t, int next)
             SDL_SetTextureAlphaMod(p, 255);
         }
         ui_put_c(btn_tex(paint_badge, 0, (int)bd), bx, by, bd, bd);
-        float nh = fminf(0.5f * bd, 0.86f * bd / (0.66f * (n >= 100 ? 2 : n >= 10 ? 1 : 0) + 0.62f));   /* fits the disc */
+        float nh = fminf(0.58f * bd, 0.9f * bd / (0.66f * (n >= 100 ? 2 : n >= 10 ? 1 : 0) + 0.62f));   /* fits the disc */
         ui_number_ex(bx, by, nh, n, CREAM, open ? 255 : 140, UI_NUM_TIGHT);
         for (int k = 0; stars && k < 3; k++)
             star_at(cx + (k - 1) * 0.25f * T, t.y + 0.85f * T, 0.25f * T, k < best - 1 ? 0 : 1);
@@ -3203,7 +3262,8 @@ static void shot_wait(void)
 
 /* the picture mode's gestures, in the order given: --taps "fx,fy ...", --drag "fx0,fy0 fx1,fy1" (the finger down,
  * moved, lifted), --hold "fx,fy ms" (the finger down that long; the last gesture: the picture with it still down).
- * Fractions of the board's box (the menu, a picker, the level screen: of the screen). --keys "Up Left": keys pressed
+ * Fractions of the board's box (the menu, a picker, the level screen: of the screen); the game's tools lie outside
+ * it (portrait: fy past 1; landscape: fx past 1): a tap "t0" taps tool 0 wherever it is. --keys "Up Left": keys pressed
  * (SDL's names), as from the keyboard. */
 enum { GE_TAP, GE_DRAG, GE_HOLD, GE_KEY };
 static void key(SDL_Keycode k, int repeat);
@@ -3232,7 +3292,9 @@ static void shot_gestures(int reveal, Uint32 *base, int *held)
                 while (*s == ' ') s++;
                 continue;
             }
-            if (sscanf(s, "%f,%f%n", &fx, &fy, &n) < 2) break;
+            int tool = -1;                      /* "t2": the game's tool 2 (ui_tool), wherever the shell put it */
+            if (kind == GE_TAP && *s == 't' && sscanf(s, "t%d%n", &tool, &n) == 1) fx = fy = 0;
+            else if (sscanf(s, "%f,%f%n", &fx, &fy, &n) < 2) break;
             s += n;
             if (kind == GE_DRAG && sscanf(s, " %f,%f%n", &gx, &gy, &n) < 2) break;
             if (kind == GE_HOLD && sscanf(s, " %d%n", &ms, &n) < 1) break;
@@ -3242,6 +3304,7 @@ static void shot_gestures(int reveal, Uint32 *base, int *held)
             *base = ms_ahead;
             box f = screen == SCR_GAME ? L.board : (box){0, 0, (float)ui.w, (float)ui.h};
             float x = f.x + fx * f.w, y = f.y + fy * f.h;
+            if (tool >= 0 && !ui_tool_at(tool, &x, &y, NULL)) { fprintf(stderr, "no tool %d\n", tool); break; }
             press(x, y);
             if (kind == GE_DRAG) {              /* the finger slides there in steps, then lifts */
                 float x1 = f.x + gx * f.w, y1 = f.y + gy * f.h;
