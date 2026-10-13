@@ -13,5 +13,5 @@ Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec un
 - Revenir sur ses pas raccourcit le chemin. Passer sur un autre chemin le coupe ; il revient si tu recules avant de lever le doigt. Un chemin ne passe jamais sur un point d'une autre couleur.
 - Quand un chemin atteint son autre point, la paire est reliée et ses points sonnent.
 - Avec de simples touches : touche un point ou une case d'un chemin (son bout est marqué), puis une case de la même ligne ou colonne : le chemin y file tout droit. Touche de nouveau le bout marqué pour le lâcher.
-- La lampe au bout de la barre donne un indice : elle trace le chemin d'une paire comme dans la solution, dans une lumière dorée.
+- La lampe donne un indice : elle trace le chemin d'une paire comme dans la solution, dans une lumière dorée.
 Les cases d'un chemin prennent une teinte de sa couleur. Annuler reprend un tracé ou un indice à la fois, jusqu'au début. La barre montre tes coups.

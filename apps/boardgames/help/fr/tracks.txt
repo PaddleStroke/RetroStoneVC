@@ -14,5 +14,5 @@ Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 10 × 10, chacun avec un
 # Jouer sur l'appareil
 - Fais glisser le doigt de case en case pour poser la voie sous ton doigt ; elle se raccorde aux rails déjà posés.
 - Touche une case pour un rail (celui qui se raccorde le mieux aux voisins vient d'abord), encore pour le suivant ; après le sixième, la case est de nouveau vide.
-- Garde le doigt un instant sur une case pour la marquer d'une croix. Le bouton à la croix de la barre fait mettre des croix aux touches et aux glissés ; il montre ce que fait une touche.
-Un nombre pâlit quand sa ligne a autant de rails, et rougit quand elle en a trop. La lampe de la barre est un indice : elle met une case juste et l'éclaire en or. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+- Garde le doigt un instant sur une case pour la marquer d'une croix. Le bouton à la croix fait mettre des croix aux touches et aux glissés ; il montre ce que fait une touche.
+Un nombre pâlit quand sa ligne a autant de rails, et rougit quand elle en a trop. La lampe est un indice : elle met une case juste et l'éclaire en or. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

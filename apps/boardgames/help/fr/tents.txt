@@ -10,12 +10,12 @@ Plante une tente dans une case, ou démonte-la. Tu peux aussi mettre de l'herbe 
 # La fin de la partie
 Le terrain est résolu quand chaque arbre a sa tente, qu'aucune tente n'en touche une autre et que chaque nombre est juste : une vague de lumière dorée parcourt le terrain.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une tente ou de l'herbe mal placées que tu retires ensuite avec Annuler.
+Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une tente ou de l'herbe mal placées que tu reprends avec Annuler.
 # Jouer sur l'appareil
 - Touche une case pour planter une tente ; touche-la encore pour la démonter.
 - Garde le doigt un instant sur une case pour y mettre de l'herbe, ou l'enlever.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour mettre de l'herbe sur toute une suite (ou l'enlever d'une suite d'herbe).
-Les tentes qui se touchent luisent en rouge, tout comme un arbre qui n'a plus de place pour sa tente. Un nombre devient rouge quand sa ligne a trop de tentes, et pâlit quand elle les a toutes. Les boutons au bout de la barre (en paysage, dans la colonne latérale) :
+Les tentes qui se touchent luisent en rouge, tout comme un arbre qui n'a plus de place pour sa tente. Un nombre devient rouge quand sa ligne a trop de tentes, et pâlit quand elle les a toutes. Les boutons à côté du plateau :
 - Tente ou herbe : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
 - Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
 Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

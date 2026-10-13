@@ -11,5 +11,5 @@ Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 11 × 11 et aux plateaux
 # Jouer sur l'appareil
 - Touche une tuile pour la tourner d'un quart de tour.
 - L'eau coule du réservoir dans tous les tuyaux qui y sont reliés. Là où elle atteint un tuyau ouvert, elle déborde : cherche les gouttes.
-- La lampe au bout de la barre donne un indice : elle remet une tuile fausse dans le bon sens (à côté de l'eau si possible), dans une lumière dorée.
+- La lampe donne un indice : elle remet une tuile fausse dans le bon sens (à côté de l'eau si possible), dans une lumière dorée.
 Annuler reprend un quart de tour ou un indice à la fois, jusqu'au début. La barre montre tes coups.

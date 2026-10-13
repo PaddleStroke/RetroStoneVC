@@ -9,9 +9,9 @@ Mets un nombre dans une case vide. Tu peux le changer ou l'enlever à tout momen
 # La fin de la partie
 La grille est résolue quand elle est pleine et juste : une vague de lumière dorée parcourt le plateau.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 7 × 7, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un mauvais nombre que tu retires ensuite avec Annuler.
+Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 7 × 7, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un nombre faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
-Touche une case, puis une touche sous le plateau : son nombre s'y inscrit, à l'encre bleue (les nombres donnés sont foncés). Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, et les cases qui portent son nombre plus chaudement. Sans case vide choisie, une touche éclaire les cases de son nombre. Les boutons à côté du plateau :
+Touche une case, puis une touche à côté du plateau : son nombre s'y inscrit, à l'encre bleue (les nombres donnés sont foncés). Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, et les cases qui portent son nombre plus chaudement. Sans case vide choisie, une touche éclaire les cases de son nombre. Les boutons à côté du plateau :
 - Crayon : les notes. Les touches mettent alors de petits nombres dans la case, ou les enlèvent. Un nombre posé efface cette note de sa ligne et de sa colonne.
 - Gomme : enlève le nombre de la case, ou ses notes.
 - Lampe : un indice. Elle corrige un nombre faux, ou sinon remplit la case la plus facile, dans une lumière dorée.

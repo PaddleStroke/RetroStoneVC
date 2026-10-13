@@ -10,12 +10,12 @@ Mets une lampe dans une case blanche, ou enlève-la. Tu peux aussi mettre un poi
 # La fin de la partie
 La grille est résolue quand toutes les cases blanches sont éclairées, qu'aucune lampe n'en éclaire une autre et que chaque nombre a ses lampes : une vague de lumière dorée parcourt le plateau.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 14 × 14, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une lampe ou un point mal placés que tu retires ensuite avec Annuler.
+Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 14 × 14, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une lampe ou un point mal placés que tu reprends avec Annuler.
 # Jouer sur l'appareil
 - Touche une case blanche pour y mettre une lampe ; touche-la encore pour l'enlever.
 - Garde le doigt un instant sur une case pour y mettre un point, ou l'enlever.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour mettre des points sur toute une suite (ou les enlever d'une suite de points).
-Les cases éclairées prennent une teinte chaude. Deux lampes qui s'éclairent l'une l'autre luisent en rouge ; un nombre devient rouge quand il a trop de lampes, et pâlit quand il les a toutes. Les boutons au bout de la barre (en paysage, dans la colonne latérale) :
+Les cases éclairées prennent une teinte chaude. Deux lampes qui s'éclairent l'une l'autre luisent en rouge ; un nombre devient rouge quand il a trop de lampes, et pâlit quand il les a toutes. Les boutons à côté du plateau :
 - Lampe ou point : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
 - Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
 Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

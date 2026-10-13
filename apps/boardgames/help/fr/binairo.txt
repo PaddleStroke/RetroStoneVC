@@ -10,9 +10,9 @@ Mets un pion dans une case vide, change sa couleur ou enlève-le. Les pions donn
 # La fin de la partie
 La grille est résolue quand elle est pleine et respecte toutes les règles : une vague de lumière dorée parcourt le plateau.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un pion de la mauvaise couleur que tu retires ensuite avec Annuler.
+Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un pion de la mauvaise couleur que tu reprends avec Annuler.
 # Jouer sur l'appareil
 - Touche une case vide pour un pion ivoire, encore pour un pion ébène, une fois de plus pour la vider.
 - Garde le doigt un instant sur une case pour faire le tour dans l'autre sens : ébène d'abord.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour faire de même sur toute une suite. Seules changent les cases qui étaient comme la première.
-Trois pions pareils à la suite luisent en rouge ; une ligne ou une colonne qui a trop de pions d'une couleur, ou qui est pleine et pareille à une autre, devient rouge. Le bouton au bout de la barre (en paysage, dans la colonne latérale) est l'ampoule : un indice. Elle corrige un pion faux, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+Trois pions pareils à la suite luisent en rouge ; une ligne ou une colonne qui a trop de pions d'une couleur, ou qui est pleine et pareille à une autre, devient rouge. L'ampoule, à côté du plateau, est un indice. Elle corrige un pion faux, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

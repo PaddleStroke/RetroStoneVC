@@ -7,7 +7,7 @@ Remplis la grille pour que chaque ligne et chaque colonne contienne une fois cha
 # Niveaux et étoiles
 Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 9 × 9, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
-Touche une case, puis une touche sous le plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, sa cage un peu plus, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
+Touche une case, puis une touche à côté du plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, sa cage un peu plus, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
 - Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent.
 - Gomme : enlève le chiffre de la case, ou ses notes.
 - Lampe : un indice. Elle corrige un chiffre faux, ou sinon remplit une case que le raisonnement trouve, dans une lumière dorée.

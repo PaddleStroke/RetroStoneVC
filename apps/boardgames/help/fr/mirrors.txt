@@ -2,7 +2,7 @@ Miroirs
 # Le but
 Une lampe de laiton envoie un rayon de lumière sur le plateau. Tourne et place les miroirs pour que le rayon éclaire toutes les gemmes sans toucher aucune bombe. Choisis d'abord le niveau (les pierres sous chaque image) : facile, moyen, difficile ou expert.
 - Un miroir dévie le rayon à angle droit. Les miroirs sur pivot de noyer restent dans leur case : tu les tournes seulement dans un sens (/) ou dans l'autre (\).
-- Les miroirs libres attendent dans le plumier sous le plateau : pose-les sur des cases vides.
+- Les miroirs libres attendent dans le plumier au bord du plateau : pose-les sur des cases vides.
 - Le rayon traverse tout droit les gemmes et les cases vides. Un bloc de bois l'arrête, tout comme le bord du plateau.
 - À partir du niveau difficile, une lame de verre laisse passer la moitié de la lumière et dévie l'autre moitié.
 Chaque problème a une seule solution, que l'on trouve en suivant le rayon et en raisonnant.
@@ -15,4 +15,4 @@ Il y a 150 niveaux en six chapitres, des plateaux 5 × 5 avec seulement des miro
 # Jouer sur l'appareil
 - Touche un miroir sur pivot pour le tourner.
 - Touche une case vide pour y poser un miroir libre ; touche-la encore pour le tourner, une troisième fois pour le renvoyer dans le plumier. Tu peux aussi faire glisser un miroir du plumier vers une case, d'une case à une autre, ou hors du plateau.
-Le rayon suit chaque changement aussitôt. Une gemme éclairée brille ; une bombe touchée par le rayon s'éclaire en rouge. La lampe de la barre est un indice : elle remet un miroir en place et l'éclaire en or. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+Le rayon suit chaque changement aussitôt. Une gemme éclairée brille ; une bombe touchée par le rayon s'éclaire en rouge. La lampe est un indice : elle remet un miroir en place et l'éclaire en or. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
