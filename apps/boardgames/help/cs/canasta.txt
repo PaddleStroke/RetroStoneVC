@@ -39,4 +39,4 @@ Ruce jsou tajné: předej zařízení, když o to obrazovka požádá, a další
 - Co vybrané karty mohou udělat, svítí: balíček, skupina, volné místo.
 - Když je dobírací balíček prázdný a nesmíš vzít odhazovací, klepni na prázdný dobírací balíček a rozdání skončí.
 - Na konci rozdání tabulka ukáže pro každou stranu vyložené karty, kanasty, červené trojky, zbavení se karet, karty v ruce, body rozdání a součty. Klepni pro další rozdání.
-Zpět vrátí tvé vlastní akce, až do chvíle, kdy bylo zařízení předáno.
+Vrátit vezme zpět tvé vlastní akce, až do chvíle, kdy bylo zařízení předáno.

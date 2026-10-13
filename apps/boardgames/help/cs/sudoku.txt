@@ -10,11 +10,11 @@ Napiš číslici do prázdného políčka. Kdykoli ji můžeš změnit nebo smaz
 # Konec hry
 Úloha je vyřešená, když je mřížka plná a správně: po desce přeběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, každá s jediným řešením: první dávají mnoho číslic a stačí v nich hledat jedinou možnou číslici či jediné místo, poslední po tobě chtějí zkusit číslici a sledovat ji, dokud se něco nerozbije. Vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří novou úlohu náhodně, v obtížnosti, kterou zvolíš. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatnou číslici.
+Úrovní je 150 v šesti kapitolách, každá s jediným řešením: první dávají mnoho číslic a stačí v nich hledat jedinou možnou číslici či jediné místo, poslední po tobě chtějí zkusit číslici a sledovat ji, dokud se něco nerozbije. Vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, v obtížnosti, kterou zvolíš. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
-Klepni na políčko a pak na klávesu pod deskou: její číslice se zapíše modrým inkoustem (dané číslice jsou tmavé). Dalším klepnutím na stejnou klávesu ji smažeš, nebo klávesu přetáhni na políčko. Řádek, sloupec a čtverec políčka se jemně rozsvítí a políčka se stejnou číslicí výrazněji. Když není vybrané žádné prázdné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
+Klepni na políčko a pak na klávesu vedle desky: její číslice se zapíše modrým inkoustem (dané číslice jsou tmavé). Dalším klepnutím na stejnou klávesu ji smažeš, nebo klávesu přetáhni na políčko. Řádek, sloupec a čtverec políčka se jemně rozsvítí a políčka se stejnou číslicí výrazněji. Když není vybrané žádné prázdné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak do políčka píší malé číslice, nebo je mažou. Zapsaná číslice smaže tuto poznámku ze svého řádku, sloupce a čtverce.
 - Guma: smaže číslici v políčku, nebo jeho poznámky.
 - Lampa: nápověda. Opraví špatnou číslici, jinak vyplní nejsnazší políčko, ve zlatém světle.
 - Oko: ukazuje střety (číslice, která už je v jejím řádku, sloupci či čtverci, zčervená). Na začátku je zapnuté; klepnutím ho vypneš.
-Klávesa vybledne, jakmile je všech devět jejích číslic na desce. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Klávesa vybledne, jakmile je všech devět jejích číslic na desce. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

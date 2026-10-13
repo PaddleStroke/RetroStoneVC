@@ -5,11 +5,11 @@ Do každého bílého políčka napiš číslici od 1 do 9. Úsek je řada bíl�
 - Střední: budeš potřebovat i číslici, kterou potřebují všechny způsoby a pro kterou zbývá jediné políčko, a dvojice v úseku.
 - Těžká: musíš promyslet celý úsek najednou (která číslice může do kterého políčka), nebo zkusit číslici a sledovat ji.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 5 × 5 po 12 × 12, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice, kterou pak smažeš tlačítkem Zpět.
+Úrovní je 150 v šesti kapitolách, od 5 × 5 po 12 × 12, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
-Klepni na bílé políčko a potom na klávesu pod deskou: její číslice se zapíše modrým inkoustem. Dalším klepnutím na tutéž klávesu ji smažeš, nebo klávesu přetáhni na políčko. Oba úseky políčka se rozsvítí, jejich součty zlatě, a políčka se stejnou číslicí teple. Když není vybrané žádné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
+Klepni na bílé políčko a potom na klávesu vedle desky: její číslice se zapíše modrým inkoustem. Dalším klepnutím na tutéž klávesu ji smažeš, nebo klávesu přetáhni na políčko. Oba úseky políčka se rozsvítí, jejich součty zlatě, a políčka se stejnou číslicí teple. Když není vybrané žádné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak píšou do políčka malé číslice, nebo je mažou.
 - Guma: smaže číslici políčka, nebo jeho poznámky.
 - Lampa: nápověda. Opraví špatnou číslici, jinak vyplní políčko, které najde úvaha, ve zlatém světle.
 - Oko: ukáže chyby červeně (číslice dvakrát v úseku, úsek přes svůj součet nebo plný úsek se špatným součtem). Na začátku je zapnuté.
-Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy. Když jsou všechna políčka správně, přeběhne po desce vlna zlatého světla.
+Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy. Když jsou všechna políčka správně, přeběhne po desce vlna zlatého světla.

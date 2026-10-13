@@ -10,12 +10,12 @@ Postav lampu na bílé políčko, nebo ji odeber. Do políčka můžeš také d�
 # Konec hry
 Úloha je vyřešená, když je každé bílé políčko osvětlené, žádná lampa neosvětluje jinou a každé číslo má své lampy: po desce přeběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 6 × 6 po 14 × 14, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatnou lampu nebo tečku.
+Úrovní je 150 v šesti kapitolách, od 6 × 6 po 14 × 14, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná lampa nebo tečka; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
 - Klepnutím na bílé políčko postavíš lampu; dalším klepnutím ji odebereš.
 - Když na políčku chvíli podržíš prst, dáš do něj tečku, nebo ji odebereš.
 - Táhni prstem po řádku nebo sloupci a dáš tečky do celého úseku (nebo je z úseku teček odebereš).
-Osvětlená políčka hřejivě září. Dvě lampy, které se navzájem osvětlují, svítí červeně; číslo zčervená, když má příliš mnoho lamp, a vybledne, když má všechny. Tlačítka na pravém konci lišty (na šířku v postranním sloupci):
+Osvětlená políčka hřejivě září. Dvě lampy, které se navzájem osvětlují, svítí červeně; číslo zčervená, když má příliš mnoho lamp, a vybledne, když má všechny. Tlačítka vedle desky:
 - Lampa nebo tečka: co klepnutí postaví. Klepnutím na něj prohodíš klepnutí a podržení.
 - Žárovka: nápověda. Opraví chybné políčko, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle.
-Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

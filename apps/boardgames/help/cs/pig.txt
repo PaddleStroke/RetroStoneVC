@@ -12,4 +12,4 @@ Vybírá se před hrou: totéž se dvěma kostkami, jejichž součet se přičí
 # Konec hry
 Hráči se střídají kolem stolu, slonovinový začíná. Kdo jako první přestane se 100 body nebo více, hned vyhrává.
 # Hra na zařízení
-Pohled se otočí k hráči, který hází. Klepnutím na plsť nebo na tlačítko s kostkou hodíš: součet tahu je pod kostkami a hody tahu se řadí do stojanu. Tlačítko s mincemi přestane. Nahoře běží kostka každého hráče žlábkem od 0 ke zlatému sloupku u 100; kostka hráče na tahu svítí a součet jeho tahu běží zlatě před ní. Jednička se ukáže v červené záři se ztracenými body. Každý pruh ukazuje skóre toho hráče. Zpět vrátí přestání, nikdy hod.
+Pohled se otočí k hráči, který hází. Klepnutím na plsť nebo na tlačítko s kostkou hodíš: součet tahu je pod kostkami a hody tahu se řadí do stojanu. Tlačítko s mincemi přestane. Nahoře běží kostka každého hráče žlábkem od 0 ke zlatému sloupku u 100; kostka hráče na tahu svítí a součet jeho tahu běží zlatě před ní. Jednička se ukáže v červené záři se ztracenými body. Každá lišta ukazuje skóre toho hráče. Vrátit vezme zpět přestání, nikdy hod.

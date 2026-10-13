@@ -9,11 +9,11 @@ Napiš číslo do prázdného políčka. Kdykoli ho můžeš změnit nebo smazat
 # Konec hry
 Úloha je vyřešena, když je mřížka plná a správně: deskou proběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatné číslo.
+Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné číslo; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
-Klepni na políčko a pak na klávesu pod deskou: její číslo se zapíše modrým inkoustem (daná čísla jsou tmavá). Dalším klepnutím na stejnou klávesu ho smažeš, nebo můžeš klávesu přetáhnout na políčko. Řádek a sloupec políčka se jemně rozsvítí a políčka se stejným číslem výrazněji. Když není vybráno prázdné políčko, klávesa rozsvítí políčka se svým číslem. Tlačítka vedle desky:
+Klepni na políčko a pak na klávesu vedle desky: její číslo se zapíše modrým inkoustem (daná čísla jsou tmavá). Dalším klepnutím na stejnou klávesu ho smažeš, nebo můžeš klávesu přetáhnout na políčko. Řádek a sloupec políčka se jemně rozsvítí a políčka se stejným číslem výrazněji. Když není vybráno prázdné políčko, klávesa rozsvítí políčka se svým číslem. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak do políčka píšou malá čísla nebo je mažou. Zapsané číslo smaže tuto poznámku ve svém řádku a sloupci.
 - Guma: smaže číslo v políčku, nebo jeho poznámky.
 - Lampa: nápověda. Opraví špatné číslo, jinak vyplní nejsnazší políčko, ve zlatém světle.
 - Oko: ukazuje chyby (číslo, které je v řádku nebo sloupci dvakrát, nebo znaménko, které neplatí, zčervená). Na začátku je zapnuté; klepnutím je skryješ.
-Klávesa vybledne, jakmile je její číslo v každém řádku. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Klávesa vybledne, jakmile je její číslo v každém řádku. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

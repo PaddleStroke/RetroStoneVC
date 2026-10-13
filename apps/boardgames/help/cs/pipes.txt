@@ -7,9 +7,9 @@ Otočit jednu destičku o čtvrt otáčky po směru hodinových ručiček.
 # Konec hry
 Když jsou všechny destičky spojené a žádná trubka není otevřená, voda doteče do každé destičky a od nádrže se rozběhne zlaté světlo.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 4 × 4 po 11 × 11 a desky bez okrajů, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet čtvrtotáček, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Rada omezí hlavolam na 2 hvězdy, víc než dvě rady na 1. Vrátit vezme tah zpět a ten se už nepočítá.
+Úrovní je 150 v šesti kapitolách, od 4 × 4 po 11 × 11 a desky bez okrajů, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet čtvrtotáček, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1. Vrátit vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
 - Klepnutím otočíš destičku o čtvrt otáčky.
 - Voda teče z nádrže do všech trubek, které na ni navazují. Kde dorazí k otevřené trubce, přetéká: hledej kapky.
-- Lampa na pravém konci lišty dává nápovědu: otočí jednu špatnou destičku správně (vedle vody, když to jde), ve zlatém světle.
-Zpět vrací jedno otočení nebo nápovědu najednou, až na začátek. Lišta ukazuje tvé tahy.
+- Lampa dává nápovědu: otočí jednu špatnou destičku správně (vedle vody, když to jde), ve zlatém světle.
+Vrátit bere zpět jedno otočení nebo nápovědu najednou, až na začátek. Lišta ukazuje tvé tahy.

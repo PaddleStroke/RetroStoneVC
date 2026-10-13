@@ -10,9 +10,9 @@ Vepiš výšku do políčka, změň ji nebo ji odeber. Malé poznámky v políč
 # Konec hry
 Úloha je vyřešená, když má každé políčko svou budovu a město splňuje všechna pravidla: po desce přeběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš špatnou výšku.
+Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná výška; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
-Klepni na políčko a pak na klávesu pod deskou: její výška se vepíše (stejná klávesa ji znovu odebere). Klávesu můžeš také přetáhnout na políčko. Dalším klepnutím na vybrané políčko zvýšíš budovu o patro; když na políčku chvíli podržíš prst, vyprázdníš ho. Budovy jsou malé dřevěné věže: čím vyšší, tím větší. Tlačítka na pravém konci lišty (na šířku v postranním sloupci):
+Klepni na políčko a pak na klávesu vedle desky: její výška se vepíše (stejná klávesa ji znovu odebere). Klávesu můžeš také přetáhnout na políčko. Dalším klepnutím na vybrané políčko zvýšíš budovu o patro; když na políčku chvíli podržíš prst, vyprázdníš ho. Budovy jsou malé dřevěné věže: čím vyšší, tím větší. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak vpisují do políčka malé výšky, nebo je odebírají. Vepsaná výška smaže tuto poznámku ve svém řádku a sloupci.
 - Žárovka: nápověda. Opraví chybnou výšku, nebo vyplní další políčko, ke kterému úvaha vede, ve zlatém světle.
-Výška, která je v řádku nebo sloupci dvakrát, zčervená. Číslo na okraji vybledne, když jeho plná řada ukazuje správný počet, a zčervená, když ukazuje jiný. Klávesa vybledne, jakmile je její výška v každém řádku. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Výška, která je v řádku nebo sloupci dvakrát, zčervená. Číslo na okraji vybledne, když jeho plná řada ukazuje správný počet, a zčervená, když ukazuje jiný. Klávesa vybledne, jakmile je její výška v každém řádku. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

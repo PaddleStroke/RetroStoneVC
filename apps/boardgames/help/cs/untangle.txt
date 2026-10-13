@@ -1,12 +1,12 @@
 Rozmotávání
 # Cíl hry
 Na desce stojí mosazné špendlíky spojené šňůrkami a šňůrky se kříží. Posouvej špendlíky, dokud se žádné dvě šňůrky nekříží. Nejdřív si zvol počet špendlíků: 10, 20, 30 nebo 45.
-Každou hádanku lze rozmotat: špendlíky nejdřív stály úplně bez křížení, pak byly v zamíchaném pořadí rozestaveny do kruhu.
+Každý hlavolam lze rozmotat: špendlíky nejdřív stály úplně bez křížení, pak byly v zamíchaném pořadí rozestaveny do kruhu.
 # Tah
 Posuň jeden špendlík kamkoli na desku; jeho šňůrky ho následují.
 # Konec hry
-Když žádná šňůrka nekříží jinou ani se nedotýká cizího špendlíku, je hádanka vyřešena: šňůrky zezlátnou a po špendlících přeběhne zlaté světlo.
+Když žádná šňůrka nekříží jinou ani se nedotýká cizího špendlíku, je hlavolam vyřešen: šňůrky zezlátnou a po špendlících přeběhne zlaté světlo.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 6 špendlíků po 36: v každé je pár špendlíků posunuto z rozložení bez jediného křížení. Vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: v úrovni počet posunutých špendlíků; v náhodném hlavolamu nejmenší známý počet špendlíků, které se musí posunout. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Rada omezí hlavolam na 2 hvězdy, víc než dvě rady na 1. Vrátit vezme tah zpět a ten se už nepočítá.
+Úrovní je 150 v šesti kapitolách, od 6 špendlíků po 36: v každé je pár špendlíků posunuto z rozložení bez jediného křížení. Vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: v úrovni počet posunutých špendlíků; v náhodném hlavolamu nejmenší známý počet špendlíků, které se musí posunout. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1. Vrátit vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
-Táhni špendlík prstem. Zatímco ho posouváš, každá šňůrka, která kříží jinou, svítí červeně; když už žádná nezbývá, všechny zezlátnou. Lišta ukazuje tvoje tahy a zbývající křížení. Lampa na liště je nápověda: posune jeden špendlík tam, kde odstraní nejvíc křížení, nebo, když žádný jednotlivý tah nepomůže, ho postaví tam, kde stojí v rozložení bez křížení; špendlík tam sklouzne ve zlatém světle. Zpět vrací jeden tah po druhém až na začátek.
+Táhni špendlík prstem. Zatímco ho posouváš, každá šňůrka, která kříží jinou, svítí červeně; když už žádná nezbývá, všechny zezlátnou. Lišta ukazuje tvoje tahy a zbývající křížení. Lampa je nápověda: posune jeden špendlík tam, kde odstraní nejvíc křížení, nebo, když žádný jednotlivý tah nepomůže, ho postaví tam, kde stojí v rozložení bez křížení; špendlík tam sklouzne ve zlatém světle. Vrátit bere zpět jeden tah po druhém až na začátek.

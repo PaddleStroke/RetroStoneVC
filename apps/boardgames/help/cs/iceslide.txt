@@ -7,7 +7,7 @@ Každý hlavolam je nový a vždy má řešení. Jeho par, nejmenší možný po
 # Konec hry
 Hlavolam je vyřešen, když puk spadne do díry. Při vyřešení na par přeběhne po ledě zlaté světlo.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od ledu 5 × 5 polí po 10 × 9; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Par je nejmenší počet šťouchnutí. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc šťouchnutí: 2 hvězdy; jinak 1. Zpět vezme šťouchnutí zpět a to se už nepočítá.
+Úrovní je 150 v šesti kapitolách, od ledu 5 × 5 polí po 10 × 9; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet šťouchnutí, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc šťouchnutí: 2 hvězdy; jinak 1. Vrátit vezme šťouchnutí zpět a to se už nepočítá.
 # Hra na zařízení
-Přejeď prstem po ledě požadovaným směrem, klepni na pole v řádku nebo sloupci puku, nebo klepni na jednu ze čtyř šipek pod deskou (na počítači fungují i klávesy se šipkami). Šipka je ztlumená, když puk tím směrem jet nemůže.
-Lampa dá nápovědu: další šťouchnutí nejkratší cesty, jeho šipku ve zlatém světle a dráhu vytečkovanou zlatě. Když už se do díry nedá dostat, nápověda nejdřív vrátí šťouchnutí, která tam vedla. Zpět vrací jedno šťouchnutí po druhém, až na začátek. Lišta ukazuje tvá šťouchnutí a na pravém konci par.
+Přejeď prstem po ledě požadovaným směrem, klepni na pole v řádku nebo sloupci puku, nebo klepni na jednu ze čtyř šipek vedle desky (na počítači fungují i klávesy se šipkami). Šipka je ztlumená, když puk tím směrem jet nemůže.
+Lampa dá nápovědu: další šťouchnutí nejkratší cesty, jeho šipku ve zlatém světle a dráhu vytečkovanou zlatě. Když už se do díry nedá dostat, nápověda nejdřív vrátí šťouchnutí, která tam vedla. Vrátit bere zpět jedno šťouchnutí po druhém, až na začátek. Lišta ukazuje tvá šťouchnutí a na pravém konci par.

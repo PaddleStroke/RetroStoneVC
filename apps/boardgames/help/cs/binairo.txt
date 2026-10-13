@@ -10,9 +10,9 @@ Polož kámen na prázdné políčko, změň jeho barvu nebo ho odeber. Dané ka
 # Konec hry
 Úloha je vyřešená, když je mřížka plná a splňuje všechna pravidla: po desce přeběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 6 × 6 po 12 × 12, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Za chybu se počítá, když tlačítkem Zpět vrátíš kámen špatné barvy.
+Úrovní je 150 v šesti kapitolách, od 6 × 6 po 12 × 12, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je kámen špatné barvy; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
 - Klepnutím na prázdné políčko položíš světlý kámen, dalším tmavý, ještě dalším políčko vyprázdníš.
 - Když na políčku chvíli podržíš prst, půjdeš opačně: nejdřív tmavý.
 - Táhni prstem po řádku nebo sloupci a uděláš totéž s celým úsekem. Mění se jen políčka, která byla jako první.
-Tři stejné za sebou svítí červeně; řádek nebo sloupec s příliš mnoha kameny jedné barvy, nebo plný a stejný jako jiný, zčervená. Tlačítko na pravém konci lišty (na šířku v postranním sloupci) je žárovka: nápověda. Opraví chybný kámen, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Tři stejné za sebou svítí červeně; řádek nebo sloupec s příliš mnoha kameny jedné barvy, nebo plný a stejný jako jiný, zčervená. Tlačítko se žárovkou vedle desky je nápověda. Opraví chybný kámen, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

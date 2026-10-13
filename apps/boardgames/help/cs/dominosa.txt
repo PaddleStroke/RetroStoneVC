@@ -9,6 +9,6 @@ Spoj dvě sousední políčka do kostky, nebo kostku odeber. Nová kostka nahrad
 # Konec hry
 Úloha je vyřešena, když kostky zakrývají mřížku a každá kostka sady je tam jednou: deskou proběhne vlna zlatého světla.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od sady do 3-3 po sadu do 8-8, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s hrací kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná kostka, kterou pak odebereš tlačítkem Zpět.
+Úrovní je 150 v šesti kapitolách, od sady do 3-3 po sadu do 8-8, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s hrací kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná kostka; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
 # Hra na zařízení
-Táhni z políčka na jeho souseda, nebo klepni na jedno a pak na druhé: položí se na ně kostka ze slonoviny, jejíž body ukazují obě čísla. Klepnutím na kostku ji odebereš. Kostka položená dvakrát zčervená. Tlačítko s lampou dává nápovědu: odebere špatnou kostku, jinak položí nejsnazší správnou, ve zlatém světle. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Táhni z políčka na jeho souseda, nebo klepni na jedno a pak na druhé: položí se na ně kostka ze slonoviny, jejíž body ukazují obě čísla. Klepnutím na kostku ji odebereš. Kostka položená dvakrát zčervená. Tlačítko s lampou dává nápovědu: odebere špatnou kostku, jinak položí nejsnazší správnou, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.

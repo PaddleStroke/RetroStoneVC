@@ -10,4 +10,4 @@ Zvol obrazec na obrazovce úrovní; vyřešené ukazují své hvězdy.
 - Přetáhni tan. Když ho pustíš, usadí se na místo, kam pasuje: jeho rohy se setkají s rohy siluety nebo jiného tanu.
 - Klepni na tan: otočí se o osminu otáčky.
 - Klepni rychle dvakrát na rovnoběžník: převrátí se.
-Naposledy dotčený tan leží navrchu. Lampa dá nápovědu: posune jeden tan na jeho místo, ve zlatém světle. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje tvé akce.
+Naposledy dotčený tan leží navrchu. Lampa dá nápovědu: posune jeden tan na jeho místo, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé akce.

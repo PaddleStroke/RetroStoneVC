@@ -10,4 +10,4 @@ Zvol úroveň na obrazovce úrovní; vyřešené ukazují své hvězdy.
 - Přejeď prstem: správce vykročí tím směrem o tolik polí, jak dlouhý je tah prstem, a tlačí, co má před sebou.
 - Klepni na volné pole: správce tam dojde, kolem beden.
 - Klepni na bednu vedle správce: posune se o pole směrem od něj. Klepni na kteroukoli jinou bednu: tečky ukážou, kam ji lze dotlačit v přímém směru; klepni na tečku a správce ji obejde a dotlačí tam.
-Lampa dá nápovědu: správce udělá další posunutí nejkratší cesty, ve zlatém světle. Když bedna uvízne, nápověda se nejdřív vrátí tam, odkud ještě cesta vede. Zpět vrací jednu akci po druhé, až na začátek. Lišta ukazuje kroky správce a na pravém konci posunutí.
+Lampa dá nápovědu: správce udělá další posunutí nejkratší cesty, ve zlatém světle. Když bedna uvízne, nápověda se nejdřív vrátí tam, odkud ještě cesta vede. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje kroky správce a na pravém konci posunutí.

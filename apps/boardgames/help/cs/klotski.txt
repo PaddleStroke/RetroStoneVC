@@ -7,9 +7,9 @@ Kostka klouže do prázdných polí, po jednom poli, nahoru, dolů, doleva nebo 
 # Konec hry
 Když velká kostka stojí uprostřed spodní řady, vyklouzne ve zlatém světle otvorem ven: vyřešeno.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od pár tahů po hodně přes sto; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový rámeček náhodně: lehký, střední nebo těžký. Každý rámeček má par: nejmenší počet tahů, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Zpět vezme tah zpět a ten se už nepočítá.
+Úrovní je 150 v šesti kapitolách, od pár tahů po hodně přes sto; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový rámeček náhodně: lehký, střední nebo těžký. Každý rámeček má par: nejmenší počet tahů, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Vrátit vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
 - Táhni kostku: sleduje tvůj prst pole po poli.
 - Nebo na kostku klepni. Může-li jít jen na jedno místo, přesune se tam. Může-li na víc míst, vybere se a tečky ukážou pole, kam může dojet: klepni na jedno a kostka tam dojede nejkratší cestou.
 - Klepni na prázdné pole, kam může dojet jen jedna kostka: ta kostka přijede.
-Lampa vedle rámečku dá nápovědu: první tah nejkratší cesty, ve zlatém světle. Zpět vrací jeden tah po druhém, až na začátek. Lišta ukazuje tvé tahy a na pravém konci nejmenší možný počet pro toto rozestavení; když ho dosáhneš, rozzáří se zlatem.
+Lampa vedle rámečku dá nápovědu: první tah nejkratší cesty, ve zlatém světle. Vrátit bere zpět jeden tah po druhém, až na začátek. Lišta ukazuje tvé tahy a na pravém konci nejmenší možný počet pro toto rozestavení; když ho dosáhneš, rozzáří se zlatem.
