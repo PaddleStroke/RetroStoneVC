@@ -100,4 +100,12 @@ int  piquet_winner(const piquet_pos *p);        /* PQ_OVER: the winner (-1: a dr
 int  piquet_auto(const piquet_pos *p);
 int  piquet_script(piquet_game *g, const char *moves);
 
+/* the bot (piquet_bot.c, bots.h), and what the screen (piquet.c) gives it; a headless test defines those two */
+const piquet_game *piquet_live(void);           /* the game on the screen, read-only: the bot copies it at entry */
+int piquet_show(const char *move);              /* main thread: plays one action of the notation as a tap does */
+struct ai_stats;
+struct tb_state;
+int pqb_choose(const piquet_game *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* 0: none */
+void pqb_view(const piquet_game *g, int me, struct tb_state *v, piquet_game *scratch);   /* seat me's knowledge */
+
 #endif

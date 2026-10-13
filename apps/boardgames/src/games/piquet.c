@@ -227,6 +227,18 @@ static void act(int a)
     if (p->phase <= PQ_PLAY) ui_handoff(p->turn);
 }
 
+/* the bot's (piquet_bot.c): the game read-only, and a move of the notation played as a tap plays it */
+const piquet_game *piquet_live(void) { return &G; }
+
+int piquet_show(const char *move)
+{
+    static piquet_game t;
+    t = G;
+    if (!piquet_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int undo(void)
 {
     if (pick || F.raised != CARD_NONE || show_last) { reset_ui(); return 1; }
