@@ -8,20 +8,26 @@
  * winning row lights up in gold. Six in a row: the bar of the player to move shows the stones still to place this
  * turn (two, then one); the first stone of a pair half played is marked as selected; the rings show the other
  * player's last turn (its one or two stones). Undo takes back one stone. The script's moves: "h8 i9 ..." (gomoku.h).
- * Renju: while ebony is to move, its forbidden points carry a small red cross (a tap there is refused).
+ * Renju: while ebony is to move, its forbidden points carry a small red cross (a tap there is refused). Where the
+ * points are small (loupe.h), a loupe beside the finger shows them magnified while it is down, and a second tap near
+ * the ghost counts as on it. The board is a square in the middle of the room the shell gives (game.fill).
  */
 #include <string.h>
 
 #include "games/gomoku.h"
 #include "games/grid.h"
+#include "games/loupe.h"
 #include "shell.h"
 
 #define SET_MS 110                              /* a new stone set down */
+#define LOUPE_PTS 4.2f                          /* the points the loupe shows across */
 
 static gkgame G;
 static grid B = {.n = GK_N};
-static int made_small = -1, made_cross = -1;
-static SDL_Texture *t_small[2], *t_cross;
+static int made_small = -1, made_cross = -1, made_z = -1;
+static SDL_Texture *t_small[2], *t_cross, *t_zstone[2], *t_zcross;   /* t_z*: the loupe's */
+static box room;                                /* the shell's room: the board in its middle, the loupe in it */
+static struct { float x, y, dx, dy; } fing;     /* the finger on the board, its offset to the ghost */
 static struct { int on, pt; Uint32 t0; } anim;
 static uint8_t forbid[GK_MAXPTS];               /* renju: ebony's forbidden points now (ebony to move) */
 
@@ -112,7 +118,20 @@ static void paint_cross(int size, uint8_t *o)
 
 static void layout(box b)
 {
-    grid_layout(&B, b);
+    float side = fminf(b.w, b.h);               /* a square in the middle of the room */
+    room = b;
+    grid_layout(&B, (box){floorf(b.x + (b.w - side) / 2), floorf(b.y + (b.h - side) / 2), side, side});
+    int z = loupe_small((float)B.sq) ? (int)lroundf(B.sq * LOUPE_Z) : 0;
+    if (made_z != z) {                          /* the loupe's stones and cross, crisp */
+        made_z = z;
+        for (int p = 0; p < 2; p++) {
+            ui_free(&t_zstone[p]);
+            if (z) t_zstone[p] = grid_stone_tex(p, z);
+        }
+        ui_free(&t_zcross);
+        int zc = (int)(0.42f * z);
+        if (z) paint_cross(zc, ui_buf(zc, zc)), t_zcross = ui_tex(zc, zc, ui_buf(zc, zc));
+    }
     int c = (int)fmaxf(7, 0.42f * B.sq);
     if (made_cross != c) {
         made_cross = c;
@@ -133,53 +152,93 @@ static void layout(box b)
 /* the turn being played starts at this stone (six in a row: a pair half played started one stone back) */
 static int turn_now(void) { return G.nmoves < G.n * G.n ? gk_turn_start(&G, G.nmoves) : G.nmoves; }
 
+/* the board and all on it, as the grid g places it (the board's own, or the loupe's); t: the new stone setting down
+ * (0..1) */
+static void draw_board(const grid *g, float t, SDL_Texture *cross)
+{
+    float x, y;
+    grid_board(g);
+    uint8_t line[GK_MAXPTS];
+    if (!anim.on && gk_line(&G, line))          /* the winning line: a gold light under its stones */
+        for (int p = 0; p < G.n * G.n; p++) {
+            if (!line[p]) continue;
+            grid_xy(g, p, &x, &y);
+            ui_mark_gold(x, y, 2.6f * g->sq);
+        }
+    int last = gk_last(&G), playing = gk_status(&G) == GK_PLAY, now = playing ? turn_now() : G.nmoves;
+    if (playing && now < G.nmoves) {            /* a pair half played: its first stone, selected */
+        grid_xy(g, G.move[now], &x, &y);
+        ui_mark_select_round(x, y, 1.12f * g->sq);
+    }
+    grid_stones(g, G.pt, NULL, anim.on ? anim.pt : -1);
+    if (anim.on) {                              /* the new stone, a little bigger, its shadow coming in */
+        grid_xy(g, last, &x, &y);
+        ui_shadow_flat(x, y, (float)g->sq, (float)g->sq, t);
+        grid_stone(g, G.pt[last] - 1, x, y, (1.14f - 0.14f * t) * g->sq, 255);
+    }
+    if (now > 0)                                /* the rings: the last whole turn (one stone, or a pair) */
+        for (int i = gk_turn_start(&G, now - 1); i < now; i++)
+            if (!(anim.on && i == G.nmoves - 1)) grid_last(g, G.move[i], G.pt[G.move[i]] - 1);
+    if (playing && G.variant == GK_RENJU)       /* ebony to move: its forbidden points */
+        for (int p = 0; p < G.n * G.n; p++)
+            if (forbid[p]) {
+                grid_xy(g, p, &x, &y);
+                float c = fmaxf(7, 0.42f * g->sq);
+                ui_put_c(cross, x, y, c, c);
+            }
+    if (playing) grid_ghost(g, gk_side(&G));
+}
+
+/* the loupe while a finger is down on small points: the board round it magnified, the ghost in it */
+static void draw_loupe(float t)
+{
+    if (gk_status(&G) != GK_PLAY || !B.ghost.down || !t_zstone[0]) return;
+    float fx = fing.x + fing.dx, fy = fing.y + fing.dy;
+    loupe l = loupe_at(fx, fy, (float)B.sq, LOUPE_PTS, ui_upside(turn()), room);
+    grid z = B;                                 /* the same board, its points larger round the finger */
+    z.sq = made_z;
+    z.fr = (int)lroundf(B.fr * (float)z.sq / B.sq);
+    float k = (float)z.sq / B.sq;
+    z.ox = l.cx + (B.ox - fx) * k;
+    z.oy = l.cy + (B.oy - fy) * k;
+    z.t_stone[0] = t_zstone[0];
+    z.t_stone[1] = t_zstone[1];
+    l.z = k;
+    loupe_begin(&l);
+    draw_board(&z, t, t_zcross);
+    loupe_end();
+}
+
 static void draw(void)
 {
-    float x, y, t = 1;
+    float t = 1;
     if (anim.on) {
         t = (ui_ms() - anim.t0) / (float)SET_MS;
         if (t >= 1) t = 1, anim.on = 0;
         else ui_animate();
     }
-    grid_board(&B);
-    uint8_t line[GK_MAXPTS];
-    if (!anim.on && gk_line(&G, line))          /* the winning line: a gold light under its stones */
-        for (int p = 0; p < G.n * G.n; p++) {
-            if (!line[p]) continue;
-            grid_xy(&B, p, &x, &y);
-            ui_mark_gold(x, y, 2.6f * B.sq);
-        }
-    int last = gk_last(&G), playing = gk_status(&G) == GK_PLAY, now = playing ? turn_now() : G.nmoves;
-    if (playing && now < G.nmoves) {            /* a pair half played: its first stone, selected */
-        grid_xy(&B, G.move[now], &x, &y);
-        ui_mark_select_round(x, y, 1.12f * B.sq);
-    }
-    grid_stones(&B, G.pt, NULL, anim.on ? anim.pt : -1);
-    if (anim.on) {                              /* the new stone, a little bigger, its shadow coming in */
-        grid_xy(&B, last, &x, &y);
-        ui_shadow_flat(x, y, (float)B.sq, (float)B.sq, t);
-        grid_stone(&B, G.pt[last] - 1, x, y, (1.14f - 0.14f * t) * B.sq, 255);
-    }
-    if (now > 0)                                /* the rings: the last whole turn (one stone, or a pair) */
-        for (int i = gk_turn_start(&G, now - 1); i < now; i++)
-            if (!(anim.on && i == G.nmoves - 1)) grid_last(&B, G.move[i], G.pt[G.move[i]] - 1);
-    if (playing && G.variant == GK_RENJU)       /* ebony to move: its forbidden points */
-        for (int p = 0; p < G.n * G.n; p++)
-            if (forbid[p]) {
-                grid_xy(&B, p, &x, &y);
-                float c = fmaxf(7, 0.42f * B.sq);
-                ui_put_c(t_cross, x, y, c, c);
-            }
-    if (playing) grid_ghost(&B, gk_side(&G));
+    draw_board(&B, t, t_cross);
+    draw_loupe(t);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
-    if (gk_status(&G) == GK_PLAY) grid_press(&B, x, y, legal);
+    if (gk_status(&G) != GK_PLAY) return;
+    fing.x = x, fing.y = y, fing.dx = fing.dy = 0;
+    if (B.ghost.on && loupe_small((float)B.sq)) {   /* small points: a tap near the ghost is on it */
+        float gx, gy;
+        grid_xy(&B, B.ghost.pt, &gx, &gy);
+        loupe_snap(x, y, gx, gy, 0.8f * B.sq, &fing.dx, &fing.dy);
+    }
+    grid_press(&B, x + fing.dx, y + fing.dy, legal);
 }
 
-static void motion(float x, float y) { grid_motion(&B, x, y, legal); }
+static void motion(float x, float y)
+{
+    fing.x = x, fing.y = y;
+    grid_motion(&B, x + fing.dx, y + fing.dy, legal);
+}
 
 static void release(float x, float y)
 {
@@ -242,6 +301,6 @@ static const game gomoku_game = {
     .id = "gomoku", .order = 70, .variants = GK_VARIANTS,
     .thumb = thumb, .token = grid_token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .fill = 1,
 };
 REGISTER_GAME(gomoku_game)

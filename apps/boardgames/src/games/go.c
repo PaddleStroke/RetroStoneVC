@@ -4,25 +4,32 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * A tap shows a ghost stone on the nearest point (19 x 19 points are small on a phone), a second tap on it plays it;
- * a drag moves the ghost, its release does not play. Two passes: the counting. Each point shows its owner (a small
- * square), a tap on a group marks it dead (faded, its points the other player's) or alive again; the pass button then
- * means done. The script's moves: "d4 q16 pass" (go.h), a pass while counting is done. The board, the stones and the
- * ghost: grid.h (shared with gomoku).
+ * a drag moves the ghost, its release does not play. Where the points are small (loupe.h), a loupe beside the finger
+ * shows them magnified while it is down, and a second tap near the ghost counts as on it. Two passes: the counting.
+ * Each point shows its owner (a small square), a tap on a group marks it dead (faded, its points the other player's)
+ * or alive again; the pass button then means done. The script's moves: "d4 q16 pass" (go.h), a pass while counting is
+ * done. The board, the stones and the ghost: grid.h (shared with gomoku). The board is a square in the middle of the
+ * room the shell gives (game.fill), the loupe in that room.
  */
 #include <math.h>
 #include <string.h>
 
 #include "games/go.h"
 #include "games/grid.h"
+#include "games/loupe.h"
 #include "shell.h"
 
 #define FADE_MS 260                             /* captured stones fade out */
+#define LOUPE_PTS 4.2f                          /* the points the loupe shows across */
 
 static gogame G;
 static grid B = {.n = 19};
-static int made_u = -1;
-static SDL_Texture *t_small[2], *t_half;
+static int made_u = -1, made_z = -1;
+static SDL_Texture *t_small[2], *t_half, *t_zstone[2];   /* t_zstone: the loupe's stones */
 static struct { int on, k, pt[GO_PTS]; uint8_t who[GO_PTS]; Uint32 t0; } fade;
+static box room;                                /* the shell's room: the board in its middle, the loupe in it */
+static struct { float x, y, dx, dy; } fing;     /* the finger on the board, and its offset to the ghost (a tap near
+                                                 * it on small points) */
 
 static const uint8_t WHITE[3] = {255, 255, 255};
 
@@ -114,7 +121,17 @@ static void paint_half(int size, uint8_t *o)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
-    grid_layout(&B, b);
+    float side = fminf(b.w, b.h);               /* a square in the middle of the room */
+    room = b;
+    grid_layout(&B, (box){floorf(b.x + (b.w - side) / 2), floorf(b.y + (b.h - side) / 2), side, side});
+    int z = loupe_small((float)B.sq) ? (int)lroundf(B.sq * LOUPE_Z) : 0;
+    if (made_z != z) {                          /* the loupe's stones, crisp */
+        made_z = z;
+        for (int p = 0; p < 2; p++) {
+            ui_free(&t_zstone[p]);
+            if (z) t_zstone[p] = grid_stone_tex(p, z);
+        }
+    }
     int u = (int)ui.unit;
     if (made_u != u) {
         made_u = u;
@@ -141,39 +158,64 @@ static void owner_square(int player, float cx, float cy, float s, int on_wood)
     else ui_fill(cx - s / 2, cy - s / 2, s, s, 40, 36, 34, 255);
 }
 
-static void draw(void)
+/* the board and all on it, as the grid g places it (the board's own, or the loupe's) */
+static void draw_board(const grid *g)
 {
     const gopos *p = go_now(&G);
     float x, y;
-    grid_board(&B);
+    grid_board(g);
     int counting = G.phase != GO_PLAY && !G.capture, last = go_last(&G);
     int8_t owner[GO_PTS];
     float score[2];
     if (counting) go_score(&G, owner, score);
     if (G.capture && G.phase == GO_OVER && last >= 0) {   /* capture go: the stone that won, in gold light */
-        grid_xy(&B, last, &x, &y);
-        ui_mark_gold(x, y, 2.6f * B.sq);
+        grid_xy(g, last, &x, &y);
+        ui_mark_gold(x, y, 2.6f * g->sq);
     }
-    grid_stones(&B, p->pt, counting ? G.dead : NULL, -1);   /* the dead stones faded */
+    grid_stones(g, p->pt, counting ? G.dead : NULL, -1);   /* the dead stones faded */
     if (fade.on) {
         float t = (ui_ms() - fade.t0) / (float)FADE_MS;
-        if (t >= 1) fade.on = 0;
-        else {
-            ui_animate();
-            for (int i = 0; i < fade.k; i++) {
-                grid_xy(&B, fade.pt[i], &x, &y);
-                grid_stone(&B, fade.who[i], x, y, (float)B.sq, (int)(255 * (1 - t) * (1 - t)));
-            }
+        ui_animate();
+        for (int i = 0; t < 1 && i < fade.k; i++) {
+            grid_xy(g, fade.pt[i], &x, &y);
+            grid_stone(g, fade.who[i], x, y, (float)g->sq, (int)(255 * (1 - t) * (1 - t)));
         }
     }
-    if (last >= 0 && p->pt[last] != GO_EMPTY && !(counting && G.dead[last])) grid_last(&B, last, p->pt[last] - 1);
+    if (last >= 0 && p->pt[last] != GO_EMPTY && !(counting && G.dead[last])) grid_last(g, last, p->pt[last] - 1);
     if (counting)
-        for (int pt = 0; pt < B.n * B.n; pt++) {
+        for (int pt = 0; pt < g->n * g->n; pt++) {
             if (owner[pt] < 0 || (p->pt[pt] != GO_EMPTY && !G.dead[pt])) continue;
-            grid_xy(&B, pt, &x, &y);
-            owner_square(owner[pt], x, y, roundf(0.22f * B.sq), 1);
+            grid_xy(g, pt, &x, &y);
+            owner_square(owner[pt], x, y, roundf(0.22f * g->sq), 1);
         }
-    if (G.phase == GO_PLAY) grid_ghost(&B, p->side);
+    if (G.phase == GO_PLAY) grid_ghost(g, p->side);
+}
+
+/* the loupe while a finger is down on small points: the board round it magnified, the ghost in it */
+static void draw_loupe(void)
+{
+    if (G.phase != GO_PLAY || !B.ghost.down || !t_zstone[0]) return;
+    float fx = fing.x + fing.dx, fy = fing.y + fing.dy;
+    loupe l = loupe_at(fx, fy, (float)B.sq, LOUPE_PTS, ui_upside(turn()), room);
+    grid z = B;                                 /* the same board, its points l.z apart round the finger */
+    z.sq = made_z;
+    z.fr = (int)lroundf(B.fr * (float)z.sq / B.sq);
+    float k = (float)z.sq / B.sq;
+    z.ox = l.cx + (B.ox - fx) * k;
+    z.oy = l.cy + (B.oy - fy) * k;
+    z.t_stone[0] = t_zstone[0];
+    z.t_stone[1] = t_zstone[1];
+    l.z = k;
+    loupe_begin(&l);
+    draw_board(&z);
+    loupe_end();
+}
+
+static void draw(void)
+{
+    draw_board(&B);
+    if (fade.on && ui_ms() - fade.t0 >= FADE_MS) fade.on = 0;
+    draw_loupe();
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -183,10 +225,21 @@ static void press(float x, float y)
         ui_sound(go_toggle(&G, grid_pt(&B, x, y)) ? SND_TAP : SND_DENY);
         return;
     }
-    if (G.phase == GO_PLAY) grid_press(&B, x, y, legal);
+    if (G.phase != GO_PLAY) return;
+    fing.x = x, fing.y = y, fing.dx = fing.dy = 0;
+    if (B.ghost.on && loupe_small((float)B.sq)) {   /* small points: a tap near the ghost is on it */
+        float gx, gy;
+        grid_xy(&B, B.ghost.pt, &gx, &gy);
+        loupe_snap(x, y, gx, gy, 0.8f * B.sq, &fing.dx, &fing.dy);
+    }
+    grid_press(&B, x + fing.dx, y + fing.dy, legal);
 }
 
-static void motion(float x, float y) { grid_motion(&B, x, y, legal); }
+static void motion(float x, float y)
+{
+    fing.x = x, fing.y = y;
+    grid_motion(&B, x + fing.dx, y + fing.dy, legal);
+}
 
 static void release(float x, float y)
 {
@@ -265,6 +318,6 @@ static const game go_game = {
     .id = "go", .order = 60, .variants = VARIANTS,       /* 9, 13, 19; capture go on 9 and 13 */
     .thumb = thumb, .token = grid_token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy,
+    .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy, .fill = 1,
 };
 REGISTER_GAME(go_game)
