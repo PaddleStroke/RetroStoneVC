@@ -1,0 +1,8 @@
+9 × 9, sin adivinar
+8 × 12, sin adivinar
+16 × 16, sin adivinar
+16 × 30, sin adivinar
+9 × 9, clásico
+8 × 12, clásico
+16 × 16, clásico
+16 × 30, clásico

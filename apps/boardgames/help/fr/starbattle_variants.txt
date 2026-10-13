@@ -1,0 +1,6 @@
+6 × 6, 1 étoile
+8 × 8, 1 étoile
+10 × 10, 2 étoiles
+Facile
+Moyen
+Difficile

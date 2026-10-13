@@ -1,0 +1,6 @@
+Principiante
+Fácil
+Medio
+Difícil
+Experto
+Mate en 1 a 3

@@ -1,0 +1,6 @@
+Doble 4
+Doble 6
+Doble 8
+Fácil
+Medio
+Difícil

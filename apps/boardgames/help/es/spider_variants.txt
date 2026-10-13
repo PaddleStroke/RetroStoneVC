@@ -1,0 +1,3 @@
+1 palo
+2 palos
+4 palos

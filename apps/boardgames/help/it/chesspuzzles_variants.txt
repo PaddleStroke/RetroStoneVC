@@ -1,0 +1,6 @@
+Principiante
+Facile
+Medio
+Difficile
+Esperto
+Matto in 1-3 mosse

@@ -1,0 +1,8 @@
+9 × 9, sans hasard
+8 × 12, sans hasard
+16 × 16, sans hasard
+16 × 30, sans hasard
+9 × 9, classique
+8 × 12, classique
+16 × 16, classique
+16 × 30, classique

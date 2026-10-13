@@ -1,0 +1,6 @@
+6 × 6, 1 stella
+8 × 8, 1 stella
+10 × 10, 2 stelle
+Facile
+Medio
+Difficile

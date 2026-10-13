@@ -1,0 +1,8 @@
+9 × 9, solo logica
+8 × 12, solo logica
+16 × 16, solo logica
+16 × 30, solo logica
+9 × 9, classico
+8 × 12, classico
+16 × 16, classico
+16 × 30, classico

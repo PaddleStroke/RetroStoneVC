@@ -1,0 +1,4 @@
+Tablero liso
+Cuatro bloques
+Cruz
+Cuatro puertas
