@@ -16,8 +16,9 @@
  * keep a way out: its last one is forced open).
  * The levels (pipes_levels.h, made by tools/pipes_gen.c): 150 puzzles in six chapters, 4 x 4 to 11 x 11, the last
  * ones wrapped; each kept as its size and a character a tile (its solution's sides and the turns that scramble it).
- * Stars: the moves (each a quarter turn) against par, the fewest quarter turns from the start to the one solution
- * (pp_load works it out); a hint caps them (pzkit.h's rule).
+ * Stars: the moves against par, both counted in quarter turns: par is the fewest from the start to the one solution
+ * (pp_load works it out), and the moves count each action's turns (a tap one, a hint or "=" as many as the tile
+ * needed), so no way to the solution can beat par; a hint caps them (pzkit.h's rule).
  * Tiles: x + y * n from the top left. Sides: bit 0 up (north), 1 right, 2 down, 3 left. The notation (script, the
  * screenshots, the tests): a tile is its column letter a.. and its row 1.. from the top; "c4" turns it once, "c4*3"
  * three times (one action each), "?" a hint, "=n" puts the next n tiles that are wrong right (reading order, one
@@ -46,7 +47,7 @@ typedef struct {
     uint8_t sol[PP_TILES];                      /* the sides with a pipe, in the maker's solution */
     uint8_t now[PP_TILES];                      /* the sides with a pipe now (the tile as the player turned it) */
     pp_change hist[PP_HIST];                    /* each action's tile and its sides before it */
-    int nh, moves;
+    int nh, moves;                              /* moves: quarter turns, as par */
     int par;                                    /* the fewest quarter turns from the start to the solution */
     int hints;                                  /* the hints given (undo does not take them back) */
 } pp_game;
@@ -81,7 +82,7 @@ void pp_load(pp_game *g, int n, int wrap, int source, const uint8_t *sol, const 
 int  pp_par(int n, const uint8_t *sol, const uint8_t *now);   /* the fewest quarter turns from now to sol */
 int  pp_tap(pp_game *g, int t);                 /* a quarter turn clockwise: one action; 0: not a tile, or solved */
 int  pp_hint(pp_game *g);                       /* a wrong tile turned right (next to the water if it can): the tile;
-                                                 * -1: none. One action, counted in hints */
+                                                 * -1: none. One action, counted in hints (its turns in moves) */
 int  pp_undo(pp_game *g);                       /* the last action taken back: its tile; -1: none */
 /* the water: each tile's distance from the source along joined pipes (-1: dry), and the tile it comes from (-1: the
  * source, or dry); how many tiles are wet. from may be NULL. */

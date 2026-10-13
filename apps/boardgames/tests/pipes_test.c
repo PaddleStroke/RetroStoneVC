@@ -2,7 +2,8 @@
  * Pipes' rules: the shapes and their turns, the maker's trees (every tile used, no cross, one network), the puzzles
  * from many seeds (found by deduction alone, so one solution, checked by the counter), the solver on known cases, the
  * water's way, taps, hints, undo, and whole games played from a seed; the maker's time on the biggest boards; every
- * level (one solution found by deduction alone, its par reached by turning each tile the fewest times).
+ * level (one solution found by deduction alone, its par reached by turning each tile the fewest times, by the hints
+ * and by "=" alike, and no way to any solved board, found by search, shorter than par).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -27,6 +28,59 @@ static int same_shape(uint8_t a, uint8_t b)
     for (int k = 0; k < 4; k++)
         if (pp_turn(a, k) == b) return 1;
     return 0;
+}
+
+/* the fewest quarter turns from the start to ANY solved board, by search: every tile tried in each of its turns, in
+ * reading order, a turn kept only when it meets its placed neighbours (and the edge, unwrapped), the cost so far
+ * pruned against the best found; a full board counts when pp_solved says so. It never looks at the maker's solution,
+ * so a second solution or a cheaper way would show. */
+static pp_game srch;
+static uint8_t srch_start[PP_TILES];
+static int srch_best, srch_nodes;
+
+static int srch_fits(int t)
+{
+    int n = srch.n;
+    uint8_t s = srch.now[t];
+    for (int d = 0; d < 4; d++) {
+        int u = pp_next(n, srch.wrap, t, d), pipe = s >> d & 1;
+        if (u < 0) {
+            if (pipe) return 0;
+            continue;
+        }
+        if (u > t) continue;                    /* not placed yet */
+        if (pipe != (srch.now[u] >> ((d + 2) % 4) & 1)) return 0;
+    }
+    return 1;
+}
+
+static void srch_go(int t, int cost)
+{
+    srch_nodes++;
+    if (cost >= srch_best) return;
+    if (t == srch.n * srch.n) {
+        if (pp_solved(&srch)) srch_best = cost;
+        return;
+    }
+    for (int k = 0; k < 4; k++) {
+        uint8_t s = pp_turn(srch_start[t], k);
+        int dup = 0;
+        for (int j = 0; j < k; j++) dup |= pp_turn(srch_start[t], j) == s;   /* a straight: two turns alike */
+        if (dup) continue;
+        srch.now[t] = s;
+        if (srch_fits(t)) srch_go(t + 1, cost + k);
+    }
+    srch.now[t] = srch_start[t];
+}
+
+static int fewest_turns(const pp_game *g)
+{
+    srch = *g;
+    memcpy(srch_start, g->now, (size_t)g->n * g->n);
+    srch_best = 4 * PP_TILES;
+    srch_nodes = 0;
+    srch_go(0, 0);
+    return srch_best;
 }
 
 int main(void)
@@ -172,7 +226,7 @@ int main(void)
             CHECK(g.moves == 0 && !memcmp(start, g.now, (size_t)nt));
             int hints = 0;
             while (!pp_solved(&g) && pp_hint(&g) >= 0) hints++;
-            CHECK(pp_solved(&g) && hints == pp_wrong(&g) + hints && g.moves == hints);
+            CHECK(pp_solved(&g) && g.hints == hints && g.moves == g.par);   /* the hints' turns: par's */
             CHECK(pp_hint(&g) < 0);
         }
     pp_new(&g, 3, 5);
@@ -190,6 +244,7 @@ int main(void)
      * solved in exactly par turns (each tile the fewest times); its text again from the game; no two alike */
     {
         int grades[4] = {0}, last_n = 0, sizes_ok = 1;
+        long nodes = 0;
         for (int i = 0; i < PP_LEVELS; i++) {
             CHECK(pp_decode(&g, pp_levels[i]));
             int nt = g.n * g.n, rounds;
@@ -207,10 +262,23 @@ int main(void)
             for (int t = 0; t < nt; t++)
                 while (g.now[t] != g.sol[t] && g.moves <= 4 * nt) pp_tap(&g, t);
             CHECK(pp_solved(&g) && g.moves == g.par);
+            /* the same unit whatever solves it: the hints, "=" (one action a tile, its turns counted), and no way at
+             * all, by search over every board, takes fewer turns than par */
+            pp_game h;
+            CHECK(pp_decode(&h, pp_levels[i]));
+            while (!pp_solved(&h) && pp_hint(&h) >= 0) {}
+            CHECK(pp_solved(&h) && h.moves == h.par);
+            CHECK(pp_decode(&h, pp_levels[i]) && pp_script(&h, "=999") && pp_solved(&h) && h.moves == h.par);
+            CHECK(pp_decode(&h, pp_levels[i]));
+            int few = fewest_turns(&h);
+            CHECK(few == h.par);
+            if (few != h.par) printf("level %d: par %d, a way in %d\n", i + 1, h.par, few);
+            nodes += srch_nodes;
             for (int j = 0; j < i; j++) CHECK(strcmp(pp_levels[i], pp_levels[j]));
         }
         CHECK(sizes_ok);
-        printf("pipes levels: grades %d %d %d %d\n", grades[0], grades[1], grades[2], grades[3]);
+        printf("pipes levels: grades %d %d %d %d; the search for the fewest turns: %ld boards\n", grades[0], grades[1],
+               grades[2], grades[3], nodes);
     }
     CHECK(!pp_decode(&g, "5:00") && !pp_decode(&g, "x") && !pp_decode(&g, "13:0"));
 

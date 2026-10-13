@@ -378,13 +378,23 @@ static void room(pp_game *g)
     g->nh -= PP_HIST / 2;
 }
 
+/* the quarter turns clockwise that take a tile from sides a to sides b (the fewest; 0: the same) */
+static int turns(uint8_t a, uint8_t b)
+{
+    int k = 0;
+    while (k < 3 && pp_turn(a, k) != b) k++;
+    return k;
+}
+
+/* one action: tile t turned to sides; the moves count its quarter turns (a tap one, a hint or "=" as many as it takes:
+ * par's unit) */
 static int set(pp_game *g, int t, uint8_t sides)
 {
     if (g->now[t] == sides) return 0;
     room(g);
     g->hist[g->nh++] = (pp_change){(uint8_t)t, g->now[t]};
+    g->moves += turns(g->now[t], sides);
     g->now[t] = sides;
-    g->moves++;
     return 1;
 }
 
@@ -419,8 +429,8 @@ int pp_undo(pp_game *g)
 {
     if (!g->nh) return -1;
     pp_change h = g->hist[--g->nh];
+    g->moves -= turns(h.was, g->now[h.tile]);
     g->now[h.tile] = h.was;
-    g->moves--;
     return h.tile;
 }
 
