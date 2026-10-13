@@ -5,9 +5,14 @@
  * pinner, who stands a little up the point on it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The board lies across the square: player 0's home board at the bottom right, player 1's at the top right (flipped:
- * the other way up), the tray on the right. The dice land in the middle of the board, on the right of the player who
- * threw them (the bottom player's on the right half, the top player's on the left), the opening roll on the bar.
+ * The board lies across the room the shell gives: player 0's home board at the bottom right, player 1's at the top
+ * right (flipped: the other way up). Where the room is wide (landscape) the tray is on the board's right, the dice
+ * land in the middle of the board, on the right of the player who threw them (the bottom player's on the right half,
+ * the top player's on the left), the opening roll on the bar; the board as tall as the room, its points as wide as
+ * the width allows. Where it is narrow (portrait) the tray leaves the board for two trays beyond its long sides, each
+ * player's next to them by their home board, and each player's dice lie beside their tray (by their outer board): the
+ * 24 points and the bar take the whole width, the board grows taller (longer points, higher stacks) with the height
+ * left. The opening roll stays on the bar.
  * The moves' notation (script): backgammon.h ("31: 8/5 6/5 64: 24/18 13/9").
  */
 #include <math.h>
@@ -18,19 +23,24 @@
 #include "shell.h"
 
 #define FRAME 0.64f                             /* the frame and half the bar, in points' widths */
-#define TRAY 1.25f                              /* the tray's width */
-#define POINT 5.5f                              /* a point's length (the plank is 14 high: a gap of 3 between) */
+#define TRAY 1.25f                              /* the tray's width (in the board), its height (out of it) */
+#define TRAY_GAP 0.25f                          /* a tray out of the board: so far from it */
+#define ROW2 1.05f                              /* ...and a second row of checkers in it, where the room allows */
+#define H_MIN 11.0f                             /* the plank's height, in points' widths (14 in the square) */
+#define H_MAX 16.0f
 #define ANIM_MS 200
 
-/* the board's geometry in pixels: w a point's width; the picture's top left at (x, y); v the variant (the ways) */
-typedef struct { int w, fr, tw; float x, y; int flip, v; } geo;
+/* the board's geometry in pixels: w a point's width (and a checker's size), wx a point's width on the board (wider
+ * when the room is wide), hp the plank's height; the picture's top left at (x, y); v the variant (the ways); out: the
+ * trays beyond the long sides (rows of checkers in them, their height th), the dice beside them */
+typedef struct { int w, fr, tw; float x, y; int flip, v, wx, hp, out, rows, th; } geo;
 
 static bgame G;
 static bmove legal[BG_MAXMOVES];
 static int nlegal;
 static geo S;                                   /* on the screen */
-static int made = -1, pic_w, pic_h, cs;
-static SDL_Texture *t_board, *t_chk[2];
+static int made = -1, made_wx, made_hp, made_out, made_th, pic_w, pic_h, cs;
+static SDL_Texture *t_board, *t_tray, *t_chk[2];
 static int sel = -1;                            /* the place (the mover's own numbering) of the checker in hand */
 static int shown = -1;                          /* the throw (event) the dice show */
 static int pass_snd;                            /* a throw with no move: the sound once the dice lie */
@@ -40,8 +50,12 @@ static const int IDLE[2] = {5, 2};              /* the faces of the dice waiting
 
 static int fr_of(int w) { return (int)(w * FRAME); }
 static int tray_of(int w) { return (int)(w * TRAY); }
-static int width_of(int w) { return 12 * w + 5 * fr_of(w) + tray_of(w); }
-static geo geo_of(int w, float x, float y, int flip, int v) { return (geo){w, fr_of(w), tray_of(w), x, y, flip, v}; }
+static geo geo_of(int w, float x, float y, int flip, int v)   /* the board in the square (the cards) */
+{
+    return (geo){w, fr_of(w), tray_of(w), x, y, flip, v, w, 14 * w, 0, 1, 0};
+}
+static int board_w(const geo *g) { return 12 * g->wx + (g->out ? 4 : 5) * g->fr + g->tw; }
+static int board_h(const geo *g) { return g->hp + 2 * g->fr; }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static int movable(int from)
@@ -151,80 +165,142 @@ static int on_top(const geo *g, int player) { return player ^ g->flip; }
 /* the middle of a column of points, s 0..11 from the left (6..11 past the bar) */
 static float column_x(const geo *g, int s)
 {
-    return g->x + g->fr + s * g->w + (s >= 6 ? 2 * g->fr : 0) + g->w / 2.0f;
+    return g->x + g->fr + s * g->wx + (s >= 6 ? 2 * g->fr : 0) + g->wx / 2.0f;
+}
+
+/* out: a player's tray beyond the board's long side on their side, under their home board (the right half): its
+ * outer box */
+static void tray_box(const geo *g, int player, float *x0, float *y0, float *x1, float *y1)
+{
+    float h = g->th + g->fr, gap = TRAY_GAP * g->w;    /* its frame: half the board's */
+    *x0 = g->x + g->fr + 6 * g->wx + 2 * g->fr - g->fr / 2;
+    *x1 = g->x + board_w(g);
+    *y0 = on_top(g, player) ? g->y - gap - h : g->y + board_h(g) + gap;
+    *y1 = *y0 + h;
+}
+
+/* a stack's checkers at full step up to this many, then closer (the middle of the board kept free) */
+static float stack_room(const geo *g)
+{
+    float w = (float)g->w, gap = g->out ? 1.4f : fminf(2.0f, 1.6f + 0.15f * (g->hp / w - H_MIN));
+    return g->hp / 2.0f - gap * w - w;          /* from the first checker's centre to the last's */
 }
 
 /* checker k (0: against the frame) of n on a player's place (their own numbering: 1..24, the bar, off) */
 static void spot(const geo *g, int player, int place, float k, int n, float *cx, float *cy)
 {
-    float w = (float)g->w, top = g->y + g->fr, bottom = top + 14 * w, mid = top + 7 * w, step = w;
+    float w = (float)g->w, top = g->y + g->fr, bottom = top + g->hp, mid = top + g->hp / 2.0f, step = w;
     if (place == BG_BAR) {                      /* on the bar, from the middle towards the player's side */
-        if (n > 6) step = 5.4f * w / (n - 1);
-        *cx = g->x + g->fr + 6 * w + g->fr;
+        float room = g->hp / 2.0f - 1.6f * w;
+        if (n > 1 && (n - 1) * w > room) step = room / (n - 1);
+        *cx = g->x + g->fr + 6 * g->wx + g->fr;
         *cy = mid + (on_top(g, player) ? -1 : 1) * (0.6f * w + k * step);
         return;
     }
+    if (place == BG_OFF && g->out) {            /* in the player's tray, rows from the right end, the first nearest
+                                                 * the board */
+        float x0, y0, x1, y1, in = g->fr / 2.0f;
+        int per = g->rows > 1 ? 8 : 15, r = (int)k / per;
+        float i = k - r * per;
+        tray_box(g, player, &x0, &y0, &x1, &y1);
+        step = (x1 - x0 - 2 * in - 1.1f * w) / (per - 1);
+        *cx = x1 - in - 0.55f * w - i * step;
+        *cy = on_top(g, player) ? y1 - in - 0.6f * w - r * ROW2 * w : y0 + in + 0.6f * w + r * ROW2 * w;
+        return;
+    }
     if (place == BG_OFF) {                      /* in the tray, from the player's end */
-        step = (7 * w - g->fr / 4.0f - w) / 14;
-        *cx = g->x + g->fr + 12 * w + 3 * g->fr + g->tw / 2.0f;
+        step = (g->hp / 2.0f - g->fr / 4.0f - w) / 14;
+        *cx = g->x + g->fr + 12 * g->wx + 3 * g->fr + g->tw / 2.0f;
         *cy = on_top(g, player) ? top + w / 2 + k * step : bottom - w / 2 - k * step;
         return;
     }
     int a = player ? bg_opp(g->v, place) : place;   /* player 0's numbering: 1..6 bottom right, 13..18 top left */
     int up = (a >= 13) ^ g->flip, s = a >= 13 ? a - 13 : 12 - a;
-    if (n > 5) step = 4 * w / (n - 1);
+    float room = stack_room(g);
+    if (n > 1 && (n - 1) * w > room + 0.01f) step = room / (n - 1);
     *cx = column_x(g, s);
     *cy = up ? top + w / 2 + k * step : bottom - w / 2 - k * step;
+}
+
+/* a place's checkers at full step, at most (more: their count on the top one) */
+static int stack_fits(const geo *g, int place)
+{
+    float room = place == BG_BAR ? g->hp / 2.0f - 1.6f * g->w : stack_room(g);
+    return (int)(room / g->w + 0.01f) + 1;
+}
+
+/* the dice's size: beside a tray (out) bigger than in the board */
+static float dice_size(int who)
+{
+    return S.out && who >= 0 ? fminf(1.3f * S.w, 0.9f * (S.th + S.fr)) : 0.86f * S.w;
 }
 
 /* where the dice of a player lie (-1: the opening roll, on the bar) */
 static void dice_spot(int who, float *cx, float *cy)
 {
-    float w = (float)S.w;
-    *cy = S.y + S.fr + 7 * w;
+    float w = (float)S.wx;
+    if (S.out && who >= 0) {                    /* beside the player's tray, by their outer board */
+        float x0, y0, x1, y1;
+        tray_box(&S, who, &x0, &y0, &x1, &y1);
+        *cx = column_x(&S, 3) - w / 2;
+        *cy = (y0 + y1) / 2;
+        return;
+    }
+    *cy = S.y + S.fr + S.hp / 2.0f;
     *cx = who < 0 ? S.x + 6 * w + 2 * S.fr : on_top(&S, who) ? column_x(&S, 3) - w / 2 : column_x(&S, 9) - w / 2;
 }
 
 /* the place under the pointer, in the mover's numbering (-1: none) */
 static int place_at(float x, float y)
 {
-    float w = (float)S.w, x0 = S.x + S.fr, y0 = S.y + S.fr, bar = x0 + 6 * w, right = bar + 2 * S.fr;
-    if (y < y0 - S.fr || y >= y0 + 14 * w + S.fr) return -1;
+    float w = (float)S.wx, x0 = S.x + S.fr, y0 = S.y + S.fr, bar = x0 + 6 * w, right = bar + 2 * S.fr;
+    if (S.out) {                                /* the mover's tray, a little round it */
+        float tx0, ty0, tx1, ty1, m = 0.3f * S.w;
+        tray_box(&S, bg_pos(&G)->side, &tx0, &ty0, &tx1, &ty1);
+        if (x >= tx0 - m && x < tx1 + m && y >= ty0 - m && y < ty1 + m) return BG_OFF;
+    }
+    if (y < y0 - S.fr || y >= y0 + S.hp + S.fr) return -1;
     if (x >= bar && x < right) return BG_BAR;
-    if (x >= right + 6 * w && x < right + 6 * w + S.fr + S.tw + S.fr) return BG_OFF;
+    if (!S.out && x >= right + 6 * w && x < right + 6 * w + S.fr + S.tw + S.fr) return BG_OFF;
     int s;
     if (x >= x0 && x < bar) s = (int)((x - x0) / w);
     else if (x >= right && x < right + 6 * w) s = 6 + (int)((x - right) / w);
     else return -1;
-    int a = (y < y0 + 7 * w) ^ S.flip ? 13 + s : 12 - s;
+    int a = (y < y0 + S.hp / 2.0f) ^ S.flip ? 13 + s : 12 - s;
     return bg_pos(&G)->side ? bg_opp(S.v, a) : a;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static uint8_t *px(uint8_t *b, int w, int x, int y) { return b + 4 * ((size_t)y * w + x); }
 
-/* the board for points w pixels wide: the house plank and frame cut to the board's width (under the bar), the bar
- * and the strip before the tray made of the frame's walnut, the tray sunk, the points inlaid in two woods */
-static uint8_t *paint(int w, int *pw, int *ph)
+/* the board of g (its points wx pixels wide, its plank hp high; out: no tray): the house plank and frame cut to the
+ * board's size (under the bar, and across the middle), the bar and the strip before the tray made of the frame's
+ * walnut, the tray sunk, the points inlaid in two woods */
+static uint8_t *paint(const geo *g, int *pw, int *ph)
 {
-    int fr = fr_of(w), tw = tray_of(w), wa = 16 * w + 2 * fr, h = 14 * w + 2 * fr, bw = width_of(w);
-    uint8_t *a = malloc((size_t)wa * h * 4), *o = malloc((size_t)bw * h * 4);
+    int w = g->w, wx = g->wx, fr = g->fr, tw = g->tw, hp = g->hp, h = board_h(g), bw = board_w(g);
+    int nx = (bw - 2 * fr + 2 * w - 1) / (2 * w), ny = (hp + 2 * w - 1) / (2 * w);
+    if (nx < 8) nx = 8;
+    int wa = 2 * w * nx + 2 * fr, ha = 2 * w * ny + 2 * fr;
+    uint8_t *a = malloc((size_t)wa * ha * 4), *o = malloc((size_t)bw * h * 4);
     if (!a || !o || fr < 2) { free(a); free(o); return NULL; }
-    art_board_n(8, 7, 2 * w, fr, 0, a);
-    int bar = fr + 6 * w, strip = bar + 2 * fr + 6 * w, tray = strip + fr, half = fr / 2, mid = fr + 7 * w;
+    art_board_n(nx, ny, 2 * w, fr, 0, a);
+    int bar = fr + 6 * wx, strip = bar + 2 * fr + 6 * wx, tray = strip + fr, half = fr / 2, mid = fr + hp / 2;
     int q = fr / 4 > 0 ? fr / 4 : 1;
+#define SY(y) ((y) < h / 2 ? (y) : (y) + ha - h)  /* the plank's rows: its top half and its bottom half */
     for (int y = 0; y < h; y++)
-        for (int x = 0; x < bw; x++) memcpy(px(o, bw, x, y), px(a, wa, x < bar + fr ? x : x + wa - bw, y), 4);
-    for (int y = fr; y < fr + 14 * w; y++) {
+        for (int x = 0; x < bw; x++) memcpy(px(o, bw, x, y), px(a, wa, x < bar + fr ? x : x + wa - bw, SY(y)), 4);
+    for (int y = fr; y < fr + hp; y++) {
         for (int j = 0; j < 2 * fr; j++)        /* the bar: the frame's two sides back to back, a fold */
-            memcpy(px(o, bw, bar + j, y), px(a, wa, j < fr ? wa - fr + j : j - fr, y), 4);
+            memcpy(px(o, bw, bar + j, y), px(a, wa, j < fr ? wa - fr + j : j - fr, SY(y)), 4);
+        if (g->out) continue;
         for (int j = 0; j < fr; j++)            /* the same, narrower, before the tray */
             memcpy(px(o, bw, strip + j, y),
-                   px(a, wa, j < half ? wa - fr + j * fr / half : (j - half) * fr / (fr - half), y), 4);
+                   px(a, wa, j < half ? wa - fr + j * fr / half : (j - half) * fr / (fr - half), SY(y)), 4);
         for (int x = tray; x < tray + tw; x++) {
             uint8_t *p = px(o, bw, x, y);
             if (abs(y - mid) < q) {             /* walnut between the two players' ends */
-                int j = y - mid + q, sy = j < q ? h - fr + j * fr / q : (j - q) * fr / q;
+                int j = y - mid + q, sy = j < q ? ha - fr + j * fr / q : (j - q) * fr / q;
                 memcpy(p, px(a, wa, x + wa - bw, sy), 4);
                 continue;
             }
@@ -232,18 +308,19 @@ static uint8_t *paint(int w, int *pw, int *ph)
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
         }
     }
+#undef SY
     static const float tone[2][3] = {{1.10f, 1.22f, 1.45f}, {0.60f, 0.42f, 0.36f}};   /* maple, rosewood */
-    int len = (int)(POINT * w);
-    float m = 0.05f * w, lw = fmaxf(1, w / 30.0f);
+    int len = hp / 2 - (int)(1.5f * w);         /* 5.5 points' widths on the plank of 14 */
+    float m = 0.05f * wx, lw = fmaxf(1, wx / 30.0f);
     for (int s = 0; s < 12; s++) {
-        int x0 = fr + s * w + (s >= 6 ? 2 * fr : 0);
-        float cx = x0 + w / 2.0f;
+        int x0 = fr + s * wx + (s >= 6 ? 2 * fr : 0);
+        float cx = x0 + wx / 2.0f;
         for (int up = 0; up < 2; up++) {
             const float *c = tone[(s + up) & 1];
             for (int i = 0; i < len; i++) {
-                int y = up ? fr + i : fr + 14 * w - 1 - i;
-                float hw = (1 - (i + 0.5f) / len) * (w / 2.0f - m);
-                for (int x = x0; x < x0 + w; x++) {
+                int y = up ? fr + i : fr + hp - 1 - i;
+                float hw = (1 - (i + 0.5f) / len) * (wx / 2.0f - m);
+                for (int x = x0; x < x0 + wx; x++) {
                     float d = hw - fabsf(x + 0.5f - cx), cov = clampf(d + 0.5f, 0, 1);
                     if (cov <= 0) continue;
                     float edge = 1 - 0.3f * clampf(1 - d / lw, 0, 1);   /* a darker line along its sides */
@@ -259,20 +336,65 @@ static uint8_t *paint(int w, int *pw, int *ph)
     return o;
 }
 
+/* a tray out of the board: a plank (iw x ih inside a frame of f), sunk, in the shade of its far side */
+static void make_tray(int iw, int ih, int f, uint8_t *o)
+{
+    int w = iw + 2 * f;
+    art_plank(iw, ih, f, o);
+    for (int y = f; y < f + ih; y++)
+        for (int x = f; x < f + iw; x++) {
+            uint8_t *p = px(o, w, x, y);
+            float k = 0.64f + 0.14f * fminf(1, (y - f) / (0.35f * ih));
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
+        }
+}
+
+/* the room: the board with its tray and the dice in it (as tall as the room, its points as wide as it lets them:
+ * landscape), or the board alone across the whole width and the trays and dice beyond its long sides (the narrow
+ * room of portrait), whichever gives the bigger checkers */
 static void layout(box b)
 {
-    int w = (int)floorf(b.w / 16.45f);
-    while (w > 4 && width_of(w) > b.w) w--;
+    float zone = TRAY_GAP + TRAY + FRAME;      /* a tray out of the board, in points' widths */
+    float w_in = fminf(b.w / (12 + 5 * FRAME + TRAY), b.h / (H_MIN + 2 * FRAME));
+    float w_out = fminf(b.w / (12 + 4 * FRAME), b.h / (H_MIN + 2 * FRAME + 2 * zone));
+    int out = w_out > 1.05f * w_in, w = (int)floorf(out ? w_out : w_in), rows = 1;
     if (w < 4) w = 4;
-    if (made != w) {
+    geo g = geo_of(w, 0, 0, ui.flipped, bg_pos(&G)->variant);
+    float room = b.h / w - 2 * FRAME - (out ? 2 * zone : 0);   /* the plank's height it may have */
+    if (out && room - 2 * ROW2 >= 13) {         /* tall: two rows in the trays */
+        rows = 2;
+        room -= 2 * ROW2;
+    }
+    g.out = out;
+    g.rows = rows;
+    g.hp = (int)(clampf(room, H_MIN, H_MAX) * w);
+    g.th = out ? (int)((TRAY + (rows - 1) * ROW2) * w) : 0;
+    if (out) g.tw = 0;
+    else {                                      /* the points wider where the width is long (up to a quarter) */
+        int wx = (int)((b.w - 5 * g.fr - g.tw) / 12);
+        g.wx = wx < w ? w : wx > 1.25f * w ? (int)(1.25f * w) : wx;
+    }
+    if (made != w || made_wx != g.wx || made_hp != g.hp || made_out != out || made_th != g.th) {
         made = w;
+        made_wx = g.wx;
+        made_hp = g.hp;
+        made_out = out;
+        made_th = g.th;
         int bw, bh;
-        uint8_t *pic = paint(w, &bw, &bh);
+        uint8_t *pic = paint(&g, &bw, &bh);
         ui_free(&t_board);
         if (pic) t_board = ui_tex(bw, bh, pic);
         free(pic);
         pic_w = bw;
         pic_h = bh;
+        ui_free(&t_tray);
+        if (out) {
+            float x0, y0, x1, y1;
+            tray_box(&g, 0, &x0, &y0, &x1, &y1);
+            int f = g.fr / 2, iw = (int)(x1 - x0) - 2 * f, ih = (int)(y1 - y0) - 2 * f;
+            make_tray(iw, ih, f, ui_buf(iw + 2 * f, ih + 2 * f));
+            t_tray = ui_tex(iw + 2 * f, ih + 2 * f, ui_buf(iw + 2 * f, ih + 2 * f));
+        }
         cs = (int)(1.12f * w);                  /* the disc fills 0.88 of its picture: a point's width */
         for (int c = 0; c < 2; c++) {
             ui_free(&t_chk[c]);
@@ -280,7 +402,10 @@ static void layout(box b)
             t_chk[c] = ui_tex(cs, cs, ui_buf(cs, cs));
         }
     }
-    S = geo_of(w, floorf(b.x + (b.w - pic_w) / 2), floorf(b.y + (b.h - pic_h) / 2), ui.flipped, bg_pos(&G)->variant);
+    float tall = (float)pic_h + (out ? 2 * (TRAY_GAP * w + g.th + g.fr) : 0);
+    g.x = floorf(b.x + (b.w - pic_w) / 2);
+    g.y = floorf(b.y + (b.h - tall) / 2 + (tall - pic_h) / 2);
+    S = g;
     if (shown >= 0 && !ui_dice_busy()) show_throw(shown, 0);   /* the shell's dice ours again (after another game) */
 }
 
@@ -314,7 +439,7 @@ static void stack(int player, int place, int skip)
         at(player, place, k, n, &x, &y);
         checker(player, x, y, 1);
     }
-    if (place != BG_OFF && n - skip > (place == BG_BAR ? 6 : 5)) {
+    if (place != BG_OFF && n - skip > stack_fits(&S, place)) {
         at(player, place, n - skip - 1, n, &x, &y);
         ui_number_rot(x, y, 0.42f * S.w, n - skip, player, ui_upside(player) ? 180 : 0);
     }
@@ -339,14 +464,15 @@ static void mark_last(void)
 static void dice(void)
 {
     const bpos *p = bg_pos(&G);
-    float x, y, w = (float)S.w, ds = 0.86f * w;
+    float x, y, ds;                             /* a die's size; its light round the dice ~4 times as wide */
     int k = last_throw();
     if (shown >= 0 && shown == k) {             /* the last throw; dimmed once played, red when it could not be */
         int who = G.ev[k].player;
         unsigned used = p->phase == BG_OPENING ? 0 : p->phase == BG_MOVE ? p->used : 0xf;
         dice_spot(who, &x, &y);
-        if (G.pos[k + 1].passed >= 0 && !ui_dice_busy()) ui_mark_glow(x, y, 3.4f * w);
-        if (p->phase == BG_OPENING) ui_mark_gold(x, y, 3.4f * w);
+        ds = dice_size(who);
+        if (G.pos[k + 1].passed >= 0 && !ui_dice_busy()) ui_mark_glow(x, y, 3.95f * ds);
+        if (p->phase == BG_OPENING) ui_mark_gold(x, y, 3.95f * ds);
         ui_dice_draw(x, y, ds, used);
     }
     if (pass_snd && !ui_dice_busy()) {
@@ -356,9 +482,10 @@ static void dice(void)
     if (p->phase != BG_THROW && !(p->phase == BG_OPENING && shown < 0)) return;
     int opening = p->phase == BG_OPENING;       /* the dice to throw: a die each for the opening, else the mover's */
     dice_spot(opening ? -1 : p->side, &x, &y);
-    ui_mark_gold(x, y, 3.4f * w);
+    ds = dice_size(opening ? -1 : p->side);
+    ui_mark_gold(x, y, 3.95f * ds);
     for (int i = 0; i < 2; i++)
-        ui_die_at(x + (i ? 0.65f : -0.65f) * w, y, ds, opening ? i : p->side, IDLE[opening ? 0 : i], 0.8f);
+        ui_die_at(x + (i ? 0.756f : -0.756f) * ds, y, ds, opening ? i : p->side, IDLE[opening ? 0 : i], 0.8f);
 }
 
 static void draw(void)
@@ -366,6 +493,14 @@ static void draw(void)
     const bpos *p = bg_pos(&G);
     float x, y, w = (float)S.w;
     ui_put(t_board, S.x, S.y, (float)pic_w, (float)pic_h);
+    if (S.out && t_tray)                        /* the trays beyond the long sides */
+        for (int pl = 0; pl < 2; pl++) {
+            float x0, y0, x1, y1;
+            tray_box(&S, pl, &x0, &y0, &x1, &y1);
+            int tw, th;
+            SDL_QueryTexture(t_tray, NULL, NULL, &tw, &th);
+            ui_put(t_tray, floorf(x0), floorf(y0), (float)tw, (float)th);
+        }
     mark_last();
     int rolling = ui_dice_busy(), mover = p->side, in_hand = sel >= 0 && !rolling;
     dice();
@@ -428,7 +563,8 @@ static void press(float x, float y)
         float cx, cy;
         dice_spot(p->phase == BG_OPENING ? -1 : p->side, &cx, &cy);
         if (ui_dice_busy()) return;
-        if (fabsf(x - cx) < 2.2f * S.w && fabsf(y - cy) < 1.4f * S.w) throw_dice();
+        float ds = dice_size(p->phase == BG_OPENING ? -1 : p->side);
+        if (fabsf(x - cx) < 2.56f * ds && fabsf(y - cy) < 1.63f * ds) throw_dice();
         else ui_sound(SND_DENY);
         return;
     }
@@ -508,7 +644,8 @@ static void card(int variant, int size, uint8_t *rgba)
         [BG_NARDY] = {{"24:13 18:2", "24:13 18:2"}, 0, {6, 6}},
     };
     int w = (int)(size / 16.6f), bw, bh, c = (int)(1.12f * w), d = (int)(1.3f * w);
-    uint8_t *pic = paint(w, &bw, &bh), *one = malloc((size_t)d * d * 4);   /* the dice, larger than a checker */
+    geo pg = geo_of(w, 0, 0, 0, variant);
+    uint8_t *pic = paint(&pg, &bw, &bh), *one = malloc((size_t)d * d * 4);   /* the dice, larger than a checker */
     if (!pic || !one) { free(pic); free(one); return; }
     int ox = (size - bw) / 2, oy = (size - bh) / 2;
     art_blend(rgba, size, size, pic, bw, bh, ox, oy);
@@ -547,7 +684,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
         return;
     }
     int w = (int)(size / 10.2f), bw, bh, c = (int)(1.12f * w), d = (int)(0.86f * w);
-    uint8_t *pic = paint(w, &bw, &bh), *one = malloc((size_t)c * c * 4);
+    geo pg = geo_of(w, 0, 0, 0, BG_BACKGAMMON);
+    uint8_t *pic = paint(&pg, &bw, &bh), *one = malloc((size_t)c * c * 4);
     if (!pic || !one) { free(pic); free(one); return; }
     int fr = fr_of(w), x0 = fr + 6 * w, y0 = fr + 7 * w, cw = bw - x0, ch = bh - y0 + fr, ox = (size - cw) / 2;
     int oy = (size - ch) / 2;
@@ -579,6 +717,6 @@ static const game backgammon_game = {
     .id = "backgammon", .order = 130, .variants = BG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .fill = 1,
 };
 REGISTER_GAME(backgammon_game)
