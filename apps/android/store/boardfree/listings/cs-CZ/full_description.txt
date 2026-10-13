@@ -1,0 +1,30 @@
+RetroStone Board Free ti dává 13 klasických her a všech 36 hlavolamů z RetroStone Board u jednoho zeleného stolu: šachy, dámu, vrhcáby, srdce, solitér, sudoku, malované křížovky a další. Dřevěné desky, pečlivě kreslené karty a kostky a pravidla každé hry přímo v aplikaci.
+
+HRY
+• Hlavolamy (36): Binairo · Calcudoku · Cesty · Dominosa · Futoshiki · Hanojské věže · Jezdcova procházka · Kakuro · Klotski · Klouzání po ledě · Koleje · Logická hradla · Malované křížovky · Miny · Mosty · Mrakodrapy · Obdélníky · Osm dam · Patnáctka · Rozmotávání · Rozsviť · Šachové úlohy · Same Game · Slučování · Smyčka · Solitér · Stany · Star Battle · Sudoku · Světla · Tangram · Tlačení beden · Třídění kuliček · Třídění vody · Trubky · Zrcadla
+• Strategie (3): Čtyři v řadě · Dáma · Reversi
+• Šachová rodina (1): Šachy
+• Kostky a závody (3): Člověče, nezlob se · Vrhcáby · Yacht
+• Karty a kameny (4): Bláznivé osmičky · Klondike · Srdce · Volná pole
+• Hádanky (2): Lodě · Tajný kód
+
+SPOLU, NEBO PROTI ZAŘÍZENÍ
+• S přáteli na jednom zařízení, které jde z ruky do ruky: 2 až 6 hráčů podle hry
+• Nebo nech zařízení obsadit místa, ve třech úrovních (lehká, střední, těžká), v každé hře pro dva a více hráčů
+• Tváří v tvář: polož telefon nebo tablet naplocho mezi sebe a figurky horního hráče se otočí k němu
+• Karetní hry drží každou ruku v tajnosti: clona zakryje karty, zatímco zařízení putuje k dalšímu hráči
+• Vrácení tahu, otočení desky, na výšku i na šířku a pravidla každé hry na jedno klepnutí
+
+HLAVOLAMY A ÚROVNĚ
+• Každý hlavolam s prvními 40 úrovněmi, až 3 hvězdičky za úroveň
+• Nápověda, když se zasekneš
+
+BEZ REKLAM, BEZ SLEDOVÁNÍ
+• Bez reklam, bez nákupů v aplikaci, bez účtu
+• Žádná data se nesbírají; funguje offline
+• 22 jazyků
+
+RetroStone Board, plná verze, přidává dalších 92 her, všechny úrovně každého hlavolamu a náhodné hlavolamy: jeden nákup, bez reklam. Všechny je uvidíš v menu:
+421 · Alquerque · Amazonky · Bagh-Chal · Banqi · Barbu · Belote · Big Two · Breakthrough · Bridž · Briscola · Canfield · Černý Petr · Čínská dáma · Crapette · Cribbage · Čtyřicet loupežníků · Dara · Domino · Doppelkopf · Durak · Dvojice · Džungle · Écarté · Euchre · Expanze · Fanorona · Farkle · Francouzský tarot · Gin rummy · Go · Golf · Gomoku · Hadi a žebříky · Hex · Hnefatafl · Hodiny · Hra Marienbad · Husí hra · Janggi · Jass · Kanasta · Klaverjas · Koi-Koi · Konane · Korsická bitva · Královská hra z Uru · Křížky a kolečka · Kuličková tlačenice · La Belle Lucie · Lasca · Lhářské kostky · Lines of Action · Liška a husy · Loď, kapitán a posádka · Mahjong · Mahjong solitér · Makruk · Manille · Mankala · Mexiko · Mlýn · Montana · Mus · Pačísí · Pavouk · Piketa · Piky · Prasátko · Prezident · Pyramida · Rikiki · Rummy s kameny · Rytmomachie · Schafkopf · Scopa · Sedm rodin · Skat · Slovní kamínky · Šógi · Solitér Golf · Surakarta · Tajemná tvář · Tečky a čtverečky · Tiến lên · Tři vrcholy · Truco · Válka · Xiangqi · Yukon · Zavři krabici · Žlutý trpaslík
+
+Vytvořil 8BCraft.

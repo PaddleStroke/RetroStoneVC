@@ -1,0 +1,28 @@
+RetroStone Board spojuje 141 klasických her u jednoho zeleného stolu: šachy a dámu, vrhcáby a go, mahjong, srdce, belote, bridž a tarot, sudoku, malované křížovky a solitéry. Dřevěné desky, pečlivě kreslené karty a kostky, plynulé animace a pravidla každé hry přímo v aplikaci.
+
+HRY
+• Hlavolamy (36): Binairo · Calcudoku · Cesty · Dominosa · Futoshiki · Hanojské věže · Jezdcova procházka · Kakuro · Klotski · Klouzání po ledě · Koleje · Logická hradla · Malované křížovky · Miny · Mosty · Mrakodrapy · Obdélníky · Osm dam · Patnáctka · Rozmotávání · Rozsviť · Šachové úlohy · Same Game · Slučování · Smyčka · Solitér · Stany · Star Battle · Sudoku · Světla · Tangram · Tlačení beden · Třídění kuliček · Třídění vody · Trubky · Zrcadla
+• Strategie (27): Alquerque · Amazonky · Bagh-Chal · Breakthrough · Čínská dáma · Čtyři v řadě · Dáma · Dara · Expanze · Fanorona · Go · Gomoku · Hex · Hnefatafl · Hra Marienbad · Konane · Křížky a kolečka · Kuličková tlačenice · Lasca · Lines of Action · Liška a husy · Mankala · Mlýn · Reversi · Rytmomachie · Surakarta · Tečky a čtverečky
+• Šachová rodina (7): Banqi · Džungle · Janggi · Makruk · Šachy · Šógi · Xiangqi
+• Kostky a závody (14): 421 · Člověče, nezlob se · Farkle · Hadi a žebříky · Husí hra · Královská hra z Uru · Lhářské kostky · Loď, kapitán a posádka · Mexiko · Pačísí · Prasátko · Vrhcáby · Yacht · Zavři krabici
+• Karty a kameny (53): Barbu · Belote · Big Two · Bláznivé osmičky · Bridž · Briscola · Canfield · Černý Petr · Crapette · Cribbage · Čtyřicet loupežníků · Domino · Doppelkopf · Durak · Écarté · Euchre · Francouzský tarot · Gin rummy · Golf · Hodiny · Jass · Kanasta · Klaverjas · Klondike · Koi-Koi · Korsická bitva · La Belle Lucie · Mahjong · Mahjong solitér · Manille · Montana · Mus · Pavouk · Piketa · Piky · Prezident · Pyramida · Rikiki · Rummy s kameny · Schafkopf · Scopa · Sedm rodin · Skat · Slovní kamínky · Solitér Golf · Srdce · Tiến lên · Tři vrcholy · Truco · Válka · Volná pole · Yukon · Žlutý trpaslík
+• Hádanky (4): Dvojice · Lodě · Tajemná tvář · Tajný kód
+
+SPOLU, NEBO PROTI ZAŘÍZENÍ
+• S přáteli na jednom zařízení, které jde z ruky do ruky: 2 až 6 hráčů podle hry
+• Nebo nech zařízení obsadit místa, ve třech úrovních (lehká, střední, těžká): v 90 z 91 her pro dva a více hráčů
+• Tváří v tvář: polož telefon nebo tablet naplocho mezi sebe a figurky horního hráče se otočí k němu
+• Karetní hry drží každou ruku v tajnosti: clona zakryje karty, zatímco zařízení putuje k dalšímu hráči
+• Vrácení tahu, otočení desky, na výšku i na šířku a pravidla každé hry na jedno klepnutí
+
+HLAVOLAMY A ÚROVNĚ
+• 43 hlavolamů a solitérů s pečlivě navrženými úrovněmi, většinou 150: přes 6 000 úrovní
+• Až 3 hvězdičky za úroveň a nápověda, když se zasekneš
+• Pak náhodné hlavolamy bez konce
+
+BEZ REKLAM, BEZ SLEDOVÁNÍ
+• Jeden nákup pro všechny hry: bez reklam, bez nákupů v aplikaci, bez účtu
+• Žádná data se nesbírají; funguje offline
+• 22 jazyků
+
+Vytvořil 8BCraft.

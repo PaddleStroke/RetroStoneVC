@@ -1,0 +1,859 @@
+RetroStone: 141 Board Games: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+
+
+=== English (United States) (en-US) ===
+
+App name:
+RetroStone: 141 Board Games
+
+Short description:
+141 board, card and puzzle games, with friends or against the device. Offline.
+
+Full description:
+RetroStone Board gathers 141 classic games around one green table: chess and draughts, backgammon and go, mahjong, hearts, belote, bridge and tarot, sudoku, nonograms and solitaire. Wooden boards, cards and dice drawn with care, gentle animations, and the rules of every game inside the app.
+
+THE GAMES
+• Puzzles (36): 15 Puzzle · Ball Sort · Binairo · Box Pusher · Bridges · Calcudoku · Chess Puzzles · Dominosa · Eight Queens · Futoshiki · Ice Slide · Kakuro · Klotski · Knight's Tour · Light Up · Lights · Logic Gates · Loop · Merge · Mines · Mirrors · Nonograms · Paths · Peg Solitaire · Pipes · Rectangles · Same Game · Skyscrapers · Star Battle · Sudoku · Tangram · Tents · Tower of Hanoi · Tracks · Untangle · Water Sort
+• Strategy (27): Alquerque · Amazons · Bagh-Chal · Breakthrough · Chinese Checkers · Dara · Dots and Boxes · Draughts · Fanorona · Four in a Row · Fox and Geese · Go · Gomoku · Hex · Hnefatafl · Konane · Lasca · Lines of Action · Mancala · Marble Push · Nine Men's Morris · Reversi · Rithmomachia · Spread · Surakarta · The Marienbad Game · Tic-Tac-Toe
+• Chess family (7): Banqi · Chess · Janggi · Jungle · Makruk · Shogi · Xiangqi
+• Dice and race games (14): 421 · Backgammon · Farkle · Liar's Dice · Ludo · Mexico · Pachisi · Pig · Royal Game of Ur · Ship, Captain and Crew · Shut the Box · Snakes and Ladders · The Game of the Goose · Yacht
+• Cards and tiles (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Clock · Crapette · Crazy Eights · Cribbage · Dominoes · Doppelkopf · Durak · Écarté · Egyptian Ratscrew · Euchre · Forty Thieves · Free Cells · French Tarot · Gin Rummy · Golf · Golf Solitaire · Happy Families · Hearts · Jass · Klaverjas · Koi-Koi · La Belle Lucie · Mahjong · Mahjong Solitaire · Manille · Montana · Mus · Old Maid · Piquet · President · Pyramid · Rikiki · Schafkopf · Scopa · Skat · Solitaire · Spades · Spider · Three Peaks · Tiến lên · Tile Rummy · Truco · War · Word Tiles · Yellow Dwarf · Yukon
+• Guessing games (4): Mystery Face · Pairs · Sea Battle · Secret Code
+
+PLAY TOGETHER, OR AGAINST THE DEVICE
+• Friends on one device, passed from hand to hand: 2 to 6 players, depending on the game
+• Or let the device take seats, at three levels (easy, medium, hard): in 90 of the 91 games for two or more
+• Face to face: lay the phone or tablet flat between you, and the top player's pieces turn to face them
+• Card games keep every hand secret: a cover hides the cards while the device goes to the next player
+• Undo, turn the board round, portrait or landscape, and each game's rules a tap away
+
+PUZZLES AND LEVELS
+• 43 puzzles and solitaire games with hand-made levels, 150 for most of them: over 6,000 levels
+• Up to 3 stars per level, and a hint when you are stuck
+• Then random puzzles without end
+
+NO ADS, NO TRACKING
+• One purchase for every game: no ads, no in-app purchases, no account
+• No data collected; it plays offline
+• 22 languages
+
+Made by 8BCraft.
+
+
+=== Czech (cs-CZ) ===
+
+App name:
+RetroStone: 141 deskových her
+
+Short description:
+141 deskových a karetních her a hlavolamů: s přáteli nebo proti zařízení.
+
+Full description:
+RetroStone Board spojuje 141 klasických her u jednoho zeleného stolu: šachy a dámu, vrhcáby a go, mahjong, srdce, belote, bridž a tarot, sudoku, malované křížovky a solitéry. Dřevěné desky, pečlivě kreslené karty a kostky, plynulé animace a pravidla každé hry přímo v aplikaci.
+
+HRY
+• Hlavolamy (36): Binairo · Calcudoku · Cesty · Dominosa · Futoshiki · Hanojské věže · Jezdcova procházka · Kakuro · Klotski · Klouzání po ledě · Koleje · Logická hradla · Malované křížovky · Miny · Mosty · Mrakodrapy · Obdélníky · Osm dam · Patnáctka · Rozmotávání · Rozsviť · Šachové úlohy · Same Game · Slučování · Smyčka · Solitér · Stany · Star Battle · Sudoku · Světla · Tangram · Tlačení beden · Třídění kuliček · Třídění vody · Trubky · Zrcadla
+• Strategie (27): Alquerque · Amazonky · Bagh-Chal · Breakthrough · Čínská dáma · Čtyři v řadě · Dáma · Dara · Expanze · Fanorona · Go · Gomoku · Hex · Hnefatafl · Hra Marienbad · Konane · Křížky a kolečka · Kuličková tlačenice · Lasca · Lines of Action · Liška a husy · Mankala · Mlýn · Reversi · Rytmomachie · Surakarta · Tečky a čtverečky
+• Šachová rodina (7): Banqi · Džungle · Janggi · Makruk · Šachy · Šógi · Xiangqi
+• Kostky a závody (14): 421 · Člověče, nezlob se · Farkle · Hadi a žebříky · Husí hra · Královská hra z Uru · Lhářské kostky · Loď, kapitán a posádka · Mexiko · Pačísí · Prasátko · Vrhcáby · Yacht · Zavři krabici
+• Karty a kameny (53): Barbu · Belote · Big Two · Bláznivé osmičky · Bridž · Briscola · Canfield · Černý Petr · Crapette · Cribbage · Čtyřicet loupežníků · Domino · Doppelkopf · Durak · Écarté · Euchre · Francouzský tarot · Gin rummy · Golf · Hodiny · Jass · Kanasta · Klaverjas · Klondike · Koi-Koi · Korsická bitva · La Belle Lucie · Mahjong · Mahjong solitér · Manille · Montana · Mus · Pavouk · Piketa · Piky · Prezident · Pyramida · Rikiki · Rummy s kameny · Schafkopf · Scopa · Sedm rodin · Skat · Slovní kamínky · Solitér Golf · Srdce · Tiến lên · Tři vrcholy · Truco · Válka · Volná pole · Yukon · Žlutý trpaslík
+• Hádanky (4): Dvojice · Lodě · Tajemná tvář · Tajný kód
+
+SPOLU, NEBO PROTI ZAŘÍZENÍ
+• S přáteli na jednom zařízení, které jde z ruky do ruky: 2 až 6 hráčů podle hry
+• Nebo nech zařízení obsadit místa, ve třech úrovních (lehká, střední, těžká): v 90 z 91 her pro dva a více hráčů
+• Tváří v tvář: polož telefon nebo tablet naplocho mezi sebe a figurky horního hráče se otočí k němu
+• Karetní hry drží každou ruku v tajnosti: clona zakryje karty, zatímco zařízení putuje k dalšímu hráči
+• Vrácení tahu, otočení desky, na výšku i na šířku a pravidla každé hry na jedno klepnutí
+
+HLAVOLAMY A ÚROVNĚ
+• 43 hlavolamů a solitérů s pečlivě navrženými úrovněmi, většinou 150: přes 6 000 úrovní
+• Až 3 hvězdičky za úroveň a nápověda, když se zasekneš
+• Pak náhodné hlavolamy bez konce
+
+BEZ REKLAM, BEZ SLEDOVÁNÍ
+• Jeden nákup pro všechny hry: bez reklam, bez nákupů v aplikaci, bez účtu
+• Žádná data se nesbírají; funguje offline
+• 22 jazyků
+
+Vytvořil 8BCraft.
+
+
+=== Danish (da-DK) ===
+
+App name:
+RetroStone: 141 brætspil
+
+Short description:
+141 bræt-, kort- og hjernevriderspil: med venner eller mod enheden, offline.
+
+Full description:
+RetroStone Board samler 141 klassiske spil om ét grønt spillebord: skak og dam, backgammon og go, mahjong, hjerterfri, belote, bridge og tarot, sudoku, nonogrammer og kabaler. Træbrætter, omhyggeligt tegnede kort og terninger, bløde animationer og reglerne for hvert spil i appen.
+
+SPILLENE
+• Hjernevridere (36): 15-spil · Binairo · Broer · Calcudoku · Dominosa · Futoshiki · Isglid · Kakuro · Kasseskubber · Klotski · Lamper · Logiske porte · Miner · Nonogrammer · Otte dronninger · Rektangler · Rør · Same Game · Skakopgaver · Skyskrabere · Slå sammen · Sløjfe · Solitaire · Sortér kuglerne · Sortér vandet · Spejle · Spor · Springerproblemet · Star Battle · Stier · Sudoku · Tangram · Tårnene i Hanoi · Telte · Tænd lyset · Udred
+• Strategi (27): Alquerque · Amazoner · Bagh-Chal · Breakthrough · Dam · Dara · Fanorona · Fire på række · Go · Gomoku · Hex · Hnefatafl · Kinesisk skak · Konane · Kryds og bolle · Kugleskub · Lasca · Lines of Action · Mancala · Marienbad-spillet · Mølle · Prikker og kasser · Reversi · Rithmomachia · Ræv og gæs · Spredning · Surakarta
+• Skakfamilien (7): Banqi · Janggi · Jungleskak · Makruk · Shogi · Skak · Xiangqi
+• Terninger og væddeløb (14): 10.000 · 421 · Backgammon · Det kongelige spil fra Ur · Gåsespillet · Gris · Ludo · Løgnerterninger · Mexico · Pachisi · Shut the Box · Skib, kaptajn og besætning · Slanger og stiger · Yacht
+• Kort og brikker (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Den gule dværg · Domino · Doppelkopf · Durak · Écarté · Edderkop · Euchre · Fransk tarot · Frie celler · Fyrretyve røvere · Gin rummy · Golf · Golf-kabale · Hjerterfri · Jass · Kabale · Klaverjas · Koi-Koi · Korsikansk slag · Krig · La Belle Lucie · Mahjong · Mahjong-kabale · Manille · Montana · Mus · Ordbrikker · Piquet · Præsident · Pyramide · Rikiki · Rummy med brikker · Schafkopf · Scopa · Skat · Skøre ottere · Sorteper · Spar · Syv familier · Tiến lên · Tre tinder · Truco · Uret · Yukon
+• Gættelege (4): Det hemmelige ansigt · Hemmelig kode · Sænke slagskibe · Vendespil
+
+SAMMEN ELLER MOD ENHEDEN
+• Med venner på én enhed, der går fra hånd til hånd: 2 til 6 spillere, alt efter spillet
+• Eller lad enheden tage pladser, på tre niveauer (let, mellem, svær): i 90 af de 91 spil for to eller flere
+• Ansigt til ansigt: læg telefonen eller tabletten fladt mellem jer, og den øverste spillers brikker vender sig mod ham
+• Kortspillene holder hver hånd hemmelig: en skærm dækker kortene, mens enheden går videre til næste spiller
+• Fortryd, vend brættet, stående eller liggende, og hvert spils regler et tryk væk
+
+HJERNEVRIDERE OG NIVEAUER
+• 43 hjernevridere og kabaler med omhyggeligt designede niveauer, 150 for de fleste: over 6.000 niveauer
+• Op til 3 stjerner pr. niveau, og et hint, når du sidder fast
+• Derefter tilfældige opgaver uden ende
+
+INGEN REKLAMER, INGEN SPORING
+• Ét køb for alle spil: ingen reklamer, ingen køb i appen, ingen konto
+• Ingen data indsamles; virker offline
+• 22 sprog
+
+Lavet af 8BCraft.
+
+
+=== German (de-DE) ===
+
+App name:
+RetroStone: 141 Brettspiele
+
+Short description:
+141 Brett-, Karten- und Knobelspiele: mit Freunden oder gegen das Gerät.
+
+Full description:
+RetroStone Board vereint 141 klassische Spiele an einem grünen Spieltisch: Schach und Dame, Backgammon und Go, Mahjong, Hearts, Belote, Bridge und Tarot, Sudoku, Nonogramme und Solitär. Holzbretter, liebevoll gezeichnete Karten und Würfel, sanfte Animationen und die Regeln jedes Spiels direkt in der App.
+
+DIE SPIELE
+• Knobelspiele (36): 15-Puzzle · Binairo · Brücken · Calcudoku · Damenproblem · Dominosa · Eisrutsche · Entwirren · Futoshiki · Gleise · Kakuro · Kistenschieber · Klotski · Kugeln sortieren · Lichter · Lichter an · Logikgatter · Minen · Nonogramme · Pfade · Rechtecke · Rohre · Rundweg · Same Game · Schachaufgaben · Solitär · Spiegel · Springerproblem · Star Battle · Sudoku · Tangram · Türme von Hanoi · Verschmelzen · Wasser sortieren · Wolkenkratzer · Zelte
+• Strategie (27): Alquerque · Amazonen · Ausbreitung · Bagh-Chal · Breakthrough · Dame · Dara · Das Marienbad-Spiel · Fanorona · Fuchs und Gänse · Go · Gomoku · Hex · Hnefatafl · Käsekästchen · Konane · Kugelschieben · Lasca · Lines of Action · Mancala · Mühle · Reversi · Rithmomachie · Sternhalma · Surakarta · Tic-Tac-Toe · Vier in einer Reihe
+• Die Schachfamilie (7): Banqi · Dschungelschach · Janggi · Makruk · Schach · Shogi · Xiangqi
+• Würfel- und Laufspiele (14): 421 · Backgammon · Gänsespiel · Klappenspiel · Königliches Spiel von Ur · Leiterspiel · Ludo · Lügenwürfel · Mäxchen · Pachisi · Schiff, Kapitän und Mannschaft · Schweinchen · Yacht · Zehntausend
+• Karten und Steine (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Die Uhr · Domino · Doppelkopf · Drei Gipfel · Durak · Écarté · Euchre · Französisches Tarot · Freie Zellen · Gelber Zwerg · Gin-Rommé · Golf · Golf-Patience · Hearts · Jass · Klaverjas · Klondike-Solitär · Koi-Koi · Korsische Schlacht · Krieg · La Belle Lucie · Mahjong · Mahjong-Solitär · Manille · Montana · Mus · Pik · Piquet · Präsident · Pyramide · Rikiki · Rommé mit Steinen · Schafkopf · Schwarzer Peter · Scopa · Sieben Familien · Skat · Spider · Tiến lên · Truco · Verrückte Acht · Vierzig Räuber · Wortsteine · Yukon
+• Ratespiele (4): Geheimcode · Geheimes Gesicht · Paare finden · Schiffe versenken
+
+ZUSAMMEN ODER GEGEN DAS GERÄT
+• Mit Freunden an einem Gerät, das von Hand zu Hand geht: 2 bis 6 Spieler, je nach Spiel
+• Oder lass das Gerät Plätze übernehmen, in drei Stufen (leicht, mittel, schwer): in 90 der 91 Spiele für zwei oder mehr
+• Gegenüber: Leg Handy oder Tablet flach zwischen euch, und die Figuren des Spielers oben drehen sich zu ihm
+• Kartenspiele halten jede Hand geheim: Eine Abdeckung verbirgt die Karten, während das Gerät weitergereicht wird
+• Zug zurück, Brett drehen, Hoch- oder Querformat und die Regeln jedes Spiels nur einen Fingertipp entfernt
+
+KNOBELSPIELE UND LEVEL
+• 43 Knobelspiele und Patiencen mit handgebauten Leveln, meist 150 pro Spiel: über 6.000 Level
+• Bis zu 3 Sterne pro Level und ein Hinweis, wenn du feststeckst
+• Danach Zufallsrätsel ohne Ende
+
+OHNE WERBUNG, OHNE TRACKING
+• Ein Kauf für alle Spiele: keine Werbung, keine In-App-Käufe, kein Konto
+• Keine Datenerhebung; spielbar offline
+• 22 Sprachen
+
+Von 8BCraft.
+
+
+=== Greek (el-GR) ===
+
+App name:
+RetroStone: 141 επιτραπέζια
+
+Short description:
+141 επιτραπέζια, παιχνίδια με τράπουλα και γρίφοι, με φίλους ή με τη συσκευή.
+
+Full description:
+Το RetroStone Board συγκεντρώνει 141 κλασικά παιχνίδια γύρω από ένα πράσινο τραπέζι: σκάκι και ντάμα, τάβλι και γκο, μαζόνγκ, κούπες, μπελότ, μπριτζ και ταρό, σουντόκου, νονόγραμμα και πασιέντζες. Ξύλινα ταμπλό, προσεγμένες κάρτες και ζάρια, απαλές κινήσεις και οι κανόνες κάθε παιχνιδιού μέσα στην εφαρμογή.
+
+ΤΑ ΠΑΙΧΝΙΔΙΑ
+• Γρίφοι (36): Binairo · Same Game · Άναψε το φως · Βρόχος · Γέφυρες · Γλίστρημα στον πάγο · Γρίφοι σκακιού · Διαδρομές · Η περιήγηση του ίππου · Καθρέφτες · Κακούρο · Καλκουντόκου · Κλότσκι · Λογικές πύλες · Μάχη των αστεριών · Νάρκες · Νονόγραμμα · Ντομινόζα · Ξεμπέρδεμα · Οκτώ βασίλισσες · Ορθογώνια · Ουρανοξύστες · Παζλ του 15 · Πύργοι του Ανόι · Ράγες · Σκηνές · Σολιτέρ · Σουντόκου · Σπρώξιμο κιβωτίων · Συγχώνευση · Σωλήνες · Τάγκραμ · Ταξινόμηση μπαλών · Ταξινόμηση νερού · Φουτοσίκι · Φώτα
+• Στρατηγική (27): Lines of Action · Αλεπού και χήνες · Αλκέρκε · Αμαζόνες · Γκο · Γκομόκου · Διάσπαση · Εξάπλωση · Κινέζικη ντάμα · Κονάνε · Κουτάκια · Λάσκα · Μανκάλα · Μπαγκ-Τσαλ · Μύλος · Ντάμα · Ντάρα · Ρεβέρσι · Ρυθμομαχία · Σουρακάρτα · Σπρώξε τους βόλους · Τέσσερα στη σειρά · Το παιχνίδι του Μαρίενμπαντ · Τρίλιζα · Φανορόνα · Χεξ · Χνεφατάφλ
+• Η οικογένεια του σκακιού (7): Ζούγκλα · Κινεζικό σκάκι · Κορεατικό σκάκι · Μακρούκ · Μπάντσι · Σκάκι · Σόγκι
+• Ζάρια και αγώνες δρόμου (14): 421 · Farkle · Yacht · Βασιλικό παιχνίδι της Ουρ · Γουρουνάκι · Κλείσε το κουτί · Λούντο · Μεξικό · Πατσίσι · Πλοίο, καπετάνιος και πλήρωμα · Τα ζάρια του ψεύτη · Τάβλι · Το παιχνίδι της χήνας · Φιδάκι
+• Τράπουλα και πλακίδια (53): Big Two · Tiến lên · Αράχνη · Γαλλικό ταρό · Γιας · Γιούκερ · Γιούκον · Γκολφ · Εκαρτέ · Ελεύθερα κελιά · Επτά οικογένειες · Η ωραία Λουσί · Κανάστα · Κάνφιλντ · Κλάβεργιας · Κόι-Κόι · Κορσικανική μάχη · Κούπες · Κραπέτ · Κρίμπατζ · Μαζόνγκ · Μανίγια · Μοντάνα · Μους · Μουτζούρης · Μπαρμπύ · Μπαστούνια · Μπελότ · Μπρίσκολα · Μπριτζ · Ντόμινο · Ντόπελκοπφ · Ντουράκ · Ο κίτρινος νάνος · Οι σαράντα κλέφτες · Πασιέντζα · Πασιέντζα Γκολφ · Πασιέντζα Μαζόνγκ · Πικέ · Πλακίδια λέξεων · Πόλεμος · Πρόεδρος · Πυραμίδα · Ράμι με πλακίδια · Ρικικί · Σάφκοπφ · Σκατ · Σκόπα · Τζιν ράμι · Το ρολόι · Τρεις κορυφές · Τρελά οχτάρια · Τρούκο
+• Παιχνίδια μαντεψιάς (4): Ζευγάρια · Μυστηριώδες πρόσωπο · Μυστικός κωδικός · Ναυμαχία
+
+ΜΑΖΙ Ή ΚΟΝΤΡΑ ΣΤΗ ΣΥΣΚΕΥΗ
+• Με φίλους σε μία συσκευή που περνά από χέρι σε χέρι: από 2 έως 6 παίκτες, ανάλογα με το παιχνίδι
+• Ή άσε τη συσκευή να πάρει θέσεις, σε τρία επίπεδα (εύκολο, μέτριο, δύσκολο): σε 90 από τα 91 παιχνίδια για δύο ή περισσότερους
+• Πρόσωπο με πρόσωπο: άφησε το κινητό ή το τάμπλετ ανάμεσά σας, και τα πιόνια του παίκτη απέναντι γυρίζουν προς αυτόν
+• Τα παιχνίδια με κάρτες κρατούν κάθε χέρι μυστικό: μια οθόνη κρύβει τις κάρτες όσο η συσκευή πηγαίνει στον επόμενο παίκτη
+• Αναίρεση, γύρισμα του ταμπλό, κάθετα ή οριζόντια, και οι κανόνες κάθε παιχνιδιού με ένα άγγιγμα
+
+ΓΡΙΦΟΙ ΚΑΙ ΕΠΙΠΕΔΑ
+• 43 γρίφοι και πασιέντζες με προσεγμένα επίπεδα, 150 στους περισσότερους: πάνω από 6.000 επίπεδα
+• Έως 3 αστέρια ανά επίπεδο, και μια βοήθεια όταν κολλήσεις
+• Μετά, τυχαίοι γρίφοι χωρίς τέλος
+
+ΧΩΡΙΣ ΔΙΑΦΗΜΙΣΕΙΣ, ΧΩΡΙΣ ΠΑΡΑΚΟΛΟΥΘΗΣΗ
+• Μία αγορά για όλα τα παιχνίδια: χωρίς διαφημίσεις, χωρίς αγορές εντός εφαρμογής, χωρίς λογαριασμό
+• Δεν συλλέγονται δεδομένα· παίζει χωρίς σύνδεση
+• 22 γλώσσες
+
+Δημιουργία: 8BCraft.
+
+
+=== Spanish (Spain) (es-ES) ===
+
+App name:
+RetroStone: 141 juegos de mesa
+
+Short description:
+141 juegos de mesa, de cartas y rompecabezas, con amigos o contra el móvil.
+
+Full description:
+RetroStone Board reúne 141 juegos clásicos alrededor de un tapete verde: ajedrez y damas, backgammon y go, mahjong, corazones, belote, bridge y tarot, sudoku, nonogramas y solitarios. Tableros de madera, cartas y dados dibujados con cariño, animaciones suaves y las reglas de cada juego dentro de la app.
+
+LOS JUEGOS
+• Rompecabezas (36): Binairo · Bucle · Calcudoku · Caminos · Desenredar · Deslizar en el hielo · Dominosa · Empujacajas · Espejos · Fusión · Futoshiki · Ilumina · Juego del 15 · Kakuro · Klotski · Luces · Minas · Nonogramas · Ocho reinas · Ordenar el agua · Ordenar las bolas · Problemas de ajedrez · Puentes · Puertas lógicas · Rascacielos · Recorrido del caballo · Rectángulos · Same Game · Senku · Star Battle · Sudoku · Tangram · Tiendas · Torres de Hanói · Tuberías · Vías
+• Estrategia (27): Alquerque · Amazonas · Bagh-Chal · Breakthrough · Cuatro en línea · Damas · Damas chinas · Dara · El juego de Marienbad · El zorro y las ocas · Empujacanicas · Expansión · Fanorona · Go · Gomoku · Hex · Hnefatafl · Juego del molino · Konane · Lasca · Lines of Action · Mancala · Puntos y cajas · Reversi · Ritmomaquia · Surakarta · Tres en raya
+• La familia del ajedrez (7): Ajedrez · Banqi · Janggi · Juego de la selva · Makruk · Shogi · Xiangqi
+• Dados y carreras (14): 421 · Backgammon · Barco, capitán y tripulación · Cierra la caja · Dados mentirosos · Diez mil · El cerdo · Generala · Juego de la oca · Juego real de Ur · Ludo · México · Pachisi · Serpientes y escaleras
+• Cartas y fichas (53): Barbu · Batalla corsa · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Celdas libres · Corazones · Crapette · Cribbage · Cuarenta ladrones · Dominó · Doppelkopf · Durak · Écarté · El Enano Amarillo · El reloj · Euchre · Fichas de palabras · Gin Rummy · Golf · Guerra · Jass · Klaverjas · Koi-Koi · La Belle Lucie · La mona · Mahjong · Mahjong solitario · Manille · Montana · Mus · Ocho loco · Picas · Piquet · Pirámide · Presidente · Rikiki · Rummy de fichas · Schafkopf · Scopa · Siete familias · Skat · Solitario · Solitario Golf · Spider · Tarot francés · Tiến lên · Tres picos · Truco · Yukon
+• Juegos de adivinar (4): Cara misteriosa · Código secreto · Hundir la flota · Parejas
+
+EN COMPAÑÍA O CONTRA EL DISPOSITIVO
+• Con amigos en un solo dispositivo que pasa de mano en mano: de 2 a 6 jugadores, según el juego
+• O deja que el dispositivo ocupe asientos, en tres niveles (fácil, medio, difícil): en 90 de los 91 juegos para dos o más
+• Cara a cara: deja el móvil o la tableta plano entre los dos, y las piezas del jugador de enfrente se giran hacia él
+• Los juegos de cartas mantienen cada mano en secreto: una pantalla tapa las cartas mientras el dispositivo pasa al siguiente jugador
+• Deshacer, girar el tablero, en vertical u horizontal, y las reglas de cada juego a un toque
+
+ROMPECABEZAS Y NIVELES
+• 43 rompecabezas y solitarios con niveles diseñados uno a uno, 150 en la mayoría: más de 6000 niveles
+• Hasta 3 estrellas por nivel, y una pista cuando te atascas
+• Después, rompecabezas al azar sin fin
+
+SIN ANUNCIOS NI RASTREO
+• Una sola compra para todos los juegos: sin anuncios, sin compras dentro de la app, sin cuenta
+• No recoge ningún dato; funciona sin conexión
+• 22 idiomas
+
+Creado por 8BCraft.
+
+
+=== Finnish (fi-FI) ===
+
+App name:
+RetroStone: 141 lautapeliä
+
+Short description:
+141 lauta-, kortti- ja pulmapeliä: ystävien kanssa tai laitetta vastaan.
+
+Full description:
+RetroStone Board kokoaa 141 klassista peliä saman vihreän pelipöydän ääreen: shakki ja tammi, backgammon ja go, mahjong, hertta, belote, bridge ja tarot, sudoku, kuvaristikot ja pasianssit. Puiset pelilaudat, huolella piirretyt kortit ja nopat, pehmeät animaatiot ja jokaisen pelin säännöt sovelluksessa.
+
+PELIT
+• Pulmapelit (36): 15-peli · Binairo · Calcudoku · Dominosa · Futoshiki · Hanoin tornit · Jääliuku · Kahdeksan kuningatarta · Kakuro · Klotski · Kuulapasianssi · Kuvaristikot · Laatikontyöntäjä · Lamput · Logiikkaportit · Miinat · Pallojen lajittelu · Peilit · Pilvenpiirtäjät · Polut · Putket · Raiteet · Ratsun matka · Same Game · Selvitä solmu · Shakkitehtävät · Sillat · Silmukka · Star Battle · Sudoku · Suorakulmiot · Tangram · Teltat · Valot päälle · Veden lajittelu · Yhdistä
+• Strategia (27): Alquerque · Amatsonit · Bagh-Chal · Dara · Fanorona · Go · Gomoku · Hex · Hnefatafl · Kettu ja hanhet · Kiinanshakki · Konane · Läpimurto · Lasca · Leviäminen · Lines of Action · Mancala · Marienbadin peli · Mylly · Neljän suora · Pisteet ja ruudut · Reversi · Ristinolla · Rithmomachia · Surakarta · Tammi · Työnnä kuulat
+• Shakkiperhe (7): Banqi · Janggi · Makruk · Shakki · Shogi · Viidakkoshakki · Xiangqi
+• Noppa- ja kilpapelit (14): 421 · Backgammon · Hanhipeli · Käärmeet ja tikkaat · Kymppitonni · Laiva, kapteeni ja miehistö · Ludo · Meksiko · Pachisi · Possu · Shut the Box · Urin kuninkaallinen peli · Valehtelijan nopat · Yacht
+• Kortit ja laatat (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Domino · Doppelkopf · Durak · Écarté · Euchre · Gin rummy · Golf · Golf-pasianssi · Hämähäkki · Hertta · Hullut kasit · Jass · Kello · Keltainen kääpiö · Klaverjas · Koi-Koi · Kolme huippua · Korsikalainen taistelu · La Belle Lucie · Laattarommi · Mahjong · Mahjong-pasianssi · Manille · Montana · Mus · Musta Pekka · Neljäkymmentä rosvoa · Pasianssi · Pata · Piquet · Presidentti · Pyramidi · Ranskalainen tarot · Rikiki · Sanalaatat · Schafkopf · Scopa · Seitsemän perhettä · Skat · Sota · Tiến lên · Truco · Vapaat solut · Yukon
+• Arvauspelit (4): Laivanupotus · Muistipeli · Salainen koodi · Salaiset kasvot
+
+YHDESSÄ TAI LAITETTA VASTAAN
+• Ystävien kanssa yhdellä laitteella, joka kulkee kädestä käteen: 2–6 pelaajaa pelistä riippuen
+• Tai anna laitteen ottaa paikkoja kolmella tasolla (helppo, keskitaso, vaikea): 90 peliä 91:stä kahden tai useamman pelaajan pelistä
+• Kasvokkain: aseta puhelin tai tabletti tasaisesti väliinne, niin ylemmän pelaajan nappulat kääntyvät häneen päin
+• Korttipelit pitävät jokaisen käden salassa: suojakuva peittää kortit, kun laite siirtyy seuraavalle pelaajalle
+• Kumoa, käännä lauta, pysty- tai vaakasuunta, ja jokaisen pelin säännöt yhden napautuksen päässä
+
+PULMAT JA TASOT
+• 43 pulmapeliä ja pasianssia huolella suunnitelluilla tasoilla, useimmissa 150: yli 6 000 tasoa
+• Jopa 3 tähteä tasoa kohden ja vihje, kun jäät jumiin
+• Sen jälkeen satunnaisia pulmia loputtomasti
+
+EI MAINOKSIA, EI SEURANTAA
+• Yksi osto kaikkiin peleihin: ei mainoksia, ei sovelluksen sisäisiä ostoja, ei tiliä
+• Mitään tietoja ei kerätä; toimii offline-tilassa
+• 22 kieltä
+
+Tekijä: 8BCraft.
+
+
+=== French (France) (fr-FR) ===
+
+App name:
+RetroStone: jeux de société
+
+Short description:
+141 jeux de société, de cartes et casse-tête, entre amis ou contre l'appareil.
+
+Full description:
+RetroStone Board réunit 141 jeux classiques autour d'un tapis vert : échecs et dames, backgammon et go, mahjong, dame de pique, belote, bridge et tarot, sudoku, nonogrammes et réussites. Des plateaux en bois, des cartes et des dés dessinés avec soin, des animations douces, et les règles de chaque jeu dans l'appli.
+
+LES JEUX
+• Casse-tête (36) : Binairo · Boucle · Calcudoku · Chemins · Démêler · Dominosa · Fusion · Futoshiki · Glissade sur glace · Gratte-ciel · Huit dames · Kakuro · Klotski · Lampes · Lumières · Mines · Miroirs · Nonogrammes · Ponts · Portes logiques · Pousse-caisses · Problèmes d'échecs · Rails · Rectangles · Same Game · Solitaire · Star Battle · Sudoku · Tangram · Taquin · Tentes · Tour du cavalier · Tours de Hanoï · Tri des billes · Tri des liquides · Tuyaux
+• Stratégie (27) : Alquerque · Amazones · Bagh-Chal · Breakthrough · Dames · Dames chinoises · Dara · Fanorona · Go · Gomoku · Hex · Hnefatafl · Jeu de Marienbad · Jeu du moulin · Konane · Lasca · Le renard et les oies · Lines of Action · Mancala · Morpion · Pipopipette · Pousse-billes · Propagation · Quatre en ligne · Reversi · Rithmomachie · Surakarta
+• La famille des échecs (7) : Banqi · Échecs · Janggi · Jeu de la jungle · Makruk · Shogi · Xiangqi
+• Dés et parcours (14) : 10 000 · 421 · Backgammon · Bateau, capitaine et équipage · Dés menteurs · Ferme la boîte · Jeu de l'oie · Jeu royal d'Ur · Le cochon · Ludo · Mexico · Pachisi · Serpents et échelles · Yams
+• Cartes et tuiles (53) : Barbu · Bataille · Bataille corse · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Cases libres · Crapette · Cribbage · Dame de pique · Dominos · Doppelkopf · Durak · Écarté · Euchre · Gin rami · Golf · Huit américain · Jass · Jeu des 7 familles · Klaverjas · Koi-Koi · L'horloge · La Belle Lucie · Les quarante voleurs · Mahjong · Mahjong solitaire · Manille · Montana · Mus · Nain jaune · Pique · Piquet · Pouilleux · Président · Pyramide · Rami à tuiles · Réussite · Réussite du golf · Rikiki · Schafkopf · Scopa · Skat · Spider · Tarot · Tiến lên · Trois pics · Truco · Tuiles de lettres · Yukon
+• Jeux de déduction (4) : Bataille navale · Code secret · Paires · Visage mystère
+
+À PLUSIEURS, OU CONTRE L'APPAREIL
+• Entre amis sur un seul appareil, qui passe de main en main : de 2 à 6 joueurs selon le jeu
+• Ou laisse l'appareil prendre des places, à trois niveaux (facile, moyen, difficile) : dans 90 des 91 jeux à deux ou plus
+• Face à face : pose le téléphone ou la tablette à plat entre vous, et les pièces du joueur d'en face se tournent vers lui
+• Les jeux de cartes gardent chaque main secrète : un écran cache les cartes pendant que l'appareil passe au joueur suivant
+• Annuler, retourner le plateau, en portrait ou en paysage, et les règles de chaque jeu à portée de doigt
+
+CASSE-TÊTE ET NIVEAUX
+• 43 casse-tête et réussites avec des niveaux conçus un par un, 150 pour la plupart : plus de 6 000 niveaux
+• Jusqu'à 3 étoiles par niveau, et un indice quand tu bloques
+• Puis des grilles au hasard, sans fin
+
+SANS PUB, SANS PISTAGE
+• Un seul achat pour tous les jeux : pas de pub, pas d'achat intégré, pas de compte
+• Aucune donnée collectée ; fonctionne hors ligne
+• 22 langues
+
+Créé par 8BCraft.
+
+
+=== Indonesian (id) ===
+
+App name:
+RetroStone: 141 Game Papan
+
+Short description:
+141 game papan, kartu, dan teka-teki: bersama teman atau lawan perangkat.
+
+Full description:
+RetroStone Board menghimpun 141 game klasik di satu meja hijau: catur dan dam, backgammon dan go, mahjong, hati, belote, bridge dan tarot, sudoku, nonogram, dan solitaire. Papan kayu, kartu dan dadu yang digambar dengan cermat, animasi yang halus, dan aturan setiap game di dalam aplikasi.
+
+GAME-NYA
+• Teka-teki (36): Binairo · Calcudoku · Cermin · Delapan ratu · Dominosa · Futoshiki · Gabung · Gerbang Logika · Jalur · Jembatan · Kakuro · Klotski · Lampu · Lingkaran · Luncur Es · Menara Hanoi · Nonogram · Nyalakan Lampu · Pencakar Langit · Pendorong Peti · Perjalanan kuda · Persegi Panjang · Pipa · Ranjau · Rel · Same Game · Solitaire · Star Battle · Sudoku · Tangram · Teka-teki 15 · Teka-teki catur · Tenda · Urai · Urutkan Air · Urutkan Bola
+• Strategi (27): Alquerque · Amazon · Bagh-Chal · Breakthrough · Dam · Dam Cina · Dara · Dorong Kelereng · Empat Sejajar · Fanorona · Go · Gomoku · Hex · Hnefatafl · Konane · Lasca · Lines of Action · Mancala · Permainan Marienbad · Reversi · Rithmomachia · Rubah dan Angsa · Sebaran · Sembilan Bidak · Surakarta · Tic-Tac-Toe · Titik dan Kotak
+• Keluarga catur (7): Banqi · Catur · Janggi · Makruk · Rimba · Shogi · Xiangqi
+• Dadu dan balapan (14): 421 · Babi · Backgammon · Dadu Pembohong · Farkle · Kapal, Kapten, dan Awak · Ludo · Meksiko · Pachisi · Permainan Angsa · Permainan Kerajaan Ur · Shut the Box · Ular Tangga · Yacht
+• Kartu dan ubin (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Delapan Gila · Domino · Doppelkopf · Durak · Écarté · Empat Puluh Pencuri · Euchre · Gin Rummy · Golf · Hati · Jam · Jass · Kartu Sial · Klaverjas · Koi-Koi · Kurcaci Kuning · La Belle Lucie · Mahjong · Mahjong Solitaire · Manille · Montana · Mus · Perang · Pertempuran Korsika · Piquet · Piramida · Presiden · Remi Ubin · Rikiki · Schafkopf · Scopa · Sekop · Sel Bebas · Skat · Solitaire · Solitaire Golf · Spider · Tarot Prancis · Tiến lên · Tiga Puncak · Truco · Tujuh Keluarga · Ubin Kata · Yukon
+• Permainan tebak-tebakan (4): Cari Pasangan · Kode Rahasia · Perang Laut · Wajah Misterius
+
+BERSAMA, ATAU MELAWAN PERANGKAT
+• Bersama teman di satu perangkat yang berpindah tangan: 2 sampai 6 pemain, tergantung game-nya
+• Atau biarkan perangkat mengisi kursi, dengan tiga tingkat (mudah, sedang, sulit): di 90 dari 91 game untuk dua orang atau lebih
+• Berhadapan: letakkan ponsel atau tablet mendatar di antara kalian, dan bidak pemain di atas berputar menghadapnya
+• Game kartu menjaga setiap tangan tetap rahasia: layar penutup menyembunyikan kartu saat perangkat berpindah ke pemain berikutnya
+• Batalkan langkah, putar papan, potret atau lanskap, dan aturan setiap game cukup satu ketukan
+
+TEKA-TEKI DAN LEVEL
+• 43 teka-teki dan solitaire dengan level yang dirancang satu per satu, kebanyakan 150: lebih dari 6.000 level
+• Hingga 3 bintang per level, dan petunjuk saat kamu buntu
+• Lalu teka-teki acak tanpa akhir
+
+TANPA IKLAN, TANPA PELACAKAN
+• Sekali beli untuk semua game: tanpa iklan, tanpa pembelian dalam aplikasi, tanpa akun
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+
+Dibuat oleh 8BCraft.
+
+
+=== Italian (it-IT) ===
+
+App name:
+RetroStone: giochi da tavolo
+
+Short description:
+141 giochi da tavolo, di carte e rompicapi: con amici o contro il telefono.
+
+Full description:
+RetroStone Board riunisce 141 giochi classici attorno a un tappeto verde: scacchi e dama, backgammon e go, mahjong, cuori, belote, bridge e tarot, sudoku, nonogrammi e solitari. Tavolieri in legno, carte e dadi disegnati con cura, animazioni morbide e le regole di ogni gioco nell'app.
+
+I GIOCHI
+• Rompicapi (36): Accendi la luce · Anello · Binairo · Binari · Calcudoku · Districa · Dominosa · Fusione · Futoshiki · Gioco del 15 · Giro del cavallo · Grattacieli · Kakuro · Klotski · Lampade · Mine · Nonogrammi · Ordina l'acqua · Ordina le palline · Otto regine · Percorsi · Ponti · Porte logiche · Problemi di scacchi · Rettangoli · Same Game · Scivolata sul ghiaccio · Solitario · Specchi · Spingi-casse · Star Battle · Sudoku · Tangram · Tende · Torre di Hanoi · Tubi
+• Strategia (27): Alquerque · Amazzoni · Bagh-Chal · Breakthrough · Dama · Dama cinese · Dara · Espansione · Fanorona · Go · Gomoku · Hex · Hnefatafl · Il gioco di Marienbad · Konane · La volpe e le oche · Lasca · Lines of Action · Mancala · Mulino · Punti e quadrati · Quattro in fila · Reversi · Ritmomachia · Spingibiglie · Surakarta · Tris
+• La famiglia degli scacchi (7): Banqi · Gioco della giungla · Janggi · Makruk · Scacchi · Shogi · Xiangqi
+• Dadi e percorsi (14): 421 · Backgammon · Chiudi la scatola · Dadi bugiardi · Farkle · Gioco dell'oca · Gioco reale di Ur · Il maiale · Ludo · Messico · Nave, capitano e ciurma · Pachisi · Serpenti e scale · Yacht
+• Carte e tessere (53): Barbu · Battaglia · Battaglia corsa · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Celle libere · Crapette · Cribbage · Cuori · Domino · Doppelkopf · Durak · Écarté · Euchre · Gin rummy · Golf · Il Nano Giallo · Jass · Klaverjas · Koi-Koi · L'orologio · La Belle Lucie · Mahjong · Mahjong solitario · Manille · Montana · Mus · Otto matto · Picche · Picchetto · Piramide · Presidente · Quaranta ladroni · Ramino con tessere · Rikiki · Schafkopf · Scopa · Sette famiglie · Skat · Solitario · Solitario Golf · Spider · Tarot francese · Tessere di parole · Tiến lên · Tre picchi · Truco · Uomo nero · Yukon
+• Giochi di deduzione (4): Battaglia navale · Codice segreto · Coppie · Volto misterioso
+
+IN COMPAGNIA O CONTRO IL DISPOSITIVO
+• Con gli amici su un solo dispositivo, passato di mano in mano: da 2 a 6 giocatori, secondo il gioco
+• Oppure lascia che il dispositivo prenda dei posti, a tre livelli (facile, medio, difficile): in 90 dei 91 giochi per due o più
+• Faccia a faccia: appoggia il telefono o il tablet tra voi, e i pezzi del giocatore di fronte si girano verso di lui
+• I giochi di carte tengono segreta ogni mano: una schermata copre le carte mentre il dispositivo passa al giocatore successivo
+• Annulla, gira il tavoliere, in verticale o in orizzontale, e le regole di ogni gioco a portata di tocco
+
+ROMPICAPI E LIVELLI
+• 43 rompicapi e solitari con livelli creati uno per uno, 150 per la maggior parte: oltre 6.000 livelli
+• Fino a 3 stelle per livello, e un aiuto quando ti blocchi
+• Poi rompicapi casuali senza fine
+
+SENZA PUBBLICITÀ, SENZA TRACCIAMENTO
+• Un solo acquisto per tutti i giochi: niente pubblicità, niente acquisti in-app, nessun account
+• Nessun dato raccolto; funziona offline
+• 22 lingue
+
+Creato da 8BCraft.
+
+
+=== Japanese (ja-JP) ===
+
+App name:
+RetroStone: ボードゲーム141種
+
+Short description:
+ボードゲーム・カード・パズルなど141種。友だちと、または端末と対戦。オフラインOK。
+
+Full description:
+RetroStone Board は、緑のテーブルを囲むクラシックゲーム141種を収録。チェスとチェッカー、バックギャモンと囲碁、麻雀、ハーツ、ベロット、ブリッジ、タロット、ナンバープレイス、ノノグラム、ソリティア。木の盤、ていねいに描いたカードとダイス、なめらかなアニメーション、そしてすべてのゲームのルールをアプリの中で読めます。
+
+収録ゲーム
+• パズル (36)：15パズル、さめがめ、ほどき、ウォーターソート、エイトクイーン、カルクドク、クロスサム、スターバトル、タングラム、チェスパズル、テント、ドミノサ、ナイトツアー、ナンバープレイス、ノノグラム、パイプ、ハノイの塔、ビナイロ、ビルディング、ブリッジパズル、ペグ・ソリテア、ボールソート、ライトアップ、ランプ、ループ、不等号パズル、地雷、数字合体、氷すべり、箱入り娘、箱押し、線つなぎ、線路、論理ゲート、鏡と光線、長方形
+• 戦略ゲーム (27)：アマゾンズ、アルケルケ、キツネとガチョウ、コナネ、スプレッド、スラカルタ、ダラ、チェッカー、チャイニーズチェッカー、ドット・アンド・ボックス、ナイン・メンズ・モリス、バグチャール、ビー玉押し、ファノロナ、ブレイクスルー、ヘイフタフル、ヘックス、マリエンバード、マンカラ、ラインズ・オブ・アクション、ラスカ、リトモマキア、リバーシ、三目並べ、五目並べ、四目並べ、囲碁
+• チェスの仲間 (7)：シャンチー、チェス、チャンギ、マークルック、将棋、暗棋、闘獣棋
+• ダイスとすごろく (14)：421、がちょうのゲーム、ウル王朝のゲーム、シップ・キャプテン・クルー、シャット・ザ・ボックス、パチーシ、バックギャモン、ピッグ、ファークル、メキシコ、ヨット、ライアーダイス、ルド、蛇と梯子
+• カードとタイル (53)：Tiến lên、こいこい、エカルテ、カナスタ、キャンフィールド、クラペット、クラーフェルヤス、クリベッジ、クレイジーエイト、コルシカの戦い、ゴルフ、ゴルフ・ソリティア、シャーフコップ、ジン・ラミー、スカート、スコパ、スパイダー、スペード、ソリティア、タイル・ラミー、ドゥラーク、トゥルコ、ドッペルコップ、ドミノ、ババ抜き、バルビュ、ハーツ、ピケット、ピラミッド、ブリスコラ、ブリッジ、フレンチ・タロット、ベロット、マニーユ、ムス、モンタナ、ヤス、ユーカー、ユーコン、ラ・ベル・ルシー、リキキ、ワードタイル、七つの家族、三つの山、四十人の盗賊、大富豪、大老二、戦争、時計、空きセル、麻雀、麻雀ソリティア、黄色い小人
+• 推理ゲーム (4)：なぞの顔、海戦ゲーム、神経衰弱、秘密のコード
+
+みんなで、または端末と
+• 1台の端末を手渡しで回して友だちと：ゲームによって2〜6人
+• 端末に席をまかせることも。強さは3段階（やさしい・ふつう・むずかしい）：2人以上で遊ぶ91種のうち90種に対応
+• 向かい合わせ：スマホやタブレットを2人の間に平らに置くと、上側のプレイヤーの駒がその人の方を向きます
+• カードゲームでは手札は秘密：次のプレイヤーに端末を渡す間、カバーがカードを隠します
+• 待った、盤の回転、縦でも横でも。各ゲームのルールもワンタップで
+
+パズルとレベル
+• ひとつずつ作り込んだレベルのあるパズルとソリティアが43種、ほとんどが150レベル：合計6,000レベル以上
+• 各レベル最大3つの星、行き詰まったらヒント
+• その後はランダムなパズルがいつまでも
+
+広告なし・追跡なし
+• 一度の購入ですべてのゲーム。広告なし、アプリ内課金なし、アカウント不要
+• データは一切収集しません。オフラインで遊べます
+• 22言語に対応
+
+制作：8BCraft
+
+
+=== Korean (ko-KR) ===
+
+App name:
+RetroStone: 보드게임 141종
+
+Short description:
+보드게임·카드·퍼즐 141종: 친구와 함께 또는 기기와 대결, 오프라인 플레이.
+
+Full description:
+RetroStone Board는 초록 테이블에 둘러앉아 즐기는 클래식 게임 141종을 담았습니다. 체스와 체커, 백개먼과 바둑, 마작, 하트, 블로트, 브리지, 타로, 스도쿠, 노노그램, 솔리테어까지. 나무 보드, 정성껏 그린 카드와 주사위, 부드러운 애니메이션, 그리고 모든 게임의 규칙을 앱 안에서 볼 수 있습니다.
+
+수록 게임
+• 퍼즐 (36): 15 퍼즐 · 가쿠로 · 같은 색 지우기 · 거울과 빛 · 공 정렬 · 기찻길 · 길 잇기 · 나이트 투어 · 노노그램 · 논리 게이트 · 다리 잇기 · 도미노사 · 라이트 업 · 램프 · 루프 · 물 정렬 · 비나이로 · 빌딩 · 상자 밀기 · 스도쿠 · 스타 배틀 · 얼음 미끄럼 · 여덟 퀸 · 지뢰 · 직사각형 · 체스 퍼즐 · 칠교놀이 · 칼쿠도쿠 · 클로츠키 · 텐트 · 파이프 · 페그 솔리테어 · 풀기 · 하노이의 탑 · 합치기 · 후토시키
+• 전략 게임 (27): 구슬 밀기 · 나인 멘스 모리스 · 다라 · 다이아몬드 게임 · 라스카 · 라인스 오브 액션 · 리버시 · 리트모마키아 · 마리엔바드 게임 · 만칼라 · 바그찰 · 바둑 · 브레이크스루 · 사목 · 수라카르타 · 스프레드 · 아마존 · 알케르케 · 여우와 거위 · 오목 · 점과 상자 · 체커 · 코나네 · 틱택토 · 파노로나 · 헥스 · 흐네파타플
+• 체스 계열 (7): 막룩 · 반치 · 샹치 · 쇼기 · 장기 · 정글 · 체스
+• 주사위와 경주 (14): 421 · 거위 게임 · 라이어 다이스 · 루도 · 멕시코 · 배, 선장, 선원 · 백개먼 · 뱀과 사다리 · 셧 더 박스 · 요트 · 우르 왕실 게임 · 파치시 · 파클 · 피그
+• 카드와 타일 (53): 40인의 도둑 · Tiến lên · 고이고이 · 골프 · 골프 솔리테어 · 노란 난쟁이 · 단어 타일 · 대통령 게임 · 도둑잡기 · 도미노 · 도펠코프 · 두라크 · 라 벨 뤼시 · 리키키 · 마니유 · 마작 · 마작 솔리테어 · 몬태나 · 무스 · 바르뷔 · 브리스콜라 · 브리지 · 블로트 · 빅 투 · 빈칸 솔리테어 · 샤프코프 · 세 봉우리 · 솔리테어 · 스카트 · 스코파 · 스파이더 · 스페이드 · 시계 · 야스 · 에카르테 · 유커 · 유콘 · 일곱 가족 · 전쟁 · 진 러미 · 카나스타 · 캔필드 · 코르시카 전투 · 크라페트 · 크레이지 에이트 · 크리비지 · 클라버야스 · 타일 러미 · 트루코 · 프렌치 타로 · 피라미드 · 피케 · 하트
+• 추리 게임 (4): 비밀 코드 · 수수께끼 얼굴 · 짝 맞추기 · 해전 게임
+
+함께, 또는 기기와 대결
+• 기기 하나를 돌려 가며 친구들과: 게임에 따라 2~6명
+• 기기에 자리를 맡길 수도 있습니다. 난이도 3단계(쉬움, 보통, 어려움): 2인 이상 게임 91종 중 90종 지원
+• 마주 보고: 휴대폰이나 태블릿을 두 사람 사이에 눕혀 두면 위쪽 플레이어의 말이 그 사람 쪽으로 돌아갑니다
+• 카드 게임은 손패를 비밀로: 다음 플레이어에게 기기를 넘기는 동안 화면이 카드를 가립니다
+• 무르기, 보드 돌리기, 세로·가로 화면, 그리고 각 게임의 규칙을 한 번의 탭으로
+
+퍼즐과 레벨
+• 하나하나 설계한 레벨이 있는 퍼즐과 솔리테어 43종, 대부분 150레벨: 총 6,000레벨 이상
+• 레벨마다 최대 별 3개, 막히면 힌트
+• 그다음엔 끝없는 랜덤 퍼즐
+
+광고 없음, 추적 없음
+• 한 번 구매로 모든 게임: 광고 없음, 인앱 결제 없음, 계정 없음
+• 어떤 데이터도 수집하지 않음, 오프라인 플레이
+• 22개 언어
+
+제작: 8BCraft
+
+
+=== Norwegian (no-NO) ===
+
+App name:
+RetroStone: 141 brettspill
+
+Short description:
+141 brett-, kort- og tenkespill: med venner eller mot enheten, offline.
+
+Full description:
+RetroStone Board samler 141 klassiske spill rundt ett grønt spillebord: sjakk og dam, backgammon og go, mahjong, hjerter, belote, bridge og tarot, sudoku, nonogrammer og kabaler. Brett av tre, omhyggelig tegnede kort og terninger, myke animasjoner og reglene for hvert spill i appen.
+
+SPILLENE
+• Nøtter (36): 15-spill · Åtte dronninger · Binairo · Bruer · Calcudoku · Dominosa · Floke · Futoshiki · Isgli · Kakuro · Kasseskyver · Klotski · Lamper · Logiske porter · Miner · Nonogrammer · Rektangler · Rør · Same Game · Sjakkoppgaver · Skyskrapere · Slå sammen · Sløyfe · Solitaire · Sorter kulene · Sorter vannet · Speil · Spor · Springerproblemet · Star Battle · Stier · Sudoku · Tangram · Tårnet i Hanoi · Telt · Tenn lyset
+• Strategi (27): Alquerque · Amasoner · Bagh-Chal · Dam · Dara · Fanorona · Fem på rad · Fire på rad · Gjennombrudd · Go · Hex · Hnefatafl · Kinasjakk · Konane · Kuledytt · Lasca · Lines of Action · Mancala · Marienbad-spillet · Mølle · Prikker og ruter · Rev og gjess · Reversi · Rithmomachia · Spredning · Surakarta · Tripp-trapp-tresko
+• Sjakkfamilien (7): Banqi · Janggi · Jungelsjakk · Makruk · Shogi · Sjakk · Xiangqi
+• Terninger og veddeløp (14): 10 000 · 421 · Backgammon · Det kongelige spillet fra Ur · Gåsespillet · Gris · Ludo · Løgnerterninger · Mexico · Pachisi · Shut the Box · Skip, kaptein og mannskap · Slanger og stiger · Yacht
+• Kort og brikker (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Den gule dvergen · Domino · Doppelkopf · Durak · Écarté · Edderkopp · Euchre · Fransk tarot · Førti røvere · Gin rummy · Golf · Golfkabal · Hjerter · Jass · Kabal · Klaverjas · Klokken · Koi-Koi · Korsikansk slag · Krig · La Belle Lucie · Ledige celler · Mahjong · Mahjong-kabal · Manille · Montana · Mus · Ordbrikker · Piquet · President · Pyramide · Rikiki · Rummy med brikker · Schafkopf · Scopa · Sju familier · Skat · Spar · Svarteper · Tiến lên · Tre topper · Truco · Vri åtter · Yukon
+• Gjettelek (4): Det hemmelige ansiktet · Finn parene · Hemmelig kode · Senke slagskip
+
+SAMMEN ELLER MOT ENHETEN
+• Med venner på én enhet som går fra hånd til hånd: 2 til 6 spillere, avhengig av spillet
+• Eller la enheten ta plasser, på tre nivåer (lett, middels, vanskelig): i 90 av de 91 spillene for to eller flere
+• Ansikt til ansikt: legg telefonen eller nettbrettet flatt mellom dere, og brikkene til spilleren øverst snur seg mot ham
+• Kortspillene holder hver hånd hemmelig: en skjerm dekker kortene mens enheten går videre til neste spiller
+• Angre, snu brettet, stående eller liggende, og reglene for hvert spill ett trykk unna
+
+NØTTER OG NIVÅER
+• 43 nøtter og kabaler med nøye utformede nivåer, 150 for de fleste: over 6 000 nivåer
+• Opptil 3 stjerner per nivå, og et hint når du står fast
+• Deretter tilfeldige oppgaver uten slutt
+
+INGEN REKLAME, INGEN SPORING
+• Ett kjøp for alle spill: ingen reklame, ingen kjøp i appen, ingen konto
+• Ingen data samles inn; fungerer offline
+• 22 språk
+
+Laget av 8BCraft.
+
+
+=== Dutch (nl-NL) ===
+
+App name:
+RetroStone: 141 bordspellen
+
+Short description:
+141 bord-, kaart- en puzzelspellen: met vrienden of tegen het toestel, offline.
+
+Full description:
+RetroStone Board brengt 141 klassieke spellen samen rond één groene speeltafel: schaken en dammen, backgammon en go, mahjong, hartenjagen, belote, bridge en tarot, sudoku, nonogrammen en patience. Houten borden, met zorg getekende kaarten en dobbelstenen, zachte animaties en de regels van elk spel in de app.
+
+DE SPELLEN
+• Puzzels (36): Acht koninginnen · Ballen sorteren · Binairo · Bruggen · Buizen · Calcudoku · Dominosa · Futoshiki · IJsglijden · Kakuro · Kistenschuiver · Klotski · Lampen · Licht aan · Logische poorten · Lus · Mijnen · Nonogrammen · Ontwarren · Paardensprong · Paden · Rechthoeken · Same Game · Samenvoegen · Schaakpuzzels · Solitaire · Spiegels · Sporen · Star Battle · Sudoku · Tangram · Tenten · Torens van Hanoi · Vijftienpuzzel · Water sorteren · Wolkenkrabbers
+• Strategie (27): Alquerque · Amazones · Bagh-Chal · Boter-kaas-en-eieren · Breakthrough · Chinees dammen · Dammen · Dara · Fanorona · Go · Gomoku · Het Marienbad-spel · Hex · Hnefatafl · Kamertje verhuren · Knikkerduwen · Konane · Lasca · Lines of Action · Mancala · Molenspel · Reversi · Rithmomachie · Surakarta · Uitbreiding · Vier in een rij · Vos en ganzen
+• De schaakfamilie (7): Banqi · Janggi · Jungleschaak · Makruk · Schaken · Shogi · Xiangqi
+• Dobbel- en racespellen (14): 10.000 · 421 · Backgammon · Ganzenbord · Koninklijk spel van Ur · Leugenaarsdobbelen · Ludo · Mexen · Pachisi · Schip, kapitein en bemanning · Shut the Box · Slangen en ladders · Varkentje · Yacht
+• Kaarten en stenen (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Corsicaanse slag · Crapette · Cribbage · De Gele Dwerg · De klok · Domino · Doppelkopf · Drie toppen · Durak · Écarté · Euchre · Frans tarot · Gekke Achten · Gin rummy · Golf · Golfpatience · Hartenjagen · Jass · Klaverjas · Koi-Koi · La Belle Lucie · Mahjong · Mahjong solitaire · Manille · Montana · Mus · Oorlogje · Oude vrijster · Patience · Piket · Piramide · President · Rikiki · Rummy met stenen · Schafkopf · Schoppen · Scopa · Skat · Spider · Tiến lên · Truco · Veertig rovers · Vrije cellen · Woordtegels · Yukon · Zeven families
+• Raadspellen (4): Geheim gezicht · Geheime code · Paren zoeken · Zeeslag
+
+SAMEN, OF TEGEN HET TOESTEL
+• Met vrienden op één toestel dat van hand tot hand gaat: 2 tot 6 spelers, afhankelijk van het spel
+• Of laat het toestel plaatsen innemen, op drie niveaus (makkelijk, gemiddeld, moeilijk): in 90 van de 91 spellen voor twee of meer
+• Tegenover elkaar: leg de telefoon of tablet plat tussen jullie in, en de stukken van de speler boven draaien naar hem toe
+• Kaartspellen houden elke hand geheim: een scherm bedekt de kaarten terwijl het toestel naar de volgende speler gaat
+• Ongedaan maken, het bord draaien, staand of liggend, en de regels van elk spel met één tik
+
+PUZZELS EN LEVELS
+• 43 puzzels en patiences met zorgvuldig ontworpen levels, meestal 150 per spel: meer dan 6.000 levels
+• Tot 3 sterren per level, en een hint als je vastzit
+• Daarna willekeurige puzzels zonder einde
+
+GEEN RECLAME, GEEN TRACKING
+• Eén aankoop voor alle spellen: geen reclame, geen in-app-aankopen, geen account
+• Er worden geen gegevens verzameld; werkt offline
+• 22 talen
+
+Gemaakt door 8BCraft.
+
+
+=== Polish (pl-PL) ===
+
+App name:
+RetroStone: gry planszowe
+
+Short description:
+141 gier planszowych, karcianych i łamigłówek: ze znajomymi lub z urządzeniem.
+
+Full description:
+RetroStone Board łączy 141 klasycznych gier przy jednym zielonym stole: szachy i warcaby, backgammon i go, mahjong, kierki, belote, brydż i tarot, sudoku, obrazki logiczne i pasjanse. Drewniane plansze, starannie narysowane karty i kości, płynne animacje i zasady każdej gry w aplikacji.
+
+GRY
+• Łamigłówki (36): Binairo · Bramki logiczne · Calcudoku · Dominosa · Drapacze chmur · Futoshiki · Kakuro · Klotski · Lampy · Lustra · Miny · Mosty · Namioty · Obrazki logiczne · Osiem hetmanów · Pchacz skrzyń · Pętla · Piętnastka · Problem skoczka · Prostokąty · Rozplątywanie · Rury · Same Game · Samotnik · Ścieżki · Ślizg po lodzie · Sortowanie kulek · Sortowanie wody · Star Battle · Sudoku · Tangram · Tory · Wieże Hanoi · Zadania szachowe · Zapal światło · Łączenie
+• Strategia (27): Alquerque · Amazonki · Bagh-Chal · Breakthrough · Chińskie warcaby · Cztery w rzędzie · Dara · Ekspansja · Fanorona · Go · Gomoku · Gra Marienbad · Hex · Hnefatafl · Konane · Kółko i krzyżyk · Kropki i kwadraty · Lasca · Lines of Action · Lis i gęsi · Mankala · Młynek · Reversi · Rytmomachia · Spychanie kulek · Surakarta · Warcaby
+• Rodzina szachów (7): Banqi · Dżungla · Janggi · Makruk · Shogi · Szachy · Xiangqi
+• Kości i wyścigi (14): 421 · Backgammon · Chińczyk · Farkle · Gra w gęś · Kości kłamcy · Królewska gra z Ur · Meksyk · Pachisi · Statek, kapitan i załoga · Świnka · Węże i drabiny · Yacht · Zamknij pudełko
+• Karty i kamienie (53): Barbu · Belote · Big Two · Bitwa korsykańska · Briscola · Brydż · Canfield · Crapette · Cribbage · Czterdziestu rozbójników · Domino · Doppelkopf · Dureń · Écarté · Euchre · Gin remik · Golf · Jass · Kanasta · Kierki · Klaverjas · Koi-Koi · La Belle Lucie · Mahjong · Manille · Montana · Mus · Pająk · Pasjans · Pasjans Golf · Pasjans mahjong · Piki · Pikieta · Piotruś · Piramida · Prezydent · Płytki z literami · Remik z płytkami · Rikiki · Schafkopf · Scopa · Siedem rodzin · Skat · Szalone ósemki · Tarot francuski · Tiến lên · Truco · Trzy szczyty · Wojna · Wolne komórki · Yukon · Zegar · Żółty karzeł
+• Zgadywanki (4): Pary · Statki · Tajemnicza twarz · Tajny kod
+
+RAZEM ALBO PRZECIW URZĄDZENIU
+• Ze znajomymi na jednym urządzeniu, podawanym z rąk do rąk: od 2 do 6 graczy, zależnie od gry
+• Albo oddaj miejsca urządzeniu, na trzech poziomach (łatwy, średni, trudny): w 90 z 91 gier dla dwóch lub więcej osób
+• Twarzą w twarz: połóż telefon lub tablet płasko między wami, a pionki gracza u góry obrócą się do niego
+• Gry karciane chronią każdą rękę: zasłona zakrywa karty, gdy urządzenie przechodzi do następnego gracza
+• Cofanie ruchu, obracanie planszy, pion lub poziom, a zasady każdej gry o jedno dotknięcie
+
+ŁAMIGŁÓWKI I POZIOMY
+• 43 łamigłówek i pasjansów z poziomami projektowanymi jeden po drugim, w większości po 150: ponad 6 000 poziomów
+• Do 3 gwiazdek za poziom i podpowiedź, gdy utkniesz
+• Potem losowe łamigłówki bez końca
+
+BEZ REKLAM, BEZ ŚLEDZENIA
+• Jeden zakup na wszystkie gry: bez reklam, bez zakupów w aplikacji, bez konta
+• Żadne dane nie są zbierane; działa offline
+• 22 języki
+
+Stworzone przez 8BCraft.
+
+
+=== Portuguese (Brazil) (pt-BR) ===
+
+App name:
+RetroStone: jogos de tabuleiro
+
+Short description:
+141 jogos de tabuleiro, cartas e quebra-cabeças, com amigos ou contra o celular.
+
+Full description:
+RetroStone Board reúne 141 jogos clássicos em volta de um feltro verde: xadrez e damas, gamão e go, mahjong, copas, belote, bridge e tarô, sudoku, nonogramas e paciências. Tabuleiros de madeira, cartas e dados desenhados com carinho, animações suaves e as regras de cada jogo dentro do app.
+
+OS JOGOS
+• Quebra-cabeças (36): Acenda a Luz · Arranha-céus · Barracas · Binairo · Calcudoku · Caminhos · Canos · Circuito · Desembaraçar · Deslize no gelo · Dominosa · Empurra-caixas · Espelhos · Fusão · Futoshiki · Jogo do 15 · Kakuro · Klotski · Luzes · Minas · Nonogramas · Oito rainhas · Ordenar a água · Ordenar as bolas · Passeio do cavalo · Pontes · Portas lógicas · Problemas de xadrez · Resta Um · Retângulos · Same Game · Star Battle · Sudoku · Tangram · Torre de Hanói · Trilhos
+• Estratégia (27): Alquerque · Amazonas · Bagh-Chal · Breakthrough · Damas · Damas chinesas · Dara · Empurra-bolinhas · Expansão · Fanorona · Go · Gomoku · Hex · Hnefatafl · Jogo da velha · Jogo dos pontinhos · Konane · Lasca · Linhas de Ação · Mancala · O jogo de Marienbad · Quatro em linha · Raposa e gansos · Reversi · Ritmomaquia · Surakarta · Trilha
+• A família do xadrez (7): Banqi · Janggi · Makruk · Selva · Shogi · Xadrez · Xiangqi
+• Dados e corridas (14): 421 · Cobras e Escadas · Dados mentirosos · Farkle · Fecha a caixa · Gamão · General · Jogo do Ganso · Jogo Real de Ur · Ludo · México · Navio, capitão e tripulação · Pachisi · Porquinho
+• Cartas e peças (53): Barbu · Batalha corsa · Belote · Big Two · Bridge · Briscola · Canastra · Canfield · Células livres · Copas · Crapette · Cribbage · Dominó · Doppelkopf · Durak · Écarté · Espadas · Euchre · Gin Rummy · Golfe · Guerra · Jass · Klaverjas · Koi-Koi · La Belle Lucie · Mahjong · Manille · Mico · Montana · Mus · O Anão Amarelo · Oito maluco · Paciência · Paciência Golfe · Paciência Mahjong · Paciência Spider · Peças de palavras · Piquet · Pirâmide · Presidente · Quarenta Ladrões · Relógio · Rikiki · Rummy de peças · Schafkopf · Scopa · Sete famílias · Skat · Tarô francês · Tiến lên · Três picos · Truco · Yukon
+• Jogos de adivinhação (4): Batalha naval · Código secreto · Pares · Rosto misterioso
+
+COM AMIGOS OU CONTRA O APARELHO
+• Com amigos em um só aparelho, passado de mão em mão: de 2 a 6 jogadores, conforme o jogo
+• Ou deixe o aparelho ocupar lugares, em três níveis (fácil, médio, difícil): em 90 dos 91 jogos para dois ou mais
+• Frente a frente: deite o celular ou o tablet entre vocês, e as peças do jogador de cima se viram para ele
+• Os jogos de cartas mantêm cada mão em segredo: uma tela cobre as cartas enquanto o aparelho passa para o próximo jogador
+• Desfazer, girar o tabuleiro, retrato ou paisagem, e as regras de cada jogo a um toque
+
+QUEBRA-CABEÇAS E NÍVEIS
+• 43 quebra-cabeças e paciências com níveis criados um a um, 150 na maioria: mais de 6.000 níveis
+• Até 3 estrelas por nível, e uma dica quando você travar
+• Depois, quebra-cabeças aleatórios sem fim
+
+SEM ANÚNCIOS, SEM RASTREAMENTO
+• Uma só compra para todos os jogos: sem anúncios, sem compras no app, sem conta
+• Nenhum dado coletado; funciona offline
+• 22 idiomas
+
+Criado por 8BCraft.
+
+
+=== Portuguese (Portugal) (pt-PT) ===
+
+App name:
+RetroStone: jogos de tabuleiro
+
+Short description:
+141 jogos de tabuleiro, cartas e quebra-cabeças, com amigos ou o telemóvel.
+
+Full description:
+RetroStone Board reúne 141 jogos clássicos à volta de um pano verde: xadrez e damas, gamão e go, mahjong, copas, belote, bridge e tarot, sudoku, nonogramas e solitários. Tabuleiros de madeira, cartas e dados desenhados com cuidado, animações suaves e as regras de cada jogo dentro da app.
+
+OS JOGOS
+• Quebra-cabeças (36): Acende a Luz · Arranha-céus · Binairo · Calcudoku · Caminhos · Canos · Carris · Circuito · Desembaraçar · Deslize no gelo · Dominosa · Empurra-caixas · Espelhos · Fusão · Futoshiki · Jogo do 15 · Kakuro · Klotski · Luzes · Minas · Nonogramas · Oito damas · Ordenar a água · Ordenar as bolas · Passeio do cavalo · Pontes · Portas lógicas · Problemas de xadrez · Retângulos · Same Game · Solitário · Star Battle · Sudoku · Tangram · Tendas · Torre de Hanói
+• Estratégia (27): Alquerque · Amazonas · Bagh-Chal · Breakthrough · Damas · Damas chinesas · Dara · Empurra-berlindes · Expansão · Fanorona · Go · Gomoku · Hex · Hnefatafl · Jogo do galo · Jogo do moinho · Konane · Lasca · Linhas de Ação · Mancala · O jogo de Marienbad · Pontos e quadrados · Quatro em linha · Raposa e gansos · Reversi · Ritmomaquia · Surakarta
+• A família do xadrez (7): Banqi · Janggi · Makruk · Selva · Shogi · Xadrez · Xiangqi
+• Dados e corridas (14): 421 · Cobras e Escadas · Dados mentirosos · Farkle · Fecha a caixa · Gamão · Jogo da Glória · Jogo Real de Ur · Ludo · México · Navio, capitão e tripulação · Pachisi · Porco · Yacht
+• Cartas e peças (53): Barbu · Batalha corsa · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Células livres · Copas · Crapette · Cribbage · Dominó · Doppelkopf · Durak · Écarté · Espadas · Euchre · Gin Rummy · Golfe · Guerra · Jass · Klaverjas · Koi-Koi · La Belle Lucie · Mahjong · Manille · Mico · Montana · Mus · O Anão Amarelo · O relógio · Oito maluco · Paciência Mahjong · Peças de palavras · Piquet · Pirâmide · Presidente · Quarenta Ladrões · Rikiki · Rummy de peças · Schafkopf · Scopa · Sete famílias · Skat · Solitário · Solitário Golfe · Spider · Tarot francês · Tiến lên · Três picos · Truco · Yukon
+• Jogos de adivinhação (4): Batalha naval · Código secreto · Pares · Rosto misterioso
+
+COM AMIGOS OU CONTRA O DISPOSITIVO
+• Com amigos num só dispositivo, passado de mão em mão: de 2 a 6 jogadores, conforme o jogo
+• Ou deixa o dispositivo ocupar lugares, em três níveis (fácil, médio, difícil): em 90 dos 91 jogos para dois ou mais
+• Frente a frente: pousa o telemóvel ou o tablet entre os dois, e as peças do jogador de cima viram-se para ele
+• Os jogos de cartas mantêm cada mão em segredo: um ecrã tapa as cartas enquanto o dispositivo passa ao jogador seguinte
+• Anular, rodar o tabuleiro, na vertical ou na horizontal, e as regras de cada jogo à distância de um toque
+
+QUEBRA-CABEÇAS E NÍVEIS
+• 43 quebra-cabeças e solitários com níveis criados um a um, 150 na maioria: mais de 6 000 níveis
+• Até 3 estrelas por nível, e uma pista quando ficas preso
+• Depois, quebra-cabeças aleatórios sem fim
+
+SEM ANÚNCIOS, SEM RASTREIO
+• Uma só compra para todos os jogos: sem anúncios, sem compras na app, sem conta
+• Nenhum dado recolhido; funciona offline
+• 22 idiomas
+
+Criado por 8BCraft.
+
+
+=== Russian (ru-RU) ===
+
+App name:
+RetroStone: настольные игры
+
+Short description:
+Настольные игры, карты и головоломки, всего 141: с друзьями или с устройством.
+
+Full description:
+RetroStone Board — это классические игры за одним зелёным столом, всего 141: шахматы и шашки, нарды и го, маджонг, червы, белот, бридж и таро, судоку, японские кроссворды и пасьянсы. Деревянные доски, старательно нарисованные карты и кости, плавная анимация и правила каждой игры прямо в приложении.
+
+ИГРЫ
+• Головоломки (36): Same Game · Бинайро · Восемь ферзей · Доминоса · Дорожки · Зажги свет · Звёздная битва · Зеркала · Какуро · Калькудоку · Клотски · Лампы · Логические вентили · Мины · Мосты · Небоскрёбы · Палатки · Петля · Прямоугольники · Пятнашки · Распутывание · Рельсы · Скольжение по льду · Слияние · Солитер · Сортировка воды · Сортировка шариков · Судоку · Танграм · Толкай ящики · Трубы · Футошики · Ханойская башня · Ход коня · Шахматные задачи · Японские кроссворды
+• Стратегия (27): Lines of Action · Алькерке · Амазонки · Багх-Чал · Вытолкни шарики · Гекс · Го · Гомоку · Дара · Игра Мариенбад · Китайские шашки · Конане · Крестики-нолики · Ласка · Лиса и гуси · Манкала · Мельница · Прорыв · Реверси · Ритмомахия · Суракарта · Точки и квадраты · Фанорона · Хнефатафл · Четыре в ряд · Шашки · Экспансия
+• Семейство шахмат (7): Баньци · Джунгли · Макрук · Сёги · Сянци · Чанги · Шахматы
+• Кости и гонки (14): 421 · Гусёк · Закрой коробку · Змеи и лестницы · Корабль, капитан и команда · Короткие нарды · Кости лжеца · Лудо · Мексика · Пачиси · Свинья · Фаркл · Царская игра Ура · Яхта
+• Карты и фишки (53): Tiến lên · Барбю · Белот · Большая двойка · Бридж · Брискола · Буквенные фишки · Гольф · Джин рамми · Домино · Доппелькопф · Дурак · Жёлтый карлик · Канаста · Канфилд · Клаверьяс · Кой-кой · Корсиканская битва · Косынка · Крапетт · Криббедж · Маджонг · Манилья · Монтана · Мус · Пасьянс «Гольф» · Пасьянс маджонг · Паук · Пикет · Пики · Пиковый валет · Пирамида · Президент · Прекрасная Люси · Пьяница · Рикики · Румми с фишками · Свободные ячейки · Семь семей · Скат · Скопа · Сорок разбойников · Сумасшедшие восьмёрки · Три пика · Труко · Французское таро · Часы · Червы · Шафкопф · Экарте · Юкер · Юкон · Ясс
+• Игры на угадывание (4): Загадочное лицо · Морской бой · Найди пару · Секретный код
+
+ВМЕСТЕ ИЛИ ПРОТИВ УСТРОЙСТВА
+• С друзьями на одном устройстве, которое переходит из рук в руки: от 2 до 6 игроков, в зависимости от игры
+• Или отдай места устройству, на трёх уровнях (лёгкий, средний, сложный): так можно играть почти во все игры для двоих и больше (90 из 91)
+• Лицом к лицу: положи телефон или планшет между вами, и фигуры верхнего игрока повернутся к нему
+• Карточные игры хранят каждую руку в тайне: заставка закрывает карты, пока устройство переходит к следующему игроку
+• Отмена хода, поворот доски, вертикально или горизонтально, и правила каждой игры в одно касание
+
+ГОЛОВОЛОМКИ И УРОВНИ
+• Головоломки и пасьянсы с продуманными уровнями (43), в большинстве по 150: больше 6 000 уровней
+• До 3 звёзд за уровень и подсказка, если застрял
+• А потом — бесконечные случайные задачи
+
+БЕЗ РЕКЛАМЫ И СЛЕЖКИ
+• Одна покупка — все игры: без рекламы, без покупок в приложении, без аккаунта
+• Никакие данные не собираются; работает без интернета
+• 22 языка
+
+Создано 8BCraft.
+
+
+=== Swedish (sv-SE) ===
+
+App name:
+RetroStone: 141 brädspel
+
+Short description:
+141 bräd-, kort- och pusselspel: med vänner eller mot enheten, offline.
+
+Full description:
+RetroStone Board samlar 141 klassiska spel kring ett grönt spelbord: schack och dam, backgammon och go, mahjong, hjärter, belote, bridge och tarot, sudoku, nonogram och patienser. Träbräden, omsorgsfullt ritade kort och tärningar, mjuka animationer och reglerna för varje spel i appen.
+
+SPELEN
+• Pussel (36): Åtta damer · Binairo · Broar · Calcudoku · Dominosa · Femtonspel · Futoshiki · Isglid · Kakuro · Klotski · Lampor · Logiska grindar · Minor · Nonogram · Reda ut · Rektanglar · Rör · Same Game · Schackproblem · Skjut lådorna · Skyskrapor · Slå ihop · Slinga · Solitär · Sortera kulorna · Sortera vattnet · Spår · Speglar · Springarproblemet · Star Battle · Stigar · Sudoku · Tält · Tänd ljuset · Tangram · Tornen i Hanoi
+• Strategi (27): Alquerque · Amasoner · Bagh-Chal · Dam · Dara · Fanorona · Fyra i rad · Genombrott · Go · Hex · Hnefatafl · Kinaschack · Konane · Kulknuff · Kvarn · Lasca · Lines of Action · Luffarschack · Mancala · Marienbadspelet · Prickar och rutor · Räv och gäss · Reversi · Rithmomachia · Spridning · Surakarta · Tre i rad
+• Schackfamiljen (7): Banqi · Djungelschack · Janggi · Makruk · Schack · Shogi · Xiangqi
+• Tärning och kapplöpning (14): 421 · Backgammon · Fia · Gåsspelet · Gris · Kungliga spelet från Ur · Lögnartärningar · Mexico · Ormar och stegar · Pachisi · Shut the Box · Skepp, kapten och besättning · Tiotusen · Yacht
+• Kort och brickor (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Den gula dvärgen · Domino · Doppelkopf · Durak · Écarté · Euchre · Fransk tarot · Fria celler · Fyrtio rövare · Gin rummy · Golf · Golfpatiens · Harpan · Hjärter · Jass · Klaverjas · Klockan · Koi-Koi · Korsikanskt slag · Krig · La Belle Lucie · Mahjong · Mahjong-patiens · Manille · Montana · Mus · Ordbrickor · Piquet · President · Pyramid · Rikiki · Rummy med brickor · Schafkopf · Scopa · Sju familjer · Skat · Spader · Spindelharpan · Svarte Petter · Tiến lên · Tre toppar · Truco · Vända åttor · Yukon
+• Gissningslekar (4): Det hemliga ansiktet · Hemlig kod · Hitta paren · Sänka skepp
+
+TILLSAMMANS ELLER MOT ENHETEN
+• Med vänner på en enda enhet som går från hand till hand: 2 till 6 spelare, beroende på spelet
+• Eller låt enheten ta platser, på tre nivåer (lätt, medel, svår): i 90 av de 91 spelen för två eller fler
+• Ansikte mot ansikte: lägg mobilen eller surfplattan platt mellan er, så vänds den övre spelarens pjäser mot hen
+• Kortspelen håller varje hand hemlig: en skärm döljer korten medan enheten går vidare till nästa spelare
+• Ångra, vänd brädet, stående eller liggande, och varje spels regler ett tryck bort
+
+PUSSEL OCH NIVÅER
+• 43 pussel och patienser med noga utformade nivåer, 150 för de flesta: över 6 000 nivåer
+• Upp till 3 stjärnor per nivå, och en ledtråd när du kör fast
+• Sedan slumpade pussel utan slut
+
+INGEN REKLAM, INGEN SPÅRNING
+• Ett köp för alla spel: ingen reklam, inga köp i appen, inget konto
+• Inga data samlas in; fungerar offline
+• 22 språk
+
+Skapat av 8BCraft.
+
+
+=== Turkish (tr-TR) ===
+
+App name:
+RetroStone: 141 Masa Oyunu
+
+Short description:
+141 masa, kart ve bulmaca oyunu: arkadaşlarınla ya da cihaza karşı, çevrimdışı.
+
+Full description:
+RetroStone Board, 141 klasik oyunu tek bir yeşil masada buluşturuyor: satranç ve dama, tavla ve go, mahjong, kupa, belot, briç ve tarot, sudoku, nonogram ve solitaire. Ahşap tahtalar, özenle çizilmiş kartlar ve zarlar, yumuşak animasyonlar ve her oyunun kuralları uygulamanın içinde.
+
+OYUNLAR
+• Bulmacalar (36): 15 Bulmacası · At turu · Aynalar · Binairo · Birleştir · Borular · Buzda Kayma · Çadırlar · Calcudoku · Çöz · Dikdörtgenler · Dominosa · Döngü · Futoshiki · Gökdelenler · Hanoi Kuleleri · Işıkları Yak · Kakuro · Kasaları İt · Klotski · Köprüler · Lambalar · Mantık Kapıları · Mayınlar · Nonogram · Raylar · Same Game · Satranç bulmacaları · Sekiz vezir · Star Battle · Su Sıralama · Sudoku · Tangram · Tek Taş · Top Sıralama · Yollar
+• Strateji (27): Alquerque · Amazonlar · Bagh-Chal · Bilye İtme · Breakthrough · Çin Daması · Dama · Dara · Dokuz Taş · Dörtlü Sıra · Fanorona · Go · Gomoku · Hex · Hnefatafl · Konane · Kutu Kapmaca · Lasca · Lines of Action · Mangala · Marienbad Oyunu · Reversi · Ritmomakya · Surakarta · Tilki ve Kazlar · XOX · Yayılma
+• Satranç ailesi (7): Banqi · Hayvan Satrancı · Janggi · Makruk · Satranç · Shogi · Xiangqi
+• Zar ve yarış oyunları (14): 421 · Domuz · Farkle · Gemi, Kaptan ve Tayfa · Kaz Oyunu · Kutuyu Kapat · Kızma Birader · Meksika · Pachisi · Tavla · Ur Kraliyet Oyunu · Yacht · Yalancı Zar · Yılanlar ve Merdivenler
+• Kartlar ve taşlar (53): Barbu · Başkan · Belot · Big Two · Boş Hücreler · Briç · Briscola · Canfield · Cin Remi · Crapette · Cribbage · Çılgın Sekizler · Domino · Doppelkopf · Durak · Écarté · Euchre · Fransız tarotu · Golf · Golf Solitaire · Jass · Kanasta · Kelime Taşları · Klaverjas · Koi-Koi · Korsika Savaşı · Kupa · Kırk Haramiler · La Belle Lucie · Maça · Maça Valesi · Mahjong · Mahjong Solitaire · Manille · Montana · Mus · Örümcek · Piquet · Piramit · Rikiki · Saat · Sarı Cüce · Savaş · Schafkopf · Scopa · Skat · Solitaire · Taşlı Remi · Tiến lên · Truco · Üç Tepe · Yedi Aile · Yukon
+• Tahmin oyunları (4): Amiral Battı · Eşini Bul · Gizemli Yüz · Gizli Kod
+
+BİRLİKTE YA DA CİHAZA KARŞI
+• Elden ele dolaşan tek bir cihazda arkadaşlarınla: oyuna göre 2 ila 6 oyuncu
+• Ya da yerleri cihaza bırak, üç seviyede (kolay, orta, zor): iki ve daha fazla kişilik 91 oyunun 90 tanesinde
+• Yüz yüze: telefonu ya da tableti aranıza düz bırak, üstteki oyuncunun taşları ona doğru döner
+• Kart oyunları her eli gizli tutar: cihaz sıradaki oyuncuya geçerken bir ekran kartları örter
+• Geri alma, tahtayı çevirme, dikey ya da yatay, ve her oyunun kuralları bir dokunuş uzağında
+
+BULMACALAR VE SEVİYELER
+• Özenle tasarlanmış seviyeleri olan 43 bulmaca ve solitaire, çoğunda 150 seviye: 6.000 seviyeden fazla
+• Seviye başına 3 yıldıza kadar, takıldığında bir ipucu
+• Sonra bitmeyen rastgele bulmacalar
+
+REKLAM YOK, TAKİP YOK
+• Tüm oyunlar için tek satın alma: reklam yok, uygulama içi satın alma yok, hesap yok
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+
+8BCraft yapımı.
+
+
+=== Ukrainian (uk) ===
+
+App name:
+RetroStone: настільні ігри
+
+Short description:
+Настільні ігри, карти й головоломки, усього 141: з друзями або з пристроєм.
+
+Full description:
+RetroStone Board — це класичні ігри за одним зеленим столом, усього 141: шахи й шашки, нарди й го, маджонг, чирви, белот, бридж і таро, судоку, японські кросворди й пасьянси. Дерев'яні дошки, старанно намальовані карти й кості, плавна анімація та правила кожної гри просто в застосунку.
+
+ІГРИ
+• Головоломки (36): Same Game · Бінайро · Вісім ферзів · Дзеркала · Доміноса · Доріжки · Засвіти · Злиття · Зоряна битва · Какуро · Калькудоку · Клотскі · Ковзання по льоду · Лампи · Логічні вентилі · Мости · Міни · Намети · П'ятнашки · Петля · Прямокутники · Рейки · Розплутування · Солітер · Сортування води · Сортування кульок · Судоку · Танграм · Труби · Футошікі · Ханойська вежа · Хмарочоси · Хід коня · Шахові задачі · Штовхай ящики · Японські кросворди
+• Стратегія (27): Lines of Action · Алькерке · Амазонки · Багх-Чал · Виштовхни кульки · Гекс · Го · Гомоку · Гра Марієнбад · Дара · Експансія · Китайські шашки · Конане · Крапки та квадрати · Ласка · Лисиця та гуси · Манкала · Млин · Прорив · Реверсі · Ритмомахія · Суракарта · Фанорона · Хнефатафл · Хрестики-нулики · Чотири в ряд · Шашки
+• Родина шахів (7): Баньці · Джунглі · Макрук · Сьоґі · Сянці · Чангі · Шахи
+• Кості й перегони (14): 421 · Гра в гуску · Закрий коробку · Змії та драбини · Корабель, капітан і команда · Королівська гра Ура · Короткі нарди · Кості брехуна · Лудо · Мексика · Пачисі · Свиня · Фаркл · Яхта
+• Карти та фішки (53): Tiến lên · Барбю · Белот · Божевільні вісімки · Бридж · Брискола · Велика двійка · Вільні комірки · Годинник · Гольф · Джин рамі · Доміно · Доппелькопф · Дурень · Екарте · Жовтий карлик · Канаста · Канфілд · Клавер'яс · Кой-кой · Корсиканська битва · Косинка · Крапет · Кріббедж · Літерні фішки · Маджонг · Манілья · Монтана · Мус · Павук · Пасьянс «Гольф» · Пасьянс маджонг · Президент · Прекрасна Люсі · Пікет · Піки · Піковий валет · Піраміда · П’яниця · Румі з фішками · Рікікі · Скат · Скопа · Сорок розбійників · Сім родин · Три піки · Труко · Французьке таро · Чирви · Шафкопф · Юкер · Юкон · Ясс
+• Ігри на вгадування (4): Загадкове обличчя · Знайди пару · Морський бій · Таємний код
+
+РАЗОМ АБО ПРОТИ ПРИСТРОЮ
+• З друзями на одному пристрої, що переходить з рук у руки: від 2 до 6 гравців, залежно від гри
+• Або віддай місця пристрою, на трьох рівнях (легкий, середній, складний): так можна грати майже в усі ігри для двох і більше (90 з 91)
+• Обличчям до обличчя: поклади телефон або планшет між вами, і фігури верхнього гравця повернуться до нього
+• Карткові ігри тримають кожну руку в таємниці: заставка закриває карти, поки пристрій переходить до наступного гравця
+• Скасування ходу, поворот дошки, вертикально чи горизонтально, і правила кожної гри в один дотик
+
+ГОЛОВОЛОМКИ ТА РІВНІ
+• Головоломки й пасьянси з продуманими рівнями (43), здебільшого по 150: понад 6 000 рівнів
+• До 3 зірок за рівень і підказка, якщо застряг
+• А потім — нескінченні випадкові задачі
+
+БЕЗ РЕКЛАМИ Й СТЕЖЕННЯ
+• Одна покупка — усі ігри: без реклами, без покупок у застосунку, без облікового запису
+• Жодні дані не збираються; працює без інтернету
+• 22 мови
+
+Створено 8BCraft.
+
+
+=== Chinese (Simplified) (zh-CN) ===
+
+App name:
+RetroStone: 141款棋牌游戏
+
+Short description:
+141 款棋类、纸牌和益智游戏：与朋友同玩或与设备对战，可离线游玩。
+
+Full description:
+RetroStone Board 汇集 141 款经典游戏，围坐在一张绿色牌桌旁：国际象棋和国际跳棋、双陆棋和围棋、麻将、红心大战、贝洛特、桥牌和塔罗、数独、数织和纸牌接龙。木质棋盘，精心绘制的纸牌和骰子，流畅的动画，每款游戏的规则都在应用里。
+
+游戏列表
+• 益智游戏 (36)：七巧板、不等号数独、二进制数独、倒水排序、八皇后、冰面滑行、华容道、同色消除、国际象棋谜题、地雷、孔明棋、小球排序、帐篷、推箱子、摩天楼、数和、数回、数字华容道、数字合并、数桥、数独、数织、星战、水管、汉诺塔、灯、点灯、矩形分割、算独、解结、连线、逻辑门、铁轨、镜子与光、骑士巡逻、骨牌寻位
+• 策略棋类 (27)：九子棋、五子棋、井字棋、亚马逊棋、六贯棋、北欧棋、四子棋、围棋、国际跳棋、夏威夷跳棋、扩散棋、拉斯卡棋、推珠棋、播棋、数字之战、法诺罗纳、点格棋、狐狸与鹅、突破棋、苏拉卡尔塔棋、虎羊棋、行动线、跳棋、达拉棋、阿尔克尔克、马里昂巴德游戏、黑白棋
+• 象棋家族 (7)：国际象棋、斗兽棋、日本将棋、暗棋、泰国象棋、象棋、韩国象棋
+• 骰子与竞速 (14)：421、乌尔王族局戏、关箱子、吹牛骰子、墨西哥、小猪、帕奇西、快艇骰子、法克尔、船、船长和船员、蛇梯棋、西洋双陆棋、鲁多、鹅棋
+• 纸牌与骨牌 (53)：Tiến lên、七个家庭、三峰纸牌、克拉佩特、克拉弗亚斯、克里比奇、卡纳斯塔、四十大盗、坎菲尔德、埃卡泰、多佩尔科普夫、多米诺骨牌、字母拼词、尤克牌、巴布、布里斯科拉、总统、抽乌龟、斯卡特、斯科帕、方块拉米、时钟、杜拉克、桥牌、比大小、沙夫科普夫、法式塔罗、特鲁科、疯狂八、皮克牌、科西嘉之战、穆斯、空当纸牌、红心大战、纸牌接龙、美丽的露西、育空接龙、花札（Koi-Koi）、蒙大拿、蜘蛛纸牌、贝洛特、里基基、金字塔纸牌、金拉米、锄大地、雅斯、马尼耶、高尔夫接龙、高尔夫纸牌、麻将、麻将接龙、黄矮人、黑桃
+• 推理游戏 (4)：海战棋、神秘面孔、秘密密码、翻牌配对
+
+一起玩，或与设备对战
+• 朋友们轮流传递同一台设备：根据游戏 2 到 6 人
+• 也可以让设备坐上任意座位，三个难度（简单、中等、困难）：91 款两人及以上游戏中的 90 款支持
+• 面对面：把手机或平板平放在两人之间，上方玩家的棋子会转向他
+• 纸牌游戏让每个人的手牌保密：设备传给下一位玩家时，遮挡画面会盖住纸牌
+• 悔棋、旋转棋盘、竖屏或横屏，每款游戏的规则一点即看
+
+益智游戏与关卡
+• 43 款益智游戏和纸牌接龙带有精心设计的关卡，大多数各有 150 关：共 6000 多关
+• 每关最多 3 颗星，卡住时有提示
+• 之后还有无穷无尽的随机谜题
+
+无广告，无追踪
+• 一次购买，畅玩全部游戏：无广告，无应用内购买，无需账号
+• 不收集任何数据；可离线游玩
+• 支持 22 种语言
+
+由 8BCraft 制作。

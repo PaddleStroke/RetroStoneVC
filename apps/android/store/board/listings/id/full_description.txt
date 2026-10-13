@@ -1,0 +1,28 @@
+RetroStone Board menghimpun 141 game klasik di satu meja hijau: catur dan dam, backgammon dan go, mahjong, hati, belote, bridge dan tarot, sudoku, nonogram, dan solitaire. Papan kayu, kartu dan dadu yang digambar dengan cermat, animasi yang halus, dan aturan setiap game di dalam aplikasi.
+
+GAME-NYA
+• Teka-teki (36): Binairo · Calcudoku · Cermin · Delapan ratu · Dominosa · Futoshiki · Gabung · Gerbang Logika · Jalur · Jembatan · Kakuro · Klotski · Lampu · Lingkaran · Luncur Es · Menara Hanoi · Nonogram · Nyalakan Lampu · Pencakar Langit · Pendorong Peti · Perjalanan kuda · Persegi Panjang · Pipa · Ranjau · Rel · Same Game · Solitaire · Star Battle · Sudoku · Tangram · Teka-teki 15 · Teka-teki catur · Tenda · Urai · Urutkan Air · Urutkan Bola
+• Strategi (27): Alquerque · Amazon · Bagh-Chal · Breakthrough · Dam · Dam Cina · Dara · Dorong Kelereng · Empat Sejajar · Fanorona · Go · Gomoku · Hex · Hnefatafl · Konane · Lasca · Lines of Action · Mancala · Permainan Marienbad · Reversi · Rithmomachia · Rubah dan Angsa · Sebaran · Sembilan Bidak · Surakarta · Tic-Tac-Toe · Titik dan Kotak
+• Keluarga catur (7): Banqi · Catur · Janggi · Makruk · Rimba · Shogi · Xiangqi
+• Dadu dan balapan (14): 421 · Babi · Backgammon · Dadu Pembohong · Farkle · Kapal, Kapten, dan Awak · Ludo · Meksiko · Pachisi · Permainan Angsa · Permainan Kerajaan Ur · Shut the Box · Ular Tangga · Yacht
+• Kartu dan ubin (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Delapan Gila · Domino · Doppelkopf · Durak · Écarté · Empat Puluh Pencuri · Euchre · Gin Rummy · Golf · Hati · Jam · Jass · Kartu Sial · Klaverjas · Koi-Koi · Kurcaci Kuning · La Belle Lucie · Mahjong · Mahjong Solitaire · Manille · Montana · Mus · Perang · Pertempuran Korsika · Piquet · Piramida · Presiden · Remi Ubin · Rikiki · Schafkopf · Scopa · Sekop · Sel Bebas · Skat · Solitaire · Solitaire Golf · Spider · Tarot Prancis · Tiến lên · Tiga Puncak · Truco · Tujuh Keluarga · Ubin Kata · Yukon
+• Permainan tebak-tebakan (4): Cari Pasangan · Kode Rahasia · Perang Laut · Wajah Misterius
+
+BERSAMA, ATAU MELAWAN PERANGKAT
+• Bersama teman di satu perangkat yang berpindah tangan: 2 sampai 6 pemain, tergantung game-nya
+• Atau biarkan perangkat mengisi kursi, dengan tiga tingkat (mudah, sedang, sulit): di 90 dari 91 game untuk dua orang atau lebih
+• Berhadapan: letakkan ponsel atau tablet mendatar di antara kalian, dan bidak pemain di atas berputar menghadapnya
+• Game kartu menjaga setiap tangan tetap rahasia: layar penutup menyembunyikan kartu saat perangkat berpindah ke pemain berikutnya
+• Batalkan langkah, putar papan, potret atau lanskap, dan aturan setiap game cukup satu ketukan
+
+TEKA-TEKI DAN LEVEL
+• 43 teka-teki dan solitaire dengan level yang dirancang satu per satu, kebanyakan 150: lebih dari 6.000 level
+• Hingga 3 bintang per level, dan petunjuk saat kamu buntu
+• Lalu teka-teki acak tanpa akhir
+
+TANPA IKLAN, TANPA PELACAKAN
+• Sekali beli untuk semua game: tanpa iklan, tanpa pembelian dalam aplikasi, tanpa akun
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+
+Dibuat oleh 8BCraft.

@@ -1,0 +1,30 @@
+RetroStone Board Free ger dig 13 klassiska spel och alla 36 pussel från RetroStone Board kring ett grönt spelbord: schack, dam, backgammon, hjärter, patiens, sudoku, nonogram och mer. Träbräden, omsorgsfullt ritade kort och tärningar och reglerna för varje spel i appen.
+
+SPELEN
+• Pussel (36): Åtta damer · Binairo · Broar · Calcudoku · Dominosa · Femtonspel · Futoshiki · Isglid · Kakuro · Klotski · Lampor · Logiska grindar · Minor · Nonogram · Reda ut · Rektanglar · Rör · Same Game · Schackproblem · Skjut lådorna · Skyskrapor · Slå ihop · Slinga · Solitär · Sortera kulorna · Sortera vattnet · Spår · Speglar · Springarproblemet · Star Battle · Stigar · Sudoku · Tält · Tänd ljuset · Tangram · Tornen i Hanoi
+• Strategi (3): Dam · Fyra i rad · Reversi
+• Schackfamiljen (1): Schack
+• Tärning och kapplöpning (3): Backgammon · Fia · Yacht
+• Kort och brickor (4): Fria celler · Harpan · Hjärter · Vända åttor
+• Gissningslekar (2): Hemlig kod · Sänka skepp
+
+TILLSAMMANS ELLER MOT ENHETEN
+• Med vänner på en enda enhet som går från hand till hand: 2 till 6 spelare, beroende på spelet
+• Eller låt enheten ta platser, på tre nivåer (lätt, medel, svår), i alla spel för två eller fler
+• Ansikte mot ansikte: lägg mobilen eller surfplattan platt mellan er, så vänds den övre spelarens pjäser mot hen
+• Kortspelen håller varje hand hemlig: en skärm döljer korten medan enheten går vidare till nästa spelare
+• Ångra, vänd brädet, stående eller liggande, och varje spels regler ett tryck bort
+
+PUSSEL OCH NIVÅER
+• Varje pussel med sina första 40 nivåer, upp till 3 stjärnor per nivå
+• En ledtråd när du kör fast
+
+INGEN REKLAM, INGEN SPÅRNING
+• Ingen reklam, inga köp i appen, inget konto
+• Inga data samlas in; fungerar offline
+• 22 språk
+
+RetroStone Board, den fullständiga versionen, har 92 spel till, alla nivåer i varje pussel och slumpade pussel: ett köp, ingen reklam. Du ser dem alla i menyn:
+421 · Alquerque · Amasoner · Bagh-Chal · Banqi · Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Dara · Den gula dvärgen · Det hemliga ansiktet · Djungelschack · Domino · Doppelkopf · Durak · Écarté · Euchre · Fanorona · Fransk tarot · Fyrtio rövare · Gåsspelet · Genombrott · Gin rummy · Go · Golf · Golfpatiens · Gris · Hex · Hitta paren · Hnefatafl · Janggi · Jass · Kinaschack · Klaverjas · Klockan · Koi-Koi · Konane · Korsikanskt slag · Krig · Kulknuff · Kungliga spelet från Ur · Kvarn · La Belle Lucie · Lasca · Lines of Action · Lögnartärningar · Luffarschack · Mahjong · Mahjong-patiens · Makruk · Mancala · Manille · Marienbadspelet · Mexico · Montana · Mus · Ordbrickor · Ormar och stegar · Pachisi · Piquet · President · Prickar och rutor · Pyramid · Räv och gäss · Rikiki · Rithmomachia · Rummy med brickor · Schafkopf · Scopa · Shogi · Shut the Box · Sju familjer · Skat · Skepp, kapten och besättning · Spader · Spindelharpan · Spridning · Surakarta · Svarte Petter · Tiến lên · Tiotusen · Tre i rad · Tre toppar · Truco · Xiangqi · Yukon
+
+Skapat av 8BCraft.

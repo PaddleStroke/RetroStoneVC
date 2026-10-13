@@ -1,0 +1,28 @@
+RetroStone Board samlar 141 klassiska spel kring ett grönt spelbord: schack och dam, backgammon och go, mahjong, hjärter, belote, bridge och tarot, sudoku, nonogram och patienser. Träbräden, omsorgsfullt ritade kort och tärningar, mjuka animationer och reglerna för varje spel i appen.
+
+SPELEN
+• Pussel (36): Åtta damer · Binairo · Broar · Calcudoku · Dominosa · Femtonspel · Futoshiki · Isglid · Kakuro · Klotski · Lampor · Logiska grindar · Minor · Nonogram · Reda ut · Rektanglar · Rör · Same Game · Schackproblem · Skjut lådorna · Skyskrapor · Slå ihop · Slinga · Solitär · Sortera kulorna · Sortera vattnet · Spår · Speglar · Springarproblemet · Star Battle · Stigar · Sudoku · Tält · Tänd ljuset · Tangram · Tornen i Hanoi
+• Strategi (27): Alquerque · Amasoner · Bagh-Chal · Dam · Dara · Fanorona · Fyra i rad · Genombrott · Go · Hex · Hnefatafl · Kinaschack · Konane · Kulknuff · Kvarn · Lasca · Lines of Action · Luffarschack · Mancala · Marienbadspelet · Prickar och rutor · Räv och gäss · Reversi · Rithmomachia · Spridning · Surakarta · Tre i rad
+• Schackfamiljen (7): Banqi · Djungelschack · Janggi · Makruk · Schack · Shogi · Xiangqi
+• Tärning och kapplöpning (14): 421 · Backgammon · Fia · Gåsspelet · Gris · Kungliga spelet från Ur · Lögnartärningar · Mexico · Ormar och stegar · Pachisi · Shut the Box · Skepp, kapten och besättning · Tiotusen · Yacht
+• Kort och brickor (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Den gula dvärgen · Domino · Doppelkopf · Durak · Écarté · Euchre · Fransk tarot · Fria celler · Fyrtio rövare · Gin rummy · Golf · Golfpatiens · Harpan · Hjärter · Jass · Klaverjas · Klockan · Koi-Koi · Korsikanskt slag · Krig · La Belle Lucie · Mahjong · Mahjong-patiens · Manille · Montana · Mus · Ordbrickor · Piquet · President · Pyramid · Rikiki · Rummy med brickor · Schafkopf · Scopa · Sju familjer · Skat · Spader · Spindelharpan · Svarte Petter · Tiến lên · Tre toppar · Truco · Vända åttor · Yukon
+• Gissningslekar (4): Det hemliga ansiktet · Hemlig kod · Hitta paren · Sänka skepp
+
+TILLSAMMANS ELLER MOT ENHETEN
+• Med vänner på en enda enhet som går från hand till hand: 2 till 6 spelare, beroende på spelet
+• Eller låt enheten ta platser, på tre nivåer (lätt, medel, svår): i 90 av de 91 spelen för två eller fler
+• Ansikte mot ansikte: lägg mobilen eller surfplattan platt mellan er, så vänds den övre spelarens pjäser mot hen
+• Kortspelen håller varje hand hemlig: en skärm döljer korten medan enheten går vidare till nästa spelare
+• Ångra, vänd brädet, stående eller liggande, och varje spels regler ett tryck bort
+
+PUSSEL OCH NIVÅER
+• 43 pussel och patienser med noga utformade nivåer, 150 för de flesta: över 6 000 nivåer
+• Upp till 3 stjärnor per nivå, och en ledtråd när du kör fast
+• Sedan slumpade pussel utan slut
+
+INGEN REKLAM, INGEN SPÅRNING
+• Ett köp för alla spel: ingen reklam, inga köp i appen, inget konto
+• Inga data samlas in; fungerar offline
+• 22 språk
+
+Skapat av 8BCraft.

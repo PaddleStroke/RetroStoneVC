@@ -1,0 +1,69 @@
+<en-GB>
+First release: 141 classic board, card and puzzle games in one app. Play with friends on one device or against it, offline, with no ads and no in-app purchases.
+</en-GB>
+<cs-CZ>
+První vydání: 141 klasických deskových a karetních her a hlavolamů v jedné aplikaci. Hraj s přáteli na jednom zařízení nebo proti němu, offline, bez reklam a nákupů v aplikaci.
+</cs-CZ>
+<da-DK>
+Første udgivelse: 141 klassiske bræt-, kort- og hjernevriderspil i én app. Spil med venner på én enhed eller mod den, offline, uden reklamer og uden køb i appen.
+</da-DK>
+<de-DE>
+Erste Version: 141 klassische Brett-, Karten- und Knobelspiele in einer App. Spiel mit Freunden an einem Gerät oder gegen es, offline, ohne Werbung und ohne In-App-Käufe.
+</de-DE>
+<el-GR>
+Πρώτη έκδοση: 141 κλασικά επιτραπέζια, παιχνίδια με τράπουλα και γρίφοι σε μία εφαρμογή. Παίξε με φίλους σε μία συσκευή ή κόντρα σε αυτήν, χωρίς σύνδεση, χωρίς διαφημίσεις και χωρίς αγορές εντός εφαρμογής.
+</el-GR>
+<en-US>
+First release: 141 classic board, card and puzzle games in one app. Play with friends on one device or against it, offline, with no ads and no in-app purchases.
+</en-US>
+<es-ES>
+Primera versión: 141 juegos clásicos de mesa, de cartas y rompecabezas en una app. Juega con amigos en un solo dispositivo o contra él, sin conexión, sin anuncios ni compras dentro de la app.
+</es-ES>
+<fi-FI>
+Ensimmäinen julkaisu: 141 klassista lauta-, kortti- ja pulmapeliä yhdessä sovelluksessa. Pelaa ystävien kanssa yhdellä laitteella tai laitetta vastaan, offline, ilman mainoksia ja sovelluksen sisäisiä ostoja.
+</fi-FI>
+<fr-FR>
+Première version : 141 jeux de société, de cartes et casse-tête dans une appli. Joue entre amis sur un seul appareil ou contre lui, hors ligne, sans pub ni achat intégré.
+</fr-FR>
+<id>
+Rilis pertama: 141 game papan, kartu, dan teka-teki klasik dalam satu aplikasi. Main bersama teman di satu perangkat atau melawannya, offline, tanpa iklan dan tanpa pembelian dalam aplikasi.
+</id>
+<it-IT>
+Prima versione: 141 giochi classici da tavolo, di carte e rompicapi in un'app. Gioca con gli amici su un solo dispositivo o contro di lui, offline, senza pubblicità né acquisti in-app.
+</it-IT>
+<ja-JP>
+初回リリース：ボードゲーム・カードゲーム・パズルなどクラシックゲーム141種をひとつのアプリに。1台の端末で友だちと、または端末と対戦。オフラインで遊べて、広告なし、アプリ内課金なし。
+</ja-JP>
+<ko-KR>
+첫 출시: 보드게임·카드 게임·퍼즐 등 클래식 게임 141종을 앱 하나에. 기기 하나로 친구와 함께 또는 기기와 대결, 오프라인 플레이, 광고 없음, 인앱 결제 없음.
+</ko-KR>
+<nl-NL>
+Eerste versie: 141 klassieke bord-, kaart- en puzzelspellen in één app. Speel met vrienden op één toestel of ertegen, offline, zonder advertenties en zonder in-app-aankopen.
+</nl-NL>
+<no-NO>
+Første utgivelse: 141 klassiske brett-, kort- og tenkespill i én app. Spill med venner på én enhet eller mot den, offline, uten reklame og uten kjøp i appen.
+</no-NO>
+<pl-PL>
+Pierwsze wydanie: 141 klasycznych gier planszowych, karcianych i łamigłówek w jednej aplikacji. Graj ze znajomymi na jednym urządzeniu albo przeciw niemu, offline, bez reklam i zakupów w aplikacji.
+</pl-PL>
+<pt-BR>
+Primeira versão: 141 jogos clássicos de tabuleiro, cartas e quebra-cabeças em um app. Jogue com amigos em um só aparelho ou contra ele, offline, sem anúncios e sem compras no app.
+</pt-BR>
+<pt-PT>
+Primeira versão: 141 jogos clássicos de tabuleiro, cartas e quebra-cabeças numa app. Joga com amigos num só dispositivo ou contra ele, offline, sem anúncios e sem compras na app.
+</pt-PT>
+<ru-RU>
+Первый выпуск: классические настольные и карточные игры и головоломки, всего 141, в одном приложении. Играйте с друзьями на одном устройстве или против него, офлайн, без рекламы и встроенных покупок.
+</ru-RU>
+<sv-SE>
+Första versionen: 141 klassiska bräd-, kort- och pusselspel i en app. Spela med vänner på en enhet eller mot den, offline, utan reklam och utan köp i appen.
+</sv-SE>
+<tr-TR>
+İlk sürüm: Tek uygulamada 141 klasik masa, kart ve bulmaca oyunu. Tek cihazda arkadaşlarınla ya da cihaza karşı çevrimdışı oyna; reklam yok, uygulama içi satın alma yok.
+</tr-TR>
+<uk>
+Перший випуск: класичні настільні й карткові ігри та головоломки, усього 141, в одному застосунку. Грайте з друзями на одному пристрої або проти нього, офлайн, без реклами та покупок у застосунку.
+</uk>
+<zh-CN>
+首次发布：141 款经典棋类、纸牌和益智游戏，尽在一个应用。在同一台设备上与朋友同玩，或与设备对战；可离线游玩，无广告，无应用内购买。
+</zh-CN>

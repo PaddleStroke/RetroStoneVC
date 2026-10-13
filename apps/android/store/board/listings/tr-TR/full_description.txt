@@ -1,0 +1,28 @@
+RetroStone Board, 141 klasik oyunu tek bir yeşil masada buluşturuyor: satranç ve dama, tavla ve go, mahjong, kupa, belot, briç ve tarot, sudoku, nonogram ve solitaire. Ahşap tahtalar, özenle çizilmiş kartlar ve zarlar, yumuşak animasyonlar ve her oyunun kuralları uygulamanın içinde.
+
+OYUNLAR
+• Bulmacalar (36): 15 Bulmacası · At turu · Aynalar · Binairo · Birleştir · Borular · Buzda Kayma · Çadırlar · Calcudoku · Çöz · Dikdörtgenler · Dominosa · Döngü · Futoshiki · Gökdelenler · Hanoi Kuleleri · Işıkları Yak · Kakuro · Kasaları İt · Klotski · Köprüler · Lambalar · Mantık Kapıları · Mayınlar · Nonogram · Raylar · Same Game · Satranç bulmacaları · Sekiz vezir · Star Battle · Su Sıralama · Sudoku · Tangram · Tek Taş · Top Sıralama · Yollar
+• Strateji (27): Alquerque · Amazonlar · Bagh-Chal · Bilye İtme · Breakthrough · Çin Daması · Dama · Dara · Dokuz Taş · Dörtlü Sıra · Fanorona · Go · Gomoku · Hex · Hnefatafl · Konane · Kutu Kapmaca · Lasca · Lines of Action · Mangala · Marienbad Oyunu · Reversi · Ritmomakya · Surakarta · Tilki ve Kazlar · XOX · Yayılma
+• Satranç ailesi (7): Banqi · Hayvan Satrancı · Janggi · Makruk · Satranç · Shogi · Xiangqi
+• Zar ve yarış oyunları (14): 421 · Domuz · Farkle · Gemi, Kaptan ve Tayfa · Kaz Oyunu · Kutuyu Kapat · Kızma Birader · Meksika · Pachisi · Tavla · Ur Kraliyet Oyunu · Yacht · Yalancı Zar · Yılanlar ve Merdivenler
+• Kartlar ve taşlar (53): Barbu · Başkan · Belot · Big Two · Boş Hücreler · Briç · Briscola · Canfield · Cin Remi · Crapette · Cribbage · Çılgın Sekizler · Domino · Doppelkopf · Durak · Écarté · Euchre · Fransız tarotu · Golf · Golf Solitaire · Jass · Kanasta · Kelime Taşları · Klaverjas · Koi-Koi · Korsika Savaşı · Kupa · Kırk Haramiler · La Belle Lucie · Maça · Maça Valesi · Mahjong · Mahjong Solitaire · Manille · Montana · Mus · Örümcek · Piquet · Piramit · Rikiki · Saat · Sarı Cüce · Savaş · Schafkopf · Scopa · Skat · Solitaire · Taşlı Remi · Tiến lên · Truco · Üç Tepe · Yedi Aile · Yukon
+• Tahmin oyunları (4): Amiral Battı · Eşini Bul · Gizemli Yüz · Gizli Kod
+
+BİRLİKTE YA DA CİHAZA KARŞI
+• Elden ele dolaşan tek bir cihazda arkadaşlarınla: oyuna göre 2 ila 6 oyuncu
+• Ya da yerleri cihaza bırak, üç seviyede (kolay, orta, zor): iki ve daha fazla kişilik 91 oyunun 90 tanesinde
+• Yüz yüze: telefonu ya da tableti aranıza düz bırak, üstteki oyuncunun taşları ona doğru döner
+• Kart oyunları her eli gizli tutar: cihaz sıradaki oyuncuya geçerken bir ekran kartları örter
+• Geri alma, tahtayı çevirme, dikey ya da yatay, ve her oyunun kuralları bir dokunuş uzağında
+
+BULMACALAR VE SEVİYELER
+• Özenle tasarlanmış seviyeleri olan 43 bulmaca ve solitaire, çoğunda 150 seviye: 6.000 seviyeden fazla
+• Seviye başına 3 yıldıza kadar, takıldığında bir ipucu
+• Sonra bitmeyen rastgele bulmacalar
+
+REKLAM YOK, TAKİP YOK
+• Tüm oyunlar için tek satın alma: reklam yok, uygulama içi satın alma yok, hesap yok
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+
+8BCraft yapımı.

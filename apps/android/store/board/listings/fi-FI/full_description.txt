@@ -1,0 +1,28 @@
+RetroStone Board kokoaa 141 klassista peliä saman vihreän pelipöydän ääreen: shakki ja tammi, backgammon ja go, mahjong, hertta, belote, bridge ja tarot, sudoku, kuvaristikot ja pasianssit. Puiset pelilaudat, huolella piirretyt kortit ja nopat, pehmeät animaatiot ja jokaisen pelin säännöt sovelluksessa.
+
+PELIT
+• Pulmapelit (36): 15-peli · Binairo · Calcudoku · Dominosa · Futoshiki · Hanoin tornit · Jääliuku · Kahdeksan kuningatarta · Kakuro · Klotski · Kuulapasianssi · Kuvaristikot · Laatikontyöntäjä · Lamput · Logiikkaportit · Miinat · Pallojen lajittelu · Peilit · Pilvenpiirtäjät · Polut · Putket · Raiteet · Ratsun matka · Same Game · Selvitä solmu · Shakkitehtävät · Sillat · Silmukka · Star Battle · Sudoku · Suorakulmiot · Tangram · Teltat · Valot päälle · Veden lajittelu · Yhdistä
+• Strategia (27): Alquerque · Amatsonit · Bagh-Chal · Dara · Fanorona · Go · Gomoku · Hex · Hnefatafl · Kettu ja hanhet · Kiinanshakki · Konane · Läpimurto · Lasca · Leviäminen · Lines of Action · Mancala · Marienbadin peli · Mylly · Neljän suora · Pisteet ja ruudut · Reversi · Ristinolla · Rithmomachia · Surakarta · Tammi · Työnnä kuulat
+• Shakkiperhe (7): Banqi · Janggi · Makruk · Shakki · Shogi · Viidakkoshakki · Xiangqi
+• Noppa- ja kilpapelit (14): 421 · Backgammon · Hanhipeli · Käärmeet ja tikkaat · Kymppitonni · Laiva, kapteeni ja miehistö · Ludo · Meksiko · Pachisi · Possu · Shut the Box · Urin kuninkaallinen peli · Valehtelijan nopat · Yacht
+• Kortit ja laatat (53): Barbu · Belote · Big Two · Bridge · Briscola · Canasta · Canfield · Crapette · Cribbage · Domino · Doppelkopf · Durak · Écarté · Euchre · Gin rummy · Golf · Golf-pasianssi · Hämähäkki · Hertta · Hullut kasit · Jass · Kello · Keltainen kääpiö · Klaverjas · Koi-Koi · Kolme huippua · Korsikalainen taistelu · La Belle Lucie · Laattarommi · Mahjong · Mahjong-pasianssi · Manille · Montana · Mus · Musta Pekka · Neljäkymmentä rosvoa · Pasianssi · Pata · Piquet · Presidentti · Pyramidi · Ranskalainen tarot · Rikiki · Sanalaatat · Schafkopf · Scopa · Seitsemän perhettä · Skat · Sota · Tiến lên · Truco · Vapaat solut · Yukon
+• Arvauspelit (4): Laivanupotus · Muistipeli · Salainen koodi · Salaiset kasvot
+
+YHDESSÄ TAI LAITETTA VASTAAN
+• Ystävien kanssa yhdellä laitteella, joka kulkee kädestä käteen: 2–6 pelaajaa pelistä riippuen
+• Tai anna laitteen ottaa paikkoja kolmella tasolla (helppo, keskitaso, vaikea): 90 peliä 91:stä kahden tai useamman pelaajan pelistä
+• Kasvokkain: aseta puhelin tai tabletti tasaisesti väliinne, niin ylemmän pelaajan nappulat kääntyvät häneen päin
+• Korttipelit pitävät jokaisen käden salassa: suojakuva peittää kortit, kun laite siirtyy seuraavalle pelaajalle
+• Kumoa, käännä lauta, pysty- tai vaakasuunta, ja jokaisen pelin säännöt yhden napautuksen päässä
+
+PULMAT JA TASOT
+• 43 pulmapeliä ja pasianssia huolella suunnitelluilla tasoilla, useimmissa 150: yli 6 000 tasoa
+• Jopa 3 tähteä tasoa kohden ja vihje, kun jäät jumiin
+• Sen jälkeen satunnaisia pulmia loputtomasti
+
+EI MAINOKSIA, EI SEURANTAA
+• Yksi osto kaikkiin peleihin: ei mainoksia, ei sovelluksen sisäisiä ostoja, ei tiliä
+• Mitään tietoja ei kerätä; toimii offline-tilassa
+• 22 kieltä
+
+Tekijä: 8BCraft.

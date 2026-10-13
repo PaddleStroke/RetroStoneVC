@@ -1,0 +1,30 @@
+RetroStone Board Free sana 13 klasik oyunu ve RetroStone Board'un 36 bulmacasının hepsini tek bir yeşil masada sunuyor: satranç, dama, tavla, kupa, solitaire, sudoku, nonogram ve daha fazlası. Ahşap tahtalar, özenle çizilmiş kartlar ve zarlar ve her oyunun kuralları uygulamanın içinde.
+
+OYUNLAR
+• Bulmacalar (36): 15 Bulmacası · At turu · Aynalar · Binairo · Birleştir · Borular · Buzda Kayma · Çadırlar · Calcudoku · Çöz · Dikdörtgenler · Dominosa · Döngü · Futoshiki · Gökdelenler · Hanoi Kuleleri · Işıkları Yak · Kakuro · Kasaları İt · Klotski · Köprüler · Lambalar · Mantık Kapıları · Mayınlar · Nonogram · Raylar · Same Game · Satranç bulmacaları · Sekiz vezir · Star Battle · Su Sıralama · Sudoku · Tangram · Tek Taş · Top Sıralama · Yollar
+• Strateji (3): Dama · Dörtlü Sıra · Reversi
+• Satranç ailesi (1): Satranç
+• Zar ve yarış oyunları (3): Kızma Birader · Tavla · Yacht
+• Kartlar ve taşlar (4): Boş Hücreler · Çılgın Sekizler · Kupa · Solitaire
+• Tahmin oyunları (2): Amiral Battı · Gizli Kod
+
+BİRLİKTE YA DA CİHAZA KARŞI
+• Elden ele dolaşan tek bir cihazda arkadaşlarınla: oyuna göre 2 ila 6 oyuncu
+• Ya da yerleri cihaza bırak, üç seviyede (kolay, orta, zor), iki ve daha fazla kişilik her oyunda
+• Yüz yüze: telefonu ya da tableti aranıza düz bırak, üstteki oyuncunun taşları ona doğru döner
+• Kart oyunları her eli gizli tutar: cihaz sıradaki oyuncuya geçerken bir ekran kartları örter
+• Geri alma, tahtayı çevirme, dikey ya da yatay, ve her oyunun kuralları bir dokunuş uzağında
+
+BULMACALAR VE SEVİYELER
+• Her bulmaca ilk 40 seviyesiyle, seviye başına 3 yıldıza kadar
+• Takıldığında bir ipucu
+
+REKLAM YOK, TAKİP YOK
+• Reklam yok, uygulama içi satın alma yok, hesap yok
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+
+Tam sürüm RetroStone Board, 92 oyun daha, her bulmacanın tüm seviyelerini ve rastgele bulmacaları ekler: tek satın alma, reklamsız. Hepsini menüde görebilirsin:
+421 · Alquerque · Amazonlar · Bagh-Chal · Banqi · Barbu · Başkan · Belot · Big Two · Bilye İtme · Breakthrough · Briç · Briscola · Canfield · Çin Daması · Cin Remi · Crapette · Cribbage · Dara · Dokuz Taş · Domino · Domuz · Doppelkopf · Durak · Écarté · Eşini Bul · Euchre · Fanorona · Farkle · Fransız tarotu · Gemi, Kaptan ve Tayfa · Gizemli Yüz · Go · Golf · Golf Solitaire · Gomoku · Hayvan Satrancı · Hex · Hnefatafl · Janggi · Jass · Kanasta · Kaz Oyunu · Kelime Taşları · Klaverjas · Koi-Koi · Konane · Korsika Savaşı · Kutu Kapmaca · Kutuyu Kapat · Kırk Haramiler · La Belle Lucie · Lasca · Lines of Action · Maça · Maça Valesi · Mahjong · Mahjong Solitaire · Makruk · Mangala · Manille · Marienbad Oyunu · Meksika · Montana · Mus · Örümcek · Pachisi · Piquet · Piramit · Rikiki · Ritmomakya · Saat · Sarı Cüce · Savaş · Schafkopf · Scopa · Shogi · Skat · Surakarta · Taşlı Remi · Tiến lên · Tilki ve Kazlar · Truco · Üç Tepe · Ur Kraliyet Oyunu · Xiangqi · XOX · Yalancı Zar · Yayılma · Yedi Aile · Yukon · Yılanlar ve Merdivenler
+
+8BCraft yapımı.
