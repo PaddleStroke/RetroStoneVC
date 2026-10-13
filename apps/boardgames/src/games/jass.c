@@ -226,10 +226,11 @@ static void draw(void)
     const jspos *p = &G.pos;
     int live = !ui_handing() && !ct_busy(&U.A), ph = p->phase, hide = ui.viewer < 0;
     ct_game_look(&U, p->t.hand[U.T.me], p->t.n[U.T.me], ph == JP_CHOOSE && !p->pushed);
+    int dealing = ct_hides(&U.A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no choice under the deck */
     controls();
     ct_draw_seats(&U.T, ph < JP_DEAL ? p->turn : -1);
     draw_words();
-    if (ph == JP_CHOOSE && p->turn == U.T.me && !hide) draw_choice(live);
+    if (ph == JP_CHOOSE && p->turn == U.T.me && !hide && !dealing) draw_choice(live);
     if (ph == JP_PLAY && !hide) draw_weis_button(live);
     ct_game_draw_middle(&U, p->t.tricks, p->t.trick, NULL, p->t.ntrick, p->t.leader, live && ph == JP_PLAY);
     int summary = ph >= JP_DEAL && !ct_busy(&U.A);

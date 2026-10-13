@@ -281,10 +281,11 @@ static void draw(void)
     const dkpos *p = &G.pos;
     int live = !ui_handing() && !ct_busy(&U.A), ph = p->phase, hide = ui.viewer < 0;
     ct_game_look(&U, p->t.hand[U.T.me], p->t.n[U.T.me], ph == DKP_RESERVE);
+    int dealing = ct_hides(&U.A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no call under the deck */
     controls();
     ct_draw_seats(&U.T, ph < DKP_DEAL ? p->turn : -1);
     draw_words(hide);
-    if (ph == DKP_RESERVE && p->turn == U.T.me && !hide) draw_reserve(live);
+    if (ph == DKP_RESERVE && p->turn == U.T.me && !hide && !dealing) draw_reserve(live);
     if (ph == DKP_PLAY && !hide) draw_announce(live);
     ct_game_draw_middle(&U, p->t.tricks, p->t.trick, NULL, p->t.ntrick, p->t.leader, live && ph == DKP_PLAY);
     int summary = ph >= DKP_DEAL && !ct_busy(&U.A);

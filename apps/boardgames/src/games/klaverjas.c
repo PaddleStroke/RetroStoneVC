@@ -182,10 +182,11 @@ static void draw(void)
     const kvpos *p = &G.pos;
     int live = !ui_handing() && !ct_busy(&U.A), ph = p->phase, hide = ui.viewer < 0;
     ct_game_look(&U, p->t.hand[U.T.me], p->t.n[U.T.me], ph == KP_BID);
+    int dealing = ct_hides(&U.A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no bid under the deck */
     controls();
     ct_draw_seats(&U.T, ph < KP_DEAL ? p->turn : -1);
     draw_words();
-    if (ph == KP_BID && p->turn == U.T.me && !hide) draw_bidding(live);
+    if (ph == KP_BID && p->turn == U.T.me && !hide && !dealing) draw_bidding(live);
     ct_game_draw_middle(&U, p->t.tricks, p->t.trick, NULL, p->t.ntrick, p->t.leader, live && ph == KP_PLAY);
     int summary = ph >= KP_DEAL && !ct_busy(&U.A);
     int mine = live && ph == KP_PLAY && tk4_turn(&p->t) == U.T.me;

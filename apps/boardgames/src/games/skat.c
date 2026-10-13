@@ -538,13 +538,14 @@ static void draw(void)
             ct_deal(&A, &T, h, hand(h, how, 0));
         }
     }
+    int dealing = ct_hides(&A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no bid under the deck */
     controls();
     ct_draw_seats(&T, ph < SK_DEAL ? p->turn : -1);
     draw_words();
     ct_draw_pile(&T, p->tricks);
     if (ph <= SK_DISCARD) draw_skat(live, hide);
     int mine = p->turn == T.me && !hide;
-    if (mine && ph == SK_BID) draw_bid(live);
+    if (mine && ph == SK_BID && !dealing) draw_bid(live);
     if (mine && (ph == SK_SKAT || ph == SK_DISCARD)) draw_panel(live);
     draw_open(hide);
     ct_draw_trick(&T, &A, p->trick, NULL, p->ntrick, p->leader);

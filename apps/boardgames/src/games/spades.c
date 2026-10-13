@@ -208,6 +208,7 @@ static void draw(void)
             ct_deal(&A, &T, h, hand(h, how, 0));
         }
     }
+    int dealing = ct_hides(&A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no bid under the deck */
     ct_draw_seats(&T, ph == SP_BID || ph == SP_PLAY ? p->turn : -1);
     for (int q = 0; q < SPADES_P; q++) {       /* the bids, the tricks taken */
         if (p->bid[q] == SPADES_NOBID || ph == SP_ROUND || ph == SP_OVER) continue;
@@ -219,7 +220,7 @@ static void draw(void)
         ui_number(x, y, 0.5f * T.tok, p->won[q], 1);
     }
     ct_draw_pile(&T, p->tricks);
-    if (ph == SP_BID && p->turn == T.me && !hide) draw_pad(live);
+    if (ph == SP_BID && p->turn == T.me && !hide && !dealing) draw_pad(live);
     ct_draw_trick(&T, &A, p->trick, NULL, p->ntrick, p->leader);
     if (F.raised != CARD_NONE && live) ct_draw_target(&T);
     uint8_t h[CT_HAND];

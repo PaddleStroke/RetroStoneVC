@@ -755,7 +755,7 @@ static void draw(void)
     }
     if (ph == BRG_AUCTION) {
         draw_history(L.H, 0.62f * L.u);
-        if (!hide && p->turn == L.me && !ui_handing()) draw_box();
+        if (!hide && p->turn == L.me && !ui_handing() && !ct_hides(&M, TAG_HAND, -1, -1)) draw_box();   /* once dealt */
     } else draw_play(live);
     /* the viewer's hand (under the hand-off cover: face down) */
     ct_rows h;

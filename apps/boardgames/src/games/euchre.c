@@ -298,12 +298,13 @@ static void draw(void)
             ct_deal(&A, &T, h, hand(h, how, 0));
         }
     }
+    int dealing = ct_hides(&A, CT_HAND_TAG, -1, -1);   /* the deal still flying in: no call under the deck */
     controls();
     ct_draw_seats(&T, ph < EP_HAND ? p->turn : -1);
     draw_seats_info();
     ct_draw_pile(&T, p->tricks);
     draw_kitty(live, hide);
-    if (p->turn == T.me && !hide && (ph == EP_ROUND1 || ph == EP_ROUND2)) draw_making(live);
+    if (p->turn == T.me && !hide && !dealing && (ph == EP_ROUND1 || ph == EP_ROUND2)) draw_making(live);
     ct_draw_trick(&T, &A, p->trick, p->who, p->ntrick, p->leader);
     if (F.raised != CARD_NONE && live && ph == EP_PLAY) ct_draw_target(&T);
     uint8_t h[CT_HAND];
