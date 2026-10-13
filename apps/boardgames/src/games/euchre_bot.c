@@ -25,7 +25,7 @@
 #include "games/euchre.h"
 #include "games/trickbot.h"
 
-#define EUCHRE_HARD_ITERS 24000                 /* about 0.3 s a card on a PC */
+#define EUCHRE_HARD_ITERS 20000                 /* about 0.3 s a card on a PC */
 
 typedef struct { uint8_t maker, alone; } eux;
 

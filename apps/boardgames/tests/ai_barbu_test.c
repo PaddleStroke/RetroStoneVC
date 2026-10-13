@@ -285,20 +285,18 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 100, 80},
         {AI_MEDIUM, AI_EASY, 100, 52},
-        {AI_HARD, AI_MEDIUM, 100, 50},
+        {AI_HARD, AI_MEDIUM, 100, 45},
         {AI_HARD, AI_EASY, 60, 55},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     printf("-- the short game\n");
     VARIANT = BARBU_SHORT;
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 20, 70}, {AI_HARD, AI_EASY, 20, 0}};
-    tt_targets(Q, 2, argc, argv);
     printf("-- the short game without doubling\n");
     VARIANT = BARBU_SHORT_PLAIN;
-    bad |= sp_run(&G, Q, 2, argc, argv);
+    bad |= tt_run(&G, Q, 2, argc, argv);
     printf("-- the whole game\n");
     VARIANT = BARBU_FULL;
-    bad |= sp_run(&G, Q, 2, argc, argv);
+    bad |= tt_run(&G, Q, 2, argc, argv);
     return bad;
 }

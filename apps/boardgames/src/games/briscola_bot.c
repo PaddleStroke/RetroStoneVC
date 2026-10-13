@@ -18,7 +18,7 @@
 #include "games/briscola.h"
 #include "games/trickbot.h"
 
-#define BRISCOLA_HARD_ITERS 20000               /* about 0.3 s a card on a PC */
+#define BRISCOLA_HARD_ITERS 16000               /* about 0.3 s a card on a PC */
 
 static int b_power(const tb_state *st, int c, int led)
 {

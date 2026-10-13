@@ -37,7 +37,7 @@
 #include "games/bridge.h"
 #include "games/trickbot.h"
 
-#define BRIDGE_HARD_ITERS 11000                 /* about 0.3 s a card on a PC */
+#define BRIDGE_HARD_ITERS 9000                  /* about 0.3 s a card on a PC */
 
 /* ==== the play on the core ======================================================================================= */
 typedef struct { uint8_t level, strain, dbl, vul, declarer; } brx;

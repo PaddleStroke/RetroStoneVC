@@ -19,7 +19,7 @@
 #include "games/manille.h"
 #include "games/trickbot.h"
 
-#define MANILLE_HARD_ITERS 28000                /* about 0.3 s a card on a PC */
+#define MANILLE_HARD_ITERS 16000                /* about 0.3 s a card on a PC */
 
 static int m_power(const tb_state *st, int c, int led)
 {

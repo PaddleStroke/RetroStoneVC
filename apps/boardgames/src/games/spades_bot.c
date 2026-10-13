@@ -21,7 +21,7 @@
 #include "games/spades.h"
 #include "games/trickbot.h"
 
-#define SPADES_HARD_ITERS 14000                 /* about 0.3 s a card on a PC */
+#define SPADES_HARD_ITERS 10000                 /* about 0.3 s a card on a PC */
 
 typedef struct { uint8_t broken, bid[SPADES_P]; int16_t bags[2]; } spx;
 

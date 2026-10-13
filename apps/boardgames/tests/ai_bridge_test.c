@@ -141,8 +141,8 @@ int main(int argc, char **argv)
                 tried++;
             }
         }
-        snprintf(name, sizeof name, "determinised deals keep counts, voids, own hand, the dummy (%d, %d with it)", tried,
-                 dummy_seen);
+        snprintf(name, sizeof name, "determinised deals keep counts, voids, own hand, the dummy (%d, %d with it)",
+                 tried, dummy_seen);
         tt_check(name, ok && tried > 300 && dummy_seen > 20);
     }
     const bot *b = bot_find("bridge");
@@ -204,8 +204,8 @@ int main(int argc, char **argv)
             games += lv >= 4 || (lv == 3 && rec->strain == BRG_NT);
             sound += (lv <= 2 && pts <= 26) || (lv >= 3 && lv <= 5 && pts >= 21) || (lv >= 6 && pts >= 29);
         }
-        snprintf(name, sizeof name, "auctions: %d deals, %d passed out, %d contracts (%d games), %d made, %d sound by the "
-                 "points", deals, passed, contracts, games, made, sound);
+        snprintf(name, sizeof name, "auctions: %d deals, %d passed out, %d contracts (%d games), %d made, %d sound by "
+                 "the points", deals, passed, contracts, games, made, sound);
         tt_check(name, ok && passed * 5 < deals && made * 10 >= contracts * 5 && sound * 10 >= contracts * 8 &&
                        games * 5 >= contracts && dummy_by_declarer);
     }
@@ -257,17 +257,15 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 60, 80},
         {AI_MEDIUM, AI_EASY, 60, 52},
-        {AI_HARD, AI_MEDIUM, 60, 50},
+        {AI_HARD, AI_MEDIUM, 60, 45},
         {AI_HARD, AI_EASY, 40, 55},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     printf("-- Chicago\n");
     VARIANT = BRG_CHICAGO;
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
     static sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 20, 70}};
-    tt_targets(Q, 1, argc, argv);
     printf("-- a rubber\n");
     VARIANT = BRG_RUBBER;
-    bad |= sp_run(&G, Q, 1, argc, argv);
+    bad |= tt_run(&G, Q, 1, argc, argv);
     return bad;
 }

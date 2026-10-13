@@ -52,7 +52,8 @@
  *                             NULL: +1.
  *   infer(st, seat, card, trick, who, n)   a play's meaning beyond a void (tb_note calls it before adding the card):
  *                             set st->cap[seat][suit] (the seat holds no card of that suit whose order() is above),
- *                             or tb_exclude(st, seat, card) (it does not hold that card).
+ *                             or tb_exclude(st, seat, card) (it does not hold that card). Caps are in order() units:
+ *                             give order() (the rank in the suit) when power() lifts trumps over the rest.
  *   dealt(st)                 after each determinisation: what the game derives from the hands (hidden partners).
  *   draw                      1: after each trick each seat draws one card from the stock, the winner first.
  *   nofollow                  1: any card may be played, suit led or not (briscola): no voids to read, and any
@@ -62,7 +63,25 @@
  * Cards are cards.h's bytes; duplicates are allowed (a 48-card pack of pairs). hand[s][0..nknown[s]-1] are the
  * cards the observer knows seat s holds; n[s] - nknown[s] more are unknown (in a determinised state all are known).
  * team[s] the side of each seat (by default each its own); sitting a seat out of play (TB_NONE); pts[] card points
- * and won[] tricks taken this deal, per seat; trump the trump suit for tb_power_std (TB_NONE: none).
+ * and won[] tricks taken this deal, per seat; trump the trump suit for tb_power_std (TB_NONE: none). After a
+ * determinisation, rest[] holds the cards out of play as dealt (a skat or a dog the reward may count), and dealt()
+ * may set team[] from the hands (partners known only by their cards). The state is copied whole on every iteration
+ * (about 900 bytes): keep x small.
+ *
+ * ==== Other helpers ================================================================================================
+ *   tb_legal(st, out)          the seat to move's legal cards (no repeats); tb_legal_follow() the plain rule
+ *   tb_best(st)                the index in the trick of the card holding it; tb_led(st) the suit led
+ *   tb_play(st, card)          plays a card for the seat to move (the trick gathered, the stock drawn)
+ *   tb_over(st)                the deal is over
+ *   tb_determinise(st, rng)    deals the unseen cards (a copy of a view)
+ *   tb_heuristic(st, L, n, r)  the playouts' choice among the legal cards L (a determinised state)
+ *   tb_level(level, hard)      the iterations, playout noise and slips for AI_EASY..AI_HARD
+ *   tb_simulate(v, k, r, won, pts, rw)   averages over k dealt and played-out deals (calls, bids)
+ *   tb_hcp(), tb_count_suit()  hand counting for the calls
+ * Levels: hard runs the game's hard_iters (calibrated to about 0.3 s a move on a PC), medium a sixth with noisier
+ * playouts, easy a fortieth (at least 60) with noisy playouts and a quarter of its moves the heuristic's, noisier
+ * (slips); the AI kit's ms caps stay the safety net. A test reveals a view with tt_reveal() (tests/ai_tricks.h) to
+ * check the game's rules against the core's, card by card, and measures the levels on duplicate deals (tt_run).
  */
 #ifndef TRICKBOT_H
 #define TRICKBOT_H
@@ -107,6 +126,7 @@ struct tb_state {
     uint8_t players, me;                        /* the seats; the observer */
     uint8_t turn, leader, ntrick, tricks;       /* the seat to move; the trick's leader; cards in it; tricks done */
     uint8_t sitting, trump, full, eps;          /* full: determinised; eps: the playouts' random moves, percent */
+    uint8_t depth, maxdepth;                    /* the search: plies from its root; branching stops at maxdepth */
     uint8_t team[TB_MAXP];
     uint8_t trick[TB_MAXP], who[TB_MAXP];       /* the trick on the table and who played each */
     uint8_t hand[TB_MAXP][TB_HAND], n[TB_MAXP], nknown[TB_MAXP];
@@ -242,6 +262,7 @@ static inline void tb_give(tb_state *st, int seat, int card, int known)   /* int
 static inline void tb_play(tb_state *st, int card)
 {
     int seat = st->turn;
+    if (st->depth < 255) st->depth++;
     tb_take(st, seat, card);
     st->trick[st->ntrick] = (uint8_t)card;
     st->who[st->ntrick++] = (uint8_t)seat;
@@ -567,6 +588,13 @@ static inline int tb_a_moves(const void *s, int *out)
     if (tb_over(st)) return 0;
     uint8_t L[TB_HAND];
     int n = tb_legal(st, L);
+    if (n > 1 && st->maxdepth && st->depth >= st->maxdepth) {   /* past the tree's depth: the heuristic's move */
+        ai_rng r;
+        uint64_t h = (uint64_t)st->hand[st->turn][0] << 8 | st->n[st->turn];
+        ai_seed(&r, ai_mix((uint64_t)st->depth * 977 + st->turn, h));
+        out[0] = tb_heuristic(st, L, n, &r);
+        return 1;
+    }
     for (int i = 0; i < n; i++) out[i] = L[i];
     return n;
 }
@@ -600,14 +628,16 @@ static inline void tb_a_determinise(void *s, int seat, ai_rng *r)
 
 /* ---- the levels ----------------------------------------------------------------------------------------------------
  * The search's iterations: hard_iters (the game's calibration: about 0.3 s on a PC), medium a sixth of it, easy a
- * small search with noisy playouts and, a few times in ten, the playouts' heuristic move itself (human-like slips). */
-typedef struct { long iters; int eps, slip; } tb_level_t;
+ * small search with noisy playouts and, a quarter of the time, the playouts' heuristic move with much noise
+ * (human-like slips). depth: the tree branches that many plies, then follows the heuristic (0: no limit; a flat or
+ * shallow tree played no better than the full one in euchre, so every level uses 0). */
+typedef struct { long iters; int eps, slip, depth; } tb_level_t;
 
 static inline tb_level_t tb_level(int level, long hard_iters)
 {
-    if (level <= AI_EASY) return (tb_level_t){hard_iters / 40 > 60 ? hard_iters / 40 : 60, 30, 25};
-    if (level == AI_MEDIUM) return (tb_level_t){hard_iters / 6 > 300 ? hard_iters / 6 : 300, 12, 0};
-    return (tb_level_t){hard_iters, 6, 0};
+    if (level <= AI_EASY) return (tb_level_t){hard_iters / 40 > 60 ? hard_iters / 40 : 60, 30, 25, 0};
+    if (level == AI_MEDIUM) return (tb_level_t){hard_iters / 6 > 300 ? hard_iters / 6 : 300, 12, 0, 0};
+    return (tb_level_t){hard_iters, 6, 0, 0};
 }
 
 /* the card the seat to move plays (v: the observer's view; the seat to move is v->turn); TB_NONE: none */
@@ -618,6 +648,8 @@ static inline int tb_choose(const tb_state *v, int level, uint64_t seed, long ha
     *root = *v;
     tb_level_t lv = tb_level(level, hard_iters);
     root->eps = (uint8_t)lv.eps;
+    root->depth = 0;
+    root->maxdepth = (uint8_t)lv.depth;
     uint8_t L[TB_HAND];
     int n = tb_over(root) ? 0 : tb_legal(root, L), card = TB_NONE;
     ai_rng rng;
@@ -625,8 +657,9 @@ static inline int tb_choose(const tb_state *v, int level, uint64_t seed, long ha
     if (stats) memset(stats, 0, sizeof *stats);
     if (n == 1) card = L[0];
     else if (n > 1 && lv.slip && ai_rand_n(&rng, 100) < lv.slip) {
-        tb_state w = *root;                     /* a slip: the heuristic's move in one dealt world */
+        tb_state w = *root;                     /* a slip: the heuristic's move in one dealt world, noisy */
         tb_determinise(&w, &rng);
+        w.eps = 40;
         card = tb_heuristic(&w, L, n, &rng);
     } else if (n > 1) {
         ai_game g = {

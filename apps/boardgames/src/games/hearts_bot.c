@@ -18,7 +18,7 @@
 #include "games/hearts.h"
 #include "games/trickbot.h"
 
-#define HEARTS_HARD_ITERS 16000                 /* about 0.3 s a card on a PC */
+#define HEARTS_HARD_ITERS 14000                 /* about 0.3 s a card on a PC */
 
 typedef struct { uint8_t broken; } hx;
 

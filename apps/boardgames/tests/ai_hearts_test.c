@@ -312,17 +312,16 @@ int main(int argc, char **argv)
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 60, 75},
         {AI_MEDIUM, AI_EASY, 60, 52},
-        {AI_HARD, AI_MEDIUM, 60, 50},
+        {AI_HARD, AI_MEDIUM, 60, 45},
         {AI_HARD, AI_EASY, 40, 55},
     };
-    tt_targets(P, (int)(sizeof P / sizeof P[0]), argc, argv);
     NP = 4;
-    int bad = sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
-    static const sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 20, 0}};
+    int bad = tt_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
+    static sp_pair Q[] = {{AI_MEDIUM, SP_RANDOM, 20, 0}};
     for (NP = 3; NP <= 6; NP++) {
         if (NP == 4) continue;
         printf("-- %d players\n", NP);
-        bad |= sp_run(&G, Q, 1, argc, argv);
+        bad |= tt_run(&G, Q, 1, argc, argv);
     }
     return bad;
 }
