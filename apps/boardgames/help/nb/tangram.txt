@@ -1,10 +1,12 @@
 Tangram
 # Målet
-Tangram er et gammelt kinesisk puslespill: et kvadrat skåret i sju biter, tans. To store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping. Det finnes 98 figurer i seks kapitler: former, mennesker, dyr, båter og hus, ting, bokstaver og tall. Hver av dem er lagt for dette spillet med de sju tans, så alle kan løses.
+Tangram er et gammelt kinesisk puslespill: et kvadrat skåret i sju biter, tans. To store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping.
 # Et trekk
 Flytt en tan, drei den en åttendedels omdreining, eller snu parallellogrammet (de andre ser like ut begge veier). Tans ligger flatt og overlapper aldri.
 # Slutten på spillet
-Figuren er løst når de sju tans dekker silhuetten nøyaktig: gyllent lys går over dem. Enhver måte som fyller silhuetten, teller, ikke bare den figuren ble lagt med. Tre stjerner uten hint, to med ett eller to hint, én med flere.
+Figuren er løst når de sju tans dekker silhuetten nøyaktig: gyllent lys går over dem. Enhver måte som fyller silhuetten, teller, ikke bare den figuren ble lagt med.
+# Nivåer og stjerner
+Det finnes 98 figurer i seks kapitler: former, mennesker, dyr, båter og hus, ting, bokstaver og tall. Hver av dem er lagt for dette spillet med de sju tans, så alle kan løses. Uten hint: 3 stjerner; opptil to hint: 2 stjerner; ellers 1.
 # Spill på enheten
 Velg en figur på nivåskjermen; de løste viser stjernene sine.
 - Dra en tan. Når du slipper, legger den seg på en plass som passer: hjørnene møter hjørnene til silhuetten eller til en annen tan.

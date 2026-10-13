@@ -1,10 +1,12 @@
 Kasseskubber
 # Målet
-Du er lagerforvalter. Skub hver kasse op på en af messingringene i gulvet: der er lige så mange ringe som kasser. Der er 60 baner i tre kapitler, fra den letteste. Banerne er lavet til dette spil: en computer har tjekket, at hver eneste kan løses, og det mindste antal skub, hver bane kræver, er kendt.
+Du er lagerforvalter. Skub hver kasse op på en af messingringene i gulvet: der er lige så mange ringe som kasser.
 # Et træk
 Forvalteren går ét felt ad gangen: op, ned, til venstre eller til højre, aldrig gennem mure eller kasser. Går forvalteren ind i en kasse, skubbes den ét felt videre, hvis feltet bagved er frit. Kasser kan aldrig trækkes, og to kasser på række er for tunge at skubbe. Tænk dig om: en kasse, der er skubbet ind i et hjørne, kan aldrig komme ud igen.
 # Spillets afslutning
-Banen er løst, når hver kasse står på en ring: kasserne lyser op i guld. Tre stjerner, hvis du brugte så få skub som muligt, to, hvis du kom tæt på, ellers én.
+Banen er løst, når hver kasse står på en ring: kasserne lyser op i guld.
+# Baner og stjerner
+Der er 60 baner i tre kapitler, fra den letteste. Banerne er lavet til dette spil: en computer har tjekket, at hver eneste kan løses. Hver bane har et par: det mindste antal skub, der løser den. Løst på par: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1.
 # Spil på enheden
 Vælg en bane på baneskærmen; de løste viser deres stjerner.
 - Stryg: forvalteren går den vej, lige så mange felter som dit strøg er langt, og skubber det, der er foran.

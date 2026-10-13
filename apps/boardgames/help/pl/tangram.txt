@@ -1,10 +1,12 @@
 Tangram
 # Cel gry
-Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło. Jest 98 figur w sześciu rozdziałach: kształty, ludzie, zwierzęta, łodzie i domy, przedmioty, litery i cyfry. Każdą ułożono do tej gry z siedmiu tanów, więc każdą da się rozwiązać.
+Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło.
 # Ruch
 Przesuń tan, obróć go o jedną ósmą obrotu albo odwróć równoległobok na drugą stronę (pozostałe wyglądają tak samo z obu stron). Tany leżą płasko i nigdy na siebie nie nachodzą.
 # Koniec gry
-Figura jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Liczy się każdy sposób, który wypełnia sylwetkę, nie tylko ten, którym ją ułożono. Trzy gwiazdki bez podpowiedzi, dwie z jedną lub dwiema, jedna z większą liczbą.
+Figura jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Liczy się każdy sposób, który wypełnia sylwetkę, nie tylko ten, którym ją ułożono.
+# Poziomy i gwiazdki
+Jest 98 figur w sześciu rozdziałach: kształty, ludzie, zwierzęta, łodzie i domy, przedmioty, litery i cyfry. Każdą ułożono do tej gry z siedmiu tanów, więc każdą da się rozwiązać. Bez podpowiedzi: 3 gwiazdki; najwyżej dwie podpowiedzi: 2 gwiazdki; inaczej 1.
 # Gra na urządzeniu
 Wybierz figurę na ekranie poziomów; rozwiązane pokazują swoje gwiazdki.
 - Przeciągnij tan. Gdy go puścisz, ułoży się w pasującym miejscu: jego rogi spotkają się z rogami sylwetki lub innego tana.

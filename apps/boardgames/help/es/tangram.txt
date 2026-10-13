@@ -1,10 +1,12 @@
 Tangram
 # El objetivo
-El tangram es un viejo rompecabezas chino: un cuadrado cortado en siete piezas, los tans. Dos triángulos grandes, uno mediano, dos pequeños, un cuadrado y un paralelogramo. Usa los siete para llenar la silueta oscura, sin que se solapen. Hay 98 figuras en seis capítulos: formas, personas, animales, barcos y casas, objetos, letras y números. Cada una se hizo para este juego con los siete tans, así que todas tienen solución.
+El tangram es un viejo rompecabezas chino: un cuadrado cortado en siete piezas, los tans. Dos triángulos grandes, uno mediano, dos pequeños, un cuadrado y un paralelogramo. Usa los siete para llenar la silueta oscura, sin que se solapen.
 # Una jugada
 Mueve un tan, gíralo un octavo de vuelta o da la vuelta al paralelogramo (los demás son iguales por ambos lados). Los tans quedan planos y nunca se solapan.
 # El final de la partida
-La figura está resuelta cuando los siete tans cubren exactamente la silueta: una luz dorada los recorre. Vale cualquier forma de llenar la silueta, no solo aquella con la que se hizo. Tres estrellas sin pistas, dos con una o dos pistas, una con más.
+La figura está resuelta cuando los siete tans cubren exactamente la silueta: una luz dorada los recorre. Vale cualquier forma de llenar la silueta, no solo aquella con la que se hizo.
+# Niveles y estrellas
+Hay 98 figuras en seis capítulos: formas, personas, animales, barcos y casas, objetos, letras y números. Cada una se hizo para este juego con los siete tans, así que todas tienen solución. Sin pistas: 3 estrellas; hasta dos pistas: 2 estrellas; si no, 1.
 # Jugar en el dispositivo
 Elige una figura en la pantalla de niveles; las resueltas muestran sus estrellas.
 - Arrastra un tan. Al soltarlo, se coloca en un sitio que encaja: sus esquinas se juntan con las de la silueta o de otro tan.

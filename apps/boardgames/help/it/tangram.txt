@@ -1,10 +1,12 @@
 Tangram
 # Lo scopo
-Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i tan. Due triangoli grandi, uno medio, due piccoli, un quadrato e un parallelogramma. Usa tutti e sette per riempire la sagoma scura, senza sovrapposizioni. Ci sono 98 figure in sei capitoli: forme, persone, animali, barche e case, oggetti, lettere e numeri. Ognuna è stata composta per questo gioco con i sette tan, quindi ogni figura ha una soluzione.
+Il tangram è un antico rompicapo cinese: un quadrato tagliato in sette pezzi, i tan. Due triangoli grandi, uno medio, due piccoli, un quadrato e un parallelogramma. Usa tutti e sette per riempire la sagoma scura, senza sovrapposizioni.
 # Una mossa
 Sposta un tan, giralo di un ottavo di giro o capovolgi il parallelogramma (gli altri sono uguali da entrambi i lati). I tan restano piatti e non si sovrappongono mai.
 # La fine della partita
-La figura è risolta quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Vale ogni modo di riempire la sagoma, non solo quello con cui è stata fatta. Tre stelle senza suggerimenti, due con uno o due suggerimenti, una con di più.
+La figura è risolta quando i sette tan coprono esattamente la sagoma: una luce dorata li percorre. Vale ogni modo di riempire la sagoma, non solo quello con cui è stata fatta.
+# Livelli e stelle
+Ci sono 98 figure in sei capitoli: forme, persone, animali, barche e case, oggetti, lettere e numeri. Ognuna è stata composta per questo gioco con i sette tan, quindi ogni figura ha una soluzione. Senza suggerimenti: 3 stelle; fino a due suggerimenti: 2 stelle; altrimenti 1.
 # Giocare sul dispositivo
 Scegli una figura nella schermata dei livelli; quelle risolte mostrano le loro stelle.
 - Trascina un tan. Quando lo lasci, si sistema in un posto adatto: i suoi angoli incontrano quelli della sagoma o di un altro tan.

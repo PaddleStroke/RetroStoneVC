@@ -1,8 +1,7 @@
 /*
- * What five of the one-player puzzles share on the screen (Mines, Klotski, Box Pusher, Lights, Tangram): where the
- * shell's buttons go (a column at the right of the board: the hint, a mode, a zoom), pictures for them drawn by code
- * (a brass flag, a magnifying glass), two counts in the bar, pieces of the house plank cut and tinted, and filled
- * polygons painted with smooth edges.
+ * What five of the one-player puzzles share on the screen (Mines, Klotski, Box Pusher, Lights, Tangram): pictures for
+ * their tools on the shell's rail drawn by code (a brass flag, a magnifying glass), two counts in the bar, pieces of
+ * the house plank cut and tinted, and filled polygons painted with smooth edges.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Written once, here, as static inline functions: the build takes a game's own files only (GAMES="mines" builds
@@ -173,34 +172,6 @@ static inline void pzt_bar_two(box b, SDL_Texture *left_pic, int left, SDL_Textu
         ui_put(right_pic, x - gap - sz, cy - sz / 2, sz, sz);
     }
     ui_number(x + rw / 2, cy, dh, right, 1);
-}
-
-/* ---- the column of buttons at the right of the board's square -------------------------------------------------- */
-#define PZT_MAX_BTN 6
-
-typedef struct {
-    box room;                                   /* what is left for the game: the square but the column */
-    float x, y[PZT_MAX_BTN], d;                 /* the buttons' centres and diameter */
-    int n;
-} pzt_column;
-
-static inline void pzt_column_fit(pzt_column *c, box b, int n)
-{
-    float u = ui.unit, S = fminf(b.w, b.h), cw = floorf(1.2f * u);
-    float x0 = floorf(b.x + (b.w - S) / 2), y0 = floorf(b.y + (b.h - S) / 2);
-    c->n = n < PZT_MAX_BTN ? n : PZT_MAX_BTN;
-    c->room = (box){x0, y0, S - cw, S};
-    c->d = floorf(0.92f * u);
-    c->x = x0 + S - cw / 2 + 0.06f * u;
-    float step = fminf(1.5f * u, S / (c->n > 0 ? c->n : 1)), top = y0 + S / 2 - step * (c->n - 1) / 2;
-    for (int i = 0; i < c->n; i++) c->y[i] = top + i * step;
-}
-
-static inline int pzt_column_hit(const pzt_column *c, float x, float y)
-{
-    for (int i = 0; i < c->n; i++)
-        if (ui_button_hit(c->x, c->y[i], c->d, x, y)) return i;
-    return -1;
 }
 
 #endif

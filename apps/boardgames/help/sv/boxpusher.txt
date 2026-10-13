@@ -1,10 +1,12 @@
 Skjut lådorna
 # Målet
-Du är lagervakt i ett magasin. Skjut varje låda upp på en av mässingsringarna i golvet: det finns lika många ringar som lådor. Det finns 60 banor i tre kapitel, från de lättaste. Banorna är gjorda för det här spelet: varenda en har kontrollerats av en dator och går att lösa, och det minsta antalet knuffar som behövs är känt.
+Du är lagervakt i ett magasin. Skjut varje låda upp på en av mässingsringarna i golvet: det finns lika många ringar som lådor.
 # Ett drag
 Lagervakten går en ruta i taget: uppåt, nedåt, åt vänster eller åt höger, aldrig genom väggar eller lådor. Går lagervakten in i en låda skjuts den en ruta längre, om rutan bakom är ledig. Lådor dras aldrig, och två lådor i rad är för tunga att skjuta. Tänk framåt: en låda som skjuts in i ett hörn kommer aldrig ut igen.
 # Partiets slut
-Banan är löst när varje låda står på en ring: lådorna lyser upp i guld. Tre stjärnor om du använde så få knuffar som möjligt, två om du kom nära, annars en.
+Banan är löst när varje låda står på en ring: lådorna lyser upp i guld.
+# Banor och stjärnor
+Det finns 60 banor i tre kapitel, från de lättaste. Banorna är gjorda för det här spelet: varenda en har kontrollerats av en dator och går att lösa. Varje bana har ett par: det minsta antalet knuffar som löser den. Löst på par: 3 stjärnor; med upp till hälften så många knuffar till: 2 stjärnor; annars 1.
 # Spela på enheten
 Välj en bana på banskärmen; de lösta visar sina stjärnor.
 - Svep: lagervakten tar steg åt det hållet, lika många rutor som svepet är långt, och skjuter det som står framför.

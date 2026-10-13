@@ -1,10 +1,12 @@
 Tlačení beden
 # Cíl hry
-Jsi správce skladu. Dotlač každou bednu na jeden z mosazných kroužků zasazených v podlaze: kroužků je stejně jako beden. Je 60 úrovní ve třech kapitolách, od nejlehčí. Úrovně jsou vytvořené pro tuto hru: u každé počítač ověřil, že má řešení, a nejmenší počet posunutí, který potřebuje, je známý.
+Jsi správce skladu. Dotlač každou bednu na jeden z mosazných kroužků zasazených v podlaze: kroužků je stejně jako beden.
 # Tah
 Správce chodí po jednom poli: nahoru, dolů, doleva nebo doprava, nikdy skrz zdi ani bedny. Když vejde do bedny, posune ji o pole dál, je-li pole za ní volné. Bedny se nikdy netahají a dvě bedny za sebou jsou příliš těžké na posunutí. Mysli dopředu: bedna zatlačená do rohu se už nikdy nedostane ven.
 # Konec hry
-Úroveň je vyřešená, když každá bedna stojí na kroužku: bedny se rozzáří zlatem. Tři hvězdy, pokud jsi použil co nejméně posunutí, dvě, pokud ses k tomu přiblížil, jinak jedna.
+Úroveň je vyřešená, když každá bedna stojí na kroužku: bedny se rozzáří zlatem.
+# Úrovně a hvězdy
+Je 60 úrovní ve třech kapitolách, od nejlehčí. Úrovně jsou vytvořené pro tuto hru: u každé počítač ověřil, že má řešení. Každá úroveň má par: nejmenší počet posunutí, který ji vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc posunutí: 2 hvězdy; jinak 1.
 # Hra na zařízení
 Zvol úroveň na obrazovce úrovní; vyřešené ukazují své hvězdy.
 - Přejeď prstem: správce vykročí tím směrem o tolik polí, jak dlouhý je tah prstem, a tlačí, co má před sebou.

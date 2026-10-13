@@ -1,10 +1,12 @@
 Kistenschieber
 # Das Ziel
-Du bist der Lagerverwalter. Schiebe jede Kiste auf einen der Messingringe im Boden: Es gibt so viele Ringe wie Kisten. Es gibt 60 Level in drei Kapiteln, vom leichtesten an. Die Level sind für dieses Spiel gemacht: Jedes wurde von einem Computer auf Lösbarkeit geprüft, und die wenigsten Schübe, die es braucht, sind bekannt.
+Du bist der Lagerverwalter. Schiebe jede Kiste auf einen der Messingringe im Boden: Es gibt so viele Ringe wie Kisten.
 # Ein Zug
 Der Verwalter geht ein Feld nach dem anderen: nach oben, unten, links oder rechts, nie durch Mauern oder Kisten. Läuft er gegen eine Kiste, schiebt er sie ein Feld weiter, wenn das Feld dahinter frei ist. Kisten werden nie gezogen, und zwei Kisten hintereinander sind zu schwer zum Schieben. Denk voraus: Eine in eine Ecke geschobene Kiste kommt nie wieder heraus.
 # Das Ende der Partie
-Das Level ist gelöst, wenn jede Kiste auf einem Ring steht: Die Kisten leuchten golden auf. Drei Sterne, wenn du die wenigsten möglichen Schübe gebraucht hast, zwei, wenn du nah dran warst, sonst einen.
+Das Level ist gelöst, wenn jede Kiste auf einem Ring steht: Die Kisten leuchten golden auf.
+# Level und Sterne
+Es gibt 60 Level in drei Kapiteln, vom leichtesten an. Die Level sind für dieses Spiel gemacht: Jedes wurde von einem Computer auf Lösbarkeit geprüft. Jedes Level hat ein Par: die wenigsten Schübe, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Schüben mehr: 2 Sterne; sonst 1.
 # Spielen auf dem Gerät
 Wähle ein Level auf dem Level-Bildschirm; die gelösten zeigen ihre Sterne.
 - Wische: Der Verwalter geht in diese Richtung, so viele Felder, wie dein Wisch lang ist, und schiebt, was vor ihm liegt.

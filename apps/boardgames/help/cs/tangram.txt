@@ -1,10 +1,12 @@
 Tangram
 # Cíl hry
-Tangram je starý čínský hlavolam: čtverec rozřezaný na sedm dílků, tanů. Dva velké trojúhelníky, jeden střední, dva malé, čtverec a rovnoběžník. Použij všech sedm a vyplň tmavou siluetu tak, aby se nic nepřekrývalo. Je tu 98 obrazců v šesti kapitolách: tvary, lidé, zvířata, lodě a domy, věci, písmena a číslice. Každý byl pro tuto hru složen ze sedmi tanů, takže každý jde vyřešit.
+Tangram je starý čínský hlavolam: čtverec rozřezaný na sedm dílků, tanů. Dva velké trojúhelníky, jeden střední, dva malé, čtverec a rovnoběžník. Použij všech sedm a vyplň tmavou siluetu tak, aby se nic nepřekrývalo.
 # Tah
 Posuň tan, otoč ho o osminu otáčky, nebo převrať rovnoběžník (ostatní vypadají z obou stran stejně). Tany leží naplocho a nikdy se nepřekrývají.
 # Konec hry
-Obrazec je vyřešený, když sedm tanů přesně pokryje siluetu: přeběhne po nich zlaté světlo. Platí každý způsob, který siluetu vyplní, nejen ten, kterým byla složena. Tři hvězdy bez nápovědy, dvě s jednou nebo dvěma nápovědami, jedna s více.
+Obrazec je vyřešený, když sedm tanů přesně pokryje siluetu: přeběhne po nich zlaté světlo. Platí každý způsob, který siluetu vyplní, nejen ten, kterým byla složena.
+# Úrovně a hvězdy
+Je tu 98 obrazců v šesti kapitolách: tvary, lidé, zvířata, lodě a domy, věci, písmena a číslice. Každý byl pro tuto hru složen ze sedmi tanů, takže každý jde vyřešit. Bez nápovědy: 3 hvězdy; nejvýš dvě nápovědy: 2 hvězdy; jinak 1.
 # Hra na zařízení
 Zvol obrazec na obrazovce úrovní; vyřešené ukazují své hvězdy.
 - Přetáhni tan. Když ho pustíš, usadí se na místo, kam pasuje: jeho rohy se setkají s rohy siluety nebo jiného tanu.

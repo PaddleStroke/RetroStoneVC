@@ -1,10 +1,12 @@
 Tangram
 # Tavoite
-Tangram on vanha kiinalainen pulmapeli: neliö, joka on leikattu seitsemään palaan, taneihin. Kaksi suurta kolmiota, yksi keskikokoinen, kaksi pientä, neliö ja suunnikas. Täytä tumma siluetti kaikilla seitsemällä ilman päällekkäisyyksiä. Kuvioita on 98 kuudessa luvussa: muodot, ihmiset, eläimet, veneet ja talot, esineet, kirjaimet ja numerot. Jokainen on koottu tätä peliä varten seitsemästä tanista, joten jokainen on ratkaistavissa.
+Tangram on vanha kiinalainen pulmapeli: neliö, joka on leikattu seitsemään palaan, taneihin. Kaksi suurta kolmiota, yksi keskikokoinen, kaksi pientä, neliö ja suunnikas. Täytä tumma siluetti kaikilla seitsemällä ilman päällekkäisyyksiä.
 # Siirto
 Siirrä tania, kierrä sitä kahdeksasosakierros tai käännä suunnikas nurin (muut näyttävät samalta kummin päin tahansa). Tanit ovat aina lappeellaan eivätkä koskaan mene päällekkäin.
 # Pelin loppu
-Kuvio on ratkaistu, kun seitsemän tania peittää siluetin tarkalleen: kultainen valo kulkee niiden yli. Mikä tahansa siluetin täyttävä tapa kelpaa, ei vain se, jolla kuvio koottiin. Kolme tähteä ilman vihjeitä, kaksi yhdellä tai kahdella vihjeellä, yksi useammalla.
+Kuvio on ratkaistu, kun seitsemän tania peittää siluetin tarkalleen: kultainen valo kulkee niiden yli. Mikä tahansa siluetin täyttävä tapa kelpaa, ei vain se, jolla kuvio koottiin.
+# Tasot ja tähdet
+Kuvioita on 98 kuudessa luvussa: muodot, ihmiset, eläimet, veneet ja talot, esineet, kirjaimet ja numerot. Jokainen on koottu tätä peliä varten seitsemästä tanista, joten jokainen on ratkaistavissa. Ei vihjeitä: 3 tähteä; enintään kaksi vihjettä: 2 tähteä; muuten 1.
 # Pelaaminen laitteella
 Valitse kuvio tasonäkymästä; ratkaistut näyttävät tähtensä.
 - Vedä tania. Kun päästät irti, se asettuu sopivaan kohtaan: sen kulmat osuvat siluetin tai toisen tanin kulmiin.

@@ -1,10 +1,11 @@
 /*
  * Box Pusher in RetroStone Board, for one player: a storehouse of walnut blocks on the felt, its floor the house
- * plank, brass rings set in it for the places, wooden crates, and the house's ivory pawn as the keeper; beside it, the
- * hint's button (the rules: boxpusher_rules.c).
+ * plank, brass rings set in it for the places, wooden crates, and the house's ivory pawn as the keeper (the rules:
+ * boxpusher_rules.c). The storehouse fills the room (game.fill), turned a quarter (its rows down the screen: mirrored
+ * on the diagonal, the same puzzle) when that gives bigger cells; the hint is the shell's tool.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The shell's level screen chooses the level (three chapters of 20; its stars: 3 in the fewest pushes). Then:
+ * The shell's level screen chooses the level (three chapters of 20; its stars: the pushes against par). Then:
  * - swipe: the keeper steps that way (as many cells as the swipe is long), pushing a crate in front of it;
  * - tap a cell: the keeper walks there round the crates;
  * - tap a crate beside the keeper: it is pushed one cell away from it; tap another crate: dots show where it can be
@@ -45,9 +46,8 @@ static struct { int cell; Uint32 t0; } hint = {-1, 0};
 static struct { int on, moved; float x0, y0; } ptr;
 
 static box last_box;
-static pzt_column col;
-static float mx, my;                            /* the map's top left */
-static int cs, made_level = -1, made_cs = -1, made_small = -1;
+static ui_grid grid;                            /* the storehouse on the screen (grid.turned: its rows down it) */
+static int cs, made_level = -1, made_cs = -1, made_turned = -1, made_small = -1;
 static SDL_Texture *t_map, *t_crate, *t_crate_on, *t_keeper, *t_small, *t_crate_small;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -130,17 +130,25 @@ static void token(int player, int size, uint8_t *rgba)
 static void layout(box b)
 {
     last_box = b;
-    pzt_column_fit(&col, b, BTNS);
-    box r = col.room;
-    cs = (int)fminf(r.w / G.w, r.h / G.h);
-    if (cs > (int)(1.3f * ui.unit)) cs = (int)(1.3f * ui.unit);
-    mx = floorf(r.x + (r.w - G.w * cs) / 2);
-    my = floorf(r.y + (r.h - G.h * cs) / 2);
-    if (made_level != G.level || made_cs != cs) {
+    grid = ui_grid_fit(b, G.w, G.h, 0.15f);     /* the whole room (game.fill), turned when the cells grow */
+    cs = (int)grid.cell;
+    if (made_level != G.level || made_cs != cs || made_turned != grid.turned) {
         made_level = G.level;
-        int W = G.w * cs, H = G.h * cs;
+        made_turned = grid.turned;
+        static bp_game T;                       /* the storehouse as the screen shows it: lit from its top left */
+        const bp_game *s = &G;
+        if (grid.turned) {
+            T.w = G.h, T.h = G.w;
+            for (int c = 0; c < G.w * G.h; c++) {
+                int t = c / G.w + c % G.w * G.h;
+                T.map[t] = G.map[c];
+                T.goal[t] = G.goal[c];
+            }
+            s = &T;
+        }
+        int W = s->w * cs, H = s->h * cs;
         ui_free(&t_map);
-        paint_map(&G, cs, ui_buf(W, H));
+        paint_map(s, cs, ui_buf(W, H));
         t_map = ui_tex(W, H, ui_buf(W, H));
     }
     if (made_cs != cs) {
@@ -193,12 +201,9 @@ static void start(int level)                    /* a level of the shell's level 
 
 static int status(void) { return bp_solved(&G) ? GS_WIN0 : GS_PLAY; }
 
-/* the stars: three in the fewest pushes, two within a quarter more (at least two pushes more), else one */
-static int level_stars(void)
-{
-    int par = bp_par[G.level];
-    return G.pushes <= par ? 3 : G.pushes <= par + (par / 4 > 2 ? par / 4 : 2) ? 2 : 1;
-}
+/* the stars: the move puzzles' rule (ui_par_stars) on the pushes against the fewest; the end card shows both */
+static int par(void) { return bp_par[G.level]; }
+static int level_stars(void) { return ui_par_stars(G.pushes, par()); }
 
 static int score(void) { return G.pushes; }
 static int turn(void) { return 0; }
@@ -303,15 +308,15 @@ static int script(const char *moves)
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void centre(int c, float *x, float *y)
 {
-    *x = mx + (c % G.w + 0.5f) * cs;
-    *y = my + (c / G.w + 0.5f) * cs;
+    ui_grid_cell(&grid, c % G.w, c / G.w, x, y);
+    *x += cs / 2.0f;
+    *y += cs / 2.0f;
 }
 
 static int cell_at(float x, float y)
 {
-    int cx = (int)floorf((x - mx) / cs), cy = (int)floorf((y - my) / cs);
-    if (cx < 0 || cy < 0 || cx >= G.w || cy >= G.h) return -1;
-    return cx + cy * G.w;
+    int cx, cy;
+    return ui_grid_hit(&grid, x, y, &cx, &cy) ? cx + cy * G.w : -1;
 }
 
 
@@ -319,7 +324,7 @@ static void draw(void)
 {
     if (made_cs < 0) layout(last_box);
     Uint32 now = ui_ms();
-    ui_put(t_map, mx, my, (float)(G.w * cs), (float)(G.h * cs));
+    ui_put(t_map, grid.x, grid.y, (float)(grid.cols * cs), (float)(grid.rows * cs));
     /* the boxes and the keeper as the last action shows them, step by step */
     uint8_t box[BP_CELLS];
     memcpy(box, G.box, sizeof box);
@@ -391,7 +396,7 @@ static void draw(void)
 static void draw_all(void)
 {
     draw();
-    ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, bp_solved(&G) ? UI_DIM : 0);
+    ui_tool(B_HINT, ICON_HINT, bp_solved(&G) ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -411,7 +416,7 @@ static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
     if (bp_solved(&G)) return;
-    if (ui_button_hit(col.x, col.y[B_HINT], col.d, x, y)) { use_hint(); return; }
+    if (ui_tool_hit(x, y) == B_HINT) { use_hint(); return; }
     if (anim.on && ui_ms() < anim_end()) anim.on = 0;   /* the last action done at once */
     ptr.on = 1;
     ptr.x0 = x;
@@ -431,6 +436,11 @@ static void release(float x, float y)
     ui_animate();
     if (ptr.moved) {                            /* a swipe: steps that way */
         float dx = x - ptr.x0, dy = y - ptr.y0;
+        if (grid.turned) {                      /* the storehouse's own way: across the screen is down it */
+            float s = dx;
+            dx = dy;
+            dy = s;
+        }
         int d = fabsf(dx) > fabsf(dy) ? (dx > 0 ? BP_RIGHT : BP_LEFT) : (dy > 0 ? BP_DOWN : BP_UP);
         int n = (int)fmaxf(1, roundf(fmaxf(fabsf(dx), fabsf(dy)) / cs));
         uint8_t dirs[BP_CELLS];
@@ -532,6 +542,6 @@ static const game boxpusher_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
     .levels = BP_LEVELS, .chapters = BP_CHAPTERS, .chapter_icon = chapter_icon, .level_thumb = level_thumb,
-    .level_stars = level_stars,
+    .level_stars = level_stars, .par = par, .fill = 1, .tools = BTNS,
 };
 REGISTER_GAME(boxpusher_game)

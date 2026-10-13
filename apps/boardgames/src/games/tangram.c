@@ -1,8 +1,8 @@
 /*
  * Tangram in RetroStone Board, for one player: a plank of the house wood in its walnut frame, the silhouette inlaid
  * dark in it, the seven tans cut from the plank and lacquered (red, lapis, jade, amber, ivory, walnut), bevelled and
- * lit from the top left; the tray beside the silhouette; the shell's hint button at the right (the rules:
- * tangram_rules.c). The shell's level screen chooses the figure: six chapters, the stars for the hints not taken.
+ * lit from the top left; the tray beside the silhouette, the two filling the room (game.fill); the hint is the shell's
+ * tool (the rules: tangram_rules.c). The shell's level screen chooses the figure: six chapters, the stars for the hints not taken.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Drag a tan: let go, it settles in a fitting place (its corners onto the silhouette's, another tan's, or the grid).
@@ -44,7 +44,6 @@ static struct { int on, piece, moved; float x0, y0, gx, gy, x, y; } ptr;   /* gx
 static struct { int piece; Uint32 t; } last_tap = {-1, 0};
 
 static box last_box;
-static pzt_column col;
 static float k, tx, ty;                         /* pixels a unit; the table's top left (inside the frame) */
 static int made_level = -1, made_k = -1, made_right = -1, made_small = -1, frame;
 static SDL_Texture *t_board, *t_tan[TGM_PIECES][16], *t_small;
@@ -219,8 +218,7 @@ static SDL_Texture *tan_tex(int piece, int rot, int flip)
 static void layout(box b)
 {
     last_box = b;
-    pzt_column_fit(&col, b, BTNS);
-    box r = col.room;
+    box r = b;                                  /* the whole room (game.fill) */
     /* the tray under the silhouette or at its right: whichever lets the table be the larger */
     tgm_game a = G, c = G;
     tgm_arrange(&a, 0);
@@ -399,7 +397,7 @@ static void draw(void)
         }
         put_tan(i, G.p[i].rot, G.p[i].flip, px, py, lift, 0);
     }
-    ui_button(col.x, col.y[B_HINT], col.d, ICON_HINT, tgm_solved(&G) ? UI_DIM : 0);
+    ui_tool(B_HINT, ICON_HINT, tgm_solved(&G) ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -427,7 +425,7 @@ static void press(float x, float y)
 {
     memset(&ptr, 0, sizeof ptr);
     if (tgm_solved(&G)) return;
-    if (pzt_column_hit(&col, x, y) == B_HINT) {
+    if (ui_tool_hit(x, y) == B_HINT) {
         float x0[TGM_PIECES], y0[TGM_PIECES];
         for (int i = 0; i < TGM_PIECES; i++) x0[i] = (float)G.p[i].x, y0[i] = (float)G.p[i].y;
         int i = tgm_hint(&G);
@@ -521,10 +519,20 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)
     paint_figure(level, size, rgba, 0, PZT_CREAM);
 }
 
+/* the menu's card: the square of the seven tans on the table's plank in its walnut frame, as the other puzzles' */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     (void)variant;
-    paint_figure(0, size, rgba, 1, NULL);
+    int f = (int)(size * 0.035f), in = (int)(size * 0.94f) - 2 * f, w = in + 2 * f, q = (int)(0.96f * in);
+    uint8_t *b = malloc((size_t)w * w * 4), *t = calloc((size_t)q * q, 4);
+    if (b && t) {
+        art_plank(in, in, f, b);
+        paint_figure(0, q, t, 1, NULL);
+        art_blend(b, w, w, t, q, q, f + (in - q) / 2, f + (in - q) / 2);
+        art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
+    }
+    free(b);
+    free(t);
 }
 
 static int score(void) { return G.moves; }   /* the end card's number */
@@ -536,5 +544,6 @@ static const game tangram_game = {
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score,
     .levels = TGM_LEVELS, .chapters = TGM_CHAPTERS, .chapter_of = chapter_of, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars, .levels_open = TGM_LEVELS,
+    .fill = 1, .tools = BTNS,
 };
 REGISTER_GAME(tangram_game)
