@@ -13,7 +13,8 @@ make -f apps/boardgames/Makefile win64           # dist/windows/RetroStoneBoard.
 
 `GAMES="chess go"` builds only these games; `B=build/boardgames-go` another build directory (parallel work). A game
 built on another one's rules names them in the Makefile (`NEEDS_chesspuzzles := .../chess.c`), so `GAMES="id"` alone
-links. `DEMO=1` adds `tests/levels_demo.c` (three tiny games: the level screen, the keys, the score; never shipped).
+links. `DEMO=1` adds `tests/levels_demo.c` (five tiny games: the level screen, the keys, the score,
+the solved puzzle's card, levels with random play; never shipped).
 
 ## The pieces
 
