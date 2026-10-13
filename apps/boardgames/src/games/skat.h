@@ -131,4 +131,12 @@ int  skat_winners(const skpos *p);              /* SK_OVER: the players with the
 uint32_t skat_auto(const skpos *p);             /* a plain action (the "." of the notation) */
 int  skat_script(skgame *g, const char *moves); /* 0: an action is bad */
 
+/* the bot (skat_bot.c) and the game on the screen it reads (skat.c) */
+struct ai_stats;
+struct tb_state;
+const skgame *skat_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int skat_show(const char *move);                /* main thread: plays one action of the notation as a tap does */
+uint32_t sktb_choose(const skgame *g, int seat, int level, uint64_t seed, struct ai_stats *stats);   /* 0: none */
+void sktb_view(const skgame *g, int me, struct tb_state *v);   /* seat me's knowledge (trickbot.h), in play */
+
 #endif

@@ -299,6 +299,18 @@ static int script(const char *s)
 
 static int busy(void) { return ct_busy(&A); }
 
+/* the bot's side (games/skat_bot.c): the game on the screen, read-only; one action of the notation, played as a tap */
+const skgame *skat_live(void) { return &G; }
+
+int skat_show(const char *move)
+{
+    static skgame t;
+    t = G;
+    if (!skat_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_flag(int i, float x, float y, float d, int on, int enabled)
 {
