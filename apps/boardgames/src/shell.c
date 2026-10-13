@@ -74,7 +74,7 @@ static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. */
-enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_SOLO, SEC_PUZZLE, SECTIONS };
+enum { SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_PUZZLE, SECTIONS };
 static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
     {"jungle", SEC_CHESS},
@@ -87,12 +87,12 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"oldmaid", SEC_CARDS}, {"families", SEC_CARDS},
     {"secretcode", SEC_GUESS}, {"mysteryface", SEC_GUESS},
     {"seabattle", SEC_GUESS}, {"wordtiles", SEC_CARDS},
-    {"klondike", SEC_SOLO}, {"freecells", SEC_SOLO}, {"spider", SEC_SOLO}, {"pegsolitaire", SEC_SOLO},
-    {"mahjong", SEC_SOLO},
+    {"klondike", SEC_CARDS}, {"freecells", SEC_CARDS}, {"spider", SEC_CARDS}, {"pegsolitaire", SEC_PUZZLE},
+    {"mahjong", SEC_CARDS},
     {"goose", SEC_RACE}, {"nainjaune", SEC_CARDS}, {"crapette", SEC_CARDS}, {"manille", SEC_CARDS}, {"slap", SEC_CARDS},
     {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS}, {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS},
     {"euchre", SEC_CARDS}, {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS},
-    {"pyramid", SEC_SOLO}, {"threepeaks", SEC_SOLO},
+    {"pyramid", SEC_CARDS}, {"threepeaks", SEC_CARDS},
     {"sudoku", SEC_PUZZLE}, {"nonogram", SEC_PUZZLE}, {"taquin", SEC_PUZZLE}, {"hanoi", SEC_PUZZLE},
     {"logicgates", SEC_PUZZLE}, {"pipes", SEC_PUZZLE}, {"paths", SEC_PUZZLE}, {"mirrors", SEC_PUZZLE},
     {"tracks", SEC_PUZZLE}, {"untangle", SEC_PUZZLE}, {"lightup", SEC_PUZZLE}, {"binairo", SEC_PUZZLE},
@@ -106,8 +106,8 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"durak", SEC_CARDS}, {"barbu", SEC_CARDS}, {"rikiki", SEC_CARDS}, {"piquet", SEC_CARDS}, {"ecarte", SEC_CARDS},
     {"bigtwo", SEC_CARDS}, {"tienlen", SEC_CARDS}, {"doppelkopf", SEC_CARDS}, {"schafkopf", SEC_CARDS},
     {"jass", SEC_CARDS}, {"klaverjas", SEC_CARDS}, {"mus", SEC_CARDS}, {"truco", SEC_CARDS}, {"bridge", SEC_CARDS},
-    {"bellelucie", SEC_SOLO}, {"yukon", SEC_SOLO}, {"fortythieves", SEC_SOLO}, {"golfpatience", SEC_SOLO},
-    {"canfield", SEC_SOLO}, {"montana", SEC_SOLO}, {"clock", SEC_SOLO},
+    {"bellelucie", SEC_CARDS}, {"yukon", SEC_CARDS}, {"fortythieves", SEC_CARDS}, {"golfpatience", SEC_CARDS},
+    {"canfield", SEC_CARDS}, {"montana", SEC_CARDS}, {"clock", SEC_CARDS},
     {"banqi", SEC_CHESS}, {"mexico", SEC_RACE}, {"pig", SEC_RACE}, {"shipcaptain", SEC_RACE},
 };
 
@@ -1523,7 +1523,6 @@ static void tab_icon(int s, int d, uint8_t *o)
     else if (s == SEC_CHESS) art_piece(KNIGHT, WHITE, d, o);
     else if (s == SEC_GUESS) art_icon(ICON_HELP, d, o);
     else if (s == SEC_PUZZLE) art_icon(ICON_PUZZLE, d, o);
-    else if (s == SEC_SOLO) art_counter(COUNTER_STONE, 5, d, o);
     else {                                      /* a die, a card: smaller, in the middle */
         int h = (int)(d * (s == SEC_RACE ? 0.78f : 0.92f));
         int w = s == SEC_RACE ? h : (int)(h / cards_aspect(DECK_FRENCH));

@@ -53,9 +53,9 @@ One look across the app, like the Arcade games' house kit:
   stands them all in gold light together (a draw: standing, no gold) and lays the others down, dimmed; their bars all
   glow. The status stays `gs_win(any winner)` or `GS_DRAW`. Without it: `gs_winner(status)` alone (a draw: everyone
   stands).
-- **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a marble, a jigsaw
-  piece; tap, swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles, guessing games,
-  solitaires, puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
+- **The menu's sections**, one tab each (a picture: a man, a knight, a die, a card, a question, a jigsaw piece; tap,
+  swipe sideways or the arrow keys): strategy, chess family, dice & race, cards & tiles (the patiences too), guessing
+  games, puzzles (peg solitaire too; their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
   `SECTION_OF` table files a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n`
   in the picture mode.
 - **The settings**: the menu has no row of buttons above its tabs; one button at the tabs' right end (`ICON_MENU`, three

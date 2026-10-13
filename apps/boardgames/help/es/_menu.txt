@@ -3,5 +3,4 @@ La familia del ajedrez
 Dados y carreras
 Cartas y fichas
 Juegos de adivinar
-Solitarios
 Rompecabezas
