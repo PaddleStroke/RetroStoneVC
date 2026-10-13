@@ -27,11 +27,13 @@
 #define LIFT_MS 520                             /* the cups lifting at the call */
 #define COUNT_AT 700                            /* the counting starts */
 #define VERDICT_MS 1100                         /* the verdict shown, the lost die fading */
+#define GONE_MS 300                             /* the game over: the call and the count fade before the end card */
 
 static lgame G;
 static const lpos *P = &G.pos;
 static int sel_count, sel_face, peek, seen_viewer = -2, rolled[LD_MAXP];
 static Uint32 bid_t0, rev_t0, roll_t0, quiet;
+static const uint8_t CREAM[3] = {246, 238, 220};   /* the digits, faded */
 
 /* ---- the geometry ------------------------------------------------------------------------------------------------ */
 static struct {
@@ -278,7 +280,7 @@ static void act(int a)
         break;
     case LA_LIAR:
         rev_t0 = ui_ms();
-        quiet = rev_t0 + reveal_ms();
+        quiet = rev_t0 + reveal_ms() + (P->phase == LP_OVER ? GONE_MS : 0);
         ui_sound(SND_MOVE);
         ui_sound_later(SND_CAPTURE, (int)(reveal_ms() - VERDICT_MS));
         break;
@@ -323,8 +325,9 @@ static void draw_others(void)
     }
 }
 
-/* a bid: the bidder's chip, how many, a die of the face; size h (the digits' height) */
-static void draw_bid_row(float cx, float cy, float h, int player, int count, int face, float alpha)
+/* a bid: the bidder's chip, how many, a die of the face; size h (the digits' height); the chip and die faded (alpha),
+ * the digits too (fade: the call going at the end) */
+static void draw_bid_row(float cx, float cy, float h, int player, int count, int face, float alpha, float fade)
 {
     int digits = count >= 10 ? 2 : 1;
     float tw = 0.9f * h, nw = (0.74f * (digits - 1) + 0.62f) * h, dw = 1.15f * h, gap = 0.3f * h;
@@ -333,7 +336,7 @@ static void draw_bid_row(float cx, float cy, float h, int player, int count, int
     ui_put_c(t_tok[player], x + tw / 2, cy, tw, tw);
     SDL_SetTextureAlphaMod(t_tok[player], 255);
     x += tw + gap;
-    ui_number(x + nw / 2, cy, h, count, 1);
+    ui_number_ex(x + nw / 2, cy, h, count, CREAM, (Uint8)(255 * fade), 0);
     x += nw + gap;
     ui_die(x + dw / 2, cy, dw, player, face, 0, 0, alpha, 1);
 }
@@ -350,14 +353,14 @@ static void draw_bid(void)
     float f = clampf((ui_ms() - bid_t0) / (float)BID_MS, 0, 1), k = 1 + 0.25f * (1 - ui_ease(f));
     if (f < 1) ui_animate();
     ui_mark_gold(b.x + b.w / 2, cy, 2.6f * h);
-    draw_bid_row(b.x + b.w / 2, cy, h * k, P->bidder, P->count, P->face, 1);
+    draw_bid_row(b.x + b.w / 2, cy, h * k, P->bidder, P->count, P->face, 1, 1);
     /* the round's earlier bids, smaller, the latest first */
     int n = P->nbids - 1, shown = n < 4 ? n : 4;
     float sh = 0.4f * h, rw = 3.4f * sh, y = b.y + b.h * 0.82f;
     for (int i = 0; i < shown; i++) {
         int j = n - 1 - i;
         float x = b.x + b.w / 2 + (i - (shown - 1) / 2.0f) * rw * 1.15f;
-        draw_bid_row(x, y, sh, P->bids[j].player, P->bids[j].count, P->bids[j].face, 0.75f - 0.1f * i);
+        draw_bid_row(x, y, sh, P->bids[j].player, P->bids[j].count, P->bids[j].face, 0.75f - 0.1f * i, 1);
     }
 }
 
@@ -422,18 +425,23 @@ static void draw_reveal(void)
     box b = T.b;
     int t = (int)(ui_ms() - rev_t0), step = P->found ? (int)fminf(170, 2400.0f / P->found) : 0;
     int verdict = COUNT_AT + P->found * step + 300;
-    if ((Uint32)t < reveal_ms()) ui_animate();
+    /* the game over: the call and the count fade once told, before the end card (nothing left beside it) */
+    int over = P->phase == LP_OVER;
+    float gone = over ? clampf((t - (int)reveal_ms()) / (float)GONE_MS, 0, 1) : 0;
+    if ((Uint32)t < reveal_ms() + (over ? GONE_MS : 0)) ui_animate();
     /* the bid on top, the count beside it */
     float h = fminf(0.8f * T.u, b.h * 0.07f), top = b.y + 0.9f * h;
-    draw_bid_row(b.x + b.w * 0.4f, top, h, P->bidder, P->count, P->face, 1);
     int lit = t < COUNT_AT ? 0 : step ? (t - COUNT_AT) / step + 1 : 0;
     lit = lit > P->found ? P->found : lit;
-    float nx = b.x + b.w * 0.78f;
-    if (t >= verdict) {
-        if (P->held) ui_mark_gold(nx, top, 3.2f * h);
-        else ui_mark_glow(nx, top, 3.2f * h);
+    if (gone < 1) {
+        draw_bid_row(b.x + b.w * 0.4f, top, h, P->bidder, P->count, P->face, 1 - gone, 1 - gone);
+        float nx = b.x + b.w * 0.78f;
+        if (t >= verdict) {
+            if (P->held) ui_mark_gold_a(nx, top, 3.2f * h, 1 - gone);
+            else ui_mark_glow(nx, top, 3.2f * h * (1 - gone));
+        }
+        ui_number_ex(nx, top, 1.3f * h, lit, CREAM, (Uint8)(255 * (1 - gone)), 0);
     }
-    ui_number(nx, top, 1.3f * h, lit, 1);
     /* the players' rows */
     int n = P->players, row = 0;
     float y0 = top + 1.2f * h, rh = fminf(1.25f * T.u, (b.y + b.h - y0 - 1.6f * T.u) / n);
@@ -454,12 +462,14 @@ static void draw_reveal(void)
         for (int d = 0; d < nd; d++) {
             int v = P->dice[q][d], counts = v == P->face || v == 1;
             float px = dx + d * 1.18f * s + s / 2, a = 1;
+            /* the die lost: a red glow, it fades away (nothing left where it was) */
+            float f = d == last && t >= verdict ? clampf((t - verdict) / (float)(VERDICT_MS * 0.8f), 0, 1) : 0;
             if (counts) {
-                if (k < lit) ui_mark_gold(px, cy, 1.6f * s);
+                if (k < lit && f < 1) ui_mark_gold(px, cy, 1.6f * s);
                 k++;
             } else if (t >= COUNT_AT) a = 0.45f;
-            if (d == last && t >= verdict) {    /* the die lost: a red glow, it fades away */
-                float f = clampf((t - verdict) / (float)(VERDICT_MS * 0.8f), 0, 1);
+            if (f >= 1) continue;
+            if (d == last && t >= verdict) {
                 ui_mark_glow(px, cy, 1.8f * s * (1 - 0.4f * f));
                 a *= 1 - f;
             }

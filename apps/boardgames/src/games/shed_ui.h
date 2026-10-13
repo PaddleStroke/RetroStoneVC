@@ -310,8 +310,9 @@ static void shui_draw(void)
     ct_rows h;
     shui_hand(p, ST.me, &h);
     shui_draw_others();
-    int gone = p->played - ct_hides(&SM, SHUI_SWEPT, -1, -1);
-    if (gone > 0) cards_pile(DECK_FRENCH, ST.dx, ST.dy, ST.dw, gone > 12 ? 4 : (gone + 2) / 3, CARD_NONE, 0);
+    int gone = p->played - ct_hides(&SM, SHUI_SWEPT, -1, -1), summary = p->phase == SP_OVER && !shui_busy();
+    if (gone > 0 && !summary)                   /* the end: no pile left beside the summary */
+        cards_pile(DECK_FRENCH, ST.dx, ST.dy, ST.dw, gone > 12 ? 4 : (gone + 2) / 3, CARD_NONE, 0);
     shui_draw_trick(mine && shui_ready());
     for (int i = 0; i < p->n[ST.me]; i++) {
         int c = p->hand[ST.me][i];
@@ -334,7 +335,7 @@ static void shui_draw(void)
                 cards_draw(DECK_FRENCH, p->hand[ST.me][i], shui_drag.x + (k++ - (n - 1) / 2.0f) * 0.35f * h.w,
                            shui_drag.y, h.w, 0, CD_RAISED);
     }
-    if (p->phase == SP_OVER && !shui_busy()) shui_draw_summary();
+    if (summary) shui_draw_summary();
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */

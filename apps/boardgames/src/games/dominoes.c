@@ -593,8 +593,8 @@ static void draw_yard(int glow)
     ui_number(T.yx, T.yy + 0.52f * T.yl, 0.36f * ui.unit, n, 1);
 }
 
-/* All Fives: the open ends' pips added up, in ebony on an ivory bone face, in gold light on a multiple of 5 (it scores);
- * nothing while the line is empty */
+/* All Fives: the open ends' pips added up, in ebony on an ivory bone face, in gold light on a multiple of 5 (it
+ * scores); nothing while the line is empty */
 static void draw_count(void)
 {
     static const uint8_t SHADE[4] = {0, 0, 0, 70}, RIM[4] = {58, 52, 50, 255}, FACE[4] = {244, 236, 218, 255};
@@ -717,7 +717,7 @@ static void press(float x, float y)
 {
     const dpos *p = &G.pos;
     drag.on = 0;
-    if (T.hn != p->nhand[T.me]) hand_layout();   /* the hand fitted, the ends found: no frame may have been drawn since */
+    if (T.hn != p->nhand[T.me]) hand_layout();   /* fitted: no frame may have been drawn since */
     if (T.made != G.n) line_layout();
     if (p->phase == DP_ROUND) { if (!busy()) act(DA_NEXT); return; }
     if (p->phase != DP_PLAY || busy()) return;
