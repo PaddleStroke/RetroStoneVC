@@ -1,0 +1,4 @@
+Koko peli
+Lyhyt peli
+Koko, ei kahdennusta
+Lyhyt, ei kahdennusta

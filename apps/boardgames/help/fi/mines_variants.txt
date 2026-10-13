@@ -1,0 +1,8 @@
+9 × 9, ei arvaamista
+8 × 12, ei arvaamista
+16 × 16, ei arvaamista
+16 × 30, ei arvaamista
+9 × 9, klassinen
+8 × 12, klassinen
+16 × 16, klassinen
+16 × 30, klassinen

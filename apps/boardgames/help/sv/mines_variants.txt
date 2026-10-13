@@ -1,0 +1,8 @@
+9 × 9, utan gissning
+8 × 12, utan gissning
+16 × 16, utan gissning
+16 × 30, utan gissning
+9 × 9, klassiskt
+8 × 12, klassiskt
+16 × 16, klassiskt
+16 × 30, klassiskt

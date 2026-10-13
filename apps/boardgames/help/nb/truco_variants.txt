@@ -1,0 +1,4 @@
+15 poeng
+30 poeng
+15 poeng, flor
+30 poeng, flor

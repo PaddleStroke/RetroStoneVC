@@ -1,0 +1,4 @@
+Lätt
+Medel
+Svår
+Expert

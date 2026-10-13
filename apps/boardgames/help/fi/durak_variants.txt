@@ -1,0 +1,4 @@
+Lisäyspeli
+Siirtopeli
+Lisäyspeli, avoimet
+Siirtopeli, avoimet

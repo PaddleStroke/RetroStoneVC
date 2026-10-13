@@ -1,0 +1,6 @@
+6 × 6, 1 tähti
+8 × 8, 1 tähti
+10 × 10, 2 tähteä
+Helppo
+Keskitaso
+Vaikea

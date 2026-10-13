@@ -1,0 +1,8 @@
+9 × 9, uten gjetting
+8 × 12, uten gjetting
+16 × 16, uten gjetting
+16 × 30, uten gjetting
+9 × 9, klassisk
+8 × 12, klassisk
+16 × 16, klassisk
+16 × 30, klassisk

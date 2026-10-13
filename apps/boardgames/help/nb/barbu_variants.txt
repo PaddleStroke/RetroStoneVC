@@ -1,0 +1,4 @@
+Fullt spill
+Kort spill
+Fullt, uten dobling
+Kort, uten dobling
