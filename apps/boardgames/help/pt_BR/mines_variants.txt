@@ -1,0 +1,8 @@
+9 × 9, sem chute
+8 × 12, sem chute
+16 × 16, sem chute
+16 × 30, sem chute
+9 × 9, clássico
+8 × 12, clássico
+16 × 16, clássico
+16 × 30, clássico

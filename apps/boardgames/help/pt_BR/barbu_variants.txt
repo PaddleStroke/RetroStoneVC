@@ -1,0 +1,4 @@
+Partida completa
+Partida curta
+Completa, sem dobra
+Curta, sem dobra

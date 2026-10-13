@@ -1,0 +1,4 @@
+Jogo completo
+Jogo curto
+Completo, sem contra
+Curto, sem contra

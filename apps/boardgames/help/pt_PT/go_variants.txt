@@ -1,0 +1,5 @@
+9 × 9
+13 × 13
+19 × 19
+Go de captura 9 × 9
+Go de captura 13 × 13

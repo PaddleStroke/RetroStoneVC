@@ -1,0 +1,6 @@
+6 × 6, 1 bintang
+8 × 8, 1 bintang
+10 × 10, 2 bintang
+Mudah
+Sedang
+Sulit

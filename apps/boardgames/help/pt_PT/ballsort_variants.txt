@@ -1,0 +1,4 @@
+4 cores
+7 cores
+10 cores
+12 cores

@@ -1,0 +1,4 @@
+Permainan penuh
+Permainan pendek
+Penuh, tanpa double
+Pendek, tanpa double

@@ -1,0 +1,8 @@
+9 × 9, tanpa tebakan
+8 × 12, tanpa tebakan
+16 × 16, tanpa tebakan
+16 × 30, tanpa tebakan
+9 × 9, klasik
+8 × 12, klasik
+16 × 16, klasik
+16 × 30, klasik

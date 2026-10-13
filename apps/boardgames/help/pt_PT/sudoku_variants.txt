@@ -1,0 +1,4 @@
+Fácil
+Médio
+Difícil
+Perito
