@@ -225,12 +225,13 @@ int main(int argc, char **argv)
         .id = "chess", .max_plies = 900, .opening = 2, .reset = reset, .actor = actor, .result = result,
         .random_move = random_move, .script = one,
     };
-    static const sp_pair P[] = {
+    sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 50, 65},
         {AI_MEDIUM, AI_EASY, 50, 50},
         {AI_HARD, AI_EASY, 50, 65},
         {AI_HARD, AI_MEDIUM, 50, 50},
     };
+    if (!full) P[1].min_pct = P[3].min_pct = 0;   /* three games: the close pairings' scores are noise (--full) */
     int bad = 0;
     for (variant = 0; variant < VARIANTS; variant++) {
         if (only >= 0 && variant != only) continue;

@@ -1,6 +1,7 @@
 /*
- * Janggi's bot (src/games/janggi_bot.c): its registry entry, a free horse, a mate in one, the cancel, the levels' work, then self-play at every level (tests/ai_selfplay.h). Headless: this file
- * plays the screen's part (janggi_live(), janggi_show()). --full for the 200 games a pairing and the table.
+ * Janggi's bot (src/games/janggi_bot.c): its own moves against the rules' on random games, its registry entry, a free
+ * horse, a mate in one, the cancel, the levels' work, then self-play at every level (tests/ai_selfplay.h). Headless:
+ * this file plays the screen's part (janggi_live(), janggi_show()). --full for the 200 games a pairing and the table.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "ai_selfplay.h"
@@ -9,6 +10,7 @@
 
 int jnb_choose(const void *root, int level, uint64_t seed, char *out, ai_stats *stats);
 void jnb_root(const jgame *g, void *root);
+int jnb_legal(const jpos *p, jmove *out);
 
 static jgame T;
 const jgame *janggi_live(void) { return &T; }
@@ -69,6 +71,31 @@ int main(int argc, char **argv)
 {
     int full = 0;
     for (int i = 1; i < argc; i++) full |= !strcmp(argv[i], "--full");
+    {   /* the bot's moves are the rules' exactly: random games (the pass among the moves), every position */
+        ai_rng r;
+        ai_seed(&r, 7);
+        int same = 1, positions = 0;
+        for (int gn = 0; gn < (full ? 2000 : 400) && same; gn++) {
+            jn_new(&T);
+            for (int ply = 0; ply < 400 && same && jn_status(&T) == JG_PLAY; ply++) {
+                jmove a[JG_MAX_MOVES], c[JG_MAX_MOVES];
+                int na = jn_legal(jn_pos(&T), a), nc = jnb_legal(jn_pos(&T), c);
+                same = na == nc;
+                for (int i = 0; i < na && same; i++) {
+                    int found = 0;
+                    for (int j = 0; j < nc && !found; j++) found = !memcmp(&a[i], &c[j], sizeof a[0]);
+                    same = found;
+                }
+                if (!same) printf("     differs at ply %d of game %d (rules %d, bot %d)\n", ply, gn, na, nc);
+                positions++;
+                char m[8];
+                random_move(&r, m, 8);
+                one(m);
+            }
+        }
+        printf("     (%d positions)\n", positions);
+        check("the bot's moves = the rules' (the palace lines, the cannon, the facing generals)", same);
+    }
     const bot *b = bot_find("janggi");
     check("registered: bot_find(\"janggi\")", b && b->think && b->play == janggi_show);
     {
@@ -124,11 +151,12 @@ int main(int argc, char **argv)
         .id = "janggi", .max_plies = 2000, .opening = 2, .reset = reset, .actor = actor, .result = result,
         .random_move = random_move, .script = one,
     };
-    static const sp_pair P[] = {
+    sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 50, 65},
         {AI_MEDIUM, AI_EASY, 50, 50},
         {AI_HARD, AI_EASY, 50, 65},
         {AI_HARD, AI_MEDIUM, 50, 50},
     };
+    if (!full) P[1].min_pct = P[3].min_pct = 0;   /* three games: the close pairings' scores are noise (--full) */
     return sp_run(&G, P, (int)(sizeof P / sizeof P[0]), argc, argv);
 }

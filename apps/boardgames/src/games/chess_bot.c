@@ -381,7 +381,7 @@ static int a_eval(const void *st)
     int v[2];
     for (int c = 0; c < 2; c++) v[c] = mat[c] + add[c] + (mg[c] * phase + eg[c] * (256 - phase)) / 256;
     int score = v[us] - v[!us] + 10;
-    /* no pawns, a minor piece's edge or less: little chance (chess and three-check's ends) */
+    /* no pawns, a minor piece's edge or less: little chance (chess's and atomic's ends) */
     if ((rules == CR_CHESS || rules == CR_ATOMIC) && !pawns[win] && npm[win] - npm[!win] <= 330 && npm[win] <= 660)
         score /= 8;
     return score;

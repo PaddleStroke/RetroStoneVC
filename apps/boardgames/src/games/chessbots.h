@@ -79,6 +79,9 @@ static inline ai_opts cb_opts(const cb_levels *L, int level, ai_rng *rng)
 {
     int l = level <= AI_EASY ? AI_EASY : level >= AI_HARD ? AI_HARD : AI_MEDIUM;
     ai_opts o = {.budget = ai_level_budget(l), .rng = rng, .tt_bits = L->tt_bits ? L->tt_bits : 18};
+    /* the clock is read every 1024 nodes and these games' nodes are slow (a legal move list each): a tenth of the
+     * time kept in hand, so a stop never runs past the level's limit */
+    o.budget.ms = o.budget.ms * 9 / 10;
     o.budget.nodes = L->nodes[l];
     o.budget.depth = L->depth[l];
     o.budget.noise = L->noise[l];

@@ -173,7 +173,7 @@ static const ai_game ADAPTER_EASY = {           /* easy: no quiescence (a longer
 };
 
 static const cb_levels LEVELS = {
-    .nodes = {[AI_EASY] = 8000, [AI_MEDIUM] = 50000, [AI_HARD] = 120000},    /* hard: about 0.3 s on a PC */
+    .nodes = {[AI_EASY] = 8000, [AI_MEDIUM] = 30000, [AI_HARD] = 120000},    /* hard: about 0.3 s on a PC */
     .depth = {[AI_EASY] = 2, [AI_MEDIUM] = 4, [AI_HARD] = 0},
     .noise = {[AI_EASY] = 100, [AI_MEDIUM] = 25, [AI_HARD] = 0},
     .tt_bits = 18,
