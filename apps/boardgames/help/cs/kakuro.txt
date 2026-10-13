@@ -4,6 +4,8 @@ Do každého bílého políčka napiš číslici od 1 do 9. Úsek je řada bíl�
 - Lehká: vždy stačí způsoby, jak složit každý součet s délkou jeho úseku (3 ve dvou políčkách může být jen 1 a 2).
 - Střední: budeš potřebovat i číslici, kterou potřebují všechny způsoby a pro kterou zbývá jediné políčko, a dvojice v úseku.
 - Těžká: musíš promyslet celý úsek najednou (která číslice může do kterého políčka), nebo zkusit číslici a sledovat ji.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 5 × 5 po 12 × 12, každá s jediným řešením; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice, kterou pak smažeš tlačítkem Zpět.
 # Hra na zařízení
 Klepni na bílé políčko a potom na klávesu pod deskou: její číslice se zapíše modrým inkoustem. Dalším klepnutím na tutéž klávesu ji smažeš, nebo klávesu přetáhni na políčko. Oba úseky políčka se rozsvítí, jejich součty zlatě, a políčka se stejnou číslicí teple. Když není vybrané žádné políčko, klávesa rozsvítí políčka své číslice. Tlačítka vedle desky:
 - Tužka: poznámky. Klávesy pak píšou do políčka malé číslice, nebo je mažou.

@@ -1,0 +1,134 @@
+/*
+ * Kakuro's levels, made by chance and chosen: src/games/kakuro_levels.h. Our own puzzles, from the game's own maker
+ * (a pattern of dark squares turned half round itself, digits dealt, digits changed until the reasoning solver
+ * finishes it at its level: one solution). Each candidate:
+ *   - its grade (the hardest reasoning the solver needed: the ways of each clue; a digit every way needs, pairs; a run
+ *     worked out whole) and the solver's passes over the runs (its effort);
+ *   - near-duplicates dropped (the same puzzle mirrored on its diagonal, across and down swapped).
+ * Each chapter has two makes (a size and a level); a make's candidates are ranked by effort and picked evenly over
+ * them. Then each chapter goes from its smallest and easiest to its biggest and hardest: 5 x 5 easy first, 12 x 12
+ * hard last.
+ * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
+ *   gcc -O2 -Iapps/boardgames/src -o /tmp/kkrgen apps/boardgames/tools/kakuro_gen.c \
+ *       apps/boardgames/src/games/kakuro_rules.c && /tmp/kkrgen > apps/boardgames/src/games/kakuro_levels.h
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "games/kakuro.h"
+
+#define CANDS 60                                /* candidates made for each make */
+
+typedef struct {
+    kkr_puzzle p;
+    int grade;
+    long passes;
+    double score;
+    char key[KKR_CELLS + 8];
+} cand;
+
+typedef struct { int n, level, count; } make;
+static const make CHAPTER[KKR_CHAPTERS][2] = {
+    {{5, KKR_EASY, 10}, {6, KKR_EASY, 15}},
+    {{6, KKR_MEDIUM, 10}, {7, KKR_EASY, 15}},
+    {{7, KKR_MEDIUM, 12}, {8, KKR_MEDIUM, 13}},
+    {{8, KKR_HARD, 12}, {9, KKR_MEDIUM, 13}},
+    {{9, KKR_HARD, 12}, {10, KKR_HARD, 13}},
+    {{11, KKR_HARD, 12}, {12, KKR_HARD, 13}},
+};
+
+/* the puzzle whichever way it lies: the smaller code of it and of it mirrored on its diagonal */
+static void canon(const kkr_puzzle *p, char *key)
+{
+    kkr_puzzle t = *p;
+    int n = p->n;
+    for (int y = 0; y < n; y++)
+        for (int x = 0; x < n; x++) t.white[x * n + y] = p->white[y * n + x], t.sol[x * n + y] = p->sol[y * n + x];
+    char a[KKR_CELLS + 8], b[KKR_CELLS + 8];
+    kkr_encode(p, a, sizeof a);
+    kkr_encode(&t, b, sizeof b);
+    strcpy(key, strcmp(a, b) <= 0 ? a : b);
+}
+
+static int by_score(const void *a, const void *b)
+{
+    const cand *x = a, *y = b;
+    return x->score < y->score ? -1 : x->score > y->score;
+}
+
+static cand pool[CANDS];
+static cand chosen[KKR_STAGES];
+static int nchosen;
+
+static int seen(const char *key)
+{
+    for (int i = 0; i < nchosen; i++)
+        if (!strcmp(chosen[i].key, key)) return 1;
+    return 0;
+}
+
+static int make_pool(const make *m, uint32_t seed0)
+{
+    int k = 0;
+    for (uint32_t seed = seed0; k < CANDS && seed < seed0 + 20 * CANDS; seed++) {
+        cand *c = &pool[k];
+        kkr_make(m->n, m->level, seed, &c->p);
+        c->grade = kkr_effort(&c->p, &c->passes);
+        if (c->grade != m->level || kkr_count(&c->p, 2) != 1) continue;
+        canon(&c->p, c->key);
+        int dup = 0;
+        for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
+        if (dup) continue;
+        c->score = (double)c->passes + 0.01 * (seed % 7);
+        k++;
+    }
+    qsort(pool, (size_t)k, sizeof pool[0], by_score);
+    return k;
+}
+
+int main(void)
+{
+    for (int ch = 0; ch < KKR_CHAPTERS; ch++) {
+        int first = nchosen;
+        for (int mi = 0; mi < 2; mi++) {
+            const make *m = &CHAPTER[ch][mi];
+            int k = make_pool(m, 1000u * (uint32_t)(ch * 2 + mi + 1));
+            fprintf(stderr, "chapter %d, make %d (%dx%d level %d): %d candidates, effort %ld..%ld\n", ch + 1, mi + 1,
+                    m->n, m->n, m->level, k, k ? pool[0].passes : 0, k ? pool[k - 1].passes : 0);
+            for (int i = 0; i < m->count; i++) {
+                int at = (int)((i + 0.5f) / m->count * (k - 1));
+                while (at < k && seen(pool[at].key)) at++;
+                if (at >= k) {
+                    fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, mi + 1);
+                    return 1;
+                }
+                chosen[nchosen++] = pool[at];
+            }
+        }
+        for (int i = first + 1; i < nchosen; i++)   /* the chapter from its easiest to its hardest */
+            for (int j = i; j > first; j--) {
+                cand *a = &chosen[j - 1], *b = &chosen[j];
+                double ka = a->p.n * 1e6 + a->grade * 1e5 + a->score, kb = b->p.n * 1e6 + b->grade * 1e5 + b->score;
+                if (ka <= kb) break;
+                cand t = *a;
+                *a = *b;
+                *b = t;
+            }
+    }
+    printf("/*\n * Kakuro's levels: our own, made by tools/kakuro_gen.c (the game's maker, the reasoning solver's grade and\n"
+           " * effort), six chapters of 25 from the easiest. Each: \"<n>:\" and a character a square, row by row, '#' dark\n"
+           " * or the solution's digit (kakuro.h, kkr_decode; the clues are its sums); in the comment the reasoning it\n"
+           " * needs (0 easy, 1 medium, 2 hard) and the solver's passes.\n"
+           " * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n"
+           " */\nstatic const char *const kkr_levels[KKR_STAGES] = {\n");
+    for (int i = 0; i < nchosen; i++) {
+        char code[KKR_CELLS + 8];
+        kkr_encode(&chosen[i].p, code, sizeof code);
+        printf("    \"%s\", /* %d: %dx%d, grade %d, %ld passes */\n", code, i + 1, chosen[i].p.n, chosen[i].p.n,
+               chosen[i].grade, chosen[i].passes);
+    }
+    printf("};\n");
+    return nchosen == KKR_STAGES ? 0 : 1;
+}

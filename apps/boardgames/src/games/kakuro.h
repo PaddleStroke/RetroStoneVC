@@ -7,13 +7,17 @@
  *
  * The variants: the four sizes, each at three levels (6 easy, 6 medium, 6 hard, 8 easy...). A puzzle is made from a
  * seed: a pattern of dark squares (turned half round it stays the same; every run two squares or more, nine at
- * most; the white squares all joined), digits put in by chance, the clues added up; then digits changed one at a
- * time where the reasoning is stuck until the solver finishes it, at its level and not below. The level is the
- * reasoning the solver needs (bench.h):
+ * most; the white squares all joined), digits put in by chance (each run leaning to the low digits, the high ones or
+ * neither: clues with few ways), the clues added up; then digits changed one at a time where the reasoning is stuck
+ * until the solver finishes it, at its level and not below. The level is the reasoning the solver needs (bench.h):
  *   0 easy: the ways of making each clue with its run's length (a square keeps the digits of those ways), a digit
- *     placed is not used again in its runs, a digit every way needs with one square left for it;
- *   1 medium: also every run worked out whole (the digits its squares can take together, without repeats);
- *   2 hard: also trials (a digit that leads, by the easy ways, to a contradiction).
+ *     placed is not used again in its runs;
+ *   1 medium: also a digit every way needs with one square left for it, and two or three squares sharing as many
+ *     digits;
+ *   2 hard: also every run worked out whole (the digits its squares can take together, without repeats), or trials
+ *     (a digit that leads, by the easy ways, to a contradiction).
+ * The designed levels (kakuro_levels.h, made by tools/kakuro_gen.c with this maker): 150 in six chapters, 5 x 5 to
+ * 12 x 12, kept as their solutions (the clues are their sums).
  * The player's digits may be wrong; the clashes (a digit twice in a run, a full run with the wrong sum) can be shown.
  * Squares: 0..n*n-1, row by row from the top left. The notation (script, the screenshots, the tests): a square is its
  * column letter a.. and its row 1.. from the top; "c2=4" puts 4 in c2, "c2=0" empties it, "c2'4" turns the note 4 on
@@ -32,6 +36,8 @@
 #define KKR_LEVELS 3
 #define KKR_VARIANTS (KKR_SIZES * KKR_LEVELS)
 #define KKR_RUNS KKR_CELLS
+#define KKR_STAGES 150                          /* the designed levels (kakuro_levels.h), in six chapters */
+#define KKR_CHAPTERS 6
 
 enum { KKR_EASY, KKR_MEDIUM, KKR_HARD };
 
@@ -67,9 +73,16 @@ typedef struct {
 int  kkr_runs(const kkr_puzzle *p, kkr_run *runs, uint8_t (*run_of)[2]);
 int  kkr_count(const kkr_puzzle *p, int limit); /* the solutions, up to limit (a plain search) */
 int  kkr_rate(const kkr_puzzle *p);             /* KKR_EASY..KKR_HARD; BENCH_GUESS stuck; BENCH_NONE none */
-void kkr_make(int n, int level, uint32_t seed, kkr_puzzle *p);
+void kkr_make(int n, int level, uint32_t seed, kkr_puzzle *p);   /* n 4..12 */
+/* graded with no limit on the work: the level (or BENCH_GUESS, BENCH_NONE) and the solver's passes (its effort) */
+int  kkr_effort(const kkr_puzzle *p, long *passes);
+/* the levels' code (kakuro_levels.h): "<n>:" and a character a square, row by row, '#' dark or the solution's digit
+ * (the clues are its sums); 0: does not fit, or not a puzzle */
+int  kkr_encode(const kkr_puzzle *p, char *out, int size);
+int  kkr_decode(const char *code, kkr_puzzle *p);
 
-void kkr_new(kkr_game *g, int variant, uint32_t seed);
+void kkr_new(kkr_game *g, int variant, uint32_t seed);   /* a puzzle made at random */
+void kkr_load(kkr_game *g, const kkr_puzzle *p, int level);   /* a given one (a level: variant -1) */
 int  kkr_put(kkr_game *g, int cell, int digit); /* a digit (0: empty); the note of it in its runs goes; 0: no */
 int  kkr_note(kkr_game *g, int cell, int digit);
 int  kkr_erase(kkr_game *g, int cell);

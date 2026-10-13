@@ -4,6 +4,8 @@ Isi setiap kotak putih dengan angka 1 sampai 9. Deret adalah sebaris kotak putih
 - Mudah: cara-cara membentuk setiap jumlah dengan panjang deretnya selalu cukup (3 dalam dua kotak hanya bisa 1 dan 2).
 - Sedang: kamu juga perlu angka yang dibutuhkan semua cara dan tinggal punya satu kotak, serta pasangan dalam satu deret.
 - Sulit: kamu harus memikirkan satu deret utuh sekaligus (angka mana bisa masuk kotak mana), atau mencoba satu angka dan mengikutinya.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.
 # Bermain di perangkat
 Ketuk sebuah kotak putih, lalu sebuah tombol di bawah papan: angkanya masuk dengan tinta biru. Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Kedua deret kotak itu menyala, jumlahnya berwarna emas, dan kotak yang memuat angka yang sama menyala hangat. Bila tidak ada kotak yang dipilih, sebuah tombol menyalakan kotak-kotak angkanya. Tombol-tombol di samping papan:
 - Pensil: catatan. Tombol angka lalu menaruh angka kecil di kotak, atau menghapusnya.

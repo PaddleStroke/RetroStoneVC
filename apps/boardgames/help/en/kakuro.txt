@@ -4,6 +4,8 @@ Fill every white square with a digit from 1 to 9. A run is a line of white squar
 - Easy: the ways of making each clue with its run's length are always enough (3 in two squares can only be 1 and 2).
 - Medium: you will also need a digit that every way needs, with one square left for it, and pairs in a run.
 - Hard: you will need to work out a whole run at once (which digit can go in which square), or to try a digit and follow it.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
 # Playing on the device
 Tap a white square, then a key under the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a square. The square's two runs are lit, their clues in gold, and every square holding its digit warmly. With no square picked, a key lights the squares of its digit. The buttons beside the board:
 - Pencil: notes. The keys then put small digits in the square, or take them out.

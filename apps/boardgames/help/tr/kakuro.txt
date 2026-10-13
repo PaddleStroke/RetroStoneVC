@@ -4,6 +4,8 @@ Her beyaz kareye 1'den 9'a kadar bir rakam yaz. Dizi, koyu kareler arasındaki y
 - Kolay: her toplamı dizisinin uzunluğuyla elde etmenin yolları her zaman yeter (iki karede 3 ancak 1 ile 2 olabilir).
 - Orta: tüm yolların gerektirdiği ve tek bir karesi kalan bir rakam ile bir dizideki çiftler de gerekecek.
 - Zor: bütün bir diziyi bir kerede düşünmen (hangi rakam hangi kareye girebilir) ya da bir rakamı deneyip izlemen gerekecek.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 5 × 5'ten 12 × 12'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, geri al ile sildiğin yanlış bir rakamdır.
 # Cihazda oynamak
 Beyaz bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır. Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin iki dizisi aydınlanır, toplamları altın rengini alır; aynı rakamı taşıyan kareler sıcak bir ışıkla parlar. Hiçbir kare seçili değilken bir tuş kendi rakamının karelerini aydınlatır. Tahtanın yanındaki düğmeler:
 - Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları siler.

@@ -4,6 +4,8 @@ Fyll hver hvit rute med et siffer fra 1 til 9. En rekke er en linje av hvite rut
 - Lett: måtene å lage hver sum på med rekkens lengde er alltid nok (3 i to ruter kan bare være 1 og 2).
 - Middels: du trenger også et siffer som alle måtene krever og som bare har én rute igjen, og par i en rekke.
 - Vanskelig: du må tenke gjennom en hel rekke på én gang (hvilket siffer kan stå i hvilken rute), eller prøve et siffer og følge det.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et galt siffer som du tar tilbake med Angre.
 # Spill på enheten
 Trykk på en hvit rute og så på en tast under brettet: sifferet kommer inn med blått blekk. Trykk på samme tast igjen for å fjerne det, eller dra en tast til en rute. Rutens to rekker lyser opp, summene deres i gull, og alle ruter med samme siffer varmt. Uten valgt rute lyser en tast opp rutene med sifferet sitt. Knappene ved siden av brettet:
 - Blyant: notater. Tastene setter da små sifre i ruten, eller fjerner dem.

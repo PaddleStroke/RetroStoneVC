@@ -5,6 +5,7 @@
  */
 #include "games/kakuro.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -188,13 +189,49 @@ static int run_whole(bench_grid *g, const kkr_run *r)
     return found;
 }
 
+/* The same run worked out again and again: each grade of the maker starts afresh, and the puzzle it grades differs
+ * from the last one by a digit, so most runs go the same way each time. A tier's answer for a run depends on its clue
+ * and what its squares can hold alone: kept here by those (a few thousand answers, the latest in each place). */
+#define MEMO 8192
+static struct { uint16_t in[9], out[9]; uint8_t tier, len, sum, bad; } memo[MEMO];
+
+static int run_tier(bench_grid *g, const kkr_run *r, int tier)
+{
+    int L = r->len, open = 0;
+    uint32_t h = ((uint32_t)r->sum * 31u + (uint32_t)L) * 4u + (uint32_t)tier;
+    for (int i = 0; i < L; i++) {
+        unsigned m = g->d[r->cell[i]];
+        open |= !bench_one(m);
+        h = (h ^ m) * 0x9e3779b1u;
+    }
+    if (!open && tier) return 0;                /* every square known: tier 0 has checked the run */
+    h = (h ^ h >> 15) & (MEMO - 1);
+    int hit = memo[h].len == L && memo[h].sum == r->sum && memo[h].tier == tier;
+    for (int i = 0; i < L && hit; i++) hit = memo[h].in[i] == g->d[r->cell[i]];
+    if (!hit) {
+        memo[h].tier = (uint8_t)tier;
+        memo[h].len = (uint8_t)L;
+        memo[h].sum = r->sum;
+        for (int i = 0; i < L; i++) memo[h].in[i] = g->d[r->cell[i]];
+        int res = tier == 0 ? run_easy(g, r) : tier == 1 ? run_medium(g, r) : run_whole(g, r);
+        memo[h].bad = res < 0;
+        for (int i = 0; i < L; i++) memo[h].out[i] = g->d[r->cell[i]];
+        return res;
+    }
+    if (memo[h].bad) return -1;
+    int found = 0;
+    for (int i = 0; i < L; i++)
+        if (g->d[r->cell[i]] != memo[h].out[i]) g->d[r->cell[i]] = memo[h].out[i], found = 1;
+    return found;
+}
+
 static int deduce(bench_grid *g, int tier, void *cx)
 {
     ctx_t *x = cx;
     int found = 0;
     for (int k = 0; k < x->nruns; k++) {
         const kkr_run *r = &x->run[k];
-        int res = tier == 0 ? run_easy(g, r) : tier == 1 ? run_medium(g, r) : run_whole(g, r);
+        int res = run_tier(g, r, tier);
         if (res < 0) return -1;
         found |= res;
     }
@@ -358,7 +395,13 @@ static int pattern(uint32_t *rng, int n, uint8_t *white)
     return top <= most;
 }
 
-/* digits by chance, no repeat in a run (a search that steps back when a square is left with none) */
+/* each run's leaning while the digits are dealt: -1 to the low digits, 1 to the high ones, 0 none. Clues near the
+ * least or the most their run can add up to have few ways of being made: the puzzle comes out nearer to one solution,
+ * and the maker has fewer digits to change (fast on a phone) */
+static int lean[KKR_RUNS];
+
+/* digits by chance, no repeat in a run (a search that steps back when a square is left with none); a square's digits
+ * tried in an order that leans as its two runs do */
 static int fill_rec(uint32_t *rng, const kkr_puzzle *p, const uint8_t (*run_of)[2], unsigned *used, uint8_t *sol,
                     int c, int *budget)
 {
@@ -369,6 +412,14 @@ static int fill_rec(uint32_t *rng, const kkr_puzzle *p, const uint8_t (*run_of)[
     int a = run_of[c][0], b = run_of[c][1], order[9];
     for (int i = 0; i < 9; i++) order[i] = i + 1;
     pr_shuffle(rng, order, 9);
+    int s = lean[a] + lean[b], key[10];
+    for (int i = 0; i < 9; i++) key[order[i]] = (order[i] - 5) * s + pr_below(rng, 4);
+    for (int i = 1; i < 9; i++)
+        for (int j = i; j > 0 && key[order[j]] < key[order[j - 1]]; j--) {
+            int t = order[j];
+            order[j] = order[j - 1];
+            order[j - 1] = t;
+        }
     for (int i = 0; i < 9; i++) {
         unsigned bit = 1u << order[i];
         if ((used[a] | used[b]) & bit) continue;
@@ -443,6 +494,7 @@ static int make_one(uint32_t *rng, int n, int level, kkr_puzzle *p)
     kkr_runs(p, runs, run_of);
     unsigned used[KKR_RUNS] = {0};
     int budget = 20000;
+    for (int k = 0; k < KKR_RUNS; k++) lean[k] = pr_below(rng, 3) - 1;
     if (!fill_rec(rng, p, (const uint8_t (*)[2])run_of, used, p->sol, 0, &budget)) return 0;
     clues(p);
     /* first the squares where the reasoning (up to the level) is stuck changed, until it is stuck nowhere */
@@ -488,16 +540,64 @@ void kkr_make(int n, int level, uint32_t seed, kkr_puzzle *p)
 }
 
 /* ---- the player's grid ------------------------------------------------------------------------------------------ */
-void kkr_new(kkr_game *g, int variant, uint32_t seed)
+void kkr_load(kkr_game *g, const kkr_puzzle *p, int level)
 {
     memset(g, 0, sizeof *g);
-    if (variant < 0 || variant >= KKR_VARIANTS) variant = 0;
-    g->variant = variant;
-    g->level = kkr_level_of(variant);
-    g->seed = seed;
-    kkr_make(kkr_size_of(variant), g->level, seed, &g->p);
+    g->variant = -1;
+    g->level = level;
+    g->p = *p;
     g->nruns = kkr_runs(&g->p, g->run, g->run_of);
     bench_clear(&g->hist);
+}
+
+void kkr_new(kkr_game *g, int variant, uint32_t seed)
+{
+    if (variant < 0 || variant >= KKR_VARIANTS) variant = 0;
+    static kkr_puzzle p;
+    kkr_make(kkr_size_of(variant), kkr_level_of(variant), seed, &p);
+    kkr_load(g, &p, kkr_level_of(variant));
+    g->variant = variant;
+    g->seed = seed;
+}
+
+/* ---- the levels' code: "<n>:" and a character a square, row by row: '#' dark, a digit the solution's ------------- */
+int kkr_encode(const kkr_puzzle *p, char *out, int size)
+{
+    int n = p->n, k = snprintf(out, (size_t)size, "%d:", n);
+    if (k < 0 || k + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) out[k++] = p->white[c] ? (char)('0' + p->sol[c]) : '#';
+    out[k] = 0;
+    return 1;
+}
+
+int kkr_decode(const char *s, kkr_puzzle *p)
+{
+    int n = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > KKR_MAX) return 0;
+    memset(p, 0, sizeof *p);
+    p->n = n;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s == '#') continue;
+        if (*s < '1' || *s > '9' || c % n == 0 || c < n) return 0;
+        p->white[c] = 1;
+        p->sol[c] = (uint8_t)(*s - '0');
+    }
+    if (*s) return 0;
+    clues(p);
+    return 1;
+}
+
+int kkr_effort(const kkr_puzzle *p, long *passes)
+{
+    static bench_rules r;
+    static ctx_t x;
+    bench_grid g;
+    rules_of(&r, &x, p, &g);
+    r.budget = 0;
+    int res = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    return res;
 }
 
 static void restore(void *cx, int at, uint32_t was)

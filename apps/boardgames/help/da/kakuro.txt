@@ -4,6 +4,8 @@ Udfyld hvert hvidt felt med et ciffer fra 1 til 9. En række er en linje af hvid
 - Let: måderne at danne hver sum på med rækkens længde er altid nok (3 i to felter kan kun være 1 og 2).
 - Middel: du får også brug for et ciffer, som alle måderne kræver, og som kun har ét felt tilbage, og for par i en række.
 - Svær: du må gennemtænke en hel række på én gang (hvilket ciffer kan stå i hvilket felt) eller prøve et ciffer og følge det.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.
 # Spil på enheden
 Tryk på et hvidt felt og så på en tast under brættet: cifret kommer ind med blåt blæk. Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets to rækker lyser op, deres summer i guld, og alle felter med samme ciffer varmt. Uden valgt felt får en tast felterne med sit ciffer til at lyse. Knapperne ved siden af brættet:
 - Blyant: noter. Tasterne sætter så små cifre i feltet eller fjerner dem.

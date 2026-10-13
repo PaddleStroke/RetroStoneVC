@@ -4,6 +4,8 @@ Fülle jedes weiße Feld mit einer Zahl von 1 bis 9. Ein Block ist eine Reihe we
 - Leicht: Die Möglichkeiten, jede Summe mit der Länge ihres Blocks zu bilden, reichen immer (3 in zwei Feldern geht nur mit 1 und 2).
 - Mittel: Du brauchst auch eine Zahl, die jede Möglichkeit enthält und für die nur noch ein Feld bleibt, und Paare in einem Block.
 - Schwer: Du musst einen ganzen Block auf einmal durchdenken (welche Zahl in welches Feld kann) oder eine Zahl ausprobieren und verfolgen.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Zahl, die du mit Rückgängig zurücknimmst.
 # Spielen auf dem Gerät
 Tippe ein weißes Feld an, dann eine Taste unter dem Brett: Ihre Zahl kommt hinein, in blauer Tinte. Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Die beiden Blöcke des Felds leuchten auf, ihre Summen golden, alle Felder mit seiner Zahl wärmer. Ist kein Feld gewählt, lässt eine Taste die Felder ihrer Zahl aufleuchten. Die Knöpfe neben dem Brett:
 - Bleistift: Notizen. Die Tasten setzen dann kleine Zahlen ins Feld oder nehmen sie heraus.

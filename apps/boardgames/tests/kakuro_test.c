@@ -2,7 +2,8 @@
  * Kakuro's rules: the puzzles made from many seeds for every variant (the dark squares' pattern: turned half round it
  * stays the same, the top row and the left column dark, every run 2..9 squares, the white squares joined; the
  * solution's runs without repeats and making their clues; one solution by a plain search; the level they were made
- * for; made fast), a small puzzle by hand, the player's digits, notes, hints and undo, and whole games from a seed.
+ * for; made fast), the 150 designed levels (one solution each), a small puzzle by hand, the player's digits, notes,
+ * hints and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -10,6 +11,7 @@
 #include <time.h>
 
 #include "games/kakuro.h"
+#include "games/kakuro_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -99,8 +101,32 @@ int main(void)
         printf("kakuro %dx%d level %d: %d/%d of the level, %.0f white squares, %.1f ms on average, slowest %.1f ms\n",
                n, n, level, exact, tries, (double)whites / tries, 1000 * total / tries, 1000 * slowest);
         CHECK(exact >= tries * 9 / 10);
-        CHECK(total / tries < 0.12 && slowest < 0.5);   /* CPU time (other work on the machine aside) */
+        CHECK(total / tries < 0.03 && slowest < 0.2);   /* CPU time (other work aside; 0.06 s at most seen) */
     }
+
+    /* the designed levels: each decodes, has one solution, and its clues are its solution's sums; the chapters grow
+     * (their sizes and grades) */
+    int last_n = 0, weight[KKR_CHAPTERS] = {0};
+    for (int i = 0; i < KKR_STAGES; i++) {
+        kkr_puzzle p;
+        char again[KKR_CELLS + 8];
+        int ok = kkr_decode(kkr_levels[i], &p);
+        CHECK(ok);
+        if (!ok) continue;
+        CHECK(pattern_ok(&p));
+        CHECK(kkr_count(&p, 2) == 1);
+        int r = kkr_rate(&p);
+        CHECK(r >= KKR_EASY && r <= KKR_HARD);
+        weight[i / (KKR_STAGES / KKR_CHAPTERS)] += p.n + 2 * r;   /* a chapter's weight: sizes and grades */
+        CHECK(kkr_encode(&p, again, sizeof again) && !strcmp(again, kkr_levels[i]));
+        if (i % (KKR_STAGES / KKR_CHAPTERS) == 0) {   /* a chapter starts no smaller than the last one started */
+            CHECK(p.n >= last_n);
+            last_n = p.n;
+        }
+    }
+    for (int c = 1; c < KKR_CHAPTERS; c++) CHECK(weight[c] > weight[c - 1]);
+    CHECK(kkr_decode(kkr_levels[0], &h) && h.n <= 6 && kkr_rate(&h) == KKR_EASY);
+    CHECK(!kkr_decode("4:####", &h) && !kkr_decode("3:#1#####", &h));
 
     /* the player's grid */
     kkr_game g;

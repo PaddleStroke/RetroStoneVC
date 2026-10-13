@@ -4,6 +4,8 @@ Preenche cada casa branca com um algarismo de 1 a 9. Uma faixa é uma linha de c
 - Fácil: as maneiras de formar cada soma com o comprimento da sua faixa chegam sempre (3 em duas casas só pode ser 1 e 2).
 - Médio: vais precisar também de um algarismo que todas as maneiras pedem e que só tem uma casa possível, e de pares numa faixa.
 - Difícil: vais ter de pensar numa faixa inteira de uma vez (que algarismo cabe em que casa), ou experimentar um algarismo e segui-lo.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 ao 12 × 12, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.
 # Jogar no dispositivo
 Toca numa casa branca e depois numa tecla por baixo do tabuleiro: o algarismo entra, a tinta azul. Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. As duas faixas da casa acendem-se, as suas somas a dourado, e as casas com o mesmo algarismo num tom quente. Sem casa escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
 - Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los.
