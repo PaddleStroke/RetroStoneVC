@@ -151,8 +151,8 @@ static int undo(void)
 }
 
 /* "e2e4 e7e5 e7e8q": the screenshots' and the tests' moves (castling: e1g1, or the king onto its rook; crazyhouse's
- * drops: "N@f3"; losing chess's promotion to a king: e7e8k) */
-static int script(const char *s)
+ * drops: "N@f3"; losing chess's promotion to a king: e7e8k); animate: each slides as if tapped (the bot's move) */
+static int run(const char *s, int animate)
 {
     static const char types[] = "PNBRQ";
     while (*s) {
@@ -162,7 +162,7 @@ static int script(const char *s)
             int k = t && s[2] >= 'a' && s[2] <= 'h' && s[3] >= '1' && s[3] <= '8'
                     ? drop_at((int)(t - types) + PAWN, (s[2] - 'a') + (s[3] - '1') * 8) : -1;
             if (k < 0) return 0;
-            play(legal[k], 0);
+            play(legal[k], animate);
             s += 4;
             continue;
         }
@@ -172,11 +172,23 @@ static int script(const char *s)
         int want = s[4] == 'n' ? KNIGHT : s[4] == 'r' ? ROOK : s[4] == 'b' ? BISHOP : s[4] == 'k' ? KING : QUEEN;
         if (legal[k].promo) for (; k < nlegal && !(legal[k].to == to && legal[k].promo == want); k++) {}
         if (k >= nlegal) return 0;
-        play(legal[k], 0);
+        play(legal[k], animate);
         s += 4;
         while (*s && *s != ' ') s++;
     }
     return 1;
+}
+
+static int script(const char *s) { return run(s, 0); }
+
+/* ---- the bot (chess_bot.c) --------------------------------------------------------------------------------------- */
+const cgame *chess_live(void) { return &G; }
+
+/* one move in the notation, played as if tapped (it slides; a promotion needs no picker) */
+int chess_show(const char *move)
+{
+    if (!move || !*move || strchr(move, ' ') || status() != GS_PLAY) return 0;
+    return run(move, 1);
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */

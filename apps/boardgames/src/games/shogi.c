@@ -224,6 +224,18 @@ static int script(const char *s)
     return 1;
 }
 
+/* ---- the bot (shogi_bot.c) --------------------------------------------------------------------------------------- */
+const sgame *shogi_live(void) { return &G; }
+
+/* one move in USI ("7g7f", "8h2b+", "P*5e"), played as if tapped: it slides (no promotion picker) */
+int shogi_show(const char *move)
+{
+    int used = 0, k = move && st == SG_PLAY ? sg_parse(N, legal, nlegal, move, &used) : -1;
+    if (k < 0 || move[used]) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {

@@ -95,6 +95,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (jungle_bot.c) -------------------------------------------------------------------------------------- */
+const jggame *jungle_live(void) { return &G; }
+
+/* one move ("a3a4", a jump "a1a5"), played as if tapped: it slides */
+int jungle_show(const char *move)
+{
+    int a = move ? jg_square(move) : -1, b = a >= 0 ? jg_square(move + 2) : -1, k = b >= 0 ? target(a, b) : -1;
+    if (k < 0 || move[4] || status() != GS_PLAY) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the animals ------------------------------------------------------------------------------------------------- */
 /* Each animal is a silhouette seen from the side, facing right, drawn in a 100 x 80 box (y down, its feet on y 78),
  * with cut-outs (an eye, the tiger's stripes, the leopard's spots) through which the disc shows. */

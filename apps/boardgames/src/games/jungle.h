@@ -75,4 +75,9 @@ jgstatus jg_status(const jggame *g);
 int  jg_script(jggame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define jg_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (jungle_bot.c, bots.h): the game on the screen, read-only, and one move ("a3a4") played as if tapped
+ * (jungle.c; a headless test defines both) */
+const jggame *jungle_live(void);
+int jungle_show(const char *move);
+
 #endif

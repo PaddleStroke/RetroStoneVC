@@ -15,6 +15,7 @@ B      ?= build/boardgames
 GAMES  ?= all
 # a game built on another one's rules: NEEDS_<id> := those files, built with it when it is built alone (GAMES="id")
 NEEDS_chesspuzzles := $(D)/src/games/chess.c
+BOT_NEEDS_chess := $(D)/src/games/chess.c
 GAME_SRC := $(if $(filter all,$(GAMES)),$(wildcard $(D)/src/games/*.c),\
               $(sort $(foreach g,$(GAMES),$(wildcard $(D)/src/games/$(g).c $(D)/src/games/$(g)_*.c) $(NEEDS_$(g)))))
 GEN    := $(B)/gen

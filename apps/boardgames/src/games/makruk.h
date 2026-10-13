@@ -84,4 +84,9 @@ mkstatus mk_status(const mkgame *g);
 int  mk_script(mkgame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define mk_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (makruk_bot.c, bots.h): the game on the screen, read-only, and one move ("e3e4") played as if tapped
+ * (makruk.c; a headless test defines both) */
+const mkgame *makruk_live(void);
+int makruk_show(const char *move);
+
 #endif

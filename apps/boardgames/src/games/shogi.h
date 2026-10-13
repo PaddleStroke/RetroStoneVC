@@ -75,4 +75,9 @@ int  sg_undo(sgame *g);                         /* 0: nothing to undo */
 sstatus sg_status(const sgame *g);
 #define sg_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (shogi_bot.c, bots.h): the game on the screen, read-only, and one move in USI played as if tapped (shogi.c;
+ * a headless test defines both) */
+const sgame *shogi_live(void);
+int shogi_show(const char *move);
+
 #endif

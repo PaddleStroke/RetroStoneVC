@@ -108,4 +108,9 @@ int  game_undo(cgame *g);                          /* 0: nothing to undo */
 cstatus game_status(const cgame *g);               /* checkmate: the side to move lost */
 #define game_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (chess_bot.c, bots.h): the game on the screen, read-only, and one move in the notation played as if tapped
+ * (chess_ui.c; a headless test defines both) */
+const cgame *chess_live(void);
+int chess_show(const char *move);
+
 #endif

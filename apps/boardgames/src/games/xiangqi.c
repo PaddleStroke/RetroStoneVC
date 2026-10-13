@@ -93,6 +93,18 @@ static int script(const char *s)
     return 1;
 }
 
+/* ---- the bot (xiangqi_bot.c) ------------------------------------------------------------------------------------- */
+const xgame *xiangqi_live(void) { return &G; }
+
+/* one move ("h2e2"), played as if tapped: it slides */
+int xiangqi_show(const char *move)
+{
+    int k = move && state == GS_PLAY && strlen(move) == 4 ? xq_parse(legal, nlegal, move) : -1;
+    if (k < 0) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the cannons' and soldiers' starting points: the corner marks */
 static const int MARKS[][2] = {{1, 2}, {7, 2}, {1, 7}, {7, 7}, {0, 3}, {2, 3}, {4, 3}, {6, 3}, {8, 3},

@@ -73,4 +73,9 @@ int  bq_status(const bqgame *g);                /* BQ_* */
 int  bq_script(bqgame *g, const char *s);
 #define bq_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (banqi_bot.c, bots.h): the game on the screen, read-only (the bot reads only what is face up, and the
+ * pieces taken), and one move ("c2", "c2c3") played as if tapped (banqi.c; a headless test defines both) */
+const bqgame *banqi_live(void);
+int banqi_show(const char *move);
+
 #endif

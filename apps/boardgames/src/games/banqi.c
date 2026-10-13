@@ -100,6 +100,22 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (banqi_bot.c) --------------------------------------------------------------------------------------- */
+const bqgame *banqi_live(void) { return &G; }
+
+/* one move ("c2" turns c2 over, "c2c3" moves), played as if tapped: it turns over or slides */
+int banqi_show(const char *move)
+{
+    int a = move ? bq_square(move) : -1, b = a >= 0 && move[2] ? bq_square(move + 2) : -1, k = -1;
+    if (a < 0 || (move[2] && (b < 0 || move[4])) || status() != GS_PLAY) return 0;
+    for (int i = 0; i < nlegal && k < 0; i++)
+        if (b < 0 ? legal[i].kind == BQ_FLIP && legal[i].from == a : legal[i].kind != BQ_FLIP && legal[i].from == a &&
+                                                                      legal[i].to == b) k = i;
+    if (k < 0) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static const int XQ_OF[8] = {0, XQ_GENERAL, XQ_ADVISOR, XQ_ELEPHANT, XQ_CHARIOT, XQ_HORSE, XQ_CANNON, XQ_SOLDIER};
 

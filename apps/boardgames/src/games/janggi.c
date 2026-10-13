@@ -108,6 +108,24 @@ static int script(const char *s)
     return 1;
 }
 
+/* ---- the bot (janggi_bot.c) -------------------------------------------------------------------------------------- */
+const jgame *janggi_live(void) { return &G; }
+
+/* one move ("e3f3", or "pass"), played as if tapped: it slides */
+int janggi_show(const char *move)
+{
+    if (!move || state != GS_PLAY) return 0;
+    if (!strcmp(move, "pass")) {
+        if (!can_pass()) return 0;
+        pass();
+        return 1;
+    }
+    int k = strlen(move) == 4 ? jn_parse(legal, nlegal, move) : -1;
+    if (k < 0) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the characters, JG_GENERAL..JG_SOLDIER: Cho's set, Han's set (help/glyphs.txt keeps them in the fonts) */
 static const int CHARS[2][8] = {

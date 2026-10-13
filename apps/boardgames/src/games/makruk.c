@@ -97,6 +97,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (makruk_bot.c) -------------------------------------------------------------------------------------- */
+const mkgame *makruk_live(void) { return &G; }
+
+/* one move ("e3e4"), played as if tapped: it slides */
+int makruk_show(const char *move)
+{
+    int a = move ? mk_square(move) : -1, b = a >= 0 ? mk_square(move + 2) : -1, k = b >= 0 ? target(a, b) : -1;
+    if (k < 0 || move[4] || status() != GS_PLAY) return 0;
+    play(legal[k], 1);
+    return 1;
+}
+
 /* ---- the pieces -------------------------------------------------------------------------------------------------- */
 /* the foot every piece stands on: a round plinth and a step */
 static void plinth(art_fig *f)

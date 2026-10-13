@@ -63,4 +63,9 @@ int  xq_undo(xgame *g);                         /* 0: nothing to undo */
 xstatus xq_status(const xgame *g);              /* mate or stalemate: the side to move lost */
 #define xq_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (xiangqi_bot.c, bots.h): the game on the screen, read-only, and one move ("h2e2") played as if tapped
+ * (xiangqi.c; a headless test defines both) */
+const xgame *xiangqi_live(void);
+int xiangqi_show(const char *move);
+
 #endif

@@ -70,4 +70,9 @@ int  jn_undo(jgame *g);                         /* 0: nothing to undo */
 jstatus jn_status(const jgame *g);              /* mate: the side to move lost */
 #define jn_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (janggi_bot.c, bots.h): the game on the screen, read-only, and one move ("e3f3", "pass") played as if
+ * tapped (janggi.c; a headless test defines both) */
+const jgame *janggi_live(void);
+int janggi_show(const char *move);
+
 #endif
