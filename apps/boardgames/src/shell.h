@@ -255,6 +255,48 @@ ui_grid ui_grid_fit(box b, int cols, int rows, float frame);
 void ui_grid_cell(const ui_grid *g, int col, int row, float *x, float *y);   /* the game's cell: its top left */
 int  ui_grid_hit(const ui_grid *g, float x, float y, int *col, int *row);    /* the game's cell there: 1, else 0 */
 
+/* ---- the loupe, for boards whose cells are small for a finger (go 19 x 19, gomoku, hex 11 x 11, word tiles): while
+ * a finger is down on the board, a square window beside it shows the cells under it magnified (the ghost stone, the
+ * target square in it), so the finger can slide to the right point before it lets go. It sits above the finger
+ * (below it for a player whose hand comes from the top, or when there is no room above), inside the room given, in a
+ * walnut frame. The game draws what it shows itself, between ui_loupe_begin() and ui_loupe_end(): each point of the
+ * board at ui_loupe_map()'s place, its sizes times l.z. */
+#define UI_LOUPE_SMALL 0.06f                    /* cells under this part of the screen's short side: it shows */
+#define UI_LOUPE_Z 2.3f                         /* its magnification */
+typedef struct {
+    float fx, fy;                               /* the point of the board it magnifies (the finger's) */
+    float cx, cy, side, z, cell;                /* its window: the centre, the side; the magnification; a cell */
+} ui_loupe;
+int  ui_loupe_small(float cell);                /* 1: cells this wide (pixels) are small for a finger */
+/* the loupe for a finger at (fx, fy) on cells `cell` wide, `cells` of them across, inside the box room: above the
+ * finger, or below it (below 1: the player's hand comes from the top: face to face); smaller (down to 0.6 of its
+ * size) where the room on that side is short, on the other side when even that does not fit there */
+ui_loupe ui_loupe_at(float fx, float fy, float cell, float cells, int below, box room);
+void ui_loupe_map(const ui_loupe *l, float x, float y, float *lx, float *ly);   /* a board's point as it shows it */
+void ui_loupe_begin(const ui_loupe *l);         /* its shadow, frame and table; then drawing is clipped to it */
+void ui_loupe_end(void);                        /* the clip lifted */
+/* a finger put down near the ghost stone on small cells (closer than `slack`) is taken as put down on it: the offset
+ * from the finger to the ghost, kept while the finger slides (else 0, 0) */
+void ui_loupe_snap(float x, float y, float gx, float gy, float slack, float *dx, float *dy);
+
+/* ---- trays by the players' sides, for two-player boards that fill the room (game.fill): in the room the board
+ * leaves (above and below it when the room is taller than the board, else beside it on the right: the top player's
+ * half above the bottom player's), what each player holds (pieces still to place) or has taken, near them. Slots: n
+ * of them, in rows of cols, the first nearest the player and on their left (the top player's turned round face to
+ * face). No room for slots of side `least`: no trays (ui_trays_on 0), the game shows them otherwise (in its bars). */
+typedef struct {
+    box b[2];                                   /* player p's tray (w 0: no trays) */
+    int n, cols, rows;                          /* its slots: n, in rows of cols, the first row nearest the player */
+    float pitch;                                /* a slot's side, pixels */
+} ui_trays;
+/* the board (bw x bh pixels) in the room r, with a tray by each player's side for n things in slots of side up to
+ * `most` (none below `least`): the board's top left in *x, *y (whole pixels) */
+void ui_trays_place(ui_trays *t, box r, float bw, float bh, int n, float most, float least, float *x, float *y);
+int  ui_trays_on(const ui_trays *t);
+/* slot i's centre in player p's tray: the first row along the side nearest them, from their left */
+void ui_trays_slot(const ui_trays *t, int p, int i, float *cx, float *cy);
+int  ui_trays_hit(const ui_trays *t, int p, float x, float y);   /* 1: (x, y) in player p's tray */
+
 /* a game's own words in the game (a bid, a call; no other words outside the rules page): line i of its words
  * (text_word: help/<lang>/<id>_words.txt, key "<id>_words") as a picture, bold, px pixels, no wider than maxw (made
  * smaller to fit), in rgb. The shell keeps it; *w x *h its size (the ink centred in it, 1.55 px high). NULL: none. */

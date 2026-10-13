@@ -9,14 +9,13 @@
  * turn (two, then one); the first stone of a pair half played is marked as selected; the rings show the other
  * player's last turn (its one or two stones). Undo takes back one stone. The script's moves: "h8 i9 ..." (gomoku.h).
  * Renju: while ebony is to move, its forbidden points carry a small red cross (a tap there is refused). Where the
- * points are small (loupe.h), a loupe beside the finger shows them magnified while it is down, and a second tap near
+ * points are small, the shell's loupe beside the finger shows them magnified while it is down, and a second tap near
  * the ghost counts as on it. The board is a square in the middle of the room the shell gives (game.fill).
  */
 #include <string.h>
 
 #include "games/gomoku.h"
 #include "games/grid.h"
-#include "games/loupe.h"
 #include "shell.h"
 
 #define SET_MS 110                              /* a new stone set down */
@@ -121,7 +120,7 @@ static void layout(box b)
     float side = fminf(b.w, b.h);               /* a square in the middle of the room */
     room = b;
     grid_layout(&B, (box){floorf(b.x + (b.w - side) / 2), floorf(b.y + (b.h - side) / 2), side, side});
-    int z = loupe_small((float)B.sq) ? (int)lroundf(B.sq * LOUPE_Z) : 0;
+    int z = ui_loupe_small((float)B.sq) ? (int)lroundf(B.sq * UI_LOUPE_Z) : 0;
     if (made_z != z) {                          /* the loupe's stones and cross, crisp */
         made_z = z;
         for (int p = 0; p < 2; p++) {
@@ -194,7 +193,7 @@ static void draw_loupe(float t)
 {
     if (gk_status(&G) != GK_PLAY || !B.ghost.down || !t_zstone[0]) return;
     float fx = fing.x + fing.dx, fy = fing.y + fing.dy;
-    loupe l = loupe_at(fx, fy, (float)B.sq, LOUPE_PTS, ui_upside(turn()), room);
+    ui_loupe l = ui_loupe_at(fx, fy, (float)B.sq, LOUPE_PTS, ui_upside(turn()), room);
     grid z = B;                                 /* the same board, its points larger round the finger */
     z.sq = made_z;
     z.fr = (int)lroundf(B.fr * (float)z.sq / B.sq);
@@ -204,9 +203,9 @@ static void draw_loupe(float t)
     z.t_stone[0] = t_zstone[0];
     z.t_stone[1] = t_zstone[1];
     l.z = k;
-    loupe_begin(&l);
+    ui_loupe_begin(&l);
     draw_board(&z, t, t_zcross);
-    loupe_end();
+    ui_loupe_end();
 }
 
 static void draw(void)
@@ -226,10 +225,10 @@ static void press(float x, float y)
 {
     if (gk_status(&G) != GK_PLAY) return;
     fing.x = x, fing.y = y, fing.dx = fing.dy = 0;
-    if (B.ghost.on && loupe_small((float)B.sq)) {   /* small points: a tap near the ghost is on it */
+    if (B.ghost.on && ui_loupe_small((float)B.sq)) {   /* small points: a tap near the ghost is on it */
         float gx, gy;
         grid_xy(&B, B.ghost.pt, &gx, &gy);
-        loupe_snap(x, y, gx, gy, 0.8f * B.sq, &fing.dx, &fing.dy);
+        ui_loupe_snap(x, y, gx, gy, 0.8f * B.sq, &fing.dx, &fing.dy);
     }
     grid_press(&B, x + fing.dx, y + fing.dy, legal);
 }

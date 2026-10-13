@@ -114,7 +114,10 @@ One look across the app, like the Arcade games' house kit:
   `UI_MAX_TOOLS`): the game's own round buttons, laid out by the shell where they cost the board least (portrait: up
   to three at the right end of the bottom bar, more in a row above it; landscape: in the side column); the game draws
   them (`ui_tool(i, ICON_*, how)`, `ui_tool_paint`) and finds them in `press()` (`ui_tool_hit`); `ui_tools_shown(n)`
-  the first n only.
+  the first n only. **Trays** (`ui_trays_place`, `ui_trays_slot`, `ui_trays_hit`): a two-player board placed in the
+  room with a tray by each player's side (above and below it, or beside it) for the pieces they hold or took (dara,
+  jungle, xiangqi). **The loupe** (`ui_loupe_small`, `ui_loupe_at`, `ui_loupe_begin` / `ui_loupe_end`): cells small for
+  a finger shown magnified beside it while it is down (go 19 x 19, hex, word tiles).
 - **The game's pictures for the shell**: `thumb(variant, size)` (the menu's card, -1, and the picker's cards),
   `token(player, size)` (the bars, the end-of-game card: a piece of that player).
 - **Undo** goes back one move (all the way to the start), **status** says who won, **turn** who moves,

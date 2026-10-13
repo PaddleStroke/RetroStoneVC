@@ -8,16 +8,15 @@
  * top left towards the bottom right, lying along a wide room (landscape), steeper in a tall one (a phone held
  * upright), corner to corner in a square; the plank is cut to it. Each side is painted the colour of the player who
  * joins it: ivory top and bottom, ebony left and right. A tap plays on an empty cell; on 11 x 11 (small cells on a
- * phone) the first tap shows a ghost stone and a second tap on it plays it, like go. Where the cells are small
- * (loupe.h), a loupe beside the finger shows them magnified while it is down, and a second tap near the ghost counts
- * as on it. The swap: on the second move ebony taps ivory's stone, a ghost shows where it goes (its mirror cell,
+ * phone) the first tap shows a ghost stone and a second tap on it plays it, like go. Where the cells are small, the
+ * shell's loupe beside the finger shows them magnified while it is down, and a second tap near the ghost counts as on
+ * it. The swap: on the second move ebony taps ivory's stone, a ghost shows where it goes (its mirror cell,
  * ebony's), a second tap swaps. The script's moves: "a1 b3 swap" (hex.h).
  */
 #include <math.h>
 #include <string.h>
 
 #include "games/hex.h"
-#include "games/loupe.h"
 #include "shell.h"
 
 #define FRAME 0.035f                            /* the board's frame, a part of its side */
@@ -270,7 +269,7 @@ static void layout(box b)
     bx = floorf(b.x + (b.w - bw) / 2);
     by = floorf(b.y + (b.h - bh) / 2);
     fit(&V, n, tilt, iw, ih, bx + bw / 2.0f, by + bh / 2.0f, ui.flipped);
-    int zs = loupe_small(V.s) ? (int)lroundf(V.s * LOUPE_Z) : 0;
+    int zs = ui_loupe_small(V.s) ? (int)lroundf(V.s * UI_LOUPE_Z) : 0;
     if (made_z != zs) {                         /* the loupe's stones, crisp */
         made_z = zs;
         for (int p = 0; p < 2; p++) {
@@ -381,18 +380,18 @@ static void draw_loupe(float t)
 {
     if (!ghost.down || !t_zstone[0] || status() != GS_PLAY) return;
     float fx = fing.x + fing.dx, fy = fing.y + fing.dy;
-    loupe l = loupe_at(fx, fy, V.s, LOUPE_CELLS, ui_upside(turn()), room);
+    ui_loupe l = ui_loupe_at(fx, fy, V.s, LOUPE_CELLS, ui_upside(turn()), room);
     float k = made_z / V.s, px, py;
     view z = V;                                 /* the same board, k times as big round the finger */
     z.s = V.s * k;
     l.z = k;
-    loupe_map(&l, V.x0, V.y0, &z.x0, &z.y0);
-    loupe_map(&l, bx, by, &px, &py);
-    loupe_begin(&l);
+    ui_loupe_map(&l, V.x0, V.y0, &z.x0, &z.y0);
+    ui_loupe_map(&l, bx, by, &px, &py);
+    ui_loupe_begin(&l);
     stones = t_zstone;
     draw_board(&z, px, py, k, t);
     stones = t_stone;
-    loupe_end();
+    ui_loupe_end();
 }
 
 static void draw(void)
@@ -424,10 +423,10 @@ static void press(float x, float y)
 {
     if (status() != GS_PLAY) return;
     fing.x = x, fing.y = y, fing.dx = fing.dy = 0;
-    if (ghost.on && loupe_small(V.s)) {         /* small cells: a tap near the ghost (as shown) is on it */
+    if (ghost.on && ui_loupe_small(V.s)) {         /* small cells: a tap near the ghost (as shown) is on it */
         float gx, gy;
         cell_in(&V, swappable(ghost.cell) ? hex_mirror(G.n, ghost.cell) : ghost.cell, &gx, &gy);
-        loupe_snap(x, y, gx, gy, 0.8f * V.s, &fing.dx, &fing.dy);
+        ui_loupe_snap(x, y, gx, gy, 0.8f * V.s, &fing.dx, &fing.dy);
     }
     int cell = xy_cell(x + fing.dx, y + fing.dy);
     if (cell < 0) { ghost.on = 0; return; }

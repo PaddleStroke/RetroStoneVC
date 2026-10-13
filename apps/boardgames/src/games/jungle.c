@@ -12,7 +12,6 @@
 #include <string.h>
 
 #include "games/jungle.h"
-#include "games/trays.h"
 #include "shell.h"
 #include "text.h"
 
@@ -29,7 +28,7 @@ static int sq, fr, made = -1, made_small = -1;
 static float bx, by;                            /* the squares' top left corner (inside the frame) */
 static SDL_Texture *t_piece[2][9], *t_small[2][9], *t_board;
 static int sel = -1;
-static trays T;                                 /* the animals each player took, by their side */
+static ui_trays T;                              /* the animals each player took, by their side */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; jgmove m; Uint32 t0; } anim;
 
@@ -453,7 +452,7 @@ static void layout(box b)
     sq = (int)floorf(fminf(b.h / (JG_H + 2 * FRAME), b.w / (JG_W + 2 * FRAME)));
     fr = (int)(sq * FRAME);
     int w = JG_W * sq + 2 * fr, h = JG_H * sq + 2 * fr;
-    trays_place(&T, b, (float)w, (float)h, 8, (float)sq, 0.7f * ui.unit, &bx, &by);
+    ui_trays_place(&T, b, (float)w, (float)h, 8, (float)sq, 0.7f * ui.unit, &bx, &by);
     bx += fr;
     by += fr;
     if (made != sq) {
@@ -530,7 +529,7 @@ static int taken(int player, int gone[9])
  * taken joins them once it has faded from the board */
 static void draw_trays(void)
 {
-    if (!trays_on(&T)) return;
+    if (!ui_trays_on(&T)) return;
     for (int c = 0; c < 2; c++) {
         int gone[9], i = 0;
         taken(c, gone);
@@ -538,7 +537,7 @@ static void draw_trays(void)
         for (int r = JG_ELEPHANT; r >= JG_RAT; r--) {
             if (!gone[r]) continue;
             float x, y;
-            trays_slot(&T, c, i++, &x, &y);
+            ui_trays_slot(&T, c, i++, &x, &y);
             ui_flat_at(t_piece[!c][r], x, y, DISC * T.pitch, 1, ui_upside(c));
         }
     }
@@ -641,7 +640,7 @@ static void release(float x, float y)
 /* the animals a player took, the strongest first (in the bar when there are no trays) */
 static void bar(int player, box b)
 {
-    if (trays_on(&T)) return;
+    if (ui_trays_on(&T)) return;
     int c = !player, gone[9], n = taken(player, gone);
     float sz = 0.6f * ui.unit, x = b.x, cy = b.y + b.h / 2;
     float step = n > 1 ? fminf(0.66f * ui.unit, (b.w - sz) / (n - 1)) : 0;

@@ -13,7 +13,6 @@
 
 #include "games/fanorona.h"
 #include "games/lines.h"
-#include "games/trays.h"
 #include "shell.h"
 
 #define DISC 0.7f                               /* a disc's size, in cells */
@@ -23,7 +22,7 @@
 
 /* the plank: 9 x 5 cells (a point in the middle of each), a frame of LINES_FRAME cells */
 static lines_geo P = {.cells = FN_COLS, .rows = FN_ROWS};
-static trays T;                                 /* the pieces each player took, by their side */
+static ui_trays T;                              /* the pieces each player took, by their side */
 static fngame G;
 static fnmove legal[FN_MAX_MOVES];
 static int nlegal, made_small = -1;
@@ -165,7 +164,7 @@ static void layout(box b)
 {
     int changed = lines_fit(&P, b), sq = P.sq, w = (int)lines_side(&P), h = (int)lines_tall(&P);
     float x, y;
-    trays_place(&T, b, (float)w, (float)h, FN_PIECES, 0.8f * sq, 0.7f * ui.unit, &x, &y);
+    ui_trays_place(&T, b, (float)w, (float)h, FN_PIECES, 0.8f * sq, 0.7f * ui.unit, &x, &y);
     P.x = x + P.fr;
     P.y = y + P.fr;
     if (changed) {
@@ -214,13 +213,13 @@ static void disc_at(int who, float cx, float cy, float d, float alpha) { ui_flat
 /* the pieces each player took, by their side: the last turn's join them once they have faded from the board */
 static void draw_trays(void)
 {
-    if (!trays_on(&T)) return;
+    if (!ui_trays_on(&T)) return;
     for (int c = 0; c < 2; c++) {
         int n = FN_PIECES - fn_pos(&G)->left[!c];
         if (anim.on && anim.who == c) n -= anim.n;
         for (int i = 0; i < n; i++) {
             float x, y;
-            trays_slot(&T, c, i, &x, &y);
+            ui_trays_slot(&T, c, i, &x, &y);
             disc_at(!c, x, y, 0.86f * T.pitch, 1);
         }
     }

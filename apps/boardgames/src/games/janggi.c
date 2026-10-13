@@ -14,7 +14,6 @@
 
 #include "games/janggi.h"
 #include "games/palace.h"
-#include "games/trays.h"
 #include "shell.h"
 #include "text.h"
 
@@ -27,7 +26,7 @@ static palace B;                                /* the board on the screen */
 static int made = -1, made_small = -1;
 static SDL_Texture *t_piece[2][8], *t_small[2][8], *t_board;
 static int sel = -1;
-static trays T;                                 /* the pieces each player took, by their side */
+static ui_trays T;                              /* the pieces each player took, by their side */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; jmove m; Uint32 t0; } anim;
 
@@ -133,7 +132,7 @@ static void layout(box b)
     palace_fit(&B, b);
     int sq = B.sq;
     float x, y;
-    trays_place(&T, b, (float)(PALACE_W * sq + 2 * B.fr), (float)(PALACE_H * sq + 2 * B.fr), 15, (float)sq,
+    ui_trays_place(&T, b, (float)(PALACE_W * sq + 2 * B.fr), (float)(PALACE_H * sq + 2 * B.fr), 15, (float)sq,
                 0.7f * ui.unit, &x, &y);
     B.bx = x + B.fr;
     B.by = y + B.fr;
@@ -191,7 +190,7 @@ static const int ORDER[6] = {JG_CHARIOT, JG_CANNON, JG_HORSE, JG_ELEPHANT, JG_GU
 /* the pieces each player took, in the tray by their side, the strongest first, their characters facing them */
 static void draw_trays(void)
 {
-    if (!trays_on(&T)) return;
+    if (!ui_trays_on(&T)) return;
     for (int c = 0; c < 2; c++) {
         int gone[8], i = 0;
         taken(c, gone, 1);
@@ -199,7 +198,7 @@ static void draw_trays(void)
             for (int j = 0; j < gone[ORDER[k]]; j++) {
                 float x, y, d = T.pitch, w = SIZE[ORDER[k]] * 0.9f * d;
                 SDL_Texture *t = t_piece[!c][ORDER[k]];
-                trays_slot(&T, c, i++, &x, &y);
+                ui_trays_slot(&T, c, i++, &x, &y);
                 ui_shadow_flat(x, y, w, w, 1);
                 if (ui_upside(c)) ui_put_rot(t, x, y, d, d, 180);
                 else ui_put_c(t, x, y, d, d);
@@ -315,7 +314,7 @@ static void release(float x, float y)
 /* the pieces a player took from the other: small octagons, the strongest first (when there are no trays) */
 static void bar(int player, box b)
 {
-    if (trays_on(&T)) return;
+    if (ui_trays_on(&T)) return;
     const int *order = ORDER;
     int c = !player, gone[8], total = taken(player, gone, 0), groups = 0;
     for (int k = 0; k < 6; k++) groups += gone[order[k]] > 0;

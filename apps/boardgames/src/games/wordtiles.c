@@ -28,7 +28,6 @@
 
 #include "cards.h"
 #include "cards_table.h"
-#include "games/loupe.h"
 #include "games/race.h"
 #include "games/wordtiles.h"
 #include "shell.h"
@@ -911,13 +910,13 @@ static void draw_knobs(void)
     ui_number(T.kx[K_BAG], T.ky[K_BAG] + 0.14f * bs, 0.3f * bs, P->nbag, 0);
 }
 
-/* the loupe (loupe.h): the squares round the finger, magnified, above it (below it near the top of the screen) */
+/* the loupe (the shell's): the squares round the finger, magnified, above it (below it near the top of the screen) */
 static void draw_loupe(void)
 {
     if (!fing.down || !mine() || pick.on) return;
     if (!(fing.src == SRC_CELL || (fing.moved && (fing.src == SRC_RACK || fing.src == SRC_BOARD)))) return;
     if (!on_board(fing.x, fing.y)) return;
-    loupe l = loupe_at(fing.x, fing.y, T.sq, LOUPE_CELLS, 0, (box){0, 0, (float)ui.w, (float)ui.h});
+    ui_loupe l = ui_loupe_at(fing.x, fing.y, T.sq, LOUPE_CELLS, 0, (box){0, 0, (float)ui.w, (float)ui.h});
     int target = cell_at(fing.x, fing.y), held = 0;
     if (target >= 0 && (P->board[target] || placed_cell(target) >= 0)) {
         if (!(fing.src == SRC_BOARD && placed_cell(target) == fing.idx)) held = -1;
@@ -929,10 +928,10 @@ static void draw_loupe(void)
     }
     if (held == WT_BLANK) held = 0;             /* a blank: its letter comes after */
     float ox, oy;
-    loupe_map(&l, T.ox, T.oy, &ox, &oy);
-    loupe_begin(&l);
+    ui_loupe_map(&l, T.ox, T.oy, &ox, &oy);
+    ui_loupe_begin(&l);
     draw_board(ox, oy, T.sq * l.z, target, held > 0 ? held : 0);
-    loupe_end();
+    ui_loupe_end();
 }
 
 /* the blank's letters: a grid of tiles on a dark panel */

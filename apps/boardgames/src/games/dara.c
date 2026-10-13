@@ -14,7 +14,6 @@
 
 #include "games/dara.h"
 #include "games/lines.h"
-#include "games/trays.h"
 #include "shell.h"
 
 #define DROP_MS 130
@@ -29,7 +28,7 @@ static dargame G;
 static darmove legal[DAR_MAX_MOVES];
 static int nlegal, sel = -1;
 static lines_geo L = {.cells = DAR_W, .rows = DAR_H};
-static trays T;                                 /* by each player's side: the discs in hand, then those taken */
+static ui_trays T;                              /* by each player's side: the discs in hand, then those taken */
 static int made = -1, made_small = -1;
 static SDL_Texture *t_disc[2], *t_small[2], *t_board;
 static struct { int on, from, moved; float x, y; } drag;
@@ -128,7 +127,7 @@ static void layout(box b)
 {
     int changed = lines_fit(&L, b);
     float x, y;
-    trays_place(&T, b, lines_side(&L), lines_tall(&L), DAR_PIECES, 0.94f * L.sq, 0.7f * ui.unit, &x, &y);
+    ui_trays_place(&T, b, lines_side(&L), lines_tall(&L), DAR_PIECES, 0.94f * L.sq, 0.7f * ui.unit, &x, &y);
     L.x = x + L.fr;
     L.y = y + L.fr;
     if (changed || made != L.sq) {
@@ -188,13 +187,13 @@ static int taken(int player)                   /* the discs the player took */
 }
 
 /* the moves that come from a tray or go to one (trays shown): a disc placed, a disc taken */
-static int via_tray(darmove m) { return trays_on(&T) && (m.kind == DAR_PLACE || m.kind == DAR_TAKE); }
+static int via_tray(darmove m) { return ui_trays_on(&T) && (m.kind == DAR_PLACE || m.kind == DAR_TAKE); }
 
 /* the trays: while placing, the discs each player has in hand; then the discs each took. The disc on its way (from
  * the tray to its hole, from its hole to the taker's tray, dragged) is not in them */
 static void draw_trays(void)
 {
-    if (!trays_on(&T)) return;
+    if (!ui_trays_on(&T)) return;
     const darpos *p = dar_pos(&G);
     float k = 0.9f * T.pitch / (DISC * L.sq), x, y;
     for (int c = 0; c < 2; c++) {
@@ -202,7 +201,7 @@ static void draw_trays(void)
         if (place && drag.on && drag.moved && drag.from == HAND && c == p->side) n--;
         if (!place && anim.on && anim.m.kind == DAR_TAKE && c != anim.who) n--;
         for (int i = 0; i < n; i++) {
-            trays_slot(&T, c, i, &x, &y);
+            ui_trays_slot(&T, c, i, &x, &y);
             disc_at(place ? c : !c, x, y, k, 1);
         }
     }
@@ -246,7 +245,7 @@ static void draw(void)
         if (via_tray(m)) {                      /* from the mover's tray to the hole; to the taker's tray */
             float tx, ty, k = 0.9f * T.pitch / (DISC * L.sq), lift = 0.1f * sinf(t * 3.14159265f);
             int place = m.kind == DAR_PLACE, tray = place ? anim.who : !anim.who;
-            trays_slot(&T, tray, place ? p->hand[tray] : taken(tray) - 1, &tx, &ty);
+            ui_trays_slot(&T, tray, place ? p->hand[tray] : taken(tray) - 1, &tx, &ty);
             if (place) disc_at(anim.who, tx + (x - tx) * e, ty + (y - ty) * e, k + (1 - k) * e + lift, 1);
             else disc_at(anim.who, x + (tx - x) * e, y + (ty - y) * e, 1 + (k - 1) * e + lift, 1);
         } else if (m.kind == DAR_PLACE) disc_at(anim.who, x, y, 1.16f - 0.16f * e, 1);   /* set down from above */
@@ -281,7 +280,7 @@ static void press(float x, float y)
     if (status() != GS_PLAY || anim.on) return;
     const darpos *p = dar_pos(&G);
     int h = xy_hole(x, y), i;
-    if (h < 0 && p->phase == DAR_PLACE && p->hand[p->side] && trays_hit(&T, p->side, x, y)) {
+    if (h < 0 && p->phase == DAR_PLACE && p->hand[p->side] && ui_trays_hit(&T, p->side, x, y)) {
         drag.on = 1;                            /* a disc taken from the tray, to drop in a hole */
         drag.from = HAND;
         drag.moved = 0;

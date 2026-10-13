@@ -1363,6 +1363,111 @@ int ui_grid_hit(const ui_grid *g, float x, float y, int *col, int *row)
     return 1;
 }
 
+/* ---- the loupe: small cells magnified under the finger ---------------------------------------------------------- */
+int ui_loupe_small(float cell) { return cell < UI_LOUPE_SMALL * fminf((float)ui.w, (float)ui.h); }
+
+ui_loupe ui_loupe_at(float fx, float fy, float cell, float cells, int below, box room)
+{
+    ui_loupe l = {fx, fy, 0, 0, floorf(cells * cell * UI_LOUPE_Z), UI_LOUPE_Z, cell};
+    float full = l.side, gap = 0.75f * ui.unit, k = 1.05f;   /* k: the frame round it */
+    float up = fy - gap - room.y, dn = room.y + room.h - fy - gap;   /* the room above and below the finger */
+    float pref = below ? dn : up, other = below ? up : dn;
+    int down = pref < 0.6f * full * k && other > pref ? !below : below;
+    l.side = floorf(fmaxf(0.6f * full, fminf(full, (down ? dn : up) / k)));
+    float half = l.side * k / 2;
+    l.cx = clampf(fx, room.x + half, room.x + room.w - half);
+    l.cy = clampf(down ? fy + gap + half : fy - gap - half, room.y + half, room.y + room.h - half);
+    return l;
+}
+
+void ui_loupe_map(const ui_loupe *l, float x, float y, float *lx, float *ly)
+{
+    *lx = l->cx + (x - l->fx) * l->z;
+    *ly = l->cy + (y - l->fy) * l->z;
+}
+
+void ui_loupe_begin(const ui_loupe *l)
+{
+    float s = l->side, x0 = floorf(l->cx - s / 2), y0 = floorf(l->cy - s / 2), e = fmaxf(4, 0.022f * s);
+    ui_shadow_flat(l->cx + 0.03f * s, l->cy + 0.05f * s, s * 1.08f, s * 1.08f, 0.8f);
+    ui_fill(x0 - e, y0 - e, s + 2 * e, s + 2 * e, 92, 60, 40, 255);   /* a walnut frame */
+    ui_fill(x0 - e * 0.4f, y0 - e * 0.4f, s + 0.8f * e, s + 0.8f * e, 52, 34, 22, 255);
+    SDL_Rect clip = {(int)x0, (int)y0, (int)s, (int)s};
+    SDL_RenderSetClipRect(ui.r, &clip);
+    ui_fill(x0, y0, s, s, 30, 60, 44, 255);
+}
+
+void ui_loupe_end(void) { SDL_RenderSetClipRect(ui.r, NULL); }
+
+void ui_loupe_snap(float x, float y, float gx, float gy, float slack, float *dx, float *dy)
+{
+    int near = hypotf(x - gx, y - gy) < slack;
+    *dx = near ? gx - x : 0;
+    *dy = near ? gy - y : 0;
+}
+
+/* ---- trays by the players' sides -------------------------------------------------------------------------------- */
+/* the biggest slots (side up to `most`) for n things in w x h: cols x rows of side *pitch; of those as big, the
+ * fewest rows (wide: a tray along the board) or the fewest columns (one beside it) */
+static void trays_grid(float w, float h, int n, float most, int wide, int *cols, int *rows, float *pitch)
+{
+    *cols = n, *rows = 1, *pitch = 0;
+    for (int k = 1; k <= n; k++) {
+        int c = wide ? n + 1 - k : k, r = (n + c - 1) / c;
+        float p = floorf(fminf(fminf(w / c, h / r), most));
+        if (p > *pitch) *cols = c, *rows = r, *pitch = p;
+    }
+}
+
+void ui_trays_place(ui_trays *t, box r, float bw, float bh, int n, float most, float least, float *x, float *y)
+{
+    memset(t, 0, sizeof *t);
+    t->n = n;
+    *x = floorf(r.x + (r.w - bw) / 2);
+    *y = floorf(r.y + (r.h - bh) / 2);
+    int bottom = ui_bottom(), c, rows;
+    float p, gap = floorf(0.25f * least);
+    if (r.h - bh >= r.w - bw) {                 /* above and below the board, as wide as it */
+        float d = (r.h - bh) / 2 - gap;
+        if (d < least) return;
+        trays_grid(bw, d, n, most, 1, &c, &rows, &p);
+        if (p < least) return;
+        float th = rows * p, y0 = floorf(r.y + (r.h - bh) / 2 - gap - th);
+        t->b[!bottom] = (box){*x, y0, bw, th};
+        t->b[bottom] = (box){*x, *y + bh + gap, bw, th};
+    } else {                                    /* beside it, on the right: the top player's half, the bottom one's */
+        float d = r.w - bw - gap, hh = floorf((bh - gap) / 2);
+        if (d < least) return;
+        trays_grid(d, hh, n, most, 0, &c, &rows, &p);
+        if (p < least) return;
+        float tw = c * p;
+        *x = floorf(r.x + (r.w - bw - gap - tw) / 2);
+        t->b[!bottom] = (box){*x + bw + gap, *y, tw, hh};
+        t->b[bottom] = (box){*x + bw + gap, *y + bh - hh, tw, hh};
+    }
+    t->cols = c, t->rows = rows, t->pitch = p;
+}
+
+int ui_trays_on(const ui_trays *t) { return t->b[0].w > 0; }
+
+void ui_trays_slot(const ui_trays *t, int p, int i, float *cx, float *cy)
+{
+    box b = t->b[p];
+    int top = p != ui_bottom(), col = i % t->cols, row = i / t->cols;
+    float gw = t->cols * t->pitch, gh = t->rows * t->pitch;
+    float x0 = b.x + floorf((b.w - gw) / 2), y0 = top ? b.y : b.y + b.h - gh;
+    if (ui_upside(p)) col = t->cols - 1 - col;
+    if (!top) row = t->rows - 1 - row;
+    *cx = x0 + (col + 0.5f) * t->pitch;
+    *cy = y0 + (row + 0.5f) * t->pitch;
+}
+
+int ui_trays_hit(const ui_trays *t, int p, float x, float y)
+{
+    box b = t->b[p];
+    return b.w > 0 && x >= b.x && x < b.x + b.w && y >= b.y && y < b.y + b.h;
+}
+
 /* a tab's picture: the pieces of its section (a draughts man, a knight, a die, a card, a question, a marble, a jigsaw
  * piece) */
 static void tab_icon(int s, int d, uint8_t *o)
