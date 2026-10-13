@@ -84,6 +84,10 @@ void art_piece_style(int type, const art_style *st, int size, uint8_t *rgba);
 void art_board(int sq, int fr, uint8_t *rgba);
 /* the same wood, n x m squares (light / dark: checkered; plain: one wood, no squares) */
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
+/* one plain plank, any shape: w x h pixels of wood inside a walnut frame of fr pixels ((w + 2 fr) x (h + 2 fr) in
+ * all), its grain at the scale of a square plank of its short side (art_board_n's plain wood sets it by the square:
+ * finer grain): a tray under a grid, a field stretched over the whole room */
+void art_plank(int w, int h, int fr, uint8_t *rgba);
 
 /* the green felt of the dice games over a rectangle [x0, x1) x [y0, y1) of a picture (w x h): fine fibres, darker
  * towards its edges (under the walls) */

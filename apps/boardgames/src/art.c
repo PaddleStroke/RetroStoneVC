@@ -495,19 +495,21 @@ static float hash(int a, int b)
     return (h & 0xffff) / 65535.0f;
 }
 
-void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
+/* the wood inside (iw x ih pixels: squares of sq when checkered; a plank's grain at the scale of a plank gs wide) in
+ * its walnut frame (fr pixels) */
+static void board(int iw, int ih, int sq, float gs, int fr, int checkered, uint8_t *o)
 {
     static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, plain[3] = {222, 184, 128},
                        frame[3] = {92, 60, 40};
-    int w = nx * sq + 2 * fr, h = ny * sq + 2 * fr;
+    int w = iw + 2 * fr, h = ih + 2 * fr;
     float rad = fr * 0.7f;
     for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++) {
             uint8_t *p = o + 4 * (y * w + x);
             float c[3], a = 1;
             int bx = x - fr, by = y - fr;
-            if (bx >= 0 && by >= 0 && bx < nx * sq && by < ny * sq) {
-                float u = (float)bx / sq, v = (float)by / sq;
+            if (bx >= 0 && by >= 0 && bx < iw && by < ih) {
+                float u = bx / gs, v = by / gs;
                 if (checkered) {
                     int f = bx / sq, r = by / sq, lt = !((f + r) & 1);
                     float s1 = hash(f, r) * 6.28f, s2 = hash(r, f) * 6.28f;
@@ -535,6 +537,17 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(c[i], 0, 255);
             p[3] = (uint8_t)(a * 255);
         }
+}
+
+void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
+{
+    board(nx * sq, ny * sq, sq, (float)sq, fr, checkered, o);
+}
+
+void art_plank(int w, int h, int fr, uint8_t *o)
+{
+    int s = w < h ? w : h;                      /* the grain as on a square plank of the short side */
+    board(w, h, 1, (float)(s > 1 ? s : 1), fr, 0, o);
 }
 
 void art_board(int sq, int fr, uint8_t *o) { art_board_n(8, 8, sq, fr, 1, o); }
