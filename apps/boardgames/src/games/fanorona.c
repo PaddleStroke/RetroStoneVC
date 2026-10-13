@@ -13,6 +13,7 @@
 
 #include "games/fanorona.h"
 #include "games/lines.h"
+#include "games/trays.h"
 #include "shell.h"
 
 #define DISC 0.7f                               /* a disc's size, in cells */
@@ -22,6 +23,7 @@
 
 /* the plank: 9 x 5 cells (a point in the middle of each), a frame of LINES_FRAME cells */
 static lines_geo P = {.cells = FN_COLS, .rows = FN_ROWS};
+static trays T;                                 /* the pieces each player took, by their side */
 static fngame G;
 static fnmove legal[FN_MAX_MOVES];
 static int nlegal, made_small = -1;
@@ -157,9 +159,15 @@ static void paint_board(int s, int f, uint8_t *o)
         lines_dot(o, w, lines_px(fn_x(i), S, F), lines_py(FN_ROWS, fn_y(i), S, F), r, LINES_INK);
 }
 
+/* the plank as big as the room lets it be (the room's width in portrait, its height in landscape); the pieces taken
+ * in the room left above and below it */
 static void layout(box b)
 {
     int changed = lines_fit(&P, b), sq = P.sq, w = (int)lines_side(&P), h = (int)lines_tall(&P);
+    float x, y;
+    trays_place(&T, b, (float)w, (float)h, FN_PIECES, 0.8f * sq, 0.7f * ui.unit, &x, &y);
+    P.x = x + P.fr;
+    P.y = y + P.fr;
     if (changed) {
         ui_free(&t_board);
         paint_board(sq, P.fr, ui_buf(w, h));
@@ -203,6 +211,21 @@ static void cell_mark(int pt, void (*mark)(float, float, float, float))
 
 static void disc_at(int who, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[who], cx, cy, d, alpha, 0); }
 
+/* the pieces each player took, by their side: the last turn's join them once they have faded from the board */
+static void draw_trays(void)
+{
+    if (!trays_on(&T)) return;
+    for (int c = 0; c < 2; c++) {
+        int n = FN_PIECES - fn_pos(&G)->left[!c];
+        if (anim.on && anim.who == c) n -= anim.n;
+        for (int i = 0; i < n; i++) {
+            float x, y;
+            trays_slot(&T, c, i, &x, &y);
+            disc_at(!c, x, y, 0.86f * T.pitch, 1);
+        }
+    }
+}
+
 static void ring(int pt)
 {
     float x, y;
@@ -234,6 +257,7 @@ static void draw(void)
     const fnpos *p = fn_pos(&G);
     float w = (float)FN_COLS * P.sq + 2 * P.fr, h = (float)FN_ROWS * P.sq + 2 * P.fr, d = DISC * P.sq, x, y;
     ui_put(t_board, P.x - P.fr, P.y - P.fr, w, h);
+    draw_trays();
     if (G.ply) {                                /* the last turn: a step, or every step of its chain */
         int side = G.pos[G.ply - 1].side;
         for (int k = G.ply - 1; k >= 0 && G.pos[k].side == side; k--) {
@@ -386,7 +410,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last capture to finish */
 
 static const game fanorona_game = {
-    .id = "fanorona", .order = 245, .variants = 1,
+    .id = "fanorona", .order = 245, .variants = 1, .fill = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy,
