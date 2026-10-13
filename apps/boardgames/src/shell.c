@@ -3395,6 +3395,14 @@ static int shot(int argc, char **argv)
     /* the gestures' animations: over, or caught --at ms after the last one began (a hold: as long as it was held) */
     ms_ahead = base + (at >= 0 ? (Uint32)at : held >= 0 ? (Uint32)held : 600000);
     if (id && !pick && reveal) shot_settle(1, 0);
+    if (id && !pick && screen == SCR_GAME && !icons) {   /* a frame first: what draw() starts (a deal as the cover
+                                                          * lifts) starts now; at rest: it lands too */
+        draw();
+        if (at < 0 && held < 0) {
+            ms_ahead += 600000;
+            if (reveal) shot_settle(1, 0);
+        }
+    }
     if (show_help) {                            /* the rules page (the game's, or the app's), scrolled by --scroll px */
         open_help(id ? cur : -1);
         help_scroll(scroll);
