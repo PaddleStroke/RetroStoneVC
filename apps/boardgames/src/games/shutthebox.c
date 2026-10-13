@@ -52,7 +52,6 @@ static uint8_t rolls[STB_MAX_EVENTS][2];        /* the game's throws so far, kep
 static int nrolls, fresh;                       /* fresh: the shell's dice show our throw */
 static struct { int on, player; unsigned mask; Uint32 t0; } tip;
 static struct { int on, player, landed, nd, v[2]; Uint32 t0; } dead;
-static const uint8_t INK[3] = {84, 56, 36};
 static const float MAPLE[3] = {236, 210, 166}, BACK[3] = {190, 146, 98}, INKF[3] = {84, 56, 36};
 
 static geom geom_for(int players, int tiles)
@@ -330,10 +329,10 @@ static void paint_box(uint8_t *o, int n, geom g, const int players[4])
     float l, t, r, b;
     felt(g, 0, &l, &t, &r, &b);
     art_felt(o, n, n, px(l, n), px(t, n), px(r, n), px(b, n));
-    paint_round(o, n, 0, l - 0.004f, t - 0.004f, r + 0.004f, t + 0.002f, 0, INK, 0.45f);   /* the walls' edges */
-    paint_round(o, n, 0, l - 0.004f, b - 0.002f, r + 0.004f, b + 0.004f, 0, INK, 0.45f);
-    paint_round(o, n, 0, l - 0.004f, t, l + 0.002f, b, 0, INK, 0.45f);
-    paint_round(o, n, 0, r - 0.002f, t, r + 0.004f, b, 0, INK, 0.45f);
+    paint_round(o, n, 0, l - 0.004f, t - 0.004f, r + 0.004f, t + 0.002f, 0, ART_INK, 0.45f);   /* the walls' edges */
+    paint_round(o, n, 0, l - 0.004f, b - 0.002f, r + 0.004f, b + 0.004f, 0, ART_INK, 0.45f);
+    paint_round(o, n, 0, l - 0.004f, t, l + 0.002f, b, 0, ART_INK, 0.45f);
+    paint_round(o, n, 0, r - 0.002f, t, r + 0.004f, b, 0, ART_INK, 0.45f);
     float len = g.sw * g.tiles, yb = row_y(g), H = TILE_H * g.d, tw = TILE_W * g.sw, rail = 0.1f * g.d;
     float y0 = 0.5f - FR - g.d;
     for (int q = 0; q < 4; q++) {
@@ -351,12 +350,12 @@ static void paint_box(uint8_t *o, int n, geom g, const int players[4])
         static const uint8_t shine[3] = {255, 250, 236};
         paint_round(o, n, q, g.x0 - 0.004f, y0 + 0.008f, g.x0 + len + 0.004f, y0 + 0.008f + 0.3f * rail, 0, shine,
                     0.22f);
-        paint_round(o, n, q, g.x0, yb, g.x0 + len, yb + 0.004f, 0, INK, 0.3f);    /* the hinge's groove */
+        paint_round(o, n, q, g.x0, yb, g.x0 + len, yb + 0.004f, 0, ART_INK, 0.3f);    /* the hinge's groove */
         for (int k = 0; k < g.tiles; k++) {    /* the wells: dark where a tile stands, seen when it lies */
             float cx = g.x0 + (k + 0.5f) * g.sw;
-            paint_round(o, n, q, cx - tw / 2, yb - H, cx + tw / 2, yb, 0.12f * tw, INK, 0.5f);
+            paint_round(o, n, q, cx - tw / 2, yb - H, cx + tw / 2, yb, 0.12f * tw, ART_INK, 0.5f);
             paint_round(o, n, q, cx - tw / 2 + 0.003f, yb - H + 0.003f, cx + tw / 2 - 0.003f, yb - H + 0.012f, 0,
-                        INK, 0.35f);
+                        ART_INK, 0.35f);
         }
     }
 }

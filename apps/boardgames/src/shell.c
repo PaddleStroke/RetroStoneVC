@@ -303,6 +303,13 @@ void ui_flat_at(SDL_Texture *t, float cx, float cy, float d, float alpha, int up
     SDL_SetTextureAlphaMod(t, 255);
 }
 
+void ui_stand_at(SDL_Texture *t, float x, float y, float size, int upside)
+{
+    ui_shadow(x, upside ? y - 0.79f * size : y, size);
+    if (upside) ui_put_rot(t, x + size / 2, y + size / 2, size, size, 180);
+    else ui_put(t, x, y, size, size);
+}
+
 /* marks with thin edges, painted at the size they are drawn (a few sizes kept): scaled down, an edge would blur */
 #define SIZES 4
 typedef struct { int size[SIZES], next; SDL_Texture *t[SIZES]; } sized;

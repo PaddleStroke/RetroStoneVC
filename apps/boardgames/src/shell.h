@@ -13,6 +13,7 @@
 #define SHELL_H
 
 #include <SDL.h>
+#include <math.h>
 #include <stdint.h>
 
 #include "art.h"
@@ -149,6 +150,10 @@ extern struct ui {
 } ui;
 
 static inline float clampf(float v, float lo, float hi) { return v < lo ? lo : v > hi ? hi : v; }
+/* a slide or a hop f 0..1 of the way: how far it has gone (eased: slow, fast, slow), and a hop's height (a part of a
+ * square: 0.35 at its top) */
+static inline float ui_ease(float f) { return f * f * (3 - 2 * f); }
+static inline float ui_hop(float f) { return 0.35f * sinf(ART_PI * f); }
 int  ui_bottom(void);                          /* the player at the bottom */
 int  ui_upside(int player);                     /* 1: draw this player's pieces turned round (face to face, top) */
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba);   /* a picture as a texture (alpha blending) */
@@ -164,6 +169,9 @@ void ui_shadow(float x, float y, float size);
 void ui_shadow_flat(float cx, float cy, float w, float h, float alpha);
 /* a flat piece d x d centred on (cx, cy) with its shadow, faded (alpha 0..1), turned round when upside (ui_upside) */
 void ui_flat_at(SDL_Texture *t, float cx, float cy, float d, float alpha, int upside);
+/* a standing piece (a chess piece, a pawn) size x size, its top left at (x, y), with its shadow; turned round when
+ * upside (ui_upside: the top player face to face), its foot then towards the top of the same square */
+void ui_stand_at(SDL_Texture *t, float x, float y, float size, int upside);
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
 /* the same turned round its centre (degrees: 180 for the top player face to face) */
 void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);

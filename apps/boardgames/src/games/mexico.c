@@ -249,7 +249,7 @@ static void draw_claim(void)
         ui_put_c(t_tok[P->turn], cx, cy, 0.95f * d, 0.95f * d);
         return;
     }
-    float f = clampf((ui_ms() - say_t0) / (float)SAY_MS, 0, 1), k = 1 + 0.25f * (1 - race_ease(f));
+    float f = clampf((ui_ms() - say_t0) / (float)SAY_MS, 0, 1), k = 1 + 0.25f * (1 - ui_ease(f));
     if (f < 1) ui_animate();
     ui_mark_gold(cx + 0.5f * d, cy, (P->claim == MX_MEXICO ? 3.6f : 2.8f) * d);
     if (P->claim == MX_MEXICO) ui_mark_gold(cx + 0.5f * d, cy, 2.2f * d);
@@ -274,7 +274,7 @@ static void draw_cup(void)
         float x0 = cx - 0.62f * s;
         for (int i = 0; i < 2; i++)
             ui_die_thrown(x0 + (i ? 0.62f : -0.62f) * d, cy + 0.12f * s, d, holder, P->dice[i],
-                          (race_hash(P->round * 7 + holder, i + G.n) - 0.5f) * 24, i, (int)t, 1);
+                          (art_hash(P->round * 7 + holder, i + G.n) - 0.5f) * 24, i, (int)t, 1);
         if (t < UI_DICE_MS) ui_animate();
         ui_shadow_flat(cx + 0.45f * s, cy + 0.42f * s, 0.62f * s, 0.16f * s, 0.5f);
         ui_put_rot(t_cup[holder], cx + 0.45f * s, cy, 0.86f * s, 0.86f * s, 24);
@@ -326,7 +326,7 @@ static void draw_reveal(void)
     }
     value_at(real, b.x + b.w / 2, mid, 1.2f * d, P->claimer, 1);
     float f = clampf(t / (float)LIFT_MS, 0, 1), cs = 2.4f * d;   /* the cup lifting off */
-    if (f < 1) put_alpha(t_cup[P->claimer], b.x + b.w / 2, mid - race_ease(f) * 1.6f * d, cs, cs, 1 - f * f);
+    if (f < 1) put_alpha(t_cup[P->claimer], b.x + b.w / 2, mid - ui_ease(f) * 1.6f * d, cs, cs, 1 - f * f);
     if (t < VERDICT_AT) return;
     /* the loser: their chip, their lives in a row, the one lost fading in a red glow */
     float ly = b.y + 0.7f * b.h, cd = 0.62f * T.u, n = P->lives[P->loser] + 1.0f;

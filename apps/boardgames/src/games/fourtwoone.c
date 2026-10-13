@@ -234,7 +234,7 @@ static void draw_pot(int up)                    /* the chips left in the pot, in
 {
     float cx = up ? 1 - 0.5f : 0.5f, cy = up ? 1 - POT_Y : POT_Y;
     for (int k = 0; k < P->pot; k++) {
-        float a = race_hash(k, 3) * 2 * RACE_PI, r = 0.06f * sqrtf((k + 0.5f) / FTO_CHIPS);
+        float a = art_hash(k, 3) * 2 * ART_PI, r = 0.06f * sqrtf((k + 0.5f) / FTO_CHIPS);
         chip_at(cx + r * cosf(a) - 0.05f, cy + 0.7f * r * sinf(a), 0.055f);
     }
     if (!P->pot) return;
@@ -280,7 +280,7 @@ static void draw_fly(Uint32 now)
         if (f < 0) { any = 1; continue; }
         if (f >= 1) continue;
         any = 1;
-        float x = cup_mix(fly.x0, fly.x1, f), y = cup_mix(fly.y0, fly.y1, f) - 0.06f * sinf(RACE_PI * f);
+        float x = cup_mix(fly.x0, fly.x1, f), y = cup_mix(fly.y0, fly.y1, f) - 0.06f * sinf(ART_PI * f);
         chip_at(x, y, 0.055f);
     }
     if (any) ui_animate();

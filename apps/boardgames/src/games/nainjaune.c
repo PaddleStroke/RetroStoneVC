@@ -370,7 +370,7 @@ static void draw_well(int k, int lit)
                CD_FLAT);
     int n = G.pos.box[k], shown_n = n > 14 ? 14 : n;
     for (int i = 0; i < shown_n; i++) {         /* a heap on the card's lower half */
-        float a = race_hash(i, k + 7) * 2 * RACE_PI, rr = 0.36f * r * sqrtf((i + 0.5f) / 14);
+        float a = art_hash(i, k + 7) * 2 * ART_PI, rr = 0.36f * r * sqrtf((i + 0.5f) / 14);
         chip_at(cx + rr * cosf(a), cy + 0.36f * r + 0.6f * rr * sinf(a), d);
     }
     if (n) ui_number(cx + 0.62f * r, cy + 0.62f * r, 0.3f * r, n, 1);
@@ -460,7 +460,7 @@ static void draw(void)
             if (t >= 1) continue;
             any = 1;
             float x = cup_mix(fly[i].x0, fly[i].x1, t), y = cup_mix(fly[i].y0, fly[i].y1, t);
-            chip_at(x, y - 0.08f * T.B * sinf(RACE_PI * t), 0.075f * T.B * (1 + 0.25f * sinf(RACE_PI * t)));
+            chip_at(x, y - 0.08f * T.B * sinf(ART_PI * t), 0.075f * T.B * (1 + 0.25f * sinf(ART_PI * t)));
         }
     if (any || moving) ui_animate();
     if (p->phase != NP_PLAY && !moving) draw_summary();
@@ -518,7 +518,7 @@ static void thumb(int v, int size, uint8_t *rgba)
         art_blend(rgba, size, size, b, cw, chh, (int)(cx - cw / 2.0f), (int)(cy - 0.12f * r - chh / 2.0f));
         int chips = v == NJ_NO_OPERA && k == NJ_SEVEN ? 0 : k + 2;
         for (int i = 0; i < chips; i++) {
-            float a = race_hash(i, k + 7) * 2 * RACE_PI, rr = 0.36f * r * sqrtf((i + 0.5f) / 7);
+            float a = art_hash(i, k + 7) * 2 * ART_PI, rr = 0.36f * r * sqrtf((i + 0.5f) / 7);
             art_blend(rgba, size, size, c, cd, cd, (int)(cx + rr * cosf(a) - cd / 2.0f),
                       (int)(cy + 0.36f * r + 0.6f * rr * sinf(a) - cd / 2.0f));
         }

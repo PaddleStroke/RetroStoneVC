@@ -29,7 +29,7 @@
 #define R_OUT 0.418f                            /* the outer turn's centre line */
 #define R_END 0.132f                            /* the inner end's centre line */
 #define RG (R_END - PITCH / 2)                  /* the garden */
-#define PHI0 (0.75f * RACE_PI)                  /* where the spiral starts: towards the bottom left corner */
+#define PHI0 (0.75f * ART_PI)                  /* where the spiral starts: towards the bottom left corner */
 #define CELLS 62
 #define SPN 4096                                /* the spiral's length table */
 #define PAWN_SZ 0.82f                           /* a pawn's size, of a square */
@@ -50,13 +50,13 @@ static struct { int on, hops; Uint32 t0; goo_move m; int total, sounded; } anim;
 /* ---- the spiral -------------------------------------------------------------------------------------------------- */
 static float sp_T, sp_L, sp_s[SPN + 1];
 
-static float sp_r(float t) { return R_OUT - PITCH * t / (2 * RACE_PI); }
+static float sp_r(float t) { return R_OUT - PITCH * t / (2 * ART_PI); }
 
 static void sp_init(void)
 {
     if (sp_T > 0) return;
-    sp_T = 2 * RACE_PI * (R_OUT - R_END) / PITCH;
-    float k = PITCH / (2 * RACE_PI), dt = sp_T / SPN;
+    sp_T = 2 * ART_PI * (R_OUT - R_END) / PITCH;
+    float k = PITCH / (2 * ART_PI), dt = sp_T / SPN;
     sp_s[0] = 0;
     for (int i = 1; i <= SPN; i++) {
         float r = sp_r((i - 0.5f) * dt);
@@ -99,10 +99,10 @@ static float cell_t(int sq) { return sp_t_of((sq - 0.5f) * sp_L / CELLS); }
 static int sp_find(float x, float y, float *t, float *off)
 {
     float dx = x - 0.5f, dy = y - 0.5f, rho = hypotf(dx, dy), base = PHI0 - atan2f(dy, dx);
-    base = fmodf(base, 2 * RACE_PI);
-    if (base < 0) base += 2 * RACE_PI;
+    base = fmodf(base, 2 * ART_PI);
+    if (base < 0) base += 2 * ART_PI;
     for (int k = 0; k < 6; k++) {
-        float tt = base + 2 * RACE_PI * k;
+        float tt = base + 2 * ART_PI * k;
         if (tt > sp_T) break;
         float o = rho - sp_r(tt);
         if (fabsf(o) <= PITCH / 2) {
@@ -336,7 +336,7 @@ static void star(uint8_t *o, int n, float cx, float cy, float r)
         art_fig *f = art_fig_new();
         for (int k = 0; k < 8; k++) {           /* a kite each: the centre, a waist, the tip, the other waist */
             if ((k & 1) != pass) continue;
-            float a = k * RACE_PI / 4, a1 = a + RACE_PI / 8, a2 = a - RACE_PI / 8, ri = 0.2f;
+            float a = k * ART_PI / 4, a1 = a + ART_PI / 8, a2 = a - ART_PI / 8, ri = 0.2f;
             float tip = pass ? 0.34f : 0.48f;
             float p[8] = {0.5f, 0.5f, 0.5f + ri * cosf(a2), 0.5f + ri * sinf(a2), 0.5f + tip * cosf(a),
                           0.5f + tip * sinf(a), 0.5f + ri * cosf(a1), 0.5f + ri * sinf(a1)};
@@ -372,11 +372,11 @@ static void garden(uint8_t *o, int n)
     static const uint8_t petals[4][3] = {{232, 84, 76}, {250, 226, 96}, {246, 244, 240}, {190, 130, 226}};
     static const uint8_t heart[3] = {250, 200, 60}, ink[3] = {80, 60, 40};
     for (int k = 0; k < 8; k++) {               /* the flowers, round the goose (the top left free: its number) */
-        float a = RACE_PI * (-0.18f + 1.3f * k / 7), r = (0.72f + 0.1f * (k & 1)) * (R - rim);
+        float a = ART_PI * (-0.18f + 1.3f * k / 7), r = (0.72f + 0.1f * (k & 1)) * (R - rim);
         int w = (int)(0.24f * R) + 2;
         art_fig *f = art_fig_new();
         for (int j = 0; j < 5; j++) {
-            float b = j * 2 * RACE_PI / 5;
+            float b = j * 2 * ART_PI / 5;
             art_ellipse(f, ART_PART, 0.5f + 0.24f * cosf(b), 0.5f + 0.24f * sinf(b), 0.2f, 0.2f);
         }
         art_style st = art_flat(petals[k % 4], ink, 0.04f, 0.2f);
@@ -587,9 +587,8 @@ static void layout(box b)
 /* a pawn standing at (x, y) (its foot, fractions), size: of a square */
 static void pawn(int p, float x, float y, float size)
 {
-    float w = size * 1.3f * PITCH * S, left = bx + x * S - w / 2, top = by + y * S - 0.62f * w;
-    ui_shadow(left, top, w);
-    ui_put(t_pawn[p], left, top, w, w);
+    float w = size * 1.3f * PITCH * S;
+    ui_stand_at(t_pawn[p], bx + x * S - w / 2, by + y * S - 0.62f * w, w, 0);
 }
 
 /* where the moving pawn is now (its foot, fractions) and how high it hops; 0: its way is over (it stands on m->to) */
@@ -611,7 +610,7 @@ static int moving(float *x, float *y, float *lift, int *at)
         }
         t -= pause;
         if (t < len) {
-            float f = t / (float)len, x0, y0, x1, y1, e = race_ease(f);
+            float f = t / (float)len, x0, y0, x1, y1, e = ui_ease(f);
             square_at(from, m->player, &x0, &y0, &s0);
             square_at(to, m->player, &x1, &y1, &s0);
             if (anim.sounded < i + 1) {         /* each step's sound once */
@@ -626,12 +625,12 @@ static int moving(float *x, float *y, float *lift, int *at)
             if (how == GOO_GLIDE) {              /* along the spiral */
                 float t0 = cell_t(from), t1 = cell_t(to);
                 sp_at(t0 + (t1 - t0) * e, 0, x, y);
-                *lift = 0.15f * PITCH * sinf(RACE_PI * f);
+                *lift = 0.15f * PITCH * sinf(ART_PI * f);
             } else {
                 *x = x0 + (x1 - x0) * e;
                 *y = y0 + (y1 - y0) * e;
                 float far = hypotf(x1 - x0, y1 - y0);
-                *lift = (how == GOO_FLY ? 0.3f * far + 0.05f : 0.32f * PITCH) * sinf(RACE_PI * f);
+                *lift = (how == GOO_FLY ? 0.3f * far + 0.05f : 0.32f * PITCH) * sinf(ART_PI * f);
             }
             *at = f > 0.5f ? to : from;
             return 1;
@@ -664,10 +663,10 @@ static int swapping(float *x, float *y, float *lift)
     *x = x1, *y = y1;
     if (t >= SWAP_MS) return 0;
     if (anim.hops != -1) { anim.hops = -1; ui_sound(SND_CAPTURE); }
-    float f = t / (float)SWAP_MS, e = race_ease(f);
+    float f = t / (float)SWAP_MS, e = ui_ease(f);
     *x = x0 + (x1 - x0) * e;
     *y = y0 + (y1 - y0) * e;
-    *lift = (0.3f * hypotf(x1 - x0, y1 - y0) + 0.04f) * sinf(RACE_PI * f);
+    *lift = (0.3f * hypotf(x1 - x0, y1 - y0) + 0.04f) * sinf(ART_PI * f);
     return 1;
 }
 

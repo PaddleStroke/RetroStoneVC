@@ -182,8 +182,8 @@ static void paint_board(uint8_t *o, int n)
     static const float groove[3] = {0.8f, 0.78f, 0.76f};
     cup_board(o, n);
     cup_well(o, n, IN0, FELT0, IN1, FELT1);
-    race_inlay(o, n, n, (slot_x(0) - 0.07f) * n, (RACK_Y - 0.065f) * n, (2 * SLOT_STEP + 0.14f) * n, 0.13f * n,
-               0.03f * n, groove, 0.006f * n);
+    art_inlay(o, n, n, (slot_x(0) - 0.07f) * n, (RACK_Y - 0.065f) * n, (2 * SLOT_STEP + 0.14f) * n, 0.13f * n,
+              0.03f * n, groove, 0.006f * n);
     for (int k = 0; k < 3; k++)                 /* the three slots, carved */
         for (int y = (int)((RACK_Y - 0.06f) * n); y < (int)((RACK_Y + 0.06f) * n); y++)
             for (int x = (int)((slot_x(k) - 0.06f) * n); x < (int)((slot_x(k) + 0.06f) * n); x++) {
@@ -191,8 +191,8 @@ static void paint_board(uint8_t *o, int n)
                 uint8_t *p = o + 4 * ((size_t)y * n + x);
                 for (int c = 0; c < 3; c++) p[c] = (uint8_t)clampf(p[c] * f, 0, 255);
             }
-    race_inlay(o, n, n, (IN0 + 0.02f) * n, (ROW_Y - 0.06f) * n, (IN1 - IN0 - 0.04f) * n, 0.12f * n, 0.03f * n, groove,
-               0.006f * n);
+    art_inlay(o, n, n, (IN0 + 0.02f) * n, (ROW_Y - 0.06f) * n, (IN1 - IN0 - 0.04f) * n, 0.12f * n, 0.03f * n, groove,
+              0.006f * n);
 }
 
 static void layout(box b)

@@ -12,7 +12,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/race.h"
 #include "shell.h"
 
 static const uint8_t KNOB_WALNUT[3] = {104, 70, 46}, KNOB_DARK[3] = {52, 34, 22}, KNOB_CREAM[3] = {246, 238, 220},

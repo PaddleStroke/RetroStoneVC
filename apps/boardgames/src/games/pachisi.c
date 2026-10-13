@@ -18,7 +18,6 @@
 
 #include "games/lines.h"
 #include "games/pachisi.h"
-#include "games/race.h"
 #include "shell.h"
 
 #define N 19                                    /* cells across the board */
@@ -320,7 +319,7 @@ static void paint_cross(uint8_t *o, int n, int x, int y, int w, int pale)
         art_poly(f, ART_PART, band, 6);
     }
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.09f, 0.09f);
-    art_style st = art_flat(pale ? RACE_PALE : RACE_INK, RACE_INK, 0, 0);
+    art_style st = art_flat(pale ? ART_PALE : ART_INK, ART_INK, 0, 0);
     art_fig_blend(o, n, n, f, &st, x, y, w, pale ? 0.8f : 0.5f);
     art_fig_free(f);
 }
@@ -335,17 +334,17 @@ static void paint_board(uint8_t *o, int c, int f)
     art_board_n(N, N, c, f, 0, o);
     for (int q = 0; q < 4; q++) {               /* the trays */
         float in = 0.35f * c, x0 = f + (q & 1 ? 11 : 0) * c + in, y0 = f + (q & 2 ? 11 : 0) * c + in;
-        race_inlay(o, n, n, x0, y0, 8 * c - 2 * in, 8 * c - 2 * in, 0.9f * c, TRAY, fmaxf(1, 0.12f * c));
+        art_inlay(o, n, n, x0, y0, 8 * c - 2 * in, 8 * c - 2 * in, 0.9f * c, TRAY, fmaxf(1, 0.12f * c));
     }
     for (int s = 0; s < PA_SQUARES; s++) {
         int x, y, army = s >= PA_LAP ? (s - PA_LAP) / 7 : s % 17 == 0 ? s / 17 : -1;
         pa_cell(s, &x, &y);
         const float *tone = army >= 0 ? TONE[army] : MAPLE;
-        race_inlay(o, n, n, f + x * c + m, f + y * c + m, c - 2 * m, c - 2 * m, 0.1f * c, tone, seam);
+        art_inlay(o, n, n, f + x * c + m, f + y * c + m, c - 2 * m, c - 2 * m, 0.1f * c, tone, seam);
         if (pa_castle(s)) paint_cross(o, n, f + x * c, f + y * c, c, army == 1 || army == 3);
     }
     float k = f + 8 * c + m, w = 3 * c - 2 * m;  /* the charkoni */
-    race_inlay(o, n, n, k, k, w, w, 0.12f * c, MAPLE, seam);
+    art_inlay(o, n, n, k, k, w, w, 0.12f * c, MAPLE, seam);
     for (int a = 0; a < PA_ARMIES; a++) {
         art_fig *fig = art_fig_new();
         float tri[6] = {-0.5f, 0.5f, 0.5f, 0.5f, 0, 0};   /* arm 0's: the bottom, from the centre */
@@ -359,12 +358,12 @@ static void paint_board(uint8_t *o, int c, int f)
         art_poly(fig, ART_PART, tri, 3);
         uint8_t rgb[3];
         tone_rgb(TONE[a], rgb);
-        art_style st = art_flat(rgb, RACE_INK, fmaxf(0.006f, 1.0f / w), 0.15f);
+        art_style st = art_flat(rgb, ART_INK, fmaxf(0.006f, 1.0f / w), 0.15f);
         art_fig_blend(o, n, n, fig, &st, (int)k, (int)k, (int)w, 0.92f);
         art_fig_free(fig);
     }
-    lines_dot(o, n, f + 9.5f * c, f + 9.5f * c, 0.17f * c, RACE_INK);
-    lines_dot(o, n, f + 9.5f * c, f + 9.5f * c, 0.11f * c, RACE_PALE);
+    lines_dot(o, n, f + 9.5f * c, f + 9.5f * c, 0.17f * c, ART_INK);
+    lines_dot(o, n, f + 9.5f * c, f + 9.5f * c, 0.11f * c, ART_PALE);
 }
 
 /* a piece of an army: the house's disc in its player's colour, warmed for the second army */
@@ -388,14 +387,14 @@ static void paint_shell(int up, int size, uint8_t *o)
         float pt[2 * 30];
         int k = 0;
         for (int i = 0; i <= 14; i++) {
-            float t = i / 14.0f, x = 0.12f + 0.76f * t, h = 0.045f * sinf(RACE_PI * t) + 0.008f;
+            float t = i / 14.0f, x = 0.12f + 0.76f * t, h = 0.045f * sinf(ART_PI * t) + 0.008f;
             pt[k++] = x;
-            pt[k++] = 0.5f + 0.03f * sinf(RACE_PI * t) - h;
+            pt[k++] = 0.5f + 0.03f * sinf(ART_PI * t) - h;
         }
         for (int i = 14; i >= 0; i--) {
-            float t = i / 14.0f, x = 0.12f + 0.76f * t, h = 0.045f * sinf(RACE_PI * t) + 0.008f;
+            float t = i / 14.0f, x = 0.12f + 0.76f * t, h = 0.045f * sinf(ART_PI * t) + 0.008f;
             pt[k++] = x;
-            pt[k++] = 0.5f + 0.03f * sinf(RACE_PI * t) + h;
+            pt[k++] = 0.5f + 0.03f * sinf(ART_PI * t) + h;
         }
         art_poly(f, ART_MARK, pt, k / 2);
     } else {                                    /* the back's spots */
@@ -403,7 +402,7 @@ static void paint_shell(int up, int size, uint8_t *o)
             art_ellipse(f, ART_MARK, 0.3f + 0.08f * i + 0.02f * (i & 1), 0.42f + 0.1f * (i % 3 == 1) + 0.04f * (i & 1),
                         0.025f, 0.02f);
     }
-    art_style st = art_flat(up ? shell : back, RACE_INK, line, up ? 0.3f : 0.55f);
+    art_style st = art_flat(up ? shell : back, ART_INK, line, up ? 0.3f : 0.55f);
     memcpy(st.mark, (float[3]){up ? slit[0] : spot_c[0], up ? slit[1] : spot_c[1], up ? slit[2] : spot_c[2]},
            sizeof st.mark);
     art_render(f, &st, size, size, (float)size, 0, 0, o);
@@ -411,12 +410,12 @@ static void paint_shell(int up, int size, uint8_t *o)
     art_fig *g = art_fig_new();
     if (up)                                     /* the teeth across the slit */
         for (int i = 0; i < 11; i++) {
-            float x = 0.2f + 0.06f * i, y = 0.5f + 0.03f * sinf(RACE_PI * (x - 0.12f) / 0.76f);
+            float x = 0.2f + 0.06f * i, y = 0.5f + 0.03f * sinf(ART_PI * (x - 0.12f) / 0.76f);
             art_rect(g, ART_PART, x - 0.011f, y - 0.06f, x + 0.011f, y + 0.06f);
         }
     else                                        /* the gloss */
         art_ellipse(g, ART_PART, 0.4f, 0.36f, 0.16f, 0.06f);
-    art_style ts = art_flat(up ? shell : gloss, RACE_INK, 0, 0);
+    art_style ts = art_flat(up ? shell : gloss, ART_INK, 0, 0);
     art_fig_blend(o, size, size, g, &ts, 0, 0, size, up ? 1 : 0.55f);
     art_fig_free(g);
 }
@@ -493,9 +492,9 @@ static int last_throw(int player)
 /* where shell i of throw k rests in a tray (screen cells from its centre), and how it lies (degrees) */
 static void shell_rest(int k, int i, int top, float *du, float *dv, float *deg)
 {
-    *du = ((i % 3) - 1) * 2.25f + (race_hash(k, 2 * i) - 0.5f) * 0.8f;
-    *dv = (i / 3 ? 1.05f : -1.05f) + (race_hash(k, 2 * i + 1) - 0.5f) * 0.7f + (i % 3 == 1 ? 0.25f : 0);
-    *deg = race_hash(k + 7, i) * 180;
+    *du = ((i % 3) - 1) * 2.25f + (art_hash(k, 2 * i) - 0.5f) * 0.8f;
+    *dv = (i / 3 ? 1.05f : -1.05f) + (art_hash(k, 2 * i + 1) - 0.5f) * 0.7f + (i % 3 == 1 ? 0.25f : 0);
+    *deg = art_hash(k + 7, i) * 180;
     if (top) *du = -*du, *dv = -*dv;
 }
 
@@ -525,12 +524,12 @@ static void draw_shells(int q)
         shell_rest(k, i, top, &du, &dv, &deg);
         su += (i % 3 - 1) * 0.5f;
         float u = su + (cu + du - su) * ease, v = sv + (cv + dv - sv) * ease;
-        float hgt = flying ? sinf(RACE_PI * fly) * (1 - 0.35f * fly) : 0, sc = 1 + 0.5f * hgt;
-        float phi = (1 - ease) * (3 + i % 3) * RACE_PI, squash = flying ? fabsf(cosf(phi)) : 1;
+        float hgt = flying ? sinf(ART_PI * fly) * (1 - 0.35f * fly) : 0, sc = 1 + 0.5f * hgt;
+        float phi = (1 - ease) * (3 + i % 3) * ART_PI, squash = flying ? fabsf(cosf(phi)) : 1;
         int up = mask >> i & 1;
         if (flying && cosf(phi) < 0) up = !up;
         float a = deg + (flying ? (1 - ease) * (i & 1 ? 420 : -420) : 0);
-        if (flying && t > 0.7f) a += sinf((t - 0.7f) / 0.3f * RACE_PI * 3) * (1 - (t - 0.7f) / 0.3f) * 9;
+        if (flying && t > 0.7f) a += sinf((t - 0.7f) / 0.3f * ART_PI * 3) * (1 - (t - 0.7f) / 0.3f) * 9;
         px_of(u, v, &x, &y);
         float w = s * sc, h = s * sc * fmaxf(squash, 0.08f);
         ui_shadow_flat(x + hgt * 0.5f * cs, y + hgt * 0.8f * cs, 0.9f * w, 0.62f * w * fmaxf(squash, 0.3f),
@@ -695,12 +694,12 @@ static void draw(void)
             }
             if (anim.from == 0 && h == 0) spot(a, 0, k0, &x, &y);
             else spot(a, p0, 0, &x, &y);
-            float e = race_ease(f), up = (ui_upside(owner(a)) ? -1 : 1) * race_lift(f) * cs;
+            float e = ui_ease(f), up = (ui_upside(owner(a)) ? -1 : 1) * ui_hop(f) * cs;
             float sc = anim.from == 0 && h == 0 ? WAIT / PIECE + (1 - WAIT / PIECE) * e : 1;
-            piece_at(a, x + (x1 - x) * e, y + (y1 - y) * e - up, sc * (1 + 0.1f * sinf(RACE_PI * f)));
+            piece_at(a, x + (x1 - x) * e, y + (y1 - y) * e - up, sc * (1 + 0.1f * sinf(ART_PI * f)));
         } else {                                /* landed: the pieces caught glide home to the charkoni; a piece
                                                  * home glides from the charkoni to its tray */
-            float g = race_ease(clampf((t - anim.hops) * anim.hop / GLIDE_MS, 0, 1)), x1, y1;
+            float g = ui_ease(clampf((t - anim.hops) * anim.hop / GLIDE_MS, 0, 1)), x1, y1;
             if (anim.to == PA_HOME) {
                 piece_px(p, a, i, &x1, &y1);
                 x = bx + N / 2.0f * cs;

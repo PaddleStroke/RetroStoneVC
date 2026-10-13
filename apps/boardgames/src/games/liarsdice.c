@@ -20,7 +20,6 @@
 
 #include "cards.h"
 #include "games/liarsdice.h"
-#include "games/race.h"
 #include "shell.h"
 
 #define BID_MS 320                              /* a bid landing in the middle */
@@ -348,7 +347,7 @@ static void draw_bid(void)
         ui_put_c(t_tok[P->turn], b.x + b.w / 2, cy, 0.9f * h, 0.9f * h);
         return;
     }
-    float f = clampf((ui_ms() - bid_t0) / (float)BID_MS, 0, 1), k = 1 + 0.25f * (1 - race_ease(f));
+    float f = clampf((ui_ms() - bid_t0) / (float)BID_MS, 0, 1), k = 1 + 0.25f * (1 - ui_ease(f));
     if (f < 1) ui_animate();
     ui_mark_gold(b.x + b.w / 2, cy, 2.6f * h);
     draw_bid_row(b.x + b.w / 2, cy, h * k, P->bidder, P->count, P->face, 1);
@@ -382,7 +381,7 @@ static void draw_mine(void)
     if (rolled[me] != P->round + 1) { rolled[me] = P->round + 1; roll_t0 = ui_ms(); ui_sound(SND_DICE); }
     int t = (int)(ui_ms() - roll_t0);
     for (int i = 0; i < n; i++) {
-        float x = x0 + i * (s + gap), tilt = (race_hash(P->round * 7 + me, i) - 0.5f) * 20;
+        float x = x0 + i * (s + gap), tilt = (art_hash(P->round * 7 + me, i) - 0.5f) * 20;
         ui_die_thrown(x, cy, s, me, P->dice[me][i], tilt, i, t, 1);
     }
     float ux = x0 + n * (s + gap) + 0.25f * cs, uy = cy - 0.15f * cs;   /* the cup, lifted, tipped beside them */
@@ -464,14 +463,14 @@ static void draw_reveal(void)
                 ui_mark_glow(px, cy, 1.8f * s * (1 - 0.4f * f));
                 a *= 1 - f;
             }
-            ui_die(px, cy, s, q, v, (race_hash(P->round * 13 + q, d) - 0.5f) * 16, 0, a, 1);
+            ui_die(px, cy, s, q, v, (art_hash(P->round * 13 + q, d) - 0.5f) * 16, 0, a, 1);
         }
         /* the cup lifting off */
         float f = clampf((t - 60 * i) / (float)LIFT_MS, 0, 1);
         if (f < 1) {
             float cs = 1.25f * s, cx = dx + (nd * 1.18f * s) / 2;
             SDL_SetTextureAlphaMod(t_cup[q], (Uint8)(255 * (1 - f)));
-            ui_put_c(t_cup[q], cx, cy - race_ease(f) * 1.2f * rh, cs * 1.4f, cs * 1.4f);
+            ui_put_c(t_cup[q], cx, cy - ui_ease(f) * 1.2f * rh, cs * 1.4f, cs * 1.4f);
             SDL_SetTextureAlphaMod(t_cup[q], 255);
         }
     }

@@ -222,7 +222,7 @@ static void draw(void)
             f = clampf(f, 0, 1);
             if (f >= 1) continue;
             float y0 = row_y(anim.row), y1 = ui.flipped ? (bottom ? 0.02f : 0.98f) : (bottom ? 0.98f : 0.02f);
-            float y = cup_mix(y0, y1, f), lift = LIFT * (1 - f) + 0.02f * sinf(RACE_PI * f);
+            float y = cup_mix(y0, y1, f), lift = LIFT * (1 - f) + 0.02f * sinf(ART_PI * f);
             match_at(match_x(anim.row, i) + 0.02f * f * (i - 3), y, lift, 1 - f * f);
         }
     }

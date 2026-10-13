@@ -552,6 +552,36 @@ void art_plank(int w, int h, int fr, uint8_t *o)
 
 void art_board(int sq, int fr, uint8_t *o) { art_board_n(8, 8, sq, fr, 1, o); }
 
+void art_inlay(uint8_t *o, int pw, int ph, float x0, float y0, float w, float h, float rad, const float tone[3],
+               float seam)
+{
+    for (int y = (int)floorf(y0); y < (int)ceilf(y0 + h); y++)
+        for (int x = (int)floorf(x0); x < (int)ceilf(x0 + w); x++) {
+            if (x < 0 || y < 0 || x >= pw || y >= ph) continue;
+            float px = x + 0.5f - x0, py = y + 0.5f - y0;
+            float dx = fmaxf(rad - px, px - (w - rad)), dy = fmaxf(rad - py, py - (h - rad)), d;
+            if (dx > 0 && dy > 0) d = rad - hypotf(dx, dy);                 /* in a rounded corner */
+            else d = fminf(fminf(px, w - px), fminf(py, h - py));           /* inside: to the nearest side */
+            float in = clampf(d + 0.5f, 0, 1);
+            if (in <= 0) continue;
+            float k = d < seam ? 0.72f + 0.28f * clampf(d / seam - 0.4f, 0, 1) : 1;   /* the seam */
+            uint8_t *p = o + 4 * ((size_t)y * pw + x);
+            for (int c = 0; c < 3; c++) {
+                float v = p[c] * tone[c] * k;
+                p[c] = (uint8_t)clampf(p[c] + (v - p[c]) * in, 0, 255);
+            }
+        }
+}
+
+float art_hash(int a, int b)
+{
+    unsigned h = (unsigned)a * 73856093u ^ ((unsigned)b * 19349663u + 0x5bd1e995u);   /* wrapping, as int's did */
+    h ^= h >> 13;
+    h *= 0x5bd1e995u;
+    h ^= h >> 15;
+    return (h & 0xffff) / 65535.0f;
+}
+
 float art_noise(int x, int y)
 {
     uint32_t h = (uint32_t)x * 73856093u ^ (uint32_t)y * 19349663u;

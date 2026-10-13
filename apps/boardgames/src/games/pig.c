@@ -145,19 +145,20 @@ static void paint_board(uint8_t *o, int n, int players)
     static const float groove[3] = {0.8f, 0.78f, 0.76f};
     cup_board(o, n);
     cup_well(o, n, IN0, FELT0, IN1, FELT1);
-    race_inlay(o, n, n, RACK_X0 * n - 0.02f * n, (RACK_Y - 0.05f) * n, (RACK_X1 - RACK_X0 + 0.04f) * n, 0.1f * n,
-               0.03f * n, groove, 0.006f * n);
+    art_inlay(o, n, n, RACK_X0 * n - 0.02f * n, (RACK_Y - 0.05f) * n, (RACK_X1 - RACK_X0 + 0.04f) * n, 0.1f * n,
+              0.03f * n, groove, 0.006f * n);
     float lh = (TRACK1 - TRACK0) / players, gh = fminf(0.032f, 0.62f * lh);
     for (int q = 0; q < players; q++) {         /* the grooves of the race, a light mark every ten points */
         float y = TRACK0 + (q + 0.5f) * lh;
-        race_inlay(o, n, n, (TX0 - 0.03f) * n, (y - gh / 2) * n, (TX1 - TX0 + 0.06f) * n, gh * n, gh / 2 * n,
-                   groove, 0.004f * n);
+        art_inlay(o, n, n, (TX0 - 0.03f) * n, (y - gh / 2) * n, (TX1 - TX0 + 0.06f) * n, gh * n, gh / 2 * n,
+                  groove, 0.004f * n);
         for (int k = 1; k < 10; k++)
             art_tint_rect(o, n, n, (TX0 + (TX1 - TX0) * k / 10 - 0.0015f) * n, (y - gh * 0.3f) * n,
-                     (TX0 + (TX1 - TX0) * k / 10 + 0.0015f) * n, (y + gh * 0.3f) * n, CUP_CREAM, 0.5f);
+                          (TX0 + (TX1 - TX0) * k / 10 + 0.0015f) * n, (y + gh * 0.3f) * n, CUP_CREAM, 0.5f);
     }
     static const uint8_t gold[3] = {214, 168, 64};   /* the finish post */
-    art_tint_rect(o, n, n, (TX1 - 0.003f) * n, (TRACK0 - 0.004f) * n, (TX1 + 0.003f) * n, (TRACK1 + 0.004f) * n, gold, 0.9f);
+    art_tint_rect(o, n, n, (TX1 - 0.003f) * n, (TRACK0 - 0.004f) * n, (TX1 + 0.003f) * n, (TRACK1 + 0.004f) * n,
+                  gold, 0.9f);
 }
 
 static void layout(box b)
@@ -322,8 +323,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
     static const float at[3] = {0.62f, 0.3f, 0.45f};
     for (int q = 0; q < 3; q++) {
         float y = 0.1f + q * 0.085f;
-        race_inlay(rgba, size, size, 0.08f * size, (y - 0.025f) * size, 0.82f * size, 0.05f * size, 0.025f * size,
-                   groove, 0.005f * size);
+        art_inlay(rgba, size, size, 0.08f * size, (y - 0.025f) * size, 0.82f * size, 0.05f * size, 0.025f * size,
+                  groove, 0.005f * size);
         art_die_blend(rgba, size, size, at[q] * size, y * size, (int)(0.075f * size), q, 5, 0);
     }
     art_tint_rect(rgba, size, size, 0.84f * size, 0.05f * size, 0.85f * size, 0.31f * size, gold, 0.9f);

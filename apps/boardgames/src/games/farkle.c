@@ -239,7 +239,7 @@ static void paint_board(uint8_t *o, int n)
     static const float groove[3] = {0.82f, 0.8f, 0.78f};
     for (int s = 0; s < 2; s++) {               /* the racks' grooves, for the dice set aside */
         float y = s ? RACK_Y : 1 - RACK_Y;
-        race_inlay(o, n, n, 0.2f * n, (y - 0.05f) * n, 0.6f * n, 0.1f * n, 0.03f * n, groove, 0.006f * n);
+        art_inlay(o, n, n, 0.2f * n, (y - 0.05f) * n, 0.6f * n, 0.1f * n, 0.03f * n, groove, 0.006f * n);
     }
 }
 

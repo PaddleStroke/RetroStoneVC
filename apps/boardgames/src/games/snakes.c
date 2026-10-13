@@ -416,16 +416,8 @@ static int moving(float *x, float *y, float *lift)
 /* a pawn standing on a square (its centre: x, y, pixels), size wide */
 static void pawn(int p, float x, float y, float size)
 {
-    float left = x - size / 2;
-    if (ui_upside(p)) {                         /* turned round: its foot towards the top */
-        float top = y - 0.45f * size;
-        ui_shadow(left, top - 0.79f * size, size);
-        ui_put_rot(t_pawn[p], x, top + size / 2, size, size, 180);
-    } else {
-        float top = y - 0.55f * size;
-        ui_shadow(left, top, size);
-        ui_put(t_pawn[p], left, top, size, size);
-    }
+    int up = ui_upside(p);                      /* turned round: its foot towards the top */
+    ui_stand_at(t_pawn[p], x - size / 2, y - (up ? 0.45f : 0.55f) * size, size, up);
 }
 
 /* where the i-th of m pawns on one square stands (squares from its centre), and how big: one alone in the middle, two

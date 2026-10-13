@@ -36,7 +36,6 @@ static int nrolls;
 static struct { int on, token, moved; float x, y; } drag;
 static struct { int on, player, token, from, hops, heard, caught; Uint32 t0; lpos before; } anim;
 static int8_t track[LUDO_TRACK][2];             /* the track's cells, from the bottom player's start square */
-static const uint8_t INK[3] = {84, 56, 36}, PALE[3] = {244, 226, 192};
 static const uint8_t TONE[LUDO_PLAYERS][3] = {{248, 240, 222}, {112, 84, 64}, {176, 70, 52}, {74, 138, 106}};
 static const float TONE_A[LUDO_PLAYERS] = {0.9f, 0.82f, 0.78f, 0.78f};  /* the players' areas: ivory, ebony, red
                                                                          * lacquer and jade tones on the wood */
@@ -208,18 +207,6 @@ static int script(const char *s)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* a rounded rectangle of one colour painted over the board (n pixels wide) */
-static void paint_rect(uint8_t *o, int n, int x, int y, int w, int h, float rad, const uint8_t rgb[3], float a)
-{
-    if (w < 1 || h < 1) return;
-    const uint8_t fill[4] = {rgb[0], rgb[1], rgb[2], (uint8_t)(255 * a)};
-    uint8_t *b = malloc((size_t)w * h * 4);
-    if (!b) return;
-    art_roundrect(w, h, rad, fill, b);
-    art_blend(o, n, n, b, w, h, x, y);
-    free(b);
-}
-
 /* the bare plank again inside a rounded rectangle (a yard's inner square) */
 static void wood_back(uint8_t *o, const uint8_t *wood, int n, int x, int y, int w, int h, float rad)
 {
@@ -241,7 +228,7 @@ static void wood_back(uint8_t *o, const uint8_t *wood, int n, int x, int y, int 
 static void paint_fig(uint8_t *o, int n, const art_fig *f, const uint8_t rgb[3], float line, int x, int y, int w,
                       float a)
 {
-    art_style st = art_flat(rgb, INK, line, 0);
+    art_style st = art_flat(rgb, ART_INK, line, 0);
     art_fig_blend(o, n, n, f, &st, x, y, w, a);
 }
 
@@ -300,17 +287,17 @@ static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int p
         for (int x = 0; x < N; x++) {
             if (!arm(x, y)) continue;
             int s = cell_owner(x, y, bottom, players);
-            if (s >= 0) paint_rect(o, n, f + x * c, f + y * c, c, c, 0, TONE[s], TONE_A[s]);
-            else paint_rect(o, n, f + x * c, f + y * c, c, c, 0, PALE, 0.42f);
+            if (s >= 0) art_roundrect_put(o, n, n, f + x * c, f + y * c, c, c, 0, TONE[s], TONE_A[s]);
+            else art_roundrect_put(o, n, n, f + x * c, f + y * c, c, c, 0, ART_PALE, 0.42f);
         }
     for (int y = 0; y < N; y++)
         for (int x = 0; x < N; x++) {
             if (!arm(x, y)) continue;
             int px = f + x * c - lw / 2, py = f + y * c - lw / 2;
-            paint_rect(o, n, px, py, c + lw, lw, 0, INK, 0.6f);
-            paint_rect(o, n, px, py, lw, c + lw, 0, INK, 0.6f);
-            if (!arm(x + 1, y)) paint_rect(o, n, px + c, py, lw, c + lw, 0, INK, 0.6f);
-            if (!arm(x, y + 1)) paint_rect(o, n, px, py + c, c + lw, lw, 0, INK, 0.6f);
+            art_roundrect_put(o, n, n, px, py, c + lw, lw, 0, ART_INK, 0.6f);
+            art_roundrect_put(o, n, n, px, py, lw, c + lw, 0, ART_INK, 0.6f);
+            if (!arm(x + 1, y)) art_roundrect_put(o, n, n, px + c, py, lw, c + lw, 0, ART_INK, 0.6f);
+            if (!arm(x, y + 1)) art_roundrect_put(o, n, n, px, py + c, c + lw, lw, 0, ART_INK, 0.6f);
         }
     /* the yards: the players' in their tones (four spots on bare wood), the empty ones plain (the dice) */
     for (int q = 0; q < 4; q++) {
@@ -318,17 +305,17 @@ static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int p
         int ox = f + corner[q][0] * c, oy = f + corner[q][1] * c, m = c / 6, pl = seat_player(q, bottom, players);
         if (pl >= 0) {
             const uint8_t *t = TONE[pl];
-            paint_rect(o, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, t, TONE_A[pl]);
+            art_roundrect_put(o, n, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, t, TONE_A[pl]);
             int in = (int)(0.75f * c);
             wood_back(o, wood, n, ox + in, oy + in, 6 * c - 2 * in, 6 * c - 2 * in, 0.4f * c);
             for (int k = 0; k < 4; k++) {
                 float u, v;
                 place(pl, k, -1, bottom, variant, &u, &v);
                 paint_disc(o, n, f + u * c, f + v * c, (int)(1.45f * c), t, 0.55f, 0);
-                paint_disc(o, n, f + u * c, f + v * c, (int)(1.45f * c), INK, 0.45f, 0.9f);
+                paint_disc(o, n, f + u * c, f + v * c, (int)(1.45f * c), ART_INK, 0.45f, 0.9f);
             }
         } else {                                /* a groove round a plain tray */
-            paint_rect(o, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, INK, 0.2f);
+            art_roundrect_put(o, n, n, ox + m, oy + m, 6 * c - 2 * m, 6 * c - 2 * m, 0.5f * c, ART_INK, 0.2f);
             wood_back(o, wood, n, ox + m + lw, oy + m + lw, 6 * c - 2 * (m + lw), 6 * c - 2 * (m + lw),
                       0.5f * c - lw);
         }
@@ -341,7 +328,7 @@ static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int p
         int q = i == 1 ? 2 : i == 2 ? 1 : i, pl = seat_player(q, bottom, players);
         art_fig *fig = art_fig_new();
         art_poly(fig, ART_PART, tri[q], 3);
-        paint_fig(o, n, fig, pl >= 0 ? TONE[pl] : PALE, (float)lw / (3 * c), f + 6 * c, f + 6 * c, 3 * c,
+        paint_fig(o, n, fig, pl >= 0 ? TONE[pl] : ART_PALE, (float)lw / (3 * c), f + 6 * c, f + 6 * c, 3 * c,
                   pl >= 0 ? TONE_A[pl] + 0.05f : 0.6f);
         art_fig_free(fig);
     }
@@ -350,7 +337,7 @@ static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int p
             int pl = seat_player(q, bottom, players), x, y;
             for (int k = 1; k <= LUDO_STEPS && pl >= 0; k++) {
                 cell_q(q, 7, N - 1 - k, &x, &y);
-                paint_pips(o, n, f + x * c, f + y * c, c, k, pl ? TONE[0] : INK, pl ? 0.85f : 0.7f);
+                paint_pips(o, n, f + x * c, f + y * c, c, k, pl ? TONE[0] : ART_INK, pl ? 0.85f : 0.7f);
             }
         }
         return;
@@ -367,7 +354,8 @@ static void paint_board(uint8_t *o, int c, int f, int bottom, int variant, int p
     for (int i = 0; i < LUDO_TRACK; i++) {
         if (!ludo_safe(i)) continue;
         int pl = i % (LUDO_TRACK / 4) ? -1 : seat_player(i / (LUDO_TRACK / 4), bottom, players), dark = pl > 0;
-        paint_fig(o, n, star, dark ? TONE[0] : INK, 0, f + track[i][0] * c, f + track[i][1] * c, c, dark ? 0.8f : 0.5f);
+        paint_fig(o, n, star, dark ? TONE[0] : ART_INK, 0, f + track[i][0] * c, f + track[i][1] * c, c,
+                  dark ? 0.8f : 0.5f);
     }
     art_fig_free(star);
 }
@@ -418,15 +406,9 @@ static float px_y(float v) { return by + v * cs; }
 /* a pawn standing on (x, y) (pixels), its foot a little below; turned round for the top player, face to face */
 static void pawn_at(int player, float x, float y, float scale)
 {
-    float s = ps * scale, left = x - s / 2, top = y + 0.36f * cs * scale - 0.86f * s;
-    if (ui_upside(player)) {
-        top = 2 * y - top - s;
-        ui_shadow(left, top - 0.79f * s, s);
-        ui_put_rot(t_pawn[player], left + s / 2, top + s / 2, s, s, 180);
-    } else {
-        ui_shadow(left, top, s);
-        ui_put(t_pawn[player], left, top, s, s);
-    }
+    float s = ps * scale, top = y + 0.36f * cs * scale - 0.86f * s;
+    int up = ui_upside(player);
+    ui_stand_at(t_pawn[player], x - s / 2, up ? 2 * y - top - s : top, s, up);
 }
 
 /* where a player throws: two players, the centre of the empty yard on its right; more, the middle of its own */

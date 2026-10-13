@@ -54,6 +54,11 @@ void art_fig_paint(uint8_t *rgba, int size, art_fig *f, const uint8_t fill[3], c
 #define ART_PLAYERS 6
 extern const art_style art_player[ART_PLAYERS];
 int art_player_dark(int player);                    /* 1: a dark colour (light marks on it: pips, eyes) */
+/* the house ink (lines, seams, marks painted on the wood) and its pale ink (marks on a dark inlay) */
+static const uint8_t ART_INK[3] = {84, 56, 36}, ART_PALE[3] = {244, 226, 192};
+#define ART_PI 3.14159265f
+/* a steady pseudo-random 0..1 for (a, b): a thrown lot's place and tilt, the same every time it is drawn */
+float art_hash(int a, int b);
 
 enum { COUNTER_DISC, COUNTER_STONE, COUNTER_MAN, COUNTER_KING };
 /* a round piece of a player, seen from above, size x size: DISC a flat counter with a rim (reversi, four in a row,
@@ -88,6 +93,11 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
  * all), its grain at the scale of a square plank of its short side (art_board_n's plain wood sets it by the square:
  * finer grain): a tray under a grid, a field stretched over the whole room */
 void art_plank(int w, int h, int fr, uint8_t *rgba);
+/* an inlaid tile in a picture (pw x ph) of wood: the wood under a rounded rectangle (x0, y0, w x h, corners rad;
+ * pixels) tinted by tone (a factor per channel, so the grain stays), a darker seam round it, seam pixels wide: the
+ * squares of the race games, a scorecard, a groove */
+void art_inlay(uint8_t *rgba, int pw, int ph, float x0, float y0, float w, float h, float rad, const float tone[3],
+               float seam);
 
 /* the green felt of the dice games over a rectangle [x0, x1) x [y0, y1) of a picture (w x h): fine fibres, darker
  * towards its edges (under the walls) */

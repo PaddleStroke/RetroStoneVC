@@ -16,14 +16,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "games/race.h"
 #include "shell.h"
 
 #define CUP_FR 0.035f                           /* the walnut frame, of the board's side */
 #define CUP_SLIDE_MS 200                        /* a die kept or set aside sliding to its place */
 #define CUP_KEYS 16384                          /* throws remembered (a game's own keys: turn, throw...) */
 
-static const uint8_t CUP_INK[3] = {84, 56, 36}, CUP_CREAM[3] = {246, 238, 220};
+static const uint8_t CUP_CREAM[3] = {246, 238, 220};
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* the board: a plank of the house wood in its walnut frame (n x n) */
@@ -39,18 +38,18 @@ static inline void cup_well(uint8_t *o, int n, float x0, float y0, float x1, flo
     int ix0 = (int)(x0 * n), iy0 = (int)(y0 * n), ix1 = (int)(x1 * n), iy1 = (int)(y1 * n);
     art_felt(o, n, n, ix0, iy0, ix1, iy1);
     float e = 0.004f * n;
-    art_tint_rect(o, n, n, ix0 - e, iy0 - e, ix1 + e, iy0 + 0.5f * e, CUP_INK, 0.45f);
-    art_tint_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, CUP_INK, 0.45f);
-    art_tint_rect(o, n, n, ix0 - e, iy0, ix0 + 0.5f * e, iy1, CUP_INK, 0.45f);
-    art_tint_rect(o, n, n, ix1 - 0.5f * e, iy0, ix1 + e, iy1, CUP_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy0 - e, ix1 + e, iy0 + 0.5f * e, ART_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy1 - 0.5f * e, ix1 + e, iy1 + e, ART_INK, 0.45f);
+    art_tint_rect(o, n, n, ix0 - e, iy0, ix0 + 0.5f * e, iy1, ART_INK, 0.45f);
+    art_tint_rect(o, n, n, ix1 - 0.5f * e, iy0, ix1 + e, iy1, ART_INK, 0.45f);
 }
 
 /* a die's rest on the felt after throw `key`: a small steady tilt (degrees) and offset (-1..1) for die i */
-static inline float cup_tilt(int key, int i) { return (race_hash(key, i) - 0.5f) * 24; }
-static inline float cup_jitter(int key, int i, int axis) { return 2 * race_hash(key * 7 + axis, i + 11) - 1; }
+static inline float cup_tilt(int key, int i) { return (art_hash(key, i) - 0.5f) * 24; }
+static inline float cup_jitter(int key, int i, int axis) { return 2 * art_hash(key * 7 + axis, i + 11) - 1; }
 
 /* a slide from a to b, f 0..1 of the way (eased) */
-static inline float cup_mix(float a, float b, float f) { return a + (b - a) * race_ease(clampf(f, 0, 1)); }
+static inline float cup_mix(float a, float b, float f) { return a + (b - a) * ui_ease(clampf(f, 0, 1)); }
 
 /* ---- the throws, remembered: undo never throws again (the same faces come back) -------------------------------- */
 static inline uint8_t (*cup_mem(void))[6]

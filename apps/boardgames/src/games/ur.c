@@ -19,7 +19,6 @@
 #include <string.h>
 
 #include "games/lines.h"
-#include "games/race.h"
 #include "games/ur.h"
 #include "shell.h"
 
@@ -204,15 +203,15 @@ static void paint_rosette(uint8_t *o, int pw, int ph, int x, int y, int w)
     art_fig *f = art_fig_new();
     float pt[2 * 26];
     for (int i = 0; i < 8; i++) {               /* a petal: a pointed leaf from the heart outwards */
-        float a = (22.5f + 45 * i) * RACE_PI / 180, ca = cosf(a), sa = sinf(a);
+        float a = (22.5f + 45 * i) * ART_PI / 180, ca = cosf(a), sa = sinf(a);
         int n = 0;
         for (int s = 0; s <= 12; s++) {
-            float t = s / 12.0f, r = 0.07f + 0.31f * t, h = 0.075f * sinf(RACE_PI * t) * (1.15f - 0.3f * t);
+            float t = s / 12.0f, r = 0.07f + 0.31f * t, h = 0.075f * sinf(ART_PI * t) * (1.15f - 0.3f * t);
             pt[n++] = 0.5f + r * ca - h * sa;
             pt[n++] = 0.5f + r * sa + h * ca;
         }
         for (int s = 11; s >= 1; s--) {
-            float t = s / 12.0f, r = 0.07f + 0.31f * t, h = 0.075f * sinf(RACE_PI * t) * (1.15f - 0.3f * t);
+            float t = s / 12.0f, r = 0.07f + 0.31f * t, h = 0.075f * sinf(ART_PI * t) * (1.15f - 0.3f * t);
             pt[n++] = 0.5f + r * ca + h * sa;
             pt[n++] = 0.5f + r * sa - h * ca;
         }
@@ -221,10 +220,10 @@ static void paint_rosette(uint8_t *o, int pw, int ph, int x, int y, int w)
     art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.1f, 0.1f);
     art_ellipse(f, ART_MARK, 0.5f, 0.5f, 0.045f, 0.045f);
     for (int i = 0; i < 8; i++) {               /* the dots between the petals' tips */
-        float a = 45 * i * RACE_PI / 180;
+        float a = 45 * i * ART_PI / 180;
         art_ellipse(f, ART_PART, 0.5f + 0.41f * cosf(a), 0.5f + 0.41f * sinf(a), 0.028f, 0.028f);
     }
-    art_style st = art_flat(RACE_PALE, RACE_INK, fmaxf(0.018f, 1.0f / w), 0.25f);
+    art_style st = art_flat(ART_PALE, ART_INK, fmaxf(0.018f, 1.0f / w), 0.25f);
     memcpy(st.mark, (float[3]){ROSE_WOOD[0], ROSE_WOOD[1], ROSE_WOOD[2]}, sizeof st.mark);
     art_fig_blend(o, pw, ph, f, &st, x, y, w, 1);
     art_fig_free(f);
@@ -238,7 +237,7 @@ static void paint_motif(uint8_t *o, int pw, int ph, float cx, float cy, float w,
         art_arc(f, ART_PART, 0.5f, 0.5f, 0.17f, 0.23f, 0, 360);
         art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.07f, 0.07f);
         for (int i = 0; i < 4; i++) {
-            float a = (45 + 90 * i) * RACE_PI / 180;
+            float a = (45 + 90 * i) * ART_PI / 180;
             art_ellipse(f, ART_PART, 0.5f + 0.36f * cosf(a), 0.5f + 0.36f * sinf(a), 0.045f, 0.045f);
         }
     } else {
@@ -247,7 +246,7 @@ static void paint_motif(uint8_t *o, int pw, int ph, float cx, float cy, float w,
             art_ellipse(f, ART_PART, 0.5f + dx, 0.5f + dy, 0.075f, 0.075f);
         }
     }
-    art_style st = art_flat(RACE_INK, RACE_INK, 0, 0);
+    art_style st = art_flat(ART_INK, ART_INK, 0, 0);
     int s = (int)w;
     art_fig_blend(o, pw, ph, f, &st, (int)(cx - s / 2.0f), (int)(cy - s / 2.0f), s, 0.5f);
     art_fig_free(f);
@@ -282,7 +281,7 @@ static void paint_board(uint8_t *o, int c, int f)
             if (r != 1 && (col == 4 || col == 5)) continue;
             int ros = (r != 1 && (col == 0 || col == 6)) || (r == 1 && col == 3);
             float x = f + col * c + m, y = f + r * c + m, w = c - 2 * m;
-            race_inlay(o, pw, ph, x, y, w, w, 0.08f * c, ros ? rose : maple, seam);
+            art_inlay(o, pw, ph, x, y, w, w, 0.08f * c, ros ? rose : maple, seam);
             if (ros) paint_rosette(o, pw, ph, (int)x, (int)y, (int)w);
             else paint_motif(o, pw, ph, x + w / 2, y + w / 2, 0.8f * w, r == 1 ? (col & 1) == 0 : col == 7 || col == 2);
         }
@@ -439,7 +438,7 @@ static void draw_dice(int q)
     for (int i = 0; i < 4; i++) {
         die_px(q, i, &x, &y);
         int marked = mask >> i & 1;
-        float tilt = (race_hash(k, i) - 0.5f) * 24, turn_by = 0, lift = 0;
+        float tilt = (art_hash(k, i) - 0.5f) * 24, turn_by = 0, lift = 0;
         if (rolling) {                          /* tumbling: the tip flickers, the die spins and bounces */
             ui_die_tumble((int)t, i, &turn_by, &lift);
             marked = (int)((t / 70 + (unsigned)i * 3 + (unsigned)mask) % 2);
@@ -555,7 +554,7 @@ static void draw(void)
     else draw_pieces(p, me, drag.on && drag.moved ? drag.from : -1, -1);
     draw_targets(moves, 1);
     if (anim.on && anim.caught && t >= anim.hops) {   /* the piece sent back slides to its rack */
-        float f = race_ease(clampf((t - anim.hops) * HOP_MS / BACK_MS, 0, 1)), x1, y1;
+        float f = ui_ease(clampf((t - anim.hops) * HOP_MS / BACK_MS, 0, 1)), x1, y1;
         int other = !anim.player;
         place_px(other, anim.to, 0, &x, &y);
         place_px(other, 0, anim.before.n[other][0], &x1, &y1);
@@ -568,9 +567,9 @@ static void draw(void)
         int a = anim.from + h, b = a + 1;
         place_px(anim.player, a, slot(&anim.before, anim.player, a), &x, &y);
         place_px(anim.player, b, slot(&anim.before, anim.player, b), &x1, &y1);
-        float e = race_ease(f), up = (ui_upside(anim.player) ? -1 : 1) * race_lift(f) * cs;
+        float e = ui_ease(f), up = (ui_upside(anim.player) ? -1 : 1) * ui_hop(f) * cs;
         float sc = (a == 0 ? rk_s + (1 - rk_s) * e : 1) * (b == UR_OFF ? 1 - (1 - rk_s) * e : 1);
-        piece_at(anim.player, x + (x1 - x) * e, y + (y1 - y) * e - up, sc * (1 + 0.1f * sinf(RACE_PI * f)), 1);
+        piece_at(anim.player, x + (x1 - x) * e, y + (y1 - y) * e - up, sc * (1 + 0.1f * sinf(ART_PI * f)), 1);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, above the finger */
         float off = (ui_upside(me) ? -0.5f : 0.5f) * cs;

@@ -28,7 +28,6 @@
 
 #include "cards.h"
 #include "cards_table.h"
-#include "games/race.h"
 #include "games/wordtiles.h"
 #include "shell.h"
 #include "text.h"
@@ -314,7 +313,7 @@ static void marks(uint8_t *o, int n, int x, int y, int sq, int q)
     if (q == WQ_STAR) {
         float p[20];
         for (int i = 0; i < 10; i++) {
-            float a = (-90 + 36 * i) * RACE_PI / 180, rr = i & 1 ? 0.17f : 0.4f;
+            float a = (-90 + 36 * i) * ART_PI / 180, rr = i & 1 ? 0.17f : 0.4f;
             p[2 * i] = 0.5f + rr * cosf(a), p[2 * i + 1] = 0.53f + rr * sinf(a);
         }
         art_poly(f, ART_PART, p, 10);
@@ -523,11 +522,11 @@ static void fly_draw(void)
     for (int i = 0; i < nfly; i++) {
         if (!fly_on(i)) continue;
         int t = (int)(ui_ms() - fly[i].t0) - fly[i].delay;
-        float f = race_ease(clampf(t / (float)fly[i].ms, 0, 1)), s = fly[i].s0 + (fly[i].s1 - fly[i].s0) * f;
+        float f = ui_ease(clampf(t / (float)fly[i].ms, 0, 1)), s = fly[i].s0 + (fly[i].s1 - fly[i].s0) * f;
         float x = fly[i].x0 + (fly[i].x1 - fly[i].x0) * f, y = fly[i].y0 + (fly[i].y1 - fly[i].y0) * f;
         float a = fly[i].fade & 1 ? 1 - f * f : 1;
         if (t < 0 && fly[i].fade & 2) continue;                 /* still in the bag */
-        tile_at(fly[i].code, x, y - race_lift(f) * s * 0.4f, s * (1 + 0.08f * sinf(RACE_PI * f)), a, 1);
+        tile_at(fly[i].code, x, y - ui_hop(f) * s * 0.4f, s * (1 + 0.08f * sinf(ART_PI * f)), a, 1);
         ui_animate();
     }
 }
