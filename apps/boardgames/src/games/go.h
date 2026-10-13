@@ -6,8 +6,8 @@
  *
  * Players: 0 ebony (black, plays first), 1 ivory (white, gets the komi).
  * Points: x + y * n, x from the left, y from the bottom, as go's notation names them: a letter (a, b, ... skipping i)
- * and a number from the bottom: "d4 q16 pass". The moves of a script: points and "pass"; a pass while counting means
- * the players are done (the game is over).
+ * and a number from the bottom: "d4 q16 pass". The moves of a script: points and "pass"; while counting, a point marks
+ * its group dead or alive (go_toggle) and a pass means the players are done (the game is over).
  *
  * Capture go (go_new_capture; for children, on 9 x 9 or 13 x 13): the first player to capture wins at once. No pass
  * and no counting; suicide is still not allowed, so a player with no point left to play loses.
@@ -58,5 +58,13 @@ void go_score(const gogame *g, int8_t owner[GO_PTS], float score[2]);
 int go_winner(const gogame *g);                 /* over: 0 or 1 (no draw with the komi's half point); else -1 */
 int go_point(int n, const char *s, int *len);   /* "d4": the point, "pass": GO_PASS, else GO_NONE; len: its length */
 int go_script(gogame *g, const char *s);        /* plays "d4 q16 pass ..."; 0: a bad or illegal move */
+
+/* the bot (go_bot.c, bots.h), and what the screen (go.c) gives it; a headless test defines those two */
+const gogame *go_live(void);                    /* the game on the screen, read-only: the bot copies it at entry */
+int go_show(const char *move);                  /* main thread: "d4", "pass" (counting: a point marks its group) as
+                                                 * a tap or the pass button does (animated); 0: not legal */
+struct ai_stats;
+/* the bot's move for the game at a level: a point, GO_PASS (counting: a point to mark, GO_PASS done), GO_NONE */
+int gob_choose(const gogame *g, int level, uint64_t seed, struct ai_stats *stats);
 
 #endif

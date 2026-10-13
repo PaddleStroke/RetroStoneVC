@@ -202,7 +202,7 @@ int go_script(gogame *g, const char *s)
         if (!*s) return 1;
         int len, p = go_point(g->n, s, &len);
         if (p == GO_NONE || (s[len] && s[len] != ' ')) return 0;
-        if (p == GO_PASS ? !go_pass(g) : go_play(g, p) < 0) return 0;
+        if (p == GO_PASS ? !go_pass(g) : g->phase == GO_COUNT ? !go_toggle(g, p) : go_play(g, p) < 0) return 0;
         s += len;
     }
 }

@@ -87,6 +87,19 @@ static void play(int cell)
     ui_sound(SND_PLACE);
 }
 
+/* the bot's side (bots.h): the game, read-only; a move in the notation ("c4", "swap"), played as a tap does */
+const hexgame *hex_live(void) { return &G; }
+
+int hex_show(const char *move)
+{
+    int len, m = hex_cell(G.n, move, &len);
+    if (status() != GS_PLAY || m == HEX_NONE || move[len]) return 0;
+    if (m == HEX_SWAP ? !hex_can_swap(&G) : !hex_legal(&G, m)) return 0;
+    calm();
+    play(m == HEX_SWAP ? G.move[0] : m);
+    return 1;
+}
+
 static int undo(void)
 {
     calm();

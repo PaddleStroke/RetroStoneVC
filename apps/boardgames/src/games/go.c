@@ -89,6 +89,29 @@ static void pass(void)
     calm();
 }
 
+/* the bot's side (bots.h): the game, read-only; a move in the notation, played as a tap or the pass button does
+ * ("d4", "pass"; while counting: a point marks its group dead or alive, "pass" is done) */
+const gogame *go_live(void) { return &G; }
+
+int go_show(const char *move)
+{
+    int len, p = go_point(G.n, move, &len);
+    if (p == GO_NONE || move[len] || G.phase == GO_OVER) return 0;
+    if (p == GO_PASS) {
+        if (!can_pass()) return 0;
+        pass();
+        return 1;
+    }
+    if (G.phase == GO_COUNT) {
+        if (!go_toggle(&G, p)) return 0;
+        ui_sound(SND_TAP);
+        return 1;
+    }
+    if (!legal(p)) return 0;
+    play(p);
+    return 1;
+}
+
 static int undo(void)
 {
     calm();

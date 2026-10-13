@@ -44,4 +44,10 @@ int hex_chain(const hexgame *g, int *cells);    /* the winner's shortest chain f
 int hex_cell(int n, const char *s, int *len);   /* "c4": the cell, "swap": HEX_SWAP, else HEX_NONE; len: its length */
 int hex_script(hexgame *g, const char *s);      /* plays "a1 b3 swap ..."; 0: a bad or illegal move */
 
+/* the bot (hex_bot.c, bots.h), and what the screen (hex.c) gives it; a headless test defines those two */
+const hexgame *hex_live(void);                  /* the game on the screen, read-only: the bot copies it at entry */
+int hex_show(const char *move);                 /* main thread: "c4" or "swap" as a tap does (animated); 0: not legal */
+struct ai_stats;
+int hxb_choose(const hexgame *g, int level, uint64_t seed, struct ai_stats *stats);   /* a cell, HEX_SWAP, HEX_NONE */
+
 #endif
