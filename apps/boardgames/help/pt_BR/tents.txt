@@ -9,11 +9,13 @@ Cada campo tem uma única solução, encontrada só pelo raciocínio. Escolha o 
 Arme uma barraca numa casa, ou desmonte-a. Você também pode pôr grama numa casa para lembrar que ali não vai barraca; a grama é só uma anotação sua.
 # O fim da partida
 O campo está resolvido quando cada árvore tem a sua barraca, nenhuma barraca toca outra e cada número está certo: uma onda de luz dourada percorre o campo.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 ao 12 × 12, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma barraca ou grama no lugar errado que você depois tira com Desfazer.
 # Jogando no aparelho
 - Toque numa casa para armar uma barraca; toque de novo para desmontá-la.
 - Segure uma casa por um instante para pôr grama, ou tirá-la.
 - Arraste ao longo de uma linha ou coluna para pôr grama num trecho inteiro (ou tirá-la de um trecho de grama).
-Barracas que se tocam brilham em vermelho, assim como uma árvore sem espaço para a sua barraca. Um número fica vermelho quando a sua linha tem barracas demais, e fica apagado quando já tem todas. Os botões na ponta direita da barra:
+Barracas que se tocam brilham em vermelho, assim como uma árvore sem espaço para a sua barraca. Um número fica vermelho quando a sua linha tem barracas demais, e fica apagado quando já tem todas. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
 - Barraca ou grama: o que um toque coloca. Toque nele para trocar tocar e segurar.
 - Lâmpada acesa: uma dica. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
 Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.

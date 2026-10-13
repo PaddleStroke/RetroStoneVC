@@ -5,6 +5,7 @@
  */
 #include "games/tents.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -213,10 +214,15 @@ static int medium(bench_grid *g, const ctx *k)
     return 0;
 }
 
+static long finds[2];                           /* each tier's finds (tn_effort counts them) */
+
 static int deduce(bench_grid *g, int tier, void *c)
 {
-    return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    int res = tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    if (res > 0) finds[tier ? 1 : 0]++;
+    return res;
 }
+
 
 /* every tree its own tent beside it: a matching of trees and tents (each tree tries its cells in turn) */
 static int match_tree(const ctx *k, const bench_grid *g, int t, uint8_t *seen, int *tree_at)
@@ -296,6 +302,54 @@ int tn_count(const tn_puzzle *p, int limit)
     return bench_search(&g, &r, limit, NULL, NULL, 0);
 }
 
+int tn_effort(const tn_puzzle *p, long *passes, long *mediums)
+{
+    ctx k;
+    ctx_make(&k, p);
+    bench_rules r = rules_of(&k, NULL);
+    bench_grid g;
+    grid_of(&k, &g);
+    finds[1] = 0;
+    int lv = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    if (mediums) *mediums = finds[1];
+    return lv;
+}
+
+/* ---- a field as text (the levels) -------------------------------------------------------------------------------- */
+static const char DIGIT[] = "0123456789abc";
+
+int tn_encode(const tn_puzzle *p, char *out, int size)
+{
+    int n = p->n, len = snprintf(out, (size_t)size, "%d:", n);
+    if (len < 0 || len + 2 * n + n * n + 1 > size) return 0;
+    for (int way = 0; way < 2; way++)
+        for (int i = 0; i < n; i++) out[len++] = p->count[way][i] < 0 ? '-' : DIGIT[p->count[way][i] % 13];
+    for (int c = 0; c < n * n; c++) out[len++] = p->tree[c] ? 'T' : '.';
+    out[len] = 0;
+    return len;
+}
+
+int tn_decode(const char *s, tn_puzzle *p)
+{
+    memset(p, 0, sizeof *p);
+    int n = 0;
+    for (; *s >= '0' && *s <= '9'; s++) n = n * 10 + *s - '0';
+    if (*s++ != ':' || n < 4 || n > TN_MAX) return 0;
+    p->n = n;
+    for (int way = 0; way < 2; way++)
+        for (int i = 0; i < n; i++, s++) {
+            const char *d = *s ? strchr(DIGIT, *s) : NULL;
+            if (*s != '-' && !d) return 0;
+            p->count[way][i] = (int8_t)(*s == '-' ? -1 : d - DIGIT);
+        }
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s != 'T' && *s != '.') return 0;
+        p->tree[c] = *s == 'T';
+    }
+    return !*s;
+}
+
 /* ---- making a field ---------------------------------------------------------------------------------------------- */
 /* tents where they touch none, each with a tree beside it, in a random order, about one cell in five */
 static void layout(int n, uint32_t *s, tn_puzzle *p, uint8_t *sol)
@@ -360,12 +414,12 @@ void tn_make(int n, int level, uint32_t seed, tn_puzzle *p, uint8_t *sol)
 }
 
 /* ---- the player's field ------------------------------------------------------------------------------------------ */
-void tn_load(tn_game *g, const tn_puzzle *p, int level)
+int tn_load(tn_game *g, const tn_puzzle *p)
 {
     memset(g, 0, sizeof *g);
     g->p = *p;
-    g->level = level;
-    tn_grade(p, g->sol);
+    g->level = tn_grade(p, g->sol);
+    return g->level >= BENCH_EASY && g->level <= BENCH_HARD;
 }
 
 void tn_new(tn_game *g, int variant, uint32_t seed)

@@ -9,11 +9,13 @@ Każde pole ma dokładnie jedno rozwiązanie, do którego dochodzi się samym ro
 Rozbij namiot na polu albo go zwiń. Możesz też położyć trawę na polu, by pamiętać, że nie ma tam namiotu; trawa to tylko twoja notatka.
 # Koniec gry
 Pole jest rozwiązane, gdy każde drzewo ma swój namiot, żadne namioty się nie stykają, a każda liczba się zgadza: po polu przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Jeśli cofniesz przyciskiem Cofnij źle rozbity namiot lub źle położoną trawę, liczy się to jako błąd.
 # Gra na urządzeniu
 - Dotknij pola, aby rozbić namiot; dotknij jeszcze raz, aby go zwinąć.
 - Przytrzymaj chwilę palec na polu, aby położyć trawę albo ją usunąć.
 - Przeciągnij wzdłuż wiersza lub kolumny, aby położyć trawę na całym odcinku (albo usunąć ją z odcinka trawy).
-Stykające się namioty świecą na czerwono, podobnie jak drzewo, któremu nie zostało miejsca na namiot. Liczba robi się czerwona, gdy jej linia ma za dużo namiotów, i blednie, gdy ma je wszystkie. Przyciski na prawym końcu paska:
+Stykające się namioty świecą na czerwono, podobnie jak drzewo, któremu nie zostało miejsca na namiot. Liczba robi się czerwona, gdy jej linia ma za dużo namiotów, i blednie, gdy ma je wszystkie. Przyciski na prawym końcu paska (w poziomie w bocznej kolumnie):
 - Namiot albo trawa: co stawia dotknięcie. Dotknij go, aby zamienić dotknięcie z przytrzymaniem.
 - Żarówka: podpowiedź. Poprawia błędne pole albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle.
 Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

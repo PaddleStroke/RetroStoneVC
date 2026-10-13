@@ -9,11 +9,13 @@ Cada campo tiene una sola solución, que se encuentra solo razonando. Elige el t
 Monta una tienda en una casilla, o desmóntala. También puedes poner hierba en una casilla para recordar que ahí no va ninguna tienda; la hierba es solo una nota para ti.
 # El final de la partida
 El campo está resuelto cuando cada árbol tiene su tienda, ninguna tienda toca a otra y cada número es correcto: una ola de luz dorada recorre el campo.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 5 × 5 al 12 × 12, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una tienda o hierba mal puestas que luego quitas con Deshacer.
 # Jugar en el dispositivo
 - Toca una casilla para montar una tienda; tócala otra vez para desmontarla.
 - Mantén pulsada una casilla un momento para poner hierba, o quitarla.
 - Arrastra a lo largo de una fila o una columna para poner hierba en todo un tramo (o quitarla de un tramo de hierba).
-Las tiendas que se tocan brillan en rojo, igual que un árbol que ya no tiene sitio para su tienda. Un número se vuelve rojo cuando su línea tiene demasiadas tiendas, y se apaga cuando ya las tiene todas. Los botones al final de la barra:
+Las tiendas que se tocan brillan en rojo, igual que un árbol que ya no tiene sitio para su tienda. Un número se vuelve rojo cuando su línea tiene demasiadas tiendas, y se apaga cuando ya las tiene todas. Los botones al final de la barra (en horizontal, en la columna lateral):
 - Tienda o hierba: lo que pone un toque. Tócalo para intercambiar tocar y mantener pulsado.
 - Bombilla: una pista. Corrige una casilla equivocada o, si no hay ninguna, muestra la siguiente casilla que encuentra el razonamiento, con luz dorada.
 Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.

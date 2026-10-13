@@ -9,11 +9,13 @@ Cada campo tem uma única solução, que se encontra só a raciocinar. Escolhe o
 Monta uma tenda numa casa, ou desmonta-a. Também podes pôr relva numa casa para te lembrares de que ali não vai nenhuma tenda; a relva é só uma nota para ti.
 # O fim do jogo
 O campo está resolvido quando cada árvore tem a sua tenda, nenhuma tenda toca outra e cada número está certo: uma onda de luz dourada percorre o campo.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 ao 12 × 12, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma tenda ou relva no sítio errado que depois tiras com Anular.
 # Jogar no dispositivo
 - Toca numa casa para montar uma tenda; toca outra vez para a desmontar.
 - Mantém o dedo numa casa por um instante para pôr relva, ou a tirar.
 - Arrasta ao longo de uma linha ou coluna para pôr relva num troço inteiro (ou tirá-la de um troço de relva).
-As tendas que se tocam brilham a vermelho, tal como uma árvore sem espaço para a sua tenda. Um número fica vermelho quando a sua linha tem tendas a mais, e esbate-se quando já as tem todas. Os botões na ponta direita da barra:
+As tendas que se tocam brilham a vermelho, tal como uma árvore sem espaço para a sua tenda. Um número fica vermelho quando a sua linha tem tendas a mais, e esbate-se quando já as tem todas. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
 - Tenda ou relva: o que um toque põe. Toca-lhe para trocar tocar e manter o dedo.
 - Lâmpada acesa: uma ajuda. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
 Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

@@ -10,6 +10,7 @@
 
 #include "games/puzrand.h"
 #include "games/tents.h"
+#include "games/tents_levels.h"
 
 static int fails;
 #define CHECK(c)                                                                                                    \
@@ -192,6 +193,33 @@ int main(void)
         while (tn_undo(&G) >= 0) {}
         CHECK(!memcmp(G.st, start.st, sizeof G.st) && G.hist.moves == 0);
     }
+
+    /* the levels: each decodes and encodes back, has one solution found by reasoning alone (easy in chapter 1, hard
+     * at the end), and the sizes never shrink */
+    {
+        int last_n = 0, grades[3] = {0, 0, 0};
+        clock_t t1 = clock();
+        for (int l = 0; l < TN_LEVELS; l++) {
+            tn_puzzle q;
+            static tn_game L;
+            char back[TN_CELLS + 64];
+            int ok = tn_decode(tn_levels[l], &q) && tn_load(&L, &q) && tn_count(&q, 2) == 1;
+            for (int c = 0; ok && c < q.n * q.n; c++) L.st[c] = L.sol[c] ? TN_TENT : TN_EMPTY;
+            ok = ok && tn_solved(&L);           /* its solution keeps the rules */
+            if (!ok) printf("tents level %d: not one solution\n", l + 1);
+            CHECK(ok);
+            CHECK(tn_encode(&q, back, sizeof back) && !strcmp(back, tn_levels[l]));
+            CHECK(q.n >= last_n);
+            last_n = q.n;
+            if (ok) grades[L.level]++;
+            if (l < TN_LEVELS / TN_CHAPTERS) CHECK(L.level == BENCH_EASY);
+        }
+        tn_puzzle q;
+        CHECK(tn_decode(tn_levels[TN_LEVELS - 1], &q) && tn_grade(&q, NULL) == BENCH_HARD);
+        printf("tents: %d levels, one solution each (easy %d, medium %d, hard %d) in %.1f s\n", TN_LEVELS,
+               grades[0], grades[1], grades[2], (double)(clock() - t1) / CLOCKS_PER_SEC);
+    }
+
 
     if (fails) printf("tents: %d checks failed\n", fails);
     else printf("tents: all checks passed\n");

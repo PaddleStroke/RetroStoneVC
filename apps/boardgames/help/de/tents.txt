@@ -9,11 +9,13 @@ Jedes Feld hat genau eine Lösung, die sich allein durch Nachdenken finden läss
 Stelle ein Zelt in ein Feld oder baue es ab. Du kannst auch Gras in ein Feld setzen, um dir zu merken, dass dort kein Zelt hinkommt; das Gras ist nur eine Notiz für dich.
 # Das Ende der Partie
 Das Feld ist gelöst, wenn jeder Baum sein Zelt hat, sich keine Zelte berühren und jede Zahl stimmt: Eine Welle goldenen Lichts läuft über das Feld.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du ein falsches Zelt oder falsches Gras mit Rückgängig zurück, zählt das als Fehler.
 # Spielen auf dem Gerät
 - Tippe ein Feld an, um ein Zelt aufzustellen; tippe noch einmal, um es abzubauen.
 - Halte ein Feld einen Moment, um Gras hineinzusetzen oder es zu entfernen.
 - Ziehe entlang einer Zeile oder Spalte, um Gras in einen ganzen Abschnitt zu setzen (oder es aus einem Abschnitt voller Gras zu entfernen).
-Zelte, die sich berühren, glühen rot, ebenso ein Baum, der keinen Platz mehr für sein Zelt hat. Eine Zahl wird rot, wenn ihre Linie zu viele Zelte hat, und verblasst, sobald sie alle hat. Die Knöpfe am rechten Ende der Leiste:
+Zelte, die sich berühren, glühen rot, ebenso ein Baum, der keinen Platz mehr für sein Zelt hat. Eine Zahl wird rot, wenn ihre Linie zu viele Zelte hat, und verblasst, sobald sie alle hat. Die Knöpfe am rechten Ende der Leiste (im Querformat in der Seitenspalte):
 - Zelt oder Gras: was ein Tippen setzt. Tippe ihn an, um Tippen und Halten zu tauschen.
 - Glühbirne: ein Tipp. Sie berichtigt ein falsches Feld oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht.
 Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

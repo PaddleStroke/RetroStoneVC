@@ -9,11 +9,13 @@ Her alanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. B
 Bir kareye çadır kur ya da onu sök. Oraya çadır gelmeyeceğini hatırlamak için bir kareye çimen de koyabilirsin; çimen yalnızca senin notundur.
 # Oyunun sonu
 Her ağacın çadırı olduğunda, hiçbir çadır birbirine değmediğinde ve her sayı doğru olduğunda alan çözülür: alanın üzerinden altın bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 5 × 5'ten 12 × 12'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Geri al ile kaldırdığın yanlış bir çadır ya da çimen hata sayılır.
 # Cihazda oynamak
 - Çadır kurmak için bir kareye dokun; sökmek için yeniden dokun.
 - Çimen koymak ya da kaldırmak için parmağını bir karenin üzerinde bir an tut.
 - Bütün bir parçaya çimen koymak (ya da çimenli bir parçadan kaldırmak) için bir satır ya da sütun boyunca sürükle.
-Birbirine değen çadırlar kırmızı parlar, çadırına yer kalmamış bir ağaç da öyle. Bir sayı, çizgisinde fazla çadır olunca kırmızıya döner, hepsi tamam olunca solar. Çubuğun sağ ucundaki düğmeler:
+Birbirine değen çadırlar kırmızı parlar, çadırına yer kalmamış bir ağaç da öyle. Bir sayı, çizgisinde fazla çadır olunca kırmızıya döner, hepsi tamam olunca solar. Çubuğun sağ ucundaki (yatay ekranda yan sütundaki) düğmeler:
 - Çadır ya da çimen: bir dokunuşun ne koyduğu. Dokunma ile basılı tutmanın yerini değiştirmek için ona dokun.
 - Ampul: bir ipucu. Yanlış bir kareyi düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir.
 Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

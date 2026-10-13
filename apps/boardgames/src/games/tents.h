@@ -33,6 +33,8 @@
 #define TN_VARIANTS (TN_SIZES * 3)
 #define TN_MAX 12
 #define TN_CELLS (TN_MAX * TN_MAX)
+#define TN_LEVELS 150                           /* the designed levels (tents_levels.h), in six chapters */
+#define TN_CHAPTERS 6
 
 enum { TN_EMPTY, TN_TENT, TN_GRASS };          /* a cell as the player left it */
 
@@ -57,9 +59,16 @@ int  tn_level(int variant);
 int  tn_grade(const tn_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  tn_count(const tn_puzzle *p, int limit);
 void tn_make(int n, int level, uint32_t seed, tn_puzzle *p, uint8_t *sol);
+/* the levels (tents_levels.h, made by tools/tents_gen.c): a field as text, "<n>:", the rows' counts, the columns'
+ * (a digit each, '-' not told), then a character a cell, row by row ('T' a tree, '.' none) */
+int  tn_encode(const tn_puzzle *p, char *out, int size);   /* its length; 0: no room */
+int  tn_decode(const char *s, tn_puzzle *p);    /* 1: a puzzle */
+/* the work a puzzle asks of the solver: its grade (BENCH_*), the passes (each tier tried once round) and the
+ * finds of the medium way */
+int  tn_effort(const tn_puzzle *p, long *passes, long *mediums);
 
 void tn_new(tn_game *g, int variant, uint32_t seed);
-void tn_load(tn_game *g, const tn_puzzle *p, int level);
+int  tn_load(tn_game *g, const tn_puzzle *p);   /* a puzzle given (a level), graded and solved; 1: it solves */
 int  tn_free(const tn_game *g, int c);          /* 1: not a tree */
 int  tn_tap_state(const tn_game *g, int c);
 int  tn_hold_state(const tn_game *g, int c);

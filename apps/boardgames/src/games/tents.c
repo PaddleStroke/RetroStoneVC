@@ -11,6 +11,8 @@
  * does a tree left with no room for its tent; a count turns red past its tents and fades once they are all there.
  * Undo takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs over
  * the field; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, made by tools/tents_gen.c: tents_levels.h), or its
+ * die tab a puzzle made at random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -19,6 +21,7 @@
 #include "shell.h"
 #include "games/bench_ui.h"
 #include "games/tents.h"
+#include "games/tents_levels.h"
 
 #define BAND 0.72f                              /* the counts' bands, in cells */
 
@@ -159,13 +162,25 @@ static void calm(void)
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    tn_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     grass = 0;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    tn_puzzle p;
+    if (!tn_decode(tn_levels[level < 0 || level >= TN_LEVELS ? 0 : level], &p) || !tn_load(&G, &p)) tn_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    tn_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return tn_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -294,14 +309,15 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a field of the size with its tents (the menu's: half of them) ------------
+/* ---- the pictures of fields: the menu's and the picker's cards (a field of the size with its tents; the menu's: half
+ * of them), the chapters' tabs ----------------------------------------------------------------------------------
  * The picker has two axes (game.axes): the sizes (the field at the medium level), then the levels (the shell's
- * ebony stones). A field, side x side, at the top of the card (centred: half) */
-static void field_pic(int v, int size, int side, int half, uint8_t *rgba)
+ * ebony stones). A field with the tents of sol (all, or the first half), side x side, at the top of the card
+ * (centred: mid) */
+static void paint_field_pic(const tn_puzzle *pp, const uint8_t *sol, int half, int size, int side, int mid,
+                            uint8_t *rgba)
 {
-    tn_puzzle p;
-    uint8_t sol[TN_CELLS];
-    tn_make(tn_size(v), tn_level(v), 2026u + (uint32_t)v, &p, sol);
+    tn_puzzle p = *pp;
     bench_geo g;
     memset(&g, 0, sizeof g);
     fit(&g, p.n, (box){0, 0, (float)side, (float)side});
@@ -319,9 +335,17 @@ static void field_pic(int v, int size, int side, int half, uint8_t *rgba)
                 float y = way ? g.oy - BAND * q / 2 : g.oy + (i + 0.5f) * q;
                 puz_digits(b, g.w, g.h, p.count[way][i], x, y, 0.56f * q, COUNT, 1, 1);
             }
-    int ox = (size - side) / 2 + (int)g.bx, oy = (half ? (size - side) / 2 : 0) + (int)g.by;
+    int ox = (size - side) / 2 + (int)g.bx, oy = (mid ? (size - side) / 2 : 0) + (int)g.by;
     art_blend(rgba, size, size, b, g.w, g.h, ox, oy);
     free(b);
+}
+
+static void field_pic(int v, int size, int side, int half, uint8_t *rgba)
+{
+    tn_puzzle p;
+    uint8_t sol[TN_CELLS];
+    tn_make(tn_size(v), tn_level(v), 2026u + (uint32_t)v, &p, sol);
+    paint_field_pic(&p, sol, half, size, side, half, rgba);
 }
 
 /* the menu's card (variant -1); a variant's (with its level in ebony stones under it) */
@@ -335,12 +359,23 @@ static void thumb(int variant, int size, uint8_t *rgba)
 /* the picker's sizes: the field at the medium level, the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { field_pic(i * 3 + 1, size, size, 0, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= TN_CHAPTERS ? TN_CHAPTERS - 1 : chapter;
+    static tn_game T;
+    tn_puzzle p;
+    if (!tn_decode(tn_levels[(ch + 1) * TN_LEVELS / TN_CHAPTERS - 1], &p) || !tn_load(&T, &p)) return;
+    paint_field_pic(&p, T.sol, 0, size, (int)(0.92f * size), 1, rgba);
+}
+
 static const game tents_game = {
     .id = "tents", .order = 412, .variants = TN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {TN_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .levels = TN_LEVELS, .chapters = TN_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(tents_game)

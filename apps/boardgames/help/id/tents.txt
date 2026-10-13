@@ -9,11 +9,13 @@ Setiap lapangan punya tepat satu jawaban, yang bisa ditemukan hanya dengan berna
 Dirikan tenda di sebuah kotak, atau bongkar lagi. Kamu juga bisa menaruh rumput di sebuah kotak untuk mengingat bahwa di situ tidak ada tenda; rumput itu hanya catatan untukmu.
 # Akhir permainan
 Lapangan selesai saat setiap pohon punya tendanya, tidak ada tenda yang bersentuhan, dan setiap angka benar: gelombang cahaya emas menyapu lapangan.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah tenda atau rumput yang salah yang lalu kamu batalkan dengan Urungkan.
 # Bermain di perangkat
 - Ketuk sebuah kotak untuk mendirikan tenda; ketuk lagi untuk membongkarnya.
 - Tahan jari sebentar di sebuah kotak untuk menaruh rumput, atau mengambilnya.
 - Seret di sepanjang baris atau kolom untuk menaruh rumput pada satu deretan (atau mengambilnya dari deretan berumput).
-Tenda yang bersentuhan bersinar merah, begitu pula pohon yang tak lagi punya tempat untuk tendanya. Sebuah angka menjadi merah jika garisnya kelebihan tenda, dan memudar setelah semua tendanya lengkap. Tombol di ujung kanan bilah:
+Tenda yang bersentuhan bersinar merah, begitu pula pohon yang tak lagi punya tempat untuk tendanya. Sebuah angka menjadi merah jika garisnya kelebihan tenda, dan memudar setelah semua tendanya lengkap. Tombol di ujung kanan bilah (dalam posisi mendatar, di kolom samping):
 - Tenda atau rumput: apa yang dipasang oleh ketukan. Ketuk tombol ini untuk menukar ketukan dan tahanan.
 - Bola lampu: petunjuk. Memperbaiki kotak yang salah, atau menunjukkan kotak berikutnya yang ditemukan penalaran, dengan cahaya emas.
 Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

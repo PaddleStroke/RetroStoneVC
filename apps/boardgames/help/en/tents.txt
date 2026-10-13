@@ -9,11 +9,13 @@ Every field has exactly one solution, found by reasoning alone. Choose the size 
 Pitch a tent in a cell, or take it down. You can also put grass in a cell to remember that no tent goes there; the grass is only a note for you.
 # The end of the game
 The field is solved when every tree has its tent, no tents touch and every number is right: a wave of gold light runs over the field.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong tent or grass that you then take back with undo.
 # Playing on the device
 - Tap a cell to pitch a tent; tap it again to take it down.
 - Hold a cell a moment to put grass in it, or take the grass out.
 - Drag along a row or a column to put grass in a whole stretch (or take it out of a stretch of grass).
-Tents that touch glow red, and so does a tree with no room left for its tent. A number turns red when its line has too many tents, and fades once it has all of them. The buttons at the right end of the bar:
+Tents that touch glow red, and so does a tree with no room left for its tent. A number turns red when its line has too many tents, and fades once it has all of them. The buttons at the right end of the bar (in landscape, in the side column):
 - Tent or grass: what a tap puts. Tap it to swap tap and hold.
 - Light bulb: a hint. It puts a wrong cell right, or else shows the next cell reasoning finds, in gold light.
 Undo takes back one action at a time, all the way to the start. The bar shows your moves.
