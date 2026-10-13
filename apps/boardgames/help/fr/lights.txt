@@ -1,12 +1,12 @@
 Lampes
 # Le but
-Certaines lampes de laiton du plateau sont allumées. Éteins toutes les lampes. Choisis d'abord le plateau : 3 × 3, 5 × 5 ou 7 × 7 ; plus le plateau est grand, plus il faut d'appuis.
-Chaque plateau est fait en appuyant au hasard sur des lampes d'un plateau éteint : il peut donc toujours être éteint.
+Certaines lampes de laiton du plateau sont allumées. Éteins toutes les lampes. Choisis d'abord le plateau : 3 × 3, 5 × 5 ou 7 × 7 ; plus le plateau est grand, plus il faut d'appuis.
+Chaque plateau est fait en appuyant au hasard sur des lampes d'un plateau éteint : il peut donc toujours être éteint.
 # Un coup
-Appuie sur une lampe : elle s'inverse (d'allumée à éteinte, ou d'éteinte à allumée), et ses voisines du dessus, du dessous, de gauche et de droite aussi. L'ordre de tes appuis ne compte pas, et appuyer deux fois sur une lampe revient à ne jamais appuyer dessus.
+Appuie sur une lampe : elle s'inverse (d'allumée à éteinte, ou d'éteinte à allumée), et ses voisines du dessus, du dessous, de gauche et de droite aussi. L'ordre de tes appuis ne compte pas, et appuyer deux fois sur une lampe revient à ne jamais appuyer dessus.
 # La fin de la partie
-Le casse-tête est résolu quand toutes les lampes sont éteintes : une vague de lumière dorée parcourt le plateau. Le moins d'appuis possible est calculé pour chaque plateau ; égale-le si tu peux.
+Le casse-tête est résolu quand toutes les lampes sont éteintes : une vague de lumière dorée parcourt le plateau. Le moins d'appuis possible est calculé pour chaque plateau ; égale-le si tu peux.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de 3 × 3 lampes jusqu'à 7 × 7, beaucoup dessinant des motifs ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins d'appuis qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus d'appuis : 2 étoiles ; sinon 1. Annuler reprend un appui, qui ne compte plus.
+Il y a 150 niveaux en six chapitres, de 3 × 3 lampes jusqu'à 7 × 7, beaucoup dessinant des motifs ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins d'appuis qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus d'appuis : 2 étoiles ; sinon 1. Annuler reprend un appui, qui ne compte plus.
 # Jouer sur l'appareil
-Touche une lampe pour appuyer dessus. La lampe à côté du plateau donne un indice : elle appuie sur une lampe du plus court chemin, dans une lumière dorée. Annuler reprend un appui à la fois, jusqu'au début. La barre montre tes appuis et, à son extrémité droite, le moins possible depuis le début ; elle brille d'or quand tu l'égales.
+Touche une lampe pour appuyer dessus. La lampe à côté du plateau donne un indice : elle appuie sur une lampe du plus court chemin, dans une lumière dorée. Annuler reprend un appui à la fois, jusqu'au début. La barre montre tes appuis et, à son extrémité droite, le moins possible depuis le début ; elle brille d'or quand tu l'égales.

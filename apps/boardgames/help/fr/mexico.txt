@@ -2,12 +2,12 @@ Mexico
 # Le but
 Être le dernier joueur à avoir encore des vies. On lance deux dés sous un gobelet que seul le lanceur regarde, et la valeur qu'il annonce peut être vraie ou un bluff. De 2 à 6 joueurs, avec 3 ou 6 vies chacun (au choix avant la partie).
 # Les valeurs
-Un lancer de deux dés se lit le plus fort d'abord : un 3 et un 5 font 53. De la plus faible à la plus forte :
-- les valeurs simples : 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65 ;
-- puis les doubles, de 11 à 66 ;
+Un lancer de deux dés se lit le plus fort d'abord : un 3 et un 5 font 53. De la plus faible à la plus forte :
+- les valeurs simples : 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65 ;
+- puis les doubles, de 11 à 66 ;
 - puis 21, le Mexico, la plus forte de toutes.
 # Une manche
-- Le premier joueur lance les deux dés sous le gobelet, les regarde seul et annonce une valeur : la vérité, ou un bluff.
+- Le premier joueur lance les deux dés sous le gobelet, les regarde seul et annonce une valeur : la vérité, ou un bluff.
 - Le gobelet passe au joueur suivant, qui croit la valeur ou la conteste.
 - Pour la croire, relance les dés sous le gobelet sans regarder ce qu'il y avait, regarde ton nouveau lancer et annonce une valeur au moins aussi forte que la précédente. Si ton lancer est plus faible, tu dois bluffer.
 - Le gobelet fait ainsi le tour de la table jusqu'à ce que quelqu'un conteste.
@@ -16,4 +16,4 @@ On soulève le gobelet. Si les dés montrent au moins la valeur annoncée, celui
 # La fin de la partie
 Un joueur qui n'a plus de vies est éliminé (s'il a perdu la dernière manche, le joueur suivant encore en jeu commence). Le dernier joueur en jeu gagne.
 # Jouer sur l'appareil
-Passez-vous l'appareil : un cache masque l'écran à chaque tour. En haut, la valeur à battre, avec le jeton du joueur qui l'a annoncée, et les valeurs précédentes de la manche en dessous. Touche le bouton au dé pour lancer : le gobelet bascule sur le côté et toi seul vois tes dés (touche le gobelet pour le remettre dessus). Touche ensuite une valeur sur le pavé, puis la coche pour l'annoncer. Le pavé montre chaque valeur par ses deux dés, de la plus faible en haut à gauche au Mexico en bas à droite ; les valeurs plus faibles que celle à battre sont pâlies, et la valeur que tu as lancée brille. Pour contester, touche le bouton au gobelet soulevé : tout le monde voit les dés, en or si la valeur tenait, en rouge si c'était un bluff, et la vie perdue s'efface. Chaque barre montre les vies qui restent au joueur. Touche la flèche pour commencer la manche suivante.
+Passez-vous l'appareil : un cache masque l'écran à chaque tour. En haut, la valeur à battre, avec le jeton du joueur qui l'a annoncée, et les valeurs précédentes de la manche en dessous. Touche le bouton au dé pour lancer : le gobelet bascule sur le côté et toi seul vois tes dés (touche le gobelet pour le remettre dessus). Touche ensuite une valeur sur le pavé, puis la coche pour l'annoncer. Le pavé montre chaque valeur par ses deux dés, de la plus faible en haut à gauche au Mexico en bas à droite ; les valeurs plus faibles que celle à battre sont pâlies, et la valeur que tu as lancée brille. Pour contester, touche le bouton au gobelet soulevé : tout le monde voit les dés, en or si la valeur tenait, en rouge si c'était un bluff, et la vie perdue s'efface. Chaque barre montre les vies qui restent au joueur. Touche la flèche pour commencer la manche suivante.

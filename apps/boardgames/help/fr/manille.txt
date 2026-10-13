@@ -1,22 +1,22 @@
 Manille
 # Le but
-Le jeu de levées à quatre, en deux équipes : les partenaires sont assis face à face. Remporte les plis qui contiennent les dix et les as, les meilleures cartes, et sois la première équipe à atteindre 34 points.
+Le jeu de levées à quatre, en deux équipes : les partenaires sont assis face à face. Remporte les plis qui contiennent les dix et les as, les meilleures cartes, et sois la première équipe à atteindre 34 points.
 # Les cartes
 - 32 cartes, du 7 à l'as. Dans chaque couleur, le dix, la manille, est la plus forte carte, puis l'as, le manillon, puis le roi, la dame, le valet, le 9, le 8 et le 7.
-- Le dix vaut 5 points, l'as 4, le roi 3, la dame 2, le valet 1 : 60 dans le jeu. Chaque pli vaut 1 point de plus : 68 par donne.
+- Le dix vaut 5 points, l'as 4, le roi 3, la dame 2, le valet 1 : 60 dans le jeu. Chaque pli vaut 1 point de plus : 68 par donne.
 # La donne
-Le donneur distribue 8 cartes à chacun, 4 par 4, en commençant par le joueur qui le suit. Sa propre dernière carte est retournée : sa couleur est l'atout, et la carte reste dans sa main. Le donneur avance d'une place à chaque donne.
+Le donneur distribue 8 cartes à chacun, 4 par 4, en commençant par le joueur qui le suit. Sa propre dernière carte est retournée : sa couleur est l'atout, et la carte reste dans sa main. Le donneur avance d'une place à chaque donne.
 # Doubler
-Avant la première carte, chacun à son tour, en commençant après le donneur, passe ou dit « je double » : la donne compte double. Après un double, les adversaires de l'équipe qui a doublé peuvent redoubler : la donne compte quadruple.
+Avant la première carte, chacun à son tour, en commençant après le donneur, passe ou dit « je double » : la donne compte double. Après un double, les adversaires de l'équipe qui a doublé peuvent redoubler : la donne compte quadruple.
 # Le jeu de la carte
-- Le joueur qui suit le donneur entame le premier pli ; celui qui remporte un pli entame le suivant.
+- Le joueur qui suit le donneur entame le premier pli ; celui qui remporte un pli entame le suivant.
 - Fournis la couleur demandée si tu peux. Si un adversaire est maître du pli avec une carte de cette couleur, tu dois monter si tu peux.
-- Si tu n'as pas la couleur et qu'un adversaire est maître, tu dois couper, et surcouper l'atout d'un adversaire si tu peux ; sinon, joue n'importe quelle carte.
+- Si tu n'as pas la couleur et qu'un adversaire est maître, tu dois couper, et surcouper l'atout d'un adversaire si tu peux ; sinon, joue n'importe quelle carte.
 - Quand ton partenaire est maître du pli, tu peux jouer n'importe quelle carte si tu n'as pas la couleur.
-- Le plus fort atout remporte le pli ; sans atout, la plus forte carte de la couleur demandée.
+- Le plus fort atout remporte le pli ; sans atout, la plus forte carte de la couleur demandée.
 # Le score
 Chaque équipe compte les points de ses cartes et 1 point par pli. L'équipe qui dépasse 34 marque la différence, doublée ou quadruplée si la donne l'était. À 34 partout, personne ne marque.
 # La fin de la partie
 La première équipe à 34 points gagne.
 # Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main, en éventail en bas, les atouts à gauche. La carte retournée par le donneur reste à côté de sa pièce jusqu'à la fin du premier pli ; l'atout (son as) et un éventuel double restent dans le coin en haut à gauche. Pour doubler, touche le bouton rond au milieu (une croix et un 2 ; une croix et un 4 pour redoubler) ; pour passer, touche le bouton passer dans ta barre. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le score de l'équipe. Après chaque donne, un tableau montre les points de chaque équipe, le score de la donne et les totaux ; touche-le pour la donne suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main, en éventail en bas, les atouts à gauche. La carte retournée par le donneur reste à côté de sa pièce jusqu'à la fin du premier pli ; l'atout (son as) et un éventuel double restent dans le coin en haut à gauche. Pour doubler, touche le bouton rond au milieu (une croix et un 2 ; une croix et un 4 pour redoubler) ; pour passer, touche le bouton passer dans ta barre. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le score de l'équipe. Après chaque donne, un tableau montre les points de chaque équipe, le score de la donne et les totaux ; touche-le pour la donne suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.

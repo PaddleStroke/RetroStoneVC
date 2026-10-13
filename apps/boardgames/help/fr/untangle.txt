@@ -1,12 +1,12 @@
 Démêler
 # Le but
-Des épingles de laiton sont plantées sur le plateau, reliées par des cordons, et les cordons se croisent. Déplace les épingles jusqu'à ce qu'aucun cordon n'en croise un autre. Choisis d'abord le nombre d'épingles : 10, 20, 30 ou 45.
-Chaque problème peut être démêlé : les épingles ont d'abord été disposées sans aucun croisement, puis placées en cercle dans un ordre mélangé.
+Des épingles de laiton sont plantées sur le plateau, reliées par des cordons, et les cordons se croisent. Déplace les épingles jusqu'à ce qu'aucun cordon n'en croise un autre. Choisis d'abord le nombre d'épingles : 10, 20, 30 ou 45.
+Chaque problème peut être démêlé : les épingles ont d'abord été disposées sans aucun croisement, puis placées en cercle dans un ordre mélangé.
 # Un coup
-Déplace une épingle n'importe où sur le plateau ; ses cordons la suivent.
+Déplace une épingle n'importe où sur le plateau ; ses cordons la suivent.
 # La fin de la partie
-Quand aucun cordon n'en croise un autre ni ne touche une épingle qui n'est pas la sienne, le problème est résolu : les cordons deviennent dorés et une lumière dorée parcourt les épingles.
+Quand aucun cordon n'en croise un autre ni ne touche une épingle qui n'est pas la sienne, le problème est résolu : les cordons deviennent dorés et une lumière dorée parcourt les épingles.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de 6 épingles jusqu'à 36 : dans chacun, quelques épingles ont été déplacées hors d'une disposition sans aucun croisement. Choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : dans un niveau, le nombre d'épingles déplacées ; au hasard, le moins d'épingles à déplacer que l'on ait trouvé. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un indice limite le casse-tête à 2 étoiles, plus de deux indices à 1. Annuler reprend un coup, qui ne compte plus.
+Il y a 150 niveaux en six chapitres, de 6 épingles jusqu'à 36 : dans chacun, quelques épingles ont été déplacées hors d'une disposition sans aucun croisement. Choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : dans un niveau, le nombre d'épingles déplacées ; au hasard, le moins d'épingles à déplacer que l'on ait trouvé. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un indice limite le casse-tête à 2 étoiles, plus de deux indices à 1. Annuler reprend un coup, qui ne compte plus.
 # Jouer sur l'appareil
-Fais glisser une épingle avec le doigt. Pendant que tu la déplaces, chaque cordon qui en croise un autre s'éclaire en rouge ; quand il n'en reste plus, ils deviennent tous dorés. La barre montre tes coups et les croisements restants. La lampe est un indice : elle déplace une épingle là où elle supprime le plus de croisements ou, quand aucun déplacement seul n'aide, la pose où elle se trouve dans une disposition sans croisement ; l'épingle y glisse dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début.
+Fais glisser une épingle avec le doigt. Pendant que tu la déplaces, chaque cordon qui en croise un autre s'éclaire en rouge ; quand il n'en reste plus, ils deviennent tous dorés. La barre montre tes coups et les croisements restants. La lampe est un indice : elle déplace une épingle là où elle supprime le plus de croisements ou, quand aucun déplacement seul n'aide, la pose où elle se trouve dans une disposition sans croisement ; l'épingle y glisse dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début.

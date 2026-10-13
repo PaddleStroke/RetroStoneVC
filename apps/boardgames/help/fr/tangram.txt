@@ -1,13 +1,13 @@
 Tangram
 # Le but
-Le tangram est un vieux casse-tête chinois : un carré découpé en sept pièces, les tans. Deux grands triangles, un moyen, deux petits, un carré et un parallélogramme. Utilise les sept pour remplir la silhouette sombre, sans aucun chevauchement. Il y a 98 figures en six chapitres : formes, personnages, animaux, bateaux et maisons, objets, lettres et chiffres. Chacune a été faite pour ce jeu avec les sept tans : toutes ont une solution.
+Le tangram est un vieux casse-tête chinois : un carré découpé en sept pièces, les tans. Deux grands triangles, un moyen, deux petits, un carré et un parallélogramme. Utilise les sept pour remplir la silhouette sombre, sans aucun chevauchement. Il y a 98 figures en six chapitres : formes, personnages, animaux, bateaux et maisons, objets, lettres et chiffres. Chacune a été faite pour ce jeu avec les sept tans : toutes ont une solution.
 # Un coup
 Déplace un tan, fais-le tourner d'un huitième de tour, ou retourne le parallélogramme (les autres sont pareils dans les deux sens). Les tans restent à plat et ne se chevauchent jamais.
 # La fin de la partie
-La figure est résolue quand les sept tans couvrent exactement la silhouette : une lumière dorée les parcourt. Toute façon de remplir la silhouette compte, pas seulement celle avec laquelle elle a été faite. Trois étoiles sans indice, deux avec un ou deux indices, une au-delà.
+La figure est résolue quand les sept tans couvrent exactement la silhouette : une lumière dorée les parcourt. Toute façon de remplir la silhouette compte, pas seulement celle avec laquelle elle a été faite. Trois étoiles sans indice, deux avec un ou deux indices, une au-delà.
 # Jouer sur l'appareil
-Choisis une figure sur l'écran des niveaux ; celles qui sont résolues montrent leurs étoiles.
-- Fais glisser un tan. Quand tu le lâches, il se cale à une place qui lui va : ses coins rejoignent ceux de la silhouette ou d'un autre tan.
-- Touche un tan : il tourne d'un huitième de tour.
-- Touche deux fois vite le parallélogramme : il se retourne.
-Le dernier tan touché est posé au-dessus. La lampe donne un indice : elle fait glisser un tan à sa place, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes actions.
+Choisis une figure sur l'écran des niveaux ; celles qui sont résolues montrent leurs étoiles.
+- Fais glisser un tan. Quand tu le lâches, il se cale à une place qui lui va : ses coins rejoignent ceux de la silhouette ou d'un autre tan.
+- Touche un tan : il tourne d'un huitième de tour.
+- Touche deux fois vite le parallélogramme : il se retourne.
+Le dernier tan touché est posé au-dessus. La lampe donne un indice : elle fait glisser un tan à sa place, dans une lumière dorée. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes actions.

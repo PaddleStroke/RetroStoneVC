@@ -1,13 +1,13 @@
 Pousse-caisses
 # Le but
-Tu es le gardien d'un entrepôt. Pousse chaque caisse sur l'un des anneaux de laiton incrustés dans le sol : il y a autant d'anneaux que de caisses. Il y a 60 niveaux en trois chapitres, en commençant par le plus facile. Les niveaux sont faits pour ce jeu : un ordinateur a vérifié que chacun a une solution, et le plus petit nombre de poussées qu'il demande est connu.
+Tu es le gardien d'un entrepôt. Pousse chaque caisse sur l'un des anneaux de laiton incrustés dans le sol : il y a autant d'anneaux que de caisses. Il y a 60 niveaux en trois chapitres, en commençant par le plus facile. Les niveaux sont faits pour ce jeu : un ordinateur a vérifié que chacun a une solution, et le plus petit nombre de poussées qu'il demande est connu.
 # Un coup
-Le gardien avance d'une case à la fois : vers le haut, le bas, la gauche ou la droite, jamais à travers les murs ni les caisses. S'il marche contre une caisse, il la pousse d'une case plus loin, si la case derrière elle est libre. On ne tire jamais une caisse, et deux caisses à la suite sont trop lourdes à pousser. Réfléchis à l'avance : une caisse poussée dans un coin ne peut plus jamais en sortir.
+Le gardien avance d'une case à la fois : vers le haut, le bas, la gauche ou la droite, jamais à travers les murs ni les caisses. S'il marche contre une caisse, il la pousse d'une case plus loin, si la case derrière elle est libre. On ne tire jamais une caisse, et deux caisses à la suite sont trop lourdes à pousser. Réfléchis à l'avance : une caisse poussée dans un coin ne peut plus jamais en sortir.
 # La fin de la partie
-Le niveau est résolu quand chaque caisse est sur un anneau : les caisses s'illuminent d'or. Trois étoiles si tu as fait le moins de poussées possible, deux si tu t'en es approché, une sinon.
+Le niveau est résolu quand chaque caisse est sur un anneau : les caisses s'illuminent d'or. Trois étoiles si tu as fait le moins de poussées possible, deux si tu t'en es approché, une sinon.
 # Jouer sur l'appareil
-Choisis un niveau sur l'écran des niveaux ; ceux que tu as résolus montrent leurs étoiles.
-- Glisse le doigt : le gardien avance dans ce sens, d'autant de cases que ton geste est long, en poussant ce qui est devant lui.
-- Touche une case libre : le gardien y va, en contournant les caisses.
-- Touche une caisse à côté du gardien : elle est poussée d'une case, à l'opposé du gardien. Touche une autre caisse : des points montrent où elle peut être poussée en ligne droite ; touche un point, et le gardien fait le tour et l'y pousse.
-La lampe donne un indice : le gardien fait la prochaine poussée d'un plus court chemin, dans une lumière dorée. Si une caisse est bloquée, l'indice revient d'abord là où il reste un chemin. Annuler reprend une action à la fois, jusqu'au début. La barre montre les pas du gardien et, à son extrémité droite, les poussées.
+Choisis un niveau sur l'écran des niveaux ; ceux que tu as résolus montrent leurs étoiles.
+- Glisse le doigt : le gardien avance dans ce sens, d'autant de cases que ton geste est long, en poussant ce qui est devant lui.
+- Touche une case libre : le gardien y va, en contournant les caisses.
+- Touche une caisse à côté du gardien : elle est poussée d'une case, à l'opposé du gardien. Touche une autre caisse : des points montrent où elle peut être poussée en ligne droite ; touche un point, et le gardien fait le tour et l'y pousse.
+La lampe donne un indice : le gardien fait la prochaine poussée d'un plus court chemin, dans une lumière dorée. Si une caisse est bloquée, l'indice revient d'abord là où il reste un chemin. Annuler reprend une action à la fois, jusqu'au début. La barre montre les pas du gardien et, à son extrémité droite, les poussées.

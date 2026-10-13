@@ -1,36 +1,36 @@
 Koi-Koi
 # Le but
-Marquer le plus de points en 12 manches, une pour chaque mois de l'année, ou en 6 manches pour la partie courte. À 2 joueurs. Capture des cartes en assortissant leurs mois et forme des yaku, les combinaisons qui marquent. Puis choisis : t'arrêter et marquer tout de suite, ou annoncer koi-koi et continuer pour gagner plus.
+Marquer le plus de points en 12 manches, une pour chaque mois de l'année, ou en 6 manches pour la partie courte. À 2 joueurs. Capture des cartes en assortissant leurs mois et forme des yaku, les combinaisons qui marquent. Puis choisis : t'arrêter et marquer tout de suite, ou annoncer koi-koi et continuer pour gagner plus.
 # Les cartes
-Le jeu de hanafuda compte 48 cartes : 12 mois de 4 cartes, chaque mois avec sa plante. Janvier le pin, février le prunier, mars le cerisier, avril la glycine, mai l'iris, juin la pivoine, juillet le lespédèze, août l'herbe de la pampa, septembre le chrysanthème, octobre l'érable, novembre le saule, décembre le paulownia.
-- Les lumières (5) : la grue (janvier), le rideau (mars), la lune (août), l'homme à la pluie (novembre) et le phénix (décembre).
-- Les animaux (9) : la bouscarle, le coucou, le pont, les papillons, le sanglier, les oies, la coupe de saké, le cerf et l'hirondelle.
-- Les rubans (10) : trois rubans rouges de poésie, écrits (janvier, février, mars), trois rubans bleus (juin, septembre, octobre) et quatre rubans rouges unis (avril, mai, juillet, novembre).
-- Les cartes simples (24) : toutes les autres, dont l'éclair de novembre.
+Le jeu de hanafuda compte 48 cartes : 12 mois de 4 cartes, chaque mois avec sa plante. Janvier le pin, février le prunier, mars le cerisier, avril la glycine, mai l'iris, juin la pivoine, juillet le lespédèze, août l'herbe de la pampa, septembre le chrysanthème, octobre l'érable, novembre le saule, décembre le paulownia.
+- Les lumières (5) : la grue (janvier), le rideau (mars), la lune (août), l'homme à la pluie (novembre) et le phénix (décembre).
+- Les animaux (9) : la bouscarle, le coucou, le pont, les papillons, le sanglier, les oies, la coupe de saké, le cerf et l'hirondelle.
+- Les rubans (10) : trois rubans rouges de poésie, écrits (janvier, février, mars), trois rubans bleus (juin, septembre, octobre) et quatre rubans rouges unis (avril, mai, juillet, novembre).
+- Les cartes simples (24) : toutes les autres, dont l'éclair de novembre.
 # La donne
-Chaque joueur reçoit 8 cartes, et 8 autres sont posées face visible sur le terrain ; le reste forme la pioche. Si le terrain contient les quatre cartes d'un même mois, on redonne. Le donneur joue en premier : le joueur ivoire à la première manche, puis le gagnant de la manche précédente. Après une manche sans gagnant, le donneur reste le même.
+Chaque joueur reçoit 8 cartes, et 8 autres sont posées face visible sur le terrain ; le reste forme la pioche. Si le terrain contient les quatre cartes d'un même mois, on redonne. Le donneur joue en premier : le joueur ivoire à la première manche, puis le gagnant de la manche précédente. Après une manche sans gagnant, le donneur reste le même.
 # Un tour
 - Joue une carte de ta main sur le terrain. Si une carte du terrain est du même mois, tu captures les deux. S'il y en a deux, tu choisis celle que tu prends. S'il y en a trois, tu captures les quatre. S'il n'y en a aucune, ta carte reste sur le terrain.
 - Retourne ensuite la carte du dessus de la pioche et joue-la de la même façon.
 - Les cartes capturées restent devant toi, face visible.
 # Les yaku
-- Gokō : les 5 lumières, 10 points.
-- Shikō : 4 lumières sans l'homme à la pluie, 8 points.
-- Ame-Shikō : 4 lumières avec l'homme à la pluie, 7 points.
-- Sankō : 3 lumières sans l'homme à la pluie, 5 points. Trois lumières avec lui ne font rien.
-- Inoshikachō : le sanglier, le cerf et les papillons, 5 points.
-- Akatan : les 3 rubans de poésie, 5 points.
-- Aotan : les 3 rubans bleus, 5 points.
-- Hanami-zake : le rideau et la coupe de saké, 5 points.
-- Tsukimi-zake : la lune et la coupe de saké, 5 points.
-- Tane : 5 animaux, 1 point, et 1 de plus par animal en plus.
-- Tan : 5 rubans, 1 point, et 1 de plus par ruban en plus.
-- Kasu : 10 cartes simples, 1 point, et 1 de plus par carte simple en plus.
-Seul le meilleur des quatre yaku de lumières compte ; tous les autres s'additionnent. La coupe de saké compte à la fois comme animal et comme carte simple. Ici, Hanami-zake et Tsukimi-zake comptent toujours.
+- Gokō : les 5 lumières, 10 points.
+- Shikō : 4 lumières sans l'homme à la pluie, 8 points.
+- Ame-Shikō : 4 lumières avec l'homme à la pluie, 7 points.
+- Sankō : 3 lumières sans l'homme à la pluie, 5 points. Trois lumières avec lui ne font rien.
+- Inoshikachō : le sanglier, le cerf et les papillons, 5 points.
+- Akatan : les 3 rubans de poésie, 5 points.
+- Aotan : les 3 rubans bleus, 5 points.
+- Hanami-zake : le rideau et la coupe de saké, 5 points.
+- Tsukimi-zake : la lune et la coupe de saké, 5 points.
+- Tane : 5 animaux, 1 point, et 1 de plus par animal en plus.
+- Tan : 5 rubans, 1 point, et 1 de plus par ruban en plus.
+- Kasu : 10 cartes simples, 1 point, et 1 de plus par carte simple en plus.
+Seul le meilleur des quatre yaku de lumières compte ; tous les autres s'additionnent. La coupe de saké compte à la fois comme animal et comme carte simple. Ici, Hanami-zake et Tsukimi-zake comptent toujours.
 # S'arrêter ou koi-koi
-Quand ton tour se termine sur un nouveau yaku, ou sur plus de points pour tes yaku, tu choisis :
-- T'arrêter : la manche se termine et tu marques.
-- Koi-koi : la manche continue. Tu ne pourras t'arrêter qu'une fois tes points encore montés. Si ton adversaire s'arrête d'abord, tu ne marques rien et ses points sont doublés.
+Quand ton tour se termine sur un nouveau yaku, ou sur plus de points pour tes yaku, tu choisis :
+- T'arrêter : la manche se termine et tu marques.
+- Koi-koi : la manche continue. Tu ne pourras t'arrêter qu'une fois tes points encore montés. Si ton adversaire s'arrête d'abord, tu ne marques rien et ses points sont doublés.
 S'il ne te reste aucune carte en main, tu t'arrêtes.
 # Les points
 - Les points de tous tes yaku additionnés.
@@ -41,10 +41,10 @@ S'il ne te reste aucune carte en main, tu t'arrêtes.
 # La fin de la partie
 Après la dernière manche, le joueur qui a le plus de points gagne.
 # Jouer sur l'appareil
-Les mains sont secrètes : passe l'appareil quand l'écran le demande, et le joueur suivant touche le bouton de départ. Ta main est en bas, celle de ton adversaire face cachée en haut ; la pioche et le terrain sont au milieu, avec un point par manche sous la pioche. Les cartes capturées de chaque joueur sont rangées par type : lumières, animaux, rubans, cartes simples, avec leur nombre sur chaque groupe. Les yaku formés s'affichent en badges avec leurs cartes et leurs points, et un disque rouge montre un koi-koi annoncé. Ce que ton adversaire a fait à son dernier tour est marqué sur la table.
-- Touche une carte de ta main : les cartes du terrain de son mois s'illuminent. Touche l'une d'elles, ou de nouveau ta carte, pour la jouer ; tu peux aussi la faire glisser sur le terrain. Quand rien ne s'assortit, un point marque où elle se posera.
+Les mains sont secrètes : passe l'appareil quand l'écran le demande, et le joueur suivant touche le bouton de départ. Ta main est en bas, celle de ton adversaire face cachée en haut ; la pioche et le terrain sont au milieu, avec un point par manche sous la pioche. Les cartes capturées de chaque joueur sont rangées par type : lumières, animaux, rubans, cartes simples, avec leur nombre sur chaque groupe. Les yaku formés s'affichent en badges avec leurs cartes et leurs points, et un disque rouge montre un koi-koi annoncé. Ce que ton adversaire a fait à son dernier tour est marqué sur la table.
+- Touche une carte de ta main : les cartes du terrain de son mois s'illuminent. Touche l'une d'elles, ou de nouveau ta carte, pour la jouer ; tu peux aussi la faire glisser sur le terrain. Quand rien ne s'assortit, un point marque où elle se posera.
 - Quand deux cartes s'assortissent, touche celle que tu prends.
 - Touche ensuite la pioche pour retourner sa carte du dessus.
-- Quand tu formes un yaku, deux grands boutons apparaissent : la main ouverte arrête (le nombre dessous est ce que tu marquerais maintenant), la double flèche annonce koi-koi.
-- Après chaque manche, un panneau montre les yaku, les doublements (une croix et un 2) et les points ; touche-le pour la manche suivante. Le total de chaque joueur est dans sa barre.
+- Quand tu formes un yaku, deux grands boutons apparaissent : la main ouverte arrête (le nombre dessous est ce que tu marquerais maintenant), la double flèche annonce koi-koi.
+- Après chaque manche, un panneau montre les yaku, les doublements (une croix et un 2) et les points ; touche-le pour la manche suivante. Le total de chaque joueur est dans sa barre.
 Annuler reprend tes propres coups, jusqu'à ce que tu retournes la carte de la pioche.

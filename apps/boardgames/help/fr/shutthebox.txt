@@ -1,16 +1,16 @@
 Ferme la boîte
 # Le but
-Fermer le plus possible de tes plaquettes numérotées : ton score est la somme des plaquettes restées debout, et le plus petit est le meilleur. Ferme-les toutes et tu fermes la boîte : tu gagnes aussitôt. On joue de un à quatre : choisis le nombre de joueurs avant la partie, et les plaquettes :
-- 1 à 9 : la boîte classique.
-- 1 à 10 : comme les grandes boîtes à quatre joueurs.
-- 1 à 12 : la partie la plus longue.
+Fermer le plus possible de tes plaquettes numérotées : ton score est la somme des plaquettes restées debout, et le plus petit est le meilleur. Ferme-les toutes et tu fermes la boîte : tu gagnes aussitôt. On joue de un à quatre : choisis le nombre de joueurs avant la partie, et les plaquettes :
+- 1 à 9 : la boîte classique.
+- 1 à 10 : comme les grandes boîtes à quatre joueurs.
+- 1 à 12 : la partie la plus longue.
 Chaque joueur a sa propre rangée de plaquettes, de son côté de la boîte. Seul, tu joues contre ton propre score.
 # Un tour
-- Lance les deux dés, puis ferme des plaquettes debout dont les nombres font ensemble le total du lancer : une seule ou plusieurs. Un lancer de 8 peut fermer le 8, ou 7 et 1, ou 5 et 3, ou 5, 2 et 1…
+- Lance les deux dés, puis ferme des plaquettes debout dont les nombres font ensemble le total du lancer : une seule ou plusieurs. Un lancer de 8 peut fermer le 8, ou 7 et 1, ou 5 et 3, ou 5, 2 et 1…
 - Relance et ferme encore, tant que tu peux.
-- Une fois tes 7, 8 et 9 fermés (avec 10 ou 12 plaquettes : toutes celles à partir de 7), tu peux lancer un seul dé si tu veux.
+- Une fois tes 7, 8 et 9 fermés (avec 10 ou 12 plaquettes : toutes celles à partir de 7), tu peux lancer un seul dé si tu veux.
 - Quand aucun groupe de tes plaquettes debout ne fait le lancer, ton tour s'arrête. Ton score est la somme des plaquettes encore debout.
 # La fin de la partie
-Chaque joueur joue un tour complet ; le tour passe dans le sens des aiguilles d'une montre autour de la boîte, l'ivoire en premier. Ensuite le plus petit score gagne ; si les plus petits scores sont égaux, la partie est nulle. Un joueur qui ferme la boîte gagne aussitôt, et la partie s'arrête là. Seul, une boîte fermée résout la partie ; sinon ton score reste.
+Chaque joueur joue un tour complet ; le tour passe dans le sens des aiguilles d'une montre autour de la boîte, l'ivoire en premier. Ensuite le plus petit score gagne ; si les plus petits scores sont égaux, la partie est nulle. Un joueur qui ferme la boîte gagne aussitôt, et la partie s'arrête là. Seul, une boîte fermée résout la partie ; sinon ton score reste.
 # Jouer sur l'appareil
-Touche le tapis pour lancer les dés. Quand tu peux lancer un seul dé, un dé seul attend à côté de la paire : touche-le pour le lancer seul. Touche tes plaquettes pour les choisir : elles se soulèvent, et la somme choisie s'affiche au-dessus du lancer, à côté des dés. Les plaquettes qui ne peuvent pas aider à faire le lancer sont grisées. Quand la somme égale le lancer, les plaquettes basculent. Touche de nouveau une plaquette choisie pour la reposer. Quand aucun groupe ne fait le lancer, les dés rougeoient et ton score s'affiche un instant, puis le joueur suivant lance. Chaque barre montre le score de ce joueur. Annuler relève les plaquettes du dernier lancer ; les dés ne sont jamais relancés : les mêmes nombres reviennent.
+Touche le tapis pour lancer les dés. Quand tu peux lancer un seul dé, un dé seul attend à côté de la paire : touche-le pour le lancer seul. Touche tes plaquettes pour les choisir : elles se soulèvent, et la somme choisie s'affiche au-dessus du lancer, à côté des dés. Les plaquettes qui ne peuvent pas aider à faire le lancer sont grisées. Quand la somme égale le lancer, les plaquettes basculent. Touche de nouveau une plaquette choisie pour la reposer. Quand aucun groupe ne fait le lancer, les dés rougeoient et ton score s'affiche un instant, puis le joueur suivant lance. Chaque barre montre le score de ce joueur. Annuler relève les plaquettes du dernier lancer ; les dés ne sont jamais relancés : les mêmes nombres reviennent.

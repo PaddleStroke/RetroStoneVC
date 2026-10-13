@@ -4,12 +4,12 @@ Le cochon
 # Un tour
 - Lance le dé autant de fois que tu veux. Chaque lancer ajoute ses points au total de ton tour.
 - Si tu fais un 1, tu perds le total du tour, et la main passe.
-- Ou bien arrête-toi : le total du tour s'ajoute à ton score, et le dé passe au suivant. Il faut avoir lancé au moins une fois.
+- Ou bien arrête-toi : le total du tour s'ajoute à ton score, et le dé passe au suivant. Il faut avoir lancé au moins une fois.
 # Le cochon à deux dés
-Au choix avant la partie : le même jeu avec deux dés, dont la somme s'ajoute à chaque lancer.
+Au choix avant la partie : le même jeu avec deux dés, dont la somme s'ajoute à chaque lancer.
 - Un seul 1 fait perdre le total du tour et termine le tour.
-- Deux 1 d'un coup font aussi perdre tout ton score : tu retombes à 0.
+- Deux 1 d'un coup font aussi perdre tout ton score : tu retombes à 0.
 # La fin de la partie
 On joue à tour de rôle autour de la table, l'ivoire en premier. Le premier joueur qui s'arrête avec 100 points ou plus gagne aussitôt.
 # Jouer sur l'appareil
-La vue se tourne vers le joueur qui lance. Touche le tapis ou le bouton au dé pour lancer : le total du tour s'affiche sous les dés, et les lancers du tour s'alignent dans le râtelier. Le bouton aux pièces t'arrête. En haut, le dé de chaque joueur avance dans une rainure de 0 au poteau doré de 100 ; celui du joueur qui lance brille, et le total de son tour file en or devant son dé. Un 1 s'affiche dans une lueur rouge avec les points perdus. Chaque barre montre le score du joueur. Annuler reprend un arrêt, jamais un lancer.
+La vue se tourne vers le joueur qui lance. Touche le tapis ou le bouton au dé pour lancer : le total du tour s'affiche sous les dés, et les lancers du tour s'alignent dans le râtelier. Le bouton aux pièces t'arrête. En haut, le dé de chaque joueur avance dans une rainure de 0 au poteau doré de 100 ; celui du joueur qui lance brille, et le total de son tour file en or devant son dé. Un 1 s'affiche dans une lueur rouge avec les points perdus. Chaque barre montre le score du joueur. Annuler reprend un arrêt, jamais un lancer.

@@ -1,26 +1,26 @@
 Tiến lên
 # Le but
-Être le premier à poser toutes ses cartes ; les autres continuent pour les places. Un jeu vietnamien (son nom veut dire « en avant ») pour 2 à 4 joueurs, avec un jeu de 52 cartes : 13 chacun (à moins de quatre joueurs, les cartes restantes sont mises de côté).
+Être le premier à poser toutes ses cartes ; les autres continuent pour les places. Un jeu vietnamien (son nom veut dire « en avant ») pour 2 à 4 joueurs, avec un jeu de 52 cartes : 13 chacun (à moins de quatre joueurs, les cartes restantes sont mises de côté).
 # Les cartes
-- De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
-- Les couleurs, de la plus faible à la plus forte : pique, trèfle, carreau, cœur. Entre deux cartes de même valeur, la couleur décide : le 2 de cœur est la plus forte carte.
+- De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
+- Les couleurs, de la plus faible à la plus forte : pique, trèfle, carreau, cœur. Entre deux cartes de même valeur, la couleur décide : le 2 de cœur est la plus forte carte.
 # Les combinaisons
 - Une carte seule, une paire, un brelan ou un carré.
-- Une suite : au moins trois cartes de valeurs qui se suivent, de couleurs quelconques. Le 2 n'en fait jamais partie.
-- Une double suite : au moins trois paires de valeurs qui se suivent, comme 3-3-4-4-5-5, sans 2.
+- Une suite : au moins trois cartes de valeurs qui se suivent, de couleurs quelconques. Le 2 n'en fait jamais partie.
+- Une double suite : au moins trois paires de valeurs qui se suivent, comme 3-3-4-4-5-5, sans 2.
 - Une combinaison est battue par une autre du même type, avec autant de cartes et dont la plus forte carte est plus forte.
 # Un pli
 - Le joueur qui a reçu la plus faible carte (le 3 de pique à quatre joueurs) entame le premier pli, avec une combinaison qui la contient.
 - Chacun à son tour bat la dernière combinaison ou passe. Un joueur qui passe reste hors du pli jusqu'à ce qu'un nouveau commence.
 - Quand tous les autres ont passé, le dernier à avoir joué commence un nouveau pli avec la combinaison de son choix.
 # Les bombes
-Certaines combinaisons battent les 2, et se jouent à son tour comme n'importe quelle autre :
-- trois paires qui se suivent battent un 2 seul ;
-- un carré bat un 2 seul, ou trois paires qui se suivent ;
-- quatre paires qui se suivent battent un 2 seul, une paire de 2, un carré, ou trois paires qui se suivent ;
+Certaines combinaisons battent les 2, et se jouent à son tour comme n'importe quelle autre :
+- trois paires qui se suivent battent un 2 seul ;
+- un carré bat un 2 seul, ou trois paires qui se suivent ;
+- quatre paires qui se suivent battent un 2 seul, une paire de 2, un carré, ou trois paires qui se suivent ;
 - cinq paires qui se suivent battent en plus un brelan de 2.
 Une bombe bat aussi une bombe plus faible du même type.
 # La fin de la partie
-Le premier joueur qui n'a plus de cartes gagne. Les autres continuent : l'ordre dans lequel ils finissent donne leurs places, et le dernier à avoir encore des cartes finit dernier.
+Le premier joueur qui n'a plus de cartes gagne. Les autres continuent : l'ordre dans lequel ils finissent donne leurs places, et le dernier à avoir encore des cartes finit dernier.
 # Jouer sur l'appareil
-L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, de la plus faible à la plus forte. En haut, les autres : leurs cartes face cachée, leur nombre, et un signe passer tant qu'ils sont hors du pli ; une fois sans cartes, leur place. Le dernier coup est posé en grand au milieu avec le jeton de son joueur, les coups précédents plus petits derrière. Touche des cartes pour les choisir, puis touche le milieu ou fais-les glisser jusque-là : le milieu s'allume quand ton choix peut être joué. La plus faible carte brille pour le joueur qui doit l'entamer. Le bouton passer est dans ta barre. À la fin, un tableau montre les places.
+L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, de la plus faible à la plus forte. En haut, les autres : leurs cartes face cachée, leur nombre, et un signe passer tant qu'ils sont hors du pli ; une fois sans cartes, leur place. Le dernier coup est posé en grand au milieu avec le jeton de son joueur, les coups précédents plus petits derrière. Touche des cartes pour les choisir, puis touche le milieu ou fais-les glisser jusque-là : le milieu s'allume quand ton choix peut être joué. La plus faible carte brille pour le joueur qui doit l'entamer. Le bouton passer est dans ta barre. À la fin, un tableau montre les places.

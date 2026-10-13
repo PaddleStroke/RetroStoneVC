@@ -2,16 +2,16 @@ Surakarta
 # Le but
 Prendre toutes les pièces de l'autre joueur. Chaque joueur a douze pièces. Les pièces claires commencent. Le jeu vient de Java, en Indonésie, et porte le nom de la ville de Surakarta.
 # Le plateau
-Trente-six points sur une grille de six lignes sur six. Deux circuits la parcourent : le circuit intérieur (rouge) suit la deuxième et la cinquième ligne, en long comme en large, le circuit extérieur (vert) la troisième et la quatrième. À chaque coin, une boucle relie les extrémités de deux lignes : les petites boucles appartiennent au circuit intérieur, les grandes au circuit extérieur. Les pièces de chaque joueur occupent les deux rangées les plus proches de lui.
+Trente-six points sur une grille de six lignes sur six. Deux circuits la parcourent : le circuit intérieur (rouge) suit la deuxième et la cinquième ligne, en long comme en large, le circuit extérieur (vert) la troisième et la quatrième. À chaque coin, une boucle relie les extrémités de deux lignes : les petites boucles appartiennent au circuit intérieur, les grandes au circuit extérieur. Les pièces de chaque joueur occupent les deux rangées les plus proches de lui.
 # Les déplacements
 À ton tour, déplace une de tes pièces d'un pas vers l'un des huit points voisins, tout droit ou en biais, s'il est libre. Les boucles ne servent pas pour ces pas.
 # Les prises
 Une pièce prend en parcourant un circuit, aussi loin qu'elle veut sur des points libres et en passant par au moins une boucle, jusqu'à ce qu'elle rencontre une pièce. Si c'est une pièce adverse, elle est retirée du plateau et la pièce qui l'a prise s'installe à sa place.
-- Le chemin doit être libre : une pièce ne peut pas sauter par-dessus d'autres pièces. Le point de départ de la pièce qui prend compte comme libre si son chemin repasse par lui.
+- Le chemin doit être libre : une pièce ne peut pas sauter par-dessus d'autres pièces. Le point de départ de la pièce qui prend compte comme libre si son chemin repasse par lui.
 - Une prise peut passer par plusieurs boucles. Elle suit son circuit, continue tout droit là où les lignes se croisent et ne tourne que par les boucles.
 - La prise n'est jamais obligatoire.
 # La fin de la partie
 - Un joueur qui n'a plus de pièces, ou qui ne peut plus bouger, a perdu.
-- La partie s'arrête aussi quand la même position revient pour la troisième fois, ou après quarante coups de chaque côté sans prise. Le joueur à qui il reste le plus de pièces gagne alors ; à nombre de pièces égal, la partie est nulle.
+- La partie s'arrête aussi quand la même position revient pour la troisième fois, ou après quarante coups de chaque côté sans prise. Le joueur à qui il reste le plus de pièces gagne alors ; à nombre de pièces égal, la partie est nulle.
 # Jouer sur l'appareil
-Touche ta pièce puis son nouveau point, ou fais-la glisser. Quand ta pièce est sélectionnée, les points où elle peut aller portent un petit point et les pièces qu'elle peut prendre sont entourées d'un anneau : touches-en une pour lancer ta pièce dans les boucles.
+Touche ta pièce puis son nouveau point, ou fais-la glisser. Quand ta pièce est sélectionnée, les points où elle peut aller portent un petit point et les pièces qu'elle peut prendre sont entourées d'un anneau : touches-en une pour lancer ta pièce dans les boucles.

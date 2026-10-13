@@ -1,27 +1,27 @@
 Portes logiques
 # Le but
-Un circuit imprimé : des interrupteurs en bas, des portes logiques au-dessus, des lampes en haut. Chaque fil porte un signal vers le haut, 0 (sombre) ou 1 (doré, lumineux). Règle les interrupteurs pour que toutes les lampes s'allument, tandis que les lampes d'alarme rouges restent éteintes. 150 niveaux en 6 chapitres.
+Un circuit imprimé : des interrupteurs en bas, des portes logiques au-dessus, des lampes en haut. Chaque fil porte un signal vers le haut, 0 (sombre) ou 1 (doré, lumineux). Règle les interrupteurs pour que toutes les lampes s'allument, tandis que les lampes d'alarme rouges restent éteintes. 150 niveaux en 6 chapitres.
 # Les portes
-Chaque porte est une forme de laiton sur une plaque de noyer : ses entrées arrivent par le bas, sa sortie part par le haut. Un petit rond au sommet d'une porte inverse sa réponse. Ci-dessous, les entrées et la sortie pour chaque cas : 01 → 1 veut dire première entrée 0, deuxième entrée 1, sortie 1.
-- NON (NOT), un triangle avec un rond à la pointe : le contraire de son entrée. 0 → 1, 1 → 0.
-- ET (AND), un dôme, plat en bas et rond en haut : 1 seulement si toutes ses entrées valent 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OU (OR), un bouclier pointu, creusé en bas : 1 si au moins une entrée vaut 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- OU exclusif (XOR), la forme du OU avec une seconde ligne courbe dessous : 1 si ses entrées diffèrent. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NON-ET (NAND), le dôme du ET avec un rond : 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NON-OU (NOR), le bouclier du OU avec un rond : 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Plus loin, des portes ont trois entrées : ET, OU, NON-ET et NON-OU marchent de la même façon, et le OU exclusif donne 1 quand un nombre impair de ses entrées vaut 1.
+Chaque porte est une forme de laiton sur une plaque de noyer : ses entrées arrivent par le bas, sa sortie part par le haut. Un petit rond au sommet d'une porte inverse sa réponse. Ci-dessous, les entrées et la sortie pour chaque cas : 01 → 1 veut dire première entrée 0, deuxième entrée 1, sortie 1.
+- NON (NOT), un triangle avec un rond à la pointe : le contraire de son entrée. 0 → 1, 1 → 0.
+- ET (AND), un dôme, plat en bas et rond en haut : 1 seulement si toutes ses entrées valent 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
+- OU (OR), un bouclier pointu, creusé en bas : 1 si au moins une entrée vaut 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
+- OU exclusif (XOR), la forme du OU avec une seconde ligne courbe dessous : 1 si ses entrées diffèrent. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
+- NON-ET (NAND), le dôme du ET avec un rond : 00 → 1, 01 → 1, 10 → 1, 11 → 0.
+- NON-OU (NOR), le bouclier du OU avec un rond : 00 → 1, 01 → 0, 10 → 0, 11 → 0.
+Plus loin, des portes ont trois entrées : ET, OU, NON-ET et NON-OU marchent de la même façon, et le OU exclusif donne 1 quand un nombre impair de ses entrées vaut 1.
 # Les aiguillages
-Une plaque où le fil se divise, à gauche et à droite. Le signal continue du côté où pointe la piste de laiton ; l'autre côté porte 0. Touche-le pour envoyer le signal de l'autre côté.
+Une plaque où le fil se divise, à gauche et à droite. Le signal continue du côté où pointe la piste de laiton ; l'autre côté porte 0. Touche-le pour envoyer le signal de l'autre côté.
 # Les fils à couper
-Certains fils portent un petit fusible crème. Touche le fusible pour couper le fil : des étincelles jaillissent et, après le fusible, le fil porte 0, comme débranché. Une coupure ne se répare pas, sauf avec Annuler ou en recommençant le niveau. Certains niveaux permettent moins de coupures qu'ils n'ont de fusibles : la barre montre les coupures qui te restent.
+Certains fils portent un petit fusible crème. Touche le fusible pour couper le fil : des étincelles jaillissent et, après le fusible, le fil porte 0, comme débranché. Une coupure ne se répare pas, sauf avec Annuler ou en recommençant le niveau. Certains niveaux permettent moins de coupures qu'ils n'ont de fusibles : la barre montre les coupures qui te restent.
 # Les interrupteurs verrouillés
 Un interrupteur barré d'une plaque de laiton vissée reste comme il est.
 # Niveaux et étoiles
-Les chapitres : 1 NON, ET, OU ; 2 OU exclusif, NON-ET, NON-OU ; 3 aiguillages ; 4 fils à couper ; 5 chaînes plus longues, un interrupteur qui alimente plusieurs portes, portes à trois entrées ; 6 grands circuits qui mélangent tout.
-Un coup, c'est une bascule ou une coupure. Chaque niveau a un par, le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à deux coups de plus : 2 étoiles ; sinon 1. Un indice limite le niveau à 2 étoiles. Annuler reprend un coup, qui ne compte plus. Les niveaux résolus restent ouverts, ainsi que les trois premiers non résolus.
+Les chapitres : 1 NON, ET, OU ; 2 OU exclusif, NON-ET, NON-OU ; 3 aiguillages ; 4 fils à couper ; 5 chaînes plus longues, un interrupteur qui alimente plusieurs portes, portes à trois entrées ; 6 grands circuits qui mélangent tout.
+Un coup, c'est une bascule ou une coupure. Chaque niveau a un par, le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à deux coups de plus : 2 étoiles ; sinon 1. Un indice limite le niveau à 2 étoiles. Annuler reprend un coup, qui ne compte plus. Les niveaux résolus restent ouverts, ainsi que les trois premiers non résolus.
 # Jouer sur l'appareil
-- La grille des niveaux : un onglet par chapitre, puis les niveaux du chapitre : résolus en or avec leurs étoiles, ouverts en bois, fermés en bois sombre. Touche un niveau pour le jouer. Tes étoiles restent gardées sur l'appareil.
+- La grille des niveaux : un onglet par chapitre, puis les niveaux du chapitre : résolus en or avec leurs étoiles, ouverts en bois, fermés en bois sombre. Touche un niveau pour le jouer. Tes étoiles restent gardées sur l'appareil.
 - Touche un interrupteur pour le basculer, un aiguillage pour le tourner, un fusible pour couper son fil. Le changement remonte les fils, porte après porte.
-- À côté du plateau : le chapitre et le numéro du niveau ; la flèche ronde recommence le niveau ; la lampe donne un indice : la prochaine pièce à changer clignote. Si c'est le bouton Recommencer qui clignote, tes coupures sont fausses : annule-les.
-- Quand toutes les lampes sont allumées, elles s'embrasent d'or ; puis tes étoiles apparaissent avec le bouton du niveau suivant. Nouvelle partie (le bouton grille) ramène à la grille des niveaux.
+- À côté du plateau : le chapitre et le numéro du niveau ; la flèche ronde recommence le niveau ; la lampe donne un indice : la prochaine pièce à changer clignote. Si c'est le bouton Recommencer qui clignote, tes coupures sont fausses : annule-les.
+- Quand toutes les lampes sont allumées, elles s'embrasent d'or ; puis tes étoiles apparaissent avec le bouton du niveau suivant. Nouvelle partie (le bouton grille) ramène à la grille des niveaux.
 - La barre montre tes coups, les coupures restantes et, à son extrémité droite, le par à côté de trois étoiles.

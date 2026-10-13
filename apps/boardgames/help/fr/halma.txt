@@ -1,7 +1,7 @@
 Dames chinoises
 # Le but
 Amener tes dix billes à travers l'étoile jusqu'à la pointe opposée à la tienne. Le plateau est une étoile à six branches de 121 trous. Les claires partent de la pointe du bas et les foncées de la pointe du haut, teintées de leurs couleurs ; les quatre autres pointes restent vides. Les billes claires commencent.
-On peut jouer à deux, trois, quatre ou six : choisis combien avant la partie. Les claires partent toujours de la pointe du bas et les autres suivent dans le sens des aiguilles d'une montre autour de l'étoile, dans l'ordre du jeu : à trois, une pointe sur deux, chacun visant ainsi une pointe vide ; à quatre, deux paires de pointes opposées ; à six, toutes les pointes. À plus de deux, les billes de n'importe quel joueur restées dans ta pointe d'arrivée comptent pour toi, et un joueur qui n'a aucun coup passe son tour ; la partie n'est nulle que si plus personne ne peut jouer.
+On peut jouer à deux, trois, quatre ou six : choisis combien avant la partie. Les claires partent toujours de la pointe du bas et les autres suivent dans le sens des aiguilles d'une montre autour de l'étoile, dans l'ordre du jeu : à trois, une pointe sur deux, chacun visant ainsi une pointe vide ; à quatre, deux paires de pointes opposées ; à six, toutes les pointes. À plus de deux, les billes de n'importe quel joueur restées dans ta pointe d'arrivée comptent pour toi, et un joueur qui n'a aucun coup passe son tour ; la partie n'est nulle que si plus personne ne peut jouer.
 # Un coup
 À ton tour, déplace une de tes billes de l'une de ces deux façons :
 - Un pas : vers un trou vide voisin. Chaque trou a jusqu'à six voisins, le long des lignes de l'étoile.

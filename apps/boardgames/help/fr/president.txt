@@ -1,24 +1,24 @@
 Président
 # Le but
-Se débarrasser de toutes ses cartes avant les autres. Le premier qui n'a plus de cartes devient le Président, le dernier le Trou, et les rangs changent de main d'une donne à l'autre. De 3 à 6 joueurs, avec un jeu de 52 cartes distribuées une par une (certains peuvent avoir une carte de plus). On joue cinq donnes ; le plus gros total gagne.
+Se débarrasser de toutes ses cartes avant les autres. Le premier qui n'a plus de cartes devient le Président, le dernier le Trou, et les rangs changent de main d'une donne à l'autre. De 3 à 6 joueurs, avec un jeu de 52 cartes distribuées une par une (certains peuvent avoir une carte de plus). On joue cinq donnes ; le plus gros total gagne.
 # Les cartes
-- De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
+- De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
 - Les couleurs ne comptent pas.
 # Un pli
 - Celui qui entame joue une carte, ou deux, trois ou quatre cartes de même valeur.
 - Chacun des autres à son tour joue le même nombre de cartes, d'une valeur plus forte, ou passe. Un joueur qui a passé peut rejouer quand son tour revient.
-- Quand tous les autres ont passé à la suite, le pli est fini. Le dernier à avoir joué entame le suivant ; s'il n'a plus de cartes, c'est le joueur suivant qui en a encore.
-- Un 2 termine le pli aussitôt : son joueur entame à nouveau.
+- Quand tous les autres ont passé à la suite, le pli est fini. Le dernier à avoir joué entame le suivant ; s'il n'a plus de cartes, c'est le joueur suivant qui en a encore.
+- Un 2 termine le pli aussitôt : son joueur entame à nouveau.
 # Finir
-Un joueur qui a posé toutes ses cartes a fini. L'ordre dans lequel les joueurs finissent donne les rangs de la donne suivante :
-- le premier : Président, une couronne ;
-- le deuxième : Vice-président, une petite couronne (à partir de quatre joueurs) ;
-- les places du milieu : Neutre, sans signe ;
-- l'avant-dernier : Vice-trou, une flèche vers le bas (à partir de quatre joueurs) ;
-- le dernier : Trou, deux flèches vers le bas.
+Un joueur qui a posé toutes ses cartes a fini. L'ordre dans lequel les joueurs finissent donne les rangs de la donne suivante :
+- le premier : Président, une couronne ;
+- le deuxième : Vice-président, une petite couronne (à partir de quatre joueurs) ;
+- les places du milieu : Neutre, sans signe ;
+- l'avant-dernier : Vice-trou, une flèche vers le bas (à partir de quatre joueurs) ;
+- le dernier : Trou, deux flèches vers le bas.
 # L'échange
 À partir de la deuxième donne, le Trou est servi le premier et entame. Aussitôt, le Trou donne ses deux meilleures cartes au Président, et le Vice-trou sa meilleure carte au Vice-président. Puis le Président rend deux cartes de son choix au Trou, et le Vice-président une carte de son choix au Vice-trou, en secret.
 # Le score
-À chaque donne, le premier à finir marque un point de moins que le nombre de joueurs, le suivant un de moins, et ainsi de suite : le dernier ne marque rien. Après cinq donnes, le plus gros total gagne ; les joueurs à égalité partagent la victoire.
+À chaque donne, le premier à finir marque un point de moins que le nombre de joueurs, le suivant un de moins, et ainsi de suite : le dernier ne marque rien. Après cinq donnes, le plus gros total gagne ; les joueurs à égalité partagent la victoire.
 # Jouer sur l'appareil
-L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, des 3 jusqu'aux 2. En haut de la table, les autres, dans l'ordre de leurs barres : leur nombre de cartes, et un signe passer s'ils ont passé depuis le dernier coup ; une fois finis, le signe de leur nouveau rang. Le dernier coup est posé en grand au milieu avec le jeton de son joueur, les coups précédents plus petits derrière. Touche des cartes pour les choisir (pour suivre, une touche choisit autant de cartes de cette valeur qu'il en faut), puis touche le milieu ou fais-les glisser jusque-là. Le bouton passer est dans ta barre. Pour l'échange, choisis les cartes à donner et touche les places à côté du jeton de celui qui les reçoit ; les cartes que tu as reçues brillent. Chaque barre montre le rang et le total du joueur. Après chaque donne, un tableau montre les joueurs dans l'ordre où ils ont fini, leurs nouveaux rangs, leurs points et leurs totaux ; touche-le pour la donne suivante.
+L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, des 3 jusqu'aux 2. En haut de la table, les autres, dans l'ordre de leurs barres : leur nombre de cartes, et un signe passer s'ils ont passé depuis le dernier coup ; une fois finis, le signe de leur nouveau rang. Le dernier coup est posé en grand au milieu avec le jeton de son joueur, les coups précédents plus petits derrière. Touche des cartes pour les choisir (pour suivre, une touche choisit autant de cartes de cette valeur qu'il en faut), puis touche le milieu ou fais-les glisser jusque-là. Le bouton passer est dans ta barre. Pour l'échange, choisis les cartes à donner et touche les places à côté du jeton de celui qui les reçoit ; les cartes que tu as reçues brillent. Chaque barre montre le rang et le total du joueur. Après chaque donne, un tableau montre les joueurs dans l'ordre où ils ont fini, leurs nouveaux rangs, leurs points et leurs totaux ; touche-le pour la donne suivante.

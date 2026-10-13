@@ -1,26 +1,26 @@
 Huit américain
 # Le but
-Être le premier à poser toutes ses cartes. Deux jeux au choix : le Huit américain, avec un jeu de 52 cartes, et la Dernière carte, avec un jeu de 108 cartes de couleur et des cartes action. De 2 à 6 joueurs.
+Être le premier à poser toutes ses cartes. Deux jeux au choix : le Huit américain, avec un jeu de 52 cartes, et la Dernière carte, avec un jeu de 108 cartes de couleur et des cartes action. De 2 à 6 joueurs.
 # Un tour
-- Pose une carte sur la défausse : une carte de la même enseigne (ou couleur), ou du même nombre ou symbole que la carte du dessus.
+- Pose une carte sur la défausse : une carte de la même enseigne (ou couleur), ou du même nombre ou symbole que la carte du dessus.
 - Si tu ne peux pas jouer, pioche.
 - La première carte retournée n'est jamais un huit, une carte action ni un joker.
 # Huit américain
 - 7 cartes chacun à deux joueurs, 5 à plus.
-- Un huit se pose à tout moment : choisis alors l'enseigne à suivre.
-- On ne pioche que si on ne peut pas jouer, une carte à la fois, jusqu'à pouvoir jouer. Plus rien à piocher : on passe.
-- Points : huit 50, roi, dame et valet 10, as 1, les autres cartes leur valeur. La partie se joue en 100.
+- Un huit se pose à tout moment : choisis alors l'enseigne à suivre.
+- On ne pioche que si on ne peut pas jouer, une carte à la fois, jusqu'à pouvoir jouer. Plus rien à piocher : on passe.
+- Points : huit 50, roi, dame et valet 10, as 1, les autres cartes leur valeur. La partie se joue en 100.
 # Dernière carte
-- 7 cartes chacun. Un joker se pose à tout moment : choisis alors la couleur à suivre.
-- Passe : le joueur suivant passe son tour. Inversion : le jeu change de sens (à deux, elle compte comme un passe). Plus deux : le joueur suivant pioche 2 cartes et passe son tour.
-- Joker plus quatre : choisis la couleur ; le joueur suivant pioche 4 cartes et passe son tour. On ne peut le poser que sans aucune carte de la couleur à suivre. L'appareil le vérifie : pas de contestation.
-- Plus deux et plus quatre ne se cumulent pas : le joueur suivant pioche, c'est tout.
+- 7 cartes chacun. Un joker se pose à tout moment : choisis alors la couleur à suivre.
+- Passe : le joueur suivant passe son tour. Inversion : le jeu change de sens (à deux, elle compte comme un passe). Plus deux : le joueur suivant pioche 2 cartes et passe son tour.
+- Joker plus quatre : choisis la couleur ; le joueur suivant pioche 4 cartes et passe son tour. On ne peut le poser que sans aucune carte de la couleur à suivre. L'appareil le vérifie : pas de contestation.
+- Plus deux et plus quatre ne se cumulent pas : le joueur suivant pioche, c'est tout.
 - Au lieu de jouer, tu peux piocher une carte. Si elle convient, pose-la aussitôt, ou garde-la et passe.
-- Dernière carte : juste avant de poser ton avant-dernière carte, touche le bouton de la dernière carte. Si tu oublies, le joueur suivant peut te prendre en faute avant de faire quoi que ce soit, et tu pioches 2 cartes.
-- Points : les nombres leur valeur, passe, inversion et plus deux 20, jokers 50. La partie se joue en 500.
+- Dernière carte : juste avant de poser ton avant-dernière carte, touche le bouton de la dernière carte. Si tu oublies, le joueur suivant peut te prendre en faute avant de faire quoi que ce soit, et tu pioches 2 cartes.
+- Points : les nombres leur valeur, passe, inversion et plus deux 20, jokers 50. La partie se joue en 500.
 # La fin d'une manche
-Le premier joueur sans carte gagne la manche et marque les points des cartes restées dans les autres mains. Si plus personne ne peut jouer ni piocher, la manche s'arrête : le joueur qui a le moins de points en main la gagne et marque la différence avec chaque autre main. La donne avance d'une place à chaque manche.
+Le premier joueur sans carte gagne la manche et marque les points des cartes restées dans les autres mains. Si plus personne ne peut jouer ni piocher, la manche s'arrête : le joueur qui a le moins de points en main la gagne et marque la différence avec chaque autre main. La donne avance d'une place à chaque manche.
 # La fin de la partie
 Le premier joueur qui atteint le score visé gagne.
 # Jouer sur l'appareil
-L'appareil passe de main en main : chacun voit sa main en bas. Les autres mains sont de petits éventails en haut, chacun avec la pièce de son joueur et son nombre de cartes. À la Dernière carte, l'anneau de flèches au milieu montre le sens du jeu. Touche une carte qui brille pour la poser ; touche la pioche pour piocher (elle brille quand tu dois piocher). Après un huit ou un joker, touche une enseigne (un as) ou une couleur (un disque). Le bouton de la dernière carte, une carte avec un éclat, apparaît quand tu as deux cartes ; un joueur qui l'a annoncée l'affiche à côté de sa main. Pour prendre en faute un joueur qui a oublié, touche sa main ou sa barre. Pour passer, touche le bouton dans ta barre. Après chaque manche, un tableau montre les points restés dans chaque main, le gain du gagnant et les totaux ; touche-le pour la manche suivante. Annuler ne reprend qu'un choix de ton propre tour, jamais une carte piochée.
+L'appareil passe de main en main : chacun voit sa main en bas. Les autres mains sont de petits éventails en haut, chacun avec la pièce de son joueur et son nombre de cartes. À la Dernière carte, l'anneau de flèches au milieu montre le sens du jeu. Touche une carte qui brille pour la poser ; touche la pioche pour piocher (elle brille quand tu dois piocher). Après un huit ou un joker, touche une enseigne (un as) ou une couleur (un disque). Le bouton de la dernière carte, une carte avec un éclat, apparaît quand tu as deux cartes ; un joueur qui l'a annoncée l'affiche à côté de sa main. Pour prendre en faute un joueur qui a oublié, touche sa main ou sa barre. Pour passer, touche le bouton dans ta barre. Après chaque manche, un tableau montre les points restés dans chaque main, le gain du gagnant et les totaux ; touche-le pour la manche suivante. Annuler ne reprend qu'un choix de ton propre tour, jamais une carte piochée.

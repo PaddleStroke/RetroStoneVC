@@ -34,21 +34,21 @@ Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. 
 - Partie nulle : quand la même position revient pour la troisième fois, ou après 25 coups de chaque côté sans prise ni coup de pion.
 # Dames frisonnes (10 sur 10)
 - Les pièces claires commencent. Un pion avance d'une case en diagonale, comme aux dames internationales.
-- Pions et dames prennent aussi en ligne droite, le long des rangées et des colonnes : par-dessus une pièce adverse sur la case foncée suivante, deux cases plus loin, jusqu'à la case foncée juste derrière. Les pions prennent aussi vers l'arrière.
+- Pions et dames prennent aussi en ligne droite, le long des rangées et des colonnes : par-dessus une pièce adverse sur la case foncée suivante, deux cases plus loin, jusqu'à la case foncée juste derrière. Les pions prennent aussi vers l'arrière.
 - Une dame se déplace d'autant de cases qu'elle veut en diagonale, et prend à distance dans les huit directions.
-- La prise est obligatoire, et tu dois prendre les pièces de plus grande valeur : une dame vaut plus qu'un pion mais moins que deux. Si une dame et un pion peuvent prendre la même valeur, c'est la dame qui doit prendre.
+- La prise est obligatoire, et tu dois prendre les pièces de plus grande valeur : une dame vaut plus qu'un pion mais moins que deux. Si une dame et un pion peuvent prendre la même valeur, c'est la dame qui doit prendre.
 - Un pion qui termine son coup sur la dernière rangée devient une dame.
-- Tant qu'il te reste des pions, une même dame ne peut pas jouer plus de trois coups de suite sans prendre ; une autre pièce doit alors jouer.
-- Nulle : quand deux dames font face à une seule et que chacun a joué sept coups, quand une dame fait face à une autre et que chacun a joué deux coups, ou quand la même position revient pour la troisième fois.
+- Tant qu'il te reste des pions, une même dame ne peut pas jouer plus de trois coups de suite sans prendre ; une autre pièce doit alors jouer.
+- Nulle : quand deux dames font face à une seule et que chacun a joué sept coups, quand une dame fait face à une autre et que chacun a joué deux coups, ou quand la même position revient pour la troisième fois.
 # Dames canadiennes (12 sur 12)
 Les règles des dames internationales sur un damier de 12 sur 12, avec 30 pions chacun.
 # Bashni (8 sur 8)
-Les dames russes en colonnes : les règles des dames russes, mais les pièces prises restent en jeu.
+Les dames russes en colonnes : les règles des dames russes, mais les pièces prises restent en jeu.
 - Une prise n'enlève que la pièce du dessus de la colonne sautée, et la place sous la colonne qui prend. Les pièces restées dessous ne bougent pas, et obéissent à leur nouvelle pièce du dessus.
 - Une colonne appartient au joueur dont la pièce est au sommet, et se déplace comme elle, en pion ou en dame. Seule la pièce du dessus est promue.
 - Une colonne ne peut être sautée qu'une fois dans une même prise. Les pièces prises passent sous la colonne qui prend à la fin du coup.
 - Chaque barre indique combien de pièces adverses ce joueur tient dans ses colonnes. Un joueur qui ne peut plus jouer perd, même s'il a des pièces prisonnières sous les colonnes adverses.
-- Nulle : comme aux dames russes.
+- Nulle : comme aux dames russes.
 # La fin de la partie
 Un joueur qui n'a plus de pièces, ou qui ne peut plus bouger, a perdu.
 # Jouer sur l'appareil

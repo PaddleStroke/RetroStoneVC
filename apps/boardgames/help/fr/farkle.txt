@@ -4,18 +4,18 @@
 # Un tour
 - Lance les six dés. Mets de côté au moins un dé qui marque, puis mets en banque les points de ton tour, ou relance les dés qui restent pour en marquer davantage.
 - Chaque dé mis de côté doit marquer, et les combinaisons ne comptent qu'au sein d'un même lancer.
-- Un lancer sans aucun dé qui marque est un « farkle » : tu perds tous les points du tour, et la main passe.
-- Main pleine : quand les six dés ont marqué, tu peux relancer les six et continuer d'ajouter.
-- Ta première mise en banque doit faire au moins 500 points en un tour ; ensuite, toutes comptent.
+- Un lancer sans aucun dé qui marque est un « farkle » : tu perds tous les points du tour, et la main passe.
+- Main pleine : quand les six dés ont marqué, tu peux relancer les six et continuer d'ajouter.
+- Ta première mise en banque doit faire au moins 500 points en un tour ; ensuite, toutes comptent.
 # Les points
-- Chaque 1 : 100. Chaque 5 : 50.
-- Un brelan : la face fois 100 (trois 2 : 200, trois 6 : 600) ; trois 1 : 1 000.
-- Un carré : 1 000. Cinq pareils : 2 000. Six pareils : 3 000.
-- Une suite 1-2-3-4-5-6 : 1 500.
-- Trois paires : 1 500 (un carré et une paire comptent comme trois paires).
-- Deux brelans : 2 500.
-Les dés mis de côté comptent au mieux : quatre 1 font trois 1 et un 1, 1 100.
+- Chaque 1 : 100. Chaque 5 : 50.
+- Un brelan : la face fois 100 (trois 2 : 200, trois 6 : 600) ; trois 1 : 1 000.
+- Un carré : 1 000. Cinq pareils : 2 000. Six pareils : 3 000.
+- Une suite 1-2-3-4-5-6 : 1 500.
+- Trois paires : 1 500 (un carré et une paire comptent comme trois paires).
+- Deux brelans : 2 500.
+Les dés mis de côté comptent au mieux : quatre 1 font trois 1 et un 1, 1 100.
 # La fin de la partie
-On joue à tour de rôle autour de la table, l'ivoire en premier. Quand un joueur met en banque 10 000 ou plus, chacun des autres joue un dernier tour ; puis le plus gros score gagne, et à égalité les meilleurs se partagent la victoire. Seul, atteins 10 000 en 20 tours au plus : les petits repères en haut du tapis les comptent.
+On joue à tour de rôle autour de la table, l'ivoire en premier. Quand un joueur met en banque 10 000 ou plus, chacun des autres joue un dernier tour ; puis le plus gros score gagne, et à égalité les meilleurs se partagent la victoire. Seul, atteins 10 000 en 20 tours au plus : les petits repères en haut du tapis les comptent.
 # Jouer sur l'appareil
-Touche le tapis ou le bouton au dé pour lancer. Touche les dés qui marquent pour les mettre de côté : ils se soulèvent dans une lumière dorée ; un dé qui ne peut pas marquer dans ce lancer est plus sombre et fait un son de refus. Sous les dés, le petit nombre doré est la valeur des dés choisis, et le grand le total de ton tour avec eux. Le bouton au dé relance les dés qui restent ; le bouton aux pièces met ton tour en banque. Un bouton s'éclaire quand tu peux t'en servir. Les dés mis de côté attendent sur ton râtelier. Un farkle montre les dés dans une lueur rouge et les points perdus. Le dé du joueur qui a atteint 10 000 brille sur le tapis pendant le dernier tour. Chaque barre montre le score en banque de ce joueur. Annuler reprend la dernière mise en banque ; les dés ne sont jamais relancés.
+Touche le tapis ou le bouton au dé pour lancer. Touche les dés qui marquent pour les mettre de côté : ils se soulèvent dans une lumière dorée ; un dé qui ne peut pas marquer dans ce lancer est plus sombre et fait un son de refus. Sous les dés, le petit nombre doré est la valeur des dés choisis, et le grand le total de ton tour avec eux. Le bouton au dé relance les dés qui restent ; le bouton aux pièces met ton tour en banque. Un bouton s'éclaire quand tu peux t'en servir. Les dés mis de côté attendent sur ton râtelier. Un farkle montre les dés dans une lueur rouge et les points perdus. Le dé du joueur qui a atteint 10 000 brille sur le tapis pendant le dernier tour. Chaque barre montre le score en banque de ce joueur. Annuler reprend la dernière mise en banque ; les dés ne sont jamais relancés.

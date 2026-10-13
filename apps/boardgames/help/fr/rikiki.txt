@@ -1,16 +1,16 @@
 Rikiki
 # Le but
-Annoncer exactement le nombre de plis qu'on fera, puis les faire, ni plus ni moins. De 3 à 6 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Annoncer exactement le nombre de plis qu'on fera, puis les faire, ni plus ni moins. De 3 à 6 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
 # Les cartes
-52 cartes ; l'as est la plus forte. La première donne distribue 1 carte chacun, la suivante 2, et ainsi de suite jusqu'au maximum (13 ; 10 à 5 joueurs ; 8 à 6), puis on redescend jusqu'à 1. Après chaque donne, la carte suivante est retournée : sa couleur est l'atout. Quand il ne reste aucune carte (4 joueurs, 13 cartes chacun), la donne se joue sans atout.
+52 cartes ; l'as est la plus forte. La première donne distribue 1 carte chacun, la suivante 2, et ainsi de suite jusqu'au maximum (13 ; 10 à 5 joueurs ; 8 à 6), puis on redescend jusqu'à 1. Après chaque donne, la carte suivante est retournée : sa couleur est l'atout. Quand il ne reste aucune carte (4 joueurs, 13 cartes chacun), la donne se joue sans atout.
 # Les annonces
-Le joueur après le donneur annonce le premier, le donneur en dernier. Chacun annonce combien de plis il fera, de 0 au nombre de cartes en main. Le donneur ne peut pas annoncer un nombre qui rendrait le total des annonces égal au nombre de cartes de chacun : quelqu'un doit chuter (la règle du donneur, courante en France).
+Le joueur après le donneur annonce le premier, le donneur en dernier. Chacun annonce combien de plis il fera, de 0 au nombre de cartes en main. Le donneur ne peut pas annoncer un nombre qui rendrait le total des annonces égal au nombre de cartes de chacun : quelqu'un doit chuter (la règle du donneur, courante en France).
 # Le jeu
-Le joueur après le donneur entame. Il faut fournir la couleur demandée ; sinon on joue n'importe quelle carte (on n'est pas obligé de couper). Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée ; son gagnant entame le suivant.
+Le joueur après le donneur entame. Il faut fournir la couleur demandée ; sinon on joue n'importe quelle carte (on n'est pas obligé de couper). Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée ; son gagnant entame le suivant.
 # Le score
-- Annonce réussie exactement : 10 points et 1 de plus par pli fait.
-- Chute : moins 1 par pli en trop ou en moins.
+- Annonce réussie exactement : 10 points et 1 de plus par pli fait.
+- Chute : moins 1 par pli en trop ou en moins.
 # La fin de la partie
-Après la dernière donne d'une carte, le plus grand total gagne ; les joueurs à égalité partagent la victoire.
+Après la dernière donne d'une carte, le plus grand total gagne ; les joueurs à égalité partagent la victoire.
 # Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en éventail en bas. Pour annoncer, touche un nombre du pavé (le nombre interdit au donneur est barré), puis la coche. Chaque pièce montre son annonce dans un disque sombre et les plis faits à côté ; un petit dos de carte marque le donneur. La carte retournée est dans le coin en bas à gauche (barrée : sans atout). Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le total. Après chaque donne, un tableau montre l'annonce, les plis (en or : réussite exacte), les points et le total de chacun ; touche-le pour la donne suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en éventail en bas. Pour annoncer, touche un nombre du pavé (le nombre interdit au donneur est barré), puis la coche. Chaque pièce montre son annonce dans un disque sombre et les plis faits à côté ; un petit dos de carte marque le donneur. La carte retournée est dans le coin en bas à gauche (barrée : sans atout). Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le total. Après chaque donne, un tableau montre l'annonce, les plis (en or : réussite exacte), les points et le total de chacun ; touche-le pour la donne suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.

@@ -1,20 +1,20 @@
 Jeu royal d'Ur
 # Le but
-Faire parcourir tout ton chemin à tes sept pions et les sortir du plateau avant l'autre joueur. On y jouait en Mésopotamie il y a plus de 4 500 ans ; voici les règles qu'Irving Finkel, du British Museum, a retrouvées sur une tablette d'argile babylonienne. L'ivoire lance en premier, puis les joueurs jouent à tour de rôle.
+Faire parcourir tout ton chemin à tes sept pions et les sortir du plateau avant l'autre joueur. On y jouait en Mésopotamie il y a plus de 4 500 ans ; voici les règles qu'Irving Finkel, du British Museum, a retrouvées sur une tablette d'argile babylonienne. L'ivoire lance en premier, puis les joueurs jouent à tour de rôle.
 # Le plateau
-Le plateau compte vingt cases sur trois rangées. La rangée la plus proche de toi n'est qu'à toi : quatre cases à un bout, deux à l'autre, séparées par un vide. La rangée du milieu, de huit cases, est commune. Ton chemin suit tes quatre cases vers le bout du plateau, puis toute la rangée du milieu dans l'autre sens, puis revient sur ta propre rangée pour ses deux dernières cases, et sort du plateau. Cinq cases portent une rosace : la case du coin des quatre cases de chaque joueur, la case du coin de ses deux cases, et la quatrième case de la rangée du milieu.
+Le plateau compte vingt cases sur trois rangées. La rangée la plus proche de toi n'est qu'à toi : quatre cases à un bout, deux à l'autre, séparées par un vide. La rangée du milieu, de huit cases, est commune. Ton chemin suit tes quatre cases vers le bout du plateau, puis toute la rangée du milieu dans l'autre sens, puis revient sur ta propre rangée pour ses deux dernières cases, et sort du plateau. Cinq cases portent une rosace : la case du coin des quatre cases de chaque joueur, la case du coin de ses deux cases, et la quatrième case de la rangée du milieu.
 # Lancer et avancer
-- Lance les quatre dés. Chacun est une pyramide dont deux des quatre pointes sont marquées : compte les dés dont la pointe marquée est en haut. Le lancer va de 0 à 4 ; le 2 sort le plus souvent.
-- Avance un de tes pions d'autant de cases sur ton chemin. Un pion qui attend hors du plateau y entre : un lancer de 3 le pose sur ta troisième case.
+- Lance les quatre dés. Chacun est une pyramide dont deux des quatre pointes sont marquées : compte les dés dont la pointe marquée est en haut. Le lancer va de 0 à 4 ; le 2 sort le plus souvent.
+- Avance un de tes pions d'autant de cases sur ton chemin. Un pion qui attend hors du plateau y entre : un lancer de 3 le pose sur ta troisième case.
 - Tu ne peux pas t'arrêter sur une case occupée par un de tes propres pions.
 - Un lancer de 0, ou un lancer qu'aucun pion ne peut utiliser, est perdu et le tour passe.
 # Rosaces
-S'arrêter sur une rosace te donne un autre lancer. La rosace au milieu de la rangée commune est aussi une case sûre : un pion qui s'y trouve ne peut pas être renvoyé, donc l'autre joueur ne peut pas s'y arrêter.
+S'arrêter sur une rosace te donne un autre lancer. La rosace au milieu de la rangée commune est aussi une case sûre : un pion qui s'y trouve ne peut pas être renvoyé, donc l'autre joueur ne peut pas s'y arrêter.
 # Les prises
-S'arrêter sur un pion de l'autre joueur dans la rangée commune le renvoie hors du plateau : il doit recommencer tout son voyage. Tes propres cases, aux bouts, sont hors de portée de l'autre joueur.
+S'arrêter sur un pion de l'autre joueur dans la rangée commune le renvoie hors du plateau : il doit recommencer tout son voyage. Tes propres cases, aux bouts, sont hors de portée de l'autre joueur.
 # Sortir les pions
-Un pion ne sort du plateau qu'avec le nombre exact : depuis ta dernière case il te faut un 1, depuis l'avant-dernière un 2, et ainsi de suite. Un lancer plus grand ne peut pas faire avancer ce pion.
+Un pion ne sort du plateau qu'avec le nombre exact : depuis ta dernière case il te faut un 1, depuis l'avant-dernière un 2, et ainsi de suite. Un lancer plus grand ne peut pas faire avancer ce pion.
 # La fin de la partie
 Le premier joueur qui sort ses sept pions gagne.
 # Jouer sur l'appareil
-Tes pions en attente sont posés près du début de ton chemin, tes pions sortis près de sa fin, et tes dés au-delà, avec le total du dernier lancer. Quand c'est à toi de lancer, tes dés brillent en or : touche le plateau pour lancer. Les points montrent où tes pions peuvent aller, les anneaux un pion que tu renverrais : touche un pion, ou fais-le glisser jusqu'à sa case. Quand un seul pion peut avancer, il est déjà éclairé. Un lancer perdu reste grisé dans une lueur rouge pendant que l'autre joueur lance. Annuler reprend les coups et les lancers, mais un lancer repris ressort à l'identique. Ta barre indique les pions que tu as sortis.
+Tes pions en attente sont posés près du début de ton chemin, tes pions sortis près de sa fin, et tes dés au-delà, avec le total du dernier lancer. Quand c'est à toi de lancer, tes dés brillent en or : touche le plateau pour lancer. Les points montrent où tes pions peuvent aller, les anneaux un pion que tu renverrais : touche un pion, ou fais-le glisser jusqu'à sa case. Quand un seul pion peut avancer, il est déjà éclairé. Un lancer perdu reste grisé dans une lueur rouge pendant que l'autre joueur lance. Annuler reprend les coups et les lancers, mais un lancer repris ressort à l'identique. Ta barre indique les pions que tu as sortis.

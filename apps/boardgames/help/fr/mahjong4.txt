@@ -1,39 +1,39 @@
 Mahjong
 # Le but
-Le grand jeu de table classique pour quatre joueurs, avec les règles de Hong Kong (ancien style). Sois le premier à compléter une main de 14 tuiles, et marque des points avec elle. Les mains sont secrètes : l'appareil passe d'un joueur à l'autre. Choisis la durée de la partie : la manche de l'Est seule, ou les manches de l'Est et du Sud.
+Le grand jeu de table classique pour quatre joueurs, avec les règles de Hong Kong (ancien style). Sois le premier à compléter une main de 14 tuiles, et marque des points avec elle. Les mains sont secrètes : l'appareil passe d'un joueur à l'autre. Choisis la durée de la partie : la manche de l'Est seule, ou les manches de l'Est et du Sud.
 # Les tuiles
-- Trois familles numérotées de 1 à 9 : les ronds (cercles), les bambous (des tiges ; le 1 est un oiseau) et les caractères (un chiffre chinois au-dessus de 萬).
-- Les honneurs : les vents 東 est, 南 sud, 西 ouest, 北 nord, et les dragons 中 rouge, 發 vert et blanc (un cadre bleu).
-- Chacune de ces tuiles existe en quatre exemplaires. Les quatre fleurs et les quatre saisons, en un seul exemplaire chacune, sont des tuiles bonus : on les met de côté dès qu'on les reçoit, et on les remplace par une tuile prise au bout du mur.
+- Trois familles numérotées de 1 à 9 : les ronds (cercles), les bambous (des tiges ; le 1 est un oiseau) et les caractères (un chiffre chinois au-dessus de 萬).
+- Les honneurs : les vents 東 est, 南 sud, 西 ouest, 北 nord, et les dragons 中 rouge, 發 vert et blanc (un cadre bleu).
+- Chacune de ces tuiles existe en quatre exemplaires. Les quatre fleurs et les quatre saisons, en un seul exemplaire chacune, sont des tuiles bonus : on les met de côté dès qu'on les reçoit, et on les remplace par une tuile prise au bout du mur.
 # La donne
-Les quatre murs, hauts de deux tuiles, forment un carré. Le donneur, à l'est, lance trois dés pour choisir où ouvrir le mur. Chacun prend 13 tuiles, le donneur 14. Les 14 dernières tuiles du mur forment le mur mort : les tuiles de remplacement des fleurs et des kongs sont prises à son bout. Les vents de place : le donneur a le vent d'est, puis viennent sud, ouest et nord, dans l'ordre du jeu.
+Les quatre murs, hauts de deux tuiles, forment un carré. Le donneur, à l'est, lance trois dés pour choisir où ouvrir le mur. Chacun prend 13 tuiles, le donneur 14. Les 14 dernières tuiles du mur forment le mur mort : les tuiles de remplacement des fleurs et des kongs sont prises à son bout. Les vents de place : le donneur a le vent d'est, puis viennent sud, ouest et nord, dans l'ordre du jeu.
 # Un tour
-Pioche une tuile du mur, ou prends la dernière défausse ; puis défausse une tuile face visible devant toi. Avant de te défausser, tu peux aussi :
-- annoncer un kong : quatre tuiles identiques dans ta main, ou la quatrième ajoutée à un pung que tu as posé. Pioche une tuile de remplacement, puis défausse-toi.
+Pioche une tuile du mur, ou prends la dernière défausse ; puis défausse une tuile face visible devant toi. Avant de te défausser, tu peux aussi :
+- annoncer un kong : quatre tuiles identiques dans ta main, ou la quatrième ajoutée à un pung que tu as posé. Pioche une tuile de remplacement, puis défausse-toi.
 - annoncer ta victoire.
 # Combinaisons et prises
 - Un chow est une suite de trois tuiles d'une même famille, un pung trois tuiles identiques, un kong quatre, une paire deux.
-- N'importe quel joueur peut prendre la dernière défausse pour faire un pung ou un kong avec des tuiles de sa main, ou pour gagner avec elle. Seul le joueur suivant peut la prendre pour un chow. La combinaison est posée face visible ; celui qui a pris la tuile se défausse alors, et le jeu reprend après lui.
+- N'importe quel joueur peut prendre la dernière défausse pour faire un pung ou un kong avec des tuiles de sa main, ou pour gagner avec elle. Seul le joueur suivant peut la prendre pour un chow. La combinaison est posée face visible ; celui qui a pris la tuile se défausse alors, et le jeu reprend après lui.
 - Une victoire l'emporte sur un pung ou un kong, qui l'emportent sur un chow. Si deux joueurs veulent gagner, c'est le premier après celui qui s'est défaussé, dans l'ordre du jeu, qui la prend.
 - Une tuile ajoutée à un pung pour en faire un kong peut être volée par un joueur qui gagne avec elle.
-- Une fois le mur épuisé, la dernière défausse ne peut être prise que pour gagner ; sinon la donne est nulle.
+- Une fois le mur épuisé, la dernière défausse ne peut être prise que pour gagner ; sinon la donne est nulle.
 # Gagner
 Une main gagnante, c'est quatre combinaisons (chows, pungs ou kongs) et une paire, ou sept paires différentes, ou les treize orphelins (un de chaque 1, de chaque 9 et de chaque honneur, plus un deuxième de l'un d'eux). Elle doit valoir au moins 3 faan.
 # Faan
-- 1 : victoire sur ta propre pioche ; main cachée (aucune combinaison prise) ; que des chows ; chaque pung de dragons ; un pung de ton vent de place ; un pung du vent dominant ; chacune de tes fleurs et de tes saisons (est 1, sud 2, ouest 3, nord 4) ; aucune fleur ni saison ; victoire avec la dernière tuile, avec une tuile de remplacement, ou en volant un kong.
-- 2 : les quatre fleurs, ou les quatre saisons.
-- 3 : que des pungs ; main semi-pure (une seule famille et des honneurs).
-- 4 : sept paires.
-- 5 : petits trois dragons (deux pungs de dragons et une paire du troisième), comptés à la place des pungs de dragons.
-- 7 : main pure (une seule famille).
-- 8 : grands trois dragons.
-- 10, la limite : treize orphelins, que des honneurs, que des 1 et des 9, petits ou grands quatre vents, neuf portes (1112345678999 d'une famille, plus une tuile de cette famille), quatre kongs, quatre pungs cachés.
+- 1 : victoire sur ta propre pioche ; main cachée (aucune combinaison prise) ; que des chows ; chaque pung de dragons ; un pung de ton vent de place ; un pung du vent dominant ; chacune de tes fleurs et de tes saisons (est 1, sud 2, ouest 3, nord 4) ; aucune fleur ni saison ; victoire avec la dernière tuile, avec une tuile de remplacement, ou en volant un kong.
+- 2 : les quatre fleurs, ou les quatre saisons.
+- 3 : que des pungs ; main semi-pure (une seule famille et des honneurs).
+- 4 : sept paires.
+- 5 : petits trois dragons (deux pungs de dragons et une paire du troisième), comptés à la place des pungs de dragons.
+- 7 : main pure (une seule famille).
+- 8 : grands trois dragons.
+- 10, la limite : treize orphelins, que des honneurs, que des 1 et des 9, petits ou grands quatre vents, neuf portes (1112345678999 d'une famille, plus une tuile de cette famille), quatre kongs, quatre pungs cachés.
 Une main se compte de la meilleure façon dont on peut la lire, jusqu'à 10 faan.
 # Les paiements
-Une main de 3 à 10 faan vaut 8, 16, 24, 32, 48, 64, 96 ou 128 points. Victoire sur une défausse : celui qui a défaussé paie le double au gagnant, les deux autres la valeur simple. Victoire sur sa propre pioche : les trois paient le double. Donne nulle : personne ne paie.
+Une main de 3 à 10 faan vaut 8, 16, 24, 32, 48, 64, 96 ou 128 points. Victoire sur une défausse : celui qui a défaussé paie le double au gagnant, les deux autres la valeur simple. Victoire sur sa propre pioche : les trois paient le double. Donne nulle : personne ne paie.
 # La fin de la partie
-Le donneur garde la donne s'il gagne ; sinon elle passe au joueur suivant. Quand tout le monde a donné, la manche est finie et le vent dominant passe de l'est au sud. La partie se termine après la dernière manche choisie ; le plus gros total gagne.
+Le donneur garde la donne s'il gagne ; sinon elle passe au joueur suivant. Quand tout le monde a donné, la manche est finie et le vent dominant passe de l'est au sud. La partie se termine après la dernière manche choisie ; le plus gros total gagne.
 # Jouer sur l'appareil
-Ta main est en bas, la tuile que tu viens de piocher un peu à l'écart ; tes combinaisons et tes fleurs au-dessus. Touche une tuile pour la soulever, puis touche-la encore ou touche la table pour la défausser, ou fais-la glisser sur la table. Quand tu peux gagner, faire un kong, un pung ou un chow, les combinaisons brillent au-dessus de ta main : touches-en une. Le bouton passer de ta barre laisse filer une défausse ; quand c'est ton tour, une touche sur les murs pioche.
-Après une défausse, l'appareil ne va qu'aux joueurs qui pourraient la prendre. Si l'un des deux joueurs assis deux et trois places après celui qui a défaussé le peut, les deux sont toujours consultés, dans cet ordre, pour que personne ne puisse savoir lequel. Un joueur qui n'a rien à prendre voit juste la défausse un instant ; puis le joueur suivant pioche.
-Après chaque donne, un tableau montre la main gagnante combinaison par combinaison, ses faan, le paiement de chaque joueur et les totaux : touche-le pour la donne suivante. Le milieu de la table montre le vent dominant, le numéro de la donne dans la manche, les dés et les tuiles qui restent dans le mur. Chaque barre montre le vent de place du joueur et son total.
+Ta main est en bas, la tuile que tu viens de piocher un peu à l'écart ; tes combinaisons et tes fleurs au-dessus. Touche une tuile pour la soulever, puis touche-la encore ou touche la table pour la défausser, ou fais-la glisser sur la table. Quand tu peux gagner, faire un kong, un pung ou un chow, les combinaisons brillent au-dessus de ta main : touches-en une. Le bouton passer de ta barre laisse filer une défausse ; quand c'est ton tour, une touche sur les murs pioche.
+Après une défausse, l'appareil ne va qu'aux joueurs qui pourraient la prendre. Si l'un des deux joueurs assis deux et trois places après celui qui a défaussé le peut, les deux sont toujours consultés, dans cet ordre, pour que personne ne puisse savoir lequel. Un joueur qui n'a rien à prendre voit juste la défausse un instant ; puis le joueur suivant pioche.
+Après chaque donne, un tableau montre la main gagnante combinaison par combinaison, ses faan, le paiement de chaque joueur et les totaux : touche-le pour la donne suivante. Le milieu de la table montre le vent dominant, le numéro de la donne dans la manche, les dés et les tuiles qui restent dans le mur. Chaque barre montre le vent de place du joueur et son total.

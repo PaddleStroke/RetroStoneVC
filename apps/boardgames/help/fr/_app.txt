@@ -6,7 +6,7 @@ Deux joueurs partagent un seul appareil et jouent chacun leur tour. La pièce lu
 - Retourner : fait pivoter le plateau, pour que l'autre joueur soit en bas.
 - Face à face : pose l'appareil à plat entre vous. Les pièces et la barre du joueur du haut se tournent vers lui.
 - Nouvelle partie : touche deux fois pour recommencer.
-- ? : ces règles.
+- ? : ces règles.
 # Les jeux de cartes
 Aux jeux de cartes, l'appareil fait le tour de la table : le joueur dont c'est le tour voit ses propres cartes en grand en bas, sa barre en dessous, et les barres des autres joueurs en haut. Il n'y a ni Retourner ni Face à face.
 - Mains secrètes : entre deux tours, l'écran devient vert et montre la pièce du joueur suivant. Passe-lui l'appareil ; il touche le bouton rond pour voir ses cartes.

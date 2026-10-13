@@ -1,15 +1,15 @@
 Klotski
 # Le but
-Des blocs de bois remplissent un cadre de 4 × 5 cases, toutes sauf deux : le grand bloc rouge, des blocs longs debout ou couchés, et des petits. Amène le grand bloc jusqu'à l'ouverture au milieu du bord du bas, pour qu'il puisse sortir en glissant. C'est le vieux casse-tête chinois Huarong Dao : le grand bloc est un général, pris au piège avec ses officiers et ses soldats dans un défilé étroit.
-Chaque cadre a été fait pour ce jeu : l'ordinateur a essayé toutes les positions que ses blocs peuvent atteindre, le moins de coups possible est donc toujours connu.
+Des blocs de bois remplissent un cadre de 4 × 5 cases, toutes sauf deux : le grand bloc rouge, des blocs longs debout ou couchés, et des petits. Amène le grand bloc jusqu'à l'ouverture au milieu du bord du bas, pour qu'il puisse sortir en glissant. C'est le vieux casse-tête chinois Huarong Dao : le grand bloc est un général, pris au piège avec ses officiers et ses soldats dans un défilé étroit.
+Chaque cadre a été fait pour ce jeu : l'ordinateur a essayé toutes les positions que ses blocs peuvent atteindre, le moins de coups possible est donc toujours connu.
 # Un coup
-Un bloc glisse dans des cases vides, une case à la fois, vers le haut, le bas, la gauche ou la droite ; on ne le soulève jamais. Selon le compte traditionnel, un coup, c'est un bloc qu'on fait glisser aussi loin qu'on veut, même en tournant un coin, avant de toucher un autre bloc.
+Un bloc glisse dans des cases vides, une case à la fois, vers le haut, le bas, la gauche ou la droite ; on ne le soulève jamais. Selon le compte traditionnel, un coup, c'est un bloc qu'on fait glisser aussi loin qu'on veut, même en tournant un coin, avant de toucher un autre bloc.
 # La fin de la partie
-Quand le grand bloc se trouve au milieu de la rangée du bas, il sort par l'ouverture dans une lumière dorée : résolu.
+Quand le grand bloc se trouve au milieu de la rangée du bas, il sort par l'ouverture dans une lumière dorée : résolu.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de quelques coups à bien plus de cent ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau cadre au hasard : facile, moyen ou difficile. Chaque cadre a un par : le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Annuler reprend un coup, qui ne compte plus.
+Il y a 150 niveaux en six chapitres, de quelques coups à bien plus de cent ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau cadre au hasard : facile, moyen ou difficile. Chaque cadre a un par : le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Annuler reprend un coup, qui ne compte plus.
 # Jouer sur l'appareil
-- Fais glisser un bloc : il suit ton doigt case par case.
-- Ou touche un bloc. S'il n'a qu'un endroit où aller, il y va. S'il en a plusieurs, il est sélectionné et des points montrent les cases qu'il peut atteindre : touches-en une, et il y va par le plus court chemin.
-- Touche une case vide qu'un seul bloc peut atteindre : ce bloc vient.
-La lampe à côté du cadre donne un indice : le premier coup d'un plus court chemin, dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début. La barre montre tes coups et, à son extrémité droite, le moins possible pour ce départ ; elle brille d'or quand tu l'égales.
+- Fais glisser un bloc : il suit ton doigt case par case.
+- Ou touche un bloc. S'il n'a qu'un endroit où aller, il y va. S'il en a plusieurs, il est sélectionné et des points montrent les cases qu'il peut atteindre : touches-en une, et il y va par le plus court chemin.
+- Touche une case vide qu'un seul bloc peut atteindre : ce bloc vient.
+La lampe à côté du cadre donne un indice : le premier coup d'un plus court chemin, dans une lumière dorée. Annuler reprend un coup à la fois, jusqu'au début. La barre montre tes coups et, à son extrémité droite, le moins possible pour ce départ ; elle brille d'or quand tu l'égales.

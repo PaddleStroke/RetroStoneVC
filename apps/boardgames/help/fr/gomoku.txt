@@ -5,13 +5,13 @@ Gomoku
 Choisis les règles avant la partie :
 - Libre (la carte avec six pierres alignées) : cinq pierres alignées ou plus gagnent.
 - Standard (la carte avec cinq) : il faut exactement cinq pierres alignées pour gagner. Un alignement de six ou plus ne compte pas, mais la partie continue et un cinq formé ailleurs gagne quand même.
-- Six en ligne (la carte avec le grand plateau) : voir plus bas.
-- Renju (la carte avec la croix rouge) : voir plus bas.
+- Six en ligne (la carte avec le grand plateau) : voir plus bas.
+- Renju (la carte avec la croix rouge) : voir plus bas.
 # Six en ligne
-Se joue sur un plateau plus grand, de 19 sur 19. Noir commence en posant une pierre ; ensuite, chaque joueur pose deux pierres à chaque tour. Six pierres de ta couleur alignées ou plus gagnent, même si l'alignement est formé par la première pierre d'un tour.
+Se joue sur un plateau plus grand, de 19 sur 19. Noir commence en posant une pierre ; ensuite, chaque joueur pose deux pierres à chaque tour. Six pierres de ta couleur alignées ou plus gagnent, même si l'alignement est formé par la première pierre d'un tour.
 # Renju
 Se joue sur le plateau de 15 sur 15, avec des règles qui limitent l'avantage de Noir, qui commence.
-- Ouverture : la première pierre de Noir va sur l'intersection centrale, la première pierre de Blanc juste à côté, et la deuxième pierre de Noir à deux intersections au plus du centre. L'échange et le choix du cinquième coup de Noir des tournois sont laissés de côté.
+- Ouverture : la première pierre de Noir va sur l'intersection centrale, la première pierre de Blanc juste à côté, et la deuxième pierre de Noir à deux intersections au plus du centre. L'échange et le choix du cinquième coup de Noir des tournois sont laissés de côté.
 - Noir ne peut pas faire un double trois (deux trois ouverts à la fois), un double quatre, ni un alignement de six ou plus, sauf si la même pierre fait cinq. Quand c'est à Noir de jouer, ces intersections portent une petite croix rouge et ne peuvent pas être jouées.
 - Noir ne gagne qu'avec exactement cinq pierres alignées. Blanc n'a aucune intersection interdite, et cinq pierres alignées ou plus le font gagner.
 # La fin de la partie

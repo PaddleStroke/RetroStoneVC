@@ -1,22 +1,22 @@
 Euchre
 # Le but
-Deux équipes de deux partenaires assis face à face : ivoire et rouge contre ébène et jade. L'équipe qui choisit l'atout doit faire au moins trois des cinq plis. La première équipe à 10 points gagne. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Deux équipes de deux partenaires assis face à face : ivoire et rouge contre ébène et jade. L'équipe qui choisit l'atout doit faire au moins trois des cinq plis. La première équipe à 10 points gagne. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
 # La donne
-Le jeu compte 24 cartes : 9, 10, valet, dame, roi et as de chaque couleur. Chaque joueur reçoit 5 cartes. Les quatre cartes restantes forment le talon ; celle du dessus est retournée face visible. Jade donne en premier ; ensuite le donneur avance d'une place à chaque manche.
+Le jeu compte 24 cartes : 9, 10, valet, dame, roi et as de chaque couleur. Chaque joueur reçoit 5 cartes. Les quatre cartes restantes forment le talon ; celle du dessus est retournée face visible. Jade donne en premier ; ensuite le donneur avance d'une place à chaque manche.
 # Choisir l'atout
-- Premier tour, en commençant à gauche du donneur : chaque joueur peut faire prendre la carte retournée au donneur (order up). Sa couleur devient l'atout ; le donneur met la carte dans sa main et écarte une carte, face cachée. Ou le joueur passe.
-- Deuxième tour, si les quatre ont passé : la carte est retournée face cachée, et chacun à son tour peut nommer une autre couleur d'atout, ou passer.
-- Le donneur coincé (stick the dealer) : au deuxième tour, le donneur ne peut pas passer ; il doit nommer une couleur.
-- Le joueur qui fait l'atout peut jouer seul : son partenaire pose ses cartes et ne joue pas la manche. Si c'est le partenaire du donneur qui joue seul, le donneur ne joue pas et ne prend pas la carte retournée.
+- Premier tour, en commençant à gauche du donneur : chaque joueur peut faire prendre la carte retournée au donneur (order up). Sa couleur devient l'atout ; le donneur met la carte dans sa main et écarte une carte, face cachée. Ou le joueur passe.
+- Deuxième tour, si les quatre ont passé : la carte est retournée face cachée, et chacun à son tour peut nommer une autre couleur d'atout, ou passer.
+- Le donneur coincé (stick the dealer) : au deuxième tour, le donneur ne peut pas passer ; il doit nommer une couleur.
+- Le joueur qui fait l'atout peut jouer seul : son partenaire pose ses cartes et ne joue pas la manche. Si c'est le partenaire du donneur qui joue seul, le donneur ne joue pas et ne prend pas la carte retournée.
 # Les atouts
-Le valet d'atout est la plus forte carte : le right bower (bower veut dire valet). Vient ensuite l'autre valet de même teinte, rouge ou noire : le left bower, puis l'as, le roi, la dame, le 10 et le 9 d'atout. Le left bower est un atout, pas une carte de sa propre couleur. Les autres couleurs se classent as, roi, dame, valet, 10, 9.
+Le valet d'atout est la plus forte carte : le right bower (bower veut dire valet). Vient ensuite l'autre valet de même teinte, rouge ou noire : le left bower, puis l'as, le roi, la dame, le 10 et le 9 d'atout. Le left bower est un atout, pas une carte de sa propre couleur. Les autres couleurs se classent as, roi, dame, valet, 10, 9.
 # Le jeu
 Le joueur à gauche du donneur entame (le suivant si celui-ci ne joue pas). Fournis la couleur demandée si tu peux, sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
 # Le score
-- Les preneurs (l'équipe qui a fait l'atout) font 3 ou 4 plis : 1 point.
-- Les preneurs font les 5 plis, la vole (march) : 2 points ; avec un joueur seul : 4 points.
-- Les preneurs font moins de 3 plis : ils sont euchrés (mis en échec), et l'autre équipe marque 2 points.
+- Les preneurs (l'équipe qui a fait l'atout) font 3 ou 4 plis : 1 point.
+- Les preneurs font les 5 plis, la vole (march) : 2 points ; avec un joueur seul : 4 points.
+- Les preneurs font moins de 3 plis : ils sont euchrés (mis en échec), et l'autre équipe marque 2 points.
 # La fin de la partie
 La première équipe à 10 points gagne.
 # Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Le talon est au milieu, la carte retournée par-dessus. Au premier tour, touche la coche (ou la carte retournée) pour la faire prendre, ou touche le bouton passer. Au deuxième tour, touche une couleur (celle de la carte retournée est grisée), puis la coche, ou touche passer ; le donneur n'a pas de bouton passer. Pour jouer seul, touche d'abord le bouton qui montre ton jeton et celui de ton partenaire barré. Le donneur qui a pris la carte touche la carte à écarter, puis la touche encore ou touche le talon. La place du preneur montre la couleur d'atout, un joueur qui ne joue pas la manche est barré, et chaque place montre les plis qu'elle a faits. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque manche, un tableau montre les plis de chaque équipe, les points de la manche et le total ; touche-le pour la manche suivante. Chaque barre montre les cartes en main et le score de l'équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Le talon est au milieu, la carte retournée par-dessus. Au premier tour, touche la coche (ou la carte retournée) pour la faire prendre, ou touche le bouton passer. Au deuxième tour, touche une couleur (celle de la carte retournée est grisée), puis la coche, ou touche passer ; le donneur n'a pas de bouton passer. Pour jouer seul, touche d'abord le bouton qui montre ton jeton et celui de ton partenaire barré. Le donneur qui a pris la carte touche la carte à écarter, puis la touche encore ou touche le talon. La place du preneur montre la couleur d'atout, un joueur qui ne joue pas la manche est barré, et chaque place montre les plis qu'elle a faits. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque manche, un tableau montre les plis de chaque équipe, les points de la manche et le total ; touche-le pour la manche suivante. Chaque barre montre les cartes en main et le score de l'équipe. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

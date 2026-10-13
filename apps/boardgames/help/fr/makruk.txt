@@ -1,27 +1,27 @@
 Makruk
 # Le but
-Le makruk, ce sont les échecs thaïlandais, proches cousins des échecs. Mettre le Khun (roi) adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Les Blancs commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
+Le makruk, ce sont les échecs thaïlandais, proches cousins des échecs. Mettre le Khun (roi) adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Les Blancs commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
 # Le plateau
-Le plateau compte huit rangées de huit cases, toutes de la même couleur. La première rangée de chaque joueur contient, en partant de la gauche : Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua pour les Blancs ; celle des Noirs est la même, mais retournée, si bien que les deux Khun ne se font pas face. Les Bia se placent sur la troisième rangée de chaque joueur, ce qui laisse la deuxième rangée vide.
+Le plateau compte huit rangées de huit cases, toutes de la même couleur. La première rangée de chaque joueur contient, en partant de la gauche : Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua pour les Blancs ; celle des Noirs est la même, mais retournée, si bien que les deux Khun ne se font pas face. Les Bia se placent sur la troisième rangée de chaque joueur, ce qui laisse la deuxième rangée vide.
 # Le déplacement des pièces
-- Khun (la couronne du roi) : une case dans n'importe quelle direction. Il n'y a pas de roque.
-- Met (un losange sur un corps élancé) : une case en diagonale.
-- Khon (une cloche de temple surmontée d'une flèche) : une case en diagonale, ou une case tout droit vers l'avant.
-- Ma (la tête de cheval) : comme le cavalier des échecs, en forme de L, en sautant par-dessus toute pièce sur son chemin.
-- Rua (la tour) : d'autant de cases que tu veux le long d'une rangée ou d'une colonne, comme la tour des échecs.
-- Bia (le coquillage plat) : une case tout droit vers l'avant, jamais deux. Il prend en diagonale, une case vers l'avant.
+- Khun (la couronne du roi) : une case dans n'importe quelle direction. Il n'y a pas de roque.
+- Met (un losange sur un corps élancé) : une case en diagonale.
+- Khon (une cloche de temple surmontée d'une flèche) : une case en diagonale, ou une case tout droit vers l'avant.
+- Ma (la tête de cheval) : comme le cavalier des échecs, en forme de L, en sautant par-dessus toute pièce sur son chemin.
+- Rua (la tour) : d'autant de cases que tu veux le long d'une rangée ou d'une colonne, comme la tour des échecs.
+- Bia (le coquillage plat) : une case tout droit vers l'avant, jamais deux. Il prend en diagonale, une case vers l'avant.
 Les pièces ne peuvent pas traverser d'autres pièces (sauf le Ma). Une pièce prend en allant sur une case occupée par une pièce adverse, qui quitte alors le plateau.
 # La promotion
 Un Bia qui atteint la sixième rangée, celle d'où sont partis les Bia de l'autre joueur, devient aussitôt un Met. Dès lors, il se déplace comme un Met.
 # L'échec et la fin de la partie
-Un Khun attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre Khun en échec.
-- Échec et mat : le Khun est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
-- Pat : le joueur dont c'est le tour n'a aucun coup légal mais n'est pas en échec. La partie est nulle.
+Un Khun attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre Khun en échec.
+- Échec et mat : le Khun est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
+- Pat : le joueur dont c'est le tour n'a aucun coup légal mais n'est pas en échec. La partie est nulle.
 - La partie est aussi nulle quand il ne reste que les deux Khun, ou quand la même position revient pour la troisième fois avec le même joueur au trait.
 # Le comptage
-Quand il ne reste plus aucun Bia non promu sur le plateau, la partie doit se terminer en un nombre limité de coups. En Thaïlande, le joueur le plus faible compte à voix haute ; ici, l'appareil compte pour toi.
-- Le comptage du plateau : dès lors, le joueur qui joue le coup suivant compte ses coups. Si son compte atteint 64 et que l'autre joueur ne fait pas mat au coup suivant, la partie est nulle.
-- Le comptage des pièces : quand un joueur n'a plus que son Khun, c'est lui qui compte à la place, en partant du nombre de pièces sur le plateau (les deux Khun compris) plus un. L'autre joueur doit faire mat avant que le compte ne dépasse la limite : 8 avec deux Rua, 16 avec un Rua, 22 avec deux Khon, 32 avec deux Ma, 44 avec un Khon, et 64 dans les autres cas. La limite est fixée au début du comptage et ne change plus, même si des pièces sont prises ensuite.
+Quand il ne reste plus aucun Bia non promu sur le plateau, la partie doit se terminer en un nombre limité de coups. En Thaïlande, le joueur le plus faible compte à voix haute ; ici, l'appareil compte pour toi.
+- Le comptage du plateau : dès lors, le joueur qui joue le coup suivant compte ses coups. Si son compte atteint 64 et que l'autre joueur ne fait pas mat au coup suivant, la partie est nulle.
+- Le comptage des pièces : quand un joueur n'a plus que son Khun, c'est lui qui compte à la place, en partant du nombre de pièces sur le plateau (les deux Khun compris) plus un. L'autre joueur doit faire mat avant que le compte ne dépasse la limite : 8 avec deux Rua, 16 avec un Rua, 22 avec deux Khon, 32 avec deux Ma, 44 avec un Khon, et 64 dans les autres cas. La limite est fixée au début du comptage et ne change plus, même si des pièces sont prises ensuite.
 Pendant un comptage, la barre du joueur qui compte indique combien de coups il reste à l'autre joueur pour faire mat.
 # Jouer sur l'appareil
 Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un Khun en échec brille en rouge. Chaque barre indique les pièces prises par ce joueur.

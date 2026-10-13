@@ -1,28 +1,28 @@
 Durak
 # Le but
-Se débarrasser de toutes ses cartes. Le dernier joueur qui a encore des cartes est le durak, l'idiot, et perd ; tous les autres gagnent ensemble. De 2 à 6 joueurs (le plus souvent 2 ou 3), avec un jeu de 36 cartes. Deux variantes au choix : la relance (podkidnoy) et le renvoi (perevodnoy).
+Se débarrasser de toutes ses cartes. Le dernier joueur qui a encore des cartes est le durak, l'idiot, et perd ; tous les autres gagnent ensemble. De 2 à 6 joueurs (le plus souvent 2 ou 3), avec un jeu de 36 cartes. Deux variantes au choix : la relance (podkidnoy) et le renvoi (perevodnoy).
 # Les cartes
-- De la plus faible à la plus forte : 6, 7, 8, 9, 10, valet, dame, roi, as.
-- Chacun reçoit six cartes. La carte suivante est retournée et posée en travers sous le talon : sa couleur est l'atout pour toute la partie, et ce sera la dernière carte piochée.
-- Le joueur qui a le plus petit atout attaque le premier ; le joueur suivant défend.
+- De la plus faible à la plus forte : 6, 7, 8, 9, 10, valet, dame, roi, as.
+- Chacun reçoit six cartes. La carte suivante est retournée et posée en travers sous le talon : sa couleur est l'atout pour toute la partie, et ce sera la dernière carte piochée.
+- Le joueur qui a le plus petit atout attaque le premier ; le joueur suivant défend.
 # Une attaque
 - L'attaquant pose une carte, ou plusieurs cartes de même valeur.
 - Le défenseur bat chaque carte d'attaque avec une carte plus forte de la même couleur, ou avec un atout. Un atout ne peut être battu que par un atout plus fort.
-- Dès que toutes les cartes sont battues, les autres peuvent relancer avec d'autres cartes d'une valeur déjà sur la table : l'attaquant d'abord, puis chacun des autres à son tour. Le défenseur doit les battre aussi.
+- Dès que toutes les cartes sont battues, les autres peuvent relancer avec d'autres cartes d'une valeur déjà sur la table : l'attaquant d'abord, puis chacun des autres à son tour. Le défenseur doit les battre aussi.
 - Une attaque compte au plus six cartes, et jamais plus que le défenseur n'en avait en main au début.
-- Un défenseur qui ne peut pas ou ne veut pas battre ramasse : les autres peuvent encore relancer, puis il prend toutes les cartes de la table.
+- Un défenseur qui ne peut pas ou ne veut pas battre ramasse : les autres peuvent encore relancer, puis il prend toutes les cartes de la table.
 # Après une attaque
 - Si toutes les cartes ont été battues et que personne ne relance plus, elles sont mises de côté et c'est le défenseur qui attaque ensuite.
-- Si le défenseur a ramassé, il perd son tour d'attaque : c'est le joueur suivant qui attaque.
-- Chacun complète sa main à six cartes en piochant dans le talon : l'attaquant d'abord, puis les autres à leur tour, le défenseur en dernier.
+- Si le défenseur a ramassé, il perd son tour d'attaque : c'est le joueur suivant qui attaque.
+- Chacun complète sa main à six cartes en piochant dans le talon : l'attaquant d'abord, puis les autres à leur tour, le défenseur en dernier.
 # La fin de la partie
 Une fois le talon épuisé, un joueur qui n'a plus de cartes sort du jeu, sauvé. Le dernier joueur qui a encore des cartes est le durak. Si les derniers joueurs n'ont plus de cartes au même moment, personne ne perd.
 # La variante du renvoi
 Tant qu'il n'a battu aucune carte, le défenseur peut renvoyer l'attaque en ajoutant une carte de même valeur que les cartes d'attaque. Le joueur suivant défend alors contre toutes ces cartes, s'il a au moins autant de cartes qu'il y en a maintenant sur la table, et celui qui a renvoyé se joint à l'attaque.
 # Jouer sur l'appareil
-L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, rangées par couleur, les atouts en dernier. En haut, les autres joueurs : leurs cartes face cachée et leur nombre, une épée près de l'attaquant, un bouclier près du défenseur, un signe passer près d'un joueur qui a passé. Le talon est d'un côté avec l'atout dessous (le signe de sa couleur une fois le talon épuisé), les cartes mises de côté de l'autre.
-- Attaquer ou relancer : touche tes cartes (celles que tu peux relancer brillent), puis touche la table ou fais-les glisser jusque-là. Le bouton passer dans ta barre permet de passer.
-- Défendre : touche une carte (les cartes qu'elle peut battre brillent), puis la carte à battre. Le bouton rond avec la flèche ramasse les cartes ; il reste allumé pendant que les autres relancent.
-- Dans la variante du renvoi, une carte de la valeur de l'attaque allume une place vide à côté de l'attaque : touche-la pour renvoyer l'attaque.
-Après chaque attaque, l'appareil va au défenseur ; une fois tout battu, à chacun des autres à son tour, l'attaquant d'abord, pour relancer ou passer.
-Mains ouvertes (les cartes avec un œil, au choix du jeu) : toutes les mains sont visibles par tous, et l'appareil passe sans rien cacher : une façon d'apprendre le jeu ensemble.
+L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, rangées par couleur, les atouts en dernier. En haut, les autres joueurs : leurs cartes face cachée et leur nombre, une épée près de l'attaquant, un bouclier près du défenseur, un signe passer près d'un joueur qui a passé. Le talon est d'un côté avec l'atout dessous (le signe de sa couleur une fois le talon épuisé), les cartes mises de côté de l'autre.
+- Attaquer ou relancer : touche tes cartes (celles que tu peux relancer brillent), puis touche la table ou fais-les glisser jusque-là. Le bouton passer dans ta barre permet de passer.
+- Défendre : touche une carte (les cartes qu'elle peut battre brillent), puis la carte à battre. Le bouton rond avec la flèche ramasse les cartes ; il reste allumé pendant que les autres relancent.
+- Dans la variante du renvoi, une carte de la valeur de l'attaque allume une place vide à côté de l'attaque : touche-la pour renvoyer l'attaque.
+Après chaque attaque, l'appareil va au défenseur ; une fois tout battu, à chacun des autres à son tour, l'attaquant d'abord, pour relancer ou passer.
+Mains ouvertes (les cartes avec un œil, au choix du jeu) : toutes les mains sont visibles par tous, et l'appareil passe sans rien cacher : une façon d'apprendre le jeu ensemble.

@@ -1,46 +1,46 @@
 Doppelkopf
 # Le but
-Le jeu de cartes préféré des Allemands, à quatre, avec un jeu double. À chaque donne, les deux joueurs qui ont les dames de trèfle, le camp Re, jouent contre les deux autres, le camp Kontra ; mais au départ, personne ne sait qui est avec qui. Une partie est une liste de 12 ou 24 donnes, au choix ; à la fin, le plus gros total gagne. Les règles sont celles des tournois de la Ligue allemande de Doppelkopf (DDV). Les cartes ont des couleurs françaises, comme on joue souvent au Doppelkopf ; les couleurs allemandes (glands, feuilles, cœurs, grelots) viendront peut-être plus tard. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Le jeu de cartes préféré des Allemands, à quatre, avec un jeu double. À chaque donne, les deux joueurs qui ont les dames de trèfle, le camp Re, jouent contre les deux autres, le camp Kontra ; mais au départ, personne ne sait qui est avec qui. Une partie est une liste de 12 ou 24 donnes, au choix ; à la fin, le plus gros total gagne. Les règles sont celles des tournois de la Ligue allemande de Doppelkopf (DDV). Les cartes ont des couleurs françaises, comme on joue souvent au Doppelkopf ; les couleurs allemandes (glands, feuilles, cœurs, grelots) viendront peut-être plus tard. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
 # La donne
-Le jeu compte 48 cartes : 9, 10, valet, dame, roi et as de chaque couleur, chaque carte en double. Chaque joueur reçoit 12 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur parle en premier et entame le premier pli.
+Le jeu compte 48 cartes : 9, 10, valet, dame, roi et as de chaque couleur, chaque carte en double. Chaque joueur reçoit 12 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur parle en premier et entame le premier pli.
 # Les réserves
-- Avant la première carte, chaque joueur à son tour se dit gesund (« sain » : sans réserve) ou annonce une réserve (Vorbehalt). Ce qu'il veut jouer reste secret : un solo ou un mariage.
-- Un joueur qui a les deux dames de trèfle peut annoncer un mariage (Hochzeit). C'est à lui de choisir : il peut aussi se taire et jouer un solo muet contre les trois autres.
-- Le premier solo dans l'ordre de parole est joué ; sinon le mariage ; sinon le jeu normal.
+- Avant la première carte, chaque joueur à son tour se dit gesund (« sain » : sans réserve) ou annonce une réserve (Vorbehalt). Ce qu'il veut jouer reste secret : un solo ou un mariage.
+- Un joueur qui a les deux dames de trèfle peut annoncer un mariage (Hochzeit). C'est à lui de choisir : il peut aussi se taire et jouer un solo muet contre les trois autres.
+- Le premier solo dans l'ordre de parole est joué ; sinon le mariage ; sinon le jeu normal.
 # Les atouts
-- Au jeu normal, le 10 de cœur (la Dulle) est le plus fort atout. Viennent ensuite les dames puis les valets, chacun dans l'ordre trèfle, pique, cœur, carreau, puis l'as, le 10, le roi et le 9 de carreau : 26 atouts.
-- Les autres couleurs se classent as, 10, roi, 9 ; le cœur n'a que l'as, le roi et le 9.
+- Au jeu normal, le 10 de cœur (la Dulle) est le plus fort atout. Viennent ensuite les dames puis les valets, chacun dans l'ordre trèfle, pique, cœur, carreau, puis l'as, le 10, le roi et le 9 de carreau : 26 atouts.
+- Les autres couleurs se classent as, 10, roi, 9 ; le cœur n'a que l'as, le roi et le 9.
 - De deux cartes identiques dans un pli, la première jouée l'emporte.
 # Les camps
 - Les détenteurs des dames de trèfle (les Alten, « les vieilles ») sont Re, les autres Kontra. Chacun connaît son propre camp, pas celui des autres. Un camp se dévoile quand une dame de trèfle est jouée ou quand quelqu'un annonce.
-- Mariage : le premier autre joueur qui remporte l'un des trois premiers plis devient le partenaire de la mariée. Si la mariée fait les trois, elle joue seule, comme un solo.
+- Mariage : le premier autre joueur qui remporte l'un des trois premiers plis devient le partenaire de la mariée. Si la mariée fait les trois, elle joue seule, comme un solo.
 # Les solos
 Un joueur, le soliste (Re), joue contre les trois autres (Kontra).
-- Solo de dames : seules les huit dames sont atouts.
-- Solo de valets : seuls les huit valets sont atouts.
-- Solo de couleur : les atouts du jeu normal, la couleur choisie remplaçant le carreau.
-- Fleischlos (« sans viande ») : pas d'atout ; chaque couleur se classe as, 10, roi, dame, valet, 9.
+- Solo de dames : seules les huit dames sont atouts.
+- Solo de valets : seuls les huit valets sont atouts.
+- Solo de couleur : les atouts du jeu normal, la couleur choisie remplaçant le carreau.
+- Fleischlos (« sans viande ») : pas d'atout ; chaque couleur se classe as, 10, roi, dame, valet, 9.
 # Le jeu
-Fournis la couleur demandée si tu peux (tous les atouts comptent comme une seule couleur) ; sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
+Fournis la couleur demandée si tu peux (tous les atouts comptent comme une seule couleur) ; sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
 # Les annonces
-- Avant de jouer une carte, un joueur peut annoncer pour son camp : Re ou Kontra s'il a encore au moins 11 cartes, pas 90 (keine 90) au moins 10, pas 60 (keine 60) au moins 9, pas 30 (keine 30) au moins 8, schwarz (aucun pli) au moins 7. Chaque annonce comprend les précédentes.
+- Avant de jouer une carte, un joueur peut annoncer pour son camp : Re ou Kontra s'il a encore au moins 11 cartes, pas 90 (keine 90) au moins 10, pas 60 (keine 60) au moins 9, pas 30 (keine 30) au moins 8, schwarz (aucun pli) au moins 7. Chaque annonce comprend les précédentes.
 - Une fois que l'autre camp a annoncé, on peut encore répondre Re ou Kontra, une carte plus tard que la limite propre à cette annonce.
-- Dans un mariage, on ne peut rien annoncer avant que le partenaire soit trouvé ; les limites reculent alors du nombre de plis qu'il a fallu.
+- Dans un mariage, on ne peut rien annoncer avant que le partenaire soit trouvé ; les limites reculent alors du nombre de plis qu'il a fallu.
 - Ici, un joueur annonce à son propre tour, quand il a l'appareil en main.
 # Gagner la donne
-- Les points des cartes : as 11, 10 10, roi 4, dame 3, valet 2 : 240 en tout.
+- Les points des cartes : as 11, 10 10, roi 4, dame 3, valet 2 : 240 en tout.
 - Re gagne avec 121 points, Kontra avec 120. Si seul Kontra a été annoncé, Re gagne avec 120 et Kontra doit faire 121.
 - Un camp qui a annoncé pas 90 (pas 60, pas 30, schwarz) doit maintenir l'autre camp sous 90 (60, 30, sans aucun pli), sinon l'autre camp gagne. Si les deux camps échouent à de telles annonces, personne ne gagne.
 # La valeur du jeu
-- Gagné : 1. Les perdants sous 90, sous 60, sous 30, et sans aucun pli (schwarz) : 1 chacun.
-- Re annoncé : 2. Kontra annoncé : 2. Chaque pas 90, pas 60, pas 30 et schwarz annoncé : 1.
-- 120 atteints contre le pas 90 de l'autre camp, 90 contre pas 60, 60 contre pas 30, 30 contre schwarz : 1 chacun.
-- Points spéciaux (Sonderpunkte), au jeu normal et au mariage seulement, pour le camp qui les fait : un renard pris (Fuchs : un as de carreau adverse dans un pli que tu remportes), un Doppelkopf (un pli de 40 points ou plus), Karlchen (« petit Charles » : le dernier pli remporté avec le valet de trèfle), et contre les vieilles (gegen die Alten : Kontra gagne) : 1 chacun. Les points spéciaux des deux camps s'annulent.
+- Gagné : 1. Les perdants sous 90, sous 60, sous 30, et sans aucun pli (schwarz) : 1 chacun.
+- Re annoncé : 2. Kontra annoncé : 2. Chaque pas 90, pas 60, pas 30 et schwarz annoncé : 1.
+- 120 atteints contre le pas 90 de l'autre camp, 90 contre pas 60, 60 contre pas 30, 30 contre schwarz : 1 chacun.
+- Points spéciaux (Sonderpunkte), au jeu normal et au mariage seulement, pour le camp qui les fait : un renard pris (Fuchs : un as de carreau adverse dans un pli que tu remportes), un Doppelkopf (un pli de 40 points ou plus), Karlchen (« petit Charles » : le dernier pli remporté avec le valet de trèfle), et contre les vieilles (gegen die Alten : Kontra gagne) : 1 chacun. Les points spéciaux des deux camps s'annulent.
 # Le score
-- Jeu normal : chaque joueur Re marque la valeur du jeu si Re a gagné (en négatif si Kontra a gagné), plus les points spéciaux de Re, moins ceux de Kontra ; chaque joueur Kontra marque l'inverse.
-- Solo : le soliste marque trois fois plus, chaque adversaire une fois.
+- Jeu normal : chaque joueur Re marque la valeur du jeu si Re a gagné (en négatif si Kontra a gagné), plus les points spéciaux de Re, moins ceux de Kontra ; chaque joueur Kontra marque l'inverse.
+- Solo : le soliste marque trois fois plus, chaque adversaire une fois.
 - Il n'y a pas de solo obligatoire ici.
 # La fin de la partie
 Après la dernière donne de la liste, le plus gros total gagne. Les joueurs à égalité se partagent la victoire.
 # Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour dire gesund, touche passer. Pour une réserve, touche un jeu, puis la coche (ou le même jeu une seconde fois) : un solo de couleur (le signe de la couleur), le solo de dames (une dame), le solo de valets (un fou, la figure du valet), Fleischlos (quatre as) ou le mariage (deux dames de trèfle, seulement si tu as les deux). Chaque place montre la parole de son joueur : le signe de passe pour gesund, une lampe pour une réserve. Pendant le jeu, chaque place montre ce que la table sait : la dame de trèfle pour Re, barrée pour Kontra, en éclat doré une fois annoncé ; ton propre camp s'affiche toujours à ta place. La place du soliste montre le solo, celle de la mariée le mariage jusqu'à ce que son partenaire soit trouvé ; pas 90, pas 60, pas 30 et schwarz s'affichent 90, 60, 30 et 0 dans un disque sombre. Quand tu peux annoncer, le bouton à l'opposé du paquet des plis montre ta prochaine annonce : touche-le avant de jouer ta carte. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre chaque camp avec ses points de cartes, ses annonces, ses points spéciaux (l'as de carreau : un renard ; 40 : un Doppelkopf ; le valet de trèfle : Karlchen ; la dame barrée : contre les vieilles) et une coche dorée pour les gagnants ; puis la valeur du jeu, le solde des points spéciaux et les points de chaque joueur Re (fois 3 pour un soliste) ; le score et le total de chaque joueur ; et la liste des donnes, avec les jetons des gagnants en éclat doré. Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.
+Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pour dire gesund, touche passer. Pour une réserve, touche un jeu, puis la coche (ou le même jeu une seconde fois) : un solo de couleur (le signe de la couleur), le solo de dames (une dame), le solo de valets (un fou, la figure du valet), Fleischlos (quatre as) ou le mariage (deux dames de trèfle, seulement si tu as les deux). Chaque place montre la parole de son joueur : le signe de passe pour gesund, une lampe pour une réserve. Pendant le jeu, chaque place montre ce que la table sait : la dame de trèfle pour Re, barrée pour Kontra, en éclat doré une fois annoncé ; ton propre camp s'affiche toujours à ta place. La place du soliste montre le solo, celle de la mariée le mariage jusqu'à ce que son partenaire soit trouvé ; pas 90, pas 60, pas 30 et schwarz s'affichent 90, 60, 30 et 0 dans un disque sombre. Quand tu peux annoncer, le bouton à l'opposé du paquet des plis montre ta prochaine annonce : touche-le avant de jouer ta carte. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre chaque camp avec ses points de cartes, ses annonces, ses points spéciaux (l'as de carreau : un renard ; 40 : un Doppelkopf ; le valet de trèfle : Karlchen ; la dame barrée : contre les vieilles) et une coche dorée pour les gagnants ; puis la valeur du jeu, le solde des points spéciaux et les points de chaque joueur Re (fois 3 pour un soliste) ; le score et le total de chaque joueur ; et la liste des donnes, avec les jetons des gagnants en éclat doré. Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.

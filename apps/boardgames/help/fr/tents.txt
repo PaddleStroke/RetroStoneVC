@@ -1,21 +1,21 @@
 Tentes
 # Le but
-Plante une tente à côté de chaque arbre : juste au-dessus, au-dessous, à gauche ou à droite. Chaque arbre a sa tente et chaque tente son arbre. Les tentes ne se touchent jamais, pas même par un coin. Les nombres à gauche des lignes et au-dessus des colonnes disent combien de tentes elles contiennent.
-Chaque terrain a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 6 × 6 à 12 × 12) et le niveau (les pions sous chaque image) :
-- Facile : un coup d'œil suffit toujours : pas de tente loin des arbres ni autour d'une tente ; une ligne qui a toutes ses tentes, ou juste la place pour elles ; un arbre à qui il ne reste qu'une place.
-- Moyen : il faut aussi les suites de cases libres où les tentes d'une ligne tiennent tout juste, et voir une tente à l'avance : une tente ici laisserait un arbre ou une ligne sans place.
-- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
+Plante une tente à côté de chaque arbre : juste au-dessus, au-dessous, à gauche ou à droite. Chaque arbre a sa tente et chaque tente son arbre. Les tentes ne se touchent jamais, pas même par un coin. Les nombres à gauche des lignes et au-dessus des colonnes disent combien de tentes elles contiennent.
+Chaque terrain a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 6 × 6 à 12 × 12) et le niveau (les pions sous chaque image) :
+- Facile : un coup d'œil suffit toujours : pas de tente loin des arbres ni autour d'une tente ; une ligne qui a toutes ses tentes, ou juste la place pour elles ; un arbre à qui il ne reste qu'une place.
+- Moyen : il faut aussi les suites de cases libres où les tentes d'une ligne tiennent tout juste, et voir une tente à l'avance : une tente ici laisserait un arbre ou une ligne sans place.
+- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
 # Un coup
-Plante une tente dans une case, ou démonte-la. Tu peux aussi mettre de l'herbe dans une case pour te rappeler qu'aucune tente n'y va ; l'herbe n'est qu'une note pour toi.
+Plante une tente dans une case, ou démonte-la. Tu peux aussi mettre de l'herbe dans une case pour te rappeler qu'aucune tente n'y va ; l'herbe n'est qu'une note pour toi.
 # La fin de la partie
-Le terrain est résolu quand chaque arbre a sa tente, qu'aucune tente n'en touche une autre et que chaque nombre est juste : une vague de lumière dorée parcourt le terrain.
+Le terrain est résolu quand chaque arbre a sa tente, qu'aucune tente n'en touche une autre et que chaque nombre est juste : une vague de lumière dorée parcourt le terrain.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une tente ou de l'herbe mal placées que tu reprends avec Annuler.
+Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une tente ou de l'herbe mal placées que tu reprends avec Annuler.
 # Jouer sur l'appareil
-- Touche une case pour planter une tente ; touche-la encore pour la démonter.
+- Touche une case pour planter une tente ; touche-la encore pour la démonter.
 - Garde le doigt un instant sur une case pour y mettre de l'herbe, ou l'enlever.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour mettre de l'herbe sur toute une suite (ou l'enlever d'une suite d'herbe).
-Les tentes qui se touchent luisent en rouge, tout comme un arbre qui n'a plus de place pour sa tente. Un nombre devient rouge quand sa ligne a trop de tentes, et pâlit quand elle les a toutes. Les boutons à côté du plateau :
-- Tente ou herbe : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
-- Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
+Les tentes qui se touchent luisent en rouge, tout comme un arbre qui n'a plus de place pour sa tente. Un nombre devient rouge quand sa ligne a trop de tentes, et pâlit quand elle les a toutes. Les boutons à côté du plateau :
+- Tente ou herbe : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
+- Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
 Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

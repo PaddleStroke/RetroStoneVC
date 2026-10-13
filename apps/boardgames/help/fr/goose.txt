@@ -3,20 +3,20 @@ Jeu de l'oie
 Être le premier à amener son pion sur la case 63, le jardin de l'oie, au centre de la spirale. De 2 à 6 joueurs.
 # Un tour
 Tous les pions partent du coin en bas à gauche, avant la case 1. On joue chacun son tour, le joueur clair en premier. Lance les deux dés et avance ton pion de leur total, case par case, le long de la spirale.
-- Un 9 au départ ne mène pas à la case 9 : 6 et 3 envoient directement en 26, 5 et 4 en 53, les cases marquées de dés. Cela vaut pour le premier lancer, et à nouveau quand la mort t'a renvoyé au départ.
-- Il faut atteindre la case 63 au nombre exact. Avec plus, ton pion va jusqu'à 63 puis recule des points en trop : depuis 60, un lancer de 6 s'arrête sur 60.
+- Un 9 au départ ne mène pas à la case 9 : 6 et 3 envoient directement en 26, 5 et 4 en 53, les cases marquées de dés. Cela vaut pour le premier lancer, et à nouveau quand la mort t'a renvoyé au départ.
+- Il faut atteindre la case 63 au nombre exact. Avec plus, ton pion va jusqu'à 63 puis recule des points en trop : depuis 60, un lancer de 6 s'arrête sur 60.
 # Les cases
-- Les oies (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 et 59) : avance encore du même nombre, dans le même sens, d'oie en oie. Après avoir rebondi sur 63, une oie te fait reculer encore.
-- Le pont (6) : va directement en 12.
-- L'hôtellerie (19) : passe tes deux prochains tours.
-- Le puits (31) : restes-y jusqu'à ce qu'un autre pion y tombe et te délivre.
-- Le labyrinthe (42) : retourne en 30.
-- La prison (52) : restes-y jusqu'à ce qu'un autre pion y entre et te délivre.
-- La mort (58) : retourne au départ.
+- Les oies (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 et 59) : avance encore du même nombre, dans le même sens, d'oie en oie. Après avoir rebondi sur 63, une oie te fait reculer encore.
+- Le pont (6) : va directement en 12.
+- L'hôtellerie (19) : passe tes deux prochains tours.
+- Le puits (31) : restes-y jusqu'à ce qu'un autre pion y tombe et te délivre.
+- Le labyrinthe (42) : retourne en 30.
+- La prison (52) : restes-y jusqu'à ce qu'un autre pion y entre et te délivre.
+- La mort (58) : retourne au départ.
 # Rencontrer d'autres pions
-Deux pions ne partagent jamais une case, sauf au départ. Si ton pion finit son déplacement sur une case occupée, le pion qui s'y trouvait va prendre ta place, sur la case d'où tu venais, et il est libéré s'il était retenu à l'hôtellerie, au puits ou en prison ; la case où il arrive est sans effet pour lui. Ton pion prend sa place, et ce qu'elle impose : au puits ou en prison, c'est toi qui attends désormais. Passer par-dessus un pion ne fait rien.
-À deux joueurs, si un pion est au puits et l'autre en prison, personne ne peut venir les délivrer : le prochain à lancer est libéré et continue.
+Deux pions ne partagent jamais une case, sauf au départ. Si ton pion finit son déplacement sur une case occupée, le pion qui s'y trouvait va prendre ta place, sur la case d'où tu venais, et il est libéré s'il était retenu à l'hôtellerie, au puits ou en prison ; la case où il arrive est sans effet pour lui. Ton pion prend sa place, et ce qu'elle impose : au puits ou en prison, c'est toi qui attends désormais. Passer par-dessus un pion ne fait rien.
+À deux joueurs, si un pion est au puits et l'autre en prison, personne ne peut venir les délivrer : le prochain à lancer est libéré et continue.
 # La fin de la partie
 Le premier joueur sur la case 63 gagne.
 # Jouer sur l'appareil
-Passez-vous l'appareil : le joueur qui doit lancer a toujours sa barre en bas. Ses deux dés attendent à côté du plateau, dans une lumière dorée, et son pion brille : touche l'écran pour lancer. Le pion avance alors tout seul. Chaque barre indique la case du pion de ce joueur et ce qui le retient : l'hôtellerie (avec les tours qu'il reste à passer), le puits ou la prison. Annuler reprend les lancers un par un ; un lancer repris redonne le même résultat quand tu relances.
+Passez-vous l'appareil : le joueur qui doit lancer a toujours sa barre en bas. Ses deux dés attendent à côté du plateau, dans une lumière dorée, et son pion brille : touche l'écran pour lancer. Le pion avance alors tout seul. Chaque barre indique la case du pion de ce joueur et ce qui le retient : l'hôtellerie (avec les tours qu'il reste à passer), le puits ou la prison. Annuler reprend les lancers un par un ; un lancer repris redonne le même résultat quand tu relances.

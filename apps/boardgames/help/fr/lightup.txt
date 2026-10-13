@@ -1,21 +1,21 @@
 Lumières
 # Le but
-Place des lampes dans les cases blanches pour que toutes les cases blanches soient éclairées. Une lampe éclaire sa case et toute sa ligne et sa colonne, dans les deux sens, jusqu'à un mur sombre ou au bord. Aucune lampe ne doit en éclairer une autre. Un mur numéroté a exactement ce nombre de lampes à côté de lui (au-dessus, au-dessous, à gauche et à droite) ; un mur sans nombre peut en avoir autant qu'on veut.
-Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (7 × 7, 10 × 10 ou 14 × 14) et le niveau (les pions sous chaque image) :
-- Facile : un coup d'œil suffit toujours : un nombre qui a besoin de toutes ses cases libres, un nombre qui a déjà toutes ses lampes, une case sombre qu'une seule case peut encore éclairer.
-- Moyen : il faut aussi voir une lampe à l'avance : une lampe ici laisserait un nombre, ou une case sombre, sans assez de place.
-- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
+Place des lampes dans les cases blanches pour que toutes les cases blanches soient éclairées. Une lampe éclaire sa case et toute sa ligne et sa colonne, dans les deux sens, jusqu'à un mur sombre ou au bord. Aucune lampe ne doit en éclairer une autre. Un mur numéroté a exactement ce nombre de lampes à côté de lui (au-dessus, au-dessous, à gauche et à droite) ; un mur sans nombre peut en avoir autant qu'on veut.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (7 × 7, 10 × 10 ou 14 × 14) et le niveau (les pions sous chaque image) :
+- Facile : un coup d'œil suffit toujours : un nombre qui a besoin de toutes ses cases libres, un nombre qui a déjà toutes ses lampes, une case sombre qu'une seule case peut encore éclairer.
+- Moyen : il faut aussi voir une lampe à l'avance : une lampe ici laisserait un nombre, ou une case sombre, sans assez de place.
+- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
 # Un coup
-Mets une lampe dans une case blanche, ou enlève-la. Tu peux aussi mettre un point dans une case pour te rappeler qu'aucune lampe n'y va ; les points ne sont que des notes pour toi.
+Mets une lampe dans une case blanche, ou enlève-la. Tu peux aussi mettre un point dans une case pour te rappeler qu'aucune lampe n'y va ; les points ne sont que des notes pour toi.
 # La fin de la partie
-La grille est résolue quand toutes les cases blanches sont éclairées, qu'aucune lampe n'en éclaire une autre et que chaque nombre a ses lampes : une vague de lumière dorée parcourt le plateau.
+La grille est résolue quand toutes les cases blanches sont éclairées, qu'aucune lampe n'en éclaire une autre et que chaque nombre a ses lampes : une vague de lumière dorée parcourt le plateau.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 14 × 14, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une lampe ou un point mal placés que tu reprends avec Annuler.
+Il y a 150 niveaux en six chapitres, du 6 × 6 jusqu'au 14 × 14, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une lampe ou un point mal placés que tu reprends avec Annuler.
 # Jouer sur l'appareil
-- Touche une case blanche pour y mettre une lampe ; touche-la encore pour l'enlever.
+- Touche une case blanche pour y mettre une lampe ; touche-la encore pour l'enlever.
 - Garde le doigt un instant sur une case pour y mettre un point, ou l'enlever.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour mettre des points sur toute une suite (ou les enlever d'une suite de points).
-Les cases éclairées prennent une teinte chaude. Deux lampes qui s'éclairent l'une l'autre luisent en rouge ; un nombre devient rouge quand il a trop de lampes, et pâlit quand il les a toutes. Les boutons à côté du plateau :
-- Lampe ou point : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
-- Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
+Les cases éclairées prennent une teinte chaude. Deux lampes qui s'éclairent l'une l'autre luisent en rouge ; un nombre devient rouge quand il a trop de lampes, et pâlit quand il les a toutes. Les boutons à côté du plateau :
+- Lampe ou point : ce que met une touche. Touche-le pour échanger toucher et garder le doigt.
+- Ampoule : un indice. Elle corrige une case fausse, ou sinon montre la prochaine case que le raisonnement trouve, dans une lumière dorée.
 Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.

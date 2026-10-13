@@ -1,10 +1,10 @@
 Dame de pique
 # Le but
-Ramasser le moins de points possible : chaque cœur gagné dans un pli coûte 1 point, la dame de pique 13. Quand un joueur atteint 100 points, le plus petit total gagne. De 3 à 6 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Ramasser le moins de points possible : chaque cœur gagné dans un pli coûte 1 point, la dame de pique 13. Quand un joueur atteint 100 points, le plus petit total gagne. De 3 à 6 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
 # Les cartes
-Les 52 cartes sont distribuées : 13 chacun à 4 joueurs. À 3 joueurs on retire le 2 de carreau (17 chacun) ; à 5, le 2 de carreau et le 2 de pique (10 chacun) ; à 6, les 2 et les 3 de carreau et de pique (8 chacun). L'as est la plus forte carte, puis le roi, la dame, le valet, le 10 et ainsi de suite jusqu'au 2.
+Les 52 cartes sont distribuées : 13 chacun à 4 joueurs. À 3 joueurs on retire le 2 de carreau (17 chacun) ; à 5, le 2 de carreau et le 2 de pique (10 chacun) ; à 6, les 2 et les 3 de carreau et de pique (8 chacun). L'as est la plus forte carte, puis le roi, la dame, le valet, le 10 et ainsi de suite jusqu'au 2.
 # Le passage
-Avant de jouer, chacun passe trois cartes : à gauche à la première manche, à droite à la deuxième, en face à la troisième (à 4 ou 6 joueurs), pas du tout à la quatrième, et ainsi de suite. À 3 ou 5 joueurs : gauche, droite, rien. Les joueurs choisissent chacun leur tour ; les cartes changent de main quand tout le monde a choisi.
+Avant de jouer, chacun passe trois cartes : à gauche à la première manche, à droite à la deuxième, en face à la troisième (à 4 ou 6 joueurs), pas du tout à la quatrième, et ainsi de suite. À 3 ou 5 joueurs : gauche, droite, rien. Les joueurs choisissent chacun leur tour ; les cartes changent de main quand tout le monde a choisi.
 # Le jeu
 - Le joueur qui a le 2 de trèfle l'entame au premier pli.
 - Chacun à son tour fournit la couleur demandée s'il le peut, sinon joue n'importe quelle carte.
@@ -12,9 +12,9 @@ Avant de jouer, chacun passe trois cartes : à gauche à la première manche, à
 - Au premier pli, personne ne peut jouer de cœur ni la dame de pique, sauf s'il n'a rien d'autre.
 - On ne peut pas entamer à cœur tant qu'aucun cœur n'a été joué (les cœurs sont ouverts), sauf si on n'a plus que des cœurs.
 # Le score
-- Chaque cœur ramassé : 1 point. La dame de pique : 13 points.
-- Le grand chelem (tirer la lune) : un joueur qui ramasse les 13 cœurs et la dame de pique ne marque rien, et chacun des autres marque 26.
+- Chaque cœur ramassé : 1 point. La dame de pique : 13 points.
+- Le grand chelem (tirer la lune) : un joueur qui ramasse les 13 cœurs et la dame de pique ne marque rien, et chacun des autres marque 26.
 # La fin de la partie
-La partie s'arrête après la manche où un joueur atteint 100 points. Le plus petit total gagne ; les joueurs à égalité partagent la victoire.
+La partie s'arrête après la manche où un joueur atteint 100 points. Le plus petit total gagne ; les joueurs à égalité partagent la victoire.
 # Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main, en éventail en bas. Les pièces des joueurs entourent le milieu de la table, et chaque carte jouée se pose devant la pièce de son joueur ; le nombre à côté d'une pièce : les points ramassés dans la manche. Pour passer, touche trois cartes : elles vont au milieu (touche-en une pour la reprendre) ; puis touche la flèche, qui montre le joueur qui les reçoit. Les cartes reçues restent un peu plus hautes jusqu'à ta première carte. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le total. Après chaque manche, un tableau montre les points de la manche et le total de chacun (une lune : le joueur qui a fait le grand chelem) ; touche-le pour la manche suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.
+Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main, en éventail en bas. Les pièces des joueurs entourent le milieu de la table, et chaque carte jouée se pose devant la pièce de son joueur ; le nombre à côté d'une pièce : les points ramassés dans la manche. Pour passer, touche trois cartes : elles vont au milieu (touche-en une pour la reprendre) ; puis touche la flèche, qui montre le joueur qui les reçoit. Les cartes reçues restent un peu plus hautes jusqu'à ta première carte. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le total. Après chaque manche, un tableau montre les points de la manche et le total de chacun (une lune : le joueur qui a fait le grand chelem) ; touche-le pour la manche suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.

@@ -1,15 +1,15 @@
 Calcudoku
 # Le but
-Remplis la grille pour que chaque ligne et chaque colonne contienne une fois chaque chiffre de 1 à la taille de la grille. Des traits épais découpent la grille en cages ; chaque cage porte un résultat et un signe. Ses chiffres additionnés (+) ou multipliés (×) donnent le résultat ; dans une cage de deux cases, le plus grand moins le plus petit (−) ou le plus grand divisé par le plus petit (÷) le donne. Une cage d'une seule case contient son résultat. Un chiffre peut revenir deux fois dans une cage, mais jamais deux fois sur une ligne ou une colonne. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis d'abord la taille et le niveau (les pions sous chaque image) :
-- Facile : les façons d'obtenir le résultat de chaque cage, et un chiffre qui n'a plus qu'une place sur sa ligne ou sa colonne, suffisent toujours.
-- Moyen : il te faudra aussi les chiffres qu'une cage doit placer sur une même ligne ou colonne, et des paires.
-- Difficile : des raisonnements plus longs : essayer un chiffre et le suivre jusqu'à ce que quelque chose casse.
+Remplis la grille pour que chaque ligne et chaque colonne contienne une fois chaque chiffre de 1 à la taille de la grille. Des traits épais découpent la grille en cages ; chaque cage porte un résultat et un signe. Ses chiffres additionnés (+) ou multipliés (×) donnent le résultat ; dans une cage de deux cases, le plus grand moins le plus petit (−) ou le plus grand divisé par le plus petit (÷) le donne. Une cage d'une seule case contient son résultat. Un chiffre peut revenir deux fois dans une cage, mais jamais deux fois sur une ligne ou une colonne. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis d'abord la taille et le niveau (les pions sous chaque image) :
+- Facile : les façons d'obtenir le résultat de chaque cage, et un chiffre qui n'a plus qu'une place sur sa ligne ou sa colonne, suffisent toujours.
+- Moyen : il te faudra aussi les chiffres qu'une cage doit placer sur une même ligne ou colonne, et des paires.
+- Difficile : des raisonnements plus longs : essayer un chiffre et le suivre jusqu'à ce que quelque chose casse.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 9 × 9, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
+Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 9 × 9, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
-Touche une case, puis une touche à côté du plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, sa cage un peu plus, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
-- Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent.
-- Gomme : enlève le chiffre de la case, ou ses notes.
-- Lampe : un indice. Elle corrige un chiffre faux, ou sinon remplit une case que le raisonnement trouve, dans une lumière dorée.
-- Œil : montre les conflits en rouge (un chiffre deux fois sur une ligne, une cage pleine qui manque son résultat). Il est allumé au départ.
+Touche une case, puis une touche à côté du plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, sa cage un peu plus, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
+- Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent.
+- Gomme : enlève le chiffre de la case, ou ses notes.
+- Lampe : un indice. Elle corrige un chiffre faux, ou sinon remplit une case que le raisonnement trouve, dans une lumière dorée.
+- Œil : montre les conflits en rouge (un chiffre deux fois sur une ligne, une cage pleine qui manque son résultat). Il est allumé au départ.
 Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups. Quand la grille est pleine et juste, une vague de lumière dorée parcourt le plateau.

@@ -1,17 +1,17 @@
 Chemins
 # Le but
-Des paires de points de même couleur sont posées sur la grille. Relie les deux points de chaque paire par un chemin qui va de case en case : vers le haut, le bas, la gauche ou la droite. Les chemins ne se croisent pas et ne partagent aucune case, et ensemble ils doivent remplir toute la grille. Chaque paire porte aussi sa propre marque (un point, un anneau, un carré, une étoile...) : nul besoin de distinguer les couleurs à l'œil seul. Choisis d'abord la taille : 5 × 5, 7 × 7, 9 × 9 ou 12 × 12.
+Des paires de points de même couleur sont posées sur la grille. Relie les deux points de chaque paire par un chemin qui va de case en case : vers le haut, le bas, la gauche ou la droite. Les chemins ne se croisent pas et ne partagent aucune case, et ensemble ils doivent remplir toute la grille. Chaque paire porte aussi sa propre marque (un point, un anneau, un carré, une étoile...) : nul besoin de distinguer les couleurs à l'œil seul. Choisis d'abord la taille : 5 × 5, 7 × 7, 9 × 9 ou 12 × 12.
 Chaque grille a une seule solution, que l'on trouve par le raisonnement seul.
 # Un coup
 Tracer ou modifier un chemin.
 # La fin de la partie
-Quand toutes les paires sont reliées et qu'aucune case n'est vide, la grille est résolue : une lumière dorée court le long de chaque chemin.
+Quand toutes les paires sont reliées et qu'aucune case n'est vide, la grille est résolue : une lumière dorée court le long de chaque chemin.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un trait qui pose un chemin sur une case d'une autre couleur dans la solution ; Annuler ne l'efface pas.
+Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un trait qui pose un chemin sur une case d'une autre couleur dans la solution ; Annuler ne l'efface pas.
 # Jouer sur l'appareil
-- Glisse depuis un point : son chemin repart de lui et suit ton doigt. Glisse depuis une case d'un chemin pour continuer de là (la suite de ce chemin s'efface).
-- Revenir sur ses pas raccourcit le chemin. Passer sur un autre chemin le coupe ; il revient si tu recules avant de lever le doigt. Un chemin ne passe jamais sur un point d'une autre couleur.
+- Glisse depuis un point : son chemin repart de lui et suit ton doigt. Glisse depuis une case d'un chemin pour continuer de là (la suite de ce chemin s'efface).
+- Revenir sur ses pas raccourcit le chemin. Passer sur un autre chemin le coupe ; il revient si tu recules avant de lever le doigt. Un chemin ne passe jamais sur un point d'une autre couleur.
 - Quand un chemin atteint son autre point, la paire est reliée et ses points sonnent.
-- Avec de simples touches : touche un point ou une case d'un chemin (son bout est marqué), puis une case de la même ligne ou colonne : le chemin y file tout droit. Touche de nouveau le bout marqué pour le lâcher.
-- La lampe donne un indice : elle trace le chemin d'une paire comme dans la solution, dans une lumière dorée.
+- Avec de simples touches : touche un point ou une case d'un chemin (son bout est marqué), puis une case de la même ligne ou colonne : le chemin y file tout droit. Touche de nouveau le bout marqué pour le lâcher.
+- La lampe donne un indice : elle trace le chemin d'une paire comme dans la solution, dans une lumière dorée.
 Les cases d'un chemin prennent une teinte de sa couleur. Annuler reprend un tracé ou un indice à la fois, jusqu'au début. La barre montre tes coups.
