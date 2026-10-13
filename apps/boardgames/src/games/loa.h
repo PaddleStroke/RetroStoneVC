@@ -57,4 +57,8 @@ int  loa_undo(lgame *g);                        /* 0: nothing to undo */
 int  loa_find(const lmove *legal, int n, const char *s, int *used);
 #define loa_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (loa_bot.c, bots.h) */
+const lgame *loa_live(void);                    /* the game on the screen, read-only: the bot copies it at entry */
+int loa_show(const char *move);                 /* main thread: plays "b1-b3" as a tap does (animated); 0: not legal */
+
 #endif

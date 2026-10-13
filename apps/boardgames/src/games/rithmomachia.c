@@ -130,6 +130,17 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot's side (rithmomachia_bot.c): the game to copy, and its move played as a tap plays it */
+const rhmgame *rithmomachia_live(void) { return &G; }
+
+int rithmomachia_show(const char *move)
+{
+    int la, lb, a = rhm_square(move, &la), b = a < 0 ? -1 : rhm_square(move + la, &lb);
+    if (b < 0 || move[la + lb] || target(a, b) < 0) return 0;
+    play((rhmmove){(uint8_t)a, (uint8_t)b}, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static const uint8_t BURNT[3] = {86, 46, 22}, INLAY[3] = {236, 220, 186};   /* the numbers: on ivory, on ebony */
 

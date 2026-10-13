@@ -61,4 +61,8 @@ int  mc_turn(const mc_game *g);
 int  mc_status(const mc_game *g);               /* MC_* */
 int  mc_score(const mc_game *g, int player);    /* the seeds in the player's store */
 
+/* the bot (mancala_bot.c, bots.h) */
+const mc_game *mancala_live(void);              /* the game on the screen, read-only: the bot copies it at entry */
+int mancala_show(const char *move);             /* main thread: sows "3" as a tap does (animated); 0: not legal */
+
 #endif

@@ -26,6 +26,7 @@ static uint8_t reach[AM_MAX_LINE];              /* where it can go, or where its
 static int nreach;
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, stage, from, to; Uint32 t0; } anim;   /* stage: AM_MOVE a slide, AM_SHOOT an arrow */
+static int pending = -1;                        /* a bot's turn: the arrow to shoot once its amazon has slid */
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void pick(int s)
@@ -47,6 +48,7 @@ static void start(int variant)
     (void)variant;
     am_new(&G);
     anim.on = 0;
+    pending = -1;
     refresh();
 }
 
@@ -96,6 +98,7 @@ static int undo(void)                           /* one step: the arrow, then the
 {
     if (!am_undo(&G)) return 0;
     anim.on = 0;
+    pending = -1;
     refresh();
     return 1;
 }
@@ -105,8 +108,44 @@ static int script(const char *s)
 {
     int ok = am_script(&G, s);
     anim.on = 0;
+    pending = -1;
     refresh();
     return ok;
+}
+
+/* the bot's side (amazons_bot.c): the game to copy, and its turn played as taps play it: "d1-d7/g7" slides the
+ * amazon, then its arrow flies once it has arrived (busy() the while); a step alone, "d1-d7" or "/g7", too */
+const amgame *amazons_live(void) { return &G; }
+
+int amazons_show(const char *s)
+{
+    const ampos *p = am_pos(&G);
+    int from = -1, to = -1, arrow = -1;
+    if (am_winner(&G) >= 0 || pending >= 0) return 0;
+    if (*s != '/') {
+        from = am_square(s);
+        s += from >= 9 * AM_N ? 3 : 2;
+        if (from < 0 || *s++ != '-' || (to = am_square(s)) < 0) return 0;
+        s += to >= 9 * AM_N ? 3 : 2;
+    }
+    if (*s == '/') {
+        arrow = am_square(++s);
+        if (arrow < 0) return 0;
+        s += arrow >= 9 * AM_N ? 3 : 2;
+    }
+    if (*s || (from < 0 && arrow < 0)) return 0;
+    if (from >= 0) {                            /* the whole turn checked before anything moves */
+        amgame t;
+        t.ply = 0;
+        t.pos[0] = *p;
+        if (!am_move(&t, from, to) || (arrow >= 0 && !am_shoot(&t, arrow))) return 0;
+        move(from, to, 1);
+        pending = arrow;
+        return 1;
+    }
+    if (p->stage != AM_SHOOT || !reaches(arrow)) return 0;
+    shoot(arrow);
+    return 1;
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -222,6 +261,12 @@ static float ease(float t) { return 1 - (1 - t) * (1 - t) * (1 - t); }
 
 static void draw(void)
 {
+    if (pending >= 0 && (!anim.on || ui_ms() - anim.t0 >= MOVE_MS)) {   /* a bot's amazon has arrived: its arrow */
+        int to = pending;
+        pending = -1;
+        shoot(to);
+        ui_animate();
+    }
     const ampos *p = am_pos(&G);
     float n = (float)(AM_N * sq + 2 * fr), h = sq / 2.0f, x, y;
     ui_put(t_board, bx - fr, by - fr, n, n);
@@ -240,6 +285,7 @@ static void draw(void)
         if (t >= 1) t = 1, anim.on = 0;
         else ui_animate();
     }
+    if (pending >= 0) ui_animate();             /* the next frame shoots it */
     int sliding = anim.on && anim.stage == AM_MOVE, flying = anim.on && anim.stage == AM_SHOOT;
     float fly = flying ? fminf(1, t * (FLY_MS + BURN_MS) / FLY_MS) : 1;          /* the flight, 0..1 */
     float burn = flying ? fmaxf(0, (t * (FLY_MS + BURN_MS) - FLY_MS) / BURN_MS) : 1;   /* then the fire */
@@ -288,7 +334,7 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static void press(float x, float y)
 {
-    if (status() != GS_PLAY) return;
+    if (status() != GS_PLAY || pending >= 0) return;
     const ampos *p = am_pos(&G);
     int s = xy_sq(x, y);
     if (p->stage == AM_SHOOT) {                 /* the arrow: a tap on one of its squares */
@@ -355,7 +401,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
-static int busy(void) { return anim.on; }     /* the end waits for the last arrow to burn its square */
+static int busy(void) { return anim.on || pending >= 0; }   /* the end waits for the last arrow to burn its square */
 
 static const game amazons_game = {
     .id = "amazons", .order = 210, .variants = 1,

@@ -98,6 +98,23 @@ static int script(const char *s)
     return hl_script(&G, s);
 }
 
+/* the bot's side (halma_bot.c): the game to copy, and its move ("c4-e6": the marble's hole and the hole it reaches)
+ * played as a tap plays it, hop by hop */
+const hl_game *halma_live(void) { return &G; }
+
+int halma_show(const char *move)
+{
+    int la, lb, from = hl_hole(move, &la), to = from < 0 || move[la] != '-' ? -1 : hl_hole(move + la + 1, &lb);
+    int reach[HL_HOLES], n = to < 0 || move[la + 1 + lb] || hl_status(&G) != HL_PLAY ? 0 : hl_targets(&G, from, reach);
+    for (int i = 0; i < n; i++)
+        if (reach[i] == to) {
+            calm();
+            move_to(from, to, 1);
+            return 1;
+        }
+    return 0;
+}
+
 /* ---- the board's picture ----------------------------------------------------------------------------------------- */
 /* how far (in spacings) the point (x, y) is outside the star's triangle pointing down (its tip at ivory's point), < 0
  * inside; the one pointing up: the same with y turned */

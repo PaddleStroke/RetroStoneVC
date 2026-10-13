@@ -102,6 +102,17 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot's side (spread_bot.c): the game to copy, and its move played as a tap plays it */
+const spdgame *spread_live(void) { return &G; }
+
+int spread_show(const char *move)
+{
+    int a = spd_cell(move), b = a < 0 || !move[1] ? -1 : spd_cell(move + 2);
+    if (b < 0 || move[4] || target(a, b) < 0) return 0;
+    play((spdmove){(uint8_t)a, (uint8_t)b}, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a blocked cell: a walnut block set in the plank, lit along its top and left edges (the square of side s at x, y) */
 static void paint_block(uint8_t *o, int w, int h, float x0, float y0, float s)

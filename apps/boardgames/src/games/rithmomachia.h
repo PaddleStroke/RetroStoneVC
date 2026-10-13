@@ -88,4 +88,8 @@ int  rhm_status(const rhmgame *g);              /* RHM_* */
 int  rhm_script(rhmgame *g, const char *s);     /* "c4d5 b13b11": 0 at the first that is not legal */
 #define rhm_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (rithmomachia_bot.c, bots.h) */
+const rhmgame *rithmomachia_live(void);         /* the game on the screen, read-only: the bot copies it at entry */
+int rithmomachia_show(const char *move);        /* main thread: plays "c4d5" as a tap does (animated); 0: not legal */
+
 #endif

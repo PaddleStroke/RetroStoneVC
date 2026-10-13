@@ -93,4 +93,8 @@ int hl_hole(const char *s, int *len);           /* "e5": the hole (len: its leng
 void hl_name(int h, char out[4]);
 int hl_script(hl_game *g, const char *s);       /* plays "c4-c5 ..."; 0: a bad or illegal move */
 
+/* the bot (halma_bot.c, bots.h) */
+const hl_game *halma_live(void);                /* the game on the screen, read-only: the bot copies it at entry */
+int halma_show(const char *move);               /* main thread: plays "c4-e6" as a tap does (animated); 0: not legal */
+
 #endif

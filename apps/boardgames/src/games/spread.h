@@ -60,4 +60,8 @@ int  spd_score(const spdgame *g, int player);   /* the pieces, and the empty cel
 int  spd_script(spdgame *g, const char *s);     /* "a1b2 g1f3": 0 at the first that is not legal */
 #define spd_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (spread_bot.c, bots.h) */
+const spdgame *spread_live(void);               /* the game on the screen, read-only: the bot copies it at entry */
+int spread_show(const char *move);              /* main thread: plays "a1b2" as a tap does (animated); 0: not legal */
+
 #endif

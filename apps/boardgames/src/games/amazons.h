@@ -56,4 +56,8 @@ int  am_winner(const amgame *g);                /* -1 the game goes on, else the
 int  am_script(amgame *g, const char *steps);   /* plays steps in the notation above; 0: one is bad */
 #define am_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (amazons_bot.c, bots.h) */
+const amgame *amazons_live(void);               /* the game on the screen, read-only: the bot copies it at entry */
+int amazons_show(const char *turn);             /* main thread: "d1-d7/g7" as taps play it (animated); 0: not legal */
+
 #endif

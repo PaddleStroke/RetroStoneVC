@@ -96,6 +96,17 @@ static int script(const char *s)
     return 1;
 }
 
+/* the bot's side (loa_bot.c): the game to copy, and its move played as a tap plays it */
+const lgame *loa_live(void) { return &G; }
+
+int loa_show(const char *move)
+{
+    int used, k = loa_find(legal, nlegal, move, &used);
+    if (k < 0 || move[used]) return 0;
+    play(k, 1);
+    return 1;
+}
+
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
 static void layout(box b)
 {

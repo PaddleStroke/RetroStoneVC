@@ -96,4 +96,8 @@ int mp_hole(const char *s, int *len);           /* "e5": the hole (len: its leng
 void mp_name(int h, char out[3]);
 int mp_script(mpgame *g, const char *s);        /* plays "c3c5:ne a1:e ..."; 0: a bad or illegal move */
 
+/* the bot (marblepush_bot.c, bots.h) */
+const mpgame *marblepush_live(void);            /* the game on the screen, read-only: the bot copies it at entry */
+int marblepush_show(const char *move);          /* main thread: plays "c3c5:ne" as taps do (animated); 0: not legal */
+
 #endif

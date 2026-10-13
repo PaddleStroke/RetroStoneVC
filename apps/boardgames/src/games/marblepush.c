@@ -189,6 +189,30 @@ static int script(const char *moves)
     return mp_script(&G, moves);
 }
 
+/* the bot's side (marblepush_bot.c): the game to copy, and its move ("c3c5:ne", the two ends of the marbles and the
+ * direction) played as taps play it */
+const mpgame *marblepush_live(void) { return &G; }
+
+int marblepush_show(const char *move)
+{
+    static const char *const DIR[6] = {"e", "ne", "nw", "w", "sw", "se"};
+    int h[3], k = 0, len, dir = -1;
+    while (k < 3 && (h[k] = mp_hole(move, &len)) >= 0) { k++; move += len; }
+    if (!k || *move++ != ':') return 0;
+    for (int d = 0; d < 6; d++)
+        if (!strcmp(move, DIR[d])) dir = d;
+    mpmove m = {.dir = (int8_t)dir}, all[MP_MAX_MOVES];
+    m.n = (int8_t)mp_line(h[0], h[k - 1], m.cell);
+    if (dir < 0 || !m.n || mp_status(&G) != MP_PLAY) return 0;
+    for (int i = 0, n = mp_legal(now(), all); i < n; i++)
+        if (mp_same(&all[i], &m)) {
+            ptr.on = 0;
+            play(&all[i]);
+            return 1;
+        }
+    return 0;
+}
+
 /* the marbles player p has pushed off, as shown: the one still on its way to the tray not yet */
 static int shown_taken(int p)
 {

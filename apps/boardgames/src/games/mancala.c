@@ -150,6 +150,18 @@ static int script(const char *s)
     return 1;
 }
 
+/* the bot's side (mancala_bot.c): the game to copy, and its move played as a tap plays it */
+const mc_game *mancala_live(void) { return &G; }
+
+int mancala_show(const char *move)
+{
+    char *end;
+    long p = strtol(move, &end, 10);
+    if (end == move || *end || !mc_legal(&G, (int)p - 1)) return 0;
+    play((int)p - 1, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a pit carved into the plank: darker inside, its wall in shade at the top left and lit at the bottom right */
 static void carve(uint8_t *o, int w, int h, float cx, float cy, float rx, float ry)
