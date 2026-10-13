@@ -53,4 +53,11 @@ int gk_line(const gkgame *g, uint8_t line[GK_MAXPTS]);
 int gk_point(int n, const char *s, int *len);   /* "h8" on an n x n board: the point, else -1; len: its length */
 int gk_script(gkgame *g, const char *s);        /* plays "h8 i9 ..."; 0: a bad or illegal move */
 
+/* the bot (gomoku_bot.c, bots.h), and what the screen (gomoku.c) gives it; a headless test defines those two */
+const gkgame *gomoku_live(void);                /* the game on the screen, read-only: the bot copies it at entry */
+int gomoku_show(const char *move);              /* main thread: one stone ("h8") as a tap does (animated); 0: not
+                                                 * legal */
+struct ai_stats;
+int gkb_choose(const gkgame *g, int level, uint64_t seed, struct ai_stats *stats);   /* the point; -1: none */
+
 #endif

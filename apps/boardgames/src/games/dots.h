@@ -55,4 +55,13 @@ dstatus dots_status(const dgame *g);
 int  dots_script(dgame *g, const char *moves);  /* plays lines in the notation above; 0: one is bad */
 #define dots_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (dots_bot.c, bots.h), and what the screen (dots.c) gives it; a headless test defines those two */
+const dgame *dots_live(void);                   /* the game on the screen, read-only: the bot copies its position */
+int  dots_show(const char *move);               /* main thread: draws "h1,1" as a tap does (animated); 0: not legal */
+/* the bot's line for the player to move at a level (AI_EASY..AI_HARD); -1: none */
+int  dtb_choose(const dpos *p, int level, uint64_t seed);
+/* the boxes the player to move can still win against best play with no line left that is safe to draw (the chains
+ * and loops: the long-chain endgame), counted from the position (its claimed boxes left out); for the tests */
+int  dtb_endgame(const dpos *p);
+
 #endif

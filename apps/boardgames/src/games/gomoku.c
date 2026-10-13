@@ -82,6 +82,17 @@ static void play(int pt)
     find_forbidden();
 }
 
+/* the bot's side (bots.h): the game, read-only; a stone in the notation ("h8"), played as a tap does */
+const gkgame *gomoku_live(void) { return &G; }
+
+int gomoku_show(const char *move)
+{
+    int len, pt = gk_point(G.n, move, &len);
+    if (pt < 0 || move[len] || !legal(pt)) return 0;
+    play(pt);
+    return 1;
+}
+
 static int undo(void)
 {
     calm();

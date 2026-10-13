@@ -62,6 +62,19 @@ static void play(int line, int animate)
     if (claimed) ui_sound(SND_CHECK);           /* a box: a chime, and the same player again */
 }
 
+/* the bot's side (bots.h): the game, read-only; a line in the notation ("h1,1"), drawn as a tap does */
+const dgame *dots_live(void) { return &G; }
+
+int dots_show(const char *move)
+{
+    const dpos *p = dots_pos(&G);
+    int len, line = dots_parse(p->n, move, &len);
+    if (line < 0 || move[len] || p->line[line] >= 0 || status() != GS_PLAY) return 0;
+    hold.on = 0;
+    play(line, 1);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!dots_undo(&G)) return 0;

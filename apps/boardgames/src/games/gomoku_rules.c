@@ -128,9 +128,8 @@ static int forbidden_at(gkgame *g, int p, int depth)
 
 int gk_forbidden(const gkgame *g, int p)
 {
-    static gkgame copy;
     if (g->variant != GK_RENJU || p < 0 || p >= g->n * g->n || g->pt[p] != GK_EMPTY) return 0;
-    copy = *g;
+    gkgame copy = *g;                           /* a local: the bot's thread tests points too (bots.h) */
     return forbidden_at(&copy, p, 0);
 }
 
