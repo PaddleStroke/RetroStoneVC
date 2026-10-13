@@ -7,6 +7,6 @@ Tryk på en lampe: den skifter (fra tændt til slukket eller fra slukket til tæ
 # Spillets afslutning
 Opgaven er løst, når hver lampe er slukket: en bølge af gyldent lys løber over brættet. Det mindste mulige antal tryk er regnet ud for hvert bræt; nå det, hvis du kan.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 3 × 3 lamper op til 7 × 7, mange af dem i mønstre; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Par er det mindste antal tryk. Løst på par: 3 stjerner; med op til halvt så mange tryk mere: 2 stjerner; ellers 1. Fortryd tager et tryk tilbage, og det tæller ikke længere.
+Der er 150 baner i seks kapitler, fra 3 × 3 lamper op til 7 × 7, mange af dem i mønstre; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal tryk, der løser den. Løst på par: 3 stjerner; med op til halvt så mange tryk mere: 2 stjerner; ellers 1. Fortryd tager et tryk tilbage, og det tæller ikke længere.
 # Spil på enheden
 Tryk på en lampe for at trykke den ned. Lampen ved siden af brættet giver et tip: den trykker på én lampe på den korteste vej, i gyldent lys. Fortryd tager ét tryk tilbage ad gangen, helt til starten. Bjælken viser dine tryk og, yderst til højre, det mindste mulige antal fra starten; den gløder gyldent, når du når det.

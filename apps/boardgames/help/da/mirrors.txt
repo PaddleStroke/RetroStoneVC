@@ -2,7 +2,7 @@ Spejle
 # Målet
 En messinglampe sender en lysstråle hen over brættet. Drej og placér spejlene, så strålen oplyser alle ædelstene uden at røre nogen bombe. Vælg først niveau (stenene under hvert billede): let, middel, svær eller ekspert.
 - Et spejl knækker strålen i en ret vinkel. Spejlene på en drejetap af valnød bliver i deres felt: du drejer dem kun den ene vej (/) eller den anden (\).
-- De løse spejle venter i bakken under brættet: stil dem på tomme felter.
+- De løse spejle venter i bakken ved kanten af brættet: stil dem på tomme felter.
 - Strålen går lige gennem ædelstene og tomme felter. En træklods stopper den, og det gør brættets kant også.
 - Fra det svære niveau lukker en glasplade halvdelen af lyset igennem og knækker den anden halvdel.
 Hver opgave har præcis én løsning, som man finder ved at følge strålen og tænke sig om.
@@ -15,4 +15,4 @@ Der er 150 baner i seks kapitler, fra 5 × 5 med kun drejelige spejle op til 8 �
 # Spil på enheden
 - Tryk på et spejl på en tap for at dreje det.
 - Tryk på et tomt felt for at stille et løst spejl der; tryk igen for at dreje det og en tredje gang for at lægge det tilbage i bakken. Du kan også trække et spejl fra bakken til et felt, fra et felt til et andet eller af brættet.
-Strålen følger hver ændring med det samme. En oplyst ædelsten gløder; en bombe, som strålen rammer, lyser rødt. Lampen i bjælken er et tip: den stiller ét spejl rigtigt og lyser det op i guld. Fortryd tager én handling tilbage ad gangen, helt til begyndelsen. Bjælken viser dine træk.
+Strålen følger hver ændring med det samme. En oplyst ædelsten gløder; en bombe, som strålen rammer, lyser rødt. Lampen er et tip: den stiller ét spejl rigtigt og lyser det op i guld. Fortryd tager én handling tilbage ad gangen, helt til begyndelsen. Bjælken viser dine træk.

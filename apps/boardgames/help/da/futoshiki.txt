@@ -9,9 +9,9 @@ Skriv et tal i et tomt felt. Du kan ændre det eller tage det ud når som helst;
 # Spillets afslutning
 Opgaven er løst, når gitteret er fyldt og rigtigt: en bølge af gyldent lys løber over brættet.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 4 × 4 op til 7 × 7, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert tal, som du derefter fortryder.
+Der er 150 baner i seks kapitler, fra 4 × 4 op til 7 × 7, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert tal, som du tager tilbage med Fortryd.
 # Spil på enheden
-Tryk på et felt og derefter på en tast under brættet: dens tal kommer ind med blåt blæk (de givne tal er mørke). Tryk på samme tast igen for at tage det ud, eller træk en tast hen på et felt. Feltets række og kolonne lyser svagt op, og felter med samme tal varmere. Er der ikke valgt et tomt felt, lyser en tast felterne med dens tal op. Knapperne ved siden af brættet:
+Tryk på et felt og derefter på en tast ved siden af brættet: dens tal kommer ind med blåt blæk (de givne tal er mørke). Tryk på samme tast igen for at tage det ud, eller træk en tast hen på et felt. Feltets række og kolonne lyser svagt op, og felter med samme tal varmere. Er der ikke valgt et tomt felt, lyser en tast felterne med dens tal op. Knapperne ved siden af brættet:
 - Blyant: noter. Tasterne sætter så små tal i feltet eller fjerner dem. Et tal, du skriver ind, sletter den note i sin række og kolonne.
 - Viskelæder: tager feltets tal ud eller dets noter.
 - Lampe: et tip. Den retter et forkert tal eller udfylder ellers det letteste felt, i gyldent lys.

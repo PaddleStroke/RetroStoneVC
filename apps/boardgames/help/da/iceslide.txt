@@ -7,7 +7,7 @@ Skub pucken op, ned, til venstre eller til højre. På isen standser den ikke af
 # Spillets afslutning
 Opgaven er løst, når pucken falder ned i hullet. Løst på par løber et gyldent lys ud over isen.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 5 × 5 felter is op til 10 × 9; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Par er det mindste antal skub. Løst på par: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1. Fortryd tager et skub tilbage, og det tæller ikke længere.
+Der er 150 baner i seks kapitler, fra 5 × 5 felter is op til 10 × 9; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal skub, der løser den. Løst på par: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1. Fortryd tager et skub tilbage, og det tæller ikke længere.
 # Spil på enheden
-Stryg hen over isen i den retning, du vil, tryk på et felt i puckens række eller søjle, eller tryk på en af de fire pile under brættet (på en computer virker piletasterne også). En pil er dæmpet, når pucken ikke kan gå den vej.
+Stryg hen over isen i den retning, du vil, tryk på et felt i puckens række eller søjle, eller tryk på en af de fire pile ved siden af brættet (på en computer virker piletasterne også). En pil er dæmpet, når pucken ikke kan gå den vej.
 Lampen giver et tip: det næste skub på en korteste vej, med pilen i guld og banen prikket i guld. Kan hullet ikke længere nås, tager tippet først de skub tilbage, der førte dertil. Fortryd tager ét skub tilbage ad gangen, helt til starten. Bjælken viser dine skub og, yderst til højre, par.

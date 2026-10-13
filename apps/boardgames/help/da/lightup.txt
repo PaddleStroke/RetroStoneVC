@@ -10,12 +10,12 @@ Sæt en lampe i et hvidt felt, eller fjern den. Du kan også sætte en prik i et
 # Spillets afslutning
 Opgaven er løst, når hvert hvidt felt er oplyst, ingen lampe lyser en anden op, og hvert tal har sine lamper: En bølge af gyldent lys løber over brættet.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 6 × 6 op til 14 × 14, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert lampe eller prik, som du derefter fortryder.
+Der er 150 baner i seks kapitler, fra 6 × 6 op til 14 × 14, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert lampe eller prik, som du tager tilbage med Fortryd.
 # Spil på enheden
 - Tryk på et hvidt felt for at sætte en lampe; tryk igen for at fjerne den.
 - Hold fingeren et øjeblik på et felt for at sætte en prik, eller fjerne den.
 - Træk langs en række eller kolonne for at sætte prikker i et helt stykke (eller fjerne dem fra et stykke med prikker).
-De oplyste felter gløder varmt. To lamper, der lyser hinanden op, gløder rødt; et tal bliver rødt, når det har for mange lamper, og blegner, når det har dem alle. Knapperne yderst til højre i bjælken (i liggende format i sidekolonnen):
+De oplyste felter gløder varmt. To lamper, der lyser hinanden op, gløder rødt; et tal bliver rødt, når det har for mange lamper, og blegner, når det har dem alle. Knapperne ved siden af brættet:
 - Lampe eller prik: hvad et tryk sætter. Tryk på den for at bytte om på tryk og hold.
 - Elpære: et tip. Den retter et forkert felt eller viser ellers det næste felt, tankegangen finder, i gyldent lys.
 Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

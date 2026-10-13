@@ -10,12 +10,12 @@ Slå et telt op i et felt, eller tag det ned. Du kan også lægge græs i et fel
 # Spillets afslutning
 Marken er løst, når hvert træ har sit telt, ingen telte rører hinanden, og hvert tal passer: En bølge af gyldent lys løber over marken.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert telt eller græs, som du derefter fortryder.
+Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert telt eller græs, som du tager tilbage med Fortryd.
 # Spil på enheden
 - Tryk på et felt for at slå et telt op; tryk igen for at tage det ned.
 - Hold fingeren et øjeblik på et felt for at lægge græs, eller fjerne det.
 - Træk langs en række eller kolonne for at lægge græs i et helt stykke (eller fjerne det fra et stykke med græs).
-Telte, der rører hinanden, gløder rødt, og det samme gør et træ uden plads til sit telt. Et tal bliver rødt, når dets linje har for mange telte, og blegner, når den har dem alle. Knapperne yderst til højre i bjælken (i liggende format i sidekolonnen):
+Telte, der rører hinanden, gløder rødt, og det samme gør et træ uden plads til sit telt. Et tal bliver rødt, når dets linje har for mange telte, og blegner, når den har dem alle. Knapperne ved siden af brættet:
 - Telt eller græs: hvad et tryk sætter. Tryk på den for at bytte om på tryk og hold.
 - Elpære: et tip. Den retter et forkert felt eller viser ellers det næste felt, tankegangen finder, i gyldent lys.
 Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

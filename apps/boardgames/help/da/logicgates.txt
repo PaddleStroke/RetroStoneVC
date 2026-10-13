@@ -18,7 +18,7 @@ Nogle ledninger har en lille cremefarvet sikring. Tryk på sikringen for at klip
 En kontakt med en påskruet messingstang hen over bliver, som den er.
 # Baner og stjerner
 Kapitlerne: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporskifter; 4 ledninger, der kan klippes; 5 længere kæder, én kontakt til flere porte, porte med tre indgange; 6 store kredsløb med det hele.
-Et træk er ét skift eller ét klip. Hver bane har et par, det mindste antal træk, der løser den. Løst på par: 3 stjerner; op til to træk mere: 2 stjerner; ellers 1. Beder du om et tip, kan banen højst give 2 stjerner. Fortryd tager et træk tilbage, og det tæller ikke længere. Løste baner forbliver åbne, og det gør de første tre uløste også.
+Et træk er ét skift eller ét klip. Hver bane har et par: det mindste antal træk, der løser den. Løst på par: 3 stjerner; op til to træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner. Fortryd tager et træk tilbage, og det tæller ikke længere. Løste baner forbliver åbne, og det gør de første tre uløste også.
 # Spil på enheden
 - Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den. Dine stjerner gemmes på enheden.
 - Tryk på en kontakt for at skifte den, på et sporskifte for at dreje det, på en sikring for at klippe dens ledning. Ændringen løber op ad ledningerne, port efter port.

@@ -10,9 +10,9 @@ Sæt et ciffer i et tomt felt. Du kan ændre det eller fjerne det når som helst
 # Spillets afslutning
 Opgaven er løst, når gitteret er fuldt og rigtigt: en bølge af gyldent lys går hen over brættet.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, hver med kun én løsning: de første kræver kun singler og giver mange cifre, de sidste beder dig prøve et ciffer og følge det, til noget går galt. Vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, på det niveau, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du derefter fortryder.
+Der er 150 baner i seks kapitler, hver med kun én løsning: de første kræver kun singler og giver mange cifre, de sidste beder dig prøve et ciffer og følge det, til noget går galt. Vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, på det niveau, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.
 # Spil på enheden
-Tryk på et felt og derefter på en tast under brættet: cifret skrives ind med blåt blæk (de givne cifre er mørke). Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets række, kolonne og boks lyser svagt op, og alle felter med samme ciffer varmere. Er intet tomt felt valgt, lyser en tast felterne med dens ciffer op. Knapperne ved siden af brættet:
+Tryk på et felt og derefter på en tast ved siden af brættet: cifret skrives ind med blåt blæk (de givne cifre er mørke). Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets række, kolonne og boks lyser svagt op, og alle felter med samme ciffer varmere. Er intet tomt felt valgt, lyser en tast felterne med dens ciffer op. Knapperne ved siden af brættet:
 - Blyant: noter. Tasterne sætter så små cifre i feltet eller fjerner dem. Et ciffer, du skriver ind, sletter den note i sin række, kolonne og boks.
 - Viskelæder: fjerner feltets ciffer eller dets noter.
 - Lampe: et tip. Den retter et forkert ciffer eller udfylder ellers det letteste felt, i gyldent lys.

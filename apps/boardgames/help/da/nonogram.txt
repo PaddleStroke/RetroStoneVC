@@ -7,7 +7,7 @@ Udfyld et felt, eller sæt et kryds i et felt, du ved er tomt. Krydsene er kun n
 # Spillets afslutning
 Når hver række og hver kolonne passer med sine ledetråde, er opgaven løst: krydsene forsvinder, billedet kommer frem i sine farver, og et gyldent lys går hen over det.
 # Baner og stjerner
-Der er 150 baner i seks kapitler: små billeder tegnet til spillet, fra 5 × 5 op til 15 × 15, som hvert kan findes linje for linje; vælg en i baneoversigten. En bane, du har løst, viser sit billede i oversigten. Fanen med terningen efter kapitlerne tegner et billede tilfældigt, i den størrelse, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et felt udfyldt uden for billedet, eller et kryds på det, som du derefter fortryder.
+Der er 150 baner i seks kapitler: små billeder tegnet til spillet, fra 5 × 5 op til 15 × 15, som hvert kan findes linje for linje; vælg en i baneoversigten. En bane, du har løst, viser sit billede i oversigten. Fanen med terningen efter kapitlerne tegner et billede tilfældigt, i den størrelse, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et felt udfyldt uden for billedet, eller et kryds på det, som du tager tilbage med Fortryd.
 # Spil på enheden
 - Tryk på et felt for at udfylde det; tryk igen for at tømme det.
 - Hold fingeren et øjeblik på et felt for i stedet at sætte et kryds. Krydsknappen ved siden af brættet får tryk til at sætte kryds (eller udfylde igen); den viser, hvad et tryk gør.

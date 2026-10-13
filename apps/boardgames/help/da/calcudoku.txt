@@ -7,7 +7,7 @@ Udfyld gitteret, så hver række og hver søjle har hvert ciffer fra 1 til gitte
 # Baner og stjerner
 Der er 150 baner i seks kapitler, fra 4 × 4 op til 9 × 9, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.
 # Spil på enheden
-Tryk på et felt og så på en tast under brættet: cifret kommer ind med blåt blæk. Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets række og søjle lyser svagt op, dets bur lidt mere, og alle felter med samme ciffer varmt. Uden valgt felt får en tast felterne med sit ciffer til at lyse. Knapperne ved siden af brættet:
+Tryk på et felt og så på en tast ved siden af brættet: cifret kommer ind med blåt blæk. Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets række og søjle lyser svagt op, dets bur lidt mere, og alle felter med samme ciffer varmt. Uden valgt felt får en tast felterne med sit ciffer til at lyse. Knapperne ved siden af brættet:
 - Blyant: noter. Tasterne sætter så små cifre i feltet eller fjerner dem.
 - Viskelæder: fjerner feltets ciffer eller dets noter.
 - Lampe: et tip. Den retter et forkert ciffer eller udfylder ellers et felt, som logikken finder, i gyldent lys.

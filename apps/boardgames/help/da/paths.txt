@@ -13,5 +13,5 @@ Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én l
 - At gå tilbage ad stien gør den kortere. At krydse en anden sti klipper den over; den kommer igen, hvis du går tilbage, før du løfter fingeren. En sti går aldrig over en prik i en anden farve.
 - Når en sti når sin anden prik, er parret forbundet, og dets prikker klinger.
 - Kun med tryk: tryk på en prik eller et felt på en sti (dens ende bliver markeret), og så på et felt i samme række eller søjle: stien løber lige derhen. Tryk på den markerede ende igen for at slippe den.
-- Lampen i højre ende af bjælken giver et tip: den lægger et pars sti som i løsningen, i gyldent lys.
+- Lampen giver et tip: den lægger et pars sti som i løsningen, i gyldent lys.
 Felterne på en sti tones i dens farve. Fortryd tager ét strøg eller ét tip tilbage ad gangen, helt til starten. Bjælken viser dine træk.
