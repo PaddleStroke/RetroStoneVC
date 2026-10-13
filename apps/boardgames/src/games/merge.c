@@ -505,12 +505,8 @@ static void bar(int player, box b)
         ui_number(x + bw_ / 2, cy, dh, (int)top, 1);
         return;
     }
-    /* narrow: the score above, the best under it by a small star */
-    float h2 = 0.34f * u, s2 = 0.38f * u, y1 = cy - 0.22f * u, y2 = cy + 0.24f * u;
-    ui_number(b.x + digits_w(score, h2) / 2, y1, h2, (int)score, 1);
-    ui_mark_gold(b.x + s2 / 2, y2, 1.6f * s2);
-    ui_put(t_best, b.x, y2 - s2 / 2, s2, s2);
-    ui_number(b.x + s2 + 0.1f * u + digits_w(top, h2) / 2, y2, h2, (int)top, 1);
+    /* narrow: the shell fits both counts on one row, smaller */
+    ui_bar_fit(b, (ui_count[]){{t_small, (int)score}, {t_best, (int)top}}, 2, 0);
 }
 
 /* ---- the menu's and the picker's cards: the tray of that size with tiles on it ------------------------------- */
