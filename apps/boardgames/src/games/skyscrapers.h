@@ -31,6 +31,8 @@
 #define SKY_VARIANTS (SKY_SIZES * 3)
 #define SKY_MAX 7
 #define SKY_CELLS (SKY_MAX * SKY_MAX)
+#define SKY_LEVELS 150                          /* the designed levels (skyscrapers_levels.h), in six chapters */
+#define SKY_CHAPTERS 6
 
 enum { SKY_TOP, SKY_RIGHT, SKY_BOTTOM, SKY_LEFT };   /* the edges, clockwise */
 
@@ -58,12 +60,20 @@ int  sky_level(int variant);
 int  sky_grade(const sky_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  sky_count(const sky_puzzle *p, int limit);
 void sky_make(int n, int level, uint32_t seed, sky_puzzle *p, uint8_t *sol);
+/* the levels (skyscrapers_levels.h, made by tools/skyscrapers_gen.c): a puzzle as text, "<n>:", the edge numbers
+ * (top, right, bottom, left: a digit each, '0' not told), then a character a cell, row by row (a height given,
+ * '.' none) */
+int  sky_encode(const sky_puzzle *p, char *out, int size);   /* its length; 0: no room */
+int  sky_decode(const char *s, sky_puzzle *p);    /* 1: a puzzle */
+/* the work a puzzle asks of the solver: its grade (BENCH_*), the passes (each tier tried once round) and the
+ * finds of the medium way */
+int  sky_effort(const sky_puzzle *p, long *passes, long *mediums);
 /* the buildings seen along a line from an edge (heights in the order seen; 0: an empty cell stops the count: -1) */
 int  sky_seen(const uint8_t *heights, int n);
 int  sky_line(int n, int edge, int i, int j);   /* the j-th cell seen from an edge along its line i */
 
 void sky_new(sky_game *g, int variant, uint32_t seed);
-void sky_load(sky_game *g, const sky_puzzle *p, int level);
+int  sky_load(sky_game *g, const sky_puzzle *p);   /* a puzzle given (a level), graded and solved; 1: it solves */
 int  sky_free(const sky_game *g, int c);        /* 1: the player's to fill (not given) */
 int  sky_put(sky_game *g, int c, int h);        /* a height (0: none; the notes go, and its notes in the cell's lines);
                                                  * 0: nothing changed */

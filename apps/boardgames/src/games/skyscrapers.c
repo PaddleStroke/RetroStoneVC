@@ -13,6 +13,8 @@
  * turns red when its full line shows another count, and fades when it shows its own. A key fades once its height is
  * in every row. Undo takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold
  * light runs over the town from the last cell; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, made by tools/skyscrapers_gen.c:
+ * skyscrapers_levels.h), or its die tab a puzzle made at random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -21,6 +23,7 @@
 #include "shell.h"
 #include "games/bench_ui.h"
 #include "games/skyscrapers.h"
+#include "games/skyscrapers_levels.h"
 
 #define BAND 0.7f                               /* the edge numbers' bands, in cells */
 
@@ -143,14 +146,27 @@ static void calm(void)
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    sky_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     sel = -1;
     notes = 0;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    sky_puzzle p;
+    if (!sky_decode(sky_levels[level < 0 || level >= SKY_LEVELS ? 0 : level], &p) || !sky_load(&G, &p))
+        sky_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    sky_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return sky_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -362,26 +378,35 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a town of the size, its numbers (the menu's: half built); under the
- * picker's, its level in ebony stones ---------------------------------------------------------------------------- */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+/* ---- the pictures of towns: the menu's and the picker's cards (a town of the size, its numbers; the menu's: half
+ * built; under the picker's, its level in ebony stones), the chapters' tabs ------------------------------------- */
+/* a town (its given heights, and those of sol: all of them, or the first half; sol NULL: none) on a side x side
+ * plank, at the top of a size x size picture (in its middle when mid) */
+static void paint_town(const sky_puzzle *p, const uint8_t *sol, int half, int size, int side, int mid, uint8_t *rgba)
 {
-    int v = variant < 0 ? 4 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
-    sky_puzzle p;
-    uint8_t sol[SKY_CELLS], heights[SKY_CELLS];
-    sky_make(sky_size(v), sky_level(v), 2026u + (uint32_t)v, &p, sol);
-    int n = p.n;
-    for (int c = 0; c < n * n; c++) heights[c] = p.given[c] ? p.given[c] : variant < 0 && c < n * n / 2 ? sol[c] : 0;
+    uint8_t heights[SKY_CELLS];
+    int n = p->n;
+    for (int c = 0; c < n * n; c++)
+        heights[c] = p->given[c] ? p->given[c] : sol && (!half || c < n * n / 2) ? sol[c] : 0;
     bench_geo g;
     memset(&g, 0, sizeof g);
     fit(&g, n, (box){0, 0, (float)side, (float)side});
     uint8_t *b = calloc((size_t)g.w * g.h, 4);
     if (!b) return;
     bench_paint_grid(&g, b);
-    paint_clues(&g, &p, heights, b);
-    int ox = (size - side) / 2 + (int)g.bx, oy = (variant < 0 ? (size - side) / 2 : 0) + (int)g.by;
+    paint_clues(&g, p, heights, b);
+    int ox = (size - side) / 2 + (int)g.bx, oy = (mid ? (size - side) / 2 : 0) + (int)g.by;
     art_blend(rgba, size, size, b, g.w, g.h, ox, oy);
     free(b);
+}
+
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    int v = variant < 0 ? 4 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
+    sky_puzzle p;
+    uint8_t sol[SKY_CELLS];
+    sky_make(sky_size(v), sky_level(v), 2026u + (uint32_t)v, &p, sol);
+    paint_town(&p, variant < 0 ? sol : NULL, 1, size, side, variant < 0, rgba);
     if (variant >= 0 && !bare) bench_stones(rgba, size, side, sky_level(v));
 }
 
@@ -390,12 +415,23 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), built */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= SKY_CHAPTERS ? SKY_CHAPTERS - 1 : chapter;
+    static sky_game T;
+    sky_puzzle p;
+    if (!sky_decode(sky_levels[(ch + 1) * SKY_LEVELS / SKY_CHAPTERS - 1], &p) || !sky_load(&T, &p)) return;
+    paint_town(&p, T.sol, 0, size, (int)(0.92f * size), 1, rgba);
+}
+
 static const game skyscrapers_game = {
     .id = "skyscrapers", .order = 413, .variants = SKY_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {SKY_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .levels = SKY_LEVELS, .chapters = SKY_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(skyscrapers_game)

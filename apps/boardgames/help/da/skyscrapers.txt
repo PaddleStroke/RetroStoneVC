@@ -9,8 +9,10 @@ Nogle højder kan være givet fra start, på mørkere felter. Hver opgave har pr
 Sæt en højde i et felt, skift den eller fjern den. Små noter i et felt hjælper dig med at huske de højder, det stadig kan have.
 # Spillets afslutning
 Opgaven er løst, når hvert felt har sin bygning, og byen overholder alle reglerne: En bølge af gyldent lys løber over brættet.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 4 × 4 op til 7 × 7, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert højde, som du derefter fortryder.
 # Spil på enheden
-Tryk på et felt og derefter på en tast under brættet: Dens højde kommer i feltet (samme tast igen fjerner den). Du kan også trække en tast hen på et felt. Tryk på det valgte felt igen for at gøre dets bygning én etage højere; hold fingeren et øjeblik på et felt for at tømme det. Bygningerne er små tårne af træ: jo højere, jo større. Knapperne yderst til højre i bjælken:
+Tryk på et felt og derefter på en tast under brættet: Dens højde kommer i feltet (samme tast igen fjerner den). Du kan også trække en tast hen på et felt. Tryk på det valgte felt igen for at gøre dets bygning én etage højere; hold fingeren et øjeblik på et felt for at tømme det. Bygningerne er små tårne af træ: jo højere, jo større. Knapperne yderst til højre i bjælken (i liggende format i sidekolonnen):
 - Blyant: noter. Tasterne sætter så små højder i feltet eller fjerner dem. En højde, du sætter, sletter den note i sin række og kolonne.
 - Elpære: et tip. Den retter en forkert højde eller udfylder ellers det næste felt, tankegangen finder, i gyldent lys.
 En højde, der står to gange i en række eller kolonne, bliver rød. Et kanttal blegner, når dets fulde linje viser det rigtige antal, og bliver rødt, når den viser et andet. En tast blegner, når dens højde står i hver række. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

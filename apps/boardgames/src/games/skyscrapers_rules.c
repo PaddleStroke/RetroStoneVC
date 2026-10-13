@@ -5,6 +5,7 @@
  */
 #include "games/skyscrapers.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -168,10 +169,15 @@ static int medium(bench_grid *g, const ctx *k)
     return 0;
 }
 
+static long finds[2];                           /* each tier's finds (sky_effort counts them) */
+
 static int deduce(bench_grid *g, int tier, void *c)
 {
-    return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    int res = tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    if (res > 0) finds[tier ? 1 : 0]++;
+    return res;
 }
+
 
 static int valid(const bench_grid *g, void *cv)
 {
@@ -229,6 +235,51 @@ int sky_count(const sky_puzzle *p, int limit)
     bench_grid g;
     grid_of(p, &g);
     return bench_search(&g, &r, limit, NULL, NULL, 0);
+}
+
+int sky_effort(const sky_puzzle *p, long *passes, long *mediums)
+{
+    ctx k;
+    bench_rules r;
+    setup(&k, p, &r, NULL);
+    bench_grid g;
+    grid_of(p, &g);
+    finds[1] = 0;
+    int lv = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    if (mediums) *mediums = finds[1];
+    return lv;
+}
+
+/* ---- a puzzle as text (the levels) ------------------------------------------------------------------------------- */
+int sky_encode(const sky_puzzle *p, char *out, int size)
+{
+    int n = p->n, len = snprintf(out, (size_t)size, "%d:", n);
+    if (len < 0 || len + 4 * n + n * n + 1 > size) return 0;
+    for (int e = 0; e < 4; e++)
+        for (int i = 0; i < n; i++) out[len++] = (char)('0' + p->clue[e][i] % 10);
+    for (int c = 0; c < n * n; c++) out[len++] = p->given[c] ? (char)('0' + p->given[c] % 10) : '.';
+    out[len] = 0;
+    return len;
+}
+
+int sky_decode(const char *s, sky_puzzle *p)
+{
+    memset(p, 0, sizeof *p);
+    int n = 0;
+    for (; *s >= '0' && *s <= '9'; s++) n = n * 10 + *s - '0';
+    if (*s++ != ':' || n < 3 || n > SKY_MAX) return 0;
+    p->n = n;
+    for (int e = 0; e < 4; e++)
+        for (int i = 0; i < n; i++, s++) {
+            if (*s < '0' || *s > '0' + n) return 0;
+            p->clue[e][i] = (uint8_t)(*s - '0');
+        }
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s != '.' && (*s < '1' || *s > '0' + n)) return 0;
+        p->given[c] = (uint8_t)(*s == '.' ? 0 : *s - '0');
+    }
+    return !*s;
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -317,13 +368,13 @@ static void start_grid(sky_game *g)
     for (int c = 0; c < g->p.n * g->p.n; c++) g->st[c] = g->p.given[c];
 }
 
-void sky_load(sky_game *g, const sky_puzzle *p, int level)
+int sky_load(sky_game *g, const sky_puzzle *p)
 {
     memset(g, 0, sizeof *g);
     g->p = *p;
-    g->level = level;
-    sky_grade(p, g->sol);
+    g->level = sky_grade(p, g->sol);
     start_grid(g);
+    return g->level >= BENCH_EASY && g->level <= BENCH_HARD;
 }
 
 void sky_new(sky_game *g, int variant, uint32_t seed)

@@ -9,8 +9,10 @@ Algumas alturas podem ser dadas, em casas mais escuras. Cada tabuleiro tem uma �
 Põe uma altura numa casa, muda-a ou tira-a. Pequenas notas numa casa ajudam-te a lembrar as alturas que ela ainda pode ter.
 # O fim do jogo
 O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade cumpre todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma altura errada que depois tiras com Anular.
 # Jogar no dispositivo
-Toca numa casa e depois numa tecla por baixo do tabuleiro: a altura entra (a mesma tecla outra vez tira-a). Também podes arrastar uma tecla até uma casa. Toca outra vez na casa escolhida para subir o prédio um andar; mantém o dedo numa casa por um instante para a esvaziar. Os prédios são pequenas torres de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra:
+Toca numa casa e depois numa tecla por baixo do tabuleiro: a altura entra (a mesma tecla outra vez tira-a). Também podes arrastar uma tecla até uma casa. Toca outra vez na casa escolhida para subir o prédio um andar; mantém o dedo numa casa por um instante para a esvaziar. Os prédios são pequenas torres de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
 - Lápis: notas. As teclas passam a pôr alturas pequenas na casa, ou a tirá-las. Uma altura colocada apaga essa nota da sua linha e coluna.
 - Lâmpada acesa: uma ajuda. Corrige uma altura errada ou, se não houver, preenche a próxima casa que o raciocínio encontra, com luz dourada.
 Uma altura repetida numa linha ou coluna fica vermelha. Um número do bordo esbate-se quando a sua linha cheia mostra a contagem certa, e fica vermelho quando mostra outra. Uma tecla esbate-se quando a sua altura já está em todas as linhas. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

@@ -9,8 +9,10 @@ Bazı yükseklikler baştan, daha koyu karelerde verilmiş olabilir. Her bulmaca
 Bir kareye yükseklik koy, değiştir ya da kaldır. Bir karedeki küçük notlar, orada hâlâ olabilecek yükseklikleri hatırlamana yardım eder.
 # Oyunun sonu
 Her karenin binası olduğunda ve şehir bütün kurallara uyduğunda bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 4 × 4'ten 7 × 7'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Geri al ile kaldırdığın yanlış bir yükseklik hata sayılır.
 # Cihazda oynamak
-Bir kareye, sonra tahtanın altındaki bir tuşa dokun: yüksekliği kareye girer (aynı tuş yeniden dokununca kaldırır). Bir tuşu bir kareye sürükleyebilirsin de. Binayı bir kat yükseltmek için seçili kareye yeniden dokun; bir kareyi boşaltmak için parmağını üzerinde bir an tut. Binalar küçük ahşap kulelerdir: ne kadar yüksekse o kadar büyük. Çubuğun sağ ucundaki düğmeler:
+Bir kareye, sonra tahtanın altındaki bir tuşa dokun: yüksekliği kareye girer (aynı tuş yeniden dokununca kaldırır). Bir tuşu bir kareye sürükleyebilirsin de. Binayı bir kat yükseltmek için seçili kareye yeniden dokun; bir kareyi boşaltmak için parmağını üzerinde bir an tut. Binalar küçük ahşap kulelerdir: ne kadar yüksekse o kadar büyük. Çubuğun sağ ucundaki (yatay ekranda yan sütundaki) düğmeler:
 - Kalem: notlar. Tuşlar o zaman kareye küçük yükseklikler koyar ya da kaldırır. Koyduğun bir yükseklik, satırındaki ve sütunundaki o notu siler.
 - Ampul: bir ipucu. Yanlış bir yüksekliği düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla doldurur.
 Bir satırda ya da sütunda iki kez bulunan yükseklik kırmızıya döner. Bir kenar sayısı, dolu çizgisi doğru sayıyı gösterince solar, başka bir sayı gösterince kırmızıya döner. Yüksekliği her satırda bulunan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.

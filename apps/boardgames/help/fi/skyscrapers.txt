@@ -9,8 +9,10 @@ Osa korkeuksista voi olla annettu valmiiksi tummemmissa ruuduissa. Jokaisella te
 Aseta korkeus ruutuun, vaihda se tai poista se. Pienet muistiinpanot ruudussa auttavat muistamaan korkeudet, jotka siihen vielä käyvät.
 # Pelin loppu
 Tehtävä on ratkaistu, kun jokaisessa ruudussa on talonsa ja kaupunki noudattaa kaikkia sääntöjä: kultaisen valon aalto kulkee laudan yli.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 7 × 7, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä korkeus, jonka sitten perut Kumoa-napilla.
 # Pelaaminen laitteella
-Napauta ruutua ja sitten näppäintä laudan alla: sen korkeus menee ruutuun (sama näppäin uudelleen poistaa sen). Voit myös vetää näppäimen ruutuun. Napauta valittua ruutua uudelleen nostaaksesi taloa yhden kerroksen; pidä sormea hetki ruudulla tyhjentääksesi sen. Talot ovat pieniä puutorneja: mitä korkeampi, sitä isompi. Palkin oikean pään napit:
+Napauta ruutua ja sitten näppäintä laudan alla: sen korkeus menee ruutuun (sama näppäin uudelleen poistaa sen). Voit myös vetää näppäimen ruutuun. Napauta valittua ruutua uudelleen nostaaksesi taloa yhden kerroksen; pidä sormea hetki ruudulla tyhjentääksesi sen. Talot ovat pieniä puutorneja: mitä korkeampi, sitä isompi. Palkin oikean pään napit (vaakatilassa sivusarakkeessa):
 - Kynä: muistiinpanot. Näppäimet laittavat silloin ruutuun pieniä korkeuksia tai poistavat niitä. Asettamasi korkeus poistaa saman muistiinpanon rivillään ja sarakkeessaan.
 - Hehkulamppu: vihje. Se korjaa väärän korkeuden tai muuten täyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
 Korkeus, joka on kahdesti samalla rivillä tai sarakkeessa, muuttuu punaiseksi. Reunaluku haalistuu, kun sen täysi linja näyttää oikean määrän, ja muuttuu punaiseksi, kun se näyttää muun. Näppäin haalistuu, kun sen korkeus on jokaisella rivillä. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

@@ -9,8 +9,10 @@ Beberapa tinggi bisa sudah diberikan sejak awal, di kotak yang lebih gelap. Seti
 Taruh tinggi di sebuah kotak, ganti, atau hapus. Catatan kecil di sebuah kotak membantumu mengingat tinggi yang masih mungkin di situ.
 # Akhir permainan
 Teka-teki selesai saat setiap kotak punya gedungnya dan kota menaati semua aturan: gelombang cahaya emas menyapu papan.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 4 × 4 sampai 7 × 7, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah tinggi yang salah yang lalu kamu batalkan dengan Urungkan.
 # Bermain di perangkat
-Ketuk sebuah kotak, lalu tombol di bawah papan: tingginya masuk (tombol yang sama sekali lagi menghapusnya). Kamu juga bisa menyeret tombol ke sebuah kotak. Ketuk lagi kotak yang dipilih untuk menambah gedungnya satu lantai; tahan jari sebentar di sebuah kotak untuk mengosongkannya. Gedung-gedung itu menara kayu kecil: makin tinggi, makin besar. Tombol di ujung kanan bilah:
+Ketuk sebuah kotak, lalu tombol di bawah papan: tingginya masuk (tombol yang sama sekali lagi menghapusnya). Kamu juga bisa menyeret tombol ke sebuah kotak. Ketuk lagi kotak yang dipilih untuk menambah gedungnya satu lantai; tahan jari sebentar di sebuah kotak untuk mengosongkannya. Gedung-gedung itu menara kayu kecil: makin tinggi, makin besar. Tombol di ujung kanan bilah (dalam posisi mendatar, di kolom samping):
 - Pensil: catatan. Tombol-tombol lalu menaruh tinggi kecil di kotak, atau menghapusnya. Tinggi yang kamu masukkan menghapus catatan itu dari baris dan kolomnya.
 - Bola lampu: petunjuk. Memperbaiki tinggi yang salah, atau mengisi kotak berikutnya yang ditemukan penalaran, dengan cahaya emas.
 Tinggi yang muncul dua kali dalam baris atau kolom menjadi merah. Angka tepi memudar saat garisnya yang penuh menunjukkan jumlah yang benar, dan menjadi merah saat menunjukkan jumlah lain. Tombol memudar setelah tingginya ada di setiap baris. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

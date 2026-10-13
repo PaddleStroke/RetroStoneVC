@@ -9,8 +9,10 @@ Några höjder kan vara givna från början, på mörkare rutor. Varje pussel ha
 Sätt en höjd i en ruta, ändra den eller ta bort den. Små anteckningar i en ruta hjälper dig att komma ihåg vilka höjder den fortfarande kan ha.
 # Partiets slut
 Pusslet är löst när varje ruta har sitt hus och staden följer alla regler: en våg av gyllene ljus sveper över brädet.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 7 × 7, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig höjd som du sedan ångrar.
 # Spela på enheten
-Tryck på en ruta och sedan på en tangent under brädet: dess höjd sätts in (samma tangent igen tar bort den). Du kan också dra en tangent till en ruta. Tryck på den valda rutan igen för att göra huset en våning högre; håll kvar fingret en stund på en ruta för att tömma den. Husen är små torn av trä: ju högre, desto större. Knapparna längst till höger i listen:
+Tryck på en ruta och sedan på en tangent under brädet: dess höjd sätts in (samma tangent igen tar bort den). Du kan också dra en tangent till en ruta. Tryck på den valda rutan igen för att göra huset en våning högre; håll kvar fingret en stund på en ruta för att tömma den. Husen är små torn av trä: ju högre, desto större. Knapparna längst till höger i listen (i liggande läge i sidokolumnen):
 - Penna: anteckningar. Tangenterna sätter då små höjder i rutan, eller tar bort dem. En höjd du sätter in tar bort den anteckningen i sin rad och kolumn.
 - Glödlampa: ett tips. Den rättar en felaktig höjd eller fyller annars nästa ruta som resonemanget hittar, i gyllene ljus.
 En höjd som står två gånger i en rad eller kolumn blir röd. Ett kanttal bleknar när dess fulla linje visar rätt antal, och blir rött när den visar ett annat. En tangent bleknar när dess höjd finns i varje rad. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

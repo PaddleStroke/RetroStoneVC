@@ -9,8 +9,10 @@ Algumas alturas podem vir dadas, em casas mais escuras. Cada tabuleiro tem uma �
 Ponha uma altura numa casa, troque-a ou tire-a. Notas pequenas numa casa ajudam a lembrar as alturas que ela ainda pode ter.
 # O fim da partida
 O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade segue todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma altura errada que você depois tira com Desfazer.
 # Jogando no aparelho
-Toque numa casa e depois numa tecla embaixo do tabuleiro: a altura entra (a mesma tecla de novo a tira). Você também pode arrastar uma tecla até uma casa. Toque de novo na casa escolhida para subir o prédio um andar; segure uma casa por um instante para esvaziá-la. Os prédios são torrezinhas de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra:
+Toque numa casa e depois numa tecla embaixo do tabuleiro: a altura entra (a mesma tecla de novo a tira). Você também pode arrastar uma tecla até uma casa. Toque de novo na casa escolhida para subir o prédio um andar; segure uma casa por um instante para esvaziá-la. Os prédios são torrezinhas de madeira: quanto mais altos, maiores. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
 - Lápis: notas. As teclas passam a pôr alturas pequenas na casa, ou a tirá-las. Uma altura colocada apaga essa nota da sua linha e coluna.
 - Lâmpada acesa: uma dica. Corrige uma altura errada ou, se não houver, preenche a próxima casa que o raciocínio encontra, com luz dourada.
 Uma altura repetida numa linha ou coluna fica vermelha. Um número da borda fica apagado quando a sua linha cheia mostra a contagem certa, e fica vermelho quando mostra outra. Uma tecla fica apagada quando a sua altura já está em todas as linhas. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.

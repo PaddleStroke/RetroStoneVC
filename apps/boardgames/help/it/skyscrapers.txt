@@ -9,8 +9,10 @@ Alcune altezze possono essere date all'inizio, su caselle più scure. Ogni schem
 Metti un'altezza in una casella, cambiala o toglila. Piccole note in una casella ti aiutano a ricordare le altezze che può ancora contenere.
 # La fine della partita
 Lo schema è risolto quando ogni casella ha il suo edificio e la città rispetta tutte le regole: un'onda di luce dorata attraversa il tavoliere.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dal 4 × 4 al 7 × 7, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un'altezza sbagliata che poi togli con Annulla.
 # Giocare sul dispositivo
-Tocca una casella, poi un tasto sotto il tavoliere: la sua altezza entra (lo stesso tasto di nuovo la toglie). Puoi anche trascinare un tasto su una casella. Tocca di nuovo la casella scelta per alzare il suo edificio di un piano; tieni premuta una casella per un attimo per svuotarla. Gli edifici sono piccole torri di legno: più sono alti, più sono grandi. I pulsanti in fondo alla barra:
+Tocca una casella, poi un tasto sotto il tavoliere: la sua altezza entra (lo stesso tasto di nuovo la toglie). Puoi anche trascinare un tasto su una casella. Tocca di nuovo la casella scelta per alzare il suo edificio di un piano; tieni premuta una casella per un attimo per svuotarla. Gli edifici sono piccole torri di legno: più sono alti, più sono grandi. I pulsanti in fondo alla barra (in orizzontale, nella colonna laterale):
 - Matita: le note. I tasti mettono allora piccole altezze nella casella, o le tolgono. Un'altezza inserita cancella quella nota dalla sua riga e colonna.
 - Lampadina: un aiuto. Corregge un'altezza sbagliata, altrimenti riempie la prossima casella che il ragionamento trova, in luce dorata.
 Un'altezza presente due volte in una riga o colonna diventa rossa. Un numero del bordo sbiadisce quando la sua linea piena mostra il conto giusto, e diventa rosso quando ne mostra un altro. Un tasto sbiadisce quando la sua altezza è in tutte le righe. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
