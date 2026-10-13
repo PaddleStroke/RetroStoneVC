@@ -879,7 +879,7 @@ float ui_bar_fit(box b, const ui_count *c, int nc, int nbtn)
         k = scale[pass];
         float room = b.w - counts_w(c, nc, k, drop) - (nc && nbtn ? 0.3f * u : 0) - 0.05f * u;
         d = nbtn ? (room - (nbtn - 1) * 0.3f * u) / nbtn : 0.84f * u;
-        if (d >= 0.8f * u * k) break;
+        if (nbtn ? d >= 0.8f * u * k : room >= 0) break;   /* no buttons: the counts alone must fit */
         if (pass == 0 && !(nc > 0 && c[0].pic)) pass = 1;   /* no picture to drop */
     }
     d = floorf(clampf(d, 0.5f * u, 0.84f * u));
