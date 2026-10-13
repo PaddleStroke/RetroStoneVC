@@ -10,6 +10,8 @@
  * lamp: a hint (a wrong bridge taken away, else one that reasoning finds, in gold light). Undo takes back one bridge
  * at a time, all the way to the start. The bar: the moves. Solved: the planks turn gold and a wave of gold light runs
  * over the islands; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, hashi_levels.h: 5 x 5 counting first, 16 x 16 with
+ * a bridge tried last), or its die tab a puzzle made at random (the four sizes at three levels).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -17,6 +19,7 @@
 
 #include "games/bench_ui.h"
 #include "games/hashi.h"
+#include "games/hashi_levels.h"
 #include "shell.h"
 
 static const uint8_t BRASS[3] = {214, 168, 82}, BRASS_DARK[3] = {112, 78, 30};
@@ -145,12 +148,23 @@ static void calm(void)
     memset(&drag, 0, sizeof drag);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    hsh_new(&G, variant < 0 || variant >= HSH_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!hsh_decode(&G, hsh_levels[level < 0 || level >= HSH_NLEVELS ? 0 : level])) hsh_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* the die tab: a puzzle made at random of the variant */
+{
+    hsh_new(&G, variant < 0 || variant >= HSH_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return hsh_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -401,11 +415,10 @@ static void bar(int player, box b)
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level with its bridges, the level's ebony stones
  * under it ------------------------------------------------------------------------------------------------------ */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+static void card_of(const hsh_puzzle *pp, int variant, int size, int bare, uint8_t *rgba)
 {
-    int n = variant < 0 ? 7 : hsh_size_of(variant), level = variant < 0 ? HSH_MEDIUM : hsh_level_of(variant);
-    static hsh_puzzle p;
-    hsh_make(n, level, 2026u + (uint32_t)(variant + 1), &p);
+    const hsh_puzzle p = *pp;
+    int n = p.n, level = variant < 0 ? HSH_MEDIUM : hsh_level_of(variant);
     int side = variant < 0 || bare ? size : (int)(0.84f * size);
     int f = (int)(side * BENCH_FRAME), c = (side - 2 * f) / n, w = n * c + 2 * f, o = (size - w) / 2;
     uint8_t *b = calloc((size_t)w * w, 4);
@@ -431,7 +444,23 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     if (variant >= 0 && !bare) bench_stones(rgba, size, w, level);
 }
 
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    static hsh_puzzle p;
+    hsh_make(variant < 0 ? 7 : hsh_size_of(variant), variant < 0 ? HSH_MEDIUM : hsh_level_of(variant),
+             2026u + (uint32_t)(variant + 1), &p);
+    card_of(&p, variant, size, bare, rgba);
+}
+
 static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* a chapter's tab: its last level with its bridges, on the whole tab (the islands more and smaller as they go) */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static hsh_game T;
+    int ch = chapter < 0 ? 0 : chapter >= HSH_CHAPTERS ? HSH_CHAPTERS - 1 : chapter;
+    if (hsh_decode(&T, hsh_levels[(ch + 1) * (HSH_NLEVELS / HSH_CHAPTERS) - 1])) card_of(&T.p, -1, size, 1, rgba);
+}
 
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
@@ -443,5 +472,6 @@ static const game hashi_game = {
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {HSH_SIZES, 3}, .axis_pic = {size_pic, NULL},
     .score = score, .level_stars = stars, .fill = 1, .tools = 1,
+    .levels = HSH_NLEVELS, .chapters = HSH_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
 };
 REGISTER_GAME(hashi_game)

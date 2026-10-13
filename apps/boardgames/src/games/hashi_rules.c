@@ -385,6 +385,65 @@ void hsh_make(int n, int level, uint32_t seed, hsh_puzzle *p)
     }
 }
 
+int hsh_rate_work(const hsh_puzzle *p, long *passes)
+{
+    static bench_rules r;
+    static ctx_t x;
+    bench_grid g;
+    rules_of(&r, &x, p, &g);
+    int res = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    return res;
+}
+
+/* ---- the designed levels ---------------------------------------------------------------------------------------- */
+void hsh_encode(const hsh_puzzle *p, char *out)
+{
+    int k = 0, n = p->n;
+    if (n >= 10) out[k++] = (char)('0' + n / 10);
+    out[k++] = (char)('0' + n % 10);
+    out[k++] = ':';
+    for (int c = 0; c < n * n; c++) out[k++] = p->at[c] < 0 ? '.' : (char)('0' + p->need[p->at[c]]);
+    out[k] = 0;
+}
+
+int hsh_decode(hsh_game *g, const char *s)
+{
+    memset(g, 0, sizeof *g);
+    hsh_puzzle *p = &g->p;
+    int n = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > HSH_MAX) return 0;
+    p->n = n;
+    for (int c = 0; c < n * n; c++) {
+        p->at[c] = -1;
+        if (!s[c]) return 0;
+        if (s[c] == '.') continue;
+        if (s[c] < '1' || s[c] > '8' || p->nisl >= HSH_ISLANDS) return 0;
+        int i = p->nisl++;
+        p->ix[i] = (uint8_t)(c % n);
+        p->iy[i] = (uint8_t)(c / n);
+        p->need[i] = (uint8_t)(s[c] - '0');
+        p->at[c] = (int16_t)i;
+    }
+    if (s[n * n] || p->nisl < 2) return 0;
+    hsh_links(p);
+    static bench_rules r;
+    static ctx_t x;
+    bench_grid sg;
+    rules_of(&r, &x, p, &sg);
+    r.budget = 0;
+    int res = bench_grade(&sg, &r, BENCH_HARD);  /* proved: the one solution */
+    if (res < BENCH_EASY || res > BENCH_HARD) return 0;
+    uint8_t need[HSH_ISLANDS];
+    memcpy(need, p->need, sizeof need);
+    for (int l = 0; l < p->nlink; l++) p->sol[l] = (uint8_t)bench_low(sg.d[l]);
+    numbers(p);
+    if (memcmp(need, p->need, (size_t)p->nisl)) return 0;
+    g->level = res;
+    return 1;
+}
+
 /* ---- the player's bridges --------------------------------------------------------------------------------------- */
 void hsh_new(hsh_game *g, int variant, uint32_t seed)
 {

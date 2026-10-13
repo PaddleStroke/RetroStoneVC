@@ -2,7 +2,7 @@
  * Bridges' rules: the links and their crossings on a small puzzle by hand, the solver on it, the puzzles made from
  * many seeds for every variant (no island beside another, numbers 1..8, the solution's bridges crossing nothing and
  * joining every island, one solution by a plain search, the level they were made for, made fast), the player's
- * bridges, the crossing refused, hints and undo, and whole games from a seed.
+ * bridges, the crossing refused, hints and undo, whole games from a seed, and every designed level.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -11,6 +11,7 @@
 #include <time.h>
 
 #include "games/hashi.h"
+#include "games/hashi_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -168,6 +169,29 @@ int main(void)
         for (int i = 0; i < g.p.nisl; i++) CHECK(hsh_has(&g, i) == g.p.need[i]);
         while (hsh_undo(&g) >= 0) {}
         for (int k = 0; k < g.p.nlink; k++) CHECK(!g.br[k]);
+    }
+
+    /* every designed level (hashi_levels.h): read back the same, one solution (the grader proves it, a plain search
+     * finds no other), the first chapter counting alone, the last one 13 x 13 or bigger, no two the
+     * same; hints alone solve it */
+    {
+        int bad = 0, per = HSH_NLEVELS / HSH_CHAPTERS;
+        for (int i = 0; i < HSH_NLEVELS; i++) {
+            static hsh_game L;
+            char back[HSH_CELLS + 8];
+            int ok = hsh_decode(&L, hsh_levels[i]);
+            if (ok) hsh_encode(&L.p, back);
+            ok = ok && !strcmp(back, hsh_levels[i]) && hsh_count(&L.p, 2) == 1 && hsh_rate(&L.p) == L.level;
+            ok = ok && (i >= per || L.level == HSH_EASY) && (i < 5 * per || L.p.n >= 13);
+            for (int j = 0; ok && j < i; j++) ok = strcmp(hsh_levels[i], hsh_levels[j]) != 0;
+            for (int guard = 0; ok && !hsh_solved(&L) && guard < 400; guard++) ok = hsh_hint(&L) >= 0;
+            ok = ok && hsh_solved(&L);
+            if (!ok) printf("bridges level %d: bad\n", i + 1);
+            bad += !ok;
+        }
+        CHECK(bad == 0);
+        static hsh_game L;
+        CHECK(!hsh_decode(&L, "5:..") && !hsh_decode(&L, "5:1...2....................") && !hsh_decode(&L, "x"));
     }
 
     printf(fails ? "bridges: %d FAILED\n" : "bridges: all passed\n", fails);

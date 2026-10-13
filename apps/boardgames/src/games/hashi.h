@@ -34,6 +34,8 @@
 #define HSH_SIZES 4
 #define HSH_LEVELS 3
 #define HSH_VARIANTS (HSH_SIZES * HSH_LEVELS)
+#define HSH_NLEVELS 150                         /* the designed levels (hashi_levels.h) */
+#define HSH_CHAPTERS 6
 
 enum { HSH_EASY, HSH_MEDIUM, HSH_HARD };
 
@@ -63,7 +65,14 @@ int  hsh_cross(const hsh_puzzle *p, int a, int b);   /* 1: the links a and b cro
 int  hsh_link(const hsh_puzzle *p, int i, int j);    /* the link between two islands, or -1 */
 int  hsh_count(const hsh_puzzle *p, int limit);
 int  hsh_rate(const hsh_puzzle *p);
+/* the same, and the solver's passes (its work) */
+int  hsh_rate_work(const hsh_puzzle *p, long *passes);
 void hsh_make(int n, int level, uint32_t seed, hsh_puzzle *p);
+/* a designed level (hashi_levels.h): "<n>:" then a character a point, row by row ('.' water, '1'..'8' an island);
+ * hsh_encode writes it (out: 4 + n * n bytes at least) */
+void hsh_encode(const hsh_puzzle *p, char *out);
+/* its bridges found by the solver; 0: not one puzzle with one solution */
+int  hsh_decode(hsh_game *g, const char *s);
 
 void hsh_new(hsh_game *g, int variant, uint32_t seed);
 int  hsh_blocked(const hsh_game *g, int link);  /* the bridge it would cross (a link), or -1 */
