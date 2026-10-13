@@ -119,4 +119,9 @@ int  dko_winners(const dkpos *p);               /* DKP_OVER: the players with th
 int  dko_auto(const dkpos *p);                  /* a plain action (the "." of the notation) */
 int  dko_script(dkgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the screen's game (doppelkopf.c), for its bot (doppelkopf_bot.c): the rules state, read-only; a move in notation
+ * played with the usual animation, as if tapped (0: refused) */
+const dkgame *doppelkopf_live(void);
+int doppelkopf_show(const char *move);
+
 #endif
