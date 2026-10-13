@@ -1,0 +1,455 @@
+/*
+ * Hamster Havoc: video. The house layout (docs/art-direction.md):
+ *   BG1 the UI (the house kit, priority 1); BG2 the big cheese moon below and the four cheese shelters (their tiles
+ *   are drawn from the world's bitmaps every frame: eroded pixel by pixel); BG3 the space decor (planets, a nebula,
+ *   faint and without outline); BG4 the stars (twinkling: two colours set per frame, drifting slowly); the backdrop a
+ *   raster gradient, deep navy above, violet down to the moon's horizon.
+ *   Sprites: the hamsters' ships (OBJ 0; players 2-4 OBJ 1, 4, 5: the fur recoloured), the mice and their pops
+ *   (OBJ 2), the kit's digits, glyphs and medals (OBJ 3), the crumbs and the saucer (OBJ 6), the mothership (OBJ 7).
+ * Widescreen (docs/spec.md "Widescreen"): the 320-px stage is centred (rs_screen_origin) and a wider screen shows
+ * more space on both sides (planets, a comet, the moon's curve); the play stays in the stage's 320 columns.
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/hamsterhavoc/LICENSE.
+ */
+#include "game.h"
+#include "assets.h"
+#include "house_ui.h"
+#include "game_text.h"
+#include <stdio.h>
+#include <string.h>
+
+/* the title logo: one 3-shade ramp per word (light, mid, dark): HAMSTER in cheese gold, HAVOC in space violet */
+static const rs_color title_ramps[2][3] = {
+    {RS_RGB8(255, 238, 150), RS_RGB8(250, 196, 64), RS_RGB8(212, 136, 30)},
+    {RS_RGB8(220, 204, 255), RS_RGB8(164, 134, 244), RS_RGB8(112, 84, 204)}};
+/* the backdrop: deep navy at the top, violet down at the moon's horizon (0xRRGGBB) */
+#define SKY_TOP     0x0a0c28
+#define SKY_LOW     0x2c1e56
+#define TITLE_SHIP_Y 92
+
+static const int SHELTER_X[SHELTERS] = SHELTER_XS;
+static rs_color line_col[RS_SCREEN_H];
+static int shown_key = -1, shown_best = -1;
+
+static void raster(int line, void *user)
+{
+    (void)user;
+    rs_pal_set(0, line_col[line]);
+}
+
+static void sky_gradient(void)
+{
+    for (int y = 0; y < RS_SCREEN_H; y++) {
+        int k = y < 210 ? y * 256 / 210 : 256, c[3];
+        for (int i = 0; i < 3; i++) {
+            int a = (SKY_TOP >> (16 - 8 * i)) & 255, b = (SKY_LOW >> (16 - 8 * i)) & 255;
+            c[i] = (a * (256 - k) + b * k) >> 8;
+        }
+        /* house rule: a 2-line dither step every 8 lines keeps the RGB555 bands soft */
+        int d = (y & 4) ? 1 : 0;
+        line_col[y] = RS_RGB8(c[0] + 4 * d, c[1] + 2 * d, c[2] + 4 * d);
+    }
+}
+
+static int tri(int t, int period)          /* 0..256..0 */
+{
+    t %= period;
+    return t < period / 2 ? t * 512 / period : (period - t) * 512 / period;
+}
+
+/* ---- the maps -------------------------------------------------------------------------------------------------------
+ * The moon and the decor are "stage panoramas": PANO_W tiles from stage x PANO_X0 (-128) to 447, so every width up to
+ * 560 shows them once (no repeat): map column c holds stage tile c (0..), the last columns the stage's left margin
+ * (negative x), as the BG wraps. Maps of 64 tiles up to 512 columns, 128 beyond (the map size is saved in states:
+ * draw_state_loaded sets them up again). The stars repeat every 512 px. */
+static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+
+static void put_pano(int layer, const uint16_t *pano, int rows, int row0, int mw)
+{
+    int lim = mw == 64 ? 52 : 56;           /* stage tiles 0..51 (55) on the right, the rest is the left margin */
+    for (int c = 0; c < mw; c++) {
+        int st = c < lim ? c : c - mw, i = st - PANO_X0 / 8;
+        for (int y = 0; y < rows; y++)
+            rs_bg_put(layer, c, row0 + y, i >= 0 && i < PANO_W ? pano[y * PANO_W + i] : 0);
+    }
+}
+
+static void maps_setup(void)
+{
+    int mw = map_w();
+    rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
+    rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
+    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
+    rs_bg_setup(RS_BG4, mw, 32, VR_BG4);
+    put_pano(RS_BG2, gm_moon_map, MOON_H, MOON_Y0 / 8, mw);
+    put_pano(RS_BG3, gm_decor_map, DECOR_H, 0, mw);
+    for (int y = 0; y < STARS_H; y++)
+        for (int x = 0; x < mw; x++) rs_bg_put(RS_BG4, x, y, gm_stars_map[y * STARS_W + x % STARS_W]);
+    /* the shelters: 3x2 tiles each, redrawn from the world every frame */
+    for (int s = 0; s < SHELTERS; s++)
+        for (int ty = 0; ty < 2; ty++)
+            for (int tx = 0; tx < 3; tx++)
+                rs_bg_put(RS_BG2, SHELTER_X[s] / 8 + tx, SHELTER_Y / 8 + ty,
+                          (uint16_t)((SHELTER_TILE + s * 6 + ty * 3 + tx) | (PAL_MOON << 10)));
+}
+
+void draw_init(void)
+{
+    rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more space on both sides */
+    hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
+    hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
+    hc.obj_vram = VR_OBJ;
+    hc.obj_pal = 3;
+    hu_init(&hc);
+    rs_tiles_load(VR_BG2, gm_moon_tiles, gm_moon_tile_count);
+    rs_tiles_load(VR_BG3, gm_decor_tiles, gm_decor_tile_count);
+    rs_tiles_load(VR_BG4, gm_stars_tiles, gm_stars_tile_count);
+    rs_pal_load(RS_PAL_BG(PAL_MOON), gm_moon_pal, 16);
+    rs_pal_load(RS_PAL_BG(PAL_DECOR), gm_decor_pal, 16);
+    rs_pal_load(RS_PAL_BG(PAL_STARS), gm_stars_pal, 16);
+    maps_setup();
+    for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
+    rs_obj_base(VR_OBJ);
+    rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
+    rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);          /* the hamster (golden), P2 (white), the mice */
+    rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 64);     /* P3 (grey), P4 (ginger), the crumbs and saucer, the boss */
+    sky_gradient();
+    rs_raster(raster, NULL);
+}
+
+/* ---- the shelters' tiles: the wedge's pixels where the world still has its bits -------------------------------- */
+static void shelters_upload(const world *w, int show)
+{
+    uint8_t px[6 * 64];
+    for (int s = 0; s < SHELTERS; s++) {
+        memset(px, 0, sizeof px);
+        if (show)
+            for (int y = 0; y < SHELTER_H; y++)
+                for (int x = 0; x < SHELTER_W; x++)
+                    if (w->shelter[s][y] >> x & 1)
+                        px[((y / 8) * 3 + x / 8) * 64 + (y % 8) * 8 + x % 8] = gm_shelter_px[y * SHELTER_W + x];
+        rs_tiles_load8(VR_BG2 + SHELTER_TILE + s * 6, px, 6);
+    }
+}
+
+/* ---- sprites -------------------------------------------------------------------------------------------------------- */
+static void spr(int id, int x, int y, int prio, int pal, int flags)
+{
+    const gm_sprite_def *d = &gm_spr[id];
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
+}
+
+/* player p's sprite palette: the house rule (P1 OBJ 0, P2 OBJ 1, P3 OBJ 4, P4 OBJ 5: house_ui.h hu_player_pal) */
+static int player_pal(int p) { return p ? hu_player_pal(p) : 0; }
+
+/* small digits (the points of a saucer, the mothership), centred on cx */
+static void small_number(int n, int cx, int y)
+{
+    char s[8];
+    int len = snprintf(s, sizeof s, "%d", n);
+    for (int i = 0; i < len; i++) spr(SPR_DIGIT + (s[i] - '0'), cx - len * 3 + i * 6 - 1, y, 2, -1, 0);
+}
+
+static void draw_ship(const world *w, int p, int sx, int sy)
+{
+    const hero *h = &w->h[p];
+    if (h->state == SH_GONE || h->state == SH_DOWN || h->state == SH_OFF) return;
+    int x = (h->x >> 16) + sx, y = SHIP_Y + sy, fl = h->face < 0 ? RS_SPR_HFLIP : 0, id;
+    if (h->state == SH_POP) {                         /* bonk: X eyes, stars circling, the ship wobbling */
+        static const int ox[8] = {0, 5, 7, 5, 0, -5, -7, -5}, oy[8] = {-7, -5, 0, 5, 7, 5, 0, -5};
+        int wob = (h->t / 4) % 2 ? 1 : -1;
+        if (h->t < POP_FRAMES - 8 || (h->t / 2) % 2)
+            spr(SPR_SHIP_HIT + (h->t / 8) % 2, x - 16 + (h->t < 20 ? wob : 0), y, 2, player_pal(p), fl);
+        for (int i = 0; i < 3 && h->t < 48; i++) {
+            int k = (h->t / 3 + i * 3) & 7;
+            spr(SPR_SPARKLE + (i + (h->t / 6)) % 2, x - 4 + ox[k] * 2, y - 6 + oy[k] / 2, 2, -1, 0);
+        }
+        return;
+    }
+    if (h->invul && (h->invul / 4) % 2) return;       /* the new ship blinks */
+    if (h->fire_t < 5) id = SPR_SHIP_FIRE;
+    else id = SPR_SHIP + ((w->t + p * 37) % 150 < 8);     /* the hamster blinks now and then */
+    int bob = h->state == SH_READY ? 0 : ((w->t / 16) % 2);
+    spr(id, x - 16, y + bob, 2, player_pal(p), fl);
+    if (h->shield_t && (h->shield_t > 120 || (h->shield_t / 6) % 2))
+        spr(SPR_BUBBLE, x - 16, y - 7 + bob, 2, 0, 0);
+    if (h->power && (h->power_t > 120 || (h->power_t / 6) % 2))      /* the power's little badge */
+        spr(SPR_BADGE + h->power - 1, x + 8, y - 2 + bob, 2, 0, 0);
+}
+
+/* the title's player slots: each joined player's icon, in its colours (hu_title_sprites calls it) */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
+{
+    (void)user;
+    spr(SPR_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, player_pal(p), 0);
+}
+
+/* 2-4 players: ranked by score */
+static void standing(const world *w, hu_standing *s)
+{
+    int v[MAX_PLAYERS];
+    for (int p = 0; p < w->players; p++) v[p] = w->h[p].score;
+    hu_rank(s, w->players, v, v);
+}
+
+static int mouse_sprite(int row) { return row == 0 ? SPR_MOUSE_C : row < 3 ? SPR_MOUSE_B : SPR_MOUSE_A; }
+
+/* the intro's slide: the formation (or the mothership) flies in from above */
+static int intro_slide(const world *w)
+{
+    if (w->phase != PH_INTRO) return 0;
+    return hu_slide_in(w->phase_t, 60, 150);
+}
+
+static void draw_world(const world *w, int sx, int sy)
+{
+    int slide = intro_slide(w);
+    /* the effects (front) */
+    for (int i = 0; i < FX_MAX; i++) {
+        const effect *e = &w->fxs[i];
+        if (!e->on) continue;
+        switch (e->kind) {
+        case FX_POP:
+            spr(SPR_POP + e->t / 6, e->x + sx, e->y + sy, 2, -1, 0);
+            break;
+        case FX_SPLAT:
+            spr(SPR_SPLAT + (e->t >= 6), e->x - 4 + sx, e->y - 4 + sy, 2, -1, 0);
+            break;
+        case FX_POINTS:
+            small_number(e->value, e->x + sx, e->y - e->t / 4 + sy);
+            break;
+        case FX_BIGPOP: {                             /* the saucer's (and the mothership's, bigger) */
+            int n = e->value ? 8 : 4, r = (e->value ? 6 : 3) + e->t / (e->value ? 2 : 3);
+            static const int dx[8] = {-1, 1, 1, -1, 0, 2, 0, -2}, dy[8] = {-1, -1, 1, 1, -2, 0, 2, 0};
+            if (e->t < 36)
+                for (int k = 0; k < n; k++)
+                    spr(SPR_POP + (e->t / 12) % 3, e->x - 8 + dx[k] * r / (k < 4 ? 1 : 1) + sx, e->y - 8 + dy[k] * r + sy,
+                        2, -1, 0);
+            for (int k = 0; k < (e->value ? 6 : 3) && e->t < 50; k++)
+                spr(SPR_SPARKLE + (k + e->t / 5) % 2, e->x - 4 + ((k * 37 + e->t * 3) % 48) - 24 + sx,
+                    e->y - 4 + ((k * 23) % 24) - 12 + e->t / 3 + sy, 2, -1, 0);
+            break;
+        }
+        case FX_BUBBLE:
+            spr(SPR_POP + e->t / 6, e->x - 8 + sx, e->y - 8 + sy, 2, 0, 0);
+            break;
+        }
+    }
+    /* the seeds and the crumbs */
+    for (int p = 0; p < w->players; p++)
+        for (int i = 0; i < MAX_SEEDS; i++) {
+            const seed *s = &w->seeds[p][i];
+            if (s->on) spr(SPR_SEED, (s->x >> 16) - 4 + sx, (s->y >> 16) - 1 + sy, 2, 0, 0);
+        }
+    for (int i = 0; i < BOMB_MAX; i++) {
+        const bomb *b = &w->bombs[i];
+        if (!b->on) continue;
+        int f = (w->t / 6 + i) % 2;
+        spr(SPR_CRUMB + b->kind * 2 + f, (b->x >> 16) - 4 + sx, (b->y >> 16) + sy, 2, -1, 0);
+    }
+    /* the hamsters (P1 in front: the lower OAM index is in front) */
+    for (int p = 0; p < w->players; p++) draw_ship(w, p, sx, sy);
+    if (w->power_on)
+        spr(SPR_POWER + w->power_kind - 1, (w->power_x >> 16) - 8 + sx, (w->power_y >> 16) + sy + hu_bob(w->t, 32, 1), 2,
+            0, 0);
+    /* the formation */
+    if (w->alive_n && w->phase != PH_CLEAR) {
+        for (int r = 0; r < ROWS; r++)
+            for (int c = 0; c < COLS; c++)
+                if (w->alive[r][c])
+                    spr(mouse_sprite(r) + w->fframe, mouse_x(w, c) + sx, mouse_y(w, r) - slide + sy, 2, -1,
+                        (r + c) % 2 && r != 0 ? RS_SPR_HFLIP : 0);
+    }
+    /* the saucer */
+    if (w->saucer_on) spr(SPR_SAUCER + (w->t / 8) % 2, (w->saucer_x >> 16) - 16 + sx, SAUCER_Y + sy, 2, -1, 0);
+    /* the mothership and its hits left */
+    if (w->boss_on) {
+        int bx = (w->boss_x >> 16), by = boss_y(w) - slide;
+        spr(SPR_BOSS + (w->t / 16) % 2, bx - 32 + sx, by + sy, 2, -1, 0);
+        if (w->phase == PH_PLAY) {
+            int segs = 8, full = w->boss_hp * segs * 2 / w->boss_hp0;
+            for (int k = 0; k < segs; k++) {
+                int f = full >= 2 * k + 2 ? 0 : full == 2 * k + 1 ? 1 : 2;
+                spr(SPR_HP + f, bx - segs * 4 + k * 8 + sx, by + 34 + sy, 2, -1, 0);
+            }
+        }
+    }
+}
+
+/* the mothership flashes when hit: its palette (OBJ 7) whitened for a few frames */
+static void boss_palette(const world *w)
+{
+    int flash = w->boss_on && w->boss_flash && (w->boss_flash & 2);
+    for (int i = 1; i < 16; i++) {
+        rs_color c = gm_obj_pals[7 * 16 + i];
+        rs_pal_set(RS_PAL_OBJ(7) + i, flash ? hu_lerp_color(c, RS_RGB8(255, 255, 255), 180) : c);
+    }
+}
+
+/* the lives: little hamster heads by each score chip (under it at the top, beside its digits at the bottom, clear of
+ * the ships) */
+static void lives_pips(const world *w)
+{
+    for (int p = 0; p < w->players; p++) {
+        const hero *h = &w->h[p];
+        int n = h->lives - (h->state == SH_PLAY || h->state == SH_READY ? 1 : 0);   /* the spare ships */
+        if (h->state == SH_POP && h->lives > 0) n = h->lives;
+        if (n <= 0) continue;
+        if (n > 5) n = 5;
+        hu_chip ch = hu_score_chip(w->players, p, 0);
+        int ux = hu_ui_x(), x0, y, digits = 1;
+        for (int s = h->score; s >= 10; s /= 10) digits++;
+        if (ch.y < 120) {                              /* a top chip: the pips under its digits */
+            y = ch.y + 19;
+            x0 = ch.align < 0 ? ch.x : ch.align > 0 ? ch.x - n * 9 + 1 : ch.x - n * 9 / 2;
+        } else {                                       /* a bottom chip: the pips beside its digits, inwards */
+            y = ch.y + 4;
+            x0 = ch.align < 0 ? ch.x + digits * 12 + 4 : ch.x - digits * 12 - 4 - n * 9;
+        }
+        for (int i = 0; i < n; i++) spr(SPR_PIP, x0 + ux + i * 9, y, 2, player_pal(p), 0);
+    }
+}
+
+/* ---- the BG screens -------------------------------------------------------------------------------------------- */
+static void text_centered(int row, const char *s, int big)
+{
+    if (big && hu_width(s, 1) > 38) big = 0;           /* a long translation: the small letters */
+    if (big) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
+    else hu_text(hu_center(s, 0), row, s);
+}
+
+static int screen_key(const world *w, int state, int st_t)
+{
+    int screen = state == ST_DEAD ? ST_PLAY : state;
+    int key = screen * 1000;
+    if (screen == ST_PLAY) {
+        if (w->phase == PH_INTRO || (w->phase == PH_READY && w->started == 0)) key += 100 + w->wave % 100;
+        if (w->msg) key += 200 + w->msg * 10 + w->msg_player;
+        if (w->landed) key = screen * 1000 + 999;
+    }
+    if (state == ST_OVER && st_t >= RETRY_LOCK) key += 1;
+    return key;
+}
+
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
+{
+    int key = screen_key(w, state, st_t);
+    if (key != shown_key || best != shown_best) {
+        char s[64];
+        hu_clear();
+        if (state == ST_TITLE) hu_logo("HAMSTER HAVOC", title_ramps, 2, 2, 0);
+        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3) hu_score_tags(w->players, 0);
+        if (state == ST_PLAY || state == ST_DEAD) {
+            if (w->landed) {
+                text_centered(13, TR(LANDED), 1);
+            } else if (w->phase == PH_INTRO) {
+                rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
+                text_centered(12, s, 1);
+                if (world_is_boss(w)) text_centered(15, TR(BOSS), 1);
+            }
+            if (w->msg && !w->landed) {
+                const char *m = w->msg == MSG_EXTRA ? TR(EXTRA_LIFE) : w->msg == MSG_DOUBLE ? TR(POWER_DOUBLE) :
+                                w->msg == MSG_RAPID ? TR(POWER_RAPID) : TR(POWER_SHIELD);
+                if (w->players > 1) {
+                    char tag[16];
+                    rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), w->msg_player + 1);
+                    rs_strf(s, sizeof s, "%s %s", tag, m);
+                    m = s;
+                }
+                text_centered(18, m, 0);
+            }
+        }
+        if (state == ST_OVER) {
+            if (w->players == 1) {
+                hu_banner(4, HTR(GAME_OVER));
+                hu_gameover_panel(1, new_best, w->h[0].score, 0);
+                rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
+                hu_gameover_note(s);
+            } else {
+                hu_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
+            }
+        }
+        shown_key = key;
+        shown_best = best;
+    }
+    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_OVER) {
+        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+    }
+}
+
+void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
+{
+    static const int medals[4] = MEDAL_SCORES;
+    int sx = hu_shake_x(), sy = hu_shake_y(), t = state == ST_TITLE ? st_t : w->t;
+    hu_standing rs;
+    standing(w, &rs);
+
+    /* the stars twinkle and drift; the decor and the moon stay */
+    int ka = 120 + tri(t, 96) / 2, kb = 120 + tri(t + 48, 96) / 2;
+    rs_pal_set(RS_PAL_BG(PAL_STARS) + IDX_STAR_A, hu_lerp_color(RS_RGB8(60, 64, 120), RS_RGB8(255, 252, 220), ka));
+    rs_pal_set(RS_PAL_BG(PAL_STARS) + IDX_STAR_B, hu_lerp_color(RS_RGB8(60, 64, 120), RS_RGB8(210, 226, 255), kb));
+    int pm = map_w() * 8 - 1;
+    rs_bg_scroll(RS_BG4, (t / 24 - sx) & pm, (-sy) & 255);
+    rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & 255);
+    rs_bg_scroll(RS_BG2, (-sx) & pm, (-sy) & 255);
+    shelters_upload(w, state != ST_TITLE);
+    boss_palette(w);
+
+    screen_text(w, state, st_t, best, new_best, &rs);
+    int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
+    rs_bg_scroll(RS_BG1, 0, -slide);
+    hu_pause(paused, 13);
+
+    rs_oam_clear();
+    /* front to back: the UI, the play, the decor sprites */
+    if (state == ST_PLAY || state == ST_DEAD) {
+        int v[MAX_PLAYERS];
+        for (int p = 0; p < w->players; p++) v[p] = w->h[p].score;
+        hu_score_chips(w->players, v, 0);       /* 1: centred; 2: x 80 / 240; 3-4: the corners */
+        lives_pips(w);
+    }
+    if (state == ST_OVER) {
+        if (w->players == 1) {
+            hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+        } else {
+            hu_results_sprites(&rs, st_t, slide);
+            for (int i = 0; i < rs.n; i++) {
+                int cx, cy;
+                hu_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
+            }
+        }
+    }
+    if (state == ST_TITLE) {
+        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        /* the hamster's ship bobs under the logo, two space mice march beside it */
+        int b = hu_bob(st_t, 64, READY_BOB);
+        spr(SPR_SHIP + (st_t % 150 < 8), 160 - 16, TITLE_SHIP_Y + b, 2, 0, 0);
+        int f = (st_t / 30) % 2, step = ((st_t / 30) % 8) - 4;
+        step = step < 0 ? -step : step;
+        spr(SPR_MOUSE_B + f, 160 - 76 + step, TITLE_SHIP_Y + 2, 2, -1, 0);
+        spr(SPR_MOUSE_C + f, 160 + 60 - step, TITLE_SHIP_Y + 2, 2, -1, RS_SPR_HFLIP);
+        spr(SPR_SEED, 160 - 4, TITLE_SHIP_Y - 14 - (st_t % 60) / 2 + b, 2, 0, 0);
+    } else if (state != ST_OVER) {                 /* the panels show over the moon and the cheese alone */
+        draw_world(w, sx, sy);
+    }
+}
+
+/* ---- save states (main.c) ---- */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+void draw_state_loaded(void)
+{
+    if (rs_bg_map_w(RS_BG2) == map_w()) return;
+    maps_setup();
+    shown_key = -1;
+}
+
+#define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
+void draw_state(void)
+{
+    S(line_col); S(shown_key); S(shown_best);
+    RS_STATE_RASTER(raster);
+}
+#undef S

@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = OLEADA %d
+BOSS = ¡NAVE NODRIZA!
+LANDED = ¡HAN ATERRIZADO!
+EXTRA_LIFE = ¡NAVE EXTRA!
+POWER_DOUBLE = ¡SEMILLAS DOBLES!
+POWER_RAPID = ¡SEMILLAS RÁPIDAS!
+POWER_SHIELD = ¡ESCUDO BURBUJA!

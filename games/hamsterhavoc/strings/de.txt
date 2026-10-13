@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = WELLE %d
+BOSS = MUTTERSCHIFF!
+LANDED = SIE SIND GELANDET!
+EXTRA_LIFE = EXTRASCHIFF!
+POWER_DOUBLE = DOPPELKERNE!
+POWER_RAPID = SCHNELLFEUER!
+POWER_SHIELD = BLASENSCHILD!

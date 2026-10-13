@@ -1,0 +1,32 @@
+# Hamster Havoc (games/hamsterhavoc): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt; the title says PRESS A TO PLAY). The game's
+# name is never translated.
+
+#. In play, as each wave flies in: 2x letters (2 columns each) centred on row 12, for 1.5 s; %d is the wave.
+#. max 18
+WAVE_N = WAVE %d
+
+#. In play, under WAVE_N on every 4th wave (a big mouse mothership comes): 2x letters centred on row 15.
+#. max 18
+BOSS = MOTHERSHIP!
+
+#. In play, when the mice reach the moon: 2x letters centred on row 13 (small letters if it is longer).
+#. max 18
+LANDED = THEY LANDED!
+
+#. In play, small letters centred on row 18 for 2 s: a player earned an extra ship. With 2-4 players the player's
+#. tag is put before it (P2 EXTRA SHIP!).
+#. max 30
+EXTRA_LIFE = EXTRA SHIP!
+
+#. The same, when a hamster catches a power-up from the bonus saucer: two seeds at once for 10 s ...
+#. max 30
+POWER_DOUBLE = DOUBLE SEEDS!
+
+#. ... seeds three at a time, faster, for 10 s ...
+#. max 30
+POWER_RAPID = RAPID SEEDS!
+
+#. ... a bubble around the ship that takes one hit.
+#. max 30
+POWER_SHIELD = BUBBLE SHIELD!

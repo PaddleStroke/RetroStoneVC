@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = ΚΥΜΑ %d
+BOSS = ΜΗΤΡΙΚΟ ΣΚΑΦΟΣ!
+LANDED = ΠΡΟΣΓΕΙΩΘΗΚΑΝ!
+EXTRA_LIFE = ΕΠΙΠΛΕΟΝ ΣΚΑΦΟΣ!
+POWER_DOUBLE = ΔΙΠΛΟΙ ΣΠΟΡΟΙ!
+POWER_RAPID = ΓΡΗΓΟΡΟΙ ΣΠΟΡΟΙ!
+POWER_SHIELD = ΑΣΠΙΔΑ ΦΟΥΣΚΑ!

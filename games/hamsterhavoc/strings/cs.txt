@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = VLNA %d
+BOSS = MATEŘSKÁ LOĎ!
+LANDED = PŘISTÁLY!
+EXTRA_LIFE = LOĎ NAVÍC!
+POWER_DOUBLE = DVOJITÁ SEMÍNKA!
+POWER_RAPID = RYCHLÁ SEMÍNKA!
+POWER_SHIELD = BUBLINOVÝ ŠTÍT!

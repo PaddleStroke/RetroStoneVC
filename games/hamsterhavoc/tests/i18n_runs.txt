@@ -1,0 +1,19 @@
+# Hamster Havoc: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+intro     60   50   --opt bot=1 --opt seed=7 --opt ready=1
+boss      60   50   --opt bot=1 --opt seed=7 --opt ready=1 --opt wave=4
+play      700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play4     300  290  --opt bot=4 --opt seed=9 --opt ready=1
+intro4    60   50   --opt bot=4 --opt seed=9 --opt ready=1 --opt wave=4
+pause     640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+extra     30   20   --opt ready=1 --opt msg=1
+double    30   20   --opt ready=1 --opt msg=2
+rapid4    30   20   --opt ready=1 --opt msg=3 --opt players=4
+shield4   30   20   --opt ready=1 --opt msg=4 --opt players=4
+landed    30   20   --opt ready=1 --opt msg=5
+over      1180 1170 --opt bot=1 --opt ready=1 --opt botstop=100 --opt botruns=2
+results   2640 2630 --opt bot=4 --opt ready=1 --opt botstop=60

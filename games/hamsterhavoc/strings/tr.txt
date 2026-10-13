@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = DALGA %d
+BOSS = ANA GEMİ!
+LANDED = İNDİLER!
+EXTRA_LIFE = EKSTRA GEMİ!
+POWER_DOUBLE = ÇİFT TOHUM!
+POWER_RAPID = HIZLI TOHUM!
+POWER_SHIELD = BALONCUK KALKAN!

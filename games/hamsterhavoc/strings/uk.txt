@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = ХВИЛЯ %d
+BOSS = КОРАБЕЛЬ-МАТКА!
+LANDED = ВОНИ ПРИЗЕМЛИЛИСЯ!
+EXTRA_LIFE = ЩЕ КОРАБЕЛЬ!
+POWER_DOUBLE = ПОДВІЙНЕ НАСІННЯ!
+POWER_RAPID = ШВИДКЕ НАСІННЯ!
+POWER_SHIELD = ЩИТ-БУЛЬБАШКА!

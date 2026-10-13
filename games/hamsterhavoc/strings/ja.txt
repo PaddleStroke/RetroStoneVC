@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = ウェーブ %d
+BOSS = マザーシップ!
+LANDED = ちゃくりくした!
+EXTRA_LIFE = 1UP!
+POWER_DOUBLE = ダブルたね!
+POWER_RAPID = れんしゃ!
+POWER_SHIELD = バリア!

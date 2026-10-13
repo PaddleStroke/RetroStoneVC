@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = GELOMBANG %d
+BOSS = KAPAL INDUK!
+LANDED = MEREKA MENDARAT!
+EXTRA_LIFE = KAPAL TAMBAHAN!
+POWER_DOUBLE = BIJI GANDA!
+POWER_RAPID = BIJI KILAT!
+POWER_SHIELD = PERISAI GELEMBUNG!

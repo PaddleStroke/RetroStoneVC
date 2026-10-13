@@ -1,0 +1,8 @@
+# Hamster Havoc's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+WAVE_N = VÅG %d
+BOSS = MODERSKEPP!
+LANDED = DE HAR LANDAT!
+EXTRA_LIFE = EXTRA SKEPP!
+POWER_DOUBLE = DUBBLA FRÖN!
+POWER_RAPID = SNABBA FRÖN!
+POWER_SHIELD = BUBBELSKÖLD!
