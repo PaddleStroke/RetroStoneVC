@@ -1,7 +1,8 @@
 /*
  * Loop's rules: the sides and their dots, a loop checked (one loop; two loops, a branch and a touch refused), the
  * puzzles made from many seeds for every variant (the solution one loop, the numbers its own, one solution by a plain
- * search, the level they were made for, made fast), the player's marks, hints and undo, and whole games from a seed.
+ * search, the level they were made for, made fast), the player's marks, hints and undo, whole games from a seed, and
+ * every designed level.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <time.h>
 
 #include "games/loop.h"
+#include "games/loop_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -127,6 +129,33 @@ int main(void)
         CHECK(slk_solved(&g));
         while (slk_undo(&g) >= 0) {}
         for (int e = 0; e < slk_sides(n); e++) CHECK(!g.side[e]);
+    }
+
+    /* every designed level (loop_levels.h): read back the same, its loop one loop and its numbers the loop's (the
+     * decoder checks), one solution (the grader proves it; up to 10 x 10 a plain search finds no other), the first
+     * chapter with the plainest reasoning, the last one 13 x 13 or bigger, no two the same; hints alone solve it */
+    {
+        int bad = 0, per = SLK_NLEVELS / SLK_CHAPTERS;
+        clock_t t0 = clock();
+        for (int i = 0; i < SLK_NLEVELS; i++) {
+            static slk_game L;
+            char back[SLK_CODE];
+            long passes;
+            int ok = slk_decode(&L, slk_levels[i]), r = -1;
+            if (ok) slk_encode(&L.p, back), r = slk_rate_work(&L.p, &passes);
+            ok = ok && !strcmp(back, slk_levels[i]) && r >= BENCH_EASY && r <= BENCH_HARD;
+            ok = ok && (L.p.n > 10 || slk_count(&L.p, 2) == 1);
+            ok = ok && (i >= per || r == BENCH_EASY) && (i < 5 * per || L.p.n >= 13);
+            for (int j = 0; ok && j < i; j++) ok = strcmp(slk_levels[i], slk_levels[j]) != 0;
+            for (int guard = 0; ok && !slk_solved(&L) && guard < SLK_SIDES; guard++) ok = slk_hint(&L) >= 0;
+            ok = ok && slk_solved(&L);
+            if (!ok) printf("loop level %d: bad (grade %d)\n", i + 1, r);
+            bad += !ok;
+        }
+        CHECK(bad == 0);
+        printf("loop: %d levels checked in %.1f s\n", SLK_NLEVELS, (double)(clock() - t0) / CLOCKS_PER_SEC);
+        static slk_game L;
+        CHECK(!slk_decode(&L, "5:..") && !slk_decode(&L, "x"));
     }
 
     printf(fails ? "loop: %d FAILED\n" : "loop: all passed\n", fails);

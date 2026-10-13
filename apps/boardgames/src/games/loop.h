@@ -32,6 +32,8 @@
 #define SLK_SIZES 4
 #define SLK_LEVELS 3
 #define SLK_VARIANTS (SLK_SIZES * SLK_LEVELS)
+#define SLK_NLEVELS 150                         /* the designed levels (loop_levels.h) */
+#define SLK_CHAPTERS 6
 
 enum { SLK_EASY, SLK_MEDIUM, SLK_HARD };
 enum { SLK_EMPTY, SLK_LINE, SLK_CROSS };        /* a side as the player marks it */
@@ -71,7 +73,15 @@ typedef struct {
 
 int  slk_count(const slk_puzzle *p, int limit);
 int  slk_rate(const slk_puzzle *p);
+/* the same, and the solver's passes (its work) */
+int  slk_rate_work(const slk_puzzle *p, long *passes);
 void slk_make(int n, int level, uint32_t seed, slk_puzzle *p);
+/* a designed level (loop_levels.h): "<n>:" a character a cell, row by row ('.' no number, else '0'..'3'), ':' then
+ * the loop's sides six to a character (A..Z a..z 0..9 + -: 0..63, the first side its lowest bit); slk_encode writes
+ * it (out: SLK_CODE bytes) */
+#define SLK_CODE (4 + SLK_CELLS + 1 + SLK_SIDES / 6 + 2)
+void slk_encode(const slk_puzzle *p, char *out);
+int  slk_decode(slk_game *g, const char *s);    /* 0: not well formed, or its loop not the numbers' */
 int  slk_loop_ok(int n, const uint8_t *on);     /* 1: these sides make one closed loop, touching itself nowhere */
 
 void slk_new(slk_game *g, int variant, uint32_t seed);

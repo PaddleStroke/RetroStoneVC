@@ -421,6 +421,69 @@ void slk_make(int n, int level, uint32_t seed, slk_puzzle *p)
     }
 }
 
+int slk_rate_work(const slk_puzzle *p, long *passes)
+{
+    static bench_rules r;
+    static ctx_t x;
+    bench_grid g;
+    rules_of(&r, &x, p, &g);
+    r.budget = 0;
+    int res = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    return res;
+}
+
+/* ---- the designed levels ---------------------------------------------------------------------------------------- */
+static const char B64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-";
+
+void slk_encode(const slk_puzzle *p, char *out)
+{
+    int n = p->n, k = 0, sides = slk_sides(n);
+    if (n >= 10) out[k++] = (char)('0' + n / 10);
+    out[k++] = (char)('0' + n % 10);
+    out[k++] = ':';
+    for (int c = 0; c < n * n; c++) out[k++] = p->clue[c] < 0 ? '.' : (char)('0' + p->clue[c]);
+    out[k++] = ':';
+    for (int s = 0; s < sides; s += 6) {
+        int v = 0;
+        for (int b = 0; b < 6 && s + b < sides; b++) v |= (p->sol[s + b] != 0) << b;
+        out[k++] = B64[v];
+    }
+    out[k] = 0;
+}
+
+int slk_decode(slk_game *g, const char *s)
+{
+    memset(g, 0, sizeof *g);
+    slk_puzzle *p = &g->p;
+    int n = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > SLK_MAX) return 0;
+    p->n = n;
+    for (int c = 0; c < n * n; c++) {
+        if (s[c] != '.' && (s[c] < '0' || s[c] > '3')) return 0;
+        p->clue[c] = (int8_t)(s[c] == '.' ? -1 : s[c] - '0');
+    }
+    s += n * n;
+    if (*s++ != ':') return 0;
+    int sides = slk_sides(n);
+    for (int i = 0; i < (sides + 5) / 6; i++) {
+        const char *at = s[i] ? strchr(B64, s[i]) : NULL;
+        if (!at) return 0;
+        for (int b = 0; b < 6 && 6 * i + b < sides; b++) p->sol[6 * i + b] = (uint8_t)((at - B64) >> b & 1);
+    }
+    if (s[(sides + 5) / 6] || !slk_loop_ok(n, p->sol)) return 0;
+    for (int c = 0; c < n * n; c++) {           /* the numbers the loop's */
+        int x = c % n, y = c / n;
+        int k = p->sol[slk_across(n, x, y)] + p->sol[slk_across(n, x, y + 1)] + p->sol[slk_down(n, x, y)] +
+                p->sol[slk_down(n, x + 1, y)];
+        if (p->clue[c] >= 0 && p->clue[c] != k) return 0;
+    }
+    g->variant = 0;
+    g->level = SLK_EASY;
+    return 1;
+}
+
 /* ---- the player's marks ----------------------------------------------------------------------------------------- */
 void slk_new(slk_game *g, int variant, uint32_t seed)
 {

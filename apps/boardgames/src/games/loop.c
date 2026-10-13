@@ -10,6 +10,8 @@
  * lamp: a hint (a wrong mark put right, else a side that reasoning finds, in gold light). Undo takes back one action
  * at a time, all the way to the start. The bar: the moves. Solved: the wire turns gold and a wave of gold light runs
  * round the board; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, loop_levels.h: 5 x 5 with the plainest reasoning
+ * first, 15 x 15 with a side tried last), or its die tab a puzzle made at random (the four sizes at three levels).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -17,6 +19,7 @@
 
 #include "games/bench_ui.h"
 #include "games/loop.h"
+#include "games/loop_levels.h"
 #include "shell.h"
 
 static const uint8_t BRASS[3] = {222, 176, 84}, BRASS_DARK[3] = {104, 70, 24}, RED_INK[3] = {178, 40, 30};
@@ -150,12 +153,23 @@ static void calm(void)
     memset(&fing, 0, sizeof fing);
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    slk_new(&G, variant < 0 || variant >= SLK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    if (!slk_decode(&G, slk_levels[level < 0 || level >= SLK_NLEVELS ? 0 : level])) slk_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* the die tab: a puzzle made at random of the variant */
+{
+    slk_new(&G, variant < 0 || variant >= SLK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return slk_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -376,11 +390,10 @@ static void bar(int player, box b)
 
 /* ---- the menu's and the picker's cards: a puzzle of the size and level with its loop, the level's ebony stones
  * under it ------------------------------------------------------------------------------------------------------ */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+static void card_of(const slk_puzzle *pp, int variant, int size, int bare, uint8_t *rgba)
 {
-    int n = variant < 0 ? 5 : slk_size_of(variant), level = variant < 0 ? SLK_MEDIUM : slk_level_of(variant);
-    slk_puzzle p;
-    slk_make(n, level, 2026u + (uint32_t)(variant + 1), &p);
+    const slk_puzzle p = *pp;
+    int n = p.n, level = variant < 0 ? SLK_MEDIUM : slk_level_of(variant);
     int side = variant < 0 || bare ? size : (int)(0.84f * size);
     int fw = (int)(side * BENCH_FRAME), c = (int)((side - 2 * fw) / (n + 0.6f)), f = fw + (int)(0.3f * c);
     int w = n * c + 2 * f, o = (size - w) / 2;
@@ -416,7 +429,23 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     if (variant >= 0 && !bare) bench_stones(rgba, size, w, level);
 }
 
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    static slk_puzzle p;
+    slk_make(variant < 0 ? 5 : slk_size_of(variant), variant < 0 ? SLK_MEDIUM : slk_level_of(variant),
+             2026u + (uint32_t)(variant + 1), &p);
+    card_of(&p, variant, size, bare, rgba);
+}
+
 static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0, rgba); }
+
+/* a chapter's tab: its last level with its loop, on the whole tab (the cells more and smaller as they go) */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static slk_game T;
+    int ch = chapter < 0 ? 0 : chapter >= SLK_CHAPTERS ? SLK_CHAPTERS - 1 : chapter;
+    if (slk_decode(&T, slk_levels[(ch + 1) * (SLK_NLEVELS / SLK_CHAPTERS) - 1])) card_of(&T.p, -1, size, 1, rgba);
+}
 
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
@@ -428,5 +457,6 @@ static const game loop_game = {
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {SLK_SIZES, 3}, .axis_pic = {size_pic, NULL},
     .score = score, .level_stars = stars, .fill = 1, .tools = 1,
+    .levels = SLK_NLEVELS, .chapters = SLK_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
 };
 REGISTER_GAME(loop_game)
