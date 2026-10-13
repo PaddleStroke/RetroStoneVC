@@ -544,15 +544,17 @@ static int script(const char *s)
 static void layout(box b)
 {
     float u = ui.unit;
+    /* the board in the room's middle (the end card stands on it), the dice in the band beside it, the board moved off
+     * the middle only as far as that band needs */
     if (b.h >= b.w * 1.12f) {                   /* portrait: the board, the dice under it */
         S = (int)fminf(b.w, b.h - 1.7f * u);
         bx = floorf(b.x + (b.w - S) / 2);
-        by = floorf(b.y);
+        by = floorf(fminf(b.y + (b.h - S) / 2, b.y + b.h - 1.7f * u - S));
         dcx = b.x + b.w / 2;
         dcy = (by + S + b.y + b.h) / 2;
     } else {                                    /* landscape: the dice on its right */
         S = (int)fminf(b.h, b.w - 2.3f * u);
-        bx = floorf(b.x);
+        bx = floorf(fminf(b.x + (b.w - S) / 2, b.x + b.w - 2.3f * u - S));
         by = floorf(b.y + (b.h - S) / 2);
         dcx = (bx + S + b.x + b.w) / 2;
         dcy = b.y + b.h / 2;
