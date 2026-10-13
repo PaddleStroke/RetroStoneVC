@@ -1148,7 +1148,7 @@ static void bar(int player, box b)              /* the score */
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
-/* the menu's card: a corner of the board, a word across and one down through it */
+/* the menu's card: a corner of the board, a few letter tiles on it, each alone (no word) */
 static void thumb(int v, int size, uint8_t *rgba)
 {
     (void)v;
@@ -1166,16 +1166,16 @@ static void thumb(int v, int size, uint8_t *rgba)
     }
     art_blend(rgba, size, size, b, n, n, (size - n) / 2, (size - n) / 2);
     int set = G.pos.set, ts = (int)(sq * 0.94f), o = (size - n) / 2 + fr + (sq - ts) / 2;
-    G.pos.set = 0;                              /* English letters: WORDS across, TIDES down through its D */
-    static const char across[] = "WORDS", down[] = "TIDES";
-    for (int i = 0; i < 10; i++) {
-        int dn = i >= 5, k = i % 5, l = 0;
-        char c = dn ? down[k] : across[k];
-        if (dn && k == 2) continue;
+    G.pos.set = 0;                              /* a few letters with their values, none next to
+                                                 * another: no word on the card */
+    static const struct { char c; int x, y; } lone[] = {{'Q', 1, 1}, {'A', 3, 1}, {'Z', 2, 2}, {'E', 0, 3},
+                                                        {'K', 3, 3}};
+    for (unsigned i = 0; i < sizeof lone / sizeof lone[0]; i++) {
+        int l = 0;
         for (int j = 0; j < wt_set(0)->n; j++)
-            if (wt_set(0)->l[j].cp == (uint32_t)c) l = j + 1;
+            if (wt_set(0)->l[j].cp == (uint32_t)lone[i].c) l = j + 1;
         tile_paint(l, ts, t);
-        art_blend(rgba, size, size, t, ts, ts, o + (dn ? 3 : k) * sq, o + (dn ? k : 2) * sq);
+        art_blend(rgba, size, size, t, ts, ts, o + lone[i].x * sq, o + lone[i].y * sq);
     }
     G.pos.set = (uint8_t)set;
     free(t);

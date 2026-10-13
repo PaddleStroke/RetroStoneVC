@@ -679,7 +679,7 @@ static void bar(int player, box b) { ct_bar(b, T.deck, G.pos.n[player], G.pos.to
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
 /* the menu's and the picker's cards: the whole game, four cards (the barbu on top); the short one, two; doubling: the
- * gold cross on a dark disc in the corner */
+ * two players' chips with the gold cross between them, as in the list of doubles on the table */
 static void thumb(int v, int size, uint8_t *rgba)
 {
     static const int full[4] = {CARD(SUIT_SPADES, RANK_QUEEN), CARD(SUIT_DIAMONDS, RANK_QUEEN),
@@ -689,15 +689,18 @@ static void thumb(int v, int size, uint8_t *rgba)
     if (BARBU_IS_SHORT(v)) ct_thumb(DECK_FRENCH, shrt, 2, size, rgba);
     else ct_thumb(DECK_FRENCH, full, 4, size, rgba);
     if (!BARBU_DOUBLING(v)) return;
-    int d = (int)(0.34f * size), k = (int)(0.24f * size);
-    static const uint8_t dark[3] = {22, 30, 27};
+    int d = (int)(0.18f * size), k = (int)(0.15f * size), cy = (int)(0.9f * size), gap = (int)(0.04f * size);
     uint8_t *b = malloc((size_t)d * d * 4), *c = malloc((size_t)k * k * 4);
-    if (b && c) {
-        art_disc(d, dark, 0.92f, 0, b);
-        art_blend(rgba, size, size, b, d, d, size - d - size / 40, size / 40);
+    if (b && c) {                               /* as the table's list of doubles: a chip, the gold cross, a chip */
+        int x0 = (size - 2 * d - k - 2 * gap) / 2;
+        for (int s = 0; s < 2; s++) {
+            memset(b, 0, (size_t)d * d * 4);
+            cards_token(s, d, b);
+            art_blend(rgba, size, size, b, d, d, x0 + s * (d + k + 2 * gap), cy - d / 2);
+        }
         art_icon(ICON_CLOSE, k, c);
         for (int i = 0; i < k * k; i++) c[i * 4] = 250, c[i * 4 + 1] = 214, c[i * 4 + 2] = 90;
-        art_blend(rgba, size, size, c, k, k, size - d - size / 40 + (d - k) / 2, size / 40 + (d - k) / 2);
+        art_blend(rgba, size, size, c, k, k, x0 + d + gap, cy - k / 2);
     }
     free(b);
     free(c);
