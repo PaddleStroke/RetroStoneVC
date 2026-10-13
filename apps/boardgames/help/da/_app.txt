@@ -11,3 +11,10 @@ To spillere deler én enhed og skiftes til at spille. Den lysende markør i en s
 I kortspil går enheden rundt om bordet: den, der har tur, ser sine egne kort stort nederst med sit panel under, og de andre spilleres paneler øverst. Der er hverken Vend eller Over for hinanden.
 - Hemmelige kort: mellem to ture bliver skærmen grøn og viser den næste spillers markør. Giv enheden videre; den spiller trykker på den runde knap for at se sine kort.
 - Med hemmelige kort tager Fortryd kun trækkene i din egen tur tilbage, så ingen nogensinde ser en anden spillers kort.
+# Spil mod enheden
+I de fleste spil for to eller flere kan enheden tage en plads. Før et spil viser hver plads sin markør, og hvem der spiller den: en person eller en robot for enheden.
+- Tryk på en plads for at give den til enheden. Tryk igen for at få den til at spille bedre (et, to eller tre lys: let, middel, svær), og én gang til for at give pladsen tilbage til en person.
+- Enhedens pladser har en lille robot i panelet, med prikker mens den tænker. Dine træk venter, til den har spillet.
+- Fortryd fører dig tilbage til dit eget sidste træk.
+- Enheden kigger aldrig i dine kort: den spiller med det, dens plads må se. Alene mod den får du ingen grøn skærm mellem turene.
+- Giv alle pladser til enheden for at se den spille alene.

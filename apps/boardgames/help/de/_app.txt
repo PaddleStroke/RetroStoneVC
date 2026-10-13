@@ -11,3 +11,10 @@ Zwei Spieler teilen sich ein Gerät und sind abwechselnd am Zug. Der leuchtende 
 Bei Kartenspielen geht das Gerät reihum: Wer am Zug ist, sieht die eigenen Karten groß unten, darunter die eigene Leiste, und oben die Leisten der anderen Spieler. Drehen und Gegenüber gibt es hier nicht.
 - Geheime Karten: Zwischen zwei Zügen wird der Bildschirm grün und zeigt den Stein des nächsten Spielers. Gib das Gerät weiter; dieser Spieler tippt auf den runden Knopf, um seine Karten zu sehen.
 - Bei geheimen Karten nimmt Rückgängig nur die Züge deiner eigenen Runde zurück, damit niemand je die Karten eines anderen sieht.
+# Gegen das Gerät spielen
+In den meisten Spielen für zwei oder mehr kann das Gerät einen Platz übernehmen. Vor einer Partie zeigt jeder Platz seinen Stein und wer ihn spielt: ein Mensch oder ein Roboter für das Gerät.
+- Tippe auf einen Platz, um ihn dem Gerät zu geben. Tippe erneut, damit es besser spielt (ein, zwei oder drei Lichter: leicht, mittel, schwer), und noch einmal, um den Platz einem Menschen zurückzugeben.
+- Die Plätze des Geräts zeigen einen kleinen Roboter in ihrer Leiste, mit Punkten, solange es nachdenkt. Deine Züge warten, bis es gespielt hat.
+- Rückgängig bringt dich zu deinem eigenen letzten Zug zurück.
+- Das Gerät schaut nie in deine Karten: Es spielt mit dem, was sein Platz sehen darf. Allein gegen das Gerät gibt es zwischen den Zügen keinen grünen Bildschirm.
+- Gib alle Plätze dem Gerät, um ihm beim Spielen zuzusehen.

@@ -11,3 +11,10 @@ Dua pemain berbagi satu perangkat dan bergiliran. Token yang menyala di bilah pe
 Dalam permainan kartu, perangkat berkeliling meja: pemain yang mendapat giliran melihat kartunya sendiri besar di bawah, bilahnya di bawahnya, dan bilah pemain lain di atas. Tidak ada Putar maupun Berhadapan.
 - Kartu rahasia: di antara dua giliran layar menjadi hijau dan menampilkan token pemain berikutnya. Serahkan perangkat; pemain itu mengetuk tombol bulat untuk melihat kartunya.
 - Dengan kartu rahasia, Urungkan hanya membatalkan langkah dalam giliranmu sendiri, sehingga tak seorang pun melihat kartu pemain lain.
+# Bermain melawan perangkat
+Di sebagian besar permainan untuk dua orang atau lebih, perangkat bisa mengisi satu kursi. Sebelum permainan, setiap kursi menampilkan tokennya dan siapa yang memainkannya: seseorang, atau robot untuk perangkat.
+- Ketuk sebuah kursi untuk memberikannya kepada perangkat. Ketuk lagi agar ia bermain lebih baik (satu, dua, atau tiga lampu: mudah, sedang, sulit), dan sekali lagi untuk mengembalikan kursi itu kepada seseorang.
+- Kursi perangkat menampilkan robot kecil di bilahnya, dengan titik-titik selama ia berpikir. Langkahmu menunggu sampai ia selesai bermain.
+- Urungkan membawamu kembali ke langkah terakhirmu sendiri.
+- Perangkat tidak pernah melihat kartumu: ia bermain dengan apa yang boleh dilihat kursinya. Saat kamu sendirian melawannya, tidak ada layar hijau di antara giliran.
+- Berikan semua kursi kepada perangkat untuk menontonnya bermain sendiri.

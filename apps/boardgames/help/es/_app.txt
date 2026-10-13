@@ -11,3 +11,10 @@ Dos jugadores comparten un mismo dispositivo y juegan por turnos. La ficha que b
 En los juegos de cartas el dispositivo da la vuelta a la mesa: el jugador al que le toca ve sus propias cartas en grande abajo, con su barra debajo, y las barras de los demás jugadores arriba. No hay Girar ni Cara a cara.
 - Manos secretas: entre dos turnos la pantalla se vuelve verde y muestra la ficha del siguiente jugador. Pásale el dispositivo; ese jugador toca el botón redondo para ver sus cartas.
 - Con manos secretas, Deshacer solo retira las jugadas de tu propio turno, así nadie ve nunca la mano de otro jugador.
+# Jugar contra el dispositivo
+En la mayoría de los juegos para dos o más, el dispositivo puede ocupar un puesto. Antes de una partida, cada puesto muestra su ficha y quién lo juega: una persona o un robot para el dispositivo.
+- Toca un puesto para dárselo al dispositivo. Tócalo otra vez para que juegue mejor (una, dos o tres luces: fácil, medio, difícil) y una vez más para devolver el puesto a una persona.
+- Los puestos del dispositivo llevan un pequeño robot en su barra, con unos puntos mientras piensa. Tus jugadas esperan a que haya jugado.
+- Deshacer te lleva de vuelta a tu propia última jugada.
+- El dispositivo nunca mira tus cartas: juega con lo que su puesto puede ver. Si juegas solo contra él, no hay pantalla verde entre turnos.
+- Dale todos los puestos al dispositivo para verlo jugar solo.

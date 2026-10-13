@@ -11,3 +11,10 @@ Deux joueurs partagent un seul appareil et jouent chacun leur tour. La pièce lu
 Aux jeux de cartes, l'appareil fait le tour de la table : le joueur dont c'est le tour voit ses propres cartes en grand en bas, sa barre en dessous, et les barres des autres joueurs en haut. Il n'y a ni Retourner ni Face à face.
 - Mains secrètes : entre deux tours, l'écran devient vert et montre la pièce du joueur suivant. Passe-lui l'appareil ; il touche le bouton rond pour voir ses cartes.
 - Avec des mains secrètes, Annuler ne reprend que les coups de ton propre tour : personne ne voit jamais la main d'un autre joueur.
+# Jouer contre l'appareil
+Dans la plupart des jeux à deux ou plus, l'appareil peut prendre une place. Avant une partie, chaque place montre sa pièce et qui la joue : une personne, ou un robot pour l'appareil.
+- Touche une place pour la donner à l'appareil. Touche encore pour qu'il joue mieux (une, deux ou trois lumières : facile, moyen, difficile), et une fois de plus pour rendre la place à une personne.
+- Les places de l'appareil portent un petit robot dans leur barre, avec des points pendant qu'il réfléchit. Tes coups attendent qu'il ait joué.
+- Annuler te ramène à ton propre dernier coup.
+- L'appareil ne regarde jamais tes cartes : il joue avec ce que sa place a le droit de voir. Seul contre lui, tu n'as pas d'écran vert entre les tours.
+- Donne toutes les places à l'appareil pour le regarder jouer tout seul.

@@ -11,3 +11,10 @@ Twee spelers delen één apparaat en spelen om de beurt. Het oplichtende stuk in
 Bij kaartspellen gaat het apparaat de tafel rond: wie aan de beurt is, ziet de eigen kaarten groot onderaan, met de eigen balk eronder, en bovenaan de balken van de andere spelers. Draaien en Tegenover zijn er niet.
 - Geheime kaarten: tussen twee beurten wordt het scherm groen en toont het stuk van de volgende speler. Geef het apparaat door; die speler tikt op de ronde knop om zijn kaarten te zien.
 - Bij geheime kaarten neemt Ongedaan maken alleen de zetten van je eigen beurt terug, zodat niemand ooit de kaarten van een ander ziet.
+# Tegen het apparaat spelen
+In de meeste spellen voor twee of meer kan het apparaat een plaats innemen. Voor een spel toont elke plaats zijn stuk en wie hem speelt: een persoon, of een robot voor het apparaat.
+- Tik op een plaats om hem aan het apparaat te geven. Tik nog eens om het beter te laten spelen (één, twee of drie lampjes: makkelijk, gemiddeld, moeilijk), en nog een keer om de plaats terug te geven aan een persoon.
+- De plaatsen van het apparaat tonen een kleine robot in hun balk, met puntjes terwijl het nadenkt. Jouw zetten wachten tot het gespeeld heeft.
+- Ongedaan maken brengt je terug naar je eigen laatste zet.
+- Het apparaat kijkt nooit in je kaarten: het speelt met wat zijn plaats mag zien. Speel je alleen tegen het apparaat, dan komt er geen groen scherm tussen de beurten.
+- Geef alle plaatsen aan het apparaat om het alleen te zien spelen.

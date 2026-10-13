@@ -11,3 +11,10 @@ Dois jogadores dividem um só aparelho e jogam alternadamente. A peça que brilh
 Nos jogos de cartas o aparelho dá a volta na mesa: o jogador da vez vê as próprias cartas em grande embaixo, com a barra dele logo abaixo, e as barras dos outros jogadores em cima. Não há Girar nem Frente a frente.
 - Mãos secretas: entre dois turnos a tela fica verde e mostra a peça do próximo jogador. Passe o aparelho; esse jogador toca o botão redondo para ver as cartas dele.
 - Com mãos secretas, Desfazer só desfaz as jogadas do seu próprio turno, para que ninguém veja a mão de outro jogador.
+# Jogando contra o aparelho
+Na maioria dos jogos para dois ou mais, o aparelho pode ocupar um lugar. Antes de uma partida, cada lugar mostra sua peça e quem joga nele: uma pessoa, ou um robô para o aparelho.
+- Toque em um lugar para entregá-lo ao aparelho. Toque de novo para ele jogar melhor (uma, duas ou três luzes: fácil, médio, difícil) e mais uma vez para devolver o lugar a uma pessoa.
+- Os lugares do aparelho mostram um pequeno robô na barra, com pontinhos enquanto ele pensa. Suas jogadas esperam até ele jogar.
+- Desfazer leva você de volta à sua própria última jogada.
+- O aparelho nunca olha suas cartas: joga com o que o lugar dele pode ver. Sozinho contra ele, você não vê tela verde entre os turnos.
+- Entregue todos os lugares ao aparelho para vê-lo jogar sozinho.
