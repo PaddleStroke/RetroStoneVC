@@ -12,6 +12,7 @@
 
 #include "games/palace.h"
 #include "games/xiangqi.h"
+#include "games/trays.h"
 #include "games/xqpiece.h"
 #include "shell.h"
 #include "text.h"
@@ -25,6 +26,7 @@ static palace B;                                /* the board on the screen */
 static int sq, made = -1, made_small = -1;      /* sq: a point's square, pixels (B.sq) */
 static SDL_Texture *t_piece[2][8], *t_small[2][8], *t_board;
 static int sel = -1;
+static trays T;                                 /* the pieces each player took, by their side */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on; xmove m; Uint32 t0; } anim;
 
@@ -105,10 +107,17 @@ static void piece_pic(int type, int player, int size, uint8_t *rgba)
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
+/* the board as big as the room lets it be (its width in portrait, its height in landscape); the pieces each player
+ * took in a tray by their side, in the room it leaves (above and below it, or beside it) */
 static void layout(box b)
 {
     palace_fit(&B, b);
     sq = B.sq;
+    float x, y;
+    trays_place(&T, b, (float)(PALACE_W * sq + 2 * B.fr), (float)(PALACE_H * sq + 2 * B.fr), 15, (float)sq,
+                0.7f * ui.unit, &x, &y);
+    B.bx = x + B.fr;
+    B.by = y + B.fr;
     if (made != sq) {
         made = sq;
         for (int c = 0; c < 2; c++)
@@ -143,11 +152,48 @@ static void piece_at(int pc, float x, float y, float size)
     else ui_put_c(t, x, y, size, size);
 }
 
+/* the pieces the player took: how many of each type (landed: the one just taken once the move has landed); their
+ * number */
+static int taken(int player, int gone[8], int landed)
+{
+    static const int start_n[8] = {0, 1, 2, 2, 2, 2, 2, 5};
+    const xpos *p = xq_pos(&G);
+    int c = !player, n = 0;
+    for (int t = 0; t < 8; t++) gone[t] = start_n[t];
+    for (int s = 0; s < XQ_PTS; s++)
+        if (p->sq[s] && XQ_OWNER(p->sq[s]) == c) gone[XQ_TYPE(p->sq[s])]--;
+    if (landed && anim.on && anim.m.cap && XQ_OWNER(anim.m.cap) == c) gone[XQ_TYPE(anim.m.cap)]--;
+    for (int t = 0; t < 8; t++) n += gone[t] > 0 ? gone[t] : 0;
+    return n;
+}
+
+static const int ORDER[6] = {XQ_CHARIOT, XQ_CANNON, XQ_HORSE, XQ_ELEPHANT, XQ_ADVISOR, XQ_SOLDIER};
+
+/* the pieces each player took, in the tray by their side, the strongest first, their characters facing them */
+static void draw_trays(void)
+{
+    if (!trays_on(&T)) return;
+    for (int c = 0; c < 2; c++) {
+        int gone[8], i = 0;
+        taken(c, gone, 1);
+        for (int k = 0; k < 6; k++)
+            for (int j = 0; j < gone[ORDER[k]]; j++) {
+                float x, y, d = T.pitch;
+                SDL_Texture *t = t_piece[!c][ORDER[k]];
+                trays_slot(&T, c, i++, &x, &y);
+                ui_shadow_flat(x, y, d, d, 1);
+                if (ui_upside(c)) ui_put_rot(t, x, y, d, d, 180);
+                else ui_put_c(t, x, y, d, d);
+            }
+    }
+}
+
 static void draw(void)
 {
     const xpos *p = xq_pos(&G);
     float x, y, h = sq / 2.0f;
     palace_board(&B, t_board);
+    draw_trays();
     if (G.ply) {
         xmove m = G.move[G.ply - 1];
         pt_xy(m.from, &x, &y);
@@ -247,21 +293,13 @@ static void release(float x, float y)
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* the pieces a player took from the other: small discs, the strongest first */
+/* the pieces a player took from the other: small discs, the strongest first (when there are no trays) */
 static void bar(int player, box b)
 {
-    static const int start_n[8] = {0, 1, 2, 2, 2, 2, 2, 5},
-                     order[6] = {XQ_CHARIOT, XQ_CANNON, XQ_HORSE, XQ_ELEPHANT, XQ_ADVISOR, XQ_SOLDIER};
-    const xpos *p = xq_pos(&G);
-    int c = !player, gone[8] = {0}, total = 0, groups = 0;
-    for (int t = 0; t < 8; t++) gone[t] = start_n[t];
-    for (int s = 0; s < XQ_PTS; s++)
-        if (p->sq[s] && XQ_OWNER(p->sq[s]) == c) gone[XQ_TYPE(p->sq[s])]--;
-    for (int k = 0; k < 6; k++) {
-        if (gone[order[k]] <= 0) continue;
-        total += gone[order[k]];
-        groups++;
-    }
+    if (trays_on(&T)) return;
+    const int *order = ORDER;
+    int c = !player, gone[8], total = taken(player, gone, 0), groups = 0;
+    for (int k = 0; k < 6; k++) groups += gone[order[k]] > 0;
     if (!total) return;
     float sz = 0.6f * ui.unit, gap = 0.12f * ui.unit, x = b.x + sz / 2, cy = b.y + b.h / 2;
     float step = total > 1 ? fminf(0.86f * sz, (b.w - sz - (groups - 1) * gap) / (total - 1)) : 0;
@@ -294,7 +332,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the last piece to arrive */
 
 static const game xiangqi_game = {
-    .id = "xiangqi", .order = 160, .variants = 1,
+    .id = "xiangqi", .order = 160, .variants = 1, .fill = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy,
