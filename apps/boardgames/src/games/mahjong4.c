@@ -178,10 +178,15 @@ static void geometry(box b)
     T.A = (18 * S + T.D) / 2;
     T.cx = b.x + (b.w - T.side) / 2;
     T.cy = b.y + rowd + 0.3f * S + T.A;
-    T.rowout[2] = T.cy - (b.y + rowd / 2);
-    T.rowout[1] = T.rowout[3] = fminf(T.A + 0.3f * S + rowd / 2, (b.w - T.side) / 2 - rowd / 2);
     float below = T.side ? T.hy - hh / 2 - 0.16f * u : T.my - mh / 2 - 0.1f * u;
-    T.rowmax[1] = T.rowmax[3] = 2 * fminf(T.cy - (b.y + rowd + 0.2f * S), below - T.cy);
+    if (!T.side) {                              /* a tall room: the square in the middle of the room above the melds,
+                                                 * the choices' row still fitting under it */
+        float free = below - (T.cy + T.A);
+        T.cy += floorf(fmaxf(0, fminf(free / 2, free - (1.43f * T.Wm + 0.6f * u))));
+    }
+    T.rowout[2] = T.A + 0.3f * S + rowd / 2;
+    T.rowout[1] = T.rowout[3] = fminf(T.A + 0.3f * S + rowd / 2, (b.w - T.side) / 2 - rowd / 2);
+    T.rowmax[1] = T.rowmax[3] = 2 * fminf(T.A + 0.1f * S, below - T.cy);
     T.rowmax[2] = 2 * (T.rowout[1] - rowd / 2 - 0.2f * S);
     float gap = below - (T.cy + T.A);           /* room between the square and the melds' row: the choices go there */
     T.oy = gap > 1.43f * T.Wm + 0.5f * u ? T.cy + T.A + gap / 2 : T.my;
@@ -644,9 +649,9 @@ static int offer_hit(float x, float y)
 static void draw_middle(void)
 {
     const m4pos *p = &G.pos;
-    float W = T.S, die = 0.62f * W;
+    float W = 1.45f * T.S, die = 0.62f * W;    /* as big as the ponds round it leave room for */
     if (ui_dice_busy()) {                       /* thrown: big in the middle */
-        ui_dice_draw(T.cx, T.cy, 1.1f * W, 0);
+        ui_dice_draw(T.cx, T.cy, 1.3f * T.S, 0);
         return;
     }
     int over = p->phase == MP_OVER;            /* over: the last round's */
