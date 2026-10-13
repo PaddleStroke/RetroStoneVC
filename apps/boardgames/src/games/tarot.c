@@ -523,6 +523,18 @@ static int undo(void)
     return 1;
 }
 
+/* the bot's side (bots.h): the rules' state to copy; one action in the notation, played as if tapped */
+const tgame *tarot_live(void) { return &G; }
+
+int tarot_show(const char *move)
+{
+    static tgame t;
+    t = G;
+    if (!tarot_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int script(const char *s)
 {
     int ok = tarot_script(&G, s);

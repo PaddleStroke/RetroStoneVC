@@ -159,4 +159,9 @@ int  tarot_auto(const tpos *p);                  /* a plain action (the "." of t
 int  tarot_script(tgame *g, const char *moves);  /* 0: an action is bad */
 int  tarot_parse_card(const char **s);           /* "h14" "a21" "e": the card (CARD_NONE: bad) */
 
+/* the bot's side (tarot.c, main thread; games/tarot_bot.c): the game on the screen, for the bot to copy at entry;
+ * one action in the notation played with the usual animation, as if tapped (0: refused) */
+const tgame *tarot_live(void);
+int  tarot_show(const char *move);
+
 #endif
