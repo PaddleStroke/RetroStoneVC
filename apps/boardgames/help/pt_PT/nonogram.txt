@@ -1,13 +1,16 @@
 Nonogramas
 # O objetivo
 Há um desenho escondido na grelha. Os números à esquerda de cada linha e por cima de cada coluna são as suas pistas: os comprimentos dos troços de casas pintadas dessa linha, por ordem, com pelo menos uma casa vazia entre dois troços (0: a linha está vazia). Pinta as casas para revelar o desenho. Escolhe primeiro o tamanho: 5 × 5, 10 × 10 ou 15 × 15.
-Cada desenho encontra-se a raciocinar uma linha de cada vez, sem adivinhar. Alguns são desenhos da casa (um coração, um barco, um gato...), outros são feitos ao acaso.
+Cada desenho encontra-se a raciocinar uma linha de cada vez, sem adivinhar.
 # Uma jogada
 Pinta uma casa, ou marca com uma cruz uma casa que sabes que está vazia. As cruzes são só notas para ti.
 # O fim do jogo
 Quando cada linha e cada coluna corresponde às suas pistas, o desafio está resolvido: as cruzes desaparecem, o desenho surge nas suas cores e uma luz dourada percorre-o.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos: pequenos desenhos feitos para o jogo, do 5 × 5 ao 15 × 15, cada um encontrado linha a linha; escolhe um no ecrã de níveis. Um nível resolvido mostra o seu desenho na miniatura. O separador do dado, depois dos capítulos, faz um desenho ao acaso, no tamanho que escolheres. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa pintada fora do desenho, ou uma cruz sobre ele, que tiras com Anular.
 # Jogar no dispositivo
 - Toca numa casa para a pintar; toca outra vez para a esvaziar.
-- Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão no fim da barra faz cada toque pôr cruzes (ou voltar a pintar); mostra o que faz um toque.
+- Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão da cruz ao lado do tabuleiro faz cada toque pôr cruzes (ou voltar a pintar); mostra o que faz um toque.
+- A lâmpada dá uma ajuda: corrige uma casa errada ou, senão, pinta uma casa que os números de uma só linha já decidem (ou marca uma com uma cruz quando só decidem casas vazias), com luz dourada.
 - Arrasta ao longo de uma linha ou coluna para fazer o mesmo num troço inteiro. Só mudam as casas que estavam como a primeira, por isso, ao pintar, passas por cima das tuas cruzes.
 As pistas das linhas em que tocas acendem-se, e os números de uma linha cujas casas pintadas correspondem à pista esbatem-se. Anular desfaz um toque ou um troço de cada vez, até ao início. A barra mostra as tuas jogadas.

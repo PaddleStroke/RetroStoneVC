@@ -4,12 +4,16 @@
  * crossed (the rules: nonogram_rules.c; what the logic grids share: bench.h, bench_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Tap a square to fill it (again: empty); hold it a moment to cross it instead. The shell's tool turns taps into
- * crosses and back (it shows what a tap does: an ebony square, or a cross). Drag along a row or a
- * column to do the same to the whole run: the squares in the state the first one was (a fill run passes over the
- * crosses). A line whose filled squares make its clue has its clue faded. Undo takes back one tap or run, all the way
- * to the start. The bar: the moves.
- * Solved: the crosses go, the picture comes out in its colours, and a gold light runs over it.
+ * Tap a square to fill it (again: empty); hold it a moment to cross it instead. The shell's tools: the mode (taps
+ * cross instead, and back: it shows what a tap does, an ebony square or a cross) and the lamp (a hint: a wrong mark put
+ * right, else a square the lines force filled, in gold light). Drag along a row or a column to do the same to the
+ * whole run: the squares in the state the first one was (a fill run passes over the crosses). A line whose filled
+ * squares make its clue has its clue faded. Undo takes back one tap or run, all the way to the start. The bar: the
+ * moves. Solved: the crosses go, the picture comes out in its colours, and a gold light runs over it; the stars count
+ * the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 of the house's pictures in six chapters, nonogram_levels.h: 5 x 5 up
+ * to 15 x 15; a solved level's tile shows its picture, an unsolved one only its empty grid), or its die tab a picture
+ * drawn by chance (5 x 5, 10 x 10 or 15 x 15).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -17,6 +21,7 @@
 
 #include "games/bench_ui.h"
 #include "games/nonogram.h"
+#include "games/nonogram_levels.h"
 #include "shell.h"
 
 #define SLOT_W 0.68f                            /* a row clue's number: its width, in squares */
@@ -24,14 +29,18 @@
 #define COLOUR_MS 700                           /* solved: the picture's colours coming out */
 #define WAVE_STEP 40
 #define WAVE_LEN 520
+#define MENU_LEVEL 60                           /* the menu's card: a level's picture (the 10 x 10 cat) half found */
+
+enum { T_MODE, T_HINT, TOOLS };
 
 static const uint8_t EBONY[3] = {46, 38, 34}, CLUE[3] = {44, 30, 20};
 
 static ng_game G;
-static int crossing;                            /* taps cross (the bar's button) */
+static int crossing;                            /* taps cross (the mode tool) */
 static int serial;                              /* the puzzle's number: its board remade */
 static bench_geo geo;                           /* the squares (the finger's runs) */
 static bench_touch touch;
+static bench_flash hint = {-1, 0}, pop = {-1, 0};   /* at: a square */
 static struct { int on; Uint32 t0; } win;
 
 static box last_box;
@@ -91,7 +100,7 @@ static void cross_pic(int size, uint8_t *o)
     art_fig_free(f);
 }
 
-/* the bar's button: what a tap does (0 fill: an ebony square; 1 cross) */
+/* the mode tool: what a tap does (0 fill: an ebony square; 1 cross) */
 static void paint_mode(int kind, int size, uint8_t *o)
 {
     art_fig *f = art_fig_new();
@@ -166,16 +175,29 @@ static void layout(box b)
 static void calm(void)
 {
     memset(&touch, 0, sizeof touch);
+    hint.at = pop.at = -1;
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    ng_new(&G, variant < 0 || variant >= NG_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     crossing = 0;
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen: one of the house's pictures */
+{
+    int l = level < 0 || level >= NG_LEVELS ? 0 : level;
+    if (!ng_load_picture(&G, &ng_levels[l], l)) ng_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* the die tab: a picture drawn by chance of the variant's size */
+{
+    ng_new(&G, variant < 0 || variant >= NG_VARIANTS ? 1 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return ng_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -236,20 +258,21 @@ static void draw(void)
         ui_mark_last(gx0 - SLOT_W * max_r * cs, gy0 + a / n * cs, SLOT_W * max_r * cs, (float)cs);
         ui_mark_last(gx0 + a % n * cs, gy0 - SLOT_H * max_c * cs, (float)cs, SLOT_H * max_c * cs);
     }
+    if (hint.at >= 0)                           /* the hint's square: a gold light under it */
+        bench_glow(&hint, gx0 + (hint.at % n + 0.5f) * cs, gy0 + (hint.at / n + 0.5f) * cs, 2.6f * cs);
     for (int s = 0; s < n * n; s++) {
         float x = gx0 + s % n * cs, y = gy0 + s / n * cs;
         int st = bench_marks_preview(&marks, &touch, &geo, 0, s);   /* the run as it will be */
-        float in = fmaxf(1, 0.05f * cs);
+        float k = bench_pop(&pop, s, 0.25f), in = fmaxf(1, 0.05f * cs), d = (cs - 2 * in) * k;
         if (st == NG_FILL || (colour > 0 && G.sol[s])) {
             const uint8_t *c = ng_rgb[G.colour[s] ? G.colour[s] : 1];
-            float k = colour;
-            if (!G.colour[s]) k = 0;
-            uint8_t r = (uint8_t)(EBONY[0] + (c[0] - EBONY[0]) * k), g = (uint8_t)(EBONY[1] + (c[1] - EBONY[1]) * k),
-                    bb = (uint8_t)(EBONY[2] + (c[2] - EBONY[2]) * k);
-            ui_fill(x + in, y + in, cs - 2 * in, cs - 2 * in, r, g, bb, 255);
+            float t = G.colour[s] ? colour : 0;
+            uint8_t r = (uint8_t)(EBONY[0] + (c[0] - EBONY[0]) * t), g = (uint8_t)(EBONY[1] + (c[1] - EBONY[1]) * t),
+                    bb = (uint8_t)(EBONY[2] + (c[2] - EBONY[2]) * t);
+            ui_fill(x + cs / 2.0f - d / 2, y + cs / 2.0f - d / 2, d, d, r, g, bb, 255);
         } else if (st == NG_CROSS && colour < 1) {
             SDL_SetTextureAlphaMod(t_cross, (Uint8)(200 * (1 - colour)));
-            ui_put(t_cross, x, y, (float)cs, (float)cs);
+            ui_put_c(t_cross, x + cs / 2.0f, y + cs / 2.0f, cs * k, cs * k);
             SDL_SetTextureAlphaMod(t_cross, 255);
         }
     }
@@ -280,7 +303,8 @@ static void draw(void)
         if (wt < win_end()) ui_animate();
         else win.on = 0;
     }
-    ui_tool_paint(0, paint_mode, crossing, 1, solved ? UI_DIM : crossing ? UI_ON : 0);   /* what a tap does */
+    ui_tool_paint(T_MODE, paint_mode, crossing, 1, solved ? UI_DIM : crossing ? UI_ON : 0);   /* what a tap does */
+    ui_tool(T_HINT, ICON_HINT, solved ? UI_DIM : 0);
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
@@ -288,10 +312,23 @@ static void press(float x, float y)
 {
     memset(&touch, 0, sizeof touch);
     if (ng_solved(&G)) return;
-    if (ui_tool_hit(x, y) == 0) {               /* the mode tool: taps fill, or cross */
+    int t = ui_tool_hit(x, y);
+    if (t == T_MODE) {                          /* taps fill, or cross */
         crossing = !crossing;
         ui_sound(SND_TAP);
         ui_animate();
+        return;
+    }
+    if (t == T_HINT) {                          /* a wrong mark put right, else a square the lines force */
+        int s = ng_hint(&G);
+        if (s < 0) {
+            ui_sound(SND_DENY);
+            return;
+        }
+        bench_flash_start(&hint, s);
+        bench_flash_start(&pop, s);
+        ui_sound(G.sq[s] == NG_FILL ? SND_PLACE : SND_TAP);
+        after();
         return;
     }
     bench_press(&touch, &geo, x, y);
@@ -319,16 +356,12 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a picture of the size, half found ---------------------------------------- */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the cards: a picture on its board, its clues; part of it found (shown: 0 none, else the rows above it) ----- */
+static void card(const ng_game *T, int size, int shown, uint8_t *rgba)
 {
-    ng_game T;
-    static const int pics[NG_VARIANTS] = {0, 6, 13};
-    int v = variant < 0 ? 1 : variant;
-    ng_load_picture(&T, pics[v]);
-    int r, c;
-    clue_sizes(&T, &r, &c);
-    int f = (int)(size * BENCH_FRAME), q = square_size(&T, (float)size, r, c), n = T.n;
+    int r, c, n = T->n;
+    clue_sizes(T, &r, &c);
+    int f = (int)(size * BENCH_FRAME), q = square_size(T, (float)size, r, c);
     float lw = SLOT_W * r * q, th = SLOT_H * c * q, inner = (float)(size - 2 * f);
     float ox = floorf(f + (inner - lw - n * q) / 2 + lw), oy = floorf(f + (inner - th - n * q) / 2 + th);
     uint8_t *b = malloc((size_t)size * size * 4);
@@ -336,20 +369,77 @@ static void thumb(int variant, int size, uint8_t *rgba)
     paint_board(b, size, f, n, q, r, c, ox, oy);
     for (int s = 0; s < n * n; s++) {
         float x = ox + s % n * q, y = oy + s / n * q, in = fmaxf(0.5f, 0.06f * q);
-        int shown = variant >= 0 || s / n < n * 2 / 3;   /* the menu's: the top two thirds found */
-        if (T.sol[s] && shown) puz_ink_rect(b, size, size, x + in, y + in, x + q - in, y + q - in, EBONY, 1);
+        if (T->sol[s] && s / n < shown) puz_ink_rect(b, size, size, x + in, y + in, x + q - in, y + q - in, EBONY, 1);
     }
     if (q >= 9)
         for (int way = 0; way < 2; way++)
             for (int i = 0; i < n; i++)
-                for (int j = 0; j < T.runs[way][i]; j++) {
-                    int from_end = T.runs[way][i] - 1 - j;
+                for (int j = 0; j < T->runs[way][i]; j++) {
+                    int from_end = T->runs[way][i] - 1 - j;
                     float x = way ? ox + (i + 0.5f) * q : ox - (from_end + 0.5f) * SLOT_W * q;
                     float y = way ? oy - (from_end + 0.5f) * SLOT_H * q : oy + (i + 0.5f) * q;
-                    puz_digits(b, size, size, T.clue[way][i][j], x, y, 0.56f * q, CLUE, 1, 1);
+                    puz_digits(b, size, size, T->clue[way][i][j], x, y, 0.56f * q, CLUE, 1, 1);
                 }
     art_blend(rgba, size, size, b, size, size, 0, 0);
     free(b);
+}
+
+/* the menu's card: a level's picture, its top two thirds found; the random tab's: a picture drawn by chance of the
+ * size, its top half found */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    static ng_game T;
+    if (variant < 0) {
+        if (!ng_load_picture(&T, &ng_levels[MENU_LEVEL], MENU_LEVEL)) return;
+        card(&T, size, T.n * 2 / 3, rgba);
+        return;
+    }
+    ng_new(&T, variant, 2026u + (uint32_t)variant);
+    card(&T, size, T.n / 2, rgba);
+}
+
+/* a small plank (S x S, in rgba at o) ruled n x n, its squares painted (pic: the colours, NULL: none) */
+static void plank_pic(uint8_t *rgba, int size, int n, const uint8_t *colour, int inked)
+{
+    int S = (int)(0.86f * size), f = (int)fmaxf(1, 0.06f * S), q = (S - 2 * f) / n, w = n * q + 2 * f;
+    if (q < 1) return;
+    uint8_t *b = malloc((size_t)w * w * 4);
+    if (!b) return;
+    art_board_n(1, 1, w - 2 * f, f, 0, b);
+    for (int s = 0; colour && s < n * n; s++) {
+        if (!colour[s]) continue;
+        float x = f + s % n * q, y = f + s / n * q;
+        puz_ink_rect(b, w, w, x, y, x + q, y + q, inked ? EBONY : ng_rgb[colour[s]], 1);
+    }
+    if (!colour || inked)                       /* an empty grid (or a chapter's): its lines, thicker every five */
+        for (int i = 1; i < n; i++) {
+            float p = f + i * q, t = i % 5 ? fmaxf(1, 0.08f * q) : fmaxf(1, 0.2f * q);
+            float a = i % 5 ? 0.45f : 0.8f;
+            puz_ink_rect(b, w, w, p - t / 2, (float)f, p + t / 2, (float)(w - f), PUZ_INK, a);
+            puz_ink_rect(b, w, w, (float)f, p - t / 2, (float)(w - f), p + t / 2, PUZ_INK, a);
+        }
+    art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
+    free(b);
+}
+
+/* a level's tile: solved, its picture in its colours; else only its empty grid (its size), never the picture */
+static void level_thumb(int level, int size, uint8_t *rgba)
+{
+    static ng_game T;
+    if (level < 0 || level >= NG_LEVELS || !ng_load_picture(&T, &ng_levels[level], level)) return;
+    plank_pic(rgba, size, T.n, ui_level_best(level) > 0 ? T.colour : NULL, 0);
+}
+
+/* a chapter's tab: the grid of its size (5 x 5 .. 15 x 15), a few squares inked (more as the chapters go: never a
+ * level's picture) */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    static const int SIZE[NG_CHAPTERS] = {5, 8, 10, 12, 15, 15};
+    int ch = chapter < 0 ? 0 : chapter >= NG_CHAPTERS ? NG_CHAPTERS - 1 : chapter, n = SIZE[ch];
+    uint8_t ink[NG_SQ] = {0};
+    for (int i = 0; i <= ch; i++)               /* a stair down the left: one step a chapter */
+        for (int x = 0; x <= i && i < n; x++) ink[i * n + x] = 1;
+    plank_pic(rgba, size, n, ink, 1);
 }
 
 static const game nonogram_game = {
@@ -357,6 +447,8 @@ static const game nonogram_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
-    .score = score, .level_stars = stars, .fill = 1, .tools = 1,
+    .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
+    .levels = NG_LEVELS, .chapters = NG_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_thumb = level_thumb,
 };
 REGISTER_GAME(nonogram_game)

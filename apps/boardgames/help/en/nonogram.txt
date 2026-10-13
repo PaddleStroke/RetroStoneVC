@@ -1,13 +1,16 @@
 Nonograms
 # The aim
 A picture is hidden in the grid. The numbers left of each row and above each column are its clues: the lengths of the runs of filled squares in that line, in order, with at least one empty square between two runs (0: the line is empty). Fill the squares to bring out the picture. Choose the size first: 5 × 5, 10 × 10 or 15 × 15.
-Every picture can be found by reasoning one line at a time, without guessing. Some are the house's own drawings (a heart, a boat, a cat...), others are drawn by chance.
+Every picture can be found by reasoning one line at a time, without guessing.
 # A move
 Fill a square, or mark one you know is empty with a cross. The crosses are only notes for you.
 # The end of the game
 When every row and every column matches its clues, the puzzle is solved: the crosses go, the picture comes out in its colours and a gold light runs over it.
+# Levels and stars
+There are 150 levels in six chapters: little pictures drawn for the game, from 5 × 5 up to 15 × 15, each found line by line; choose one on the level screen. A level you have solved shows its picture on its tile. The die tab after the chapters draws a picture by chance, in the size you choose. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a square filled outside the picture, or a cross on it, taken back with undo.
 # Playing on the device
 - Tap a square to fill it; tap it again to empty it.
-- Hold a square a moment to cross it instead. The button at the right end of the bar makes taps cross (or fill again); it shows what a tap does.
+- Hold a square a moment to cross it instead. The cross button beside the board makes taps cross (or fill again); it shows what a tap does.
+- The lamp gives a hint: it puts a wrong square right, or else fills a square that the clues of one line already decide (or crosses one when they only decide empty squares), in gold light.
 - Drag along a row or a column to do the same to a whole run. It only changes the squares that were like the first one, so filling passes over your crosses.
 The clues of the lines you touch are lit, and a line whose filled squares match its clue has its numbers faded. Undo takes back one tap or run at a time, all the way to the start. The bar shows your moves.

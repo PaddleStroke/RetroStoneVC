@@ -1,13 +1,16 @@
 Nonogrammes
 # Le but
 Une image est cachée dans la grille. Les nombres à gauche de chaque ligne et au-dessus de chaque colonne en sont les indices : les longueurs des suites de cases noircies de cette ligne, dans l'ordre, avec au moins une case vide entre deux suites (0 : la ligne est vide). Noircis les cases pour faire apparaître l'image. Choisis d'abord la taille : 5 × 5, 10 × 10 ou 15 × 15.
-Chaque image se trouve en raisonnant ligne par ligne, sans jamais deviner. Certaines sont des dessins de la maison (un cœur, un bateau, un chat...), d'autres sont tirées au hasard.
+Chaque image se trouve en raisonnant ligne par ligne, sans jamais deviner.
 # Un coup
 Noircis une case, ou marque d'une croix une case que tu sais vide. Les croix ne sont que des notes pour toi.
 # La fin de la partie
 Quand chaque ligne et chaque colonne correspond à ses indices, la grille est résolue : les croix s'effacent, l'image apparaît en couleurs et une lumière dorée la parcourt.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres : de petites images dessinées pour le jeu, du 5 × 5 jusqu'au 15 × 15, que l'on trouve ligne par ligne ; choisis-en un sur l'écran des niveaux. Un niveau résolu montre son image sur sa vignette. L'onglet du dé, après les chapitres, tire une image au hasard, dans la taille que tu choisis. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case noircie hors de l'image, ou une croix sur l'image, que tu reprends avec Annuler.
 # Jouer sur l'appareil
 - Touche une case pour la noircir ; touche-la encore pour la vider.
-- Garde le doigt un instant sur une case pour la marquer d'une croix. Le bouton au bout de la barre fait mettre des croix à chaque touche (ou noircir de nouveau) ; il montre ce que fait une touche.
+- Garde le doigt un instant sur une case pour la marquer d'une croix. Le bouton à la croix à côté du plateau fait mettre des croix à chaque touche (ou noircir de nouveau) ; il montre ce que fait une touche.
+- La lampe donne un indice : elle corrige une case fausse, ou sinon noircit une case que les nombres d'une seule ligne déterminent déjà (ou en marque une d'une croix quand ils ne déterminent que des cases vides), dans une lumière dorée.
 - Fais glisser le doigt le long d'une ligne ou d'une colonne pour faire de même sur toute une suite. Seules changent les cases qui étaient comme la première : en noircissant, tu passes par-dessus tes croix.
 Les indices des lignes que tu touches s'éclairent, et une ligne dont les cases noircies correspondent à ses indices voit ses nombres pâlir. Annuler reprend une touche ou une suite à la fois, jusqu'au début. La barre montre tes coups.

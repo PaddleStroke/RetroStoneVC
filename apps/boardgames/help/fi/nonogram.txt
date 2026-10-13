@@ -1,13 +1,16 @@
 Kuvaristikot
 # Tavoite
 Ruudukkoon on piilotettu kuva. Kunkin rivin vasemmalla ja kunkin sarakkeen yläpuolella olevat luvut ovat sen vihjeet: täytettyjen ruutujen jaksojen pituudet siinä linjassa, järjestyksessä, ja kahden jakson välissä on vähintään yksi tyhjä ruutu (0: linja on tyhjä). Täytä ruudut, niin kuva tulee esiin. Valitse ensin koko: 5 × 5, 10 × 10 tai 15 × 15.
-Jokaisen kuvan löytää päättelemällä linja kerrallaan, arvaamatta. Osa on talon omia piirroksia (sydän, vene, kissa...), osa syntyy sattumalta.
+Jokaisen kuvan löytää päättelemällä linja kerrallaan, arvaamatta.
 # Siirto
 Täytä ruutu, tai merkitse ristillä ruutu, jonka tiedät tyhjäksi. Ristit ovat vain muistiinpanoja sinulle.
 # Pelin loppu
 Kun jokainen rivi ja sarake vastaa vihjeitään, ristikko on ratkaistu: ristit häviävät, kuva tulee esiin väreissään ja kultainen valo kulkee sen yli.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa: pelille piirrettyjä pieniä kuvia, koosta 5 × 5 kokoon 15 × 15, ja jokaisen löytää linja kerrallaan; valitse taso tasoruudukosta. Ratkaisemasi taso näyttää kuvansa tasoruudukossa. Noppavälilehti lukujen jälkeen piirtää sattumanvaraisen kuvan valitsemasi kokoisena. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virheeksi lasketaan kuvan ulkopuolelle täytetty ruutu tai kuvan päälle merkitty risti, kun perut sen Kumoa-painikkeella.
 # Pelaaminen laitteella
 - Napauta ruutua täyttääksesi sen; napauta uudelleen tyhjentääksesi sen.
-- Pidä sormea hetki ruudulla merkitäksesi sen sen sijaan ristillä. Palkin oikeassa päässä oleva nappi saa napautukset merkitsemään ristejä (tai taas täyttämään); se näyttää, mitä napautus tekee.
+- Pidä sormea hetki ruudulla merkitäksesi sen sen sijaan ristillä. Laudan vieressä oleva ristipainike saa napautukset merkitsemään ristejä (tai taas täyttämään); se näyttää, mitä napautus tekee.
+- Lamppu antaa vihjeen: se korjaa väärän ruudun tai muuten täyttää ruudun, jonka yhden linjan vihjeet jo ratkaisevat (tai merkitsee ristin, kun ne ratkaisevat vain tyhjiä ruutuja), kultaisessa valossa.
 - Vedä pitkin riviä tai saraketta tehdäksesi saman koko jaksolle. Vain ensimmäisen ruudun kaltaiset ruudut muuttuvat, joten täyttäessä ristisi jäävät paikalleen.
 Koskettamiesi linjojen vihjeet valaistuvat, ja linjan luvut haalistuvat, kun sen täytetyt ruudut vastaavat vihjettä. Kumoa peruu yhden napautuksen tai jakson kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

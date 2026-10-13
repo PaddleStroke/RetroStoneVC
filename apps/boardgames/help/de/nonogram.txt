@@ -1,13 +1,16 @@
 Nonogramme
 # Das Ziel
 Im Gitter ist ein Bild versteckt. Die Zahlen links neben jeder Zeile und über jeder Spalte sind ihre Hinweise: die Längen der Blöcke gefüllter Felder in dieser Linie, der Reihe nach, mit mindestens einem leeren Feld zwischen zwei Blöcken (0: die Linie ist leer). Fülle die Felder, damit das Bild erscheint. Wähle zuerst die Größe: 5 × 5, 10 × 10 oder 15 × 15.
-Jedes Bild lässt sich Linie für Linie erschließen, ohne zu raten. Manche sind Zeichnungen des Hauses (ein Herz, ein Boot, eine Katze...), andere sind zufällig entstanden.
+Jedes Bild lässt sich Linie für Linie erschließen, ohne zu raten.
 # Ein Zug
 Fülle ein Feld, oder markiere ein Feld, das sicher leer ist, mit einem Kreuz. Die Kreuze sind nur Notizen für dich.
 # Das Ende der Partie
 Passt jede Zeile und jede Spalte zu ihren Hinweisen, ist das Rätsel gelöst: Die Kreuze verschwinden, das Bild erscheint in seinen Farben, und ein goldenes Licht läuft darüber.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln: kleine Bilder, für das Spiel gezeichnet, von 5 × 5 bis 15 × 15, jedes Linie für Linie zu erschließen; wähle eines in der Levelübersicht. Ein gelöstes Level zeigt sein Bild auf seiner Kachel. Der Reiter mit dem Würfel nach den Kapiteln lässt ein Bild nach Zufall entstehen, in der Größe, die du wählst. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du mit Rückgängig ein gefülltes Feld außerhalb des Bilds zurück, oder ein Kreuz darauf, zählt das als Fehler.
 # Spielen auf dem Gerät
 - Tippe ein Feld an, um es zu füllen; tippe es noch einmal an, um es zu leeren.
-- Halte ein Feld einen Moment gedrückt, um es stattdessen anzukreuzen. Der Knopf am rechten Ende der Leiste lässt Tippen ankreuzen (oder wieder füllen); er zeigt, was ein Tippen bewirkt.
+- Halte ein Feld einen Moment gedrückt, um es stattdessen anzukreuzen. Der Kreuzknopf neben dem Brett lässt Tippen ankreuzen (oder wieder füllen); er zeigt, was ein Tippen bewirkt.
+- Die Lampe gibt einen Tipp: Sie berichtigt ein falsches Feld oder füllt sonst ein Feld, das die Hinweise einer einzigen Linie schon festlegen (oder kreuzt eines an, wenn sie nur leere Felder festlegen), in goldenem Licht.
 - Ziehe entlang einer Zeile oder Spalte, um dasselbe mit einem ganzen Block zu tun. Es ändern sich nur die Felder, die wie das erste waren: Beim Füllen bleiben deine Kreuze stehen.
 Die Hinweise der Linien, die du berührst, leuchten auf, und bei einer Linie, deren gefüllte Felder zu ihrem Hinweis passen, verblassen die Zahlen. Rückgängig nimmt ein Tippen oder einen Block nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

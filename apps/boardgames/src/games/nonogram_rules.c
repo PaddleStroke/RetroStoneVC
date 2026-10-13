@@ -1,6 +1,6 @@
 /*
- * Nonograms: the rules (nonogram.h): the line solver, the house's pictures, the pictures drawn by chance, the player's
- * squares and undo. No SDL: tested by tests/nonogram_test.c.
+ * Nonograms: the rules (nonogram.h): the line solver, the pictures drawn by chance, the levels' pictures read, the
+ * player's squares, the hint and undo. No SDL: tested by tests/nonogram_test.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include "games/nonogram.h"
@@ -13,48 +13,7 @@ const uint8_t ng_rgb[NG_COLOURS][3] = {
     {0, 0, 0},       {58, 50, 48},   {168, 52, 40},  {222, 168, 66}, {62, 128, 98},  {52, 84, 150},  {242, 234, 216},
     {112, 74, 48},   {134, 64, 126}, {128, 178, 212}, {226, 128, 140}, {104, 156, 64}, {214, 182, 130},
 };
-static const char LETTERS[NG_COLOURS + 1] = ".kryqbwnpsolm";   /* q jade, l leaf, m sand */
-
-/* the house's pictures: drawn for this game (each checked line-solvable by the tests) */
-const ng_picture ng_pictures[] = {
-    {5, {".r.r.", "rrrrr", "rrrrr", ".rrr.", "..r.."}},                         /* a heart */
-    {5, {"..l..", ".lll.", "lllll", "..n..", ".nnn."}},                         /* a tree */
-    {5, {"..w..", "..ww.", "..k..", "nnnnn", ".nnn."}},                         /* a boat */
-    {5, {"k...k", "kkkkk", "k.k.k", "kkkkk", ".kkk."}},                         /* a cat */
-    {5, {".rrr.", "rrwrr", "rrrrr", "..m..", ".mmm."}},                         /* a mushroom */
-    {5, {"..b..", ".bbb.", "b.b.b", "..b..", "..b.."}},                         /* an arrow */
-    {10, {".k......k.", ".kk....kk.", ".kkkkkkkk.", ".k.kkkk.k.", ".kkkkkkkk.",   /* a cat */
-          ".kkkrrkkk.", ".kkkkkkkk.", "..kkkkkk..", "...kkkk...", "..kkkkkk.."}},
-    {10, {"....k.....", "....kw....", "....kww...", "....kwww..", "....kwwww.",   /* a sailing boat */
-          "....kwwwww", "....k.....", "nnnnnnnnnn", ".nnnnnnnn.", "..nnnnnn.."}},
-    {10, {"...rrrr...", ".rrwrrrrr.", "rrrrrrwrrr", "rwrrrrrrrr", "rrrrrwrrrr",   /* a mushroom */
-          ".rrrrrrrr.", "...mmmm...", "...mmmm...", "...mmmm...", "..mmmmmm.."}},
-    {10, {"....rr....", "...rrrr...", "..rrrrrr..", ".rrrrrrrr.", "rrrrrrrrrr",   /* a house */
-          ".nnnnnnnn.", ".n.nnnn.n.", ".nnnnnnnn.", ".nnnn..nn.", ".nnnn..nn."}},
-    {10, {"....ll....", "...llll...", "..llllll..", "...llll...", "..llllll..",   /* a fir tree */
-          ".llllllll.", "..llllll..", ".llllllll.", "llllllllll", "....nn...."}},
-    {10, {"..........", "..s.s.s...", "...s.s....", ".wwwwwww..", ".wwwwwwwww", /* a cup of tea */
-          ".wwwwwww.w", ".wwwwwwwww", "..wwwww...", "...www....", ".nnnnnnnn."}},
-    {10, {"..........", "...bbbb...", ".bbbbbbb.b", "bb.bbbbbbb", "bbbbbbbbbb",   /* a fish */
-          "bbbbbbbbbb", ".bbbbbbbbb", "..bbbbbb.b", "...bbbb...", ".........."}},
-    {15, {".kk.........kk.", ".kkk.......kkk.", ".kkkk.....kkkk.", ".kkkkkkkkkkkkk.",   /* a cat */
-          "kkkkkkkkkkkkkkk", "kkk..kkkkk..kkk", "kkk.ykkkkky.kkk", "kkkkkkkkkkkkkkk", "kkkkkkkrkkkkkkk",
-          ".kkkk.....kkkk.", "..kkkkk.kkkkk..", "...kkkkkkkkk...", ".....kkkkk.....", "...............",
-          "..............."}},
-    {15, {".......k.......", ".......kw......", "......wkww.....", ".....wwkwww....",   /* a sailing boat */
-          "....wwwkwwww...", "...wwwwkwwwww..", "..wwwwwkwwwwww.", ".......k.......", ".......k.......",
-          "nnnnnnnnnnnnnnn", ".nnnnnnnnnnnnn.", "..nnnnnnnnnnn..", "...............", "s.s.s.s.s.s.s.s",
-          "sssssssssssssss"}},
-    {15, {".......n.......", "......nnn......", "....bbbbbbb....", "..bbbbbbbbbbb..",   /* a teapot */
-          "b.bbbbbbbbbbbbb", "bbbbbbbbbbbb..b", ".bbbbbbbbbbb..b", "..bbbbbbbbbbbb.", "..bbbbbbbbbbb..",
-          "...bbbbbbbbb...", "....bbbbbbb....", "...............", "..nnnnnnnnnnn..", "...............",
-          "..............."}},
-    {15, {".......r.......", "......rrr......", "......www......", ".....wwwww.....",   /* a rocket */
-          ".....wwsww.....", ".....wsssw.....", ".....wwsww.....", ".....wwwww.....", ".....wwwww.....",
-          "....rwwwwwr....", "...rrwwwwwrr...", "..rrr.www.rrr..", ".......y.......", "......yyy......",
-          ".......y......."}},
-};
-const int ng_npictures = (int)(sizeof ng_pictures / sizeof ng_pictures[0]);
+const char ng_letters[NG_COLOURS + 1] = ".kryqbwnpsolm";   /* q jade, l leaf, m sand */
 
 /* ---- the line solver --------------------------------------------------------------------------------------------- */
 int ng_line(int len, const uint8_t *runs, int k, uint8_t *line)
@@ -133,30 +92,47 @@ static void clues_of(int n, const uint8_t *pic, uint8_t clue[2][NG_MAX][NG_RUNS]
     }
 }
 
-int ng_solvable(int n, const uint8_t *pic)
+/* one line of the squares st (way 0 row i, 1 column i) through the line solver: what it found, -1 a contradiction */
+static int solve_line(int n, uint8_t *st, const uint8_t clue[2][NG_MAX][NG_RUNS], const uint8_t runs[2][NG_MAX],
+                      int way, int i)
 {
-    uint8_t clue[2][NG_MAX][NG_RUNS], runs[2][NG_MAX], st[NG_SQ], line[NG_MAX];
+    uint8_t line[NG_MAX];
+    int step = way ? n : 1, at = way ? i : i * n;
+    for (int t = 0; t < n; t++) line[t] = st[at + t * step];
+    int f = ng_line(n, clue[way][i], runs[way][i], line);
+    if (f > 0)
+        for (int t = 0; t < n; t++) st[at + t * step] = line[t];
+    return f;
+}
+
+int ng_sweeps(int n, const uint8_t *pic, int *left)
+{
+    uint8_t clue[2][NG_MAX][NG_RUNS], runs[2][NG_MAX], st[NG_SQ];
     clues_of(n, pic, clue, runs);
     for (int i = 0; i < n; i++)
         if (runs[0][i] > NG_RUNS || runs[1][i] > NG_RUNS) return 0;
     memset(st, NG_UNKNOWN, sizeof st);
+    int sweeps = 0;
     for (int changed = 1; changed;) {
         changed = 0;
         for (int way = 0; way < 2; way++)
             for (int i = 0; i < n; i++) {
-                int step = way ? n : 1, at = way ? i : i * n;
-                for (int t = 0; t < n; t++) line[t] = st[at + t * step];
-                int f = ng_line(n, clue[way][i], runs[way][i], line);
+                int f = solve_line(n, st, clue, runs, way, i);
                 if (f < 0) return 0;
-                if (!f) continue;
-                changed = 1;
-                for (int t = 0; t < n; t++) st[at + t * step] = line[t];
+                if (f) changed = 1;
             }
+        if (changed) sweeps++;
+        if (sweeps == 1 && left) {
+            *left = 0;
+            for (int s = 0; s < n * n; s++) *left += st[s] == NG_UNKNOWN;
+        }
     }
     for (int s = 0; s < n * n; s++)
         if (st[s] != (pic[s] ? NG_ON : NG_OFF)) return 0;
-    return 1;
+    return sweeps ? sweeps : 1;
 }
+
+int ng_solvable(int n, const uint8_t *pic) { return ng_sweeps(n, pic, NULL) > 0; }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 void ng_load(ng_game *g, int n, const uint8_t *pic, const uint8_t *colour, int index)
@@ -171,18 +147,20 @@ void ng_load(ng_game *g, int n, const uint8_t *pic, const uint8_t *colour, int i
     clues_of(n, g->sol, g->clue, g->runs);
 }
 
-int ng_load_picture(ng_game *g, int index)
+int ng_load_picture(ng_game *g, const ng_picture *p, int index)
 {
-    if (index < 0 || index >= ng_npictures) return 0;
-    const ng_picture *p = &ng_pictures[index];
+    if (!p || p->n < 2 || p->n > NG_MAX) return 0;
     uint8_t pic[NG_SQ], col[NG_SQ];
-    for (int y = 0; y < p->n; y++)
+    for (int y = 0; y < p->n; y++) {
+        if (!p->rows[y] || (int)strlen(p->rows[y]) != p->n) return 0;
         for (int x = 0; x < p->n; x++) {
-            const char *l = strchr(LETTERS, p->rows[y][x]);
-            int c = l ? (int)(l - LETTERS) : 0;
+            const char *l = p->rows[y][x] ? strchr(ng_letters, p->rows[y][x]) : NULL;
+            if (!l) return 0;
+            int c = (int)(l - ng_letters);
             pic[y * p->n + x] = c != 0;
             col[y * p->n + x] = (uint8_t)c;
         }
+    }
     ng_load(g, p->n, pic, col, index);
     return 1;
 }
@@ -224,12 +202,6 @@ void ng_new(ng_game *g, int variant, uint32_t seed)
 {
     int n = variant == 0 ? 5 : variant == 1 ? 10 : 15;
     uint32_t s = pr_seed(seed);
-    if (pr_below(&s, 2)) {                      /* one of the house's pictures of that size */
-        int k = 0, which[32];
-        for (int i = 0; i < ng_npictures; i++)
-            if (ng_pictures[i].n == n) which[k++] = i;
-        if (k && ng_load_picture(g, which[pr_below(&s, k)])) return;
-    }
     uint8_t pic[NG_SQ], col[NG_SQ];
     for (int tries = 0; tries < 4000; tries++) {
         draw_by_chance(n, &s, pic, col);
@@ -241,16 +213,25 @@ void ng_new(ng_game *g, int variant, uint32_t seed)
             return;
         }
     }
-    for (int i = 0; i < ng_npictures; i++)      /* never (the tests say so): a house picture */
-        if (ng_pictures[i].n == n && ng_load_picture(g, i)) return;
+    for (int i = 0; i < n * n; i++) {           /* never (the tests say so): a frame, solvable line by line */
+        int x = i % n, y = i / n;
+        pic[i] = x == 0 || y == 0 || x == n - 1 || y == n - 1;
+        col[i] = pic[i] ? 7 : 0;
+    }
+    ng_load(g, n, pic, col, -1);
 }
 
 /* ---- the player's squares ---------------------------------------------------------------------------------------- */
-/* the wrong marks on the board: a square filled off the picture, a cross on it (the stars' mistakes) */
+/* a wrong mark: a square filled off the picture, a cross on it (the stars' mistakes) */
+static int wrong(const ng_game *g, int s)
+{
+    return g->sq[s] == NG_FILL ? !g->sol[s] : g->sq[s] == NG_CROSS && g->sol[s];
+}
+
 static int wrongs(const ng_game *g)
 {
     int k = 0;
-    for (int s = 0; s < g->n * g->n; s++) k += g->sq[s] == NG_FILL ? !g->sol[s] : g->sq[s] == NG_CROSS && g->sol[s];
+    for (int s = 0; s < g->n * g->n; s++) k += wrong(g, s);
     return k;
 }
 
@@ -282,6 +263,38 @@ int ng_undo(ng_game *g)
     return s;
 }
 
+static int hint_step(ng_game *g)
+{
+    int n = g->n;
+    if (ng_solved(g)) return -1;
+    for (int s = 0; s < n * n; s++)             /* a wrong mark first: put right */
+        if (wrong(g, s)) return ng_paint(g, s, s, g->sol[s] ? NG_FILL : NG_CROSS) ? s : -1;
+    uint8_t st[NG_SQ];                          /* what the right marks say */
+    for (int s = 0; s < n * n; s++) st[s] = g->sq[s] == NG_FILL ? NG_ON : g->sq[s] == NG_CROSS ? NG_OFF : NG_UNKNOWN;
+    /* the line whose clues force the most, a filled square first (else the first square forced empty) */
+    int best = -1, best_off = -1, most = 0;
+    for (int way = 0; way < 2; way++)
+        for (int i = 0; i < n; i++) {
+            uint8_t t[NG_SQ];
+            memcpy(t, st, sizeof t);
+            if (solve_line(n, t, g->clue, g->runs, way, i) <= 0) continue;
+            int on = -1, k = 0;
+            for (int s = 0; s < n * n; s++)
+                if (t[s] != st[s]) {
+                    k++;
+                    if (t[s] == NG_ON && on < 0) on = s;
+                    if (t[s] == NG_OFF && best_off < 0) best_off = s;
+                }
+            if (on >= 0 && k > most) most = k, best = on;
+        }
+    if (best >= 0) return ng_paint(g, best, best, NG_FILL) ? best : -1;
+    if (best_off >= 0) return ng_paint(g, best_off, best_off, NG_CROSS) ? best_off : -1;
+    for (int s = 0; s < n * n; s++)             /* never (line-solvable): the first square left */
+        if (g->sol[s] && g->sq[s] != NG_FILL) return ng_paint(g, s, s, NG_FILL) ? s : -1;
+    return -1;
+}
+
+int ng_hint(ng_game *g) { return bench_hinted(&g->hist, hint_step(g)); }
 
 int ng_line_done(const ng_game *g, int way, int i)
 {
@@ -324,6 +337,11 @@ int ng_script(ng_game *g, const char *s)
             for (s++; *s >= '0' && *s <= '9'; s++) k = k * 10 + *s - '0';
             for (int i = 0; i < g->n * g->n && k > 0; i++)
                 if (g->sol[i] && g->sq[i] != NG_FILL) { ng_paint(g, i, i, NG_FILL); k--; }
+            continue;
+        }
+        if (*s == 'h') {
+            if (ng_hint(g) < 0) return 0;
+            s++;
             continue;
         }
         int cross = *s == 'x';
