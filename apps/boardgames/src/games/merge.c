@@ -10,8 +10,8 @@
  * side the tiles would go. Undo takes back one push, all the way to the start (the new tiles too: the same push again
  * brings the same tile).
  * The target made: a gold light pulses on that tile and runs over the others, and the game goes on. No push left: the
- * game is over (never lost); the arrows give way to a wooden plaque under the tray with the score burned in (in gold
- * light when it is the best of the session), and the shell's card shows the stars and the score: three stars for the
+ * game is over (never lost); the arrows give way to a wooden plaque under the tray (beside it in a wide room) with the
+ * score burned in (in gold light when it is the best of the session), and the shell's card shows the stars and the score: three stars for the
  * target made (or beyond), two for the tile just below it, one otherwise. No designed levels: every new tile is drawn by chance,
  * so a level would only be a seed under another name, with no par to measure it by; the sizes are the difficulty.
  * The bar: the score, and at its right end the best score of the session (this size) by a gold star (narrow bars: the
@@ -44,7 +44,8 @@ static swp_swipe sw;
 static int down = -1;                           /* the tool held (its push, or SWP_HINT) */
 
 static box last_box;
-static float bx, by, side, tx, ty, plx, ply;    /* the board's square; the tray's top left; the plaque's centre */
+static float bx, by, side, tx, ty, plx, ply, plw, plh;   /* the board's square; the tray's top left; the plaque's
+                                                          * centre and size */
 static int fr, gap, tile, tw, made_key = -1, made_small = -1, made_tile = -1;
 static SDL_Texture *t_tray, *t_tile[MRG_TOP + 1], *t_small, *t_best, *t_plaque;
 
@@ -188,16 +189,29 @@ static void fit(float S, int n, int *f, int *g, int *T, int *w)
 static void layout(box b)
 {
     last_box = b;
+    /* the plaque, clear of the tray: under it when there is room, else beside it (a wide room), else the tray gives
+     * up the room under it */
     float S = floorf(fminf(b.w, b.h)), ph0 = floorf(0.125f * S);
-    if (b.h - S < ph0 && b.h > b.w) S = floorf(fminf(b.w, b.h - ph0));   /* upright: the plaque's room under it */
+    int beside = b.h - S < ph0 && (b.w - S) / 2 >= 0.3f * S;
+    if (b.h - S < ph0 && !beside) S = floorf(fminf(b.w, b.h / 1.125f));
+    ph0 = floorf(0.125f * S);
     side = S;
     bx = floorf(b.x + (b.w - S) / 2);
-    by = floorf(b.y + (b.h - S - (b.h > b.w ? ph0 : 0)) / 2);
+    by = floorf(b.y + (b.h - S - (beside ? 0 : ph0)) / 2);
     fit(S, G.n, &fr, &gap, &tile, &tw);
     tx = floorf(bx + (S - tw) / 2);
     ty = floorf(by + (S - tw) / 2);
-    plx = bx + S / 2;                           /* the plaque: under the tray, or over its foot when there is no room */
-    ply = b.y + b.h - (ty + tw) >= ph0 ? ty + tw + 0.6f * ph0 : ty + tw - fr - 0.6f * ph0;
+    plh = floorf(0.78f * ph0);
+    if (beside) {                               /* at the right of the tray, level with its bottom row */
+        float room = b.x + b.w - (tx + tw);
+        plw = floorf(fminf(0.62f * S, room - 0.1f * S));
+        plx = tx + tw + room / 2;
+        ply = ty + tw - fr - gap - tile / 2.0f;
+    } else {
+        plw = floorf(0.62f * S);
+        plx = bx + S / 2;
+        ply = ty + tw + 0.6f * ph0;
+    }
     int key = tw * 8 + G.n;
     if (made_key != key) {
         made_key = key;
@@ -213,7 +227,7 @@ static void layout(box b)
         made_tile = tile * 32 + G.target;
         for (int p = 0; p <= MRG_TOP; p++) ui_free(&t_tile[p]);
     }
-    int pw = (int)(0.62f * S), ph = (int)(0.78f * ph0);
+    int pw = (int)plw, ph = (int)plh;
     ui_free(&t_plaque);
     uint8_t *o = malloc((size_t)pw * pw * 4);
     if (o) {
@@ -374,7 +388,7 @@ static float glow(int i, float wt)
 static void draw_plaque(void)
 {
     float cx = plx, cy = ply;
-    float pw = 0.62f * side, ph = 0.78f * floorf(0.125f * side);
+    float pw = plw, ph = plh;
     int newbest = G.p.score > best_before && G.p.score >= best[G.variant];
     for (int i = -1; newbest && i <= 1; i++) ui_mark_gold(cx + i * 0.3f * pw, cy, 0.62f * pw);
     ui_shadow_flat(cx + 0.02f * ph, cy + 0.06f * ph, pw, ph, 0.7f);
