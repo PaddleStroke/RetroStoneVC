@@ -26,7 +26,7 @@
 #include "games/jass.h"
 #include "games/trickbot.h"
 
-#define JASS_HARD_ITERS 32000                   /* about 0.15 s a card on a quiet PC (0.3 s at the first tricks) */
+#define JASS_HARD_ITERS 44000                   /* about 0.25 s a card on a PC (0.5 s at the first tricks) */
 
 typedef struct { uint8_t mode, variant, voids[TK4_P]; } jassx;
 

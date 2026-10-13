@@ -39,7 +39,7 @@
 #include "games/trickbot.h"
 
 #ifndef PIQUET_HARD_ITERS
-#define PIQUET_HARD_ITERS 16000                 /* about 0.3 s a card on a PC */
+#define PIQUET_HARD_ITERS 16000                 /* about 30 ms a card on a PC (processor time), 0.2 s at worst */
 #endif
 #define NOBODY 255
 

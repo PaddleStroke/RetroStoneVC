@@ -23,7 +23,7 @@
 #include "games/klaverjas.h"
 #include "games/trickbot.h"
 
-#define KLAVERJAS_HARD_ITERS 40000              /* about 0.15 s a card on a quiet PC (0.3 s at the first tricks) */
+#define KLAVERJAS_HARD_ITERS 40000              /* about 0.25 s a card on a PC (0.5 s at the first tricks) */
 
 typedef struct { uint8_t taker; int16_t roem[2]; } kvjx;
 

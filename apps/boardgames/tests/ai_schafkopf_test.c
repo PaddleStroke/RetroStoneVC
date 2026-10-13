@@ -347,9 +347,9 @@ int main(int argc, char **argv)
     };
     static sp_pair P[] = {
         {AI_EASY, SP_RANDOM, 60, 75},
-        {AI_MEDIUM, AI_EASY, 60, 52},
-        {AI_HARD, AI_MEDIUM, 60, 45},
-        {AI_HARD, AI_EASY, 40, 55},
+        {AI_MEDIUM, AI_EASY, 200, 52},
+        {AI_HARD, AI_MEDIUM, 200, 45},
+        {AI_HARD, AI_EASY, 200, 55},
     };
     VAR = SFK_PLAIN;
     DEALS = full ? 4 : 3;

@@ -35,7 +35,7 @@
 #include "games/belote.h"
 #include "games/trickbot.h"
 
-#define BELOTE_HARD_ITERS 40000                 /* about 0.15 s a card on a quiet PC (0.3 s at the first tricks) */
+#define BELOTE_HARD_ITERS 90000                 /* about 0.2 s a card on a PC (0.5 s at the first tricks) */
 #define BELB_UNKNOWN 254                        /* the belote: not known yet (found in the dealt hands) */
 
 typedef struct {

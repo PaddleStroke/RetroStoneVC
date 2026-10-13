@@ -220,7 +220,7 @@ int main(int argc, char **argv)
             for (int k = 0; k < npos; k++) {
                 deal(k & 1, 40 + k);
                 ai_seed(&r, 99 + k + 1000 * (uint64_t)retry++);
-                walk(&r, 3 + k % 20 + retry);
+                walk(&r, 3 + k % 20 + retry % 8);
                 if (T.pos.phase != JP_PLAY || jas_can_weis(&T.pos) || T.pos.t.tricks > 4) { k--; continue; }
                 ai_stats s;
                 double t0 = ai_now_ms();

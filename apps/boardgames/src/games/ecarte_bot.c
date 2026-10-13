@@ -47,7 +47,7 @@
 #define ECB_LATER 0.5f                          /* later proposals: below it, propose or accept */
 #endif
 #ifndef ECARTE_HARD_ITERS
-#define ECARTE_HARD_ITERS 20000                 /* about 20 ms a card on a PC: five cards, the search is soon done */
+#define ECARTE_HARD_ITERS 20000                 /* about 15 ms a card on a PC: five cards (4x more: no better) */
 #endif
 
 typedef struct {
