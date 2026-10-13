@@ -162,7 +162,8 @@ int  ct_on_pile(const ct_table *T, int tricks, float x, float y);
  * drawn, the trump suit's sign where the trump lay */
 void ct_talon(int deck, float x, float y, float tx, float ty, float w, int n, int trump, int suit, int count);
 /* the round's summary: the panel for `rows` rows over the table (dimmed); its left, its width, the first row's centre
- * and the row height */
+ * and the row height. Once the game is over (ui_over()), the panel is the shell's end card instead (ui_end_room): the
+ * winners above the rows (beside them on a wide table), the rows closer when the room is short. */
 void ct_summary(const ct_table *T, int rows, float *x0, float *pw, float *y_row, float *rh);
 void ct_summary_in(box b, int rows, float *x0, float *pw, float *y_row, float *rh);   /* over the box b */
 /* the deals of a game in a row of n dots centred on (cx, y), d wide, in groups of `per` (a gap between): dot i in

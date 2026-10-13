@@ -353,6 +353,17 @@ void ui_handoff(int player);
 int  ui_handing(void);                          /* 1 while a hand-off waits or the cover is up (the game's input waits:
                                                  * the shell sends none) */
 
+/* the end card. ui_over(): 1 while it shows (this frame: the game is over, its last move landed, the final position
+ * shown a moment, the card not tapped away). A game with a final table (its rounds' scores) draws that table inside
+ * the card instead of over its own table: in draw(), while ui_over(), box r = ui_end_room(w, h) asks for a room w x h
+ * pixels; the shell veils the table, draws the card (opaque) grown to hold the result (the winners' tokens: above the
+ * room in portrait, on its left on a wide table) and the room, and returns the room (smaller when the screen is short:
+ * fit the table to r.w x r.h; w 0: ui_over() is 0). Ask once a frame, as the last thing draw() draws (what is drawn
+ * after lands on the card). ct_summary() and ct_summary_in() (cards_table.h) do it by themselves. A game with secret
+ * hands (VIEW_HIDDEN) that does not ask gets its table veiled whole under the usual card. */
+int  ui_over(void);
+box  ui_end_room(float w, float h);
+
 /* what the app keeps between two runs, on the device only (save.c: one small file, written whole then renamed, a
  * checksum; a damaged file is ignored): small values under a key, namespaced by the game ("logicgates/best"; the
  * shell's own: "shell/..."). Keys: 1..63 printable ASCII characters, no spaces; values up to 4096 bytes, kept as

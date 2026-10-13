@@ -720,6 +720,14 @@ void ct_summary_in(box b, int rows, float *x0, float *pw, float *y_row, float *r
     *rh = fminf(1.15f * u, b.h * 0.8f / rows);
     *pw = fminf(b.w * 0.94f, 8.0f * u);
     float ph = *rh * rows + 0.5f * u, y0 = b.y + (b.h - ph) / 2;
+    if (ui_over()) {                            /* the game is over: the summary inside the shell's end card */
+        box r = ui_end_room(*pw, ph);
+        *rh = fminf(*rh, (r.h - 0.5f * u) / rows);
+        *pw = r.w;
+        *x0 = r.x;
+        *y_row = r.y + (r.h - *rh * rows) / 2 + *rh / 2;
+        return;
+    }
     *x0 = b.x + (b.w - *pw) / 2;
     ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
     ct_panel(*x0, y0, *pw, ph, 255);

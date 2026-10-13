@@ -2067,12 +2067,20 @@ static unsigned winners_of(int st)
     return w >= 0 ? 1u << w : 0;
 }
 
-/* the end card with winners(): the winners standing side by side (in gold light, unless it is a draw: then the tied
- * players only), the others lying down, dimmed */
-static void draw_winners(unsigned won, int draw)
+/* a player who lost, on the end card: their token upright (a glyph still reads), set a little lower, dimmed */
+static void put_lost(SDL_Texture *t, float cx, float cy, float s)
 {
-    box b = L.board;
-    float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    SDL_SetTextureColorMod(t, 150, 150, 150);
+    SDL_SetTextureAlphaMod(t, 210);
+    ui_put_c(t, cx, cy + 0.12f * s, s, s);
+    SDL_SetTextureColorMod(t, 255, 255, 255);
+    SDL_SetTextureAlphaMod(t, 255);
+}
+
+/* the end card with winners(): the winners standing side by side (in gold light, unless it is a draw: then the tied
+ * players only), the others lower, dimmed */
+static void draw_winners(unsigned won, int draw, float cx, float cy, float u)
+{
     int nw = 0, nl = 0;
     for (int p = 0; p < ui.players; p++) nw += won >> p & 1;
     nl = ui.players - nw;
@@ -2089,10 +2097,7 @@ static void draw_winners(unsigned won, int draw)
     for (int p = 0, k = 0; p < ui.players; p++) {
         if (won >> p & 1) continue;
         int r = k / per, c = k % per;
-        SDL_SetTextureAlphaMod(t_big[p], 150);
-        ui_put_rot(t_big[p], lx + (c - (per - 1) / 2.0f) * ls * 1.1f, cy + (r - (rows - 1) / 2.0f) * ls * 1.15f, ls,
-                   ls, 90);
-        SDL_SetTextureAlphaMod(t_big[p], 255);
+        put_lost(t_big[p], lx + (c - (per - 1) / 2.0f) * ls * 1.1f, cy + (r - (rows - 1) / 2.0f) * ls * 1.15f, ls);
         k++;
     }
 }
@@ -2158,14 +2163,12 @@ static void draw_solved(float cx, float cy, float u)
     ui_button(next_btn.x, next_btn.y, next_btn.d, last ? ICON_GRID : ICON_ARROW, UI_LIT);
 }
 
-static void draw_over(void)
+/* the end card's result (its winners, a solved puzzle's stars): centred on (cx, cy), in a card 6.8 x 3.8 u wide */
+static void draw_result(float cx, float cy, float u)
 {
     const game *g = games[cur];
     int st = g->status();
-    box b = L.board;
-    float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2, big = 2.4f * u;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
-    ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
+    float big = 2.4f * u;
     if (st == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars))) {   /* a puzzle solved */
         draw_solved(cx, cy, u);
         return;
@@ -2173,39 +2176,36 @@ static void draw_over(void)
     int np = ui.players;
     unsigned won = g->winners ? winners_of(st) : 0;
     if (np > 1 && won) {                       /* winners() (partners, a shared win, a tie): they stand together */
-        draw_winners(won, st == GS_DRAW);
+        draw_winners(won, st == GS_DRAW, cx, cy, u);
     } else if (np == 1 && g->score) {           /* alone, a score: the token on the left, the score in big digits */
         float tx = cx - 1.55f * u;
         if (st == GS_WIN0) {
             ui_put_c(t_gold, tx, cy, big * 1.15f, big * 1.15f);
             ui_put_c(t_big[0], tx, cy, 2.1f * u, 2.1f * u);
         } else {
-            ui_put_rot(t_big[0], tx, cy + 0.3f * u, 1.8f * u, 1.8f * u, 90);
+            put_lost(t_big[0], tx, cy + 0.1f * u, 1.8f * u);
         }
         int sc = g->score();
         float h = 1.25f * u, w = ui_number_w(sc < 0 ? -sc : sc, h) + (sc < 0 ? 0.56f * h : 0);
         if (w > 3.2f * u) h *= 3.2f * u / w;    /* a long number: smaller, within the card */
         ui_number_signed(cx + 1.3f * u, cy, h, sc, 1, 0);
-    } else if (np == 1) {                              /* alone: in gold light when it won, else lying down */
+    } else if (np == 1) {                              /* alone: in gold light when it won, else lower, dimmed */
         if (st == GS_WIN0) ui_put_c(t_gold, cx, cy, big * 1.25f, big * 1.25f);
         if (st == GS_WIN0) ui_put_c(t_big[0], cx, cy, big, big);
-        else ui_put_rot(t_big[0], cx, cy + 0.3f * u, 2.0f * u, 2.0f * u, 90);
+        else put_lost(t_big[0], cx, cy + 0.1f * u, 2.0f * u);
     } else if (st == GS_DRAW && np > 2) {      /* everyone standing in a row */
         float k = fminf(2.0f * u, 6.0f * u / np);
         for (int p = 0; p < np; p++) ui_put_c(t_big[p], cx + (p - (np - 1) / 2.0f) * k * 1.05f, cy, k, k);
-    } else if (np > 2) {                        /* the winner in gold light, the others lying down, smaller */
+    } else if (np > 2) {                        /* the winner in gold light, the others lower, smaller, dimmed */
         int w = gs_winner(st), k = 0;
         ui_put_c(t_gold, cx - 1.6f * u, cy, big * 1.25f, big * 1.25f);
         ui_put_c(t_big[w], cx - 1.6f * u, cy, big, big);
         int rows = np > 3 ? 2 : 1, per = (np - 1 + rows - 1) / rows;
         float s = fminf(1.3f * u, 2.9f * u / (per * 1.1f)), x0 = cx + 0.15f * u + (3.0f * u - per * s * 1.1f) / 2;
-        for (int p = 0; p < np; p++) {         /* in the card's right part, dimmed (a round piece lying down
-                                                 * looks the same) */
+        for (int p = 0; p < np; p++) {         /* in the card's right part */
             if (p == w) continue;
             int r = k / per, c = k % per;
-            SDL_SetTextureAlphaMod(t_big[p], 150);
-            ui_put_rot(t_big[p], x0 + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f, s, s, 90);
-            SDL_SetTextureAlphaMod(t_big[p], 255);
+            put_lost(t_big[p], x0 + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f, s);
             k++;
         }
     } else if (st == GS_DRAW) {                 /* both standing, an equals sign between them */
@@ -2214,12 +2214,90 @@ static void draw_over(void)
         ui_put_c(t_big[1], cx + 1.7f * u, cy, k, k);
         ui_fill(cx - 0.32f * u, cy - 0.22f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
         ui_fill(cx - 0.32f * u, cy + 0.09f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
-    } else {                                    /* the winner in gold light, the loser lying down */
+    } else {                                    /* the winner in gold light, the loser lower, dimmed */
         int w = gs_winner(st) == 1;
         ui_put_c(t_gold, cx - 1.0f * u, cy, big * 1.25f, big * 1.25f);
         ui_put_c(t_big[w], cx - 1.0f * u, cy, big, big);
-        ui_put_rot(t_big[!w], cx + 1.6f * u, cy + 0.3f * u, 1.7f * u, 1.7f * u, 90);
+        put_lost(t_big[!w], cx + 1.6f * u, cy + 0.12f * u, 1.6f * u);
     }
+}
+
+/* the end card grown round a game's final table (ui_end_room): this frame's (room 1: drawn, the result goes at hx, hy
+ * in a card k times the usual size) */
+static struct { int due, room; float hx, hy, k; box r; } E;
+static SDL_Texture *t_endcard;
+static int endcard_w, endcard_h;
+
+int ui_over(void) { return screen == SCR_GAME && cur >= 0 && E.due; }
+
+/* the game's table in the card: below the result (portrait, a tall table), or beside it on its right (a wide table
+ * with room to spare: landscape) */
+box ui_end_room(float w, float h)
+{
+    if (!ui_over()) return (box){0, 0, 0, 0};
+    if (E.room) return E.r;                     /* asked again this frame: the same room */
+    box b = L.board;
+    float u = ui.unit, pad = floorf(0.3f * u), cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    float ks = 0.72f, hs = 6.8f * u * ks;       /* beside: the result's part, this wide */
+    int side = b.w > 1.3f * b.h && w + hs + 3 * pad <= b.w * 0.98f;
+    float k = side ? ks : 0.62f, hw = 6.8f * u * k, hh = 3.8f * u * k;
+    w = floorf(fminf(w, b.w * 0.98f - 2 * pad - (side ? hw + pad : 0)));
+    h = floorf(fminf(h, b.h * 0.98f - 2 * pad - (side ? 0 : hh)));
+    float cw, ch;
+    if (side) {
+        cw = hw + w + 3 * pad;
+        ch = fmaxf(h, hh) + 2 * pad;
+    } else {
+        cw = fmaxf(w, hw) + 2 * pad;
+        ch = hh + h + pad;
+    }
+    float x = floorf(cx - cw / 2), y = floorf(cy - ch / 2);
+    if (side) {
+        E.hx = x + pad + hw / 2;
+        E.hy = y + ch / 2;
+        E.r = (box){x + cw - pad - w, floorf(y + (ch - h) / 2), w, h};
+    } else {
+        E.hx = x + cw / 2;
+        E.hy = y + hh / 2 + 0.25f * pad;
+        E.r = (box){floorf(x + (cw - w) / 2), y + hh, w, h};
+    }
+    E.k = k;
+    E.room = 1;
+    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 120);  /* the table veiled, the card opaque */
+    if (endcard_w != (int)cw || endcard_h != (int)ch || !t_endcard) {
+        static const uint8_t c[4] = {28, 34, 32, 255};
+        endcard_w = (int)cw;
+        endcard_h = (int)ch;
+        ui_free(&t_endcard);
+        art_roundrect(endcard_w, endcard_h, 0.4f * u, c, ui_buf(endcard_w, endcard_h));
+        t_endcard = ui_tex(endcard_w, endcard_h, ui_buf(endcard_w, endcard_h));
+    }
+    ui_put(t_endcard, x, y, cw, ch);
+    float t = fmaxf(1, floorf(0.03f * u));      /* a faint line between the result and the table */
+    if (side) ui_fill(x + pad + hw + pad / 2 - t / 2, y + pad, t, ch - 2 * pad, 246, 238, 220, 40);
+    else ui_fill(x + pad, y + hh - t, cw - 2 * pad, t, 246, 238, 220, 40);
+    return E.r;
+}
+
+/* a game whose hands are secret (its final table drawn under the card, not in it): the table veiled whole */
+static int end_veil_whole(void)
+{
+    const game *g = games[cur];
+    return ui.players > 1 && (g->view == VIEW_HIDDEN || (g->hidden && g->hidden()));
+}
+
+static void draw_over(void)
+{
+    if (E.room) {                               /* the game's table is in the card: the result above it */
+        draw_result(E.hx, E.hy, ui.unit * E.k);
+        return;
+    }
+    box b = L.board;
+    float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+    if (end_veil_whole()) ui_fill(b.x, b.y, b.w, b.h, 14, 20, 18, 250);
+    else ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
+    ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
+    draw_result(cx, cy, u);
 }
 
 /* the hand-off cover, over the table greyed (drawn with ui.viewer -1: every hand hidden, only what all players see)
@@ -2300,6 +2378,21 @@ static void draw_game(void)
     handoff_settle();
     level_check();
     next_btn.d = replay_btn.d = 0;
+    /* the end: its tune, the final position a moment, then the card (due: it shows this frame, ui_over(); the game
+     * may draw its final table in it, ui_end_room) */
+    E.due = E.room = 0;
+    if (!hand.up && g->status() != GS_PLAY) {
+        if (g->busy && g->busy()) end_seen = 0;   /* the last move still moving: the end waits */
+        else {
+            Uint32 now = SDL_GetTicks();
+            if (!end_seen) {
+                end_seen = now ? now : 1;
+                snd_play(SND_END);
+            }
+            if (!instant && now - end_seen < END_PAUSE) ui_animate();
+            else E.due = !over_hidden;
+        }
+    }
     game_textures();
     g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
     game_textures();                            /* again: the game may have changed its tokens while drawing */
@@ -2316,15 +2409,7 @@ static void draw_game(void)
         draw_cover();
         return;
     }
-    if (g->status() == GS_PLAY) return;
-    if (g->busy && g->busy()) { end_seen = 0; return; }   /* the last move still moving: the end waits */
-    Uint32 now = SDL_GetTicks();
-    if (!end_seen) {                            /* the end: its tune, the final position a moment, then the card */
-        end_seen = now ? now : 1;
-        snd_play(SND_END);
-    }
-    if (!instant && now - end_seen < END_PAUSE) ui_animate();
-    else if (!over_hidden) draw_over();
+    if (E.due) draw_over();
 }
 
 static SDL_Texture *thumb(int i, int v)
