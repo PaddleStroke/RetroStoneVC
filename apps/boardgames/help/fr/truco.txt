@@ -12,11 +12,11 @@ Le jeu espagnol de 40 cartes, sans les 8 ni les 9 : oros (deniers), copas (coup
 # Le truco
 - À ton tour, avant de jouer, tu peux annoncer truco : la main vaut alors 2. L'autre équipe répond quiero (accepter), no quiero (refuser : tu prends la main à sa valeur d'avant l'annonce) ou relance : retruco (3), puis vale cuatro (4).
 - Seule l'équipe qui a accepté la dernière annonce peut la relancer, plus tard, à l'un de ses tours.
-- Me voy al mazo (« je retourne au paquet ») : au lieu de jouer, un joueur abandonne la main, que les adversaires prennent à sa valeur du moment.
+- Me voy al mazo (« je retourne au paquet ») : au lieu de jouer, un joueur abandonne la main, que les adversaires prennent à sa valeur du moment.
 # L'envido
-- Au premier tour seulement, avant de jouer ta première carte, tu peux annoncer envido (2), real envido (3) ou falta envido. En répondant à un truco au premier tour, tu peux d'abord annoncer l'envido : el envido está primero (« l'envido passe d'abord »). Une fois un truco accepté, plus d'envido.
+- Au premier tour seulement, avant de jouer ta première carte, tu peux annoncer envido (2), real envido (3) ou falta envido. En répondant à un truco au premier tour, tu peux d'abord annoncer l'envido : el envido está primero (« l'envido passe d'abord »). Une fois un truco accepté, plus d'envido.
 - La réponse : quiero, no quiero ou une annonce plus haute : encore un envido, puis real envido, puis falta envido. Acceptée, l'équipe au meilleur envido marque la somme des annonces ; refusée, les annonceurs marquent ce qui avait été accepté avant la dernière annonce, ou 1.
-- La falta envido vaut ce qui manque à l'équipe en tête pour gagner ; dans une partie en 30, tant que les deux équipes sont sous 15 (las malas, « les mauvaises »), elle vaut toute la partie.
+- La falta envido vaut ce qui manque à l'équipe en tête pour gagner ; dans une partie en 30, tant que les deux équipes sont sous 15 (las malas, « les mauvaises »), elle vaut toute la partie.
 - L'envido d'un joueur : deux cartes d'une même couleur comptent 20 plus leurs valeurs (les figures valent 0) ; sinon, sa plus haute valeur. Le meilleur envido gagne ; une égalité revient au joueur le plus proche de la mano.
 # La flor
 Une variante, à choisir avant la partie (la fleur). Trois cartes d'une même couleur font une flor : elle est montrée à la donne et vaut 3 points à son équipe, et cette main n'a pas d'envido. Si les deux équipes ont une flor, la meilleure (20 plus les trois valeurs) prend 3 points par flor. La contraflor est laissée de côté.

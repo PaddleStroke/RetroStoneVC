@@ -4,7 +4,7 @@
 # Un tour
 - Lance les six dés. Mets de côté au moins un dé qui marque, puis mets en banque les points de ton tour, ou relance les dés qui restent pour en marquer davantage.
 - Chaque dé mis de côté doit marquer, et les combinaisons ne comptent qu'au sein d'un même lancer.
-- Un lancer sans aucun dé qui marque est un « farkle » : tu perds tous les points du tour, et la main passe.
+- Un lancer sans aucun dé qui marque est un « farkle » : tu perds tous les points du tour, et la main passe.
 - Main pleine : quand les six dés ont marqué, tu peux relancer les six et continuer d'ajouter.
 - Ta première mise en banque doit faire au moins 500 points en un tour ; ensuite, toutes comptent.
 # Les points

@@ -1,6 +1,6 @@
 Tiến lên
 # Le but
-Être le premier à poser toutes ses cartes ; les autres continuent pour les places. Un jeu vietnamien (son nom veut dire « en avant ») pour 2 à 4 joueurs, avec un jeu de 52 cartes : 13 chacun (à moins de quatre joueurs, les cartes restantes sont mises de côté).
+Être le premier à poser toutes ses cartes ; les autres continuent pour les places. Un jeu vietnamien (son nom veut dire « en avant ») pour 2 à 4 joueurs, avec un jeu de 52 cartes : 13 chacun (à moins de quatre joueurs, les cartes restantes sont mises de côté).
 # Les cartes
 - De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
 - Les couleurs, de la plus faible à la plus forte : pique, trèfle, carreau, cœur. Entre deux cartes de même valeur, la couleur décide : le 2 de cœur est la plus forte carte.

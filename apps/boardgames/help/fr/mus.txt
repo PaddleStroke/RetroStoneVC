@@ -4,7 +4,7 @@ Le jeu de cartes basque, pour deux équipes de deux partenaires assis face à fa
 # Les cartes
 Le jeu espagnol de 40 cartes, en quatre couleurs : oros (deniers), copas (coupes), espadas (épées) et bastos (bâtons), numérotées de 1 à 7, puis la sota (10, ici un pion), le caballo (11, un cavalier) et le rey (12, un roi). Les coupures du filet autour de chaque carte, la pinta, donnent la couleur : aucune pour les oros, une pour les copas, deux pour les espadas, trois pour les bastos. On joue la règle courante à huit rois (ocho reyes) : chaque 3 compte comme un rey et chaque 2 comme un as, dans toutes les lances.
 # Le mus
-Chaque joueur reçoit 4 cartes. La mano, qui parle en premier et gagne toutes les égalités, est le joueur après le donneur ; tous deux avancent d'une place à chaque donne. À tour de rôle depuis la mano, chacun dit mus (pour changer des cartes) ou coupe (no hay mus, « pas de mus »). Si les quatre disent mus, chacun écarte à son tour de 1 à 4 cartes et en reprend autant, puis on redemande le mus. Dès qu'un joueur coupe, les lances commencent.
+Chaque joueur reçoit 4 cartes. La mano, qui parle en premier et gagne toutes les égalités, est le joueur après le donneur ; tous deux avancent d'une place à chaque donne. À tour de rôle depuis la mano, chacun dit mus (pour changer des cartes) ou coupe (no hay mus, « pas de mus »). Si les quatre disent mus, chacun écarte à son tour de 1 à 4 cartes et en reprend autant, puis on redemande le mus. Dès qu'un joueur coupe, les lances commencent.
 # Les quatre lances
 - Grande : les plus hautes cartes gagnent, comparées une à une : rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica : les plus basses cartes gagnent.
@@ -15,7 +15,7 @@ En Pares et en Juego, on ne mise pas si une seule équipe en a, et la lance est 
 - Dans chaque lance, les joueurs parlent à tour de rôle depuis la mano : passer (paso) ou miser (envido : 2 points, ou plus).
 - Face à une mise, l'adversaire suivant répond, puis son partenaire s'il le faut : accepter (quiero), relancer de quelques points, miser toute la partie (órdago) ou refuser (no quiero). La mise n'est refusée que si les deux adversaires refusent.
 - Refusée : l'équipe qui a misé marque aussitôt 1 point, ou la mise d'avant la dernière relance, et gagne la lance.
-- Si tout le monde passe, la lance se joue « en paso ».
+- Si tout le monde passe, la lance se joue « en paso ».
 - Un órdago accepté : on montre les mains aussitôt, et le gagnant de cette lance gagne la partie.
 # Le compte
 À la fin de la donne, toutes les mains sont montrées et les lances sont comptées dans l'ordre :

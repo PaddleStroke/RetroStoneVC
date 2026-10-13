@@ -9,6 +9,6 @@ Prends une allumette ou plus, autant que tu veux, mais toutes dans la même rang
 # La fin de la partie
 - Qui perd gagne (la règle classique) : le joueur qui prend la dernière allumette perd.
 - Jeu normal : le joueur qui prend la dernière allumette gagne.
-La liste des parties propose quatre choix : Marienbad ou une disposition au hasard, chacune en « qui perd gagne » ou en jeu normal. Sur leurs images, la dernière allumette brille en rouge quand la prendre fait perdre, et en or quand la prendre fait gagner ; un dé marque les dispositions au hasard.
+La liste des parties propose quatre choix : Marienbad ou une disposition au hasard, chacune en « qui perd gagne » ou en jeu normal. Sur leurs images, la dernière allumette brille en rouge quand la prendre fait perdre, et en or quand la prendre fait gagner ; un dé marque les dispositions au hasard.
 # Jouer sur l'appareil
 Touche les allumettes que tu veux prendre : elles se soulèvent. Touche une allumette soulevée pour la reposer, ou fais glisser ton doigt le long d'une rangée pour en soulever plusieurs d'un coup. Toutes les allumettes soulevées doivent être dans la même rangée. Touche ensuite le bouton rond marqué d'une coche, sous les rangées : les allumettes glissent de ton côté. Chaque barre indique combien d'allumettes ce joueur a prises. Annuler reprend le dernier tour.

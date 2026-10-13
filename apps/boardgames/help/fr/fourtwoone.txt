@@ -5,7 +5,7 @@ Se débarrasser de ses jetons : le jeu de comptoir avec trois dés et onze jeto
 De la meilleure à la pire, et ce que chacune vaut en jetons :
 - 4-2-1 : 10.
 - 1-1-1 : 7.
-- Les « fiches », deux as et un autre dé, et les brelans, chacun vaut sa face : 1-1-6 et 6-6-6 : 6 ; 1-1-5 et 5-5-5 : 5 ; jusqu'à 1-1-2 et 2-2-2 : 2. Une fiche bat le brelan de même valeur.
+- Les « fiches », deux as et un autre dé, et les brelans, chacun vaut sa face : 1-1-6 et 6-6-6 : 6 ; 1-1-5 et 5-5-5 : 5 ; jusqu'à 1-1-2 et 2-2-2 : 2. Une fiche bat le brelan de même valeur.
 - Les suites 6-5-4, 5-4-3, 4-3-2 et 3-2-1 : 2.
 - Tout autre lancer : 1, les dés les plus forts gagnent (6-6-5, puis 6-6-4…).
 - La nénette, 2-2-1 : la pire de toutes.

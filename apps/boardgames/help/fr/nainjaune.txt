@@ -8,7 +8,7 @@ Les cartes sont distribuées une par une : 15 chacun à 3 joueurs, 12 à 4, 9 �
 # Le jeu
 Les cartes vont de l'as (1) au roi ; les couleurs ne comptent pas.
 - Le joueur à gauche du donneur pose la carte de son choix, puis continue avec la carte suivante, de n'importe quelle couleur, aussi longtemps qu'il le peut : un 4, un 5, un 6…
-- Quand il n'a pas la carte suivante (« sans sept »), le joueur suivant autour de la table qui l'a continue, et ainsi de suite. Les joueurs qui ne l'ont pas sont passés.
+- Quand il n'a pas la carte suivante (« sans sept »), le joueur suivant autour de la table qui l'a continue, et ainsi de suite. Les joueurs qui ne l'ont pas sont passés.
 - Si tu as la carte suivante, tu dois la jouer ; si tu en as plusieurs, tu choisis laquelle.
 - Un roi termine la séquence : celui qui l'a joué en commence une nouvelle avec la carte de son choix. Si personne n'a la carte suivante, le dernier à avoir joué recommence une séquence.
 - Celui qui joue l'une des cinq cartes du tableau ramasse tous les jetons de sa case.

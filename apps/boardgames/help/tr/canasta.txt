@@ -1,29 +1,29 @@
 Kanasta
 # Amaç
-5000 puana ilk ulaşan taraf olmak. İki eşli takım hâlinde 4 oyuncu (eşler karşılıklı oturur ve açtıkları perleri paylaşır) ya da 2 oyuncu için. Aynı değerdeki kartları açın, yedi kartlık kanastalar kurun ve bitirin.
+5000 puana ilk ulaşan taraf olmak. İki eşli takım hâlinde 4 oyuncu (eşler karşılıklı oturur ve açtıkları perleri paylaşır) ya da 2 oyuncu için. Aynı değerdeki kartları aç, yedi kartlık kanastalar kur ve bitir.
 # Kartlar
 - 52'lik iki deste ve dört joker: 108 kart.
 - Jokerler ve 2'ler serbest kartlardır: bir perde istenen değerin yerine geçerler.
 - Kart değerleri: joker 50, as ve 2 20, papazdan 8'e 10, 7'den 4'e 5, siyah 3 5.
-- Kırmızı 3'ler ödül kartlarıdır. Size dağıtılan ya da çektiğiniz kırmızı 3 hemen takımınızın perlerinin yanına konur ve yerine başka bir kart çekersiniz. Her biri 100, dördü birden 800 değerindedir; el bittiğinde hiç per açmamış bir takımın aleyhine sayılırlar.
+- Kırmızı 3'ler ödül kartlarıdır. Sana dağıtılan ya da çektiğin kırmızı 3 hemen takımının perlerinin yanına konur ve yerine başka bir kart çekersin. Her biri 100, dördü birden 800 değerindedir; el bittiğinde hiç per açmamış bir takımın aleyhine sayılırlar.
 - Siyah 3'ler ıskartayı kapatır: üstte siyah 3 varken kimse ıskartayı alamaz.
 # Dağıtım
 - Herkese 11 kart (2 oyuncu: 15). Sonraki kart ıskartayı başlatır; kalanlar desteyi oluşturur. O kart serbest kart ya da kırmızı 3 ise başka bir kart onu örter ve ıskarta donar.
 - Her elde dağıtım bir sonraki oyuncuya geçer.
 # Bir sıra
-- Destenin üstündeki kartı çekin (2 oyuncu: iki kart) ya da bütün ıskartayı alın.
-- İsterseniz per açın.
-- Bir kartı açık olarak atın: sıranız biter.
+- Destenin üstündeki kartı çek (2 oyuncu: iki kart) ya da bütün ıskartayı al.
+- İstersen per aç.
+- Bir kartı açık olarak at: sıran biter.
 # Perler ve kanastalar
-- Per: aynı değerde üç ya da daha çok kart (aslar, 4'lerden papazlara), en az ikisi doğal, en çok üçü serbest. Takımınızın her değerden tek bir peri olur: o değerdeki başka kartlar ona eklenir.
+- Per: aynı değerde üç ya da daha çok kart (aslar, 4'lerden papazlara), en az ikisi doğal, en çok üçü serbest. Takımının her değerden tek bir peri olur: o değerdeki başka kartlar ona eklenir.
 - Kanasta: yedi ya da daha çok kartlık per. Temiz (serbest kartsız) 500 puan, karışık 300.
-- İlk açış: takımınızın tek sırada açtığı ilk perler, takımın puanı 1500'ün altındayken en az 50 (kart değerleri), 1500'den itibaren 90, 3000'den itibaren 120, puan sıfırın altındayken 15 etmelidir. Iskartayı onlarla almak için onları çekmeden önce açabilirsiniz.
+- İlk açış: takımının tek sırada açtığı ilk perler, takımın puanı 1500'ün altındayken en az 50 (kart değerleri), 1500'den itibaren 90, 3000'den itibaren 120, puan sıfırın altındayken 15 etmelidir. Iskartayı onlarla almak için onları çekmeden önce açabilirsin.
 # Iskarta
-- Almak için üstteki kartı hemen bir pere koymalısınız: elinizdeki kartlarla ya da takımınızın bir perine. Sonra ıskartanın kalanı elinize geçer.
-- İçinde serbest kart (yan yatırılmış) olduğu sürece ıskarta donmuştur; henüz per açmamış bir takım için de öyledir. O zaman yalnızca elinizden, üstteki kartla aynı değerde doğal bir çiftle alınabilir.
+- Almak için üstteki kartı hemen bir pere koymalısın: elindeki kartlarla ya da takımının bir perine. Sonra ıskartanın kalanı eline geçer.
+- İçinde serbest kart (yan yatırılmış) olduğu sürece ıskarta donmuştur; henüz per açmamış bir takım için de öyledir. O zaman yalnızca elinden, üstteki kartla aynı değerde doğal bir çiftle alınabilir.
 - Üstte siyah 3 ya da serbest kart varken asla.
 # Bitirmek
-- Son kartınızdan kurtulduğunuzda bitirirsiniz: hepsini açarak ya da biri hariç hepsini açıp onu atarak. Ancak takımınızın bir kanastası varken (2 oyuncu: iki). O zamana kadar elinizde ikiden az kart kalacak şekilde açamazsınız.
+- Son kartından kurtulduğunda bitirirsin: hepsini açarak ya da biri hariç hepsini açıp onu atarak. Ancak takımının bir kanastası varken (2 oyuncu: iki). O zamana kadar elinde ikiden az kart kalacak şekilde açamazsın.
 - Siyah 3'ler yalnızca bitirirken açılabilir (üç ya da dört, serbest kartsız).
 - Bitirmek 100 puandır. Gizli bitirmek 200 puandır: destenin kartını çektikten sonra bütün eli tek sırada açmak, bu elde daha önce hiç açmamışken; o zaman ilk açış için en az sınır aranmaz.
 - Deste bitince, ıskartanın üstündeki kartı takımının bir perine koyabilen oyuncu ıskartayı almak zorundadır; yoksa el biter.
@@ -32,11 +32,11 @@ El bitince her takım açtığı kartları, kanastalarını, kırmızı 3'lerini
 # Oyunun sonu
 Oyun, bir takımın 5000 puana ulaştığı elden sonra biter. En yüksek toplam kazanır; toplamlar eşitse galibiyet paylaşılır.
 # Cihazda oynamak
-Eller gizlidir: ekran istediğinde cihazı verin, sonraki oyuncu başlat düğmesine dokunur. Eliniz altta, değere göre sıralıdır. Diğer eller üstte küçük yelpazelerdir. Takımınızın perleri elinizin üstünde, öbür takımınki yelpazelerin altında, her değer için bir sütunda durur. Kanasta, altında kart sayısıyla bir desteye kapanır: temizse altın ışıkta, karışıksa altında yan yatmış bir serbest kartla. Her takımın pulları ve kırmızı 3'leri sırasının solundadır. Bir takım henüz açmamışken sağdaki koyu disk ilk açışın ne kadar istediğini, yanında da bu sırada açılanı gösterir. Her şerit eldeki kartları ve takımın puanını gösterir.
-- Kart çekmek için desteye dokunun.
-- Seçmek için elinizdeki kartlara dokunun; geri koymak için bir karta yeniden dokunun.
-- Sonra eklemek için takımınızın bir perine, yeni bir per için takımınızın sırasına dokunun. Çekmeden önce, onlarla almak için ıskartaya dokunun. Çektikten sonra bir kart seçin ve atmak için ıskartaya dokunun. Kartı oraya sürükleyebilirsiniz de.
+Eller gizlidir: ekran istediğinde cihazı ver, sonraki oyuncu başlat düğmesine dokunur. Elin altta, değere göre sıralıdır. Diğer eller üstte küçük yelpazelerdir. Takımının perleri elinin üstünde, öbür takımınki yelpazelerin altında, her değer için bir sütunda durur. Kanasta, altında kart sayısıyla bir desteye kapanır: temizse altın ışıkta, karışıksa altında yan yatmış bir serbest kartla. Her takımın pulları ve kırmızı 3'leri sırasının solundadır. Bir takım henüz açmamışken sağdaki koyu disk ilk açışın ne kadar istediğini, yanında da bu sırada açılanı gösterir. Her şerit eldeki kartları ve takımın puanını gösterir.
+- Kart çekmek için desteye dokun.
+- Seçmek için elindeki kartlara dokun; geri koymak için bir karta yeniden dokun.
+- Sonra eklemek için takımının bir perine, yeni bir per için takımının sırasına dokun. Çekmeden önce, onlarla almak için ıskartaya dokun. Çektikten sonra bir kart seç ve atmak için ıskartaya dokun. Kartı oraya sürükleyebilirsin de.
 - Seçili kartların yapabildiği şey parlar: ıskarta, bir per, boş bir yer.
-- Deste boşken ıskartayı alamıyorsanız eli bitirmek için boş desteye dokunun.
-- El bitince bir tablo her takım için açılan kartları, kanastaları, kırmızı 3'leri, bitirmeyi, eldeki kartları, elin puanını ve toplamları gösterir. Sonraki el için dokunun.
-Geri al cihazın verildiği ana kadar kendi hamlelerinizi geri alır.
+- Deste boşken ıskartayı alamıyorsan eli bitirmek için boş desteye dokun.
+- El bitince bir tablo her takım için açılan kartları, kanastaları, kırmızı 3'leri, bitirmeyi, eldeki kartları, elin puanını ve toplamları gösterir. Sonraki el için dokun.
+Geri al cihazın verildiği ana kadar kendi hamlelerini geri alır.

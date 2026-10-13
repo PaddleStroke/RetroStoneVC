@@ -7,7 +7,7 @@ Le jeu compte 36 cartes, du 6 à l'as. En Suisse alémanique, on joue surtout au
 Chaque joueur reçoit 9 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur choisit le jeu et entame le premier pli.
 # Choisir le jeu
 - Celui qui choisit nomme une couleur d'atout, ou Obenabe (sans atout, l'as est le plus fort) ou Undeufe (sans atout, le six est le plus fort).
-- Ou il passe la main (schieben, « chibrer ») : son partenaire doit alors choisir. Le premier pli est quand même entamé par celui qui a passé la main.
+- Ou il passe la main (schieben, « chibrer ») : son partenaire doit alors choisir. Le premier pli est quand même entamé par celui qui a passé la main.
 # Les atouts
 - Le valet d'atout, le Puur (le bour), est la plus forte carte (20 points), puis le 9, le Nell (14), puis l'as 11, le roi 4, la dame 3, le 10 10, le 8, le 7, le 6.
 - Les autres couleurs se classent as 11, roi 4, dame 3, valet 2, 10 10, 9, 8, 7, 6.

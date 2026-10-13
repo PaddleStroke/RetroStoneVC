@@ -4,7 +4,7 @@ Le jeu de cartes préféré des Allemands, à quatre, avec un jeu double. À cha
 # La donne
 Le jeu compte 48 cartes : 9, 10, valet, dame, roi et as de chaque couleur, chaque carte en double. Chaque joueur reçoit 12 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur parle en premier et entame le premier pli.
 # Les réserves
-- Avant la première carte, chaque joueur à son tour se dit gesund (« sain » : sans réserve) ou annonce une réserve (Vorbehalt). Ce qu'il veut jouer reste secret : un solo ou un mariage.
+- Avant la première carte, chaque joueur à son tour se dit gesund (« sain » : sans réserve) ou annonce une réserve (Vorbehalt). Ce qu'il veut jouer reste secret : un solo ou un mariage.
 - Un joueur qui a les deux dames de trèfle peut annoncer un mariage (Hochzeit). C'est à lui de choisir : il peut aussi se taire et jouer un solo muet contre les trois autres.
 - Le premier solo dans l'ordre de parole est joué ; sinon le mariage ; sinon le jeu normal.
 # Les atouts
@@ -12,14 +12,14 @@ Le jeu compte 48 cartes : 9, 10, valet, dame, roi et as de chaque couleur, chaq
 - Les autres couleurs se classent as, 10, roi, 9 ; le cœur n'a que l'as, le roi et le 9.
 - De deux cartes identiques dans un pli, la première jouée l'emporte.
 # Les camps
-- Les détenteurs des dames de trèfle (les Alten, « les vieilles ») sont Re, les autres Kontra. Chacun connaît son propre camp, pas celui des autres. Un camp se dévoile quand une dame de trèfle est jouée ou quand quelqu'un annonce.
+- Les détenteurs des dames de trèfle (les Alten, « les vieilles ») sont Re, les autres Kontra. Chacun connaît son propre camp, pas celui des autres. Un camp se dévoile quand une dame de trèfle est jouée ou quand quelqu'un annonce.
 - Mariage : le premier autre joueur qui remporte l'un des trois premiers plis devient le partenaire de la mariée. Si la mariée fait les trois, elle joue seule, comme un solo.
 # Les solos
 Un joueur, le soliste (Re), joue contre les trois autres (Kontra).
 - Solo de dames : seules les huit dames sont atouts.
 - Solo de valets : seuls les huit valets sont atouts.
 - Solo de couleur : les atouts du jeu normal, la couleur choisie remplaçant le carreau.
-- Fleischlos (« sans viande ») : pas d'atout ; chaque couleur se classe as, 10, roi, dame, valet, 9.
+- Fleischlos (« sans viande ») : pas d'atout ; chaque couleur se classe as, 10, roi, dame, valet, 9.
 # Le jeu
 Fournis la couleur demandée si tu peux (tous les atouts comptent comme une seule couleur) ; sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
 # Les annonces
@@ -35,7 +35,7 @@ Fournis la couleur demandée si tu peux (tous les atouts comptent comme une seul
 - Gagné : 1. Les perdants sous 90, sous 60, sous 30, et sans aucun pli (schwarz) : 1 chacun.
 - Re annoncé : 2. Kontra annoncé : 2. Chaque pas 90, pas 60, pas 30 et schwarz annoncé : 1.
 - 120 atteints contre le pas 90 de l'autre camp, 90 contre pas 60, 60 contre pas 30, 30 contre schwarz : 1 chacun.
-- Points spéciaux (Sonderpunkte), au jeu normal et au mariage seulement, pour le camp qui les fait : un renard pris (Fuchs : un as de carreau adverse dans un pli que tu remportes), un Doppelkopf (un pli de 40 points ou plus), Karlchen (« petit Charles » : le dernier pli remporté avec le valet de trèfle), et contre les vieilles (gegen die Alten : Kontra gagne) : 1 chacun. Les points spéciaux des deux camps s'annulent.
+- Points spéciaux (Sonderpunkte), au jeu normal et au mariage seulement, pour le camp qui les fait : un renard pris (Fuchs : un as de carreau adverse dans un pli que tu remportes), un Doppelkopf (un pli de 40 points ou plus), Karlchen (« petit Charles » : le dernier pli remporté avec le valet de trèfle), et contre les vieilles (gegen die Alten : Kontra gagne) : 1 chacun. Les points spéciaux des deux camps s'annulent.
 # Le score
 - Jeu normal : chaque joueur Re marque la valeur du jeu si Re a gagné (en négatif si Kontra a gagné), plus les points spéciaux de Re, moins ceux de Kontra ; chaque joueur Kontra marque l'inverse.
 - Solo : le soliste marque trois fois plus, chaque adversaire une fois.

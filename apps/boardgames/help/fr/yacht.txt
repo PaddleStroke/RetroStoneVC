@@ -27,7 +27,7 @@ La feuille n'a pas de mots : chaque ligne est un dessin de dés.
 # Classique : les yams en plus
 Une fois ta ligne du yams à 50, chaque nouveau yams rapporte 100 de plus, où que tu l'inscrives. Une fois cette ligne remplie (50 ou 0), un yams devient joker : il doit aller dans la ligne de sa face parmi les as à six si elle est vide ; sinon dans n'importe quelle ligne vide sous l'étoile, où le full et les suites comptent en entier ; sinon dans n'importe quelle ligne vide des as aux six, pour 0.
 # Generala
-Une suite, un full ou un poker faits au premier lancer du tour (« servis ») rapportent 5 de plus. Une generala servie gagne aussitôt la partie. La generala double ne vaut 100 que si ta ligne generala est à 50 ; sinon on ne peut que la barrer, pour 0. Il n'y a pas de prime pour les as à six.
+Une suite, un full ou un poker faits au premier lancer du tour (« servis ») rapportent 5 de plus. Une generala servie gagne aussitôt la partie. La generala double ne vaut 100 que si ta ligne generala est à 50 ; sinon on ne peut que la barrer, pour 0. Il n'y a pas de prime pour les as à six.
 # La fin de la partie
 On joue à tour de rôle autour de la table, l'ivoire en premier. Quand tout le monde a rempli toutes ses lignes, le plus gros total gagne ; à égalité, les meilleurs se partagent la victoire. Seul, tu gagnes avec 200 points ou plus (Generala : 150, ou une generala servie).
 # Jouer sur l'appareil

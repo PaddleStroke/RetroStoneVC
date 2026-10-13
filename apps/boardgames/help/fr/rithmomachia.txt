@@ -1,6 +1,6 @@
 Rithmomachie
 # Le but
-La rithmomachie, la « bataille des nombres », était le jeu des savants dans l'Europe médiévale. Deux armées de nombres s'affrontent sur un plateau de 8 sur 16 cases : les pairs (clairs) et les impairs (foncés). Chaque armée a 24 pièces : 8 ronds, 8 triangles, 7 carrés et une pyramide, chacune portant un nombre. On gagne en prenant des pièces adverses (la victoire commune) ou en plaçant trois de ses pièces en harmonie dans la moitié adverse (la victoire propre). Les pairs commencent.
+La rithmomachie, la « bataille des nombres », était le jeu des savants dans l'Europe médiévale. Deux armées de nombres s'affrontent sur un plateau de 8 sur 16 cases : les pairs (clairs) et les impairs (foncés). Chaque armée a 24 pièces : 8 ronds, 8 triangles, 7 carrés et une pyramide, chacune portant un nombre. On gagne en prenant des pièces adverses (la victoire commune) ou en plaçant trois de ses pièces en harmonie dans la moitié adverse (la victoire propre). Les pairs commencent.
 # Les armées
 Les pièces sont disposées comme les décrivent Claude de Boissière (1556) et Lever et Fulke (1563). Leurs nombres découlent de quatre petits nombres : 2, 4, 6, 8 pour les pairs, 3, 5, 7, 9 pour les impairs.
 - Ronds : les petits nombres et leurs carrés (pairs : 2 4 6 8 et 4 16 36 64).

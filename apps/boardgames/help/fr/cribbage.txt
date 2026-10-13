@@ -8,7 +8,7 @@ Cribbage
 - La donne passe à gauche après chaque main.
 # Le jeu de la carte
 - En partant de la gauche du donneur, les joueurs posent leurs cartes face visible chacun à son tour et annoncent le total cumulé de leurs valeurs : as 1, 2 à 10 leur valeur, valet, dame et roi 10.
-- Le total ne peut jamais dépasser 31. Un joueur qui ne peut pas poser de carte dit « go », et les autres continuent tant qu'ils le peuvent.
+- Le total ne peut jamais dépasser 31. Un joueur qui ne peut pas poser de carte dit « go », et les autres continuent tant qu'ils le peuvent.
 - Un total d'exactement 15 rapporte 2, d'exactement 31 rapporte 2.
 - Une carte de même rang que la précédente rapporte 2 pour une paire, 6 pour un brelan, 12 pour un carré.
 - Quand les 3 dernières cartes posées ou plus forment une suite, dans n'importe quel ordre, elle rapporte 1 point par carte.

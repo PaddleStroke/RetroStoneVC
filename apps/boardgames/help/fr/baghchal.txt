@@ -1,6 +1,6 @@
 Bagh-Chal
 # Le but
-Le Bagh-Chal, « tigres et chèvres », vient du Népal. Un joueur a quatre tigres, l'autre vingt chèvres. Les tigres cherchent à attraper des chèvres ; les chèvres cherchent à encercler les tigres pour qu'aucun d'eux ne puisse plus bouger. Les chèvres (claires) commencent.
+Le Bagh-Chal, « tigres et chèvres », vient du Népal. Un joueur a quatre tigres, l'autre vingt chèvres. Les tigres cherchent à attraper des chèvres ; les chèvres cherchent à encercler les tigres pour qu'aucun d'eux ne puisse plus bouger. Les chèvres (claires) commencent.
 # Le plateau
 Vingt-cinq points reliés par des lignes : chaque rangée, chaque colonne et les diagonales tracées sur le plateau. Les pièces se déplacent uniquement le long de ces lignes, d'un point au suivant. Les quatre tigres (foncés) partent des coins ; les chèvres commencent hors du plateau.
 # Les déplacements

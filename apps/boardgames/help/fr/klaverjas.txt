@@ -2,10 +2,10 @@ Klaverjas
 # Le but
 Le jeu de cartes préféré des Néerlandais : deux équipes de deux partenaires assis face à face, ivoire et rouge contre ébène et jade. À chaque donne, une équipe choisit l'atout et doit ensuite faire plus de la moitié de tous les points. Une partie compte 16 donnes ; à la fin, le plus gros total gagne. Les règles sont celles de Rotterdam (Rotterdams) : on doit toujours couper quand on ne peut pas fournir. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
 # La donne
-Le jeu compte 32 cartes, du 7 à l'as, aux couleurs françaises. Chaque joueur reçoit 8 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur (voorhand, « la main ») parle en premier et entame toujours le premier pli.
+Le jeu compte 32 cartes, du 7 à l'as, aux couleurs françaises. Chaque joueur reçoit 8 cartes. Jade donne en premier ; ensuite le donneur avance d'une place à chaque donne. Le joueur après le donneur (voorhand, « la main ») parle en premier et entame toujours le premier pli.
 # Les atouts
 - À partir de voorhand, en faisant le tour de la table, chaque joueur à son tour nomme une couleur d'atout ou passe. Le premier qui en nomme une joue : son équipe doit réussir le jeu.
-- Si les quatre passent, voorhand doit nommer une couleur (verplicht, « obligé »).
+- Si les quatre passent, voorhand doit nommer une couleur (verplicht, « obligé »).
 # L'ordre des cartes
 - Atouts : valet 20, neuf 14, as 11, dix 10, roi 4, dame 3, huit, sept.
 - Les autres couleurs : as 11, dix 10, roi 4, dame 3, valet 2, neuf, huit, sept.
@@ -25,7 +25,7 @@ Le roem (points de bonus) se compte dans chaque pli tel qu'il est posé, pour l'
 # Le score
 - L'équipe qui joue doit faire plus de la moitié de tous les points : les points de cartes et le roem des deux équipes ensemble.
 - Si elle y arrive, chaque équipe marque ses propres points et son roem.
-- Sinon, elle est nat (« mouillée ») : l'autre équipe marque tout, 162 et tout le roem.
+- Sinon, elle est nat (« mouillée ») : l'autre équipe marque tout, 162 et tout le roem.
 # La fin de la partie
 Après la 16e donne, le plus gros total gagne. Les équipes à égalité se partagent la victoire.
 # Jouer sur l'appareil
