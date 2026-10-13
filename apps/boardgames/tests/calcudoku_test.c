@@ -1,7 +1,8 @@
 /*
  * Calcudoku's rules: the arithmetic, the puzzles made from many seeds for every variant (a Latin square, cages that
  * cover the grid and make their targets, one solution by a plain search, the level they were made for, made fast),
- * the player's digits, notes, hints and undo, and whole games played from a seed.
+ * the 150 designed levels (each with one solution, the chapters growing), the levels' code, the player's digits,
+ * notes, hints and undo, and whole games played from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -10,6 +11,7 @@
 #include <time.h>
 
 #include "games/calcudoku.h"
+#include "games/calcudoku_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -101,6 +103,37 @@ int main(void)
                level, exact, tries, (double)cages / tries, 1000 * total / tries, 1000 * slowest);
         CHECK(exact >= tries * 9 / 10);
         CHECK(slowest < 0.35);
+    }
+
+    /* the designed levels: each decodes (its code again the same), its cages make their targets, one solution; the
+     * chapters grow */
+    int last_n = 0, weight[CDK_CHAPTERS] = {0};
+    for (int i = 0; i < CDK_STAGES; i++) {
+        cdk_puzzle p;
+        char again[3 * CDK_CELLS + 8];
+        int ok = cdk_decode(cdk_levels[i], &p);
+        CHECK(ok);
+        if (!ok) continue;
+        CHECK(latin_ok(&p) && cages_ok(&p));
+        CHECK(cdk_count(&p, 2) == 1);
+        int r = cdk_rate(&p);
+        CHECK(r >= CDK_EASY && r <= CDK_HARD);
+        weight[i / (CDK_STAGES / CDK_CHAPTERS)] += p.n + 2 * r;   /* a chapter's weight: sizes and grades */
+        CHECK(cdk_encode(&p, again, sizeof again) && !strcmp(again, cdk_levels[i]));
+        if (i % (CDK_STAGES / CDK_CHAPTERS) == 0) {   /* a chapter starts no smaller than the last one started */
+            CHECK(p.n >= last_n);
+            last_n = p.n;
+        }
+    }
+    for (int c = 1; c < CDK_CHAPTERS; c++) CHECK(weight[c] > weight[c - 1]);
+    {
+        cdk_puzzle a, b;                        /* a puzzle made at random through the code and back */
+        char code[3 * CDK_CELLS + 8];
+        cdk_make(9, CDK_HARD, 77, &a);
+        CHECK(cdk_encode(&a, code, sizeof code) && cdk_decode(code, &b));
+        CHECK(b.ncages == a.ncages && !memcmp(a.sol, b.sol, sizeof a.sol) && cages_ok(&b));
+        CHECK(cdk_rate(&b) == cdk_rate(&a));
+        CHECK(!cdk_decode("4:1234", &b) && !cdk_decode("3:123231312:000000000:=====", &b));
     }
 
     /* the player's grid */

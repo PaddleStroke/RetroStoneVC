@@ -4,6 +4,8 @@ Täytä ruudukko niin, että jokaisella rivillä ja jokaisessa sarakkeessa on ku
 - Helppo: tavat muodostaa kunkin häkin tulos ja numero, jolle on rivillään tai sarakkeessaan enää yksi paikka, riittävät aina.
 - Keskitaso: tarvitset myös numerot, jotka häkin on pantava samalle riville tai sarakkeeseen, sekä pareja.
 - Vaikea: pidempää päättelyä: kokeile numeroa ja seuraa sitä, kunnes jokin menee rikki.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 9 × 9, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
 Napauta ruutua ja sitten näppäintä laudan alla: numero kirjoittuu sinisellä musteella. Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun rivi ja sarake valaistuvat himmeästi, sen häkki hieman enemmän ja saman numeron ruudut lämpimästi. Kun ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Painikkeet laudan vieressä:
 - Lyijykynä: muistiinpanot. Näppäimet panevat silloin ruutuun pieniä numeroita tai poistavat niitä.

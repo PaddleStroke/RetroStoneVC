@@ -5,6 +5,7 @@
  */
 #include "games/calcudoku.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -512,15 +513,114 @@ void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p)
 }
 
 /* ---- the player's grid ------------------------------------------------------------------------------------------ */
-void cdk_new(cdk_game *g, int variant, uint32_t seed)
+void cdk_load(cdk_game *g, const cdk_puzzle *p, int level)
 {
     memset(g, 0, sizeof *g);
-    if (variant < 0 || variant >= CDK_VARIANTS) variant = 0;
-    g->variant = variant;
-    g->level = cdk_level_of(variant);
-    g->seed = seed;
-    cdk_make(cdk_size_of(variant), g->level, seed, &g->p);
+    g->variant = -1;
+    g->level = level;
+    g->p = *p;
     bench_clear(&g->hist);
+}
+
+void cdk_new(cdk_game *g, int variant, uint32_t seed)
+{
+    if (variant < 0 || variant >= CDK_VARIANTS) variant = 0;
+    static cdk_puzzle p;
+    cdk_make(cdk_size_of(variant), cdk_level_of(variant), seed, &p);
+    cdk_load(g, &p, cdk_level_of(variant));
+    g->variant = variant;
+    g->seed = seed;
+}
+
+int cdk_effort(const cdk_puzzle *p, long *passes)
+{
+    bench_rules r;
+    ctx_t x;
+    bench_grid g;
+    rules_of(&r, &x, p, &g);
+    r.budget = 0;
+    int res = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    return res;
+}
+
+/* ---- the levels' code: "<n>:", the solution's digits, ":", each cell's joins (1 its cage goes on to the right, 2
+ * down, 3 both), ":", each cage's sign in the order of its first cell ('=' one cell, '+', '-', 'x', '/') ---------- */
+static const char SIGN[] = "=+-x/";             /* CDK_ONE, CDK_ADD, CDK_SUB, CDK_MUL, CDK_DIV */
+
+int cdk_encode(const cdk_puzzle *p, char *out, int size)
+{
+    int n = p->n, k = snprintf(out, (size_t)size, "%d:", n), order[CDK_CELLS], seen[CDK_CELLS], m = 0;
+    if (k < 0 || k + 2 * n * n + p->ncages + 3 > size) return 0;
+    for (int c = 0; c < n * n; c++) out[k++] = (char)('0' + p->sol[c]);
+    out[k++] = ':';
+    memset(seen, 0, sizeof seen);
+    for (int c = 0; c < n * n; c++) {
+        int a = p->cage_of[c], j = 0;
+        if (c % n < n - 1 && p->cage_of[c + 1] == a) j |= 1;
+        if (c / n < n - 1 && p->cage_of[c + n] == a) j |= 2;
+        out[k++] = (char)('0' + j);
+        if (!seen[a]) seen[a] = 1, order[m++] = a;
+    }
+    out[k++] = ':';
+    for (int i = 0; i < m; i++) out[k++] = SIGN[p->cage[order[i]].op];
+    out[k] = 0;
+    return 1;
+}
+
+int cdk_decode(const char *s, cdk_puzzle *p)
+{
+    int n = 0;
+    while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+    if (*s++ != ':' || n < 3 || n > CDK_MAX) return 0;
+    memset(p, 0, sizeof *p);
+    p->n = n;
+    uint8_t join[CDK_CELLS];
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s < '1' || *s > '0' + n) return 0;
+        p->sol[c] = (uint8_t)(*s - '0');
+    }
+    if (*s++ != ':') return 0;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s < '0' || *s > '3') return 0;
+        join[c] = (uint8_t)(*s - '0');
+        if (((join[c] & 1) && c % n == n - 1) || ((join[c] & 2) && c / n == n - 1)) return 0;
+    }
+    if (*s++ != ':') return 0;
+    memset(p->cage_of, 0xff, sizeof p->cage_of);
+    for (int c = 0; c < n * n; c++) {           /* the cages, in the order of their first cell */
+        if (p->cage_of[c] != 0xff) continue;
+        int k = p->ncages++, stack[CDK_CELLS], sp = 0;
+        cdk_cage *g = &p->cage[k];
+        const char *op = *s ? strchr(SIGN, *s) : NULL;
+        if (!op) return 0;
+        g->op = (uint8_t)(op - SIGN);
+        s++;
+        p->cage_of[c] = (uint8_t)k;
+        stack[sp++] = c;
+        while (sp) {
+            int e = stack[--sp], nb[4] = {-1, -1, -1, -1};
+            if (g->n >= CDK_CAGE) return 0;
+            g->cell[g->n++] = (uint8_t)e;
+            if (join[e] & 1) nb[0] = e + 1;
+            if (join[e] & 2) nb[1] = e + n;
+            if (e % n && (join[e - 1] & 1)) nb[2] = e - 1;
+            if (e >= n && (join[e - n] & 2)) nb[3] = e - n;
+            for (int t = 0; t < 4; t++)
+                if (nb[t] >= 0 && p->cage_of[nb[t]] == 0xff) p->cage_of[nb[t]] = (uint8_t)k, stack[sp++] = nb[t];
+        }
+        for (int i = 1; i < g->n; i++)          /* reading order: cell[0] carries the label */
+            for (int j = i; j > 0 && g->cell[j] < g->cell[j - 1]; j--) {
+                uint8_t t = g->cell[j];
+                g->cell[j] = g->cell[j - 1];
+                g->cell[j - 1] = t;
+            }
+        int v[CDK_CAGE];
+        for (int i = 0; i < g->n; i++) v[i] = p->sol[g->cell[i]];
+        g->target = cdk_value(g->op, v, g->n);
+        if (g->target < 0 || (g->op == CDK_ONE) != (g->n == 1)) return 0;
+    }
+    return !*s;
 }
 
 static void restore(void *cx, int at, uint32_t was)

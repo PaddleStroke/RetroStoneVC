@@ -4,6 +4,8 @@ Remplis la grille pour que chaque ligne et chaque colonne contienne une fois cha
 - Facile : les façons d'obtenir le résultat de chaque cage, et un chiffre qui n'a plus qu'une place sur sa ligne ou sa colonne, suffisent toujours.
 - Moyen : il te faudra aussi les chiffres qu'une cage doit placer sur une même ligne ou colonne, et des paires.
 - Difficile : des raisonnements plus longs : essayer un chiffre et le suivre jusqu'à ce que quelque chose casse.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 9 × 9, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
 # Jouer sur l'appareil
 Touche une case, puis une touche sous le plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. La ligne et la colonne de la case s'éclairent légèrement, sa cage un peu plus, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
 - Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent.

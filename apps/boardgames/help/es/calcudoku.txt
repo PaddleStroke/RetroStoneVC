@@ -4,6 +4,8 @@ Rellena la cuadrícula para que cada fila y cada columna tenga una vez cada cifr
 - Fácil: las formas de obtener el resultado de cada jaula, y una cifra con un solo hueco en su fila o columna, bastan siempre.
 - Medio: también te harán falta las cifras que una jaula debe poner en una misma fila o columna, y las parejas.
 - Difícil: razonamientos más largos: probar una cifra y seguirla hasta que algo falle.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 4 × 4 al 9 × 9, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un puzle nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.
 # Jugar en el dispositivo
 Toca una casilla y luego una tecla bajo el tablero: su cifra entra, en tinta azul. Toca otra vez la misma tecla para quitarla, o arrastra una tecla a una casilla. La fila y la columna de la casilla se iluminan un poco, su jaula algo más, y las casillas con su cifra con un tono cálido. Sin casilla elegida, una tecla ilumina las casillas de su cifra. Los botones junto al tablero:
 - Lápiz: notas. Las teclas ponen entonces cifras pequeñas en la casilla, o las quitan.

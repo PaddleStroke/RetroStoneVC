@@ -13,6 +13,9 @@
  * target, in red; on at first). Undo takes back one action, all the way to the start. The bar: the moves. Solved: a
  * wave of gold light runs over the board from the last cell filled; the stars count the hints and the mistakes
  * (bench.h).
+ *
+ * The shell's level screen chooses a level (150 in six chapters, calcudoku_levels.h), or its die tab a puzzle made at
+ * random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -20,6 +23,7 @@
 
 #include "games/bench_ui.h"
 #include "games/calcudoku.h"
+#include "games/calcudoku_levels.h"
 #include "shell.h"
 
 static cdk_game G;
@@ -181,13 +185,29 @@ static const bench_dg_game digits = {cell_at, cell_xy, NULL, NULL, NULL, val, no
                                      solved, clash, full, peer};
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
-static void start(int variant)
+static void begin(void)
 {
-    cdk_new(&G, variant < 0 || variant >= CDK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     bench_dg_start(&dg, &digits, G.p.n, G.p.n);
     dg.look = (bench_dg_look){0.12f, 0.5f, 0.26f, 0.46f, 0.24f, 0.2f, 0.2f, 0.22f};   /* under the cage's label */
     if (last_box.w > 0) layout(last_box);
+}
+
+/* a level of the shell's level screen (calcudoku_levels.h) */
+static void start(int level)
+{
+    cdk_puzzle p;
+    level = level < 0 ? 0 : level >= CDK_STAGES ? CDK_STAGES - 1 : level;
+    if (cdk_decode(cdk_levels[level], &p)) cdk_load(&G, &p, -1);
+    else cdk_new(&G, 0, 1);
+    begin();
+}
+
+/* a puzzle made at random (the level screen's die tab): a size and a level */
+static void start_random(int variant)
+{
+    cdk_new(&G, variant < 0 || variant >= CDK_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return cdk_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -260,8 +280,24 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level's cages (its biggest size), without their labels */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= CDK_CHAPTERS ? CDK_CHAPTERS - 1 : chapter;
+    static cdk_puzzle p;
+    if (!cdk_decode(cdk_levels[(ch + 1) * CDK_STAGES / CDK_CHAPTERS - 1], &p)) return;
+    p.ncages = 0;
+    int n = p.n, side = (int)(0.92f * size), f = (int)fmaxf(1, side * 0.06f), c = (side - 2 * f) / n, w = n * c + 2 * f;
+    uint8_t *b = c > 0 ? calloc((size_t)w * w, 4) : NULL;
+    if (!b) return;
+    paint_board(b, &p, c, f);
+    art_blend(rgba, size, size, b, w, w, (size - w) / 2, (size - w) / 2);
+    free(b);
+}
+
 static const game calcudoku_game = {
     .id = "calcudoku", .order = 445, .variants = CDK_VARIANTS,
+    .levels = CDK_STAGES, .chapters = CDK_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,

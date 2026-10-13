@@ -32,6 +32,8 @@
 #define CDK_SIZES 5
 #define CDK_LEVELS 3
 #define CDK_VARIANTS (CDK_SIZES * CDK_LEVELS)
+#define CDK_STAGES 150                          /* the designed levels (calcudoku_levels.h), in six chapters */
+#define CDK_CHAPTERS 6
 
 enum { CDK_EASY, CDK_MEDIUM, CDK_HARD };
 enum { CDK_ONE, CDK_ADD, CDK_SUB, CDK_MUL, CDK_DIV };   /* a cage's operation (ONE: a single cell) */
@@ -67,10 +69,17 @@ int  cdk_count(const cdk_puzzle *p, int limit);
 /* the level the solver needs (CDK_EASY..CDK_HARD), BENCH_GUESS when it is stuck, BENCH_NONE: no solution */
 int  cdk_rate(const cdk_puzzle *p);
 /* a puzzle n x n of the level from the seed */
-void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p);
+void cdk_make(int n, int level, uint32_t seed, cdk_puzzle *p);   /* n 3..9 */
+/* graded with no limit on the work: the level (or BENCH_GUESS, BENCH_NONE) and the solver's passes (its effort) */
+int  cdk_effort(const cdk_puzzle *p, long *passes);
+/* the levels' code (calcudoku_levels.h): "<n>:", the solution's digits, ":", each cell's joins to its cage (1 right,
+ * 2 down), ":", the cages' signs (=+-x/) in the order of their first cells; 0: does not fit, or not a puzzle */
+int  cdk_encode(const cdk_puzzle *p, char *out, int size);
+int  cdk_decode(const char *code, cdk_puzzle *p);
 int  cdk_value(int op, const int *v, int k);    /* the result of the operation on k digits (-1: none) */
 
-void cdk_new(cdk_game *g, int variant, uint32_t seed);
+void cdk_new(cdk_game *g, int variant, uint32_t seed);   /* a puzzle made at random */
+void cdk_load(cdk_game *g, const cdk_puzzle *p, int level);   /* a given one (a level: variant -1) */
 int  cdk_put(cdk_game *g, int cell, int digit); /* a digit (0: empty); its notes in the row and column go; 0: no */
 int  cdk_note(cdk_game *g, int cell, int digit);
 int  cdk_erase(cdk_game *g, int cell);          /* the digit, else the notes; 0: nothing */

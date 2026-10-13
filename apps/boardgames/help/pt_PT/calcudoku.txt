@@ -4,6 +4,8 @@ Preenche a grelha para que cada linha e cada coluna tenha uma vez cada algarismo
 - Fácil: as maneiras de formar o resultado de cada jaula, e um algarismo com um só lugar livre na sua linha ou coluna, chegam sempre.
 - Médio: vais precisar também dos algarismos que uma jaula tem de pôr numa mesma linha ou coluna, e de pares.
 - Difícil: raciocínios mais longos: experimentar um algarismo e segui-lo até algo falhar.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 4 × 4 ao 9 × 9, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.
 # Jogar no dispositivo
 Toca numa casa e depois numa tecla por baixo do tabuleiro: o algarismo entra, a tinta azul. Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. A linha e a coluna da casa acendem-se de leve, a jaula um pouco mais, e as casas com o mesmo algarismo num tom quente. Sem casa escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
 - Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los.

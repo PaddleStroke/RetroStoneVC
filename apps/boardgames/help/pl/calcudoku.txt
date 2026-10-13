@@ -4,6 +4,8 @@ Wypełnij diagram tak, aby każdy wiersz i każda kolumna zawierały raz każdą
 - Łatwy: zawsze wystarczą sposoby uzyskania wyniku każdej klatki i cyfra, która ma w swoim wierszu lub kolumnie już tylko jedno miejsce.
 - Średni: będą też potrzebne cyfry, które klatka musi umieścić w jednym wierszu lub kolumnie, oraz pary.
 - Trudny: dłuższe rozumowanie: wypróbuj cyfrę i śledź ją, aż coś się nie zgodzi.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 9 × 9, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nowe zadanie losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra, którą usuwasz przyciskiem Cofnij.
 # Gra na urządzeniu
 Stuknij pole, a potem klawisz pod planszą: jego cyfra wpisuje się niebieskim atramentem. Stuknij ten sam klawisz jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Wiersz i kolumna pola lekko się podświetlają, jego klatka nieco mocniej, a pola z tą samą cyfrą ciepłym światłem. Gdy żadne pole nie jest wybrane, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
 - Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają.

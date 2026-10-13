@@ -4,6 +4,8 @@ Fülle das Gitter so, dass jede Zeile und jede Spalte jede Zahl von 1 bis zur Gr
 - Leicht: Die Möglichkeiten, das Ergebnis jedes Käfigs zu bilden, und eine Zahl mit nur noch einem Platz in ihrer Zeile oder Spalte reichen immer.
 - Mittel: Du brauchst auch die Zahlen, die ein Käfig in eine Zeile oder Spalte setzen muss, und Paare.
 - Schwer: längere Überlegungen: eine Zahl ausprobieren und verfolgen, bis etwas nicht mehr passt.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 4 × 4 bis 9 × 9, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Zahl, die du mit Rückgängig zurücknimmst.
 # Spielen auf dem Gerät
 Tippe ein Feld an, dann eine Taste unter dem Brett: Ihre Zahl kommt hinein, in blauer Tinte. Tippe dieselbe Taste noch einmal, um sie herauszunehmen, oder ziehe eine Taste auf ein Feld. Zeile und Spalte des Felds leuchten leicht auf, sein Käfig etwas mehr, alle Felder mit seiner Zahl wärmer. Ist kein Feld gewählt, lässt eine Taste die Felder ihrer Zahl aufleuchten. Die Knöpfe neben dem Brett:
 - Bleistift: Notizen. Die Tasten setzen dann kleine Zahlen ins Feld oder nehmen sie heraus.
