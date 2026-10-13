@@ -8,6 +8,8 @@ Sæt et flag på en brik, du er sikker på skjuler en mine. Flag er noter til di
 # Spillets afslutning
 Marken er ryddet, når hver brik uden mine er løftet: minerne viser sig under deres flag, og en bølge af gyldent lys løber over marken.
 En løftet mine gløder rødt. Intet er tabt: Fortryd tager den tilbage, og du spiller videre.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 5 × 5 med 3 miner op til 16 × 30 med 99; vælg en i baneoversigten. En bane begynder med sit første område allerede løftet, fra en brik i gyldent lys, og kan derfra ryddes ved ren logik. Fanen med terningen efter kapitlerne laver et nyt felt tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en løftet mine (Fortryd tager den tilbage, men den tæller alligevel) eller et forkert flag, som lampen må fjerne.
 # Spil på enheden
 - Tryk på en brik for at løfte den.
 - Hold en brik et øjeblik for at sætte eller fjerne et flag. Flagknappen ved siden af marken får tryk til at sætte flag i stedet (så løfter et langt tryk).

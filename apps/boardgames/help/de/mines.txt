@@ -8,6 +8,8 @@ Stecke eine Fahne auf ein Plättchen, unter dem sicher eine Mine liegt. Fahnen s
 # Das Ende der Partie
 Das Feld ist geräumt, wenn jedes Plättchen ohne Mine angehoben ist: Die Minen zeigen sich unter ihren Fahnen, und eine Welle goldenen Lichts läuft über das Feld.
 Eine angehobene Mine glüht rot. Nichts ist verloren: Rückgängig nimmt sie zurück, und du spielst weiter.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 5 × 5 mit 3 Minen bis 16 × 30 mit 99; wähle eines in der Levelübersicht. Ein Level beginnt mit seinem ersten Bereich schon angehoben, von einem golden leuchtenden Plättchen aus, und lässt sich von dort allein durch Nachdenken räumen. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Feld nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine angehobene Mine (Rückgängig nimmt sie zurück, sie zählt aber trotzdem) oder eine falsche Fahne, die die Lampe ziehen muss.
 # Spielen auf dem Gerät
 - Tippe ein Plättchen an, um es anzuheben.
 - Halte ein Plättchen einen Moment, um eine Fahne zu stecken oder zu ziehen. Der Fahnenknopf neben dem Feld lässt Tippen stattdessen Fahnen stecken (Halten hebt dann an).

@@ -3,7 +3,7 @@
  * area), the no-guessing fields over hundreds of seeds and first cells (the reasoner clears them; how many tries and
  * how long the largest takes), the reasoner's soundness (hints played from many positions of classic fields never
  * uncover a mine and never flag a safe cell), uncovering, flood, chords, flags, blasts and undo by replay, and whole
- * games from a seed.
+ * games from a seed; the stars' counts (hints, mistakes); every level (no guess from its first area, its opening).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -12,6 +12,7 @@
 #include <time.h>
 
 #include "games/mines.h"
+#include "games/mines_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -22,6 +23,12 @@ static int fails;
             fails++;                                                                                                \
         }                                                                                                           \
     } while (0)
+
+static int bad_level(int i, const char *why)
+{
+    printf("mines level %d: %s\n", i + 1, why);
+    return 0;
+}
 
 static int count(const uint8_t *a, int n, int v)
 {
@@ -180,6 +187,76 @@ int main(void)
     mns_new(&g, 1, 5);
     CHECK(mns_script(&g, "d4.6 @") && !mns_solved(&g) && g.opened == g.w * g.h - g.mines - 1);
     CHECK(mns_script(&g, "h") && mns_solved(&g));
+
+    /* the stars' counts: a mine uncovered is a mistake undo does not take back; the hint taking a mine back is not
+     * counted again; a wrong flag the hint pulls up is a hint and a mistake */
+    mns_new(&g, 0, 7);
+    CHECK(mns_dig(&g, 40) && g.hints == 0 && g.mistakes == 0);
+    mine_cell = safe_cell = -1;
+    for (int c = 0; c < 81; c++) {
+        if (g.st[c] != MNS_HIDDEN) continue;
+        if (g.mine[c] && mine_cell < 0) mine_cell = c;
+        if (!g.mine[c] && safe_cell < 0) safe_cell = c;
+    }
+    CHECK(mns_dig(&g, mine_cell) && g.mistakes == 1);
+    CHECK(mns_undo(&g) && g.mistakes == 1 && g.hints == 0);
+    CHECK(mns_dig(&g, mine_cell) && g.mistakes == 2);
+    CHECK(mns_play_hint(&g) == mine_cell && g.blast < 0 && g.hints == 0 && g.mistakes == 2);
+    CHECK(mns_flag(&g, safe_cell) && mns_play_hint(&g) == safe_cell && g.st[safe_cell] == MNS_HIDDEN);
+    CHECK(g.hints == 1 && g.mistakes == 3);
+    CHECK(mns_play_hint(&g) >= 0 && g.hints == 2 && g.mistakes == 3);
+    CHECK(mns_script(&g, "=") && mns_solved(&g) && g.mistakes == 3);
+    {
+        mns_game lv;                            /* a level cleared alone: no hint, no mistake */
+        CHECK(mns_load(&lv, &mns_levels[0]) && mns_script(&lv, "#") && mns_solved(&lv) && !lv.hints && !lv.mistakes);
+    }
+
+    /* every level: it reads back the same, its mines away from its first cell, the reasoner clears it from that first
+     * area alone; it opens with that area, undo never covers it, and the hints clear it without a mistake. The sizes
+     * never shrink, the first chapter needs one number at a time, no two levels are the same field */
+    {
+        int tiers[MNS_TIERS] = {0}, last = 0, ok = 1, solo = 1;
+        for (int i = 0; i < MNS_LEVELS; i++) {
+            const mns_level *L = &mns_levels[i];
+            uint8_t mine[MNS_CELLS];
+            int n = mns_decode(L, mine), N = L->w * L->h, rounds[MNS_TIERS];
+            if (n < 1 || n >= N - 9) {
+                ok = bad_level(i, "its mines");
+                continue;
+            }
+            char bits[MNS_CELLS / 6 + 8];
+            mns_encode(L->w, L->h, mine, bits);
+            if (strcmp(bits, L->bits)) ok = bad_level(i, "read back");
+            for (int c = 0; c < N; c++) {
+                int dx = c % L->w - L->first % L->w, dy = c / L->w - L->first / L->w;
+                if (mine[c] && dx >= -1 && dx <= 1 && dy >= -1 && dy <= 1) ok = bad_level(i, "a mine by the start");
+            }
+            if (!mns_effort(L->w, L->h, n, mine, L->first, rounds)) ok = bad_level(i, "a guess");
+            for (int t = 0; t < MNS_TIERS; t++) tiers[t] += rounds[t];
+            if (i < MNS_LEVELS / MNS_CHAPTERS && (rounds[MNS_PAIR] || rounds[MNS_COUNT])) solo = 0;
+            if (N < last) ok = bad_level(i, "smaller");
+            last = N;
+            for (int j = 0; j < i; j++)
+                if (mns_levels[j].w == L->w && mns_levels[j].h == L->h && mns_levels[j].first == L->first &&
+                    !strcmp(mns_levels[j].bits, L->bits))
+                    ok = bad_level(i, "twice");
+            mns_game lv;
+            if (!mns_load(&lv, L) || lv.mines != n || lv.w != L->w || lv.h != L->h || !lv.placed) {
+                ok = bad_level(i, "loaded");
+                continue;
+            }
+            int opened = lv.opened;
+            if (opened < 4 || lv.st[L->first] != MNS_OPEN || lv.adj[L->first]) ok = bad_level(i, "its opening");
+            if (mns_undo(&lv) || lv.opened != opened) ok = bad_level(i, "undone");
+            if (!mns_script(&lv, "=") || !mns_solved(&lv) || lv.mistakes) ok = bad_level(i, "the hints");
+            while (mns_undo(&lv)) {}
+            if (lv.opened != opened || !lv.placed || memcmp(lv.mine, mine, MNS_CELLS)) ok = bad_level(i, "undone all");
+        }
+        CHECK(ok);
+        CHECK(solo);
+        printf("mines levels: %d, the reasoner's rounds: %d one number, %d two numbers, %d the mines left\n",
+               MNS_LEVELS, tiers[MNS_SINGLE], tiers[MNS_PAIR], tiers[MNS_COUNT]);
+    }
 
     if (fails) { printf("mines: %d failures\n", fails); return 1; }
     printf("mines: all passed\n");

@@ -3,7 +3,10 @@
  * holding a number in coloured ink, or one of the house's ebony stones (a mine). Brass flags stand on the tiles the
  * player marks. The field takes all the room the shell gives (game.fill), turned on its side when that makes the
  * tiles bigger. The shell's tools: the flag (taps then plant flags), the lamp (a hint) and, when the tiles would be
- * too small for a finger, the magnifying glass (near or whole) (the rules: mines_rules.c).
+ * too small for a finger, the magnifying glass (near or whole) (the rules: mines_rules.c). The shell's level screen
+ * chooses a level (150 in six chapters, mines_levels.h: it opens with its first area lifting away from its first cell,
+ * lit in gold), or its die tab a field made at random (the eight variants: the first tap is free). Stars: the logic
+ * puzzles' rule (ui_logic_stars) on the hints and the mistakes (a mine uncovered, a wrong flag the hint pulled up).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a tile: it lifts away, and an empty hollow lifts its neighbours, spreading. Hold a finger on a tile (or tap it
@@ -19,6 +22,7 @@
 #include <string.h>
 
 #include "games/mines.h"
+#include "games/mines_levels.h"
 #include "games/puzzles.h"
 #include "games/pztools.h"
 #include "shell.h"
@@ -31,6 +35,7 @@
 #define HINT_MS 1200
 #define WAVE_STEP 32
 #define WAVE_LEN 520
+#define OPEN_DELAY_MS 240                       /* a level: its first area lifts a moment after it shows */
 
 enum { B_FLAG, B_HINT, B_ZOOM, BTNS };
 
@@ -229,9 +234,14 @@ static void calm(void)
     memset(&ptr, 0, sizeof ptr);
 }
 
-static void start(int variant)
+static int dist(int a, int b)
 {
-    mns_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    int dx = abs(a % G.w - b % G.w), dy = abs(a / G.w - b / G.w);
+    return dx > dy ? dx : dy;
+}
+
+static void begin(void)
+{
     calm();
     flag_mode = 0;
     last_cell = -1;
@@ -239,6 +249,28 @@ static void start(int variant)
     fresh = 1;
     relayout();
 }
+
+/* a level of the shell's level screen: its first area lifts away at once, from the first cell lit in gold */
+static void start(int level)
+{
+    if (!mns_load(&G, &mns_levels[level < 0 || level >= MNS_LEVELS ? 0 : level])) mns_new(&G, 0, 1);
+    begin();
+    if (G.first < 0) return;
+    Uint32 now = ui_ms() + OPEN_DELAY_MS;
+    for (int c = 0; c < G.w * G.h; c++)
+        if (G.st[c] == MNS_OPEN) open_at[c] = now + (Uint32)(dist(c, G.first) * SPREAD_MS);
+    last_cell = hint.cell = G.first;
+    hint.t0 = now;
+    ui_animate();
+}
+
+static void start_random(int variant)           /* the die tab: a field of the variant's size, its first tap free */
+{
+    mns_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
+}
+
+static int level_stars(void) { return ui_logic_stars(G.hints, G.mistakes); }
 
 static int status(void) { return mns_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
@@ -252,12 +284,6 @@ static int busy(void)
     for (int c = 0; c < G.w * G.h; c++)
         if (open_at[c] && now < open_at[c] + LIFT_MS) return 1;
     return 0;
-}
-
-static int dist(int a, int b)
-{
-    int dx = abs(a % G.w - b % G.w), dy = abs(a / G.w - b / G.w);
-    return dx > dy ? dx : dy;
 }
 
 /* an action done: the tiles it uncovered lift away from where it began, the sounds, the win */
@@ -427,8 +453,10 @@ static void draw(void)
         ui_animate();
     }
     if (hint.cell >= 0) {
-        float p = puz_pulse((float)(now - hint.t0), 0, HINT_MS);
-        if (p > 0) {
+        float ht = (float)now - (float)hint.t0, p = puz_pulse(ht, 0, HINT_MS);
+        if (ht <= 0) {
+            ui_animate();                       /* a level's first cell: lit once its area lifts */
+        } else if (p > 0) {
             cell_xy(hint.cell, &x, &y);
             ui_mark_gold(x + cs / 2.0f, y + cs / 2.0f, 3.0f * cs * p);
             ui_animate();
@@ -554,38 +582,34 @@ static void bar(int player, box b)
     pzt_bar_two(b, t_small, G.moves, t_mine_small, left < 0 ? 0 : left, mns_solved(&G));
 }
 
-/* ---- the menu's and the picker's cards: a field of the size begun (a die on the classic ones) ------------------ */
-static void thumb(int variant, int size, uint8_t *rgba)
+/* ---- the pictures of fields: the menu's and the picker's cards, the chapters' tabs ----------------------------- */
+/* a field as it stands, `side` pixels at most, centred in a picture size x size; stone: one mine shown lifted */
+static void paint_field(const mns_game *T, int side, int size, uint8_t *rgba, int stone)
 {
-    mns_game T;
-    int v = variant < 0 ? 0 : variant;
-    mns_new(&T, v, 3);
-    mns_dig(&T, T.w / 2 + T.h / 2 * T.w);
-    for (int i = 0; i < (variant < 0 ? 14 : 4); i++) mns_play_hint(&T);
-    int side = variant < 0 ? size : (int)(0.9f * size);
-    int f = (int)(side * FRAME), q = (int)fminf((side - 2.0f * f) / T.w, (side - 2.0f * f) / T.h);
-    int w = T.w * q + 2 * f, h = T.h * q + 2 * f;
+    int f = (int)(side * FRAME), q = (int)fminf((side - 2.0f * f) / T->w, (side - 2.0f * f) / T->h);
+    if (q < 2) return;
+    int w = T->w * q + 2 * f, h = T->h * q + 2 * f;
     uint8_t *b = calloc((size_t)w * h, 4), *tile = calloc((size_t)q * q, 4), *hol = calloc((size_t)q * q, 4);
     int d = (int)(0.8f * q);
     uint8_t *st = calloc((size_t)(d > 0 ? d : 1) * (d > 0 ? d : 1), 4);
     if (b && tile && hol && st) {
-        art_board_n(T.w, T.h, q, f, 0, b);
+        art_board_n(T->w, T->h, q, f, 0, b);
         paint_tile(q, 0, tile);
         paint_hollow(q, 0, hol);
         if (d > 2) art_counter(COUNTER_STONE, 1, d, st);
-        for (int c = 0; c < T.w * T.h; c++) {
-            int x = f + c % T.w * q, y = f + c / T.w * q;
-            art_blend(b, w, h, T.st[c] == MNS_OPEN ? hol : tile, q, q, x, y);
-            if (T.st[c] == MNS_OPEN && T.adj[c]) {
-                if (q >= 10) puz_digits(b, w, h, T.adj[c], x + q / 2.0f, y + q * 0.53f, 0.62f * q, INK[T.adj[c]], 1, 1);
-                else puz_ink_rect(b, w, h, x + 0.3f * q, y + 0.3f * q, x + 0.7f * q, y + 0.7f * q, INK[T.adj[c]], 0.8f);
+        for (int c = 0; c < T->w * T->h; c++) {
+            int x = f + c % T->w * q, y = f + c / T->w * q, a = T->adj[c];
+            art_blend(b, w, h, T->st[c] == MNS_OPEN ? hol : tile, q, q, x, y);
+            if (T->st[c] == MNS_OPEN && a) {
+                if (q >= 10) puz_digits(b, w, h, a, x + q / 2.0f, y + q * 0.53f, 0.62f * q, INK[a], 1, 1);
+                else puz_ink_rect(b, w, h, x + 0.3f * q, y + 0.3f * q, x + 0.7f * q, y + 0.7f * q, INK[a], 0.8f);
             }
-            if (T.st[c] == MNS_FLAG) pzt_flag(b, w, h, x + 0.1f * q, y + 0.06f * q, 0.82f * q);
+            if (T->st[c] == MNS_FLAG) pzt_flag(b, w, h, x + 0.1f * q, y + 0.06f * q, 0.82f * q);
         }
-        if (variant < 0 && d > 2)               /* the menu's: one stone uncovered */
-            for (int c = 0; c < T.w * T.h; c++)
-                if (T.mine[c] && T.st[c] == MNS_HIDDEN) {
-                    int x = f + c % T.w * q, y = f + c / T.w * q;
+        if (stone && d > 2)                     /* one stone uncovered */
+            for (int c = 0; c < T->w * T->h; c++)
+                if (T->mine[c] && T->st[c] == MNS_HIDDEN) {
+                    int x = f + c % T->w * q, y = f + c / T->w * q;
                     art_blend(b, w, h, hol, q, q, x, y);
                     art_blend(b, w, h, st, d, d, x + (q - d) / 2, y + (q - d) / 2);
                     break;
@@ -596,6 +620,16 @@ static void thumb(int variant, int size, uint8_t *rgba)
     free(tile);
     free(hol);
     free(st);
+}
+
+/* the menu's card and the picker's: a field of the size begun (a die on the classic ones) */
+static void thumb(int variant, int size, uint8_t *rgba)
+{
+    mns_game T;
+    mns_new(&T, variant < 0 ? 0 : variant, 3);
+    mns_dig(&T, T.w / 2 + T.h / 2 * T.w);
+    for (int i = 0; i < (variant < 0 ? 14 : 4); i++) mns_play_hint(&T);
+    paint_field(&T, variant < 0 ? size : (int)(0.9f * size), size, rgba, variant < 0);
     if (variant >= MNS_SIZES) {                 /* classic: a die, the fields of pure chance */
         int dd = (int)(0.28f * size);
         uint8_t *die = calloc((size_t)dd * dd, 4);
@@ -607,6 +641,26 @@ static void thumb(int variant, int size, uint8_t *rgba)
     }
 }
 
+/* a chapter's tab: a small square field begun, more tiles a chapter (4 x 4 .. 9 x 9), a flag planted */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int k = 4 + (chapter < 0 ? 0 : chapter > MNS_CHAPTERS - 1 ? MNS_CHAPTERS - 1 : chapter), first = k + 1;
+    uint8_t mine[MNS_CELLS];
+    char bits[MNS_CELLS / 6 + 8];
+    mns_lay(k, k, k * k / 6, 0, 11u + (uint32_t)k, first, mine);
+    mns_encode(k, k, mine, bits);
+    mns_game T;
+    if (!mns_load(&T, &(mns_level){(uint8_t)k, (uint8_t)k, (uint16_t)first, bits})) return;
+    for (int c = 0; c < k * k; c++)             /* the first mine next to the area flagged */
+        if (T.mine[c] && T.st[c] == MNS_HIDDEN) {
+            int nb = 0;
+            for (int o = 0; o < k * k; o++)
+                nb += T.st[o] == MNS_OPEN && abs(o % k - c % k) <= 1 && abs(o / k - c / k) <= 1;
+            if (nb) { mns_flag(&T, c); break; }
+        }
+    paint_field(&T, size, size, rgba, 0);
+}
+
 static int score(void) { return G.moves; }   /* the end card's number */
 
 static const game mines_game = {
@@ -614,5 +668,7 @@ static const game mines_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .score = score, .fill = 1, .tools = BTNS,
+    .levels = MNS_LEVELS, .chapters = MNS_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .level_stars = level_stars,
 };
 REGISTER_GAME(mines_game)

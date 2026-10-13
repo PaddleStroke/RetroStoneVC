@@ -19,7 +19,13 @@
  * first uncovering is taken back too.
  * The notation (script, the screenshots, the tests): "d3.4" uncovers the cell x 3, y 4 (from 1; an uncovered number
  * whose flags are all set uncovers its other neighbours: a chord), "f3.4" flags or unflags it, "h" a hint, "+n" n
- * hints, "=" hints until cleared, "@" every safe cell uncovered but one (after the first uncovering).
+ * hints, "=" hints until cleared, "@" every safe cell uncovered but one (after the first uncovering), "#" all of them.
+ *
+ * The levels (mines_levels.h, made by tools/mines_gen.c): 150 designed no-guessing fields in six chapters, each its
+ * mines and its first cell; a level opens with that first area already uncovered (undo never covers it again). The
+ * stars (the shell's ui_logic_stars): no hint and no mistake 3, up to two of them together 2, else 1. A mistake: a
+ * mine uncovered (undo takes it back, it still counts) or a wrong flag the hint had to pull up. A hint taking back a
+ * mine is not counted again.
  */
 #ifndef MINES_H
 #define MINES_H
@@ -30,20 +36,30 @@
 #define MNS_SIZES 4
 #define MNS_CELLS 480
 #define MNS_HIST 4096
+#define MNS_LEVELS 150
+#define MNS_CHAPTERS 6
 
 enum { MNS_HIDDEN, MNS_OPEN, MNS_FLAG };
 enum { MNS_DIG, MNS_MARK, MNS_UNDO };           /* the hint's kinds of step */
+enum { MNS_SINGLE, MNS_PAIR, MNS_COUNT, MNS_TIERS };   /* the reasoning: one number alone, two side by side, the
+                                                        * mines left */
 
 typedef struct {
     int variant, w, h, mines, logic;            /* logic: no guessing */
     uint32_t seed;
     int placed, first;                          /* the mines laid, for the first uncovering (first) */
+    int fixed;                                  /* a level: the mines and the first area given (never taken back) */
     uint8_t mine[MNS_CELLS], adj[MNS_CELLS], st[MNS_CELLS];
     int blast;                                  /* the mine uncovered; -1 */
     uint16_t act[MNS_HIST];                     /* the actions: cell | kind << 12 */
     int na;
     int moves, opened, flags;
+    int hints, mistakes;                        /* for the stars: undo takes neither back */
 } mns_game;
+
+/* a designed field: its size, its first cell (x + y * w) and its mines, six cells a character from cell 0
+ * (A-Z a-z 0-9 - _: 0..63, bit k the cell 6 i + k) */
+typedef struct { uint8_t w, h; uint16_t first; const char *bits; } mns_level;
 
 void mns_size(int variant, int *w, int *h, int *mines);
 /* the mines for a first uncovering at `first` (mine[]: 1 a mine); logic: laid again until no guess is needed. The
@@ -51,14 +67,22 @@ void mns_size(int variant, int *w, int *h, int *mines);
 int  mns_lay(int w, int h, int mines, int logic, uint32_t seed, int first, uint8_t *mine);
 /* 1: the reasoner clears the field from the first uncovering without a guess */
 int  mns_logical(int w, int h, int mines, const uint8_t *mine, int first);
+/* the same, counting the reasoner's rounds by the reasoning each needed (rounds[MNS_TIERS]; NULL: not counted) */
+int  mns_effort(int w, int h, int mines, const uint8_t *mine, int first, int *rounds);
+/* a level's mines (mine[]: 1 a mine): their count, -1 a bad level */
+int  mns_decode(const mns_level *L, uint8_t *mine);
+/* the mines in a level's characters (out: (w h + 5) / 6 + 1 bytes at least) */
+void mns_encode(int w, int h, const uint8_t *mine, char *out);
 
 void mns_new(mns_game *g, int variant, uint32_t seed);
+/* a designed level: its mines laid, its first area uncovered; 0: a bad level */
+int  mns_load(mns_game *g, const mns_level *L);
 int  mns_dig(mns_game *g, int cell);            /* uncover (a covered cell) or chord (a number); 0: not allowed */
 int  mns_flag(mns_game *g, int cell);           /* flag or unflag a covered cell; 0: not allowed */
 int  mns_undo(mns_game *g);                     /* 0: nothing to undo */
 int  mns_hint(const mns_game *g, int *kind);    /* the hint's cell and kind (MNS_DIG, MNS_MARK: flag or unflag;
                                                  * MNS_UNDO: a blast to take back); -1: none */
-int  mns_play_hint(mns_game *g);                /* the hint played: its cell; -1 none */
+int  mns_play_hint(mns_game *g);                /* the hint played (counted): its cell; -1 none */
 int  mns_solved(const mns_game *g);
 int  mns_flags_around(const mns_game *g, int cell);
 int  mns_script(mns_game *g, const char *moves);

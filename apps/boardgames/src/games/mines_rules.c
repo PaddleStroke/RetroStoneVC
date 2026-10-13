@@ -80,16 +80,18 @@ static int set_all(uint8_t *kn, const constraint *k, int v, const constraint *ex
     return found;
 }
 
-static int reason(int w, int h, int mines, const uint8_t *adj, uint8_t *kn)
+static int reason(int w, int h, int mines, const uint8_t *adj, uint8_t *kn, int *tier)
 {
     int found = 0, N = w * h;
     constraint a, b;
+    *tier = MNS_SINGLE;
     for (int c = 0; c < N; c++) {               /* each number alone */
         if (kn[c] != K_OPEN || !constraint_of(w, h, adj, kn, c, &a)) continue;
         if (a.m == 0) found += set_all(kn, &a, K_SAFE, NULL);
         else if (a.m == a.n) found += set_all(kn, &a, K_MINE, NULL);
     }
     if (found) return found;
+    *tier = MNS_PAIR;
     for (int c = 0; c < N; c++) {               /* two numbers side by side */
         if (kn[c] != K_OPEN || !constraint_of(w, h, adj, kn, c, &a)) continue;
         int x = c % w, y = c / w;
@@ -109,6 +111,7 @@ static int reason(int w, int h, int mines, const uint8_t *adj, uint8_t *kn)
                 }
             }
     }
+    *tier = MNS_COUNT;
     int unknown = 0, left = mines;              /* the count of mines left */
     for (int c = 0; c < N; c++) {
         unknown += kn[c] == K_UNKNOWN;
@@ -138,22 +141,64 @@ static void open_known(int w, int h, const uint8_t *adj, uint8_t *kn, int c)
     }
 }
 
-int mns_logical(int w, int h, int mines, const uint8_t *mine, int first)
+int mns_effort(int w, int h, int mines, const uint8_t *mine, int first, int *rounds)
 {
     uint8_t adj[MNS_CELLS], kn[MNS_CELLS] = {0};
-    int N = w * h;
+    int N = w * h, tier;
+    if (rounds) memset(rounds, 0, MNS_TIERS * sizeof *rounds);
     count_adj(w, h, mine, adj);
-    if (mine[first]) return 0;
+    if (first < 0 || first >= N || mine[first]) return 0;
     open_known(w, h, adj, kn, first);
-    while (reason(w, h, mines, adj, kn))
+    while (reason(w, h, mines, adj, kn, &tier)) {
+        if (rounds) rounds[tier]++;
         for (int c = 0; c < N; c++)
             if (kn[c] == K_SAFE) {
                 if (mine[c]) return 0;          /* cannot happen: the reasoner is sound */
                 open_known(w, h, adj, kn, c);
             }
+    }
     for (int c = 0; c < N; c++)
         if (!mine[c] && kn[c] != K_OPEN) return 0;
     return 1;
+}
+
+int mns_logical(int w, int h, int mines, const uint8_t *mine, int first)
+{
+    return mns_effort(w, h, mines, mine, first, NULL);
+}
+
+/* ---- the levels' characters -------------------------------------------------------------------------------------- */
+static const char B64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+void mns_encode(int w, int h, const uint8_t *mine, char *out)
+{
+    int N = w * h, n = 0;
+    for (int i = 0; i < N; i += 6) {
+        int v = 0;
+        for (int k = 0; k < 6 && i + k < N; k++) v |= (mine[i + k] ? 1 : 0) << k;
+        out[n++] = B64[v];
+    }
+    out[n] = 0;
+}
+
+int mns_decode(const mns_level *L, uint8_t *mine)
+{
+    int N = L->w * L->h, count = 0;
+    if (L->w < 2 || L->h < 2 || N > MNS_CELLS || L->first >= N || !L->bits) return -1;
+    memset(mine, 0, MNS_CELLS);
+    for (int i = 0; i < N; i += 6) {
+        char ch = L->bits[i / 6];
+        const char *p = ch ? strchr(B64, ch) : NULL;
+        if (!p) return -1;
+        int v = (int)(p - B64);
+        for (int k = 0; k < 6; k++) {
+            if (!(v >> k & 1)) continue;
+            if (i + k >= N) return -1;
+            mine[i + k] = 1;
+            count++;
+        }
+    }
+    return L->bits[(N + 5) / 6] ? -1 : count;
 }
 
 int mns_lay(int w, int h, int mines, int logic, uint32_t seed, int first, uint8_t *mine)
@@ -178,11 +223,15 @@ int mns_lay(int w, int h, int mines, int logic, uint32_t seed, int first, uint8_
 }
 
 /* ---- the game ---------------------------------------------------------------------------------------------------- */
+static void uncover(mns_game *g, int c);
+
+/* the field as it began (a level: its first area uncovered) */
 static void reset(mns_game *g)
 {
     memset(g->st, MNS_HIDDEN, sizeof g->st);
     g->blast = -1;
     g->moves = g->opened = g->flags = 0;
+    if (g->fixed) uncover(g, g->first);
 }
 
 void mns_new(mns_game *g, int variant, uint32_t seed)
@@ -195,6 +244,23 @@ void mns_new(mns_game *g, int variant, uint32_t seed)
     g->seed = seed;
     g->first = -1;
     reset(g);
+}
+
+int mns_load(mns_game *g, const mns_level *L)
+{
+    memset(g, 0, sizeof *g);
+    int n = mns_decode(L, g->mine);
+    if (n < 1 || g->mine[L->first]) { mns_new(g, 0, 1); return 0; }
+    g->variant = -1;
+    g->w = L->w;
+    g->h = L->h;
+    g->mines = n;
+    g->logic = 1;
+    g->placed = g->fixed = 1;
+    g->first = L->first;
+    count_adj(g->w, g->h, g->mine, g->adj);
+    reset(g);
+    return 1;
 }
 
 static void uncover(mns_game *g, int c)
@@ -265,6 +331,7 @@ static int act(mns_game *g, int c, int kind)
 {
     if (g->na >= MNS_HIST || !apply(g, c, kind)) return 0;
     g->act[g->na++] = (uint16_t)(c | kind << 12);
+    if (g->blast >= 0) g->mistakes++;           /* a mine uncovered (a chord too): undo will not take it back */
     return 1;
 }
 
@@ -277,7 +344,7 @@ int mns_undo(mns_game *g)
     g->na--;
     int digs = 0;
     for (int i = 0; i < g->na; i++) digs += (g->act[i] >> 12) == MNS_DIG;
-    if (!digs) { g->placed = 0; g->first = -1; }   /* the first uncovering taken back: the mines go too */
+    if (!digs && !g->fixed) { g->placed = 0; g->first = -1; }   /* the first uncovering taken back: the mines too */
     reset(g);
     for (int i = 0; i < g->na; i++) apply(g, g->act[i] & 0xfff, g->act[i] >> 12);
     return 1;
@@ -301,8 +368,8 @@ int mns_hint(const mns_game *g, int *kind)
     for (int c = 0; c < N; c++) kn[c] = g->st[c] == MNS_OPEN ? K_OPEN : K_UNKNOWN;
     /* the reasoner from what is uncovered (the flags left aside: the player's own): a safe cell first; the mines it
      * finds on the way help it further, and the first one not flagged yet is the hint if no safe cell turns up */
-    int sure_mine = -1;
-    while (reason(g->w, g->h, g->mines, g->adj, kn)) {
+    int sure_mine = -1, tier;
+    while (reason(g->w, g->h, g->mines, g->adj, kn, &tier)) {
         for (int c = 0; c < N; c++)
             if (kn[c] == K_SAFE && g->st[c] == MNS_HIDDEN) return c;
         for (int c = 0; c < N && sure_mine < 0; c++)
@@ -325,8 +392,12 @@ int mns_play_hint(mns_game *g)
 {
     int kind, c = mns_hint(g, &kind);
     if (c < 0) return -1;
-    if (kind == MNS_UNDO) return mns_undo(g) ? c : -1;
-    return act(g, c, kind) ? c : -1;
+    if (kind == MNS_UNDO) return mns_undo(g) ? c : -1;   /* the mine already counted: not a hint again */
+    int wrong = kind == MNS_MARK && g->st[c] == MNS_FLAG;   /* a wrong flag pulled up: a mistake too */
+    if (!act(g, c, kind)) return -1;
+    g->hints++;
+    g->mistakes += wrong;
+    return c;
 }
 
 static int read_cell(const mns_game *g, const char **s)
@@ -361,13 +432,14 @@ int mns_script(mns_game *g, const char *s)
                 if (mns_play_hint(g) < 0) break;
             continue;
         }
-        if (k == '@') {                         /* every safe cell but one uncovered */
+        if (k == '@' || k == '#') {            /* every safe cell but one uncovered (#: all of them) */
             if (!g->placed) return 0;
             int last = -1;
-            for (int c = g->w * g->h - 1; c >= 0 && last < 0; c--)
+            for (int c = g->w * g->h - 1; c >= 0 && last < 0 && k == '@'; c--)
                 if (!g->mine[c] && g->st[c] == MNS_HIDDEN) last = c;
             for (int c = 0; c < g->w * g->h; c++)
-                if (!g->mine[c] && g->st[c] == MNS_HIDDEN && c != last && g->opened < g->w * g->h - g->mines - 1)
+                if (!g->mine[c] && g->st[c] == MNS_HIDDEN && c != last &&
+                    (k == '#' || g->opened < g->w * g->h - g->mines - 1))
                     act(g, c, MNS_DIG);
             continue;
         }

@@ -8,6 +8,8 @@ Tancapkan bendera di ubin yang kamu yakin menyembunyikan ranjau. Bendera adalah 
 # Akhir permainan
 Medan bersih saat setiap ubin tanpa ranjau sudah terangkat: ranjau-ranjau terlihat di bawah benderanya, dan gelombang cahaya emas menyapu medan.
 Ranjau yang terangkat menyala merah. Tidak ada yang hilang: Urungkan membatalkannya, dan kamu bisa lanjut.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 5 × 5 dengan 3 ranjau sampai 16 × 30 dengan 99; pilih satu di kisi level. Setiap level dimulai dengan area pertamanya sudah terangkat, dari ubin yang bercahaya emas, dan dari situ bisa diselesaikan hanya dengan bernalar. Tab dadu setelah bab-bab itu membuat ladang baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ranjau yang terangkat (Urungkan membatalkannya, tetapi tetap dihitung) atau bendera salah yang harus dicabut lampu.
 # Bermain di perangkat
 - Ketuk ubin untuk mengangkatnya.
 - Tahan ubin sejenak untuk menancapkan atau mencabut bendera. Tombol bendera di samping medan membuat ketukan menancapkan bendera (saat itu, menahan ubin akan mengangkatnya).

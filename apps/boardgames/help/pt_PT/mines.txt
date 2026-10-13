@@ -8,6 +8,8 @@ Põe uma bandeira numa peça que tens a certeza de que esconde uma mina. As band
 # O fim do jogo
 O campo fica limpo quando todas as peças sem mina estão levantadas: as minas aparecem debaixo das bandeiras, e uma onda de luz dourada percorre o campo.
 Uma mina levantada brilha a vermelho. Nada está perdido: Anular desfaz essa jogada, e continuas.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 5 × 5 com 3 minas ao 16 × 30 com 99; escolhe um no ecrã de níveis. Cada nível começa com a primeira área já levantada, a partir de uma peça iluminada a dourado, e daí resolve-se só com raciocínio. O separador do dado, depois dos capítulos, cria um novo campo ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma mina levantada (Anular desfaz a jogada, mas ela conta na mesma) ou uma bandeira errada que a lâmpada tem de tirar.
 # Jogar no dispositivo
 - Toca numa peça para a levantar.
 - Mantém o dedo numa peça um momento para pôr ou tirar uma bandeira. O botão da bandeira ao lado do campo faz com que os toques ponham bandeiras (aí, manter o dedo levanta).

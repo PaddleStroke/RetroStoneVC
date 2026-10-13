@@ -8,6 +8,8 @@ Laita lippu laattaan, jonka alla olet varma miinan olevan. Liput ovat muistiinpa
 # Pelin loppu
 Kenttä on raivattu, kun jokainen laatta ilman miinaa on nostettu: miinat näkyvät lippujensa alla, ja kultainen valoaalto kulkee kentän yli.
 Nostettu miina hehkuu punaisena. Mitään ei menetetä: Kumoa peruu sen, ja jatkat.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, koosta 5 × 5 ja 3 miinaa kokoon 16 × 30 ja 99 miinaa; valitse taso tasoruudukosta. Taso alkaa niin, että sen ensimmäinen alue on jo nostettu kultaisena hehkuvasta laatasta alkaen, ja siitä eteenpäin sen voi raivata pelkällä päättelyllä. Noppavälilehti lukujen jälkeen tekee uuden kentän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on nostettu miina (Kumoa peruu sen, mutta se lasketaan silti) tai väärä lippu, joka lampun täytyy poistaa.
 # Pelaaminen laitteella
 - Napauta laattaa nostaaksesi sen.
 - Pidä sormea hetki laatan päällä laittaaksesi tai poistaaksesi lipun. Kentän vieressä oleva lippunappi saa napautukset laittamaan lippuja (silloin pitkä painallus nostaa).

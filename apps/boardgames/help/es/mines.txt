@@ -8,6 +8,8 @@ Pon una bandera en una ficha que sepas con seguridad que esconde una mina. Las b
 # El final de la partida
 El campo está despejado cuando todas las fichas sin mina están levantadas: las minas aparecen bajo sus banderas y una ola de luz dorada recorre el campo.
 Una mina levantada brilla en rojo. No se pierde nada: Deshacer la anula y sigues jugando.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, del 5 × 5 con 3 minas al 16 × 30 con 99; elige uno en la pantalla de niveles. Cada nivel empieza con su primera zona ya levantada, desde una ficha iluminada en oro, y desde ahí se despeja solo razonando. La pestaña del dado, tras los capítulos, crea un campo nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una mina levantada (Deshacer la anula, pero cuenta igual) o una bandera equivocada que la lámpara tiene que quitar.
 # Jugar en el dispositivo
 - Toca una ficha para levantarla.
 - Mantén pulsada una ficha un momento para poner o quitar una bandera. El botón de la bandera junto al campo hace que los toques pongan banderas (y entonces mantener pulsado levanta).

@@ -8,6 +8,8 @@ Postaw flagę na płytce, pod którą na pewno jest mina. Flagi to notatki dla c
 # Koniec gry
 Pole jest oczyszczone, gdy każda płytka bez miny jest podniesiona: miny ukazują się pod flagami, a fala złotego światła przebiega po polu.
 Podniesiona mina świeci na czerwono. Nic nie jest stracone: Cofnij ją cofa, a ty grasz dalej.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 z 3 minami do 16 × 30 z 99; wybierz poziom na siatce poziomów. Poziom zaczyna się z pierwszym obszarem już podniesionym, od płytki w złotym świetle, i stamtąd da się go oczyścić samym rozumowaniem. Zakładka z kostką za rozdziałami tworzy nowe pole losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to podniesiona mina (Cofnij ją cofa, ale i tak się liczy) albo błędna flaga, którą lampa musi zdjąć.
 # Gra na urządzeniu
 - Dotknij płytki, aby ją podnieść.
 - Przytrzymaj płytkę przez chwilę, aby postawić lub zdjąć flagę. Przycisk flagi obok pola sprawia, że dotknięcia stawiają flagi (wtedy przytrzymanie podnosi).

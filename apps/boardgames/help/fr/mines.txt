@@ -8,6 +8,8 @@ Plante un drapeau sur une tuile dont tu es sûr qu'elle cache une mine. Les drap
 # La fin de la partie
 Le terrain est déblayé quand chaque tuile sans mine est soulevée : les mines apparaissent sous leurs drapeaux, et une vague de lumière dorée parcourt le terrain.
 Une mine soulevée brille en rouge. Rien n'est perdu : Annuler la reprend, et tu continues.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, du 5 × 5 avec 3 mines jusqu'au 16 × 30 avec 99 ; choisis-en un sur l'écran des niveaux. Un niveau s'ouvre avec sa première zone déjà soulevée, à partir d'une tuile éclairée en or, et se résout de là par le seul raisonnement. L'onglet du dé, après les chapitres, crée un nouveau champ au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une mine soulevée (Annuler la reprend, mais elle compte quand même) ou un drapeau faux que la lampe doit arracher.
 # Jouer sur l'appareil
 - Touche une tuile pour la soulever.
 - Garde le doigt un instant sur une tuile pour planter ou arracher un drapeau. Avec le bouton drapeau à côté du terrain, toucher plante des drapeaux (l'appui long soulève alors).

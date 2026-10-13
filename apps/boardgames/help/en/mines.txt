@@ -8,6 +8,8 @@ Plant a flag on a tile you are sure hides a mine. Flags are notes for you; they 
 # The end of the game
 The field is cleared when every tile without a mine is lifted: the mines show under their flags, and a wave of gold light runs over the field.
 A mine lifted glows red. Nothing is lost: undo takes it back, and you go on.
+# Levels and stars
+There are 150 levels in six chapters, from 5 × 5 with 3 mines up to 16 × 30 with 99; choose one on the level screen. A level opens with its first area already lifted, from a tile lit in gold, and can be cleared from there by reasoning alone. The die tab after the chapters makes a new field at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a mine lifted (undo takes it back, but it still counts) or a wrong flag the lamp has to pull up.
 # Playing on the device
 - Tap a tile to lift it.
 - Hold a tile a moment to plant or pull up a flag. The flag button beside the field makes taps plant flags instead (hold then lifts).

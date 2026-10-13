@@ -8,6 +8,8 @@ Pianta una bandierina su una tessera che sei sicuro nasconda una mina. Le bandie
 # La fine della partita
 Il campo è sgombro quando ogni tessera senza mina è sollevata: le mine compaiono sotto le loro bandierine, e un'onda di luce dorata attraversa il campo.
 Una mina sollevata si illumina di rosso. Niente è perduto: Annulla la toglie, e vai avanti.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dal 5 × 5 con 3 mine al 16 × 30 con 99; scegline uno nella schermata dei livelli. Ogni livello si apre con la prima zona già sollevata, a partire da una tessera illuminata d'oro, e da lì si risolve con il solo ragionamento. La scheda del dado, dopo i capitoli, crea un nuovo campo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una mina sollevata (Annulla la toglie, ma conta lo stesso) o una bandierina sbagliata che la lampada deve togliere.
 # Giocare sul dispositivo
 - Tocca una tessera per sollevarla.
 - Tieni premuta un attimo una tessera per piantare o togliere una bandierina. Il pulsante bandierina accanto al campo fa sì che i tocchi piantino bandierine (e allora tenere premuto solleva).

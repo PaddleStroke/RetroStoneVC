@@ -8,6 +8,8 @@ Na destičku, pod kterou určitě je mina, zapíchni vlaječku. Vlaječky jsou p
 # Konec hry
 Pole je vyčištěné, když je zvednutá každá destička bez miny: miny se ukážou pod svými vlaječkami a po poli přeběhne vlna zlatého světla.
 Zvednutá mina červeně zazáří. Nic není ztraceno: Zpět ji vrátí a hraješ dál.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 5 × 5 se 3 minami po 16 × 30 s 99; vyber si ji v přehledu úrovní. Úroveň začíná s první oblastí už zvednutou, od destičky ve zlatém světle, a odtud ji vyčistíš jen úvahou. Záložka s kostkou za kapitolami vytvoří nové pole náhodně, s volbou popsanou výše. Bez rady a bez chyby: 3 hvězdy; nejvýš dvě rady a chyby dohromady: 2 hvězdy; jinak 1. Chyba je zvednutá mina (Zpět ji vrátí, ale počítá se i tak) nebo chybná vlaječka, kterou musí vytáhnout lampa.
 # Hra na zařízení
 - Klepnutím na destičku ji zvedneš.
 - Podržením destičky na okamžik zapíchneš nebo vytáhneš vlaječku. Tlačítko s vlaječkou vedle pole přepne klepání na zapichování vlaječek (podržení pak zvedá).

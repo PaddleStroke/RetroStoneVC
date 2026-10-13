@@ -8,6 +8,8 @@ Sätt en flagga på en bricka som du är säker på döljer en mina. Flaggorna �
 # Partiets slut
 Fältet är röjt när varje bricka utan mina är lyft: minorna syns under sina flaggor, och en våg av gyllene ljus sveper över fältet.
 En lyft mina glöder rött. Inget är förlorat: Ångra tar tillbaka den, och du spelar vidare.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 5 × 5 med 3 minor upp till 16 × 30 med 99; välj en i banöversikten. En bana börjar med sitt första område redan lyft, från en bricka i gyllene ljus, och kan därifrån röjas med ren logik. Fliken med tärningen efter kapitlen gör ett nytt fält på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en lyft mina (Ångra tar tillbaka den, men den räknas ändå) eller en felaktig flagga som lampan måste ta bort.
 # Spela på enheten
 - Tryck på en bricka för att lyfta den.
 - Håll kvar fingret en stund på en bricka för att sätta ut eller ta bort en flagga. Flaggknappen bredvid fältet gör att tryck sätter flaggor i stället (att hålla lyfter då).
