@@ -1,0 +1,6 @@
+Doppel-4
+Doppel-6
+Doppel-8
+Leicht
+Mittel
+Schwer

@@ -1,0 +1,4 @@
+Lange partij
+Korte partij
+Lang, zonder doubleren
+Kort, zonder doubleren

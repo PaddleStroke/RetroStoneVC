@@ -1,0 +1,4 @@
+Leicht
+Mittel
+Schwer
+Experte

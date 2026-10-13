@@ -1,0 +1,8 @@
+9 × 9, zonder gokken
+8 × 12, zonder gokken
+16 × 16, zonder gokken
+16 × 30, zonder gokken
+9 × 9, klassiek
+8 × 12, klassiek
+16 × 16, klassiek
+16 × 30, klassiek

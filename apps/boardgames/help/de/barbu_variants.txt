@@ -1,0 +1,4 @@
+Volle Partie
+Kurze Partie
+Voll, ohne Doppeln
+Kurz, ohne Doppeln

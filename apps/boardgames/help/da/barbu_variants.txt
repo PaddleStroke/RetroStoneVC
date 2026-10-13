@@ -1,0 +1,4 @@
+Fuldt spil
+Kort spil
+Fuldt, uden dobling
+Kort, uden dobling

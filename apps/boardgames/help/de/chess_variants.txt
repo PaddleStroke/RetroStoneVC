@@ -1,0 +1,9 @@
+Klassisch
+Chess960
+Crazyhouse
+Dreischach
+König des Hügels
+Schlagschach
+Atomschach
+Königsrennen
+Horde

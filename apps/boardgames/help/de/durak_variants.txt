@@ -1,0 +1,4 @@
+Zuwerfen
+Weiterschieben
+Zuwerfen, offen
+Weiterschieben, offen
