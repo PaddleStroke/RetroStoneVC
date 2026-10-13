@@ -161,6 +161,7 @@ static void sg_run(const sggame *g, const sggroup *groups, int ngroups, int chap
            " * the search's win and %s.\n"
            " * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n */\n", g->name, g->id, total, chapters, about,
            g->forgiving ? "the share of winning moves along the way" : "the share of plain games won");
+    if (g->keep_win) printf("/* Each keeps the search's win, three letters a move (sol_win_write): the tests play it. */\n");
     printf("#define %s_LEVELS %d\n#define %s_CHAPTERS %d\n\nstatic const sollevel %s_levels[%s_LEVELS] = {\n", g->upper,
            total, g->upper, chapters, g->prefix, g->upper);
     static solrec r;
@@ -205,9 +206,9 @@ static void sg_run(const sggame *g, const sggroup *groups, int ngroups, int chap
             if (i >= nc) { fprintf(stderr, "not enough deals\n"); exit(1); }
             char s[128];
             sol_cards_write(c[i].deck, g->ncards, s);
-            printf("    {%d, \"%s\", ", c[i].variant, s);
+            printf("    {%d, \"%s\",", c[i].variant, s);
             if (c[i].win) printf("\n     \"%s\"},", c[i].win);
-            else printf("NULL},");
+            else printf(" NULL},");
             printf(" /* %d: %d moves, %d%% */\n", ++number, c[i].moves, (int)(100 * c[i].ease + 0.5));
         }
         for (int i = 0; i < nc; i++) free(c[i].win);

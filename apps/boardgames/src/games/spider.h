@@ -14,7 +14,7 @@
 #ifndef SPIDER_H
 #define SPIDER_H
 
-#include "games/solitaire.h"
+#include "games/sollevels.h"
 
 enum { SP_1SUIT, SP_2SUITS, SP_4SUITS, SP_VARIANTS };
 enum { SPI_TAB = 0, SPI_FOUND = 10, SPI_STOCK = 18, SPI_PILES = 19 };
@@ -22,10 +22,16 @@ enum { SPI_TAB = 0, SPI_FOUND = 10, SPI_STOCK = 18, SPI_PILES = 19 };
 extern const solrules sp_rules;
 
 void sp_new(solrec *r, int variant, uint32_t seed);
+void sp_pack(int variant, uint8_t *deck);         /* the variant's two packs in order (104) */
+void sp_deal_cards(solrec *r, int variant, const uint8_t *deck);   /* the packs in the order dealt (seed 0) */
 int  sp_legal(const solpos *p, solmove m);
 int  sp_play(solrec *r, solmove m);              /* 0: not legal */
 int  sp_won(const solpos *p);
 solmove sp_hint(const solpos *p);
 int  sp_script(solrec *r, const char *moves);
+
+/* the search (sollevels.h): the moves worth trying, best first; the search itself */
+int  sp_cands(const solpos *p, solmove *list);
+extern const solsearch sp_search;
 
 #endif

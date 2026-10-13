@@ -8,6 +8,8 @@
 #include <string.h>
 
 #include "games/spider.h"
+#include "games/spider_levels.h"
+#include "levels_check.h"
 
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
@@ -216,6 +218,19 @@ static void test_won(void)
     CHECK(sp_script(&G, "21") && sp_won(P) && P->n[0] == 0);
 }
 
+/* ---- the levels: a deal from its cards is the shuffled deal; every level won by the search ---------------------- */
+static void test_levels(void)
+{
+    static solrec A, B;
+    uint8_t deck[104];
+    sp_pack(SP_2SUITS, deck);
+    cards_shuffle(deck, 104, 77);
+    sp_new(&A, SP_2SUITS, 77);
+    sp_deal_cards(&B, A.variant, deck);
+    CHECK(!memcmp(&A.pos, &B.pos, sizeof A.pos));
+    CHECK(lc_levels("spider", sp_levels, SPI_LEVELS, 104, sp_deal_cards, &sp_search, 1000000) == SPI_LEVELS);
+}
+
 int main(void)
 {
     test_deal();
@@ -224,6 +239,7 @@ int main(void)
     test_runs();
     test_random();
     test_won();
+    test_levels();
     printf("spider: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

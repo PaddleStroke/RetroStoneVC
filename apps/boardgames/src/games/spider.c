@@ -3,8 +3,9 @@
  * and the win: solitaire_ui.h). The eight foundations in a row at the top (each complete run shows its king), the
  * stock at the right end (a back for each row still to deal), the ten columns under them, the cards narrow enough
  * for a phone held upright and overlapping. A tap sends a run to its best place (onto its own suit first), a drag
- * carries it where it is dropped; a tap on the stock deals a row. The bar: the moves; the hint
- * is the shell's tool.
+ * carries it where it is dropped; a tap on the stock deals a row. The bar: the moves; the hint is the shell's tool.
+ * Levels: 150 deals of our own in six chapters (spider_levels.h, made and proved winnable by tools/spider_gen.c), the
+ * level screen's die for a deal at random; the stars count the hints and undos (solitaire_ui.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -14,6 +15,7 @@
 #include "cards.h"
 #include "games/solitaire_ui.h"
 #include "games/spider.h"
+#include "games/spider_levels.h"
 #include "shell.h"
 
 static solrec G;
@@ -37,11 +39,24 @@ static void layout(box b)
     }
 }
 
-static void start(int v)
+static void begin(void)
 {
-    sp_new(&G, v, (uint32_t)ui_random(1 << 30));
     solui_new(&U);
     dealing = 1;
+}
+
+static void start(int level)                    /* a designed level (spider_levels.h) */
+{
+    uint8_t deck[104];
+    int v = solui_level(sp_levels, SPI_LEVELS, level, deck, 104);
+    sp_deal_cards(&G, v, deck);
+    begin();
+}
+
+static void start_random(int v)                 /* the level screen's die: a deal at random */
+{
+    sp_new(&G, v, (uint32_t)ui_random(1 << 30));
+    begin();
 }
 
 static int status(void) { return sp_won(&G.pos) ? GS_WIN0 : GS_PLAY; }
@@ -111,5 +126,6 @@ static const game spider_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .tools = 1, .level_stars = level_stars, .score = score,
+    .levels = SPI_LEVELS, .chapters = SPI_CHAPTERS, .start_random = start_random,
 };
 REGISTER_GAME(spider_game)
