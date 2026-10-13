@@ -1564,27 +1564,27 @@ static void axes_enter(int g)
 
 /* the cards: the sizes in rows (as many a row as makes them biggest), the levels in one row under them, smaller.
  * L.cards[0..sizes-1], then the levels'; their tops from 0; returns the block's height, *card the sizes' side */
-static float axes_layout(float H, float g, float *card)
+static float axes_layout(float H, float g, float lab, float *card)
 {
     int ns = games[cur]->axes[0], nl = games[cur]->axes[1], bc = 1;
-    float W = ui.w - 2 * fminf(ui.w, ui.h) * 0.05f, best = 0;
+    float W = ui.w - 2 * fminf(ui.w, ui.h) * 0.05f, best = 0, k1 = 1 + lab;   /* k1: a card's height (a name under) */
     for (int cols = 1; cols <= ns; cols++) {
         int rows = (ns + cols - 1) / cols;
-        float c = fminf((W - (cols - 1) * g) / cols, (H - (rows - 1) * g - 1.4f * g) / (rows + 0.55f));
+        float c = fminf((W - (cols - 1) * g) / cols, (H - (rows - 1) * g - 1.4f * g) / ((rows + 0.55f) * k1));
         c = fminf(c, fminf(ui.w, ui.h) * 0.62f);
         if (c > best + 0.5f) { best = c; bc = cols; }
     }
-    float c = floorf(best), cl = floorf(fminf(0.55f * c, (W - (nl - 1) * g) / nl));
+    float c = floorf(best), cl = floorf(fminf(0.55f * c, (W - (nl - 1) * g) / nl)), ch = floorf(c * k1);
     int rows = (ns + bc - 1) / bc;
     for (int i = 0; i < ns; i++) {
         int r = i / bc, k = r == rows - 1 ? ns - r * bc : bc;   /* the last row centred */
         float x0 = (ui.w - (k * c + (k - 1) * g)) / 2;
-        L.cards[i] = (box){floorf(x0 + (i % bc) * (c + g)), r * (c + g), c, c};
+        L.cards[i] = (box){floorf(x0 + (i % bc) * (c + g)), r * (ch + g), c, ch};
     }
-    float ly = rows * c + (rows - 1) * g + 1.4f * g, x0 = (ui.w - (nl * cl + (nl - 1) * g)) / 2;
-    for (int j = 0; j < nl; j++) L.cards[ns + j] = (box){floorf(x0 + j * (cl + g)), floorf(ly), cl, cl};
+    float ly = rows * ch + (rows - 1) * g + 1.4f * g, x0 = (ui.w - (nl * cl + (nl - 1) * g)) / 2;
+    for (int j = 0; j < nl; j++) L.cards[ns + j] = (box){floorf(x0 + j * (cl + g)), floorf(ly), cl, floorf(cl * k1)};
     *card = c;
-    return ly + cl;
+    return ly + floorf(cl * k1);
 }
 
 /* a level's picture by default: as many ebony stones as its number (one easy .. three hard), in a row */
@@ -1683,6 +1683,43 @@ static int settings_press(float x, float y)
     return 1;
 }
 
+/* the picker's names: help/<lang>/<id>_variants.txt, a line a card in its order (two axes: the sizes, then the levels;
+ * a game of levels: its random play's variants). Line `line` in the language, else in English; 0: none (no file, an
+ * empty line). */
+#define PICK_LAB 0.3f                           /* the name's room under a picker card's picture (of its width) */
+static int vname(int g, int line, char *buf, int size)
+{
+    char key[64];
+    snprintf(key, sizeof key, "%s_variants", games[g]->id);
+    const char *lang[2] = {text_lang(), "en"};
+    for (int l = 0; l < 2; l++)
+        for (int i = 0; i < tx_ntexts; i++) {
+            if (strcmp(tx_texts[i].game, key) || strcmp(tx_texts[i].lang, lang[l])) continue;
+            const char *t = tx_texts[i].text;
+            for (int k = 0; t && k < line; k++) {
+                t = strchr(t, '\n');
+                if (t) t++;
+            }
+            int n = t ? (int)strcspn(t, "\r\n") : 0;
+            while (n > 0 && t[n - 1] == ' ') n--;
+            if (n <= 0) break;                  /* none in this language: English's */
+            if (n >= size) n = size - 1;
+            memcpy(buf, t, (size_t)n);
+            buf[n] = 0;
+            return 1;
+        }
+    return 0;
+}
+
+static int vnames(int g)                        /* the picker shows names under its cards */
+{
+    char b[128];
+    int n = axes_on(g) ? games[g]->axes[0] + games[g]->axes[1] : games[g]->variants;
+    for (int i = 0; i < n && i < 2 * MAX_VARIANTS; i++)
+        if (vname(g, i, b, sizeof b)) return 1;
+    return 0;
+}
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
@@ -1758,17 +1795,22 @@ static void layout_cards(int n)
             free(b);
         }
     }
+    float lab = screen == SCR_MENU ? 0.22f : screen == SCR_PICK && vnames(cur) ? PICK_LAB : 0;   /* a name under each */
     int cols = ui.w > ui.h ? (n > 3 ? 3 : n) : (n > 1 ? 2 : 1);
-    if (screen == SCR_PICK) cols = ui.w > ui.h ? (n <= 5 ? n : (n + 1) / 2) : n <= 3 ? n : 2;   /* landscape: two rows
-                                                 * past five (draughts' eight) */
-    if (screen == SCR_PICK && ui.w <= ui.h && n == 3) cols = 1;
+    if (screen == SCR_PICK) {                   /* the picker: the grid that makes the cards biggest */
+        float W = ui.w - 2 * m, H = ui.h - head - 2 * m, best = 0;
+        for (int k = 1; k <= n; k++) {
+            int r = (n + k - 1) / k;
+            float cc = fminf(fminf((W - (k - 1) * g) / k, (H - (r - 1) * g) / r / (1 + lab)), fminf(ui.w, ui.h) * 0.62f);
+            if (cc > best + 0.5f) { best = cc; cols = k; }
+        }
+    }
     if (screen == SCR_MENU) {                   /* cards about a quarter of the screen's width: as many as fit */
         cols = (int)((ui.w - 2 * m + g) / (fminf(ui.w, ui.h) * 0.26f + g));
         cols = cols < 2 ? 2 : cols > n ? n : cols;
         if (n == 1) cols = 1;
     }
     int rows = (n + cols - 1) / cols;
-    float lab = screen == SCR_MENU ? 0.22f : 0;  /* the menu's cards: the game's name under its picture */
     float c = (ui.w - 2 * m - (cols - 1) * g) / cols;
     if (screen != SCR_MENU) c = fminf(c, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
     c = floorf(fminf(c, fminf(ui.w, ui.h) * 0.62f));
@@ -1795,11 +1837,15 @@ static void layout_cards(int n)
         }
         tall -= g;
     } else if (screen == SCR_PICK && axes_on(cur)) {   /* two axes: the sizes, then the levels */
-        tall = axes_layout(ui.h - head - 2 * m, g, &c);
-        ch = c;
+        tall = axes_layout(ui.h - head - 2 * m, g, lab, &c);
+        ch = floorf(c * (1 + lab));
         n = games[cur]->axes[0] + games[cur]->axes[1];
     } else {
-        for (int i = 0; i < n; i++) L.cards[i] = (box){floorf(x0 + (i % cols) * (c + g)), (i / cols) * (ch + g), c, ch};
+        for (int i = 0; i < n; i++) {           /* the last row centred */
+            int r = i / cols, k = r == rows - 1 ? n - r * cols : cols;
+            float xr = (ui.w - (k * c + (k - 1) * g)) / 2;
+            L.cards[i] = (box){floorf(xr + (i % cols) * (c + g)), r * (ch + g), c, ch};
+        }
         tall = rows * ch + (rows - 1) * g;
     }
     float y0 = head + (ui.h - head - tall) / 2;
@@ -2587,27 +2633,23 @@ static SDL_Texture *thumb(int i, int v)
 
 static const uint8_t CREAM[3] = {246, 238, 220};
 
-/* a menu card's name: the first line of the game's text, in the language, shrunk to fit */
-static SDL_Texture *label(int i)
+/* a name in cream under a card's picture, w x h: one line (k1: its size, a part of h), shrunk to fit; too long for one
+ * line ("Snakes and Ladders"): two (k2), split at the space nearest the middle, if that is bigger */
+static SDL_Texture *name_pic(char *name, int w, int h, float k1, float k2)
 {
-    if (t_name[i] || L.label < 4) return t_name[i];
-    char name[96];
-    if (!text_name(games[i]->id, name, sizeof name)) return NULL;
-    int w = L.card, h = L.label;
-    float px = h * 0.42f;
+    float px = h * k1;
     int tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
     if (tw > 0.9f * w) {
         px *= 0.9f * w / tw;
         tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
     }
-    /* too long for one line ("Snakes and Ladders"): two, split at the space nearest the middle, if that is bigger */
     char *cut = NULL;
     for (char *s = strchr(name, ' '); s; s = strchr(s + 1, ' '))
         if (!cut || abs((int)(s - name) * 2 - (int)strlen(name)) < abs((int)(cut - name) * 2 - (int)strlen(name)))
             cut = s;
-    float px2 = h * 0.36f;
+    float px2 = h * k2;
     int w1 = 0, w2 = 0;
-    if (cut && px < 0.8f * h * 0.42f) {
+    if (cut && px < 0.8f * h * k1) {
         *cut = 0;
         w1 = text_line(name, px2, 1, CREAM, NULL, 0, 0, 0, 0);
         w2 = text_line(cut + 1, px2, 1, CREAM, NULL, 0, 0, 0, 0);
@@ -2631,9 +2673,36 @@ static SDL_Texture *label(int i)
     } else {
         text_line(name, px, 1, CREAM, b, w, h, (w - tw) / 2, (int)((h - 1.25f * px) / 2));
     }
-    t_name[i] = ui_tex(w, h, b);
+    SDL_Texture *t = ui_tex(w, h, b);
     free(b);
-    return t_name[i];
+    return t;
+}
+
+/* a menu card's name: the first line of the game's text, in the language */
+static SDL_Texture *label(int i)
+{
+    if (t_name[i] || L.label < 4) return t_name[i];
+    char name[96];
+    if (!text_name(games[i]->id, name, sizeof name)) return NULL;
+    return t_name[i] = name_pic(name, L.card, L.label, 0.42f, 0.36f);
+}
+
+/* a picker card's name (card i: its line of the game's variant names), w x h; NULL: none */
+static SDL_Texture *vlabel(int i, int w, int h)
+{
+    static SDL_Texture *t[2 * MAX_VARIANTS];
+    static int key[2 * MAX_VARIANTS][3], none[2 * MAX_VARIANTS];
+    if (i < 0 || i >= 2 * MAX_VARIANTS || w < 4 || h < 4) return NULL;
+    if (key[i][0] == cur + 1 && key[i][1] == w && key[i][2] == h) return none[i] ? NULL : t[i];
+    key[i][0] = cur + 1;
+    key[i][1] = w;
+    key[i][2] = h;
+    ui_free(&t[i]);
+    char name[128];
+    none[i] = !vname(cur, i, name, sizeof name);
+    int small = w < L.card - 2;                 /* a level's card (two axes): smaller, its name as big as the sizes' */
+    if (!none[i]) t[i] = name_pic(name, w, h, small ? 0.5f : 0.30f, small ? 0.36f : 0.29f);
+    return t[i];
 }
 
 /* a section's heading: its line of help/<lang>/_menu.txt, bold, cream, then a thin rule to the right edge */
@@ -2670,6 +2739,12 @@ static SDL_Texture *heading(int s)
     return t_sec[s];
 }
 
+/* a picker card's name under its picture (a card taller than wide: the room for it) */
+static void card_name(int i, box c)
+{
+    if (c.h > c.w + 4) ui_put(vlabel(i, (int)c.w, (int)(c.h - c.w)), c.x, c.y + c.w - 0.04f * c.w, c.w, c.h - c.w);
+}
+
 /* the picker on two axes: the sizes (the one chosen on a gold card, in gold light), the levels (the one played last at
  * that size in gold light) */
 static void draw_axes(void)
@@ -2686,7 +2761,8 @@ static void draw_axes(void)
         SDL_Texture *t;
         if (G->axis_pic[level]) t = btn_tex(G->axis_pic[level], k, (int)s);
         else t = level ? btn_tex(paint_stones, k, (int)s) : thumb(cur, k * nl + lev);
-        ui_put_c(t, c.x + c.w / 2, c.y + c.h / 2, s, s);
+        ui_put_c(t, c.x + c.w / 2, c.y + c.w / 2, s, s);
+        card_name(i, c);
     }
 }
 
@@ -2741,6 +2817,7 @@ static void draw_cards(void)
         float s = c.w * 0.86f;
         ui_put_c(thumb(gi, v), c.x + c.w / 2, c.y + c.w / 2, s, s);
         if (screen == SCR_MENU) ui_put(label(i), c.x, c.y + c.w - 0.04f * c.w, c.w, (float)L.label);
+        else card_name(i, c);
     }
     for (int s = 0; s < SECTIONS && screen == SCR_MENU; s++) {
         float y = L.sec_y[s] + dy;
