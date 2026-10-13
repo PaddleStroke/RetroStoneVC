@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "games/banqi.h"
+#include "games/captures_bar.h"
 #include "games/grid.h"
 #include "games/xqpiece.h"
 #include "shell.h"
@@ -341,26 +342,18 @@ static void bar(int player, box b)
 {
     static const int start_n[8] = {0, 1, 2, 2, 2, 2, 2, 5};
     const bqpos *p = bq_pos(&G);
-    int c = !player, gone[8], total = 0, groups = 0;
+    int c = !player, gone[8];
     memcpy(gone, start_n, sizeof gone);
     for (int q = 0; q < BQ_N; q++)
         if (p->sq[q] && BQ_COLOUR(p->sq[q]) == c) gone[BQ_TYPE(p->sq[q])]--;
-    float u = ui.unit, end = b.x + b.w, cy = b.y + b.h / 2;
+    float end = b.x + b.w;
     int left = BQ_QUIET - p->quiet;
     if (left <= 20 && p->side == player && bq_status(&G) == BQ_PLAY) {
         box r = ui_bar_countdown(b, left);
         end = r.x + r.w;
     }
-    for (int k = BQ_GENERAL; k <= BQ_SOLDIER; k++)
-        if (gone[k] > 0) total += gone[k], groups++;
-    if (!total) return;
-    float sz = 0.6f * u, gap = 0.12f * u, x = b.x + sz / 2;
-    float step = total > 1 ? fminf(0.86f * sz, (end - b.x - sz - (groups - 1) * gap) / (total - 1)) : 0;
-    for (int k = BQ_GENERAL; k <= BQ_SOLDIER; k++) {
-        if (gone[k] <= 0) continue;
-        for (int i = 0; i < gone[k]; i++, x += step) ui_put_c(t_small[c][k], x, cy, sz, sz);
-        x += gap;
-    }
+    /* their glyphs readable: two rows of smaller pieces rather than one row of pieces hidden under each other */
+    cbar_draw(b, end, &t_small[c][BQ_GENERAL], &gone[BQ_GENERAL], BQ_SOLDIER - BQ_GENERAL + 1, 0.86f, 0.12f, 0.6f);
 }
 
 /* a player's general; before the first flip a piece face down (no colour yet) */

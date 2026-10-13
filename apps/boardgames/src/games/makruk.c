@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/captures_bar.h"
 #include "games/chess.h"
 #include "games/grid.h"
 #include "games/makruk.h"
@@ -352,17 +353,20 @@ static void bar(int player, box b)
     int c = !player, n[7] = {0};
     for (int s = 0; s < 64; s++)
         if (p->sq[s] && MK_COLOR(p->sq[s]) == c) n[p->sq[s] & MK_PROMOTED ? MK_BIA : MK_KIND(p->sq[s])]++;
-    float sz = 0.6f * ui.unit, step = 0.36f * ui.unit, x = b.x, cy = b.y + b.h / 2, end = b.x + b.w;
+    float end = b.x + b.w;
     int left = mk_moves_left(p);
     if (left >= 0 && p->counter == player) {
         box r = ui_bar_countdown(b, left);
         end = r.x + r.w;
     }
+    SDL_Texture *pic[5];
+    int gone[5];
     for (int k = 0; k < 5; k++) {
-        int kind = order[k], gone = start_n[kind] - n[kind];
-        for (int i = 0; i < gone && x + sz <= end; i++, x += step) ui_put(t_small[c][kind], x, cy - sz / 2, sz, sz);
-        if (gone > 0) x += 0.14f * ui.unit;
+        pic[k] = t_small[c][order[k]];
+        gone[k] = start_n[order[k]] - n[order[k]];
     }
+    /* all of them: closer together, or in two rows of smaller pieces, as the bar's room needs */
+    cbar_draw(b, end, pic, gone, 5, 0.6f, 0.14f, 0.4f);
 }
 
 static void token(int player, int size, uint8_t *rgba) { art_piece(KING, player, size, rgba); }
