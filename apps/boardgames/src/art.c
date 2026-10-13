@@ -873,6 +873,14 @@ void art_icon(int which, int size, uint8_t *rgba)
         }
         break;
     }
+    case ICON_MENU:                                 /* three bars, rounded at their ends */
+        for (int k = 0; k < 3; k++) {
+            float y = 0.30f + 0.20f * k;
+            art_rect(f, ART_PART, 0.27f, y - 0.04f, 0.73f, y + 0.04f);
+            art_ellipse(f, ART_PART, 0.27f, y, 0.04f, 0.04f);
+            art_ellipse(f, ART_PART, 0.73f, y, 0.04f, 0.04f);
+        }
+        break;
     }
     art_render(f, &st, size, size, (float)size, 0, 0, rgba);
     art_fig_free(f);

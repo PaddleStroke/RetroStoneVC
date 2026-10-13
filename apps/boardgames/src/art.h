@@ -122,10 +122,10 @@ float art_recess(float dx, float dy, float r, float b, float deep, float wall_li
  * ICON_PUZZLE: a jigsaw piece (the menu's puzzles); ICON_GRID: nine tiles (the levels); ICON_STAR: a star;
  * ICON_REPLAY: an arrow going round (the same puzzle again); ICON_PAR: a flag on its pole (the fewest moves);
  * ICON_EYE: an eye (look, show); ICON_PENCIL: a pencil (write notes); ICON_ERASER: an eraser (rub out);
- * ICON_HOURGLASS: an hourglass (turns left before a draw) */
+ * ICON_HOURGLASS: an hourglass (turns left before a draw); ICON_MENU: three bars (the menu's settings) */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
        ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICON_GRID, ICON_STAR, ICON_REPLAY, ICON_PAR,
-       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICONS };
+       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICON_MENU, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

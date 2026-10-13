@@ -1600,6 +1600,89 @@ static void paint_stones(int k, int size, uint8_t *o)
     free(st);
 }
 
+/* the menu's settings: its button at the right end of the tabs opens a small panel under it, a row each (an icon at
+ * the left, its control at the right; no words): the sound on or off, the app's rules page. More settings: more rows. */
+static void draw_button(float x, float y, float r, int icon, SDL_Texture *disc);
+static void open_help(int g);
+enum { SET_SOUND, SET_HELP, SET_ROWS };
+static struct { int open; box card, row[SET_ROWS]; } SET;
+
+static void settings_layout(float th)
+{
+    float s = fminf(ui.w, ui.h), m = s * 0.05f, rh = floorf(th * 1.15f), pad = floorf(s * 0.025f);
+    float pw = floorf(fminf(s * 0.62f, ui.w - 2 * m)), x = fminf(L.snd_x + L.snd_r, ui.w - m) - pw;
+    float y = floorf(L.snd_y + L.snd_r + s * 0.03f);
+    SET.card = (box){floorf(x), y, pw, SET_ROWS * rh + 2 * pad};
+    for (int k = 0; k < SET_ROWS; k++) SET.row[k] = (box){floorf(x + pad), y + pad + k * rh, pw - 2 * pad, rh};
+}
+
+/* a picture of one colour, rounded (a panel, a switch's track), kept by its size and colour (a few) */
+static SDL_Texture *rounded(int w, int h, float rad, const uint8_t c[4])
+{
+    static struct { SDL_Texture *t; int w, h; uint8_t c[4]; } k[6];
+    static int next;
+    for (int i = 0; i < 6; i++)
+        if (k[i].t && k[i].w == w && k[i].h == h && !memcmp(k[i].c, c, 4)) return k[i].t;
+    int i = next++ % 6;
+    ui_free(&k[i].t);
+    if (w < 1 || h < 1) return NULL;
+    art_roundrect(w, h, rad, c, ui_buf(w, h));
+    k[i].t = ui_tex(w, h, ui_buf(w, h));
+    k[i].w = w;
+    k[i].h = h;
+    memcpy(k[i].c, c, 4);
+    return k[i].t;
+}
+
+static void draw_settings(void)
+{
+    if (!SET.open || screen != SCR_MENU) return;
+    static const uint8_t panel[4] = {28, 34, 32, 250}, on[4] = {150, 118, 46, 255}, off[4] = {54, 72, 64, 255},
+                         knob[4] = {246, 238, 220, 255};
+    ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 120);
+    box c = SET.card;
+    ui_put(rounded((int)c.w, (int)c.h, 0.12f * SET.row[0].h, panel), c.x, c.y, c.w, c.h);
+    for (int k = 0; k < SET_ROWS; k++) {
+        box r = SET.row[k];
+        float cy = r.y + r.h / 2, br = r.h * 0.34f, ix = r.x + br + r.h * 0.08f;
+        if (k) ui_fill(r.x, r.y, r.w, 1, 246, 238, 220, 40);   /* a faint line between two rows */
+        if (k == SET_SOUND) {                   /* the sound: a switch, gold when on */
+            float sh = floorf(r.h * 0.42f), sw = floorf(sh * 2.0f), sx = r.x + r.w - sw - r.h * 0.08f, d = sh * 0.8f;
+            draw_button(ix, cy, br, snd_muted ? ICON_MUTE : ICON_SOUND, NULL);
+            ui_put(rounded((int)sw, (int)sh, sh / 2, snd_muted ? off : on), sx, cy - sh / 2, sw, sh);
+            float kx = snd_muted ? sx + sh / 2 : sx + sw - sh / 2;
+            ui_put_c(rounded((int)d, (int)d, d / 2, knob), kx, cy, d, d);
+        } else if (k == SET_HELP) {             /* the app's rules page: the help icon, an arrow to it */
+            float a = floorf(r.h * 0.4f);
+            draw_button(ix, cy, br, ICON_HELP, NULL);
+            ui_put_c(t_icon[ICON_ARROW], r.x + r.w - a / 2 - r.h * 0.12f, cy, a, a);
+        }
+    }
+}
+
+/* a press while the settings are open: a row's control, else they close (1: taken) */
+static int settings_press(float x, float y)
+{
+    if (!SET.open) return 0;
+    for (int k = 0; k < SET_ROWS; k++) {
+        box r = SET.row[k];
+        if (x < r.x || y < r.y || x >= r.x + r.w || y >= r.y + r.h) continue;
+        if (k == SET_SOUND) {
+            snd_muted = !snd_muted;
+            remember_mute();
+            snd_play(SND_TAP);
+        } else if (k == SET_HELP) {
+            snd_play(SND_TAP);
+            SET.open = 0;
+            open_help(-1);
+        }
+        return 1;
+    }
+    SET.open = 0;                               /* anywhere else (its button too): closed */
+    snd_play(SND_TAP);
+    return 1;
+}
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
@@ -1613,12 +1696,17 @@ static void layout_cards(int n)
         int shown_tab = 0;
         for (int k = 0; k < L.ntabs; k++) shown_tab |= L.tab_sec[k] == menu.tab;
         if (!shown_tab && L.ntabs) menu.tab = L.tab_sec[0];
-        float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f);
-        float tw = floorf((ui.w - 2 * m - (L.ntabs - 1) * tg) / (L.ntabs ? L.ntabs : 1));
-        float tx = (ui.w - (L.ntabs * tw + (L.ntabs - 1) * tg)) / 2;
-        for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), floorf(head), tw, th};
-        head += th + floorf(g * 0.3f);
+        /* no row of buttons above them: the tabs at the top, the menu's button (the settings) at their right end */
+        float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f), ty = floorf(m * 0.6f);
+        float tw = floorf((ui.w - 2 * m - th - L.ntabs * tg) / (L.ntabs ? L.ntabs : 1));
+        float tx = (ui.w - (L.ntabs * (tw + tg) + th)) / 2;
+        for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), ty, tw, th};
+        L.snd_r = floorf(th * 0.45f);
+        L.snd_x = floorf(tx + L.ntabs * (tw + tg) + th / 2);
+        L.snd_y = ty + th / 2;
+        head = ty + th + floorf(g * 0.5f);
         tab_textures((int)tw, (int)th);
+        settings_layout(th);
     }
     float below = top;                          /* where the pills and the cards may start */
     if (screen == SCR_PICK && games[cur]->levels) {   /* random play's picker: the level screen's tabs over it */
@@ -1738,9 +1826,11 @@ static void layout_cards(int n)
         for (int s = 0; s < SECTIONS; s++) ui_free(&t_sec[s]);
     }
     L.card = (int)c;
-    L.snd_r = top * 0.28f;
-    L.snd_x = ui.w - m - L.snd_r;
-    L.snd_y = top * 0.55f;
+    if (screen != SCR_MENU) {                   /* the picker's row: home at the left */
+        L.snd_r = top * 0.28f;
+        L.snd_x = ui.w - m - L.snd_r;
+        L.snd_y = top * 0.55f;
+    }
     ui.unit = fminf(ui.w, ui.h) / 12.0f;
     L.br = L.snd_r;
     shared_textures();
@@ -2664,8 +2754,7 @@ static void draw_cards(void)
     }
     float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
     if (screen == SCR_MENU) {
-        draw_button(L.snd_x, L.snd_y, L.snd_r, snd_muted ? ICON_MUTE : ICON_SOUND, NULL);
-        draw_button(home_x, L.snd_y, L.snd_r, ICON_HELP, NULL);
+        draw_button(L.snd_x, L.snd_y, L.snd_r, ICON_MENU, SET.open ? t_btn_on : NULL);   /* the settings */
     } else {
         draw_button(home_x, L.snd_y, L.snd_r, ICON_HOME, NULL);
     }
@@ -2875,7 +2964,10 @@ static void draw(void)
     ui_put(t_bg, 0, 0, (float)ui.w, (float)ui.h);
     if (screen == SCR_GAME) draw_game();
     else if (screen == SCR_LEVELS) draw_levels();
-    else draw_cards();
+    else {
+        draw_cards();
+        draw_settings();
+    }
     if (help.open) draw_help();
 }
 
@@ -3014,15 +3106,10 @@ static void press(float x, float y)
     }
     if (screen != SCR_GAME) {
         float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
-        if (screen == SCR_MENU && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {
-            snd_muted = !snd_muted;
-            remember_mute();
+        if (screen == SCR_MENU && settings_press(x, y)) return;   /* the settings open: theirs */
+        if (screen == SCR_MENU && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {   /* the settings' button */
             snd_play(SND_TAP);
-            return;
-        }
-        if (screen == SCR_MENU && in_circle(x, y, home_x, L.snd_y, L.snd_r)) {
-            snd_play(SND_TAP);
-            open_help(-1);
+            SET.open = 1;
             return;
         }
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
@@ -3504,6 +3591,7 @@ static void key(SDL_Keycode k, int repeat)
 {
     if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) {
         if (help.open) help.open = 0;
+        else if (screen == SCR_MENU && SET.open) SET.open = 0;
         else if (screen == SCR_MENU) quit = 1;
         else go_home();
         return;
