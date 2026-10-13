@@ -90,4 +90,10 @@ int  ya_undo(ygame *g);                         /* back to before the last score
 int  ya_cat_by_name(const char *name, int len); /* the notation's names; -1: none */
 int  ya_script(ygame *g, const char *moves);    /* plays throws and scores in the notation; 0: one is bad */
 
+/* the bot (yacht_bot.c, bots.h) */
+const ygame *yacht_live(void);          /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as taps do (animated): "d--?-?" keeps the dice marked "-" and throws the others (the
+ * game's own faces, "?"), a category's name scores it; 0: not now, or not legal */
+int  yacht_show(const char *move);
+
 #endif

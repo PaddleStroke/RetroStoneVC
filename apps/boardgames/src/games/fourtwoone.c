@@ -45,6 +45,8 @@ static struct { int on, key, player, ended; unsigned mask; uint8_t dice[FTO_DICE
 static struct { int on, n; float x0, y0, x1, y1; Uint32 t0; } fly;
 static Uint32 slide_t0[FTO_DICE];
 static unsigned slide_mask;
+static struct { int on; Uint32 t0; } pend;     /* a bot's throw: the dice it keeps slide first, then it throws */
+#define PEND_MS 450
 
 static int throw_key(int rounds, int player, int throws)
 {
@@ -74,6 +76,7 @@ static void reset_ui(void)
     shown.on = 0;
     fly.on = 0;
     slide_mask = 0;
+    pend.on = 0;
 }
 
 static void start(int variant)
@@ -96,7 +99,7 @@ static int status(void)
 static int turn(void) { return P->turn; }
 static int holding(void) { return shown.on && shown.ended && ui_ms() - shown.t0 < UI_DICE_MS + HOLD_MS; }
 static int flying(void) { return fly.on && ui_ms() - fly.t0 < (Uint32)(FLY_MS + FLY_GAP * (fly.n - 1) + 120); }
-static int busy(void) { return (shown.on && ui_ms() - shown.t0 < UI_DICE_MS) || holding() || flying(); }
+static int busy(void) { return (shown.on && ui_ms() - shown.t0 < UI_DICE_MS) || holding() || flying() || pend.on; }
 static void home(int player, float *fx, float *fy) { cup_home(player, P->players, fx, fy); }
 
 /* the chips of the round just settled: from the pot (in the frame of the one to throw next) or the winner, to the
@@ -166,6 +169,7 @@ static void toggle_keep(int i)
 
 static int undo(void)
 {
+    if (pend.on) { pend.on = 0; return 1; }     /* a bot's throw still to come: not made */
     if (!fto_undo(&G)) return 0;
     reset_ui();
     if (P->throws) {                            /* the throw to go on with, at rest */
@@ -203,6 +207,40 @@ static int script(const char *s)
         shown.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
+}
+
+/* ---- the bot (fourtwoone_bot.c) ---------------------------------------------------------------------------------- */
+const tgame *fourtwoone_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "d-?-" the dice marked "-" kept (they slide aside), the others thrown a moment
+ * later (the game's faces); "s" stops */
+int fourtwoone_show(const char *move)
+{
+    if (busy() || P->phase == FTO_OVER) return 0;
+    if (!strcmp(move, "s")) {
+        if (!fto_can_stop(P)) return 0;
+        stop();
+        return 1;
+    }
+    unsigned kept = 0;
+    if (move[0] != 'd' || strlen(move) != 1 + FTO_DICE || P->throws >= P->limit) return 0;
+    for (int i = 0; i < FTO_DICE; i++) {
+        if (move[1 + i] == '-') kept |= 1u << i;
+        else if (move[1 + i] != '?') return 0;
+    }
+    if ((!P->throws && kept) || kept == (1u << FTO_DICE) - 1) return 0;
+    for (int i = 0; i < FTO_DICE; i++)
+        if (P->throws && ((kept ^ P->kept) >> i & 1)) toggle_keep(i);
+    pend.on = 1;
+    pend.t0 = ui_ms();
+    return 1;
+}
+
+static void pending(void)                       /* the bot's throw, once the dice it keeps have slid aside */
+{
+    if (!pend.on || ui_ms() - pend.t0 < (slide_mask ? CUP_SLIDE_MS + PEND_MS : 0)) return;
+    pend.on = 0;
+    throw_dice();
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -289,6 +327,7 @@ static void draw_fly(Uint32 now)
 
 static void draw(void)
 {
+    pending();
     Uint32 now = ui_ms();
     ui_put(t_board, bx, by, (float)S, (float)S);
     if (P->phase == FTO_CHARGE || (fly.on && P->last_pot)) draw_pot(upside_of(P->turn));

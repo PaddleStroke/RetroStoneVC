@@ -309,6 +309,30 @@ static int script(const char *s)
 
 static unsigned winners(void) { return P->phase == LP_OVER ? 1u << P->winner : 0; }
 
+/* ---- the bot (liarsdice_bot.c) ----------------------------------------------------------------------------------- */
+const lgame *liarsdice_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "3x4" a bid (the picker set to it, then the bid knob), "l" a call, "n" the next
+ * round once the reveal is over */
+int liarsdice_show(const char *move)
+{
+    if (busy() || P->phase == LP_OVER) return 0;
+    if (!strcmp(move, "n") || !strcmp(move, "l")) {
+        int a = move[0] == 'n' ? LD_ACT(LA_NEXT, 0, 0) : LD_ACT(LA_LIAR, 0, 0);
+        if (!ld_legal(P, a)) return 0;
+        act(a);
+        return 1;
+    }
+    char *x;
+    long c = strtol(move, &x, 10);
+    int f = x[0] == 'x' && x[1] >= '1' && x[1] <= '6' && !x[2] ? x[1] - '0' : 0;
+    if (x == move || c < 1 || c > 255 || !ld_legal(P, LD_ACT(LA_BID, c, f))) return 0;
+    sel_count = c;
+    sel_face = f;
+    act(LD_ACT(LA_BID, c, f));
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_others(void)
 {

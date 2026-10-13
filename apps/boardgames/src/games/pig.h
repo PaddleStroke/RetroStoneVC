@@ -52,4 +52,9 @@ int  pig_undo(piggame *g);                      /* takes back the last hold; 0: 
 int  pig_leader(const pigpos *p);               /* the highest score's player (the first of them) */
 int  pig_script(piggame *g, const char *moves); /* 0: a move is bad */
 
+/* the bot (pig_bot.c, bots.h) */
+const piggame *pig_live(void);          /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as a tap does: "r?" rolls (two dice: "r??", the game's own), "h" holds; 0: not now */
+int  pig_show(const char *move);
+
 #endif

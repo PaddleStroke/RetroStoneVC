@@ -62,4 +62,10 @@ int  scc_stop(sccgame *g);
 int  scc_undo(sccgame *g);                      /* takes back the last stop; 0: none */
 int  scc_script(sccgame *g, const char *moves); /* 0: a move is bad */
 
+/* the bot (shipcaptain_bot.c, bots.h) */
+const sccgame *shipcaptain_live(void);  /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as a tap does: "r?????" rolls the free dice (a "?" each, the game's own faces), "s"
+ * stops; 0: not now, or not legal */
+int  shipcaptain_show(const char *move);
+
 #endif

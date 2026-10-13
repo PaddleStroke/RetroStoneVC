@@ -159,6 +159,25 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (shipcaptain_bot.c) --------------------------------------------------------------------------------- */
+const sccgame *shipcaptain_live(void) { return &G; }
+
+/* a bot's move, as a tap makes it: "r" and a "?" for each die thrown (the game's dice), "s" a stop */
+int shipcaptain_show(const char *move)
+{
+    if (busy() || P->phase != SCC_PLAY) return 0;
+    if (!strcmp(move, "s")) {
+        if (!scc_can_stop(P)) return 0;
+        stop();
+        return 1;
+    }
+    if (move[0] != 'r' || (int)strlen(move + 1) != __builtin_popcount(scc_free(P)) || P->rolls >= SCC_ROLLS) return 0;
+    for (const char *s = move + 1; *s; s++)
+        if (*s != '?') return 0;
+    roll();
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a little ship (the hull, a mast, two sails) over a picture size x size at (x, y), w wide: fractions of the picture */
 static void paint_ship(uint8_t *o, int size, float x, float y, float w, const uint8_t ink[3], const uint8_t sail[3])

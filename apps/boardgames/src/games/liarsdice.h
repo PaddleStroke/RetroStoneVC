@@ -66,4 +66,9 @@ int  ld_alive(const lpos *p);                   /* how many still have dice */
 int  ld_auto(const lpos *p);                    /* a plain action (the "#" of the notation) */
 int  ld_script(lgame *g, const char *moves);    /* 0: an action is bad */
 
+/* the bot (liarsdice_bot.c, bots.h) */
+const lgame *liarsdice_live(void);      /* the game on the screen, read-only: the bot copies its own view at entry */
+/* main thread: plays a move as taps do: "3x4" bids, "l" calls, "n" starts the next round; 0: not now, or not legal */
+int  liarsdice_show(const char *move);
+
 #endif

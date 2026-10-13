@@ -78,4 +78,10 @@ int  fto_undo(tgame *g);                        /* back to before the last stop 
 unsigned fto_winners(const tpos *p);            /* once over: every player but the loser */
 int  fto_script(tgame *g, const char *moves);   /* plays throws and stops in the notation; 0: one is bad */
 
+/* the bot (fourtwoone_bot.c, bots.h) */
+const tgame *fourtwoone_live(void);     /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as taps do (animated): "d-?-" keeps the dice marked "-" and throws the others (the
+ * game's own faces, "?"), "s" stops; 0: not now, or not legal */
+int  fourtwoone_show(const char *move);
+
 #endif

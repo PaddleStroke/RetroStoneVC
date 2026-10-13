@@ -72,4 +72,10 @@ int  stb_undo(sgame *g);                        /* back to before the last tiles
                                                  * 0: none */
 int  stb_script(sgame *g, const char *moves);   /* plays throws and shuts in the notation above; 0: one is bad */
 
+/* the bot (shutthebox_bot.c, bots.h) */
+const sgame *shutthebox_live(void);     /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as taps do (animated): "d??" throws two dice, "d?" one (the game's own faces), "1+7"
+ * shuts those tiles; 0: not now, or not legal */
+int  shutthebox_show(const char *move);
+
 #endif

@@ -215,6 +215,29 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (mexico_bot.c) -------------------------------------------------------------------------------------- */
+const mxgame *mexico_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "t??" throws (the game's dice), "s62" announces (the pad set to it first), "c"
+ * calls, "n" the next round once the cup has been lifted */
+int mexico_show(const char *move)
+{
+    if (busy() || P->phase == MX_OVER) return 0;
+    int a;
+    if (!strcmp(move, "t??")) a = MX_ACT(MXA_THROW, MX_DICE(1 + ui_random(6), 1 + ui_random(6)));
+    else if (!strcmp(move, "c")) a = MX_ACT(MXA_CALL, 0);
+    else if (!strcmp(move, "n")) a = MX_ACT(MXA_NEXT, 0);
+    else if (move[0] == 's' && move[1] >= '1' && move[1] <= '6' && move[2] >= '1' && move[2] <= '6' && !move[3]) {
+        int r = mx_from_number((move[1] - '0') * 10 + (move[2] - '0'));
+        if (r < 0) return 0;
+        a = MX_ACT(MXA_SAY, r);
+    } else return 0;
+    if (!mx_legal(P, a)) return 0;
+    if (MX_KIND(a) == MXA_SAY) sel = MX_ARG(a);
+    act(a);
+    return 1;
+}
+
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void put_alpha(SDL_Texture *t, float cx, float cy, float w, float h, float a)
 {

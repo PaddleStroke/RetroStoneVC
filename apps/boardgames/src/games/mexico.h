@@ -64,4 +64,10 @@ int  mx_legal(const mxpos *p, int act);
 int  mx_play(mxgame *g, int act);               /* 0: not allowed */
 int  mx_script(mxgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the bot (mexico_bot.c, bots.h) */
+const mxgame *mexico_live(void);        /* the game on the screen, read-only: the bot copies its own view at entry */
+/* main thread: plays a move as taps do: "t??" throws (the game's own dice), "s62" announces, "c" calls, "n" the next
+ * round; 0: not now, or not legal */
+int  mexico_show(const char *move);
+
 #endif

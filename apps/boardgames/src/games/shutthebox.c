@@ -247,6 +247,34 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (shutthebox_bot.c) ---------------------------------------------------------------------------------- */
+const sgame *shutthebox_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "d??" / "d?" a throw (the game's dice), "1+7" the tiles shut */
+int shutthebox_show(const char *move)
+{
+    if (busy() || P->phase == STB_OVER) return 0;
+    if (!strcmp(move, "d??") || !strcmp(move, "d?")) {
+        int nd = move[2] ? 2 : 1;
+        if (P->phase != STB_THROW || (nd == 1 && !stb_one_die(P))) return 0;
+        throw_dice(nd);
+        return 1;
+    }
+    unsigned tiles = 0;
+    for (const char *s = move; *s;) {
+        char *end;
+        long t = strtol(s, &end, 10);
+        if (end == s || t < 1 || t > P->tiles || (*end && *end != '+')) return 0;
+        tiles |= 1u << t;
+        s = *end ? end + 1 : end;
+    }
+    if (P->phase != STB_SHUT || !tiles || (tiles & ~(unsigned)P->open[P->turn]) || stb_sum(tiles) != stb_total(P))
+        return 0;
+    sel = tiles;
+    shut_chosen();
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static int px(float v, int n) { return (int)floorf((v + 0.5f) * n + 0.5f); }
 

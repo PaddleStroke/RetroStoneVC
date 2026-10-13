@@ -43,6 +43,8 @@ static struct { int on, key; Uint32 t0; } tumble;
 static struct { int on, player, landed, nd, lost, key; uint8_t v[FK_DICE]; Uint32 t0; } dead;
 static struct { int on, player, pts; Uint32 t0; } banked;
 static struct { int on, n, first; float x[FK_DICE], y[FK_DICE]; Uint32 t0; } aside;   /* sliding onto the rack */
+static struct { int on, bank; Uint32 t0; } pend;   /* a bot's move: its dice chosen a moment, then the throw or bank */
+#define PEND_MS 600
 
 static int throw_key(int turns, int throws) { return turns * 16 + (throws < 15 ? throws : 15); }
 
@@ -83,6 +85,7 @@ static void reset_ui(void)
     dead.on = 0;
     banked.on = 0;
     aside.on = 0;
+    pend.on = 0;
 }
 
 static void start(int variant)
@@ -116,7 +119,7 @@ static int turn(void) { return P->turn; }
 static int rolling(void) { return tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS; }
 static int busy(void)
 {
-    return rolling() || dead.on || banked.on || (aside.on && ui_ms() - aside.t0 < 2 * CUP_SLIDE_MS);
+    return rolling() || dead.on || banked.on || (aside.on && ui_ms() - aside.t0 < 2 * CUP_SLIDE_MS) || pend.on;
 }
 static void home(int player, float *fx, float *fy) { cup_home(player, P->players, fx, fy); }
 
@@ -187,6 +190,7 @@ static void tap_die(int i)
 
 static int undo(void)
 {
+    if (pend.on) { pend.on = 0; sel = 0; return 1; }   /* a bot's move still on show: not made */
     if (sel) { sel = 0; return 1; }
     if (!fk_undo(&G)) return 0;
     reset_ui();
@@ -229,6 +233,53 @@ static int script(const char *s)
         tumble.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
+}
+
+/* ---- the bot (farkle_bot.c) -------------------------------------------------------------------------------------- */
+const fgame *farkle_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "d??????" a turn's first throw; "a115 d???" the dice set aside (by their faces:
+ * they lift a moment), then the rest thrown (the game's faces); "a5 b" set aside, then banked */
+int farkle_show(const char *move)
+{
+    if (busy() || P->phase == FK_OVER) return 0;
+    if (!strcmp(move, "d??????")) {
+        if (P->phase != FK_THROW) return 0;
+        throw_dice();
+        return 1;
+    }
+    if (move[0] != 'a' || P->phase != FK_CHOOSE) return 0;
+    unsigned pick = 0;
+    const char *s = move + 1;
+    for (; *s >= '1' && *s <= '6'; s++) {
+        int found = 0;
+        for (int k = 0; k < P->nd && !found; k++)
+            if (!(pick >> k & 1) && P->dice[k] == *s - '0') pick |= 1u << k, found = 1;
+        if (!found) return 0;
+    }
+    if (*s++ != ' ' || !fk_sel_value(P, pick)) return 0;
+    if (!strcmp(s, "b")) {
+        if (!fk_can_bank(P, pick)) return 0;
+        pend.bank = 1;
+    } else {
+        if (*s++ != 'd' || (int)strlen(s) != fk_to_throw(P, pick)) return 0;
+        for (; *s; s++)
+            if (*s != '?') return 0;
+        pend.bank = 0;
+    }
+    sel = pick;
+    ui_sound(SND_PLACE);
+    pend.on = 1;
+    pend.t0 = ui_ms();
+    return 1;
+}
+
+static void pending(void)                       /* the bot's move, after its dice chosen have shown a moment */
+{
+    if (!pend.on || ui_ms() - pend.t0 < PEND_MS) return;
+    pend.on = 0;
+    if (pend.bank) bank();
+    else throw_dice();
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -294,6 +345,7 @@ static void draw_pegs(void)                     /* alone: the twenty turns */
 
 static void draw(void)
 {
+    pending();
     Uint32 now = ui_ms();
     ui_put(t_board, bx, by, (float)S, (float)S);
     if (P->players == 1) draw_pegs();

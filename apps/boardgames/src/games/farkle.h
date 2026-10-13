@@ -74,4 +74,10 @@ int  fk_undo(fgame *g);                         /* back to before the last bank,
                                                  * again came after it (undo never throws again); 0: none */
 int  fk_script(fgame *g, const char *moves);    /* plays throws, dice set aside and banks; 0: one is bad */
 
+/* the bot (farkle_bot.c, bots.h) */
+const fgame *farkle_live(void);         /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as taps do (animated): "d??????" throws (the game's own faces, "?"), "a115 d???" sets
+ * those dice aside and throws the rest, "a5 b" sets aside and banks; 0: not now, or not legal */
+int  farkle_show(const char *move);
+
 #endif

@@ -49,6 +49,9 @@ static int pick = -1;                           /* the category tapped once (its
 static struct { int on, key; unsigned mask; Uint32 t0; } tumble;
 static Uint32 slide_t0[YA_DICE];                /* a die kept or let go: when it started sliding */
 static unsigned slide_mask;
+static struct { int on, cat; Uint32 t0; } pend;   /* a bot's move, shown first: the dice kept slide, or its box
+                                                 * is picked; then the throw (cat -1) or the score */
+#define PEND_MS 450
 
 static geom geom_for(int variant, int players)
 {
@@ -104,6 +107,7 @@ static void reset_ui(void)
     pick = -1;
     tumble.on = 0;
     slide_mask = 0;
+    pend.on = 0;
 }
 
 static void start(int variant)
@@ -144,7 +148,7 @@ static int sliding(void)
     return 0;
 }
 
-static int busy(void) { return (tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS) || sliding(); }
+static int busy(void) { return (tumble.on && ui_ms() - tumble.t0 < UI_DICE_MS) || sliding() || pend.on; }
 static void home(int player, float *fx, float *fy) { cup_home(player, P->players, fx, fy); }
 
 static void throw_dice(void)
@@ -191,6 +195,7 @@ static void tap_category(int cat)
 
 static int undo(void)
 {
+    if (pend.on) { pend.on = 0; pick = -1; return 1; }   /* a bot's move still on show: not made */
     if (pick >= 0) { pick = -1; return 1; }
     if (!ya_undo(&G)) return 0;
     reset_ui();
@@ -217,6 +222,51 @@ static int script(const char *s)
         tumble.t0 = ui_ms() - UI_DICE_MS;
     }
     return ok;
+}
+
+/* ---- the bot (yacht_bot.c) --------------------------------------------------------------------------------------- */
+const ygame *yacht_live(void) { return &G; }
+
+/* a bot's move, as taps make it: "d--?-?" the dice marked "-" kept (they slide to the lane), the others thrown a
+ * moment later (the game's faces); a category's name: its box picked (its points shown), then scored */
+int yacht_show(const char *move)
+{
+    if (busy() || P->over) return 0;
+    if (move[0] == 'd') {
+        unsigned kept = 0;
+        if (strlen(move) != 1 + YA_DICE || P->throws >= YA_THROWS) return 0;
+        for (int i = 0; i < YA_DICE; i++) {
+            if (move[1 + i] == '-') kept |= 1u << i;
+            else if (move[1 + i] != '?') return 0;
+        }
+        if ((!P->throws && kept) || kept == (1u << YA_DICE) - 1) return 0;
+        for (int i = 0; i < YA_DICE; i++)
+            if (P->throws && ((kept ^ P->kept) >> i & 1)) toggle_keep(i);
+        pend.on = 1;
+        pend.cat = -1;
+        pend.t0 = ui_ms();
+        return 1;
+    }
+    int cat = ya_cat_by_name(move, (int)strlen(move));
+    if (ya_points(P, cat) < 0) return 0;
+    pick = cat;
+    ui_sound_soft(SND_TAP, 0.5f);
+    pend.on = 1;
+    pend.cat = cat;
+    pend.t0 = ui_ms();
+    return 1;
+}
+
+static void pending(void)                       /* the bot's move, after its moment on show */
+{
+    if (!pend.on || ui_ms() - pend.t0 < (pend.cat < 0 && slide_mask ? CUP_SLIDE_MS + PEND_MS : PEND_MS)) return;
+    pend.on = 0;
+    if (pend.cat < 0) {
+        throw_dice();
+        return;
+    }
+    pick = pend.cat;
+    tap_category(pend.cat);
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -473,6 +523,7 @@ static void draw_felt(geom g)
 
 static void draw(void)
 {
+    pending();
     if (made_np != P->players || made_var != P->variant) layout(laid);   /* a new game of another kind */
     geom g = now_geom();
     ui_put(t_board, bx, by, (float)S, (float)S);

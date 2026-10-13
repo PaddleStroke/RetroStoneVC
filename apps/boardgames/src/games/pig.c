@@ -139,6 +139,22 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (pig_bot.c) ----------------------------------------------------------------------------------------- */
+const piggame *pig_live(void) { return &G; }
+
+/* a bot's move, as a tap makes it: "r?" / "r??" a roll (the game's dice), "h" a hold */
+int pig_show(const char *move)
+{
+    if (busy() || P->phase != PIG_PLAY) return 0;
+    if (!strcmp(move, pig_ndice(P) == 2 ? "r??" : "r?")) {
+        roll();
+        return 1;
+    }
+    if (strcmp(move, "h") || !pig_can_hold(P)) return 0;
+    hold();
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static void paint_board(uint8_t *o, int n, int players)
 {
