@@ -30,8 +30,11 @@ the solved puzzle's card, levels with random play; never shipped).
 | `src/cards_table.c` `cards_table.h` | the shared card table (prefix `ct_`): what card games draw round their cards, written once (see "Card and tile games"). |
 | `src/sound.c` | the sounds, made by code: `ui_sound(SND_MOVE / CAPTURE / PLACE / DROP / CHECK / END / TAP / DENY)`. |
 | `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK (and DejaVu Sans for the letters it lacks) cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
+| `src/ai.c` `ai.h` | the AI kit, without SDL: alpha-beta (`ai_ab`, `ai_expecti` with dice), Monte Carlo tree search (`ai_mcts`, hidden hands too), the levels' budgets (see "Bots"). |
+| `src/bots.c` `bots.h`, `src/ai_worker.c` | the bots' registry (`REGISTER_BOT`) and the worker thread that runs one while the screen draws (see "Bots"). |
 | `src/games/<id>.c` | a game: its board on the screen, its input; registers itself (`REGISTER_GAME`). |
 | `src/games/<id>_rules.c` `<id>.h` | its rules, without SDL (tested by `tests/<id>_test.c`). Chess: `chess.c` / `chess_ui.c`, `tests/perft.c`. |
+| `src/games/<id>_bot.c` | its bot, if it has one (`REGISTER_BOT`; tested by `tests/ai_<id>_test.c`). |
 
 ## A game (the house rules)
 
@@ -55,6 +58,14 @@ One look across the app, like the Arcade games' house kit:
   solitaires, puzzles (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
   `SECTION_OF` table files a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n`
   in the picture mode.
+- **The settings**: the menu has no row of buttons above its tabs; one button at the tabs' right end (`ICON_MENU`, three
+  bars) opens a small panel under it, a row a setting, an icon at its left and its control at its right, no words:
+  the sound (a switch, gold when on; `M` too) and the app's rules page (`help/<lang>/_app.txt`, an arrow). A tap
+  elsewhere closes it. More settings: more rows (`SET_ROWS`).
+- **The picker's names** (optional): `help/<lang>/<id>_variants.txt`, a line a picker card in its order (no title
+  line: the first line names card 0), shown in cream under each card's picture, shrunk or split in two lines to fit
+  (two axes: the sizes' names, then the levels'; a game of levels: its random play's variants). An empty or missing
+  line in a language: the English one; no file: the pictures alone.
 - **Wood**: every board is the house wood (`art_board_n`: checkered squares, or one plain plank with lines drawn on
   it), in its walnut frame, on the shell's green table. The shared headers draw the boards of a kind: `grid.h` (go's
   points; `grid_lines` and `grid_ink` for any plank ruled in squares: makruk, shogi), `lines.h` (lines and points,
@@ -91,6 +102,15 @@ One look across the app, like the Arcade games' house kit:
   for a lot of the game's own (Ur's pyramids, pachisi's cowries); `art_die_blend` a die in a picture (a thumbnail).
 - **Nothing copied**: anything two games would draw the same way belongs in `art.c` or the shell, not in each game.
 - **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
+- **The end card**: once the game is over and its last move has landed, the shell plays the end, shows the final
+  position a moment (900 ms), then its card over the board: the winners' tokens standing in gold light (`winners()`),
+  the others lowered and dimmed; a score (`score()`); a solved puzzle's stars. A tap hides it, another shows it again.
+  `ui_over()`: 1 while it shows (this frame). A game with a final table (its rounds' scores) draws that table inside
+  the card instead of on its own table: in `draw()`, while `ui_over()`, `box r = ui_end_room(w, h)` asks for a room w x
+  h pixels; the shell veils the table, draws the card (opaque) grown round the result (the tokens above the room in
+  portrait, on its left on a wide table) and returns the room (smaller when the screen is short: fit the table to
+  `r.w` x `r.h`). Ask once a frame, as the last thing `draw()` draws. `ct_summary()` / `ct_summary_in()` do it by
+  themselves. A `VIEW_HIDDEN` game that does not ask gets its table veiled whole under the usual card.
 - **No text on the board** (pictures, and `ui_number()` for scores and counts). The words are in the rules page only:
   `help/en/<id>.txt` (the first line the game's name, then the rules: `# ` headings, `- ` list items, paragraphs),
   translated in the 21 other languages (`help/<lang>/<id>.txt`; a missing one shows the English). A game that truly
@@ -170,8 +190,8 @@ the game (`"logicgates/x"`; `"shell/..."` are the shell's), up to 4096 bytes eac
 a byte little-endian). The shell keeps the sound (`shell/mute`), the menu's tab (`shell/tab`), each game's choice
 (`shell/game/<id>`: its variant, the last level played, how many play; the picker then shows that count, and the
 variant chosen in gold light; a game of levels with random play: also its random variant and which way it was last
-played) and each game's levels (`shell/levels/<id>`: a byte a level, 0 not solved, else 1 + its
-stars).
+played; a game with a bot: who plays each seat, a byte a seat, 0 a person, else 1 + the bot's level) and each game's
+levels (`shell/levels/<id>`: a byte a level, 0 not solved, else 1 + its stars).
 
 - **Where**: `board.sav` in `SDL_GetPrefPath("8BCraft", "RetroStoneBoard")`: Windows `%APPDATA%\8BCraft\RetroStoneBoard`,
   Linux `~/.local/share/8BCraft/RetroStoneBoard`, Android the app's own files. `--save DIR` another folder.
@@ -270,6 +290,57 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
 - **Golf** (`games/golf.c`) is the example: the view following the player to move, slides and flips (`ct_moves`), a
   round's summary, scores in the bars.
 
+## Bots: playing against the device
+
+Every game for two or more can let the device play some seats, at three levels, while people keep playing over the
+board: hot seat, face to face, the hand-off covers between people.
+
+- **The kit** (`src/ai.h`, no SDL): a game fills one adapter (`ai_game`: its state a plain struct copied with
+  `memcpy`, its moves as ints, `make`, `side`, `over`, `eval`; optional `unmake`, `hash`, `order`, `noisy`, `chance`;
+  for Monte Carlo `players`, `result`, `playout`, `estimate`, `determinise`) and calls a search: `ai_ab` (negamax
+  alpha-beta: iterative deepening, PVS, a transposition table, killers, quiescence), `ai_expecti` (the same with dice:
+  `chance()`), `ai_mcts` (UCT for any number of players; hidden hands through `determinise()`, which deals what the
+  seat cannot see). `ai_level_budget(AI_EASY / AI_MEDIUM / AI_HARD)`: nodes (the deterministic limit), a time cap
+  (the safety net: hard about 0.3 s on a PC, 1 s on a phone), a depth, a noise for the easy levels' human mistakes.
+  `ai_cancel()` stops a search; `ai_session_seed()` is the shell's seed for this think.
+- **A game's bot**: `games/<id>_bot.c` registers it with `REGISTER_BOT(<id>, &bot)` (kept out of the game struct):
+  - `think(seat, level, move, cap)` runs on a **worker thread**: it copies the rules state at entry (`<id>_live()`,
+    read-only), searches the copy with pure rules functions and the kit, never touches SDL, `ui_*`, sounds, `ui_random`
+    or any static of the game's UI, never peeks at what the seat cannot see, and writes its move in the game's own
+    notation (the `--moves` / `script()` one). It returns 0 when cancelled or when the seat has nothing to do.
+  - `actor()` (optional, main thread): the seat that must act now (bids, passes, discards; -1 nobody); else `turn()`.
+  - `play(move)` (optional, main thread): plays the move with the game's animation and sounds, as a tap would
+    (`<id>_show()`); else `script()` (instant). 0: refused.
+  - `realtime` (optional): a race (slaps): the move is played as soon as it is ready (the bot waits its own reaction
+    time inside `think()`), the people's input is never held, and a move made stale by a person's is dropped (by
+    `play()`, or by the shell when the seat to act has changed). A game played with several fingers (`finger()`) is
+    taken as one too.
+  - `plays(variant)` (optional): 0 for a variant the bot cannot play; the picker then dims that variant's card when
+    the device has a seat, and it starts with people in every seat.
+  - `bot_seats()` (`bots.h`) / `ui_bot_seats()` (`shell.h`): the seats the device plays now (bit n: player n), for
+    an `actor()` that names the fastest bot (a slap on any double).
+  - Its test: `tests/ai_<id>_test.c` with `tests/ai_selfplay.h` (whole games of bot against bot and against a random
+    player on fixed seeds: every move legal, every game ends, the budgets hold; `--full` for 200 games).
+- **The seats** (the picker): a game with a bot always opens its picker, which shows a chip a seat under the players'
+  counts (one row, or two on a narrow screen): the seat's token, then a person, or the device's robot with its level
+  under it as one, two or three gold lights. A tap goes round: a person, easy, medium, hard, a person again. A new
+  game gives every seat to people; the choice is kept per game with the count (`shell/game/<id>`).
+- **At play** (`bot_step()` each frame): a bot starts when none thinks, the game is on (`GS_PLAY`), not `busy()`, no
+  hand-off waits, the rules page is shut and the seat that must act is the device's; the shell seeds it
+  (`ai_set_seed` from `ui_random`: pictures and tests repeat), the worker thinks while the screen draws, and the move
+  is played once it has thought at least 600 ms (900 ms when the bots play alone: watching; a real-time bot's at
+  once). The bot's bar shows a small robot by its token; while it thinks, its gold light breathes and three dots rise
+  on the robot's disc. A move after several (a multi-move turn: Mystery Face's question, then its faces put down)
+  is each a think of its own, each paced. An empty or refused move is logged and that seat goes to the people for
+  the rest of the game (never a loop).
+- **People and bots**: the game's input (taps, drags, keys, its bar, the pass button) is held while a bot must act
+  (except in a race). Undo stops the worker and goes back to the last person's move (the bots' replies taken back
+  with it); a new game, home and quitting stop it too; the rules page only holds its move until it closes. Hand-off
+  covers come only between two people: a hand-off to a bot's seat keeps the view on the last person; with one
+  person, there is never a cover and the view stays theirs; with nobody (every seat the device's) the view follows
+  the game and nothing is covered: a game to watch. Flip and face to face are for people: with one person they are
+  hidden and that person sits at the bottom; face to face never turns a bot's pieces.
+
 ## Picture mode
 
 ```
@@ -277,6 +348,7 @@ retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--mo
                 [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--flip] [--f2f] [--keep] [--pick] [--players n]
                 [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal] [--keys "Up Left"]
                 [--level n] [--solved "1-12 13-14:2 15:0"] [--random] [--icons] [--save DIR]
+                [--bots "1:h,2:m"] [--steps n] [--think]
 ```
 
 No window: the menu (no `--game`; `--tab n` a section), a game's picker (`--pick`), or a game after its moves
@@ -286,7 +358,13 @@ itself takes `--lang` too (else the device's language).
 - **Gestures**, in the order given, in fractions of the board's box (`0.5,0.5` its middle; on the menu, a picker or
   the level screen: of the screen): `--taps` (several), `--drag` (the finger down, slid to the second point, lifted),
   `--hold` (the finger down `ms` long; as the last gesture, the picture is taken with the finger still down), `--keys`
-  (keys by SDL's names: `Up`, `Left`, `Return`, `1`...).
+  (keys by SDL's names: `Up`, `Left`, `Return`, `1`...). A tap `tN` taps the game's tool N (`ui_tool`) wherever the
+  shell put it (`--taps "t0 0.5,0.5"`).
+- **Bots**: `--bots "1:h,2:m"` gives the device those seats (players from 0; `e` easy, `m` medium, `h` hard; `all:m`
+  every seat), on the picker (`--pick`) or in the game; `--steps n` lets the bots play n moves after `--moves`, each
+  as in the app (the worker, the bot's `play()`; no pause), the board at rest between them, each move and its time on
+  stderr, then why it stopped (a person to play, the end, nothing moving); `--at ms` then catches the last move's
+  animation. `--think`: the next bot starts thinking just before the picture (its sign in its bar).
 - **Levels**: `--pick` the level screen (`--tab n` its chapter, from 0) (`--tab` the chapters' count: the random tab),
   `--random` a random puzzle (`--variant n`), `--level n` level n (from 1) at once,
   `--solved` the progress first (ranges, `:k` the stars, 3 by default).
