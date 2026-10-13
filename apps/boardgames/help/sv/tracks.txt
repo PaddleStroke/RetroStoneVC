@@ -10,9 +10,9 @@ Lägg en spårbit i en ruta, byt den, eller markera med ett kryss en ruta du vet
 # Partiets slut
 När linjen är hel och varje tal stämmer är pusslet löst: ett litet tåg kör från infarten till utfarten, och rutorna lyser upp i guld bakom det.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 10 × 10, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en rälsbit i en ruta som linjen inte använder, eller ett kryss i en ruta som den använder; Ångra tar inte bort det.
+Det finns 150 banor i sex kapitel, från 5 × 5 upp till 10 × 10, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en rälsbit i en ruta som linjen inte använder, eller ett kryss i en ruta som den använder; Ångra tar inte bort det.
 # Spela på enheten
 - Dra från ruta till ruta för att lägga spåret under fingret; det ansluter till bitarna som redan ligger där.
 - Tryck på en ruta för en bit (den som passar grannarna bäst kommer först), igen för nästa; efter den sjätte är rutan tom igen.
-- Håll kvar på en ruta en stund för att kryssa den. Kryssknappen i listen gör att tryck och drag kryssar i stället; den visar vad ett tryck gör.
-Ett tal bleknar när dess linje har så många bitar, och blir rött när den har för många. Lampan i listen är en ledtråd: den sätter en ruta rätt och lyser upp den i guld. Ångra tar tillbaka en åtgärd i taget, ända till början. Listen visar dina drag.
+- Håll kvar på en ruta en stund för att kryssa den. Kryssknappen gör att tryck och drag kryssar i stället; den visar vad ett tryck gör.
+Ett tal bleknar när dess linje har så många bitar, och blir rött när den har för många. Lampan är en ledtråd: den sätter en ruta rätt och lyser upp den i guld. Ångra tar tillbaka en åtgärd i taget, ända till början. Listen visar dina drag.

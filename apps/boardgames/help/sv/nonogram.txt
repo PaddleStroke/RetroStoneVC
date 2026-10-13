@@ -7,7 +7,7 @@ Fyll en ruta, eller markera en ruta som du vet är tom med ett kryss. Kryssen ä
 # Partiets slut
 När varje rad och varje kolumn stämmer med sina ledtrådar är pusslet löst: kryssen försvinner, bilden träder fram i sina färger och ett guldljus sveper över den.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel: små bilder ritade för spelet, från 5 × 5 upp till 15 × 15, som alla går att hitta linje för linje; välj en i banöversikten. En bana som du har löst visar sin bild i översikten. Fliken med tärningen efter kapitlen slumpar fram en bild, i den storlek du väljer. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en ruta fylld utanför bilden, eller ett kryss på den, som du sedan ångrar.
+Det finns 150 banor i sex kapitel: små bilder ritade för spelet, från 5 × 5 upp till 15 × 15, som alla går att hitta linje för linje; välj en i banöversikten. En bana som du har löst visar sin bild i översikten. Fliken med tärningen efter kapitlen slumpar fram en bild, i den storlek du väljer. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en ruta fylld utanför bilden, eller ett kryss på den, som du tar tillbaka med Ångra.
 # Spela på enheten
 - Tryck på en ruta för att fylla den; tryck igen för att tömma den.
 - Håll kvar fingret på en ruta en stund för att kryssa den i stället. Kryssknappen bredvid brädet får tryck att kryssa (eller fylla igen); den visar vad ett tryck gör.

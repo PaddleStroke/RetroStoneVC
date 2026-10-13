@@ -10,12 +10,12 @@ Sätt en lampa i en vit ruta, eller ta bort den. Du kan också sätta en prick i
 # Partiets slut
 Pusslet är löst när varje vit ruta är upplyst, ingen lampa lyser upp en annan och varje tal har sina lampor: en våg av gyllene ljus sveper över brädet.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 6 × 6 upp till 14 × 14, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig lampa eller prick som du sedan ångrar.
+Det finns 150 banor i sex kapitel, från 6 × 6 upp till 14 × 14, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig lampa eller prick som du tar tillbaka med Ångra.
 # Spela på enheten
 - Tryck på en vit ruta för att sätta en lampa; tryck igen för att ta bort den.
 - Håll kvar fingret en stund på en ruta för att sätta en prick, eller ta bort den.
 - Dra längs en rad eller kolumn för att sätta prickar i en hel sträcka (eller ta bort dem från en sträcka med prickar).
-De upplysta rutorna glöder varmt. Två lampor som lyser upp varandra glöder rött; ett tal blir rött när det har för många lampor, och bleknar när det har alla. Knapparna längst till höger i listen (i liggande läge i sidokolumnen):
+De upplysta rutorna glöder varmt. Två lampor som lyser upp varandra glöder rött; ett tal blir rött när det har för många lampor, och bleknar när det har alla. Knapparna bredvid brädet:
 - Lampa eller prick: vad ett tryck sätter. Tryck på den för att byta plats på tryck och håll.
-- Glödlampa: ett tips. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
+- Glödlampa: en ledtråd. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
 Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

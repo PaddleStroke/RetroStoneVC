@@ -1,17 +1,17 @@
 Stigar
 # Målet
 På rutnätet ligger par av prickar i samma färg. Förbind de två prickarna i varje par med en stig som går från ruta till ruta: uppåt, nedåt, åt vänster eller åt höger. Stigarna får inte korsa varandra eller dela rutor, och tillsammans ska de fylla hela rutnätet. Varje par har också ett eget tecken (en prick, en ring, en kvadrat, en stjärna...), så ingen färg behöver kännas igen med ögat ensamt. Välj först storleken: 5 × 5, 7 × 7, 9 × 9 eller 12 × 12.
-Varje gåta har exakt en lösning, som hittas med ren slutledning.
+Varje pussel har exakt en lösning, som hittas med ren slutledning.
 # Ett drag
 Dra eller ändra en stig.
 # Partiets slut
-När alla par är förbundna och ingen ruta är tom är gåtan löst: ett gyllene ljus löper längs varje stig.
+När alla par är förbundna och ingen ruta är tom är pusslet löst: ett gyllene ljus löper längs varje stig.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett streck som lägger en stig över en ruta som i lösningen hör till en annan färg; Ångra tar inte bort det.
+Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett streck som lägger en stig över en ruta som i lösningen hör till en annan färg; Ångra tar inte bort det.
 # Spela på enheten
 - Dra från en prick: dess stig börjar om därifrån och följer fingret. Dra från en ruta på en stig för att fortsätta därifrån (resten av stigen försvinner).
 - Att gå tillbaka längs stigen kortar den. Att korsa en annan stig klipper av den; den kommer tillbaka om du backar innan du lyfter fingret. En stig går aldrig över en prick i en annan färg.
 - När en stig når sin andra prick är paret förbundet och prickarna klingar.
 - Bara med tryck: tryck på en prick eller en ruta på en stig (dess ände markeras), sedan på en ruta i samma rad eller kolumn: stigen går rakt dit. Tryck på den markerade änden igen för att släppa den.
-- Lampan längst till höger i fältet ger en ledtråd: den lägger ett pars stig som i lösningen, i gyllene ljus.
-Rutorna på en stig tonas i dess färg. Ångra tar tillbaka ett drag eller en ledtråd i taget, ända till början. Fältet visar dina drag.
+- Lampan ger en ledtråd: den lägger ett pars stig som i lösningen, i gyllene ljus.
+Rutorna på en stig tonas i dess färg. Ångra tar tillbaka ett drag eller en ledtråd i taget, ända till början. Listen visar dina drag.

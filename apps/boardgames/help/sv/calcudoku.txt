@@ -5,9 +5,9 @@ Fyll rutnätet så att varje rad och varje kolumn har varje siffra från 1 till 
 - Medel: du behöver också siffrorna som en bur måste sätta i en och samma rad eller kolumn, och par.
 - Svår: längre resonemang: pröva en siffra och följ den tills något går sönder.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 4 × 4 upp till 9 × 9, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar bort med Ångra.
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 9 × 9, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.
 # Spela på enheten
-Tryck på en ruta och sedan på en tangent under brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, buren lite mer, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
+Tryck på en ruta och sedan på en tangent bredvid brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, buren lite mer, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
 - Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem.
 - Suddgummi: tar bort rutans siffra, eller anteckningarna.
 - Lampa: en ledtråd. Den rättar en felaktig siffra, eller fyller annars en ruta som resonemanget hittar, i gyllene ljus.

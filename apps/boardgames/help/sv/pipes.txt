@@ -1,15 +1,15 @@
 Rör
 # Målet
 Varje bricka har en bit mässingsrör: en ände, en rak bit, en böj eller ett T-rör. Vrid brickorna så att alla rör bildar ett enda nät som matas av tanken i mitten, utan öppna rör: inget rör vänt mot en bricka som inte möter det, inget mot kanten. Då fyller vattnet varje bricka. Välj först storleken: 5 × 5, 7 × 7, 9 × 9, 11 × 11 eller 9 × 9 utan kanter (ventiler av mässing runt ramen): där kommer ett rör som lämnar en sida in igen från motsatta sidan.
-Varje gåta kan lösas med ren slutledning och har bara en lösning.
+Varje pussel kan lösas med ren slutledning och har bara en lösning.
 # Ett drag
 Vrida en bricka ett kvarts varv medurs.
 # Partiets slut
 När alla brickor hänger ihop och inget rör är öppet når vattnet varje bricka, och ett gyllene ljus går ut från tanken.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 4 × 4 upp till 11 × 11 och bräden utan kanter, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Varje gåta har ett par: det minsta antalet kvartsvarv som löser den. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor, fler än två ledtrådar högst 1. Ångra tar tillbaka ett drag, och det räknas inte längre.
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 11 × 11 och bräden utan kanter, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Varje pussel har ett par: det minsta antalet kvartsvarv som löser det. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor, fler än två ledtrådar högst 1. Ångra tar tillbaka ett drag, och det räknas inte längre.
 # Spela på enheten
 - Tryck på en bricka för att vrida den ett kvarts varv.
 - Vattnet rinner från tanken genom varje rör som är kopplat till den. Där det når ett öppet rör rinner det över: leta efter dropparna.
-- Lampan längst till höger i fältet ger en ledtråd: den vrider en fel bricka rätt (bredvid vattnet när den kan), i gyllene ljus.
-Ångra tar tillbaka en vridning eller ledtråd i taget, ända till början. Fältet visar dina drag.
+- Lampan ger en ledtråd: den vrider en fel bricka rätt (bredvid vattnet när den kan), i gyllene ljus.
+Ångra tar tillbaka en vridning eller ledtråd i taget, ända till början. Listen visar dina drag.

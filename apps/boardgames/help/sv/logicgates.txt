@@ -18,7 +18,7 @@ Vissa ledningar har en liten krämvit säkring. Tryck på säkringen för att kl
 En strömbrytare med en fastskruvad mässingslist över sig stannar som den är.
 # Banor och stjärnor
 Kapitlen: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 växlar; 4 ledningar att klippa; 5 längre kedjor, en strömbrytare till flera grindar, grindar med tre ingångar; 6 stora kretsar med allt blandat.
-Ett drag är en omkoppling eller ett klipp. Varje bana har ett par, det minsta antalet drag som löser den. Löst på par: 3 stjärnor; upp till två drag till: 2 stjärnor; annars 1. Ber du om en ledtråd ger banan högst 2 stjärnor. Ångra tar tillbaka ett drag, och det räknas inte längre. Lösta banor förblir öppna, och det gör även de tre första olösta.
+Ett drag är en omkoppling eller ett klipp. Varje bana har ett par: det minsta antalet drag som löser den. Löst på par: 3 stjärnor; upp till två drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor. Ångra tar tillbaka ett drag, och det räknas inte längre. Lösta banor förblir öppna, och det gör även de tre första olösta.
 # Spela på enheten
 - Banöversikten: en flik för varje kapitel och sedan dess banor: lösta i guld med sina stjärnor, öppna i trä, låsta i mörkt trä. Tryck på en bana för att spela den. Dina stjärnor sparas på enheten.
 - Tryck på en strömbrytare för att slå om den, på en växel för att vrida den, på en säkring för att klippa dess ledning. Ändringen löper uppför ledningarna, grind efter grind.

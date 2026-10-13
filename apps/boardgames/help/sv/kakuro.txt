@@ -5,9 +5,9 @@ Fyll varje vit ruta med en siffra från 1 till 9. En rad är en följd av vita r
 - Medel: du behöver också en siffra som alla sätt kräver och som bara har en ruta kvar, och par i en rad.
 - Svår: du måste tänka igenom en hel rad på en gång (vilken siffra som kan stå i vilken ruta), eller pröva en siffra och följa den.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar bort med Ångra.
+Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.
 # Spela på enheten
-Tryck på en vit ruta och sedan på en tangent under brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans två rader lyser upp, deras summor i guld, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
+Tryck på en vit ruta och sedan på en tangent bredvid brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans två rader lyser upp, deras summor i guld, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
 - Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem.
 - Suddgummi: tar bort rutans siffra, eller anteckningarna.
 - Lampa: en ledtråd. Den rättar en felaktig siffra, eller fyller annars en ruta som resonemanget hittar, i gyllene ljus.

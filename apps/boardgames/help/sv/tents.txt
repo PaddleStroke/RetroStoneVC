@@ -10,12 +10,12 @@ Slå upp ett tält i en ruta, eller ta ner det. Du kan också lägga gräs i en 
 # Partiets slut
 Fältet är löst när varje träd har sitt tält, inga tält rör varandra och varje tal stämmer: en våg av gyllene ljus sveper över fältet.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt tält eller gräs som du sedan ångrar.
+Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt tält eller gräs som du tar tillbaka med Ångra.
 # Spela på enheten
 - Tryck på en ruta för att slå upp ett tält; tryck igen för att ta ner det.
 - Håll kvar fingret en stund på en ruta för att lägga gräs, eller ta bort det.
 - Dra längs en rad eller kolumn för att lägga gräs i en hel sträcka (eller ta bort det från en sträcka med gräs).
-Tält som rör varandra glöder rött, liksom ett träd utan plats för sitt tält. Ett tal blir rött när dess linje har för många tält, och bleknar när den har alla. Knapparna längst till höger i listen (i liggande läge i sidokolumnen):
+Tält som rör varandra glöder rött, liksom ett träd utan plats för sitt tält. Ett tal blir rött när dess linje har för många tält, och bleknar när den har alla. Knapparna bredvid brädet:
 - Tält eller gräs: vad ett tryck sätter. Tryck på den för att byta plats på tryck och håll.
-- Glödlampa: ett tips. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
+- Glödlampa: en ledtråd. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
 Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

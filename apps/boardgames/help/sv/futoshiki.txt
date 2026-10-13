@@ -9,9 +9,9 @@ Skriv ett tal i en tom ruta. Du kan ändra eller ta bort det när du vill; de gi
 # Partiets slut
 Pusslet är löst när rutnätet är fullt och rätt: en våg av gyllene ljus sveper över brädet.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 4 × 4 upp till 7 × 7, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt tal som du sedan ångrar.
+Det finns 150 banor i sex kapitel, från 4 × 4 upp till 7 × 7, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt tal som du tar tillbaka med Ångra.
 # Spela på enheten
-Tryck på en ruta och sedan på en tangent under brädet: dess tal skrivs in med blått bläck (de givna talen är mörka). Tryck på samma tangent igen för att ta bort det, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, och rutor med samma tal varmare. Är ingen tom ruta vald tänder en tangent rutorna med dess tal. Knapparna bredvid brädet:
+Tryck på en ruta och sedan på en tangent bredvid brädet: dess tal skrivs in med blått bläck (de givna talen är mörka). Tryck på samma tangent igen för att ta bort det, eller dra en tangent till en ruta. Rutans rad och kolumn lyser svagt, och rutor med samma tal varmare. Är ingen tom ruta vald tänder en tangent rutorna med dess tal. Knapparna bredvid brädet:
 - Penna: anteckningar. Tangenterna sätter då små tal i rutan eller tar bort dem. Ett tal du skriver in suddar ut den anteckningen i sin rad och kolumn.
 - Suddgummi: tar bort rutans tal eller dess anteckningar.
 - Lampa: en ledtråd. Den rättar ett felaktigt tal, eller fyller annars den lättaste rutan, i gyllene ljus.
