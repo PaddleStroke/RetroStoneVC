@@ -23,8 +23,11 @@ GEN    := $(B)/gen
 TEXT   := $(GEN)/text_data.c
 # the pictures (art/: the tarot's 1898 faces, JPEG) as bytes: tools/gen_art.py (python3)
 ART    := $(GEN)/art_data.c
+# the AI kit and the bots' registry (no SDL: the tests link them); ai_worker.c runs a bot on a thread (SDL)
+AI_SRC := $(D)/src/ai.c $(D)/src/bots.c
 SRC    := $(D)/src/shell.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
-          $(D)/src/text.c $(TEXT) $(ART) $(GAME_SRC) $(if $(DEMO),$(D)/tests/levels_demo.c)
+          $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(GAME_SRC) \
+          $(if $(DEMO),$(D)/tests/levels_demo.c)
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
 CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
 
@@ -32,8 +35,10 @@ $(TEXT): $(wildcard $(D)/help/*/*.txt $(D)/help/*.txt) $(D)/tools/gen_text.py
 	python3 $(D)/tools/gen_text.py --out $(GEN)
 $(ART): $(wildcard $(D)/art/*/*.jpg) $(D)/tools/gen_art.py
 	python3 $(D)/tools/gen_art.py --out $(GEN)
+# a game's tests: tests/<id>_test.c (its rules) and tests/ai_<id>_test.c (its bot); the AI kit's always
 TESTS  := $(if $(filter all,$(GAMES)),$(wildcard $(D)/tests/*_test.c),\
-              $(foreach g,$(GAMES),$(wildcard $(D)/tests/$(g)_test.c)))
+              $(D)/tests/ai_kit_test.c \
+              $(foreach g,$(GAMES),$(wildcard $(D)/tests/$(g)_test.c $(D)/tests/ai_$(g)_test.c)))
 
 SDL2_MINGW ?= build/deps/SDL2-2.32.10/x86_64-w64-mingw32
 WIN_LIBS := -L$(SDL2_MINGW)/lib -static -lmingw32 -lSDL2main -lSDL2 -mwindows -lm -ldinput8 -ldxguid -ldxerr8 \
@@ -55,6 +60,19 @@ $(B)/host/perft: $(D)/tests/perft.c $(D)/src/games/chess.c $(HDR)
 $(B)/host/%_test: $(D)/tests/%_test.c $(HDR) $(wildcard $(D)/src/games/*_rules.c)
 	@mkdir -p $(@D)
 	gcc $(CFLAGS) -o $@ $< $(wildcard $(D)/src/games/$*_rules.c) -lm
+
+# the AI kit's test (toy games: no game's rules)
+$(B)/host/ai_kit_test: $(D)/tests/ai_kit_test.c $(AI_SRC) $(HDR)
+	@mkdir -p $(@D)
+	gcc $(CFLAGS) -o $@ $< $(AI_SRC) -lm
+
+# a game's bot test: tests/ai_<id>_test.c (self-play, headless) with the kit, the rules and the bot
+# (src/games/<id>_rules.c, <id>_bot.c; a bot built on other files: BOT_NEEDS_<id> := those files). Its stem is
+# shorter: it wins over %_test.
+$(B)/host/ai_%_test: $(D)/tests/ai_%_test.c $(D)/tests/ai_selfplay.h $(AI_SRC) $(HDR) \
+                     $(wildcard $(D)/src/games/*_rules.c $(D)/src/games/*_bot.c)
+	@mkdir -p $(@D)
+	gcc $(CFLAGS) -o $@ $< $(AI_SRC) $(wildcard $(D)/src/games/$*_rules.c $(D)/src/games/$*_bot.c) $(BOT_NEEDS_$*) -lm
 
 test: $(if $(filter all chess,$(GAMES)),$(B)/host/perft) $(patsubst $(D)/tests/%.c,$(B)/host/%,$(TESTS))
 	@for t in $^; do echo "== $$t"; ./$$t || exit 1; done

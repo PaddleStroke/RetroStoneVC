@@ -35,4 +35,10 @@ int  fr_turn(const fr_game *g);         /* the player to move */
 int  fr_status(const fr_game *g);       /* FR_* */
 int  fr_left(const fr_game *g, int player);   /* the discs a player still has (21 at the start) */
 
+/* the bot (fourrow_bot.c, bots.h), and what the screen (fourrow.c) gives it; a headless test defines those two */
+const fr_game *fourrow_live(void);      /* the game on the screen, read-only: the bot copies it at entry */
+int  fourrow_show(const char *move);    /* main thread: drops "4" as a tap does (animated); 0: not legal */
+struct ai_stats;
+int  frb_choose(const fr_game *g, int level, uint64_t seed, struct ai_stats *stats);  /* the column 0..6; -1 */
+
 #endif

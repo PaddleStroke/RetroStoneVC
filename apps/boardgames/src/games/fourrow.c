@@ -82,6 +82,18 @@ static int script(const char *s)
     return 1;
 }
 
+/* the bot's side (fourrow_bot.c): the rules' state to copy, and its move ("4") dropped as a tap drops it */
+const fr_game *fourrow_live(void) { return &G; }
+
+int fourrow_show(const char *move)
+{
+    char *end;
+    long c = strtol(move, &end, 10);
+    if (end == move || c < 1 || c > FR_COLS || fr_status(&G) != FR_PLAY || G.height[c - 1] >= FR_ROWS) return 0;
+    drop((int)c - 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the house plank in its walnut frame, pierced by nx x ny round holes: the edge of each bevelled (lit at the bottom
  * right), a soft shadow inside it (deeper at the top left), else clear: what is behind the board shows through */

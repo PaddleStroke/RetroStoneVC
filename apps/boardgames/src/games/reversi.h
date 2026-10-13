@@ -43,4 +43,13 @@ int rv_undo(rgame *g);                          /* 0: nothing to undo */
 int rv_status(const rgame *g);                  /* RV_* */
 static inline const rpos *rv_pos(const rgame *g) { return &g->pos[g->ply]; }
 
+/* the bot (reversi_bot.c, bots.h), and what the screen (reversi.c) gives it; a headless test defines those two */
+const rgame *reversi_live(void);                /* the game on the screen, read-only: the bot copies it at entry */
+int reversi_show(const char *move);             /* main thread: plays "d3" as a tap does (animated); 0: not legal */
+struct ai_stats;
+uint64_t rvb_moves(uint64_t P, uint64_t O);     /* rv_legal, rv_flips, rv_make on bitboards (P to move) */
+uint64_t rvb_flips(uint64_t P, uint64_t O, int s);
+void rvb_make(rpos *p, int s);
+int rvb_choose(const rpos *p, int level, uint64_t seed, struct ai_stats *stats);   /* the square; -1: none */
+
 #endif

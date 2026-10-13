@@ -89,17 +89,34 @@ static int undo(void)
     return 1;
 }
 
+static int square(const char *s)              /* "d3": a legal square, or -1 */
+{
+    int f = (s[0] | 32) - 'a', r = s[1] - '1';
+    return f < 0 || f > 7 || r < 0 || r > 7 || !(legal >> RV_SQ(f, r) & 1) ? -1 : RV_SQ(f, r);
+}
+
 /* "d3 c5 f6": the screenshots' and the tests' moves */
 static int script(const char *s)
 {
     while (*s) {
         while (*s == ' ') s++;
         if (!*s) break;
-        int f = (s[0] | 32) - 'a', r = s[1] - '1';
-        if (f < 0 || f > 7 || r < 0 || r > 7 || !(legal >> RV_SQ(f, r) & 1)) return 0;
-        play(RV_SQ(f, r), 0);
+        int q = square(s);
+        if (q < 0) return 0;
+        play(q, 0);
         s += 2;
     }
+    return 1;
+}
+
+/* the bot's side (reversi_bot.c): the rules' state to copy, and its move played as a tap plays it */
+const rgame *reversi_live(void) { return &G; }
+
+int reversi_show(const char *move)
+{
+    int q = rv_pos(&G)->over ? -1 : square(move);
+    if (q < 0) return 0;
+    play(q, 1);
     return 1;
 }
 
