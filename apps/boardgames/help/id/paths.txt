@@ -13,5 +13,5 @@ Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan 
 - Kembali menyusuri jalur akan memendekkannya. Melewati jalur lain akan memotongnya; jalur itu kembali bila kamu mundur sebelum mengangkat jari. Jalur tidak pernah melewati titik warna lain.
 - Saat sebuah jalur mencapai titik pasangannya, pasangan itu terhubung dan titik-titiknya berdenting.
 - Hanya dengan ketukan: ketuk sebuah titik atau kotak sebuah jalur (ujungnya ditandai), lalu kotak di baris atau kolom yang sama: jalur melaju lurus ke sana. Ketuk lagi ujung yang ditandai untuk melepaskannya.
-- Lampu di ujung kanan bilah memberi petunjuk: meletakkan jalur satu pasangan seperti dalam jawaban, dalam cahaya emas.
+- Lampu memberi petunjuk: meletakkan jalur satu pasangan seperti dalam jawaban, dalam cahaya emas.
 Kotak-kotak sebuah jalur diwarnai samar dengan warnanya. Urungkan membatalkan satu goresan atau petunjuk setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

@@ -7,7 +7,7 @@ Isi sebuah kotak, atau tandai dengan silang kotak yang kamu tahu kosong. Tanda s
 # Akhir permainan
 Saat setiap baris dan setiap kolom cocok dengan petunjuknya, teka-teki terpecahkan: tanda silang hilang, gambar muncul dengan warnanya, dan cahaya emas menyapunya.
 # Level dan bintang
-Ada 150 level dalam enam bab: gambar-gambar kecil yang dibuat untuk permainan ini, dari 5 × 5 sampai 15 × 15, masing-masing bisa ditemukan garis demi garis; pilih satu di kisi level. Level yang sudah kamu pecahkan menunjukkan gambarnya di petaknya. Tab dadu setelah bab-bab itu membuat gambar secara acak, dalam ukuran yang kamu pilih. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak yang diisi di luar gambar, atau tanda silang di atas gambar, yang lalu kamu batalkan dengan Urungkan.
+Ada 150 level dalam enam bab: gambar-gambar kecil yang dibuat untuk permainan ini, dari 5 × 5 sampai 15 × 15, masing-masing bisa ditemukan garis demi garis; pilih satu di kisi level. Level yang sudah kamu pecahkan menunjukkan gambarnya di petaknya. Tab dadu setelah bab-bab itu membuat gambar secara acak, dalam ukuran yang kamu pilih. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak yang diisi di luar gambar, atau tanda silang di atas gambar, yang kamu batalkan dengan Urungkan.
 # Bermain di perangkat
 - Ketuk kotak untuk mengisinya; ketuk lagi untuk mengosongkannya.
 - Tahan jari sebentar di sebuah kotak untuk memberinya tanda silang. Tombol silang di samping papan membuat ketukan memberi silang (atau mengisi lagi); tombol itu menunjukkan apa yang dilakukan ketukan.

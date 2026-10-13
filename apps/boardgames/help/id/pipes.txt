@@ -11,5 +11,5 @@ Ada 150 level dalam enam bab, dari 4 × 4 sampai 11 × 11 dan papan tanpa tepi, 
 # Bermain di perangkat
 - Ketuk ubin untuk memutarnya seperempat putaran.
 - Air mengalir dari tangki ke setiap pipa yang tersambung dengannya. Di tempat air mencapai pipa terbuka, air tumpah: cari tetesannya.
-- Lampu di ujung kanan bilah memberi petunjuk: memutar benar satu ubin yang salah (di samping air bila bisa), dalam cahaya emas.
+- Lampu memberi petunjuk: memutar benar satu ubin yang salah (di samping air bila bisa), dalam cahaya emas.
 Urungkan membatalkan satu putaran atau petunjuk setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

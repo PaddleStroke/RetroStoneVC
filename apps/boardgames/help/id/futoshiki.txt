@@ -9,9 +9,9 @@ Tulis bilangan di kotak kosong. Kamu bisa mengubah atau menghapusnya kapan saja;
 # Akhir permainan
 Teka-teki selesai saat kisi penuh dan benar: gelombang cahaya emas menyapu papan.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 4 × 4 sampai 7 × 7, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bilangan yang salah yang lalu kamu batalkan dengan Urungkan.
+Ada 150 level dalam enam bab, dari 4 × 4 sampai 7 × 7, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bilangan salah yang kamu batalkan dengan Urungkan.
 # Bermain di perangkat
-Ketuk sebuah kotak, lalu tombol di bawah papan: bilangannya masuk dengan tinta biru (bilangan yang diberikan berwarna gelap). Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris dan kolom kotak itu menyala samar, dan kotak yang berisi bilangan yang sama menyala lebih hangat. Jika tidak ada kotak kosong yang dipilih, tombol menyalakan kotak-kotak bilangannya. Tombol-tombol di samping papan:
+Ketuk sebuah kotak, lalu tombol di samping papan: bilangannya masuk dengan tinta biru (bilangan yang diberikan berwarna gelap). Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris dan kolom kotak itu menyala samar, dan kotak yang berisi bilangan yang sama menyala lebih hangat. Jika tidak ada kotak kosong yang dipilih, tombol menyalakan kotak-kotak bilangannya. Tombol-tombol di samping papan:
 - Pensil: catatan. Tombol bilangan lalu menaruh bilangan kecil di kotak, atau menghapusnya. Bilangan yang kamu isi menghapus catatan itu dari baris dan kolomnya.
 - Penghapus: menghapus bilangan di kotak, atau catatannya.
 - Lampu: petunjuk. Lampu membetulkan bilangan yang salah, atau kalau tidak ada, mengisi kotak termudah, dalam cahaya emas.

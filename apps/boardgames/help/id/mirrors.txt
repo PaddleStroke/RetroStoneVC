@@ -2,7 +2,7 @@ Cermin
 # Tujuan
 Sebuah lampu kuningan memancarkan seberkas cahaya melintasi papan. Putar dan pasang cermin-cermin agar berkas itu menerangi semua permata tanpa menyentuh satu bom pun. Pilih tingkatnya dulu (batu di bawah setiap gambar): mudah, sedang, sulit, atau ahli.
 - Cermin membelokkan berkas dengan sudut siku-siku. Cermin di atas poros kayu kenari tetap di kotaknya: kamu hanya memutarnya ke satu arah (/) atau ke arah lain (\).
-- Cermin lepas menunggu di baki di bawah papan: berdirikan di kotak kosong.
+- Cermin lepas menunggu di baki di tepi papan: berdirikan di kotak kosong.
 - Berkas lurus menembus permata dan kotak kosong. Balok kayu menghentikannya, begitu pula tepi papan.
 - Mulai tingkat sulit, sebuah kaca meneruskan separuh cahaya dan membelokkan separuh lainnya.
 Setiap teka-teki punya tepat satu jawaban, yang ditemukan dengan mengikuti berkas dan bernalar.
@@ -15,4 +15,4 @@ Ada 150 level dalam enam bab, dari papan 5 × 5 yang hanya berisi cermin berporo
 # Bermain di perangkat
 - Ketuk cermin berporos untuk memutarnya.
 - Ketuk kotak kosong untuk mendirikan cermin lepas di sana; ketuk lagi untuk memutarnya, dan ketiga kalinya untuk mengembalikannya ke baki. Kamu juga bisa menyeret cermin dari baki ke kotak, dari satu kotak ke kotak lain, atau keluar dari papan.
-Berkas langsung mengikuti setiap perubahan. Permata yang menyala berpendar; bom yang tersentuh berkas menyala merah. Lampu di bilah adalah petunjuk: ia membetulkan satu cermin dan menyinarinya dengan emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Berkas langsung mengikuti setiap perubahan. Permata yang menyala berpendar; bom yang tersentuh berkas menyala merah. Lampu adalah petunjuk: ia membetulkan satu cermin dan menyinarinya dengan emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.

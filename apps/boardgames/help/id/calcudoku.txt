@@ -7,7 +7,7 @@ Isi kisi-kisi sehingga setiap baris dan setiap kolom memuat setiap angka dari 1 
 # Level dan bintang
 Ada 150 level dalam enam bab, dari 4 × 4 sampai 9 × 9, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.
 # Bermain di perangkat
-Ketuk sebuah kotak, lalu sebuah tombol di bawah papan: angkanya masuk dengan tinta biru. Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris dan kolom kotak itu menyala samar, kandangnya sedikit lebih terang, dan kotak yang memuat angka yang sama menyala hangat. Bila tidak ada kotak yang dipilih, sebuah tombol menyalakan kotak-kotak angkanya. Tombol-tombol di samping papan:
+Ketuk sebuah kotak, lalu sebuah tombol di samping papan: angkanya masuk dengan tinta biru. Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris dan kolom kotak itu menyala samar, kandangnya sedikit lebih terang, dan kotak yang memuat angka yang sama menyala hangat. Bila tidak ada kotak yang dipilih, sebuah tombol menyalakan kotak-kotak angkanya. Tombol-tombol di samping papan:
 - Pensil: catatan. Tombol angka lalu menaruh angka kecil di kotak, atau menghapusnya.
 - Penghapus: menghapus angka kotak, atau catatannya.
 - Lampu: petunjuk. Membetulkan angka yang salah, atau mengisi kotak yang ditemukan penalaran, dalam cahaya emas.

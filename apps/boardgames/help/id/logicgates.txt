@@ -18,7 +18,7 @@ Beberapa kabel memiliki sekring kecil berwarna krem. Ketuk sekring untuk memoton
 Sakelar dengan batang kuningan yang disekrup di atasnya tetap seperti adanya.
 # Level dan bintang
 Bab-babnya: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 wesel; 4 kabel yang bisa dipotong; 5 rantai yang lebih panjang, satu sakelar untuk beberapa gerbang, gerbang dengan tiga masukan; 6 sirkuit besar yang mencampur semuanya.
-Satu langkah adalah satu kali membalik atau satu potongan. Setiap level punya par, jumlah langkah paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; paling banyak dua langkah lebih: 2 bintang; selain itu 1. Meminta petunjuk membatasi level itu paling banyak 2 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi. Level yang sudah selesai tetap terbuka, begitu pula tiga level pertama yang belum selesai.
+Satu langkah adalah satu kali membalik atau satu potongan. Setiap level punya par, jumlah langkah paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; paling banyak dua langkah lebih: 2 bintang; selain itu 1. Petunjuk membatasi level paling banyak 2 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi. Level yang sudah selesai tetap terbuka, begitu pula tiga level pertama yang belum selesai.
 # Bermain di perangkat
 - Kisi level: satu tab untuk setiap bab, lalu level-levelnya: yang selesai berwarna emas dengan bintangnya, yang terbuka dari kayu, yang terkunci dari kayu gelap. Ketuk sebuah level untuk memainkannya. Bintangmu tersimpan di perangkat.
 - Ketuk sakelar untuk membaliknya, wesel untuk memutarnya, sekring untuk memotong kabelnya. Perubahan merambat naik di sepanjang kabel, dari gerbang ke gerbang.
