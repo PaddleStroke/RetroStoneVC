@@ -2155,7 +2155,8 @@ static void view_start(int fresh)
  * Each frame (bot_step): a bot starts when none thinks, the game is on (GS_PLAY), not busy(), no hand-off waits, the
  * rules page is shut and the seat that must act (its bot's actor(), else turn()) is the device's; the worker thinks
  * while the screen keeps drawing; its move is played (the bot's play(), else script()) once it has thought at least
- * BOT_PAUSE ms (BOT_WATCH with no person playing: the bots alone are paced for watching; a real-time bot's at once).
+ * BOT_PAUSE ms (BOT_FOLLOW for its next action in the same turn; BOT_WATCH with no person playing: the bots alone
+ * are paced for watching; a real-time bot's at once).
  * An empty or refused move: logged, and the seat goes to the people for the rest of the game (never a loop). Undo, a
  * new game, leaving and quitting stop the worker first (bot_stop); the rules page only holds the move until it
  * closes. With no person playing (the bots alone), a game that waits for a tap with nobody to act (a round's score
@@ -2163,6 +2164,7 @@ static void view_start(int fresh)
 #define BOT_PAUSE 600
 #define BOT_WATCH 900
 #define WATCH_TAP 2500
+#define BOT_FOLLOW 350                          /* the same bot again, nobody between: one turn's next action */
 static struct {
     int seat, held, played, taps;               /* the seat thinking; a move ready, held for its pause; moves played;
                                                  * taps given in watch mode */
@@ -2170,6 +2172,7 @@ static struct {
     Uint32 idle;                                /* watch mode: since when nobody has had anything to do (0: not) */
     char move[BOT_MOVE_CAP];
 } BT = {-1, 0, 0, 0, 0, 0, ""};
+static int bot_last = -1;                       /* the seat whose bot played last, no person since (-1: none) */
 static int held_press;                          /* a finger put down while a bot's turn held the input: its motion
                                                  * and its release are not the game's either */
 static void after_input(void);
@@ -2188,6 +2191,7 @@ static void bot_stop(void)
     bot_halt();
     BT.held = 0;
     BT.seat = -1;
+    bot_last = -1;
 }
 
 /* the game's own input held: a bot's turn (not in a race), the game on */
@@ -2222,7 +2226,8 @@ static void bot_step(void)
     }
     if (BT.held) {
         need_frame = 1;
-        unsigned pause = realtime() || instant ? 0 : humans() ? BOT_PAUSE : BOT_WATCH;
+        unsigned pause = realtime() || instant ? 0 : BT.seat == bot_last ? (humans() ? BOT_FOLLOW : BOT_PAUSE)
+                         : humans() ? BOT_PAUSE : BOT_WATCH;    /* a follow-up in the same turn: quicker */
         if (help.open || bot_ms() < pause) return;
         int seat = BT.seat;
         BT.held = 0;
@@ -2238,6 +2243,7 @@ static void bot_step(void)
             return;
         }
         BT.played++;
+        bot_last = seat;
         if (instant) fprintf(stderr, "bot %d: %s (%u ms)\n", seat, BT.move, BT.ms);
         after_input();
         return;
@@ -3639,6 +3645,7 @@ static void press(float x, float y)
         if (ui_upside(p) && t_bartex) { fx = bar_m + b.w - (x - b.x); fy = bar_m + b.h - (y - b.y); }
         if (games[cur]->bar_press(p, fx, fy)) return;
     }
+    bot_last = -1;                              /* a person acted: the next bot's move is a new turn */
     games[cur]->press(x, y);
 }
 

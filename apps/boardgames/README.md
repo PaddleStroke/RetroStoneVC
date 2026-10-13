@@ -330,8 +330,9 @@ board: hot seat, face to face, the hand-off covers between people.
   (`ai_set_seed` from `ui_random`: pictures and tests repeat), the worker thinks while the screen draws, and the move
   is played once it has thought at least 600 ms (900 ms when the bots play alone: watching; a real-time bot's at
   once). The bot's bar shows a small robot by its token; while it thinks, its gold light breathes and three dots rise
-  on the robot's disc. A move after several (a multi-move turn: Mystery Face's question, then its faces put down)
-  is each a think of its own, each paced. An empty or refused move is logged and that seat goes to the people for
+  on the robot's disc. A turn of several actions (Mystery Face's question, then its faces put down; a die at a time;
+  melds) is a think an action, each paced, the same bot's next one sooner (350 ms, nobody acting between); the seat
+  to act is always `actor()`'s (Crapette's call of a fault is the other player's). An empty or refused move is logged and that seat goes to the people for
   the rest of the game (never a loop).
 - **People and bots**: the game's input (taps, drags, keys, its bar, the pass button) is held while a bot must act
   (except in a race). Undo stops the worker and goes back to the last person's move (the bots' replies taken back
