@@ -121,6 +121,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (schafkopf_bot.c): the rules state, read-only; a move in notation played as if tapped (0: refused) */
+const sfgame *schafkopf_live(void) { return &G; }
+
+int schafkopf_show(const char *move)
+{
+    static sfgame t;
+    t = G;
+    if (!sfk_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 static int busy(void) { return ct_busy(&U.A); }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */

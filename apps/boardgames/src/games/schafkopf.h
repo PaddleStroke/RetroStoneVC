@@ -104,4 +104,9 @@ int  sfk_winners(const sfpos *p);               /* SFP_OVER: the players with th
 int  sfk_auto(const sfpos *p);                  /* a plain action (the "." of the notation) */
 int  sfk_script(sfgame *g, const char *moves);  /* 0: an action is bad */
 
+/* the screen's game (schafkopf.c), for its bot (schafkopf_bot.c): the rules state, read-only; a move in notation
+ * played with the usual animation, as if tapped (0: refused) */
+const sfgame *schafkopf_live(void);
+int schafkopf_show(const char *move);
+
 #endif
