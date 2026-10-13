@@ -391,12 +391,10 @@ static void draw(void)
 }
 
 /* ---- the pointer: a tap on a square ------------------------------------------------------------------------------ */
-static void press(float x, float y)
+/* a mark on cell c (legal), the claimed board's chime */
+static void place(int c)
 {
-    if (status() != GS_PLAY) return;
-    int c = xy_cell(x, y);
-    if (c < 0) return;
-    if (!tt_play(&G, c)) { ui_sound(SND_DENY); return; }
+    tt_play(&G, c);
     anim.on = 1;
     anim.cell = c;
     anim.claim = G.ultimate && G.board[c / 9] != TT_OPEN;
@@ -404,6 +402,26 @@ static void press(float x, float y)
     ui_animate();
     ui_sound(SND_PLACE);
     if (anim.claim && G.board[c / 9] != TT_FULL && status() == GS_PLAY) ui_sound(SND_CHECK);   /* a board: a chime */
+}
+
+static void press(float x, float y)
+{
+    if (status() != GS_PLAY) return;
+    int c = xy_cell(x, y);
+    if (c < 0) return;
+    if (!tt_legal(&G, c)) { ui_sound(SND_DENY); return; }
+    place(c);
+}
+
+/* the bot's side (bots.h): the game, read-only; a move in the notation, played as a tap */
+const tt_game *tictactoe_live(void) { return &G; }
+
+int tictactoe_show(const char *move)
+{
+    tt_game t = G;                              /* the notation read by the rules, on a copy: the cell it marks */
+    if (status() != GS_PLAY || !tt_script(&t, move) || t.n != G.n + 1) return 0;
+    place(t.move[G.n]);
+    return 1;
 }
 
 static void motion(float x, float y) { (void)x; (void)y; }

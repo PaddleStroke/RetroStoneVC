@@ -79,6 +79,25 @@ static void play(darmove m, int animate)
     if (dar_pos(&G)->phase == DAR_TAKE) ui_sound_later(SND_CHECK, animate ? MOVE_MS : 0);   /* a row of three */
 }
 
+/* the bot's side (bots.h): the game, read-only; one action in the notation ("c3", "c3c4", "xd3"), played as taps */
+const dargame *dara_live(void) { return &G; }
+
+int dara_show(const char *move)
+{
+    const darpos *p = dar_pos(&G);
+    const char *s = move + (move[0] == 'x');
+    int len = (int)strlen(s), a = len >= 2 ? dar_hole(s) : -1, b = -1;
+    if (p->phase == DAR_MOVE) {
+        if (len != 4 || a < 0 || (b = dar_hole(s + 2)) < 0) return 0;
+    } else if (len != 2 || a < 0) {
+        return 0;
+    }
+    int i = status() == GS_PLAY ? find(p->phase, a, b < 0 ? a : b) : -1;
+    if (i < 0) return 0;
+    play(legal[i], 1);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!dar_undo(&G)) return 0;

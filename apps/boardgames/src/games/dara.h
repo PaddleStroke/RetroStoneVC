@@ -62,4 +62,12 @@ int  dar_status(const dargame *g);              /* DAR_* */
 int  dar_script(dargame *g, const char *s);     /* "c3 d3 c3c4 xd3": 0 at the first that is not legal */
 #define dar_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (dara_bot.c, bots.h), and what the screen (dara.c) gives it; a headless test defines those two */
+const dargame *dara_live(void);                 /* the game on the screen, read-only: the bot copies its position */
+int  dara_show(const char *move);               /* main thread: one action ("c3", "c3c4", "xd3"), animated; 0: not
+                                                 * legal */
+struct ai_stats;
+/* the bot's action for the side to move at a level (AI_EASY..AI_HARD); 0: none */
+int  drb_choose(const darpos *p, int level, uint64_t seed, darmove *m, struct ai_stats *stats);
+
 #endif

@@ -114,6 +114,17 @@ static void take(int row, unsigned mask)
     ui_sound(SND_MOVE);
 }
 
+/* the bot's side (bots.h): the game, read-only; a move in the notation, played as the take button does */
+const nim_game *nim_live(void) { return &G; }
+
+int nim_show(const char *move)
+{
+    nim_game t = G;                             /* the notation read by the rules, on a copy: the matches it takes */
+    if (status() != GS_PLAY || !nim_script(&t, move) || t.n != G.n + 1) return 0;
+    take(t.move[G.n].row, t.move[G.n].mask);
+    return 1;
+}
+
 static int undo(void)
 {
     unselect();

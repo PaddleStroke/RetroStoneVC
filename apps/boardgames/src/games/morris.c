@@ -84,6 +84,26 @@ static void play(mmove m, int animate)
     if (morris_pos(&G)->take) ui_sound(SND_CHECK);   /* a mill: a chime */
 }
 
+/* the bot's side (bots.h): the game, read-only; one action in the notation ("d2", "d2-d3", "xb6"), played as taps */
+const mgame *morris_live(void) { return &G; }
+
+int morris_show(const char *move)
+{
+    int v = morris_pos(&G)->variant, len = (int)strlen(move), type, from = -1, to = -1;
+    if (status() != GS_PLAY) return 0;
+    if (len == 3 && move[0] == 'x') type = M_TAKE, from = morris_point(v, move + 1);
+    else if (len == 2) type = M_PLACE, to = morris_point(v, move);
+    else if (len == 4 || (len == 5 && move[2] == '-')) {
+        type = M_MOVE;
+        from = morris_point(v, move);
+        to = morris_point(v, move + len - 2);
+    } else return 0;
+    int i = find(type, from, to);
+    if (i < 0) return 0;
+    play(legal[i], 1);
+    return 1;
+}
+
 static int undo(void)
 {
     if (!morris_undo(&G)) return 0;

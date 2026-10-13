@@ -47,4 +47,10 @@ int  nim_status(const nim_game *g);             /* NIM_* */
 int  nim_best(const nim_game *g, int *row, int *mask);
 int  nim_script(nim_game *g, const char *moves);   /* 0: a move is bad */
 
+/* the bot (nim_bot.c, bots.h), and what the screen (nim.c) gives it; a headless test defines those two */
+const nim_game *nim_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */
+int  nim_show(const char *move);                /* main thread: plays "d3" as the take button does; 0: not legal */
+/* the bot's move for the player to move at a level (AI_EASY..AI_HARD): a row and how many to take; 0: none */
+int  nmb_choose(const nim_game *g, int level, uint64_t seed, int *row, int *take);
+
 #endif

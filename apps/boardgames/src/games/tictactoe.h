@@ -44,4 +44,10 @@ int  tt_target(const tt_game *g);      /* Ultimate: the small board the player t
 int  tt_claimed(const tt_game *g, int player);   /* Ultimate: the small boards a player has claimed */
 int  tt_script(tt_game *g, const char *s);       /* plays "5 1 9" or "5.5 5.1"; 0: a bad move (those before stay) */
 
+/* the bot (tictactoe_bot.c, bots.h), and what the screen (tictactoe.c) gives it; a headless test defines those two */
+const tt_game *tictactoe_live(void);   /* the game on the screen, read-only: the bot copies it at entry */
+int  tictactoe_show(const char *move); /* main thread: plays "5" or "5.1" as a tap does (animated); 0: not legal */
+struct ai_stats;
+int  ttb_choose(const tt_game *g, int level, uint64_t seed, struct ai_stats *stats);   /* the cell; -1: none */
+
 #endif

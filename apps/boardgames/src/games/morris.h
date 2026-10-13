@@ -74,4 +74,12 @@ mstatus morris_status(const mgame *g);          /* MS_FEW, MS_BLOCKED: the side 
 int  morris_script(mgame *g, const char *moves);   /* plays moves in the notation above; 0: one is bad */
 #define morris_pos(g) (&(g)->pos[(g)->ply])
 
+/* the bot (morris_bot.c, bots.h), and what the screen (morris.c) gives it; a headless test defines those two */
+const mgame *morris_live(void);                 /* the game on the screen, read-only: the bot copies its position */
+int  morris_show(const char *move);             /* main thread: one action ("d2", "d2-d3", "xb6"), animated; 0: not
+                                                 * legal */
+struct ai_stats;
+/* the bot's action for the side to move at a level (AI_EASY..AI_HARD); 0: none */
+int  mrb_choose(const mpos *p, int level, uint64_t seed, mmove *m, struct ai_stats *stats);
+
 #endif
