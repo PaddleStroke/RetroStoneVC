@@ -308,6 +308,35 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (tilerummy_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const tgame *tilerummy_live(void) { return &G; }
+
+int tilerummy_show(const char *move)
+{
+    const tpos *p = &G.pos;
+    if (!move[0]) return 0;
+    if (!move[1]) {
+        switch (move[0]) {
+        case 'e': if (tr_check(&G) != TC_OK) return 0; end_turn(); return 1;
+        case 'd': if (p->phase != TP_PLAY || tr_changed(&G)) return 0; draw_tile(); return 1;
+        case 'x': if (p->phase != TP_PLAY || (!G.nundo && !tr_changed(&G))) return 0; reset_turn(); return 1;
+        case 'n':
+            if (busy() || !tr_next(&G)) return 0;
+            unselect();
+            snap();
+            ui_handoff(G.pos.turn);
+            return 1;
+        default: return 0;
+        }
+    }
+    static tgame t;
+    t = G;
+    if (!tr_script(&t, move)) return 0;
+    tr_script(&G, move);                        /* a put: the tiles glide to their new places */
+    moved();
+    return 1;
+}
+
 /* ---- the icons (drawn here: the turn's start, the end of the turn, sorting) -------------------------------------- */
 static void icon(int which, int size, uint8_t *rgba)
 {

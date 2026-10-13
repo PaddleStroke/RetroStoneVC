@@ -88,4 +88,8 @@ int  tr_auto(tgame *g);                          /* a plain turn: lays what it f
 int  tr_script(tgame *g, const char *moves);     /* 0: an action is bad */
 unsigned tr_winners(const tpos *p);              /* the game over: the highest total (all tied for it) */
 
+/* the screen's game (tilerummy.c), for its bot (tilerummy_bot.c) */
+const tgame *tilerummy_live(void);             /* read-only: the bot copies it at entry */
+int tilerummy_show(const char *move);           /* main thread: one action of the notation, as a tap plays it */
+
 #endif
