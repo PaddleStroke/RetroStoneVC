@@ -546,6 +546,24 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (mahjong4_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const m4game *mahjong4_live(void) { return &G; }
+
+int mahjong4_show(const char *move)
+{
+    static m4game t;
+    if (!move[0] || strchr("a?!#*", move[0])) return 0;
+    if (!strcmp(move, "n")) {
+        if (!m4_legal(&G.pos, MA_NEXT)) return 0;
+        act(MA_NEXT);
+        return 1;
+    }
+    t = G;
+    if (!m4_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- the choices: a win, the kongs, a pung, the chows; shown as the sets they make ------------------------------- */
 typedef struct { int act, n, hi; uint8_t kind[4]; float x, w; } offer;
 static offer offers[8];

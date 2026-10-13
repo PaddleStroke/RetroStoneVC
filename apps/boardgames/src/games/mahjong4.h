@@ -176,4 +176,8 @@ int  m4_script(m4game *g, const char *moves);   /* 0: an action is bad */
 int  m4_parse_tile(const char **s);             /* a tile's kind in the notation (moves s on); -1: none */
 unsigned m4_winners(const m4pos *p);            /* the game over: the highest total (all tied for it) */
 
+/* the screen's game (mahjong4.c), for its bot (mahjong4_bot.c) */
+const m4game *mahjong4_live(void);              /* read-only: the bot copies it at entry */
+int mahjong4_show(const char *move);            /* main thread: one action of the notation, as a tap plays it */
+
 #endif
