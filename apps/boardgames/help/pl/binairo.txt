@@ -9,8 +9,10 @@ Niektóre pionki są podane na starcie, na ciemniejszych polach. Każda łamigł
 Postaw pionek na pustym polu, zmień jego kolor albo go zdejmij. Podane pionki zostają.
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy diagram jest pełny i spełnia wszystkie zasady: po planszy przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od 6 × 6 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Jeśli cofniesz przyciskiem Cofnij pionek złego koloru, liczy się to jako błąd.
 # Gra na urządzeniu
 - Dotknij pustego pola, aby postawić jasny pionek, jeszcze raz dla ciemnego, kolejny raz, aby je opróżnić.
 - Przytrzymaj chwilę palec na polu, aby iść w drugą stronę: najpierw ciemny.
 - Przeciągnij wzdłuż wiersza lub kolumny, aby zrobić to samo z całym odcinkiem. Zmieniają się tylko pola, które były takie jak pierwsze.
-Trzy takie same pod rząd świecą na czerwono; wiersz lub kolumna z za dużą liczbą pionków jednego koloru albo pełna i taka sama jak inna robi się czerwona. Przycisk na prawym końcu paska to żarówka: podpowiedź. Poprawia błędny pionek albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Trzy takie same pod rząd świecą na czerwono; wiersz lub kolumna z za dużą liczbą pionków jednego koloru albo pełna i taka sama jak inna robi się czerwona. Przycisk na prawym końcu paska (w poziomie w bocznej kolumnie) to żarówka: podpowiedź. Poprawia błędny pionek albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.

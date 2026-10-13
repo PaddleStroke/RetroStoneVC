@@ -9,8 +9,10 @@ Einige Steine sind zu Beginn vorgegeben, auf dunkleren Feldern. Jedes Rätsel ha
 Setze einen Stein in ein leeres Feld, ändere seine Farbe oder nimm ihn heraus. Die vorgegebenen Steine bleiben.
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn das Gitter voll ist und alle Regeln erfüllt: Eine Welle goldenen Lichts läuft über das Brett.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 6 × 6 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Nimmst du einen Stein der falschen Farbe mit Rückgängig zurück, zählt das als Fehler.
 # Spielen auf dem Gerät
 - Tippe ein leeres Feld an für einen hellen Stein, noch einmal für einen dunklen, ein weiteres Mal, um es zu leeren.
 - Halte ein Feld einen Moment, um die Runde andersherum zu gehen: zuerst dunkel.
 - Ziehe entlang einer Zeile oder Spalte, um dasselbe mit einem ganzen Abschnitt zu tun. Es ändern sich nur die Felder, die wie das erste waren.
-Drei gleiche in einer Reihe glühen rot; eine Zeile oder Spalte mit zu vielen Steinen einer Farbe, oder voll und gleich einer anderen, wird rot. Der Knopf am rechten Ende der Leiste ist die Glühbirne: ein Tipp. Sie berichtigt einen falschen Stein oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Drei gleiche in einer Reihe glühen rot; eine Zeile oder Spalte mit zu vielen Steinen einer Farbe, oder voll und gleich einer anderen, wird rot. Der Knopf am rechten Ende der Leiste (im Querformat in der Seitenspalte) ist die Glühbirne: ein Tipp. Sie berichtigt einen falschen Stein oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.

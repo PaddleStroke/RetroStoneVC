@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "games/binairo.h"
+#include "games/binairo_levels.h"
 #include "games/puzrand.h"
 
 static int fails;
@@ -181,6 +182,33 @@ int main(void)
         while (bn_undo(&G) >= 0) {}
         CHECK(!memcmp(G.st, start.st, sizeof G.st) && G.hist.moves == 0);
     }
+
+    /* the levels: each decodes and encodes back, has one solution found by reasoning alone (easy in chapter 1, hard
+     * at the end), and the sizes never shrink */
+    {
+        int last_n = 0, grades[3] = {0, 0, 0};
+        clock_t t1 = clock();
+        for (int l = 0; l < BN_LEVELS; l++) {
+            bn_puzzle q;
+            static bn_game L;
+            char back[BN_CELLS + 8];
+            int ok = bn_decode(bn_levels[l], &q) && bn_load(&L, &q) && bn_count(&q, 2) == 1;
+            for (int c = 0; ok && c < q.n * q.n; c++) L.st[c] = L.sol[c];
+            ok = ok && bn_solved(&L);           /* its solution keeps the rules */
+            if (!ok) printf("binairo level %d: not one solution\n", l + 1);
+            CHECK(ok);
+            CHECK(bn_encode(&q, back, sizeof back) && !strcmp(back, bn_levels[l]));
+            CHECK(q.n >= last_n);
+            last_n = q.n;
+            if (ok) grades[L.level]++;
+            if (l < BN_LEVELS / BN_CHAPTERS) CHECK(L.level == BENCH_EASY);
+        }
+        bn_puzzle q;
+        CHECK(bn_decode(bn_levels[BN_LEVELS - 1], &q) && bn_grade(&q, NULL) == BENCH_HARD);
+        printf("binairo: %d levels, one solution each (easy %d, medium %d, hard %d) in %.1f s\n", BN_LEVELS,
+               grades[0], grades[1], grades[2], (double)(clock() - t1) / CLOCKS_PER_SEC);
+    }
+
 
     if (fails) printf("binairo: %d checks failed\n", fails);
     else printf("binairo: all checks passed\n");

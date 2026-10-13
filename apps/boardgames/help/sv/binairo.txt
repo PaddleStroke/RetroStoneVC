@@ -9,8 +9,10 @@ Några brickor är givna från början, på mörkare rutor. Varje pussel har exa
 Sätt en bricka i en tom ruta, byt dess färg eller ta bort den. De givna brickorna ligger kvar.
 # Partiets slut
 Pusslet är löst när rutnätet är fullt och följer alla regler: en våg av gyllene ljus sveper över brädet.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 6 × 6 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny gåta på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en bricka i fel färg som du sedan ångrar.
 # Spela på enheten
 - Tryck på en tom ruta för en ljus bricka, igen för en mörk, en gång till för att tömma den.
 - Håll kvar fingret en stund på en ruta för att gå åt andra hållet: mörk först.
 - Dra längs en rad eller kolumn för att göra samma sak med en hel sträcka. Bara rutor som var som den första ändras.
-Tre lika i rad glöder rött; en rad eller kolumn med för många brickor av en färg, eller full och likadan som en annan, blir röd. Knappen längst till höger i listen är glödlampan: ett tips. Den rättar en felaktig bricka eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.
+Tre lika i rad glöder rött; en rad eller kolumn med för många brickor av en färg, eller full och likadan som en annan, blir röd. Knappen längst till höger i listen (i liggande läge i sidokolumnen) är glödlampan: ett tips. Den rättar en felaktig bricka eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.

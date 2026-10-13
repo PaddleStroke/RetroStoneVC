@@ -9,8 +9,10 @@ Some discs are given at the start, on darker cells. Every puzzle has exactly one
 Put a disc in an empty cell, change its colour or take it out. The given discs stay.
 # The end of the game
 The puzzle is solved when the grid is full and keeps every rule: a wave of gold light runs over the board.
+# Levels and stars
+There are 150 levels in six chapters, from 6 × 6 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a disc of the wrong colour that you then take back with undo.
 # Playing on the device
 - Tap an empty cell for an ivory disc, again for an ebony one, once more to empty it.
 - Hold a cell a moment to go the other way round: ebony first.
 - Drag along a row or a column to do the same to a whole stretch. It only changes the cells that were like the first one.
-Three alike in a row glow red; a row or a column with too many discs of one colour, or full and the same as another, turns red. The button at the right end of the bar is the light bulb: a hint. It puts a wrong disc right, or else shows the next cell reasoning finds, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+Three alike in a row glow red; a row or a column with too many discs of one colour, or full and the same as another, turns red. The button at the right end of the bar (in landscape, in the side column) is the light bulb: a hint. It puts a wrong disc right, or else shows the next cell reasoning finds, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.

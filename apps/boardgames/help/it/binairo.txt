@@ -9,8 +9,10 @@ Alcune pedine sono date all'inizio, su caselle più scure. Ogni schema ha una so
 Metti una pedina in una casella vuota, cambiane il colore o toglila. Le pedine date restano.
 # La fine della partita
 Lo schema è risolto quando la griglia è piena e rispetta tutte le regole: un'onda di luce dorata attraversa il tavoliere.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli, dal 6 × 6 al 12 × 12, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una pedina del colore sbagliato che poi togli con Annulla.
 # Giocare sul dispositivo
 - Tocca una casella vuota per una pedina d'avorio, di nuovo per una d'ebano, ancora una volta per svuotarla.
 - Tieni premuta una casella per un attimo per fare il giro al contrario: prima l'ebano.
 - Trascina lungo una riga o una colonna per fare lo stesso su un intero tratto. Cambiano solo le caselle che erano come la prima.
-Tre uguali di fila brillano di rosso; una riga o una colonna con troppe pedine di un colore, o piena e uguale a un'altra, diventa rossa. Il pulsante in fondo alla barra è la lampadina: un aiuto. Corregge una pedina sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
+Tre uguali di fila brillano di rosso; una riga o una colonna con troppe pedine di un colore, o piena e uguale a un'altra, diventa rossa. Il pulsante in fondo alla barra (in orizzontale, nella colonna laterale) è la lampadina: un aiuto. Corregge una pedina sbagliata, altrimenti mostra la prossima casella che il ragionamento trova, in luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.

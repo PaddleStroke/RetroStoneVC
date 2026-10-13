@@ -5,6 +5,7 @@
  */
 #include "games/binairo.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "games/puzrand.h"
@@ -136,10 +137,15 @@ static int medium(bench_grid *g, const ctx *k)
     return 0;
 }
 
+static long finds[2];                           /* each tier's finds (bn_effort counts them) */
+
 static int deduce(bench_grid *g, int tier, void *c)
 {
-    return tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    int res = tier ? medium(g, (const ctx *)c) : easy(g, (const ctx *)c);
+    if (res > 0) finds[tier ? 1 : 0]++;
+    return res;
 }
+
 
 static int valid(const bench_grid *g, void *c)
 {
@@ -191,6 +197,44 @@ int bn_count(const bn_puzzle *p, int limit)
     bench_grid g;
     grid_of(p, &g);
     return bench_search(&g, &r, limit, NULL, NULL, 0);
+}
+
+int bn_effort(const bn_puzzle *p, long *passes, long *mediums)
+{
+    ctx k;
+    bench_rules r;
+    setup(&k, p->n, &r, NULL);
+    bench_grid g;
+    grid_of(p, &g);
+    finds[1] = 0;
+    int lv = bench_grade(&g, &r, BENCH_HARD);
+    if (passes) *passes = r.passes;
+    if (mediums) *mediums = finds[1];
+    return lv;
+}
+
+/* ---- a puzzle as text (the levels) ------------------------------------------------------------------------------- */
+int bn_encode(const bn_puzzle *p, char *out, int size)
+{
+    int n = p->n, len = snprintf(out, (size_t)size, "%d:", n);
+    if (len < 0 || len + n * n + 1 > size) return 0;
+    for (int c = 0; c < n * n; c++) out[len++] = ".01"[p->given[c] % 3];
+    out[len] = 0;
+    return len;
+}
+
+int bn_decode(const char *s, bn_puzzle *p)
+{
+    memset(p, 0, sizeof *p);
+    int n = 0;
+    for (; *s >= '0' && *s <= '9'; s++) n = n * 10 + *s - '0';
+    if (*s++ != ':' || n < 6 || n > BN_MAX || n % 2) return 0;
+    p->n = n;
+    for (int c = 0; c < n * n; c++, s++) {
+        if (*s != '.' && *s != '0' && *s != '1') return 0;
+        p->given[c] = (uint8_t)(*s == '.' ? BN_EMPTY : *s == '0' ? BN_IVORY : BN_EBONY);
+    }
+    return !*s;
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
@@ -251,13 +295,13 @@ void bn_make(int n, int level, uint32_t seed, bn_puzzle *p, uint8_t *sol)
 }
 
 /* ---- the player's grid ------------------------------------------------------------------------------------------- */
-void bn_load(bn_game *g, const bn_puzzle *p, int level)
+int bn_load(bn_game *g, const bn_puzzle *p)
 {
     memset(g, 0, sizeof *g);
     g->p = *p;
-    g->level = level;
-    bn_grade(p, g->sol);
+    g->level = bn_grade(p, g->sol);
     for (int c = 0; c < p->n * p->n; c++) g->st[c] = p->given[c];
+    return g->level >= BENCH_EASY && g->level <= BENCH_HARD;
 }
 
 void bn_new(bn_game *g, int variant, uint32_t seed)

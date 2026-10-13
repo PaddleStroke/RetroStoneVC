@@ -9,8 +9,10 @@ Een paar schijven zijn gegeven, op donkerdere vakjes. Elke puzzel heeft precies 
 Zet een schijf in een leeg vakje, verander de kleur of haal hem weg. De gegeven schijven blijven staan.
 # Het einde van het spel
 De puzzel is opgelost als het rooster vol is en zich aan alle regels houdt: een golf van gouden licht gaat over het bord.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van 6 × 6 tot 12 × 12, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Neem je een schijf van de verkeerde kleur terug met Ongedaan maken, dan telt dat als fout.
 # Spelen op het apparaat
 - Tik op een leeg vakje voor een ivoren schijf, nog eens voor een ebbenhouten, nog een keer om het te legen.
 - Houd een vakje even vast om de andere kant op te gaan: eerst ebbenhout.
 - Sleep langs een rij of kolom om hetzelfde met een heel stuk te doen. Alleen de vakjes die waren zoals het eerste, veranderen.
-Drie gelijke op een rij gloeien rood; een rij of kolom met te veel schijven van één kleur, of vol en gelijk aan een andere, wordt rood. De knop aan het rechtereinde van de balk is de gloeilamp: een hint. Hij verbetert een foute schijf, of toont anders het volgende vakje dat redeneren oplevert, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Drie gelijke op een rij gloeien rood; een rij of kolom met te veel schijven van één kleur, of vol en gelijk aan een andere, wordt rood. De knop aan het rechtereinde van de balk (in liggende stand in de zijkolom) is de gloeilamp: een hint. Hij verbetert een foute schijf, of toont anders het volgende vakje dat redeneren oplevert, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

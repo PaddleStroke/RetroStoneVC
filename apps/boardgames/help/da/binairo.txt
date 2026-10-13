@@ -9,8 +9,10 @@ Nogle brikker er givet fra start, på mørkere felter. Hver opgave har præcis �
 Sæt en brik i et tomt felt, skift dens farve eller fjern den. De givne brikker bliver stående.
 # Spillets afslutning
 Opgaven er løst, når gitteret er fyldt og overholder alle reglerne: En bølge af gyldent lys løber over brættet.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra 6 × 6 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en brik i den forkerte farve, som du derefter fortryder.
 # Spil på enheden
 - Tryk på et tomt felt for en lys brik, igen for en mørk, én gang til for at tømme det.
 - Hold fingeren et øjeblik på et felt for at gå den anden vej rundt: mørk først.
 - Træk langs en række eller kolonne for at gøre det samme ved et helt stykke. Kun felter, der var som det første, ændres.
-Tre ens i træk gløder rødt; en række eller kolonne med for mange brikker af én farve, eller fuld og magen til en anden, bliver rød. Knappen yderst til højre i bjælken er elpæren: et tip. Den retter en forkert brik eller viser ellers det næste felt, tankegangen finder, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Tre ens i træk gløder rødt; en række eller kolonne med for mange brikker af én farve, eller fuld og magen til en anden, bliver rød. Knappen yderst til højre i bjælken (i liggende format i sidekolonnen) er elpæren: et tip. Den retter en forkert brik eller viser ellers det næste felt, tankegangen finder, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.

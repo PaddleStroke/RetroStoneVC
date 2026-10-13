@@ -29,6 +29,8 @@
 #define BN_VARIANTS (BN_SIZES * 3)
 #define BN_MAX 12
 #define BN_CELLS (BN_MAX * BN_MAX)
+#define BN_LEVELS 150                           /* the designed levels (binairo_levels.h), in six chapters */
+#define BN_CHAPTERS 6
 
 enum { BN_EMPTY, BN_IVORY, BN_EBONY };         /* a cell (the player's, a given one) */
 
@@ -52,9 +54,16 @@ int  bn_level(int variant);
 int  bn_grade(const bn_puzzle *p, uint8_t *sol); /* BENCH_* (the solution in sol when it solves it; may be NULL) */
 int  bn_count(const bn_puzzle *p, int limit);
 void bn_make(int n, int level, uint32_t seed, bn_puzzle *p, uint8_t *sol);
+/* the levels (binairo_levels.h, made by tools/binairo_gen.c): a puzzle as text, "<n>:" and a character a cell, row
+ * by row ('.' to find, '0' ivory, '1' ebony) */
+int  bn_encode(const bn_puzzle *p, char *out, int size);   /* its length; 0: no room */
+int  bn_decode(const char *s, bn_puzzle *p);    /* 1: a puzzle */
+/* the work a puzzle asks of the solver: its grade (BENCH_*), the passes (each tier tried once round) and the
+ * finds of the medium way */
+int  bn_effort(const bn_puzzle *p, long *passes, long *mediums);
 
 void bn_new(bn_game *g, int variant, uint32_t seed);
-void bn_load(bn_game *g, const bn_puzzle *p, int level);
+int  bn_load(bn_game *g, const bn_puzzle *p);   /* a puzzle given (a level), graded and solved; 1: it solves */
 int  bn_free(const bn_game *g, int c);          /* 1: the player's to fill (not given) */
 int  bn_tap_state(const bn_game *g, int c);
 int  bn_hold_state(const bn_game *g, int c);

@@ -10,6 +10,8 @@
  * is tinted red. The shell's tool: the hint (a wrong disc put right, else the next cell reasoning finds, in gold
  * light). Undo takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs
  * over the board from the last cell; the stars count the hints and the mistakes (bench.h).
+ * The shell's level screen chooses a level (150 in six chapters, made by tools/binairo_gen.c: binairo_levels.h), or its
+ * die tab a puzzle made at random (the variants).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -18,6 +20,7 @@
 #include "shell.h"
 #include "games/bench_ui.h"
 #include "games/binairo.h"
+#include "games/binairo_levels.h"
 
 enum { T_HINT, TOOLS };
 
@@ -97,12 +100,24 @@ static void calm(void)
     win.on = 0;
 }
 
-static void start(int variant)
+static void begin(void)
 {
-    bn_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
     serial++;
     calm();
     if (last_box.w > 0) layout(last_box);
+}
+
+static void start(int level)                    /* a level of the shell's level screen */
+{
+    bn_puzzle p;
+    if (!bn_decode(bn_levels[level < 0 || level >= BN_LEVELS ? 0 : level], &p) || !bn_load(&G, &p)) bn_new(&G, 0, 1);
+    begin();
+}
+
+static void start_random(int variant)           /* a puzzle made at random (the die tab) */
+{
+    bn_new(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    begin();
 }
 
 static int status(void) { return bn_solved(&G) ? GS_WIN0 : GS_PLAY; }
@@ -208,14 +223,14 @@ static void bar(int player, box b)
     bench_bar_moves(b, t_small, G.hist.moves);
 }
 
-/* ---- the menu's and the picker's cards: a puzzle of the size, its given discs (the menu's: half solved); under the
- * picker's, its level in ebony stones ---------------------------------------------------------------------------- */
-static void card(int variant, int size, int bare, uint8_t *rgba)
+/* ---- the pictures of puzzles: the menu's and the picker's cards (a puzzle of the size, its given discs; the menu's
+ * half solved; under the picker's, its level in ebony stones), the chapters' tabs ------------------------------- */
+/* a puzzle (its given discs, and those of sol: all of them, or the first half; sol NULL: none) on a side x side
+ * plank, at the top of a size x size picture (in its middle when mid) */
+static void paint_puzzle(const bn_puzzle *pp, const uint8_t *sol, int half, int size, int side, int mid,
+                         uint8_t *rgba)
 {
-    int v = variant < 0 ? 4 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
-    bn_puzzle p;
-    uint8_t sol[BN_CELLS];
-    bn_make(bn_size(v), bn_level(v), 2026u + (uint32_t)v, &p, sol);
+    bn_puzzle p = *pp;
     bench_geo g;
     memset(&g, 0, sizeof g);
     g.cols = g.rows = p.n;
@@ -225,12 +240,21 @@ static void card(int variant, int size, int bare, uint8_t *rgba)
     paint_givens(&g, &p, b);
     int n = p.n, q = g.cs;
     for (int c = 0; c < n * n; c++) {
-        int v2 = p.given[c] ? p.given[c] : variant < 0 && c < n * n / 2 ? sol[c] : 0;
+        int v2 = p.given[c] ? p.given[c] : sol && (!half || c < n * n / 2) ? sol[c] : 0;
         if (v2) disc_into(b, g.w, g.h, v2 - 1, g.ox + (c % n + 0.5f) * q, g.oy + (c / n + 0.5f) * q, (int)(0.8f * q));
     }
-    int ox = (size - side) / 2 + (int)g.bx, oy = (variant < 0 ? (size - side) / 2 : 0) + (int)g.by;
+    int ox = (size - side) / 2 + (int)g.bx, oy = (mid ? (size - side) / 2 : 0) + (int)g.by;
     art_blend(rgba, size, size, b, g.w, g.h, ox, oy);
     free(b);
+}
+
+static void card(int variant, int size, int bare, uint8_t *rgba)
+{
+    int v = variant < 0 ? 4 : variant, side = variant < 0 || bare ? size : (int)(0.84f * size);
+    bn_puzzle p;
+    uint8_t sol[BN_CELLS];
+    bn_make(bn_size(v), bn_level(v), 2026u + (uint32_t)v, &p, sol);
+    paint_puzzle(&p, variant < 0 ? sol : NULL, 1, size, side, variant < 0, rgba);
     if (variant >= 0 && !bare) bench_stones(rgba, size, side, bn_level(v));
 }
 
@@ -239,12 +263,23 @@ static void thumb(int variant, int size, uint8_t *rgba) { card(variant, size, 0,
 /* the picker's sizes (game.axes, above the levels): a puzzle of the size at the medium level, on the whole card */
 static void size_pic(int i, int size, uint8_t *rgba) { card(i * 3 + 1, size, 1, rgba); }
 
+/* a chapter's tab: its last level (its biggest size), solved */
+static void chapter_icon(int chapter, int size, uint8_t *rgba)
+{
+    int ch = chapter < 0 ? 0 : chapter >= BN_CHAPTERS ? BN_CHAPTERS - 1 : chapter;
+    static bn_game T;
+    bn_puzzle p;
+    if (!bn_decode(bn_levels[(ch + 1) * BN_LEVELS / BN_CHAPTERS - 1], &p) || !bn_load(&T, &p)) return;
+    paint_puzzle(&p, T.sol, 0, size, (int)(0.92f * size), 1, rgba);
+}
+
 static const game binairo_game = {
     .id = "binairo", .order = 411, .variants = BN_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .axes = {BN_SIZES, 3}, .axis_pic = {size_pic, NULL},
+    .levels = BN_LEVELS, .chapters = BN_CHAPTERS, .chapter_icon = chapter_icon, .start_random = start_random,
     .score = score, .level_stars = stars, .fill = 1, .tools = TOOLS,
 };
 REGISTER_GAME(binairo_game)

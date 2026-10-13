@@ -9,8 +9,10 @@ Algumas peças já vêm dadas, em casas mais escuras. Cada tabuleiro tem uma ún
 Ponha uma peça numa casa vazia, troque a cor ou tire-a. As peças dadas ficam.
 # O fim da partida
 O tabuleiro está resolvido quando a grade está cheia e segue todas as regras: uma onda de luz dourada percorre o tabuleiro.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, do 6 × 6 ao 12 × 12, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça da cor errada que você depois tira com Desfazer.
 # Jogando no aparelho
 - Toque numa casa vazia para uma peça de marfim, de novo para uma de ébano, mais uma vez para esvaziá-la.
 - Segure uma casa por um instante para girar ao contrário: ébano primeiro.
 - Arraste ao longo de uma linha ou coluna para fazer o mesmo num trecho inteiro. Só mudam as casas que estavam como a primeira.
-Três iguais seguidas brilham em vermelho; uma linha ou coluna com peças demais de uma cor, ou cheia e igual a outra, fica vermelha. O botão na ponta direita da barra é a lâmpada acesa: uma dica. Corrige uma peça errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.
+Três iguais seguidas brilham em vermelho; uma linha ou coluna com peças demais de uma cor, ou cheia e igual a outra, fica vermelha. O botão na ponta direita da barra (na horizontal, na coluna lateral) é a lâmpada acesa: uma dica. Corrige uma peça errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.

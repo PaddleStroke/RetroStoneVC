@@ -9,8 +9,10 @@ Bazı taşlar baştan, daha koyu karelerde verilir. Her bulmacanın tek bir çö
 Boş bir kareye taş koy, rengini değiştir ya da kaldır. Verilen taşlar yerinde kalır.
 # Oyunun sonu
 Izgara dolu olduğunda ve bütün kurallara uyduğunda bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 6 × 6'dan 12 × 12'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Geri al ile kaldırdığın yanlış renkte bir taş hata sayılır.
 # Cihazda oynamak
 - Açık renkli bir taş için boş bir kareye dokun, koyu için yeniden dokun, boşaltmak için bir kez daha dokun.
 - Ters yönde gitmek için parmağını bir karenin üzerinde bir an tut: önce koyu.
 - Bütün bir parçada aynısını yapmak için bir satır ya da sütun boyunca sürükle. Yalnızca ilk kare gibi olan kareler değişir.
-Arka arkaya üç aynı taş kırmızı parlar; bir renkten fazla taşı olan ya da dolu ve başka biriyle aynı olan satır veya sütun kırmızıya döner. Çubuğun sağ ucundaki düğme ampuldür: bir ipucu. Yanlış bir taşı düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
+Arka arkaya üç aynı taş kırmızı parlar; bir renkten fazla taşı olan ya da dolu ve başka biriyle aynı olan satır veya sütun kırmızıya döner. Çubuğun sağ ucundaki (yatay ekranda yan sütundaki) düğme ampuldür: bir ipucu. Yanlış bir taşı düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
