@@ -8,5 +8,7 @@ Kaada putkesta toiseen. Päällimmäinen kerros valuu yli, ja sen mukana jokaine
 Kerran tehtävää kohden saat nostaa hyllylle ylimääräisen tyhjän putken. Sen juureen jää messinkirengas, josta näkee, että sitä on käytetty.
 # Pelin loppu
 Tehtävä on ratkaistu, kun jokainen väri täyttää oman putkensa ja muut putket ovat tyhjiä. Jokainen täysi putki saa korkin, ja sitten kaikki putket syttyvät kultaisiksi.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa, 3 väristä 12 väriin; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä kaatoja, joilla sen ratkaisee, tietokoneen löytämänä. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän kaatoja: 2 tähteä; muuten 1. Lisäputki rajaa tehtävän 2 tähteen. Kumoa peruu kaadon, eikä sitä enää lasketa.
 # Pelaaminen laitteella
 Napauta putkea: se nousee. Napauta toista putkea: ensimmäinen lentää sen luo, kallistuu ja kaataa. Jos kaato ei ole sallittu, putki tärisee; napauta sitä uudelleen laskeaksesi sen alas. Voit myös vetää putken toisen päälle. Jokaisessa kerroksessa on värin lisäksi pieni merkki. Kun haluat käyttää lisäputkea, napauta sen paikkaa viimeisen hyllyn päässä (haalea putki, jossa on plus). Palkin lamppu antaa vihjeen: se nostaa putken, josta kaadetaan, ja valaisee putken, johon kaadetaan, tai lisäputken paikan. Jos lamppu hehkuu punaisena, tästä ei ole enää ulospääsyä: kumoa muutama siirto. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti, myös lisäputken. Palkki laskee kaatosi.

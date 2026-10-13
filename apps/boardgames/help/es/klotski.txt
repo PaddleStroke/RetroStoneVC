@@ -1,26 +1,13 @@
 Klotski
 # El objetivo
-Diez bloques de madera llenan un marco de 4 × 5 casillas, todas menos dos. Lleva el gran bloque rojo hasta la abertura del centro del borde inferior, para que pueda salir deslizándose. Es el antiguo rompecabezas chino Huarong Dao: el gran bloque es un general, atrapado con sus oficiales y soldados en un paso estrecho.
-Elige primero la posición inicial. Todas son tradicionales, cada una con su nombre chino:
-- Heng Dao Li Ma (una espada sostenida de través, un caballo con las riendas tirantes): la clásica, 81 jugadas.
-- Jie Zu Xian Deng (el pie rápido llega primero): 32.
-- Yi Lu Shun Feng (viento a favor todo el camino): 39.
-- Yu Sheng Xi Li (el repiqueteo de la lluvia): 47.
-- Zuo You Bu Bing (soldados a izquierda y derecha): 54.
-- Yi Lu Jin Jun (un ejército que marcha en una sola columna): 58.
-- Qi Tou Bing Jin (todos hombro con hombro): 60.
-- Cha Chi Nan Fei (ni con alas hay salida): 62.
-- Zhi Hui Ruo Ding (sereno en el mando): 70.
-- Tao Hua Yuan Zhong (en el jardín de los melocotoneros): 70.
-- Bing Fen San Lu (las tropas se dividen en tres caminos): 72.
-- Jiang Yong Cao Ying (oficiales apiñados en el campamento): 72.
-- Ceng Ceng She Fang (defensas en cada nivel): 102.
-- Feng Hui Lu Zhuan (el sendero serpentea alrededor de las cumbres): 138.
-Los números son el mínimo de jugadas, hallado por un ordenador que probó todas las posiciones.
+Unos bloques de madera llenan un marco de 4 × 5 casillas, todas menos dos: el gran bloque rojo, bloques largos de pie o tumbados, y otros pequeños. Lleva el gran bloque hasta la abertura del centro del borde inferior, para que pueda salir deslizándose. Es el antiguo rompecabezas chino Huarong Dao: el gran bloque es un general, atrapado con sus oficiales y soldados en un paso estrecho.
+Cada marco se hizo para este juego: el ordenador probó todas las posiciones que sus bloques pueden alcanzar, así que el mínimo de jugadas siempre se conoce.
 # Una jugada
 Un bloque se desliza a casillas vacías, una casilla cada vez, arriba, abajo, a la izquierda o a la derecha; nunca se levanta. Según la cuenta tradicional, una jugada es un bloque deslizado tan lejos como quieras, incluso doblando una esquina, antes de tocar otro bloque.
 # El final de la partida
 Cuando el gran bloque está en el centro de la fila inferior, sale por la abertura con una luz dorada: resuelto.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, de unas pocas jugadas a bastante más de cien; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un marco nuevo al azar: fácil, medio o difícil. Cada marco tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Deshacer anula una jugada, que ya no cuenta.
 # Jugar en el dispositivo
 - Arrastra un bloque: sigue tu dedo casilla a casilla.
 - O toca un bloque. Si solo tiene un sitio adonde ir, va allí. Si tiene más, queda seleccionado y unos puntos muestran las casillas a las que puede llegar: toca una y va allí por el camino más corto.

@@ -6,5 +6,7 @@ Setiap papan dibuat dengan menekan lampu-lampu secara acak di papan yang gelap, 
 Tekan sebuah lampu: lampu itu berbalik (dari menyala jadi gelap, atau dari gelap jadi menyala), begitu juga tetangganya di atas, bawah, kiri, dan kanan. Urutan tekananmu tidak penting, dan menekan lampu dua kali sama saja dengan tidak pernah menekannya.
 # Akhir permainan
 Teka-teki terpecahkan saat semua lampu gelap: gelombang cahaya emas menyapu papan. Jumlah tekanan paling sedikit dihitung untuk setiap papan; samai jika kamu bisa.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari 3 × 3 lampu sampai 7 × 7, banyak di antaranya membentuk pola; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Par adalah jumlah tekanan paling sedikit. Selesai tepat par: 3 bintang; dengan tambahan tekanan paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu tekanan, dan tekanan itu tidak dihitung lagi.
 # Bermain di perangkat
 Ketuk lampu untuk menekannya. Lampu di samping papan memberi petunjuk: lampu itu menekan satu lampu dari jalan terpendek, dengan cahaya emas. Urungkan membatalkan satu tekanan setiap kali, sampai ke awal. Bilah menunjukkan tekananmu dan, di ujung kanannya, jumlah paling sedikit dari awal; bilah bersinar keemasan saat kamu menyamainya.

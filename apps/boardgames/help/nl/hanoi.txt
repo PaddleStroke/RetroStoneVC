@@ -1,9 +1,11 @@
 Torens van Hanoi
 # Het doel
-Een toren van schijven staat op de linkerpin, de grootste onderaan. Verplaats de hele toren naar een andere pin: de middelste of de rechter. Kies eerst het aantal schijven: 4, 5, 6 of 7.
+Schijven van verschillende grootte staan op drie pinnen, nooit een schijf op een kleinere. Breng ze allemaal bij elkaar op de doelpin, die aan zijn voet goud oplicht, als één toren met de grootste onderaan. De klassieke puzzel begint met de hele toren op de linkerpin.
 # Een zet
 Pak de bovenste schijf van een pin en leg hem op een andere pin, die leeg is of bovenaan een grotere schijf heeft. Een schijf komt nooit op een kleinere.
 # Het einde van het spel
-De puzzel is opgelost als de hele toren op een andere pin staat. Het kleinste aantal zetten: 15 met 4 schijven, 31 met 5, 63 met 6, 127 met 7 (elke schijf meer verdubbelt het, plus één). Lukt het in het kleinste aantal, dan gloeit de hele toren goud.
+De puzzel is opgelost als alle schijven op de doelpin staan. De klassieke toren vraagt minstens 7 zetten met 3 schijven, 15 met 4, 31 met 5, 63 met 6 en 127 met 7 (elke schijf meer verdubbelt het, plus één). Lukt het in het kleinste aantal, dan gloeit de hele toren goud.
+# Levels en sterren
+Er zijn 100 levels in vijf hoofdstukken, één voor elk aantal schijven van 3 tot 7: de schijven liggen eerst verspreid over de pinnen, en elk hoofdstuk eindigt met de klassieke toren. Kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval: 4, 5, 6 of 7 schijven willekeurig verspreid en een doelpin. Het par is het kleinste aantal zetten. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
 # Spelen op het apparaat
 Tik op een pin: de bovenste schijf gaat omhoog. Tik op een andere pin: de schijf gaat erheen (mag hij daar niet heen, dan trilt hij en blijft hij omhoog). Tik op zijn eigen pin om hem terug te leggen. Je kunt een schijf ook van de ene pin naar de andere slepen. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin. De balk toont je zetten en, aan het rechtereinde, het kleinste aantal.

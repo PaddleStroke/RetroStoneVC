@@ -6,5 +6,7 @@ Setiap acakan bisa diselesaikan. Separuh dari semua cara mengacak ubin tidak aka
 Ubin di sebelah tempat kosong meluncur ke sana. Ubin hanya digeser; tidak pernah diangkat dari bingkai.
 # Akhir permainan
 Saat setiap ubin ada di tempatnya, teka-teki terpecahkan: cahaya emas menyapu ubin-ubin sesuai urutannya, dan gambar mendapatkan kepingnya yang hilang.
+# Level dan bintang
+Ada 150 level dalam enam bab: bingkai 3 × 3, 4 × 4, dan 5 × 5, dengan angka atau dipotong dari gambar; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah ubin dipindahkan paling sedikit, yang ditemukan komputer (untuk bingkai besar yang dibuat acak, jalan terbaik yang ditemukannya dalam sekejap). Selesai tepat par: 3 bintang; dengan tambahan ubin dipindahkan paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu geseran, dan geseran itu tidak dihitung lagi.
 # Bermain di perangkat
 Ketuk ubin di baris atau kolom yang sama dengan tempat kosong: ubin itu meluncur, dan ubin di antaranya dan tempat kosong ikut bergeser. Kamu juga bisa mendorong ubin dengan jari ke arah tempat kosong: lewat dari setengah jalan ia terus meluncur, kalau tidak ia kembali. Urungkan membatalkan satu geseran setiap kali, sampai ke awal. Bilah menghitung ubin yang dipindahkan: geseran tiga ubin dihitung tiga.

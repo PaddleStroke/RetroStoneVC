@@ -1,26 +1,13 @@
 Klotski
 # Amaç
-On tahta blok, 4 × 5 karelik bir çerçevenin iki kare dışında tamamını doldurur. Büyük kırmızı bloğu alt kenarın ortasındaki açıklığa indir ki dışarı kayabilsin. Bu, eski Çin bulmacası Huarong Dao'dur: büyük blok, subayları ve askerleriyle birlikte dar bir geçitte kıstırılmış bir generaldir.
-Önce başlangıcı seç. Hepsi gelenekseldir, her birinin kendi Çince adı vardır:
-- Heng Dao Li Ma (yatay tutulan bir kılıç, dizginlenmiş bir at): klasik olanı, 81 hamle.
-- Jie Zu Xian Deng (çabuk ayak önce varır): 32.
-- Yi Lu Shun Feng (yol boyunca uygun rüzgâr): 39.
-- Yu Sheng Xi Li (yağmurun tıpırtısı): 47.
-- Zuo You Bu Bing (solda ve sağda askerler): 54.
-- Yi Lu Jin Jun (tek kol hâlinde yürüyen bir ordu): 58.
-- Qi Tou Bing Jin (omuz omuza): 60.
-- Cha Chi Nan Fei (kanatla bile çıkış yok): 62.
-- Zhi Hui Ruo Ding (komutada soğukkanlılık): 70.
-- Tao Hua Yuan Zhong (şeftali bahçesinde): 70.
-- Bing Fen San Lu (birlikler üç yola ayrılır): 72.
-- Jiang Yong Cao Ying (kampa doluşan subaylar): 72.
-- Ceng Ceng She Fang (her katta savunma): 102.
-- Feng Hui Lu Zhuan (yol zirvelerin çevresinde kıvrılır): 138.
-Sayılar, her konumu deneyen bir bilgisayarın bulduğu en az hamle sayılarıdır.
+Tahta bloklar, 4 × 5 karelik bir çerçevenin iki kare dışında tamamını doldurur: büyük kırmızı blok, dik ya da yatık duran uzun bloklar ve küçük bloklar. Büyük bloğu alt kenarın ortasındaki açıklığa indir ki dışarı kayabilsin. Bu, eski Çin bulmacası Huarong Dao'dur: büyük blok, subayları ve askerleriyle birlikte dar bir geçitte kıstırılmış bir generaldir.
+Buradaki her çerçeve bu oyun için yapıldı: bilgisayar blokların ulaşabileceği her konumu denedi, bu yüzden en az hamle sayısı her zaman bilinir.
 # Bir hamle
 Bir blok boş karelere, her seferinde bir kare, yukarı, aşağı, sola ya da sağa kayar; asla kaldırılmaz. Geleneksel sayıma göre bir hamle, başka bir bloğa dokunmadan önce istediğin kadar uzağa, hatta bir köşeyi dönerek kaydırılan tek bir bloktur.
 # Oyunun sonu
 Büyük blok alt sıranın ortasına geldiğinde altın ışık içinde açıklıktan dışarı kayar: bulmaca çözüldü.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; birkaç hamleden yüzün epey üstüne kadar uzanıyorlar. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir çerçeve yapar: kolay, orta ya da zor. Her çerçevenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
 # Cihazda oynamak
 - Bir bloğu sürükle: parmağını kare kare izler.
 - Ya da bir bloğa dokun. Gidebileceği tek bir yer varsa oraya gider. Daha fazlası varsa seçilir ve noktalar ulaşabileceği kareleri gösterir: birine dokun, en kısa yoldan oraya gider.

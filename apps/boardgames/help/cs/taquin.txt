@@ -6,5 +6,7 @@ Každé zamíchání má řešení. Polovinu všech způsobů, jak kostičky zam
 Kostička vedle volného místa do něj sklouzne. Kostičky se jen posouvají, nikdy se z rámečku nevyndávají.
 # Konec hry
 Když je každá kostička na svém místě, hlavolam je vyřešený: po kostičkách popořadě přeběhne zlaté světlo a obrázek dostane chybějící dílek.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách: rámečky 3 × 3, 4 × 4 a 5 × 5, s čísly nebo rozřezané z obrázku; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet posunutých kostiček, jak ho našel počítač (u velkého náhodného rámečku nejlepší cesta, kterou najde za okamžik). Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc posunutých kostiček: 2 hvězdy; jinak 1. Zpět vezme posunutí zpět a to se už nepočítá.
 # Hra na zařízení
 Klepni na kostičku ve stejném řádku nebo sloupci jako volné místo: sklouzne a kostičky mezi ní a volným místem se posunou s ní. Kostičku můžeš také tlačit prstem k volnému místu: za polovinou cesty pokračuje, jinak se vrátí. Zpět vrací jedno posunutí po druhém, až na začátek. Lišta počítá posunuté kostičky: posunutí tří kostiček se počítá za tři.

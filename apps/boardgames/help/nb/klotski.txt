@@ -1,26 +1,13 @@
 Klotski
 # Målet
-Ti treklosser fyller en ramme på 4 × 5 ruter, alle unntatt to. Få den store røde klossen ned til åpningen midt på nederste kant, så den kan gli ut. Dette er det gamle kinesiske puslespillet Huarong Dao: den store klossen er en general, fanget sammen med offiserene og soldatene sine i et trangt pass.
-Velg først startstilling. De er tradisjonelle, hver med sitt kinesiske navn:
-- Heng Dao Li Ma (et sverd holdt på tvers, en hest holdt i tøylene): den klassiske, 81 trekk.
-- Jie Zu Xian Deng (den raske foten kommer først): 32.
-- Yi Lu Shun Feng (god bør hele veien): 39.
-- Yu Sheng Xi Li (regnets lette tromming): 47.
-- Zuo You Bu Bing (soldater til venstre og høyre): 54.
-- Yi Lu Jin Jun (en hær som marsjerer i én kolonne): 58.
-- Qi Tou Bing Jin (alle side om side): 60.
-- Cha Chi Nan Fei (selv med vinger, ingen vei ut): 62.
-- Zhi Hui Ruo Ding (rolig i kommandoen): 70.
-- Tao Hua Yuan Zhong (i ferskenhagen): 70.
-- Bing Fen San Lu (troppene deler seg i tre): 72.
-- Jiang Yong Cao Ying (offiserer som trenger seg sammen i leiren): 72.
-- Ceng Ceng She Fang (forsvar på hvert nivå): 102.
-- Feng Hui Lu Zhuan (stien slynger seg rundt toppene): 138.
-Tallene er færrest mulige trekk, funnet av en datamaskin som har prøvd hver stilling.
+Treklosser fyller en ramme på 4 × 5 ruter, alle unntatt to: den store røde klossen, lange klosser som står eller ligger, og små. Få den store klossen ned til åpningen midt på nederste kant, så den kan gli ut. Dette er det gamle kinesiske puslespillet Huarong Dao: den store klossen er en general, fanget sammen med offiserene og soldatene sine i et trangt pass.
+Hver ramme her er laget for dette spillet: datamaskinen har prøvd hver stilling klossene kan nå, så færrest mulige trekk er alltid kjent.
 # Et trekk
 En kloss glir inn i tomme ruter, én rute om gangen, opp, ned, til venstre eller til høyre; den løftes aldri. Etter tradisjonen er ett trekk én kloss skjøvet så langt du vil, også rundt et hjørne, før du rører en annen kloss.
 # Slutten på spillet
 Når den store klossen står midt på nederste rad, glir den ut gjennom åpningen i gyllent lys: løst.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra noen få trekk til godt over hundre; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny ramme tilfeldig: lett, middels eller vanskelig. Hver ramme har en par: færrest trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
 # Spill på enheten
 - Dra en kloss: den følger fingeren din rute for rute.
 - Eller trykk på en kloss. Har den bare ett sted å gå, går den dit. Har den flere, blir den valgt, og prikker viser rutene den kan nå: trykk på én, så går den dit den korteste veien.

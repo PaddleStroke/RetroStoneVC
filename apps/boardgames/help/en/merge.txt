@@ -4,6 +4,6 @@ Numbered tiles lie on a square grid. Push them all one way: equal tiles that mee
 # A move
 Push up, down, left or right: every tile slides as far as it can that way. Two tiles of the same number that meet become one, and its number is added to your score. A tile merges only once in a push. After every push that moved something, a new tile, a 2 or now and then a 4, appears on an empty square. A push that would move nothing is not allowed.
 # The end of the game
-Making the target tile wins: the end card shows, a tap hides it and you can play on. The game is over when no push can move anything; your score is burned into a plaque under the grid.
+Making the target tile lights it in gold, and you play on. The game is over when no push can move anything: your score is burned into a plaque under the grid, and you get your stars: 3 for the target tile or beyond, 2 for a tile half the target, 1 otherwise. There are no levels: the new tiles come by chance, so the three grids are the difficulty.
 # Playing on the device
 Swipe on the grid, or tap one of the four arrow buttons under it (on a computer, the arrow keys work too). An arrow is dimmed when that push would move nothing. The lamp shows a hint: a good push, its arrow lit in gold. Undo takes back one push at a time, all the way to the start; the new tiles are taken back too, so the same push brings the same tile again. The bar shows your score and, at its right end, the best score of this session for this grid.

@@ -6,6 +6,8 @@ Elke puzzel is nieuw en altijd oplosbaar. Zijn par, het kleinste mogelijke aanta
 Duw de schijf omhoog, omlaag, naar links of naar rechts. Op het ijs stopt hij niet vanzelf: hij glijdt tot een rots of de rand hem tegenhoudt. Glijdt hij onderweg over het gat, dan valt hij erin.
 # Het einde van het spel
 De puzzel is opgelost als de schijf in het gat valt. Opgelost in het par, loopt er een gouden licht over het ijs.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van 5 × 5 vakjes ijs tot 10 × 9; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Het par is het kleinste aantal duwen. Opgelost op par: 3 sterren; met tot de helft meer duwen: 2 sterren; anders 1. Ongedaan maken neemt een duw terug, die dan niet meer telt.
 # Spelen op het apparaat
 Veeg over het ijs in de richting die je wilt, tik op een vakje in de rij of kolom van de schijf, of tik op een van de vier pijlen onder het bord (op een computer werken ook de pijltjestoetsen). Een pijl is gedimd als de schijf niet die kant op kan.
 De lamp geeft een hint: de volgende duw van een kortste weg, zijn pijl goud en zijn baan goud gestippeld. Is het gat niet meer te bereiken, dan neemt de hint eerst de duwen terug die daarheen leidden. Ongedaan maken neemt één duw tegelijk terug, helemaal tot het begin. De balk toont je duwen en, aan het rechtereinde, het par.

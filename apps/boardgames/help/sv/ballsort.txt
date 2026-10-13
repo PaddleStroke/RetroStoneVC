@@ -8,5 +8,7 @@ Flytta den översta kulan i ett rör till en kula av samma färg, eller till ett
 En gång per pussel får du ställa ett extra tomt rör på hyllan. Det behåller en mässingsring runt foten, så att man ser att det har använts.
 # Partiets slut
 Pusslet är löst när varje färg fyller ett eget rör och de andra rören är tomma. Varje fullt rör får en kork, och sedan lyser alla rören upp i guld.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 3 färger upp till 12; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Varje pussel har ett par: det minsta antalet drag som löser det, framtaget av datorn. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. Det extra röret ger högst 2 stjärnor. Ångra tar tillbaka ett drag, och det räknas inte längre.
 # Spela på enheten
 Tryck på ett rör: dess översta kula stiger. Tryck på ett annat rör: kulan glider dit och faller ned i det. Är draget inte tillåtet skakar kulan; tryck på dess rör igen för att lägga tillbaka den. Du kan också dra en kula till ett annat rör. Varje kula har ett litet tecken utöver sin färg. För att använda det extra röret, tryck på dess plats i slutet av den sista hyllan (ett blekt rör med ett plus). Lampan i listen ger en ledtråd: den lyfter kulan som ska flyttas och tänder röret den ska till, eller det extra rörets plats. Lyser lampan röd finns det ingen väg ut härifrån: ångra några drag. Ångra tar tillbaka ett drag i taget, ända till början, även det extra röret. Listen räknar dina drag.

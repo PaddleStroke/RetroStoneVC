@@ -6,5 +6,7 @@ Every shuffle can be solved. Half of all the ways to mix the tiles could never b
 A tile next to the empty place slides into it. Tiles only slide; they are never lifted out.
 # The end of the game
 When every tile is in its place, the puzzle is solved: a gold light runs over the tiles in their order, and a picture gets its missing piece.
+# Levels and stars
+There are 150 levels in six chapters: 3 × 3, 4 × 4 and 5 × 5 trays, with numbers or cut from the picture; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: the fewest tiles moved, found by the computer (on a large tray made at random, the best way it finds in a moment). Solved at par: 3 stars; with up to half as many tiles moved again: 2 stars; otherwise 1. Undo takes a slide back, and it no longer counts.
 # Playing on the device
 Tap a tile in the same row or column as the empty place: it slides, and the tiles between it and the empty place move with it. You can also push a tile towards the empty place with your finger: past halfway it goes on, otherwise it falls back. Undo takes back one slide at a time, all the way to the start. The bar counts the tiles moved: a slide of three tiles counts three.

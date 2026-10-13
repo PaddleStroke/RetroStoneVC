@@ -1,9 +1,11 @@
 Tours de Hanoï
 # Le but
-Une tour de disques se dresse sur la tige de gauche, le plus grand en bas. Déplace toute la tour sur une autre tige : celle du milieu ou celle de droite. Choisis d'abord le nombre de disques : 4, 5, 6 ou 7.
+Des disques de tailles différentes sont posés sur trois tiges, jamais un disque sur un plus petit. Rassemble-les tous sur la tige d'arrivée, celle dont le pied brille d'or, en une seule tour, le plus grand en bas. Le casse-tête classique commence avec toute la tour sur la tige de gauche.
 # Un coup
 Prends le disque du dessus d'une tige et pose-le sur une autre tige, vide ou dont le disque du dessus est plus grand. Un disque ne va jamais sur un plus petit.
 # La fin de la partie
-Le casse-tête est résolu quand toute la tour se dresse sur une autre tige. Le moins de coups possible : 15 avec 4 disques, 31 avec 5, 63 avec 6, 127 avec 7 (chaque disque de plus les double, plus un). Réussie dans le moins de coups possible, toute la tour brille d'une lumière dorée.
+Le casse-tête est résolu quand tous les disques sont sur la tige d'arrivée. La tour classique demande au moins 7 coups avec 3 disques, 15 avec 4, 31 avec 5, 63 avec 6 et 127 avec 7 (chaque disque de plus les double, plus un). Réussie dans le moins de coups possible, toute la tour brille d'une lumière dorée.
+# Niveaux et étoiles
+Il y a 100 niveaux en cinq chapitres, un par nombre de disques, de 3 à 7 : les disques partent éparpillés sur les tiges, et chaque chapitre finit par la tour classique. Choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard : 4, 5, 6 ou 7 disques éparpillés et une tige d'arrivée. Le par est le moins de coups possible. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Annuler reprend un coup, qui ne compte plus.
 # Jouer sur l'appareil
 Touche une tige : son disque du dessus se soulève. Touche une autre tige : le disque y va (un disque qui n'a pas le droit d'y aller tremble et reste en l'air). Touche sa propre tige pour le reposer. Tu peux aussi faire glisser un disque d'une tige à une autre. Annuler reprend un coup à la fois, jusqu'au début. La barre montre tes coups et, à son extrémité droite, le moins de coups possible.

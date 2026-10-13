@@ -6,5 +6,7 @@ Jedes Brett entsteht, indem auf einem dunklen Brett zufällig Lampen gedrückt w
 Drücke eine Lampe: Sie schaltet um (von an zu aus oder von aus zu an), und ebenso ihre Nachbarn oben, unten, links und rechts. Die Reihenfolge deiner Züge spielt keine Rolle, und eine Lampe zweimal zu drücken ist dasselbe, wie sie nie zu drücken.
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn alle Lampen dunkel sind: Eine Welle goldenen Lichts läuft über das Brett. Für jedes Brett sind die wenigsten möglichen Züge berechnet; schaffe es mit ebenso wenigen, wenn du kannst.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, von 3 × 3 Lampen bis 7 × 7, viele davon als Muster; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Das Par ist die kleinste Zahl an Zügen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
 Tippe eine Lampe an, um sie zu drücken. Die Lampe neben dem Brett gibt einen Tipp: Sie drückt eine Lampe des kürzesten Wegs, in goldenem Licht. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge und am rechten Ende die wenigsten möglichen ab dem Start; sie leuchtet golden, wenn du sie erreichst.

@@ -4,6 +4,6 @@ Numeroituja laattoja on ruudukolla. Työnnä ne kaikki yhteen suuntaan: kaksi sa
 # Siirto
 Työnnä ylös, alas, vasemmalle tai oikealle: jokainen laatta liukuu niin pitkälle kuin pääsee. Kaksi samaa laattaa, jotka kohtaavat, muuttuvat yhdeksi, ja sen luku lisätään pisteisiisi. Laatta yhdistyy vain kerran työnnössä. Jokaisen jotain liikuttaneen työnnön jälkeen tyhjään ruutuun ilmestyy uusi laatta, 2 tai joskus 4. Työntö, joka ei liikuttaisi mitään, ei ole sallittu.
 # Pelin loppu
-Tavoitelaatan tekeminen voittaa: loppukortti tulee esiin; napauta se piiloon ja jatka pelaamista. Peli päättyy, kun mikään työntö ei enää liikuta mitään; pisteesi poltetaan laattaan ruudukon alle.
+Kun teet tavoitelaatan, se syttyy kultaiseksi, ja pelaat eteenpäin. Peli päättyy, kun mikään työntö ei enää liikuta mitään: pisteesi poltetaan laattaan ruudukon alle, ja saat tähtesi: 3 tavoitelaatasta tai suuremmasta, 2 laatasta, jossa on puolet tavoitteesta, muuten 1. Tasoja ei ole: uudet laatat tulevat sattumanvaraisesti, joten kolme ruudukkoa määräävät vaikeuden.
 # Pelaaminen laitteella
 Pyyhkäise ruudukolla tai napauta yhtä sen alla olevista neljästä nuolesta (tietokoneella myös nuolinäppäimet toimivat). Nuoli on himmennetty, kun se työntö ei liikuttaisi mitään. Lamppu antaa vihjeen: hyvän työnnön, sen nuolen kultaisena. Kumoa peruu yhden työnnön kerrallaan, aina alkuun asti; myös uudet laatat, joten sama työntö tuo saman laatan. Palkki näyttää pisteesi ja oikeassa päässä tämän istunnon parhaan tuloksen tällä ruudukolla.

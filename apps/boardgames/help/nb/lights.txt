@@ -6,5 +6,7 @@ Hvert brett lages ved å trykke tilfeldig på lamper på et mørkt brett, så de
 Trykk på en lampe: den skifter (fra tent til mørk, eller fra mørk til tent), og det gjør også naboene over, under, til venstre og til høyre. Rekkefølgen på trykkene spiller ingen rolle, og å trykke to ganger på en lampe er det samme som aldri å trykke på den.
 # Slutten på spillet
 Oppgaven er løst når hver lampe er mørk: en bølge av gyllent lys går over brettet. Færrest mulige trykk er regnet ut for hvert brett; klar det samme om du kan.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 3 × 3 lamper opp til 7 × 7, mange av dem i mønstre; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Par er færrest mulige trykk. Løst på par: 3 stjerner; med opptil halvparten så mange trykk til: 2 stjerner; ellers 1. Angre tar tilbake et trykk, og det teller ikke lenger.
 # Spill på enheten
 Trykk på en lampe for å trykke den inn. Lampen ved siden av brettet gir et hint: den trykker på én lampe på den korteste veien, i gyllent lys. Angre tar tilbake ett trykk om gangen, helt til starten. Linjen viser trykkene dine og, ytterst til høyre, færrest mulige fra starten; den gløder gyllent når du klarer det.

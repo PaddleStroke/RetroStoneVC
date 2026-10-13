@@ -8,5 +8,7 @@ En grupp är två eller fler plattor av samma färg som ligger kant i kant (inte
 En grupp med n plattor ger (n - 2) × (n - 2) poäng: 2 plattor ger 0, 3 ger 1, 4 ger 4, 5 ger 9, 10 ger 64. Stora grupper ger mycket mer, så låt plattorna av en färg samlas innan du tar dem. Tömmer du hela brickan får du 1000 poäng extra.
 # Partiets slut
 Partiet slutar när ingen grupp finns kvar. En tömd bricka lyser upp i guld. Hur det än går visas din slutpoäng på en mässingsskylt.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 6 × 6 plattor i 3 färger upp till 20 × 12 i 5; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Varje bricka har ett mål: nio tiondelar av den bästa poäng datorn hittade för den. Målet nått: 3 stjärnor; hälften, eller en bricka som nästan är tömd (högst en tiondel av plattorna kvar): 2 stjärnor; mindre: 1 stjärna. Slutkortet visar dina poäng bredvid målet.
 # Spela på enheten
 Tryck på en grupp: den får en guldkant, de andra plattorna mörknar och dess poäng visas ovanför. Tryck på den igen för att ta bort den, eller tryck på en annan grupp i stället. Varje färg har också ett litet tecken. Lampan i listen ger en ledtråd: den väljer en grupp att ta bort, som blinkar i guld (så länge brickan fortfarande kan tömmas visar den en väg till att tömma den); tryck på gruppen för att ta bort den. Ångra tar tillbaka ett drag i taget, ända till början. Listen visar dina poäng.

@@ -1,9 +1,11 @@
 Hanojské věže
 # Cíl hry
-Na levém kolíku stojí věž z kotoučů, největší dole. Přenes celou věž na jiný kolík: prostřední nebo pravý. Nejprve zvol počet kotoučů: 4, 5, 6 nebo 7.
+Kotouče různých velikostí stojí na třech kolících, nikdy kotouč na menším. Sesbírej je všechny na cílový kolík, ten, jehož pata září zlatě, do jedné věže s největším dole. Klasický hlavolam začíná celou věží na levém kolíku.
 # Tah
 Vezmi horní kotouč z kolíku a polož ho na jiný kolík, prázdný nebo s větším kotoučem nahoře. Kotouč nikdy nesmí na menší.
 # Konec hry
-Hlavolam je vyřešený, když celá věž stojí na jiném kolíku. Nejmenší možný počet tahů: 15 se 4 kotouči, 31 s 5, 63 s 6, 127 se 7 (každý kotouč navíc ho zdvojnásobí a přidá jeden). Zvládneš-li to nejmenším počtem tahů, celá věž se rozzáří zlatem.
+Hlavolam je vyřešený, když všechny kotouče stojí na cílovém kolíku. Klasická věž vyžaduje nejméně 7 tahů se 3 kotouči, 15 se 4, 31 s 5, 63 s 6 a 127 se 7 (každý kotouč navíc je zdvojnásobí a přidá jeden). Zvládneš-li to nejmenším počtem tahů, celá věž se rozzáří zlatem.
+# Úrovně a hvězdy
+Úrovní je 100 v pěti kapitolách, jedna pro každý počet kotoučů od 3 do 7: kotouče jsou zpočátku rozházené po kolících a každá kapitola končí klasickou věží. Vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně: 4, 5, 6 nebo 7 náhodně rozházených kotoučů a cílový kolík. Par je nejmenší počet tahů. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Zpět vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
 Klepni na kolík: jeho horní kotouč se zvedne. Klepni na jiný kolík: kotouč se tam přesune (když tam nesmí, zachvěje se a zůstane nahoře). Klepnutím na jeho vlastní kolík ho položíš zpět. Kotouč můžeš také přetáhnout z kolíku na kolík. Zpět vrací jeden tah po druhém, až na začátek. Lišta ukazuje tvé tahy a na pravém konci nejmenší možný počet.

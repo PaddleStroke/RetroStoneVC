@@ -1,26 +1,13 @@
 Klotski
 # Het doel
-Tien houten blokken vullen een raam van 4 × 5 vakjes, op twee na. Breng het grote rode blok omlaag naar de opening midden in de onderrand, zodat het eruit kan schuiven. Dit is de oude Chinese puzzel Huarong Dao: het grote blok is een generaal, met zijn officieren en soldaten ingesloten in een nauwe pas.
-Kies eerst de beginstand. Ze zijn traditioneel, elk met een eigen Chinese naam:
-- Heng Dao Li Ma (een zwaard dwars gehouden, een paard ingetoomd): de klassieke, 81 zetten.
-- Jie Zu Xian Deng (wie snel ter been is, is er het eerst): 32.
-- Yi Lu Shun Feng (de hele weg wind mee): 39.
-- Yu Sheng Xi Li (het getik van de regen): 47.
-- Zuo You Bu Bing (soldaten links en rechts): 54.
-- Yi Lu Jin Jun (een leger dat in één colonne marcheert): 58.
-- Qi Tou Bing Jin (allemaal naast elkaar): 60.
-- Cha Chi Nan Fei (zelfs met vleugels geen uitweg): 62.
-- Zhi Hui Ruo Ding (kalm in het bevel): 70.
-- Tao Hua Yuan Zhong (in de perzikgaard): 70.
-- Bing Fen San Lu (de troepen splitsen zich in drieën): 72.
-- Jiang Yong Cao Ying (officieren verdringen zich in het kamp): 72.
-- Ceng Ceng She Fang (verdediging op elk niveau): 102.
-- Feng Hui Lu Zhuan (het pad slingert om de toppen): 138.
-De getallen zijn de kleinste aantallen zetten, gevonden door een computer die elke stand heeft geprobeerd.
+Houten blokken vullen een raam van 4 × 5 vakjes, op twee na: het grote rode blok, lange blokken staand of liggend, en kleine. Breng het grote blok omlaag naar de opening midden in de onderrand, zodat het eruit kan schuiven. Dit is de oude Chinese puzzel Huarong Dao: het grote blok is een generaal, met zijn officieren en soldaten ingesloten in een nauwe pas.
+Elk raam hier is voor dit spel gemaakt: de computer heeft elke stand geprobeerd die de blokken kunnen bereiken, dus het kleinste aantal zetten is altijd bekend.
 # Een zet
 Een blok schuift in lege vakjes, één vakje tegelijk, omhoog, omlaag, naar links of naar rechts; het wordt nooit opgetild. Volgens de traditie is één zet één blok dat zo ver als je wilt wordt geschoven, ook om een hoek, voordat je een ander blok aanraakt.
 # Het einde van het spel
 Staat het grote blok midden in de onderste rij, dan schuift het in gouden licht door de opening naar buiten: opgelost.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van een paar zetten tot ruim boven de honderd; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuw raam bij toeval: makkelijk, gemiddeld of moeilijk. Elk raam heeft een par: het kleinste aantal zetten dat het oplost. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
 # Spelen op het apparaat
 - Sleep een blok: het volgt je vinger vakje voor vakje.
 - Of tik op een blok. Kan het maar naar één plek, dan gaat het daarheen. Kan het naar meer plekken, dan wordt het gekozen en tonen stippen de vakjes die het kan bereiken: tik op een ervan, en het gaat erheen langs de kortste weg.

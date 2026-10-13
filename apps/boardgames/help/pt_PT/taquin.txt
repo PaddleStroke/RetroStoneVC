@@ -6,5 +6,7 @@ Todas as misturas têm solução. Metade das maneiras de misturar as peças nunc
 Uma peça ao lado do lugar vazio desliza para ele. As peças só deslizam; nunca saem da moldura.
 # O fim do jogo
 Quando cada peça está no seu lugar, o jogo está resolvido: uma luz dourada percorre as peças por ordem, e uma imagem recebe a peça que lhe faltava.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos: molduras de 3 × 3, 4 × 4 e 5 × 5, com números ou recortadas da imagem; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: o mínimo de peças movidas, encontrado pelo computador (numa moldura grande feita ao acaso, o melhor caminho que encontra num instante). Resolvido no par: 3 estrelas; com até metade mais de peças movidas: 2 estrelas; senão, 1. Anular desfaz um deslize, que deixa de contar.
 # Jogar no dispositivo
 Toca numa peça da mesma linha ou coluna do lugar vazio: ela desliza, e as peças entre ela e o lugar vazio vão com ela. Também podes empurrar uma peça com o dedo em direção ao lugar vazio: passada a metade continua, senão volta para trás. Anular desfaz um deslize de cada vez, até ao início. A barra conta as peças movidas: um deslize de três peças conta três.

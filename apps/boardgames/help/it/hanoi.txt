@@ -1,9 +1,11 @@
 Torre di Hanoi
 # Lo scopo
-Una torre di dischi sta sul piolo di sinistra, il più grande in basso. Sposta tutta la torre su un altro piolo: quello centrale o quello di destra. Scegli prima il numero di dischi: 4, 5, 6 o 7.
+Dischi di grandezze diverse stanno su tre pioli, mai un disco su uno più piccolo. Riuniscili tutti sul piolo d'arrivo, quello che brilla d'oro alla base, in un'unica torre con il più grande in basso. Il rompicapo classico comincia con tutta la torre sul piolo di sinistra.
 # Una mossa
 Prendi il disco in cima a un piolo e mettilo su un altro piolo, vuoto o con in cima un disco più grande. Un disco non va mai su uno più piccolo.
 # La fine della partita
-Il rompicapo è risolto quando tutta la torre sta su un altro piolo. Il minimo di mosse: 15 con 4 dischi, 31 con 5, 63 con 6, 127 con 7 (ogni disco in più le raddoppia, più una). Se ci riesci con il minimo, tutta la torre brilla d'oro.
+Il rompicapo è risolto quando tutti i dischi stanno sul piolo d'arrivo. La torre classica chiede almeno 7 mosse con 3 dischi, 15 con 4, 31 con 5, 63 con 6 e 127 con 7 (ogni disco in più le raddoppia, più una). Se ci riesci con il minimo, tutta la torre brilla d'oro.
+# Livelli e stelle
+Ci sono 100 livelli in cinque capitoli, uno per ogni numero di dischi da 3 a 7: i dischi partono sparsi sui pioli, e ogni capitolo finisce con la torre classica. Scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso: 4, 5, 6 o 7 dischi sparsi a caso e un piolo d'arrivo. Il par è il minimo di mosse. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Annulla toglie una mossa, che non conta più.
 # Giocare sul dispositivo
 Tocca un piolo: il suo disco in cima si solleva. Tocca un altro piolo: il disco ci va (se non può andarci, trema e resta sollevato). Tocca il suo piolo per rimetterlo giù. Puoi anche trascinare un disco da un piolo all'altro. Annulla toglie una mossa alla volta, fino all'inizio. La barra mostra le tue mosse e, all'estremità destra, il minimo possibile.

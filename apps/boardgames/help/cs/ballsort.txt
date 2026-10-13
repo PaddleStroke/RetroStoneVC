@@ -8,5 +8,7 @@ Přesuň horní kuličku ze zkumavky na kuličku stejné barvy, nebo do prázdn�
 Jednou za hlavolam smíš postavit na polici prázdnou zkumavku navíc. U paty jí zůstane mosazný kroužek, aby bylo vidět, že byla použita.
 # Konec hry
 Hlavolam je vyřešený, když každá barva zaplní vlastní zkumavku a ostatní zkumavky jsou prázdné. Každá plná zkumavka dostane zátku a pak se všechny zkumavky rozzáří zlatem.
+# Úrovně a hvězdy
+Úrovní je 150 v šesti kapitolách, od 3 barev po 12; vyber si ji v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet tahů, který ho vyřeší, jak ho našel počítač. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Zkumavka navíc omezí hlavolam na 2 hvězdy. Zpět vezme tah zpět a ten se už nepočítá.
 # Hra na zařízení
 Klepni na zkumavku: její horní kulička se zvedne. Klepni na jinou zkumavku: kulička se k ní přesune a spadne dovnitř. Když tah není dovolený, kulička se zachvěje; dalším klepnutím na její zkumavku ji vrátíš zpět. Kuličku můžeš také přetáhnout do jiné zkumavky. Každá kulička má kromě barvy i malou značku. Chceš-li použít zkumavku navíc, klepni na její místo na konci poslední police (bledá zkumavka s plusem). Lampa v liště dá nápovědu: zvedne kuličku, kterou přesunout, a rozsvítí zkumavku, kam ji dát, nebo místo zkumavky navíc. Když lampa svítí červeně, odsud už nevede žádná cesta ven: vezmi pár tahů zpět. Zpět vrací jeden tah po druhém, až na začátek, i zkumavku navíc. Lišta počítá tvé tahy.

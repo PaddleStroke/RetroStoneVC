@@ -1,26 +1,13 @@
 Klotski
 # O objetivo
-Dez blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas. Leve o grande bloco vermelho até a abertura no meio da borda de baixo, para que ele possa deslizar para fora. Este é o antigo quebra-cabeça chinês Huarong Dao: o grande bloco é um general, preso com seus oficiais e soldados numa passagem estreita.
-Escolha primeiro a posição inicial. Todas são tradicionais, cada uma com seu nome chinês:
-- Heng Dao Li Ma (uma espada atravessada, um cavalo de rédea curta): a clássica, 81 jogadas.
-- Jie Zu Xian Deng (o pé ligeiro chega primeiro): 32.
-- Yi Lu Shun Feng (vento a favor o caminho todo): 39.
-- Yu Sheng Xi Li (o tamborilar da chuva): 47.
-- Zuo You Bu Bing (soldados à esquerda e à direita): 54.
-- Yi Lu Jin Jun (um exército marchando em uma só coluna): 58.
-- Qi Tou Bing Jin (todos lado a lado): 60.
-- Cha Chi Nan Fei (mesmo com asas, não há saída): 62.
-- Zhi Hui Ruo Ding (calma no comando): 70.
-- Tao Hua Yuan Zhong (no jardim dos pessegueiros): 70.
-- Bing Fen San Lu (as tropas se dividem em três): 72.
-- Jiang Yong Cao Ying (oficiais lotando o acampamento): 72.
-- Ceng Ceng She Fang (defesas em todos os níveis): 102.
-- Feng Hui Lu Zhuan (o caminho contorna os picos): 138.
-Os números são o mínimo de jogadas, encontrado por um computador que testou todas as posições.
+Blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas: o grande bloco vermelho, blocos compridos em pé ou deitados, e blocos pequenos. Leve o grande bloco até a abertura no meio da borda de baixo, para que ele possa deslizar para fora. Este é o antigo quebra-cabeça chinês Huarong Dao: o grande bloco é um general, preso com seus oficiais e soldados numa passagem estreita.
+Cada moldura foi feita para este jogo: o computador testou todas as posições que os blocos podem alcançar, então o mínimo de jogadas é sempre conhecido.
 # Uma jogada
 Um bloco desliza para casas vazias, uma casa de cada vez, para cima, para baixo, para a esquerda ou para a direita; ele nunca é levantado. Como manda a tradição, uma jogada é um bloco deslizado até onde você quiser, mesmo virando uma esquina, antes de você tocar em outro bloco.
 # O fim da partida
 Quando o grande bloco está no meio da linha de baixo, ele desliza para fora pela abertura, em luz dourada: resolvido.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de poucas jogadas a bem mais de cem; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria uma nova moldura ao acaso: fácil, média ou difícil. Cada moldura tem um par: o mínimo de jogadas que a resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Desfazer volta uma jogada, que deixa de contar.
 # Jogando no aparelho
 - Arraste um bloco: ele segue o seu dedo casa por casa.
 - Ou toque num bloco. Se ele só tiver um lugar para ir, vai para lá. Se tiver mais, fica selecionado e pontos mostram as casas que ele pode alcançar: toque numa delas, e ele vai até lá pelo caminho mais curto.

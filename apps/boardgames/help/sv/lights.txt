@@ -6,5 +6,7 @@ Varje bräde skapas genom att trycka på slumpvisa lampor på ett mörkt bräde,
 Tryck på en lampa: den växlar (tänd blir släckt, släckt blir tänd), och det gör även dess grannar ovanför, under, till vänster och till höger. Ordningen på dina tryck spelar ingen roll, och att trycka två gånger på en lampa är detsamma som att aldrig trycka på den.
 # Partiets slut
 Pusslet är löst när alla lampor är släckta: en våg av gyllene ljus sveper över brädet. Det minsta möjliga antalet tryck är uträknat för varje bräde; försök att klara det.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från 3 × 3 lampor upp till 7 × 7, många av dem i mönster; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Par är det minsta antalet tryck. Löst på par: 3 stjärnor; med upp till hälften så många tryck till: 2 stjärnor; annars 1. Ångra tar tillbaka ett tryck, och det räknas inte längre.
 # Spela på enheten
 Tryck på en lampa för att trycka ned den. Lampan bredvid brädet ger en ledtråd: den trycker på en lampa i den kortaste vägen, i gyllene ljus. Ångra tar tillbaka ett tryck i taget, ända till början. Listen visar dina tryck och, längst till höger, minsta möjliga antal från början; det lyser guld när du når det.

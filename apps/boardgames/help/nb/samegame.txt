@@ -8,5 +8,7 @@ En gruppe er to eller flere brikker i samme farge som ligger inntil hverandre si
 En gruppe på n brikker gir (n - 2) × (n - 2) poeng: 2 brikker gir 0, 3 gir 1, 4 gir 4, 5 gir 9, 10 gir 64. Store grupper gir mye mer, så la brikkene i én farge samle seg før du tar dem. Tømmer du hele brettet, får du 1000 poeng ekstra.
 # Slutten på spillet
 Spillet slutter når det ikke er noen grupper igjen. Et tømt brett lyser opp i gull. Uansett står sluttpoengsummen din på en messingplate.
+# Brett og stjerner
+Det er 150 brett i seks kapitler, fra 6 × 6 brikker i 3 farger opp til 20 × 12 i 5; velg et i brettoversikten. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hvert brett har et mål: ni tideler av den beste poengsummen datamaskinen fant for det. Målet nådd: 3 stjerner; halvparten, eller et brett som nesten er tømt (høyst en tidel av brikkene igjen): 2 stjerner; mindre: 1 stjerne. Sluttkortet viser poengene dine ved siden av målet.
 # Spill på enheten
 Trykk på en gruppe: den får en gyllen kant, de andre brikkene blir mørkere, og poengene dens vises over den. Trykk på den igjen for å fjerne den, eller trykk heller på en annen gruppe. Hver farge har også et lite tegn. Lampen i linjen gir et hint: den velger en gruppe å fjerne, som blinker i gull (så lenge brettet fortsatt kan tømmes, viser den en vei til å tømme det); trykk på gruppen for å fjerne den. Angre tar tilbake ett trekk om gangen, helt til starten. Linjen viser poengene dine.

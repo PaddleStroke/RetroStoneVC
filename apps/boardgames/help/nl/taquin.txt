@@ -6,5 +6,7 @@ Elke schudding is op te lossen. De helft van alle manieren om de tegeltjes te me
 Een tegeltje naast de vrije plek schuift erin. Tegeltjes schuiven alleen; ze worden nooit uit het raam gehaald.
 # Het einde van het spel
 Ligt elk tegeltje op zijn plek, dan is de puzzel opgelost: een gouden licht gaat op volgorde over de tegeltjes, en een plaatje krijgt zijn ontbrekende stukje.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken: ramen van 3 × 3, 4 × 4 en 5 × 5, met getallen of uit het plaatje gesneden; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal verschoven tegeltjes, gevonden door de computer (bij een groot raam bij toeval de beste weg die hij in een oogwenk vindt). Opgelost op par: 3 sterren; met tot de helft meer verschoven tegeltjes: 2 sterren; anders 1. Ongedaan maken neemt een schuif terug, die dan niet meer telt.
 # Spelen op het apparaat
 Tik op een tegeltje in dezelfde rij of kolom als de vrije plek: het schuift, en de tegeltjes ertussen schuiven mee. Je kunt een tegeltje ook met je vinger naar de vrije plek duwen: voorbij de helft gaat het door, anders valt het terug. Ongedaan maken neemt één schuif tegelijk terug, helemaal tot het begin. De balk telt de verschoven tegeltjes: een schuif van drie tegeltjes telt drie.

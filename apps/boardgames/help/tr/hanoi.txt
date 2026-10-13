@@ -1,9 +1,11 @@
 Hanoi Kuleleri
 # Amaç
-Sol çubukta, en büyüğü altta olmak üzere disklerden bir kule durur. Bütün kuleyi başka bir çubuğa taşı: ortadakine ya da sağdakine. Önce disk sayısını seç: 4, 5, 6 ya da 7.
+Farklı boylarda diskler üç çubukta durur, hiçbir disk daha küçüğünün üstünde olmaz. Hepsini, dibi altın gibi parlayan hedef çubukta, en büyüğü altta olan tek bir kulede topla. Klasik bulmaca bütün kulenin sol çubukta olmasıyla başlar.
 # Bir hamle
 Bir çubuğun en üstteki diskini al ve onu boş olan ya da en üstünde daha büyük bir disk bulunan başka bir çubuğa koy. Bir disk asla daha küçük bir diskin üstüne konmaz.
 # Oyunun sonu
-Bütün kule başka bir çubukta durduğunda bulmaca çözülür. Mümkün olan en az hamle: 4 diskle 15, 5 ile 31, 6 ile 63, 7 ile 127 (her fazla disk bu sayıyı ikiye katlar, bir ekler). En az hamlede başarırsan bütün kule altın gibi parlar.
+Bütün diskler hedef çubukta durduğunda bulmaca çözülür. Klasik kule en az şu kadar hamle ister: 3 diskle 7, 4 ile 15, 5 ile 31, 6 ile 63 ve 7 ile 127 (her fazla disk bu sayıyı ikiye katlar, bir ekler). En az hamlede başarırsan bütün kule altın gibi parlar.
+# Seviyeler ve yıldızlar
+Beş bölümde 100 seviye var, 3 ile 7 arasındaki her disk sayısı için bir bölüm: diskler başta çubuklara dağılmış durur ve her bölüm klasik kuleyle biter. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir bulmaca yapar: rastgele dağılmış 4, 5, 6 ya da 7 disk ve bir hedef çubuk. Par, en az hamle sayısıdır. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
 # Cihazda oynamak
 Bir çubuğa dokun: en üstteki diski kalkar. Başka bir çubuğa dokun: disk oraya gider (oraya gidemiyorsa titrer ve havada kalır). Geri indirmek için kendi çubuğuna dokun. Bir diski bir çubuktan diğerine sürükleyebilirsin de. Geri al her seferinde bir hamleyi geri alır, en başa kadar. Çubuk hamlelerini ve sağ ucunda mümkün olan en azı gösterir.

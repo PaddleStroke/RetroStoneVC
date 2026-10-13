@@ -1,26 +1,13 @@
 Klotski
 # The aim
-Ten wooden blocks fill a tray of 4 × 5 cells, all but two. Bring the great red block down to the opening in the middle of the bottom edge, so it can slide out. This is the old Chinese puzzle Huarong Dao: the great block is a general, trapped with his officers and soldiers in a narrow pass.
-Choose the start first. They are traditional, each with its Chinese name:
-- Heng Dao Li Ma (a sword held across, a horse reined in): the classic, 81 moves.
-- Jie Zu Xian Deng (the quick foot gets there first): 32.
-- Yi Lu Shun Feng (a fair wind all the way): 39.
-- Yu Sheng Xi Li (the patter of rain): 47.
-- Zuo You Bu Bing (soldiers on left and right): 54.
-- Yi Lu Jin Jun (an army marching in one column): 58.
-- Qi Tou Bing Jin (all abreast): 60.
-- Cha Chi Nan Fei (even with wings, no way out): 62.
-- Zhi Hui Ruo Ding (calm in command): 70.
-- Tao Hua Yuan Zhong (in the peach garden): 70.
-- Bing Fen San Lu (the troops split three ways): 72.
-- Jiang Yong Cao Ying (officers crowding the camp): 72.
-- Ceng Ceng She Fang (defences on every level): 102.
-- Feng Hui Lu Zhuan (the path winds round the peaks): 138.
-The numbers are the fewest moves, found by a computer trying every position.
+Wooden blocks fill a tray of 4 × 5 cells, all but two: the great red block, long blocks standing or lying, and small ones. Bring the great block down to the opening in the middle of the bottom edge, so it can slide out. This is the old Chinese puzzle Huarong Dao: the great block is a general, trapped with his officers and soldiers in a narrow pass.
+Every tray here was made for this game: the computer tried every position its blocks can reach, so the fewest moves are always known.
 # A move
 A block slides into empty cells, one cell at a time, up, down, left or right; it is never lifted. As the tradition counts, one move is one block slid as far as you like, even round a corner, before you touch another block.
 # The end of the game
 When the great block stands in the middle of the bottom row, it slides out through the opening in gold light: solved.
+# Levels and stars
+There are 150 levels in six chapters, from a few moves to well over a hundred; choose one on the level screen. The die tab after the chapters makes a new tray at random: easy, medium or hard. Each tray has a par: the fewest moves that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. Undo takes a move back, and it no longer counts.
 # Playing on the device
 - Drag a block: it follows your finger cell by cell.
 - Or tap a block. If it has only one place to go, it goes there. If it has more, it is picked and dots show the cells it can reach: tap one, and it goes there by the shortest way.

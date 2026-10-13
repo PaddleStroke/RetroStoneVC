@@ -4,6 +4,6 @@ Nummererte brikker ligger på et rutenett. Skyv alle én vei: to like brikker so
 # Et trekk
 Skyv opp, ned, til venstre eller til høyre: hver brikke glir så langt den kan. To like brikker som møtes, blir én, og tallet legges til poengene dine. En brikke slås bare sammen én gang per skyv. Etter hvert skyv som flyttet noe, dukker det opp en ny brikke på en tom rute, en 2 eller av og til en 4. Et skyv som ikke flytter noe, er ikke lov.
 # Slutten på spillet
-Å lage målbrikken vinner: sluttkortet vises; trykk for å skjule det og spille videre. Spillet er over når ingen skyv flytter noe lenger; poengene dine brennes inn i en plate under rutenettet.
+Lager du målbrikken, lyser den opp i gull, og du spiller videre. Spillet er over når ingen skyv flytter noe lenger: poengene dine brennes inn i en plate under rutenettet, og du får stjernene dine: 3 for målbrikken eller mer, 2 for en brikke på halvparten av målet, ellers 1. Det finnes ingen brett: de nye brikkene kommer tilfeldig, så det er de tre rutenettene som gir vanskelighetsgraden.
 # Spill på enheten
 Sveip på rutenettet eller trykk på en av de fire pilene under det (på en datamaskin virker piltastene også). En pil er dempet når det skyvet ikke ville flyttet noe. Lampen gir et hint: et godt skyv, med pilen i gull. Angre tar tilbake ett skyv om gangen, helt til starten; også de nye brikkene, så samme skyv gir samme brikke igjen. Linjen viser poengene dine og, ytterst til høyre, den beste poengsummen i denne økten for dette rutenettet.

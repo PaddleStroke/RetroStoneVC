@@ -6,5 +6,7 @@ Ogni mescolata ha una soluzione. La metà dei modi di mescolare le tessere non p
 Una tessera accanto al posto vuoto scivola dentro. Le tessere scorrono soltanto; non si tolgono mai dalla cornice.
 # La fine della partita
 Quando ogni tessera è al suo posto, il gioco è risolto: una luce dorata percorre le tessere in ordine, e un'immagine ritrova il pezzo mancante.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli: cornici di 3 × 3, 4 × 4 e 5 × 5, con i numeri o ritagliate dall'immagine; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di tessere mosse, trovato dal computer (su una cornice grande fatta a caso, il miglior percorso che trova in un attimo). Risolto al par: 3 stelle; con fino a metà tessere mosse in più: 2 stelle; altrimenti 1. Annulla toglie uno scorrimento, che non conta più.
 # Giocare sul dispositivo
 Tocca una tessera nella stessa riga o colonna del posto vuoto: scorre, e le tessere fra lei e il posto vuoto si muovono con lei. Puoi anche spingere una tessera col dito verso il posto vuoto: oltre metà strada prosegue, altrimenti torna indietro. Annulla toglie uno scorrimento alla volta, fino all'inizio. La barra conta le tessere mosse: uno scorrimento di tre tessere conta tre.

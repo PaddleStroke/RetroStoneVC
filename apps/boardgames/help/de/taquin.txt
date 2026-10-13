@@ -6,5 +6,7 @@ Jede Mischung ist lösbar. Die Hälfte aller Arten, die Plättchen zu mischen, l
 Ein Plättchen neben dem freien Platz gleitet hinein. Plättchen werden nur geschoben, nie herausgenommen.
 # Das Ende der Partie
 Liegt jedes Plättchen an seinem Platz, ist das Rätsel gelöst: Ein goldenes Licht läuft der Reihe nach über die Plättchen, und ein Bild bekommt sein fehlendes Stück.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln: Rahmen von 3 × 3, 4 × 4 und 5 × 5, mit Zahlen oder aus dem Bild geschnitten; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten bewegten Plättchen, vom Computer gefunden (bei einem großen zufälligen Rahmen der beste Weg, den er in einem Augenblick findet). Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen bewegten Plättchen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Schub zurück, und er zählt nicht mehr.
 # Spielen auf dem Gerät
 Tippe ein Plättchen in derselben Zeile oder Spalte wie der freie Platz an: Es gleitet, und die Plättchen zwischen ihm und dem freien Platz gleiten mit. Du kannst ein Plättchen auch mit dem Finger zum freien Platz schieben: Über die Hälfte hinaus gleitet es weiter, sonst fällt es zurück. Rückgängig nimmt einen Schub nach dem anderen zurück, bis zum Anfang. Die Leiste zählt die bewegten Plättchen: Ein Schub von drei Plättchen zählt drei.

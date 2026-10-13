@@ -6,6 +6,8 @@ Setiap teka-teki baru dan selalu bisa diselesaikan. Par-nya, jumlah dorongan pal
 Dorong keping ke atas, ke bawah, ke kiri, atau ke kanan. Di atas es keping tidak berhenti sendiri: ia meluncur sampai sebuah batu atau tepi es menghentikannya. Jika di tengah jalan ia melewati lubang, ia jatuh ke dalamnya.
 # Akhir permainan
 Teka-teki selesai saat keping jatuh ke dalam lubang. Jika selesai tepat dalam par, cahaya emas berlari di atas es.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari es 5 × 5 kotak sampai 10 × 9; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Par adalah jumlah dorongan paling sedikit. Selesai tepat par: 3 bintang; dengan tambahan dorongan paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu dorongan, dan dorongan itu tidak dihitung lagi.
 # Bermain di perangkat
 Usap es ke arah yang kamu mau, ketuk kotak di baris atau kolom keping, atau ketuk salah satu dari empat panah di bawah papan (di komputer, tombol panah juga bisa). Panah meredup jika keping tidak bisa bergerak ke arah itu.
 Lampu memberi petunjuk: dorongan berikutnya dari jalan terpendek, panahnya bercahaya emas dan lintasannya bertitik emas. Jika lubang tidak bisa dicapai lagi, petunjuk lebih dulu membatalkan dorongan yang membawa ke sana. Urungkan membatalkan satu dorongan setiap kali, sampai ke awal. Bilah menunjukkan doronganmu dan, di ujung kanannya, par.

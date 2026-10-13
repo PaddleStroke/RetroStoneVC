@@ -6,5 +6,7 @@ Elk bord wordt gemaakt door willekeurig op lampen van een donker bord te drukken
 Druk op een lamp: hij springt om (van brandend naar donker, of van donker naar brandend), en zijn buren boven, onder, links en rechts ook. De volgorde waarin je drukt doet er niet toe, en twee keer op een lamp drukken is hetzelfde als er nooit op drukken.
 # Het einde van het spel
 De puzzel is opgelost als elke lamp donker is: een golf van gouden licht gaat over het bord. Voor elk bord is uitgerekend hoe vaak je minstens moet drukken; evenaar dat als het lukt.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van 3 × 3 lampen tot 7 × 7, veel ervan in patronen; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Het par is hoe vaak je minstens moet drukken. Opgelost op par: 3 sterren; met tot de helft meer keren drukken: 2 sterren; anders 1. Ongedaan maken neemt een druk terug, die dan niet meer telt.
 # Spelen op het apparaat
 Tik op een lamp om erop te drukken. De lamp naast het bord geeft een hint: hij drukt op één lamp van de kortste weg, in gouden licht. Ongedaan maken neemt één druk tegelijk terug, helemaal tot het begin. De balk toont hoe vaak je hebt gedrukt en, aan het rechtereinde, het kleinste mogelijke aantal vanaf het begin; hij gloeit goud als je dat evenaart.

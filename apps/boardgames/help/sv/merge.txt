@@ -4,6 +4,6 @@ Numrerade brickor ligger på ett rutnät. Skjut alla åt ett håll: två lika br
 # Ett drag
 Skjut uppåt, nedåt, åt vänster eller åt höger: varje bricka glider så långt den kan. Två lika brickor som möts blir en, och dess tal läggs till dina poäng. En bricka slås bara ihop en gång per skjut. Efter varje skjut som flyttade något dyker en ny bricka upp på en tom ruta, en 2:a eller ibland en 4:a. Ett skjut som inte flyttar något är inte tillåtet.
 # Partiets slut
-Att göra målbrickan vinner: slutkortet visas; tryck för att dölja det och spela vidare. Partiet är slut när inget skjut flyttar något längre; dina poäng bränns in i en skylt under rutnätet.
+Gör du målbrickan lyser den upp i guld, och du spelar vidare. Partiet är slut när inget skjut flyttar något längre: dina poäng bränns in i en skylt under rutnätet, och du får dina stjärnor: 3 för målbrickan eller mer, 2 för en bricka på halva målet, annars 1. Det finns inga banor: de nya brickorna kommer på slump, så det är de tre rutnäten som ger svårighetsgraden.
 # Spela på enheten
 Svep på rutnätet eller tryck på en av de fyra pilarna under det (på en dator fungerar piltangenterna också). En pil är nedtonad när det skjutet inte skulle flytta något. Lampan ger en ledtråd: ett bra skjut, dess pil i guld. Ångra tar tillbaka ett skjut i taget, ända till början; även de nya brickorna, så samma skjut ger samma bricka igen. Listen visar dina poäng och, längst till höger, bästa poängen under den här sessionen för det här rutnätet.

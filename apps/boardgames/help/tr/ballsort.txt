@@ -8,5 +8,7 @@ Bir tüpün en üstteki topunu, tüpte yer varsa, aynı renkten bir topun üstü
 Her bulmacada bir kez rafa fazladan boş bir tüp koyabilirsin. Kullanıldığı belli olsun diye dibinde pirinç bir halka kalır.
 # Oyunun sonu
 Her renk kendine ait bir tüpü doldurduğunda ve öbür tüpler boş olduğunda bulmaca çözülür. Her dolu tüpe bir mantar tıpa takılır, sonra bütün tüpler altın gibi parlar.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; 3 renkten 12 renge kadar uzanıyorlar. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az hamle sayısı, bilgisayarın bulduğu. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Ek tüp bulmacayı en fazla 2 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
 # Cihazda oynamak
 Bir tüpe dokun: en üstteki topu yükselir. Başka bir tüpe dokun: top oraya kayar ve içine düşer. İzin verilmeyen bir hamlede top titrer; geri koymak için tüpüne yeniden dokun. Bir topu başka bir tüpe sürükleyebilirsin de. Her topun renginin yanı sıra küçük bir işareti de vardır. Ek tüpü kullanmak için son rafın ucundaki yerine dokun (artı işaretli soluk bir tüp). Çubuktaki lamba bir ipucu verir: taşınacak topu kaldırır ve gideceği tüpü ya da ek tüpün yerini aydınlatır. Lamba kırmızı yanıyorsa buradan artık çıkış yoktur: birkaç hamleyi geri al. Geri al her seferinde bir hamleyi geri alır, en başa kadar; ek tüpü de. Çubuk hamlelerini sayar.
