@@ -294,6 +294,18 @@ static int script(const char *s)
     return ok;
 }
 
+/* the bot (nainjaune_bot.c): the game read-only, and one action of the notation played as a tap plays it */
+const njgame *nainjaune_live(void) { return &G; }
+
+int nainjaune_show(const char *move)
+{
+    static njgame t;
+    t = G;
+    if (!move[0] || strchr(".#", move[0]) || !nj_script(&t, move) || t.n != G.n + 1) return 0;
+    act(t.act[G.n]);
+    return 1;
+}
+
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* the board: the plank in its frame, five round wells sunk in it (the middle one in a brass ring) */
 static void board_pic(int n, uint8_t *o)

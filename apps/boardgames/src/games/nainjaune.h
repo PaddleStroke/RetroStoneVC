@@ -83,4 +83,8 @@ int  nj_cards_each(int players);
 int  nj_deals(int players);                     /* the deals in a game */
 int  nj_script(njgame *g, const char *moves);   /* 0: an action is bad */
 
+/* the screen's game (nainjaune.c), for its bot (nainjaune_bot.c) */
+const njgame *nainjaune_live(void);             /* read-only: the bot copies it at entry */
+int nainjaune_show(const char *move);           /* main thread: one action of the notation, as a tap plays it */
+
 #endif
