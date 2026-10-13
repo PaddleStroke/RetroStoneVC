@@ -80,4 +80,10 @@ int  ludo_undo(lgame *g);                       /* back to the last move's choic
 int  ludo_home(const lpos *p, int player);      /* the player's tokens home */
 int  ludo_script(lgame *g, const char *moves);  /* plays throws and moves in the notation above; 0: one is bad */
 
+/* the bot (ludo_bot.c, bots.h) */
+const lgame *ludo_live(void);           /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as a tap does (animated): "roll" throws the die (the game's own), a letter moves that
+ * token; 0: not now, or not legal */
+int  ludo_show(const char *move);
+
 #endif

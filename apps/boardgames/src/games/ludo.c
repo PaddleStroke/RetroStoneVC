@@ -206,6 +206,23 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (ludo_bot.c) ---------------------------------------------------------------------------------------- */
+const lgame *ludo_live(void) { return &G; }
+
+int ludo_show(const char *move)
+{
+    if (busy()) return 0;
+    if (!strcmp(move, "roll")) {
+        if (G.pos.phase != LUDO_THROW) return 0;
+        throw_die();
+        return 1;
+    }
+    int t = move[0] - 'a';
+    if (move[0] < 'a' || move[1] || G.pos.phase != LUDO_MOVE || ludo_dest(&G.pos, t) < 0) return 0;
+    play(t, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the bare plank again inside a rounded rectangle (a yard's inner square) */
 static void wood_back(uint8_t *o, const uint8_t *wood, int n, int x, int y, int w, int h, float rad)
