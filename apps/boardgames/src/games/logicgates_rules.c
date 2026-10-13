@@ -1,7 +1,8 @@
 /*
  * Logic Gates: the rules (logicgates.h): the levels read from their text, the drawing's tracks, the values, the
- * solver (every setting tried), the moves and undo, the hint, the notation, and the generator that helped make the
- * levels (logicgates_levels.h).
+ * solver (every setting tried), the moves and undo, the hint, the notation; every setting at once (a bit each) to
+ * rate a level and tell two apart; the generator that makes the levels (tools/logicgates_gen.c) and the die tab's
+ * puzzles.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -12,6 +13,7 @@
 
 #include "games/logicgates.h"
 #include "games/logicgates_levels.h"
+#include "games/puzrand.h"
 
 static const char *const KIND_NAME[LG_KINDS] = {"s", "NOT", "AND", "OR", "XOR", "NAND", "NOR", "y", "L", "A"};
 
@@ -85,7 +87,8 @@ static int ins_of(int kind, int n)
 
 static int nports(int kind) { return kind == LG_ROUTE ? 2 : kind == LG_LAMP || kind == LG_ALARM ? 0 : 1; }
 
-int lg_parse(const char *src, lg_level *L, char *err, int errsize)
+/* the level from its text; its drawing too when `draw` */
+static int parse(const char *src, lg_level *L, char *err, int errsize, int draw)
 {
     static lg_tok T[LG_NODES];
     int nt = 0, limit = -1;
@@ -205,12 +208,14 @@ int lg_parse(const char *src, lg_level *L, char *err, int errsize)
         L->depth[i] = d;
         if (d > L->maxdepth) L->maxdepth = d;
     }
-    if (!lg_route(L)) {
+    if (draw && !lg_route(L)) {
         lg_check(L, err, errsize);
         return 0;
     }
     return 1;
 }
+
+int lg_parse(const char *src, lg_level *L, char *err, int errsize) { return parse(src, L, err, errsize, 1); }
 
 /* ---- the drawing ------------------------------------------------------------------------------------------------- */
 /* Laid out from the circuit alone (the cells in the text only name the parts).
@@ -1000,16 +1005,6 @@ int lg_route(lg_level *L)
     return lg_check(L, NULL, 0);
 }
 
-static uint32_t mix(uint32_t x)
-{
-    x ^= x >> 16;
-    x *= 0x7feb352dU;
-    x ^= x >> 15;
-    x *= 0x846ca68bU;
-    x ^= x >> 16;
-    return x;
-}
-
 /* ---- the values -------------------------------------------------------------------------------------------------- */
 int lg_eval(const lg_level *L, const uint8_t *val, const uint8_t *cut, uint8_t out[][2], uint8_t *wsrc,
             uint8_t *wend)
@@ -1223,231 +1218,594 @@ int lg_script(lg_game *g, const char *s)
     return 1;
 }
 
-/* ---- the generator ----------------------------------------------------------------------------------------------- */
-typedef struct {
-    int kind, col, row, nin, alive, init, locked;
-    int src[3], port[3], cut[3];
-    int used[2];
-} gnode;
 
-static uint32_t next(uint32_t *s)
+/* ---- a level as text --------------------------------------------------------------------------------------------- */
+static int put(char *out, int size, int len, const char *fmt, ...)
 {
-    *s ^= *s << 13;
-    *s ^= *s >> 17;
-    *s ^= *s << 5;
-    return *s;
+    va_list ap;
+    va_start(ap, fmt);
+    int n = vsnprintf(out + len, (size_t)(size > len ? size - len : 0), fmt, ap);
+    va_end(ap);
+    return len + (n > 0 ? n : 0);
 }
-static int rn(uint32_t *s, int n) { return n > 0 ? (int)(next(s) % (uint32_t)n) : 0; }
 
-/* the trunk of (node, port) can rise to the gap under row r: nothing on its column in between */
-static int clear_up(gnode *N, int occ[LG_COLS][LG_ROWS], int f, int r)
+int lg_text(const lg_level *L, char *out, int size)
 {
-    for (int rr = N[f].row + 1; rr < r; rr++)
-        if (occ[N[f].col][rr] >= 0) return 0;
+    int len = 0;
+    if (size < 1) return 0;
+    out[0] = 0;
+    if (L->cut_limit < L->ncut) len = put(out, size, len, "%%%d", L->cut_limit);
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        const char *name = N->kind == LG_SWITCH ? (N->locked ? (N->init ? "K" : "k") : N->init ? "S" : "s")
+                         : N->kind == LG_ROUTE ? (N->init ? "Y" : "y") : KIND_NAME[N->kind];
+        len = put(out, size, len, "%s%s@%c%d", len ? " " : "", name, 'a' + N->col, N->row + 1);
+        for (int k = 0; k < N->nin; k++) {
+            const lg_wire *W = &L->w[N->in[k]];
+            const lg_node *F = &L->n[W->from];
+            len = put(out, size, len, "%c%c%d%s%s", k ? ',' : '(', 'a' + F->col, F->row + 1,
+                      W->port == 1 ? "<" : W->port == 2 ? ">" : "", W->cuttable ? "x" : "");
+        }
+        if (N->nin) len = put(out, size, len, ")");
+    }
+    return len < size;
+}
+
+/* ---- every setting at once: a signal's value in each setting of the variables, a bit each --------------------------
+ * Setting m (0 .. 2^nvar - 1): variable v (lg_mask's order) is bit v of m. */
+#define BV_VARS 14
+#define BW (1 << (BV_VARS - 6))                 /* words: 2^14 settings */
+
+static struct {
+    int nv, nw;                                 /* the variables; the words used */
+    uint64_t last;                              /* the settings in a word (fewer than 64 settings: not all) */
+    int vnode[LG_NODES], vwire[LG_WIRES];       /* a switch's or route switch's variable, a fuse's (-1: none) */
+    uint32_t cuts;                              /* the fuses' variables */
+    uint64_t out[LG_NODES][2][BW];
+    uint64_t ok[BW], lit[BW], valid[BW];        /* solved; every lamp lit (alarms or not); within the cuts allowed */
+} bv;
+
+static uint64_t var_word(int v, int wi)
+{
+    static const uint64_t P[6] = {0xAAAAAAAAAAAAAAAAull, 0xCCCCCCCCCCCCCCCCull, 0xF0F0F0F0F0F0F0F0ull,
+                                  0xFF00FF00FF00FF00ull, 0xFFFF0000FFFF0000ull, 0xFFFFFFFF00000000ull};
+    return v < 6 ? P[v] : (wi >> (v - 6) & 1) ? ~0ull : 0;
+}
+
+static int bit(const uint64_t *b, uint32_t m) { return (int)(b[m >> 6] >> (m & 63) & 1); }
+
+static int ctz64(uint64_t x)
+{
+    int n = 0;
+    while (!(x & 1)) { x >>= 1; n++; }
+    return n;
+}
+
+static int popc(uint64_t x)
+{
+    int n = 0;
+    for (; x; x &= x - 1) n++;
+    return n;
+}
+
+static int bv_setup(const lg_level *L)
+{
+    if (L->nvar > BV_VARS) return 0;
+    bv.nv = L->nvar;
+    bv.nw = bv.nv > 6 ? 1 << (bv.nv - 6) : 1;
+    bv.last = bv.nv >= 6 ? ~0ull : (1ull << (1 << bv.nv)) - 1;
+    memset(bv.vnode, -1, sizeof bv.vnode);
+    memset(bv.vwire, -1, sizeof bv.vwire);
+    bv.cuts = 0;
+    for (int v = 0; v < L->nvar; v++) {
+        int i = L->var_idx[v];
+        if (L->var_kind[v] == LG_MSWITCH) bv.vnode[L->sw[i]] = v;
+        else if (L->var_kind[v] == LG_MROUTE) bv.vnode[L->rt[i]] = v;
+        else { bv.vwire[L->cut[i]] = v; bv.cuts |= 1u << v; }
+    }
+    memset(bv.valid, 0, sizeof(uint64_t) * (size_t)bv.nw);
+    for (uint32_t m = 0; m < 1u << bv.nv; m++)
+        if (bits(m & bv.cuts) <= L->cut_limit) bv.valid[m >> 6] |= 1ull << (m & 63);
     return 1;
 }
 
-static float gx(const gnode *N, int f, int port) { return N[f].col + 0.5f + out_off(port); }
-
-int lg_generate(uint32_t seed, const lg_params *p, char *out, int size)
+/* the values in every setting; `force`: a gate whose output is turned round (-1: none) */
+static void bv_eval(const lg_level *L, int force)
 {
-    uint32_t s = mix(seed * 2654435761u + 0x9e3779b9u) | 1u;
-    for (int i = 0; i < 4; i++) next(&s);
+    static uint64_t in[3][BW];
+    int nw = bv.nw;
+    for (int k = 0; k < nw; k++) bv.ok[k] = bv.lit[k] = ~0ull;
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        for (int s = 0; s < N->nin; s++) {
+            const lg_wire *W = &L->w[N->in[s]];
+            const uint64_t *src = bv.out[W->from][W->port == 2];
+            int cv = bv.vwire[N->in[s]];
+            for (int k = 0; k < nw; k++) in[s][k] = cv < 0 ? src[k] : src[k] & ~var_word(cv, k);
+        }
+        uint64_t *o = bv.out[i][0], *o2 = bv.out[i][1];
+        int v = bv.vnode[i];
+        for (int k = 0; k < nw; k++) {
+            uint64_t a = N->nin ? in[0][k] : 0, b = N->nin > 1 ? in[1][k] : 0, c = N->nin > 2 ? in[2][k] : 0, r;
+            uint64_t all = N->nin > 2 ? a & b & c : a & b;
+            switch (N->kind) {
+            case LG_SWITCH: r = v >= 0 ? var_word(v, k) : N->init ? ~0ull : 0; break;
+            case LG_NOT: r = ~a; break;
+            case LG_AND: r = all; break;
+            case LG_OR: r = a | b | c; break;
+            case LG_XOR: r = a ^ b ^ c; break;
+            case LG_NAND: r = ~all; break;
+            case LG_NOR: r = ~(a | b | c); break;
+            case LG_ROUTE: r = a & ~var_word(v, k); o2[k] = a & var_word(v, k); break;
+            case LG_LAMP: r = a; bv.ok[k] &= a; bv.lit[k] &= a; break;
+            default: r = a; bv.ok[k] &= ~a; break;   /* an alarm */
+            }
+            o[k] = i == force ? ~r : r;
+        }
+    }
+    for (int k = 0; k < nw; k++) {
+        bv.ok[k] &= bv.valid[k];
+        bv.lit[k] &= bv.valid[k];
+    }
+    bv.ok[nw - 1] &= bv.last;
+    bv.lit[nw - 1] &= bv.last;
+}
+
+/* ---- what a level is like ---------------------------------------------------------------------------------------- */
+static uint64_t hmix(uint64_t a, uint64_t b)
+{
+    uint64_t x = a * 0x9e3779b97f4a7c15ull ^ (b + 0x632be59bd9b4e019ull + (a << 6) + (a >> 2));
+    x ^= x >> 31;
+    x *= 0xbf58476d1ce4e5b9ull;
+    x ^= x >> 29;
+    x *= 0x94d049bb133111ebull;
+    return x ^ x >> 32;
+}
+
+static uint64_t hsorted(uint64_t h, uint64_t *v, int n)   /* a set's hash: its items' order means nothing */
+{
+    for (int i = 1; i < n; i++)
+        for (int j = i; j > 0 && v[j - 1] > v[j]; j--) {
+            uint64_t t = v[j];
+            v[j] = v[j - 1];
+            v[j - 1] = t;
+        }
+    h = hmix(h, (uint64_t)n);
+    for (int i = 0; i < n; i++) h = hmix(h, v[i]);
+    return h;
+}
+
+/* a port's class: an output, or a route switch's way set at the start, or its other way (exact); any way (else) */
+static uint64_t port_class(const lg_level *L, int node, int port, int exact)
+{
+    return !port ? 0 : !exact ? 1 : port - 1 == L->n[node].init ? 1 : 2;
+}
+
+/* the circuit's key: each part's hash from its kind and its inputs' (as a set), the lamps' as a set, and each signal
+ * going several ways with the parts it feeds (mode 0 exact, 1 structure, 2 shape) */
+static uint64_t circuit_key(const lg_level *L, int mode)
+{
+    uint64_t H[LG_NODES], e[2 * LG_NODES], top[LG_NODES];
+    int nt = 0, nb = 0;
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        uint64_t in[3];
+        for (int s = 0; s < N->nin; s++) {
+            const lg_wire *W = &L->w[N->in[s]];
+            in[s] = hmix(hmix(H[W->from], port_class(L, W->from, W->port, mode == 0)), W->cuttable);
+        }
+        if (N->kind == LG_SWITCH)
+            H[i] = hmix(1000, N->locked ? 2u + N->init : mode == 0 ? N->init : 0);
+        else if (N->kind >= LG_NOT && N->kind <= LG_NOR)
+            H[i] = hsorted(hmix(2000, mode == 2 ? (N->kind == LG_NOT) : (uint64_t)N->kind), in, N->nin);
+        else
+            H[i] = hsorted(hmix(3000, N->kind), in, N->nin);
+        if (N->kind == LG_LAMP || N->kind == LG_ALARM) top[nt++] = H[i];
+    }
+    for (int i = 0; i < L->nn; i++)
+        for (int p = 0; p < nports(L->n[i].kind); p++) {
+            uint64_t to[LG_WIRES];
+            int n = 0, port = L->n[i].kind == LG_ROUTE ? p + 1 : 0;
+            for (int w = 0; w < L->nw; w++)
+                if (L->w[w].from == i && L->w[w].port == port) to[n++] = hmix(H[L->w[w].to], L->w[w].cuttable);
+            if (n > 1) e[nb++] = hsorted(hmix(H[i], port_class(L, i, port, mode == 0)), to, n);
+        }
+    uint64_t h = hsorted(hsorted(hmix(77, (uint64_t)mode), top, nt), e, nb);
+    return hmix(h, mode == 2 ? 0 : (uint64_t)L->cut_limit);
+}
+
+int lg_rate(const lg_level *L, lg_rating *r)
+{
+    memset(r, 0, sizeof *r);
+    if (!bv_setup(L)) return 0;
+    bv_eval(L, -1);
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        int k = N->kind;
+        r->sw += k == LG_SWITCH;
+        r->routes += k == LG_ROUTE;
+        r->lamps += k == LG_LAMP;
+        r->alarms += k == LG_ALARM;
+        if (k >= LG_NOT && k <= LG_NOR) {
+            r->gates++;
+            r->xors += k == LG_XOR;
+            r->nots += k == LG_NOT;
+            r->three += N->nin == 3;
+            if (L->depth[i] > r->depth) r->depth = L->depth[i];
+            uint64_t one = 0, zero = 0;         /* its output the same in every setting? */
+            for (int w = 0; w < bv.nw; w++) {
+                uint64_t m = bv.valid[w] & (w == bv.nw - 1 ? bv.last : ~0ull);
+                one |= bv.out[i][0][w] & m;
+                zero |= ~bv.out[i][0][w] & m;
+            }
+            r->consts += !one || !zero;
+        }
+        for (int p = 0; p < nports(k); p++) {
+            int n = 0, port = k == LG_ROUTE ? p + 1 : 0;
+            for (int w = 0; w < L->nw; w++) n += L->w[w].from == i && L->w[w].port == port;
+            r->fans += n > 1;
+        }
+    }
+    r->vars = L->nvar;
+    r->fuses = L->ncut;
+    r->crossings = L->crossings;
+    /* the solutions; the start's distance to each */
+    static uint64_t ok[BW];
+    memcpy(ok, bv.ok, sizeof(uint64_t) * (size_t)bv.nw);
+    uint8_t val[LG_NODES], cut[LG_WIRES];
+    for (int i = 0; i < L->nn; i++) val[i] = L->n[i].init;
+    memset(cut, 0, sizeof cut);
+    uint32_t base = lg_mask(L, val, cut), sol[64];
+    uint64_t dist[64];
+    int ns = 0;
+    r->par = -1;
+    for (int w = 0; w < bv.nw; w++) {
+        r->nsol += popc(ok[w]);
+        for (uint64_t x = ok[w]; x; x &= x - 1) {
+            uint32_t m = (uint32_t)(w * 64 + ctz64(x));
+            int d = bits(m ^ base);
+            if (r->par < 0 || d < r->par) r->par = d;
+            if (ns < 64) { dist[ns] = (uint64_t)d; sol[ns++] = m; }
+        }
+    }
+    /* each variable's sway (the settings where turning it changes the answer), the solutions where it is on */
+    uint64_t vk[LG_VARS];
+    for (int v = 0; v < bv.nv; v++) {
+        int sway = 0, on = 0;
+        for (uint32_t m = 0; m < 1u << bv.nv; m++) {
+            if (m >> v & 1) continue;
+            uint32_t m2 = m | 1u << v;
+            if (bit(bv.valid, m) && bit(bv.valid, m2) && bit(ok, m) != bit(ok, m2)) sway++;
+        }
+        for (int s = 0; s < ns; s++) on += (int)(sol[s] >> v & 1);
+        if (L->var_kind[v] == LG_MROUTE && on > r->nsol - on) on = r->nsol - on;   /* its sides mean nothing */
+        if (!sway) {
+            if (L->var_kind[v] == LG_MCUT) r->decoys++;
+            else r->herrings++;
+        }
+        vk[v] = hmix(hmix(L->var_kind[v], (uint64_t)sway), (uint64_t)on);
+    }
+    /* the gates that matter not: turned round, nothing changes */
+    for (int i = 0; i < L->nn; i++) {
+        int k = L->n[i].kind;
+        if (k < LG_NOT || k > LG_NOR) continue;
+        bv_eval(L, i);
+        r->idle += !memcmp(ok, bv.ok, sizeof(uint64_t) * (size_t)bv.nw);
+    }
+    bv_eval(L, -1);
+    r->exact = circuit_key(L, 0);
+    r->structure = circuit_key(L, 1);
+    r->shape = circuit_key(L, 2);
+    r->func = hsorted(hmix(hmix(5, (uint64_t)r->nsol), (uint64_t)bv.nv), vk, bv.nv);
+    r->start = hsorted(hmix(9, (uint64_t)r->par), dist, ns);
+    int matter = r->vars - r->herrings - r->decoys;
+    r->score = 1.2f * r->par + 0.5f * matter + 0.4f * r->gates + 0.6f * r->depth + 0.4f * r->xors + 0.4f * r->fans +
+               0.6f * r->routes + 0.6f * r->fuses + 0.6f * r->alarms + 0.5f * (r->lamps - 1) + 0.3f * r->three +
+               0.4f * r->herrings + 0.3f * r->decoys - 0.8f * log2f((float)(r->nsol > 0 ? r->nsol : 1));
+    return 1;
+}
+
+/* ---- the generator ----------------------------------------------------------------------------------------------- */
+typedef struct {
+    int kind, nin, depth, locked, init, row, col;
+    int src[3], port[3], cut[3];
+    float x;                                    /* its place from the left (the text's columns follow it) */
+} gnode;
+
+typedef struct { int node, port, used, ttl; } gsig;   /* a signal in the row: used (a branching may take it again) */
+
+static int range(uint32_t *s, int lo, int hi) { return hi > lo ? lo + pr_below(s, hi - lo + 1) : lo; }
+
+static int pick_kind(uint32_t *s, const lg_spec *sp)   /* a gate of two or three inputs */
+{
+    static const int W[LG_KINDS] = {0, 0, 6, 4, 4, 3, 3};
+    int sum = 0, w[LG_KINDS] = {0};
+    for (int k = LG_AND; k <= LG_NOR; k++)
+        if (sp->kinds >> k & 1) sum += w[k] = W[k] * (sp->need >> k & 1 ? 3 : 1);
+    if (!sum) return -1;
+    int r = pr_below(s, sum);
+    for (int k = LG_AND; k <= LG_NOR; k++)
+        if ((r -= w[k]) < 0) return k;
+    return LG_AND;
+}
+
+static float sig_x(const gnode *N, const gsig *g)
+{
+    return N[g->node].x + (g->port ? (g->port == 1 ? -0.25f : 0.25f) : 0);
+}
+
+/* a circuit at random for the spec: its text (the switches' and route switches' ways at random) */
+static int grow(uint32_t *s, const lg_spec *sp, char *out, int size)
+{
     gnode N[LG_NODES];
-    int nn = 0, occ[LG_COLS][LG_ROWS], cols = p->cols, rows = p->rows;
-    if (cols > LG_COLS || rows > LG_ROWS || rows < 3 || p->sw < 1) return 0;
-    memset(occ, -1, sizeof occ);
+    gsig q[2 * LG_NODES];
+    int nn = 0, nq = 0;
     memset(N, 0, sizeof N);
-    /* the switches, spread over the bottom row */
-    int colsw[LG_COLS], nsw = p->sw < cols ? p->sw : cols;
-    for (int c = 0; c < cols; c++) colsw[c] = c < nsw;
-    for (int c = cols - 1; c > 0; c--) {
-        int k = rn(&s, c + 1), t = colsw[c];
-        colsw[c] = colsw[k];
-        colsw[k] = t;
+    int nsw = range(s, sp->sw_lo, sp->sw_hi);
+    if (nsw < 2 || nsw > LG_COLS) return 0;
+    for (int i = 0; i < nsw; i++) {
+        N[nn] = (gnode){.kind = LG_SWITCH, .x = (float)i, .init = pr_below(s, 2)};
+        q[nq++] = (gsig){nn++, 0, 0, 0};
     }
-    for (int c = 0; c < cols; c++)
-        if (colsw[c]) {
-            N[nn] = (gnode){.kind = LG_SWITCH, .col = c, .row = 0, .alive = 1, .init = rn(&s, 2)};
-            occ[c][0] = nn++;
+    int G = range(s, sp->gates_lo, sp->gates_hi), R = range(s, sp->routes_lo, sp->routes_hi);
+    int lamps = range(s, 1, sp->lamps < 1 ? 1 : sp->lamps), alarms = sp->alarms > 0 ? pr_below(s, 2) : 0;
+    int k = lamps + alarms, gates = 0, routes = 0;
+    float bal = 0.2f + pr_below(s, 100) / 70.0f;   /* how much the shallow signals come first: rows, or chains */
+    for (int step = 0;; step++) {
+        int un = 0;
+        for (int i = 0; i < nq; i++) un += !q[i].used;
+        if (un == k && gates >= G && routes >= R) break;
+        if (step > 400 || un < k || gates > sp->gates_hi || nn >= LG_NODES - 4 || nq >= 2 * LG_NODES - 2) return 0;
+        int need = un - k + (R - routes), spare = G - gates - need, act, odds = sp->nots + sp->fan;
+        if (routes < R && pr_below(s, 100) < 40) act = 0;                            /* a route switch */
+        else if (need > 0 && (spare <= 0 || pr_below(s, 100) >= odds)) act = 1;      /* a join */
+        else if (spare > 0 && pr_below(s, odds > 0 ? odds : 1) < sp->nots) act = 2; /* a NOT */
+        else if (spare > 0) act = 3;                                                 /* a branching */
+        else continue;
+        /* the signal it starts from: the shallower first (bal) */
+        float wsum = 0, w[2 * LG_NODES];
+        for (int i = 0; i < nq; i++) {
+            w[i] = q[i].used ? 0 : expf(-bal * N[q[i].node].depth);
+            int fk = N[q[i].node].kind;
+            int gate = fk >= LG_AND && fk <= LG_NOR && fk != LG_XOR;
+            if (act == 2 && (fk == LG_NOT || (gate && sp->kinds >> LG_NAND & 1)))
+                w[i] = 0;                       /* NOT NOT: nothing; NOT AND: a NAND (when there are NANDs) */
+            wsum += w[i];
         }
-    int routes = p->routes, need = p->lamps + p->alarm, kinds[LG_KINDS], nk = 0;
-    for (int k = LG_NOT; k <= LG_NOR; k++)
-        if (p->kinds >> k & 1) kinds[nk++] = k;
-    if (!nk) return 0;
-    for (int r = 1; r < rows - 1; r++) {
-        int left = rows - 1 - r, placed = 0;
-        for (int tries = 0; tries < 40 && placed < p->gates && nn < LG_NODES - 3; tries++) {
-            int unused = 0;
-            for (int i = 0; i < nn; i++)
-                if (N[i].alive && N[i].kind != LG_LAMP)
-                    for (int q = 0; q < (N[i].kind == LG_ROUTE ? 2 : 1); q++) unused += !N[i].used[q];
-            int target = need + (unused - need) * (left - 1) / left;
-            if (unused <= target && placed) break;
-            int kind, nin;
-            if (routes > 0 && rn(&s, 100) < 45) kind = LG_ROUTE, nin = 1;
-            else {
-                kind = kinds[rn(&s, nk)];
-                if (kind == LG_NOT && rn(&s, 2)) kind = kinds[rn(&s, nk)];   /* fewer NOTs */
-                nin = kind == LG_NOT ? 1 : rn(&s, 100) < p->three ? 3 : 2;
-            }
-            /* the first input: an unused output, the lowest first */
-            int cf[LG_NODES * 2], cp[LG_NODES * 2], nc = 0, low = 99;
-            for (int i = 0; i < nn; i++)
-                for (int q = 0; q < (N[i].kind == LG_ROUTE ? 2 : 1); q++)
-                    if (N[i].alive && N[i].row < r && !N[i].used[q] && clear_up(N, occ, i, r)) {
-                        if (N[i].row < low) { low = N[i].row; nc = 0; }
-                        if (N[i].row == low) { cf[nc] = i; cp[nc++] = q; }
-                    }
-            if (!nc) break;
-            int pick = rn(&s, nc), src[3] = {cf[pick]}, port[3] = {N[cf[pick]].kind == LG_ROUTE ? cp[pick] + 1 : 0};
-            if (kind == LG_NOT && N[src[0]].kind == LG_NOT) continue;   /* NOT NOT: nothing */
-            float x0 = gx(N, src[0], port[0]);
-            int ok = 1;
-            for (int k = 1; k < nin && ok; k++) {   /* the others: near it; unused, or (fan) any */
-                int fan = rn(&s, 100) < p->fan;
-                nc = 0;
-                for (int i = 0; i < nn; i++)
-                    for (int q = 0; q < (N[i].kind == LG_ROUTE ? 2 : 1); q++) {
-                        int pq = N[i].kind == LG_ROUTE ? q + 1 : 0, dup = 0;
-                        for (int j = 0; j < k; j++) dup |= src[j] == i;   /* two inputs from one part: dull */
-                        if (!N[i].alive || N[i].kind == LG_LAMP || N[i].row >= r || dup) continue;
-                        if (fabsf(gx(N, i, pq) - x0) > 2.3f || !clear_up(N, occ, i, r)) continue;
-                        if (N[i].used[q] && !fan) continue;
-                        cf[nc] = i;
-                        cp[nc++] = pq;
-                    }
-                if (!nc) { ok = 0; break; }
-                pick = rn(&s, nc);
-                src[k] = cf[pick];
-                port[k] = cp[pick];
-            }
-            if (!ok) continue;
-            /* sort the inputs from the left, so the wires need not cross */
-            for (int a = 0; a < nin; a++)
-                for (int b = a + 1; b < nin; b++)
-                    if (gx(N, src[b], port[b]) < gx(N, src[a], port[a])) {
-                        int t = src[a]; src[a] = src[b]; src[b] = t;
-                        t = port[a]; port[a] = port[b]; port[b] = t;
-                    }
-            float mx = 0;
-            for (int k = 0; k < nin; k++) mx += gx(N, src[k], port[k]);
-            int c0 = (int)floorf(mx / nin), col = -1;
-            for (int d = 0; d < 3 && col < 0; d++) {
-                int a = c0 - d, b = c0 + d, first = rn(&s, 2) ? a : b, second = first == a ? b : a;
-                if (first >= 0 && first < cols && occ[first][r] < 0) col = first;
-                else if (second >= 0 && second < cols && occ[second][r] < 0) col = second;
-            }
-            if (col < 0) continue;
-            gnode *G = &N[nn];
-            *G = (gnode){.kind = kind, .col = col, .row = r, .nin = nin, .alive = 1, .init = rn(&s, 2)};
-            for (int k = 0; k < nin; k++) {
-                G->src[k] = src[k];
-                G->port[k] = port[k];
-                N[src[k]].used[port[k] ? port[k] - 1 : 0]++;
-            }
-            occ[col][r] = nn++;
-            placed++;
-            if (kind == LG_ROUTE) routes--;
+        if (wsum <= 0) continue;
+        float r = wsum * (float)pr_below(s, 10000) / 10000.0f;
+        int a = 0;
+        while (a < nq - 1 && (r -= w[a]) > 0) a++;
+        if (q[a].used) continue;
+        int in[3] = {a, 0, 0}, nin = 1, kind;
+        if (act == 0) kind = LG_ROUTE;
+        else if (act == 2) kind = LG_NOT;
+        else if (act == 3) {                    /* a neighbour, used or not, stays in the row */
+            int b = pr_below(s, 2) ? a - 1 : a + 1;
+            if (b < 0 || b >= nq || q[b].node == q[a].node) continue;
+            in[nin++] = b;
+            kind = pick_kind(s, sp);
+        } else {                                /* the next unused ones, left or right */
+            int want = need >= 2 && pr_below(s, 100) < sp->three ? 3 : 2, dir = pr_below(s, 2) ? -1 : 1;
+            for (int pass = 0; pass < 2 && nin < want; pass++, dir = -dir)
+                for (int b = a + dir; b >= 0 && b < nq && nin < want; b += dir)
+                    if (!q[b].used) in[nin++] = b;
+            if (nin < 2) continue;
+            kind = pick_kind(s, sp);
         }
-    }
-    /* the lamps: on the top row, each fed by an unused output (the highest first) */
-    int fed[LG_NODES * 2] = {0};                /* a signal lights one lamp at most */
-    for (int l = 0; l < need; l++) {
-        int bf = -1, bq = 0, br = -1;
-        for (int pass = 0; pass < 2 && bf < 0; pass++)
-            for (int i = 0; i < nn; i++)
-                for (int q = 0; q < (N[i].kind == LG_ROUTE ? 2 : 1); q++)
-                    if (N[i].alive && N[i].kind != LG_LAMP && N[i].kind != LG_ALARM && N[i].kind != LG_SWITCH &&
-                        !fed[2 * i + q] && (pass || !N[i].used[q]) && clear_up(N, occ, i, rows - 1) &&
-                        (N[i].row > br || (N[i].row == br && rn(&s, 2)))) {
-                        bf = i;
-                        bq = q;
-                        br = N[i].row;
-                    }
-        if (bf < 0) return 0;
-        fed[2 * bf + bq] = 1;
-        int c0 = N[bf].col, col = -1;
-        for (int d = 0; d < 3 && col < 0; d++)
-            for (int sg = -1; sg <= 1 && col < 0; sg += 2)
-                if (c0 + sg * d >= 0 && c0 + sg * d < cols && occ[c0 + sg * d][rows - 1] < 0) col = c0 + sg * d;
-        if (col < 0) return 0;
-        int port = N[bf].kind == LG_ROUTE ? bq + 1 : 0;
-        N[nn] = (gnode){.kind = l < p->lamps ? LG_LAMP : LG_ALARM, .col = col, .row = rows - 1, .nin = 1,
-                        .alive = 1, .src = {bf}, .port = {port}};
-        N[bf].used[bq]++;
-        occ[col][rows - 1] = nn++;
-    }
-    /* what feeds nothing goes */
-    for (int changed = 1; changed;) {
-        changed = 0;
-        for (int i = 0; i < nn; i++) {
-            gnode *G = &N[i];
-            if (!G->alive || G->kind == LG_LAMP || G->kind == LG_ALARM) continue;
-            int np = G->kind == LG_ROUTE ? 2 : 1, idle = 0;
-            for (int q = 0; q < np; q++) idle += !G->used[q];
-            if (!idle) continue;
-            if (G->kind == LG_ROUTE && idle == 1) return 0;
-            G->alive = 0;
-            occ[G->col][G->row] = -1;
-            for (int k = 0; k < G->nin; k++) N[G->src[k]].used[G->port[k] ? G->port[k] - 1 : 0]--;
-            changed = 1;
+        if (kind < 0) return 0;
+        int twice = 0;                          /* both ways of one route switch into one gate: it never matters */
+        for (int i = 0; i < nin; i++)
+            for (int j = i + 1; j < nin; j++) twice |= q[in[i]].node == q[in[j]].node;
+        if (twice) continue;
+        int depth = 0;
+        float x = 0;
+        for (int j = 0; j < nin; j++) {
+            if (N[q[in[j]].node].depth > depth) depth = N[q[in[j]].node].depth;
+            x += sig_x(N, &q[in[j]]);
         }
-    }
-    int alive_sw = 0, gates = 0;
-    for (int i = 0; i < nn; i++) {
-        alive_sw += N[i].alive && N[i].kind == LG_SWITCH;
-        gates += N[i].alive && N[i].kind >= LG_NOT && N[i].kind <= LG_ROUTE;
-    }
-    if (alive_sw < 2 || !gates) return 0;
-    /* empty columns and rows closed up */
-    for (int c = cols - 1; c >= 0; c--) {
-        int any = 0;
-        for (int i = 0; i < nn; i++) any |= N[i].alive && N[i].col == c;
-        if (!any)
-            for (int i = 0; i < nn; i++)
-                if (N[i].col > c) N[i].col--;
-    }
-    for (int r = rows - 2; r >= 1; r--) {
-        int any = 0;
-        for (int i = 0; i < nn; i++) any |= N[i].alive && N[i].row == r;
-        if (!any)
-            for (int i = 0; i < nn; i++)
-                if (N[i].row > r) N[i].row--;
-    }
-    /* locked switches, fuses */
-    int lock = p->locked < alive_sw - 2 ? p->locked : alive_sw - 2;
-    for (int t = 0; t < 20 && lock > 0; t++) {
-        int i = rn(&s, nn);
-        if (N[i].alive && N[i].kind == LG_SWITCH && !N[i].locked) { N[i].locked = 1; lock--; }
-    }
-    int fuses = p->fuses;
-    for (int t = 0; t < 60 && fuses > 0; t++) {
-        int i = rn(&s, nn);
-        if (!N[i].alive || !N[i].nin || N[i].kind == LG_LAMP) continue;   /* a lamp's own wire: no use cutting */
-        int k = rn(&s, N[i].nin);
-        if (!N[i].cut[k]) { N[i].cut[k] = 1; fuses--; }
-    }
-    /* the text */
-    int len = 0;
-    if (p->fuses >= 2 && rn(&s, 3) == 0)          /* fewer cuts than fuses, now and then */
-        len += snprintf(out + len, (size_t)(size - len), "%%%d", 1 + rn(&s, p->fuses - 1));
-    for (int r = 0; r < rows; r++)
-        for (int c = 0; c < cols; c++)
-            for (int i = 0; i < nn; i++) {
-                gnode *G = &N[i];
-                if (!G->alive || G->col != c || G->row != r) continue;
-                const char *name = G->kind == LG_SWITCH ? (G->locked ? (G->init ? "K" : "k") : G->init ? "S" : "s")
-                                 : G->kind == LG_ROUTE ? (G->init ? "Y" : "y") : KIND_NAME[G->kind];
-                len += snprintf(out + len, (size_t)(size > len ? size - len : 0), "%s%s@%c%d", len ? " " : "", name,
-                                'a' + c, r + 1);
-                for (int k = 0; k < G->nin; k++) {
-                    gnode *F = &N[G->src[k]];
-                    len += snprintf(out + len, (size_t)(size > len ? size - len : 0), "%c%c%d%s%s", k ? ',' : '(',
-                                    'a' + F->col, F->row + 1, G->port[k] == 1 ? "<" : G->port[k] == 2 ? ">" : "",
-                                    G->cut[k] ? "x" : "");
+        if (++depth > sp->depth_hi) continue;
+        for (int i = 0; i < nin; i++)           /* from the left */
+            for (int j = i + 1; j < nin; j++)
+                if (in[j] < in[i]) { int t = in[i]; in[i] = in[j]; in[j] = t; }
+        gnode *g = &N[nn];
+        *g = (gnode){.kind = kind, .nin = nin, .depth = depth, .x = x / nin, .init = pr_below(s, 2)};
+        for (int j = 0; j < nin; j++) {
+            g->src[j] = q[in[j]].node;
+            g->port[j] = q[in[j]].port;
+        }
+        /* the row: the inputs taken out (a branching's neighbour stays, used), the output where the first was */
+        gsig q2[2 * LG_NODES];
+        int m = 0, placed = 0;
+        for (int i = 0; i < nq; i++) {
+            int taken = 0;
+            for (int j = 0; j < nin; j++) taken |= in[j] == i;
+            gsig t = q[i];
+            if (taken && (act != 3 || i == a)) {
+                if (!placed) {
+                    if (kind == LG_ROUTE) {
+                        q2[m++] = (gsig){nn, 1, 0, 0};
+                        q2[m++] = (gsig){nn, 2, 0, 0};
+                    } else {
+                        q2[m++] = (gsig){nn, 0, 0, 0};
+                    }
+                    placed = 1;
                 }
-                if (G->nin) len += snprintf(out + len, (size_t)(size > len ? size - len : 0), ")");
+                continue;
             }
+            if (taken) { t.used = 1; t.ttl = 3; }   /* a branching's neighbour */
+            if (t.used && --t.ttl <= 0) continue;
+            q2[m++] = t;
+        }
+        memcpy(q, q2, sizeof(gsig) * (size_t)m);
+        nq = m;
+        nn++;
+        if (kind == LG_ROUTE) routes++;
+        else gates++;
+    }
+    if (gates < sp->gates_lo) return 0;
+    /* the lamps, on the signals left (one of them an alarm, maybe) */
+    int top = 0, li = 0;
+    unsigned have = 0;
+    for (int i = 0; i < nn; i++) {
+        if (N[i].depth > top) top = N[i].depth;
+        if (N[i].kind != LG_SWITCH) have |= 1u << N[i].kind;
+    }
+    if ((have & sp->need) != sp->need || top < sp->depth_lo) return 0;
+    int alarm_at = alarms ? pr_below(s, k) : -1;
+    for (int i = 0; i < nq; i++) {
+        if (q[i].used) continue;
+        int least = sp->depth_lo > 2 ? 2 : sp->depth_lo < 1 ? 1 : sp->depth_lo;
+        if (N[q[i].node].depth < least) return 0;   /* a lamp on a switch, or on one gate over them: dull */
+        N[nn] = (gnode){.kind = li == alarm_at ? LG_ALARM : LG_LAMP, .nin = 1, .depth = top + 1,
+                        .x = sig_x(N, &q[i]), .src = {q[i].node, 0, 0}, .port = {q[i].port, 0, 0}};
+        nn++;
+        li++;
+    }
+    /* fuses on the gates' inputs (not a lamp's: no use cutting it); locked switches */
+    int fuses = range(s, sp->fuses_lo, sp->fuses_hi), nf = 0;
+    for (int t = 0; t < 80 && nf < fuses; t++) {
+        int i = pr_below(s, nn);
+        if (N[i].kind == LG_SWITCH || N[i].kind == LG_LAMP || N[i].kind == LG_ALARM) continue;
+        int j = pr_below(s, N[i].nin);
+        if (!N[i].cut[j]) { N[i].cut[j] = 1; nf++; }
+    }
+    if (nf < sp->fuses_lo) return 0;
+    for (int n = range(s, 0, sp->locked < nsw - 2 ? sp->locked : nsw - 2), t = 0; n > 0 && t < 20; t++) {
+        int i = pr_below(s, nsw);
+        if (!N[i].locked) { N[i].locked = 1; n--; }
+    }
+    /* the cells: the row by depth, the columns in the order of their places */
+    for (int r = 0; r <= top + 1; r++) {
+        int idx[LG_NODES], n = 0;
+        for (int i = 0; i < nn; i++)
+            if (N[i].depth == r) idx[n++] = i;
+        if (n > LG_COLS || r >= LG_ROWS) return 0;
+        for (int a = 1; a < n; a++)
+            for (int b = a; b > 0 && N[idx[b - 1]].x > N[idx[b]].x; b--) {
+                int t = idx[b];
+                idx[b] = idx[b - 1];
+                idx[b - 1] = t;
+            }
+        for (int c = 0; c < n; c++) {
+            N[idx[c]].row = r;
+            N[idx[c]].col = c;
+        }
+    }
+    int len = 0;
+    if (nf >= 2 && pr_below(s, 3) == 0) len = put(out, size, len, "%%%d", 1 + pr_below(s, nf - 1));
+    for (int i = 0; i < nn; i++) {
+        const gnode *g = &N[i];
+        const char *name = g->kind == LG_SWITCH ? (g->locked ? (g->init ? "K" : "k") : g->init ? "S" : "s")
+                         : g->kind == LG_ROUTE ? (g->init ? "Y" : "y") : KIND_NAME[g->kind];
+        len = put(out, size, len, "%s%s@%c%d", len ? " " : "", name, 'a' + g->col, g->row + 1);
+        for (int j = 0; j < g->nin; j++) {
+            const gnode *f = &N[g->src[j]];
+            len = put(out, size, len, "%c%c%d%s%s", j ? ',' : '(', 'a' + f->col, f->row + 1,
+                      g->port[j] == 1 ? "<" : g->port[j] == 2 ? ">" : "", g->cut[j] ? "x" : "");
+        }
+        if (g->nin) len = put(out, size, len, ")");
+    }
     return len < size;
+}
+
+/* a start for the solutions: one of them, its cuts mended, some switches and route switches turned; its par in the
+ * spec's range, not every lamp lit, a route switch to turn in every solution when the spec says so */
+static int pick_start(uint32_t *s, lg_level *L, const lg_spec *sp, const uint64_t *ok, const uint64_t *lit)
+{
+    uint32_t sol[64], routes = 0;
+    int ns = 0, fv[LG_VARS], nf = 0;
+    for (int w = 0; w < bv.nw; w++)
+        for (uint64_t x = ok[w]; x && ns < 64; x &= x - 1) sol[ns++] = (uint32_t)(w * 64 + ctz64(x));
+    if (!ns) return 0;
+    for (int v = 0; v < L->nvar; v++) {
+        routes |= (uint32_t)(L->var_kind[v] == LG_MROUTE) << v;
+        if (!(bv.cuts >> v & 1)) fv[nf++] = v;
+    }
+    for (int t = 0; t < 40; t++) {
+        uint32_t pick = sol[pr_below(s, ns)], m = pick & ~bv.cuts;
+        int flips = range(s, sp->par_lo, sp->par_hi) - bits(pick & bv.cuts);
+        pr_shuffle(s, fv, nf);
+        for (int i = 0; i < flips && i < nf; i++) m ^= 1u << fv[i];
+        int par = 99, turn = 1;
+        for (int i = 0; i < ns; i++) {
+            int d = bits(sol[i] ^ m);
+            if (d < par) par = d;
+            if (!((sol[i] ^ m) & routes)) turn = 0;
+        }
+        if (par < sp->par_lo || par > sp->par_hi || par < 1 || bit(lit, m) || (sp->need_route && !turn)) continue;
+        int single = 0;                         /* not every move solves it */
+        for (int v = 0; v < L->nvar; v++) single += bit(ok, m ^ 1u << v);
+        if (L->nvar > 1 && single >= L->nvar) continue;
+        for (int v = 0; v < L->nvar; v++) {
+            int i = L->var_idx[v];
+            if (L->var_kind[v] == LG_MSWITCH) L->n[L->sw[i]].init = (uint8_t)(m >> v & 1);
+            else if (L->var_kind[v] == LG_MROUTE) L->n[L->rt[i]].init = (uint8_t)(m >> v & 1);
+        }
+        return 1;
+    }
+    return 0;
+}
+
+int lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg_rating *r)
+{
+    static lg_level L;
+    static char buf[1024];
+    static uint64_t ok[BW], lit[BW];
+    uint32_t s = pr_seed(seed);
+    for (int t = 0; t < tries; t++) {
+        if (!grow(&s, sp, buf, sizeof buf) || !parse(buf, &L, NULL, 0, 0) || !bv_setup(&L)) continue;
+        bv_eval(&L, -1);
+        int nsol = 0, need_cut = 1;
+        for (int w = 0; w < bv.nw; w++) {
+            nsol += popc(bv.ok[w]);
+            for (uint64_t x = bv.ok[w]; x; x &= x - 1)
+                if (!((uint32_t)(w * 64 + ctz64(x)) & bv.cuts)) need_cut = 0;
+        }
+        if (!nsol || nsol > sp->sols || (sp->need_cut && !need_cut)) continue;
+        memcpy(ok, bv.ok, sizeof(uint64_t) * (size_t)bv.nw);
+        memcpy(lit, bv.lit, sizeof(uint64_t) * (size_t)bv.nw);
+        if (!pick_start(&s, &L, sp, ok, lit) || !lg_text(&L, buf, sizeof buf)) continue;
+        if (!lg_parse(buf, &L, NULL, 0) || L.crossings > sp->cross || !lg_rate(&L, r)) continue;
+        if (r->consts || r->idle || r->herrings > sp->herrings || r->par < sp->par_lo || r->par > sp->par_hi) continue;
+        if (r->depth < sp->depth_lo || r->depth > sp->depth_hi) continue;
+        if (size < 1 || (int)strlen(buf) >= size) return 0;
+        strcpy(out, buf);
+        return 1;
+    }
+    return 0;
+}
+
+/* ---- the die tab ------------------------------------------------------------------------------------------------- */
+void lg_random_spec(int variant, lg_spec *sp)
+{
+    static const lg_spec S[LG_RANDOM] = {
+        /* small: 3 to 4 switches, every gate, an alarm now and then */
+        {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = 0x7e, .alarms = 1, .lamps = 1, .fan = 15,
+         .nots = 25, .depth_lo = 2, .depth_hi = 3, .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1},
+        /* medium: 5 to 6 switches, a route switch or a fuse */
+        {.sw_lo = 5, .sw_hi = 6, .gates_lo = 5, .gates_hi = 8, .kinds = 0x7e, .routes_hi = 1, .fuses_hi = 1,
+         .locked = 1, .alarms = 1, .lamps = 1, .three = 10, .fan = 20, .nots = 20, .depth_lo = 3, .depth_hi = 4,
+         .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2},
+        /* big: 7 to 8 switches, route switches and fuses, two lamps now and then */
+        {.sw_lo = 7, .sw_hi = 8, .gates_lo = 8, .gates_hi = 12, .kinds = 0x7e, .routes_lo = 1, .routes_hi = 2,
+         .fuses_lo = 1, .fuses_hi = 2, .locked = 1, .alarms = 1, .lamps = 2, .three = 15, .fan = 25, .nots = 15,
+         .depth_lo = 3, .depth_hi = 5, .par_lo = 4, .par_hi = 7, .sols = 4, .herrings = 1, .cross = 3},
+    };
+    *sp = S[variant < 0 ? 0 : variant >= LG_RANDOM ? LG_RANDOM - 1 : variant];
+}
+
+int lg_random(lg_game *g, int variant, uint32_t seed)
+{
+    lg_spec sp;
+    lg_rating r;
+    char text[1024];
+    static lg_level L;
+    lg_random_spec(variant, &sp);
+    for (uint32_t k = 0; k < 64; k++)           /* a seed with nothing in it: the next one */
+        if (lg_make(seed + k * 7919u, &sp, 400, text, sizeof text, &r) && lg_parse(text, &L, NULL, 0)) {
+            lg_load(g, &L, -1, r.par);
+            return 1;
+        }
+    return 0;
 }

@@ -1,16 +1,19 @@
 /*
  * Logic Gates in RetroStone Board, for one player (the rules: logicgates_rules.c, logicgates.h): a circuit board of
  * dark green in a walnut frame, brass traces on it, the gates as brass shapes inlaid in walnut plaques (the classic
- * shapes, no letters), the switches along the bottom, the lamps at the top. A wire carrying 1 glows gold; after each
+ * shapes, each with its name engraved: NOT, AND, OR, XOR, NAND, NOR, in English as on any circuit drawing; the owner
+ * asked for them), the switches along the bottom, the lamps at the top. A wire carrying 1 glows gold; after each
  * move the change runs up the wires, gate after gate. Solved: the lamps flare in a gold burst, then the shell's end
- * card (the stars, the next level).
+ * card (the stars, the moves beside the par, the next level).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The levels: the shell's level screen (a tab for each chapter with its emblem, the chapter's 25 levels as tiles; the
- * shell keeps the stars won); its new game goes back to it. The board takes all the room between the bars; its tools
- * are the shell's (game.tools: in the bar's row standing, in the side column lying): restart, the hint (one part to
- * change blinks). The bar: the level (its chapter's emblem, its number; lying: at the top of the side column), the
- * moves made, the par (three stars), the cuts left.
+ * shell keeps the stars won); its new game goes back to it. The die tab after the chapters: a circuit made at random
+ * (lg_random), small, medium or big. The board takes all the room between the bars; a deep circuit in a wide room
+ * lies on its side (the switches on the left) when its parts come out bigger so. Its tools are the shell's
+ * (game.tools: in the bar's row standing, in the side column lying): restart, the hint (one part to change blinks).
+ * The bar: the level (its chapter's emblem, its number; lying: at the top of the side column), the moves made (a
+ * switch), the cuts left (a fuse), the par (a star).
  * Tap a switch or a route switch to flip it, a fuse to cut its wire (sparks); undo takes a move back.
  */
 #include <math.h>
@@ -20,6 +23,7 @@
 #include "games/logicgates.h"
 #include "games/puzzles.h"
 #include "shell.h"
+#include "text.h"
 
 #define STEP_MS 90                              /* the signal from one part to the next */
 #define FLIP_MS 130
@@ -120,8 +124,75 @@ static int curve(float *p, int k, float ax, float ay, float bx, float by, float 
     return k;
 }
 
+/* a gate's name, in English as on any circuit drawing: capitals spaced out, engraved in its brass (a dark cut, a light
+ * edge under it), em pixels at most and no wider than maxw, centred on (cx, cy). The letters come from the boards' own
+ * font (help/glyphs.txt keeps A to Z in every language's), so each language's build draws them alike. */
+static void gate_word(uint8_t *o, int w, int h, int kind, float cx, float cy, float em, float maxw, int lit)
+{
+    static const char *const NAME[] = {"", "NOT", "AND", "OR", "XOR", "NAND", "NOR"};
+    if (kind < LG_NOT || kind > LG_NOR) return;
+    const char *s = NAME[kind];
+    int n = (int)strlen(s), c = 0, x0[8], x1[8];
+    uint8_t *g[8] = {0};
+    static const uint8_t white[3] = {255, 255, 255};
+    float total = 0;
+    for (int pass = 0; pass < 2; pass++) {      /* measured; then smaller when too wide */
+        c = (int)ceilf(1.6f * em) + 2;
+        total = 0;
+        for (int i = 0; i < n; i++) {
+            free(g[i]);
+            g[i] = calloc((size_t)c * c, 4);
+            if (!g[i] || !text_glyph(s[i], em, 1, white, g[i], c, c)) goto done;
+            x0[i] = c;
+            x1[i] = -1;
+            for (int y = 0; y < c; y++)
+                for (int x = 0; x < c; x++)
+                    if (g[i][4 * (y * c + x) + 3] > 12) {
+                        if (x < x0[i]) x0[i] = x;
+                        if (x > x1[i]) x1[i] = x;
+                    }
+            if (x1[i] < x0[i]) x0[i] = x1[i] = c / 2;
+            total += x1[i] - x0[i] + 1;
+        }
+        total += (n - 1) * 0.14f * em;
+        if (total <= maxw || pass) break;
+        em *= maxw / total;
+    }
+    const uint8_t edge[3] = {255, 238, 176}, cut[3] = {lit ? 92 : 46, lit ? 52 : 30, lit ? 8 : 12};
+    for (int layer = 0; layer < 2; layer++) {   /* the light edge a pixel low, then the cut */
+        float x = cx - total / 2;
+        int dy = layer ? 0 : (int)fmaxf(1, 0.06f * em);
+        for (int i = 0; i < n; i++) {
+            int ox = (int)lroundf(x) - x0[i], oy = (int)lroundf(cy - c / 2.0f) + dy;
+            for (int y = 0; y < c; y++)
+                for (int xx = 0; xx < c; xx++) {
+                    int px = ox + xx, py = oy + y;
+                    if (px < 0 || py < 0 || px >= w || py >= h) continue;
+                    uint8_t *p = o + 4 * (py * w + px);
+                    float a = g[i][4 * (y * c + xx) + 3] / 255.0f * (layer ? 0.92f : (lit ? 0.35f : 0.5f));
+                    if (a <= 0 || p[3] < 128) continue;
+                    const uint8_t *col = layer ? cut : edge;
+                    for (int k = 0; k < 3; k++) p[k] = (uint8_t)(p[k] * (1 - a) + col[k] * a);
+                }
+            x += x1[i] - x0[i] + 1 + 0.14f * em;
+        }
+    }
+done:
+    for (int i = 0; i < n; i++) free(g[i]);
+}
+
+static int plain;                              /* the gates painted without their names (the emblems) */
+
+/* where a gate's name goes down its body (0 its top, 1 its bottom), upright or turned: low in the NOT's triangle,
+ * low in the AND's dome, the XOR's above its second back line */
+static float name_at(int kind, int turn)
+{
+    return kind == LG_NOT ? (turn ? 0.72f : 0.68f) : kind == LG_AND || kind == LG_NAND ? (turn ? 0.56f : 0.6f)
+         : kind == LG_XOR ? (turn ? 0.42f : 0.44f) : 0.5f;
+}
+
 /* a gate's brass shape, pointing up, in a w x h picture (pixels); its output's lead from its top to the picture's
- * top edge (lw wide). Lit: gold. */
+ * top edge (lw wide); its name engraved on it (big enough). Lit: gold. */
 static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
@@ -167,6 +238,25 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
     if (bubble) art_ellipse(f, ART_PART, xc, yt - rb, rb, rb);
     art_render(f, &st, w, h, 1, 0, 0, o);
     art_fig_free(f);
+    /* its name engraved across its body, where it is widest: the NOT's low in its triangle, the OR's above its
+     * hollow back */
+    if (h < 26 || plain) return;               /* a small picture, an emblem: the shape alone */
+    float body = yb - yt, cy = yt + name_at(kind, 0) * body;
+    float maxw = kind == LG_NOT ? 0.54f * (xr - xl) : kind == LG_AND || kind == LG_NAND ? 0.86f * (xr - xl)
+                                                                                     : 0.68f * (xr - xl);
+    gate_word(o, w, h, kind, xc, cy, 0.42f * body, maxw, lit);
+}
+
+/* a gate's name on its picture turned a quarter (W x H: the gate pointing right), level, along its body */
+static void gate_name_turned(uint8_t *o, int W, int H, int kind, int lit)
+{
+    int gw = H, gh = W;                         /* the upright picture's size */
+    float xl = 0.1f * gw, xr = 0.9f * gw, yb = 0.94f * gh, yt = 0.07f * gh;
+    if (kind == LG_NOT || kind == LG_NAND || kind == LG_NOR) yt += 2 * 0.085f * fminf(gw, 1.6f * gh);
+    float body = yb - yt, cy = yt + name_at(kind, 1) * body;
+    float maxw = (kind == LG_NOT ? 0.42f : kind == LG_AND || kind == LG_NAND ? 0.66f : 0.56f) * body;
+    float em = fminf(0.42f * body, (kind == LG_NOT ? 0.26f : 0.32f) * (xr - xl));
+    gate_word(o, W, H, kind, gh - 1 - cy, 0.5f * gw, em, maxw, lit);
 }
 
 /* a route switch's brass way on its plaque (w x h): from the input at the bottom middle up to the output at off
@@ -360,7 +450,9 @@ static void paint_emblem(int c, int size, uint8_t *o)
     if (!b) return;
     float lw = fmaxf(2, 0.07f * size);
     if (c == 0 || c == 1) {
+        plain = 1;
         paint_gate(c == 0 ? LG_AND : LG_XOR, 1, w, h, lw, b);
+        plain = 0;
         art_blend(o, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
     } else if (c == 2) {
         paint_route(1, 1, w, h, 0.26f * w, lw, b);
@@ -424,6 +516,93 @@ static SDL_Texture *tex_buf(int w, int h, uint8_t *b)
     return t;
 }
 
+/* ---- the board turned: a deep circuit in a wide room lies on its side, the switches on the left, the lamps on the
+ * right, when its parts come out bigger so. Everything is laid out and drawn upright (x right, y down, as the
+ * circuit stands), then put on the screen a quarter turn clockwise: the pictures of the parts are painted turned,
+ * the gates' names stay level. */
+static int turned;
+
+static void to_screen(float ux, float uy, float *sx, float *sy)
+{
+    if (!turned) { *sx = ux; *sy = uy; return; }
+    *sx = panel.x + panel.w - uy;
+    *sy = panel.y + ux;
+}
+
+static void from_screen(float sx, float sy, float *ux, float *uy)
+{
+    if (!turned) { *ux = sx; *uy = sy; return; }
+    *ux = sy - panel.y;
+    *uy = panel.x + panel.w - sx;
+}
+
+/* a picture turned a quarter clockwise (w x h to h x w); the old one freed */
+static uint8_t *quarter(uint8_t *b, int w, int h)
+{
+    uint8_t *o = malloc((size_t)w * h * 4);
+    if (!o) return b;
+    for (int y = 0; y < w; y++)
+        for (int x = 0; x < h; x++) memcpy(o + 4 * (y * h + x), b + 4 * ((h - 1 - x) * w + y), 4);
+    free(b);
+    return o;
+}
+
+/* a part's picture, painted upright (w x h): turned with the board */
+static SDL_Texture *tex_up(int w, int h, uint8_t *b)
+{
+    if (!turned) return tex_buf(w, h, b);
+    b = quarter(b, w, h);
+    return tex_buf(h, w, b);
+}
+
+/* the drawing on the board, in upright places and sizes */
+static void b_put(SDL_Texture *t, float x, float y, float w, float h)
+{
+    if (!turned) { ui_put(t, x, y, w, h); return; }
+    float sx, sy;
+    to_screen(x, y + h, &sx, &sy);
+    ui_put(t, sx, sy, h, w);
+}
+static void b_put_c(SDL_Texture *t, float cx, float cy, float w, float h)
+{
+    float sx, sy;
+    to_screen(cx, cy, &sx, &sy);
+    if (turned) ui_put_c(t, sx, sy, h, w);
+    else ui_put_c(t, sx, sy, w, h);
+}
+static void b_put_rot(SDL_Texture *t, float cx, float cy, float w, float h, double angle)
+{
+    float sx, sy;
+    to_screen(cx, cy, &sx, &sy);
+    ui_put_rot(t, sx, sy, w, h, turned ? angle + 90 : angle);
+}
+static void b_fill(float x, float y, float w, float h, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+    if (!turned) { ui_fill(x, y, w, h, r, g, b, a); return; }
+    float sx, sy;
+    to_screen(x, y + h, &sx, &sy);
+    ui_fill(sx, sy, h, w, r, g, b, a);
+}
+static void b_shadow(float cx, float cy, float w, float h, float a)
+{
+    float sx, sy;
+    to_screen(cx, cy, &sx, &sy);
+    if (turned) ui_shadow_flat(sx, sy, h, w, a);
+    else ui_shadow_flat(sx, sy, w, h, a);
+}
+static void b_mark_gold(float cx, float cy, float d)
+{
+    float sx, sy;
+    to_screen(cx, cy, &sx, &sy);
+    ui_mark_gold(sx, sy, d);
+}
+static void b_mark_glow(float cx, float cy, float d)
+{
+    float sx, sy;
+    to_screen(cx, cy, &sx, &sy);
+    ui_mark_glow(sx, sy, d);
+}
+
 static void board_textures(void)
 {
     int key = (int)panel.w * 4096 + (int)panel.h;
@@ -440,7 +619,7 @@ static void board_textures(void)
 
 static void part_textures(void)
 {
-    int key = (int)(cw * 8) * 8192 + (int)(ch * 8);
+    int key = ((int)(cw * 8) * 8192 + (int)(ch * 8)) * 2 + turned;
     if (made_parts == key) return;
     made_parts = key;
     float m = fminf(cw, ch);
@@ -450,19 +629,27 @@ static void part_textures(void)
     int w = (int)pw, h = (int)ph;
     ui_free(&t_plaque);
     uint8_t *b = calloc((size_t)w * h, 4);
-    if (b) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_buf(w, h, b); }
+    if (b) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_up(w, h, b); }
     gate_h = floorf(0.92f * ph);
     for (int wide3 = 0; wide3 < 2; wide3++) {   /* two inputs, or three: wider */
         /* wide enough for its inputs (up to 0.22 columns from its middle: the rules' PIN_MAX) */
-        gate_w[wide3] = floorf(fminf(0.9f * pw, fmaxf(0.6f * cw, wide3 ? 1.6f * gate_h : 1.2f * gate_h)));
+        gate_w[wide3] = floorf(fminf(0.94f * pw, fmaxf(0.6f * cw, wide3 ? 1.6f * gate_h : 1.2f * gate_h)));
         int gw = (int)gate_w[wide3], gh = (int)gate_h;
         for (int k = LG_NOT; k <= LG_NOR; k++)
             for (int lit = 0; lit < 2; lit++) {
                 ui_free(&t_gate[k][lit][wide3]);
                 b = calloc((size_t)gw * gh, 4);
                 if (!b) continue;
+                plain = turned;          /* turned: the name painted level, after the turn */
                 paint_gate(k, lit, gw, gh, tw, b);
-                t_gate[k][lit][wide3] = tex_buf(gw, gh, b);
+                plain = 0;
+                if (turned) {
+                    b = quarter(b, gw, gh);
+                    gate_name_turned(b, gh, gw, k, lit);
+                    t_gate[k][lit][wide3] = tex_buf(gh, gw, b);
+                } else {
+                    t_gate[k][lit][wide3] = tex_buf(gw, gh, b);
+                }
             }
     }
     for (int way = 0; way < 2; way++)
@@ -471,7 +658,7 @@ static void part_textures(void)
             b = calloc((size_t)w * h, 4);
             if (!b) continue;
             paint_route(way, lit, w, h, 0.18f * cw, tw, b);
-            t_route[way][lit] = tex_buf(w, h, b);
+            t_route[way][lit] = tex_up(w, h, b);
         }
     sw_w = roundf(fminf(0.5f * cw, 0.62f * ch));
     sw_h = roundf((LG_NH + PAD_B - 0.06f) * ch);
@@ -480,12 +667,12 @@ static void part_textures(void)
         b = calloc((size_t)sw_w * sw_h, 4);
         if (!b) continue;
         paint_switch(on, (int)sw_w, (int)sw_h, b);
-        t_switch[on] = tex_buf((int)sw_w, (int)sw_h, b);
+        t_switch[on] = tex_up((int)sw_w, (int)sw_h, b);
     }
     ui_free(&t_lock);
     int lkw = (int)(sw_w * 1.12f), lkh = (int)(sw_w * 0.42f);
     b = calloc((size_t)lkw * lkh, 4);
-    if (b) { paint_lock(lkw, lkh, b); t_lock = tex_buf(lkw, lkh, b); }
+    if (b) { paint_lock(lkw, lkh, b); t_lock = tex_up(lkw, lkh, b); }
     lamp_h = roundf((LG_NH + PAD_T - 0.04f) * ch);
     lamp_w = roundf(fminf(0.8f * cw, 0.85f * lamp_h));
     for (int a = 0; a < 2; a++)
@@ -494,7 +681,7 @@ static void part_textures(void)
             b = calloc((size_t)lamp_w * lamp_h, 4);
             if (!b) continue;
             paint_lamp(a, lit, (int)lamp_w, (int)lamp_h, b);
-            t_lamp[a][lit] = tex_buf((int)lamp_w, (int)lamp_h, b);
+            t_lamp[a][lit] = tex_up((int)lamp_w, (int)lamp_h, b);
         }
     fuse_l = roundf(fmaxf(18, 0.28f * m));
     fuse_t = roundf(fmaxf(8, 2.7f * tw));
@@ -545,19 +732,36 @@ static void knob_texture(void)
 }
 
 /* ---- the layout -------------------------------------------------------------------------------------------------- */
+/* the columns' and rows' sizes for a room (upright: uw x uh); how big a part comes out */
+static float cells(float uw, float uh, float *c, float *r)
+{
+    float m = 0.16f * ui.unit, iw = uw - 2 * fr - 2 * m, ih = uh - 2 * fr - 2 * m;
+    float cols = G.L.width, span = G.L.height + PAD_B + PAD_T, cap = fminf(iw, ih) / 3.0f;
+    float a = fminf(iw / cols, fminf(cap, 1.25f * ih / span));   /* a wide room: the columns further apart */
+    float b = fminf(ih / span, fminf(1.15f * ih / 3.0f, 1.6f * a));   /* a tall room: the rows further apart */
+    *c = floorf(a);
+    *r = floorf(b);
+    return fminf(2 * LG_HALF * a, 1.3f * LG_NH * b);
+}
+
 static void fit(void)
 {
-    float m = 0.16f * ui.unit;
-    float iw = panel.w - 2 * fr - 2 * m, ih = panel.h - 2 * fr - 2 * m;
-    float cols = G.L.width, span = G.L.height + PAD_B + PAD_T, cap = fminf(iw, ih) / 3.0f;
-    cw = iw / cols;
-    ch = ih / span;
-    cw = fminf(cw, fminf(cap, 1.25f * ch));   /* a wide room: the columns further apart */
-    ch = fminf(ch, fminf(1.15f * ih / 3.0f, 1.6f * cw));   /* a tall room: the rows further apart */
-    cw = floorf(cw);
-    ch = floorf(ch);
-    ox = floorf(panel.x + panel.w / 2 - cols * cw / 2);
-    oy = floorf(panel.y + panel.h / 2 + (span / 2 - PAD_B) * ch);
+    float m = 0.16f * ui.unit, cols = G.L.width, span = G.L.height + PAD_B + PAD_T, c2, r2;
+    panel = B;
+    float up = cells(B.w, B.h, &cw, &ch), side = cells(B.h, B.w, &c2, &r2);
+    turned = wide && side > 1.1f * up;          /* lying: on its side when its parts come out bigger */
+    if (turned) { cw = c2; ch = r2; }
+    float ext = turned ? span * ch : cols * cw, cell = turned ? ch : cw;
+    if (wide && ext < B.w - 2 * fr - 2 * m - 1.2f * cell) {   /* the board no wider than the circuit, centred */
+        float w = ext + 1.2f * cell + 2 * fr + 2 * m;
+        panel.x = floorf(B.x + (B.w - w) / 2);
+        panel.w = floorf(w);
+    }
+    board_textures();
+    float ux = turned ? 0 : panel.x, uy = turned ? 0 : panel.y, uw = turned ? panel.h : panel.w,
+          uh = turned ? panel.w : panel.h;
+    ox = floorf(ux + uw / 2 - cols * cw / 2);
+    oy = floorf(uy + uh / 2 + (span / 2 - PAD_B) * ch);
     part_textures();
     knob_texture();
 }
@@ -597,11 +801,37 @@ static void open_level(int level)
     if (B.w > 0) fit();
 }
 
+/* The levels were made anew (up to 8 switches, no two alike): the stars won on the old ones would land on other
+ * levels, so the old progress goes, once. The shell keeps it (shell/levels/logicgates); our own key says which set
+ * of levels it belongs to. Done when the menu paints the game's card, before the level screen reads the progress. */
+#define LEVEL_SET 2
+static void fresh_progress(void)
+{
+    static int done;
+    if (done) return;
+    done = 1;
+    uint8_t v = 0;
+    if (ui_save_get("logicgates/levels", &v, 1) == 1 && v == LEVEL_SET) return;
+    ui_save_set("shell/levels/logicgates", NULL, 0);
+    v = LEVEL_SET;
+    ui_save_set("logicgates/levels", &v, 1);
+}
+
 static void start(int level) { open_level(level); }   /* the shell's level screen: 0..LG_LEVELS-1 */
+
+/* the die tab: a circuit made now, small, medium or big (lg_random: as good a puzzle as the levels) */
+static void start_random(int variant)
+{
+    if (!lg_random(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u)) lg_open(&G, 0);
+    calm();
+    if (B.w > 0) fit();
+}
 
 static int status(void) { return lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int level_stars(void) { return lg_stars(&G); }
+static int score(void) { return G.nh; }
+static int par(void) { return G.par; }
 
 /* after a move (or undo, restart): the change runs up the wires from now */
 static void moved(const lg_game *before)
@@ -707,18 +937,18 @@ static void trace(float x0, float y0, float x1, float y1, int lit, int layer)
           h = fabsf(y1 - y0) + t;
     if (layer == 0) {
         float g = 1.0f * t;
-        ui_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 186, 60, 24);
+        b_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 186, 60, 24);
         g = 0.45f * t;
-        ui_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 196, 70, 46);
+        b_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 196, 70, 46);
     } else if (layer == 1) {
-        ui_fill(xa - 1, ya - 1, w + 2, h + 2, 6, 18, 12, 230);
+        b_fill(xa - 1, ya - 1, w + 2, h + 2, 6, 18, 12, 230);
     } else {
         const uint8_t *c = lit ? GOLD : TRACE;
-        ui_fill(xa, ya, w, h, c[0], c[1], c[2], 255);
+        b_fill(xa, ya, w, h, c[0], c[1], c[2], 255);
         if (lit) {                              /* a bright line down its middle */
             int vert = fabsf(x1 - x0) < fabsf(y1 - y0);
-            if (vert) ui_fill(xa + 0.35f * t, ya, 0.3f * t, h, 255, 242, 196, 150);
-            else ui_fill(xa, ya + 0.35f * t, w, 0.3f * t, 255, 242, 196, 150);
+            if (vert) b_fill(xa + 0.35f * t, ya, 0.3f * t, h, 255, 242, 196, 150);
+            else b_fill(xa, ya + 0.35f * t, w, 0.3f * t, 255, 242, 196, 150);
         }
     }
 }
@@ -781,7 +1011,7 @@ static void marks(void)
             SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
             for (int i = 0; i <= 18; i++) {
                 float a = 3.14159265f * i / 18;
-                ui_put_c(t_dot, cx - r * cosf(a), cy - r * sinf(a), s, s);
+                b_put_c(t_dot, cx - r * cosf(a), cy - r * sinf(a), s, s);
             }
         }
         for (int j = 0; j < G.L.njoint; j++) {
@@ -789,7 +1019,7 @@ static void marks(void)
             const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? GOLD : TRACE) : EDGE;
             float s = pass ? d : d + 2;
             SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
-            ui_put_c(t_dot, PX(m->x), PY(m->y), s, s);
+            b_put_c(t_dot, PX(m->x), PY(m->y), s, s);
         }
     }
     SDL_SetTextureColorMod(t_dot, 255, 255, 255);
@@ -847,7 +1077,7 @@ static void draw_fuses(void)
         const lg_wire *W = &G.L.w[w];
         if (!W->cuttable) continue;
         int broken = G.cut[w] && !(spark.wire == w && now_ms - spark.t < 90);
-        ui_put_rot(t_fuse[broken], PX(W->fx), PY(W->fy), fuse_l, fuse_t, W->fvert ? 90 : 0);
+        b_put_rot(t_fuse[broken], PX(W->fx), PY(W->fy), fuse_l, fuse_t, W->fvert ? 90 : 0);
     }
 }
 
@@ -858,7 +1088,7 @@ static void sparks(void)
     if (q >= 1) { spark.wire = -1; return; }
     const lg_wire *W = &G.L.w[spark.wire];
     float cx = PX(W->fx), cy = PY(W->fy), m = fminf(cw, ch);
-    if (q < 0.3f) ui_mark_gold(cx, cy, m * (0.5f + 1.5f * q));
+    if (q < 0.3f) b_mark_gold(cx, cy, m * (0.5f + 1.5f * q));
     for (int k = 0; k < SPARKS; k++) {
         float a = k * 6.2831853f / SPARKS + 0.4f * sinf(k * 7.1f + spark.wire);
         float sp = 0.35f + 0.25f * (k * 37 % 7) / 7.0f;
@@ -866,7 +1096,7 @@ static void sparks(void)
         float s = fmaxf(3, 1.4f * tw * (1 - 0.7f * q));
         SDL_SetTextureColorMod(t_dot, 255, (Uint8)(250 - 90 * q), (Uint8)(200 - 160 * q));
         SDL_SetTextureAlphaMod(t_dot, (Uint8)(255 * (1 - q)));
-        ui_put_c(t_dot, x, y, s, s);
+        b_put_c(t_dot, x, y, s, s);
     }
     SDL_SetTextureColorMod(t_dot, 255, 255, 255);
     SDL_SetTextureAlphaMod(t_dot, 255);
@@ -876,7 +1106,7 @@ static void sparks(void)
 static void glow(float x, float y, float d, float a)
 {
     SDL_SetTextureAlphaMod(t_glow, (Uint8)clampf(255 * a, 0, 255));
-    ui_put_c(t_glow, x, y, d, d);
+    b_put_c(t_glow, x, y, d, d);
     SDL_SetTextureAlphaMod(t_glow, 255);
 }
 
@@ -908,17 +1138,17 @@ static void draw_node(int i)
         int on = G.val[i];
         float d = 0.66f * sw_w, p = (float)on;
         if (on) glow(cx, yt + 0.35f * sw_h, 1.6f * sw_w, 0.5f);
-        ui_shadow_flat(cx + 0.04f * sw_w, yt + sw_h / 2 + 0.05f * sw_w, sw_w, sw_h, 0.5f);
-        ui_put(t_switch[on], cx - sw_w / 2, yt, sw_w, sw_h);
+        b_shadow(cx + 0.04f * sw_w, yt + sw_h / 2 + 0.05f * sw_w, sw_w, sw_h, 0.5f);
+        b_put(t_switch[on], cx - sw_w / 2, yt, sw_w, sw_h);
         if (flip_node == i && now_ms - flip_t < FLIP_MS) {
             float q = puz_ease((now_ms - flip_t) / (float)FLIP_MS);
             p = on ? q : 1 - q;
             ui_animate();
         }
         float ky = yt + sw_h * (0.71f - 0.42f * p);
-        ui_shadow_flat(cx + 0.05f * d, ky + 0.08f * d, d, d, 0.6f);
-        ui_put_c(t_knob, cx, ky, d, d);
-        if (N->locked) ui_put_c(t_lock, cx, yt + 0.5f * sw_h, floorf(sw_w * 1.12f), floorf(sw_w * 0.42f));
+        b_shadow(cx + 0.05f * d, ky + 0.08f * d, d, d, 0.6f);
+        b_put_c(t_knob, cx, ky, d, d);
+        if (N->locked) b_put_c(t_lock, cx, yt + 0.5f * sw_h, floorf(sw_w * 1.12f), floorf(sw_w * 0.42f));
         break;
     }
     case LG_LAMP:
@@ -926,30 +1156,30 @@ static void draw_node(int i)
         int a = N->kind == LG_ALARM;
         float gy = yb - 0.62f * lamp_h;
         if (out && !a) glow(cx, gy, 1.9f * lamp_w, 0.85f);
-        if (out && a) ui_mark_glow(cx, gy, 1.7f * lamp_w);
-        ui_put(t_lamp[a][out], cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
+        if (out && a) b_mark_glow(cx, gy, 1.7f * lamp_w);
+        b_put(t_lamp[a][out], cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
         break;
     }
     case LG_ROUTE: {
         int in = arrived(i) ? G.wend[N->in[0]] : old_end[N->in[0]];
-        ui_put(t_plaque, cx - pw / 2, yt, pw, ph);
+        b_put(t_plaque, cx - pw / 2, yt, pw, ph);
         if (flip_node == i && now_ms - flip_t < FLIP_MS) {
             float q = puz_ease((now_ms - flip_t) / (float)FLIP_MS);
             SDL_Texture *o = t_route[!G.val[i]][in], *n = t_route[G.val[i]][in];
             SDL_SetTextureAlphaMod(o, (Uint8)(255 * (1 - q)));
-            ui_put(o, cx - pw / 2, yt, pw, ph);
+            b_put(o, cx - pw / 2, yt, pw, ph);
             SDL_SetTextureAlphaMod(o, 255);
             SDL_SetTextureAlphaMod(n, (Uint8)(255 * q));
-            ui_put(n, cx - pw / 2, yt, pw, ph);
+            b_put(n, cx - pw / 2, yt, pw, ph);
             SDL_SetTextureAlphaMod(n, 255);
             ui_animate();
         } else {
-            ui_put(t_route[G.val[i]][in], cx - pw / 2, yt, pw, ph);
+            b_put(t_route[G.val[i]][in], cx - pw / 2, yt, pw, ph);
         }
         break;
     }
     default: {
-        ui_put(t_plaque, cx - pw / 2, yt, pw, ph);
+        b_put(t_plaque, cx - pw / 2, yt, pw, ph);
         float top = yt + 0.84f * gate_h;          /* just into the shape */
         for (int k = 0; k < N->nin; k++) {      /* the inputs' leads, up into the shape */
             int w = N->in[k];
@@ -960,7 +1190,7 @@ static void draw_node(int i)
             trace(x, yb, x, top, lit, 2);
         }
         int w3 = N->nin == 3;
-        ui_put(t_gate[N->kind][out][w3], cx - gate_w[w3] / 2, yt, gate_w[w3], gate_h);
+        b_put(t_gate[N->kind][out][w3], cx - gate_w[w3] / 2, yt, gate_w[w3], gate_h);
     }
     }
 }
@@ -984,7 +1214,7 @@ static void hint_mark(void)
         x = (x0 + x1) / 2;
         y = (y0 + y1) / 2;
     }
-    ui_mark_gold(x, y, d);
+    b_mark_gold(x, y, d);
 }
 
 static void burst(void)
@@ -1005,7 +1235,7 @@ static void burst(void)
             float s = fmaxf(2, 0.12f * lamp_w * (1 - q));
             SDL_SetTextureColorMod(t_dot, 255, 226, 130);
             SDL_SetTextureAlphaMod(t_dot, (Uint8)(255 * (1 - q)));
-            ui_put_c(t_dot, cx + r * cosf(a), cy + r * sinf(a), s, s);
+            b_put_c(t_dot, cx + r * cosf(a), cy + r * sinf(a), s, s);
         }
         SDL_SetTextureColorMod(t_dot, 255, 255, 255);
         SDL_SetTextureAlphaMod(t_dot, 255);
@@ -1032,7 +1262,7 @@ static void draw_tools(void)
     if (blink) ui_animate();
     ui_tool(T_RESET, ICON_REPLAY, blink && (now_ms - (Uint32)deny_reset) / 300 % 2 == 0 ? UI_LIT : 0);
     ui_tool(T_HINT, ICON_HINT, 0);
-    if (wide) {                                 /* the level in the side column, above the tools */
+    if (wide && G.level >= 0) {                 /* the level in the side column, above the tools */
         box c = ui_bar_box(0, NULL);
         draw_label(c.x + c.w / 2, B.y + 0.6f * ui.unit, 1);
     }
@@ -1098,6 +1328,7 @@ static void press(float x, float y)
         return;
     }
     if (lg_solved(&G)) return;                  /* the lamps flaring; then the shell's card (the next level) */
+    from_screen(x, y, &x, &y);                  /* the board turned: back upright */
     /* a part's own box first, then the fuses, then a part's surroundings */
     for (int pass = 0; pass < 2; pass++) {
         for (int i = 0; i < G.L.nn; i++) {
@@ -1132,51 +1363,143 @@ static void press(float x, float y)
 static void motion(float x, float y) { (void)x; (void)y; }
 static void release(float x, float y) { (void)x; (void)y; }
 
-/* ---- the bar: the moves, the par (three stars), the cuts left ---------------------------------------------------- */
-static SDL_Texture *t_bar_star, *t_bar_fuse;
+/* ---- the bar: the moves (a switch), the cuts left (a fuse), the par (a star): the shell's fitted counts ---------- */
+static SDL_Texture *t_bar_star, *t_bar_fuse, *t_bar_switch;
 
 static void bar(int player, box b)
 {
     (void)player;
-    float u = ui.unit, cy = b.y + b.h / 2, dh = 0.46f * u;
-    if (made_bar != (int)u) {
-        made_bar = (int)u;
+    float u = ui.unit, cy = b.y + b.h / 2;
+    int sz = (int)(0.6f * u);
+    if (made_bar != sz) {                       /* the pictures, square */
+        made_bar = sz;
         static const uint8_t gold[3] = {255, 200, 80};
-        int s = (int)(0.5f * u), fl = (int)(0.6f * u), ft = (int)(0.26f * u);
-        ui_free(&t_bar_star);
-        uint8_t *bf = calloc((size_t)s * s, 4);
-        if (bf) { paint_star(s, gold, bf); t_bar_star = tex_buf(s, s, bf); }
-        ui_free(&t_bar_fuse);
-        bf = calloc((size_t)fl * ft, 4);
-        if (bf) { paint_fuse(0, fl, ft, bf); t_bar_fuse = tex_buf(fl, ft, bf); }
+        int w = (int)(0.5f * sz), kd = (int)(0.66f * w), ft = (int)(0.43f * sz);
+        uint8_t *bf = calloc((size_t)sz * sz, 4), *k = calloc((size_t)kd * kd, 4), *p = calloc((size_t)sz * sz, 4);
+        if (bf && k && p) {
+            paint_switch(1, w, sz, p);          /* a switch, on */
+            art_blend(bf, sz, sz, p, w, sz, (sz - w) / 2, 0);
+            art_counter(COUNTER_DISC, 0, kd, k);
+            art_blend(bf, sz, sz, k, kd, kd, (sz - kd) / 2, (int)(0.29f * sz - kd / 2.0f));
+            ui_free(&t_bar_switch);
+            t_bar_switch = ui_tex(sz, sz, bf);
+            memset(bf, 0, (size_t)sz * sz * 4);  /* a fuse */
+            memset(p, 0, (size_t)sz * sz * 4);
+            paint_fuse(0, sz, ft, p);
+            art_blend(bf, sz, sz, p, sz, ft, 0, (sz - ft) / 2);
+            ui_free(&t_bar_fuse);
+            t_bar_fuse = ui_tex(sz, sz, bf);
+            paint_star(sz, gold, bf);           /* a star */
+            ui_free(&t_bar_star);
+            t_bar_star = ui_tex(sz, sz, bf);
+        }
+        free(bf);
+        free(k);
+        free(p);
     }
-    if (!wide) {                                /* the level first (landscape: in the side column) */
-        float x = draw_label(b.x, cy, 0) + 0.75f * u;
+    if (!wide && G.level >= 0) {                /* the level first (landscape: in the side column) */
+        float x = draw_label(b.x, cy, 0) + 0.5f * u;
         b.w -= x - b.x;
         b.x = x;
     }
-    puz_bar_moves(b, NULL, G.nh);
-    float x = b.x + b.w, nw = puz_number_w(G.par, dh);   /* from the right: the par, the cuts left */
-    ui_number(x - nw / 2 - 0.05f * u, cy, dh, G.par, 1);
-    x -= nw + 0.2f * u;
-    for (int k = b.w < (G.L.ncut ? 4.2f : 2.8f) * u ? 0 : 2; k >= 0; k--) {   /* three stars; one when narrow */
-        ui_put_c(t_bar_star, x - 0.2f * u, cy + (k == 1 ? -0.08f : 0.04f) * u, 0.4f * u, 0.4f * u);
-        x -= 0.3f * u;
+    /* the counts, each beside its picture, made smaller to fit (ui_bar_fit shrinks them only to make room for its
+     * buttons; ours are the shell's tools, already outside the box) */
+    ui_count c[3];
+    int n = 0;
+    c[n++] = (ui_count){t_bar_switch, G.nh};
+    if (G.L.ncut) c[n++] = (ui_count){t_bar_fuse, G.L.cut_limit - lg_cuts(&G)};
+    c[n++] = (ui_count){t_bar_star, G.par};
+    float w = 0;
+    for (int i = 0; i < n; i++) w += 0.72f * u + ui_number_w(c[i].value, 0.46f * u) + (i ? 0.35f * u : 0);
+    float k = w > b.w - 0.1f * u ? fmaxf(0.55f, (b.w - 0.1f * u) / w) : 1, x = b.x, s = 0.6f * u * k;
+    for (int i = 0; i < n; i++) {
+        if (i) x += 0.35f * u * k;
+        ui_put(c[i].pic, x, cy - s / 2, s, s);
+        x += s + 0.12f * u * k;
+        float nw = ui_number_w(c[i].value, 0.46f * u * k);
+        ui_number(x + nw / 2, cy, 0.46f * u * k, c[i].value, 1);
+        x += nw;
     }
-    if (G.L.ncut) {
-        x -= 0.5f * u;
-        int left = G.L.cut_limit - lg_cuts(&G);
-        float lw = puz_number_w(left, dh);
-        ui_number(x - lw / 2, cy, dh, left, 1);
-        x -= lw + 0.15f * u;
-        ui_put_c(t_bar_fuse, x - 0.3f * u, cy, 0.6f * u, 0.26f * u);
+}
+
+/* ---- the die tab's cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp ---------- */
+static void circuit_thumb(int nsw, int size, uint8_t *rgba)
+{
+    paint_board(size, size, (int)(0.045f * size), rgba);
+    float S = (float)size, in = 0.1f * S, t = fmaxf(2, 0.022f * S);
+    float x[4][8], ys = 0.8f * S, yl = 0.2f * S;
+    int cnt[4] = {nsw}, rows = 1;
+    for (int i = 0; i < nsw; i++) x[0][i] = in + (S - 2 * in) * (i + 0.5f) / nsw;
+    while (cnt[rows - 1] > 1 && rows < 4) {     /* pairs (three when three are left) */
+        int n = cnt[rows - 1], m = 0;
+        for (int i = 0, k = n == 3 ? 3 : 2; i < n; i += k) x[rows][m++] = (x[rows - 1][i] + x[rows - 1][i + k - 1]) / 2;
+        cnt[rows++] = m;
     }
+    float gap = (ys - yl) / rows, pw = fminf(0.8f * (S - 2 * in) / nsw * 2, 0.2f * S), ph = 0.45f * gap;
+    float sw = fminf(0.6f * (S - 2 * in) / nsw, 0.13f * S), sh = 1.5f * sw;
+    uint8_t *b = calloc((size_t)size * size, 4);
+    if (!b) return;
+    /* the traces: each part's output up to the gap, across, up into its gate */
+    for (int r = 0; r < rows; r++) {
+        float ybot = r ? ys - r * gap : ys, ytop = ys - (r + 1) * gap + ph, ym = (ybot + ytop) / 2;
+        int n = cnt[r], per = n == 3 ? 3 : 2;
+        for (int i = 0; i < n; i++) {
+            float px = r + 1 < rows ? x[r + 1][i / per] : S / 2;
+            float k = per == 3 ? (i % 3 - 1) * 0.12f : i % 2 ? 0.12f : -0.12f;
+            float xi = px + (r + 1 < rows || n > 1 ? k * pw : 0);
+            puz_ink_rect(rgba, size, size, x[r][i] - t / 2, ym - t / 2, x[r][i] + t / 2, ybot, GOLD, 1);
+            puz_ink_rect(rgba, size, size, fminf(x[r][i], xi) - t / 2, ym - t / 2, fmaxf(x[r][i], xi) + t / 2,
+                         ym + t / 2, GOLD, 1);
+            puz_ink_rect(rgba, size, size, xi - t / 2, ytop - 1, xi + t / 2, ym + t / 2, GOLD, 1);
+        }
+    }
+    puz_ink_rect(rgba, size, size, S / 2 - t / 2, yl, S / 2 + t / 2, ys - rows * gap + ph, GOLD, 1);
+    /* the gates, the lamp, the switches */
+    static const int KINDS[] = {LG_AND, LG_OR, LG_XOR, LG_AND, LG_NOR, LG_AND, LG_OR};
+    for (int r = 1; r < rows; r++)
+        for (int i = 0; i < cnt[r]; i++) {
+            int w = (int)pw, h = (int)ph, gw = (int)(0.9f * pw), gh = (int)(0.9f * ph);
+            int y = (int)(ys - r * gap + ph - h);
+            memset(b, 0, (size_t)size * size * 4);
+            paint_walnut(b, w, h, 1);
+            art_blend(rgba, size, size, b, w, h, (int)(x[r][i] - w / 2.0f), y);
+            memset(b, 0, (size_t)size * size * 4);
+            paint_gate(KINDS[(r * 3 + i) % 7], 1, gw, gh, t, b);
+            art_blend(rgba, size, size, b, gw, gh, (int)(x[r][i] - gw / 2.0f), y);
+        }
+    int lw = (int)(0.22f * S);
+    memset(b, 0, (size_t)size * size * 4);
+    art_disc(2 * lw, (const uint8_t[3]){255, 200, 80}, 0.6f, 1.6f, b);
+    art_blend(rgba, size, size, b, 2 * lw, 2 * lw, (int)(S / 2 - lw), (int)(yl - 0.08f * S - lw));
+    memset(b, 0, (size_t)size * size * 4);
+    paint_lamp(0, 1, lw, lw, b);
+    art_blend(rgba, size, size, b, lw, lw, (int)(S / 2 - lw / 2.0f), (int)(yl - lw + 2));
+    int kd = (int)(0.66f * sw);
+    uint8_t *k = calloc((size_t)kd * kd + 1, 4);
+    for (int i = 0; i < nsw; i++) {
+        int on = (i * 5 + nsw) % 3 != 0;
+        memset(b, 0, (size_t)size * size * 4);
+        paint_switch(on, (int)sw, (int)sh, b);
+        art_blend(rgba, size, size, b, (int)sw, (int)sh, (int)(x[0][i] - sw / 2), (int)ys);
+        if (k) {
+            memset(k, 0, (size_t)kd * kd * 4);
+            art_counter(COUNTER_DISC, 0, kd, k);
+            int ky = (int)(ys + sh * (on ? 0.29f : 0.71f) - kd / 2.0f);
+            art_blend(rgba, size, size, k, kd, kd, (int)(x[0][i] - kd / 2.0f), ky);
+        }
+    }
+    free(k);
+    free(b);
 }
 
 /* ---- the menu's card: two switches on, an AND, its lamp lit ------------------------------------------------------ */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    (void)variant;
+    fresh_progress();                           /* the menu paints it before the level screen opens */
+    if (variant >= 0) {
+        circuit_thumb(4 + 2 * (variant < 0 ? 0 : variant > 2 ? 2 : variant), size, rgba);
+        return;
+    }
     paint_board(size, size, (int)(0.045f * size), rgba);
     float S = (float)size, t = fmaxf(2, 0.035f * S), gy = 0.4f, gh = 0.2f, track = 0.66f;
     const float sx[2] = {0.27f, 0.73f};
@@ -1222,11 +1545,11 @@ static void thumb(int variant, int size, uint8_t *rgba)
 }
 
 static const game logicgates_game = {
-    .id = "logicgates", .order = 370, .variants = 1,
+    .id = "logicgates", .order = 370, .variants = LG_RANDOM,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
     .levels = LG_LEVELS, .chapters = LG_CHAPTERS, .chapter_icon = paint_emblem, .level_stars = level_stars,
-    .tools = TOOLS,
+    .start_random = start_random, .score = score, .par = par, .tools = TOOLS,
 };
 REGISTER_GAME(logicgates_game)

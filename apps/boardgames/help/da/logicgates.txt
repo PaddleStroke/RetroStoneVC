@@ -1,8 +1,8 @@
 Logiske porte
 # Målet
-Et printkort: kontakter forneden, logiske porte over dem, lamper øverst. Hver ledning fører et signal opad, 0 (mørk) eller 1 (gyldent lysende). Stil kontakterne, så alle lamper lyser, mens de røde alarmlamper forbliver slukket. Der er 150 baner i 6 kapitler.
+Et printkort: kontakter forneden, logiske porte over dem, lamper øverst. Hver ledning fører et signal opad, 0 (mørk) eller 1 (gyldent lysende). Stil kontakterne, så alle lamper lyser, mens de røde alarmlamper forbliver slukket. Der er 150 baner i 6 kapitler. Til et kredsløb lavet tilfældigt vælger du først størrelsen: lille (3 eller 4 kontakter), mellem (5 eller 6) eller stor (7 eller 8).
 # Portene
-Hver port er en messingfigur på en plade af valnød: indgangene kommer ind forneden, udgangen går ud foroven. En lille ring øverst på en port vender dens svar om. Herunder indgangene og udgangen for hvert tilfælde: 01 → 1 betyder første indgang 0, anden indgang 1, udgang 1.
+Hver port er en messingfigur på en plade af valnød: indgangene kommer ind forneden, udgangen går ud foroven. En lille ring øverst på en port vender dens svar om. Herunder indgangene og udgangen for hvert tilfælde: 01 → 1 betyder første indgang 0, anden indgang 1, udgang 1. Dens navn er indgraveret på engelsk, som på kredsløbstegninger: NOT, AND, OR, XOR, NAND eller NOR.
 - NOT (IKKE), en trekant med en ring i spidsen: det modsatte af indgangen. 0 → 1, 1 → 0.
 - AND (OG), en kuppel, flad forneden og rund foroven: kun 1, når alle indgange er 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (ELLER), et spidst skjold, hult forneden: 1, når mindst én indgang er 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Nogle ledninger har en lille cremefarvet sikring. Tryk på sikringen for at klip
 # Låste kontakter
 En kontakt med en påskruet messingstang hen over bliver, som den er.
 # Baner og stjerner
-Kapitlerne: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 sporskifter; 4 ledninger, der kan klippes; 5 længere kæder, én kontakt til flere porte, porte med tre indgange; 6 store kredsløb med det hele.
+Kapitlerne: 1 NOT, AND, OR, XOR, med 2 eller 3 kontakter; 2 NAND, NOR, alarmlamper og låste kontakter, op til 5 kontakter; 3 sporskifter, op til 6; 4 ledninger, der kan klippes, op til 8; 5 porte med tre indgange, én kontakt til flere porte, to lamper; 6 store kredsløb med 7 eller 8 kontakter og det hele. Fanen med terningen efter kapitlerne laver et nyt kredsløb tilfældigt, med det valg, der er beskrevet ovenfor.
 Et træk er ét skift eller ét klip. Hver bane har et par: det mindste antal træk, der løser den. Løst på par: 3 stjerner; op til to træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner. Fortryd tager et træk tilbage, og det tæller ikke længere. Løste baner forbliver åbne, og det gør de første tre uløste også.
 # Spil på enheden
 - Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den. Dine stjerner gemmes på enheden.
 - Tryk på en kontakt for at skifte den, på et sporskifte for at dreje det, på en sikring for at klippe dens ledning. Ændringen løber op ad ledningerne, port efter port.
 - Ved siden af printkortet: kapitlet og banens nummer; den runde pil starter banen forfra; lampen giver et tip: den næste del, der skal ændres, blinker. Blinker genstartsknappen i stedet, er dine klip forkerte: fortryd dem.
 - Når alle lamper lyser, blusser de op i guld; så kommer dine stjerner frem med knappen til næste bane. Nyt spil (gitterknappen) fører tilbage til baneoversigten.
-- Bjælken viser dine træk, de klip, der er tilbage, og yderst til højre par ved siden af tre stjerner.
+- Bjælken viser dine træk ved en kontakt, de klip, der er tilbage, ved en sikring og par ved en stjerne. På en bred skærm kan et dybt kredsløb ligge på siden: kontakterne til venstre, lamperne til højre.

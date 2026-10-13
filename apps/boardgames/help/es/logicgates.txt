@@ -1,8 +1,8 @@
 Puertas lógicas
 # El objetivo
-Una placa de circuito: interruptores abajo, puertas lógicas encima y lámparas arriba. Cada cable lleva una señal hacia arriba, 0 (oscuro) o 1 (dorado y brillante). Pon los interruptores de forma que todas las lámparas se enciendan, mientras las lámparas de alarma rojas siguen apagadas. Hay 150 niveles en 6 capítulos.
+Una placa de circuito: interruptores abajo, puertas lógicas encima y lámparas arriba. Cada cable lleva una señal hacia arriba, 0 (oscuro) o 1 (dorado y brillante). Pon los interruptores de forma que todas las lámparas se enciendan, mientras las lámparas de alarma rojas siguen apagadas. Hay 150 niveles en 6 capítulos. Para un circuito hecho al azar, elige primero su tamaño: pequeño (3 o 4 interruptores), mediano (5 o 6) o grande (7 u 8).
 # Las puertas
-Cada puerta es una figura de latón sobre una placa de nogal: sus entradas llegan por abajo y su salida sale por arriba. Un pequeño círculo en lo alto de una puerta invierte su respuesta. Abajo, las entradas y la salida de cada caso: 01 → 1 quiere decir primera entrada 0, segunda entrada 1, salida 1.
+Cada puerta es una figura de latón sobre una placa de nogal: sus entradas llegan por abajo y su salida sale por arriba. Un pequeño círculo en lo alto de una puerta invierte su respuesta. Abajo, las entradas y la salida de cada caso: 01 → 1 quiere decir primera entrada 0, segunda entrada 1, salida 1. Lleva su nombre grabado en inglés, como en los esquemas: NOT, AND, OR, XOR, NAND o NOR.
 - NOT (NO), un triángulo con un círculo en la punta: lo contrario de su entrada. 0 → 1, 1 → 0.
 - AND (Y), una cúpula, plana abajo y redonda arriba: 1 solo si todas sus entradas son 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (O), un escudo acabado en punta, hueco por abajo: 1 si alguna entrada es 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Algunos cables llevan un pequeño fusible color crema. Toca el fusible para cort
 # Los interruptores bloqueados
 Un interruptor con una barra de latón atornillada encima se queda como está.
 # Niveles y estrellas
-Los capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvíos; 4 cables que se cortan; 5 cadenas más largas, un interruptor que alimenta varias puertas, puertas de tres entradas; 6 grandes circuitos que lo mezclan todo.
+Los capítulos: 1 NOT, AND, OR, XOR, con 2 o 3 interruptores; 2 NAND, NOR, lámparas de alarma e interruptores bloqueados, hasta 5 interruptores; 3 desvíos, hasta 6; 4 cables que se cortan, hasta 8; 5 puertas de tres entradas, un interruptor que alimenta varias puertas, dos lámparas; 6 grandes circuitos de 7 u 8 interruptores que lo mezclan todo. La pestaña del dado, tras los capítulos, crea un circuito nuevo al azar, con la elección descrita arriba.
 Una jugada es un cambio o un corte. Cada nivel tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; hasta dos jugadas más: 2 estrellas; si no, 1. Una pista deja el nivel en 2 estrellas como máximo. Deshacer anula una jugada, que ya no cuenta. Los niveles resueltos siguen abiertos, y también los tres primeros sin resolver.
 # Jugar en el dispositivo
 - La cuadrícula de niveles: una pestaña por capítulo y luego sus niveles: resueltos en oro con sus estrellas, abiertos en madera, cerrados en madera oscura. Toca un nivel para jugarlo. Tus estrellas quedan guardadas en el dispositivo.
 - Toca un interruptor para cambiarlo, un desvío para girarlo, un fusible para cortar su cable. El cambio sube por los cables, puerta tras puerta.
 - Junto a la placa: el capítulo y el número del nivel; la flecha redonda empieza de nuevo el nivel; la lámpara da una pista: parpadea la próxima pieza que hay que cambiar. Si parpadea el botón de empezar de nuevo, tus cortes están mal: deshazlos.
 - Cuando todas las lámparas se encienden, brillan en oro; luego aparecen tus estrellas con el botón del siguiente nivel. Nueva partida (el botón de cuadrícula) vuelve a la cuadrícula de niveles.
-- La barra muestra tus jugadas, los cortes que quedan y, en su extremo derecho, el par junto a tres estrellas.
+- La barra muestra tus jugadas junto a un interruptor, los cortes que quedan junto a un fusible y el par junto a una estrella. En una pantalla ancha, un circuito profundo puede tumbarse de lado: los interruptores a la izquierda, las lámparas a la derecha.

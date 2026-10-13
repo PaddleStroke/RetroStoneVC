@@ -1,7 +1,8 @@
 /*
  * Logic Gates for one player: the rules. A circuit on a board: switches along the bottom, logic gates above them,
  * lamps at the top; wires carry the signal (0 or 1) upwards. Set the switches so that every lamp is lit, while the
- * alarm lamps (when a level has one) stay dark. 150 levels in 6 chapters of 25, every one of them our own.
+ * alarm lamps (when a level has one) stay dark. 150 levels in 6 chapters of 25, every one of them our own, from 2
+ * switches up to 8; and circuits made at random (the die tab).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The parts:
@@ -42,8 +43,8 @@
 
 #include <stdint.h>
 
-#define LG_COLS 7
-#define LG_ROWS 8
+#define LG_COLS 12                              /* the text's cells: columns a..l, rows 1..9 */
+#define LG_ROWS 9
 #define LG_NODES 40
 #define LG_WIRES 64
 #define LG_VARS 16                              /* the most parts a level lets the player change */
@@ -54,7 +55,7 @@
 #define LG_LEVELS (LG_CHAPTERS * LG_PER_CHAPTER)
 #define LG_HIST 256
 #define LG_NH 0.5f                              /* a part's height, rows (the rest of a row: the gap with the tracks) */
-#define LG_HALF 0.34f                           /* half a part's width, columns */
+#define LG_HALF 0.40f                           /* half a part's width, columns */
 
 enum { LG_SWITCH, LG_NOT, LG_AND, LG_OR, LG_XOR, LG_NAND, LG_NOR, LG_ROUTE, LG_LAMP, LG_ALARM, LG_KINDS };
 enum { LG_MSWITCH, LG_MROUTE, LG_MCUT };        /* a move's kind */
@@ -158,17 +159,56 @@ int  lg_stars(const lg_game *g);                /* 1..3 for the moves made (once
 int  lg_hint(const lg_game *g, lg_move *m);     /* a move towards the closest solution; 0: none (undo first) */
 int  lg_script(lg_game *g, const char *moves);  /* the moves (s r c u x h =); 0 at the first bad one */
 
-/* the generator: a level's text from a seed, for the parameters (the same seed, the same level) */
+/* a level written back as text (the format above; its cells as read) */
+int  lg_text(const lg_level *L, char *out, int size);
+
+/* ---- the generator (the levels' tool, tools/logicgates_gen.c, and the random puzzles of the die tab) ----------------
+ * A circuit grows from its switches, laid in a row: a gate joins two (or three) neighbouring signals, or takes one and
+ * one already used beside it (a branching), a NOT turns one, a route switch splits one in two; until the signals left
+ * are the lamps'. It is kept when it is a puzzle (lg_make): few settings light it (sols at most, counting the routes
+ * and the cuts), no gate's output is the same in every setting, every gate matters (turning its output changes what
+ * lights), at most `herrings` switches and route switches never matter; a start with the par asked for, not every lamp
+ * lit; a clear drawing with few crossings. */
 typedef struct {
-    int cols, rows;                             /* the grid (rows: the switches' and the lamps' too) */
-    int sw;                                     /* switches */
+    int sw_lo, sw_hi;                           /* switches */
+    int gates_lo, gates_hi;                     /* gates (NOTs counted; route switches not) */
     unsigned kinds;                             /* the gates it may use: bit LG_NOT.. */
-    int routes, fuses, locked;                  /* route switches, fuses, locked switches (at most) */
-    int lamps, alarm;                           /* lamps (1..2), an alarm lamp (0/1) */
-    int fan;                                    /* % of inputs taken from an output already used (fan-out) */
-    int three;                                  /* % of three-input gates */
-    int gates;                                  /* gates per row, at most */
-} lg_params;
-int lg_generate(uint32_t seed, const lg_params *p, char *out, int size);   /* 0: nothing came out of this seed */
+    unsigned need;                              /* the kinds it must use */
+    int routes_lo, routes_hi, fuses_lo, fuses_hi;
+    int locked;                                 /* locked switches, at most */
+    int lamps, alarms;                          /* lamps (1..2) and alarm lamps (0..1), at most */
+    int three, fan, nots;                       /* % three-input gates, % branchings, % NOTs (of the gates added) */
+    int depth_lo, depth_hi;                     /* the deepest gate's depth */
+    int par_lo, par_hi;
+    int sols;                                   /* the settings that solve it, at most */
+    int herrings;                               /* switches or route switches that never matter, at most */
+    int need_route, need_cut;                   /* every solution turns a route switch / cuts a wire */
+    int cross;                                  /* crossings in the drawing, at most */
+} lg_spec;
+
+/* what a level is like (lg_rate): its size, its par, how hard it is, and its keys (64-bit hashes) to tell repeats:
+ * - exact: the circuit and its start, whatever the switches' order, a mirror image, the inputs' order of a gate (every
+ *   gate is symmetric), a route switch's sides (its way set at the start is what counts);
+ * - structure: the same without the start (the switches' values, the route switches' ways);
+ * - shape: the structure with every gate the same (NOT, two inputs, three inputs);
+ * - func: what lights it, whatever the variables' order (the solutions, each variable's sway);
+ * - start: the start against the solutions (the par, the distance to each solution).
+ * Two levels are the same when their exact keys are, or their shape, func and start keys are; near the same (one
+ * puzzle with another start) when their structure keys are. */
+typedef struct {
+    int sw, vars, gates, depth, routes, fuses, lamps, alarms, xors, fans, three, nots;
+    int par, nsol, herrings, decoys, crossings;
+    int consts, idle;                           /* gates whose output never changes; gates that never matter */
+    float score;                                /* the difficulty, as a number to sort by */
+    uint64_t exact, structure, shape, func, start;
+} lg_rating;
+/* 0: not rated (more than 14 variables) */
+int  lg_rate(const lg_level *L, lg_rating *r);
+/* a level for the spec from the seed (the same seed, the same level): its text; 0: none found in `tries` circuits */
+int  lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg_rating *r);
+/* the die tab's puzzles: 0 small (3 to 4 switches), 1 medium (5 to 6), 2 big (7 to 8) */
+#define LG_RANDOM 3
+void lg_random_spec(int variant, lg_spec *sp);
+int  lg_random(lg_game *g, int variant, uint32_t seed);   /* a new random puzzle (g->level -1); 0: none (never) */
 
 #endif

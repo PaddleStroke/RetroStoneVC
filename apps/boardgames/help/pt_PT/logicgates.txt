@@ -1,8 +1,8 @@
 Portas lógicas
 # O objetivo
-Uma placa de circuito: interruptores em baixo, portas lógicas por cima deles, lâmpadas no topo. Cada fio leva um sinal para cima, 0 (apagado) ou 1 (dourado e brilhante). Ajusta os interruptores para que todas as lâmpadas se acendam, enquanto as lâmpadas vermelhas de alarme ficam apagadas. São 150 níveis em 6 capítulos.
+Uma placa de circuito: interruptores em baixo, portas lógicas por cima deles, lâmpadas no topo. Cada fio leva um sinal para cima, 0 (apagado) ou 1 (dourado e brilhante). Ajusta os interruptores para que todas as lâmpadas se acendam, enquanto as lâmpadas vermelhas de alarme ficam apagadas. São 150 níveis em 6 capítulos. Para um circuito feito ao acaso, escolhe primeiro o tamanho: pequeno (3 ou 4 interruptores), médio (5 ou 6) ou grande (7 ou 8).
 # As portas
-Cada porta é uma forma de latão numa placa de nogueira: as entradas chegam por baixo, a saída sai por cima. Um pequeno círculo no topo de uma porta inverte a sua resposta. Abaixo, as entradas e a saída de cada caso: 01 → 1 quer dizer primeira entrada 0, segunda entrada 1, saída 1.
+Cada porta é uma forma de latão numa placa de nogueira: as entradas chegam por baixo, a saída sai por cima. Um pequeno círculo no topo de uma porta inverte a sua resposta. Abaixo, as entradas e a saída de cada caso: 01 → 1 quer dizer primeira entrada 0, segunda entrada 1, saída 1. O seu nome está gravado em inglês, como nos esquemas: NOT, AND, OR, XOR, NAND ou NOR.
 - NOT (NÃO), um triângulo com um círculo na ponta: o contrário da entrada. 0 → 1, 1 → 0.
 - AND (E), uma cúpula, direita em baixo e redonda em cima: 1 só quando todas as entradas são 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (OU), um escudo pontiagudo, côncavo em baixo: 1 quando alguma entrada é 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Alguns fios têm um pequeno fusível cor de creme. Toca no fusível para cortar 
 # Os interruptores bloqueados
 Um interruptor com uma barra de latão aparafusada por cima fica como está.
 # Níveis e estrelas
-Os capítulos: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 desvios; 4 fios a cortar; 5 cadeias mais longas, um interruptor que alimenta várias portas, portas de três entradas; 6 circuitos grandes que misturam tudo.
+Os capítulos: 1 NOT, AND, OR, XOR, com 2 ou 3 interruptores; 2 NAND, NOR, lâmpadas de alarme e interruptores bloqueados, até 5 interruptores; 3 desvios, até 6; 4 fios a cortar, até 8; 5 portas de três entradas, um interruptor que alimenta várias portas, duas lâmpadas; 6 circuitos grandes de 7 ou 8 interruptores que misturam tudo. O separador do dado, depois dos capítulos, cria um novo circuito ao acaso, com a escolha descrita acima.
 Uma jogada é uma mudança ou um corte. Cada nível tem um par, o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; até duas jogadas a mais: 2 estrelas; senão, 1. Uma pista limita o nível a 2 estrelas. Anular desfaz uma jogada, que deixa de contar. Os níveis resolvidos ficam abertos, tal como os três primeiros por resolver.
 # Jogar no dispositivo
 - A grelha de níveis: um separador por capítulo e depois os seus níveis: resolvidos em ouro com as suas estrelas, abertos em madeira, fechados em madeira escura. Toca num nível para o jogar. As tuas estrelas ficam guardadas no dispositivo.
 - Toca num interruptor para o mudar, num desvio para o rodar, num fusível para cortar o seu fio. A mudança sobe pelos fios, porta após porta.
 - Ao lado da placa: o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma pista: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, os teus cortes estão errados: anula-os.
 - Quando todas as lâmpadas se acendem, brilham em ouro; depois aparecem as tuas estrelas com o botão do nível seguinte. Novo jogo (o botão de grelha) volta à grelha de níveis.
-- A barra mostra as tuas jogadas, os cortes que restam e, na ponta direita, o par ao lado de três estrelas.
+- A barra mostra as tuas jogadas ao lado de um interruptor, os cortes que restam ao lado de um fusível e o par ao lado de uma estrela. Num ecrã largo, um circuito profundo pode ficar deitado: os interruptores à esquerda, as lâmpadas à direita.

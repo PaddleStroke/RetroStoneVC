@@ -1,8 +1,8 @@
 Bramki logiczne
 # Cel gry
-Płytka drukowana: na dole przełączniki, nad nimi bramki logiczne, na górze żarówki. Każdy przewód niesie sygnał w górę, 0 (ciemny) albo 1 (świecący złotem). Ustaw przełączniki tak, by zapaliły się wszystkie żarówki, a czerwone lampki alarmowe pozostały zgaszone. Gra ma 150 poziomów w 6 rozdziałach.
+Płytka drukowana: na dole przełączniki, nad nimi bramki logiczne, na górze żarówki. Każdy przewód niesie sygnał w górę, 0 (ciemny) albo 1 (świecący złotem). Ustaw przełączniki tak, by zapaliły się wszystkie żarówki, a czerwone lampki alarmowe pozostały zgaszone. Gra ma 150 poziomów w 6 rozdziałach. Dla układu tworzonego losowo najpierw wybierz rozmiar: mały (3 lub 4 przełączniki), średni (5 lub 6) albo duży (7 lub 8).
 # Bramki
-Każda bramka to mosiężny kształt na orzechowej tabliczce: wejścia wchodzą od dołu, wyjście wychodzi u góry. Małe kółko na szczycie bramki odwraca jej odpowiedź. Poniżej wejścia i wyjście w każdym przypadku: 01 → 1 oznacza pierwsze wejście 0, drugie wejście 1, wyjście 1.
+Każda bramka to mosiężny kształt na orzechowej tabliczce: wejścia wchodzą od dołu, wyjście wychodzi u góry. Małe kółko na szczycie bramki odwraca jej odpowiedź. Poniżej wejścia i wyjście w każdym przypadku: 01 → 1 oznacza pierwsze wejście 0, drugie wejście 1, wyjście 1. Ma wygrawerowaną swoją angielską nazwę, jak na schematach: NOT, AND, OR, XOR, NAND albo NOR.
 - NOT (negacja), trójkąt z kółkiem na czubku: odwrotność wejścia. 0 → 1, 1 → 0.
 - AND (iloczyn), kopuła, płaska u dołu i okrągła u góry: 1 tylko wtedy, gdy wszystkie wejścia są 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (suma), spiczasta tarcza, wklęsła u dołu: 1, gdy choć jedno wejście jest 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Niektóre przewody mają mały kremowy bezpiecznik. Dotknij bezpiecznika, by prz
 # Zablokowane przełączniki
 Przełącznik z przykręconą mosiężną listwą zostaje taki, jaki jest.
 # Poziomy i gwiazdki
-Rozdziały: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 zwrotnice; 4 przewody do przecięcia; 5 dłuższe łańcuchy, jeden przełącznik zasilający kilka bramek, bramki o trzech wejściach; 6 duże układy, w których jest wszystko.
+Rozdziały: 1 NOT, AND, OR, XOR, z 2 lub 3 przełącznikami; 2 NAND, NOR, lampki alarmowe i zablokowane przełączniki, do 5 przełączników; 3 zwrotnice, do 6; 4 przewody do przecięcia, do 8; 5 bramki o trzech wejściach, jeden przełącznik zasilający kilka bramek, dwie żarówki; 6 duże układy z 7 lub 8 przełącznikami, w których jest wszystko. Zakładka z kostką za rozdziałami tworzy nowy układ losowo, z wyborem opisanym wyżej.
 Ruch to jedno przełączenie albo jedno cięcie. Każdy poziom ma par: najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; najwyżej dwa ruchy więcej: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza poziom do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć. Rozwiązane poziomy pozostają otwarte, tak samo jak trzy pierwsze nierozwiązane.
 # Gra na urządzeniu
 - Siatka poziomów: zakładka dla każdego rozdziału, a pod nią jego poziomy: rozwiązane złote z gwiazdkami, otwarte drewniane, zamknięte z ciemnego drewna. Dotknij poziomu, aby w niego zagrać. Twoje gwiazdki zostają zapisane na urządzeniu.
 - Dotknij przełącznika, by go przełączyć, zwrotnicy, by ją obrócić, bezpiecznika, by przeciąć jego przewód. Zmiana biegnie w górę przewodów, bramka po bramce.
 - Obok płytki: rozdział i numer poziomu; okrągła strzałka zaczyna poziom od nowa; żarówka daje podpowiedź: miga następna część do zmiany. Jeśli zamiast tego miga przycisk zaczynania od nowa, twoje cięcia są błędne: cofnij je.
 - Gdy świecą wszystkie żarówki, rozbłyskują złotem; potem pojawiają się twoje gwiazdki z przyciskiem następnego poziomu. Nowa gra (przycisk z siatką) wraca do siatki poziomów.
-- Pasek pokazuje twoje ruchy, pozostałe cięcia i na prawym końcu par obok trzech gwiazdek.
+- Pasek pokazuje twoje ruchy obok przełącznika, pozostałe cięcia obok bezpiecznika i par obok gwiazdki. Na szerokim ekranie głęboki układ może leżeć na boku: przełączniki po lewej, żarówki po prawej.

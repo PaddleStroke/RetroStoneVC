@@ -1,8 +1,8 @@
 Portes logiques
 # Le but
-Un circuit imprimé : des interrupteurs en bas, des portes logiques au-dessus, des lampes en haut. Chaque fil porte un signal vers le haut, 0 (sombre) ou 1 (doré, lumineux). Règle les interrupteurs pour que toutes les lampes s'allument, tandis que les lampes d'alarme rouges restent éteintes. 150 niveaux en 6 chapitres.
+Un circuit imprimé : des interrupteurs en bas, des portes logiques au-dessus, des lampes en haut. Chaque fil porte un signal vers le haut, 0 (sombre) ou 1 (doré, lumineux). Règle les interrupteurs pour que toutes les lampes s'allument, tandis que les lampes d'alarme rouges restent éteintes. 150 niveaux en 6 chapitres. Pour un circuit fait au hasard, choisis d'abord sa taille : petit (3 ou 4 interrupteurs), moyen (5 ou 6) ou grand (7 ou 8).
 # Les portes
-Chaque porte est une forme de laiton sur une plaque de noyer : ses entrées arrivent par le bas, sa sortie part par le haut. Un petit rond au sommet d'une porte inverse sa réponse. Ci-dessous, les entrées et la sortie pour chaque cas : 01 → 1 veut dire première entrée 0, deuxième entrée 1, sortie 1.
+Chaque porte est une forme de laiton sur une plaque de noyer : ses entrées arrivent par le bas, sa sortie part par le haut. Un petit rond au sommet d'une porte inverse sa réponse. Ci-dessous, les entrées et la sortie pour chaque cas : 01 → 1 veut dire première entrée 0, deuxième entrée 1, sortie 1. Son nom y est gravé en anglais, comme sur les schémas : NOT, AND, OR, XOR, NAND ou NOR.
 - NON (NOT), un triangle avec un rond à la pointe : le contraire de son entrée. 0 → 1, 1 → 0.
 - ET (AND), un dôme, plat en bas et rond en haut : 1 seulement si toutes ses entrées valent 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OU (OR), un bouclier pointu, creusé en bas : 1 si au moins une entrée vaut 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Certains fils portent un petit fusible crème. Touche le fusible pour couper le 
 # Les interrupteurs verrouillés
 Un interrupteur barré d'une plaque de laiton vissée reste comme il est.
 # Niveaux et étoiles
-Les chapitres : 1 NON, ET, OU ; 2 OU exclusif, NON-ET, NON-OU ; 3 aiguillages ; 4 fils à couper ; 5 chaînes plus longues, un interrupteur qui alimente plusieurs portes, portes à trois entrées ; 6 grands circuits qui mélangent tout.
+Les chapitres : 1 NON, ET, OU, OU exclusif, avec 2 ou 3 interrupteurs ; 2 NON-ET, NON-OU, lampes d'alarme et interrupteurs verrouillés, jusqu'à 5 interrupteurs ; 3 aiguillages, jusqu'à 6 ; 4 fils à couper, jusqu'à 8 ; 5 portes à trois entrées, un interrupteur qui alimente plusieurs portes, deux lampes ; 6 grands circuits de 7 ou 8 interrupteurs qui mélangent tout. L'onglet du dé, après les chapitres, crée un nouveau circuit au hasard, avec le choix décrit plus haut.
 Un coup, c'est une bascule ou une coupure. Chaque niveau a un par, le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à deux coups de plus : 2 étoiles ; sinon 1. Un indice limite le niveau à 2 étoiles. Annuler reprend un coup, qui ne compte plus. Les niveaux résolus restent ouverts, ainsi que les trois premiers non résolus.
 # Jouer sur l'appareil
 - La grille des niveaux : un onglet par chapitre, puis les niveaux du chapitre : résolus en or avec leurs étoiles, ouverts en bois, fermés en bois sombre. Touche un niveau pour le jouer. Tes étoiles restent gardées sur l'appareil.
 - Touche un interrupteur pour le basculer, un aiguillage pour le tourner, un fusible pour couper son fil. Le changement remonte les fils, porte après porte.
 - À côté du plateau : le chapitre et le numéro du niveau ; la flèche ronde recommence le niveau ; la lampe donne un indice : la prochaine pièce à changer clignote. Si c'est le bouton Recommencer qui clignote, tes coupures sont fausses : annule-les.
 - Quand toutes les lampes sont allumées, elles s'embrasent d'or ; puis tes étoiles apparaissent avec le bouton du niveau suivant. Nouvelle partie (le bouton grille) ramène à la grille des niveaux.
-- La barre montre tes coups, les coupures restantes et, à son extrémité droite, le par à côté de trois étoiles.
+- La barre montre tes coups à côté d'un interrupteur, les coupures restantes à côté d'un fusible et le par à côté d'une étoile. Sur un écran large, un circuit profond peut se coucher : les interrupteurs à gauche, les lampes à droite.

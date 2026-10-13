@@ -1,8 +1,8 @@
 Logische poorten
 # Het doel
-Een printplaat: onderaan schakelaars, daarboven logische poorten, bovenaan lampen. Elke draad voert een signaal omhoog, 0 (donker) of 1 (goud oplichtend). Zet de schakelaars zo dat alle lampen branden, terwijl de rode alarmlampen uit blijven. Er zijn 150 levels in 6 hoofdstukken.
+Een printplaat: onderaan schakelaars, daarboven logische poorten, bovenaan lampen. Elke draad voert een signaal omhoog, 0 (donker) of 1 (goud oplichtend). Zet de schakelaars zo dat alle lampen branden, terwijl de rode alarmlampen uit blijven. Er zijn 150 levels in 6 hoofdstukken. Voor een willekeurige schakeling kies je eerst de grootte: klein (3 of 4 schakelaars), middel (5 of 6) of groot (7 of 8).
 # De poorten
-Elke poort is een koperen vorm op een plaatje notenhout: de ingangen komen er onderaan in, de uitgang gaat er bovenaan uit. Een rondje bovenop een poort draait het antwoord om. Hieronder de ingangen en de uitgang voor elk geval: 01 → 1 betekent eerste ingang 0, tweede ingang 1, uitgang 1.
+Elke poort is een koperen vorm op een plaatje notenhout: de ingangen komen er onderaan in, de uitgang gaat er bovenaan uit. Een rondje bovenop een poort draait het antwoord om. Hieronder de ingangen en de uitgang voor elk geval: 01 → 1 betekent eerste ingang 0, tweede ingang 1, uitgang 1. De naam staat er in het Engels in gegraveerd, zoals op schema's: NOT, AND, OR, XOR, NAND of NOR.
 - NOT (NIET), een driehoek met een rondje aan de punt: het omgekeerde van de ingang. 0 → 1, 1 → 0.
 - AND (EN), een koepel, onderaan plat en bovenaan rond: alleen 1 als alle ingangen 1 zijn. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (OF), een spits schild, onderaan uitgehold: 1 als minstens één ingang 1 is. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Sommige draden hebben een kleine crèmekleurige zekering. Tik op de zekering om 
 # Vergrendelde schakelaars
 Een schakelaar met een vastgeschroefde koperen strip erover blijft zoals hij is.
 # Levels en sterren
-De hoofdstukken: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 wissels; 4 draden om door te knippen; 5 langere ketens, één schakelaar voor meerdere poorten, poorten met drie ingangen; 6 grote schakelingen met alles door elkaar.
+De hoofdstukken: 1 NOT, AND, OR, XOR, met 2 of 3 schakelaars; 2 NAND, NOR, alarmlampen en vergrendelde schakelaars, tot 5 schakelaars; 3 wissels, tot 6; 4 draden om door te knippen, tot 8; 5 poorten met drie ingangen, één schakelaar voor meerdere poorten, twee lampen; 6 grote schakelingen van 7 of 8 schakelaars met alles door elkaar. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe schakeling, met de keuze die hierboven staat.
 Een zet is één keer omzetten of één knip. Elk level heeft een par: het kleinste aantal zetten waarmee het op te lossen is. Opgelost op par: 3 sterren; tot twee zetten meer: 2 sterren; anders 1. Een hint beperkt het level tot 2 sterren. Ongedaan maken neemt een zet terug, die dan niet meer telt. Opgeloste levels blijven open, net als de eerste drie onopgeloste.
 # Spelen op het apparaat
 - Het levelrooster: een tab per hoofdstuk, daarna de levels ervan: opgeloste in goud met hun sterren, open in hout, gesloten in donker hout. Tik op een level om het te spelen. Je sterren blijven bewaard op het apparaat.
 - Tik op een schakelaar om hem om te zetten, op een wissel om hem te draaien, op een zekering om de draad door te knippen. De verandering loopt de draden omhoog, poort na poort.
 - Naast de printplaat: het hoofdstuk en het nummer van het level; de ronde pijl begint het level opnieuw; de lamp geeft een hint: het volgende onderdeel om te veranderen knippert. Knippert in plaats daarvan de herstartknop, dan zijn je knippen fout: maak ze ongedaan.
 - Branden alle lampen, dan lichten ze goud op; daarna verschijnen je sterren met de knop naar het volgende level. Nieuw spel (de roosterknop) gaat terug naar het levelrooster.
-- De balk toont je zetten, de knippen die over zijn en, aan het rechtereinde, de par naast drie sterren.
+- De balk toont je zetten naast een schakelaar, de knippen die over zijn naast een zekering en de par naast een ster. Op een breed scherm kan een diepe schakeling op zijn kant liggen: de schakelaars links, de lampen rechts.

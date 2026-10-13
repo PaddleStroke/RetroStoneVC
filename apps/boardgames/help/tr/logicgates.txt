@@ -1,8 +1,8 @@
 Mantık Kapıları
 # Amaç
-Bir devre kartı: altta anahtarlar, onların üstünde mantık kapıları, en üstte lambalar. Her tel yukarı doğru bir sinyal taşır, 0 (karanlık) ya da 1 (altın gibi parlar). Anahtarları öyle ayarla ki bütün lambalar yansın, kırmızı alarm lambaları ise sönük kalsın. 6 bölümde 150 seviye var.
+Bir devre kartı: altta anahtarlar, onların üstünde mantık kapıları, en üstte lambalar. Her tel yukarı doğru bir sinyal taşır, 0 (karanlık) ya da 1 (altın gibi parlar). Anahtarları öyle ayarla ki bütün lambalar yansın, kırmızı alarm lambaları ise sönük kalsın. 6 bölümde 150 seviye var. Rastgele yapılan bir devre için önce boyutunu seç: küçük (3 ya da 4 anahtar), orta (5 ya da 6) ya da büyük (7 ya da 8).
 # Kapılar
-Her kapı ceviz bir levha üzerinde pirinçten bir şekildir: girişleri alttan girer, çıkışı üstten çıkar. Bir kapının tepesindeki küçük halka cevabını tersine çevirir. Aşağıda her durum için girişler ve çıkış: 01 → 1, birinci giriş 0, ikinci giriş 1, çıkış 1 demektir.
+Her kapı ceviz bir levha üzerinde pirinçten bir şekildir: girişleri alttan girer, çıkışı üstten çıkar. Bir kapının tepesindeki küçük halka cevabını tersine çevirir. Aşağıda her durum için girişler ve çıkış: 01 → 1, birinci giriş 0, ikinci giriş 1, çıkış 1 demektir. Adı, devre şemalarındaki gibi İngilizce olarak üstüne kazınmıştır: NOT, AND, OR, XOR, NAND ya da NOR.
 - NOT (DEĞİL), ucunda halka olan bir üçgen: girişinin tersi. 0 → 1, 1 → 0.
 - AND (VE), altı düz, üstü yuvarlak bir kubbe: yalnızca bütün girişler 1 olunca 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
 - OR (VEYA), altı oyuk, sivri bir kalkan: en az bir giriş 1 olunca 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
@@ -17,11 +17,11 @@ Bazı tellerde küçük, krem renkli bir sigorta vardır. Teli kesmek için sigo
 # Kilitli anahtarlar
 Üstüne pirinç bir çubuk vidalanmış anahtar olduğu gibi kalır.
 # Seviyeler ve yıldızlar
-Bölümler: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 makaslar; 4 kesilebilen teller; 5 daha uzun zincirler, birkaç kapıyı besleyen tek anahtar, üç girişli kapılar; 6 her şeyin karıştığı büyük devreler.
+Bölümler: 1 NOT, AND, OR, XOR, 2 ya da 3 anahtarla; 2 NAND, NOR, alarm lambaları ve kilitli anahtarlar, en çok 5 anahtar; 3 makaslar, en çok 6; 4 kesilebilen teller, en çok 8; 5 üç girişli kapılar, birkaç kapıyı besleyen tek anahtar, iki lamba; 6 her şeyin karıştığı 7 ya da 8 anahtarlı büyük devreler. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir devre yapar.
 Bir hamle, bir anahtarı çevirmek ya da bir teli kesmektir. Her seviyenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla iki hamle fazlasıyla 2 yıldız; yoksa 1. Bir ipucu seviyeyi en fazla 2 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz. Çözülen seviyeler açık kalır; çözülmemiş ilk üç seviye de açıktır.
 # Cihazda oynamak
 - Seviye tablosu: her bölüm için bir sekme, altında da o bölümün seviyeleri: çözülenler yıldızlarıyla altın, açık olanlar ahşap, kilitliler koyu ahşap. Oynamak için bir seviyeye dokun. Yıldızların cihazda saklanır.
 - Çevirmek için bir anahtara, döndürmek için bir makasa, telini kesmek için bir sigortaya dokun. Değişiklik teller boyunca kapı kapı yukarı koşar.
 - Kartın yanında: bölüm ve seviyenin numarası; yuvarlak ok seviyeyi baştan başlatır; lamba ipucu verir: değiştirilecek sonraki parça yanıp söner. Bunun yerine yeniden başlatma düğmesi yanıp sönüyorsa kesiklerin yanlıştır: onları geri al.
 - Bütün lambalar yanınca altın gibi parlarlar; ardından yıldızların ve sonraki seviyenin düğmesi görünür. Yeni oyun (ızgara düğmesi) seviye tablosuna döner.
-- Şerit hamlelerini, kalan kesme hakkını ve sağ ucunda üç yıldızın yanında par değerini gösterir.
+- Şerit hamlelerini bir anahtarın, kalan kesme hakkını bir sigortanın, par değerini de bir yıldızın yanında gösterir. Geniş bir ekranda derin bir devre yan yatabilir: anahtarlar solda, lambalar sağda.
