@@ -1,0 +1,4 @@
+Full game
+Short game
+Full, no doubling
+Short, no doubling

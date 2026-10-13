@@ -1,0 +1,4 @@
+10 pins
+20 pins
+30 pins
+45 pins

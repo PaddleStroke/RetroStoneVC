@@ -1,0 +1,5 @@
+9 × 9
+13 × 13
+19 × 19
+Capture go 9 × 9
+Capture go 13 × 13

@@ -1,0 +1,8 @@
+9 × 9, no guessing
+8 × 12, no guessing
+16 × 16, no guessing
+16 × 30, no guessing
+9 × 9, classic
+8 × 12, classic
+16 × 16, classic
+16 × 30, classic

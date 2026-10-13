@@ -1,0 +1,6 @@
+Beginner
+Easy
+Medium
+Hard
+Expert
+Mate in 1 to 3

@@ -1,0 +1,9 @@
+Classic
+Chess960
+Crazyhouse
+Three-check
+King of the Hill
+Losing chess
+Atomic
+Racing Kings
+Horde
