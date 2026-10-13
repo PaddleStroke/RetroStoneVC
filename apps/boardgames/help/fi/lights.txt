@@ -7,6 +7,6 @@ Paina lamppua: se vaihtaa tilaa (palavasta pimeäksi tai pimeästä palavaksi), 
 # Pelin loppu
 Tehtävä on ratkaistu, kun jokainen lamppu on pimeä: kultainen valoaalto kulkee laudan yli. Pienin mahdollinen painallusten määrä lasketaan jokaiselle laudalle; yritä yltää siihen.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, 3 × 3 lampusta 7 × 7 lamppuun, monet niistä kuvioina; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Par on pienin määrä painalluksia. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän painalluksia: 2 tähteä; muuten 1. Kumoa peruu painalluksen, eikä sitä enää lasketa.
+Tasoja on 150 kuudessa luvussa, 3 × 3 lampusta 7 × 7 lamppuun, monet niistä kuvioina; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä painalluksia, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän painalluksia: 2 tähteä; muuten 1. Kumoa peruu painalluksen, eikä sitä enää lasketa.
 # Pelaaminen laitteella
 Napauta lamppua painaaksesi sitä. Laudan vieressä oleva lamppu antaa vihjeen: se painaa yhtä lyhimmän reitin lamppua kultaisessa valossa. Kumoa peruu yhden painalluksen kerrallaan, aina alkuun asti. Palkki näyttää painalluksesi ja oikeassa päässä pienimmän mahdollisen määrän alusta; se hehkuu kultaisena, kun yllät siihen.

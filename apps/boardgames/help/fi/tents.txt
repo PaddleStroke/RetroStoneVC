@@ -10,12 +10,12 @@ Pystytä teltta ruutuun tai pura se. Voit myös laittaa ruutuun ruohoa muistaaks
 # Pelin loppu
 Kenttä on ratkaistu, kun jokaisella puulla on telttansa, mitkään teltat eivät kosketa toisiaan ja jokainen luku pitää paikkansa: kultaisen valon aalto kulkee kentän yli.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä teltta tai ruoho, jonka sitten perut Kumoa-napilla.
+Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä teltta tai ruoho, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
 - Napauta ruutua pystyttääksesi teltan; napauta uudelleen purkaaksesi sen.
 - Pidä sormea hetki ruudulla laittaaksesi siihen ruohoa tai poistaaksesi sen.
 - Vedä pitkin riviä tai saraketta laittaaksesi ruohoa koko jaksolle (tai poistaaksesi sen ruohojaksolta).
-Toisiaan koskettavat teltat hehkuvat punaisina, samoin puu, jonka teltalle ei ole enää tilaa. Luku muuttuu punaiseksi, kun sen linjalla on liikaa telttoja, ja haalistuu, kun sillä on ne kaikki. Palkin oikean pään napit (vaakatilassa sivusarakkeessa):
+Toisiaan koskettavat teltat hehkuvat punaisina, samoin puu, jonka teltalle ei ole enää tilaa. Luku muuttuu punaiseksi, kun sen linjalla on liikaa telttoja, ja haalistuu, kun sillä on ne kaikki. Laudan vieressä olevat painikkeet:
 - Teltta tai ruoho: mitä napautus laittaa. Napauta sitä vaihtaaksesi napautuksen ja painalluksen paikkaa.
 - Hehkulamppu: vihje. Se korjaa väärän ruudun tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
 Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

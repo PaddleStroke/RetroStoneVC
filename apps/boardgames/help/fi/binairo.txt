@@ -10,9 +10,9 @@ Aseta nappula tyhjään ruutuun, vaihda sen väri tai poista se. Annetut nappula
 # Pelin loppu
 Tehtävä on ratkaistu, kun ruudukko on täynnä ja noudattaa kaikkia sääntöjä: kultaisen valon aalto kulkee laudan yli.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 6 × 6 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärän värinen nappula, jonka sitten perut Kumoa-napilla.
+Tasoja on 150 kuudessa luvussa, koosta 6 × 6 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärän värinen nappula, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
 - Napauta tyhjää ruutua saadaksesi vaalean nappulan, uudelleen tumman, vielä kerran tyhjentääksesi sen.
 - Pidä sormea hetki ruudulla kiertääksesi toiseen suuntaan: tumma ensin.
 - Vedä pitkin riviä tai saraketta tehdäksesi saman koko jaksolle. Vain ensimmäisen ruudun kaltaiset ruudut muuttuvat.
-Kolme samanlaista peräkkäin hehkuu punaisena; rivi tai sarake, jossa on liikaa yhden värin nappuloita tai joka on täynnä ja samanlainen kuin toinen, muuttuu punaiseksi. Palkin oikean pään nappi (vaakatilassa sivusarakkeessa) on hehkulamppu: vihje. Se korjaa väärän nappulan tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Kolme samanlaista peräkkäin hehkuu punaisena; rivi tai sarake, jossa on liikaa yhden värin nappuloita tai joka on täynnä ja samanlainen kuin toinen, muuttuu punaiseksi. Laudan vieressä oleva hehkulamppupainike on vihje. Se korjaa väärän nappulan tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

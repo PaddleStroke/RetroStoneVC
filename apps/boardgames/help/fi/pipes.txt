@@ -11,5 +11,5 @@ Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 11 × 11 ja reunattomiin la
 # Pelaaminen laitteella
 - Napauta laattaa kääntääksesi sitä neljänneskierroksen.
 - Vesi virtaa säiliöstä jokaiseen siihen liittyvään putkeen. Kun se saavuttaa avoimen putken, se valuu yli: katso pisaroita.
-- Palkin oikeassa päässä oleva lamppu antaa vihjeen: se kääntää yhden väärän laatan oikein (veden vierestä, jos voi) kultaisessa valossa.
+- Lamppu antaa vihjeen: se kääntää yhden väärän laatan oikein (veden vierestä, jos voi) kultaisessa valossa.
 Kumoa peruu yhden käännön tai vihjeen kerrallaan aina alkuun asti. Palkki näyttää siirtosi.

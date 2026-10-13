@@ -14,5 +14,5 @@ Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 10 × 10, ja jokaisessa on 
 # Pelaaminen laitteella
 - Vedä ruudusta ruutuun rakentaaksesi raiteen sormesi alle; se liittyy jo oleviin paloihin.
 - Napauta ruutua saadaksesi palan (naapureihin parhaiten sopiva ensin), uudelleen seuraavan; kuudennen jälkeen ruutu on taas tyhjä.
-- Pidä sormea hetki ruudulla merkitäksesi sen ristillä. Palkin ristipainike saa napautukset ja vedot merkitsemään ristejä; se näyttää, mitä napautus tekee.
-Luku himmenee, kun sen linjalla on niin monta palaa, ja muuttuu punaiseksi, kun niitä on liikaa. Palkin lamppu on vihje: se korjaa yhden ruudun ja valaisee sen kultaisena. Kumoa perää yhden toiminnon kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
+- Pidä sormea hetki ruudulla merkitäksesi sen ristillä. Ristipainike saa napautukset ja vedot merkitsemään ristejä; se näyttää, mitä napautus tekee.
+Luku himmenee, kun sen linjalla on niin monta palaa, ja muuttuu punaiseksi, kun niitä on liikaa. Lamppu on vihje: se korjaa yhden ruudun ja valaisee sen kultaisena. Kumoa peruu yhden toiminnon kerrallaan aina alkuun asti. Palkki näyttää siirtosi.

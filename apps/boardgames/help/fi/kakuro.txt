@@ -7,9 +7,9 @@ Täytä jokainen valkoinen ruutu numerolla 1–9. Jono on valkoisten ruutujen ri
 # Tasot ja tähdet
 Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
-Napauta valkoista ruutua ja sitten näppäintä laudan alla: numero kirjoittuu sinisellä musteella. Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun kaksi jonoa valaistuvat, niiden summat kullalla, ja saman numeron ruudut lämpimästi. Kun ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Painikkeet laudan vieressä:
+Napauta valkoista ruutua ja sitten näppäintä laudan vieressä: numero kirjoittuu sinisellä musteella. Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun kaksi jonoa valaistuvat, niiden summat kullalla, ja saman numeron ruudut lämpimästi. Kun ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Painikkeet laudan vieressä:
 - Lyijykynä: muistiinpanot. Näppäimet panevat silloin ruutuun pieniä numeroita tai poistavat niitä.
 - Pyyhekumi: poistaa ruudun numeron tai sen muistiinpanot.
 - Lamppu: vihje. Se korjaa väärän numeron tai muuten täyttää ruudun, jonka päättely löytää, kultaisessa valossa.
 - Silmä: näyttää virheet punaisina (numero kahdesti jonossa, jono yli summansa tai täysi jono väärällä summalla). Se on aluksi päällä.
-Kumoa perii takaisin yhden toimen kerrallaan, alkuun asti. Palkki näyttää siirtosi. Kun kaikki ruudut ovat oikein, kultaisen valon aalto kulkee laudan yli.
+Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi. Kun kaikki ruudut ovat oikein, kultaisen valon aalto kulkee laudan yli.

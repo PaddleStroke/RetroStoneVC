@@ -7,7 +7,7 @@ Täytä ruutu, tai merkitse ristillä ruutu, jonka tiedät tyhjäksi. Ristit ova
 # Pelin loppu
 Kun jokainen rivi ja sarake vastaa vihjeitään, ristikko on ratkaistu: ristit häviävät, kuva tulee esiin väreissään ja kultainen valo kulkee sen yli.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa: pelille piirrettyjä pieniä kuvia, koosta 5 × 5 kokoon 15 × 15, ja jokaisen löytää linja kerrallaan; valitse taso tasoruudukosta. Ratkaisemasi taso näyttää kuvansa tasoruudukossa. Noppavälilehti lukujen jälkeen piirtää sattumanvaraisen kuvan valitsemasi kokoisena. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virheeksi lasketaan kuvan ulkopuolelle täytetty ruutu tai kuvan päälle merkitty risti, kun perut sen Kumoa-painikkeella.
+Tasoja on 150 kuudessa luvussa: pelille piirrettyjä pieniä kuvia, koosta 5 × 5 kokoon 15 × 15, ja jokaisen löytää linja kerrallaan; valitse taso tasoruudukosta. Ratkaisemasi taso näyttää kuvansa tasoruudukossa. Noppavälilehti lukujen jälkeen piirtää sattumanvaraisen kuvan valitsemasi kokoisena. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kuvan ulkopuolelle täytetty ruutu tai kuvan päälle merkitty risti, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
 - Napauta ruutua täyttääksesi sen; napauta uudelleen tyhjentääksesi sen.
 - Pidä sormea hetki ruudulla merkitäksesi sen sen sijaan ristillä. Laudan vieressä oleva ristipainike saa napautukset merkitsemään ristejä (tai taas täyttämään); se näyttää, mitä napautus tekee.

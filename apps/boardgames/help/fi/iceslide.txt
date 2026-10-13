@@ -7,7 +7,7 @@ Tönäise kiekkoa ylös, alas, vasemmalle tai oikealle. Jäällä se ei pysähdy
 # Pelin loppu
 Tehtävä on ratkaistu, kun kiekko putoaa reikään. Kun tehtävä ratkeaa par-määrällä tönäisyjä, kultainen valo juoksee jään yli.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, 5 × 5 ruudun jäästä 10 × 9 ruutuun; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Par on pienin määrä tönäisyjä. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän tönäisyjä: 2 tähteä; muuten 1. Kumoa peruu tönäisyn, eikä sitä enää lasketa.
+Tasoja on 150 kuudessa luvussa, 5 × 5 ruudun jäästä 10 × 9 ruutuun; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä tönäisyjä, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän tönäisyjä: 2 tähteä; muuten 1. Kumoa peruu tönäisyn, eikä sitä enää lasketa.
 # Pelaaminen laitteella
-Pyyhkäise jäällä haluamaasi suuntaan, napauta ruutua kiekon rivillä tai sarakkeessa tai napauta yhtä laudan alla olevista neljästä nuolesta (tietokoneella myös nuolinäppäimet toimivat). Nuoli on himmennetty, kun kiekko ei pääse siihen suuntaan.
+Pyyhkäise jäällä haluamaasi suuntaan, napauta ruutua kiekon rivillä tai sarakkeessa tai napauta yhtä laudan vieressä olevista neljästä nuolesta (tietokoneella myös nuolinäppäimet toimivat). Nuoli on himmennetty, kun kiekko ei pääse siihen suuntaan.
 Lamppu antaa vihjeen: lyhimmän reitin seuraavan tönäisyn, sen nuolen kultaisena ja sen radan kultaisin pistein. Jos reikään ei enää pääse, vihje peruu ensin tönäisyt, jotka johtivat sinne. Kumoa peruu yhden tönäisyn kerrallaan, aina alkuun asti. Palkki näyttää tönäisysi ja oikeassa päässä parin.

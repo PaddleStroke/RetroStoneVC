@@ -13,12 +13,12 @@ Myöhemmin joillakin porteilla on kolme tuloa: AND, OR, NAND ja NOR toimivat sam
 # Vaihteet
 Laatta, jossa johto haarautuu vasemmalle ja oikealle. Signaali jatkaa sinne, minne messinkiura osoittaa; toisessa haarassa kulkee 0. Napauta vaihdetta lähettääksesi signaalin toiseen suuntaan.
 # Katkaistavat johdot
-Joissakin johdoissa on pieni kermanvärinen sulake. Napauta sulaketta katkaistaksesi johdon: kipinät lentävät, ja sulakkeen jälkeen johdossa kulkee 0 kuin irrotetussa. Katkaisua ei voi korjata muuten kuin Kumoa-napilla tai aloittamalla tason alusta. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on sulakkeita: palkki näyttää, montako sinulla on jäljellä.
+Joissakin johdoissa on pieni kermanvärinen sulake. Napauta sulaketta katkaistaksesi johdon: kipinät lentävät, ja sulakkeen jälkeen johdossa kulkee 0 kuin irrotetussa. Katkaisua ei voi korjata muuten kuin Kumoa-painikkeella tai aloittamalla tason alusta. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on sulakkeita: palkki näyttää, montako sinulla on jäljellä.
 # Lukitut kytkimet
 Kytkin, jonka päälle on ruuvattu messinkilista, pysyy sellaisenaan.
 # Tasot ja tähdet
 Luvut: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 vaihteet; 4 katkaistavat johdot; 5 pidemmät ketjut, yksi kytkin usealle portille, kolmen tulon portit; 6 suuret piirit, joissa on kaikkea.
-Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin siirtomäärä, jolla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihjeen pyytäminen rajaa tason 2 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa. Ratkaistut tasot pysyvät auki, samoin kolme ensimmäistä ratkaisematonta.
+Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin määrä siirtoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihje rajaa tason 2 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa. Ratkaistut tasot pysyvät auki, samoin kolme ensimmäistä ratkaisematonta.
 # Pelaaminen laitteella
 - Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä. Tähtesi säilyvät laitteella.
 - Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, sulaketta katkaistaksesi sen johdon. Muutos kulkee johtoja ylös portti portilta.

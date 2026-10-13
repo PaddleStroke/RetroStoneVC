@@ -10,12 +10,12 @@ Aseta lamppu valkoiseen ruutuun tai poista se. Voit myös laittaa ruutuun pistee
 # Pelin loppu
 Tehtävä on ratkaistu, kun jokainen valkoinen ruutu on valaistu, mikään lamppu ei valaise toista ja jokaisella numerolla on lamppunsa: kultaisen valon aalto kulkee laudan yli.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 6 × 6 kokoon 14 × 14, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä lamppu tai piste, jonka sitten perut Kumoa-napilla.
+Tasoja on 150 kuudessa luvussa, koosta 6 × 6 kokoon 14 × 14, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä lamppu tai piste, jonka perut Kumoa-painikkeella.
 # Pelaaminen laitteella
 - Napauta valkoista ruutua laittaaksesi siihen lampun; napauta uudelleen poistaaksesi sen.
 - Pidä sormea hetki ruudulla laittaaksesi siihen pisteen tai poistaaksesi sen.
 - Vedä pitkin riviä tai saraketta laittaaksesi pisteitä koko jaksolle (tai poistaaksesi ne pistejaksolta).
-Valaistut ruudut hehkuvat lämpimästi. Kaksi toisiaan valaisevaa lamppua hehkuu punaisena; numero muuttuu punaiseksi, kun sillä on liikaa lamppuja, ja haalistuu, kun sillä on ne kaikki. Palkin oikean pään napit (vaakatilassa sivusarakkeessa):
+Valaistut ruudut hehkuvat lämpimästi. Kaksi toisiaan valaisevaa lamppua hehkuu punaisena; numero muuttuu punaiseksi, kun sillä on liikaa lamppuja, ja haalistuu, kun sillä on ne kaikki. Laudan vieressä olevat painikkeet:
 - Lamppu tai piste: mitä napautus laittaa. Napauta sitä vaihtaaksesi napautuksen ja painalluksen paikkaa.
 - Hehkulamppu: vihje. Se korjaa väärän ruudun tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
 Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.

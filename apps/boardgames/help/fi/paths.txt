@@ -13,5 +13,5 @@ Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on 
 - Polkua pitkin takaisin kulkeminen lyhentää sitä. Toisen polun ylittäminen katkaisee sen; se palaa, jos peräännyt ennen kuin nostat sormen. Polku ei koskaan kulje toisen värin pisteen yli.
 - Kun polku saavuttaa toisen pisteensä, pari on yhdistetty ja sen pisteet soivat.
 - Pelkillä napautuksilla: napauta pistettä tai polun ruutua (sen pää merkitään) ja sitten ruutua samalla rivillä tai sarakkeella: polku kulkee suoraan sinne. Napauta merkittyä päätä uudelleen päästääksesi siitä.
-- Palkin oikeassa päässä oleva lamppu antaa vihjeen: se piirtää yhden parin polun kuten ratkaisussa, kultaisessa valossa.
+- Lamppu antaa vihjeen: se piirtää yhden parin polun kuten ratkaisussa, kultaisessa valossa.
 Polun ruudut sävyttyvät sen värillä. Kumoa peruu yhden vedon tai vihjeen kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
