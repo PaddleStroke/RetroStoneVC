@@ -1,0 +1,4 @@
+Pełna gra
+Krótka gra
+Pełna, bez kontry
+Krótka, bez kontry

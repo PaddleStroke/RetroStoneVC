@@ -1,0 +1,4 @@
+Lehká
+Střední
+Těžká
+Expert

@@ -1,0 +1,8 @@
+9 × 9, bez hádání
+8 × 12, bez hádání
+16 × 16, bez hádání
+16 × 30, bez hádání
+9 × 9, klasické
+8 × 12, klasické
+16 × 16, klasické
+16 × 30, klasické

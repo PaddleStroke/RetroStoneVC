@@ -1,0 +1,6 @@
+6 × 6, 1 hvězda
+8 × 8, 1 hvězda
+10 × 10, 2 hvězdy
+Lehká
+Střední
+Těžká

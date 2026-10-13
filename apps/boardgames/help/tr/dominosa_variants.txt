@@ -1,0 +1,6 @@
+Çift dörtlü
+Çift altılı
+Çift sekizli
+Kolay
+Orta
+Zor

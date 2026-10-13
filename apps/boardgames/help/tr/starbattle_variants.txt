@@ -1,0 +1,6 @@
+6 × 6, 1 yıldız
+8 × 8, 1 yıldız
+10 × 10, 2 yıldız
+Kolay
+Orta
+Zor

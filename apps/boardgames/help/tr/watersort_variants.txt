@@ -1,0 +1,4 @@
+4 renk
+7 renk
+10 renk
+12 renk

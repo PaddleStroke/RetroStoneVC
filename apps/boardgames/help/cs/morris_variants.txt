@@ -1,0 +1,3 @@
+S 9 kameny
+S 12 kameny
+Se 6 kameny

@@ -1,0 +1,4 @@
+Tam oyun
+Kısa oyun
+Tam oyun, kontrasız
+Kısa oyun, kontrasız

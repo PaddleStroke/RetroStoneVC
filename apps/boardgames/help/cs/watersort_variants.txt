@@ -1,0 +1,4 @@
+4 barvy
+7 barev
+10 barev
+12 barev
