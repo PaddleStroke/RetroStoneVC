@@ -13,4 +13,4 @@ Kareler sol alttan başlayarak 1'den 100'e kadar numaralanmıştır: alt sıra b
 # Oyunun sonu
 100 numaralı kareye tam sayıyla ulaşmalısın. Gerekenden fazla atarsan piyonun 100'e kadar çıkar ve fazla kareler kadar geri iner: 96'dan 6 atınca 98'de durur. Durduğu yerdeki merdiven ya da yılan yine geçerlidir. 100 numaralı kareye ilk ulaşan oyuncu kazanır.
 # Cihazda oynamak
-Zar, sırası gelen oyuncunun şeridinin ucunda altın renkli bir ışık içinde bekler: atmak için ekrana dokun. Piyonun ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve son atışını gösterir. Geri al, atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.
+Zar, sırası gelen oyuncunun şeridinin ucunda altın renkli bir ışık içinde bekler: atmak için ekrana dokun. Piyonun ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve son atışını gösterir. Geri al atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.

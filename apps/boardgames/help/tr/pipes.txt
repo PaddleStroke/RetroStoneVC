@@ -11,5 +11,5 @@ Altı bölümde 150 seviye var; 4 × 4'ten 11 × 11'e ve kenarsız tahtalara kad
 # Cihazda oynamak
 - Bir kareye dokunarak onu çeyrek tur döndür.
 - Su, depodan ona bağlı her boruya akar. Açık bir boruya ulaştığı yerde taşar: damlalara bak.
-- Çubuğun sağ ucundaki lamba ipucu verir: yanlış bir kareyi (mümkünse suyun yanındakini) altın ışık içinde doğru yöne çevirir.
-Geri al her seferinde bir dönüşü ya da ipucunu başa kadar geri alır. Çubuk hamlelerini gösterir.
+- Lamba ipucu verir: yanlış bir kareyi (mümkünse suyun yanındakini) altın ışık içinde doğru yöne çevirir.
+Geri al her seferinde bir dönüşü ya da ipucunu başa kadar geri alır. Şerit hamlelerini gösterir.

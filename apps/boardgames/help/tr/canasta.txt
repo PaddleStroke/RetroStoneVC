@@ -32,11 +32,11 @@ El bitince her takım açtığı kartları, kanastalarını, kırmızı 3'lerini
 # Oyunun sonu
 Oyun, bir takımın 5000 puana ulaştığı elden sonra biter. En yüksek toplam kazanır; toplamlar eşitse galibiyet paylaşılır.
 # Cihazda oynamak
-Eller gizlidir: ekran istediğinde cihazı verin, sonraki oyuncu başlat düğmesine dokunur. Eliniz altta, değere göre sıralıdır. Diğer eller üstte küçük yelpazelerdir. Takımınızın perleri elinizin üstünde, öbür takımınki yelpazelerin altında, her değer için bir sütunda durur. Kanasta, altında kart sayısıyla bir desteye kapanır: temizse altın ışıkta, karışıksa altında yan yatmış bir serbest kartla. Her takımın pulları ve kırmızı 3'leri sırasının solundadır. Bir takım henüz açmamışken sağdaki koyu disk ilk açışın ne kadar istediğini, yanında da bu sırada açılanı gösterir. Her çubuk eldeki kartları ve takımın puanını gösterir.
+Eller gizlidir: ekran istediğinde cihazı verin, sonraki oyuncu başlat düğmesine dokunur. Eliniz altta, değere göre sıralıdır. Diğer eller üstte küçük yelpazelerdir. Takımınızın perleri elinizin üstünde, öbür takımınki yelpazelerin altında, her değer için bir sütunda durur. Kanasta, altında kart sayısıyla bir desteye kapanır: temizse altın ışıkta, karışıksa altında yan yatmış bir serbest kartla. Her takımın pulları ve kırmızı 3'leri sırasının solundadır. Bir takım henüz açmamışken sağdaki koyu disk ilk açışın ne kadar istediğini, yanında da bu sırada açılanı gösterir. Her şerit eldeki kartları ve takımın puanını gösterir.
 - Kart çekmek için desteye dokunun.
 - Seçmek için elinizdeki kartlara dokunun; geri koymak için bir karta yeniden dokunun.
 - Sonra eklemek için takımınızın bir perine, yeni bir per için takımınızın sırasına dokunun. Çekmeden önce, onlarla almak için ıskartaya dokunun. Çektikten sonra bir kart seçin ve atmak için ıskartaya dokunun. Kartı oraya sürükleyebilirsiniz de.
 - Seçili kartların yapabildiği şey parlar: ıskarta, bir per, boş bir yer.
 - Deste boşken ıskartayı alamıyorsanız eli bitirmek için boş desteye dokunun.
 - El bitince bir tablo her takım için açılan kartları, kanastaları, kırmızı 3'leri, bitirmeyi, eldeki kartları, elin puanını ve toplamları gösterir. Sonraki el için dokunun.
-Geri al, cihazın verildiği ana kadar kendi hamlelerinizi geri alır.
+Geri al cihazın verildiği ana kadar kendi hamlelerinizi geri alır.

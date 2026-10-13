@@ -5,11 +5,11 @@ Tabloyu, her satırda ve her sütunda 1'den tablonun boyutuna kadar her rakam bi
 - Orta: bir kafesin aynı satıra ya da sütuna koymak zorunda olduğu rakamlar ve çiftler de gerekecek.
 - Zor: daha uzun akıl yürütmeler: bir rakamı dene ve bir şey bozulana kadar izle.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 4 × 4'ten 9 × 9'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, geri al ile sildiğin yanlış bir rakamdır.
+Altı bölümde 150 seviye var; 4 × 4'ten 9 × 9'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir rakamdır.
 # Cihazda oynamak
-Bir kareye, sonra tahtanın altındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır. Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, kafesi biraz daha aydınlanır; aynı rakamı taşıyan kareler sıcak bir ışıkla parlar. Hiçbir kare seçili değilken bir tuş kendi rakamının karelerini aydınlatır. Tahtanın yanındaki düğmeler:
+Bir kareye, sonra tahtanın yanındaki bir tuşa dokun: rakamı mavi mürekkeple yazılır. Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, kafesi biraz daha aydınlanır; aynı rakamı taşıyan kareler sıcak bir ışıkla parlar. Hiçbir kare seçili değilken bir tuş kendi rakamının karelerini aydınlatır. Tahtanın yanındaki düğmeler:
 - Kalem: notlar. Tuşlar o zaman kareye küçük rakamlar koyar ya da onları siler.
 - Silgi: karenin rakamını ya da notlarını siler.
 - Lamba: ipucu. Yanlış bir rakamı düzeltir, yoksa akıl yürütmenin bulduğu bir kareyi altın ışıkta doldurur.
 - Göz: hataları kırmızıyla gösterir (bir çizgide iki kez geçen rakam, sonucunu tutturamayan dolu kafes). Başta açıktır.
-Geri al her seferinde bir işlemi, en başa kadar geri alır. Çubuk hamlelerini gösterir. Tablo dolu ve doğru olunca tahtanın üzerinden altın renkli bir ışık dalgası geçer.
+Geri al her seferinde bir işlemi, en başa kadar geri alır. Şerit hamlelerini gösterir. Tablo dolu ve doğru olunca tahtanın üzerinden altın renkli bir ışık dalgası geçer.

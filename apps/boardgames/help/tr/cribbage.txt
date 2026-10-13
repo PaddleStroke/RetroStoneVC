@@ -28,4 +28,4 @@ Eller gizlidir: ekran istediğinde cihazı ver, sıradaki oyuncu başlat düğme
 - Kesmek için desteye dokun.
 - Seçmek için bir karta dokun, sonra koymak için ona yeniden dokun (ya da onu masaya sürükle). Toplamı 31'in üstüne çıkarmayan kartlar parlar. Pas kendiliğinden söylenir: oyuncunun şeridinde bir işaret belirir.
 - Sayımda her el ve ardından kasa, başlangıç kartıyla birlikte ortaya gelir. Puan getiren her kombinasyon sırayla yanar ve puanları üstünde yükselir (puanlardan önce bir 15: on beş). Sonra çivi ilerler. Devam etmek için dokun; sayım sırasında bir dokunuş sayımı hemen gösterir.
-Geri al, cihazın verildiği ana kadar kendi eylemlerini geri alır.
+Geri al cihazın verildiği ana kadar kendi eylemlerini geri alır.

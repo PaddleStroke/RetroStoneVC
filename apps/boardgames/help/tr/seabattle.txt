@@ -18,4 +18,4 @@ Sonuç bir süre ekranda kalır, sonra cihaz el değiştirir.
 # Oyunun sonu
 Düşman filosunun tamamını ilk batıran kazanır.
 # Cihazda oynamak
-Rakibin denizini senin atışlarınla büyük, kendi denizini ise filon ve rakibin atışlarıyla yanında küçük görürsün; rakibin son atışları işaretlidir. Cihaz her el değiştirdiğinde, sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Her oyuncunun şeridi, hâlâ yüzen gemi sayısını gösterir. Geri al, yerleştirirken taşınan bir gemiyi ya da nişanlanan bir kareyi geri alır; yapılan atış kalır.
+Rakibin denizini senin atışlarınla büyük, kendi denizini ise filon ve rakibin atışlarıyla yanında küçük görürsün; rakibin son atışları işaretlidir. Cihaz her el değiştirdiğinde, sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Her oyuncunun şeridi, hâlâ yüzen gemi sayısını gösterir. Geri al yerleştirirken taşınan bir gemiyi ya da nişanlanan bir kareyi geri alır; yapılan atış kalır.

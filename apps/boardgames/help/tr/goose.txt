@@ -19,4 +19,4 @@ Başlangıç dışında iki piyon asla aynı karede durmaz. Piyonun hamlesini ba
 # Oyunun sonu
 63 numaralı kareye ilk ulaşan oyuncu kazanır.
 # Cihazda oynamak
-Cihazı elden ele verin: zar atacak oyuncunun şeridi her zaman alttadır. Onun iki zarı tahtanın yanında altın renkli bir ışık içinde bekler ve piyonu parlar: atmak için ekrana dokun. Piyon ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve onu neyin tuttuğunu gösterir: han (kaçırılacak sıra sayısıyla), kuyu ya da hapishane. Geri al, atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.
+Cihazı elden ele verin: zar atacak oyuncunun şeridi her zaman alttadır. Onun iki zarı tahtanın yanında altın renkli bir ışık içinde bekler ve piyonu parlar: atmak için ekrana dokun. Piyon ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve onu neyin tuttuğunu gösterir: han (kaçırılacak sıra sayısıyla), kuyu ya da hapishane. Geri al atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.

@@ -17,4 +17,4 @@ Daha büyük, 19'a 19'luk bir tahtada oynanır. Siyah başlarken tek taş koyar;
 # Oyunun sonu
 Kazandıran sırayı ilk yapan oyuncu hemen kazanır. Tahta, kazandıran bir sıra oluşmadan dolarsa oyun berabere biter.
 # Cihazda oynamak
-İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar. Altılı Dizi'de şeridin bu turda daha koyacağın taşları gösterir ve çiftin ilk taşı, ikincisini koyana dek vurgulu kalır. Geri al, taşları birer birer geri alır.
+İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar. Altılı Dizi'de şeridin bu turda daha koyacağın taşları gösterir ve çiftin ilk taşı, ikincisini koyana dek vurgulu kalır. Geri al taşları birer birer geri alır.

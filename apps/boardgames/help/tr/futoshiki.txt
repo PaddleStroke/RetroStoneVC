@@ -9,11 +9,11 @@ Boş bir kareye bir sayı yaz. Onu istediğin zaman değiştirebilir ya da sileb
 # Oyunun sonu
 Izgara dolu ve doğru olduğunda bulmaca çözülmüştür: tahtanın üzerinden altın bir ışık dalgası geçer.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 4 × 4'ten 7 × 7'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Geri al ile kaldırdığın yanlış bir sayı hata sayılır.
+Altı bölümde 150 seviye var; 4 × 4'ten 7 × 7'ye kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir sayıdır.
 # Cihazda oynamak
-Bir kareye, sonra tahtanın altındaki bir tuşa dokun: tuşun sayısı mavi mürekkeple yazılır (verilen sayılar koyudur). Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, aynı sayıyı taşıyan kareler daha sıcak bir ışıkla aydınlanır. Boş bir kare seçili değilken bir tuş, kendi sayısının bulunduğu kareleri aydınlatır. Tahtanın yanındaki düğmeler:
+Bir kareye, sonra tahtanın yanındaki bir tuşa dokun: tuşun sayısı mavi mürekkeple yazılır (verilen sayılar koyudur). Silmek için aynı tuşa yeniden dokun ya da bir tuşu bir kareye sürükle. Karenin satırı ve sütunu hafifçe, aynı sayıyı taşıyan kareler daha sıcak bir ışıkla aydınlanır. Boş bir kare seçili değilken bir tuş, kendi sayısının bulunduğu kareleri aydınlatır. Tahtanın yanındaki düğmeler:
 - Kalem: notlar. Tuşlar o zaman kareye küçük sayılar koyar ya da onları siler. Yazdığın bir sayı, satırındaki ve sütunundaki o notu siler.
 - Silgi: karenin sayısını ya da notlarını siler.
 - Lamba: bir ipucu. Yanlış bir sayıyı düzeltir, yoksa en kolay kareyi altın bir ışık içinde doldurur.
 - Göz: hataları gösterir (bir satır ya da sütunda iki kez geçen sayı ya da tutmayan bir işaret kırmızıya döner). Başta açıktır; gizlemek için ona dokun.
-Sayısı her satırda bulunan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk hamlelerini gösterir.
+Sayısı her satırda bulunan tuş solar. Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit hamlelerini gösterir.

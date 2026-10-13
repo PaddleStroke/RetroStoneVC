@@ -11,4 +11,4 @@ Maça valesiyle kalan sen olma. Bu, Fransız sürümüdür, le pouilleux: sinek 
 # Oyunun sonu
 Elinde kart, yani maça valesi kalan son oyuncu kaybeder. Diğer herkes kazanır.
 # Cihazda oynamak
-Cihazı elden ele ver: her oyuncu kendi elini altta, sıralanmış olarak görür. Kart çektiğin el ortada kapalı durur ve sahibinin üstteki yeri parlar. Kartlarından birine dokun: eline uçar ve oluşturduğu çift soldaki yığına gider. Her şerit eldeki kart sayısını gösterir. Geri al, çekilen bir kartı geri almaz.
+Cihazı elden ele ver: her oyuncu kendi elini altta, sıralanmış olarak görür. Kart çektiğin el ortada kapalı durur ve sahibinin üstteki yeri parlar. Kartlarından birine dokun: eline uçar ve oluşturduğu çift soldaki yığına gider. Her şerit eldeki kart sayısını gösterir. Geri al çekilen bir kartı geri almaz.

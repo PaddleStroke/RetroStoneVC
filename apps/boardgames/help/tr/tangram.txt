@@ -10,4 +10,4 @@ Seviye ekranında bir şekil seç; çözülenler yıldızlarını gösterir.
 - Bir tanı sürükle. Bıraktığında uygun bir yere oturur: köşeleri siluetin ya da başka bir tanın köşeleriyle buluşur.
 - Bir tana dokun: sekizde bir tur döner.
 - Paralelkenara hızlıca iki kez dokun: ters döner.
-En son dokunduğun tan en üstte durur. Lamba bir ipucu verir: altın ışıkla bir tanı yerine kaydırır. Geri al her seferinde bir işlemi geri alır, en başa kadar. Çubuk işlemlerini gösterir.
+En son dokunduğun tan en üstte durur. Lamba bir ipucu verir: altın ışıkla bir tanı yerine kaydırır. Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit işlemlerini gösterir.

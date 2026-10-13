@@ -10,9 +10,9 @@ Bir kareye ray parçası koy, onu değiştir ya da boş kalacağını bildiğin 
 # Oyunun sonu
 Hat tamamlanıp her sayı doğru olduğunda bulmaca çözülmüştür: küçük bir tren girişten çıkışa gider ve kareler arkasından altın renkle aydınlanır.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 5 × 5'ten 10 × 10'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, hattın kullanmadığı bir kareye konan bir ray parçası ya da kullandığı bir kareye konan bir çarpıdır; geri al onu silmez.
+Altı bölümde 150 seviye var; 5 × 5'ten 10 × 10'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, hattın kullanmadığı bir kareye konan bir ray parçası ya da kullandığı bir kareye konan bir çarpıdır; hemen sayılır ve Geri al onu silmez.
 # Cihazda oynamak
 - Rayı parmağının altına döşemek için kareden kareye sürükle; zaten orada olan parçalara bağlanır.
 - Bir parça için kareye dokun (komşularına en iyi uyan önce gelir), bir sonraki için yeniden dokun; altıncıdan sonra kare yeniden boşalır.
-- Bir kareyi çarpıyla işaretlemek için parmağını bir an üzerinde tut. Çubuktaki çarpı düğmesi dokunuşları ve sürüklemeleri çarpıya çevirir; bir dokunuşun ne yaptığını gösterir.
-Bir sayı, hattında o kadar parça olunca solar, fazlası olunca kırmızılaşır. Çubuktaki lamba bir ipucudur: bir kareyi düzeltir ve altın renkle aydınlatır. Geri al, her seferinde bir işlemi en başa kadar geri alır. Çubuk hamlelerini gösterir.
+- Bir kareyi çarpıyla işaretlemek için parmağını bir an üzerinde tut. Çarpı düğmesi dokunuşları ve sürüklemeleri çarpıya çevirir; bir dokunuşun ne yaptığını gösterir.
+Bir sayı, hattında o kadar parça olunca solar, fazlası olunca kırmızılaşır. Lamba bir ipucudur: bir kareyi düzeltir ve altın renkle aydınlatır. Geri al her seferinde bir işlemi en başa kadar geri alır. Şerit hamlelerini gösterir.

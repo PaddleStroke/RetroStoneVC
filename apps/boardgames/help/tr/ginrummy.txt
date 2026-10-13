@@ -28,4 +28,4 @@ Eller gizlidir: ekran istediğinde cihazı ver, sıradaki oyuncu başlat düğme
 - Seçmek için bir karta dokun, sonra atmak için ona ya da atılanlara yeniden dokun (ya da onu yığına sürükle).
 - Kapatabildiğinde atılanların yanında, elinde kalacak boştaki kartları gösteren yuvarlak bir düğme belirir. Seçili kartla kapatmak için ona dokun; o kartla kapatılamıyorsa düğme en iyisini seçer ve ikinci dokunuş kapatır.
 - Elin sonunda iki el de perler halinde açılır, işlenen kartlar kapatanın perlerine uçar ve parlar, puanlar da kazanana gider (25 ayrıca, altın bir halkada). Sonraki el için dokun. Şeritler puanları ve kazanılan her el için küçük altın bir kare gösterir. Oyunun sonunda bir tablo her oyuncunun puanlarını, kazandığı elleri, bonusları ve toplamı gösterir.
-Geri al, cihazın verildiği ana kadar kendi eylemlerini geri alır.
+Geri al cihazın verildiği ana kadar kendi eylemlerini geri alır.

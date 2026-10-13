@@ -37,4 +37,4 @@ Her soru yüzleri böler: 5'i gözlüklü, 5'i şapkalı, 5'i küpeli; 5'i sakal
 - 23: Kısa siyah saç, mavi göz, gözlük.
 - 24: Uzun sarı saç, kahverengi göz.
 # Cihazda oynamak
-Her sıradan sonra cihaz el değiştirir: sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Tahtanı ve yüzünü yalnızca sen görürsün. Her oyuncunun şeridi, tahtasında hâlâ ayakta duran yüz sayısını gösterir. Geri al, bu sırada yatırdığın ya da kaldırdığın yüzleri geri alır; sorulan soru sorulmuş kalır.
+Her sıradan sonra cihaz el değiştirir: sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Tahtanı ve yüzünü yalnızca sen görürsün. Her oyuncunun şeridi, tahtasında hâlâ ayakta duran yüz sayısını gösterir. Geri al bu sırada yatırdığın ya da kaldırdığın yüzleri geri alır; sorulan soru sorulmuş kalır.

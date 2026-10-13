@@ -46,5 +46,5 @@ Eller gizlidir: ekran istediğinde cihazı devret, sıradaki oyuncu başlat dü�
 - İki kart eşleşiyorsa alacağın karta dokun.
 - Sonra destenin üstündeki kartı çevirmek için desteye dokun.
 - Bir yaku oluşturduğunda iki büyük düğme çıkar: açık el durur (altındaki sayı şimdi alacağın puandır), çift ok koi-koi der.
-- Her turdan sonra bir pano yaku'ları, katlamaları (bir çarpı ve bir 2) ve puanları gösterir; sonraki tur için ona dokun. Her oyuncunun toplamı kendi çubuğundadır.
-Geri al, desteden kart çevirene kadar kendi hamlelerini geri alır.
+- Her turdan sonra bir pano yaku'ları, katlamaları (bir çarpı ve bir 2) ve puanları gösterir; sonraki tur için ona dokun. Her oyuncunun toplamı kendi şeridindedir.
+Geri al desteden kart çevirene kadar kendi hamlelerini geri alır.

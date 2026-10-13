@@ -13,15 +13,15 @@ Her kapı ceviz bir levha üzerinde pirinçten bir şekildir: girişleri alttan 
 # Makaslar
 Telin sola ve sağa ayrıldığı bir levha. Sinyal pirinç yolun gösterdiği yönde devam eder; öbür yön 0 taşır. Sinyali öbür yöne göndermek için ona dokun.
 # Kesilebilen teller
-Bazı tellerde küçük, krem renkli bir sigorta vardır. Teli kesmek için sigortaya dokun: kıvılcımlar saçılır ve sigortadan sonra tel, bağlantısı kopmuş gibi 0 taşır. Kesik onarılamaz; yalnızca Geri al ile ya da seviyeye baştan başlayarak geri dönülür. Bazı seviyeler sigorta sayısından daha az kesmeye izin verir: kaç kesme hakkın kaldığını çubuk gösterir.
+Bazı tellerde küçük, krem renkli bir sigorta vardır. Teli kesmek için sigortaya dokun: kıvılcımlar saçılır ve sigortadan sonra tel, bağlantısı kopmuş gibi 0 taşır. Kesik onarılamaz; yalnızca Geri al ile ya da seviyeye baştan başlayarak geri dönülür. Bazı seviyeler sigorta sayısından daha az kesmeye izin verir: kaç kesme hakkın kaldığını şerit gösterir.
 # Kilitli anahtarlar
 Üstüne pirinç bir çubuk vidalanmış anahtar olduğu gibi kalır.
 # Seviyeler ve yıldızlar
 Bölümler: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 makaslar; 4 kesilebilen teller; 5 daha uzun zincirler, birkaç kapıyı besleyen tek anahtar, üç girişli kapılar; 6 her şeyin karıştığı büyük devreler.
-Bir hamle, bir anahtarı çevirmek ya da bir teli kesmektir. Her seviyenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla iki hamle fazlasıyla 2 yıldız; yoksa 1. İpucu istersen seviye en fazla 2 yıldız verir. Geri al bir hamleyi geri alır, o hamle artık sayılmaz. Çözülen seviyeler açık kalır; çözülmemiş ilk üç seviye de açıktır.
+Bir hamle, bir anahtarı çevirmek ya da bir teli kesmektir. Her seviyenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla iki hamle fazlasıyla 2 yıldız; yoksa 1. Bir ipucu seviyeyi en fazla 2 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz. Çözülen seviyeler açık kalır; çözülmemiş ilk üç seviye de açıktır.
 # Cihazda oynamak
 - Seviye tablosu: her bölüm için bir sekme, altında da o bölümün seviyeleri: çözülenler yıldızlarıyla altın, açık olanlar ahşap, kilitliler koyu ahşap. Oynamak için bir seviyeye dokun. Yıldızların cihazda saklanır.
 - Çevirmek için bir anahtara, döndürmek için bir makasa, telini kesmek için bir sigortaya dokun. Değişiklik teller boyunca kapı kapı yukarı koşar.
 - Kartın yanında: bölüm ve seviyenin numarası; yuvarlak ok seviyeyi baştan başlatır; lamba ipucu verir: değiştirilecek sonraki parça yanıp söner. Bunun yerine yeniden başlatma düğmesi yanıp sönüyorsa kesiklerin yanlıştır: onları geri al.
 - Bütün lambalar yanınca altın gibi parlarlar; ardından yıldızların ve sonraki seviyenin düğmesi görünür. Yeni oyun (ızgara düğmesi) seviye tablosuna döner.
-- Çubuk hamlelerini, kalan kesme hakkını ve sağ ucunda üç yıldızın yanında par değerini gösterir.
+- Şerit hamlelerini, kalan kesme hakkını ve sağ ucunda üç yıldızın yanında par değerini gösterir.

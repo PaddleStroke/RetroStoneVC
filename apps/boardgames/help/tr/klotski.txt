@@ -12,4 +12,4 @@ Altı bölümde 150 seviye var; birkaç hamleden yüzün epey üstüne kadar uza
 - Bir bloğu sürükle: parmağını kare kare izler.
 - Ya da bir bloğa dokun. Gidebileceği tek bir yer varsa oraya gider. Daha fazlası varsa seçilir ve noktalar ulaşabileceği kareleri gösterir: birine dokun, en kısa yoldan oraya gider.
 - Yalnızca tek bir bloğun ulaşabileceği boş bir kareye dokun: o blok gelir.
-Çerçevenin yanındaki lamba bir ipucu verir: en kısa yollardan birinin ilk hamlesi, altın ışıkla. Geri al her seferinde bir hamleyi geri alır, en başa kadar. Çubuk hamlelerini ve sağ ucunda bu başlangıç için mümkün olan en azı gösterir; ona ulaştığında altın gibi parlar.
+Çerçevenin yanındaki lamba bir ipucu verir: en kısa yollardan birinin ilk hamlesi, altın ışıkla. Geri al her seferinde bir hamleyi geri alır, en başa kadar. Şerit hamlelerini ve sağ ucunda bu başlangıç için mümkün olan en azı gösterir; ona ulaştığında altın gibi parlar.
