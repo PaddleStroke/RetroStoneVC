@@ -7,9 +7,9 @@ Preenche cada casa branca com um algarismo de 1 a 9. Uma faixa é uma linha de c
 # Níveis e estrelas
 Há 150 níveis em seis capítulos, do 5 × 5 ao 12 × 12, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.
 # Jogar no dispositivo
-Toca numa casa branca e depois numa tecla por baixo do tabuleiro: o algarismo entra, a tinta azul. Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. As duas faixas da casa acendem-se, as suas somas a dourado, e as casas com o mesmo algarismo num tom quente. Sem casa escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
+Toca numa casa branca e depois numa tecla ao lado do tabuleiro: o algarismo entra, a tinta azul. Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. As duas faixas da casa acendem-se, as suas somas a dourado, e as casas com o mesmo algarismo num tom quente. Sem casa escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
 - Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los.
 - Borracha: tira o algarismo da casa, ou as notas.
-- Lâmpada: uma ajuda. Corrige um algarismo errado ou, senão, preenche uma casa que o raciocínio encontra, com luz dourada.
+- Lâmpada: uma pista. Corrige um algarismo errado ou, senão, preenche uma casa que o raciocínio encontra, com luz dourada.
 - Olho: mostra os erros a vermelho (um algarismo duas vezes numa faixa, uma faixa que passa a soma, ou uma faixa cheia com a soma errada). Começa ligado.
 Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas. Quando todas as casas estão certas, uma onda de luz dourada percorre o tabuleiro.

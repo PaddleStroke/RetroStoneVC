@@ -14,5 +14,5 @@ Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma únic
 # Jogar no dispositivo
 - Arrasta de casa em casa para assentar a via debaixo do dedo; liga-se aos carris que já lá estão.
 - Toca numa casa para um carril (primeiro o que melhor encaixa nos vizinhos), outra vez para o seguinte; depois do sexto, a casa fica vazia.
-- Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão da cruz na barra faz os toques e arrastos marcarem cruzes; mostra o que faz um toque.
-Um número desvanece quando a sua linha tem esses carris, e fica vermelho quando tem demasiados. A lâmpada da barra é uma ajuda: acerta uma casa e ilumina-a a dourado. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+- Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão da cruz faz os toques e arrastos marcarem cruzes; mostra o que faz um toque.
+Um número desvanece quando a sua linha tem esses carris, e fica vermelho quando tem demasiados. A lâmpada é uma pista: acerta uma casa e ilumina-a a dourado. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

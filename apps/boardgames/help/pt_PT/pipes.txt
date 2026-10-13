@@ -11,5 +11,5 @@ Há 150 níveis em seis capítulos, do 4 × 4 ao 11 × 11 e aos tabuleiros sem b
 # Jogar no dispositivo
 - Toca numa peça para a rodar um quarto de volta.
 - A água corre do depósito por todos os canos ligados a ele. Onde chega a um cano aberto, transborda: procura as gotas.
-- A lâmpada no fim da barra dá uma dica: roda bem uma peça errada (junto à água quando pode), com luz dourada.
-Anular desfaz uma rotação ou uma dica de cada vez, até ao início. A barra mostra as tuas jogadas.
+- A lâmpada dá uma pista: roda bem uma peça errada (junto à água quando pode), com luz dourada.
+Anular desfaz uma rotação ou uma pista de cada vez, até ao início. A barra mostra as tuas jogadas.

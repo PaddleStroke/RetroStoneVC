@@ -10,12 +10,12 @@ Põe uma lâmpada numa casa branca, ou tira-a. Também podes pôr um ponto numa 
 # O fim do jogo
 O tabuleiro está resolvido quando todas as casas brancas estão iluminadas, nenhuma lâmpada ilumina outra e cada número tem as suas lâmpadas: uma onda de luz dourada percorre o tabuleiro.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 6 × 6 ao 14 × 14, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma lâmpada ou um ponto no sítio errado que depois tiras com Anular.
+Há 150 níveis em seis capítulos, do 6 × 6 ao 14 × 14, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma lâmpada ou um ponto no sítio errado que tiras com Anular.
 # Jogar no dispositivo
 - Toca numa casa branca para pôr uma lâmpada; toca outra vez para a tirar.
 - Mantém o dedo numa casa por um instante para pôr um ponto, ou o tirar.
 - Arrasta ao longo de uma linha ou coluna para pôr pontos num troço inteiro (ou tirá-los de um troço de pontos).
-As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam uma à outra brilham a vermelho; um número fica vermelho quando tem lâmpadas a mais, e esbate-se quando já as tem todas. Os botões na ponta direita da barra (na horizontal, na coluna lateral):
+As casas iluminadas brilham num tom quente. Duas lâmpadas que se iluminam uma à outra brilham a vermelho; um número fica vermelho quando tem lâmpadas a mais, e esbate-se quando já as tem todas. Os botões ao lado do tabuleiro:
 - Lâmpada ou ponto: o que um toque põe. Toca-lhe para trocar tocar e manter o dedo.
-- Lâmpada acesa: uma ajuda. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
+- Lâmpada acesa: uma pista. Corrige uma casa errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada.
 Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

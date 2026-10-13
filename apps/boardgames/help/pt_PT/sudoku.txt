@@ -12,9 +12,9 @@ O sudoku está resolvido quando a grelha está cheia e certa: uma onda de luz do
 # Níveis e estrelas
 Há 150 níveis em seis capítulos, cada um com uma única solução: os primeiros dão muitos algarismos e só pedem os passos mais simples, os últimos fazem-te experimentar um algarismo e segui-lo até algo falhar. Escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo sudoku ao acaso, no nível que escolheres. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.
 # Jogar no dispositivo
-Toca numa casa e depois numa tecla por baixo do tabuleiro: o algarismo entra, a tinta azul (os algarismos dados são escuros). Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla até uma casa. A linha, a coluna e o bloco da casa acendem-se levemente, e as casas com o mesmo algarismo, mais. Sem nenhuma casa vazia escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
+Toca numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra, a tinta azul (os algarismos dados são escuros). Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla até uma casa. A linha, a coluna e o bloco da casa acendem-se levemente, e as casas com o mesmo algarismo, mais. Sem nenhuma casa vazia escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
 - Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los. Um algarismo colocado apaga essa nota da sua linha, coluna e bloco.
 - Borracha: tira o algarismo da casa, ou as suas notas.
-- Lâmpada: uma ajuda. Corrige um algarismo errado ou, se não houver, preenche a casa mais fácil, com luz dourada.
+- Lâmpada: uma pista. Corrige um algarismo errado ou, se não houver, preenche a casa mais fácil, com luz dourada.
 - Olho: mostra os conflitos (um algarismo que já está na sua linha, coluna ou bloco fica vermelho). Começa ligado; toca-lhe para os esconder.
 Uma tecla esbate-se quando os seus nove algarismos já estão no tabuleiro. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.

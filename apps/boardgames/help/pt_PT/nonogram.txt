@@ -11,6 +11,6 @@ Há 150 níveis em seis capítulos: pequenos desenhos feitos para o jogo, do 5 
 # Jogar no dispositivo
 - Toca numa casa para a pintar; toca outra vez para a esvaziar.
 - Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão da cruz ao lado do tabuleiro faz cada toque pôr cruzes (ou voltar a pintar); mostra o que faz um toque.
-- A lâmpada dá uma ajuda: corrige uma casa errada ou, senão, pinta uma casa que os números de uma só linha já decidem (ou marca uma com uma cruz quando só decidem casas vazias), com luz dourada.
+- A lâmpada dá uma pista: corrige uma casa errada ou, senão, pinta uma casa que os números de uma só linha já decidem (ou marca uma com uma cruz quando só decidem casas vazias), com luz dourada.
 - Arrasta ao longo de uma linha ou coluna para fazer o mesmo num troço inteiro. Só mudam as casas que estavam como a primeira, por isso, ao pintar, passas por cima das tuas cruzes.
 As pistas das linhas em que tocas acendem-se, e os números de uma linha cujas casas pintadas correspondem à pista esbatem-se. Anular desfaz um toque ou um troço de cada vez, até ao início. A barra mostra as tuas jogadas.
