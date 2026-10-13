@@ -25,3 +25,4 @@ Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah, menu
 - Bertahan: ketuk sebuah kartu (kartu yang bisa dikalahkannya bersinar), lalu kartu yang akan dikalahkan. Tombol bulat bergambar panah mengambil kartu; tombol itu tetap menyala selama pemain lain menambahkan kartu.
 - Dalam permainan pengalihan, kartu dengan nilai serangan menyalakan tempat kosong di samping serangan: ketuk tempat itu untuk mengalihkan serangan.
 Perangkat berpindah ke pembela setelah setiap serangan; setelah semuanya dikalahkan, ke setiap pemain lain secara bergiliran, penyerang lebih dulu, untuk menambahkan kartu atau pas.
+Kartu terbuka (kartu bergambar mata saat memilih): kartu semua pemain terbuka untuk dilihat semua orang, dan perangkat berpindah tangan tanpa menyembunyikan apa pun: cara belajar permainan bersama.

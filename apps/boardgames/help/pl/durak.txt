@@ -25,3 +25,4 @@ Podawajcie sobie urządzenie: każdy gracz widzi tylko swoje karty, na dole, wed
 - Obrona: dotknij karty (świecą karty, które może przebić), a potem karty do przebicia. Okrągły przycisk ze strzałką bierze karty; świeci, dopóki pozostali dorzucają.
 - W grze z przekazywaniem karta o wartości ataku zapala puste miejsce obok ataku: dotknij go, aby przekazać atak dalej.
 Po każdym ataku urządzenie trafia do broniącego; gdy wszystko jest przebite, po kolei do każdego z pozostałych, zaczynając od atakującego, by dorzucił lub spasował.
+Odkryte karty (karty z okiem przy wyborze gry): ręce wszystkich graczy leżą odkryte, widoczne dla wszystkich, a urządzenie przechodzi dalej bez zasłaniania: sposób na wspólną naukę gry.

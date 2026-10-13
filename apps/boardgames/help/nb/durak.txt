@@ -25,3 +25,4 @@ Send enheten rundt: hver spiller ser bare sine egne kort, nederst, sortert etter
 - Forsvare: trykk på et kort (kortene det kan slå, lyser), og så på kortet som skal slås. Den runde knappen med pilen tar kortene; den fortsetter å lyse så lenge de andre kaster til.
 - I spillet med videresending får et kort av angrepets valør en tom plass ved siden av angrepet til å lyse: trykk på den for å sende angrepet videre.
 Etter hvert angrep går enheten til forsvareren; når alt er slått, til hver av de andre etter tur, angriperen først, for å kaste til eller melde pass.
+Åpne kort (kortene med et øye i valget): alle hender ligger åpne for alle, og enheten går videre uten at noe skjules – en måte å lære spillet sammen på.

@@ -25,3 +25,4 @@ Passem o aparelho: cada jogador só vê as próprias cartas, embaixo, por naipe,
 - Defender: toque numa carta (as cartas que ela pode cobrir brilham), depois na carta a cobrir. O botão redondo com a seta recolhe as cartas; ele fica aceso enquanto os outros acrescentam.
 - No jogo de repasse, uma carta do valor do ataque acende um lugar vazio ao lado do ataque: toque nele para repassar o ataque.
 Depois de cada ataque, o aparelho vai para o defensor; quando tudo está coberto, para cada um dos outros na sua vez, começando pelo atacante, para acrescentar ou passar.
+Mãos abertas (as cartas com um olho, na escolha da partida): todas as mãos ficam viradas para cima, à vista de todos, e o aparelho passa sem esconder nada: um jeito de aprender o jogo juntos.

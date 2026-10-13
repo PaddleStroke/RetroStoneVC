@@ -25,3 +25,4 @@ Cihazı elden ele verin: herkes yalnızca kendi kartlarını, altta, renklere g�
 - Savunmak: bir karta dokun (yenebileceği kartlar parlar), sonra yenilecek karta. Oklu yuvarlak düğme kartları alır; diğerleri kart eklerken yanmaya devam eder.
 - Aktarmalı oyunda, saldırının değerindeki bir kart saldırının yanında boş bir yeri yakar: saldırıyı aktarmak için ona dokun.
 Her saldırıdan sonra cihaz savunana geçer; her şey yenildiğinde, kart eklemek ya da pas demek için sırayla diğer her oyuncuya, önce saldırana.
+Açık eller (seçimdeki gözlü kartlar): herkesin elindeki kartlar açık durur, cihaz hiçbir şey gizlenmeden elden ele geçer: oyunu birlikte öğrenmenin bir yolu.

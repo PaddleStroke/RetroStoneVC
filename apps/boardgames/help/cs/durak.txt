@@ -25,3 +25,4 @@ Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole, p
 - Obrana: klepni na kartu (karty, které může přebít, svítí), pak na kartu, kterou chceš přebít. Kulaté tlačítko se šipkou karty bere; svítí dál, dokud ostatní přihazují.
 - Ve hře s předáváním rozsvítí karta hodnoty útoku prázdné místo vedle útoku: klepni na ně a útok předáš dál.
 Po každém útoku jde zařízení k obránci; když je vše přebité, postupně ke každému dalšímu hráči, nejdřív k útočníkovi, aby přihodil nebo pasoval.
+Otevřené karty (karty s okem při výběru hry): karty všech hráčů leží lícem nahoru, všem na očích, a zařízení se předává bez zakrývání – způsob, jak se hru naučit společně.

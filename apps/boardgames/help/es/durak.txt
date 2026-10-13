@@ -25,3 +25,4 @@ Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo, por palos
 - Defender: toca una carta (brillan las cartas que puede cubrir) y luego la carta que quieres cubrir. El botón redondo con la flecha recoge las cartas; sigue encendido mientras los demás añaden.
 - En la transferencia, una carta del valor del ataque ilumina un hueco libre junto al ataque: tócalo para transferir el ataque.
 Tras cada ataque, el dispositivo pasa al defensor; cuando todo está cubierto, a cada uno de los demás por turno, empezando por el atacante, para añadir o pasar.
+Manos abiertas (las cartas con un ojo, al elegir la partida): todas las manos están boca arriba a la vista de todos y el dispositivo pasa sin ocultar nada: una forma de aprender el juego juntos.

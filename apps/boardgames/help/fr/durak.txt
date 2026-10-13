@@ -25,3 +25,4 @@ L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas
 - Défendre : touche une carte (les cartes qu'elle peut battre brillent), puis la carte à battre. Le bouton rond avec la flèche ramasse les cartes ; il reste allumé pendant que les autres relancent.
 - Dans la variante du renvoi, une carte de la valeur de l'attaque allume une place vide à côté de l'attaque : touche-la pour renvoyer l'attaque.
 Après chaque attaque, l'appareil va au défenseur ; une fois tout battu, à chacun des autres à son tour, l'attaquant d'abord, pour relancer ou passer.
+Mains ouvertes (les cartes avec un œil, au choix du jeu) : toutes les mains sont visibles par tous, et l'appareil passe sans rien cacher : une façon d'apprendre le jeu ensemble.

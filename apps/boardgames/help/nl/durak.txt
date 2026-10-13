@@ -25,3 +25,4 @@ Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan, per 
 - Verdedigen: tik op een kaart (de kaarten die hij kan slaan, lichten op), dan op de kaart die je wilt slaan. De ronde knop met de pijl neemt de kaarten; hij blijft verlicht zolang de anderen bijgooien.
 - In de doorschuifvariant laat een kaart van de rang van de aanval een lege plaats naast de aanval oplichten: tik erop om de aanval door te schuiven.
 Na elke aanval gaat het apparaat naar de verdediger; is alles geslagen, dan om de beurt naar elke andere speler, de aanvaller eerst, om bij te gooien of te passen.
+Open kaarten (de kaarten met een oog bij de keuze): alle handen liggen open voor iedereen en het apparaat gaat rond zonder iets te verbergen: zo leer je het spel samen.

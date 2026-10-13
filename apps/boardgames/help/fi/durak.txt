@@ -25,3 +25,4 @@ Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla maittain, 
 - Puolustaminen: napauta korttia (kortit, jotka se voi kaataa, hehkuvat) ja sitten kaadettavaa korttia. Pyöreä nuolipainike ottaa kortit; se pysyy valaistuna, kun muut lisäävät kortteja.
 - Siirtopelissä hyökkäyksen arvoinen kortti sytyttää tyhjän paikan hyökkäyksen viereen: napauta sitä siirtääksesi hyökkäyksen.
 Laite menee puolustajalle jokaisen hyökkäyksen jälkeen; kun kaikki on kaadettu, vuorollaan kullekin muulle, ensin hyökkääjälle, lisäämään tai passaamaan.
+Avoimet kortit (kortit, joissa on silmä, valinnassa): kaikkien kädet ovat kuvapuoli ylöspäin kaikkien nähtävillä, eikä laitetta ojennettaessa piiloteta mitään – tapa opetella peliä yhdessä.

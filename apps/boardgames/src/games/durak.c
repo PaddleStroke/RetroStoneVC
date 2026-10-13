@@ -1,7 +1,9 @@
 /*
  * Durak in RetroStone Board: the Russian game of attack and defence for 2 to 6 players passing the device round (the
- * rules: durak_rules.c, durak.h), the throw-in game (podkidnoy) or the transfer game (perevodnoy). VIEW_HIDDEN: each
- * hand is secret. Along the top the others in turn order: a small fan of backs each, their chip and count, a sword by
+ * rules: durak_rules.c, durak.h), the throw-in game (podkidnoy) or the transfer game (perevodnoy), each with secret
+ * hands (VIEW_HIDDEN: the cover at each hand-off) or open hands (variants DK_OPEN on: every hand face up, the others'
+ * over their backs along the top, no cover, undo free; game.hidden() tells the shell). Along the top the others in
+ * turn order: a small fan of backs each, their chip and count, a sword by
  * the attacker, a shield by the defender, a pass sign once they have passed in this round of throwers. In the middle
  * the talon with the trump card across under it (the trump's sign once the talon is gone), the bout (each attacking
  * card with its beater across it, three to a row upright, six in a row on a wide screen) and the cards beaten off.
@@ -40,6 +42,9 @@ static int dealing, mark;                       /* dealing: the deal flies once 
 static uint64_t chosen;                         /* the cards chosen (bit dur_index) */
 static int raised = CARD_NONE;                  /* the defender's card risen */
 static ct_drag drag;
+static int open_hands;                          /* the hands face up for all (the variants from DK_OPEN) */
+
+#define DK_OPEN DUR_VARIANTS                    /* variants: the rules' two, then the same two with open hands */
 
 /* ---- the table's geometry (it follows the viewer) ---------------------------------------------------------------- */
 static struct {
@@ -181,7 +186,8 @@ static int gains(const dpos *b, const dpos *p, int q, const uint8_t *bout, const
         } else {
             float x, y, a;
             ct_others_end(&T.O, q, b->n[q] + j + 1, &x, &y, &a);
-            m = ct_slide(&MV, DECK_FRENCH, up0 ? card : CARD_NONE, x0, y0, w0, d0, up0, x, y, T.O.sw, a, 0, SLIDE_MS,
+            m = ct_slide(&MV, DECK_FRENCH, up0 || open_hands ? card : CARD_NONE, x0, y0, w0, d0, up0, x, y, T.O.sw, a,
+                         open_hands, SLIDE_MS,
                          t, H_SEAT, q, src, j % 2 ? -1 : SND_MOVE);
         }
         if (from_trump) ct_show(&MV, m, t), trump_go = ui_ms() + (Uint32)t;   /* the trump stays under the talon */
@@ -246,8 +252,8 @@ static void deal_slides(void)
             } else {
                 float x, y, a;
                 ct_others_end(&T.O, q, c + 1, &x, &y, &a);
-                ct_slide(&MV, DECK_FRENCH, CARD_NONE, T.tx, T.ty, T.wt, 0, 0, x, y, T.O.sw, a, 0, DEAL_MS, k * step,
-                         H_SEAT, q, 1, k % 3 ? -1 : SND_MOVE);
+                ct_slide(&MV, DECK_FRENCH, open_hands ? p->hand[q][c] : CARD_NONE, T.tx, T.ty, T.wt, 0, 0, x, y, T.O.sw,
+                         a, open_hands, DEAL_MS, k * step, H_SEAT, q, 1, k % 3 ? -1 : SND_MOVE);
             }
         }
     if (p->ntalon)
@@ -304,7 +310,8 @@ static void calm(void)
 /* ---- the position ------------------------------------------------------------------------------------------------ */
 static void start(int v)
 {
-    dur_new(&G, v, ui.players, (uint32_t)ui_random(1 << 30));
+    open_hands = v >= DK_OPEN;
+    dur_new(&G, v % DK_OPEN, ui.players, (uint32_t)ui_random(1 << 30));
     calm();
     dealing = 1;
     mark = 0;
@@ -333,7 +340,7 @@ static void act(uint64_t a)
     drag.on = 0;
     if (DA_KIND(a) == DA_TAKE) ui_sound(SND_TAP);
     const dpos *p = &G.pos;
-    if (p->turn != before.turn) mark = G.n;
+    if (p->turn != before.turn && !open_hands) mark = G.n;   /* secret hands: undo stops at the hand-off */
     if (p->phase != DP_OVER) ui_handoff(p->turn);
 }
 
@@ -352,10 +359,12 @@ static int script(const char *s)
     int ok = dur_script(&G, s);
     calm();
     dealing = 0;
-    mark = G.n;
+    mark = open_hands ? 0 : G.n;
     ui_handoff(G.pos.turn);
     return ok;
 }
+
+static int hidden(void) { return !open_hands; }   /* the shell's cover: secret hands only */
 
 static int can_pass(void) { return !ui_handing() && !busy() && G.pos.turn == T.me && dur_legal(&G.pos, DA_PASS); }
 static void pass(void) { act(DA_PASS); }
@@ -400,6 +409,15 @@ static void draw_others(void)
         int n = p->n[q] - ct_hides(&MV, H_SEAT, q, -1);
         float x, y, d;
         ct_others_draw(&T.O, q, n, 0);
+        if (open_hands && n > 0) {              /* open hands: their cards face up, fanned as the backs are */
+            uint8_t h[DUR_HAND];
+            cards_spot s[14];
+            int k = hand_of(p, q, h);
+            k = k < n ? k : n;
+            k = k < 14 ? k : 14;
+            cards_fan(ct_others_x(&T.O, q), T.O.sy, T.O.sfan, T.O.sw, T.asp, k, k > 1 ? 18 : 0, s);
+            for (int j = 0; j < k; j++) cards_draw(DECK_FRENCH, h[j], s[j].x, s[j].y, T.O.sw, s[j].deg, 0);
+        }
         if (p->phase == DP_OVER) continue;
         ct_others_badge(&T.O, q, n, 1, &x, &y, &d);   /* beside the chip and count */
         if (q == p->defender) put_role(PIC_SHIELD, x, y, d);
@@ -611,9 +629,18 @@ static void bar(int player, box b)
 
 static void token(int player, int size, uint8_t *rgba) { cards_token(player, size, rgba); }
 
-/* the menu's and the picker's cards: a 9 beaten by a jack, a trump ace (throw-in); three 8s (transfer) */
+static void paint_eye(int kind, int size, uint8_t *rgba) { (void)kind, art_icon(ICON_EYE, size, rgba); }
+
+/* the menu's and the picker's cards: a 9 beaten by a jack, a trump ace (throw-in); three 8s (transfer); open hands:
+ * the same with an eye on the shell's disc in the corner */
 static void thumb(int v, int size, uint8_t *rgba)
 {
+    if (v >= DK_OPEN) {
+        thumb(v - DK_OPEN, size, rgba);
+        int d = (int)(0.34f * size);
+        ui_button_pic(rgba, size, size, size - 0.58f * d, size - 0.58f * d, d, paint_eye, 0, 0.62f, UI_TINT);
+        return;
+    }
     static const int classic[4] = {CARD(SUIT_SPADES, 6), CARD(SUIT_HEARTS, 9), CARD(SUIT_HEARTS, RANK_JACK),
                                    CARD(SUIT_CLUBS, RANK_ACE)};
     static const int transfer[3] = {CARD(SUIT_CLUBS, 8), CARD(SUIT_DIAMONDS, 8), CARD(SUIT_SPADES, 8)};
@@ -622,10 +649,10 @@ static void thumb(int v, int size, uint8_t *rgba)
 }
 
 static const game durak_game = {
-    .id = "durak", .order = 314, .variants = DUR_VARIANTS,
+    .id = "durak", .order = 314, .variants = 2 * DUR_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .can_pass = can_pass, .pass = pass, .script = script, .busy = busy, .winners = winners,
-    .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .players_usual = 3, .view = VIEW_HIDDEN,
+    .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .players_usual = 3, .view = VIEW_HIDDEN, .hidden = hidden,
 };
 REGISTER_GAME(durak_game)

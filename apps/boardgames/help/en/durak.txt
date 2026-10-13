@@ -25,3 +25,4 @@ Pass the device round: each player sees only their own cards, at the bottom, by 
 - Defending: tap a card (the cards it can beat glow), then the card to beat. The round button with the arrow takes the cards; it stays lit while the others throw in.
 - In the transfer game, a card of the attack's rank lights an empty place beside the attack: tap it to pass the attack on.
 The device goes to the defender after each attack; once everything is beaten, to each other player in turn, the attacker first, to throw in or pass.
+Open hands (the cards with an eye on the picker): every hand lies face up for all to see, and the device passes without hiding anything: a way to learn the game together.

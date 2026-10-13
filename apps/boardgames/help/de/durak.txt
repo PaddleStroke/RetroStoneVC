@@ -25,3 +25,4 @@ Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten, nach Farbe
 - Verteidigen: Tippe eine Karte an (die Karten, die sie schlagen kann, leuchten), dann die Karte, die du schlagen willst. Der runde Knopf mit dem Pfeil nimmt die Karten auf; er bleibt erleuchtet, solange die anderen zuwerfen.
 - Beim Weiterschieben lässt eine Karte vom Rang des Angriffs einen leeren Platz neben dem Angriff aufleuchten: Tippe darauf, um den Angriff weiterzuschieben.
 Nach jedem Angriff geht das Gerät an den Verteidiger; ist alles geschlagen, reihum an jeden anderen, zuerst an den Angreifer, zum Zuwerfen oder Passen.
+Offene Karten (die Karten mit dem Auge bei der Auswahl): Alle Hände liegen für alle sichtbar offen, und das Gerät geht weiter, ohne etwas zu verbergen – so lernt man das Spiel gemeinsam.

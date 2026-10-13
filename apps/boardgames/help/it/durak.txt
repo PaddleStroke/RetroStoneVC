@@ -25,3 +25,4 @@ Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso, divise pe
 - Difendere: tocca una carta (brillano le carte che può battere), poi la carta da battere. Il pulsante rotondo con la freccia prende le carte; resta acceso mentre gli altri aggiungono.
 - Nel trasferimento, una carta del valore dell'attacco illumina un posto vuoto accanto all'attacco: toccalo per trasferire l'attacco.
 Dopo ogni attacco il dispositivo va al difensore; quando tutto è battuto, a ciascuno degli altri a turno, cominciando dall'attaccante, per aggiungere o passare.
+Mani scoperte (le carte con l'occhio, nella scelta della partita): tutte le mani sono scoperte e visibili a tutti, e il dispositivo passa senza nascondere nulla: un modo per imparare il gioco insieme.

@@ -25,3 +25,4 @@ Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned, sortera
 - Försvara: tryck på ett kort (korten det kan slå lyser), sedan på kortet som ska slås. Den runda knappen med pilen tar upp korten; den fortsätter att lysa medan de andra kastar på.
 - I varianten där man skickar vidare tänder ett kort av anfallets valör en tom plats bredvid anfallet: tryck på den för att skicka anfallet vidare.
 Efter varje anfall går enheten till försvararen; när allt är slaget, till var och en av de andra i tur och ordning, anfallaren först, för att kasta på eller passa.
+Öppna kort (korten med ett öga i valet): alla händer ligger öppna för alla, och enheten går vidare utan att något döljs – ett sätt att lära sig spelet tillsammans.
