@@ -424,13 +424,8 @@ static inline int solui_level(const sollevel *levels, int count, int level, uint
     return l->variant;
 }
 
-/* the stars for a deal won (the family's rule, as the logic puzzles'): 3 without a hint or an undo, 2 with up to two
- * of them together, else 1 */
-static inline int solui_stars(const solui *u)
-{
-    int n = u->hints + u->undos;
-    return n == 0 ? 3 : n <= 2 ? 2 : 1;
-}
+/* the stars for a deal won: the logic puzzles' rule (ui_logic_stars), an undo counting as a mistake */
+static inline int solui_stars(const solui *u) { return ui_logic_stars(u->hints, u->undos); }
 
 /* the game's script() after its rules played the moves (ok: they all could): the cards at rest, the win at once */
 static inline int solui_scripted(solui *u, int ok)

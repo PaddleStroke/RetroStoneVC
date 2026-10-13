@@ -352,7 +352,4 @@ static inline void bpz_thumb_piece(uint8_t *rgba, int size, int type, int color,
     free(p);
 }
 
-/* the stars of the logic puzzles: 3 with no hint and no mistake, 2 with up to two hints, else 1 */
-static inline int bpz_logic_stars(int hints, int mistakes) { return !hints && !mistakes ? 3 : hints <= 2 ? 2 : 1; }
-
 #endif
