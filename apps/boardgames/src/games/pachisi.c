@@ -300,6 +300,28 @@ static int script(const char *s)
     return ok;
 }
 
+/* ---- the bot (pachisi_bot.c) ------------------------------------------------------------------------------------- */
+const pgame *pachisi_live(void) { return &G; }
+
+int pachisi_show(const char *move)
+{
+    if (busy()) return 0;
+    if (!strcmp(move, "roll")) {
+        if (G.pos.phase != PA_THROW) return 0;
+        throw_shells();
+        return 1;
+    }
+    if (!strcmp(move, "-")) {
+        if (!can_pass()) return 0;
+        pass();
+        return 1;
+    }
+    int i = move[0] - 'a';
+    if (move[0] < 'a' || move[1] || G.pos.phase != PA_MOVE || pa_dest(&G.pos, i) < 0) return 0;
+    play(i, 1);
+    return 1;
+}
+
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 static void tone_rgb(const float tone[3], uint8_t rgb[3])
 {

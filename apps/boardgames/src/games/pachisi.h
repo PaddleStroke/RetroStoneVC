@@ -86,4 +86,10 @@ int  pa_home(const ppos *p, int side);          /* a side's pieces home (side 0:
 int  pa_undo(pgame *g);                         /* back to the last move's choice (with the throws after it) */
 int  pa_script(pgame *g, const char *moves);    /* plays throws and moves in the notation above; 0: one is bad */
 
+/* the bot (pachisi_bot.c, bots.h) */
+const pgame *pachisi_live(void);        /* the game on the screen, read-only: the bot copies its position at entry */
+/* main thread: plays a move as a tap does (animated): "roll" throws the cowries (the game's own), a letter moves that
+ * piece, "-" declines the throw; 0: not now, or not legal */
+int  pachisi_show(const char *move);
+
 #endif
