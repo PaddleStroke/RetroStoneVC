@@ -10,9 +10,9 @@ Leg een stuk spoor in een vak, verander het, of zet een kruisje in een vak waarv
 # Het einde van het spel
 Als de lijn compleet is en elk getal klopt, is de puzzel opgelost: een treintje rijdt van de ingang naar de uitgang, en de vakken lichten achter hem goud op.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 5 × 5 tot 10 × 10, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een stuk spoor op een vak dat de lijn niet gebruikt, of een kruis op een vak dat ze wel gebruikt; Ongedaan maken wist hem niet.
+Er zijn 150 levels in zes hoofdstukken, van 5 × 5 tot 10 × 10, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een stuk spoor op een vak dat de lijn niet gebruikt, of een kruis op een vak dat ze wel gebruikt; Ongedaan maken neemt hem niet terug.
 # Spelen op het apparaat
 - Sleep van vak naar vak om het spoor onder je vinger te leggen; het sluit aan op de stukken die er al liggen.
 - Tik op een vak voor een stuk (het stuk dat het best bij de buren past eerst), nog eens voor het volgende; na het zesde is het vak weer leeg.
-- Houd een vak even vast om het aan te kruisen. De kruisknop in de balk laat tikken en slepen kruisjes zetten; hij toont wat een tik doet.
-Een getal vervaagt als zijn lijn zoveel stukken heeft, en wordt rood bij te veel. De lamp in de balk is een hint: hij zet één vak goed en laat het goud oplichten. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+- Houd een vak even vast om het aan te kruisen. De kruisknop laat tikken en slepen kruisjes zetten; hij toont wat een tik doet.
+Een getal vervaagt als zijn lijn zoveel stukken heeft, en wordt rood bij te veel. De lamp is een hint: hij zet één vak goed en laat het goud oplichten. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

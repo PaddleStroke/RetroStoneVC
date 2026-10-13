@@ -18,7 +18,7 @@ Sommige draden hebben een kleine crèmekleurige zekering. Tik op de zekering om 
 Een schakelaar met een vastgeschroefde koperen strip erover blijft zoals hij is.
 # Levels en sterren
 De hoofdstukken: 1 NOT, AND, OR; 2 XOR, NAND, NOR; 3 wissels; 4 draden om door te knippen; 5 langere ketens, één schakelaar voor meerdere poorten, poorten met drie ingangen; 6 grote schakelingen met alles door elkaar.
-Een zet is één keer omzetten of één knip. Elk level heeft een par, het kleinste aantal zetten dat het oplost. Opgelost op par: 3 sterren; tot twee zetten meer: 2 sterren; anders 1. Een hint vragen beperkt het level tot 2 sterren. Ongedaan maken neemt een zet terug, die dan niet meer telt. Opgeloste levels blijven open, net als de eerste drie onopgeloste.
+Een zet is één keer omzetten of één knip. Elk level heeft een par: het kleinste aantal zetten waarmee het op te lossen is. Opgelost op par: 3 sterren; tot twee zetten meer: 2 sterren; anders 1. Een hint beperkt het level tot 2 sterren. Ongedaan maken neemt een zet terug, die dan niet meer telt. Opgeloste levels blijven open, net als de eerste drie onopgeloste.
 # Spelen op het apparaat
 - Het levelrooster: een tab per hoofdstuk, daarna de levels ervan: opgeloste in goud met hun sterren, open in hout, gesloten in donker hout. Tik op een level om het te spelen. Je sterren blijven bewaard op het apparaat.
 - Tik op een schakelaar om hem om te zetten, op een wissel om hem te draaien, op een zekering om de draad door te knippen. De verandering loopt de draden omhoog, poort na poort.

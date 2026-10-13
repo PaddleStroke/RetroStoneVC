@@ -7,9 +7,9 @@ Til een tegel op. Eronder vind je een mijn, of een getal: hoeveel van zijn acht 
 Zet een vlag op een tegel waarvan je zeker weet dat er een mijn onder ligt. Vlaggen zijn notities voor jezelf; ze voorkomen ook dat een tegel per ongeluk wordt opgetild. Heeft een getal al zijn vlaggen om zich heen, tik er dan op om de andere buren in één keer op te tillen.
 # Het einde van het spel
 Het veld is geruimd als elke tegel zonder mijn is opgetild: de mijnen verschijnen onder hun vlaggen, en een golf van gouden licht gaat over het veld.
-Een opgetilde mijn gloeit rood. Er is niets verloren: ongedaan maken neemt hem terug, en je speelt verder.
+Een opgetilde mijn gloeit rood. Er is niets verloren: Ongedaan maken neemt hem terug, en je speelt verder.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 5 × 5 met 3 mijnen tot 16 × 30 met 99; kies er een in het levelrooster. Een level begint met zijn eerste gebied al opgetild, vanaf een tegel in gouden licht, en is van daaruit alleen met redeneren op te lossen. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuw veld bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een opgetilde mijn (ongedaan maken neemt hem terug, maar hij telt toch) of een verkeerde vlag die de lamp moet weghalen.
+Er zijn 150 levels in zes hoofdstukken, van 5 × 5 met 3 mijnen tot 16 × 30 met 99; kies er een in het levelrooster. Een level begint met zijn eerste gebied al opgetild, vanaf een tegel in gouden licht, en is van daaruit alleen met redeneren op te lossen. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurig nieuw veld, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een opgetilde mijn (Ongedaan maken neemt hem terug, maar hij telt toch) of een verkeerde vlag die de lamp moet weghalen.
 # Spelen op het apparaat
 - Tik op een tegel om hem op te tillen.
 - Houd een tegel even vast om een vlag te zetten of weg te halen. Met de vlagknop naast het veld zetten tikken in plaats daarvan vlaggen (vasthouden tilt dan op).

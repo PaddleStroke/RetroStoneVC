@@ -7,7 +7,7 @@ Vul een vakje, of zet een kruis in een vakje waarvan je weet dat het leeg is. De
 # Het einde van het spel
 Klopt elke rij en elke kolom met de aanwijzingen, dan is de puzzel opgelost: de kruisjes verdwijnen, het plaatje verschijnt in kleur en er gaat een gouden licht overheen.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken: kleine plaatjes, voor het spel getekend, van 5 × 5 tot 15 × 15, elk lijn voor lijn te vinden; kies er een in het levelrooster. Een opgelost level toont zijn plaatje op zijn tegel. Het tabblad met de dobbelsteen, na de hoofdstukken, tekent een plaatje bij toeval, in de grootte die je kiest. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Neem je met Ongedaan maken een gevuld vakje buiten het plaatje terug, of een kruisje erop, dan telt dat als fout.
+Er zijn 150 levels in zes hoofdstukken: kleine plaatjes, voor het spel getekend, van 5 × 5 tot 15 × 15, elk lijn voor lijn te vinden; kies er een in het levelrooster. Een opgelost level toont zijn plaatje op zijn tegel. Het tabblad met de dobbelsteen, na de hoofdstukken, tekent een willekeurig plaatje, in de grootte die je kiest. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een gevuld vakje buiten het plaatje, of een kruisje erop, dat je met Ongedaan maken terugneemt.
 # Spelen op het apparaat
 - Tik op een vakje om het te vullen; tik er nog eens op om het leeg te maken.
 - Houd een vakje even vast om het in plaats daarvan aan te kruisen. De kruisknop naast het bord laat tikken kruisjes zetten (of weer vullen); hij toont wat een tik doet.

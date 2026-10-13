@@ -5,9 +5,9 @@ Vul het rooster zo dat elke rij en elke kolom elk cijfer van 1 tot de grootte va
 - Gemiddeld: je hebt ook de cijfers nodig die een kooi in één rij of kolom moet zetten, en paren.
 - Moeilijk: langer redeneren: probeer een cijfer en volg het tot er iets niet klopt.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 9 × 9, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd cijfer dat je met Ongedaan maken terugneemt.
+Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 9 × 9, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd cijfer dat je met Ongedaan maken terugneemt.
 # Spelen op het apparaat
-Tik een vakje aan en dan een toets onder het bord: het cijfer komt erin, in blauwe inkt. Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij en kolom van het vakje lichten zacht op, zijn kooi iets meer, en elk vakje met hetzelfde cijfer warm. Is er geen vakje gekozen, dan laat een toets de vakjes met zijn cijfer oplichten. De knoppen naast het bord:
+Tik een vakje aan en dan een toets naast het bord: het cijfer komt erin, in blauwe inkt. Tik nog eens op dezelfde toets om het weg te halen, of sleep een toets naar een vakje. De rij en kolom van het vakje lichten zacht op, zijn kooi iets meer, en elk vakje met hetzelfde cijfer warm. Is er geen vakje gekozen, dan laat een toets de vakjes met zijn cijfer oplichten. De knoppen naast het bord:
 - Potlood: notities. De toetsen zetten dan kleine cijfers in het vakje of halen ze weg.
 - Gum: haalt het cijfer van het vakje weg, of de notities.
 - Lamp: een hint. Hij verbetert een fout cijfer, of vult anders een vakje dat redeneren oplevert, in gouden licht.

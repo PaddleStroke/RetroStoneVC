@@ -7,9 +7,9 @@ Een tegel een kwartslag met de klok mee draaien.
 # Het einde van het spel
 Als alle tegels verbonden zijn en geen buis open is, bereikt het water elke tegel en loopt er een gouden licht vanaf de tank.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 11 × 11 en borden zonder randen, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal kwartslagen dat hem oplost. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
+Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 11 × 11 en borden zonder randen, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal kwartslagen waarmee hij op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
 # Spelen op het apparaat
 - Tik op een tegel om hem een kwartslag te draaien.
 - Het water stroomt vanuit de tank door elke buis die erop aansluit. Waar het een open buis bereikt, loopt het over: let op de druppels.
-- De lamp aan het rechtereinde van de balk geeft een hint: hij draait een verkeerde tegel goed (naast het water als het kan), in gouden licht.
+- De lamp geeft een hint: hij draait een verkeerde tegel goed (naast het water als het kan), in gouden licht.
 Ongedaan maken neemt telkens één draai of hint terug, tot aan het begin. De balk toont je zetten.

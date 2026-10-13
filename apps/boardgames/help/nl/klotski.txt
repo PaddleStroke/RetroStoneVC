@@ -7,7 +7,7 @@ Een blok schuift in lege vakjes, één vakje tegelijk, omhoog, omlaag, naar link
 # Het einde van het spel
 Staat het grote blok midden in de onderste rij, dan schuift het in gouden licht door de opening naar buiten: opgelost.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van een paar zetten tot ruim boven de honderd; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuw raam bij toeval: makkelijk, gemiddeld of moeilijk. Elk raam heeft een par: het kleinste aantal zetten dat het oplost. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
+Er zijn 150 levels in zes hoofdstukken, van een paar zetten tot ruim boven de honderd; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurig nieuw raam: makkelijk, gemiddeld of moeilijk. Elk raam heeft een par: het kleinste aantal zetten waarmee het op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
 # Spelen op het apparaat
 - Sleep een blok: het volgt je vinger vakje voor vakje.
 - Of tik op een blok. Kan het maar naar één plek, dan gaat het daarheen. Kan het naar meer plekken, dan wordt het gekozen en tonen stippen de vakjes die het kan bereiken: tik op een ervan, en het gaat erheen langs de kortste weg.

@@ -2,7 +2,7 @@ Spiegels
 # Het doel
 Een koperen lamp stuurt een lichtstraal over het bord. Draai en plaats de spiegels zo dat de straal alle edelstenen verlicht zonder een bom te raken. Kies eerst het niveau (de stenen onder elk plaatje): makkelijk, gemiddeld, moeilijk of expert.
 - Een spiegel buigt de straal haaks af. De spiegels op een notenhouten draaivoet blijven in hun vak: je draait ze alleen de ene kant (/) of de andere kant (\) op.
-- De losse spiegels wachten in de bak onder het bord: zet ze op lege vakken.
+- De losse spiegels wachten in de bak aan de rand van het bord: zet ze op lege vakken.
 - De straal gaat recht door edelstenen en lege vakken. Een houten blok houdt hem tegen, net als de rand van het bord.
 - Vanaf het moeilijke niveau laat een glasplaat de helft van het licht door en buigt de andere helft af.
 Elke puzzel heeft precies één oplossing, te vinden door de straal te volgen en na te denken.
@@ -11,8 +11,8 @@ Draai een spiegel op zijn draaivoet, of zet een losse spiegel op een leeg vak, d
 # Het einde van het spel
 Als alle edelstenen verlicht zijn en geen bom geraakt wordt, is de puzzel opgelost: een gouden licht loopt vanaf de lamp langs de straal en de edelstenen fonkelen.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van borden van 5 × 5 met alleen draaibare spiegels tot borden van 8 × 8 met losse spiegels, bommen en glas, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal handelingen dat hem oplost (een losse spiegel die andersom moet staan, kost één tik meer). Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
+Er zijn 150 levels in zes hoofdstukken, van borden van 5 × 5 met alleen draaibare spiegels tot borden van 8 × 8 met losse spiegels, bommen en glas, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal handelingen waarmee hij op te lossen is (een losse spiegel die andersom moet staan, kost één tik meer). Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
 # Spelen op het apparaat
 - Tik op een spiegel op een draaivoet om hem te draaien.
 - Tik op een leeg vak om er een losse spiegel neer te zetten; tik nog eens om hem te draaien, een derde keer om hem terug in de bak te leggen. Je kunt een spiegel ook slepen: van de bak naar een vak, van vak naar vak, of van het bord af.
-De straal volgt elke verandering meteen. Een verlichte edelsteen gloeit; een bom die de straal raakt, licht rood op. De lamp in de balk is een hint: hij zet één spiegel goed en laat hem goud oplichten. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+De straal volgt elke verandering meteen. Een verlichte edelsteen gloeit; een bom die de straal raakt, licht rood op. De lamp is een hint: hij zet één spiegel goed en laat hem goud oplichten. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.

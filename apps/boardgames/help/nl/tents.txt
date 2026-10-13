@@ -10,12 +10,12 @@ Zet een tent in een vakje of breek hem af. Je kunt ook gras in een vakje zetten 
 # Het einde van het spel
 Het veld is opgelost als elke boom zijn tent heeft, geen tenten elkaar raken en elk getal klopt: een golf van gouden licht gaat over het veld.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 5 × 5 tot 12 × 12, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een nieuwe puzzel bij toeval, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Neem je een verkeerde tent of verkeerd gras terug met Ongedaan maken, dan telt dat als fout.
+Er zijn 150 levels in zes hoofdstukken, van 5 × 5 tot 12 × 12, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde tent of verkeerd gras dat je met Ongedaan maken terugneemt.
 # Spelen op het apparaat
 - Tik op een vakje om een tent op te zetten; tik nog eens om hem af te breken.
 - Houd een vakje even vast om er gras in te zetten, of het weg te halen.
 - Sleep langs een rij of kolom om gras in een heel stuk te zetten (of het uit een stuk vol gras te halen).
-Tenten die elkaar raken, gloeien rood, net als een boom die geen ruimte meer heeft voor zijn tent. Een getal wordt rood als zijn lijn te veel tenten heeft, en vervaagt zodra hij ze allemaal heeft. De knoppen aan het rechtereinde van de balk (in liggende stand in de zijkolom):
+Tenten die elkaar raken, gloeien rood, net als een boom die geen ruimte meer heeft voor zijn tent. Een getal wordt rood als zijn lijn te veel tenten heeft, en vervaagt zodra hij ze allemaal heeft. De knoppen naast het bord:
 - Tent of gras: wat een tik zet. Tik erop om tikken en vasthouden te verwisselen.
 - Gloeilamp: een hint. Hij verbetert een fout vakje, of toont anders het volgende vakje dat redeneren oplevert, in gouden licht.
 Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
