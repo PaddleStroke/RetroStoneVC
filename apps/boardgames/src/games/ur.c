@@ -4,10 +4,14 @@
  * notation: ur_rules.c, ur.h).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The board lies across the square, the four-square end on the left (seen by player 0): each player's own row next
- * to them, the shared row in the middle. Next to each player, on the table: their pieces waiting (on the left, by the
- * path's start) and those borne off (on the right, by its end), and further out their four dice and the throw's
- * count. The board turns round when flipped.
+ * The board lies across the room the shell gives, the four-square end on the left (seen by player 0): each player's
+ * own row next to them, the shared row in the middle. Next to each player, on the table: their pieces waiting (on the
+ * left, by the path's start) and those borne off (on the right, by its end), and their four dice and the throw's
+ * count. The board turns round when flipped. Where the room is tall (portrait) the board takes the whole width and
+ * the racks and dice the height beyond its long sides: the racks under the board's two halves (in two rows of whole
+ * pieces when there is room), the dice further out, bigger. Where it is wide (landscape) the racks stand at the
+ * board's ends instead, each player's in their half (waiting at the left end, borne off at the right), the dice
+ * alone beyond the long sides: the board grows with the height.
  * The dice: tetrahedra seen from above, a player's colour; a marked tip (a dot) pointing up counts one.
  */
 #include <math.h>
@@ -20,22 +24,29 @@
 #include "shell.h"
 
 #define FRAME 0.35f                             /* the board's frame, in cells */
-#define SIDE 8.7f                               /* the square's side, in cells: the board and a band on each side */
+#define WIDE (8 + 2 * FRAME)                    /* the board's width with its frame, in cells */
 #define PIECE 0.98f                             /* a piece's picture, in cells (the disc fills 0.88 of it) */
 #define RACK 0.82f                              /* the pieces off the board, a little smaller... */
 #define RACK_STEP 0.5f                          /* ...and overlapping */
 #define RACK_V 0.97f                            /* the racks' distance from the board's edge (cells) */
-#define DIE 0.92f                               /* a die's picture, in cells */
+#define DIE 0.92f                               /* a die's picture, in cells (at the least) */
+#define DIE_BIG 1.5f                            /* (at the most) */
 #define DIE_STEP 1.05f
 #define DICE_V 2.12f                            /* the dice's distance from the board's edge */
+#define ENDS_GAP 0.2f                           /* landscape: the racks at the board's ends, so far from its frame */
 #define HOP_MS 130
 #define BACK_MS 320                             /* a piece sent back slides to its rack */
 #define FLASH_MS 520                            /* a rosette's gold light when a piece lands on it */
 
 static ugame G;
-static int cs, fr, made = -1, made_small = -1;
+static int cs, fr, made = -1, made_die = -1, made_small = -1;
 static float bx, by;                            /* the board's cells' top left corner (as drawn, not flipped) */
-static box sq;                                  /* the board's square */
+static box sq;                                  /* the room */
+/* where the pieces off the board and the dice lie (cells; layout() chooses): the racks at the board's ends
+ * (landscape) or beyond its long sides, in two rows of whole pieces or one row overlapping; the pieces' size there;
+ * the dice's size and their row's distance from the board's edge; the racks' row (or the ends' columns: their step) */
+static int ends, two;
+static float rk_s = RACK, rk_v = RACK_V, rk_step = RACK_STEP, die_s = DIE, die_v = DICE_V;
 static SDL_Texture *t_board, *t_piece[2], *t_small[2], *t_die[2][2];
 static uint8_t rolls[UR_MAX_EVENTS];            /* each throw's dice (bit i: die i's marked tip up), kept through
                                                  * undo: undo never rethrows */
@@ -57,8 +68,18 @@ static void spot(int player, int place, int k, float *u, float *v)
         *v = r + 0.5f;
         return;
     }
-    *u = place ? 7.5f - RACK_STEP * k : 3.5f - RACK_STEP * k;
-    *v = player ? -RACK_V : 3 + RACK_V;
+    float rad = 0.44f * PIECE * rk_s;           /* a rack's piece's radius */
+    if (ends) {                                 /* a column at the board's end, from the middle towards the player */
+        *u = place ? 8 + FRAME + ENDS_GAP + rad : -FRAME - ENDS_GAP - rad;
+        *v = 1.62f + rad + rk_step * k;
+    } else if (two) {                           /* two rows of whole pieces, four and three, under a half */
+        *u = (place ? 7.5f : 3.5f) - k % 4;
+        *v = 3 + rk_v + (k / 4) * (2 * rad + 0.08f);
+    } else {
+        *u = (place ? 7.5f : 3.5f) - rk_step * k;
+        *v = 3 + rk_v;
+    }
+    if (player) *v = 3 - *v;                    /* player 1's beyond the other side */
 }
 
 static void to_px(float u, float v, float *x, float *y)    /* cells to pixels, turned round when flipped */
@@ -84,10 +105,10 @@ static int slot(const upos *p, int player, int place)
 /* a player's die i (4: the count after them), on their side of the screen, in a row read from their seat */
 static void die_px(int player, int i, float *x, float *y)
 {
-    float u = 2.0f + DIE_STEP * i + (i == 4 ? 0.15f : 0);
+    float u = 4 + (DIE_STEP * i + (i == 4 ? 0.15f : 0) - 2.0f) * die_s / DIE;
     if (ui_upside(player)) u = 8 - u;
     *x = bx + u * cs;
-    *y = by + (player == ui_bottom() ? 3 + DICE_V : -DICE_V) * cs;
+    *y = by + (player == ui_bottom() ? 3 + die_v : -die_v) * cs;
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -310,10 +331,46 @@ static void paint_die(int player, int marked, int size, uint8_t *o)
 static void layout(box b)
 {
     sq = b;
-    cs = (int)floorf(b.w / SIDE);
+    /* the racks and the dice beyond the long sides (at the least as in the 9-unit square), or the racks at the ends
+     * and the dice alone beyond the sides: whichever gives the bigger board */
+    float r1 = 0.44f * PIECE, rr = r1 * RACK;  /* a piece's radius, whole and in a rack */
+    float c_stack = fminf(b.w / WIDE, b.h / (3 + 2 * (DICE_V + DIE / 2)));
+    float c_ends = fminf(b.w / (WIDE + 2 * (ENDS_GAP + 2 * rr) + 0.1f), b.h / (3 + 2 * (FRAME + 0.25f + DIE)));
+    ends = c_ends > 1.02f * c_stack;
+    cs = (int)floorf(ends ? c_ends : c_stack);
+    float side = (b.h / cs - 3) / 2;            /* the room beyond each long side, cells from the board's squares */
+    two = 0;
+    rk_s = RACK;
+    rk_step = RACK_STEP;
+    rk_v = RACK_V;
+    if (ends) {                                 /* the columns as long as the room lets them, the dice beyond */
+        rk_step = clampf((3 + side - rr - 0.05f - (1.62f + rr)) / (UR_PIECES - 1), 0.3f, RACK_STEP);
+        die_s = clampf(side - FRAME - 0.3f, DIE, 1.2f);
+        die_v = FRAME + 0.25f + die_s / 2;
+    } else if (side >= FRAME + 0.15f + 4 * r1 + 0.08f + 0.3f + 1.0f + 0.05f) {
+        two = 1;                                /* tall: two rows of whole pieces, big dice further out */
+        rk_s = 1;
+        rk_v = FRAME + 0.15f + r1;
+        float racks = rk_v + 3 * r1 + 0.08f;    /* the racks' outer edge */
+        die_s = clampf(side - racks - 0.35f, 1.0f, DIE_BIG);
+        die_v = racks + 0.3f + fminf(0.6f, (side - racks - 0.35f - die_s) / 2) + die_s / 2;
+    } else {                                    /* one row of pieces overlapping, the dice as big as the room lets */
+        die_s = clampf(side - RACK_V - rr - 0.33f - 0.04f, DIE, 1.3f);
+        die_v = RACK_V + rr + 0.33f + die_s / 2;
+    }
     fr = (int)(cs * FRAME);
     bx = floorf(b.x + (b.w - 8.0f * cs) / 2);
     by = floorf(b.y + (b.h - 3.0f * cs) / 2);
+    int ds = (int)(die_s * cs);
+    if (made_die != ds) {
+        made_die = ds;
+        for (int p = 0; p < 2; p++)
+            for (int k = 0; k < 2; k++) {
+                ui_free(&t_die[p][k]);
+                paint_die(p, k, ds, ui_buf(ds, ds));
+                t_die[p][k] = ui_tex(ds, ds, ui_buf(ds, ds));
+            }
+    }
     if (made != cs) {
         made = cs;
         int pw = 8 * cs + 2 * fr, ph = 3 * cs + 2 * fr;
@@ -324,16 +381,11 @@ static void layout(box b)
             t_board = ui_tex(pw, ph, o);
             free(o);
         }
-        int ps = (int)(PIECE * cs), ds = (int)(DIE * cs);
+        int ps = (int)(PIECE * cs);
         for (int p = 0; p < 2; p++) {
             ui_free(&t_piece[p]);
             art_counter(COUNTER_DISC, p, ps, ui_buf(ps, ps));
             t_piece[p] = ui_tex(ps, ps, ui_buf(ps, ps));
-            for (int k = 0; k < 2; k++) {
-                ui_free(&t_die[p][k]);
-                paint_die(p, k, ds, ui_buf(ds, ds));
-                t_die[p][k] = ui_tex(ds, ds, ui_buf(ds, ds));
-            }
         }
     }
     int small = (int)(0.6f * ui.unit);
@@ -370,18 +422,18 @@ static void draw_dice(int q)
     int active = p->phase != UR_OVER && p->turn == q, invite = active && p->phase == UR_THROW && !tumbling();
     if (e < 0 && !invite) return;
     int mask = e >= 0 ? rolls[k] : 0, lost = e == G.n - 1 && p->turn != q && !rolling;
-    float alpha = active || rolling ? 1 : 0.45f, s = DIE * cs, x, y;
+    float alpha = active || rolling ? 1 : 0.45f, s = die_s * cs, k_s = die_s / DIE, x, y;
     if (invite && e >= 0) alpha = 0.8f;
     float rot = ui_upside(q) ? 180 : 0;
     if (lost) {
         die_px(q, 1, &x, &y);
         float x2, y2;
         die_px(q, 2, &x2, &y2);
-        ui_mark_glow((x + x2) / 2, y, 4.6f * cs);
+        ui_mark_glow((x + x2) / 2, y, 4.6f * k_s * cs);
     }
     for (int i = 0; i < 4; i++) {
         die_px(q, i, &x, &y);
-        if (invite) ui_mark_gold(x, y, 2.1f * cs);
+        if (invite) ui_mark_gold(x, y, 2.1f * k_s * cs);
     }
     Uint32 t = ui_ms() - roll.t0;
     for (int i = 0; i < 4; i++) {
@@ -401,7 +453,7 @@ static void draw_dice(int q)
     if (rolling) ui_animate();
     else if (e >= 0) {
         die_px(q, 4, &x, &y);
-        ui_number_rot(x, y, 0.62f * cs, G.ev[e], 1, rot);
+        ui_number_rot(x, y, 0.62f * k_s * cs, G.ev[e], 1, rot);
     }
 }
 
@@ -446,12 +498,12 @@ static void draw_pieces(const upos *p, int mover, int skip, int hide)
             if (pl == mover && skip == 0 && k == p->n[pl][0] - 1) continue;
             float x, y;
             place_px(pl, 0, k, &x, &y);
-            piece_at(pl, x, y, RACK, 1);
+            piece_at(pl, x, y, rk_s, 1);
         }
         for (int k = 0; k < p->n[pl][UR_OFF]; k++) {
             float x, y;
             place_px(pl, UR_OFF, k, &x, &y);
-            piece_at(pl, x, y, RACK, 1);
+            piece_at(pl, x, y, rk_s, 1);
         }
         for (int s = 1; s < UR_OFF; s++) {
             if (!p->n[pl][s] || (pl == mover && s == skip) || (pl != mover && s == hide)) continue;
@@ -495,7 +547,7 @@ static void draw(void)
     int sel = drag.on && !drag.moved ? drag.from : one ? __builtin_ctz((unsigned)moves) : -1;
     if (sel >= 0 && moves) {                    /* the piece pressed, or the only one that can move */
         place_px(me, sel, slot(p, me, sel), &x, &y);
-        if (sel == 0) ui_mark_select_round(x, y, RACK * PIECE * cs * 1.1f);
+        if (sel == 0) ui_mark_select_round(x, y, rk_s * PIECE * cs * 1.1f);
         else ui_mark_select(x - cs / 2.0f, y - cs / 2.0f, (float)cs, (float)cs);
     }
     draw_targets(moves, 0);
@@ -507,7 +559,7 @@ static void draw(void)
         int other = !anim.player;
         place_px(other, anim.to, 0, &x, &y);
         place_px(other, 0, anim.before.n[other][0], &x1, &y1);
-        piece_at(other, x + (x1 - x) * f, y + (y1 - y) * f, 1 - (1 - RACK) * f, 1);
+        piece_at(other, x + (x1 - x) * f, y + (y1 - y) * f, 1 - (1 - rk_s) * f, 1);
     }
     if (anim.on) {                              /* the piece hopping square by square */
         int h = (int)t;
@@ -517,7 +569,7 @@ static void draw(void)
         place_px(anim.player, a, slot(&anim.before, anim.player, a), &x, &y);
         place_px(anim.player, b, slot(&anim.before, anim.player, b), &x1, &y1);
         float e = race_ease(f), up = (ui_upside(anim.player) ? -1 : 1) * race_lift(f) * cs;
-        float sc = (a == 0 ? RACK + (1 - RACK) * e : 1) * (b == UR_OFF ? 1 - (1 - RACK) * e : 1);
+        float sc = (a == 0 ? rk_s + (1 - rk_s) * e : 1) * (b == UR_OFF ? 1 - (1 - rk_s) * e : 1);
         piece_at(anim.player, x + (x1 - x) * e, y + (y1 - y) * e - up, sc * (1 + 0.1f * sinf(RACE_PI * f)), 1);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, above the finger */
@@ -647,6 +699,6 @@ static const game ur_game = {
     .id = "ur", .order = 135, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .fill = 1,
 };
 REGISTER_GAME(ur_game)
