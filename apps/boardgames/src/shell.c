@@ -2511,13 +2511,15 @@ static void draw_cards(void)
 }
 
 /* ---- the level screen -------------------------------------------------------------------------------------------- */
-/* a level's picture (game.level_thumb) at the size shown, kept for the chapter shown (a texture a tile) */
+/* a level's picture (game.level_thumb) at the size shown, kept for the chapter shown (a texture a tile); made again
+ * when the level's best changes (a puzzle solved may show its picture) */
 static SDL_Texture *level_pic(int i, int level, int size)
 {
     static SDL_Texture *t[CHAPTER_MAX];
-    static int key[CHAPTER_MAX][3];
+    static int key[CHAPTER_MAX][4];
     if (size < 4 || i < 0 || i >= CHAPTER_MAX) return NULL;
-    if (t[i] && key[i][0] == cur && key[i][1] == level && key[i][2] == size) return t[i];
+    if (t[i] && key[i][0] == cur && key[i][1] == level && key[i][2] == size && key[i][3] == LV.best[level])
+        return t[i];
     uint8_t *b = calloc((size_t)size * size, 4);   /* its own buffer: the game may use ui_buf() */
     if (!b) return NULL;
     games[cur]->level_thumb(level, size, b);
@@ -2527,6 +2529,7 @@ static SDL_Texture *level_pic(int i, int level, int size)
     key[i][0] = cur;
     key[i][1] = level;
     key[i][2] = size;
+    key[i][3] = LV.best[level];
     return t[i];
 }
 
