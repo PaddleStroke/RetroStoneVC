@@ -1,0 +1,20 @@
+Fria celler
+# Målet
+Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess till kung. Ett spel för en spelare där alla kort syns från början: nästan varje giv går att vinna.
+# Uppläggningen
+- De 52 korten ligger synliga i åtta kolumner.
+- Längst upp till vänster fyra fria celler, längst upp till höger de fyra grundhögarna.
+# Flytta kort
+- Det översta kortet i en kolumn flyttas: till en kolumn vars översta kort är ett steg högre och har den andra färgen (rött på svart, svart på rött), till en tom fri cell eller till sin grundhög.
+- Varje fri cell rymmer ett kort. Vilket kort som helst får läggas i en tom kolumn.
+- En ordnad följd flyttas i ett svep om det finns plats att flytta den ett kort i taget: lika många kort som tomma fria celler plus ett, dubblat för varje tom kolumn (kolumnen den flyttas till räknas inte). Med två fria celler och en tom kolumn: sex kort.
+- Ett kort på en grundhög stannar där.
+- Kort som bordet inte längre behöver går upp på grundhögarna av sig själva.
+# Givarna
+Varje giv har ett nummer från 1 till 32000, bredvid det lilla kortet i ditt fält. Giv 1 är giv 1 även i andra versioner av spelet. Alla givar går att vinna utom giv 11982.
+# Partiets slut
+Du vinner när alla kort ligger på grundhögarna. Sitter du fast, ångra eller börja en ny giv.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. Fliken med tärningen efter kapitlen delar ut en ny giv på slump. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
+# Spela på enheten
+Tryck på ett kort för att skicka det till sin bästa plats: en grundhög, en kolumn, en tom kolumn eller en fri cell. Tryck på ett kort mitt i en följd för att flytta följden från det kortet. Ett snabbt andra tryck skickar ett kort bara till en grundhög. Du kan också dra ett kort eller en följd dit du vill. Lampan visar ett nyttigt drag; talet efter givens nummer räknar dina drag. Ångra tar tillbaka drag, ända till given.

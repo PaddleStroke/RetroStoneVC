@@ -1,5 +1,5 @@
 /*
- * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
+ * The patience games (Klondike, Free Cells, Spider, Pyramid, Three Peaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
  * Canfield, Montana, Clock) on the screen: what they share, on top of the card kit. A game sets where its piles go
  * (solui.at[]), and the rest is here: the piles drawn (columns fanned down, fans to the right, the waste fanned right,
  * the stock and the foundations as piles, the single cards of a layout), the cards sliding and turning over after
@@ -30,7 +30,7 @@
 #define SOLUI_LIFE_MS 2600                      /* a leaping card's longest flight */
 
 /* how a pile lies: stacked (its top card shows), a column fanned down, the waste (its last cards fanned right),
- * Spider's stock (a back for each row still to deal, from the right), a card of a layout (Pyramid, TriPeaks: one card
+ * Spider's stock (a back for each row still to deal, from the right), a layout's card (Pyramid, Three Peaks: one card
  * or nothing, not even its place; drawn in the piles' order, so the later ones lie over the earlier ones), a fan to the
  * right (La Belle Lucie: steps of fan_step card widths, closer when its last card would reach past room). A pile shows
  * its top card face down while all its cards are (a reserve turning its next card up). */
@@ -758,7 +758,7 @@ static inline float solui_digits_w(int v, float h)
     return (0.74f * (d - 1) + 0.62f) * h;
 }
 
-/* the level in play (ui.level: a star and its number from 1), else deal > 0 (FreeCell's number) after a small card
+/* the level in play (ui.level: a star and its number from 1), else deal > 0 (Free Cells' number) after a small card
  * back; then the move counter */
 static inline void solui_bar(solui *u, box b, int deal)
 {

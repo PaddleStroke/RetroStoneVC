@@ -1,0 +1,20 @@
+Vrije cellen
+# Het doel
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Een spel voor één speler waarin alle kaarten vanaf het begin open liggen: bijna elk spel is te winnen.
+# De opstelling
+- De 52 kaarten liggen open in acht kolommen.
+- Linksboven vier vrije cellen, rechtsboven de vier aflegstapels.
+# Kaarten verplaatsen
+- Je verplaatst de bovenste kaart van een kolom: naar een kolom waarvan de bovenste kaart één hoger is en van de andere kleur (rood op zwart, zwart op rood), naar een lege vrije cel of naar zijn aflegstapel.
+- Elke vrije cel houdt één kaart. Elke kaart mag naar een lege kolom.
+- Een geordende reeks gaat in één keer mee als er ruimte is om hem kaart voor kaart te verplaatsen: zoveel kaarten als lege vrije cellen plus één, verdubbeld voor elke lege kolom (de kolom waar hij heen gaat niet meegeteld). Met twee vrije cellen en één lege kolom: zes kaarten.
+- Een kaart op een aflegstapel blijft daar.
+- Kaarten die op tafel niet meer nodig zijn, gaan vanzelf naar de aflegstapels.
+# De spellen
+Elk spel heeft een nummer van 1 tot 32000, naast het kaartje in je balk. Spel 1 is ook in andere versies van het spel spel 1. Elk spel is te winnen, behalve spel 11982.
+# Het einde van de partij
+Je wint als alle kaarten op de aflegstapels liggen. Zit je vast, neem dan zetten terug of begin een nieuw spel.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
+# Spelen op het apparaat
+Tik op een kaart om hem naar zijn beste plek te sturen: een aflegstapel, een kolom, een lege kolom of een vrije cel. Tik op een kaart midden in een reeks om de reeks vanaf die kaart te verplaatsen. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart of een reeks ook slepen en neerleggen waar je wilt. De lamp toont een nuttige zet; het getal na het spelnummer telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.

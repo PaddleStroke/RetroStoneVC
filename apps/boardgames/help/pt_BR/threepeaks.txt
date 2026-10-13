@@ -1,0 +1,19 @@
+Três picos
+# O objetivo
+Esvaziar os três picos jogando as cartas deles no descarte, um valor acima ou abaixo. Um jogo para um jogador.
+# A arrumação
+- 28 cartas em três picos lado a lado, em fileiras de 3, 6, 9 e 10 cartas; cada fileira cobre metade da fileira de cima. Só a fileira de baixo fica virada para cima.
+- Uma carta virada para cima no descarte; as outras 23 cartas formam o monte, viradas para baixo, ao lado.
+# Mover as cartas
+- Uma carta está livre quando nenhuma carta a cobre mais. Uma carta livre vai para o descarte se tiver um valor a mais ou a menos que a carta de cima do descarte, seja qual for o naipe: um 7 ou um 9 sobre um 8.
+- Em círculo (a regra clássica): o ás e o rei também se seguem. A outra opção: eles não se seguem.
+- Uma carta virada para baixo se vira assim que fica livre.
+- A sequência: o número ao lado do descarte conta as cartas que você jogou seguidas dos picos. Ela recomeça quando você vira uma carta do monte.
+# O monte
+Quando nenhuma carta pode ir, toque no monte para virar a carta de cima no descarte. O monte é percorrido uma vez só.
+# O fim da partida
+Você ganha quando os três picos ficam vazios. A partida está perdida quando o monte acaba e nenhuma carta pode ir. As cartas são embaralhadas ao acaso, então nem toda distribuição pode ser ganha.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolha um na tela de níveis. Nos capítulos 1 a 4 o ás e o rei se seguem, nos capítulos 5 e 6, não. A aba do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem dicas nem jogadas desfeitas: 3 estrelas; até duas dicas e jogadas desfeitas no total: 2 estrelas; senão, 1.
+# Jogando no aparelho
+Toque numa carta livre para jogá-la no descarte, ou arraste-a até lá. A lâmpada mostra uma boa jogada: a carta que começa a sequência mais longa que ela vê. O número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.

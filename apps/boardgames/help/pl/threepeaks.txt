@@ -1,0 +1,19 @@
+Trzy szczyty
+# Cel gry
+Opróżnij trzy szczyty, kładąc ich karty na stos odrzuconych, o jeden stopień wyżej lub niżej. Gra dla jednego gracza.
+# Rozłożenie
+- 28 kart w trzech szczytach obok siebie, w rzędach po 3, 6, 9 i 10 kart; każdy rząd zakrywa do połowy rząd nad nim. Odkryty jest tylko dolny rząd.
+- Jedna odkryta karta na stosie odrzuconych; pozostałe 23 karty to talia, zakryta, obok niego.
+# Przekładanie kart
+- Karta jest wolna, gdy nie leży już na niej żadna karta. Wolna karta idzie na stos odrzuconych, jeśli jest o jeden stopień wyższa lub niższa od jego wierzchniej karty, bez względu na kolor: siódemka lub dziewiątka na ósemkę.
+- W kółko (klasyczna zasada): as i król też po sobie następują. Drugi wybór: nie następują.
+- Zakryta karta odwraca się, gdy tylko jest wolna.
+- Seria: liczba obok stosu odrzuconych liczy karty zagrane ze szczytów jedna po drugiej. Zaczyna się od nowa, gdy odwrócisz kartę z talii.
+# Talia
+Gdy żadna karta nie pasuje, dotknij talii, by odwrócić jej wierzchnią kartę na stos odrzuconych. Talię przechodzi się tylko raz.
+# Koniec gry
+Wygrywasz, gdy trzy szczyty są puste. Gra jest przegrana, gdy talia jest pusta i żadna karta nie pasuje. Karty są tasowane losowo, więc nie każde rozdanie da się wygrać.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 4 as i król następują po sobie, w rozdziałach 5 i 6 nie. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
+# Gra na urządzeniu
+Dotknij wolnej karty, by zagrać ją na stos odrzuconych, albo przeciągnij ją tam. Lampa pokazuje dobry ruch: kartę, od której zaczyna się najdłuższa seria, jaką widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.

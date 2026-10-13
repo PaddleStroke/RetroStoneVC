@@ -1,5 +1,5 @@
 /*
- * What the patience games' level makers share (tools/<id>_gen.c: Klondike, FreeCell, Spider, Pyramid, TriPeaks,
+ * What the patience games' level makers share (tools/<id>_gen.c: Klondike, Free Cells, Spider, Pyramid, Three Peaks,
  * Golf, Yukon, Canfield). Each candidate deal is a pack shuffled from a fixed seed, so a run always makes the same
  * levels:
  *   - proved winnable by the game's search (sollevels.h: every card known, up to a number of positions);
@@ -7,7 +7,7 @@
  *     (each move: the first candidate one time in two, the next one time in four...), never twice through the same
  *     position, seeing only what a player sees. The share of them won is the deal's ease; the search's effort breaks
  *     ties (a deal won by many plain games is easy to see through; one won by none needs the right plan). Golf and
- *     TriPeaks, whose plain games almost never win, are graded by how forgiving the deal is instead (sg_forgiving).
+ *     Three Peaks, whose plain games almost never win, are graded by how forgiving the deal is instead (sg_forgiving).
  *   - chosen evenly along that grade, easiest first: a group of levels for each variant (Spider's suits...), in order.
  * The header written: the levels as card letters (sollevels.h), each with its grade in a comment.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -114,7 +114,7 @@ static int sg_plain(const sggame *g, const solrec *r, int tries, uint32_t seed)
     return wins;
 }
 
-/* how forgiving a deal is (games whose plain games almost never win: Golf, TriPeaks): along a winning way, at each
+/* how forgiving a deal is (games whose plain games almost never win: Golf, Three Peaks): along a winning way, at each
  * position offering a choice, the share of its candidate moves that still win (each checked by the search, a tenth of
  * its budget); their mean. Many winning moves: easy; one narrow path: hard. */
 static double sg_forgiving(const sggame *g, const solrec *r)

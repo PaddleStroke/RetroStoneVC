@@ -1,0 +1,19 @@
+Tre tinder
+# Målet
+Ryd de tre tinder ved at spille deres kort over på kastebunken, én værdi højere eller lavere. Et spil for én spiller.
+# Opstillingen
+- 28 kort i tre tinder side om side, i rækker af 3, 6, 9 og 10 kort; hver række dækker halvdelen af rækken ovenover. Kun den nederste række ligger med billedsiden op.
+- Ét kort med billedsiden op i kastebunken; de andre 23 kort er bunken, med bagsiden op, ved siden af.
+# Flyt kort
+- Et kort er frit, når intet kort ligger over det længere. Et frit kort går over på kastebunken, hvis det er én værdi højere eller lavere end det øverste kort der, uanset kulør: en 7'er eller en 9'er på en 8'er.
+- Rundt om hjørnet (den klassiske regel): et es og en konge følger også hinanden. Det andet valg: de følger ikke hinanden.
+- Et kort med bagsiden op vendes, så snart det er frit.
+- Serien: tallet ved siden af kastebunken tæller de kort, du har spillet fra tinderne i træk. Den starter forfra, når du vender et kort fra bunken.
+# Bunken
+Når intet kort kan spilles, så tryk på bunken for at vende dens øverste kort over på kastebunken. Bunken gennemgås kun én gang.
+# Spillets afslutning
+Du vinder, når de tre tinder er ryddet. Spillet er tabt, når bunken er tom, og intet kort kan spilles. Kortene blandes tilfældigt, så ikke alle spil kan vindes.
+# Baner og stjerner
+Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. I kapitel 1 til 4 følger es og konge hinanden, i kapitel 5 og 6 gør de ikke. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
+# Spil på enheden
+Tryk på et frit kort for at spille det over på kastebunken, eller træk det derhen. Lampen viser et godt træk: det kort, der starter den længste serie, den kan se. Tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.

@@ -1,0 +1,19 @@
+Drei Gipfel
+# Das Ziel
+Räume die drei Gipfel ab, indem du ihre Karten auf die Ablage legst, einen Rang höher oder tiefer. Ein Spiel für einen Spieler.
+# Der Aufbau
+- 28 Karten in drei Gipfeln nebeneinander, in Reihen aus 3, 6, 9 und 10 Karten; jede Reihe deckt die Reihe darüber zur Hälfte ab. Nur die unterste Reihe liegt offen.
+- Eine offene Karte auf der Ablage; die übrigen 23 Karten sind der Stapel, verdeckt daneben.
+# Karten bewegen
+- Eine Karte ist frei, wenn keine Karte mehr auf ihr liegt. Eine freie Karte kommt auf die Ablage, wenn sie einen Rang höher oder tiefer ist als deren oberste Karte, egal in welcher Farbe: eine 7 oder eine 9 auf eine 8.
+- Im Kreis (die klassische Regel): Ass und König folgen auch aufeinander. Die andere Wahl: Sie folgen nicht aufeinander.
+- Eine verdeckte Karte wird aufgedeckt, sobald sie frei ist.
+- Die Serie: Die Zahl neben der Ablage zählt die Karten, die du nacheinander von den Gipfeln gespielt hast. Sie beginnt neu, wenn du eine Karte vom Stapel aufdeckst.
+# Der Stapel
+Wenn keine Karte passt, tippe auf den Stapel, um seine oberste Karte auf die Ablage zu legen. Der Stapel wird nur einmal durchgespielt.
+# Das Ende der Partie
+Du gewinnst, wenn die drei Gipfel abgeräumt sind. Die Partie ist verloren, wenn der Stapel leer ist und keine Karte passt. Die Karten werden zufällig gemischt, darum ist nicht jedes Spiel zu gewinnen.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. In den Kapiteln 1 bis 4 folgen Ass und König aufeinander, in den Kapiteln 5 und 6 nicht. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
+# Spielen auf dem Gerät
+Tippe auf eine freie Karte, um sie auf die Ablage zu spielen, oder ziehe sie dorthin. Die Lampe zeigt einen guten Zug: die Karte, mit der die längste Serie beginnt, die sie sieht. Die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.

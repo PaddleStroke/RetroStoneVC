@@ -1,5 +1,5 @@
 /*
- * The patience games' designed deals (Klondike, FreeCell, Spider, Pyramid, TriPeaks, Golf, Yukon, Canfield): the
+ * The patience games' designed deals (Klondike, Free Cells, Spider, Pyramid, Three Peaks, Golf, Yukon, Canfield): the
  * levels, and the search that proves each one can be won. No SDL: the rules, their tests and the tools that make the
  * levels (tools/<id>_gen.c) use it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).

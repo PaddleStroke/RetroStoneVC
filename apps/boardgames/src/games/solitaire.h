@@ -1,5 +1,5 @@
 /*
- * The patience games (Klondike, FreeCell, Spider, Pyramid, TriPeaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
+ * The patience games (Klondike, Free Cells, Spider, Pyramid, Three Peaks, La Belle Lucie, Yukon, Forty Thieves, Golf,
  * Canfield, Montana, Clock): what their rules share. No SDL: the rules and their tests use it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
@@ -10,7 +10,7 @@
  * and Montana) is moves too: the cards gathered on a pile of their own, swapped there (SM_SWAP) and dealt out again,
  * so that undo replays it card for card. A game is its deal and its moves:
  * undo replays them from the deal. Moves the game makes by itself (the rest going up once the game is decided,
- * Spider's complete runs, FreeCell's safe cards) are marked SM_AUTO: undo takes them back with the player's move
+ * Spider's complete runs, Free Cells' safe cards) are marked SM_AUTO: undo takes them back with the player's move
  * before them, and the move counter leaves them out.
  *
  * The notation (script: the screenshots and the tests), moves separated by spaces:
@@ -18,9 +18,9 @@
  *         empty column); "13:4" four cards;
  *   "1h"  to a foundation (the one that takes it); a foundation as a source: A..H; free cells a..d; the waste w;
  *   "s"   the stock (draw, turn the waste over, deal a row); "?" the hint's move; "#n" a new game, deal n (its seed;
- *         FreeCell: its number).
+ *         Free Cells: its number).
  *
- * The layouts of single cards (Pyramid, TriPeaks): a pile for each card of the layout, holding it or nothing, in rows,
+ * The layouts of single cards (Pyramid, Three Peaks): a pile per card of the layout, holding it or nothing, in rows,
  * each card covered by up to two cards of the next row (solslot); a card is free once they are gone. Their notation:
  * a card of the layout is its row (1 the top) and its place in the row (a, b, c...): "7a"; the games write their own
  * moves with it.
@@ -38,7 +38,7 @@
 #define SOL_MOVES 6000                          /* a game's moves, the automatic ones too */
 
 enum { SP_TAB, SP_FOUND, SP_CELL, SP_STOCK, SP_WASTE };
-/* SM_TURN: the face-down card on top of pile `from` turns face up (TriPeaks: a card of a peak uncovered) */
+/* SM_TURN: the face-down card on top of pile `from` turns face up (Three Peaks: a card of a peak uncovered) */
 /* SM_SWAP: the card at index n of pile `from` and the top card of pile `to` change places (a shuffle, a swap at a
  * time) */
 enum { SM_NONE, SM_MOVE, SM_DRAW, SM_REDEAL, SM_DEAL, SM_TURN, SM_SWAP };
@@ -58,7 +58,7 @@ typedef struct {
     solpos pos, start;                          /* now; the deal */
     solmove mv[SOL_MOVES];
     int n, moves;                               /* moves: the player's (the counter) */
-    uint32_t seed;                              /* the deal's seed (FreeCell: the deal's number) */
+    uint32_t seed;                              /* the deal's seed (Free Cells: the deal's number) */
     uint8_t variant;
 } solrec;
 
@@ -355,7 +355,7 @@ static inline int sol_finish(solrec *r, int total, int (*found_for)(const solpos
     return k > 0;
 }
 
-/* ---- the layouts of single cards (Pyramid, TriPeaks) ------------------------------------------------------------- */
+/* ---- the layouts of single cards (Pyramid, Three Peaks) ---------------------------------------------------------- */
 /* a place of the layout: its row (0 the top) and place in the row, the places of the two cards lying over it (-1:
  * none); its card is pile first + its index */
 typedef struct { int8_t row, col, cover[2]; } solslot;

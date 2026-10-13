@@ -1,0 +1,20 @@
+Cases libres
+# Le but
+Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Un jeu pour un joueur où toutes les cartes sont visibles dès le début : presque toutes les donnes se gagnent.
+# La mise en place
+- Les 52 cartes sont posées face visible en huit colonnes.
+- En haut à gauche, quatre cases libres ; en haut à droite, les quatre fondations.
+# Déplacer les cartes
+- Déplace la carte du dessus d'une colonne : sur une colonne dont la carte du dessus a un rang de plus, rouge sur noir ou noir sur rouge ; dans une case libre vide ; ou sur sa fondation.
+- Chaque case libre reçoit une carte. N'importe quelle carte peut aller dans une colonne vide.
+- Une suite se déplace d'un coup s'il y a la place de la déplacer carte par carte : autant de cartes que de cases libres vides plus une, doublé pour chaque colonne vide (sans compter la colonne d'arrivée). Avec deux cases libres et une colonne vide : six cartes.
+- Une carte posée sur une fondation y reste.
+- Les cartes dont la table n'a plus besoin montent toutes seules sur les fondations.
+# Les donnes
+Chaque donne a un numéro de 1 à 32000, affiché à côté de la petite carte de ta barre. La donne 1 est aussi la donne 1 des autres versions du jeu. Toutes les donnes se gagnent, sauf la donne 11982.
+# La fin de la partie
+Tu gagnes quand toutes les cartes sont sur les fondations. Si tu es bloqué, annule ou commence une nouvelle donne.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
+# Jouer sur l'appareil
+Touche une carte pour l'envoyer à sa meilleure place : une fondation, une colonne, une colonne vide ou une case libre. Touche une carte au milieu d'une suite pour déplacer la suite à partir de cette carte. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser une carte ou une suite et la poser où tu veux. La lampe montre un coup utile ; le nombre après celui de la donne compte tes coups. Annuler reprend les coups, jusqu'à la donne.
