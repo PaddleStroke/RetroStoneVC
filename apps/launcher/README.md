@@ -27,7 +27,11 @@ apps/android/build.sh free|full                 # the Android APKs (apps/android
 
 An app's name, package id, games and (free app) the paid app's link are in **`apps/android/app.conf`** (the free
 app, the default) or **`apps/android/app-full.conf`** (the full app: `FREE_GAMES=all`, no locked game, no promotion),
-one file per app for Android and the desktop. Everything is built in `build/bundle/<platform>/` (the full app:
+one file per app for Android and the desktop. The iPhone and iPad app (`apps/ios`, one free app) adds `IAP_PRODUCT`:
+its locked games are built in too, each with its locked card (`card_locked`), and open at once when the in-app
+purchase is made (`apps/common/iap.h`, `rsb_locked()`; the panel's buttons become "UNLOCK ALL <price>" and "RESTORE
+PURCHASES"); its build is `PLATFORM=ios-<sdk>-<arch> ios-lib` (Mach-O modules: `apps/ios/arcade/ios.mk`).
+Everything is built in `build/bundle/<platform>/` (the full app:
 `build/bundle/<platform>-full/`); of the root Makefile only the games' generated assets are used
 (`tools/game_assets.sh`: one wait for the lock `/tmp/rsvc-build.lock` for all the games).
 

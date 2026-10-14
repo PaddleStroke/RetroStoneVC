@@ -16,6 +16,7 @@
 #include "rsb.h"
 #include "rs_desktop.h"
 #include "rsb_review.h"
+#include "iap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,6 +67,45 @@ void rsb_set_log(void (*fn)(const char *line)) { log_fn = fn; }
 static void file_path(char *out, size_t n, const char *id, const char *ext)
 {
     snprintf(out, n, "%s%s%s", save_dir, id, ext);
+}
+
+/* ---- the in-app purchase (apps/common/iap.h: the iOS app, rsb_iap_product) ---------------------------------------
+ * The games it opens are built in, locked until it is bought (their card_locked shown); the unlock is kept in
+ * <save_dir>/unlock.cfg ("1"), given back to iap_init at start-up, then written whenever the store says otherwise
+ * (bought, restored, refunded). Without a product (the other builds) nothing of this runs. */
+static unsigned iap_seen;
+
+static int unlock_read(void)
+{
+    char p[1200];
+    file_path(p, sizeof p, "unlock", ".cfg");
+    FILE *f = fopen(p, "rb");
+    int c = f ? fgetc(f) : 0;
+    if (f) fclose(f);
+    return c == '1';
+}
+
+static void unlock_poll(void)
+{
+    if (!rsb_iap_product[0] || iap_changes() == iap_seen) return;
+    iap_seen = iap_changes();
+    int on = iap_unlocked() != 0;
+    if (on == unlock_read()) return;
+    char p[1200];
+    file_path(p, sizeof p, "unlock", ".cfg");
+    FILE *f = fopen(p, "wb");
+    if (f) {
+        fputs(on ? "1\n" : "0\n", f);
+        fclose(f);
+    }
+    say("in-app purchase: %s%s", on ? "unlocked" : "locked", "");
+}
+
+int rsb_locked(int g)
+{
+    if (g < 0 || g >= rsb_ngames) return 1;
+    const rsb_entry *e = &rsb_games[g];
+    return e->module == NULL || (e->card_locked.w && !iap_unlocked());
 }
 
 int rsb_best(int g)
@@ -257,6 +297,10 @@ int rsb_init(const char *dir, int width)
     char p[1200];
     file_path(p, sizeof p, "review", ".cfg");
     rsb_review_load(&review, p);
+    if (rsb_iap_product[0]) {                   /* the in-app purchase: what the last run knew, then the store */
+        iap_init(rsb_iap_product, unlock_read());
+        iap_seen = iap_changes();
+    }
     review_req = from_menu = 0;
     pending = -2;
     nconsumed = 0;
@@ -299,7 +343,7 @@ int  rsb_gamepad(void) { return gamepad_now; }
 
 void rsb_launch(int g)
 {
-    if (g >= 0 && g < rsb_ngames && rsb_games[g].module) {
+    if (g >= 0 && g < rsb_ngames && !rsb_locked(g)) {
         pending = g;
         pending_fresh = 0;
     }
@@ -519,6 +563,7 @@ static void touch_log_line(uint16_t b)
 
 int rsb_frame(const rsb_input *in, const rsb_view *view)
 {
+    unlock_poll();
     back_now = in->back;
     gamepad_now = in->gamepad;
     forget_lifted(in);

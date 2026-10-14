@@ -16,3 +16,5 @@ HELP_PADS2 = 蓝牙或 USB
 HELP_PAUSE = 右上角: 暂停
 HELP_BACK = 左上角: 返回菜单
 HELP_SAVE = 游戏会在原处等你
+UNLOCK = 全部解锁
+RESTORE = 恢复购买

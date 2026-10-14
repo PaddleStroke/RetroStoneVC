@@ -18,3 +18,5 @@ HELP_PADS2 = Ο ΚΑΘΕΝΑΣ, BLUETOOTH Ή USB
 HELP_PAUSE = ΠΑΝΩ ΔΕΞΙΑ: ΠΑΥΣΗ
 HELP_BACK = ΠΑΝΩ ΑΡΙΣΤΕΡΑ: ΜΕΝΟΥ
 HELP_SAVE = ΤΟ ΠΑΙΧΝΙΔΙ ΣΕ ΠΕΡΙΜΕΝΕΙ
+UNLOCK = ΞΕΚΛΕΙΔΩΜΑ ΟΛΩΝ
+RESTORE = ΕΠΑΝΑΦΟΡΑ ΑΓΟΡΩΝ

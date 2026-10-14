@@ -30,8 +30,13 @@
  * under them, gets the backdrop gradient. Sprites (viewport 0): the gold frame of the selection (outside the cards),
  * the round corner buttons, the kit's glyphs.
  * The launcher's statics are NOT reset between runs (it is not a module): the selection and the scroll stay.
+ * The iPhone and iPad app (one free app: apps/common/iap.h, iap_available()): its locked games open with an in-app
+ * purchase (rsb_locked), each shown with its locked card until then (card_locked); the panel's buttons are "UNLOCK
+ * ALL" with the App Store's price and "RESTORE PURCHASES"; once bought, the cards, the footer and the panel follow
+ * at once (unlock_changed).
  */
 #include "rsb.h"
+#include "iap.h"
 #include "house_ui.h"
 #include "house_audio.h"
 #include "game_text.h"                  /* the launcher's strings: apps/launcher/strings (TR, TRN) */
@@ -99,7 +104,13 @@ static int max_scroll(void)
     return h > 0 ? h : 0;
 }
 static int scroll_px(void) { return scroll_q8 >> 8; }
-static int locked(int g) { return rsb_games[g].module == NULL; }
+static int locked(int g) { return rsb_locked(g); }
+/* a card as it looks now: a game the in-app purchase opens has its locked look until then */
+static const rsb_image *card_of(int g)
+{
+    const rsb_entry *e = &rsb_games[g];
+    return e->card_locked.w && locked(g) ? &e->card_locked : &e->card;
+}
 
 /* ---- tiles drawn here ------------------------------------------------------------------------------------------------ */
 static void tile8(int vram_tile, const uint8_t px[64]) { rs_tiles_load8(vram_tile, px, 1); }
@@ -466,7 +477,10 @@ static void dialog_box(const char *title)
 /* the panel: "Get the full version" with a locked game's picture (a hole in the panel shows BG2).
  * Rows (every text line has the row above it free: accents, CJK): 0 rim, 2-3 title, 5-15 the picture (88 px),
  * 18 name, 20 "is in", 22 "N games", 25-27 the button, 29 rim: two free rows (16 px) between the picture and the
- * name and between the last line and the button, one (8 px) under the title and under the button */
+ * name and between the last line and the button, one (8 px) under the title and under the button.
+ * The unlock sold in the app (iap_available): 17 name, 19 "N games", 21-23 "UNLOCK ALL <price>", 25-27 "RESTORE
+ * PURCHASES" (rbtn_*) */
+static int rbtn_x, rbtn_y, rbtn_w;
 static const rsb_image *pan_pic;            /* the picture whose palettes the raster loads, row by row */
 static void pic_palettes(int set)
 {
@@ -484,17 +498,33 @@ static void panel_draw(void)
     for (int y = 0; y < e->shot.h; y++)                          /* the hole */
         for (int x = 0; x < e->shot.w; x++) rs_bg_put(RS_BG1, shot_x + x, shot_y + y, RS_MAP(0, PAL_UI, 0, 0, 0));
     upper(s, sizeof s, e->name);
-    text_at(centre(s, 0), 18, s);
-    upper(paid, sizeof paid, rsb_paid_name);
-    rs_strf(s, sizeof s, TR(IS_IN), paid);
-    text_at(centre(s, 0), 20, s);
+    int sell = iap_available();                 /* the unlock sold here: its price, and Restore */
+    text_at(centre(s, 0), sell ? 17 : 18, s);
+    if (!sell) {
+        upper(paid, sizeof paid, rsb_paid_name);
+        rs_strf(s, sizeof s, TR(IS_IN), paid);
+        text_at(centre(s, 0), 20, s);
+    }
     rs_strf(s, sizeof s, TRN(GAMES_IN_APP, rsb_ngames), rsb_ngames);
-    text_at(centre(s, 0), 22, s);
+    text_at(centre(s, 0), sell ? 19 : 22, s);
     const char *get = TR(GET_IT);
+    char unlock[80];
+    if (sell) {                                 /* "UNLOCK ALL 4,99 EUR" (the price once the App Store gave it) */
+        rs_strf(unlock, sizeof unlock, "%s %s", TR(UNLOCK), iap_price_ascii());
+        size_t n = strlen(unlock);
+        if (n && unlock[n - 1] == ' ') unlock[n - 1] = 0;
+        get = unlock;
+    }
     btn_w = hu_width(get, 0) + 5;
-    btn_y = 26;
+    btn_y = sell ? 22 : 26;
     btn_x = (Wt - btn_w) / 2;
     button_put(btn_x, btn_y, get);
+    if (sell) {
+        rbtn_w = hu_width(TR(RESTORE), 0) + 5;
+        rbtn_y = 26;
+        rbtn_x = (Wt - rbtn_w) / 2;
+        button_put(rbtn_x, rbtn_y, TR(RESTORE));
+    }
     /* the picture; its palettes: one set, or a set per band of rows (loaded by the raster as the screen reaches it) */
     rs_bg_fill(RS_BG2, RS_MAP(0, 0, 0, 0, 0));
     rs_tiles_load(VR_CARD(0) + T_CARDS, e->shot.tiles, e->shot.w * e->shot.h);
@@ -513,7 +543,7 @@ static int prev_locked(int g)
 {
     for (int k = 1; k <= rsb_ngames; k++) {
         int i = ((g - k) % rsb_ngames + rsb_ngames) % rsb_ngames;
-        if (rsb_games[i].module == NULL) return i;
+        if (locked(i)) return i;
     }
     return -1;
 }
@@ -808,7 +838,7 @@ static void row_build(int layer, int r)
     for (int c = 0; c < cols; c++) {
         int g = r * cols + c;
         if (g >= rsb_ngames) break;
-        const rsb_image *im = &rsb_games[g].card;
+        const rsb_image *im = card_of(g);
         int t0 = T_CARDS + c * im->w * im->h;
         rs_tiles_load(base + t0, im->tiles, im->w * im->h);
         for (int y = 0; y < im->h; y++)
@@ -898,7 +928,7 @@ static void raster(int line, void *user)
     }
     int r = (line - GRID_TOP + scroll_px()) / PITCH_Y, g = r * cols + v - 1;   /* column v - 1, from GRID_TOP */
     if (r < 0 || r >= nrows || g >= rsb_ngames || g == pal_card) return;
-    const rsb_image *im = &rsb_games[g].card;
+    const rsb_image *im = card_of(g);
     for (int p = 0; p < im->npal && p < 6; p++) rs_pal_load(RS_PAL_BG(1 + p), im->pals + p * 16, 16);
     pal_card = g;
 }
@@ -1027,14 +1057,47 @@ static void l_init(void)
     vel_q8 = 0;
 }
 
+/* the panel's button: the paid app's store page, or the in-app purchase (busy, or its product not loaded yet: no) */
+static void panel_get(void)
+{
+    if (!iap_available()) {
+        ha_play(HA_CONFIRM);
+        rsb_open_store();
+    } else if (!iap_busy() && iap_buy()) {
+        ha_play(HA_CONFIRM);
+    } else {
+        ha_play(HA_PAUSE);
+    }
+}
+
+static void panel_restore(void)
+{
+    ha_play(iap_busy() ? HA_PAUSE : HA_CONFIRM);
+    if (!iap_busy()) iap_restore();
+}
+
+/* the in-app purchase changed (bought, restored, refunded, its price): the cards, the footer and the panel follow */
+static unsigned iap_seen;
+static void unlock_changed(void)
+{
+    promo = 0;
+    for (int g = 0; g < rsb_ngames; g++) promo |= locked(g);
+    if (panel && !promo) panel = 0;             /* bought: everything open, the panel goes */
+    if (sel == SEL_PILL && !promo) sel = 0;
+    layout_footer();
+    menu_again();
+    if (sel >= 0) reveal(sel);
+}
+
 static void panel_touch(void)
 {
     const rsb_pointer *p = rsb_pointer_get();
     if (!tapped(p)) return;
     int tx = p->x / 8, ty = p->y / 8;
     if (ty >= btn_y - 1 && ty <= btn_y + 1 && tx >= btn_x && tx < btn_x + btn_w) {
-        ha_play(HA_CONFIRM);
-        rsb_open_store();
+        panel_get();
+    } else if (iap_available() && ty >= rbtn_y - 1 && ty <= rbtn_y + 1 && tx >= rbtn_x && tx < rbtn_x + rbtn_w) {
+        panel_restore();
     } else if (on_back_arrow(p) || outside_box(p)) {
         panel_close();
     } else if (panel_tour) {
@@ -1088,6 +1151,10 @@ static void touch_update(void)
 static void l_update(void)
 {
     t++;
+    if (iap_changes() != iap_seen) {
+        iap_seen = iap_changes();
+        unlock_changed();
+    }
     uint16_t pr = 0, held = 0;
     for (int p = 0; p < RS_PAD_MAX; p++) {
         pr |= rs_pad_pressed(p);
@@ -1113,7 +1180,8 @@ static void l_update(void)
         panel_touch();
         panel_t++;
         if (!panel) return;
-        if (pr & (RS_BTN_A | RS_BTN_START)) { ha_play(HA_CONFIRM); rsb_open_store(); }
+        if (pr & (RS_BTN_A | RS_BTN_START)) panel_get();
+        else if (iap_available() && (pr & (RS_BTN_X | RS_BTN_Y))) panel_restore();
         else if (pr & (RS_BTN_B | RS_BTN_SELECT)) panel_close();
         else if (pr & (RS_BTN_LEFT | RS_BTN_RIGHT)) {
             panel_game = (pr & RS_BTN_RIGHT) ? next_locked(panel_game) : prev_locked(panel_game);

@@ -56,3 +56,10 @@ HELP_BACK = TOP LEFT: BACK TO THE MENU
 #. Help, under it: the game is saved when you go back, and resumes there.
 #. max 27
 HELP_SAVE = THE GAME WAITS RIGHT THERE
+#. The iPhone and iPad app (one free app, an in-app purchase opens every game): the panel's button, followed by the
+#. price from the App Store ("UNLOCK ALL 4,99 EUR").
+#. max 18
+UNLOCK = UNLOCK ALL
+#. The same panel's second button: the purchase made before (another device, a reinstall) is found again.
+#. max 22
+RESTORE = RESTORE PURCHASES

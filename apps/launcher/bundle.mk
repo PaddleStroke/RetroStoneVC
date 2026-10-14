@@ -79,8 +79,23 @@ SDL_SRC ?= build/deps/src/SDL2-2.32.10
 SDL_LIBDIR ?= build/android/sdl2/libs/$(ABI)
 SDL_CFLAGS := -I$(SDL_SRC)/include
 SDL_LIBS := -L$(SDL_LIBDIR) -lSDL2 -llog -landroid -lm
+else ifneq ($(filter ios-%,$(PLATFORM)),)
+# the iPhone and iPad app (macOS with Xcode: apps/ios/build.sh arcade): ios-iphoneos-arm64 (the devices) or
+# ios-iphonesimulator-arm64; the target "ios-lib" makes $(BD)/libarcade.a, Mach-O modules: apps/ios/arcade/ios.mk
+IOS_SDK := $(word 2,$(subst -, ,$(PLATFORM)))
+IOS_ARCH := $(word 3,$(subst -, ,$(PLATFORM)))
+CC := xcrun -sdk $(IOS_SDK) clang -target $(IOS_ARCH)-apple-ios15.0$(if $(filter iphonesimulator,$(IOS_SDK)),-simulator)
+LD := ld
+OBJCOPY := true
+OBJDUMP := otool
+NM := nm
+AR := ar
+FLAVOR := macho
+PCFLAGS :=
+SDL_CFLAGS := -Ibuild/ios/sdl/include -Iapps/ios/common
+SDL_LIBS :=
 else
-$(error PLATFORM: host, win64 or android-<abi>)
+$(error PLATFORM: host, win64, android-<abi> or ios-<sdk>-<arch>)
 endif
 
 WARN     = -Wall -Wextra -Wno-unused-parameter
@@ -89,13 +104,16 @@ SDK_INC  = -Isdk/include -Isdk/src -Isdk/third_party/libxmp-lite/include/libxmp-
            -Isdk/third_party/stb -Isdk/third_party/libretro -Isdk/frontends/common
 XMP_DEFS = -DLIBXMP_CORE_PLAYER -DLIBXMP_STATIC -DLIBXMP_NO_DEPACKERS
 CFLAGS_ALL = $(CSTD) $(OPT) $(WARN) -fno-common $(PCFLAGS) $(SDK_INC)
-APP_INC  = -Iapps/launcher/src -Igames/common/src -I$(GEN)/launcher
+APP_INC  = -Iapps/launcher/src -Igames/common/src -I$(GEN)/launcher -Iapps/common
+# the in-app purchase's backend (apps/common/iap.h): none (iap_none.c); IAP=1 in the .conf: Google Play Billing
+# (apps/common/iap_play.c, a slot not written yet: apps/common/README.md); iOS: StoreKit, in the Xcode project
+IAP_SRC  = $(if $(filter ios-%,$(PLATFORM)),,apps/common/$(if $(filter 1,$(call conf,IAP)),iap_play.c,iap_none.c))
 
 SDK_SRC  = $(wildcard sdk/src/*.c)
 XMP_SRC  = $(wildcard sdk/third_party/libxmp-lite/src/*.c) $(wildcard sdk/third_party/libxmp-lite/src/loaders/*.c)
 HOUSE_SRC = $(wildcard games/common/src/*.c)
 APP_SRC  = apps/launcher/src/launcher.c apps/launcher/src/rsb_runtime.c apps/launcher/src/rsb_review.c \
-           sdk/frontends/common/rs_desktop.c
+           sdk/frontends/common/rs_desktop.c $(IAP_SRC)
 o = $(patsubst %.c,$(BD)/obj/%.o,$(1))
 
 # Two phases: the games' generated sources first (assets, translated text: whatever the root Makefile's "assets"
@@ -159,14 +177,14 @@ $(BD)/mod/house.o: $(call o,$(HOUSE_SRC)) $(MOD_DEPS)
 define GAME_RULES
 $(BD)/games/$(1)/%.o: games/$(1)/src/%.c $(wildcard $(GEN)/$(1)/*.h)
 	@mkdir -p $$(dir $$@)
-	$(CC) $(CFLAGS_ALL) -Igames/$(1)/src -I$(GEN)/$(1) -Igames/common/src -MMD -c $$< -o $$@
+	$(CC) $$(CFLAGS_ALL) -Igames/$(1)/src -I$(GEN)/$(1) -Igames/common/src -MMD -c $$< -o $$@
 $(BD)/games/$(1)/gen/%.o: $(GEN)/$(1)/%.c
 	@mkdir -p $$(dir $$@)
-	$(CC) $(CFLAGS_ALL) -Igames/$(1)/src -I$(GEN)/$(1) -Igames/common/src -c $$< -o $$@
+	$(CC) $$(CFLAGS_ALL) -Igames/$(1)/src -I$(GEN)/$(1) -Igames/common/src -c $$< -o $$@
 $(BD)/mod/$(1).o: $(patsubst games/$(1)/src/%.c,$(BD)/games/$(1)/%.o,$(wildcard games/$(1)/src/*.c)) \
                   $(patsubst $(GEN)/$(1)/%.c,$(BD)/games/$(1)/gen/%.o,$(wildcard $(GEN)/$(1)/*.c)) $(MOD_DEPS)
 	@mkdir -p $$(dir $$@)
-	$(MODULIZE) --id $(1) --out $$@ $$(filter %.o,$$^)
+	$$(MODULIZE) --id $(1) --out $$@ $$(filter %.o,$$^)
 endef
 $(foreach g,$(GAMES),$(eval $(call GAME_RULES,$(g))))
 
@@ -208,3 +226,8 @@ shots: all
 	sh apps/launcher/tests/shots.sh $(HEADLESS) apps/launcher/docs
 
 -include $(shell find $(BD) -type f -name '*.d' 2>/dev/null)
+
+# the iPhone and iPad app: the Mach-O modules and libarcade.a (after CORE: its prerequisites)
+ifneq ($(filter ios-%,$(PLATFORM)),)
+include apps/ios/arcade/ios.mk
+endif

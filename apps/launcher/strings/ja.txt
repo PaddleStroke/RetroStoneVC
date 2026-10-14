@@ -16,3 +16,5 @@ HELP_PADS2 = BLUETOOTH または USB
 HELP_PAUSE = 右上: ポーズ
 HELP_BACK = 左上: メニューへ
 HELP_SAVE = ゲームはそこで待っています
+UNLOCK = すべてかいじょ
+RESTORE = こうにゅうをふくげん

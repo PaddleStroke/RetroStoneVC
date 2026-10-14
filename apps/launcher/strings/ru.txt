@@ -20,3 +20,5 @@ HELP_PADS2 = BLUETOOTH ИЛИ USB
 HELP_PAUSE = СПРАВА ВВЕРХУ: ПАУЗА
 HELP_BACK = СЛЕВА ВВЕРХУ: В МЕНЮ
 HELP_SAVE = ИГРА ТЕБЯ ПОДОЖДЁТ
+UNLOCK = ОТКРЫТЬ ВСЁ
+RESTORE = ВОССТАНОВИТЬ ПОКУПКИ
