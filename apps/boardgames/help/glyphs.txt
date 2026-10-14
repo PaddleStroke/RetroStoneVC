@@ -15,3 +15,5 @@
 # word tiles: the letters of the sets
 ABCDEFGHIJKLMNOPQRSTUVWXYZ ÁÄÅÆÇÉÍÑÓÖØÚÜÝĚŃŇ ĄĆČĎĘĞİŁŘŚŞŠŤŮŹŻŽ
 ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ЄІЇҐ
+# the in-app purchase's price (the iOS app's unlock panel: the store's text, in the store's currency)
+€£¥₩₹₽₺₴₪₫฿₱₦₸₡₲₵₭₮ zł Kč лв

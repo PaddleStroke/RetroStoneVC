@@ -34,13 +34,18 @@ CONF   ?= apps/android/app-$(EDITION).conf
 $(if $(wildcard $(CONF)),,$(error no edition $(EDITION): $(CONF) is missing))
 EXE_NAME := $(shell sed -n 's/^EXE_NAME=//p' $(CONF))
 ED     := $(GEN)/edition.c
+# the in-app purchase's backend (apps/common/iap.h): none here (iap_none.c: the edition decides, the panel links to
+# the paid app); IAP=1 in the .conf: Google Play Billing (apps/common/iap_play.c, a slot not written yet:
+# apps/common/README.md). The iOS app (apps/ios) builds apps/ios/common/iap_storekit.swift instead.
+IAP_SRC := apps/common/$(if $(filter 1,$(shell sed -n 's/^IAP=//p' $(CONF))),iap_play.c,iap_none.c)
+$(if $(wildcard $(IAP_SRC)),,$(error $(CONF) says IAP=1: $(IAP_SRC) (Google Play Billing) is not written yet))
 # the AI kit and the bots' registry (no SDL: the tests link them); ai_worker.c runs a bot on a thread (SDL)
 AI_SRC := $(D)/src/ai.c $(D)/src/bots.c
 SRC    := $(D)/src/shell.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
-          $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(ED) $(GAME_SRC) \
+          $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(ED) $(GAME_SRC) $(IAP_SRC) \
           $(if $(DEMO),$(D)/tests/levels_demo.c)
-HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h)
-CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Isdk/third_party/stb
+HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h) apps/common/iap.h
+CFLAGS := -O2 -std=c11 -Wall -Wextra -I$(D)/src -Iapps/common -Isdk/third_party/stb
 
 $(TEXT): $(wildcard $(D)/help/*/*.txt $(D)/help/*.txt) $(D)/tools/gen_text.py
 	python3 $(D)/tools/gen_text.py --out $(GEN)

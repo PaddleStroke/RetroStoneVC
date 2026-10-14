@@ -210,6 +210,12 @@ name, id and store page; written only when it changes). The paid app shows and p
   computer (the picture mode opens nothing: `store: <url>` on stderr). Its close button, a tap outside or Back close it.
 - **Kept apart**: Free keeps its file under its own name (`SDL_GetPrefPath("8BCraft", EXE_NAME)`); on Android it is
   another package. The picture mode refuses a locked game or level (`--game`, `--level`) and `--random`.
+- **Unlocked inside the app** (the iPhone and iPad app, `apps/ios`: one free app): the free set is decided at run time
+  (shell.c `free_now()`: `ed_free` until the in-app purchase, `apps/common/iap.h`), so a purchase opens everything at
+  once; `IAP_PRODUCT` in the .conf names it (`ed_iap_product`). The panel then shows this app's own icon and name,
+  `help/<lang>/_unlock.txt` (a title line, two lines, "Unlock everything" with the store's price, "Restore
+  purchases"); the unlock is kept as `shell/unlocked` and checked again with the store at each launch. The desktop
+  and Android builds sell nothing inside (`apps/common/iap_none.c`): they behave exactly as above.
 
 ## What the app keeps
 

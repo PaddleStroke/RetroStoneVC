@@ -14,5 +14,7 @@ extern const int ed_free;                       /* 1: the free edition (locked g
 extern const char ed_free_games[];              /* the games playable besides the puzzles, ids between spaces */
 extern const int ed_free_levels;                /* the levels playable in each game of levels (0: all) */
 extern const char ed_paid_name[], ed_paid_id[], ed_paid_url[];   /* the paid app: its name, package id, store page */
+extern const char ed_iap_product[];             /* the in-app purchase that unlocks everything (apps/common/iap.h;
+                                                 * "": none): the free set plays until it is bought */
 
 #endif

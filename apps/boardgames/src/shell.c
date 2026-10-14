@@ -29,7 +29,11 @@
 #include "cards.h"
 #include "edition.h"
 #include "games/chess.h"
+#include "iap.h"
 #include "text.h"
+#ifdef __IPHONEOS__
+#include "ios_app.h"                            /* the iPhone and iPad app (apps/ios): the safe area */
+#endif
 
 #include <math.h>
 #include <stdio.h>
@@ -54,8 +58,11 @@ static int nplayers[MAX_GAMES];                 /* how many play each game (the 
 /* a game of levels that also plays at random (start_random): in random play (the level screen's last tab), and the
  * variant picked there */
 static int rnd_mode[MAX_GAMES], rvariant[MAX_GAMES];
+/* the free set in play: the free edition (edition.h) until its in-app purchase unlocks everything (iap.h; never in
+ * the builds without one, where the edition alone decides) */
+static int free_now(void) { return ed_free && !iap_unlocked(); }
 /* (the free edition: no random play, its levels only) */
-static int has_random(int g) { return games[g]->levels > 0 && games[g]->start_random && !ed_free; }
+static int has_random(int g) { return games[g]->levels > 0 && games[g]->start_random && !free_now(); }
 static int in_random(int g) { return has_random(g) && rnd_mode[g]; }
 
 /* the hand-off (VIEW_* games): whose view each game shows (kept while away in the menu); the cover (up: hiding the
@@ -123,10 +130,10 @@ static int section_of(const game *g)
 
 /* the free edition (edition.h): every puzzle (its first ed_free_levels levels) and the games of ed_free_games are
  * played; the others show locked (after the playable ones in their tab), and a tap opens the full version's panel.
- * The paid app: nothing locked. */
+ * The paid app, or the free one once its in-app purchase is made (free_now): nothing locked. */
 static int locked_game(const game *g)
 {
-    if (!ed_free || !ed_free_games[0] || section_of(g) == SEC_PUZZLE) return 0;
+    if (!free_now() ||!ed_free_games[0] || section_of(g) == SEC_PUZZLE) return 0;
     const char *id = g->id;
     size_t n = strlen(id);
     for (const char *s = ed_free_games; (s = strstr(s, id)) != NULL; s += n)
@@ -134,7 +141,7 @@ static int locked_game(const game *g)
     return 1;
 }
 static int locked(int g) { return locked_game(games[g]); }
-static int level_locked(int l) { return ed_free && ed_free_levels > 0 && l >= ed_free_levels; }
+static int level_locked(int l) { return free_now() && ed_free_levels > 0 && l >= ed_free_levels; }
 static void full_open(void);
 
 /* the counts a game can be played with: bit n, n players */
@@ -1751,15 +1758,20 @@ static int settings_press(float x, float y)
  * card: make_icon.py's, drawn by the app's own code) and its name, two lines (help/<lang>/_full.txt: a title line for
  * the translators, the two lines, the button's word), and a gold button in gold light that opens the paid app's
  * page: market://details?id=<PAID_APP_ID> on Android (PAID_STORE_URL when there is no Play Store), PAID_STORE_URL on
- * a computer. Its close button, a tap outside it or Back closes it. */
+ * a computer. Its close button, a tap outside it or Back closes it.
+ * A build that sells the unlock inside the app (iap_available(): iOS) shows this app's own icon and name, its two
+ * lines and words from help/<lang>/_unlock.txt, the gold button "Unlock everything" with the store's price (the
+ * purchase: iap_buy) and under it a quieter one, "Restore purchases" (iap_restore); both wait while the store works
+ * (iap_busy). Once it is bought the panel closes and everything opens (unlock_poll). */
 static struct {
-    int open, made;                             /* made: the screen's short side its pictures were made for */
-    box card, btn;
+    int open, made;                             /* made: the screen's short side its pictures were made for (0: make
+                                                 * them again) */
+    box card, btn, rbtn;                        /* rbtn: Restore purchases (an in-app purchase) */
     float xx, xy, xr;                           /* its close button */
     float icon_y, name_y, line_y[2];
     int icon_d;
-    SDL_Texture *icon, *name, *line[2], *get;
-    int tw[4], th[4];                           /* name, line 0, line 1, the button's word: their sizes */
+    SDL_Texture *icon, *name, *line[2], *get, *restore;
+    int tw[5], th[5];                           /* name, line 0, line 1, the button's word, restore: their sizes */
 } FV;
 
 static const uint8_t FV_CREAM[3] = {246, 238, 220};
@@ -1871,11 +1883,14 @@ static void fv_layout(void)
 {
     float s = fminf(ui.w, ui.h), m = floorf(s * 0.05f), pad = floorf(s * 0.05f);
     float pw = floorf(fminf(s * 0.84f, ui.w - 2 * m)), maxw = pw - 2 * pad;
+    int sell = iap_available();                 /* the unlock sold in the app: its own words, the price, Restore */
+    const char *words = sell ? "_unlock" : "_full";
     if (FV.made != (int)s) {                    /* the pictures, at this size */
         FV.made = (int)s;
         ui_free(&FV.icon);
         ui_free(&FV.name);
         ui_free(&FV.get);
+        ui_free(&FV.restore);
         for (int i = 0; i < 2; i++) ui_free(&FV.line[i]);
         FV.icon_d = (int)(s * 0.27f);
         uint8_t *b = calloc((size_t)FV.icon_d * FV.icon_d, 4);   /* its own: cards_paint may use ui_buf() */
@@ -1884,17 +1899,24 @@ static void fv_layout(void)
             FV.icon = ui_tex(FV.icon_d, FV.icon_d, b);
             free(b);
         }
-        FV.name = fv_text(ed_paid_name[0] ? ed_paid_name : "RetroStone Board", s * 0.054f, 1, maxw, &FV.tw[0],
-                          &FV.th[0]);
+        FV.name = fv_text(sell ? ed_app_name : ed_paid_name[0] ? ed_paid_name : "RetroStone Board", s * 0.054f, 1, maxw,
+                          &FV.tw[0], &FV.th[0]);
         char t[128];
         for (int i = 0; i < 2; i++)
-            FV.line[i] = text_word("_full", i, t, sizeof t) ? fv_text(t, s * 0.04f, 0, maxw, &FV.tw[1 + i], &FV.th[1 + i])
-                                                            : NULL;
-        FV.get = text_word("_full", 2, t, sizeof t) ? fv_text(t, s * 0.05f, 1, maxw * 0.8f, &FV.tw[3], &FV.th[3])
-                                                    : NULL;
+            FV.line[i] = text_word(words, i, t, sizeof t) ? fv_text(t, s * 0.04f, 0, maxw, &FV.tw[1 + i], &FV.th[1 + i])
+                                                          : NULL;
+        int got = text_word(words, 2, t, sizeof t);
+        if (sell && got && iap_price_text()[0]) {   /* the word, an en dash, the price */
+            size_t n = strlen(t);
+            snprintf(t + n, sizeof t - n, " \xe2\x80\x93 %s", iap_price_text());
+        }
+        FV.get = got ? fv_text(t, s * 0.05f, 1, maxw * 0.8f, &FV.tw[3], &FV.th[3]) : NULL;
+        if (sell && text_word(words, 3, t, sizeof t))
+            FV.restore = fv_text(t, s * 0.038f, 0, maxw * 0.8f, &FV.tw[4], &FV.th[4]);
     }
-    float bh = floorf(s * 0.12f), lh = FV.line[0] ? (float)FV.th[1] : s * 0.062f;
+    float bh = floorf(s * 0.12f), lh = FV.line[0] ? (float)FV.th[1] : s * 0.062f, rh = floorf(s * 0.085f);
     float h = pad + FV.icon_d + s * 0.03f + FV.th[0] + s * 0.02f + 2 * lh + s * 0.06f + bh + pad;
+    if (sell) h += s * 0.04f + rh;              /* Restore purchases, under the gold button */
     FV.card = (box){floorf((ui.w - pw) / 2), floorf((ui.h - h) / 2), pw, floorf(h)};
     float y = FV.card.y + pad;
     FV.icon_y = y + FV.icon_d / 2.0f;
@@ -1905,6 +1927,8 @@ static void fv_layout(void)
     y += s * 0.06f;
     float bw = floorf(fmaxf(pw * 0.5f, (FV.get ? FV.tw[3] : 0) + s * 0.12f));
     FV.btn = (box){floorf((ui.w - bw) / 2), floorf(y), bw, bh};
+    float rw = floorf(fmaxf(pw * 0.4f, (FV.restore ? FV.tw[4] : 0) + s * 0.1f));
+    FV.rbtn = sell ? (box){floorf((ui.w - rw) / 2), floorf(y + bh + s * 0.04f), rw, rh} : (box){0, 0, 0, 0};
     FV.xr = floorf(s * 0.045f);
     FV.xx = FV.card.x + FV.card.w - pad * 0.3f - FV.xr;
     FV.xy = FV.card.y + pad * 0.3f + FV.xr;
@@ -1912,7 +1936,7 @@ static void fv_layout(void)
 
 static void full_open(void)
 {
-    if (!ed_free) return;
+    if (!free_now()) return;
     FV.open = 1;
     SET.open = 0;
 }
@@ -1939,7 +1963,7 @@ static void open_store(void)
 
 static void draw_full(void)
 {
-    static const uint8_t panel[4] = {28, 34, 32, 250}, gold[4] = {150, 118, 46, 255};
+    static const uint8_t panel[4] = {28, 34, 32, 250}, gold[4] = {150, 118, 46, 255}, quiet[4] = {58, 68, 64, 255};
     fv_layout();
     float s = fminf(ui.w, ui.h), cx = ui.w / 2.0f;
     ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 120);
@@ -1954,23 +1978,75 @@ static void draw_full(void)
     ui_put(rounded((int)b.w, (int)b.h, b.h / 2, gold), b.x, b.y, b.w, b.h);
     if (FV.get) ui_put_c(FV.get, b.x + b.w / 2, b.y + b.h / 2, (float)FV.tw[3], (float)FV.th[3]);
     else ui_put_c(t_icon[ICON_ARROW], b.x + b.w / 2, b.y + b.h / 2, b.h * 0.5f, b.h * 0.5f);
+    box r = FV.rbtn;                            /* Restore purchases: a quiet button */
+    if (r.w > 0) {
+        ui_put(rounded((int)r.w, (int)r.h, r.h / 2, quiet), r.x, r.y, r.w, r.h);
+        if (FV.restore) ui_put_c(FV.restore, r.x + r.w / 2, r.y + r.h / 2, (float)FV.tw[4], (float)FV.th[4]);
+    }
+    if (iap_busy()) {                           /* the store at work: both buttons wait, dimmed */
+        float y0 = b.y - b.h * 0.7f, y1 = (r.w > 0 ? r.y + r.h : b.y + b.h) + b.h * 0.2f;
+        ui_fill(c.x, y0, c.w, y1 - y0, panel[0], panel[1], panel[2], 170);
+        ui_animate();
+    }
     draw_button(FV.xx, FV.xy, FV.xr, ICON_CLOSE, NULL);
 }
 
-/* a press while the panel is open: its button, else it closes (its close button, outside it) */
+/* a press while the panel is open: its button (and Restore), else it closes (its close button, outside it) */
 static void full_press(float x, float y)
 {
     fv_layout();                                /* (the screen may have turned since it was drawn) */
-    box b = FV.btn, c = FV.card;
+    box b = FV.btn, c = FV.card, r = FV.rbtn;
     if (x >= b.x && y >= b.y && x < b.x + b.w && y < b.y + b.h) {
-        snd_play(SND_TAP);
-        open_store();
+        if (!iap_available()) {
+            snd_play(SND_TAP);
+            open_store();
+        } else if (iap_busy() || !iap_buy()) {  /* (the product not known yet: the store is asked again) */
+            snd_play(SND_DENY);
+        } else {
+            snd_play(SND_TAP);
+        }
+        return;
+    }
+    if (r.w > 0 && x >= r.x && y >= r.y && x < r.x + r.w && y < r.y + r.h) {
+        snd_play(iap_busy() ? SND_DENY : SND_TAP);
+        if (!iap_busy()) iap_restore();
         return;
     }
     if (hypotf(x - FV.xx, y - FV.xy) < FV.xr * 1.2f || x < c.x || y < c.y || x >= c.x + c.w || y >= c.y + c.h) {
         FV.open = 0;
         snd_play(SND_TAP);
     }
+}
+
+/* the in-app purchase (iap.h): started with what the last run kept ("shell/unlocked"), before the settings are read;
+ * an app already unlocked sorts its menu again (nothing locked to put last). Never unlocked without one. */
+static unsigned iap_seen;
+static int by_order(const void *a, const void *b);
+static void layout(void);
+
+static void unlock_start(void)
+{
+    uint8_t b = 0;
+    ui_save_get("shell/unlocked", &b, 1);
+    iap_init(ed_iap_product, b == 1);
+    iap_seen = iap_changes();
+    if (ed_free && iap_unlocked()) qsort(games, (size_t)ngames, sizeof games[0], by_order);
+}
+
+/* once a frame: what the store says, kept; bought (or restored): the panel closes and everything opens at once (the
+ * menu keeps its order until the next launch); the panel's pictures follow the price */
+static void unlock_poll(void)
+{
+    unsigned n = iap_changes();
+    if (n == iap_seen) return;
+    iap_seen = n;
+    uint8_t now = (uint8_t)(iap_unlocked() != 0), was = 0;
+    ui_save_get("shell/unlocked", &was, 1);
+    if (now != was) ui_save_set("shell/unlocked", &now, 1);
+    if (now) FV.open = 0;
+    FV.made = 0;
+    layout();
+    need_frame = 1;
 }
 
 /* a lock on a dark disc, d across: a locked game's card, a locked level's tile */
@@ -4459,12 +4535,48 @@ static int shot(int argc, char **argv)
 }
 
 /* ---- the program ------------------------------------------------------------------------------------------------- */
+#ifdef __IPHONEOS__
+/* iPhone and iPad: the screen's safe area (apps/ios/common/ios_app.h: clear of the notch, the Dynamic Island, the
+ * rounded corners and the home indicator), in pixels. The shell lays out and draws in it (ui.w x ui.h, the renderer's
+ * viewport), the table's green reaching every edge round it; touches and the mouse are moved into it. */
+static SDL_Rect safe;
+static int scr_w, scr_h, away;                  /* the whole screen, pixels; away: the app in the background */
+
+static void safe_update(void)
+{
+    SDL_GetRendererOutputSize(ui.r, &scr_w, &scr_h);
+    ios_safe_area(win, scr_w, scr_h, &safe);
+}
+
+/* before a frame: the table round the safe area (its gradient's first and last rows above and below, the same rows
+ * beside it), then the viewport */
+static void safe_frame(void)
+{
+    SDL_RenderSetViewport(ui.r, NULL);
+    if (t_bg) {
+        SDL_Rect top = {0, 0, 2, 1}, bottom = {0, 255, 2, 1};
+        SDL_Rect r = {0, 0, scr_w, safe.y};
+        SDL_RenderCopy(ui.r, t_bg, &top, &r);
+        r = (SDL_Rect){0, safe.y, scr_w, safe.h};
+        SDL_RenderCopy(ui.r, t_bg, NULL, &r);
+        r = (SDL_Rect){0, safe.y + safe.h, scr_w, scr_h - safe.y - safe.h};
+        SDL_RenderCopy(ui.r, t_bg, &bottom, &r);
+    }
+    SDL_RenderSetViewport(ui.r, &safe);
+}
+#endif
+
 static void to_pixels(int x, int y, float *fx, float *fy)
 {
     int ww, wh;
     SDL_GetWindowSize(win, &ww, &wh);
+#ifdef __IPHONEOS__
+    *fx = x * (float)scr_w / (ww ? ww : 1) - safe.x;
+    *fy = y * (float)scr_h / (wh ? wh : 1) - safe.y;
+#else
     *fx = x * (float)ui.w / (ww ? ww : 1);
     *fy = y * (float)ui.h / (wh ? wh : 1);
+#endif
 }
 
 /* repeat: the key held down (only the shell's scrolling and undo repeat; a game gets a key once) */
@@ -4532,11 +4644,20 @@ int main(int argc, char **argv)
     for (int i = 1; i + 1 < argc; i++)
         if (!strcmp(argv[i], "--save")) save_dir = argv[i + 1];
     save_open(save_dir);
+    unlock_start();
     settings_load();
     seed_random((uint32_t)SDL_GetPerformanceCounter());
+#ifdef __IPHONEOS__
+    SDL_SetHint(SDL_HINT_AUDIO_CATEGORY, "ambient");   /* the sounds follow the silent switch */
+#endif
     snd_init();
+#ifdef __IPHONEOS__                             /* borderless: no status bar */
+    win = SDL_CreateWindow(ed_app_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
+                           SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
+#else
     win = SDL_CreateWindow(ed_app_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 540, 900,
                            SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+#endif
     ui.r = win ? SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC) : NULL;
     if (win && !ui.r) ui.r = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
     if (!win || !ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
@@ -4553,11 +4674,20 @@ int main(int argc, char **argv)
                 case SDL_QUIT: quit = 1; break;
                 case SDL_APP_WILLENTERBACKGROUND:     /* the bot thinking stops (it starts again on return) */
                 case SDL_APP_TERMINATING: bot_stop(); save_flush(); break;
+#ifdef __IPHONEOS__                             /* nothing drawn in the background */
+                case SDL_APP_DIDENTERBACKGROUND: away = 1; break;
+                case SDL_APP_WILLENTERFOREGROUND: away = 0; break;
+#endif
                 case SDL_FINGERDOWN:
                 case SDL_FINGERMOTION:
                 case SDL_FINGERUP:
                     if (fingers_on()) {
+#ifdef __IPHONEOS__
+                        touch(e.type, (long long)e.tfinger.fingerId, e.tfinger.x * scr_w - safe.x,
+                              e.tfinger.y * scr_h - safe.y);
+#else
                         touch(e.type, (long long)e.tfinger.fingerId, e.tfinger.x * ui.w, e.tfinger.y * ui.h);
+#endif
                         after_input();
                     }
                     break;
@@ -4594,12 +4724,22 @@ int main(int argc, char **argv)
         bot_step();                             /* a bot's turn: it starts, or its move is played */
         int w, h;
         SDL_GetRendererOutputSize(ui.r, &w, &h);
+#ifdef __IPHONEOS__
+        if (away) continue;
+        safe_update();                          /* the shell's screen: the safe area */
+        w = safe.w;
+        h = safe.h;
+#endif
         if (w != ui.w || h != ui.h) {
             ui.w = w;
             ui.h = h;
             layout();
             if (help.open) help_layout();
         }
+        unlock_poll();                          /* the in-app purchase: bought, restored, its price */
+#ifdef __IPHONEOS__
+        safe_frame();
+#endif
         draw();
         SDL_RenderPresent(ui.r);
         save_flush();                           /* what changed, written at once (nothing: no write) */
