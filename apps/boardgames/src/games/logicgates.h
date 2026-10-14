@@ -1,8 +1,9 @@
 /*
- * Logic Gates for one player: the rules. A circuit on a board: switches along the bottom, logic gates above them,
- * lamps at the top; wires carry the signal (0 or 1) upwards. Set the switches so that every lamp is lit, while the
- * alarm lamps (when a level has one) stay dark. 150 levels in 6 chapters of 25, every one of them our own, from 2
- * switches up to 8; and circuits made at random (the die tab).
+ * Logic Gates for one player: the rules. A circuit on a board: switches, logic gates above them, lamps at the top;
+ * wires carry the signal (0 or 1) upwards. Set the switches so that every lamp is lit, while the alarm lamps (when a
+ * level has one) stay dark. 165 levels, every one of them our own: chapter 1 of 40 (AND and OR, then NOT; the free
+ * edition's levels), then 5 chapters of 25, each bringing a gate or two; every chapter grows from a few switches to
+ * 8. And circuits made at random (the die tab).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The parts:
@@ -11,8 +12,9 @@
  *   of them are: two inputs, exactly one), NAND (not AND), NOR (not OR); NOT has one input, the others two or three;
  * - a route switch: one input, two outputs (left and right); its input goes on along the way it is set to, the other
  *   way carries 0; a tap sets it the other way;
- * - a wire with a fuse can be cut by a tap: then it carries 0 beyond the fuse (it is disconnected). A cut stays cut
- *   (only undo or a restart mends it); a level may allow fewer cuts than it has fuses;
+ * - a cuttable wire (a fuse in the text; on the board a jumper cable between two terminals) can be cut by a tap: then
+ *   it carries 0 beyond the cut (it is disconnected). A cut stays cut (only undo or a restart mends it); a level may
+ *   allow fewer cuts than it has cuttable wires;
  * - a lamp: lit when its wire carries 1. Solved when every lamp is lit and every alarm lamp is dark.
  * A move: one flip of a switch or a route switch, or one cut. The par: the fewest moves that solve the level (found by
  * trying every setting: the switches, the route switches, and the sets of cuts within the level's limit). Stars: 3 when
@@ -26,14 +28,15 @@
  * - an input: the cell of the part it comes from; a route switch's outputs: "c2<" (its left) and "c2>" (its right);
  *   then an x for a wire with a fuse: "OR@d4(c3x,e2>x)".
  * - "%n": the cuts allowed (else as many as there are fuses).
+ * - " |...": the drawing, stored (lg_layout_text): read as it is, no search.
  * Every wire goes up (from a lower row); every output feeds at least one input.
- * The cells only name the parts: the drawing is laid out from the circuit alone (lg_route): the switches evenly
- * spaced on the bottom row, the gates in rows by depth, the lamps on the top row; each row ordered for the fewest
- * crossings, each part centred over its inputs; a wire rises from its source, bends in the gap under a row, and rises
- * into its pin; a crossing left gets a hop, a branching a dot.
+ * The cells only name the parts: the drawing is laid out from the circuit alone (logicgates_rules.c): the lamps on
+ * the top row, each other part just under the parts it feeds (a switch right under its gate, at any height); each row
+ * ordered for the fewest crossings, each part centred over its inputs; a wire rises from its source, bends in the gap
+ * under a row, and rises into its pin; a crossing left gets a hop, a branching a dot.
  *
  * The notation (script, the screenshots, the tests), in the level open (lg_open; the screenshots: --level n): "s3"
- * flips switch 3, "r2" route switch 2, "c5" cuts fuse 5 (numbered from 1 in the level's text: the switches and the
+ * flips switch 3, "r2" route switch 2, "c5" cuts wire 5 (numbered from 1 in the level's text: the switches and the
  * route switches in reading order of their cells from the bottom left, row by row; the fuses by the part they lead
  * into, in the same order, then from the left); "u" undoes, "x" restarts the level, "h" asks a hint (the screen shows
  * it blinking; lg_script plays it); "=" plays the level's best solution.
@@ -51,11 +54,16 @@
 #define LG_PTS 20                               /* the most points on a wire's drawing */
 #define LG_MARKS 48                             /* the most hops, and the most branchings */
 #define LG_CHAPTERS 6
-#define LG_PER_CHAPTER 25
-#define LG_LEVELS (LG_CHAPTERS * LG_PER_CHAPTER)
+#define LG_FIRST_CHAPTER 40                     /* chapter 1: AND and OR, then NOT (the free edition's 40 levels) */
+#define LG_PER_CHAPTER 25                       /* each of the others */
+#define LG_LEVELS (LG_FIRST_CHAPTER + (LG_CHAPTERS - 1) * LG_PER_CHAPTER)
 #define LG_HIST 256
 #define LG_NH 0.5f                              /* a part's height, rows (the rest of a row: the gap with the tracks) */
 #define LG_HALF 0.40f                           /* half a part's width, columns */
+#define LG_SW_HALF 0.27f                        /* half a switch's width (a switch is narrower) */
+#define LG_PAD_B 0.12f                         /* the room under the bottom row and over the top one (the lamps */
+#define LG_PAD_T 0.46f                          /* stand taller than a row), rows */
+#define LG_LAYOUT 400                           /* a stored layout's text, at most */
 
 enum { LG_SWITCH, LG_NOT, LG_AND, LG_OR, LG_XOR, LG_NAND, LG_NOR, LG_ROUTE, LG_LAMP, LG_ALARM, LG_KINDS };
 enum { LG_MSWITCH, LG_MROUTE, LG_MCUT };        /* a move's kind */
@@ -77,9 +85,24 @@ typedef struct {
     int npt;
     float px[LG_PTS], py[LG_PTS];
     float len;                                  /* its length */
-    float fs, fx, fy;                           /* the fuse: how far along, its centre */
-    int fvert;                                  /* 1: the fuse lies on a vertical stretch */
+    /* a cuttable wire: a jumper cable between two terminals on one straight stretch of it (the printed trace stops
+     * at them); the cable bows sideways by `bow` (grid units: + right of a vertical stretch, above a level one) */
+    float fs, fx, fy;                           /* the cable's middle: how far along, its place */
+    int fvert;                                  /* 1: on a vertical stretch */
+    float ta, tb;                               /* the terminals: how far along */
+    float tax, tay, tbx, tby;                   /* their places */
+    float bow;
 } lg_wire;
+
+/* a level's chapter (0..), a chapter's first level */
+static inline int lg_chapter(int level)
+{
+    return level < LG_FIRST_CHAPTER ? 0 : 1 + (level - LG_FIRST_CHAPTER) / LG_PER_CHAPTER;
+}
+static inline int lg_chapter_start(int c) { return c ? LG_FIRST_CHAPTER + (c - 1) * LG_PER_CHAPTER : 0; }
+static inline int lg_chapter_size(int c) { return c ? LG_PER_CHAPTER : LG_FIRST_CHAPTER; }
+
+static inline float lg_half(int kind) { return kind == LG_SWITCH ? LG_SW_HALF : LG_HALF; }   /* half its width */
 
 typedef struct { float x, y, s; int wire; } lg_mark;   /* a hop or a branching: where, and how far along a wire */
 
@@ -98,6 +121,8 @@ typedef struct {
     int layers;                                 /* its rows, the switches' to the lamps' */
     float ly[LG_ROWS];                          /* each row's bottom (the gaps between rows grow with their tracks) */
     float width, height;                        /* its size: the parts' middles at least half a column in */
+    int stored;                                 /* laid out from the level's stored layout (no search) */
+    char layout[LG_LAYOUT];                     /* the layout as text (lg_layout_text) */
     int crossings;                              /* wires crossing (each one drawn with a hop) */
     int nhop, njoint;
     lg_mark hop[LG_MARKS];                      /* the crossings: on the wire running sideways */
@@ -134,11 +159,25 @@ extern const uint8_t lg_pars[LG_LEVELS];
 int  lg_gate(int kind, const uint8_t *in, int nin);
 /* a level from its text: 0 and a reason in err (when not NULL) if it is wrong (its parts, its wires, its drawing) */
 int  lg_parse(const char *src, lg_level *L, char *err, int errsize);
-/* the drawing: the parts' places, the wires' paths, the fuses, hops and dots (lg_parse calls it); 0 when lg_check
- * finds it unclear */
+/* the drawing: the parts' places, the wires' paths, the cables, hops and dots (lg_parse calls it: from the layout
+ * stored in the text when it has one, else lg_route_fast); 0 when lg_check finds it unclear.
+ * - lg_route_fast: a bounded search (a few starts, small exact searches, a few milliseconds at most), for the die
+ *   tab's circuits;
+ * - lg_route_best: the levels' tool's search (each part's row tried too, many starts: seconds); its result goes into
+ *   the level's text (lg_layout_text), so a level opens without a search. */
 int  lg_route(lg_level *L);
+int  lg_route_fast(lg_level *L);
+int  lg_route_best(lg_level *L, int effort);
+/* the layout as text: " |" then each part's row (a character each, '0'..), "/", then each row's items from the left
+ * ('.' between rows; a part '0' + its index, a wire rising past the row 'a' + its trunk's index); appended to the
+ * circuit's text, lg_parse lays the level out from it */
+int  lg_layout_text(const lg_level *L, char *out, int size);
+/* how big a gate comes out in a room rw x rh (pixels) laid out upright: its width (pixels); a column's and a row's
+ * sizes (pixels; NULL: not wanted). Rows at most 1.7 columns tall; a column at most a 3.2th of the room's short
+ * side. */
+float lg_part_size(const lg_level *L, float rw, float rh, float *cw, float *ch);
 /* the drawing is clear: no two parts overlap, no wire runs through a part, no two signals run along one line or
- * touch but by crossing squarely, every fuse has room; 0 and why in err (when not NULL) */
+ * touch but by crossing squarely, every cable has room; 0 and why in err (when not NULL) */
 int  lg_check(const lg_level *L, char *err, int errsize);
 /* the values everywhere for these settings; 1: solved */
 int  lg_eval(const lg_level *L, const uint8_t *val, const uint8_t *cut, uint8_t out[][2], uint8_t *wsrc,
@@ -149,7 +188,7 @@ void lg_solve(const lg_level *L, const uint8_t *val, const uint8_t *cut, lg_answ
 uint32_t lg_mask(const lg_level *L, const uint8_t *val, const uint8_t *cut);
 
 void lg_load(lg_game *g, const lg_level *L, int level, int par);
-int  lg_open(lg_game *g, int level);            /* one of the 150; 0: none such */
+int  lg_open(lg_game *g, int level);            /* one of the levels; 0: none such */
 void lg_restart(lg_game *g);
 int  lg_play(lg_game *g, lg_move m);            /* 0: not allowed (a locked switch, a fuse cut, no cut left) */
 int  lg_undo(lg_game *g);                       /* 0: nothing to undo */
@@ -177,6 +216,7 @@ typedef struct {
     int routes_lo, routes_hi, fuses_lo, fuses_hi;
     int locked;                                 /* locked switches, at most */
     int lamps, alarms;                          /* lamps (1..2) and alarm lamps (0..1), at most */
+    int alarm_need;                             /* an alarm lamp always (when alarms allows one) */
     int three, fan, nots;                       /* % three-input gates, % branchings, % NOTs (of the gates added) */
     int depth_lo, depth_hi;                     /* the deepest gate's depth */
     int par_lo, par_hi;
@@ -184,6 +224,7 @@ typedef struct {
     int herrings;                               /* switches or route switches that never matter, at most */
     int need_route, need_cut;                   /* every solution turns a route switch / cuts a wire */
     int cross;                                  /* crossings in the drawing, at most */
+    float wide;                                 /* the drawing's width, at most (columns; 0: any) */
 } lg_spec;
 
 /* what a level is like (lg_rate): its size, its par, how hard it is, and its keys (64-bit hashes) to tell repeats:
@@ -206,7 +247,8 @@ typedef struct {
 int  lg_rate(const lg_level *L, lg_rating *r);
 /* a level for the spec from the seed (the same seed, the same level): its text; 0: none found in `tries` circuits */
 int  lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg_rating *r);
-/* the die tab's puzzles: 0 small (3 to 4 switches), 1 medium (5 to 6), 2 big (7 to 8) */
+/* the die tab's puzzles: 0 small (3 to 4 switches; AND, OR, NOT), 1 medium (5 to 6; XOR and NAND too), 2 big (7
+ * to 8; everything) */
 #define LG_RANDOM 3
 void lg_random_spec(int variant, lg_spec *sp);
 int  lg_random(lg_game *g, int variant, uint32_t seed);   /* a new random puzzle (g->level -1); 0: none (never) */

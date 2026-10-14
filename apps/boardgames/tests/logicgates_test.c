@@ -241,7 +241,9 @@ static lg_rating rate[LG_LEVELS];
 
 static void levels(void)
 {
-    int counts[LG_CHAPTERS][3] = {{0}}, sw_lo[LG_CHAPTERS], sw_hi[LG_CHAPTERS] = {0};
+    int counts[LG_CHAPTERS][3] = {{0}}, sw_lo[LG_CHAPTERS], sw_hi[LG_CHAPTERS] = {0}, first[LG_KINDS],
+        alarms[LG_CHAPTERS] = {0};
+    memset(first, -1, sizeof first);
     for (int c = 0; c < LG_CHAPTERS; c++) sw_lo[c] = 99;
     for (int l = 0; l < LG_LEVELS; l++) {
         static lg_level L;
@@ -274,31 +276,55 @@ static void levels(void)
         lg_rating rb;
         CHECK(lg_text(&L, text, sizeof text) && lg_parse(text, &B, NULL, 0) && lg_rate(&B, &rb));
         CHECK(rb.exact == r->exact);
-        int c = l / LG_PER_CHAPTER;
+        int c = lg_chapter(l);
         counts[c][0] += L.nrt > 0;
         counts[c][1] += L.ncut > 0;
-        for (int i = 0; i < L.nn; i++) counts[c][2] += L.n[i].nin == 3;
+        for (int i = 0; i < L.nn; i++) {
+            counts[c][2] += L.n[i].nin == 3;
+            int k = L.n[i].kind;
+            if (k >= LG_NOT && k <= LG_NOR && first[k] < 0) first[k] = l;
+            alarms[c] += k == LG_ALARM;
+        }
         if (L.nsw < sw_lo[c]) sw_lo[c] = L.nsw;
         if (L.nsw > sw_hi[c]) sw_hi[c] = L.nsw;
         CHECK(L.cols <= LG_COLS && L.rows <= LG_ROWS);
+        if (!L.stored) printf("level %d: not laid out from its stored drawing\n", l + 1);
+        CHECK(L.stored);                        /* its drawing read, not searched */
+        for (int i = 0; i < L.nn; i++) {        /* each chapter's gates */
+            int k = L.n[i].kind;
+            if (c == 0) CHECK(k != LG_XOR && k != LG_NAND && k != LG_NOR);
+            if (c == 1) CHECK(k != LG_NAND && k != LG_NOR);
+            if (c == 2) CHECK(k != LG_NOR);
+            if (c < 4) CHECK(L.n[i].nin < 3);
+        }
     }
-    /* the chapters' ideas: no route switch, fuse nor three inputs before their chapter; route switches in all of the
-     * third, fuses in all of the fourth */
-    for (int c = 0; c < 2; c++) CHECK(!counts[c][0] && !counts[c][1] && !counts[c][2]);
-    CHECK(counts[2][0] == LG_PER_CHAPTER && !counts[2][1] && !counts[2][2]);
-    CHECK(counts[3][1] == LG_PER_CHAPTER && !counts[3][2]);
-    CHECK(counts[4][2] > 0 && counts[5][0] > 0 && counts[5][1] > 0);
-    /* the switches grow: 2 to 3, up to 5, up to 6, then up to 8 */
-    static const int most[LG_CHAPTERS] = {3, 5, 6, 8, 8, 8};
+    /* the curve: AND and OR first, NOT in the middle of chapter 1, XOR in chapter 2, NAND in 3, NOR in 4, three
+     * inputs in 5; alarm lamps in chapter 1, route switches from chapter 3, cuttable wires from chapter 4 */
+    CHECK(first[LG_AND] == 0 && first[LG_OR] == 1);
+    CHECK(first[LG_NOT] >= 15 && first[LG_NOT] <= 25);
+    CHECK(first[LG_XOR] == lg_chapter_start(1) && first[LG_NAND] == lg_chapter_start(2));
+    CHECK(first[LG_NOR] == lg_chapter_start(3));
+    CHECK(lg_chapter(LG_FIRST_CHAPTER - 1) == 0 && lg_chapter(LG_FIRST_CHAPTER) == 1 && lg_chapter(LG_LEVELS - 1) == 5);
+    for (int k = LG_NOT; k <= LG_NOR; k++) {    /* each new gate's first level: a gentle one, a few switches */
+        static lg_level F;
+        CHECK(first[k] >= 0 && lg_parse(lg_levels[first[k]], &F, NULL, 0) && F.nsw <= 4 && lg_pars[first[k]] <= 3);
+        printf("logicgates: %s first in level %d\n", (const char *[]){"", "NOT", "AND", "OR", "XOR", "NAND", "NOR"}[k],
+               first[k] + 1);
+    }
+    CHECK(alarms[0] > 0);
+    for (int c = 0; c < 2; c++) CHECK(!counts[c][0]);   /* route switches from chapter 3 */
+    for (int c = 0; c < 3; c++) CHECK(!counts[c][1]);   /* cuttable wires from 4 */
+    for (int c = 0; c < 4; c++) CHECK(!counts[c][2]);   /* three inputs from 5 */
+    CHECK(counts[2][0] > 0 && counts[3][1] > 0 && counts[4][2] > 0 && counts[5][0] > 0 && counts[5][1] > 0);
+    /* every chapter grows to 8 switches */
     for (int c = 0; c < LG_CHAPTERS; c++) {
         printf("logicgates: chapter %d, %d to %d switches\n", c + 1, sw_lo[c], sw_hi[c]);
-        CHECK(sw_hi[c] == most[c]);
+        CHECK(sw_hi[c] == 8);
     }
     CHECK(sw_lo[0] == 2 && sw_lo[5] >= 7);
-    /* the hand-made first levels: AND, NOT, OR, XOR */
-    for (int i = 0; i < 4; i++) CHECK(lg_pars[i] == 2);
+    /* the hand-made first levels: AND, OR, NOT */
+    CHECK(lg_pars[0] == 2 && lg_pars[1] == 2 && lg_pars[first[LG_NOT]] == 2);
 }
-
 /* no two levels the same circuit: whatever the switches' order, a mirror image, the inputs' order of a gate, a route
  * switch's sides; nor the same shape with the same truth table and start. Near the same (one circuit, another
  * start): a few at most, each one deliberate. */
@@ -366,34 +392,31 @@ static int crossings(const lg_level *L)
     return np;
 }
 
-/* a level's drawing: rows by depth, the switches evenly spaced at the bottom, the lamps on top; no two parts
- * overlapping, no wire through a part; each wire rising from its source, square bends, rising into its pin; few
- * crossings, each one hopped */
+/* a level's drawing: rows going up, the lamps on top, a switch under the gates it feeds; no two parts
+ * overlapping, no wire through a part, the cables on their wires; each wire rising from its source, square bends,
+ * rising into its pin; few crossings, each one hopped */
 static int drawn(const lg_level *L, int level)
 {
     char err[128];
     CHECK(lg_check(L, err, sizeof err));
-    int top = L->layers - 1, nsw = 0;
-    float sx[LG_NODES];
+    int top = L->layers - 1, low = 0;
     for (int i = 0; i < L->nn; i++) {
         const lg_node *N = &L->n[i];
         int lamp = N->kind == LG_LAMP || N->kind == LG_ALARM;
-        CHECK((N->kind == LG_SWITCH) == (N->layer == 0) && lamp == (N->layer == top));
-        CHECK(N->x >= 0.5f - 1e-3f && N->x <= L->width - 0.5f + 1e-3f && N->y + LG_NH <= L->height + 1e-3f);
+        float hw = lg_half(N->kind);
+        CHECK(lamp == (N->layer == top));       /* the lamps on top; the switches anywhere under their gates */
+        low |= N->layer == 0;
+        CHECK(N->x >= hw + 0.1f - 1e-3f && N->x <= L->width - hw - 0.1f + 1e-3f && N->y + LG_NH <= L->height + 1e-3f);
         for (int s = 0; s < N->nin; s++) CHECK(L->n[L->w[N->in[s]].from].layer < N->layer);
-        if (N->kind == LG_SWITCH) sx[nsw++] = N->x;
         for (int j = i + 1; j < L->nn; j++) {   /* no two parts overlap */
             const lg_node *M = &L->n[j];
-            int apart = fabsf(N->x - M->x) >= 2 * LG_HALF + 0.1f || N->y + LG_NH <= M->y || M->y + LG_NH <= N->y;
+            int apart = fabsf(N->x - M->x) >= hw + lg_half(M->kind) + 0.1f || N->y + LG_NH <= M->y ||
+                        M->y + LG_NH <= N->y;
             if (!apart) printf("level %d: parts %d and %d overlap\n", level + 1, i, j);
             CHECK(apart);
         }
     }
-    for (int i = 1; i < nsw; i++)               /* the switches a whole number of columns apart */
-        for (int j = 0; j < i; j++) {
-            float d = fabsf(sx[i] - sx[j]);
-            CHECK(d > 0.5f && fabsf(d - floorf(d + 0.5f)) < 1e-3f);
-        }
+    CHECK(low);
     for (int w = 0; w < L->nw; w++) {
         const lg_wire *W = &L->w[w];
         const lg_node *F = &L->n[W->from], *D = &L->n[W->to];
@@ -410,12 +433,20 @@ static int drawn(const lg_level *L, int level)
             for (int k = 0; k < L->nn; k++) {                            /* never through a part */
                 const lg_node *N = &L->n[k];
                 if (k == W->from || k == W->to) continue;
-                int through = fminf(x0, x1) < N->x + LG_HALF && fmaxf(x0, x1) > N->x - LG_HALF &&
+                int through = fminf(x0, x1) < N->x + lg_half(N->kind) && fmaxf(x0, x1) > N->x - lg_half(N->kind) &&
                               fminf(y0, y1) < N->y + LG_NH && fmaxf(y0, y1) > N->y;
                 if (through) printf("level %d: wire %d through part %d\n", level + 1, w, k);
                 CHECK(!through);
             }
         }
+    }
+    for (int w = 0; w < L->nw; w++) {           /* a cable: two terminals on its wire, apart, bowing a little */
+        const lg_wire *W = &L->w[w];
+        if (!W->cuttable) continue;
+        CHECK(W->ta > 0.05f && W->tb < W->len - 0.05f && W->tb - W->ta >= 0.3f - 1e-3f);
+        CHECK(fabsf(W->bow) > 0.01f && fabsf(W->bow) <= 0.17f + 1e-3f);
+        float dx = W->tbx - W->tax, dy = W->tby - W->tay;
+        CHECK(fabsf(fabsf(dx) + fabsf(dy) - (W->tb - W->ta)) < 1e-3f && (W->fvert ? fabsf(dx) : fabsf(dy)) < 1e-3f);
     }
     int c = crossings(L);
     CHECK(c == L->crossings && L->nhop == c);
@@ -469,8 +500,38 @@ static void generator(void)
             prev = r.exact;
         }
         printf("logicgates: random %d: %.1f ms on average, %.1f at most\n", v, all / 60, worst);
-        CHECK(made >= 50 && all / 60 < 40);
+        CHECK(made >= 50 && all / 60 < 6 && worst < 25);
     }
+}
+
+/* opening a level: its circuit read, its stored drawing laid out, no search: well under a millisecond here (a phone
+ * is some 6 times slower: a few milliseconds); the bounded search of the die tab's circuits on the same levels */
+static void timing(void)
+{
+    static lg_game g;
+    static lg_level L;
+    double worst = 0, all = 0, fworst = 0, fall = 0;
+    int wl = 0;
+    for (int rep = 0; rep < 3; rep++)
+        for (int l = 0; l < LG_LEVELS; l++) {
+            clock_t t0 = clock();
+            CHECK(lg_open(&g, l));
+            double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
+            all += ms;
+            if (ms > worst) { worst = ms; wl = l + 1; }
+        }
+    for (int l = 0; l < LG_LEVELS; l++) {
+        char text[1024];
+        CHECK(lg_parse(lg_levels[l], &L, NULL, 0) && lg_text(&L, text, sizeof text));
+        clock_t t0 = clock();
+        CHECK(lg_parse(text, &L, NULL, 0) && !L.stored);   /* the circuit alone: the bounded search */
+        double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
+        fall += ms;
+        if (ms > fworst) fworst = ms;
+    }
+    printf("logicgates: a level opens in %.3f ms on average, %.3f at most (level %d); searched: %.2f, %.2f at most\n",
+           all / (3 * LG_LEVELS), worst, wl, fall / LG_LEVELS, fworst);
+    CHECK(worst < 4 && fworst < 15);
 }
 
 int main(void)
@@ -484,6 +545,7 @@ int main(void)
     levels();
     repeats();
     drawing();
+    timing();
     generator();
     if (fails) {
         printf("logicgates: %d failures\n", fails);

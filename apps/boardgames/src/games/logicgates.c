@@ -2,19 +2,22 @@
  * Logic Gates in RetroStone Board, for one player (the rules: logicgates_rules.c, logicgates.h): a circuit board of
  * dark green in a walnut frame, brass traces on it, the gates as brass shapes inlaid in walnut plaques (the classic
  * shapes, each with its name engraved: NOT, AND, OR, XOR, NAND, NOR, in English as on any circuit drawing; the owner
- * asked for them), the switches along the bottom, the lamps at the top. A wire carrying 1 glows gold; after each
- * move the change runs up the wires, gate after gate. Solved: the lamps flare in a gold burst, then the shell's end
- * card (the stars, the moves beside the par, the next level).
+ * asked for them), each switch right under the gate it feeds, the lamps at the top; the parts as big as the room
+ * allows. A wire carrying 1 glows gold; after each move the change runs up the wires, gate after gate. A cuttable wire
+ * is a jumper cable over the board, coloured, bowing between two brass terminals. Solved: the lamps flare in a gold
+ * burst, then the shell's end card (the stars, the moves beside the par, the next level).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The levels: the shell's level screen (a tab for each chapter with its emblem, the chapter's 25 levels as tiles; the
- * shell keeps the stars won); its new game goes back to it. The die tab after the chapters: a circuit made at random
- * (lg_random), small, medium or big. The board takes all the room between the bars; a deep circuit in a wide room
- * lies on its side (the switches on the left) when its parts come out bigger so. Its tools are the shell's
- * (game.tools: in the bar's row standing, in the side column lying): restart, the hint (one part to change blinks).
- * The bar: the level (its chapter's emblem, its number; lying: at the top of the side column), the moves made (a
- * switch), the cuts left (a fuse), the par (a star).
- * Tap a switch or a route switch to flip it, a fuse to cut its wire (sparks); undo takes a move back.
+ * The levels: the shell's level screen (a tab for each chapter with its emblem, the chapter's levels as tiles: 40 in
+ * the first, 25 in the others; the shell keeps the stars won); its new game goes back to it. The die tab after the
+ * chapters: a circuit made at random (lg_random), small, medium or big. The board takes all the room between the bars;
+ * a deep circuit in a wide room lies on its side (the switches on the left) when its parts come out bigger so. Its
+ * tools are the shell's (game.tools: in the bar's row standing, in the side column lying): restart, the hint (one part
+ * to change blinks). The bar: the level (its chapter's emblem, its number; lying: at the top of the side column), the
+ * moves made (a switch), the cuts left (a cable), the par (a star). A level opens at once: its drawing is stored with
+ * it, and the parts' pictures are painted quickly, only the kinds shown.
+ * Tap a switch or a route switch to flip it, a cable to snip it (a spark, its halves spring apart); undo takes a move
+ * back (a cut cable joins up again).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -27,21 +30,22 @@
 
 #define STEP_MS 90                              /* the signal from one part to the next */
 #define FLIP_MS 130
-#define SPARK_MS 560
+#define CUT_MS 720                              /* a cable cut: the snip, the halves springing apart */
+#define MEND_MS 360                             /* mended (undo): the halves back together */
 #define BURST_MS 1200
 #define HINT_MS 2400
-#define PAD_B 0.30f                             /* the switches reach below row 0's box, the lamps above the top's */
-#define PAD_T 0.46f
+
 #define SPARKS 12
 
 static lg_game G;
+
 
 /* the animations */
 static Uint32 t0;                               /* the last move: its change runs up from there */
 static uint8_t old_src[LG_WIRES], old_end[LG_WIRES], old_out[LG_NODES][2], old_val[LG_NODES];
 static Uint32 flip_t;                           /* a switch or route switch moving */
 static int flip_node = -1;
-static struct { int wire; Uint32 t; } spark = {-1, 0};
+static struct { int wire; Uint32 t; int mend; } snip = {-1, 0, 0};   /* a cable being cut, or mended (undo) */
 static struct { int on; lg_move m; Uint32 t; } hint;
 static int deny_reset;                          /* the hint found nothing: the restart button blinks */
 static Uint32 solved_t;                         /* when the lamps light up (the burst) */
@@ -84,6 +88,147 @@ static art_style style(const uint8_t fill[3], float light, float line)
     return s;
 }
 
+/* ---- a quick painter for the parts' figures ----------------------------------------------------------------------
+ * The shell's art_render takes 16 samples a pixel against every edge of every shape: a level's parts took most of a
+ * second to paint (seconds on a phone), and every level painted them anew. The same figures (polygons, ellipses; a
+ * part with its dark edge `line` wide, marks) and the same shading, painted here with one sample a pixel: its
+ * coverage from its distance to the edge, only the edges near the pixel looked at. */
+#define FIG_SHAPES 24
+#define FIG_PTS 640
+
+typedef struct { int ell, role, p0, n; float cx, cy, rx, ry, x0, y0, x1, y1; } fig_shape;
+typedef struct { int ns, np; fig_shape s[FIG_SHAPES]; float x[FIG_PTS], y[FIG_PTS]; } fig;
+
+static fig *fig_new(void) { return calloc(1, sizeof(fig)); }
+static void fig_free(fig *f) { free(f); }
+
+static fig_shape *fig_add(fig *f, int role)
+{
+    if (!f || f->ns >= FIG_SHAPES) return NULL;
+    fig_shape *s = &f->s[f->ns++];
+    memset(s, 0, sizeof *s);
+    s->role = role;
+    s->p0 = f->np;
+    s->x0 = s->y0 = 1e9f;
+    s->x1 = s->y1 = -1e9f;
+    return s;
+}
+
+static void fig_poly(fig *f, int role, const float *p, int n)
+{
+    fig_shape *s = fig_add(f, role);
+    if (!s) return;
+    for (int i = 0; i < n && f->np < FIG_PTS; i++) {
+        f->x[f->np] = p[2 * i];
+        f->y[f->np++] = p[2 * i + 1];
+        s->x0 = fminf(s->x0, p[2 * i]);
+        s->x1 = fmaxf(s->x1, p[2 * i]);
+        s->y0 = fminf(s->y0, p[2 * i + 1]);
+        s->y1 = fmaxf(s->y1, p[2 * i + 1]);
+        s->n++;
+    }
+    if (s->n < 3) f->ns--;
+}
+
+static void fig_rect(fig *f, int role, float x0, float y0, float x1, float y1)
+{
+    const float p[8] = {x0, y0, x1, y0, x1, y1, x0, y1};
+    fig_poly(f, role, p, 4);
+}
+
+static void fig_ellipse(fig *f, int role, float cx, float cy, float rx, float ry)
+{
+    fig_shape *s = fig_add(f, role);
+    if (!s) return;
+    s->ell = 1;
+    s->cx = cx;
+    s->cy = cy;
+    s->rx = fmaxf(rx, 0.01f);
+    s->ry = fmaxf(ry, 0.01f);
+    s->x0 = cx - rx;
+    s->x1 = cx + rx;
+    s->y0 = cy - ry;
+    s->y1 = cy + ry;
+}
+
+/* the figure over a clear w x h picture: each shape over the ones before (a part filled and shaded, lit from the upper
+ * left, its edge in the outer colour; a mark in its colour) */
+static void fig_render(const fig *f, const art_style *st, int w, int h, uint8_t *out)
+{
+    float *acc = calloc((size_t)w * h, 4 * sizeof(float));
+    if (!acc || !f) { free(acc); return; }
+    float wl = st->line, reach = wl + 1;
+    static int near[FIG_PTS];
+    static float cross[FIG_PTS];
+    for (int k = 0; k < f->ns; k++) {
+        const fig_shape *s = &f->s[k];
+        int mark = s->role == ART_MARK;
+        int xa = (int)fmaxf(0, floorf(s->x0 - reach)), xb = (int)fminf(w - 1, ceilf(s->x1 + reach));
+        int ya = (int)fmaxf(0, floorf(s->y0 - reach)), yb = (int)fminf(h - 1, ceilf(s->y1 + reach));
+        float cx = (s->x0 + s->x1) * 0.5f, hw = (s->x1 - s->x0) * 0.5f + 1e-3f, hh = fmaxf(1, s->y1 - s->y0);
+        for (int py = ya; py <= yb; py++) {
+            float y = py + 0.5f;
+            int nn = 0, nc = 0;
+            if (!s->ell)                        /* the edges near this row; where they cross it */
+                for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+                    float ax = f->x[s->p0 + j], ay = f->y[s->p0 + j], bx = f->x[s->p0 + i], by = f->y[s->p0 + i];
+                    if (fminf(ay, by) - reach <= y && fmaxf(ay, by) + reach >= y) near[nn++] = j;
+                    if ((by > y) != (ay > y)) cross[nc++] = (ax - bx) * (y - by) / (ay - by) + bx;
+                }
+            for (int a = 1; a < nc; a++)
+                for (int b = a; b > 0 && cross[b - 1] > cross[b]; b--) {
+                    float t = cross[b];
+                    cross[b] = cross[b - 1];
+                    cross[b - 1] = t;
+                }
+            int ci = 0;
+            for (int px = xa; px <= xb; px++) {
+                float x = px + 0.5f, d;
+                if (s->ell) {
+                    float u = (x - s->cx) / s->rx, v = (y - s->cy) / s->ry, l = sqrtf(u * u + v * v);
+                    if (l < 1e-4f) d = -fminf(s->rx, s->ry);
+                    else d = (l - 1) / (sqrtf(u * u / (s->rx * s->rx) + v * v / (s->ry * s->ry)) / l);
+                } else {
+                    while (ci < nc && cross[ci] < x) ci++;
+                    int in = ci & 1;
+                    float d2 = 1e9f;
+                    for (int q = 0; q < nn; q++) {
+                        int j = near[q], i = j + 1 == s->n ? 0 : j + 1;
+                        float ax = f->x[s->p0 + j], ay = f->y[s->p0 + j], bx = f->x[s->p0 + i], by = f->y[s->p0 + i];
+                        if (x < fminf(ax, bx) - reach || x > fmaxf(ax, bx) + reach) continue;
+                        float ex = ax - bx, ey = ay - by, wx = x - bx, wy = y - by;
+                        float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
+                        float dx = wx - ex * t, dy = wy - ey * t;
+                        d2 = fminf(d2, dx * dx + dy * dy);
+                    }
+                    d = d2 > 1e8f ? (in ? -1e4f : 1e4f) : in ? -sqrtf(d2) : sqrtf(d2);
+                }
+                float cf = clampf(0.5f - d, 0, 1), ct = mark ? cf : clampf(0.5f - (d - wl), 0, 1);
+                if (ct <= 0) continue;
+                float c[3];
+                if (mark) {
+                    for (int i = 0; i < 3; i++) c[i] = st->mark[i] * cf;
+                } else {
+                    float t = (x - cx) / hw + 0.35f;
+                    float l = 1.0f + st->light * (0.55f - t * t) - st->light * 0.45f * (y - s->y0) / hh;
+                    for (int i = 0; i < 3; i++) c[i] = clampf(st->fill[i] * l, 0, 255) * cf + st->outer[i] * (ct - cf);
+                }
+                float *o = acc + 4 * ((size_t)py * w + px);
+                for (int i = 0; i < 3; i++) o[i] = c[i] + o[i] * (1 - ct);
+                o[3] = ct + o[3] * (1 - ct);
+            }
+        }
+    }
+    for (int i = 0; i < w * h; i++) {
+        float *a = acc + 4 * (size_t)i;
+        uint8_t *o = out + 4 * (size_t)i;
+        if (a[3] <= 1e-4f) { memset(o, 0, 4); continue; }
+        for (int k = 0; k < 3; k++) o[k] = (uint8_t)clampf(a[k] / a[3] + 0.5f, 0, 255);
+        o[3] = (uint8_t)clampf(255 * a[3] + 0.5f, 0, 255);
+    }
+    free(acc);
+}
+
 /* ---- the pictures (painted once for the board's size) ------------------------------------------------------------ */
 /* a plaque (walnut, the house's light wood, brass), its grain, bevelled */
 static void paint_plate(uint8_t *o, int w, int h, const uint8_t rgb[3], float k, float grain)
@@ -101,28 +246,59 @@ static void paint_plate(uint8_t *o, int w, int h, const uint8_t rgb[3], float k,
 
 static void paint_walnut(uint8_t *o, int w, int h, float k) { paint_plate(o, w, h, WALNUT, k, 0.12f); }
 
-/* the board: the house's walnut frame round a dark green circuit board */
+/* a place along a side of n pixels on a small square board's side of s: the ends as they are, the middle folded back
+ * and forth over a stretch of the small board's side (whole folds: it ends where the end begins) */
+static int fold(int x, int n, int s)
+{
+    int h = s / 2, mid = n - 2 * h;
+    if (x < h || mid <= 0) return x < h ? x : s - (n - x);
+    if (x >= n - h) return s - (n - x);
+    float d = (float)(x - h), q = s / 4.0f;
+    int k = (int)ceilf(mid / (2 * q));
+    float hp = mid / (2.0f * k), ph = fmodf(d, 2 * hp), tri = ph < hp ? ph : 2 * hp - ph;
+    int p = h - (int)tri;
+    return p < 0 ? 0 : p >= s ? s - 1 : p;
+}
+
+/* the board: the house's walnut frame round a dark green circuit board. The frame comes from a small square board,
+ * its sides folded along the long ones; the green is worked out row by row (its light and grain split in x and y). */
 static void paint_board(int W, int H, int f, uint8_t *o)
 {
-    int S = W > H ? W : H;
+    int L = W > H ? W : H, S = 4 * f + 96 < L ? 4 * f + 96 : L;
     uint8_t *sq = malloc((size_t)S * S * 4);
-    if (!sq) return;
+    float *ax = malloc(sizeof(float) * 2 * (size_t)W), *ay = malloc(sizeof(float) * 2 * (size_t)H);
+    if (!sq || !ax || !ay) { free(sq); free(ax); free(ay); return; }
     art_board_n(1, 1, S - 2 * f, f, 0, sq);
-    for (int y = 0; y < H; y++)
+    for (int x = 0; x < W; x++) {
+        float ix = (float)(x - f) / (W - 2 * f);
+        ax[2 * x] = 1 - fabsf(ix - 0.5f);
+        ax[2 * x + 1] = sinf(x * 0.9f);
+    }
+    for (int y = 0; y < H; y++) {
+        float iy = (float)(y - f) / (H - 2 * f);
+        ay[2 * y] = 1 - fabsf(iy - 0.5f);
+        ay[2 * y + 1] = sinf(y * 0.83f);
+    }
+    float sh = 0.022f * fminf(W, H);
+    for (int y = 0; y < H; y++) {
+        int sy = fold(y, H, S), edge_y = y < f || y >= H - f;
         for (int x = 0; x < W; x++) {
-            int sx = x < W / 2 ? x : S - (W - x), sy = y < H / 2 ? y : S - (H - y);
-            uint8_t *p = o + 4 * (y * W + x);
-            memcpy(p, sq + 4 * ((size_t)sy * S + sx), 4);
-            if (x < f || y < f || x >= W - f || y >= H - f) continue;
-            float ix = (float)(x - f) / (W - 2 * f), iy = (float)(y - f) / (H - 2 * f);
-            float e = fminf(x - f, y - f), sh = 0.022f * fminf(W, H);
-            float k = 0.92f + 0.16f * (1 - fabsf(ix - 0.5f)) * (1 - fabsf(iy - 0.5f));
-            k *= 1 - 0.4f * clampf(1 - e / sh, 0, 1);   /* the frame's shadow */
-            k *= 1 + 0.025f * sinf(x * 0.9f) * sinf(y * 0.83f);
+            uint8_t *p = o + 4 * ((size_t)y * W + x);
+            if (edge_y || x < f || x >= W - f) {
+                memcpy(p, sq + 4 * ((size_t)sy * S + fold(x, W, S)), 4);
+                continue;
+            }
+            float e = fminf(x - f, y - f);
+            float k = 0.92f + 0.16f * ax[2 * x] * ay[2 * y];
+            if (e < sh) k *= 1 - 0.4f * (1 - e / sh);   /* the frame's shadow */
+            k *= 1 + 0.025f * ax[2 * x + 1] * ay[2 * y + 1];
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(PCB[i] * k, 0, 255);
             p[3] = 255;
         }
+    }
     free(sq);
+    free(ax);
+    free(ay);
 }
 
 /* a quadratic curve's points (n + 1) from a to c, pulled towards b */
@@ -286,12 +462,12 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
     art_style st = style(lit ? GOLD : BRASS, 0.4f, fmaxf(1.0f, 0.03f * fminf(w, h)));
-    art_fig *f = art_fig_new();
+    fig *f = fig_new();
     float xl = 0.1f * w, xr = 0.9f * w, xc = 0.5f * w, yb = 0.94f * h, yt = 0.07f * h;
     int bubble = kind == LG_NOT || kind == LG_NAND || kind == LG_NOR;
     float rb = 0.085f * fminf(w, 1.6f * h);
     if (bubble) yt += 2 * rb;
-    art_rect(f, ART_PART, xc - lw / 2, 0, xc + lw / 2, yt + 0.1f * h);
+    fig_rect(f, ART_PART, xc - lw / 2, 0, xc + lw / 2, yt + 0.1f * h);
     float p[2 * 200];
     int n = 0;
     if (kind == LG_AND || kind == LG_NAND) {
@@ -303,17 +479,17 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
             p[n++] = xc + rx * cosf(a);
             p[n++] = ym - ry * sinf(a);
         }
-        art_poly(f, ART_PART, p, n / 2);
+        fig_poly(f, ART_PART, p, n / 2);
     } else if (kind == LG_NOT) {
         float q[] = {xl + 0.03f * w, yb, xr - 0.03f * w, yb, xc, yt};
-        art_poly(f, ART_PART, q, 3);
+        fig_poly(f, ART_PART, q, 3);
     } else {                                    /* OR, NOR, XOR: a curved shield, its back hollow */
         float back = 0.17f * (yb - yt), gap = kind == LG_XOR ? 0.13f * (yb - yt) : 0;
         float b = yb - gap;
         n = curve(p, n, xl, b, xc, b - 2 * back, xr, b, 16);
         n = curve(p, n, xr, b, xr, yt + 0.42f * (b - yt), xc, yt, 16);
         n = curve(p, n, xc, yt, xl, yt + 0.42f * (b - yt), xl, b, 16);
-        art_poly(f, ART_PART, p, n / 2);
+        fig_poly(f, ART_PART, p, n / 2);
         if (kind == LG_XOR) {                   /* the second back line */
             float t = fmaxf(1.5f, 0.06f * (yb - yt));
             int m = 0;
@@ -321,12 +497,12 @@ static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
             float q[2 * 40];
             int k = curve(q, 0, xr, yb - t, xc, yb - t - 2 * back, xl, yb - t, 16);
             memcpy(p + m, q, sizeof(float) * (size_t)k);
-            art_poly(f, ART_PART, p, (m + k) / 2);
+            fig_poly(f, ART_PART, p, (m + k) / 2);
         }
     }
-    if (bubble) art_ellipse(f, ART_PART, xc, yt - rb, rb, rb);
-    art_render(f, &st, w, h, 1, 0, 0, o);
-    art_fig_free(f);
+    if (bubble) fig_ellipse(f, ART_PART, xc, yt - rb, rb, rb);
+    fig_render(f, &st, w, h, o);
+    fig_free(f);
     if (h >= 26 && !plain) gate_name(o, w, h, 0, kind, lit);   /* a small picture, an emblem: the shape alone */
 }
 
@@ -339,24 +515,24 @@ static void paint_route(int way, int lit, int w, int h, float off, float lw, uin
     for (int pass = 0; pass < 2; pass++) {
         const uint8_t groove[3] = {30, 20, 12};
         art_style st = style(pass ? (lit ? GOLD : BRASS) : groove, pass ? 0.4f : 0, pass ? fmaxf(1, 0.025f * w) : 0);
-        art_fig *f = art_fig_new();
+        fig *f = fig_new();
         float t = pass ? lw * 0.75f : lw * 0.45f;
         for (int side = -1; side <= 1; side += 2) {
             if (pass && (side < 0) != (way == 0)) continue;
             float x1 = xc + side * off;
             const float diag[] = {xc - t, yj, xc + t, yj, x1 + t, ya, x1 - t, ya};
-            art_poly(f, ART_PART, diag, 4);
-            art_rect(f, ART_PART, x1 - t, 0, x1 + t, ya + 0.5f * t);
+            fig_poly(f, ART_PART, diag, 4);
+            fig_rect(f, ART_PART, x1 - t, 0, x1 + t, ya + 0.5f * t);
         }
-        art_rect(f, ART_PART, xc - t, yj - 0.5f * t, xc + t, (float)h);
-        if (pass) art_ellipse(f, ART_PART, xc, yj, 1.9f * t, 1.9f * t);
+        fig_rect(f, ART_PART, xc - t, yj - 0.5f * t, xc + t, (float)h);
+        if (pass) fig_ellipse(f, ART_PART, xc, yj, 1.9f * t, 1.9f * t);
         uint8_t *b = calloc((size_t)w * h, 4);
         if (b) {
-            art_render(f, &st, w, h, 1, 0, 0, b);
+            fig_render(f, &st, w, h, b);
             art_blend(o, w, h, b, w, h, 0, 0);
             free(b);
         }
-        art_fig_free(f);
+        fig_free(f);
     }
 }
 
@@ -384,24 +560,24 @@ static void paint_lock(int w, int h, uint8_t *o)
     memset(o, 0, (size_t)w * h * 4);
     const uint8_t brass[3] = {196, 156, 76}, screw[3] = {150, 118, 62};
     art_style st = style(brass, 0.5f, fmaxf(1, 0.03f * h));
-    art_fig *f = art_fig_new();
-    art_rect(f, ART_PART, 0.02f * w, 0.18f * h, 0.98f * w, 0.82f * h);
-    art_render(f, &st, w, h, 1, 0, 0, o);
-    art_fig_free(f);
+    fig *f = fig_new();
+    fig_rect(f, ART_PART, 0.02f * w, 0.18f * h, 0.98f * w, 0.82f * h);
+    fig_render(f, &st, w, h, o);
+    fig_free(f);
     art_style ss = style(screw, 0.6f, fmaxf(1, 0.03f * h));
-    f = art_fig_new();
+    f = fig_new();
     for (int s = 0; s < 2; s++) {
         float cx = (s ? 0.82f : 0.18f) * w, r = 0.2f * h;
-        art_ellipse(f, ART_PART, cx, 0.5f * h, r, r);
-        art_rect(f, ART_MARK, cx - 0.8f * r, 0.5f * h - 0.12f * r, cx + 0.8f * r, 0.5f * h + 0.12f * r);
+        fig_ellipse(f, ART_PART, cx, 0.5f * h, r, r);
+        fig_rect(f, ART_MARK, cx - 0.8f * r, 0.5f * h - 0.12f * r, cx + 0.8f * r, 0.5f * h + 0.12f * r);
     }
     uint8_t *b = calloc((size_t)w * h, 4);
     if (b) {
-        art_render(f, &ss, w, h, 1, 0, 0, b);
+        fig_render(f, &ss, w, h, b);
         art_blend(o, w, h, b, w, h, 0, 0);
         free(b);
     }
-    art_fig_free(f);
+    fig_free(f);
 }
 
 /* a lamp (w x h): a brass socket at the bottom, the glass globe above it (lit: gold), its filament */
@@ -412,13 +588,13 @@ static void paint_lamp(int alarm, int lit, int w, int h, uint8_t *o)
                   red_off[3] = {112, 34, 28}, red_on[3] = {244, 70, 46};
     float xc = w / 2.0f, sb = 0.3f * h, r = fminf(0.48f * w, 0.36f * h);
     art_style sk = style(brass, 0.5f, fmaxf(1, 0.025f * w));
-    art_fig *f = art_fig_new();
-    art_rect(f, ART_PART, xc - 0.42f * r, h - sb, xc + 0.42f * r, (float)h);
+    fig *f = fig_new();
+    fig_rect(f, ART_PART, xc - 0.42f * r, h - sb, xc + 0.42f * r, (float)h);
     for (int i = 1; i < 3; i++)
-        art_rect(f, ART_MARK, xc - 0.42f * r, h - sb + i * sb / 3 - 0.6f, xc + 0.42f * r, h - sb + i * sb / 3 + 0.6f);
-    art_render(f, &sk, w, h, 1, 0, 0, o);
-    art_fig_free(f);
-    f = art_fig_new();
+        fig_rect(f, ART_MARK, xc - 0.42f * r, h - sb + i * sb / 3 - 0.6f, xc + 0.42f * r, h - sb + i * sb / 3 + 0.6f);
+    fig_render(f, &sk, w, h, o);
+    fig_free(f);
+    f = fig_new();
     float cy = h - sb - 0.82f * r;
     const uint8_t *fill = alarm ? (lit ? red_on : red_off) : lit ? warm : glass;
     art_style sg = style(fill, lit ? 0.3f : 0.55f, fmaxf(1, 0.025f * w));
@@ -432,87 +608,117 @@ static void paint_lamp(int alarm, int lit, int w, int h, uint8_t *o)
             p[n++] = h - sb - 1.25f * r * sinf(a);
         }
         p[n++] = xc + r; p[n++] = h - sb + 0.5f;
-        art_poly(f, ART_PART, p, n / 2);
+        fig_poly(f, ART_PART, p, n / 2);
         float t = fmaxf(0.8f, 0.035f * r);
-        art_rect(f, ART_MARK, xc - t, h - sb - 1.25f * r, xc + t, h - sb);
-        art_rect(f, ART_MARK, xc - r, h - sb - 0.55f * r - t, xc + r, h - sb - 0.55f * r + t);
+        fig_rect(f, ART_MARK, xc - t, h - sb - 1.25f * r, xc + t, h - sb);
+        fig_rect(f, ART_MARK, xc - r, h - sb - 0.55f * r - t, xc + r, h - sb - 0.55f * r + t);
     } else {
-        art_ellipse(f, ART_PART, xc, cy, r, r);
+        fig_ellipse(f, ART_PART, xc, cy, r, r);
         const float neck[] = {xc - 0.55f * r, cy + 0.6f * r, xc + 0.55f * r, cy + 0.6f * r, xc + 0.42f * r,
                               h - sb + 1.0f, xc - 0.42f * r, h - sb + 1.0f};
-        art_poly(f, ART_PART, neck, 4);
+        fig_poly(f, ART_PART, neck, 4);
         float t = fmaxf(0.7f, 0.04f * r);         /* the filament: a small zigzag */
         for (int i = 0; i < 4; i++) {
             float xa = xc - 0.3f * r + i * 0.15f * r, xb = xa + 0.15f * r, ya = cy + (i & 1 ? -0.12f : 0.12f) * r,
                   yb2 = cy + (i & 1 ? 0.12f : -0.12f) * r;
             const float seg[] = {xa, ya - t, xb, yb2 - t, xb, yb2 + t, xa, ya + t};
-            art_poly(f, ART_MARK, seg, 4);
+            fig_poly(f, ART_MARK, seg, 4);
         }
-        art_rect(f, ART_MARK, xc - 0.3f * r - t, cy + 0.12f * r, xc - 0.3f * r + t, h - sb);
-        art_rect(f, ART_MARK, xc + 0.3f * r - t, cy + 0.12f * r, xc + 0.3f * r + t, h - sb);
+        fig_rect(f, ART_MARK, xc - 0.3f * r - t, cy + 0.12f * r, xc - 0.3f * r + t, h - sb);
+        fig_rect(f, ART_MARK, xc + 0.3f * r - t, cy + 0.12f * r, xc + 0.3f * r + t, h - sb);
     }
     uint8_t *b = calloc((size_t)w * h, 4);
     if (b) {
         if (lit && !alarm) memcpy(sg.mark, (float[3]){170, 90, 20}, sizeof sg.mark);
-        art_render(f, &sg, w, h, 1, 0, 0, b);
+        fig_render(f, &sg, w, h, b);
         art_blend(o, w, h, b, w, h, 0, 0);
         free(b);
     }
-    art_fig_free(f);
+    fig_free(f);
 }
 
-/* a fuse lying left to right (w x h): a cream body between brass caps; broken: two halves, charred */
-static void paint_fuse(int broken, int w, int h, uint8_t *o)
+/* a cable's terminal (d x d): a brass post seen from above, its screw head slotted (lit: gold) */
+static void paint_post(int lit, int d, uint8_t *o)
 {
-    memset(o, 0, (size_t)w * h * 4);
-    const uint8_t cream[3] = {238, 226, 200}, brass[3] = {196, 156, 76}, char_c[3] = {36, 26, 20};
-    float m = fmaxf(1, 0.06f * h);
-    art_style sb = style(cream, 0.45f, m), sc = style(brass, 0.5f, m), sx = style(char_c, 0, 0);
-    for (int part = 0; part < 3; part++) {
-        art_fig *f = art_fig_new();
-        const art_style *st = part == 0 ? &sb : part == 1 ? &sc : &sx;
-        if (part == 0) {
-            if (broken) {
-                art_rect(f, ART_PART, 0.2f * w, 0.18f * h, 0.42f * w, 0.82f * h);
-                art_rect(f, ART_PART, 0.58f * w, 0.18f * h, 0.8f * w, 0.82f * h);
-            } else {
-                art_rect(f, ART_PART, 0.2f * w, 0.18f * h, 0.8f * w, 0.82f * h);
-            }
-        } else if (part == 1) {
-            art_rect(f, ART_PART, 0.04f * w, 0.08f * h, 0.24f * w, 0.92f * h);
-            art_rect(f, ART_PART, 0.76f * w, 0.08f * h, 0.96f * w, 0.92f * h);
-        } else if (broken) {
-            art_rect(f, ART_PART, 0.38f * w, 0.18f * h, 0.43f * w, 0.82f * h);
-            art_rect(f, ART_PART, 0.57f * w, 0.18f * h, 0.62f * w, 0.82f * h);
+    memset(o, 0, (size_t)d * d * 4);
+    const uint8_t brass[3] = {196, 156, 76}, head[3] = {170, 132, 62}, gold[3] = {255, 214, 110},
+                  gold2[3] = {236, 184, 70};
+    float c = d / 2.0f, m = fmaxf(1, 0.05f * d);
+    for (int part = 0; part < 2; part++) {
+        art_style st = style(part ? (lit ? gold2 : head) : lit ? gold : brass, 0.5f, m);
+        fig *f = fig_new();
+        if (!part) {
+            fig_ellipse(f, ART_PART, c, c, 0.47f * d, 0.47f * d);
+        } else {
+            fig_ellipse(f, ART_PART, c, c, 0.3f * d, 0.3f * d);
+            const float slot[] = {c - 0.24f * d, c + 0.1f * d, c + 0.1f * d, c - 0.24f * d, c + 0.24f * d,
+                                  c - 0.1f * d, c - 0.1f * d, c + 0.24f * d};
+            fig_poly(f, ART_MARK, slot, 4);
         }
-        uint8_t *b = calloc((size_t)w * h, 4);
+        uint8_t *b = calloc((size_t)d * d, 4);
         if (b) {
-            art_render(f, st, w, h, 1, 0, 0, b);
-            art_blend(o, w, h, b, w, h, 0, 0);
+            fig_render(f, &st, d, d, b);
+            art_blend(o, d, d, b, d, d, 0, 0);
             free(b);
         }
-        art_fig_free(f);
+        fig_free(f);
     }
+}
+
+/* a cable's colours: red, blue, yellow, green (by its number among the level's cuttable wires) */
+static const uint8_t CABLE[4][3] = {{218, 50, 40}, {44, 104, 214}, {240, 192, 36}, {46, 164, 74}};
+
+/* a cable picture (w x h, a bar's count, an emblem): a red jumper arcing between two brass posts */
+static void paint_cable_pic(int w, int h, uint8_t *o)
+{
+    memset(o, 0, (size_t)w * h * 4);
+    float t = 0.16f * h, pd = 0.3f * h, ax = 0.18f * w, bx = 0.82f * w, y0 = 0.68f * h, top = 0.12f * h;
+    float p[2 * 70];
+    int n = 0;
+    for (int side = 0; side < 2; side++)        /* the band: the arc's outer edge, then its inner one back */
+        for (int i = 0; i <= 32; i++) {
+            float u = side ? 1 - i / 32.0f : i / 32.0f, x = ax + (bx - ax) * u;
+            float y = y0 - 4 * (y0 - top) * u * (1 - u) + (side ? t / 2 : -t / 2);
+            p[n++] = x;
+            p[n++] = y;
+        }
+    art_style st = style(CABLE[0], 0.45f, fmaxf(1, 0.04f * h));
+    fig *f = fig_new();
+    fig_poly(f, ART_PART, p, n / 2);
+    uint8_t *b = calloc((size_t)w * h, 4);
+    if (b) {
+        fig_render(f, &st, w, h, b);
+        art_blend(o, w, h, b, w, h, 0, 0);
+        for (int k = 0; k < 2; k++) {
+            int d = (int)pd;
+            memset(b, 0, (size_t)w * h * 4);
+            paint_post(1, d, b);
+            art_blend(o, w, h, b, d, d, (int)((k ? bx : ax) - d / 2.0f), (int)(y0 - d / 2.0f));
+        }
+        free(b);
+    }
+    fig_free(f);
 }
 
 static void paint_star(int size, const uint8_t rgb[3], uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
     art_style st = style(rgb, 0.35f, fmaxf(1, 0.04f * size));
-    art_fig *f = art_fig_new();
+    fig *f = fig_new();
     float p[20];
     for (int i = 0; i < 10; i++) {
         float a = -3.14159265f / 2 + i * 3.14159265f / 5, r = (i & 1 ? 0.21f : 0.48f) * size;
         p[2 * i] = size / 2.0f + r * cosf(a);
         p[2 * i + 1] = size * 0.53f + r * sinf(a);
     }
-    art_poly(f, ART_PART, p, 10);
-    art_render(f, &st, size, size, 1, 0, 0, o);
-    art_fig_free(f);
+    fig_poly(f, ART_PART, p, 10);
+    fig_render(f, &st, size, size, o);
+    fig_free(f);
 }
 
 /* the restart tool's icon (white): an arrow going round */
-/* the chapters' emblems (size x size): AND, XOR, a route switch, a cut fuse, a wire branching to three, a lamp */
+/* the chapters' emblems (size x size), the gate each one brings: AND (and OR, NOT), XOR, NAND, NOR, three inputs (an
+ * AND with three leads); then a lamp: everything */
 static void paint_emblem(int c, int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
@@ -520,39 +726,25 @@ static void paint_emblem(int c, int size, uint8_t *o)
     uint8_t *b = calloc((size_t)size * size, 4);
     if (!b) return;
     float lw = fmaxf(2, 0.07f * size);
-    if (c == 0 || c == 1) {
-        plain = 1;
-        paint_gate(c == 0 ? LG_AND : LG_XOR, 1, w, h, lw, b);
-        plain = 0;
-        art_blend(o, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
-    } else if (c == 2) {
-        paint_route(1, 1, w, h, 0.26f * w, lw, b);
-        art_blend(o, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
-    } else if (c == 3 || c == 4) {              /* gold traces: a wire through a fuse, or a branching */
-        art_style st = style(GOLD, 0.3f, fmaxf(1, 0.025f * size));
-        art_fig *f = art_fig_new();
-        float t = lw / 2, S = (float)size;
-        if (c == 3) {
-            art_rect(f, ART_PART, 0, S / 2 - t, S, S / 2 + t);
-        } else {
-            art_rect(f, ART_PART, S / 2 - t, 0.52f * S, S / 2 + t, S);
-            art_rect(f, ART_PART, 0.18f * S - t, 0.52f * S - t, 0.82f * S + t, 0.52f * S + t);
+    if (c <= 4) {
+        static const int KIND[5] = {LG_AND, LG_XOR, LG_NAND, LG_NOR, LG_AND};
+        int gh = c == 4 ? (int)(0.62f * size) : h, y = c == 4 ? (int)(0.06f * size) : (size - h) / 2;
+        if (c == 4) {                           /* the three leads under it */
+            art_style st = style(GOLD, 0.3f, fmaxf(1, 0.025f * size));
+            fig *f = fig_new();
             for (int k = 0; k < 3; k++) {
-                float x = (0.18f + 0.32f * k) * S;
-                art_rect(f, ART_PART, x - t, 0.14f * S, x + t, 0.52f * S);
-                art_ellipse(f, ART_PART, x, 0.14f * S, 2.2f * t, 2.2f * t);
+                float x = (0.3f + 0.2f * k) * size;
+                fig_rect(f, ART_PART, x - lw / 2, y + 0.85f * gh, x + lw / 2, (float)size);
             }
-            art_ellipse(f, ART_PART, S / 2, 0.52f * S, 2.2f * t, 2.2f * t);
-        }
-        art_render(f, &st, size, size, 1, 0, 0, b);
-        art_fig_free(f);
-        art_blend(o, size, size, b, size, size, 0, 0);
-        if (c == 3) {
-            int fh = (int)(0.42f * size);
+            fig_render(f, &st, size, size, b);
+            fig_free(f);
+            art_blend(o, size, size, b, size, size, 0, 0);
             memset(b, 0, (size_t)size * size * 4);
-            paint_fuse(1, size, fh, b);
-            art_blend(o, size, size, b, size, fh, 0, (size - fh) / 2);
         }
+        plain = 1;
+        paint_gate(KIND[c], 1, w, gh, lw, b);
+        plain = 0;
+        art_blend(o, size, size, b, w, gh, (size - w) / 2, y);
     } else {
         paint_lamp(0, 1, w, h, b);
         art_blend(o, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
@@ -574,10 +766,12 @@ static void token(int player, int size, uint8_t *rgba)
 }
 
 /* ---- the textures ------------------------------------------------------------------------------------------------ */
+/* The parts' pictures are painted when first drawn (a level shows a few kinds only) and kept while the parts' size
+ * stays; the board's when the room changes (a narrower board is drawn from it in two halves). */
 static SDL_Texture *t_board, *t_plaque, *t_gate[LG_KINDS][2][2], *t_route[2][2], *t_switch[2], *t_lock, *t_lamp[2][2],
-    *t_fuse[2], *t_dot, *t_glow, *t_emblem[LG_CHAPTERS];
+    *t_post[2], *t_dot, *t_glow, *t_emblem[LG_CHAPTERS];
 static int made_board = -1, made_parts = -1, made_shared = -1, made_bar = -1;
-static float pw, ph, sw_w, sw_h, lamp_w, lamp_h, fuse_l, fuse_t, gate_w[2], gate_h;
+static float pw, ph, sw_w, sw_h, lamp_w, lamp_h, post_d, cable_t, gate_w[2], gate_h, name_em;
 static puz_font font;
 
 static SDL_Texture *tex_buf(int w, int h, uint8_t *b)
@@ -641,12 +835,7 @@ static void b_put_c(SDL_Texture *t, float cx, float cy, float w, float h)
     if (turned) ui_put_c(t, sx, sy, h, w);
     else ui_put_c(t, sx, sy, w, h);
 }
-static void b_put_rot(SDL_Texture *t, float cx, float cy, float w, float h, double angle)
-{
-    float sx, sy;
-    to_screen(cx, cy, &sx, &sy);
-    ui_put_rot(t, sx, sy, w, h, turned ? angle + 90 : angle);
-}
+
 static void b_fill(float x, float y, float w, float h, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
     if (!turned) { ui_fill(x, y, w, h, r, g, b, a); return; }
@@ -676,18 +865,37 @@ static void b_mark_glow(float cx, float cy, float d)
 
 static void board_textures(void)
 {
-    int key = (int)panel.w * 4096 + (int)panel.h;
+    int key = (int)B.w * 4096 + (int)B.h;
+    fr = (int)(0.03f * fminf(B.w, B.h));
     if (made_board == key) return;
     made_board = key;
-    int W = (int)panel.w, H = (int)panel.h;
-    fr = (int)(0.03f * fminf(W, H));
+    int W = (int)B.w, H = (int)B.h;
     uint8_t *b = calloc((size_t)W * H, 4);
     if (!b) return;
-    paint_board(W, H, fr, b);
+    paint_board(W, H, (int)(0.03f * fminf(W, H)), b);
     ui_free(&t_board);
     t_board = tex_buf(W, H, b);
 }
 
+/* the board: the whole room's picture; a narrower panel drawn from its left half and its right half */
+static void draw_board(void)
+{
+    if (panel.w >= B.w - 0.5f) { ui_put(t_board, B.x, B.y, B.w, B.h); return; }
+    SDL_Rect was;
+    SDL_bool clipped = SDL_RenderIsClipEnabled(ui.r);
+    SDL_RenderGetClipRect(ui.r, &was);
+    int half = (int)(panel.w / 2);
+    SDL_Rect c = {(int)panel.x, (int)panel.y, half, (int)panel.h};
+    SDL_RenderSetClipRect(ui.r, &c);
+    ui_put(t_board, panel.x, B.y, B.w, B.h);
+    c.x += half;
+    c.w = (int)panel.w - half;
+    SDL_RenderSetClipRect(ui.r, &c);
+    ui_put(t_board, panel.x + panel.w - B.w, B.y, B.w, B.h);
+    SDL_RenderSetClipRect(ui.r, clipped ? &was : NULL);
+}
+
+/* the parts' sizes for the columns and rows; the pictures made at that size dropped (painted again when drawn) */
 static void part_textures(void)
 {
     int key = ((int)(cw * 8) * 8192 + (int)(ch * 8)) * 2 + turned;
@@ -697,75 +905,107 @@ static void part_textures(void)
     tw = fmaxf(2.5f, roundf(0.05f * m));
     pw = roundf(2 * LG_HALF * cw);
     ph = roundf(LG_NH * ch);
-    int w = (int)pw, h = (int)ph;
-    ui_free(&t_plaque);
-    uint8_t *b = calloc((size_t)w * h, 4);
-    if (b) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_up(w, h, b); }
     gate_h = floorf(0.92f * ph);
     for (int wide3 = 0; wide3 < 2; wide3++)    /* two inputs, or three: wider */
         /* wide enough for its inputs (up to 0.22 columns from its middle: the rules' PIN_MAX) */
         gate_w[wide3] = floorf(fminf(0.94f * pw, fmaxf(0.6f * cw, wide3 ? 1.6f * gate_h : 1.2f * gate_h)));
-    name_size = name_common((int)gate_w[0], (int)gate_h, turned);   /* the names all alike */
-    for (int wide3 = 0; wide3 < 2; wide3++) {
-        int gw = (int)gate_w[wide3], gh = (int)gate_h;
-        for (int k = LG_NOT; k <= LG_NOR; k++)
-            for (int lit = 0; lit < 2; lit++) {
-                ui_free(&t_gate[k][lit][wide3]);
-                b = calloc((size_t)gw * gh, 4);
-                if (!b) continue;
-                plain = turned;          /* turned: the name painted level, after the turn */
-                paint_gate(k, lit, gw, gh, tw, b);
-                plain = 0;
-                if (turned) {
-                    b = quarter(b, gw, gh);
-                    gate_name(b, gw, gh, 1, k, lit);
-                    t_gate[k][lit][wide3] = tex_buf(gh, gw, b);
-                } else {
-                    t_gate[k][lit][wide3] = tex_buf(gw, gh, b);
-                }
-            }
+    name_em = name_common((int)gate_w[0], (int)gate_h, turned);   /* the names all alike */
+    sw_w = roundf(fminf(2 * LG_SW_HALF * cw * 0.94f, 0.75f * ph));
+    sw_h = ph;
+    lamp_h = roundf((LG_NH + LG_PAD_T - 0.04f) * ch);
+    lamp_w = roundf(fminf(0.8f * cw, 0.85f * lamp_h));
+    cable_t = roundf(fmaxf(7, 2.1f * tw));
+    post_d = roundf(1.6f * cable_t) + 1;
+    ui_free(&t_plaque);
+    ui_free(&t_lock);
+    for (int k = 0; k < LG_KINDS; k++)
+        for (int i = 0; i < 4; i++) ui_free(&t_gate[k][i / 2][i % 2]);
+    for (int i = 0; i < 4; i++) {
+        ui_free(&t_route[i / 2][i % 2]);
+        ui_free(&t_lamp[i / 2][i % 2]);
+    }
+    for (int i = 0; i < 2; i++) {
+        ui_free(&t_switch[i]);
+        ui_free(&t_post[i]);
+    }
+}
+
+static SDL_Texture *plaque_tex(void)
+{
+    int w = (int)pw, h = (int)ph;
+    uint8_t *b;
+    if (!t_plaque && (b = calloc((size_t)w * h, 4))) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_up(w, h, b); }
+    return t_plaque;
+}
+
+static SDL_Texture *gate_tex(int k, int lit, int wide3)
+{
+    SDL_Texture **t = &t_gate[k][lit][wide3];
+    int gw = (int)gate_w[wide3], gh = (int)gate_h;
+    uint8_t *b;
+    if (*t || !(b = calloc((size_t)gw * gh, 4))) return *t;
+    name_size = name_em;
+    plain = turned;                             /* turned: the name painted level, after the turn */
+    paint_gate(k, lit, gw, gh, tw, b);
+    plain = 0;
+    if (turned) {
+        b = quarter(b, gw, gh);
+        gate_name(b, gw, gh, 1, k, lit);
+        *t = tex_buf(gh, gw, b);
+    } else {
+        *t = tex_buf(gw, gh, b);
     }
     name_size = 0;
-    for (int way = 0; way < 2; way++)
-        for (int lit = 0; lit < 2; lit++) {
-            ui_free(&t_route[way][lit]);
-            b = calloc((size_t)w * h, 4);
-            if (!b) continue;
-            paint_route(way, lit, w, h, 0.18f * cw, tw, b);
-            t_route[way][lit] = tex_up(w, h, b);
-        }
-    sw_w = roundf(fminf(0.5f * cw, 0.62f * ch));
-    sw_h = roundf((LG_NH + PAD_B - 0.06f) * ch);
-    for (int on = 0; on < 2; on++) {
-        ui_free(&t_switch[on]);
-        b = calloc((size_t)sw_w * sw_h, 4);
-        if (!b) continue;
+    return *t;
+}
+
+static SDL_Texture *route_tex(int way, int lit)
+{
+    SDL_Texture **t = &t_route[way][lit];
+    int w = (int)pw, h = (int)ph;
+    uint8_t *b;
+    if (!*t && (b = calloc((size_t)w * h, 4))) {
+        paint_route(way, lit, w, h, 0.18f * cw, tw, b);
+        *t = tex_up(w, h, b);
+    }
+    return *t;
+}
+
+static SDL_Texture *switch_tex(int on)
+{
+    uint8_t *b;
+    if (!t_switch[on] && (b = calloc((size_t)sw_w * sw_h, 4))) {
         paint_switch(on, (int)sw_w, (int)sw_h, b);
         t_switch[on] = tex_up((int)sw_w, (int)sw_h, b);
     }
-    ui_free(&t_lock);
-    int lkw = (int)(sw_w * 1.12f), lkh = (int)(sw_w * 0.42f);
-    b = calloc((size_t)lkw * lkh, 4);
-    if (b) { paint_lock(lkw, lkh, b); t_lock = tex_up(lkw, lkh, b); }
-    lamp_h = roundf((LG_NH + PAD_T - 0.04f) * ch);
-    lamp_w = roundf(fminf(0.8f * cw, 0.85f * lamp_h));
-    for (int a = 0; a < 2; a++)
-        for (int lit = 0; lit < 2; lit++) {
-            ui_free(&t_lamp[a][lit]);
-            b = calloc((size_t)lamp_w * lamp_h, 4);
-            if (!b) continue;
-            paint_lamp(a, lit, (int)lamp_w, (int)lamp_h, b);
-            t_lamp[a][lit] = tex_up((int)lamp_w, (int)lamp_h, b);
-        }
-    fuse_l = roundf(fmaxf(18, 0.28f * m));
-    fuse_t = roundf(fmaxf(8, 2.7f * tw));
-    for (int k = 0; k < 2; k++) {
-        ui_free(&t_fuse[k]);
-        b = calloc((size_t)fuse_l * fuse_t, 4);
-        if (!b) continue;
-        paint_fuse(k, (int)fuse_l, (int)fuse_t, b);
-        t_fuse[k] = tex_buf((int)fuse_l, (int)fuse_t, b);
+    return t_switch[on];
+}
+
+static SDL_Texture *lock_tex(void)
+{
+    int w = (int)(sw_w * 1.12f), h = (int)(sw_w * 0.42f);
+    uint8_t *b;
+    if (!t_lock && (b = calloc((size_t)w * h, 4))) { paint_lock(w, h, b); t_lock = tex_up(w, h, b); }
+    return t_lock;
+}
+
+static SDL_Texture *lamp_tex(int alarm, int lit)
+{
+    SDL_Texture **t = &t_lamp[alarm][lit];
+    uint8_t *b;
+    if (!*t && (b = calloc((size_t)lamp_w * lamp_h, 4))) {
+        paint_lamp(alarm, lit, (int)lamp_w, (int)lamp_h, b);
+        *t = tex_up((int)lamp_w, (int)lamp_h, b);
     }
+    return *t;
+}
+
+static SDL_Texture *post_tex(int lit)
+{
+    int d = (int)post_d;
+    uint8_t *b;
+    if (!t_post[lit] && (b = calloc((size_t)d * d, 4))) { paint_post(lit, d, b); t_post[lit] = tex_buf(d, d, b); }
+    return t_post[lit];
 }
 
 static void shared_textures(void)
@@ -810,17 +1050,15 @@ static void knob_texture(void)
 static float cells(float uw, float uh, float *c, float *r)
 {
     float m = 0.16f * ui.unit, iw = uw - 2 * fr - 2 * m, ih = uh - 2 * fr - 2 * m;
-    float cols = G.L.width, span = G.L.height + PAD_B + PAD_T, cap = fminf(iw, ih) / 3.0f;
-    float a = fminf(iw / cols, fminf(cap, 1.25f * ih / span));   /* a wide room: the columns further apart */
-    float b = fminf(ih / span, fminf(1.15f * ih / 3.0f, 1.6f * a));   /* a tall room: the rows further apart */
-    *c = floorf(a);
-    *r = floorf(b);
-    return fminf(2 * LG_HALF * a, 1.3f * LG_NH * b);
+    float s = lg_part_size(&G.L, iw, ih, c, r);  /* as big as the room allows; a column a 3.2th of it at most */
+    *c = floorf(*c);
+    *r = floorf(*r);
+    return s;
 }
 
 static void fit(void)
 {
-    float m = 0.16f * ui.unit, cols = G.L.width, span = G.L.height + PAD_B + PAD_T, c2, r2;
+    float m = 0.16f * ui.unit, cols = G.L.width, span = G.L.height + LG_PAD_B + LG_PAD_T, c2, r2;
     panel = B;
     float up = cells(B.w, B.h, &cw, &ch), side = cells(B.h, B.w, &c2, &r2);
     turned = wide && side > 1.1f * up;          /* lying: on its side when its parts come out bigger */
@@ -845,7 +1083,7 @@ static void fit(void)
     float ux = turned ? 0 : panel.x, uy = turned ? 0 : panel.y, uw = turned ? panel.h : panel.w,
           uh = turned ? panel.w : panel.h;
     ox = floorf(ux + uw / 2 - cols * cw / 2);
-    oy = floorf(uy + uh / 2 + (span / 2 - PAD_B) * ch);
+    oy = floorf(uy + uh / 2 + (span / 2 - LG_PAD_B) * ch);
     part_textures();
     knob_texture();
 }
@@ -873,7 +1111,7 @@ static void calm(void)
 {
     t0 = 0;
     flip_node = -1;
-    spark.wire = -1;
+    snip.wire = -1;
     hint.on = 0;
     deny_reset = 0;
 }
@@ -888,7 +1126,7 @@ static void open_level(int level)
 /* The levels were made anew (up to 8 switches, no two alike): the stars won on the old ones would land on other
  * levels, so the old progress goes, once. The shell keeps it (shell/levels/logicgates); our own key says which set
  * of levels it belongs to. Done when the menu paints the game's card, before the level screen reads the progress. */
-#define LEVEL_SET 2
+#define LEVEL_SET 3
 static void fresh_progress(void)
 {
     static int done;
@@ -911,6 +1149,7 @@ static void start_random(int variant)
     if (B.w > 0) fit();
 }
 
+static int chapter_of(int level) { return lg_chapter(level); }   /* chapter 1 is longer */
 static int status(void) { return lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int level_stars(void) { return lg_stars(&G); }
@@ -935,7 +1174,7 @@ static int busy(void)
     Uint32 now = ui_ms();
     if (t0 && now - t0 < (Uint32)((G.L.maxdepth + 1) * STEP_MS)) return 1;
     if (flip_node >= 0 && now - flip_t < FLIP_MS) return 1;
-    if (spark.wire >= 0 && now - spark.t < SPARK_MS) return 1;
+    if (snip.wire >= 0 && now - snip.t < (Uint32)(snip.mend ? MEND_MS + 200 : CUT_MS)) return 1;
     return lg_solved(&G) && t0 && (int)(now - solved_t) < BURST_MS;
 }
 
@@ -946,6 +1185,12 @@ static int undo(void)
     if (!lg_undo(&G)) return 0;
     calm();
     moved(&before);
+    lg_move m = before.hist[before.nh - 1];
+    if (m.kind == LG_MCUT) {                    /* a cut undone: the halves spring back together */
+        snip.wire = G.L.cut[m.idx];
+        snip.t = t0;
+        snip.mend = 1;
+    }
     return 1;
 }
 
@@ -982,7 +1227,7 @@ static int script(const char *moves)
     }
     t0 = 0;
     flip_node = -1;
-    spark.wire = -1;
+    snip.wire = -1;
     if (lg_solved(&G)) solved_t = ui_ms() - BURST_MS;
     return ok;
 }
@@ -1109,34 +1354,40 @@ static void marks(void)
     SDL_SetTextureColorMod(t_dot, 255, 255, 255);
 }
 
-/* a wire's pieces by value: cut at its fuse and at the change's front */
+/* a wire's pieces by value: cut at the change's front; a cuttable wire's printed trace stops at its terminals */
 static int pieces(int w, float *a, float *b, int *lit)
 {
     const lg_wire *W = &G.L.w[w];
-    float cuts[4] = {0, 0, 0, 0}, f = front(w), fs = W->cuttable ? W->fs : -1;
-    int n = 1;
-    if (fs > 0 && fs < W->len) cuts[n++] = fs;
+    float cuts[6], f = front(w);
+    int n = 0;
+    cuts[n++] = 0;
+    if (W->cuttable) {
+        cuts[n++] = W->ta;
+        cuts[n++] = W->tb;
+    }
     if (f > 0 && f < W->len) cuts[n++] = f;
     cuts[n++] = W->len;
-    if (n == 4 && cuts[1] > cuts[2]) {
-        float t = cuts[1];
-        cuts[1] = cuts[2];
-        cuts[2] = t;
-    }
+    for (int i = 1; i < n; i++)
+        for (int j = i; j > 0 && cuts[j - 1] > cuts[j]; j--) {
+            float t = cuts[j];
+            cuts[j] = cuts[j - 1];
+            cuts[j - 1] = t;
+        }
     int k = 0;
     for (int i = 0; i + 1 < n; i++) {
-        if (cuts[i + 1] - cuts[i] < 1e-4f) continue;
+        float m = (cuts[i] + cuts[i + 1]) / 2;
+        if (cuts[i + 1] - cuts[i] < 1e-4f || (W->cuttable && m > W->ta && m < W->tb)) continue;
         a[k] = cuts[i];
         b[k] = cuts[i + 1];
-        lit[k++] = lit_at(w, (cuts[i] + cuts[i + 1]) / 2, f);
+        lit[k++] = lit_at(w, m, f);
     }
     return k;
 }
 
 static void draw_wires(void)
 {
-    float a[4], b[4];
-    int lit[4];
+    float a[6], b[6];
+    int lit[6];
     /* the glows; then the horizontal stretches, their edges, dark then lit; then the vertical ones over them */
     for (int w = 0; w < G.L.nw; w++) {
         int k = pieces(w, a, b, lit);
@@ -1155,36 +1406,212 @@ static void draw_wires(void)
     marks();
 }
 
-static void draw_fuses(void)
+/* ---- the cables: jumper leads over the board, between two terminals ---------------------------------------------
+ * Upright pixels: its terminals A and B, its bow sideways (the side it bows to: n), a slight sag downwards; a cubic
+ * curve through them. Cut: two halves, each from its terminal to a free end, sprung apart, drooping and curling out,
+ * the copper showing at the ends. */
+static int cable_no(int w)                      /* its number among the level's cuttable wires */
+{
+    for (int i = 0; i < G.L.ncut; i++)
+        if (G.L.cut[i] == w) return i;
+    return 0;
+}
+
+typedef struct { float ax, ay, bx, by, nx, ny, bow, len; } cable_geo;
+
+static cable_geo cable_at(const lg_wire *W)
+{
+    cable_geo c;
+    c.ax = PX(W->tax);
+    c.ay = PY(W->tay);
+    c.bx = PX(W->tbx);
+    c.by = PY(W->tby);
+    c.nx = W->fvert ? 1.0f : 0;
+    c.ny = W->fvert ? 0 : -1.0f;
+    c.bow = W->bow * (W->fvert ? cw : ch);
+    c.len = hypotf(c.bx - c.ax, c.by - c.ay);
+    if (fabsf(c.bow) < 0.08f * c.len) c.bow = c.bow < 0 ? -0.08f * c.len : 0.08f * c.len;
+    return c;
+}
+
+static void cable_point(const cable_geo *c, float t, float *x, float *y)   /* the whole cable, t 0..1 */
+{
+    float u = 1 - t, k = 4.0f / 3, sag = 0.07f * c->len;
+    float p1x = c->ax + (c->bx - c->ax) / 3 + c->nx * c->bow * k,
+          p1y = c->ay + (c->by - c->ay) / 3 + c->ny * c->bow * k;
+    float p2x = c->ax + 2 * (c->bx - c->ax) / 3 + c->nx * c->bow * k,
+          p2y = c->ay + 2 * (c->by - c->ay) / 3 + c->ny * c->bow * k;
+    p1y += sag;
+    p2y += sag;
+    *x = u * u * u * c->ax + 3 * u * u * t * p1x + 3 * u * t * t * p2x + t * t * t * c->bx;
+    *y = u * u * u * c->ay + 3 * u * u * t * p1y + 3 * u * t * t * p2y + t * t * t * c->by;
+}
+
+/* one cable half: from its terminal (side 0: A, 1: B) to its free end, sprung out by f (0: still joined at the
+ * middle, 1: at rest) */
+static void half_point(const cable_geo *c, int side, float f, float t, float *x, float *y)
+{
+    float mx, my, sx = side ? c->bx : c->ax, sy = side ? c->by : c->ay;
+    cable_point(c, 0.5f, &mx, &my);
+    float vx = mx - sx, vy = my - sy, l = hypotf(vx, vy) + 1e-3f, s = c->bow < 0 ? -1.0f : 1.0f;
+    float ox = c->nx * s, oy = c->ny * s;       /* the side it bows to */
+    /* at rest, the free end hangs: down (a cable lying across), or out to its side (one standing) */
+    float gx = fabsf(vx) > fabsf(vy) ? 0 : ox, gy = fabsf(vx) > fabsf(vy) ? 1 : oy;
+    float ex = sx + 0.55f * vx + 0.5f * l * gx, ey = sy + 0.55f * vy + 0.5f * l * gy;
+    ex = mx + (ex - mx) * f;
+    ey = my + (ey - my) * f;
+    float jx, jy;                               /* its middle's pull: along the whole cable at first, then sagging */
+    cable_point(c, side ? 0.75f : 0.25f, &jx, &jy);
+    float kx = sx + 0.5f * vx + 0.12f * l * ox, ky = sy + 0.5f * vy + 0.12f * l * oy;
+    float cx = jx + f * (kx - jx), cy = jy + f * (ky - jy);
+    float u = 1 - t;
+    *x = u * u * sx + 2 * u * t * cx + t * t * ex;
+    *y = u * u * sy + 2 * u * t * cy + t * t * ey;
+}
+/* a dot on the screen from an upright place, shifted (dx, dy) on the screen itself (a shadow) */
+static void dot_at(float x, float y, float d, float dx, float dy)
+{
+    float sx, sy;
+    to_screen(x, y, &sx, &sy);
+    ui_put_c(t_dot, sx + dx, sy + dy, d, d);
+}
+
+/* a tube along n points: its shadow, a glow when lit, its dark edge, its colour, a highlight; copper ends (cut) */
+static void tube(const float *px, const float *py, int n, const uint8_t col[3], int lit, int copper)
+{
+    float t = cable_t;
+    for (int pass = 0; pass < 5; pass++) {
+        float d = pass == 0 || pass == 2 ? t : pass == 1 ? 1.8f * t : pass == 3 ? 0.74f * t : 0.26f * t;
+        float step = pass == 1 ? 0.5f * t : 0.2f * t, dx = pass == 0 ? 0.25f * t : 0, dy = pass == 0 ? 0.35f * t : 0;
+        if (pass == 1 && !lit) continue;
+        uint8_t r, g, b, a = 255;
+        if (pass == 0) { r = g = b = 0; a = 80; }
+        else if (pass == 1) { r = 255; g = 200; b = 80; a = 20; }
+        else if (pass == 2) { r = (Uint8)(col[0] * 0.42f); g = (Uint8)(col[1] * 0.42f); b = (Uint8)(col[2] * 0.42f); }
+        else if (pass == 3) { r = col[0]; g = col[1]; b = col[2]; }
+        else { r = (Uint8)(col[0] + (255 - col[0]) * 0.6f); g = (Uint8)(col[1] + (255 - col[1]) * 0.6f);
+               b = (Uint8)(col[2] + (255 - col[2]) * 0.6f); a = 200; }
+        SDL_SetTextureColorMod(t_dot, r, g, b);
+        SDL_SetTextureAlphaMod(t_dot, a);
+        float carry = 0;
+        for (int i = 0; i + 1 < n; i++) {
+            float sx = px[i + 1] - px[i], sy = py[i + 1] - py[i], l = hypotf(sx, sy);
+            if (l < 1e-3f) continue;
+            float hx = 0, hy = 0;               /* the highlight: towards the upper left of the tube */
+            if (pass == 4) {
+                hx = sy / l;
+                hy = -sx / l;
+                if (hx + hy > 0) { hx = -hx; hy = -hy; }
+                hx *= 0.2f * t;
+                hy *= 0.2f * t;
+            }
+            for (float s = carry; s < l; s += step) dot_at(px[i] + sx * s / l + hx, py[i] + sy * s / l + hy, d, dx, dy);
+            carry = fmodf(carry - l, step);
+            if (carry < 0) carry += step;
+        }
+    }
+    if (copper) {                               /* the bare copper at the free end, a few strands splayed */
+        float ex = px[n - 1], ey = py[n - 1], ux = ex - px[n - 3], uy = ey - py[n - 3], l = hypotf(ux, uy) + 1e-3f;
+        ux /= l;
+        uy /= l;
+        static const float ang[3] = {-0.4f, 0, 0.4f};
+        for (int k = 0; k < 3; k++) {
+            float c = cosf(ang[k]), s = sinf(ang[k]), vx = ux * c - uy * s, vy = ux * s + uy * c;
+            SDL_SetTextureColorMod(t_dot, 120, 62, 26);
+            SDL_SetTextureAlphaMod(t_dot, 255);
+            for (int i = 0; i < 6; i++) dot_at(ex + vx * i * 0.16f * t, ey + vy * i * 0.16f * t, 0.36f * t, 0, 0);
+            SDL_SetTextureColorMod(t_dot, 236, 150, 84);
+            for (int i = 0; i < 6; i++) dot_at(ex + vx * i * 0.16f * t, ey + vy * i * 0.16f * t, 0.22f * t, 0, 0);
+        }
+    }
+    SDL_SetTextureColorMod(t_dot, 255, 255, 255);
+    SDL_SetTextureAlphaMod(t_dot, 255);
+}
+
+static float spring(float q) { return q <= 0 ? 0 : q >= 1 ? 1 : 1 - expf(-5.5f * q) * cosf(9.5f * q); }
+
+static void cable_spark(float x, float y, float q, int seed);
+
+static void draw_cables(void)
 {
     for (int w = 0; w < G.L.nw; w++) {
         const lg_wire *W = &G.L.w[w];
         if (!W->cuttable) continue;
-        int broken = G.cut[w] && !(spark.wire == w && now_ms - spark.t < 90);
-        b_put_rot(t_fuse[broken], PX(W->fx), PY(W->fy), fuse_l, fuse_t, W->fvert ? 90 : 0);
+        cable_geo c = cable_at(W);
+        float f = front(w);
+        int la = lit_at(w, W->ta - 1e-3f, f), lb = lit_at(w, W->tb + 1e-3f, f), cut = G.cut[w];
+        const uint8_t *col = CABLE[cable_no(w) % 4];
+        float open = cut ? 1 : 0, q = -1;       /* how far the halves are apart */
+        if (snip.wire == w) {
+            Uint32 dt = now_ms - snip.t;
+            if (snip.mend && dt < MEND_MS) { open = 1 - puz_ease(dt / (float)MEND_MS); ui_animate(); }
+            else if (!snip.mend && dt < CUT_MS) {
+                q = dt / (float)CUT_MS;
+                open = spring((q - 0.1f) / 0.9f);
+                ui_animate();
+            }
+        }
+        float px[2][40], py[2][40];
+        if (!cut && open <= 0) {                /* whole */
+            for (int i = 0; i < 40; i++) cable_point(&c, i / 39.0f, &px[0][i], &py[0][i]);
+            tube(px[0], py[0], 40, col, la, 0);
+        } else {
+            for (int s = 0; s < 2; s++) {
+                for (int i = 0; i < 20; i++) half_point(&c, s, open, i / 19.0f, &px[s][i], &py[s][i]);
+                tube(px[s], py[s], 20, col, s ? lb : la, open > 0.05f);
+            }
+        }
+        for (int s = 0; s < 2; s++)            /* the terminals over the cable's ends */
+            b_put_c(post_tex(s ? lb : la), s ? c.bx : c.ax, s ? c.by : c.ay, post_d, post_d);
+        float mx, my;
+        cable_point(&c, 0.5f, &mx, &my);
+        if (q >= 0) cable_spark(mx, my, q, w);
+        if (snip.wire == w && snip.mend && now_ms - snip.t >= MEND_MS && now_ms - snip.t < MEND_MS + 200) {
+            b_mark_gold(mx, my, 1.2f * post_d * (1 - (now_ms - snip.t - MEND_MS) / 200.0f));
+            ui_animate();
+        }
     }
 }
 
-static void sparks(void)
+/* the snip: a white-gold flash at the cut, sparks flying, fading */
+static void cable_spark(float cx, float cy, float q, int seed)
 {
-    if (spark.wire < 0) return;
-    float q = (now_ms - spark.t) / (float)SPARK_MS;
-    if (q >= 1) { spark.wire = -1; return; }
-    const lg_wire *W = &G.L.w[spark.wire];
-    float cx = PX(W->fx), cy = PY(W->fy), m = fminf(cw, ch);
-    if (q < 0.3f) b_mark_gold(cx, cy, m * (0.5f + 1.5f * q));
+    float m = fminf(cw, ch);
+    if (q < 0.18f) {
+        b_mark_gold(cx, cy, m * (0.35f + 2.2f * q));
+        SDL_SetTextureColorMod(t_dot, 255, 250, 230);
+        SDL_SetTextureAlphaMod(t_dot, (Uint8)(255 * (1 - q / 0.18f)));
+        b_put_c(t_dot, cx, cy, cable_t * (1.6f + 4 * q), cable_t * (1.6f + 4 * q));
+    }
     for (int k = 0; k < SPARKS; k++) {
-        float a = k * 6.2831853f / SPARKS + 0.4f * sinf(k * 7.1f + spark.wire);
-        float sp = 0.35f + 0.25f * (k * 37 % 7) / 7.0f;
-        float r = m * sp * puz_ease(q * 1.3f), x = cx + r * cosf(a), y = cy + r * sinf(a) + m * 0.25f * q * q;
-        float s = fmaxf(3, 1.4f * tw * (1 - 0.7f * q));
+        float a = k * 6.2831853f / SPARKS + 0.5f * sinf(k * 7.1f + seed);
+        float sp = 0.3f + 0.3f * (k * 37 % 7) / 7.0f;
+        float r = m * sp * puz_ease(fminf(1, q * 1.6f)), x = cx + r * cosf(a), y = cy + r * sinf(a) + m * 0.3f * q * q;
+        float s = fmaxf(3, 1.3f * tw * (1 - 0.8f * q));
         SDL_SetTextureColorMod(t_dot, 255, (Uint8)(250 - 90 * q), (Uint8)(200 - 160 * q));
         SDL_SetTextureAlphaMod(t_dot, (Uint8)(255 * (1 - q)));
         b_put_c(t_dot, x, y, s, s);
     }
     SDL_SetTextureColorMod(t_dot, 255, 255, 255);
     SDL_SetTextureAlphaMod(t_dot, 255);
-    ui_animate();
+}
+
+/* the nearest cable to a point (upright pixels) and how near; -1: none */
+static int cable_hit(float x, float y, float *dist)
+{
+    int best = -1;
+    float bd = 1e9f;
+    for (int n = 0; n < G.L.ncut; n++) {
+        cable_geo c = cable_at(&G.L.w[G.L.cut[n]]);
+        for (int i = 0; i <= 24; i++) {
+            float px, py;
+            cable_point(&c, i / 24.0f, &px, &py);
+            float d = hypotf(x - px, y - py);
+            if (d < bd) { bd = d; best = n; }
+        }
+    }
+    *dist = bd;
+    return best;
 }
 
 static void glow(float x, float y, float d, float a)
@@ -1198,18 +1625,11 @@ static void glow(float x, float y, float d, float a)
 static void node_box(int i, float *x0, float *y0, float *x1, float *y1)
 {
     const lg_node *N = &G.L.n[i];
-    float cx = PX(N->x);
-    if (N->kind == LG_SWITCH) {
-        *x0 = cx - sw_w / 2;
-        *x1 = cx + sw_w / 2;
-        *y0 = PY(LG_NH);
-        *y1 = *y0 + sw_h;
-    } else {
-        *x0 = cx - pw / 2;
-        *x1 = cx + pw / 2;
-        *y0 = PY(N->y + LG_NH);
-        *y1 = PY(N->y);
-    }
+    float cx = PX(N->x), hw = N->kind == LG_SWITCH ? sw_w / 2 : pw / 2;
+    *x0 = cx - hw;
+    *x1 = cx + hw;
+    *y0 = PY(N->y + LG_NH);
+    *y1 = PY(N->y);
 }
 
 static void draw_node(int i)
@@ -1223,7 +1643,7 @@ static void draw_node(int i)
         float d = 0.66f * sw_w, p = (float)on;
         if (on) glow(cx, yt + 0.35f * sw_h, 1.6f * sw_w, 0.5f);
         b_shadow(cx + 0.04f * sw_w, yt + sw_h / 2 + 0.05f * sw_w, sw_w, sw_h, 0.5f);
-        b_put(t_switch[on], cx - sw_w / 2, yt, sw_w, sw_h);
+        b_put(switch_tex(on), cx - sw_w / 2, yt, sw_w, sw_h);
         if (flip_node == i && now_ms - flip_t < FLIP_MS) {
             float q = puz_ease((now_ms - flip_t) / (float)FLIP_MS);
             p = on ? q : 1 - q;
@@ -1232,7 +1652,7 @@ static void draw_node(int i)
         float ky = yt + sw_h * (0.71f - 0.42f * p);
         b_shadow(cx + 0.05f * d, ky + 0.08f * d, d, d, 0.6f);
         b_put_c(t_knob, cx, ky, d, d);
-        if (N->locked) b_put_c(t_lock, cx, yt + 0.5f * sw_h, floorf(sw_w * 1.12f), floorf(sw_w * 0.42f));
+        if (N->locked) b_put_c(lock_tex(), cx, yt + 0.5f * sw_h, floorf(sw_w * 1.12f), floorf(sw_w * 0.42f));
         break;
     }
     case LG_LAMP:
@@ -1241,15 +1661,15 @@ static void draw_node(int i)
         float gy = yb - 0.62f * lamp_h;
         if (out && !a) glow(cx, gy, 1.9f * lamp_w, 0.85f);
         if (out && a) b_mark_glow(cx, gy, 1.7f * lamp_w);
-        b_put(t_lamp[a][out], cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
+        b_put(lamp_tex(a, out), cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
         break;
     }
     case LG_ROUTE: {
         int in = arrived(i) ? G.wend[N->in[0]] : old_end[N->in[0]];
-        b_put(t_plaque, cx - pw / 2, yt, pw, ph);
+        b_put(plaque_tex(), cx - pw / 2, yt, pw, ph);
         if (flip_node == i && now_ms - flip_t < FLIP_MS) {
             float q = puz_ease((now_ms - flip_t) / (float)FLIP_MS);
-            SDL_Texture *o = t_route[!G.val[i]][in], *n = t_route[G.val[i]][in];
+            SDL_Texture *o = route_tex(!G.val[i], in), *n = route_tex(G.val[i], in);
             SDL_SetTextureAlphaMod(o, (Uint8)(255 * (1 - q)));
             b_put(o, cx - pw / 2, yt, pw, ph);
             SDL_SetTextureAlphaMod(o, 255);
@@ -1258,12 +1678,12 @@ static void draw_node(int i)
             SDL_SetTextureAlphaMod(n, 255);
             ui_animate();
         } else {
-            b_put(t_route[G.val[i]][in], cx - pw / 2, yt, pw, ph);
+            b_put(route_tex(G.val[i], in), cx - pw / 2, yt, pw, ph);
         }
         break;
     }
     default: {
-        b_put(t_plaque, cx - pw / 2, yt, pw, ph);
+        b_put(plaque_tex(), cx - pw / 2, yt, pw, ph);
         float top = yt + 0.84f * gate_h;          /* just into the shape */
         for (int k = 0; k < N->nin; k++) {      /* the inputs' leads, up into the shape */
             int w = N->in[k];
@@ -1274,7 +1694,7 @@ static void draw_node(int i)
             trace(x, yb, x, top, lit, 2);
         }
         int w3 = N->nin == 3;
-        b_put(t_gate[N->kind][out][w3], cx - gate_w[w3] / 2, yt, gate_w[w3], gate_h);
+        b_put(gate_tex(N->kind, out, w3), cx - gate_w[w3] / 2, yt, gate_w[w3], gate_h);
     }
     }
 }
@@ -1287,9 +1707,8 @@ static void hint_mark(void)
     if (dt < HINT_MS && dt / 300 % 2) return;  /* it blinks, then stays lit until the next move */
     float x, y, d = 1.3f * fminf(cw, ch);
     if (hint.m.kind == LG_MCUT) {
-        const lg_wire *W = &G.L.w[G.L.cut[hint.m.idx]];
-        x = PX(W->fx);
-        y = PY(W->fy);
+        cable_geo c = cable_at(&G.L.w[G.L.cut[hint.m.idx]]);
+        cable_point(&c, 0.5f, &x, &y);
         d *= 0.8f;
     } else {
         int i = hint.m.kind == LG_MSWITCH ? G.L.sw[hint.m.idx] : G.L.rt[hint.m.idx];
@@ -1332,7 +1751,7 @@ static void burst(void)
 static float draw_label(float x, float y, int centred)
 {
     float u = ui.unit;
-    int n = G.level + 1, c = G.level / LG_PER_CHAPTER;
+    int n = G.level + 1, c = lg_chapter(G.level);
     float dh = 0.5f * u, nw = puz_number_w(n, dh), ew = 0.62f * u, w = ew + 0.12f * u + nw;
     float x0 = centred ? x - w / 2 : x;
     ui_put_c(t_emblem[c], x0 + ew / 2, y, ew, ew);
@@ -1356,11 +1775,10 @@ static void draw(void)
 {
     now_ms = ui_ms();
     if (made_shared < 0) layout(B);
-    ui_put(t_board, panel.x, panel.y, panel.w, panel.h);
+    draw_board();
     draw_wires();
-    draw_fuses();
     for (int i = 0; i < G.L.nn; i++) draw_node(i);
-    sparks();
+    draw_cables();
     burst();
     hint_mark();
     draw_tools();
@@ -1376,10 +1794,12 @@ static void do_move(lg_move m, int node, int wire)
     hint.on = 0;
     deny_reset = 0;
     moved(&before);
-    if (m.kind == LG_MCUT) {
-        spark.wire = wire;
-        spark.t = t0;
-        ui_sound(SND_CAPTURE);
+    if (m.kind == LG_MCUT) {                    /* the snip: a sharp click, a tick after it */
+        snip.wire = wire;
+        snip.t = t0;
+        snip.mend = 0;
+        ui_sound(SND_PLACE);
+        ui_sound_later(SND_TAP, 45);
     } else {
         flip_node = node;
         flip_t = t0;
@@ -1413,7 +1833,7 @@ static void press(float x, float y)
     }
     if (lg_solved(&G)) return;                  /* the lamps flaring; then the shell's card (the next level) */
     from_screen(x, y, &x, &y);                  /* the board turned: back upright */
-    /* a part's own box first, then the fuses, then a part's surroundings */
+    /* a part's own box first, then the cables, then a part's surroundings */
     for (int pass = 0; pass < 2; pass++) {
         for (int i = 0; i < G.L.nn; i++) {
             int k = G.L.n[i].kind;
@@ -1433,21 +1853,19 @@ static void press(float x, float y)
             return;
         }
         if (pass) break;
-        int best = -1;
-        float bd = 0.36f * fminf(cw, ch);
-        for (int n = 0; n < G.L.ncut; n++) {
-            const lg_wire *W = &G.L.w[G.L.cut[n]];
-            float d = hypotf(x - PX(W->fx), y - PY(W->fy));
-            if (d < bd) { bd = d; best = n; }
+        float d;
+        int best = cable_hit(x, y, &d);
+        if (best >= 0 && d < 0.4f * fminf(cw, ch) + cable_t) {
+            do_move((lg_move){LG_MCUT, (uint8_t)best}, -1, G.L.cut[best]);
+            return;
         }
-        if (best >= 0) { do_move((lg_move){LG_MCUT, (uint8_t)best}, -1, G.L.cut[best]); return; }
     }
 }
 
 static void motion(float x, float y) { (void)x; (void)y; }
 static void release(float x, float y) { (void)x; (void)y; }
 
-/* ---- the bar: the moves (a switch), the cuts left (a fuse), the par (a star): the shell's fitted counts ---------- */
+/* ---- the bar: the moves (a switch), the cuts left (a cable), the par (a star) ------------------------------------ */
 static SDL_Texture *t_bar_star, *t_bar_fuse, *t_bar_switch;
 
 static void bar(int player, box b)
@@ -1458,7 +1876,7 @@ static void bar(int player, box b)
     if (made_bar != sz) {                       /* the pictures, square */
         made_bar = sz;
         static const uint8_t gold[3] = {255, 200, 80};
-        int w = (int)(0.5f * sz), kd = (int)(0.66f * w), ft = (int)(0.43f * sz);
+        int w = (int)(0.5f * sz), kd = (int)(0.66f * w);
         uint8_t *bf = calloc((size_t)sz * sz, 4), *k = calloc((size_t)kd * kd, 4), *p = calloc((size_t)sz * sz, 4);
         if (bf && k && p) {
             paint_switch(1, w, sz, p);          /* a switch, on */
@@ -1467,10 +1885,7 @@ static void bar(int player, box b)
             art_blend(bf, sz, sz, k, kd, kd, (sz - kd) / 2, (int)(0.29f * sz - kd / 2.0f));
             ui_free(&t_bar_switch);
             t_bar_switch = ui_tex(sz, sz, bf);
-            memset(bf, 0, (size_t)sz * sz * 4);  /* a fuse */
-            memset(p, 0, (size_t)sz * sz * 4);
-            paint_fuse(0, sz, ft, p);
-            art_blend(bf, sz, sz, p, sz, ft, 0, (sz - ft) / 2);
+            paint_cable_pic(sz, sz, bf);        /* a cable */
             ui_free(&t_bar_fuse);
             t_bar_fuse = ui_tex(sz, sz, bf);
             paint_star(sz, gold, bf);           /* a star */
@@ -1506,9 +1921,11 @@ static void bar(int player, box b)
     }
 }
 
-/* ---- the die tab's cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp ---------- */
-static void circuit_thumb(int nsw, int size, uint8_t *rgba)
+/* ---- the die tab's cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp (the gates of
+ * that size: AND and OR; XOR and NAND too; everything) */
+static void circuit_thumb(int variant, int size, uint8_t *rgba)
 {
+    int nsw = 4 + 2 * variant;
     paint_board(size, size, (int)(0.045f * size), rgba);
     float S = (float)size, in = 0.1f * S, t = fmaxf(2, 0.022f * S);
     float x[4][8], ys = 0.8f * S, yl = 0.2f * S;
@@ -1539,7 +1956,9 @@ static void circuit_thumb(int nsw, int size, uint8_t *rgba)
     }
     puz_ink_rect(rgba, size, size, S / 2 - t / 2, yl, S / 2 + t / 2, ys - rows * gap + ph, GOLD, 1);
     /* the gates, the lamp, the switches */
-    static const int KINDS[] = {LG_AND, LG_OR, LG_XOR, LG_AND, LG_NOR, LG_AND, LG_OR};
+    static const int KINDS[3][7] = {{LG_AND, LG_OR, LG_OR, LG_AND, LG_AND, LG_OR, LG_AND},   /* the gates by size */
+                                    {LG_NAND, LG_OR, LG_XOR, LG_AND, LG_XOR, LG_AND, LG_NAND},
+                                    {LG_AND, LG_OR, LG_XOR, LG_NAND, LG_NOR, LG_XOR, LG_OR}};
     for (int r = 1; r < rows; r++)
         for (int i = 0; i < cnt[r]; i++) {
             int w = (int)pw, h = (int)ph, gw = (int)(0.9f * pw), gh = (int)(0.9f * ph);
@@ -1548,7 +1967,7 @@ static void circuit_thumb(int nsw, int size, uint8_t *rgba)
             paint_walnut(b, w, h, 1);
             art_blend(rgba, size, size, b, w, h, (int)(x[r][i] - w / 2.0f), y);
             memset(b, 0, (size_t)size * size * 4);
-            paint_gate(KINDS[(r * 3 + i) % 7], 1, gw, gh, t, b);
+            paint_gate(KINDS[variant][(r * 3 + i) % 7], 1, gw, gh, t, b);
             art_blend(rgba, size, size, b, gw, gh, (int)(x[r][i] - gw / 2.0f), y);
         }
     int lw = (int)(0.22f * S);
@@ -1581,7 +2000,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 {
     fresh_progress();                           /* the menu paints it before the level screen opens */
     if (variant >= 0) {
-        circuit_thumb(4 + 2 * (variant < 0 ? 0 : variant > 2 ? 2 : variant), size, rgba);
+        circuit_thumb(variant > 2 ? 2 : variant, size, rgba);
         return;
     }
     paint_board(size, size, (int)(0.045f * size), rgba);
@@ -1633,7 +2052,8 @@ static const game logicgates_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,
-    .levels = LG_LEVELS, .chapters = LG_CHAPTERS, .chapter_icon = paint_emblem, .level_stars = level_stars,
+    .levels = LG_LEVELS, .chapters = LG_CHAPTERS, .chapter_of = chapter_of, .chapter_icon = paint_emblem,
+    .level_stars = level_stars,
     .start_random = start_random, .score = score, .par = par, .tools = TOOLS,
 };
 REGISTER_GAME(logicgates_game)
