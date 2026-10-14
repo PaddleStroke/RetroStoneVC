@@ -18,7 +18,7 @@
  *   seed=N         a fixed run (default: from the frame the title was shown)
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   wave=N         start at wave N (the screenshots of the mothership, tests)
- *   msg=K          (the language test) the run shows message K: 1 EXTRA SHIP!, 2-4 the power-ups, 5 THEY LANDED!
+ *   msg=K          (the language test) the run shows message K: 1-3 the power-ups, 4 THEY LANDED!
  *   dump=1         log the final state at exit (tests); music=0, sound=0
  */
 #include "game.h"
@@ -146,9 +146,9 @@ static void new_run(int state)
         W.phase = PH_READY;
         W.wevents = 0;
     }
-    int msg = rs_option_int("msg", 0);          /* the language test: a message on screen (5: THEY LANDED!) */
-    if (msg >= MSG_EXTRA && msg <= MSG_SHIELD) W.msg = msg;
-    if (msg == 5) W.landed = 1;
+    int msg = rs_option_int("msg", 0);          /* the language test: a message on screen (4: THEY LANDED!) */
+    if (msg >= MSG_DOUBLE && msg <= MSG_SHIELD) W.msg = msg;
+    if (msg == 4) W.landed = 1;
     new_best = 0;
     go(state);
 }
@@ -239,7 +239,6 @@ static void play_update(void)
         if (ev & EV_POWER) sfx_at(SFX_POWER, x, HA_VOL_FEEDBACK);
         if (ev & EV_SHIELD) sfx_at(SFX_SHIELD, x, HA_VOL_FEEDBACK);
         if (ev & EV_BOSS_HIT) sfx_at(SFX_BOSS_HIT, x, 60);
-        if (ev & EV_EXTRA) ha_play(HA_MEDAL);
         if (ev & EV_BOSS_DOWN) {
             sfx_at(SFX_BOSS_DOWN, x, HA_VOL_CRASH);
             hu_shake(2, 12);
@@ -248,11 +247,11 @@ static void play_update(void)
         if (ev & EV_HIT) {
             sfx_at(SFX_HIT, x, HA_VOL_CRASH);
             hu_shake(3, 12);                    /* house rule: shake on a hit only, <= 4 px, <= 16 frames */
-            rs_log("player %d hit at frame %u (wave %d, score %d, lives %d)", p + 1, rs_frame_count(), W.wave, h->score,
-                   h->lives);
+            rs_log("player %d hit at frame %u (wave %d, score %d)", p + 1, rs_frame_count(), W.wave, h->score);
         }
+        if (ev & EV_SHIELD) rs_log("player %d: the bubble took a hit at frame %u", p + 1, rs_frame_count());
         state_hash = (state_hash ^ (uint32_t)h->x) * 16777619u;
-        state_hash = (state_hash ^ (uint32_t)(h->score * 131 + h->state * 7 + h->lives)) * 16777619u;
+        state_hash = (state_hash ^ (uint32_t)(h->score * 131 + h->state * 7 + (h->shield_t > 0))) * 16777619u;
     }
     int wev = W.wevents;
     if (wev & WEV_BEAT) {                       /* the march beat: C E G E, faster as the mice thin out */
@@ -364,9 +363,9 @@ static void game_shutdown(void)
         size_t a = strlen(sc), b = strlen(hs), c = strlen(lv);
         snprintf(sc + a, sizeof sc - a, "%s%d", p ? "," : "", W.h[p].score);
         snprintf(hs + b, sizeof hs - b, "%s%d", p ? "," : "", W.h[p].state);
-        snprintf(lv + c, sizeof lv - c, "%s%d", p ? "," : "", W.h[p].lives);
+        snprintf(lv + c, sizeof lv - c, "%s%d", p ? "," : "", W.h[p].shield_t > 0);
     }
-    rs_log("state: st=%d players=%d score=%d score2=%d best=%u runs=%d hs=%s lives=%s wave=%d phase=%d alive=%d fx=%d "
+    rs_log("state: st=%d players=%d score=%d score2=%d best=%u runs=%d hs=%s shields=%s wave=%d phase=%d alive=%d fx=%d "
            "fy=%d x=%d shots=%d paused=%d hash=%08x scores=%s",
            st, W.players, W.h[0].score, W.h[1].score, SV.best, runs_done, hs, lv, W.wave, W.phase, W.alive_n, W.fx,
            W.fy, (int)(W.h[0].x >> 16), W.h[0].shots, paused, state_hash, sc);

@@ -14,12 +14,8 @@ BOSS = MOTHERSHIP!
 #. max 18
 LANDED = THEY LANDED!
 
-#. In play, small letters centred on row 18 for 2 s: a player earned an extra ship. With 2-4 players the player's
-#. tag is put before it (P2 EXTRA SHIP!).
-#. max 30
-EXTRA_LIFE = EXTRA SHIP!
-
-#. The same, when a hamster catches a power-up from the bonus saucer: two seeds at once for 10 s ...
+#. In play, small letters centred on row 18 for 2 s, when a hamster catches a power-up from the bonus saucer (with
+#. 2-4 players the player's tag is put before it: P2 DOUBLE SEEDS!): two seeds at once for 10 s ...
 #. max 30
 POWER_DOUBLE = DOUBLE SEEDS!
 

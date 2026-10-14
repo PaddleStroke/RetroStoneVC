@@ -2,7 +2,6 @@
 WAVE_N = 第 %d 波
 BOSS = 母舰!
 LANDED = 它们着陆了!
-EXTRA_LIFE = 加一命!
 POWER_DOUBLE = 双发瓜子!
 POWER_RAPID = 连发瓜子!
 POWER_SHIELD = 泡泡护盾!

@@ -44,12 +44,12 @@ scenario race 300 400
 scenario run4 500 500 bot=4 ready=1
 printf "400 tap SELECT\n520 tap SELECT\n" > "$O/hamsterhavoc-paused.input"
 scenario paused 450 300 bot=1 ready=1
-# the game over: the bot stops dodging from 100 points; saved on the panel (it shows from frame 1126), then back to
+# the game over: the bot stops dodging from 100 points; saved on the panel (it shows from frame 539), then back to
 # the title and a new run
 : > "$O/hamsterhavoc-over.input"
-scenario over 1140 400 bot=1 botstop=100 ready=1 botruns=2
-# saved on the results (they show from frame 2575; after the game over: the battery save is not part of a state, so a
+scenario over 550 400 bot=1 botstop=100 ready=1 botruns=2
+# saved on the results (they show from frame 904; after the game over: the battery save is not part of a state, so a
 # NEW BEST shown by the first pass would read BEST after a load), then back to the title and the next run
 : > "$O/hamsterhavoc-results4.input"
-scenario results4 2590 300 bot=4 botstop=60 ready=1 botruns=2
+scenario results4 920 300 bot=4 botstop=60 ready=1 botruns=2
 exit $fail

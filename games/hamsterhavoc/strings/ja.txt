@@ -2,7 +2,6 @@
 WAVE_N = ウェーブ %d
 BOSS = マザーシップ!
 LANDED = ちゃくりくした!
-EXTRA_LIFE = 1UP!
 POWER_DOUBLE = ダブルたね!
 POWER_RAPID = れんしゃ!
 POWER_SHIELD = バリア!

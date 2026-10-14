@@ -18,7 +18,7 @@ over_frame() { echo "$1" | sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p'; }
 field() { echo "$1" | grep "state:" | sed -n "s/.* $2=\([^ ]*\).*/\1/p"; }
 
 # screens: st=0 the title, 1 play, 2 the last ship popping, 3 the game-over panel (no "get ready")
-# phases: 0 ready, 1 the wave's intro, 2 play, 3 the pause after a wave, 4 over; ships (hs): 1 play, 2 pop, 4 down
+# phases: 0 ready, 1 the wave's intro, 2 play, 3 the pause after a wave, 4 over; ships (hs): 1 play, 2 pop, 3 out
 out=$(run --frames 300 --opt strict=1)
 check "title: nothing happens without input" "state: st=0 .*score=0 .*runs=0 " "$out"
 if echo "$out" | grep -q "rs strict"; then ko "strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "no strict-mode warning (VRAM, sprites, voices...)"; fi
@@ -29,7 +29,7 @@ check "A on the title starts the run at once: WAVE 1, the mice fly in" "state: s
 printf "30 tap LEFT\n" > "$T/left.input"
 out=$(run --frames 40 --input "$T/left.input")
 check "Left starts it too (an extra start input)" "state: st=1 .*phase=1 " "$out"
-out=$(run --frames 400 --input "$T/start.input")
+out=$(run --frames 200 --input "$T/start.input")
 check "after the intro the formation marches" "state: st=1 .*phase=2 alive=55 fx=[1-9][0-9]* " "$out"
 [ "$(field "$out" fx)" != 52 ] || ko "the formation did not move"
 
@@ -44,9 +44,9 @@ if [ "${s:-0}" -ge 4 ] && [ "${s:-0}" -le 10 ] && [ "$(field "$out" score)" -gt 
     ok "A held fires as each seed is gone ($s seeds in 130 frames) and pops mice (score $(field "$out" score))"
 else ko "firing: $(echo "$out" | grep state:)"; fi
 
-# the game over: the bot stops dodging from 100 points (botstop), its three ships pop
+# the game over: the bot stops dodging from 100 points (botstop): one hit and the run is over
 out=$(run --frames 2000 --opt bot=1 --opt botstop=100)
-check "three ships lost: game over" "state: st=3 .*runs=1 .*hs=4 lives=0 " "$out"
+check "one hit: game over" "state: st=3 .*runs=1 .*hs=3 " "$out"
 f=$(over_frame "$out")
 [ -n "$f" ] || { ko "the bot run did not end"; f=1500; }
 printf "%d tap A\n" $((f + 50)) > "$T/retry.input"
@@ -112,10 +112,10 @@ out=$(run --frames 400 --opt bot=4 --opt ready=1 --opt wave=4 --opt strict=1)
 check "the mothership: 4 hamsters fight it" "state: st=1 players=4 .*wave=4 phase=2 " "$out"
 if echo "$out" | grep -q "rs strict"; then ko "the mothership: strict mode warnings: $(echo "$out" | grep 'rs strict')"; else ok "the mothership: no strict-mode warning"; fi
 
-# the bot hook (bot_decide): it plays well: wave 3 in 4000 frames without losing a ship
+# the bot hook (bot_decide): it plays well: wave 3 in 4000 frames, unhit
 out=$(run --frames 4000 --opt bot=1 --opt seed=7)
 w=$(field "$out" wave)
-if [ "${w:-0}" -ge 3 ] && echo "$out" | grep -q "lives=[3-9] "; then ok "the bot reaches wave $w without losing a ship"
+if [ "${w:-0}" -ge 3 ] && echo "$out" | grep -q "hs=1 "; then ok "the bot reaches wave $w unhit"
 else ko "the bot: $(echo "$out" | grep state:)"; fi
 
 # determinism: the same inputs, the same run (state hash and picture), twice; also with 4 players

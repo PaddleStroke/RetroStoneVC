@@ -6,8 +6,9 @@ of mischievous space mice. Slide left and right, pop them with sunflower
 seeds before they march down to the moon, and hide behind the cheese
 shelters (both sides nibble them away). Shoot the bonus saucer for mystery
 points and power-ups (double seeds, rapid seeds, a bubble shield); every 4th
-wave a big mouse mothership comes. Three ships, an extra one at 1500 points:
-medals at 1500, 4000, 8000 and 15000, and your best score is kept.
+wave a big mouse mothership comes. One hit and you're out (unless the bubble
+shield takes it): medals at 500, 1500, 3000 and 6000, and your best score is
+kept.
 
 Run HamsterHavoc.exe. No installation needed (SDL2 is built in).
 
@@ -21,8 +22,8 @@ Controls                  Gamepad (SNES layout)      Keyboard
   touch / mouse             hold a finger: the ship slides under it and fires; a tap starts
 
 Up to four hamsters (golden, white, grey and ginger) defend the moon
-together, each with their own pad, ships and score; the results rank
-everyone by score, with medals.
+together, each with their own pad, ship and score: a hamster hit is out, the
+others play on; the results rank everyone by score, with medals.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: HamsterHavoc.exe --scale 4 --fullscreen

@@ -153,7 +153,7 @@ static void small_number(int n, int cx, int y)
 static void draw_ship(const world *w, int p, int sx, int sy)
 {
     const hero *h = &w->h[p];
-    if (h->state == SH_GONE || h->state == SH_DOWN || h->state == SH_OFF) return;
+    if (h->state == SH_DOWN || h->state == SH_OFF) return;
     int x = (h->x >> 16) + sx, y = SHIP_Y + sy, fl = h->face < 0 ? RS_SPR_HFLIP : 0, id;
     if (h->state == SH_POP) {                         /* bonk: X eyes, stars circling, the ship wobbling */
         static const int ox[8] = {0, 5, 7, 5, 0, -5, -7, -5}, oy[8] = {-7, -5, 0, 5, 7, 5, 0, -5};
@@ -166,7 +166,6 @@ static void draw_ship(const world *w, int p, int sx, int sy)
         }
         return;
     }
-    if (h->invul && (h->invul / 4) % 2) return;       /* the new ship blinks */
     if (h->fire_t < 5) id = SPR_SHIP_FIRE;
     else id = SPR_SHIP + ((w->t + p * 37) % 150 < 8);     /* the hamster blinks now and then */
     int bob = h->state == SH_READY ? 0 : ((w->t / 16) % 2);
@@ -286,30 +285,6 @@ static void boss_palette(const world *w)
     }
 }
 
-/* the lives: little hamster heads by each score chip (under it at the top, beside its digits at the bottom, clear of
- * the ships) */
-static void lives_pips(const world *w)
-{
-    for (int p = 0; p < w->players; p++) {
-        const hero *h = &w->h[p];
-        int n = h->lives - (h->state == SH_PLAY || h->state == SH_READY ? 1 : 0);   /* the spare ships */
-        if (h->state == SH_POP && h->lives > 0) n = h->lives;
-        if (n <= 0) continue;
-        if (n > 5) n = 5;
-        hu_chip ch = hu_score_chip(w->players, p, 0);
-        int ux = hu_ui_x(), x0, y, digits = 1;
-        for (int s = h->score; s >= 10; s /= 10) digits++;
-        if (ch.y < 120) {                              /* a top chip: the pips under its digits */
-            y = ch.y + 19;
-            x0 = ch.align < 0 ? ch.x : ch.align > 0 ? ch.x - n * 9 + 1 : ch.x - n * 9 / 2;
-        } else {                                       /* a bottom chip: the pips beside its digits, inwards */
-            y = ch.y + 4;
-            x0 = ch.align < 0 ? ch.x + digits * 12 + 4 : ch.x - digits * 12 - 4 - n * 9;
-        }
-        for (int i = 0; i < n; i++) spr(SPR_PIP, x0 + ux + i * 9, y, 2, player_pal(p), 0);
-    }
-}
-
 /* ---- the BG screens -------------------------------------------------------------------------------------------- */
 static void text_centered(int row, const char *s, int big)
 {
@@ -348,7 +323,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 if (world_is_boss(w)) text_centered(15, TR(BOSS), 1);
             }
             if (w->msg && !w->landed) {
-                const char *m = w->msg == MSG_EXTRA ? TR(EXTRA_LIFE) : w->msg == MSG_DOUBLE ? TR(POWER_DOUBLE) :
+                const char *m = w->msg == MSG_DOUBLE ? TR(POWER_DOUBLE) :
                                 w->msg == MSG_RAPID ? TR(POWER_RAPID) : TR(POWER_SHIELD);
                 if (w->players > 1) {
                     char tag[16];
@@ -408,7 +383,6 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int v[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) v[p] = w->h[p].score;
         hu_score_chips(w->players, v, 0);       /* 1: centred; 2: x 80 / 240; 3-4: the corners */
-        lives_pips(w);
     }
     if (state == ST_OVER) {
         if (w->players == 1) {

@@ -31,22 +31,24 @@ instead and turns. The fewer mice are left, the shorter the wait between two ste
 the very last mouse runs. Three kinds of mice by row: the little mint mice with star antennae on top (30 points), the
 pink mice in bubble helmets (20), the round grey-blue mice below (10). The mice drop three kinds of shots from the
 bottom mouse of a column: a cheese crumb (slow, from above a hamster), a space pea (fast, any column) and a wiggly
-jelly bean (the columns in turn). A shot that reaches a ship pops it: the hamster bonks (X eyes, a cracked dome, a
-shake), the mice hold their fire and march for a second and their shots pop, then a new ship comes, blinking and
-untouchable for 2 s. Three ships, an extra one at 1500 points. A seed and a crumb that meet both pop.
+jelly bean (the columns in turn). **One hit ends the run**, as in the other house games: a shot that reaches a ship
+pops it, the hamster bonks (X eyes, a cracked dome, a shake) and is out; there are no spare ships. Only the bubble
+shield (a power-up) saves a hamster: it takes exactly that one hit and is gone. With 2-4 players a hit puts that player
+out and the others play on (nothing pauses); the run ends when all are out. A seed and a crumb that meet both pop.
 
 Four cheese wedges shelter the hamsters. A seed from below or a shot from above bites a crater in the cheese (pixel by
 pixel: they are dug through bit by bit), and the mice nibble the cheese they march over. Each wave brings fresh cheese.
 
 Now and then a bonus saucer full of crumbs (a cheese wheel, a fat mouse at the wheel) crosses the top: a seed gives its
-mystery points (50, 100, 150 or 300) and, one time in two, a power-up capsule falls: catch it with the ship. Double
-seeds (two side by side) or rapid seeds (three at a time, faster) last 10 s; the bubble shield takes one hit.
+mystery points (50, 100, 150 or 300) and, 6 times in 10, a power-up capsule falls: catch it with the ship. Half of
+them are the bubble shield (it takes one hit, or fades after 20 s); the others double seeds (two side by side) or
+rapid seeds (three at a time, faster) for 10 s.
 
 Each new wave starts a little lower and marches a little faster, in another formation (the full block, a castle with
 battlements, two wings, an arrowhead, a checkerboard). Every 4th wave a big mouse mothership sails over the shelters
 instead: it drops spreads of three peas (and, below half its strength, aimed crumbs) and takes 24 seeds (+8 per extra
-player); popping it gives 500 points. The game is over when every ship is lost, or when the formation reaches the
-moon (THEY LANDED!).
+player); popping it gives 500 points. The game is over when every hamster has been hit, or when the formation reaches
+the moon (THEY LANDED!).
 
 Every number is in src/game.h (the tuning table):
 
@@ -61,27 +63,26 @@ Every number is in src/game.h (the tuning table):
 | points | 30, 20, 20, 10, 10 by row | ROW_POINTS |
 | the mice's shots | a drop every 48 frames at wave 1 (3 fewer each wave, at least 24), at most 3 on screen (+1 per extra player); the crumb 1.0 px/frame (aimed), the pea 1.6, the jelly 1.25, 4% faster each wave (10 waves) | BOMB_RELOAD, BOMB_LIMIT, BOMB_SPEEDS, BOMB_WAVE |
 | the shelters | four wedges of 24x16 px at y 168, x 40, 112, 184, 256; a crater of radius 2 and two nibbles per shot | SHELTER_*, CRATER_R |
-| ships | 3, an extra one at 1500 points (at most 9) | LIVES, EXTRA_LIFE_AT, LIVES_MAX |
-| a hit | an 8-frame hit-stop, the bonk 60 frames (the mice hold 60 frames, their shots pop), a new ship 110 frames after the hit, blinking 120 frames | HIT_FREEZE, POP_FRAMES, HIT_PAUSE, RESPAWN, INVUL_FRAMES |
+| a hit | one hit and the hamster is out (no lives); the bonk 60 frames; the house 8-frame hit-stop when it ends the whole run (with others still playing nothing stops) | POP_FRAMES, HIT_FREEZE |
 | the saucer | 15 s into a wave, then every 20 s while 8 mice or more are left, 1 px/frame at y 30; 50/100/150/300 points (30/40/20/10%) | SAUCER_* |
-| power-ups | one saucer in two drops one (falls 0.75 px/frame); double or rapid seeds 10 s (rapid: 3 seeds, 7 px/frame, one every 10 frames); the bubble one hit or 20 s | POWER_*, RAPID_*, SHIELD_FRAMES |
+| power-ups | 60% of the shot saucers drop one (falls 0.75 px/frame), half of them the bubble shield (one hit or 20 s); double or rapid seeds 10 s (rapid: 3 seeds, 7 px/frame, one every 10 frames) | POWER_*, SHIELD_ODDS, RAPID_*, SHIELD_FRAMES |
 | the mothership | every 4th wave; 24 seeds (+8 per extra player); 0.75 px/frame in 48..272; three peas (0.5 px/frame apart) every 60 frames, every 42 below half (and an aimed crumb every other spread); 10 points a seed, 500 the pop | BOSS_* |
 | the waves | WAVE n for 90 frames (the mice fly in, no seeds yet), 90 frames between two waves | INTRO_FRAMES, CLEAR_FRAMES |
 | the landing | a mouse's body at line 192 (the ships' line): game over | INVADE_Y |
-| medals (1 player) | bronze 1500, silver 4000, gold 8000, pearl 15000 | MEDAL_SCORES |
+| medals (1 player) | bronze 500, silver 1500, gold 3000, pearl 6000 | MEDAL_SCORES |
 
 **The medals** were tuned with the human-like bot (`botskill=E`: it looks less far ahead, now and then misses a shot
-coming, misjudges its aim by up to E px and hesitates to fire), 6 runs each: E = 10 scores about 3400 (wave 4), E = 6
-about 5800 (wave 7), E = 4 about 8400 (wave 10), E = 2 about 11800 (wave 14), E = 1 about 14400 (wave 17). A human
-reacts later than the bot: bronze is the first saucer waves, silver past the first mothership, gold past the second,
-pearl a long game.
+coming, misjudges its aim by up to E px and hesitates to fire), 8 runs each (a full wave 1 is worth 990 points): a
+beginner (E = 10) scores 40..1530, half of the runs past 500 (bronze: half of the first wave); E = 8 170..5810;
+E = 6 1660..4340, most past 1500 (silver: into wave 2); good players (E = 2 and 1) 70..10930 and 2310..8880, half and
+5 runs in 8 past 3000 (gold: the first mothership, wave 4). Pearl (6000, about wave 8) takes a long, clean game.
 
 **The bot** (`--opt bot=N`: tests, screenshots and card frames) plays from the world: for every place it could slide
 to (every 3 px) it plays the next 72 frames ahead (its slide at the ship's speed, every shot's fall, the shelters
 stopping them) and keeps the safe places; of those it picks the one where a seed would hit something (the lowest mice
 first, the saucer, the mothership; a capsule to catch), not too far; it fires when a seed from where it stands would
 hit. With 2-4 bots each keeps to its own lane. `botstop=S` makes it stop dodging once its score reaches S (the tests'
-game over). The perfect bot clears 14 waves (3 motherships) in 20000 frames without losing a ship.
+game over). The perfect bot clears 14 waves (3 motherships) in 20000 frames and is never hit.
 
 ## Screen and layers
 320x240 at 60 Hz, fixed step. The house layout (docs/art-direction.md "Backgrounds"):
@@ -105,8 +106,8 @@ A state saved at one width loads at another.
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the hamster's ship bobbing between two marching mice, a seed flying up, the player slots, PRESS A TO
 PLAY with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, X, Y, Start, Left, Right; a tap)
--> WAVE 1: the formation flies in -> play (the score at the top, the spare ships under it; Select, or Start, pauses)
--> the last ship pops (or the mice land) -> game over (the banner, the panel sliding up: score, best / new best, the
+-> WAVE 1: the formation flies in -> play (the score at the top; Select, or Start, pauses)
+-> a hit: the ship pops (or the mice land) -> game over (the banner, the panel sliding up: score, best / new best, the
 medal, the wave reached; 2-4 players: the ranking by score with medals) -> one press (or a tap): back to the title
 (the same players start again with A).
 
@@ -137,12 +138,13 @@ derived from a touch is kept between frames: the save states need nothing more. 
 every width) plays scripted fingers through the headless runner and compares with the pad's runs.
 
 ## Up to four players
-Pads 2-4 join with A on the title (B leaves). Everyone defends the same moon at once, each with their own ship, seeds,
-ships left and score (the ships pass through each other); the mice shoot at all of them (one more shot on screen per
-extra player) and the mothership takes 8 more seeds per extra player. A player who loses the last ship is out; the
-others play on. The hamsters' fur: golden (P1), white, grey and ginger (tools/build_assets.py swaps the fur ramp of
-make_art.py FUR_P; the ship, the dome and the eyes stay). The HUD shows each score and its spare ships (3-4 players in
-the corners); the results rank everyone by score (the same score, the same place) with medals.
+Pads 2-4 join with A on the title (B leaves). Everyone defends the same moon at once, each with their own ship, seeds
+and score (the ships pass through each other); the mice shoot at all of them (one more shot on screen per extra
+player) and the mothership takes 8 more seeds per extra player. A hamster hit is out (its bubble shield aside); the
+others play on, nothing pauses; the run ends when all are out. The hamsters' fur: golden (P1), white, grey and ginger
+(tools/build_assets.py swaps the fur ramp of make_art.py FUR_P; the ship, the dome and the eyes stay). The HUD shows
+each score (3-4 players in the corners); the results rank everyone by score (the same score, the same place) with
+medals.
 
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The ship: a silver
@@ -161,7 +163,7 @@ The house synthesiser (games/common/src/house_audio.c) for the effects (main.c s
 a bubble pop and a sparkle for a mouse, a bonk with a wobble for a hit, the march beat (a soft woody note played C, E,
 G, E: one step, one note, quicker as the mice thin out), a plip for a falling shot, the saucer's warble, a quick run up
 for the saucer popped, E-G-C for a power-up, a "blup" for the bubble, a splat on the cheese, a clonk on the mothership
-and a big puff when it pops; the house sounds for the menus, a wave (the ding), an extra ship and the medals (the medal
+and a big puff when it pops; the house sounds for the menus, a wave (the ding), the medals (the medal
 jingle) and the game over. The lengths keep the samples under the 64 KiB guideline with the house set.
 
 Music: "Moon Patrol Picnic" (tools/make_music.py): D lydian (the raised fourth gives the major key its floating, starry
@@ -176,9 +178,9 @@ make_music_alt.py OUTDIR N from tools/build_assets.py instead of make_music.py.
 intro, the march step and its beat, the drops and turns at both edges (the edge is the outermost mouse's), the
 speed-up as the mice thin out and from wave to wave, the layouts, the seeds (one on screen, double, rapid), a seed
 popping the bottom mouse of its column, the shelters bitten from below and from above and dug through, the mice
-nibbling them, a hit, the pause and the shots popping, the new ship blinking, the bubble shield, the extra ship, the
-game over, one player out of two, the landing, the saucer's points and its capsule, the mothership and its spreads, the
-touch slide, determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, the intro and the march,
+nibbling them, the bubble shield taking exactly one hit, one hit ending the run (the hit-stop, nothing moves after),
+2 players: one out, the other on, nothing paused, the end with the last one; the landing, the saucer's points and its
+capsule, the mothership and its spreads, the touch slide, determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, the intro and the march,
 moving and firing, the game over and back to the title, pause, save RAM, joining and leaving, 4 players, the mothership,
 no strict-mode warning, the bot, determinism with 1 and 4 players), the touch tests, the UI screens (tests/ui_test.sh: the
 title with 0-3 players joined, play, pause, 4 players, the mothership, the game over with a medal, the results), the save

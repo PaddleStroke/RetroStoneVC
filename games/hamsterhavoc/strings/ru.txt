@@ -2,7 +2,6 @@
 WAVE_N = ВОЛНА %d
 BOSS = КОРАБЛЬ-МАТКА!
 LANDED = ОНИ ПРИЗЕМЛИЛИСЬ!
-EXTRA_LIFE = ЕЩЁ КОРАБЛЬ!
 POWER_DOUBLE = ДВОЙНЫЕ СЕМЕЧКИ!
 POWER_RAPID = БЫСТРЫЕ СЕМЕЧКИ!
 POWER_SHIELD = ЩИТ-ПУЗЫРЬ!

@@ -2,7 +2,6 @@
 WAVE_N = 웨이브 %d
 BOSS = 모선!
 LANDED = 착륙했다!
-EXTRA_LIFE = 1UP!
 POWER_DOUBLE = 더블 씨앗!
 POWER_RAPID = 연사!
 POWER_SHIELD = 방울 방패!

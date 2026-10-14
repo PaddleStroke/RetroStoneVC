@@ -63,7 +63,7 @@ if [ "$(field "$s" paused)" = 1 ] && [ "$(field "$s" x)" = 160 ] && [ "$(field "
     ok "paused: a finger neither moves nor fires"
 else ko "paused: $s"; fi
 
-# the game over (an idle ship is shot three times): a tap goes back to the title
+# the game over (an idle ship is shot): a tap goes back to the title
 s=$(run over 4000 "$START")
 over=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/over.log")
 if [ "$(field "$s" st)" = 3 ] && [ -n "$over" ]; then ok "an idle run ends (the panel at frame $over)"

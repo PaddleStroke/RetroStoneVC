@@ -7,7 +7,7 @@ The sheet layout (SPRITES) is shared with build_assets.py.
 
 Writes, in the art folder (default games/hamsterhavoc/art):
   sprites.png (256x96): the hamster's glass-dome ship (golden fur; players 2-4 recolour the fur: white, grey,
-      ginger), its icon, the lives' pip, the sunflower seed, the power-ups and the bubble shield (OBJ 0); the three
+      ginger), its icon, the sunflower seed, the power-ups and the bubble shield (OBJ 0); the three
       kinds of space mice (two march frames each), their pops into sparkles and crumbs, small digits, the
       mothership's hit bar (OBJ 2); the crumbs, peas and jelly beans, the bonus saucer (OBJ 6); the mothership (OBJ 7)
   tiles/moon.png (576x32)     BG2: the big cheese moon below (its curve shows on wide screens), and
@@ -45,7 +45,6 @@ SPRITES = [
     ("ship_hit", 96, 0, 32, 24, 2, "hero"),     # bonk: X eyes, the dome cracked
     ("bubble", 160, 0, 32, 32, 1, "hero"),      # the bubble shield
     ("icon", 192, 0, 16, 16, 1, "hero"),        # the title's player slots, the results
-    ("pip", 208, 0, 8, 8, 1, "hero"),           # a spare life
     ("seed", 216, 0, 8, 8, 1, "hero"),          # the sunflower seed
     ("badge", 224, 0, 8, 8, 2, "hero"),         # double seeds, rapid seeds (by the ship)
     ("power", 0, 32, 16, 16, 3, "hero"),        # the capsules: double seeds, rapid seeds, the bubble
@@ -215,16 +214,6 @@ def ship(pose="idle"):
 def icon():
     cv = Canvas(16, 16)
     hamster_head(cv, 8.0, 9.0, "idle", 1, 1.05)
-    cv.outline(OUT)
-    return cv
-
-
-def pip():
-    cv = Canvas(8, 8)
-    disc(cv, 1.8, 2.0, 1.4, FUR[2])
-    disc(cv, 6.2, 2.0, 1.4, FUR[2])
-    hs.ellipse(cv, 4.0, 4.6, 3.3, 2.8, FUR)
-    cv.set(2, 4, INK), cv.set(5, 4, INK), cv.set(3, 5, PINK), cv.set(4, 5, PINK)
     cv.outline(OUT)
     return cv
 
@@ -522,7 +511,7 @@ def sprite_frame(name, i):
         return ship("hit2" if i else "hit")
     if name.startswith("mouse_"):
         return mouse(name[6:], i)
-    fn = {"bubble": bubble, "icon": icon, "pip": pip, "seed": seed}.get(name)
+    fn = {"bubble": bubble, "icon": icon, "seed": seed}.get(name)
     if fn:
         return fn()
     fn = {"badge": badge, "power": power, "pop": pop, "splat": splat, "sparkle": sparkle, "hp": hp, "digit": digit,

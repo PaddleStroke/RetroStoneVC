@@ -142,14 +142,6 @@ static void add_score(world *w, int p, int pts)
 {
     hero *h = &w->h[p];
     h->score += pts;
-    if (!h->extra && h->score >= EXTRA_LIFE_AT) {
-        h->extra = 1;
-        if (h->lives < LIVES_MAX) h->lives++;
-        w->events[p] |= EV_EXTRA;
-        w->msg = MSG_EXTRA;
-        w->msg_t = 0;
-        w->msg_player = p;
-    }
 }
 
 /* ---- the waves ---------------------------------------------------------------------------------------------------- */
@@ -177,7 +169,6 @@ void world_start_wave(world *w, int wave)
     w->fy = FORM_Y0 + imin((wave - 1) * WAVE_LOWER, WAVE_LOWER_MAX);
     w->bomb_t = BOMB_RELOAD;
     w->bomb_k = 0;
-    w->pause_t = 0;
     shelters_reset(w);
     if (world_is_boss(w)) {
         w->boss_on = 1;
@@ -215,7 +206,6 @@ void world_init(world *w, int players, uint32_t seed)
         hero *h = &w->h[p];
         h->state = p < w->players ? SH_READY : SH_OFF;
         h->x = (int32_t)(160 + (2 * p - (w->players - 1)) * SHIP_GAP / 2) << 16;
-        h->lives = LIVES;
         h->face = 1;
         h->fire_t = 99;
     }
@@ -283,24 +273,20 @@ static void try_fire(world *w, int p)
     w->events[p] |= EV_FIRE;
 }
 
+/* one hit and the hamster is out (the house rule); the others play on, nothing waits for it */
 static void hit(world *w, int p)
 {
     hero *h = &w->h[p];
-    h->lives--;
     h->state = SH_POP;
     h->t = 0;
     h->power = PW_NONE;
     h->power_t = 0;
     h->shield_t = 0;
     memset(w->seeds[p], 0, sizeof w->seeds[p]);
-    w->events[p] |= EV_HIT | (h->lives <= 0 ? EV_DOWN : 0);
-    w->pause_t = HIT_PAUSE;
-    w->freeze = HIT_FREEZE;
-    for (int i = 0; i < BOMB_MAX; i++)                          /* the mice's shots pop: a fair restart */
-        if (w->bombs[i].on) {
-            w->bombs[i].on = 0;
-            add_fx(w, FX_SPLAT, w->bombs[i].x >> 16, (w->bombs[i].y >> 16) + 2, 0);
-        }
+    w->events[p] |= EV_HIT | EV_DOWN;
+    int left = 0;
+    for (int q = 0; q < w->players; q++) left += w->h[q].state == SH_PLAY;
+    if (!left) w->freeze = HIT_FREEZE;                         /* the house hit-stop, when the run ends */
 }
 
 static void give_power(world *w, int p, int kind)
@@ -340,7 +326,6 @@ static void step_heroes(world *w, const pin in[MAX_PLAYERS])
             if (h->x > (SHIP_MAX_X << 16)) h->x = SHIP_MAX_X << 16;
             h->move = d > 0 ? 1 : d < 0 ? -1 : 0;
             if (h->move) h->face = h->move;
-            if (h->invul) h->invul--;
             if (h->power_t && --h->power_t == 0) h->power = PW_NONE;
             if (h->shield_t) h->shield_t--;
             if (h->gap) h->gap--;
@@ -349,15 +334,8 @@ static void step_heroes(world *w, const pin in[MAX_PLAYERS])
         }
         case SH_POP:
             if (h->t >= POP_FRAMES) {
-                h->state = h->lives > 0 ? SH_GONE : SH_DOWN;
+                h->state = SH_DOWN;
                 h->t = 0;
-            }
-            break;
-        case SH_GONE:
-            if (h->t >= RESPAWN - POP_FRAMES) {
-                h->state = SH_PLAY;
-                h->t = 0;
-                h->invul = INVUL_FRAMES;
             }
             break;
         default:
@@ -404,7 +382,7 @@ static void shoot_saucer(world *w, int p)
     w->saucer_t = SAUCER_EVERY;
     if (!w->power_on && rs_rng_range(&w->rng, 100) < POWER_CHANCE) {
         w->power_on = 1;
-        w->power_kind = 1 + rs_rng_range(&w->rng, PW_KINDS - 1);
+        w->power_kind = rs_rng_range(&w->rng, 100) < SHIELD_ODDS ? PW_SHIELD : 1 + rs_rng_range(&w->rng, 2);
         w->power_x = (int32_t)sx << 16;
         w->power_y = (int32_t)(SAUCER_Y + 4) << 16;
     }
@@ -514,7 +492,7 @@ static void step_bombs(world *w)
         for (int p = 0; p < w->players; p++) {
             hero *h = &w->h[p];
             int hx = h->x >> 16;
-            if (h->state != SH_PLAY || h->invul) continue;
+            if (h->state != SH_PLAY) continue;
             if (x + 1 < hx - SHIP_HALF || x - 2 > hx + SHIP_HALF || y1 < SHIP_Y + 6 || top > SHIP_Y + 21) continue;
             if (h->shield_t) {                                  /* the bubble takes it */
                 h->shield_t = 0;
@@ -603,7 +581,6 @@ static void landed(world *w)
     for (int p = 0; p < w->players; p++) {
         hero *h = &w->h[p];
         if (h->state == SH_DOWN || h->state == SH_OFF) continue;
-        h->lives = 0;
         if (h->state != SH_POP) {
             h->state = SH_POP;
             h->t = 0;
@@ -642,7 +619,7 @@ static void march(world *w)
 /* ---- the saucer, its capsule ---------------------------------------------------------------------------------------- */
 static void step_saucer(world *w)
 {
-    if (world_is_boss(w) || w->pause_t) return;
+    if (world_is_boss(w)) return;
     if (!w->saucer_on) {
         if (w->alive_n < SAUCER_MIN_MICE || --w->saucer_t > 0) return;
         w->saucer_on = 1;
@@ -682,7 +659,6 @@ static void step_boss(world *w)
 {
     if (!w->boss_on) return;
     if (w->boss_flash) w->boss_flash--;
-    if (w->pause_t) return;
     w->boss_t++;
     w->boss_x += w->boss_dir * BOSS_SPEED;
     if (w->boss_x > (BOSS_MAX_X << 16)) w->boss_dir = -1;
@@ -747,13 +723,9 @@ void world_step(world *w, const pin in[MAX_PLAYERS])
         step_power(w);
         step_boss(w);
         step_saucer(w);
-        if (w->pause_t) {
-            w->pause_t--;
-        } else {
-            march(w);
-            if (w->phase != PH_PLAY) break;
-            if (w->alive_n) drop_bombs(w);
-        }
+        march(w);
+        if (w->phase != PH_PLAY) break;
+        if (w->alive_n) drop_bombs(w);
         if (world_is_boss(w) ? !w->boss_on : !w->alive_n) {     /* the wave is cleared */
             w->phase = PH_CLEAR;
             w->phase_t = 0;
@@ -769,7 +741,9 @@ void world_step(world *w, const pin in[MAX_PLAYERS])
     default:
         break;
     }
-    if (w->phase != PH_OVER && world_all_down(w)) w->phase = PH_OVER;
+    int playing = 0;                                            /* the last hamster popped: the run is over */
+    for (int p = 0; p < w->players; p++) playing += w->h[p].state == SH_PLAY;
+    if (w->phase != PH_OVER && !playing) w->phase = PH_OVER;
 }
 
 /* ---- the bot ---------------------------------------------------------------------------------------------------------

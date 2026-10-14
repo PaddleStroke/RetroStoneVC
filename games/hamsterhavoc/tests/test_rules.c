@@ -1,7 +1,7 @@
 /*
  * Hamster Havoc: the rules alone (src/play.c, no video, no sound): the march (steps, the drop at each edge, the
  * speed-up as the mice thin out, each wave faster), the shelters eroded by both sides' shots and nibbled by the mice,
- * the seeds (one on screen, double, rapid), hits, lives, the respawn, the bubble shield, the extra ship, the landing,
+ * the seeds (one on screen, double, rapid), one hit ends a hamster's run (the bubble shield takes one), the landing,
  * the saucer, the mothership, the touch slide, determinism and the bot.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/hamsterhavoc/LICENSE.
  */
@@ -230,7 +230,7 @@ static void test_shelters(void)
     for (int k = 0; k < 12 && !dug; k++) {
         w.bombs[0] = (bomb){(sx + 4) << 16, (SHELTER_Y - 20) << 16, 0, Q16_ONE, 1, BK_PEA};
         for (int i = 0; i < 60 && w.bombs[0].on; i++) world_step(&w, in);
-        dug = !w.bombs[0].on && w.h[0].lives == LIVES && shelter_bits(&w) > 0 && !shelter_solid(&w, sx + 4, SHELTER_Y + 8);
+        dug = !w.bombs[0].on && w.phase == PH_PLAY && shelter_bits(&w) > 0 && !shelter_solid(&w, sx + 4, SHELTER_Y + 8);
     }
     CHECK(dug, "crumbs dig a hole through");
     /* the mice nibble what they march over */
@@ -245,56 +245,42 @@ static void test_shelters(void)
 static void test_hits(void)
 {
     world w;
+    /* the bubble shield takes exactly one hit */
     playing(&w, 1, 1);
-    int hx = w.h[0].x >> 16;
-    w.bomb_t = 1 << 30;
-    w.bombs[0] = (bomb){hx << 16, (SHIP_Y - 10) << 16, 0, Q16_ONE, 1, BK_CRUMB};
-    w.bombs[1] = (bomb){(hx + 60) << 16, 100 << 16, 0, Q16_ONE, 1, BK_PEA};
+    w.h[0].shield_t = SHIELD_FRAMES;
+    w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
+    w.bombs[1] = (bomb){w.h[0].x, (SHIP_Y - 30) << 16, 0, Q16_ONE, 1, BK_PEA};
+    int shield = 0;
+    for (int i = 0; i < 10; i++) {
+        world_step(&w, in);
+        shield |= w.events[0] & EV_SHIELD;
+    }
+    CHECK(shield && w.h[0].shield_t == 0 && w.h[0].state == SH_PLAY && w.phase == PH_PLAY, "the bubble takes a hit");
+    /* ... and the next shot is the end: one hit, game over (no lives, no respawn) */
     int hit = 0;
-    for (int i = 0; i < 30 && !hit; i++) {
+    for (int i = 0; i < 40 && !hit; i++) {
         world_step(&w, in);
         hit = w.events[0] & EV_HIT;
     }
-    CHECK(hit && w.h[0].lives == LIVES - 1 && w.h[0].state == SH_POP, "a crumb costs a ship (%d left)", w.h[0].lives);
-    CHECK(!w.bombs[1].on && w.pause_t >= HIT_PAUSE - 1 && w.freeze == HIT_FREEZE, "the shots pop, the mice hold");
-    int fx = w.fx, fy = w.fy;
-    for (int i = 0; i < HIT_FREEZE + HIT_PAUSE - 1; i++) world_step(&w, in);
-    CHECK(w.fx == fx && w.fy == fy, "the formation waits meanwhile");
-    while (w.h[0].state != SH_PLAY) world_step(&w, in);
-    CHECK(w.h[0].invul == INVUL_FRAMES, "a new ship, blinking");
-    w.bombs[0] = (bomb){(w.h[0].x >> 16) << 16, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
-    for (int i = 0; i < 10; i++) world_step(&w, in);
-    CHECK(w.h[0].lives == LIVES - 1, "untouchable while it blinks");
-    /* the bubble shield takes one hit */
-    w.h[0].invul = 0;
-    w.h[0].shield_t = SHIELD_FRAMES;
-    w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
-    for (int i = 0; i < 10; i++) world_step(&w, in);
-    CHECK(w.h[0].lives == LIVES - 1 && w.h[0].shield_t == 0 && w.h[0].state == SH_PLAY, "the bubble takes a hit");
-    /* the extra ship at EXTRA_LIFE_AT */
-    w.h[0].score = EXTRA_LIFE_AT - 10;
-    w.h[0].x = (open_column(&w) + 8) << 16;
-    in[0].fire = 1;
-    for (int i = 0; i < 60 && w.h[0].score < EXTRA_LIFE_AT; i++) {
-        w.fstep_t = 0;
-        world_step(&w, in);
-    }
-    CHECK(w.h[0].lives == LIVES && w.h[0].extra && w.msg == MSG_EXTRA, "an extra ship at %d points", EXTRA_LIFE_AT);
-    /* the last ship: game over */
-    idle();
-    w.h[0].lives = 1;
-    w.h[0].invul = 0;
-    w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
+    CHECK(hit && (w.events[0] & EV_DOWN) && w.h[0].state == SH_POP && w.phase == PH_OVER && !world_running(&w),
+          "one hit without the bubble: the run is over");
+    CHECK(w.freeze == HIT_FREEZE, "the hit-stop");
+    int fx = w.fx;
     for (int i = 0; i < 200; i++) world_step(&w, in);
-    CHECK(w.h[0].state == SH_DOWN && w.phase == PH_OVER && !world_running(&w) && world_all_down(&w),
-          "no ship left: game over");
-    /* 2 players: one down, the other plays on */
+    CHECK(w.h[0].state == SH_DOWN && world_all_down(&w) && w.fx == fx, "the ship pops, then nothing moves");
+    /* 2 players: one hit puts P2 out, P1 plays on, nothing waits */
     playing(&w, 2, 1);
-    w.h[1].lives = 1;
     w.bombs[0] = (bomb){w.h[1].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
+    w.bombs[1] = (bomb){((w.h[0].x >> 16) - 60) << 16, 100 << 16, 0, Q16_ONE, 1, BK_PEA};
+    world_step(&w, in);
+    CHECK((w.events[1] & EV_DOWN) && w.freeze == 0 && w.bombs[1].on, "2 players: P2 is out, no pause, the shots go on");
     for (int i = 0; i < 200; i++) world_step(&w, in);
-    CHECK(w.h[1].state == SH_DOWN && w.h[0].state == SH_PLAY && world_running(&w), "2 players: P2 out, P1 on");
+    CHECK(w.h[1].state == SH_DOWN && w.h[0].state == SH_PLAY && world_running(&w), "... and P1 plays on");
+    w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
+    for (int i = 0; i < 5; i++) world_step(&w, in);
+    CHECK(w.phase == PH_OVER && !world_running(&w), "the run ends when the last hamster is out");
 }
+
 
 static void test_landing(void)
 {
@@ -304,7 +290,7 @@ static void test_landing(void)
     w.fx = BAND_R - 16 - (COLS - 1) * COL_W - 1;
     w.fstep_t = march_interval(&w) - 1;
     world_step(&w, in);
-    CHECK(w.landed && w.phase == PH_OVER && w.h[0].lives == 0 && w.h[1].state == SH_POP, "the mice landed: game over");
+    CHECK(w.landed && w.phase == PH_OVER && w.h[0].state == SH_POP && w.h[1].state == SH_POP, "the mice landed: game over");
     for (int i = 0; i < POP_FRAMES + 2; i++) world_step(&w, in);
     CHECK(world_all_down(&w), "every ship pops");
 }
@@ -421,7 +407,7 @@ static void test_determinism_and_bot(void)
         i2[0] = bot_decide(&w, 0, 0);
         world_step(&w, i2);
     }
-    CHECK(w.wave >= 4 && w.h[0].lives >= LIVES, "the bot reaches wave %d with %d ships", w.wave, w.h[0].lives);
+    CHECK(w.wave >= 4 && w.h[0].state == SH_PLAY, "the bot reaches wave %d unhit", w.wave);
 }
 
 int main(void)

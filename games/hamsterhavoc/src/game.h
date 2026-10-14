@@ -69,15 +69,9 @@
 #define SHELTER_Y     168
 #define SHELTER_XS    {40, 112, 184, 256}        /* left edges (8-aligned: drawn on the moon's BG layer) */
 #define CRATER_R      2         /* a shot bites a crater of this radius (plus two nibbles) */
-/* lives */
-#define LIVES         3
-#define LIVES_MAX     9
-#define EXTRA_LIFE_AT 1500      /* points: one extra life (each player, once) */
-#define HIT_FREEZE    8         /* the hit-stop, frames */
-#define POP_FRAMES    60        /* the popped ship's bonk ... */
-#define HIT_PAUSE     60        /* ... the mice hold their fire and march meanwhile (their shots pop) */
-#define RESPAWN       110       /* frames from the hit to the new ship ... */
-#define INVUL_FRAMES  120       /* ... which blinks, untouchable, this long */
+/* one hit ends a hamster's run (the house rule), unless it carries the bubble shield (which takes exactly that hit) */
+#define HIT_FREEZE    8         /* the hit-stop, frames, when the hit ends the whole run (the others play on) */
+#define POP_FRAMES    60        /* the popped ship's bonk, then it is out */
 /* the bonus saucer */
 #define SAUCER_Y      30
 #define SAUCER_FIRST  900       /* frames into a wave before the first saucer (15 s) ... */
@@ -86,7 +80,8 @@
 #define SAUCER_SPEED  65536     /* Q16 px/frame (1) */
 #define SAUCER_POINTS {50, 100, 150, 300}        /* the mystery points ... */
 #define SAUCER_ODDS   {30, 40, 20, 10}           /* ... and their odds in % */
-#define POWER_CHANCE  50        /* % of the shot saucers that drop a power-up */
+#define POWER_CHANCE  60        /* % of the shot saucers that drop a power-up ... */
+#define SHIELD_ODDS   50        /* ... % of them a bubble shield (the rest double or rapid seeds, half each) */
 #define POWER_SPEED   49152     /* Q16 px/frame (0.75): the capsule falls; a ship catches it */
 #define POWER_FRAMES  600       /* double or rapid seeds last 10 s */
 #define SHIELD_FRAMES 1200      /* the bubble shield: one hit, or 20 s */
@@ -113,18 +108,17 @@
 #define RETRY_LOCK    36        /* frames the panel ignores the button (no accidental retry) */
 #define READY_BOB     4         /* the title ship's bob amplitude, px */
 #define BOT_START     20        /* frames on the title before the bot starts the run */
-#define MSG_FRAMES    120       /* EXTRA LIFE!, the power-ups' names */
-#define MEDAL_SCORES  {1500, 4000, 8000, 15000}  /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
+#define MSG_FRAMES    120       /* the power-ups' names */
+#define MEDAL_SCORES  {500, 1500, 3000, 6000}    /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
 
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
-enum hero_state { SH_READY, SH_PLAY, SH_POP, SH_GONE, SH_DOWN, SH_OFF };
+enum hero_state { SH_READY, SH_PLAY, SH_POP, SH_DOWN, SH_OFF };
 enum { PW_NONE, PW_DOUBLE, PW_RAPID, PW_SHIELD, PW_KINDS };
 typedef struct hero {
     int state, t;               /* state, frames in it */
     int32_t x;                  /* Q16 centre x */
-    int lives, score, extra;    /* extra: the extra life was given */
-    int invul;                  /* frames left blinking (untouchable) */
-    int power, power_t;         /* PW_DOUBLE or PW_RAPID, frames left */
+    int score;
+    int power, power_t;        /* PW_DOUBLE or PW_RAPID, frames left */
     int shield_t;               /* the bubble shield's frames left (0: none) */
     int gap;                    /* frames before the next rapid seed */
     int face, move;             /* the last direction; this frame's (-1, 0, 1) */
@@ -140,7 +134,7 @@ typedef struct effect { int16_t x, y, value; uint8_t kind, t, on, pad; } effect;
 typedef struct pin { int dir, fire, target; } pin;
 
 enum { PH_READY, PH_INTRO, PH_PLAY, PH_CLEAR, PH_OVER };
-enum { MSG_NONE, MSG_EXTRA, MSG_DOUBLE, MSG_RAPID, MSG_SHIELD };
+enum { MSG_NONE, MSG_DOUBLE, MSG_RAPID, MSG_SHIELD };
 typedef struct world {
     /* the formation */
     uint8_t alive[ROWS][COLS];
@@ -161,7 +155,7 @@ typedef struct world {
     int boss_on, boss_hp, boss_hp0, boss_dir, boss_fire_t, boss_flash, boss_t, boss_volley;
     int32_t boss_x;
     /* the run */
-    int wave, phase, phase_t, pause_t, freeze, landed;
+    int wave, phase, phase_t, freeze, landed;
     rs_rng rng;
     uint32_t seed;
     hero h[MAX_PLAYERS];
@@ -170,7 +164,7 @@ typedef struct world {
     int events[MAX_PLAYERS];    /* EV_* of the last step */
     int wevents;                /* WEV_* of the last step */
 } world;
-enum { EV_FIRE = 1, EV_POP = 2, EV_HIT = 4, EV_DOWN = 8, EV_EXTRA = 16, EV_POWER = 32, EV_SAUCER = 64,
+enum { EV_FIRE = 1, EV_POP = 2, EV_HIT = 4, EV_DOWN = 8, EV_POWER = 32, EV_SAUCER = 64,
        EV_SHIELD = 128, EV_BOSS_HIT = 256, EV_BOSS_DOWN = 512, EV_START = 1024 };
 enum { WEV_BEAT = 1, WEV_BOMB = 2, WEV_SAUCER = 4, WEV_WAVE = 8, WEV_CLEAR = 16, WEV_LANDED = 32, WEV_SPLAT = 64,
        WEV_SHELTER = 128, WEV_BOSS_FIRE = 256 };
