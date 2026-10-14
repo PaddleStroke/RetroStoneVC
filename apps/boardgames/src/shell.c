@@ -7,7 +7,8 @@
  *   retrostoneboard [--save DIR]      the app (a window; full screen on Android); its settings and progress kept in
  *                                     the device's folder for apps (SDL_GetPrefPath), or in DIR
  *   retrostoneboard --shot out.bmp [--size 720x1280] [--game chess] [--variant 0] [--moves "e2e4 e7e5"]
- *                   [--taps "0.5,0.9 0.5,0.7"] [--drag "0.1,0.9 0.5,0.5"] [--hold "0.5,0.5 800"] [--flip] [--f2f]
+ *                   [--taps "0.5,0.9 0.5,0.7"] [--drag "0.1,0.9 0.5,0.5"] [--hold "0.5,0.5 800"]
+ *                   [--slide "0.1,0.9 0.1,0.5 0.5,0.5"] [--flip] [--f2f]
  *                   [--keep] [--pick] [--players n] [--reveal] [--at ms] [--level n] [--solved "1-12:3 13:2"]
  *                   [--keys "Up Left"] [--random] [--icons] [--save DIR] [--bots "1:h,2:m"] [--steps n]
  *                                     one picture, no window: the menu (no --game), the picker (--pick) or a game
@@ -154,7 +155,8 @@ static box grid_ext;                            /* the board as the game fitted 
 static int last_status, over_hidden, instant;   /* instant: the picture mode (no pause before the end card) */
 static Uint32 end_seen;                         /* when the end of the game was first shown (0: not yet) */
 #define END_PAUSE 900                           /* ms of the final position before the end card */
-#define SOLVED_W 4.6f                           /* a solved puzzle's card: its width (units; 3.8 high) */
+#define SOLVED_W 4.6f                           /* a solved puzzle's card: its width in its own unit (3.8 high; 3 with
+                                                 * no moves shown), 0.7 of the screen's short side */
 static Uint32 armed;                            /* "new game" tapped once: a second tap within 2.5 s confirms */
 
 enum { B_HOME, B_UNDO, B_FLIP, B_F2F, B_NEW, B_HELP, NBTN };
@@ -178,7 +180,7 @@ static struct {
     int ntabs, tab_sec[SECTIONS];
 } L;
 
-static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_card_s, *t_gold, *t_shadow, *t_ring,
+static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_menu_card_on, *t_thumb[MAX_GAMES][MAX_VARIANTS + 1],
     *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
     *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
@@ -230,6 +232,28 @@ static struct {
  * stars pop in) */
 static struct { float x, y, d; } next_btn, replay_btn;
 static Uint32 card_t0;
+
+/* the pointer (the mouse, or the finger SDL makes it from) as the game knows it. game: its press went to the game (its
+ * moves and its lifting go there too); stray: it was down when the game ended (a puzzle solved, an end card shown), or
+ * it fell on the card: its moves and its lifting are nobody's. x, y: where the game last had it. Several fingers (a
+ * game's finger()): the ones the game holds, the stray ones. */
+#define MAX_FINGERS 10
+static struct {
+    int game, stray;
+    float x, y;
+    long long held[MAX_FINGERS], strays[MAX_FINGERS];
+    int nheld, nstrays;
+} PT;
+static void fingers_stray(void);
+
+/* a puzzle solved (a game of levels, or one player with stars): its stars card, which only its replay and next
+ * buttons take away (or undo); the game hears nothing meanwhile but its tools */
+static int solved_card(void)
+{
+    if (screen != SCR_GAME || cur < 0) return 0;
+    const game *g = games[cur];
+    return g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars));
+}
 
 /* ---- the registry ------------------------------------------------------------------------------------------------ */
 void game_register(const game *g)
@@ -1132,10 +1156,6 @@ static void shared_textures(void)
     ui_free(&t_card);
     art_roundrect(cw, ch, 0.4f * u, card_c, ui_buf(cw, ch));
     t_card = ui_tex(cw, ch, ui_buf(cw, ch));
-    int sw = (int)(SOLVED_W * u);                 /* a solved puzzle's card: narrower (stars, moves, two buttons) */
-    ui_free(&t_card_s);
-    art_roundrect(sw, ch, 0.4f * u, card_c, ui_buf(sw, ch));
-    t_card_s = ui_tex(sw, ch, ui_buf(sw, ch));
     if (!t_bg) {                                /* the table: a dark green, lighter in the middle */
         uint8_t *b = ui_buf(2, 256);
         for (int y = 0; y < 256; y++)
@@ -2802,12 +2822,13 @@ static void draw_winners(unsigned won, int draw, float cx, float cy, float u)
 /* a solved puzzle's card (a game of levels, or one player with stars): its stars popping in one by one (a game of
  * levels without stars: the player's token in gold light), the moves made beside the fewest possible (score(),
  * par(): digits, the par after a flag), then two buttons: replay (the same puzzle) and next in gold light (the next
- * level, after the last one the level screen; a new puzzle of the same variant) */
+ * level, after the last one the level screen; a new puzzle of the same variant), as big as the shell's buttons. u: the
+ * card's own unit (SOLVED_W of them wide). */
 static void draw_solved(float cx, float cy, float u)
 {
     const game *g = games[cur];
     int row = g->score != NULL;
-    float top = cy - (row ? 0.95f : 0.72f) * u, by = cy + (row ? 1.12f : 0.85f) * u;
+    float top = cy - (row ? 0.95f : 0.5f) * u, by = cy + (row ? 1.2f : 0.8f) * u;
     if (g->level_stars) {
         int s = g->level_stars();
         s = s < 0 ? 0 : s > 3 ? 3 : s;
@@ -2817,7 +2838,7 @@ static void draw_solved(float cx, float cy, float u)
         }
         float t = (float)(ui_ms() - card_t0);
         for (int k = 0; k < 3; k++) {
-            float x = cx + (k - 1) * 1.25f * u, y = top - (k == 1 ? 0.14f * u : 0), d = (k == 1 ? 1.2f : 1.0f) * u;
+            float x = cx + (k - 1) * 1.2f * u, y = top - (k == 1 ? 0.14f * u : 0), d = (k == 1 ? 1.1f : 0.92f) * u;
             star_at(x, y, d, 2);
             if (k >= s) continue;
             float e = (t - 150 - 170 * k) / 240;   /* 0..1: it swells past its size, then settles */
@@ -2830,12 +2851,12 @@ static void draw_solved(float cx, float cy, float u)
             star_at(x, y, d * grow, 0);
         }
     } else {
-        ui_put_c(t_gold, cx, top + 0.1f * u, 2.3f * u, 2.3f * u);
-        ui_put_c(t_big[0], cx, top + 0.1f * u, 1.5f * u, 1.5f * u);
+        ui_put_c(t_gold, cx, top + 0.1f * u, 2.1f * u, 2.1f * u);
+        ui_put_c(t_big[0], cx, top + 0.1f * u, 1.35f * u, 1.35f * u);
     }
     if (row) {                                  /* the moves; the par after its flag */
         int m = g->score(), p = g->par ? g->par() : 0;
-        float h = 0.58f * u, y = cy + 0.1f * u, fd = 0.72f * u, gap = 0.45f * u;
+        float h = 0.72f * u, y = cy + 0.17f * u, fd = 0.86f * u, gap = 0.45f * u;
         m = m < 0 ? 0 : m;
         float mw = ui_number_w(m, h), pw = p > 0 ? ui_number_w(p, h) : 0;
         float w = mw + (p > 0 ? gap + fd + 0.06f * u + pw : 0), x = cx - w / 2;
@@ -2851,10 +2872,10 @@ static void draw_solved(float cx, float cy, float u)
             ui_number_ex(x + fd + 0.06f * u + pw / 2, y, h, p, NUM_LIGHT, 170, 0);
         }
     }
-    replay_btn.x = cx - 1.05f * u;
-    next_btn.x = cx + 1.05f * u;
+    replay_btn.x = cx - 1.0f * u;
+    next_btn.x = cx + 1.0f * u;
     replay_btn.y = next_btn.y = by;
-    replay_btn.d = next_btn.d = 1.1f * u;
+    replay_btn.d = next_btn.d = fminf(1.1f * u, 2.1f * L.br);   /* the shell's buttons' size (a small card: less) */
     int last = g->levels && !in_random(cur) && variant[cur] + 1 >= nlevels(cur);
     ui_button(replay_btn.x, replay_btn.y, replay_btn.d, ICON_REPLAY, 0);
     ui_button(next_btn.x, next_btn.y, next_btn.d, last ? ICON_GRID : ICON_ARROW, UI_LIT);
@@ -2866,7 +2887,7 @@ static void draw_result(float cx, float cy, float u)
     const game *g = games[cur];
     int st = g->status();
     float big = 2.4f * u;
-    if (st == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars))) {   /* a puzzle solved */
+    if (solved_card()) {                        /* a puzzle solved */
         draw_solved(cx, cy, u);
         return;
     }
@@ -2983,43 +3004,22 @@ static int end_veil_whole(void)
     return ui.players > 1 && (g->view == VIEW_HIDDEN || (g->hidden && g->hidden()));
 }
 
-/* a solved puzzle's card goes where it covers the board least (the player looks at what they solved): in the band of
- * the room the board leaves (below it, above it, beside it) that shows it nearly whole (else the biggest, down to 0.65
- * of its size); none so big: smaller, against the edge of the room with the most room, over the board's edge. The board: the square (a
- * board game's), else the biggest grid the game fitted (ui_grid_fit), else the whole room. A tap hides it. */
-static void solved_place(float *cx, float *cy, float *k)
+/* a solved puzzle's card: big, 0.7 of the screen's short side wide (the same look on a phone, either way round, and on
+ * a desktop's window), centred on the board (it covers it: the player's eyes go to the stars), within the room between
+ * the bars (smaller if the room is). The board: the square (a board game's), else the biggest grid the game fitted
+ * (ui_grid_fit), else the whole room. q: the card's own unit (SOLVED_W of them wide). */
+static void solved_place(float *cx, float *cy, float *w, float *h, float *q)
 {
     box r = L.room, e = games[cur]->fill || is_view() ? grid_ext : L.board;
     if (e.w <= 0) e = r;
-    float x0 = fmaxf(e.x, r.x), y0 = fmaxf(e.y, r.y), x1 = fminf(e.x + e.w, r.x + r.w), y1 = fminf(e.y + e.h, r.y + r.h);
-    float u = ui.unit, cw = SOLVED_W * u, ch = 3.8f * u, m = 0.15f * u;
-    float band[4] = {y0 - r.y, r.y + r.h - y1, x0 - r.x, r.x + r.w - x1};   /* above, below, left, right */
-    static const int order[4] = {1, 0, 3, 2};   /* below first, then above, at the right, at the left */
-    int best = 1;
-    float kb = 0;
-    for (int j = 0; j < 4; j++) {               /* the first where it shows nearly whole, else the biggest */
-        int i = order[j];
-        float ki = i < 2 ? fminf((band[i] - m) / ch, r.w / cw) : fminf((band[i] - m) / cw, r.h / ch);
-        ki = fminf(1, ki);
-        if (ki > kb + 0.01f && kb < 0.85f) { kb = ki; best = i; }
-    }
-    if (kb >= 0.65f) {                          /* in the band, centred on the board's side */
-        *k = kb;
-        *cx = best < 2 ? clampf((x0 + x1) / 2, r.x + cw * kb / 2, r.x + r.w - cw * kb / 2)
-                       : best == 2 ? r.x + band[2] / 2 : x1 + band[3] / 2;
-        *cy = best >= 2 ? clampf((y0 + y1) / 2, r.y + ch * kb / 2, r.y + r.h - ch * kb / 2)
-                        : best == 0 ? r.y + band[0] / 2 : y1 + band[1] / 2;
-        return;
-    }
-    *k = fminf(0.85f, fminf(r.w / cw, r.h / ch));   /* against the room's edge: below (portrait), at the right */
-    int vertical = ui.w <= ui.h;
-    if (vertical) {
-        *cx = r.x + r.w / 2;
-        *cy = band[0] > band[1] ? r.y + ch * *k / 2 + m : r.y + r.h - ch * *k / 2 - m;
-    } else {
-        *cy = r.y + r.h / 2;
-        *cx = band[2] > band[3] ? r.x + cw * *k / 2 + m : r.x + r.w - cw * *k / 2 - m;
-    }
+    float hq = games[cur]->score ? 3.8f : 3.0f;   /* no moves to show: lower */
+    float cw = 0.7f * fminf(ui.w, ui.h), ch = cw * hq / SOLVED_W;
+    float k = fminf(1, fminf(0.98f * r.w / cw, 0.98f * r.h / ch));
+    *w = floorf(cw * k);
+    *h = floorf(ch * k);
+    *q = *w / SOLVED_W;
+    *cx = floorf(clampf(e.x + e.w / 2, r.x + *w / 2, r.x + r.w - *w / 2));
+    *cy = floorf(clampf(e.y + e.h / 2, r.y + *h / 2, r.y + r.h - *h / 2));
 }
 
 static void draw_over(void)
@@ -3030,12 +3030,12 @@ static void draw_over(void)
     }
     box b = L.board;
     float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
-    const game *g = games[cur];
-    if (g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars))) {   /* a puzzle solved */
-        float k;
-        solved_place(&cx, &cy, &k);
-        ui_put_c(t_card_s, cx, cy, SOLVED_W * u * k, 3.8f * u * k);
-        draw_result(cx, cy, u * k);
+    if (solved_card()) {                        /* a puzzle solved: its stars card */
+        static const uint8_t card_c[4] = {28, 34, 32, 248};   /* over the board: nearly opaque */
+        float w, h, q;
+        solved_place(&cx, &cy, &w, &h, &q);
+        ui_put(rounded((int)w, (int)h, 0.36f * q, card_c), cx - w / 2, cy - h / 2, w, h);
+        draw_result(cx, cy, q);
         return;
     }
     if (end_veil_whole()) ui_fill(b.x, b.y, b.w, b.h, 14, 20, 18, 250);
@@ -3137,6 +3137,15 @@ static void draw_game(void)
             else E.due = !over_hidden;
         }
     }
+    static int card_was;                        /* the end card shown last frame */
+    if (E.due && !card_was && !solved_card()) { /* it appears: a finger still down is nobody's to its lifting (a */
+        if (PT.game) {                          /* puzzle solved: since then already) */
+            PT.game = 0;
+            PT.stray = 1;
+        }
+        fingers_stray();
+    }
+    card_was = E.due;
     game_textures();
     g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
     game_textures();                            /* again: the game may have changed its tokens while drawing */
@@ -3767,8 +3776,20 @@ static void levels_release(float x, float y)
         }
 }
 
+/* a puzzle solved while the pointer is still down (a drag's last stroke): the game's gesture ends there, as if the
+ * finger had lifted where it solved it (the stroke kept, counted); the rest of the gesture is nobody's */
+static void held_end(void)
+{
+    if (!PT.game || !solved_card()) return;
+    PT.game = 0;
+    PT.stray = 1;
+    games[cur]->release(PT.x, PT.y);
+    after_input();                              /* the end noticed now (not when the finger lifts: the card stays) */
+}
+
 static void press(float x, float y)
 {
+    PT.game = PT.stray = 0;                     /* a new press: the last one has lifted */
     if (FV.open) {                              /* the full version's panel: its button, or it closes */
         full_press(x, y);
         return;
@@ -3896,7 +3917,8 @@ static void press(float x, float y)
     }
     if (ui_handing()) return;                   /* the device is changing hands */
     if (press_bar(x, y)) return;
-    if (games[cur]->status() != GS_PLAY && !over_hidden) {
+    int solved = solved_card();
+    if (games[cur]->status() != GS_PLAY && (!over_hidden || solved)) {
         if (next_btn.d > 0 && ui_button_hit(next_btn.x, next_btn.y, next_btn.d, x, y)) {   /* a solved puzzle's next */
             snd_play(SND_TAP);
             card_next();
@@ -3907,26 +3929,32 @@ static void press(float x, float y)
             card_replay();
             return;
         }
-        over_hidden = 1;
-        return;
-    }
-    if (games[cur]->status() == GS_WIN0 && (games[cur]->levels || (ui.players == 1 && games[cur]->level_stars))) {
-        over_hidden = 0;                        /* a solved puzzle: its card again */
-        return;
+        if (!solved || ui_tool_hit(x, y) < 0) { /* the end card: a tap hides it; the stars card stays (only its */
+            if (!solved) over_hidden = 1;       /* buttons, undo or the game's tools) */
+            PT.stray = 1;                       /* the rest of this tap: nobody's */
+            return;
+        }
     }
     if (bot_holds()) {                          /* a bot's turn: the game's input waits (the finger's whole way) */
         held_press = 1;
         return;
     }
+    PT.game = 1;                                /* the game's, to its lifting */
+    PT.x = x;
+    PT.y = y;
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
         box b = L.bar[p];
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
         float fx = x, fy = y;                   /* in the frame bar() drew in */
         if (ui_upside(p) && t_bartex) { fx = bar_m + b.w - (x - b.x); fy = bar_m + b.h - (y - b.y); }
-        if (games[cur]->bar_press(p, fx, fy)) return;
+        if (games[cur]->bar_press(p, fx, fy)) {
+            if (!solved) held_end();
+            return;
+        }
     }
     bot_last = -1;                              /* a person acted: the next bot's move is a new turn */
     games[cur]->press(x, y);
+    if (!solved) held_end();                    /* solved by this press, the finger still down */
 }
 
 static void motion(float x, float y)
@@ -3951,11 +3979,20 @@ static void motion(float x, float y)
     }
     if (screen == SCR_LEVELS && LV.grabbing && hypotf(x - LV.grab_x, y - LV.grab_y) > fminf(ui.w, ui.h) * 0.02f)
         LV.moved = 1;
-    if (screen == SCR_GAME && !(is_view() && hand.up) && !held_press) games[cur]->motion(x, y);
+    if (screen != SCR_GAME || (is_view() && hand.up) || held_press) return;
+    int solved = solved_card();
+    if (PT.stray || (solved && !PT.game)) return;   /* a stray finger; a puzzle solved: only a tool's press is the game's */
+    games[cur]->motion(x, y);
+    if (!PT.game) return;
+    PT.x = x;
+    PT.y = y;
+    if (!solved) held_end();                    /* this stroke solved it, the finger still down */
 }
 
 static void release(float x, float y)
 {
+    int mine = PT.game, stray = PT.stray;      /* the pointer's: the game's, or nobody's */
+    PT.game = PT.stray = 0;
     if (FV.open) {
         menu.grabbing = LV.grabbing = held_press = 0;
         return;
@@ -3993,6 +4030,7 @@ static void release(float x, float y)
         return;
     }
     if (held_press) held_press = 0;           /* a finger put down on a bot's turn: none of it the game's */
+    else if (stray || (!mine && solved_card())) return;   /* down when the game ended, or on its card: nobody's */
     else if (screen == SCR_GAME && !(is_view() && hand.up)) games[cur]->release(x, y);
 }
 
@@ -4008,17 +4046,50 @@ static int fingers_on(void)
     return screen == SCR_GAME && games[cur]->finger && !help.open && !(is_view() && hand.up);
 }
 
-/* a finger: on the shell's buttons or the bars it is an ordinary tap (press); elsewhere the game's, with its id */
+/* a finger's id taken out of a list of n; 1: it was in it */
+static int id_drop(long long *ids, int *n, long long id)
+{
+    for (int k = 0; k < *n; k++)
+        if (ids[k] == id) {
+            ids[k] = ids[--*n];
+            return 1;
+        }
+    return 0;
+}
+
+static int id_in(const long long *ids, int n, long long id)
+{
+    for (int k = 0; k < n; k++)
+        if (ids[k] == id) return 1;
+    return 0;
+}
+
+/* the game ended under the fingers it holds (an end card shown, a puzzle solved): stray from now on, to their lifting */
+static void fingers_stray(void)
+{
+    while (PT.nheld > 0) {
+        long long id = PT.held[--PT.nheld];
+        if (PT.nstrays < MAX_FINGERS) PT.strays[PT.nstrays++] = id;
+    }
+}
+
+/* a finger: on the shell's buttons or the bars it is an ordinary tap (press), and on the end card (its buttons; a tap
+ * hides an end card, never a puzzle's stars card); elsewhere the game's, with its id. A finger down when the game
+ * ended is nobody's to its lifting. */
 static void touch(Uint32 type, long long id, float x, float y)
 {
-    enum { MAX_FINGERS = 10 };
     static long long shell_id[MAX_FINGERS];
     static int nshell;
     if (type == SDL_FINGERDOWN) {
+        id_drop(shell_id, &nshell, id);         /* a finger of that id before has lifted (its lifting unseen) */
+        id_drop(PT.held, &PT.nheld, id);
+        id_drop(PT.strays, &PT.nstrays, id);
         int hit = 0;
         for (int i = 0; i < NBTN && !hit; i++) hit = shown(i) && in_circle(x, y, L.bx[i], L.by[i], L.br);
         for (int p = 0; p < ui.players && !hit; p++)
             hit = x >= L.bar[p].x && y >= L.bar[p].y && x < L.bar[p].x + L.bar[p].w && y < L.bar[p].y + L.bar[p].h;
+        if (!hit && screen == SCR_GAME && games[cur]->status() != GS_PLAY && (!over_hidden || solved_card()))
+            hit = 1;                            /* the end card: as press() takes it */
         if (hit) {
             if (nshell < MAX_FINGERS) shell_id[nshell++] = id;
             press(x, y);
@@ -4030,13 +4101,13 @@ static void touch(Uint32 type, long long id, float x, float y)
             if (type == SDL_FINGERUP) shell_id[k] = shell_id[--nshell];
             return;
         }
+    if (type == SDL_FINGERUP ? id_drop(PT.strays, &PT.nstrays, id) : id_in(PT.strays, PT.nstrays, id)) return;
     if (!fingers_on()) return;                  /* the button left the game */
-    if (type == SDL_FINGERDOWN && games[cur]->status() != GS_PLAY && !over_hidden) {   /* as press(): the end card */
-        over_hidden = 1;
-        return;
-    }
-    int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
+    int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE, was = solved_card();
+    if (phase == FINGER_DOWN && PT.nheld < MAX_FINGERS) PT.held[PT.nheld++] = id;
+    if (phase == FINGER_UP) id_drop(PT.held, &PT.nheld, id);
     games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);
+    if (!was && solved_card()) fingers_stray(); /* solved under the fingers still down */
 }
 
 /* ---- the picture mode -------------------------------------------------------------------------------------------- */
@@ -4067,11 +4138,12 @@ static void shot_wait(void)
 }
 
 /* the picture mode's gestures, in the order given: --taps "fx,fy ...", --drag "fx0,fy0 fx1,fy1" (the finger down,
- * moved, lifted), --hold "fx,fy ms" (the finger down that long; the last gesture: the picture with it still down).
- * Fractions of the board's box (the menu, a picker, the level screen: of the screen); the game's tools lie outside
- * it (portrait: fy past 1; landscape: fx past 1): a tap "t0" taps tool 0 wherever it is. --keys "Up Left": keys pressed
- * (SDL's names), as from the keyboard. */
-enum { GE_TAP, GE_DRAG, GE_HOLD, GE_KEY };
+ * moved, lifted), --hold "fx,fy ms" (the finger down that long; the last gesture: the picture with it still down),
+ * --slide "fx0,fy0 fx1,fy1 fx2,fy2 ..." (the finger down, through each point in turn; lifted at the last, unless it is
+ * the last gesture: the picture with it still down, the clock on to rest). Fractions of the board's box (the menu, a
+ * picker, the level screen: of the screen); the game's tools lie outside it (portrait: fy past 1; landscape: fx past
+ * 1): a tap "t0" taps tool 0 wherever it is. --keys "Up Left": keys pressed (SDL's names), as from the keyboard. */
+enum { GE_TAP, GE_DRAG, GE_HOLD, GE_KEY, GE_SLIDE };
 static void key(SDL_Keycode k, int repeat);
 #define MAX_GESTURES 16
 static struct { int kind; const char *s; } gesture[MAX_GESTURES];
@@ -4104,7 +4176,7 @@ static void shot_gestures(int reveal, Uint32 *base, int *held)
             s += n;
             if (kind == GE_DRAG && sscanf(s, " %f,%f%n", &gx, &gy, &n) < 2) break;
             if (kind == GE_HOLD && sscanf(s, " %d%n", &ms, &n) < 1) break;
-            if (kind != GE_TAP) s += n;
+            if (kind == GE_DRAG || kind == GE_HOLD) s += n;
             if (!first && is_view()) shot_settle(reveal, 1);   /* the last tap has landed, the device passed */
             if (screen == SCR_GAME) shot_wait();
             *base = ms_ahead;
@@ -4123,6 +4195,16 @@ static void shot_gestures(int reveal, Uint32 *base, int *held)
                 while (*s == ' ') s++;
                 *held = k == ngestures - 1 && !*s ? ms : -1;
                 if (*held >= 0) return;         /* the last gesture: the picture with the finger down */
+            } else if (kind == GE_SLIDE) {      /* through each point in turn, a frame at each */
+                while (sscanf(s, " %f,%f%n", &gx, &gy, &n) == 2) {
+                    s += n;
+                    float x1 = f.x + gx * f.w, y1 = f.y + gy * f.h;
+                    for (int i = 1; i <= 8; i++) motion(x + (x1 - x) * i / 8, y + (y1 - y) * i / 8);
+                    x = x1;
+                    y = y1;
+                    draw();
+                }
+                if (k == ngestures - 1) return; /* the last gesture: the picture with the finger still down */
             }
             release(x, y);
             after_input();
@@ -4268,10 +4350,11 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--variant") && i + 1 < argc) v = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--moves") && i + 1 < argc) moves = argv[++i];
         else if ((!strcmp(argv[i], "--taps") || !strcmp(argv[i], "--drag") || !strcmp(argv[i], "--hold") ||
-                  !strcmp(argv[i], "--keys")) &&
+                  !strcmp(argv[i], "--keys") || !strcmp(argv[i], "--slide")) &&
                  i + 1 < argc && ngestures < MAX_GESTURES) {
             char c = argv[i][2];
-            gesture[ngestures].kind = c == 't' ? GE_TAP : c == 'd' ? GE_DRAG : c == 'h' ? GE_HOLD : GE_KEY;
+            gesture[ngestures].kind = c == 't' ? GE_TAP : c == 'd' ? GE_DRAG : c == 'h' ? GE_HOLD : c == 's' ? GE_SLIDE
+                                                                                                         : GE_KEY;
             gesture[ngestures++].s = argv[++i];
         }
         else if (!strcmp(argv[i], "--flip")) ui.flipped = 1;
@@ -4428,8 +4511,8 @@ static void key(SDL_Keycode k, int repeat)
     else if (k == SDLK_t && shown(B_F2F)) ui.f2f = !ui.f2f;
     else if (k == SDLK_n) new_game();
     else if (k != SDLK_f && k != SDLK_t && games[cur]->key && !repeat && !(is_view() && hand.up) && !ui_handing() &&
-             !bot_holds())
-        games[cur]->key(k);                     /* the game's own keys (the arrows: a push) */
+             !bot_holds() && !solved_card())
+        games[cur]->key(k);                     /* the game's own keys (the arrows: a push; none once solved) */
 }
 
 int main(int argc, char **argv)

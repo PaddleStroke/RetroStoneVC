@@ -106,7 +106,11 @@ One look across the app, like the Arcade games' house kit:
 - **The end waits**: `busy()` says the last move still animates; the shell shows the end of the game after it.
 - **The end card**: once the game is over and its last move has landed, the shell plays the end, shows the final
   position a moment (900 ms), then its card over the board: the winners' tokens standing in gold light (`winners()`),
-  the others lowered and dimmed; a score (`score()`); a solved puzzle's stars. A tap hides it, another shows it again.
+  the others lowered and dimmed; a score (`score()`); a solved puzzle's stars. A tap hides it. A finger still down
+  when it appears is nobody's until it lifts (its moves and its lifting reach neither the card nor the game).
+  A solved puzzle's stars card is big (0.7 of the screen's short side), centred on the board, and stays until its
+  replay or next button (or undo): no tap hides it, and the game hears nothing meanwhile but its tools (`ui_tool`).
+  Solved by a drag with the finger still down, the game gets that finger's release at once, where it solved it.
   `ui_over()`: 1 while it shows (this frame). A game with a final table (its rounds' scores) draws that table inside
   the card instead of on its own table: in `draw()`, while `ui_over()`, `box r = ui_end_room(w, h)` asks for a room w x
   h pixels; the shell veils the table, draws the card (opaque) grown round the result (the tokens above the room in
@@ -372,7 +376,7 @@ board: hot seat, face to face, the hand-off covers between people.
 
 ```
 retrostoneboard --shot out.bmp [--size 720x1280] [--game id] [--variant n] [--moves "..."] [--taps "fx,fy ..."]
-                [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--flip] [--f2f] [--keep] [--pick] [--players n]
+                [--drag "fx0,fy0 fx1,fy1"] [--hold "fx,fy ms"] [--slide "fx0,fy0 fx1,fy1 ..."] [--flip] [--f2f] [--keep] [--pick] [--players n]
                 [--lang fr] [--help [--scroll px]] [--tab n] [--seed n] [--at ms] [--reveal] [--keys "Up Left"]
                 [--level n] [--solved "1-12 13-14:2 15:0"] [--random] [--icons] [--save DIR]
                 [--bots "1:h,2:m"] [--steps n] [--think]
@@ -384,7 +388,9 @@ itself takes `--lang` too (else the device's language).
 
 - **Gestures**, in the order given, in fractions of the board's box (`0.5,0.5` its middle; on the menu, a picker or
   the level screen: of the screen): `--taps` (several), `--drag` (the finger down, slid to the second point, lifted),
-  `--hold` (the finger down `ms` long; as the last gesture, the picture is taken with the finger still down), `--keys`
+  `--hold` (the finger down `ms` long; as the last gesture, the picture is taken with the finger still down),
+  `--slide "fx0,fy0 fx1,fy1 ..."` (the finger down, through each point in turn; lifted at the last, unless it is the
+  last gesture: then the picture with it still down, everything else at rest), `--keys`
   (keys by SDL's names: `Up`, `Left`, `Return`, `1`...). A tap `tN` taps the game's tool N (`ui_tool`) wherever the
   shell put it (`--taps "t0 0.5,0.5"`).
 - **Bots**: `--bots "1:h,2:m"` gives the device those seats (players from 0; `e` easy, `m` medium, `h` hard; `all:m`
