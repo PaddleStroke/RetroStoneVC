@@ -75,10 +75,11 @@ private final class Store {
             } catch {
                 NSLog("iap: the products could not be loaded: %@", String(describing: error))
             }
+            let loaded = found              // (a constant: the main queue's closure is @Sendable)
             DispatchQueue.main.async {
                 let s = Store.shared
                 s.loading = false
-                if let p = found {
+                if let p = loaded {
                     s.product = p
                     s.setPrice(p)
                     s.bump()
@@ -94,10 +95,11 @@ private final class Store {
         for await result in Transaction.currentEntitlements {
             if case .verified(let t) = result, t.productID == id, t.revocationDate == nil { owned = true }
         }
+        let now = owned
         DispatchQueue.main.async {
             let s = Store.shared
-            if s.unlocked != owned {
-                s.unlocked = owned
+            if s.unlocked != now {
+                s.unlocked = now
                 s.bump()
             }
         }
