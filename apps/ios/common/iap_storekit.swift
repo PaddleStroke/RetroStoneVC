@@ -24,14 +24,28 @@ private final class Store {
     var loading = false
     var changes: UInt32 = 0
     var price: UnsafeMutablePointer<CChar> = strdup("")!   // iap_price_text(): valid until the next change
+    var priceAscii: UnsafeMutablePointer<CChar> = strdup("")!   // iap_price_ascii()
     var updates: Task<Void, Never>?
 
     func bump() { changes &+= 1 }
 
-    func setPrice(_ s: String) {
-        let old = price
-        price = strdup(s) ?? strdup("")!
+    func setPrice(_ p: Product) {
+        let old = price, oldAscii = priceAscii
+        price = strdup(Store.plain(p.displayPrice)) ?? strdup("")!
+        priceAscii = strdup(Store.ascii(p)) ?? strdup("")!
         free(old)
+        free(oldAscii)
+    }
+
+    // the price with its currency's ISO code instead of its sign, in the store's number format: "4,99 EUR"
+    static func ascii(_ p: Product) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .currencyISOCode
+        f.locale = p.priceFormatStyle.locale
+        f.currencyCode = p.priceFormatStyle.currencyCode
+        let s = plain(f.string(from: NSDecimalNumber(decimal: p.price)) ?? "")
+        return String(String.UnicodeScalarView(s.unicodeScalars.filter { $0.value >= 0x20 && $0.value < 0x7F }))
+            .trimmingCharacters(in: .whitespaces)
     }
 
     func start(_ id: String, unlockedBefore: Bool) {
@@ -66,7 +80,7 @@ private final class Store {
                 s.loading = false
                 if let p = found {
                     s.product = p
-                    s.setPrice(Store.plain(p.displayPrice))
+                    s.setPrice(p)
                     s.bump()
                 }
             }
@@ -190,6 +204,11 @@ public func iap_unlocked() -> Int32 {
 @_cdecl("iap_price_text")
 public func iap_price_text() -> UnsafePointer<CChar> {
     return UnsafePointer(Store.shared.price)
+}
+
+@_cdecl("iap_price_ascii")
+public func iap_price_ascii() -> UnsafePointer<CChar> {
+    return UnsafePointer(Store.shared.priceAscii)
 }
 
 @_cdecl("iap_busy")

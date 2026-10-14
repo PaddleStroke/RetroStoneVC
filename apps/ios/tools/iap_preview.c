@@ -1,7 +1,7 @@
 /*
  * In-app purchase (apps/common/iap.h): a stand-in for StoreKit on the desktop, to see the iOS apps' unlock panel in
  * pictures (apps/ios/prepare.sh <app> --preview, the picture mode of the desktop build). Never shipped.
- *   IAP_PREVIEW_PRICE="4,99 €"   the price shown (default "4,99 €"; "" : not known yet)
+ *   IAP_PREVIEW_PRICE="4,99 €"   the price shown (default "4,99 €", in ASCII "4,99 EUR"; "": not known yet)
  *   IAP_PREVIEW_BUSY=1           a purchase in progress (the buttons dimmed)
  *   IAP_PREVIEW_UNLOCKED=1       bought (nothing locked)
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -32,6 +32,12 @@ const char *iap_price_text(void)
 {
     const char *e = getenv("IAP_PREVIEW_PRICE");
     return e ? e : "4,99 \xe2\x82\xac";
+}
+
+const char *iap_price_ascii(void)
+{
+    const char *e = getenv("IAP_PREVIEW_PRICE");
+    return e ? (e[0] ? "4,99 EUR" : "") : "4,99 EUR";
 }
 
 int iap_buy(void)

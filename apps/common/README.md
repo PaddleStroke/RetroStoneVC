@@ -9,8 +9,8 @@ RetroStone Arcade) on every platform; the apps' own code decides what it opens a
   `iap_unlocked()`, then everything opens at once, without a restart. One code path everywhere: where nothing is sold
   in the app, `iap_unlocked()` is always 0 and the compile-time edition alone decides, as before.
 - **the panel** (a locked game tapped): `iap_available()` 1: "Unlock everything" with `iap_price_text()`
-  (`iap_buy()`) and "Restore purchases" (`iap_restore()`), both waiting while `iap_busy()`; 0: the "Get it" link to
-  the paid app's store page, as before.
+  (`iap_buy()`; the Arcade's font: `iap_price_ascii()`, "4,99 EUR") and "Restore purchases" (`iap_restore()`), both
+  waiting while `iap_busy()`; 0: the "Get it" link to the paid app's store page, as before.
 - **the unlock kept**: the app saves it in its own save store and gives it back to `iap_init()` at the next launch
   (offline too); `iap_changes()`, polled once a frame, says when the store answers (bought, restored, refunded).
 
@@ -24,7 +24,7 @@ RetroStone Arcade) on every platform; the apps' own code decides what it opens a
 
 Not written yet. When it is, it is one backend file plus a build switch, nothing else to change in the apps:
 
-1. `apps/common/iap_play.c`: the eight functions of `iap.h` over JNI, as the Arcade's review prompt calls
+1. `apps/common/iap_play.c`: the nine functions of `iap.h` over JNI, as the Arcade's review prompt calls
    `ArcadeActivity.requestReview` (`SDL_AndroidGetJNIEnv()`, `SDL_AndroidGetActivity()`); a small Java class beside the
    activity (`com.eightbcraft.iap.Billing`: Play Billing Library's `BillingClient`, `queryProductDetailsAsync`,
    `launchBillingFlow`, `queryPurchasesAsync` at launch, `acknowledgePurchase`) calling back into C with the

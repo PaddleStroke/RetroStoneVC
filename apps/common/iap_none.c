@@ -14,6 +14,7 @@ void iap_init(const char *product_id, int unlocked_before)
 int iap_available(void) { return 0; }
 int iap_unlocked(void) { return 0; }
 const char *iap_price_text(void) { return ""; }
+const char *iap_price_ascii(void) { return ""; }
 int iap_busy(void) { return 0; }
 int iap_buy(void) { return 0; }
 void iap_restore(void) {}

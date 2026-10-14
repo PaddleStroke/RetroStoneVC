@@ -42,6 +42,10 @@ int iap_unlocked(void);
  * it is not known (the store not reached yet, offline) */
 const char *iap_price_text(void);
 
+/* the same price in ASCII, its currency as the ISO code: "4,99 EUR", "USD 4.99" (for a font without the currency
+ * signs: the Arcade's); "" while it is not known */
+const char *iap_price_ascii(void);
+
 /* 1: a purchase or a restore is in progress (the store's own sheet may be up): the panel's buttons wait */
 int iap_busy(void);
 
