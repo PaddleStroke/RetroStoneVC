@@ -457,11 +457,12 @@ static void test_boss(void)
     for (int i = 0; i < BOSS_DOWN_FRAMES + CLEAR_FRAMES + 4; i++) world_step(&W, in);
     CHECK(W.sec == 0 && W.loop == 1 && W.scroll_v == SCROLL_SPEED + SCROLL_LOOP, "loop 2: faster (%d %d)", W.sec,
           W.loop);
-    /* the boss's strength grows with the players and the loops; it flies away after 60 s */
+    /* the boss's strength grows with the players and the loops; it flies away after 90 s */
     playing(&W, 3);
     clear_robots(&W);
     world_to_boss(&W);
-    CHECK(W.b.hp0 == 40 * 2, "3 players: +50%% each (hp %d)", W.b.hp0);
+    { static const int hp[4] = BOSS_HP; int want = hp[0] * (100 + BOSS_HP_PLAYER * 2) / 100;
+      CHECK(W.b.hp0 == want, "3 players: +%d%% each (hp %d, %d)", BOSS_HP_PLAYER, W.b.hp0, want); }
     W.h[0].state = W.h[1].state = W.h[2].state = SH_OUT;
     W.h[0].state = SH_PLAY;
     W.h[0].y = (20 << 16);
@@ -523,6 +524,49 @@ static void test_widescreen_spawns(void)
     CHECK(fire_ok, "the robots fire from the stage only (x %d)", bad_eb);
 }
 
+/* the ramp: robots per minute of waves, section by section over two loops (an untouchable corgi waits, the bosses
+ * fly off at once): gentle at first, rising within each section, from section to section and strongly by loop */
+static void test_ramp(void)
+{
+    static const char *names[4] = {"nebula", "asteroids", "station", "comets"};
+    int spawns[8] = {0}, frames[8] = {0}, half[2] = {0}, first20 = 0, was_on[MAX_ENEMIES] = {0};
+    world_init(&W, 1, 4321);
+    idle();
+    in[0].any = 1;
+    while (W.loop < 2) {
+        W.h[0].invul = 1 << 20;
+        if (W.b.on && W.b.phase == BP_FIGHT) W.b.t = BOSS_TIME;
+        world_step(&W, in);
+        int s = W.loop * 4 + W.sec, waves = W.phase == PH_INTRO || W.phase == PH_WAVES;
+        if (W.loop < 2 && waves) frames[s]++;
+        for (int k = 0; k < MAX_ENEMIES; k++) {
+            if (W.en[k].on && !was_on[k] && W.loop < 2 && waves) {
+                spawns[s]++;
+                if (s == 0 && W.sec_dist < (20 * 60) << 16) first20++;
+                if (s == 0) half[W.sec_dist >= (SECTION_LEN / 2) << 16]++;
+            }
+            was_on[k] = W.en[k].on;
+        }
+        if (W.t > 200000) break;
+    }
+    int per_min[8], rising = 1;
+    printf("  robots per minute of waves:");
+    for (int s = 0; s < 8; s++) {
+        per_min[s] = frames[s] ? spawns[s] * 3600 / frames[s] : 0;
+        printf(" %s%s %d", s == 4 ? "| loop 2 " : "", names[s & 3], per_min[s]);
+        if (s && s < 4 && per_min[s] <= per_min[s - 1]) rising = 0;         /* loop 1: each section busier */
+        if (s >= 4 && per_min[s] * 4 <= per_min[s - 4] * 5) rising = 0;     /* loop 2: each 25% busier than in loop 1 */
+    }
+    printf(" (the nebula's first 20 s: %d)\n", first20);
+    CHECK(W.loop == 2, "two loops played (loop %d)", W.loop + 1);
+    CHECK(first20 * 3 <= 80 && first20 * 3 * 2 < per_min[3], "a gentle start: %d robots in the first 20 s", first20);
+    CHECK(half[1] > half[0] * 4 / 3, "more robots in the nebula's second half (%d against %d)", half[1], half[0]);
+    CHECK(rising && per_min[7] > per_min[4], "more robots a minute from section to section, and each section busier in loop 2");
+    CHECK(per_min[4] > per_min[0] * 2 && per_min[7] > per_min[3] * 5 / 4,
+          "loop 2 is much busier (the nebula %d against %d, the comets %d against %d)", per_min[4], per_min[0],
+          per_min[7], per_min[3]);
+}
+
 static void bot_run(world *w, int players, uint32_t seed, int frames, int skill)
 {
     world_init(w, players, seed);
@@ -557,6 +601,7 @@ int main(void)
     test_walls();
     test_boss();
     test_widescreen_spawns();
+    test_ramp();
     test_determinism_and_bot();
     if (fails) printf("  %d of %d checks FAILED\n", fails, checks);
     else printf("  ok   %d checks: auto-fire, moves and the touch drag, hits and the shield, power-up levels, the "

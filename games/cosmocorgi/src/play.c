@@ -185,7 +185,7 @@ static int32_t eb_speed(const world *w)
 static int reload(const world *w, int frames)
 {
     int pct = 100 - FIRE_LOOP_PCT * w->loop;
-    return frames * (pct < 50 ? 50 : pct) / 100;
+    return frames * (pct < 40 ? 40 : pct) / 100;
 }
 
 /* ---- effects ------------------------------------------------------------------------------------------------------- */
@@ -872,7 +872,7 @@ static void shots_step(world *w)
             if (iabs(px(e->x) - x) >= K_HW[e->kind] + hw || iabs(px(e->y) - y) >= K_HH[e->kind] + hh) continue;
             if (s->kind == SK_BEAM) {                 /* the beam pierces: each robot once */
                 if (s->hit >> k & 1) continue;
-                s->hit |= 1u << k;
+                s->hit |= 1ull << k;
             } else {
                 s->on = 0;
             }
@@ -884,8 +884,8 @@ static void shots_step(world *w)
         boss *b = &w->b;
         if (s->on && b->on && b->phase == BP_FIGHT && iabs(px(b->x) - x) < B_HW[b->kind] + hw &&
             iabs(px(b->y) - y) < B_HH[b->kind] + hh) {
-            if (s->kind != SK_BEAM || !(s->hit >> 31 & 1)) {
-                if (s->kind == SK_BEAM) s->hit |= 1u << 31;
+            if (s->kind != SK_BEAM || !(s->hit >> 63 & 1)) {
+                if (s->kind == SK_BEAM) s->hit |= 1ull << 63;
                 else s->on = 0;
                 boss_damage(w, s->owner, s->damage);
             }
@@ -1061,6 +1061,96 @@ static void section_begin(world *w, int sec, int loop)
     w->phase = w->started ? PH_INTRO : PH_READY;
     w->phase_t = 0;
     w->boss_away = 0;
+    w->ramp_next = q16(w->sec == 0 && w->loop == 0 ? RAMP_START : RAMP_START_SEC);
+}
+
+/* ---- the ramp: extra waves on top of the script ----------------------------------------------------------------------
+ * The intensity grows across each section, from section to section and by 40 a loop; the extra waves come more often
+ * (RAMP_GAP0 px apart at 0, RAMP_GAP_K px fewer per point, RAMP_GAP_MIN at least) and bigger (3 + I / RAMP_SIZE_DIV),
+ * from more sides as it grows (front waves, swoops from the top and the bottom, dashers and UFOs, loops, from behind,
+ * turrets on the walls, robo-turtles), two at once from RAMP_DOUBLE, every RAMP_GOLD_EVERY-th one gold. Lanes stay in
+ * 56..184, clear of the highest walls. All from the world's RNG and the scroll: the same at every width. */
+int world_intensity(const world *w)
+{
+    int across = (int)((int64_t)w->sec_dist * 10 / q16(SECTION_LEN));
+    return w->loop * RAMP_LOOP + w->sec * RAMP_SECTION + (across > 10 ? 10 : across);
+}
+
+static void send_extra(world *w, int I, int avoid)
+{
+    enum { X_SINE, X_LINE, X_SWOOP_T, X_SWOOP_B, X_DASH, X_UFO, X_LOOP, X_DRIFT, X_TURRETS, X_BEHIND, X_TANK, X_KINDS };
+    static const int8_t from[X_KINDS] = {0, 0, 5, 5, 10, 10, 14, 8, 12, 18, 20};
+    int th = world_theme(w->sec), opts[X_KINDS], n = 0;
+    for (int k = 0; k < X_KINDS; k++) {
+        if (I < from[k] || k == avoid) continue;
+        if ((k == X_DRIFT && th != THEME_ROCK && th != THEME_ICE) || (k == X_TURRETS && th == THEME_NEBULA)) continue;
+        opts[n++] = k;
+    }
+    int k = opts[rs_rng_range(&w->rng, n)];
+    int size = 3 + I / RAMP_SIZE_DIV;
+    if (size > RAMP_SIZE_MAX) size = RAMP_SIZE_MAX;
+    int y = 56 + rs_rng_range(&w->rng, 33) * 4;                     /* a lane in 56..184 */
+    wave_def d = {0, EK_DRONE, PAT_LINE, (uint8_t)size, 16, (int16_t)y, 0, 0};
+    switch (k) {
+    case X_SINE:
+        d.kind = EK_BUG, d.pat = PAT_SINE, d.gap = 18, d.p = (int16_t)(16 + rs_rng_range(&w->rng, 4) * 6);
+        d.y = (int16_t)clampi(y, 56 + d.p - 8, 184 - d.p + 8);
+        break;
+    case X_LINE:
+        d.gap = 14;
+        break;
+    case X_SWOOP_T:
+    case X_SWOOP_B:
+        d.pat = k == X_SWOOP_T ? PAT_SWOOP_TOP : PAT_SWOOP_BOT, d.gap = 14;
+        d.p = (int16_t)(220 + rs_rng_range(&w->rng, 9) * 10);
+        break;
+    case X_DASH:
+        d.kind = EK_DASHER, d.pat = PAT_DASH, d.n = (uint8_t)(size / 2 > 2 ? size / 2 : 2), d.gap = 34;
+        d.p = (int16_t)(256 + rs_rng_range(&w->rng, 4) * 10);
+        break;
+    case X_UFO:
+        d.kind = EK_UFO, d.pat = PAT_HOVER, d.n = 1, d.p = (int16_t)(236 + rs_rng_range(&w->rng, 5) * 10);
+        d.y = (int16_t)(64 + rs_rng_range(&w->rng, 8) * 6);
+        send_wave(w, &d);
+        d.y = (int16_t)(d.y + 72), d.p = (int16_t)(d.p + 20);
+        if (I >= 30) {                                                /* a third one in the middle */
+            send_wave(w, &d);
+            d.y = (int16_t)(d.y - 36), d.p = (int16_t)(d.p + 20);
+        }
+        break;
+    case X_LOOP:
+        d.pat = PAT_LOOP, d.gap = 14, d.p = (int16_t)(180 + rs_rng_range(&w->rng, 7) * 10);
+        d.y = (int16_t)clampi(y, 72, 168);
+        break;
+    case X_DRIFT:
+        d.kind = th == THEME_ICE ? EK_COMET : EK_ROCK, d.pat = PAT_DRIFT, d.gap = 30;
+        d.n = (uint8_t)(size > 5 ? 5 : size);
+        d.y = (int16_t)(56 + rs_rng_range(&w->rng, 6) * 6), d.p = (int16_t)(6 + rs_rng_range(&w->rng, 7));
+        break;
+    case X_TURRETS:
+        d.kind = EK_TURRET, d.pat = PAT_TURRET, d.n = 1, d.flags = WF_FLOOR;
+        send_wave(w, &d);
+        d.flags = WF_CEIL;
+        break;
+    case X_BEHIND:
+        d.pat = PAT_BEHIND, d.gap = 16, d.p = (int16_t)(8 + rs_rng_range(&w->rng, 3) * 4);
+        break;
+    case X_TANK:
+        d.kind = EK_TANK, d.pat = PAT_TANK, d.n = (uint8_t)(I >= 45 ? 2 : 1), d.gap = 90;
+        d.y = (int16_t)(90 + rs_rng_range(&w->rng, 11) * 6);
+        break;
+    }
+    if ((d.kind == EK_DRONE || d.kind == EK_BUG) && ++w->ramp_n % RAMP_GOLD_EVERY == 0) d.flags |= WF_GROUP;
+    send_wave(w, &d);
+    if (I >= RAMP_DOUBLE && avoid < 0) send_extra(w, I - RAMP_DOUBLE, k);      /* a second one, another kind */
+}
+
+static void ramp_step(world *w)
+{
+    if (w->sec_dist < w->ramp_next || w->sec_dist >= q16(SECTION_LEN - 120)) return;
+    int I = world_intensity(w), gap = RAMP_GAP0 - RAMP_GAP_K * I;
+    send_extra(w, I, -1);
+    w->ramp_next = w->sec_dist + q16(gap < RAMP_GAP_MIN ? RAMP_GAP_MIN : gap);
 }
 
 /* tests and screenshots: the walls made again from the left of the stage, for section sec: from the far right as
@@ -1102,9 +1192,12 @@ static void section_step(world *w)
         const wave_def *d = WAVES[w->sec];
         for (int i = 0; i < WAVES_N[w->sec]; i++)
             if (!(w->waves_done >> i & 1) && w->sec_dist >= q16(d[i].at)) {
+                wave_def e = d[i];
                 w->waves_done |= 1u << i;
-                send_wave(w, &d[i]);
+                if (e.n >= 3) e.n = (uint8_t)(e.n + LOOP_WAVE_N * w->loop > 8 ? 8 : e.n + LOOP_WAVE_N * w->loop);
+                send_wave(w, &e);
             }
+        if (w->waves_done != 0xffffffffu) ramp_step(w);
         if (w->phase == PH_INTRO && w->phase_t >= INTRO_FRAMES) { w->phase = PH_WAVES; w->phase_t = 0; }
         if (w->sec_dist >= q16(SECTION_LEN) &&
             (!robots_left(w) || w->sec_dist >= q16(SECTION_LEN + SECTION_MAX_WAIT))) {

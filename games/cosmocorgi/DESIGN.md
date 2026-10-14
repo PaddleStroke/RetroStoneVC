@@ -8,7 +8,8 @@ A corgi astronaut flies its little rocket through space, and space is full of wi
 shots all by itself: the player just flies it, through a pastel nebula, an asteroid belt, a robot space station and
 the icy comets, each guarded by a big robot critter. Robots pop into sparkles and bolts, gold groups and gift
 carriers leave capsules (more shots, speed, a shield, puppy pods that fly along), and one hit ends the run. Cute,
-readable, never a bullet hell: a 7-year-old gets through the nebula; the next loop is faster for the grown-ups.
+readable, never a bullet hell: a 7-year-old gets going in the nebula, then the robots come in ever greater
+numbers, from every side; by the station a good player is busy, and the second loop is hard.
 
 ## Legal and originality
 - The horizontal-scrolling shoot 'em up is the genre of **Gradius** (Konami, 1985) and **R-Type** (Irem, 1987), both
@@ -71,7 +72,7 @@ each. The walls (8-px tiles from the top and the bottom) are a hit; there are al
 
 **Sections and bosses.** Four sections make a loop, each 2560 px of waves (about 45 s), then BIG ROBOT! and its boss
 (a 64x48 robot critter with a health bar at the bottom of the screen; untouchable while it flies in; 10 points a hit
-and a big bonus to whoever pops it; after 60 s it flies away, no bonus):
+and a big bonus to whoever pops it; after 90 s it flies away, no bonus):
 
 | Section | Walls | Boss and pattern |
 |---|---|---|
@@ -81,8 +82,27 @@ and a big bonus to whoever pops it; after 60 s it flies away, no bonus):
 | the icy comets | icy walls, comets, dashers, drones from behind | the **snow walrus**: slides up and down; icicles in threes along its line; a big slow snowball |
 
 After the fourth boss the next loop begins (LOOP 2): the scroll is 0.25 px a frame faster (up to 2), the robots 15%
-faster, their shots 0.25 px a frame faster (up to 2.25) and their reloads 20% shorter (down to half); the bosses take
-25% more hits each loop.
+faster, their shots 0.25 px a frame faster (up to 2.25) and their reloads 25% shorter (down to 40%), the scripted
+waves have 2 more robots each; the bosses take 25% more hits each loop.
+
+**The ramp.** On top of each section's script come extra waves (play.c ramp_step), more and bigger as the
+**intensity** grows: I = 13 per section + 0..10 across the section + 20 per loop (the nebula 0..10, the asteroid belt
+13..23, the station 26..36, the comets 39..49; loop 2 20..69). The first 22 s of the nebula (1300 px) have none: the
+script alone, gentle (24 robots in the first 20 s). Then an extra wave every 400 - 9 I px (110 at least), of 3 + I / 7
+robots (8 at most), of more and more kinds as I grows: front waves (sine, lines) from the start, swoops from the top
+and the bottom from 5, drifting rocks or comets from 8, dashers and UFOs (two at once; three from 30) from 10, turrets
+on the walls from 12, loops from 14, drones from behind from 18, robo-turtles from 20 (two from 45); from 34 a second
+wave of another kind comes at the same time, from another side. Every 4th extra wave of bugs or drones is gold (a
+capsule): the power-ups keep coming as the waves thicken. Lanes stay in 56..184, clear of the highest walls; the
+robots still never fire at a corgi nearer than 64 px. Robots per minute of waves (the rules test measures it, an
+untouchable corgi waiting):
+
+| | the nebula | the asteroid belt | the station | the comets |
+|---|---|---|---|---|
+| loop 1 | 87 (24 in the first 20 s) | 114 | 162 | 285 |
+| loop 2 | 212 | 361 | 309 | 371 |
+
+(at most 44 robots at once: the second loop's later sections are full.)
 
 Every number is in src/game.h (the tuning table):
 
@@ -95,23 +115,29 @@ Every number is in src/game.h (the tuning table):
 | hits | an 8-frame hit-stop, the bonk 60 frames; the shield's blink 90 frames | HIT_FREEZE, HIT_FRAMES, SHIELD_INVUL |
 | the scroll | 1 px/frame, +0.25 each loop, 2 at most | SCROLL_* |
 | sections | 4, 2560 px of waves each (480 px more at most for the last robots to go), the name 150 frames, BIG ROBOT! 120, clear 180 | SECTIONS, SECTION_LEN, SECTION_MAX_WAIT, *_FRAMES |
-| robots | strength, points, speeds by kind (above), +15% speed each loop (4 loops) | KIND_*, LOOP_SPEED_PCT |
+| robots | strength, points, speeds by kind (above), +15% speed each loop (4 loops); 44 at once at most | KIND_*, LOOP_SPEED_PCT, MAX_ENEMIES |
+| the ramp | intensity 13 a section + 0..10 across it + 20 a loop; none in the nebula's first 1300 px (200 px in the others); an extra wave every 400 - 9 I px (110 at least) of 3 + I / 7 robots (8 at most), two at once from 34, every 4th gold; the scripted waves +2 robots a loop | RAMP_*, LOOP_WAVE_N |
 | flight | sine 2/256 turn a frame; loops of radius 32 px; the dasher winds up 50 frames, dashes 4 px/frame; the UFO hovers 110 frames | SINE_W, LOOP_*, DASH_*, HOVER_FRAMES |
-| their shots | 1.25 px/frame (+0.25 a loop, 2.25 at most), never at a corgi nearer than 64 px; 48 at most; the turtle every 150 frames, a turret every 160; reloads 20% shorter a loop (half at most) | EB_*, MAX_EBULLETS, TANK_FIRE, TURRET_FIRE, FIRE_LOOP_PCT |
+| their shots | 1.25 px/frame (+0.25 a loop, 2.25 at most), never at a corgi nearer than 64 px; 48 at most; the turtle every 150 frames, a turret every 160; reloads 25% shorter a loop (40% at most) | EB_*, MAX_EBULLETS, TANK_FIRE, TURRET_FIRE, FIRE_LOOP_PCT |
 | capsules | 0.5 px/frame; the cycle above; 500 points when maxed; a gold group +100 | CAPSULE_SPEED, CAP_ORDER, MAXED_POINTS, GROUP_BONUS |
-| bosses | 40, 56, 64, 72 hits (+50% per extra player, +25% each loop); 1000, 1500, 2000, 2500 points (+1000 each loop); 10 a hit; fights at x 252 after 120 frames flying in; flies away after 60 s | BOSS_* |
+| bosses | 60, 84, 96, 96 hits (+300% per extra player, +25% each loop); 1000, 1500, 2000, 2500 points (+1000 each loop); 10 a hit; fights at x 252 after 120 frames flying in; flies away after 90 s | BOSS_* |
 | walls | 13 tiles always open; the rock 1-5 tiles from each side, the station 2-4 with gates of 6, the ice 1-4 above and 0-3 below; one tile per column at most; plateaus for the turrets | TER_*, play.c ter_make |
-| medals (1 player) | bronze 2000, silver 6000, gold 13000, pearl 25000 | MEDAL_SCORES |
+| medals (1 player) | bronze 2000, silver 7000, gold 20000, pearl 40000 | MEDAL_SCORES |
 
 **The medals** were tuned with the good bot and the human-like bot (`botskill=E`: it decides only every E/2 frames,
 looks 28 - 2E frames ahead instead of 32, misses 7E% of the shots coming and misjudges its aim by up to 3E px), 12
-runs each. The good bot (`bot=1`) is never hit in 40000 frames (13-14 stages, 54000-62000 points, all pearl): about
-2300 points at the end of the nebula, 5000 after the asteroid belt, 8600 after the station, 12800 after the first
-loop, 31600 after the second. E = 10 (a beginner) and E = 8 mostly fall early in the asteroid belt (2600-3200; mean
-5000 and 3500): 9 and 11 bronze of 12, a few silver; E = 6 (mean 10400): 4 bronze, 6 silver, 1 gold, 1 pearl; E = 4
-(mean 16800): 2 bronze, 5 silver, 2 gold, 3 pearl; E = 2 (mean 18100): 4 bronze, 2 silver, 3 gold, 3 pearl. So bronze
-is the nebula's end (a beginner gets it), silver the asteroid belt and its crab popped, gold the whole first loop,
-pearl most of the second.
+runs each, against the ramp. The good bot (`bot=1`, superhuman: it sees every shot) is hit once in 12 runs of 40000
+frames: about 2400 points at the end of the nebula, 6300 after the asteroid belt, 12000 after the station, 18700
+after the first loop, 51000 after the second. The human-like bots now fall early: E = 10 (a beginner) mostly in the
+asteroid belt (1600-16100, mean 6100: 10 of 12 bronze or better, 2 silver, 2 gold), E = 8 (mean 9700), E = 6 (mean
+10500: 6 bronze, 1 silver, 5 gold), E = 4 (mean 16500, best 38000), E = 2 (mean 12500, best 28600): none reaches
+40000. So bronze is the nebula's end (a beginner gets it), silver the asteroid belt and its crab popped and into the
+station (the owner's 5000 of the first version lands on bronze), gold the whole first loop, pearl the second loop's
+station and comets (real skill).
+
+**The bosses** (seconds from their arrival to their pop, the bot): 1 corgi with the bark 29, 12, 36, 58 (the ladybird,
+the crab, the owl, the walrus); with the spread shot at level 3 6, 9, 10, 13; 4 corgis with the spread shot at level 3,
+pods and shields 16, 26, 23, 32; 4 with homing bones at level 3 9, 10, 12, 17.
 
 **The bot** (`--opt bot=N`: tests, screenshots and card frames) plays from the world: for each of the 9 directions held
 for the next 32 frames it forecasts every robot's shot and every robot along its last move (a dasher winding up:
@@ -224,14 +250,15 @@ bouncy space disco in E dorian) and "Comet Galop" (a fast chiptune galop in C ma
 make_music_alt.py OUTDIR N from tools/build_assets.py instead of make_music.py.
 
 ## Tests
-`make cosmocorgi-check`: the rules alone (tests/test_rules.c, 56 checks: the start, auto-fire, the d-pad and its
+`make cosmocorgi-check`: the rules alone (tests/test_rules.c, 61 checks: the start, auto-fire, the d-pad and its
 diagonals, the touch drag (1:1, the 8-px cap, the stage), hits, the shield and its blink, touching a robot and a wall,
 the power-up levels and MAX POWER!, the spread's volleys, the pods following the path and barking, the piercing beam,
 a homing bone finding a robot off its line, the sine waves and the loop, a gold group's capsule and bonus, the walls'
 gap and the turrets on them, the boss (untouchable flying in, its strength, the bonus, the next section, the next loop
-faster, more hits for more players, flying away after 60 s), the widescreen spawns over a whole loop with two bots
+faster, more hits for more players, flying away after 90 s), the widescreen spawns over a whole loop with two bots
 (every robot appears beyond the widest screen, no shot past the reach, no robot fires from outside the stage),
-determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, flying, auto-fire, the game over
+the ramp (robots per minute of waves rising across the nebula, from section to section and by 25% at least in
+loop 2, a gentle first 20 s), determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, flying, auto-fire, the game over
 and back to the title, pause, joining and leaving, 4 bots, a boss with 4 powered-up corgis, no strict-mode warning,
 save RAM, the bot through the first boss, determinism), the touch tests, the UI screens (tests/ui_test.sh: the title
 with 0-3 players joined, play, the walls, pause, 4 players, a boss, the game over with a medal, the results), the save

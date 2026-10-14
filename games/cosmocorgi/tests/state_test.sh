@@ -56,5 +56,5 @@ scenario run4 700 400 bot=4 ready=1 power=1
 printf "400 tap SELECT\n520 tap SELECT\n" > "$O/cosmocorgi-paused.input"
 scenario paused 450 300 bot=1 ready=1
 : > "$O/cosmocorgi-results4.input"
-scenario results4 3480 300 bot=4 botstop=60 ready=1 botruns=2
+scenario results4 3010 300 bot=4 botstop=60 ready=1 botruns=2
 exit $fail

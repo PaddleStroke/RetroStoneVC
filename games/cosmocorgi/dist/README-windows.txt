@@ -7,9 +7,10 @@ robot critter. The rocket barks star shots all by itself: you just fly it
 and dodge. Wind-up robots, drones and little UFOs pop into sparkles and bolts;
 pop a whole gold group (or a gift carrier) for a capsule: the spread shot, the
 star beam, homing bones, speed, a shield, and puppy pods that fly along and
-fire too. One hit ends the run (the shield takes one). After the four bosses
-the trip starts again, faster. Medals at 2000, 6000, 13000 and 25000, and
-your best score is kept.
+fire too. One hit ends the run (the shield takes one). The robots come in
+ever greater numbers, from every side; after the four bosses the trip starts
+again, faster and busier. Medals at 2000, 7000, 20000 and 40000, and your
+best score is kept.
 
 Run CosmoCorgi.exe. No installation needed (SDL2 is built in).
 

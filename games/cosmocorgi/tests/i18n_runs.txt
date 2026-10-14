@@ -23,4 +23,4 @@ shield4   30   20   --opt ready=1 --opt msg=5 --opt players=4
 pod       30   20   --opt ready=1 --opt msg=6
 max4      30   20   --opt ready=1 --opt msg=7 --opt players=4
 over      1390 1380 --opt bot=1 --opt ready=1 --opt botstop=100 --opt botruns=2
-results   3510 3500 --opt bot=4 --opt ready=1 --opt botstop=60
+results   3040 3030 --opt bot=4 --opt ready=1 --opt botstop=60

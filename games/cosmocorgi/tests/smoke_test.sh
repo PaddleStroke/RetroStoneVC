@@ -84,7 +84,7 @@ out=$(run --frames 10 --sram "$T/save.srm")
 check "save RAM: the best score ($s) persists" "best=${s:-x} runs=0" "$out"
 
 # the bot hook (bot_decide): it plays well: through the first section and its boss without a hit
-out=$(run --frames 4000 --opt bot=1 --opt seed=7)
+out=$(run --frames 4800 --opt bot=1 --opt seed=7)
 check "the bot pops the first boss and flies into the asteroid belt" "state: st=1 .*hs=1 stage=2 " "$out"
 
 # determinism: the same inputs, the same run (state hash and picture), twice; also 4 human-like bots

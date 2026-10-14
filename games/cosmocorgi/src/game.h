@@ -82,7 +82,7 @@
 #define WARN_FRAMES   120       /* BIG ROBOT! */
 #define CLEAR_FRAMES  180       /* ROBOT POPPED!, then the next section */
 /* the robots */
-#define MAX_ENEMIES   32
+#define MAX_ENEMIES   44        /* (a beam remembers the robots it went through: 63 bits) */
 #define KIND_HP       {1, 1, 2, 1, 10, 3, 2, 3, 3}             /* bug drone ufo dasher tank turret carrier rock comet */
 #define KIND_POINTS   {10, 10, 30, 20, 100, 50, 50, 20, 20}
 #define KIND_SPEED    {65536, 98304, 98304, 98304, 24576, 0, 49152, 81920, 98304}   /* Q16 px/frame */
@@ -94,13 +94,28 @@
 #define DASH_SPEED    262144    /* ... then dashes at 4 px/frame */
 #define HOVER_FRAMES  110       /* the UFO hovers, fires at the middle, then leaves */
 #define GROUP_BONUS   100       /* a gold group all popped: points and a capsule */
+/* the ramp (DESIGN.md "The ramp"): extra waves on top of each section's script, more and bigger as the intensity grows:
+ * I = RAMP_SECTION per section + 0..10 across it + RAMP_LOOP per loop (the nebula 0..10, the station 26..36, the
+ * comets 39..49, loop 2 20..69) */
+#define RAMP_LOOP     20        /* intensity per loop */
+#define RAMP_SECTION  13        /* intensity per section */
+#define RAMP_START    1300      /* px of the first section before any extra wave (a gentle start: 22 s) ... */
+#define RAMP_START_SEC 200      /* ... of the other sections */
+#define RAMP_GAP0     400       /* px between two extra waves at intensity 0 ... */
+#define RAMP_GAP_K    9         /* ... 9 px fewer per point of intensity ... */
+#define RAMP_GAP_MIN  110       /* ... at least */
+#define RAMP_SIZE_DIV 7         /* robots in an extra wave: 3 + I / 7 ... */
+#define RAMP_SIZE_MAX 8         /* ... at most 8 */
+#define RAMP_DOUBLE   34        /* from this intensity two waves come at once, from two sides */
+#define RAMP_GOLD_EVERY 4       /* every 4th extra wave is gold (a capsule) */
+#define LOOP_WAVE_N   2         /* the scripted waves of 3 or more: +2 robots each loop (8 at most) */
 /* their shots: readable, never a bullet hell */
 #define MAX_EBULLETS  48
 #define EB_SPEED      81920     /* Q16 px/frame (1.25) in the first loop ... */
 #define EB_SPEED_LOOP 16384     /* ... +0.25 each loop ... */
 #define EB_SPEED_MAX  147456    /* ... at most 2.25 */
 #define EB_FAIR_DIST  64        /* a robot never fires at a corgi closer than this (px) */
-#define FIRE_LOOP_PCT 20        /* reloads 20% shorter each loop (down to half) */
+#define FIRE_LOOP_PCT 25        /* reloads 25% shorter each loop (down to 40%) */
 #define TANK_FIRE     150       /* frames between the robo-turtle's 3-shot fans */
 #define TURRET_FIRE   160       /* between a turret's aimed shots */
 #define SMALL_FIRE_LOOP 2       /* from loop 2 the bugs and drones fire too, once each now and then */
@@ -111,12 +126,12 @@
                        CAP_SPREAD, CAP_SPEED, CAP_HOMING, CAP_BEAM}
 #define MAXED_POINTS  500       /* a capsule of something already at its maximum */
 /* the bosses */
-#define BOSS_HP       {40, 56, 64, 72}          /* the ladybird, the crab, the owl, the walrus ... */
-#define BOSS_HP_PLAYER 50       /* ... +50% per extra player ... */
+#define BOSS_HP       {60, 84, 96, 96}          /* the ladybird, the crab, the owl, the walrus ... */
+#define BOSS_HP_PLAYER 300      /* ... +300% per extra player (4 powered-up corgis: 15-25 s) ... */
 #define BOSS_HP_LOOP  25        /* ... +25% each loop */
 #define BOSS_X        252       /* its centre x when it fights */
 #define BOSS_ENTER    120       /* frames to fly in (untouchable) */
-#define BOSS_TIME     3600      /* after 60 s it flies away (no points) */
+#define BOSS_TIME     5400      /* after 90 s it flies away (no points) */
 #define BOSS_POINTS   {1000, 1500, 2000, 2500}
 #define BOSS_HIT_POINTS 10
 #define BOSS_DOWN_FRAMES 90
@@ -130,7 +145,7 @@
 #define READY_BOB     4         /* the title rocket's bob amplitude, px */
 #define BOT_START     20        /* frames on the title before the bot starts the run */
 #define MSG_FRAMES    120       /* the power-ups' names */
-#define MEDAL_SCORES  {2000, 6000, 13000, 25000} /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
+#define MEDAL_SCORES  {2000, 7000, 20000, 40000} /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
 
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
 enum hero_state { SH_READY, SH_PLAY, SH_HIT, SH_OUT, SH_OFF };
@@ -151,7 +166,7 @@ typedef struct hero {
     int bot_dx, bot_dy, bot_t;  /* the bot's last decision (a human-like bot reacts late) */
 } hero;
 enum { SK_BARK, SK_SPREAD, SK_BEAM, SK_BONE };
-typedef struct shot { int32_t x, y, vx, vy; uint32_t hit; uint8_t on, kind, owner, damage; int16_t life, angle; } shot;
+typedef struct shot { int32_t x, y, vx, vy; uint64_t hit; uint8_t on, kind, owner, damage; int16_t life, angle; } shot;
 enum { EK_BUG, EK_DRONE, EK_UFO, EK_DASHER, EK_TANK, EK_TURRET, EK_CARRIER, EK_ROCK, EK_COMET, EK_KINDS };
 enum { PAT_LINE, PAT_SINE, PAT_LOOP, PAT_SWOOP_TOP, PAT_SWOOP_BOT, PAT_BEHIND, PAT_DASH, PAT_HOVER, PAT_TANK,
        PAT_TURRET, PAT_DRIFT };
@@ -189,6 +204,8 @@ typedef struct world {
     int32_t scroll, scroll_v;   /* Q16 px travelled; px per frame */
     int32_t sec_dist;           /* Q16 px since the section began */
     int sec, loop, phase, phase_t, waves_next, cap_n, boss_away;
+    int32_t ramp_next;          /* Q16 sec_dist of the next extra wave */
+    int ramp_n;                 /* extra waves sent this run */
     uint32_t waves_done;        /* the section's waves already sent (bits) */
     /* the walls: a ring of columns (world column c at c % TER_RING) */
     uint8_t ter_ceil[TER_RING], ter_floor[TER_RING], ter_theme[TER_RING];
@@ -228,6 +245,7 @@ int  world_running(const world *w);             /* someone still plays */
 int  world_all_out(const world *w);
 int  world_theme(int sec);                      /* THEME_* of a section */
 int  world_stage(const world *w);               /* 1, 2, ...: loop * 4 + section + 1 */
+int  world_intensity(const world *w);           /* the ramp: 10 a section, 0..10 across it, 40 a loop */
 int  ter_ceil_at(const world *w, int wcol);     /* the walls at a world column (tiles; 0 none) */
 int  ter_floor_at(const world *w, int wcol);
 int  ter_theme_at(const world *w, int wcol);
