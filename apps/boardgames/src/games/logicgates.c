@@ -1341,25 +1341,43 @@ static int lit_at(int w, float s, float f)
     return fresh ? G.wend[w] : old_end[w];
 }
 
-/* a straight stretch of trace (px): its glow (layer 0), its dark edge (1), its brass or gold (2) */
+/* The traces: each wire one continuous trace. Every stretch is a rectangle reaching half the trace's width past both
+ * its ends (so a bend's corner is filled, square); all the dark edges are drawn first, then all the brass and gold over
+ * them (draw_wires), everything opaque, so no stretch's edge cuts across the next one and an overlap is never darker
+ * or brighter. The lit wires' glow, translucent, goes into a buffer of its own first (opaque there: overlaps, bends,
+ * branchings are one), laid over the board at once (glows). */
+static int glow_pass;                           /* drawing the glow into its buffer: 1 the wide glow, 2 the narrow */
+
+static void glow_fill(float x, float y, float w, float h)   /* upright places, as b_fill, in the buffer */
+{
+    float sx = x, sy = y, sw = w, sh = h;
+    if (turned) {
+        to_screen(x, y + h, &sx, &sy);
+        sw = h;
+        sh = w;
+    }
+    SDL_FRect q = {sx - panel.x, sy - panel.y, sw, sh};
+    SDL_RenderFillRectF(ui.r, &q);
+}
+
+/* a straight stretch of trace (px): its glow (layer 0), its dark edge (1), its brass or gold (2; 3 a gate's lead) */
 static void trace(float x0, float y0, float x1, float y1, int lit, int layer)
 {
     float t = tw, xa = fminf(x0, x1) - t / 2, ya = fminf(y0, y1) - t / 2, w = fabsf(x1 - x0) + t,
           h = fabsf(y1 - y0) + t;
     if (layer == 0) {
-        float g = 1.0f * t;
-        b_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 186, 60, 24);
-        g = 0.45f * t;
-        b_fill(xa - g, ya - g, w + 2 * g, h + 2 * g, 255, 196, 70, 46);
+        float g = (glow_pass == 2 ? 0.45f : 1.0f) * t;
+        glow_fill(xa - g, ya - g, w + 2 * g, h + 2 * g);
     } else if (layer == 1) {
-        b_fill(xa - 1, ya - 1, w + 2, h + 2, 6, 18, 12, 230);
+        b_fill(xa - 1, ya - 1, w + 2, h + 2, 7, 21, 14, 255);
     } else {
         const uint8_t *c = lit ? GOLD : TRACE;
         b_fill(xa, ya, w, h, c[0], c[1], c[2], 255);
-        if (lit) {                              /* a bright line down its middle */
+        if (lit) {                              /* a bright line down its middle, to the middle of a bend */
             int vert = fabsf(x1 - x0) < fabsf(y1 - y0);
-            if (vert) b_fill(xa + 0.35f * t, ya, 0.3f * t, h, 255, 242, 196, 150);
-            else b_fill(xa, ya + 0.35f * t, w, 0.3f * t, 255, 242, 196, 150);
+            float e = layer == 3 ? 0.5f * t : 0.15f * t;   /* (3: a lead, straight: as long as its fill) */
+            if (vert) b_fill(xa + 0.35f * t, fminf(y0, y1) - e, 0.3f * t, h - t + 2 * e, 255, 227, 150, 255);
+            else b_fill(fminf(x0, x1) - e, ya + 0.35f * t, w - t + 2 * e, 0.3f * t, 255, 227, 150, 255);
         }
     }
 }
@@ -1466,20 +1484,57 @@ static int pieces(int w, float *a, float *b, int *lit)
     return k;
 }
 
+static SDL_Texture *t_glowbuf;                  /* the glows' buffer: the board's size */
+static int glow_w, glow_h;
+
+/* the lit wires' glow: each of its two widths drawn whole into the buffer, then laid over the board faded */
+static void glows(void)
+{
+    static const uint8_t C[2][4] = {{255, 186, 60, 24}, {255, 196, 70, 46}};
+    int W = (int)ceilf(panel.w), H = (int)ceilf(panel.h);
+    if (!t_glowbuf || glow_w != W || glow_h != H) {
+        ui_free(&t_glowbuf);
+        t_glowbuf = SDL_CreateTexture(ui.r, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, W, H);
+        if (!t_glowbuf) return;
+        SDL_SetTextureBlendMode(t_glowbuf, SDL_BLENDMODE_BLEND);
+        glow_w = W;
+        glow_h = H;
+    }
+    float a[6], b[6];
+    int lit[6];
+    SDL_BlendMode mode;
+    SDL_GetRenderDrawBlendMode(ui.r, &mode);
+    for (glow_pass = 1; glow_pass <= 2; glow_pass++) {
+        SDL_Texture *was = SDL_GetRenderTarget(ui.r);
+        SDL_SetRenderTarget(ui.r, t_glowbuf);
+        SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_NONE);
+        SDL_SetRenderDrawColor(ui.r, 0, 0, 0, 0);
+        SDL_RenderClear(ui.r);
+        const uint8_t *c = C[glow_pass - 1];
+        SDL_SetRenderDrawColor(ui.r, c[0], c[1], c[2], 255);
+        for (int w = 0; w < G.L.nw; w++) {
+            int k = pieces(w, a, b, lit);
+            for (int i = 0; i < k; i++)
+                if (lit[i])
+                    for (int vert = 0; vert < 2; vert++) path(&G.L.w[w], a[i], b[i], vert, 1, 0);
+        }
+        SDL_SetRenderDrawBlendMode(ui.r, mode);
+        SDL_SetRenderTarget(ui.r, was);
+        SDL_SetTextureAlphaMod(t_glowbuf, c[3]);
+        ui_put(t_glowbuf, panel.x, panel.y, (float)W, (float)H);
+    }
+    glow_pass = 0;
+}
+
 static void draw_wires(void)
 {
     float a[6], b[6];
     int lit[6];
-    /* the glows; then the horizontal stretches, their edges, dark then lit; then the vertical ones over them */
-    for (int w = 0; w < G.L.nw; w++) {
-        int k = pieces(w, a, b, lit);
-        for (int i = 0; i < k; i++)
-            if (lit[i])
-                for (int vert = 0; vert < 2; vert++) path(&G.L.w[w], a[i], b[i], vert, 1, 0);
-    }
-    for (int vert = 0; vert < 2; vert++)
+    /* the glows; then every dark edge; then the brass, then the gold over it */
+    glows();
+    for (int layer = 1; layer < 3; layer++)
         for (int on = 0; on < 2; on++)
-            for (int layer = 1; layer < 3; layer++)
+            for (int vert = 0; vert < 2; vert++)
                 for (int w = 0; w < G.L.nw; w++) {
                     int k = pieces(w, a, b, lit);
                     for (int i = 0; i < k; i++)
@@ -1772,8 +1827,8 @@ static void draw_node(int i)
             const lg_wire *W = &G.L.w[w];
             int lit = lit_at(w, W->len, front(w));
             float x = PX(W->px[W->npt - 1]);
-            trace(x, yb, x, top, lit, 1);
-            trace(x, yb, x, top, lit, 2);
+            trace(x, yb - 0.5f * tw - 1, x, top, lit, 1);   /* its edge on the plaque only: none across the wire */
+            trace(x, yb, x, top, lit, 3);
         }
         int w3 = N->nin == 3;
         b_put(gate_tex(N->kind, out, w3), cx - gate_w[w3] / 2, yt, gate_w[w3], gate_h);
