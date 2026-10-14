@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SIMMA
+HINT = A: DELA - B: SPOTTA
+EATEN_BY = %s ÅT DIG!
+BIGGEST = STÖRSTA FISKEN!

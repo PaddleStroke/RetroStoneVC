@@ -1,0 +1,17 @@
+# Fishy Feast: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+hint      60   50   --opt bot=1 --opt seed=7 --opt ready=1
+play      1210 1200 --opt bot=1 --opt seed=7 --opt ready=1
+biggest   40   30   --opt bot=1 --opt seed=7 --opt ready=1 --opt mass=2000
+play2     310  300  --opt bot=2 --opt seed=9 --opt ready=1 --opt mass=2000
+play3     310  300  --opt bot=3 --opt seed=9 --opt ready=1 --opt mass=60
+play4     310  300  --opt bot=4 --opt seed=9 --opt ready=1 --opt mass=2000
+pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+pause4    320  310  --opt bot=4 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+eaten4    1800 1790 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=20
+over      3000 2990 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=20
+results   6000 5990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=20

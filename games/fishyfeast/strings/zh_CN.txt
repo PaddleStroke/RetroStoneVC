@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 游泳
+HINT = A: 分裂 - B: 喷射
+EATEN_BY = 被%s吃掉了!
+BIGGEST = 最大的鱼!

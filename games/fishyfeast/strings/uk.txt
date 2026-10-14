@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ПЛАВАТИ
+HINT = A: ПОДІЛ - B: ВИКИД
+EATEN_BY = ТЕБЕ З'ЇВ %s!
+BIGGEST = НАЙБІЛЬША РИБА!

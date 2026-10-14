@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = YÜZMEK
+HINT = A: BÖLÜN - B: FIRLAT
+EATEN_BY = %s SENİ YEDİ!
+BIGGEST = EN BÜYÜK BALIK!

@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = NAGER
+HINT = A: SE DIVISER - B: ÉJECTER
+EATEN_BY = MANGÉ PAR %s!
+BIGGEST = LE PLUS GROS !

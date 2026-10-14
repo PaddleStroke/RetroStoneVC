@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = NUOTARE
+HINT = A: DIVIDI - B: ESPELLI
+EATEN_BY = PRESO DA %s!
+BIGGEST = IL PIÙ GROSSO!

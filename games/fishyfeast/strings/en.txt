@@ -1,0 +1,12 @@
+# Fishy Feast: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED...) are in
+# games/common/strings. The game's name and the fish names (BUBBLES, FINLEY...) are never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO). max 12
+VERB = SWIM
+#. A hint at the bottom of the screen in the first seconds of a 1-player run: the pad's A and B buttons. max 38
+HINT = A: SPLIT - B: EJECT
+#. In a player's view (and on the game-over panel) when its last piece was eaten; %s is a fish's name (BUBBLES) or a
+#. player tag (P2). In a quarter of the screen: max 18
+EATEN_BY = EATEN BY %s!
+#. A flash when a player becomes the heaviest fish in the pond. In a quarter of the screen: max 18
+BIGGEST = BIGGEST FISH!

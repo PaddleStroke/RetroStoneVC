@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PŁYWAĆ
+HINT = A: DZIEL - B: WYPLUJ
+EATEN_BY = ZJADŁ CIĘ %s!
+BIGGEST = NAJWIĘKSZA RYBA!

@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = UI
+HINT = A: JAKAUDU - B: SYLJE
+EATEN_BY = %s SÖI SINUT!
+BIGGEST = ISOIN KALA!

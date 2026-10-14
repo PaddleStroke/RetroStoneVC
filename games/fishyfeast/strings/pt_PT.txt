@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = NADAR
+HINT = A: DIVIDIR - B: EXPELIR
+EATEN_BY = %s COMEU-TE!
+BIGGEST = O MAIOR PEIXE!

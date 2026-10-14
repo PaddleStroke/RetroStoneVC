@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΚΟΛΥΜΠΗΣΕΙΣ
+HINT = A: ΧΩΡΙΣΜΟΣ - B: ΕΚΤΟΞΕΥΣΗ
+EATEN_BY = %s ΣΕ ΕΦΑΓΕ!
+BIGGEST = ΤΟ ΠΙΟ ΜΕΓΑΛΟ!

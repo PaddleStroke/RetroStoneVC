@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 수영
+HINT = A: 분열 - B: 발사
+EATEN_BY = %s에게 잡힘!
+BIGGEST = 가장 큰 물고기!

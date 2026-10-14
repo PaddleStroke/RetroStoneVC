@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PLAV
+HINT = A: ROZDĚLIT - B: VYPLIVNOUT
+EATEN_BY = SNĚDL TĚ %s!
+BIGGEST = NEJVĚTŠÍ RYBA!

@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SCHWIMMEN
+HINT = A: TEILEN - B: AUSSTOSSEN
+EATEN_BY = %s HAT DICH!
+BIGGEST = GRÖSSTER FISCH!

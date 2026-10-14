@@ -1,0 +1,5 @@
+# Fishy Feast's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ZWEMMEN
+HINT = A: SPLITSEN - B: UITSTOTEN
+EATEN_BY = %s AT JE OP!
+BIGGEST = GROOTSTE VIS!
