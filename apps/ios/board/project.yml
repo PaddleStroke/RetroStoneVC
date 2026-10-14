@@ -1,0 +1,109 @@
+# RetroStone Board for iPhone and iPad: the Xcode project's spec, for XcodeGen (https://github.com/yonaskolb/XcodeGen).
+# apps/ios/build.sh board writes build/ios/board/RetroStoneBoard.xcodeproj from it; nothing of Xcode's is kept in
+# the repository. Paths here: from this folder; in the build settings: from the repository (RS_REPO).
+# Before it: apps/ios/prepare.sh board (build/ios/board: gen/, Assets.xcassets) and apps/ios/build-sdl.sh (SDL2:
+# build/ios/sdl, its headers and its static library for the devices and the simulator).
+# The version (MARKETING_VERSION, CURRENT_PROJECT_VERSION) and the signing come from build.sh's command line.
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+name: RetroStoneBoard
+options:
+  bundleIdPrefix: com.eightbcraft
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    RS_REPO: $(SRCROOT)/../../..
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    CLANG_ENABLE_OBJC_ARC: YES
+    GCC_C_LANGUAGE_STANDARD: gnu11
+    ENABLE_BITCODE: NO
+    DEAD_CODE_STRIPPING: YES
+  configs:
+    Release:
+      GCC_OPTIMIZATION_LEVEL: "2"
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+targets:
+  RetroStoneBoard:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      # the app: the shell, the games, save, sound, art, cards, the bots (apps/boardgames/src, as every build)
+      - path: ../../boardgames/src
+      # the generated C (apps/ios/prepare.sh): the texts and fonts, the pictures, the edition
+      - path: ../../../build/ios/board/gen
+      # the in-app purchase: its C API and the StoreKit backend; the safe area and the entry point
+      - path: ../../common/iap.h
+      - path: ../common/iap_storekit.swift
+      - path: ../common/ios_app.h
+      - path: ../common/ios_app.m
+      - path: ../common/LaunchScreen.storyboard
+      - path: ../../../build/ios/board/Assets.xcassets
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: Foundation.framework
+      - sdk: StoreKit.framework
+      - sdk: AVFoundation.framework
+      - sdk: AudioToolbox.framework
+      - sdk: CoreAudio.framework
+      - sdk: CoreBluetooth.framework
+      - sdk: CoreFoundation.framework
+      - sdk: CoreGraphics.framework
+      - sdk: CoreHaptics.framework
+      - sdk: CoreMotion.framework
+      - sdk: CoreVideo.framework
+      - sdk: GameController.framework
+      - sdk: IOKit.framework
+      - sdk: Metal.framework
+      - sdk: OpenGLES.framework
+      - sdk: QuartzCore.framework
+    settings:
+      base:
+        PRODUCT_NAME: RetroStoneBoard
+        PRODUCT_BUNDLE_IDENTIFIER: com.eightbcraft.retrostoneboard
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        HEADER_SEARCH_PATHS:
+          - $(RS_REPO)/apps/boardgames/src
+          - $(RS_REPO)/apps/common
+          - $(RS_REPO)/apps/ios/common
+          - $(RS_REPO)/sdk/third_party/stb
+          - $(RS_REPO)/build/ios/sdl/include
+        "LIBRARY_SEARCH_PATHS[sdk=iphoneos*]": $(RS_REPO)/build/ios/sdl/iphoneos
+        "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]": $(RS_REPO)/build/ios/sdl/iphonesimulator
+        OTHER_LDFLAGS: [-lSDL2, -liconv]
+        GENERATE_INFOPLIST_FILE: NO
+    info:
+      path: ../../../build/ios/board/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: en
+        CFBundleDisplayName: RetroStone Board
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        # no encryption beyond the system's: no export compliance question at each TestFlight upload
+        ITSAppUsesNonExemptEncryption: false
+        # SDL links CoreBluetooth (game pads); the app never uses it, the App Store still wants the sentence
+        NSBluetoothAlwaysUsageDescription: RetroStone Board does not use Bluetooth.
+    scheme: {}
