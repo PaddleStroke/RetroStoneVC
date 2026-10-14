@@ -1,6 +1,6 @@
 Mantık Kapıları
 # Amaç
-Bir devre kartı: anahtarlar, onların üstünde mantık kapıları, en üstte lambalar; her anahtar, beslediği kapının hemen altında durur. Her tel yukarı doğru bir sinyal taşır, 0 (karanlık) ya da 1 (altın gibi parlar). Anahtarları öyle ayarla ki bütün lambalar yansın, kırmızı alarm lambaları ise sönük kalsın. 6 bölümde 165 seviye var. Rastgele yapılan bir devre için önce boyutunu seç: küçük (3 ya da 4 anahtar; AND, OR ve NOT), orta (5 ya da 6; XOR ve NAND da) ya da büyük (7 ya da 8; hepsi).
+Bir devre kartı: anahtarlar, onların üstünde mantık kapıları, en üstte lambalar; her anahtar, beslediği kapının hemen altında durur. Her tel yukarı doğru bir sinyal taşır, 0 (karanlık) ya da 1 (altın gibi parlar). Anahtarları öyle ayarla ki bütün lambalar yansın, kırmızı alarm lambaları ise sönük kalsın. 6 bölümde 165 seviye var. Rastgele yapılan bir devre için boyutunu seç, küçük (3 ya da 4 anahtar), orta (5 ya da 6) ya da büyük (7 ya da 8), ve kullanabileceği parçalara dokunarak onları yak ya da söndür: her kapı, kırmızı alarm lambası, iki lamba, makas anahtarı, kilitli anahtar ve kablo; sonra oyna düğmesine dokun.
 # Kapılar
 Her kapı ceviz bir levha üzerinde pirinçten bir şekildir: girişleri alttan girer, çıkışı üstten çıkar. Bir kapının tepesindeki küçük halka cevabını tersine çevirir. Aşağıda her durum için girişler ve çıkış: 01 → 1, birinci giriş 0, ikinci giriş 1, çıkış 1 demektir. Adı, devre şemalarındaki gibi İngilizce olarak üstüne kazınmıştır: NOT, AND, OR, XOR, NAND ya da NOR.
 - NOT (DEĞİL), ucunda halka olan bir üçgen: girişinin tersi. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ Bir hamle, bir anahtarı çevirmek ya da bir teli kesmektir. Her seviyenin bir p
 - Seviye tablosu: her bölüm için bir sekme, altında da o bölümün seviyeleri: çözülenler yıldızlarıyla altın, açık olanlar ahşap, kilitliler koyu ahşap. Oynamak için bir seviyeye dokun. Yıldızların cihazda saklanır.
 - Çevirmek için bir anahtara, döndürmek için bir makasa, kesmek için bir kabloya dokun. Değişiklik teller boyunca kapı kapı yukarı koşar.
 - Kartın yanında: bölüm ve seviyenin numarası; yuvarlak ok seviyeyi baştan başlatır; lamba ipucu verir: değiştirilecek sonraki parça yanıp söner. Bunun yerine yeniden başlatma düğmesi yanıp sönüyorsa kesiklerin yanlıştır: onları geri al.
+- Rastgele bir devrede ipucunun yanındaki kapı düğmesi boyut ve parça seçimini geri getirir; sonraki düğmesi aynı seçimle yeni bir devre yapar. Oyna düğmesi sönük kalırsa hafifçe parlayan kapılardan birini yak: bir bulmacanın AND'e ya da OR, NAND veya NOR ile birlikte NOT'a ihtiyacı vardır.
 - Bütün lambalar yanınca altın gibi parlarlar; ardından yıldızların ve sonraki seviyenin düğmesi görünür. Yeni oyun (ızgara düğmesi) seviye tablosuna döner.
 - Şerit hamlelerini bir anahtarın, kalan kesme hakkını bir kablonun, par değerini de bir yıldızın yanında gösterir. Geniş bir ekranda derin bir devre yan yatabilir: anahtarlar solda, lambalar sağda.

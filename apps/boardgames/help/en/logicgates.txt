@@ -1,6 +1,6 @@
 Logic Gates
 # The aim
-A circuit board: switches, logic gates above them, lamps at the top; each switch sits just under the gate it feeds. Each wire carries a signal upwards, 0 (dark) or 1 (glowing gold). Set the switches so that every lamp lights up, while any red alarm lamp stays dark. There are 165 levels in 6 chapters. For a circuit made at random, choose its size first: small (3 or 4 switches, with AND, OR and NOT), medium (5 or 6, with XOR and NAND too) or big (7 or 8, with everything).
+A circuit board: switches, logic gates above them, lamps at the top; each switch sits just under the gate it feeds. Each wire carries a signal upwards, 0 (dark) or 1 (glowing gold). Set the switches so that every lamp lights up, while any red alarm lamp stays dark. There are 165 levels in 6 chapters. For a circuit made at random, choose its size, small (3 or 4 switches), medium (5 or 6) or big (7 or 8), and tap the parts it may use to light them up or dim them: each gate, the red alarm lamp, two lamps, the route switch, the locked switch and the cable; then tap play.
 # The gates
 Each gate is a brass shape on a walnut plaque: its inputs come in at the bottom, its output leaves at the top. A small ring at the top of a gate turns its answer round. Below, the inputs and the output for every case: 01 → 1 means first input 0, second input 1, output 1. Its name is engraved on it in English, as on circuit drawings: NOT, AND, OR, XOR, NAND or NOR.
 - NOT, a triangle with a ring at its tip: the opposite of its input. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ A move is one flip or one cut. Each level has a par, the fewest moves that solve
 - The level grid: a tab for each chapter, then the chapter's levels: solved in gold with their stars, open in wood, locked in dark wood. Tap a level to play it. Your stars are kept on the device.
 - Tap a switch to flip it, a route switch to turn it, a cable to cut it. The change runs up the wires, gate after gate.
 - Beside the board: the chapter and the level's number; the round arrow starts the level again; the lamp shows a hint: the next part to change blinks. If the restart button blinks instead, your cuts have gone wrong: undo them.
+- In a circuit made at random, the gate button beside the hint brings back the size and the parts; the next button makes another circuit of the same choice. If the play button stays dim, light one of the softly glowing gates: a puzzle needs an AND, or a NOT with an OR, NAND or NOR.
 - When every lamp is lit, the lamps flare up in gold; then your stars appear with the button for the next level. New game (the grid button) goes back to the level grid.
 - The bar shows your moves beside a switch, the cuts left beside a cable, and the par beside a star. On a wide screen a deep circuit may lie on its side: the switches on the left, the lamps on the right.

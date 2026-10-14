@@ -1,6 +1,6 @@
 Logiske porter
 # Målet
-Et kretskort: brytere, logiske porter over dem, lamper øverst; hver bryter sitter rett under porten den forsyner. Hver ledning fører et signal oppover, 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket. Det er 165 nivåer i 6 kapitler. For en krets laget tilfeldig velger du først størrelsen: liten (3 eller 4 brytere, med AND, OR og NOT), middels (5 eller 6, også med XOR og NAND) eller stor (7 eller 8, med alt).
+Et kretskort: brytere, logiske porter over dem, lamper øverst; hver bryter sitter rett under porten den forsyner. Hver ledning fører et signal oppover, 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket. Det er 165 nivåer i 6 kapitler. For en krets laget tilfeldig velger du størrelsen, liten (3 eller 4 brytere), middels (5 eller 6) eller stor (7 eller 8), og trykker på delene den kan bruke for å tenne eller dempe dem: hver port, den røde alarmlampen, to lamper, sporvekselen, den låste bryteren og kabelen; trykk så på spill.
 # Portene
 Hver port er en messingfigur på en plate av valnøtt: inngangene kommer inn nederst, utgangen går ut øverst. En liten ring øverst på en port snur svaret dens. Nedenfor inngangene og utgangen i hvert tilfelle: 01 → 1 betyr første inngang 0, andre inngang 1, utgang 1. Navnet er gravert inn på engelsk, som på koblingsskjemaer: NOT, AND, OR, XOR, NAND eller NOR.
 - NOT (IKKE), en trekant med en ring i spissen: det motsatte av inngangen. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ Et trekk er ett skifte eller ett kutt. Hvert nivå har en par: færrest trekk so
 - Nivåskjermen: en fane for hvert kapittel, deretter nivåene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et nivå for å spille det. Stjernene dine lagres på enheten.
 - Trykk på en bryter for å slå den om, på en sporveksler for å snu den, på en kabel for å kutte den. Endringen løper opp ledningene, port for port.
 - Ved siden av kortet: kapitlet og nivåets nummer; den runde pilen starter nivået på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
+- I en tilfeldig krets henter portknappen ved siden av hintet fram størrelsen og delene igjen; knappen neste lager en ny krets med det samme valget. Er spillknappen fortsatt dempet, tenn en av portene som gløder svakt: en oppgave trenger en AND, eller en NOT sammen med en OR, NAND eller NOR.
 - Når alle lampene lyser, blusser de opp i gull; så vises stjernene dine med knappen til neste nivå. Nytt spill (rutenettknappen) går tilbake til nivåskjermen.
 - Linjen viser trekkene dine ved en bryter, kuttene som er igjen ved en kabel, og par ved en stjerne. På en bred skjerm kan en dyp krets ligge på siden: bryterne til venstre, lampene til høyre.

@@ -10,7 +10,8 @@
  *
  * The levels: the shell's level screen (a tab for each chapter with its emblem, the chapter's levels as tiles: 40 in
  * the first, 25 in the others; the shell keeps the stars won); its new game goes back to it. The die tab after the
- * chapters: a circuit made at random (lg_random), small, medium or big. The board takes all the room between the bars;
+ * chapters: random play, opening on its setup screen (the size, a toggle for each part the circuits may use, play);
+ * then circuits made at random of those parts (lg_random). The board takes all the room between the bars;
  * a deep circuit in a wide room lies on its side (the switches on the left) when its parts come out bigger so. Its
  * tools are the shell's (game.tools: in the bar's row standing, in the side column lying): restart, the hint (one part
  * to change blinks). The bar: the level (its chapter's emblem, its number; lying: at the top of the side column), the
@@ -39,6 +40,13 @@
 
 static lg_game G;
 
+/* random play's setup screen (below: the die tab's choice) */
+static int setup;                               /* it shows (instead of a circuit) */
+static void setup_layout(void);
+static void setup_draw(void);
+static void setup_press(float x, float y);
+static void setup_open(void);
+static void paint_setup_icon(int kind, int size, uint8_t *rgba);
 
 /* the animations */
 static Uint32 t0;                               /* the last move: its change runs up from there */
@@ -55,7 +63,9 @@ static box B, panel;                            /* the game's room; the framed b
 static int wide, fr;                            /* lying (landscape): the level's number in the shell's column */
 static float ox, oy, cw, ch, tw;                /* grid (x, y) at (ox + x cw, oy - y ch); the traces' width */
 
-enum { T_RESET, T_HINT, TOOLS };                /* the shell's tools (game.tools): restart, hint */
+enum { T_RESET, T_HINT, T_SETUP, TOOLS };       /* the shell's tools (game.tools): restart, hint; random play's
+                                                 * setup screen */
+static int tools_now(void) { return setup ? 0 : G.level >= 0 ? T_SETUP : TOOLS; }
 
 static float PX(float x) { return ox + x * cw; }
 /* the gaps between rows stretched (gs times) when the room is taller than the parts need; the parts keep their size */
@@ -1093,9 +1103,11 @@ static void layout(box b)
 {
     B = panel = b;
     wide = b.w > 1.08f * b.h;
+    ui_tools_shown(tools_now());
     shared_textures();
     board_textures();
-    if (G.L.cols) fit();                        /* a level open */
+    if (setup) setup_layout();
+    else if (G.L.cols) fit();                   /* a level open */
 }
 
 /* ---- the level --------------------------------------------------------------------------------------------------- */
@@ -1139,18 +1151,70 @@ static void fresh_progress(void)
     ui_save_set("logicgates/levels", &v, 1);
 }
 
-static void start(int level) { open_level(level); }   /* the shell's level screen: 0..LG_LEVELS-1 */
-
-/* the die tab: a circuit made now, small, medium or big (lg_random: as good a puzzle as the levels) */
-static void start_random(int variant)
+static void start(int level)                    /* the shell's level screen: 0..LG_LEVELS-1 */
 {
-    if (!lg_random(&G, variant, (uint32_t)ui_random(0x7fffffff) + 1u)) lg_open(&G, 0);
+    setup = 0;
+    ui_tools_shown(tools_now());
+    open_level(level);
+}
+
+/* ---- the die tab: random play ------------------------------------------------------------------------------------
+ * It opens on its setup screen (setup_draw): the size and the parts the circuits may use, kept on the device
+ * (logicgates/random: the size, then the parts' bits, little-endian), every part at first. Its play button makes a
+ * circuit (lg_random: as good a puzzle as the levels, of those parts only). The end card's next is a new circuit of
+ * the same choice at once, its replay the same circuit; the tool after the hint opens the setup screen again. */
+static int rnd_size = 1, rnd_loaded;
+static unsigned rnd_comp = LG_C_ALL;
+static uint32_t rnd_seed;                       /* the seed start_random drew last (a replay draws it again) */
+static int rnd_unused;                          /* that seed not played yet (the first play after the tab) */
+
+static void choice_load(void)
+{
+    if (rnd_loaded) return;
+    rnd_loaded = 1;
+    uint8_t b[3];
+    if (ui_save_get("logicgates/random", b, 3) == 3 && b[0] < LG_RANDOM) {
+        rnd_size = b[0];
+        rnd_comp = (b[1] | (unsigned)b[2] << 8) & LG_C_ALL;
+    }
+}
+
+static void choice_save(void)
+{
+    uint8_t b[3] = {(uint8_t)rnd_size, (uint8_t)(rnd_comp & 255), (uint8_t)(rnd_comp >> 8)};
+    ui_save_set("logicgates/random", b, 3);
+}
+
+static void random_circuit(uint32_t seed)       /* a circuit of the choice */
+{
+    if (!lg_random(&G, rnd_size, rnd_comp, seed)) lg_open(&G, 0);
+    setup = 0;
     calm();
+    ui_tools_shown(tools_now());
     if (B.w > 0) fit();
 }
 
+/* The shell calls it for the die tab (the setup screen) and for the end card's next and replay (a circuit at once):
+ * those come while the card shows (ui_over). A replay gives the same seed again: the same circuit, started over. */
+static void start_random(int variant)
+{
+    (void)variant;                              /* one variant: the sizes are the setup screen's */
+    choice_load();
+    uint32_t seed = (uint32_t)ui_random(0x7fffffff) + 1u;
+    int card = ui_over() && !setup && G.level < 0 && G.L.cols;
+    if (card && seed == rnd_seed) {             /* replay */
+        lg_restart(&G);
+        calm();
+        return;
+    }
+    rnd_seed = seed;
+    rnd_unused = !card;
+    if (card) random_circuit(seed);             /* next */
+    else setup_open();
+}
+
 static int chapter_of(int level) { return lg_chapter(level); }   /* chapter 1 is longer */
-static int status(void) { return lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
+static int status(void) { return !setup && lg_solved(&G) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
 static int level_stars(void) { return lg_stars(&G); }
 static int score(void) { return G.nh; }
@@ -1171,6 +1235,7 @@ static void moved(const lg_game *before)
 
 static int busy(void)
 {
+    if (setup) return 0;
     Uint32 now = ui_ms();
     if (t0 && now - t0 < (Uint32)((G.L.maxdepth + 1) * STEP_MS)) return 1;
     if (flip_node >= 0 && now - flip_t < FLIP_MS) return 1;
@@ -1181,6 +1246,7 @@ static int busy(void)
 static int undo(void)
 {
     static lg_game before;
+    if (setup) return 0;
     before = G;
     if (!lg_undo(&G)) return 0;
     calm();
@@ -1203,7 +1269,10 @@ static void restart(void)
     moved(&before);
 }
 
-/* the notation (logicgates.h); the hint's here (shown blinking), the moves in the rules */
+/* the notation (logicgates.h); the hint's here (shown blinking), the moves in the rules; random play's setup screen
+ * here too: "z0".."z2" chooses the size, "k" and the parts' bits in hex ("k7ff": every part) the parts, "p" plays
+ * (a circuit of that choice), "o" opens the setup screen again */
+static int setup_play(void);
 static int script(const char *moves)
 {
     char tok[32];
@@ -1215,7 +1284,20 @@ static int script(const char *moves)
         memcpy(tok, s, (size_t)n);
         tok[n] = 0;
         s += n;
-        if (tok[0] == 'h' && !tok[1]) {
+        if (tok[0] == 'z' && tok[1] >= '0' && tok[1] < '0' + LG_RANDOM && !tok[2] && setup) {
+            rnd_size = tok[1] - '0';
+        } else if (tok[0] == 'k' && tok[1] && setup) {
+            char *end;
+            unsigned long c = strtoul(tok + 1, &end, 16);
+            ok = !*end && c <= LG_C_ALL;
+            if (ok) rnd_comp = (unsigned)c;
+        } else if (tok[0] == 'p' && !tok[1] && setup) {
+            ok = setup_play();
+        } else if (tok[0] == 'o' && !tok[1] && !setup && G.level < 0) {
+            setup_open();
+        } else if (setup) {
+            ok = 0;
+        } else if (tok[0] == 'h' && !tok[1]) {
             ok = lg_hint(&G, &hint.m);
             hint.on = ok;
             hint.t = ui_ms();
@@ -1763,8 +1845,10 @@ static void draw_tools(void)
 {
     int blink = deny_reset && now_ms - (Uint32)deny_reset < HINT_MS;   /* the hint found nothing: restart, lit */
     if (blink) ui_animate();
+    ui_tools_shown(tools_now());
     ui_tool(T_RESET, ICON_REPLAY, blink && (now_ms - (Uint32)deny_reset) / 300 % 2 == 0 ? UI_LIT : 0);
     ui_tool(T_HINT, ICON_HINT, 0);
+    if (G.level < 0) ui_tool_paint(T_SETUP, paint_setup_icon, 0, 0.7f, UI_TINT);   /* random play: its choice */
     if (wide && G.level >= 0) {                 /* the level in the side column, above the tools */
         box c = ui_bar_box(0, NULL);
         draw_label(c.x + c.w / 2, B.y + 0.6f * ui.unit, 1);
@@ -1775,6 +1859,11 @@ static void draw(void)
 {
     now_ms = ui_ms();
     if (made_shared < 0) layout(B);
+    if (setup) {
+        ui_tools_shown(0);
+        setup_draw();
+        return;
+    }
     draw_board();
     draw_wires();
     for (int i = 0; i < G.L.nn; i++) draw_node(i);
@@ -1809,8 +1898,17 @@ static void do_move(lg_move m, int node, int wire)
 
 static void press(float x, float y)
 {
+    if (setup) {
+        setup_press(x, y);
+        return;
+    }
     int i = ui_tool_hit(x, y);
     if (i >= 0) {
+        if (i == T_SETUP) {                     /* random play: back to its setup screen */
+            ui_sound(SND_TAP);
+            setup_open();
+            return;
+        }
         if (i == T_RESET) {
             if (!G.nh) { ui_sound(SND_DENY); return; }
             ui_sound(SND_TAP);
@@ -1871,6 +1969,7 @@ static SDL_Texture *t_bar_star, *t_bar_fuse, *t_bar_switch;
 static void bar(int player, box b)
 {
     (void)player;
+    if (setup) return;                          /* nothing to count yet */
     float u = ui.unit, cy = b.y + b.h / 2;
     int sz = (int)(0.6f * u);
     if (made_bar != sz) {                       /* the pictures, square */
@@ -1921,8 +2020,8 @@ static void bar(int player, box b)
     }
 }
 
-/* ---- the die tab's cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp (the gates of
- * that size: AND and OR; XOR and NAND too; everything) */
+/* ---- the setup screen's size cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp
+ * (some gates of each kind) */
 static void circuit_thumb(int variant, int size, uint8_t *rgba)
 {
     int nsw = 4 + 2 * variant;
@@ -1995,12 +2094,259 @@ static void circuit_thumb(int variant, int size, uint8_t *rgba)
     free(b);
 }
 
+/* ---- random play's setup screen -----------------------------------------------------------------------------------
+ * On the green board: the three sizes as cards (a circuit of 4, 6 or 8 switches: the one chosen in a gold light, the
+ * others dimmed), then a toggle for each part the circuits may use, drawn as that part on its walnut plaque as on the
+ * board: the six gates with their names, an alarm lamp, two lamps, a route switch, a locked switch, a jumper cable.
+ * Chosen: lit, in a gold light; left out: dark and dimmed. No words. The play button under them, dim while the parts
+ * chosen cannot make a puzzle (lg_comp_ok: no AND, nor a NOT with an OR, NAND or NOR), the gates that would make
+ * them good glowing softly meanwhile. Upright, the toggles go three across; on a wide screen six. */
+#define TILE_H 0.8f                             /* a toggle's plaque: as tall, of its width */
+static struct {
+    float c;                                    /* a toggle's width */
+    box size[LG_RANDOM], part[LG_COMPONENTS];
+    float px, py, pd;                           /* the play button */
+} SU;
+static SDL_Texture *t_size[LG_RANDOM], *t_part[LG_COMPONENTS][2];
+static int made_setup = -1;
+
+/* a toggle's picture (w x h): the part on its walnut plaque, lit (on) or not */
+static void paint_part_tile(int k, int on, int w, int h, uint8_t *o)
+{
+    paint_walnut(o, w, h, 1.0f);
+    uint8_t *b = calloc((size_t)w * h, 4), *k2 = calloc((size_t)w * h, 4);
+    if (!b || !k2) { free(b); free(k2); return; }
+    float lw = fmaxf(2, roundf(0.045f * w));
+    const uint8_t *lead = on ? GOLD : TRACE;
+    if (k < LG_C_GATES) {                       /* a gate, its inputs' leads rising into it */
+        static const int KIND[LG_C_GATES] = {LG_AND, LG_OR, LG_NOT, LG_XOR, LG_NAND, LG_NOR};
+        int gw = (int)(0.8f * w), gh = (int)(0.78f * h), gx = (w - gw) / 2, gy = (int)(0.07f * h);
+        int nin = KIND[k] == LG_NOT ? 1 : 2;
+        for (int i = 0; i < nin; i++) {
+            float x = w / 2.0f + (nin == 1 ? 0 : (i ? 0.13f : -0.13f) * w);
+            puz_ink_rect(o, w, h, x - lw / 2, gy + 0.8f * gh, x + lw / 2, (float)h, lead, 1);
+        }
+        name_size = name_common(gw, gh, 0);
+        paint_gate(KIND[k], on, gw, gh, lw, b);
+        name_size = 0;
+        art_blend(o, w, h, b, gw, gh, gx, gy);
+    } else if (k == LG_C_ALARM || k == LG_C_LAMPS) {   /* a red alarm lamp; two lamps side by side */
+        int two = k == LG_C_LAMPS, lh = (int)(0.9f * h), lwd = (int)fminf((two ? 0.4f : 0.62f) * w, 0.85f * lh);
+        for (int i = 0; i <= two; i++) {
+            memset(b, 0, (size_t)w * h * 4);
+            paint_lamp(!two, on, lwd, lh, b);
+            int x = two ? (int)((i ? 0.71f : 0.29f) * w - lwd / 2.0f) : (w - lwd) / 2;
+            art_blend(o, w, h, b, lwd, lh, x, (h - lh) / 2);
+        }
+    } else if (k == LG_C_ROUTE) {               /* a route switch set to the right */
+        paint_route(1, on, w, h, 0.2f * w, 1.3f * lw, b);
+        art_blend(o, w, h, b, w, h, 0, 0);
+    } else if (k == LG_C_LOCK) {                /* a switch, the brass bar screwed over it */
+        int sw = (int)(0.36f * w), sh = (int)(0.86f * h), kd = (int)(0.66f * sw), bw = (int)(1.12f * sw),
+            bh = (int)(0.42f * sw), y0 = (h - sh) / 2;
+        paint_switch(on, sw, sh, b);
+        art_blend(o, w, h, b, sw, sh, (w - sw) / 2, y0);
+        art_counter(COUNTER_DISC, 0, kd, k2);
+        art_blend(o, w, h, k2, kd, kd, (w - kd) / 2, (int)(y0 + sh * (on ? 0.29f : 0.71f) - kd / 2.0f));
+        memset(b, 0, (size_t)w * h * 4);
+        paint_lock(bw, bh, b);
+        art_blend(o, w, h, b, bw, bh, (w - bw) / 2, (int)(y0 + 0.5f * sh - bh / 2.0f));
+    } else {                                    /* a jumper cable between its two posts */
+        paint_cable_pic(w, h, b);
+        art_blend(o, w, h, b, w, h, 0, 0);
+    }
+    free(b);
+    free(k2);
+}
+
+/* the tool that opens the setup screen (white, the shell tints it): a gate, its leads */
+static void paint_setup_icon(int kind, int size, uint8_t *o)
+{
+    (void)kind;
+    memset(o, 0, (size_t)size * size * 4);
+    art_style st;
+    for (int i = 0; i < 3; i++) st.fill[i] = st.outer[i] = st.inner[i] = st.mark[i] = 255;
+    st.light = 0;
+    st.line = 0.5f;
+    fig *f = fig_new();
+    float S = (float)size, lw = fmaxf(1.5f, 0.09f * S), xc = 0.5f * S, xl = 0.2f * S, xr = 0.8f * S, yt = 0.2f * S,
+          yb = 0.72f * S, p[2 * 30];
+    int n = 0;
+    p[n++] = xl; p[n++] = yb;
+    p[n++] = xr; p[n++] = yb;
+    for (int i = 0; i <= 24; i++) {
+        float a = 3.14159265f * i / 24, rx = (xr - xl) / 2, ry = 0.3f * S;
+        p[n++] = xc + rx * cosf(a);
+        p[n++] = yt + ry - ry * sinf(a);
+    }
+    fig_poly(f, ART_PART, p, n / 2);
+    fig_rect(f, ART_PART, xc - lw / 2, 0.03f * S, xc + lw / 2, yt + 0.05f * S);
+    for (int i = 0; i < 2; i++) {
+        float x = xc + (i ? 0.15f : -0.15f) * S;
+        fig_rect(f, ART_PART, x - lw / 2, yb - 0.02f * S, x + lw / 2, 0.97f * S);
+    }
+    fig_render(f, &st, size, size, o);
+    fig_free(f);
+}
+
+static void setup_textures(void)
+{
+    int key = (int)SU.c * 4 + (int)(SU.size[0].w) * 4096;
+    if (made_setup == key) return;
+    made_setup = key;
+    int w = (int)SU.c, h = (int)(TILE_H * SU.c), s = (int)SU.size[0].w;
+    for (int k = 0; k < LG_COMPONENTS; k++)
+        for (int on = 0; on < 2; on++) {
+            ui_free(&t_part[k][on]);
+            uint8_t *b = calloc((size_t)w * h, 4);
+            if (b) { paint_part_tile(k, on, w, h, b); t_part[k][on] = tex_buf(w, h, b); }
+        }
+    for (int v = 0; v < LG_RANDOM; v++) {
+        ui_free(&t_size[v]);
+        uint8_t *b = calloc((size_t)s * s, 4);
+        if (b) { circuit_thumb(v, s, b); t_size[v] = tex_buf(s, s, b); }
+    }
+}
+
+/* the places: the sizes' row, the gates' rows, the other parts' rows, the play button; three toggles across or six,
+ * whichever makes them bigger */
+static void setup_layout(void)
+{
+    panel = B;
+    float m = fr + 0.3f * ui.unit, W = B.w - 2 * m, H = B.h - 2 * m;
+    const float gap = 0.16f, sec = 0.42f, play = 1.0f;
+    int C = 3;
+    float best = 0;
+    for (int n = 3; n <= 6; n += 3) {
+        int rg = (LG_C_GATES + n - 1) / n, rp = (LG_COMPONENTS - LG_C_GATES + n - 1) / n;
+        float ks = n == 6 ? 1.15f : 1.0f;
+        float hu = ks + sec + rg * TILE_H + (rg - 1) * gap + sec + rp * TILE_H + (rp - 1) * gap + sec + play;
+        float c = fminf(W / (n + (n - 1) * gap), H / hu);
+        if (c > best) { best = c; C = n; }
+    }
+    float c = floorf(fminf(best, 2.6f * ui.unit)), g = gap * c, ks = C == 6 ? 1.15f : 1.0f, s = floorf(ks * c);
+    int rg = (LG_C_GATES + C - 1) / C, rp = (LG_COMPONENTS - LG_C_GATES + C - 1) / C;
+    float th = floorf(TILE_H * c);
+    float total = s + sec * c + rg * th + (rg - 1) * g + sec * c + rp * th + (rp - 1) * g + sec * c + play * c;
+    float y = floorf(B.y + (B.h - total) / 2), cx = B.x + B.w / 2;
+    SU.c = c;
+    float sg = C == 6 ? 0.6f * c : gap * c;    /* the sizes' cards */
+    for (int v = 0; v < LG_RANDOM; v++)
+        SU.size[v] = (box){floorf(cx - (3 * s + 2 * sg) / 2 + v * (s + sg)), y, s, s};
+    y += s + sec * c;
+    for (int part = 0; part < 2; part++) {      /* the gates; the other parts */
+        int first = part ? LG_C_GATES : 0, n = part ? LG_COMPONENTS - LG_C_GATES : LG_C_GATES;
+        for (int i = 0; i < n; i++) {
+            int row = i / C, in_row = n - row * C < C ? n - row * C : C, col = i % C;
+            float x0 = cx - (in_row * c + (in_row - 1) * g) / 2;
+            SU.part[first + i] = (box){floorf(x0 + col * (c + g)), floorf(y + row * (th + g)), c, th};
+        }
+        int rows = (n + C - 1) / C;
+        y += rows * th + (rows - 1) * g + sec * c;
+    }
+    SU.pd = floorf(0.9f * c);
+    SU.px = floorf(cx);
+    SU.py = floorf(y + play * c / 2);
+    setup_textures();
+}
+
+static void setup_open(void)
+{
+    choice_load();
+    setup = 1;
+    calm();
+    ui_tools_shown(0);
+    if (B.w > 0) setup_layout();
+    ui_animate();
+}
+
+/* a circuit of the choice: the seed the tab drew at first (a replay draws it again), then fresh ones */
+static int setup_play(void)
+{
+    if (!lg_comp_ok(rnd_comp)) return 0;
+    uint32_t seed = rnd_unused ? rnd_seed : (uint32_t)ui_random(0x7fffffff) + 1u;
+    rnd_unused = 0;
+    random_circuit(seed);
+    return 1;
+}
+
+static void setup_draw(void)
+{
+    if (SU.c <= 0 || panel.w != B.w) setup_layout();
+    draw_board();
+    Uint32 now = ui_ms();
+    for (int v = 0; v < LG_RANDOM; v++) {       /* the sizes */
+        box b = SU.size[v];
+        int on = v == rnd_size;
+        float cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+        if (on) ui_mark_gold_a(cx, cy, 1.6f * b.w, 1);
+        ui_shadow_flat(cx + 0.03f * b.w, cy + 0.04f * b.w, b.w, b.h, 0.55f);
+        if (on) {                               /* a gold rim */
+            float r = fmaxf(2, roundf(0.035f * b.w));
+            ui_fill(b.x - r, b.y - r, b.w + 2 * r, b.h + 2 * r, GOLD[0], GOLD[1], GOLD[2], 255);
+        }
+        Uint8 k = on ? 255 : 150;
+        SDL_SetTextureColorMod(t_size[v], k, k, k);
+        ui_put(t_size[v], b.x, b.y, b.w, b.h);
+        SDL_SetTextureColorMod(t_size[v], 255, 255, 255);
+    }
+    int ok = lg_comp_ok(rnd_comp);
+    float pulse = 0.5f + 0.5f * sinf(now * 0.006f);
+    for (int k = 0; k < LG_COMPONENTS; k++) {   /* the parts */
+        box b = SU.part[k];
+        int on = rnd_comp >> k & 1, want = !ok && !on && k < LG_C_GATES && lg_comp_ok(rnd_comp | 1u << k);
+        float cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+        if (on) ui_mark_gold_a(cx, cy, 1.4f * b.w, 0.85f);
+        else if (want) {                        /* would make the choice good */
+            ui_mark_gold_a(cx, cy, 1.4f * b.w, 0.2f + 0.45f * pulse);
+            ui_animate();
+        }
+        ui_shadow_flat(cx + 0.03f * b.w, cy + 0.04f * b.w, b.w, b.h, on ? 0.6f : 0.35f);
+        SDL_Texture *t = t_part[k][on];
+        if (!t) continue;
+        Uint8 m = on ? 255 : 120;
+        SDL_SetTextureColorMod(t, m, m, m);
+        SDL_SetTextureAlphaMod(t, on ? 255 : 215);
+        ui_put(t, b.x, b.y, b.w, b.h);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t, 255);
+    }
+    ui_button(SU.px, SU.py, SU.pd, ICON_PLAY, ok ? UI_LIT : UI_DIM);
+}
+
+static int in_box(box b, float x, float y, float slack)
+{
+    return x >= b.x - slack && x < b.x + b.w + slack && y >= b.y - slack && y < b.y + b.h + slack;
+}
+
+static void setup_press(float x, float y)
+{
+    float sl = 0.06f * SU.c;
+    for (int v = 0; v < LG_RANDOM; v++)
+        if (in_box(SU.size[v], x, y, sl)) {
+            ui_sound(SND_TAP);
+            rnd_size = v;
+            choice_save();
+            ui_animate();
+            return;
+        }
+    for (int k = 0; k < LG_COMPONENTS; k++)
+        if (in_box(SU.part[k], x, y, sl)) {
+            ui_sound(SND_TAP);
+            rnd_comp ^= 1u << k;
+            choice_save();
+            ui_animate();
+            return;
+        }
+    if (ui_button_hit(SU.px, SU.py, SU.pd, x, y)) ui_sound(setup_play() ? SND_TAP : SND_DENY);
+}
+
 /* ---- the menu's card: two switches on, an AND, its lamp lit ------------------------------------------------------ */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     fresh_progress();                           /* the menu paints it before the level screen opens */
     if (variant >= 0) {
-        circuit_thumb(variant > 2 ? 2 : variant, size, rgba);
+        circuit_thumb(1, size, rgba);           /* (one variant: the setup screen chooses the size) */
         return;
     }
     paint_board(size, size, (int)(0.045f * size), rgba);
@@ -2048,7 +2394,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 }
 
 static const game logicgates_game = {
-    .id = "logicgates", .order = 370, .variants = LG_RANDOM,
+    .id = "logicgates", .order = 370, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .view = VIEW_OPEN,

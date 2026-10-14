@@ -3,7 +3,8 @@
  * wires, locked switches, undo and restart, the hint, the notation; every one of the 150 levels read, drawn apart,
  * solvable, its par the stored one (the solver's, and the hint followed from the start, and "=" played), never
  * solved from the start nor by any single move, every gate needed; random play then solved; no two levels the
- * same circuit; the generator the same for the same seed, its random puzzles as good as the levels and quick.
+ * same circuit; the generator the same for the same seed, its random puzzles as good as the levels and quick, made
+ * of the parts the setup screen's checklist allows only.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -467,41 +468,111 @@ static void drawing(void)
     printf("logicgates: %d crossings in all, at most %d (level %d)\n", total, worst, worst_level);
 }
 
+/* the setup screen's checklist: what makes a puzzle, the parts a circuit has */
+static void checklist(void)
+{
+    enum { A = 1u << LG_C_AND, O = 1u << LG_C_OR, N = 1u << LG_C_NOT, X = 1u << LG_C_XOR, NA = 1u << LG_C_NAND,
+           NO = 1u << LG_C_NOR };
+    CHECK(lg_comp_ok(A) && lg_comp_ok(O | N) && lg_comp_ok(N | NA) && lg_comp_ok(N | NO) && lg_comp_ok(LG_C_ALL));
+    CHECK(!lg_comp_ok(0) && !lg_comp_ok(N) && !lg_comp_ok(O) && !lg_comp_ok(X | N) && !lg_comp_ok(NA | NO | O | X));
+    CHECK(!lg_comp_ok(0x7c0u));                 /* the special parts alone */
+    CHECK(lg_comp_fix(0) == A && lg_comp_fix(N | (1u << LG_C_CABLE)) == (A | N | (1u << LG_C_CABLE)));
+    CHECK(lg_comp_fix(O | N) == (O | N) && lg_comp_fix(0xffffffffu) == LG_C_ALL);
+    static lg_level L;
+    CHECK(lg_parse("s@a1 K@b1 S@c1 y@b2(b1) XOR@a3(a1,b2<) NOR@c3(b2>x,c1) L@a4(a3) L@b4(c3) A@c4(c3)", &L, NULL, 0));
+    CHECK(lg_comp_of(&L) == (X | NO | 1u << LG_C_ALARM | 1u << LG_C_LAMPS | 1u << LG_C_ROUTE | 1u << LG_C_LOCK |
+                             1u << LG_C_CABLE));
+    /* the last resort's circuits (written in lg_random): puzzles of par 2 */
+    static const char *const last[] = {
+        "s@a1 S@b1 s@c1 AND@a2(a1,b1) AND@b3(a2,c1) L@b4(b3)", "S@a1 S@b1 NOR@a2(a1,b1) L@a3(a2)",
+        "s@a1 s@b1 NAND@a2(a1,b1) NOT@a3(a2) L@a4(a3)", "S@a1 S@b1 OR@a2(a1,b1) NOT@a3(a2) L@a4(a3)"};
+    for (int i = 0; i < 4; i++) {
+        CHECK(lg_parse(last[i], &L, NULL, 0));
+        puzzle(&L, -1, 2);
+    }
+}
+
 /* the generator: the same level for the same seed; every random puzzle of the die tab a puzzle as the levels are,
- * made fast */
+ * made fast: with every part chosen (the default), as strict as the levels; with checklists at random, only the parts
+ * chosen, as many of them as the size has room for */
 static void generator(void)
 {
+    static const char *const NAME[LG_COMPONENTS] = {"AND", "OR", "NOT", "XOR", "NAND", "NOR", "alarm", "two lamps",
+                                                    "route", "lock", "cable"};
     for (int v = 0; v < LG_RANDOM; v++) {
         lg_spec sp;
-        lg_random_spec(v, &sp);
+        lg_random_spec(v, LG_C_ALL, LG_C_ALL, &sp);
         double worst = 0, all = 0;
-        int made = 0;
+        int made = 0, has[LG_COMPONENTS] = {0}, strict = 0, loose = 0;
         uint64_t prev = 0;
         for (uint32_t seed = 1; seed <= 60; seed++) {
             char a[1024], b[1024];
             lg_rating ra, rb;
-            int ka = lg_make(seed, &sp, 400, a, sizeof a, &ra), kb = lg_make(seed, &sp, 400, b, sizeof b, &rb);
+            int ka = lg_make(seed, &sp, 200, a, sizeof a, &ra), kb = lg_make(seed, &sp, 200, b, sizeof b, &rb);
             CHECK(ka == kb && (!ka || !strcmp(a, b)));
             clock_t t0 = clock();
-            static lg_game g;
-            CHECK(lg_random(&g, v, seed));
+            static lg_game g, h;
+            CHECK(lg_random(&g, v, LG_C_ALL, seed));
             double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
             all += ms;
             if (ms > worst) worst = ms;
+            CHECK(lg_random(&h, v, LG_C_ALL, seed) && !memcmp(&h.L.n, &g.L.n, sizeof g.L.n));   /* the same */
             CHECK(g.level == -1);
             lg_rating r;
+            lg_spec base;
+            lg_random_spec(v, LG_C_ALL, 0, &base);
             CHECK(lg_rate(&g.L, &r));
-            CHECK(r.sw >= sp.sw_lo && r.sw <= sp.sw_hi && r.nsol <= sp.sols);
-            CHECK(r.par >= sp.par_lo && r.par <= sp.par_hi);
-            CHECK(!r.consts && !r.idle && r.herrings <= sp.herrings && r.crossings <= sp.cross);
+            CHECK(r.sw >= base.sw_lo && r.sw <= base.sw_hi && r.par >= 1 && r.par <= base.par_hi);
+            loose += r.nsol > 4;
+            CHECK(!r.consts && !r.idle && r.herrings <= base.herrings + 1 && r.crossings <= base.cross + 1);
+            strict += r.nsol <= base.sols && r.par >= base.par_lo && r.herrings <= base.herrings &&
+                      r.crossings <= base.cross;
             puzzle(&g.L, -1, g.par);
             drawn(&g.L, -1);
             made += r.exact != prev;
             prev = r.exact;
+            unsigned c = lg_comp_of(&g.L);
+            for (int k = 0; k < LG_COMPONENTS; k++) has[k] += c >> k & 1;
         }
-        printf("logicgates: random %d: %.1f ms on average, %.1f at most\n", v, all / 60, worst);
-        CHECK(made >= 50 && all / 60 < 6 && worst < 25);
+        printf("logicgates: random %d, every part: %.1f ms on average, %.1f at most; %d of 60 as strict as the levels, %d with more than 4 solutions;"
+               " parts in:", v, all / 60, worst, strict, loose);
+        for (int k = 0; k < LG_COMPONENTS; k++) printf(" %s %d", NAME[k], has[k]);
+        printf("\n");
+        CHECK(made >= 50 && all / 60 < 6 && worst < 25 && strict >= 30 && loose <= 2);
+        for (int k = 0; k < LG_COMPONENTS; k++) CHECK(has[k] >= (v ? 18 : 3));   /* each part often (small: now
+                                                                                   * and then: three fit at once) */
     }
+    /* checklists at random (some with nothing to build from: made good), by size: only the parts chosen; each part
+     * chosen in most circuits when the size has room for it; a puzzle, drawn, fast */
+    double worst = 0, all = 0;
+    int runs = 0, loose = 0, chosen = 0, in = 0;
+    for (int t = 0; t < 240; t++) {
+        unsigned comp = (unsigned)rnd(1 << LG_COMPONENTS), good = lg_comp_fix(comp);
+        int v = t % LG_RANDOM;
+        static lg_game g;
+        clock_t t0 = clock();
+        CHECK(lg_random(&g, v, comp, 1000u + (uint32_t)t));
+        double ms = 1000.0 * (double)(clock() - t0) / CLOCKS_PER_SEC;
+        all += ms;
+        runs++;
+        if (ms > worst) worst = ms;
+        unsigned c = lg_comp_of(&g.L);
+        if (c & ~good) printf("logicgates: checklist %#x made %#x\n", good, c);
+        CHECK(!(c & ~good));                     /* only the parts chosen */
+        lg_rating r;
+        CHECK(lg_rate(&g.L, &r));
+        CHECK(!r.consts && !r.idle && r.par >= 1 && r.nsol <= 32);
+        loose += r.nsol > 4;
+        puzzle(&g.L, -1, g.par);
+        drawn(&g.L, -1);
+        if (v == 2 && __builtin_popcount(good) <= 6) {   /* big, a few parts: they all fit */
+            chosen += __builtin_popcount(good);
+            in += __builtin_popcount(c & good);
+        }
+    }
+    printf("logicgates: random checklists: %.1f ms on average, %.1f at most; %d of %d with more than 4 solutions; "
+           "big circuits with a few parts chosen have %d of %d\n", all / runs, worst, loose, runs, in, chosen);
+    CHECK(all / runs < 6 && worst < 25 && loose <= runs / 6 && in >= chosen * 3 / 4);
 }
 
 /* opening a level: its circuit read, its stored drawing laid out, no search: well under a millisecond here (a phone
@@ -546,6 +617,7 @@ int main(void)
     repeats();
     drawing();
     timing();
+    checklist();
     generator();
     if (fails) {
         printf("logicgates: %d failures\n", fails);

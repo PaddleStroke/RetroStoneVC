@@ -1845,6 +1845,9 @@ static float sig_x(const gnode *N, const gsig *g)
     return N[g->node].x + (g->port ? (g->port == 1 ? -0.25f : 0.25f) : 0);
 }
 
+/* a gate and the gate it makes with a NOT over it (not_twin: such a pair is drawn as that gate when allowed) */
+static const int TWIN[LG_KINDS] = {[LG_AND] = LG_NAND, [LG_OR] = LG_NOR, [LG_NAND] = LG_AND, [LG_NOR] = LG_OR};
+
 /* a circuit at random for the spec: its text (the switches' and route switches' ways at random) */
 static int grow(uint32_t *s, const lg_spec *sp, char *out, int size)
 {
@@ -1859,7 +1862,7 @@ static int grow(uint32_t *s, const lg_spec *sp, char *out, int size)
         q[nq++] = (gsig){nn++, 0, 0, 0};
     }
     int G = range(s, sp->gates_lo, sp->gates_hi), R = range(s, sp->routes_lo, sp->routes_hi);
-    int lamps = range(s, 1, sp->lamps < 1 ? 1 : sp->lamps);
+    int lamps = range(s, sp->lamps_lo > 1 ? sp->lamps_lo : 1, sp->lamps < 1 ? 1 : sp->lamps);
     int alarms = sp->alarms > 0 ? (sp->alarm_need ? 1 : pr_below(s, 2)) : 0;
     int k = lamps + alarms, gates = 0, routes = 0;
     float bal = 0.2f + pr_below(s, 100) / 70.0f;   /* how much the shallow signals come first: rows, or chains */
@@ -1882,8 +1885,11 @@ static int grow(uint32_t *s, const lg_spec *sp, char *out, int size)
             w[i] = q[i].used ? 0 : eb[N[q[i].node].depth];
             int fk = N[q[i].node].kind;
             int gate = fk >= LG_AND && fk <= LG_NOR && fk != LG_XOR;
-            if (act == 2 && (fk == LG_NOT || (gate && sp->kinds >> LG_NAND & 1)))
+            int twin = sp->not_twin ? TWIN[fk] && sp->kinds >> TWIN[fk] & 1 : gate && sp->kinds >> LG_NAND & 1;
+            if (act == 2 && (fk == LG_NOT || twin))
                 w[i] = 0;                       /* NOT NOT: nothing; NOT AND: a NAND (when there are NANDs) */
+            else if (act == 2 && sp->not_twin && TWIN[fk])
+                w[i] *= 6;                      /* NOT NAND: an AND, when ANDs are not allowed themselves */
             wsum += w[i];
         }
         if (wsum <= 0) continue;
@@ -1985,10 +1991,13 @@ static int grow(uint32_t *s, const lg_spec *sp, char *out, int size)
         if (!N[i].cut[j]) { N[i].cut[j] = 1; nf++; }
     }
     if (nf < sp->fuses_lo) return 0;
-    for (int n = range(s, 0, sp->locked < nsw - 2 ? sp->locked : nsw - 2), t = 0; n > 0 && t < 20; t++) {
+    int lk = sp->locked < nsw - 2 ? sp->locked : nsw - 2, nl = 0;
+    if (sp->locked_lo > lk) return 0;
+    for (int n = range(s, sp->locked_lo, lk), t = 0; n > 0 && t < 20; t++) {
         int i = pr_below(s, nsw);
-        if (!N[i].locked) { N[i].locked = 1; n--; }
+        if (!N[i].locked) { N[i].locked = 1; n--; nl++; }
     }
+    if (nl < sp->locked_lo) return 0;
     /* the cells: the row by depth, the columns in the order of their places */
     for (int r = 0; r <= top + 1; r++) {
         int idx[LG_NODES], n = 0;
@@ -2082,6 +2091,7 @@ int lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg
         if (!parse(buf, &L, NULL, 0, 0) || !lg_rate(&L, r)) continue;   /* rated first: the drawing costs more */
         if (r->consts || r->idle || r->herrings > sp->herrings || r->par < sp->par_lo || r->par > sp->par_hi) continue;
         if (r->depth < sp->depth_lo || r->depth > sp->depth_hi) continue;
+        if (sp->cut_matters && r->fuses && r->decoys >= r->fuses) continue;
         if (!lg_parse(buf, &L, NULL, 0) || L.crossings > sp->cross || (sp->wide > 0 && L.width > sp->wide)) continue;
         r->crossings = L.crossings;
         if (size < 1 || (int)strlen(buf) >= size) return 0;
@@ -2092,36 +2102,149 @@ int lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg
 }
 
 /* ---- the die tab ------------------------------------------------------------------------------------------------- */
-void lg_random_spec(int variant, lg_spec *sp)
+#define CB(k) (1u << LG_C_##k)
+static const int GATE_OF[LG_C_GATES] = {LG_AND, LG_OR, LG_NOT, LG_XOR, LG_NAND, LG_NOR};
+
+/* a puzzle needs few settings that light it: an AND, or a NOT with an OR, a NAND or a NOR (which make one:
+ * a NOR of two NOTs is an AND). OR alone lights at any switch, XOR half of all settings; NAND and NOR alone light
+ * most settings of a big circuit. */
+int lg_comp_ok(unsigned c)
 {
-    /* the gates come with the size, as along the chapters */
-    static const lg_spec S[LG_RANDOM] = {
-        /* small: 3 to 4 switches; AND, OR, NOT, an alarm now and then */
-        {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = 0x0e, .alarms = 1, .lamps = 1, .fan = 15,
-         .nots = 25, .depth_lo = 2, .depth_hi = 3, .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1},
-        /* medium: 5 to 6 switches; XOR and NAND too, a route switch now and then */
-        {.sw_lo = 5, .sw_hi = 6, .gates_lo = 5, .gates_hi = 8, .kinds = 0x3e, .routes_hi = 1, .locked = 1,
-         .alarms = 1, .lamps = 1, .fan = 20, .nots = 20, .depth_lo = 3, .depth_hi = 4, .par_lo = 3, .par_hi = 5,
-         .sols = 3, .cross = 2, .wide = 5.5f},
-        /* big: 7 to 8 switches; everything: three inputs, route switches, cables, two lamps now and then */
-        {.sw_lo = 7, .sw_hi = 8, .gates_lo = 8, .gates_hi = 12, .kinds = 0x7e, .routes_lo = 1, .routes_hi = 2,
-         .fuses_lo = 1, .fuses_hi = 2, .locked = 1, .alarms = 1, .lamps = 2, .three = 15, .fan = 25, .nots = 15,
-         .depth_lo = 3, .depth_hi = 5, .par_lo = 4, .par_hi = 7, .sols = 4, .herrings = 1, .cross = 3, .wide = 6.5f},
-    };
-    *sp = S[variant < 0 ? 0 : variant >= LG_RANDOM ? LG_RANDOM - 1 : variant];
+    return (c & CB(AND)) || ((c & CB(NOT)) && (c & (CB(OR) | CB(NAND) | CB(NOR))));
 }
 
-int lg_random(lg_game *g, int variant, uint32_t seed)
+unsigned lg_comp_fix(unsigned c)
 {
+    c &= LG_C_ALL;
+    return lg_comp_ok(c) ? c : c | CB(AND);
+}
+
+unsigned lg_comp_of(const lg_level *L)
+{
+    unsigned c = 0;
+    int lamps = 0;
+    for (int i = 0; i < L->nn; i++) {
+        const lg_node *N = &L->n[i];
+        for (int k = 0; k < LG_C_GATES; k++)
+            if (N->kind == GATE_OF[k]) c |= 1u << k;
+        if (N->kind == LG_ALARM) c |= CB(ALARM);
+        if (N->kind == LG_ROUTE) c |= CB(ROUTE);
+        if (N->kind == LG_SWITCH && N->locked) c |= CB(LOCK);
+        lamps += N->kind == LG_LAMP;
+    }
+    if (lamps > 1) c |= CB(LAMPS);
+    if (L->ncut) c |= CB(CABLE);
+    return c;
+}
+
+void lg_random_spec(int size, unsigned comp, unsigned need, lg_spec *sp)
+{
+    /* the sizes; their parts come from the checklist */
+    static const lg_spec S[LG_RANDOM] = {
+        /* small: 3 to 4 switches */
+        {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .fan = 15, .nots = 25, .depth_lo = 2, .depth_hi = 3,
+         .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1},
+        /* medium: 5 to 6 switches */
+        {.sw_lo = 5, .sw_hi = 6, .gates_lo = 5, .gates_hi = 8, .fan = 20, .nots = 20, .depth_lo = 3, .depth_hi = 4,
+         .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f},
+        /* big: 7 to 8 switches, three inputs too */
+        {.sw_lo = 7, .sw_hi = 8, .gates_lo = 8, .gates_hi = 12, .three = 15, .fan = 25, .nots = 15, .depth_lo = 3,
+         .depth_hi = 5, .par_lo = 4, .par_hi = 7, .sols = 4, .herrings = 1, .cross = 3, .wide = 6.5f},
+    };
+    static const int ROUTES[LG_RANDOM] = {1, 1, 2}, FUSES[LG_RANDOM] = {1, 2, 2}, LOCKS[LG_RANDOM] = {1, 1, 2};
+    int z = size < 0 ? 0 : size >= LG_RANDOM ? LG_RANDOM - 1 : size, gates = 0;
+    *sp = S[z];
+    comp = lg_comp_fix(comp);
+    sp->not_twin = 1;
+    need &= comp;
+    for (int k = 0; k < LG_C_GATES; k++) {
+        if (comp >> k & 1) sp->kinds |= 1u << GATE_OF[k];
+        if (need >> k & 1) { sp->need |= 1u << GATE_OF[k]; gates++; }
+    }
+    if (!(comp & CB(NOT))) sp->nots = 0;
+    else if (need & CB(NOT) && sp->nots < 25) sp->nots = 25;
+    if (gates > sp->gates_lo) sp->gates_lo = gates < sp->gates_hi ? gates : sp->gates_hi;
+    int on;
+#define TAKE(bit) (on = comp & CB(bit) ? 1 + !!(need & CB(bit)) : 0)   /* 0 not allowed, 1 allowed, 2 a must */
+    if (TAKE(ROUTE)) { sp->routes_hi = ROUTES[z]; sp->routes_lo = on > 1; }
+    if (TAKE(CABLE)) { sp->fuses_hi = FUSES[z]; sp->fuses_lo = on > 1; sp->cut_matters = on > 1; }
+    if (TAKE(LOCK)) { sp->locked = LOCKS[z]; sp->locked_lo = on > 1; }
+    if (TAKE(ALARM)) { sp->alarms = 1; sp->alarm_need = on > 1; }
+    sp->lamps = TAKE(LAMPS) ? 2 : 1;
+    sp->lamps_lo = on > 1 ? 2 : 0;
+#undef TAKE
+}
+
+/* The rules eased a step (ease 1..): as many solutions as the levels may have (4), a smaller par; then a shallower
+ * circuit, a switch that never matters, a crossing more; then more solutions (8, 16, 32), any width. */
+static void ease_spec(lg_spec *sp, int ease)
+{
+    if (ease <= 0) return;
+    int sols = ease < 3 ? 4 : 4 << (ease - 2 < 3 ? ease - 2 : 3);
+    if (sp->sols < sols) sp->sols = sols;
+    sp->par_lo = sp->par_lo - ease > 1 ? sp->par_lo - ease : 1;
+    if (ease < 2) return;
+    sp->depth_lo = sp->depth_lo - 1 > 1 ? sp->depth_lo - 1 : 1;
+    sp->herrings += 1;
+    sp->cross += 1;
+    if (ease > 2) sp->wide = 0;
+}
+
+/* Each try asks for some of the parts chosen (as many as the size has room for, picked anew each time) with another
+ * seed: first as strict as the levels, then eased a step; then one part fewer at each try. When even none required
+ * finds nothing (a narrow choice: NOT and NAND), the rules eased further at each try. */
+#define RND_TRIES 24
+#define RND_CIRCUITS 160                        /* the circuits each try grows */
+int lg_random(lg_game *g, int size, unsigned comp, uint32_t seed)
+{
+    static const int ROOM[LG_RANDOM] = {3, 5, 8};   /* the parts a circuit must have, at most */
     lg_spec sp;
     lg_rating r;
     char text[1024];
     static lg_level L;
-    lg_random_spec(variant, &sp);
-    for (uint32_t k = 0; k < 64; k++)           /* a seed with nothing in it: the next one */
-        if (lg_make(seed + k * 7919u, &sp, 400, text, sizeof text, &r) && lg_parse(text, &L, NULL, 0)) {
+    int z = size < 0 ? 0 : size >= LG_RANDOM ? LG_RANDOM - 1 : size, item[LG_COMPONENTS], n = 0;
+    comp = lg_comp_fix(comp);
+    for (int k = 0; k < LG_COMPONENTS; k++)
+        if (comp >> k & 1) item[n++] = k;
+    uint32_t s = pr_seed(seed ^ 0x5bd1e995u);
+    int want = n < ROOM[z] ? n : ROOM[z];
+    for (int k = 0; k < RND_TRIES; k++) {
+        int m = k < 2 ? want : want + 1 - k, ease = k ? 1 : 0;   /* all of them strict, eased; then one fewer */
+        if (m < 0) {
+            ease = 1 - m;
+            m = 0;
+        }
+        unsigned need = 0;
+        pr_shuffle(&s, item, n);
+        for (int i = 0; i < m; i++) need |= 1u << item[i];
+        lg_random_spec(z, comp, need, &sp);
+        ease_spec(&sp, ease);
+        if (lg_make(seed + (uint32_t)k * 7919u, &sp, RND_CIRCUITS, text, sizeof text, &r) &&
+            lg_parse(text, &L, NULL, 0)) {
             lg_load(g, &L, -1, r.par);
             return 1;
         }
-    return 0;
+    }
+    /* nothing yet (a seed in a few hundred): the gates alone, eased; at the very last a small circuit
+     * of the gates chosen, written here (par 2) */
+    lg_random_spec(z, comp & ((1u << LG_C_GATES) - 1), 0, &sp);
+    ease_spec(&sp, 5);
+    if (lg_make(seed ^ 0xa5a5a5a5u, &sp, 4 * RND_CIRCUITS, text, sizeof text, &r) && lg_parse(text, &L, NULL, 0)) {
+        lg_load(g, &L, -1, r.par);
+        return 1;
+    }
+    static const char *const LAST[4] = {
+        "s@a1 S@b1 s@c1 AND@a2(a1,b1) AND@b3(a2,c1) L@b4(b3)",   /* AND */
+        "S@a1 S@b1 NOR@a2(a1,b1) L@a3(a2)",                      /* NOR (with NOT: an AND of NOTs) */
+        "s@a1 s@b1 NAND@a2(a1,b1) NOT@a3(a2) L@a4(a3)",          /* NOT NAND */
+        "S@a1 S@b1 OR@a2(a1,b1) NOT@a3(a2) L@a4(a3)",            /* NOT OR */
+    };
+    int last = comp & CB(AND) ? 0 : comp & CB(NOR) ? 1 : comp & CB(NAND) ? 2 : 3;
+    if (!lg_parse(LAST[last], &L, NULL, 0)) return 0;
+    lg_answer a;
+    uint8_t val[LG_NODES], cut[LG_WIRES] = {0};
+    for (int i = 0; i < L.nn; i++) val[i] = L.n[i].init;
+    lg_solve(&L, val, cut, &a);
+    lg_load(g, &L, -1, a.par);
+    return 1;
 }

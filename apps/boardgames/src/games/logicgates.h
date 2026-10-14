@@ -225,6 +225,13 @@ typedef struct {
     int need_route, need_cut;                   /* every solution turns a route switch / cuts a wire */
     int cross;                                  /* crossings in the drawing, at most */
     float wide;                                 /* the drawing's width, at most (columns; 0: any) */
+    /* (0 in every field below: as before them) */
+    int lamps_lo;                               /* lamps, at least (0: one) */
+    int locked_lo;                              /* locked switches, at least */
+    int cut_matters;                            /* a cuttable wire that matters (when it has any) */
+    int not_twin;                               /* a NOT over a gate only when the gate it makes is not allowed
+                                                 * (NOT AND without NAND, NOT OR without NOR...; 0: no NOT over a
+                                                 * gate when there are NANDs) */
 } lg_spec;
 
 /* what a level is like (lg_rate): its size, its par, how hard it is, and its keys (64-bit hashes) to tell repeats:
@@ -247,10 +254,24 @@ typedef struct {
 int  lg_rate(const lg_level *L, lg_rating *r);
 /* a level for the spec from the seed (the same seed, the same level): its text; 0: none found in `tries` circuits */
 int  lg_make(uint32_t seed, const lg_spec *sp, int tries, char *out, int size, lg_rating *r);
-/* the die tab's puzzles: 0 small (3 to 4 switches; AND, OR, NOT), 1 medium (5 to 6; XOR and NAND too), 2 big (7
- * to 8; everything) */
+/* the die tab's puzzles: a size, 0 small (3 to 4 switches), 1 medium (5 to 6), 2 big (7 to 8: three inputs too),
+ * and the parts the player chose on its setup screen (a checklist: bit LG_C_*): its circuits use only those, and as
+ * many of them as the size has room for, each time another few when they do not all fit. A choice with nothing to
+ * build a puzzle from (lg_comp_ok 0: no AND, nor a NOT with an OR, a NAND or a NOR) is never asked: the setup
+ * screen's play button stays dim until a gate that makes it good is chosen (lg_comp_fix adds an AND). */
 #define LG_RANDOM 3
-void lg_random_spec(int variant, lg_spec *sp);
-int  lg_random(lg_game *g, int variant, uint32_t seed);   /* a new random puzzle (g->level -1); 0: none (never) */
+enum { LG_C_AND, LG_C_OR, LG_C_NOT, LG_C_XOR, LG_C_NAND, LG_C_NOR,   /* the gates */
+       LG_C_ALARM, LG_C_LAMPS, LG_C_ROUTE, LG_C_LOCK, LG_C_CABLE,    /* alarm lamps, two lamps, route switches, */
+       LG_COMPONENTS };                                              /* locked switches, cables */
+#define LG_C_ALL ((1u << LG_COMPONENTS) - 1)
+#define LG_C_GATES 6                            /* the first six: the gates */
+int  lg_comp_ok(unsigned comp);                 /* 1: puzzles can be made of these */
+unsigned lg_comp_fix(unsigned comp);            /* a choice made good (unknown bits dropped; AND added if needed) */
+/* the spec for a size, the parts allowed (comp) and those every circuit must have (need, within comp) */
+void lg_random_spec(int size, unsigned comp, unsigned need, lg_spec *sp);
+/* a new random puzzle (g->level -1) of that size and those parts; 0: none (never) */
+int  lg_random(lg_game *g, int size, unsigned comp, uint32_t seed);
+/* the parts a circuit has (bit LG_C_*): its gates' kinds, an alarm lamp, two lamps... */
+unsigned lg_comp_of(const lg_level *L);
 
 #endif

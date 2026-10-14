@@ -1,6 +1,6 @@
 Logická hradla
 # Cíl hry
-Deska plošného spoje: vypínače, nad nimi logická hradla, nahoře žárovky; každý vypínač je hned pod hradlem, které napájí. Každý drát vede signál nahoru, 0 (tmavý) nebo 1 (zlatě zářící). Nastav vypínače tak, aby se rozsvítily všechny žárovky a červené poplašné žárovky zůstaly zhasnuté. Hra má 165 úrovní v 6 kapitolách. Pro obvod vytvořený náhodně si nejdřív vyber velikost: malý (3 nebo 4 vypínače, s AND, OR a NOT), střední (5 nebo 6, navíc s XOR a NAND) nebo velký (7 nebo 8, se vším).
+Deska plošného spoje: vypínače, nad nimi logická hradla, nahoře žárovky; každý vypínač je hned pod hradlem, které napájí. Každý drát vede signál nahoru, 0 (tmavý) nebo 1 (zlatě zářící). Nastav vypínače tak, aby se rozsvítily všechny žárovky a červené poplašné žárovky zůstaly zhasnuté. Hra má 165 úrovní v 6 kapitolách. Pro obvod vytvořený náhodně vyber velikost, malý (3 nebo 4 vypínače), střední (5 nebo 6) nebo velký (7 nebo 8), a ťuknutím rozsviť nebo ztlum součástky, které smí použít: každé hradlo, červenou poplašnou lampu, dvě lampy, výhybku, zamčený vypínač a kabel; pak ťukni na hrát.
 # Hradla
 Každé hradlo je mosazný tvar na ořechové destičce: vstupy do něj vcházejí zdola, výstup vychází nahoře. Malé kolečko nahoře na hradle obrací jeho odpověď. Níže vstupy a výstup pro každý případ: 01 → 1 znamená první vstup 0, druhý vstup 1, výstup 1. Je na něm vyryté jeho anglické jméno, jako ve schématech: NOT, AND, OR, XOR, NAND nebo NOR.
 - NOT (negace), trojúhelník s kolečkem na špičce: opak svého vstupu. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ Tah je jedno přepnutí nebo jeden střih. Každá úroveň má par: nejmenší 
 - Přehled úrovní: záložka pro každou kapitolu a pod ní její úrovně: vyřešené zlaté s hvězdami, otevřené dřevěné, zamčené z tmavého dřeva. Klepnutím na úroveň ji začneš hrát. Tvoje hvězdy zůstávají uložené v zařízení.
 - Klepnutím na vypínač ho přepneš, na výhybku ji otočíš, na kabel ho přestřihneš. Změna běží po drátech nahoru, hradlo za hradlem.
 - Vedle desky: kapitola a číslo úrovně; kulatá šipka začne úroveň znovu; žárovka dá nápovědu: bliká další díl, který je třeba změnit. Bliká-li místo toho tlačítko nového začátku, máš špatné střihy: vrať je.
+- V náhodném obvodu vrátí tlačítko s hradlem vedle nápovědy volbu velikosti a součástek; tlačítko další vytvoří nový obvod se stejnou volbou. Když tlačítko hrát zůstane tlumené, rozsviť některé z jemně zářících hradel: hádanka potřebuje AND, nebo NOT spolu s OR, NAND či NOR.
 - Když svítí všechny žárovky, vzplanou zlatem; pak se objeví tvé hvězdy a tlačítko další úrovně. Nová hra (tlačítko s mřížkou) vede zpět na přehled úrovní.
 - Lišta ukazuje tvé tahy vedle vypínače, zbývající střihy vedle kabelu a par vedle hvězdy. Na širokém displeji může hluboký obvod ležet na boku: vypínače vlevo, žárovky vpravo.

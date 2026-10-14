@@ -1,6 +1,6 @@
 Logiikkaportit
 # Tavoite
-Piirilevy: kytkimet, niiden yllä logiikkaportit, ylhäällä lamput; jokainen kytkin on heti sen portin alla, jota se syöttää. Jokainen johto vie signaalia ylöspäin, 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä. Tasoja on 165 kuudessa luvussa. Sattumanvaraiselle piirille valitset ensin koon: pieni (3 tai 4 kytkintä; AND, OR ja NOT), keskikokoinen (5 tai 6; myös XOR ja NAND) tai suuri (7 tai 8; kaikkea).
+Piirilevy: kytkimet, niiden yllä logiikkaportit, ylhäällä lamput; jokainen kytkin on heti sen portin alla, jota se syöttää. Jokainen johto vie signaalia ylöspäin, 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä. Tasoja on 165 kuudessa luvussa. Sattumanvaraiselle piirille valitset koon, pieni (3 tai 4 kytkintä), keskikokoinen (5 tai 6) tai suuri (7 tai 8), ja napautat sytyttäen tai himmentäen osat, joita se saa käyttää: jokaisen portin, punaisen hälytyslampun, kaksi lamppua, vaihteen, lukitun kytkimen ja kaapelin; napauta sitten pelaa.
 # Portit
 Jokainen portti on messinkinen kuvio pähkinäpuisessa laatassa: tulot tulevat sisään alhaalta, lähtö lähtee ylhäältä. Pieni rengas portin yläpäässä kääntää sen vastauksen. Alla tulot ja lähtö joka tapauksessa: 01 → 1 tarkoittaa, että ensimmäinen tulo on 0, toinen tulo 1 ja lähtö 1. Sen nimi on kaiverrettu siihen englanniksi kuten piirikaavioissa: NOT, AND, OR, XOR, NAND tai NOR.
 - NOT (EI), kolmio, jonka kärjessä on rengas: tulonsa vastakohta. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin
 - Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä. Tähtesi säilyvät laitteella.
 - Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, kaapelia katkaistaksesi sen. Muutos kulkee johtoja ylös portti portilta.
 - Levyn vieressä: luku ja tason numero; pyöreä nuoli aloittaa tason alusta; lamppu antaa vihjeen: seuraava muutettava osa vilkkuu. Jos sen sijaan aloitusnappi vilkkuu, katkaisusi ovat menneet väärin: kumoa ne.
+- Sattumanvaraisessa piirissä vihjeen vieressä oleva porttipainike tuo koon ja osat takaisin; seuraava-painike tekee uuden piirin samalla valinnalla. Jos pelaa-painike pysyy himmeänä, sytytä jokin pehmeästi hehkuvista porteista: pulma tarvitsee AND-portin tai NOT-portin yhdessä OR-, NAND- tai NOR-portin kanssa.
 - Kun kaikki lamput palavat, ne leimahtavat kultaisina; sitten näkyvät tähtesi ja seuraavan tason painike. Uusi peli (ruudukkopainike) vie takaisin tasoruudukkoon.
 - Palkki näyttää siirtosi kytkimen vieressä, jäljellä olevat katkaisut kaapelin vieressä ja parin tähden vieressä. Leveällä näytöllä syvä piiri voi olla kyljellään: kytkimet vasemmalla, lamput oikealla.

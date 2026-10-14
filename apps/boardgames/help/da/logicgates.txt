@@ -1,6 +1,6 @@
 Logiske porte
 # Målet
-Et printkort: kontakter, logiske porte over dem, lamper øverst; hver kontakt sidder lige under den port, den forsyner. Hver ledning fører et signal opad, 0 (mørk) eller 1 (gyldent lysende). Stil kontakterne, så alle lamper lyser, mens de røde alarmlamper forbliver slukket. Der er 165 baner i 6 kapitler. Til et kredsløb lavet tilfældigt vælger du først størrelsen: lille (3 eller 4 kontakter, med AND, OR og NOT), mellem (5 eller 6, også med XOR og NAND) eller stor (7 eller 8, med det hele).
+Et printkort: kontakter, logiske porte over dem, lamper øverst; hver kontakt sidder lige under den port, den forsyner. Hver ledning fører et signal opad, 0 (mørk) eller 1 (gyldent lysende). Stil kontakterne, så alle lamper lyser, mens de røde alarmlamper forbliver slukket. Der er 165 baner i 6 kapitler. Til et kredsløb lavet tilfældigt vælger du størrelsen, lille (3 eller 4 kontakter), mellem (5 eller 6) eller stor (7 eller 8), og trykker på de dele, det må bruge, for at tænde eller dæmpe dem: hver port, den røde alarmlampe, to lamper, sporskiftet, den låste kontakt og kablet; tryk så på spil.
 # Portene
 Hver port er en messingfigur på en plade af valnød: indgangene kommer ind forneden, udgangen går ud foroven. En lille ring øverst på en port vender dens svar om. Herunder indgangene og udgangen for hvert tilfælde: 01 → 1 betyder første indgang 0, anden indgang 1, udgang 1. Dens navn er indgraveret på engelsk, som på kredsløbstegninger: NOT, AND, OR, XOR, NAND eller NOR.
 - NOT (IKKE), en trekant med en ring i spidsen: det modsatte af indgangen. 0 → 1, 1 → 0.
@@ -23,5 +23,6 @@ Et træk er ét skift eller ét klip. Hver bane har et par: det mindste antal tr
 - Baneoversigten: en fane for hvert kapitel og derefter dets baner: løste i guld med deres stjerner, åbne i træ, låste i mørkt træ. Tryk på en bane for at spille den. Dine stjerner gemmes på enheden.
 - Tryk på en kontakt for at skifte den, på et sporskifte for at dreje det, på et kabel for at klippe det over. Ændringen løber op ad ledningerne, port efter port.
 - Ved siden af printkortet: kapitlet og banens nummer; den runde pil starter banen forfra; lampen giver et tip: den næste del, der skal ændres, blinker. Blinker genstartsknappen i stedet, er dine klip forkerte: fortryd dem.
+- I et tilfældigt kredsløb bringer portknappen ved siden af hintet størrelsen og delene frem igen; knappen næste laver et nyt kredsløb med samme valg. Bliver spilknappen ved med at være dæmpet, så tænd en af de svagt glødende porte: en opgave kræver en AND, eller en NOT sammen med en OR, NAND eller NOR.
 - Når alle lamper lyser, blusser de op i guld; så kommer dine stjerner frem med knappen til næste bane. Nyt spil (gitterknappen) fører tilbage til baneoversigten.
 - Bjælken viser dine træk ved en kontakt, de klip, der er tilbage, ved et kabel og par ved en stjerne. På en bred skærm kan et dybt kredsløb ligge på siden: kontakterne til venstre, lamperne til højre.
