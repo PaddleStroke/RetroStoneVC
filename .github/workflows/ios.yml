@@ -1,16 +1,18 @@
 # The iPhone and iPad apps (apps/ios/README.md): built on GitHub's macOS runners, the owner has no Mac.
-#   prepare     (Linux) the generated sources, the icon, pictures of the unlock panel (apps/ios/prepare.sh)
-#   simulator   (macOS) SDL2 for iOS (cached), the Xcode project (XcodeGen), the apps for the simulator (unsigned);
-#               then the Board app booted in an iPhone and an iPad simulator, screenshots as artifacts
-#   testflight  (macOS) only when the signing secrets exist: a signed .ipa per app, sent to App Store Connect
+#   prepare     (Linux) the generated sources, the icons, pictures of the unlock panels (apps/ios/prepare.sh)
+#   simulator   (macOS, one per app) SDL2 for iOS (cached), the Xcode project (XcodeGen), the app for the simulator
+#               (unsigned), then booted in an iPhone and an iPad simulator: screenshots and logs as artifacts
+#   testflight  (macOS, one per app) only when the signing secrets exist: a signed .ipa, sent to App Store Connect
 #               (TestFlight). The secrets (Settings > Secrets and variables > Actions), apps/ios/README.md:
 #                 APPLE_TEAM_ID              the Apple Developer team id
 #                 IOS_DIST_CERT_P12_BASE64   the "Apple Distribution" certificate with its key (.p12), in base64
 #                 IOS_DIST_CERT_PASSWORD     the .p12's password
 #                 IOS_BOARD_PROFILE_BASE64   the App Store provisioning profile of com.eightbcraft.retrostoneboard
+#                 IOS_ARCADE_PROFILE_BASE64  the App Store provisioning profile of com.eightbcraft.retrostonearcade
 #                 ASC_KEY_ID                 the App Store Connect API key's id
 #                 ASC_ISSUER_ID              its issuer id
 #                 ASC_KEY_P8                 the key file's text (AuthKey_<id>.p8)
+#               An app whose profile secret is missing is skipped.
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 name: iOS
 
@@ -26,7 +28,7 @@ on:
       - "apps/android/tools/make_icon.py"
       - "games/**"
       - "sdk/**"
-      - "tools/fetch_sdl2_src.sh"
+      - "tools/**"
       - ".github/workflows/ios.yml"
   workflow_dispatch:
     inputs:
@@ -45,18 +47,20 @@ permissions:
 jobs:
   prepare:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     outputs:
       signing: ${{ steps.secrets.outputs.signing }}
     steps:
       - uses: actions/checkout@v4
-      - name: Tools (Python with Pillow, numpy, fontTools; the fonts; SDL2)
+      - name: Tools (Python with Pillow, numpy, SciPy, fontTools; the fonts; SDL2)
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq --no-install-recommends python3-pil python3-numpy python3-fonttools \
-            fonts-noto-cjk fonts-dejavu-core libsdl2-dev make gcc
+          sudo apt-get install -y -qq --no-install-recommends python3-pil python3-numpy python3-scipy \
+            python3-fonttools fonts-noto-cjk fonts-dejavu-core libsdl2-dev make gcc util-linux
       - name: RetroStone Board (generated sources, icon, panel pictures)
         run: sh apps/ios/prepare.sh board --preview
+      - name: RetroStone Arcade (the games' generated sources, the catalogue, icon, panel pictures)
+        run: sh apps/ios/prepare.sh arcade --preview
       - name: Signing secrets present?
         id: secrets
         env:
@@ -79,7 +83,10 @@ jobs:
             build/ios/*/gen
             build/ios/*/Assets.xcassets
             build/ios/*/app.env
+            build/ios/*/app.conf
             build/ios/*/edition.conf
+            build/ios/*/games.txt
+            build/bundle/gen-ios
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-artifact@v4
@@ -91,7 +98,11 @@ jobs:
   simulator:
     needs: prepare
     runs-on: macos-15
-    timeout-minutes: 60
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [board, arcade]
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -100,7 +111,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: ios-prepared
-          path: build/ios
+          path: build
       - name: XcodeGen
         env:
           HOMEBREW_NO_AUTO_UPDATE: "1"
@@ -117,35 +128,32 @@ jobs:
           key: sdl2-ios-${{ steps.xcode.outputs.version }}-${{ hashFiles('tools/fetch_sdl2_src.sh', 'apps/ios/build-sdl.sh') }}
       - name: SDL2 for iOS
         run: sh apps/ios/build-sdl.sh
-      - name: RetroStone Board for the simulator
-        run: sh apps/ios/build.sh board simulator
-      - name: RetroStone Board in the simulator (screenshots)
-        run: sh apps/ios/sim-shots.sh board
+      - name: The app for the simulator
+        run: sh apps/ios/build.sh ${{ matrix.app }} simulator
+      - name: The app in the simulator (screenshots)
+        run: sh apps/ios/sim-shots.sh ${{ matrix.app }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ios-simulator-screenshots
-          path: build/ios/shots
-          retention-days: 30
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: ios-simulator-apps
+          name: ios-${{ matrix.app }}-simulator
           path: |
-            build/ios/*/*-simulator.zip
-            build/ios/*/xcodebuild-*.log
+            build/ios/shots
+            build/ios/${{ matrix.app }}/*-simulator.zip
+            build/ios/${{ matrix.app }}/*.log
             build/ios/sdl/build-*.log
           retention-days: 14
 
   testflight:
     needs: [prepare, simulator]
-    if: needs.prepare.outputs.signing == 'true' && (github.event_name == 'push' || inputs.testflight)
+    if: >-
+      always() && needs.prepare.result == 'success' && needs.prepare.outputs.signing == 'true' &&
+      (github.event_name == 'push' || inputs.testflight)
     runs-on: macos-15
-    timeout-minutes: 60
+    timeout-minutes: 75
     strategy:
       fail-fast: false
       matrix:
-        app: [board]
+        app: [board, arcade]
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
@@ -154,7 +162,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: ios-prepared
-          path: build/ios
+          path: build
       - name: XcodeGen
         env:
           HOMEBREW_NO_AUTO_UPDATE: "1"
@@ -219,7 +227,7 @@ jobs:
           name: ios-${{ matrix.app }}-ipa
           path: |
             build/ios/${{ matrix.app }}/ipa
-            build/ios/${{ matrix.app }}/xcodebuild-*.log
+            build/ios/${{ matrix.app }}/*.log
           retention-days: 14
       - name: Remove the keychain and the key
         if: always()

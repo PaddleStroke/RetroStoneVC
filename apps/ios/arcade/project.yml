@@ -1,0 +1,105 @@
+# RetroStone Arcade for iPhone and iPad: the Xcode project's spec, for XcodeGen (https://github.com/yonaskolb/XcodeGen).
+# apps/ios/build.sh arcade writes build/ios/arcade/RetroStoneArcade.xcodeproj from it; nothing of Xcode's is kept in
+# the repository. Paths here: from this folder; in the build settings: from the repository (RS_REPO).
+# Before it: apps/ios/prepare.sh arcade (Linux: build/bundle/gen-ios, build/ios/arcade), apps/ios/build-sdl.sh (SDL2)
+# and libarcade.a (apps/launcher/bundle.mk PLATFORM=ios-<sdk>-arm64 ios-lib: the launcher, the runtime, the SDK,
+# every game as a Mach-O module and the SDL frontend, whose main() is SDL_main; apps/ios/arcade/ios.mk). Here: the
+# entry point, the StoreKit backend, the icon, the launch screen, the link. arm64 only (the simulator of Apple
+# silicon Macs too). The version and the signing come from build.sh's command line.
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+name: RetroStoneArcade
+options:
+  bundleIdPrefix: com.eightbcraft
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    RS_REPO: $(SRCROOT)/../../..
+    MARKETING_VERSION: "1.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    CLANG_ENABLE_OBJC_ARC: YES
+    GCC_C_LANGUAGE_STANDARD: gnu11
+    ENABLE_BITCODE: NO
+    DEAD_CODE_STRIPPING: YES
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": x86_64
+  configs:
+    Release:
+      GCC_OPTIMIZATION_LEVEL: "2"
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+targets:
+  RetroStoneArcade:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      # the in-app purchase: its C API and the StoreKit backend; the safe area and the entry point
+      - path: ../../common/iap.h
+      - path: ../common/iap_storekit.swift
+      - path: ../common/ios_app.h
+      - path: ../common/ios_app.m
+      - path: ../common/LaunchScreen.storyboard
+      - path: ../../../build/ios/arcade/Assets.xcassets
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: Foundation.framework
+      - sdk: StoreKit.framework
+      - sdk: AVFoundation.framework
+      - sdk: AudioToolbox.framework
+      - sdk: CoreAudio.framework
+      - sdk: CoreBluetooth.framework
+      - sdk: CoreFoundation.framework
+      - sdk: CoreGraphics.framework
+      - sdk: CoreHaptics.framework
+      - sdk: CoreMotion.framework
+      - sdk: CoreVideo.framework
+      - sdk: GameController.framework
+      - sdk: IOKit.framework
+      - sdk: Metal.framework
+      - sdk: OpenGLES.framework
+      - sdk: QuartzCore.framework
+    settings:
+      base:
+        PRODUCT_NAME: RetroStoneArcade
+        PRODUCT_BUNDLE_IDENTIFIER: com.eightbcraft.retrostonearcade
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        HEADER_SEARCH_PATHS:
+          - $(RS_REPO)/apps/common
+          - $(RS_REPO)/apps/ios/common
+          - $(RS_REPO)/build/ios/sdl/include
+        "LIBRARY_SEARCH_PATHS[sdk=iphoneos*]":
+          - $(RS_REPO)/build/ios/sdl/iphoneos
+          - $(RS_REPO)/build/bundle/ios-iphoneos-arm64-ios
+        "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]":
+          - $(RS_REPO)/build/ios/sdl/iphonesimulator
+          - $(RS_REPO)/build/bundle/ios-iphonesimulator-arm64-ios
+        OTHER_LDFLAGS: [-larcade, -lSDL2, -liconv]
+        GENERATE_INFOPLIST_FILE: NO
+    info:
+      path: ../../../build/ios/arcade/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: en
+        CFBundleDisplayName: RetroStone Arcade
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        # landscape only, as on Android (sensorLandscape)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        ITSAppUsesNonExemptEncryption: false
+        NSBluetoothAlwaysUsageDescription: RetroStone Arcade does not use Bluetooth itself; game pads connect through iOS.
+    scheme: {}

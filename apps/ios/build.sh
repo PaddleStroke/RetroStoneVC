@@ -6,6 +6,7 @@
 #                                         RetroStoneBoard-simulator.zip
 #   apps/ios/build.sh board ipa           a signed archive and build/ios/board/ipa/RetroStoneBoard.ipa (App Store)
 #   apps/ios/build.sh board upload        the same, then sent to App Store Connect (TestFlight)
+#   apps/ios/build.sh arcade ...          the same for RetroStone Arcade (first its libarcade.a: apps/ios/arcade/ios.mk)
 #
 # ipa and upload sign by hand ("manual" signing: nothing is created in the developer account), with:
 #   IOS_TEAM_ID        the Apple Developer team id (10 characters)
@@ -34,6 +35,21 @@ BUILD=${RS_BUILD_NUMBER:-$(env_of BUILD)}
 say() { printf '\n== %s\n' "$*"; }
 
 sh apps/ios/build-sdl.sh
+
+if [ "$APP" = arcade ]; then
+    # libarcade.a (apps/ios/arcade/ios.mk): the generated sources come from prepare.sh (build/bundle/gen-ios), made
+    # newer than the checkout so that make remakes none of them (Python's Pillow and numpy are not needed here)
+    [ -f "$OUT/games.txt" ] || { echo "$OUT/games.txt is missing: run apps/ios/prepare.sh arcade first" >&2; exit 1; }
+    find build/bundle/gen-ios "$OUT" -type f -exec touch {} +
+    if [ "$MODE" = simulator ]; then P=ios-iphonesimulator-arm64; else P=ios-iphoneos-arm64; fi
+    say "libarcade.a ($P: the launcher, the runtime, the SDK, $(wc -w < "$OUT/games.txt") games as Mach-O modules)"
+    make --no-print-directory -f apps/launcher/bundle.mk PLATFORM="$P" CONF="$OUT/app.conf" \
+        GAMES="$(cat "$OUT/games.txt")" -o build/bundle/gen-ios/catalog.c -j"$(sysctl -n hw.ncpu)" ios-lib \
+        > "$OUT/libarcade-$P.log" 2>&1 || { grep -E "error|Error" "$OUT/libarcade-$P.log" | head -40;
+                                           tail -30 "$OUT/libarcade-$P.log"; exit 1; }
+    grep "modulize .*warning" "$OUT/libarcade-$P.log" || true
+    ls -l "build/bundle/$P-ios/libarcade.a"
+fi
 
 say "the Xcode project (XcodeGen: apps/ios/$APP/project.yml)"
 xcodegen generate --spec "apps/ios/$APP/project.yml" --project "$OUT"
