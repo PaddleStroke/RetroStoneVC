@@ -1,6 +1,6 @@
 Gerbang Logika
 # Tujuan
-Sebuah papan sirkuit: sakelar di bagian bawah, gerbang logika di atasnya, lampu di bagian atas. Setiap kabel membawa sinyal ke atas, 0 (gelap) atau 1 (menyala keemasan). Atur sakelar agar semua lampu menyala, sementara lampu alarm merah tetap padam. Ada 150 level dalam 6 bab. Untuk sirkuit acak, pilih dulu ukurannya: kecil (3 atau 4 sakelar), sedang (5 atau 6), atau besar (7 atau 8).
+Sebuah papan sirkuit: sakelar, gerbang logika di atasnya, lampu di bagian atas; setiap sakelar terletak tepat di bawah gerbang yang menerima sinyalnya. Setiap kabel membawa sinyal ke atas, 0 (gelap) atau 1 (menyala keemasan). Atur sakelar agar semua lampu menyala, sementara lampu alarm merah tetap padam. Ada 165 level dalam 6 bab. Untuk sirkuit acak, pilih dulu ukurannya: kecil (3 atau 4 sakelar, dengan AND, OR, dan NOT), sedang (5 atau 6, juga dengan XOR dan NAND), atau besar (7 atau 8, dengan semuanya).
 # Gerbang
 Setiap gerbang adalah bentuk kuningan di atas papan kecil kayu walnut: masukannya datang dari bawah, keluarannya pergi ke atas. Lingkaran kecil di puncak gerbang membalik jawabannya. Di bawah ini masukan dan keluaran untuk setiap kasus: 01 → 1 berarti masukan pertama 0, masukan kedua 1, keluaran 1. Namanya terukir di atasnya dalam bahasa Inggris, seperti pada diagram sirkuit: NOT, AND, OR, XOR, NAND, atau NOR.
 - NOT (BUKAN), segitiga dengan lingkaran di ujungnya: kebalikan dari masukannya. 0 → 1, 1 → 0.
@@ -13,15 +13,15 @@ Nanti ada gerbang dengan tiga masukan: AND, OR, NAND, dan NOR bekerja dengan car
 # Wesel
 Papan kecil tempat kabel bercabang ke kiri dan ke kanan. Sinyal terus ke arah yang ditunjuk jalur kuningan; arah lainnya membawa 0. Ketuk wesel untuk mengirim sinyal ke arah lain.
 # Kabel yang bisa dipotong
-Beberapa kabel memiliki sekring kecil berwarna krem. Ketuk sekring untuk memotong kabel: percikan api beterbangan, dan setelah sekring kabel membawa 0, seolah terputus. Potongan tidak bisa diperbaiki, kecuali dengan Urungkan atau dengan mengulang level dari awal. Beberapa level mengizinkan lebih sedikit potongan daripada jumlah sekringnya: bilah menunjukkan sisa potonganmu.
+Beberapa kabel adalah kabel jumper: kabel berwarna yang melengkung di antara dua terminal kuningan. Ketuk kabel untuk memotongnya: kabel putus menjadi dua, dan setelah potongan kabel membawa 0, seolah terputus. Potongan tidak bisa diperbaiki, kecuali dengan Urungkan (kabel tersambung lagi) atau dengan mengulang level dari awal. Beberapa level mengizinkan lebih sedikit potongan daripada jumlah kabelnya: bilah menunjukkan sisa potonganmu.
 # Sakelar terkunci
 Sakelar dengan batang kuningan yang disekrup di atasnya tetap seperti adanya.
 # Level dan bintang
-Bab-babnya: 1 NOT, AND, OR, XOR, dengan 2 atau 3 sakelar; 2 NAND, NOR, lampu alarm, dan sakelar terkunci, sampai 5 sakelar; 3 wesel, sampai 6; 4 kabel yang bisa dipotong, sampai 8; 5 gerbang dengan tiga masukan, satu sakelar untuk beberapa gerbang, dua lampu; 6 sirkuit besar dengan 7 atau 8 sakelar yang mencampur semuanya. Tab dadu setelah bab-bab itu membuat sirkuit baru secara acak, dengan pilihan yang dijelaskan di atas.
+Bab-babnya menghadirkan gerbang satu per satu, dan setiap bab tumbuh dari beberapa sakelar sampai 8: 1 AND dan OR, dengan lampu alarm, lalu NOT mulai pertengahan bab (40 level); 2 XOR dan sakelar terkunci; 3 NAND dan wesel; 4 NOR dan kabel yang bisa dipotong; 5 gerbang dengan tiga masukan, satu sakelar untuk beberapa gerbang, dua lampu; 6 sirkuit besar yang mencampur semuanya. Tab dadu setelah bab-bab itu membuat sirkuit baru secara acak, dengan pilihan yang dijelaskan di atas.
 Satu langkah adalah satu kali membalik atau satu potongan. Setiap level punya par, jumlah langkah paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; paling banyak dua langkah lebih: 2 bintang; selain itu 1. Petunjuk membatasi level paling banyak 2 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi. Level yang sudah selesai tetap terbuka, begitu pula tiga level pertama yang belum selesai.
 # Bermain di perangkat
 - Kisi level: satu tab untuk setiap bab, lalu level-levelnya: yang selesai berwarna emas dengan bintangnya, yang terbuka dari kayu, yang terkunci dari kayu gelap. Ketuk sebuah level untuk memainkannya. Bintangmu tersimpan di perangkat.
-- Ketuk sakelar untuk membaliknya, wesel untuk memutarnya, sekring untuk memotong kabelnya. Perubahan merambat naik di sepanjang kabel, dari gerbang ke gerbang.
+- Ketuk sakelar untuk membaliknya, wesel untuk memutarnya, kabel untuk memotongnya. Perubahan merambat naik di sepanjang kabel, dari gerbang ke gerbang.
 - Di samping papan: bab dan nomor level; panah bundar mengulang level dari awal; lampu memberi petunjuk: bagian berikutnya yang perlu diubah berkedip. Jika yang berkedip justru tombol ulang, potonganmu keliru: urungkan.
 - Saat semua lampu menyala, lampu-lampu itu berkobar keemasan; lalu bintangmu muncul bersama tombol ke level berikutnya. Permainan baru (tombol kisi) kembali ke kisi level.
-- Bilah menunjukkan langkahmu di samping sakelar, sisa potongan di samping sekring, dan par di samping bintang. Di layar lebar, sirkuit yang dalam bisa berbaring menyamping: sakelar di kiri, lampu di kanan.
+- Bilah menunjukkan langkahmu di samping sakelar, sisa potongan di samping kabel, dan par di samping bintang. Di layar lebar, sirkuit yang dalam bisa berbaring menyamping: sakelar di kiri, lampu di kanan.

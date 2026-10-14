@@ -1,6 +1,6 @@
 Logiikkaportit
 # Tavoite
-Piirilevy: alhaalla kytkimet, niiden yllä logiikkaportit, ylhäällä lamput. Jokainen johto vie signaalia ylöspäin, 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä. Tasoja on 150 kuudessa luvussa. Sattumanvaraiselle piirille valitset ensin koon: pieni (3 tai 4 kytkintä), keskikokoinen (5 tai 6) tai suuri (7 tai 8).
+Piirilevy: kytkimet, niiden yllä logiikkaportit, ylhäällä lamput; jokainen kytkin on heti sen portin alla, jota se syöttää. Jokainen johto vie signaalia ylöspäin, 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä. Tasoja on 165 kuudessa luvussa. Sattumanvaraiselle piirille valitset ensin koon: pieni (3 tai 4 kytkintä; AND, OR ja NOT), keskikokoinen (5 tai 6; myös XOR ja NAND) tai suuri (7 tai 8; kaikkea).
 # Portit
 Jokainen portti on messinkinen kuvio pähkinäpuisessa laatassa: tulot tulevat sisään alhaalta, lähtö lähtee ylhäältä. Pieni rengas portin yläpäässä kääntää sen vastauksen. Alla tulot ja lähtö joka tapauksessa: 01 → 1 tarkoittaa, että ensimmäinen tulo on 0, toinen tulo 1 ja lähtö 1. Sen nimi on kaiverrettu siihen englanniksi kuten piirikaavioissa: NOT, AND, OR, XOR, NAND tai NOR.
 - NOT (EI), kolmio, jonka kärjessä on rengas: tulonsa vastakohta. 0 → 1, 1 → 0.
@@ -13,15 +13,15 @@ Myöhemmin joillakin porteilla on kolme tuloa: AND, OR, NAND ja NOR toimivat sam
 # Vaihteet
 Laatta, jossa johto haarautuu vasemmalle ja oikealle. Signaali jatkaa sinne, minne messinkiura osoittaa; toisessa haarassa kulkee 0. Napauta vaihdetta lähettääksesi signaalin toiseen suuntaan.
 # Katkaistavat johdot
-Joissakin johdoissa on pieni kermanvärinen sulake. Napauta sulaketta katkaistaksesi johdon: kipinät lentävät, ja sulakkeen jälkeen johdossa kulkee 0 kuin irrotetussa. Katkaisua ei voi korjata muuten kuin Kumoa-painikkeella tai aloittamalla tason alusta. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on sulakkeita: palkki näyttää, montako sinulla on jäljellä.
+Jotkin johdot ovat hyppylankoja: värikkäitä kaapeleita, jotka kaartuvat kahden messinkiliittimen välillä. Napauta kaapelia katkaistaksesi sen: se napsahtaa kahtia, ja katkaisukohdan jälkeen johdossa kulkee 0 kuin irrotetussa. Katkaisua ei voi korjata muuten kuin Kumoa-painikkeella (kaapeli liittyy taas yhteen) tai aloittamalla tason alusta. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on kaapeleita: palkki näyttää, montako sinulla on jäljellä.
 # Lukitut kytkimet
 Kytkin, jonka päälle on ruuvattu messinkilista, pysyy sellaisenaan.
 # Tasot ja tähdet
-Luvut: 1 NOT, AND, OR, XOR, 2 tai 3 kytkintä; 2 NAND, NOR, hälytyslamput ja lukitut kytkimet, enintään 5 kytkintä; 3 vaihteet, enintään 6; 4 katkaistavat johdot, enintään 8; 5 kolmen tulon portit, yksi kytkin usealle portille, kaksi lamppua; 6 suuret 7 tai 8 kytkimen piirit, joissa on kaikkea. Noppavälilehti lukujen jälkeen tekee uuden piirin sattumanvaraisesti, yllä kuvatulla valinnalla.
+Luvut tuovat portit yksi kerrallaan, ja kukin kasvaa muutamasta kytkimestä 8:aan: 1 AND ja OR sekä hälytyslamput, puolivälistä alkaen myös NOT (40 tasoa); 2 XOR ja lukitut kytkimet; 3 NAND ja vaihteet; 4 NOR ja katkaistavat johdot; 5 kolmen tulon portit, yksi kytkin usealle portille, kaksi lamppua; 6 suuret piirit, joissa on kaikkea. Noppavälilehti lukujen jälkeen tekee uuden piirin sattumanvaraisesti, yllä kuvatulla valinnalla.
 Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin määrä siirtoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihje rajaa tason 2 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa. Ratkaistut tasot pysyvät auki, samoin kolme ensimmäistä ratkaisematonta.
 # Pelaaminen laitteella
 - Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä. Tähtesi säilyvät laitteella.
-- Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, sulaketta katkaistaksesi sen johdon. Muutos kulkee johtoja ylös portti portilta.
+- Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, kaapelia katkaistaksesi sen. Muutos kulkee johtoja ylös portti portilta.
 - Levyn vieressä: luku ja tason numero; pyöreä nuoli aloittaa tason alusta; lamppu antaa vihjeen: seuraava muutettava osa vilkkuu. Jos sen sijaan aloitusnappi vilkkuu, katkaisusi ovat menneet väärin: kumoa ne.
 - Kun kaikki lamput palavat, ne leimahtavat kultaisina; sitten näkyvät tähtesi ja seuraavan tason painike. Uusi peli (ruudukkopainike) vie takaisin tasoruudukkoon.
-- Palkki näyttää siirtosi kytkimen vieressä, jäljellä olevat katkaisut sulakkeen vieressä ja parin tähden vieressä. Leveällä näytöllä syvä piiri voi olla kyljellään: kytkimet vasemmalla, lamput oikealla.
+- Palkki näyttää siirtosi kytkimen vieressä, jäljellä olevat katkaisut kaapelin vieressä ja parin tähden vieressä. Leveällä näytöllä syvä piiri voi olla kyljellään: kytkimet vasemmalla, lamput oikealla.

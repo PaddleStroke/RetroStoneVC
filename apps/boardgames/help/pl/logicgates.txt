@@ -1,6 +1,6 @@
 Bramki logiczne
 # Cel gry
-Płytka drukowana: na dole przełączniki, nad nimi bramki logiczne, na górze żarówki. Każdy przewód niesie sygnał w górę, 0 (ciemny) albo 1 (świecący złotem). Ustaw przełączniki tak, by zapaliły się wszystkie żarówki, a czerwone lampki alarmowe pozostały zgaszone. Gra ma 150 poziomów w 6 rozdziałach. Dla układu tworzonego losowo najpierw wybierz rozmiar: mały (3 lub 4 przełączniki), średni (5 lub 6) albo duży (7 lub 8).
+Płytka drukowana: przełączniki, nad nimi bramki logiczne, na górze żarówki; każdy przełącznik stoi tuż pod bramką, którą zasila. Każdy przewód niesie sygnał w górę, 0 (ciemny) albo 1 (świecący złotem). Ustaw przełączniki tak, by zapaliły się wszystkie żarówki, a czerwone lampki alarmowe pozostały zgaszone. Gra ma 165 poziomów w 6 rozdziałach. Dla układu tworzonego losowo najpierw wybierz rozmiar: mały (3 lub 4 przełączniki, z AND, OR i NOT), średni (5 lub 6, także z XOR i NAND) albo duży (7 lub 8, ze wszystkim).
 # Bramki
 Każda bramka to mosiężny kształt na orzechowej tabliczce: wejścia wchodzą od dołu, wyjście wychodzi u góry. Małe kółko na szczycie bramki odwraca jej odpowiedź. Poniżej wejścia i wyjście w każdym przypadku: 01 → 1 oznacza pierwsze wejście 0, drugie wejście 1, wyjście 1. Ma wygrawerowaną swoją angielską nazwę, jak na schematach: NOT, AND, OR, XOR, NAND albo NOR.
 - NOT (negacja), trójkąt z kółkiem na czubku: odwrotność wejścia. 0 → 1, 1 → 0.
@@ -13,15 +13,15 @@ Dalej niektóre bramki mają trzy wejścia: AND, OR, NAND i NOR działają tak s
 # Zwrotnice
 Tabliczka, na której przewód rozgałęzia się w lewo i w prawo. Sygnał biegnie tam, gdzie wskazuje mosiężny tor; druga strona niesie 0. Dotknij zwrotnicy, by posłać sygnał w drugą stronę.
 # Przewody do przecięcia
-Niektóre przewody mają mały kremowy bezpiecznik. Dotknij bezpiecznika, by przeciąć przewód: lecą iskry, a za bezpiecznikiem przewód niesie 0, jakby był odłączony. Cięcia nie da się naprawić, chyba że przyciskiem Cofnij albo zaczynając poziom od nowa. Niektóre poziomy pozwalają na mniej cięć, niż mają bezpieczników: pasek pokazuje, ile ci zostało.
+Niektóre przewody to kable połączeniowe: kolorowe kable wygięte w łuk między dwoma mosiężnymi zaciskami. Dotknij kabla, by go przeciąć: pęka na dwoje, a za cięciem przewód niesie 0, jakby był odłączony. Cięcia nie da się naprawić, chyba że przyciskiem Cofnij (kabel znów się łączy) albo zaczynając poziom od nowa. Niektóre poziomy pozwalają na mniej cięć, niż mają kabli: pasek pokazuje, ile ci zostało.
 # Zablokowane przełączniki
 Przełącznik z przykręconą mosiężną listwą zostaje taki, jaki jest.
 # Poziomy i gwiazdki
-Rozdziały: 1 NOT, AND, OR, XOR, z 2 lub 3 przełącznikami; 2 NAND, NOR, lampki alarmowe i zablokowane przełączniki, do 5 przełączników; 3 zwrotnice, do 6; 4 przewody do przecięcia, do 8; 5 bramki o trzech wejściach, jeden przełącznik zasilający kilka bramek, dwie żarówki; 6 duże układy z 7 lub 8 przełącznikami, w których jest wszystko. Zakładka z kostką za rozdziałami tworzy nowy układ losowo, z wyborem opisanym wyżej.
+Rozdziały wprowadzają bramki po kolei, a każdy rośnie od kilku przełączników do 8: 1 AND i OR, z lampkami alarmowymi, a od połowy także NOT (40 poziomów); 2 XOR i zablokowane przełączniki; 3 NAND i zwrotnice; 4 NOR i przewody do przecięcia; 5 bramki o trzech wejściach, jeden przełącznik zasilający kilka bramek, dwie żarówki; 6 duże układy, w których jest wszystko. Zakładka z kostką za rozdziałami tworzy nowy układ losowo, z wyborem opisanym wyżej.
 Ruch to jedno przełączenie albo jedno cięcie. Każdy poziom ma par: najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; najwyżej dwa ruchy więcej: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza poziom do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć. Rozwiązane poziomy pozostają otwarte, tak samo jak trzy pierwsze nierozwiązane.
 # Gra na urządzeniu
 - Siatka poziomów: zakładka dla każdego rozdziału, a pod nią jego poziomy: rozwiązane złote z gwiazdkami, otwarte drewniane, zamknięte z ciemnego drewna. Dotknij poziomu, aby w niego zagrać. Twoje gwiazdki zostają zapisane na urządzeniu.
-- Dotknij przełącznika, by go przełączyć, zwrotnicy, by ją obrócić, bezpiecznika, by przeciąć jego przewód. Zmiana biegnie w górę przewodów, bramka po bramce.
+- Dotknij przełącznika, by go przełączyć, zwrotnicy, by ją obrócić, kabla, by go przeciąć. Zmiana biegnie w górę przewodów, bramka po bramce.
 - Obok płytki: rozdział i numer poziomu; okrągła strzałka zaczyna poziom od nowa; żarówka daje podpowiedź: miga następna część do zmiany. Jeśli zamiast tego miga przycisk zaczynania od nowa, twoje cięcia są błędne: cofnij je.
 - Gdy świecą wszystkie żarówki, rozbłyskują złotem; potem pojawiają się twoje gwiazdki z przyciskiem następnego poziomu. Nowa gra (przycisk z siatką) wraca do siatki poziomów.
-- Pasek pokazuje twoje ruchy obok przełącznika, pozostałe cięcia obok bezpiecznika i par obok gwiazdki. Na szerokim ekranie głęboki układ może leżeć na boku: przełączniki po lewej, żarówki po prawej.
+- Pasek pokazuje twoje ruchy obok przełącznika, pozostałe cięcia obok kabla i par obok gwiazdki. Na szerokim ekranie głęboki układ może leżeć na boku: przełączniki po lewej, żarówki po prawej.

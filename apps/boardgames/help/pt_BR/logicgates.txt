@@ -1,6 +1,6 @@
 Portas lógicas
 # O objetivo
-Uma placa de circuito: interruptores embaixo, portas lógicas acima deles, lâmpadas no alto. Cada fio leva um sinal para cima, 0 (apagado) ou 1 (dourado e brilhante). Ajuste os interruptores para que todas as lâmpadas acendam, enquanto as lâmpadas vermelhas de alarme ficam apagadas. São 150 níveis em 6 capítulos. Para um circuito feito ao acaso, escolha antes o tamanho: pequeno (3 ou 4 interruptores), médio (5 ou 6) ou grande (7 ou 8).
+Uma placa de circuito: interruptores, portas lógicas acima deles, lâmpadas no alto; cada interruptor fica logo abaixo da porta que alimenta. Cada fio leva um sinal para cima, 0 (apagado) ou 1 (dourado e brilhante). Ajuste os interruptores para que todas as lâmpadas acendam, enquanto as lâmpadas vermelhas de alarme ficam apagadas. São 165 níveis em 6 capítulos. Para um circuito feito ao acaso, escolha antes o tamanho: pequeno (3 ou 4 interruptores, com AND, OR e NOT), médio (5 ou 6, também com XOR e NAND) ou grande (7 ou 8, com tudo).
 # As portas
 Cada porta é uma forma de latão numa placa de nogueira: as entradas chegam por baixo, a saída sai por cima. Um pequeno círculo no alto de uma porta inverte a resposta dela. Abaixo, as entradas e a saída de cada caso: 01 → 1 quer dizer primeira entrada 0, segunda entrada 1, saída 1. O nome dela vem gravado em inglês, como nos esquemas: NOT, AND, OR, XOR, NAND ou NOR.
 - NOT (NÃO), um triângulo com um círculo na ponta: o contrário da entrada. 0 → 1, 1 → 0.
@@ -13,15 +13,15 @@ Mais adiante, algumas portas têm três entradas: AND, OR, NAND e NOR funcionam 
 # Os desvios
 Uma placa onde o fio se divide, para a esquerda e para a direita. O sinal segue pelo lado para onde aponta a trilha de latão; o outro lado leva 0. Toque nele para mandar o sinal para o outro lado.
 # Os fios de cortar
-Alguns fios têm um pequeno fusível cor de creme. Toque no fusível para cortar o fio: saem faíscas e, depois do fusível, o fio leva 0, como se estivesse desligado. Um corte não tem conserto, a não ser com Desfazer ou recomeçando o nível. Alguns níveis permitem menos cortes do que têm fusíveis: a barra mostra os cortes que restam.
+Alguns fios são cabos jumper: cabos coloridos em arco entre dois bornes de latão. Toque num cabo para cortá-lo: ele se parte em dois e, depois do corte, o fio leva 0, como se estivesse desligado. Um corte não tem conserto, a não ser com Desfazer (o cabo se emenda de novo) ou recomeçando o nível. Alguns níveis permitem menos cortes do que têm cabos: a barra mostra os cortes que restam.
 # Os interruptores travados
 Um interruptor com uma barra de latão parafusada por cima fica como está.
 # Níveis e estrelas
-Os capítulos: 1 NOT, AND, OR, XOR, com 2 ou 3 interruptores; 2 NAND, NOR, lâmpadas de alarme e interruptores travados, até 5 interruptores; 3 desvios, até 6; 4 fios de cortar, até 8; 5 portas de três entradas, um interruptor alimentando várias portas, duas lâmpadas; 6 circuitos grandes de 7 ou 8 interruptores que misturam tudo. A aba do dado, depois dos capítulos, cria um novo circuito ao acaso, com a escolha descrita acima.
+Os capítulos trazem as portas uma de cada vez, e cada um cresce de poucos interruptores até 8: 1 AND e OR, com lâmpadas de alarme, e NOT a partir da metade (40 níveis); 2 XOR e interruptores travados; 3 NAND e desvios; 4 NOR e fios de cortar; 5 portas de três entradas, um interruptor alimentando várias portas, duas lâmpadas; 6 circuitos grandes que misturam tudo. A aba do dado, depois dos capítulos, cria um novo circuito ao acaso, com a escolha descrita acima.
 Uma jogada é uma troca ou um corte. Cada nível tem um par, o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; até duas jogadas a mais: 2 estrelas; senão, 1. Uma dica limita o nível a 2 estrelas. Desfazer volta uma jogada, que deixa de contar. Os níveis resolvidos ficam abertos, assim como os três primeiros ainda não resolvidos.
 # Jogando no aparelho
 - A grade de níveis: uma aba por capítulo e depois os níveis dele: resolvidos em ouro com suas estrelas, abertos em madeira, fechados em madeira escura. Toque num nível para jogá-lo. Suas estrelas ficam guardadas no aparelho.
-- Toque num interruptor para trocá-lo, num desvio para girá-lo, num fusível para cortar o fio dele. A mudança sobe pelos fios, porta após porta.
+- Toque num interruptor para trocá-lo, num desvio para girá-lo, num cabo para cortá-lo. A mudança sobe pelos fios, porta após porta.
 - Ao lado da placa: o capítulo e o número do nível; a seta redonda recomeça o nível; a lâmpada dá uma dica: pisca a próxima peça a mudar. Se piscar o botão de recomeçar, seus cortes estão errados: desfaça-os.
 - Quando todas as lâmpadas acendem, elas brilham em ouro; depois aparecem suas estrelas com o botão do próximo nível. Novo jogo (o botão de grade) volta à grade de níveis.
-- A barra mostra as suas jogadas ao lado de um interruptor, os cortes que restam ao lado de um fusível e o par ao lado de uma estrela. Numa tela larga, um circuito profundo pode ficar deitado: os interruptores à esquerda, as lâmpadas à direita.
+- A barra mostra as suas jogadas ao lado de um interruptor, os cortes que restam ao lado de um cabo e o par ao lado de uma estrela. Numa tela larga, um circuito profundo pode ficar deitado: os interruptores à esquerda, as lâmpadas à direita.
