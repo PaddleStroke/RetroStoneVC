@@ -21,6 +21,9 @@
 #ifdef __ANDROID__
 #include <jni.h>
 #endif
+#ifdef __IPHONEOS__
+#include "ios_app.h"                      /* the iPhone and iPad app (apps/ios): the safe area */
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,6 +44,31 @@ static struct { long id; float x, y; int up; } fingers[RSB_FINGERS];
 static int nfingers;
 
 static void log_fn(const char *line) { SDL_Log("%s", line); }
+
+#ifdef __IPHONEOS__
+/* iPhone and iPad: everything happens in the screen's safe area (apps/ios/common/ios_app.h: clear of the notch, the
+ * Dynamic Island, the rounded corners and the home indicator): the picture, the touch buttons, the pause and back
+ * buttons (a viewport; black round it), and the touches, measured in it. scr_w, scr_h: the whole screen, pixels. */
+static SDL_Rect safe;
+static int scr_w, scr_h;
+static void output_size(int *w, int *h)
+{
+    SDL_GetRendererOutputSize(ren, &scr_w, &scr_h);
+    ios_safe_area(win, scr_w, scr_h, &safe);
+    *w = safe.w;
+    *h = safe.h;
+}
+/* a point of the whole screen (0..1) as a fraction of the safe area */
+static void to_safe(float *x, float *y)
+{
+    if (safe.w > 0 && safe.h > 0) {
+        *x = (*x * scr_w - safe.x) / safe.w;
+        *y = (*y * scr_h - safe.y) / safe.h;
+    }
+}
+#else
+#define output_size(w, h) SDL_GetRendererOutputSize(ren, w, h)
+#endif
 
 static void open_pads(void)
 {
@@ -238,7 +266,7 @@ static void draw_buttons(int ww, int wh)
 static void present(int show_pause, int show_held)
 {
     int ww, wh, fw = rsb_screen_w();
-    SDL_GetRendererOutputSize(ren, &ww, &wh);
+    output_size(&ww, &wh);
     if (!tex || tex_w != fw) {
         if (tex) SDL_DestroyTexture(tex);
         tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING, fw, RS_SCREEN_H);
@@ -266,6 +294,9 @@ static void present(int show_pause, int show_held)
 
     SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
     SDL_RenderClear(ren);
+#ifdef __IPHONEOS__
+    SDL_RenderSetViewport(ren, &safe);          /* (the clear reaches the whole screen) */
+#endif
     if (dw < ww || dh < wh) {
         /* the borders: the picture stretched over the whole display, blurred (a 1/16 copy, smoothed) and dark */
         int bw = fw / 16, bh = RS_SCREEN_H / 16;
@@ -436,6 +467,10 @@ int main(int argc, char **argv)
     SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
     SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, "0");
+#ifdef __IPHONEOS__
+    SDL_SetHint(SDL_HINT_AUDIO_CATEGORY, "ambient");          /* the silent switch mutes the games */
+    SDL_SetHint(SDL_HINT_IOS_HIDE_HOME_INDICATOR, "2");       /* a swipe up the edge: the game's first, then home */
+#endif
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS) != 0) {
         SDL_Log("SDL_Init: %s", SDL_GetError());
         return 1;
@@ -451,7 +486,7 @@ int main(int argc, char **argv)
     rs_host_set_log(log_fn);
 
     Uint32 flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(__IPHONEOS__)
     flags |= SDL_WINDOW_FULLSCREEN;
     int w0 = 1280, h0 = 720;
 #else
@@ -477,7 +512,7 @@ int main(int argc, char **argv)
 
     if (lang < 0 && (lang = system_lang()) >= 0) rs_host_set_lang(lang);   /* the games' language: the phone's */
     int ww, wh;
-    SDL_GetRendererOutputSize(ren, &ww, &wh);
+    output_size(&ww, &wh);
     if (rsb_init(base_dir, width_for(ww, wh))) return 1;
     SDL_Log("%s %s: saves in %s", rsb_app_name, rsb_app_version, base_dir);
 
@@ -535,7 +570,13 @@ int main(int argc, char **argv)
             case SDL_FINGERDOWN:
             case SDL_FINGERMOTION:
             case SDL_FINGERUP:
-                finger_set((long)e.tfinger.fingerId, e.tfinger.x, e.tfinger.y, e.type == SDL_FINGERUP);
+            {
+                float fx = e.tfinger.x, fy = e.tfinger.y;
+#ifdef __IPHONEOS__
+                to_safe(&fx, &fy);
+#endif
+                finger_set((long)e.tfinger.fingerId, fx, fy, e.type == SDL_FINGERUP);
+            }
                 break;
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
@@ -548,14 +589,18 @@ int main(int argc, char **argv)
                     int my = e.type == SDL_MOUSEMOTION ? e.motion.y : e.button.y;
                     int sw, sh;
                     SDL_GetWindowSize(win, &sw, &sh);
-                    finger_set(-1000, (float)mx / sw, (float)my / sh,
+                    float fx = (float)mx / sw, fy = (float)my / sh;
+#ifdef __IPHONEOS__
+                    to_safe(&fx, &fy);
+#endif
+                    finger_set(-1000, fx, fy,
                                e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT);
                 }
                 if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) mouse_down = 0;
                 break;
             case SDL_WINDOWEVENT:
                 if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-                    SDL_GetRendererOutputSize(ren, &ww, &wh);
+                    output_size(&ww, &wh);
                     rsb_resize(width_for(ww, wh));
                 }
                 break;
@@ -565,6 +610,17 @@ int main(int argc, char **argv)
             SDL_Delay(50);
             continue;
         }
+#ifdef __IPHONEOS__
+        {                                       /* the safe area may change without a resize (it settles at start) */
+            int sw, sh;
+            output_size(&sw, &sh);
+            if (sw != ww || sh != wh) {
+                ww = sw;
+                wh = sh;
+                rsb_resize(width_for(ww, wh));
+            }
+        }
+#endif
         const char *url = rsb_store_request();
         if (url) open_store(url);
         if (rsb_review_request()) ask_review();

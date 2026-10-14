@@ -17,10 +17,17 @@ The game's translated text registers its pack from a constructor (rs_i18n_regist
 rsb_glue_i18n_register (rsb_glue.c), so the runtime keeps every game's pack and installs the right one at its start.
 --house: the house kit (games/common): steps 1, 2 and 4 only, its functions stay global (the games call them).
 The runtime (rsb_runtime.c) copies the data at start-up and restores it, and clears the bss, at each start.
+--flavor macho (the iOS app, Apple's linker: apps/ios/arcade/ios.mk): Apple's tools rename no section, so the objects
+come already compiled into sections of their own (__DATA,__rsgd<n> / __DATA,__rsgb<n>, n = --sect: a clang pragma
+-include'd, and rs_i18n_register renamed by the preprocessor); the glue takes their bounds from the linker
+(section$start / section$end); ld -r -exported_symbol _rsb_module_<id> makes every other symbol local (nmedit when
+the linker leaves any); the checks: one global symbol, and no writable data left in __DATA,__data / __bss / __common
+(a warning: the module's restart would not reset it).
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import argparse
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -55,7 +62,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", required=True)
     ap.add_argument("--house", action="store_true")
-    ap.add_argument("--flavor", choices=("elf", "coff"), required=True)
+    ap.add_argument("--flavor", choices=("elf", "coff", "macho"), required=True)
+    ap.add_argument("--sect", default="00", help="macho: the module's section number (two digits)")
+    ap.add_argument("--ldflags", default="", help="macho: more ld options (-arch arm64)")
     ap.add_argument("--cc", required=True)
     ap.add_argument("--cflags", default="")
     ap.add_argument("--ld", required=True)
@@ -65,6 +74,8 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("objs", nargs="+")
     a = ap.parse_args()
+    if a.flavor == "macho":
+        return macho(a)
 
     gid = a.id
     if a.flavor == "elf":
@@ -121,6 +132,53 @@ def main():
         glob = [l.split()[-1] for l in run([a.nm, "-g", "--defined-only", a.out]).splitlines() if l.strip()]
         if glob != [f"rsb_module_{gid}"]:
             raise SystemExit(f"modulize {gid}: global symbols left: {glob}")
+    shutil.rmtree(work, ignore_errors=True)
+
+
+def macho(a):
+    """--flavor macho: the module as one Mach-O object (see the top of this file)."""
+    gid = a.id
+    work = a.out + ".work"
+    shutil.rmtree(work, ignore_errors=True)
+    os.makedirs(work)
+    cc = shlex.split(a.cc) + shlex.split(a.cflags)
+    glue = []
+    for n in (1, 2):
+        o = os.path.join(work, f"glue{n}.o")
+        run(cc + [f"-DRSB_GLUE={n}", f"-DRSB_ID={gid}", f"-DRSB_GAME={0 if a.house else 1}", f"-DRSB_SECT={a.sect}",
+                  "-c", GLUE, "-o", o])
+        glue.append(o)
+    keep = [] if a.house else ["-exported_symbol", f"_rsb_module_{gid}"]
+    run(shlex.split(a.ld) + ["-r"] + shlex.split(a.ldflags) + keep + ["-o", a.out, glue[0]] + a.objs + [glue[1]])
+    nm = shlex.split(a.nm)
+
+    def symbols():
+        """(section, kind, name) of each symbol the module defines (nm -m; kind: external, private external or
+        non-external)"""
+        out = []
+        for line in run(nm + ["-m", a.out]).splitlines():
+            m = re.match(r"^[0-9a-f]+ \(([^)]*)\) (.*)\s(\S+)$", line)
+            if m:
+                k = m.group(2)
+                kind = "non-external" if "non-external" in k else "private external" if "private" in k else "external"
+                out.append((m.group(1), kind, m.group(3)))
+        return out
+
+    if not a.house:
+        def leaks():
+            return [n for s, k, n in symbols() if k != "non-external" and n != f"_rsb_module_{gid}"]
+        if leaks():                             # the linker left globals: made local by nmedit
+            keepfile = os.path.join(work, "keep.txt")
+            with open(keepfile, "w") as f:
+                f.write(f"_rsb_module_{gid}\n")
+            run(["xcrun", "nmedit", "-s", keepfile, a.out])
+        left = leaks()
+        if left:
+            raise SystemExit(f"modulize {gid}: global symbols left: {' '.join(left[:10])}")
+    stray = sorted(set(n for s, k, n in symbols() if s in ("__DATA,__data", "__DATA,__bss", "__DATA,__common")))
+    if stray:
+        sys.stderr.write(f"modulize {gid}: warning: writable data outside its sections (not reset at a restart): "
+                         f"{' '.join(stray[:12])}\n")
     shutil.rmtree(work, ignore_errors=True)
 
 

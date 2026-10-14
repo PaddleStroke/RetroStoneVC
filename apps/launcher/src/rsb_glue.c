@@ -28,7 +28,22 @@
 #define RSB_DATA(n) ".data.rsgame"
 #endif
 
+#if defined(__APPLE__)
+/* Mach-O (the iOS app, modulize.py --flavor macho): no tool renames sections there, so the module's writable data is
+ * compiled straight into sections of its own, __DATA,__rsgd<RSB_SECT> and __DATA,__rsgb<RSB_SECT> (a clang pragma,
+ * -include'd by apps/ios/arcade/ios.mk), and the linker gives their bounds (section$start / section$end). Glue 1
+ * makes sure both sections exist. */
+#define RSB_MACHO(kind) "__DATA,__rsg" kind RSB_STR(RSB_SECT)
+#define RSB_BOUND(edge, kind) __asm__("section$" edge "$__DATA$__rsg" kind RSB_STR(RSB_SECT))
 #if RSB_GLUE == 1
+__attribute__((section(RSB_MACHO("d")), used)) static char rsb_glue_data_mark[1] = {1};
+__attribute__((section(RSB_MACHO("b")), used)) static char rsb_glue_bss_mark[1];
+#else
+extern char rsb_glue_data_begin[] RSB_BOUND("start", "d"), rsb_glue_data_end[] RSB_BOUND("end", "d");
+extern char rsb_glue_bss_begin[] RSB_BOUND("start", "b"), rsb_glue_bss_end[] RSB_BOUND("end", "b");
+#endif
+
+#elif RSB_GLUE == 1
 __attribute__((section(RSB_DATA(0)), used)) char rsb_glue_data_begin[1] = {1};
 #if defined(_WIN32)
 RSB_BSS_MARK(0, "rsb_glue_bss_begin");
@@ -45,7 +60,9 @@ extern char rsb_glue_bss_end[];
 #else
 __attribute__((section(".bss.rsgame"), used)) char rsb_glue_bss_end[1];
 #endif
+#endif
 
+#if RSB_GLUE == 2
 #if RSB_GAME
 const rs_game *rs_game_main(void);
 #define RSB_MAIN rs_game_main
