@@ -21,6 +21,7 @@ settings:
     GCC_C_LANGUAGE_STANDARD: gnu11
     ENABLE_BITCODE: NO
     DEAD_CODE_STRIPPING: YES
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": x86_64
   configs:
     Release:
       GCC_OPTIMIZATION_LEVEL: "2"

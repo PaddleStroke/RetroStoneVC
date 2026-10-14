@@ -43,7 +43,8 @@ if [ "$APP" = arcade ]; then
     find build/bundle/gen-ios "$OUT" -type f -exec touch {} +
     if [ "$MODE" = simulator ]; then P=ios-iphonesimulator-arm64; else P=ios-iphoneos-arm64; fi
     say "libarcade.a ($P: the launcher, the runtime, the SDK, $(wc -w < "$OUT/games.txt") games as Mach-O modules)"
-    make --no-print-directory -f apps/launcher/bundle.mk PLATFORM="$P" CONF="$OUT/app.conf" \
+    MK=$(command -v gmake || echo make)         # GNU make 4 (Homebrew's; the CI installs it), else macOS's 3.81
+    "$MK" --no-print-directory -f apps/launcher/bundle.mk PLATFORM="$P" CONF="$OUT/app.conf" \
         GAMES="$(cat "$OUT/games.txt")" -o build/bundle/gen-ios/catalog.c -j"$(sysctl -n hw.ncpu)" ios-lib \
         > "$OUT/libarcade-$P.log" 2>&1 || { grep -E "error|Error" "$OUT/libarcade-$P.log" | head -40;
                                            tail -30 "$OUT/libarcade-$P.log"; exit 1; }

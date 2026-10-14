@@ -116,12 +116,12 @@ jobs:
         env:
           HOMEBREW_NO_AUTO_UPDATE: "1"
           HOMEBREW_NO_INSTALL_CLEANUP: "1"
-        run: brew install xcodegen && xcodegen --version
+        run: brew install xcodegen make && xcodegen --version && gmake --version | sed -n 1p
       - name: Xcode version
         id: xcode
         run: |
           xcodebuild -version
-          echo "version=$(xcodebuild -version | head -1 | tr ' ' '-')" >> "$GITHUB_OUTPUT"
+          echo "version=$(xcodebuild -version | sed -n 1p | tr ' ' '-')" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         with:
           path: build/ios/sdl
@@ -167,10 +167,10 @@ jobs:
         env:
           HOMEBREW_NO_AUTO_UPDATE: "1"
           HOMEBREW_NO_INSTALL_CLEANUP: "1"
-        run: brew install xcodegen
+        run: brew install xcodegen make
       - name: Xcode version
         id: xcode
-        run: echo "version=$(xcodebuild -version | head -1 | tr ' ' '-')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(xcodebuild -version | sed -n 1p | tr ' ' '-')" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         with:
           path: build/ios/sdl

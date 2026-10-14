@@ -1,7 +1,7 @@
 #!/bin/sh
 # SDL2 for the iOS apps (macOS with Xcode): the source release the Android build uses (tools/fetch_sdl2_src.sh),
 # built by its own Xcode project (Xcode/SDL/SDL.xcodeproj, target "Static Library-iOS") for the devices (arm64) and
-# for the simulator (arm64 and x86_64), into build/ios/sdl/:
+# for the simulator (arm64: Apple silicon Macs, as GitHub's macOS runners), into build/ios/sdl/:
 #   include/                     its headers (SDL_config.h picks SDL_config_iphoneos.h)
 #   iphoneos/libSDL2.a           the devices
 #   iphonesimulator/libSDL2.a    the simulator
@@ -26,7 +26,7 @@ sh tools/fetch_sdl2_src.sh build/deps
 rm -rf "$OUT"
 mkdir -p "$OUT"
 for SDK in iphoneos iphonesimulator; do
-    if [ "$SDK" = iphoneos ]; then ARCHS=arm64; else ARCHS="arm64 x86_64"; fi
+    ARCHS=arm64                                 # the devices; the simulator of Apple silicon Macs (the CI's)
     echo "== SDL2 $V: $SDK ($ARCHS)"
     xcodebuild -project "$SDL/Xcode/SDL/SDL.xcodeproj" -target "Static Library-iOS" -configuration Release \
         -sdk "$SDK" ARCHS="$ARCHS" ONLY_ACTIVE_ARCH=NO IPHONEOS_DEPLOYMENT_TARGET=15.0 \
