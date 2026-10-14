@@ -3031,7 +3031,7 @@ static void draw_over(void)
     box b = L.board;
     float u = ui.unit, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
     if (solved_card()) {                        /* a puzzle solved: its stars card */
-        static const uint8_t card_c[4] = {28, 34, 32, 248};   /* over the board: nearly opaque */
+        static const uint8_t card_c[4] = {28, 34, 32, 255};   /* over the board: opaque, nothing shows through */
         float w, h, q;
         solved_place(&cx, &cy, &w, &h, &q);
         ui_put(rounded((int)w, (int)h, 0.36f * q, card_c), cx - w / 2, cy - h / 2, w, h);
