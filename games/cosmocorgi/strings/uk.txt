@@ -1,0 +1,18 @@
+# Cosmo Corgi's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ЛІТАТИ
+SEC_NEBULA = РОЖЕВА ТУМАННІСТЬ
+SEC_ASTEROIDS = ПОЯС АСТЕРОЇДІВ
+SEC_STATION = СТАНЦІЯ РОБОТІВ
+SEC_COMETS = КРИЖАНІ КОМЕТИ
+LOOP_N = КОЛО %d
+BOSS = ВЕЛИКИЙ РОБОТ!
+BOSS_DOWN = РОБОТ ЛУСНУВ!
+BOSS_AWAY = ВІН ПОЛЕТІВ!
+POW_SPREAD = ВІЯЛОВИЙ ПОСТРІЛ!
+POW_BEAM = ЗОРЯНИЙ ПРОМІНЬ!
+POW_HOMING = САМОНАВІДНІ КІСТКИ!
+POW_SPEED = ШВИДШЕ!
+POW_SHIELD = ЩИТ!
+POW_POD = ЦУЦЕНЯ В КАПСУЛІ!
+POW_MAX = МАКСИМУМ СИЛИ!
+STAGE_N = РІВЕНЬ %d

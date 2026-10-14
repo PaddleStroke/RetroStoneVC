@@ -1,0 +1,18 @@
+# Cosmo Corgi's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 날기
+SEC_NEBULA = 파스텔 성운
+SEC_ASTEROIDS = 소행성대
+SEC_STATION = 로봇 정거장
+SEC_COMETS = 얼음 혜성
+LOOP_N = %d바퀴째
+BOSS = 거대 로봇!
+BOSS_DOWN = 로봇이 펑!
+BOSS_AWAY = 날아가 버렸다!
+POW_SPREAD = 확산 샷!
+POW_BEAM = 별빛 빔!
+POW_HOMING = 유도 뼈다귀!
+POW_SPEED = 스피드 업!
+POW_SHIELD = 실드!
+POW_POD = 강아지 포드!
+POW_MAX = 파워 최대!
+STAGE_N = 스테이지 %d

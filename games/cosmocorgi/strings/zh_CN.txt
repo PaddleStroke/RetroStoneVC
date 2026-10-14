@@ -1,0 +1,18 @@
+# Cosmo Corgi's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 飞翔
+SEC_NEBULA = 粉彩星云
+SEC_ASTEROIDS = 小行星带
+SEC_STATION = 机器人空间站
+SEC_COMETS = 冰彗星
+LOOP_N = 第%d圈
+BOSS = 巨型机器人!
+BOSS_DOWN = 机器人爆开了!
+BOSS_AWAY = 它飞走了!
+POW_SPREAD = 散射弹!
+POW_BEAM = 星光射线!
+POW_HOMING = 追踪骨头!
+POW_SPEED = 加速!
+POW_SHIELD = 护盾!
+POW_POD = 小狗僚机!
+POW_MAX = 力量满格!
+STAGE_N = 第%d关

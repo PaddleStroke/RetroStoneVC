@@ -1,0 +1,18 @@
+# Cosmo Corgi's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΠΕΤΑΞΕΙΣ
+SEC_NEBULA = ΠΑΣΤΕΛ ΝΕΦΕΛΩΜΑ
+SEC_ASTEROIDS = ΖΩΝΗ ΑΣΤΕΡΟΕΙΔΩΝ
+SEC_STATION = ΣΤΑΘΜΟΣ ΡΟΜΠΟΤ
+SEC_COMETS = ΠΑΓΩΜΕΝΟΙ ΚΟΜΗΤΕΣ
+LOOP_N = ΓΥΡΟΣ %d
+BOSS = ΜΕΓΑΛΟ ΡΟΜΠΟΤ!
+BOSS_DOWN = ΤΟ ΡΟΜΠΟΤ ΕΣΚΑΣΕ!
+BOSS_AWAY = ΠΕΤΑΞΕ ΜΑΚΡΙΑ!
+POW_SPREAD = ΒΕΝΤΑΛΙΑ ΒΟΛΩΝ!
+POW_BEAM = ΑΣΤΡΙΚΗ ΑΚΤΙΝΑ!
+POW_HOMING = ΚΟΚΑΛΑ-ΚΥΝΗΓΟΙ!
+POW_SPEED = ΠΙΟ ΓΡΗΓΟΡΑ!
+POW_SHIELD = ΑΣΠΙΔΑ!
+POW_POD = ΚΟΥΤΑΒΙ ΣΕ ΚΑΨΟΥΛΑ!
+POW_MAX = ΜΕΓΙΣΤΗ ΔΥΝΑΜΗ!
+STAGE_N = ΕΠΙΠΕΔΟ %d

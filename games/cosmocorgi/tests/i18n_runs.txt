@@ -1,0 +1,26 @@
+# Cosmo Corgi: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+nebula    60   50   --opt bot=1 --opt seed=7 --opt ready=1
+asteroids 60   50   --opt bot=1 --opt seed=7 --opt ready=1 --opt section=1
+station   60   50   --opt bot=4 --opt seed=7 --opt ready=1 --opt section=2
+comets    60   50   --opt bot=1 --opt seed=7 --opt ready=1 --opt section=3
+loop2     60   50   --opt bot=1 --opt seed=7 --opt ready=1 --opt loop=1 --opt section=1
+play      1410 1400 --opt bot=1 --opt seed=7 --opt ready=1
+play4     1700 1690 --opt bot=4 --opt seed=9 --opt ready=1
+pause     1140 1130 --opt bot=1 --opt seed=7 --opt ready=1 ; 1100 tap SELECT
+warn      30   20   --opt ready=1 --opt msg=10
+popped    30   20   --opt ready=1 --opt msg=8
+away4     30   20   --opt ready=1 --opt msg=9 --opt players=4
+spread    30   20   --opt ready=1 --opt msg=1
+beam4     30   20   --opt ready=1 --opt msg=2 --opt players=4
+homing4   30   20   --opt ready=1 --opt msg=3 --opt players=4
+speed     30   20   --opt ready=1 --opt msg=4
+shield4   30   20   --opt ready=1 --opt msg=5 --opt players=4
+pod       30   20   --opt ready=1 --opt msg=6
+max4      30   20   --opt ready=1 --opt msg=7 --opt players=4
+over      1390 1380 --opt bot=1 --opt ready=1 --opt botstop=100 --opt botruns=2
+results   3510 3500 --opt bot=4 --opt ready=1 --opt botstop=60

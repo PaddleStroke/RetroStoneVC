@@ -1,0 +1,18 @@
+# Cosmo Corgi's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = とぶ
+SEC_NEBULA = パステルせいうん
+SEC_ASTEROIDS = しょうわくせいたい
+SEC_STATION = ロボットきち
+SEC_COMETS = こおりのすいせい
+LOOP_N = %dしゅうめ
+BOSS = ビッグロボ!
+BOSS_DOWN = ロボがはじけた!
+BOSS_AWAY = とんでいった!
+POW_SPREAD = ワイドショット!
+POW_BEAM = スタービーム!
+POW_HOMING = ホーミングほね!
+POW_SPEED = スピードアップ!
+POW_SHIELD = バリア!
+POW_POD = こいぬポッド!
+POW_MAX = パワーMAX!
+STAGE_N = ステージ %d

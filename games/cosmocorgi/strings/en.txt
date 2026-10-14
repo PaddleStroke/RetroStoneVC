@@ -1,0 +1,73 @@
+# Cosmo Corgi (games/cosmocorgi): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt). The game's name is never translated.
+
+#. The title's prompt verb: PRESS A TO <VERB> (the kit's PRESS_TO). The corgi's rocket flies.
+#. max 14
+VERB = FLY
+
+#. In play, as each section of space begins: 2x letters (2 columns each) centred on row 11, for 2.5 s (small letters
+#. if it is longer than 19 characters). A soft pink and violet cloud of stars ...
+#. max 19
+SEC_NEBULA = PASTEL NEBULA
+
+#. ... a belt of asteroids (rocky walls above and below) ...
+#. max 19
+SEC_ASTEROIDS = ASTEROID BELT
+
+#. ... a space station built by robots (metal walls) ...
+#. max 19
+SEC_STATION = ROBOT STATION
+
+#. ... a field of icy comets (icy walls).
+#. max 19
+SEC_COMETS = ICY COMETS
+
+#. Under the section's name from the second time round (the game loops, faster): small letters centred on row 14;
+#. %d is the loop (2, 3...).
+#. max 30
+LOOP_N = LOOP %d
+
+#. In play, before each section's big boss (a big robot animal) comes: 2x letters centred on row 12, for 2 s.
+#. max 19
+BOSS = BIG ROBOT!
+
+#. After the boss is beaten (it pops into sparkles and bolts, nothing is hurt): 2x letters centred on row 12.
+#. max 19
+BOSS_DOWN = ROBOT POPPED!
+
+#. When nobody beat the boss in 60 s: it flies away (no points): 2x letters centred on row 12.
+#. max 19
+BOSS_AWAY = IT FLEW AWAY!
+
+#. In play, small letters centred on row 19 for 2 s, when a corgi catches a capsule (a power-up). With 2-4 players
+#. the player's tag is put before it (P2 SPREAD SHOT!). The shots fan out in three or five ...
+#. max 30
+POW_SPREAD = SPREAD SHOT!
+
+#. ... a long laser of stars that goes through robots ...
+#. max 30
+POW_BEAM = STAR BEAM!
+
+#. ... dog bones that chase the robots ...
+#. max 30
+POW_HOMING = HOMING BONES!
+
+#. ... the rocket flies faster ...
+#. max 30
+POW_SPEED = SPEED UP!
+
+#. ... a bubble that takes one hit ...
+#. max 30
+POW_SHIELD = SHIELD!
+
+#. ... a puppy in a little pod follows the rocket and fires too ...
+#. max 30
+POW_POD = PUPPY POD!
+
+#. ... a capsule of a power already at its best: 500 points instead.
+#. max 30
+POW_MAX = MAX POWER!
+
+#. On the game-over panel, under the medal: the stage reached (1, 2, 3... each section of space is a stage).
+#. max 18
+STAGE_N = STAGE %d
