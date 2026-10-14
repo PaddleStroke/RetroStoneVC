@@ -1,0 +1,228 @@
+# The iPhone and iPad apps (apps/ios/README.md): built on GitHub's macOS runners, the owner has no Mac.
+#   prepare     (Linux) the generated sources, the icon, pictures of the unlock panel (apps/ios/prepare.sh)
+#   simulator   (macOS) SDL2 for iOS (cached), the Xcode project (XcodeGen), the apps for the simulator (unsigned);
+#               then the Board app booted in an iPhone and an iPad simulator, screenshots as artifacts
+#   testflight  (macOS) only when the signing secrets exist: a signed .ipa per app, sent to App Store Connect
+#               (TestFlight). The secrets (Settings > Secrets and variables > Actions), apps/ios/README.md:
+#                 APPLE_TEAM_ID              the Apple Developer team id
+#                 IOS_DIST_CERT_P12_BASE64   the "Apple Distribution" certificate with its key (.p12), in base64
+#                 IOS_DIST_CERT_PASSWORD     the .p12's password
+#                 IOS_BOARD_PROFILE_BASE64   the App Store provisioning profile of com.eightbcraft.retrostoneboard
+#                 ASC_KEY_ID                 the App Store Connect API key's id
+#                 ASC_ISSUER_ID              its issuer id
+#                 ASC_KEY_P8                 the key file's text (AuthKey_<id>.p8)
+# MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+name: iOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/ios/**"
+      - "apps/common/**"
+      - "apps/boardgames/**"
+      - "apps/launcher/**"
+      - "apps/android/*.conf"
+      - "apps/android/tools/make_icon.py"
+      - "games/**"
+      - "sdk/**"
+      - "tools/fetch_sdl2_src.sh"
+      - ".github/workflows/ios.yml"
+  workflow_dispatch:
+    inputs:
+      testflight:
+        description: "Upload to TestFlight (when the signing secrets exist)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      signing: ${{ steps.secrets.outputs.signing }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools (Python with Pillow, numpy, fontTools; the fonts; SDL2)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends python3-pil python3-numpy python3-fonttools \
+            fonts-noto-cjk fonts-dejavu-core libsdl2-dev make gcc
+      - name: RetroStone Board (generated sources, icon, panel pictures)
+        run: sh apps/ios/prepare.sh board --preview
+      - name: Signing secrets present?
+        id: secrets
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          P12: ${{ secrets.IOS_DIST_CERT_P12_BASE64 }}
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_ISSUER_ID }}
+          P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          if [ -n "$TEAM" ] && [ -n "$P12" ] && [ -n "$KEY_ID" ] && [ -n "$ISSUER" ] && [ -n "$P8" ]; then
+            echo "signing=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "signing=false" >> "$GITHUB_OUTPUT"
+            echo "No signing secrets: the simulator builds only (apps/ios/README.md, Secrets)."
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-prepared
+          path: |
+            build/ios/*/gen
+            build/ios/*/Assets.xcassets
+            build/ios/*/app.env
+            build/ios/*/edition.conf
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-panel-preview
+          path: build/ios/*/preview
+          retention-days: 30
+
+  simulator:
+    needs: prepare
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - uses: actions/download-artifact@v4
+        with:
+          name: ios-prepared
+          path: build/ios
+      - name: XcodeGen
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+        run: brew install xcodegen && xcodegen --version
+      - name: Xcode version
+        id: xcode
+        run: |
+          xcodebuild -version
+          echo "version=$(xcodebuild -version | head -1 | tr ' ' '-')" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: build/ios/sdl
+          key: sdl2-ios-${{ steps.xcode.outputs.version }}-${{ hashFiles('tools/fetch_sdl2_src.sh', 'apps/ios/build-sdl.sh') }}
+      - name: SDL2 for iOS
+        run: sh apps/ios/build-sdl.sh
+      - name: RetroStone Board for the simulator
+        run: sh apps/ios/build.sh board simulator
+      - name: RetroStone Board in the simulator (screenshots)
+        run: sh apps/ios/sim-shots.sh board
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-simulator-screenshots
+          path: build/ios/shots
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-simulator-apps
+          path: |
+            build/ios/*/*-simulator.zip
+            build/ios/*/xcodebuild-*.log
+            build/ios/sdl/build-*.log
+          retention-days: 14
+
+  testflight:
+    needs: [prepare, simulator]
+    if: needs.prepare.outputs.signing == 'true' && (github.event_name == 'push' || inputs.testflight)
+    runs-on: macos-15
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [board]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - uses: actions/download-artifact@v4
+        with:
+          name: ios-prepared
+          path: build/ios
+      - name: XcodeGen
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+          HOMEBREW_NO_INSTALL_CLEANUP: "1"
+        run: brew install xcodegen
+      - name: Xcode version
+        id: xcode
+        run: echo "version=$(xcodebuild -version | head -1 | tr ' ' '-')" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: build/ios/sdl
+          key: sdl2-ios-${{ steps.xcode.outputs.version }}-${{ hashFiles('tools/fetch_sdl2_src.sh', 'apps/ios/build-sdl.sh') }}
+      - name: The certificate, the profile and the API key
+        id: signing
+        env:
+          P12: ${{ secrets.IOS_DIST_CERT_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+          PROFILE: ${{ matrix.app == 'board' && secrets.IOS_BOARD_PROFILE_BASE64 || secrets.IOS_ARCADE_PROFILE_BASE64 }}
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          if [ -z "$PROFILE" ]; then
+            echo "No provisioning profile secret for ${{ matrix.app }}: skipped (apps/ios/README.md, Secrets)."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          KC="$RUNNER_TEMP/signing.keychain-db"
+          KC_PASS=$(uuidgen)
+          security create-keychain -p "$KC_PASS" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KC_PASS" "$KC"
+          printf '%s' "$P12" | base64 --decode > "$RUNNER_TEMP/dist.p12"
+          security import "$RUNNER_TEMP/dist.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KC"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KC_PASS" "$KC" > /dev/null
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning "$KC"
+          printf '%s' "$PROFILE" | base64 --decode > "$RUNNER_TEMP/app.mobileprovision"
+          security cms -D -i "$RUNNER_TEMP/app.mobileprovision" > "$RUNNER_TEMP/app-profile.plist"
+          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$RUNNER_TEMP/app-profile.plist")
+          echo "profile: $(/usr/libexec/PlistBuddy -c 'Print :Name' "$RUNNER_TEMP/app-profile.plist") ($UUID)"
+          for d in "$HOME/Library/MobileDevice/Provisioning Profiles" \
+                   "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"; do
+            mkdir -p "$d"
+            cp "$RUNNER_TEMP/app.mobileprovision" "$d/$UUID.mobileprovision"
+          done
+          printf '%s\n' "$P8" > "$RUNNER_TEMP/AuthKey_$KEY_ID.p8"
+          echo "profile=$UUID" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+      - name: Signed build, uploaded to App Store Connect
+        if: steps.signing.outputs.skip == 'false'
+        env:
+          IOS_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          IOS_PROFILE: ${{ steps.signing.outputs.profile }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_PATH: ${{ runner.temp }}/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+          RS_BUILD_NUMBER: ${{ github.run_number }}
+        run: sh apps/ios/build.sh ${{ matrix.app }} upload
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.signing.outputs.skip == 'false'
+        with:
+          name: ios-${{ matrix.app }}-ipa
+          path: |
+            build/ios/${{ matrix.app }}/ipa
+            build/ios/${{ matrix.app }}/xcodebuild-*.log
+          retention-days: 14
+      - name: Remove the keychain and the key
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/signing.keychain-db" 2>/dev/null || true
+          rm -f "$RUNNER_TEMP"/AuthKey_*.p8 "$RUNNER_TEMP/dist.p12" "$RUNNER_TEMP/app.mobileprovision"
