@@ -21,6 +21,12 @@
  *                                     n its chapters' count: its random tab; --bots the seats the device plays
  *                                     (players from 0: e easy, m medium, h hard; "all:m"), --steps n: the bots play
  *                                     n moves after --moves (each move logged on stderr)
+ *   retrostoneboard --perf menu|menu-warm|starts|cards|dump DIR|<game> [--size WxH] [--worker] [--pace] [--only "ids"]
+ *                                     the frames timed, no window (a developer's measure: a phone is some 6 times
+ *                                     slower): the menu's tabs and scrolls (menu-warm: its pictures painted ahead
+ *                                     first; --worker: by the app's helper thread), every game's start, the decks'
+ *                                     faces, a game's first frames; dump: every game's pictures as raw RGBA
+ *                                     (RSB_ART_REF=1: the reference painter's, to compare)
  * Keys: Esc / Back home (in the menu: quit), U undo, F flip, T face to face, N new game, M sound.
  */
 #include "shell.h"
@@ -187,12 +193,15 @@ static struct {
     int ntabs, tab_sec[SECTIONS];
 } L;
 
-static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_icon[ICONS], *t_card, *t_gold, *t_shadow, *t_ring,
+static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_card, *t_gold, *t_shadow, *t_ring,
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_menu_card_on, *t_thumb[MAX_GAMES][MAX_VARIANTS + 1],
     *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
     *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
 static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, made_tab = -1, bar_w, bar_h, bar_m;
-static int tok_gen;                             /* the tokens made again (ui_tokens_changed): the cover's too */
+/* a card picture's size, and when it began to fade in (1: waited for, a placeholder shown; 0: not fading) */
+static int t_thumb_sz[MAX_GAMES][MAX_VARIANTS + 1];
+static Uint32 t_thumb_at[MAX_GAMES][MAX_VARIANTS + 1];
+static int tok_gen;                            /* the tokens made again (ui_tokens_changed): the cover's too */
 
 void ui_tokens_changed(void)
 {
@@ -246,7 +255,7 @@ static Uint32 card_t0;
  * game's finger()): the ones the game holds, the stray ones. */
 #define MAX_FINGERS 10
 static struct {
-    int game, stray;
+    int game, stray, live;                      /* live: pressed while the game was on (not a tool once solved) */
     float x, y;
     long long held[MAX_FINGERS], strays[MAX_FINGERS];
     int nheld, nstrays;
@@ -261,6 +270,11 @@ static int solved_card(void)
     const game *g = games[cur];
     return g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars));
 }
+
+/* the game's gesture still going on: its pointer (or its fingers) down. A game that ends under it (a puzzle solved by
+ * a drag, a move that wins) keeps hearing that gesture to its lifting, and its end waits: the tune, the pause, then
+ * the card come after all its fingers are up; a gesture that undoes the solution (the pin moved back) leaves no end. */
+static int gesture_held(void) { return screen == SCR_GAME && ((PT.game && PT.live) || PT.nheld > 0); }
 
 /* ---- the registry ------------------------------------------------------------------------------------------------ */
 void game_register(const game *g)
@@ -303,8 +317,39 @@ static int shot_clock;
 Uint32 ui_ms(void) { return (shot_clock ? 1000 : SDL_GetTicks()) + ms_ahead; }
 void ui_animate(void) { need_frame = 1; }
 
+static int perf_tex;                            /* --perf: the textures made (counted per frame) */
+static double perf_now(void) { return SDL_GetPerformanceCounter() * 1000.0 / SDL_GetPerformanceFrequency(); }
+
+/* ---- pictures painted a few at a time ----------------------------------------------------------------------------
+ * The cards' pictures (the menu's, a picker's, the level screen's tiles) are painted by the games' code, some slowly
+ * on a phone: a frame paints them for PAINT_BUDGET ms at most (one at least), the others wait for the next frames
+ * (their cards show without them meanwhile, then they fade in), and the idle main loop paints the ones not seen yet
+ * ahead (paint_ahead): a tab, a scroll, a picker find them made. The picture mode paints them all at once. */
+#define PAINT_BUDGET 4.0
+#define FADE_MS 160
+static double paint_used;                       /* this frame's painting, ms */
+static int paint_n;                             /* this frame's pictures */
+
+static int menu_missing;                        /* the cards drawn without their picture (still painted) */
+static void worker_park(void);
+static void worker_unpark(void);
+
+static int paint_may(void)
+{
+    if (instant || paint_n == 0 || paint_used < PAINT_BUDGET) return 1;
+    need_frame = 1;                             /* the next frame paints it */
+    return 0;
+}
+
+static void paint_done(double t0)
+{
+    paint_used += perf_now() - t0;
+    paint_n++;
+}
+
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba)
 {
+    perf_tex++;
     SDL_Texture *t = SDL_CreateTexture(ui.r, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STATIC, w, h);
     if (!t) return NULL;
     SDL_UpdateTexture(t, NULL, rgba, w * 4);
@@ -320,8 +365,8 @@ void ui_free(SDL_Texture **t)
 
 uint8_t *ui_buf(int w, int h)
 {
-    static uint8_t *b;
-    static size_t cap;
+    static _Thread_local uint8_t *b;            /* each thread its own (the menu's pictures: a thread of their own) */
+    static _Thread_local size_t cap;
     size_t need = (size_t)(w > 0 ? w : 1) * (h > 0 ? h : 1) * 4;
     if (need > cap) { free(b); b = malloc(need); cap = need; }
     return b;
@@ -1100,6 +1145,7 @@ static void levels_enter(int g)
 static void level_check(void)
 {
     if (screen != SCR_GAME || cur < 0 || !games[cur]->levels || !started[cur] || in_random(cur)) return;
+    if (gesture_held()) return;                 /* solved under a finger still down: kept once it lifts */
     int l = variant[cur];
     if (l < 0 || l >= nlevels(cur) || games[cur]->status() != GS_WIN0) return;
     int s = games[cur]->level_stars ? games[cur]->level_stars() : 0;
@@ -1119,15 +1165,85 @@ int ui_level_best(int level)
 }
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
+/* the textures shared_textures() makes for a unit and a button size: a few sets kept (the menu's, a picker's and a
+ * game's are not the same size: going from one to another makes none again). The buttons' icons are made when first
+ * drawn (icon_tex): a screen shows a few of them. */
+#define SETS 4
+typedef struct {
+    int u, d, ic;
+    Uint32 used;
+    SDL_Texture *btn, *btn_armed, *btn_on, *icon[ICONS], *gold, *ring, *glow, *card;
+} shared_set;
+static shared_set sets[SETS];
+static int set_cur;
+static Uint32 set_clock;
+
+static void set_use(int k)                      /* set k's textures, the ones the shell draws */
+{
+    shared_set *s = &sets[k];
+    set_cur = k;
+    s->used = ++set_clock;
+    t_btn = s->btn;
+    t_btn_armed = s->btn_armed;
+    t_btn_on = s->btn_on;
+    t_gold = s->gold;
+    t_ring = s->ring;
+    t_glow = s->glow;
+    t_card = s->card;
+}
+
+static void set_keep(void)                      /* the textures just made, kept in the set in use */
+{
+    shared_set *s = &sets[set_cur];
+    s->btn = t_btn;
+    s->btn_armed = t_btn_armed;
+    s->btn_on = t_btn_on;
+    s->gold = t_gold;
+    s->ring = t_ring;
+    s->glow = t_glow;
+    s->card = t_card;
+}
+
+/* a round button's icon, cream (the set in use's size) */
+static SDL_Texture *icon_tex(int i)
+{
+    shared_set *s = &sets[set_cur];
+    if (i < 0 || i >= ICONS || s->ic < 2) return NULL;
+    if (!s->icon[i]) {
+        uint8_t *b = calloc((size_t)s->ic * s->ic, 4);
+        if (!b) return NULL;
+        art_icon(i, s->ic, b);
+        s->icon[i] = ui_tex(s->ic, s->ic, b);
+        free(b);
+        if (s->icon[i]) SDL_SetTextureColorMod(s->icon[i], 252, 244, 226);
+    }
+    return s->icon[i];
+}
+
 static void shared_textures(void)
 {
-    int u = (int)ui.unit;
-    if (made_unit == u) return;
+    int u = (int)ui.unit, d = (int)(2 * L.br + 0.5f);
+    if (made_unit == u && sets[set_cur].btn && sets[set_cur].u == u && sets[set_cur].d == d) return;
+    int was = made_unit;
     made_unit = u;
+    if (was != u) made_game = -1;               /* the tokens follow the unit */
+    int old = 0;
+    for (int k = 0; k < SETS; k++) {
+        if (sets[k].btn && sets[k].u == u && sets[k].d == d) {   /* made before: kept */
+            set_use(k);
+            return;
+        }
+        if (sets[k].used < sets[old].used) old = k;
+    }
+    set_use(old);                               /* made in the set used least lately */
+    shared_set *s = &sets[set_cur];
+    s->u = u;
+    s->d = d;
+    s->ic = (int)(0.62f * d);
+    for (int i = 0; i < ICONS; i++) ui_free(&s->icon[i]);
     static const uint8_t btn_c[3] = {54, 72, 64}, armed_c[3] = {176, 64, 52}, on_c[3] = {150, 118, 46},
                          gold[3] = {255, 196, 64}, shade[3] = {24, 34, 26}, red[3] = {235, 40, 30},
                          black[3] = {0, 0, 0};
-    int d = (int)(2 * L.br + 0.5f);
     ui_free(&t_btn);
     art_disc(d, btn_c, 1, 0, ui_buf(d, d));
     t_btn = ui_tex(d, d, ui_buf(d, d));
@@ -1137,13 +1253,6 @@ static void shared_textures(void)
     ui_free(&t_btn_on);
     art_disc(d, on_c, 1, 0, ui_buf(d, d));
     t_btn_on = ui_tex(d, d, ui_buf(d, d));
-    int ic = (int)(0.62f * d);
-    for (int i = 0; i < ICONS; i++) {
-        ui_free(&t_icon[i]);
-        art_icon(i, ic, ui_buf(ic, ic));
-        t_icon[i] = ui_tex(ic, ic, ui_buf(ic, ic));
-        SDL_SetTextureColorMod(t_icon[i], 252, 244, 226);
-    }
     int big = (int)(2.6f * u), m = u;
     ui_free(&t_gold);
     art_disc(big, gold, 0.75f, 1.3f, ui_buf(big, big));
@@ -1177,7 +1286,7 @@ static void shared_textures(void)
         t_bg = ui_tex(2, 256, b);
         SDL_SetTextureBlendMode(t_bg, SDL_BLENDMODE_NONE);
     }
-    made_game = -1;                             /* the tokens follow the unit */
+    set_keep();
 }
 
 static void game_textures(void)
@@ -1185,19 +1294,32 @@ static void game_textures(void)
     if (made_game == cur * 8 + ui.players) return;   /* (ui_tokens_changed() sets it to -1) */
     made_game = cur * 8 + ui.players;
     const game *g = games[cur];
-    int tk = (int)L.tk, big = (int)(2.4f * ui.unit);
-    uint8_t *b = calloc((size_t)big * big, 4);  /* its own buffer: the game may use ui_buf() while drawing */
-    for (int p = 0; p < ui.players; p++) {
+    int tk = (int)L.tk;
+    uint8_t *b = calloc((size_t)(tk > 1 ? tk : 1) * (tk > 1 ? tk : 1), 4);   /* its own buffer: the game may use
+                                                                              * ui_buf() while drawing */
+    for (int p = 0; p < ui.players && b; p++) {
         ui_free(&t_tok[p]);
         memset(b, 0, (size_t)tk * tk * 4);
         g->token(p, tk, b);
         t_tok[p] = ui_tex(tk, tk, b);
-        ui_free(&t_big[p]);
-        memset(b, 0, (size_t)big * big * 4);
-        g->token(p, big, b);
-        t_big[p] = ui_tex(big, big, b);
+        ui_free(&t_big[p]);                     /* the end card's: made when it shows (big_tok) */
     }
     free(b);
+}
+
+/* a player's token as the end card shows it, big */
+static SDL_Texture *big_tok(int p)
+{
+    if (p < 0 || p >= MAX_PLAYERS) return NULL;
+    if (!t_big[p]) {
+        int big = (int)(2.4f * ui.unit);
+        uint8_t *b = big > 1 ? calloc((size_t)big * big, 4) : NULL;
+        if (!b) return NULL;
+        games[cur]->token(p, big, b);
+        t_big[p] = ui_tex(big, big, b);
+        free(b);
+    }
+    return t_big[p];
 }
 
 /* ---- layout ------------------------------------------------------------------------------------------------------ */
@@ -1725,7 +1847,7 @@ static void draw_settings(void)
         } else if (k == SET_HELP) {             /* the app's rules page: the help icon, an arrow to it */
             float a = floorf(r.h * 0.4f);
             draw_button(ix, cy, br, ICON_HELP, NULL);
-            ui_put_c(t_icon[ICON_ARROW], r.x + r.w - a / 2 - r.h * 0.12f, cy, a, a);
+            ui_put_c(icon_tex(ICON_ARROW), r.x + r.w - a / 2 - r.h * 0.12f, cy, a, a);
         }
     }
 }
@@ -1977,7 +2099,7 @@ static void draw_full(void)
     ui_put_c(t_gold, b.x + b.w / 2, b.y + b.h / 2, b.w * 1.3f, b.h * 2.4f);
     ui_put(rounded((int)b.w, (int)b.h, b.h / 2, gold), b.x, b.y, b.w, b.h);
     if (FV.get) ui_put_c(FV.get, b.x + b.w / 2, b.y + b.h / 2, (float)FV.tw[3], (float)FV.th[3]);
-    else ui_put_c(t_icon[ICON_ARROW], b.x + b.w / 2, b.y + b.h / 2, b.h * 0.5f, b.h * 0.5f);
+    else ui_put_c(icon_tex(ICON_ARROW), b.x + b.w / 2, b.y + b.h / 2, b.h * 0.5f, b.h * 0.5f);
     box r = FV.rbtn;                            /* Restore purchases: a quiet button */
     if (r.w > 0) {
         ui_put(rounded((int)r.w, (int)r.h, r.h / 2, quiet), r.x, r.y, r.w, r.h);
@@ -2295,8 +2417,7 @@ static void layout_cards(int n)
         ui_free(&t_menu_card_on);
         art_roundrect(L.card, h, 0.1f * L.card, gold, ui_buf(L.card, h));
         t_menu_card_on = ui_tex(L.card, h, ui_buf(L.card, h));
-        for (int i = 0; i < MAX_GAMES; i++)
-            for (int v = 0; v <= MAX_VARIANTS; v++) ui_free(&t_thumb[i][v]);
+        /* the pictures are kept at their size (thumb_ex): back from a picker, the menu's are still there */
     }
 }
 
@@ -2431,6 +2552,7 @@ static int needs_picker(int g)
 /* the picker, or a game with levels its level screen (random play: its picker, under the level screen's tabs) */
 static void show_picker(int g)
 {
+    worker_park();                              /* game code from here on: the menu's helper waits */
     if (in_random(g) && (games[g]->variants > 1 || many_counts(g))) {   /* random play's picker, under the tabs */
         chapters_make(g);
         screen = SCR_PICK;
@@ -2659,6 +2781,7 @@ static void start_game(int v, int same)
 
 static void open_game(int i, int fresh_variant)
 {
+    worker_park();
     if (cur != i) bot_stop();
     cur = i;
     ui.players = players_of(i);
@@ -2695,6 +2818,7 @@ static void go_home(void)
     if (is_view() && hand.pending >= 0) view_of[cur] = hand.pending;   /* the next player's, when it comes back */
     hand.pending = -1;
     screen = SCR_MENU;
+    worker_unpark();                            /* the menu: its pictures painted by the helper again */
     layout();
 }
 
@@ -2758,7 +2882,7 @@ static void after_input(void)
 static void draw_button(float x, float y, float r, int icon, SDL_Texture *disc)
 {
     ui_put_c(disc ? disc : t_btn, x, y, 2 * r, 2 * r);
-    ui_put_c(t_icon[icon], x, y, 1.24f * r, 1.24f * r);
+    ui_put_c(icon_tex(icon), x, y, 1.24f * r, 1.24f * r);
 }
 
 /* the pass button sits at the right end of the bar (in the bar's own frame: it turns with it) */
@@ -2882,7 +3006,7 @@ static void draw_winners(unsigned won, int draw, float cx, float cy, float u)
         if (!(won >> p & 1)) continue;
         float x = wx + (k++ - (nw - 1) / 2.0f) * s * 1.05f;
         if (!draw) ui_put_c(t_gold, x, cy, s * 1.3f, s * 1.3f);
-        ui_put_c(t_big[p], x, cy, s, s);
+        ui_put_c(big_tok(p), x, cy, s, s);
     }
     if (!nl) return;
     int rows = nl > 2 ? 2 : 1, per = (nl + rows - 1) / rows;
@@ -2890,7 +3014,7 @@ static void draw_winners(unsigned won, int draw, float cx, float cy, float u)
     for (int p = 0, k = 0; p < ui.players; p++) {
         if (won >> p & 1) continue;
         int r = k / per, c = k % per;
-        put_lost(t_big[p], lx + (c - (per - 1) / 2.0f) * ls * 1.1f, cy + (r - (rows - 1) / 2.0f) * ls * 1.15f, ls);
+        put_lost(big_tok(p), lx + (c - (per - 1) / 2.0f) * ls * 1.1f, cy + (r - (rows - 1) / 2.0f) * ls * 1.15f, ls);
         k++;
     }
 }
@@ -2928,7 +3052,7 @@ static void draw_solved(float cx, float cy, float u)
         }
     } else {
         ui_put_c(t_gold, cx, top + 0.1f * u, 2.1f * u, 2.1f * u);
-        ui_put_c(t_big[0], cx, top + 0.1f * u, 1.35f * u, 1.35f * u);
+        ui_put_c(big_tok(0), cx, top + 0.1f * u, 1.35f * u, 1.35f * u);
     }
     if (row) {                                  /* the moves; the par after its flag */
         int m = g->score(), p = g->par ? g->par() : 0;
@@ -2975,9 +3099,9 @@ static void draw_result(float cx, float cy, float u)
         float tx = cx - 1.55f * u;
         if (st == GS_WIN0) {
             ui_put_c(t_gold, tx, cy, big * 1.15f, big * 1.15f);
-            ui_put_c(t_big[0], tx, cy, 2.1f * u, 2.1f * u);
+            ui_put_c(big_tok(0), tx, cy, 2.1f * u, 2.1f * u);
         } else {
-            put_lost(t_big[0], tx, cy + 0.1f * u, 1.8f * u);
+            put_lost(big_tok(0), tx, cy + 0.1f * u, 1.8f * u);
         }
         int sc = g->score();
         float h = 1.25f * u, w = ui_number_w(sc < 0 ? -sc : sc, h) + (sc < 0 ? 0.56f * h : 0);
@@ -2985,34 +3109,34 @@ static void draw_result(float cx, float cy, float u)
         ui_number_signed(cx + 1.3f * u, cy, h, sc, 1, 0);
     } else if (np == 1) {                              /* alone: in gold light when it won, else lower, dimmed */
         if (st == GS_WIN0) ui_put_c(t_gold, cx, cy, big * 1.25f, big * 1.25f);
-        if (st == GS_WIN0) ui_put_c(t_big[0], cx, cy, big, big);
-        else put_lost(t_big[0], cx, cy + 0.1f * u, 2.0f * u);
+        if (st == GS_WIN0) ui_put_c(big_tok(0), cx, cy, big, big);
+        else put_lost(big_tok(0), cx, cy + 0.1f * u, 2.0f * u);
     } else if (st == GS_DRAW && np > 2) {      /* everyone standing in a row */
         float k = fminf(2.0f * u, 6.0f * u / np);
-        for (int p = 0; p < np; p++) ui_put_c(t_big[p], cx + (p - (np - 1) / 2.0f) * k * 1.05f, cy, k, k);
+        for (int p = 0; p < np; p++) ui_put_c(big_tok(p), cx + (p - (np - 1) / 2.0f) * k * 1.05f, cy, k, k);
     } else if (np > 2) {                        /* the winner in gold light, the others lower, smaller, dimmed */
         int w = gs_winner(st), k = 0;
         ui_put_c(t_gold, cx - 1.6f * u, cy, big * 1.25f, big * 1.25f);
-        ui_put_c(t_big[w], cx - 1.6f * u, cy, big, big);
+        ui_put_c(big_tok(w), cx - 1.6f * u, cy, big, big);
         int rows = np > 3 ? 2 : 1, per = (np - 1 + rows - 1) / rows;
         float s = fminf(1.3f * u, 2.9f * u / (per * 1.1f)), x0 = cx + 0.15f * u + (3.0f * u - per * s * 1.1f) / 2;
         for (int p = 0; p < np; p++) {         /* in the card's right part */
             if (p == w) continue;
             int r = k / per, c = k % per;
-            put_lost(t_big[p], x0 + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f, s);
+            put_lost(big_tok(p), x0 + (c + 0.5f) * s * 1.1f, cy + (r - (rows - 1) / 2.0f) * s * 1.15f, s);
             k++;
         }
     } else if (st == GS_DRAW) {                 /* both standing, an equals sign between them */
         float k = 2.0f * u;
-        ui_put_c(t_big[0], cx - 1.7f * u, cy, k, k);
-        ui_put_c(t_big[1], cx + 1.7f * u, cy, k, k);
+        ui_put_c(big_tok(0), cx - 1.7f * u, cy, k, k);
+        ui_put_c(big_tok(1), cx + 1.7f * u, cy, k, k);
         ui_fill(cx - 0.32f * u, cy - 0.22f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
         ui_fill(cx - 0.32f * u, cy + 0.09f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
     } else {                                    /* the winner in gold light, the loser lower, dimmed */
         int w = gs_winner(st) == 1;
         ui_put_c(t_gold, cx - 1.0f * u, cy, big * 1.25f, big * 1.25f);
-        ui_put_c(t_big[w], cx - 1.0f * u, cy, big, big);
-        put_lost(t_big[!w], cx + 1.6f * u, cy + 0.12f * u, 1.6f * u);
+        ui_put_c(big_tok(w), cx - 1.0f * u, cy, big, big);
+        put_lost(big_tok(!w), cx + 1.6f * u, cy + 0.12f * u, 1.6f * u);
     }
 }
 
@@ -3202,7 +3326,8 @@ static void draw_game(void)
      * may draw its final table in it, ui_end_room) */
     E.due = E.room = 0;
     if (!hand.up && g->status() != GS_PLAY) {
-        if (g->busy && g->busy()) end_seen = 0;   /* the last move still moving: the end waits */
+        /* the last move still moving, the gesture that ended it still down: the end waits */
+        if ((g->busy && g->busy()) || gesture_held()) end_seen = 0;
         else {
             Uint32 now = SDL_GetTicks();
             if (!end_seen) {
@@ -3241,18 +3366,178 @@ static void draw_game(void)
     if (E.due) draw_over();
 }
 
-static SDL_Texture *thumb(int i, int v)
+/* ---- the menu's pictures, painted on a thread of their own ---------------------------------------------------------
+ * On the menu the main thread runs no game code: a helper thread paints the cards' pictures (each game's thumb(),
+ * into its own buffer), the main thread makes them textures. The cards seen first, then the tab's others, then the
+ * other tabs'. Off the menu (a game, a picker, the level screen) the helper is parked: the main thread holds `paint`
+ * (it waits for the picture being painted, the only time it waits), and paints what it needs itself. */
+static struct {
+    SDL_mutex *m, *paint;                       /* m: the lists; paint: held while game code paints */
+    SDL_cond *wake;
+    int on, parked;                             /* on: the helper runs; parked: the main thread holds paint */
+    int want[MAX_GAMES], nwant, size;           /* the cards to paint (the main thread's order), at that size */
+    uint8_t *ready[MAX_GAMES];                  /* painted, waiting to become textures (main thread) */
+    int ready_sz[MAX_GAMES], doing;             /* doing: the game being painted (-1: none) */
+    Uint32 event;                               /* a picture is ready: the main loop wakes */
+} WK = {.doing = -1};
+
+static int worker_main(void *arg)
 {
-    int k = v + 1;                              /* -1: the game's card */
-    if (k < 0 || k > MAX_VARIANTS) return NULL;
-    if (!t_thumb[i][k]) {                       /* its own buffer: the game may use ui_buf() while drawing */
-        int s = (int)(L.card * 0.86f);
+    (void)arg;
+    SDL_LockMutex(WK.m);
+    for (;;) {
+        while (!WK.nwant) SDL_CondWait(WK.wake, WK.m);
+        int i = WK.want[0], s = WK.size;
+        memmove(WK.want, WK.want + 1, sizeof WK.want[0] * (size_t)--WK.nwant);
+        if (WK.ready[i] && WK.ready_sz[i] == s) continue;
+        WK.doing = i;
+        SDL_UnlockMutex(WK.m);
         uint8_t *b = calloc((size_t)s * s, 4);
-        games[i]->thumb(v, s, b);
-        t_thumb[i][k] = ui_tex(s, s, b);
-        free(b);
+        if (b) {
+            SDL_LockMutex(WK.paint);            /* not while the main thread runs game code */
+            games[i]->thumb(-1, s, b);
+            SDL_UnlockMutex(WK.paint);
+        }
+        SDL_LockMutex(WK.m);
+        WK.doing = -1;
+        if (b) {
+            free(WK.ready[i]);
+            WK.ready[i] = b;
+            WK.ready_sz[i] = s;
+            SDL_Event e = {.type = WK.event};
+            SDL_PushEvent(&e);                  /* the main loop draws it */
+        }
     }
+    return 0;
+}
+
+/* the helper started (the app, not the picture mode); 0: none (the main thread paints) */
+static int worker_start(void)
+{
+    static int tried;
+    if (tried) return WK.on;
+    tried = 1;
+    if (instant || getenv("RSB_NO_WORKER")) return 0;
+    WK.m = SDL_CreateMutex();
+    WK.paint = SDL_CreateMutex();
+    WK.wake = SDL_CreateCond();
+    WK.event = SDL_RegisterEvents(1);
+    if (!WK.m || !WK.paint || !WK.wake || WK.event == (Uint32)-1) return 0;
+    SDL_Thread *t = SDL_CreateThread(worker_main, "pictures", NULL);
+    if (!t) return 0;
+    SDL_DetachThread(t);
+    WK.on = 1;
+    return 1;
+}
+
+/* game code about to run on the main thread (a game, a picker): the helper waits */
+static void worker_park(void)
+{
+    if (!WK.on || WK.parked) return;
+    SDL_LockMutex(WK.m);
+    WK.nwant = 0;                               /* nothing more to take */
+    SDL_UnlockMutex(WK.m);
+    SDL_LockMutex(WK.paint);                    /* the picture being painted ends first */
+    WK.parked = 1;
+}
+
+static void worker_unpark(void)                 /* back on the menu */
+{
+    if (!WK.on || !WK.parked) return;
+    WK.parked = 0;
+    SDL_UnlockMutex(WK.paint);
+}
+
+/* the menu's pictures missing at size s, in order: the cards on the screen (vis), then the tab's, then the others' */
+static void worker_want(const int *vis, int nvis, int s)
+{
+    if (!WK.on || WK.parked) return;
+    int list[MAX_GAMES], n = 0;
+    static unsigned char in[MAX_GAMES];
+    memset(in, 0, sizeof in);
+    for (int k = 0; k < nvis; k++) in[vis[k]] = 1, list[n++] = vis[k];
+    for (int pass = 0; pass < 2; pass++)
+        for (int i = 0; i < ngames; i++)
+            if (!in[i] && (section_of(games[i]) == menu.tab) == !pass) in[i] = 1, list[n++] = i;
+    SDL_LockMutex(WK.m);
+    int m = 0;
+    for (int k = 0; k < n; k++) {
+        int i = list[k];
+        if ((t_thumb[i][0] && t_thumb_sz[i][0] == s) || (WK.ready[i] && WK.ready_sz[i] == s) || WK.doing == i)
+            continue;
+        WK.want[m++] = i;
+    }
+    WK.nwant = m;
+    WK.size = s;
+    if (m) SDL_CondSignal(WK.wake);
+    SDL_UnlockMutex(WK.m);
+}
+
+/* a picture the helper painted for game i at size s, made a texture (t_thumb); 1: one was */
+static int worker_take(int i, int s)
+{
+    if (!WK.on) return 0;
+    SDL_LockMutex(WK.m);
+    uint8_t *b = WK.ready[i];
+    int ok = b && WK.ready_sz[i] == s;
+    if (b) WK.ready[i] = NULL;
+    SDL_UnlockMutex(WK.m);
+    if (ok) {
+        ui_free(&t_thumb[i][0]);
+        t_thumb[i][0] = ui_tex(s, s, b);
+        t_thumb_sz[i][0] = s;
+        t_thumb_at[i][0] = t_thumb_at[i][0] == 1 ? (ui_ms() > 1 ? ui_ms() : 2) : 0;   /* waited for: it fades in */
+        if (t_thumb_at[i][0]) need_frame = 1;
+    }
+    free(b);
+    return ok;
+}
+
+/* a card's picture, game i's (v -1: the menu's; else the picker's variant v), at the cards' size (kept at its size:
+ * the menu's and a picker's cards are not the same size). Painted a few at a time (paint_may), the menu's by the
+ * helper: NULL meanwhile (the card shows without it, the picture fades in when it comes). ahead: painted now. */
+static SDL_Texture *thumb_ex(int i, int v, int ahead)
+{
+    int k = v + 1, s = (int)(L.card * 0.86f);   /* -1: the game's card */
+    if (k < 0 || k > MAX_VARIANTS || s < 4) return NULL;
+    if (t_thumb[i][k] && t_thumb_sz[i][k] == s) return t_thumb[i][k];
+    if (!k && screen == SCR_MENU && WK.on && !WK.parked) {   /* the helper's */
+        if (worker_take(i, s)) return t_thumb[i][k];
+        t_thumb_at[i][k] = 1;
+        return NULL;
+    }
+    if (!ahead && !paint_may()) {
+        t_thumb_at[i][k] = 1;                   /* waited for: it fades in */
+        return NULL;
+    }
+    double t0 = perf_now();
+    uint8_t *b = calloc((size_t)s * s, 4);      /* its own buffer: the game may use ui_buf() while drawing */
+    if (!b) return NULL;
+    games[i]->thumb(v, s, b);
+    ui_free(&t_thumb[i][k]);
+    t_thumb[i][k] = ui_tex(s, s, b);
+    t_thumb_sz[i][k] = s;
+    free(b);
+    t_thumb_at[i][k] = t_thumb_at[i][k] == 1 ? (ui_ms() > 1 ? ui_ms() : 2) : 0;   /* waited for: it fades in */
+    if (t_thumb_at[i][k]) need_frame = 1;
+    paint_done(t0);
     return t_thumb[i][k];
+}
+
+static SDL_Texture *thumb(int i, int v) { return thumb_ex(i, v, 0); }
+
+/* a card's picture as it fades in (its alpha 0..255 times a), 255 when it is not fading; asks for frames meanwhile */
+static Uint8 thumb_fade(int i, int v, Uint8 a)
+{
+    int k = v + 1;
+    if (k < 0 || k > MAX_VARIANTS || t_thumb_at[i][k] <= 1) return a;
+    Uint32 t = ui_ms() - t_thumb_at[i][k];
+    if (t >= FADE_MS) {
+        t_thumb_at[i][k] = 0;
+        return a;
+    }
+    ui_animate();
+    return (Uint8)(a * t / FADE_MS);
 }
 
 static const uint8_t CREAM[3] = {246, 238, 220};
@@ -3385,7 +3670,10 @@ static void draw_axes(void)
         SDL_Texture *t;
         if (G->axis_pic[level]) t = btn_tex(G->axis_pic[level], k, (int)s);
         else t = level ? btn_tex(paint_stones, k, (int)s) : thumb(cur, k * nl + lev);
+        Uint8 fa = !G->axis_pic[level] && !level ? thumb_fade(cur, k * nl + lev, 255) : 255;   /* fading in */
+        if (t && fa < 255) SDL_SetTextureAlphaMod(t, fa);
         ui_put_c(t, c.x + c.w / 2, c.y + c.w / 2, s, s);
+        if (t && fa < 255) SDL_SetTextureAlphaMod(t, 255);
         card_name(i, c);
     }
 }
@@ -3470,12 +3758,15 @@ static void draw_cards(void)
         SDL_Rect clip = {0, (int)menu.top, ui.w, ui.h - (int)menu.top};
         SDL_RenderSetClipRect(ui.r, &clip);
     }
+    int vis[MAX_GAMES], nvis = 0;               /* the menu's cards on the screen: the helper's first pictures */
+    menu_missing = 0;
     for (int i = 0; i < n; i++) {
         box c = L.cards[i];
         c.y += dy;
         if (c.w <= 0) continue;                 /* another tab's game */
         if (c.y > ui.h || c.y + c.h * 1.2f < menu.top) continue;
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
+        if (screen == SCR_MENU) vis[nvis++] = i;
         if ((screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY) ||   /* a game in progress */
             (screen == SCR_PICK && (games[cur]->levels ? in_random(cur) && rvariant[cur] == i
                                     : chosen[cur] && variant[cur] == i)))   /* the variant chosen last */
@@ -3485,8 +3776,9 @@ static void draw_cards(void)
         int lk = screen == SCR_MENU && locked(i);   /* the free edition: dimmed, a lock (its picture still seen) */
         if (lk) a = 130;
         SDL_Texture *th = thumb(gi, v);
+        menu_missing += !th;
         SDL_SetTextureAlphaMod(t_menu_card, a);
-        if (th) SDL_SetTextureAlphaMod(th, a);
+        if (th) SDL_SetTextureAlphaMod(th, thumb_fade(gi, v, a));
         ui_put(t_menu_card, c.x, c.y, c.w, c.h);
         float s = c.w * 0.86f;
         ui_put_c(th, c.x + c.w / 2, c.y + c.w / 2, s, s);
@@ -3502,6 +3794,7 @@ static void draw_cards(void)
             card_name(i, c);
         }
     }
+    if (screen == SCR_MENU) worker_want(vis, nvis, (int)(L.card * 0.86f));
     for (int s = 0; s < SECTIONS && screen == SCR_MENU; s++) {
         float y = L.sec_y[s] + dy;
         if (L.sec_y[s] < 0 || y > ui.h || y + L.sec_h < menu.top) continue;
@@ -3523,16 +3816,28 @@ static void draw_cards(void)
 /* ---- the level screen -------------------------------------------------------------------------------------------- */
 /* a level's picture (game.level_thumb) at the size shown, kept for the chapter shown (a texture a tile); made again
  * when the level's best changes (a puzzle solved may show its picture) */
-static SDL_Texture *level_pic(int i, int level, int size)
+static SDL_Texture *lv_pic[CHAPTER_MAX];
+static int lv_key[CHAPTER_MAX][4];
+
+static int level_pic_made(int i, int level, int size)
 {
-    static SDL_Texture *t[CHAPTER_MAX];
-    static int key[CHAPTER_MAX][4];
+    const int *key = lv_key[i];
+    return lv_pic[i] && key[0] == cur && key[1] == level && key[2] == size && key[3] == LV.best[level];
+}
+
+/* (painted a few at a time, as the cards' pictures: NULL meanwhile, the tile shows its number; ahead: now) */
+static SDL_Texture *level_pic_ex(int i, int level, int size, int ahead)
+{
+    SDL_Texture **t = lv_pic;
+    int (*key)[4] = lv_key;
     if (size < 4 || i < 0 || i >= CHAPTER_MAX) return NULL;
-    if (t[i] && key[i][0] == cur && key[i][1] == level && key[i][2] == size && key[i][3] == LV.best[level])
-        return t[i];
+    if (level_pic_made(i, level, size)) return t[i];
+    if (!ahead && !paint_may()) return NULL;
+    double t0 = perf_now();
     uint8_t *b = calloc((size_t)size * size, 4);   /* its own buffer: the game may use ui_buf() */
     if (!b) return NULL;
     games[cur]->level_thumb(level, size, b);
+    paint_done(t0);
     ui_free(&t[i]);
     t[i] = ui_tex(size, size, b);
     free(b);
@@ -3542,6 +3847,8 @@ static SDL_Texture *level_pic(int i, int level, int size)
     key[i][3] = LV.best[level];
     return t[i];
 }
+
+static SDL_Texture *level_pic(int i, int level, int size) { return level_pic_ex(i, level, size, 0); }
 
 /* a level's tile: gold when solved (its stars under its number), wood when open, dim walnut when locked; the next
  * level to play in gold light. With the game's picture: the picture on the tile, its number on a dark disc in the
@@ -3724,8 +4031,67 @@ static void help_scroll(float dy)
     help.scroll = fminf(help_max(), fmaxf(0, help.scroll + dy));
 }
 
+/* the idle main loop: one picture not seen yet painted ahead (the menu: the tab shown from its top, then the other
+ * tabs; a picker: its cards; the level screen: the chapter's tiles); 1: one was painted */
+static int paint_ahead(void)
+{
+    if (help.open || FV.open) return 0;
+    if (screen == SCR_MENU && L.card > 0) {
+        int s = (int)(L.card * 0.86f);
+        if (WK.on && !WK.parked) {              /* the helper paints them: the ones it has painted become textures */
+            for (int i = 0; i < ngames; i++)
+                if (worker_take(i, s)) return 1;
+            return 0;
+        }
+        for (int pass = 0; pass < 2; pass++)
+            for (int i = 0; i < ngames; i++) {
+                if ((section_of(games[i]) == menu.tab) != !pass) continue;
+                if (t_thumb[i][0] && t_thumb_sz[i][0] == s) continue;
+                thumb_ex(i, -1, 1);
+                return 1;
+            }
+        return 0;
+    }
+    if (cur < 0) return 0;
+    if (screen == SCR_PICK && !axes_on(cur)) {
+        for (int v = 0; v < games[cur]->variants && v < MAX_VARIANTS; v++) {
+            int s = (int)(L.card * 0.86f);
+            if (t_thumb[cur][v + 1] && t_thumb_sz[cur][v + 1] == s) continue;
+            thumb_ex(cur, v, 1);
+            return 1;
+        }
+        return 0;
+    }
+    if (screen == SCR_PICK) {                   /* two axes: the sizes' cards (a size: thumb() at the level chosen) */
+        const game *G = games[cur];
+        int nl = G->axes[1], v = picked(cur), lev = v >= 0 ? v % nl : 0;
+        if (G->axis_pic[0]) return 0;
+        for (int k = 0; k < G->axes[0]; k++) {
+            int s = (int)(L.card * 0.86f), vk = k * nl + lev;
+            if (vk + 1 > MAX_VARIANTS || (t_thumb[cur][vk + 1] && t_thumb_sz[cur][vk + 1] == s)) continue;
+            thumb_ex(cur, vk, 1);
+            return 1;
+        }
+        return 0;
+    }
+    if (screen == SCR_LEVELS && games[cur]->level_thumb) {
+        int first = LV.first[LV.chapter], n = LV.first[LV.chapter + 1] - first;
+        if (n > CHAPTER_MAX) n = CHAPTER_MAX;
+        for (int i = 0; i < n; i++) {
+            int ps = (int)floorf(0.8f * LV.tiles[i].w);
+            if (ps < 4 || level_pic_made(i, first + i, ps)) continue;
+            level_pic_ex(i, first + i, ps, 1);
+            need_frame = 1;                     /* a tile shown: drawn with it */
+            return 1;
+        }
+    }
+    return 0;
+}
+
 static void draw(void)
 {
+    paint_used = 0;
+    paint_n = 0;
     ui_put(t_bg, 0, 0, (float)ui.w, (float)ui.h);
     if (screen == SCR_GAME) draw_game();
     else if (screen == SCR_LEVELS) draw_levels();
@@ -3850,17 +4216,6 @@ static void levels_release(float x, float y)
             open_game(cur, first + i);
             return;
         }
-}
-
-/* a puzzle solved while the pointer is still down (a drag's last stroke): the game's gesture ends there, as if the
- * finger had lifted where it solved it (the stroke kept, counted); the rest of the gesture is nobody's */
-static void held_end(void)
-{
-    if (!PT.game || !solved_card()) return;
-    PT.game = 0;
-    PT.stray = 1;
-    games[cur]->release(PT.x, PT.y);
-    after_input();                              /* the end noticed now (not when the finger lifts: the card stays) */
 }
 
 static void press(float x, float y)
@@ -4016,6 +4371,7 @@ static void press(float x, float y)
         return;
     }
     PT.game = 1;                                /* the game's, to its lifting */
+    PT.live = games[cur]->status() == GS_PLAY;
     PT.x = x;
     PT.y = y;
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
@@ -4023,14 +4379,11 @@ static void press(float x, float y)
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
         float fx = x, fy = y;                   /* in the frame bar() drew in */
         if (ui_upside(p) && t_bartex) { fx = bar_m + b.w - (x - b.x); fy = bar_m + b.h - (y - b.y); }
-        if (games[cur]->bar_press(p, fx, fy)) {
-            if (!solved) held_end();
-            return;
-        }
+        if (games[cur]->bar_press(p, fx, fy)) return;
     }
     bot_last = -1;                              /* a person acted: the next bot's move is a new turn */
-    games[cur]->press(x, y);
-    if (!solved) held_end();                    /* solved by this press, the finger still down */
+    games[cur]->press(x, y);                    /* (solved by it, the finger still down: its gesture goes on, the
+                                                 * end waits for it to lift: gesture_held) */
 }
 
 static void motion(float x, float y)
@@ -4056,13 +4409,13 @@ static void motion(float x, float y)
     if (screen == SCR_LEVELS && LV.grabbing && hypotf(x - LV.grab_x, y - LV.grab_y) > fminf(ui.w, ui.h) * 0.02f)
         LV.moved = 1;
     if (screen != SCR_GAME || (is_view() && hand.up) || held_press) return;
-    int solved = solved_card();
-    if (PT.stray || (solved && !PT.game)) return;   /* a stray finger; a puzzle solved: only a tool's press is the game's */
+    /* a stray finger: nobody's; a puzzle solved: only the gesture the game had then (it goes on to its lifting: the pin
+     * placed where the player wants it), or a tool's press */
+    if (PT.stray || (solved_card() && !PT.game)) return;
     games[cur]->motion(x, y);
     if (!PT.game) return;
     PT.x = x;
     PT.y = y;
-    if (!solved) held_end();                    /* this stroke solved it, the finger still down */
 }
 
 static void release(float x, float y)
@@ -4164,8 +4517,12 @@ static void touch(Uint32 type, long long id, float x, float y)
         for (int i = 0; i < NBTN && !hit; i++) hit = shown(i) && in_circle(x, y, L.bx[i], L.by[i], L.br);
         for (int p = 0; p < ui.players && !hit; p++)
             hit = x >= L.bar[p].x && y >= L.bar[p].y && x < L.bar[p].x + L.bar[p].w && y < L.bar[p].y + L.bar[p].h;
-        if (!hit && screen == SCR_GAME && games[cur]->status() != GS_PLAY && (!over_hidden || solved_card()))
-            hit = 1;                            /* the end card: as press() takes it */
+        int ended = !hit && screen == SCR_GAME && games[cur]->status() != GS_PLAY;
+        if (ended && PT.nheld > 0) {            /* ended under the game's fingers still down: theirs goes on, a new */
+            if (PT.nstrays < MAX_FINGERS) PT.strays[PT.nstrays++] = id;   /* finger is nobody's */
+            return;
+        }
+        if (ended && (!over_hidden || solved_card())) hit = 1;   /* the end card: as press() takes it */
         if (hit) {
             if (nshell < MAX_FINGERS) shell_id[nshell++] = id;
             press(x, y);
@@ -4179,11 +4536,10 @@ static void touch(Uint32 type, long long id, float x, float y)
         }
     if (type == SDL_FINGERUP ? id_drop(PT.strays, &PT.nstrays, id) : id_in(PT.strays, PT.nstrays, id)) return;
     if (!fingers_on()) return;                  /* the button left the game */
-    int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE, was = solved_card();
+    int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
     if (phase == FINGER_DOWN && PT.nheld < MAX_FINGERS) PT.held[PT.nheld++] = id;
     if (phase == FINGER_UP) id_drop(PT.held, &PT.nheld, id);
-    games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);
-    if (!was && solved_card()) fingers_stray(); /* solved under the fingers still down */
+    games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);   /* (ended under them: they go on, gesture_held) */
 }
 
 /* ---- the picture mode -------------------------------------------------------------------------------------------- */
@@ -4534,6 +4890,320 @@ static int shot(int argc, char **argv)
     return 0;
 }
 
+/* ---- --perf: the frames timed (a developer's measure: what a phone, ~6x slower, would stall on) ------------------ */
+
+/* one frame drawn (its clock 16 ms on): its time, ms; *tex: the textures it made */
+static int perf_pace;                           /* --perf: frames 16.7 ms apart, as the screen's */
+static double perf_frame(int *tex)
+{
+    perf_tex = 0;
+    double t0 = perf_now();
+    bot_step();
+    draw();
+    SDL_RenderPresent(ui.r);
+    double t = perf_now() - t0;
+    if (tex) *tex = perf_tex;
+    ms_ahead += 16;
+    if (perf_pace)                              /* a screen's frame: the helper threads paint meanwhile */
+        while (perf_now() - t0 < 16.7) SDL_Delay(1);
+    return t;
+}
+
+typedef struct { double first, max, sum; int n, slow, tex; } perf_run_t;
+
+static void perf_add(perf_run_t *r, double t, int tex)
+{
+    if (!r->n) r->first = t;
+    if (r->n && t > r->max) r->max = t;          /* the worst after the first */
+    r->sum += t;
+    r->n++;
+    if (r->n > 1 && t > 16.0 / 6) r->slow++;     /* over a phone's frame */
+    if (r->n > 1) r->tex += tex;
+}
+
+static void perf_print(const char *what, const perf_run_t *r)
+{
+    printf("%-34s first %8.2f ms  then avg %6.2f  max %7.2f  slow %3d/%-3d  textures/frame %.2f\n", what, r->first,
+           r->n > 1 ? (r->sum - r->first) / (r->n - 1) : 0, r->max, r->slow, r->n - 1,
+           r->n > 1 ? (double)r->tex / (r->n - 1) : 0);
+}
+
+/* --perf menu: the first frame, each tab's first frames, a fling down each tab; the cards' pictures, each game's.
+ * --perf GAME [--variant n] [--players n] [--pick]: the game's first frame and 3 s of frames (its picker's). */
+static int perf(int argc, char **argv)
+{
+    const char *what = "menu", *lang = "en";
+    int v = 0, np = 0, pick = 0, frames = 180;
+    ui.w = 720;
+    ui.h = 1280;
+    for (int i = 1; i < argc; i++) {
+        if (!strcmp(argv[i], "--perf") && i + 1 < argc) what = argv[++i];
+        else if (!strcmp(argv[i], "--size") && i + 1 < argc) sscanf(argv[++i], "%dx%d", &ui.w, &ui.h);
+        else if (!strcmp(argv[i], "--variant") && i + 1 < argc) v = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--players") && i + 1 < argc) np = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--frames") && i + 1 < argc) frames = atoi(argv[++i]);
+        else if (!strcmp(argv[i], "--lang") && i + 1 < argc) lang = argv[++i];
+        else if (!strcmp(argv[i], "--pick")) pick = 1;
+    }
+    seed_random(1);
+    text_init(lang);
+    shot_clock = 1;
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+    /* a small surface: the blits are clipped away (a phone's GPU does them), the painting and the uploads stay */
+    SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormat(0, 16, 16, 32, SDL_PIXELFORMAT_RGBA32);
+    if (getenv("RSB_PERF_GL")) {                /* or a hidden window's GPU renderer, no vsync (as a phone) */
+        if (SDL_Init(SDL_INIT_VIDEO)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
+        win = SDL_CreateWindow("perf", 0, 0, ui.w, ui.h, SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
+        ui.r = win ? SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED) : NULL;
+        SDL_RendererInfo ri;
+        if (ui.r && !SDL_GetRendererInfo(ui.r, &ri)) printf("renderer %s\n", ri.name);
+    } else
+        ui.r = SDL_CreateSoftwareRenderer(surf);
+    if (!ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
+    SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_BLEND);
+    screen = SCR_MENU;
+    char name[96];
+    if (!strcmp(what, "cards")) {               /* --perf cards: every deck's faces painted, at a hand's width */
+        for (int d = 0; d < DECKS; d++) {
+            static const int PACK_OF[DECKS] = {PACK_54, PACK_TAROT, PACK_NUMBER, PACK_TILES, PACK_ACTION, PACK_40,
+                                               PACK_ES48};
+            uint8_t pack[CARDS_MAX];
+            int n = cards_pack(PACK_OF[d], pack);
+            int w = 110, h = (int)(w * cards_aspect(d) + 0.5f);
+            uint8_t *b = malloc((size_t)w * h * 4);
+            double all = 0, most = 0;
+            int most_c = 0;
+            for (int i = 0; i < n + 1; i++) {
+                int c = i < n ? pack[i] : CARD_NONE;
+                double t0 = perf_now();
+                cards_paint(d, c, w, h, b);
+                double t = perf_now() - t0;
+                all += t;
+                if (t > most) most = t, most_c = c;
+            }
+            printf("deck %d: %d bytes at %dx%d: %.1f ms, %.2f a card, the most %.2f (card %d)\n", d, n + 1, w, h, all,
+                   all / (n + 1), most, most_c);
+            free(b);
+        }
+        return 0;
+    }
+    if (!strcmp(what, "dump")) {                /* --perf dump DIR: every game's pictures as raw RGBA (comparisons) */
+        const char *dir = NULL;
+        for (int i = 1; i + 2 < argc; i++)
+            if (!strcmp(argv[i], "--perf")) dir = argv[i + 2];
+        if (!dir) { fprintf(stderr, "--perf dump DIR\n"); return 1; }
+        static const int sizes[] = {48, 168, 251};
+        double t0 = perf_now();
+        for (int i = 0; i < ngames; i++)
+            for (int z = 0; z < 3; z++) {
+                int sz = sizes[z];
+                uint8_t *b = calloc((size_t)sz * sz, 4);
+                char fn[512];
+                for (int k = -1 - ART_PLAYERS; k < MAX_VARIANTS + 8; k++) {
+                    int lv = k >= MAX_VARIANTS;         /* past the variants: a few levels' pictures */
+                    if (lv && (!games[i]->level_thumb || (k - MAX_VARIANTS) * 7 >= games[i]->levels)) continue;
+                    if (!lv && k >= games[i]->variants) continue;
+                    memset(b, 0, (size_t)sz * sz * 4);
+                    if (k < -1) games[i]->token(-2 - k, sz, b);
+                    else if (lv) games[i]->level_thumb((k - MAX_VARIANTS) * 7, sz, b);
+                    else games[i]->thumb(k, sz, b);
+                    snprintf(fn, sizeof fn, "%s/%s_%d_%d.rgba", dir, games[i]->id, k, sz);
+                    FILE *fp = fopen(fn, "wb");
+                    if (fp) {
+                        fwrite(b, 4, (size_t)sz * sz, fp);
+                        fclose(fp);
+                    }
+                }
+                free(b);
+            }
+        printf("dumped in %.0f ms\n", perf_now() - t0);
+        return 0;
+    }
+    if (!strcmp(what, "menu") || !strcmp(what, "menu-warm")) {
+        /* menu: no time between (every picture waited for); menu-warm: the idle loop's pictures painted ahead first.
+         * --worker: the app's helper thread paints the menu's pictures, the frames 16.7 ms apart */
+        for (int i = 1; i < argc; i++)
+            if (!strcmp(argv[i], "--worker")) perf_pace = worker_start();
+        for (int i = 1; i < argc; i++)          /* --started: every game begun first (the menu reads their state) */
+            if (!strcmp(argv[i], "--started"))
+                for (int g = 0; g < ngames; g++)
+                    if (!locked(g)) {
+                        open_game(g, 0);
+                        go_home();
+                    }
+        perf_run_t r = {0};
+        double t0 = perf_now();
+        layout();
+        double tl = perf_now() - t0;
+        int tex = 0;
+        perf_add(&r, tl + perf_frame(&tex), tex);
+        snprintf(name, sizeof name, "menu: first frame (tab %d)", menu.tab);
+        perf_print(name, &r);
+        if (!strcmp(what, "menu-warm")) {
+            int n = 0;
+            double most = 0, all = 0, start = perf_now();
+            for (;;) {
+                t0 = perf_now();
+                if (!paint_ahead()) {
+                    if (!WK.on) break;
+                    SDL_LockMutex(WK.m);
+                    int left = WK.nwant || WK.doing >= 0;
+                    SDL_UnlockMutex(WK.m);
+                    if (!left) break;
+                    SDL_Delay(1);               /* the helper still painting */
+                    continue;
+                }
+                double t = perf_now() - t0;
+                all += t;
+                most = t > most ? t : most;
+                n++;
+            }
+            printf("idle: %d pictures painted ahead, %.1f ms of the main thread's in all, the longest %.2f; %.0f ms "
+                   "until all were\n", n, all, most, perf_now() - start);
+        }
+        int ntab = L.ntabs, secs[SECTIONS];
+        memcpy(secs, L.tab_sec, sizeof secs);
+        double tabs = 0;
+        for (int k = 0; k < ntab; k++) {        /* each tab: its first frames, then a fling to its bottom */
+            perf_run_t t = {0};
+            t0 = perf_now();
+            menu_tab(secs[k]);
+            tl = perf_now() - t0;
+            perf_add(&t, tl + perf_frame(&tex), tex);
+            tabs += t.first;
+            int f = 0;
+            for (; f < 240 && (paint_n || menu_missing || f < 3); f++) perf_add(&t, perf_frame(&tex), tex);
+            snprintf(name, sizeof name, "tab %d: switch (%d frames)", secs[k], f);
+            perf_print(name, &t);
+            perf_run_t s = {0};
+            perf_add(&s, 0, 0);
+            float step = (L.card + L.label) / 20.0f;   /* a row of cards in 20 frames (a third of a second) */
+            for (int f = 0; f < 4000 && menu.scroll < menu.max; f++) {
+                menu_wheel(step);
+                perf_add(&s, perf_frame(&tex), tex);
+            }
+            snprintf(name, sizeof name, "tab %d: scroll down", secs[k]);
+            perf_print(name, &s);
+        }
+        printf("all tabs' first frames: %.1f ms\n", tabs);
+        /* the cards' pictures, each game's, at the menu's size (painted afresh) */
+        int sz = (int)(L.card * 0.86f);
+        uint8_t *b = calloc((size_t)sz * sz, 4);
+        double all = 0, most = 0;
+        for (int i = 0; i < ngames; i++) {
+            memset(b, 0, (size_t)sz * sz * 4);
+            t0 = perf_now();
+            games[i]->thumb(-1, sz, b);
+            double t = perf_now() - t0;
+            all += t;
+            if (t > most) most = t;
+            printf("thumb %-16s %7.2f ms\n", games[i]->id, t);
+        }
+        printf("thumbs: %d games at %d px: %.1f ms in all, %.2f a card on average, %.2f the most\n", ngames, sz, all,
+               all / ngames, most);
+        free(b);
+        return 0;
+    }
+    if (!strcmp(what, "starts")) {              /* --perf starts [--only "id id"]: every game (those) opened from the
+                                                 * menu, its first frames */
+        const char *only = NULL;
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp(argv[i], "--only") && i + 1 < argc) only = argv[i + 1];
+            if (!strcmp(argv[i], "--pace")) perf_pace = 1;   /* frames 16.7 ms apart: the helper threads work */
+        }
+        layout();
+        draw();
+        for (int g = 0; g < ngames; g++) {
+            if (locked(g)) continue;
+            if (only) {
+                const char *p = strstr(only, games[g]->id);
+                size_t l = strlen(games[g]->id);
+                if (!p || (p > only && p[-1] != ' ') || (p[l] && p[l] != ' ')) continue;
+            }
+            int tex = 0;
+            double t0 = perf_now();
+            double tpl = 0;
+            if (needs_picker(g)) {              /* its picker (or level screen) first, as a tap on its card */
+                open_game(g, -1);
+                tpl = perf_now() - t0;
+                perf_frame(&tex);
+            }
+            double tp = perf_now() - t0;
+            if (getenv("RSB_PERF_PICKER")) printf("picker %s: layout %.2f, first frame %.2f\n", games[g]->id, tpl,
+                                                  tp - tpl);
+            t0 = perf_now();
+            open_game(g, 0);
+            double tl = perf_now() - t0, f1 = perf_frame(&tex), f2 = 0, worst = 0;
+            if (is_view() && hand.up) {
+                uncover();
+                f2 = perf_frame(&tex);
+            }
+            int slow = 0;
+            for (int f = 0; f < 120; f++) {     /* two seconds: a deal, the cards' slides */
+                double t = perf_frame(&tex);
+                worst = t > worst ? t : worst;
+                slow += t > 16.0 / 6;
+            }
+            printf("start %-16s picker %6.2f  start %6.2f  first frame %6.2f  cover lifted %6.2f  then worst %6.2f  "
+                   "slow %3d  total %6.2f\n", games[g]->id, tp, tl, f1, f2, worst, slow, tl + f1 + f2);
+            go_home();
+            draw();
+        }
+        return 0;
+    }
+    cur = find_game(what);
+    if (cur < 0) { fprintf(stderr, "no game %s\n", what); return 1; }
+    if (np) nplayers[cur] = np;
+    ui.players = players_of(cur);
+    layout();
+    draw();
+    perf_run_t r = {0};
+    int tex = 0;
+    double t0 = perf_now();
+    if (pick) show_picker(cur);
+    else open_game(cur, v);
+    double tl = perf_now() - t0;
+    perf_add(&r, tl + perf_frame(&tex), tex);
+    printf("(start and layout %.2f ms)\n", tl);
+    if (is_view() && hand.up) {                 /* the cover: lifted, its frame timed apart */
+        perf_run_t u = {0};
+        uncover();
+        perf_add(&u, perf_frame(&tex), tex);
+        perf_print("the cover lifted", &u);
+    }
+    for (int f = 0; f < frames; f++) perf_add(&r, perf_frame(&tex), tex);
+    snprintf(name, sizeof name, "%s%s v%d", what, pick ? " picker" : "", v);
+    perf_print(name, &r);
+    bot_stop();
+    return 0;
+}
+
+/* RSB_FRAMES=1: each second, on stderr, the frames drawn and the longest draw() (ms, the screen's wait apart), and
+ * when the menu's helper has painted every picture (a developer's measure of the app itself) */
+static void frames_log(double ms)
+{
+    static int on = -1, n, idle;
+    static double most;
+    static Uint32 t0;
+    if (on < 0) on = getenv("RSB_FRAMES") != NULL;
+    if (!on) return;
+    n++;
+    most = ms > most ? ms : most;
+    Uint32 now = SDL_GetTicks();
+    if (WK.on) {
+        SDL_LockMutex(WK.m);
+        int left = WK.nwant || WK.doing >= 0;
+        SDL_UnlockMutex(WK.m);
+        if (!left && !idle) fprintf(stderr, "frames: the helper has painted all it was asked at %u ms\n", now);
+        idle = !left;
+    }
+    if (now - t0 < 1000) return;
+    fprintf(stderr, "frames: %d in %u ms, the longest draw %.2f ms (screen %d)\n", n, now - t0, most, screen);
+    t0 = now;
+    n = 0;
+    most = 0;
+}
+
 /* ---- the program ------------------------------------------------------------------------------------------------- */
 #ifdef __IPHONEOS__
 /* iPhone and iPad: the screen's safe area (apps/ios/common/ios_app.h: clear of the notch, the Dynamic Island, the
@@ -4632,6 +5302,7 @@ int main(int argc, char **argv)
     qsort(games, (size_t)ngames, sizeof games[0], by_order);
     for (int i = 1; i < argc; i++)
         if (!strcmp(argv[i], "--shot")) return shot(argc, argv);
+        else if (!strcmp(argv[i], "--perf")) return perf(argc, argv);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     /* every way round: with a resizable window SDL would otherwise lock Android to portrait (the manifest ignored) */
     SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight Portrait PortraitUpsideDown");
@@ -4663,17 +5334,37 @@ int main(int argc, char **argv)
     if (!win || !ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_BLEND);
     screen = SCR_MENU;
+    worker_start();                             /* the menu's pictures: a thread of their own */
     while (!quit) {
         SDL_Event e;
         int busy = need_frame || armed;
         need_frame = 0;
+        if (!busy) {                            /* idle: a picture painted ahead, while no event waits */
+            SDL_PumpEvents();
+#if SDL_VERSION_ATLEAST(2, 0, 18)                  /* not the poll cycle's own sentinel */
+            int waiting = SDL_HasEvents(SDL_FIRSTEVENT, SDL_POLLSENTINEL - 1) ||
+                          SDL_HasEvents(SDL_POLLSENTINEL + 1, SDL_LASTEVENT);
+#else
+            int waiting = SDL_HasEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
+#endif
+            if (!waiting && paint_ahead()) {
+                if (!need_frame) continue;      /* not on the screen: nothing to draw again */
+                busy = 1;
+                need_frame = 0;
+            }
+        }
         if (busy ? SDL_PollEvent(&e) : SDL_WaitEventTimeout(&e, 250)) {
             do {
                 float fx, fy;
                 switch (e.type) {
                 case SDL_QUIT: quit = 1; break;
                 case SDL_APP_WILLENTERBACKGROUND:     /* the bot thinking stops (it starts again on return) */
-                case SDL_APP_TERMINATING: bot_stop(); save_flush(); break;
+                case SDL_APP_TERMINATING:
+                    bot_stop();
+                    save_flush();
+                    PT.game = 0;                /* a finger down then is lost: an end waiting for it shows */
+                    fingers_stray();
+                    break;
 #ifdef __IPHONEOS__                             /* nothing drawn in the background */
                 case SDL_APP_DIDENTERBACKGROUND: away = 1; break;
                 case SDL_APP_WILLENTERFOREGROUND: away = 0; break;
@@ -4740,12 +5431,15 @@ int main(int argc, char **argv)
 #ifdef __IPHONEOS__
         safe_frame();
 #endif
+        double t0 = perf_now();
         draw();
+        frames_log(perf_now() - t0);
         SDL_RenderPresent(ui.r);
         save_flush();                           /* what changed, written at once (nothing: no write) */
     }
     save_flush();
     bot_stop();
+    worker_park();                              /* no picture half painted */
     SDL_Quit();
     return 0;
 }

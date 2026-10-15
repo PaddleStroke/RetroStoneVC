@@ -33,7 +33,10 @@ typedef struct game {
     const char *id;                             /* "chess" */
     int order;                                  /* the place in the menu */
     int variants;                               /* 1: none to choose; n: a picker before a new game (go's sizes) */
-    void (*thumb)(int variant, int size, uint8_t *rgba);   /* the menu's card (variant -1) and the picker's */
+    /* the menu's card (variant -1) and the picker's. The menu's are painted on a thread of their own (while the menu
+     * shows, no other game code runs): pixels only (no SDL, no ui_* drawing, no ui_random), nothing written that the
+     * game or another thumb() reads; ui_buf(), art_*, cards_paint and the text's glyphs are each thread's own. */
+    void (*thumb)(int variant, int size, uint8_t *rgba);
     void (*token)(int player, int size, uint8_t *rgba);    /* a player's mark: the bars, the end-of-game card */
     void (*start)(int variant);                 /* a new game */
     void (*layout)(box board);                  /* where the board goes (a square, pixels): make its pictures */
@@ -158,7 +161,7 @@ int  ui_bottom(void);                          /* the player at the bottom */
 int  ui_upside(int player);                     /* 1: draw this player's pieces turned round (face to face, top) */
 SDL_Texture *ui_tex(int w, int h, const uint8_t *rgba);   /* a picture as a texture (alpha blending) */
 void ui_free(SDL_Texture **t);
-uint8_t *ui_buf(int w, int h);                  /* scratch for one picture (reused) */
+uint8_t *ui_buf(int w, int h);                  /* scratch for one picture (reused; each thread its own) */
 void ui_put(SDL_Texture *t, float x, float y, float w, float h);
 void ui_put_c(SDL_Texture *t, float cx, float cy, float w, float h);
 void ui_put_rot(SDL_Texture *t, float cx, float cy, float w, float h, double degrees);
