@@ -957,6 +957,164 @@ void cards_paint_turned(uint8_t *rgba, int size, int deck, int card, float cx, f
 static struct { int deck, card, w; unsigned used; SDL_Texture *t; } cache[CACHE];
 static unsigned tick;
 
+/* ---- the faces painted ahead --------------------------------------------------------------------------------------
+ * A face is slow to paint on a phone (a tarot picture, an Italian court: tens of ms), and a deal shows many at once.
+ * Once a width has been asked for two cards of a deck of the kit, a thread of its own paints the deck's other faces
+ * at that width (the kit's painting is the kit's alone: no game code, the font's and the art's scratch per thread),
+ * and card_tex() finds them painted. A face not ready yet is painted at once, as before; one being painted is waited
+ * for. The games' own decks (cards_deck_add) are painted as they are asked for. RSB_NO_PREFETCH=1: none. */
+#define PF_WIDTHS 6                             /* the widths asked for lately, per deck of the kit */
+#define PF_JOBS 512
+#define PF_DONE 400
+#define PF_BYTES (24 << 20)                     /* the faces painted and not yet asked for: at most this */
+static struct {
+    SDL_mutex *m;
+    SDL_cond *wake, *done_cv;
+    int on;                                     /* 1 started, -1 none */
+    struct { int w, cards; unsigned used; uint8_t seen[32]; } width[DECKS][PF_WIDTHS];
+    struct { uint8_t deck, card; int w; } job[PF_JOBS];
+    int njob;
+    struct { uint8_t deck, card; int w, h; uint8_t *px; } done[PF_DONE];
+    int ndone;
+    size_t bytes;
+    int doing_deck, doing_card, doing_w;        /* the face being painted (doing_w 0: none) */
+    unsigned clock;
+} PF;
+
+static int pf_thread(void *arg)
+{
+    (void)arg;
+    SDL_LockMutex(PF.m);
+    for (;;) {
+        while (!PF.njob || PF.ndone >= PF_DONE || PF.bytes >= PF_BYTES) SDL_CondWait(PF.wake, PF.m);
+        int deck = PF.job[0].deck, card = PF.job[0].card, w = PF.job[0].w;
+        memmove(PF.job, PF.job + 1, sizeof PF.job[0] * (size_t)--PF.njob);
+        int h = (int)(w * cards_aspect(deck) + 0.5f), dup = 0;
+        for (int i = 0; i < PF.ndone && !dup; i++)
+            dup = PF.done[i].deck == deck && PF.done[i].card == card && PF.done[i].w == w;
+        if (dup) continue;
+        PF.doing_deck = deck;
+        PF.doing_card = card;
+        PF.doing_w = w;
+        SDL_UnlockMutex(PF.m);
+        uint8_t *b = malloc((size_t)w * h * 4);
+        if (b) cards_paint(deck, card, w, h, b);
+        SDL_LockMutex(PF.m);
+        PF.doing_w = 0;
+        if (b) {
+            PF.done[PF.ndone].deck = (uint8_t)deck;
+            PF.done[PF.ndone].card = (uint8_t)card;
+            PF.done[PF.ndone].w = w;
+            PF.done[PF.ndone].h = h;
+            PF.done[PF.ndone++].px = b;
+            PF.bytes += (size_t)w * h * 4;
+        }
+        SDL_CondBroadcast(PF.done_cv);
+    }
+    return 0;
+}
+
+static int pf_start(void)
+{
+    if (PF.on) return PF.on > 0;
+    PF.on = -1;
+    if (getenv("RSB_NO_PREFETCH")) return 0;
+    PF.m = SDL_CreateMutex();
+    PF.wake = SDL_CreateCond();
+    PF.done_cv = SDL_CreateCond();
+    if (!PF.m || !PF.wake || !PF.done_cv) return 0;
+    SDL_Thread *t = SDL_CreateThread(pf_thread, "cards", NULL);
+    if (!t) return 0;
+    SDL_DetachThread(t);
+    PF.on = 1;
+    return 1;
+}
+
+/* the deck's faces, each once (its biggest pack) and its back */
+static int pf_pack(int deck, uint8_t *out)
+{
+    static const int PACK_OF[DECKS] = {PACK_54, PACK_TAROT, PACK_NUMBER, PACK_TILES, PACK_ACTION, PACK_40,
+                                       PACK_ES48};
+    uint8_t all[CARDS_MAX], seen[256] = {0};
+    int n = cards_pack(PACK_OF[deck], all), k = 0;
+    for (int i = 0; i < n; i++)
+        if (!seen[all[i]]) seen[all[i]] = 1, out[k++] = all[i];
+    out[k++] = CARD_NONE;
+    return k;
+}
+
+static int cached(int deck, int card, int w)
+{
+    for (int i = 0; i < CACHE; i++)
+        if (cache[i].t && cache[i].deck == deck && cache[i].card == card && cache[i].w == w) return 1;
+    return 0;
+}
+
+/* the face (deck, card) at width w asked for and painted on the spot: its width counted; at the second card, the deck
+ * painted ahead at that width. Called with PF.m held. */
+static void pf_note(int deck, int card, int w)
+{
+    int k = -1, old = 0;
+    for (int i = 0; i < PF_WIDTHS; i++) {
+        if (PF.width[deck][i].w == w) k = i;
+        if (PF.width[deck][i].used < PF.width[deck][old].used) old = i;
+    }
+    if (k < 0) {                                /* a width not seen lately: in the place of the oldest */
+        k = old;
+        memset(&PF.width[deck][k], 0, sizeof PF.width[deck][k]);
+        PF.width[deck][k].w = w;
+    }
+    PF.width[deck][k].used = ++PF.clock;
+    uint8_t *seen = PF.width[deck][k].seen;
+    if (seen[card >> 3] & (1 << (card & 7))) return;
+    seen[card >> 3] |= (uint8_t)(1 << (card & 7));
+    if (++PF.width[deck][k].cards != 2) return;
+    for (int i = 0; i < PF.ndone; i++) {        /* the faces painted for a width no longer in use: let go */
+        int keep = PF.done[i].deck != deck;
+        for (int j = 0; j < PF_WIDTHS && !keep; j++) keep = PF.width[deck][j].w == PF.done[i].w;
+        if (keep) continue;
+        PF.bytes -= (size_t)PF.done[i].w * PF.done[i].h * 4;
+        free(PF.done[i].px);
+        PF.done[i--] = PF.done[--PF.ndone];
+    }
+    uint8_t pack[CARDS_MAX + 1];
+    int n = pf_pack(deck, pack);
+    for (int i = 0; i < n && PF.njob < PF_JOBS; i++) {
+        if (seen[pack[i] >> 3] & (1 << (pack[i] & 7)) || cached(deck, pack[i], w)) continue;
+        PF.job[PF.njob].deck = (uint8_t)deck;
+        PF.job[PF.njob].card = pack[i];
+        PF.job[PF.njob++].w = w;
+    }
+    SDL_CondSignal(PF.wake);
+}
+
+/* the face painted ahead (or being painted: waited for), taken: its pixels (the caller frees them), else NULL */
+static uint8_t *pf_take(int deck, int card, int w)
+{
+    if (deck >= DECKS || !pf_start()) return NULL;
+    SDL_LockMutex(PF.m);
+    while (PF.doing_w == w && PF.doing_deck == deck && PF.doing_card == card) SDL_CondWait(PF.done_cv, PF.m);
+    uint8_t *px = NULL;
+    for (int i = 0; i < PF.ndone; i++)
+        if (PF.done[i].deck == deck && PF.done[i].card == card && PF.done[i].w == w) {
+            px = PF.done[i].px;
+            PF.bytes -= (size_t)PF.done[i].w * PF.done[i].h * 4;
+            PF.done[i] = PF.done[--PF.ndone];
+            SDL_CondSignal(PF.wake);            /* room again */
+            break;
+        }
+    if (!px) {
+        for (int i = 0; i < PF.njob; i++)       /* waiting its turn: the caller paints it now */
+            if (PF.job[i].deck == deck && PF.job[i].card == card && PF.job[i].w == w) {
+                memmove(PF.job + i, PF.job + i + 1, sizeof PF.job[0] * (size_t)(--PF.njob - i));
+                break;
+            }
+        pf_note(deck, card, w);
+    }
+    SDL_UnlockMutex(PF.m);
+    return px;
+}
+
 /* a card's picture w pixels wide; near: any size already made will do (a card growing as it slides) */
 static SDL_Texture *card_tex(int deck, int card, int w, int near)
 {
@@ -977,9 +1135,12 @@ static SDL_Texture *card_tex(int deck, int card, int w, int near)
         if (!cache[i].t) slot = i;
     ui_free(&cache[slot].t);
     int h = (int)(w * cards_aspect(deck) + 0.5f);
-    uint8_t *b = malloc((size_t)w * h * 4);
-    if (!b) return NULL;
-    cards_paint(deck, card, w, h, b);
+    uint8_t *b = near ? NULL : pf_take(deck, card, w);   /* painted ahead */
+    if (!b) {
+        b = malloc((size_t)w * h * 4);
+        if (!b) return NULL;
+        cards_paint(deck, card, w, h, b);
+    }
     cache[slot].deck = deck;
     cache[slot].card = card;
     cache[slot].w = w;
