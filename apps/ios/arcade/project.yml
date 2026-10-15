@@ -12,7 +12,9 @@ options:
   bundleIdPrefix: com.eightbcraft
   deploymentTarget:
     iOS: "15.0"
-  createIntermediateGroups: true
+  # no intermediate groups: the sources lie outside the project's folder (build/ios/<app>), and groups made for
+  # their "../../.." path components resolve to wrong paths (a doubled folder: the first CI run)
+  createIntermediateGroups: false
 settings:
   base:
     RS_REPO: $(SRCROOT)/../../..

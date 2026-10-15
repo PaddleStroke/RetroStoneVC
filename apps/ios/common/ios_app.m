@@ -21,10 +21,10 @@ void ios_safe_area(SDL_Window *win, int w, int h, SDL_Rect *safe)
     UIView *view = window.rootViewController.view ? window.rootViewController.view : window;
     CGSize size = view.bounds.size;             /* points: the insets' unit */
     if (size.width <= 0 || size.height <= 0) return;
-    UIEdgeInsets in = view.safeAreaInsets;
+    UIEdgeInsets inset = view.safeAreaInsets;
     double kx = w / size.width, ky = h / size.height;
-    int l = (int)ceil(in.left * kx), r = (int)ceil(in.right * kx), t = (int)ceil(in.top * ky),
-        b = (int)ceil(in.bottom * ky);
+    int l = (int)ceil(inset.left * kx), r = (int)ceil(inset.right * kx), t = (int)ceil(inset.top * ky),
+        b = (int)ceil(inset.bottom * ky);
     if (l < 0 || r < 0 || t < 0 || b < 0 || l + r >= w / 2 || t + b >= h / 2) return;   /* nothing sensible */
     safe->x = l;
     safe->y = t;
