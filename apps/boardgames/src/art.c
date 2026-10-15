@@ -7,6 +7,9 @@
  */
 #include "art.h"
 
+#include <SDL.h>
+#include <stdatomic.h>
+
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -162,7 +165,10 @@ static void shade(const art_style *st, const shape *s, float x, float y, float *
     for (int i = 0; i < 3; i++) c[i] = clampf(st->fill[i] * l, 0, 255);
 }
 
-void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *out)
+/* the first painter, every sample of every pixel through every shape: the reference the fast one is checked against
+ * (RSB_ART_REF=1 in the environment paints with it) */
+static void render_ref(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy,
+                       uint8_t *out)
 {
     float wl = st->line;
     for (int py = 0; py < h; py++)
@@ -204,15 +210,588 @@ void art_render(const art_fig *f, const art_style *st, int w, int h, float scale
         }
 }
 
+/* ---- the fast painter: the same pixels, the work only where an edge is ---------------------------------------------
+ * A shape is the same over a whole region of samples (a block of pixels, a pixel) when the region lies wholly inside
+ * it, wholly in its outline's band, or wholly outside: its distance at the region's centre, against the region's
+ * radius, says so. Only the shapes whose edge crosses a pixel are looked at sample by sample; a pixel no edge crosses
+ * takes its colour from the shape on top (a fill's light still computed at each sample, as the reference does). */
+enum { S_OUT, S_IN, S_LINE, S_MIX };
+#define BLK 8                                       /* a block: BLK x BLK pixels */
+
+/* the state of shape s over a region: its samples all within R (unit square) of (x, y); wl the outline's width */
+static int region_state(const art_fig *f, const shape *s, float x, float y, float R, float wl)
+{
+    if (x + R < s->x0 - wl || x - R > s->x1 + wl || y + R < s->y0 - wl || y - R > s->y1 + wl) return S_OUT;
+    int inbox = x - R >= s->x0 - wl && x + R <= s->x1 + wl && y - R >= s->y0 - wl && y + R <= s->y1 + wl;
+    int mark = s->role == ART_MARK, band = !mark && wl > 0;
+    if (s->kind == SH_ELL) {
+        /* the reference's distance is an estimate: inside, the radius l (1 on the edge) moves at most 1 / min(rx, ry)
+         * a unit; outside, the estimate never exceeds the true distance (l is convex). Its outline's band: a margin. */
+        float u = (x - s->cx) / s->rx, v = (y - s->cy) / s->ry, l = sqrtf(u * u + v * v), m = fminf(s->rx, s->ry);
+        if (l + R / m < 1) return S_IN;
+        if (l < 1) return S_MIX;
+        float d = sdf(f, s, x, y);
+        if (d <= R) return S_MIX;
+        if (!band || d > wl + 3 * R) return S_OUT;
+        return d < wl - 3 * R && inbox ? S_LINE : S_MIX;
+    }
+    float d = sdf(f, s, x, y);                      /* a polygon's: the true distance */
+    if (d < -R) return S_IN;
+    if (d <= R) return S_MIX;
+    if (!band || d > wl + R) return S_OUT;
+    return d < wl - R && inbox ? S_LINE : S_MIX;
+}
+
+/* a sample's state in shape s (as sdf() would say it, d < 0 in, d < wl its outline; wl 0: no outline), sooner: the
+ * polygon's inside first, its distance only outside and only as far as the outline */
+static int point_state(const art_fig *f, const shape *s, float x, float y, float wl)
+{
+    if (s->kind == SH_ELL) {
+        float d = sdf(f, s, x, y);
+        return d < 0 ? S_IN : d < wl ? S_LINE : S_OUT;
+    }
+    int in = 0;
+    const v2 *p = f->pt + s->p0;
+    for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+        v2 a = p[j], b = p[i];
+        if ((b.y > y) != (a.y > y) && x < (a.x - b.x) * (y - b.y) / (a.y - b.y) + b.x) in = !in;
+    }
+    if (in) {                                       /* on an edge exactly: sdf's -0, not inside */
+        for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+            v2 a = p[j], b = p[i];
+            if (x < fminf(a.x, b.x) || x > fmaxf(a.x, b.x) || y < fminf(a.y, b.y) || y > fmaxf(a.y, b.y)) continue;
+            float ex = a.x - b.x, ey = a.y - b.y, wx = x - b.x, wy = y - b.y;
+            float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
+            float dx = wx - ex * t, dy = wy - ey * t;
+            if (dx * dx + dy * dy == 0) return 0 < wl ? S_LINE : S_OUT;
+        }
+        return S_IN;
+    }
+    if (wl <= 0) return S_OUT;
+    float w2 = wl * wl * 1.01f;                     /* a first look without the root; the root decides, as sdf's */
+    for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+        v2 a = p[j], b = p[i];
+        float ex = a.x - b.x, ey = a.y - b.y, wx = x - b.x, wy = y - b.y;
+        float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
+        float dx = wx - ex * t, dy = wy - ey * t, d2 = dx * dx + dy * dy;
+        if (d2 < w2 && sqrtf(d2) < wl) return S_LINE;
+    }
+    return S_OUT;
+}
+
+/* one sample through the shapes listed (idx), their states given (S_MIX: looked at here): the colour on top (c), 0:
+ * none; *top_fill: the shape whose fill is on top (-1: an outline or a mark) */
+static int sample(const art_fig *f, const art_style *st, const int *idx, const uint8_t *state, int n, float x, float y,
+                  float *c, int *top_fill)
+{
+    float wl = st->line;
+    int has = 0, filled = 0, top = -1;              /* top: the fill on top (its light computed once, at the end) */
+    for (int i = 0; i < n; i++) {
+        const shape *s = &f->s[idx[i]];
+        int q = state[i];
+        if (q == S_MIX) {
+            if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) continue;
+            q = point_state(f, s, x, y, s->role == ART_MARK ? 0 : wl);
+        }
+        if (q == S_OUT) continue;
+        if (s->role == ART_MARK) {
+            if (q == S_IN) { memcpy(c, st->mark, 3 * sizeof *c); has = 1; top = -1; }
+        } else if (q == S_IN) {
+            top = idx[i];
+            has = filled = 1;
+        } else {
+            memcpy(c, filled ? st->inner : st->outer, 3 * sizeof *c);
+            has = 1;
+            top = -1;
+        }
+    }
+    if (top >= 0) shade(st, &f->s[top], x, y, c);
+    if (top_fill) *top_fill = top;
+    return has;
+}
+
+/* one sample's colour, every shape's state known (q[i * SS * SS]: shape idx[i]'s): as sample() */
+static int sample_q(const art_fig *f, const art_style *st, const int *idx, const uint8_t *q, int n, float x, float y,
+                    float *c)
+{
+    int has = 0, filled = 0, top = -1;
+    for (int i = 0; i < n; i++) {
+        int s = q[i * SS * SS];
+        if (s == S_OUT) continue;
+        if (f->s[idx[i]].role == ART_MARK) {
+            if (s == S_IN) { memcpy(c, st->mark, 3 * sizeof *c); has = 1; top = -1; }
+        } else if (s == S_IN) {
+            top = idx[i];
+            has = filled = 1;
+        } else {
+            memcpy(c, filled ? st->inner : st->outer, 3 * sizeof *c);
+            has = 1;
+            top = -1;
+        }
+    }
+    if (top >= 0) shade(st, &f->s[top], x, y, c);
+    return has;
+}
+
+/* a pixel's SS x SS samples (columns xs, rows ys) in shape s: q[sy * SS + sx], as point_state() says each. A polygon:
+ * a row's crossings once for its SS samples, its edges near the row only for the outline. xc, ec: room for s->n. */
+static void pixel_states(const art_fig *f, const shape *s, const float *xs, const float *ys, float wl, uint8_t *q,
+                         float *xc, int *ec)
+{
+    if (s->kind == SH_ELL) {
+        for (int k = 0; k < SS * SS; k++) {
+            float x = xs[k % SS], y = ys[k / SS];
+            if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) q[k] = S_OUT;
+            else q[k] = (uint8_t)point_state(f, s, x, y, s->role == ART_MARK ? 0 : wl);
+        }
+        return;
+    }
+    float bwl = s->role == ART_MARK ? 0 : wl, w2 = bwl * bwl * 1.01f;   /* the box's margin is wl, a mark's too */
+    const v2 *p = f->pt + s->p0;
+    for (int sy = 0; sy < SS; sy++) {
+        float y = ys[sy];
+        int nc = 0, ne = 0;
+        for (int i = 0, j = s->n - 1; i < s->n; j = i++) {
+            v2 a = p[j], b = p[i];
+            if ((b.y > y) != (a.y > y)) xc[nc++] = (a.x - b.x) * (y - b.y) / (a.y - b.y) + b.x;
+            if (fminf(a.y, b.y) - bwl <= y && y <= fmaxf(a.y, b.y) + bwl) ec[ne++] = i;   /* near the row */
+        }
+        for (int sx = 0; sx < SS; sx++) {
+            float x = xs[sx];
+            uint8_t *o = q + sy * SS + sx;
+            if (x < s->x0 - wl || x > s->x1 + wl || y < s->y0 - wl || y > s->y1 + wl) { *o = S_OUT; continue; }
+            int in = 0;
+            for (int k = 0; k < nc; k++) in ^= x < xc[k];
+            *o = in ? S_IN : S_OUT;
+            for (int k = 0; k < ne && (in || bwl > 0); k++) {
+                int i = ec[k], j = i ? i - 1 : s->n - 1;
+                v2 a = p[j], b = p[i];
+                if (in && (x < fminf(a.x, b.x) || x > fmaxf(a.x, b.x) || y < fminf(a.y, b.y) || y > fmaxf(a.y, b.y)))
+                    continue;                       /* inside: only an edge it lies on matters (sdf's -0) */
+                if (!in && (x < fminf(a.x, b.x) - bwl || x > fmaxf(a.x, b.x) + bwl)) continue;
+                float ex = a.x - b.x, ey = a.y - b.y, wx = x - b.x, wy = y - b.y;
+                float t = clampf((wx * ex + wy * ey) / (ex * ex + ey * ey + 1e-12f), 0, 1);
+                float dx = wx - ex * t, dy = wy - ey * t, d2 = dx * dx + dy * dy;
+                if (in) {
+                    if (d2 == 0) {
+                        *o = 0 < bwl ? S_LINE : S_OUT;
+                        break;
+                    }
+                } else if (d2 < w2 && sqrtf(d2) < bwl) {
+                    *o = S_LINE;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/* the pixels [x0, x1) x [y0, y1) of the picture (w wide) */
+static void render_fast(const art_fig *f, const art_style *st, int w, int x0, int y0, int x1, int y1, float scale,
+                        float ox, float oy, uint8_t *out)
+{
+    float wl = st->line;
+    int n = f->n, most = 1;
+    for (int k = 0; k < n; k++) most = f->s[k].n > most ? f->s[k].n : most;
+    int *bidx = malloc((size_t)(n ? n : 1) * 2 * sizeof *bidx), *pidx = bidx + (n ? n : 1);
+    uint8_t *bst = malloc((size_t)(n ? n : 1) * (2 + SS * SS)), *pst = bst + (n ? n : 1), *qs = pst + (n ? n : 1);
+    float *xc = malloc(sizeof *xc * (size_t)most);
+    int *ec = malloc(sizeof *ec * (size_t)most);
+    if (!bidx || !bst || !xc || !ec) {
+        free(bidx);
+        free(bst);
+        free(xc);
+        free(ec);
+        return;
+    }
+    /* a sample lies at most 0.375 px from its pixel's centre each way; a block's, 3.875 + 0.375 from its centre */
+    float Rp = 0.375f * 1.41422f / scale * 1.001f, Rb = (BLK / 2.0f - 0.125f) * 1.41422f / scale * 1.001f;
+    for (int by = y0; by < y1; by += BLK)
+        for (int bx = x0; bx < x1; bx += BLK) {
+            int ex = bx + BLK < x1 ? bx + BLK : x1, ey = by + BLK < y1 ? by + BLK : y1;
+            /* the block's centre: of a full block's (a cut one is inside it) */
+            float cx = (bx + BLK / 2.0f - ox) / scale, cy = (by + BLK / 2.0f - oy) / scale;
+            int nb = 0, mix = 0;
+            for (int k = 0; k < n; k++) {
+                int q = region_state(f, &f->s[k], cx, cy, Rb, wl);
+                if (q == S_OUT) continue;
+                bidx[nb] = k;
+                bst[nb++] = (uint8_t)q;
+                mix |= q == S_MIX;
+            }
+            for (int py = by; py < ey; py++)
+                for (int px = bx; px < ex; px++) {
+                    uint8_t *o = out + 4 * ((size_t)py * w + px);
+                    int np = 0, pmix = 0;
+                    const int *idx = bidx;
+                    const uint8_t *state = bst;
+                    if (mix) {                      /* the block's edges: each pixel looks again, closer */
+                        float x = (px + 0.5f - ox) / scale, y = (py + 0.5f - oy) / scale;
+                        for (int i = 0; i < nb; i++) {
+                            int q = bst[i] == S_MIX ? region_state(f, &f->s[bidx[i]], x, y, Rp, wl) : bst[i];
+                            if (q == S_OUT) continue;
+                            pidx[np] = bidx[i];
+                            pst[np++] = (uint8_t)q;
+                            pmix |= q == S_MIX;
+                        }
+                        idx = pidx;
+                        state = pst;
+                    } else {
+                        np = nb;
+                    }
+                    if (!np) {
+                        memset(o, 0, 4);
+                        continue;
+                    }
+                    float acc[4] = {0, 0, 0, 0};
+                    float c[3] = {0, 0, 0};
+                    int has = 0, top = -1;
+                    float xs[SS], ys[SS];
+                    for (int k = 0; k < SS; k++) {
+                        xs[k] = (px - ox + (k + 0.5f) / SS) / scale;
+                        ys[k] = (py - oy + (k + 0.5f) / SS) / scale;
+                    }
+                    if (!pmix) {                    /* no edge: the same shapes everywhere, only the light moves */
+                        has = sample(f, st, idx, state, np, xs[0], ys[0], c, &top);   /* a fill on top: its light varies */
+                    } else {                        /* an edge: each shape's samples, a row at a time */
+                        for (int i = 0; i < np; i++) {
+                            if (state[i] == S_MIX)
+                                pixel_states(f, &f->s[idx[i]], xs, ys, wl, qs + i * SS * SS, xc, ec);
+                            else memset(qs + i * SS * SS, state[i], SS * SS);
+                        }
+                    }
+                    for (int sy = 0; sy < SS; sy++)
+                        for (int sx = 0; sx < SS; sx++) {
+                            float x = xs[sx], y = ys[sy];
+                            float cs[3];
+                            int hs;
+                            if (pmix) hs = sample_q(f, st, idx, qs + sy * SS + sx, np, x, y, cs);
+                            else if (top >= 0) {
+                                shade(st, &f->s[top], x, y, cs);
+                                hs = 1;
+                            } else {
+                                memcpy(cs, c, sizeof cs);
+                                hs = has;
+                            }
+                            if (hs) {
+                                acc[0] += cs[0];
+                                acc[1] += cs[1];
+                                acc[2] += cs[2];
+                                acc[3] += 1;
+                            }
+                        }
+                    if (acc[3] > 0) {
+                        for (int i = 0; i < 3; i++) o[i] = (uint8_t)(acc[i] / acc[3] + 0.5f);
+                        o[3] = (uint8_t)(255 * acc[3] / (SS * SS) + 0.5f);
+                    } else {
+                        memset(o, 0, 4);
+                    }
+                }
+        }
+    free(bidx);
+    free(bst);
+    free(xc);
+    free(ec);
+}
+
+/* ---- the helpers: a big picture's bands of blocks painted on the other cores too ----------------------------------
+ * A band is BLK rows of blocks, painted as render_fast() paints it alone (the same pixels, whoever paints it). The
+ * caller paints bands too, and waits for the last. Only one picture at a time: another thread's (or a picture while
+ * one is being painted) is painted alone. RSB_ART_THREADS=n: n helpers (0: none). */
+#define POOL_MAX 7
+#define POOL_LEAST 3000                             /* pixels: a smaller picture is painted alone */
+static struct {
+    SDL_mutex *m;
+    SDL_cond *go, *done;
+    atomic_flag busy;                               /* a picture being painted with the helpers */
+    int n, ready;                                   /* n helpers; ready: 1 made, -1 none to be had */
+    unsigned gen;                                   /* a new picture (the helpers wake) */
+    const art_fig *f;
+    const art_style *st;
+    int w, x0, y0, x1, y1, bands, next, left;       /* next: the next band to take; left: the bands not finished */
+    float scale, ox, oy;
+    uint8_t *out;
+    void (*rows)(void *ctx, int y0, int y1);        /* another painter's rows (pool_rows), else a figure's */
+    void *ctx;
+    int band;                                       /* rows a band */
+} pool;
+
+/* takes bands and paints them, until none is left to take */
+static void pool_bands(void)
+{
+    for (;;) {
+        SDL_LockMutex(pool.m);
+        int b = pool.next < pool.bands ? pool.next++ : -1;
+        SDL_UnlockMutex(pool.m);
+        if (b < 0) return;
+        int y0 = pool.y0 + b * pool.band, y1 = y0 + pool.band < pool.y1 ? y0 + pool.band : pool.y1;
+        if (pool.rows) pool.rows(pool.ctx, y0, y1);
+        else render_fast(pool.f, pool.st, pool.w, pool.x0, y0, pool.x1, y1, pool.scale, pool.ox, pool.oy, pool.out);
+        SDL_LockMutex(pool.m);
+        if (--pool.left == 0) SDL_CondSignal(pool.done);
+        SDL_UnlockMutex(pool.m);
+    }
+}
+
+static int pool_helper(void *arg)
+{
+    (void)arg;
+    unsigned seen = 0;
+    for (;;) {
+        SDL_LockMutex(pool.m);
+        while (pool.gen == seen) SDL_CondWait(pool.go, pool.m);   /* asleep between pictures */
+        seen = pool.gen;
+        SDL_UnlockMutex(pool.m);
+        pool_bands();
+    }
+    return 0;
+}
+
+static int pool_start(void)
+{
+    if (pool.ready) return pool.ready > 0;
+    pool.ready = -1;
+    const char *e = getenv("RSB_ART_THREADS");
+    int n = e ? atoi(e) : SDL_GetCPUCount() - 1;
+    if (!e && n > 3) n = 3;                         /* three helpers: a phone's big cores */
+    if (n > POOL_MAX) n = POOL_MAX;
+    if (n < 1) return 0;
+    pool.m = SDL_CreateMutex();
+    pool.go = SDL_CreateCond();
+    pool.done = SDL_CreateCond();
+    if (!pool.m || !pool.go || !pool.done) return 0;
+    for (int i = 0; i < n; i++) {
+        SDL_Thread *t = SDL_CreateThread(pool_helper, "art", NULL);
+        if (!t) break;
+        SDL_DetachThread(t);
+        pool.n++;
+    }
+    if (pool.n) pool.ready = 1;
+    return pool.ready > 0;
+}
+
+static int pool_run(int bands);
+
+/* the picture's bands painted with the helpers; 0: not (none, or busy: the caller paints it alone) */
+static int pool_render(const art_fig *f, const art_style *st, int w, int x0, int y0, int x1, int y1, float scale,
+                       float ox, float oy, uint8_t *out)
+{
+    int bands = (y1 - y0 + BLK - 1) / BLK;
+    if (bands < 2 || atomic_flag_test_and_set_explicit(&pool.busy, memory_order_acquire)) return 0;
+    if (!pool_start()) {
+        atomic_flag_clear_explicit(&pool.busy, memory_order_release);
+        return 0;
+    }
+    SDL_LockMutex(pool.m);
+    pool.f = f;
+    pool.st = st;
+    pool.w = w;
+    pool.x0 = x0;
+    pool.y0 = y0;
+    pool.x1 = x1;
+    pool.y1 = y1;
+    pool.scale = scale;
+    pool.ox = ox;
+    pool.oy = oy;
+    pool.out = out;
+    pool.rows = NULL;
+    pool.band = BLK;
+    return pool_run(bands);
+}
+
+/* rows [0, h) painted by fn(ctx, y0, y1) in bands of `band` rows, with the helpers (each row's pixels its own: the
+ * same pixels whoever paints them); alone when they are busy */
+static void pool_rows(void (*fn)(void *ctx, int y0, int y1), void *ctx, int h, int band)
+{
+    int bands = (h + band - 1) / band;
+    if (bands < 2 || atomic_flag_test_and_set_explicit(&pool.busy, memory_order_acquire)) {
+        fn(ctx, 0, h);
+        return;
+    }
+    if (!pool_start()) {
+        atomic_flag_clear_explicit(&pool.busy, memory_order_release);
+        fn(ctx, 0, h);
+        return;
+    }
+    SDL_LockMutex(pool.m);
+    pool.rows = fn;
+    pool.ctx = ctx;
+    pool.band = band;
+    pool.y0 = 0;
+    pool.y1 = h;
+    pool_run(bands);
+}
+
+/* (pool.m held, the job set) the helpers woken, the caller's share, the last band waited for; then free again */
+static int pool_run(int bands)
+{
+    pool.bands = pool.left = bands;
+    pool.next = 0;
+    pool.gen++;
+    SDL_CondBroadcast(pool.go);
+    SDL_UnlockMutex(pool.m);
+    pool_bands();                                   /* the caller's share */
+    SDL_LockMutex(pool.m);
+    while (pool.left > 0) SDL_CondWait(pool.done, pool.m);
+    pool.bands = pool.next = 0;                     /* a helper waking late finds nothing to take */
+    SDL_UnlockMutex(pool.m);
+    atomic_flag_clear_explicit(&pool.busy, memory_order_release);
+    return 1;
+}
+
+static _Atomic int art_ref = -1;                    /* RSB_ART_REF=1: the reference painter (comparisons) */
+
+/* the pixels the figure may touch (its shapes' boxes and outline, a pixel more): [*x0, *x1) x [*y0, *y1), clipped to
+ * w x h; 0: none */
+static int fig_pixels(const art_fig *f, float wl, int w, int h, float scale, float ox, float oy, int *x0, int *y0,
+                      int *x1, int *y1)
+{
+    float a = 1e9f, b = 1e9f, c = -1e9f, d = -1e9f;
+    for (int k = 0; k < f->n; k++) {
+        a = fminf(a, f->s[k].x0 - wl);
+        b = fminf(b, f->s[k].y0 - wl);
+        c = fmaxf(c, f->s[k].x1 + wl);
+        d = fmaxf(d, f->s[k].y1 + wl);
+    }
+    if (!f->n) return 0;
+    float fx0 = floorf(a * scale + ox) - 1, fy0 = floorf(b * scale + oy) - 1;
+    float fx1 = ceilf(c * scale + ox) + 1, fy1 = ceilf(d * scale + oy) + 1;
+    *x0 = fx0 < 0 ? 0 : fx0 > w ? w : (int)fx0;
+    *y0 = fy0 < 0 ? 0 : fy0 > h ? h : (int)fy0;
+    *x1 = fx1 < 0 ? 0 : fx1 > w ? w : (int)fx1;
+    *y1 = fy1 < 0 ? 0 : fy1 > h ? h : (int)fy1;
+    return *x0 < *x1 && *y0 < *y1;
+}
+
+/* ---- small pictures remembered: the same figure painted again (a card's pips, its corner turned round, the same
+ * piece on many cards) is copied, not painted. Keyed by everything the pixels follow (the shapes, the style, the
+ * size and place), a 64-bit hash; any thread (a spin lock). */
+#define MEMO_N 128
+#define MEMO_MAX (80 * 80)                          /* pixels: a bigger picture is painted each time */
+static struct { uint64_t key; int w, h; unsigned used; uint8_t *px; } memo[MEMO_N];
+static unsigned memo_clock;
+static atomic_flag memo_lock = ATOMIC_FLAG_INIT;   /* (C11 atomics: thread checkers see them) */
+
+static uint64_t hash_add(uint64_t h, const void *p, size_t n)
+{
+    const unsigned char *b = p;
+    for (size_t i = 0; i < n; i++) h = (h ^ b[i]) * 0x100000001b3ull;
+    return h;
+}
+
+static uint64_t memo_key(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy)
+{
+    uint64_t k = 0xcbf29ce484222325ull;
+    const float geo[3] = {scale, ox, oy};
+    const int size[3] = {w, h, f->n};
+    k = hash_add(k, size, sizeof size);
+    k = hash_add(k, geo, sizeof geo);
+    k = hash_add(k, st->fill, sizeof st->fill);
+    k = hash_add(k, st->outer, sizeof st->outer);
+    k = hash_add(k, st->inner, sizeof st->inner);
+    k = hash_add(k, st->mark, sizeof st->mark);
+    k = hash_add(k, &st->light, sizeof st->light);
+    k = hash_add(k, &st->line, sizeof st->line);
+    for (int i = 0; i < f->n; i++) {
+        const shape *s = &f->s[i];
+        const int is[3] = {s->kind, s->role, s->n};
+        const float fs[8] = {s->cx, s->cy, s->rx, s->ry, s->x0, s->y0, s->x1, s->y1};
+        k = hash_add(k, is, sizeof is);
+        k = hash_add(k, fs, sizeof fs);
+        if (s->kind == SH_POLY) k = hash_add(k, f->pt + s->p0, sizeof(v2) * (size_t)s->n);
+    }
+    return k;
+}
+
+static int memo_get(uint64_t key, int w, int h, uint8_t *out)
+{
+    int hit = 0;
+    while (atomic_flag_test_and_set_explicit(&memo_lock, memory_order_acquire)) {}
+    for (int i = 0; i < MEMO_N && !hit; i++)
+        if (memo[i].px && memo[i].key == key && memo[i].w == w && memo[i].h == h) {
+            memcpy(out, memo[i].px, (size_t)w * h * 4);
+            memo[i].used = ++memo_clock;
+            hit = 1;
+        }
+    atomic_flag_clear_explicit(&memo_lock, memory_order_release);
+    return hit;
+}
+
+static void memo_put(uint64_t key, int w, int h, const uint8_t *px)
+{
+    uint8_t *copy = malloc((size_t)w * h * 4);
+    if (!copy) return;
+    memcpy(copy, px, (size_t)w * h * 4);
+    while (atomic_flag_test_and_set_explicit(&memo_lock, memory_order_acquire)) {}
+    int k = 0;
+    for (int i = 0; i < MEMO_N; i++) {
+        if (!memo[i].px) { k = i; break; }
+        if (memo[i].used < memo[k].used) k = i;
+    }
+    uint8_t *old = memo[k].px;
+    memo[k].px = copy;
+    memo[k].key = key;
+    memo[k].w = w;
+    memo[k].h = h;
+    memo[k].used = ++memo_clock;
+    atomic_flag_clear_explicit(&memo_lock, memory_order_release);
+    free(old);
+}
+
+static void render_now(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy,
+                       uint8_t *out);
+
+void art_render(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy, uint8_t *out)
+{
+    if (art_ref < 0) art_ref = getenv("RSB_ART_REF") && atoi(getenv("RSB_ART_REF")) > 0;
+    if (art_ref) {
+        render_ref(f, st, w, h, scale, ox, oy, out);
+        return;
+    }
+    if (w <= 0 || h <= 0) return;
+    if (w * h > MEMO_MAX) {
+        render_now(f, st, w, h, scale, ox, oy, out);
+        return;
+    }
+    uint64_t key = memo_key(f, st, w, h, scale, ox, oy);
+    if (memo_get(key, w, h, out)) return;
+    render_now(f, st, w, h, scale, ox, oy, out);
+    memo_put(key, w, h, out);
+}
+
+static void render_now(const art_fig *f, const art_style *st, int w, int h, float scale, float ox, float oy,
+                       uint8_t *out)
+{
+    int x0, y0, x1, y1;
+    if (!fig_pixels(f, st->line, w, h, scale, ox, oy, &x0, &y0, &x1, &y1)) {
+        memset(out, 0, (size_t)w * h * 4);
+        return;
+    }
+    for (int y = 0; y < h; y++) {                   /* outside the figure: nothing */
+        if (y < y0 || y >= y1) {
+            memset(out + 4 * (size_t)y * w, 0, (size_t)w * 4);
+            continue;
+        }
+        memset(out + 4 * (size_t)y * w, 0, (size_t)x0 * 4);
+        memset(out + 4 * ((size_t)y * w + x1), 0, (size_t)(w - x1) * 4);
+    }
+    if ((x1 - x0) * (y1 - y0) < POOL_LEAST || !pool_render(f, st, w, x0, y0, x1, y1, scale, ox, oy, out))
+        render_fast(f, st, w, x0, y0, x1, y1, scale, ox, oy, out);
+}
+
 void art_fig_blend(uint8_t *o, int pw, int ph, const art_fig *f, const art_style *st, int x, int y, int w, float a)
 {
     if (w < 2) return;
-    uint8_t *b = malloc((size_t)w * w * 4);
+    int x0 = 0, y0 = 0, x1 = w, y1 = w;             /* only the figure's pixels (the rest would blend nothing) */
+    if (art_ref < 0) art_ref = getenv("RSB_ART_REF") && atoi(getenv("RSB_ART_REF")) > 0;
+    if (!art_ref && !fig_pixels(f, st->line, w, w, (float)w, 0, 0, &x0, &y0, &x1, &y1)) return;
+    int bw = x1 - x0, bh = y1 - y0;
+    uint8_t *b = malloc((size_t)bw * bh * 4);
     if (!b) return;
-    art_render(f, st, w, w, (float)w, 0, 0, b);
+    art_render(f, st, bw, bh, (float)w, (float)-x0, (float)-y0, b);
     if (a < 1)
-        for (int i = 0; i < w * w; i++) b[4 * i + 3] = (uint8_t)(b[4 * i + 3] * a);
-    art_blend(o, pw, ph, b, w, w, x, y);
+        for (int i = 0; i < bw * bh; i++) b[4 * i + 3] = (uint8_t)(b[4 * i + 3] * a);
+    art_blend(o, pw, ph, b, bw, bh, x + x0, y + y0);
     free(b);
 }
 
@@ -497,13 +1076,19 @@ static float hash(int a, int b)
 
 /* the wood inside (iw x ih pixels: squares of sq when checkered; a plank's grain at the scale of a plank gs wide) in
  * its walnut frame (fr pixels) */
-static void board(int iw, int ih, int sq, float gs, int fr, int checkered, uint8_t *o)
+typedef struct { int iw, ih, sq, fr, checkered; float gs; uint8_t *o; } board_job;
+
+static void board_rows(void *ctx, int y0, int y1)
 {
+    const board_job *j = ctx;
+    int iw = j->iw, ih = j->ih, sq = j->sq, fr = j->fr, checkered = j->checkered;
+    float gs = j->gs;
+    uint8_t *o = j->o;
     static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, plain[3] = {222, 184, 128},
                        frame[3] = {92, 60, 40};
     int w = iw + 2 * fr, h = ih + 2 * fr;
     float rad = fr * 0.7f;
-    for (int y = 0; y < h; y++)
+    for (int y = y0; y < y1; y++)
         for (int x = 0; x < w; x++) {
             uint8_t *p = o + 4 * (y * w + x);
             float c[3], a = 1;
@@ -537,6 +1122,13 @@ static void board(int iw, int ih, int sq, float gs, int fr, int checkered, uint8
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(c[i], 0, 255);
             p[3] = (uint8_t)(a * 255);
         }
+}
+
+/* (its rows painted on the helpers too: a board is many pixels) */
+static void board(int iw, int ih, int sq, float gs, int fr, int checkered, uint8_t *o)
+{
+    board_job j = {iw, ih, sq, fr, checkered, gs, o};
+    pool_rows(board_rows, &j, ih + 2 * fr, 16);
 }
 
 void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *o)
@@ -990,7 +1582,12 @@ void art_blend(uint8_t *dst, int dw, int dh, const uint8_t *src, int sw, int sh,
         for (int i = 0; i < sw; i++) {
             if (x + i < 0 || x + i >= dw) continue;
             const uint8_t *s = src + 4 * (j * sw + i);
+            if (!s[3]) continue;                    /* nothing to blend (as the sum would leave it) */
             uint8_t *d = dst + 4 * ((y + j) * dw + x + i);
+            if (s[3] == 255) {                      /* opaque: the source (as the sum gives it) */
+                memcpy(d, s, 4);
+                continue;
+            }
             float sa = s[3] / 255.0f, da = d[3] / 255.0f, oa = sa + da * (1 - sa);
             if (oa <= 0) continue;
             for (int k = 0; k < 3; k++) d[k] = (uint8_t)((s[k] * sa + d[k] * da * (1 - sa)) / oa + 0.5f);

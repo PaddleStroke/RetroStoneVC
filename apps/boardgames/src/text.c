@@ -183,8 +183,8 @@ static float advance(const face *fc, int c)
 /* paints one glyph at (x, baseline y) into rgba (w x h, rows from y0) */
 static void glyph(const face *fc, int c, float x, float y, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int y0)
 {
-    static unsigned char *g;
-    static int cap;
+    static _Thread_local unsigned char *g;      /* each thread its own (pictures painted on other threads) */
+    static _Thread_local int cap;
     int x0, yy0, x1, yy1;
     float fx = x - floorf(x), scale;
     stbtt_fontinfo *f = font_for(fc, c, &scale);
