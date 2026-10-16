@@ -1,0 +1,10 @@
+Thermometer
+# Das Ziel
+Fülle die Thermometer so, dass jede Zeile und jede Spalte so viele gefüllte Felder hat, wie die Zahl daneben sagt.
+- Ein Thermometer füllt sich von seiner Kugel an, ohne Lücke: bis zu irgendeinem seiner Felder oder gar nicht.
+- Jedes Thermometer füllt sich für sich allein.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Tippe ein Feld an, um bis dorthin zu füllen; halte es gedrückt, um es durchzustreichen: eine Notiz, dass es leer bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Zahl stimmt: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

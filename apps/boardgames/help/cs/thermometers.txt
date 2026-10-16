@@ -1,0 +1,10 @@
+Teploměry
+# Cíl hry
+Naplň teploměry tak, aby každý řádek a každý sloupec měl tolik plných políček, kolik říká číslo vedle něj.
+- Teploměr se plní od baňky nahoru bez mezer: až k libovolnému svému políčku, nebo vůbec.
+- Každý teploměr se plní sám za sebe.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Ťukni na políčko a naplníš teploměr až k němu; podrž na něm prst a přeškrtneš ho: poznámka, že zůstane prázdné.
+# Konec hry
+Hlavolam je vyřešen, když sedí každé číslo: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

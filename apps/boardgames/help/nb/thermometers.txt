@@ -1,0 +1,10 @@
+Termometre
+# Målet
+Fyll termometrene slik at hver rad og hver kolonne har like mange fylte ruter som tallet ved siden av.
+- Et termometer fylles fra kulen og oppover uten hull: opp til hvilken som helst av rutene sine, eller ikke i det hele tatt.
+- Hvert termometer fylles for seg.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Trykk på en rute for å fylle opp til den; hold på den for å krysse den ut: et notat om at den forblir tom.
+# Slutten på spillet
+Oppgaven er løst når hvert tall stemmer: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

@@ -1,0 +1,10 @@
+Thermomètres
+# Le but
+Remplis les thermomètres pour que chaque ligne et chaque colonne contienne autant de cases remplies que le nombre à côté d'elle.
+- Un thermomètre se remplit depuis son réservoir, sans trou : jusqu'à n'importe laquelle de ses cases, ou pas du tout.
+- Chaque thermomètre se remplit seul.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Touche une case pour remplir jusqu'à elle ; garde le doigt dessus pour la barrer : une note pour dire qu'elle reste vide.
+# La fin de la partie
+La grille est résolue quand chaque nombre est juste : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

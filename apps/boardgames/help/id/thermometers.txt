@@ -1,0 +1,10 @@
+Termometer
+# Tujuan
+Isi termometer sehingga setiap baris dan kolom punya kotak terisi sebanyak angka di sampingnya.
+- Termometer terisi dari bola di pangkalnya ke atas, tanpa celah: sampai salah satu kotaknya, atau tidak sama sekali.
+- Setiap termometer terisi sendiri-sendiri.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Ketuk sebuah kotak untuk mengisi sampai kotak itu; tahan kotak untuk mencoretnya: catatan bahwa kotak itu tetap kosong.
+# Akhir permainan
+Teka-teki selesai jika semua angka cocok: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.

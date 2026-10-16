@@ -1,0 +1,10 @@
+Termômetros
+# O objetivo
+Encha os termômetros para que cada linha e cada coluna tenha tantas casas cheias quanto diz o número ao lado.
+- Um termômetro enche a partir do bulbo, sem buracos: até qualquer uma das suas casas, ou nada.
+- Cada termômetro enche por conta própria.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Toque uma casa para encher até ela; segure-a para riscá-la: uma anotação de que fica vazia.
+# O fim da partida
+A grade está resolvida quando todos os números estão certos: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

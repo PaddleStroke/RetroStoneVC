@@ -1,0 +1,10 @@
+Termometry
+# Cel gry
+Napełnij termometry tak, aby każdy wiersz i każda kolumna miały tyle wypełnionych pól, ile mówi liczba obok.
+- Termometr napełnia się od zbiorniczka w górę, bez przerw: do dowolnego swojego pola albo wcale.
+- Każdy termometr napełnia się osobno.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Dotknij pola, aby napełnić do niego; przytrzymaj je, aby je skreślić: notatka, że zostaje puste.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każda liczba się zgadza: przez siatkę przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle oznaczone pole cofnięte przyciskiem Cofnij.

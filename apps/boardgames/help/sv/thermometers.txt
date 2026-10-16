@@ -1,0 +1,10 @@
+Termometrar
+# Målet
+Fyll termometrarna så att varje rad och varje kolumn har lika många fyllda rutor som talet bredvid.
+- En termometer fylls från kulan och uppåt utan luckor: upp till vilken som helst av dess rutor, eller inte alls.
+- Varje termometer fylls för sig.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Tryck på en ruta för att fylla upp till den; håll på den för att kryssa den: en anteckning om att den förblir tom.
+# Partiets slut
+Pusslet är löst när varje tal stämmer: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

@@ -1,0 +1,10 @@
+Termometre
+# Målet
+Fyld termometrene, så hver række og hver søjle har lige så mange fyldte felter som tallet ved siden af.
+- Et termometer fyldes fra kuglen og op uden huller: op til et hvilket som helst af dets felter, eller slet ikke.
+- Hvert termometer fyldes for sig.
+Hver opgave har præcis én løsning, som findes ved ren logik. Tryk på et felt for at fylde op til det; hold på det for at sætte kryds: en note om, at det forbliver tomt.
+# Spillets afslutning
+Opgaven er løst, når hvert tal passer: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

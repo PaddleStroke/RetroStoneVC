@@ -1,0 +1,10 @@
+Termómetros
+# El objetivo
+Llena los termómetros para que cada fila y cada columna tenga tantas casillas llenas como dice el número a su lado.
+- Un termómetro se llena desde su bulbo, sin huecos: hasta cualquiera de sus casillas, o nada.
+- Cada termómetro se llena por su cuenta.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Toca una casilla para llenar hasta ella; mantenla pulsada para tacharla: una nota de que queda vacía.
+# El final de la partida
+El tablero está resuelto cuando todos los números son correctos: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

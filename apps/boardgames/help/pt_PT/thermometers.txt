@@ -1,0 +1,10 @@
+Termómetros
+# O objetivo
+Enche os termómetros para que cada linha e cada coluna tenha tantas casas cheias quanto diz o número ao lado.
+- Um termómetro enche a partir do bolbo, sem buracos: até qualquer uma das suas casas, ou nada.
+- Cada termómetro enche por si só.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Toca numa casa para encher até ela; mantém o dedo nela para a riscar: uma nota de que fica vazia.
+# O fim do jogo
+A grelha está resolvida quando todos os números estão certos: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que tiras com Anular.

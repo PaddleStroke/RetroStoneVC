@@ -1,0 +1,10 @@
+Termometreler
+# Amaç
+Termometreleri doldur; her satırda ve her sütunda, yanındaki sayı kadar dolu kare olsun.
+- Bir termometre haznesinden yukarı doğru, boşluksuz dolar: karelerinden herhangi birine kadar ya da hiç.
+- Her termometre kendi başına dolar.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kareye dokunarak oraya kadar doldur; üzerinde parmağını tutarak çarpı koy: boş kalacağına dair bir not.
+# Oyunun sonu
+Her sayı tuttuğunda bulmaca çözülür: ızgaranın üzerinden altın rengi bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir karedir.
