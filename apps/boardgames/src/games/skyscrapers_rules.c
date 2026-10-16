@@ -87,9 +87,9 @@ static int easy(bench_grid *g, const ctx *k)
         }
         uint8_t hs[SKY_MAX];                    /* a full line: its numbers */
         int full = 1;
-        for (int j = 0; j < n; j++) {
-            full &= bench_one(g->d[cells[j]]);
-            hs[j] = (uint8_t)(bench_low(g->d[cells[j]]) + 1);
+        for (int j = 0; j < n && full; j++) {   /* (a cell left with no height stops it: no lowest bit) */
+            full = bench_one(g->d[cells[j]]);
+            if (full) hs[j] = (uint8_t)(bench_low(g->d[cells[j]]) + 1);
         }
         if (!full) continue;
         if (a && sky_seen(hs, n) != a) return -1;

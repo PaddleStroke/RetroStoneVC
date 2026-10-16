@@ -75,6 +75,13 @@ int main(void)
     none.n = 4;
     none.clue[SKY_LEFT][0] = none.clue[SKY_RIGHT][0] = 1;
     CHECK(sky_count(&none, 2) == 0 && sky_grade(&none, NULL) == BENCH_NONE);
+    /* a given height its edge number rules out: the cell is left with none (no lowest height read from it: clean
+     * under -fsanitize=undefined) */
+    memset(&none, 0, sizeof none);
+    none.n = 4;
+    none.given[0] = 1;
+    none.clue[SKY_LEFT][0] = 1;
+    CHECK(sky_count(&none, 2) == 0 && sky_grade(&none, NULL) == BENCH_NONE);
     sky_puzzle open;
     memset(&open, 0, sizeof open);
     open.n = 4;
