@@ -244,7 +244,8 @@ static inline int sb_count(int m)
 static inline int sb_top_power(int m)          /* the highest card's power + 1 */
 {
     if (m & SB_LONG) return (m >> 8 & 255) + 1;
-    return m >> (6 * (sb_count(m) - 1)) & 63;
+    int n = sb_count(m);
+    return n ? m >> (6 * (n - 1)) & 63 : 0;   /* a pass: none */
 }
 
 static inline int sb_policy(const sb_st *st, const int *mv, int n, ai_rng *r, int eps)
