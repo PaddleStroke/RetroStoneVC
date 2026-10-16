@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = GRÄVA
+DEPTH = DJUP
+UNIT_M = M
+AIR = LUFT
+HINT = { } GÅ - A GRÄV - ~ + A GRÄV NER
+CRUSHED = MOSAD!
+NO_AIR = SLUT PÅ LUFT!
+STRATUM_0 = TRÄDGÅRDSJORD
+STRATUM_1 = RÖD LERA
+STRATUM_2 = KRISTALLGROTTA
+STRATUM_3 = HETA KLIPPOR
+STRATUM_4 = FOSSILLAGER
+STRATUM_5 = ÄDELSTENSKÄRNA

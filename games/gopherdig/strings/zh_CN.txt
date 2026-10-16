@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 挖掘
+DEPTH = 深度
+UNIT_M = 米
+AIR = 空气
+HINT = { } 走 - A 挖 - ~ + A 向下挖
+CRUSHED = 被压扁了!
+NO_AIR = 没有空气了!
+STRATUM_0 = 花园土壤
+STRATUM_1 = 红色黏土
+STRATUM_2 = 水晶洞穴
+STRATUM_3 = 炽热岩层
+STRATUM_4 = 化石层
+STRATUM_5 = 宝石核心

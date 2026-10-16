@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ほる
+DEPTH = ふかさ
+UNIT_M = M
+AIR = くうき
+HINT = { } あるく - A ほる - ~ + A したへ
+CRUSHED = つぶれた!
+NO_AIR = くうきぎれ!
+STRATUM_0 = にわのつち
+STRATUM_1 = あかいねんど
+STRATUM_2 = すいしょうどうくつ
+STRATUM_3 = あついいわ
+STRATUM_4 = かせきのそう
+STRATUM_5 = ほうせきのしん

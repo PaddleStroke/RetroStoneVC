@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CREUSER
+DEPTH = PROFOND.
+UNIT_M = M
+AIR = AIR
+HINT = { } MARCHER - A CREUSER - ~ + A BAS
+CRUSHED = ÉCRASÉ !
+NO_AIR = PLUS D'AIR !
+STRATUM_0 = TERRE DU JARDIN
+STRATUM_1 = ARGILE ROUGE
+STRATUM_2 = GROTTE DE CRISTAL
+STRATUM_3 = ROCHES CHAUDES
+STRATUM_4 = LIT DE FOSSILES
+STRATUM_5 = CŒUR DE GEMMES

@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 땅파기
+DEPTH = 깊이
+UNIT_M = M
+AIR = 공기
+HINT = { } 걷기 - A 파기 - ~ + A 아래로
+CRUSHED = 깔렸다!
+NO_AIR = 공기 부족!
+STRATUM_0 = 정원 흙
+STRATUM_1 = 붉은 점토
+STRATUM_2 = 수정 동굴
+STRATUM_3 = 뜨거운 바위
+STRATUM_4 = 화석층
+STRATUM_5 = 보석 핵

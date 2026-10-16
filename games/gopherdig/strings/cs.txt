@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOPEJ
+DEPTH = HLOUBKA
+UNIT_M = M
+AIR = VZDUCH
+HINT = { } CHŮZE - A KOPAT - ~ + A DOLŮ
+CRUSHED = ROZMAČKÁN!
+NO_AIR = DOŠEL VZDUCH!
+STRATUM_0 = ZAHRADNÍ PŮDA
+STRATUM_1 = ČERVENÝ JÍL
+STRATUM_2 = KRYSTALOVÁ JESKYNĚ
+STRATUM_3 = HORKÉ SKÁLY
+STRATUM_4 = ZKAMENĚLINY
+STRATUM_5 = JÁDRO DRAHOKAMŮ

@@ -1,0 +1,8 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best depth, medals): stays in the .srm, a state never takes it back
+play.G              well_settle(), fall_tick(): the block groups, worked out again from the well every time (scratch)
+play.SIMW           the bot's look-ahead: a copy of a well played forward, made again at each decision (scratch)
+draw.drawn_width    the width the maps were set up for: a setting of the frontend (draw_state_loaded sets the maps up again)

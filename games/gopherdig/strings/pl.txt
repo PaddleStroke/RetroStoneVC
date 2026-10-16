@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOPAĆ
+DEPTH = GŁĘBOK.
+UNIT_M = M
+AIR = POWIETRZE
+HINT = { } IDŹ - A KOP - ~ + A W DÓŁ
+CRUSHED = ZGNIECIONY!
+NO_AIR = BRAK POWIETRZA!
+STRATUM_0 = OGRODOWA ZIEMIA
+STRATUM_1 = CZERWONA GLINA
+STRATUM_2 = KRYSZTAŁOWA GROTA
+STRATUM_3 = GORĄCE SKAŁY
+STRATUM_4 = SKAMIENIAŁOŚCI
+STRATUM_5 = JĄDRO KLEJNOTÓW

@@ -1,0 +1,31 @@
+# Gopher Dig: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED, %d M...) are in
+# games/common/strings. The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO). max 12
+VERB = DIG
+#. The label over the depth (big digits) in the left panel beside the well, 1 player. max 10
+DEPTH = DEPTH
+#. The unit after the depth's big digits (metres). max 2
+UNIT_M = M
+#. The label over the air gauge in the right panel beside the well, 1 player. max 10
+AIR = AIR
+#. A hint at the bottom of the screen in the first seconds of a 1-player run: { } are the d-pad's Left and Right, ~ its
+#. Down, A the pad's A button. max 38
+HINT = { } WALK - A DIG - ~ + A DIG DOWN
+#. A player's well (a quarter of the screen) when a falling block landed on the gopher; also the game-over panel. max 18
+CRUSHED = CRUSHED!
+#. The same when the air ran out. max 18
+NO_AIR = OUT OF AIR!
+#. The strata, a new one every 100 m (shown at each checkpoint, under "100 M", in a quarter of the screen). The first,
+#. from the grass down. max 18
+STRATUM_0 = GARDEN SOIL
+#. The stratum from 100 m. max 18
+STRATUM_1 = RED CLAY
+#. The stratum from 200 m. max 18
+STRATUM_2 = CRYSTAL CAVE
+#. The stratum from 300 m. max 18
+STRATUM_3 = WARM ROCKS
+#. The stratum from 400 m. max 18
+STRATUM_4 = FOSSIL BEDS
+#. The stratum from 500 m. max 18
+STRATUM_5 = GEM CORE

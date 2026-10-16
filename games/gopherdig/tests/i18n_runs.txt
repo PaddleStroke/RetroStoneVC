@@ -1,0 +1,17 @@
+# Gopher Dig: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+hint      60   50   --opt bot=1 --opt seed=7 --opt ready=1
+play      700  690  --opt bot=1 --opt seed=7 --opt ready=1
+check1    960  950  --opt bot=1 --opt seed=7 --opt ready=1
+play2     700  690  --opt bot=2 --opt seed=9 --opt ready=1
+play3     700  690  --opt bot=3 --opt seed=9 --opt ready=1
+play4     700  690  --opt bot=4 --opt seed=9 --opt ready=1
+pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+pause4    320  310  --opt bot=4 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+out4      5000 4990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
+over      6000 5990 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=10
+results   8000 7990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10

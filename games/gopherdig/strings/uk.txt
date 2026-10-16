@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КОПАТИ
+DEPTH = ГЛИБИНА
+UNIT_M = М
+AIR = ПОВІТРЯ
+HINT = { } ЙТИ - A КОПАТИ - ~ + A ВНИЗ
+CRUSHED = РОЗЧАВЛЕНО!
+NO_AIR = НЕМАЄ ПОВІТРЯ!
+STRATUM_0 = САДОВА ЗЕМЛЯ
+STRATUM_1 = ЧЕРВОНА ГЛИНА
+STRATUM_2 = КРИШТАЛЕВА ПЕЧЕРА
+STRATUM_3 = ГАРЯЧІ СКЕЛІ
+STRATUM_4 = ВИКОПНІ ШАРИ
+STRATUM_5 = ЯДРО САМОЦВІТІВ

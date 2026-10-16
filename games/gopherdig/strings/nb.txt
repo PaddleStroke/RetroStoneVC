@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = GRAVE
+DEPTH = DYBDE
+UNIT_M = M
+AIR = LUFT
+HINT = { } GÅ - A GRAV - ~ + A GRAV NED
+CRUSHED = KNUST!
+NO_AIR = TOM FOR LUFT!
+STRATUM_0 = HAGEJORD
+STRATUM_1 = RØD LEIRE
+STRATUM_2 = KRYSTALLGROTTE
+STRATUM_3 = VARME STEINER
+STRATUM_4 = FOSSILLAG
+STRATUM_5 = EDELSTENSKJERNE

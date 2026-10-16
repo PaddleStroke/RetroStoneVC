@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = КОПАТЬ
+DEPTH = ГЛУБИНА
+UNIT_M = М
+AIR = ВОЗДУХ
+HINT = { } ИДТИ - A КОПАТЬ - ~ + A ВНИЗ
+CRUSHED = РАЗДАВЛЕН!
+NO_AIR = НЕТ ВОЗДУХА!
+STRATUM_0 = САДОВАЯ ЗЕМЛЯ
+STRATUM_1 = КРАСНАЯ ГЛИНА
+STRATUM_2 = КРИСТАЛЬНАЯ ПЕЩЕРА
+STRATUM_3 = ГОРЯЧИЕ СКАЛЫ
+STRATUM_4 = ОКАМЕНЕЛОСТИ
+STRATUM_5 = ЯДРО САМОЦВЕТОВ

@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΣΚΑΨΕΙΣ
+DEPTH = ΒΑΘΟΣ
+UNIT_M = M
+AIR = ΑΕΡΑΣ
+HINT = { } ΠΕΡΠΑΤΑ - A ΣΚΑΨΕ - ~ + A ΚΑΤΩ
+CRUSHED = ΛΙΩΘΗΚΕΣ!
+NO_AIR = ΤΕΛΕΙΩΣΕ Ο ΑΕΡΑΣ!
+STRATUM_0 = ΧΩΜΑ ΚΗΠΟΥ
+STRATUM_1 = ΚΟΚΚΙΝΟΣ ΠΗΛΟΣ
+STRATUM_2 = ΣΠΗΛΙΑ ΚΡΥΣΤΑΛΛΩΝ
+STRATUM_3 = ΖΕΣΤΟΙ ΒΡΑΧΟΙ
+STRATUM_4 = ΑΠΟΛΙΘΩΜΑΤΑ
+STRATUM_5 = ΠΥΡΗΝΑΣ ΠΟΛΥΤΙΜΩΝ

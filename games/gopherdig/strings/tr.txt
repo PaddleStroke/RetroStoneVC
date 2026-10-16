@@ -1,0 +1,14 @@
+# Gopher Dig's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KAZMAK
+DEPTH = DERİNLİK
+UNIT_M = M
+AIR = HAVA
+HINT = { } YÜRÜ - A KAZ - ~ + A AŞAĞI
+CRUSHED = EZİLDİN!
+NO_AIR = HAVA BİTTİ!
+STRATUM_0 = BAHÇE TOPRAĞI
+STRATUM_1 = KIRMIZI KİL
+STRATUM_2 = KRİSTAL MAĞARA
+STRATUM_3 = SICAK KAYALAR
+STRATUM_4 = FOSİL KATMANI
+STRATUM_5 = MÜCEVHER ÇEKİRDEĞİ
