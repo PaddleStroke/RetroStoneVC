@@ -229,10 +229,10 @@ int main(void)
             }
         }
         if (!klt_solved(&g)) {
+            g.last = -1;                        /* the next move a move of its own */
             int i, x, y, left = klt_solve(&g, &i, &x, &y);
             if (left <= 0) ok = 0;
             else {
-                g.last = -1;
                 if (!klt_move(&g, i, x, y)) ok = 0;
                 if (klt_solve(&g, NULL, NULL, NULL) != left - 1) ok = 0;
                 int before = g.moves;
@@ -244,6 +244,34 @@ int main(void)
         if (memcmp(first.p, g.p, sizeof g.p) || g.moves) ok = 0;
     }
     CHECK(ok);
+
+    /* the hint after a block slid to a wrong cell: sliding it on is the same move, so the way the hint gives still
+     * ends at par when the right cell is in reach (the first block of a shortest way, stopped elsewhere) */
+    int cont = 0, saved = 0;
+    ok = 1;
+    for (int lv = 0; lv < KLT_LEVELS; lv += 3) {
+        klt_game s0, t, apart;
+        int i, x, y;
+        klt_level(&s0, lv);
+        if (klt_solve(&s0, &i, &x, &y) != s0.par) { ok = 0; continue; }
+        klt_reach(&s0, i, reach);
+        for (int c = 0; c < 20; c++) {
+            if (reach[c] <= 0 || c == x + 4 * y) continue;
+            t = s0;
+            klt_move(&t, i, c % 4, c / 4);      /* the right block, the wrong cell: one move made */
+            apart = t;
+            apart.last = -1;                    /* as if a block slid on made a move of its own (the hint before) */
+            int left = klt_solve(&t, NULL, NULL, NULL);
+            if (t.moves != 1 || t.moves + left != t.par) ok = 0;
+            saved += 1 + klt_solve(&apart, NULL, NULL, NULL) > t.par;
+            klt_script(&t, "=");
+            if (!klt_solved(&t) || t.moves != t.par) ok = 0;
+            cont++;
+        }
+    }
+    CHECK(ok && cont > 0 && saved > 0);
+    printf("klotski: %d blocks slid to a wrong cell, the hint still at par (%d a move better than before)\n", cont,
+           saved);
 
     if (fails) { printf("klotski: %d failures\n", fails); return 1; }
     printf("klotski: all passed\n");

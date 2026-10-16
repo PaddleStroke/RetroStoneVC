@@ -74,7 +74,8 @@ int  klt_path(const klt_game *g, int piece, int x, int y, int8_t *path);
 int  klt_move(klt_game *g, int piece, int x, int y);          /* there in one move, by its way; 0: cannot */
 int  klt_undo(klt_game *g);                     /* the last move taken back: the block; -1: none */
 int  klt_solved(const klt_game *g);
-/* the fewest moves left; the first one's block and place (may be NULL); -1: none */
+/* the fewest moves left (the block moved last slides on in the same move: free; when that alone solves it, 1), the
+ * first one's block and place (may be NULL); 0: solved; -1: none */
 int  klt_solve(const klt_game *g, int *piece, int *x, int *y);
 int  klt_script(klt_game *g, const char *moves);
 

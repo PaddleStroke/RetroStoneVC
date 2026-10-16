@@ -266,6 +266,26 @@ int klt_solve(const klt_game *g, int *piece, int *x, int *y)
     order[tail] = root;
     parent[tail] = -1;
     depth[tail++] = 0;
+    if (g->last >= 0 && g->last < g->np) {     /* the block moved last slides on in the same move: no move more */
+        int8_t reach[KLT_W * KLT_H];
+        reach_from(g->p, g->np, g->last, reach, NULL);
+        for (int c = 0; c < KLT_W * KLT_H && found < 0; c++) {
+            if (reach[c] <= 0) continue;
+            klt_piece p[KLT_PIECES];
+            memcpy(p, g->p, sizeof p);
+            p[g->last].x = (int8_t)(c % KLT_W);
+            p[g->last].y = (int8_t)(c / KLT_W);
+            uint64_t k = code_of(p, g->np);
+            int s = slot_of(key, k);
+            if (key[s]) continue;
+            key[s] = k;
+            order[tail] = k;
+            parent[tail] = -1;
+            depth[tail] = 0;
+            if (goal(k)) found = tail;
+            tail++;
+        }
+    }
     while (head < tail && found < 0) {
         int at = head++;
         klt_piece p[KLT_PIECES];
@@ -294,11 +314,14 @@ int klt_solve(const klt_game *g, int *piece, int *x, int *y)
         }
     }
     if (found < 0) goto done;
-    best = depth[found];
-    int first = found;
-    while (parent[first] > 0) first = parent[first];
-    if (piece || x || y) {                      /* which block of this game makes that first move */
-        for (int i = 0; i < g->np; i++) {
+    best = depth[found] > 0 ? depth[found] : 1;    /* (the move going on, slid on to the end: one move left) */
+    int first = found;                          /* the first move: from the start, or the move going on slid on */
+    while (parent[first] >= 0 && depth[parent[first]] > 0) first = parent[first];
+    if (parent[first] > 0) first = parent[first];
+    if (piece || x || y) {                      /* which block of this game makes that first move (the last first) */
+        for (int k = -1; k < g->np; k++) {
+            int i = k < 0 ? g->last : k;
+            if (i < 0 || i >= g->np) continue;
             int8_t reach[KLT_W * KLT_H];
             reach_from(g->p, g->np, i, reach, NULL);
             for (int c = 0; c < KLT_W * KLT_H; c++) {
@@ -449,8 +472,7 @@ int klt_script(klt_game *g, const char *s)
             do {
                 int i, x, y;
                 if (klt_solve(g, &i, &x, &y) <= 0) break;
-                g->last = -1;
-                klt_move(g, i, x, y);
+                klt_move(g, i, x, y);           /* (the block moved last slides on: the same move, as solved) */
             } while (all && !klt_solved(g));
             continue;
         }
