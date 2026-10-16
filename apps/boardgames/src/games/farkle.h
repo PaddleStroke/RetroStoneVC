@@ -26,7 +26,7 @@
 #define FK_TARGET 10000
 #define FK_ENTRY 500
 #define FK_SOLO_TURNS 20
-#define FK_MAX_EVENTS 2048
+#define FK_MAX_EVENTS 4096                      /* six cautious players reach about 1300 */
 
 enum { FK_THROW, FK_CHOOSE, FK_OVER };          /* what comes next: a throw, dice to set aside, nothing */
 enum { FK_THROWN = 1, FK_FARKLE };              /* a throw: dice to choose; no scoring dice (the turn lost) */
