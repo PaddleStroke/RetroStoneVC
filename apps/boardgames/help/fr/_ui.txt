@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Jeux
+Stats
+Réglages
+Chercher un jeu
+Aucun jeu trouvé
+Nous soutenir
+Laisser un avis
+Laisser un pourboire
+Étoile sur GitHub
+Signaler un problème
+Apparence
+Clair
+Sombre
+Comme l'appareil
+Langue
+Langue de l'appareil
+Jeu
+Garder l'écran allumé
+Son
+Système et mentions légales
+Politique de confidentialité
+Conditions d'utilisation
+Licences
+Version %s
+Cette semaine
+Série : %d j
+Joués aujourd'hui
+Termine une partie pour allumer la flamme
+Bon début ! Continue
+Joli rythme !
+Tu es lancé !
+Quelle journée !
+Niveau %d
+%d %% vers le niveau %d
+XP total
+Parties terminées
+Par section
+Succès
+Verrouillé
+L M M J V S D
+1
+Laisser un pourboire
+Gratuit et sans pub : un pourboire nous aide à créer de nouveaux jeux.
+Un petit pourboire
+Un joli pourboire
+Un gros pourboire
+Merci pour ton soutien !
+Première partie
+Termine ta première partie
+Apprenti
+Gagne 500 XP
+Expert
+Gagne 2500 XP
+Grand maître
+Gagne 10000 XP
+En feu
+Joue 3 jours de suite
+Régulier
+Joue 7 jours de suite
+Inarrêtable
+Joue 30 jours de suite
+Tueur de géants
+Bats l'appareil en difficile
+Perfectionniste
+Résous 50 niveaux avec 3 étoiles
+Explorateur
+Gagne un jeu dans chaque section
+Marathon
+Termine 100 parties

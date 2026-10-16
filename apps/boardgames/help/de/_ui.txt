@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Spiele
+Statistik
+Einstellungen
+Spiele suchen
+Kein Spiel gefunden
+Unterstütze uns
+Bewertung schreiben
+Trinkgeld geben
+Stern auf GitHub
+Problem melden
+Darstellung
+Hell
+Dunkel
+Wie das Gerät
+Sprache
+Gerätesprache
+Spielen
+Bildschirm anlassen
+Ton
+System und Rechtliches
+Datenschutz
+Nutzungsbedingungen
+Lizenzen
+Version %s
+Diese Woche
+Serie: %d
+Heute gespielt
+Beende ein Spiel, um die Flamme zu entzünden
+Guter Start! Weiter so
+Schöner Rhythmus!
+Du bist in Fahrt!
+Was für ein Tag!
+Level %d
+%d %% bis Level %d
+XP gesamt
+Beendete Spiele
+Nach Bereich
+Erfolge
+Gesperrt
+Mo Di Mi Do Fr Sa So
+1
+Trinkgeld geben
+Kostenlos und ohne Werbung: Ein Trinkgeld hilft uns, neue Spiele zu machen.
+Ein kleines Trinkgeld
+Ein schönes Trinkgeld
+Ein großes Trinkgeld
+Danke für deine Unterstützung!
+Erstes Spiel
+Beende dein erstes Spiel
+Lehrling
+Sammle 500 XP
+Experte
+Sammle 2500 XP
+Großmeister
+Sammle 10000 XP
+Feuer und Flamme
+Spiele 3 Tage in Folge
+Beständig
+Spiele 7 Tage in Folge
+Unaufhaltsam
+Spiele 30 Tage in Folge
+Riesentöter
+Besiege das Gerät auf Schwer
+Perfektionist
+Löse 50 Level mit 3 Sternen
+Entdecker
+Gewinne ein Spiel in jedem Bereich
+Marathon
+Beende 100 Spiele

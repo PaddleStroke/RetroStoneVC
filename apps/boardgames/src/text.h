@@ -25,7 +25,8 @@ extern const int tx_ntexts;
 extern const unsigned char *const tx_glyph_font[2];   /* the boards' characters (help/glyphs.txt): regular, bold */
 extern const unsigned char *const tx_glyph_font2[2];  /* the ones the first lacks (DejaVu Sans; NULL: none) */
 
-/* the language: forced ("fr", "pt_BR"...), or NULL: the device's (English when it is none of the 22) */
+/* the language: forced ("fr", "pt_BR"...), or NULL: the device's (English when it is none of the 22). Called again,
+ * it switches (the Settings page): the texts read from then on are the new language's. */
 void text_init(const char *forced);
 const char *text_lang(void);
 
@@ -51,5 +52,15 @@ int text_glyph(int codepoint, float px, int bold, const uint8_t rgb[3], uint8_t 
 
 /* one line (no wrapping), bold or not: its width; drawn at (x, y top) into rgba (w x h) when not NULL */
 int text_line(const char *s, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int x, int y);
+
+/* a title (the pages' names, their sections' headers): one line in capitals, bold, condensed (Chinese, Japanese and
+ * Korean as they are); as text_line */
+int text_title(const char *s, float px, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int x, int y);
+
+/* a text as a search compares it (UTF-8 into out, size bytes): small letters, no accents (é e, ß s, ё е, ά α);
+ * returns its length */
+int text_fold(const char *s, char *out, int size);
+/* where the character before byte n of s starts (one character back: the search field's backspace) */
+int text_utf8_back(const char *s, int n);
 
 #endif

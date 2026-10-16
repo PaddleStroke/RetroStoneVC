@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Jogos
+Estatísticas
+Definições
+Procurar jogos
+Nenhum jogo encontrado
+Apoia-nos
+Deixa uma avaliação
+Deixa uma gorjeta
+Estrela no GitHub
+Comunicar um problema
+Aspeto
+Claro
+Escuro
+Como o dispositivo
+Idioma
+Idioma do dispositivo
+Jogo
+Manter o ecrã ligado
+Som
+Sistema e informação legal
+Política de privacidade
+Termos de utilização
+Licenças
+Versão %s
+Esta semana
+Sequência: %d
+Jogados hoje
+Termina uma partida para acender a chama
+Bom começo! Continua
+Belo ritmo!
+Estás embalado!
+Que dia!
+Nível %d
+%d%% para o nível %d
+XP total
+Partidas terminadas
+Por secção
+Conquistas
+Bloqueado
+S T Q Q S S D
+1
+Deixa uma gorjeta
+Grátis e sem anúncios: uma gorjeta ajuda-nos a criar novos jogos.
+Uma gorjeta pequena
+Uma boa gorjeta
+Uma gorjeta grande
+Obrigado pelo teu apoio!
+Primeira partida
+Termina a tua primeira partida
+Aprendiz
+Ganha 500 XP
+Especialista
+Ganha 2500 XP
+Grão-mestre
+Ganha 10000 XP
+Em chamas
+Joga 3 dias seguidos
+Constante
+Joga 7 dias seguidos
+Imparável
+Joga 30 dias seguidos
+Mata-gigantes
+Vence o dispositivo no difícil
+Perfeccionista
+Resolve 50 níveis com 3 estrelas
+Explorador
+Vence um jogo em cada secção
+Maratona
+Termina 100 partidas

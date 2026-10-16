@@ -1,0 +1,22 @@
+Privacy policy
+This app is published by 8BCraft SASU (SIREN 823 953 252, France). Contact: hello@8bcraft.com.
+# In short
+The app collects no personal data at all. It has no ads, no analytics, no tracking and no account. Nothing you do in it leaves your device through the app.
+# What stays on your device
+To remember your choices and your progress, the app keeps one small file in its private storage on your device, with:
+- your settings (the sound, the theme, the language, the menu's tab);
+- each game's last choices (its variant, how many play, which seats the device plays);
+- your progress: the stars won in each level, your points, the days you played, the games you won.
+The file holds no names and nothing about the players. Nobody else can read it, and we never receive it. It is deleted when you uninstall the app, or when you clear its data.
+If you have turned on your phone's own backup, the system may copy the app's files to your account, as it does for most apps, so they can be restored on a new phone. That copy is handled by your phone's maker under its own privacy policy; we have no access to it.
+# Playing together, and against the device
+Several people play on one device, passed from hand to hand. The device's own players think on the device itself: no game is ever sent anywhere.
+# Links and tips
+A few rows of the Settings page open a page outside the app: the app's store page (to leave a review), its source code, an email to us. What happens there is covered by those sites' own policies. A tip, where the app offers one, is paid through your store (Google Play, the App Store): the store handles the payment, we receive no card details and nothing about you.
+# Children
+As the app collects no data from anyone, it collects none from children either.
+# Third-party components
+The app is built with open-source components (SDL2, stb, the Noto Sans CJK and DejaVu Sans fonts). They all run on your device only; none of them sends data from the app.
+# Changes
+If this policy ever changes, the new version comes with the app, with its date. An app that started collecting data would say so here first.
+Effective date: 16 October 2026

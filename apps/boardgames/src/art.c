@@ -1289,7 +1289,7 @@ void art_cup(int kind, int player, int s, uint8_t *o)
 void art_icon(int which, int size, uint8_t *rgba)
 {
     art_style st = {{255, 255, 255}, {0, 0, 0}, {0, 0, 0}, {255, 255, 255}, 0, 0};
-    art_fig *f = art_fig_new();
+    art_fig *f = art_fig_new(), *cut = NULL;       /* cut: the holes (the app's pages' icons) */
     switch (which) {
     case ICON_UNDO: {                               /* an arrow curling back to the left */
         art_arc(f, ART_PART, 0.53f, 0.54f, 0.17f, 0.25f, -40, 180);
@@ -1498,9 +1498,187 @@ void art_icon(int which, int size, uint8_t *rgba)
         for (int k = 0; k < 4; k++) art_ellipse(f, ART_PART, k & 1 ? x1 - r : x0 + r, k & 2 ? y1 - r : y0 + r, r, r);
         break;
     }
+    /* ---- the app's pages (the ribbon, the Settings and Stats pages): flat, white, cut out where they show through */
+    case ICON_STATS:                                /* three bars, rounded, of three heights */
+        for (int k = 0; k < 3; k++) {
+            static const float top[3] = {0.48f, 0.22f, 0.62f};
+            float x = 0.27f + 0.23f * k;
+            art_rect(f, ART_PART, x - 0.075f, top[k], x + 0.075f, 0.78f);
+            art_ellipse(f, ART_PART, x, top[k], 0.075f, 0.075f);
+            art_ellipse(f, ART_PART, x, 0.78f, 0.075f, 0.075f);
+        }
+        break;
+    case ICON_TILES:                                /* the games: four rounded tiles */
+        for (int k = 0; k < 4; k++) {
+            float x = k & 1 ? 0.53f : 0.17f, y = k & 2 ? 0.53f : 0.17f, w = 0.30f, r = 0.07f;
+            art_rect(f, ART_PART, x + r, y, x + w - r, y + w);
+            art_rect(f, ART_PART, x, y + r, x + w, y + w - r);
+            for (int c = 0; c < 4; c++)
+                art_ellipse(f, ART_PART, c & 1 ? x + w - r : x + r, c & 2 ? y + w - r : y + r, r, r);
+        }
+        break;
+    case ICON_GEAR:                                 /* a gear: eight teeth, a hole */
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.27f, 0.27f);
+        for (int k = 0; k < 8; k++) {
+            float a = k * PI_F / 4, c = cosf(a), s = sinf(a);
+            art_band(f, ART_PART, 0.5f + 0.2f * c, 0.5f + 0.2f * s, 0.5f + 0.37f * c, 0.5f + 0.37f * s, 0.13f);
+        }
+        cut = art_fig_new();
+        art_ellipse(cut, ART_PART, 0.5f, 0.5f, 0.11f, 0.11f);
+        break;
+    case ICON_SEARCH:                               /* a magnifying glass */
+        art_arc(f, ART_PART, 0.43f, 0.43f, 0.17f, 0.245f, 0, 360);
+        art_band(f, ART_PART, 0.6f, 0.6f, 0.81f, 0.81f, 0.11f);
+        art_ellipse(f, ART_PART, 0.81f, 0.81f, 0.055f, 0.055f);
+        break;
+    case ICON_FLAME: {                              /* a flame: a drop pointing up, a tongue at its side, a hole */
+        const float tip[] = {0.27f, 0.6f, 0.47f, 0.10f, 0.73f, 0.6f}, side[] = {0.62f, 0.44f, 0.74f, 0.28f, 0.76f, 0.6f};
+        const float in[] = {0.42f, 0.72f, 0.5f, 0.46f, 0.58f, 0.72f};
+        art_ellipse(f, ART_PART, 0.5f, 0.62f, 0.235f, 0.235f);
+        art_poly(f, ART_PART, tip, 3);
+        art_poly(f, ART_PART, side, 3);
+        cut = art_fig_new();
+        art_ellipse(cut, ART_PART, 0.5f, 0.72f, 0.085f, 0.085f);
+        art_poly(cut, ART_PART, in, 3);
+        break;
+    }
+    case ICON_CUP:                                  /* a cup won: its bowl, its handles, its foot */
+        art_rect(f, ART_PART, 0.27f, 0.18f, 0.73f, 0.32f);
+        art_arc(f, ART_PART, 0.5f, 0.32f, 0.0f, 0.23f, 180, 360);
+        art_arc(f, ART_PART, 0.27f, 0.34f, 0.07f, 0.12f, 90, 270);
+        art_arc(f, ART_PART, 0.73f, 0.34f, 0.07f, 0.12f, -90, 90);
+        art_rect(f, ART_PART, 0.455f, 0.5f, 0.545f, 0.7f);
+        art_rect(f, ART_PART, 0.31f, 0.7f, 0.69f, 0.81f);
+        break;
+    case ICON_REVIEW: {                             /* a speech bubble, a star cut in it */
+        const float tail[] = {0.30f, 0.62f, 0.48f, 0.62f, 0.26f, 0.84f};
+        float x0 = 0.15f, x1 = 0.85f, y0 = 0.18f, y1 = 0.68f, r = 0.1f;
+        art_rect(f, ART_PART, x0 + r, y0, x1 - r, y1);
+        art_rect(f, ART_PART, x0, y0 + r, x1, y1 - r);
+        for (int k = 0; k < 4; k++) art_ellipse(f, ART_PART, k & 1 ? x1 - r : x0 + r, k & 2 ? y1 - r : y0 + r, r, r);
+        art_poly(f, ART_PART, tail, 3);
+        cut = art_fig_new();
+        art_star(cut, ART_PART, 0.5f, 0.445f, 0.17f);
+        break;
+    }
+    case ICON_BUG:                                  /* a beetle: its head, its body split by its wings, six legs */
+        art_ellipse(f, ART_PART, 0.5f, 0.57f, 0.2f, 0.25f);
+        art_ellipse(f, ART_PART, 0.5f, 0.28f, 0.12f, 0.1f);
+        for (int k = 0; k < 3; k++) {
+            float y = 0.46f + 0.13f * k, dy = (k - 1) * 0.07f;
+            art_band(f, ART_PART, 0.3f, y, 0.15f, y + dy, 0.055f);
+            art_band(f, ART_PART, 0.7f, y, 0.85f, y + dy, 0.055f);
+        }
+        art_band(f, ART_PART, 0.44f, 0.22f, 0.34f, 0.1f, 0.045f);
+        art_band(f, ART_PART, 0.56f, 0.22f, 0.66f, 0.1f, 0.045f);
+        cut = art_fig_new();
+        art_rect(cut, ART_PART, 0.485f, 0.4f, 0.515f, 0.84f);
+        art_rect(cut, ART_PART, 0.3f, 0.37f, 0.7f, 0.4f);
+        break;
+    case ICON_SUN:                                  /* the sun: a disc, eight rays */
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.15f, 0.15f);
+        for (int k = 0; k < 8; k++) {
+            float a = k * PI_F / 4, c = cosf(a), s = sinf(a);
+            art_band(f, ART_PART, 0.5f + 0.24f * c, 0.5f + 0.24f * s, 0.5f + 0.35f * c, 0.5f + 0.35f * s, 0.065f);
+        }
+        break;
+    case ICON_MOON:                                 /* a crescent */
+        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.3f, 0.3f);
+        cut = art_fig_new();
+        art_ellipse(cut, ART_PART, 0.66f, 0.38f, 0.25f, 0.25f);
+        break;
+    case ICON_AUTO:                                 /* as the device: a ring, its left half filled */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.32f, 0, 360);
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.0f, 0.245f, 90, 270);
+        break;
+    case ICON_GLOBE:                                /* the languages: a globe, its lines */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.28f, 0.34f, 0, 360);
+        art_rect(f, ART_PART, 0.18f, 0.475f, 0.82f, 0.525f);
+        art_rect(f, ART_PART, 0.25f, 0.325f, 0.75f, 0.37f);
+        art_rect(f, ART_PART, 0.25f, 0.63f, 0.75f, 0.675f);
+        art_arc(f, ART_PART, 0.68f, 0.5f, 0.31f, 0.36f, 120, 240);
+        art_arc(f, ART_PART, 0.32f, 0.5f, 0.31f, 0.36f, -60, 60);
+        break;
+    case ICON_AWAKE: {                              /* the screen kept on: a phone, a sun on its screen */
+        const float dev[] = {0.30f, 0.14f, 0.70f, 0.14f, 0.70f, 0.86f, 0.30f, 0.86f, 0.30f, 0.14f,
+                             0.36f, 0.22f, 0.36f, 0.74f, 0.64f, 0.74f, 0.64f, 0.22f, 0.36f, 0.22f};
+        art_poly(f, ART_PART, dev, 10);
+        art_ellipse(f, ART_PART, 0.5f, 0.8f, 0.03f, 0.03f);
+        art_ellipse(f, ART_PART, 0.5f, 0.48f, 0.065f, 0.065f);
+        for (int k = 0; k < 8; k++) {
+            float a = k * PI_F / 4, c = cosf(a), s = sinf(a);
+            art_band(f, ART_PART, 0.5f + 0.1f * c, 0.48f + 0.1f * s, 0.5f + 0.15f * c, 0.48f + 0.15f * s, 0.035f);
+        }
+        break;
+    }
+    case ICON_SHIELD: {                             /* a shield, a keyhole cut in it */
+        const float sh[] = {0.5f, 0.12f, 0.79f, 0.23f, 0.77f, 0.5f, 0.66f, 0.72f, 0.5f, 0.87f,
+                            0.34f, 0.72f, 0.23f, 0.5f, 0.21f, 0.23f};
+        art_poly(f, ART_PART, sh, 8);
+        cut = art_fig_new();
+        art_ellipse(cut, ART_PART, 0.5f, 0.42f, 0.07f, 0.07f);
+        art_rect(cut, ART_PART, 0.47f, 0.44f, 0.53f, 0.64f);
+        break;
+    }
+    case ICON_DOC: {                                /* a page, its corner folded, its lines cut */
+        const float pg[] = {0.25f, 0.13f, 0.58f, 0.13f, 0.77f, 0.32f, 0.77f, 0.87f, 0.25f, 0.87f};
+        const float fold[] = {0.55f, 0.13f, 0.55f, 0.35f, 0.77f, 0.35f};
+        art_poly(f, ART_PART, pg, 5);
+        cut = art_fig_new();
+        art_poly(cut, ART_PART, fold, 3);
+        art_rect(cut, ART_PART, 0.35f, 0.5f, 0.67f, 0.555f);
+        art_rect(cut, ART_PART, 0.35f, 0.65f, 0.67f, 0.705f);
+        break;
+    }
+    case ICON_CODE:                                 /* the code: < / > */
+        art_band(f, ART_PART, 0.36f, 0.29f, 0.17f, 0.5f, 0.085f);
+        art_band(f, ART_PART, 0.17f, 0.5f, 0.36f, 0.71f, 0.085f);
+        art_band(f, ART_PART, 0.64f, 0.29f, 0.83f, 0.5f, 0.085f);
+        art_band(f, ART_PART, 0.83f, 0.5f, 0.64f, 0.71f, 0.085f);
+        art_ellipse(f, ART_PART, 0.17f, 0.5f, 0.042f, 0.042f);
+        art_ellipse(f, ART_PART, 0.83f, 0.5f, 0.042f, 0.042f);
+        art_band(f, ART_PART, 0.56f, 0.22f, 0.44f, 0.78f, 0.07f);
+        break;
+    case ICON_CHEVRON:                              /* a thin arrow head pointing right: go on */
+        art_band(f, ART_PART, 0.4f, 0.24f, 0.64f, 0.5f, 0.09f);
+        art_band(f, ART_PART, 0.64f, 0.5f, 0.4f, 0.76f, 0.09f);
+        art_ellipse(f, ART_PART, 0.64f, 0.5f, 0.045f, 0.045f);
+        break;
+    case ICON_HEART: {                              /* a heart: support */
+        const float v[] = {0.18f, 0.44f, 0.82f, 0.44f, 0.5f, 0.84f};
+        art_ellipse(f, ART_PART, 0.35f, 0.38f, 0.175f, 0.175f);
+        art_ellipse(f, ART_PART, 0.65f, 0.38f, 0.175f, 0.175f);
+        art_poly(f, ART_PART, v, 3);
+        break;
+    }
+    case ICON_BOLT: {                               /* a bolt: XP */
+        const float b[] = {0.58f, 0.10f, 0.25f, 0.56f, 0.47f, 0.56f, 0.40f, 0.90f, 0.76f, 0.42f, 0.54f, 0.42f};
+        art_poly(f, ART_PART, b, 6);
+        break;
+    }
+    case ICON_MEDAL: {                              /* a medal: its two ribbons, the disc, a ring and a star cut in it */
+        const float l[] = {0.30f, 0.52f, 0.46f, 0.60f, 0.38f, 0.90f, 0.31f, 0.80f, 0.22f, 0.82f},
+                    r[] = {0.70f, 0.52f, 0.54f, 0.60f, 0.62f, 0.90f, 0.69f, 0.80f, 0.78f, 0.82f};
+        art_poly(f, ART_PART, l, 5);
+        art_poly(f, ART_PART, r, 5);
+        art_ellipse(f, ART_PART, 0.5f, 0.4f, 0.26f, 0.26f);
+        cut = art_fig_new();
+        art_arc(cut, ART_PART, 0.5f, 0.4f, 0.17f, 0.2f, 0, 360);
+        art_star(cut, ART_PART, 0.5f, 0.41f, 0.11f);
+        break;
+    }
     }
     art_render(f, &st, size, size, (float)size, 0, 0, rgba);
     art_fig_free(f);
+    if (cut) {                                      /* the holes: the button shows through */
+        uint8_t *hole = calloc((size_t)size * size, 4);
+        if (hole) {
+            art_render(cut, &st, size, size, (float)size, 0, 0, hole);
+            for (int i = 0; i < size * size; i++) rgba[4 * i + 3] = (uint8_t)(rgba[4 * i + 3] * (255 - hole[4 * i + 3]) / 255);
+        }
+        free(hole);
+        art_fig_free(cut);
+    }
     if (which == ICON_BOT || which == ICON_LOCK) {  /* its eyes and mouth, its keyhole cut out: the button shows
                                                      * through */
         art_fig *c = art_fig_new();

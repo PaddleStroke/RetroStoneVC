@@ -8,7 +8,11 @@ RetroStone Board (apps/android/app-board.conf, the default: every game, every le
 "all" or none: every game), FREE_LEVELS (the levels playable in each game of levels, 0 or none: all of them),
 PAID_APP_NAME, PAID_APP_ID, PAID_STORE_URL (the paid app the "full version" panel opens), IAP_PRODUCT (the
 in-app purchase that unlocks everything, apps/common/iap.h: the iOS app's product id; none: nothing sold in the
-app). Plain KEY=value lines, '#' a comment line. A FREE_GAMES id that no game registers stops the build. The
+app); for the Settings page: APP_VERSION_NAME, APP_ID, REVIEW_URL (Leave a review; default: the app's Google Play
+page), SUPPORT_URL (Leave a tip when no store sells tips; empty: no row), REPORT_URL (Report a problem; default
+mailto:hello@8bcraft.com), SOURCE_URL (Star on GitHub), PRIVACY_URL (the policy's web page; empty: the in-app page
+only), TIP_PRODUCTS (the store's three consumable tip products, ids between spaces; empty: none).
+Plain KEY=value lines, '#' a comment line. A FREE_GAMES id that no game registers stops the build. The
 file is written only when it changes, so the app is rebuilt only then.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
@@ -34,6 +38,12 @@ def read_conf(path):
 
 def c_string(s):
     return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def default_review(conf):
+    """the app's own store page (Leave a review), from its APP_ID; none without one"""
+    app_id = conf.get("APP_ID", "")
+    return "https://play.google.com/store/apps/details?id=" + app_id if app_id else ""
 
 
 def game_ids():
@@ -74,6 +84,16 @@ def main():
         "const char ed_paid_id[] = %s;" % c_string(paid_id),
         "const char ed_paid_url[] = %s;" % c_string(conf.get("PAID_STORE_URL", "")),
         "const char ed_iap_product[] = %s;" % c_string(conf.get("IAP_PRODUCT", "")),
+        # the Settings page: the version, the links (an empty one hides its row), the tips sold in the app
+        "const char ed_version[] = %s;" % c_string(conf.get("APP_VERSION_NAME", "")),
+        "const char ed_app_id[] = %s;" % c_string(conf.get("APP_ID", "")),
+        "const char ed_review_url[] = %s;" % c_string(conf.get("REVIEW_URL", default_review(conf))),
+        "const char ed_support_url[] = %s;" % c_string(conf.get("SUPPORT_URL", "")),
+        "const char ed_report_url[] = %s;" % c_string(conf.get("REPORT_URL", "mailto:hello@8bcraft.com")),
+        "const char ed_source_url[] = %s;" % c_string(conf.get("SOURCE_URL",
+                                                                "https://github.com/PaddleStroke/RetroStoneVC")),
+        "const char ed_privacy_url[] = %s;" % c_string(conf.get("PRIVACY_URL", "")),
+        "const char ed_tip_products[] = %s;" % c_string(" ".join(conf.get("TIP_PRODUCTS", "").split())),
         "",
     ])
     os.makedirs(a.out, exist_ok=True)

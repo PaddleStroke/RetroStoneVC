@@ -36,6 +36,8 @@
 #include "edition.h"
 #include "games/chess.h"
 #include "iap.h"
+#include "pages.h"
+#include "stats.h"
 #include "text.h"
 #ifdef __IPHONEOS__
 #include "ios_app.h"                            /* the iPhone and iPad app (apps/ios): the safe area */
@@ -197,11 +199,13 @@ static SDL_Texture *t_bg, *t_btn, *t_btn_armed, *t_btn_on, *t_card, *t_gold, *t_
     *t_glow, *t_tok[MAX_PLAYERS], *t_big[MAX_PLAYERS], *t_bartex, *t_menu_card, *t_menu_card_on, *t_thumb[MAX_GAMES][MAX_VARIANTS + 1],
     *t_name[MAX_GAMES], *t_pill, *t_pill_on, *t_ptok[MAX_PLAYERS], *t_sec[SECTIONS],
     *t_tab, *t_tab_on, *t_tabicon[SECTIONS];
+static float made_sec_w;
 static int made_unit = -1, made_game = -1, made_card = -1, made_pill = -1, made_tab = -1, bar_w, bar_h, bar_m;
 /* a card picture's size, and when it began to fade in (1: waited for, a placeholder shown; 0: not fading) */
 static int t_thumb_sz[MAX_GAMES][MAX_VARIANTS + 1];
 static Uint32 t_thumb_at[MAX_GAMES][MAX_VARIANTS + 1];
 static int tok_gen;                            /* the tokens made again (ui_tokens_changed): the cover's too */
+static int text_gen;                           /* the language switched (Settings): words made again */
 
 void ui_tokens_changed(void)
 {
@@ -575,6 +579,11 @@ SDL_Texture *ui_word(const char *key, int i, float px, float maxw, const uint8_t
     static struct { char key[32]; int i, px4, maxw; uint8_t rgb[3]; Uint32 used; int w, h; SDL_Texture *t; } c[KEEP];
     static Uint32 clock;
     int px4 = (int)(px * 4), mw = (int)maxw, k = 0;
+    static int gen;
+    if (gen != text_gen) {                      /* another language: every word again */
+        gen = text_gen;
+        for (int j = 0; j < KEEP; j++) ui_free(&c[j].t);
+    }
     clock++;
     for (int j = 0; j < KEEP; j++) {
         if (c[j].t && c[j].i == i && c[j].px4 == px4 && c[j].maxw == mw && !memcmp(c[j].rgb, rgb, 3) &&
@@ -1151,9 +1160,12 @@ static void level_check(void)
     int s = games[cur]->level_stars ? games[cur]->level_stars() : 0;
     s = s < 0 ? 0 : s > 3 ? 3 : s;
     progress_load(cur);
-    if (LV.best[l] < 1 + s) {
+    if (LV.best[l] < 1 + s) {                   /* the XP: a first solve, else the stars gained */
+        int was = LV.best[l];
         LV.best[l] = (uint8_t)(1 + s);
         progress_save();
+        stats_award(section_of(games[cur]),
+                    (uint32_t)(was ? STATS_XP_STAR * (s - (was - 1)) : STATS_XP_LEVEL + STATS_XP_STAR * s));
     }
 }
 
@@ -1792,21 +1804,8 @@ static void paint_stones(int k, int size, uint8_t *o)
     free(st);
 }
 
-/* the menu's settings: its button at the right end of the tabs opens a small panel under it, a row each (an icon at
- * the left, its control at the right; no words): the sound on or off, the app's rules page. More settings: more rows. */
 static void draw_button(float x, float y, float r, int icon, SDL_Texture *disc);
 static void open_help(int g);
-enum { SET_SOUND, SET_HELP, SET_ROWS };
-static struct { int open; box card, row[SET_ROWS]; } SET;
-
-static void settings_layout(float th)
-{
-    float s = fminf(ui.w, ui.h), m = s * 0.05f, rh = floorf(th * 1.15f), pad = floorf(s * 0.025f);
-    float pw = floorf(fminf(s * 0.62f, ui.w - 2 * m)), x = fminf(L.snd_x + L.snd_r, ui.w - m) - pw;
-    float y = floorf(L.snd_y + L.snd_r + s * 0.03f);
-    SET.card = (box){floorf(x), y, pw, SET_ROWS * rh + 2 * pad};
-    for (int k = 0; k < SET_ROWS; k++) SET.row[k] = (box){floorf(x + pad), y + pad + k * rh, pw - 2 * pad, rh};
-}
 
 /* a picture of one colour, rounded (a panel, a switch's track), kept by its size and colour (a few) */
 static SDL_Texture *rounded(int w, int h, float rad, const uint8_t c[4])
@@ -1824,55 +1823,6 @@ static SDL_Texture *rounded(int w, int h, float rad, const uint8_t c[4])
     k[i].h = h;
     memcpy(k[i].c, c, 4);
     return k[i].t;
-}
-
-static void draw_settings(void)
-{
-    if (!SET.open || screen != SCR_MENU) return;
-    static const uint8_t panel[4] = {28, 34, 32, 250}, on[4] = {150, 118, 46, 255}, off[4] = {54, 72, 64, 255},
-                         knob[4] = {246, 238, 220, 255};
-    ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 120);
-    box c = SET.card;
-    ui_put(rounded((int)c.w, (int)c.h, 0.12f * SET.row[0].h, panel), c.x, c.y, c.w, c.h);
-    for (int k = 0; k < SET_ROWS; k++) {
-        box r = SET.row[k];
-        float cy = r.y + r.h / 2, br = r.h * 0.34f, ix = r.x + br + r.h * 0.08f;
-        if (k) ui_fill(r.x, r.y, r.w, 1, 246, 238, 220, 40);   /* a faint line between two rows */
-        if (k == SET_SOUND) {                   /* the sound: a switch, gold when on */
-            float sh = floorf(r.h * 0.42f), sw = floorf(sh * 2.0f), sx = r.x + r.w - sw - r.h * 0.08f, d = sh * 0.8f;
-            draw_button(ix, cy, br, snd_muted ? ICON_MUTE : ICON_SOUND, NULL);
-            ui_put(rounded((int)sw, (int)sh, sh / 2, snd_muted ? off : on), sx, cy - sh / 2, sw, sh);
-            float kx = snd_muted ? sx + sh / 2 : sx + sw - sh / 2;
-            ui_put_c(rounded((int)d, (int)d, d / 2, knob), kx, cy, d, d);
-        } else if (k == SET_HELP) {             /* the app's rules page: the help icon, an arrow to it */
-            float a = floorf(r.h * 0.4f);
-            draw_button(ix, cy, br, ICON_HELP, NULL);
-            ui_put_c(icon_tex(ICON_ARROW), r.x + r.w - a / 2 - r.h * 0.12f, cy, a, a);
-        }
-    }
-}
-
-/* a press while the settings are open: a row's control, else they close (1: taken) */
-static int settings_press(float x, float y)
-{
-    if (!SET.open) return 0;
-    for (int k = 0; k < SET_ROWS; k++) {
-        box r = SET.row[k];
-        if (x < r.x || y < r.y || x >= r.x + r.w || y >= r.y + r.h) continue;
-        if (k == SET_SOUND) {
-            snd_muted = !snd_muted;
-            remember_mute();
-            snd_play(SND_TAP);
-        } else if (k == SET_HELP) {
-            snd_play(SND_TAP);
-            SET.open = 0;
-            open_help(-1);
-        }
-        return 1;
-    }
-    SET.open = 0;                               /* anywhere else (its button too): closed */
-    snd_play(SND_TAP);
-    return 1;
 }
 
 /* ---- the full version's panel (the free edition: a locked game or level tapped) ----------------------------------
@@ -2060,7 +2010,6 @@ static void full_open(void)
 {
     if (!free_now()) return;
     FV.open = 1;
-    SET.open = 0;
 }
 
 /* the paid app's page: the Play Store's (market://) on Android, its web page when that cannot open, or on a computer;
@@ -2145,6 +2094,7 @@ static void full_press(float x, float y)
 static unsigned iap_seen;
 static int by_order(const void *a, const void *b);
 static void layout(void);
+static void help_layout(void);
 
 static void unlock_start(void)
 {
@@ -2219,30 +2169,47 @@ static int vnames(int g)                        /* the picker shows names under 
     return 0;
 }
 
+/* the Games page's search: game i's name (in the language) holds the words (both folded: no accents, small) */
+static int search_hits;
+static int found(int i)
+{
+    char name[96], f[192];
+    const char *q = pages_search();
+    if (!q) return 1;
+    if (!text_name(games[i]->id, name, sizeof name)) return 0;
+    text_fold(name, f, sizeof f);
+    return strstr(f, q) != NULL;
+}
+
+int shell_search_hits(void) { return search_hits; }
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
     float m = fminf(ui.w, ui.h) * 0.05f, g = fminf(ui.w, ui.h) * 0.04f, head = fminf(ui.w, ui.h) * 0.16f;
     float top = head;                           /* the buttons' row (the tabs, the pills go below it) */
     L.ntabs = 0;
-    if (screen == SCR_MENU) {                   /* the sections as tabs under the buttons, a picture each */
+    box room = {0, 0, (float)ui.w, (float)ui.h};   /* the menu: the Games page's room (the ribbon apart) */
+    if (screen == SCR_MENU) {                   /* the sections as tabs under the page's header, a picture each */
+        pages_layout();
+        room = pages_room();
         for (int s = 0; s < SECTIONS; s++)
             for (int i = 0; i < n; i++)
                 if (section_of(games[i]) == s) { L.tab_sec[L.ntabs++] = s; break; }
         int shown_tab = 0;
         for (int k = 0; k < L.ntabs; k++) shown_tab |= L.tab_sec[k] == menu.tab;
         if (!shown_tab && L.ntabs) menu.tab = L.tab_sec[0];
-        /* no row of buttons above them: the tabs at the top, the menu's button (the settings) at their right end */
-        float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f), ty = floorf(m * 0.6f);
-        float tw = floorf((ui.w - 2 * m - th - L.ntabs * tg) / (L.ntabs ? L.ntabs : 1));
-        float tx = (ui.w - (L.ntabs * (tw + tg) + th)) / 2;
+        float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f), ty = floorf(pages_games_top());
+        float tw = floorf(fminf((room.w - 2 * m - (L.ntabs - 1) * tg) / (L.ntabs ? L.ntabs : 1), 2.2f * th));
+        float tx = room.x + (room.w - (L.ntabs * tw + (L.ntabs - 1) * tg)) / 2;
         for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), ty, tw, th};
-        L.snd_r = floorf(th * 0.45f);
-        L.snd_x = floorf(tx + L.ntabs * (tw + tg) + th / 2);
-        L.snd_y = ty + th / 2;
+        L.snd_r = floorf(th * 0.45f);           /* (the buttons' size: the shared pictures') */
         head = ty + th + floorf(g * 0.5f);
+        if (pages_search()) {                   /* searching: every tab's games, no tabs */
+            L.ntabs = 0;
+            head = ty;
+        }
         tab_textures((int)tw, (int)th);
-        settings_layout(th);
     }
     float below = top;                          /* where the pills and the cards may start */
     if (screen == SCR_PICK && games[cur]->levels) {   /* random play's picker: the level screen's tabs over it */
@@ -2328,36 +2295,38 @@ static void layout_cards(int n)
         }
     }
     if (screen == SCR_MENU) {                   /* cards about a quarter of the screen's width: as many as fit */
-        cols = (int)((ui.w - 2 * m + g) / (fminf(ui.w, ui.h) * 0.26f + g));
+        cols = (int)((room.w - 2 * m + g) / (fminf(ui.w, ui.h) * 0.26f + g));
         cols = cols < 2 ? 2 : cols > n ? n : cols;
         if (n == 1) cols = 1;
     }
     int rows = (n + cols - 1) / cols;
-    float c = (ui.w - 2 * m - (cols - 1) * g) / cols;
+    float c = (room.w - 2 * m - (cols - 1) * g) / cols;
     if (screen != SCR_MENU) c = fminf(c, (ui.h - head - 2 * m - (rows - 1) * g) / rows / (1 + lab));
     c = floorf(fminf(c, fminf(ui.w, ui.h) * 0.62f));
-    float ch = floorf(c * (1 + lab)), x0 = (ui.w - (cols * c + (cols - 1) * g)) / 2, tall = 0;
+    float ch = floorf(c * (1 + lab)), x0 = room.x + (room.w - (cols * c + (cols - 1) * g)) / 2, tall = 0;
     L.sec_h = floorf(c * 0.34f);
     L.sec_x = floorf(x0);
     L.sec_w = cols * c + (cols - 1) * g;
     for (int s = 0; s < SECTIONS; s++) L.sec_y[s] = -1;
+    search_hits = 0;
     if (screen == SCR_MENU) {                   /* the sections one after the other: a heading, then its games */
         for (int s = 0, i = 0; s < SECTIONS; s++) {
             int first = i;
             while (i < n && section_of(games[i]) == s) i++;
             if (i == first) continue;
-            if (s != menu.tab) {                /* another tab's: not shown */
-                for (int j = first; j < i; j++) L.cards[j] = (box){0, 0, 0, 0};
-                continue;
+            int k = 0;                          /* the games shown: the tab's, or every tab's the search finds */
+            for (int j = first; j < i; j++) {
+                L.cards[j] = (box){0, 0, 0, 0};
+                if (pages_search() ? !found(j) : s != menu.tab) continue;
+                L.cards[j] = (box){floorf(x0 + k % cols * (c + g)), tall + L.sec_h + k / cols * (ch + g), c, ch};
+                k++;
             }
+            if (!k) continue;
             L.sec_y[s] = tall;
-            tall += L.sec_h;
-            for (int j = first; j < i; j++)
-                L.cards[j] = (box){floorf(x0 + (j - first) % cols * (c + g)), tall + (j - first) / cols * (ch + g), c,
-                                   ch};
-            tall += (i - first + cols - 1) / cols * (ch + g);
+            tall += L.sec_h + (k + cols - 1) / cols * (ch + g);
+            search_hits += k;
         }
-        tall -= g;
+        tall = fmaxf(0, tall - g);
     } else if (screen == SCR_PICK && axes_on(cur)) {   /* two axes: the sizes, then the levels */
         tall = axes_layout(ui.h - head - 2 * m, g, lab, &c);
         ch = floorf(c * (1 + lab));
@@ -2375,7 +2344,7 @@ static void layout_cards(int n)
                                                  * keeps the menu's place, for the way back) */
         y0 = head;
         menu.top = head;
-        menu.max = fmaxf(0, y0 + tall + m - ui.h);
+        menu.max = fmaxf(0, y0 + tall + m - (room.y + room.h));
         menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll));
     }
     if (L.npills || L.nseats) {                 /* the picker: the pills, the seats and the cards, one block in the
@@ -2393,9 +2362,10 @@ static void layout_cards(int n)
         if (L.sec_y[s] >= 0) L.sec_y[s] = floorf(L.sec_y[s] + y0);
     L.cols = cols;
     L.label = (int)(ch - c);
-    if (made_card != (int)c * 1000 + L.label) {
+    if (made_card != (int)c * 1000 + L.label || L.sec_w != made_sec_w) {
         for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);
         for (int s = 0; s < SECTIONS; s++) ui_free(&t_sec[s]);
+        made_sec_w = L.sec_w;
     }
     L.card = (int)c;
     if (screen != SCR_MENU) {                   /* the picker's row: home at the left */
@@ -2477,6 +2447,7 @@ static void layout_levels(void)
 
 static void layout(void)
 {
+    if (help.open) help_layout();
     if (screen == SCR_GAME) layout_game();
     else if (screen == SCR_LEVELS) layout_levels();
     else layout_cards(screen == SCR_MENU ? ngames : games[cur]->variants);
@@ -2762,6 +2733,33 @@ static int undo_human(void)
     return 1;
 }
 
+/* the end of a game shown (once a game: an undo and the same end again gives nothing more): the stats (stats.h).
+ * One player: a puzzle solved (a level's XP: level_check, as its stars improve; at random: its stars), or failed; more:
+ * a person won (against the device: the strongest bot's level more XP). The device alone: nobody's game. */
+static uint8_t awarded[MAX_GAMES];
+static void game_finished(void)
+{
+    const game *g = games[cur];
+    if (awarded[cur] || !started[cur] || humans() == 0) return;
+    awarded[cur] = 1;
+    int st = g->status(), sec = section_of(g);
+    if (ui.players == 1) {
+        uint32_t xp = 0;
+        if (st == GS_WIN0 && !(g->levels && !in_random(cur))) {
+            int k = g->level_stars ? g->level_stars() : 0;
+            xp = (uint32_t)(STATS_XP_LEVEL + STATS_XP_STAR * (k < 0 ? 0 : k > 3 ? 3 : k));
+        }
+        stats_finish(sec, g->id, xp, st == GS_WIN0, 0);
+        return;
+    }
+    unsigned people = ((1u << ui.players) - 1) & ~botmask;
+    int won = (winners_of(st) & people) != 0, lv = 0;
+    for (int p = 0; p < ui.players; p++)
+        if (is_bot(p) && seat_lv[cur][p] > lv) lv = seat_lv[cur][p];   /* 1 + the bot's level */
+    uint32_t xp = (uint32_t)(STATS_XP_GAME + (won && lv ? STATS_XP_BOT * lv : 0));
+    stats_finish(sec, g->id, xp, won, won && lv == 1 + AI_HARD ? STATS_BEAT_HARD : 0);
+}
+
 /* a new game of the open one: start(v), given a fresh random state (kept), or the one it was given last (same: a
  * replay, the same deal or puzzle) */
 static void start_game(int v, int same)
@@ -2776,6 +2774,7 @@ static void start_game(int v, int same)
     if (in_random(cur)) games[cur]->start_random(v);
     else games[cur]->start(v);
     started[cur] = 1;
+    awarded[cur] = 0;
     card_t0 = 0;
 }
 
@@ -3333,6 +3332,7 @@ static void draw_game(void)
             if (!end_seen) {
                 end_seen = now ? now : 1;
                 snd_play(SND_END);
+                game_finished();
             }
             if (!instant && now - end_seen < END_PAUSE) ui_animate();
             else E.due = !over_hidden;
@@ -3601,6 +3601,11 @@ static SDL_Texture *vlabel(int i, int w, int h)
 {
     static SDL_Texture *t[2 * MAX_VARIANTS];
     static int key[2 * MAX_VARIANTS][3], none[2 * MAX_VARIANTS];
+    static int gen;
+    if (gen != text_gen) {                      /* another language: every name again */
+        gen = text_gen;
+        memset(key, 0, sizeof key);
+    }
     if (i < 0 || i >= 2 * MAX_VARIANTS || w < 4 || h < 4) return NULL;
     if (key[i][0] == cur + 1 && key[i][1] == w && key[i][2] == h) return none[i] ? NULL : t[i];
     key[i][0] = cur + 1;
@@ -3630,18 +3635,18 @@ static SDL_Texture *heading(int s)
     memcpy(name, t, n);
     name[n] = 0;
     int w = (int)L.sec_w, h = (int)L.sec_h;
-    float px = h * 0.40f;
-    int tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+    float px = fminf(h * 0.42f, fminf(ui.w, ui.h) * 0.046f);
+    int tw = text_title(name, px, TH.accent, NULL, 0, 0, 0, 0);
     if (tw > 0.8f * w) {
         px *= 0.8f * w / tw;
-        tw = text_line(name, px, 1, CREAM, NULL, 0, 0, 0, 0);
+        tw = text_title(name, px, TH.accent, NULL, 0, 0, 0, 0);
     }
     uint8_t *b = calloc((size_t)w * h, 4);
     int ty = (int)(h * 0.62f - px * 0.75f);
-    text_line(name, px, 1, CREAM, b, w, h, 0, ty);
+    text_title(name, px, TH.accent, b, w, h, 0, ty);
     for (int y = (int)(h * 0.62f - px * 0.32f), x = tw + (int)(px * 0.6f); x < w; x++) {   /* the rule */
         uint8_t *p = b + 4 * (y * w + x);
-        p[0] = CREAM[0], p[1] = CREAM[1], p[2] = CREAM[2], p[3] = 60;
+        p[0] = TH.line[0], p[1] = TH.line[1], p[2] = TH.line[2], p[3] = 255;
     }
     t_sec[s] = ui_tex(w, h, b);
     free(b);
@@ -3744,6 +3749,7 @@ static void draw_cards(void)
     }
     if (screen == SCR_PICK) draw_seats();
     float dy = 0;
+    box room = screen == SCR_MENU ? pages_room() : (box){0, 0, (float)ui.w, (float)ui.h};
     if (screen == SCR_MENU && menu.max > 0) {   /* the cards' window, below the buttons */
         if (menu.vel != 0 && !menu.grabbing) {  /* the fling: slows down, stops at the ends */
             Uint32 t = SDL_GetTicks();
@@ -3755,7 +3761,7 @@ static void draw_cards(void)
             else need_frame = 1;
         }
         dy = -menu.scroll;
-        SDL_Rect clip = {0, (int)menu.top, ui.w, ui.h - (int)menu.top};
+        SDL_Rect clip = {(int)room.x, (int)menu.top, (int)room.w, (int)(room.y + room.h - menu.top)};
         SDL_RenderSetClipRect(ui.r, &clip);
     }
     int vis[MAX_GAMES], nvis = 0;               /* the menu's cards on the screen: the helper's first pictures */
@@ -3764,7 +3770,7 @@ static void draw_cards(void)
         box c = L.cards[i];
         c.y += dy;
         if (c.w <= 0) continue;                 /* another tab's game */
-        if (c.y > ui.h || c.y + c.h * 1.2f < menu.top) continue;
+        if (c.y > room.y + room.h || c.y + c.h * 1.2f < menu.top) continue;
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
         if (screen == SCR_MENU) vis[nvis++] = i;
         if ((screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY) ||   /* a game in progress */
@@ -3797,20 +3803,17 @@ static void draw_cards(void)
     if (screen == SCR_MENU) worker_want(vis, nvis, (int)(L.card * 0.86f));
     for (int s = 0; s < SECTIONS && screen == SCR_MENU; s++) {
         float y = L.sec_y[s] + dy;
-        if (L.sec_y[s] < 0 || y > ui.h || y + L.sec_h < menu.top) continue;
+        if (L.sec_y[s] < 0 || y > room.y + room.h || y + L.sec_h < menu.top) continue;
         ui_put(heading(s), L.sec_x, y, L.sec_w, L.sec_h);
     }
     if (screen == SCR_MENU && menu.max > 0) {   /* where the list is: a thin bar on the right */
         SDL_RenderSetClipRect(ui.r, NULL);
-        float vh = ui.h - menu.top, th = vh * vh / (vh + menu.max), ty = menu.top + (vh - th) * menu.scroll / menu.max;
-        ui_fill(ui.w - fminf(ui.w, ui.h) * 0.016f, ty, fminf(ui.w, ui.h) * 0.008f, th, 246, 238, 220, 70);
+        float vh = room.y + room.h - menu.top, th = vh * vh / (vh + menu.max);
+        float ty = menu.top + (vh - th) * menu.scroll / menu.max;
+        ui_fill(room.x + room.w - fminf(ui.w, ui.h) * 0.016f, ty, fminf(ui.w, ui.h) * 0.008f, th, TH.text[0],
+                TH.text[1], TH.text[2], 70);
     }
-    float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
-    if (screen == SCR_MENU) {
-        draw_button(L.snd_x, L.snd_y, L.snd_r, ICON_MENU, SET.open ? t_btn_on : NULL);   /* the settings */
-    } else {
-        draw_button(home_x, L.snd_y, L.snd_r, ICON_HOME, NULL);
-    }
+    if (screen != SCR_MENU) draw_button(fminf(ui.w, ui.h) * 0.05f + L.snd_r, L.snd_y, L.snd_r, ICON_HOME, NULL);
 }
 
 /* ---- the level screen -------------------------------------------------------------------------------------------- */
@@ -3947,8 +3950,16 @@ static void help_free(void)
     help.made_w = 0;
 }
 
+static const char *help_key;                    /* help.game -2: this text (shell_open_text) */
 static void help_compose(void)
 {
+    if (help.game == -2) {
+        const char *t = text_get(help_key);
+        free(help_text);
+        help_text = malloc(strlen(t ? t : "") + 1);
+        strcpy(help_text, t ? t : "");
+        return;
+    }
     const char *g = help.game >= 0 ? text_get(games[help.game]->id) : NULL, *a = text_get("_app");
     if (a && g) a += strcspn(a, "\n") + (a[strcspn(a, "\n")] ? 1 : 0);   /* after a game: the app's part, untitled */
     size_t n = (g ? strlen(g) : 0) + (a ? strlen(a) : 0) + 2;
@@ -3971,13 +3982,13 @@ static void help_layout(void)
     if (help.made_w == w) return;
     help_free();
     help.made_w = w;
-    help.h = text_page(help_text, w, help.px, CREAM, NULL, 0, 0);
+    help.h = text_page(help_text, w, help.px, TH.text, NULL, 0, 0);
     help.tiles = (help.h + TILE - 1) / TILE;
     if (help.tiles > MAX_TILES) help.tiles = MAX_TILES;
     uint8_t *b = malloc((size_t)w * TILE * 4);
     for (int k = 0; k < help.tiles; k++) {
         memset(b, 0, (size_t)w * TILE * 4);
-        text_page(help_text, w, help.px, CREAM, b, k * TILE, TILE);
+        text_page(help_text, w, help.px, TH.text, b, k * TILE, TILE);
         help.tile[k] = ui_tex(w, TILE, b);
     }
     free(b);
@@ -3999,12 +4010,13 @@ static void open_help(int g)
 static void draw_help(void)
 {
     static SDL_Texture *page;
-    static int page_w, page_h;
+    static int page_w, page_h, page_dark = -1;
     ui_fill(0, 0, (float)ui.w, (float)ui.h, 0, 0, 0, 150);
-    if (page_w != (int)help.card.w || page_h != (int)help.card.h) {
+    if (page_w != (int)help.card.w || page_h != (int)help.card.h || page_dark != TH.dark) {
         page_w = (int)help.card.w;
         page_h = (int)help.card.h;
-        const uint8_t c[4] = {28, 34, 32, 248};
+        page_dark = TH.dark;
+        const uint8_t c[4] = {TH.bg[0], TH.bg[1], TH.bg[2], 250};
         ui_free(&page);
         art_roundrect(page_w, page_h, fminf(ui.w, ui.h) * 0.04f, c, ui_buf(page_w, page_h));
         page = ui_tex(page_w, page_h, ui_buf(page_w, page_h));
@@ -4021,7 +4033,7 @@ static void draw_help(void)
     if (help_max() > 0) {                       /* where the page is: a thin bar on the right */
         float th = help.view.h * help.view.h / help.h, ty = help.view.y + (help.view.h - th) * help.scroll / help_max();
         ui_fill(help.card.x + help.card.w - fminf(ui.w, ui.h) * 0.022f, ty, fminf(ui.w, ui.h) * 0.008f, th,
-                246, 238, 220, 90);
+                TH.text[0], TH.text[1], TH.text[2], 90);
     }
     draw_button(help.close_x, help.close_y, help.close_r, ICON_CLOSE, NULL);
 }
@@ -4092,12 +4104,15 @@ static void draw(void)
 {
     paint_used = 0;
     paint_n = 0;
-    ui_put(t_bg, 0, 0, (float)ui.w, (float)ui.h);
+    if (screen == SCR_MENU) pages_draw_bg();
+    else ui_put(t_bg, 0, 0, (float)ui.w, (float)ui.h);
     if (screen == SCR_GAME) draw_game();
     else if (screen == SCR_LEVELS) draw_levels();
+    else if (screen == SCR_PICK) draw_cards();
     else {
-        draw_cards();
-        draw_settings();
+        if (page == PAGE_GAMES) draw_cards();
+        else menu_missing = 0;
+        pages_draw();
     }
     if (help.open) draw_help();
     if (FV.open) draw_full();
@@ -4242,14 +4257,9 @@ static void press(float x, float y)
         levels_press(x, y);
         return;
     }
+    if (screen == SCR_MENU && pages_press(x, y)) return;   /* the ribbon, the pages, the Games page's header */
     if (screen != SCR_GAME) {
         float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
-        if (screen == SCR_MENU && settings_press(x, y)) return;   /* the settings open: theirs */
-        if (screen == SCR_MENU && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {   /* the settings' button */
-            snd_play(SND_TAP);
-            SET.open = 1;
-            return;
-        }
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
         for (int k = 0; k < L.npills; k++) {
             box b = L.pills[k];
@@ -4279,7 +4289,7 @@ static void press(float x, float y)
             return;
         }
         if (screen == SCR_MENU) {               /* a card opens on release, unless the finger scrolled the list */
-            menu.grabbing = y >= menu.top;
+            menu.grabbing = y >= menu.top && in_box(pages_room(), x, y);
             menu.moved = menu.vel != 0;         /* a tap that stops a fling opens nothing */
             menu.axis = 0;
             menu.vel = 0;
@@ -4393,6 +4403,10 @@ static void motion(float x, float y)
         if (help.grabbing) help.scroll = fminf(help_max(), fmaxf(0, help.grab_scroll - (y - help.grab_y)));
         return;
     }
+    if (screen == SCR_MENU && page != PAGE_GAMES) {
+        pages_motion(x, y);
+        return;
+    }
     if (screen == SCR_MENU && menu.grabbing) {
         if (!menu.moved && hypotf(x - menu.grab_x, y - menu.grab_y) > fminf(ui.w, ui.h) * 0.02f) {
             menu.moved = 1;
@@ -4434,6 +4448,7 @@ static void release(float x, float y)
         if (LV.grabbing) levels_release(x, y);
         return;
     }
+    if (screen == SCR_MENU && pages_release(x, y)) return;
     if (screen == SCR_MENU && menu.grabbing) {
         menu.grabbing = 0;
         if (menu.moved) {                       /* the end of a drag: the list flies on if the finger was quick */
@@ -4465,6 +4480,10 @@ static void release(float x, float y)
 
 static void menu_wheel(float dy)
 {
+    if (page != PAGE_GAMES) {
+        pages_wheel(dy);
+        return;
+    }
     menu.vel = 0;
     menu.scroll = fminf(menu.max, fmaxf(0, menu.scroll + dy));
 }
@@ -4540,6 +4559,130 @@ static void touch(Uint32 type, long long id, float x, float y)
     if (phase == FINGER_DOWN && PT.nheld < MAX_FINGERS) PT.held[PT.nheld++] = id;
     if (phase == FINGER_UP) id_drop(PT.held, &PT.nheld, id);
     games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);   /* (ended under them: they go on, gesture_held) */
+}
+
+/* ---- the pages' hooks (pages.h) ------------------------------------------------------------------------------------ */
+void shell_page_changed(void)
+{
+    if (pages_search()) menu.scroll = menu.vel = 0;   /* the search's words: its finds from the top */
+    if (screen == SCR_MENU) layout();
+    need_frame = 1;
+}
+
+void shell_set_mute(int muted)
+{
+    snd_muted = muted;
+    remember_mute();
+}
+
+void shell_text_changed(void)
+{
+    text_gen++;
+    for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);
+    for (int s = 0; s < SECTIONS; s++) ui_free(&t_sec[s]);
+    FV.made = 0;
+    if (help.open) {
+        help_compose();
+        help_free();
+        help_layout();
+    }
+    if (ui.r) layout();
+    need_frame = 1;
+}
+
+void shell_theme_changed(void)
+{
+    for (int s = 0; s < SECTIONS; s++) ui_free(&t_sec[s]);
+    help_free();
+    if (help.open) help_layout();
+    need_frame = 1;
+}
+
+void shell_open_text(const char *key)
+{
+    help_key = key;
+    open_help(-2);
+}
+
+static int levels_kept(int g, uint8_t *b)       /* a game's levels' record (shell/levels/<id>): how many kept */
+{
+    char k[96];
+    snprintf(k, sizeof k, "shell/levels/%s", games[g]->id);
+    return ui_save_get(k, b, nlevels(g));
+}
+
+void shell_progress(int sec, int *done, int *total)
+{
+    static uint8_t b[MAX_LEVELS];
+    *done = *total = 0;
+    for (int g = 0; g < ngames; g++) {
+        if (section_of(games[g]) != sec) continue;
+        if (sec == SEC_PUZZLE && games[g]->levels) {   /* a puzzle's levels: the ones solved */
+            int n = levels_kept(g, b);
+            for (int l = 0; l < n; l++) *done += b[l] != 0;
+            *total += nlevels(g);
+        } else {                                /* a game: won (solved) once */
+            *done += stats_won(games[g]->id);
+            *total += 1;
+        }
+    }
+}
+
+int shell_three_stars(void)
+{
+    static uint8_t b[MAX_LEVELS];
+    int n3 = 0;
+    for (int g = 0; g < ngames; g++) {
+        if (!games[g]->levels) continue;
+        int n = levels_kept(g, b);
+        for (int l = 0; l < n; l++) n3 += b[l] == 4;
+    }
+    return n3;
+}
+
+int shell_sections(int *out)
+{
+    int n = 0;
+    for (int s = 0; s < SECTIONS; s++)
+        for (int g = 0; g < ngames; g++)
+            if (section_of(games[g]) == s) { out[n++] = s; break; }
+    return n;
+}
+
+void shell_tab_icon(int s, int d, uint8_t *o)
+{
+    tab_icon(s, d, o);
+    if (s == SEC_GUESS || s == SEC_PUZZLE)      /* the white ones: in the words' colour */
+        for (int i = 0; i < d * d; i++) memcpy(o + 4 * i, TH.text, 3);
+}
+
+void shell_open_url(const char *url)
+{
+    if (!url || !*url) return;
+    if (shot_clock) {
+        fprintf(stderr, "url: %s\n", url);
+        return;
+    }
+    if (SDL_OpenURL(url) != 0) SDL_Log("cannot open %s: %s", url, SDL_GetError());
+}
+
+/* --stats-demo: progress made up for the pictures: a level, a streak, games won, levels solved */
+static void stats_seed(void)
+{
+    const char *ids[MAX_GAMES];
+    int n = 0;
+    for (int g = 0; g < ngames; g++)
+        if (g % 3 == 0 && !games[g]->levels) ids[n++] = games[g]->id;
+    stats_demo(ids, n);
+    static uint8_t b[MAX_LEVELS];
+    for (int g = 0; g < ngames; g++) {
+        if (!games[g]->levels) continue;
+        int k = nlevels(g) < 14 ? nlevels(g) : 14;
+        for (int l = 0; l < k; l++) b[l] = (uint8_t)(l < 9 ? 4 : 2);
+        char key[96];
+        snprintf(key, sizeof key, "shell/levels/%s", games[g]->id);
+        ui_save_set(key, b, k);
+    }
 }
 
 /* ---- the picture mode -------------------------------------------------------------------------------------------- */
@@ -4770,6 +4913,8 @@ static int shot(int argc, char **argv)
     uint32_t seed = 1;
     int at = -1;                                /* --at ms: the picture that long after the last tap (else at rest) */
     int steps = 0, think = 0;                   /* --steps n: the bots play n moves; --think: one starts */
+    const char *pg = NULL, *theme = NULL, *search = NULL;   /* --page, --theme, --search: the app's pages */
+    int demo = 0, tips = 0;                     /* --stats-demo, --tips-demo */
     int held = -1;                              /* held: the last gesture's hold (ms), the finger still down */
     Uint32 base = 0;                            /* the clock before the last tap */
     ui.w = 720;
@@ -4809,6 +4954,11 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--bots") && i + 1 < argc) seats = argv[++i];
         else if (!strcmp(argv[i], "--steps") && i + 1 < argc) steps = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--think")) think = 1;
+        else if (!strcmp(argv[i], "--page") && i + 1 < argc) pg = argv[++i];
+        else if (!strcmp(argv[i], "--theme") && i + 1 < argc) theme = argv[++i];
+        else if (!strcmp(argv[i], "--search") && i + 1 < argc) search = argv[++i];
+        else if (!strcmp(argv[i], "--stats-demo")) demo = 1;
+        else if (!strcmp(argv[i], "--tips-demo")) tips = 1;
     }
     seed_random(seed);                          /* the same dice every time: tests and screenshots repeat */
     text_init(lang ? lang : "en");
@@ -4823,6 +4973,11 @@ static int shot(int argc, char **argv)
         save_open(save_dir);
         settings_load();
     }
+    stats_set_today(stats_day(2026, 10, 16));   /* a Friday: the same week in every picture */
+    pages_init();
+    if (theme) pages_set_theme(!strcmp(theme, "light") ? 1 : !strcmp(theme, "dark") ? 2 : 0);
+    if (demo) stats_seed();
+    if (tips) pages_tips_demo();
     if (id) {
         cur = find_game(id);
         if (cur < 0) { fprintf(stderr, "no game %s\n", id); return 1; }
@@ -4859,7 +5014,10 @@ static int shot(int argc, char **argv)
     } else {
         layout();
         if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 6 puzzles) */
-        if (!show_help) menu_wheel(scroll);     /* --scroll px: further down the menu */
+        if (pg) pages_show(!strcmp(pg, "stats") ? PAGE_STATS : !strcmp(pg, "settings") ? PAGE_SETTINGS : PAGE_GAMES);
+        if (search) pages_search_set(search);   /* --search "words": the Games page's search */
+        if (!show_help && page != PAGE_GAMES) pages_scroll(scroll);   /* --scroll px: further down */
+        else if (!show_help) menu_wheel(scroll);
     }
     shot_gestures(reveal, &base, &held);
     if (id) over_hidden = keep;
@@ -5223,7 +5381,14 @@ static void safe_update(void)
 static void safe_frame(void)
 {
     SDL_RenderSetViewport(ui.r, NULL);
-    if (t_bg) {
+    if (screen == SCR_MENU) {                   /* the pages: their ground, the ribbon's colour below (or left) */
+        SDL_SetRenderDrawColor(ui.r, TH.bg[0], TH.bg[1], TH.bg[2], 255);
+        SDL_RenderClear(ui.r);
+        SDL_SetRenderDrawColor(ui.r, TH.nav[0], TH.nav[1], TH.nav[2], 255);
+        SDL_Rect r = safe.w > safe.h ? (SDL_Rect){0, 0, safe.x, scr_h}
+                                     : (SDL_Rect){0, safe.y + safe.h, scr_w, scr_h - safe.y - safe.h};
+        SDL_RenderFillRect(ui.r, &r);
+    } else if (t_bg) {
         SDL_Rect top = {0, 0, 2, 1}, bottom = {0, 255, 2, 1};
         SDL_Rect r = {0, 0, scr_w, safe.y};
         SDL_RenderCopy(ui.r, t_bg, &top, &r);
@@ -5252,10 +5417,10 @@ static void to_pixels(int x, int y, float *fx, float *fy)
 /* repeat: the key held down (only the shell's scrolling and undo repeat; a game gets a key once) */
 static void key(SDL_Keycode k, int repeat)
 {
+    if (screen == SCR_MENU && !FV.open && !help.open && pages_key(k)) return;   /* the pages' (the search's keys) */
     if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) {
         if (FV.open) FV.open = 0;
         else if (help.open) help.open = 0;
-        else if (screen == SCR_MENU && SET.open) SET.open = 0;
         else if (screen == SCR_MENU) quit = 1;
         else go_home();
         return;
@@ -5267,7 +5432,7 @@ static void key(SDL_Keycode k, int repeat)
         return;
     }
     if (k == SDLK_h || k == SDLK_F1) { if (!help.open) open_help(screen == SCR_GAME ? cur : -1); return; }
-    if (screen == SCR_MENU && !help.open && (k == SDLK_LEFT || k == SDLK_RIGHT)) {   /* the tabs */
+    if (screen == SCR_MENU && !help.open && page == PAGE_GAMES && (k == SDLK_LEFT || k == SDLK_RIGHT)) {   /* tabs */
         menu_step(k == SDLK_RIGHT ? 1 : -1);
         return;
     }
@@ -5307,14 +5472,14 @@ int main(int argc, char **argv)
     /* every way round: with a resizable window SDL would otherwise lock Android to portrait (the manifest ignored) */
     SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight Portrait PortraitUpsideDown");
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
-    const char *lang = NULL;                    /* --lang fr: another language than the device's */
-    for (int i = 1; i + 1 < argc; i++)
-        if (!strcmp(argv[i], "--lang")) lang = argv[i + 1];
-    text_init(lang);
     const char *save_dir = NULL;                /* --save DIR: the settings and progress kept there */
     for (int i = 1; i + 1 < argc; i++)
         if (!strcmp(argv[i], "--save")) save_dir = argv[i + 1];
     save_open(save_dir);
+    const char *lang = pages_lang_kept();       /* the language chosen in Settings, else the device's */
+    for (int i = 1; i + 1 < argc; i++)          /* --lang fr: another language */
+        if (!strcmp(argv[i], "--lang")) lang = argv[i + 1];
+    text_init(lang);
     unlock_start();
     settings_load();
     seed_random((uint32_t)SDL_GetPerformanceCounter());
@@ -5333,6 +5498,8 @@ int main(int argc, char **argv)
     if (win && !ui.r) ui.r = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
     if (!win || !ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_BLEND);
+    SDL_StopTextInput();                        /* (on until the search wants it: no keyboard) */
+    pages_init();                               /* the theme, the screen kept on, the stats */
     screen = SCR_MENU;
     worker_start();                             /* the menu's pictures: a thread of their own */
     while (!quit) {
@@ -5404,6 +5571,15 @@ int main(int argc, char **argv)
                 case SDL_KEYDOWN:
                     key(e.key.keysym.sym, e.key.repeat);
                     after_input();
+                    break;
+                case SDL_TEXTINPUT:             /* typed: the Games page's search */
+                    if (screen == SCR_MENU) pages_text(e.text.text);
+                    break;
+                case SDL_APP_DIDENTERFOREGROUND:   /* the device's theme may have changed meanwhile */
+                    pages_foreground();
+                    break;
+                case SDL_WINDOWEVENT:
+                    if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) pages_foreground();
                     break;
                 case SDL_MOUSEWHEEL:
                     if (help.open) help_scroll(-e.wheel.y * help.px * 3);

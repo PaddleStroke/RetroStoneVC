@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Permainan
+Statistik
+Pengaturan
+Cari permainan
+Permainan tidak ditemukan
+Dukung kami
+Tulis ulasan
+Beri tip
+Bintang di GitHub
+Laporkan masalah
+Tampilan
+Terang
+Gelap
+Ikuti perangkat
+Bahasa
+Bahasa perangkat
+Bermain
+Layar tetap menyala
+Suara
+Sistem dan legal
+Kebijakan privasi
+Ketentuan penggunaan
+Lisensi
+Versi %s
+Minggu ini
+Beruntun: %d
+Dimainkan hari ini
+Selesaikan permainan untuk menyalakan api
+Awal yang hebat! Lanjutkan
+Ritme yang bagus!
+Kamu sedang membara!
+Hari yang luar biasa!
+Level %d
+%d%% menuju level %d
+Total XP
+Permainan selesai
+Per bagian
+Pencapaian
+Terkunci
+Sn Sl Rb Km Jm Sb Mg
+0
+Beri tip
+Gratis dan tanpa iklan: tip membantu kami membuat permainan baru.
+Tip kecil
+Tip lumayan
+Tip besar
+Terima kasih atas dukunganmu!
+Permainan pertama
+Selesaikan permainan pertamamu
+Pemula
+Raih 500 XP
+Ahli
+Raih 2500 XP
+Grandmaster
+Raih 10000 XP
+Membara
+Bermain 3 hari berturut-turut
+Konsisten
+Bermain 7 hari berturut-turut
+Tak terhentikan
+Bermain 30 hari berturut-turut
+Penakluk raksasa
+Kalahkan perangkat di tingkat sulit
+Perfeksionis
+Selesaikan 50 level dengan 3 bintang
+Penjelajah
+Menangkan permainan di setiap bagian
+Maraton
+Selesaikan 100 permainan

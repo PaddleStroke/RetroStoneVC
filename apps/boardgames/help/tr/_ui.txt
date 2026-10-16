@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Oyunlar
+İstatistikler
+Ayarlar
+Oyun ara
+Oyun bulunamadı
+Bizi destekle
+Yorum yaz
+Bahşiş bırak
+GitHub'da yıldız ver
+Sorun bildir
+Görünüm
+Açık
+Koyu
+Cihaz gibi
+Dil
+Cihaz dili
+Oynanış
+Ekranı açık tut
+Ses
+Sistem ve yasal
+Gizlilik politikası
+Kullanım koşulları
+Lisanslar
+Sürüm %s
+Bu hafta
+Seri: %d
+Bugün oynanan
+Alevi yakmak için bir oyun bitir
+Harika başlangıç! Devam et
+Güzel tempo!
+Coştun!
+Ne gün ama!
+Seviye %d
+%%%d tamam, sıradaki seviye %d
+Toplam XP
+Biten oyunlar
+Bölümlere göre
+Başarılar
+Kilitli
+Pt Sa Ça Pe Cu Ct Pz
+1
+Bahşiş bırak
+Ücretsiz ve reklamsız: bahşiş yeni oyunlar yapmamıza yardım eder.
+Küçük bir bahşiş
+Güzel bir bahşiş
+Büyük bir bahşiş
+Desteğin için teşekkürler!
+İlk oyun
+İlk oyununu bitir
+Çırak
+500 XP kazan
+Uzman
+2500 XP kazan
+Büyük usta
+10000 XP kazan
+Alev alev
+3 gün üst üste oyna
+İstikrarlı
+7 gün üst üste oyna
+Durdurulamaz
+30 gün üst üste oyna
+Dev avcısı
+Cihazı zor seviyede yen
+Mükemmeliyetçi
+50 seviyeyi 3 yıldızla çöz
+Kaşif
+Her bölümde bir oyun kazan
+Maraton
+100 oyun bitir

@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Spel
+Statistik
+Inställningar
+Sök spel
+Inget spel hittades
+Stöd oss
+Skriv ett omdöme
+Ge dricks
+Stjärna på GitHub
+Rapportera ett problem
+Utseende
+Ljust
+Mörkt
+Som enheten
+Språk
+Enhetens språk
+Spelande
+Håll skärmen tänd
+Ljud
+System och juridik
+Integritetspolicy
+Användarvillkor
+Licenser
+Version %s
+Den här veckan
+Svit: %d
+Spelade i dag
+Avsluta ett spel för att tända lågan
+Bra start! Fortsätt så
+Fin rytm!
+Du är i farten!
+Vilken dag!
+Nivå %d
+%d %% till nivå %d
+Totalt XP
+Avslutade spel
+Per avdelning
+Prestationer
+Låst
+må ti on to fr lö sö
+1
+Ge dricks
+Gratis och utan reklam: dricks hjälper oss att göra nya spel.
+Lite dricks
+Bra dricks
+Stor dricks
+Tack för ditt stöd!
+Första spelet
+Avsluta ditt första spel
+Lärling
+Tjäna 500 XP
+Expert
+Tjäna 2500 XP
+Stormästare
+Tjäna 10000 XP
+Brinnande
+Spela 3 dagar i rad
+Stadig
+Spela 7 dagar i rad
+Ostoppbar
+Spela 30 dagar i rad
+Jättedödare
+Slå enheten på svår
+Perfektionist
+Lös 50 nivåer med 3 stjärnor
+Upptäckare
+Vinn ett spel i varje avdelning
+Maraton
+Avsluta 100 spel

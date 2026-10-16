@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Juegos
+Estadísticas
+Ajustes
+Buscar juegos
+No se encontró ningún juego
+Apóyanos
+Deja una reseña
+Deja una propina
+Estrella en GitHub
+Informar de un problema
+Apariencia
+Claro
+Oscuro
+Como el dispositivo
+Idioma
+Idioma del dispositivo
+Juego
+Mantener la pantalla encendida
+Sonido
+Sistema y legal
+Política de privacidad
+Condiciones de uso
+Licencias
+Versión %s
+Esta semana
+Racha: %d
+Jugados hoy
+Termina una partida para encender la llama
+¡Buen comienzo! Sigue así
+¡Buen ritmo!
+¡Vas lanzado!
+¡Qué día!
+Nivel %d
+%d %% para el nivel %d
+XP total
+Partidas terminadas
+Por sección
+Logros
+Bloqueado
+L M X J V S D
+1
+Deja una propina
+Gratis y sin anuncios: una propina nos ayuda a crear nuevos juegos.
+Una propina pequeña
+Una buena propina
+Una gran propina
+¡Gracias por tu apoyo!
+Primera partida
+Termina tu primera partida
+Aprendiz
+Gana 500 XP
+Experto
+Gana 2500 XP
+Gran maestro
+Gana 10000 XP
+En llamas
+Juega 3 días seguidos
+Constante
+Juega 7 días seguidos
+Imparable
+Juega 30 días seguidos
+Matagigantes
+Gana al dispositivo en difícil
+Perfeccionista
+Resuelve 50 niveles con 3 estrellas
+Explorador
+Gana un juego en cada sección
+Maratón
+Termina 100 partidas

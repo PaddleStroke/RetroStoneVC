@@ -1,0 +1,12 @@
+Licences
+The app's own code: MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft). It is built with these open-source components, each under its own licence.
+# SDL2
+Sam Lantinga and contributors. The zlib licence: this software is provided as it is, without any warranty; anyone may use it for any purpose, change it and pass it on, provided its origin is not misrepresented and its notice is kept in its source.
+# stb_truetype, stb_image
+Sean Barrett. MIT licence, or public domain (the user's choice).
+# Noto Sans CJK
+Adobe and Google. SIL Open Font License 1.1: the font may be used, embedded and passed on with the app; it may not be sold by itself. The app keeps only the characters its texts use.
+# DejaVu Sans
+The DejaVu fonts team, after Bitstream Vera (Bitstream, Inc.). The Bitstream Vera licence, and public domain for the DejaVu changes: free to use, embed and pass on.
+# The MIT licence
+Permission is granted, free of charge, to any person obtaining a copy of the software, to deal in it without restriction, including the rights to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided the copyright notice and this permission notice are included in all copies or substantial portions of it. The software is provided as it is, without warranty of any kind.

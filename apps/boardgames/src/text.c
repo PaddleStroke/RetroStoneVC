@@ -23,6 +23,7 @@ static stbtt_fontinfo font[2];                  /* regular, bold */
 static stbtt_fontinfo board[2];                 /* the boards' characters, the same in every language */
 static stbtt_fontinfo board2[2];                /* the ones board lacks (DejaVu Sans) */
 static int has_board2;
+static int turkish;                             /* the language's i has a dot in capitals (İ) */
 
 /* ---- the language ------------------------------------------------------------------------------------------------ */
 static int find(const char *code)
@@ -52,6 +53,7 @@ void text_init(const char *forced)
     }
     cur = k < 0 ? 0 : k;
     const tx_lang *t = &tx_langs[cur];
+    turkish = !strcmp(t->code, "tr");
     stbtt_InitFont(&font[0], t->font, stbtt_GetFontOffsetForIndex(t->font, 0));
     stbtt_InitFont(&font[1], t->bold, stbtt_GetFontOffsetForIndex(t->bold, 0));
     for (int b = 0; b < 2; b++)
@@ -119,6 +121,39 @@ static int cjk(int c)
     return (c >= 0x2e80 && c < 0xa000) || (c >= 0xf900 && c < 0xfb00) || (c >= 0xff00 && c < 0xffef);
 }
 
+/* the characters a title never squeezes (they are square): Chinese, Japanese, Korean */
+static int wide(int c) { return cjk(c) || (c >= 0x1100 && c < 0x1200) || (c >= 0xac00 && c < 0xd7b0); }
+/* a letter's capital (Latin, Greek, Cyrillic: the 22 languages' letters); Greek capitals lose their accents, as
+ * Greek writes them in a title. gen_text.py keeps the capitals of every letter the texts use in the fonts. */
+static int upper(int c)
+{
+    if (c >= 'a' && c <= 'z') return turkish && c == 'i' ? 0x130 : c - 32;
+    if (c < 0xe0) return c;
+    if (c <= 0xfe) return c == 0xf7 ? c : c - 32;                 /* à..þ (not ÷) */
+    if (c == 0xff) return 0x178;
+    if (c >= 0x100 && c < 0x138) return c == 0x131 ? 'I' : c & ~1;  /* Ā..ķ: pairs, the capital even (ı: I) */
+    if (c >= 0x139 && c < 0x149) return c & 1 ? c : c - 1;         /* Ĺ..ň: the capital odd */
+    if (c >= 0x14a && c < 0x178) return c & ~1;                     /* Ŋ..ŷ */
+    if (c >= 0x179 && c < 0x17f) return c & 1 ? c : c - 1;         /* Ź..ž */
+    if (c >= 0x3ac && c <= 0x3ce) {                                 /* Greek: no accents in capitals */
+        static const int acc[][2] = {{0x3ac, 0x391}, {0x3ad, 0x395}, {0x3ae, 0x397}, {0x3af, 0x399}, {0x3cc, 0x39f},
+                                     {0x3cd, 0x3a5}, {0x3ce, 0x3a9}, {0x3ca, 0x3aa}, {0x3cb, 0x3ab}, {0x3c2, 0x3a3}};
+        for (size_t i = 0; i < sizeof acc / sizeof acc[0]; i++)
+            if (c == acc[i][0]) return acc[i][1];
+        return c >= 0x3b1 && c <= 0x3c9 ? c - 32 : c;
+    }
+    if (c >= 0x386 && c <= 0x38f) {                                 /* capitals with an accent: without it */
+        static const int cap[10] = {0x391, 0, 0x395, 0x397, 0x399, 0, 0x39f, 0, 0x3a5, 0x3a9};
+        return cap[c - 0x386] ? cap[c - 0x386] : c;
+    }
+    if (c == 0x390) return 0x3aa;
+    if (c == 0x3b0) return 0x3ab;
+    if (c >= 0x430 && c < 0x450) return c - 32;                     /* Cyrillic */
+    if (c >= 0x450 && c < 0x460) return c - 80;
+    if (c >= 0x460 && c < 0x4c0) return c & ~1;                     /* Ґ ґ and the others: pairs */
+    return c;
+}
+
 static int in(int c, const int *k)
 {
     for (int i = 0; k[i]; i++)
@@ -145,6 +180,8 @@ static int no_end(int c)
 typedef struct {
     stbtt_fontinfo *f;
     float scale, size, ascent;
+    float sx;                                   /* the width, a part of the usual (a title: condensed) */
+    int upper;                                  /* capitals (a title) */
 } face;
 
 static face face_of(int bold, float size)
@@ -152,6 +189,8 @@ static face face_of(int bold, float size)
     face fc;
     fc.f = &font[bold ? 1 : 0];
     fc.size = size;
+    fc.sx = 1;
+    fc.upper = 0;
     fc.scale = stbtt_ScaleForMappingEmToPixels(fc.f, size);
     int asc, desc, gap;
     stbtt_GetFontVMetrics(fc.f, &asc, &desc, &gap);
@@ -177,7 +216,7 @@ static float advance(const face *fc, int c)
     float scale;
     stbtt_fontinfo *f = font_for(fc, c, &scale);
     stbtt_GetCodepointHMetrics(f, c, &adv, &lsb);
-    return adv * scale;
+    return adv * scale * (wide(c) ? 1 : fc->sx);
 }
 
 /* paints one glyph at (x, baseline y) into rgba (w x h, rows from y0) */
@@ -188,13 +227,14 @@ static void glyph(const face *fc, int c, float x, float y, const uint8_t rgb[3],
     int x0, yy0, x1, yy1;
     float fx = x - floorf(x), scale;
     stbtt_fontinfo *f = font_for(fc, c, &scale);
-    stbtt_GetCodepointBitmapBoxSubpixel(f, c, scale, scale, fx, 0, &x0, &yy0, &x1, &yy1);
+    float sx = scale * (wide(c) ? 1 : fc->sx);
+    stbtt_GetCodepointBitmapBoxSubpixel(f, c, sx, scale, fx, 0, &x0, &yy0, &x1, &yy1);
     int gw = x1 - x0, gh = yy1 - yy0;
     if (gw <= 0 || gh <= 0) return;
     int top = (int)floorf(y) + yy0 - y0, left = (int)floorf(x) + x0;
     if (top >= h || top + gh <= 0) return;
     if (gw * gh > cap) { free(g); cap = gw * gh; g = malloc((size_t)cap); }
-    stbtt_MakeCodepointBitmapSubpixel(f, g, gw, gh, gw, scale, scale, fx, 0, c);
+    stbtt_MakeCodepointBitmapSubpixel(f, g, gw, gh, gw, sx, scale, fx, 0, c);
     for (int j = 0; j < gh; j++) {
         int py = top + j;
         if (py < 0 || py >= h) continue;
@@ -215,6 +255,7 @@ static float run(const face *fc, const char *s, const char *e, float x, float y,
     float x_start = x;
     while (s < e) {
         int c = utf8(&s);
+        if (fc->upper) c = upper(c);
         if (rgba && c != ' ') glyph(fc, c, x, y, rgb, rgba, w, h, y0);
         x += advance(fc, c);
     }
@@ -310,4 +351,68 @@ int text_line(const char *s, float px, int bold, const uint8_t rgb[3], uint8_t *
     face fc = face_of(bold, px);
     const char *e = s + strcspn(s, "\n");
     return (int)ceilf(run(&fc, s, e, (float)x, y + fc.ascent, rgb, rgba, w, h, 0));
+}
+
+/* ---- titles, and words to search for ----------------------------------------------------------------------------- */
+#define TITLE_SX 0.84f                          /* a title's width: condensed */
+
+int text_title(const char *s, float px, const uint8_t rgb[3], uint8_t *rgba, int w, int h, int x, int y)
+{
+    face fc = face_of(1, px);
+    fc.sx = TITLE_SX;
+    fc.upper = 1;
+    const char *e = s + strcspn(s, "\n");
+    return (int)ceilf(run(&fc, s, e, (float)x, y + fc.ascent, rgb, rgba, w, h, 0));
+}
+
+/* a letter as a search compares it: small, without its accents (é e, ß s, ё е, ά α) */
+static int fold(int c)
+{
+    /* Latin-1's letters from 0xc0, then Latin Extended-A's from 0x100: their bare letter */
+    static const char l1[] = "aaaaaaaceeeeiiiidnooooo/ouuuuytsaaaaaaaceeeeiiiidnooooo/ouuuuyty";
+    static const char ea[] = "aaaaaa" "cccccccc" "dddd" "eeeeeeeeee" "gggggggg" "hhhh" "iiiiiiiiii" "ii" "jj" "kkk"
+                             "llllllllll" "nnnnnnnnn" "oooooooo" "rrrrrr" "ssssssss" "tttttt" "uuuuuuuuuuuu" "ww" "yyy"
+                             "zzzzzz" "s";
+    if (c >= 'A' && c <= 'Z') return c + 32;
+    if (c >= 0xc0 && c < 0x100) return c == 0xd7 || c == 0xf7 ? c : l1[c - 0xc0];
+    if (c >= 0x100 && c < 0x180) return ea[c - 0x100];
+    if (c >= 0x386 && c < 0x3d0) {               /* Greek: small, no accents, final sigma as any */
+        c = upper(c);
+        if (c == 0x3aa) c = 0x399;
+        if (c == 0x3ab) c = 0x3a5;
+        return c >= 0x391 && c <= 0x3a9 ? c + 32 : c;
+    }
+    if (c >= 0x400 && c < 0x410) return c == 0x401 ? 0x435 : c + 80;   /* Ё ё: е */
+    if (c >= 0x410 && c < 0x430) return c + 32;
+    if (c == 0x451) return 0x435;
+    if (c == 0x490) return 0x491;
+    return c;
+}
+
+int text_fold(const char *s, char *out, int size)
+{
+    int n = 0;
+    while (*s && n < size - 5) {
+        int c = fold(utf8(&s));
+        if (c < 0x80) out[n++] = (char)c;
+        else if (c < 0x800) { out[n++] = (char)(0xc0 | c >> 6); out[n++] = (char)(0x80 | (c & 0x3f)); }
+        else if (c < 0x10000) {
+            out[n++] = (char)(0xe0 | c >> 12);
+            out[n++] = (char)(0x80 | (c >> 6 & 0x3f));
+            out[n++] = (char)(0x80 | (c & 0x3f));
+        } else {
+            out[n++] = (char)(0xf0 | c >> 18);
+            out[n++] = (char)(0x80 | (c >> 12 & 0x3f));
+            out[n++] = (char)(0x80 | (c >> 6 & 0x3f));
+            out[n++] = (char)(0x80 | (c & 0x3f));
+        }
+    }
+    out[n] = 0;
+    return n;
+}
+
+int text_utf8_back(const char *s, int n)
+{
+    while (n > 0 && ((unsigned char)s[n - 1] & 0xc0) == 0x80) n--;
+    return n > 0 ? n - 1 : 0;
 }

@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Gry
+Statystyki
+Ustawienia
+Szukaj gier
+Nie znaleziono gry
+Wesprzyj nas
+Wystaw opinię
+Daj napiwek
+Gwiazdka na GitHubie
+Zgłoś problem
+Wygląd
+Jasny
+Ciemny
+Jak urządzenie
+Język
+Język urządzenia
+Rozgrywka
+Nie wygaszaj ekranu
+Dźwięk
+System i informacje prawne
+Polityka prywatności
+Warunki korzystania
+Licencje
+Wersja %s
+Ten tydzień
+Seria: %d
+Zagrane dziś
+Ukończ grę, by rozpalić płomień
+Świetny start! Tak trzymaj
+Niezłe tempo!
+Idzie ci świetnie!
+Co za dzień!
+Poziom %d
+%d%% do poziomu %d
+Łącznie XP
+Ukończone gry
+Według działu
+Osiągnięcia
+Zablokowane
+Pn Wt Śr Cz Pt So Nd
+1
+Daj napiwek
+Za darmo i bez reklam: napiwek pomaga nam tworzyć nowe gry.
+Mały napiwek
+Fajny napiwek
+Duży napiwek
+Dziękujemy za wsparcie!
+Pierwsza gra
+Ukończ swoją pierwszą grę
+Uczeń
+Zdobądź 500 XP
+Ekspert
+Zdobądź 2500 XP
+Arcymistrz
+Zdobądź 10000 XP
+W ogniu
+Graj 3 dni z rzędu
+Wytrwały
+Graj 7 dni z rzędu
+Nie do zatrzymania
+Graj 30 dni z rzędu
+Pogromca olbrzymów
+Pokonaj urządzenie na poziomie trudnym
+Perfekcjonista
+Rozwiąż 50 poziomów na 3 gwiazdki
+Odkrywca
+Wygraj grę w każdym dziale
+Maraton
+Ukończ 100 gier

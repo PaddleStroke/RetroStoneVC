@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Games
+Stats
+Settings
+Search the games
+No game found
+Support us
+Leave a review
+Leave a tip
+Star on GitHub
+Report a problem
+Appearance
+Light
+Dark
+As the device
+Language
+Device language
+Gameplay
+Keep the screen on
+Sound
+System and legal
+Privacy policy
+Terms of use
+Licences
+Version %s
+This week
+%d-day streak
+Played today
+Finish a game to light the flame
+Great start! Keep going
+Nice rhythm!
+You are on a roll!
+What a day!
+Level %d
+%d%% to level %d
+Total XP
+Games finished
+By section
+Achievements
+Locked
+M T W T F S S
+1
+Leave a tip
+Free and without ads: a tip keeps new games coming.
+A small tip
+A nice tip
+A big tip
+Thank you for your support!
+First game
+Finish your first game
+Apprentice
+Earn 500 XP
+Expert
+Earn 2500 XP
+Grand master
+Earn 10000 XP
+On fire
+Play 3 days in a row
+Steady
+Play 7 days in a row
+Unstoppable
+Play 30 days in a row
+Giant slayer
+Beat the device on hard
+Perfectionist
+Solve 50 levels with 3 stars
+Explorer
+Win a game in every section
+Marathon
+Finish 100 games

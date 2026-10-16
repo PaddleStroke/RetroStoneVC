@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Spill
+Statistikk
+Innstillinger
+Søk etter spill
+Fant ingen spill
+Støtt oss
+Skriv en anmeldelse
+Gi driks
+Stjerne på GitHub
+Rapporter et problem
+Utseende
+Lyst
+Mørkt
+Som enheten
+Språk
+Enhetens språk
+Spilling
+Hold skjermen på
+Lyd
+System og juridisk
+Personvern
+Bruksvilkår
+Lisenser
+Versjon %s
+Denne uken
+Rekke: %d
+Spilt i dag
+Fullfør et spill for å tenne flammen
+God start! Fortsett
+Fin rytme!
+Du er i siget!
+For en dag!
+Nivå %d
+%d %% til nivå %d
+Total XP
+Fullførte spill
+Etter seksjon
+Prestasjoner
+Låst
+ma ti on to fr lø sø
+1
+Gi driks
+Gratis og uten reklame: driks hjelper oss å lage nye spill.
+Litt driks
+God driks
+Stor driks
+Takk for støtten!
+Første spill
+Fullfør ditt første spill
+Lærling
+Tjen 500 XP
+Ekspert
+Tjen 2500 XP
+Stormester
+Tjen 10000 XP
+I fyr og flamme
+Spill 3 dager på rad
+Stødig
+Spill 7 dager på rad
+Ustoppelig
+Spill 30 dager på rad
+Kjempedreper
+Slå enheten på vanskelig
+Perfeksjonist
+Løs 50 nivåer med 3 stjerner
+Utforsker
+Vinn et spill i hver seksjon
+Maraton
+Fullfør 100 spill

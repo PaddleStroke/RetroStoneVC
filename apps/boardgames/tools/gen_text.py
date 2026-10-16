@@ -26,6 +26,7 @@ import argparse
 import io
 import os
 import sys
+import unicodedata
 
 from fontTools import subset
 from fontTools.ttLib import TTFont
@@ -74,7 +75,10 @@ def groups_of(texts):
         if lang in ("ja", "ko", "zh_CN"):
             out[lang] = lang
             continue
-        used = set(ALWAYS).union(*texts[lang].values()) if texts[lang] else set(ALWAYS)
+        # (_langs, every language's name in its own letters, never decides a font: the letters the font lacks are
+        # drawn from the boards' fonts)
+        own = [t for g, t in texts[lang].items() if g != "_langs"]
+        used = set(ALWAYS).union(*own) if own else set(ALWAYS)
         out[lang] = "base" if all(ord(c) in noto for c in used if c != "\n") else "dejavu"
     return out
 
@@ -127,6 +131,17 @@ def main():
         for game, t in texts["en"].items():     # a game not translated yet shows its English text in this font
             if game not in texts[lang]:
                 chars[group[lang]].update(t)
+    # the titles are drawn in capitals (text.c text_title): every letter's capital, and Greek's without its accent
+    for g in SOURCES:
+        if g.startswith("glyphs"):
+            continue
+        caps = {"İ"} if g == group["tr"] else set()
+        for c in chars[g]:
+            u = c.upper()
+            if len(u) == 1 and ord(u) < 0x1000:   # (the alphabets: not the CJK scripts, not Hangul's syllables)
+                caps.add(u)
+                caps.add(unicodedata.normalize("NFD", u)[0])
+        chars[g] |= caps
     glyphs = os.path.join(APP, "help", "glyphs.txt")
     if os.path.exists(glyphs):
         with open(glyphs, encoding="utf-8") as fh:

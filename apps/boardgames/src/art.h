@@ -127,7 +127,14 @@ float art_recess(float dx, float dy, float r, float b, float deep, float wall_li
  * seat the device plays); ICON_LOCK: a padlock, its keyhole cut out (a game or a level of the full version only) */
 enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUND, ICON_MUTE, ICON_HELP, ICON_CLOSE,
        ICON_DEVICE, ICON_PLAY, ICON_HINT, ICON_TICK, ICON_ARROW, ICON_PUZZLE, ICON_GRID, ICON_STAR, ICON_REPLAY, ICON_PAR,
-       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICON_MENU, ICON_PERSON, ICON_BOT, ICON_LOCK, ICONS };
+       ICON_EYE, ICON_PENCIL, ICON_ERASER, ICON_HOURGLASS, ICON_MENU, ICON_PERSON, ICON_BOT, ICON_LOCK,
+       /* the app's pages: the ribbon (STATS bars, TILES the games, GEAR the settings), SEARCH a magnifying glass, FLAME
+        * the streak, CUP an achievement, REVIEW a speech bubble with a star, BUG a problem to report, SUN light, MOON
+        * dark, AUTO as the device, GLOBE the language, AWAKE the screen kept on, SHIELD privacy, DOC a page of terms,
+        * CODE the source and its licences, CHEVRON go on, HEART support, BOLT XP, MEDAL the level */
+       ICON_STATS, ICON_TILES, ICON_GEAR, ICON_SEARCH, ICON_FLAME, ICON_CUP, ICON_REVIEW, ICON_BUG, ICON_SUN, ICON_MOON,
+       ICON_AUTO, ICON_GLOBE, ICON_AWAKE, ICON_SHIELD, ICON_DOC, ICON_CODE, ICON_CHEVRON, ICON_HEART, ICON_BOLT,
+       ICON_MEDAL, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

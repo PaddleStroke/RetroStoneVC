@@ -59,6 +59,32 @@ void iap_restore(void);
  * once a frame */
 unsigned iap_changes(void);
 
+
+/* ---- tips: consumable products, bought as often as one likes, that open nothing (the Settings page's "Leave a
+ * tip": three tiers, small to big). The ids come from the app's .conf (TIP_PRODUCTS). iap_none.c sells none (the page
+ * then opens the app's support page, SUPPORT_URL, or hides the row); a backend that sells them (Google Play Billing,
+ * StoreKit: not written yet) loads their prices and consumes each purchase at once.
+ * TODO(billing): implement these in the store backends. The iOS app's StoreKit backend (apps/ios/common) defines
+ * IAP_HAS_TIPS once it does; until then the iOS build gets the inline "none" below. */
+#if defined(__IPHONEOS__) && !defined(IAP_HAS_TIPS)
+static inline void iap_tips_init(const char *const *product_ids, int n) { (void)product_ids; (void)n; }
+static inline int iap_tips_available(void) { return 0; }
+static inline const char *iap_tip_price(int tier) { (void)tier; return ""; }
+static inline int iap_tip_buy(int tier) { (void)tier; return 0; }
+static inline unsigned iap_tips_done(void) { return 0; }
+#else
+/* starts the tips: the products' ids, n of them (the tiers in order) */
+void iap_tips_init(const char *const *product_ids, int n);
+/* how many tiers this build sells (0: none: the app shows no tip panel) */
+int iap_tips_available(void);
+/* tier's price as the store gives it ("0,99 €"); "" while not known */
+const char *iap_tip_price(int tier);
+/* opens the store's purchase sheet for that tier; 0: it cannot now (iap_busy() is 1 while it works) */
+int iap_tip_buy(int tier);
+/* the tips bought (and consumed) since the start: the app thanks the player when it grows */
+unsigned iap_tips_done(void);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

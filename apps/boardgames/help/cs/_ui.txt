@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Hry
+Statistiky
+Nastavení
+Hledat hry
+Žádná hra nenalezena
+Podpořte nás
+Napsat recenzi
+Dát spropitné
+Hvězda na GitHubu
+Nahlásit problém
+Vzhled
+Světlý
+Tmavý
+Podle zařízení
+Jazyk
+Jazyk zařízení
+Hraní
+Nechat obrazovku zapnutou
+Zvuk
+Systém a právní informace
+Zásady ochrany soukromí
+Podmínky použití
+Licence
+Verze %s
+Tento týden
+Série: %d
+Dnes odehráno
+Dohraj hru a zapal plamen
+Skvělý začátek! Pokračuj
+Pěkné tempo!
+Jsi v ráži!
+To je ale den!
+Úroveň %d
+%d %% do úrovně %d
+Celkem XP
+Dohrané hry
+Podle sekcí
+Úspěchy
+Zamčeno
+Po Út St Čt Pá So Ne
+1
+Dát spropitné
+Zdarma a bez reklam: spropitné nám pomáhá tvořit nové hry.
+Malé spropitné
+Pěkné spropitné
+Velké spropitné
+Děkujeme za podporu!
+První hra
+Dohraj svou první hru
+Učeň
+Získej 500 XP
+Expert
+Získej 2500 XP
+Velmistr
+Získej 10000 XP
+V plamenech
+Hraj 3 dny po sobě
+Vytrvalec
+Hraj 7 dní po sobě
+Nezastavitelný
+Hraj 30 dní po sobě
+Přemožitel obrů
+Poraz zařízení na těžkou obtížnost
+Perfekcionista
+Vyřeš 50 úrovní se 3 hvězdami
+Průzkumník
+Vyhraj hru v každé sekci
+Maraton
+Dohraj 100 her

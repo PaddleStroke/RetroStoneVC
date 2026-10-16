@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Pelit
+Tilastot
+Asetukset
+Hae pelejä
+Peliä ei löytynyt
+Tue meitä
+Kirjoita arvio
+Anna juomaraha
+Tähti GitHubissa
+Ilmoita ongelmasta
+Ulkoasu
+Vaalea
+Tumma
+Kuten laite
+Kieli
+Laitteen kieli
+Pelaaminen
+Pidä näyttö päällä
+Ääni
+Järjestelmä ja lakiasiat
+Tietosuojakäytäntö
+Käyttöehdot
+Lisenssit
+Versio %s
+Tämä viikko
+Putki: %d
+Pelattu tänään
+Pelaa peli loppuun ja sytytä liekki
+Hyvä alku! Jatka samaan malliin
+Hyvä tahti!
+Olet vauhdissa!
+Mikä päivä!
+Taso %d
+%d %% tasoon %d
+XP yhteensä
+Pelatut pelit
+Osioittain
+Saavutukset
+Lukittu
+ma ti ke to pe la su
+1
+Anna juomaraha
+Ilmainen ja mainokseton: juomaraha auttaa meitä tekemään uusia pelejä.
+Pieni juomaraha
+Mukava juomaraha
+Iso juomaraha
+Kiitos tuestasi!
+Ensimmäinen peli
+Pelaa ensimmäinen pelisi loppuun
+Oppipoika
+Ansaitse 500 XP
+Asiantuntija
+Ansaitse 2500 XP
+Suurmestari
+Ansaitse 10000 XP
+Liekeissä
+Pelaa 3 päivää putkeen
+Tasainen
+Pelaa 7 päivää putkeen
+Pysäyttämätön
+Pelaa 30 päivää putkeen
+Jättiläisen kaataja
+Voita laite vaikealla tasolla
+Perfektionisti
+Ratkaise 50 tasoa 3 tähdellä
+Tutkimusmatkailija
+Voita peli joka osiossa
+Maraton
+Pelaa 100 peliä loppuun

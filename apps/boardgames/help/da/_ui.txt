@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Spil
+Statistik
+Indstillinger
+Søg i spil
+Intet spil fundet
+Støt os
+Skriv en anmeldelse
+Giv drikkepenge
+Stjerne på GitHub
+Rapportér et problem
+Udseende
+Lyst
+Mørkt
+Som enheden
+Sprog
+Enhedens sprog
+Spillet
+Hold skærmen tændt
+Lyd
+System og juridisk
+Privatlivspolitik
+Brugsvilkår
+Licenser
+Version %s
+Denne uge
+Stime: %d
+Spillet i dag
+Afslut et spil for at tænde flammen
+God start! Bliv ved
+Flot rytme!
+Du er godt i gang!
+Sikken en dag!
+Niveau %d
+%d %% til niveau %d
+XP i alt
+Afsluttede spil
+Efter afdeling
+Præstationer
+Låst
+ma ti on to fr lø sø
+1
+Giv drikkepenge
+Gratis og uden reklamer: drikkepenge hjælper os med at lave nye spil.
+Lidt drikkepenge
+Gode drikkepenge
+Store drikkepenge
+Tak for din støtte!
+Første spil
+Afslut dit første spil
+Lærling
+Optjen 500 XP
+Ekspert
+Optjen 2500 XP
+Stormester
+Optjen 10000 XP
+I ilden
+Spil 3 dage i træk
+Stabil
+Spil 7 dage i træk
+Ustoppelig
+Spil 30 dage i træk
+Kæmpedræber
+Slå enheden på svær
+Perfektionist
+Løs 50 niveauer med 3 stjerner
+Opdager
+Vind et spil i hver afdeling
+Maraton
+Afslut 100 spil

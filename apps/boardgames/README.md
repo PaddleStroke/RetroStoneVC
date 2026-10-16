@@ -60,10 +60,23 @@ One look across the app, like the Arcade games' house kit:
   (the patiences too), guessing games (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
   `SECTION_OF` table files a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n`
   in the picture mode.
-- **The settings**: the menu has no row of buttons above its tabs; one button at the tabs' right end (`ICON_MENU`, three
-  bars) opens a small panel under it, a row a setting, an icon at its left and its control at its right, no words:
-  the sound (a switch, gold when on; `M` too) and the app's rules page (`help/<lang>/_app.txt`, an arrow). A tap
-  elsewhere closes it. More settings: more rows (`SET_ROWS`).
+- **The app's pages** (`src/pages.c`, `pages.h`): a ribbon at the bottom (a rail at the left on a wide screen) with
+  Stats, Games and Settings, each page its big title (`text_title`: bold capitals, condensed). Games (the start page)
+  is the menu: the day streak at its top left (a tap: Stats), a search at its top right (`SDL_StartTextInput`: the
+  soft keyboard; the games' names in the language, folded by `text_fold`: no accents, small letters; every tab's
+  finds, by section). Settings: Support us (Leave a review `REVIEW_URL`, Leave a tip: the store's tips,
+  `iap_tip_*`, else `SUPPORT_URL`, else no row; Star on GitHub `SOURCE_URL`; Report a problem `REPORT_URL`; all from
+  the .conf, `tools/gen_edition.py`), Appearance (light, dark, as the device: `shell/theme`), Language (the device's
+  or one of the 22, switched at once: `shell/lang`), Gameplay (the screen kept on `shell/awake`, the sound
+  `shell/mute`), System and legal (`help/<lang>/_privacy.txt`, `_terms.txt`, `_licences.txt` in the rules page's
+  look), the version. Stats (`src/stats.c`): the week, today, the level, the XP, the sections' progress, the
+  achievements. The words: `help/<lang>/_ui.txt` (a line a string, in pages.c's `U_*` order), the languages' own
+  names `help/en/_langs.txt`. The theme colours the pages, the menu and the rules page (`TH`), never a board.
+  Picture mode: `--page stats|settings`, `--theme light|dark`, `--search "words"`, `--stats-demo`, `--tips-demo`.
+- **XP and the streak** (`src/stats.h`): a level solved 10 + 5 a star the first time, then 5 a star gained; a puzzle
+  at random 10 + 5 a star; a game finished 5, won by a person against the device 20 more a bot level (1..3); the
+  Arcade later: `stats_award(STATS_ARCADE, xp)`. A day counts once a game or a level is finished; a game ends in the
+  stats once (an undo and the same end give nothing more); the device playing alone counts for nobody.
 - **The picker's names** (optional): `help/<lang>/<id>_variants.txt`, a line a picker card in its order (no title
   line: the first line names card 0), shown in cream under each card's picture, shrunk or split in two lines to fit
   (two axes: the sizes' names, then the levels'; a game of levels: its random play's variants). An empty or missing

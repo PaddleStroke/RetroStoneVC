@@ -16,5 +16,9 @@ extern const int ed_free_levels;                /* the levels playable in each g
 extern const char ed_paid_name[], ed_paid_id[], ed_paid_url[];   /* the paid app: its name, package id, store page */
 extern const char ed_iap_product[];             /* the in-app purchase that unlocks everything (apps/common/iap.h;
                                                  * "": none): the free set plays until it is bought */
+/* the Settings page: the version (APP_VERSION_NAME), the package id, the links ("": its row hidden), the store's
+ * consumable tip products (ids between spaces; "": none) */
+extern const char ed_version[], ed_app_id[], ed_review_url[], ed_support_url[], ed_report_url[], ed_source_url[],
+    ed_privacy_url[], ed_tip_products[];
 
 #endif

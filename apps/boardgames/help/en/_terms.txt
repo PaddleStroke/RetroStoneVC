@@ -1,0 +1,12 @@
+Terms of use
+The app is published by 8BCraft SASU (France). Contact: hello@8bcraft.com.
+# Using the app
+You may use the app freely, for your own enjoyment, on your own devices. Its games are classic games played under their traditional rules, in our own pictures and words.
+# Its code
+The app's own code is open source under the MIT licence (Star on GitHub, in Settings). The components it is built with keep their own licences (Licences, in Settings).
+# Tips
+A tip, where the app offers one, is a voluntary gift that unlocks nothing: every game is free. It is paid through your store, under the store's own terms; refunds follow its rules.
+# No warranty
+The app is provided as it is, without warranty of any kind. We do our best to fix what goes wrong: Report a problem, in Settings.
+# Changes
+These terms may change with a new version of the app, which shows them here.

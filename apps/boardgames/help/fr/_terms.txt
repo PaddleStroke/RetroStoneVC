@@ -1,0 +1,12 @@
+Conditions d'utilisation
+L'appli est éditée par 8BCraft SASU (France). Contact : hello@8bcraft.com.
+# Utiliser l'appli
+Tu peux utiliser l'appli librement, pour ton plaisir, sur tes propres appareils. Ses jeux sont des jeux classiques joués selon leurs règles traditionnelles, avec nos propres images et nos propres mots.
+# Son code
+Le code de l'appli est libre, sous licence MIT (Étoile sur GitHub, dans Réglages). Les composants qu'elle utilise gardent leurs propres licences (Licences, dans Réglages).
+# Pourboires
+Un pourboire, là où l'appli en propose, est un don volontaire qui ne débloque rien : tous les jeux sont gratuits. Il se paie par ta boutique, selon ses propres conditions ; les remboursements suivent ses règles.
+# Aucune garantie
+L'appli est fournie telle quelle, sans garantie d'aucune sorte. Nous faisons de notre mieux pour corriger ce qui ne va pas : Signaler un problème, dans Réglages.
+# Modifications
+Ces conditions peuvent changer avec une nouvelle version de l'appli, qui les affiche ici.

@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Giochi
+Statistiche
+Impostazioni
+Cerca un gioco
+Nessun gioco trovato
+Sostienici
+Lascia una recensione
+Lascia una mancia
+Stella su GitHub
+Segnala un problema
+Aspetto
+Chiaro
+Scuro
+Come il dispositivo
+Lingua
+Lingua del dispositivo
+Gioco
+Schermo sempre acceso
+Suono
+Sistema e note legali
+Informativa sulla privacy
+Condizioni d'uso
+Licenze
+Versione %s
+Questa settimana
+Serie: %d
+Giocati oggi
+Finisci una partita per accendere la fiamma
+Ottimo inizio! Continua così
+Bel ritmo!
+Sei lanciato!
+Che giornata!
+Livello %d
+%d%% al livello %d
+XP totali
+Partite finite
+Per sezione
+Obiettivi
+Bloccato
+L M M G V S D
+1
+Lascia una mancia
+Gratis e senza pubblicità: una mancia ci aiuta a creare nuovi giochi.
+Una piccola mancia
+Una bella mancia
+Una grande mancia
+Grazie per il tuo sostegno!
+Prima partita
+Finisci la tua prima partita
+Apprendista
+Guadagna 500 XP
+Esperto
+Guadagna 2500 XP
+Gran maestro
+Guadagna 10000 XP
+Infuocato
+Gioca 3 giorni di fila
+Costante
+Gioca 7 giorni di fila
+Inarrestabile
+Gioca 30 giorni di fila
+Ammazzagiganti
+Batti il dispositivo a livello difficile
+Perfezionista
+Risolvi 50 livelli con 3 stelle
+Esploratore
+Vinci un gioco in ogni sezione
+Maratona
+Finisci 100 partite

@@ -41,7 +41,7 @@ IAP_SRC := apps/common/$(if $(filter 1,$(shell sed -n 's/^IAP=//p' $(CONF))),iap
 $(if $(wildcard $(IAP_SRC)),,$(error $(CONF) says IAP=1: $(IAP_SRC) (Google Play Billing) is not written yet))
 # the AI kit and the bots' registry (no SDL: the tests link them); ai_worker.c runs a bot on a thread (SDL)
 AI_SRC := $(D)/src/ai.c $(D)/src/bots.c
-SRC    := $(D)/src/shell.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
+SRC    := $(D)/src/shell.c $(D)/src/pages.c $(D)/src/stats.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
           $(AI_SRC) $(D)/src/ai_worker.c $(D)/src/text.c $(TEXT) $(ART) $(ED) $(GAME_SRC) $(IAP_SRC) \
           $(if $(DEMO),$(D)/tests/levels_demo.c)
 HDR    := $(wildcard $(D)/src/*.h $(D)/src/games/*.h) apps/common/iap.h

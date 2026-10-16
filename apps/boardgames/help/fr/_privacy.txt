@@ -1,0 +1,22 @@
+Politique de confidentialité
+Cette appli est éditée par 8BCraft SASU (SIREN 823 953 252, France). Contact : hello@8bcraft.com.
+# En bref
+L'appli ne collecte aucune donnée personnelle. Elle n'a pas de pub, pas de mesure d'audience, pas de pistage et pas de compte. Rien de ce que tu fais dedans ne quitte ton appareil par elle.
+# Ce qui reste sur ton appareil
+Pour se souvenir de tes choix et de ta progression, l'appli garde un petit fichier dans son stockage privé sur ton appareil, avec :
+- tes réglages (le son, le thème, la langue, l'onglet du menu) ;
+- les derniers choix de chaque jeu (sa variante, le nombre de joueurs, les places tenues par l'appareil) ;
+- ta progression : les étoiles gagnées à chaque niveau, tes points, les jours où tu as joué, les jeux gagnés.
+Ce fichier ne contient aucun nom ni rien sur les joueurs. Personne d'autre ne peut le lire, et nous ne le recevons jamais. Il est effacé quand tu désinstalles l'appli, ou quand tu effaces ses données.
+Si tu as activé la sauvegarde de ton téléphone, le système peut copier les fichiers de l'appli sur ton compte, comme pour la plupart des applis, afin de les restaurer sur un nouveau téléphone. Cette copie est gérée par le fabricant de ton téléphone selon sa propre politique ; nous n'y avons pas accès.
+# Jouer ensemble, et contre l'appareil
+Plusieurs personnes jouent sur un seul appareil, qui passe de main en main. Les joueurs de l'appareil réfléchissent sur l'appareil lui-même : aucune partie n'est jamais envoyée nulle part.
+# Liens et pourboires
+Quelques lignes de la page Réglages ouvrent une page hors de l'appli : sa page sur la boutique (pour laisser un avis), son code source, un e-mail pour nous écrire. Ce qui s'y passe relève de la politique de ces sites. Un pourboire, là où l'appli en propose, se paie par ta boutique (Google Play, l'App Store) : la boutique gère le paiement, nous ne recevons ni carte ni rien sur toi.
+# Enfants
+Comme l'appli ne collecte de données sur personne, elle n'en collecte pas non plus sur les enfants.
+# Composants tiers
+L'appli utilise des composants libres (SDL2, stb, les polices Noto Sans CJK et DejaVu Sans). Tous fonctionnent uniquement sur ton appareil ; aucun n'envoie de données depuis l'appli.
+# Modifications
+Si cette politique change, la nouvelle version arrive avec l'appli, avec sa date. Une appli qui se mettrait à collecter des données le dirait d'abord ici.
+En vigueur le 16 octobre 2026

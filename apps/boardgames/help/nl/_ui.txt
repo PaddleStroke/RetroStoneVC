@@ -1,0 +1,70 @@
+The app's pages (a line a string, in this order; %d: a number, %s: a word; keep them short)
+Spellen
+Statistieken
+Instellingen
+Spellen zoeken
+Geen spel gevonden
+Steun ons
+Schrijf een recensie
+Geef een fooi
+Ster op GitHub
+Meld een probleem
+Weergave
+Licht
+Donker
+Zoals het apparaat
+Taal
+Taal van het apparaat
+Spelen
+Scherm aan houden
+Geluid
+Systeem en juridisch
+Privacybeleid
+Gebruiksvoorwaarden
+Licenties
+Versie %s
+Deze week
+Reeks: %d
+Vandaag gespeeld
+Maak een spel af om de vlam aan te steken
+Goed begin! Ga zo door
+Mooi ritme!
+Je bent lekker bezig!
+Wat een dag!
+Level %d
+%d%% tot level %d
+Totaal XP
+Afgemaakte spellen
+Per onderdeel
+Prestaties
+Vergrendeld
+ma di wo do vr za zo
+1
+Geef een fooi
+Gratis en zonder reclame: een fooi helpt ons nieuwe spellen te maken.
+Een kleine fooi
+Een mooie fooi
+Een grote fooi
+Bedankt voor je steun!
+Eerste spel
+Maak je eerste spel af
+Leerling
+Verdien 500 XP
+Expert
+Verdien 2500 XP
+Grootmeester
+Verdien 10000 XP
+In vuur en vlam
+Speel 3 dagen op rij
+Volhouder
+Speel 7 dagen op rij
+Niet te stoppen
+Speel 30 dagen op rij
+Reuzendoder
+Versla het apparaat op moeilijk
+Perfectionist
+Los 50 levels op met 3 sterren
+Ontdekker
+Win een spel in elk onderdeel
+Marathon
+Maak 100 spellen af
