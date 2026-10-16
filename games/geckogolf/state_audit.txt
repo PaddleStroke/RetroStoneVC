@@ -1,0 +1,12 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.drawn_cam      the camera the course's tiles were drawn for: a cache (draw_state_loaded draws them again, the same)
+draw.drawn_rev      the course's revision they were drawn for: the same cache
+draw.drawn_width    the screen width they were drawn for: a setting of the frontend (the same cache)
+draw.sky_key        the biome blend the sky's gradient was made for: a cache (the gradient, line_col, is saved)
+draw.pool_px        scratch of the course's tiles: the pixels of the last rebuild's tiles, to share the same ones
+draw.pool_hash      scratch: their hash table
+draw.pool_n         scratch: their count

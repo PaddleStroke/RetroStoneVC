@@ -1,0 +1,41 @@
+# Gecko Golf: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED...) are in
+# games/common/strings. The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO): a golf swing. max 12
+VERB = SWING
+#. A hint at the bottom of the screen on the first hole (1 player), until the first shot: the d-pad's up and down
+#. arrows (^ ~ are drawn as arrows) aim, A held charges the power. max 38
+HINT = ^~: AIM - HOLD A, LET GO: SHOOT
+#. The same hint on a touch screen: pull back from the ball like a slingshot, let go to shoot. max 38
+HINT_TOUCH = PULL BACK, LET GO TO SHOOT
+#. Big letters (2x: max 19 characters, else small) when the ball drops in the cup on the first stroke.
+HOLE_IN_ONE = HOLE IN ONE!
+#. Big letters (max 19) when the ball drops in on the second stroke (it gives a stroke back).
+IN_TWO = IN TWO!
+#. Big letters (max 19) when the ball drops in after three strokes or more.
+IN_THE_HOLE = IN THE HOLE!
+#. Big letters (max 19) when the ball falls in the water (a penalty stroke, the ball comes back).
+SPLASH = SPLASH!
+#. Big letters (max 19) when the ball leaves the course's sides (a penalty stroke, the ball comes back).
+OUT_OF_BOUNDS = OUT OF BOUNDS!
+#. Big letters (max 19) when a player has no strokes left: that player's game is over.
+NO_STROKES = NO STROKES LEFT
+#. Under a hole in one or a hole in two: the strokes given back to the player's budget. max 30
+STROKES_BACK[one] = +%d STROKE
+STROKES_BACK[other] = +%d STROKES
+#. Under SPLASH! and OUT OF BOUNDS!: one more stroke is taken from the budget. max 30
+PENALTY = PENALTY STROKE
+#. At the top of the screen with 2-4 players: the hole being played. max 12
+HOLE_N = HOLE %d
+#. A line at the foot of the game-over panel: how many holes in one the run had. max 18
+ACES_N = HOLES IN ONE: %d
+#. The courses' names, in big letters when the course changes: a green meadow, ... max 19
+MEADOW = MEADOW
+#. ... sand dunes (a desert), ... (big letters, max 19)
+DUNES = DUNES
+#. ... snowy hills, ... (max 19)
+SNOW = SNOWY HILLS
+#. ... a golf course at night, ... (max 19)
+NIGHT = NIGHT COURSE
+#. ... a land of sweets. (max 19)
+CANDY = CANDY LAND

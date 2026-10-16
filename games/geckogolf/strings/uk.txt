@@ -1,0 +1,21 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = УДАРИТИ
+HINT = ^~: ЦІЛЬСЯ - ТРИМАЙ A, ВІДПУСТИ
+HINT_TOUCH = ВІДТЯГНИ НАЗАД І ВІДПУСТИ
+HOLE_IN_ONE = З ОДНОГО УДАРУ!
+IN_TWO = ЗА ДВА УДАРИ!
+IN_THE_HOLE = У ЛУНЦІ!
+SPLASH = ПЛЮХ!
+OUT_OF_BOUNDS = ЗА МЕЖАМИ!
+NO_STROKES = УДАРИ СКІНЧИЛИСЯ
+STROKES_BACK[one] = +%d УДАР
+STROKES_BACK[few] = +%d УДАРИ
+STROKES_BACK[many] = +%d УДАРІВ
+PENALTY = ШТРАФНИЙ УДАР
+HOLE_N = ЛУНКА %d
+ACES_N = З ОДНОГО УДАРУ: %d
+MEADOW = ЛУКА
+DUNES = ДЮНИ
+SNOW = СНІЖНІ ПАГОРБИ
+NIGHT = НІЧНЕ ПОЛЕ
+CANDY = КРАЇНА ЛАСОЩІВ

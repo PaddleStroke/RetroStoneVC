@@ -1,0 +1,19 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = うつ
+HINT = ^~:ねらう - Aをおして はなす
+HINT_TOUCH = うしろにひいて はなす
+HOLE_IN_ONE = ホールインワン!
+IN_TWO = 2かいで カップイン!
+IN_THE_HOLE = カップイン!
+SPLASH = ポチャン!
+OUT_OF_BOUNDS = OB!
+NO_STROKES = ストロークぎれ!
+STROKES_BACK[other] = +%dストローク
+PENALTY = 1うちペナルティ
+HOLE_N = ホール%d
+ACES_N = ホールインワン: %d
+MEADOW = のはら
+DUNES = さきゅう
+SNOW = ゆきのおか
+NIGHT = よるのコース
+CANDY = おかしのくに

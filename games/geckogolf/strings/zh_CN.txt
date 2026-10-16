@@ -1,0 +1,19 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 挥杆
+HINT = ^~:瞄准 - 按住A再松开
+HINT_TOUCH = 向后拉 再松开
+HOLE_IN_ONE = 一杆进洞!
+IN_TWO = 两杆进洞!
+IN_THE_HOLE = 进洞!
+SPLASH = 扑通!
+OUT_OF_BOUNDS = 出界!
+NO_STROKES = 杆数用完了
+STROKES_BACK[other] = +%d杆
+PENALTY = 罚一杆
+HOLE_N = 第%d洞
+ACES_N = 一杆进洞: %d
+MEADOW = 草原
+DUNES = 沙丘
+SNOW = 雪丘
+NIGHT = 夜间球场
+CANDY = 糖果王国

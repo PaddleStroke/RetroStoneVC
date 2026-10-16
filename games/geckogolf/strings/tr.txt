@@ -1,0 +1,20 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VURMAK
+HINT = ^~: NİŞAN AL - A'YI TUT, BIRAK
+HINT_TOUCH = GERİ ÇEK VE BIRAK
+HOLE_IN_ONE = TEK VURUŞTA!
+IN_TWO = İKİ VURUŞTA!
+IN_THE_HOLE = DELİKTE!
+SPLASH = SUYA DÜŞTÜ!
+OUT_OF_BOUNDS = SAHA DIŞI!
+NO_STROKES = VURUŞ KALMADI
+STROKES_BACK[one] = +%d VURUŞ
+STROKES_BACK[other] = +%d VURUŞ
+PENALTY = CEZA VURUŞU
+HOLE_N = DELİK %d
+ACES_N = TEK VURUŞ: %d
+MEADOW = ÇAYIR
+DUNES = KUM TEPELERİ
+SNOW = KARLI TEPELER
+NIGHT = GECE SAHASI
+CANDY = ŞEKER DİYARI

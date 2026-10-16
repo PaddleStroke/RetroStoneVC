@@ -1,0 +1,21 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ODPAL
+HINT = ^~: MIŘ - DRŽ A, PUSŤ: ÚDER
+HINT_TOUCH = PŘITÁHNI ZPĚT A PUSŤ
+HOLE_IN_ONE = HOLE IN ONE!
+IN_TWO = NA DVA ÚDERY!
+IN_THE_HOLE = V JAMCE!
+SPLASH = ŠPLOUCH!
+OUT_OF_BOUNDS = MIMO HŘIŠTĚ!
+NO_STROKES = DOŠLY ÚDERY
+STROKES_BACK[one] = +%d ÚDER
+STROKES_BACK[few] = +%d ÚDERY
+STROKES_BACK[other] = +%d ÚDERŮ
+PENALTY = TRESTNÝ ÚDER
+HOLE_N = JAMKA %d
+ACES_N = HOLE IN ONE: %d
+MEADOW = LOUKA
+DUNES = DUNY
+SNOW = ZASNĚŽENÉ KOPCE
+NIGHT = NOČNÍ HŘIŠTĚ
+CANDY = ZEMĚ SLADKOSTÍ

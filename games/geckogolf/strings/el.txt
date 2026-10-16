@@ -1,0 +1,20 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΧΤΥΠΗΣΕΙΣ
+HINT = ^~: ΣΤΟΧΕΥΣΕ - ΚΡΑΤΑ A, ΑΦΗΣΕ
+HINT_TOUCH = ΤΡΑΒΗΞΕ ΠΙΣΩ ΚΑΙ ΑΦΗΣΕ
+HOLE_IN_ONE = ΤΡΥΠΑ ΜΕ ΜΙΑ!
+IN_TWO = ΜΕ ΔΥΟ ΧΤΥΠΗΜΑΤΑ!
+IN_THE_HOLE = ΣΤΗΝ ΤΡΥΠΑ!
+SPLASH = ΠΛΑΤΣ!
+OUT_OF_BOUNDS = ΕΚΤΟΣ ΟΡΙΩΝ!
+NO_STROKES = ΤΕΛΟΣ ΧΤΥΠΗΜΑΤΩΝ
+STROKES_BACK[one] = +%d ΧΤΥΠΗΜΑ
+STROKES_BACK[other] = +%d ΧΤΥΠΗΜΑΤΑ
+PENALTY = ΧΤΥΠΗΜΑ ΠΟΙΝΗΣ
+HOLE_N = ΤΡΥΠΑ %d
+ACES_N = ΤΡΥΠΕΣ ΜΕ ΜΙΑ: %d
+MEADOW = ΛΙΒΑΔΙ
+DUNES = ΑΜΜΟΘΙΝΕΣ
+SNOW = ΧΙΟΝΙΣΜΕΝΟΙ ΛΟΦΟΙ
+NIGHT = ΝΥΧΤΕΡΙΝΟ ΓΗΠΕΔΟ
+CANDY = ΧΩΡΑ ΓΛΥΚΩΝ

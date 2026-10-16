@@ -1,0 +1,19 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 스윙
+HINT = ^~: 조준 - A를 누르고 떼기
+HINT_TOUCH = 뒤로 당겼다 놓기
+HOLE_IN_ONE = 홀인원!
+IN_TWO = 두 타 만에!
+IN_THE_HOLE = 홀컵에 쏙!
+SPLASH = 풍덩!
+OUT_OF_BOUNDS = OB!
+NO_STROKES = 타수 소진!
+STROKES_BACK[other] = +%d타
+PENALTY = 벌타 +1
+HOLE_N = %d번 홀
+ACES_N = 홀인원: %d
+MEADOW = 초원
+DUNES = 모래 언덕
+SNOW = 눈 덮인 언덕
+NIGHT = 밤의 코스
+CANDY = 사탕 나라

@@ -1,0 +1,20 @@
+# Gecko Golf's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SLÅ
+HINT = ^~: SIKTA - HÅLL A, SLÄPP: SLÅ
+HINT_TOUCH = DRA BAKÅT, SLÄPP FÖR ATT SLÅ
+HOLE_IN_ONE = HOLE-IN-ONE!
+IN_TWO = PÅ TVÅ SLAG!
+IN_THE_HOLE = I HÅLET!
+SPLASH = PLASK!
+OUT_OF_BOUNDS = UTANFÖR BANAN!
+NO_STROKES = SLUT PÅ SLAG
+STROKES_BACK[one] = +%d SLAG
+STROKES_BACK[other] = +%d SLAG
+PENALTY = PLIKTSLAG
+HOLE_N = HÅL %d
+ACES_N = HOLE-IN-ONES: %d
+MEADOW = ÄNG
+DUNES = DYNER
+SNOW = SNÖIGA KULLAR
+NIGHT = NATTBANA
+CANDY = GODISLANDET

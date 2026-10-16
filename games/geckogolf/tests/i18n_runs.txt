@@ -1,0 +1,20 @@
+# Gecko Golf: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+hint      60   50   --opt seed=7 --opt ready=1
+touch     90   80   --opt seed=7 --opt ready=1 ; 20 touch 200 100 ; 22 move 150 150
+ace       40   30   --opt seed=7 --opt ready=1 --opt showmsg=1
+two       40   30   --opt seed=7 --opt ready=1 --opt showmsg=2 --opt players=2
+holed     40   30   --opt seed=7 --opt ready=1 --opt showmsg=3 --opt players=3
+water     40   30   --opt seed=7 --opt ready=1 --opt showmsg=4
+ob        40   30   --opt seed=7 --opt ready=1 --opt showmsg=5 --opt players=4
+nostrokes 40   30   --opt seed=7 --opt ready=1 --opt showmsg=6
+biome     40   30   --opt seed=7 --opt ready=1 --opt showmsg=7 --opt hole=12
+play4     310  300  --opt bot=4 --opt seed=9 --opt ready=1
+pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+pause4    320  310  --opt bot=4 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+over      1600 1590 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=1 --opt strokes=2
+results   9000 8990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=1 --opt strokes=2
