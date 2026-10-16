@@ -60,7 +60,8 @@ int go_try(const gogame *g, int p, gopos *out)
 {
     int n = g->n, grp[GO_PTS], k, nb[4], took = 0;
     const gopos *now = go_now(g);
-    if (g->phase != GO_PLAY || g->nmoves >= GO_HIST || p < 0 || p >= n * n || now->pt[p] != GO_EMPTY) return -1;
+    /* the last two places in the history are kept for passes: a game can always end */
+    if (g->phase != GO_PLAY || g->nmoves >= GO_HIST - 2 || p < 0 || p >= n * n || now->pt[p] != GO_EMPTY) return -1;
     *out = *now;
     int me = now->side + 1, foe = 2 - now->side;
     out->pt[p] = (uint8_t)me;

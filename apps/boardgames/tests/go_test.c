@@ -67,6 +67,12 @@ int main(void)
     while (go_undo(&G)) {}
     CHECK(G.nmoves == 0 && go_last(&G) == GO_NONE && go_now(&G)->side == 0);
 
+    /* a full history: no more stones, but the passes still fit, so the game ends */
+    fresh(9, "");
+    for (int k = 1; k <= GO_HIST - 2; k++) { G.pos[k] = G.pos[0]; G.move[k - 1] = at("a1"); }
+    G.nmoves = GO_HIST - 2;
+    CHECK(go_play(&G, at("e5")) < 0 && go_pass(&G) && go_pass(&G) && G.phase == GO_COUNT);
+
     /* area scoring: ebony walls off five columns, ivory four and a stone inside ebony's (dead, then alive) */
     fresh(9, "e1 f1 e2 f2 e3 f3 e4 f4 e5 f5 e6 f6 e7 f7 e8 f8 e9 f9 pass b5 pass pass");
     int8_t owner[GO_PTS];
