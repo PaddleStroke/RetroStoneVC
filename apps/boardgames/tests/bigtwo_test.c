@@ -125,6 +125,20 @@ static void test_deal(void)
         for (int s = 0; s < 4; s++)
             for (int r = 1; r <= 13; r++) CHECK(seen[CARD(s, r)] == 1);
     }
+    /* three players: the 3 of diamonds may be the odd card itself; its holder still leads with it */
+    int odd = 0;
+    for (uint32_t seed = 1; seed <= 3000; seed++) {
+        uint8_t pack[CARDS_MAX];
+        int n = cards_pack(PACK_52, pack);
+        cards_shuffle(pack, n, seed);
+        shed_new(&G, R, 3, seed);
+        int holder = -1;
+        for (int q = 0; q < 3; q++)
+            if (shed_find(P, q, CARD(D, 3)) >= 0) holder = q;
+        odd += pack[n - 1] == CARD(D, 3);
+        CHECK(P->must == CARD(D, 3) && P->turn == holder && P->n[holder] == 18);
+    }
+    CHECK(odd > 0);
     shed_new(&H, R, 4, 9);
     shed_new(&G, R, 4, 9);
     CHECK(!memcmp(&G.pos, &H.pos, sizeof G.pos));

@@ -137,7 +137,10 @@ static inline void shed_new(shed_game *g, const shed_rules *R, int players, uint
         for (int i = 0; i < p->n[q]; i++)
             if (R->power(p->hand[q][i]) < low) low = R->power(p->hand[q][i]), holder = q, p->must = p->hand[q][i];
     if (R->deal_all)                            /* the odd cards: to the lowest card's holder */
-        while (k < n) p->hand[holder][p->n[holder]++] = pack[k++];
+        while (k < n) {
+            if (R->power(pack[k]) < low) low = R->power(pack[k]), p->must = pack[k];   /* lower still: it leads */
+            p->hand[holder][p->n[holder]++] = pack[k++];
+        }
     for (int q = 0; q < p->players; q++) {
         shed_sort(R, p->hand[q], p->n[q]);
         p->dealt[q] = p->n[q];
