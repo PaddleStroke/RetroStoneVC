@@ -1,0 +1,9 @@
+Zeka Küpü
+# Amaç
+Küpün her yüzü küçük renkli çıkartmalarla kaplıdır. Karıştırılınca renkler birbirine girer: küpü, her yüzü tek renk olacak şekilde geri getir.
+# Bir hamle
+Küpün bir katmanını bir ya da öbür yöne çeyrek tur çevir: bir dış yüzü ya da içteki bir dilimi. Bir sıra çıkartma boyunca kaydırırsan o katman döner; küpün yanında kaydırırsan küpün tamamı döner ve öbür yüzlerini görürsün, bu bir hamle sayılmaz.
+# Oyunun sonu
+Her yüz tek bir renk gösterdiğinde bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Kısa bir karıştırmanın par değeri hamle sayısıdır. İpucu almadan par ile çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Tamamen karıştırılmış bir küp çözülünce 3 yıldız verir.

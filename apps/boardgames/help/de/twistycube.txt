@@ -1,0 +1,9 @@
+Drehwürfel
+# Das Ziel
+Jede Seite des Würfels ist mit kleinen Farbfeldern beklebt. Ist er gemischt, liegen die Farben durcheinander: Bring den Würfel zurück, bis jede Seite nur eine Farbe hat.
+# Ein Zug
+Drehe eine Schicht des Würfels um eine Vierteldrehung, in die eine oder die andere Richtung: eine äußere Seite oder eine Scheibe im Inneren. Wische an einer Reihe von Feldern entlang, um ihre Schicht zu drehen; wische neben dem Würfel, um den ganzen Würfel zu drehen und seine anderen Seiten zu sehen – das ist kein Zug.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Seite nur noch eine Farbe zeigt.
+# Level und Sterne
+Das Par einer kurzen Mischung ist die Zahl ihrer Züge. Gelöst mit Par und ohne Tipp: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein ganz gemischter Würfel bringt gelöst 3 Sterne.

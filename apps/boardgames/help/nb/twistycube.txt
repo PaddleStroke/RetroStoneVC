@@ -1,0 +1,9 @@
+Dreiekube
+# Målet
+Hver side av kuben er dekket av små fargede merker. Når den er blandet, er fargene rotet sammen: få kuben tilbake til én farge på hver side.
+# Et trekk
+Drei ett lag av kuben en kvart omdreining, den ene eller den andre veien: en ytterside eller en skive inni. Sveip langs en rad med merker for å dreie laget deres; sveip ved siden av kuben for å dreie hele kuben og se de andre sidene, noe som ikke teller som et trekk.
+# Slutten på spillet
+Gåten er løst når hver side bare viser én farge.
+# Nivåer og stjerner
+Par for en kort blanding er antallet trekk i den. Løst på par uten hint: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1. En helt blandet kube gir 3 stjerner når den er løst.

@@ -1,0 +1,9 @@
+Twisty Cube
+# The aim
+Each face of the cube is covered with small stickers. Scrambled, its colours are mixed: bring the cube back to one colour on each face.
+# A move
+Turn one layer of the cube a quarter turn, either way: an outer face or a slice inside. Swipe along a row of stickers to turn its layer; swipe beside the cube to turn the whole cube and see its other sides, which is not a move.
+# The end of the game
+The puzzle is solved when every face shows a single colour.
+# Levels and stars
+A short scramble's par is its number of moves. Solved at par with no hint: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. A full scramble solved earns 3 stars.

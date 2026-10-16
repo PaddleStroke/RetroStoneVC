@@ -1,0 +1,9 @@
+Kostka obrotowa
+# Cel gry
+Każda ściana kostki jest pokryta małymi naklejkami. Po pomieszaniu kolory są rozrzucone: przywróć kostce jeden kolor na każdej ścianie.
+# Ruch
+Obróć jedną warstwę kostki o ćwierć obrotu, w jedną lub drugą stronę: zewnętrzną ścianę albo plaster w środku. Przesuń palcem wzdłuż rzędu naklejek, aby obrócić ich warstwę; przesuń obok kostki, aby obrócić całą kostkę i zobaczyć inne ściany – to nie jest ruch.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każda ściana ma tylko jeden kolor.
+# Poziomy i gwiazdki
+Par krótkiego pomieszania to liczba jego ruchów. Rozwiązany w par bez podpowiedzi: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Całkiem pomieszana kostka po rozwiązaniu daje 3 gwiazdki.

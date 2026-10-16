@@ -1,0 +1,9 @@
+Cube tournant
+# Le but
+Chaque face du cube est couverte de petites pastilles. Une fois le cube mélangé, ses couleurs sont dispersées : remets une seule couleur sur chaque face.
+# Un coup
+Tourne une couche du cube d'un quart de tour, dans un sens ou dans l'autre : une face extérieure ou une tranche intérieure. Glisse le doigt le long d'une rangée de pastilles pour tourner sa couche ; glisse à côté du cube pour tourner le cube entier et voir ses autres faces, ce qui ne compte pas comme un coup.
+# La fin de la partie
+Le casse-tête est résolu quand chaque face ne montre plus qu'une couleur.
+# Niveaux et étoiles
+Le par d'un mélange court est son nombre de coups. Résolu au par sans indice : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un mélange complet résolu rapporte 3 étoiles.

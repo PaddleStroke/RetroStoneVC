@@ -1,0 +1,9 @@
+Cubo giratório
+# O objetivo
+Cada face do cubo está coberta de pequenos autocolantes. Quando está misturado, as cores ficam espalhadas: devolve ao cubo uma só cor em cada face.
+# Uma jogada
+Roda uma camada do cubo um quarto de volta, para um lado ou para o outro: uma face exterior ou uma fatia interior. Desliza o dedo ao longo de uma fila de autocolantes para rodar a sua camada; desliza ao lado do cubo para rodar o cubo inteiro e ver as outras faces, o que não conta como jogada.
+# O fim do jogo
+O quebra-cabeças está resolvido quando cada face mostra uma só cor.
+# Níveis e estrelas
+O par de uma mistura curta é o seu número de jogadas. Resolvido no par sem ajudas: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Uma mistura completa resolvida vale 3 estrelas.

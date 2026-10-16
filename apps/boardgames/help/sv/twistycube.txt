@@ -1,0 +1,9 @@
+Vridkub
+# Målet
+Varje sida av kuben är täckt av små färgade märken. När den är blandad ligger färgerna huller om buller: få tillbaka kuben till en färg på varje sida.
+# Ett drag
+Vrid ett lager av kuben ett kvarts varv, åt det ena eller andra hållet: en yttersida eller en skiva inuti. Svep längs en rad märken för att vrida deras lager; svep bredvid kuben för att vända hela kuben och se dess andra sidor, vilket inte räknas som ett drag.
+# Partiets slut
+Pusslet är löst när varje sida bara visar en färg.
+# Banor och stjärnor
+Par för en kort blandning är dess antal drag. Löst på par utan ledtråd: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1. En helt blandad kub ger 3 stjärnor när den är löst.

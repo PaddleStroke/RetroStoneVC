@@ -1,0 +1,9 @@
+Cubo rotante
+# Lo scopo
+Ogni faccia del cubo è coperta di piccoli adesivi. Quando il cubo è mescolato, i colori si confondono: riportalo a un solo colore su ogni faccia.
+# Una mossa
+Ruota uno strato del cubo di un quarto di giro, in un verso o nell'altro: una faccia esterna o una fetta interna. Scorri lungo una fila di adesivi per ruotarne lo strato; scorri accanto al cubo per girare il cubo intero e vederne le altre facce, il che non conta come mossa.
+# La fine della partita
+Il rompicapo è risolto quando ogni faccia mostra un solo colore.
+# Livelli e stelle
+Il par di una mescolata corta è il suo numero di mosse. Risolto al par senza aiuti: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Una mescolata completa risolta vale 3 stelle.

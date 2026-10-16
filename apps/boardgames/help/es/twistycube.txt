@@ -1,0 +1,9 @@
+Cubo giratorio
+# El objetivo
+Cada cara del cubo está cubierta de pequeñas pegatinas. Cuando está mezclado, sus colores se revuelven: devuelve el cubo a un solo color en cada cara.
+# Una jugada
+Gira una capa del cubo un cuarto de vuelta, en un sentido u otro: una cara exterior o una rebanada interior. Desliza el dedo a lo largo de una fila de pegatinas para girar su capa; desliza junto al cubo para girar el cubo entero y ver sus otras caras, lo que no cuenta como jugada.
+# El final de la partida
+El rompecabezas está resuelto cuando cada cara muestra un solo color.
+# Niveles y estrellas
+El par de una mezcla corta es su número de jugadas. Resuelto en el par sin pistas: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una mezcla completa resuelta da 3 estrellas.

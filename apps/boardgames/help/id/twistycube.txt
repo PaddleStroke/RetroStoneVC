@@ -1,0 +1,9 @@
+Kubus Putar
+# Tujuan
+Setiap sisi kubus ditutupi stiker kecil berwarna. Saat diacak, warnanya bercampur: kembalikan kubus hingga setiap sisi hanya berwarna satu.
+# Satu langkah
+Putar satu lapisan kubus seperempat putaran, ke satu arah atau arah lain: sisi luar atau irisan di dalam. Usap sepanjang deretan stiker untuk memutar lapisannya; usap di samping kubus untuk memutar seluruh kubus dan melihat sisi lainnya, yang tidak dihitung sebagai langkah.
+# Akhir permainan
+Teka-teki selesai saat setiap sisi hanya menunjukkan satu warna.
+# Level dan bintang
+Par acakan pendek adalah jumlah langkahnya. Selesai sesuai par tanpa petunjuk: 3 bintang; dengan langkah paling banyak satu setengah kali par: 2 bintang; selain itu 1. Kubus yang diacak penuh memberi 3 bintang saat selesai.

@@ -1,0 +1,9 @@
+Otočná kostka
+# Cíl hry
+Každá stěna kostky je pokrytá malými nálepkami. Po zamíchání jsou barvy rozházené: vrať kostku tak, aby měla každá stěna jedinou barvu.
+# Tah
+Otoč jednu vrstvu kostky o čtvrt otáčky na jednu nebo druhou stranu: vnější stěnu nebo plátek uvnitř. Přejeď prstem podél řady nálepek a otočíš jejich vrstvou; přejeď vedle kostky a otočíš celou kostkou, abys viděl její další stěny – to se jako tah nepočítá.
+# Konec hry
+Hlavolam je vyřešen, když každá stěna ukazuje jedinou barvu.
+# Úrovně a hvězdy
+Par krátkého zamíchání je počet jeho tahů. Vyřešeno na par bez nápovědy: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1. Úplně zamíchaná kostka dá po vyřešení 3 hvězdy.

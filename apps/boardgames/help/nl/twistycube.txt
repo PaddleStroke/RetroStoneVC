@@ -1,0 +1,9 @@
+Draaikubus
+# Het doel
+Elke kant van de kubus is beplakt met kleine stickers. Als hij gehusseld is, lopen de kleuren door elkaar: breng de kubus terug tot elke kant één kleur heeft.
+# Een zet
+Draai één laag van de kubus een kwartslag, de ene of de andere kant op: een buitenkant of een plak binnenin. Veeg langs een rij stickers om hun laag te draaien; veeg naast de kubus om de hele kubus te draaien en zijn andere kanten te zien, wat niet als zet telt.
+# Het einde van het spel
+De puzzel is opgelost als elke kant nog maar één kleur toont.
+# Levels en sterren
+Het par van een korte husseling is het aantal zetten ervan. Opgelost op par zonder hint: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een volledig gehusselde kubus oplossen levert 3 sterren op.

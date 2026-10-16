@@ -1,0 +1,9 @@
+Drejeterning
+# Målet
+Hver side af terningen er dækket af små farvede mærker. Når den er blandet, er farverne rodet sammen: få terningen tilbage, så hver side har én farve.
+# Et træk
+Drej ét lag af terningen en kvart omgang, den ene eller den anden vej: en yderside eller en skive indeni. Stryg langs en række mærker for at dreje deres lag; stryg ved siden af terningen for at dreje hele terningen og se dens andre sider, hvilket ikke tæller som et træk.
+# Spillets afslutning
+Gåden er løst, når hver side kun viser én farve.
+# Baner og stjerner
+Par for en kort blanding er dens antal træk. Løst i par uden hjælp: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1. En helt blandet terning giver 3 stjerner, når den er løst.

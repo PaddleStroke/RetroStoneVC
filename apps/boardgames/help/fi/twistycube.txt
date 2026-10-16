@@ -1,0 +1,9 @@
+Kääntökuutio
+# Tavoite
+Kuution jokainen sivu on peitetty pienillä värillisillä tarroilla. Sekoitetussa kuutiossa värit ovat sikin sokin: palauta kuutio niin, että jokaisella sivulla on yksi väri.
+# Siirto
+Käännä yhtä kuution kerrosta neljänneskierros jompaankumpaan suuntaan: ulkosivua tai sisällä olevaa siivua. Pyyhkäise tarrarivin suuntaisesti, niin sen kerros kääntyy; pyyhkäise kuution vieressä, niin koko kuutio kääntyy ja näet sen muut sivut. Se ei ole siirto.
+# Pelin loppu
+Pulma on ratkaistu, kun jokainen sivu näyttää vain yhtä väriä.
+# Tasot ja tähdet
+Lyhyen sekoituksen par on sen siirtojen määrä. Ratkaistu parilla ilman vihjettä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1. Täysin sekoitettu kuutio antaa ratkaistuna 3 tähteä.
