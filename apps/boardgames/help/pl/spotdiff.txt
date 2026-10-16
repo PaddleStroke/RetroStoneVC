@@ -1,0 +1,9 @@
+Znajdź różnice
+# Cel gry
+Obie siatki są takie same, poza kilkoma polami. Znajdź je wszystkie: dotknij każdego w dowolnej siatce.
+- Pole się różni, gdy zmienił się jego kolor, symbol albo jedno i drugie. Każdy kolor ma swój symbol, a kolor, który się zmienia, zawsze staje się łatwy do odróżnienia, bez względu na to, jak widzisz kolory.
+- Dotknięcie pola, które jest takie samo w obu siatkach, to błąd.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy znajdziesz wszystkie różnice.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Zegar nigdy nie odbiera gwiazdki.

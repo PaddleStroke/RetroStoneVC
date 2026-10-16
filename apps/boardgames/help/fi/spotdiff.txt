@@ -1,0 +1,9 @@
+Etsi erot
+# Tavoite
+Kaksi ruudukkoa ovat samanlaiset muutamaa ruutua lukuun ottamatta. Etsi ne kaikki: napauta jokaista kummassa tahansa ruudukossa.
+- Ruutu eroaa, kun sen väri, sen symboli tai molemmat ovat muuttuneet. Jokaisella värillä on oma symbolinsa, ja muuttuva väri vaihtuu aina helposti erottuvaan, värinäöstä riippumatta.
+- Napautus ruutuun, joka on molemmissa ruudukoissa sama, on virhe.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki erot on löydetty.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Kello ei koskaan vie tähteä.

@@ -1,0 +1,9 @@
+Spot the Difference
+# The aim
+The two grids are the same but for a few cells. Find them all: tap each one in either grid.
+- A cell differs when its colour, its symbol, or both have changed. Each colour has its own symbol, and a colour that changes always turns into one that is easy to tell apart, whatever your colour vision.
+- A tap on a cell that is the same in both grids is a mistake.
+# The end of the game
+The puzzle is solved when every difference is found.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. The clock never costs a star.

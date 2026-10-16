@@ -1,0 +1,9 @@
+Cari Perbedaan
+# Tujuan
+Kedua kisi sama, kecuali beberapa kotak. Temukan semuanya: ketuk masing-masing di kisi mana pun.
+- Sebuah kotak berbeda jika warnanya, simbolnya, atau keduanya berubah. Setiap warna punya simbolnya sendiri, dan warna yang berubah selalu menjadi warna yang mudah dibedakan, bagaimanapun penglihatan warnamu.
+- Mengetuk kotak yang sama di kedua kisi adalah kesalahan.
+# Akhir permainan
+Teka-teki selesai jika semua perbedaan sudah ditemukan.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Jam tidak pernah mengurangi bintang.

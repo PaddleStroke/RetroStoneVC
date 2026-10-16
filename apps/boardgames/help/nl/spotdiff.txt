@@ -1,0 +1,9 @@
+Zoek de verschillen
+# Het doel
+De twee roosters zijn gelijk, op een paar vakjes na. Vind ze allemaal: tik elk ervan aan in een van beide roosters.
+- Een vakje verschilt als zijn kleur, zijn symbool of allebei veranderd zijn. Elke kleur heeft een eigen symbool, en een kleur die verandert, wordt altijd een kleur die goed te onderscheiden is, hoe je ook kleuren ziet.
+- Een tik op een vakje dat in beide roosters gelijk is, is een fout.
+# Het einde van het spel
+De puzzel is opgelost als alle verschillen gevonden zijn.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. De klok kost nooit een ster.

@@ -1,0 +1,9 @@
+Najdi rozdíly
+# Cíl hry
+Obě mřížky jsou stejné až na pár políček. Najdi je všechna: ťukni na každé v kterékoli mřížce.
+- Políčko se liší, když se změnila jeho barva, jeho symbol nebo obojí. Každá barva má svůj symbol a barva, která se mění, se vždy změní na snadno rozlišitelnou, ať vidíš barvy jakkoli.
+- Ťuknutí na políčko, které je v obou mřížkách stejné, je chyba.
+# Konec hry
+Hlavolam je vyřešen, když najdeš všechny rozdíly.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Hodiny tě nikdy nestojí hvězdu.

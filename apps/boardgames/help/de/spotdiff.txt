@@ -1,0 +1,9 @@
+Finde die Unterschiede
+# Das Ziel
+Die beiden Gitter sind gleich, bis auf ein paar Felder. Finde sie alle: Tippe jedes in einem der beiden Gitter an.
+- Ein Feld ist anders, wenn sich seine Farbe, sein Symbol oder beides geändert hat. Jede Farbe hat ihr eigenes Symbol, und eine Farbe, die sich ändert, wird immer zu einer gut unterscheidbaren, bei jeder Art des Farbsehens.
+- Ein Tipp auf ein Feld, das in beiden Gittern gleich ist, ist ein Fehler.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Unterschiede gefunden sind.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Die Uhr kostet nie einen Stern.

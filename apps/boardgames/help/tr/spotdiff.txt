@@ -1,0 +1,9 @@
+Farkı Bul
+# Amaç
+İki ızgara birkaç kare dışında aynıdır. Hepsini bul: her birine iki ızgaradan birinde dokun.
+- Bir karenin rengi, simgesi ya da ikisi birden değişmişse o kare farklıdır. Her rengin kendi simgesi vardır ve değişen bir renk, renkleri nasıl görürsen gör, her zaman kolayca ayırt edilen bir renge döner.
+- İki ızgarada da aynı olan bir kareye dokunmak hatadır.
+# Oyunun sonu
+Bütün farklar bulununca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Saat sana hiçbir zaman yıldız kaybettirmez.

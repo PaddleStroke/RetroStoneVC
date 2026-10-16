@@ -1,0 +1,9 @@
+Descobre as Diferenças
+# O objetivo
+As duas grelhas são iguais, exceto algumas casas. Encontra-as todas: toca em cada uma, em qualquer das grelhas.
+- Uma casa é diferente quando mudou a cor, o símbolo ou ambos. Cada cor tem o seu próprio símbolo, e uma cor que muda passa sempre a outra fácil de distinguir, seja qual for a tua visão das cores.
+- Tocar numa casa igual nas duas grelhas é um erro.
+# O fim do jogo
+A grelha está resolvida quando todas as diferenças forem encontradas.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. O relógio nunca custa uma estrela.

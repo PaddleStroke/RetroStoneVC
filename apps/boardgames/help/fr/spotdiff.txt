@@ -1,0 +1,9 @@
+Jeu des différences
+# Le but
+Les deux grilles sont identiques, sauf quelques cases. Trouve-les toutes : touche chacune dans l'une ou l'autre grille.
+- Une case diffère quand sa couleur, son symbole, ou les deux ont changé. Chaque couleur a son propre symbole, et une couleur qui change devient toujours une couleur facile à distinguer, quelle que soit ta vision des couleurs.
+- Toucher une case identique dans les deux grilles est une erreur.
+# La fin de la partie
+Le casse-tête est résolu quand toutes les différences sont trouvées.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Le chronomètre ne coûte jamais d'étoile.

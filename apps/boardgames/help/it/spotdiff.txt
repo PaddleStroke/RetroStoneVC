@@ -1,0 +1,9 @@
+Trova le differenze
+# Lo scopo
+Le due griglie sono uguali, tranne poche caselle. Trovale tutte: tocca ognuna in una delle due griglie.
+- Una casella è diversa quando è cambiato il suo colore, il suo simbolo o entrambi. Ogni colore ha il suo simbolo, e un colore che cambia diventa sempre uno facile da distinguere, qualunque sia la tua visione dei colori.
+- Toccare una casella uguale nelle due griglie è un errore.
+# La fine della partita
+La griglia è risolta quando tutte le differenze sono state trovate.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Il cronometro non costa mai una stella.

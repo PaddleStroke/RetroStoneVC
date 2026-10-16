@@ -1,0 +1,9 @@
+Encuentra las diferencias
+# El objetivo
+Las dos cuadrículas son iguales salvo unas pocas casillas. Encuéntralas todas: toca cada una en cualquiera de las dos.
+- Una casilla es distinta cuando ha cambiado su color, su símbolo o ambos. Cada color tiene su propio símbolo, y un color que cambia siempre pasa a otro fácil de distinguir, sea cual sea tu visión de los colores.
+- Tocar una casilla que es igual en las dos cuadrículas es un error.
+# El final de la partida
+El tablero está resuelto cuando se han encontrado todas las diferencias.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. El reloj nunca cuesta una estrella.

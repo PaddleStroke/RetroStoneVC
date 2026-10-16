@@ -1,0 +1,9 @@
+Jogo dos Erros
+# O objetivo
+As duas grades são iguais, menos algumas casas. Encontre todas: toque em cada uma, em qualquer das grades.
+- Uma casa é diferente quando mudou a cor, o símbolo ou os dois. Cada cor tem seu próprio símbolo, e uma cor que muda sempre vira outra fácil de distinguir, seja qual for a sua visão de cores.
+- Tocar numa casa igual nas duas grades é um erro.
+# O fim da partida
+A grade está resolvida quando todas as diferenças são encontradas.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. O relógio nunca custa uma estrela.

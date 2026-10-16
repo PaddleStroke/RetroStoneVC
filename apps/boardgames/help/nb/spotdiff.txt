@@ -1,0 +1,9 @@
+Finn forskjellene
+# Målet
+De to rutenettene er like, bortsett fra noen få ruter. Finn alle: trykk på hver av dem i ett av rutenettene.
+- En rute er forskjellig når fargen, symbolet eller begge deler er endret. Hver farge har sitt eget symbol, og en farge som endres, blir alltid til en som er lett å skille, uansett fargesyn.
+- Et trykk på en rute som er lik i begge rutenettene, er en feil.
+# Slutten på spillet
+Oppgaven er løst når alle forskjellene er funnet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. Klokken koster aldri en stjerne.

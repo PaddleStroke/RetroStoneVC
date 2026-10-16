@@ -1,0 +1,9 @@
+Hitta skillnaderna
+# Målet
+De två rutnäten är lika, utom några få rutor. Hitta alla: tryck på var och en i något av rutnäten.
+- En ruta skiljer sig när dess färg, dess symbol eller båda har ändrats. Varje färg har sin egen symbol, och en färg som ändras blir alltid en som är lätt att skilja ut, oavsett färgseende.
+- Ett tryck på en ruta som är likadan i båda rutnäten är ett fel.
+# Partiets slut
+Pusslet är löst när alla skillnader är hittade.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Klockan kostar aldrig en stjärna.

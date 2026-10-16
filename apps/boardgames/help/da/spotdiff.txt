@@ -1,0 +1,9 @@
+Find forskellene
+# Målet
+De to gitre er ens, bortset fra nogle få felter. Find dem alle: tryk på hvert af dem i et af gitrene.
+- Et felt er forskelligt, når dets farve, dets symbol eller begge dele er ændret. Hver farve har sit eget symbol, og en farve, der ændres, bliver altid til en, der er let at skelne, uanset dit farvesyn.
+- Et tryk på et felt, der er ens i begge gitre, er en fejl.
+# Spillets afslutning
+Opgaven er løst, når alle forskelle er fundet.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. Uret koster aldrig en stjerne.
