@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = HUONE %d
+ROOM_KITCHEN = KEITTIÖ
+ROOM_LIVING = OLOHUONE
+ROOM_BEDROOM = MAKUUHUONE
+ROOM_GARDEN = PUUTARHA
+ROOM_ATTIC = ULLAKKO
+CLEAR = HUONE TYHJÄ!
+CAUGHT = %s KIINNI!

@@ -1,0 +1,19 @@
+# Kitty Kibble: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+intro     60   50   --opt bot=1 --opt seed=3 --opt ready=1
+living    60   50   --opt bot=1 --opt seed=3 --opt ready=1 --opt room=2
+bedroom   60   50   --opt bot=1 --opt seed=3 --opt ready=1 --opt room=3
+garden    60   50   --opt bot=1 --opt seed=3 --opt ready=1 --opt room=4
+attic     60   50   --opt bot=1 --opt seed=3 --opt ready=1 --opt room=5
+play      600  590  --opt bot=1 --opt seed=3 --opt ready=1
+play4     300  290  --opt bot=4 --opt botskill=2 --opt seed=9 --opt ready=1
+pause     640  630  --opt bot=1 --opt seed=3 --opt ready=1 ; 600 tap SELECT
+clear     30   20   --opt ready=1 --opt msg=2
+caught2   30   20   --opt ready=1 --opt msg=1 --opt players=2
+caught4   30   20   --opt ready=1 --opt msg=1 --opt players=4
+over      880  870  --opt bot=1 --opt ready=1 --opt botstop=50 --opt seed=4 --opt botruns=2
+results   4080 4070 --opt bot=4 --opt ready=1 --opt botstop=60 --opt seed=5

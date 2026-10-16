@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = VÆRELSE %d
+ROOM_KITCHEN = KØKKEN
+ROOM_LIVING = STUE
+ROOM_BEDROOM = SOVEVÆRELSE
+ROOM_GARDEN = HAVE
+ROOM_ATTIC = LOFT
+CLEAR = VÆRELSE KLARET!
+CAUGHT = %s FANGET!

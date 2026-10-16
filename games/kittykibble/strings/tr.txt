@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = ODA %d
+ROOM_KITCHEN = MUTFAK
+ROOM_LIVING = SALON
+ROOM_BEDROOM = YATAK ODASI
+ROOM_GARDEN = BAHÇE
+ROOM_ATTIC = ÇATI KATI
+CLEAR = ODA TAMAM!
+CAUGHT = %s YAKALANDI!

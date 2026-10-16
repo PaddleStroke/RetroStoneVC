@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = へや %d
+ROOM_KITCHEN = だいどころ
+ROOM_LIVING = いま
+ROOM_BEDROOM = しんしつ
+ROOM_GARDEN = にわ
+ROOM_ATTIC = やねうら
+CLEAR = へやクリア!
+CAUGHT = %sつかまった!

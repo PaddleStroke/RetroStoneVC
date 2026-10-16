@@ -1,0 +1,38 @@
+# Kitty Kibble (games/kittykibble): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt; the title says PRESS A TO PLAY). The game's
+# name is never translated.
+
+#. In play, as each room begins (2 s): small letters on a panel over the maze (row 12), above the room's name;
+#. %d is the room's number (1, 2, 3...). Also the last line of the game-over panel (the room reached).
+#. max 30
+ROOM_N = ROOM %d
+
+#. In play, as each room begins: the room's name in 2x gold letters (2 columns each) on the panel (row 14; small
+#. letters if it is longer than 17). The kitten eats the kibble of five rooms of a house, in turn ...
+#. max 17
+ROOM_KITCHEN = KITCHEN
+
+#. ... the living room ...
+#. max 17
+ROOM_LIVING = LIVING ROOM
+
+#. ... the bedroom ...
+#. max 17
+ROOM_BEDROOM = BEDROOM
+
+#. ... the garden ...
+#. max 17
+ROOM_GARDEN = GARDEN
+
+#. ... and the attic.
+#. max 17
+ROOM_ATTIC = ATTIC
+
+#. In play, when the last kibble of a room is eaten (2 s, before the next room): 2x gold letters on a panel (row 14).
+#. max 17
+CLEAR = ROOM CLEAR!
+
+#. In play with 2-4 players, small letters centred on row 3 (row 1 with 3-4 players) for 2 s, when a robot vacuum
+#. catches a kitten (that player is out); %s is the player's tag (P2).
+#. max 30
+CAUGHT = %s CAUGHT!

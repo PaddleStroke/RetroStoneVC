@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = ΔΩΜΑΤΙΟ %d
+ROOM_KITCHEN = ΚΟΥΖΙΝΑ
+ROOM_LIVING = ΣΑΛΟΝΙ
+ROOM_BEDROOM = ΥΠΝΟΔΩΜΑΤΙΟ
+ROOM_GARDEN = ΚΗΠΟΣ
+ROOM_ATTIC = ΣΟΦΙΤΑ
+CLEAR = ΚΑΘΑΡΟ ΔΩΜΑΤΙΟ!
+CAUGHT = ΠΙΑΣΤΗΚΕ Ο %s!

@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = RUANG %d
+ROOM_KITCHEN = DAPUR
+ROOM_LIVING = RUANG TAMU
+ROOM_BEDROOM = KAMAR TIDUR
+ROOM_GARDEN = KEBUN
+ROOM_ATTIC = LOTENG
+CLEAR = RUANG BERES!
+CAUGHT = %s TERTANGKAP!

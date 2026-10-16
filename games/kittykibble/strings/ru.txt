@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = КОМНАТА %d
+ROOM_KITCHEN = КУХНЯ
+ROOM_LIVING = ГОСТИНАЯ
+ROOM_BEDROOM = СПАЛЬНЯ
+ROOM_GARDEN = САД
+ROOM_ATTIC = ЧЕРДАК
+CLEAR = КОМНАТА ПРОЙДЕНА!
+CAUGHT = %s ПОЙМАН!

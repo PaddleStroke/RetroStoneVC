@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = STANZA %d
+ROOM_KITCHEN = CUCINA
+ROOM_LIVING = SOGGIORNO
+ROOM_BEDROOM = CAMERA
+ROOM_GARDEN = GIARDINO
+ROOM_ATTIC = SOFFITTA
+CLEAR = STANZA FINITA!
+CAUGHT = %s PRESO!

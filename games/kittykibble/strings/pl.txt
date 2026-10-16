@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = POKÓJ %d
+ROOM_KITCHEN = KUCHNIA
+ROOM_LIVING = SALON
+ROOM_BEDROOM = SYPIALNIA
+ROOM_GARDEN = OGRÓD
+ROOM_ATTIC = STRYCH
+CLEAR = POKÓJ ZALICZONY!
+CAUGHT = %s ZŁAPANY!

@@ -1,0 +1,14 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+play.bot_dk         the bot's scratch (breadth-first distances): filled anew at each decision
+play.bot_tv         the bot's scratch (when a vacuum can reach each cell): filled anew at each decision
+play.bot_first      the bot's scratch (the first step of each path): filled anew at each decision
+play.bot_q          the bot's scratch (the breadth-first queue): filled anew at each decision
+play.bot_up         the bot's scratch (each cell's parent): filled anew at each decision
+play.bot_tmp        the bot's scratch (a vacuum's distances): filled anew at each decision
+play.bot_safe       the bot's scratch (the safe cells): filled anew at each decision
+play.bot_reach      the bot's scratch (how deep the safe corridors go): filled anew at each decision
+play.bot_sim        the bot's look-ahead: a copy of the world played on, made anew at each decision

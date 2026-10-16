@@ -1,0 +1,9 @@
+# Kitty Kibble's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+ROOM_N = 방 %d
+ROOM_KITCHEN = 부엌
+ROOM_LIVING = 거실
+ROOM_BEDROOM = 침실
+ROOM_GARDEN = 정원
+ROOM_ATTIC = 다락방
+CLEAR = 방 클리어!
+CAUGHT = %s 잡혔다!
