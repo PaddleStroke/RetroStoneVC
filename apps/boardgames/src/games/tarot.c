@@ -385,15 +385,19 @@ static void sweep(const tpos *b, int delay)
     }
 }
 
-/* what an action moved, from the position before it (the viewer acts: it is their turn) */
+/* what an action moved, from the position before it: the viewer's own action from and to their hand; another
+ * seat's (a bot's, the view staying with the person) from and to that seat's place, as the deal sends its cards,
+ * face down but for the card played */
 static void animate(const tpos *b, int act)
 {
     const tpos *p = &G.pos;
-    int k = TA_KIND(act), a = TA_ARG(act), me = T.me;
+    int k = TA_KIND(act), a = TA_ARG(act), me = T.me, own = (k == TA_PLAY ? b->turn : b->taker) == me;
     cards_spot s0[TAROT_HAND], s1[TAROT_HAND];
-    float w0, w1;
+    float w0, w1, ax, ay, aw = T.wt * 0.4f;
     hand_spots(b->nhand[me], s0, &w0);
     hand_spots(p->nhand[me], s1, &w1);
+    seat(k == TA_PLAY ? b->turn : b->taker, &ax, &ay);
+    ay = T.b.y - 0.3f * T.u;
     switch (k) {
     case TA_BID:
     case TA_CALL:
@@ -407,30 +411,32 @@ static void animate(const tpos *b, int act)
     case TA_POIGNEE: ui_sound(SND_TAP); break;
     case TA_TAKE: {
         float w = row_w(b->dogsize);
-        relayout(b, 0, -1);
+        if (own) relayout(b, 0, -1);
         for (int i = 0; i < b->dogsize; i++) {
             int j = index_of(p->hand[me], p->nhand[me], b->dog[i]);
-            slide(b->dog[i], 1, row_x(b->dogsize, i, w, 0), T.ty, w, 0, 1, s1[j].x, s1[j].y, w1, s1[j].deg, SLIDE_MS,
-                  60 * i, H_HAND, i == 0 ? SND_MOVE : -1);
+            if (own) slide(b->dog[i], 1, row_x(b->dogsize, i, w, 0), T.ty, w, 0, 1, s1[j].x, s1[j].y, w1, s1[j].deg,
+                           SLIDE_MS, 60 * i, H_HAND, i == 0 ? SND_MOVE : -1);
+            else slide(b->dog[i], 1, row_x(b->dogsize, i, w, 0), T.ty, w, 0, 0, ax, ay, aw, 0, SLIDE_MS, 60 * i, H_NONE,
+                       i == 0 ? SND_MOVE : -1);
         }
         break;
     }
     case TA_DISCARD: {
         int j = index_of(b->hand[me], b->nhand[me], a);
         float w = ecart_w();
-        relayout(b, 1, a);
-        slide(a, 1, s0[j].x, s0[j].y, w0, s0[j].deg, 1, row_x(p->dogsize, p->necart - 1, w, ecart_shift()), T.ty, w,
-              0, 240, 0, H_ECART, SND_PLACE);
+        if (own) relayout(b, 1, a);
+        slide(a, own, own ? s0[j].x : ax, own ? s0[j].y : ay, own ? w0 : aw, own ? s0[j].deg : 0, own,
+              row_x(p->dogsize, p->necart - 1, w, ecart_shift()), T.ty, w, 0, 240, 0, H_ECART, SND_PLACE);
         break;
     }
     case TA_RETURN: {
         int j = index_of(b->ecart, b->necart, a), i = index_of(p->hand[me], p->nhand[me], a);
         float w = ecart_w();
-        relayout(b, 1, a);
-        slide(a, 1, row_x(p->dogsize, j, w, ecart_shift()), T.ty, w, 0, 1, s1[i].x, s1[i].y, w1, s1[i].deg, 240, 0,
-              H_HAND, SND_PLACE);
+        if (own) relayout(b, 1, a);
+        slide(a, own, row_x(p->dogsize, j, w, ecart_shift()), T.ty, w, 0, own, own ? s1[i].x : ax, own ? s1[i].y : ay,
+              own ? w1 : aw, own ? s1[i].deg : 0, 240, 0, own ? H_HAND : H_NONE, SND_PLACE);
         for (int e = j; e < p->necart; e++)
-            slide(p->ecart[e], 1, row_x(p->dogsize, e + 1, w, ecart_shift()), T.ty, w, 0, 1,
+            slide(p->ecart[e], own, row_x(p->dogsize, e + 1, w, ecart_shift()), T.ty, w, 0, own,
                   row_x(p->dogsize, e, w, ecart_shift()), T.ty, w, 0, 200, 0, H_ECART, -1);
         break;
     }
@@ -438,7 +444,7 @@ static void animate(const tpos *b, int act)
         float w = ecart_w();
         for (int e = 0; e < b->necart; e++) {
             int c = b->ecart[e], up = CARD_SUIT(c) == SUIT_TRUMP;
-            slide(c, 1, row_x(b->dogsize, e, w, ecart_shift()), T.ty, w, 0, up, T.ex, T.ey, T.ws, 0, SLIDE_MS, 50 * e,
+            slide(c, own, row_x(b->dogsize, e, w, ecart_shift()), T.ty, w, 0, up, T.ex, T.ey, T.ws, 0, SLIDE_MS, 50 * e,
                   H_ASIDE, e == 0 ? SND_MOVE : -1);
         }
         break;
@@ -446,11 +452,12 @@ static void animate(const tpos *b, int act)
     case TA_PLAY: {
         int j = index_of(b->hand[me], b->nhand[me], a);
         float x, y;
-        seat(me, &x, &y);
+        seat(b->turn, &x, &y);
         int delay = 0;
         if (b->ntrick == 0 && b->tricks > 0) { sweep(b, 0); delay = 120; }
-        relayout(b, 1, a);
-        slide(a, 1, s0[j].x, s0[j].y, w0, s0[j].deg, 1, x, y, T.wt, 0, SLIDE_MS, delay, H_TRICK, SND_PLACE);
+        if (own) relayout(b, 1, a);
+        slide(a, 1, own ? s0[j].x : ax, own ? s0[j].y : ay, own ? w0 : aw, own ? s0[j].deg : 0, 1, x, y, T.wt, 0,
+              SLIDE_MS, delay, H_TRICK, SND_PLACE);
         if (p->ntrick == 0) {                   /* the trick complete: a moment to see who takes it */
             rest(delay + SLIDE_MS + TRICK_REST);
             ui_sound_later(SND_CAPTURE, delay + SLIDE_MS + 200);
@@ -765,8 +772,10 @@ static void draw_middle(void)
         float w = ecart_w(), x, y, r;
         for (int i = 0; i < p->dogsize; i++) {
             float cx = row_x(p->dogsize, i, w, ecart_shift());
-            if (i < p->necart && !hides(H_ECART, p->ecart[i]))   /* the cover: the cards put aside face down */
-                cards_draw(DK, ui.viewer < 0 ? CARD_NONE : p->ecart[i], cx, T.ty, w, 0, ui.viewer < 0 ? CD_DOWN : 0);
+            if (i < p->necart && !hides(H_ECART, p->ecart[i])) {   /* face down but to the taker (a bot taking) */
+                int up = ui.viewer >= 0 && T.me == p->taker;
+                cards_draw(DK, up ? p->ecart[i] : CARD_NONE, cx, T.ty, w, 0, up ? 0 : CD_DOWN);
+            }
             else cards_place(DK, cx, T.ty, w);
         }
         ok_button(&x, &y, &r);
