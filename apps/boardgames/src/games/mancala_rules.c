@@ -94,7 +94,7 @@ int mc_play(mc_game *g, int pit, mc_move *out)
     p.seeds[pit] = 0;
     for (int i = 0; i < m.n; i++) {
         do s = next_slot(g->variant, s, me);
-        while (s == pit);                       /* Oware: 12 seeds or more pass by the pit they came from */
+        while (s == pit && g->variant == MC_OWARE);   /* Oware: 12 seeds or more pass by the pit they came from */
         p.seeds[s]++;
         m.to[i] = (uint8_t)s;
     }

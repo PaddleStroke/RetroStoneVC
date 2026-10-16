@@ -1,6 +1,6 @@
 /*
  * Mancala's bot (bots.h), Oware and Kalah: alpha-beta (ai.h) over a small copy of the position (the pits, the stores,
- * the player to move), sown as the rules sow it (mancala_rules.c: the skip of the pit sown, Oware's captures, the
+ * the player to move), sown as the rules sow it (mancala_rules.c: Oware's skip of the pit sown, its captures, the
  * grand slam, the duty to feed, the end over 24; Kalah's store, extra turn and capture opposite, the sweep). The
  * evaluation: the stores, then the seeds each side keeps (Kalah: they go to their side's player at the end; Oware: a
  * reserve that feeds the long sowings), the other side's pits of 1 or 2 seeds (ready to be taken: Oware) and the pits
@@ -60,7 +60,7 @@ static void mcb_make(mcbpos *p, int pit)
     p->s[pit] = 0;
     for (int i = 0; i < n; i++) {
         do s = next_slot(p->kalah, s, me);
-        while (s == pit);
+        while (s == pit && !p->kalah);         /* Oware only: Kalah sows the emptied pit too */
         p->s[s]++;
     }
     if (!p->kalah) {

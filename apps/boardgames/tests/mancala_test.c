@@ -102,6 +102,12 @@ int main(void)
     setup(MC_KALAH, (const int[]){1, 0, 2, 0, 0, 0, 3, 3, 3, 3, 0, 3, 10, 20}, 0);
     CHECK(play("1") && m.ntake == 0 && at(1) == 1 && at(MC_STORE) == 10);
 
+    /* Kalah sows the emptied pit too: 13 seeds go round (12 pits and the store) and the last lands back in it,
+     * empty, so it takes the pit opposite */
+    setup(MC_KALAH, (const int[]){13, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 0, 28}, 0);
+    CHECK(play("1") && m.to[12] == 0 && m.ntake == 2 && m.take[0].pit == 11 && at(MC_STORE) == 1 + 3 + 1);
+    CHECK(at(0) == 0 && at(11) == 0 && mc_turn(&g) == 1);
+
     /* a row empty: the other player takes the rest; here 24 each, a draw */
     setup(MC_KALAH, (const int[]){0, 0, 0, 0, 0, 1, 2, 0, 5, 0, 1, 0, 23, 16}, 0);
     CHECK(play("6") && m.again && m.ntake == 3 && m.take[0].sweep && m.take[0].store == MC_STORE + 1);
