@@ -1,0 +1,7 @@
+Vormensudoku
+# Het doel
+Vul het rooster van 9 × 9 vakjes zo dat elke rij, elke kolom en elk gebied elk cijfer van 1 tot 9 één keer bevat. De gebieden zijn geen blokken van 3 × 3: dikke lijnen omranden negen vormen van negen vakjes, elk in zijn eigen hout. Een paar cijfers zijn gegeven. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt.
+# Het einde van het spel
+De puzzel is opgelost als het rooster vol en goed is.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd cijfer dat je met Ongedaan maken terugneemt.

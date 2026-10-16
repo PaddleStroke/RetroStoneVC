@@ -1,0 +1,7 @@
+Chaos-Sudoku
+# Das Ziel
+Fülle das Gitter aus 9 × 9 Feldern so, dass jede Zeile, jede Spalte und jedes Gebiet jede Ziffer von 1 bis 9 genau einmal enthält. Die Gebiete sind keine 3 × 3-Blöcke: Dicke Linien umranden neun Formen aus neun Feldern, jede in ihrem eigenen Holz. Einige Ziffern sind vorgegeben. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn das Gitter voll und richtig ist.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Ziffer, die du mit Rückgängig zurücknimmst.

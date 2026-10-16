@@ -1,0 +1,4 @@
+Łatwy
+Średni
+Trudny
+Ekspert

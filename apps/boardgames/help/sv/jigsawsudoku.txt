@@ -1,0 +1,7 @@
+Figursudoku
+# Målet
+Fyll rutnätet med 9 × 9 rutor så att varje rad, varje kolumn och varje område innehåller varje siffra från 1 till 9 en gång. Områdena är inte 3 × 3-boxar: tjocka linjer ramar in nio figurer med nio rutor, var och en i sitt eget träslag. Några siffror är givna. Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera.
+# Partiets slut
+Pusslet är löst när rutnätet är fullt och rätt.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.

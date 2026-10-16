@@ -1,0 +1,7 @@
+Sudoku Tak Beraturan
+# Tujuan
+Isi kisi 9 × 9 kotak sehingga setiap baris, setiap kolom, dan setiap wilayah berisi setiap angka 1 sampai 9 tepat satu kali. Wilayahnya bukan blok 3 × 3: garis tebal membentuk sembilan bentuk dari sembilan kotak, masing-masing dengan kayunya sendiri. Beberapa angka sudah diberikan sejak awal. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
+# Akhir permainan
+Teka-teki terpecahkan saat kisi penuh dan benar.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.

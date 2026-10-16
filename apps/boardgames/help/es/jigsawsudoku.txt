@@ -1,0 +1,7 @@
+Sudoku irregular
+# El objetivo
+Rellena la cuadrícula de 9 × 9 casillas para que cada fila, cada columna y cada región contenga una vez cada cifra del 1 al 9. Las regiones no son bloques de 3 × 3: unas líneas gruesas dibujan nueve formas de nueve casillas, cada una de su propia madera. Algunas cifras vienen dadas. Cada sudoku tiene una sola solución, que se encuentra solo razonando.
+# El final de la partida
+El sudoku está resuelto cuando la cuadrícula está llena y bien.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.

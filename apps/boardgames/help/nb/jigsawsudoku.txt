@@ -1,0 +1,7 @@
+Figursudoku
+# Målet
+Fyll rutenettet på 9 × 9 ruter slik at hver rad, hver kolonne og hvert område inneholder hvert siffer fra 1 til 9 én gang. Områdene er ikke 3 × 3-bokser: tykke linjer rammer inn ni figurer på ni ruter, hver i sitt eget treslag. Noen sifre er gitt fra start. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere.
+# Slutten på spillet
+Oppgaven er løst når rutenettet er fullt og riktig.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil siffer som du tar tilbake med Angre.
