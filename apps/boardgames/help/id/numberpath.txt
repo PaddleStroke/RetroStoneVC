@@ -1,0 +1,9 @@
+Jalur Angka
+# Tujuan
+Isi kisi dengan angka dari 1 sampai yang terakhir, satu di setiap kotak, sehingga setiap angka menyentuh angka berikutnya. Beberapa angka sudah diberikan, di antaranya 1 dan yang terakhir, yang dilingkari. Setiap teka-teki punya satu jawaban, yang bisa ditemukan hanya dengan bernalar.
+# Bersentuhan
+Di sebagian teka-teki, sebuah angka menyentuh angka berikutnya dari segala arah: lewat sisi atau sudut. Di yang lain, hanya lewat sisi.
+Ketuk sebuah angka, lalu kotak kosong di sebelahnya untuk angka berikutnya; atau seret dari sebuah angka melewati kotak-kotak kosong.
+# Akhir permainan
+Teka-teki selesai saat setiap angka menyentuh angka berikutnya.
+3 bintang: tanpa petunjuk dan tanpa kesalahan; 2 bintang: paling banyak dua petunjuk dan kesalahan bersama. Kesalahan adalah angka salah yang kamu batalkan.

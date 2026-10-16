@@ -1,0 +1,9 @@
+Zahlenpfad
+# Das Ziel
+Fülle das Gitter mit den Zahlen von 1 bis zur letzten, eine je Feld, sodass jede Zahl die nächste berührt. Einige Zahlen sind vorgegeben, darunter 1 und die letzte, die eingekreist sind. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+# Berühren
+In manchen Rätseln berührt eine Zahl die nächste rundherum: an einer Seite oder an einer Ecke. In den anderen nur an einer Seite.
+Tippe auf eine Zahl, dann auf ein leeres Feld daneben für die nächste Zahl; oder ziehe von einer Zahl aus über die leeren Felder.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Zahl die nächste berührt.
+3 Sterne: kein Tipp und kein Fehler; 2 Sterne: bis zu zwei Tipps und Fehler zusammen. Ein Fehler ist eine falsche Zahl, die du mit Rückgängig zurücknimmst.

@@ -1,0 +1,9 @@
+Percorso di numeri
+# Lo scopo
+Riempi la griglia con i numeri da 1 all'ultimo, uno per casella, in modo che ogni numero tocchi il successivo. Alcuni numeri sono dati, tra cui l'1 e l'ultimo, cerchiati. Ogni rompicapo ha una sola soluzione, che si trova solo ragionando.
+# Toccarsi
+In alcuni rompicapi un numero tocca il successivo tutt'intorno: per un lato o per un angolo. Negli altri, solo per un lato.
+Tocca un numero, poi una casella vuota accanto per il numero successivo; oppure trascina da un numero sulle caselle vuote.
+# La fine della partita
+Il rompicapo è risolto quando ogni numero tocca il successivo.
+3 stelle: nessun suggerimento e nessun errore; 2 stelle: fino a due suggerimenti ed errori in tutto. Un errore è un numero sbagliato ripreso con Annulla.

@@ -1,0 +1,9 @@
+Number Path
+# The aim
+Fill the grid with the numbers from 1 to the last, one in each cell, so that each number touches the next. Some numbers are given, among them 1 and the last, which are ringed. Each puzzle has one solution, found by reasoning alone.
+# Touching
+In some puzzles a number touches the next all around it: side by side or corner to corner. In the others, only side by side.
+Tap a number, then an empty cell touching it for the next number; or drag from a number across the empty cells.
+# The end of the game
+The puzzle is solved when every number touches the next.
+3 stars: no hint and no mistake; 2 stars: up to two hints and mistakes together. A mistake is a wrong number taken back with undo.

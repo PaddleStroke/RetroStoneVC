@@ -1,0 +1,9 @@
+Camino de números
+# El objetivo
+Llena la cuadrícula con los números del 1 al último, uno en cada casilla, de modo que cada número toque al siguiente. Algunos números vienen dados, entre ellos el 1 y el último, que van rodeados. Cada rompecabezas tiene una sola solución, que se encuentra solo razonando.
+# Tocarse
+En algunos rompecabezas un número toca al siguiente por todo alrededor: por un lado o por una esquina. En los demás, solo por un lado.
+Toca un número y luego una casilla vacía junto a él para el número siguiente; o arrastra desde un número por las casillas vacías.
+# El final de la partida
+El rompecabezas está resuelto cuando cada número toca al siguiente.
+3 estrellas: ninguna pista y ningún error; 2 estrellas: hasta dos pistas y errores en total. Un error es un número equivocado que deshaces.

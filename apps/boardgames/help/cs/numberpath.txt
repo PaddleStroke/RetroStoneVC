@@ -1,0 +1,9 @@
+Číselná cesta
+# Cíl hry
+Vyplň mřížku čísly od 1 do posledního, jedno do každého políčka, tak aby se každé číslo dotýkalo následujícího. Některá čísla jsou zadaná, mezi nimi 1 a poslední, která jsou zakroužkovaná. Každý hlavolam má jediné řešení, které se dá najít samotnou úvahou.
+# Dotyk
+V některých hlavolamech se číslo dotýká následujícího všude kolem: stranou nebo rohem. V ostatních jen stranou.
+Klepni na číslo a pak na prázdné políčko vedle něj pro další číslo; nebo táhni od čísla přes prázdná políčka.
+# Konec hry
+Hlavolam je vyřešený, když se každé číslo dotýká následujícího.
+3 hvězdy: žádná nápověda a žádná chyba; 2 hvězdy: nejvýš dvě nápovědy a chyby dohromady. Chyba je špatné číslo vrácené tlačítkem zpět.

@@ -1,0 +1,9 @@
+Numeropolku
+# Tavoite
+Täytä ruudukko luvuilla 1:stä viimeiseen, yksi kuhunkin ruutuun, niin että jokainen luku koskettaa seuraavaa. Osa luvuista on annettu, niiden joukossa 1 ja viimeinen, jotka on ympyröity. Jokaisella tehtävällä on yksi ratkaisu, jonka voi päätellä.
+# Koskettaminen
+Joissakin tehtävissä luku koskettaa seuraavaa joka suunnalta: sivulta tai kulmasta. Muissa vain sivulta.
+Napauta lukua ja sitten sen viereistä tyhjää ruutua seuraavaa lukua varten; tai vedä luvusta tyhjien ruutujen yli.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen luku koskettaa seuraavaa.
+3 tähteä: ei vihjeitä eikä virheitä; 2 tähteä: enintään kaksi vihjettä ja virhettä yhteensä. Virhe on väärä luku, jonka perut.

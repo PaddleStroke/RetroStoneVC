@@ -1,0 +1,9 @@
+Getallenpad
+# Het doel
+Vul het rooster met de getallen van 1 tot het laatste, één per vakje, zodat elk getal het volgende raakt. Sommige getallen zijn gegeven, waaronder 1 en het laatste, die omcirkeld zijn. Elke puzzel heeft één oplossing, te vinden door alleen te redeneren.
+# Raken
+In sommige puzzels raakt een getal het volgende rondom: met een zijde of met een hoek. In de andere alleen met een zijde.
+Tik op een getal en dan op een leeg vakje ernaast voor het volgende getal; of sleep vanaf een getal over de lege vakjes.
+# Het einde van het spel
+De puzzel is opgelost als elk getal het volgende raakt.
+3 sterren: geen hint en geen fout; 2 sterren: samen hoogstens twee hints en fouten. Een fout is een verkeerd getal dat je ongedaan maakt.

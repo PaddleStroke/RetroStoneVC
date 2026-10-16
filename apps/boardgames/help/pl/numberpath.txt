@@ -1,0 +1,9 @@
+Ścieżka liczb
+# Cel gry
+Wypełnij siatkę liczbami od 1 do ostatniej, po jednej w każdym polu, tak aby każda liczba stykała się z następną. Niektóre liczby są dane, wśród nich 1 i ostatnia, otoczone kółkiem. Każda łamigłówka ma jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
+# Stykanie
+W części łamigłówek liczba styka się z następną dookoła: bokiem lub rogiem. W pozostałych tylko bokiem.
+Dotknij liczby, a potem pustego pola obok niej dla następnej liczby; albo przeciągnij od liczby przez puste pola.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każda liczba styka się z następną.
+3 gwiazdki: bez podpowiedzi i bez błędów; 2 gwiazdki: najwyżej dwie podpowiedzi i błędy razem. Błąd to zła liczba cofnięta przyciskiem cofania.

@@ -1,0 +1,9 @@
+Sayı Yolu
+# Amaç
+Izgarayı 1'den sonuncuya kadar sayılarla, her kareye bir sayı gelecek şekilde doldur; her sayı bir sonrakine değmeli. Bazı sayılar verilmiştir; aralarında daire içine alınmış 1 ve sonuncu da vardır. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
+# Değmek
+Bazı bulmacalarda bir sayı bir sonrakine her yönden değer: kenardan ya da köşeden. Diğerlerinde yalnızca kenardan.
+Bir sayıya, sonra bir sonraki sayı için ona değen boş bir kareye dokun; ya da bir sayıdan başlayıp boş karelerin üzerinden sürükle.
+# Oyunun sonu
+Her sayı bir sonrakine değdiğinde bulmaca çözülür.
+3 yıldız: hiç ipucu ve hata yok; 2 yıldız: toplam en fazla iki ipucu ve hata. Hata, geri aldığın yanlış bir sayıdır.

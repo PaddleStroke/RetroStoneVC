@@ -1,0 +1,9 @@
+Talstig
+# Målet
+Fyll rutnätet med talen från 1 till det sista, ett i varje ruta, så att varje tal rör vid nästa. Några tal är givna, bland dem 1 och det sista, som är inringade. Varje pussel har en enda lösning, som går att hitta med enbart resonemang.
+# Att röra vid
+I vissa pussel rör ett tal vid nästa runtom: sida vid sida eller hörn mot hörn. I de andra bara sida vid sida.
+Tryck på ett tal och sedan på en tom ruta bredvid för nästa tal; eller dra från ett tal över de tomma rutorna.
+# Partiets slut
+Pusslet är löst när varje tal rör vid nästa.
+3 stjärnor: ingen ledtråd och inget fel; 2 stjärnor: högst två ledtrådar och fel tillsammans. Ett fel är ett felaktigt tal som du ångrar.

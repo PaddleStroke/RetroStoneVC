@@ -1,0 +1,9 @@
+Talsti
+# Målet
+Fyld gitteret med tallene fra 1 til det sidste, ét i hvert felt, så hvert tal rører det næste. Nogle tal er givet, blandt dem 1 og det sidste, som har en ring om. Hver opgave har én løsning, som kan findes ved ræsonnement alene.
+# At røre
+I nogle opgaver rører et tal det næste hele vejen rundt: side om side eller hjørne mod hjørne. I de andre kun side om side.
+Tryk på et tal og så på et tomt felt ved siden af til det næste tal; eller træk fra et tal hen over de tomme felter.
+# Spillets afslutning
+Opgaven er løst, når hvert tal rører det næste.
+3 stjerner: intet tip og ingen fejl; 2 stjerner: højst to tip og fejl tilsammen. En fejl er et forkert tal, du fortryder.

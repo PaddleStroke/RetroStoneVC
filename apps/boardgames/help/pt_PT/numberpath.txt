@@ -1,0 +1,9 @@
+Caminho de números
+# O objetivo
+Preenche a grelha com os números de 1 até ao último, um em cada casa, de modo que cada número toque no seguinte. Alguns números são dados, entre eles o 1 e o último, que estão rodeados. Cada quebra-cabeças tem uma só solução, encontrada só pelo raciocínio.
+# Tocar
+Em alguns quebra-cabeças um número toca no seguinte à sua volta toda: pelo lado ou pelo canto. Nos outros, só pelo lado.
+Toca num número e depois numa casa vazia encostada a ele para o número seguinte; ou arrasta a partir de um número pelas casas vazias.
+# O fim do jogo
+O quebra-cabeças está resolvido quando cada número toca no seguinte.
+3 estrelas: nenhuma dica e nenhum erro; 2 estrelas: até duas dicas e erros somados. Um erro é um número errado que anulas.

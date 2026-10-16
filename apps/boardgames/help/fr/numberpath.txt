@@ -1,0 +1,9 @@
+Chemin de nombres
+# Le but
+Remplis la grille avec les nombres de 1 au dernier, un par case, de sorte que chaque nombre touche le suivant. Certains nombres sont donnés, dont 1 et le dernier, entourés d'un cercle. Chaque casse-tête a une seule solution, qu'on trouve par le raisonnement seul.
+# Se toucher
+Dans certains casse-têtes, un nombre touche le suivant tout autour : par un côté ou par un coin. Dans les autres, seulement par un côté.
+Touche un nombre, puis une case vide qui le touche pour le nombre suivant ; ou fais glisser le doigt depuis un nombre sur les cases vides.
+# La fin de la partie
+Le casse-tête est résolu quand chaque nombre touche le suivant.
+3 étoiles : aucun indice et aucune erreur ; 2 étoiles : jusqu'à deux indices et erreurs en tout. Une erreur est un mauvais nombre repris avec Annuler.

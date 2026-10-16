@@ -1,0 +1,9 @@
+Tallsti
+# Målet
+Fyll rutenettet med tallene fra 1 til det siste, ett i hver rute, slik at hvert tall berører det neste. Noen tall er gitt, blant dem 1 og det siste, som har en ring rundt seg. Hver oppgave har én løsning, som kan finnes ved resonnering alene.
+# Å berøre
+I noen oppgaver berører et tall det neste hele veien rundt: side ved side eller hjørne mot hjørne. I de andre bare side ved side.
+Trykk på et tall og så på en tom rute ved siden av for det neste tallet; eller dra fra et tall over de tomme rutene.
+# Slutten på spillet
+Oppgaven er løst når hvert tall berører det neste.
+3 stjerner: ingen hint og ingen feil; 2 stjerner: opptil to hint og feil til sammen. En feil er et galt tall du angrer.
