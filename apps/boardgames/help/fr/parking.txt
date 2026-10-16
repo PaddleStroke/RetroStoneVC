@@ -1,0 +1,9 @@
+Embouteillage
+# Le but
+Des voitures et des camions sont garés sur un parking de 6 × 6 places. Libère la voiture rouge : fais-la sortir par l'ouverture au bout droit de sa rangée.
+# Un coup
+Avance ou recule un véhicule le long de sa rangée ou de sa colonne, aussi loin que tu veux, sur des places libres. Les véhicules ne tournent jamais et ne sautent pas les uns par-dessus les autres.
+# La fin de la partie
+Quand la voiture rouge atteint l'ouverture, elle sort : résolu.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres ; l'onglet du dé crée un nouveau parking au hasard : facile, moyen ou difficile. Chaque parking a un par : le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

@@ -1,0 +1,9 @@
+Trafik Sıkışıklığı
+# Amaç
+6 × 6 yerlik bir otoparkta arabalar ve kamyonlar duruyor. Kırmızı arabayı kurtar: onu sırasının sağ ucundaki boşluktan dışarı sür.
+# Bir hamle
+Bir aracı kendi sırası ya da sütunu boyunca, istediğin kadar ileri ya da geri, boş yerlere sür. Araçlar asla dönmez ve birbirinin üstünden atlamaz.
+# Oyunun sonu
+Kırmızı araba boşluğa ulaşınca dışarı çıkar: bulmaca çözüldü.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; zar sekmesi rastgele yeni bir otopark yapar: kolay, orta ya da zor. Her otoparkın bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

@@ -1,0 +1,9 @@
+Atasco
+# El objetivo
+Coches y camiones están aparcados en un aparcamiento de 6 × 6 plazas. Libera el coche rojo: sácalo por el hueco del extremo derecho de su fila.
+# Una jugada
+Mueve un vehículo hacia delante o hacia atrás por su propia fila o columna, tan lejos como quieras, a plazas libres. Los vehículos nunca giran ni saltan unos sobre otros.
+# El final de la partida
+Cuando el coche rojo llega al hueco, sale: resuelto.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos; la pestaña del dado crea un aparcamiento nuevo al azar: fácil, medio o difícil. Cada aparcamiento tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

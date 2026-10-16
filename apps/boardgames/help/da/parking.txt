@@ -1,0 +1,9 @@
+Trafikprop
+# Målet
+Biler og lastbiler holder på en parkeringsplads med 6 × 6 båse. Befri den røde bil: kør den ud gennem åbningen for enden af dens række til højre.
+# Et træk
+Kør ét køretøj frem eller tilbage langs dets egen række eller søjle, så langt du vil, ind på tomme pladser. Køretøjer drejer aldrig og hopper aldrig over hinanden.
+# Spillets afslutning
+Når den røde bil når åbningen, kører den ud: løst.
+# Baner og stjerner
+Der er 150 baner i seks kapitler; fanen med terningen laver en ny parkeringsplads tilfældigt: let, mellem eller svær. Hver plads har et par: det færreste antal træk, der løser den. Løst i par: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

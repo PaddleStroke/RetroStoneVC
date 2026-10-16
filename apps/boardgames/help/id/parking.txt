@@ -1,0 +1,9 @@
+Macet
+# Tujuan
+Mobil dan truk diparkir di lapangan parkir berukuran 6 × 6 petak. Bebaskan mobil merah: kendarai keluar lewat celah di ujung kanan barisnya.
+# Satu langkah
+Gerakkan satu kendaraan maju atau mundur di sepanjang baris atau kolomnya sendiri, sejauh yang kamu mau, ke petak kosong. Kendaraan tidak pernah berbelok dan tidak pernah melompati kendaraan lain.
+# Akhir permainan
+Saat mobil merah mencapai celah, mobil itu keluar: terpecahkan.
+# Level dan bintang
+Ada 150 level dalam enam bab; tab dadu membuat lapangan parkir baru secara acak: mudah, sedang, atau sulit. Setiap lapangan punya par: jumlah langkah paling sedikit untuk memecahkannya. Selesai sesuai par: 3 bintang; dengan langkah paling banyak satu setengah kali par: 2 bintang; selain itu 1.

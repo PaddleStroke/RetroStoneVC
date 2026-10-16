@@ -1,0 +1,9 @@
+Trafikstockning
+# Målet
+Bilar och lastbilar står på en parkering med 6 × 6 platser. Befria den röda bilen: kör ut den genom öppningen längst till höger i dess rad.
+# Ett drag
+Kör ett fordon framåt eller bakåt längs sin egen rad eller kolumn, så långt du vill, in på tomma platser. Fordon svänger aldrig och hoppar aldrig över varandra.
+# Partiets slut
+När den röda bilen når öppningen kör den ut: löst.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel; fliken med tärningen gör en ny parkering slumpvis: lätt, medel eller svår. Varje parkering har ett par: det minsta antal drag som löser den. Löst på par: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

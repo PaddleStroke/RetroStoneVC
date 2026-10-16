@@ -1,0 +1,9 @@
+Zácpa
+# Cíl hry
+Na parkovišti o 6 × 6 místech stojí auta a nákladní auta. Vysvoboď červené auto: vyjeď s ním mezerou na pravém konci jeho řady.
+# Tah
+Posuň jedno vozidlo dopředu nebo dozadu po jeho vlastní řadě nebo sloupci, jak daleko chceš, na volná místa. Vozidla se nikdy neotáčejí a nepřeskakují se.
+# Konec hry
+Když červené auto dojede k mezeře, vyjede ven: vyřešeno.
+# Úrovně a hvězdy
+Je tu 150 úrovní v šesti kapitolách; záložka s kostkou vytvoří nové parkoviště náhodně: lehké, střední nebo těžké. Každé parkoviště má par: nejmenší počet tahů, kterými se dá vyřešit. Vyřešeno na par: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1.

@@ -1,0 +1,9 @@
+Trafikkork
+# Målet
+Biler og lastebiler står på en parkeringsplass med 6 × 6 plasser. Befri den røde bilen: kjør den ut gjennom åpningen ytterst til høyre i raden dens.
+# Et trekk
+Kjør ett kjøretøy fram eller tilbake langs sin egen rad eller kolonne, så langt du vil, inn på tomme plasser. Kjøretøy svinger aldri og hopper aldri over hverandre.
+# Slutten på spillet
+Når den røde bilen når åpningen, kjører den ut: løst.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler; fanen med terningen lager en ny parkeringsplass tilfeldig: lett, middels eller vanskelig. Hver plass har et par: det minste antallet trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.

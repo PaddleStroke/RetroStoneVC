@@ -1,0 +1,9 @@
+Opstopping
+# Het doel
+Auto's en vrachtwagens staan op een parkeerplaats van 6 × 6 vakken. Bevrijd de rode auto: rijd hem naar buiten door de opening aan het rechtereinde van zijn rij.
+# Een zet
+Rijd een voertuig vooruit of achteruit langs zijn eigen rij of kolom, zo ver als je wilt, naar lege vakken. Voertuigen draaien nooit en springen nooit over elkaar heen.
+# Het einde van het spel
+Bereikt de rode auto de opening, dan rijdt hij naar buiten: opgelost.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken; het tabblad met de dobbelsteen maakt een willekeurige nieuwe parkeerplaats: makkelijk, gemiddeld of moeilijk. Elke parkeerplaats heeft een par: het kleinste aantal zetten waarmee hij op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

@@ -1,0 +1,9 @@
+Korek
+# Cel gry
+Samochody i ciężarówki stoją na parkingu o 6 × 6 miejscach. Uwolnij czerwony samochód: wyprowadź go przez lukę na prawym końcu jego rzędu.
+# Ruch
+Przesuń jeden pojazd do przodu lub do tyłu wzdłuż jego rzędu lub kolumny, tak daleko, jak chcesz, na wolne miejsca. Pojazdy nigdy nie skręcają i nie przeskakują przez siebie.
+# Koniec gry
+Gdy czerwony samochód dotrze do luki, wyjeżdża: rozwiązane.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach; zakładka z kostką tworzy nowy parking losowo: łatwy, średni lub trudny. Każdy parking ma par: najmniejszą liczbę ruchów, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

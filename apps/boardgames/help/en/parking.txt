@@ -1,0 +1,9 @@
+Traffic Jam
+# The aim
+Cars and trucks are parked in a lot of 6 × 6 bays. Free the red car: drive it out through the gap at the right end of its row.
+# A move
+Drive one vehicle forwards or backwards along its own row or column, as far as you like, into empty bays. Vehicles never turn and never jump over each other.
+# The end of the game
+When the red car reaches the gap, it drives out: solved.
+# Levels and stars
+There are 150 levels in six chapters; the die tab makes a new lot at random: easy, medium or hard. Each lot has a par, the fewest moves that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

@@ -1,0 +1,9 @@
+Stau
+# Das Ziel
+Autos und Lastwagen stehen auf einem Parkplatz mit 6 × 6 Stellplätzen. Befreie das rote Auto: Fahre es durch die Lücke am rechten Ende seiner Reihe hinaus.
+# Ein Zug
+Fahre ein Fahrzeug in seiner Reihe oder Spalte vor oder zurück, so weit du willst, auf freie Plätze. Fahrzeuge wenden nie und springen nie übereinander.
+# Das Ende der Partie
+Erreicht das rote Auto die Lücke, fährt es hinaus: gelöst.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln; der Reiter mit dem Würfel macht einen neuen Parkplatz nach Zufall: leicht, mittel oder schwer. Jeder Parkplatz hat ein Par: die wenigsten Züge, mit denen er sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.
