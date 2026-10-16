@@ -1,0 +1,13 @@
+Akordeon
+# Tujuan
+Mengumpulkan ke-52 kartu menjadi satu tumpukan saja. Permainan untuk satu pemain, dan sangat sulit.
+# Susunan
+Semua kartu dibagikan terbuka dalam satu baris panjang yang bersambung seperti baris tulisan: kartu pertama sebuah baris datang tepat setelah kartu terakhir baris di atasnya.
+# Memindahkan kartu
+- Sebuah tumpukan boleh pindah ke tumpukan tepat di kirinya, atau ke tumpukan ketiga di kirinya, bila kartu teratas keduanya sejenis atau sama nilainya.
+- Seluruh tumpukan ikut pindah, dan baris merapat di belakangnya.
+- Ketukan memindahkan tumpukan ke tumpukan ketiga bila bisa, kalau tidak ke tetangganya; seret untuk memilih.
+# Akhir permainan
+Permainan berakhir saat tak ada tumpukan yang bisa bergerak. Tersisa satu tumpukan berarti menang; lebih dari enam tumpukan berarti kalah.
+# Level dan bintang
+150 level dalam enam bab, masing-masing pembagian yang bisa dijadikan satu tumpukan; tab dadu membagikan secara acak. Satu tumpukan: 3 bintang; dua atau tiga: 2 bintang; empat sampai enam: 1 bintang.

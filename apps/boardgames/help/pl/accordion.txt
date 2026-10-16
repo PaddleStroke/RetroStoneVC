@@ -1,0 +1,13 @@
+Akordeon
+# Cel gry
+Zebrać wszystkie 52 karty w jeden stos. Gra dla jednej osoby, i to bardzo trudna.
+# Rozłożenie
+Wszystkie karty leżą odkryte w jednym długim rzędzie, który łamie się jak wiersze tekstu: pierwsza karta wiersza następuje po ostatniej karcie wiersza powyżej.
+# Przekładanie kart
+- Stos można położyć na stos tuż po jego lewej albo na trzeci stos po jego lewej, gdy ich wierzchnie karty mają ten sam kolor albo tę samą wartość.
+- Przechodzi cały stos, a rząd zsuwa się za nim.
+- Dotknięcie kładzie stos na trzeci stos, jeśli się da, inaczej na sąsiada; przeciągnij go, by wybrać.
+# Koniec gry
+Gra kończy się, gdy żaden stos nie może się ruszyć. Jeden stos to wygrana; więcej niż sześć stosów to przegrana.
+# Poziomy i gwiazdki
+150 poziomów w sześciu rozdziałach, każdy to rozdanie, które da się zebrać w jeden stos; zakładka z kostką rozdaje losowo. Jeden stos: 3 gwiazdki; dwa lub trzy: 2 gwiazdki; od czterech do sześciu: 1 gwiazdka.

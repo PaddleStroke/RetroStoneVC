@@ -1,0 +1,13 @@
+Akkordeon
+# Das Ziel
+Alle 52 Karten zu einem einzigen Stapel vereinen. Ein Spiel für eine Person, und ein sehr schweres.
+# Der Aufbau
+Alle Karten liegen offen in einer langen Reihe, die wie Textzeilen umbricht: Die erste Karte einer Zeile folgt auf die letzte Karte der Zeile darüber.
+# Karten bewegen
+- Ein Stapel darf auf den Stapel direkt links von ihm oder auf den dritten Stapel links von ihm, wenn ihre obersten Karten dieselbe Farbe oder denselben Rang haben.
+- Der ganze Stapel zieht, und die Reihe rückt dahinter zusammen.
+- Ein Tippen legt einen Stapel auf den dritten Stapel, wenn es geht, sonst auf seinen Nachbarn; ziehe ihn, um zu wählen.
+# Das Ende der Partie
+Die Partie endet, wenn kein Stapel mehr ziehen kann. Ein einziger Stapel ist ein Sieg; mehr als sechs Stapel sind verloren.
+# Level und Sterne
+150 Level in sechs Kapiteln, jedes ein Spiel, das sich auf einen Stapel bringen lässt; der Reiter mit dem Würfel teilt nach Zufall aus. Ein Stapel übrig: 3 Sterne; zwei oder drei: 2 Sterne; vier bis sechs: 1 Stern.

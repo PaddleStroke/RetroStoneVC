@@ -1,0 +1,13 @@
+Acordeão
+# O objetivo
+Juntar as 52 cartas num único monte. Um jogo para um jogador, e muito difícil.
+# A disposição
+Todas as cartas são distribuídas voltadas para cima numa longa fila que muda de linha como um texto: a primeira carta de uma linha vem logo a seguir à última carta da linha de cima.
+# Mover as cartas
+- Um monte pode ir para o monte logo à sua esquerda, ou para o terceiro monte à sua esquerda, quando as cartas do topo são do mesmo naipe ou do mesmo valor.
+- O monte inteiro move-se, e a fila fecha-se atrás dele.
+- Um toque põe um monte sobre o terceiro se puder, senão sobre o vizinho; arrasta-o para escolher.
+# O fim do jogo
+O jogo acaba quando nenhum monte se pode mover. Um só monte é vitória; mais de seis montes, derrota.
+# Níveis e estrelas
+150 níveis em seis capítulos, cada um uma distribuição que pode chegar a um só monte; o separador do dado distribui ao acaso. Um monte: 3 estrelas; dois ou três: 2 estrelas; de quatro a seis: 1 estrela.

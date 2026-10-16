@@ -1,0 +1,13 @@
+Accordion
+# The aim
+Gather all 52 cards into a single pile. A game for one player, and a very hard one.
+# The layout
+All the cards are dealt face up in one long row that wraps like lines of text: the first card of a line comes right after the last card of the line above.
+# Moving cards
+- A pile may go onto the pile just to its left, or onto the third pile to its left, when their top cards have the same suit or the same rank.
+- The whole pile moves, and the row closes up behind it.
+- A tap moves a pile onto the third pile if it can, otherwise onto its neighbour; drag it to choose.
+# The end of the game
+The game ends when no pile can move. One pile left is a win; more than six piles left is a loss.
+# Levels and stars
+150 levels in six chapters, each a deal that can be brought down to one pile; the die tab deals at random. One pile left: 3 stars; two or three: 2 stars; four to six: 1 star.

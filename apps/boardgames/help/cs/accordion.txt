@@ -1,0 +1,13 @@
+Harmonika
+# Cíl hry
+Shromáždit všech 52 karet do jediné hromádky. Hra pro jednoho hráče, a velmi těžká.
+# Rozložení
+Všechny karty se rozdají lícem nahoru do jedné dlouhé řady, která se láme jako řádky textu: první karta řádku následuje po poslední kartě řádku nad ním.
+# Přesouvání karet
+- Hromádku lze položit na hromádku hned vlevo od ní, nebo na třetí hromádku vlevo, když mají jejich vrchní karty stejnou barvu nebo stejnou hodnotu.
+- Přesune se celá hromádka a řada se za ní uzavře.
+- Ťuknutí položí hromádku na třetí hromádku, když to jde, jinak na sousední; táhni ji, chceš-li vybrat.
+# Konec hry
+Hra končí, když se už žádná hromádka nemůže pohnout. Jediná hromádka je výhra; víc než šest hromádek je prohra.
+# Úrovně a hvězdy
+150 úrovní v šesti kapitolách, každá je rozdání, které jde složit do jedné hromádky; záložka s kostkou rozdává náhodně. Jedna hromádka: 3 hvězdy; dvě nebo tři: 2 hvězdy; čtyři až šest: 1 hvězda.

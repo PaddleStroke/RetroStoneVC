@@ -1,0 +1,13 @@
+Fisarmonica
+# Lo scopo
+Riunire tutte le 52 carte in un solo mazzetto. Un gioco per un giocatore, e molto difficile.
+# La disposizione
+Tutte le carte sono distribuite scoperte in una lunga fila che va a capo come righe di testo: la prima carta di una riga segue l'ultima carta della riga sopra.
+# Muovere le carte
+- Un mazzetto può andare sul mazzetto subito alla sua sinistra, o sul terzo mazzetto alla sua sinistra, quando le loro carte in cima hanno lo stesso seme o lo stesso valore.
+- Si muove tutto il mazzetto, e la fila si richiude dietro di lui.
+- Un tocco mette un mazzetto sul terzo se può, altrimenti sul vicino; trascinalo per scegliere.
+# La fine della partita
+La partita finisce quando nessun mazzetto può muoversi. Un solo mazzetto è una vittoria; più di sei mazzetti, una sconfitta.
+# Livelli e stelle
+150 livelli in sei capitoli, ognuno una smazzata che si può ridurre a un solo mazzetto; la scheda del dado distribuisce a caso. Un mazzetto: 3 stelle; due o tre: 2 stelle; da quattro a sei: 1 stella.

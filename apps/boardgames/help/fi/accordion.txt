@@ -1,0 +1,13 @@
+Haitari
+# Tavoite
+Kokoa kaikki 52 korttia yhdeksi pinoksi. Peli yhdelle pelaajalle, ja hyvin vaikea.
+# Asetelma
+Kaikki kortit jaetaan kuvapuoli ylöspäin yhdeksi pitkäksi riviksi, joka jatkuu kuin tekstirivit: rivin ensimmäinen kortti tulee heti yläpuolisen rivin viimeisen kortin jälkeen.
+# Korttien siirtäminen
+- Pinon saa siirtää heti vasemmalla olevan pinon päälle tai kolmannen vasemmalla olevan pinon päälle, kun niiden päällimmäiset kortit ovat samaa maata tai samaa arvoa.
+- Koko pino siirtyy, ja rivi sulkeutuu sen takana.
+- Napautus siirtää pinon kolmannen pinon päälle, jos voi, muuten naapurin päälle; vedä se valitaksesi.
+# Pelin loppu
+Peli päättyy, kun mikään pino ei voi liikkua. Yksi jäljellä oleva pino on voitto; yli kuusi pinoa on tappio.
+# Tasot ja tähdet
+150 tasoa kuudessa luvussa, jokainen jako, joka voidaan koota yhdeksi pinoksi; noppavälilehti jakaa sattumanvaraisesti. Yksi pino: 3 tähteä; kaksi tai kolme: 2 tähteä; neljästä kuuteen: 1 tähti.

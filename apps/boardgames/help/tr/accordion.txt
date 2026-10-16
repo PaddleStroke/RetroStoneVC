@@ -1,0 +1,13 @@
+Akordeon
+# Amaç
+52 kartın hepsini tek bir yığında toplamak. Tek kişilik, çok zor bir oyun.
+# Diziliş
+Bütün kartlar açık olarak, yazı satırları gibi alt satıra geçen uzun bir sıraya dağıtılır: bir satırın ilk kartı, üst satırın son kartından hemen sonra gelir.
+# Kartları taşımak
+- Bir yığın, hemen solundaki yığının ya da solundaki üçüncü yığının üstüne gidebilir; bunun için en üstteki kartları aynı takımdan ya da aynı değerde olmalıdır.
+- Bütün yığın taşınır ve sıra arkasından kapanır.
+- Dokununca yığın, olabiliyorsa üçüncü yığına, olmazsa komşusuna gider; seçmek için sürükle.
+# Oyunun sonu
+Hiçbir yığın kımıldayamayınca oyun biter. Tek yığın kalırsa kazanırsın; altıdan fazla yığın kalırsa kaybedersin.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var, her biri tek yığına indirilebilen bir dağıtım; zar sekmesi rastgele dağıtır. Tek yığın: 3 yıldız; iki ya da üç: 2 yıldız; dörtten altıya: 1 yıldız.

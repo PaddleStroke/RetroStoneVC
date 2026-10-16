@@ -1,0 +1,13 @@
+Harmonika
+# Målet
+Saml alle 52 kort i én bunke. Et spil for én spiller, og et meget svært et.
+# Opstillingen
+Alle kort gives synlige i én lang række, der brydes som tekstlinjer: det første kort i en linje kommer lige efter det sidste kort i linjen over.
+# Flyt kort
+- En bunke må lægges på bunken lige til venstre for den, eller på den tredje bunke til venstre, når deres øverste kort har samme kulør eller samme værdi.
+- Hele bunken flyttes, og rækken lukker sig bag den.
+- Et tryk lægger en bunke på den tredje bunke, hvis det kan lade sig gøre, ellers på naboen; træk den for at vælge.
+# Spillets afslutning
+Spillet slutter, når ingen bunke kan flyttes. Én bunke tilbage er en sejr; mere end seks bunker er et nederlag.
+# Baner og stjerner
+150 baner i seks kapitler, hver et spil der kan samles til én bunke; fanen med terningen giver tilfældigt. Én bunke: 3 stjerner; to eller tre: 2 stjerner; fire til seks: 1 stjerne.

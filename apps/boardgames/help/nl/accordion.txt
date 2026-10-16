@@ -1,0 +1,13 @@
+Accordeon
+# Het doel
+Alle 52 kaarten samenbrengen op één stapel. Een spel voor één speler, en een heel moeilijk.
+# De opstelling
+Alle kaarten liggen open in één lange rij die doorloopt als regels tekst: de eerste kaart van een regel volgt op de laatste kaart van de regel erboven.
+# Kaarten verplaatsen
+- Een stapel mag op de stapel direct links ervan, of op de derde stapel links ervan, als hun bovenste kaarten dezelfde kleur of dezelfde waarde hebben.
+- De hele stapel gaat mee, en de rij sluit zich erachter.
+- Een tik legt een stapel op de derde stapel als het kan, anders op zijn buur; sleep hem om te kiezen.
+# Het einde van de partij
+De partij eindigt als geen stapel meer kan. Eén stapel over is een overwinning; meer dan zes stapels is verloren.
+# Levels en sterren
+150 levels in zes hoofdstukken, elk een spel dat tot één stapel terug te brengen is; het tabblad met de dobbelsteen deelt willekeurig. Eén stapel: 3 sterren; twee of drie: 2 sterren; vier tot zes: 1 ster.

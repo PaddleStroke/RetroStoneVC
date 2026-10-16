@@ -1,0 +1,13 @@
+Dragspel
+# Målet
+Samla alla 52 korten i en enda hög. Ett spel för en spelare, och ett mycket svårt.
+# Uppläggningen
+Alla kort läggs ut synliga i en lång rad som bryts som textrader: det första kortet på en rad kommer direkt efter det sista kortet på raden ovanför.
+# Flytta kort
+- En hög får läggas på högen precis till vänster om den, eller på den tredje högen till vänster, när deras översta kort har samma färg eller samma valör.
+- Hela högen flyttas, och raden sluter sig bakom den.
+- Ett tryck lägger en hög på den tredje högen om det går, annars på grannen; dra den för att välja.
+# Partiets slut
+Partiet slutar när ingen hög kan flyttas. En enda hög kvar är en vinst; fler än sex högar är en förlust.
+# Banor och stjärnor
+150 banor i sex kapitel, var och en en giv som går att samla till en hög; fliken med tärningen delar ut på slump. En hög: 3 stjärnor; två eller tre: 2 stjärnor; fyra till sex: 1 stjärna.
