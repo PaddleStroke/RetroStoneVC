@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CUCINARE
+HINT_MOVE = { }: MUOVI - ~: LASCIA
+HINT_TURN = A B: RUOTA LA COPPIA
+LEVEL_N = TAPPA %d
+VS_NAME = CONTRO %s
+ROUND_N = TURNO %d
+CHAIN_N = %d COMBO!
+YOU_WIN = HAI VINTO!

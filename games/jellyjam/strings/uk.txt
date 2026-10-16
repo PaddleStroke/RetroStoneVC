@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ГОТУВАТИ
+HINT_MOVE = { }: РУХ - ~: СКИНУТИ
+HINT_TURN = A B: ПОВЕРНУТИ ПАРУ
+LEVEL_N = РІВЕНЬ %d
+VS_NAME = ПРОТИ %s
+ROUND_N = РАУНД %d
+CHAIN_N = %d КОМБО!
+YOU_WIN = ПЕРЕМОГА!

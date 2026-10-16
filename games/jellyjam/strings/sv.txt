@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LAGA MAT
+HINT_MOVE = { }: FLYTTA - ~: SLÄPP
+HINT_TURN = A B: VRID PARET
+LEVEL_N = NIVÅ %d
+VS_NAME = MOT %s
+ROUND_N = RUNDA %d
+CHAIN_N = %d KEDJA!
+YOU_WIN = DU VANN!

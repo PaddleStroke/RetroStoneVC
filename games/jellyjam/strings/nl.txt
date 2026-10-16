@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOKEN
+HINT_MOVE = { }: SCHUIVEN - ~: LATEN VALLEN
+HINT_TURN = A B: PAAR DRAAIEN
+LEVEL_N = LEVEL %d
+VS_NAME = TEGEN %s
+ROUND_N = RONDE %d
+CHAIN_N = %d KETEN!
+YOU_WIN = GEWONNEN!

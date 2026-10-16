@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 요리
+HINT_MOVE = { }: 이동 - ~: 내리기
+HINT_TURN = A B: 회전
+LEVEL_N = 레벨 %d
+VS_NAME = VS %s
+ROUND_N = 라운드 %d
+CHAIN_N = %d연쇄!
+YOU_WIN = 승리!

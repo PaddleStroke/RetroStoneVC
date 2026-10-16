@@ -1,0 +1,13 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.pic            the field picture being painted: scratch, painted again from the world every frame
+draw.shown_pic      a cache of what the fields' VRAM tiles hold (only to skip uploads): draw_state_loaded forgets it
+draw.cache_ok       whether that cache is right: cleared by draw_state_loaded
+draw.laid_width     the width the maps were set up for: a setting of the frontend (draw_state_loaded sets them up again)
+draw.clip_y         painting scratch (set for each field)
+draw.pic_w          painting scratch (set for each field)
+draw.pic_h          painting scratch (set for each field)
+draw.drops_left     the droplets' sprite budget: scratch, set every frame

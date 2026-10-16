@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = りょうり
+HINT_MOVE = { }: いどう - ~: おとす
+HINT_TURN = A B: かいてん
+LEVEL_N = レベル %d
+VS_NAME = VS %s
+ROUND_N = ラウンド %d
+CHAIN_N = %dれんさ!
+YOU_WIN = かち!

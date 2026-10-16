@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOKKAA
+HINT_MOVE = { }: SIIRRÄ - ~: PUDOTA
+HINT_TURN = A B: KÄÄNNÄ PARI
+LEVEL_N = TASO %d
+VS_NAME = VS %s
+ROUND_N = ERÄ %d
+CHAIN_N = %d KETJU!
+YOU_WIN = VOITIT!

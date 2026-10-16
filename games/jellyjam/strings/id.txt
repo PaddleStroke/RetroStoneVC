@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MEMASAK
+HINT_MOVE = { }: GESER - ~: JATUHKAN
+HINT_TURN = A B: PUTAR PASANGAN
+LEVEL_N = LEVEL %d
+VS_NAME = LAWAN %s
+ROUND_N = BABAK %d
+CHAIN_N = %d COMBO!
+YOU_WIN = KAMU MENANG!

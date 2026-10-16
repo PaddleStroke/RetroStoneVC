@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PİŞİRMEK
+HINT_MOVE = { }: KAYDIR - ~: BIRAK
+HINT_TURN = A B: ÇİFTİ DÖNDÜR
+LEVEL_N = SEVİYE %d
+VS_NAME = RAKİP: %s
+ROUND_N = TUR %d
+CHAIN_N = %d KOMBO!
+YOU_WIN = KAZANDIN!

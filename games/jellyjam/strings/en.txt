@@ -1,0 +1,22 @@
+# Jelly Jam: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED, GO!, P%d WINS!...)
+# are in games/common/strings. The game's name and the chefs' names (PIP, DOT, HOPSY, MOCHI...) are never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO). Cooking: the jellies are made in a kitchen. max 12
+VERB = COOK
+#. The first duel's banner shows the controls in two lines under it. { } and ~ are drawn as arrows (left, right, down).
+#. max 36
+HINT_MOVE = { }: MOVE - ~: DROP
+#. A and B are the pad's buttons (keep the letters): they turn the falling pair of jellies. max 36
+HINT_TURN = A B: TURN THE PAIR
+#. A duel's level (1 player: each computer chef is a level): the banner before it, and on the board between the fields.
+#. max 10
+LEVEL_N = LEVEL %d
+#. Under the level's banner: the computer chef you play against; %s is its name (PIP, BRUNO...). max 18
+VS_NAME = VS %s
+#. 2-4 players: the banner before each round (best of 3). max 16
+ROUND_N = ROUND %d
+#. Over the jellies melting in a chain (each melt makes the ones above fall and melt again): "3 CHAIN!". In a field 9
+#. columns wide: max 9
+CHAIN_N = %d CHAIN!
+#. The banner when you beat a computer chef (then the next one comes). max 16
+YOU_WIN = YOU WIN!

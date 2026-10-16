@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KOCHEN
+HINT_MOVE = { }: BEWEGEN - ~: FALLEN
+HINT_TURN = A B: PAAR DREHEN
+LEVEL_N = STUFE %d
+VS_NAME = GEGEN %s
+ROUND_N = RUNDE %d
+CHAIN_N = %d-KETTE!
+YOU_WIN = GEWONNEN!

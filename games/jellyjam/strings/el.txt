@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΜΑΓΕΙΡΕΨΕΙΣ
+HINT_MOVE = { }: ΚΙΝΗΣΗ - ~: ΡΙΞΙΜΟ
+HINT_TURN = A B: ΓΥΡΙΣΜΑ ΖΕΥΓΑΡΙΟΥ
+LEVEL_N = ΣΤΑΔΙΟ %d
+VS_NAME = VS %s
+ROUND_N = ΓΥΡΟΣ %d
+CHAIN_N = %d ΣΕΙΡΑ!
+YOU_WIN = ΝΙΚΗΣΕΣ!

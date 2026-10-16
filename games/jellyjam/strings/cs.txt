@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = VAŘ
+HINT_MOVE = { }: POSUN - ~: PUSŤ
+HINT_TURN = A B: OTOČ DVOJICI
+LEVEL_N = ÚROVEŇ %d
+VS_NAME = PROTI %s
+ROUND_N = KOLO %d
+CHAIN_N = %d ŘETĚZ!
+YOU_WIN = VÝHRA!

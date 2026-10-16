@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LAVE MAD
+HINT_MOVE = { }: FLYT - ~: SLIP
+HINT_TURN = A B: DREJ PARRET
+LEVEL_N = NIVEAU %d
+VS_NAME = MOD %s
+ROUND_N = RUNDE %d
+CHAIN_N = %d KÆDE!
+YOU_WIN = DU VANDT!

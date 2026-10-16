@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 烹饪
+HINT_MOVE = { }: 移动 - ~: 下落
+HINT_TURN = A B: 旋转
+LEVEL_N = 第%d关
+VS_NAME = 对战 %s
+ROUND_N = 第%d回合
+CHAIN_N = %d连锁!
+YOU_WIN = 胜利!

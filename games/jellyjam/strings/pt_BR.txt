@@ -1,0 +1,9 @@
+# Jelly Jam's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = COZINHAR
+HINT_MOVE = { }: MOVER - ~: SOLTAR
+HINT_TURN = A B: GIRAR O PAR
+LEVEL_N = NÍVEL %d
+VS_NAME = CONTRA %s
+ROUND_N = RODADA %d
+CHAIN_N = %d COMBO!
+YOU_WIN = VOCÊ VENCEU!
