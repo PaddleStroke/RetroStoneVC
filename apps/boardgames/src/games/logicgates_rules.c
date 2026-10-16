@@ -1413,7 +1413,7 @@ void lg_restart(lg_game *g)
 {
     for (int i = 0; i < g->L.nn; i++) g->val[i] = g->L.n[i].init;
     memset(g->cut, 0, sizeof g->cut);
-    g->nh = 0;
+    g->nh = g->nlost = 0;
     g->hinted = 0;
     settle(g);
 }
@@ -1475,16 +1475,17 @@ static int flip(lg_game *g, lg_move m, int undoing)
 
 int lg_play(lg_game *g, lg_move m)
 {
-    if (lg_solved(g) || g->nh >= LG_HIST || !flip(g, m, 0)) return 0;
-    g->hist[g->nh++] = m;
+    if (lg_solved(g) || !flip(g, m, 0)) return 0;
+    if (g->nh - g->nlost >= LG_HIST) g->nlost++;    /* the ring is full: its oldest move drops out */
+    g->hist[g->nh++ % LG_HIST] = m;
     settle(g);
     return 1;
 }
 
 int lg_undo(lg_game *g)
 {
-    if (!g->nh) return 0;
-    flip(g, g->hist[--g->nh], 1);
+    if (g->nh <= g->nlost) return 0;
+    flip(g, g->hist[--g->nh % LG_HIST], 1);
     settle(g);
     return 1;
 }

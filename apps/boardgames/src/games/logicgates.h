@@ -139,8 +139,9 @@ typedef struct {
     uint8_t cut[LG_WIRES];
     uint8_t out[LG_NODES][2];                   /* each part's outputs (a route switch: left, right) */
     uint8_t wsrc[LG_WIRES], wend[LG_WIRES];     /* each wire's value at its start, and past its fuse */
-    lg_move hist[LG_HIST];
-    int nh;
+    lg_move hist[LG_HIST];                      /* a ring: move k at hist[k % LG_HIST] */
+    int nh;                                     /* the moves made */
+    int nlost;                                  /* the oldest moves, dropped from the ring (no longer undone) */
     int hinted;                                 /* a hint was asked in this attempt */
 } lg_game;
 

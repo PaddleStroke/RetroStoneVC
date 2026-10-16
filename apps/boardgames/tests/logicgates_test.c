@@ -171,6 +171,13 @@ static void stars(void)
     CHECK(lg_script(&G, "s1 s1 u u s1 s2") && lg_stars(&G) == 3);   /* undo takes the moves back */
     lg_restart(&G);
     CHECK(lg_script(&G, "h s2") && lg_solved(&G) && G.hinted && lg_stars(&G) == 2);   /* a hint: two at most */
+    lg_restart(&G);                             /* a long game: the history drops its oldest moves, never a new one */
+    for (int k = 0; k < 2 * LG_HIST + 2; k++) CHECK(lg_play(&G, (lg_move){LG_MSWITCH, 0}));
+    CHECK(G.nh == 2 * LG_HIST + 2);
+    int back = 0;
+    while (lg_undo(&G)) back++;
+    CHECK(back == LG_HIST && G.val[G.L.sw[0]] == G.L.n[G.L.sw[0]].init);
+    CHECK(lg_script(&G, "s1 s2") && lg_solved(&G));
     CHECK(!lg_script(&G, "s7"));
     CHECK(!lg_script(&G, "q1"));
     CHECK(!lg_script(&G, "L1"));                /* the levels open by lg_open (the shell's level screen) */

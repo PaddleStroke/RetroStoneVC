@@ -1251,7 +1251,7 @@ static int undo(void)
     if (!lg_undo(&G)) return 0;
     calm();
     moved(&before);
-    lg_move m = before.hist[before.nh - 1];
+    lg_move m = before.hist[(before.nh - 1) % LG_HIST];
     if (m.kind == LG_MCUT) {                    /* a cut undone: the halves spring back together */
         snip.wire = G.L.cut[m.idx];
         snip.t = t0;
