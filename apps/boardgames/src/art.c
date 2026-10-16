@@ -1401,9 +1401,10 @@ void art_icon(int which, int size, uint8_t *rgba)
     case ICON_STAR:                                 /* a star */
         art_star(f, ART_PART, 0.5f, 0.53f, 0.36f);
         break;
-    case ICON_REPLAY: {                             /* an arrow going nearly round, its head on the upper right */
-        art_arc(f, ART_PART, 0.5f, 0.52f, 0.20f, 0.29f, 110, 385);
-        float a0 = 385 * PI_F / 180, a1 = a0 + 34 * PI_F / 180, rm = 0.245f, hw = 0.125f;
+    case ICON_REPLAY: {                             /* an arrow going nearly round clockwise (as most apps' replay),
+                                                     * its head at the top right end, pointing on round */
+        art_arc(f, ART_PART, 0.5f, 0.52f, 0.20f, 0.29f, 70, 335);
+        float a0 = 70 * PI_F / 180, a1 = a0 - 34 * PI_F / 180, rm = 0.245f, hw = 0.125f;
         const float hd[] = {0.5f + (rm + hw) * cosf(a0), 0.52f - (rm + hw) * sinf(a0), 0.5f + rm * cosf(a1),
                             0.52f - rm * sinf(a1), 0.5f + (rm - hw) * cosf(a0), 0.52f - (rm - hw) * sinf(a0)};
         art_poly(f, ART_PART, hd, 3);
