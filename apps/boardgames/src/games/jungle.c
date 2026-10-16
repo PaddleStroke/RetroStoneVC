@@ -664,7 +664,7 @@ static void bar(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { paint_piece(JG_PC(player, JG_ELEPHANT), size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { paint_piece(JG_PC(player & 1, JG_ELEPHANT), size, rgba); }
 
 /* the menu's card: a corner of the board by a river, a few animals */
 static void thumb(int variant, int size, uint8_t *rgba)

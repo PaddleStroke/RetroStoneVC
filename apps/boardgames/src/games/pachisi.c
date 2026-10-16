@@ -855,7 +855,7 @@ static unsigned winners(void)
 }
 
 /* a player's token: two players, ivory and ebony; four, its army's piece (ivory, ebony, amber, rosewood) */
-static void token(int player, int size, uint8_t *rgba) { paint_piece(player, size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { paint_piece(player % PA_ARMIES, size, rgba); }
 
 /* the menu's card: the charkoni and the corner of two arms, a few pieces, cowries in the tray */
 static void thumb(int variant, int size, uint8_t *rgba)

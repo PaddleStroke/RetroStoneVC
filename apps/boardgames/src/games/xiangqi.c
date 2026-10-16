@@ -322,7 +322,7 @@ static void bar(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { piece_pic(XQ_GENERAL, player, size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { piece_pic(XQ_GENERAL, player & 1, size, rgba); }
 
 /* the menu's card: the red palace and the points around it, a few pieces */
 static void thumb(int variant, int size, uint8_t *rgba)

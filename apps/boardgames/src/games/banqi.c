@@ -377,7 +377,7 @@ static void bar(int player, box b)
 /* a player's (a seat's) general, in its colour; before the first flip a piece face down (no colour yet) */
 static void token(int player, int size, uint8_t *rgba)
 {
-    if (bq_pos(&G)->decided) xq_piece_paint(XQ_GENERAL, bq_colour(bq_pos(&G), player), size, rgba);
+    if (bq_pos(&G)->decided) xq_piece_paint(XQ_GENERAL, bq_colour(bq_pos(&G), player & 1), size, rgba);
     else back_pic(size, rgba);
 }
 

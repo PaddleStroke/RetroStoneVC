@@ -347,7 +347,7 @@ static void bar(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { piece_pic(JG_GENERAL, player, size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { piece_pic(JG_GENERAL, player & 1, size, rgba); }
 
 /* the menu's card: Cho's palace, its general in the middle, its guards, two soldiers, Han's chariot and cannon */
 static void thumb(int variant, int size, uint8_t *rgba)
