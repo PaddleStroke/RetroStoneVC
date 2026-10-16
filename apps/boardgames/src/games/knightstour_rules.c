@@ -11,7 +11,8 @@
 #include "games/knightstour_levels.h"
 #include "games/puzrand.h"
 
-#define HINT_BUDGET 40000                       /* the search's steps for each move the hint weighs */
+#define HINT_BUDGET 40000                       /* the search's steps for each move the hint weighs (then 8 times
+                                                 * more for the moves still open) */
 #define START_BUDGET 2000000L
 
 static const int8_t JUMP[8][2] = {{1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}};
@@ -249,18 +250,31 @@ int kt_hint(kt_game *g)
     if (kt_done(g) || kt_stuck(g)) return -2;
     static search s;
     search_init(&s, g, 0, NULL);
-    uint8_t c[8];
-    int k = order(&s, cur(g), c), unsure = -1, dead = g->dead_ends;
-    for (int i = 0; i < k; i++) {
-        kt_move(g, c[i]);
-        int r = kt_solve(g, NULL, HINT_BUDGET);
-        kt_undo(g);
-        g->dead_ends = dead;                    /* a look ahead, not a move */
-        if (r == 1) { g->hints++; return c[i]; }
-        if (r < 0 && unsure < 0) unsure = c[i];
+    uint8_t c[8], open[8] = {1, 1, 1, 1, 1, 1, 1, 1};   /* open: no tour proven, nor ruled out, from that move */
+    int k = order(&s, cur(g), c), unsure = 0, dead = g->dead_ends;
+    for (long budget = HINT_BUDGET; budget <= 8L * HINT_BUDGET; budget *= 8) {   /* the moves left open: once more,
+                                                                                    with a longer search */
+        unsure = 0;
+        for (int i = 0; i < k; i++) {
+            if (!open[i]) continue;
+            kt_move(g, c[i]);
+            int r = kt_solve(g, NULL, budget);
+            kt_undo(g);
+            g->dead_ends = dead;                /* a look ahead, not a move */
+            if (r == 1) {
+                uint32_t key = 2166136261u;     /* the position (the path so far): a hint is counted once there */
+                for (int j = 0; j < g->len; j++) key = (key ^ g->path[j]) * 16777619u;
+                if (g->hint_len != g->len || g->hint_key != key) g->hints++;
+                g->hint_len = g->len;
+                g->hint_key = key;
+                return c[i];
+            }
+            open[i] = r < 0;
+            unsure |= r < 0;
+        }
+        if (!unsure) break;
     }
-    if (unsure >= 0) g->hints++;                /* the search ran out of time: Warnsdorff's rule alone */
-    return unsure;
+    return unsure ? -3 : -1;                    /* the search ran out of time: no square it cannot vouch for */
 }
 
 int kt_script(kt_game *g, const char *s)

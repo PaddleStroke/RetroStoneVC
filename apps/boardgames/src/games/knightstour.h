@@ -33,6 +33,8 @@ typedef struct {
     int len;
     uint8_t order[KT_MAX];                      /* each square's number on the path (1..), 0: not visited */
     int hints, dead_ends;
+    int hint_len;                               /* the position the last hint was counted at: its length (0: none) */
+    uint32_t hint_key;                          /* and its path's key */
 } kt_game;
 
 extern const char *const kt_levels[KT_LEVELS];
@@ -55,7 +57,8 @@ int  kt_onward(const kt_game *g, int sq);       /* the moves the knight would ha
 /* the whole tour from here, into out (the squares after the current one, cells - len of them) within `budget` steps
  * of search: 1 found, 0 none exists, -1 the budget ran out */
 int  kt_solve(const kt_game *g, uint8_t *out, long budget);
-/* the hint: the square to go to; -1: no tour can be finished from here (undo); -2: done or stuck */
+/* the hint: the square to go to (counted once for each position); -1: no tour can be finished from here (undo);
+ * -2: done or stuck; -3: no square proven within the search's budget (none shown) */
 int  kt_hint(kt_game *g);
 int  kt_stars(const kt_game *g);                /* the tour done: 1..3 */
 /* "c3 d5 b4": squares, each a move (the first may name the start, then it is the current square); "?": the hint

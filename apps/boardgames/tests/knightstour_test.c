@@ -171,8 +171,10 @@ int main(void)
         }
         CHECK(dead && g.dead_ends == 1 && kt_stars(&g) == 2);
         kt_new_at(&g, 6, 0);
-        kt_hint(&g);
+        int h1 = kt_hint(&g);
         CHECK(g.dead_ends == 0 && g.hints == 1 && kt_stars(&g) == 2);
+        CHECK(kt_hint(&g) == h1 && g.hints == 1);   /* asked again in the same position: counted once */
+        CHECK(kt_move(&g, h1) && kt_undo(&g) && kt_hint(&g) == h1 && g.hints == 1);
         g.hints = 3;
         CHECK(kt_stars(&g) == 1);
     }
