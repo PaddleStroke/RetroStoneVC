@@ -1,0 +1,14 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = おす
+HINT = A: おなかスライド
+ROUND_N = ラウンド%d
+MATCH_N = マッチ%d
+ROUND_WIN = %sがラウンドをとった!
+ROUND_DRAW = このラウンドはひきわけ!
+MATCH_WIN = %sがマッチに勝った!
+DOUBLE_KO = ダブルノックアウト!
+SWEEP = ぜんいんおとした!
+BIG_BELLY = おなかぱんぱん!
+MEGA_SLIDE = メガスライド!
+MATCHES_WON[other] = %dマッチ勝利
+NAME_WINS = %sの勝ち!

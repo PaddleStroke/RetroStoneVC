@@ -1,0 +1,16 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = STRKEJ
+HINT = A: KLOUZÁNÍ PO BŘIŠE
+ROUND_N = KOLO %d
+MATCH_N = ZÁPAS %d
+ROUND_WIN = %s VYHRÁVÁ KOLO!
+ROUND_DRAW = TOTO KOLO NIKDO NEVYHRÁL!
+MATCH_WIN = %s VYHRÁVÁ ZÁPAS!
+DOUBLE_KO = DVOJITÝ KNOCKOUT!
+SWEEP = ČISTÝ STŮL!
+BIG_BELLY = VELKÉ BŘÍŠKO!
+MEGA_SLIDE = MEGA SKLUZ!
+MATCHES_WON[one] = %d VYHRANÝ ZÁPAS
+MATCHES_WON[few] = %d VYHRANÉ ZÁPASY
+MATCHES_WON[other] = %d VYHRANÝCH ZÁPASŮ
+NAME_WINS = %s VYHRÁVÁ!

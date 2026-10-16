@@ -1,0 +1,30 @@
+# Seal Shove: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED, GO!, P1...)
+# are in games/common/strings. The game's name and the bots' names (MOCHI, PUDDLE, BISCUIT) are never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO): push other seals around. max 12
+VERB = SHOVE
+#. A hint at the bottom of the screen in the first round of a 1-player run: the pad's A button. max 38
+HINT = A: BELLY SLIDE
+#. Before each round, 2x letters over the ice floe; %d is the round's number. max 18
+ROUND_N = ROUND %d
+#. Above it before the first round of the next match (1 player); %d is the match's number. max 30
+MATCH_N = MATCH %d
+#. On a panel when a round is won; %s is a player tag (P2) or a seal's name (MOCHI). max 34
+ROUND_WIN = %s WINS THE ROUND!
+#. On the panel when the last seals fall together. max 34
+ROUND_DRAW = NOBODY WINS THIS ROUND!
+#. On the panel when a match is won (first to 3 rounds); %s as above. max 34
+MATCH_WIN = %s WINS THE MATCH!
+#. A message at the top: one seal pushed two others into the sea in a moment. Shown after "P2: " or "MOCHI: ". max 26
+DOUBLE_KO = DOUBLE KNOCK-OUT!
+#. A message at the top: one seal pushed all three others into the sea in one round. As above. max 26
+SWEEP = CLEAN SWEEP!
+#. A message at the top: a seal ate the blue fish and is heavy for a while (hard to push). As above. max 26
+BIG_BELLY = BIG BELLY!
+#. A message at the top: a seal ate the golden fish: its next belly slide is extra strong. As above. max 26
+MEGA_SLIDE = MEGA SLIDE!
+#. A line on the game-over panel (1 player): the matches won in the run. max 20
+MATCHES_WON[one] = %d MATCH WON
+MATCHES_WON[other] = %d MATCHES WON
+#. The results' banner (2x letters) when a bot won the match; %s is its name (MOCHI). max 18
+NAME_WINS = %s WINS!

@@ -1,0 +1,15 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = İTMEK
+HINT = A: KARIN ÜSTÜ KAYMA
+ROUND_N = TUR %d
+MATCH_N = MAÇ %d
+ROUND_WIN = TURU %s KAZANDI!
+ROUND_DRAW = BU TURU KİMSE KAZANAMADI!
+MATCH_WIN = MAÇI %s KAZANDI!
+DOUBLE_KO = ÇİFT NAKAVT!
+SWEEP = HEPSİNİ DÜŞÜRDÜN!
+BIG_BELLY = KOCA GÖBEK!
+MEGA_SLIDE = SÜPER KAYMA!
+MATCHES_WON[one] = %d MAÇ KAZANILDI
+MATCHES_WON[other] = %d MAÇ KAZANILDI
+NAME_WINS = %s KAZANDI!

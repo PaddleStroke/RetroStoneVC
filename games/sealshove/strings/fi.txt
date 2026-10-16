@@ -1,0 +1,15 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TÖNI
+HINT = A: MAHALIUKU
+ROUND_N = ERÄ %d
+MATCH_N = OTTELU %d
+ROUND_WIN = %s VOITTAA ERÄN!
+ROUND_DRAW = KUKAAN EI VOITA TÄTÄ ERÄÄ!
+MATCH_WIN = %s VOITTAA OTTELUN!
+DOUBLE_KO = TUPLATYRMÄYS!
+SWEEP = PUHDAS PÖYTÄ!
+BIG_BELLY = ISO MAHA!
+MEGA_SLIDE = MEGALIUKU!
+MATCHES_WON[one] = %d OTTELU VOITETTU
+MATCHES_WON[other] = %d OTTELUA VOITETTU
+NAME_WINS = %s VOITTAA!

@@ -1,0 +1,21 @@
+# Seal Shove: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+# The frames come from the runs' logs (the round and match winners, the game over); a change of the rules may move
+# them: the test then still passes, on other screens (re-take them from the logs).
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+intro     60   50   --opt bot=1 --opt seed=7 --opt ready=1
+go        110  100  --opt bot=1 --opt seed=7 --opt ready=1
+roundwin  1070 1060 --opt bot=1 --opt seed=7 --opt ready=1
+matchwin  4370 4360 --opt bot=1 --opt seed=7 --opt ready=1
+match2    4530 4520 --opt bot=1 --opt seed=7 --opt ready=1
+power     1130 1120 --opt bot=1 --opt botquit=1 --opt seed=3 --opt ready=1
+nobody    1180 1170 --opt bot=1 --opt botquit=1 --opt seed=3 --opt ready=1
+play4     310  300  --opt bot=4 --opt seed=9 --opt ready=1
+pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+pause4    320  310  --opt bot=4 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+over      5600 5590 --opt bot=1 --opt botquit=1 --opt seed=3 --opt ready=1
+results   7110 7100 --opt bot=4 --opt seed=5 --opt ready=1
+botwins   4700 4690 --opt bot=2 --opt botskill=8 --opt seed=4 --opt ready=1

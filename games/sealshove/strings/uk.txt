@@ -1,0 +1,16 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ШТОВХАТИСЯ
+HINT = A: КОВЗАННЯ НА ПУЗІ
+ROUND_N = РАУНД %d
+MATCH_N = МАТЧ %d
+ROUND_WIN = %s ВИГРАЄ РАУНД!
+ROUND_DRAW = У ЦЬОМУ РАУНДІ НІЧИЯ!
+MATCH_WIN = %s ВИГРАЄ МАТЧ!
+DOUBLE_KO = ПОДВІЙНИЙ НОКАУТ!
+SWEEP = ЧИСТА ПЕРЕМОГА!
+BIG_BELLY = ВЕЛИКЕ ПУЗО!
+MEGA_SLIDE = МЕГАКОВЗАННЯ!
+MATCHES_WON[one] = %d МАТЧ ВИГРАНО
+MATCHES_WON[few] = %d МАТЧІ ВИГРАНО
+MATCHES_WON[many] = %d МАТЧІВ ВИГРАНО
+NAME_WINS = ПЕРЕМОГА: %s!

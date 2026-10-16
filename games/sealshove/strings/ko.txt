@@ -1,0 +1,14 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 밀기
+HINT = A: 배 미끄럼
+ROUND_N = 라운드 %d
+MATCH_N = 매치 %d
+ROUND_WIN = %s 라운드 승리!
+ROUND_DRAW = 이번 라운드는 무승부!
+MATCH_WIN = %s 매치 승리!
+DOUBLE_KO = 더블 녹아웃!
+SWEEP = 싹쓸이!
+BIG_BELLY = 빵빵한 배!
+MEGA_SLIDE = 메가 슬라이드!
+MATCHES_WON[other] = %d매치 승리
+NAME_WINS = %s 승리!

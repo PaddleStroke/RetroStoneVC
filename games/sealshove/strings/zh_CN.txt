@@ -1,0 +1,14 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 推挤
+HINT = A: 肚皮滑行
+ROUND_N = 第%d回合
+MATCH_N = 第%d场比赛
+ROUND_WIN = %s赢得本回合!
+ROUND_DRAW = 本回合平局!
+MATCH_WIN = %s赢得比赛!
+DOUBLE_KO = 双重击倒!
+SWEEP = 一扫而光!
+BIG_BELLY = 大肚皮!
+MEGA_SLIDE = 超级滑行!
+MATCHES_WON[other] = 赢了%d场比赛
+NAME_WINS = %s获胜!

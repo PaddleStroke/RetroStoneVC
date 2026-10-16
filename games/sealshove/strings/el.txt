@@ -1,0 +1,15 @@
+# Seal Shove's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΣΠΡΩΞΕΙΣ
+HINT = A: ΓΛΙΣΤΡΗΜΑ ΜΕ ΤΗΝ ΚΟΙΛΙΑ
+ROUND_N = ΓΥΡΟΣ %d
+MATCH_N = ΑΓΩΝΑΣ %d
+ROUND_WIN = %s ΚΕΡΔΙΖΕΙ ΤΟΝ ΓΥΡΟ!
+ROUND_DRAW = ΚΑΝΕΙΣ ΔΕΝ ΚΕΡΔΙΖΕΙ!
+MATCH_WIN = %s ΚΕΡΔΙΖΕΙ ΤΟΝ ΑΓΩΝΑ!
+DOUBLE_KO = ΔΙΠΛΟ ΝΟΚ ΑΟΥΤ!
+SWEEP = ΤΟΥΣ ΕΡΙΞΕΣ ΟΛΟΥΣ!
+BIG_BELLY = ΜΕΓΑΛΗ ΚΟΙΛΙΑ!
+MEGA_SLIDE = ΜΕΓΑ ΓΛΙΣΤΡΗΜΑ!
+MATCHES_WON[one] = %d ΝΙΚΗ
+MATCHES_WON[other] = %d ΝΙΚΕΣ
+NAME_WINS = %s ΚΕΡΔΙΖΕΙ!
