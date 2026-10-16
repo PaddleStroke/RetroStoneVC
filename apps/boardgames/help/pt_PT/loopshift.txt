@@ -1,0 +1,10 @@
+Deslizar linhas
+# O objetivo
+Peças enchem uma grelha quadrada. Leva cada uma de volta ao seu lugar: as peças numeradas por ordem, 1, 2, 3... linha a linha a partir do canto superior esquerdo; as faixas de cor com cada linha na cor mostrada nas suas duas pontas. Cada cor tem também o seu próprio sinal.
+# Uma jogada
+Desliza uma linha inteira para a esquerda ou para a direita, ou uma coluna inteira para cima ou para baixo, quanto quiseres. A fila dá a volta: a peça empurrada para fora de uma ponta volta a entrar pela outra. Deslizar a mesma fila de novo logo a seguir continua a ser uma só jogada.
+Arrasta uma fila com o dedo, ou toca numa peça e depois na casa da sua linha ou coluna para onde deve ir.
+# O fim do jogo
+Quando cada peça está no seu lugar, o quebra-cabeças está resolvido: uma luz dourada percorre as peças.
+# Níveis e estrelas
+Cada quebra-cabeças tem um par: o mínimo de jogadas conhecido que o resolve. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1.

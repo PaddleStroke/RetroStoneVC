@@ -1,0 +1,10 @@
+Reihenschieben
+# Das Ziel
+Plättchen füllen ein quadratisches Raster. Bring jedes an seinen Platz zurück: Zahlenplättchen der Reihe nach, 1, 2, 3 … Zeile für Zeile von oben links; Farbbänder so, dass jede Zeile die Farbe hat, die an ihren beiden Enden gezeigt wird. Jede Farbe hat außerdem ihr eigenes Zeichen.
+# Ein Zug
+Schiebe eine ganze Zeile nach links oder rechts oder eine ganze Spalte nach oben oder unten, so weit du willst. Die Reihe läuft rundherum: Ein Plättchen, das an einem Ende hinausgeschoben wird, kommt am anderen wieder herein. Schiebst du dieselbe Reihe gleich noch einmal, bleibt es ein Zug.
+Zieh eine Reihe mit dem Finger, oder tippe ein Plättchen an und dann das Feld seiner Zeile oder Spalte, wo es hin soll.
+# Das Ende der Partie
+Liegt jedes Plättchen an seinem Platz, ist das Rätsel gelöst: Ein goldenes Licht läuft über die Plättchen.
+# Level und Sterne
+Jedes Rätsel hat ein Par: die wenigsten bekannten Züge, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

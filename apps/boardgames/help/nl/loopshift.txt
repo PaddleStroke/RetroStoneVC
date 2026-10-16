@@ -1,0 +1,10 @@
+Rijen schuiven
+# Het doel
+Tegels vullen een vierkant rooster. Breng elke tegel terug naar zijn plaats: genummerde tegels op volgorde, 1, 2, 3... rij voor rij vanaf linksboven; kleurbanden met elke rij in de kleur die aan haar beide uiteinden staat. Elke kleur heeft ook een eigen teken.
+# Een zet
+Schuif een hele rij naar links of rechts, of een hele kolom omhoog of omlaag, zo ver je wilt. De lijn loopt rond: een tegel die er aan het ene eind af wordt geschoven, komt aan het andere eind weer binnen. Dezelfde lijn meteen nog eens schuiven blijft één zet.
+Sleep een lijn met je vinger, of tik een tegel aan en dan het vak in zijn rij of kolom waar hij heen moet.
+# Het einde van het spel
+Als elke tegel op zijn plaats ligt, is de puzzel opgelost: een gouden licht loopt over de tegels.
+# Levels en sterren
+Elke puzzel heeft een par: het kleinste bekende aantal zetten waarmee hij op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

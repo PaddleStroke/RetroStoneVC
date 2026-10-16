@@ -1,0 +1,10 @@
+Scorri le file
+# Lo scopo
+Le tessere riempiono una griglia quadrata. Riporta ognuna al suo posto: le tessere numerate in ordine, 1, 2, 3... riga per riga dall'alto a sinistra; le fasce di colore con ogni riga del colore mostrato ai suoi due capi. Ogni colore ha anche un suo segno.
+# Una mossa
+Fai scorrere un'intera riga a sinistra o a destra, o un'intera colonna in su o in giù, di quanto vuoi. La fila gira su se stessa: la tessera spinta fuori da un capo rientra dall'altro. Far scorrere di nuovo subito la stessa fila conta sempre come una mossa.
+Trascina una fila col dito, oppure tocca una tessera e poi la casella della sua riga o colonna dove deve andare.
+# La fine della partita
+Quando ogni tessera è al suo posto, il rompicapo è risolto: una luce dorata scorre sulle tessere.
+# Livelli e stelle
+Ogni rompicapo ha un par: il minimo di mosse noto che lo risolve. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

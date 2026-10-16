@@ -1,0 +1,8 @@
+3 × 3
+4 × 4
+5 × 5
+6 × 6
+3 × 3 barvy
+4 × 4 barvy
+5 × 5 barvy
+6 × 6 barvy

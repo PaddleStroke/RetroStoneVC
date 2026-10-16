@@ -1,0 +1,10 @@
+Skjut rader
+# Målet
+Brickor fyller ett kvadratiskt rutnät. För tillbaka varje bricka till sin plats: numrerade brickor i ordning, 1, 2, 3 ... rad för rad från övre vänstra hörnet; färgband så att varje rad har den färg som visas i dess båda ändar. Varje färg har också ett eget tecken.
+# Ett drag
+Skjut en hel rad åt vänster eller höger, eller en hel kolumn uppåt eller nedåt, så långt du vill. Linjen går runt: en bricka som knuffas ut i ena änden kommer in igen i den andra. Att skjuta samma linje igen direkt är fortfarande ett drag.
+Dra en linje med fingret, eller tryck på en bricka och sedan på rutan i dess rad eller kolumn där den ska vara.
+# Partiets slut
+När varje bricka ligger på sin plats är pusslet löst: ett gyllene ljus löper över brickorna.
+# Banor och stjärnor
+Varje pussel har ett par: det minsta kända antalet drag som löser det. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1.

@@ -1,0 +1,8 @@
+3 × 3
+4 × 4
+5 × 5
+6 × 6
+3 × 3 warna
+4 × 4 warna
+5 × 5 warna
+6 × 6 warna

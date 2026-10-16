@@ -1,0 +1,10 @@
+Décalage
+# Le but
+Des tuiles remplissent une grille carrée. Remets chacune à sa place : les tuiles numérotées dans l'ordre, 1, 2, 3... ligne par ligne depuis le coin en haut à gauche ; les bandes de couleur avec chaque ligne de la couleur montrée à ses deux bouts. Chaque couleur a aussi son propre signe.
+# Un coup
+Fais glisser une ligne entière vers la gauche ou la droite, ou une colonne entière vers le haut ou le bas, aussi loin que tu veux. La file fait le tour : une tuile poussée hors d'un bout revient par l'autre. Faire glisser à nouveau la même file aussitôt compte toujours pour un seul coup.
+Fais glisser une file du doigt, ou touche une tuile, puis la case de sa ligne ou de sa colonne où elle doit aller.
+# La fin de la partie
+Quand chaque tuile est à sa place, le casse-tête est résolu : une lumière dorée parcourt les tuiles.
+# Niveaux et étoiles
+Chaque casse-tête a un par : le moins de coups connu pour le résoudre. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

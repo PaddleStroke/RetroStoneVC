@@ -1,0 +1,10 @@
+Rivisiirto
+# Tavoite
+Laatat täyttävät neliön muotoisen ruudukon. Palauta jokainen laatta paikalleen: numerolaatat järjestykseen, 1, 2, 3... rivi kerrallaan vasemmasta yläkulmasta alkaen; värinauhat niin, että jokainen rivi on sen molempiin päihin merkityn värinen. Jokaisella värillä on myös oma merkkinsä.
+# Siirto
+Liu'uta kokonaista riviä vasemmalle tai oikealle tai kokonaista saraketta ylös tai alas, niin pitkälle kuin haluat. Jono kiertää ympäri: toisesta päästä ulos työnnetty laatta tulee takaisin toisesta päästä. Saman jonon liu'uttaminen heti uudelleen on yhä yksi siirto.
+Vedä jonoa sormella, tai napauta laattaa ja sitten sen rivin tai sarakkeen ruutua, johon sen kuuluu mennä.
+# Pelin loppu
+Kun jokainen laatta on paikallaan, tehtävä on ratkaistu: kultainen valo kulkee laattojen yli.
+# Tasot ja tähdet
+Jokaisella tehtävällä on par eli pienin tunnettu määrä siirtoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1.

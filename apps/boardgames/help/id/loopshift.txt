@@ -1,0 +1,10 @@
+Geser Baris
+# Tujuan
+Ubin-ubin mengisi kisi persegi. Kembalikan setiap ubin ke tempatnya: ubin bernomor sesuai urutan, 1, 2, 3... baris demi baris dari kiri atas; pita warna dengan setiap baris berwarna seperti yang ditunjukkan di kedua ujungnya. Setiap warna juga punya tanda sendiri.
+# Satu langkah
+Geser satu baris penuh ke kiri atau ke kanan, atau satu kolom penuh ke atas atau ke bawah, sejauh yang kamu mau. Lajur itu berputar: ubin yang terdorong keluar di satu ujung masuk lagi di ujung lainnya. Menggeser lajur yang sama lagi saat itu juga tetap dihitung satu langkah.
+Seret lajur dengan jarimu, atau ketuk sebuah ubin lalu kotak di baris atau kolomnya tempat ubin itu harus berada.
+# Akhir permainan
+Saat setiap ubin sudah di tempatnya, teka-teki selesai: cahaya emas melintas di atas ubin.
+# Level dan bintang
+Setiap teka-teki punya par, jumlah langkah paling sedikit yang diketahui untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1.

@@ -1,0 +1,10 @@
+Przesuwanie rzędów
+# Cel gry
+Płytki wypełniają kwadratową siatkę. Odstaw każdą na jej miejsce: płytki z numerami po kolei, 1, 2, 3... rząd po rzędzie od lewego górnego rogu; pasy kolorów tak, by każdy rząd miał kolor pokazany na jego obu końcach. Każdy kolor ma też własny znak.
+# Ruch
+Przesuń cały rząd w lewo lub w prawo albo całą kolumnę w górę lub w dół, o ile chcesz. Linia się zawija: płytka wypchnięta z jednego końca wraca z drugiego. Ponowne przesunięcie tej samej linii od razu to wciąż jeden ruch.
+Przeciągnij linię palcem albo dotknij płytki, a potem pola w jej rzędzie lub kolumnie, na które ma trafić.
+# Koniec gry
+Gdy każda płytka jest na swoim miejscu, łamigłówka jest rozwiązana: po płytkach przebiega złote światło.
+# Poziomy i gwiazdki
+Każda łamigłówka ma par: najmniejszą znaną liczbę ruchów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

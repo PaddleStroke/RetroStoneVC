@@ -1,0 +1,10 @@
+Sıra Kaydırma
+# Amaç
+Kare bir ızgarayı karolar doldurur. Her karoyu yerine geri getir: numaralı karoları sırayla, 1, 2, 3... sol üstten başlayarak satır satır; renk şeritlerini, her satır iki ucunda gösterilen renkte olacak biçimde. Her rengin kendine ait bir işareti de vardır.
+# Bir hamle
+Bütün bir satırı sola ya da sağa, ya da bütün bir sütunu yukarı ya da aşağı, istediğin kadar kaydır. Sıra döner: bir uçtan dışarı itilen karo öbür uçtan yeniden girer. Aynı sırayı hemen yeniden kaydırmak yine tek hamle sayılır.
+Bir sırayı parmağınla sürükle ya da bir karoya, sonra da satırında veya sütununda gitmesi gereken kareye dokun.
+# Oyunun sonu
+Her karo yerine oturunca bulmaca çözülür: karoların üzerinden altın bir ışık geçer.
+# Seviyeler ve yıldızlar
+Her bulmacanın bir par değeri vardır: onu çözen bilinen en az hamle sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

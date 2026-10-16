@@ -1,0 +1,10 @@
+Skyv rader
+# Målet
+Brikker fyller et kvadratisk rutenett. Før hver brikke tilbake til sin plass: nummererte brikker i rekkefølge, 1, 2, 3 ... rad for rad fra øverst til venstre; fargebånd, slik at hver rad har fargen som vises i begge endene. Hver farge har også sitt eget tegn.
+# Et trekk
+Skyv en hel rad til venstre eller høyre, eller en hel kolonne opp eller ned, så langt du vil. Linjen går rundt: en brikke som skyves ut i den ene enden, kommer inn igjen i den andre. Skyver du samme linje igjen med en gang, er det fortsatt ett trekk.
+Dra en linje med fingeren, eller trykk på en brikke og så på ruten i raden eller kolonnen der den skal være.
+# Slutten på spillet
+Når hver brikke ligger på sin plass, er oppgaven løst: et gyllent lys løper over brikkene.
+# Nivåer og stjerner
+Hver oppgave har en par: færrest kjente trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1.

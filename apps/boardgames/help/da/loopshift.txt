@@ -1,0 +1,10 @@
+Rækkeskub
+# Målet
+Brikker fylder et kvadratisk gitter. Bring hver brik tilbage på sin plads: nummererede brikker i rækkefølge, 1, 2, 3 ... række for række fra øverste venstre hjørne; farvebånd, så hver række har den farve, der vises i begge dens ender. Hver farve har også sit eget tegn.
+# Et træk
+Skub en hel række til venstre eller højre eller en hel søjle op eller ned, så langt du vil. Linjen går rundt: en brik, der skubbes ud i den ene ende, kommer ind igen i den anden. Skubber du den samme linje igen med det samme, er det stadig ét træk.
+Træk en linje med fingeren, eller tryk på en brik og så på det felt i dens række eller søjle, hvor den skal hen.
+# Spillets afslutning
+Når hver brik ligger på sin plads, er opgaven løst: et gyldent lys løber hen over brikkerne.
+# Baner og stjerner
+Hver opgave har et par: det mindste kendte antal træk, der løser den. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1.

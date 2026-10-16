@@ -1,0 +1,8 @@
+3 × 3
+4 × 4
+5 × 5
+6 × 6
+3 × 3 Farben
+4 × 4 Farben
+5 × 5 Farben
+6 × 6 Farben

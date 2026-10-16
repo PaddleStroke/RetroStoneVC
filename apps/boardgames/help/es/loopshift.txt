@@ -1,0 +1,10 @@
+Desplazar filas
+# El objetivo
+Unas fichas llenan una cuadrícula. Devuelve cada una a su sitio: las fichas numeradas en orden, 1, 2, 3... fila a fila desde arriba a la izquierda; las franjas de color, con cada fila del color que se muestra en sus dos extremos. Cada color tiene además su propio signo.
+# Una jugada
+Desliza una fila entera a la izquierda o a la derecha, o una columna entera hacia arriba o hacia abajo, tanto como quieras. La línea da la vuelta: la ficha que sale por un extremo vuelve a entrar por el otro. Deslizar otra vez la misma línea enseguida sigue siendo una sola jugada.
+Arrastra una línea con el dedo, o toca una ficha y luego la casilla de su fila o columna adonde debe ir.
+# El final de la partida
+Cuando cada ficha está en su sitio, el rompecabezas queda resuelto: una luz dorada recorre las fichas.
+# Niveles y estrellas
+Cada rompecabezas tiene un par: el mínimo de jugadas conocido que lo resuelve. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

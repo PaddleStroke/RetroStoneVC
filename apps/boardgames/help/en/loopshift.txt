@@ -1,0 +1,10 @@
+Row Shift
+# The aim
+Tiles fill a square grid. Bring each one back to its place: numbered tiles in order, 1, 2, 3... row by row from the top left; colour bands with each row in the colour shown at its two ends. Each colour also has its own sign.
+# A move
+Slide a whole row left or right, or a whole column up or down, as far as you like. The line wraps round: a tile pushed off one end comes back in at the other. Sliding the same line again straight away is still one move.
+Drag a line with your finger, or tap a tile, then the place in its row or column where it should go.
+# The end of the game
+When every tile is in its place, the puzzle is solved: a gold light runs over the tiles.
+# Levels and stars
+Each puzzle has a par, the fewest moves known to solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

@@ -1,0 +1,10 @@
+Posouvání řad
+# Cíl hry
+Destičky vyplňují čtvercovou mřížku. Vrať každou na její místo: číslované destičky popořadě, 1, 2, 3... řádek po řádku od levého horního rohu; barevné pruhy tak, aby každý řádek měl barvu ukázanou na jeho obou koncích. Každá barva má také svou vlastní značku.
+# Tah
+Posuň celý řádek doleva nebo doprava, nebo celý sloupec nahoru nebo dolů, o kolik chceš. Řada se točí dokola: destička vysunutá z jednoho konce se vrátí na druhém. Posunout hned znovu tutéž řadu je pořád jeden tah.
+Táhni řadu prstem, nebo klepni na destičku a pak na pole v jejím řádku nebo sloupci, kam má jít.
+# Konec hry
+Když je každá destička na svém místě, hlavolam je vyřešen: po destičkách přeběhne zlaté světlo.
+# Úrovně a hvězdy
+Každý hlavolam má par: nejmenší známý počet tahů, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1.

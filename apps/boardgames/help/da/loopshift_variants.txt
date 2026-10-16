@@ -1,0 +1,8 @@
+3 × 3
+4 × 4
+5 × 5
+6 × 6
+3 × 3 farver
+4 × 4 farver
+5 × 5 farver
+6 × 6 farver

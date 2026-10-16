@@ -1,0 +1,8 @@
+3 × 3
+4 × 4
+5 × 5
+6 × 6
+3 × 3 renkler
+4 × 4 renkler
+5 × 5 renkler
+6 × 6 renkler
