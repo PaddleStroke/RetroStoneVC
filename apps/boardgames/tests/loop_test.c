@@ -93,7 +93,8 @@ int main(void)
         printf("loop %dx%d level %d: %d/%d of the level, %.1f numbers, %.1f ms on average, slowest %.1f ms\n", n, n,
                level, exact, tries, (double)clues / tries, 1000 * total / tries, 1000 * slowest);
         CHECK(exact >= tries * 9 / 10);
-        CHECK(total / tries < 0.25 && slowest < 0.6);   /* CPU time; the 15 x 15 hard ones: about 0.17 s on average */
+        CHECK(total / tries < 0.25 && slowest < 1.0);   /* CPU time; the 15 x 15 hard ones: about 0.17 s on average,
+                                                         * the slowest about 0.35 s idle (room for a loaded machine) */
     }
 
     /* the player's marks */

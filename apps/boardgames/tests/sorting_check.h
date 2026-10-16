@@ -79,7 +79,8 @@ static void sc_generator(sc_new_fn make, int one)
         double avg = (clock() - t0) * 1000.0 / CLOCKS_PER_SEC / seeds;
         printf("  %2d colours: shortest ways %d..%d (mean %.1f); made in %.1f ms (slowest %.1f)\n", n, shortest,
                longest, (double)total / seeds, avg, slowest);
-        CHECK(slowest < 400);                   /* well under a second on a phone: a few times this machine */
+        CHECK(slowest < 700);                   /* CPU time (about 140 ms idle; room for a loaded machine): well under a
+                                                 * second on a phone, a few times this machine */
         CHECK(shortest >= 3 * n);               /* never a trivial puzzle */
     }
     srt_game a, b;                              /* the same seed: the same puzzle */
