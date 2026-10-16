@@ -1,0 +1,11 @@
+Hitori
+# Målet
+Sverte ruter slik at ingen tall står to ganger i en rad eller en kolonne.
+- Bare et tall som gjentas i sin rad eller kolonne, kan svertes.
+- Svertede ruter berører aldri hverandre langs en side; ved et hjørne går det bra.
+- De lyse rutene henger sammen i ett stykke langs sidene.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette ring rundt den: et notat om at den blir.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

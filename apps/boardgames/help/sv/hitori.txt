@@ -1,0 +1,11 @@
+Hitori
+# Målet
+Svärta rutor så att inget tal står två gånger i en rad eller en kolumn.
+- Bara ett tal som upprepas i sin rad eller kolumn får svärtas.
+- Svärtade rutor rör aldrig varandra med en sida; vid ett hörn går det bra.
+- De ljusa rutorna hänger ihop i ett stycke via sidorna.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att ringa in den: en anteckning om att den blir kvar.
+# Partiets slut
+Pusslet är löst när alla regler håller: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

@@ -1,0 +1,11 @@
+Hitori
+# O objetivo
+Escurece casas para que nenhum número fique duas vezes numa linha ou numa coluna.
+- Só pode ser escurecido um número que se repete na sua linha ou na sua coluna.
+- As casas escuras nunca se tocam pelo lado; podem tocar-se pelo canto.
+- As casas que ficam claras formam um só bloco, ligadas pelos lados.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Mantém o dedo numa casa para a rodear: uma nota de que fica.
+# O fim do jogo
+A grelha está resolvida quando todas as regras são cumpridas: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que tiras com Anular.

@@ -1,0 +1,11 @@
+Hitori
+# Cel gry
+Zaczernij pola tak, aby żadna liczba nie została dwa razy w wierszu ani w kolumnie.
+- Zaczernić można tylko liczbę, która powtarza się w swoim wierszu lub kolumnie.
+- Zaczernione pola nigdy nie stykają się bokiem; rogiem mogą.
+- Jasne pola tworzą jeden kawałek, połączone bokami.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Przytrzymaj pole, aby je zakreślić: notatka, że zostaje.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy wszystkie zasady są spełnione: przez siatkę przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle oznaczone pole cofnięte przyciskiem Cofnij.

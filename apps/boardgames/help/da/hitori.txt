@@ -1,0 +1,11 @@
+Hitori
+# Målet
+Sværte felter, så intet tal står to gange i en række eller en søjle.
+- Kun et tal, der gentages i sin række eller søjle, må sværtes.
+- Sværtede felter rører aldrig hinanden med en side; ved et hjørne må de godt.
+- De lyse felter hænger alle sammen i ét stykke via siderne.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en ring om det: en note om, at det bliver.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

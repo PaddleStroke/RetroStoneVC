@@ -1,0 +1,11 @@
+Hitori
+# O objetivo
+Escureça casas para que nenhum número fique duas vezes numa linha ou numa coluna.
+- Só pode ser escurecido um número que se repete na sua linha ou na sua coluna.
+- As casas escuras nunca se tocam pelo lado; podem se tocar pelo canto.
+- As casas que ficam claras formam um só bloco, ligadas pelos lados.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure uma casa para circulá-la: uma anotação de que ela fica.
+# O fim da partida
+A grade está resolvida quando todas as regras são cumpridas: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

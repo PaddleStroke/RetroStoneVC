@@ -1,0 +1,11 @@
+Hitori
+# Tavoite
+Väritä ruutuja niin, ettei mikään numero jää kahdesti samalle riville tai sarakkeeseen.
+- Vain numeron, joka toistuu rivillään tai sarakkeessaan, saa värittää.
+- Väritetyt ruudut eivät koskaan kosketa toisiaan sivulla; kulmittain ne saavat koskettaa.
+- Vaaleat ruudut ovat kaikki yhtä kappaletta sivujen kautta.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa ympyröidäksesi sen: muistiinpano siitä, että se jää.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

@@ -1,0 +1,11 @@
+Hitori
+# Das Ziel
+Schwärze Felder, sodass keine Zahl zweimal in einer Zeile oder Spalte bleibt.
+- Nur eine Zahl, die sich in ihrer Zeile oder Spalte wiederholt, darf geschwärzt werden.
+- Geschwärzte Felder berühren sich nie an einer Seite; an einer Ecke dürfen sie sich treffen.
+- Die hellen Felder hängen alle als ein Stück zusammen, über die Seiten.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um es einzukreisen: eine Notiz, dass es bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

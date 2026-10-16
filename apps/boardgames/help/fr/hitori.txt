@@ -1,0 +1,11 @@
+Hitori
+# Le but
+Noircis des cases pour qu'aucun nombre ne reste deux fois dans une ligne ou une colonne.
+- Seul un nombre qui se répète dans sa ligne ou sa colonne peut être noirci.
+- Les cases noircies ne se touchent jamais par un côté ; elles peuvent se toucher par un coin.
+- Les cases restées claires forment un seul bloc, reliées par les côtés.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour l'entourer : une note pour dire qu'elle reste.
+# La fin de la partie
+La grille est résolue quand toutes les règles sont respectées : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

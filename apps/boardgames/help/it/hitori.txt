@@ -1,0 +1,11 @@
+Hitori
+# Lo scopo
+Annerisci alcune caselle in modo che nessun numero resti due volte in una riga o in una colonna.
+- Si può annerire solo un numero che si ripete nella sua riga o nella sua colonna.
+- Le caselle annerite non si toccano mai per un lato; possono toccarsi in un angolo.
+- Le caselle rimaste chiare formano un solo blocco, unite per i lati.
+Ogni griglia ha una sola soluzione, che si trova solo ragionando. Tieni premuta una casella per cerchiarla: una nota che resta.
+# La fine della partita
+La griglia è risolta quando tutte le regole sono rispettate: un'onda di luce dorata la percorre.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una casella sbagliata che togli con Annulla.

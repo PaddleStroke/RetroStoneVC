@@ -1,0 +1,11 @@
+Hitori
+# El objetivo
+Oscurece casillas para que ningún número quede dos veces en una fila o una columna.
+- Solo se puede oscurecer un número que se repite en su fila o su columna.
+- Las casillas oscuras nunca se tocan por un lado; pueden tocarse por una esquina.
+- Las casillas claras forman un solo bloque, unidas por los lados.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para rodearla: una nota de que se queda.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.
