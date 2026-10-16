@@ -867,7 +867,8 @@ int nrk_script(nrk_game *g, const char *s)
             int k = 0;
             for (s++; *s >= '0' && *s <= '9'; s++) k = k * 10 + *s - '0';
             for (int c = 0; c < n * n && k > 0; c++)
-                if (nrk_free(g, c) && (g->st[c] == NRK_SEA) != g->sol[c]) put(g, c, g->sol[c] ? NRK_SEA : NRK_EMPTY), k--;
+                if (nrk_free(g, c) && (g->st[c] == NRK_SEA) != g->sol[c])
+                    put(g, c, g->sol[c] ? NRK_SEA : NRK_EMPTY), k--;
             continue;
         }
         int hold = *s == '.', len = 0;

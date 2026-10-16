@@ -365,7 +365,8 @@ static int sound(const sheet *m)
         if (!m->shade[c]) continue;
         if (touches_shade(m, c)) return 0;
         int x = c % n, y = c / n, twin = 0;
-        for (int j = 0; j < n; j++) twin |= (j != x && m->num[y * n + j] == m->num[c]) || (j != y && m->num[j * n + x] == m->num[c]);
+        for (int j = 0; j < n; j++)
+            twin |= (j != x && m->num[y * n + j] == m->num[c]) || (j != y && m->num[j * n + x] == m->num[c]);
         if (!twin) return 0;
     }
     for (int way = 0; way < 2; way++)

@@ -1,6 +1,6 @@
 /*
- * Thermometers's levels, made by chance and chosen: src/games/thermometers_levels.h. Our own puzzles, from the game's own
- * maker (thermometers laid by chance, their levels then changed a little at a time until the solver solves the grid
+ * Thermometers' levels, made by chance and chosen: src/games/thermometers_levels.h. Our own puzzles, from the game's
+ * own maker (thermometers laid by chance, their levels then changed a little at a time until the solver solves the grid
  * at its level; thermometers_rules.c). Each candidate:
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution;
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
@@ -161,10 +161,11 @@ int main(int argc, char **argv)
             }
     }
     printf("/*\n"
-           " * Thermometers's levels: our own, made by tools/thermometers_gen.c (the game's maker; each checked to have one\n"
-           " * solution), six chapters of 25 from the easiest. Each: \"<n>:\" and a character a cell, row by row\n"
-           " * (thermometers.h, thm_decode); in the comment its size, its grade and the work it asks of the solver (its\n"
-           " * passes, the medium finds).\n * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n"
+           " * Thermometers' levels: our own, made by tools/thermometers_gen.c (the game's maker; each checked\n"
+           " * to have one solution), six chapters of 25 from the easiest. Each: \"<n>:\", the counts, and a\n"
+           " * character a cell, row by row (thermometers.h, thm_decode); in the comment its size, its grade and\n"
+           " * the work it asks of the solver (its passes, the medium finds).\n"
+           " * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n"
            " */\nstatic const char *const thm_levels[THM_LEVELS] = {\n");
     for (int i = 0; i < nchosen; i++) {
         char code[THM_CELLS + 64];

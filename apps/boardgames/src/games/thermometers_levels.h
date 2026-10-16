@@ -1,8 +1,8 @@
 /*
- * Thermometers's levels: our own, made by tools/thermometers_gen.c (the game's maker; each checked to have one
- * solution), six chapters of 25 from the easiest. Each: "<n>:" and a character a cell, row by row
- * (thermometers.h, thm_decode); in the comment its size, its grade and the work it asks of the solver (its
- * passes, the medium finds).
+ * Thermometers' levels: our own, made by tools/thermometers_gen.c (the game's maker; each checked
+ * to have one solution), six chapters of 25 from the easiest. Each: "<n>:", the counts, and a
+ * character a cell, row by row (thermometers.h, thm_decode); in the comment its size, its grade and
+ * the work it asks of the solver (its passes, the medium finds).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 static const char *const thm_levels[THM_LEVELS] = {

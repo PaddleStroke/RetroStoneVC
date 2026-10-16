@@ -7,15 +7,15 @@
  *
  * The variants: 6 x 6, 7 x 7, 8 x 8, each easy, medium or hard (variant = size * 3 + level). A puzzle is
  * made from a seed: islands grown by chance in the sea (never touching, the sea kept in one piece) until no 2 x 2
- * pool is left, each island's size written in one of its cells; grids are drawn until the solver (bench.h) solves one
- * at its level, and none past it. The ways of reasoning, by level:
+ * pool is left, each island's size written in one of its cells; then changed a little at a time (a cell of sea made
+ * land or the other way, a number moved) until the solver (bench.h) solves it at its level, and by no harder way. The
+ * ways of reasoning, by level:
  *   easy: an island with all its cells is closed by the sea; a cell next to two islands is sea; an island (or a piece
  *     of land with no number yet) with one way out takes it; three sea cells of a 2 x 2 square make the fourth land;
- *     a piece of sea with one way out takes it; a cell no island can reach is sea; the land's cells all found (or the
- *     sea's), the rest are the other;
- *   medium: a cell the sea cannot do without (land there would cut it in two) is sea; a cell an island cannot do
- *     without (sea there would leave it too little room) is land; a cell joining an island to land that would make it
- *     too big is sea;
+ *     a piece of sea with one way out takes it; a cell no island can reach is sea;
+ *   medium: the land's cells all found (or the sea's), the rest are the other; a cell the sea cannot do without
+ *     (land there would cut it in two) is sea; a way out an island cannot do without (sea there would leave it too
+ *     little room) is land; a cell joining an island to land that would make it too big is sea;
  *   hard: chains (land or sea tried in a cell, the easy ways followed to a contradiction).
  * The player's cells: empty, sea, or a dot (a note: land). Solved when the sea keeps every rule (the one way it can).
  * Cells: x + y * n from the top left. The notation (script, the screenshots, the tests): a cell is its column letter

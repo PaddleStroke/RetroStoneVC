@@ -50,7 +50,8 @@ static void sea_pic(uint8_t *o, int w, int h)
             float r2 = fabsf(fy - 0.68f - 0.05f * sinf(fx * 2 * ART_PI * 1.5f + 1.7f));
             float ripple = fmaxf(0, 1 - fminf(r1, r2) / 0.035f) * (fx > 0.16f && fx < 0.84f ? 0.55f : 0);
             uint8_t *p = o + 4 * ((size_t)y * w + x);
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(LAPIS[i] * k + (FOAM[i] - LAPIS[i] * k) * ripple, 0, 255);
+            for (int i = 0; i < 3; i++)
+                p[i] = (uint8_t)clampf(LAPIS[i] * k + (FOAM[i] - LAPIS[i] * k) * ripple, 0, 255);
             p[3] = 255;
         }
     puz_bevel(o, w, h, 0.12f * fminf(w, h), fmaxf(2, 0.09f * fminf(w, h)), 0.3f);
@@ -313,7 +314,8 @@ static void paint_puzzle(const nrk_puzzle *pp, const uint8_t *sol, int half, int
     for (int c = 0; c < n * n; c++) {
         float x = g.ox + c % n * q, y = g.oy + c / n * q;
         if (sol[c] && !p.clue[c] && (!half || c < n * n / 2)) pic_into(b, g.w, g.h, sea_cell_pic, x, y, q);
-        if (p.clue[c] && q >= 9) puz_digits(b, g.w, g.h, p.clue[c], x + q / 2.0f, y + q * 0.52f, 0.6f * q, PUZ_INK, 1, 1);
+        if (p.clue[c] && q >= 9)
+            puz_digits(b, g.w, g.h, p.clue[c], x + q / 2.0f, y + q * 0.52f, 0.6f * q, PUZ_INK, 1, 1);
     }
     int ox = (size - side) / 2 + (int)g.bx, oy = (mid ? (size - side) / 2 : 0) + (int)g.by;
     art_blend(rgba, size, size, b, g.w, g.h, ox, oy);

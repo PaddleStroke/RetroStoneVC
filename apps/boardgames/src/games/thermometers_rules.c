@@ -319,7 +319,8 @@ static int cut(sheet *m, int n, uint32_t *s, int most)
         used[c] = 1;
         while (k < want) {
             int x = walk[k - 1], px = x % n, py = x / n, opts[4], no = 0;
-            const int nb[4] = {py > 0 ? x - n : -1, py < n - 1 ? x + n : -1, px > 0 ? x - 1 : -1, px < n - 1 ? x + 1 : -1};
+            const int nb[4] = {py > 0 ? x - n : -1, py < n - 1 ? x + n : -1, px > 0 ? x - 1 : -1,
+                               px < n - 1 ? x + 1 : -1};
             for (int j = 0; j < 4; j++)
                 if (nb[j] >= 0 && !used[nb[j]]) opts[no++] = nb[j];
             if (!no) break;
@@ -329,7 +330,8 @@ static int cut(sheet *m, int n, uint32_t *s, int most)
         }
         if (k == 1) {                           /* alone: onto a neighbour's tip (a thermometer's last cell) */
             int px = c % n, py = c / n, opts[4], no = 0;
-            const int nb[4] = {py > 0 ? c - n : -1, py < n - 1 ? c + n : -1, px > 0 ? c - 1 : -1, px < n - 1 ? c + 1 : -1};
+            const int nb[4] = {py > 0 ? c - n : -1, py < n - 1 ? c + n : -1, px > 0 ? c - 1 : -1,
+                               px < n - 1 ? c + 1 : -1};
             for (int j = 0; j < 4; j++)
                 if (nb[j] >= 0 && used[nb[j]] && next[nb[j]] < 0 && p->from[nb[j]] != THM_BULB) opts[no++] = nb[j];
             if (no) {
