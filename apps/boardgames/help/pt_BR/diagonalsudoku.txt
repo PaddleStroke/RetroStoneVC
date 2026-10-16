@@ -1,0 +1,7 @@
+Sudoku diagonal
+# O objetivo
+Preencha a grade de 9 × 9 casas para que cada linha, cada coluna, cada bloco de 3 × 3 e as duas diagonais longas tenham uma vez cada algarismo de 1 a 9. As casas das diagonais são de madeira cor de mel. Alguns algarismos já vêm dados. Cada sudoku tem uma única solução, encontrada só pelo raciocínio.
+# O fim da partida
+O sudoku está resolvido quando a grade está cheia e certa.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que você tira com Desfazer.

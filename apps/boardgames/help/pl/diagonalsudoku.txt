@@ -1,0 +1,7 @@
+Sudoku diagonalne
+# Cel gry
+Wypełnij diagram 9 × 9 pól tak, aby każdy wiersz, każda kolumna, każdy kwadrat 3 × 3 i obie długie przekątne zawierały każdą cyfrę od 1 do 9 dokładnie raz. Pola przekątnych są z drewna w kolorze miodu. Niektóre cyfry są podane na starcie. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.

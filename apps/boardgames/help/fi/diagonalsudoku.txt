@@ -1,0 +1,7 @@
+Lävistäjäsudoku
+# Tavoite
+Täytä 9 × 9 ruudun ruudukko niin, että jokaisella rivillä, jokaisessa sarakkeessa, jokaisessa 3 × 3 -laatikossa ja kummallakin pitkällä lävistäjällä on jokainen numero 1–9 kerran. Lävistäjien ruudut ovat hunajanväristä puuta. Osa numeroista on annettu valmiiksi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.

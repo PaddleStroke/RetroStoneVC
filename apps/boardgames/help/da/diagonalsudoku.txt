@@ -1,0 +1,7 @@
+Diagonalsudoku
+# Målet
+Udfyld gitteret på 9 × 9 felter, så hver række, hver kolonne, hver 3 × 3-boks og begge lange diagonaler indeholder hvert ciffer fra 1 til 9 én gang. Diagonalernes felter er af honningfarvet træ. Nogle cifre er givet fra start. Hver opgave har præcis én løsning, som kan findes ved ren tankegang.
+# Spillets afslutning
+Opgaven er løst, når gitteret er fuldt og rigtigt.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.

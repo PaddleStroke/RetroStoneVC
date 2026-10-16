@@ -1,0 +1,7 @@
+Diagonalsudoku
+# Målet
+Fyll rutenettet på 9 × 9 ruter slik at hver rad, hver kolonne, hver 3 × 3-boks og begge de lange diagonalene inneholder hvert siffer fra 1 til 9 én gang. Rutene på diagonalene er av honningfarget tre. Noen sifre er gitt fra start. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere.
+# Slutten på spillet
+Oppgaven er løst når rutenettet er fullt og riktig.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil siffer som du tar tilbake med Angre.

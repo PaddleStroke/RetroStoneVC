@@ -1,0 +1,7 @@
+Sudoku diagonal
+# El objetivo
+Rellena la cuadrícula de 9 × 9 casillas para que cada fila, cada columna, cada bloque de 3 × 3 y las dos diagonales largas contengan una vez cada cifra del 1 al 9. Las casillas de las diagonales son de madera color miel. Algunas cifras vienen dadas. Cada sudoku tiene una sola solución, que se encuentra solo razonando.
+# El final de la partida
+El sudoku está resuelto cuando la cuadrícula está llena y bien.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una cifra equivocada que quitas con Deshacer.

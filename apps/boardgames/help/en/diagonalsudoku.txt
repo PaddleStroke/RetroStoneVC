@@ -1,0 +1,7 @@
+Diagonal Sudoku
+# The aim
+Fill the grid of 9 × 9 cells so that every row, every column, every box of 3 × 3 and both long diagonals hold each digit from 1 to 9 once. The cells of the diagonals are in honey-coloured wood. Some digits are given at the start. Every puzzle has exactly one solution, found by reasoning alone.
+# The end of the game
+The puzzle is solved when the grid is full and right.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.

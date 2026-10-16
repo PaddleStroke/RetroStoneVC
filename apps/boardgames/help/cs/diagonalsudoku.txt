@@ -1,0 +1,7 @@
+Diagonální sudoku
+# Cíl hry
+Vyplň mřížku 9 × 9 políček tak, aby každý řádek, každý sloupec, každý čtverec 3 × 3 a obě dlouhé úhlopříčky obsahovaly každou číslici od 1 do 9 právě jednou. Políčka úhlopříček jsou ze dřeva barvy medu. Některé číslice jsou dané předem. Každá úloha má právě jedno řešení, které lze najít jen úvahou.
+# Konec hry
+Úloha je vyřešená, když je mřížka plná a správně.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice; počítá se, když ji vezmeš zpět tlačítkem Vrátit.

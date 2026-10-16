@@ -1,0 +1,7 @@
+Sudoku diagonal
+# Le but
+Remplis la grille de 9 × 9 cases pour que chaque ligne, chaque colonne, chaque carré de 3 × 3 et les deux grandes diagonales contiennent une fois chaque chiffre de 1 à 9. Les cases des diagonales sont en bois couleur miel. Certains chiffres sont donnés au départ. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement.
+# La fin de la partie
+La grille est résolue quand elle est pleine et juste.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
