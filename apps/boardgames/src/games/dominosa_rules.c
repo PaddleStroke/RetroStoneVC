@@ -332,10 +332,12 @@ int dsa_count(const dsa_puz *p, int limit, uint8_t *sol)
 }
 
 /* ---- making a puzzle --------------------------------------------------------------------------------------------- */
-/* the grid tiled: rows of dominoes lying down, then the two dominoes of a 2 x 2 square turned round, many times */
+/* the grid tiled: rows of dominoes lying down (an odd width, an odd set: columns of them standing, the height even),
+ * then the two dominoes of a 2 x 2 square turned round, many times */
 static void tile(int w, int h, uint8_t *mate, uint32_t *rng)
 {
-    for (int c = 0; c < w * h; c++) mate[c] = (uint8_t)(c % 2 ? c - 1 : c + 1);
+    for (int c = 0; c < w * h; c++)
+        mate[c] = (uint8_t)(w % 2 ? (c / w % 2 ? c - w : c + w) : (c % 2 ? c - 1 : c + 1));
     for (int i = 0; i < 60 * w * h; i++) {
         int x = pr_below(rng, w - 1), y = pr_below(rng, h - 1), c = y * w + x;
         if (mate[c] == c + 1 && mate[c + w] == c + w + 1) {          /* two lying: standing */
@@ -393,8 +395,10 @@ void dsa_make(int n, int level, uint32_t seed, dsa_puz *out, uint8_t *sol)
     if (level < DSA_EASY || level > DSA_HARD) level = DSA_EASY;
     uint32_t s = pr_seed(seed);
     int w = n + 2, h = n + 1, nt = (n + 1) * (n + 2) / 2, best_score = 1 << 30;
-    dsa_puz p, q, best;
-    uint8_t mate[DSA_CELLS], best_mate[DSA_CELLS], focus[DSA_CELLS], fq[DSA_CELLS];
+    dsa_puz p, q, best;                         /* zeroed: the cells past the grid too (the same seed, the same bytes) */
+    uint8_t mate[DSA_CELLS] = {0}, best_mate[DSA_CELLS] = {0}, focus[DSA_CELLS], fq[DSA_CELLS];
+    memset(&p, 0, sizeof p);
+    memset(&best, 0, sizeof best);
     p.n = n, p.w = w, p.h = h;
     int lo[DSA_TYPES], hi[DSA_TYPES];
     for (int a = 0; a <= n; a++)

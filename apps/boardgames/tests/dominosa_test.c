@@ -84,6 +84,19 @@ int main(void)
     dsa_new(&a, 4, 42);
     dsa_new(&b, 4, 42);
     CHECK(!memcmp(&a.p, &b.p, sizeof a.p) && !memcmp(a.sol, b.sol, DSA_CELLS));
+    /* byte for byte: nothing past the grid is left as the stack had it */
+    int past = 0;
+    for (int c = a.p.w * a.p.h; c < DSA_CELLS; c++) past |= a.p.num[c] | a.sol[c];
+    CHECK(!past);
+    /* the odd sets (the levels' double-3, 5 and 7: an odd width) are made on a true tiling too: the maker's solution
+     * pairs neighbours, every domino once */
+    for (int n = 3; n <= 7; n += 2)
+        for (uint32_t seed = 1; seed <= 5; seed++) {
+            dsa_puz q;
+            uint8_t s[DSA_CELLS];
+            dsa_make(n, DSA_EASY, seed, &q, s);
+            CHECK(q.w == n + 2 && solution_ok(&q, s));
+        }
 
     /* the designed levels: each decodes (its code again the same), has one solution the grader finds; the chapters
      * grow (their sets and grades) */
