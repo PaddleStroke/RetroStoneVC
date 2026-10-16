@@ -139,6 +139,28 @@ static void test_games(void)
             }
 }
 
+/* a player who remembers nothing (cards turned at random) still finishes the biggest grid: the actions kept never
+ * run out (they once stopped the game at 1024, a third of such games) */
+static void test_forgetful(void)
+{
+    unsigned r = 12345;
+    for (int seed = 1; seed <= 300; seed++) {
+        pr_new(&G, PR_LARGE, 1 + seed % PR_MAXP, (uint32_t)seed);
+        int ok = 1;
+        while (ok && P->phase != PP_OVER) {
+            int a = PA_BACK;
+            if (P->phase == PP_PLAY) {
+                do {
+                    r = r * 1103515245u + 12345u;
+                    a = PA_TURN | (int)(r >> 16) % P->n;
+                } while (!pr_legal(P, a));
+            }
+            ok = pr_play(&G, a);
+        }
+        CHECK(ok && P->phase == PP_OVER);
+    }
+}
+
 int main(void)
 {
     test_layout();
@@ -146,6 +168,7 @@ int main(void)
     test_end();
     test_script();
     test_games();
+    test_forgetful();
     printf("pairs: %d checks, %d failed\n", checks, failed);
     return failed ? 1 : 0;
 }

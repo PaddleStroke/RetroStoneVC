@@ -23,7 +23,7 @@
 #define PR_ANIMALS 7                            /* pictures 0..6: the families' animals */
 #define PR_PIECES 17                            /* 7..23: chess pieces (pr_piece) */
 #define PR_POOL (PR_ANIMALS + PR_PIECES)
-#define PR_MAX_ACTS 1024
+#define PR_MAX_ACTS 4096                        /* kept for undo (a replay): a 36-card game at random needs 2000 */
 #define PR_NONE 255
 
 enum { PR_SMALL, PR_MEDIUM, PR_LARGE, PR_VARIANTS };   /* 12, 24, 36 cards */
