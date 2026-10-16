@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SYLJE
+HINT_PAD = ^~ TÄHTÄÄ   A: SYLJE
+HINT_TOUCH = NAPAUTA TAIVASTA JA SYLJE
+NEW_DART = NOPEA NUOLI!
+NEW_BIG = ISO HERHILÄINEN!
+NEW_SWARM = PARVI!
+POPPED_N[one] = PUDOTETTU: %d
+POPPED_N[other] = PUDOTETTU: %d

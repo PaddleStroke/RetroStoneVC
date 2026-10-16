@@ -1,0 +1,8 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = つばをはく
+HINT_PAD = ^~ ねらう   A: はく
+HINT_TOUCH = そらをタッチして つばをはく
+NEW_DART = はやいハチ!
+NEW_BIG = でっかいハチ!
+NEW_SWARM = ハチのむれ!
+POPPED_N[other] = %dひき やっつけた

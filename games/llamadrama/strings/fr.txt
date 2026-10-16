@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CRACHER
+HINT_PAD = ^~ VISER   A : CRACHER
+HINT_TOUCH = TOUCHE LE CIEL POUR CRACHER
+NEW_DART = FRELON ÉCLAIR !
+NEW_BIG = GROS FRELON !
+NEW_SWARM = ESSAIM !
+POPPED_N[one] = %d FRELON TOMBÉ
+POPPED_N[other] = %d FRELONS TOMBÉS

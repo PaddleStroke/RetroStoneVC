@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPUGEN
+HINT_PAD = ^~ RICHTEN   A: SPUGEN
+HINT_TOUCH = TIK DE LUCHT OM TE SPUGEN
+NEW_DART = SNELLE HORZEL!
+NEW_BIG = GROTE HORZEL!
+NEW_SWARM = ZWERM!
+POPPED_N[one] = %d HORZEL RAAK
+POPPED_N[other] = %d HORZELS RAAK

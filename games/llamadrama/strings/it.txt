@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPUTARE
+HINT_PAD = ^~ MIRA   A: SPUTA
+HINT_TOUCH = TOCCA IL CIELO PER SPUTARE
+NEW_DART = CALABRONE LAMPO!
+NEW_BIG = CALABRONE GIGANTE!
+NEW_SWARM = SCIAME!
+POPPED_N[one] = %d CALABRONE GIÙ
+POPPED_N[other] = %d CALABRONI GIÙ

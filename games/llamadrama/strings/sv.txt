@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPOTTA
+HINT_PAD = ^~ SIKTA   A: SPOTTA
+HINT_TOUCH = TRYCK PÅ HIMLEN FÖR ATT SPOTTA
+NEW_DART = SNABB GETING!
+NEW_BIG = JÄTTEGETING!
+NEW_SWARM = SVÄRM!
+POPPED_N[one] = %d GETING NERE
+POPPED_N[other] = %d GETINGAR NERE

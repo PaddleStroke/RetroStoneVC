@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPUCKEN
+HINT_PAD = ^~ ZIELEN   A: SPUCKEN
+HINT_TOUCH = TIPP IN DEN HIMMEL ZUM SPUCKEN
+NEW_DART = FLINKE HORNISSE!
+NEW_BIG = DICKE HORNISSE!
+NEW_SWARM = SCHWARM!
+POPPED_N[one] = %d TREFFER
+POPPED_N[other] = %d TREFFER

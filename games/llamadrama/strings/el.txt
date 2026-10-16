@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΦΤΥΣΕΙΣ
+HINT_PAD = ^~ ΣΗΜΑΔΙ   A: ΦΤΥΣΙΜΟ
+HINT_TOUCH = ΑΓΓΙΞΕ ΤΟΝ ΟΥΡΑΝΟ ΓΙΑ ΦΤΥΣΙΜΟ
+NEW_DART = ΓΡΗΓΟΡΗ ΣΦΗΚΑ!
+NEW_BIG = ΜΕΓΑΛΗ ΣΦΗΚΑ!
+NEW_SWARM = ΣΜΗΝΟΣ!
+POPPED_N[one] = %d ΣΦΗΚΑ ΕΠΕΣΕ
+POPPED_N[other] = %d ΣΦΗΚΕΣ ΕΠΕΣΑΝ

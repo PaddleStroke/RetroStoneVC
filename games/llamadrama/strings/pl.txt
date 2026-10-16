@@ -1,0 +1,10 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PLUĆ
+HINT_PAD = ^~ CELUJ   A: PLUJ
+HINT_TOUCH = DOTKNIJ NIEBA, BY PLUĆ
+NEW_DART = SZYBKI SZERSZEŃ!
+NEW_BIG = WIELKI SZERSZEŃ!
+NEW_SWARM = RÓJ!
+POPPED_N[one] = STRĄCONO: %d
+POPPED_N[few] = STRĄCONO: %d
+POPPED_N[many] = STRĄCONO: %d

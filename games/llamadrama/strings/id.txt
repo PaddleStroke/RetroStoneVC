@@ -1,0 +1,8 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MELUDAH
+HINT_PAD = ^~ BIDIK   A: LUDAH
+HINT_TOUCH = KETUK LANGIT UNTUK MELUDAH
+NEW_DART = TAWON KILAT!
+NEW_BIG = TAWON RAKSASA!
+NEW_SWARM = KAWANAN TAWON!
+POPPED_N[other] = %d TAWON JATUH

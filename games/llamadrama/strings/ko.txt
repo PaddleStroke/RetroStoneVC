@@ -1,0 +1,8 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 침 뱉기
+HINT_PAD = ^~ 조준   A: 침 뱉기
+HINT_TOUCH = 하늘을 터치해 침 뱉기
+NEW_DART = 빠른 말벌!
+NEW_BIG = 왕말벌!
+NEW_SWARM = 말벌 떼!
+POPPED_N[other] = 말벌 %d마리 잡음

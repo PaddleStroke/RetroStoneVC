@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ESCUPIR
+HINT_PAD = ^~ APUNTA   A: ESCUPE
+HINT_TOUCH = TOCA EL CIELO PARA ESCUPIR
+NEW_DART = ¡AVISPA VELOZ!
+NEW_BIG = ¡AVISPA GIGANTE!
+NEW_SWARM = ¡ENJAMBRE!
+POPPED_N[one] = %d AVISPA CAÍDA
+POPPED_N[other] = %d AVISPAS CAÍDAS

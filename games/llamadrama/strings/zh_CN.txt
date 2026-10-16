@@ -1,0 +1,8 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 吐口水
+HINT_PAD = ^~ 瞄准   A: 吐口水
+HINT_TOUCH = 点一下天空吐口水
+NEW_DART = 快速黄蜂!
+NEW_BIG = 大黄蜂!
+NEW_SWARM = 蜂群!
+POPPED_N[other] = 打下%d只黄蜂

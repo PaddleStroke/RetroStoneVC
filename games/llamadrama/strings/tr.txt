@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TÜKÜRMEK
+HINT_PAD = ^~ NİŞAN   A: TÜKÜR
+HINT_TOUCH = TÜKÜRMEK İÇİN GÖKYÜZÜNE DOKUN
+NEW_DART = HIZLI EŞEKARISI!
+NEW_BIG = DEV EŞEKARISI!
+NEW_SWARM = ARI SÜRÜSÜ!
+POPPED_N[one] = %d ARI DÜŞTÜ
+POPPED_N[other] = %d ARI DÜŞTÜ

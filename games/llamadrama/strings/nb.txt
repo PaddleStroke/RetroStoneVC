@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SPYTTE
+HINT_PAD = ^~ SIKT   A: SPYTT
+HINT_TOUCH = TRYKK PÅ HIMMELEN FOR Å SPYTTE
+NEW_DART = LYNVEPS!
+NEW_BIG = KJEMPEVEPS!
+NEW_SWARM = SVERM!
+POPPED_N[one] = %d VEPS TRUFFET
+POPPED_N[other] = %d VEPSER TRUFFET

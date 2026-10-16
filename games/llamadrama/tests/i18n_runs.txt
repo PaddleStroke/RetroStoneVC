@@ -1,0 +1,18 @@
+# Llama Drama: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+hint      60   50   --opt bot=1 --opt seed=7 --opt ready=1
+hinttouch 60   50   ; 20 tap-at 50% 30%
+hint4     60   50   --opt bot=4 --opt seed=7 --opt ready=1
+play      700  690  --opt bot=1 --opt seed=7 --opt ready=1
+play4     1500 1490 --opt bot=4 --opt seed=9 --opt ready=1 --opt score=200
+pause     640  630  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+dart      30   20   --opt ready=1 --opt msg=1
+big4      30   20   --opt ready=1 --opt msg=2 --opt players=4
+swarm     30   20   --opt ready=1 --opt msg=3
+over      2500 2490 --opt bot=1 --opt ready=1 --opt botstop=100 --opt seed=4
+over1     2500 2490 --opt bot=1 --opt ready=1 --opt botstop=10 --opt seed=4
+results   4000 3990 --opt bot=4 --opt ready=1 --opt botstop=40 --opt seed=4

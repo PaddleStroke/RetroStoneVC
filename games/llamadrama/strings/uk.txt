@@ -1,0 +1,10 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ПЛЮВАТИ
+HINT_PAD = ^~ ЦІЛЬСЯ   A: ПЛЮЙ
+HINT_TOUCH = ТОРКНИСЬ НЕБА, ЩОБ ПЛЮНУТИ
+NEW_DART = ПРУДКИЙ ШЕРШЕНЬ!
+NEW_BIG = ВЕЛИКИЙ ШЕРШЕНЬ!
+NEW_SWARM = РІЙ!
+POPPED_N[one] = %d ШЕРШЕНЬ ЗБИТИЙ
+POPPED_N[few] = %d ШЕРШНІ ЗБИТІ
+POPPED_N[many] = %d ШЕРШНІВ ЗБИТО

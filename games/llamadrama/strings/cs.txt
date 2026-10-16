@@ -1,0 +1,10 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PLIVNI
+HINT_PAD = ^~ MIŘ   A: PLIVNI
+HINT_TOUCH = KLEPNI NA OBLOHU A PLIVNI
+NEW_DART = RYCHLÝ SRŠEŇ!
+NEW_BIG = VELKÝ SRŠEŇ!
+NEW_SWARM = ROJ!
+POPPED_N[one] = %d SRŠEŇ SRAŽEN
+POPPED_N[few] = %d SRŠNI SRAŽENI
+POPPED_N[other] = %d SRŠŇŮ SRAŽENO

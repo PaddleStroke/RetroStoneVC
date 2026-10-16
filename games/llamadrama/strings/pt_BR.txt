@@ -1,0 +1,9 @@
+# Llama Drama's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = CUSPIR
+HINT_PAD = ^~ MIRE   A: CUSPA
+HINT_TOUCH = TOQUE NO CÉU PARA CUSPIR
+NEW_DART = VESPA VELOZ!
+NEW_BIG = VESPA GIGANTE!
+NEW_SWARM = ENXAME!
+POPPED_N[one] = %d VESPA CAÍDA
+POPPED_N[other] = %d VESPAS CAÍDAS

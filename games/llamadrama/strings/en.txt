@@ -1,0 +1,33 @@
+# Llama Drama (games/llamadrama): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt). The game's name is never translated.
+
+#. The title's prompt verb: PRESS A TO <VERB> (the kit's PRESS_TO). The llama spits at the hornets.
+#. max 14
+VERB = SPIT
+
+#. In play, for the first 5 s of a run: small letters centred on row 27 (at the bottom). ^ and ~ are drawn as the
+#. up and down arrows (the d-pad): they turn the llama's head; A is the pad's A button.
+#. max 34
+HINT_PAD = ^~ AIM   A: SPIT
+
+#. The same hint on a touch screen: a finger on the sky turns the llama's head there and it spits there.
+#. max 34
+HINT_TOUCH = TAP THE SKY TO SPIT
+
+#. In play, 2x letters (2 columns each) centred on row 5 for 2.5 s, the first time each new kind of hornet comes:
+#. a fast hornet that stops, buzzes, then dashes at a llama ...
+#. max 19
+NEW_DART = FAST DART!
+
+#. ... a big hornet that takes three hits ...
+#. max 19
+NEW_BIG = BIG HORNET!
+
+#. ... a little swarm of hornets flying together.
+#. max 19
+NEW_SWARM = SWARM!
+
+#. On the game-over panel, under the medal: how many hornets the llama popped (bonked down with stars, nothing hurt).
+#. max 18
+POPPED_N[one] = %d HORNET POPPED
+POPPED_N[other] = %d HORNETS POPPED
