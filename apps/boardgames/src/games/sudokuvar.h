@@ -107,7 +107,10 @@ static inline void sv_sum_add(sv_shape *s, const uint64_t *cells, int sum, int t
     sv_sum k;
     memset(&k, 0, sizeof k);
     for (int c = 0; c < SV_CELLS; c++)
-        if (sv_in(cells, c)) k.cell[k.n++] = (uint8_t)c;
+        if (sv_in(cells, c)) {
+            if (k.n == SV_DERIVED) return;      /* too many cells to use (and to hold) */
+            k.cell[k.n++] = (uint8_t)c;
+        }
     if (!k.n || k.n > SV_DERIVED || sum < k.n || sum > 9 * k.n || s->nsums >= SV_SUMS) return;
     k.sum = (uint8_t)sum;
     k.tier = (uint8_t)tier;
