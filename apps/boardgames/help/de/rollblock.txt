@@ -1,0 +1,12 @@
+Rollender Block
+# Das Ziel
+Ein Holzblock, eine Platte breit und zwei hoch, steht auf einem Weg aus Steinplatten. Rolle ihn zum Loch und stelle ihn aufrecht darauf: Er fällt hinein.
+# Ein Zug
+Der Block kippt über eine seiner Kanten, nach oben, unten, links oder rechts: Stehend legt er sich auf die nächsten zwei Platten; liegend rollt er seitwärts oder stellt sich auf. Er darf nie über das Leere ragen.
+- Gesprungene Platten tragen den Block liegend, nie stehend.
+- Ein Messingknopf öffnet oder schließt die Brücken seiner Farbe: ein runder unter jedem Teil des Blocks, ein Kreuz nur unter dem stehenden Block.
+- Auf der Teilungsplatte teilt sich der Block in zwei Würfel, die auf die zwei Ringe springen. Bewege einen Würfel nach dem anderen (tippe einen Würfel an, um ihn zu wählen); nebeneinander werden sie wieder eins.
+# Das Ende der Partie
+Steht der Block auf dem Loch, versinkt er: gelöst.
+# Level und Sterne
+Es gibt 150 Level in sechs Kapiteln; der Reiter mit dem Würfel macht eine neue Karte nach Zufall: leicht, mittel oder schwer. Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

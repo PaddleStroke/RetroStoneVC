@@ -1,0 +1,12 @@
+Role o bloco
+# O objetivo
+Um bloco de madeira, com uma lajota de largura e duas de altura, está em pé sobre um caminho de lajotas de pedra. Role-o até o buraco e deixe-o em pé sobre ele: ele cai dentro.
+# Uma jogada
+O bloco tomba sobre uma de suas arestas, para cima, para baixo, para a esquerda ou para a direita: em pé, deita sobre as duas lajotas seguintes; deitado, rola de lado ou fica em pé. Ele nunca pode ficar sobre o vazio.
+- Lajotas rachadas aguentam o bloco deitado, nunca em pé.
+- Um botão de latão abre ou fecha as pontes da sua cor: um redondo sob qualquer parte do bloco, uma cruz só sob o bloco em pé.
+- Na lajota de divisão o bloco se divide em dois cubos, enviados aos dois anéis. Mova um cubo de cada vez (toque num cubo para escolhê-lo); lado a lado, eles se juntam de novo.
+# O fim da partida
+Em pé sobre o buraco, o bloco afunda: resolvido.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos; a aba do dado cria um novo mapa ao acaso: fácil, médio ou difícil. Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

@@ -1,0 +1,12 @@
+Gulingkan Balok
+# Tujuan
+Sebuah balok kayu, selebar satu ubin dan setinggi dua ubin, berdiri di jalan setapak dari ubin batu. Gulingkan balok itu ke lubang dan berdirikan tegak di atasnya: balok jatuh ke dalam.
+# Satu langkah
+Balok terguling melewati salah satu rusuknya, ke atas, ke bawah, ke kiri, atau ke kanan: saat berdiri, balok rebah di atas dua ubin berikutnya; saat rebah, balok berguling ke samping atau berdiri. Balok tidak boleh menggantung di atas kekosongan.
+- Ubin retak menahan balok yang rebah, tidak pernah yang berdiri.
+- Tombol kuningan membuka atau menutup jembatan yang sewarna: tombol bulat di bawah bagian mana pun dari balok, tombol silang hanya di bawah balok yang berdiri.
+- Di ubin pembelah, balok terbelah menjadi dua kubus yang dikirim ke dua cincin. Gerakkan satu kubus setiap kali (ketuk kubus untuk memilihnya); saat bersebelahan, keduanya menyatu lagi.
+# Akhir permainan
+Saat berdiri di atas lubang, balok tenggelam ke dalamnya: terpecahkan.
+# Level dan bintang
+Ada 150 level dalam enam bab; tab dadu membuat peta baru secara acak: mudah, sedang, atau sulit. Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

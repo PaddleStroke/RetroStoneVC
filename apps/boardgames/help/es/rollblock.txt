@@ -1,0 +1,12 @@
+Rueda el bloque
+# El objetivo
+Un bloque de madera, de una baldosa de ancho y dos de alto, está de pie sobre un camino de baldosas de piedra. Hazlo rodar hasta el agujero y ponlo de pie encima: cae dentro.
+# Una jugada
+El bloque vuelca sobre una de sus aristas, arriba, abajo, a la izquierda o a la derecha: de pie, se tumba sobre las dos baldosas siguientes; tumbado, rueda de lado o se pone de pie. Nunca puede quedar sobre el vacío.
+- Las baldosas agrietadas aguantan el bloque tumbado, nunca de pie.
+- Un botón de latón abre o cierra los puentes de su color: uno redondo bajo cualquier parte del bloque, una cruz solo bajo el bloque de pie.
+- En la baldosa de división el bloque se parte en dos cubos, enviados a los dos anillos. Mueve un cubo cada vez (toca un cubo para elegirlo); juntos, lado a lado, vuelven a unirse.
+# El final de la partida
+De pie sobre el agujero, el bloque se hunde: resuelto.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos; la pestaña del dado crea un mapa nuevo al azar: fácil, medio o difícil. Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

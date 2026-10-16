@@ -1,0 +1,12 @@
+Kierrä palikka
+# Tavoite
+Puupalikka, yhden laatan levyinen ja kahden korkuinen, seisoo kivilaattojen polulla. Kierrä se reiän luo ja nosta se pystyyn reiän päälle: se putoaa sisään.
+# Siirto
+Palikka kaatuu jonkin särmänsä yli ylös, alas, vasemmalle tai oikealle: pystyssä se kaatuu kahden seuraavan laatan päälle; maatessaan se vierii sivuttain tai nousee pystyyn. Se ei saa koskaan jäädä tyhjän päälle.
+- Haljenneet laatat kantavat makaavan palikan, eivät koskaan pystyssä olevaa.
+- Messinkinappi avaa tai sulkee oman värinsä sillat: pyöreä minkä tahansa palikan osan alla, risti vain pystyssä seisovan palikan alla.
+- Jakolaatalla palikka jakautuu kahdeksi kuutioksi, jotka siirtyvät kahdelle renkaalle. Liikuta yhtä kuutiota kerrallaan (napauta kuutiota valitaksesi sen); vierekkäin ne yhdistyvät taas.
+# Pelin loppu
+Kun palikka seisoo reiän päällä, se uppoaa: ratkaistu.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa; noppavälilehti tekee uuden kartan satunnaisesti: helppo, keskitaso tai vaikea. Ratkaistu vähimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.

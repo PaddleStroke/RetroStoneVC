@@ -1,0 +1,12 @@
+Rol het blok
+# Het doel
+Een houten blok, één tegel breed en twee hoog, staat op een pad van stenen tegels. Rol het naar het gat en zet het daar rechtop: het valt erin.
+# Een zet
+Het blok kantelt over een van zijn ribben, omhoog, omlaag, naar links of naar rechts: staand valt het plat op de volgende twee tegels; liggend rolt het opzij of gaat het staan. Het mag nooit boven de leegte hangen.
+- Gebarsten tegels dragen het blok liggend, nooit staand.
+- Een koperen knop opent of sluit de bruggen van zijn kleur: een ronde onder elk deel van het blok, een kruis alleen onder het staande blok.
+- Op de splitstegel splitst het blok in twee kubussen, die naar de twee ringen gaan. Beweeg één kubus tegelijk (tik een kubus aan om hem te kiezen); naast elkaar worden ze weer één.
+# Het einde van het spel
+Staat het blok op het gat, dan zakt het erin: opgelost.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken; het tabblad met de dobbelsteen maakt een willekeurige nieuwe kaart: makkelijk, gemiddeld of moeilijk. Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

@@ -1,0 +1,12 @@
+Bloğu Yuvarla
+# Amaç
+Bir karo genişliğinde ve iki karo yüksekliğinde tahta bir blok, taş karolardan bir yolun üstünde duruyor. Onu deliğe kadar yuvarla ve üstüne dik koy: içine düşer.
+# Bir hamle
+Blok kenarlarından birinin üstünden yukarı, aşağı, sola ya da sağa devrilir: dik dururken sonraki iki karonun üstüne yatar; yatarken yana yuvarlanır ya da dikilir. Asla boşluğun üstünde kalamaz.
+- Çatlak karolar bloğu yatarken taşır, dik dururken asla.
+- Pirinç bir düğme kendi rengindeki köprüleri açar ya da kapar: yuvarlak olan bloğun herhangi bir parçasının altında, çarpı olan yalnızca dik duran bloğun altında.
+- Bölme karosunda blok iki küpe ayrılır ve küpler iki halkaya gider. Her seferinde bir küpü oynat (seçmek için bir küpe dokun); yan yana gelince yeniden birleşirler.
+# Oyunun sonu
+Deliğin üstünde dik duran blok içine batar: bulmaca çözüldü.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye var; zar sekmesi rastgele yeni bir harita yapar: kolay, orta ya da zor. Mümkün olan en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

@@ -1,0 +1,12 @@
+Rulla klossen
+# Målet
+En träkloss, en platta bred och två hög, står på en stig av stenplattor. Rulla den till hålet och ställ den upprätt på det: den faller ner.
+# Ett drag
+Klossen tippar över en av sina kanter, uppåt, nedåt, åt vänster eller åt höger: stående lägger den sig på de två nästa plattorna; liggande rullar den åt sidan eller ställer sig upp. Den får aldrig hänga ut över tomrummet.
+- Spruckna plattor bär klossen liggande, aldrig stående.
+- En mässingsknapp öppnar eller stänger broarna i sin färg: en rund under vilken del av klossen som helst, ett kryss bara under klossen stående.
+- På delningsplattan delar sig klossen i två kuber, som skickas till de två ringarna. Flytta en kub i taget (tryck på en kub för att välja den); sida vid sida blir de en igen.
+# Partiets slut
+Står klossen på hålet sjunker den ner: löst.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel; fliken med tärningen gör en ny karta slumpvis: lätt, medel eller svår. Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

@@ -1,0 +1,12 @@
+Roule le bloc
+# Le but
+Un bloc de bois, large d'une dalle et haut de deux, se tient sur un chemin de dalles de pierre. Fais-le rouler jusqu'au trou et mets-le debout dessus : il tombe dedans.
+# Un coup
+Le bloc bascule sur une de ses arêtes, vers le haut, le bas, la gauche ou la droite : debout, il se couche sur les deux dalles suivantes ; couché, il roule de côté ou se redresse. Il ne doit jamais dépasser dans le vide.
+- Les dalles fêlées portent le bloc couché, jamais debout.
+- Un bouton de laiton ouvre ou ferme les ponts de sa couleur : un rond sous n'importe quelle partie du bloc, une croix seulement sous le bloc debout.
+- Sur la dalle de partage, le bloc se sépare en deux cubes, envoyés sur les deux anneaux. Déplace un cube à la fois (touche un cube pour le choisir) ; côte à côte, ils se rejoignent.
+# La fin de la partie
+Debout sur le trou, le bloc s'y enfonce : résolu.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres ; l'onglet du dé crée un nouveau plan au hasard : facile, moyen ou difficile. Résolu avec le moins de coups possible : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

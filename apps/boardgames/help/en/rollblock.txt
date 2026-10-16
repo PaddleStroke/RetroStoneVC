@@ -1,0 +1,12 @@
+Roll the Block
+# The aim
+A wooden block, one tile wide and two tall, stands on a path of stone tiles. Roll it to the hole and stand it upright on it: it drops in.
+# A move
+The block rolls over one of its edges, up, down, left or right: standing, it falls flat onto the next two tiles; lying, it rolls along or stands up. It may never hang over the void.
+- Cracked tiles bear the block lying, never standing.
+- A brass button opens or shuts the bridges of its colour: a round one under any part of the block, a cross only under the block standing.
+- On the split tile the block splits into two cubes, sent to the two rings. Move one cube at a time (tap a cube to choose it); side by side, they join again.
+# The end of the game
+Standing on the hole, the block sinks in: solved.
+# Levels and stars
+There are 150 levels in six chapters; the die tab makes a new map at random: easy, medium or hard. Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

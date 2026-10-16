@@ -1,0 +1,12 @@
+Rotola il blocco
+# Lo scopo
+Un blocco di legno, largo una piastrella e alto due, sta in piedi su un sentiero di piastrelle di pietra. Fallo rotolare fino al buco e mettilo in piedi sopra: ci cade dentro.
+# Una mossa
+Il blocco si ribalta su uno dei suoi spigoli, in su, in giù, a sinistra o a destra: in piedi, si corica sulle due piastrelle seguenti; coricato, rotola di lato o si rialza. Non può mai sporgere sul vuoto.
+- Le piastrelle incrinate reggono il blocco coricato, mai in piedi.
+- Un pulsante d'ottone apre o chiude i ponti del suo colore: uno rotondo sotto qualsiasi parte del blocco, una croce solo sotto il blocco in piedi.
+- Sulla piastrella di divisione il blocco si divide in due cubi, mandati sui due anelli. Muovi un cubo alla volta (tocca un cubo per sceglierlo); fianco a fianco, si riuniscono.
+# La fine della partita
+In piedi sul buco, il blocco sprofonda: risolto.
+# Livelli e stelle
+Ci sono 150 livelli in sei capitoli; la scheda del dado crea una nuova mappa a caso: facile, medio o difficile. Risolto con il minimo di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

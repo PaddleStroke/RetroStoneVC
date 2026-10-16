@@ -1,0 +1,12 @@
+Rola o bloco
+# O objetivo
+Um bloco de madeira, com um ladrilho de largura e dois de altura, está de pé sobre um caminho de ladrilhos de pedra. Rola-o até ao buraco e põe-no de pé sobre ele: cai lá dentro.
+# Uma jogada
+O bloco tomba sobre uma das suas arestas, para cima, para baixo, para a esquerda ou para a direita: de pé, deita-se sobre os dois ladrilhos seguintes; deitado, rola de lado ou põe-se de pé. Nunca pode ficar sobre o vazio.
+- Os ladrilhos rachados aguentam o bloco deitado, nunca de pé.
+- Um botão de latão abre ou fecha as pontes da sua cor: um redondo sob qualquer parte do bloco, uma cruz só sob o bloco de pé.
+- No ladrilho de divisão o bloco divide-se em dois cubos, enviados para os dois anéis. Move um cubo de cada vez (toca num cubo para o escolher); lado a lado, voltam a juntar-se.
+# O fim do jogo
+De pé sobre o buraco, o bloco afunda-se: resolvido.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos; o separador do dado cria um novo mapa ao acaso: fácil, médio ou difícil. Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

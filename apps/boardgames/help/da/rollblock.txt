@@ -1,0 +1,12 @@
+Rul klodsen
+# Målet
+En træklods, én flise bred og to høj, står på en sti af stenfliser. Rul den hen til hullet, og stil den op på det: den falder i.
+# Et træk
+Klodsen vælter over en af sine kanter, op, ned, til venstre eller til højre: stående lægger den sig på de næste to fliser; liggende ruller den til siden eller rejser sig. Den må aldrig hænge ud over tomrummet.
+- Revnede fliser bærer klodsen liggende, aldrig stående.
+- En messingknap åbner eller lukker broerne i sin farve: en rund under enhver del af klodsen, et kryds kun under klodsen stående.
+- På delefliserne deler klodsen sig i to terninger, der sendes til de to ringe. Flyt én terning ad gangen (tryk på en terning for at vælge den); side om side bliver de én igen.
+# Spillets afslutning
+Står klodsen på hullet, synker den ned: løst.
+# Baner og stjerner
+Der er 150 baner i seks kapitler; fanen med terningen laver et nyt kort tilfældigt: let, mellem eller svær. Løst med færrest mulige træk: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

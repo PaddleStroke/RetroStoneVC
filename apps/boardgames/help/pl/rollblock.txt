@@ -1,0 +1,12 @@
+Przetocz klocek
+# Cel gry
+Drewniany klocek, szeroki na jedną płytkę i wysoki na dwie, stoi na ścieżce z kamiennych płytek. Przetocz go do dziury i postaw na niej pionowo: wpada do środka.
+# Ruch
+Klocek przewraca się przez jedną ze swoich krawędzi, w górę, w dół, w lewo lub w prawo: stojąc, kładzie się na dwóch następnych płytkach; leżąc, toczy się w bok albo staje. Nigdy nie może wisieć nad pustką.
+- Pęknięte płytki utrzymują klocek leżący, nigdy stojący.
+- Mosiężny przycisk otwiera lub zamyka mosty swojego koloru: okrągły pod dowolną częścią klocka, krzyżyk tylko pod stojącym klockiem.
+- Na płytce podziału klocek dzieli się na dwie kostki, wysłane na dwa pierścienie. Ruszaj jedną kostką naraz (dotknij kostki, aby ją wybrać); obok siebie łączą się z powrotem.
+# Koniec gry
+Gdy klocek stanie na dziurze, zapada się: rozwiązane.
+# Poziomy i gwiazdki
+Jest 150 poziomów w sześciu rozdziałach; zakładka z kostką tworzy nową mapę losowo: łatwą, średnią lub trudną. Rozwiązane najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.
