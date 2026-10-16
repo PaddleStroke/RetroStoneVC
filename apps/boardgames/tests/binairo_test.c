@@ -99,6 +99,14 @@ int main(void)
     bn_new(&a, 7, 42);
     bn_new(&b, 7, 42);
     CHECK(!memcmp(&a.p, &b.p, sizeof a.p) && !memcmp(a.sol, b.sol, sizeof a.sol));
+    /* byte for byte: nothing past the grid is left as the stack had it (a puzzle made over 0xff comes out zero
+     * there) */
+    int past = 0;
+    for (int c = a.p.n * a.p.n; c < BN_CELLS; c++) past |= a.p.given[c] | a.sol[c];
+    memset(&p, 0xff, sizeof p);
+    bn_make(6, BENCH_EASY, 3, &p, sol);
+    for (int c = 36; c < BN_CELLS; c++) past |= p.given[c];
+    CHECK(!past);
 
     /* the player's discs: a tap ivory, ebony, empty; a hold the other way; the given ones stay; undo */
     bn_game G;

@@ -264,8 +264,10 @@ void bn_make(int n, int level, uint32_t seed, bn_puzzle *p, uint8_t *sol)
     if (level < BENCH_EASY || level > BENCH_HARD) level = BENCH_EASY;
     uint32_t s = pr_seed(seed);
     long work = 0;
-    bn_puzzle best, q;
-    uint8_t best_sol[BN_CELLS];
+    bn_puzzle best, q;                          /* zeroed: the cells past n x n too (the same seed, the same bytes) */
+    uint8_t best_sol[BN_CELLS] = {0};
+    memset(&best, 0, sizeof best);
+    memset(&q, 0, sizeof q);
     int best_lv = -2, cells = n * n;
     maker m = {&q, {0}, &work};
     bench_maker mk = {&m, maker_grade, maker_clue};
@@ -308,7 +310,7 @@ void bn_new(bn_game *g, int variant, uint32_t seed)
 {
     if (variant < 0 || variant >= BN_VARIANTS) variant = 0;
     bn_puzzle p;
-    uint8_t sol[BN_CELLS];
+    uint8_t sol[BN_CELLS] = {0};
     bn_make(bn_size(variant), bn_level(variant), seed, &p, sol);
     memset(g, 0, sizeof *g);
     g->p = p;
