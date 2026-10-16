@@ -1,0 +1,14 @@
+Senet
+# Het doel
+Als eerste al je stenen van het bord halen. Het pad slingert door de dertig vakken: langs de bovenste rij, terug langs de middelste en naar buiten langs de onderste. De stenen beginnen om en om op de eerste vakken; licht gooit eerst.
+# Gooien en zetten
+- Gooi de vier stokjes: tel de lichte kanten boven, 1 tot 4; geen enkele telt als 5. Een 1, 4 of 5 geeft nog een worp.
+- Zet een steen vooruit met de worp, nooit op een eigen steen.
+- Kom je op een losse steen van de ander, dan ruilen de twee van plaats. Twee stenen naast elkaar zijn veilig; drie op een rij kun je niet passeren.
+- Kan geen steen vooruit, dan moet er een achteruit. Kan geen steen bewegen, dan vervalt de worp.
+# De huizen
+- Vak 26: elke steen moet er precies op stoppen.
+- Vak 27, het water: een steen die daar komt, gaat terug naar vak 15, of naar het eerste vrije vak daarvoor.
+- Van de vakken 26 tot 30 gaat een steen eraf met de precieze worp: 5 vanaf 26, 3 vanaf 28, 2 vanaf 29, 1 vanaf 30.
+# Het einde van de partij
+Wie als eerste al zijn stenen eraf heeft, wint.

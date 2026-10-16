@@ -1,0 +1,14 @@
+Senet
+# Målet
+Bli den første til å få alle brikkene dine av brettet. Veien slynger seg gjennom de tretti rutene: bortover den øverste raden, tilbake langs den midterste og ut langs den nederste. Brikkene starter annenhver på de første rutene; lys kaster først.
+# Kast og trekk
+- Kast de fire pinnene: tell de lyse sidene opp, 1 til 4; ingen teller 5. En ener, firer eller femmer gir et kast til.
+- Flytt én brikke fram med kastet, aldri til en av dine egne.
+- Lander du på en enslig brikke fra motstanderen, bytter de to plass. To brikker side om side er beskyttet; tre på rad kan ikke passeres.
+- Kan ingen brikke gå fram, må én gå tilbake. Kan ingen flytte, er kastet tapt.
+# Husene
+- Rute 26: hver brikke må stoppe nøyaktig på den.
+- Rute 27, vannet: en brikke som lander der, går tilbake til rute 15, eller til den første ledige ruten før den.
+- Fra rute 26 til 30 går en brikke ut bare med nøyaktig kast: 5 fra 26, 3 fra 28, 2 fra 29, 1 fra 30.
+# Slutten på spillet
+Den som først har fått ut alle brikkene sine, vinner.

@@ -1,0 +1,14 @@
+Senet
+# Das Ziel
+Als Erster alle eigenen Steine vom Brett bringen. Der Weg schlängelt sich durch die dreißig Felder: die obere Reihe entlang, die mittlere zurück, die untere hinaus. Die Steine beginnen abwechselnd auf den ersten Feldern; Hell wirft zuerst.
+# Werfen und Ziehen
+- Wirf die vier Stäbchen: Zähle die hellen Seiten oben, 1 bis 4; keine zählt 5. Eine 1, 4 oder 5 gibt einen weiteren Wurf.
+- Ziehe einen Stein um den Wurf vorwärts, nie auf einen eigenen Stein.
+- Wer auf einem einzelnen Stein des Gegners landet, tauscht die beiden Steine. Zwei Steine nebeneinander sind geschützt; drei in einer Reihe können nicht übersprungen werden.
+- Kann kein Stein vorwärts, muss einer zurück. Kann keiner ziehen, verfällt der Wurf.
+# Die Häuser
+- Feld 26: Jeder Stein muss genau darauf anhalten.
+- Feld 27, das Wasser: Ein Stein, der dort landet, geht zurück auf Feld 15 oder auf das erste freie Feld davor.
+- Von den Feldern 26 bis 30 verlässt ein Stein das Brett nur mit dem genauen Wurf: 5 von 26, 3 von 28, 2 von 29, 1 von 30.
+# Das Ende der Partie
+Wer zuerst alle Steine hinausgebracht hat, gewinnt.

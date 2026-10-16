@@ -1,0 +1,14 @@
+Senet
+# Målet
+Bli först med att få av alla dina pjäser från brädet. Vägen slingrar sig genom de trettio rutorna: längs den översta raden, tillbaka längs den mittersta och ut längs den nedersta. Pjäserna börjar varannan på de första rutorna; ljus kastar först.
+# Kast och drag
+- Kasta de fyra stickorna: räkna de ljusa sidorna uppåt, 1 till 4; ingen räknas som 5. En etta, fyra eller femma ger ett kast till.
+- Flytta en pjäs framåt med kastet, aldrig till en egen pjäs.
+- Landar du på motståndarens ensamma pjäs byter de två plats. Två pjäser bredvid varandra är skyddade; tre i rad går inte att passera.
+- Kan ingen pjäs gå framåt måste en gå bakåt. Kan ingen flytta går kastet förlorat.
+# Husen
+- Ruta 26: varje pjäs måste stanna exakt på den.
+- Ruta 27, vattnet: en pjäs som landar där går tillbaka till ruta 15, eller till första lediga ruta före den.
+- Från ruta 26 till 30 går en pjäs ut bara med exakt kast: 5 från 26, 3 från 28, 2 från 29, 1 från 30.
+# Partiets slut
+Den som först har fått ut alla sina pjäser vinner.

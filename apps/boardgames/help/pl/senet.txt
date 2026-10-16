@@ -1,0 +1,14 @@
+Senet
+# Cel gry
+Jako pierwszy wyprowadź wszystkie swoje pionki z planszy. Droga wije się przez trzydzieści pól: górnym rzędem, z powrotem środkowym i na zewnątrz dolnym. Pionki zaczynają na pierwszych polach na przemian; jasne rzucają pierwsze.
+# Rzuty i ruchy
+- Rzuć czterema patyczkami: policz jasne strony u góry, od 1 do 4; brak jasnych liczy się jako 5. Wynik 1, 4 lub 5 daje kolejny rzut.
+- Przesuń jeden pionek naprzód o wyrzuconą liczbę, nigdy na własny pionek.
+- Wejście na samotny pionek przeciwnika zamienia oba pionki miejscami. Dwa pionki obok siebie są bezpieczne; trzech w rzędzie nie można przeskoczyć.
+- Jeśli żaden pionek nie może iść naprzód, jeden musi się cofnąć. Jeśli żaden nie może się ruszyć, rzut przepada.
+# Domy
+- Pole 26: każdy pionek musi się na nim dokładnie zatrzymać.
+- Pole 27, woda: pionek, który na nim stanie, wraca na pole 15 lub na pierwsze wolne pole przed nim.
+- Z pól 26–30 schodzi się tylko dokładnym rzutem: 5 z 26, 3 z 28, 2 z 29, 1 z 30.
+# Koniec gry
+Wygrywa ten, kto pierwszy wyprowadzi wszystkie pionki.

@@ -1,0 +1,14 @@
+Senet
+# O objetivo
+Ser o primeiro a tirar todas as suas peças do tabuleiro. O caminho serpenteia pelas trinta casas: pela fileira de cima, volta pela do meio e sai pela de baixo. As peças começam alternadas nas primeiras casas; as claras lançam primeiro.
+# Lançar e mover
+- Lance os quatro bastões: conte os lados claros para cima, de 1 a 4; nenhum vale 5. Um 1, um 4 ou um 5 dá outro lançamento.
+- Avance uma peça o valor do lançamento, nunca para cima de uma peça sua.
+- Cair numa peça adversária sozinha troca as duas de lugar. Duas peças lado a lado estão protegidas; três seguidas não podem ser ultrapassadas.
+- Se nenhuma peça puder avançar, uma deve voltar. Se nenhuma puder mover, o lançamento é perdido.
+# As casas
+- Casa 26: toda peça deve parar exatamente nela.
+- Casa 27, a água: uma peça que cai nela volta para a casa 15, ou para a primeira casa livre antes dela.
+- Das casas 26 a 30 só se sai com o lançamento exato: 5 da 26, 3 da 28, 2 da 29, 1 da 30.
+# O fim da partida
+Vence quem tirar primeiro todas as suas peças.
