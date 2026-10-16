@@ -1,0 +1,8 @@
+Puzzle Gambar
+# Tujuan
+Susun kembali gambarnya: kartu truf atau kartu tokoh dari tarot Prancis yang dicetak tahun 1898, atau lukisan terkenal.
+# Satu langkah
+Seret kepingan dari baki ke meja. Jika dilepas dekat tempatnya, kepingan terpasang di sana. Jika dilepas di samping tetangga yang menghadap benar, kepingan menyatu dengannya, dan kepingan yang menyatu bergerak bersama.
+Dengan kepingan yang diputar, ketuk kepingan dua kali untuk memutarnya seperempat putaran.
+# Akhir permainan
+Puzzle selesai jika setiap kepingan ada di tempatnya. Tanpa petunjuk dan paling lama 8 detik per kepingan (12 dengan kepingan yang diputar): 3 bintang; satu atau dua petunjuk, atau sampai dua kali waktunya: 2 bintang; selain itu 1.

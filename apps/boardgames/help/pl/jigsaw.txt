@@ -1,0 +1,8 @@
+Puzzle
+# Cel gry
+Złóż obraz z powrotem: atut lub figurę francuskiego tarota wydrukowanego w 1898 roku albo słynny obraz.
+# Ruch
+Przeciągnij element z tacki na stół. Upuszczony blisko swojego miejsca, wskakuje na nie. Upuszczony przy sąsiedzie leżącym we właściwą stronę, łączy się z nim, a połączone elementy poruszają się razem.
+Przy obróconych elementach dotknij element dwa razy, aby obrócić go o ćwierć obrotu.
+# Koniec gry
+Układanka jest gotowa, gdy każdy element leży na swoim miejscu. Bez podpowiedzi i najwyżej 8 sekund na element (12 przy obróconych): 3 gwiazdki; jedna lub dwie podpowiedzi albo do dwóch razy dłużej: 2 gwiazdki; inaczej 1.

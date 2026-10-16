@@ -1,0 +1,8 @@
+Jigsaw
+# The aim
+Put the picture back together: a trump or a court card of a French tarot printed in 1898, or a famous painting.
+# A move
+Drag a piece from the tray onto the table. Dropped near its place, it locks in. Dropped against a neighbour lying the right way round, it joins it, and joined pieces move together.
+With turned pieces, tap a piece twice to turn it a quarter.
+# The end of the game
+The puzzle is done when every piece is in its place. No hint and at most 8 seconds a piece (12 with turned pieces): 3 stars; a hint or two, or up to twice the time: 2 stars; otherwise 1.

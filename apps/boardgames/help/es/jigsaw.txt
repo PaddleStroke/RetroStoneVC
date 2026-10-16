@@ -1,0 +1,8 @@
+Rompecabezas
+# El objetivo
+Recompón la imagen: un triunfo o una figura de un tarot francés impreso en 1898, o un cuadro famoso.
+# Una jugada
+Arrastra una pieza de la bandeja a la mesa. Soltada cerca de su sitio, encaja en él. Soltada junto a una vecina bien orientada, se une a ella, y las piezas unidas se mueven juntas.
+Con piezas giradas, toca dos veces una pieza para girarla un cuarto de vuelta.
+# El final de la partida
+El rompecabezas está completo cuando cada pieza está en su sitio. Sin pistas y con 8 segundos como máximo por pieza (12 con piezas giradas): 3 estrellas; una o dos pistas, o hasta el doble de tiempo: 2 estrellas; si no, 1.

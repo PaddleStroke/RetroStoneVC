@@ -1,0 +1,8 @@
+Quebra-cabeça
+# O objetivo
+Monte a imagem de novo: um trunfo ou uma figura de um tarô francês impresso em 1898, ou uma pintura famosa.
+# Uma jogada
+Arraste uma peça da bandeja para a mesa. Solta perto do seu lugar, ela se encaixa. Solta junto a uma vizinha virada do jeito certo, ela se une a ela, e as peças unidas se movem juntas.
+Com peças giradas, toque duas vezes numa peça para girá-la um quarto de volta.
+# O fim da partida
+O quebra-cabeça termina quando cada peça está no seu lugar. Sem dicas e no máximo 8 segundos por peça (12 com peças giradas): 3 estrelas; uma ou duas dicas, ou até o dobro do tempo: 2 estrelas; senão, 1.

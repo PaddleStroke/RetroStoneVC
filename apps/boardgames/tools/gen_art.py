@@ -6,6 +6,8 @@
 art/tarot/: the French tarot's faces from the 1898 "Tarot nouveau" (tools/prep_tarot_art.py makes them), JPEG,
 decoded by the card kit (src/cards.c, stb_image): cards_tarot_art[], 38 faces in the order of cards.h's
 TAROT_ART_* (the excuse, the trumps 1..21, then the jack, knight, queen, king of spades, hearts, diamonds, clubs).
+art/jigsaw/: Jigsaw's public-domain paintings (tools/jigsaw_paintings.txt, tools/jigsaw_prep.py), JPEG about
+1024 px: jigsaw_art[] by name, sorted (games/jigsaw_art.h; empty when the folder is missing).
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import argparse
@@ -50,13 +52,30 @@ def main():
         c.append(f"    {{{v}, sizeof {v}}},")
     c.append("};")
     c.append("")
+    # art/jigsaw/: Jigsaw's public-domain paintings (tools/jigsaw_paintings.txt), by name (games/jigsaw_art.h)
+    jdir = os.path.join(APP, "art", "jigsaw")
+    names = sorted(f[:-4] for f in os.listdir(jdir) if f.endswith(".jpg")) if os.path.isdir(jdir) else []
+    c.append('#include "games/jigsaw_art.h"')
+    for n in names:
+        with open(os.path.join(jdir, n + ".jpg"), "rb") as f:
+            data = f.read()
+        total += len(data)
+        c.append(c_bytes("jigsaw_" + n.replace("-", "_"), data))
+    c.append("const jigsaw_jpeg jigsaw_art[] = {")
+    for n in names:
+        v = "jigsaw_" + n.replace("-", "_")
+        c.append(f'    {{"{n}", {v}, sizeof {v}}},')
+    c.append("    {0, 0, 0},")
+    c.append("};")
+    c.append(f"const int jigsaw_art_n = {len(names)};")
+    c.append("")
     os.makedirs(a.out, exist_ok=True)
     out = os.path.join(a.out, "art_data.c")
     body = "\n".join(c)
     if not os.path.exists(out) or open(out, encoding="utf-8").read() != body:
         with open(out, "w", encoding="utf-8") as f:
             f.write(body)
-    print(f"gen_art: {out}: {len(TAROT)} tarot faces, {total} bytes")
+    print(f"gen_art: {out}: {len(TAROT)} tarot faces, {len(names)} paintings, {total} bytes")
 
 
 if __name__ == "__main__":

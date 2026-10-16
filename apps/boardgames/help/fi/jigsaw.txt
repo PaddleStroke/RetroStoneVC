@@ -1,0 +1,8 @@
+Palapeli
+# Tavoite
+Kokoa kuva uudelleen: valtti tai kuvakortti vuonna 1898 painetusta ranskalaisesta tarotista tai kuuluisa maalaus.
+# Siirto
+Vedä pala tarjottimelta pöydälle. Lähelle paikkaansa pudotettu pala napsahtaa paikalleen. Oikein päin olevan naapurin viereen pudotettu pala liittyy siihen, ja liitetyt palat liikkuvat yhdessä.
+Käännetyillä paloilla napauta palaa kahdesti, niin se kääntyy neljänneskierroksen.
+# Pelin loppu
+Palapeli on valmis, kun jokainen pala on paikallaan. Ei vihjeitä ja enintään 8 sekuntia palaa kohden (käännetyillä paloilla 12): 3 tähteä; yksi tai kaksi vihjettä tai enintään kaksinkertainen aika: 2 tähteä; muuten 1.

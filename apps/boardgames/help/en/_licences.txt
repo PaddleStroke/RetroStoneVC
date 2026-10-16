@@ -8,5 +8,49 @@ Sean Barrett. MIT licence, or public domain (the user's choice).
 Adobe and Google. SIL Open Font License 1.1: the font may be used, embedded and passed on with the app; it may not be sold by itself. The app keeps only the characters its texts use.
 # DejaVu Sans
 The DejaVu fonts team, after Bitstream Vera (Bitstream, Inc.). The Bitstream Vera licence, and public domain for the DejaVu changes: free to use, embed and pass on.
+# Pictures
+The tarot's faces are scans of the "Tarot nouveau" printed in 1898, in the public domain. The Jigsaw paintings are in the public domain, their artists having died more than 70 years ago; each comes from Wikimedia Commons, where its page records its source:
+- The Great Wave off Kanagawa, Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg
+- Fine Wind, Clear Morning (Red Fuji), Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:Katsushika_Hokusai_-_Fine_Wind,_Clear_Morning_(Gaifū_kaisei)_-_Google_Art_Project.jpg
+- Kirifuri Waterfall at Mount Kurokami, Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:Katsushika_Hokusai,_Japanese_-_Pilgrims_at_Kirifuri_Waterfall_on_Mount_Kurokami_in_Shimotsuke_Province_-_Google_Art_Project.jpg
+- Sudden Shower over Shin-Ōhashi Bridge and Atake, Utagawa Hiroshige (died 1858): commons.wikimedia.org/wiki/File:Hiroshige,_Sudden_shower_over_Shin-Ōhashi_bridge_and_Atake,_1857.jpg
+- Plum Park in Kameido, Utagawa Hiroshige (died 1858): commons.wikimedia.org/wiki/File:Plum_garden_at_Kameido_(Kameido_umeyashiki)_(CBL_J_2693).jpg
+- Bridge over a Pond of Water Lilies, Claude Monet (died 1926): commons.wikimedia.org/wiki/File:Bridge_Over_a_Pond_of_Water_Lilies,_Claude_Monet_1899.jpg
+- Impression, Sunrise, Claude Monet (died 1926): commons.wikimedia.org/wiki/File:Monet_-_Impression,_Sunrise.jpg
+- Woman with a Parasol, Claude Monet (died 1926): commons.wikimedia.org/wiki/File:Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg
+- Poppy Field, Claude Monet (died 1926): commons.wikimedia.org/wiki/File:Claude_Monet_-_Poppy_Field_-_Google_Art_Project.jpg
+- Dance at Le Moulin de la Galette, Pierre-Auguste Renoir (died 1919): commons.wikimedia.org/wiki/File:Auguste_Renoir_-_Dance_at_Le_Moulin_de_la_Galette_-_Google_Art_Project.jpg
+- Luncheon of the Boating Party, Pierre-Auguste Renoir (died 1919): commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir_-_Luncheon_of_the_Boating_Party_-_Google_Art_Project.jpg
+- The Ballet Class, Edgar Degas (died 1917): commons.wikimedia.org/wiki/File:Edgar_Degas_-_The_Ballet_Class_-_Google_Art_Project.jpg
+- Paris Street; Rainy Day, Gustave Caillebotte (died 1894): commons.wikimedia.org/wiki/File:Gustave_Caillebotte_-_Paris_Street;_Rainy_Day_-_Google_Art_Project.jpg
+- The Child's Bath, Mary Cassatt (died 1926): commons.wikimedia.org/wiki/File:Mary_Cassatt_-_The_Child's_Bath_-_Google_Art_Project.jpg
+- A Sunday on La Grande Jatte, Georges Seurat (died 1891): commons.wikimedia.org/wiki/File:Georges_Seurat_-_A_Sunday_on_La_Grande_Jatte_--_1884_-_Google_Art_Project.jpg
+- The Starry Night, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg
+- Sunflowers, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Sunflowers_(1888,_National_Gallery_London).jpg
+- Café Terrace at Night, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Cafe_Terrace_at_Night_(1888).jpg
+- Irises, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Irises-Vincent_van_Gogh.jpg
+- Wheat Field with Cypresses, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg
+- The Bedroom, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Van_Gogh's_Bedroom_in_Arles_-_Google_Art_Project.jpg
+- Almond Blossom, Vincent van Gogh (died 1890): commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg
+- Mont Sainte-Victoire, Paul Cézanne (died 1906): commons.wikimedia.org/wiki/File:Paul_Cézanne_-_Mont_Sainte-Victoire_and_the_Viaduct_of_the_Arc_River_Valley_(Metropolitan_Museum_of_Art).jpg
+- Surprised! (Tiger in a Tropical Storm), Henri Rousseau (died 1910): commons.wikimedia.org/wiki/File:Henri_Rousseau_-_Surprise!.jpg
+- The Kiss, Gustav Klimt (died 1918): commons.wikimedia.org/wiki/File:The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg
+- The Seasons, Alphonse Mucha (died 1939): commons.wikimedia.org/wiki/File:Alfons_Mucha_-_The_Seasons,_1896.jpg
+- Girl with a Pearl Earring, Johannes Vermeer (died 1675): commons.wikimedia.org/wiki/File:Meisje_met_de_parel.jpg
+- The Milkmaid, Johannes Vermeer (died 1675): commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg
+- View of Delft, Johannes Vermeer (died 1675): commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_View_of_Delft_-_92_-_Mauritshuis.jpg
+- Mona Lisa, Leonardo da Vinci (died 1519): commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg
+- Hunters in the Snow, Pieter Bruegel the Elder (died 1569): commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_Hunters_in_the_Snow_(Winter)_-_Google_Art_Project.jpg
+- The Tower of Babel, Pieter Bruegel the Elder (died 1569): commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project_-_edited.jpg
+- The Night Watch, Rembrandt van Rijn (died 1669): commons.wikimedia.org/wiki/File:The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg
+- The Arnolfini Portrait, Jan van Eyck (died 1441): commons.wikimedia.org/wiki/File:Van_Eyck_-_Arnolfini_Portrait.jpg
+- Las Meninas, Diego Velázquez (died 1660): commons.wikimedia.org/wiki/File:Las_Meninas,_by_Diego_Velázquez,_from_Prado_in_Google_Earth.jpg
+- Vertumnus, Giuseppe Arcimboldo (died 1593): commons.wikimedia.org/wiki/File:Giuseppe_Arcimboldo_-_Rudolf_II_of_Habsburg_as_Vertumnus_-_Google_Art_Project.jpg
+- A Regatta on the Grand Canal, Canaletto (died 1768): commons.wikimedia.org/wiki/File:Canal,_Giovanni_Antonio_Canal_-_Venice,_A_Regatta_on_the_Grand_Canal_-_National_Gallery_NG938.jpg
+- The Fighting Temeraire, J. M. W. Turner (died 1851): commons.wikimedia.org/wiki/File:The_Fighting_Temeraire,_JMW_Turner,_National_Gallery.jpg
+- The Hay Wain, John Constable (died 1837): commons.wikimedia.org/wiki/File:John_Constable_-_The_Hay_Wain_(1821).jpg
+- Wanderer above the Sea of Fog, Caspar David Friedrich (died 1840): commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_Wanderer_above_the_Sea_of_Fog.jpeg
+- The Ninth Wave, Ivan Aivazovsky (died 1900): commons.wikimedia.org/wiki/File:Hovhannes_Aivazovsky_-_The_Ninth_Wave_-_Google_Art_Project.jpg
+- Among the Sierra Nevada, California, Albert Bierstadt (died 1902): commons.wikimedia.org/wiki/File:Albert_Bierstadt_-_Among_the_Sierra_Nevada,_California_-_Google_Art_Project.jpg
 # The MIT licence
 Permission is granted, free of charge, to any person obtaining a copy of the software, to deal in it without restriction, including the rights to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided the copyright notice and this permission notice are included in all copies or substantial portions of it. The software is provided as it is, without warranty of any kind.

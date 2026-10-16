@@ -1,0 +1,8 @@
+Yapboz
+# Amaç
+Resmi yeniden birleştirin: 1898'de basılmış bir Fransız tarotunun bir kozu ya da resimli kartı, veya ünlü bir tablo.
+# Bir hamle
+Tepsiden bir parçayı masaya sürükleyin. Yerine yakın bırakılan parça yerine oturur. Doğru yönde duran bir komşusunun yanına bırakılan parça ona eklenir ve birleşen parçalar birlikte hareket eder.
+Döndürülmüş parçalarda bir parçaya iki kez dokunarak onu çeyrek tur çevirin.
+# Oyunun sonu
+Her parça yerine oturunca yapboz biter. İpucu yoksa ve parça başına en fazla 8 saniye (döndürülmüş parçalarda 12) sürdüyse 3 yıldız; bir iki ipucu ya da en fazla iki kat süre 2 yıldız; yoksa 1.

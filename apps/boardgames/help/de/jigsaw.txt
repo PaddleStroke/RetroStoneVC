@@ -1,0 +1,8 @@
+Puzzle
+# Das Ziel
+Setze das Bild wieder zusammen: einen Trumpf oder eine Bildkarte eines französischen Tarots von 1898 oder ein berühmtes Gemälde.
+# Ein Zug
+Ziehe ein Teil aus der Ablage auf den Tisch. Nahe seinem Platz rastet es ein. An einem Nachbarn, der richtig herum liegt, hängt es sich an, und verbundene Teile bewegen sich zusammen.
+Bei gedrehten Teilen tippe zweimal auf ein Teil, um es um eine Vierteldrehung zu drehen.
+# Das Ende der Partie
+Das Puzzle ist fertig, wenn jedes Teil an seinem Platz liegt. Ohne Tipp und höchstens 8 Sekunden pro Teil (12 bei gedrehten Teilen): 3 Sterne; ein oder zwei Tipps oder bis zur doppelten Zeit: 2 Sterne; sonst 1.

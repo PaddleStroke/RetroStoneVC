@@ -1,0 +1,8 @@
+Skládačka
+# Cíl hry
+Slož obrázek zpátky: trumf nebo figuru francouzského tarotu vytištěného v roce 1898, nebo slavný obraz.
+# Tah
+Přetáhni dílek ze zásobníku na stůl. Puštěný blízko svého místa na něj zapadne. Puštěný u souseda, který leží správně otočený, se k němu připojí a spojené dílky se pak hýbou spolu.
+U otočených dílků klepni na dílek dvakrát a otočí se o čtvrt otáčky.
+# Konec hry
+Skládačka je hotová, když je každý dílek na svém místě. Bez nápovědy a nejvýš 8 sekund na dílek (12 u otočených dílků): 3 hvězdy; jedna nebo dvě nápovědy, nebo až dvojnásobný čas: 2 hvězdy; jinak 1.

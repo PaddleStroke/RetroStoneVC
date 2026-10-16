@@ -1,0 +1,8 @@
+Puzzle
+# Lo scopo
+Ricomponi l'immagine: un trionfo o una figura di un tarocco francese stampato nel 1898, oppure un dipinto famoso.
+# Una mossa
+Trascina un pezzo dal vassoio al tavolo. Lasciato vicino al suo posto, si incastra. Lasciato accanto a un vicino girato nel verso giusto, si unisce a lui, e i pezzi uniti si muovono insieme.
+Con i pezzi ruotati, tocca due volte un pezzo per ruotarlo di un quarto di giro.
+# La fine della partita
+Il puzzle è finito quando ogni pezzo è al suo posto. Senza suggerimenti e al massimo 8 secondi per pezzo (12 con i pezzi ruotati): 3 stelle; uno o due suggerimenti, o fino al doppio del tempo: 2 stelle; altrimenti 1.

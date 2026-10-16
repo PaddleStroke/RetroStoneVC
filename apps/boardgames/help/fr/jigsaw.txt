@@ -1,0 +1,8 @@
+Puzzle
+# Le but
+Reconstituer l'image : un atout ou une figure d'un tarot français imprimé en 1898, ou un tableau célèbre.
+# Un coup
+Fais glisser une pièce de la réserve vers la table. Lâchée près de sa place, elle s'y emboîte. Lâchée contre une voisine posée dans le bon sens, elle s'y attache, et les pièces attachées bougent ensemble.
+Avec les pièces tournées, touche deux fois une pièce pour la tourner d'un quart de tour.
+# La fin de la partie
+Le puzzle est fini quand chaque pièce est à sa place. Sans indice et en 8 secondes au plus par pièce (12 avec les pièces tournées) : 3 étoiles ; un ou deux indices, ou jusqu'au double du temps : 2 étoiles ; sinon 1.

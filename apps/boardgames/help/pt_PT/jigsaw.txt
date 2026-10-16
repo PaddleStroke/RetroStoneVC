@@ -1,0 +1,8 @@
+Puzzle
+# O objetivo
+Volta a montar a imagem: um trunfo ou uma figura de um tarot francês impresso em 1898, ou uma pintura famosa.
+# Uma jogada
+Arrasta uma peça do tabuleiro de reserva para a mesa. Largada perto do seu lugar, encaixa. Largada junto a uma vizinha virada no sentido certo, junta-se a ela, e as peças juntas movem-se em conjunto.
+Com peças rodadas, toca duas vezes numa peça para a rodar um quarto de volta.
+# O fim do jogo
+O puzzle fica completo quando cada peça está no seu lugar. Sem pistas e no máximo 8 segundos por peça (12 com peças rodadas): 3 estrelas; uma ou duas pistas, ou até ao dobro do tempo: 2 estrelas; senão, 1.

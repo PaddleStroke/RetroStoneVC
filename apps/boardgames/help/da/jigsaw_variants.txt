@@ -1,0 +1,7 @@
+12 brikker
+24 brikker
+48 brikker
+96 brikker
+150 brikker
+Lige
+Drejede
