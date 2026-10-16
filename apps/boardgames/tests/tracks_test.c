@@ -2,7 +2,8 @@
  * Tracks' rules: the solver and the search on a small hand-made puzzle (and what each level of reasoning can do), the
  * puzzles made from many seeds (the solver finds the line, the search finds no other, the size's reasoning, made
  * fast, the same from the same seed), taps, strokes, crosses, hints to the end and undo all the way back; mistakes;
- * every level (the solver lays the one line; laid cell by cell it is solved without a mistake).
+ * every level (the solver lays the one line; laid cell by cell it is solved without a mistake). The test's own count
+ * (sides guessed, the plain rules between) finds no other line for every puzzle and level, the big ones too.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -66,6 +67,111 @@ static int on_line(const tk_game *g)            /* the pieces of the solution fo
     return 0;
 }
 
+/* ---- a second count, the test's own (the rules' search gives up on the big boards): each side of each cell open,
+ * closed or not known; between two guesses only the plain rules (a cell has two ends or none, a row's or a column's
+ * count), every full guess checked as one line from the entry to the exit. Up to limit. */
+typedef struct { uint8_t yes[TK_CELLS], no[TK_CELLS], st[TK_CELLS]; int bad; } sides_t;   /* st: 1 track, 2 none */
+
+static const int SIDES4[4] = {TK_N, TK_E, TK_S, TK_W};
+
+static int beside(int n, int c, int sd)
+{
+    int x = c % n + (sd == TK_E) - (sd == TK_W), y = c / n + (sd == TK_S) - (sd == TK_N);
+    return x < 0 || y < 0 || x >= n || y >= n ? -1 : x + y * n;
+}
+
+static int side_put(sides_t *s, int n, int c, int sd, int open)
+{
+    uint8_t *m = open ? s->yes : s->no, *o = open ? s->no : s->yes;
+    if (m[c] & sd) return 0;
+    if (o[c] & sd) return s->bad = 1, 0;
+    m[c] |= (uint8_t)sd;
+    int d = beside(n, c, sd);
+    if (d < 0) return open ? (s->bad = 1, 0) : 1;
+    if (o[d] & tk_opp(sd)) return s->bad = 1, 0;
+    m[d] |= (uint8_t)tk_opp(sd);
+    return 1;
+}
+
+static int st_put(sides_t *s, int c, int v)
+{
+    if (s->st[c] == v) return 0;
+    if (s->st[c]) return s->bad = 1, 0;
+    s->st[c] = (uint8_t)v;
+    return 1;
+}
+
+static void plain_rules(sides_t *s, const tk_game *g)
+{
+    int n = g->n, ch = 1;
+    while (ch && !s->bad) {
+        ch = 0;
+        for (int c = 0; c < n * n && !s->bad; c++) {
+            int unk = 15 & ~(s->yes[c] | s->no[c]), y = __builtin_popcount(s->yes[c]), u = __builtin_popcount(unk);
+            if (y > 2) { s->bad = 1; break; }
+            if (y) ch |= st_put(s, c, 1);
+            if (y + u < 2) ch |= st_put(s, c, 2);
+            if (s->st[c] == 2 || y == 2)
+                for (int i = 0; i < 4; i++) if (unk & SIDES4[i]) ch |= side_put(s, n, c, SIDES4[i], 0);
+            if (s->st[c] == 1 && y + u == 2)
+                for (int i = 0; i < 4; i++) if (unk & SIDES4[i]) ch |= side_put(s, n, c, SIDES4[i], 1);
+        }
+        for (int way = 0; way < 2 && !s->bad; way++)
+            for (int i = 0; i < n; i++) {
+                int t = 0, u = 0, clue = way ? g->cols[i] : g->rows[i];
+                for (int j = 0; j < n; j++) {
+                    int c = way ? i + j * n : j + i * n;
+                    t += s->st[c] == 1, u += s->st[c] == 0;
+                }
+                if (t > clue || t + u < clue) { s->bad = 1; break; }
+                if (u && (t == clue || t + u == clue))
+                    for (int j = 0; j < n; j++) {
+                        int c = way ? i + j * n : j + i * n;
+                        if (!s->st[c]) ch |= st_put(s, c, t == clue ? 2 : 1);
+                    }
+            }
+    }
+}
+
+static int count_sides(sides_t *s, const tk_game *g, int limit)
+{
+    int n = g->n;
+    plain_rules(s, g);
+    if (s->bad) return 0;
+    for (int c = 0; c < n * n; c++)
+        for (int i = 0; i < 4; i++) {
+            if ((s->yes[c] | s->no[c]) & SIDES4[i]) continue;
+            int total = 0;
+            for (int open = 1; open >= 0 && total < limit; open--) {
+                sides_t t = *s;
+                side_put(&t, n, c, SIDES4[i], open);
+                if (!t.bad) total += count_sides(&t, g, limit - total);
+            }
+            return total;
+        }
+    static tk_game line;                        /* every side known: one line through every piece? */
+    line = *g;
+    for (int c = 0; c < n * n; c++) line.sol[c] = s->yes[c];
+    return on_line(&line);
+}
+
+static int lines_by_sides(const tk_game *g, int limit)
+{
+    static sides_t s;
+    int n = g->n;
+    memset(&s, 0, sizeof s);
+    for (int c = 0; c < n * n; c++)
+        for (int i = 0; i < 4; i++)
+            if (beside(n, c, SIDES4[i]) < 0) {
+                int stub = (c == g->a && SIDES4[i] == g->a_side) || (c == g->b && SIDES4[i] == g->b_side);
+                (stub ? s.yes : s.no)[c] |= (uint8_t)SIDES4[i];
+            }
+    for (int c = 0; c < n * n; c++)
+        if (g->given[c])
+            for (int i = 0; i < 4; i++) side_put(&s, n, c, SIDES4[i], (g->sol[c] & SIDES4[i]) != 0);
+    return s.bad ? 0 : count_sides(&s, g, limit);
+}
+
 int main(void)
 {
     static tk_game g, h;
@@ -78,11 +184,12 @@ int main(void)
     CHECK(on_line(&g));
     CHECK(g.rows[0] == 1 && g.rows[3] == 4 && g.cols[0] == 4 && g.cols[3] == 3);
     CHECK(tk_deduce(&g, 0, &grade, out) && !memcmp(out, g.sol, 16) && grade == 0);
-    CHECK(tk_count(&g, 9) == 1);
+    CHECK(tk_count(&g, 9) == 1 && lines_by_sides(&g, 9) == 1);
     /* a line where the counts alone leave two ways: the loop rule settles it, or a piece given does */
     static const int l2[] = {0, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3, 1};
     load(&g, 4, l2, 6, TK_W, TK_E);
     int k2 = tk_count(&g, 9);
+    CHECK(lines_by_sides(&g, 9) == k2);
     CHECK(k2 >= 1);
     if (k2 > 1) {
         CHECK(!tk_deduce(&g, 3, NULL, NULL));   /* nothing can deduce what is not unique */
@@ -139,6 +246,7 @@ int main(void)
                 CHECK(k == 1 || (v == 2 && k < 0));
                 counted += k == 1;
             }
+            CHECK(lines_by_sides(&g, 2) == 1);   /* every one, by the test's own count */
             tk_new(&h, v, (uint32_t)seed * 6151u + (uint32_t)v);
             CHECK(!memcmp(h.sol, g.sol, sizeof g.sol) && !memcmp(h.given, g.given, sizeof g.given));
             /* played: some taps and crosses, the hints to the end, undo all the way back */
@@ -192,6 +300,7 @@ int main(void)
             grades[grade < 0 ? 0 : grade > 3 ? 3 : grade]++;
             if (i < 25) CHECK(grade == 0 && n <= 6);
             if (n <= 7) CHECK(tk_count(&g, 2) == 1);
+            CHECK(lines_by_sides(&g, 2) == 1);   /* the big ones too */
             CHECK(g.given[g.a] && g.given[g.b] && !tk_solved(&g));
             for (int c = 0; c < n * n; c++)
                 if (g.sol[c] && !g.given[c]) CHECK(tk_set(&g, c, g.sol[c]));
