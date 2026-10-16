@@ -1,0 +1,10 @@
+Mates de shogi
+# El objetivo
+Da mate al rey de arriba. Juegas las piezas que apuntan hacia arriba y empiezas tú; las piezas de tu mano se colocan como en el shogi.
+- Cada una de tus jugadas debe dar jaque.
+- El defensor tiene todas las piezas que no están ni en el tablero ni en tu mano, y siempre juega la defensa que más dura.
+- Las piezas se mueven, promocionan y colocan como en el shogi; un peón colocado para dar mate sigue prohibido.
+# El final de la partida
+El problema se resuelve con el mate; en tu última jugada, cualquier mate vale. Antes, un jaque distinto del correcto es un error: se muestra la huida del rey y luego se deshacen las dos jugadas.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1.

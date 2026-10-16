@@ -1,0 +1,10 @@
+Maty w shogi
+# Cel gry
+Daj mata królowi u góry. Grasz bierkami zwróconymi w górę i zaczynasz; bierki z ręki zrzucasz na planszę jak w shogi.
+- Każdy twój ruch musi dawać szacha.
+- Obrońca ma wszystkie bierki, których nie ma ani na planszy, ani w twojej ręce, i zawsze gra obronę, która trwa najdłużej.
+- Bierki ruszają się, promują i są zrzucane jak w shogi; zrzucenie piona dające mata nadal jest zabronione.
+# Koniec gry
+Zadanie jest rozwiązane przy macie; w ostatnim ruchu każdy mat jest dobry. Wcześniej szach inny niż właściwy to błąd: ucieczka króla zostaje pokazana, a potem oba ruchy są cofane.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1.

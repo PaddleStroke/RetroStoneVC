@@ -1,0 +1,10 @@
+Shogimatt
+# Målet
+Gör kungen överst schack matt. Du spelar pjäserna som pekar uppåt och börjar; pjäserna i din hand släpps ner som i shogi.
+- Vart och ett av dina drag måste ge schack.
+- Försvararen har alla pjäser som varken står på brädet eller finns i din hand, och spelar alltid det försvar som håller längst.
+- Pjäserna går, befordras och släpps som i shogi; en bonde som släpps för att ge matt är fortfarande förbjuden.
+# Partiets slut
+Problemet är löst vid matt; i ditt sista drag är varje matt rätt. Dessförinnan är en annan schack än den rätta ett fel: kungens flykt visas, sedan tas båda dragen tillbaka.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1.

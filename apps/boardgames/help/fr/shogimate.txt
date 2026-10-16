@@ -1,0 +1,10 @@
+Mats de shogi
+# Le but
+Mettre mat le roi du haut. Tu joues les pièces pointées vers le haut et tu commences ; les pièces de ta main se parachutent comme au shogi.
+- Chacun de tes coups doit donner échec.
+- Le défenseur a toutes les pièces qui ne sont ni sur le plateau ni dans ta main, et joue toujours la défense qui dure le plus longtemps.
+- Les pièces se déplacent, se promeuvent et se parachutent comme au shogi ; un pion parachuté pour mater reste interdit.
+# La fin de la partie
+Le problème est résolu au mat ; à ton dernier coup, tout mat est bon. Avant, un autre échec que le bon est une erreur : la fuite du roi est montrée, puis les deux coups sont repris.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1.

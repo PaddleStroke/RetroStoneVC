@@ -1,0 +1,10 @@
+Maty v šógi
+# Cíl hry
+Dej mat králi nahoře. Hraješ figurami, které míří nahoru, a táhneš první; figury z ruky shazuješ na desku jako v šógi.
+- Každý tvůj tah musí dávat šach.
+- Obránce má všechny figury, které nejsou na desce ani v tvé ruce, a vždy hraje obranu, která vydrží nejdéle.
+- Figury táhnou, povyšují se a shazují jako v šógi; shození pěšce, které dává mat, je stále zakázané.
+# Konec hry
+Úloha je vyřešena matem; v posledním tahu je dobrý každý mat. Předtím je jiný šach než ten správný chyba: ukáže se útěk krále a pak se oba tahy vezmou zpět.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1.

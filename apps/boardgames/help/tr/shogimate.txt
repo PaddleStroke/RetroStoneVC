@@ -1,0 +1,10 @@
+Shogi mat problemleri
+# Amaç
+Üstteki şahı mat et. Yukarıyı gösteren taşlarla oynarsın ve ilk sen başlarsın; elindeki taşlar shogide olduğu gibi tahtaya bırakılır.
+- Her hamlen şah çekmelidir.
+- Savunan, ne tahtada ne de elinde olan bütün taşlara sahiptir ve her zaman en uzun süren savunmayı oynar.
+- Taşlar shogide olduğu gibi hareket eder, terfi eder ve bırakılır; mat etmek için piyon bırakmak yine yasaktır.
+# Oyunun sonu
+Bulmaca matla çözülür; son hamlende her mat doğrudur. Ondan önce doğru olandan başka bir şah hatadır: şahın kaçışı gösterilir, sonra iki hamle de geri alınır.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1.

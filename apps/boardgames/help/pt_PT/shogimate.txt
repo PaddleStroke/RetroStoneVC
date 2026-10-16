@@ -1,0 +1,10 @@
+Mates de shogi
+# O objetivo
+Dá xeque-mate ao rei de cima. Jogas com as peças que apontam para cima e começas; as peças da tua mão são colocadas como no shogi.
+- Cada jogada tua tem de dar xeque.
+- O defensor tem todas as peças que não estão nem no tabuleiro nem na tua mão, e joga sempre a defesa que dura mais.
+- As peças movem-se, são promovidas e colocadas como no shogi; um peão colocado para dar mate continua proibido.
+# O fim do jogo
+O problema fica resolvido com o mate; na tua última jogada, qualquer mate serve. Antes disso, um xeque diferente do certo é um erro: a fuga do rei é mostrada, e depois as duas jogadas são anuladas.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1.

@@ -1,0 +1,10 @@
+Shogi-matt
+# Målet
+Sett kongen øverst sjakkmatt. Du spiller brikkene som peker oppover, og begynner; brikkene på hånden din settes inn som i shogi.
+- Hvert av trekkene dine må gi sjakk.
+- Forsvareren har alle brikker som verken står på brettet eller er på hånden din, og spiller alltid forsvaret som varer lengst.
+- Brikkene går, forfremmes og settes inn som i shogi; en bonde satt inn for å gi matt er fortsatt forbudt.
+# Slutten på spillet
+Oppgaven er løst ved matt; i ditt siste trekk er enhver matt riktig. Før det er en annen sjakk enn den riktige en feil: kongens flukt vises, så blir begge trekkene tatt tilbake.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1.

@@ -1,0 +1,10 @@
+Skakmat shogi
+# Tujuan
+Skakmatkan raja di atas. Kamu memainkan bidak yang menghadap ke atas dan jalan lebih dulu; bidak di tanganmu dijatuhkan ke papan seperti di shogi.
+- Setiap langkahmu harus memberi skak.
+- Pihak bertahan memegang semua bidak yang tidak ada di papan maupun di tanganmu, dan selalu memainkan pertahanan yang paling lama.
+- Bidak bergerak, naik pangkat, dan dijatuhkan seperti di shogi; menjatuhkan pion untuk memberi mat tetap dilarang.
+# Akhir permainan
+Soal selesai saat skakmat; pada langkah terakhirmu, mat apa pun benar. Sebelum itu, skak selain yang benar adalah kesalahan: pelarian raja ditunjukkan, lalu kedua langkah dibatalkan.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1.

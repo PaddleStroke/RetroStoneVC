@@ -1,0 +1,10 @@
+Shogi-mat
+# Målet
+Sæt kongen øverst skakmat. Du spiller brikkerne, der peger opad, og begynder; brikkerne på din hånd sættes ind som i shogi.
+- Hvert af dine træk skal give skak.
+- Forsvareren har alle brikker, der hverken står på brættet eller er på din hånd, og spiller altid det forsvar, der holder længst.
+- Brikkerne går, forvandles og sættes ind som i shogi; en bonde sat ind for at give mat er stadig forbudt.
+# Spillets afslutning
+Opgaven er løst ved mat; i dit sidste træk er enhver mat rigtig. Før det er en anden skak end den rigtige en fejl: kongens flugt vises, og så tages begge træk tilbage.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1.

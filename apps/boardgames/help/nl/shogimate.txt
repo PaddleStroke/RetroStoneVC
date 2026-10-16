@@ -1,0 +1,10 @@
+Shogi-matproblemen
+# Het doel
+Zet de bovenste koning mat. Jij speelt de stukken die naar boven wijzen en begint; de stukken in je hand zet je in zoals bij shogi.
+- Elke zet van jou moet schaak geven.
+- De verdediger heeft alle stukken die niet op het bord en niet in jouw hand zijn, en speelt altijd de verdediging die het langst duurt.
+- De stukken bewegen, promoveren en worden ingezet zoals bij shogi; een pion inzetten om mat te geven blijft verboden.
+# Het einde van het spel
+Het probleem is opgelost bij mat; bij je laatste zet is elk mat goed. Daarvoor is een ander schaak dan het goede een fout: de vlucht van de koning wordt getoond, daarna worden beide zetten teruggenomen.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1.

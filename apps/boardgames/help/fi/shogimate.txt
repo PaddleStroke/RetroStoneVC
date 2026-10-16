@@ -1,0 +1,10 @@
+Shogi-matit
+# Tavoite
+Tee ylhäällä olevalle kuninkaalle matti. Pelaat ylöspäin osoittavilla nappuloilla ja aloitat; kädessäsi olevat nappulat pudotetaan laudalle kuten shogissa.
+- Jokaisen siirtosi on annettava shakki.
+- Puolustajalla ovat kaikki nappulat, jotka eivät ole laudalla eivätkä kädessäsi, ja se pelaa aina pisimpään kestävän puolustuksen.
+- Nappulat liikkuvat, korottuvat ja pudotetaan kuten shogissa; mattia antavaa sotilaan pudotusta ei edelleenkään sallita.
+# Pelin loppu
+Tehtävä on ratkaistu matissa; viimeisellä siirrolla mikä tahansa matti käy. Sitä ennen muu kuin oikea shakki on virhe: kuninkaan pako näytetään, ja sitten molemmat siirrot perutaan.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1.

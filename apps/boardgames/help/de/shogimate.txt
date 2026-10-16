@@ -1,0 +1,10 @@
+Shogi-Mattaufgaben
+# Das Ziel
+Setze den oberen König matt. Du spielst die Figuren, die nach oben zeigen, und ziehst zuerst; die Figuren in deiner Hand setzt du ein wie im Shogi.
+- Jeder deiner Züge muss Schach geben.
+- Der Verteidiger hat alle Figuren, die weder auf dem Brett noch in deiner Hand sind, und spielt immer die Verteidigung, die am längsten hält.
+- Die Figuren ziehen, wandeln sich um und werden eingesetzt wie im Shogi; ein Bauer, der zum Matt eingesetzt wird, bleibt verboten.
+# Das Ende der Partie
+Die Aufgabe ist beim Matt gelöst; beim letzten Zug ist jedes Matt richtig. Vorher ist ein anderes Schach als das richtige ein Fehler: Die Flucht des Königs wird gezeigt, dann werden beide Züge zurückgenommen.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1.

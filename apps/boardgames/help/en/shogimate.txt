@@ -1,0 +1,10 @@
+Shogi Mate
+# The aim
+Checkmate the king at the top. You play the pieces pointing up and move first; the pieces in your hand can be dropped, as in shogi.
+- Every one of your moves must give check.
+- The defender holds every piece that is neither on the board nor in your hand, and always plays the defence that lasts longest.
+- The pieces move, promote and drop as in shogi; a pawn dropped to give mate is still not allowed.
+# The end of the game
+The problem is solved at checkmate; on your last move any mate is right. Before that, a check other than the right one is a mistake: the king's escape is shown, then both moves are taken back.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1.

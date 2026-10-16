@@ -1,0 +1,10 @@
+Matti di shogi
+# Lo scopo
+Dai scacco matto al re in alto. Giochi i pezzi rivolti verso l'alto e muovi per primo; i pezzi che hai in mano si paracadutano come nello shogi.
+- Ogni tua mossa deve dare scacco.
+- Il difensore ha tutti i pezzi che non sono né sulla scacchiera né nella tua mano, e gioca sempre la difesa che dura di più.
+- I pezzi muovono, promuovono e si paracadutano come nello shogi; un pedone paracadutato per dare matto resta vietato.
+# La fine della partita
+Il problema è risolto al matto; alla tua ultima mossa, ogni matto va bene. Prima, uno scacco diverso da quello giusto è un errore: viene mostrata la fuga del re, poi le due mosse vengono annullate.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1.
