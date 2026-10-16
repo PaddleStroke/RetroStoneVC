@@ -1,0 +1,15 @@
+Treize à la douzaine
+# Le but
+Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Un jeu pour un joueur.
+# La mise en place
+- Treize colonnes de quatre cartes, toutes face visible.
+- À la donne, les rois de chaque colonne passent tout en bas.
+# Déplacer les cartes
+- Seule la carte du dessus d'une colonne bouge, une carte à la fois.
+- Pose-la sur une carte d'un rang de plus, quelle que soit sa couleur : un 6 sur n'importe quel 7. Ou monte-la sur sa fondation.
+- Une colonne vide reste vide.
+- Une carte posée sur une fondation y reste.
+# La fin de la partie
+Tu gagnes quand toutes les cartes sont sur les fondations. Dès que les cartes restantes peuvent toutes monter à la suite, elles montent toutes seules.
+# Niveaux et étoiles
+150 niveaux en six chapitres, chacun une donne qui se gagne ; l'onglet du dé distribue au hasard. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux en tout : 2 étoiles ; sinon 1.

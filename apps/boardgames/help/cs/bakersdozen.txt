@@ -1,0 +1,15 @@
+Pekařský tucet
+# Cíl hry
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče.
+# Rozložení
+- Třináct sloupců po čtyřech kartách, všechny lícem nahoru.
+- Při rozdání se králové v každém sloupci přesunou dospod.
+# Přesouvání karet
+- Hýbe se jen vrchní karta sloupce, vždy jedna.
+- Polož ji na kartu o jednu vyšší, na barvě nezáleží: 6 na kteroukoli 7. Nebo ji dej na její cílovou hromádku.
+- Prázdný sloupec zůstane prázdný.
+- Karta na cílové hromádce tam zůstane.
+# Konec hry
+Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile mohou zbylé karty postupně všechny odejít nahoru, přesunou se samy.
+# Úrovně a hvězdy
+150 úrovní v šesti kapitolách, každá je rozdání, které se dá vyhrát; záložka s kostkou rozdává náhodně. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě dohromady: 2 hvězdy; jinak 1.

@@ -1,0 +1,15 @@
+Bagerens dusin
+# Målet
+Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge. Et spil for én spiller.
+# Opstillingen
+- Tretten rækker med fire kort, alle synlige.
+- Når der gives, kommer kongerne i hver række helt nederst.
+# Flyt kort
+- Kun det øverste kort i en række flyttes, ét kort ad gangen.
+- Læg det på et kort, der er én højere, uanset kulør: en 6 på en hvilken som helst 7. Eller flyt det op på dets grundbunke.
+- En tom række forbliver tom.
+- Et kort på en grundbunke bliver der.
+# Spillets afslutning
+Du vinder, når alle kort ligger på grundbunkerne. Så snart de resterende kort kan gå op efter hinanden, går de op af sig selv.
+# Baner og stjerner
+150 baner i seks kapitler, hver et spil der kan vindes; fanen med terningen giver tilfældigt. Uden tip og uden fortrudte træk: 3 stjerner; op til to i alt: 2 stjerner; ellers 1.

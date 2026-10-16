@@ -1,0 +1,15 @@
+Bakerdusin
+# Målet
+Få alle de 52 kortene opp på de fire grunnbunkene, én for hver farge, fra ess til konge. Et spill for én spiller.
+# Oppstillingen
+- Tretten rekker med fire kort, alle synlige.
+- Når kortene deles ut, havner kongene i hver rekke nederst.
+# Flytte kort
+- Bare det øverste kortet i en rekke flyttes, ett kort om gangen.
+- Legg det på et kort som er én høyere, uansett farge: en 6 på hvilken som helst 7. Eller flytt det opp på grunnbunken sin.
+- En tom rekke forblir tom.
+- Et kort på en grunnbunke blir liggende der.
+# Slutten på spillet
+Du vinner når alle kortene ligger på grunnbunkene. Så snart de resterende kortene kan gå opp etter hverandre, går de opp av seg selv.
+# Nivåer og stjerner
+150 nivåer i seks kapitler, hvert et spill som kan vinnes; fanen med terningen deler ut tilfeldig. Uten hint og uten angrede trekk: 3 stjerner; opptil to til sammen: 2 stjerner; ellers 1.

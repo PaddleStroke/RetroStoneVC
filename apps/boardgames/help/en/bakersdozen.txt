@@ -1,0 +1,15 @@
+Baker's Dozen
+# The aim
+Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. A game for one player.
+# The layout
+- Thirteen columns of four cards, all face up.
+- At the deal, each column's kings go to its bottom.
+# Moving cards
+- Only the top card of a column moves, one card at a time.
+- Put it on a card one rank higher, whatever the suit: a 6 on any 7. Or move it up to its foundation.
+- An empty column stays empty.
+- A card on a foundation stays there.
+# The end of the game
+You win when all the cards are on the foundations. Once the cards left can all go up in turn, they go up by themselves.
+# Levels and stars
+150 levels in six chapters, each a deal that can be won; the die tab deals at random. No hint and no undo: 3 stars; up to two in all: 2 stars; otherwise 1.

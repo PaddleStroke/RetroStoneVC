@@ -1,0 +1,15 @@
+Bäckerdutzend
+# Das Ziel
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person.
+# Der Aufbau
+- Dreizehn Spalten zu vier Karten, alle offen.
+- Beim Austeilen kommen die Könige jeder Spalte ganz nach unten.
+# Karten bewegen
+- Nur die oberste Karte einer Spalte zieht, immer eine Karte.
+- Lege sie auf eine Karte, die einen Rang höher ist, gleich welcher Farbe: eine 6 auf jede 7. Oder bringe sie auf ihren Ablagestapel.
+- Eine leere Spalte bleibt leer.
+- Eine Karte auf einem Ablagestapel bleibt dort.
+# Das Ende der Partie
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sobald die übrigen Karten alle der Reihe nach hinaufkönnen, wandern sie von selbst nach oben.
+# Level und Sterne
+150 Level in sechs Kapiteln, jedes ein Spiel, das zu gewinnen ist; der Reiter mit dem Würfel teilt nach Zufall aus. Ohne Tipp und ohne Rücknahme: 3 Sterne; bis zu zwei zusammen: 2 Sterne; sonst 1.
