@@ -163,7 +163,13 @@ int gk_status(const gkgame *g)
 {
     uint8_t line[GK_MAXPTS];
     if (gk_line(g, line)) return g->pt[gk_last(g)] == GK_EBONY ? GK_WIN0 : GK_WIN1;
-    return g->nmoves == g->n * g->n ? GK_DRAW : GK_PLAY;
+    if (g->nmoves == g->n * g->n) return GK_DRAW;
+    if (g->variant == GK_RENJU && gk_side(g) == 0 && g->nmoves >= 3) {   /* renju: ebony with every point forbidden */
+        for (int p = 0; p < g->n * g->n; p++)
+            if (g->pt[p] == GK_EMPTY && !gk_forbidden(g, p)) return GK_PLAY;
+        return GK_DRAW;
+    }
+    return GK_PLAY;
 }
 
 int gk_play(gkgame *g, int p)

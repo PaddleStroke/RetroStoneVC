@@ -6,7 +6,8 @@
  * at once), a double four or an overline (six or more), unless the stone also makes a five; ebony wins with exactly
  * five, ivory with five or more. The classic opening: ebony's first stone in the middle, ivory's next to it, ebony's
  * second within two points of the middle (the later swap and the fifth move's choice are left out). Here a forbidden
- * point cannot be played at all (it does not lose the game). Tested by tests/gomoku_test.c.
+ * point cannot be played at all (it does not lose the game); ebony left with only forbidden points: a draw.
+ * Tested by tests/gomoku_test.c.
  * A three: a row that one more stone (on a point not forbidden itself) makes a straight four, four in a row with both
  * ends free, each making exactly five. A four: a row that one more stone makes exactly five.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).

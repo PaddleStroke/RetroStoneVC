@@ -87,6 +87,15 @@ static void renju(void)
     stones("a1 a3 a5 a7 a9 a11 a13", "b8 c8 d8 e8 g8 h8");
     CHECK(gk_side(&G) == 1 && !gk_forbidden(&G, at("f8")) && gk_play(&G, at("f8")) && gk_status(&G) == GK_WIN1 &&
           lit() == 7);
+    /* ebony to move with its only empty point forbidden (an overline): a draw */
+    gk_new(&G, GK_RENJU);
+    memset(G.pt, GK_IVORY, GK_PTS);
+    const char *row[] = {"b8", "c8", "d8", "e8", "g8", "h8"};
+    for (int i = 0; i < 6; i++) G.pt[at(row[i])] = GK_EBONY;
+    G.pt[at("f8")] = GK_EMPTY;
+    G.nmoves = GK_PTS - 1;
+    G.move[G.nmoves - 1] = at("b8");
+    CHECK(gk_side(&G) == 0 && gk_forbidden(&G, at("f8")) && gk_status(&G) == GK_DRAW && !gk_play(&G, at("f8")));
 
     /* whole random games (a seed each): ebony never on a forbidden point, a win by the colour's own rule */
     int bad = 0, won = 0;
