@@ -1,0 +1,10 @@
+Teka-teki go
+# Tujuan
+Hitam jalan lebih dulu, di sudut papan go. Matikan batu putih yang bercahaya merah, atau hidupkan batu hitam yang bercahaya emas. Setiap soal punya tepat satu langkah pertama yang berhasil.
+- Batu mengikuti aturan go: kelompok tanpa kebebasan ditawan, batu tidak boleh menutup kebebasan terakhirnya sendiri, dan tidak ada langkah yang boleh mengembalikan posisi sebelumnya.
+- Titik yang berbayang tetap kosong. Kelompok yang menyentuh salah satunya sudah lolos: tidak bisa ditawan lagi.
+- Putih menjawab setiap langkahmu dengan sendirinya, sekuat mungkin.
+# Akhir permainan
+Mematikan berhasil jika batu merah sudah ditawan. Hidup berhasil jika kelompok emas punya dua mata sejati, atau jika Putih tidak bisa lagi menyerangnya. Langkah yang membuat soal gagal adalah kesalahan: jawaban Putih menunjukkan sebabnya, lalu kedua langkah dibatalkan.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1.

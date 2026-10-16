@@ -1,0 +1,10 @@
+Problemas de go
+# O objetivo
+As pretas jogam primeiro, num canto do tabuleiro de go. Mate as pedras brancas que brilham em vermelho, ou faça viver as pedras pretas que brilham em dourado. Cada problema tem uma única primeira jogada que funciona.
+- As pedras seguem as regras do go: um grupo sem liberdades é capturado, uma pedra não pode tirar a própria última liberdade, e nenhuma jogada pode trazer de volta uma posição anterior.
+- As interseções sombreadas ficam vazias. Um grupo que toca uma delas escapou: não pode mais ser capturado.
+- As brancas respondem sozinhas a cada jogada sua, da melhor forma possível.
+# O fim da partida
+Matar dá certo quando as pedras vermelhas são capturadas. Viver dá certo quando o grupo dourado tem dois olhos verdadeiros, ou quando as brancas não podem mais atacá-lo. Uma jogada que perde o problema é um erro: a resposta das brancas mostra por quê, e depois as duas jogadas são desfeitas.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1.

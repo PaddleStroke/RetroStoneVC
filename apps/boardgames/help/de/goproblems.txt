@@ -1,0 +1,10 @@
+Go-Aufgaben
+# Das Ziel
+Schwarz zieht zuerst, in einer Ecke des Go-Bretts. Töte die weißen Steine, die rot leuchten, oder bring die schwarzen Steine, die golden leuchten, zum Leben. Jede Aufgabe hat genau einen ersten Zug, der funktioniert.
+- Die Steine folgen den Go-Regeln: Eine Gruppe ohne Freiheit ist geschlagen, ein Stein darf sich nicht selbst die letzte Freiheit nehmen, und kein Zug darf eine frühere Stellung wiederherstellen.
+- Die schattierten Punkte bleiben leer. Eine Gruppe, die einen davon berührt, ist entkommen: Sie kann nie mehr geschlagen werden.
+- Weiß antwortet auf jeden deiner Züge von selbst, so stark es kann.
+# Das Ende der Partie
+Ein Töten gelingt, wenn die roten Steine geschlagen sind. Ein Leben gelingt, wenn die goldene Gruppe zwei echte Augen hat oder Weiß sie nicht mehr angreifen kann. Ein Zug, der die Aufgabe verliert, ist ein Fehler: Die Antwort von Weiß zeigt, warum, dann werden beide Züge zurückgenommen.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1.

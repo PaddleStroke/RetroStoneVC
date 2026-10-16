@@ -1,0 +1,10 @@
+Go-tehtävät
+# Tavoite
+Musta aloittaa, gopöydän kulmassa. Tapa punaisena hehkuvat valkoiset kivet tai saa kultaisena hehkuvat mustat kivet elämään. Jokaisessa tehtävässä on täsmälleen yksi toimiva ensimmäinen siirto.
+- Kivet noudattavat gon sääntöjä: ryhmä, jolta loppuvat vapaudet, lyödään, kivi ei saa viedä omaa viimeistä vapauttaan, eikä mikään siirto saa palauttaa aiempaa asemaa.
+- Varjostetut pisteet pysyvät tyhjinä. Ryhmä, joka koskettaa yhtä niistä, on päässyt pakoon: sitä ei voi enää lyödä.
+- Valkoinen vastaa itse jokaiseen siirtoosi niin vahvasti kuin pystyy.
+# Pelin loppu
+Tappaminen onnistuu, kun punaiset kivet on lyöty. Eläminen onnistuu, kun kultaisella ryhmällä on kaksi oikeaa silmää tai kun valkoinen ei voi enää hyökätä sitä vastaan. Siirto, joka häviää tehtävän, on virhe: valkoisen vastaus näyttää miksi, ja sitten molemmat siirrot perutaan.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1.

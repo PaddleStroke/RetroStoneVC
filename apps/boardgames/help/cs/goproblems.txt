@@ -1,0 +1,10 @@
+Úlohy go
+# Cíl hry
+Černý táhne první, v rohu desky go. Zabij bílé kameny, které svítí červeně, nebo zachraň černé kameny, které svítí zlatě. Každá úloha má právě jeden první tah, který funguje.
+- Kameny se řídí pravidly go: skupina bez svobod je zajata, kámen si nesmí vzít svou poslední svobodu a žádný tah nesmí vrátit dřívější pozici.
+- Stínované body zůstávají prázdné. Skupina, která se jednoho z nich dotýká, unikla: už ji nelze zajmout.
+- Bílý odpovídá na každý tvůj tah sám, jak nejlépe umí.
+# Konec hry
+Zabití se podaří, když jsou červené kameny zajaty. Život se podaří, když má zlatá skupina dvě pravá oka, nebo když ji bílý už nemůže napadnout. Tah, který úlohu prohraje, je chyba: odpověď bílého ukáže proč a pak se oba tahy vezmou zpět.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1.

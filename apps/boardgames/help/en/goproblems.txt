@@ -1,0 +1,10 @@
+Go Problems
+# The aim
+Black plays first, in a corner of the go board. Kill the white stones that glow red, or make the black stones that glow gold live. Each problem has exactly one first move that works.
+- The stones follow the rules of go: a group with no liberty left is captured, a stone may not take its own last liberty, and no move may bring back an earlier position.
+- The shaded points stay empty. A group next to one of them has escaped: it can never be captured.
+- White answers each of your moves by itself, as strongly as it can.
+# The end of the game
+A kill is done when the red stones are captured. A life is done when the gold group has two true eyes, or when White can no longer attack it. A move that loses the problem is a mistake: White's answer shows why, then both moves are taken back.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1.

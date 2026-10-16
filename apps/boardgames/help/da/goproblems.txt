@@ -1,0 +1,10 @@
+Go-opgaver
+# Målet
+Sort spiller først, i et hjørne af gobrættet. Dræb de hvide sten, der lyser rødt, eller få de sorte sten, der lyser gyldent, til at leve. Hver opgave har præcis ét første træk, der virker.
+- Stenene følger gos regler: en gruppe uden friheder slås, en sten må ikke tage sin egen sidste frihed, og intet træk må bringe en tidligere stilling tilbage.
+- De skraverede punkter forbliver tomme. En gruppe, der rører et af dem, er sluppet væk: den kan aldrig slås.
+- Hvid svarer selv på hvert af dine træk, så stærkt den kan.
+# Spillets afslutning
+Et drab lykkes, når de røde sten er slået. Et liv lykkes, når den gyldne gruppe har to ægte øjne, eller når Hvid ikke længere kan angribe den. Et træk, der taber opgaven, er en fejl: Hvids svar viser hvorfor, og så tages begge træk tilbage.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1.

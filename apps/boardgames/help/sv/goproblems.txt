@@ -1,0 +1,10 @@
+Go-problem
+# Målet
+Svart spelar först, i ett hörn av gobrädet. Döda de vita stenarna som lyser rött, eller ge liv åt de svarta stenarna som lyser guld. Varje problem har exakt ett första drag som fungerar.
+- Stenarna följer gos regler: en grupp utan friheter tas, en sten får inte ta sin egen sista frihet, och inget drag får föra tillbaka en tidigare ställning.
+- De skuggade punkterna förblir tomma. En grupp som rör vid en av dem har kommit undan: den kan aldrig tas.
+- Vit svarar själv på vart och ett av dina drag, så starkt den kan.
+# Partiets slut
+Att döda lyckas när de röda stenarna är tagna. Att leva lyckas när den gyllene gruppen har två äkta ögon, eller när Vit inte längre kan angripa den. Ett drag som förlorar problemet är ett fel: Vits svar visar varför, sedan tas båda dragen tillbaka.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1.

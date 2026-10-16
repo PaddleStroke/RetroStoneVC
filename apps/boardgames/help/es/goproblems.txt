@@ -1,0 +1,10 @@
+Problemas de go
+# El objetivo
+Negro juega primero, en una esquina del tablero de go. Mata las piedras blancas que brillan en rojo, o haz vivir las piedras negras que brillan en dorado. Cada problema tiene una sola primera jugada que funciona.
+- Las piedras siguen las reglas del go: un grupo sin libertades se captura, una piedra no puede quitarse su última libertad, y ninguna jugada puede repetir una posición anterior.
+- Las intersecciones sombreadas quedan vacías. Un grupo que toca una de ellas ha escapado: ya no se puede capturar.
+- Blanco responde solo a cada una de tus jugadas, lo mejor que puede.
+# El final de la partida
+Matar se logra cuando las piedras rojas quedan capturadas. Vivir se logra cuando el grupo dorado tiene dos ojos verdaderos, o cuando Blanco ya no puede atacarlo. Una jugada que pierde el problema es un error: la respuesta de Blanco muestra por qué, y luego se deshacen las dos jugadas.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1.

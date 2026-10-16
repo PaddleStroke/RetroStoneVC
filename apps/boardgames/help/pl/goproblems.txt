@@ -1,0 +1,10 @@
+Zadania go
+# Cel gry
+Czarne zaczynają, w rogu planszy do go. Zabij białe kamienie, które świecą na czerwono, albo zapewnij życie czarnym kamieniom, które świecą na złoto. Każde zadanie ma dokładnie jeden dobry pierwszy ruch.
+- Kamienie podlegają zasadom go: grupa bez oddechów zostaje zbita, kamień nie może sam zabrać sobie ostatniego oddechu, a żaden ruch nie może przywrócić wcześniejszej pozycji.
+- Zacienione punkty pozostają puste. Grupa, która dotyka któregoś z nich, uciekła: nie można jej już zbić.
+- Białe same odpowiadają na każdy twój ruch, najlepiej jak potrafią.
+# Koniec gry
+Zabicie się udaje, gdy czerwone kamienie zostaną zbite. Życie się udaje, gdy złota grupa ma dwoje prawdziwych oczu albo gdy białe nie mogą już jej zaatakować. Ruch, który przegrywa zadanie, to błąd: odpowiedź białych pokazuje dlaczego, a potem oba ruchy zostają cofnięte.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1.

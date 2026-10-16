@@ -1,0 +1,10 @@
+Go-oppgaver
+# Målet
+Svart spiller først, i et hjørne av gobrettet. Drep de hvite steinene som lyser rødt, eller få de svarte steinene som lyser gyllent, til å leve. Hver oppgave har nøyaktig ett første trekk som virker.
+- Steinene følger reglene i go: en gruppe uten friheter blir slått, en stein kan ikke ta sin egen siste frihet, og ingen trekk kan bringe tilbake en tidligere stilling.
+- De skraverte punktene forblir tomme. En gruppe som berører et av dem, har kommet seg unna: den kan aldri bli slått.
+- Hvit svarer selv på hvert av trekkene dine, så sterkt den kan.
+# Slutten på spillet
+Å drepe lykkes når de røde steinene er slått. Å leve lykkes når den gylne gruppen har to ekte øyne, eller når Hvit ikke lenger kan angripe den. Et trekk som taper oppgaven, er en feil: Hvits svar viser hvorfor, så blir begge trekkene tatt tilbake.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1.

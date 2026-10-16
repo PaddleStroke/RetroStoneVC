@@ -1,0 +1,10 @@
+Go-problemen
+# Het doel
+Zwart speelt eerst, in een hoek van het go-bord. Dood de witte stenen die rood oplichten, of laat de zwarte stenen die goud oplichten leven. Elk probleem heeft precies één eerste zet die werkt.
+- De stenen volgen de regels van go: een groep zonder vrijheden wordt geslagen, een steen mag zijn eigen laatste vrijheid niet innemen, en geen zet mag een eerdere stelling terugbrengen.
+- De gearceerde punten blijven leeg. Een groep die er een raakt, is ontsnapt: die kan nooit meer geslagen worden.
+- Wit antwoordt vanzelf op elke zet van jou, zo sterk als het kan.
+# Het einde van het spel
+Doden lukt als de rode stenen geslagen zijn. Leven lukt als de gouden groep twee echte ogen heeft, of als Wit hem niet meer kan aanvallen. Een zet die het probleem verliest, is een fout: het antwoord van Wit laat zien waarom, daarna worden beide zetten teruggenomen.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1.

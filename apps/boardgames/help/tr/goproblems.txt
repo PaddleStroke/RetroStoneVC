@@ -1,0 +1,10 @@
+Go bulmacaları
+# Amaç
+Önce siyah oynar, go tahtasının bir köşesinde. Kırmızı parlayan beyaz taşları öldür ya da altın renginde parlayan siyah taşları yaşat. Her bulmacada işe yarayan tek bir ilk hamle vardır.
+- Taşlar go kurallarına uyar: özgürlüğü kalmayan grup esir alınır, bir taş kendi son özgürlüğünü kapatamaz ve hiçbir hamle önceki bir pozisyonu geri getiremez.
+- Gölgeli noktalar boş kalır. Bunlardan birine değen grup kaçmıştır: artık esir alınamaz.
+- Beyaz, her hamlene kendiliğinden, elinden gelen en güçlü şekilde cevap verir.
+# Oyunun sonu
+Öldürme, kırmızı taşlar esir alınınca başarılır. Yaşatma, altın grubun iki gerçek gözü olunca ya da beyaz ona artık saldıramayınca başarılır. Bulmacayı kaybettiren hamle bir hatadır: beyazın cevabı nedenini gösterir, sonra iki hamle de geri alınır.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1.

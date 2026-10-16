@@ -1,0 +1,10 @@
+Problèmes de go
+# Le but
+Noir joue le premier, dans un coin du goban. Tue les pierres blanches qui brillent en rouge, ou fais vivre les pierres noires qui brillent en or. Chaque problème a un seul premier coup qui marche.
+- Les pierres suivent les règles du go : un groupe sans liberté est capturé, une pierre ne peut pas prendre sa propre dernière liberté, et aucun coup ne peut ramener une position déjà vue.
+- Les intersections ombrées restent vides. Un groupe qui en touche une s'est échappé : il ne peut plus être capturé.
+- Blanc répond tout seul à chacun de tes coups, du mieux qu'il peut.
+# La fin de la partie
+Une mise à mort est réussie quand les pierres rouges sont capturées. Une vie est réussie quand le groupe doré a deux vrais yeux, ou quand Blanc ne peut plus l'attaquer. Un coup qui perd le problème est une erreur : la réponse de Blanc montre pourquoi, puis les deux coups sont repris.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1.

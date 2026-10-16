@@ -1,0 +1,10 @@
+Problemi di go
+# Lo scopo
+Il Nero gioca per primo, in un angolo del goban. Uccidi le pietre bianche che brillano di rosso, o fai vivere le pietre nere che brillano d'oro. Ogni problema ha una sola prima mossa giusta.
+- Le pietre seguono le regole del go: un gruppo senza libertà è catturato, una pietra non può togliersi l'ultima libertà, e nessuna mossa può riportare una posizione già vista.
+- Le intersezioni in ombra restano vuote. Un gruppo che ne tocca una è scappato: non può più essere catturato.
+- Il Bianco risponde da solo a ogni tua mossa, meglio che può.
+# La fine della partita
+Uccidere riesce quando le pietre rosse sono catturate. Vivere riesce quando il gruppo dorato ha due occhi veri, o quando il Bianco non può più attaccarlo. Una mossa che perde il problema è un errore: la risposta del Bianco mostra perché, poi le due mosse vengono annullate.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1.
