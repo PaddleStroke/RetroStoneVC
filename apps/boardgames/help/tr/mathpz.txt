@@ -1,0 +1,12 @@
+Sayı bulmacaları
+# Amaç
+Taşlardaki sayıları birleştirerek üstlerinde gösterilen hedefi elde et. Üç oyun:
+- Dört sayı: dört taşın hepsini kullan.
+- Hedef: altı taş ve üç basamaklı bir hedef. Ona ulaş ya da olabildiğince yaklaş; taş artabilir.
+- Beşi birden: beş taşın hepsini kullan.
+# Bir hamle
+İki taş ve + − × ÷ işlemlerinden birini seç: ikisi, sonucu taşıyan tek bir taşa dönüşür ve hemen yeniden kullanılabilir. Dört sayı ve Beşi birden oyunlarında sonuç kesir ya da negatif olabilir, ama sıfıra bölmek olmaz. Hedef oyununda her sonuç sıfırdan büyük bir tam sayı olmalıdır.
+# Oyunun sonu
+Son taş hedefi gösterdiğinde çözülmüş olur. Hedef oyununda tam isabet hemen kazandırır; en fazla 10 uzaktaysan onay işaretiyle orada da bitirebilirsin.
+# Seviyeler ve yıldızlar
+İpucu ve yanlış son taş yoksa: 3 yıldız; ikisi toplam en fazla iki kezse: 2; yoksa 1. Hedef oyununda 3 yıldız için tam sayı, 2 yıldız için en fazla 5 uzak bir sonuç gerekir.

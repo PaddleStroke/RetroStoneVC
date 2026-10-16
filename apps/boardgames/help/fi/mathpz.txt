@@ -1,0 +1,12 @@
+Laskupulmat
+# Tavoite
+Yhdistä laattojen luvut niin, että saat niiden yläpuolella näkyvän tavoiteluvun. Kolme peliä:
+- Neljä lukua: käytä kaikki neljä laattaa.
+- Tavoiteluku: kuusi laattaa ja kolminumeroinen tavoite. Saavuta se tai pääse niin lähelle kuin voit; laattoja saa jäädä yli.
+- Kaikki viisi: käytä kaikki viisi laattaa.
+# Siirto
+Valitse kaksi laattaa ja yksi laskutoimituksista + − × ÷: niistä tulee yksi laatta, jossa on tulos ja jota voi heti käyttää uudelleen. Neljässä luvussa ja Kaikissa viidessä tulos saa olla murtoluku tai negatiivinen, mutta nollalla ei voi jakaa. Tavoiteluvussa jokaisen tuloksen on oltava nollaa suurempi kokonaisluku.
+# Pelin loppu
+Ratkaistu, kun viimeinen laatta näyttää tavoiteluvun. Tavoiteluvussa tarkka osuma voittaa heti; enintään 10:n päässä voit myös lopettaa siihen rastilla.
+# Tasot ja tähdet
+Ei vihjeitä eikä väärää viimeistä laattaa: 3 tähteä; niitä yhteensä enintään kaksi: 2; muuten 1. Tavoiteluvussa 3 tähteä vaatii tarkan luvun, 2 enintään 5:n päässä olevan tuloksen.

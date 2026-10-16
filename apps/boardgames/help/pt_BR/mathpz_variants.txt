@@ -1,0 +1,6 @@
+Quatro números
+Alvo
+Todos os cinco
+Fácil
+Médio
+Difícil

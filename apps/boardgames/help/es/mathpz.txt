@@ -1,0 +1,12 @@
+Acertijos numéricos
+# El objetivo
+Combina los números de las fichas para obtener el objetivo que aparece encima. Tres juegos:
+- Cuatro números: usa las cuatro fichas.
+- Objetivo: seis fichas y un objetivo de tres cifras. Alcánzalo, o acércate todo lo que puedas; pueden sobrar fichas.
+- Los cinco: usa las cinco fichas.
+# Una jugada
+Toma dos fichas y una de las operaciones + − × ÷: se convierten en una sola ficha con el resultado, lista para volver a usarse. En Cuatro números y Los cinco un resultado puede ser una fracción o negativo, pero nunca una división entre cero. En Objetivo cada resultado debe ser un número entero mayor que cero.
+# El final de la partida
+Está resuelto cuando la última ficha muestra el objetivo. En Objetivo, alcanzarlo exactamente gana al instante; a 10 o menos, también puedes plantarte ahí con la marca de visto.
+# Niveles y estrellas
+Sin pistas ni última ficha errónea: 3 estrellas; hasta dos en total: 2; si no, 1. En Objetivo, las 3 estrellas piden el número exacto, y 2 un resultado a 5 o menos.

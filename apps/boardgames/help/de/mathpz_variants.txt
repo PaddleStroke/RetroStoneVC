@@ -1,0 +1,6 @@
+Vier Zahlen
+Zielzahl
+Alle fünf
+Leicht
+Mittel
+Schwer

@@ -1,0 +1,12 @@
+Desafios numéricos
+# O objetivo
+Combine os números das peças para chegar ao alvo mostrado acima delas. Três jogos:
+- Quatro números: use as quatro peças.
+- Alvo: seis peças e um alvo de três algarismos. Chegue nele, ou o mais perto possível; podem sobrar peças.
+- Todos os cinco: use as cinco peças.
+# Uma jogada
+Pegue duas peças e uma das operações + − × ÷: elas viram uma só peça com o resultado, pronta para ser usada de novo. Em Quatro números e Todos os cinco, um resultado pode ser uma fração ou negativo, mas nunca uma divisão por zero. Em Alvo, todo resultado tem de ser um número inteiro maior que zero.
+# O fim da partida
+Está resolvido quando a última peça mostra o alvo. Em Alvo, chegar nele exatamente vence na hora; a até 10 dele, você também pode parar ali, com o visto.
+# Níveis e estrelas
+Sem dica e sem última peça errada: 3 estrelas; até duas no total: 2; senão 1. Em Alvo, 3 estrelas pedem o número exato, e 2 um resultado a até 5 dele.

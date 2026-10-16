@@ -1,0 +1,12 @@
+Räknegåtor
+# Målet
+Kombinera talen på brickorna så att de blir måltalet ovanför dem. Tre spel:
+- Fyra tal: använd alla fyra brickorna.
+- Måltal: sex brickor och ett måltal med tre siffror. Nå det, eller kom så nära som möjligt; brickor får bli över.
+- Alla fem: använd alla fem brickorna.
+# Ett drag
+Ta två brickor och ett av räknesätten + − × ÷: de blir en bricka med resultatet, redo att användas igen. I Fyra tal och Alla fem får ett resultat vara ett bråk eller negativt, men aldrig en division med noll. I Måltal måste varje resultat vara ett heltal större än noll.
+# Partiets slut
+Löst när den sista brickan visar måltalet. I Måltal vinner du direkt om du träffar exakt; är du högst 10 ifrån kan du också stanna där med bocken.
+# Banor och stjärnor
+Ingen ledtråd och ingen fel sista bricka: 3 stjärnor; högst två av dem sammanlagt: 2; annars 1. I Måltal kräver 3 stjärnor det exakta talet, 2 ett resultat högst 5 ifrån.

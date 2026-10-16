@@ -1,0 +1,12 @@
+Rechenrätsel
+# Das Ziel
+Verbinde die Zahlen auf den Steinen zur Zielzahl, die darüber steht. Drei Spiele:
+- Vier Zahlen: Nutze alle vier Steine.
+- Zielzahl: sechs Steine und eine dreistellige Zielzahl. Erreiche sie oder komm ihr so nah wie möglich; Steine dürfen übrig bleiben.
+- Alle fünf: Nutze alle fünf Steine.
+# Ein Zug
+Nimm zwei Steine und eine der Rechenarten + − × ÷: Sie werden zu einem Stein mit dem Ergebnis, mit dem du gleich weiterrechnen kannst. Bei Vier Zahlen und Alle fünf darf ein Ergebnis ein Bruch oder negativ sein, nur nie eine Division durch null. Bei Zielzahl muss jedes Ergebnis eine ganze Zahl größer als null sein.
+# Das Ende der Partie
+Gelöst, wenn der letzte Stein die Zielzahl zeigt. Bei Zielzahl gewinnt das genaue Ergebnis sofort; liegst du höchstens 10 daneben, kannst du mit dem Haken auch dort aufhören.
+# Level und Sterne
+Kein Tipp und kein falscher letzter Stein: 3 Sterne; bis zu zwei davon: 2; sonst 1. Bei Zielzahl gibt es 3 Sterne nur für die genaue Zahl, 2 für ein Ergebnis höchstens 5 daneben.

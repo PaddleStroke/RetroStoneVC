@@ -1,0 +1,12 @@
+Number Puzzles
+# The aim
+Combine the numbers on the tiles to make the target shown above them. Three games:
+- Four numbers: use all four tiles.
+- Target: six tiles and a target of three digits. Reach it, or get as near as you can; tiles may be left over.
+- All five: use all five tiles.
+# A move
+Take two tiles and one of + − × ÷: they become one tile holding the result, ready to be used again. In Four numbers and All five a result may be a fraction or below zero, but never a division by zero. In Target every result must be a whole number above zero.
+# The end of the game
+Solved when the last tile shows the target. In Target, reaching it exactly wins at once; within 10 of it you may also stop there, with the tick.
+# Levels and stars
+No hint and no wrong last tile: 3 stars; up to two of them: 2; otherwise 1. In Target, 3 stars need the exact number, 2 a result within 5.

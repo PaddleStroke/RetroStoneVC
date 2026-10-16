@@ -1,0 +1,12 @@
+Casse-tête de calcul
+# Le but
+Combine les nombres des tuiles pour obtenir la cible affichée au-dessus. Trois jeux :
+- Quatre nombres : utilise les quatre tuiles.
+- Cible : six tuiles et une cible à trois chiffres. Atteins-la, ou approche-toi le plus possible ; des tuiles peuvent rester.
+- Les cinq : utilise les cinq tuiles.
+# Un coup
+Prends deux tuiles et l'une des opérations + − × ÷ : elles deviennent une seule tuile portant le résultat, réutilisable aussitôt. Dans Quatre nombres et Les cinq, un résultat peut être une fraction ou négatif, mais jamais une division par zéro. Dans Cible, chaque résultat doit être un nombre entier supérieur à zéro.
+# La fin de la partie
+C'est résolu quand la dernière tuile montre la cible. Dans Cible, l'atteindre exactement gagne aussitôt ; à 10 près, tu peux aussi t'arrêter là, avec la coche.
+# Niveaux et étoiles
+Sans indice ni dernière tuile fausse : 3 étoiles ; jusqu'à deux en tout : 2 ; sinon 1. Dans Cible, il faut le nombre exact pour 3 étoiles, un résultat à 5 près pour 2.

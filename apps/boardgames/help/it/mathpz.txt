@@ -1,0 +1,12 @@
+Rompicapi numerici
+# Lo scopo
+Combina i numeri sulle tessere per ottenere il bersaglio indicato sopra. Tre giochi:
+- Quattro numeri: usa tutte e quattro le tessere.
+- Bersaglio: sei tessere e un bersaglio di tre cifre. Raggiungilo, o avvicinati il più possibile; possono avanzare tessere.
+- Tutti e cinque: usa tutte e cinque le tessere.
+# Una mossa
+Prendi due tessere e una delle operazioni + − × ÷: diventano una sola tessera con il risultato, subito riutilizzabile. In Quattro numeri e Tutti e cinque un risultato può essere una frazione o negativo, ma mai una divisione per zero. In Bersaglio ogni risultato deve essere un numero intero maggiore di zero.
+# La fine della partita
+È risolto quando l'ultima tessera mostra il bersaglio. In Bersaglio, raggiungerlo esattamente vince subito; entro 10 puoi anche fermarti lì, con la spunta.
+# Livelli e stelle
+Nessun aiuto e nessuna ultima tessera sbagliata: 3 stelle; fino a due in tutto: 2; altrimenti 1. In Bersaglio, per 3 stelle serve il numero esatto, per 2 un risultato entro 5.

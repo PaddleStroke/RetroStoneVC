@@ -1,0 +1,12 @@
+Rekenpuzzels
+# Het doel
+Combineer de getallen op de tegels tot het doelgetal dat erboven staat. Drie spellen:
+- Vier getallen: gebruik alle vier tegels.
+- Doelgetal: zes tegels en een doelgetal van drie cijfers. Haal het, of kom er zo dicht mogelijk bij; er mogen tegels overblijven.
+- Alle vijf: gebruik alle vijf tegels.
+# Een zet
+Neem twee tegels en een van de bewerkingen + − × ÷: ze worden één tegel met de uitkomst, die je meteen weer kunt gebruiken. Bij Vier getallen en Alle vijf mag een uitkomst een breuk of negatief zijn, maar nooit een deling door nul. Bij Doelgetal moet elke uitkomst een heel getal boven nul zijn.
+# Het einde van het spel
+Opgelost zodra de laatste tegel het doelgetal toont. Bij Doelgetal win je meteen als je het precies haalt; zit je er hoogstens 10 naast, dan mag je ook met het vinkje stoppen.
+# Levels en sterren
+Geen hint en geen foute laatste tegel: 3 sterren; samen hoogstens twee: 2; anders 1. Bij Doelgetal vragen 3 sterren het precieze getal, 2 een uitkomst hoogstens 5 ernaast.

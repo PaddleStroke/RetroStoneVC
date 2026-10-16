@@ -1,0 +1,12 @@
+Regnegåter
+# Målet
+Kombiner tallene på brikkene så de blir måltallet over dem. Tre spill:
+- Fire tall: bruk alle fire brikkene.
+- Måltall: seks brikker og et måltall med tre sifre. Nå det, eller kom så nær som mulig; brikker kan bli til overs.
+- Alle fem: bruk alle fem brikkene.
+# Et trekk
+Ta to brikker og en av regneartene + − × ÷: de blir én brikke med resultatet, klar til å brukes igjen. I Fire tall og Alle fem kan et resultat være en brøk eller negativt, men aldri en divisjon med null. I Måltall må hvert resultat være et helt tall over null.
+# Slutten på spillet
+Løst når den siste brikken viser måltallet. I Måltall vinner du med en gang om du treffer nøyaktig; er du høyst 10 unna, kan du også stoppe der med haken.
+# Nivåer og stjerner
+Ingen hint og ingen feil siste brikke: 3 stjerner; høyst to av dem til sammen: 2; ellers 1. I Måltall krever 3 stjerner det nøyaktige tallet, 2 et resultat høyst 5 unna.

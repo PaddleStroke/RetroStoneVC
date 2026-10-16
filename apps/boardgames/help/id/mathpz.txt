@@ -1,0 +1,12 @@
+Teka-teki angka
+# Tujuan
+Gabungkan angka-angka pada ubin untuk mendapatkan sasaran yang tampil di atasnya. Tiga permainan:
+- Empat angka: pakai keempat ubin.
+- Sasaran: enam ubin dan sasaran tiga digit. Capai sasaran itu, atau sedekat mungkin; ubin boleh tersisa.
+- Kelima-limanya: pakai kelima ubin.
+# Satu langkah
+Ambil dua ubin dan salah satu operasi + − × ÷: keduanya menjadi satu ubin berisi hasilnya, siap dipakai lagi. Pada Empat angka dan Kelima-limanya, hasil boleh berupa pecahan atau bilangan negatif, tetapi tidak boleh membagi dengan nol. Pada Sasaran, setiap hasil harus bilangan bulat lebih dari nol.
+# Akhir permainan
+Selesai saat ubin terakhir menunjukkan sasaran. Pada Sasaran, tepat mengenainya langsung menang; jika selisihnya paling banyak 10, kamu juga boleh berhenti di situ dengan tanda centang.
+# Level dan bintang
+Tanpa petunjuk dan tanpa ubin terakhir yang salah: 3 bintang; paling banyak dua dari keduanya: 2; selain itu 1. Pada Sasaran, 3 bintang butuh angka yang tepat, 2 bintang hasil yang selisihnya paling banyak 5.

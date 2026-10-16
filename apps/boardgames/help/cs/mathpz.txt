@@ -1,0 +1,12 @@
+Početní hádanky
+# Cíl hry
+Spoj čísla na kamenech tak, abys dostal cíl zobrazený nad nimi. Tři hry:
+- Čtyři čísla: použij všechny čtyři kameny.
+- Cíl: šest kamenů a trojmístný cíl. Dosáhni ho, nebo se k němu co nejvíc přibliž; kameny mohou zbýt.
+- Všech pět: použij všech pět kamenů.
+# Tah
+Vezmi dva kameny a jednu z operací + − × ÷: stane se z nich jeden kámen s výsledkem, hned znovu použitelný. Ve Čtyřech číslech a Všech pěti smí být výsledek zlomek nebo záporný, nikdy ale nelze dělit nulou. V Cíli musí být každý výsledek celé číslo větší než nula.
+# Konec hry
+Vyřešeno, když poslední kámen ukazuje cíl. V Cíli přesný zásah vyhrává hned; nejvýš 10 od cíle můžeš také skončit fajfkou.
+# Úrovně a hvězdy
+Bez nápovědy a bez špatného posledního kamene: 3 hvězdy; nejvýš dvě takové věci dohromady: 2; jinak 1. V Cíli chtějí 3 hvězdy přesné číslo, 2 výsledek nejvýš 5 od něj.

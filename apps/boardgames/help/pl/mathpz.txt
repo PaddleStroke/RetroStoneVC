@@ -1,0 +1,12 @@
+Łamigłówki liczbowe
+# Cel gry
+Połącz liczby z płytek tak, aby otrzymać cel pokazany nad nimi. Trzy gry:
+- Cztery liczby: użyj wszystkich czterech płytek.
+- Cel: sześć płytek i trzycyfrowy cel. Osiągnij go albo podejdź jak najbliżej; płytki mogą zostać.
+- Wszystkie pięć: użyj wszystkich pięciu płytek.
+# Ruch
+Weź dwie płytki i jedno z działań + − × ÷: stają się jedną płytką z wynikiem, gotową do dalszego użycia. W Czterech liczbach i Wszystkich pięciu wynik może być ułamkiem lub liczbą ujemną, ale nigdy nie wolno dzielić przez zero. W Celu każdy wynik musi być liczbą całkowitą większą od zera.
+# Koniec gry
+Rozwiązane, gdy ostatnia płytka pokazuje cel. W Celu dokładne trafienie wygrywa od razu; jeśli brakuje najwyżej 10, możesz też zakończyć znaczkiem.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędnej ostatniej płytki: 3 gwiazdki; najwyżej dwie takie rzeczy razem: 2; w innym razie 1. W Celu 3 gwiazdki wymagają dokładnej liczby, 2 wyniku różniącego się najwyżej o 5.

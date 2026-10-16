@@ -1,0 +1,12 @@
+Regnegåder
+# Målet
+Kombinér tallene på brikkerne, så de giver måltallet over dem. Tre spil:
+- Fire tal: brug alle fire brikker.
+- Måltal: seks brikker og et måltal med tre cifre. Ram det, eller kom så tæt på som muligt; der må blive brikker tilovers.
+- Alle fem: brug alle fem brikker.
+# Et træk
+Tag to brikker og en af regningsarterne + − × ÷: de bliver til én brik med resultatet, klar til at blive brugt igen. I Fire tal og Alle fem må et resultat være en brøk eller negativt, men aldrig en division med nul. I Måltal skal hvert resultat være et helt tal over nul.
+# Spillets afslutning
+Løst, når den sidste brik viser måltallet. I Måltal vinder du med det samme, hvis du rammer præcis; er du højst 10 fra, kan du også stoppe der med fluebenet.
+# Baner og stjerner
+Ingen hjælp og ingen forkert sidste brik: 3 stjerner; højst to af dem i alt: 2; ellers 1. I Måltal kræver 3 stjerner det præcise tal, 2 et resultat højst 5 fra.
