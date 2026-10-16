@@ -1,0 +1,11 @@
+Y
+# Målet
+Forbind alle tre sidene av trekanten med én gruppe av steinene dine. En hjørnecelle hører til begge sidene som møtes der. Hvit (lys) begynner.
+# Spillets gang
+- Spillerne bytter på å sette én stein på en hvilken som helst tom celle. Steinene flyttes aldri og fanges aldri.
+- To av steinene dine henger sammen når cellene deres grenser til hverandre langs en kant: hver celle har seks naboer.
+- Det blir aldri uavgjort: når brettet er fullt, har alltid en av spillerne forbundet alle tre sidene.
+# Byttet
+Å begynne er en stor fordel. Bare i det andre trekket kan Svart ta Hvits første stein i stedet for å sette en egen: steinen blir svart der den står. Så spiller Hvit igjen.
+# Slutten på spillet
+Den som først forbinder alle tre sidene, vinner.

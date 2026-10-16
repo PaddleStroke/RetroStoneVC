@@ -1,0 +1,11 @@
+Y
+# Målet
+Förbind triangelns alla tre sidor med en enda grupp av dina stenar. En hörncell hör till båda sidorna som möts där. Vit (ljus) börjar.
+# Spelets gång
+- Spelarna turas om att lägga en sten på valfri tom cell. Stenarna flyttas aldrig och fångas aldrig.
+- Två av dina stenar hänger ihop när deras celler gränsar till varandra längs en kant: varje cell har sex grannar.
+- Det blir aldrig oavgjort: när brädet är fullt har alltid en av spelarna förbundit alla tre sidorna.
+# Bytet
+Att börja är en stor fördel. Bara i andra draget får Svart ta Vits första sten i stället för att lägga en egen: stenen blir svart där den ligger. Sedan spelar Vit igen.
+# Partiets slut
+Den som först förbinder alla tre sidorna vinner.

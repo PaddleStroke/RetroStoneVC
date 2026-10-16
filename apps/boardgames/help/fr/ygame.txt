@@ -1,0 +1,11 @@
+Y
+# Le but
+Relier les trois bords du triangle par un seul groupe de tes pierres. Une case de coin appartient aux deux bords qui s'y rejoignent. Blanc (clair) commence.
+# Le jeu
+- À tour de rôle, chaque joueur pose une pierre sur n'importe quelle case vide. Les pierres ne bougent jamais et ne sont jamais capturées.
+- Deux de tes pierres sont reliées quand leurs cases se touchent par un côté : chaque case a six voisines.
+- Il n'y a jamais de partie nulle : une fois le plateau plein, l'un des joueurs a forcément relié les trois bords.
+# L'échange
+Jouer en premier est un gros avantage. Au deuxième coup seulement, Noir peut prendre la première pierre de Blanc au lieu de poser une pierre : elle devient noire, sur place. Puis Blanc rejoue.
+# La fin de la partie
+Le premier joueur qui relie les trois bords gagne.

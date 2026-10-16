@@ -1,0 +1,11 @@
+Y
+# Cel gry
+Połącz wszystkie trzy brzegi trójkąta jedną grupą swoich kamieni. Pole w rogu należy do obu brzegów, które się w nim stykają. Zaczynają białe (jasne).
+# Rozgrywka
+- Gracze na zmianę kładą po jednym kamieniu na dowolnym wolnym polu. Kamienie nigdy się nie przesuwają i nigdy nie są zbijane.
+- Dwa twoje kamienie są połączone, gdy ich pola stykają się bokiem: każde pole ma sześciu sąsiadów.
+- Nigdy nie ma remisu: gdy plansza jest pełna, jeden z graczy zawsze ma już połączone wszystkie trzy brzegi.
+# Zamiana
+Pierwszy ruch daje dużą przewagę. Tylko w drugim ruchu czarne mogą przejąć pierwszy kamień białych zamiast kłaść własny: kamień staje się czarny na swoim miejscu. Potem białe grają ponownie.
+# Koniec gry
+Wygrywa gracz, który pierwszy połączy wszystkie trzy brzegi.

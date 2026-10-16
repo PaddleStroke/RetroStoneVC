@@ -1,0 +1,11 @@
+Y
+# Cíl hry
+Spoj všechny tři strany trojúhelníku jedinou skupinou svých kamenů. Rohové pole patří k oběma stranám, které se v něm stýkají. Začíná bílý (světlý).
+# Hra
+- Hráči střídavě pokládají po jednom kameni na libovolné volné pole. Kameny se nikdy nepohnou a nikdy nejsou zajaty.
+- Dva tvé kameny jsou spojeny, když se jejich pole dotýkají hranou: každé pole má šest sousedů.
+- Remíza nikdy nenastane: jakmile je deska plná, jeden z hráčů vždy spojil všechny tři strany.
+# Výměna
+Hrát první je velká výhoda. Jen ve druhém tahu smí černý místo položení kamene převzít první kámen bílého: kámen zčerná na svém místě. Potom hraje znovu bílý.
+# Konec hry
+Vyhrává hráč, který jako první spojí všechny tři strany.

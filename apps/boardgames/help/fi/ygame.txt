@@ -1,0 +1,11 @@
+Y
+# Tavoite
+Yhdistä kolmion kaikki kolme reunaa yhdellä omien kivien ryhmällä. Kulmasolu kuuluu kumpaankin reunaan, jotka kohtaavat siinä. Valkoinen (vaalea) aloittaa.
+# Pelin kulku
+- Pelaajat asettavat vuorotellen yhden kiven mihin tahansa tyhjään soluun. Kivet eivät koskaan liiku, eikä niitä koskaan vangita.
+- Kaksi kiveäsi ovat yhteydessä, kun niiden solut koskettavat toisiaan sivulta: jokaisella solulla on kuusi naapuria.
+- Tasapeliä ei koskaan tule: kun lauta on täynnä, toinen pelaajista on aina yhdistänyt kaikki kolme reunaa.
+# Vaihto
+Aloittaminen on suuri etu. Vain toisella siirrolla Musta saa ottaa Valkoisen ensimmäisen kiven sen sijaan, että asettaisi oman: kivi muuttuu mustaksi paikallaan. Sitten Valkoinen pelaa uudelleen.
+# Pelin loppu
+Voittaja on se, joka ensimmäisenä yhdistää kaikki kolme reunaa.
