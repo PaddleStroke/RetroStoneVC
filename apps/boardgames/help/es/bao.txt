@@ -1,0 +1,12 @@
+Bao
+# El objetivo
+Dejar al rival con la fila interior vacía o sin movimiento posible. Cada hoyo empieza con dos semillas. Las dos filas de tu lado son tuyas; tu fila interior está frente a la del rival. Empiezan las claras.
+# Sembrar
+- Toma todas las semillas de uno de tus hoyos que tenga dos o más y siémbralas una a una alrededor de tus dos filas, en el sentido de las agujas del reloj o al revés.
+- Si la última semilla cae en un hoyo vacío, tu turno termina. Si el hoyo tenía semillas, tómalas todas y sigue sembrando.
+# Capturar
+- Si la última semilla cae en un hoyo ocupado de tu fila interior y el hoyo de enfrente tiene semillas, las capturas.
+- Siembra las semillas capturadas en tu fila interior desde un extremo: el izquierdo si la captura fue en los dos hoyos de la izquierda, el derecho a la derecha, y si no, el extremo que mantiene el mismo sentido de siembra.
+- Si puedes capturar, debes hacerlo. Una jugada que no empieza con una captura no captura nada y debe salir de tu fila interior si es posible.
+# El final de la partida
+Pierdes cuando tu fila interior queda vacía o no puedes mover. Tras 600 jugadas gana quien tenga más semillas.

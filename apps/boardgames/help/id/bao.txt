@@ -1,0 +1,12 @@
+Bao
+# Tujuan
+Buat lawan kehabisan biji di baris dalamnya, atau tidak bisa melangkah. Setiap lubang mulai dengan dua biji. Dua baris di sisimu milikmu; baris dalammu berhadapan dengan baris dalam lawan. Terang mulai lebih dulu.
+# Menabur
+- Ambil semua biji dari salah satu lubangmu yang berisi dua biji atau lebih, lalu taburkan satu per satu mengelilingi kedua barismu, searah atau berlawanan arah jarum jam.
+- Jika biji terakhir jatuh di lubang kosong, giliranmu selesai. Jika lubang itu berisi biji, ambil semuanya dan lanjutkan menabur.
+# Memukul
+- Jika biji terakhir jatuh di lubang berisi pada baris dalammu dan lubang di depannya berisi biji, kamu mengambil biji itu.
+- Taburkan biji tangkapan ke baris dalammu dari salah satu ujung: ujung kiri jika tangkapan terjadi di dua lubang kiri, ujung kanan di kanan, selain itu ujung yang menjaga arah taburan tetap sama.
+- Jika bisa menangkap, kamu wajib menangkap. Langkah yang tidak dimulai dengan tangkapan tidak menangkap apa pun, dan harus dimulai dari baris dalam jika bisa.
+# Akhir permainan
+Kamu kalah jika baris dalammu kosong atau kamu tidak bisa melangkah. Setelah 600 langkah, yang punya biji terbanyak menang.

@@ -1,0 +1,12 @@
+Bao
+# Le but
+Laisser l'adversaire avec une rangée intérieure vide, ou sans coup possible. Chaque trou commence avec deux graines. Les deux rangées de votre côté sont à vous ; votre rangée intérieure fait face à celle de l'adversaire. Le clair commence.
+# Semer
+- Prenez toutes les graines d'un de vos trous qui en contient au moins deux, et semez-les une par une autour de vos deux rangées, dans le sens des aiguilles d'une montre ou dans l'autre.
+- Si la dernière graine tombe dans un trou vide, votre tour s'arrête. Si le trou contenait des graines, ramassez-les toutes et continuez à semer.
+# Les prises
+- Si la dernière graine tombe dans un trou non vide de votre rangée intérieure, et que le trou en face contient des graines, vous les prenez.
+- Semez les graines prises dans votre rangée intérieure depuis un bout : le bout gauche si la prise a eu lieu dans les deux trous de gauche, le bout droit à droite, sinon le bout qui garde le même sens de semis.
+- Quand vous pouvez prendre, vous devez le faire. Un coup qui ne commence pas par une prise ne prend rien, et doit partir de votre rangée intérieure si possible.
+# La fin de la partie
+Vous perdez quand votre rangée intérieure est vide ou que vous ne pouvez plus jouer. Après 600 coups, celui qui a le plus de graines gagne.

@@ -1,0 +1,12 @@
+Bao
+# Het doel
+De ander achterlaten met een lege binnenrij, of zonder zet. Elk kuiltje begint met twee zaden. De twee rijen aan jouw kant zijn van jou; jouw binnenrij ligt tegenover die van de ander. Licht begint.
+# Zaaien
+- Neem alle zaden uit een van je kuiltjes met twee of meer en zaai ze een voor een rond je twee rijen, met de klok mee of ertegenin.
+- Valt het laatste zaad in een leeg kuiltje, dan eindigt je beurt. Lagen er al zaden, neem ze dan allemaal op en zaai verder.
+# Slaan
+- Valt het laatste zaad in een bezet kuiltje van je binnenrij en liggen er zaden in het kuiltje ertegenover, dan sla je die.
+- Zaai de geslagen zaden in je binnenrij vanaf een uiteinde: het linker als er geslagen werd in de twee linker kuiltjes, het rechter rechts, anders het uiteinde waarbij het zaaien dezelfde kant op blijft gaan.
+- Kun je slaan, dan moet je. Een zet die niet met slaan begint, slaat niets en moet uit je binnenrij komen als dat kan.
+# Het einde van de partij
+Je verliest als je binnenrij leeg is of je niet kunt zetten. Na 600 zetten wint wie de meeste zaden heeft.

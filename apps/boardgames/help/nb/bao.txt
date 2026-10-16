@@ -1,0 +1,12 @@
+Bao
+# Målet
+La motstanderen stå igjen med en tom indre rad, eller uten trekk. Hvert hull starter med to frø. De to radene på din side er dine; den indre raden din vender mot motstanderens. Lys begynner.
+# Så
+- Ta alle frøene fra et av hullene dine med to eller flere, og så dem ett og ett rundt de to radene dine, med eller mot klokka.
+- Faller det siste frøet i et tomt hull, slutter turen. Lå det frø i hullet, tar du opp alle og sår videre.
+# Slå ut
+- Faller det siste frøet i et opptatt hull i den indre raden din, og hullet rett overfor har frø, tar du dem.
+- Så de tatte frøene i den indre raden fra en ende: den venstre hvis slaget var i de to hullene til venstre, den høyre til høyre, ellers den enden som holder såingen i samme retning.
+- Kan du ta, må du. Et trekk som ikke begynner med et slag, tar ingenting og må starte i den indre raden hvis det går.
+# Slutten på spillet
+Du taper når den indre raden din er tom eller du ikke kan trekke. Etter 600 trekk vinner den med flest frø.

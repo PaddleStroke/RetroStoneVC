@@ -1,0 +1,12 @@
+Bao
+# Amaç
+Rakibi iç sırası boş ya da hamlesiz bırak. Her çukurda başta iki tohum vardır. Senin tarafındaki iki sıra senindir; iç sıran rakibin iç sırasına bakar. Açık renk başlar.
+# Ekme
+- İki ya da daha çok tohum olan bir çukurundaki bütün tohumları al ve iki sıranın çevresinde birer birer ek, saat yönünde ya da tersine.
+- Son tohum boş bir çukura düşerse sıran biter. Çukurda tohum varsa hepsini al ve ekmeye devam et.
+# Kırma
+- Son tohum iç sırandaki dolu bir çukura düşerse ve karşıdaki çukurda tohum varsa, onları alırsın.
+- Aldığın tohumları iç sırana bir uçtan ek: alış soldaki iki çukurdaysa sol uçtan, sağdakilerdeyse sağ uçtan, değilse ekişi aynı yönde sürdüren uçtan.
+- Alabiliyorsan almak zorundasın. Almayla başlamayan bir hamle hiçbir şey almaz ve mümkünse iç sıradan başlamalıdır.
+# Oyunun sonu
+İç sıran boşalınca ya da hamle yapamayınca kaybedersin. 600 hamleden sonra en çok tohumu olan kazanır.

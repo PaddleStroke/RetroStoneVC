@@ -1,0 +1,12 @@
+Bao
+# Das Ziel
+Dem Gegner eine leere innere Reihe oder keinen Zug mehr lassen. Jede Mulde beginnt mit zwei Samen. Die zwei Reihen auf deiner Seite gehören dir; deine innere Reihe liegt der des Gegners gegenüber. Hell beginnt.
+# Säen
+- Nimm alle Samen aus einer deiner Mulden mit mindestens zwei und säe sie einzeln rund um deine zwei Reihen, im oder gegen den Uhrzeigersinn.
+- Fällt der letzte Same in eine leere Mulde, endet dein Zug. Lagen dort schon Samen, nimm sie alle auf und säe weiter.
+# Schlagen
+- Fällt der letzte Same in eine besetzte Mulde deiner inneren Reihe und liegen in der Mulde gegenüber Samen, schlägst du sie.
+- Säe die geschlagenen Samen von einem Ende aus in deine innere Reihe: vom linken Ende, wenn in den zwei linken Mulden geschlagen wurde, vom rechten Ende rechts, sonst vom Ende, bei dem die Saat in derselben Richtung weiterläuft.
+- Kannst du schlagen, musst du. Ein Zug, der nicht mit einem Schlag beginnt, schlägt nichts und muss in deiner inneren Reihe beginnen, wenn das geht.
+# Das Ende der Partie
+Du verlierst, wenn deine innere Reihe leer ist oder du nicht ziehen kannst. Nach 600 Zügen gewinnt, wer mehr Samen hat.

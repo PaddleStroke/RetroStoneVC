@@ -1,0 +1,12 @@
+Bao
+# The aim
+Leave the other player with an empty inner row, or with no move. Each pit starts with two seeds. The two rows nearer you are yours; your inner row faces the other player's. Light starts.
+# Sowing
+- Take all the seeds of one of your pits holding two or more, and sow them one by one round your two rows, clockwise or anticlockwise.
+- If the last seed falls in an empty pit, your turn ends. If the pit held seeds, take them all up and sow on.
+# Capturing
+- If the last seed falls in a pit of your inner row that held seeds, and the facing pit holds seeds, you capture them.
+- Sow the captured seeds into your inner row from an end pit: the left end if the capture was in the two pits on the left, the right end on the right, else from the end that keeps your sowing turning the same way.
+- When you can capture, you must. A move that does not start with a capture captures nothing, and must start from your inner row if it can.
+# The end of the game
+You lose when your inner row is empty or you cannot move. After 600 moves, the most seeds wins.

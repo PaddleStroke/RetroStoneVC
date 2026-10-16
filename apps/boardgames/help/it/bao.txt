@@ -1,0 +1,12 @@
+Bao
+# Lo scopo
+Lasciare l'avversario con la fila interna vuota o senza mosse. Ogni buca comincia con due semi. Le due file dal tuo lato sono tue; la tua fila interna sta di fronte a quella dell'avversario. Inizia il chiaro.
+# Seminare
+- Prendi tutti i semi di una tua buca che ne ha almeno due e seminali uno alla volta lungo le tue due file, in senso orario o antiorario.
+- Se l'ultimo seme cade in una buca vuota, il turno finisce. Se la buca aveva semi, raccoglili tutti e continua a seminare.
+# Catturare
+- Se l'ultimo seme cade in una buca occupata della tua fila interna e la buca di fronte ha semi, li catturi.
+- Semina i semi catturati nella tua fila interna da un'estremità: la sinistra se la cattura è avvenuta nelle due buche a sinistra, la destra a destra, altrimenti l'estremità che mantiene lo stesso verso di semina.
+- Se puoi catturare, devi farlo. Una mossa che non comincia con una cattura non cattura nulla e deve partire dalla fila interna, se possibile.
+# La fine della partita
+Perdi quando la tua fila interna è vuota o non puoi muovere. Dopo 600 mosse vince chi ha più semi.

@@ -1,0 +1,12 @@
+Bao
+# Målet
+Efterlad modspilleren med en tom inderste række eller uden træk. Hvert hul starter med to frø. De to rækker på din side er dine; din inderste række vender mod modspillerens. Lys begynder.
+# Så
+- Tag alle frø fra et af dine huller med to eller flere, og så dem et ad gangen rundt om dine to rækker, med eller mod uret.
+- Falder det sidste frø i et tomt hul, slutter din tur. Var der frø i hullet, tager du dem alle op og sår videre.
+# Slag
+- Falder det sidste frø i et besat hul i din inderste række, og der er frø i hullet overfor, slår du dem.
+- Så de slåede frø i din inderste række fra en ende: den venstre, hvis slaget var i de to huller til venstre, den højre til højre, ellers den ende, der holder såningen i samme retning.
+- Kan du slå, skal du. Et træk, der ikke begynder med et slag, slår ingenting og skal starte i din inderste række, hvis det kan.
+# Spillets afslutning
+Du taber, når din inderste række er tom, eller du ikke kan trække. Efter 600 træk vinder den med flest frø.

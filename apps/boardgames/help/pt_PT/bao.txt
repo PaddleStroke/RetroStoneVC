@@ -1,0 +1,12 @@
+Bao
+# O objetivo
+Deixar o adversário com a fila interior vazia ou sem jogada. Cada casa começa com duas sementes. As duas filas do seu lado são suas; a sua fila interior fica em frente à do adversário. As claras começam.
+# Semear
+- Tire todas as sementes de uma casa sua com duas ou mais e semeie-as uma a uma à volta das suas duas filas, no sentido dos ponteiros do relógio ou no contrário.
+- Se a última semente cair numa casa vazia, a sua vez acaba. Se a casa tinha sementes, apanhe-as todas e continue a semear.
+# Capturar
+- Se a última semente cair numa casa ocupada da sua fila interior e a casa em frente tiver sementes, captura-as.
+- Semeie as sementes capturadas na sua fila interior a partir de uma ponta: a esquerda se a captura foi nas duas casas da esquerda, a direita à direita, senão a ponta que mantém o mesmo sentido de sementeira.
+- Quando puder capturar, tem de o fazer. Uma jogada que não começa com captura não captura nada e tem de partir da fila interior, se possível.
+# O fim do jogo
+Perde quando a sua fila interior fica vazia ou não pode jogar. Ao fim de 600 jogadas, ganha quem tiver mais sementes.
