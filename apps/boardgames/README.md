@@ -74,8 +74,10 @@ One look across the app, like the Arcade games' house kit:
   names `help/en/_langs.txt`. The theme colours the pages, the menu and the rules page (`TH`), never a board.
   Picture mode: `--page stats|settings`, `--theme light|dark`, `--search "words"`, `--stats-demo`, `--tips-demo`.
 - **XP and the streak** (`src/stats.h`): a level solved 10 + 5 a star the first time, then 5 a star gained; a puzzle
-  at random 10 + 5 a star; a game finished 5, won by a person against the device 20 more a bot level (1..3); the
-  Arcade later: `stats_award(STATS_ARCADE, xp)`. A day counts once a game or a level is finished; a game ends in the
+  at random 10 + 5 a star; a game finished 5, won by a person against the device 20 more a bot level (1..3); an
+  Arcade game (the RetroStone app) 5 for a session of 30 s or more (`stats_finish`: the day counts, the game counts
+  as played), 20 for a new best score (`stats_award(STATS_ARCADE, 20)`). A day counts once a game or a level is
+  finished; a game ends in the
   stats once (an undo and the same end give nothing more); the device playing alone counts for nobody.
 - **The picker's names** (optional): `help/<lang>/<id>_variants.txt`, a line a picker card in its order (no title
   line: the first line names card 0), shown in cream under each card's picture, shrunk or split in two lines to fit
@@ -209,6 +211,37 @@ of the picker, and keeps the progress.
   chapters, a die: the variant picker under the same tabs, and a card picked there starts `start_random(variant)`;
   `ui.level` tells the game which way it was started (the level, or -1 at random). The end card's next button: a new
   random puzzle of the variant; stars are kept per level only.
+
+## The Arcade tab (the RetroStone app)
+
+The RetroStone app (`apps/android/app-retrostone.conf`, `EDITION=retrostone`, `apps/android/build.sh retrostone`)
+also plays the RetroStone VC games, in a last tab with a joystick (`SEC_ARCADE`). Its .conf's `ARCADE=` names the
+Arcade's own .conf (`apps/android/app-full.conf`): the tab shows that app's catalogue, every game of `games/` with a
+`docs/screenshots/title.png` but its `HIDDEN_GAMES`, by name; a new game appears at the next build. Board and Board
+Free have no `ARCADE`: no tab, nothing of it built (`src/arcade.c`'s stand-ins).
+
+- **The build** (`Makefile`, the rules at its end): `tools/gen_arcade.py` writes `$(B)/arcade/gen`: each game's card
+  (96 x 96 pixels at 1x around the Arcade's card, `apps/launcher/cards`; else the middle of its title screen), its
+  name (the Arcade's, as text `arcade_<id>` for `gen_text.py --extra`; a `NAME =` in the game's
+  `strings/<lang>.txt` would translate it), `_licences` with the Arcade's components (`gen_credits.py`), and the
+  bundle's .conf. `apps/launcher/bundle.mk board-lib` (in `$(B)/arcade/<platform>`) makes the launcher's runtime, its
+  catalogue and every game as a module (`modulize.py`) into `libarcade_core.a`, the SDK into `librs.a`, linked as a
+  group. `src/arcade_play.c` compiles the Arcade's own SDL frontend (`apps/launcher/src/rsb_sdl.c`, its `main`
+  renamed) into the app.
+- **The cards** (`src/arcade.h`): each game is a game of the shell's list (`ARCADE_CARD`, registered by the generated
+  `arcade_data.c`) with a picture and a name only, so the tab, its cards, the names, the search and the Stats page's
+  bar come from the shell as for any game. Its picture: the 96 x 96 at a whole scale (nearest), cut to the card.
+- **Playing** (`arcade_play`): a tap on a card runs the game in the app's window and renderer, as the Arcade app runs
+  it: the picture on the display's height (an integer scale when it fits, nearest pixels, blurred borders), its touch
+  scheme (`apps/launcher/games.cfg`, its drawn buttons), the Arcade's pause and back buttons, pads (players 2-4) and
+  keys, the sound; Android turns to landscape (`setRequestedOrientation`) and back to `fullUser` after. Back, Esc or
+  the back button: its state is saved and the Arcade tab comes back; a tap on its card resumes it (the play sign).
+  Its files sit beside the app's save file: `arcade-<id>.state`, `arcade-<id>.srm` (the best score, `games.cfg`'s
+  `best=`), `arcade-review.cfg`.
+- **XP and the Stats page**: 5 XP for a session of 30 s or more (`stats_finish(STATS_ARCADE, ...)`: the day counts in
+  the streak, the game counts as played: the Arcade bar is games played of all), 20 for a new best score.
+- **Picture mode**: `--shot out.bmp --size 1280x720 --game arcade_<id> [--at ms] [--pad "START@60 A@120"]`: the game
+  started afresh, run `--at` ms (3000) headless, those buttons pressed 6 frames each from those frames.
 
 ## The free edition
 

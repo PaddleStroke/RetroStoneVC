@@ -31,6 +31,7 @@
  */
 #include "shell.h"
 #include "ai.h"
+#include "arcade.h"
 #include "bots.h"
 #include "cards.h"
 #include "edition.h"
@@ -91,8 +92,9 @@ static int is_bot(int p) { return p >= 0 && p < MAX_PLAYERS && (botmask >> p & 1
 static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~botmask); }
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
- * order. The games not listed are strategy games. */
-enum { SEC_PUZZLE, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SECTIONS };
+ * order. The games not listed are strategy games. SEC_ARCADE: the RetroStone app's Arcade games (arcade.h; none in
+ * the other editions: no tab), STATS_ARCADE. */
+enum { SEC_PUZZLE, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_ARCADE, SECTIONS };
 static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
     {"jungle", SEC_CHESS},
@@ -131,6 +133,7 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
 
 static int section_of(const game *g)
 {
+    if (arcade_of(g) >= 0) return SEC_ARCADE;
     for (size_t i = 0; i < sizeof SECTION_OF / sizeof SECTION_OF[0]; i++)
         if (!strcmp(SECTION_OF[i].id, g->id)) return SECTION_OF[i].section;
     return SEC_STRATEGY;
@@ -1746,6 +1749,7 @@ static void tab_icon(int s, int d, uint8_t *o)
     else if (s == SEC_CHESS) art_piece(KNIGHT, WHITE, d, o);
     else if (s == SEC_GUESS) art_icon(ICON_HELP, d, o);
     else if (s == SEC_PUZZLE) art_icon(ICON_PUZZLE, d, o);
+    else if (s == SEC_ARCADE) arcade_icon(d, o);
     else {                                      /* a die, a card: smaller, in the middle */
         int h = (int)(d * (s == SEC_RACE ? 0.78f : 0.92f));
         int w = s == SEC_RACE ? h : (int)(h / cards_aspect(DECK_FRENCH));
@@ -4587,6 +4591,7 @@ static void release(float x, float y)
             if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
                 snd_play(SND_TAP);
                 if (locked(i)) full_open();     /* the free edition: the full version's */
+                else if (arcade_of(games[i]) >= 0) arcade_play(arcade_cards[arcade_of(games[i])].id, ui.r);
                 else open_game(i, -1);
                 return;
             }
@@ -5102,6 +5107,8 @@ static int shot(int argc, char **argv)
         cur = find_game(id);
         if (cur < 0) { fprintf(stderr, "no game %s\n", id); return 1; }
         if (locked(cur)) { fprintf(stderr, "%s is locked in %s\n", id, ed_app_name); return 1; }
+        if (arcade_of(games[cur]) >= 0)         /* an Arcade game (--at ms, --pad "A@60"): its own picture */
+            return arcade_shot(arcade_cards[arcade_of(games[cur])].id, ui.r, surf, out, argc, argv);
         if (np) nplayers[cur] = np;             /* --players n: how many play */
         ui.players = players_of(cur);
         if (solved && !shot_solved(solved)) { fprintf(stderr, "bad --solved\n"); return 1; }

@@ -4,3 +4,4 @@ La famille des échecs
 Dés et parcours
 Cartes et tuiles
 Jeux de déduction
+Arcade

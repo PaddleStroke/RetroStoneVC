@@ -4,3 +4,4 @@ De schaakfamilie
 Dobbel- en racespellen
 Kaarten en stenen
 Raadspellen
+Arcade

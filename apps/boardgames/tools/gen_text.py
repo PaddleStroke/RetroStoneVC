@@ -51,19 +51,21 @@ def load(group, bold):
     return TTFont(path, fontNumber=face, lazy=False) if face is not None else TTFont(path, lazy=False)
 
 
-def read_texts():
-    """{lang: {game: text}} (a text: the file as it is, trailing spaces removed)"""
+def read_texts(extra=None):
+    """{lang: {game: text}} (a text: the file as it is, trailing spaces removed); extra: another folder of
+    <lang>/<key>.txt made by the build (the RetroStone app's Arcade: tools/gen_arcade.py), read after help/ (its
+    texts win)"""
     texts = {}
     for lang in LANGS:
-        d = os.path.join(APP, "help", lang)
         texts[lang] = {}
-        if not os.path.isdir(d):
-            continue
-        for f in sorted(os.listdir(d)):
-            if f.endswith(".txt"):
-                with open(os.path.join(d, f), encoding="utf-8") as fh:
-                    lines = [l.rstrip() for l in fh.read().replace("\r", "").split("\n")]
-                texts[lang][f[:-4]] = "\n".join(lines).strip() + "\n"
+        for d in [os.path.join(APP, "help", lang)] + ([os.path.join(extra, lang)] if extra else []):
+            if not os.path.isdir(d):
+                continue
+            for f in sorted(os.listdir(d)):
+                if f.endswith(".txt"):
+                    with open(os.path.join(d, f), encoding="utf-8") as fh:
+                        lines = [l.rstrip() for l in fh.read().replace("\r", "").split("\n")]
+                    texts[lang][f[:-4]] = "\n".join(lines).strip() + "\n"
     return texts
 
 
@@ -118,8 +120,9 @@ def c_str(s):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
+    ap.add_argument("--extra", help="more texts: <dir>/<lang>/<key>.txt (the RetroStone app's Arcade games)")
     a = ap.parse_args()
-    texts = read_texts()
+    texts = read_texts(a.extra)
     if "en" not in texts or not texts["en"]:
         sys.exit("gen_text: no English texts in apps/boardgames/help/en")
     group = groups_of(texts)
