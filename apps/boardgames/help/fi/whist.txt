@@ -1,0 +1,14 @@
+Whist
+# Tavoite
+Kaksi kahden hengen paria, parit vastakkain, yrittävät ottaa tikkejä. Jokainen kuuden ylittävä tikki tuo pisteen; ensin 5 pisteeseen ehtinyt pari voittaa (pitkässä whistissä 10).
+# Pelaaminen
+- Kaikki 52 korttia jaetaan, 13 kullekin. Jakajan viimeinen kortti käännetään: sen maa on valtti koko jaon. Se pysyy näkyvissä, kunnes jakaja pelaa sen.
+- Jakajan jälkeinen pelaaja aloittaa. Vuorollaan kukin tunnustaa maata, jos voi, muuten pelaa minkä tahansa kortin.
+- Korkein valtti voittaa tikin, muuten aloitetun maan korkein kortti; ässä on korkein. Tikin voittaja aloittaa seuraavan.
+# Pisteet
+- Pari saa 1 pisteen jokaisesta kuuden ylittävästä tikistä.
+- Honöörit, kun ne lasketaan: pari, joka sai valttiässän, -kuninkaan, -rouvan ja -sotilaan, saa 4 pistettä, kolmesta niistä 2. Tikit lasketaan ensin, eikä pari, jolta puuttuu yksi piste voitosta, saa honöörejä.
+# Whist kahdelle
+Kahdelle pelaajalle: kummallekin 13 korttia, loput pakaksi, jonka päällimmäinen kortti käännetään; sen maa on valtti. Maata on tunnustettava. Tikin voittaja ottaa käännetyn kortin, häviäjä seuraavan, piilossa; sitten käännetään uusi kortti. Kun pakka loppuu, pelataan viimeiset 13 tikkiä, ja vain ne lasketaan: piste jokaisesta kuuden ylittävästä tikistä.
+# Pelin loppu
+Ensin 5 pisteeseen (pitkässä whistissä 10) ehtinyt pari voittaa.

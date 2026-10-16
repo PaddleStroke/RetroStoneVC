@@ -1,0 +1,14 @@
+Whist
+# Målet
+To lag med to makkere, som sitter overfor hverandre, prøver å ta stikk. Hvert stikk over seks gir ett poeng; det første laget som når 5 poeng, vinner (10 i langt whist).
+# Spillet
+- Alle 52 kortene deles ut, 13 til hver. Giverens siste kort snus: fargen er trumf i spillet. Det ligger synlig til giveren spiller det.
+- Spilleren etter giveren spiller ut. Etter tur følger hver farge om mulig, ellers spilles et hvilket som helst kort.
+- Høyeste trumf vinner stikket, ellers høyeste kort i utspilt farge; esset er høyest. Vinneren spiller ut til neste stikk.
+# Poengene
+- Et lag får 1 poeng for hvert stikk over seks.
+- Honnører, når de teller: et lag som fikk ess, konge, dame og knekt i trumf, får 4 poeng, for tre av dem 2. Stikkene teller først, og et lag som mangler ett poeng, får ingen honnører.
+# Whist for to
+For 2 spillere: 13 kort hver, resten er en bunke med øverste kort snudd; fargen er trumf. Man må følge farge. Vinneren av stikket tar det snudde kortet, taperen det neste, skjult; så snus et nytt kort. Når bunken er tom, spilles de siste 13 stikkene, og bare de teller: ett poeng for hvert stikk over seks.
+# Slutten på spillet
+Det første laget som når 5 poeng (10 i langt whist), vinner.

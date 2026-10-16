@@ -1,0 +1,14 @@
+Whist
+# Cíl hry
+Dvě dvojice spoluhráčů, kteří sedí naproti sobě, se snaží brát štychy. Každý štych nad šest přináší bod; vyhrává dvojice, která první dosáhne 5 bodů (10 v dlouhém whistu).
+# Hra
+- Rozdá se všech 52 karet, každému 13. Poslední karta rozdávajícího se otočí lícem nahoru: její barva je pro toto rozdání trumf. Zůstává vidět, dokud ji rozdávající nezahraje.
+- Vynáší hráč po rozdávajícím. Každý na tahu přizná barvu, pokud může, jinak zahraje libovolnou kartu.
+- Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy; eso je nejvyšší. Kdo štych vzal, vynáší další.
+# Počítání bodů
+- Dvojice získá 1 bod za každý štych nad šest.
+- Honéry, pokud se počítají: dvojice, která dostala trumfové eso, krále, dámu a kluka, získá 4 body, za tři z nich 2. Štychy se počítají první a dvojice, které chybí jediný bod do vítězství, honéry nezíská.
+# Whist ve dvou
+Pro 2 hráče: každý 13 karet, zbytek tvoří talon s horní kartou otočenou; její barva je trumf. Barvu je nutné přiznat. Vítěz štychu si vezme otočenou kartu, poražený další, skrytě; pak se otočí nová karta. Po vyčerpání talonu se hraje posledních 13 štychů a počítají se jen ony: bod za každý štych nad šest.
+# Konec hry
+Vyhrává dvojice, která první dosáhne 5 bodů (10 v dlouhém whistu).

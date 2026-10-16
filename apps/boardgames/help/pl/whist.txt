@@ -1,0 +1,14 @@
+Wist
+# Cel gry
+Dwie pary partnerów, siedzących naprzeciw siebie, starają się brać lewy. Każda lewa ponad sześć daje punkt; wygrywa para, która pierwsza zdobędzie 5 punktów (10 w długim wiście).
+# Rozgrywka
+- Rozdaje się wszystkie 52 karty, po 13. Ostatnią kartę rozdającego odkrywa się: jej kolor jest atutem w tym rozdaniu. Pozostaje widoczna, dopóki rozdający jej nie zagra.
+- Wychodzi gracz po rozdającym. Każdy po kolei dokłada do koloru, jeśli może, a jeśli nie, zagrywa dowolną kartę.
+- Lewę bierze najwyższy atut, a bez atutu najwyższa karta koloru wyjścia; as jest najwyższy. Zwycięzca lewy wychodzi do następnej.
+# Punktacja
+- Para dostaje 1 punkt za każdą lewę ponad sześć.
+- Honory, jeśli się liczą: para, która dostała asa, króla, damę i waleta atutowego, dostaje 4 punkty, za trzy z nich 2. Najpierw liczą się lewy, a para, której brakuje jednego punktu do wygranej, nie dostaje honorów.
+# Wist we dwoje
+Dla 2 graczy: po 13 kart, reszta to talia z odkrytą wierzchnią kartą; jej kolor jest atutem. Trzeba dokładać do koloru. Zwycięzca lewy bierze odkrytą kartę, przegrany następną, zakrytą; potem odkrywa się nową kartę. Gdy talia się skończy, gra się ostatnie 13 lew i tylko one się liczą: punkt za każdą lewę ponad sześć.
+# Koniec gry
+Wygrywa para, która pierwsza zdobędzie 5 punktów (10 w długim wiście).

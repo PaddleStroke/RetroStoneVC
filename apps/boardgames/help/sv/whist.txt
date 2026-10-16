@@ -1,0 +1,14 @@
+Whist
+# Målet
+Två lag med två partner, som sitter mitt emot varandra, försöker ta stick. Varje stick över sex ger en poäng; det första laget som når 5 poäng vinner (10 i långt whist).
+# Spelet
+- Alla 52 korten delas ut, 13 till var och en. Givarens sista kort vänds upp: dess färg är trumf i given. Det ligger synligt tills givaren spelar det.
+- Spelaren efter givaren spelar ut. I tur och ordning bekänner var och en färg om det går, annars spelas valfritt kort.
+- Högsta trumf vinner sticket, annars högsta kortet i utspelad färg; esset är högst. Vinnaren spelar ut till nästa stick.
+# Poängen
+- Ett lag får 1 poäng för varje stick över sex.
+- Honnörer, när de räknas: ett lag som fick ess, kung, dam och knekt i trumf får 4 poäng, för tre av dem 2. Sticken räknas först, och ett lag som bara saknar en poäng får inga honnörer.
+# Whist för två
+För 2 spelare: 13 kort var, resten blir en hög med översta kortet uppvänt; dess färg är trumf. Man måste bekänna färg. Vinnaren av sticket tar det uppvända kortet, förloraren nästa, dolt; sedan vänds ett nytt kort. När högen är slut spelas de sista 13 sticken, och bara de räknas: en poäng för varje stick över sex.
+# Partiets slut
+Det första laget som når 5 poäng (10 i långt whist) vinner.
