@@ -1,0 +1,15 @@
+Scorpione
+# Lo scopo
+Ricomporre i quattro semi nelle colonne, ognuno in ordine dal re all'asso. Un gioco per un giocatore.
+# La disposizione
+- Sette colonne di sette carte. Nelle prime quattro, le tre carte in basso sono coperte; tutte le altre sono scoperte.
+- Le ultime tre carte aspettano in alto a sinistra.
+# Muovere le carte
+- Qualsiasi carta scoperta può muoversi, con tutte le carte che ha sopra, sulla carta in cima a una colonna di un valore in più e dello stesso seme: il 6 di cuori sul 7 di cuori.
+- Solo un re, con quello che ha sopra, può occupare una colonna vuota.
+- Quando una carta coperta resta in cima a una colonna, si scopre.
+- Tocca le tre carte in attesa per distribuirle, una su ciascuna delle prime tre colonne: in qualsiasi momento, ma una volta sola.
+# La fine della partita
+Un seme completo, in ordine dal re all'asso in cima a una colonna, se ne va da solo. Vinci quando tutti e quattro i semi se ne sono andati.
+# Livelli e stelle
+150 livelli in sei capitoli, ognuno una smazzata che si può vincere; la scheda del dado distribuisce a caso. Senza suggerimenti né mosse annullate: 3 stelle; fino a due in tutto: 2 stelle; altrimenti 1.

@@ -1,0 +1,15 @@
+Escorpión
+# El objetivo
+Formar los cuatro palos en las columnas, cada uno en orden del rey al as. Un juego para un jugador.
+# La disposición
+- Siete columnas de siete cartas. En las cuatro primeras, las tres cartas de abajo están boca abajo; todas las demás, boca arriba.
+- Las tres últimas cartas esperan arriba a la izquierda.
+# Mover cartas
+- Cualquier carta boca arriba puede moverse, con todas las que tiene encima, sobre la carta de arriba de una columna que sea un valor más alta y del mismo palo: el 6 de corazones sobre el 7 de corazones.
+- Solo un rey, con lo que tenga encima, puede ocupar una columna vacía.
+- Cuando una carta boca abajo queda arriba de una columna, se da la vuelta.
+- Toca las tres cartas que esperan para repartirlas, una en cada una de las tres primeras columnas: cuando quieras, pero una sola vez.
+# El final de la partida
+Un palo entero en orden del rey al as arriba de una columna se retira solo. Ganas cuando se han retirado los cuatro palos.
+# Niveles y estrellas
+150 niveles en seis capítulos, cada uno un reparto que se puede ganar; la pestaña del dado reparte al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos en total: 2 estrellas; si no, 1.

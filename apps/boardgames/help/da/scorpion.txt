@@ -1,0 +1,15 @@
+Skorpion
+# Målet
+Byg de fire kulører op i rækkerne, hver i orden fra kongen ned til esset. Et spil for én spiller.
+# Opstillingen
+- Syv rækker med syv kort. I de første fire ligger de tre nederste kort skjult; alle de andre ligger synligt.
+- De sidste tre kort venter øverst til venstre.
+# Flyt kort
+- Ethvert synligt kort kan flyttes, med alle de kort, der ligger på det, over på det øverste kort i en række, som er én højere og i samme kulør: hjerter 6 på hjerter 7.
+- Kun en konge, med det der ligger på den, må fylde en tom række.
+- Når et skjult kort ligger øverst i en række, vendes det.
+- Tryk på de tre ventende kort for at give dem, ét på hver af de første tre rækker: når som helst, men kun én gang.
+# Spillets afslutning
+En hel kulør, der ligger i orden fra konge til es øverst i en række, går af sig selv. Du vinder, når alle fire kulører er gået.
+# Baner og stjerner
+150 baner i seks kapitler, hver et spil der kan vindes; fanen med terningen giver tilfældigt. Uden tip og uden fortrudte træk: 3 stjerner; op til to i alt: 2 stjerner; ellers 1.

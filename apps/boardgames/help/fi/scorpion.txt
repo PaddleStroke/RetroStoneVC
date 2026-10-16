@@ -1,0 +1,15 @@
+Skorpioni
+# Tavoite
+Rakenna neljä maata sarakkeisiin, kukin järjestyksessä kuninkaasta alas ässään. Peli yhdelle pelaajalle.
+# Asetelma
+- Seitsemän saraketta, joissa kussakin seitsemän korttia. Neljässä ensimmäisessä kolme alinta korttia ovat kuvapuoli alaspäin; kaikki muut ovat kuvapuoli ylöspäin.
+- Kolme viimeistä korttia odottavat vasemmalla ylhäällä.
+# Korttien siirtäminen
+- Minkä tahansa näkyvän kortin voi siirtää päällään olevine kortteineen sellaisen sarakkeen päällimmäisen kortin päälle, joka on yhtä suurempi ja samaa maata: hertta 6 hertta 7:n päälle.
+- Vain kuningas, päällään olevine kortteineen, saa täyttää tyhjän sarakkeen.
+- Kun piilossa oleva kortti jää sarakkeen päällimmäiseksi, se kääntyy.
+- Napauta kolmea odottavaa korttia, niin ne jaetaan, yksi kunkin kolmen ensimmäisen sarakkeen päälle: milloin vain, mutta vain kerran.
+# Pelin loppu
+Kokonainen maa, joka on sarakkeen päällä järjestyksessä kuninkaasta ässään, poistuu itsestään. Voitat, kun kaikki neljä maata ovat poistuneet.
+# Tasot ja tähdet
+150 tasoa kuudessa luvussa, jokainen voitettava jako; noppavälilehti jakaa sattumanvaraisesti. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi yhteensä: 2 tähteä; muuten 1.

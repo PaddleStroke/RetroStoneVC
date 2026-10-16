@@ -1,0 +1,15 @@
+Kalajengking
+# Tujuan
+Menyusun keempat jenis kartu di kolom, masing-masing berurutan dari raja turun sampai as. Permainan untuk satu pemain.
+# Susunan
+- Tujuh kolom berisi tujuh kartu. Di empat kolom pertama, tiga kartu terbawah tertutup; semua kartu lain terbuka.
+- Tiga kartu terakhir menunggu di kiri atas.
+# Memindahkan kartu
+- Kartu terbuka mana pun bisa dipindahkan, bersama semua kartu di atasnya, ke kartu teratas sebuah kolom yang satu tingkat lebih tinggi dan sejenis: 6 hati ke 7 hati.
+- Hanya raja, bersama kartu di atasnya, yang boleh mengisi kolom kosong.
+- Kartu tertutup yang tertinggal di puncak kolom akan terbuka sendiri.
+- Ketuk tiga kartu yang menunggu untuk membagikannya, satu ke masing-masing tiga kolom pertama: kapan saja, tetapi hanya sekali.
+# Akhir permainan
+Satu jenis lengkap yang berurutan dari raja sampai as di puncak kolom akan pergi sendiri. Kamu menang saat keempat jenis sudah pergi.
+# Level dan bintang
+150 level dalam enam bab, masing-masing pembagian yang bisa dimenangkan; tab dadu membagikan secara acak. Tanpa petunjuk dan tanpa urungkan: 3 bintang; paling banyak dua seluruhnya: 2 bintang; selain itu 1.
