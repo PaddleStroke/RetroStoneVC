@@ -1,0 +1,11 @@
+Spojování kamenů
+# Cíl hry
+Kameny mahjongu vyplňují obdélník. Odeber je všechny, vždy dva stejné kameny naráz.
+# Tah
+Dva stejné kameny odejdou, když je spojí čára s nejvýš dvěma zatáčkami. Čára vede jen prázdnými poli nebo kolem okraje obdélníku; dřevěné kostky ji zastaví.
+V některých úrovních ostatní kameny po každé dvojici padají: dolů, doleva nebo ke středu (ukazuje to šipka v liště). Kostka drží kameny nad sebou.
+Jeden obrázek může být víc než dvakrát: pak pečlivě vyber, které dva patří k sobě. Každou desku lze vyprázdnit bez míchání.
+# Konec hry
+Hádanka je vyřešená, když zmizí všechny kameny. Když nejde spojit žádná dvojice, zamíchej: zbylé kameny se rozdají znovu tak, aby šly stále odebrat.
+# Úrovně a hvězdy
+150 úrovní v šesti kapitolách; záložka s kostkou vytvoří náhodnou desku zvolené velikosti. Bez nápovědy a bez míchání: 3 hvězdy; nejvýš dvě nápovědy, míchání se počítá za dvě: 2 hvězdy; jinak 1.

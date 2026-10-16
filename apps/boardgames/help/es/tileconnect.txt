@@ -1,0 +1,11 @@
+Unir fichas
+# El objetivo
+Fichas de mahjong llenan un rectángulo. Quítalas todas, dos fichas iguales cada vez.
+# Una jugada
+Dos fichas iguales se van cuando una línea las une con dos giros como mucho. La línea solo pasa por casillas vacías o por fuera del rectángulo; los bloques de madera la detienen.
+En algunos niveles las demás fichas caen tras cada pareja: hacia abajo, hacia la izquierda o hacia el centro (la flecha de la barra lo indica). Un bloque sostiene las fichas que tiene encima.
+Una figura puede salir más de dos veces: elige entonces con cuidado cuáles van juntas. Todo tablero se puede vaciar sin barajar.
+# El final de la partida
+El puzle está resuelto cuando no queda ninguna ficha. Si ninguna pareja se puede unir, baraja: las fichas que quedan se reparten de nuevo para que aún se puedan quitar.
+# Niveles y estrellas
+150 niveles en seis capítulos; la pestaña del dado crea un tablero al azar, del tamaño que elijas. Sin pistas ni barajar: 3 estrellas; hasta dos pistas, contando cada barajada como dos: 2 estrellas; si no, 1.

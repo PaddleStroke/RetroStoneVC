@@ -1,0 +1,11 @@
+Hubungkan Ubin
+# Tujuan
+Ubin mahjong memenuhi sebuah persegi panjang. Singkirkan semuanya, dua ubin yang sama sekaligus.
+# Satu langkah
+Dua ubin yang sama hilang bila sebuah garis dapat menghubungkannya dengan paling banyak dua belokan. Garis hanya melewati petak kosong atau mengitari bagian luar persegi panjang; balok kayu menghalanginya.
+Di beberapa level, ubin lain jatuh setelah tiap pasangan: ke bawah, ke kiri, atau ke tengah (panah di bilah menunjukkannya). Balok menahan ubin di atasnya.
+Satu gambar bisa muncul lebih dari dua kali: pilihlah dengan cermat dua mana yang berpasangan. Setiap papan dapat dikosongkan tanpa mengocok.
+# Akhir permainan
+Teka-teki selesai saat semua ubin habis. Jika tidak ada pasangan yang bisa dihubungkan, kocok: ubin yang tersisa dibagikan lagi agar tetap bisa dihabiskan.
+# Level dan bintang
+150 level dalam enam bab; tab dadu membuat papan acak dengan ukuran pilihanmu. Tanpa petunjuk dan tanpa kocok: 3 bintang; sampai dua petunjuk, satu kocokan dihitung dua: 2 bintang; selain itu 1.

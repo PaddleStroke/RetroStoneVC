@@ -1,0 +1,11 @@
+Steine verbinden
+# Das Ziel
+Mahjong-Steine füllen ein Rechteck. Nimm sie alle weg, immer zwei gleiche Steine auf einmal.
+# Ein Zug
+Zwei gleiche Steine gehen weg, wenn eine Linie sie mit höchstens zwei Knicken verbindet. Die Linie läuft nur durch leere Felder oder außen um das Rechteck herum; Holzklötze halten sie auf.
+In manchen Leveln fallen die anderen Steine nach jedem Paar nach: nach unten, nach links oder zur Mitte (der Pfeil in der Leiste zeigt es). Ein Klotz hält die Steine über ihm.
+Ein Bild kann öfter als zweimal vorkommen: Wähle dann sorgfältig, welche zwei zusammengehören. Jedes Brett lässt sich ohne Mischen leeren.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Steine weg sind. Lässt sich kein Paar verbinden, mische: Die übrigen Steine werden neu verteilt, sodass sie sich weiter leeren lassen.
+# Level und Sterne
+150 Level in sechs Kapiteln; der Würfel-Reiter macht ein zufälliges Brett in der gewählten Größe. Ohne Tipp und ohne Mischen: 3 Sterne; bis zu zwei Tipps, Mischen zählt als zwei: 2 Sterne; sonst 1.

@@ -1,0 +1,11 @@
+Tile Connect
+# The aim
+Mahjong tiles fill a rectangle. Take them all away, two identical tiles at a time.
+# A move
+Two identical tiles can go when a line joins them with at most two turns. The line runs only through empty cells, or round the outside of the rectangle; wooden blocks stop it.
+In some levels the other tiles fall after each pair: down, to the left, or towards the middle (the arrow in the bar shows which). A block holds the tiles above it.
+A face may come more than twice: then choose with care which two go together. Every board can be cleared without a shuffle.
+# The end of the game
+The puzzle is solved when every tile is gone. If no pair can be joined, shuffle: the tiles left are dealt again so that they can still be cleared.
+# Levels and stars
+150 levels in six chapters; the die tab makes a board at random, in the size you choose. No hint and no shuffle: 3 stars; up to two hints, a shuffle counting as two: 2 stars; otherwise 1.

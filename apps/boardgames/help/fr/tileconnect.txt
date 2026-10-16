@@ -1,0 +1,11 @@
+Tuiles reliées
+# Le but
+Des tuiles de mahjong remplissent un rectangle. Retire-les toutes, deux tuiles identiques à la fois.
+# Un coup
+Deux tuiles identiques partent quand une ligne les relie avec au plus deux virages. La ligne ne passe que par des cases vides, ou par le tour du rectangle ; les blocs de bois l'arrêtent.
+Dans certains niveaux, les autres tuiles tombent après chaque paire : vers le bas, vers la gauche ou vers le milieu (la flèche de la barre l'indique). Un bloc retient les tuiles au-dessus de lui.
+Une figure peut venir plus de deux fois : choisis alors avec soin lesquelles vont ensemble. Chaque plateau peut être vidé sans mélange.
+# La fin de la partie
+Le puzzle est résolu quand toutes les tuiles sont parties. Si aucune paire ne peut être reliée, mélange : les tuiles restantes sont redistribuées pour pouvoir encore être vidées.
+# Niveaux et étoiles
+150 niveaux en six chapitres ; l'onglet du dé crée un plateau au hasard, de la taille choisie. Sans indice ni mélange : 3 étoiles ; jusqu'à deux indices, un mélange comptant pour deux : 2 étoiles ; sinon 1.

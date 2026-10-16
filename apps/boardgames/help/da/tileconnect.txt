@@ -1,0 +1,11 @@
+Forbind brikkerne
+# Målet
+Mahjong-brikker fylder et rektangel. Fjern dem alle, to ens brikker ad gangen.
+# Et træk
+To ens brikker fjernes, når en linje kan forbinde dem med højst to knæk. Linjen går kun gennem tomme felter eller uden om rektanglet; træklodser stopper den.
+På nogle baner falder de andre brikker efter hvert par: nedad, til venstre eller mod midten (pilen i bjælken viser det). En klods holder brikkerne over sig.
+Et motiv kan komme mere end to gange: vælg så med omhu, hvilke to der hører sammen. Alle plader kan tømmes uden at blande.
+# Spillets afslutning
+Opgaven er løst, når alle brikker er væk. Kan intet par forbindes, så bland: de resterende brikker fordeles igen, så de stadig kan fjernes.
+# Baner og stjerner
+150 baner i seks kapitler; terningefanen laver en tilfældig plade i den valgte størrelse. Ingen ledetråd og ingen blanding: 3 stjerner; op til to ledetråde, en blanding tæller som to: 2 stjerner; ellers 1.

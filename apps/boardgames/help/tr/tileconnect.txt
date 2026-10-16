@@ -1,0 +1,11 @@
+Taş Bağla
+# Amaç
+Mahjong taşları bir dikdörtgeni doldurur. Hepsini, her seferinde iki aynı taş olmak üzere kaldır.
+# Bir hamle
+İki aynı taş, en çok iki dönüşlü bir çizgiyle birleşebiliyorsa kalkar. Çizgi yalnızca boş karelerden ya da dikdörtgenin dışından geçer; tahta bloklar onu durdurur.
+Bazı seviyelerde her çiftten sonra diğer taşlar düşer: aşağı, sola ya da ortaya doğru (çubuktaki ok yönü gösterir). Bir blok üstündeki taşları tutar.
+Bir resim ikiden fazla kez bulunabilir: o zaman hangi ikisinin birlikte gideceğini dikkatle seç. Her tahta karıştırmadan temizlenebilir.
+# Oyunun sonu
+Tüm taşlar gidince bulmaca çözülür. Hiçbir çift birleşemiyorsa karıştır: kalan taşlar yine temizlenebilecek şekilde yeniden dağıtılır.
+# Seviyeler ve yıldızlar
+Altı bölümde 150 seviye; zar sekmesi seçtiğin boyutta rastgele bir tahta yapar. İpucu ve karıştırma yoksa 3 yıldız; en çok iki ipucu (bir karıştırma iki sayılır) 2 yıldız; aksi hâlde 1.

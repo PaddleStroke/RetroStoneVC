@@ -1,0 +1,11 @@
+Koppla brickorna
+# Målet
+Mahjongbrickor fyller en rektangel. Ta bort alla, två likadana brickor i taget.
+# Ett drag
+Två likadana brickor försvinner när en linje kan koppla ihop dem med högst två svängar. Linjen går bara genom tomma rutor eller runt utsidan av rektangeln; träklossar stoppar den.
+På vissa banor faller de andra brickorna efter varje par: nedåt, åt vänster eller mot mitten (pilen i listen visar det). En kloss håller brickorna ovanför sig.
+Ett motiv kan finnas fler än två gånger: välj då noga vilka två som hör ihop. Varje bräde kan tömmas utan att blanda.
+# Partiets slut
+Pusslet är löst när alla brickor är borta. Går inget par att koppla ihop, blanda: de brickor som är kvar delas ut igen så att de fortfarande kan tas bort.
+# Banor och stjärnor
+150 banor i sex kapitel; tärningsfliken gör ett slumpat bräde i den storlek du väljer. Ingen ledtråd och ingen blandning: 3 stjärnor; upp till två ledtrådar, en blandning räknas som två: 2 stjärnor; annars 1.

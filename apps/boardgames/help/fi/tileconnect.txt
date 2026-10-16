@@ -1,0 +1,11 @@
+Laattojen yhdistely
+# Tavoite
+Mahjong-laatat täyttävät suorakaiteen. Poista ne kaikki, kaksi samanlaista laattaa kerrallaan.
+# Siirto
+Kaksi samanlaista laattaa lähtee, kun viiva yhdistää ne enintään kahdella mutkalla. Viiva kulkee vain tyhjien ruutujen kautta tai suorakaiteen ulkopuolta; puupalikat pysäyttävät sen.
+Joissakin tasoissa muut laatat putoavat jokaisen parin jälkeen: alas, vasemmalle tai kohti keskustaa (palkin nuoli näyttää suunnan). Palikka pitää yläpuolensa laatat paikallaan.
+Sama kuva voi olla useammin kuin kahdesti: valitse silloin tarkkaan, mitkä kaksi kuuluvat yhteen. Jokaisen laudan voi tyhjentää sekoittamatta.
+# Pelin loppu
+Pulma on ratkaistu, kun kaikki laatat ovat poissa. Jos mitään paria ei voi yhdistää, sekoita: jäljellä olevat laatat jaetaan uudelleen niin, että ne voi yhä poistaa.
+# Tasot ja tähdet
+150 tasoa kuudessa luvussa; noppavälilehti tekee satunnaisen laudan valitsemassasi koossa. Ei vihjeitä eikä sekoitusta: 3 tähteä; enintään kaksi vihjettä, sekoitus lasketaan kahdeksi: 2 tähteä; muuten 1.

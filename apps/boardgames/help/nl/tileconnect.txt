@@ -1,0 +1,11 @@
+Stenen verbinden
+# Het doel
+Mahjongstenen vullen een rechthoek. Haal ze allemaal weg, steeds twee gelijke stenen tegelijk.
+# Een zet
+Twee gelijke stenen gaan weg als een lijn ze verbindt met hoogstens twee bochten. De lijn loopt alleen door lege vakken of om de rechthoek heen; houten blokken houden haar tegen.
+In sommige levels vallen de andere stenen na elk paar: omlaag, naar links of naar het midden (de pijl in de balk toont het). Een blok houdt de stenen erboven tegen.
+Een afbeelding kan vaker dan twee keer voorkomen: kies dan goed welke twee bij elkaar horen. Elk bord kan leeg zonder te schudden.
+# Het einde van het spel
+De puzzel is opgelost als alle stenen weg zijn. Kan geen enkel paar meer verbonden worden, schud dan: de overgebleven stenen worden opnieuw verdeeld zodat ze nog weg kunnen.
+# Levels en sterren
+150 levels in zes hoofdstukken; het dobbelsteentabblad maakt een willekeurig bord in de gekozen grootte. Geen hint en niet geschud: 3 sterren; tot twee hints, schudden telt als twee: 2 sterren; anders 1.

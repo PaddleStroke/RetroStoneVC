@@ -1,0 +1,11 @@
+Ligue as Peças
+# O objetivo
+Peças de mahjong enchem um retângulo. Tire todas, duas peças iguais por vez.
+# Uma jogada
+Duas peças iguais saem quando uma linha as une com no máximo duas curvas. A linha só passa por casas vazias ou por fora do retângulo; os blocos de madeira a bloqueiam.
+Em alguns níveis as outras peças caem depois de cada par: para baixo, para a esquerda ou para o centro (a seta na barra mostra). Um bloco segura as peças acima dele.
+Uma figura pode aparecer mais de duas vezes: escolha então com cuidado quais vão juntas. Todo tabuleiro pode ser esvaziado sem embaralhar.
+# O fim da partida
+O quebra-cabeça está resolvido quando não sobra nenhuma peça. Se nenhum par puder ser unido, embaralhe: as peças restantes são distribuídas de novo para ainda poderem sair.
+# Níveis e estrelas
+150 níveis em seis capítulos; a aba do dado cria um tabuleiro ao acaso, do tamanho escolhido. Sem dicas nem embaralhar: 3 estrelas; até duas dicas, contando cada embaralhada como duas: 2 estrelas; senão, 1.

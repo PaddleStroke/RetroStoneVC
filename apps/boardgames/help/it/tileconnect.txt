@@ -1,0 +1,11 @@
+Collega le tessere
+# Lo scopo
+Tessere del mahjong riempiono un rettangolo. Toglile tutte, due tessere uguali alla volta.
+# Una mossa
+Due tessere uguali se ne vanno quando una linea le unisce con al massimo due curve. La linea passa solo per caselle vuote o intorno al rettangolo; i blocchi di legno la fermano.
+In alcuni livelli le altre tessere cadono dopo ogni coppia: verso il basso, verso sinistra o verso il centro (lo indica la freccia nella barra). Un blocco trattiene le tessere sopra di sé.
+Una figura può comparire più di due volte: scegli allora con cura quali vanno insieme. Ogni tavola si può svuotare senza mescolare.
+# La fine della partita
+Il rompicapo è risolto quando non resta nessuna tessera. Se nessuna coppia si può unire, mescola: le tessere rimaste vengono ridistribuite in modo da poterle ancora togliere.
+# Livelli e stelle
+150 livelli in sei capitoli; la scheda del dado crea una tavola a caso, della misura scelta. Nessun aiuto e nessun mescolamento: 3 stelle; fino a due aiuti, un mescolamento conta due: 2 stelle; altrimenti 1.

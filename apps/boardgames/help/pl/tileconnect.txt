@@ -1,0 +1,11 @@
+Łączenie kamieni
+# Cel gry
+Kamienie mahjonga wypełniają prostokąt. Usuń je wszystkie, po dwa jednakowe naraz.
+# Ruch
+Dwa jednakowe kamienie znikają, gdy łączy je linia o najwyżej dwóch zakrętach. Linia biegnie tylko przez puste pola albo dookoła prostokąta; drewniane klocki ją zatrzymują.
+Na niektórych poziomach pozostałe kamienie spadają po każdej parze: w dół, w lewo albo do środka (pokazuje to strzałka na pasku). Klocek podtrzymuje kamienie nad sobą.
+Ten sam obrazek może wystąpić więcej niż dwa razy: wybierz wtedy uważnie, które dwa idą razem. Każdą planszę da się opróżnić bez tasowania.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy znikną wszystkie kamienie. Gdy żadnej pary nie da się połączyć, potasuj: pozostałe kamienie zostaną rozłożone na nowo tak, by dało się je dalej usuwać.
+# Poziomy i gwiazdki
+150 poziomów w sześciu rozdziałach; karta z kostką tworzy losową planszę wybranej wielkości. Bez podpowiedzi i bez tasowania: 3 gwiazdki; do dwóch podpowiedzi, tasowanie liczy się za dwie: 2 gwiazdki; inaczej 1.
