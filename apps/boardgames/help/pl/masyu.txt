@@ -1,0 +1,10 @@
+Masyu
+# Cel gry
+Narysuj jedną zamkniętą pętlę przez środki pól, z pola na sąsiednie przez bok. Nigdy się nie przecina ani nie dotyka samej siebie i przechodzi przez wszystkie perły.
+- Na białej perle pętla biegnie prosto i skręca w co najmniej jednym z dwóch pól tuż przed perłą i tuż za nią.
+- Na czarnej perle pętla skręca, a po obu stronach biegnie prosto jeszcze przez następne pole.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Przytrzymaj odstęp między dwoma polami, aby postawić tam krzyżyk: notatkę, że pętla tędy nie biegnie.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy pętla jest zamknięta i spełnia wszystkie zasady: drut staje się złoty.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to zła linia lub zły krzyżyk cofnięte przyciskiem Cofnij.

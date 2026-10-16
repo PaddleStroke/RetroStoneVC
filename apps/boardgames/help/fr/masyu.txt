@@ -1,0 +1,10 @@
+Masyu
+# Le but
+Trace une seule boucle fermée qui passe par le milieu des cases, d'une case à sa voisine par un côté. Elle ne se croise ni ne se touche jamais, et elle passe par toutes les perles.
+- Sur une perle blanche, la boucle va tout droit, et elle tourne dans au moins une des deux cases juste avant et juste après la perle.
+- Sur une perle noire, la boucle tourne, et des deux côtés elle continue tout droit dans la case suivante.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt entre deux cases pour y mettre une croix : une note que la boucle n'y passe pas.
+# La fin de la partie
+La grille est résolue quand la boucle est fermée et respecte toutes les règles : le fil devient doré.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un trait ou une croix faux que tu reprends avec Annuler.

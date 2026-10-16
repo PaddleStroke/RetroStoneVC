@@ -1,0 +1,10 @@
+Masyu
+# Målet
+Rita en enda sluten slinga genom rutornas mitt, från ruta till grannruta via en sida. Den korsar eller rör aldrig sig själv, och den går genom alla pärlor.
+- På en vit pärla går slingan rakt fram, och den svänger i minst en av de två rutorna precis före och precis efter pärlan.
+- På en svart pärla svänger slingan, och på båda sidor fortsätter den rakt fram genom nästa ruta.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på mellanrummet mellan två rutor för att sätta ett kryss: en anteckning om att slingan inte går där.
+# Partiets slut
+Pusslet är löst när slingan är sluten och alla regler håller: tråden blir gyllene.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt streck eller kryss som du tar tillbaka med Ångra.

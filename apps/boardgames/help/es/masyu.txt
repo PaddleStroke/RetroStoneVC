@@ -1,0 +1,10 @@
+Masyu
+# El objetivo
+Dibuja un solo circuito cerrado que pase por el centro de las casillas, de una casilla a la de al lado. Nunca se cruza ni se toca a sí mismo, y pasa por todas las perlas.
+- En una perla blanca el circuito sigue recto, y gira en al menos una de las dos casillas justo antes y justo después de la perla.
+- En una perla negra el circuito gira, y por los dos lados sigue recto por la casilla siguiente.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsado el hueco entre dos casillas para poner una cruz: una nota de que el circuito no pasa por ahí.
+# El final de la partida
+El tablero está resuelto cuando el circuito está cerrado y cumple todas las reglas: el hilo se vuelve dorado.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una línea o una cruz equivocada que quitas con Deshacer.

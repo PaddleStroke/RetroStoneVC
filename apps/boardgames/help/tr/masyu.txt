@@ -1,0 +1,10 @@
+Masyu
+# Amaç
+Karelerin ortasından geçen, kenardan komşu kareye ilerleyen tek bir kapalı döngü çiz. Döngü kendini hiç kesmez, kendine değmez ve bütün incilerden geçer.
+- Beyaz bir incide döngü düz gider ve incinin hemen öncesindeki ya da hemen sonrasındaki iki kareden en az birinde döner.
+- Siyah bir incide döngü döner ve iki yanda da bir sonraki kareden düz geçer.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. İki kare arasındaki boşluğa çarpı koymak için parmağını üzerinde tut: döngünün oradan geçmediğine dair bir not.
+# Oyunun sonu
+Döngü kapandığında ve bütün kurallar sağlandığında bulmaca çözülür: tel altın rengine döner.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir çizgi ya da çarpıdır.

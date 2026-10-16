@@ -1,0 +1,10 @@
+Masyu
+# Het doel
+Teken één gesloten lus door de middens van de vakjes, van vakje naar buurvakje via een zijde. Hij kruist of raakt zichzelf nooit en gaat door elke parel.
+- Op een witte parel gaat de lus rechtdoor, en hij slaat af in minstens één van de twee vakjes vlak voor en vlak na de parel.
+- Op een zwarte parel slaat de lus af, en aan beide kanten gaat hij nog rechtdoor door het volgende vakje.
+Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Houd de ruimte tussen twee vakjes vast om er een kruisje te zetten: een notitie dat de lus daar niet loopt.
+# Het einde van het spel
+De puzzel is opgelost als de lus gesloten is en alle regels kloppen: de draad wordt goud.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde lijn of een verkeerd kruisje dat je met Ongedaan maken terugneemt.

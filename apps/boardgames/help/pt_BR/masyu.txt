@@ -1,0 +1,10 @@
+Masyu
+# O objetivo
+Desenhe um único circuito fechado que passa pelo meio das casas, de uma casa para a vizinha pelo lado. Ele nunca se cruza nem se toca, e passa por todas as pérolas.
+- Numa pérola branca o circuito segue reto, e vira em pelo menos uma das duas casas logo antes e logo depois da pérola.
+- Numa pérola preta o circuito vira, e dos dois lados segue reto pela casa seguinte.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure o espaço entre duas casas para pôr um X: uma anotação de que o circuito não passa ali.
+# O fim da partida
+A grade está resolvida quando o circuito está fechado e cumpre todas as regras: o fio fica dourado.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma linha ou um X errado que você tira com Desfazer.

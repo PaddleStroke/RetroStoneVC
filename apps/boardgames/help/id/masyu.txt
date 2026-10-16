@@ -1,0 +1,10 @@
+Masyu
+# Tujuan
+Gambar satu lingkaran tertutup yang melewati bagian tengah kotak, dari kotak ke kotak di sebelahnya lewat sisi. Lingkaran itu tidak pernah bersilangan atau bersentuhan dengan dirinya sendiri, dan melewati semua mutiara.
+- Di mutiara putih, lingkaran berjalan lurus dan berbelok di setidaknya satu dari dua kotak tepat sebelum dan sesudah mutiara.
+- Di mutiara hitam, lingkaran berbelok, dan di kedua sisinya berjalan lurus melewati kotak berikutnya.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Tahan celah di antara dua kotak untuk memberi silang: catatan bahwa lingkaran tidak lewat di situ.
+# Akhir permainan
+Teka-teki selesai jika lingkaran sudah tertutup dan semua aturan terpenuhi: kawatnya berubah menjadi emas.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah garis atau silang salah yang kamu batalkan dengan Urungkan.

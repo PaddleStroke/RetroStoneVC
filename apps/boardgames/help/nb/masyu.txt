@@ -1,0 +1,10 @@
+Masyu
+# Målet
+Tegn én lukket sløyfe gjennom midten av rutene, fra rute til naborute langs en side. Den krysser eller berører aldri seg selv, og den går gjennom alle perlene.
+- På en hvit perle går sløyfen rett fram, og den svinger i minst én av de to rutene rett før og rett etter perlen.
+- På en svart perle svinger sløyfen, og på begge sider fortsetter den rett fram gjennom neste rute.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på mellomrommet mellom to ruter for å sette et kryss: et notat om at sløyfen ikke går der.
+# Slutten på spillet
+Oppgaven er løst når sløyfen er lukket og alle reglene holder: tråden blir gyllen.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil strek eller et feil kryss som du tar tilbake med Angre.

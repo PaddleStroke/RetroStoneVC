@@ -1,0 +1,10 @@
+Masyu
+# Målet
+Tegn én lukket løkke gennem felternes midte, fra felt til nabofelt via en side. Den krydser eller rører aldrig sig selv, og den går gennem alle perler.
+- På en hvid perle går løkken lige igennem, og den drejer i mindst ét af de to felter lige før og lige efter perlen.
+- På en sort perle drejer løkken, og på begge sider fortsætter den lige ud gennem det næste felt.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på mellemrummet mellem to felter for at sætte et kryds: en note om, at løkken ikke går der.
+# Spillets afslutning
+Opgaven er løst, når løkken er lukket og alle regler holder: tråden bliver gylden.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert streg eller et forkert kryds, som du tager tilbage med Fortryd.

@@ -1,0 +1,10 @@
+Masyu
+# Das Ziel
+Zeichne eine einzige geschlossene Schleife durch die Mitten der Felder, von Feld zu Feld über die Seiten. Sie kreuzt und berührt sich nie und läuft durch jede Perle.
+- Auf einer weißen Perle läuft die Schleife geradeaus und biegt in mindestens einem der beiden Felder direkt vor und nach der Perle ab.
+- Auf einer schwarzen Perle biegt die Schleife ab und läuft auf beiden Seiten noch durch das nächste Feld geradeaus.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte die Lücke zwischen zwei Feldern gedrückt, um sie anzukreuzen: eine Notiz, dass die Schleife dort nicht verläuft.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn die Schleife geschlossen ist und alle Regeln erfüllt: Der Draht wird golden.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Linie oder ein falsches Kreuz, das du mit Rückgängig zurücknimmst.

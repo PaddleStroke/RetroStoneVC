@@ -1,0 +1,10 @@
+Masyu
+# Cíl hry
+Nakresli jednu uzavřenou smyčku středy políček, z políčka na sousední přes stranu. Nikdy se nekříží ani nedotýká sama sebe a vede přes všechny perly.
+- Na bílé perle jde smyčka rovně a zatočí aspoň v jednom ze dvou políček těsně před perlou a za ní.
+- Na černé perle smyčka zatočí a na obou stranách pokračuje rovně ještě přes další políčko.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst mezi dvěma políčky a dáš tam křížek: poznámku, že tudy smyčka nevede.
+# Konec hry
+Hlavolam je vyřešen, když je smyčka uzavřená a platí všechna pravidla: drát zezlátne.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná čára nebo křížek, které vezmeš zpět tlačítkem Vrátit.

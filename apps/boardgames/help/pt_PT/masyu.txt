@@ -1,0 +1,10 @@
+Masyu
+# O objetivo
+Desenha um único circuito fechado que passa pelo meio das casas, de uma casa para a vizinha pelo lado. Nunca se cruza nem se toca, e passa por todas as pérolas.
+- Numa pérola branca o circuito segue a direito, e vira em pelo menos uma das duas casas logo antes e logo depois da pérola.
+- Numa pérola preta o circuito vira, e dos dois lados segue a direito pela casa seguinte.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Mantém o dedo no espaço entre duas casas para lhe pôr uma cruz: uma nota de que o circuito não passa ali.
+# O fim do jogo
+A grelha está resolvida quando o circuito está fechado e cumpre todas as regras: o fio fica dourado.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma linha ou uma cruz errada que tiras com Anular.

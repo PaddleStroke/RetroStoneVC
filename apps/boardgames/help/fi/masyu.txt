@@ -1,0 +1,10 @@
+Masyu
+# Tavoite
+Piirrä yksi suljettu silmukka ruutujen keskipisteiden kautta, ruudusta sen vieruaruutuun sivun yli. Se ei koskaan risteä eikä kosketa itseään, ja se kulkee jokaisen helmen kautta.
+- Valkoisella helmellä silmukka kulkee suoraan, ja se kääntyy ainakin toisessa helmeä juuri edeltävistä ja seuraavista ruuduista.
+- Mustalla helmellä silmukka kääntyy, ja kummallakin puolella se jatkaa suoraan seuraavan ruudun läpi.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea kahden ruudun välissä laittaaksesi siihen ristin: muistiinpano, ettei silmukka kulje siitä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun silmukka on suljettu ja kaikki säännöt pitävät: lanka muuttuu kultaiseksi.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä viiva tai risti, jonka perut Kumoa-painikkeella.

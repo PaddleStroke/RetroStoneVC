@@ -1,0 +1,10 @@
+Masyu
+# The aim
+Draw one closed loop through the middles of the cells, from cell to cell side by side. It never crosses or touches itself, and it passes through every pearl.
+- On a white pearl the loop goes straight, and it turns in at least one of the two cells just before and after the pearl.
+- On a black pearl the loop turns, and on both sides it goes straight on through the next cell.
+Every puzzle has exactly one solution, found by reasoning alone. Hold the gap between two cells to cross it: a note that the loop does not pass there.
+# The end of the game
+The puzzle is solved when the loop is closed and keeps every rule: the wire turns gold.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong line or cross that you take back with undo.
