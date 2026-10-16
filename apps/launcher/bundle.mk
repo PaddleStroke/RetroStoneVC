@@ -8,6 +8,8 @@
 #        (also android-armeabi-v7a, android-x86_64; apps/android/build.sh does it all)
 #   make -f apps/launcher/bundle.mk shots                docs: the launcher's screenshots (apps/launcher/docs/)
 #   ... CONF=apps/android/app-full.conf                  the same for the full (paid) app: every game playable
+#   make -f apps/launcher/bundle.mk board-lib CONF=... BD=... GEN=...   the RetroStone app's Arcade tab
+#        (apps/boardgames/Makefile EDITION=retrostone runs it): $(BD)/libarcade_core.a and $(BD)/librs.a, no frontend
 #
 # The app's identity and its games: apps/android/app.conf (the free app, the default) or app-full.conf (CONF=...).
 # Everything is built in build/bundle/<platform>/ (the full app: build/bundle/<platform>-full/):
@@ -226,6 +228,17 @@ shots: all
 	sh apps/launcher/tests/shots.sh $(HEADLESS) apps/launcher/docs
 
 -include $(shell find $(BD) -type f -name '*.d' 2>/dev/null)
+
+# the RetroStone app (apps/boardgames/Makefile EDITION=retrostone, its Arcade tab): the launcher, the runtime, the
+# catalogue, the credits and every game as a module in one archive, the SDK in librs.a, and no frontend: the app brings
+# its own (apps/boardgames/src/arcade_play.c, this folder's rsb_sdl.c in its window). It sets CONF, BD and GEN to its
+# own build folder, and links the two archives as a group.
+.PHONY: board-lib
+board-lib: gen
+	+$(SUBMAKE) $(BD)/libarcade_core.a $(BD)/librs.a
+$(BD)/libarcade_core.a: $(filter-out %.a,$(CORE))
+	@rm -f $@
+	$(AR) rcs $@ $^
 
 # the iPhone and iPad app: the Mach-O modules and libarcade.a (after CORE: its prerequisites)
 ifneq ($(filter ios-%,$(PLATFORM)),)
