@@ -255,6 +255,7 @@ static void play_update(void)
     }
     if (wev & WEV_ROOM) rs_log("room %d at frame %u", W.room, rs_frame_count());
     if (wev & WEV_FISH) ha_play(HA_DING);
+    if (wev & WEV_CALM) rs_log("yarn time over at frame %u (room %d)", rs_frame_count(), W.room);
     if (W.phase == PH_PLAY && !W.freeze && world_yarn_time(&W) && W.t % 30 == 0) sfx_at(SFX_SCARED, 160, 36);
     for (int i = 0; i < VACUUMS; i++)
         if (W.v[i].state == VS_LEAVE && W.v[i].t == 0 && W.phase == PH_PLAY && !W.freeze)

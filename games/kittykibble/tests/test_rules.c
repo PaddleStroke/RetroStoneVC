@@ -142,6 +142,12 @@ static void test_start(void)
     step(&W, 2);
     CHECK(W.phase == PH_PLAY, "then it plays");
     CHECK(W.room == 1 && W.maze == 0 && W.kibble_left == W.kibble_total, "room 1, the kitchen, full of kibble");
+    int calm = 1;
+    for (int f = 0; f < 200; f++) {
+        world_step(&W, in);
+        for (int i = 0; i < VACUUMS; i++) calm &= W.v[i].scared_t == 0;
+    }
+    CHECK(calm && world_yarn_time(&W) == 0, "no yarn eaten: the vacuums are never scared (their own colours)");
 }
 
 static void test_moving(void)
@@ -376,6 +382,16 @@ static void test_yarn(void)
           "the vacuums are scared (in the dock too)");
     CHECK(W.v[0].reverse || W.v[0].dir == DIR_LEFT, "they turn round");
     CHECK(vacuum_speed(&W, &W.v[0]) * 100 / ((int64_t)VAC_SPEED * 100 / 100) <= VAC_SCARED + 1, "and slow down");
+    {
+        static world c;
+        c = W;
+        int over = 0;
+        for (int f = 0; f < yarn_frames(1) + 200 && !over; f++) {     /* (+ the catches' hit-stops) */
+            world_step(&c, in);
+            if (c.wevents & WEV_CALM) over = f + 1;
+        }
+        CHECK(over && world_yarn_time(&c) == 0, "yarn time ends (frame %d): the vacuums calm again", over);
+    }
     CHECK(yarn_frames(5) < yarn_frames(1) && yarn_frames(30) == YARN_MIN, "yarn time gets shorter, down to %d",
           YARN_MIN);
     /* catching them: 20, 40, 80, 160 */

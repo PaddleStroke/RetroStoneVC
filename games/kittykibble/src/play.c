@@ -542,6 +542,7 @@ static void meet(world *w)
                 w->events[p] |= EV_CATCH;
                 w->wevents |= WEV_HOME;
                 w->freeze = CATCH_FREEZE;
+                if (!world_yarn_time(w)) w->wevents |= WEV_CALM;       /* the last scared one caught */
             } else {                                 /* one hit ends the run (the house rule) */
                 k->state = KS_CAUGHT;
                 k->t = 0;
@@ -604,6 +605,7 @@ void world_step(world *w, const pin in[MAX_PLAYERS])
         w->phase = PH_CLEAR;
         w->phase_t = 0;
         w->wevents |= WEV_CLEAR;
+        if (world_yarn_time(w)) w->wevents |= WEV_CALM;
         for (int i = 0; i < VACUUMS; i++) w->v[i].scared_t = 0;
         return;
     }

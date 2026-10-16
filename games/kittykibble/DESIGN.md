@@ -209,6 +209,7 @@ junction), determinism and the bot clearing the kitchen), the libretro loader, t
 the intro, turning, the turn buffer, eating, the game over and back to the title, pause, save RAM, joining and
 leaving, 4 players, the five rooms, no strict-mode warning, the bot, determinism with 1 and 4 players), the touch
 tests, the UI screens (tests/ui_test.sh: the title with 1-4 players, the intro, play, pause, 4 players, yarn time,
+the vacuums in their own colours in a calm moment and blue in yarn time (pixels of the pictures),
 the game over with a medal, the results), the save states (the title's lobby, a run, yarn time, another room, 2 and 4
 players, a finger swiping, paused, the game over, the results) and their audit, all at 320, 427 and 520 columns,
 states across widths, and the 22 languages (tests/i18n_runs.txt).
