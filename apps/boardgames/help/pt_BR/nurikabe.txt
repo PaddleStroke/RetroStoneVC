@@ -1,0 +1,11 @@
+Nurikabe
+# O objetivo
+Preencha o mar para que as casas que ficam livres formem ilhas.
+- Cada número fica numa ilha de exatamente tantas casas, e cada ilha tem um só número.
+- Duas ilhas nunca se tocam pelo lado; podem se tocar pelo canto.
+- O mar é uma peça só, ligada pelos lados, e nunca enche um quadrado de 2 × 2.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure uma casa para pôr um ponto nela: uma anotação de terra.
+# O fim da partida
+A grade está resolvida quando todas as regras são cumpridas: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

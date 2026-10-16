@@ -1,0 +1,11 @@
+Nurikabe
+# Het doel
+Vul de zee in zodat de vakjes die vrij blijven eilanden vormen.
+- Elk getal ligt op een eiland van precies zoveel vakjes, en elk eiland heeft maar één getal.
+- Twee eilanden raken elkaar nooit met een zijde; met een hoek mag wel.
+- De zee is één geheel, verbonden via de zijden, en vult nooit een vierkant van 2 × 2.
+Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Houd een vakje vast om er een stip in te zetten: een notitie voor land.
+# Het einde van het spel
+De puzzel is opgelost als alle regels kloppen: een golf van gouden licht loopt over het rooster.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd vakje dat je met Ongedaan maken terugneemt.

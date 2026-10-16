@@ -1,0 +1,11 @@
+Nurikabe
+# Amaç
+Denizi doldur; boş kalan kareler adalar oluştursun.
+- Her sayı tam o kadar kareden oluşan bir adanın üzerindedir ve her adada yalnızca bir sayı vardır.
+- İki ada hiçbir zaman kenardan değmez; köşeden değebilirler.
+- Deniz kenarlardan birleşen tek bir parçadır ve hiçbir yerde 2 × 2'lik bir kareyi doldurmaz.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kareye nokta koymak için parmağını üzerinde tut: kara için bir not.
+# Oyunun sonu
+Bütün kurallar sağlanınca bulmaca çözülür: ızgaranın üzerinden altın rengi bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir karedir.

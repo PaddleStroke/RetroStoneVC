@@ -1,0 +1,11 @@
+Nurikabe
+# Cíl hry
+Vybarvi moře tak, aby volná políčka vytvořila ostrovy.
+- Každé číslo leží na ostrově s právě tolika políčky a každý ostrov má jen jedno číslo.
+- Dva ostrovy se nikdy nedotýkají stranou; rohem mohou.
+- Moře je jeden celek spojený stranami a nikdy nevyplní čtverec 2 × 2.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst na políčku a dáš do něj tečku: poznámku pro pevninu.
+# Konec hry
+Hlavolam je vyřešen, když platí všechna pravidla: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

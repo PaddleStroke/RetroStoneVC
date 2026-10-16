@@ -1,0 +1,11 @@
+Nurikabe
+# Tavoite
+Täytä meri niin, että vapaiksi jäävät ruudut muodostavat saaria.
+- Jokainen numero on saarella, jossa on täsmälleen niin monta ruutua, ja jokaisella saarella on vain yksi numero.
+- Kaksi saarta ei koskaan kosketa toisiaan sivulla; kulmittain ne saavat koskettaa.
+- Meri on yhtä kappaletta sivujen kautta, eikä se koskaan täytä 2 × 2 -neliötä.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa laittaaksesi siihen pisteen: muistiinpano maasta.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

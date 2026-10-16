@@ -1,0 +1,11 @@
+Nurikabe
+# Målet
+Fyll inn havet slik at rutene som blir igjen, danner øyer.
+- Hvert tall ligger på en øy med nøyaktig så mange ruter, og hver øy har bare ett tall.
+- To øyer berører aldri hverandre langs en side; ved et hjørne går det bra.
+- Havet henger sammen i ett stykke langs sidene og fyller aldri et kvadrat på 2 × 2.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette en prikk i den: et notat om land.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

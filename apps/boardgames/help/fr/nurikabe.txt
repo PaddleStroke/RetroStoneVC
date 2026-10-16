@@ -1,0 +1,11 @@
+Nurikabe
+# Le but
+Remplis la mer pour que les cases restées libres forment des îles.
+- Chaque nombre est sur une île d'exactement autant de cases, et chaque île n'a qu'un seul nombre.
+- Deux îles ne se touchent jamais par un côté ; elles peuvent se toucher par un coin.
+- La mer est d'un seul tenant, reliée par les côtés, et ne remplit jamais un carré de 2 × 2.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour y mettre un point : une note pour la terre.
+# La fin de la partie
+La grille est résolue quand toutes les règles sont respectées : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

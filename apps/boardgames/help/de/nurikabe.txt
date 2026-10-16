@@ -1,0 +1,11 @@
+Nurikabe
+# Das Ziel
+Fülle das Meer so aus, dass die frei gebliebenen Felder Inseln bilden.
+- Jede Zahl liegt auf einer Insel aus genau so vielen Feldern, und jede Insel hat nur eine Zahl.
+- Zwei Inseln berühren sich nie an einer Seite; an einer Ecke dürfen sie sich treffen.
+- Das Meer hängt als ein Stück zusammen, über die Seiten, und füllt nie ein Quadrat von 2 × 2.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um einen Punkt hineinzusetzen: eine Notiz für Land.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

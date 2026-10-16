@@ -1,0 +1,11 @@
+Nurikabe
+# El objetivo
+Rellena el mar para que las casillas que quedan libres formen islas.
+- Cada número está en una isla de exactamente tantas casillas, y cada isla tiene un solo número.
+- Dos islas nunca se tocan por un lado; pueden tocarse por una esquina.
+- El mar es de una sola pieza, unido por los lados, y nunca llena un cuadrado de 2 × 2.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para poner un punto: una nota de tierra.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

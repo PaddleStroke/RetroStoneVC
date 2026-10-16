@@ -1,0 +1,11 @@
+Nurikabe
+# Målet
+Fyld havet ud, så de felter, der bliver fri, danner øer.
+- Hvert tal ligger på en ø med præcis så mange felter, og hver ø har kun ét tal.
+- To øer rører aldrig hinanden med en side; ved et hjørne må de godt.
+- Havet hænger sammen i ét stykke via siderne og fylder aldrig et kvadrat på 2 × 2.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en prik i det: en note om land.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

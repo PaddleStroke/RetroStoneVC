@@ -1,0 +1,11 @@
+Nurikabe
+# Målet
+Fyll i havet så att rutorna som blir kvar bildar öar.
+- Varje tal ligger på en ö med exakt så många rutor, och varje ö har bara ett tal.
+- Två öar rör aldrig varandra med en sida; vid ett hörn går det bra.
+- Havet hänger ihop i ett stycke via sidorna och fyller aldrig en kvadrat på 2 × 2.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att sätta en prick i den: en anteckning om land.
+# Partiets slut
+Pusslet är löst när alla regler håller: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

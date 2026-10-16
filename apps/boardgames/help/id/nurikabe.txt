@@ -1,0 +1,11 @@
+Nurikabe
+# Tujuan
+Isi laut sehingga kotak yang tersisa membentuk pulau.
+- Setiap angka berada di pulau yang luasnya tepat sebanyak itu kotak, dan setiap pulau hanya punya satu angka.
+- Dua pulau tidak pernah bersentuhan sisi; di sudut boleh.
+- Laut menyatu menjadi satu bagian lewat sisi-sisinya dan tidak pernah memenuhi persegi 2 × 2.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Tahan sebuah kotak untuk memberi titik: catatan untuk daratan.
+# Akhir permainan
+Teka-teki selesai jika semua aturan terpenuhi: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.
