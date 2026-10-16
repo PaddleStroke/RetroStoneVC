@@ -48,7 +48,8 @@ static box last_box;
 static float bx, by, bw, bh, gx, gy, q;         /* the tray; the grid's top left on the screen, a cell's side */
 static int turned;                              /* the tray on its side (upright in portrait): the columns run down
                                                  * the screen from the top, the tiles fall to the left */
-static int fr, made_key = -1, made_small = -1;
+static int fr, made_small = -1;
+static long long made_key = -1;
 static SDL_Texture *t_tray, *t_tile[6], *t_small, *t_plaque;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -134,7 +135,7 @@ static void layout(box b)
     bh = floorf(g.rows * q + 2 * (fr + pad));
     bx = floorf(gx - fr - pad);
     by = floorf(gy - fr - pad);
-    int key = (((int)bw * 4096 + (int)bh) * 32 + G.w) * 16 + G.h;
+    long long key = (((long long)bw * 4096 + (int)bh) * 32 + G.w) * 16 + G.h;
     if (made_key != key) {
         made_key = key;
         int w = (int)bw, h = (int)bh;
