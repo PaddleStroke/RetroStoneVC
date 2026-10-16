@@ -1,0 +1,8 @@
+Kleurvloed
+# Het doel
+Maak het hele bord één kleur. Je gebied begint in de linkerbovenhoek: de vakjes van zijn kleur die er zij aan zij mee verbonden zijn.
+# Een zet
+Kies een kleur. Je gebied neemt die kleur aan, en elk vakje van die kleur dat het gebied raakt, hoort er voortaan bij. Elke kleur heeft ook een eigen teken, dus je hoeft kleuren nooit alleen op het oog te onderscheiden.
+# Het einde van het spel
+De puzzel is opgelost als het hele bord één kleur heeft. Elk bord heeft een maximum aantal zetten; zijn er geen zetten meer over, maak dan zetten ongedaan en probeer een andere weg.
+3 sterren: opgelost in het par, het kleinste aantal zetten dat de computer vond; 2 sterren: tot de helft meer zetten.

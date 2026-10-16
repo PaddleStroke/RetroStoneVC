@@ -1,0 +1,8 @@
+Banjir Warna
+# Tujuan
+Jadikan seluruh papan satu warna. Wilayahmu dimulai di pojok kiri atas: kotak-kotak berwarna sama yang tersambung dengannya lewat sisi.
+# Satu langkah
+Pilih satu warna. Wilayahmu berubah ke warna itu, dan setiap kotak berwarna itu yang menyentuh wilayahmu ikut bergabung. Setiap warna juga punya tanda sendiri, jadi kamu tidak pernah harus membedakan warna dengan mata saja.
+# Akhir permainan
+Teka-teki selesai saat seluruh papan berwarna sama. Setiap papan punya batas langkah; jika langkah habis, batalkan dan coba jalan lain.
+3 bintang: selesai dalam par, jumlah langkah paling sedikit yang ditemukan komputer; 2 bintang: paling banyak setengahnya lagi.

@@ -1,0 +1,8 @@
+Flood
+# The aim
+Turn the whole board into one colour. Your region starts in the top left corner: the cells of its colour joined to it, side by side.
+# A move
+Choose a colour. Your region takes it, and every cell of that colour touching the region joins it. Each colour also has its own sign, so no colour has to be told by eye alone.
+# The end of the game
+The puzzle is solved when the board is all one colour. Each board has a move limit; with no moves left, undo and try another way.
+3 stars: solved in the par, the fewest moves the computer found; 2 stars: up to half as many moves again.

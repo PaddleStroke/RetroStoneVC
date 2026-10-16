@@ -1,0 +1,8 @@
+Farveflod
+# Målet
+Gør hele brættet til én farve. Dit område begynder i øverste venstre hjørne: felterne i dets farve, der hænger sammen med det side om side.
+# Et træk
+Vælg en farve. Dit område får den, og hvert felt i den farve, der rører området, bliver en del af det. Hver farve har også sit eget tegn, så du aldrig skal skelne farver med øjet alene.
+# Spillets afslutning
+Opgaven er løst, når hele brættet har én farve. Hvert bræt har et højeste antal træk; er der ingen træk tilbage, så fortryd og prøv en anden vej.
+3 stjerner: løst på par, det mindste antal træk, computeren fandt; 2 stjerner: op til halvdelen flere træk.

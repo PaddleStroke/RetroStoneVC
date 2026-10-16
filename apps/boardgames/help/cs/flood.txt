@@ -1,0 +1,8 @@
+Záplava
+# Cíl hry
+Obarvi celou desku jedinou barvou. Tvá oblast začíná v levém horním rohu: políčka její barvy, která s ní sousedí stranou.
+# Tah
+Vyber barvu. Tvá oblast ji přijme a připojí se k ní každé políčko té barvy, které se jí dotýká. Každá barva má také vlastní znak, takže barvy nikdy nemusíš rozlišovat jen okem.
+# Konec hry
+Hlavolam je vyřešený, když má celá deska jednu barvu. Každá deska má omezený počet tahů; když ti žádný nezbývá, vrať tahy zpět a zkus jinou cestu.
+3 hvězdy: vyřešeno na par, nejmenší počet tahů, který našel počítač; 2 hvězdy: nejvýš o polovinu tahů víc.

@@ -1,0 +1,8 @@
+Inundación
+# El objetivo
+Deja todo el tablero de un solo color. Tu región empieza en la esquina superior izquierda: las casillas de su color unidas a ella por un lado.
+# Una jugada
+Elige un color. Tu región lo toma, y cada casilla de ese color que la toca se une a ella. Cada color tiene además su propio signo, así que nunca hace falta distinguir los colores solo a ojo.
+# El final de la partida
+El rompecabezas está resuelto cuando todo el tablero es de un color. Cada tablero tiene un límite de jugadas; si no te quedan jugadas, deshaz y prueba otro camino.
+3 estrellas: resuelto en el par, el mínimo de jugadas que encontró el ordenador; 2 estrellas: hasta la mitad más de jugadas.

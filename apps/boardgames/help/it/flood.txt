@@ -1,0 +1,8 @@
+Inondazione
+# Lo scopo
+Rendi tutto il tabellone di un solo colore. La tua regione parte dall'angolo in alto a sinistra: le caselle del suo colore unite a essa per un lato.
+# Una mossa
+Scegli un colore. La tua regione lo prende, e ogni casella di quel colore che la tocca si unisce a essa. Ogni colore ha anche un suo segno, così non devi mai distinguere i colori solo a occhio.
+# La fine della partita
+Il rompicapo è risolto quando tutto il tabellone è di un solo colore. Ogni tabellone ha un limite di mosse; senza mosse rimaste, annulla e prova un'altra strada.
+3 stelle: risolto al par, il minimo di mosse trovato dal computer; 2 stelle: fino alla metà di mosse in più.

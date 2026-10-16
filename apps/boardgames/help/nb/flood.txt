@@ -1,0 +1,8 @@
+Fargeflom
+# Målet
+Gjør hele brettet til én farge. Området ditt begynner i øverste venstre hjørne: rutene i fargen dets som henger sammen med det side ved side.
+# Et trekk
+Velg en farge. Området ditt får den, og hver rute i den fargen som berører området, blir med i det. Hver farge har også sitt eget tegn, så du aldri må skille farger med øyet alene.
+# Slutten på spillet
+Oppgaven er løst når hele brettet har én farge. Hvert brett har en grense for antall trekk; er det ingen trekk igjen, angre og prøv en annen vei.
+3 stjerner: løst på par, færrest trekk datamaskinen fant; 2 stjerner: opptil halvparten flere trekk.

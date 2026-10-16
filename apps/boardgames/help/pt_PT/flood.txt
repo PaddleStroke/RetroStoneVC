@@ -1,0 +1,8 @@
+Inundação
+# O objetivo
+Deixa o tabuleiro inteiro de uma só cor. A tua região começa no canto superior esquerdo: as casas da cor dela ligadas a ela por um lado.
+# Uma jogada
+Escolhe uma cor. A tua região passa a ter essa cor, e cada casa dessa cor que lhe toca junta-se a ela. Cada cor tem também o seu próprio sinal, por isso nunca precisas de distinguir as cores só a olho.
+# O fim do jogo
+O quebra-cabeças está resolvido quando todo o tabuleiro tem uma só cor. Cada tabuleiro tem um limite de jogadas; sem jogadas restantes, anula e experimenta outro caminho.
+3 estrelas: resolvido no par, o mínimo de jogadas que o computador encontrou; 2 estrelas: até metade a mais de jogadas.

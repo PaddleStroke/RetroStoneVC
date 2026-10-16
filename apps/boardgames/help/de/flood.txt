@@ -1,0 +1,8 @@
+Farbflut
+# Das Ziel
+Färbe das ganze Brett in einer einzigen Farbe. Dein Gebiet beginnt in der linken oberen Ecke: die Felder seiner Farbe, die Seite an Seite mit ihm verbunden sind.
+# Ein Zug
+Wähle eine Farbe. Dein Gebiet nimmt sie an, und jedes Feld dieser Farbe, das es berührt, kommt hinzu. Jede Farbe hat auch ihr eigenes Zeichen, so musst du Farben nie allein mit dem Auge unterscheiden.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn das ganze Brett eine Farbe hat. Jedes Brett hat eine Zuggrenze; sind keine Züge mehr übrig, nimm Züge zurück und versuche einen anderen Weg.
+3 Sterne: gelöst mit Par, den wenigsten Zügen, die der Computer fand; 2 Sterne: bis zu halb so viele Züge mehr.

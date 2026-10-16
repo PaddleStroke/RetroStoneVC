@@ -1,0 +1,8 @@
+Tulva
+# Tavoite
+Tee koko laudasta yhtä väriä. Alueesi alkaa vasemmasta yläkulmasta: sen väriset ruudut, jotka liittyvät siihen sivuittain.
+# Siirto
+Valitse väri. Alueesi saa sen, ja jokainen sen värinen ruutu, joka koskettaa aluetta, liittyy siihen. Jokaisella värillä on myös oma merkkinsä, joten värejä ei koskaan tarvitse erottaa pelkällä silmällä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun koko lauta on yhtä väriä. Jokaisella laudalla on siirtoraja; kun siirtoja ei ole jäljellä, peru siirtoja ja kokeile toista tietä.
+3 tähteä: ratkaistu parissa eli pienimmällä siirtomäärällä, jonka tietokone löysi; 2 tähteä: enintään puolet enemmän siirtoja.

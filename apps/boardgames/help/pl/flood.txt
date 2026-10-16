@@ -1,0 +1,8 @@
+Powódź
+# Cel gry
+Zamaluj całą planszę jednym kolorem. Twój obszar zaczyna się w lewym górnym rogu: pola jego koloru połączone z nim bokami.
+# Ruch
+Wybierz kolor. Twój obszar go przyjmuje, a każde pole tego koloru, które go dotyka, dołącza do niego. Każdy kolor ma też swój znak, więc nigdy nie musisz rozróżniać kolorów tylko na oko.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy cała plansza ma jeden kolor. Każda plansza ma limit ruchów; gdy nie został już żaden, cofnij ruchy i spróbuj innej drogi.
+3 gwiazdki: rozwiązanie w tylu ruchach co par, najmniej, ile znalazł komputer; 2 gwiazdki: do połowy ruchów więcej.

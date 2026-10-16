@@ -1,0 +1,8 @@
+Sel
+# Amaç
+Tüm tahtayı tek renk yap. Bölgen sol üst köşeden başlar: onun renginde olan ve ona kenardan bağlı kareler.
+# Bir hamle
+Bir renk seç. Bölgen o rengi alır ve bölgeye değen o renkteki her kare ona katılır. Her rengin kendi işareti de vardır; renkleri asla yalnızca gözle ayırt etmen gerekmez.
+# Oyunun sonu
+Tahtanın tamamı tek renk olduğunda bulmaca çözülür. Her tahtanın bir hamle sınırı vardır; hamle kalmadıysa geri al ve başka bir yol dene.
+Par ile, yani bilgisayarın bulduğu en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız.

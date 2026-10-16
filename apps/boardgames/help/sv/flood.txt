@@ -1,0 +1,8 @@
+Färgflod
+# Målet
+Gör hela brädet till en enda färg. Ditt område börjar i övre vänstra hörnet: rutorna i dess färg som hänger ihop med det sida vid sida.
+# Ett drag
+Välj en färg. Ditt område tar den, och varje ruta i den färgen som rör området blir en del av det. Varje färg har också sitt eget tecken, så du behöver aldrig skilja färger åt med ögat ensamt.
+# Partiets slut
+Pusslet är löst när hela brädet har en färg. Varje bräde har ett högsta antal drag; finns inga drag kvar, ångra och pröva en annan väg.
+3 stjärnor: löst på par, det minsta antal drag datorn hittade; 2 stjärnor: upp till hälften fler drag.

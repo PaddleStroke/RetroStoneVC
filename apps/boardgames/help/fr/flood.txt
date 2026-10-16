@@ -1,0 +1,8 @@
+Inondation
+# Le but
+Rends tout le plateau d'une seule couleur. Ta région part du coin en haut à gauche : les cases de sa couleur qui lui sont reliées par un côté.
+# Un coup
+Choisis une couleur. Ta région la prend, et chaque case de cette couleur qui la touche la rejoint. Chaque couleur a aussi son propre signe : nul besoin de distinguer les couleurs à l'œil seul.
+# La fin de la partie
+Le casse-tête est résolu quand tout le plateau est d'une seule couleur. Chaque plateau a une limite de coups ; sans coups restants, annule et essaie un autre chemin.
+3 étoiles : résolu au par, le moins de coups trouvé par l'ordinateur ; 2 étoiles : jusqu'à moitié plus de coups.
