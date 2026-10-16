@@ -1,0 +1,7 @@
+Sudoku Killer
+# Tujuan
+Isi kisi 9 × 9 kotak sehingga setiap baris, setiap kolom, dan setiap blok 3 × 3 berisi setiap angka 1 sampai 9 tepat satu kali. Tidak ada angka yang diberikan: garis putus-putus membagi kisi menjadi kurungan, dan angka kecil di sudut kurungan adalah jumlah angka-angkanya. Satu angka tidak pernah muncul dua kali dalam kurungan yang sama. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
+# Akhir permainan
+Teka-teki terpecahkan saat kisi penuh dan benar.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.

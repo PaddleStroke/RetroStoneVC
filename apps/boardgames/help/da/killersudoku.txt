@@ -1,0 +1,7 @@
+Killersudoku
+# Målet
+Udfyld gitteret på 9 × 9 felter, så hver række, hver kolonne og hver 3 × 3-boks indeholder hvert ciffer fra 1 til 9 én gang. Intet ciffer er givet: stiplede linjer deler gitteret i bure, og det lille tal i et burs hjørne er summen af dets cifre. Et ciffer står aldrig to gange i samme bur. Hver opgave har præcis én løsning, som kan findes ved ren tankegang.
+# Spillets afslutning
+Opgaven er løst, når gitteret er fuldt og rigtigt.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.

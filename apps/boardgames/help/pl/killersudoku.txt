@@ -1,0 +1,7 @@
+Sudoku z sumami
+# Cel gry
+Wypełnij diagram 9 × 9 pól tak, aby każdy wiersz, każda kolumna i każdy kwadrat 3 × 3 zawierał każdą cyfrę od 1 do 9 dokładnie raz. Żadna cyfra nie jest podana: przerywane linie dzielą diagram na klatki, a mała liczba w rogu klatki to suma jej cyfr. W jednej klatce cyfra nigdy się nie powtarza. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.

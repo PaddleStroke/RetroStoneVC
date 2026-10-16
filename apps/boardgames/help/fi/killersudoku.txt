@@ -1,0 +1,7 @@
+Summasudoku
+# Tavoite
+Täytä 9 × 9 ruudun ruudukko niin, että jokaisella rivillä, jokaisessa sarakkeessa ja jokaisessa 3 × 3 -laatikossa on jokainen numero 1–9 kerran. Yhtään numeroa ei ole annettu: katkoviivat jakavat ruudukon häkkeihin, ja häkin kulmassa oleva pieni luku on sen numeroiden summa. Sama numero ei ole koskaan kahdesti samassa häkissä. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.

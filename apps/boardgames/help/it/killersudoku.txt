@@ -1,0 +1,7 @@
+Sudoku killer
+# Lo scopo
+Riempi la griglia di 9 × 9 caselle in modo che ogni riga, ogni colonna e ogni riquadro di 3 × 3 contenga una volta ciascuna cifra da 1 a 9. Nessuna cifra è data: linee tratteggiate dividono la griglia in gabbie, e il numerino nell'angolo di una gabbia è la somma delle sue cifre. Una cifra non si ripete mai nella stessa gabbia. Ogni schema ha una sola soluzione, che si trova solo ragionando.
+# La fine della partita
+Lo schema è risolto quando la griglia è piena e giusta.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una cifra sbagliata che togli con Annulla.

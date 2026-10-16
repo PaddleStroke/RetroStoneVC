@@ -1,0 +1,7 @@
+Killersudoku
+# Målet
+Fyll rutenettet på 9 × 9 ruter slik at hver rad, hver kolonne og hver 3 × 3-boks inneholder hvert siffer fra 1 til 9 én gang. Ingen sifre er gitt: stiplede linjer deler rutenettet i bur, og det lille tallet i hjørnet av et bur er summen av sifrene i det. Et siffer står aldri to ganger i samme bur. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere.
+# Slutten på spillet
+Oppgaven er løst når rutenettet er fullt og riktig.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil siffer som du tar tilbake med Angre.

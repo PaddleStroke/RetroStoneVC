@@ -1,0 +1,7 @@
+Killer-Sudoku
+# Das Ziel
+Fülle das Gitter aus 9 × 9 Feldern so, dass jede Zeile, jede Spalte und jeder 3 × 3-Block jede Ziffer von 1 bis 9 genau einmal enthält. Keine Ziffer ist vorgegeben: Gestrichelte Linien teilen das Gitter in Käfige, und die kleine Zahl in der Ecke eines Käfigs ist die Summe seiner Ziffern. In einem Käfig kommt keine Ziffer zweimal vor. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn das Gitter voll und richtig ist.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Ziffer, die du mit Rückgängig zurücknimmst.

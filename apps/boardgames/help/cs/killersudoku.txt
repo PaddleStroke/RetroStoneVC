@@ -1,0 +1,7 @@
+Součtové sudoku
+# Cíl hry
+Vyplň mřížku 9 × 9 políček tak, aby každý řádek, každý sloupec a každý čtverec 3 × 3 obsahoval každou číslici od 1 do 9 právě jednou. Žádná číslice není daná: přerušované čáry dělí mřížku na klece a malé číslo v rohu klece je součet jejích číslic. V jedné kleci se žádná číslice neopakuje. Každá úloha má právě jedno řešení, které lze najít jen úvahou.
+# Konec hry
+Úloha je vyřešená, když je mřížka plná a správně.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná číslice; počítá se, když ji vezmeš zpět tlačítkem Vrátit.

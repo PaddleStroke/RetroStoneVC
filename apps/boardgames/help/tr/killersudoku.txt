@@ -1,0 +1,7 @@
+Katil Sudoku
+# Amaç
+9 × 9 karelik ızgarayı, her satırda, her sütunda ve her 3 × 3 kutuda 1'den 9'a kadar her rakam birer kez olacak şekilde doldur. Hiçbir rakam verilmez: kesikli çizgiler ızgarayı kafeslere böler ve bir kafesin köşesindeki küçük sayı, içindeki rakamların toplamıdır. Bir kafeste aynı rakam iki kez bulunmaz. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
+# Oyunun sonu
+Izgara dolu ve doğru olduğunda bulmaca çözülür.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir rakamdır.

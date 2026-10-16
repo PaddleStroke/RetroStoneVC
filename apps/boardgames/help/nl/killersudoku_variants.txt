@@ -1,0 +1,4 @@
+Makkelijk
+Gemiddeld
+Moeilijk
+Expert

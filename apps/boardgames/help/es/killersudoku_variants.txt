@@ -1,0 +1,4 @@
+Fácil
+Medio
+Difícil
+Experto

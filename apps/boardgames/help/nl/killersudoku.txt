@@ -1,0 +1,7 @@
+Killersudoku
+# Het doel
+Vul het rooster van 9 × 9 vakjes zo dat elke rij, elke kolom en elk blok van 3 × 3 elk cijfer van 1 tot 9 één keer bevat. Er is geen cijfer gegeven: stippellijnen delen het rooster in kooien, en het kleine getal in de hoek van een kooi is de som van zijn cijfers. Een cijfer komt nooit twee keer voor in dezelfde kooi. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt.
+# Het einde van het spel
+De puzzel is opgelost als het rooster vol en goed is.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd cijfer dat je met Ongedaan maken terugneemt.
