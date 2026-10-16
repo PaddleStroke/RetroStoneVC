@@ -1,0 +1,12 @@
+Heyawake
+# Lo scopo
+Annerisci alcune caselle della griglia, che è divisa in stanze.
+- Un numero dice quante caselle annerite ha la sua stanza. Una stanza senza numero può averne quante vuole.
+- Due caselle annerite non si toccano mai per un lato.
+- Le caselle bianche formano un solo pezzo, unite per i lati.
+- Una linea dritta di caselle bianche non attraversa mai più di una parete tra stanze.
+Ogni griglia ha una sola soluzione, che si trova solo ragionando. Tieni premuta una casella per metterci un punto: una nota che resta bianca.
+# La fine della partita
+La griglia è risolta quando tutte le regole sono rispettate: un'onda di luce dorata la percorre.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una casella sbagliata che togli con Annulla.

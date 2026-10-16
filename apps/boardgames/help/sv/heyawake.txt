@@ -1,0 +1,12 @@
+Heyawake
+# Målet
+Skugga några rutor i rutnätet, som är indelat i rum.
+- Ett tal anger hur många skuggade rutor dess rum har. Ett rum utan tal får ha hur många som helst.
+- Skuggade rutor rör aldrig varandra med en sida.
+- De vita rutorna hänger ihop i ett stycke via sidorna.
+- En rak rad vita rutor korsar aldrig mer än en vägg mellan rum.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att sätta en prick i den: en anteckning om att den förblir vit.
+# Partiets slut
+Pusslet är löst när alla regler håller: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

@@ -1,0 +1,12 @@
+Heyawake
+# Målet
+Skraver noen ruter i rutenettet, som er delt inn i rom.
+- Et tall sier hvor mange skraverte ruter rommet har. Et rom uten tall kan ha så mange det vil.
+- Skraverte ruter berører aldri hverandre langs en side.
+- De hvite rutene henger sammen i ett stykke langs sidene.
+- En rett rekke hvite ruter krysser aldri mer enn én vegg mellom rom.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette en prikk i den: et notat om at den forblir hvit.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

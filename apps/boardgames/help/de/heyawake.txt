@@ -1,0 +1,12 @@
+Heyawake
+# Das Ziel
+Schwärze einige Felder des Gitters, das in Räume aufgeteilt ist.
+- Eine Zahl sagt, wie viele geschwärzte Felder ihr Raum hat. Ein Raum ohne Zahl darf beliebig viele haben.
+- Geschwärzte Felder berühren sich nie an einer Seite.
+- Die weißen Felder hängen alle als ein Stück zusammen, über die Seiten.
+- Eine gerade Reihe weißer Felder überquert nie mehr als eine Wand zwischen Räumen.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um einen Punkt hineinzusetzen: eine Notiz, dass es weiß bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

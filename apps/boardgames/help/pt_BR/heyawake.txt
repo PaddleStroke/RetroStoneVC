@@ -1,0 +1,12 @@
+Heyawake
+# O objetivo
+Pinte algumas casas da grade, que é dividida em salas.
+- Um número diz quantas casas pintadas a sua sala tem. Uma sala sem número pode ter quantas quiser.
+- Casas pintadas nunca se tocam pelo lado.
+- As casas sem pintar formam uma peça só, ligadas pelos lados.
+- Uma linha reta de casas sem pintar nunca atravessa mais de uma parede entre salas.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure uma casa para pôr um ponto nela: uma anotação de que ela fica sem pintar.
+# O fim da partida
+A grade está resolvida quando todas as regras são cumpridas: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

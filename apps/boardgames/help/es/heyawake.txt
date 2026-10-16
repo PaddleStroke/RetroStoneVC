@@ -1,0 +1,12 @@
+Heyawake
+# El objetivo
+Sombrea algunas casillas del tablero, que está dividido en habitaciones.
+- Un número dice cuántas casillas sombreadas tiene su habitación. Una habitación sin número puede tener las que sean.
+- Dos casillas sombreadas nunca se tocan por un lado.
+- Las casillas sin sombrear forman una sola pieza, unidas por los lados.
+- Una línea recta de casillas sin sombrear nunca cruza más de una pared entre habitaciones.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para poner un punto: una nota de que queda sin sombrear.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

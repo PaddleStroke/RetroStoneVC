@@ -1,0 +1,12 @@
+Heyawake
+# O objetivo
+Pinta algumas casas da grelha, que está dividida em salas.
+- Um número diz quantas casas pintadas tem a sua sala. Uma sala sem número pode ter quantas quiser.
+- As casas pintadas nunca se tocam pelo lado.
+- As casas por pintar formam uma peça só, ligadas pelos lados.
+- Uma linha reta de casas por pintar nunca atravessa mais de uma parede entre salas.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Mantém o dedo numa casa para lhe pôr um ponto: uma nota de que fica por pintar.
+# O fim do jogo
+A grelha está resolvida quando todas as regras são cumpridas: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que tiras com Anular.

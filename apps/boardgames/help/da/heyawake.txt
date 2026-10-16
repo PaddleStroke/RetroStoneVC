@@ -1,0 +1,12 @@
+Heyawake
+# Målet
+Skravér nogle felter i gitteret, som er delt op i rum.
+- Et tal fortæller, hvor mange skraverede felter dets rum har. Et rum uden tal må have så mange, det vil.
+- Skraverede felter rører aldrig hinanden med en side.
+- De hvide felter hænger sammen i ét stykke via siderne.
+- En lige række af hvide felter krydser aldrig mere end én væg mellem rum.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en prik i det: en note om, at det forbliver hvidt.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

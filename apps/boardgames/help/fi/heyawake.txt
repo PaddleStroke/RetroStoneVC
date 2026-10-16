@@ -1,0 +1,12 @@
+Heyawake
+# Tavoite
+Varjosta ruudukosta ruutuja; ruudukko on jaettu huoneisiin.
+- Numero kertoo, montako varjostettua ruutua sen huoneessa on. Huoneessa ilman numeroa niitä voi olla kuinka monta tahansa.
+- Varjostetut ruudut eivät koskaan kosketa toisiaan sivulla.
+- Varjostamattomat ruudut ovat kaikki yhtä kappaletta sivujen kautta.
+- Suora rivi varjostamattomia ruutuja ei koskaan ylitä useampaa kuin yhtä huoneiden välistä seinää.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa laittaaksesi siihen pisteen: muistiinpano, että se jää varjostamatta.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

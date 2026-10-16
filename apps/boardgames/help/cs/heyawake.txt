@@ -1,0 +1,12 @@
+Heyawake
+# Cíl hry
+Vybarvi některá políčka mřížky, která je rozdělená na místnosti.
+- Číslo říká, kolik vybarvených políček má jeho místnost. Místnost bez čísla jich může mít libovolně.
+- Vybarvená políčka se nikdy nedotýkají stranou.
+- Nevybarvená políčka tvoří jeden celek spojený stranami.
+- Rovná řada nevybarvených políček nikdy nepřekročí víc než jednu stěnu mezi místnostmi.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst na políčku a dáš do něj tečku: poznámku, že zůstane nevybarvené.
+# Konec hry
+Hlavolam je vyřešen, když platí všechna pravidla: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.
