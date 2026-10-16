@@ -699,9 +699,9 @@ static void draw_sheet(void)
     float ph = n * rh + 0.5f * u, x0 = b.x + (b.w - pw) / 2, y0 = b.y + (b.h - ph) / 2;
     endt_begin(b, pw, ph, 80, &x0, &y0);   /* over the table, or in the end card */
     int we = brg_side(L.me), they = we ^ 1;
-    float c_no = x0 + 0.06f * pw, c_k = x0 + 0.12f * pw, c_we = x0 + 0.68f * pw, c_they = x0 + 0.88f * pw;
+    float c_no = x0 + 0.06f * pw, c_k = x0 + 0.12f * pw, c_we = x0 + 0.68f * pw, c_they = x0 + 0.90f * pw;
     float y = y0 + 0.25f * u, nh = fminf(0.42f * rh, 0.4f * u);
-    ui_fill(x0 + 0.78f * pw, y0 + 0.25f * u + 0.15f * rh, fmaxf(1, 0.02f * u), ph - 0.5f * u - 0.3f * rh, 246, 238,
+    ui_fill(x0 + 0.765f * pw, y0 + 0.25f * u + 0.15f * rh, fmaxf(1, 0.02f * u), ph - 0.5f * u - 0.3f * rh, 246, 238,
             220, 40);
     for (int i = 0; i < n; i++, y += rh) {
         float cy = y + rh / 2;
@@ -741,9 +741,11 @@ static void draw_sheet(void)
                 float cx = k ? c_they : c_we;
                 int v = r[i].kind == ROW_ABOVE ? d->above[side] : r[i].kind == ROW_BELOW ? d->below[side]
                                                                                           : d->below[side] + d->above[side];
-                if (r[i].kind == ROW_DEAL && d->vul >> side & 1) {   /* vulnerable on that deal: a red ring */
+                if (r[i].kind == ROW_DEAL && d->vul >> side & 1) {   /* vulnerable on that deal: a red ring, left of
+                                                                        the points */
                     int s = (int)(0.5f * rh);
-                    ui_put_c(ct_picture(paint, PIC_VUL, s), cx - 0.5f * (c_they - c_we) + 0.36f * rh, cy, (float)s,
+                    float half = fmaxf(v ? ct_number_w(v, nh, 0) / 2 : 0, 0.25f * rh);
+                    ui_put_c(ct_picture(paint, PIC_VUL, s), cx - half - 0.16f * rh - 0.5f * (float)s, cy, (float)s,
                              (float)s);
                 }
                 if (r[i].kind == ROW_ABOVE && d->rubber == side + 1) ui_mark_gold(cx, cy, 2.2f * nh);
