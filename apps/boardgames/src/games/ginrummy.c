@@ -27,6 +27,7 @@
 static gngame G;
 static int dealing, floor_n;                    /* floor_n: undo stops there (the last hand-off) */
 static int sel = CARD_NONE;                     /* the card chosen in the hand */
+static void deal_slides(void);
 static const int deck = DECK_FRENCH;
 static struct { int on, card, moved; float x0, y0, x, y; } drag;
 
@@ -65,6 +66,7 @@ static void layout(box b)
     T.kr = 0.62f * u;
     T.kx = fminf(T.dx + 0.5f * T.pw + 0.3f * u + T.kr, b.x + b.w - T.kr - 0.1f * u);
     T.ky = T.my;
+    if (dealing && ui.viewer >= 0) { dealing = 0; deal_slides(); }   /* the cover lifted: the deal flies */
 }
 
 /* ---- a row of cards in groups: melds apart, a gold line under each ---------------------------------------------- */
