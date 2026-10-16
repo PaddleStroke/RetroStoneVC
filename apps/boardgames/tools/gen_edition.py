@@ -10,7 +10,7 @@ PAID_APP_NAME, PAID_APP_ID, PAID_STORE_URL (the paid app the "full version" pane
 in-app purchase that unlocks everything, apps/common/iap.h: the iOS app's product id; none: nothing sold in the
 app); for the Settings page: APP_VERSION_NAME, APP_ID, REVIEW_URL (Leave a review; default: the app's Google Play
 page), SUPPORT_URL (Leave a tip when no store sells tips; empty: no row), REPORT_URL (Report a problem; default
-mailto:hello@8bcraft.com), SOURCE_URL (Star on GitHub), PRIVACY_URL (the policy's web page; empty: the in-app page
+mailto:AppBugReport@8bcraft.com), SOURCE_URL (Star on GitHub), PRIVACY_URL (the policy's web page; empty: the in-app page
 only), TIP_PRODUCTS (the store's three consumable tip products, ids between spaces; empty: none).
 Plain KEY=value lines, '#' a comment line. A FREE_GAMES id that no game registers stops the build. The
 file is written only when it changes, so the app is rebuilt only then.
@@ -89,7 +89,7 @@ def main():
         "const char ed_app_id[] = %s;" % c_string(conf.get("APP_ID", "")),
         "const char ed_review_url[] = %s;" % c_string(conf.get("REVIEW_URL", default_review(conf))),
         "const char ed_support_url[] = %s;" % c_string(conf.get("SUPPORT_URL", "")),
-        "const char ed_report_url[] = %s;" % c_string(conf.get("REPORT_URL", "mailto:hello@8bcraft.com")),
+        "const char ed_report_url[] = %s;" % c_string(conf.get("REPORT_URL", "mailto:AppBugReport@8bcraft.com")),
         "const char ed_source_url[] = %s;" % c_string(conf.get("SOURCE_URL",
                                                                 "https://github.com/PaddleStroke/RetroStoneVC")),
         "const char ed_privacy_url[] = %s;" % c_string(conf.get("PRIVACY_URL", "")),
