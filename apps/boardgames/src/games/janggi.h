@@ -13,34 +13,34 @@
  * The end: a player in check with no move that saves the general loses (mate); a player not in check may always pass
  * (with no legal move, must). A move may not leave the two generals facing each other on an open file. The same
  * position a third time (the same player to move) is a draw (four passes in a row bring it back); so is a game of
- * JG_MAX_PLY plies.
+ * JN_MAX_PLY plies.
  */
 #ifndef JANGGI_H
 #define JANGGI_H
 
 #include <stdint.h>
 
-#define JG_W 9
-#define JG_H 10
-#define JG_PTS (JG_W * JG_H)
-#define JG_PT(x, y) ((y) * JG_W + (x))
-#define JG_X(p) ((p) % JG_W)
-#define JG_Y(p) ((p) / JG_W)
+#define JN_W 9
+#define JN_H 10
+#define JN_PTS (JN_W * JN_H)
+#define JN_PT(x, y) ((y) * JN_W + (x))
+#define JN_X(p) ((p) % JN_W)
+#define JN_Y(p) ((p) / JN_W)
 
-enum { JG_EMPTY, JG_GENERAL, JG_GUARD, JG_ELEPHANT, JG_HORSE, JG_CHARIOT, JG_CANNON, JG_SOLDIER };
-#define JG_PC(player, type) ((uint8_t)((player) << 3 | (type)))
-#define JG_TYPE(pc)  ((pc) & 7)
-#define JG_OWNER(pc) ((pc) >> 3)
+enum { JN_EMPTY, JN_GENERAL, JN_GUARD, JN_ELEPHANT, JN_HORSE, JN_CHARIOT, JN_CANNON, JN_SOLDIER };
+#define JN_PC(player, type) ((uint8_t)((player) << 3 | (type)))
+#define JN_TYPE(pc)  ((pc) & 7)
+#define JN_OWNER(pc) ((pc) >> 3)
 
 typedef struct {
-    uint8_t sq[JG_PTS];
+    uint8_t sq[JN_PTS];
     uint8_t side;                               /* who moves */
     uint16_t quiet;                             /* plies since the last capture: how far back a repetition looks */
 } jpos;
 
 typedef struct { uint8_t from, to, cap; } jmove;   /* cap: the piece taken (0: none) */
-#define JG_PASS 0xFF                            /* a pass: from and to JG_PASS */
-#define JG_MAX_MOVES 192                        /* a position has far fewer */
+#define JN_PASS 0xFF                            /* a pass: from and to JN_PASS */
+#define JN_MAX_MOVES 192                        /* a position has far fewer */
 
 void jn_start(jpos *p);
 int  jn_legal(const jpos *p, jmove *out);       /* the legal moves (not the pass); their count */
@@ -57,11 +57,11 @@ int  jn_parse(const jmove *legal, int n, const char *s);
 int  jn_setup(jpos *p, int side, const char *pieces0, const char *pieces1);
 
 /* A game: every position since the start, so undo is free and repetitions can be counted. */
-typedef enum { JG_PLAY, JG_MATE, JG_REPETITION, JG_LONG } jstatus;
-#define JG_MAX_PLY 2000                         /* a thousand moves each: a draw */
+typedef enum { JN_PLAY, JN_MATE, JN_REPETITION, JN_LONG } jstatus;
+#define JN_MAX_PLY 2000                         /* a thousand moves each: a draw */
 typedef struct {
-    jpos pos[JG_MAX_PLY + 1];
-    jmove move[JG_MAX_PLY];
+    jpos pos[JN_MAX_PLY + 1];
+    jmove move[JN_MAX_PLY];
     int ply;
 } jgame;
 void jn_new(jgame *g);

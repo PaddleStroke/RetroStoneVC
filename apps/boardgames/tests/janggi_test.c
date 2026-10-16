@@ -12,7 +12,7 @@
 
 static int fails, checks;
 static jpos P;
-static jmove M[JG_MAX_MOVES];
+static jmove M[JN_MAX_MOVES];
 static int N;
 
 #define CHECK(c) do { checks++; if (!(c)) { fails++; printf("FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); } } while (0)
@@ -50,11 +50,11 @@ static int game(const char *moves)
         if (*s == ' ') { s++; continue; }
         if (!strncmp(s, "pass", 4)) {
             if (!jn_can_pass(jn_pos(&G))) return 0;
-            jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+            jn_play(&G, (jmove){JN_PASS, JN_PASS, 0});
             s += 4;
             continue;
         }
-        jmove m[JG_MAX_MOVES];
+        jmove m[JN_MAX_MOVES];
         int k = jn_parse(m, jn_legal(jn_pos(&G), m), s);
         if (k < 0) return 0;
         jn_play(&G, m[k]);
@@ -69,7 +69,7 @@ int main(void)
     jn_start(&P);
     N = jn_legal(&P, M);
     CHECK(jn_general(&P, 0) == jn_point("e1") && jn_general(&P, 1) == jn_point("e8"));
-    CHECK(P.sq[jn_point("b0")] == JG_PC(0, JG_HORSE) && P.sq[jn_point("c9")] == JG_PC(1, JG_ELEPHANT));
+    CHECK(P.sq[jn_point("b0")] == JN_PC(0, JN_HORSE) && P.sq[jn_point("c9")] == JN_PC(1, JN_ELEPHANT));
     CHECK(N == 31 && jn_can_pass(&P));
     CHECK(only("b2", "") && only("c0", "") && only("e1", "e1d1 e1f1 e1e0 e1e2 e1d2 e1f2"));
 
@@ -159,18 +159,18 @@ int main(void)
     CHECK(N == 0 && jn_in_check(&P, 1) && !jn_can_pass(&P));
     jn_new(&G);
     G.pos[0] = P;
-    CHECK(jn_status(&G) == JG_MATE);
+    CHECK(jn_status(&G) == JN_MATE);
     /* no move but not in check: the player passes, the game goes on */
     pos(1, "Kd0 Rb8 Rh8 Pd8 Pf8", "Ke9");
     CHECK(N == 0 && !jn_in_check(&P, 1) && jn_can_pass(&P));
     G.pos[0] = P;
-    CHECK(jn_status(&G) == JG_PLAY);
-    jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+    CHECK(jn_status(&G) == JN_PLAY);
+    jn_play(&G, (jmove){JN_PASS, JN_PASS, 0});
     CHECK(jn_pos(&G)->side == 0 && !memcmp(jn_pos(&G)->sq, P.sq, sizeof P.sq));
 
     /* a few moves and a pass, then undo all the way */
     CHECK(game("e3f3 c6d6 pass i6i5"));
-    CHECK(jn_status(&G) == JG_PLAY && G.move[2].from == JG_PASS && jn_pos(&G)->side == 0);
+    CHECK(jn_status(&G) == JN_PLAY && G.move[2].from == JN_PASS && jn_pos(&G)->side == 0);
     {
         jpos start;
         jn_start(&start);
@@ -179,17 +179,17 @@ int main(void)
         CHECK(n == 4 && !memcmp(jn_pos(&G), &start, sizeof start) && !jn_undo(&G));
     }
     CHECK(!game("e3e4 e6e5 e4e5 pass e5e6 e8e7"));   /* the soldier takes, Han passes; e7: guarded by it */
-    CHECK(G.ply == 5 && G.move[2].cap == JG_PC(1, JG_SOLDIER));
+    CHECK(G.ply == 5 && G.move[2].cap == JN_PC(1, JN_SOLDIER));
 
     /* the same position a third time: a draw; four passes in a row bring it back too */
     CHECK(game("a0a1 a9a8 a1a0 a8a9 a0a1 a9a8 a1a0"));
-    CHECK(jn_status(&G) == JG_PLAY);
+    CHECK(jn_status(&G) == JN_PLAY);
     CHECK(game("a0a1 a9a8 a1a0 a8a9 a0a1 a9a8 a1a0 a8a9"));
-    CHECK(jn_status(&G) == JG_REPETITION);
+    CHECK(jn_status(&G) == JN_REPETITION);
     jn_undo(&G);
-    CHECK(jn_status(&G) == JG_PLAY);
-    CHECK(game("pass pass pass") && jn_status(&G) == JG_PLAY);
-    CHECK(game("pass pass pass pass") && jn_status(&G) == JG_REPETITION);
+    CHECK(jn_status(&G) == JN_PLAY);
+    CHECK(game("pass pass pass") && jn_status(&G) == JN_PLAY);
+    CHECK(game("pass pass pass pass") && jn_status(&G) == JN_REPETITION);
 
     printf("%s: %d checks, %d failed\n", fails ? "FAIL" : "ok", checks, fails);
     return fails != 0;

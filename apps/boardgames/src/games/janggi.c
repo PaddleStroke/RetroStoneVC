@@ -20,7 +20,7 @@
 #define ANIM_MS 150
 
 static jgame G;
-static jmove legal[JG_MAX_MOVES];
+static jmove legal[JN_MAX_MOVES];
 static int nlegal, state = GS_PLAY;
 static palace B;                                /* the board on the screen */
 static int made = -1, made_small = -1;
@@ -35,8 +35,8 @@ static void refresh(void)
 {
     nlegal = jn_legal(jn_pos(&G), legal);
     switch (jn_status(&G)) {
-    case JG_PLAY: state = GS_PLAY; break;
-    case JG_MATE: state = jn_pos(&G)->side ? GS_WIN0 : GS_WIN1; break;   /* mated: that player lost */
+    case JN_PLAY: state = GS_PLAY; break;
+    case JN_MATE: state = jn_pos(&G)->side ? GS_WIN0 : GS_WIN1; break;   /* mated: that player lost */
     default: state = GS_DRAW;
     }
     sel = -1;
@@ -76,7 +76,7 @@ static int can_pass(void) { return state == GS_PLAY && jn_can_pass(jn_pos(&G)); 
 
 static void pass(void)
 {
-    jn_play(&G, (jmove){JG_PASS, JG_PASS, 0});
+    jn_play(&G, (jmove){JN_PASS, JN_PASS, 0});
     anim.on = 0;
     refresh();
 }
@@ -127,7 +127,7 @@ int janggi_show(const char *move)
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* the characters, JG_GENERAL..JG_SOLDIER: Cho's set, Han's set (help/glyphs.txt keeps them in the fonts) */
+/* the characters, JN_GENERAL..JN_SOLDIER: Cho's set, Han's set (help/glyphs.txt keeps them in the fonts) */
 static const int CHARS[2][8] = {
     {0, 0x695A, 0x58EB, 0x8C61, 0x99AC, 0x8ECA, 0x5305, 0x5352},   /* 楚士象馬車包卒 */
     {0, 0x6F22, 0x58EB, 0x8C61, 0x99AC, 0x8ECA, 0x5305, 0x5175},   /* 漢士象馬車包兵 */
@@ -157,7 +157,7 @@ static void layout(box b)
     if (made != sq) {
         made = sq;
         for (int c = 0; c < 2; c++)
-            for (int t = JG_GENERAL; t <= JG_SOLDIER; t++) {
+            for (int t = JN_GENERAL; t <= JN_SOLDIER; t++) {
                 ui_free(&t_piece[c][t]);
                 piece_pic(t, c, sq, ui_buf(sq, sq));
                 t_piece[c][t] = ui_tex(sq, sq, ui_buf(sq, sq));
@@ -169,7 +169,7 @@ static void layout(box b)
     if (made_small != small) {
         made_small = small;
         for (int c = 0; c < 2; c++)
-            for (int t = JG_GENERAL; t <= JG_SOLDIER; t++) {
+            for (int t = JN_GENERAL; t <= JN_SOLDIER; t++) {
                 ui_free(&t_small[c][t]);
                 piece_pic(t, c, small, ui_buf(small, small));
                 t_small[c][t] = ui_tex(small, small, ui_buf(small, small));
@@ -181,10 +181,10 @@ static void layout(box b)
  * the top player face to face: its character faces them */
 static void piece_at(int pc, float x, float y, float size, int shadow)
 {
-    float k = SIZE[JG_TYPE(pc)] * 0.9f * size;  /* the piece's own width */
+    float k = SIZE[JN_TYPE(pc)] * 0.9f * size;  /* the piece's own width */
     if (shadow) { ui_shadow_flat(x, y, k, k, 1); return; }
-    SDL_Texture *t = t_piece[JG_OWNER(pc)][JG_TYPE(pc)];
-    if (ui_upside(JG_OWNER(pc))) ui_put_rot(t, x, y, size, size, 180);
+    SDL_Texture *t = t_piece[JN_OWNER(pc)][JN_TYPE(pc)];
+    if (ui_upside(JN_OWNER(pc))) ui_put_rot(t, x, y, size, size, 180);
     else ui_put_c(t, x, y, size, size);
 }
 
@@ -196,14 +196,14 @@ static int taken(int player, int gone[8], int landed)
     const jpos *p = jn_pos(&G);
     int c = !player, n = 0;
     for (int t = 0; t < 8; t++) gone[t] = start_n[t];
-    for (int s = 0; s < JG_PTS; s++)
-        if (p->sq[s] && JG_OWNER(p->sq[s]) == c) gone[JG_TYPE(p->sq[s])]--;
-    if (landed && anim.on && anim.m.cap && JG_OWNER(anim.m.cap) == c) gone[JG_TYPE(anim.m.cap)]--;
+    for (int s = 0; s < JN_PTS; s++)
+        if (p->sq[s] && JN_OWNER(p->sq[s]) == c) gone[JN_TYPE(p->sq[s])]--;
+    if (landed && anim.on && anim.m.cap && JN_OWNER(anim.m.cap) == c) gone[JN_TYPE(anim.m.cap)]--;
     for (int t = 0; t < 8; t++) n += gone[t] > 0 ? gone[t] : 0;
     return n;
 }
 
-static const int ORDER[6] = {JG_CHARIOT, JG_CANNON, JG_HORSE, JG_ELEPHANT, JG_GUARD, JG_SOLDIER};
+static const int ORDER[6] = {JN_CHARIOT, JN_CANNON, JN_HORSE, JN_ELEPHANT, JN_GUARD, JN_SOLDIER};
 
 /* the pieces each player took, in the tray by their side, the strongest first, their characters facing them */
 static void draw_trays(void)
@@ -231,7 +231,7 @@ static void draw(void)
     float x, y, h = sq / 2.0f;
     palace_board(&B, t_board);
     draw_trays();
-    if (G.ply && G.move[G.ply - 1].from != JG_PASS) {
+    if (G.ply && G.move[G.ply - 1].from != JN_PASS) {
         jmove m = G.move[G.ply - 1];
         palace_xy(&B, m.from, &x, &y);
         ui_mark_last(x - h, y - h, sq, sq);
@@ -254,7 +254,7 @@ static void draw(void)
         t = 1 - (1 - t) * (1 - t) * (1 - t);
     }
     for (int shade = 1; shade >= 0; shade--)    /* the shadows first: a shadow falls on the wood only */
-        for (int s = 0; s < JG_PTS; s++) {
+        for (int s = 0; s < JN_PTS; s++) {
             if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
             palace_xy(&B, s, &x, &y);
             piece_at(p->sq[s], x, y, (float)sq, shade);
@@ -296,7 +296,7 @@ static void press(float x, float y)
         return;
     }
     const jpos *p = jn_pos(&G);
-    if (p->sq[s] && JG_OWNER(p->sq[s]) == p->side) {
+    if (p->sq[s] && JN_OWNER(p->sq[s]) == p->side) {
         sel = s;
         drag.on = 1;
         drag.from = s;
@@ -347,15 +347,15 @@ static void bar(int player, box b)
     }
 }
 
-static void token(int player, int size, uint8_t *rgba) { piece_pic(JG_GENERAL, player & 1, size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { piece_pic(JN_GENERAL, player & 1, size, rgba); }
 
 /* the menu's card: Cho's palace, its general in the middle, its guards, two soldiers, Han's chariot and cannon */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     (void)variant;
     palace_pic c = palace_thumb(2, 0, 5, 0, NULL, 0, size, rgba);
-    static const int place[][3] = {{2, 3, JG_GENERAL}, {1, 4, JG_GUARD}, {3, 4, JG_GUARD}, {0, 1, JG_SOLDIER},
-                                   {2, 1, JG_SOLDIER}, {4, 2, 8 + JG_CHARIOT}, {3, 0, 8 + JG_CANNON}};
+    static const int place[][3] = {{2, 3, JN_GENERAL}, {1, 4, JN_GUARD}, {3, 4, JN_GUARD}, {0, 1, JN_SOLDIER},
+                                   {2, 1, JN_SOLDIER}, {4, 2, 8 + JN_CHARIOT}, {3, 0, 8 + JN_CANNON}};
     uint8_t *one = calloc((size_t)c.s * c.s, 4);
     if (!one) return;
     for (unsigned i = 0; i < sizeof place / sizeof place[0]; i++) {

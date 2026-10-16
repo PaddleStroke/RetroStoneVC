@@ -17,9 +17,9 @@ const jgame *janggi_live(void) { return &T; }
 
 static int one(const char *s)
 {
-    jmove l[JG_MAX_MOVES];
-    if (jn_status(&T) != JG_PLAY) return 0;
-    if (!strcmp(s, "pass")) return jn_can_pass(jn_pos(&T)) && jn_play(&T, (jmove){JG_PASS, JG_PASS, 0});
+    jmove l[JN_MAX_MOVES];
+    if (jn_status(&T) != JN_PLAY) return 0;
+    if (!strcmp(s, "pass")) return jn_can_pass(jn_pos(&T)) && jn_play(&T, (jmove){JN_PASS, JN_PASS, 0});
     if (strlen(s) != 4) return 0;
     int k = jn_parse(l, jn_legal(jn_pos(&T), l), s);
     return k >= 0 && jn_play(&T, l[k]);
@@ -31,18 +31,18 @@ static int actor(void) { return jn_pos(&T)->side; }
 static int result(void)
 {
     jstatus s = jn_status(&T);
-    return s == JG_PLAY ? -1 : s == JG_MATE ? !jn_pos(&T)->side : 2;
+    return s == JN_PLAY ? -1 : s == JN_MATE ? !jn_pos(&T)->side : 2;
 }
 
 static int random_move(ai_rng *r, char *m, int cap)
 {
-    jmove l[JG_MAX_MOVES];
+    jmove l[JN_MAX_MOVES];
     const jpos *p = jn_pos(&T);
     int n = jn_legal(p, l), pass = jn_can_pass(p);
     if ((!n && !pass) || cap < 5) return 0;
     int k = ai_rand_n(r, n + pass);             /* the pass as likely as any one move */
     if (k == n) { strcpy(m, "pass"); return 1; }
-    sprintf(m, "%c%c%c%c", 'a' + JG_X(l[k].from), '0' + JG_Y(l[k].from), 'a' + JG_X(l[k].to), '0' + JG_Y(l[k].to));
+    sprintf(m, "%c%c%c%c", 'a' + JN_X(l[k].from), '0' + JN_Y(l[k].from), 'a' + JN_X(l[k].to), '0' + JN_Y(l[k].to));
     return 1;
 }
 
@@ -63,7 +63,7 @@ static void solve(const char *what, const char *cho, const char *han, const char
         jn_setup(&T.pos[0], 0, cho, han);
         int ok = b->think(0, l, m, sizeof m);
         snprintf(name, sizeof name, "%s (%s: %s)", what, sp_name(l), m);
-        check(name, ok && (want ? strstr(want, m) != NULL : 1) && one(m) && (want || jn_status(&T) == JG_MATE));
+        check(name, ok && (want ? strstr(want, m) != NULL : 1) && one(m) && (want || jn_status(&T) == JN_MATE));
     }
 }
 
@@ -77,8 +77,8 @@ int main(int argc, char **argv)
         int same = 1, positions = 0;
         for (int gn = 0; gn < (full ? 2000 : 400) && same; gn++) {
             jn_new(&T);
-            for (int ply = 0; ply < 400 && same && jn_status(&T) == JG_PLAY; ply++) {
-                jmove a[JG_MAX_MOVES], c[JG_MAX_MOVES];
+            for (int ply = 0; ply < 400 && same && jn_status(&T) == JN_PLAY; ply++) {
+                jmove a[JN_MAX_MOVES], c[JN_MAX_MOVES];
                 int na = jn_legal(jn_pos(&T), a), nc = jnb_legal(jn_pos(&T), c);
                 same = na == nc;
                 for (int i = 0; i < na && same; i++) {
@@ -124,12 +124,12 @@ int main(int argc, char **argv)
             int done = 0;
             for (int k = 0; k < npos; k++) {
                 jn_new(&T);
-                for (int i = 0, n = 6 + 3 * k; i < n && jn_status(&T) == JG_PLAY; i++) {
+                for (int i = 0, n = 6 + 3 * k; i < n && jn_status(&T) == JN_PLAY; i++) {
                     char m[8];
                     random_move(&r, m, 8);
                     one(m);
                 }
-                if (jn_status(&T) != JG_PLAY) continue;
+                if (jn_status(&T) != JN_PLAY) continue;
                 static uint64_t root[1024];
                 jnb_root(&T, root);
                 ai_stats s;

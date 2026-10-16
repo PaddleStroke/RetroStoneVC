@@ -31,11 +31,11 @@ typedef struct {
 
 static const int VAL[8] = {0, 0, 150, 150, 250, 650, 350, 100};  /* general guard elephant horse chariot cannon soldier */
 
-static uint64_t key_of(const jpos *p) { return cb_board_key(p->sq, JG_PTS, 0x7a6ull + p->side); }
+static uint64_t key_of(const jpos *p) { return cb_board_key(p->sq, JN_PTS, 0x7a6ull + p->side); }
 static int enc(jmove m) { return m.from | m.to << 7 | m.cap << 14; }
 static jmove dec(int x)
 {
-    if (x == PASS) return (jmove){JG_PASS, JG_PASS, 0};
+    if (x == PASS) return (jmove){JN_PASS, JN_PASS, 0};
     jmove m = {(uint8_t)(x & 127), (uint8_t)(x >> 7 & 127), (uint8_t)(x >> 14 & 15)};
     return m;
 }
@@ -44,11 +44,11 @@ static jmove dec(int x)
  * outwards (the rules' test generates every enemy move for each candidate: too slow for a search) */
 static const int8_t DIRS[8][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
 
-static int on(int x, int y) { return x >= 0 && x < JG_W && y >= 0 && y < JG_H; }
+static int on(int x, int y) { return x >= 0 && x < JN_W && y >= 0 && y < JN_H; }
 static int in_palace(int x, int y) { return x >= 3 && x <= 5 && (y <= 2 || y >= 7); }
 static int own_palace(int player, int x, int y) { return in_palace(x, y) && (player ? y >= 7 : y <= 2); }
 static int fwd(int player) { return player ? -1 : 1; }
-static int at(const jpos *p, int x, int y) { return on(x, y) ? p->sq[JG_PT(x, y)] : -1; }
+static int at(const jpos *p, int x, int y) { return on(x, y) ? p->sq[JN_PT(x, y)] : -1; }
 
 /* a step along a palace's diagonal: both points in one palace, one of them its middle */
 static int link(int x0, int y0, int x1, int y1)
@@ -61,15 +61,15 @@ static int general(const jpos *p, int player)
 {
     for (int y = player ? 7 : 0; y <= (player ? 9 : 2); y++)   /* it never leaves its palace */
         for (int x = 3; x <= 5; x++)
-            if (p->sq[JG_PT(x, y)] == JG_PC(player, JG_GENERAL)) return JG_PT(x, y);
+            if (p->sq[JN_PT(x, y)] == JN_PC(player, JN_GENERAL)) return JN_PT(x, y);
     return -1;
 }
 
 static int facing(const jpos *p)
 {
     int a = general(p, 0), b = general(p, 1);
-    if (a < 0 || b < 0 || JG_X(a) != JG_X(b)) return 0;
-    for (int s = a + JG_W; s < b; s += JG_W)
+    if (a < 0 || b < 0 || JN_X(a) != JN_X(b)) return 0;
+    for (int s = a + JN_W; s < b; s += JN_W)
         if (p->sq[s]) return 0;
     return 1;
 }
@@ -77,7 +77,7 @@ static int facing(const jpos *p)
 /* 1: a move of `by` reaches the point t */
 static int attacked(const jpos *p, int t, int by)
 {
-    int tx = JG_X(t), ty = JG_Y(t);
+    int tx = JN_X(t), ty = JN_Y(t);
     for (int d = 0; d < 8; d++) {               /* the lines: a chariot first, a cannon past one screen */
         int dx = DIRS[d][0], dy = DIRS[d][1], x = tx, y = ty, screen = 0;
         for (;;) {
@@ -85,20 +85,20 @@ static int attacked(const jpos *p, int t, int by)
             if (!on(nx, ny) || (d >= 4 && !link(x, y, nx, ny))) break;
             x = nx;
             y = ny;
-            int pc = p->sq[JG_PT(x, y)];
+            int pc = p->sq[JN_PT(x, y)];
             if (!pc) continue;
             if (!screen) {
-                if (pc == JG_PC(by, JG_CHARIOT)) return 1;
-                if (JG_TYPE(pc) == JG_CANNON) break;   /* a cannon never screens a cannon */
+                if (pc == JN_PC(by, JN_CHARIOT)) return 1;
+                if (JN_TYPE(pc) == JN_CANNON) break;   /* a cannon never screens a cannon */
                 screen = 1;
             } else {
-                if (pc == JG_PC(by, JG_CANNON)) return 1;
+                if (pc == JN_PC(by, JN_CANNON)) return 1;
                 break;
             }
         }
         /* the general and the guards: one step inside their own palace */
         int ax = tx - dx, ay = ty - dy, pc = at(p, ax, ay);
-        if (pc > 0 && JG_OWNER(pc) == by && (JG_TYPE(pc) == JG_GENERAL || JG_TYPE(pc) == JG_GUARD) &&
+        if (pc > 0 && JN_OWNER(pc) == by && (JN_TYPE(pc) == JN_GENERAL || JN_TYPE(pc) == JN_GUARD) &&
             own_palace(by, tx, ty) && (d < 4 || link(ax, ay, tx, ty)))
             return 1;
     }
@@ -107,14 +107,14 @@ static int attacked(const jpos *p, int t, int by)
         for (int s = -1; s <= 1; s += 2) {
             int ex = dx + s * dy, ey = dy + s * dx;
             int hx = tx - dx - ex, hy = ty - dy - ey;
-            if (at(p, hx, hy) == JG_PC(by, JG_HORSE) && at(p, hx + dx, hy + dy) == 0) return 1;
+            if (at(p, hx, hy) == JN_PC(by, JN_HORSE) && at(p, hx + dx, hy + dy) == 0) return 1;
             int ax = tx - dx - 2 * ex, ay = ty - dy - 2 * ey;
-            if (at(p, ax, ay) == JG_PC(by, JG_ELEPHANT) && at(p, ax + dx, ay + dy) == 0 &&
+            if (at(p, ax, ay) == JN_PC(by, JN_ELEPHANT) && at(p, ax + dx, ay + dy) == 0 &&
                 at(p, ax + dx + ex, ay + dy + ey) == 0)
                 return 1;
         }
     }
-    int f = fwd(by), sol = JG_PC(by, JG_SOLDIER);   /* a soldier: from behind, beside, or a palace diagonal behind */
+    int f = fwd(by), sol = JN_PC(by, JN_SOLDIER);   /* a soldier: from behind, beside, or a palace diagonal behind */
     if (at(p, tx, ty - f) == sol || at(p, tx - 1, ty) == sol || at(p, tx + 1, ty) == sol) return 1;
     for (int s = -1; s <= 1; s += 2)
         if (at(p, tx - s, ty - f) == sol && link(tx - s, ty - f, tx, ty)) return 1;
@@ -130,40 +130,40 @@ static int in_check(const jpos *p, int player)
 static void add(const jpos *p, int me, jmove *out, int *n, int from, int x, int y)
 {
     if (!on(x, y)) return;
-    int to = JG_PT(x, y), pc = p->sq[to];
-    if (pc && JG_OWNER(pc) == me) return;
+    int to = JN_PT(x, y), pc = p->sq[to];
+    if (pc && JN_OWNER(pc) == me) return;
     out[(*n)++] = (jmove){(uint8_t)from, (uint8_t)to, (uint8_t)pc};
 }
 
 static int pseudo(const jpos *p, int me, jmove *out)
 {
     int n = 0;
-    for (int from = 0; from < JG_PTS; from++) {
+    for (int from = 0; from < JN_PTS; from++) {
         int pc = p->sq[from];
-        if (!pc || JG_OWNER(pc) != me) continue;
-        int x = JG_X(from), y = JG_Y(from), t = JG_TYPE(pc);
+        if (!pc || JN_OWNER(pc) != me) continue;
+        int x = JN_X(from), y = JN_Y(from), t = JN_TYPE(pc);
         switch (t) {
-        case JG_GENERAL:
-        case JG_GUARD:
+        case JN_GENERAL:
+        case JN_GUARD:
             for (int d = 0; d < 8; d++) {
                 int tx = x + DIRS[d][0], ty = y + DIRS[d][1];
                 if (own_palace(me, tx, ty) && (d < 4 || link(x, y, tx, ty))) add(p, me, out, &n, from, tx, ty);
             }
             break;
-        case JG_HORSE:
-        case JG_ELEPHANT:
+        case JN_HORSE:
+        case JN_ELEPHANT:
             for (int d = 0; d < 4; d++) {
                 int dx = DIRS[d][0], dy = DIRS[d][1];
                 if (at(p, x + dx, y + dy) != 0) continue;
                 for (int s = -1; s <= 1; s += 2) {
                     int ex = dx + s * dy, ey = dy + s * dx;
-                    if (t == JG_HORSE) add(p, me, out, &n, from, x + dx + ex, y + dy + ey);
+                    if (t == JN_HORSE) add(p, me, out, &n, from, x + dx + ex, y + dy + ey);
                     else if (at(p, x + dx + ex, y + dy + ey) == 0) add(p, me, out, &n, from, x + dx + 2 * ex, y + dy + 2 * ey);
                 }
             }
             break;
-        case JG_CHARIOT:
-        case JG_CANNON:
+        case JN_CHARIOT:
+        case JN_CANNON:
             for (int d = 0; d < 8; d++) {
                 int dx = DIRS[d][0], dy = DIRS[d][1], cx = x, cy = y, screen = 0;
                 for (;;) {
@@ -171,22 +171,22 @@ static int pseudo(const jpos *p, int me, jmove *out)
                     if (!on(nx, ny) || (d >= 4 && !link(cx, cy, nx, ny))) break;
                     cx = nx;
                     cy = ny;
-                    int q = p->sq[JG_PT(cx, cy)];
-                    if (t == JG_CHARIOT) {
+                    int q = p->sq[JN_PT(cx, cy)];
+                    if (t == JN_CHARIOT) {
                         add(p, me, out, &n, from, cx, cy);
                         if (q) break;
                     } else if (!screen) {
-                        if (q && JG_TYPE(q) == JG_CANNON) break;
+                        if (q && JN_TYPE(q) == JN_CANNON) break;
                         screen = q != 0;
                     } else if (!q) add(p, me, out, &n, from, cx, cy);
                     else {
-                        if (JG_TYPE(q) != JG_CANNON) add(p, me, out, &n, from, cx, cy);
+                        if (JN_TYPE(q) != JN_CANNON) add(p, me, out, &n, from, cx, cy);
                         break;
                     }
                 }
             }
             break;
-        case JG_SOLDIER:
+        case JN_SOLDIER:
             add(p, me, out, &n, from, x, y + fwd(me));
             add(p, me, out, &n, from, x - 1, y);
             add(p, me, out, &n, from, x + 1, y);
@@ -201,7 +201,7 @@ static int pseudo(const jpos *p, int me, jmove *out)
 /* the legal moves (not the pass); their count */
 int jnb_legal(const jpos *p, jmove *out)
 {
-    jmove all[JG_MAX_MOVES];
+    jmove all[JN_MAX_MOVES];
     int n = pseudo(p, p->side, all), k = 0, me = p->side, g = general(p, me);
     for (int i = 0; i < n; i++) {
         jpos q = *p;
@@ -241,7 +241,7 @@ static int a_over(const void *st, int *score)
 static int a_moves(const void *st, int *out)
 {
     const jpos *p = &((const jbpos *)st)->p;
-    jmove l[JG_MAX_MOVES];
+    jmove l[JN_MAX_MOVES];
     int n = jnb_legal(p, l);
     for (int i = 0; i < n; i++) out[i] = enc(l[i]);
     if (!in_check(p, p->side)) out[n++] = PASS;   /* the pass, never in check */
@@ -253,7 +253,7 @@ static int a_noisy(const void *st, int *out)
 {
     const jpos *p = &((const jbpos *)st)->p;
     if (in_check(p, p->side)) return a_moves(st, out);
-    jmove l[JG_MAX_MOVES];
+    jmove l[JN_MAX_MOVES];
     int n = jnb_legal(p, l), k = 0;
     for (int i = 0; i < n; i++)
         if (l[i].cap) out[k++] = enc(l[i]);
@@ -269,8 +269,8 @@ static int a_order(const void *st, int mv)
     const jbpos *s = st;
     jmove m = dec(mv);
     if (!m.cap) return 0;
-    int mover = JG_TYPE(s->p.sq[m.from]), victim = JG_TYPE(m.cap);
-    return cb_mvvlva(victim == JG_GENERAL ? 3000 : VAL[victim], mover == JG_GENERAL ? 1000 : VAL[mover]);
+    int mover = JN_TYPE(s->p.sq[m.from]), victim = JN_TYPE(m.cap);
+    return cb_mvvlva(victim == JN_GENERAL ? 3000 : VAL[victim], mover == JN_GENERAL ? 1000 : VAL[mover]);
 }
 
 /* ---- the evaluation ---------------------------------------------------------------------------------------------- */
@@ -279,10 +279,10 @@ static int reach(const jpos *p, int s)
     static const int D[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     int n = 0;
     for (int d = 0; d < 4; d++)
-        for (int x = JG_X(s) + D[d][0], y = JG_Y(s) + D[d][1]; x >= 0 && x < JG_W && y >= 0 && y < JG_H;
+        for (int x = JN_X(s) + D[d][0], y = JN_Y(s) + D[d][1]; x >= 0 && x < JN_W && y >= 0 && y < JN_H;
              x += D[d][0], y += D[d][1]) {
             n++;
-            if (p->sq[JG_PT(x, y)]) break;
+            if (p->sq[JN_PT(x, y)]) break;
         }
     return n;
 }
@@ -292,20 +292,20 @@ static int a_eval(const void *st)
     const jbpos *s = st;
     const jpos *p = &s->p;
     int us = p->side, v[2] = {0, 0}, men = 0;
-    for (int q = 0; q < JG_PTS; q++) men += p->sq[q] != 0;
-    for (int q = 0; q < JG_PTS; q++) {
+    for (int q = 0; q < JN_PTS; q++) men += p->sq[q] != 0;
+    for (int q = 0; q < JN_PTS; q++) {
         int pc = p->sq[q];
         if (!pc) continue;
-        int c = JG_OWNER(pc), t = JG_TYPE(pc), x = JG_X(q), rr = c ? 9 - JG_Y(q) : JG_Y(q), mid = 4 - cb_abs(x - 4);
+        int c = JN_OWNER(pc), t = JN_TYPE(pc), x = JN_X(q), rr = c ? 9 - JN_Y(q) : JN_Y(q), mid = 4 - cb_abs(x - 4);
         int palace = x >= 3 && x <= 5 && rr >= 7;   /* in the enemy palace */
         v[c] += VAL[t];
         switch (t) {
-        case JG_SOLDIER: v[c] += (rr > 3 ? 8 * (rr - 3) : 0) + (palace ? 25 : 0) - (rr == 9 ? 30 : 0); break;
-        case JG_HORSE: v[c] += 5 * mid + (rr >= 2 && rr <= 6 ? 10 : 0); break;
-        case JG_ELEPHANT: v[c] += 3 * mid; break;
-        case JG_CHARIOT: v[c] += 3 * reach(p, q) + (palace ? 25 : 0); break;
-        case JG_CANNON: v[c] += men < 14 ? -40 : palace ? 15 : 0; break;
-        case JG_GENERAL: v[c] += x == 4 && rr == 1 ? 15 : 0; break;
+        case JN_SOLDIER: v[c] += (rr > 3 ? 8 * (rr - 3) : 0) + (palace ? 25 : 0) - (rr == 9 ? 30 : 0); break;
+        case JN_HORSE: v[c] += 5 * mid + (rr >= 2 && rr <= 6 ? 10 : 0); break;
+        case JN_ELEPHANT: v[c] += 3 * mid; break;
+        case JN_CHARIOT: v[c] += 3 * reach(p, q) + (palace ? 25 : 0); break;
+        case JN_CANNON: v[c] += men < 14 ? -40 : palace ? 15 : 0; break;
+        case JN_GENERAL: v[c] += x == 4 && rr == 1 ? 15 : 0; break;
         }
     }
     return v[us] - v[!us] + 10;
@@ -350,10 +350,10 @@ int jnb_choose(const void *root, int level, uint64_t seed, char *out, ai_stats *
         return 1;
     }
     jmove m = dec(mv);
-    out[0] = (char)('a' + JG_X(m.from));
-    out[1] = (char)('0' + JG_Y(m.from));
-    out[2] = (char)('a' + JG_X(m.to));
-    out[3] = (char)('0' + JG_Y(m.to));
+    out[0] = (char)('a' + JN_X(m.from));
+    out[1] = (char)('0' + JN_Y(m.from));
+    out[2] = (char)('a' + JN_X(m.to));
+    out[3] = (char)('0' + JN_Y(m.to));
     out[4] = 0;
     return 1;
 }
@@ -363,7 +363,7 @@ static int think(int seat, int level, char *move, int cap)
     jbpos *root = malloc(sizeof *root);         /* the copy, at entry: nothing else is read */
     if (!root) return 0;
     jnb_root(janggi_live(), root);
-    jmove l[JG_MAX_MOVES];
+    jmove l[JN_MAX_MOVES];
     char m[8];
     int ok = root->p.side == seat && cap >= 5 && (jnb_legal(&root->p, l) > 0 || !in_check(&root->p, seat)) &&
              jnb_choose(root, level, ai_session_seed(), m, NULL) && !ai_cancelled();
