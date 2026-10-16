@@ -1906,7 +1906,7 @@ static void draw_tools(void)
     if (G.level < 0) ui_tool_paint(T_SETUP, paint_setup_icon, 0, 0.7f, UI_TINT);   /* random play: its choice */
     if (wide && G.level >= 0) {                 /* the level in the side column, above the tools */
         box c = ui_bar_box(0, NULL);
-        draw_label(c.x + c.w / 2, B.y + 0.6f * ui.unit, 1);
+        draw_label(c.x + c.w / 2, B.y + 1.6f * ui.unit, 1);   /* (under the header) */
     }
 }
 

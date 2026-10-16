@@ -1,12 +1,11 @@
 RetroStone Board
 # Bermain bersama
 Dua pemain berbagi satu perangkat dan bergiliran. Token yang menyala di bilah pemain menunjukkan giliran siapa sekarang.
-- Beranda: kembali ke daftar permainan. Permainan yang sedang berjalan akan menunggumu.
+- Kembali (kiri atas): ke pilihan atau level permainan, lalu ke daftar permainan. Permainan yang sedang berjalan menunggumu: tombol main emas melanjutkannya.
 - Urungkan: membatalkan langkah terakhir. Ketuk lagi untuk mundur lebih jauh.
 - Balik: memutar papan, sehingga pemain lain duduk di bawah.
 - Berhadapan: letakkan perangkat mendatar di antara kalian. Bidak dan bilah pemain di sisi atas berputar menghadap ke arahnya.
-- Permainan baru: ketuk dua kali untuk memulai lagi.
-- ?: aturan ini.
+- i (kanan atas): aturan ini.
 # Permainan kartu
 Dalam permainan kartu, perangkat berkeliling meja: pemain yang mendapat giliran melihat kartunya sendiri besar di bawah, bilahnya di bawahnya, dan bilah pemain lain di atas. Tidak ada Putar maupun Berhadapan.
 - Kartu rahasia: di antara dua giliran layar menjadi hijau dan menampilkan token pemain berikutnya. Serahkan perangkat; pemain itu mengetuk tombol bulat untuk melihat kartunya.

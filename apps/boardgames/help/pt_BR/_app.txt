@@ -1,12 +1,11 @@
 RetroStone Board
 # Jogando juntos
 Dois jogadores dividem um só aparelho e jogam alternadamente. A peça que brilha na barra de um jogador mostra de quem é a vez.
-- Início: volta aos jogos. Uma partida em andamento fica esperando por você.
+- Voltar (no alto, à esquerda): para as opções ou os níveis do jogo, depois para a lista de jogos. Uma partida em andamento espera por você: o botão dourado de jogar a retoma.
 - Desfazer: desfaz a última jogada. Toque de novo para voltar mais.
 - Girar: vira o tabuleiro, para que o outro jogador fique embaixo.
 - Frente a frente: deixe o aparelho deitado entre vocês. As peças e a barra do jogador de cima se viram para ele.
-- Novo jogo: toque duas vezes para recomeçar.
-- ?: estas regras.
+- i (no alto, à direita): estas regras.
 # Jogos de cartas
 Nos jogos de cartas o aparelho dá a volta na mesa: o jogador da vez vê as próprias cartas em grande embaixo, com a barra dele logo abaixo, e as barras dos outros jogadores em cima. Não há Girar nem Frente a frente.
 - Mãos secretas: entre dois turnos a tela fica verde e mostra a peça do próximo jogador. Passe o aparelho; esse jogador toca o botão redondo para ver as cartas dele.

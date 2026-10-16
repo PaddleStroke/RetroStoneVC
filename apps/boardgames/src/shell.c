@@ -1335,13 +1335,25 @@ static SDL_Texture *big_tok(int p)
 }
 
 /* ---- layout ------------------------------------------------------------------------------------------------------ */
-/* the buttons shown: alone (one player, or one person against the bots), no flip nor face to face */
-static int shown(int i) { return (humans() > 1 && !is_view()) || (i != B_FLIP && i != B_F2F); }
+/* the buttons shown at the bottom: undo, and flip and face to face for two people or more on a board (home, new game
+ * and the rules: the header's back and i) */
+static int shown(int i)
+{
+    if (i == B_HOME || i == B_NEW || i == B_HELP) return 0;
+    return (humans() > 1 && !is_view()) || (i != B_FLIP && i != B_F2F);
+}
+
+/* the game's header, at the top of its screen (portrait), of its column (landscape): back at the left (to the game's
+ * new game screen: its picker, its levels; a game in progress waits), the game's name, i (its rules) at the right */
+static struct { float cy, r, bx, ix; } HD;
+static int header_hit(float x, float y, float cx) { return hypotf(x - cx, y - HD.cy) < HD.r * 1.35f; }
 
 /* the game's own round buttons (game.tools): the room the shell gave them (right: packed against its right end, the
  * bottom bar's), their size; where each is, worked out again when the count shown changes */
 static struct {
     int n, shown, right, dirty;
+    int row;                                    /* portrait: in the buttons' row, after them (centred together) */
+    float step, by;                             /* that row's pitch and height */
     box room;
     float d0, d, x[UI_MAX_TOOLS], y[UI_MAX_TOOLS];
 } TL;
@@ -1358,6 +1370,19 @@ static void tools_place(void)
 {
     TL.dirty = 0;
     int n = TL.shown;
+    if (TL.row) {                               /* the buttons and the tools shown, one row centred */
+        int nb = 0;
+        for (int i = 0; i < NBTN; i++) nb += shown(i);
+        float x0 = ui.w / 2.0f - (nb + n - 1) / 2.0f * TL.step;
+        for (int i = 0, k = 0; i < NBTN; i++)
+            if (shown(i)) L.bx[i] = floorf(x0 + k++ * TL.step);
+        TL.d = floorf(TL.d0);
+        for (int i = 0; i < n; i++) {
+            TL.x[i] = floorf(x0 + (nb + i) * TL.step);
+            TL.y[i] = TL.by;
+        }
+        return;
+    }
     if (n <= 0 || TL.room.w <= 0) return;
     float u = ui.unit, d = TL.d0, gap = 0.3f * u;
     int per = 1, rows = 1;
@@ -1444,28 +1469,37 @@ static void layout_game(void)
     box top, bottom;
     TL.n = TL.shown = nt;
     TL.room = (box){0, 0, 0, 0};
-    TL.right = 0;
+    TL.right = TL.row = 0;
     TL.dirty = 1;
     if (ui.w <= ui.h) {
-        int in_bar = nt > 0 && nt <= 3 && n[0] == 1, row = nt > 0 && !in_bar, rows = nt > 7 ? 2 : 1;
+        /* the header's row at the top; at the bottom one row: the buttons, then the game's tools (six at most), big;
+         * more tools: a row of their own above the bottom bar */
+        int in_row = nt > 0 && nb + nt <= 6, row = nt > 0 && !in_row, rows = nt > 7 ? 2 : 1;
         float extra = row ? 1.1f * rows : 0;   /* units */
-        u = floorf(fminf((ui.w - 2 * m) / 9, (ui.h - 2 * m) / (12.9f + extra + (row ? 0.1f : 0))));
+        u = floorf(fminf((ui.w - 2 * m) / 9, (ui.h - 2 * m) / (14.0f + extra + (row ? 0.1f : 0))));
         float x = floorf((ui.w - 9 * u) / 2);
-        L.br = 0.56f * u;
-        top = (box){x, floorf(m), 9 * u, u};
+        L.br = 0.6f * u;
+        HD.cy = floorf(m + 0.5f * u);
+        HD.r = 0.42f * u;
+        HD.bx = x + 0.45f * u;
+        HD.ix = x + 8.55f * u;
+        top = (box){x, floorf(m + 1.05f * u), 9 * u, u};
         bottom = (box){x, floorf(ui.h - m - 1.35f * u - 2 * L.br), 9 * u, u};
+        float step = 1.5f * u, by = bottom.y + bottom.h + 0.35f * u + L.br;
+        float bx0 = ui.w / 2.0f - ((in_row ? nb + nt : nb) - 1) / 2.0f * step;
         for (int i = 0, k = 0; i < NBTN; i++) {
             if (!shown(i)) continue;
-            L.bx[i] = ui.w / 2.0f + (k++ - (nb - 1) / 2.0f) * 1.5f * u;
-            L.by[i] = bottom.y + bottom.h + 0.35f * u + L.br;
+            L.bx[i] = floorf(bx0 + k++ * step);
+            L.by[i] = by;
         }
-        float r0 = n[1] ? top.y + 1.2f * u : floorf(m), r1 = bottom.y - 0.2f * u;
+        float r0 = n[1] ? top.y + 1.2f * u : top.y, r1 = bottom.y - 0.2f * u;
         TL.d0 = 0.84f * u;
-        if (in_bar) {                           /* the tools at the bar's right end, the bar shorter */
-            float w = nt * TL.d0 + (nt - 1) * 0.3f * u + 0.1f * u;
-            TL.room = (box){bottom.x + bottom.w - w, bottom.y, w, bottom.h};
-            TL.right = 1;
-            bottom.w -= w + 0.2f * u;
+        if (in_row) {                           /* the tools after the buttons, as big, the same pitch */
+            TL.d0 = 2 * L.br;
+            TL.room = (box){floorf(bx0 + nb * step - L.br), by - L.br, nt * step, TL.d0};
+            TL.row = 1;                         /* (tools_place: the row centred on the tools shown) */
+            TL.step = step;
+            TL.by = by;
         } else if (row) {
             TL.d0 = 0.9f * u;
             TL.room = (box){x, r1 - extra * u, 9 * u, extra * u};
@@ -1478,18 +1512,20 @@ static void layout_game(void)
         u = floorf(fminf((ui.h - 2 * m) / 9, (ui.w - 2 * m) / 13.45f));
         float y = floorf((ui.h - 9 * u) / 2), cx = floorf(ui.w - m - 4 * u);
         L.board = (box){floorf(m), y, cx - 0.45f * u - floorf(m), 9 * u};
-        top = (box){cx, y, 4 * u, u};
+        HD.cy = y + 0.45f * u;                  /* the header: the column's top */
+        HD.r = 0.38f * u;
+        HD.bx = cx + 0.4f * u;
+        HD.ix = cx + 3.6f * u;
+        top = (box){cx, y + u, 4 * u, u};
         bottom = (box){cx, y + 8 * u, 4 * u, u};
         L.br = 0.55f * u;
-        int per = (nb + 1) / 2;
-        for (int i = 0, k = 0; i < NBTN; i++) {
+        for (int i = 0, k = 0; i < NBTN; i++) { /* one row, over the viewer's bar */
             if (!shown(i)) continue;
-            L.bx[i] = cx + 2 * u + (k % per - (per - 1) / 2.0f) * 1.35f * u;
-            L.by[i] = y + (k / per ? 7.2f : 5.95f) * u;
-            k++;
+            L.bx[i] = cx + 2 * u + (k++ - (nb - 1) / 2.0f) * 1.35f * u;
+            L.by[i] = y + 7.25f * u;
         }
-        float t0 = n[1] ? y + fminf(n[1] * 1.1f * u, 5.2f * u) : y;   /* below the others' bars */
-        TL.room = (box){cx, t0, 4 * u, y + 5.3f * u - t0};
+        float t0 = n[1] ? y + u + fminf(n[1] * 1.1f * u, 4.4f * u) : y + u;   /* below the others' bars */
+        TL.room = (box){cx, t0, 4 * u, y + 6.5f * u - t0};
         TL.d0 = 0.84f * u;
     } else {                                    /* the board, then a column: bar, tools, buttons, bar */
         u = floorf(fminf((ui.h - 2 * m) / 9, (ui.w - 2 * m) / 13.45f));
@@ -1499,18 +1535,24 @@ static void layout_game(void)
             cx = floorf(ui.w - m - 4 * u);
             L.board = (box){floorf(m), y, cx - 0.45f * u - floorf(m), 9 * u};
         }
-        top = (box){cx, y, 4 * u, u};
+        HD.cy = y + 0.45f * u;                  /* the header: the column's top */
+        HD.r = 0.38f * u;
+        HD.bx = cx + 0.4f * u;
+        HD.ix = cx + 3.6f * u;
+        top = (box){cx, y + u, 4 * u, u};
         bottom = (box){cx, y + 8 * u, 4 * u, u};
         L.br = 0.55f * u;
-        int per = (nb + 1) / 2;
-        for (int i = 0, k = 0; i < NBTN; i++) {     /* two rows (of three) */
+        /* one row of buttons over the bottom bars (stacked up from the column's foot), the tools above it, under the
+         * top bars (stacked down from under the header) */
+        float top_end = top.y + n[1] * 1.1f * u, bot_start = y + 8 * u - (n[0] > 1 ? n[0] - 1 : 0) * 1.1f * u;
+        float by = bot_start - 0.3f * u - L.br;
+        for (int i = 0, k = 0; i < NBTN; i++) {
             if (!shown(i)) continue;
-            L.bx[i] = cx + 2 * u + (k % per - (per - 1) / 2.0f) * 1.35f * u;
-            L.by[i] = y + 4.5f * u + (k / per ? 0.7f : -0.7f) * u;
-            k++;
+            L.bx[i] = cx + 2 * u + (k++ - (nb - 1) / 2.0f) * 1.35f * u;
+            L.by[i] = by;
         }
-        float t0 = y + (n[1] ? 1.2f : 0.1f) * u;
-        TL.room = (box){cx, t0, 4 * u, y + 3.15f * u - t0};
+        float t0 = top_end + 0.1f * u;
+        TL.room = (box){cx, t0, 4 * u, fmaxf(0.5f * u, by - L.br - 0.2f * u - t0)};
         TL.d0 = 0.84f * u;
     }
     ui.unit = u;
@@ -1531,7 +1573,7 @@ static void layout_game(void)
                 c.w = floorf((b.w - (n[s] - 1) * gap) / n[s]);
                 c.x = b.x + k * (c.w + gap);
             } else if (view) {                  /* the others' bars from the top, above the buttons */
-                c.y = b.y + k * fminf(1.1f * u, 4.2f * u / fmaxf(1, n[s] - 1));
+                c.y = b.y + k * fminf(1.1f * u, 3.4f * u / fmaxf(1, n[s] - 1));
             } else {
                 c.y = b.y + (s ? 1 : -1) * k * 1.1f * u;
             }
@@ -2811,6 +2853,19 @@ static void open_game(int i, int fresh_variant)
     end_seen = last_status != GS_PLAY;          /* a game that had ended: its card at once, no tune again */
 }
 
+/* back from a game: its new game screen (the picker, the level screen), the game in progress kept (the picker's gold
+ * play button, or the menu's card, picks it up) */
+static void game_back(void)
+{
+    bot_stop();
+    if (is_view() && hand.pending >= 0) view_of[cur] = hand.pending;   /* the next player's, when it comes back */
+    hand.pending = -1;
+    show_picker(cur);
+}
+
+/* a game in progress to go back to (the picker's and the level screen's gold play button) */
+static int resumable(void) { return cur >= 0 && started[cur] && games[cur]->status() == GS_PLAY; }
+
 static void go_home(void)
 {
     bot_stop();                                 /* a bot thinking: it starts again when the game is opened again */
@@ -3245,17 +3300,13 @@ static void draw_over(void)
 
 /* the hand-off cover, over the table greyed (drawn with ui.viewer -1: every hand hidden, only what all players see)
  * and its bars and buttons. The next player's token big in gold light, the picture "pass the device",
- * a big round start button; home and the rules in the corners (as on the picker). Portrait: a column; landscape: a
- * row. */
-static struct { float tx, ty, td, ix, iy, id, sx, sy, sr, hx, hy, qx, qy, r; } C;
+ * a big round start button; the header over it (back, the rules). Portrait: a column; landscape: a row. */
+static struct { float tx, ty, td, ix, iy, id, sx, sy, sr; } C;
+static void draw_header(void);
 
 static void cover_layout(void)
 {
-    float s = fminf(ui.w, ui.h), head = s * 0.16f;
-    C.r = head * 0.28f;
-    C.hx = s * 0.05f + C.r;
-    C.hy = C.qy = head * 0.55f;
-    C.qx = ui.w - s * 0.05f - C.r;
+    float s = fminf(ui.w, ui.h);
     C.td = floorf(s * 0.34f);
     C.id = floorf(s * 0.26f);
     C.sr = floorf(s * 0.12f);
@@ -3311,8 +3362,48 @@ static void draw_cover(void)
     ui_put_c(t_gold, C.sx, C.sy, C.sr * 3.2f, C.sr * 3.2f);
     ui_put_c(disc, C.sx, C.sy, 2 * C.sr, 2 * C.sr);
     ui_put_c(play, C.sx + 0.06f * C.sr, C.sy, 1.2f * C.sr, 1.2f * C.sr);
-    draw_button(C.hx, C.hy, C.r, ICON_HOME, NULL);
-    draw_button(C.qx, C.qy, C.r, ICON_HELP, NULL);
+    draw_header();                              /* back and the rules, over the cover too */
+}
+
+/* the game's name as the header shows it (the title's capitals), kept for the game, its size, the language */
+static SDL_Texture *header_name(float px, float maxw, int *w, int *h)
+{
+    static SDL_Texture *t;
+    static int key[4] = {-1}, tw, th;
+    int k[4] = {cur, (int)px, (int)maxw, text_gen};
+    if (memcmp(k, key, sizeof k)) {
+        memcpy(key, k, sizeof k);
+        ui_free(&t);
+        char name[96];
+        if (text_name(games[cur]->id, name, sizeof name)) {
+            int lw = text_title(name, px, FV_CREAM, NULL, 0, 0, 0, 0);
+            if (lw > maxw && lw > 0) {
+                px = fmaxf(6, px * maxw / lw);
+                lw = text_title(name, px, FV_CREAM, NULL, 0, 0, 0, 0);
+            }
+            tw = lw + 4;
+            th = (int)ceilf(px * 1.55f);
+            uint8_t *b = calloc((size_t)tw * th, 4);
+            if (b) {
+                text_title(name, px, FV_CREAM, b, tw, th, 2, (int)((th - 1.25f * px) / 2));
+                t = ui_tex(tw, th, b);
+                free(b);
+            }
+        }
+    }
+    *w = tw;
+    *h = th;
+    return t;
+}
+
+static void draw_header(void)
+{
+    float d = 2.1f * HD.r;
+    ui_put_c(icon_tex(ICON_BACK), HD.bx, HD.cy, d, d);
+    ui_put_c(icon_tex(ICON_INFO), HD.ix, HD.cy, d, d);
+    int w, h;
+    SDL_Texture *t = header_name(floorf(1.15f * HD.r), HD.ix - HD.bx - 2.8f * HD.r, &w, &h);
+    if (t) ui_put(t, floorf((HD.bx + HD.ix - w) / 2), floorf(HD.cy - h / 2.0f), (float)w, (float)h);
 }
 
 static void draw_game(void)
@@ -3352,12 +3443,14 @@ static void draw_game(void)
     game_textures();                            /* again: the game may have changed its tokens while drawing */
     for (int p = 0; p < ui.players; p++) draw_bar(p);
     if (armed && SDL_GetTicks() - armed > 2500) armed = 0;
+    if (TL.dirty) tools_place();                /* (the buttons' row follows the tools shown) */
     for (int i = 0; i < NBTN; i++) {
         if (!shown(i)) continue;
         SDL_Texture *disc = i == B_NEW && armed ? t_btn_armed : i == B_F2F && ui.f2f ? t_btn_on : NULL;
         int icon = i == B_NEW && g->levels ? ICON_GRID : BTN_ICON[i];   /* a level: back to the level screen */
         draw_button(L.bx[i], L.by[i], L.br, icon, disc);
     }
+    draw_header();
     if (hand.up) {
         ui_fill(0, 0, (float)ui.w, (float)ui.h, 14, 22, 18, 175);
         draw_cover();
@@ -3725,6 +3818,20 @@ static void draw_seats(void)
     }
 }
 
+/* the top row of a game's picker or level screen: back (to the games), the game's name, and when a game of it is in
+ * progress the gold play button (it picks it up) */
+static void draw_pick_head(void)
+{
+    float hx = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
+    draw_button(hx, L.snd_y, L.snd_r, ICON_BACK, NULL);
+    if (resumable()) ui_button(L.snd_x, L.snd_y, 2 * L.snd_r, ICON_PLAY, UI_ON | UI_LIT);
+    int w, h;
+    float right = resumable() || games[cur]->level_stars ? ui.w - hx - 3.2f * L.snd_r : ui.w - hx;
+    SDL_Texture *t = screen == SCR_LEVELS && games[cur]->level_stars ? NULL
+                     : header_name(floorf(1.0f * L.snd_r), right - hx - 2 * L.snd_r, &w, &h);
+    if (t) ui_put(t, floorf((ui.w - w) / 2), floorf(L.snd_y - h / 2.0f), (float)w, (float)h);
+}
+
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
@@ -3813,7 +3920,7 @@ static void draw_cards(void)
         ui_fill(room.x + room.w - fminf(ui.w, ui.h) * 0.016f, ty, fminf(ui.w, ui.h) * 0.008f, th, TH.text[0],
                 TH.text[1], TH.text[2], 70);
     }
-    if (screen != SCR_MENU) draw_button(fminf(ui.w, ui.h) * 0.05f + L.snd_r, L.snd_y, L.snd_r, ICON_HOME, NULL);
+    if (screen != SCR_MENU) draw_pick_head();
 }
 
 /* ---- the level screen -------------------------------------------------------------------------------------------- */
@@ -3931,11 +4038,12 @@ static void draw_levels(void)
         box t = LV.tiles[i];                    /* the free edition: a lock on the full version's */
         if (level_locked(first + i)) lock_badge(t.x + 0.84f * t.w, t.y + 0.16f * t.w, 0.3f * t.w);
     }
-    draw_button(fminf(ui.w, ui.h) * 0.05f + L.snd_r, L.snd_y, L.snd_r, ICON_HOME, NULL);
-    if (G->level_stars) {                       /* the stars won, at the top right */
+    draw_pick_head();
+    if (G->level_stars) {                       /* the stars won, at the top right (left of the play button) */
         int total = 0;
         for (int l = 0; l < nlevels(cur); l++) total += LV.best[l] ? LV.best[l] - 1 : 0;
-        float h = floorf(L.snd_r * 0.95f), nw = ui_number_w(total, h), right = L.snd_x + L.snd_r, d = 1.5f * h;
+        float h = floorf(L.snd_r * 0.95f), nw = ui_number_w(total, h), d = 1.5f * h;
+        float right = L.snd_x + L.snd_r - (resumable() ? 2.6f * L.snd_r : 0);
         ui_number_ex(right - nw / 2, L.snd_y, h, total, CREAM, 255, 0);
         star_at(right - nw - 0.25f * h - d / 2, L.snd_y, d, 0);
     }
@@ -4195,6 +4303,11 @@ static void levels_press(float x, float y)
         go_home();
         return;
     }
+    if (resumable() && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {   /* the level in play waits */
+        snd_play(SND_TAP);
+        open_game(cur, -1);
+        return;
+    }
     for (int k = 0; k < level_ntabs() && level_ntabs() > 1; k++)
         if (in_box(LV.tabs[k], x, y)) {
             snd_play(SND_TAP);
@@ -4261,10 +4374,16 @@ static void press(float x, float y)
     if (screen != SCR_GAME) {
         float home_x = fminf(ui.w, ui.h) * 0.05f + L.snd_r;
         if (screen == SCR_PICK && in_circle(x, y, home_x, L.snd_y, L.snd_r)) { snd_play(SND_TAP); go_home(); return; }
+        if (screen == SCR_PICK && resumable() && in_circle(x, y, L.snd_x, L.snd_y, L.snd_r)) {   /* the game waits */
+            snd_play(SND_TAP);
+            open_game(cur, -1);
+            return;
+        }
         for (int k = 0; k < L.npills; k++) {
             box b = L.pills[k];
             if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
             snd_play(SND_TAP);
+            if (ui.players != L.pill_n[k]) started[cur] = 0;   /* (a game in progress: left) */
             nplayers[cur] = ui.players = L.pill_n[k];
             remember_game(cur);
             bots_update();
@@ -4275,6 +4394,7 @@ static void press(float x, float y)
         for (int k = 0; k < L.nseats; k++) {    /* a seat: a person, the bot easy, medium, hard, a person again */
             if (!in_box(L.seats[k], x, y)) continue;
             snd_play(SND_TAP);
+            started[cur] = 0;                   /* (a game in progress: left) */
             seat_lv[cur][k] = (uint8_t)((seat_lv[cur][k] + 1) % (2 + AI_HARD));
             remember_game(cur);
             bots_update();
@@ -4334,11 +4454,11 @@ static void press(float x, float y)
         }
         return;
     }
-    if (is_view() && hand.up) {                 /* the cover: start (the view is the player's), home, the rules */
+    if (header_hit(x, y, HD.bx)) { snd_play(SND_TAP); game_back(); return; }   /* the header: back, the rules */
+    if (header_hit(x, y, HD.ix)) { snd_play(SND_TAP); open_help(cur); return; }
+    if (is_view() && hand.up) {                 /* the cover: start (the view is the player's) */
         cover_layout();
         if (in_circle(x, y, C.sx, C.sy, C.sr)) { snd_play(SND_TAP); uncover(); }
-        else if (in_circle(x, y, C.hx, C.hy, C.r)) { snd_play(SND_TAP); go_home(); }
-        else if (in_circle(x, y, C.qx, C.qy, C.r)) { snd_play(SND_TAP); open_help(cur); }
         return;
     }
     for (int i = 0; i < NBTN; i++) {
@@ -4532,7 +4652,7 @@ static void touch(Uint32 type, long long id, float x, float y)
         id_drop(shell_id, &nshell, id);         /* a finger of that id before has lifted (its lifting unseen) */
         id_drop(PT.held, &PT.nheld, id);
         id_drop(PT.strays, &PT.nstrays, id);
-        int hit = 0;
+        int hit = header_hit(x, y, HD.bx) || header_hit(x, y, HD.ix);
         for (int i = 0; i < NBTN && !hit; i++) hit = shown(i) && in_circle(x, y, L.bx[i], L.by[i], L.br);
         for (int p = 0; p < ui.players && !hit; p++)
             hit = x >= L.bar[p].x && y >= L.bar[p].y && x < L.bar[p].x + L.bar[p].w && y < L.bar[p].y + L.bar[p].h;
@@ -5422,6 +5542,7 @@ static void key(SDL_Keycode k, int repeat)
         if (FV.open) FV.open = 0;
         else if (help.open) help.open = 0;
         else if (screen == SCR_MENU) quit = 1;
+        else if (screen == SCR_GAME) game_back();   /* a game: its new game screen; from there the games */
         else go_home();
         return;
     }

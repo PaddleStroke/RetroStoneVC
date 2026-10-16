@@ -1,12 +1,11 @@
 RetroStone Board
 # Pelatkaa yhdessä
 Kaksi pelaajaa jakaa yhden laitteen ja pelaa vuorotellen. Pelaajan palkissa hehkuva merkki näyttää, kenen vuoro on.
-- Koti: takaisin peleihin. Kesken jäänyt peli odottaa sinua.
+- Takaisin (vasemmalla ylhäällä): pelin valintoihin tai tasoihin, sitten pelilistaan. Kesken oleva peli odottaa: kultainen pelinappi jatkaa sitä.
 - Kumoa: peruu viimeisen siirron. Napauta uudelleen palataksesi vielä kauemmas taaksepäin.
 - Käännä: kääntää laudan ympäri, niin että toinen pelaaja istuu alhaalla.
 - Kasvokkain: aseta laite tasaisesti välillenne. Ylemmän pelaajan nappulat ja palkki kääntyvät häntä kohti.
-- Uusi peli: napauta kahdesti aloittaaksesi alusta.
-- ?: nämä säännöt.
+- i (oikealla ylhäällä): nämä säännöt.
 # Korttipelit
 Korttipeleissä laite kiertää pöydän ympäri: vuorossa oleva näkee omat korttinsa isoina alhaalla, oman palkkinsa niiden alla ja muiden pelaajien palkit ylhäällä. Kääntöä ja vastakkain pelaamista ei ole.
 - Salaiset kädet: kahden vuoron välissä näyttö muuttuu vihreäksi ja näyttää seuraavan pelaajan merkin. Ojenna laite; se pelaaja napauttaa pyöreää painiketta nähdäkseen korttinsa.

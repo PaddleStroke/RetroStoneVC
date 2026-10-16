@@ -1,12 +1,11 @@
 RetroStone Board
 # Spill sammen
 To spillere deler én enhet og bytter på å spille. Den lysende markøren i en spillers panel viser hvem sin tur det er.
-- Hjem: tilbake til spillene. Et påbegynt spill venter på deg.
+- Tilbake (øverst til venstre): til spillets valg eller nivåer, deretter til listen over spill. Et spill i gang venter: den gylne spilleknappen fortsetter det.
 - Angre: tar tilbake det siste trekket. Trykk igjen for å gå lenger tilbake.
 - Snu: snur brettet rundt, slik at den andre spilleren sitter nederst.
 - Ansikt til ansikt: legg enheten flatt mellom dere. Den øverste spillerens brikker og panel snus mot vedkommende.
-- Nytt spill: trykk to ganger for å begynne på nytt.
-- ?: disse reglene.
+- i (øverst til høyre): disse reglene.
 # Kortspill
 I kortspill går enheten rundt bordet: den som har tur, ser sine egne kort stort nederst med sitt panel under, og de andre spillernes paneler øverst. Det finnes verken Snu eller Ansikt til ansikt her.
 - Hemmelige kort: mellom to turer blir skjermen grønn og viser markøren til neste spiller. Gi enheten videre; den spilleren trykker på den runde knappen for å se kortene sine.

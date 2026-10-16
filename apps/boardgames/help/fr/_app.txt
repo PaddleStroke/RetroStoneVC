@@ -1,12 +1,11 @@
 RetroStone Board
 # Jouer à deux
 Deux joueurs partagent un seul appareil et jouent chacun leur tour. La pièce lumineuse dans la barre d'un joueur indique à qui c'est le tour.
-- Accueil : retour aux jeux. Une partie en cours t'attend.
+- Retour (en haut à gauche) : vers les choix du jeu ou ses niveaux, puis vers la liste des jeux. Une partie en cours t'attend : le bouton doré de lecture la reprend.
 - Annuler : reprend le dernier coup. Touche encore pour revenir plus loin en arrière.
 - Retourner : fait pivoter le plateau, pour que l'autre joueur soit en bas.
 - Face à face : pose l'appareil à plat entre vous. Les pièces et la barre du joueur du haut se tournent vers lui.
-- Nouvelle partie : touche deux fois pour recommencer.
-- ? : ces règles.
+- i (en haut à droite) : ces règles.
 # Les jeux de cartes
 Aux jeux de cartes, l'appareil fait le tour de la table : le joueur dont c'est le tour voit ses propres cartes en grand en bas, sa barre en dessous, et les barres des autres joueurs en haut. Il n'y a ni Retourner ni Face à face.
 - Mains secrètes : entre deux tours, l'écran devient vert et montre la pièce du joueur suivant. Passe-lui l'appareil ; il touche le bouton rond pour voir ses cartes.

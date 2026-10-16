@@ -1,12 +1,11 @@
 RetroStone Board
 # Jugar juntos
 Dos jugadores comparten un mismo dispositivo y juegan por turnos. La ficha que brilla en la barra de un jugador indica a quién le toca.
-- Inicio: vuelve a los juegos. Una partida en curso te espera.
+- Atrás (arriba a la izquierda): a las opciones o los niveles del juego, y luego a la lista de juegos. Una partida en curso te espera: el botón dorado de jugar la reanuda.
 - Deshacer: retira la última jugada. Toca otra vez para retroceder más.
 - Girar: da la vuelta al tablero, para que el otro jugador quede abajo.
 - Cara a cara: deja el dispositivo plano entre los dos. Las piezas y la barra del jugador de arriba se giran hacia él.
-- Nueva partida: toca dos veces para empezar de nuevo.
-- ?: estas reglas.
+- i (arriba a la derecha): estas reglas.
 # Juegos de cartas
 En los juegos de cartas el dispositivo da la vuelta a la mesa: el jugador al que le toca ve sus propias cartas en grande abajo, con su barra debajo, y las barras de los demás jugadores arriba. No hay Girar ni Cara a cara.
 - Manos secretas: entre dos turnos la pantalla se vuelve verde y muestra la ficha del siguiente jugador. Pásale el dispositivo; ese jugador toca el botón redondo para ver sus cartas.

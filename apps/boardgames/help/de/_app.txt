@@ -1,12 +1,11 @@
 RetroStone Board
 # Gemeinsam spielen
 Zwei Spieler teilen sich ein Gerät und sind abwechselnd am Zug. Der leuchtende Stein in der Leiste eines Spielers zeigt, wer am Zug ist.
-- Start: zurück zu den Spielen. Eine laufende Partie wartet auf dich.
+- Zurück (oben links): zu den Optionen oder Leveln des Spiels, dann zur Spieleliste. Eine laufende Partie wartet: Die goldene Starttaste setzt sie fort.
 - Rückgängig: nimmt den letzten Zug zurück. Tippe erneut, um weiter zurückzugehen.
 - Drehen: dreht das Brett um, sodass der andere Spieler unten sitzt.
 - Gegenüber: Leg das Gerät flach zwischen euch. Die Figuren und die Leiste des oberen Spielers drehen sich zu ihm.
-- Neues Spiel: zweimal tippen, um neu anzufangen.
-- ?: diese Regeln.
+- i (oben rechts): diese Regeln.
 # Kartenspiele
 Bei Kartenspielen geht das Gerät reihum: Wer am Zug ist, sieht die eigenen Karten groß unten, darunter die eigene Leiste, und oben die Leisten der anderen Spieler. Drehen und Gegenüber gibt es hier nicht.
 - Geheime Karten: Zwischen zwei Zügen wird der Bildschirm grün und zeigt den Stein des nächsten Spielers. Gib das Gerät weiter; dieser Spieler tippt auf den runden Knopf, um seine Karten zu sehen.

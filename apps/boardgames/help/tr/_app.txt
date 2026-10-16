@@ -1,12 +1,11 @@
 RetroStone Board
 # Birlikte oynayın
 İki oyuncu tek bir cihazı paylaşır ve sırayla oynar. Bir oyuncunun şeridinde parlayan pul, sıranın kimde olduğunu gösterir.
-- Ana sayfa: oyunlara geri döner. Devam eden oyun seni bekler.
+- Geri (sol üstte): oyunun seçeneklerine ya da seviyelerine, sonra oyun listesine. Süren bir oyun seni bekler: altın oynat düğmesi onu sürdürür.
 - Geri al: son hamleyi geri alır. Daha geriye gitmek için tekrar dokun.
 - Çevir: tahtayı döndürür, böylece diğer oyuncu altta oturur.
 - Yüz yüze: cihazı aranıza düz bir şekilde yatır. Üstteki oyuncunun taşları ve şeridi ona doğru döner.
-- Yeni oyun: baştan başlamak için iki kez dokun.
-- ?: bu kurallar.
+- i (sağ üstte): bu kurallar.
 # Kart oyunları
 Kart oyunlarında cihaz masanın etrafında dolaşır: sırası gelen oyuncu kendi kartlarını altta büyük görür, altında kendi şeridi, üstte de diğer oyuncuların şeritleri vardır. Çevirme ve karşı karşıya oynama yoktur.
 - Gizli eller: iki sıra arasında ekran yeşile döner ve sıradaki oyuncunun pulunu gösterir. Cihazı ona ver; o oyuncu kartlarını görmek için yuvarlak düğmeye dokunur.

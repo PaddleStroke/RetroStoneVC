@@ -134,7 +134,9 @@ enum { ICON_UNDO, ICON_FLIP, ICON_NEW, ICON_HOME, ICON_F2F, ICON_PASS, ICON_SOUN
         * CODE the source and its licences, CHEVRON go on, HEART support, BOLT XP, MEDAL the level */
        ICON_STATS, ICON_TILES, ICON_GEAR, ICON_SEARCH, ICON_FLAME, ICON_CUP, ICON_REVIEW, ICON_BUG, ICON_SUN, ICON_MOON,
        ICON_AUTO, ICON_GLOBE, ICON_AWAKE, ICON_SHIELD, ICON_DOC, ICON_CODE, ICON_CHEVRON, ICON_HEART, ICON_BOLT,
-       ICON_MEDAL, ICONS };
+       ICON_MEDAL,
+       /* a game's header: BACK an arrow head pointing left, INFO an i in a ring (the rules) */
+       ICON_BACK, ICON_INFO, ICONS };
 /* a round button's icon (white: tint it), size x size */
 void art_icon(int which, int size, uint8_t *rgba);
 

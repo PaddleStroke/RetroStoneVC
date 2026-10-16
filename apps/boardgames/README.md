@@ -21,7 +21,7 @@ the solved puzzle's card, levels with random play; never shipped).
 
 | | |
 |---|---|
-| `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the buttons (home, undo, flip, face to face, new game), the end-of-game card, the level screen, the picture mode. Everything the games share, written once. |
+| `src/shell.c` `shell.h` | the app: the menu, the variant picker, the players' bars, the game's header (back, its name, i: the rules), the buttons (undo, flip, face to face), the end-of-game card, the level screen, the picture mode. Everything the games share, written once. |
 | `src/save.c` | what the app keeps between two runs (`ui_save_get` / `ui_save_set`): one small file on the device (see "What the app keeps"). |
 | `src/edition.h`, `tools/gen_edition.py` | the edition: the paid app, or RetroStone Board Free (see "The free edition"). |
 | `src/art.c` `art.h` | the pictures, drawn by code at the screen's resolution: shapes (`art_fig`; strokes `art_band`, arrow heads `art_head`, one-colour styles `art_flat`, a figure into a picture `art_fig_blend` / `art_fig_paint`), the house pieces (`art_piece` for chess, `art_counter` for discs, go stones, draughts men and kings, `art_die`), the wooden boards (`art_board_n`), carved holes (`art_recess`), inlaid tiles (`art_inlay`), the dice games' felt (`art_felt`) and cups (`art_cup`), tinted shapes in a picture (`art_tint_rect`, `art_roundrect_put`), the house inks (`ART_INK`, `ART_PALE`), a steady hash (`art_hash`), a flat piece and its shadow in a thumbnail (`art_flat_put`), icons. |
@@ -140,6 +140,13 @@ One look across the app, like the Arcade games' house kit:
 - **Characters on pieces and tiles** (xiangqi, shogi, mahjong, word tiles): add them to `help/glyphs.txt`; draw them
   with `text_glyph`. Noto Sans CJK draws them, DejaVu Sans the ones it lacks (Ą Ł Ş Є...), in every language.
 - **Tap, or drag**: every move can be made with taps alone; a tap on something not allowed: `SND_DENY`.
+- **The game's header**: at the top of the screen (portrait: above the top player's bar; landscape: the side column's
+  top), back at the left, the game's name (`text_title`), i (the rules) at the right. Back (Esc, Android's Back too)
+  goes to the game's new game screen (its picker, its level screen; a game without choices: its one card), the game
+  in progress kept: the gold play button at that screen's top right (or the menu's card) picks it up; another count
+  of players or another seat there leaves it. Back again: the games. The bottom row holds only undo, flip, face to
+  face and the game's tools (up to six in all, one row, centred; more tools: a row of their own above the bottom
+  bar). The new game button is gone (`N` still starts one).
 - **Face to face** (`ui.f2f`): pieces that have a top and a bottom are drawn turned round for the top player
   (`ui_upside(player)`); the shell turns that player's bar itself.
 - **Sounds**: a move `SND_MOVE`, a capture `SND_CAPTURE`, a stone or disc set down `SND_PLACE`, a disc dropped in a
@@ -185,15 +192,16 @@ of the picker, and keeps the progress.
   `chapter_icon(chapter, size, rgba)` (a tab's picture; else its number; a wide tab shows both), optional
   `level_thumb(level, size, rgba)` (a tile's picture; else its number), `level_stars()` (the level solved: 0..3; NULL:
   no stars), `levels_open` (the unsolved levels open at once; 0: 3).
-- The screen: home at the top left, the stars won at the right, the chapters' tabs (the menu's), then the chapter's
+- The screen: back at the top left (to the games), the stars won at the right (left of the gold play button while a
+  level is in progress: it picks it up), the chapters' tabs (the menu's), then the chapter's
   levels as tiles right under the tabs, numbered from the first level to the last (a second chapter of 25: 26..50):
   solved in gold with their stars, open in the house's wood, locked in dim walnut; the next level to play in gold
   light. A tap on an open tile, a swipe or the arrow keys for another chapter. It opens at the chapter of the level
   last played (else of the first one not solved).
 - A tile calls `start(level)` (0..`levels`-1): a new game of that level. Solved is `status()` `GS_WIN0`: the shell asks
   `level_stars()` and keeps the best (`ui_level_best(level)` reads it: 0..3, -1 not solved). Its end card shows the
-  stars, replay (the same level) and a next button (after the last level: back to the level screen). The new game
-  button shows the level grid's icon and goes back to the level screen (a level in play: tapped twice, as usual).
+  stars, replay (the same level) and a next button (after the last level: back to the level screen). The header's
+  back goes to the level screen (the level in play kept: the gold play button there picks it up).
 - The game draws no level grid, keeps no progress, and has no next-level button of its own; it shows its level (a
   chapter's picture and number) and its moves as it likes.
 - `ui_star(cx, cy, d, lit)`: the shell's star (gold, or a hollow), for a game's bar.
@@ -259,7 +267,7 @@ nor face to face (they mean nothing here). `layout(box)` gets the table: a recta
 
 - **The hand-off**: `ui_handoff(next)` when the device passes. The shell waits for `busy()` (the card played lands),
   then turns the view. `VIEW_HIDDEN` first covers the screen: the table greyed under it, the next player's token big
-  in gold light, a "pass the device" picture, a round start button; home and the rules in the corners. Under the
+  in gold light, a "pass the device" picture, a round start button; the game's header over it (back, the rules). Under the
   cover `draw()` runs with `ui.viewer` -1: it must show every hand hidden (backs, or nothing), only what all players
   see (the table, the piles, the scores). Tapping start shows that player's view. A new game covers for
   `turn()`; a game opened again from the menu covers first. `ui_handing()`: a hand-off waits (the shell sends no

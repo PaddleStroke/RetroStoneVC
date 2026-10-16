@@ -1,12 +1,11 @@
 RetroStone Board
 # Wspólna gra
 Dwóch graczy dzieli jedno urządzenie i gra na zmianę. Świecący żeton na pasku gracza pokazuje, czyja jest kolej.
-- Ekran główny: powrót do listy gier. Rozpoczęta partia na ciebie poczeka.
+- Wstecz (u góry po lewej): do opcji lub poziomów gry, potem do listy gier. Rozpoczęta gra czeka: złoty przycisk gry ją wznawia.
 - Cofnij: cofa ostatni ruch. Dotknij ponownie, aby cofnąć się dalej.
 - Obróć: obraca planszę, tak aby drugi gracz siedział na dole.
 - Twarzą w twarz: połóż urządzenie płasko między wami. Pionki i pasek gracza u góry obracają się w jego stronę.
-- Nowa gra: dotknij dwa razy, aby zacząć od nowa.
-- ?: te zasady.
+- i (u góry po prawej): te zasady.
 # Gry karciane
 W grach karcianych urządzenie krąży wokół stołu: gracz, którego jest kolej, widzi swoje karty w dużym rozmiarze na dole, pod nimi swój pasek, a na górze paski pozostałych graczy. Nie ma tu obracania ani gry twarzą w twarz.
 - Tajne karty: między dwiema turami ekran robi się zielony i pokazuje żeton następnego gracza. Przekaż mu urządzenie; ten gracz dotyka okrągłego przycisku, żeby zobaczyć swoje karty.

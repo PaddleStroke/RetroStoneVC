@@ -1499,6 +1499,16 @@ void art_icon(int which, int size, uint8_t *rgba)
         break;
     }
     /* ---- the app's pages (the ribbon, the Settings and Stats pages): flat, white, cut out where they show through */
+    case ICON_BACK:                                 /* back: an arrow head pointing left */
+        art_band(f, ART_PART, 0.62f, 0.2f, 0.34f, 0.5f, 0.1f);
+        art_band(f, ART_PART, 0.34f, 0.5f, 0.62f, 0.8f, 0.1f);
+        art_ellipse(f, ART_PART, 0.34f, 0.5f, 0.05f, 0.05f);
+        break;
+    case ICON_INFO:                                 /* the rules: an i in a ring */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.3f, 0.37f, 0, 360);
+        art_ellipse(f, ART_PART, 0.5f, 0.33f, 0.055f, 0.055f);
+        art_rect(f, ART_PART, 0.46f, 0.43f, 0.54f, 0.69f);
+        break;
     case ICON_STATS:                                /* three bars, rounded, of three heights */
         for (int k = 0; k < 3; k++) {
             static const float top[3] = {0.48f, 0.22f, 0.62f};
