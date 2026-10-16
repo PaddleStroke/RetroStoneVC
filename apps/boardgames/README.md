@@ -217,7 +217,8 @@ of the picker, and keeps the progress.
 The RetroStone app (`apps/android/app-retrostone.conf`, `EDITION=retrostone`, `apps/android/build.sh retrostone`)
 also plays the RetroStone VC games, in a last tab with a joystick (`SEC_ARCADE`). Its .conf's `ARCADE=` names the
 Arcade's own .conf (`apps/android/app-full.conf`): the tab shows that app's catalogue, every game of `games/` with a
-`docs/screenshots/title.png` but its `HIDDEN_GAMES`, by name; a new game appears at the next build. Board and Board
+`docs/screenshots/title.png` but the ones the RetroStone .conf's own `ARCADE_HIDDEN` leaves out (bombermole: no title
+picture; without `ARCADE_HIDDEN`, the Arcade's `HIDDEN_GAMES`), by name; a new game appears at the next build. Board and Board
 Free have no `ARCADE`: no tab, nothing of it built (`src/arcade.c`'s stand-ins).
 
 - **The build** (`Makefile`, the rules at its end): `tools/gen_arcade.py` writes `$(B)/arcade/gen`: each game's card
