@@ -1,0 +1,8 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 기어가기
+GARDEN_N = 정원 %d
+BUTTERFLY = 나비!
+ROUND_N = 라운드 %d
+FIRST_TO = 먼저 %d승 하면 승리
+ROUND_WIN = %s 라운드 승리!
+BUTTERFLIES_N[other] = 나비 %d

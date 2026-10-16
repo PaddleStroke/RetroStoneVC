@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RASTEJAR
+GARDEN_N = JARDIM %d
+BUTTERFLY = BORBOLETA!
+ROUND_N = RONDA %d
+FIRST_TO = GANHA QUEM VENCER %d RONDAS
+ROUND_WIN = %s GANHA A RONDA!
+BUTTERFLIES_N[one] = %d BORBOLETA
+BUTTERFLIES_N[other] = %d BORBOLETAS

@@ -1,0 +1,32 @@
+# Caterpillar Crawl (games/caterpillarcrawl): its strings, the English source (docs/i18n.md).
+# Everything else comes from the house kit (games/common/strings/en.txt). The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB>. max 10
+VERB = CRAWL
+
+#. 1 player, in play: as the caterpillar starts in the next garden (with new obstacles), 2x letters centred on row 13
+#. for 1.25 s; %d is the garden's number (2, 3...).
+#. max 18
+GARDEN_N = GARDEN %d
+
+#. 1 player, in play: after 12 leaves the caterpillar spins a cocoon and flies off as a butterfly; 2x letters centred
+#. on row 9 for 1.5 s.
+#. max 18
+BUTTERFLY = BUTTERFLY!
+
+#. 2-4 players (the arena), before each round: 2x letters centred on row 12 for 1.5 s; %d is the round.
+#. max 18
+ROUND_N = ROUND %d
+
+#. Under ROUND_N before the first round, small letters on row 16: the match's goal (%d round wins).
+#. max 34
+FIRST_TO = FIRST TO %d WINS
+
+#. After a round, small letters centred on row 13 for 2 s: %s is the winner's tag (P2).
+#. max 34
+ROUND_WIN = %s WINS THE ROUND!
+
+#. The 1-player game-over panel: a line under the panel (hu_gameover_note), centred; %d is the butterflies of the run.
+#. max 18
+BUTTERFLIES_N[one] = %d BUTTERFLY
+BUTTERFLIES_N[other] = %d BUTTERFLIES

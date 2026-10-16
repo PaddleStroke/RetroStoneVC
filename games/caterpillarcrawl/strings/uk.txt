@@ -1,0 +1,10 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ПОВЗТИ
+GARDEN_N = САД %d
+BUTTERFLY = МЕТЕЛИК!
+ROUND_N = РАУНД %d
+FIRST_TO = ДО %d ПЕРЕМОГ
+ROUND_WIN = %s ВИГРАЄ РАУНД!
+BUTTERFLIES_N[one] = %d МЕТЕЛИК
+BUTTERFLIES_N[few] = %d МЕТЕЛИКИ
+BUTTERFLIES_N[many] = %d МЕТЕЛИКІВ

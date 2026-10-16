@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KRABBELN
+GARDEN_N = GARTEN %d
+BUTTERFLY = SCHMETTERLING!
+ROUND_N = RUNDE %d
+FIRST_TO = WER ZUERST %d RUNDEN GEWINNT
+ROUND_WIN = %s GEWINNT DIE RUNDE!
+BUTTERFLIES_N[one] = %d SCHMETTERLING
+BUTTERFLIES_N[other] = %d SCHMETTERLINGE

@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = STRISCIARE
+GARDEN_N = GIARDINO %d
+BUTTERFLY = FARFALLA!
+ROUND_N = ROUND %d
+FIRST_TO = VINCE CHI ARRIVA PRIMA A %d
+ROUND_WIN = %s VINCE IL ROUND!
+BUTTERFLIES_N[one] = %d FARFALLA
+BUTTERFLIES_N[other] = %d FARFALLE

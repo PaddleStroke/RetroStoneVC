@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΣΥΡΘΕΙΣ
+GARDEN_N = ΚΗΠΟΣ %d
+BUTTERFLY = ΠΕΤΑΛΟΥΔΑ!
+ROUND_N = ΓΥΡΟΣ %d
+FIRST_TO = ΝΙΚΑ ΟΠΟΙΟΣ ΦΤΑΣΕΙ ΠΡΩΤΟΣ ΤΙΣ %d
+ROUND_WIN = %s ΚΕΡΔΙΖΕΙ ΤΟ ΓΥΡΟ!
+BUTTERFLIES_N[one] = %d ΠΕΤΑΛΟΥΔΑ
+BUTTERFLIES_N[other] = %d ΠΕΤΑΛΟΥΔΕΣ

@@ -1,0 +1,8 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 爬行
+GARDEN_N = 花园 %d
+BUTTERFLY = 蝴蝶!
+ROUND_N = 第%d回合
+FIRST_TO = 先赢%d回合者胜
+ROUND_WIN = %s 赢得本回合!
+BUTTERFLIES_N[other] = 蝴蝶 %d

@@ -1,0 +1,10 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PLAZ SE
+GARDEN_N = ZAHRADA %d
+BUTTERFLY = MOTÝL!
+ROUND_N = KOLO %d
+FIRST_TO = KDO VYHRAJE %d KOLA, VYHRÁVÁ
+ROUND_WIN = %s VYHRÁVÁ KOLO!
+BUTTERFLIES_N[one] = %d MOTÝL
+BUTTERFLIES_N[few] = %d MOTÝLI
+BUTTERFLIES_N[other] = %d MOTÝLŮ

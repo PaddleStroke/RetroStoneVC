@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = REPTAR
+GARDEN_N = JARDÍN %d
+BUTTERFLY = ¡MARIPOSA!
+ROUND_N = RONDA %d
+FIRST_TO = GANA QUIEN LLEGUE A %d
+ROUND_WIN = ¡%s GANA LA RONDA!
+BUTTERFLIES_N[one] = %d MARIPOSA
+BUTTERFLIES_N[other] = %d MARIPOSAS

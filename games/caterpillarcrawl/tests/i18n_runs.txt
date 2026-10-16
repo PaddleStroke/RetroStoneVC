@@ -1,0 +1,14 @@
+# Caterpillar Crawl: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+play      420  410  --opt bot=1 --opt seed=7 --opt ready=1
+pause     440  430  --opt bot=1 --opt seed=7 --opt ready=1 ; 400 tap SELECT
+butterfly 270  260  --opt bot=1 --opt seed=7 --opt ready=1 --opt leaves=11
+garden    120  60   --opt bot=1 --opt seed=7 --opt ready=1 --opt garden=2
+round1    60   50   --opt bot=4 --opt seed=9 --opt ready=1
+play4     700  690  --opt bot=4 --opt seed=9 --opt ready=1
+over      1060 1050 --opt bot=1 --opt ready=1 --opt botstop=8 --opt botruns=2
+results   7220 7210 --opt bot=2 --opt ready=1

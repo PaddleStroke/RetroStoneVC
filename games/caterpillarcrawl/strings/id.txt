@@ -1,0 +1,8 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MERAYAP
+GARDEN_N = KEBUN %d
+BUTTERFLY = KUPU-KUPU!
+ROUND_N = RONDE %d
+FIRST_TO = YANG PERTAMA MENANG %d RONDE
+ROUND_WIN = %s MENANG RONDE INI!
+BUTTERFLIES_N[other] = %d KUPU-KUPU

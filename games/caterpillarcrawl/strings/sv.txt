@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KRYPA
+GARDEN_N = TRÄDGÅRD %d
+BUTTERFLY = FJÄRIL!
+ROUND_N = OMGÅNG %d
+FIRST_TO = FÖRST TILL %d VINSTER VINNER
+ROUND_WIN = %s VINNER OMGÅNGEN!
+BUTTERFLIES_N[one] = %d FJÄRIL
+BUTTERFLIES_N[other] = %d FJÄRILAR

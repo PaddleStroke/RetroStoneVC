@@ -1,0 +1,10 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = PEŁZAĆ
+GARDEN_N = OGRÓD %d
+BUTTERFLY = MOTYL!
+ROUND_N = RUNDA %d
+FIRST_TO = WYGRYWA PIERWSZY Z %d WYGRANYMI
+ROUND_WIN = %s WYGRYWA RUNDĘ!
+BUTTERFLIES_N[one] = %d MOTYL
+BUTTERFLIES_N[few] = %d MOTYLE
+BUTTERFLIES_N[many] = %d MOTYLI

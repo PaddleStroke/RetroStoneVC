@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = MATELE
+GARDEN_N = PUUTARHA %d
+BUTTERFLY = PERHONEN!
+ROUND_N = ERÄ %d
+FIRST_TO = ENSIN %d VOITTOA VOITTAA
+ROUND_WIN = %s VOITTAA ERÄN!
+BUTTERFLIES_N[one] = %d PERHONEN
+BUTTERFLIES_N[other] = %d PERHOSTA

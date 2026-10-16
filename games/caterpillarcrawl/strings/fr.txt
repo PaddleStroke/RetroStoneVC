@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = RAMPER
+GARDEN_N = JARDIN %d
+BUTTERFLY = PAPILLON !
+ROUND_N = MANCHE %d
+FIRST_TO = LE PREMIER À %d MANCHES GAGNE
+ROUND_WIN = %s GAGNE LA MANCHE !
+BUTTERFLIES_N[one] = %d PAPILLON
+BUTTERFLIES_N[other] = %d PAPILLONS

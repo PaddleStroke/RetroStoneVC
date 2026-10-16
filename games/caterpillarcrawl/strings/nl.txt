@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KRUIPEN
+GARDEN_N = TUIN %d
+BUTTERFLY = VLINDER!
+ROUND_N = RONDE %d
+FIRST_TO = WIE EERST %d RONDES WINT
+ROUND_WIN = %s WINT DE RONDE!
+BUTTERFLIES_N[one] = %d VLINDER
+BUTTERFLIES_N[other] = %d VLINDERS

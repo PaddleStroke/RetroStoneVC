@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = SÜRÜNMEK
+GARDEN_N = BAHÇE %d
+BUTTERFLY = KELEBEK!
+ROUND_N = TUR %d
+FIRST_TO = %d TURU İLK KAZANAN ŞAMPİYON
+ROUND_WIN = TURU %s KAZANDI!
+BUTTERFLIES_N[one] = %d KELEBEK
+BUTTERFLIES_N[other] = %d KELEBEK

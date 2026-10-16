@@ -1,0 +1,8 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = はう
+GARDEN_N = にわ %d
+BUTTERFLY = ちょうちょ!
+ROUND_N = ラウンド %d
+FIRST_TO = さきに %dしょう で かち
+ROUND_WIN = %sの かち!
+BUTTERFLIES_N[other] = ちょうちょ %d

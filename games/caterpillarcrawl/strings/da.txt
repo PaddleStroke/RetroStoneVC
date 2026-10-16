@@ -1,0 +1,9 @@
+# Caterpillar Crawl's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KRAVLE
+GARDEN_N = HAVE %d
+BUTTERFLY = SOMMERFUGL!
+ROUND_N = RUNDE %d
+FIRST_TO = FØRST TIL %d SEJRE VINDER
+ROUND_WIN = %s VINDER RUNDEN!
+BUTTERFLIES_N[one] = %d SOMMERFUGL
+BUTTERFLIES_N[other] = %d SOMMERFUGLE
