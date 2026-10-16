@@ -16,6 +16,7 @@
 
 #include "cards.h"
 #include "games/chess.h"
+#include "pages.h"
 #include "shell.h"
 #include "text.h"
 
@@ -1234,7 +1235,10 @@ void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg,
 void cards_place(int deck, float cx, float cy, float w)
 {
     float h = w * cards_aspect(deck);
-    ui_put_c(soft(2, deck), cx, cy, w, h);
+    SDL_Texture *t = soft(2, deck);
+    if (t && !TH.dark) SDL_SetTextureColorMod(t, 96, 84, 62);   /* the light theme's ivory table: a dark outline */
+    ui_put_c(t, cx, cy, w, h);
+    if (t && !TH.dark) SDL_SetTextureColorMod(t, 255, 255, 255);
 }
 
 void cards_pile(int deck, float cx, float cy, float w, int n, int top, int how)

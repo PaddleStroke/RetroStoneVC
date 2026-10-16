@@ -756,6 +756,54 @@ static void tip_press(float x, float y)
     }
 }
 
+/* ---- the support links elsewhere (a solved puzzle's card): as the Settings page's rows -------------------------- */
+int pages_link(int i, int *icon, const uint8_t **colour, int *word)
+{
+    static const uint8_t IC_REVIEW_L[3] = {232, 188, 72};   /* the review's star: gold */
+    switch (i) {
+    case PAGES_LINK_REVIEW:
+        *icon = ICON_STAR, *colour = IC_REVIEW_L, *word = U_REVIEW;
+        return ed_review_url[0] != 0;
+    case PAGES_LINK_REPORT:
+        *icon = ICON_BUG, *colour = IC_BUG, *word = U_REPORT;
+        return ed_report_url[0] != 0;
+    case PAGES_LINK_SUPPORT:
+        *icon = ICON_HEART, *colour = IC_TIP, *word = U_SUPPORT_US;
+        return tips_row();
+    }
+    return 0;
+}
+
+void pages_link_open(int i)
+{
+    if (i == PAGES_LINK_REVIEW) shell_open_url(ed_review_url);
+    else if (i == PAGES_LINK_REPORT) shell_open_url(ed_report_url);
+    else if (i == PAGES_LINK_SUPPORT) {
+        if (tips_sold()) {
+            S = fminf(ui.w, ui.h);              /* (the panel's size, off the menu too) */
+            tip_open();
+        } else {
+            shell_open_url(ed_support_url);
+        }
+    }
+}
+
+int pages_panel_draw(void)
+{
+    if (!TIP.open) return 0;
+    S = fminf(ui.w, ui.h);
+    draw_tip();
+    return 1;
+}
+
+int pages_panel_press(float x, float y)
+{
+    if (!TIP.open) return 0;
+    S = fminf(ui.w, ui.h);
+    tip_press(x, y);
+    return 1;
+}
+
 /* ---- the Stats page ----------------------------------------------------------------------------------------------- */
 static int prog_n, prog_sec[STATS_SECTIONS], prog_done[STATS_SECTIONS], prog_total[STATS_SECTIONS], three;
 

@@ -53,6 +53,14 @@ void pages_search_set(const char *s);           /* the search open with these wo
 void pages_tips_demo(void);                     /* the tip panel as if a store sold tips (the picture mode's
                                                  * --tips-demo: made-up prices) */
 
+/* the support links (a solved puzzle's card), each shown when its Settings row is (the .conf's URLs, the tips):
+ * 1 when shown, with its icon, the icon's colour and its word (help/<lang>/_ui.txt, text_word("_ui", word)) */
+enum { PAGES_LINK_REVIEW, PAGES_LINK_REPORT, PAGES_LINK_SUPPORT };
+int  pages_link(int i, int *icon, const uint8_t **colour, int *word);
+void pages_link_open(int i);                    /* the store's page, the mail, the tip panel (or the support page) */
+int  pages_panel_draw(void);                    /* off the menu: the tip panel when open (1: drawn) */
+int  pages_panel_press(float x, float y);       /* 1: the panel's */
+
 /* ---- the shell's side, called by the pages (shell.c) ------------------------------------------------------------ */
 void shell_page_changed(void);                  /* lay the menu out again (another page, the search's words) */
 void shell_set_mute(int muted);
