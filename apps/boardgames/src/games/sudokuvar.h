@@ -34,7 +34,6 @@
 #define SUDOKUVAR_H
 
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "games/bench.h"

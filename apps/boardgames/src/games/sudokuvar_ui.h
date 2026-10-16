@@ -275,12 +275,6 @@ static void token(int player, int size, uint8_t *rgba)
         puz_ink_rect(b, w, w, (float)f, f + 2.0f * q - tk / 2, f + 1.0f * q + tk / 2, f + 2.0f * q + tk / 2, PUZ_INK, 0.9f);
     }
     if (SVU_STYLE == SVU_KILLER) {              /* a cage of two cells, its sum 12 */
-        sv_shape s;
-        memset(&s, 0, sizeof s);
-        for (int c = 0; c < SV_CELLS; c++) s.cage_of[c] = (uint8_t)(c + 1);
-        s.cage_of[0] = s.cage_of[1] = 0;
-        s.ncages = 1;
-        s.cage[0] = (sv_cage){2, 12, {0, 1}};
         float in = 0.11f * q, t = fmaxf(1, 0.05f * q), d = fmaxf(2, 0.16f * q), g = fmaxf(1.5f, 0.1f * q);
         svu_dashes(b, w, f + in, f + in, 0, 2.0f * q - 2 * in, t, d, g);
         svu_dashes(b, w, f + in, f + q - in, 0, 2.0f * q - 2 * in, t, d, g);
