@@ -1,0 +1,21 @@
+# Snowball Siege: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+match     40   30   --opt bot=1 --opt seed=7 --opt ready=1
+cputurn   40   30   --opt seed=7 --opt ready=1 --opt level=2
+hotseat   30   20   --opt players=3 --opt seed=7 --opt ready=1
+msg1      140  130  --opt seed=7 --opt ready=1 --opt msg=1
+msg2      140  130  --opt seed=7 --opt ready=1 --opt msg=2
+msg3      140  130  --opt seed=7 --opt ready=1 --opt msg=3
+msg4      140  130  --opt seed=7 --opt ready=1 --opt msg=4
+msg5      140  130  --opt seed=7 --opt ready=1 --opt msg=5
+msg6      140  130  --opt seed=7 --opt ready=1 --opt msg=6
+msg7      140  130  --opt seed=7 --opt ready=1 --opt msg=7
+msg8      140  130  --opt seed=7 --opt ready=1 --opt msg=8 --opt players=2
+play4     300  290  --opt bot=4 --opt seed=9 --opt ready=1
+pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
+over      4000 3990 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=1
+results   4000 3990 --opt bot=4 --opt seed=5 --opt ready=1

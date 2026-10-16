@@ -1,0 +1,18 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = БРОСИТЬ
+TURN_YOU = ТВОЙ ХОД!
+TURN_CPU = ХОД КОМПЬЮТЕРА
+TURN_P = %s: ТВОЙ ХОД!
+MATCH_N = МАТЧ %d
+MATCH_WON = ПОБЕДА!
+TIME_UP = ВРЕМЯ ВЫШЛО!
+SPLASH = ПЛЮХ!
+SNOWED = ЗАСЫПАН СНЕГОМ!
+DOUBLE = ДУПЛЕТ!
+LONG_SHOT = ДАЛЬНИЙ БРОСОК!
+FROST = БРРР! МОРОЗ!
+HINT_AIM = ^~: ЦЕЛЬСЯ - {}: ИДИ
+HINT_THROW = ДЕРЖИ A: БРОСОК - B: СМЕНА
+MATCHES_N[one] = %d ПОБЕДА
+MATCHES_N[few] = %d ПОБЕДЫ
+MATCHES_N[many] = %d ПОБЕД

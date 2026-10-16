@@ -1,0 +1,17 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ATMAK
+TURN_YOU = SIRA SENDE!
+TURN_CPU = SIRA BİLGİSAYARDA
+TURN_P = %s: SIRA SENDE!
+MATCH_N = %d. MAÇ
+MATCH_WON = KAZANDIN!
+TIME_UP = SÜRE BİTTİ!
+SPLASH = CUMBUL!
+SNOWED = KARA GÖMÜLDÜ!
+DOUBLE = ÇİFTE VURUŞ!
+LONG_SHOT = UZAK ATIŞ!
+FROST = BRRR! AYAZ!
+HINT_AIM = ^~: NİŞAN - {}: YÜRÜ
+HINT_THROW = A'YI BASILI TUT: AT - B: DEĞİŞ
+MATCHES_N[one] = %d GALİBİYET
+MATCHES_N[other] = %d GALİBİYET

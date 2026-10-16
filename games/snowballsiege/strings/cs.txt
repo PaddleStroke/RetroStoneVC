@@ -1,0 +1,18 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = HOĎ
+TURN_YOU = TVŮJ TAH!
+TURN_CPU = TAH POČÍTAČE
+TURN_P = %s: TVŮJ TAH!
+MATCH_N = ZÁPAS %d
+MATCH_WON = ZÁPAS VYHRÁN!
+TIME_UP = ČAS VYPRŠEL!
+SPLASH = ŠPLOUCH!
+SNOWED = ZASYPÁN SNĚHEM!
+DOUBLE = DVOJITÝ ZÁSAH!
+LONG_SHOT = DALEKÁ RÁNA!
+FROST = BRRR! MRÁZ!
+HINT_AIM = ^~: MÍŘENÍ - {}: CHŮZE
+HINT_THROW = DRŽ A: HOD - B: ZMĚNA
+MATCHES_N[one] = %d VÝHRA
+MATCHES_N[few] = %d VÝHRY
+MATCHES_N[other] = %d VÝHER

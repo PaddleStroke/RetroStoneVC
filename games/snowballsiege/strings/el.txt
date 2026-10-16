@@ -1,0 +1,17 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΡΙΞΕΙΣ
+TURN_YOU = ΣΕΙΡΑ ΣΟΥ!
+TURN_CPU = ΣΕΙΡΑ ΤΟΥ ΥΠΟΛΟΓΙΣΤΗ
+TURN_P = %s: ΣΕΙΡΑ ΣΟΥ!
+MATCH_N = ΑΓΩΝΑΣ %d
+MATCH_WON = ΝΙΚΗ!
+TIME_UP = ΤΕΛΟΣ ΧΡΟΝΟΥ!
+SPLASH = ΠΛΑΤΣ!
+SNOWED = ΧΙΟΝΙΣΜΕΝΟΣ!
+DOUBLE = ΔΙΠΛΟ ΧΤΥΠΗΜΑ!
+LONG_SHOT = ΜΑΚΡΙΝΗ ΒΟΛΗ!
+FROST = ΜΠΡΡΡ! ΠΑΓΟΣ!
+HINT_AIM = ^~: ΣΤΟΧΟΣ - {}: ΒΑΔΙΣΜΑ
+HINT_THROW = ΚΡΑΤΑ A: ΡΙΞΗ - B: ΑΛΛΑΓΗ
+MATCHES_N[one] = %d ΝΙΚΗ
+MATCHES_N[other] = %d ΝΙΚΕΣ

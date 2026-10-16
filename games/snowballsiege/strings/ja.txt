@@ -1,0 +1,16 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = なげる
+TURN_YOU = きみのばん!
+TURN_CPU = コンピューターのばん
+TURN_P = %s: きみのばん!
+MATCH_N = マッチ %d
+MATCH_WON = かった!
+TIME_UP = じかんぎれ!
+SPLASH = ばしゃーん!
+SNOWED = ゆきにうもれた!
+DOUBLE = ダブルヒット!
+LONG_SHOT = ロングショット!
+FROST = さむい!
+HINT_AIM = ^~: ねらう - {}: あるく
+HINT_THROW = Aながおし: なげる - B: きりかえ
+MATCHES_N[other] = かち %d

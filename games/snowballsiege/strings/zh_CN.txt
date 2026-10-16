@@ -1,0 +1,16 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 投掷
+TURN_YOU = 轮到你了!
+TURN_CPU = 电脑的回合
+TURN_P = %s: 轮到你了!
+MATCH_N = 第%d局
+MATCH_WON = 胜利!
+TIME_UP = 时间到!
+SPLASH = 扑通!
+SNOWED = 被雪埋了!
+DOUBLE = 双重命中!
+LONG_SHOT = 远投!
+FROST = 好冷!
+HINT_AIM = ^~: 瞄准 - {}: 行走
+HINT_THROW = 按住A: 投掷 - B: 切换
+MATCHES_N[other] = 胜%d局

@@ -1,0 +1,17 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = KASTA
+TURN_YOU = DIN TUR!
+TURN_CPU = DATORNS TUR
+TURN_P = %s: DIN TUR!
+MATCH_N = MATCH %d
+MATCH_WON = MATCH VUNNEN!
+TIME_UP = TIDEN ÄR UTE!
+SPLASH = PLASK!
+SNOWED = INSNÖAD!
+DOUBLE = DUBBELTRÄFF!
+LONG_SHOT = LÅNGSKOTT!
+FROST = BRRR! FROST!
+HINT_AIM = ^~: SIKTA - {}: GÅ
+HINT_THROW = HÅLL A: KASTA - B: BYT
+MATCHES_N[one] = %d VINST
+MATCHES_N[other] = %d VINSTER

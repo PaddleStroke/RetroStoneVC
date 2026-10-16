@@ -1,0 +1,34 @@
+# Snowball Siege: the game's own strings (docs/i18n.md). The kit's words (PRESS A TO %s, GAME OVER, PAUSED, P1, DRAW!...)
+# are in games/common/strings. The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB> (the kit's PRESS_TO). max 12
+VERB = THROW
+#. Small letters near the top of the screen when a turn starts (1 player: your turn). max 30
+TURN_YOU = YOUR TURN!
+#. The same when it is the computer's turn (1 player). max 30
+TURN_CPU = CPU'S TURN
+#. The same with 2-4 players taking turns; %s is the player's tag (P2). max 30
+TURN_P = %s: YOUR TURN!
+#. 2x letters when a match starts (1 player: the matches follow each other, the computer better each time). max 18
+MATCH_N = MATCH %d
+#. 2x letters: the last critter of the other side is out. max 18
+MATCH_WON = MATCH WON!
+#. 2x letters: the turn's 20 seconds are over before the throw. max 18
+TIME_UP = TIME UP!
+#. 2x letters: a critter fell into the frozen pond (it is out). A sound word. max 18
+SPLASH = SPLASH!
+#. 2x letters: a critter has no heart left: it is covered in snow (out). max 18
+SNOWED = SNOWED UNDER!
+#. 2x letters: one snowball hit two critters of the other side. max 18
+DOUBLE = DOUBLE HIT!
+#. 2x letters: a hit from far away. max 18
+LONG_SHOT = LONG SHOT!
+#. 2x letters: after many turns, the cold makes every critter lose half a heart each turn. max 18
+FROST = BRRR! FROST!
+#. A hint on a panel at the bottom in the first turns: the d-pad's up/down (^~) aims, left/right ({}) walks. max 34
+HINT_AIM = ^~: AIM - {}: WALK
+#. The second line: hold the A button to charge the throw (it throws when let go), B changes the throwable. max 34
+HINT_THROW = HOLD A: THROW - B: SWITCH
+#. The game-over panel's last line (1 player): the matches won in the run. max 18
+MATCHES_N[one] = %d MATCH WON
+MATCHES_N[other] = %d MATCHES WON

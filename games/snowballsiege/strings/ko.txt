@@ -1,0 +1,16 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 던지기
+TURN_YOU = 네 차례!
+TURN_CPU = 컴퓨터 차례
+TURN_P = %s: 네 차례!
+MATCH_N = %d번째 경기
+MATCH_WON = 승리!
+TIME_UP = 시간 종료!
+SPLASH = 풍덩!
+SNOWED = 눈에 파묻힘!
+DOUBLE = 더블 히트!
+LONG_SHOT = 롱샷!
+FROST = 추워!
+HINT_AIM = ^~: 조준 - {}: 걷기
+HINT_THROW = A 길게: 던지기 - B: 교체
+MATCHES_N[other] = %d승

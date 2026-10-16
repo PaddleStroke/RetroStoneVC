@@ -1,0 +1,17 @@
+# Snowball Siege's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = LANCER
+TURN_YOU = À TOI DE JOUER !
+TURN_CPU = AU TOUR DE L'ORDI
+TURN_P = %s : À TOI DE JOUER !
+MATCH_N = MANCHE %d
+MATCH_WON = MANCHE GAGNÉE !
+TIME_UP = TEMPS ÉCOULÉ !
+SPLASH = PLOUF !
+SNOWED = SOUS LA NEIGE !
+DOUBLE = COUP DOUBLE !
+LONG_SHOT = TIR DE LOIN !
+FROST = BRRR ! LE GEL !
+HINT_AIM = ^~ : VISER - {} : MARCHER
+HINT_THROW = GARDE A : LANCER - B : CHANGER
+MATCHES_N[one] = %d VICTOIRE
+MATCHES_N[other] = %d VICTOIRES
