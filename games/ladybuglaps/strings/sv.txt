@@ -1,0 +1,21 @@
+# Ladybug Laps's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = TÄVLA
+LAP = VARV %d/%d
+FINAL_LAP = SISTA VARVET!
+FINISH = MÅL!
+BEHIND = AVHÄNGD!
+BEHIND_P = %s AVHÄNGD!
+RACE_N = LOPP %d/%d
+TRACK_TEA = TEDAGS
+TRACK_DESK = KRITBORDET
+TRACK_PICNIC = PICKNICK
+TRACK_VEG = KÖKSTRÄDGÅRDEN
+TRACK_PATIO = BLÖT ALTAN
+REVERSED = %s - BAKLÄNGES
+RESULTS = RESULTAT
+NEXT = A: NÄSTA LOPP
+GO_ON = A: VIDARE
+OUT = 4:E PLATS: UTE!
+CHAMPION = MÄSTARE!
+REACHED = LOPP %d AV %d
+HINT = {}: STYR - A: GAS - B: BROMS

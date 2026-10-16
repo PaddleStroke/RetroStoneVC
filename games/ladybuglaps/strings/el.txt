@@ -1,0 +1,21 @@
+# Ladybug Laps's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΤΡΕΞΕΙΣ
+LAP = ΓΥΡΟΣ %d/%d
+FINAL_LAP = ΤΕΛΕΥΤΑΙΟΣ ΓΥΡΟΣ!
+FINISH = ΤΕΡΜΑ!
+BEHIND = ΕΜΕΙΝΕΣ ΠΙΣΩ!
+BEHIND_P = Ο %s ΕΜΕΙΝΕ ΠΙΣΩ!
+RACE_N = ΑΓΩΝΑΣ %d/%d
+TRACK_TEA = ΩΡΑ ΓΙΑ ΤΣΑΙ
+TRACK_DESK = ΘΡΑΝΙΟ ΜΕ ΚΗΡΟΜΠΟΓΙΕΣ
+TRACK_PICNIC = ΠΙΚΝΙΚ
+TRACK_VEG = ΛΑΧΑΝΟΚΗΠΟΣ
+TRACK_PATIO = ΒΡΕΓΜΕΝΗ ΑΥΛΗ
+REVERSED = %s - ΑΝΑΠΟΔΑ
+RESULTS = ΑΠΟΤΕΛΕΣΜΑΤΑ
+NEXT = A: ΕΠΟΜΕΝΟΣ ΑΓΩΝΑΣ
+GO_ON = A: ΣΥΝΕΧΕΙΑ
+OUT = 4Η ΘΕΣΗ: ΕΚΤΟΣ!
+CHAMPION = ΠΡΩΤΑΘΛΗΤΗΣ!
+REACHED = ΑΓΩΝΑΣ %d ΑΠΟ %d
+HINT = {}: ΤΙΜΟΝΙ - A: ΓΚΑΖΙ - B: ΦΡΕΝΟ

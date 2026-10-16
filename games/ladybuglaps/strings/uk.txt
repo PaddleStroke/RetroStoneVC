@@ -1,0 +1,21 @@
+# Ladybug Laps's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = МЧАТИ
+LAP = КОЛО %d/%d
+FINAL_LAP = ОСТАННЄ КОЛО!
+FINISH = ФІНІШ!
+BEHIND = ТИ ВІДСТАВ!
+BEHIND_P = %s ВІДСТАВ!
+RACE_N = ПЕРЕГОНИ %d/%d
+TRACK_TEA = ЧАЄПИТТЯ
+TRACK_DESK = СТІЛ З ОЛІВЦЯМИ
+TRACK_PICNIC = ПІКНІК
+TRACK_VEG = ГОРОД
+TRACK_PATIO = МОКРА ТЕРАСА
+REVERSED = %s - НАВПАКИ
+RESULTS = ПІДСУМКИ
+NEXT = A: НАСТУПНІ ПЕРЕГОНИ
+GO_ON = A: ДАЛІ
+OUT = 4 МІСЦЕ: ВИБУВ!
+CHAMPION = ЧЕМПІОН!
+REACHED = ПЕРЕГОНИ %d З %d
+HINT = {}: КЕРМО - A: ГАЗ - B: ГАЛЬМО

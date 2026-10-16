@@ -1,0 +1,21 @@
+# Ladybug Laps's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = YARIŞMAK
+LAP = TUR %d/%d
+FINAL_LAP = SON TUR!
+FINISH = BİTİŞ!
+BEHIND = GERİDE KALDIN!
+BEHIND_P = %s GERİDE KALDI!
+RACE_N = YARIŞ %d/%d
+TRACK_TEA = ÇAY SAATİ
+TRACK_DESK = BOYA KALEMİ MASASI
+TRACK_PICNIC = PİKNİK
+TRACK_VEG = SEBZE BAHÇESİ
+TRACK_PATIO = ISLAK VERANDA
+REVERSED = %s - TERS YÖN
+RESULTS = SONUÇLAR
+NEXT = A: SONRAKİ YARIŞ
+GO_ON = A: DEVAM
+OUT = 4. SIRA: ELENDİN!
+CHAMPION = ŞAMPİYON!
+REACHED = YARIŞ %d/%d
+HINT = {}: DİREKSİYON - A: GAZ - B: FREN

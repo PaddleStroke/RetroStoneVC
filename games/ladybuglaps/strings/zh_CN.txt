@@ -1,0 +1,21 @@
+# Ladybug Laps's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 比赛
+LAP = 圈数 %d/%d
+FINAL_LAP = 最后一圈!
+FINISH = 终点!
+BEHIND = 你落后了!
+BEHIND_P = %s落后了!
+RACE_N = 比赛 %d/%d
+TRACK_TEA = 下午茶
+TRACK_DESK = 蜡笔书桌
+TRACK_PICNIC = 野餐
+TRACK_VEG = 菜园
+TRACK_PATIO = 雨中露台
+REVERSED = %s (反向)
+RESULTS = 结果
+NEXT = A: 下一场
+GO_ON = A: 继续
+OUT = 第4名: 出局!
+CHAMPION = 冠军!
+REACHED = 比赛 %d/%d
+HINT = {}: 转向 - A: 加速 - B: 刹车

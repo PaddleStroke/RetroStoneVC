@@ -1,0 +1,21 @@
+# Ladybug Laps: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title     130  120
+title2    130  120  --opt players=2
+title4    130  120  --opt players=4
+join      130  90   ; 20 P2 tap A ; 40 P3 tap A ; 60 P4 tap A
+lights    60   50   --opt bot=1 --opt seed=7 --opt ready=1
+reversed  60   50   --opt bot=1 --opt seed=7 --opt ready=1 --opt race=5
+lights4   60   50   --opt bot=4 --opt seed=9 --opt ready=1
+go        140  130  --opt bot=1 --opt seed=7 --opt ready=1
+play      610  600  --opt bot=1 --opt seed=7 --opt ready=1
+behind    270  260  --opt bot=1 --opt seed=7 --opt ready=1 --opt botout=1
+behind2   270  260  --opt bot=2 --opt seed=7 --opt ready=1 --opt botout=1
+pause     620  610  --opt bot=1 --opt seed=7 --opt ready=1 ; 600 tap SELECT
+pause4    620  610  --opt bot=4 --opt seed=9 --opt ready=1 ; 600 tap SELECT
+finish    3210 3200 --opt bot=1 --opt seed=7 --opt ready=1 --opt race=9
+results   3310 3300 --opt bot=1 --opt seed=7 --opt ready=1 --opt race=9
+champion  3390 3380 --opt bot=1 --opt seed=7 --opt ready=1 --opt race=9
+out       6270 6260 --opt bot=1 --opt seed=7 --opt ready=1 --opt botout=1
+over      6640 6630 --opt bot=1 --opt seed=7 --opt ready=1 --opt botout=1
+results4  4010 4000 --opt bot=4 --opt seed=9 --opt ready=1 --opt race=2
