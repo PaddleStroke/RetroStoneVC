@@ -1,0 +1,10 @@
+Blokpuzzel
+# Het doel
+Leg houten stukken op een rooster van 10 × 10. Een volle rij of kolom wordt meteen gewist. Er wachten steeds drie stukken: leg ze alle drie, in welke volgorde je wilt, en er komen drie nieuwe. Stukken draaien nooit.
+# De score
+- Elk gelegd blokje is 1 punt waard.
+- Lijnen die samen gewist worden, tellen 10 voor de eerste, 20 voor de tweede, 30 voor de derde, enzovoort.
+- De reeks: direct na een wissing telt elke lijn 10 meer voor elke wissing op rij ervoor.
+# Het einde van het spel
+Het spel is uit als geen van de wachtende stukken nog past. Een level heeft een doel: lijnen wissen, een score halen, de gouden blokjes wissen (elk gaat weg met zijn rij of kolom) of elk gemarkeerd vakje één keer bedekken. Zijn de stukken eerder op, dan is het level verloren.
+3 sterren: het doel gehaald met niet meer stukken dan de computer nodig had; in een klassiek spel 1500 punten (600 voor 2 sterren).

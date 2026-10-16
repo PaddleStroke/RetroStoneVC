@@ -1,0 +1,10 @@
+Blockpuzzle
+# Das Ziel
+Lege Holzteile auf ein Gitter von 10 × 10. Eine volle Reihe oder Spalte wird sofort geräumt. Drei Teile warten auf einmal: Lege alle drei, in beliebiger Reihenfolge, dann kommen drei neue. Teile werden nie gedreht.
+# Die Wertung
+- Jeder gelegte Block zählt 1 Punkt.
+- Zusammen geräumte Linien zählen 10 für die erste, 20 für die zweite, 30 für die dritte und so weiter.
+- Die Serie: Direkt nach einem Räumen zählt jede Linie 10 mehr für jedes Räumen in Folge davor.
+# Das Ende der Partie
+Die Partie endet, wenn keines der wartenden Teile mehr passt. Ein Level hat ein Ziel: Linien räumen, eine Punktzahl erreichen, die Goldblöcke räumen (jeder geht mit seiner Reihe oder Spalte) oder jedes markierte Feld einmal bedecken. Sind die Teile vorher aufgebraucht, ist das Level verloren.
+3 Sterne: das Ziel mit nicht mehr Teilen erreicht, als der Computer brauchte; in der klassischen Partie 1500 Punkte (600 für 2 Sterne).

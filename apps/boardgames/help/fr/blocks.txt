@@ -1,0 +1,10 @@
+Blocs
+# Le but
+Pose des pièces de bois sur une grille de 10 × 10. Une ligne ou une colonne pleine s'efface aussitôt. Trois pièces attendent à la fois : pose les trois, dans l'ordre que tu veux, et trois autres arrivent. Les pièces ne tournent jamais.
+# Le score
+- Chaque bloc posé rapporte 1 point.
+- Les lignes effacées ensemble rapportent 10 pour la première, 20 pour la deuxième, 30 pour la troisième, et ainsi de suite.
+- La série : juste après un effacement, chaque ligne rapporte 10 de plus pour chaque effacement d'affilée avant elle.
+# La fin de la partie
+La partie s'arrête quand aucune des pièces qui attendent ne tient. Un niveau a un objectif : effacer des lignes, atteindre un score, effacer les blocs d'or (chacun part avec sa ligne ou sa colonne) ou couvrir une fois chaque case marquée. Plus de pièces avant l'objectif : le niveau est perdu.
+3 étoiles : l'objectif atteint avec pas plus de pièces qu'il n'en a fallu à l'ordinateur ; en partie classique, 1500 points (600 pour 2 étoiles).

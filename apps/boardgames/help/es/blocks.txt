@@ -1,0 +1,10 @@
+Bloques
+# El objetivo
+Coloca piezas de madera en una cuadrícula de 10 × 10. Una fila o una columna llena se borra al momento. Esperan tres piezas a la vez: coloca las tres, en el orden que quieras, y llegan tres más. Las piezas nunca giran.
+# La puntuación
+- Cada bloque colocado vale 1 punto.
+- Las líneas borradas a la vez valen 10 la primera, 20 la segunda, 30 la tercera, y así sucesivamente.
+- La racha: justo después de un borrado, cada línea vale 10 más por cada borrado seguido antes de ella.
+# El final de la partida
+La partida acaba cuando no cabe ninguna de las piezas que esperan. Un nivel tiene una meta: borrar líneas, alcanzar una puntuación, borrar los bloques de oro (cada uno se va con su fila o su columna) o cubrir una vez cada casilla marcada. Si se acaban antes las piezas, el nivel se pierde.
+3 estrellas: la meta alcanzada sin más piezas de las que necesitó el ordenador; en la partida clásica, 1500 puntos (600 para 2 estrellas).

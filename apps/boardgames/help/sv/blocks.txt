@@ -1,0 +1,10 @@
+Blockpussel
+# Målet
+Lägg träbitar på ett rutnät på 10 × 10. En full rad eller kolumn töms genast. Tre bitar väntar åt gången: lägg alla tre, i vilken ordning du vill, så kommer tre nya. Bitarna vrids aldrig.
+# Poängen
+- Varje kloss som läggs ger 1 poäng.
+- Linjer som töms tillsammans ger 10 för den första, 20 för den andra, 30 för den tredje och så vidare.
+- Sviten: direkt efter en tömning ger varje linje 10 mer för varje tömning i följd före den.
+# Partiets slut
+Partiet är slut när ingen av de väntande bitarna får plats. En bana har ett mål: töm linjer, nå en poängsumma, töm guldklossarna (var och en försvinner med sin rad eller kolumn) eller täck varje markerad ruta en gång. Tar bitarna slut innan dess är banan förlorad.
+3 stjärnor: målet nått med inte fler bitar än datorn behövde; i ett klassiskt parti 1500 poäng (600 för 2 stjärnor).

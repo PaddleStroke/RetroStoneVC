@@ -1,0 +1,10 @@
+Bloky
+# Cíl hry
+Pokládej dřevěné dílky na mřížku 10 × 10. Plný řádek nebo sloupec se hned vyčistí. Naráz čekají tři dílky: polož všechny tři, v jakémkoli pořadí, a přijdou tři nové. Dílky se nikdy neotáčejí.
+# Počítání bodů
+- Každá položená kostka dává 1 bod.
+- Čáry vyčištěné naráz dávají 10 za první, 20 za druhou, 30 za třetí a tak dál.
+- Série: hned po čištění dává každá čára o 10 víc za každé čištění v řadě před ní.
+# Konec hry
+Hra skončí, když se žádný z čekajících dílků nevejde. Úroveň má cíl: vyčistit čáry, dosáhnout skóre, vyčistit zlaté kostky (každá zmizí se svým řádkem nebo sloupcem) nebo jednou zakrýt každé označené pole. Dojdou-li dílky dřív, úroveň je prohraná.
+3 hvězdy: cíl splněn s nejvýš tolika dílky, kolik potřeboval počítač; v klasické hře 1500 bodů (600 za 2 hvězdy).

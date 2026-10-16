@@ -1,0 +1,10 @@
+Blokkpuslespill
+# Målet
+Legg trebrikker på et rutenett på 10 × 10. En full rad eller kolonne ryddes med en gang. Tre brikker venter om gangen: legg alle tre, i den rekkefølgen du vil, så kommer tre nye. Brikkene snus aldri.
+# Poengtelling
+- Hver kloss som legges, gir 1 poeng.
+- Linjer som ryddes sammen, gir 10 for den første, 20 for den andre, 30 for den tredje og så videre.
+- Rekken: rett etter en rydding gir hver linje 10 mer for hver rydding på rad før den.
+# Slutten på spillet
+Spillet er slutt når ingen av de ventende brikkene får plass. Et nivå har et mål: rydd linjer, nå en poengsum, rydd gullklossene (hver forsvinner med raden eller kolonnen sin) eller dekk hver merket rute én gang. Går brikkene tom før det, er nivået tapt.
+3 stjerner: målet nådd med ikke flere brikker enn datamaskinen trengte; i et klassisk spill 1500 poeng (600 for 2 stjerner).

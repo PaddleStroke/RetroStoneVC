@@ -1,0 +1,10 @@
+Palikat
+# Tavoite
+Aseta puupaloja 10 × 10 -ruudukkoon. Täysi rivi tai sarake tyhjenee heti. Kolme palaa odottaa kerrallaan: aseta kaikki kolme, missä järjestyksessä haluat, ja tilalle tulee kolme uutta. Paloja ei koskaan käännetä.
+# Pisteet
+- Jokainen asetettu palikka tuo 1 pisteen.
+- Yhdessä tyhjennetyt linjat tuovat 10 ensimmäisestä, 20 toisesta, 30 kolmannesta ja niin edelleen.
+- Putki: heti tyhjennyksen jälkeen jokainen linja tuo 10 lisää jokaisesta peräkkäisestä tyhjennyksestä ennen sitä.
+# Pelin loppu
+Peli päättyy, kun mikään odottavista paloista ei mahdu. Tasolla on tavoite: tyhjennä linjoja, saavuta pistemäärä, tyhjennä kultapalikat (kukin lähtee rivinsä tai sarakkeensa mukana) tai peitä jokainen merkitty ruutu kerran. Jos palat loppuvat ensin, taso on hävitty.
+3 tähteä: tavoite saavutettu enintään niin monella palalla kuin tietokone tarvitsi; klassisessa pelissä 1500 pistettä (600 kahteen tähteen).

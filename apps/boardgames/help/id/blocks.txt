@@ -1,0 +1,10 @@
+Teka-teki Balok
+# Tujuan
+Letakkan keping kayu di kisi 10 × 10. Baris atau kolom yang penuh langsung terhapus. Tiga keping menunggu setiap kali: letakkan ketiganya, dalam urutan mana saja, lalu tiga keping baru datang. Keping tidak pernah diputar.
+# Skor
+- Setiap balok yang diletakkan bernilai 1 poin.
+- Garis yang terhapus bersamaan bernilai 10 untuk yang pertama, 20 untuk yang kedua, 30 untuk yang ketiga, dan seterusnya.
+- Beruntun: tepat setelah penghapusan, setiap garis bernilai 10 lebih untuk setiap penghapusan berturut-turut sebelumnya.
+# Akhir permainan
+Permainan berakhir bila tidak ada keping yang menunggu yang muat. Sebuah level punya sasaran: menghapus garis, mencapai skor, menghapus balok emas (masing-masing hilang bersama baris atau kolomnya), atau menutup setiap petak bertanda satu kali. Bila keping habis lebih dulu, level kalah.
+3 bintang: sasaran tercapai dengan keping tidak lebih banyak daripada yang diperlukan komputer; dalam permainan klasik, 1500 poin (600 untuk 2 bintang).

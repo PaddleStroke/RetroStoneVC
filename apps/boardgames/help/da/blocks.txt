@@ -1,0 +1,10 @@
+Blokpuslespil
+# Målet
+Læg træbrikker på et gitter på 10 × 10. En fuld række eller søjle ryddes med det samme. Tre brikker venter ad gangen: læg alle tre, i den rækkefølge du vil, så kommer tre nye. Brikkerne drejes aldrig.
+# Pointtælling
+- Hver klods, der lægges, giver 1 point.
+- Linjer, der ryddes sammen, giver 10 for den første, 20 for den anden, 30 for den tredje og så videre.
+- Stimen: lige efter en rydning giver hver linje 10 mere for hver rydning i træk før den.
+# Spillets afslutning
+Spillet slutter, når ingen af de ventende brikker kan være nogen steder. En bane har et mål: ryd linjer, nå en score, ryd guldklodserne (hver forsvinder med sin række eller søjle) eller dæk hvert markeret felt én gang. Slipper brikkerne op før, er banen tabt.
+3 stjerner: målet nået med højst lige så mange brikker, som computeren skulle bruge; i et klassisk spil 1500 point (600 for 2 stjerner).

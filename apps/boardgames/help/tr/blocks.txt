@@ -1,0 +1,10 @@
+Blok Bulmaca
+# Amaç
+Tahta parçaları 10 × 10 bir ızgaraya yerleştir. Dolan bir satır ya da sütun hemen silinir. Her seferinde üç parça bekler: üçünü de istediğin sırayla yerleştir, ardından üç yenisi gelir. Parçalar asla döndürülmez.
+# Puanlama
+- Konan her blok 1 puan getirir.
+- Birlikte silinen çizgiler birincisi için 10, ikincisi için 20, üçüncüsü için 30 getirir ve böyle sürer.
+- Seri: bir silmenin hemen ardından her çizgi, kendinden önceki art arda her silme için 10 fazla getirir.
+# Oyunun sonu
+Bekleyen parçalardan hiçbiri sığmadığında oyun biter. Bir seviyenin hedefi vardır: çizgi silmek, bir puana ulaşmak, altın blokları silmek (her biri kendi satırı ya da sütunuyla gider) ya da işaretli her kareyi bir kez örtmek. Parçalar önce biterse seviye kaybedilir.
+3 yıldız: hedefe bilgisayarın gerek duyduğundan fazla parça kullanmadan ulaşmak; klasik oyunda 1500 puan (2 yıldız için 600).

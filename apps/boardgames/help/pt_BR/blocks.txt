@@ -1,0 +1,10 @@
+Blocos
+# O objetivo
+Coloque peças de madeira numa grade de 10 × 10. Uma linha ou uma coluna cheia é apagada na hora. Três peças esperam de cada vez: coloque as três, na ordem que quiser, e chegam mais três. As peças nunca giram.
+# A pontuação
+- Cada bloco colocado vale 1 ponto.
+- Linhas apagadas juntas valem 10 a primeira, 20 a segunda, 30 a terceira, e assim por diante.
+- A sequência: logo depois de um apagamento, cada linha vale 10 a mais para cada apagamento seguido antes dela.
+# O fim da partida
+A partida termina quando nenhuma das peças que esperam cabe. Um nível tem uma meta: apagar linhas, alcançar uma pontuação, apagar os blocos de ouro (cada um sai com sua linha ou coluna) ou cobrir uma vez cada casa marcada. Se as peças acabarem antes, o nível está perdido.
+3 estrelas: a meta alcançada sem mais peças do que o computador precisou; na partida clássica, 1500 pontos (600 para 2 estrelas).

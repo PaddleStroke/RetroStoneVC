@@ -1,0 +1,10 @@
+Blocchi
+# Lo scopo
+Posa pezzi di legno su una griglia di 10 × 10. Una riga o una colonna piena si sgombra subito. Aspettano tre pezzi alla volta: posali tutti e tre, nell'ordine che vuoi, e ne arrivano altri tre. I pezzi non si girano mai.
+# Il punteggio
+- Ogni blocco posato vale 1 punto.
+- Le linee sgombrate insieme valgono 10 la prima, 20 la seconda, 30 la terza, e così via.
+- La serie: subito dopo uno sgombero, ogni linea vale 10 in più per ogni sgombero di fila prima di essa.
+# La fine della partita
+La partita finisce quando nessuno dei pezzi in attesa entra. Un livello ha un obiettivo: sgombrare linee, raggiungere un punteggio, sgombrare i blocchi d'oro (ognuno se ne va con la sua riga o colonna) o coprire una volta ogni casella segnata. Se i pezzi finiscono prima, il livello è perso.
+3 stelle: l'obiettivo raggiunto con non più pezzi di quanti ne sono serviti al computer; nella partita classica, 1500 punti (600 per 2 stelle).

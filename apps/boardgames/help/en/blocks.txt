@@ -1,0 +1,10 @@
+Block Puzzle
+# The aim
+Lay wooden pieces on a 10 × 10 grid. A full row or a full column clears at once. Three pieces wait at a time: lay all three, in any order, and three more come. Pieces are never turned.
+# The score
+- Each block laid scores 1 point.
+- Lines cleared together score 10 for the first, 20 for the second, 30 for the third, and so on.
+- A streak: right after a clear, each line scores 10 more for every clear in a row before it.
+# The end of the game
+The game ends when none of the waiting pieces fits. A level has a goal: clear some lines, reach a score, clear the gold blocks (each goes with its row or column), or cover every marked cell once. Running out of pieces first loses the level.
+3 stars: the goal reached with no more pieces than the computer needed; in classic play, 1500 points (600 for 2 stars).

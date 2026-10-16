@@ -1,0 +1,10 @@
+Blocos
+# O objetivo
+Coloca peças de madeira numa grelha de 10 × 10. Uma linha ou uma coluna cheia é apagada de imediato. Esperam três peças de cada vez: coloca as três, pela ordem que quiseres, e chegam mais três. As peças nunca rodam.
+# A pontuação
+- Cada bloco colocado vale 1 ponto.
+- As linhas apagadas em conjunto valem 10 a primeira, 20 a segunda, 30 a terceira, e assim por diante.
+- A sequência: logo a seguir a um apagamento, cada linha vale mais 10 por cada apagamento seguido antes dela.
+# O fim do jogo
+O jogo acaba quando nenhuma das peças em espera cabe. Um nível tem um objetivo: apagar linhas, chegar a uma pontuação, apagar os blocos de ouro (cada um sai com a sua linha ou coluna) ou cobrir uma vez cada casa marcada. Se as peças acabarem antes, o nível está perdido.
+3 estrelas: o objetivo atingido sem mais peças do que as que o computador precisou; no jogo clássico, 1500 pontos (600 para 2 estrelas).

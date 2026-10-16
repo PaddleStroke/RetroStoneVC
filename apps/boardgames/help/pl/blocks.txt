@@ -1,0 +1,10 @@
+Klocki
+# Cel gry
+Układaj drewniane elementy na siatce 10 × 10. Pełny wiersz albo pełna kolumna znika od razu. Czekają naraz trzy elementy: połóż wszystkie trzy, w dowolnej kolejności, a przyjdą trzy nowe. Elementów nigdy się nie obraca.
+# Punktacja
+- Każdy położony klocek daje 1 punkt.
+- Linie wyczyszczone razem dają 10 za pierwszą, 20 za drugą, 30 za trzecią i tak dalej.
+- Seria: tuż po czyszczeniu każda linia daje 10 więcej za każde czyszczenie z rzędu przed nią.
+# Koniec gry
+Gra kończy się, gdy żaden z czekających elementów się nie mieści. Poziom ma cel: wyczyścić linie, osiągnąć wynik, wyczyścić złote klocki (każdy znika ze swoim wierszem lub kolumną) albo raz przykryć każde zaznaczone pole. Gdy elementy skończą się wcześniej, poziom jest przegrany.
+3 gwiazdki: cel osiągnięty nie większą liczbą elementów, niż potrzebował komputer; w grze klasycznej 1500 punktów (600 za 2 gwiazdki).
