@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Ah ! vous dirai-je, maman
+
+Frère Jacques
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Hymne à la joie
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Dans la ferme de Mathurin
+
+Vive le vent
+James Lord Pierpont
+Joyeux anniversaire
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Ce n'est qu'un au revoir
+
+Berceuse
+Brahms
+La Lettre à Élise
+Beethoven
+Petite musique de nuit
+Mozart
+Marche turque
+Mozart
+Le Galop infernal
+Offenbach
+Air du toréador
+Bizet
+Dans l'antre du roi de la montagne
+Grieg
+Au matin
+Grieg
+Largo (Du Nouveau Monde)
+Dvořák
+Le Printemps
+Vivaldi
+Menuet en sol majeur
+Christian Petzold
+Jésus que ma joie demeure
+J. S. Bach
+Gymnopédie no 1
+Satie
+The Entertainer
+Scott Joplin
+Le Beau Danube bleu
+Johann Strauss fils
+Chœur des fiançailles
+Wagner
+Douce nuit
+Franz Xaver Gruber
+Mon beau sapin
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Peuple fidèle
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Fleur de jasmin
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Canon en ré majeur
+Pachelbel
+Toccata et fugue en ré mineur
+J. S. Bach
+Symphonie no 5
+Beethoven
+Symphonie no 40
+Mozart
+Symphonie La Surprise
+Haydn
+Le Lac des cygnes
+Tchaïkovski
+Jupiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Haendel
+Three Blind Mice
+

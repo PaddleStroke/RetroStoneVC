@@ -1,0 +1,3 @@
+Phrase courte
+Phrase moyenne
+Phrase longue

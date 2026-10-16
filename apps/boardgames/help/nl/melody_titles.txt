@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Altijd is Kortjakje ziek
+
+Vader Jacob
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Ode an die Freude
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+Happy Birthday to You
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Wiegenlied
+Brahms
+Für Elise
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Turkse mars
+Mozart
+Cancan
+Offenbach
+Toreador
+Bizet
+In de hal van de bergkoning
+Grieg
+Ochtendstemming
+Grieg
+Largo (Uit de Nieuwe Wereld)
+Dvořák
+De lente
+Vivaldi
+Menuet in G
+Christian Petzold
+Jezus blijft mijn vreugde
+J. S. Bach
+Gymnopédie No. 1
+Satie
+The Entertainer
+Scott Joplin
+An der schönen blauen Donau
+Johann Strauss II
+Bruidskoor
+Wagner
+Stille nacht
+Franz Xaver Gruber
+O denneboom
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Canon in D
+Pachelbel
+Toccata en fuga in d
+J. S. Bach
+Symfonie nr. 5
+Beethoven
+Symfonie nr. 40
+Mozart
+Symfonie met de paukenslag
+Haydn
+Het Zwanenmeer
+Tsjaikovski
+Jupiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Händel
+Three Blind Mice
+

@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Λάμπε, λάμπε, αστεράκι
+
+Frère Jacques
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Ωδή στη χαρά
+Μπετόβεν
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+Τζέιμς Λορντ Πιρπόντ
+Χαρούμενα γενέθλια
+Μίλντρεντ & Πάτι Χιλ
+Yankee Doodle
+
+Oh! Susanna
+Στίβεν Φόστερ
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Νανούρισμα
+Μπραμς
+Για την Ελίζα
+Μπετόβεν
+Eine kleine Nachtmusik
+Μότσαρτ
+Τουρκικό εμβατήριο
+Μότσαρτ
+Καν καν
+Όφενμπαχ
+Η άρια του τορεαδόρ
+Μπιζέ
+Στη σπηλιά του βασιλιά του βουνού
+Γκριγκ
+Πρωινή διάθεση
+Γκριγκ
+Λάργκο (Από τον Νέο Κόσμο)
+Ντβόρζακ
+Η Άνοιξη
+Βιβάλντι
+Μενουέτο σε σολ μείζονα
+Κρίστιαν Πέτσολντ
+Jesus bleibet meine Freude
+Μπαχ
+Γυμνοπαιδία αρ. 1
+Σατί
+The Entertainer
+Σκοτ Τζόπλιν
+Ο Γαλάζιος Δούναβης
+Γιόχαν Στράους (υιός)
+Γαμήλιο χορικό
+Βάγκνερ
+Άγια νύχτα
+Φραντς Γκρούμπερ
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+Τζον Γουέιντ
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Κανόνας σε ρε μείζονα
+Πάχελμπελ
+Τοκάτα και φούγκα σε ρε ελάσσονα
+Μπαχ
+Συμφωνία αρ. 5
+Μπετόβεν
+Συμφωνία αρ. 40
+Μότσαρτ
+Συμφωνία της Έκπληξης
+Χάυντν
+Η λίμνη των κύκνων
+Τσαϊκόφσκι
+Δίας
+Χολστ
+Hark! The Herald Angels Sing
+Μέντελσον
+Joy to the World
+Λόουελ Μέισον, Χέντελ
+Three Blind Mice
+

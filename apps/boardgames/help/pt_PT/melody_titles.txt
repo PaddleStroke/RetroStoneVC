@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Brilha, brilha, estrelinha
+
+Frère Jacques
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Hino à Alegria
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+Parabéns a você
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Canção de embalar
+Brahms
+Para Elisa
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Marcha Turca
+Mozart
+Cancã
+Offenbach
+Canção do Toureador
+Bizet
+Na Gruta do Rei da Montanha
+Grieg
+A Manhã
+Grieg
+Largo (Do Novo Mundo)
+Dvořák
+A Primavera
+Vivaldi
+Minueto em Sol maior
+Christian Petzold
+Jesus, alegria dos homens
+J. S. Bach
+Gymnopédie n.º 1
+Satie
+The Entertainer
+Scott Joplin
+O Danúbio Azul
+Johann Strauss Filho
+Marcha Nupcial (Lohengrin)
+Wagner
+Noite feliz
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Flor de Jasmim
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Cânone em Ré maior
+Pachelbel
+Tocata e Fuga em Ré menor
+J. S. Bach
+Sinfonia n.º 5
+Beethoven
+Sinfonia n.º 40
+Mozart
+Sinfonia Surpresa
+Haydn
+O Lago dos Cisnes
+Tchaikovsky
+Júpiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Handel
+Three Blind Mice
+

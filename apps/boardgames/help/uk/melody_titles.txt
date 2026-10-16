@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Twinkle, Twinkle, Little Star
+
+Frère Jacques
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Ода до радості
+Бетховен
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+Джеймс Лорд Пірпонт
+З днем народження
+Мілдред і Петті Гілл
+Yankee Doodle
+
+Oh! Susanna
+Стівен Фостер
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Колискова
+Брамс
+До Елізи
+Бетховен
+Маленька нічна серенада
+Моцарт
+Турецький марш
+Моцарт
+Канкан
+Оффенбах
+Куплети Тореадора
+Бізе
+У печері гірського короля
+Гріг
+Ранок
+Гріг
+Ларго («З Нового Світу»)
+Дворжак
+Весна
+Вівальді
+Менует соль мажор
+Крістіан Петцольд
+Jesus bleibet meine Freude
+Бах
+Гімнопедія № 1
+Саті
+The Entertainer
+Скотт Джоплін
+На прекрасному блакитному Дунаї
+Йоганн Штраус (син)
+Весільний хор
+Вагнер
+Тиха ніч
+Франц Грубер
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+Джон Вейд
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Жасмин
+
+Кукарача
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Канон ре мажор
+Пахельбель
+Токата і фуга ре мінор
+Бах
+Симфонія № 5
+Бетховен
+Симфонія № 40
+Моцарт
+Симфонія «Сюрприз»
+Гайдн
+Лебедине озеро
+Чайковський
+Юпітер
+Голст
+Hark! The Herald Angels Sing
+Мендельсон
+Joy to the World
+Лоуелл Мейсон, Гендель
+Three Blind Mice
+

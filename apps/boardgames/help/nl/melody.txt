@@ -1,0 +1,14 @@
+Op het gehoor
+# Het doel
+Een korte melodie klinkt op de piano, en elke toets licht goud op als zijn noot klinkt. Speel de noten in dezelfde volgorde na. Alleen de volgorde van de noten telt, niet het ritme. Elke melodie is echt: volksliedjes, kinderliedjes, kerstliederen en beroemde klassieke stukken, allemaal uit het publieke domein.
+# Een zet
+Tik op een toets. De goede toets klinkt en gloeit goud, en de notenbalk boven het klavier schrijft de noot op zijn hoogte; een stip staat voor elke noot die nog komt. Een verkeerde toets klinkt dof en flitst rood: dat is een fout, en je gaat verder op dezelfde plek.
+# Het einde van het spel
+Als de laatste noot gespeeld is, loopt een gouden golf over de toetsen en verschijnt de titel van de melodie, met de componist.
+# Levels en sterren
+Er zijn 150 levels in zes hoofdstukken, van drie noten op witte toetsen tot lange, beroemde frasen met zwarte toetsen, sprongen en een snel tempo. Het dobbelsteentabblad na de hoofdstukken speelt een willekeurige frase uit de verzameling, kort, middellang of lang, vaak in een andere toonsoort. Geen fout, geen hint en hooguit één keer opnieuw luisteren: 3 sterren; tot twee daarvan samen: 2 sterren; anders 1.
+# Spelen op het apparaat
+- De luidsprekerknop speelt de melodie nog eens.
+- De lamp laat de volgende toets oplichten.
+- Zonder geluid lichten de toetsen toch op: een kleine doorgestreepte luidspreker op de notenbalk laat dat zien.
+Ongedaan maken neemt de laatste goede noot terug, helemaal tot het begin. De balk toont de noten die nog komen.

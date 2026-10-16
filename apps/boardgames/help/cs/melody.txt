@@ -1,0 +1,14 @@
+Podle sluchu
+# Cíl hry
+Na klavír zazní krátká melodie a každá klávesa se rozzáří zlatě, když zní její tón. Zahraj tóny ve stejném pořadí. Počítá se jen pořadí tónů, ne rytmus. Každá melodie je skutečná: lidové písně, dětské říkanky, koledy a slavné klasické skladby, všechny volné k užití.
+# Tah
+Klepni na klávesu. Správná klávesa zazní a zazáří zlatě a notová osnova nad klávesnicí zapíše tón v jeho výšce; tečka značí každý tón, který ještě chybí. Špatná klávesa zní dutě a blikne červeně: počítá se jako chyba a pokračuješ ze stejného místa.
+# Konec hry
+Když zazní poslední tón, přeběhne po klávesách zlatá vlna a objeví se název melodie i se skladatelem.
+# Úrovně a hvězdy
+Je tu 150 úrovní v šesti kapitolách, od tří tónů na bílých klávesách až po dlouhé slavné fráze s černými klávesami, skoky a rychlým tempem. Záložka s kostkou za kapitolami zahraje náhodnou frázi ze sbírky, krátkou, střední nebo dlouhou, často v jiné tónině. Bez chyby, bez nápovědy a nanejvýš jedno poslechnutí navíc: 3 hvězdy; dohromady nejvýš dvě: 2 hvězdy; jinak 1.
+# Hra na zařízení
+- Tlačítko s reproduktorem zahraje melodii znovu.
+- Lampa rozsvítí další klávesu.
+- Bez zvuku se klávesy rozsvěcují dál: ukazuje to malý přeškrtnutý reproduktor na osnově.
+Zpět vezme poslední správný tón, až na začátek. Lišta ukazuje tóny, které ještě chybí.

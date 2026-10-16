@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Twinkle, Twinkle, Little Star
+
+Bratře Kubo
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Óda na radost
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+Happy Birthday to You
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Ukolébavka
+Brahms
+Pro Elišku
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Turecký pochod
+Mozart
+Kankán
+Offenbach
+Toreador
+Bizet
+V jeskyni krále hor
+Grieg
+Ráno
+Grieg
+Largo (Z Nového světa)
+Dvořák
+Jaro
+Vivaldi
+Menuet G dur
+Christian Petzold
+Jesus bleibet meine Freude
+J. S. Bach
+Gymnopédie č. 1
+Satie
+The Entertainer
+Scott Joplin
+Na krásném modrém Dunaji
+Johann Strauss mladší
+Svatební sbor
+Wagner
+Tichá noc
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Dobrý král Václav
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Kánon D dur
+Pachelbel
+Toccata a fuga d moll
+J. S. Bach
+Symfonie č. 5
+Beethoven
+Symfonie č. 40
+Mozart
+Symfonie s úderem kotlů
+Haydn
+Labutí jezero
+Čajkovskij
+Jupiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Händel
+Three Blind Mice
+

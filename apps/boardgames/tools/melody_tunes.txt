@@ -1,0 +1,373 @@
+# Play by Ear's tunes (games/melody*): every one in the public domain, written down here from the tunes themselves
+# (no score copied, no recording). Traditional songs, nursery rhymes, carols and hymns, and pieces by composers who
+# died more than 70 years ago. tools/melody_gen.py reads this file and writes src/games/melody_levels.h.
+#
+# A tune is a block:
+#   tune   its id (the order here is the order of help/<lang>/melody_titles.txt)
+#   title  its English title (the titles shown are in help/<lang>/melody_titles.txt)
+#   by     the composer, or "traditional"; the year the composer died ("-" for a traditional tune); the source
+#   bpm    quarter notes a minute (the tune is played with its rhythm; only the order of the pitches is asked)
+#   notes  the melody: a pitch (C D E F G A B, # or b, an octave 3..6 that stays until another is given), then
+#          ",d" its length in sixteenths (4 by default: a quarter note; 2 an eighth, 8 a half note...); "r,d" a rest;
+#          "|" a place where a level may end (its first bar, a longer phrase, the whole phrase).
+# The keyboard shown runs from C4 (middle C) up to C5, G5 or C6: every tune is written within C4..C6.
+
+tune twinkle
+title Twinkle, Twinkle, Little Star
+by traditional; -; French air "Ah ! vous dirai-je, maman" (18th century)
+bpm 100
+notes C4 C G G | A A G,8 | F F E E D D C,8 | G G F F E E D,8 G G F F E E D,8 |
+
+tune frere
+title Frère Jacques
+by traditional; -; French round (18th century)
+bpm 112
+notes G4 A B G | G A B G | B C5 D5,8 B4 C5 D5,8 | D5,2 E5,2 D5,2 C5,2 B4 G4 D5,2 E5,2 D5,2 C5,2 B4 G4 | G4 D4 G4,8 G4 D4 G4,8 |
+
+tune mary
+title Mary Had a Little Lamb
+by traditional; -; American nursery song (1830)
+bpm 112
+notes E4 D C D E | E E,8 | D D D,8 E G G,8 | E D C D E E E E D D E D C,16 |
+
+tune buns
+title Hot Cross Buns
+by traditional; -; English street cry (18th century)
+bpm 100
+notes E4 D C,8 | E D C,8 | C,2 C,2 C,2 C,2 D,2 D,2 D,2 D,2 E D C,8 |
+
+tune ode
+title Ode to Joy
+by Ludwig van Beethoven; 1827; Symphony No. 9, finale (1824)
+bpm 116
+notes E4 E F G G | F E D | C C D E E,6 D,2 D,8 | E E F G G F E D C C D E D,6 C,2 C,8 |
+
+tune clair
+title Au clair de la lune
+by traditional; -; French song (18th century)
+bpm 100
+notes F4 F F G A,8 | G,8 F A G G F,16 | F F F G A,8 G,8 F A G G F,16 | G G G G D,8 D,8 G F E D C,16 |
+
+tune london
+title London Bridge Is Falling Down
+by traditional; -; English nursery rhyme (17th century)
+bpm 112
+notes G4,3 A,1 G,2 F,2 E F G,8 | D E F,8 E F G,8 | G,3 A,1 G,2 F,2 E F G,8 D,8 G,8 E C,12 |
+
+tune rowboat
+title Row, Row, Row Your Boat
+by traditional; -; American nursery rhyme (1852)
+bpm 150
+notes C4,6 C,6 C,4 D,2 E,6 | E,4 D,2 E,4 F,2 G,12 | C5,2 C,2 C,2 G4,2 G,2 G,2 E,2 E,2 E,2 C,2 C,2 C,2 G,4 F,2 E,4 D,2 C,12 |
+
+tune macdonald
+title Old MacDonald Had a Farm
+by traditional; -; English and American folk song
+bpm 120
+notes G4 G G D | E E D,8 | B B A A G,12 | D4 G G G D E E D,8 B B A A G,12 |
+
+tune jingle
+title Jingle Bells
+by James Lord Pierpont; 1893; "One Horse Open Sleigh" (1857)
+bpm 132
+notes E4 E E,8 | E E E,8 | E G C,3 D,1 E,16 | F F F,3 F,1 F E E E,2 E,2 E D D E D,8 G,8 | E E E,8 E E E,8 E G C,3 D,1 E,16 F F F,3 F,1 F E E E,2 E,2 G G F D C,16 |
+
+tune birthday
+title Happy Birthday to You
+by Mildred J. Hill and Patty S. Hill; 1946; "Good Morning to All" (1893)
+bpm 100
+notes G4,3 G,1 A G C5 B4,8 | G4,3 G,1 A G D5 C5,8 | G4,3 G,1 G5 E5 C5 B4 A4 F5,3 F5,1 E5 C5 D5 C5,8 |
+
+tune yankee
+title Yankee Doodle
+by traditional; -; American song (18th century)
+bpm 120
+notes G4,2 G,2 A,2 B,2 G,2 B,2 A,2 D4,2 | G4,2 G,2 A,2 B,2 G,4 F#,4 | G,2 G,2 A,2 B,2 C5,2 B4,2 A,2 G,2 F#,2 D,2 E,2 F#,2 G,4 G,4 |
+
+tune susanna
+title Oh! Susanna
+by Stephen Foster; 1864; minstrel song (1848)
+bpm 120
+notes C4,2 D,2 E G G,6 A,2 G E | C,6 D,2 E E D C D,12 | C,2 D,2 E G G,6 A,2 G E C,6 D,2 E E D D C,12 |
+
+tune grace
+title Amazing Grace
+by traditional; -; American hymn tune "New Britain" (1829)
+bpm 84
+notes D4 G,8 B,2 G,2 B,8 A G,8 E D,8 | D G,8 B,2 G,2 B,8 A D5,12 | B4 D5,6 B4,2 D5,2 B4,2 G4,8 D E,6 G,2 G,2 E,2 D,8 D G,8 B,2 G,2 B,8 A G,12 |
+
+tune greensleeves
+title Greensleeves
+by traditional; -; English ballad (16th century)
+bpm 140
+notes A4,2 C5,4 D5,2 E5,3 F5,1 E5,2 D5,4 B4,2 G4,3 A4,1 B4,2 C5,4 | A4,2 A4,3 G#4,1 A4,2 B4,4 G#4,2 E4,4 | A4,2 C5,4 D5,2 E5,3 F5,1 E5,2 D5,4 B4,2 G4,3 A4,1 B4,2 C5,3 B4,1 A4,2 G#4,3 F#4,1 G#4,2 A4,12 |
+
+tune auldlang
+title Auld Lang Syne
+by traditional; -; Scottish air (18th century)
+bpm 96
+notes C4 F,6 F,2 F A G,6 F,2 G A | F,6 F,2 A C5 D5,12 | D5 C5,6 A4,2 A F G,6 F,2 G A F,6 D,2 D C F,12 |
+
+tune lullaby
+title Lullaby
+by Johannes Brahms; 1897; "Wiegenlied", Op. 49 No. 4 (1868)
+bpm 92
+notes E4,2 E,2 G,8 | E,2 E,2 G,8 | E,2 G,2 C5 B4,6 A,2 A G | D,2 E,2 F D D,2 E,2 F,8 D,2 F,2 B,2 A,2 G B C5,8 |
+
+tune elise
+title Für Elise
+by Ludwig van Beethoven; 1827; Bagatelle in A minor, WoO 59 (1810)
+bpm 140
+notes E5,2 D#5,2 E5,2 D#5,2 E5,2 B4,2 D5,2 C5,2 A4,6 | C4,2 E4,2 A4,2 B4,6 | E4,2 G#4,2 B4,2 C5,6 | E4,2 E5,2 D#5,2 E5,2 D#5,2 E5,2 B4,2 D5,2 C5,2 A4,6 C4,2 E4,2 A4,2 B4,6 E4,2 C5,2 B4,2 A4,8 |
+
+tune nachtmusik
+title Eine kleine Nachtmusik
+by Wolfgang Amadeus Mozart; 1791; Serenade No. 13, K. 525 (1787)
+bpm 120
+notes G4 r,2 D4,2 G4 r,2 D4,2 | G4,2 D4,2 G4,2 B4,2 D5,8 | C5 r,2 A4,2 C5 r,2 A4,2 C5,2 A4,2 F#4,2 A4,2 D4,8 |
+
+tune turca
+title Rondo alla Turca
+by Wolfgang Amadeus Mozart; 1791; Piano Sonata No. 11, K. 331 (1783)
+bpm 100
+notes B4,1 A4,1 G#4,1 A4,1 C5,4 | D5,1 C5,1 B4,1 C5,1 E5,4 | F5,1 E5,1 D#5,1 E5,1 B5,1 A5,1 G#5,1 A5,1 B5,1 A5,1 G#5,1 A5,1 C6,4 |
+
+tune cancan
+title Can-can
+by Jacques Offenbach; 1880; "Galop infernal", Orpheus in the Underworld (1858)
+bpm 140
+notes C4,8 D,2 F,2 E,2 D,2 G G | G,2 A,2 E,2 F,2 D D | D,2 F,2 E,2 D,2 C,2 C5,2 B4,2 A,2 G,2 F,2 E,2 D,2 | C,8 D,2 F,2 E,2 D,2 G G G,2 A,2 E,2 F,2 D D D,2 F,2 E,2 D,2 C,2 G,2 D,2 E,2 C,8 |
+
+tune toreador
+title Toreador Song
+by Georges Bizet; 1875; "Votre toast", Carmen (1875)
+bpm 100
+notes C5,6 D5,2 C5,3 A4,1 A4,8 A4 G4,2 A4,2 Bb4 A4,8 | Bb4,6 G4,2 C5 A4,8 |
+
+tune mountain
+title In the Hall of the Mountain King
+by Edvard Grieg; 1907; Peer Gynt (1875)
+bpm 120
+notes A4,2 B4,2 C5,2 D5,2 E5,2 C5,2 E5,4 | D#5,2 B4,2 D#5,4 D5,2 Bb4,2 D5,4 | A4,2 B4,2 C5,2 D5,2 E5,2 C5,2 E5,2 A5,2 G5,2 E5,2 C5,2 E5,2 G5,8 |
+
+tune morning
+title Morning Mood
+by Edvard Grieg; 1907; Peer Gynt (1875)
+bpm 90
+notes G4,2 E,2 D,2 C,2 D,2 E,2 | G,2 E,2 D,2 C,2 D,1 E,1 D,1 E,1 | G,2 E,2 G,2 A,2 E,2 A,2 G,2 E,2 D,2 C,8 |
+
+tune largo
+title Largo (Going Home)
+by Antonín Dvořák; 1904; Symphony No. 9 "From the New World" (1893)
+bpm 60
+notes E4,6 G,2 G,8 | E,6 D,2 C,8 | D E G E D,16 | E,6 G,2 G,8 E,6 D,2 C,8 D E D C C,16 |
+
+tune spring
+title Spring
+by Antonio Vivaldi; 1741; The Four Seasons (1725)
+bpm 100
+notes C4 E E E D,2 C,2 G,12 | G,2 F,2 E E E D,2 C,2 G,12 | G,2 F,2 E F,2 G,2 F E D,8 |
+
+tune minuet
+title Minuet in G
+by Christian Petzold; 1733; Notebook for Anna Magdalena Bach (1725)
+bpm 120
+notes D5 G4,2 A,2 B,2 C5,2 D5 G4 G4 | E5 C5,2 D5,2 E5,2 F#5,2 G5 G4 G4 | C5 D5,2 C5,2 B4,2 A4,2 B4 C5,2 B4,2 A4,2 G4,2 F#4 G4,2 A4,2 B4,2 G4,2 A4,12 |
+
+tune jesu
+title Jesu, Joy of Man's Desiring
+by Johann Sebastian Bach; 1750; Cantata BWV 147 (1723)
+bpm 140
+notes G4,2 A,2 B,2 D5,2 C5,2 C5,2 E5,2 D5,2 D5,2 | G5,2 F#5,2 G5,2 D5,2 B4,2 G4,2 | A4,2 B4,2 C5,2 D5,2 E5,2 D5,2 C5,2 B4,2 A4,2 B4,2 G4,2 F#4,2 G4,6 |
+
+tune gymnopedie
+title Gymnopédie No. 1
+by Erik Satie; 1925; Trois Gymnopédies (1888)
+bpm 72
+notes F#5 A5 G5 F#5 C#5 B4 C#5 D5 A4,12 F#4,16 | F#5 A5 G5 F#5 C#5 B4 C#5 D5 A4,12 C#5,16 |
+
+tune entertainer
+title The Entertainer
+by Scott Joplin; 1917; ragtime (1902)
+bpm 80
+notes D4,1 D#4,1 E4,1 C5,2 E4,1 C5,2 E4,1 C5,6 | C5,1 D5,1 D#5,1 E5,1 C5,1 D5,1 E5,2 B4,1 D5,2 C5,6 | D4,1 D#4,1 E4,1 C5,2 E4,1 C5,2 E4,1 C5,6 A4,1 G4,1 F#4,1 A4,1 C5,1 E5,2 D5,1 C5,1 A4,1 D5,6 |
+
+tune danube
+title The Blue Danube
+by Johann Strauss II; 1899; waltz, Op. 314 (1866)
+bpm 160
+notes D4 D F# A A,8 A5 A5,8 F#5 F#5,8 | D4 D F# A A,8 A5 A5,8 G5 G5,8 | C#4 C# E B4 B,8 B5 B5,8 G5 G5,8 C#4 C# E B4 B,8 B5 B5,8 F#5 F#5,8 |
+
+tune bridal
+title Bridal Chorus
+by Richard Wagner; 1883; Lohengrin (1850)
+bpm 72
+notes C4 F,3 F,1 F,8 | C G,3 E,1 F,8 |
+
+tune silent
+title Silent Night
+by Franz Xaver Gruber; 1863; "Stille Nacht" (1818)
+bpm 92
+notes G4,6 A,2 G E,12 | G,6 A,2 G E,12 | D5,8 D5 B4,12 C5,8 C5 G4,12 | A,8 A C5,6 B4,2 A G,6 A,2 G E,12 A,8 A C5,6 B4,2 A G,6 A,2 G E,12 | D5,8 D5 F5,6 D5,2 B4 C5,12 E5,12 C5 G4 E4 G4,6 F4,2 D4 C4,16 |
+
+tune tannenbaum
+title O Christmas Tree
+by traditional; -; German carol "O Tannenbaum" (1824 words, older tune)
+bpm 92
+notes C4 F,3 F,1 F,6 | G,2 A,3 A,1 A,6 | A,2 G,2 A,2 Bb E G F,8 |
+
+tune deckhalls
+title Deck the Halls
+by traditional; -; Welsh carol (16th century)
+bpm 120
+notes C5,6 Bb4,2 A G F | G A F | G,2 A,2 Bb,2 G,2 A,6 G,2 F E F,8 |
+
+tune wishyou
+title We Wish You a Merry Christmas
+by traditional; -; English carol (16th century)
+bpm 120
+notes D4 G G,2 A,2 G,2 F#,2 E E | E A A,2 B,2 A,2 G,2 F# D | D B B,2 C5,2 B4,2 A,2 G E D,2 D,2 E A F# G,8 |
+
+tune wenceslas
+title Good King Wenceslas
+by traditional; -; spring carol "Tempus adest floridum", Piae Cantiones (1582)
+bpm 112
+notes G4 G G A G G D,8 | E D E F# G,8 G,8 | D5 C5 B4 A4 B4 A4 G4,8 E4 D4 E4 F#4 G4,8 G4,8 |
+
+tune godrest
+title God Rest You Merry, Gentlemen
+by traditional; -; English carol (18th century)
+bpm 120
+notes E4 E B B A G F# E | D E F# G A B,12 |
+
+tune faithful
+title O Come, All Ye Faithful
+by John Francis Wade; 1786; "Adeste Fideles" (1751)
+bpm 100
+notes G4 G,8 D G A,8 D,8 | B A B C5 B4,8 A | G,8 F# E F# G A B F#,8 E,6 D,2 D,16 |
+
+tune alouette
+title Alouette
+by traditional; -; French Canadian song (19th century)
+bpm 120
+notes F4 G,2 A,2 A G,2 F,2 G,2 A,2 F C | F G,2 A,2 A G,2 F,2 G,2 A,2 F,8 |
+
+tune entchen
+title Alle meine Entchen
+by traditional; -; German children's song (19th century)
+bpm 120
+notes C4 D E F | G,8 G,8 | A A A A G,16 | A A A A G,16 F F F F E,8 E,8 D D D D C,16 |
+
+tune haenschen
+title Hänschen klein
+by traditional; -; German children's song (19th century), "Lightly Row"
+bpm 120
+notes G4 E E,8 | F D D,8 | C D E F G G G,8 | G E E,8 F D D,8 C E G G C,16 |
+
+tune sakura
+title Sakura Sakura
+by traditional; -; Japanese song (19th century)
+bpm 76
+notes A5 A5 B5,8 | A5 A5 B5,8 | A5 B5 C6 B5 A5 B5,2 A5,2 F5,8 | E5 C5 E5 F5 E5 E5,2 C5,2 B4,8 |
+
+tune jasmine
+title Jasmine Flower
+by traditional; -; Chinese folk song "Mo Li Hua" (18th century)
+bpm 80
+notes E4 E,2 G,2 A,2 C5,2 | C5,2 A4,2 G G,2 A,2 G,8 | E E,2 G,2 A,2 C5,2 C5,2 A4,2 G G,2 A,2 G,8 G G G E,2 G,2 A A G,8 E D,2 E,2 G E,2 D,2 C C,2 D,2 C,8 |
+
+tune cucaracha
+title La Cucaracha
+by traditional; -; Mexican folk song (19th century)
+bpm 140
+notes C4,2 C,2 C,2 F,6 A | C,2 C,2 C,2 F,6 A,8 | F F,2 E,2 E,2 D,2 D,2 C,8 | C,2 C,2 C,2 E,6 G C,2 C,2 C,2 E,6 G,8 C5 D5,2 C5,2 Bb4,2 A,2 G,2 F,8 |
+
+tune saints
+title When the Saints Go Marching In
+by traditional; -; American spiritual
+bpm 140
+notes C4 E F G,16 | C E F G,16 | C E F G,8 E,8 C,8 E,8 D,16 | E E D C,12 C E,8 G,8 G F,12 E F G,8 E,8 C,8 D,8 C,16 |
+
+tune clementine
+title Oh My Darling, Clementine
+by traditional; -; American western ballad (1884)
+bpm 120
+notes F4,3 F,1 F C A,3 A,1 A F | F,3 A,1 C5,6 C5,2 Bb4,2 A,2 G,8 | G,2 A,2 Bb Bb A,2 G,2 A F F,3 A,1 G,6 C,2 E,2 G,2 F,8 |
+
+tune bonnie
+title My Bonnie Lies over the Ocean
+by traditional; -; Scottish folk song
+bpm 132
+notes G4 E5,6 D5,2 C5 D5 C5 A4 G4 E4,8 | G4 E5,6 D5,2 C5 C5 B4 C5 D5,12 | G4 E5,6 D5,2 C5 D5 C5 A4 G4 E4,8 G4 A4 D5 C5 B4 A4 B4 C5,12 |
+
+tune oldman
+title This Old Man
+by traditional; -; English counting song
+bpm 120
+notes G4 E G,8 | G E G,8 | A G F E D E F,8 | E,2 F,2 G C C,2 C,2 C C,2 D,2 E,2 F,2 G G,2 G,2 D F E D C,8 |
+
+tune spider
+title Itsy Bitsy Spider
+by traditional; -; American children's song
+bpm 120
+notes C4,2 F F,2 F G,2 A,6 | A A,2 G F,2 G A,2 F,12 | A,6 A Bb,2 C5,6 C5,6 Bb4 A,2 Bb C5,2 A4,12 |
+
+tune canon
+title Canon in D
+by Johann Pachelbel; 1706; Canon and Gigue in D (about 1690)
+bpm 80
+notes F#5 E5 D5 C#5 B4 A4 B4 C#5 | D5 C#5 B4 A4 G4 F#4 G4 E4 |
+
+tune toccata
+title Toccata and Fugue in D minor
+by Johann Sebastian Bach; 1750; BWV 565 (early 18th century)
+bpm 60
+notes A5,1 G5,1 A5,6 G5,1 F5,1 E5,1 D5,1 C#5,4 D5,8 | A4,1 G4,1 A4,6 E4,2 F4,2 C#4,4 D4,8 |
+
+tune fifth
+title Symphony No. 5
+by Ludwig van Beethoven; 1827; Symphony No. 5 in C minor (1808)
+bpm 108
+notes G4,2 G,2 G,2 Eb,16 | F,2 F,2 F,2 D,16 | G,2 G,2 G,2 Eb,2 Ab,2 Ab,2 Ab,2 G,2 Eb5,2 Eb5,2 Eb5,2 C5,8 |
+
+tune mozart40
+title Symphony No. 40
+by Wolfgang Amadeus Mozart; 1791; Symphony No. 40 in G minor, K. 550 (1788)
+bpm 112
+notes Eb5,2 D5,2 D5 Eb5,2 D5,2 D5 Eb5,2 D5,2 D5 Bb5,8 | Bb5,2 A5,2 G5 G5,2 F5,2 Eb5 Eb5,2 D5,2 C5 C5,8 |
+
+tune surprise
+title Surprise Symphony
+by Joseph Haydn; 1809; Symphony No. 94, Andante (1791)
+bpm 100
+notes F4,2 F,2 A,2 A,2 C5,2 C5,2 A4 | Bb,2 Bb,2 G,2 G,2 E,2 E,2 C |
+
+tune swan
+title Swan Lake
+by Pyotr Ilyich Tchaikovsky; 1893; Swan Lake, Op. 20 (1876)
+bpm 72
+notes F#5,16 B4,2 C#5,2 D5,2 E5,2 F#5,6 D5,2 F#5,6 D5,2 F#5,6 | B4,2 D5,2 B4,2 G4,2 D5,2 B4,16 |
+
+tune jupiter
+title Jupiter
+by Gustav Holst; 1934; The Planets (1916)
+bpm 80
+notes E4,2 G,2 A,6 A,2 C5,2 B4,3 G,1 | C5,2 D5,2 C5 B4 A,2 B,2 A G E,8 |
+
+tune hark
+title Hark! The Herald Angels Sing
+by Felix Mendelssohn; 1847; Festgesang (1840)
+bpm 112
+notes G4 C5 C5,6 B4,2 C5 E5 E5 D5 | G5 G5 G5,6 F5,2 E5 D5 E5,8 |
+
+tune joyworld
+title Joy to the World
+by Lowell Mason, after George Frideric Handel; 1872; hymn tune "Antioch" (1836)
+bpm 100
+notes C5,8 B4,6 A,2 G,12 F E,8 D,8 C,12 | G A,12 A B,12 B C5,12 |
+
+tune threemice
+title Three Blind Mice
+by traditional; -; English round (1609)
+bpm 132
+notes E4,6 D,6 C,12 | E,6 D,6 C,12 | G,6 F,4 F,2 E,12 G,6 F,4 F,2 E,12 |

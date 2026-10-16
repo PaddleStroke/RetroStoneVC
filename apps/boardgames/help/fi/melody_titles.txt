@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Tuiki tuiki tähtönen
+
+Jaakko kulta
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Oodi ilolle
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+Paljon onnea vaan
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Kehtolaulu
+Brahms
+Für Elise
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Turkkilainen marssi
+Mozart
+Cancan
+Offenbach
+Toreador
+Bizet
+Vuorenpeikkojen luolassa
+Grieg
+Aamutunnelma
+Grieg
+Largo (Uudesta maailmasta)
+Dvořák
+Kevät
+Vivaldi
+Menuetti G-duuri
+Christian Petzold
+Jesus bleibet meine Freude
+J. S. Bach
+Gymnopédie No. 1
+Satie
+The Entertainer
+Scott Joplin
+Kaunis sininen Tonava
+Johann Strauss II
+Morsiuskuoro
+Wagner
+Jouluyö, juhlayö
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Kaanon D-duuri
+Pachelbel
+Toccata ja fuuga d-molli
+J. S. Bach
+Sinfonia nro 5
+Beethoven
+Sinfonia nro 40
+Mozart
+Yllätyssinfonia
+Haydn
+Joutsenlampi
+Tšaikovski
+Jupiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Händel
+Three Blind Mice
+

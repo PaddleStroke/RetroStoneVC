@@ -1,0 +1,14 @@
+Korvakuulolta
+# Tavoite
+Pianolla soi lyhyt sävelmä, ja jokainen kosketin syttyy kultaiseksi, kun sen sävel soi. Soita sävelet samassa järjestyksessä. Vain sävelten järjestys ratkaisee, ei rytmi. Jokainen sävelmä on oikea: kansanlauluja, lastenlauluja, joululauluja ja kuuluisia klassisia kappaleita, kaikki vapaasti käytettäviä.
+# Siirto
+Napauta kosketinta. Oikea kosketin soi ja hehkuu kultaisena, ja koskettimiston yllä oleva nuottiviivasto kirjoittaa sävelen korkeudelleen; piste merkitsee jokaista vielä puuttuvaa säveltä. Väärä kosketin soi tunkkaisesti ja välähtää punaisena: se on virhe, ja jatkat samasta kohdasta.
+# Pelin loppu
+Kun viimeinen sävel on soitettu, kultainen aalto kulkee koskettimien yli ja sävelmän nimi tulee näkyviin säveltäjineen.
+# Tasot ja tähdet
+Tasoja on 150 kuudessa luvussa: kolmesta sävelestä valkoisilla koskettimilla pitkiin, kuuluisiin fraaseihin, joissa on mustia koskettimia, hyppyjä ja nopea tempo. Lukujen jälkeinen noppavälilehti soittaa satunnaisen fraasin kokoelmasta, lyhyen, keskipitkän tai pitkän, usein eri sävellajissa. Ei virheitä, ei vihjeitä ja enintään yksi uusi kuuntelu: 3 tähteä; enintään kaksi yhteensä: 2 tähteä; muuten 1.
+# Pelaaminen laitteella
+- Kaiutinpainike soittaa sävelmän uudelleen.
+- Lamppu sytyttää seuraavan koskettimen.
+- Ilman ääntä koskettimet syttyvät silti: pieni yliviivattu kaiutin nuottiviivastolla kertoo sen.
+Kumoa ottaa viimeisen oikean sävelen takaisin, aina alkuun asti. Palkki näyttää puuttuvat sävelet.

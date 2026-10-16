@@ -1,0 +1,14 @@
+På gehør
+# Målet
+En kort melodi spilles på pianoet, og hver tangent lyser gull når tonen dens klinger. Spill tonene i samme rekkefølge. Bare rekkefølgen teller, ikke rytmen. Hver melodi er ekte: folkeviser, barnesanger, julesanger og berømte klassiske stykker, alle i det fri.
+# Et trekk
+Trykk på en tangent. Riktig tangent klinger og gløder i gull, og notelinjene over klaviaturen skriver tonen i sin høyde; en prikk står for hver tone som gjenstår. En feil tangent låter dempet og blinker rødt: det teller som en feil, og du fortsetter fra samme sted.
+# Slutten på spillet
+Når den siste tonen er spilt, går en gullbølge over tangentene og melodiens tittel vises, med komponisten.
+# Nivåer og stjerner
+Det er 150 nivåer i seks kapitler, fra tre toner på hvite tangenter til lange, berømte fraser med svarte tangenter, sprang og raskt tempo. Terningfanen etter kapitlene spiller en tilfeldig frase fra samlingen, kort, middels eller lang, ofte i en annen toneart. Ingen feil, ingen hint og høyst én ekstra lytting: 3 stjerner; opptil to til sammen: 2 stjerner; ellers 1.
+# Spill på enheten
+- Høyttalerknappen spiller melodien igjen.
+- Lampen tenner neste tangent.
+- Uten lyd lyser tangentene likevel: en liten overstreket høyttaler på notelinjene viser det.
+Angre tar tilbake den siste riktige tonen, helt til starten. Linjen viser tonene som gjenstår.

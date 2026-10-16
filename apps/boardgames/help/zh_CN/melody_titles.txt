@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+小星星
+
+两只老虎
+
+玛丽有只小羊羔
+
+Hot Cross Buns
+
+欢乐颂
+贝多芬
+在月光下
+
+伦敦桥要塌了
+
+划船歌
+
+王老先生有块地
+
+铃儿响叮当
+皮尔彭特
+祝你生日快乐
+米尔德里德与帕蒂·希尔
+Yankee Doodle
+
+噢！苏珊娜
+福斯特
+奇异恩典
+
+绿袖子
+
+友谊地久天长
+
+摇篮曲
+勃拉姆斯
+致爱丽丝
+贝多芬
+G大调弦乐小夜曲
+莫扎特
+土耳其进行曲
+莫扎特
+康康舞曲
+奥芬巴赫
+斗牛士之歌
+比才
+在山魔王的宫殿里
+格里格
+晨景
+格里格
+念故乡
+德沃夏克
+春（四季）
+维瓦尔第
+G大调小步舞曲
+佩措尔德
+耶稣，世人仰望的喜悦
+巴赫
+第一号吉诺佩蒂
+萨蒂
+演艺人
+斯科特·乔普林
+蓝色多瑙河
+小约翰·施特劳斯
+婚礼合唱
+瓦格纳
+平安夜
+格鲁伯
+圣诞树
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+齐来崇拜
+韦德
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+樱花
+
+茉莉花
+
+La cucaracha
+
+圣者的行进
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+D大调卡农
+帕赫贝尔
+D小调托卡塔与赋格
+巴赫
+第五交响曲《命运》
+贝多芬
+第四十交响曲
+莫扎特
+惊愕交响曲
+海顿
+天鹅湖
+柴可夫斯基
+木星
+霍尔斯特
+听啊，天使高声唱
+门德尔松
+普世欢腾
+梅森、亨德尔
+Three Blind Mice
+

@@ -1,0 +1,3 @@
+Frase curta
+Frase média
+Frase longa

@@ -1,0 +1,14 @@
+På gehör
+# Målet
+En kort melodi spelas på pianot, och varje tangent lyser guld när dess ton klingar. Spela tonerna i samma ordning. Bara tonernas ordning räknas, inte rytmen. Varje melodi är på riktigt: folkvisor, barnvisor, julsånger och berömda klassiska stycken, alla fria att använda.
+# Ett drag
+Tryck på en tangent. Rätt tangent klingar och glöder i guld, och notsystemet ovanför klaviaturen skriver tonen på dess höjd; en prick står för varje ton som återstår. En fel tangent låter dovt och blinkar rött: det räknas som ett misstag, och du fortsätter från samma ställe.
+# Partiets slut
+När den sista tonen är spelad sveper en guldvåg över tangenterna och melodins titel visas, med kompositören.
+# Banor och stjärnor
+Det finns 150 banor i sex kapitel, från tre toner på vita tangenter till långa, berömda fraser med svarta tangenter, språng och högt tempo. Tärningsfliken efter kapitlen spelar en slumpvis fras ur samlingen, kort, medellång eller lång, ofta i en annan tonart. Inget misstag, ingen ledtråd och högst en extra lyssning: 3 stjärnor; upp till två sammanlagt: 2 stjärnor; annars 1.
+# Spela på enheten
+- Högtalarknappen spelar melodin igen.
+- Lampan tänder nästa tangent.
+- Utan ljud lyser tangenterna ändå: en liten överkryssad högtalare på notsystemet visar det.
+Ångra tar tillbaka den senaste rätta tonen, ända till början. Listen visar tonerna som återstår.

@@ -1,0 +1,3 @@
+Krótka fraza
+Średnia fraza
+Długa fraza

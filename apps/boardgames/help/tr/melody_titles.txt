@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Parla Parla Küçük Yıldız
+
+Tembel Çocuk
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Neşeye Övgü
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+İyi ki Doğdun
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Ninni
+Brahms
+Für Elise
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Türk Marşı
+Mozart
+Kankan
+Offenbach
+Toreador
+Bizet
+Dağ Kralının Mağarasında
+Grieg
+Sabah
+Grieg
+Largo (Yeni Dünya)
+Dvořák
+İlkbahar
+Vivaldi
+Sol Majör Menüet
+Christian Petzold
+Jesus bleibet meine Freude
+J. S. Bach
+Gymnopédie No. 1
+Satie
+The Entertainer
+Scott Joplin
+Güzel Mavi Tuna
+Johann Strauss II
+Gelin Korosu
+Wagner
+Sessiz Gece
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Re Majör Kanon
+Pachelbel
+Re Minör Tokata ve Füg
+J. S. Bach
+5. Senfoni
+Beethoven
+40. Senfoni
+Mozart
+Sürpriz Senfonisi
+Haydn
+Kuğu Gölü
+Çaykovski
+Jüpiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Handel
+Three Blind Mice
+

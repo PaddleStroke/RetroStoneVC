@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Twinkle, Twinkle, Little Star
+
+Panie Janie
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Oda do radości
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald Had a Farm
+
+Jingle Bells
+James Lord Pierpont
+Happy Birthday to You
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Kołysanka
+Brahms
+Dla Elizy
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Marsz turecki
+Mozart
+Kankan
+Offenbach
+Toreador
+Bizet
+W grocie Króla Gór
+Grieg
+Poranek
+Grieg
+Largo (Z Nowego Świata)
+Dvořák
+Wiosna
+Vivaldi
+Menuet G-dur
+Christian Petzold
+Jesus bleibet meine Freude
+J. S. Bach
+Gymnopédie nr 1
+Satie
+The Entertainer
+Scott Joplin
+Nad pięknym modrym Dunajem
+Johann Strauss (syn)
+Chór weselny
+Wagner
+Cicha noc
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Adeste Fideles
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Mo Li Hua
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Kanon D-dur
+Pachelbel
+Toccata i fuga d-moll
+J. S. Bach
+V Symfonia
+Beethoven
+Symfonia nr 40
+Mozart
+Symfonia Niespodzianka
+Haydn
+Jezioro łabędzie
+Czajkowski
+Jowisz
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Händel
+Three Blind Mice
+

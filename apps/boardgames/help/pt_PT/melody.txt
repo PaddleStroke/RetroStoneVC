@@ -1,0 +1,14 @@
+De ouvido
+# O objetivo
+Uma melodia curta toca ao piano, e cada tecla acende-se a dourado quando a sua nota soa. Repete as notas pela mesma ordem. Só conta a ordem das notas, não o ritmo. Cada melodia é verdadeira: canções populares, lengalengas, canções de Natal e peças clássicas famosas, todas no domínio público.
+# Uma jogada
+Toca numa tecla. A tecla certa soa e brilha a dourado, e a pauta por cima do teclado escreve a nota à sua altura; um ponto marca cada nota que ainda falta. Uma tecla errada soa abafada e pisca a vermelho: conta como erro, e continuas no mesmo sítio.
+# O fim do jogo
+Quando a última nota é tocada, uma onda dourada percorre as teclas e aparece o título da melodia, com o seu compositor.
+# Níveis e estrelas
+Há 150 níveis em seis capítulos, de três notas em teclas brancas até frases longas e famosas com teclas pretas, saltos e andamento rápido. O separador do dado, depois dos capítulos, toca ao acaso uma frase da coleção, curta, média ou longa, muitas vezes noutro tom. Sem erros, sem pistas e no máximo uma audição a mais: 3 estrelas; até duas no total: 2 estrelas; caso contrário, 1.
+# Jogar no dispositivo
+- O botão do altifalante toca a melodia outra vez.
+- A lâmpada acende a tecla seguinte.
+- Sem som, as teclas continuam a acender-se: um pequeno altifalante riscado na pauta indica-o.
+Anular retira a última nota certa, até ao início. A barra mostra as notas que faltam.

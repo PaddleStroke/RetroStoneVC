@@ -1,0 +1,14 @@
+De oído
+# El objetivo
+Suena una melodía corta al piano, y cada tecla se ilumina en dorado cuando suena su nota. Repite las notas en el mismo orden. Solo cuenta el orden de las notas, no su ritmo. Cada melodía es real: canciones populares, canciones infantiles, villancicos y grandes piezas clásicas, todas de dominio público.
+# Una jugada
+Toca una tecla. La tecla correcta suena y brilla en dorado, y el pentagrama sobre el teclado escribe la nota a su altura; un punto marca cada nota que falta. Una tecla equivocada suena apagada y parpadea en rojo: cuenta como error, y sigues desde el mismo punto.
+# El final de la partida
+Cuando suena la última nota, una ola dorada recorre las teclas y aparece el título de la melodía, con su compositor.
+# Niveles y estrellas
+Hay 150 niveles en seis capítulos, desde tres notas en teclas blancas hasta frases largas y famosas con teclas negras, saltos y un tempo rápido. La pestaña del dado, tras los capítulos, toca al azar una frase de la colección, corta, media o larga, a menudo en otra tonalidad. Sin errores, sin pistas y como mucho una escucha más: 3 estrellas; hasta dos en total: 2 estrellas; si no, 1.
+# Jugar en el dispositivo
+- El botón del altavoz vuelve a tocar la melodía.
+- La lámpara ilumina la tecla siguiente.
+- Sin sonido, las teclas se siguen iluminando: lo indica un pequeño altavoz tachado sobre el pentagrama.
+Deshacer quita la última nota correcta, hasta el principio. La barra muestra las notas que faltan.

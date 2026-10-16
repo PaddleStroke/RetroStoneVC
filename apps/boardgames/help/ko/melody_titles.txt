@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+반짝반짝 작은 별
+
+프레르 자크
+
+떴다 떴다 비행기
+
+Hot Cross Buns
+
+환희의 송가
+베토벤
+달빛 아래서
+
+런던 다리
+
+Row, Row, Row Your Boat
+
+맥도날드 할아버지
+
+징글벨
+피어폰트
+생일 축하합니다
+밀드레드 & 패티 힐
+Yankee Doodle
+
+오! 수재너
+스티븐 포스터
+어메이징 그레이스
+
+그린슬리브스
+
+작별
+
+자장가
+브람스
+엘리제를 위하여
+베토벤
+아이네 클라이네 나흐트무지크
+모차르트
+터키 행진곡
+모차르트
+천국과 지옥
+오펜바흐
+투우사의 노래
+비제
+산속 마왕의 동굴에서
+그리그
+아침의 기분
+그리그
+신세계로부터 (라르고)
+드보르자크
+봄 (사계)
+비발디
+미뉴에트 G장조
+페촐트
+예수, 인류 소망의 기쁨
+바흐
+짐노페디 1번
+사티
+엔터테이너
+스콧 조플린
+아름답고 푸른 도나우강
+요한 슈트라우스 2세
+결혼 행진곡 (로엔그린)
+바그너
+고요한 밤 거룩한 밤
+그루버
+소나무야
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+참 반가운 신도여
+웨이드
+Alouette
+
+Alle meine Entchen
+
+나비야
+
+사쿠라 사쿠라
+
+모리화
+
+라 쿠카라차
+
+성자들의 행진
+
+클레멘타인
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+캐논 변주곡
+파헬벨
+토카타와 푸가 D단조
+바흐
+교향곡 5번 〈운명〉
+베토벤
+교향곡 40번
+모차르트
+놀람 교향곡
+하이든
+백조의 호수
+차이콥스키
+목성
+홀스트
+천사 찬송하기를
+멘델스존
+기쁘다 구주 오셨네
+메이슨, 헨델
+Three Blind Mice
+

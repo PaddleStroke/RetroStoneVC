@@ -1,0 +1,121 @@
+Play by Ear: the tunes' titles (two lines a tune, in tools/melody_tunes.txt's order: its title, its composer; empty for a traditional tune)
+Morgen kommt der Weihnachtsmann
+
+Bruder Jakob
+
+Mary Had a Little Lamb
+
+Hot Cross Buns
+
+Ode an die Freude
+Beethoven
+Au clair de la lune
+
+London Bridge Is Falling Down
+
+Row, Row, Row Your Boat
+
+Old MacDonald hat 'ne Farm
+
+Jingle Bells
+James Lord Pierpont
+Zum Geburtstag viel Glück
+Mildred J. Hill & Patty S. Hill
+Yankee Doodle
+
+Oh! Susanna
+Stephen Foster
+Amazing Grace
+
+Greensleeves
+
+Auld Lang Syne
+
+Guten Abend, gut' Nacht
+Brahms
+Für Elise
+Beethoven
+Eine kleine Nachtmusik
+Mozart
+Türkischer Marsch
+Mozart
+Cancan
+Offenbach
+Torero-Lied
+Bizet
+In der Halle des Bergkönigs
+Grieg
+Morgenstimmung
+Grieg
+Largo (Aus der Neuen Welt)
+Dvořák
+Der Frühling
+Vivaldi
+Menuett in G-Dur
+Christian Petzold
+Jesus bleibet meine Freude
+J. S. Bach
+Gymnopédie Nr. 1
+Satie
+The Entertainer
+Scott Joplin
+An der schönen blauen Donau
+Johann Strauss (Sohn)
+Treulich geführt
+Wagner
+Stille Nacht
+Franz Xaver Gruber
+O Tannenbaum
+
+Deck the Halls
+
+We Wish You a Merry Christmas
+
+Good King Wenceslas
+
+God Rest You Merry, Gentlemen
+
+Herbei, o ihr Gläub'gen
+John Francis Wade
+Alouette
+
+Alle meine Entchen
+
+Hänschen klein
+
+Sakura Sakura
+
+Jasminblüte
+
+La cucaracha
+
+When the Saints Go Marching In
+
+Oh My Darling, Clementine
+
+My Bonnie Lies over the Ocean
+
+This Old Man
+
+Itsy Bitsy Spider
+
+Kanon in D-Dur
+Pachelbel
+Toccata und Fuge d-Moll
+J. S. Bach
+Sinfonie Nr. 5
+Beethoven
+Sinfonie Nr. 40
+Mozart
+Sinfonie mit dem Paukenschlag
+Haydn
+Schwanensee
+Tschaikowski
+Jupiter
+Holst
+Hark! The Herald Angels Sing
+Mendelssohn
+Joy to the World
+Lowell Mason, Händel
+Three Blind Mice
+

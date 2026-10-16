@@ -1,0 +1,14 @@
+À l'oreille
+# Le but
+Un petit air se joue au piano, et chaque touche s'allume en or quand sa note sonne. Rejoue les notes dans le même ordre. Seul l'ordre des notes compte, pas leur rythme. Chaque air est une vraie mélodie : chansons populaires, comptines, chants de Noël et grands classiques, tous dans le domaine public.
+# Un coup
+Touche une touche. La bonne touche sonne et brille en or, et la portée au-dessus du clavier écrit la note à sa hauteur ; un point marque chaque note qui reste à trouver. Une mauvaise touche sonne sourd et clignote en rouge : c'est une erreur, et tu reprends au même endroit.
+# La fin de la partie
+Quand la dernière note est jouée, une vague dorée parcourt les touches et le titre de l'air apparaît, avec son compositeur.
+# Niveaux et étoiles
+Il y a 150 niveaux en six chapitres, de trois notes sur les touches blanches jusqu'à de longues phrases célèbres avec des touches noires, des sauts et un tempo rapide. L'onglet du dé, après les chapitres, joue au hasard une phrase de la bibliothèque, courte, moyenne ou longue, souvent dans une autre tonalité. Sans erreur, sans indice et au plus une réécoute : 3 étoiles ; jusqu'à deux en tout : 2 étoiles ; sinon 1.
+# Jouer sur l'appareil
+- Le bouton haut-parleur rejoue l'air.
+- La lampe allume la touche suivante.
+- Son coupé, les touches s'allument quand même : un petit haut-parleur barré sur la portée l'indique.
+Annuler reprend la dernière bonne note, jusqu'au début. La barre montre les notes qui restent à trouver.

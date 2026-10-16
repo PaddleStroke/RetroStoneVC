@@ -1,0 +1,14 @@
+Dengar dan Mainkan
+# Tujuan
+Sebuah lagu pendek dimainkan di piano, dan setiap tuts menyala keemasan saat nadanya berbunyi. Mainkan kembali nada-nadanya dengan urutan yang sama. Yang dihitung hanya urutan nada, bukan iramanya. Setiap lagu adalah melodi sungguhan: lagu rakyat, lagu anak-anak, lagu Natal, dan karya klasik terkenal, semuanya milik umum.
+# Satu langkah
+Ketuk sebuah tuts. Tuts yang benar berbunyi dan bersinar keemasan, dan paranada di atas papan tuts menuliskan nada itu pada ketinggiannya; sebuah titik menandai setiap nada yang masih harus dicari. Tuts yang salah berbunyi redam dan berkedip merah: itu dihitung sebagai kesalahan, dan kamu lanjut dari tempat yang sama.
+# Akhir permainan
+Saat nada terakhir dimainkan, gelombang emas melintasi tuts-tuts dan judul lagu muncul, bersama penggubahnya.
+# Level dan bintang
+Ada 150 level dalam enam bab, dari tiga nada di tuts putih sampai frasa panjang terkenal dengan tuts hitam, lompatan, dan tempo cepat. Tab dadu setelah bab-bab memainkan frasa acak dari koleksi, pendek, sedang, atau panjang, sering dalam nada dasar lain. Tanpa kesalahan, tanpa petunjuk, dan paling banyak sekali mendengar ulang: 3 bintang; paling banyak dua seluruhnya: 2 bintang; selain itu 1.
+# Bermain di perangkat
+- Tombol pengeras suara memainkan lagu sekali lagi.
+- Lampu menyalakan tuts berikutnya.
+- Saat suara mati, tuts tetap menyala: pengeras suara kecil yang dicoret di paranada menandakannya.
+Urungkan mengambil kembali nada benar yang terakhir, sampai ke awal. Bilah menunjukkan nada yang masih tersisa.
