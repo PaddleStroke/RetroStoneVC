@@ -132,7 +132,7 @@ int main(void)
     }
 
     /* every designed level (loop_levels.h): read back the same, its loop one loop and its numbers the loop's (the
-     * decoder checks), one solution (the grader proves it; up to 10 x 10 a plain search finds no other), the first
+     * decoder checks), one solution (the grader proves it; a plain search finds no other, the big ones too), the first
      * chapter with the plainest reasoning, the last one 13 x 13 or bigger, no two the same; hints alone solve it */
     {
         int bad = 0, per = SLK_NLEVELS / SLK_CHAPTERS;
@@ -144,7 +144,7 @@ int main(void)
             int ok = slk_decode(&L, slk_levels[i]), r = -1;
             if (ok) slk_encode(&L.p, back), r = slk_rate_work(&L.p, &passes);
             ok = ok && !strcmp(back, slk_levels[i]) && r >= BENCH_EASY && r <= BENCH_HARD;
-            ok = ok && (L.p.n > 10 || slk_count(&L.p, 2) == 1);
+            ok = ok && slk_count(&L.p, 2) == 1;
             ok = ok && (i >= per || r == BENCH_EASY) && (i < 5 * per || L.p.n >= 13);
             for (int j = 0; ok && j < i; j++) ok = strcmp(slk_levels[i], slk_levels[j]) != 0;
             for (int guard = 0; ok && !slk_solved(&L) && guard < SLK_SIDES; guard++) ok = slk_hint(&L) >= 0;
