@@ -209,6 +209,9 @@ int sfk_side(const sfpos *p)
 }
 
 /* ---- the deal's end ---------------------------------------------------------------------------------------------- */
+/* as with 61 and 60 to win: the declaring side is free of schneider with 31, the others already with 30 */
+int sfk_schneider(int side, int won) { return won ? side >= 91 : side <= 30; }
+
 static void score_ramsch(const sfpos *p, sfdeal *r)
 {
     int most = -1, tricks = -1;
@@ -247,8 +250,8 @@ static void deal_end(sfpos *p)
         for (int q = 0; q < TK4_P; q++)
             if (side >> q & 1) r->side = (int16_t)(r->side + r->eyes[q]), tricks += p->t.won[q];
         r->won = r->side >= 61;
-        int lose_eyes = r->won ? 120 - r->side : r->side, lose_tricks = r->won ? SFK_HAND - tricks : tricks;
-        r->schneider = lose_eyes <= 30;
+        int lose_tricks = r->won ? SFK_HAND - tricks : tricks;
+        r->schneider = (uint8_t)sfk_schneider(r->side, r->won);
         r->schwarz = lose_tricks == 0;
         int run = abs(sfk_runners((const uint8_t(*)[SFK_HAND])p->dealt, side, p->kind, p->suit));
         r->runners = (uint8_t)(run >= (p->kind == SFG_WENZ ? 2 : 3) ? run : 0);

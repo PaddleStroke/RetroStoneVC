@@ -21,7 +21,7 @@ Ogni giocatore riceve 8 carte. Il primo mazziere è il giada; poi il mazziere av
 # Vincere il gioco
 - Punti delle carte: asso 11, 10 10, re 4, Ober 3, Unter 2: 120 in tutto.
 - Il giocatore e il suo compagno (o il solista) vincono con 61 punti o più.
-- Schneider: la parte che perde ha 30 punti o meno. Schwarz: la parte che perde non ha fatto nessuna presa.
+- Schneider: la parte del giocatore vince con 91 punti o più, o perde con 30 o meno; agli avversari bastano 30 punti per evitarlo. Schwarz: la parte che perde non ha fatto nessuna presa.
 # La tariffa
 - Rufspiel 10 punti; Solo e Wenz 50.
 - Schneider 10 in più, Schwarz 10 in più.

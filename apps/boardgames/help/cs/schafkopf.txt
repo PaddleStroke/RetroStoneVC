@@ -21,7 +21,7 @@ Každý hráč dostane 8 karet. První rozdává nefritový hráč; pak se rozd�
 # Výhra
 - Oka: eso 11, 10 10, král 4, Ober 3, Unter 2: celkem 120.
 - Hráč a jeho spoluhráč (nebo sólista) vyhrávají s 61 oky a víc.
-- Schneider („krejčí“): poražená strana má 30 ok nebo méně. Schwarz („černá“): poražená strana neudělala žádný štych.
+- Schneider („krejčí“): strana hráče vyhraje s 91 oky a víc, nebo prohraje s 30 oky a méně; soupeřům k záchraně stačí 30. Schwarz („černá“): poražená strana neudělala žádný štych.
 # Sazebník
 - Rufspiel 10 bodů; Solo a Wenz 50.
 - Schneider o 10 víc, schwarz o dalších 10 víc.

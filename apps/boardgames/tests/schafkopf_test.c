@@ -152,6 +152,9 @@ static void test_called_ace(void)
 
 static void test_scoring(void)
 {
+    /* schneider: the declaring side free with 31, the others already with 30 (as 61 and 60 win) */
+    CHECK(sfk_schneider(91, 1) && !sfk_schneider(90, 1) && sfk_schneider(30, 0) && !sfk_schneider(31, 0));
+    CHECK(sfk_schneider(120, 1) && sfk_schneider(0, 0) && !sfk_schneider(61, 1) && !sfk_schneider(60, 0));
     /* a Rufspiel played out: card points 120, the side's tariff */
     set_hands(HANDS, SFK_PLAIN);
     CHECK(sfk_script(&G, "rc p p p #") && P->phase == SFP_DEAL);
@@ -241,6 +244,8 @@ static void test_random(void)
             int sum = 0, eyes = 0;
             for (int q = 0; q < 4; q++) sum += r->score[q], tot[q] += r->score[q], eyes += r->eyes[q];
             ok &= sum == 0 && (r->kind == SFG_NONE || eyes == 120);
+            if (r->kind != SFG_NONE && r->kind != SFG_RAMSCH)
+                ok &= r->schneider == (r->won ? r->side >= 91 : r->side <= 30);
             games[r->kind]++, won += r->won, deals++;
         }
         for (int q = 0; q < 4; q++) ok &= tot[q] == P->total[q];

@@ -21,7 +21,7 @@ Each player gets 8 cards. Jade deals first; the deal then moves on one seat each
 # Winning
 - Card points: ace 11, 10 10, king 4, Ober 3, Unter 2: 120 in all.
 - The player and his partner (or the soloist) win with 61 points or more.
-- Schneider: the losing side has 30 points or fewer. Schwarz: the losing side took no trick.
+- Schneider: the player's side wins with 91 points or more, or loses with 30 or fewer; the others need only 30 to escape it. Schwarz: the losing side took no trick.
 # The tariff
 - Rufspiel 10 points; Solo and Wenz 50.
 - Schneider 10 more, schwarz 10 more.

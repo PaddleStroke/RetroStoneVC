@@ -21,7 +21,7 @@ Her oyuncuya 8 kart verilir. İlk yeşim dağıtır; sonra her dağıtımda dağ
 # Kazanmak
 - Kart puanları: as 11, 10 10, papaz 4, Ober 3, Unter 2; toplam 120.
 - Oyuncu ve eşi (ya da solocu) 61 ya da daha fazla puanla kazanır.
-- Schneider: kaybeden tarafın 30 ya da daha az puanı vardır. Schwarz: kaybeden taraf hiç el almamıştır.
+- Schneider: oyuncunun tarafı 91 ya da daha fazla puanla kazanır veya 30 ya da daha az puanla kaybeder; rakiplerin kurtulması için 30 puan yeter. Schwarz: kaybeden taraf hiç el almamıştır.
 # Tarife
 - Rufspiel 10 puan; Solo ve Wenz 50.
 - Schneider 10 daha, schwarz 10 daha.

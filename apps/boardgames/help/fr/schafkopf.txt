@@ -21,7 +21,7 @@ Chaque joueur reçoit 8 cartes. Jade donne en premier ; ensuite le donneur avan
 # Gagner son jeu
 - Les points des cartes : as 11, 10 10, roi 4, Ober 3, Unter 2 : 120 en tout.
 - Le joueur et son partenaire (ou le soliste) gagnent avec 61 points ou plus.
-- Schneider : le camp perdant a 30 points ou moins. Schwarz : le camp perdant n'a fait aucun pli.
+- Schneider : le camp du joueur gagne avec 91 points ou plus, ou perd avec 30 points ou moins ; aux adversaires, 30 suffisent pour y échapper. Schwarz : le camp perdant n'a fait aucun pli.
 # Le barème
 - Rufspiel 10 points ; Solo et Wenz 50.
 - Schneider 10 de plus, Schwarz 10 de plus.

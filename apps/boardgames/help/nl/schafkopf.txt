@@ -21,7 +21,7 @@ Elke speler krijgt 8 kaarten. Jade geeft eerst; daarna schuift de gever elk spel
 # Winnen of verliezen
 - Kaartpunten: aas 11, 10 10, heer 4, Ober 3, Unter 2: samen 120.
 - De speler en zijn partner (of de solist) winnen met 61 punten of meer.
-- Schneider: de verliezende kant heeft 30 punten of minder. Schwarz: de verliezende kant haalde geen slag.
+- Schneider: de kant van de speler wint met 91 punten of meer, of verliest met 30 of minder; de tegenspelers zijn met 30 al vrij. Schwarz: de verliezende kant haalde geen slag.
 # Het tarief
 - Rufspiel 10 punten; Solo en Wenz 50.
 - Schneider 10 meer, schwarz 10 meer.

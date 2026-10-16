@@ -164,9 +164,9 @@ static void s_scores(const tb_state *st, int *score)
     int side = 0, tricks = 0;
     for (int q = 0; q < TK4_P; q++)
         if (st->team[q] == 0) side += st->pts[q], tricks += st->won[q];
-    int won = side >= 61, lose_eyes = won ? 120 - side : side, lose_tricks = won ? SFK_HAND - tricks : tricks;
+    int won = side >= 61, lose_tricks = won ? SFK_HAND - tricks : tricks;
     int run = runners(st), counted = run >= (x->kind == SFG_WENZ ? 2 : 3) ? run : 0;
-    int value = (x->kind == SFG_RUF ? 10 : 50) + 10 * (lose_eyes <= 30) + 10 * (lose_tricks == 0) + 10 * counted;
+    int value = (x->kind == SFG_RUF ? 10 : 50) + 10 * sfk_schneider(side, won) + 10 * (lose_tricks == 0) + 10 * counted;
     int v = won ? value : -value, solo = x->kind != SFG_RUF;
     for (int q = 0; q < TK4_P; q++) score[q] = st->team[q] == 0 ? (solo ? 3 * v : v) : -v;
 }

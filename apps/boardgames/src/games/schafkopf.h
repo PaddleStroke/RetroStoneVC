@@ -16,8 +16,9 @@
  * - The called ace's holder is the declarer's partner, unknown till it shows. When the called suit is led the first
  *   time he must play the ace; until then he may not throw it away on another suit, and may lead that suit only with
  *   the ace, unless he holds four or more of it (davonlaufen: then any of them, and the ace is free).
- * - Card points A 11, 10 10, K 4, O 3, U 2: 120. The declaring side wins with 61; schneider: the losers 30 or less;
- *   schwarz: the losers took no trick.
+ * - Card points A 11, 10 10, K 4, O 3, U 2: 120. The declaring side wins with 61 (the others with 60); schneider: the
+ *   declaring side made 91 or more, or 30 or less (the others are free with 30, as they win with 60); schwarz: the
+ *   losers took no trick.
  * - The tariffs, in points: Rufspiel 10, Solo and Wenz 50; schneider and schwarz 10 more each; the Laufende (the
  *   unbroken run of top trumps from the club Ober (Wenz: Unter) down held by one side, 3 or more, in the Wenz 2 or
  *   more) 10 each. Rufspiel: each winner + the value, each loser - the value; Solo, Wenz: the declarer three times it.
@@ -100,6 +101,7 @@ int  sfk_runners(const uint8_t (*hands)[SFK_HAND], unsigned side, int kind, int 
                                                   * with (> 0) or without (< 0) */
 void sfk_sort(uint8_t *h, int n, int kind, int suit);   /* a hand as shown */
 int  sfk_side(const sfpos *p);                  /* the declaring side (bit n) */
+int  sfk_schneider(int side, int won);          /* a game with the declaring side at these card points: schneider */
 int  sfk_winners(const sfpos *p);               /* SFP_OVER: the players with the highest total (bit n) */
 int  sfk_auto(const sfpos *p);                  /* a plain action (the "." of the notation) */
 int  sfk_script(sfgame *g, const char *moves);  /* 0: an action is bad */

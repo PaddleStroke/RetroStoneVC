@@ -21,7 +21,7 @@ Varje spelare får 8 kort. Jade ger först; sedan flyttar givaren en plats fram�
 # Vunnet eller förlorat
 - Kortpoäng: ess 11, 10 10, kung 4, Ober 3, Unter 2: 120 totalt.
 - Spelaren och hans partner (eller solisten) vinner med 61 poäng eller mer.
-- Schneider: den förlorande sidan har 30 poäng eller mindre. Schwarz: den förlorande sidan tog inget stick.
+- Schneider: spelarens sida vinner med 91 poäng eller mer, eller förlorar med 30 eller mindre; motspelarna klarar sig redan med 30. Schwarz: den förlorande sidan tog inget stick.
 # Taxan
 - Rufspiel 10 poäng; Solo och Wenz 50.
 - Schneider 10 till, schwarz 10 till.

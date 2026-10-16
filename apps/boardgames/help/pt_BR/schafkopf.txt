@@ -21,7 +21,7 @@ Cada jogador recebe 8 cartas. O jade dá as cartas primeiro; depois quem dá as 
 # Ganhar o jogo
 - Pontos das cartas: ás 11, 10 10, rei 4, Ober 3, Unter 2: 120 no total.
 - O jogador e o seu parceiro (ou o solista) ganham com 61 pontos ou mais.
-- Schneider: o lado perdedor tem 30 pontos ou menos. Schwarz: o lado perdedor não fez nenhuma vaza.
+- Schneider: o lado do jogador vence com 91 pontos ou mais, ou perde com 30 ou menos; aos adversários bastam 30 para escapar. Schwarz: o lado perdedor não fez nenhuma vaza.
 # A tarifa
 - Rufspiel 10 pontos; Solo e Wenz 50.
 - Schneider, mais 10; Schwarz, mais 10.

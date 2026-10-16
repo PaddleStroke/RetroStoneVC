@@ -21,7 +21,7 @@ Jokainen saa 8 korttia. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaoss
 # Voitto
 - Korttipisteet eli silmät: ässä 11, 10 10, kuningas 4, Ober 3, Unter 2: yhteensä 120.
 - Pelaaja ja hänen parinsa (tai soolopelaaja) voittavat 61 silmällä tai enemmällä.
-- Schneider: hävinneellä puolella on 30 silmää tai vähemmän. Schwarz: hävinnyt puoli ei saanut yhtään tikkiä.
+- Schneider: pelaajan puoli voittaa 91 silmällä tai enemmällä tai häviää 30 silmällä tai vähemmällä; vastustajille riittää 30 sen välttämiseen. Schwarz: hävinnyt puoli ei saanut yhtään tikkiä.
 # Taksa
 - Rufspiel 10 pistettä; Solo ja Wenz 50.
 - Schneider 10 lisää, schwarz 10 lisää.

@@ -21,7 +21,7 @@ Jeder Spieler bekommt 8 Karten. Jade gibt zuerst; danach rückt der Geber mit je
 # Gewonnen oder verloren
 - Die Augen: Sau 11, Zehn 10, König 4, Ober 3, Unter 2: zusammen 120.
 - Der Spieler und sein Partner (oder der Solist) gewinnen mit 61 Augen oder mehr.
-- Schneider: Die verlierende Seite hat 30 Augen oder weniger. Schwarz: Die verlierende Seite hat keinen Stich gemacht.
+- Schneider: Die Spielerpartei gewinnt mit 91 Augen oder mehr oder verliert mit 30 Augen oder weniger; die Gegenspieler sind schon mit 30 Augen schneiderfrei. Schwarz: Die verlierende Seite hat keinen Stich gemacht.
 # Der Tarif
 - Rufspiel 10 Punkte; Solo und Wenz 50.
 - Schneider 10 mehr, Schwarz 10 mehr.

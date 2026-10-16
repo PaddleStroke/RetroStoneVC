@@ -21,7 +21,7 @@ Hver spiller får 8 kort. Jade giver først; derefter rykker giveren én plads v
 # Vundet eller tabt
 - Kortpoint: es 11, 10 10, konge 4, Ober 3, Unter 2: 120 i alt.
 - Spilleren og hans makker (eller solisten) vinder med 61 point eller mere.
-- Schneider: den tabende side har 30 point eller mindre. Schwarz: den tabende side tog intet stik.
+- Schneider: spillerens side vinder med 91 point eller mere eller taber med 30 eller mindre; modstanderne slipper allerede med 30. Schwarz: den tabende side tog intet stik.
 # Tariffen
 - Rufspiel 10 point; Solo og Wenz 50.
 - Schneider 10 mere, schwarz 10 mere.

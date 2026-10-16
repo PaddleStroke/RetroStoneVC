@@ -21,7 +21,7 @@ Cada jugador recibe 8 cartas. Reparte primero el jade; después el que reparte a
 # Ganar el juego
 - Puntos de las cartas: as 11, 10 10, rey 4, Ober 3, Unter 2: 120 en total.
 - El jugador y su compañero (o el solista) ganan con 61 puntos o más.
-- Schneider: el bando perdedor tiene 30 puntos o menos. Schwarz: el bando perdedor no ganó ninguna baza.
+- Schneider: el bando del jugador gana con 91 puntos o más, o pierde con 30 o menos; a los rivales les bastan 30 para librarse. Schwarz: el bando perdedor no ganó ninguna baza.
 # La tarifa
 - Rufspiel, 10 puntos; Solo y Wenz, 50.
 - Schneider, 10 más; Schwarz, 10 más.

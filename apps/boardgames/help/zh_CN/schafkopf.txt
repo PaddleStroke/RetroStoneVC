@@ -21,7 +21,7 @@
 # 输赢
 - 牌分：A 11分，10 10分，K 4分，Ober 3分，Unter 2分，共120分。
 - 庄家和他的搭档（或单打者）得61分或以上获胜。
-- Schneider：输方只得30分或更少。Schwarz（“黑”）：输方一墩未赢。
+- Schneider：庄家一方以91分或以上获胜，或以30分或以下落败；对方只需30分即可免于Schneider。Schwarz（“黑”）：输方一墩未赢。
 # 分值表
 - Rufspiel 10分；Solo和Wenz 50分。
 - Schneider再加10分，Schwarz再加10分。

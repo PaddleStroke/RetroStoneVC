@@ -21,7 +21,7 @@ Setiap pemain mendapat 8 kartu. Giok membagi lebih dulu; setelah itu pembagi kar
 # Menang
 - Poin kartu: as 11, 10 10, king 4, Ober 3, Unter 2: total 120.
 - Pemain dan rekannya (atau pemain solo) menang dengan 61 poin atau lebih.
-- Schneider: pihak yang kalah punya 30 poin atau kurang. Schwarz: pihak yang kalah tidak mengambil satu trik pun.
+- Schneider: pihak pemain menang dengan 91 poin atau lebih, atau kalah dengan 30 poin atau kurang; lawan cukup punya 30 poin untuk lolos. Schwarz: pihak yang kalah tidak mengambil satu trik pun.
 # Tarif
 - Rufspiel 10 poin; Solo dan Wenz 50.
 - Schneider 10 lagi, schwarz 10 lagi.

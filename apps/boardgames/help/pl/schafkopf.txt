@@ -21,7 +21,7 @@ Każdy gracz dostaje 8 kart. Pierwszy rozdaje nefryt; potem rozdający przesuwa 
 # Wygrana
 - Oczka: as 11, 10 10, król 4, Ober 3, Unter 2: razem 120.
 - Grający i jego partner (albo solista) wygrywają z 61 oczkami lub więcej.
-- Schneider („krawiec”): przegrana strona ma 30 oczek lub mniej. Schwarz („czarno”): przegrana strona nie wzięła żadnej lewy.
+- Schneider („krawiec”): strona grającego wygrywa z 91 oczkami lub więcej albo przegrywa z 30 lub mniej; przeciwnikom do uniknięcia go wystarczy 30. Schwarz („czarno”): przegrana strona nie wzięła żadnej lewy.
 # Taryfa
 - Rufspiel 10 punktów; Solo i Wenz 50.
 - Schneider 10 więcej, schwarz kolejne 10 więcej.
