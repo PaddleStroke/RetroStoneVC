@@ -9,7 +9,7 @@ Adobe and Google. SIL Open Font License 1.1: the font may be used, embedded and 
 # DejaVu Sans
 The DejaVu fonts team, after Bitstream Vera (Bitstream, Inc.). The Bitstream Vera licence, and public domain for the DejaVu changes: free to use, embed and pass on.
 # Pictures
-The tarot's faces are scans of the "Tarot nouveau" printed in 1898, in the public domain. The Jigsaw paintings are in the public domain, their artists having died more than 70 years ago; each comes from Wikimedia Commons, where its page records its source:
+The Jigsaw paintings are in the public domain, their artists having died more than 70 years ago; each comes from Wikimedia Commons, where its page records its source:
 - The Great Wave off Kanagawa, Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg
 - Fine Wind, Clear Morning (Red Fuji), Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:Katsushika_Hokusai_-_Fine_Wind,_Clear_Morning_(Gaifū_kaisei)_-_Google_Art_Project.jpg
 - Kirifuri Waterfall at Mount Kurokami, Katsushika Hokusai (died 1849): commons.wikimedia.org/wiki/File:Katsushika_Hokusai,_Japanese_-_Pilgrims_at_Kirifuri_Waterfall_on_Mount_Kurokami_in_Shimotsuke_Province_-_Google_Art_Project.jpg
