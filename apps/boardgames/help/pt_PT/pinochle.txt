@@ -1,0 +1,17 @@
+Pinochle
+# O objetivo
+Ganhar vazas com cartas que valem pontos e mostrar combinações. Para 2 jogadores, ou 4 em duas equipas de parceiros sentados frente a frente.
+# As cartas
+48 cartas: duas de cada ás, 10, rei, dama, valete e 9 nos quatro naipes, por esta ordem de força. De duas cartas iguais numa vaza, ganha a primeira jogada.
+# As combinações
+- Sequência (ás, 10, rei, dama, valete de trunfo) 15; casamento real (rei e dama de trunfo) 4; casamento (rei e dama de outro naipe) 2; dix (9 de trunfo) 1.
+- Pinochle (dama de espadas e valete de ouros) 4; pinochle duplo 30.
+- Quatro ases de naipes diferentes 10, reis 8, damas 6, valetes 4. A quatro, as oito cartas de um valor valem 100, 80, 60 ou 40, e duas sequências 150.
+# O jogo
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe jogado.
+- Cada ás, 10 e rei ganho vale 1 ponto; a última vaza, mais 1.
+- Jogo estrito: assistir e superar se puder; sem o naipe, cortar (e sobrecortar) se puder.
+# Dois jogadores
+12 cartas a cada um; a carta seguinte é virada como trunfo debaixo do monte (um 9 dá 1 a quem deu). Enquanto houver monte, joga-se qualquer carta. Quem ganha uma vaza pode mostrar uma combinação voltada para cima e compra primeiro; as cartas mostradas jogam-se da mesa. Uma combinação precisa de uma carta da mão; uma carta mostrada só volta a valer noutro tipo de combinação (casamentos e sequências, quadras, pinochles). Mostrar o dix troca-o pela carta de trunfo. Esgotado o monte, as combinações voltam à mão e as 12 últimas vazas são estritas. Ganha quem chegar primeiro aos 100 após uma mão.
+# Quatro jogadores
+12 cartas a cada um. Na sua vez, cada um licita pelo menos 20 e mais do que a licitação anterior, ou passa nessa mão; se todos os outros passarem, quem deu tem de licitar. Quem licitar mais escolhe o trunfo, contam-se as combinações de todos e é ele quem joga primeiro. Todas as vazas são estritas. As combinações de uma equipa só contam se ela fizer uma vaza. Se as combinações e os pontos dos licitantes chegarem à licitação, marcam-nos; senão perdem a licitação. A outra equipa marca as suas combinações e pontos. Ganha a primeira equipa a chegar aos 150; os licitantes primeiro se ambas lá chegarem.

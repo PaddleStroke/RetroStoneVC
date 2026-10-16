@@ -1,0 +1,17 @@
+Pinochle
+# Het doel
+Slagen met tellende kaarten winnen en combinaties melden. Voor 2 spelers, of 4 in twee teams met de partners tegenover elkaar.
+# De kaarten
+48 kaarten: twee van elke aas, 10, heer, vrouw, boer en 9 in de vier kleuren, in die volgorde. Van twee gelijke kaarten in een slag wint de eerst gespeelde.
+# Meldingen
+- Reeks (aas, 10, heer, vrouw, boer van troef) 15; koninklijk huwelijk (heer en vrouw van troef) 4; huwelijk (heer en vrouw van een andere kleur) 2; dix (troefnegen) 1.
+- Pinochle (schoppenvrouw en ruitenboer) 4; dubbele pinochle 30.
+- Vier azen van verschillende kleuren 10, heren 8, vrouwen 6, boeren 4. Met vier spelers tellen alle acht kaarten van een rang 100, 80, 60 of 40, en twee reeksen 150.
+# Het spel
+- De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur.
+- Elke gewonnen aas, 10 en heer is 1 punt; de laatste slag 1 extra.
+- Strikt spel: kleur bekennen en overnemen als het kan; zonder die kleur troeven (en overtroeven) als het kan.
+# Met twee
+12 kaarten elk; de volgende kaart wordt als troef onder de stapel gelegd (een 9 geeft de gever 1). Zolang er een stapel is, mag elke kaart. Wie een slag wint, mag één melding open leggen en trekt dan eerst; gemelde kaarten worden van tafel gespeeld. Een melding vraagt een kaart uit de hand; een gemelde kaart telt alleen opnieuw in een ander soort melding (huwelijken en reeksen, vierlingen, pinochles). Wie de dix meldt, ruilt hem voor de troefkaart. Is de stapel op, dan gaan de meldingen terug naar de hand en zijn de laatste 12 slagen strikt. Wie na een spel als eerste 100 haalt, wint.
+# Met vier
+12 kaarten elk. Om de beurt biedt ieder minstens 20 en meer dan het vorige bod, of past voor dit spel; passen alle anderen, dan moet de gever bieden. De hoogste bieder kiest troef, ieders meldingen worden geteld en hij komt uit. Alle slagen zijn strikt. De meldingen van een team tellen alleen als het een slag haalt. Halen meldingen en punten van de bieders het bod, dan schrijven ze die op; anders verliezen ze het bod. Het andere team schrijft zijn meldingen en punten op. Het eerste team met 150 wint; de bieders eerst als beide het halen.

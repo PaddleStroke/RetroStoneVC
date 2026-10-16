@@ -1,0 +1,17 @@
+Pinochle
+# Lo scopo
+Vincere prese con carte che contano e calare combinazioni. Per 2 giocatori, o 4 in due coppie di compagni seduti uno di fronte all'altro.
+# Le carte
+48 carte: due di ogni asso, 10, re, donna, fante e 9 nei quattro semi, in quest'ordine di forza. Di due carte uguali in una presa vince la prima giocata.
+# Le combinazioni
+- Scala (asso, 10, re, donna, fante di briscola) 15; matrimonio reale (re e donna di briscola) 4; matrimonio (re e donna di un altro seme) 2; dix (9 di briscola) 1.
+- Pinochle (donna di picche e fante di quadri) 4; doppio pinochle 30.
+- Quattro assi di semi diversi 10, re 8, donne 6, fanti 4. In quattro, le otto carte di un valore contano 100, 80, 60 o 40, e due scale 150.
+# Il gioco
+- Vince la presa la briscola più alta, altrimenti la carta più alta del seme d'uscita.
+- Ogni asso, 10 e re preso vale 1 punto; l'ultima presa 1 in più.
+- Gioco stretto: rispondere al seme e superare se possibile; senza quel seme, tagliare (e sovratagliare) se possibile.
+# In due
+12 carte a testa; la carta successiva viene scoperta come briscola sotto il tallone (un 9 vale 1 per il mazziere). Finché c'è il tallone si gioca qualsiasi carta. Chi vince una presa può calare una combinazione scoperta, poi pesca per primo; le carte calate si giocano dal tavolo. Una combinazione richiede una carta dalla mano; una carta calata vale di nuovo solo in un altro tipo di combinazione (matrimoni e scale, poker, pinochle). Calare il dix lo scambia con la carta di briscola. Finito il tallone, le combinazioni tornano in mano e le ultime 12 prese sono strette. Vince il primo che arriva a 100 dopo una smazzata.
+# In quattro
+12 carte a testa. A turno ognuno dichiara almeno 20 e più della dichiarazione precedente, oppure passa per la smazzata; se tutti gli altri passano, il mazziere deve dichiarare. Chi dichiara di più sceglie la briscola, si contano le combinazioni di tutti ed esce lui. Tutte le prese sono strette. Le combinazioni di una coppia contano solo se fa una presa. Se combinazioni e punti dei dichiaranti raggiungono la dichiarazione, li segnano; altrimenti perdono la dichiarazione. L'altra coppia segna combinazioni e punti. Vince la prima coppia a 150; i dichiaranti per primi se ci arrivano entrambe.

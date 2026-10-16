@@ -1,0 +1,17 @@
+Pinochle
+# The aim
+Win tricks with counters and make melds. For 2 players, or 4 in two partnerships.
+# The cards
+48 cards: two of each ace, 10, king, queen, jack and 9 in the four suits, ranking in that order. Of two equal cards in a trick, the first played wins.
+# Melds
+- Run (ace, 10, king, queen, jack of trumps) 15; royal marriage (king and queen of trumps) 4; marriage (king and queen of another suit) 2; dix (9 of trumps) 1.
+- Pinochle (queen of spades and jack of diamonds) 4; double pinochle 30.
+- Four aces of different suits 10, kings 8, queens 6, jacks 4. With four players, all eight of a rank count 100, 80, 60 or 40, and two runs 150.
+# Playing
+- The highest trump wins the trick, or else the highest card of the suit led.
+- Counters: each ace, 10 and king taken scores 1; the last trick 1 more.
+- Strict play: follow suit and beat the trick if you can; without that suit, trump (and beat a trump) if you can.
+# Two players
+12 cards each; the next card is turned for trumps under the stock (a 9 scores 1 for the dealer). While the stock lasts, any card may be played. The winner of a trick may lay one meld face up (its cards are played from the table later), then draws first. A meld needs a card from the hand; a melded card may serve again only in another kind of meld (marriages and runs, groups of four, pinochles). Melding the dix exchanges it for the turned card. Once the stock is gone, the melds go back to the hands and the last 12 tricks are strict. The first to reach 100 after a deal wins.
+# Four players
+12 cards each. In turn, each bids over the last bid (20 at least) or passes for the deal; if all others pass, the dealer must bid. The highest bidder names trumps, everyone's melds are counted, and the bidder leads. All tricks are strict. A side's melds count only if it takes a trick. If the bidders' melds and counters reach the bid, they score them; otherwise they lose the bid. The other side scores its melds and counters. The first side to 150 wins; the bidders first if both get there.

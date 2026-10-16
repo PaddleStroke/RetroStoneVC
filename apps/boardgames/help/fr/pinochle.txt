@@ -1,0 +1,17 @@
+Pinochle
+# Le but
+Remporter des plis riches en cartes de valeur et poser des combinaisons. Pour 2 joueurs, ou 4 en deux équipes de partenaires assis face à face.
+# Les cartes
+48 cartes : deux de chaque as, 10, roi, dame, valet et 9 dans les quatre couleurs, de la plus forte à la plus faible. De deux cartes identiques dans un pli, la première jouée l'emporte.
+# Les combinaisons
+- Suite (as, 10, roi, dame, valet d'atout) 15 ; mariage royal (roi et dame d'atout) 4 ; mariage (roi et dame d'une autre couleur) 2 ; dix (9 d'atout) 1.
+- Pinochle (dame de pique et valet de carreau) 4 ; double pinochle 30.
+- Quatre as de couleurs différentes 10, rois 8, dames 6, valets 4. À quatre, les huit cartes d'un rang valent 100, 80, 60 ou 40, et deux suites 150.
+# Le jeu
+- Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur entamée.
+- Chaque as, 10 et roi ramassé vaut 1 point ; le dernier pli 1 de plus.
+- Jeu strict : fournir et monter si possible ; sans la couleur, couper (et surcouper) si possible.
+# À deux joueurs
+12 cartes chacun ; la carte suivante est retournée pour l'atout sous le talon (un 9 rapporte 1 au donneur). Tant qu'il reste un talon, on joue n'importe quelle carte. Le gagnant d'un pli peut poser une combinaison, face visible, puis pioche le premier ; les cartes posées se jouent depuis la table. Une combinaison demande une carte de la main ; une carte posée ne resservira que dans une autre sorte de combinaison (mariages et suites, carrés, pinochles). Poser le dix l'échange contre la carte retournée. Le talon épuisé, chacun reprend ses combinaisons en main et les 12 derniers plis sont stricts. Le premier à 100 points après une donne gagne.
+# À quatre joueurs
+12 cartes chacun. À son tour, chacun annonce au moins 20 et plus que l'annonce précédente, ou passe pour la donne ; si tous les autres passent, le donneur doit annoncer. Le plus offrant choisit l'atout, les combinaisons de tous sont comptées et il entame. Tous les plis sont stricts. Les combinaisons d'une équipe ne comptent que si elle fait un pli. Si les combinaisons et les points des preneurs atteignent l'annonce, ils les marquent ; sinon ils perdent l'annonce. L'autre équipe marque ses combinaisons et ses points. La première équipe à 150 gagne ; les preneurs d'abord si les deux y arrivent.

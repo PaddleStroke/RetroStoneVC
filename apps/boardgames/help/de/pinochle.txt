@@ -1,0 +1,17 @@
+Pinochle
+# Das Ziel
+Stiche mit zählenden Karten gewinnen und Meldungen auslegen. Für 2 Spieler oder 4 in zwei Parteien, die Partner einander gegenüber.
+# Die Karten
+48 Karten: je zwei Asse, Zehner, Könige, Damen, Buben und Neunen in den vier Farben, in dieser Rangfolge. Von zwei gleichen Karten in einem Stich gewinnt die zuerst gespielte.
+# Die Meldungen
+- Folge (Ass, Zehn, König, Dame, Bube in Trumpf) 15; Trumpfpaar (König und Dame in Trumpf) 4; Paar (König und Dame einer anderen Farbe) 2; Dix (Trumpfneun) 1.
+- Pinochle (Pik-Dame und Karo-Bube) 4; doppelter Pinochle 30.
+- Vier Asse verschiedener Farben 10, Könige 8, Damen 6, Buben 4. Zu viert zählen alle acht Karten eines Rangs 100, 80, 60 oder 40, und zwei Folgen 150.
+# Das Spiel
+- Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe.
+- Jedes gewonnene Ass, jede Zehn und jeder König zählt 1 Punkt; der letzte Stich 1 mehr.
+- Strenges Spiel: bedienen und überstechen, wenn möglich; ohne die Farbe trumpfen (und übertrumpfen), wenn möglich.
+# Zu zweit
+Je 12 Karten; die nächste Karte wird als Trumpf unter den Stapel gelegt (eine Neun bringt dem Geber 1). Solange der Stapel reicht, darf jede Karte gespielt werden. Wer einen Stich gewinnt, darf eine Meldung offen auslegen und zieht dann zuerst; ausgelegte Karten werden vom Tisch gespielt. Eine Meldung braucht eine Karte aus der Hand; eine ausgelegte Karte zählt nur in einer anderen Art von Meldung erneut (Paare und Folgen, Vierlinge, Pinochles). Wer den Dix meldet, tauscht ihn gegen die Trumpfkarte. Ist der Stapel leer, kommen die Meldungen auf die Hand zurück, und die letzten 12 Stiche sind streng. Wer nach einem Spiel zuerst 100 Punkte hat, gewinnt.
+# Zu viert
+Je 12 Karten. Reihum reizt jeder mindestens 20 und mehr als das letzte Gebot, oder passt für dieses Spiel; passen alle anderen, muss der Geber bieten. Der Höchstbietende bestimmt Trumpf, alle Meldungen werden gezählt, und er spielt aus. Alle Stiche sind streng. Die Meldungen einer Partei zählen nur, wenn sie einen Stich macht. Erreichen Meldungen und Zählkarten der Bieter das Gebot, schreiben sie sie an; sonst verlieren sie das Gebot. Die andere Partei schreibt ihre Meldungen und Zählkarten an. Die erste Partei mit 150 gewinnt; erreichen beide das Ziel, zuerst die Bieter.

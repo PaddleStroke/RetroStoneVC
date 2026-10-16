@@ -1,0 +1,17 @@
+Pinochle
+# Cel gry
+Brać lewy z punktowanymi kartami i wykładać meldunki. Dla 2 graczy albo 4 w dwóch parach, partnerzy naprzeciw siebie.
+# Karty
+48 kart: po dwa asy, dziesiątki, króle, damy, walety i dziewiątki w czterech kolorach, w tej kolejności. Z dwóch jednakowych kart w lewie wygrywa ta zagrana pierwsza.
+# Meldunki
+- Sekwens (as, 10, król, dama, walet atutowy) 15; para królewska (atutowy król i dama) 4; para (król i dama innego koloru) 2; dix (atutowa dziewiątka) 1.
+- Pinochle (dama pik i walet karo) 4; podwójne pinochle 30.
+- Cztery asy różnych kolorów 10, króle 8, damy 6, walety 4. We czterech wszystkie osiem kart jednej wartości to 100, 80, 60 lub 40, a dwa sekwensy 150.
+# Rozgrywka
+- Lewę bierze najwyższy atut, a bez atutu najwyższa karta koloru wyjścia.
+- Każdy zdobyty as, dziesiątka i król to 1 punkt; ostatnia lewa 1 więcej.
+- Ścisła gra: dokładać do koloru i przebijać, jeśli się da; bez koloru atutować (i przeatutować), jeśli się da.
+# Dwóch graczy
+Po 12 kart; następną kartę odkrywa się jako atut pod talią (dziewiątka daje rozdającemu 1). Dopóki jest talia, można zagrać dowolną kartę. Zwycięzca lewy może wyłożyć jeden meldunek odkryty, a potem dobiera pierwszy; wyłożone karty gra się ze stołu. Meldunek wymaga karty z ręki; wyłożona karta liczy się ponownie tylko w innym rodzaju meldunku (pary i sekwensy, czwórki, pinochle). Zameldowanie dixa wymienia go na kartę atutową. Gdy talia się skończy, meldunki wracają do ręki, a ostatnie 12 lew jest ścisłych. Wygrywa ten, kto po rozdaniu pierwszy ma 100.
+# Czterech graczy
+Po 12 kart. Po kolei każdy licytuje co najmniej 20 i więcej niż poprzednio, albo pasuje w tym rozdaniu; gdy wszyscy inni spasują, rozdający musi licytować. Najwyżej licytujący wybiera atut, meldunki wszystkich się liczy, a on wychodzi. Wszystkie lewy są ścisłe. Meldunki pary liczą się tylko, gdy weźmie lewę. Jeśli meldunki i punkty licytujących osiągną kontrakt, zapisują je; inaczej tracą wartość kontraktu. Druga para zapisuje swoje meldunki i punkty. Wygrywa para, która pierwsza ma 150; licytujący, jeśli osiągną to obie.

@@ -1,0 +1,17 @@
+Pinochle
+# Tujuan
+Memenangkan trik yang berisi kartu bernilai dan membuka kombinasi. Untuk 2 pemain, atau 4 dalam dua tim pasangan yang duduk berhadapan.
+# Kartu
+48 kartu: masing-masing dua as, 10, raja, ratu, jack, dan 9 dari keempat jenis, dengan urutan itu. Dari dua kartu yang sama dalam satu trik, yang dimainkan lebih dulu menang.
+# Kombinasi
+- Urutan (as, 10, raja, ratu, jack truf) 15; pernikahan agung (raja dan ratu truf) 4; pernikahan (raja dan ratu jenis lain) 2; dix (9 truf) 1.
+- Pinochle (ratu sekop dan jack wajik) 4; pinochle ganda 30.
+- Empat as berbeda jenis 10, raja 8, ratu 6, jack 4. Dengan empat pemain, delapan kartu senilai bernilai 100, 80, 60, atau 40, dan dua urutan 150.
+# Permainan
+- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dibuka.
+- Setiap as, 10, dan raja yang dimenangkan bernilai 1 poin; trik terakhir 1 lagi.
+- Permainan ketat: ikuti jenis dan lampaui bila bisa; tanpa jenis itu, mainkan truf (dan lampaui truf) bila bisa.
+# Dua pemain
+Masing-masing 12 kartu; kartu berikutnya dibuka sebagai truf di bawah tumpukan (9 memberi pembagi 1). Selama tumpukan masih ada, kartu apa pun boleh dimainkan. Pemenang trik boleh membuka satu kombinasi, lalu mengambil lebih dulu; kartu yang dibuka dimainkan dari meja. Kombinasi butuh satu kartu dari tangan; kartu yang sudah dibuka hanya berlaku lagi untuk jenis kombinasi lain (pernikahan dan urutan, empat sejenis, pinochle). Membuka dix menukarnya dengan kartu truf. Setelah tumpukan habis, kombinasi kembali ke tangan dan 12 trik terakhir dimainkan ketat. Yang pertama mencapai 100 setelah satu putaran menang.
+# Empat pemain
+Masing-masing 12 kartu. Bergiliran, tiap pemain menawar minimal 20 dan lebih dari tawaran sebelumnya, atau pas untuk putaran itu; jika semua yang lain pas, pembagi wajib menawar. Penawar tertinggi memilih truf, kombinasi semua pemain dihitung, dan ia membuka. Semua trik ketat. Kombinasi sebuah tim hanya dihitung jika tim itu memenangkan satu trik. Jika kombinasi dan poin tim penawar mencapai tawaran, mereka mencatatnya; jika tidak, mereka kehilangan nilai tawaran. Tim lain mencatat kombinasi dan poinnya. Tim pertama yang mencapai 150 menang; tim penawar lebih dulu jika keduanya mencapainya.

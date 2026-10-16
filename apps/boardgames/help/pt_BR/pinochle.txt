@@ -1,0 +1,17 @@
+Pinochle
+# O objetivo
+Ganhar vazas com cartas que valem pontos e baixar combinações. Para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente.
+# As cartas
+48 cartas: duas de cada ás, 10, rei, dama, valete e 9 nos quatro naipes, nessa ordem de força. De duas cartas iguais numa vaza, ganha a primeira jogada.
+# As combinações
+- Sequência (ás, 10, rei, dama, valete de trunfo) 15; casamento real (rei e dama de trunfo) 4; casamento (rei e dama de outro naipe) 2; dix (9 de trunfo) 1.
+- Pinochle (dama de espadas e valete de ouros) 4; pinochle duplo 30.
+- Quatro ases de naipes diferentes 10, reis 8, damas 6, valetes 4. Com quatro jogadores, as oito cartas de um valor contam 100, 80, 60 ou 40, e duas sequências 150.
+# O jogo
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe pedido.
+- Cada ás, 10 e rei ganho vale 1 ponto; a última vaza, 1 a mais.
+- Jogo estrito: seguir o naipe e superar se puder; sem o naipe, trunfar (e sobretrunfar) se puder.
+# Dois jogadores
+12 cartas cada um; a carta seguinte é virada como trunfo sob o monte (um 9 dá 1 ao carteador). Enquanto houver monte, joga-se qualquer carta. Quem ganha uma vaza pode baixar uma combinação virada para cima e compra primeiro; as cartas baixadas são jogadas da mesa. Uma combinação precisa de uma carta da mão; uma carta baixada só volta a valer em outro tipo de combinação (casamentos e sequências, quadras, pinochles). Baixar o dix troca-o pela carta de trunfo. Acabado o monte, as combinações voltam à mão e as 12 últimas vazas são estritas. Vence quem chega primeiro a 100 após uma mão.
+# Quatro jogadores
+12 cartas cada um. Na sua vez, cada um dá um lance de pelo menos 20 e acima do anterior, ou passa na mão; se todos os outros passam, o carteador deve dar lance. Quem der o maior lance escolhe o trunfo, as combinações de todos são contadas e ele abre. Todas as vazas são estritas. As combinações de uma dupla só contam se ela ganhar uma vaza. Se as combinações e os pontos de quem deu o lance alcançam o lance, eles os marcam; senão perdem o lance. A outra dupla marca suas combinações e pontos. Vence a primeira dupla a 150; quem deu o lance primeiro, se as duas chegarem.

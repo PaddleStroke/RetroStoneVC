@@ -1,0 +1,17 @@
+Pinochle
+# Tavoite
+Voita tikkejä, joissa on pistekortteja, ja tee yhdistelmiä. Kahdelle pelaajalle tai neljälle kahtena parina, parit vastakkain.
+# Kortit
+48 korttia: kaksi kutakin ässää, kymppiä, kuningasta, rouvaa, sotilasta ja ysiä neljässä maassa, tässä järjestyksessä. Kahdesta samanlaisesta kortista tikissä voittaa ensin pelattu.
+# Yhdistelmät
+- Sarja (valtin ässä, 10, kuningas, rouva, sotilas) 15; kuninkaallinen avioliitto (valtin kuningas ja rouva) 4; avioliitto (muun maan kuningas ja rouva) 2; dix (valttiysi) 1.
+- Pinochle (patarouva ja ruutusotilas) 4; kaksoispinochle 30.
+- Neljä eri maan ässää 10, kuninkaat 8, rouvat 6, sotilaat 4. Neljällä pelaajalla saman arvon kaikki kahdeksan korttia ovat 100, 80, 60 tai 40, ja kaksi sarjaa 150.
+# Pelaaminen
+- Korkein valtti voittaa tikin, muuten aloitetun maan korkein kortti.
+- Jokainen voitettu ässä, kymppi ja kuningas tuo 1 pisteen; viimeinen tikki 1 lisää.
+- Tiukka pelaaminen: tunnusta maata ja ylitä, jos voit; ilman maata valttaa (ja ylivalttaa), jos voit.
+# Kaksi pelaajaa
+Kummallekin 12 korttia; seuraava kortti käännetään valtiksi pakan alle (ysi tuo jakajalle 1). Niin kauan kuin pakkaa on, minkä tahansa kortin saa pelata. Tikin voittaja saa tehdä yhden yhdistelmän kuvapuoli ylöspäin ja nostaa sitten ensin; esillä olevat kortit pelataan pöydältä. Yhdistelmä tarvitsee kortin kädestä; esillä oleva kortti kelpaa uudelleen vain toisenlaiseen yhdistelmään (avioliitot ja sarjat, neloset, pinochlet). Dixin esittäminen vaihtaa sen valttikorttiin. Kun pakka loppuu, yhdistelmät palaavat käteen ja viimeiset 12 tikkiä ovat tiukkoja. Ensin jaon jälkeen 100 pisteeseen ehtinyt voittaa.
+# Neljä pelaajaa
+Kullekin 12 korttia. Vuorollaan kukin tarjoaa vähintään 20 ja enemmän kuin edellinen tarjous, tai passaa jaon ajaksi; jos kaikki muut passaavat, jakajan on tarjottava. Suurimman tarjouksen tehnyt valitsee valtin, kaikkien yhdistelmät lasketaan, ja hän aloittaa. Kaikki tikit ovat tiukkoja. Parin yhdistelmät lasketaan vain, jos se saa tikin. Jos tarjoajien yhdistelmät ja pisteet yltävät tarjoukseen, he saavat ne; muuten he menettävät tarjouksen. Toinen pari saa yhdistelmänsä ja pisteensä. Ensin 150 pisteeseen ehtinyt pari voittaa; tarjoajat ensin, jos molemmat ehtivät.

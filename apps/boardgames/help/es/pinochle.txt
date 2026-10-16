@@ -1,0 +1,17 @@
+Pinochle
+# El objetivo
+Ganar bazas con cartas que puntúan y mostrar combinaciones. Para 2 jugadores, o 4 en dos equipos de compañeros sentados frente a frente.
+# Las cartas
+48 cartas: dos de cada as, 10, rey, reina, jota y 9 de los cuatro palos, en ese orden de fuerza. De dos cartas iguales en una baza, gana la primera jugada.
+# Las combinaciones
+- Escalera (as, 10, rey, reina, jota de triunfo) 15; matrimonio real (rey y reina de triunfo) 4; matrimonio (rey y reina de otro palo) 2; dix (9 de triunfo) 1.
+- Pinochle (reina de picas y jota de diamantes) 4; doble pinochle 30.
+- Cuatro ases de palos distintos 10, reyes 8, reinas 6, jotas 4. Con cuatro jugadores, las ocho cartas de un rango valen 100, 80, 60 o 40, y dos escaleras 150.
+# El juego
+- Gana la baza el triunfo más alto o, si no hay, la carta más alta del palo de salida.
+- Cada as, 10 y rey ganado vale 1 punto; la última baza, 1 más.
+- Juego estricto: servir y superar si se puede; sin ese palo, fallar (y superar un triunfo) si se puede.
+# Dos jugadores
+12 cartas cada uno; la carta siguiente se vuelve como triunfo bajo el mazo (un 9 da 1 al repartidor). Mientras quede mazo, se juega cualquier carta. Quien gana una baza puede mostrar una combinación boca arriba y roba primero; las cartas mostradas se juegan desde la mesa. Una combinación necesita una carta de la mano; una carta mostrada solo vuelve a servir en otra clase de combinación (matrimonios y escaleras, grupos de cuatro, pinochles). Mostrar el dix lo cambia por la carta de triunfo. Acabado el mazo, las combinaciones vuelven a la mano y las 12 últimas bazas son estrictas. Gana el primero que llega a 100 tras una mano.
+# Cuatro jugadores
+12 cartas cada uno. Por turno, cada uno puja al menos 20 y más que la puja anterior, o pasa en esa mano; si todos los demás pasan, el repartidor debe pujar. El mejor postor elige el triunfo, se cuentan las combinaciones de todos y él sale. Todas las bazas son estrictas. Las combinaciones de un equipo solo cuentan si gana una baza. Si las combinaciones y los puntos de los postores alcanzan la puja, los anotan; si no, pierden la puja. El otro equipo anota sus combinaciones y puntos. Gana el primer equipo que llega a 150; los postores primero si llegan los dos.
