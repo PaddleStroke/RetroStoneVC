@@ -125,6 +125,15 @@ static void test_knock(void)
     P->taken = CARD_NONE;
     CHECK(gin_script(&G, "k9s"));
     CHECK(r->kind == GR_KNOCK && r->nlay == 3 && r->dead[1] == 10 + 2 + 3 + 10 && r->points == 25 - 5);
+    /* a card that fits a set and a run goes on the run: 3h on 4h 5h 6h (not on 3c 3d 3s), then 2h follows */
+    gin_new(&G, 5);
+    set_hand(0, "3c 3d 3s 4h 5h 6h Kd Kh Ks 9s 2s");
+    set_hand(1, "3h 2h 9c 9d Tc Jd 8s 7d 5c Qc");
+    P->phase = GN_DISCARD;
+    P->turn = 0;
+    P->taken = CARD_NONE;
+    CHECK(gin_script(&G, "k9s"));
+    CHECK(r->kind == GR_KNOCK && r->dead[0] == 2 && r->nlay == 2 && r->dead[1] == 68 && r->points == 66);
     /* an undercut: the defender as low or lower */
     gin_new(&G, 5);
     set_hand(0, "2c 3c 4c 7h 7s 7d Kd Kh Ks 9s 8h");

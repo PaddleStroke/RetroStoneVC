@@ -103,14 +103,16 @@ static int layoffs(search *s, uint16_t used, uint16_t *lay, uint8_t *to)
         again = 0;
         for (int i = 0; i < s->n; i++) {
             if ((used | *lay) >> i & 1) continue;
+            /* a run first: a card that fits both a set and a run is the set's last one, while the run may grow on
+             * (3h on 3c 3d 3s or on 4h 5h 6h: on the run, 2h follows it) */
+            int at = -1;
             for (int k = 0; k < s->nonto; k++)
-                if (fits(&m[k], s->c[i])) {
-                    put(&m[k], s->c[i]);
-                    *lay |= (uint16_t)(1u << i);
-                    to[i] = (uint8_t)k;
-                    again = 1;
-                    break;
-                }
+                if (fits(&m[k], s->c[i]) && (at < 0 || (m[k].run && !m[at].run))) at = k;
+            if (at < 0) continue;
+            put(&m[at], s->c[i]);
+            *lay |= (uint16_t)(1u << i);
+            to[i] = (uint8_t)at;
+            again = 1;
         }
     }
     return dead_of(s->c, s->n, used | *lay);
