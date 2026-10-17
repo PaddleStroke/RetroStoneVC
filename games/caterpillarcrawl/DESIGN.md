@@ -121,9 +121,9 @@ counts; a finger left down from the run never leaves the panel. The swipe's anch
 
 | Layer | Contents | Scroll |
 |---|---|---|
-| BG4 | the garden: the lawn (a soft 16-px pattern, daisies, flower clumps and stepping stones), the bed's wooden frame, the soil in a checker of cells with a groove on each cell's edge (the grid reads at a glance). One stage panorama, stage x -128..447: every width shows it once | - (a shake) |
+| BG4 | the garden: the lawn (a soft 16-px pattern, daisies, flower clumps, tufts, stones, a bee, a butterfly, a snail, ants, a stepping-stone path to each side of the bed, longer grass along the frame), the bed's wooden frame, the soil in a checker of cells with a groove on each cell's edge (the grid reads at a glance), crumbs scattered from cell to cell, a pebble now and then, the frame's shade on its top and left edges. One stage panorama, stage x -128..447: every width shows it once | - (a shake) |
 | BG3 | the layout's obstacles: stones, bushes, flower pots, mushrooms (16x16, own palette) | - |
-| BG2 | the bodies, one 16x16 metatile per cell, redrawn from the world every frame. Its tile base is the sprites' VRAM: a segment is its sprite's four tiles on the BG palette of its player (BG 1-4 = the four players' colours) | - |
+| BG2 | the bodies, one 16x16 metatile per cell, redrawn from the world every frame. Its tile base is the sprites' VRAM: a segment is its sprite's four tiles on the BG palette of its player (BG 1-4 = the four players' colours); the pieces are joined (a neck to each neighbour's side: straight, the four turns, the tail) | - |
 | BG1 | the house UI kit: the logo, the title's lines, the panels, GARDEN N, BUTTERFLY!, ROUND N, PAUSED | fixed |
 | OBJ | the heads (24x24, sliding between cells: looking ahead, chomping, bonk, beaming; P2-P4 = the greens turned pink, blue and orange: OBJ 1, 4, 5), the cocoon and the butterfly, the leaf, the flower, the berry, the puffs and sparkles, the HUD's pips and small digits, the kit's digits, glyphs and medals | |
 
@@ -145,10 +145,12 @@ won) -> one press: back to the title (the same players start again with A).
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The caterpillar:
 a fresh green ramp lit from the top-left, a navy outline, a round head with the house eyes looking where it crawls,
-rosy cheeks, a smile (open to chomp), two antennae with golden tips; round segments with little feet, golden spots on
-every other one, a fat one with a leaf going down, a pointed tail. The players' colours: green, pink, blue, orange
-(house_style.player_palettes on the greens; P2 by P2_HUE). Props: a swaying leaf, a pink flower, a blueberry with a
-shine, a silky cocoon, a butterfly in the player's green with golden spots, soft puffs. The logo: CATERPILLAR in leaf
+rosy cheeks, a smile (open to chomp), two antennae with golden tips; round segments with little feet, joined by a
+neck with a soft crease (on turns too), golden spots on every other one, a fat one with a leaf going down, a pointed
+tail. The players' colours: green, pink, blue, orange
+(house_style.player_palettes on the greens; P2 by P2_HUE; P4's orange its own ramp, P4_HUE: lights to yellow,
+shadows to red). Props: a swaying leaf, a pink flower, a blueberry with a shine, a silky cocoon, a butterfly in the
+player's green (pale wings with a dark rim, golden eye spots), soft puffs. The logo: CATERPILLAR in leaf
 green, CRAWL in petal pink (3x: the name is long).
 
 ## Sound and music

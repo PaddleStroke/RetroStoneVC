@@ -11,7 +11,7 @@ segment. Its head is a sprite (it slides from cell to cell); the body's segments
 sprite tiles (build_assets.py: BG2 shares the sprites' VRAM, one BG palette per player).
 
 Writes, in the art folder (default games/caterpillarcrawl/art):
-  sprites.png (256x64), tiles/garden.png (576x240: the garden, stage x -128..447), tiles/obstacles.png (64x16)
+  sprites.png (256x96), tiles/garden.png (576x240: the garden, stage x -128..447), tiles/obstacles.png (64x16)
 
     python3 games/caterpillarcrawl/tools/make_art.py [--out DIR] [--preview]
 
@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import house_style as hs  # noqa: E402
 
 Canvas = hs.Canvas
-SHEET_W, SHEET_H = 256, 64
+SHEET_W, SHEET_H = 256, 96
 # name, x, y, w, h, frames, palette group (hero: OBJ 0, players 2-4 = OBJ 1, 4, 5 recoloured, and the BG palettes 1-4
 # of the bodies; props: OBJ 2; small: OBJ 6)
 SPRITES = [
@@ -42,6 +42,10 @@ SPRITES = [
     ("seg", 0, 24, 16, 16, 5, "hero"),          # ball, ball with spots, fat (a leaf inside), tail right, tail down
     ("icon", 80, 24, 16, 16, 1, "hero"),        # the title's player slots, the results, the arena's HUD
     ("cocoon", 96, 24, 16, 16, 2, "hero"),
+    ("body0", 0, 64, 16, 16, 6, "hero"),        # BG2's joined pieces (JOINS): a segment, a spotted one, a fat one
+    ("body1", 96, 64, 16, 16, 6, "hero"),
+    ("body2", 0, 80, 16, 16, 6, "hero"),
+    ("bodytail", 96, 80, 16, 16, 2, "hero"),    # the tail joined on its left (pointing right), on top (pointing down)
     ("leaf", 128, 24, 16, 16, 2, "props"),
     ("flower", 160, 24, 16, 16, 2, "props"),
     ("puff", 192, 24, 16, 16, 3, "props"),
@@ -154,6 +158,59 @@ def segment(frame):
     return cv
 
 
+# the body on BG2: each piece joined to its neighbours by a neck reaching the cell's edge (the neighbour draws the
+# other half), so straight runs and turns read as one caterpillar. Masks: R 1, D 2, L 4, U 8.
+JOINS = [5, 10, 3, 6, 12, 9]                    # the 6 frames of each body piece: L-R, U-D, R-D, D-L, L-U, U-R
+
+
+def neck(cv, mask):
+    """The necks of a body piece (behind the ball): 5 rows (horizontal) or 6 columns (vertical) wide, lit from the
+    top-left, from the centre to each joined edge."""
+    for bit, (x0, y0, x1, y1) in ((1, (8, 5, 15, 9)), (4, (0, 5, 7, 9)), (2, (5, 8, 10, 15)), (8, (5, 0, 10, 7))):
+        if not mask & bit:
+            continue
+        for y in range(y0, y1 + 1):
+            for x in range(x0, x1 + 1):
+                k = y - 5 if bit in (1, 4) else (x - 5) * 5 // 6
+                cv.set(x, y, BODY[1] if k < 2 else BODY[2] if k < 4 else BODY[3])
+
+
+def body_piece(kind, mask):
+    """16x16 joined body pieces for BG2: kind 0 a segment, 1 one with golden spots, 2 fat (a leaf going down),
+    3 the tail pointing right (joined on its left), 4 the tail pointing down (joined on top)."""
+    cv = Canvas(16, 16)
+    b = Canvas(16, 16)
+    feet = not mask & 2
+    if kind == 0:
+        ball(b, 8.0, 7.5, 6.5, 6.0, feet=feet)
+    elif kind == 1:
+        ball(b, 8.0, 7.5, 6.5, 6.0, spots=True, feet=feet)
+    elif kind == 2:
+        ball(b, 8.0, 7.5, 7.4, 6.9, spots=True, feet=False)
+        _px(b, [(6, 8), (7, 8), (8, 9), (9, 9)], BODY[0])
+    elif kind == 3:
+        hs.capsule(b, 5.0, 8.0, 12.0, 8.5, 2.0, BODY)
+        ball(b, 5.5, 7.5, 5.0, 5.0)
+    else:
+        hs.capsule(b, 8.0, 5.0, 8.5, 12.5, 2.0, BODY)
+        ball(b, 8.0, 5.5, 5.0, 4.6, feet=False)
+    neck(cv, mask)
+    cv.paste(b, 0, 0)
+    # a soft crease where two pieces meet (drawn by the piece on the left or above)
+    for x0, y0, x1, y1, bit in ((15, 0, 15, 15, 1), (0, 15, 15, 15, 2)):
+        if mask & bit:
+            for y in range(y0, y1 + 1):
+                for x in range(x0, x1 + 1):
+                    if cv.get(x, y) is not None:
+                        cv.set(x, y, BODY[3])
+    cv.outline(OUT)
+    return cv
+
+
+def body(kind):
+    return lambda i: body_piece(kind, JOINS[i] if kind < 3 else (4 if kind == 3 else 8))
+
+
 def icon():
     cv = Canvas(16, 16)
     for sx in (-1, 1):
@@ -186,15 +243,36 @@ def cocoon(frame):
 
 
 def butterfly(frame):
+    """24x24: 0 the wings open, 1 half closed. The right half is drawn, then mirrored (x <-> 23 - x)."""
     cv = Canvas(24, 24)
     k = 1.0 if frame == 0 else 0.55
-    for sx in (-1, 1):
-        hs.ellipse(cv, 12 + sx * 6.0 * k, 8.5, 6.0 * k, 6.0, BODY)          # the big wings
-        hs.ellipse(cv, 12 + sx * 4.5 * k, 16.0, 4.5 * k, 4.0, BODY)         # the small ones
-        cv.set(int(12 + sx * 6.5 * k), 8, GOLD[0])
-        cv.set(int(12 + sx * 6.5 * k), 9, GOLD[1])
-        cv.set(int(12 + sx * 4.5 * k), 16, GOLD[0])
-        cv.set(int(12 + sx * 7.5 * k), 6, WHITE)
+
+    def wing(cx, cy, dx_, dy_, a, b, ramp):                 # an ellipse along (dx_, dy_), squeezed by k across
+        for y in range(24):
+            for x in range(12, 24):
+                u, v = (x + 0.5 - cx) / k, y + 0.5 - cy
+                p, q = u * dx_ + v * dy_, -u * dy_ + v * dx_
+                if (p / a) ** 2 + (q / b) ** 2 <= 1.0:
+                    cv.set(x, y, hs.shade_nd(-(u * 0.45 + v * 0.75) / max(a, b) + 0.2, ramp))
+
+    dark, pale = [BODY[2], BODY[2], BODY[3], BODY[3]], [BODY[0], BODY[0], BODY[1], BODY[1]]
+    # the big wing up and out, the small one down and out: a dark rim outside, the pale wing within
+    wing(12 + 5.8 * k, 8.0, 0.78, -0.62, 6.8, 5.0, dark)
+    wing(12 + 4.2 * k, 15.8, 0.62, 0.78, 5.0, 3.4, dark)
+    wing(12 + 5.0 * k, 8.8, 0.78, -0.62, 5.4, 3.7, pale)
+    wing(12 + 3.6 * k, 15.2, 0.62, 0.78, 3.8, 2.3, pale)
+    ex = int(12 + 6.6 * k)                                  # the golden eye spots
+    if frame == 0:
+        cv.rect(ex, 7, ex + 1, 8, GOLD[1])
+        cv.set(ex, 7, GOLD[0])
+    else:
+        cv.set(ex, 8, GOLD[0])
+    cv.set(int(12 + 4.4 * k), 16, GOLD[0])
+    cv.set(int(12 + 4.0 * k), 6, WHITE)
+    for y in range(24):
+        for x in range(12, 24):
+            if cv.get(x, y) is not None:
+                cv.set(23 - x, y, cv.get(x, y))
     hs.capsule(cv, 12.0, 6.0, 12.0, 19.0, 1.4, [OUT, OUT, OUT, OUT])
     _px(cv, [(11, 4), (10, 3), (9, 2), (13, 4), (14, 3), (15, 2)], OUT)
     cv.set(9, 1, GOLD[0]), cv.set(15, 1, GOLD[0])
@@ -314,7 +392,8 @@ def digit(i):
 
 
 def sprite_frame(name, i):
-    return {"blank": lambda _i: Canvas(8, 8), "head": head, "butterfly": butterfly, "seg": segment, "icon": lambda _i: icon(), "cocoon": cocoon,
+    return {"blank": lambda _i: Canvas(8, 8), "head": head, "butterfly": butterfly, "seg": segment, "body0": body(0), "body1": body(1), "body2": body(2),
+            "bodytail": lambda i: body(3 + i)(0), "icon": lambda _i: icon(), "cocoon": cocoon,
             "leaf": leaf, "flower": flower, "puff": puff, "berry": berry, "leafpip": leafpip,
             "starpip": starpip, "digit": digit}[name](i)
 
@@ -419,20 +498,85 @@ def garden():
             if c2.get(x, 12) is not None or c2.get(x, 11) is not None:
                 c2.set(x, 13, LAWN[2])
 
-    # decorations on the 8-px grid (away from the bed)
+    def tuft(c2, x=8, y=12):                                # three blades of longer grass
+        for bx, top, lean in ((-2, 3, -1), (0, 5, 0), (2, 3, 1)):
+            for i in range(top):
+                c2.set(x + bx + (lean if i >= top - 1 else 0), y - i, LAWN[0] if bx == 0 and i == top - 1 else LAWN[2])
+
+    def bee(c2):
+        c2.rect(6, 7, 9, 9, FLOWERS[1])
+        c2.rect(7, 7, 7, 9, WOOD[2]), c2.set(9, 8, WOOD[2])
+        c2.rect(6, 5, 7, 6, FLOWERS[2]), c2.set(8, 5, FLOWERS[2])
+        c2.rect(6, 12, 9, 12, LAWN[2])                      # its shadow on the grass
+
+    def moth(c2):                                           # a lilac butterfly resting on the lawn
+        for dx in (-3, 1):
+            c2.rect(8 + dx, 6, 9 + dx, 7, FLOWERS[3])
+            c2.set(8 + dx + (1 if dx < 0 else 0), 8, FLOWERS[3])
+        c2.set(9 - 4, 6, FLOWERS[2]), c2.set(10, 6, FLOWERS[2])
+        c2.rect(7, 6, 8, 8, WOOD[2])
+        c2.set(6, 5, WOOD[2]), c2.set(9, 5, WOOD[2])
+        c2.rect(6, 11, 9, 11, LAWN[2])
+
+    def snail(c2):
+        c2.rect(4, 10, 11, 10, STONE[0]), c2.rect(4, 11, 11, 11, STONE[1])    # its foot
+        c2.set(11, 9, STONE[0]), c2.set(11, 8, STONE[1]), c2.set(12, 8, STONE[1])
+        hs.ellipse(c2, 7.0, 7.5, 3.2, 3.0, [WOOD[0], WOOD[0], WOOD[1], WOOD[2]])
+        c2.set(7, 7, WOOD[2]), c2.set(8, 7, WOOD[2]), c2.set(7, 8, WOOD[0])
+        c2.rect(3, 12, 11, 12, LAWN[2])
+
+    def ants(c2):                                           # a little trail of ants
+        for ax, ay in ((2, 11), (7, 8), (12, 5)):
+            c2.rect(ax, ay, ax + 2, ay, WOOD[2])
+            c2.set(ax + 1, ay + 1, WOOD[2])
+
+    # a stepping-stone path from each side of the bed out to the lawn's edge (seen on wide screens)
     placed = set()
-    for _ in range(140):
+    for side in (-1, 1):
+        for i in range(8):
+            sx = (bed[0] - 22 - i * 16) if side < 0 else (bed[2] + 6 + i * 16)
+            sy = 150 + int(round(6 * math.sin(i * 0.9 + (0 if side < 0 else 1.7))))
+            c2 = Canvas(14, 9)
+            hs.ellipse(c2, 7.0, 4.0, 6.0, 3.4, [STONE[0], STONE[0], STONE[1], STONE[1]])
+            for x in range(14):
+                if c2.get(x, 6) is not None and c2.get(x, 7) is None:
+                    c2.set(x, 7, LAWN[2])
+            cv.paste(c2, sx, sy)
+            for a in range(-1, 3):
+                for b in range(-1, 3):
+                    placed.add((sx // 8 + a, sy // 8 + b))
+    # decorations on the 8-px grid (away from the bed and the path)
+    for _ in range(170):
         tx, ty = rng.randrange(0, W // 8 - 1), rng.randrange(0, H // 8 - 1)
         if not free(tx, ty) or any((tx + a, ty + b) in placed for a in (-2, -1, 0, 1, 2) for b in (-2, -1, 0, 1, 2)):
             continue
-        k = rng.randrange(6)
-        if k < 2:
+        k = rng.randrange(12)
+        if k < 3:
             stamp(lambda c2, col=FLOWERS[rng.choice((0, 2, 3))]: daisy(c2, col), tx, ty)
-        elif k < 4:
+        elif k < 5:
             stamp(lambda c2: clump(c2, [FLOWERS[0], FLOWERS[1], FLOWERS[3], FLOWERS[2]]), tx, ty)
-        else:
+        elif k < 8:
+            stamp(tuft, tx, ty)
+        elif k < 9:
             stamp(stone, tx, ty)
+        else:
+            stamp([bee, moth, snail, ants][k - 9 if k < 11 else rng.randrange(4)], tx, ty)
         placed.add((tx, ty))
+    # longer grass along the outside of the frame (the 8-px strips seen beside it at 320 too)
+    erng = random.Random(3)
+    for y in range(bed[1] + 4, bed[3] - 4, 5):
+        for x in (bed[0] - 5, bed[2] + 4):
+            if erng.random() < 0.7:
+                c2 = Canvas(8, 8)
+                tuft(c2, 3, 7)
+                if erng.random() < 0.18:
+                    c2.rect(2, 1, 3, 2, FLOWERS[erng.choice((0, 2, 3))])
+                cv.paste(c2, x - 3 + erng.randrange(-1, 2), y - 4)
+    for x in range(bed[0] + 4, bed[2] - 4, 6):                  # and along its top edge, under the HUD
+        if erng.random() < 0.5:
+            c2 = Canvas(8, 8)
+            tuft(c2, 3, 7)
+            cv.paste(c2, x - 3, bed[1] - 7)
     # the bed's frame: planks with a light top edge and nail dots, darker corners
     x0, y0, x1, y1 = bed
     for y in range(y0, y1):
@@ -454,20 +598,33 @@ def garden():
             for x in range(8):
                 cv.set(cx + x, cy + y, WOOD[0] if x == 0 or y == 0 else WOOD[2] if x == 7 or y == 7 else WOOD[1])
         cv.set(cx + 3, cy + 3, WOOD[2])
-    # the soil: a checker of cells, a groove on each cell's bottom and right edge, a few crumbs
+    # the soil: a checker of cells, a groove on each cell's bottom and right edge, crumbs scattered differently from
+    # cell to cell (one of a few patterns), now and then a pebble; the frame's shade on the top and left edges
+    srng = random.Random(7)
+    patterns = []
+    for i in range(11):
+        crumbs = [(srng.randrange(2, 14), srng.randrange(2, 14)) for _ in range(srng.randrange(2, 5))]
+        grains = [(srng.randrange(2, 14), srng.randrange(2, 14)) for _ in range(2)]
+        pebble = (srng.randrange(3, 11), srng.randrange(3, 11)) if i == 3 else None
+        patterns.append((crumbs, grains, pebble))
     for gy in range(GRID_H):
         for gx in range(GRID_W):
             base = SOIL[0] if (gx + gy) % 2 == 0 else SOIL[1]
+            crumbs, grains, pebble = patterns[(gx * 7 + gy * 13 + (gx * gy) % 5) % len(patterns)]
             for v in range(16):
                 for u in range(16):
                     c = base
-                    if u == 15 or v == 15:
+                    if u == 15 or v == 15 or (gy == 0 and v == 0) or (gx == 0 and u == 0):
                         c = SOIL[2]
-                    elif (u, v) in ((4, 5), (11, 10), (9, 3)):
+                    elif (u, v) in crumbs:
                         c = SOIL[2]
-                    elif (u, v) in ((5, 5), (12, 10)):
+                    elif (u, v) in grains:
                         c = SOIL[0] if base == SOIL[1] else SOIL[1]
                     cv.set(px0 + gx * CELL + u, GRID_Y + gy * CELL + v, c)
+            if pebble:
+                x, y = px0 + gx * CELL + pebble[0], GRID_Y + gy * CELL + pebble[1]
+                cv.rect(x + 1, y, x + 2, y, STONE[1]), cv.rect(x, y + 1, x + 3, y + 1, SOIL[2])
+                cv.set(x + 1, y + 1, STONE[1])
     # the top band's shadow under the HUD: nothing (the kit's digits have their own outline)
     return cv
 

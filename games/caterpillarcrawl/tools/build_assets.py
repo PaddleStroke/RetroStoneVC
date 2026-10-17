@@ -12,6 +12,7 @@ as their sprites: OBJ 0, 1, 4, 5), 5 the logo, 6 the garden, 7 the obstacles.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/caterpillarcrawl/LICENSE.
 """
 import argparse
+import colorsys
 import glob
 import os
 import subprocess
@@ -33,6 +34,21 @@ VR_BG1, VR_BG3, VR_BG4, VR_OBJ = 0, 1024, 1536, 3072
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
 # players 2-4: the caterpillar's greens turned (house_style.player_palettes: P2 pink, P3 and P4 the farthest hues)
 P2_HUE = (0.16, 0.50, 0.62)
+# P4's orange: the plain rotation lands the greens' hue spread on salmon lights and olive shadows; this ramp instead
+# warms its lights towards yellow and its shadows towards red (the house ramps' rule), more saturated
+P4_HUE, P4_SPREAD, P4_SAT = 0.075, -0.55, 1.3
+
+
+def orange(rgbs, h_lo, h_hi):
+    """Player 4's palette: the main material's hues around P4_HUE, their spread turned and squeezed."""
+    h1 = hs.main_hue(rgbs, h_lo, h_hi)
+    out = []
+    for c in rgbs:
+        h, l, s = colorsys.rgb_to_hls(*[v / 255.0 for v in c])
+        if s > 0.25 and h_lo < h < h_hi:
+            h, s = (P4_HUE + (h - h1) * P4_SPREAD) % 1.0, min(1.0, s * P4_SAT)
+        out.append(tuple(int(round(v * 255)) for v in colorsys.hls_to_rgb(h, l, s)))
+    return out
 
 
 def cells8(img, x0, y0, w, h):
@@ -111,6 +127,7 @@ def main():
         if g == "hero":
             rgb = [rsasset.rgb888(v) for v in p16[1:]]
             sw = hs.player_palettes(rgb, *P2_HUE)               # [P1, P2, P3, P4]
+            sw[3] = orange(rgb, *P2_HUE[:2])
             for p, slot in ((1, 1), (2, 4), (3, 5)):
                 pals[slot * 16:slot * 16 + 16] = [0] + [rsasset.to555(v) for v in sw[p]]
             body_pals = [p16] + [[0] + [rsasset.to555(v) for v in sw[p]] for p in (1, 2, 3)]

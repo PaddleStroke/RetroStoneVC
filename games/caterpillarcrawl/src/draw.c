@@ -1,8 +1,8 @@
 /*
  * Caterpillar Crawl: video. The house layout (docs/art-direction.md):
  *   BG1 the UI (the house kit, priority 1); BG2 the caterpillars' bodies, one 16x16 metatile per cell, redrawn from the
- *   world every frame (its tiles are the sprites': the segment, the spotted one, the fat one with a leaf going down, the
- *   tail; on the BG palette of the player, 1-4); BG3 the garden's obstacles (stones, bushes, flower pots, mushrooms);
+ *   world every frame (its tiles are the sprites': the segment, the spotted one, the fat one with a leaf going down, each
+ *   joined to its two neighbours, and the tail; on the BG palette of the player, 1-4); BG3 the garden's obstacles (stones, bushes, flower pots, mushrooms);
  *   BG4 the garden: the raised bed of soil in its wooden frame, on the lawn.
  *   Sprites: the heads (OBJ 0; players 2-4 OBJ 1, 4, 5: the greens turned pink, blue, orange), sliding from cell to cell
  *   between the steps; the leaf, the flower, the puffs (OBJ 2); the kit's digits, glyphs and medals (OBJ 3); the berry,
@@ -114,8 +114,19 @@ static void put16(int gx, int gy, int spr_id, int pal, int hf, int vf)
         }
 }
 
+/* the side (R 1, D 2, L 4, U 8) of cell a where cell b is (0: not a neighbour) */
+static int side_of(int a, int b)
+{
+    int dx = b % GRID_W - a % GRID_W, dy = b / GRID_W - a / GRID_W;
+    return dy == 0 && dx == 1 ? 1 : dx == 0 && dy == 1 ? 2 : dy == 0 && dx == -1 ? 4 : dx == 0 && dy == -1 ? 8 : 0;
+}
+
 static void bodies(const world *w, int show)
 {
+    /* the joined pieces' frames by the sides they join (make_art.py JOINS: L-R, U-D, R-D, D-L, L-U, U-R); one side
+     * only (never in play): the straight piece through it */
+    static const int8_t join_frame[16] = {0, 0, 1, 2, 0, 0, 3, 0, 1, 5, 1, 0, 4, 0, 0, 0};
+    static const int body_spr[3] = {SPR_BODY0, SPR_BODY1, SPR_BODY2};
     uint16_t blank = gm_spr[SPR_BLANK].tile;               /* the blank sprite tile: an empty cell */
     for (int y = GRID_Y / 8; y < GRID_Y / 8 + GRID_H * 2; y++)
         for (int x = GRID_X / 8; x < GRID_X / 8 + GRID_W * 2; x++) rs_bg_put(RS_BG2, x, y, blank);
@@ -125,13 +136,15 @@ static void bodies(const world *w, int show)
         if (c->state == CS_OFF || c->state == CS_DOWN) continue;
         int pal = PAL_BODY + p;
         for (int i = 1; i < c->len; i++) {
-            int cell = cat_cell(c, i), gx = cell % GRID_W, gy = cell / GRID_W;
+            int cell = cat_cell(c, i), gx = cell % GRID_W, gy = cell / GRID_W, prev = cat_cell(c, i - 1);
             if (i == c->len - 1) {                  /* the tail points away from the segment before it */
-                int prev = cat_cell(c, i - 1), dx = gx - prev % GRID_W, dy = gy - prev / GRID_W;
-                if (dx) put16(gx, gy, SPR_SEG + 3, pal, dx < 0, 0);
-                else put16(gx, gy, SPR_SEG + 4, pal, 0, dy < 0);
+                int dx = gx - prev % GRID_W, dy = gy - prev / GRID_W;
+                if (dx) put16(gx, gy, SPR_BODYTAIL, pal, dx < 0, 0);
+                else put16(gx, gy, SPR_BODYTAIL + 1, pal, 0, dy < 0);
             } else {
-                put16(gx, gy, SPR_SEG + (w->fat[cell] ? 2 : (gx + gy) & 1), pal, 0, 0);
+                int kind = w->fat[cell] ? 2 : (gx + gy) & 1;
+                put16(gx, gy, body_spr[kind] + join_frame[side_of(cell, prev) | side_of(cell, cat_cell(c, i + 1))],
+                      pal, 0, 0);
             }
         }
     }
@@ -350,9 +363,12 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 if (w->round_winner >= 0) {
                     rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), w->round_winner + 1);
                     rs_strf(s, sizeof s, TR(ROUND_WIN), tag);
-                    text_centered(13, s, 0);
+                    /* on a navy panel: the line stays readable over the bodies that fill the arena by now */
+                    int x = hu_center(s, 0), tall = hu_tall(s);
+                    hu_panel(x - 2, 12 - tall, hu_width(s, 0) + 4, 3 + tall);
+                    hu_box_text(x, 13, s);
                 } else {
-                    text_centered(12, HTR(DRAW), 1);
+                    hu_banner(11, HTR(DRAW));
                 }
             }
         }
