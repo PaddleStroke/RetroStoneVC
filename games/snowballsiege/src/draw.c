@@ -36,11 +36,16 @@ static const rs_color title_ramps[2][3] = {
 #define MM_COL 8                        /* its UI tile column and row */
 #define MM_ROW 27
 #define FLAKES 22
+#define FLAKES_TALL 32                  /* a tall screen's taller sky */
 #define HUD_X 2                         /* the HUD's badges (24x24): the team's at (HUD_X, HUD_Y), the throwable's */
 #define HUD_Y 1                         /* HUD_DY under it, the stock's "X2" at tile (HUD_TX, HUD_TY) beside it */
 #define HUD_DY 24
 #define HUD_TX 4
 #define HUD_TY 4
+#define HINT_ROW_TALL 14                /* a tall screen (pinned in the sky): the hint panel's top row, ...      */
+#define BANNER_ROW_TALL 7               /* ... the turn's banner (under the HUD's badges), the big messages */
+#define BIG_ROW_TALL 9
+#define CLOUD_END 64                    /* a tall screen: the clouds (BG4) down to this stage line */
 
 static rs_color line_col[RS_SCREEN_H];
 static uint16_t cell_map[FROWS][FCOLS];       /* the BG2 entry of each field cell */
@@ -53,12 +58,21 @@ static uint8_t speck_tab[16 * 16];      /* a fixed sprinkle of darker specks in 
 static uint8_t px_buf[64];              /* scratch: one tile's pixels (state_audit.txt) */
 
 /* ---- the sky --------------------------------------------------------------------------------------------------- */
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. Above,
- * the sky carried on (its top colour, deeper toward the screen's top; the snow falls through it); below, the frozen
- * ground carried on (BG2's bottom 16 lines repeated, the scroll set per line). The other layers are hidden there
- * (window 2: BG1, BG3; BG2 too above); line 0 puts the stage's windows and BG2 scroll back. A 240-line screen never
- * gets these lines: the same pixels. */
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. Above,
+ * the sky carried on (its top colour, deeper toward the screen's top; the snow and the throws fly through it), with
+ * BG1's texts pinned there while the field plays (rs_bg_pin: from screen line PIN_Y); below, the frozen ground
+ * carried on (BG2's bottom 16 lines repeated, the scroll set per line). The other layers are hidden there (window 2:
+ * BG1 outside its pinned band, BG3; BG2 too above); line 0 puts the stage's windows and BG2 scroll back. A 240-line
+ * screen never gets these lines: the same pixels. */
 static int bg2_sx, bg2_sy;              /* BG2's scroll as written (the camera, the shake), restored at line 0 */
+static int pin_on;                      /* BG1's texts pinned above the stage (draw_frame sets it before each picture) */
+
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+/* the stage columns shown (a zoomed screen crops the sides: DESIGN.md "Tall screen"; else every column) */
+static int vis_x0(void) { return rs_screen_visible_x0() - rs_screen_origin_x(); }
+static int vis_x1(void) { return rs_screen_visible_x1() - rs_screen_origin_x(); }
+/* the HUD's left edge on a tall screen: the first tile column shown (the stock's text is on BG1's tiles) */
+static int hud_x0(void) { return tall() ? (vis_x0() + 7) & ~7 : 0; }
 
 static void raster_out(int line)
 {
@@ -68,10 +82,12 @@ static void raster_out(int line)
         rs_bg_window(RS_BG1, RS_WIN2);
         rs_bg_window(RS_BG3, RS_WIN2);
         rs_bg_window(RS_BG2, line < 0 ? RS_WIN2 : 0);
+        rs_bg_window(RS_BG4, line < 0 ? 0 : RS_WIN2);               /* the clouds: in the sky only */
     }
+    if (pin_on && line == top + PIN_Y) rs_bg_window(RS_BG1, 0);     /* BG1's pinned texts (rs_bg_pin) */
     if (line < 0) {
         int k = top < 0 ? line * 80 / top : 0;              /* 0 at the stage's top .. 80 at the screen's */
-        rs_pal_set(0, hu_scale_color(line_col[(-line) & 4], 256 - k));
+        rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));          /* (no 4-line dither: no stripes up there) */
     } else {
         rs_pal_set(0, line_col[RS_SCREEN_H - 1]);
         rs_bg_scroll(RS_BG2, bg2_sx, RS_SCREEN_H - 16 + (line - RS_SCREEN_H) % 16 + bg2_sy - line);
@@ -91,7 +107,8 @@ static void raster(int line, void *user)
         rs_bg_window(RS_BG3, 0);
         rs_bg_scroll(RS_BG2, bg2_sx, bg2_sy);
     }
-    rs_pal_set(0, line_col[line]);
+    if (line == CLOUD_END && tall()) rs_bg_window(RS_BG4, RS_WIN2);  /* the clouds stop above the mountains */
+    rs_pal_set(0, line_col[tall() ? line & ~4 : line]);  /* (a tall screen: no 4-line dither, stripes zoomed) */
 }
 
 static void sky_gradient(int k256)
@@ -323,9 +340,55 @@ static void maps_setup(void)
     shown_key = 0xffffffffu;
 }
 
+/* A tall screen's clouds (DESIGN.md "Tall screen"): BG4, only on a tall screen, in the sky above the stage down to
+ * stage line CLOUD_END (the raster's window), behind the far mountains: code-drawn here (pale, no outline, the far
+ * panorama's palette and tile base, after its tiles), drifting slowly with the wind, 1/4 of the camera's pan. */
+static void clouds_setup(void)
+{
+    /* three shapes (w x h tiles; bumps: centre x, y, radius px), each placed twice on a 64 x 32 map */
+    static const int8_t dim[3][2] = {{10, 3}, {7, 2}, {5, 2}};
+    static const int8_t bump[3][4][3] = {{{14, 15, 9}, {31, 10, 10}, {50, 12, 11}, {66, 16, 8}},
+                                         {{12, 10, 6}, {26, 7, 8}, {42, 10, 6}, {0, 0, 0}},
+                                         {{10, 10, 5}, {21, 8, 7}, {31, 11, 5}, {0, 0, 0}}};
+    static const int8_t at[6][4] = {{0, 3, 11, 0}, {1, 21, 17, 0}, {2, 37, 10, 1}, {0, 44, 22, 1}, {1, 56, 14, 1},
+                                    {2, 12, 25, 0}};      /* (rows 10..27: below the HUD) */
+    int tile = gm_far_tile_count, first[3];
+    for (int k = 0; k < 3; k++) {
+        int w = dim[k][0] * 8, h = dim[k][1] * 8, base = h - 3;
+        first[k] = tile;
+        for (int ty = 0; ty < dim[k][1]; ty++)
+            for (int tx = 0; tx < dim[k][0]; tx++, tile++) {
+                for (int y = 0; y < 8; y++)
+                    for (int x = 0; x < 8; x++) {
+                        int px = tx * 8 + x, py = ty * 8 + y, in = 0, lit = 0;
+                        for (int b = 0; b < 4 && bump[k][b][2]; b++) {
+                            int dx = px - bump[k][b][0], dy = py - bump[k][b][1], r = bump[k][b][2];
+                            in |= dx * dx + dy * dy <= r * r;
+                            lit |= (dx + 1) * (dx + 1) + (dy + 2) * (dy + 2) <= (r - 1) * (r - 1);
+                        }
+                        px_buf[y * 8 + x] = (uint8_t)(!in || py > base || px >= w ? 0 : lit && py < base - 2 ? 5 : 4);
+                    }
+                rs_tiles_load8(VR_BG3 + tile, px_buf, 1);
+            }
+    }
+    rs_bg_setup(RS_BG4, 64, 32, VR_BG3);    /* (tile 0 of the far panorama is blank) */
+    for (int i = 0; i < 6; i++) {
+        int k = at[i][0], f = at[i][3];
+        for (int ty = 0; ty < dim[k][1]; ty++)
+            for (int tx = 0; tx < dim[k][0]; tx++) {
+                int sx = f ? dim[k][0] - 1 - tx : tx;
+                rs_bg_put(RS_BG4, at[i][1] + tx, at[i][2] + ty,
+                          RS_MAP(first[k] + ty * dim[k][0] + sx, PAL_FAR, 0, f, 0));
+            }
+    }
+}
+
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more of the field on both sides */
+    /* a tall screen: the stage low, TALL_BELOW lines of frozen ground under it, the sky above (DESIGN.md) */
+    if (tall() && rs_screen_height() - RS_SCREEN_H > TALL_BELOW)
+        rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H - TALL_BELOW);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -349,6 +412,7 @@ void draw_init(void)
     }
     rs_tiles_load(VR_BG3, gm_far_tiles, gm_far_tile_count);
     maps_setup();
+    if (tall()) clouds_setup();
     for (int l = 0; l < 3; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
@@ -364,7 +428,9 @@ void draw_init(void)
 static void spr(int id, int x, int y, int prio, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, d->pal, prio, flags);
 }
 
@@ -375,6 +441,10 @@ void touch_button_pos(int *x, int *y)
 {
     *x = rs_screen_width() + BTN_X;
     *y = BTN_Y;
+    if (tall()) {           /* a phone held upright: in the columns shown, in the frozen ground under the stage */
+        *x = rs_screen_visible_x1() + BTN_X;
+        if (rs_screen_bottom() - RS_SCREEN_H >= 2 * BTN_R + 6) *y = (RS_SCREEN_H + rs_screen_bottom()) / 2;
+    }
 }
 
 /* the title's player slots, the results: each player's team icon (hu_title_sprites calls it) */
@@ -479,8 +549,8 @@ static void draw_proj(const world *w, int vx0, int sx, int sy)
 {
     if (!w->p.on) return;
     int x = (w->p.x >> 16) - vx0 + sx, y = (w->p.y >> 16) + sy;
-    if (y < -4) {                                       /* above the screen: an arrow at the top */
-        spr(SPR_UPARROW, x - 4, 2, 3, 0);
+    if (y < rs_screen_top() - 4) {                      /* above the screen: an arrow at the top */
+        spr(SPR_UPARROW, x - 4, rs_screen_top() + 2, 3, 0);
         return;
     }
     if (w->p.kind == PK_BIG) spr(SPR_BIGBALL, x - 8, y - 8, 2, 0);
@@ -510,14 +580,21 @@ static void draw_trees(const world *w, int vx0, int sx, int sy)
 
 static void draw_flakes(int vx0, int t)
 {
-    int W = rs_screen_width() + 16;
-    for (int i = 0; i < FLAKES; i++) {
+    int W = rs_screen_width() + 16, x0 = rs_screen_left(), top = 0, H = 256, n = FLAKES;
+    if (tall()) {           /* a tall screen: from the screen's top, across the columns shown (a taller sky: more) */
+        x0 = vis_x0();
+        W = vis_x1() - x0 + 16;
+        top = rs_screen_top();
+        H = rs_screen_bottom() - top + 16;
+        n = FLAKES_TALL;
+    }
+    for (int i = 0; i < n; i++) {
         int speed = 2 + i % 3, far = i & 1;
-        int y = (i * 53 + t * speed / 4) % 256 - 12;
+        int y = top + (i * 53 + t * speed / 4) % H - 12;
         int x = (i * 97 + (int)(snow_drift >> 6) * speed / 3 + (int)(isin(t * 2 + i * 40) >> 14) - vx0 * (far ? 1 : 2) / 2)
                 % W;
         if (x < 0) x += W;
-        spr(SPR_FLAKE0 + far, x - 8 + rs_screen_left(), y, 2, 0);
+        spr(SPR_FLAKE0 + far, x - 8 + x0, y, 2, 0);
     }
 }
 
@@ -525,22 +602,27 @@ static void draw_flakes(int vx0, int t)
 static void draw_hud(const world *w, int t)
 {
     const side *sd = &w->s[w->cur_side];
+    /* a tall screen: at the screen's top, in the columns shown (the badges and the score under the frontend's back
+     * and pause buttons, level with BG1's pinned stock: PIN_Y; the windsock between those buttons) */
+    int ox = hud_x0(), oy = tall() ? rs_screen_top() + PIN_Y : 0, wy = tall() ? rs_screen_top() + 6 : 0;
+    int scx = tall() ? vis_x1() - 6 : 314;
     if (w->phase == PH_AIM || w->phase == PH_FLIGHT || w->phase == PH_TIMEUP) {
         /* two round badges (in front of them: the team's icon, the throwable; the stock's "X2" beside: screen_text) */
-        spr(crit_spr(sd->species, P_ICON), HUD_X + 4, HUD_Y + 3, 3, 0);
-        spr(SPR_BADGE, HUD_X, HUD_Y, 3, 0);
+        spr(crit_spr(sd->species, P_ICON), ox + HUD_X + 4, oy + HUD_Y + 3, 3, 0);
+        spr(SPR_BADGE, ox + HUD_X, oy + HUD_Y, 3, 0);
         if (w->phase == PH_AIM) {
             int secs = (w->timer + 59) / 60;
-            if (secs > 5 || hu_blink(t * 2)) hu_number(secs, HUD_X + 40, HUD_Y + 4, 3);
+            if (secs > 5 || hu_blink(t * 2)) hu_number(secs, ox + HUD_X + 40, oy + HUD_Y + 4, 3);
         }
-        spr(SPR_WPN0 + w->weapon, HUD_X + 4, HUD_Y + HUD_DY + 4, 3, 0);
-        spr(SPR_BADGE, HUD_X, HUD_Y + HUD_DY, 3, 0);
+        spr(SPR_WPN0 + w->weapon, ox + HUD_X + 4, oy + HUD_Y + HUD_DY + 4, 3, 0);
+        spr(SPR_BADGE, ox + HUD_X, oy + HUD_Y + HUD_DY, 3, 0);
     }
     /* the wind: the sock (drooping when calm) and a chevron per 2 levels (rounded up), the way it blows */
     int wd = w->wind, n = ((wd < 0 ? -wd : wd) + 1) / 2;
-    spr(wd ? SPR_SOCK : SPR_SOCK_CALM, 152, 3, 3, wd < 0 ? RS_SPR_HFLIP : 0);
-    for (int i = 0; i < n; i++) spr(SPR_CHEVRON, wd > 0 ? 170 + i * 6 : 142 - i * 6, 7, 3, wd < 0 ? RS_SPR_HFLIP : 0);
-    if (w->players == 1) hu_number_at(w->s[0].score, 314, 4, 1, 3);
+    spr(wd ? SPR_SOCK : SPR_SOCK_CALM, 152, wy + 3, 3, wd < 0 ? RS_SPR_HFLIP : 0);
+    for (int i = 0; i < n; i++)
+        spr(SPR_CHEVRON, wd > 0 ? 170 + i * 6 : 142 - i * 6, wy + 7, 3, wd < 0 ? RS_SPR_HFLIP : 0);
+    if (w->players == 1) hu_number_at(w->s[0].score, scx, oy + 4, 1, 3);
 }
 
 /* the field's map: the critters and the throw as dots, the camera's view as brackets */
@@ -558,7 +640,9 @@ static void draw_minimap(const world *w, const camera *cam)
         int my = ((w->p.y >> 16) - MM_Y0) / 6;
         spr(SPR_MAPBALL, x0 + (w->p.x >> 16) / 4 - 4, MM_ROW * 8 + (my < 0 ? 0 : my > MM_H - 1 ? MM_H - 1 : my) - 4, 3, 0);
     }
-    int l = camera_left(cam, rs_screen_width()) / 4, r = (camera_left(cam, rs_screen_width()) + rs_screen_width()) / 4;
+    /* (the columns shown: a zoomed screen crops the sides) */
+    int cl = camera_left(cam, rs_screen_width());
+    int l = (cl + rs_screen_visible_x0()) / 4, r = (cl + rs_screen_visible_x1()) / 4;
     spr(SPR_MAPVIEW, x0 + l - 3, MM_ROW * 8, 3, 0);
     spr(SPR_MAPVIEW, x0 + r - 5, MM_ROW * 8, 3, RS_SPR_HFLIP);
 }
@@ -622,7 +706,49 @@ static uint32_t text_key(const world *w, int state, int st_t, int best)
                      (uint32_t)(w->s[w->cur_side].stock[w->weapon] + 2) : 0);
     }
     if (state == ST_OVER) k = k * 2 + (st_t >= RETRY_LOCK);
+    if (tall()) k = k * 977u + (uint32_t)(rs_screen_visible_x0() * 2 + 1);    /* the columns shown: the layout */
     return k * 4099u + (uint32_t)best;
+}
+
+/* a tall screen: a text centred on the 40 columns (hu_center) fits in the columns shown */
+static int text_fits(const char *s, int big)
+{
+    int c = hu_center(s, big);
+    return c * 8 >= vis_x0() && (c + hu_width(s, big)) * 8 <= vis_x1();
+}
+
+/* ... and the hint's panel around it (screen_text: wd + 3 columns, centred) */
+static int panel_fits(const char *s)
+{
+    int wd = hu_width(s, 0), x0 = 20 - (wd + 3) / 2;
+    return x0 * 8 >= vis_x0() && (x0 + wd + 3) * 8 <= vis_x1();
+}
+
+/* a big message on row y (2 rows). A tall screen's narrower columns: on two lines if it does not fit (cut at the
+ * space nearest its middle, a row between them for accents), else in the small letters. */
+static void big_text(const char *s, int y)
+{
+    if (!tall() || text_fits(s, 1)) {
+        hu_big(hu_center(s, 1), y, s, HU_BIG_FREE);
+        return;
+    }
+    char a[96];
+    int n = (int)strlen(s), cut = -1;
+    for (int i = 1; i < n && i < (int)sizeof a; i++) {
+        int d = i - n / 2, dc = cut - n / 2;
+        if (s[i] == ' ' && (cut < 0 || (d < 0 ? -d : d) < (dc < 0 ? -dc : dc))) cut = i;
+    }
+    if (cut > 0) {
+        memcpy(a, s, (size_t)cut);
+        a[cut] = 0;
+        const char *b = s + cut + 1;
+        if (text_fits(a, 1) && text_fits(b, 1)) {
+            hu_big(hu_center(a, 1), y, a, HU_BIG_FREE);
+            hu_big(hu_center(b, 1), y + 3, b, HU_BIG_FREE);
+            return;
+        }
+    }
+    hu_text(hu_center(s, 0), y + 1, s);
 }
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -639,13 +765,13 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 int n = sd->stock[w->weapon];
                 if (n >= 0) {
                     snprintf(s, sizeof s, "X%d", n);
-                    hu_text(HUD_TX, HUD_TY, s);
+                    hu_text(HUD_TX + hud_x0() / 8, HUD_TY, s);     /* (a tall screen: pinned, draw_hud) */
                 }
             }
             if (w->banner_t > 0 && w->phase != PH_END) {
                 if (w->turns == 1 && w->players == 1) {
                     rs_strf(s, sizeof s, TR(MATCH_N), w->level);
-                    hu_big(hu_center(s, 1), 7, s, HU_BIG_FREE);
+                    big_text(s, tall() ? BIG_ROW_TALL : 7);
                 }
                 if (sd->cpu) snprintf(s, sizeof s, "%s", TR(TURN_CPU));
                 else if (w->players == 1) snprintf(s, sizeof s, "%s", TR(TURN_YOU));
@@ -654,17 +780,35 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                     rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), sd->player + 1);
                     rs_strf(s, sizeof s, TR(TURN_P), tag);
                 }
-                hu_text(hu_center(s, 0), 5, s);
+                hu_text(hu_center(s, 0), tall() ? BANNER_ROW_TALL : 5, s);
             }
             const char *m = w->msg_t > 0 ? msg_text(w->msg) : NULL;
-            if (m && !(w->banner_t > 0 && w->turns == 1 && w->players == 1)) hu_big(hu_center(m, 1), 7, m, HU_BIG_FREE);
+            if (m && !(w->banner_t > 0 && w->turns == 1 && w->players == 1)) big_text(m, tall() ? BIG_ROW_TALL : 7);
             if (show_hint(w)) {
-                const char *h1 = TR(HINT_AIM), *h2 = TR(HINT_THROW);
-                int wd = hu_width(h1, 0) > hu_width(h2, 0) ? hu_width(h1, 0) : hu_width(h2, 0);
-                int x0 = 20 - (wd + 3) / 2, tall = hu_tall(h2);     /* a tall second line: a row between the two */
-                hu_panel(x0, 20, wd + 3, 6 + tall);
-                hu_box_text(hu_center(h1, 0), 22, h1);
-                hu_box_text(hu_center(h2, 0), 24 + tall, h2);
+                /* two lines (a tall screen's narrower columns: each one cut at its " - " if it does not fit there),
+                 * a row between two lines when the second is tall (accents); a tall screen: higher, in the sky */
+                const char *h[2] = {TR(HINT_AIM), TR(HINT_THROW)};
+                char ln[4][96];
+                int nl = 0, wd = 0, talls = 0, y = tall() ? HINT_ROW_TALL : 20;
+                for (int i = 0; i < 2; i++) {
+                    const char *cut = tall() && !panel_fits(h[i]) ? strstr(h[i], " - ") : NULL;
+                    if (cut) {
+                        snprintf(ln[nl++], sizeof ln[0], "%.*s", (int)(cut - h[i]), h[i]);
+                        snprintf(ln[nl++], sizeof ln[0], "%s", cut + 3);
+                    } else {
+                        snprintf(ln[nl++], sizeof ln[0], "%s", h[i]);
+                    }
+                }
+                for (int i = 0; i < nl; i++) {
+                    if (hu_width(ln[i], 0) > wd) wd = hu_width(ln[i], 0);
+                    if (i) talls += hu_tall(ln[i]);
+                }
+                if (tall() && y + 2 + 2 * nl + talls > MM_ROW) y = MM_ROW - 2 - 2 * nl - talls;   /* (pinned rows) */
+                hu_panel(20 - (wd + 3) / 2, y, wd + 3, 2 + 2 * nl + talls);
+                for (int i = 0, r = y + 2; i < nl; i++, r += 2) {
+                    if (i) r += hu_tall(ln[i]);
+                    hu_box_text(hu_center(ln[i], 0), r, ln[i]);
+                }
             }
         }
         if (state == ST_OVER) {
@@ -702,13 +846,20 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
     rs_bg_scroll(RS_BG2, bg2_sx, bg2_sy);
     rs_bg_scroll(RS_BG3, (vx0 / 2) & (FAR_W * 8 - 1), 0);
     if (!paused) snow_drift += w->wind * 4 + 6;
+    rs_bg_enable(RS_BG4, tall());               /* a tall screen's clouds: the map's top at the screen's top */
+    if (tall()) rs_bg_scroll(RS_BG4, (vx0 / 4 - (int)(snow_drift >> 10)) & 511, -rs_screen_top());
+    /* a tall screen (DESIGN.md "Tall screen"): the field plays zoomed (the sides cropped; main.c's camera frames the
+     * columns shown), BG1's texts pinned in the sky under the HUD; the title and the panels show every column */
+    int play = state == ST_PLAY || state == ST_DEAD;
+    rs_screen_fill(play);
+    pin_on = tall() && play;
+    rs_bg_pin(RS_BG1, 0, pin_on ? PIN_LINES : 0, PIN_Y);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
 
     rs_oam_clear();
-    int play = state == ST_PLAY || state == ST_DEAD;
     /* front to back: the UI, the HUD and the map, the touch button, the aim, the throw, the critters, effects,
      * the snowflakes, the trees */
     if (state == ST_OVER) {
@@ -750,6 +901,7 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
 /* a state saved at another width brings a UI map of another size: set the maps up again, redraw the UI */
 void draw_state_loaded(void)
 {
+    if (tall()) clouds_setup();                 /* (a state saved on a screen without them) */
     if (rs_bg_map_w(RS_BG1) == map_w()) return;
     maps_setup();
 }

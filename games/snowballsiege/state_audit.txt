@@ -7,3 +7,4 @@ draw.speck_tab      draw_init(): the snow's fixed sprinkle of specks, made the s
 draw.px_buf         scratch: one field tile's pixels while it is drawn
 draw.bg2_sx         a tall screen: BG2's scroll, set by draw_frame before every picture (restored at line 0)
 draw.bg2_sy         ... the same
+draw.pin_on         a tall screen: BG1's texts pinned above the stage, set by draw_frame before every picture (rs_bg_pin)

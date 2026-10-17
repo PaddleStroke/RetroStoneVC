@@ -131,12 +131,36 @@ shows more of the same field around the camera. The UI kit centres itself; the t
 bottom-right corner. A state saved at one width loads at another. The touch test throws the same pull at 320, 427,
 520 and 560 and compares the runs.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`; the 240 lines of the stage are the same pixels, centred. The raster draws the lines past the stage
-(draw.c `raster_out`): above, the winter sky carried on (its top colour, deeper toward the screen's top); below, the
-frozen ground carried on (BG2's bottom 16 lines repeated, the camera's column). The other layers are hidden there
-(window 2: BG1, BG3; BG2 too above); line 0 puts the stage's windows and BG2 scroll back. The field, the camera and
-the rules are unchanged; the touches are read in stage y (`- rs_screen_origin_y()`).
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)`
+(470 lines, game.h) first in `game_init`: the app scales the 470 lines to the display's height and crops the sides,
+200 columns on a 1080x2520 phone, 214 on a 1080x2340 one (the field's map, 192 px, still fits), the critters about
+5.4x. The 240 lines of the stage are the same pixels; the stage sits low (`rs_screen_origin_v`: 190 lines of sky
+above it for the throws' arcs, TALL_BELOW = 40 of frozen ground below).
+- **The camera frames the columns shown**: main.c passes the visible columns' count (`rs_screen_visible_x1() - x0()`)
+  to `camera_init` / `camera_step` instead of the screen's width, so the active critter, the ball (kept CAM_EDGE px
+  inside) and where it is heading stay in view; the map's brackets show those columns. Presentation only: the same
+  rules and hashes at every size.
+- **Fill or fit**: the field (play and the moment before the panel) fills the display's height; the title, the
+  game-over panel and the 2-4 player results show every column (`rs_screen_fill(0)`). Set each frame (main.c
+  `view_cols`, before the touches and the camera, and draw_frame). The hot-seat matches share one field: no split.
+- **The HUD at the screen's top**: the windsock between the frontend's back and pause buttons, the badges (team and
+  timer, throwable) and the score just under them, in the columns shown; BG1's rows 0..26 (the stock's "X2", the
+  turn's banner, the big messages, the hint, the pause) are pinned from screen line PIN_Y (`rs_bg_pin`), so the texts
+  sit in the sky, never over the critters; the field's map stays at the stage's bottom, over the frozen ground. The
+  banner and the big messages go a few rows lower there (under the badges); a big message too wide for the columns
+  shown is cut on two lines at a space (else small letters); a hint line too wide is cut at its " - ".
+- **Touch**: the round switch button in the columns shown, in the frozen ground under the stage (bottom right); the
+  slingshot, the shuffle taps and the drag are unchanged (screen x, stage y).
+- **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above, the winter sky carried on from
+  its top colour, deeper toward the screen's top (no 4-line dither there, and none in the stage's sky on a tall
+  screen: zoomed, its stripes showed); below, the frozen ground carried on (BG2's bottom 16 lines repeated). The other
+  layers are hidden there (window 2: BG1 outside its pinned band, BG3; BG2 too above); line 0 puts the stage's
+  windows and BG2 scroll back. Clouds on BG4 (a tall screen only; code-drawn in draw.c `clouds_setup`: three pale
+  shapes on the far panorama's palette and tile base, six on a 64-tile map) drift with the wind at 1/4 of the
+  camera's pan, from the HUD down to stage line 64 (above the mountains). The snow falls from the screen's top across
+  the columns shown (32 flakes); the sprites are culled at the screen's edges.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240); a state loads across the
+  portrait and landscape sizes (BG4's clouds set up again on load).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the four teams under it throwing in turn, the field dimmed behind with the camera drifting along it

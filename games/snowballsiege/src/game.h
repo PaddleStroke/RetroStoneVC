@@ -297,6 +297,14 @@ void camera_step(camera *c, const world *w, int screen_w, int pan_dx, int t);
 int  camera_left(const camera *c, int screen_w);         /* the world x at the screen's left edge */
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (200 columns at 1080x2520: the field's map, 192 px, fits); the stage low, TALL_BELOW
+ * lines of frozen ground under it (the switch button there), the sky above it for the throws' arcs; the HUD at the
+ * screen's top: sprites, and BG1's lines 0 .. PIN_LINES - 1 (the texts, not the map) drawn from screen line PIN_Y */
+#define ZOOM_H        470
+#define TALL_BELOW    40
+#define PIN_Y         28        /* below the frontend's back and pause buttons (the HUD's badges and score) */
+#define PIN_LINES     216       /* BG1's rows 0..26: the stock, the banners, the messages, the hint, the pause */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
 typedef struct touch_view { int8_t seen, btn_on, sling, pad; int16_t fx, fy; } touch_view;
 void draw_init(void);

@@ -137,6 +137,15 @@ static void sfx_at(int id, int wx, int vol)
 /* ---- flow ----------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 
+/* the columns the camera frames: a zoomed screen (a phone held upright, DESIGN.md "Tall screen") shows fewer than
+ * the screen's while the field plays (rs_screen_fill(1), the sides cropped); the title and the panels show every
+ * column. Elsewhere: the screen's width. Set before the touches and the camera read them (draw_frame sets it too). */
+static int view_cols(void)
+{
+    rs_screen_fill(st == ST_PLAY || st == ST_DEAD);
+    return rs_screen_visible_x1() - rs_screen_visible_x0();
+}
+
 static void touch_reset(void)
 {
     sling_slot = pan_slot = btn_slot = -1;
@@ -163,8 +172,8 @@ static void new_run(int state)
     new_best = 0;
     touch_reset();
     draw_new_world();
-    camera_init(&CAM, &W, rs_screen_width());
     go(state);
+    camera_init(&CAM, &W, view_cols());
 }
 
 static int is_bot(int p) { return p < opt_bot; }
@@ -323,7 +332,7 @@ static void play_update(void)
 {
     tin in;
     memset(&in, 0, sizeof in);
-    int pan = 0, hp = world_human_turn(&W);
+    int pan = 0, hp = world_human_turn(&W), cols = view_cols();
     if (hp >= 0 && st == ST_PLAY) {
         if (is_bot(hp)) {
             if (opt_botstop && W.players == 1 && W.wins >= opt_botstop) bot_give_up(&in);
@@ -335,7 +344,7 @@ static void play_update(void)
     }
     if (hp != 0 || W.phase != PH_AIM) touch_reset();
     world_step(&W, &in);
-    camera_step(&CAM, &W, rs_screen_width(), pan, st_t);
+    camera_step(&CAM, &W, cols, pan, st_t);
     if (W.events & EV_MATCH) draw_new_world();
     sounds();
     hash_world();
@@ -360,7 +369,7 @@ static void title_update(void)
         return;
     }
     world_step(&W, NULL);
-    camera_step(&CAM, &W, rs_screen_width(), 0, st_t);
+    camera_step(&CAM, &W, view_cols(), 0, st_t);
 }
 
 static void game_update(void)
@@ -385,7 +394,7 @@ static void game_update(void)
         break;
     case ST_OVER: {
         world_step(&W, NULL);                   /* the snow goes on behind the panel */
-        camera_step(&CAM, &W, rs_screen_width(), 0, st_t);
+        camera_step(&CAM, &W, view_cols(), 0, st_t);
         int back = 0;
         if (st_t >= RETRY_LOCK) {
             back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
@@ -406,7 +415,7 @@ static void game_draw(void) { draw_frame(&W, &CAM, st, st_t, run_best, new_best,
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);           /* a phone held upright: more sky and ground (draw.c, DESIGN.md "Tall screen") */
+    rs_screen_zoom(ZOOM_H);                    /* a phone held upright: zoomed, the sides cropped (draw.c, DESIGN.md "Tall screen") */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
