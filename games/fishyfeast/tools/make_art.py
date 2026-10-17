@@ -8,8 +8,8 @@ Code-drawn art only, no image generation: every sprite and tile is drawn here wi
 The fish (DESIGN.md "Art"): round and cute, seen from the side (facing right; draw.c flips them), pale
 fins, a big eye. The screen size of a fish follows the zoom, and sprites do not scale: each fish is drawn in size
 TIERS (its radius on screen). The small tiers (3 to 24 px) are one sprite each; the two big tiers (30 and 40 px) are
-built from parts: the body's four quarters (one quarter mirrored four ways: a round cushion), the face (eye, cheek,
-mouth), the tail and a highlight (the light from the top-left). Every fish exists in two body ramps (variants A and B, colour indices
+built from parts: the body's four quarters (a top and a bottom one, each mirrored left-right: lit from above, the
+small fish's bands level), the face (eye, cheek, mouth), the tail and a highlight (the glint top-left). Every fish exists in two body ramps (variants A and B, colour indices
 6-9 and 10-13 of the same palette): the palettes then give 4 players and 8 bot colours. Players' fish have their
 outline in index 1 (the player's colour ring), the B variant in index 15 (navy).
 
@@ -97,12 +97,13 @@ def tail_len(R):
     return 0 if R < 5 else max(2, int(round(R * 0.4)))
 
 
-def shade_body(dx, dy, r4, radial=False):
-    """dx, dy: the point on the body, -1..1. The house light from the top-left (small fish), or a round cushion
-    (the big fish's mirrored quarters: the highlight part puts the light top-left), with a darker rim."""
+def shade_body(dx, dy, r4, top=False):
+    """dx, dy: the point on the body, -1..1. The house light from the top-left (small fish), or from straight above
+    (the big fish's halves, each mirrored left-right: the same bands as the small fish, level; the highlight part puts
+    the glint top-left), with a darker rim."""
     d2 = dx * dx + dy * dy
-    if radial:
-        nd = 0.5 - 1.2 * d2
+    if top:
+        nd = -dy - 0.25 * d2 + 0.1
     else:
         nd = dx * hs.LIGHT_DIR[0] + dy * hs.LIGHT_DIR[1] - 0.25 * d2 + 0.1
     return hs.shade_nd(nd, r4)
@@ -189,17 +190,17 @@ def fish_small(R, variant, wag=0):
     return cv, (-cx, -cy)
 
 
-def quarter(R, variant):
-    """The top-left quarter of a big body (draw.c mirrors it into the four), a round cushion."""
+def quarter(R, variant, bottom=0):
+    """The top-left (or bottom-left) quarter of a big body (draw.c mirrors each left-right), lit from above."""
     Q = ceil8(R + 1)
     cv = Canvas(Q, Q)
-    cy = Q
+    cy = 0 if bottom else Q
     r4 = ramp_of(variant)
     for y in range(Q):
         for x in range(Q):
             dx, dy = (x + 0.5 - Q) / R, (y + 0.5 - cy) / R
             if dx * dx + dy * dy <= 1.0:
-                cv.set(x, y, shade_body(dx, dy, r4, radial=True))
+                cv.set(x, y, shade_body(dx, dy, r4, top=True))
     cv.outline(outline_of(variant))
     return cv, Q
 
@@ -243,15 +244,23 @@ def big_parts(R, variant):
     parts.append(("big_hi_%d" % R, cv, ox, oy, 0, 0))
 
     def face(cv, cx, cy):
+        # the side fin as on the small fish (the face part carries it: no extra sprite), a rounder cheek, a wider mouth
+        hs.ellipse(cv, cx - R * 0.15, cy + R * 0.38, R * 0.2, R * 0.1, None, flat=col(4))
+        hs.ellipse(cv, cx - R * 0.15, cy + R * 0.42, R * 0.14, R * 0.05, None, flat=col(5))
         draw_face(cv, cx, cy, R)
+        hs.ellipse(cv, cx + R * 0.30, cy + R * 0.18, R * 0.08, R * 0.05, None, flat=col(14))
+        mx, my = cx + R * 0.86, cy + R * 0.2
+        cv.set(int(mx) - 2, int(my) + 1, col(3))
     cv, (ox, oy) = feature(face, R, pad=1)
     parts.append(("big_face_%d" % R, cv, ox, oy, 0, 0))
     q, Q = quarter(R, variant)
     name = "big_q_%s%d" % ("ab"[variant], R)
     parts.append((name, q, -Q, -Q, 0, 0))
     parts.append((name, q, 0, -Q, 1, 0))
-    parts.append((name, q, -Q, 0, 0, 1))
-    parts.append((name, q, 0, 0, 1, 1))
+    q, Q = quarter(R, variant, bottom=1)
+    name = "big_qb_%s%d" % ("ab"[variant], R)
+    parts.append((name, q, -Q, 0, 0, 0))
+    parts.append((name, q, 0, 0, 1, 0))
 
     def tail(cv, cx, cy):
         draw_tail(cv, cx, cy, R, T, 0)

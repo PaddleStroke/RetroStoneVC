@@ -11,7 +11,7 @@
  * The zoom: each view has a camera that follows its player's fish; its zoom steps out as the fish grows (ZOOM_STEP_TABLE,
  *   eased), also to keep all its pieces in view and so that the biggest fish in sight fits the biggest sprite tier.
  *   Sprites do not scale: a fish is drawn in the size tier nearest its radius on screen (assets.h gm_tier_r: one sprite
- *   up to 24 px, then a body of four mirrored quarters, a face, a tail and a highlight). Bigger fish are drawn in front.
+ *   up to 24 px, then a body of four quarters (top and bottom, mirrored left-right), a face, a tail and a highlight). Bigger fish are drawn in front.
  * Split screen (play.c view_layout): 1 player full screen; 2 side by side; 3-4 in quarters (3: the 4th shows the whole
  *   pond as a map). Each view is a viewport with its own scroll, sprites and raster state (the floor's matrix and the
  *   pond's windows). One full view (the title, the panels) runs without viewports: the kit's sprites stay in place.
@@ -40,6 +40,8 @@ static const rs_color title_ramps[2][3] = {
 #define SPR_BUDGET_1 116            /* sprites per view: 1 view, 2, 3-4 (the guideline: 128 in all) */
 #define SPR_BUDGET_2 58
 #define SPR_BUDGET_4 29
+#define LB_GAP       2              /* px between the leaderboard's rows (lb_lines) */
+#define LB_SOLO_FREE_ROW 10         /* 1 player: the first BG1 row shown as it is under the leaderboard */
 
 typedef struct camera { int32_t x, y, zq, step; int32_t on; } camera;   /* Q8 centre, zoom Q16, step 1/256 */
 enum { CAM_SOLO = 4 };              /* cam[0..3]: the players' views; cam[4]: the title, the panels */
@@ -57,6 +59,7 @@ static rs_viewport VP[RS_VIEW_MAX];
 static int views_on;
 static rs_color rim_col[RS_SCREEN_H];
 static int16_t ray_dx[RS_SCREEN_H];             /* BG2's line scroll: the rays sway */
+static int16_t lb_dy[RS_SCREEN_H];              /* BG1's line scroll in play: a gap under each leaderboard row */
 static int shown_key = -1, shown_best = -1;
 static uint32_t shown_text;                     /* the play texts on BG1 (a hash: redrawn when they change) */
 static int text_paused;
@@ -439,7 +442,13 @@ static void specks_clear(void)
     memset(m, 0, sizeof(uint16_t) * (size_t)(rs_bg_map_w(RS_BG3) * rs_bg_map_h(RS_BG3)));
 }
 
-/* the specks seen in view v (stage rect), camera c */
+/* the camera's pixel parity in a view: the specks sit on a 2-px grid, BG3 is scrolled by this so that they move with
+ * the floor 1 px at a time (not in 2-px steps against it) */
+static int zpx(int32_t wq, int32_t zq) { return (int)(((int64_t)wq * zq) >> 24); }
+static int speck_ofs_x(const camera *c) { return zpx(c->x, c->zq) & 1; }
+static int speck_ofs_y(const camera *c) { return zpx(c->y, c->zq) & 1; }
+
+/* the specks seen in view v (stage rect), camera c (the map holds them shifted by the camera's parity) */
 static void specks_view(const world *w, const vrect *v, const camera *c)
 {
     uint16_t *m = rs_bg_map(RS_BG3);
@@ -447,13 +456,15 @@ static void specks_view(const world *w, const vrect *v, const camera *c)
     int size = c->zq >= 192 * 256 ? 2 : c->zq >= 115 * 256 ? 1 : 0;
     int32_t hw = (v->w / 2 + 4) * FX * 256 / (c->zq >> 8), hh = (v->h / 2 + 4) * FX * 256 / (c->zq >> 8);
     int vcx = v->x + v->w / 2, vcy = v->y + v->h / 2;
+    int ccx = zpx(c->x, c->zq), ccy = zpx(c->y, c->zq), ox = ccx & 1, oy = ccy & 1;
     for (int i = 0; i < PLANKTON_N; i++) {
         const speck *k = &w->sp[i];
         if (!k->on) continue;
         int32_t dx = k->x * FX - c->x, dy = k->y * FX - c->y;
         if (dx > hw || dx < -hw || dy > hh || dy < -hh) continue;
-        int sx = vcx + to_screen(k->x * FX, c->x, c->zq) - 1, sy = vcy + to_screen(k->y * FX, c->y, c->zq) - 1;
-        if (sx < v->x || sy < v->y || sx + 3 > v->x + v->w || sy + 3 > v->y + v->h) continue;
+        /* rounded like the floor's scroll: the speck's place on the layer minus the camera's */
+        int sx = vcx + zpx(k->x * FX, c->zq) - ccx - 1 + ox, sy = vcy + zpx(k->y * FX, c->zq) - ccy - 1 + oy;
+        if (sx < v->x || sy < v->y || sx + 4 > v->x + v->w || sy + 4 > v->y + v->h) continue;
         int mx = (sx & mask) >> 3, my = (sy >> 3) & 31;
         uint16_t *e = &m[my * mw + mx];
         if (*e) continue;
@@ -506,13 +517,14 @@ static uint32_t hash_str(uint32_t h, const char *s, int x, int y)
     return h;
 }
 
-typedef struct ptext { int x, y; char s[48]; } ptext;
+typedef struct ptext { int x, y, box; char s[48]; } ptext;
 
 static void add_text(ptext *t, int *n, int x, int y, const char *s)
 {
     if (*n >= 24) return;
     t[*n].x = x;
     t[*n].y = y;
+    t[*n].box = 0;
     snprintf(t[*n].s, sizeof t[*n].s, "%s", s);
     (*n)++;
 }
@@ -573,16 +585,47 @@ static void play_texts(const world *w, int state, const vrect *v, int nv, int pa
             rs_strf(s, sizeof s, TR(EATEN_BY), nm);
             add_centred(t, &n, v[p].x, v[p].w, row, s);
         } else if (w->msg_top[p] > 0) {
-            add_centred(t, &n, v[p].x, v[p].w, fdiv8(v[p].y) + 5, TR(BIGGEST));
+            /* 1 player: under the leaderboard's spaced rows (lb_lines; clear of its row 5 and whole when it is tall) */
+            int row = w->players == 1 ? LB_SOLO_FREE_ROW + 1 : fdiv8(v[p].y) + 5;
+            add_centred(t, &n, v[p].x, v[p].w, row, TR(BIGGEST));
         }
     }
-    if (w->players == 1 && w->t < HINT_FRAMES && state == ST_PLAY) add_centred(t, &n, 0, RS_SCREEN_W, 27, TR(HINT));
+    if (w->players == 1 && w->t < HINT_FRAMES && state == ST_PLAY && n < 24) {
+        add_centred(t, &n, 0, RS_SCREEN_W, 27, TR(HINT));
+        t[n - 1].box = 1;                       /* on a panel: readable over the fish and the urchins */
+    }
     uint32_t h = 2166136261u + (uint32_t)paused;
-    for (int i = 0; i < n; i++) h = hash_str(h, t[i].s, t[i].x, t[i].y);
+    for (int i = 0; i < n; i++) h = hash_str(h, t[i].s, t[i].x, t[i].y + t[i].box * 64);
     if (h == shown_text) return;
     shown_text = h;
     hu_clear();
-    for (int i = 0; i < n; i++) hu_text(t[i].x, t[i].y, t[i].s);
+    for (int i = 0; i < n; i++) {
+        if (!t[i].box) {
+            hu_text(t[i].x, t[i].y, t[i].s);
+            continue;
+        }
+        /* a navy panel round the line (the row above it too when the text is tall: accents, CJK) */
+        int tw = hu_width(t[i].s, 0), pad = tw + 4 <= 40 ? 2 : 1, top = t[i].y - (hu_tall(t[i].s) ? 2 : 1);
+        hu_panel(t[i].x - pad, top, tw + 2 * pad, t[i].y + 2 - top);
+        hu_box_text(t[i].x, t[i].y, t[i].s);
+    }
+}
+
+/* the leaderboard's rows on BG1 drawn with a gap under each (BG1's line scroll maps the screen lines to the layer's
+ * rows, the gaps to its blank row 31): 1 player rows 1-7 (the top 5, a free row, my rank) from line 8; 2-4 players
+ * rows 24-28 from line 190, down to the bottom */
+static void lb_lines(int multi)
+{
+    int r0 = multi ? 24 : 1, n = multi ? 5 : 7, y0 = multi ? 190 : 8;
+    int top = multi ? 184 : 8, end = multi ? RS_SCREEN_H : LB_SOLO_FREE_ROW * 8;
+    for (int y = 0; y < RS_SCREEN_H; y++) {
+        int ly = y;
+        if (y >= top && y < end) {
+            int k = (y - y0) / (8 + LB_GAP), off = (y - y0) % (8 + LB_GAP);
+            ly = y < y0 || k >= n || off >= 8 ? 31 * 8 + (y & 7) : (r0 + k) * 8 + off;
+        }
+        lb_dy[y] = (int16_t)(ly - y);
+    }
 }
 
 /* the BG screens of the title and the panels */
@@ -706,7 +749,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             if (!paused) shown_text = 0;
         }
         if (!paused) play_texts(w, state, v, nv, paused);
+        lb_lines(multi);
+        rs_bg_line_scroll(RS_BG1, NULL, lb_dy);
     } else {
+        rs_bg_line_scroll(RS_BG1, NULL, NULL);
         screen_text(w, state, st_t, best, new_best, &rs);
     }
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
@@ -722,6 +768,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         /* one full view, no viewports: the kit's sprites are in stage coordinates */
         const camera *c = (state == ST_PLAY || state == ST_DEAD) ? &cam[0] : &cam[CAM_SOLO];
         specks_view(w, &v[0], c);
+        rs_bg_scroll(RS_BG3, speck_ofs_x(c), speck_ofs_y(c));
         vline_set(&VL[0], &v[0], c, 1);
         sview s = {v[0].x, v[0].y, v[0].w, v[0].h, c->x, c->y, c->zq, SPR_BUDGET_1};
         if (state == ST_PLAY || state == ST_DEAD) {
@@ -762,6 +809,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         hu_view_oam_begin(q);
         int p = i < w->players ? i : -1;
         const camera *c = p >= 0 ? &cam[p] : &mapcam;
+        q->sx[RS_BG3] = (int16_t)(q->sx[RS_BG3] + speck_ofs_x(c));    /* the specks' 1-px steps (specks_view) */
+        q->sy[RS_BG3] = (int16_t)(q->sy[RS_BG3] + speck_ofs_y(c));
         sview s = {0, 0, v[i].w, v[i].h, c->x, c->y, c->zq, budget};
         if (p >= 0) {
             if (w->own[p].alive) {
@@ -812,7 +861,7 @@ void draw_state_loaded(void)
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(cam); S(VL); S(VP); S(views_on); S(rim_col); S(ray_dx); S(shown_key); S(shown_best); S(shown_text); S(text_paused);
+    S(cam); S(VL); S(VP); S(views_on); S(rim_col); S(ray_dx); S(lb_dy); S(shown_key); S(shown_best); S(shown_text); S(text_paused);
     S(bubs); S(last_fx_t);
     RS_STATE_RASTER(raster);
 }

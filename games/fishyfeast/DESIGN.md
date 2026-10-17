@@ -118,7 +118,7 @@ needs to **zoom**:
 |---|---|---|
 | backdrop | the pond's stone rim colour (a gradient by line, the house 2-line dither); outside the rim it is fogged into deep water (`rs_fog` outside window 2) | - |
 | BG4 | the pond floor (muted teal sand, pebbles, weed tufts seen from above, shells): the **affine layer** (Mode-7-like), a 64x64-tile texture that repeats, **scaled by the camera's zoom**, its matrix and scroll set per view by the raster callback; hidden outside the pond (window 1, computed per line and per view from the rounded rectangle) | the camera |
-| BG3 | the plankton specks: a **screen-space map rewritten every frame** (each visible speck becomes a dot tile at its place on a 2-px grid; 3 sizes by the zoom; 3 colours by palette), so hundreds of specks cost no sprites | the camera |
+| BG3 | the plankton specks: a **screen-space map rewritten every frame** (each visible speck becomes a dot tile at its place on a 2-px grid, the layer scrolled by the camera's pixel parity so that they move with the floor 1 px at a time; 3 sizes by the zoom; 3 colours by palette), so hundreds of specks cost no sprites | the camera |
 | BG2 | the light rays: soft bands at the house slope 1/2, **added** to what is below (colour math), drifting and swaying (line scroll); not in the quarters of 3-4 players (the A20's budget) | drift |
 | BG1 | the house UI kit: the logo, the title's lines, the leaderboard, ranks and messages, the panels, PAUSED | fixed |
 | OBJ | the fish (players OBJ 0, 1, 4, 5; bots in the B ramps of those and OBJ 6, 7), pellets, urchins, bubbles, markers and the touch controls (OBJ 2), the kit's digits, glyphs and medals (OBJ 3) | |
@@ -128,8 +128,9 @@ that **steps** out as the fish grows (10 steps from 1 to 0.22, eased over about 
 back in), also to keep all its pieces in view and so that the biggest fish in sight fits the biggest sprite. The floor
 is the affine layer, so it scales smoothly. **Sprites do not scale**: a fish is drawn in the **size tier** nearest its
 radius on screen: 3, 5, 7, 9, 12, 15, 19 and 24 px are single sprites (the small ones with a tail-flick frame); the
-**big tiers, 30 and 40 px, are built from parts**: the body's four quarters (one quarter, mirrored four ways), the
-face (eye, cheek, mouth), the tail and a highlight, 7 sprites. Urchins come in 5 tiers, pellets in 3. Plankton is on
+**big tiers, 30 and 40 px, are built from parts**: the body's four quarters (a top and a bottom one, each mirrored
+left-right: lit from above, the small fish's bands level), the face (eye, cheek, mouth, side fin), the tail and a
+highlight, 7 sprites. Urchins come in 5 tiers, pellets in 3. Plankton is on
 BG3. Bigger fish are drawn in front (the order of the OAM), the urchins between the fish lighter and heavier than
 them, so a small fish hides under the spikes; a view keeps its sprite budget (116 for one view, 58 for halves, 29 for
 quarters: 128 in all) and always draws its own fish first. Every fish has two body ramps (A, B) in the same palette
@@ -145,7 +146,8 @@ place); 2 players side by side (159 x 240 at 320); 3 and 4 players in quarters (
 `rs_viewport` with its own scroll, sprites and raster state (the floor's matrix, the pond's windows); its fish's mass
 in big digits at its top with its fish icon, its rank under it (#3), EATEN BY ...! in it when it is out. The quarters
 start one zoom step out and aim the fish at 13 px so they stay readable. The leaderboard: the 5 heaviest fish (and
-your rank if you are not in it) at the top right in 1 player; at the bottom right of the screen in split screen.
+your rank if you are not in it) at the top right in 1 player; at the bottom right of the screen in split screen; its
+rows 2 px apart (BG1's line scroll maps the screen lines to the layer's rows, the gaps to a blank row).
 While paused, a band across the views shows PAUSED.
 
 **Widescreen** (docs/spec.md "Widescreen"): the game opts in (`max_width`, `WIDESCREEN_fishyfeast = 1`). A wider screen
@@ -157,7 +159,8 @@ same drag at 320, 427, 520 and 560 and compares the runs.
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the pond going on behind it with the bots, a goldfish bobbing, the player slots, PRESS A TO SWIM with
 the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, Start, the d-pad; a tap) -> play (the
-mass at the top, the leaderboard, A: SPLIT - B: EJECT for the first 5 s; BIGGEST FISH! when you become the heaviest;
+mass at the top, the leaderboard, A: SPLIT - B: EJECT on a panel at the bottom for the first 5 s; BIGGEST FISH!
+when you become the heaviest (1 player: under the leaderboard, above your fish);
 Select, or Start, pauses) -> eaten (a shake, EATEN BY BUBBLES!; in split screen the others swim on and the eaten
 player's view watches the pond) -> game over 1.5 s after the last player is out (the banner, the panel sliding up:
 SCORE = the biggest mass reached, best / new best, the medal, EATEN BY ...!; 2-4 players: the ranking by biggest mass
@@ -202,7 +205,7 @@ fins, eyes and the bots' B ramps stay.
 
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The fish: a round
-body (4 shades, light from the top-left; the big ones a round cushion with a highlight), a big eye with a glint, a
+body (4 shades, light from the top-left; the big ones lit from straight above, with a highlight), a big eye with a glint, a
 pink cheek, a tiny mouth, pale fins (a fanned, notched tail with darker rays; a side fin), a 1-px outline (navy, or
 the player's ring); tiers of 3 to 40 px; a tail flick when swimming. The bots' colours: pink, mint, lavender, sky,
 lemon, coral, teal, orchid. The urchins: a purple ball with a sleepy little face and pale-tipped spikes. Pellets: a
