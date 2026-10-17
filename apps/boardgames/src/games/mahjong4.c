@@ -26,6 +26,7 @@
 #include "cards_table.h"
 #include "games/mahjong4.h"
 #include "games/mjtiles.h"
+#include "pages.h"
 #include "shell.h"
 
 _Static_assert((int)M4_BAMBOO == MJ_BAMBOO && (int)M4_CHARS == MJ_CHARS && (int)M4_WINDS == MJ_WINDS &&
@@ -674,9 +675,9 @@ static void draw_middle(void)
     }
     int over = p->phase == MP_OVER;            /* over: the last round's */
     draw_tile(M4_WINDS + ((p->wind - over) & 3), T.cx - 0.75f * W, T.cy - 0.95f * W, 0.95f * W, 0, 0);
-    ui_number(T.cx + 0.55f * W, T.cy - 0.95f * W, 0.62f * W, over ? M4_P : p->dealer + 1, 1);   /* the hand */
+    ui_number(T.cx + 0.55f * W, T.cy - 0.95f * W, 0.62f * W, over ? M4_P : p->dealer + 1, TH.dark);   /* the hand */
     for (int i = 0; i < 3; i++) ui_die_at(T.cx + (i - 1) * 0.85f * W, T.cy + 0.25f * W, die, p->dealer, p->dice[i], 1);
-    if (!deal_pending) ui_number(T.cx, T.cy + 1.15f * W, 0.6f * W, m4_live(p), 1);
+    if (!deal_pending) ui_number(T.cx, T.cy + 1.15f * W, 0.6f * W, m4_live(p), TH.dark);   /* (the table's ink) */
 }
 
 /* the hand over: the winning hand set by set, its faan; each player's points and total. in_card: the game over, the
