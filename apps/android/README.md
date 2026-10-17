@@ -138,7 +138,8 @@ Two kinds of games:
 | Moth Around | hold the left / right half = turn one way / the other around the lantern | app |
 | Nutty Branch | hold the left / right half to steer; swipe up to jump (keep the finger down for the higher jump) | game |
 | Pogo Mamie | hold the left / right half to steer; swipe up = the big bounce (it arms the next landing; a small cue shows it) | game |
-| Mole Marbles | the mole walks at its normal speed to your finger's x; a quick tap shoots (and sends it there) | game |
+| Mole Marbles | hold the left / right half = Left / Right; the shoot buttons at the sides = A | app |
+| Hamster Havoc | hold the left / right half = Left / Right; the shoot buttons at the sides = A | app |
 | Spider Swing | tap to let go of the web; in flight, hold the left / right half to steer | game |
 
 ## 4b. The review prompt
