@@ -28,9 +28,9 @@ scenario title 60 200
 # in a run: the vacuums out of the dock, kibble eaten, the fish treat
 : > "$O/kittykibble-run.input"
 scenario run 900 500 bot=1 ready=1
-# the game over: the bot runs into a vacuum from 50 points; saved on the panel (from frame 847), then back to the title and a new run
+# the game over: the bot runs into a vacuum from 50 points; saved on the panel (from frame 799), then back to the title and a new run
 : > "$O/kittykibble-over.input"
-scenario over 860 300 bot=1 botstop=50 ready=1 botruns=2 seed=4
+scenario over 815 300 bot=1 botstop=50 ready=1 botruns=2 seed=4
 [ -n "$Q" ] && exit $fail
 # the title's lobby is saved: players join before and after the save, then P1 starts
 printf "20 P2 tap A\n50 P3 tap A\n90 P4 tap A\n110 P3 tap B\n150 tap A\n" > "$O/kittykibble-lobby.input"
@@ -56,7 +56,7 @@ printf "40 tap A\n200 touch 50%% 60%%\n204 move 50%% 50%%\n240 move 60%% 50%%\n3
 scenario touch 220 200
 printf "400 tap SELECT\n520 tap SELECT\n" > "$O/kittykibble-paused.input"
 scenario paused 450 300 bot=1 ready=1
-# saved on the 4-player results (from frame 4034), then back to the title and the next run
+# saved on the 4-player results (from frame 5428), then back to the title and the next run
 : > "$O/kittykibble-results4.input"
-scenario results4 4050 300 bot=4 botstop=60 ready=1 botruns=2 seed=5
+scenario results4 5440 300 bot=4 botstop=60 ready=1 botruns=2 seed=5
 exit $fail

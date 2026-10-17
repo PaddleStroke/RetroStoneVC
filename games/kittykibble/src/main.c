@@ -263,8 +263,8 @@ static void play_update(void)
     if (!W.started) return;                     /* ready=1: the run waits for its first press */
     if (st == ST_PLAY && !world_running(&W)) go(ST_DEAD);
     if (st == ST_DEAD && world_all_out(&W)) {
-        int t = 0;
-        for (int p = 0; p < W.players; p++) if (W.k[p].t > t) t = W.k[p].t;
+        int t = PANEL_DELAY;                    /* the time since the LAST kitten went out (2-4 players: not the first) */
+        for (int p = 0; p < W.players; p++) if (W.k[p].t < t) t = W.k[p].t;
         if (t >= PANEL_DELAY) game_over();
     }
 }

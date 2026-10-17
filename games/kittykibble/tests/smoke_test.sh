@@ -54,6 +54,16 @@ else ko "the turn buffer: $(echo "$out" | grep state:)"; fi
 out=$(run --frames 3000 --opt bot=1 --opt botstop=50)
 check "one catch: game over" "state: st=3 .*runs=1 ks=2 " "$out"
 f=$(over_frame "$out")
+c1=$(echo "$out" | sed -n 's/.*caught at frame \([0-9]*\).*/\1/p' | tail -n 1)
+gap1=$(( ${f:-0} - ${c1:-0} ))
+# 2 players: the panel waits as long after the LAST kitten is caught (the hit-stop, the spin, PANEL_DELAY), not
+# counted from the first one out (it came at once when the spin ended)
+out2=$(run --frames 8000 --opt bot=2 --opt botstop=60 --opt ready=1 --opt seed=5)
+c2=$(echo "$out2" | sed -n 's/.*caught at frame \([0-9]*\).*/\1/p' | tail -n 1)
+f2=$(over_frame "$out2")
+if [ -n "$c2" ] && [ -n "$f2" ] && [ $((f2 - c2)) -eq "$gap1" ]; then
+    ok "2 players: the panel comes $gap1 frames after the last catch, as with one"
+else ko "2 players: the panel $((${f2:-0} - ${c2:-0})) frames after the last catch (1 player: $gap1)"; fi
 [ -n "$f" ] || { ko "the bot run did not end"; f=2000; }
 printf "%d tap A\n" $((f + 50)) > "$T/retry.input"
 out=$(run --frames $((f + 60)) --opt bot=1 --opt botstop=50 --input "$T/retry.input")
