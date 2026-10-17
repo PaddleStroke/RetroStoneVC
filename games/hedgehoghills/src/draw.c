@@ -28,8 +28,35 @@ uint16_t draw_hills_entry(int row,int col) {
     col&=draw_wide()?127:63;
     return col<64?gm_hills_map[row*64+col]:(uint16_t)(gm_hills_map[row*64+127-col]^RS_MAP_HFLIP);
 }
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): BG2's scroll this frame, for the
+ * raster's lines past the stage (set by draw_frame before every picture: not saved) */
+static int tall_sx,tall_sy;
+static rs_color tall_scale(rs_color c,int k) {   /* darker by k/256, rounded (soft steps) */
+    return RS_RGB(((c&31)*k+128)/256,(((c>>5)&31)*k+128)/256,(((c>>10)&31)*k+128)/256);
+}
+/* The lines past the stage (a tall screen, the single view): above, the sky carried on (its top colour, deeper toward
+ * the screen's top), the layers hidden; below, the earth: BG2's rows 30 and 31 (the terrain's soil, frost included,
+ * terrain() fills them on a tall screen) repeated, the UI hidden. Line 0 puts the stage's settings back (a 240-line
+ * screen: the same values, so the same pixels). */
+static void raster_out(int line) {
+    int top=rs_screen_top();
+    if(line==top) for(int l=0;l<3;l++) rs_bg_enable(l,0);
+    if(line==RS_SCREEN_H) { rs_bg_enable(RS_BG1,0); rs_bg_enable(RS_BG2,1); rs_bg_enable(RS_BG3,1); }
+    if(line<0) {
+        int k=top<0?-line*64/-top:0;
+        rs_pal_set(0,tall_scale(line_col[(line&4)?4:0],256-k));
+    } else {
+        rs_pal_set(0,line_col[(line&4)?RS_SCREEN_H-1:RS_SCREEN_H-5]);
+        rs_bg_scroll(RS_BG2,tall_sx,(RS_SCREEN_H+((line-RS_SCREEN_H)&15)-line)&255);
+    }
+}
 static void raster(int line,void *user) {
     (void)user;
+    if(line<0||line>=RS_SCREEN_H) { raster_out(line); return; }
+    if(line==0 && rs_viewport_current()<0) {
+        for(int l=0;l<3;l++) rs_bg_enable(l,1);
+        rs_bg_scroll(RS_BG2,tall_sx,tall_sy);
+    }
     if(!draw_split_raster(line)) rs_pal_set(0,line_col[line]);
 }
 void draw_scenery_colors(int scroll,int height,rs_color *sky,rs_color *soil,rs_color *hills) {
@@ -127,6 +154,7 @@ int draw_iced(int color) {
  * Widescreen: as many columns as the screen has (70 at 560); the frost's tiles after the last column's. */
 static void terrain(const world *w) {
     int cols=(rs_screen_width()+7)/8,frost_base=16+8*(cols+1>42?cols+1:42);
+    int rows=rs_screen_height()>RS_SCREEN_H?32:30;   /* a tall screen: rows 30 and 31 too (the earth below the stage) */
     int frost_tile=0,front=(int)(w->frost/Q16_ONE);
     for(int c=0;c<cols;c++) {
         int floors[8],lo=1000,hi=-1000;
@@ -146,11 +174,12 @@ static void terrain(const world *w) {
             edge[(r-first)*64+y*8+x]=(uint8_t)val;
         }
         rs_tiles_load8(VR_BG2+16+c*8,edge,8);
-        for(int r=0;r<30;r++) {
+        for(int r=0;r<rows;r++) {
             int tile=r<first?0:r<=last?16+c*8+r-first:((r+c/3)%5==0?2:(r+c)%3==0?3:1);
             if(r>last) {
                 int wx=cam_x+c*8;
                 if(front-wx-7+48-8>=96) tile+=3;
+                else if(r>=30) { if(front-wx-4>0) tile+=3; }   /* (tall: no frost tile taken from the stage's) */
                 else if(front-wx+48+8>0 && frost_tile<256) {
                     uint8_t pix[64];
                     for(int y=0;y<8;y++) for(int x=0;x<8;x++) {
@@ -167,7 +196,7 @@ static void terrain(const world *w) {
 }
 static void spr(int id,int x,int y,int prio,int pal) {
     const gm_sprite_def *d=&gm_spr[id];
-    if(x<=rs_screen_left()-(int)d->w||x>=rs_screen_right()||y<=-(int)d->h||y>=240) return;
+    if(x<=rs_screen_left()-(int)d->w||x>=rs_screen_right()||y<=rs_screen_top()-(int)d->h||y>=rs_screen_bottom()) return;
     rs_spr(x,y,d->tile,d->w,d->h,pal>=0?pal:d->pal,prio,0);
 }
 int draw_player_pal(int p) { return p?hu_player_pal(p):0; }
@@ -227,6 +256,7 @@ static void screen_text(const world *w,int state,int st_t,int best,int new_best,
 }
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused) {
     static const int medals[4]=MEDAL_SCORES;
+    for(int l=0;l<3;l++) rs_bg_enable(l,1);   /* (a tall screen: the raster hid them past the stage) */
     if(w->players>1 && (state==ST_PLAY || state==ST_DEAD)) {
         draw_split_frame(w,st_t,paused);
         shown_state=shown_best=-1;
@@ -242,6 +272,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     cam_x=w->scroll-draw_wide_left(rs_screen_width());   /* widescreen: a third of the extra width behind */
     scenery(w); terrain(w); distant_hills(w);
     int sx=hu_shake_x(),sy=hu_shake_y();
+    tall_sx=-sx; tall_sy=-sy;   /* (for the raster's line 0 on a tall screen) */
     rs_bg_scroll(RS_BG2,-sx,-sy);
     hu_standing rank; standing(w,&rank);
     screen_text(w,state,st_t,best,new_best,&rank);

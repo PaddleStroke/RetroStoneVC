@@ -100,3 +100,14 @@ too) the ground behind the starting line.
   again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
   `make hedgehoghills-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
   (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`; the 240 lines of the stage are the same
+pixels, centred, and the run is the same. The raster draws the lines past the stage (draw.c `raster_out`): above, the
+sky carried on (its top colour, deeper toward the screen's top), every layer hidden there; below, the earth: on a tall
+screen terrain() fills BG2's rows 30 and 31 too (the soil's texture and the frost, as below any hill), and those 16
+lines repeat down to the screen's bottom, the UI hidden there. Line 0 puts the stage's layers and BG2's scroll back
+(draw_frame turns the layers on again each frame, for the split screens), so a 240-line screen is unchanged. Sprites
+are drawn wherever the screen shows them. Multiplayer (split.c): the views stay on the stage (the divider's
+dark green past it).

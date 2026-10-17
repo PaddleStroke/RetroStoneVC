@@ -5,3 +5,5 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.draw_p1_x      tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
 draw.cam_x          the single view's camera: the world's scroll less the third on the left, set every frame before use
+draw.tall_sx        a tall screen: BG2's scroll, set by draw_frame before every picture (the raster's line 0)
+draw.tall_sy        ... the same
