@@ -1,18 +1,15 @@
 Briscola
 # Tavoite
-Voita tikit, joissa ovat arvokkaimmat kortit: pisteitä on yhteensä 120, ja 61 voittaa. 2 pelaajalle, tai 4 pelaajalle kahtena parina, parit vastakkain (norsunluu ja punainen vastaan eebenpuu ja jade); kukaan ei näe muiden kortteja.
+Voita tikit, joissa ovat arvokkaimmat kortit: pisteitä on yhteensä 120, ja 61 voittaa. 2 pelaajalle, tai 4 pelaajalle kahtena parina, parit vastakkain.
 # Kortit
-Italialainen 40 kortin pakka neljässä maassa: kolikot (denari), maljat (coppe), miekat (spade) ja nuijat (bastoni). Korkeimmasta matalimpaan: ässä, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Tässä fante on sotilas, cavallo ratsu ja re kuningas.
+Italialainen 40 kortin pakka. Korkeimmasta matalimpaan: ässä, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Tässä fante on sotilas, cavallo ratsu ja re kuningas.
 # Jako
-Jokainen saa 3 korttia. Seuraava kortti käännetään: se on briscola, ja sen maa on valtti koko pelin ajan. Se on poikittain pakan alla ja nostetaan viimeisenä.
+Jokainen saa 3 korttia. Seuraava kortti käännetään: se on briscola, ja sen maa on valtti. Se nostetaan viimeisenä.
 # Pelaaminen
-- Norsunluu avaa ensimmäisen tikin. Vuorollaan kukin pelaa minkä tahansa kortin: maata ei koskaan tarvitse tunnustaa.
+- Vuorollaan kukin pelaa minkä tahansa kortin: maata ei koskaan tarvitse tunnustaa.
 - Suurin valtti voittaa tikin; jos valttia ei ole, voittaa avatun maan suurin kortti.
-- Voittaja ottaa tikin. Niin kauan kuin pakkaa riittää, kukin nostaa sitten kortin, voittaja ensin.
-- Voittaja avaa seuraavan tikin.
+- Niin kauan kuin pakkaa riittää, kukin nostaa sitten kortin, voittaja ensin. Voittaja avaa seuraavan tikin.
 # Pisteet
-Kun kaikki kortit on pelattu, kumpikin puoli laskee tikkiensä kortit: ässä 11 pistettä, kolmonen 10, re 4, cavallo 3, fante 2, muut kortit eivät mitään.
+Ässä 11 pistettä, kolmonen 10, re 4, cavallo 3, fante 2, muut kortit eivät mitään.
 # Pelin loppu
 Peli on yksi jako. Puoli, jolla on 61 pistettä tai enemmän, voittaa; 60–60 on tasapeli.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee kätensä alhaalla. Pelaajien nappulat ovat keskustan ympärillä, parisi vastapäätä sinua, ja jokainen pelattu kortti on pelaajansa nappulan edessä. Pakka on vasemmassa alakulmassa ja briscola poikittain sen alla; kun se on nostettu, sen maa jää näkyviin sen paikalle. Napauta korttia, jotta se nousee, ja napauta sitä sitten uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi edellisen tikin. Jokainen palkki näyttää, montako korttia puoli on ottanut. Lopuksi taulukko näyttää kummankin puolen pisteitä tuovat kortit ja sen pisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia sen jälkeen, kun laite on annettu eteenpäin.

@@ -1,22 +1,19 @@
 Euchre
 # O objetivo
-Duas duplas de parceiros sentados frente a frente: marfim e vermelho contra ébano e jade. A dupla que escolhe o trunfo tem de fazer pelo menos três das cinco vazas. Vence a primeira dupla a chegar a 10 pontos. Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+Duas duplas de parceiros. A dupla que escolhe o trunfo tem de fazer pelo menos três das cinco vazas.
 # A distribuição
-O baralho tem 24 cartas: 9, 10, valete, dama, rei e ás de cada naipe. Cada jogador recebe 5 cartas. As quatro cartas que sobram formam a reserva; a de cima é virada para cima. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar a cada rodada.
+O baralho tem 24 cartas, do 9 ao ás. Cada jogador recebe 5 cartas; das quatro que sobram, a de cima é virada para cima.
 # Escolha do trunfo
-- Primeira volta, começando à esquerda de quem deu as cartas: cada jogador pode mandar quem deu pegar a carta virada (order up). O naipe dela se torna trunfo; quem deu põe a carta na mão e descarta uma carta, virada para baixo. Ou o jogador passa.
-- Segunda volta, se os quatro passaram: a carta é virada para baixo, e cada um na sua vez pode escolher outro naipe como trunfo, ou passar.
-- Quem deu não escapa (stick the dealer): na segunda volta, quem deu as cartas não pode passar; tem de escolher um naipe.
-- Quem escolhe o trunfo pode jogar sozinho: o parceiro baixa as cartas e fica fora da rodada. Se quem joga sozinho é o parceiro de quem deu as cartas, quem deu fica fora e não pega a carta virada.
+- Primeira volta, começando à esquerda de quem deu as cartas: cada jogador pode mandar quem deu pegar a carta virada (order up), e o naipe dela se torna trunfo; quem deu pega a carta e descarta uma. Ou o jogador passa.
+- Segunda volta: cada um pode escolher outro naipe, ou passar. Quem deu as cartas não pode passar.
+- Quem escolhe o trunfo pode jogar sozinho: o parceiro fica fora da rodada.
 # Os trunfos
-O valete de trunfo é a carta mais alta: o right bower (bower quer dizer valete). Depois vem o outro valete da mesma cor, vermelha ou preta: o left bower; depois o ás, o rei, a dama, o 10 e o 9 de trunfo. O left bower é trunfo, não uma carta do seu próprio naipe. Os outros naipes seguem a ordem ás, rei, dama, valete, 10, 9.
+O valete de trunfo (o right bower) é a carta mais alta; depois vem o outro valete da mesma cor, vermelha ou preta (o left bower, que é trunfo), e depois o ás, o rei, a dama, o 10 e o 9. Os outros naipes seguem a ordem ás, rei, dama, valete, 10, 9.
 # O jogo
-O jogador à esquerda de quem deu as cartas abre (o seguinte, se ele estiver fora). Siga o naipe da saída se puder; senão, jogue qualquer carta. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe da saída. Quem ganha abre a próxima vaza.
+Siga o naipe da saída se puder. O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe da saída.
 # A pontuação
 - Os tomadores (a dupla que escolheu o trunfo) fazem 3 ou 4 vazas: 1 ponto.
-- Os tomadores fazem as 5 vazas, uma march: 2 pontos; se um jogou sozinho: 4 pontos.
-- Os tomadores fazem menos de 3 vazas: levam euchre (são derrotados), e a outra dupla marca 2 pontos.
+- As 5 vazas, uma march: 2 pontos; se um jogou sozinho: 4 pontos.
+- Menos de 3 vazas: os tomadores levam euchre (são derrotados), e a outra dupla marca 2 pontos.
 # O fim da partida
 Vence a primeira dupla a chegar a 10 pontos.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. A reserva fica no centro, com a carta virada por cima. Na primeira volta, toque no sinal de confirmação (ou na carta virada) para mandar pegá-la, ou toque em passar. Na segunda volta, toque num naipe (o da carta virada fica acinzentado) e depois no sinal de confirmação, ou toque em passar; quem deu as cartas não tem botão de passar. Para jogar sozinho, toque antes no botão com a sua ficha e a do seu parceiro riscada. Quem deu as cartas e pegou a carta toca na carta a descartar e depois toca nela de novo ou na reserva. O lugar do tomador mostra o naipe de trunfo, um jogador fora da rodada aparece riscado, e cada lugar mostra as vazas que fez. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Depois de cada rodada, uma tabela mostra as vazas de cada dupla, os pontos da rodada e o total; toque nela para a próxima rodada. Cada barra mostra as cartas na mão e a pontuação da dupla. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.

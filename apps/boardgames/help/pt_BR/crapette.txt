@@ -1,24 +1,18 @@
 Crapette
 # O objetivo
-A paciência de corrida francesa para dois, também chamada Banca Russa. Cada jogador tem o seu próprio baralho de 52 cartas, e os dois montam sobre as mesmas fundações. Seja o primeiro a se livrar de todas as cartas da sua crapette, do seu talão e do seu descarte.
+Uma paciência de corrida para dois: seja o primeiro a esvaziar a sua crapette, o seu talão e o seu descarte.
 # A arrumação
-- Cada jogador arruma o seu baralho: 13 cartas num monte, a crapette, com a de cima virada; 4 cartas viradas numa coluna de casas ao lado do centro; as outras 35 viradas para baixo, o talão. Durante a partida cresce um descarte ao lado do talão.
-- As 8 casas e as 8 fundações do centro são dos dois jogadores.
-- Começa quem tem a carta mais alta na crapette (o ás é baixo, o rei alto); se forem iguais, decidem as cartas das casas.
+- As 8 casas e as 8 fundações do centro são dos dois jogadores. Começa quem tem a carta mais alta na crapette.
 # Mover as cartas
-- Você pode mover a carta de cima da sua crapette (a seguinte é virada na hora), a carta de cima de qualquer casa e a carta que você virou do talão. Nunca uma carta do seu próprio descarte nem dos montes do adversário.
-- Fundações: um ás começa uma, que depois sobe no mesmo naipe até o rei.
-- Casas: desce-se alternando as cores, um 7 vermelho sobre um 8 preto. Uma casa vazia aceita qualquer carta.
-- Carregar: você pode pôr uma carta na crapette ou no descarte do adversário se ela for do mesmo naipe e um valor acima ou abaixo da carta de cima.
+- Você pode mover a carta de cima da sua crapette ou de qualquer casa, e a carta que você virou do talão.
+- Fundações: do ás ao rei no mesmo naipe. Casas: desce-se alternando as cores; uma casa vazia aceita qualquer carta.
+- Carregar: você pode pôr uma carta do mesmo naipe, um valor acima ou abaixo, na crapette ou no descarte do adversário.
 # As prioridades
-- Uma carta que pode ir para uma fundação deve ir para lá antes de tudo, e a carta da sua crapette primeiro.
-- Se a carta da sua crapette pode ser jogada em algum lugar, jogue-a antes de virar uma carta do talão.
-- No resto você é livre: movimentos entre casas, e jogar ou não a carta do talão.
+- Uma carta que pode ir para uma fundação deve ir para lá primeiro, e a carta da sua crapette antes de todas.
+- Depois, se a carta da sua crapette pode ser jogada, jogue-a antes de virar uma carta do talão.
 # O talão
-Vire a carta de cima do seu talão: jogue-a e vire a seguinte, ou ponha-a no seu descarte, o que termina a sua vez. Quando o talão acaba, o descarte é virado e vira um novo talão. Sem talão nem descarte, você passa.
+Vire a carta de cima do seu talão: jogue-a e vire a seguinte, ou ponha-a no seu descarte, o que termina a sua vez. Um talão vazio é refeito com o seu descarte.
 # Crapette!
-Se você não respeitar uma prioridade, o adversário pode gritar “Crapette!” antes de a sua vez acabar. O jogo volta a como estava antes do seu erro, a carta do talão que você tinha virado vai para o seu descarte, e a vez passa para o adversário.
+Se você não respeitar uma prioridade, o adversário pode gritar “Crapette!” com a cruz vermelha na barra dele: o seu erro é desfeito, a carta do talão que você tinha virado vai para o seu descarte, e a sua vez acaba.
 # O fim da partida
-Ganha o primeiro que esvaziar crapette, talão e descarte. Se nada mais puder se mover, ganha quem tiver menos cartas nesses montes.
-# Jogando no aparelho
-A vista gira a cada vez: quem joga fica sempre embaixo, o adversário em frente. O baralho do marfim tem verso verde, o do ébano verso vermelho. Toque numa carta para levantá-la (um ponto marca aonde ela pode ir), depois toque no destino ou arraste-a até lá; toque nela de novo para mandá-la a uma fundação. Toque no talão para virar uma carta e no seu descarte para pôr ali a carta virada. O app não impede um lance que quebra uma prioridade, mas mostra: a carta que devia ser jogada brilha em vermelho, e o botão crapette na barra de quem espera, uma cruz vermelha, acende. Quem espera toca nele para gritar “Crapette!”. Cada barra mostra a carta de cima da crapette e quantas cartas ela tem, depois o talão e o descarte juntos. O botão de passar aparece quando você não tem mais nada a virar. Desfazer cancela o último lance, mas nunca um erro que ainda pode ser cobrado.
+Ganha o primeiro que esvaziar os três montes. Se nada mais puder se mover, ganha quem tiver menos cartas.

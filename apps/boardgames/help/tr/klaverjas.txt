@@ -1,32 +1,28 @@
 Klaverjas
 # Amaç
-Hollanda'nın en sevilen kart oyunu: karşılıklı oturan iki kişilik iki takım, fildişi ve kırmızı, abanoz ve yeşime karşı. Her dağıtımda bir takım kozu seçer ve sonra bütün puanların yarısından fazlasını yapmak zorundadır. Bir parti 16 dağıtımdır; sonunda toplamı yüksek olan kazanır. Kurallar Rotterdam kurallarıdır (Rotterdams): açılan rengi takip edemediğinde her zaman koz atmalısın. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+Karşılıklı oturan iki kişilik iki takım. Her dağıtımda bir takım kozu seçer ve bütün puanların yarısından fazlasını yapmak zorundadır. Kurallar Rotterdam kurallarıdır (Rotterdams).
 # Dağıtım
-Destede 7'den asa kadar, Fransız renklerinde 32 kart vardır. Her oyuncuya 8 kart verilir. İlk yeşim dağıtır; sonra her dağıtımda dağıtan bir kişi kayar. Dağıtandan sonraki oyuncu (voorhand, "ön el") ilk konuşur ve ilk eli her zaman o açar.
+7'den asa kadar 32 kart, her oyuncuya 8. Dağıtandan sonraki oyuncu (voorhand, "ön el") ilk konuşur ve ilk eli açar.
 # Kozlar
-- Voorhand'dan başlayarak masanın çevresinde her oyuncu sırayla bir koz rengi söyler ya da pas der. İlk söyleyen oynar: takımı oyunu yapmak zorundadır.
+- Voorhand'dan başlayarak her oyuncu bir koz rengi söyler ya da pas der. İlk söyleyen oynar: takımı oyunu yapmak zorundadır.
 - Dördü de pas derse voorhand bir renk söylemek zorundadır (verplicht, "zorunlu").
 # Kartların sıralaması
 - Kozlar: vale 20, dokuzlu 14, as 11, onlu 10, papaz 4, kız 3, sekizli, yedili.
 - Diğer renkler: as 11, onlu 10, papaz 4, kız 3, vale 2, dokuzlu, sekizli, yedili.
 - Son el 10 puan daha getirir: toplam 162 puan.
 # Oyun
-- Yapabiliyorsan açılan rengi takip et.
-- Yapamıyorsan, eşin eli alıyor olsa bile koz atmalısın; yapabiliyorsan yerdeki en yüksek kozun üstüne çıkmalısın.
-- Üstüne çıkamıyorsan başka bir renkten kart at; alttan kozlamak yalnızca elinde daha küçük kozlardan başka bir şey yoksa serbesttir.
-- Koz açıldığında, yapabiliyorsan yerdeki en iyi kozdan daha yüksek bir koz at.
-- Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
+- Yapabiliyorsan açılan rengi takip et. Yapamıyorsan, eşin eli alıyor olsa bile koz atmalısın; yapabiliyorsan yerdeki en yüksek kozun üstüne çıkmalısın.
+- Üstüne çıkamıyorsan başka bir renk at; alttan kozla yalnızca elinde daha küçük kozlardan başka bir şey yoksa.
+- Koz açıldığında, yapabiliyorsan yerdeki en iyi kozun üstüne çık.
+- En büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
 # Roem
-Roem (bonus puanlar) her elde, kartlar yerde durduğu haliyle, o eli alan takım için sayılır:
+Her elde, o eli alan takım için bonus puanlar:
 - aynı renkten sıralı üç kart 20, dört 50 (sıra: 7 8 9 10 vale kız papaz as);
 - koz papazı ve koz kızı (stuk) 20, bir diziyle birlikte de;
-- dört as, papaz, kız ya da onlu 100; dört vale 200.
-- Pit (bütün eller): sekiz elin hepsini alan takım 100 roem daha alır.
+- dört as, papaz, kız ya da onlu 100; dört vale 200;
+- pit (sekiz elin hepsi): 100 daha.
 # Puanlama
-- Oynayan takım bütün puanların yarısından fazlasını yapmalıdır: iki takımın kart puanları ve roem'i birlikte.
-- Yaparsa her takım kendi puanını ve roem'ini yazar.
+- Oynayan takım, roem dahil, bütün puanların yarısından fazlasını yapmalıdır; yaparsa her takım kendininkini yazar.
 - Yapamazsa nat ("ıslak") olur: diğer takım her şeyi yazar, 162'yi ve bütün roem'i.
 # Oyunun sonu
-16. dağıtımdan sonra toplamı yüksek olan kazanır. Toplamları eşit olanlar galibiyeti paylaşır.
-# Cihazda oynamak
-Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Kozu söylemek için bir renge, sonra onay işaretine (ya da aynı renge yeniden) dokun; pas demek için pas'a dokun. Dördü de pas dediğinde voorhand'ın pas düğmesi yoktur. Her yerde o oyuncunun pas'ı görünür; sonra kozu söyleyen oyuncunun yerinde rengi görünür. Roem, eli alan oyuncunun yerinden puan olarak yükselir. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her dağıtımdan sonra bir tablo her takım için kart puanlarını (pit'te altın ışıkta), roem'ini, dağıtımın puanını ve toplamı gösterir; oynayan takım nat olduğunda kozu üstü çizili görünür. Altta, 16 dağıtımın listesi oynayan takımın pullarını gösterir; takım oyunu yaptığında altın ışıkta. Sonraki dağıtım için ona dokun. Her şerit eldeki kartları ve takımın toplamını gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.
+16. dağıtımdan sonra toplamı yüksek olan kazanır; toplamları eşit olanlar galibiyeti paylaşır.

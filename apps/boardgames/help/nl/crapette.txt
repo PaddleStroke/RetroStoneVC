@@ -1,24 +1,18 @@
 Crapette
 # Het doel
-Het Franse wedloop-patience voor twee, ook Russische Bank genoemd. Elke speler heeft een eigen spel van 52 kaarten, en beiden bouwen op dezelfde funderingen. Wees de eerste die alle kaarten van zijn crapette, zijn talon en zijn aflegstapel kwijt is.
+Een wedloop-patience voor twee: wees de eerste die zijn crapette, zijn talon en zijn aflegstapel leeg heeft.
 # De opstelling
-- Elke speler legt zijn eigen spel uit: 13 kaarten op een stapel, de crapette, de bovenste open; 4 open kaarten in een kolom huizen naast het midden; de andere 35 dicht, de talon. Tijdens het spel groeit naast de talon een aflegstapel.
-- De 8 huizen en de 8 funderingen in het midden zijn van beide spelers.
-- Wie de hoogste kaart op zijn crapette heeft, begint (de aas is laag, de koning hoog); bij gelijkheid beslissen de kaarten van de huizen.
+- De 8 huizen en de 8 funderingen in het midden zijn van beide spelers. Wie de hoogste kaart op zijn crapette heeft, begint.
 # Kaarten verplaatsen
-- Je mag de bovenste kaart van je crapette verplaatsen (de volgende wordt meteen omgedraaid), de bovenste kaart van elk huis en de kaart die je van je talon hebt omgedraaid. Nooit een kaart van je eigen aflegstapel, en nooit de stapels van je tegenstander.
-- Funderingen: een aas begint er een, die daarna in dezelfde kleur oploopt tot de koning.
-- Huizen: aflopend in afwisselende kleuren, een rode 7 op een zwarte 8. Een leeg huis neemt elke kaart.
-- Laden: je mag een kaart op de crapette of de aflegstapel van je tegenstander leggen als ze van dezelfde kleur is en één rang hoger of lager dan de bovenste kaart.
+- Je mag de bovenste kaart van je crapette of van elk huis verplaatsen, en de kaart die je van je talon hebt omgedraaid.
+- Funderingen: van aas tot koning in dezelfde kleur. Huizen: aflopend in afwisselende kleuren; een leeg huis neemt elke kaart.
+- Laden: je mag een kaart van dezelfde kleur, één rang hoger of lager, op de crapette of de aflegstapel van je tegenstander leggen.
 # De voorrangsregels
-- Een kaart die naar een fundering kan, moet daarheen voor al het andere, en de kaart van je crapette het eerst.
-- Kan de kaart van je crapette ergens gespeeld worden, speel haar dan voordat je een kaart van je talon omdraait.
-- Verder ben je vrij: zetten tussen de huizen, en de talonkaart wel of niet spelen.
+- Een kaart die naar een fundering kan, moet daar eerst heen, en de kaart van je crapette het allereerst.
+- Kan de kaart van je crapette daarna gespeeld worden, speel haar dan voordat je een kaart van je talon omdraait.
 # De talon
-Draai de bovenste kaart van je talon om: speel haar en draai de volgende om, of leg haar op je aflegstapel, waarmee je beurt eindigt. Is je talon op, dan wordt je aflegstapel omgedraaid tot een nieuwe talon. Zonder talon en aflegstapel pas je.
+Draai de bovenste kaart van je talon om: speel haar en draai de volgende om, of leg haar op je aflegstapel, waarmee je beurt eindigt. Een lege talon wordt opnieuw gevormd uit je aflegstapel.
 # Crapette!
-Houd je je niet aan een voorrangsregel, dan mag je tegenstander voor het einde van je beurt „Crapette!” roepen. Het spel gaat terug naar hoe het was voor je fout, de omgedraaide talonkaart gaat naar je aflegstapel en de beurt gaat naar je tegenstander.
+Houd je je niet aan een voorrangsregel, dan mag je tegenstander met het rode kruis in zijn balk „Crapette!” roepen: je fout wordt teruggedraaid, de omgedraaide talonkaart gaat naar je aflegstapel en je beurt eindigt.
 # Het einde van de partij
-Wie als eerste crapette, talon en aflegstapel leeg heeft, wint. Kan er niets meer bewegen, dan wint wie de minste kaarten op die stapels over heeft.
-# Spelen op het apparaat
-Het beeld draait elke beurt: wie aan zet is, zit altijd onderaan, de tegenstander tegenover. Het spel van ivoor heeft groene ruggen, dat van ebben rode. Tik een kaart aan om haar op te tillen (een stip toont waar ze heen mag), tik dan haar bestemming aan of sleep haar erheen; tik haar nog eens aan om haar naar een fundering te sturen. Tik je talon aan om een kaart om te draaien, en je aflegstapel om de omgedraaide kaart erop te leggen. De app verbiedt geen zet die een voorrangsregel breekt, maar toont hem: de kaart die gespeeld had moeten worden gloeit rood, en de crapette-knop in de balk van de wachtende speler, een rood kruis, licht op. De wachtende speler tikt erop om „Crapette!” te roepen. Elke balk toont de bovenste kaart van de crapette en hoeveel kaarten ze heeft, en dan talon en aflegstapel samen. De pasknop verschijnt als je niets meer kunt omdraaien. Ongedaan maken neemt de laatste zet terug, maar nooit een fout die nog geroepen kan worden.
+Wie als eerste alle drie de stapels leeg heeft, wint. Kan er niets meer bewegen, dan wint wie de minste kaarten over heeft.

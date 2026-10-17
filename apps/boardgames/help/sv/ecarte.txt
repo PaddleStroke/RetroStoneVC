@@ -1,19 +1,17 @@
 Écarté
 # Målet
-Bli först till 5 poäng genom att vinna flest av de fem sticken i varje giv. För två spelare som skickar enheten mellan sig; ingen av dem ser den andres kort.
+Bli först till 5 poäng genom att vinna flest av de fem sticken i varje giv.
 # Korten
-32 kort. I varje färg är kungen högst, sedan dam, knekt, ess, 10, 9, 8, 7. Varje spelare får 5 kort och nästa kort vänds upp: dess färg är trumf. Resten är talongen. Man ger varannan gång; den som inte ger är förhand.
+32 kort, från högst: kung, dam, knekt, ess, 10, 9, 8, 7. Varje spelare får 5 kort och nästa kort vänds upp: dess färg är trumf. Den som inte ger är förhand.
 # Kungen
 - En uppvänd kung ger givaren 1.
-- Den som har trumfkungen får 1 före spelet (räknas för honom).
+- Den som har trumfkungen får 1 före spelet.
 # Kortbytet
-Förhand får föreslå att byta kort, eller spela direkt. Givaren säger ja eller nej; vid nej börjar spelet. Vid ja kastar förhand 1 till 5 kort och drar lika många från talongen, sedan får givaren kasta och dra 0 till 5. Därefter får förhand föreslå igen, så länge talongen räcker.
+Förhand får föreslå att byta kort, eller spela direkt. Vid ja byter förhand 1 till 5 kort, sedan givaren 0 till 5, och förhand får föreslå igen. Vid nej börjar spelet.
 # Spelet
-Förhand spelar ut. Du måste bekänna färg och ta sticket om du kan (med ett högre kort i utspelad färg). Kan du inte bekänna färg måste du trumfa om du kan; annars spela valfritt kort. Det högre kortet i utspelad färg vinner, eller trumfen; vinnaren spelar ut till nästa stick.
+Du måste bekänna färg och ta sticket om du kan; annars måste du trumfa om du kan. Det högre kortet i utspelad färg vinner, eller trumfen.
 # Poängen
 - 3 eller 4 stick: 1 poäng. Alla 5 stick (vole): 2 poäng.
-- Om förhand spelade utan att föreslå, eller givaren sa nej till det första förslaget, och den spelaren sedan tar färre än 3 stick, får motståndaren 2.
+- Den som spelade utan att föreslå, eller sa nej till det första förslaget, och sedan tar färre än 3 stick ger motståndaren 2.
 # Partiets slut
-Den som först når 5 poäng vinner, även med en kungpoäng före spelet.
-# Spela på enheten
-Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand längst ner. Talongen och det uppvända kortet ligger till vänster, de kastade korten till höger. För att föreslå trycker du på den lysande talongen; för att spela direkt spelar du ett kort. Givaren trycker på bocken för att säga ja eller på krysset för att säga nej. För att byta trycker du på korten du kastar (de lyfts), och sedan på bocken; de nya korten står lite högre. Talet vid en bricka: korten den spelaren drog. Under spelet är talet vid en bricka de tagna sticken, och en liten trumfkung markerar spelaren som har den. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Varje list visar korten på handen och ställningen. Efter varje giv visar en tavla kungpoängen, sticken, poängen och summan; tryck på den för nästa giv.
+Den som först når 5 poäng vinner, även med en kungpoäng.

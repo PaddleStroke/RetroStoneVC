@@ -1,22 +1,19 @@
 Euchre
 # Tavoite
-Kaksi kahden hengen paria, parit vastakkain: norsunluu ja punainen vastaan eebenpuu ja jade. Valtin valinneen parin on otettava vähintään kolme viidestä tikistä. Ensimmäisenä 10 pisteeseen ehtivä pari voittaa. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Kaksi kahden hengen paria. Valtin valinneen parin on otettava vähintään kolme viidestä tikistä.
 # Jako
-Pakassa on 24 korttia: jokaisesta maasta 9, 10, jätkä, kuningatar, kuningas ja ässä. Jokainen saa 5 korttia. Jäljelle jäävistä neljästä kortista, kittystä, päällimmäinen käännetään kuvapuoli ylöspäin. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaossa yhden paikan eteenpäin.
+Pakassa on 24 korttia, jokaisesta maasta 9:stä ässään. Jokainen saa 5 korttia; jäljelle jäävistä neljästä päällimmäinen käännetään kuvapuoli ylöspäin.
 # Valtin valinta
-- Ensimmäinen kierros jakajan vasemmalta alkaen: jokainen voi tilata käännetyn kortin (order up). Sen maasta tulee valtti, ja jakaja ottaa kortin käteensä ja panee yhden kortin sivuun kuvapuoli alaspäin. Tai pelaaja passaa.
-- Toinen kierros, jos kaikki neljä passasivat: kortti käännetään kuvapuoli alaspäin, ja kukin voi vuorollaan nimetä valtiksi toisen maan tai passata.
-- Jakajan pakko (stick the dealer): toisella kierroksella jakaja ei saa passata; hänen on nimettävä maa.
-- Valtin valitsija voi pelata yksin: hänen parinsa laskee korttinsa pöytään ja jää jaosta sivuun. Jos jakajan pari pelaa yksin, jakaja jää sivuun eikä ota käännettyä korttia.
+- Ensimmäinen kierros jakajan vasemmalta alkaen: jokainen voi tilata käännetyn kortin (order up), jolloin sen maasta tulee valtti; jakaja ottaa kortin ja panee yhden kortin sivuun. Tai pelaaja passaa.
+- Toinen kierros: kukin voi nimetä toisen maan tai passata. Jakaja ei saa passata.
+- Valtin valitsija voi pelata yksin: hänen parinsa jää jaosta sivuun.
 # Valtit
-Valttijätkä on korkein kortti, oikea bower (right bower). Seuraavana tulee samanvärisen maan toinen jätkä, vasen bower (left bower), sitten valttiässä, -kuningas, -kuningatar, 10 ja 9. Vasen bower on valtti, ei oman maansa kortti. Muiden maiden järjestys on ässä, kuningas, kuningatar, jätkä, 10, 9.
+Valttijätkä (oikea bower) on korkein, sitten samanvärisen maan toinen jätkä (vasen bower, joka on valtti), sitten ässä, kuningas, kuningatar, 10 ja 9. Muiden maiden järjestys on ässä, kuningas, kuningatar, jätkä, 10, 9.
 # Pelaaminen
-Jakajan vasemmalla puolella oleva pelaaja avaa (tai seuraava, jos hän on sivussa). Tunnusta maata, jos voit, muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
+Tunnusta maata, jos voit. Korkein valtti voittaa tikin, muuten avatun maan korkein kortti.
 # Pisteet
 - Valtin valinneet ottavat 3 tai 4 tikkiä: 1 piste.
-- He ottavat kaikki 5 tikkiä, march: 2 pistettä; yksin pelattuna: 4 pistettä.
-- He ottavat alle 3 tikkiä: he ovat euchre eli kaatuvat, ja toinen pari saa 2 pistettä.
+- Kaikki 5 tikkiä, march: 2 pistettä; yksin pelattuna: 4 pistettä.
+- Alle 3 tikkiä: he ovat euchre eli kaatuvat, ja toinen pari saa 2 pistettä.
 # Pelin loppu
 Ensimmäisenä 10 pisteeseen ehtivä pari voittaa.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Kitty on keskellä käännetty kortti päällimmäisenä. Ensimmäisellä kierroksella tilaa kortti napauttamalla rastia (tai käännettyä korttia), tai napauta passia. Toisella kierroksella napauta maata (käännetyn kortin maa on harmaana), sitten rastia, tai napauta passia; jakajalla ei ole passipainiketta. Pelataksesi yksin napauta ensin painiketta, jossa on oma merkkisi ja parisi merkki yliviivattuna. Kortin ottanut jakaja napauttaa sivuun pantavaa korttia ja sitten sitä uudelleen tai kittyä. Valtin valinneen paikka näyttää valttimaan, sivussa oleva pelaaja on yliviivattu, ja jokainen paikka näyttää ottamansa tikit. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää kummankin parin tikit, jaon pisteet ja yhteispisteet; napauta sitä seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja parin pisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.

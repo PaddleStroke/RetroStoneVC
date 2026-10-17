@@ -1,32 +1,28 @@
 Klaverjas
 # El objetivo
-El juego de cartas favorito de los Países Bajos: dos equipos de dos compañeros sentados frente a frente, marfil y rojo contra ébano y jade. En cada ronda, un equipo elige el triunfo y después debe hacer más de la mitad de todos los puntos. Una partida tiene 16 rondas; al final gana el total más alto. Las reglas son las de Róterdam (Rotterdams): siempre hay que fallar cuando no se puede servir. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+Dos equipos de dos, compañeros frente a frente. En cada ronda, un equipo elige el triunfo y debe hacer más de la mitad de todos los puntos. Reglas de Róterdam (Rotterdams).
 # El reparto
-La baraja tiene 32 cartas, del 7 al as, con palos franceses. Cada jugador recibe 8 cartas. Reparte primero el jade; después el que reparte avanza un puesto en cada ronda. El jugador que sigue al que reparte (voorhand, «mano») habla primero y siempre sale en la primera baza.
+32 cartas, del 7 al as, 8 por jugador. El jugador que sigue al que reparte (voorhand, «mano») habla primero y sale en la primera baza.
 # Los triunfos
-- Empezando por voorhand y siguiendo alrededor de la mesa, cada jugador por turno nombra un palo de triunfo o pasa. El primero que nombra uno juega: su equipo debe cumplir el juego.
+- Empezando por voorhand, cada jugador nombra un palo de triunfo o pasa. El primero que nombra uno juega: su equipo debe cumplir el juego.
 - Si pasan los cuatro, voorhand tiene que nombrar un palo (verplicht, «obligado»).
 # El orden de las cartas
 - Triunfos: sota 20, nueve 14, as 11, diez 10, rey 4, reina 3, ocho, siete.
 - Los demás palos: as 11, diez 10, rey 4, reina 3, sota 2, nueve, ocho, siete.
 - La última baza vale 10 más: 162 puntos en total.
 # El juego
-- Sirve el palo de salida si puedes.
-- Si no puedes, tienes que fallar, aunque tu compañero vaya ganando la baza, y montar sobre el triunfo más alto que ya esté en ella si puedes.
-- Si no puedes montar, juega una carta de otro palo; solo puedes fallar por debajo cuando no tienes más que triunfos más bajos.
-- Cuando se sale a triunfo, juega un triunfo más alto que el mejor de la baza si puedes.
-- El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
+- Sirve el palo de salida si puedes. Si no puedes, tienes que fallar, aunque tu compañero vaya ganando, y montar sobre el triunfo más alto de la baza si puedes.
+- Si no puedes montar, juega otro palo; falla por debajo solo cuando no tienes más que triunfos más bajos.
+- Cuando se sale a triunfo, monta sobre el mejor triunfo de la baza si puedes.
+- El triunfo más alto gana o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
 # El roem
-El roem (puntos de premio) se cuenta en cada baza tal como queda en la mesa, para el equipo que la gana:
+Puntos de premio en cada baza, para el equipo que la gana:
 - tres cartas seguidas de un palo 20, cuatro 50 (el orden 7, 8, 9, 10, sota, reina, rey, as);
 - el rey y la reina de triunfo (stuk) 20, también junto con una escalera;
-- cuatro ases, reyes, reinas o dieces 100; cuatro sotas 200.
-- Pit (capote): un equipo que gana las ocho bazas recibe 100 de roem más.
+- cuatro ases, reyes, reinas o dieces 100; cuatro sotas 200;
+- pit (capote, las ocho bazas): 100 más.
 # La puntuación
-- El equipo que juega debe hacer más de la mitad de todos los puntos: los puntos de cartas y el roem de los dos equipos juntos.
-- Si lo consigue, cada equipo se anota sus propios puntos y su roem.
+- El equipo que juega debe hacer más de la mitad de todos los puntos, roem incluido; entonces cada equipo se anota los suyos.
 - Si no, queda nat («mojado»): el otro equipo se anota todo, 162 y todo el roem.
 # El final de la partida
-Tras la 16.ª ronda, gana el total más alto. Los totales empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Para nombrar el triunfo, toca un palo y luego la marca de visto (o el mismo palo otra vez); para pasar, toca Paso. Cuando han pasado los cuatro, voorhand no tiene botón Paso. Cada puesto muestra su paso; después, el jugador que nombró el triunfo muestra su palo. El roem sube en puntos desde el puesto del jugador que lo gana. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada ronda, una tabla muestra para cada equipo sus puntos de cartas (con luz dorada si hay pit), su roem, la puntuación de la ronda y el total; el triunfo del equipo que juega aparece tachado cuando queda nat. Debajo, la lista de las 16 rondas muestra las fichas del equipo que juega, con luz dorada cuando cumplió el juego. Tócala para la ronda siguiente. Cada barra muestra las cartas en la mano y el total del equipo. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.
+Tras la 16.ª ronda, gana el total más alto; los totales empatados comparten la victoria.

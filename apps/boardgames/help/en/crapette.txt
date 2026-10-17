@@ -1,24 +1,18 @@
 Crapette
 # The aim
-The French race patience for two, also called Russian Bank. Each player has their own pack of 52 cards, and both build on the same foundations. Be the first to get rid of every card of your crapette, your talon and your waste pile.
+A race patience for two: be the first to empty your crapette, your talon and your waste pile.
 # The layout
-- Each player deals their own pack: 13 cards in a pile, the crapette, its top card face up; 4 cards face up in a column of houses beside the middle; the 35 others face down, the talon. A waste pile grows beside the talon during play.
-- The 8 houses and the 8 foundations in the middle belong to both players.
-- The player whose crapette shows the higher card starts (ace low, king high); if they are equal, the higher house cards decide.
+- The 8 houses and the 8 foundations in the middle are shared. The higher crapette card starts.
 # Moving cards
-- You may move the top card of your crapette (the next one turns up at once), the top card of any house, and the card you turned from your talon. Never a card of your own waste pile, nor of the other player's piles.
-- Foundations: an ace starts one, then each one builds up in suit to the king.
-- Houses: build down in alternating colours, a red 7 on a black 8. An empty house takes any card.
-- Loading: you may put a card on your opponent's crapette or waste pile if it is of the same suit and one rank above or below its top card.
+- You may move the top card of your crapette or of a house, and your turned talon card.
+- Foundations: ace to king in suit. Houses: down in alternating colours; an empty house takes any card.
+- Loading: you may put a card of the same suit, one rank above or below, on your opponent's crapette or waste pile.
 # The priorities
-- A card that can go to a foundation must go there before anything else, and the top card of your crapette first of all.
-- If the top card of your crapette can be played anywhere, play it before you turn a card from your talon.
-- Apart from that you are free: moves between houses, and playing the talon card or not.
+- A card that can go to a foundation must go there first, your crapette's top card first of all.
+- Next, play your crapette's top card if you can, before you turn your talon.
 # The talon
-Turn the top card of your talon: play it and turn the next one, or put it on your waste pile, which ends your turn. When your talon is used up, your waste pile is turned over to make a new one. With no talon and no waste pile left, you pass.
+Turn the top card of your talon: play it and turn the next one, or put it on your waste pile, which ends your turn. An empty talon is remade from your waste pile.
 # Crapette!
-If you break a priority, your opponent may call "Crapette!" before your turn ends. The game goes back to how it was before your mistake, the talon card you had turned goes onto your waste pile, and the turn passes to your opponent.
+If you break a priority, your opponent may call "Crapette!" with the red cross in their bar: your mistake is undone, the talon card you turned goes onto your waste pile, and your turn ends.
 # The end of the game
-The first player to empty their crapette, talon and waste pile wins. If nothing can move any more, the player with fewer cards left in those piles wins.
-# Playing on the device
-The view turns each turn: the player to move always sits at the bottom, the opponent across. Ivory's pack has green backs, ebony's red ones. Tap a card to raise it (the places it may go show a dot), then tap where it goes, or drag it there; tap it again to send it to a foundation. Tap your talon to turn a card, and your waste pile to put the turned card on it. The app does not stop a move that breaks a priority, but it shows it: the card that should have been played glows red, and the crapette button in the waiting player's bar, a red cross, lights up. The waiting player taps it to call "Crapette!". Each bar shows the top card of the crapette and how many cards it holds, then the talon and the waste pile together. The pass button appears when you have nothing left to turn. Undo takes back the last move, but never a mistake that may still be called.
+The first to empty all three piles wins. If nothing can move any more, the player with fewer cards left wins.

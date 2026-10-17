@@ -1,32 +1,28 @@
 Klaverjas
 # O objetivo
-O jogo de cartas preferido dos Países Baixos: duas equipas de dois parceiros sentados frente a frente, marfim e vermelho contra ébano e jade. Em cada ronda, uma equipa escolhe o trunfo e tem depois de fazer mais de metade de todos os pontos. Uma partida tem 16 rondas; no fim, ganha o total mais alto. As regras são as de Roterdão (Rotterdams): quem não pode assistir tem sempre de cortar. Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+Duas equipas de dois parceiros sentados frente a frente. Em cada ronda, uma equipa escolhe o trunfo e tem de fazer mais de metade de todos os pontos. Regras de Roterdão (Rotterdams).
 # A distribuição
-O baralho tem 32 cartas, do 7 ao ás, com naipes franceses. Cada jogador recebe 8 cartas. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar em cada ronda. O jogador a seguir a quem deu as cartas (voorhand, «a mão») fala primeiro e sai sempre na primeira vaza.
+32 cartas, do 7 ao ás, 8 para cada jogador. O jogador a seguir a quem deu as cartas (voorhand, «a mão») fala primeiro e sai na primeira vaza.
 # Os trunfos
-- A partir de voorhand, à volta da mesa, cada jogador, à vez, diz um naipe de trunfo ou passa. O primeiro a dizer um joga: a sua equipa tem de cumprir o jogo.
+- A partir de voorhand, cada jogador diz um naipe de trunfo ou passa. O primeiro a dizer um joga: a sua equipa tem de cumprir o jogo.
 - Se os quatro passarem, voorhand tem de escolher um naipe (verplicht, «obrigado»).
 # A ordem das cartas
 - Trunfos: valete 20, nove 14, ás 11, dez 10, rei 4, dama 3, oito, sete.
 - Os outros naipes: ás 11, dez 10, rei 4, dama 3, valete 2, nove, oito, sete.
 - A última vaza vale mais 10: 162 pontos ao todo.
 # O jogo
-- Assiste ao naipe de saída se puderes.
-- Se não puderes, tens de cortar, mesmo quando o teu parceiro está a ganhar a vaza, e subir acima do trunfo mais alto que já lá esteja, se puderes.
-- Se não puderes subir, joga uma carta de outro naipe; só podes cortar por baixo quando não tens nada além de trunfos mais baixos.
-- Quando se sai em trunfo, joga um trunfo mais alto do que o melhor da vaza, se puderes.
-- O trunfo mais alto ganha a vaza; senão, a carta mais alta do naipe de saída. Quem ganha sai na vaza seguinte.
+- Assiste ao naipe de saída se puderes. Se não puderes, tens de cortar, mesmo quando o teu parceiro está a ganhar, e subir acima do trunfo mais alto da vaza, se puderes.
+- Se não puderes subir, joga outro naipe; corta por baixo só quando não tens nada além de trunfos mais baixos.
+- Quando se sai em trunfo, sobe acima do melhor trunfo da vaza, se puderes.
+- O trunfo mais alto ganha; senão, a carta mais alta do naipe de saída. Quem ganha sai na vaza seguinte.
 # O roem
-O roem (pontos de bónus) conta-se em cada vaza tal como fica na mesa, para a equipa que a ganha:
+Pontos de bónus em cada vaza, para a equipa que a ganha:
 - três cartas seguidas do mesmo naipe 20, quatro 50 (a ordem 7, 8, 9, 10, valete, dama, rei, ás);
 - o rei e a dama de trunfo (stuk) 20, também em conjunto com uma sequência;
-- quatro ases, reis, damas ou dez 100; quatro valetes 200.
-- Pit (capote): uma equipa que faz as oito vazas recebe mais 100 de roem.
+- quatro ases, reis, damas ou dez 100; quatro valetes 200;
+- pit (capote, as oito vazas): mais 100.
 # A pontuação
-- A equipa que joga tem de fazer mais de metade de todos os pontos: os pontos de cartas e o roem das duas equipas juntos.
-- Se conseguir, cada equipa marca os seus próprios pontos e o seu roem.
+- A equipa que joga tem de fazer mais de metade de todos os pontos, roem incluído; então cada equipa marca os seus.
 - Se não, fica nat («molhada»): a outra equipa marca tudo, 162 e todo o roem.
 # O fim do jogo
-Depois da 16.ª ronda, ganha o total mais alto. Totais iguais partilham a vitória.
-# Jogar no dispositivo
-Passa o dispositivo ao jogador cuja peça brilha; ele toca no botão de início e vê a sua mão. Para escolher o trunfo, toca num naipe e depois no sinal de confirmação (ou outra vez no mesmo naipe); para passar, toca em passar. Quando os quatro passaram, voorhand não tem botão de passar. Cada lugar mostra o seu passe; depois, o jogador que escolheu o trunfo mostra o seu naipe. O roem sobe em pontos a partir do lugar do jogador que o ganha. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Depois de cada ronda, uma tabela mostra para cada equipa os pontos de cartas (em luz dourada num pit), o roem, a pontuação da ronda e o total; o trunfo da equipa que joga aparece riscado quando ela fica nat. Por baixo, a lista das 16 rondas mostra as fichas da equipa que joga, em luz dourada quando cumpriu o jogo. Toca nela para a ronda seguinte. Cada barra mostra as cartas na mão e o total da equipa. Anular desfaz uma escolha ainda não confirmada, nunca depois de o dispositivo passar.
+Depois da 16.ª ronda, ganha o total mais alto; totais iguais partilham a vitória.

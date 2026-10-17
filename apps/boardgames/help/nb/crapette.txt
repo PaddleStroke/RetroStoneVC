@@ -1,24 +1,18 @@
 Crapette
 # Målet
-Den franske kappløpskabalen for to, også kalt Russisk bank. Hver spiller har sin egen kortstokk med 52 kort, og begge bygger på de samme grunnbunkene. Bli den første som blir kvitt alle kortene i sin crapette, sin talong og sin kastebunke.
+En kappløpskabal for to: bli den første som har tømt sin crapette, sin talong og sin kastebunke.
 # Oppstillingen
-- Hver spiller legger ut sin egen stokk: 13 kort i en bunke, crapetten, med det øverste snudd opp; 4 kort med billedsiden opp i en kolonne av hus ved siden av midten; de andre 35 med baksiden opp, talongen. Under spillet vokser en kastebunke ved siden av talongen.
-- De 8 husene og de 8 grunnbunkene i midten tilhører begge spillerne.
-- Den som har det høyeste kortet på crapetten, begynner (esset er lavt, kongen høy); ved likhet avgjør husenes kort.
+- De 8 husene og de 8 grunnbunkene i midten tilhører begge spillerne. Den som har det høyeste kortet på crapetten, begynner.
 # Flytte kort
-- Du kan flytte det øverste kortet i crapetten din (det neste snus med en gang), det øverste kortet i hvilket som helst hus og kortet du har snudd fra talongen. Aldri et kort fra din egen kastebunke, og aldri motstanderens bunker.
-- Grunnbunker: et ess starter en, som så bygges oppover i samme farge til kongen.
-- Hus: nedover i vekslende farger, en rød 7 på en svart 8. Et tomt hus tar hvilket som helst kort.
-- Laste: du kan legge et kort på motstanderens crapette eller kastebunke hvis det er i samme farge og én verdi over eller under det øverste kortet.
+- Du kan flytte det øverste kortet i crapetten din eller i hvilket som helst hus, og kortet du har snudd fra talongen.
+- Grunnbunker: fra ess til konge i samme farge. Hus: nedover i vekslende farger; et tomt hus tar hvilket som helst kort.
+- Laste: du kan legge et kort i samme farge, én verdi over eller under, på motstanderens crapette eller kastebunke.
 # Rekkefølgen
-- Et kort som kan gå til en grunnbunke, må dit før alt annet, og kortet i crapetten din aller først.
-- Kan kortet i crapetten din spilles et sted, spiller du det før du snur et kort fra talongen.
-- Ellers er du fri: trekk mellom husene, og om du vil spille talongkortet eller ikke.
+- Et kort som kan gå til en grunnbunke, må dit først, og kortet i crapetten din aller først.
+- Kan kortet i crapetten din deretter spilles, spiller du det før du snur et kort fra talongen.
 # Talongen
-Snu det øverste kortet i talongen: spill det og snu det neste, eller legg det på kastebunken, og turen din er slutt. Når talongen er brukt opp, snus kastebunken og blir en ny talong. Uten talong og kastebunke står du over.
+Snu det øverste kortet i talongen: spill det og snu det neste, eller legg det på kastebunken, og turen din er slutt. En tom talong lages på nytt av kastebunken.
 # Crapette!
-Bryter du rekkefølgen, kan motstanderen rope «Crapette!» før turen din er slutt. Spillet går tilbake til slik det var før feilen din, talongkortet du hadde snudd, havner på kastebunken din, og turen går til motstanderen.
+Bryter du rekkefølgen, kan motstanderen rope «Crapette!» med det røde krysset i linjen sin: feilen din tas tilbake, talongkortet du hadde snudd, havner på kastebunken din, og turen din er slutt.
 # Slutten på spillet
-Den som først har tømt crapette, talong og kastebunke, vinner. Kan ingenting flyttes lenger, vinner den som har færrest kort igjen i de bunkene.
-# Spill på enheten
-Visningen snur seg hver tur: den som står for tur, sitter alltid nederst, motstanderen rett overfor. Elfenbens kortstokk har grønne baksider, ibenholts røde. Trykk på et kort for å løfte det (en prikk viser hvor det kan gå), trykk så der det skal, eller dra det dit; trykk på det igjen for å sende det til en grunnbunke. Trykk på talongen for å snu et kort, og på kastebunken for å legge det snudde kortet der. Appen forbyr ikke et trekk som bryter rekkefølgen, men den viser det: kortet som skulle vært spilt, lyser rødt, og crapette-knappen i linjen til spilleren som venter, et rødt kryss, tennes. Spilleren som venter, trykker på den for å rope «Crapette!». Hver linje viser crapettens øverste kort og hvor mange kort den har, så talong og kastebunke sammen. Stå over-knappen dukker opp når du ikke har mer å snu. Angre tar tilbake det siste trekket, men aldri en feil som fortsatt kan ropes.
+Den som først har tømt alle tre bunkene, vinner. Kan ingenting flyttes lenger, vinner den som har færrest kort igjen.

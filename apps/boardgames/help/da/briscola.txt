@@ -1,18 +1,15 @@
 Briscola
 # Målet
-Vind de stik, der rummer de mest værdifulde kort: der er 120 point i alt, og 61 vinder. For 2 spillere, eller 4 i to hold af makkere, der sidder over for hinanden (elfenben og rød mod ibenholt og jade); ingen ser de andres kort.
+Vind de stik, der rummer de mest værdifulde kort: der er 120 point i alt, og 61 vinder. For 2 spillere, eller 4 i to hold af makkere, der sidder over for hinanden.
 # Kortene
-Det italienske spil med 40 kort i fire kulører: mønter (denari), bægre (coppe), sværd (spade) og køller (bastoni). Fra højeste til laveste: es, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Her er fante en bonde, cavallo en springer og re en konge.
+Det italienske spil med 40 kort. Fra højeste til laveste: es, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Her er fante en bonde, cavallo en springer og re en konge.
 # Kortgivningen
-Hver spiller får 3 kort. Det næste kort vendes: det er briscolaen, og dens kulør er trumf hele spillet. Den ligger på tværs under bunken og er det sidste kort, der trækkes.
+Hver spiller får 3 kort. Det næste kort vendes: det er briscolaen, og dens kulør er trumf. Den er det sidste kort, der trækkes.
 # Spillet
-- Elfenben spiller ud til første stik. På skift spiller hver et vilkårligt kort: man skal aldrig bekende kulør.
+- På skift spiller hver et vilkårligt kort: man skal aldrig bekende kulør.
 - Den højeste trumf vinder stikket; uden trumf vinder det højeste kort i den udspillede kulør.
-- Vinderen tager stikket. Så længe bunken rækker, trækker hver spiller derefter et kort, vinderen først.
-- Vinderen spiller ud til næste stik.
+- Så længe bunken rækker, trækker hver spiller derefter et kort, vinderen først. Vinderen spiller ud til næste stik.
 # Pointene
-Når alle kort er spillet, tæller hvert hold kortene i sine stik: es 11 point, treer 10, re 4, cavallo 3, fante 2, de andre kort intet.
+Es 11 point, treer 10, re 4, cavallo 3, fante 2, de andre kort intet.
 # Spillets afslutning
 Et spil er én kortgivning. Holdet med 61 point eller flere vinder; 60 til hver er uafgjort.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd forneden. Spillernes brikker står rundt om midten, din makker over for dig, og hvert spillet kort ligger foran sin spillers brik. Bunken ligger nederst til venstre med briscolaen på tværs nedenunder; når den er trukket, bliver dens kulør stående på pladsen. Tryk på et kort, så det løfter sig, og tryk så på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se sidste stik. Hver bjælke viser, hvor mange kort holdet har taget. Til sidst viser en tabel hvert holds tællende kort og dets point. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.

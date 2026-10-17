@@ -1,24 +1,18 @@
 Crapette
 # Cel gry
-Francuski pasjans wyścigowy dla dwóch osób, zwany też Rosyjskim bankiem. Każdy gracz ma własną talię 52 kart, a obaj budują na tych samych stosach bazowych. Pozbądź się jako pierwszy wszystkich kart swojej crapette, swojego talonu i swojego stosu odrzuconych kart.
+Pasjans wyścigowy dla dwóch osób: jako pierwszy opróżnij swoją crapette, swój talon i swój stos odrzuconych kart.
 # Rozkład
-- Każdy rozkłada własną talię: 13 kart w stos, crapette, z wierzchnią kartą odkrytą; 4 odkryte karty w kolumnę domów obok środka; pozostałe 35 zakryte, talon. W trakcie gry obok talonu rośnie stos odrzuconych kart.
-- 8 domów i 8 stosów bazowych na środku należy do obu graczy.
-- Zaczyna ten, czyja crapette pokazuje wyższą kartę (as jest nisko, król wysoko); przy remisie decydują karty domów.
+- 8 domów i 8 stosów bazowych na środku należy do obu graczy. Zaczyna ten, czyja crapette pokazuje wyższą kartę.
 # Przekładanie kart
-- Możesz przełożyć wierzchnią kartę swojej crapette (następna od razu się odkrywa), wierzchnią kartę dowolnego domu i kartę odkrytą z talonu. Nigdy karty z własnego stosu odrzuconych ani ze stosów przeciwnika.
-- Stosy bazowe: as zaczyna stos, który rośnie potem w tym samym kolorze aż do króla.
-- Domy: w dół na przemian czerwona i czarna, czerwona 7 na czarną 8. Pusty dom przyjmie każdą kartę.
-- Ładowanie: możesz położyć kartę na crapette lub stos odrzuconych przeciwnika, jeśli jest w tym samym kolorze i o jedną wartość wyższa lub niższa od wierzchniej karty.
+- Możesz przełożyć wierzchnią kartę swojej crapette lub dowolnego domu i kartę odkrytą z talonu.
+- Stosy bazowe: od asa do króla w tym samym kolorze. Domy: w dół na przemian czerwona i czarna; pusty dom przyjmie każdą kartę.
+- Ładowanie: możesz położyć kartę w tym samym kolorze, o jedną wartość wyższą lub niższą, na crapette lub stos odrzuconych przeciwnika.
 # Pierwszeństwo
-- Karta, która może trafić na stos bazowy, musi tam trafić przed wszystkim innym, a karta twojej crapette najpierw.
-- Jeśli kartę twojej crapette można gdzieś zagrać, zagraj ją, zanim odkryjesz kartę z talonu.
-- Poza tym masz swobodę: ruchy między domami oraz zagranie karty z talonu lub nie.
+- Karta, która może trafić na stos bazowy, musi tam trafić najpierw, a karta twojej crapette przed wszystkimi.
+- Potem, jeśli kartę twojej crapette można zagrać, zagraj ją, zanim odkryjesz kartę z talonu.
 # Talon
-Odkryj wierzchnią kartę talonu: zagraj ją i odkryj następną albo połóż ją na stos odrzuconych, co kończy twoją turę. Gdy talon się skończy, stos odrzuconych odwraca się i staje się nowym talonem. Bez talonu i stosu odrzuconych pasujesz.
+Odkryj wierzchnią kartę talonu: zagraj ją i odkryj następną albo połóż ją na stos odrzuconych, co kończy twoją turę. Pusty talon tworzy się na nowo ze stosu odrzuconych.
 # Crapette!
-Jeśli złamiesz pierwszeństwo, przeciwnik może zawołać „Crapette!” przed końcem twojej tury. Gra wraca do stanu sprzed twojego błędu, odkryta karta z talonu idzie na twój stos odrzuconych, a tura przechodzi do przeciwnika.
+Jeśli złamiesz pierwszeństwo, przeciwnik może zawołać „Crapette!” czerwonym krzyżykiem na swoim pasku: twój błąd zostaje cofnięty, odkryta karta z talonu idzie na twój stos odrzuconych, a twoja tura się kończy.
 # Koniec gry
-Wygrywa ten, kto pierwszy opróżni crapette, talon i stos odrzuconych. Jeśli nic już nie może się ruszyć, wygrywa ten, komu w tych stosach zostało mniej kart.
-# Gra na urządzeniu
-Widok obraca się co turę: gracz, który ma ruch, zawsze siedzi na dole, przeciwnik naprzeciwko. Talia gracza kości słoniowej ma zielone rewersy, hebanowego czerwone. Dotknij karty, aby ją unieść (kropka pokazuje, gdzie może iść), potem dotknij celu albo przeciągnij ją tam; dotknij jej ponownie, by wysłać ją na stos bazowy. Dotknij talonu, by odkryć kartę, a stosu odrzuconych, by położyć tam odkrytą kartę. Aplikacja nie zabrania ruchu łamiącego pierwszeństwo, ale go pokazuje: karta, która powinna zostać zagrana, świeci na czerwono, a przycisk crapette na pasku czekającego gracza, czerwony krzyżyk, zapala się. Czekający gracz dotyka go, by zawołać „Crapette!”. Każdy pasek pokazuje wierzchnią kartę crapette i liczbę jej kart, a potem talon i stos odrzuconych razem. Przycisk pasowania pojawia się, gdy nie masz już nic do odkrycia. Cofnij wycofuje ostatni ruch, ale nigdy błędu, który można jeszcze zgłosić.
+Wygrywa ten, kto pierwszy opróżni wszystkie trzy stosy. Jeśli nic już nie może się ruszyć, wygrywa ten, komu zostało mniej kart.

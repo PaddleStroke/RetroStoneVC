@@ -1,8 +1,8 @@
 Klaverjas
 # Das Ziel
-Das Lieblingskartenspiel der Niederländer: zwei Teams aus je zwei Partnern, die einander gegenübersitzen, Elfenbein und Rot gegen Ebenholz und Jade. In jeder Runde wählt ein Team Trumpf und muss dann mehr als die Hälfte aller Punkte machen. Eine Partie hat 16 Runden; am Ende gewinnt die höhere Summe. Es gelten die Rotterdamer Regeln (Rotterdams): Wer nicht bedienen kann, muss immer trumpfen. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+Zwei Teams aus je zwei Partnern, die einander gegenübersitzen. In jeder Runde wählt ein Team Trumpf und muss mehr als die Hälfte aller Punkte machen. Es gelten die Rotterdamer Regeln (Rotterdams).
 # Das Geben
-Gespielt wird mit 32 Karten, von der 7 bis zum Ass, mit französischen Farben. Jeder Spieler bekommt 8 Karten. Jade gibt zuerst; danach rückt der Geber mit jeder Runde einen Platz weiter. Der Spieler nach dem Geber (voorhand, die Vorhand) spricht zuerst und spielt immer zum ersten Stich aus.
+32 Karten, von der 7 bis zum Ass, 8 für jeden Spieler. Der Spieler nach dem Geber (voorhand, die Vorhand) spricht zuerst und spielt zum ersten Stich aus.
 # Die Trümpfe
 - Von voorhand aus nennt reihum jeder Spieler eine Trumpffarbe oder passt. Wer als Erster eine nennt, spielt: Sein Team muss das Spiel gewinnen.
 - Passen alle vier, muss voorhand eine Farbe nennen (verplicht, „Pflicht“).
@@ -11,22 +11,18 @@ Gespielt wird mit 32 Karten, von der 7 bis zum Ass, mit französischen Farben. J
 - Die anderen Farben: Ass 11, Zehn 10, König 4, Dame 3, Bube 2, Neun, Acht, Sieben.
 - Der letzte Stich zählt 10 extra: zusammen 162 Punkte.
 # Das Spiel
-- Bediene die ausgespielte Farbe, wenn du kannst.
-- Kannst du nicht, musst du trumpfen, auch wenn dein Partner den Stich gerade gewinnt, und den höchsten Trumpf im Stich überstechen, wenn du kannst.
-- Kannst du nicht überstechen, spiel eine Karte einer anderen Farbe; untertrumpfen darfst du nur, wenn du nichts als niedrigere Trümpfe hast.
-- Wird Trumpf ausgespielt, spiel einen höheren Trumpf als den besten im Stich, wenn du kannst.
-- Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
+- Bediene, wenn du kannst. Kannst du nicht, musst du trumpfen, auch wenn dein Partner den Stich gewinnt, und den höchsten Trumpf im Stich überstechen, wenn du kannst.
+- Kannst du nicht überstechen, spiel eine andere Farbe; untertrumpfen nur, wenn du nichts als niedrigere Trümpfe hast.
+- Wird Trumpf ausgespielt, überstich den besten Trumpf im Stich, wenn du kannst.
+- Der höchste Trumpf gewinnt, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
 # Roem
-Roem (Bonuspunkte) wird in jedem Stich gezählt, so wie er liegt, für das Team, das den Stich gewinnt:
+Bonuspunkte in jedem Stich, für das Team, das ihn gewinnt:
 - drei Karten in Folge in einer Farbe 20, vier 50 (die Reihenfolge 7 8 9 10 B D K A);
 - Trumpfkönig und Trumpfdame (stuk) 20, auch zusammen mit einer Folge;
-- vier Asse, Könige, Damen oder Zehnen 100; vier Buben 200.
-- Pit: Ein Team, das alle acht Stiche macht, bekommt 100 Roem extra.
+- vier Asse, Könige, Damen oder Zehnen 100; vier Buben 200;
+- Pit (alle acht Stiche): 100 extra.
 # Die Wertung
-- Das spielende Team muss mehr als die Hälfte aller Punkte machen: Kartenpunkte und Roem beider Teams zusammen.
-- Gelingt das, schreibt jedes Team seine eigenen Punkte und seinen Roem.
+- Das spielende Team muss mehr als die Hälfte aller Punkte machen, Roem mitgezählt; dann schreibt jedes Team seine eigenen.
 - Sonst ist es nat („nass“, also durchgefallen): Das andere Team schreibt alles, 162 und den ganzen Roem.
 # Das Ende der Partie
-Nach der 16. Runde gewinnt die höhere Summe. Bei gleicher Summe teilen sich die Teams den Sieg.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Um Trumpf zu nennen, tippe auf eine Farbe, dann auf den Haken (oder noch einmal auf dieselbe Farbe); zum Passen tippe auf Passe. Haben alle vier gepasst, hat voorhand keinen Passe-Knopf. Jeder Platz zeigt sein Passe; dann zeigt der Platz des Spielers, der Trumpf genannt hat, seine Farbe. Roem steigt als Punkte vom Platz des Spielers auf, der den Stich gewinnt. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jeder Runde zeigt eine Tafel für jedes Team seine Kartenpunkte (in goldenem Licht bei pit), seinen Roem, die Punkte der Runde und die Summe; die Trümpfe des spielenden Teams sind durchgestrichen, wenn es nat ist. Darunter zeigt die Liste der 16 Runden die Steine des spielenden Teams, in goldenem Licht, wenn es das Spiel gewonnen hat. Tippe darauf für die nächste Runde. Jede Leiste zeigt die Karten auf der Hand und die Summe des Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.
+Nach der 16. Runde gewinnt die höhere Summe; bei gleicher Summe teilen sich die Teams den Sieg.

@@ -1,22 +1,19 @@
 Euchre
 # Cel gry
-Dwie pary partnerów siedzących naprzeciw siebie: kość słoniowa i czerwony przeciw hebanowi i nefrytowi. Para, która wybiera atut, musi wziąć co najmniej trzy z pięciu lew. Wygrywa para, która pierwsza dojdzie do 10 punktów. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+Dwie pary partnerów. Para, która wybiera atut, musi wziąć co najmniej trzy z pięciu lew.
 # Rozdanie
-Talia ma 24 karty: 9, 10, walet, dama, król i as w każdym kolorze. Każdy gracz dostaje 5 kart. Z czterech pozostałych kart, musiku, wierzchnią się odkrywa. Pierwszy rozdaje nefryt; potem rozdający przesuwa się o jedno miejsce w każdym rozdaniu.
+Talia ma 24 karty, od 9 do asa. Każdy gracz dostaje 5 kart; z czterech pozostałych wierzchnią się odkrywa.
 # Wybór atutu
-- Pierwsza runda, od gracza na lewo od rozdającego: każdy może zamówić odkrytą kartę (order up). Jej kolor zostaje atutem, a rozdający bierze tę kartę do ręki i odkłada jedną kartę, zakrytą. Albo gracz pasuje.
-- Druga runda, jeśli wszyscy czterej spasowali: kartę się zakrywa, a każdy po kolei może wskazać inny kolor jako atut albo spasować.
-- Przymus rozdającego (stick the dealer): w drugiej rundzie rozdający nie może spasować; musi wskazać kolor.
-- Gracz, który wybiera atut, może grać w pojedynkę: jego partner odkłada karty i nie bierze udziału w rozdaniu. Jeśli w pojedynkę gra partner rozdającego, to rozdający pauzuje i nie bierze odkrytej karty.
+- Pierwsza runda, od gracza na lewo od rozdającego: każdy może zamówić odkrytą kartę (order up), a jej kolor zostaje atutem; rozdający bierze tę kartę i odkłada jedną kartę. Albo gracz pasuje.
+- Druga runda: każdy może wskazać inny kolor albo spasować. Rozdający nie może spasować.
+- Gracz, który wybiera atut, może grać w pojedynkę: jego partner nie bierze udziału w rozdaniu.
 # Atuty
-Walet atutowy jest najwyższą kartą: to prawy bower. Po nim idzie drugi walet tej samej barwy, czerwonej lub czarnej: lewy bower, a potem as, król, dama, 10 i 9 atutowe. Lewy bower jest atutem, a nie kartą swojego koloru. Pozostałe kolory: as, król, dama, walet, 10, 9.
+Walet atutowy (prawy bower) jest najwyższy, po nim drugi walet tej samej barwy, czerwonej lub czarnej (lewy bower, który jest atutem), a potem as, król, dama, 10 i 9. Pozostałe kolory: as, król, dama, walet, 10, 9.
 # Rozgrywka
-Wychodzi gracz na lewo od rozdającego (albo następny, jeśli ten pauzuje). Dokładaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+Dokładaj do koloru wyjścia, jeśli możesz. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia.
 # Punktacja
 - Para, która wybrała atut, bierze 3 lub 4 lewy: 1 punkt.
-- Bierze wszystkie 5 lew, czyli marsz (march): 2 punkty; w pojedynkę: 4 punkty.
-- Bierze mniej niż 3 lewy: dostaje euchre, a druga para zdobywa 2 punkty.
+- Wszystkie 5 lew, czyli marsz (march): 2 punkty; w pojedynkę: 4 punkty.
+- Mniej niż 3 lewy: para dostaje euchre, a druga para zdobywa 2 punkty.
 # Koniec gry
 Wygrywa para, która pierwsza dojdzie do 10 punktów.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Musik leży na środku, z odkrytą kartą na wierzchu. W pierwszej rundzie dotknij znaczka zatwierdzenia (albo odkrytej karty), by ją zamówić, albo dotknij pasu. W drugiej rundzie dotknij koloru (kolor odkrytej karty jest wyszarzony), a potem znaczka zatwierdzenia, albo dotknij pasu; rozdający nie ma przycisku pasowania. Aby grać w pojedynkę, najpierw dotknij przycisku z twoim żetonem i przekreślonym żetonem partnera. Rozdający, który wziął kartę, dotyka karty do odłożenia, a potem jeszcze raz jej albo musiku. Miejsce gracza, który wybrał atut, pokazuje kolor atutowy, pauzujący gracz jest przekreślony, a przy każdym miejscu widać wzięte lewy. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje lewy każdej pary, punkty z rozdania i sumę; dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i wynik pary. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

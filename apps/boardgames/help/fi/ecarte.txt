@@ -1,19 +1,17 @@
 Écarté
 # Tavoite
-Ehdi ensimmäisenä 5 pisteeseen voittamalla useimmat kunkin jaon viidestä tikistä. Kahdelle pelaajalle, jotka antavat laitetta toisilleen; kumpikaan ei näe toisen kortteja.
+Ehdi ensimmäisenä 5 pisteeseen voittamalla useimmat kunkin jaon viidestä tikistä.
 # Kortit
-32 korttia. Jokaisessa maassa kuningas on suurin, sitten rouva, sotilas, ässä, 10, 9, 8, 7. Kumpikin saa 5 korttia ja seuraava kortti käännetään: sen maa on valtti. Loput ovat pakka. Jako vuorottelee; se, joka ei jaa, on etukäsi.
+32 korttia, suurimmasta alkaen: kuningas, rouva, sotilas, ässä, 10, 9, 8, 7. Kumpikin saa 5 korttia ja seuraava kortti käännetään: sen maa on valtti. Se, joka ei jaa, on etukäsi.
 # Kuningas
 - Käännetty kuningas antaa jakajalle 1 pisteen.
-- Valttikuninkaan haltija saa 1 pisteen ennen pelaamista (lasketaan automaattisesti).
+- Valttikuninkaan haltija saa 1 pisteen ennen pelaamista.
 # Vaihto
-Etukäsi voi ehdottaa korttien vaihtoa tai pelata heti. Jakaja hyväksyy tai kieltäytyy; jos hän kieltäytyy, peli alkaa. Jos hän hyväksyy, etukäsi heittää 1–5 korttia ja nostaa yhtä monta pakasta, sitten jakaja voi heittää ja nostaa 0–5. Sitten etukäsi voi ehdottaa uudelleen, niin kauan kuin pakassa on kortteja.
+Etukäsi voi ehdottaa korttien vaihtoa tai pelata heti. Jos jakaja hyväksyy, etukäsi vaihtaa 1–5 korttia, sitten jakaja 0–5, ja etukäsi voi ehdottaa uudelleen. Jos jakaja kieltäytyy, peli alkaa.
 # Pelaaminen
-Etukäsi avaa. Sinun on tunnustettava maata ja voitettava tikki jos voit (avatun maan suuremmalla kortilla). Jos et voi tunnustaa maata, sinun on valtattava jos voit; muuten pelaa mikä tahansa kortti. Avatun maan suurempi kortti tai valtti voittaa; voittaja avaa seuraavan tikin.
+Sinun on tunnustettava maata ja voitettava tikki jos voit; muuten sinun on valtattava jos voit. Avatun maan suurempi kortti tai valtti voittaa.
 # Pisteet
 - 3 tai 4 tikkiä: 1 piste. Kaikki 5 tikkiä (vole): 2 pistettä.
-- Jos etukäsi pelasi ehdottamatta tai jakaja kieltäytyi ensimmäisestä ehdotuksesta, ja tämä pelaaja saa alle 3 tikkiä, vastustaja saa 2.
+- Jos ehdottamatta pelannut tai ensimmäisestä ehdotuksesta kieltäytynyt saa alle 3 tikkiä, vastustaja saa 2.
 # Pelin loppu
-Ensimmäisenä 5 pisteeseen ehtinyt voittaa, vaikka kuninkaan pisteellä ennen pelaamista.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä alhaalla. Pakka ja käännetty kortti ovat vasemmalla, heitetyt kortit oikealla. Ehdota napauttamalla hehkuvaa pakkaa; pelaa heti pelaamalla kortti. Jakaja napauttaa valintamerkkiä hyväksyäkseen tai ristiä kieltäytyäkseen. Vaihda napauttamalla heitettäviä kortteja (ne nousevat), sitten valintamerkkiä; uudet kortit ovat vähän muita korkeammalla. Nappulan vieressä oleva luku: pelaajan nostamat kortit. Pelin aikana nappulan vieressä on otettujen tikkien määrä, ja pieni valttikuningas merkitsee sen haltijaa. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se. Jokainen palkki näyttää kädessä olevat kortit ja pisteet. Jokaisen jaon jälkeen taulukko näyttää kuninkaan pisteen, tikit, pisteet ja yhteissumman; napauta sitä seuraavaa jakoa varten.
+Ensimmäisenä 5 pisteeseen ehtinyt voittaa, vaikka kuninkaan pisteellä.

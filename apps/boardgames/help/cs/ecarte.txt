@@ -1,19 +1,17 @@
 Écarté
 # Cíl hry
-Jako první dosáhnout 5 bodů tím, že v každém rozdání uděláš většinu z pěti štychů. Pro dva hráče, kteří si podávají zařízení; žádný nevidí karty druhého.
+Jako první dosáhnout 5 bodů tím, že v každém rozdání uděláš většinu z pěti štychů.
 # Karty
-32 karet. V každé barvě je nejvyšší král, pak dáma, kluk, eso, 10, 9, 8, 7. Každý hráč dostane 5 karet a další karta se otočí lícem nahoru: její barva jsou trumfy. Zbytek tvoří balíček. Hráči rozdávají střídavě; ten, kdo nerozdává, je forhont.
+32 karet, od nejvyšší: král, dáma, kluk, eso, 10, 9, 8, 7. Každý hráč dostane 5 karet a další karta se otočí lícem nahoru: její barva jsou trumfy. Ten, kdo nerozdává, je forhont.
 # Král
 - Otočený král dává 1 bod rozdávajícímu.
-- Hráč, který drží trumfového krále, získá 1 bod před hrou (započítá se mu sám).
+- Kdo drží trumfového krále, získá 1 bod před hrou.
 # Výměna
-Forhont může navrhnout výměnu karet, nebo hned hrát. Rozdávající přijme, nebo odmítne; když odmítne, začíná hra. Když přijme, forhont odhodí 1 až 5 karet a lízne si stejný počet z balíčku, pak rozdávající může odhodit a líznout si 0 až 5. Pak může forhont navrhnout znovu, dokud balíček vystačí.
+Forhont může navrhnout výměnu karet, nebo hned hrát. Když rozdávající přijme, forhont vymění 1 až 5 karet, pak rozdávající 0 až 5, a forhont může navrhnout znovu. Když odmítne, začíná hra.
 # Hra
-Forhont vynáší. Musíš přiznat barvu a vzít štych, pokud můžeš (vyšší kartou vynesené barvy). Pokud nemůžeš přiznat barvu, musíš zahrát trumf, pokud můžeš; jinak zahraj libovolnou kartu. Štych bere vyšší karta vynesené barvy, nebo trumf; vítěz vynáší do dalšího štychu.
+Musíš přiznat barvu a vzít štych, pokud můžeš; jinak musíš zahrát trumf, pokud můžeš. Štych bere vyšší karta vynesené barvy, nebo trumf.
 # Počítání bodů
 - 3 nebo 4 štychy: 1 bod. Všech 5 štychů (vole): 2 body.
-- Pokud forhont hrál bez návrhu, nebo rozdávající odmítl první návrh, a tento hráč pak udělá méně než 3 štychy, získá soupeř 2.
+- Kdo hrál bez návrhu nebo odmítl první návrh a pak udělá méně než 3 štychy, dá soupeři 2.
 # Konec hry
-Vyhrává hráč, který první dosáhne 5 bodů, i díky bodu za krále před hrou.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku dole. Balíček a otočená karta leží vlevo, odhozené karty vpravo. Pro návrh klepni na svítící balíček; chceš-li hrát hned, zahraj kartu. Rozdávající klepne na fajfku pro přijetí nebo na křížek pro odmítnutí. Pro výměnu klepni na karty, které odhazuješ (zvednou se), a pak na fajfku; nové karty stojí o něco výš. Číslo vedle kamene: kolik karet si ten hráč lízl. Během hry je číslo vedle kamene počet vzatých štychů a malý trumfový král označuje hráče, který ho drží. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji přetáhni. Každá lišta ukazuje karty v ruce a skóre. Po každém rozdání ukáže tabulka bod za krále, štychy, body a součet; klepnutím na ni začne další rozdání.
+Vyhrává hráč, který první dosáhne 5 bodů, i díky bodu za krále.

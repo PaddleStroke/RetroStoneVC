@@ -1,32 +1,28 @@
 Klaverjas
 # Målet
-Nederländernas mest älskade kortspel: två lag med två partner som sitter mittemot varandra, elfenben och rött mot ebenholts och jade. I varje giv väljer ett lag trumf och måste sedan ta mer än hälften av alla poäng. Ett parti har 16 giv; högsta summan i slutet vinner. Reglerna är Rotterdamreglerna (Rotterdams): du måste alltid trumfa när du inte kan bekänna färg. För 4 spelare som skickar enheten runt; ingen ser de andras kort.
+Två lag med två partner som sitter mittemot varandra. I varje giv väljer ett lag trumf och måste ta mer än hälften av alla poäng. Reglerna är Rotterdamreglerna (Rotterdams).
 # Utdelningen
-Leken har 32 kort, 7 till ess, i franska färger. Varje spelare får 8 kort. Jade ger först; sedan flyttar givaren en plats framåt för varje giv. Spelaren efter givaren (voorhand, förhand) talar först och spelar alltid ut till första sticket.
+32 kort, 7 till ess, 8 till varje spelare. Spelaren efter givaren (voorhand, förhand) talar först och spelar ut till första sticket.
 # Trumfen
-- Från voorhand och runt bordet nämner varje spelare i tur och ordning en trumffärg eller passar. Den första som nämner en spelar: hans lag måste vinna spelet.
+- Från voorhand nämner varje spelare en trumffärg eller passar. Den första som nämner en spelar: hans lag måste vinna spelet.
 - Om alla fyra passar måste voorhand nämna en färg (verplicht, tvunget).
 # Kortens ordning
 - Trumf: knekt 20, nia 14, ess 11, tia 10, kung 4, dam 3, åtta, sjua.
 - De andra färgerna: ess 11, tia 10, kung 4, dam 3, knekt 2, nia, åtta, sjua.
 - Sista sticket är värt 10 till: 162 poäng totalt.
 # Spelet
-- Bekänn färg om du kan.
-- Kan du inte måste du trumfa, även när din partner vinner sticket, och gå över den högsta trumfen i sticket om du kan.
-- Kan du inte gå över, spela ett kort i en annan färg; du får bara undertrumfa när du inte har något annat än lägre trumfer.
-- När trumf spelas ut, spela en högre trumf än den bästa i sticket om du kan.
-- Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
+- Bekänn färg om du kan. Kan du inte måste du trumfa, även när din partner vinner sticket, och gå över den högsta trumfen i sticket om du kan.
+- Kan du inte gå över, spela en annan färg; undertrumfa bara när du inte har något annat än lägre trumfer.
+- När trumf spelas ut, gå över den bästa trumfen i sticket om du kan.
+- Högsta trumfen vinner, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
 # Roem
-Roem (bonuspoäng) räknas i varje stick som det ligger, för laget som tar det:
+Bonuspoäng i varje stick, för laget som tar det:
 - tre kort i följd i en färg 20, fyra 50 (ordningen 7 8 9 10 Kn D K E);
 - trumfkung och trumfdam (stuk) 20, även tillsammans med en följd;
-- fyra ess, kungar, damer eller tior 100; fyra knektar 200.
-- Pit: ett lag som tar alla åtta stick får 100 roem till.
+- fyra ess, kungar, damer eller tior 100; fyra knektar 200;
+- pit (alla åtta stick): 100 till.
 # Poängen
-- Det spelande laget måste ta mer än hälften av alla poäng: båda lagens kortpoäng och roem tillsammans.
-- Lyckas det får varje lag sina egna poäng och sin roem.
+- Det spelande laget måste ta mer än hälften av alla poäng, roem inräknad; då får varje lag sina egna.
 - Annars är det nat (blött, alltså bet): det andra laget får allt, 162 och all roem.
 # Partiets slut
-Efter den 16:e given vinner högsta summan. Vid lika summa delar lagen segern.
-# Spela på enheten
-Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. För att nämna trumf trycker du på en färg och sedan på bocken (eller på samma färg igen); för att passa trycker du på pass. När alla fyra har passat har voorhand ingen passknapp. Varje plats visar sitt pass; sedan visar platsen för den som nämnde trumf färgen. Roem stiger upp som poäng från platsen för spelaren som tar sticket. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla för varje lag dess kortpoäng (i guldljus vid pit), dess roem, givens poäng och summan; det spelande lagets trumf är överstruken när det är nat. Under den visar listan över de 16 given det spelande lagets brickor, i guldljus när det vann spelet. Tryck på den för nästa giv. Varje list visar korten på handen och lagets summa. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.
+Efter den 16:e given vinner högsta summan; vid lika summa delar lagen segern.

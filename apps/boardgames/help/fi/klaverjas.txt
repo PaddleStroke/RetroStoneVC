@@ -1,32 +1,28 @@
 Klaverjas
 # Tavoite
-Alankomaiden rakastetuin korttipeli: kaksi kahden hengen paria, parit vastakkain, norsunluu ja punainen vastaan eebenpuu ja jade. Joka jaossa yksi pari valitsee valtin, ja sen on sitten tehtävä yli puolet kaikista pisteistä. Peli on 16 jaon sarja; suurempi yhteispistemäärä lopussa voittaa. Säännöt ovat rotterdamilaiset (Rotterdams): on aina lyötävä valtilla, kun ei voi tunnustaa maata. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Kaksi kahden hengen paria, parit vastakkain. Joka jaossa yksi pari valitsee valtin, ja sen on tehtävä yli puolet kaikista pisteistä. Säännöt ovat rotterdamilaiset (Rotterdams).
 # Jako
-Pakassa on 32 korttia, seiskasta ässään, ranskalaisin main. Jokainen saa 8 korttia. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja (voorhand, "etukäsi") puhuu ensin ja avaa aina ensimmäisen tikin.
+32 korttia, seiskasta ässään, 8 kullekin. Jakajasta seuraava pelaaja (voorhand, "etukäsi") puhuu ensin ja avaa ensimmäisen tikin.
 # Valtit
-- Voorhandista alkaen pöydän ympäri kukin vuorollaan nimeää valttimaan tai passaa. Ensimmäinen nimeäjä pelaa: hänen parinsa on vietävä peli läpi.
+- Voorhandista alkaen kukin nimeää valttimaan tai passaa. Ensimmäinen nimeäjä pelaa: hänen parinsa on vietävä peli läpi.
 - Jos kaikki neljä passaavat, voorhandin on nimettävä maa (verplicht, "pakollinen").
 # Korttien järjestys
 - Valtit: jätkä 20, ysi 14, ässä 11, kymppi 10, kuningas 4, kuningatar 3, kasi, seiska.
 - Muut maat: ässä 11, kymppi 10, kuningas 4, kuningatar 3, jätkä 2, ysi, kasi, seiska.
 - Viimeinen tikki tuo 10 lisäpistettä: yhteensä 162 pistettä.
 # Pelaaminen
-- Tunnusta maata, jos voit.
-- Jos et voi, sinun on lyötävä valtilla, vaikka parisi olisi voittamassa tikkiä, ja ylitettävä tikin korkein valtti, jos voit.
-- Jos et voi ylittää sitä, pelaa toisen maan kortti; alivaltata saat vain, kun sinulla ei ole muuta kuin matalampia valtteja.
-- Kun avataan valtilla, pelaa tikin parasta valttia korkeampi valtti, jos voit.
-- Korkein valtti voittaa tikin, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
+- Tunnusta maata, jos voit. Jos et voi, sinun on lyötävä valtilla, vaikka parisi olisi voittamassa, ja ylitettävä tikin korkein valtti, jos voit.
+- Jos et voi ylittää sitä, pelaa toista maata; alivaltata saat vain, kun sinulla ei ole muuta kuin matalampia valtteja.
+- Kun avataan valtilla, ylitä tikin paras valtti, jos voit.
+- Korkein valtti voittaa, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
 # Roem
-Roem (lisäpisteet) lasketaan jokaisesta tikistä sellaisena kuin se on pöydässä, tikin ottavalle parille:
+Lisäpisteet jokaisesta tikistä, tikin ottavalle parille:
 - kolme peräkkäistä korttia samaa maata 20, neljä 50 (järjestys 7 8 9 10 J Q K A);
 - valttikuningas ja -kuningatar (stuk) 20, myös sarjan lisäksi;
-- neljä ässää, kuningasta, kuningatarta tai kymppiä 100; neljä jätkää 200.
-- Pit (kaikki tikit): pari, joka ottaa kaikki kahdeksan tikkiä, saa 100 roemia lisää.
+- neljä ässää, kuningasta, kuningatarta tai kymppiä 100; neljä jätkää 200;
+- pit (kaikki kahdeksan tikkiä): 100 lisää.
 # Pisteet
-- Pelaavan parin on tehtävä yli puolet kaikista pisteistä: molempien parien korttipisteet ja roem yhteensä.
-- Jos se onnistuu, kumpikin pari saa omat pisteensä ja roeminsa.
+- Pelaavan parin on tehtävä yli puolet kaikista pisteistä, roem mukaan lukien; silloin kumpikin pari saa omansa.
 - Jos ei, pari on nat ("märkä"): toinen pari saa kaiken, 162 ja kaiken roemin.
 # Pelin loppu
-16. jaon jälkeen suurempi yhteispistemäärä voittaa. Tasapisteissä voitto jaetaan.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Nimeä valtti napauttamalla maata ja sitten rastia (tai samaa maata uudelleen); passaa napauttamalla passia. Kun kaikki neljä ovat passanneet, voorhandilla ei ole passipainiketta. Jokainen paikka näyttää passinsa; sitten valtin nimenneen paikka näyttää hänen maansa. Roem nousee pisteinä sen pelaajan paikalta, joka ottaa tikin. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää kummallekin parille sen korttipisteet (pitissä kultaisessa valossa), roemin, jaon pisteet ja yhteispisteet; pelaavan parin valtti on yliviivattu, kun pari on nat. Alla 16 jaon luettelo näyttää pelaavan parin merkit, kultaisessa valossa, kun pari vei pelin läpi. Napauta taulukkoa seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja parin yhteispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.
+16. jaon jälkeen suurempi yhteispistemäärä voittaa; tasapisteissä voitto jaetaan.

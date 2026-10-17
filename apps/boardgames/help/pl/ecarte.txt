@@ -1,19 +1,17 @@
 Écarté
 # Cel gry
-Jako pierwszy zdobyć 5 punktów, biorąc większość z pięciu lew w każdym rozdaniu. Dla dwóch graczy, którzy podają sobie urządzenie; żaden nie widzi kart drugiego.
+Jako pierwszy zdobyć 5 punktów, biorąc większość z pięciu lew w każdym rozdaniu.
 # Karty
-32 karty. W każdym kolorze najwyższy jest król, potem dama, walet, as, 10, 9, 8, 7. Każdy gracz dostaje 5 kart, a następna karta zostaje odkryta: jej kolor jest atutem. Reszta to talia. Gracze rozdają na zmianę; ten, kto nie rozdaje, jest przodkiem.
+32 karty, od najwyższej: król, dama, walet, as, 10, 9, 8, 7. Każdy gracz dostaje 5 kart, a następna karta zostaje odkryta: jej kolor jest atutem. Ten, kto nie rozdaje, jest przodkiem.
 # Król
 - Odkryty król daje 1 punkt rozdającemu.
-- Gracz, który ma króla atutowego, zapisuje 1 punkt przed rozgrywką (liczony za niego).
+- Kto ma króla atutowego, zapisuje 1 punkt przed rozgrywką.
 # Wymiana
-Przodek może zaproponować wymianę kart albo od razu grać. Rozdający przyjmuje albo odmawia; jeśli odmówi, zaczyna się rozgrywka. Jeśli przyjmie, przodek odrzuca od 1 do 5 kart i dobiera tyle samo z talii, potem rozdający może odrzucić i dobrać od 0 do 5. Potem przodek może znów zaproponować, dopóki starczy talii.
+Przodek może zaproponować wymianę kart albo od razu grać. Jeśli rozdający przyjmie, przodek wymienia od 1 do 5 kart, potem rozdający od 0 do 5, a przodek może znów zaproponować. Jeśli odmówi, zaczyna się rozgrywka.
 # Rozgrywka
-Przodek wychodzi. Musisz dołożyć do koloru wyjścia i wziąć lewę, jeśli możesz (wyższą kartą w kolorze wyjścia). Jeśli nie możesz dołożyć do koloru, musisz zagrać atut, jeśli możesz; jeśli nie, zagraj dowolną kartę. Lewę bierze wyższa karta w kolorze wyjścia albo atut; zwycięzca wychodzi do następnej lewy.
+Musisz dołożyć do koloru wyjścia i wziąć lewę, jeśli możesz; inaczej musisz zagrać atut, jeśli możesz. Lewę bierze wyższa karta w kolorze wyjścia albo atut.
 # Punktacja
 - 3 lub 4 lewy: 1 punkt. Wszystkie 5 lew (vole): 2 punkty.
-- Jeśli przodek grał bez propozycji albo rozdający odrzucił pierwszą propozycję, a ten gracz weźmie potem mniej niż 3 lewy, przeciwnik zapisuje 2.
+- Kto grał bez propozycji albo odrzucił pierwszą propozycję, a potem weźmie mniej niż 3 lewy, daje przeciwnikowi 2.
 # Koniec gry
-Wygrywa gracz, który pierwszy dojdzie do 5 punktów, nawet dzięki punktowi za króla przed rozgrywką.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę na dole. Talia i odkryta karta leżą po lewej, odrzucone karty po prawej. Aby zaproponować wymianę, dotknij świecącej talii; aby grać od razu, zagraj kartę. Rozdający dotyka znaczka zatwierdzenia, by przyjąć, albo krzyżyka, by odmówić. Aby wymienić karty, dotknij tych, które odrzucasz (uniosą się), a potem znaczka zatwierdzenia; nowe karty stoją nieco wyżej. Liczba obok pionka: ile kart ten gracz dobrał. W czasie rozgrywki liczba obok pionka to wzięte lewy, a mały król atutowy oznacza gracza, który go ma. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo ją przeciągnij. Każdy pasek pokazuje karty w ręce i wynik. Po każdym rozdaniu tabela pokazuje punkt za króla, lewy, punkty i sumę; dotknij jej, by przejść do następnego rozdania.
+Wygrywa gracz, który pierwszy dojdzie do 5 punktów, nawet dzięki punktowi za króla.

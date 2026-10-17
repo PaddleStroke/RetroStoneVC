@@ -1,18 +1,15 @@
 Briscola
 # Lo scopo
-Vincere le prese che contengono le carte di maggior valore: in tutto ci sono 120 punti, e con 61 si vince. Per 2 giocatori, o per 4 in due coppie sedute una di fronte all'altra (avorio e rosso contro ebano e giada); nessuno vede le carte degli altri.
+Vincere le prese che contengono le carte di maggior valore: in tutto ci sono 120 punti, e con 61 si vince. Per 2 giocatori, o per 4 in due coppie sedute una di fronte all'altra.
 # Le carte
-Il mazzo italiano da 40 carte, in quattro semi: denari, coppe, spade e bastoni. Dalla più forte alla più debole: asso, tre, re, cavallo, fante, 7, 6, 5, 4, 2. Qui il fante è un pedone, il cavallo un cavallo degli scacchi e il re un re.
+Il mazzo italiano da 40 carte. Dalla più forte alla più debole: asso, tre, re, cavallo, fante, 7, 6, 5, 4, 2. Qui il fante è un pedone, il cavallo un cavallo degli scacchi e il re un re.
 # La distribuzione
-Ognuno riceve 3 carte. La carta successiva si scopre: è la briscola, e il suo seme comanda per tutta la partita. Resta di traverso sotto il mazzo ed è l'ultima carta pescata.
+Ognuno riceve 3 carte. La carta successiva si scopre: è la briscola, e il suo seme comanda. Sarà l'ultima carta pescata.
 # Il gioco
-- Avorio è di mano alla prima presa. A turno ognuno gioca una carta qualsiasi: non c'è mai l'obbligo di rispondere al seme.
+- A turno ognuno gioca una carta qualsiasi: non c'è mai l'obbligo di rispondere al seme.
 - Vince la presa la briscola più alta; se non ci sono briscole, la carta più alta del seme giocato per primo.
-- Chi vince prende le carte. Finché c'è il mazzo, ognuno poi pesca una carta, cominciando da chi ha preso.
-- Chi ha preso è di mano alla presa successiva.
+- Finché c'è il mazzo, ognuno poi pesca una carta, cominciando da chi ha preso. Chi ha preso è di mano alla presa successiva.
 # Il punteggio
-Quando tutte le carte sono state giocate, ogni squadra conta le carte delle sue prese: asso 11 punti, tre 10, re 4, cavallo 3, fante 2, le altre carte niente. L'asso e il tre sono i carichi.
+Asso 11 punti, tre 10, re 4, cavallo 3, fante 2, le altre carte niente.
 # La fine della partita
 Una partita è una sola distribuzione. Vince la squadra con 61 punti o più; 60 a 60 è un pareggio.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano in basso. Le pedine dei giocatori stanno intorno al centro, il tuo compagno di fronte a te, e ogni carta giocata si posa davanti alla pedina del suo giocatore. Il mazzo è in basso a sinistra, con la briscola di traverso sotto; quando la briscola è stata pescata, al suo posto resta il simbolo del suo seme. Tocca una carta perché si alzi, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Ogni barra mostra quante carte ha preso la squadra. Alla fine, una tabella mostra le carte che contano di ogni squadra e i suoi punti. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

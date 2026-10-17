@@ -1,19 +1,17 @@
 Écarté
 # O objetivo
-Ser o primeiro a chegar a 5 pontos ganhando a maioria das cinco vazas de cada rodada. Para dois jogadores passando o aparelho; nenhum dos dois vê as cartas do outro.
+Ser o primeiro a chegar a 5 pontos ganhando a maioria das cinco vazas de cada rodada.
 # As cartas
-32 cartas. Em cada naipe o rei é a mais alta, depois dama, valete, ás, 10, 9, 8, 7. Cada jogador recebe 5 cartas e a carta seguinte é virada para cima: o seu naipe é o trunfo. O resto é o monte. Quem dá as cartas se alterna; quem não dá é o primeiro (a mão).
+32 cartas, da mais alta: rei, dama, valete, ás, 10, 9, 8, 7. Cada jogador recebe 5 cartas e a carta seguinte é virada para cima: o seu naipe é o trunfo. Quem não dá as cartas é o primeiro (a mão).
 # O rei
 - Um rei virado vale 1 ponto para quem deu as cartas.
-- O jogador que tem o rei de trunfo marca 1 antes do jogo (contado para ele).
+- Quem tem o rei de trunfo marca 1 antes do jogo.
 # O descarte
-O primeiro pode propor trocar cartas, ou jogar logo. Quem deu as cartas aceita ou recusa; se recusar, o jogo começa. Se aceitar, o primeiro descarta de 1 a 5 cartas e compra o mesmo número do monte, e depois quem deu as cartas pode descartar e comprar de 0 a 5. Depois o primeiro pode propor de novo, enquanto houver cartas no monte.
+O primeiro pode propor trocar cartas, ou jogar logo. Se quem deu as cartas aceitar, o primeiro troca de 1 a 5 cartas, depois quem deu de 0 a 5, e o primeiro pode propor de novo. Se recusar, o jogo começa.
 # O jogo
-O primeiro abre. Você tem de seguir o naipe de saída e ganhar a vaza se puder (com uma carta mais alta do naipe de saída). Se não puder seguir o naipe, tem de jogar trunfo se puder; senão, jogue qualquer carta. A carta mais alta do naipe de saída ganha, ou o trunfo; quem ganha abre a próxima vaza.
+Você tem de seguir o naipe de saída e ganhar a vaza se puder; senão, tem de jogar trunfo se puder. A carta mais alta do naipe de saída ganha, ou o trunfo.
 # A pontuação
 - 3 ou 4 vazas: 1 ponto. Todas as 5 vazas (capote): 2 pontos.
-- Se o primeiro jogou sem propor, ou quem deu as cartas recusou a primeira proposta, e esse jogador depois faz menos de 3 vazas, o adversário marca 2.
+- Quem jogou sem propor, ou recusou a primeira proposta, e depois faz menos de 3 vazas, dá 2 ao adversário.
 # O fim da partida
-Vence quem chegar antes a 5 pontos, mesmo com o ponto do rei antes do jogo.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão embaixo. O monte e a carta virada ficam à esquerda, as cartas descartadas à direita. Para propor, toque no monte que brilha; para jogar logo, jogue uma carta. Quem deu as cartas toca no sinal de confirmação para aceitar ou na cruz para recusar. Para trocar cartas, toque nas que você descarta (elas sobem) e depois no sinal de confirmação; as cartas novas ficam um pouco mais altas. O número ao lado de uma ficha: as cartas que esse jogador comprou. Durante o jogo, o número ao lado de uma ficha são as vazas feitas, e um pequeno rei de trunfo marca o jogador que o tem. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a. Cada barra mostra as cartas na mão e a pontuação. Depois de cada rodada, uma tabela mostra o ponto do rei, as vazas, os pontos e o total; toque nela para a próxima rodada.
+Vence quem chegar antes a 5 pontos, mesmo com o ponto do rei.

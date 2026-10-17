@@ -1,22 +1,19 @@
 Euchre
 # Tujuan
-Dua tim berisi dua rekan yang duduk berhadapan: gading dan merah melawan eboni dan giok. Tim yang memilih truf harus mengambil paling sedikit tiga dari lima trik. Tim pertama yang mencapai 10 poin menang. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+Dua tim berisi dua rekan. Tim yang memilih truf harus mengambil paling sedikit tiga dari lima trik.
 # Pembagian kartu
-Deknya berisi 24 kartu: 9, 10, jack, queen, king, dan as dari setiap jenis. Setiap pemain mendapat 5 kartu. Dari empat kartu sisa (kitty), kartu teratas dibuka. Giok membagi lebih dulu; setelah itu pembagi kartu bergeser satu tempat setiap ronde.
+Deknya berisi 24 kartu, dari 9 sampai as. Setiap pemain mendapat 5 kartu; dari empat kartu sisa, kartu teratas dibuka.
 # Menentukan truf
-- Putaran pertama, mulai dari kiri pembagi: setiap pemain boleh menyuruh pembagi mengambil kartu yang dibuka (order up). Jenisnya menjadi truf, dan pembagi memasukkan kartu itu ke tangannya lalu menyisihkan satu kartu, tertutup. Atau pemain itu pas.
-- Putaran kedua, jika keempatnya pas: kartu itu ditutup, dan setiap pemain bergiliran boleh menyebut jenis lain sebagai truf, atau pas.
-- Pembagi terjepit (stick the dealer): di putaran kedua pembagi tidak boleh pas; ia harus menyebut satu jenis.
-- Pemain yang menentukan truf boleh bermain sendirian: rekannya meletakkan kartunya dan absen di ronde itu. Jika rekan pembagi bermain sendirian, pembagilah yang absen dan ia tidak mengambil kartu yang dibuka.
+- Putaran pertama, mulai dari kiri pembagi: setiap pemain boleh menyuruh pembagi mengambil kartu yang dibuka (order up), dan jenisnya menjadi truf; pembagi mengambil kartu itu lalu menyisihkan satu kartu. Atau pemain itu pas.
+- Putaran kedua: setiap pemain boleh menyebut jenis lain, atau pas. Pembagi tidak boleh pas.
+- Pemain yang menentukan truf boleh bermain sendirian: rekannya absen di ronde itu.
 # Truf
-Jack truf adalah kartu tertinggi, jack kanan (right bower). Berikutnya jack lain yang sewarna (merah atau hitam), jack kiri (left bower), lalu as, king, queen, 10, dan 9 truf. Jack kiri adalah truf, bukan kartu dari jenisnya sendiri. Jenis lainnya berurutan as, king, queen, jack, 10, 9.
+Jack truf (jack kanan) adalah kartu tertinggi, lalu jack lain yang sewarna, merah atau hitam (jack kiri, yang juga truf), lalu as, king, queen, 10, dan 9. Jenis lainnya berurutan as, king, queen, jack, 10, 9.
 # Permainan
-Pemain di kiri pembagi membuka (pemain berikutnya jika ia absen). Ikuti jenis kartu yang dibuka jika bisa; jika tidak, mainkan kartu apa saja. Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka. Pemenang membuka trik berikutnya.
+Ikuti jenis kartu yang dibuka jika bisa. Truf tertinggi memenangkan trik; jika tidak ada truf, kartu tertinggi dari jenis yang dibuka.
 # Skor
 - Tim penentu truf mengambil 3 atau 4 trik: 1 poin.
-- Tim penentu truf mengambil kelima trik, sapu bersih (march): 2 poin; jika sendirian: 4 poin.
-- Tim penentu truf mengambil kurang dari 3 trik: mereka gagal (euchre), dan tim lawan mendapat 2 poin.
+- Kelima trik, sapu bersih (march): 2 poin; jika sendirian: 4 poin.
+- Kurang dari 3 trik: tim penentu truf gagal (euchre), dan tim lawan mendapat 2 poin.
 # Akhir permainan
 Tim pertama yang mencapai 10 poin menang.
-# Bermain di perangkat
-Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Kartu sisa ada di tengah dengan kartu yang dibuka di atasnya. Di putaran pertama, ketuk tanda centang (atau kartu yang dibuka) untuk menyuruh pembagi mengambilnya, atau ketuk pas. Di putaran kedua, ketuk sebuah jenis (jenis kartu yang dibuka berwarna abu-abu), lalu tanda centang, atau ketuk pas; pembagi tidak punya tombol pas. Untuk bermain sendirian, lebih dulu ketuk tombol dengan kepingmu dan keping rekanmu yang dicoret. Pembagi yang mengambil kartu mengetuk kartu yang akan disisihkan, lalu mengetuknya lagi atau mengetuk kartu sisa. Kursi penentu truf menunjukkan jenis truf, pemain yang absen dicoret, dan setiap kursi menunjukkan trik yang sudah diambilnya. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan trik setiap tim, poin ronde itu, dan totalnya; ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan skor tim. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.

@@ -1,19 +1,17 @@
 Écarté
 # Das Ziel
-Als Erster 5 Punkte erreichen, indem du die meisten der fünf Stiche jeder Runde gewinnst. Für zwei Spieler, die das Gerät weiterreichen; keiner sieht die Karten des anderen.
+Als Erster 5 Punkte erreichen, indem du die meisten der fünf Stiche jeder Runde gewinnst.
 # Die Karten
-32 Karten. In jeder Farbe ist der König am höchsten, dann Dame, Bube, Ass, 10, 9, 8, 7. Jeder bekommt 5 Karten, und die nächste Karte wird aufgedeckt: Ihre Farbe ist Trumpf. Der Rest ist der Talon. Das Geben wechselt ab; wer nicht gibt, ist die Vorhand.
+32 Karten, von hoch nach niedrig: König, Dame, Bube, Ass, 10, 9, 8, 7. Jeder bekommt 5 Karten, und die nächste Karte wird aufgedeckt: Ihre Farbe ist Trumpf. Wer nicht gibt, ist die Vorhand.
 # Der König
 - Ein aufgedeckter König bringt dem Geber 1.
-- Wer den Trumpfkönig hält, bekommt 1 vor dem Spiel (für ihn gezählt).
+- Wer den Trumpfkönig hält, bekommt 1 vor dem Spiel.
 # Der Kartentausch
-Die Vorhand kann vorschlagen, Karten zu tauschen, oder sofort spielen. Der Geber nimmt an oder lehnt ab; lehnt er ab, beginnt das Spiel. Nimmt er an, legt die Vorhand 1 bis 5 Karten ab und zieht ebenso viele vom Talon, dann darf der Geber 0 bis 5 Karten ablegen und ziehen. Danach darf die Vorhand erneut vorschlagen, solange der Talon reicht.
+Die Vorhand kann vorschlagen, Karten zu tauschen, oder sofort spielen. Nimmt der Geber an, tauscht die Vorhand 1 bis 5 Karten, dann der Geber 0 bis 5, und die Vorhand darf erneut vorschlagen. Lehnt er ab, beginnt das Spiel.
 # Das Spiel
-Die Vorhand spielt aus. Du musst die ausgespielte Farbe bedienen und den Stich gewinnen, wenn du kannst (mit einer höheren Karte dieser Farbe). Kannst du nicht bedienen, musst du trumpfen, wenn du kannst; sonst spiel eine beliebige Karte. Die höhere Karte der ausgespielten Farbe gewinnt, oder der Trumpf; der Gewinner spielt zum nächsten Stich aus.
+Bediene die ausgespielte Farbe und gewinne den Stich, wenn du kannst; sonst musst du trumpfen, wenn du kannst. Die höhere Karte der ausgespielten Farbe gewinnt, oder der Trumpf.
 # Die Wertung
 - 3 oder 4 Stiche: 1 Punkt. Alle 5 Stiche (die Vole): 2 Punkte.
-- Hat die Vorhand ohne Vorschlag gespielt oder der Geber den ersten Vorschlag abgelehnt, und macht dieser Spieler dann weniger als 3 Stiche, bekommt der Gegner 2.
+- Wer ohne Vorschlag gespielt oder den ersten Vorschlag abgelehnt hat und dann weniger als 3 Stiche macht, gibt dem Gegner 2.
 # Das Ende der Partie
-Wer zuerst 5 Punkte erreicht, gewinnt, auch durch einen Königspunkt vor dem Spiel.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand unten. Talon und aufgedeckte Karte liegen links, die abgelegten Karten rechts. Zum Vorschlagen tippe auf den leuchtenden Talon; um sofort zu spielen, spiel eine Karte. Der Geber tippt auf den Haken, um anzunehmen, oder auf das Kreuz, um abzulehnen. Zum Tauschen tippe die Karten an, die du ablegst (sie heben sich), dann den Haken; die neuen Karten stehen etwas höher. Die Zahl neben einem Stein: die Karten, die dieser Spieler gezogen hat. Während des Spiels ist die Zahl neben einem Stein die Zahl seiner Stiche, und ein kleiner Trumpfkönig markiert den Spieler, der ihn hält. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Jede Leiste zeigt die Karten auf der Hand und den Stand. Nach jeder Runde zeigt eine Tafel den Königspunkt, die Stiche, die Punkte und die Summe; tippe darauf für die nächste Runde.
+Wer zuerst 5 Punkte erreicht, gewinnt, auch durch einen Königspunkt.

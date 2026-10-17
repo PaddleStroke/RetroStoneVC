@@ -1,24 +1,18 @@
 Crapette
 # Tujuan
-Permainan kartu soliter balapan dari Prancis untuk dua orang, disebut juga Bank Rusia. Setiap pemain punya satu dek 52 kartu sendiri, dan keduanya menyusun di fondasi yang sama. Jadilah yang pertama menghabiskan semua kartu crapette, talon, dan tumpukan buanganmu.
+Permainan soliter balapan untuk dua orang: jadilah yang pertama mengosongkan crapette, talon, dan tumpukan buanganmu.
 # Susunan
-- Setiap pemain menata deknya sendiri: 13 kartu dalam satu tumpukan, crapette, kartu teratasnya terbuka; 4 kartu terbuka dalam satu kolom rumah di samping bagian tengah; 35 sisanya tertutup, talon. Selama permainan, tumpukan buangan tumbuh di samping talon.
-- 8 rumah dan 8 fondasi di tengah milik kedua pemain.
-- Yang mulai adalah pemain yang crapette-nya menunjukkan kartu lebih tinggi (as rendah, raja tinggi); jika sama, kartu rumah yang menentukan.
+- 8 rumah dan 8 fondasi di tengah milik kedua pemain. Yang mulai adalah pemain yang crapette-nya menunjukkan kartu lebih tinggi.
 # Memindahkan kartu
-- Kamu boleh memindahkan kartu teratas crapette-mu (kartu berikutnya langsung dibuka), kartu teratas rumah mana pun, dan kartu yang kamu buka dari talon. Tidak pernah kartu dari tumpukan buanganmu sendiri, dan tidak pernah tumpukan lawan.
-- Fondasi: sebuah as memulai satu fondasi, lalu naik dalam jenis yang sama sampai raja.
-- Rumah: turun dengan warna berselang-seling, 7 merah di atas 8 hitam. Rumah kosong menerima kartu apa pun.
-- Memuat: kamu boleh menaruh kartu di crapette atau tumpukan buangan lawan jika jenisnya sama dan nilainya satu di atas atau di bawah kartu teratasnya.
+- Kamu boleh memindahkan kartu teratas crapette-mu atau rumah mana pun, dan kartu yang kamu buka dari talon.
+- Fondasi: dari as sampai raja dalam jenis yang sama. Rumah: turun dengan warna berselang-seling; rumah kosong menerima kartu apa pun.
+- Memuat: kamu boleh menaruh kartu berjenis sama, satu nilai di atas atau di bawah, di crapette atau tumpukan buangan lawan.
 # Prioritas
-- Kartu yang bisa masuk ke fondasi harus ke sana sebelum langkah lain, dan kartu crapette-mu paling dulu.
-- Jika kartu crapette-mu bisa dimainkan di suatu tempat, mainkan sebelum membuka kartu dari talon.
-- Selain itu kamu bebas: langkah antarrumah, dan memainkan kartu talon atau tidak.
+- Kartu yang bisa masuk ke fondasi harus ke sana lebih dulu, dan kartu crapette-mu paling dulu.
+- Lalu, jika kartu crapette-mu bisa dimainkan, mainkan sebelum membuka kartu dari talon.
 # Talon
-Buka kartu teratas talonmu: mainkan lalu buka berikutnya, atau taruh di tumpukan buanganmu, dan giliranmu selesai. Jika talon habis, tumpukan buangan dibalik menjadi talon baru. Tanpa talon dan tumpukan buangan, kamu lewat.
+Buka kartu teratas talonmu: mainkan lalu buka berikutnya, atau taruh di tumpukan buanganmu, dan giliranmu selesai. Talon yang habis dibentuk lagi dari tumpukan buangan.
 # Crapette!
-Jika kamu melanggar prioritas, lawan boleh berseru "Crapette!" sebelum giliranmu selesai. Permainan kembali seperti sebelum kesalahanmu, kartu talon yang sudah kamu buka masuk ke tumpukan buanganmu, dan giliran pindah ke lawan.
+Jika kamu melanggar prioritas, lawan boleh berseru "Crapette!" dengan tanda silang merah di bilahnya: kesalahanmu dibatalkan, kartu talon yang sudah kamu buka masuk ke tumpukan buanganmu, dan giliranmu selesai.
 # Akhir permainan
-Yang pertama mengosongkan crapette, talon, dan tumpukan buangannya menang. Jika tidak ada lagi yang bisa bergerak, yang sisa kartunya di tumpukan itu lebih sedikit yang menang.
-# Bermain di perangkat
-Tampilan berputar setiap giliran: yang sedang jalan selalu duduk di bawah, lawan di seberang. Dek gading berpunggung hijau, dek eboni berpunggung merah. Ketuk sebuah kartu untuk mengangkatnya (titik menandai tempat ia boleh pergi), lalu ketuk tujuannya, atau seret ke sana; ketuk lagi untuk mengirimnya ke fondasi. Ketuk talonmu untuk membuka kartu, dan tumpukan buanganmu untuk menaruh kartu yang dibuka. Aplikasi tidak melarang langkah yang melanggar prioritas, tetapi menunjukkannya: kartu yang seharusnya dimainkan menyala merah, dan tombol crapette di bilah pemain yang menunggu, tanda silang merah, menyala. Pemain yang menunggu mengetuknya untuk berseru "Crapette!". Setiap bilah menunjukkan kartu teratas crapette dan jumlah kartunya, lalu talon dan tumpukan buangan bersama-sama. Tombol lewat muncul jika tidak ada lagi yang bisa kamu buka. Urungkan membatalkan langkah terakhir, tetapi tidak pernah kesalahan yang masih bisa diserukan.
+Yang pertama mengosongkan ketiga tumpukan itu menang. Jika tidak ada lagi yang bisa bergerak, yang sisa kartunya lebih sedikit yang menang.

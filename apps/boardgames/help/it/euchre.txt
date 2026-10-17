@@ -1,22 +1,19 @@
 Euchre
 # Lo scopo
-Due squadre di due compagni seduti uno di fronte all'altro: avorio e rosso contro ebano e giada. La squadra che sceglie la briscola deve fare almeno tre delle cinque prese. Vince la prima squadra che arriva a 10 punti. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Due squadre di due compagni. La squadra che sceglie la briscola deve fare almeno tre delle cinque prese.
 # La distribuzione
-Il mazzo ha 24 carte: 9, 10, fante, donna, re e asso di ogni seme. Ogni giocatore riceve 5 carte. Le quattro carte che avanzano formano il tallone; quella in cima viene girata scoperta. Il primo mazziere è il giada; poi il mazziere avanza di un posto a ogni mano.
+Il mazzo ha 24 carte, dal 9 all'asso. Ogni giocatore riceve 5 carte; delle quattro che avanzano, quella in cima viene girata scoperta.
 # Scegliere la briscola
-- Primo giro, a partire dalla sinistra del mazziere: ogni giocatore può ordinare al mazziere di prendere la carta girata (order up). Il suo seme diventa briscola; il mazziere mette la carta in mano e scarta una carta coperta. Oppure il giocatore passa.
-- Secondo giro, se hanno passato tutti e quattro: la carta viene coperta, e a turno ognuno può nominare un altro seme come briscola, oppure passare.
-- Mazziere obbligato (stick the dealer): al secondo giro il mazziere non può passare; deve nominare un seme.
-- Chi sceglie la briscola può giocare da solo: il suo compagno posa le carte e resta fuori per quella mano. Se gioca da solo il compagno del mazziere, resta fuori il mazziere, che non prende la carta girata.
+- Primo giro, a partire dalla sinistra del mazziere: ogni giocatore può ordinare al mazziere di prendere la carta girata (order up), e il suo seme diventa briscola; il mazziere prende la carta e ne scarta una. Oppure il giocatore passa.
+- Secondo giro: ognuno può nominare un altro seme, oppure passare. Il mazziere non può passare.
+- Chi sceglie la briscola può giocare da solo: il suo compagno resta fuori per quella mano.
 # Le briscole
-Il fante di briscola è la carta più alta: il right bower (bower vuol dire fante). Segue l'altro fante dello stesso colore, rosso o nero: il left bower, poi asso, re, donna, 10 e 9 di briscola. Il left bower è una briscola, non una carta del suo seme. Gli altri semi vanno in quest'ordine: asso, re, donna, fante, 10, 9.
+Il fante di briscola (il right bower) è la carta più alta, poi l'altro fante dello stesso colore, rosso o nero (il left bower, che è briscola), poi asso, re, donna, 10 e 9. Gli altri semi vanno in quest'ordine: asso, re, donna, fante, 10, 9.
 # Il gioco
-Esce il giocatore alla sinistra del mazziere (il successivo se lui resta fuori). Rispondi al seme d'uscita se puoi, altrimenti gioca una carta qualsiasi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
+Rispondi al seme d'uscita se puoi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita.
 # Il punteggio
 - Gli attaccanti (la squadra che ha scelto la briscola) fanno 3 o 4 prese: 1 punto.
-- Gli attaccanti fanno tutte e 5 le prese, una march: 2 punti; se uno gioca da solo: 4 punti.
-- Gli attaccanti fanno meno di 3 prese: sono euchred (battuti), e l'altra squadra segna 2 punti.
+- Tutte e 5 le prese, una march: 2 punti; se uno gioca da solo: 4 punti.
+- Meno di 3 prese: gli attaccanti sono euchred (battuti), e l'altra squadra segna 2 punti.
 # La fine della partita
 Vince la prima squadra che arriva a 10 punti.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Il tallone sta al centro con la carta girata in cima. Al primo giro, tocca il segno di spunta (o la carta girata) per ordinarla, oppure tocca passo. Al secondo giro, tocca un seme (quello della carta girata è grigio), poi il segno di spunta, oppure tocca passo; il mazziere non ha il pulsante passo. Per giocare da solo, tocca prima il pulsante con il tuo gettone e quello del tuo compagno barrato. Il mazziere che ha preso la carta tocca la carta da scartare, poi la tocca di nuovo o tocca il tallone. Il posto dell'attaccante mostra il seme di briscola, un giocatore che resta fuori è barrato, e ogni posto mostra le prese che ha fatto. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni mano una tabella mostra le prese di ogni squadra, i punti della mano e il totale; toccala per la mano successiva. Ogni barra mostra le carte in mano e il punteggio della squadra. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

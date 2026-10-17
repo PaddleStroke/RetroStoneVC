@@ -1,19 +1,17 @@
 Écarté
 # Amaç
-Her dağıtımın beş elinin çoğunu alarak 5 puana ilk ulaşan olmak. Cihazı birbirine veren iki oyuncu için; kimse ötekinin kartlarını görmez.
+Her dağıtımın beş elinin çoğunu alarak 5 puana ilk ulaşan olmak.
 # Kartlar
-32 kart. Her renkte en büyük papaz, sonra kız, vale, as, 10, 9, 8, 7. Herkes 5 kart alır ve sıradaki kart açılır: rengi kozdur. Kalanlar destedir. Dağıtım sırayla değişir; dağıtmayan oyuncu birinci eldir.
+32 kart, büyükten küçüğe: papaz, kız, vale, as, 10, 9, 8, 7. Herkes 5 kart alır ve sıradaki kart açılır: rengi kozdur. Dağıtmayan oyuncu birinci eldir.
 # Papaz
 - Açılan bir papaz dağıtıcıya 1 puan getirir.
-- Koz papazını tutan oyuncu oyundan önce 1 puan alır (kendiliğinden sayılır).
+- Koz papazını tutan oyuncu oyundan önce 1 puan alır.
 # Kart değiştirme
-Birinci el kart değiştirmeyi önerebilir ya da hemen oynayabilir. Dağıtıcı kabul eder ya da reddeder; reddederse oyun başlar. Kabul ederse birinci el 1 ila 5 kart atar ve desteden o kadar çeker, sonra dağıtıcı 0 ila 5 kart atıp çekebilir. Sonra birinci el, destede kart kaldıkça yeniden önerebilir.
+Birinci el kart değiştirmeyi önerebilir ya da hemen oynayabilir. Dağıtıcı kabul ederse birinci el 1 ila 5 kart, sonra dağıtıcı 0 ila 5 kart değiştirir ve birinci el yeniden önerebilir. Reddederse oyun başlar.
 # Oyun
-Birinci el açar. Yapabiliyorsan renge uymalı ve eli almalısın (açılan renkten daha büyük bir kartla). Renge uyamıyorsan, yapabiliyorsan koz atmalısın; yoksa istediğin kartı oyna. Açılan rengin büyük kartı ya da koz kazanır; eli alan sonrakini açar.
+Yapabiliyorsan renge uymalı ve eli almalısın; uyamıyorsan, yapabiliyorsan koz atmalısın. Açılan rengin büyük kartı ya da koz kazanır.
 # Puanlama
 - 3 ya da 4 el: 1 puan. 5 elin hepsi (vole): 2 puan.
-- Birinci el önermeden oynadıysa ya da dağıtıcı ilk öneriyi reddettiyse ve o oyuncu 3'ten az el alırsa, rakip 2 puan alır.
+- Önermeden oynayan ya da ilk öneriyi reddeden oyuncu 3'ten az el alırsa, rakip 2 puan alır.
 # Oyunun sonu
-5 puana ilk ulaşan kazanır, oyundan önceki papaz puanıyla bile.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta görür. Deste ve açılan kart solda, atılan kartlar sağdadır. Önermek için parlayan desteye dokun; hemen oynamak için bir kart oyna. Dağıtıcı kabul için onay işaretine, ret için çarpıya dokunur. Kart değiştirmek için atacağın kartlara dokun (kalkarlar), sonra onay işaretine; yeni kartlar biraz daha yukarıda durur. Bir pulun yanındaki sayı: o oyuncunun çektiği kartlar. Oyun sırasında pulun yanındaki sayı aldığı ellerdir, küçük bir koz papazı da onu tutan oyuncuyu gösterir. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da sürükle. Her şerit eldeki kartları ve puanı gösterir. Her dağıtımdan sonra bir tablo papaz puanını, elleri, puanları ve toplamı gösterir; sonraki dağıtım için ona dokun.
+5 puana ilk ulaşan kazanır, papaz puanıyla bile.

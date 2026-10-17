@@ -1,18 +1,15 @@
 Briscola
 # Le but
-Gagner les plis qui contiennent les cartes qui valent le plus : il y a 120 points en tout, et 61 suffisent pour gagner. Pour 2 joueurs, ou 4 en deux équipes de partenaires assis face à face (ivoire et rouge contre ébène et jade) ; personne ne voit les cartes des autres.
+Gagner les plis qui contiennent les cartes qui valent le plus : il y a 120 points en tout, et 61 suffisent pour gagner. Pour 2 joueurs, ou 4 en deux équipes de partenaires assis face à face.
 # Les cartes
-Le jeu italien de 40 cartes, en quatre couleurs : deniers (denari), coupes (coppe), épées (spade) et bâtons (bastoni). De la plus forte à la plus faible : as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Ici le fante est un pion, le cavallo un cavalier et le re un roi.
+Le jeu italien de 40 cartes. De la plus forte à la plus faible : as, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Ici le fante est un pion, le cavallo un cavalier et le re un roi.
 # La donne
-Chacun reçoit 3 cartes. La carte suivante est retournée : c'est la briscola, et sa couleur est l'atout pour toute la partie. Elle est posée en travers sous le talon et sera la dernière carte piochée.
+Chacun reçoit 3 cartes. La carte suivante est retournée : c'est la briscola, et sa couleur est l'atout. Ce sera la dernière carte piochée.
 # Le jeu
-- Ivoire entame le premier pli. Chacun à son tour joue la carte de son choix : on n'est jamais obligé de fournir.
+- Chacun à son tour joue la carte de son choix : on n'est jamais obligé de fournir.
 - Le plus fort atout remporte le pli ; sans atout, c'est la plus forte carte de la couleur entamée.
-- Le gagnant ramasse le pli. Tant qu'il reste un talon, chacun pioche ensuite une carte, le gagnant d'abord.
-- Le gagnant entame le pli suivant.
+- Tant qu'il reste un talon, chacun pioche ensuite une carte, le gagnant d'abord. Le gagnant entame le pli suivant.
 # Le score
-Quand toutes les cartes sont jouées, chaque équipe compte les cartes de ses plis : as 11 points, trois 10, re 4, cavallo 3, fante 2, les autres cartes rien.
+As 11 points, trois 10, re 4, cavallo 3, fante 2, les autres cartes rien.
 # La fin de la partie
 Une partie, c'est une seule donne. L'équipe qui a 61 points ou plus gagne ; 60 partout, c'est l'égalité.
-# Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main en bas. Les pièces des joueurs entourent le milieu, ton partenaire en face de toi, et chaque carte jouée se pose devant la pièce de son joueur. Le talon est en bas à gauche, la briscola en travers dessous ; une fois piochée, sa couleur reste affichée à sa place. Touche une carte pour qu'elle se lève, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le tas en bas à droite pour revoir le dernier pli. Chaque barre montre combien de cartes l'équipe a ramassées. À la fin, un tableau montre les cartes qui comptent de chaque équipe et ses points. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.

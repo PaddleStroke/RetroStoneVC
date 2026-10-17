@@ -1,22 +1,19 @@
 Euchre
 # Amaç
-Karşılıklı oturan iki kişilik iki takım: fildişi ve kırmızı, abanoz ve yeşime karşı. Kozu seçen takım beş elin en az üçünü almalıdır. 10 puana ilk ulaşan takım kazanır. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+İki kişilik iki takım. Kozu seçen takım beş elin en az üçünü almalıdır.
 # Dağıtım
-Destede 24 kart vardır: her rengin 9'u, 10'u, valesi, kızı, papazı ve ası. Her oyuncuya 5 kart verilir. Artan dört kart dipte kalır (kitty); en üstteki açılır. İlk yeşim dağıtır; sonra her dağıtımda dağıtan bir kişi kayar.
+Destede her rengin 9'undan asına kadar 24 kart vardır. Her oyuncuya 5 kart verilir; artan dört kartın en üstteki açılır.
 # Kozu belirlemek
-- Birinci tur, dağıtanın solundan başlayarak: her oyuncu açık kartı dağıtana aldırabilir (order up). Onun rengi koz olur; dağıtan kartı eline alır ve bir kartı kapalı olarak gömer. Ya da oyuncu pas der.
-- İkinci tur, dördü de pas dediyse: kart kapatılır ve sırayla her oyuncu başka bir rengi koz olarak söyleyebilir ya da pas diyebilir.
-- Dağıtan mecbur (stick the dealer): ikinci turda dağıtan pas diyemez; bir renk söylemek zorundadır.
-- Kozu belirleyen oyuncu tek başına oynayabilir: ortağı kartlarını bırakır ve o dağıtımda oyun dışında kalır. Dağıtanın ortağı tek başına oynarsa dağıtan oyun dışında kalır ve açık kartı almaz.
+- Birinci tur, dağıtanın solundan başlayarak: her oyuncu açık kartı dağıtana aldırabilir (order up) ve onun rengi koz olur; dağıtan kartı alır ve bir kartı gömer. Ya da oyuncu pas der.
+- İkinci tur: her oyuncu başka bir rengi söyleyebilir ya da pas diyebilir. Dağıtan pas diyemez.
+- Kozu belirleyen oyuncu tek başına oynayabilir: ortağı o dağıtımda oyun dışında kalır.
 # Kozlar
-Koz valesi en büyük karttır: sağ vale (right bower). Ardından aynı boyadaki (kırmızı ya da siyah) diğer vale gelir, sol vale (left bower), sonra kozun ası, papazı, kızı, 10'u ve 9'u. Sol vale bir kozdur, kendi rengine ait değildir. Diğer renklerin sıralaması: as, papaz, kız, vale, 10, 9.
+Koz valesi (sağ vale) en büyük karttır, ardından aynı boyadaki (kırmızı ya da siyah) diğer vale (sol vale, o da kozdur), sonra as, papaz, kız, 10 ve 9. Diğer renklerin sıralaması: as, papaz, kız, vale, 10, 9.
 # Oyun
-İlk eli dağıtanın solundaki oyuncu açar (o oyun dışındaysa bir sonraki). Yapabiliyorsan açılan renkten kart at; yapamıyorsan istediğin kartı at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
+Yapabiliyorsan açılan renkten kart at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı.
 # Puanlama
 - Kozu belirleyenler 3 ya da 4 el alır: 1 puan.
-- Kozu belirleyenler beş elin hepsini alır (march): 2 puan; tek başına oynayan alırsa: 4 puan.
-- Kozu belirleyenler 3'ten az el alır: yenilirler (euchre) ve diğer takım 2 puan yazar.
+- Beş elin hepsi (march): 2 puan; tek başına oynayan alırsa: 4 puan.
+- 3'ten az el: kozu belirleyenler yenilir (euchre) ve diğer takım 2 puan yazar.
 # Oyunun sonu
 10 puana ilk ulaşan takım kazanır.
-# Cihazda oynamak
-Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Dip ortada durur, açık kart en üstündedir. Birinci turda açık kartı aldırmak için onay işaretine (ya da açık karta) dokun, ya da pas'a dokun. İkinci turda bir renge dokun (açılmış kartın rengi gridir), sonra onay işaretine; ya da pas'a dokun; dağıtanın pas düğmesi yoktur. Tek başına oynamak için önce senin pulunu ve ortağının üstü çizili pulunu gösteren düğmeye dokun. Kartı alan dağıtan gömeceği karta dokunur, sonra ona ya da dibe yeniden dokunur. Kozu belirleyenin yerinde koz rengi görünür, oyun dışında kalan oyuncunun üstü çizilidir ve her yerde o oyuncunun aldığı eller görünür. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her dağıtımdan sonra bir tablo her takımın aldığı elleri, dağıtımın puanlarını ve toplamı gösterir; sonraki dağıtım için ona dokun. Her şerit eldeki kartları ve takımın puanını gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.

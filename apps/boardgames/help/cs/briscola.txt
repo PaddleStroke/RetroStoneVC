@@ -1,18 +1,15 @@
 Briscola
 # Cíl hry
-Vyhrávej štychy s nejcennějšími kartami: celkem je ve hře 120 bodů a 61 vyhrává. Pro 2 hráče, nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě (slonovinový a červený proti ebenovému a nefritovému); nikdo nevidí karty ostatních.
+Vyhrávej štychy s nejcennějšími kartami: celkem je ve hře 120 bodů a 61 vyhrává. Pro 2 hráče, nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě.
 # Karty
-Italské karty, 40 listů ve čtyřech barvách: mince (denari), poháry (coppe), meče (spade) a hole (bastoni). Od nejvyšší po nejnižší: eso, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Fante je tu pěšec, cavallo jezdec a re král.
+Italské karty, 40 listů. Od nejvyšší po nejnižší: eso, 3, re, cavallo, fante, 7, 6, 5, 4, 2. Fante je tu pěšec, cavallo jezdec a re král.
 # Rozdání
-Každý hráč dostane 3 karty. Další karta se otočí lícem nahoru: je to briscola a její barva je po celou hru trumfová. Leží napříč pod balíčkem a líže se jako poslední.
+Každý hráč dostane 3 karty. Další karta se otočí lícem nahoru: je to briscola a její barva je trumfová. Briscola se líže jako poslední.
 # Hra
-- K prvnímu štychu vynáší slonovinový. Po řadě každý zahraje libovolnou kartu: barvu nikdy přiznávat nemusíš.
+- Po řadě každý zahraje libovolnou kartu: barvu nikdy přiznávat nemusíš.
 - Štych bere nejvyšší trumf; bez trumfu nejvyšší karta vynesené barvy.
-- Vítěz si štych vezme. Dokud balíček stačí, každý si pak lízne kartu, vítěz první.
-- Vítěz vynáší k dalšímu štychu.
+- Dokud balíček stačí, každý si pak lízne kartu, vítěz první. Vítěz vynáší k dalšímu štychu.
 # Počítání bodů
-Když jsou všechny karty zahrané, každá strana spočítá karty ve svých štyších: eso 11 bodů, trojka 10, re 4, cavallo 3, fante 2, ostatní karty nic.
+Eso 11 bodů, trojka 10, re 4, cavallo 3, fante 2, ostatní karty nic.
 # Konec hry
 Hra je jedno rozdání. Vyhrává strana, která má 61 bodů nebo víc; 60 na 60 je remíza.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku dole. Kameny hráčů stojí kolem středu stolu, tvůj spoluhráč naproti tobě, a každá zahraná karta leží před kamenem svého hráče. Balíček je vlevo dole a briscola napříč pod ním; když se lízne, zůstane na jejím místě vidět její barva. Klepni na kartu, aby se zvedla, a pak na ni klepni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepni na hromádku vpravo dole a uvidíš poslední štych. Každá lišta ukazuje, kolik karet strana sebrala. Na konci ukáže tabulka počítané karty každé strany a její body. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy kartu poté, co se zařízení předalo.

@@ -1,24 +1,18 @@
 Crapette
 # Tavoite
-Ranskalainen kahden pelaajan kilpapasianssi, toiselta nimeltään Venäläinen pankki. Kummallakin on oma 52 kortin pakkansa, ja molemmat rakentavat samoille peruspinoille. Ole ensimmäinen, joka pääsee eroon kaikista crapettensa, pakkansa ja poistopinonsa korteista.
+Kahden pelaajan kilpapasianssi: ole ensimmäinen, joka tyhjentää crapettensa, pakkansa ja poistopinonsa.
 # Asetelma
-- Kumpikin asettelee oman pakkansa: 13 korttia pinoon, crapette, päällimmäinen kuvapuoli ylöspäin; 4 korttia kuvapuoli ylöspäin talojen sarakkeeseen keskustan viereen; loput 35 kuvapuoli alaspäin, nostopakka. Pelin aikana pakan viereen kasvaa poistopino.
-- Keskustan 8 taloa ja 8 peruspinoa ovat molempien pelaajien yhteisiä.
-- Aloittaja on se, jonka crapetten kortti on suurempi (ässä on pieni, kuningas suuri); tasapelissä talojen kortit ratkaisevat.
+- Keskustan 8 taloa ja 8 peruspinoa ovat molempien pelaajien yhteisiä. Aloittaja on se, jonka crapetten kortti on suurempi.
 # Korttien siirtäminen
-- Saat siirtää crapettesi päällimmäisen kortin (seuraava käännetään heti), minkä tahansa talon päällimmäisen kortin ja pakastasi kääntämäsi kortin. Et koskaan omaa poistopinoasi etkä vastustajan pinoja.
-- Peruspinot: ässä aloittaa pinon, joka kasvaa samassa maassa kuninkaaseen asti.
-- Talot: laskevasti vuorotellen punainen ja musta, punainen 7 mustan 8:n päälle. Tyhjään taloon käy mikä tahansa kortti.
-- Lastaus: saat laittaa kortin vastustajan crapetten tai poistopinon päälle, jos se on samaa maata ja arvoltaan yhtä suurempi tai pienempi kuin päällimmäinen kortti.
+- Saat siirtää crapettesi tai minkä tahansa talon päällimmäisen kortin sekä pakastasi kääntämäsi kortin.
+- Peruspinot: ässästä kuninkaaseen samassa maassa. Talot: laskevasti vuorotellen punainen ja musta; tyhjään taloon käy mikä tahansa kortti.
+- Lastaus: saat laittaa samaa maata olevan, arvoltaan yhtä suuremman tai pienemmän kortin vastustajan crapetten tai poistopinon päälle.
 # Etusijat
-- Kortti, joka voi mennä peruspinoon, on vietävä sinne ennen mitään muuta, ja crapettesi kortti kaikkein ensimmäiseksi.
-- Jos crapettesi kortin voi pelata johonkin, pelaa se ennen kuin käännät kortin pakasta.
-- Muuten olet vapaa: siirrot talojen välillä ja pakan kortin pelaaminen tai pelaamatta jättäminen.
+- Kortti, joka voi mennä peruspinoon, on vietävä sinne ensin, ja crapettesi kortti kaikkein ensimmäiseksi.
+- Jos crapettesi kortin voi sitten pelata, pelaa se ennen kuin käännät kortin pakasta.
 # Nostopakka
-Käännä pakkasi päällimmäinen kortti: pelaa se ja käännä seuraava, tai laita se poistopinoon, jolloin vuorosi päättyy. Kun pakka loppuu, poistopino käännetään uudeksi pakaksi. Ilman pakkaa ja poistopinoa passaat.
+Käännä pakkasi päällimmäinen kortti: pelaa se ja käännä seuraava, tai laita se poistopinoon, jolloin vuorosi päättyy. Tyhjä pakka muodostetaan uudelleen poistopinosta.
 # Crapette!
-Jos rikot etusijaa, vastustaja saa huutaa ”Crapette!” ennen kuin vuorosi päättyy. Peli palaa tilaan, joka oli ennen virhettäsi, kääntämäsi pakan kortti menee poistopinoosi ja vuoro siirtyy vastustajalle.
+Jos rikot etusijaa, vastustaja saa huutaa ”Crapette!” palkkinsa punaisella ristillä: virheesi perutaan, kääntämäsi pakan kortti menee poistopinoosi ja vuorosi päättyy.
 # Pelin loppu
-Ensimmäinen, joka tyhjentää crapettensa, pakkansa ja poistopinonsa, voittaa. Jos mikään ei enää liiku, voittaa se, jolla on vähemmän kortteja jäljellä noissa pinoissa.
-# Pelaaminen laitteella
-Näkymä kääntyy joka vuorolla: vuorossa oleva istuu aina alhaalla, vastustaja vastapäätä. Norsunluun pakassa on vihreät selkäpuolet, eebenpuun pakassa punaiset. Napauta korttia nostaaksesi sen (piste näyttää, minne se voi mennä), napauta sitten kohdetta tai vedä kortti sinne; napauta sitä uudelleen lähettääksesi sen peruspinoon. Napauta pakkaasi kääntääksesi kortin ja poistopinoasi laittaaksesi käännetyn kortin sinne. Sovellus ei estä etusijaa rikkovaa siirtoa, mutta näyttää sen: kortti, joka olisi pitänyt pelata, hehkuu punaisena, ja odottavan pelaajan palkissa oleva crapette-painike, punainen risti, syttyy. Odottava pelaaja napauttaa sitä huutaakseen ”Crapette!”. Jokainen palkki näyttää crapetten päällimmäisen kortin ja korttien määrän sekä pakan ja poistopinon yhdessä. Passaa-painike ilmestyy, kun sinulla ei ole enää mitään käännettävää. Kumoa peruu viimeisen siirron, mutta ei koskaan virhettä, josta voi vielä huutaa.
+Ensimmäinen, joka tyhjentää kaikki kolme pinoa, voittaa. Jos mikään ei enää liiku, voittaa se, jolla on vähemmän kortteja jäljellä.

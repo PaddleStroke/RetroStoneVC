@@ -1,24 +1,18 @@
 Crapette
 # Lo scopo
-Il solitario a gara francese per due, detto anche Banca russa. Ogni giocatore ha il proprio mazzo di 52 carte e tutti e due costruiscono sulle stesse basi. Sii il primo a liberarti di tutte le carte della tua crapette, del tuo tallone e dei tuoi scarti.
+Un solitario a gara per due: sii il primo a svuotare la tua crapette, il tuo tallone e i tuoi scarti.
 # La disposizione
-- Ognuno dispone il proprio mazzo: 13 carte in un mucchio, la crapette, con quella in cima scoperta; 4 carte scoperte in una colonna di case accanto al centro; le altre 35 coperte, il tallone. Durante la partita accanto al tallone cresce un mucchio di scarti.
-- Le 8 case e le 8 basi al centro sono di tutti e due i giocatori.
-- Comincia chi ha sulla crapette la carta più alta (l'asso è basso, il re alto); in caso di parità decidono le carte delle case.
+- Le 8 case e le 8 basi al centro sono di tutti e due i giocatori. Comincia chi ha sulla crapette la carta più alta.
 # Muovere le carte
-- Puoi muovere la carta in cima alla tua crapette (la successiva si scopre subito), la carta in cima a qualsiasi casa e la carta che hai scoperto dal tallone. Mai una carta dei tuoi scarti né dei mucchi dell'avversario.
-- Basi: un asso ne apre una, che poi sale nello stesso seme fino al re.
-- Case: si scende alternando i colori, un 7 rosso su un 8 nero. Una casa vuota accetta qualsiasi carta.
-- Caricare: puoi mettere una carta sulla crapette o sugli scarti dell'avversario se è dello stesso seme e di un grado sopra o sotto la loro carta in cima.
+- Puoi muovere la carta in cima alla tua crapette o a qualsiasi casa, e la carta che hai scoperto dal tallone.
+- Basi: dall'asso al re nello stesso seme. Case: si scende alternando i colori; una casa vuota accetta qualsiasi carta.
+- Caricare: puoi mettere una carta dello stesso seme, di un grado sopra o sotto, sulla crapette o sugli scarti dell'avversario.
 # Le precedenze
-- Una carta che può andare su una base deve andarci prima di ogni altra mossa, e la carta della tua crapette per prima.
-- Se la carta della tua crapette può essere giocata da qualche parte, giocala prima di scoprire una carta dal tallone.
-- Per il resto sei libero: le mosse tra le case, e giocare o no la carta del tallone.
+- Una carta che può andare su una base deve andarci per prima, e la carta della tua crapette prima di tutto.
+- Poi, se la carta della tua crapette può essere giocata, giocala prima di scoprire una carta dal tallone.
 # Il tallone
-Scopri la carta in cima al tallone: giocala e scopri la successiva, oppure mettila sugli scarti, e il tuo turno finisce. Quando il tallone è finito, gli scarti girati formano un nuovo tallone. Senza tallone né scarti, passi.
+Scopri la carta in cima al tallone: giocala e scopri la successiva, oppure mettila sugli scarti, e il tuo turno finisce. Un tallone vuoto si rifà con gli scarti.
 # Crapette!
-Se non rispetti una precedenza, l'avversario può gridare «Crapette!» prima della fine del tuo turno. Il gioco torna com'era prima del tuo errore, la carta del tallone che avevi scoperto va sui tuoi scarti e il turno passa all'avversario.
+Se non rispetti una precedenza, l'avversario può gridare «Crapette!» con la croce rossa nella sua barra: il tuo errore viene annullato, la carta del tallone che avevi scoperto va sui tuoi scarti e il tuo turno finisce.
 # La fine della partita
-Vince il primo che svuota crapette, tallone e scarti. Se non si può più muovere niente, vince chi ha meno carte rimaste in quei mucchi.
-# Giocare sul dispositivo
-La vista gira a ogni turno: chi gioca siede sempre in basso, l'avversario di fronte. Il mazzo dell'avorio ha il dorso verde, quello dell'ebano rosso. Tocca una carta per sollevarla (un punto segna dove può andare), poi tocca la destinazione o trascinala lì; toccala di nuovo per mandarla su una base. Tocca il tallone per scoprire una carta e gli scarti per posarvi la carta scoperta. L'app non vieta una mossa che viola una precedenza, ma la mostra: la carta che andava giocata brilla di rosso e il pulsante crapette nella barra di chi aspetta, una croce rossa, si accende. Chi aspetta lo tocca per gridare «Crapette!». Ogni barra mostra la carta in cima alla crapette e quante carte contiene, poi tallone e scarti insieme. Il pulsante passo compare quando non hai più niente da scoprire. Annulla ritira l'ultima mossa, ma mai un errore che può ancora essere chiamato.
+Vince il primo che svuota i tre mucchi. Se non si può più muovere niente, vince chi ha meno carte rimaste.

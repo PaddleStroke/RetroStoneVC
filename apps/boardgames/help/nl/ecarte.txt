@@ -1,19 +1,17 @@
 Écarté
 # Het doel
-Als eerste 5 punten halen door in elke ronde de meeste van de vijf slagen te winnen. Voor twee spelers die het apparaat doorgeven; geen van beiden ziet de kaarten van de ander.
+Als eerste 5 punten halen door in elke ronde de meeste van de vijf slagen te winnen.
 # De kaarten
-32 kaarten. In elke kleur is de heer de hoogste, dan vrouw, boer, aas, 10, 9, 8, 7. Elke speler krijgt 5 kaarten en de volgende kaart wordt opengedraaid: haar kleur is troef. De rest is de talon. Het delen wisselt af; wie niet deelt, is de voorhand.
+32 kaarten, van hoog naar laag: heer, vrouw, boer, aas, 10, 9, 8, 7. Elke speler krijgt 5 kaarten en de volgende kaart wordt opengedraaid: haar kleur is troef. Wie niet deelt, is de voorhand.
 # De heer
 - Een opengedraaide heer levert de gever 1 op.
-- Wie de troefheer heeft, krijgt 1 vóór het spel (voor hem geteld).
+- Wie de troefheer heeft, krijgt 1 vóór het spel.
 # Het ruilen
-De voorhand mag voorstellen kaarten te ruilen, of meteen spelen. De gever neemt aan of weigert; weigert hij, dan begint het spel. Neemt hij aan, dan legt de voorhand 1 tot 5 kaarten weg en pakt er evenveel van de talon, daarna mag de gever er 0 tot 5 wegleggen en pakken. Daarna mag de voorhand opnieuw voorstellen, zolang de talon strekt.
+De voorhand mag voorstellen kaarten te ruilen, of meteen spelen. Neemt de gever aan, dan ruilt de voorhand 1 tot 5 kaarten, daarna de gever 0 tot 5, en mag de voorhand opnieuw voorstellen. Weigert hij, dan begint het spel.
 # Het spel
-De voorhand komt uit. Je moet kleur bekennen en de slag winnen als je kunt (met een hogere kaart van de gevraagde kleur). Kun je geen kleur bekennen, dan moet je troeven als je kunt; speel anders een willekeurige kaart. De hoogste kaart van de gevraagde kleur wint, of de troef; de winnaar komt uit in de volgende slag.
+Je moet kleur bekennen en de slag winnen als je kunt; anders moet je troeven als je kunt. De hoogste kaart van de gevraagde kleur wint, of de troef.
 # De telling
 - 3 of 4 slagen: 1 punt. Alle 5 slagen (de vole): 2 punten.
-- Speelde de voorhand zonder voor te stellen, of weigerde de gever het eerste voorstel, en haalt die speler dan minder dan 3 slagen, dan krijgt de tegenstander 2.
+- Wie zonder voorstel speelde of het eerste voorstel weigerde, en dan minder dan 3 slagen haalt, geeft de tegenstander 2.
 # Het einde van de partij
-Wie als eerste 5 punten haalt, wint, ook met het punt van de heer vóór het spel.
-# Spelen op het apparaat
-Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand onderaan. De talon en de opengedraaide kaart liggen links, de weggelegde kaarten rechts. Om voor te stellen tik je op de oplichtende talon; om meteen te spelen speel je een kaart. De gever tikt op het vinkje om aan te nemen of op het kruis om te weigeren. Om te ruilen tik je de kaarten aan die je weglegt (ze komen omhoog), dan het vinkje; de nieuwe kaarten staan wat hoger. Het getal naast een fiche: de kaarten die die speler pakte. Tijdens het spel is het getal naast een fiche het aantal gehaalde slagen, en een kleine troefheer wijst de speler aan die hem heeft. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Elke balk toont de kaarten in de hand en de stand. Na elke ronde toont een tabel het punt van de heer, de slagen, de punten en het totaal; tik erop voor de volgende ronde.
+Wie als eerste 5 punten haalt, wint, ook met het punt van de heer.

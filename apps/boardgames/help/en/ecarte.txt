@@ -1,19 +1,17 @@
 Écarté
 # The aim
-Be the first to reach 5 points by winning most of the five tricks of each deal. For two players passing the device; neither sees the other's cards.
+Be the first to reach 5 points by winning most of the five tricks of each deal.
 # The cards
-32 cards. In each suit the king is highest, then queen, jack, ace, 10, 9, 8, 7. Each player gets 5 cards and the next card is turned face up: its suit is trumps. The rest is the stock. The deal alternates; the player who does not deal is the elder hand.
+32 cards, ranked king, queen, jack, ace, 10, 9, 8, 7. Each player gets 5 cards and the next card is turned up: its suit is trumps. The player who does not deal is the elder hand.
 # The king
 - A king turned up scores 1 for the dealer.
-- The player holding the king of trumps scores 1 before the play (counted for them).
+- Holding the king of trumps scores 1 before the play.
 # The exchange
-The elder may propose to change cards, or play at once. The dealer accepts or refuses; if refused, the play begins. If accepted, the elder throws 1 to 5 cards and draws as many from the stock, then the dealer may throw and draw 0 to 5. Then the elder may propose again, as long as the stock lasts.
+The elder may propose to change cards, or play at once. If the dealer accepts, the elder changes 1 to 5 cards, then the dealer 0 to 5, and the elder may propose again. If the dealer refuses, the play begins.
 # Playing
-The elder leads. You must follow suit and win the trick if you can (with a higher card of the suit led). If you cannot follow suit you must trump if you can; otherwise play any card. The higher card of the suit led wins, or the trump; the winner leads the next trick.
+Follow suit and beat the card led if you can; otherwise trump if you can. The higher card of the suit led wins, or the trump.
 # Scoring
 - 3 or 4 tricks: 1 point. All 5 tricks (the vole): 2 points.
-- If the elder played without proposing, or the dealer refused the first proposal, and that player then takes fewer than 3 tricks, the opponent scores 2.
+- Playing without proposing, or refusing the first proposal, then taking fewer than 3 tricks gives the opponent 2.
 # The end of the game
-The first player to reach 5 points wins, even by a king's point before the play.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand at the bottom. The stock and the turned card lie on the left, the cards thrown on the right. To propose, tap the glowing stock; to play at once, play a card. The dealer taps the tick to accept or the cross to refuse. To change cards, tap the ones to throw (they rise), then the tick; the new cards stand a little higher. The number beside a token: the cards that player drew. During the play the number beside a token is the tricks taken, and a small king of trumps marks the player who holds it. To play, tap a glowing card so it rises, then tap it again or its place in the middle; or drag it. Each bar shows the cards in hand and the score. After each deal a table shows the king's point, the tricks, the points and the total; tap it for the next deal.
+The first to reach 5 points wins, even by a king's point.
