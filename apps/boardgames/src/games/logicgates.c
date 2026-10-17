@@ -1,7 +1,7 @@
 /*
  * Logic Gates in RetroStone Board, for one player (the rules: logicgates_rules.c, logicgates.h): a circuit board of
- * dark green in a walnut frame, brass traces on it, the gates as brass shapes inlaid in walnut plaques (the classic
- * shapes, each with its name engraved: NOT, AND, OR, XOR, NAND, NOR, in English as on any circuit drawing; the owner
+ * dark green in a walnut frame, brass traces on it (the light theme: ivory paper, dark ink traces, lit ones amber),
+ * the gates as brass shapes inlaid in walnut plaques (the classic shapes, each with its name engraved: NOT, AND, OR, XOR, NAND, NOR, in English as on any circuit drawing; the owner
  * asked for them), each switch right under the gate it feeds, the lamps at the top; the parts as big as the room
  * allows. A wire carrying 1 glows gold; after each move the change runs up the wires, gate after gate. A cuttable wire
  * is a jumper cable over the board, coloured, bowing between two brass terminals. Solved: the lamps flare in a gold
@@ -26,6 +26,7 @@
 
 #include "games/logicgates.h"
 #include "games/puzzles.h"
+#include "pages.h"
 #include "shell.h"
 #include "text.h"
 
@@ -85,6 +86,14 @@ static float PY(float y) { return oy - stretched(y) * ch; }
 /* ---- the colours ------------------------------------------------------------------------------------------------- */
 static const uint8_t GOLD[3] = {255, 206, 84}, BRASS[3] = {128, 102, 56}, WALNUT[3] = {92, 60, 40},
                      PCB[3] = {22, 60, 42}, INK[3] = {40, 26, 14};
+
+/* the light theme (pages.h: TH): the board an ivory drawing paper, its traces in dark ink, a lit one deep amber in a
+ * dark edge (pale gold is lost on ivory); the plaques, gates, lamps and switches as in the dark theme. The dark theme's
+ * look is the one above, untouched. The pictures that know the theme are made again when it changes (draw). */
+static const uint8_t PAPER[3] = {234, 226, 204}, TRACE_L[3] = {88, 66, 44}, EDGE_L[3] = {44, 31, 20},
+                     GOLD_L[3] = {240, 168, 34}, SHINE_L[3] = {255, 214, 120};
+static int light(void) { return !TH.dark; }
+static const uint8_t *lit_gold(void) { return light() ? GOLD_L : GOLD; }   /* a lit trace's colour on the board */
 
 static art_style style(const uint8_t fill[3], float light, float line)
 {
@@ -272,7 +281,7 @@ static int fold(int x, int n, int s)
 
 /* the board: the house's walnut frame round a dark green circuit board. The frame comes from a small square board,
  * its sides folded along the long ones; the green is worked out row by row (its light and grain split in x and y). */
-static void paint_board(int W, int H, int f, uint8_t *o)
+static void paint_board(int W, int H, int f, int pale, uint8_t *o)
 {
     int L = W > H ? W : H, S = 4 * f + 96 < L ? 4 * f + 96 : L;
     uint8_t *sq = malloc((size_t)S * S * 4);
@@ -300,9 +309,9 @@ static void paint_board(int W, int H, int f, uint8_t *o)
             }
             float e = fminf(x - f, y - f);
             float k = 0.92f + 0.16f * ax[2 * x] * ay[2 * y];
-            if (e < sh) k *= 1 - 0.4f * (1 - e / sh);   /* the frame's shadow */
+            if (e < sh) k *= 1 - (pale ? 0.22f : 0.4f) * (1 - e / sh);   /* the frame's shadow */
             k *= 1 + 0.025f * ax[2 * x + 1] * ay[2 * y + 1];
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(PCB[i] * k, 0, 255);
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf((pale ? PAPER : PCB)[i] * k, 0, 255);
             p[3] = 255;
         }
     }
@@ -875,14 +884,14 @@ static void b_mark_glow(float cx, float cy, float d)
 
 static void board_textures(void)
 {
-    int key = (int)B.w * 4096 + (int)B.h;
+    int key = ((int)B.w * 4096 + (int)B.h) * 2 + TH.dark;   /* (the theme: the dark green, or the ivory) */
     fr = (int)(0.03f * fminf(B.w, B.h));
     if (made_board == key) return;
     made_board = key;
     int W = (int)B.w, H = (int)B.h;
     uint8_t *b = calloc((size_t)W * H, 4);
     if (!b) return;
-    paint_board(W, H, (int)(0.03f * fminf(W, H)), b);
+    paint_board(W, H, (int)(0.03f * fminf(W, H)), light(), b);
     ui_free(&t_board);
     t_board = tex_buf(W, H, b);
 }
@@ -1369,15 +1378,18 @@ static void trace(float x0, float y0, float x1, float y1, int lit, int layer)
         float g = (glow_pass == 2 ? 0.45f : 1.0f) * t;
         glow_fill(xa - g, ya - g, w + 2 * g, h + 2 * g);
     } else if (layer == 1) {
-        b_fill(xa - 1, ya - 1, w + 2, h + 2, 7, 21, 14, 255);
+        if (light()) b_fill(xa - 1, ya - 1, w + 2, h + 2, EDGE_L[0], EDGE_L[1], EDGE_L[2], 255);
+        else b_fill(xa - 1, ya - 1, w + 2, h + 2, 7, 21, 14, 255);
     } else {
-        const uint8_t *c = lit ? GOLD : TRACE;
+        const uint8_t *c = lit ? lit_gold() : light() ? TRACE_L : TRACE;
+        static const uint8_t shine[3] = {255, 227, 150};
+        const uint8_t *s = light() ? SHINE_L : shine;
         b_fill(xa, ya, w, h, c[0], c[1], c[2], 255);
         if (lit) {                              /* a bright line down its middle, to the middle of a bend */
             int vert = fabsf(x1 - x0) < fabsf(y1 - y0);
             float e = layer == 3 ? 0.5f * t : 0.15f * t;   /* (3: a lead, straight: as long as its fill) */
-            if (vert) b_fill(xa + 0.35f * t, fminf(y0, y1) - e, 0.3f * t, h - t + 2 * e, 255, 227, 150, 255);
-            else b_fill(fminf(x0, x1) - e, ya + 0.35f * t, w - t + 2 * e, 0.3f * t, 255, 227, 150, 255);
+            if (vert) b_fill(xa + 0.35f * t, fminf(y0, y1) - e, 0.3f * t, h - t + 2 * e, s[0], s[1], s[2], 255);
+            else b_fill(fminf(x0, x1) - e, ya + 0.35f * t, w - t + 2 * e, 0.3f * t, s[0], s[1], s[2], 255);
         }
     }
 }
@@ -1430,12 +1442,13 @@ static void path(const lg_wire *W, float a, float b, int vert, int lit, int laye
 /* the hops (a bridge over the wire crossed) and the branchings (a dot), dark-edged */
 static void marks(void)
 {
-    static const uint8_t EDGE[3] = {6, 18, 12};
+    static const uint8_t EDGE_D[3] = {6, 18, 12};
+    const uint8_t *edge = light() ? EDGE_L : EDGE_D, *trace = light() ? TRACE_L : TRACE, *gold = lit_gold();
     float r = hop_r(), d = 2.1f * tw;
     for (int pass = 0; pass < 2; pass++) {
         for (int h = 0; h < G.L.nhop; h++) {
             const lg_mark *m = &G.L.hop[h];
-            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? GOLD : TRACE) : EDGE;
+            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? gold : trace) : edge;
             float cx = PX(m->x), cy = PY(m->y), s = pass ? tw : tw + 2;
             SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
             for (int i = 0; i <= 18; i++) {
@@ -1445,7 +1458,7 @@ static void marks(void)
         }
         for (int j = 0; j < G.L.njoint; j++) {
             const lg_mark *m = &G.L.joint[j];
-            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? GOLD : TRACE) : EDGE;
+            const uint8_t *c = pass ? (lit_at(m->wire, m->s, front(m->wire)) ? gold : trace) : edge;
             float s = pass ? d : d + 2;
             SDL_SetTextureColorMod(t_dot, c[0], c[1], c[2]);
             b_put_c(t_dot, PX(m->x), PY(m->y), s, s);
@@ -1490,7 +1503,9 @@ static int glow_w, glow_h;
 /* the lit wires' glow: each of its two widths drawn whole into the buffer, then laid over the board faded */
 static void glows(void)
 {
-    static const uint8_t C[2][4] = {{255, 186, 60, 24}, {255, 196, 70, 46}};
+    static const uint8_t CD[2][4] = {{255, 186, 60, 24}, {255, 196, 70, 46}},
+                         CL[2][4] = {{236, 146, 18, 40}, {240, 158, 28, 70}};
+    const uint8_t (*C)[4] = light() ? CL : CD;   /* (the light theme: a deeper amber, stronger on the ivory) */
     int W = (int)ceilf(panel.w), H = (int)ceilf(panel.h);
     if (!t_glowbuf || glow_w != W || glow_h != H) {
         ui_free(&t_glowbuf);
@@ -1892,7 +1907,8 @@ static float draw_label(float x, float y, int centred)
     float dh = 0.5f * u, nw = puz_number_w(n, dh), ew = 0.62f * u, w = ew + 0.12f * u + nw;
     float x0 = centred ? x - w / 2 : x;
     ui_put_c(t_emblem[c], x0 + ew / 2, y, ew, ew);
-    puz_number(&font, x0 + ew + 0.12f * u + nw / 2, y, dh, n, PUZ_CREAM, 255);
+    /* (on the table: cream on the dark one, ink on the light theme's ivory) */
+    puz_number(&font, x0 + ew + 0.12f * u + nw / 2, y, dh, n, light() ? PUZ_INK : PUZ_CREAM, 255);
     return x0 + w;
 }
 
@@ -1912,8 +1928,11 @@ static void draw_tools(void)
 
 static void draw(void)
 {
+    static int made_theme = -1;
     now_ms = ui_ms();
     if (made_shared < 0) layout(B);
+    else if (made_theme != TH.dark) layout(B);  /* the theme switched: the board, the size cards painted again */
+    made_theme = TH.dark;
     if (setup) {
         ui_tools_shown(0);
         setup_draw();
@@ -2077,10 +2096,11 @@ static void bar(int player, box b)
 
 /* ---- the setup screen's size cards: a circuit of 4, 6 or 8 switches, gates halving them row by row up to the lamp
  * (some gates of each kind) */
-static void circuit_thumb(int variant, int size, uint8_t *rgba)
+static void circuit_thumb(int variant, int size, int pale, uint8_t *rgba)
 {
     int nsw = 4 + 2 * variant;
-    paint_board(size, size, (int)(0.045f * size), rgba);
+    paint_board(size, size, (int)(0.045f * size), pale, rgba);
+    const uint8_t *gold = pale ? GOLD_L : GOLD;   /* (the lit traces: deep amber on the ivory) */
     float S = (float)size, in = 0.1f * S, t = fmaxf(2, 0.022f * S);
     float x[4][8], ys = 0.8f * S, yl = 0.2f * S;
     int cnt[4] = {nsw}, rows = 1;
@@ -2102,13 +2122,13 @@ static void circuit_thumb(int variant, int size, uint8_t *rgba)
             float px = r + 1 < rows ? x[r + 1][i / per] : S / 2;
             float k = per == 3 ? (i % 3 - 1) * 0.12f : i % 2 ? 0.12f : -0.12f;
             float xi = px + (r + 1 < rows || n > 1 ? k * pw : 0);
-            puz_ink_rect(rgba, size, size, x[r][i] - t / 2, ym - t / 2, x[r][i] + t / 2, ybot, GOLD, 1);
+            puz_ink_rect(rgba, size, size, x[r][i] - t / 2, ym - t / 2, x[r][i] + t / 2, ybot, gold, 1);
             puz_ink_rect(rgba, size, size, fminf(x[r][i], xi) - t / 2, ym - t / 2, fmaxf(x[r][i], xi) + t / 2,
-                         ym + t / 2, GOLD, 1);
-            puz_ink_rect(rgba, size, size, xi - t / 2, ytop - 1, xi + t / 2, ym + t / 2, GOLD, 1);
+                         ym + t / 2, gold, 1);
+            puz_ink_rect(rgba, size, size, xi - t / 2, ytop - 1, xi + t / 2, ym + t / 2, gold, 1);
         }
     }
-    puz_ink_rect(rgba, size, size, S / 2 - t / 2, yl, S / 2 + t / 2, ys - rows * gap + ph, GOLD, 1);
+    puz_ink_rect(rgba, size, size, S / 2 - t / 2, yl, S / 2 + t / 2, ys - rows * gap + ph, gold, 1);
     /* the gates, the lamp, the switches */
     static const int KINDS[3][7] = {{LG_AND, LG_OR, LG_OR, LG_AND, LG_AND, LG_OR, LG_AND},   /* the gates by size */
                                     {LG_NAND, LG_OR, LG_XOR, LG_AND, LG_XOR, LG_AND, LG_NAND},
@@ -2246,7 +2266,7 @@ static void paint_setup_icon(int kind, int size, uint8_t *o)
 
 static void setup_textures(void)
 {
-    int key = (int)SU.c * 4 + (int)(SU.size[0].w) * 4096;
+    int key = ((int)SU.c * 4 + (int)(SU.size[0].w) * 4096) * 2 + TH.dark;   /* (the theme: the size cards) */
     if (made_setup == key) return;
     made_setup = key;
     int w = (int)SU.c, h = (int)(TILE_H * SU.c), s = (int)SU.size[0].w;
@@ -2259,7 +2279,7 @@ static void setup_textures(void)
     for (int v = 0; v < LG_RANDOM; v++) {
         ui_free(&t_size[v]);
         uint8_t *b = calloc((size_t)s * s, 4);
-        if (b) { circuit_thumb(v, s, b); t_size[v] = tex_buf(s, s, b); }
+        if (b) { circuit_thumb(v, s, light(), b); t_size[v] = tex_buf(s, s, b); }
     }
 }
 
@@ -2401,10 +2421,10 @@ static void thumb(int variant, int size, uint8_t *rgba)
 {
     fresh_progress();                           /* the menu paints it before the level screen opens */
     if (variant >= 0) {
-        circuit_thumb(1, size, rgba);           /* (one variant: the setup screen chooses the size) */
+        circuit_thumb(1, size, 0, rgba);        /* (one variant: the setup screen chooses the size) */
         return;
     }
-    paint_board(size, size, (int)(0.045f * size), rgba);
+    paint_board(size, size, (int)(0.045f * size), 0, rgba);   /* (dark in both themes, as the shell keeps it) */
     float S = (float)size, t = fmaxf(2, 0.035f * S), gy = 0.4f, gh = 0.2f, track = 0.66f;
     const float sx[2] = {0.27f, 0.73f};
     for (int k = 0; k < 2; k++) {               /* the wires: up from the switches, across, into the gate */
