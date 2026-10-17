@@ -229,7 +229,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);            /* a phone held upright: more sky above, the hedge's shade below */
+    rs_screen_zoom(ZOOM_H);                     /* a phone held upright: zoomed, the sides cropped (DESIGN.md) */
     save_load();
     run_best = (int)SV.best;
     opt_music = rs_option_int("music", 1);

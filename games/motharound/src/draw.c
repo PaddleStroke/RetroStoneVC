@@ -24,19 +24,25 @@ static int laid_w;                     /* the width the maps were laid out for (
 #define PIX_W RS_SCREEN_W_MAX
 static uint8_t pixels[PIX_W*240];
 static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
+/* a tall screen (portrait, zoomed: DESIGN.md "Tall screen") */
+static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
+static int hud_lines;                  /* the HUD's band of BG1 at the screen's top (rs_bg_pin; set before each picture) */
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffe8a0),RS_HEX(0xf1b750),RS_HEX(0x99623c)},
  {RS_HEX(0xebc8fc),RS_HEX(0xbb83d0),RS_HEX(0x76509a)}};
 /* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"): above, the sky going on, deeper toward
- * the screen's top; below, the hedge's shade, darker with depth. The other layers and the sprites are hidden there
- * (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+ * the screen's top, with the HUD's band of BG1 at the top (rs_bg_pin) and the sprites (the HUD's numbers, the moon,
+ * the stars); below, the hedge's shade, darker with depth. The other layers are hidden there (window 1); line 0 puts
+ * the stage's settings back, so a 240-line screen is unchanged. */
 static void raster_out(int line) {
  int top=rs_screen_top(),bot=rs_screen_bottom();
  if(line==top || line==RS_SCREEN_H) {
   rs_window(0,rs_screen_left(),rs_screen_right());
   for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_window(l,RS_WIN1);
-  rs_obj_window(RS_WIN1);
+  if(line==top && hud_lines)rs_bg_window(RS_BG1,0);
+  rs_obj_window(line==top?0:RS_WIN1);
  }
+ if(hud_lines && line==top+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);   /* past the HUD's band */
  if(line<0)rs_pal_set(0,hu_scale_color(V[0].sky[0],256-(-line*100/-top)-((line&4)?4:0)));   /* the house dither */
  else {
   int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H,k=n>0?d*120/n:0;
@@ -65,7 +71,8 @@ static void maps_setup(void) {
 void draw_relayout(void) {if(laid_w!=rs_screen_width())maps_setup();}
 void draw_init(void) {
  rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px garden centred, more of it on both sides */
- rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)*2/3);   /* tall: the stage low, two thirds of the rest above */
+ /* a tall screen (portrait, zoomed): the stage low, TALL_BELOW lines of the hedge's shade under it, the sky above */
+ {int extra=rs_screen_height()-RS_SCREEN_H;rs_screen_origin_v(extra>TALL_BELOW?extra-TALL_BELOW:extra/2);}
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
  maps_setup();
  static const rs_color ring_pal[16]={0,RS_HEX(0x263c46),RS_HEX(0x527766),RS_HEX(0x91b47d),
@@ -80,7 +87,8 @@ void draw_init(void) {
 static int ppal(int p) {return p?hu_player_pal(p):0;}
 static void spr(int id,int x,int y,int priority,int pal,const rs_viewport *vp) {
  const gm_sprite_def *s=&gm_spr[id];
- if(x<=vp->x-(int)s->w || x>=vp->x+vp->w || y<=-(int)s->h || y>=vp->h)return;
+ int y0=tall()?rs_screen_top():0,y1=tall()?rs_screen_bottom():vp->h;   /* (a tall screen: the screen's lines) */
+ if(x<=vp->x-(int)s->w || x>=vp->x+vp->w || y<=y0-(int)s->h || y>=y1)return;
  rs_spr(x+spr_dx,y,s->tile,s->w,s->h,pal<0?s->pal:pal,priority,0);
 }
 static int px(const view *v,int radius,int angle) {return v->cx+radius*v->zoom/256*ss_sine[(angle+64)&255]/32767;}
@@ -179,6 +187,22 @@ static void scene(const world *w,int t,const view *v,const rs_viewport *vp) {
  }
  }
  spr(SPR_LANTERN+(w->t/12)%2,v->cx+sx-16,v->cy-24,2,-1,vp);
+ if(tall()){   /* a tall screen: the moon and the stars over the sky above the stage, in the columns shown */
+  int x0=rs_screen_visible_x0(),cw=rs_screen_visible_x1()-x0,top=rs_screen_top()+HUD_LINES;
+  spr(SPR_MOON,x0+cw-44,top+18,0,-1,vp);
+  // Stars emerge as dusk gives way to moonlight: a few first, all of them at night.
+  static const int16_t sky[14][2]={{14,30},{60,8},{98,52},{150,22},{186,70},{36,96},{122,118},
+   {170,150},{20,170},{80,196},{140,214},{196,236},{52,262},{110,286}};
+  int lit=w->t<300?4:w->t<600?7:w->t<1200?10:14;
+  for(int k=0;k<lit;k++){int y=top+sky[k][1];if(y<70)spr(SPR_STAR,x0+sky[k][0]*(cw-16)/208,y,0,-1,vp);}
+  // Three leaves drift down from the screen's top, swaying, behind the rings, into the hills.
+  int fall=150-rs_screen_top()+16;
+  for(int k=0;k<3;k++){
+   int y=rs_screen_top()-16+(w->t*(2+k%2)/5+k*fall/3)%fall,sway=(w->t/3+k*40)%64,dx=sway<32?sway:64-sway;
+   spr(SPR_LEAF+(k&1),x0+4+k*(cw-40)/3+(y-rs_screen_top())/12+dx/2,y,0,-1,vp);
+  }
+  return;
+ }
  // Stars emerge as dusk gives way to moonlight (widescreen: the same three over the 320 columns, more beyond them).
  if(w->t>600){
   int sw=vp->w>RS_SCREEN_W?RS_SCREEN_W:vp->w,x0=vp->w>RS_SCREEN_W?0:sx;
@@ -229,11 +253,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   if(state==ST_PLAY || state==ST_DEAD) {
    scene(w,st_t,v,vp);char text[128];
    if(multi) {
+    /* a tall screen: two tags a row (rows 1 and 3), in the columns shown, at the screen's top (rs_bg_pin) */
+    int c0=(rs_screen_visible_x0()+7)/8+1,half=(rs_screen_visible_x1()/8-c0)/2;
     for(int player=0;player<w->players;player++){
-     char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(text,sizeof text,"%s %d",tag,w->h[player].score);hu_text(player*10,1,text);
+     char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(text,sizeof text,"%s %d",tag,w->h[player].score);
+     if(tall())hu_text(c0+(player&1)*half,1+(player>>1)*2,text);else hu_text(player*10,1,text);
     }
    } else {
-    hu_number(h->score,vp->x+vp->w/2,8,3);
+    hu_number(h->score,vp->x+vp->w/2,8+(tall()?rs_screen_top():0),3);   /* (a tall screen: at the screen's top) */
     rs_strf(text,sizeof text,TR(HUD_RINGS_TIME),h->anchor,h->alive_t/60);hu_text(hu_center(text,0),4,text);
    }
    if(paused)hu_big(v->mx+((2*vp->x+vp->w)/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
@@ -274,6 +301,12 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_scroll(l,VP[0].sx[l],VP[0].sy[l]);
   rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x252b43));
+ /* a tall screen (DESIGN.md "Tall screen"): the run fills the display's height (the sides cropped), the HUD's band
+  * of BG1 at the screen's top; the title and the panels show every column (their texts are 320 px wide) */
+ int play=state==ST_PLAY || state==ST_DEAD;
+ hud_lines=tall() && play?HUD_LINES:0;
+ rs_screen_fill(play);
+ rs_bg_pin(RS_BG1,0,hud_lines,0);
  shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))

@@ -89,11 +89,20 @@ The game opts in (`max_width` = 560, `WIDESCREEN_motharound = 1`): 320 x 240 is 
   again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
   `make motharound-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
-display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
-(`rs_screen_origin_v`: two thirds of the extra lines above it). The view is the stage's 240 lines (`VP[0]`, whatever
-the layout says), and with 2-4 players the view's scrolls become the screen's (no viewport) so that the raster
-(draw.c `raster_out`) draws the lines past the stage: above, the dusk or night sky going on, deeper toward the top;
-below, the hedge's shade, darker with depth. The other layers and the sprites are hidden there (window 1); line 0
-puts the stage's settings back, so a 240-line screen is unchanged.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (512 lines, game.h) first in `game_init`. The RetroStone app scales the
+512 lines to the display's height and crops the sides: 236 columns on a 1080x2340 phone, 218 on a 1080x2520 one, so
+the lantern, the rings and the moths are about 1.5x the size of the old 320-column strip. The rings never reach more
+than 107 px from the lantern (draw.c `visible_radius`, the gold tips included): they stay whole in the columns shown.
+The 240 lines of the stage are the same pixels; the stage sits low (`rs_screen_origin_v`: TALL_BELOW = 40 lines of the
+hedge's shade under it, the rest above).
+- **The HUD at the screen's top** during a run: the score (sprites at `rs_screen_top()` + 8) and the rings line (BG1's
+  top 48 lines, `rs_bg_pin`); with 2-4 players the tags go two a row (rows 1 and 3) inside the columns shown.
+- **Fill or fit**: a run fills the display's height; the title and the game-over panels show every column
+  (`rs_screen_fill(0)`: their texts are 320 px wide).
+- **Decor**: the raster (draw.c `raster_out`) draws the lines past the stage: above, the dusk or night sky going on,
+  deeper toward the top; below, the hedge's shade, darker with depth. BG2 and BG3 are hidden there (window 1), BG1
+  too past the HUD's band; line 0 puts the stage's settings back. In the sky above the stage: the moon in the columns
+  shown, the first stars from the start and more as the night falls, and three leaves drifting down from the screen's
+  top into the hills, behind the rings (sprites culled at the screen's edges, not the stage's).
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).

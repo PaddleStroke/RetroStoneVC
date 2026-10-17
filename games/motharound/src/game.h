@@ -9,6 +9,12 @@
 #define Q16_ONE 65536
 #define ORBIT 44
 #define LANTERN_Y 132
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (the rings, 107 px around the lantern at most, inside the 218 columns of a 9:21 phone);
+ * the stage low, TALL_BELOW lines of the hedge's shade under it; the HUD (BG1's top HUD_LINES) at the screen's top */
+#define ZOOM_H 512
+#define TALL_BELOW 40
+#define HUD_LINES 48
 #define MOTH_RADIUS 6
 #define PANEL_DELAY 40
 #define RETRY_LOCK 36
