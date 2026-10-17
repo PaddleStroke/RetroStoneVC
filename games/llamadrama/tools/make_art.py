@@ -87,6 +87,16 @@ LIGHT = hs.LIGHT_DIR
 # with src/game.h: the mouth (HEAD_MOUTH_U, _V) and where the neck joins (HEAD_JOINT_U, _V)
 HEAD_MOUTH = (13.0, -3.0)
 HEAD_JOINT = (-5.0, -5.0)
+# the neck's angle (degrees from the ground) at an aim: game.h NECK_ANG0 (205/1024 of a turn) + aim * NECK_K / 256
+NECK_ANG0_DEG = 205 * 360.0 / 1024
+NECK_K_PER_DEG = 80 / 256.0
+NECK_W = 6.4                        # the neck's half-width (neck())
+NECK_STUB = 7.0                     # the neck's top drawn behind the head, px from the joint
+
+
+def neck_shade(du):
+    """The neck's cylinder across (du -1 left .. 1 right; the light from the left)."""
+    return FUR[0] if du < -0.55 else FUR[1] if du < 0.05 else FUR[2] if du < 0.62 else FUR[3]
 
 
 def shade(nx, ny, r4):
@@ -112,6 +122,19 @@ def head(angle, face="normal"):
     def snorm(du, dv):                  # a local normal -> screen space
         return du * c - dv * s, -(du * s + dv * c)
 
+    # the neck's top, behind the head: a stub of the neck (its cylinder shading, NECK_W wide) from the joint toward the
+    # shoulder at this aim's neck angle (game.h NECK_ANG0 + aim * NECK_K / 256), so that the head sits on the neck
+    # without a collar of outline across it at any aim
+    n = math.radians(NECK_ANG0_DEG + angle * NECK_K_PER_DEG)
+    jx, jy = to_screen(*HEAD_JOINT)
+    ax, ay = -math.cos(n), math.sin(n)                   # along the neck, from the joint down to the shoulder
+    wx, wy = math.sin(n), math.cos(n)                    # across it (to the right, as in neck())
+
+    def stub(px, py):
+        """(along, across) of pixel (px, py) from the joint."""
+        rx, ry = px + 0.5 - jx, py + 0.5 - jy
+        return rx * ax + ry * ay, rx * wx + ry * wy
+
     puff = face == "puff"
     # shapes, back to front: (kind, params, ramp)
     shapes = [
@@ -128,6 +151,9 @@ def head(angle, face="normal"):
         for px in range(32):
             u, v = local(px, py)
             col = None
+            al, ac = stub(px, py)
+            if 0.0 <= al <= NECK_STUB and abs(ac) <= NECK_W:
+                col = neck_shade(ac / NECK_W)
             for kind, p, r4 in shapes:
                 if kind == "ell":
                     du, dv = (u - p[0]) / p[2], (v - p[1]) / p[3]
@@ -178,6 +204,11 @@ def head(angle, face="normal"):
         dot(5.4, -2.0, ACC[0])                                                           # a blush
         dot(6.2, -2.0, ACC[0])
     cv.outline(OUT)
+    for py in range(32):                                  # the stub's lower end stays open: the neck goes on there
+        for px in range(32):
+            al, ac = stub(px, py)
+            if cv.get(px, py) == OUT and al > NECK_STUB - 0.5 and abs(ac) <= NECK_W + 1.5:
+                cv.p[py][px] = None
 
     # the eye: axis-aligned (crisp at 1x), on the skull, looking where the snout points
     ex, ey = to_screen(2.6, 2.4)
@@ -218,11 +249,11 @@ def neck(lean):
             dx, dy = px + 0.5 - 8, py + 0.5 - 12
             # rotate into the neck's frame (w across, l along, the top leaning right)
             w, l = dx * c + dy * s, -dx * s + dy * c
-            du, dv = w / 6.4, l / 11.6
+            du, dv = w / NECK_W, l / 11.6
             r = du * du + dv * dv
             if r <= 1.0:
                 # a cylinder across the neck (light left), wool curls
-                col = FUR[0] if du < -0.55 else FUR[1] if du < 0.05 else FUR[2] if du < 0.62 else FUR[3]
+                col = neck_shade(du)
                 if du > 0.2 and (int(l + 12) % 7 == 3) and abs(du) < 0.7:
                     col = FUR[1]
                 cv.set(px, py, col)
@@ -547,6 +578,21 @@ def per(x, period, ph=0.0):
     return math.sin((x / float(period) + ph) * 2 * math.pi)
 
 
+def puna_top(x):
+    return 140 + int(8 * per(x, 256, 0.7) + 5 * per(x, 128, 0.2) + 2 * per(x, 32, 0.5))
+
+
+def puna(x, y):
+    """The puna's colour at screen (x, y): green slopes with terraces (the meadow's top rows continue it)."""
+    d = y - puna_top(x)
+    col = PUNA[0] if d < 2 else PUNA[1] if d < 10 else PUNA[2]
+    if d >= 10 and (y + int(4 * per(x, 128))) % 9 == 0:
+        col = PUNA[3]                                                    # terraces
+    if d >= 30:
+        col = PUNA[2] if (y + int(4 * per(x, 128))) % 9 else PUNA[3]
+    return col
+
+
 def mountains():
     W, H = PANORAMAS["mountains"][1:]
     cv = Canvas(W, H)
@@ -583,15 +629,8 @@ def mountains():
             cv.set(x, y, col)
     # the near puna: green slopes with terraces
     for x in range(W):
-        top = 140 + int(8 * per(x, 256, 0.7) + 5 * per(x, 128, 0.2) + 2 * per(x, 32, 0.5))
-        for y in range(top, H):
-            d = y - top
-            col = PUNA[0] if d < 2 else PUNA[1] if d < 10 else PUNA[2]
-            if d >= 10 and (y + int(4 * per(x, 128))) % 9 == 0:
-                col = PUNA[3]                                            # terraces
-            if d >= 30:
-                col = PUNA[2] if (y + int(4 * per(x, 128))) % 9 else PUNA[3]
-            cv.set(x, y, col)
+        for y in range(puna_top(x), H):
+            cv.set(x, y, puna(x, y))
     # stars in the sky (seen at night: their colour is set per line)
     for _ in range(46):
         x, y = rng.randrange(W), rng.randrange(4, 96)
@@ -624,6 +663,8 @@ def meadow():
                 col = GRASS[3]
             cv.set(x, y, col)
         cv.set(x, top - 1, GRASS[3])
+        for y in range(top - 1):                          # above the grass's edge: the puna behind (no sky seam)
+            cv.set(x, y, puna(x, MEADOW_Y + y))
     # tufts and little flowers (a pattern that repeats every 128 px: fewer tiles)
     for _ in range(18):
         x, y = rng.randrange(128), rng.randrange(10, H - 6)

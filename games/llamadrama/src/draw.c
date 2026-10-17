@@ -142,11 +142,11 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
 static int player_pal(int p) { return p ? hu_player_pal(p) : 0; }
 static int px(int32_t q) { return (int)(q >> 16); }
 
-static void small_number(int n, int cx, int y)
+static void small_number(int n, int cx, int y, int play_prio)
 {
     char s[8];
     int len = snprintf(s, sizeof s, "%d", n);
-    for (int i = 0; i < len; i++) spr(SPR_DIGIT + (s[i] - '0'), cx - len * 3 + i * 6 - 1, y, 2, -1, 0);
+    for (int i = 0; i < len; i++) spr(SPR_DIGIT + (s[i] - '0'), cx - len * 3 + i * 6 - 1, y, play_prio, -1, 0);
 }
 
 /* one llama: the head (its face), the neck's pieces, the body; aim: the aim drawn (the title's idle look, a droop) */
@@ -182,7 +182,7 @@ static void draw_llama(const world *w, int p, int aim, int face, int sx, int sy)
 }
 
 /* the faint aim cue: three dots along the spit's path */
-static void aim_dots(int p, int aim, int sx, int sy)
+static void aim_dots(int p, int aim, int sx, int sy, int play_prio)
 {
     int32_t mx, my;
     llama_mouth(p, aim, &mx, &my);
@@ -190,7 +190,7 @@ static void aim_dots(int p, int aim, int sx, int sy)
     for (int k = 1; k <= 3; k++) {
         int f = k * 3 + 1;
         int x = px(mx + vx * f), y = px(my + vy * f + GOB_GRAV * (f * (f - 1) / 2));
-        spr(SPR_DOT, x - 4 + sx, y - 4 + sy, 2, -1, 0);
+        spr(SPR_DOT, x - 4 + sx, y - 4 + sy, play_prio, -1, 0);
     }
 }
 
@@ -212,45 +212,72 @@ static int aim_shown(const llama *l)
     return l->aim;
 }
 
-static void draw_herd(const world *w, int state, int st_t, int sx, int sy)
+/* the title: where llama p stands, moved (dx, dy) from its place in the herd, clear of the title's text and slots.
+ * One llama: a little up the meadow (its hooves above the join line) and left (its ears under the slots, its chest
+ * left of the prompt). 2-4: the herd waits at the edge, TITLE_SHIFT to the left; on a narrow screen each head stops
+ * where it is still whole, and stays left of what is beside it (the logo, P1's slot, the prompt's glyph). */
+static void title_place(const world *w, int p, int *dx, int *dy)
 {
-    if (state == ST_TITLE && w->players > 1) sx -= TITLE_SHIFT;   /* the title: a herd waits at the edge (the slots) */
+    int32_t hx, hy, qsx, qsy, qbx, qby;
+    llama_head(p, AIM_START, &hx, &hy);
+    llama_neck(p, AIM_START, &qsx, &qsy, &qbx, &qby);
+    int left = px(hx) - TITLE_HEAD_L, right = px(hx) + TITLE_HEAD_R, ui = hu_ui_x(), gx = 0;
+    int glyph = hu_title_glyph(&gx, NULL) >= 0 ? ui + gx - 2 : 1 << 20;     /* the prompt's glyph, UI x -> stage */
+    int d;
+    *dy = 0;
+    if (w->players == 1) {
+        d = -TITLE_SOLO_DX;
+        if (px(qsx) + TITLE_CHEST_R + d > glyph) d = glyph - px(qsx) - TITLE_CHEST_R;   /* the chest */
+        *dx = d;
+        *dy = -TITLE_SOLO_LIFT;
+        return;
+    }
+    d = -TITLE_SHIFT;
+    if (left + d < rs_screen_left()) d = rs_screen_left() - left;          /* the head whole on the screen ... */
+    int limit = p == 3 ? ui + TITLE_LOGO_X : p == 1 ? ui + TITLE_SLOT_X : p == 2 ? glyph : 1 << 20;
+    if (right + d > limit) d = limit - right;                               /* ... and left of what is beside it */
+    *dx = d;
+}
+
+static void draw_herd(const world *w, int state, int st_t, int sx, int sy, int play_prio)
+{
     for (int i = 0; i < MAX_PLAYERS; i++) {
         int p = draw_order[i];
         if (p >= w->players) continue;
         const llama *l = &w->l[p];
-        int aim = aim_shown(l), face = llama_face(l);
+        int aim = aim_shown(l), face = llama_face(l), dx = 0, dy = 0;
         if (state == ST_TITLE) {                       /* the title: the herd looks around, up and down */
             aim = AIM_START + isin1024(st_t * 3 + p * 200) * 40 / 16384;
             face = 0;
+            title_place(w, p, &dx, &dy);
         }
-        if (l->state == LS_PLAY && state != ST_TITLE) aim_dots(p, aim, sx, sy);
-        draw_llama(w, p, aim, face, sx, sy);
+        if (l->state == LS_PLAY && state != ST_TITLE) aim_dots(p, aim, sx, sy, play_prio);
+        draw_llama(w, p, aim, face, sx + dx, sy + dy);
     }
 }
 
-static void draw_hornet(const world *w, const hornet *h, int sx, int sy)
+static void draw_hornet(const world *w, const hornet *h, int sx, int sy, int play_prio)
 {
     int x = px(h->x) + sx, y = px(h->y) + sy, f = (w->t / 3 + (int)(h - w->hn)) % 2, fl = 0;
     if (h->flash && (h->flash / 2) % 2) return;        /* a big one hit blinks */
     if (h->pat == 255) fl = RS_SPR_HFLIP;               /* buzzing away to the right */
     if (h->pat == PAT_DART && h->aux_t == 1) {          /* a dart about to dash: it shakes, a warning */
         x += (w->t / 2) % 2 ? 1 : -1;
-        if ((w->t / 6) % 2 == 0) spr(SPR_WARN, x - 4, y - 18, 2, -1, 0);
+        if ((w->t / 6) % 2 == 0) spr(SPR_WARN, x - 4, y - 18, play_prio, -1, 0);
     }
     switch (h->kind) {
-    case HK_DART: spr(SPR_DART + f, x - 8, y - 8, 2, -1, fl); break;
-    case HK_BIG: spr(SPR_BIG + f, x - 16, y - 16, 2, -1, fl); break;
-    default: spr(SPR_HORNET + f, x - 8, y - 8, 2, -1, fl); break;
+    case HK_DART: spr(SPR_DART + f, x - 8, y - 8, play_prio, -1, fl); break;
+    case HK_BIG: spr(SPR_BIG + f, x - 16, y - 16, play_prio, -1, fl); break;
+    default: spr(SPR_HORNET + f, x - 8, y - 8, play_prio, -1, fl); break;
     }
 }
 
-static void draw_play(const world *w, int sx, int sy)
+static void draw_play(const world *w, int sx, int sy, int play_prio)
 {
     /* front to back: the points, the bonked hornets, the splats, the spit, the hornets */
     for (int i = 0; i < FX_MAX; i++) {
         const effect *e = &w->fx[i];
-        if (e->on && e->kind == FX_POINTS) small_number(e->value, px(e->x) + sx, px(e->y) - e->t / 2 + sy);
+        if (e->on && e->kind == FX_POINTS) small_number(e->value, px(e->x) + sx, px(e->y) - e->t / 2 + sy, play_prio);
     }
     for (int i = 0; i < FX_MAX; i++) {
         const effect *e = &w->fx[i];
@@ -262,27 +289,27 @@ static void draw_play(const world *w, int sx, int sy)
             int big = e->sub == HK_BIG;
             int id = big ? SPR_BIG_BONK : e->sub == HK_DART ? SPR_DART_BONK : SPR_HORNET_BONK;
             int hw = big ? 16 : 8;
-            spr(id, x - hw, y - hw, 2, -1, RS_SPR_VFLIP);
+            spr(id, x - hw, y - hw, play_prio, -1, RS_SPR_VFLIP);
             if (e->t < 90)                              /* bonk: stars circle over it */
                 for (int k = 0; k < 2; k++) {
                     int a = e->t * 12 + k * 512;
                     spr(SPR_STAR + (e->t / 6 + k) % 2, x - 4 + isin1024(a) * (hw + 2) / 16384,
-                        y - hw - 6 + isin1024(a + 256) * 3 / 16384, 2, -1, 0);
+                        y - hw - 6 + isin1024(a + 256) * 3 / 16384, play_prio, -1, 0);
                 }
             break;
         }
         case FX_SPLAT:
         case FX_FIZZLE:
-            spr(SPR_SPLAT + (e->t / 4 > 2 ? 2 : e->t / 4), x - 4, y - 4, 2, -1, 0);
+            spr(SPR_SPLAT + (e->t / 4 > 2 ? 2 : e->t / 4), x - 4, y - 4, play_prio, -1, 0);
             break;
         }
     }
     for (int i = 0; i < MAX_PLAYERS * GOBS_MAX; i++) {
         const gob *g = &w->gobs[i];
-        if (g->on) spr(SPR_GOB + (g->t / 4) % 2, px(g->x) - 4 + sx, px(g->y) - 4 + sy, 2, -1, 0);
+        if (g->on) spr(SPR_GOB + (g->t / 4) % 2, px(g->x) - 4 + sx, px(g->y) - 4 + sy, play_prio, -1, 0);
     }
     for (int i = 0; i < MAX_HORNETS; i++)
-        if (w->hn[i].on) draw_hornet(w, &w->hn[i], sx, sy);
+        if (w->hn[i].on) draw_hornet(w, &w->hn[i], sx, sy, play_prio);
 }
 
 /* the sun sets, the moon rises; clouds drift (behind the mountains: priority 0) */
@@ -387,6 +414,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);          /* the UI centred on the screen (widescreen) */
     hu_pause(paused, 13);
+    /* the hornets, the spit, their effects and the aim dots: in play over the text too (priority 3: the new hornets'
+     * names, the hint, the corner tags never hide one); paused or under the game-over panel, behind the UI (2) */
+    int play_prio = (state == ST_PLAY || state == ST_DEAD) && !paused ? 3 : 2;
 
     rs_oam_clear();
     /* front to back: the UI, the play, the herd, the sky */
@@ -413,9 +443,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int hx = 250 + isin1024(st_t * 5) * 22 / 16384, hy = 112 + isin1024(st_t * 10) * 10 / 16384;
         spr(SPR_HORNET + (st_t / 3) % 2, hx - 8, hy - 8, 2, -1, icos1024(st_t * 5) > 0 ? 0 : RS_SPR_HFLIP);
     } else {
-        draw_play(w, sx, sy);
+        draw_play(w, sx, sy, play_prio);
     }
-    draw_herd(w, state, st_t, sx, sy);
+    draw_herd(w, state, st_t, sx, sy, play_prio);
     draw_sky(state == ST_TITLE ? 0 : w->sky, t);
 }
 

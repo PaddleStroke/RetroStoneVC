@@ -122,8 +122,18 @@
 #define PANEL_DELAY   40        /* frames between the last llama's bonk and the game-over panel */
 #define RETRY_LOCK    36        /* frames the panel ignores the button (no accidental retry) */
 #define BOT_START     20        /* frames on the title before the bot starts the run */
-#define TITLE_SHIFT   44        /* the title: 2-4 llamas wait 44 px further left (clear of the logo and the slots) */
-#define TITLE_SLOT_ROW 11       /* the player slots' row on the title (under the logo, clear of the herd) */
+/* the title's layout (draw.c title_place; looks only): 2-4 llamas wait 44 px further left, each head whole on the
+ * screen and left of the logo (UI x 37), of P1's slot (30) or of the prompt's glyph; one llama stands 12 px left and
+ * 12 px up the meadow (its hooves above the join line, its ears under the slots, its chest left of the glyph) */
+#define TITLE_SHIFT   44
+#define TITLE_SOLO_DX 12
+#define TITLE_SOLO_LIFT 12
+#define TITLE_HEAD_L  11        /* the head's extent from its centre (the ears ... the snout), its chest's from the */
+#define TITLE_HEAD_R  15        /* shoulder */
+#define TITLE_CHEST_R 10
+#define TITLE_LOGO_X  37
+#define TITLE_SLOT_X  30
+#define TITLE_SLOT_ROW 9        /* the player slots' row on the title (under the logo, over the herd's heads) */
 #define MSG_FRAMES    150       /* the new hornets' names */
 #define HINT_FRAMES   300       /* the controls' hint at the start of a run */
 #define MEDAL_SCORES  {150, 450, 1000, 3000} /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
