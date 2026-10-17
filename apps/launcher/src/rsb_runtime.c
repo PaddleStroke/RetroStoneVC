@@ -34,7 +34,7 @@ static int cur = RSB_LAUNCHER;                  /* what runs: a game index or RS
 static int pending = -2;                        /* a switch asked during the frame (-2: none) */
 static int pending_fresh;
 static int last_game = -1;
-static int held, quit, want_width = 320, cur_width = 320;
+static int held, quit, want_width = 320, cur_width = 320, want_height = RS_SCREEN_H;
 static int sram_timer;
 static const char *store_req;
 static char store_market[256];
@@ -240,6 +240,7 @@ static void start(int g, int fresh)
         cur = RSB_LAUNCHER;
         say("start: %s%s", "launcher", "");
         rs_host_set_width(want_width);
+        rs_host_set_height(RS_SCREEN_H);        /* (the launcher: 240 lines) */
         rs_i18n_register(launcher_pack);        /* its strings, in the player's language */
         rs_host_init(rsb_launcher_game());
         cur_width = rs_screen_width();
@@ -257,6 +258,7 @@ static void start(int g, int fresh)
         last_game = g;
         say("start: %s%s", e->id, fresh ? " (fresh)" : "");
         rs_host_set_width(want_width);          /* a game that has not opted in to widescreen gets 320 */
+        rs_host_set_height(want_height);        /* ... to the tall screen, 240 */
         rs_i18n_register(pack_of(e->id));       /* its strings, in the player's language */
         rs_host_init(e->module->game_main());
         cur_width = rs_screen_width();
@@ -322,14 +324,22 @@ void rsb_set_width(int w)
 
 int  rsb_width(void) { return cur_width; }
 
+void rsb_set_height(int h) { want_height = h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h; }
+
 void rsb_resize(int w)
 {
     rsb_set_width(w);
+    if (cur >= 0) {                             /* a widescreen or tall game restarts from a state */
+        const rs_game *g = rsb_games[cur].module->game_main();
+        if (want_width == cur_width && rs_host_height_for(g, want_width, want_height) == rs_screen_height()) return;
+        cur_width = rs_host_change_size(want_width, want_height);
+        return;
+    }
     if (want_width == cur_width) return;
-    if (cur >= 0) cur_width = rs_host_change_width(want_width);   /* a widescreen game restarts from a state */
-    else start(RSB_LAUNCHER, 0);                                 /* the launcher lays its cards out again */
+    start(RSB_LAUNCHER, 0);                     /* the launcher lays its cards out again */
 }
 int  rsb_screen_w(void) { return rs_screen_width(); }
+int  rsb_screen_h(void) { return rs_screen_height(); }
 int  rsb_in_game(void) { return cur >= 0; }
 int  rsb_held(void) { return held; }
 void rsb_hold(void) { if (cur >= 0) held = 1; }
@@ -386,6 +396,7 @@ void rsb_shutdown(void)
 void rsb_pause_rect(float aspect, float *x, float *y, float *w, float *h)
 {
     float s = 0.11f, m = 0.025f;
+    if (aspect < 1) s *= aspect, m *= aspect;   /* a tall display: as big as on its side (a share of the width) */
     *h = s;
     *w = s / aspect;
     *y = m;
@@ -395,7 +406,7 @@ void rsb_pause_rect(float aspect, float *x, float *y, float *w, float *h)
 void rsb_back_rect(float aspect, float *x, float *y, float *w, float *h)
 {
     rsb_pause_rect(aspect, x, y, w, h);
-    *x = 0.025f / aspect;                       /* the mirror of the pause button */
+    *x = aspect < 1 ? 0.025f : 0.025f / aspect; /* the mirror of the pause button */
 }
 
 /* a finger on the back button (a slightly bigger target than the drawn button) */
@@ -467,7 +478,7 @@ static void pointer_update(const rsb_input *in, const rsb_view *v)
     float fx = v && v->w > 0 ? (in->finger[found].x - v->x) / v->w : in->finger[found].x;
     float fy = v && v->h > 0 ? (in->finger[found].y - v->y) / v->h : in->finger[found].y;
     ptr.x = (int)(fx * rsb_screen_w());
-    ptr.y = (int)(fy * RS_SCREEN_H);
+    ptr.y = (int)(fy * rs_screen_height());
     if (ptr.pressed) { ptr.x0 = ptr.x; ptr.y0 = ptr.y; }
 }
 
@@ -484,7 +495,7 @@ static int in_pause(const rsb_finger *fg, float aspect)
 
 /* the pause button: a finger that WENT DOWN on it presses the game's pause input (games.cfg pause=) while it stays
  * there; it never reaches the game. Then, a scheme of zones: each other finger presses the buttons of its zone. */
-static uint16_t touch_buttons(const rsb_input *in, float aspect, int zones)
+static uint16_t touch_buttons(const rsb_input *in, const rsb_view *v, float aspect, int zones)
 {
     const rsb_touch *t = &rsb_games[cur].touch;
     uint16_t b = 0;
@@ -500,9 +511,13 @@ static uint16_t touch_buttons(const rsb_input *in, float aspect, int zones)
         }
         if (!zones || in_back(fg, aspect)) continue;
         int x = (int)(fg->x * 100), y = (int)(fg->y * 100);
+        /* a tall display: a zone that does not span the whole height is in the band below the picture */
+        float fb = v && v->zh > 0 ? (fg->y - v->zy) / v->zh : fg->y;
+        int yb = fb < 0 ? -1 : (int)(fb * 100);
         for (int z = 0; z < t->nzones; z++) {
             const rsb_zone *zn = &t->zone[z];
-            if (x >= zn->x0 && x < zn->x1 + (zn->x1 == 100) && y >= zn->y0 && y < zn->y1 + (zn->y1 == 100)) {
+            int yz = zn->y0 == 0 && zn->y1 == 100 ? y : yb;
+            if (x >= zn->x0 && x < zn->x1 + (zn->x1 == 100) && yz >= zn->y0 && yz < zn->y1 + (zn->y1 == 100)) {
                 b |= zn->buttons;
                 break;
             }
@@ -535,7 +550,7 @@ static int native_touches(const rsb_input *in, const rsb_view *v, float aspect, 
         float fy = v && v->h > 0 ? (fg->y - v->y) / v->h : fg->y;
         out[n].id = fg->id;
         out[n].x = (int)(fx * rsb_screen_w());
-        out[n].y = (int)(fy * RS_SCREEN_H);
+        out[n].y = (int)(fy * rs_screen_height());
         n++;
     }
     memcpy(game_ids, keep, sizeof keep[0] * (size_t)nkeep);
@@ -601,7 +616,7 @@ int rsb_frame(const rsb_input *in, const rsb_view *view)
     }
 
     int native = native_touch();
-    uint16_t touch = cur >= 0 ? touch_buttons(in, aspect, !native) : 0;
+    uint16_t touch = cur >= 0 ? touch_buttons(in, view, aspect, !native) : 0;
     rs_host_touch fingers[RS_TOUCH_MAX];
     int nf = native ? native_touches(in, view, aspect, fingers) : 0;
     if (!native) ngame_ids = 0;

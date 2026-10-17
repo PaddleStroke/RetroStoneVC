@@ -8,6 +8,9 @@
  *   within 10%), the pixels are scaled by that integer; otherwise the picture is drawn at the next integer size
  *   and smoothed down ("sharp bilinear": crisp pixels, even rows). A game narrower than the display (320 px,
  *   no widescreen) gets side borders: a blurred, darkened copy of its own picture.
+ *   A tall display (portrait): the picture across the width, centred; above and below it its edges mirrored,
+ *   blurred and dark, and the touch zones that do not span the whole height (games.cfg button=) in the band below
+ *   it. A game that opts in to the tall screen (rs_screen_tall) gets the display's height at 320 columns instead.
  * Input: touches (Android) or the mouse (desktop) go to the runtime (apps/launcher/games.cfg maps them to the pad),
  *   the keyboard as the SDK's desktop runner (arrows, X = A, Z = B, Enter = Start, Backspace = Select), game
  *   controllers in the SNES layout, Back = Android's Back button, Esc, or the pad's Guide button.
@@ -31,7 +34,7 @@
 static SDL_Window *win;
 static SDL_Renderer *ren;
 static SDL_Texture *tex, *big, *blur;
-static int tex_w, blur_w, big_key;
+static int tex_w, blur_w, big_key, tex_h, blur_h;
 static SDL_GameController *pads[RS_PAD_MAX];
 static SDL_AudioDeviceID audio;
 static rsb_input in;
@@ -211,8 +214,9 @@ static void shot_icon(float cx, float cy, float r, SDL_Color k)
 
 /* The drawn touch buttons of the running game (games.cfg "button=" zones): a translucent disc with a ring around it in
  * its zone (at the bottom of a tall zone, where the thumbs are), an arrow for a direction or an arrow icon
- * ("button=...@up"), else the button's letter; brighter while held. */
-static void draw_buttons(int ww, int wh)
+ * ("button=...@up"), else the button's letter; brighter while held. A tall display (portrait): a zone that does not
+ * span the whole height is in the band below the picture, zy..zy + zh px (view.zy, zh; zh 0: the whole display). */
+static void draw_buttons(int ww, int wh, float zy, float zh)
 {
     const rsb_touch *t = rsb_touch_scheme();
     if (!t) return;
@@ -220,12 +224,15 @@ static void draw_buttons(int ww, int wh)
     for (int z = 0; z < t->nzones; z++) {
         const rsb_zone *zn = &t->zone[z];
         if (!zn->shown) continue;
-        float x0 = zn->x0 * ww / 100.0f, x1 = zn->x1 * ww / 100.0f, y0 = zn->y0 * wh / 100.0f, y1 = zn->y1 * wh / 100.0f;
-        float r = wh * 0.085f;
+        float by = 0, bh = (float)wh;                /* the zone's band: the display, or the one below the picture */
+        if (zh > 0 && !(zn->y0 == 0 && zn->y1 == 100)) by = zy, bh = zh;
+        float x0 = zn->x0 * ww / 100.0f, x1 = zn->x1 * ww / 100.0f, y0 = by + zn->y0 * bh / 100.0f,
+              y1 = by + zn->y1 * bh / 100.0f;
+        float r = (ww < wh ? ww : wh) * 0.085f;
         if (r > (x1 - x0) * 0.42f) r = (x1 - x0) * 0.42f;
         if (r > (y1 - y0) * 0.42f) r = (y1 - y0) * 0.42f;
         float cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-        if (cy < y1 - r - wh * 0.06f && y1 - y0 > wh * 0.6f) cy = y1 - r - wh * 0.06f;
+        if (cy < y1 - r - bh * 0.06f && y1 - y0 > bh * 0.6f) cy = y1 - r - bh * 0.06f;
         int on = (held & zn->buttons) == zn->buttons;
         /* a see-through mid-blue disc: visible on dark scenes (a cave) and on bright ones (a sky) */
         disc(cx, cy, r, (SDL_Color){96, 120, 184, (Uint8)(on ? 170 : 110)});
@@ -265,32 +272,44 @@ static void draw_buttons(int ww, int wh)
 
 static void present(int show_pause, int show_held)
 {
-    int ww, wh, fw = rsb_screen_w();
+    int ww, wh, fw = rsb_screen_w(), fh = rsb_screen_h();
     output_size(&ww, &wh);
-    if (!tex || tex_w != fw) {
+    if (!tex || tex_w != fw || tex_h != fh) {
         if (tex) SDL_DestroyTexture(tex);
-        tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING, fw, RS_SCREEN_H);
+        tex = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING, fw, fh);
         SDL_SetTextureScaleMode(tex, SDL_ScaleModeNearest);
         tex_w = fw;
+        tex_h = fh;
     }
     SDL_UpdateTexture(tex, NULL, rs_host_framebuffer(), fw * 2);
 
     /* the size: the display's height; an integer scale when it fits within 10% */
-    int k = wh / RS_SCREEN_H;
+    int k = wh / fh;
     if (k < 1) k = 1;
-    int dh = (k * RS_SCREEN_H * 10 >= wh * 9) ? k * RS_SCREEN_H : wh;
-    int dw = (int)((long long)fw * dh / RS_SCREEN_H);
-    if (dw > ww) {                                   /* a tall display (portrait, a narrow window) */
+    int dh = (k * fh * 10 >= wh * 9) ? k * fh : wh;
+    int dw = (int)((long long)fw * dh / fh);
+    if (dw > ww) {                                   /* a tall display (portrait, a narrow window): the width */
         dw = ww;
-        dh = (int)((long long)RS_SCREEN_H * dw / fw);
-        k = dh / RS_SCREEN_H;
-        if (k >= 1 && k * RS_SCREEN_H * 10 >= dh * 9) { dh = k * RS_SCREEN_H; dw = fw * k; }
+        dh = (int)((long long)fh * dw / fw);
+        k = dh / fh;
+        if (k >= 1 && k * fh * 10 >= dh * 9) { dh = k * fh; dw = fw * k; }
     }
     SDL_Rect dst = {(ww - dw) / 2, (wh - dh) / 2, dw, dh};
     view.x = (float)dst.x / ww;
     view.y = (float)dst.y / wh;
     view.w = (float)dst.w / ww;
     view.h = (float)dst.h / wh;
+    /* portrait: the touch zones in the band below the stage (the 240 lines from rs_screen_origin_y(): the picture
+     * of a 4:3 game; a tall game's stage), when it leaves room for the thumbs */
+    view.zy = view.zh = 0;
+    if (wh > ww) {
+        int oy = rs_screen_origin_y();
+        int sb = dst.y + (int)((long long)(oy + RS_SCREEN_H > fh ? fh : oy + RS_SCREEN_H) * dh / fh);
+        if ((wh - sb) * 10 >= ww * 3) {
+            view.zy = (float)sb / wh;
+            view.zh = (float)(wh - sb) / wh;
+        }
+    }
 
     SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
     SDL_RenderClear(ren);
@@ -299,14 +318,17 @@ static void present(int show_pause, int show_held)
 #endif
     if (dw < ww || dh < wh) {
         /* the borders: the picture stretched over the whole display, blurred (a 1/16 copy, smoothed) and dark */
-        int bw = fw / 16, bh = RS_SCREEN_H / 16;
-        if (!blur || blur_w != fw) {
+        int bw = fw / 16, bh = fh / 16;
+        if (!blur || blur_w != fw || blur_h != fh) {
             if (blur) SDL_DestroyTexture(blur);
             blur = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, bw, bh);
             SDL_SetTextureScaleMode(blur, SDL_ScaleModeLinear);
             blur_w = fw;
+            blur_h = fh;
         }
-        static uint32_t px[(560 / 16) * (240 / 16)];
+        static uint32_t px[(RS_SCREEN_W_MAX / 16) * (RS_SCREEN_H / 16) > (RS_SCREEN_W / 16) * (RS_SCREEN_H_MAX / 16)
+                               ? (RS_SCREEN_W_MAX / 16) * (RS_SCREEN_H / 16)
+                               : (RS_SCREEN_W / 16) * (RS_SCREEN_H_MAX / 16)];
         const uint16_t *fb = rs_host_framebuffer();
         for (int by = 0; by < bh; by++)
             for (int bx = 0; bx < bw; bx++) {
@@ -324,19 +346,28 @@ static void present(int show_pause, int show_held)
                 px[by * bw + bx] = (r * 2 / 5) << 16 | (g * 2 / 5) << 8 | (b * 2 / 5);
             }
         SDL_UpdateTexture(blur, NULL, px, bw * 4);
-        SDL_Rect all = {-ww / 8, -wh / 8, ww + ww / 4, wh + wh / 4};
-        SDL_RenderCopy(ren, blur, NULL, &all);
+        if (dw >= ww && bh >= 4) {
+            /* above and below the picture (portrait): its edges mirrored outwards, blurred and dark (the top 4/16
+             * rows upside down above it, the bottom ones below it) */
+            SDL_Rect top = {0, 0, bw, 4}, bot = {0, bh - 4, bw, 4};
+            SDL_Rect up = {0, 0, ww, dst.y}, down = {0, dst.y + dst.h, ww, wh - dst.y - dst.h};
+            SDL_RenderCopyEx(ren, blur, &top, &up, 0, NULL, SDL_FLIP_VERTICAL);
+            SDL_RenderCopyEx(ren, blur, &bot, &down, 0, NULL, SDL_FLIP_VERTICAL);
+        } else {
+            SDL_Rect all = {-ww / 8, -wh / 8, ww + ww / 4, wh + wh / 4};
+            SDL_RenderCopy(ren, blur, NULL, &all);
+        }
     }
-    if (dh % RS_SCREEN_H == 0) {
+    if (dh % fh == 0) {
         SDL_RenderCopy(ren, tex, NULL, &dst);
     } else {
         /* sharp bilinear: nearest to the integer size above, then smoothed down */
-        int kk = dh / RS_SCREEN_H + 1;
-        if (!big || big_key != fw * 1000 + kk) {
+        int kk = dh / fh + 1;
+        if (!big || big_key != (fw * 1000 + kk) * 1000 + fh) {
             if (big) SDL_DestroyTexture(big);
-            big = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, fw * kk, RS_SCREEN_H * kk);
+            big = SDL_CreateTexture(ren, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, fw * kk, fh * kk);
             if (big) SDL_SetTextureScaleMode(big, SDL_ScaleModeLinear);
-            big_key = fw * 1000 + kk;
+            big_key = (fw * 1000 + kk) * 1000 + fh;
         }
         if (big && SDL_SetRenderTarget(ren, big) == 0) {
             SDL_RenderCopy(ren, tex, NULL, NULL);
@@ -367,7 +398,7 @@ static void present(int show_pause, int show_held)
         /* the play sign: the picture dimmed, a round button with a triangle */
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 110);
         SDL_RenderFillRect(ren, &dst);
-        float cx = dst.x + dst.w / 2.0f, cy = dst.y + dst.h / 2.0f, r = dst.h * 0.12f;
+        float cx = dst.x + dst.w / 2.0f, cy = dst.y + dst.h / 2.0f, r = (fh > RS_SCREEN_H ? dst.w * 0.75f : dst.h) * 0.12f;
         SDL_Vertex v[3 + 48 * 3];
         int n = 0;
         SDL_Color disc = {16, 24, 56, 200}, tri = {255, 246, 220, 255};
@@ -382,7 +413,7 @@ static void present(int show_pause, int show_held)
         v[n++] = (SDL_Vertex){{cx - r * 0.35f, cy + r * 0.5f}, tri, {0, 0}};
         SDL_RenderGeometry(ren, NULL, v, n, NULL, 0);
     } else if (show_pause) {
-        draw_buttons(ww, wh);
+        draw_buttons(ww, wh, view.zy * wh, view.zh * wh);
         /* the pause button: a small translucent square with two bars, top-right */
         float px, py, pw, ph;
         rsb_pause_rect((float)ww / wh, &px, &py, &pw, &ph);
@@ -403,6 +434,13 @@ static int width_for(int ww, int wh)
 {
     int w = wh > 0 ? (int)((long long)RS_SCREEN_H * ww / wh) : 320;
     return w < 320 ? 320 : w > 560 ? 560 : w & ~1;
+}
+
+/* the height a tall game may use (portrait): the display's aspect at 320 columns, even, 240..720 */
+static int height_for(int ww, int wh)
+{
+    int h = ww > 0 ? (int)((long long)RS_SCREEN_W * wh / ww) : RS_SCREEN_H;
+    return h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h & ~1;
 }
 
 /* the system's language (docs/i18n.md): the first of the user's preferred locales the games have (-1: none) */
@@ -513,6 +551,7 @@ int main(int argc, char **argv)
     if (lang < 0 && (lang = system_lang()) >= 0) rs_host_set_lang(lang);   /* the games' language: the phone's */
     int ww, wh;
     output_size(&ww, &wh);
+    rsb_set_height(height_for(ww, wh));
     if (rsb_init(base_dir, width_for(ww, wh))) return 1;
     SDL_Log("%s %s: saves in %s", rsb_app_name, rsb_app_version, base_dir);
 
@@ -601,6 +640,7 @@ int main(int argc, char **argv)
             case SDL_WINDOWEVENT:
                 if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
                     output_size(&ww, &wh);
+                    rsb_set_height(height_for(ww, wh));
                     rsb_resize(width_for(ww, wh));
                 }
                 break;
@@ -617,6 +657,7 @@ int main(int argc, char **argv)
             if (sw != ww || sh != wh) {
                 ww = sw;
                 wh = sh;
+                rsb_set_height(height_for(ww, wh));
                 rsb_resize(width_for(ww, wh));
             }
         }

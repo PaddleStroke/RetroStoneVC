@@ -129,12 +129,20 @@ typedef struct rsb_input {
 } rsb_input;
 typedef struct rsb_view {               /* where the screen is drawn in the display (0..1), for the touch mapping */
     float x, y, w, h;
+    /* a tall display (portrait): the band of the display (0..1, its top and height) where the touch zones go that do
+     * not span the whole height (games.cfg: button= and the top / bottom zones), below the picture; zh 0: the whole
+     * display (landscape) */
+    float zy, zh;
 } rsb_view;
 
 /* save_dir: where <id>.srm and <id>.state go (with a trailing slash). Snapshots the modules' data. */
 int  rsb_init(const char *save_dir, int width);
 /* The width a module will get when it starts (the frontend's choice from the display's aspect). */
 void rsb_set_width(int width);
+/* The height it will get (a tall display, portrait: the display's height at 320 columns; a game that has not opted in
+ * to the tall screen gets 240, rs_screen_tall), and the height of the framebuffer now. rsb_resize() applies it. */
+void rsb_set_height(int height);
+int  rsb_screen_h(void);
 /* The display changed shape (a window resized): the launcher is laid out again, a widescreen game restarts at the
  * new width from a save state (rs_host_change_width). */
 void rsb_resize(int width);
