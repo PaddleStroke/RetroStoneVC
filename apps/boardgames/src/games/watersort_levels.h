@@ -1,169 +1,169 @@
 /*
- * Water Sort's levels: our own, made by tools/watersort_gen.c (colours shuffled into the tubes by chance, the
- * shortest way found by the rules' search, six chapters of 25 from the easiest). Each: the tubes from the
- * left ('|' between them), each one's colours from the bottom (1..9 a b c); in the comment the colours, the
- * shortest way and the positions the search made; the shortest ways again in ws_level_par (the tests
- * check them).
+ * Water Sort's levels: our own, made by tools/watersort_gen.c (each from a theme: a shuffle, rows of every
+ * colour, rainbow tubes, a mirrored rack, a Latin rack to end each chapter; the shortest way found by the
+ * rules' search; six chapters of 25 from the easiest). Each: the tubes from the left ('|' between them), each
+ * one's colours from the bottom (1..9 a b c); in the comment the colours, the theme, the shortest way and the
+ * positions the search made; the shortest ways again in ws_level_par (the tests check them).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 const char *const ws_levels[WS_LEVELS] = {
-    "1312|1323|2231||", /* 1: 3 colours, 9 pours, 30 looked at */
-    "3211|2323|1321||", /* 2: 3 colours, 9 pours, 45 looked at */
-    "1323|3212|1132||", /* 3: 3 colours, 9 pours, 47 looked at */
-    "3232|3112|1321||", /* 4: 3 colours, 9 pours, 53 looked at */
-    "1312|2332|3121||", /* 5: 3 colours, 9 pours, 63 looked at */
-    "3231|3123|2121||", /* 6: 3 colours, 10 pours, 54 looked at */
-    "1312|3123|1232||", /* 7: 3 colours, 10 pours, 59 looked at */
-    "3121|3132|3221||", /* 8: 3 colours, 10 pours, 73 looked at */
-    "3132|2121|2133||", /* 9: 3 colours, 10 pours, 83 looked at */
-    "2312|1312|3321||", /* 10: 3 colours, 10 pours, 102 looked at */
-    "2442|3124|1323|3141||", /* 11: 4 colours, 12 pours, 48 looked at */
-    "3132|2312|3121||", /* 12: 3 colours, 11 pours, 100 looked at */
-    "3213|1212|3123||", /* 13: 3 colours, 11 pours, 128 looked at */
-    "1312|2312|3231||", /* 14: 3 colours, 11 pours, 153 looked at */
-    "3214|3143|4122|4213||", /* 15: 4 colours, 13 pours, 68 looked at */
-    "2334|2431|1234|2141||", /* 16: 4 colours, 13 pours, 76 looked at */
-    "1232|4131|4332|4124||", /* 17: 4 colours, 13 pours, 101 looked at */
-    "2142|3421|1324|4313||", /* 18: 4 colours, 13 pours, 115 looked at */
-    "1342|3241|3231|2441||", /* 19: 4 colours, 13 pours, 129 looked at */
-    "4431|2414|2323|2131||", /* 20: 4 colours, 13 pours, 144 looked at */
-    "4131|4242|2133|3214||", /* 21: 4 colours, 13 pours, 154 looked at */
-    "3121|4212|4243|3341||", /* 22: 4 colours, 13 pours, 185 looked at */
-    "1342|3143|4143|2122||", /* 23: 4 colours, 13 pours, 213 looked at */
-    "4112|3232|4342|3141||", /* 24: 4 colours, 13 pours, 261 looked at */
-    "3214|3414|2312|1423||", /* 25: 4 colours, 14 pours, 197 looked at */
-    "5332|4315|5424|4121|3215||", /* 26: 5 colours, 16 pours, 122 looked at */
-    "1531|2254|4153|4132|2345||", /* 27: 5 colours, 16 pours, 164 looked at */
-    "5352|5425|2141|3243|3411||", /* 28: 5 colours, 16 pours, 185 looked at */
-    "3412|1212|4254|3543|3551||", /* 29: 5 colours, 16 pours, 208 looked at */
-    "4134|5431|5235|1522|2431||", /* 30: 5 colours, 16 pours, 231 looked at */
-    "1413|2523|3143|2541|5542||", /* 31: 5 colours, 16 pours, 256 looked at */
-    "2534|5241|5113|2351|3424||", /* 32: 5 colours, 16 pours, 279 looked at */
-    "1512|3252|1341|4543|4523||", /* 33: 5 colours, 17 pours, 185 looked at */
-    "1542|4461|2352|4321|6566|1353||", /* 34: 6 colours, 19 pours, 92 looked at */
-    "2143|5213|1543|2245|5134||", /* 35: 5 colours, 16 pours, 401 looked at */
-    "1263|5334|4165|3622|4256|1541||", /* 36: 6 colours, 18 pours, 194 looked at */
-    "3156|2324|1543|3542|2145|6661||", /* 37: 6 colours, 18 pours, 202 looked at */
-    "1134|5152|2132|4543|5234||", /* 38: 5 colours, 16 pours, 547 looked at */
-    "6362|6553|4412|4123|1516|2543||", /* 39: 6 colours, 18 pours, 242 looked at */
-    "3154|2413|4242|5125|1353||", /* 40: 5 colours, 17 pours, 425 looked at */
-    "3125|5342|1524|1453|1342||", /* 41: 5 colours, 17 pours, 495 looked at */
-    "1535|3425|4321|4153|2124||", /* 42: 5 colours, 17 pours, 600 looked at */
-    "3162|4253|5261|5361|4365|2441||", /* 43: 6 colours, 19 pours, 288 looked at */
-    "4223|4563|1265|4564|1361|3512||", /* 44: 6 colours, 20 pours, 210 looked at */
-    "3121|3414|3535|2124|4525||", /* 45: 5 colours, 18 pours, 594 looked at */
-    "5134|6221|6544|5363|3245|6121||", /* 46: 6 colours, 19 pours, 458 looked at */
-    "2142|6153|3553|6413|4522|6146||", /* 47: 6 colours, 20 pours, 345 looked at */
-    "1425|4262|3121|4515|6436|3653||", /* 48: 6 colours, 20 pours, 424 looked at */
-    "3142|3612|4452|6335|6512|6145||", /* 49: 6 colours, 19 pours, 897 looked at */
-    "1336|3561|3526|1624|4541|2524||", /* 50: 6 colours, 20 pours, 863 looked at */
-    "1561|2554|3436|2762|1717|7326|4435||", /* 51: 7 colours, 21 pours, 254 looked at */
-    "5747|2162|3142|6673|2553|1643|4571||", /* 52: 7 colours, 21 pours, 289 looked at */
-    "1453|2671|4762|3627|1314|5253|4675||", /* 53: 7 colours, 23 pours, 125 looked at */
-    "3675|7145|4161|5532|2346|7126|2473||", /* 54: 7 colours, 22 pours, 223 looked at */
-    "2344|1266|4717|1635|7526|3152|4357||", /* 55: 7 colours, 21 pours, 422 looked at */
-    "4426|2534|3577|6253|5161|1276|1347||", /* 56: 7 colours, 21 pours, 469 looked at */
-    "7134|2475|7256|4116|1456|2632|5337||", /* 57: 7 colours, 21 pours, 509 looked at */
-    "3724|6634|2347|5165|7552|6141|1732||", /* 58: 7 colours, 21 pours, 536 looked at */
-    "5621|7753|6741|2452|3736|4324|6115||", /* 59: 7 colours, 21 pours, 670 looked at */
-    "3565|3751|4241|5623|7137|4472|6261||", /* 60: 7 colours, 22 pours, 452 looked at */
-    "4271|7453|6761|4326|3527|2116|5435||", /* 61: 7 colours, 22 pours, 500 looked at */
-    "7342|6473|1721|5714|4516|6356|2253||", /* 62: 7 colours, 22 pours, 536 looked at */
-    "1327|5667|4313|6526|3542|7425|4171||", /* 63: 7 colours, 22 pours, 563 looked at */
-    "4437|1276|4614|1636|2553|2572|3157||", /* 64: 7 colours, 22 pours, 602 looked at */
-    "5772|4144|5673|6143|2137|2136|5256||", /* 65: 7 colours, 23 pours, 395 looked at */
-    "6216|2531|2347|4637|5557|7241|6431||", /* 66: 7 colours, 22 pours, 668 looked at */
-    "2654|5352|7362|1144|6167|4257|3137||", /* 67: 7 colours, 21 pours, 1132 looked at */
-    "6551|3641|2335|7217|3626|4247|7541||", /* 68: 7 colours, 22 pours, 793 looked at */
-    "2526|7574|4115|4213|6127|3436|7653||", /* 69: 7 colours, 23 pours, 548 looked at */
-    "3213|6237|5414|6625|1765|1524|3477||", /* 70: 7 colours, 22 pours, 1007 looked at */
-    "1454|4237|1736|1571|4226|6535|6327||", /* 71: 7 colours, 24 pours, 434 looked at */
-    "2352|7364|1651|1767|6317|2424|5345||", /* 72: 7 colours, 24 pours, 490 looked at */
-    "6143|4372|5175|2316|7546|2136|4572||", /* 73: 7 colours, 24 pours, 589 looked at */
-    "5617|1654|3724|6724|3553|1732|4621||", /* 74: 7 colours, 23 pours, 1099 looked at */
-    "4216|1445|3167|2356|3275|4762|3571||", /* 75: 7 colours, 23 pours, 1523 looked at */
-    "1216|7785|3563|4863|2751|1846|5224|8374||", /* 76: 8 colours, 24 pours, 456 looked at */
-    "8455|4667|6731|2412|2378|7613|1385|5284||", /* 77: 8 colours, 24 pours, 512 looked at */
-    "1231|6848|1787|4524|4373|2365|7686|5125||", /* 78: 8 colours, 26 pours, 219 looked at */
-    "3457|6421|5456|1428|2537|8867|1137|3628||", /* 79: 8 colours, 24 pours, 695 looked at */
-    "2561|7284|7327|3642|5661|5353|4781|8418||", /* 80: 8 colours, 25 pours, 498 looked at */
-    "2671|6499|7425|7714|3189|1583|4386|2283|5659||", /* 81: 9 colours, 26 pours, 360 looked at */
-    "5478|6471|2341|2886|6875|3516|2724|3315||", /* 82: 8 colours, 26 pours, 423 looked at */
-    "7223|4573|5418|8531|3685|6181|2762|7644||", /* 83: 8 colours, 24 pours, 1285 looked at */
-    "7467|8564|3482|1547|6371|2865|3312|8521||", /* 84: 8 colours, 26 pours, 662 looked at */
-    "6818|6563|4821|8452|6323|2175|7417|7435||", /* 85: 8 colours, 27 pours, 499 looked at */
-    "1793|7287|3954|8545|9334|2428|9186|6661|5127||", /* 86: 9 colours, 26 pours, 948 looked at */
-    "7413|5363|1775|8482|1628|5246|7125|6843||", /* 87: 8 colours, 26 pours, 1005 looked at */
-    "3685|5823|2412|4817|7526|7643|3578|1614||", /* 88: 8 colours, 27 pours, 722 looked at */
-    "3818|3598|4254|7297|9651|8276|6124|1745|9363||", /* 89: 9 colours, 29 pours, 325 looked at */
-    "8725|8232|9418|4946|1779|3211|9365|3655|6874||", /* 90: 9 colours, 27 pours, 1013 looked at */
-    "6829|5855|7282|4114|9863|4737|2616|7513|3949||", /* 91: 9 colours, 28 pours, 694 looked at */
-    "5617|2612|5578|3376|8199|4152|3984|3246|7849||", /* 92: 9 colours, 27 pours, 1239 looked at */
-    "4136|9262|4549|2181|9695|3483|5261|7853|7778||", /* 93: 9 colours, 28 pours, 994 looked at */
-    "7572|1826|5274|3438|2657|3465|1134|8186||", /* 94: 8 colours, 26 pours, 2750 looked at */
-    "3121|9326|8797|8984|1367|7458|6242|9145|5653||", /* 95: 9 colours, 29 pours, 748 looked at */
-    "9714|4716|7569|6294|8865|4229|3533|8518|1723||", /* 96: 9 colours, 28 pours, 1403 looked at */
-    "6985|7412|1234|5724|2571|6673|9856|1984|9383||", /* 97: 9 colours, 29 pours, 1150 looked at */
-    "3223|1851|9493|4686|9197|1755|7276|4328|4865||", /* 98: 9 colours, 29 pours, 1381 looked at */
-    "2613|2593|7917|4898|3577|8241|6581|6526|3494||", /* 99: 9 colours, 30 pours, 1092 looked at */
-    "7412|8413|8956|7515|9798|2745|3283|1366|2946||", /* 100: 9 colours, 29 pours, 2196 looked at */
-    "a257|5946|2847|3388|a346|9a19|4131|892a|7651|5672||", /* 101: 10 colours, 30 pours, 327 looked at */
-    "3456|1a59|6a35|a457|8291|7996|1467|8823|28a2|3471||", /* 102: 10 colours, 31 pours, 340 looked at */
-    "a864|3717|9923|4855|8367|6258|a729|146a|1193|25a4||", /* 103: 10 colours, 30 pours, 667 looked at */
-    "14a5|4116|62a9|9143|a936|893a|8453|7575|2682|7278||", /* 104: 10 colours, 31 pours, 555 looked at */
-    "8528|9678|95a1|1a35|4431|3aa7|7662|2946|3425|8719||", /* 105: 10 colours, 31 pours, 643 looked at */
-    "3185|9524|a149|388a|587a|4799|3646|2627|7211|635a||", /* 106: 10 colours, 30 pours, 1090 looked at */
-    "3628|8954|a938|6a11|7329|8734|a195|6767|2241|5a45||", /* 107: 10 colours, 31 pours, 802 looked at */
-    "6982|967a|4331|3751|97a1|2729|a845|4553|816a|4268||", /* 108: 10 colours, 31 pours, 953 looked at */
-    "97a7|4983|2598|6166|3857|62a1|aa43|3591|2571|4482||", /* 109: 10 colours, 31 pours, 1116 looked at */
-    "a557|2498|a8a6|1592|3932|4135|64a1|8742|6317|9786||", /* 110: 10 colours, 32 pours, 801 looked at */
-    "3147|a255|6312|3788|2768|6929|1691|a458|7434|aa59||", /* 111: 10 colours, 31 pours, 1385 looked at */
-    "1429|8928|735a|a233|6846|3146|77a5|9421|6198|a755||", /* 112: 10 colours, 31 pours, 1506 looked at */
-    "8831|a313|94a3|5642|7274|5295|8a61|9546|8276|17a9||", /* 113: 10 colours, 33 pours, 671 looked at */
-    "7515|3a43|3aa1|7495|2871|8a26|3249|5189|2666|8974||", /* 114: 10 colours, 32 pours, 1106 looked at */
-    "647a|8799|3a68|5783|9294|1a36|2285|4365|a571|2411||", /* 115: 10 colours, 30 pours, 3173 looked at */
-    "3621|6792|86aa|9618|8355|7974|54a5|2981|1347|a423||", /* 116: 10 colours, 31 pours, 2143 looked at */
-    "a354|a829|1295|4a37|724a|7986|7596|1131|2835|8646||", /* 117: 10 colours, 33 pours, 1022 looked at */
-    "a164|7383|9829|5257|6388|1659|4627|45a2|a173|a914||", /* 118: 10 colours, 33 pours, 1161 looked at */
-    "4a26|18a1|3349|38a3|4566|8517|2991|a752|2576|8497||", /* 119: 10 colours, 31 pours, 3285 looked at */
-    "2566|7a81|1a75|5438|3919|2625|4848|a97a|3473|2196||", /* 120: 10 colours, 32 pours, 2434 looked at */
-    "14a1|4925|3a86|1a96|8815|9835|3947|2673|547a|6272||", /* 121: 10 colours, 32 pours, 2652 looked at */
-    "a156|a388|1427|9953|1627|74a3|5486|23a5|9429|1786||", /* 122: 10 colours, 32 pours, 2963 looked at */
-    "1249|8238|4a56|8967|79a5|7425|2413|16a8|a137|5693||", /* 123: 10 colours, 34 pours, 1482 looked at */
-    "1a25|9256|247a|9446|7158|6758|1839|a43a|3893|1726||", /* 124: 10 colours, 33 pours, 2644 looked at */
-    "7693|665a|8458|3541|8759|1211|a372|7968|24a4|23a9||", /* 125: 10 colours, 34 pours, 2357 looked at */
-    "7a7b|a3a6|3213|8921|64b5|b586|261a|95b5|7824|4948|7391||", /* 126: 11 colours, 35 pours, 555 looked at */
-    "1188|1bb5|6484|5347|9326|7a9a|252a|7381|9a4b|b676|3952||", /* 127: 11 colours, 33 pours, 1765 looked at */
-    "222a|5149|91ac|a6b6|9134|7c5a|8398|c553|6747|b8c2|1763|b8b4||", /* 128: 12 colours, 35 pours, 817 looked at */
-    "229a|2b54|4732|b917|a861|8344|a956|1718|a933|b6b7|5685||", /* 129: 11 colours, 35 pours, 1304 looked at */
-    "b471|3bac|a994|2cc6|8232|ca5a|8477|b941|6859|2566|3581|7b13||", /* 130: 12 colours, 36 pours, 896 looked at */
-    "b165|28b2|b657|a287|4a3b|8a57|6849|1316|9499|3147|532a||", /* 131: 11 colours, 34 pours, 2647 looked at */
-    "94cc|7a89|5172|86bc|1567|ba69|2133|9182|4233|485a|a65c|b74b||", /* 132: 12 colours, 36 pours, 1372 looked at */
-    "1834|86b1|49a7|15a4|5a83|9b62|8b3b|9271|2a94|7566|2375||", /* 133: 11 colours, 37 pours, 968 looked at */
-    "b723|7a19|c8a5|9c9b|3327|4624|8ca1|c92a|b537|b146|6158|4568||", /* 134: 12 colours, 39 pours, 527 looked at */
-    "6531|b487|9941|5a16|2513|a27b|8626|9479|85a7|a4b8|3b32||", /* 135: 11 colours, 36 pours, 2341 looked at */
-    "1912|39bb|4332|8274|6c65|61c9|2157|8a3a|7aa9|6c75|8b4c|8b45||", /* 136: 12 colours, 38 pours, 986 looked at */
-    "a1ba|1918|2433|5463|7b84|975a|8916|9b25|5846|3727|2b6a||", /* 137: 11 colours, 36 pours, 2708 looked at */
-    "a372|2623|64a9|562b|711b|9a97|9884|436a|3158|7b51|4b58||", /* 138: 11 colours, 35 pours, 4577 looked at */
-    "3613|2b65|44a3|1729|2928|761a|4836|5198|b7b9|ab45|785a||", /* 139: 11 colours, 36 pours, 3044 looked at */
-    "13c3|a634|45ac|1976|83b6|5969|abba|7522|2451|92b8|78c7|14c8||", /* 140: 12 colours, 38 pours, 1426 looked at */
-    "3947|431b|35a7|24b1|6986|787b|8b6a|8219|5a25|1694|a253||", /* 141: 11 colours, 36 pours, 3927 looked at */
-    "3569|43aa|8571|3b47|6216|3272|5695|482b|8741|8ab9|19ba||", /* 142: 11 colours, 37 pours, 2869 looked at */
-    "2a78|cb97|14a6|6239|ba13|3648|2c46|3ab2|185b|4c91|5957|587c||", /* 143: 12 colours, 40 pours, 840 looked at */
-    "6b41|5476|c321|c1bc|9938|535a|7674|a96b|9284|7225|188a|3bca||", /* 144: 12 colours, 38 pours, 2546 looked at */
-    "bb96|8a26|3b51|7213|b562|4a38|4896|a541|741a|7325|7989||", /* 145: 11 colours, 37 pours, 4444 looked at */
-    "a35a|4215|1c48|188c|59b3|b72c|1a27|493c|246b|968b|9767|36a5||", /* 146: 12 colours, 39 pours, 2341 looked at */
-    "12c3|48bc|24c2|6847|1955|36bc|b6b1|27a7|597a|4691|983a|58a3||", /* 147: 12 colours, 39 pours, 2772 looked at */
-    "9ab4|4cb7|2516|8354|c6bc|1a72|1a99|6857|a852|2314|73b9|86c3||", /* 148: 12 colours, 40 pours, 2343 looked at */
-    "4121|48cb|3a83|97b4|c4a6|8631|2623|7b87|67a9|1ac9|5525|b9c5||", /* 149: 12 colours, 39 pours, 4396 looked at */
-    "38a1|91c9|b14b|3973|a584|b528|c654|a68b|2437|6769|7c5c|21a2||", /* 150: 12 colours, 41 pours, 2649 looked at */
+    "2121|2121||", /* 1: 2 colours, shuffle, 7 pours, 17 looked at */
+    "1213|3221|3132||", /* 2: 3 colours, shuffle, 9 pours, 30 looked at */
+    "3221|3131|2132||", /* 3: 3 colours, shuffle, 9 pours, 49 looked at */
+    "1212|3133|2321||", /* 4: 3 colours, rows, 9 pours, 65 looked at */
+    "1132|3232|1312||", /* 5: 3 colours, shuffle, 9 pours, 65 looked at */
+    "2312|1123|3231||", /* 6: 3 colours, rows, 9 pours, 72 looked at */
+    "2123|1331|3212||", /* 7: 3 colours, rows, 9 pours, 73 looked at */
+    "1321|2113|3232||", /* 8: 3 colours, shuffle, 9 pours, 73 looked at */
+    "2313|1231|3122||", /* 9: 3 colours, rows, 9 pours, 78 looked at */
+    "2321|3131|2321||", /* 10: 3 colours, mirror, 10 pours, 49 looked at */
+    "3231|1212|3231||", /* 11: 3 colours, mirror, 11 pours, 65 looked at */
+    "1231|3232|1231||", /* 12: 3 colours, mirror, 11 pours, 72 looked at */
+    "2313|1212|2313||", /* 13: 3 colours, mirror, 11 pours, 73 looked at */
+    "3212|1424|1314|2334||", /* 14: 4 colours, shuffle, 12 pours, 123 looked at */
+    "3242|2413|4121|1334||", /* 15: 4 colours, rows, 12 pours, 136 looked at */
+    "3124|2143|2143|3124||", /* 16: 4 colours, mirror, 14 pours, 63 looked at */
+    "4213|2314|1234|3142||", /* 17: 4 colours, rainbow, 13 pours, 113 looked at */
+    "3121|3214|1244|3423||", /* 18: 4 colours, shuffle, 13 pours, 127 looked at */
+    "2124|4313|4313|2124||", /* 19: 4 colours, mirror, 14 pours, 83 looked at */
+    "3411|1412|4232|3432||", /* 20: 4 colours, shuffle, 13 pours, 173 looked at */
+    "4234|2413|1322|3141||", /* 21: 4 colours, rows, 13 pours, 174 looked at */
+    "1343|4212|4212|1343||", /* 22: 4 colours, mirror, 14 pours, 114 looked at */
+    "3142|4132|4123|3214||", /* 23: 4 colours, rainbow, 14 pours, 130 looked at */
+    "2323|4141|1234|2341||", /* 24: 4 colours, shuffle, 14 pours, 162 looked at */
+    "3421|4132|2314|1243||", /* 25: 4 colours, showpiece, 13 pours, 168 looked at */
+    "4213|5342|4123|1325|1455||", /* 26: 5 colours, shuffle, 16 pours, 135 looked at */
+    "1214|3551|5423|4135|2342||", /* 27: 5 colours, rows, 15 pours, 218 looked at */
+    "1425|5143|2323|5143|1425||", /* 28: 5 colours, mirror, 17 pours, 121 looked at */
+    "4512|4123|3125|2453|3451||", /* 29: 5 colours, rainbow, 17 pours, 125 looked at */
+    "2213|4525|3543|4231|1541||", /* 30: 5 colours, shuffle, 16 pours, 234 looked at */
+    "3215|1542|4343|1542|3215||", /* 31: 5 colours, mirror, 17 pours, 163 looked at */
+    "1541|2514|3422|5314|5323||", /* 32: 5 colours, shuffle, 16 pours, 283 looked at */
+    "1234|5325|2143|4451|3512||", /* 33: 5 colours, rows, 16 pours, 317 looked at */
+    "2535|3141|2424|3141|2535||", /* 34: 5 colours, mirror, 18 pours, 158 looked at */
+    "3542|2451|4231|2513|1354||", /* 35: 5 colours, rainbow, 17 pours, 258 looked at */
+    "5243|3421|4323|1554|2151||", /* 36: 5 colours, shuffle, 16 pours, 460 looked at */
+    "5412|3412|5353|3412|5412||", /* 37: 5 colours, mirror, 18 pours, 215 looked at */
+    "3162|3451|5644|6232|3164|5521||", /* 38: 6 colours, shuffle, 19 pours, 245 looked at */
+    "1451|4524|3216|5642|6335|2163||", /* 39: 6 colours, rows, 18 pours, 430 looked at */
+    "2533|5246|4161|4161|5246|2533||", /* 40: 6 colours, mirror, 19 pours, 298 looked at */
+    "4263|4215|6512|6523|4316|3154||", /* 41: 6 colours, rainbow, 21 pours, 138 looked at */
+    "1262|6253|1453|1355|6244|3641||", /* 42: 6 colours, shuffle, 19 pours, 438 looked at */
+    "3642|4256|3115|3115|4256|3642||", /* 43: 6 colours, mirror, 20 pours, 287 looked at */
+    "6614|2416|5232|5361|4245|1353||", /* 44: 6 colours, shuffle, 19 pours, 536 looked at */
+    "2426|4565|5643|6234|1351|3112||", /* 45: 6 colours, rows, 19 pours, 556 looked at */
+    "4213|6264|1535|1535|6264|4213||", /* 46: 6 colours, mirror, 21 pours, 284 looked at */
+    "2314|3465|6514|6231|5342|6521||", /* 47: 6 colours, rainbow, 20 pours, 546 looked at */
+    "5216|5341|5533|6242|1436|4612||", /* 48: 6 colours, shuffle, 19 pours, 872 looked at */
+    "3451|2636|2154|2154|2636|3451||", /* 49: 6 colours, mirror, 22 pours, 397 looked at */
+    "5216|2134|6341|1523|4652|3465||", /* 50: 6 colours, showpiece, 20 pours, 577 looked at */
+    "7346|7125|2455|7361|6436|3217|1542||", /* 51: 7 colours, shuffle, 22 pours, 240 looked at */
+    "7372|6551|2726|5165|1243|3417|4634||", /* 52: 7 colours, rows, 21 pours, 420 looked at */
+    "5647|6217|4133|2525|4133|6217|5647||", /* 53: 7 colours, mirror, 22 pours, 289 looked at */
+    "6324|7451|7314|7526|6155|3172|4263||", /* 54: 7 colours, shuffle, 23 pours, 218 looked at */
+    "6145|3267|4623|7142|6357|3512|5714||", /* 55: 7 colours, rainbow, 23 pours, 257 looked at */
+    "1147|7543|6235|6262|6235|7543|1147||", /* 56: 7 colours, mirror, 23 pours, 276 looked at */
+    "7244|6167|3512|3535|3512|6167|7244||", /* 57: 7 colours, mirror, 23 pours, 284 looked at */
+    "4665|5343|1521|7254|2417|3132|6776||", /* 58: 7 colours, rows, 21 pours, 784 looked at */
+    "6673|4423|4621|6512|3517|7351|2745||", /* 59: 7 colours, shuffle, 21 pours, 805 looked at */
+    "3756|4162|5246|7251|2143|7365|3471||", /* 60: 7 colours, rainbow, 23 pours, 331 looked at */
+    "7671|1232|4274|4616|5543|7326|1355||", /* 61: 7 colours, shuffle, 22 pours, 569 looked at */
+    "6732|1446|3715|3265|7351|6424|2571||", /* 62: 7 colours, shuffle, 22 pours, 691 looked at */
+    "6421|1754|3315|5243|4672|2136|7567||", /* 63: 7 colours, rows, 22 pours, 769 looked at */
+    "7764|5241|6523|1313|6523|5241|7764||", /* 64: 7 colours, mirror, 23 pours, 486 looked at */
+    "4113|6252|7365|4747|7365|6252|4113||", /* 65: 7 colours, mirror, 23 pours, 516 looked at */
+    "7513|4625|4751|6243|6271|5743|1263||", /* 66: 7 colours, rainbow, 23 pours, 544 looked at */
+    "3141|5754|5146|3226|2375|4676|7312||", /* 67: 7 colours, shuffle, 22 pours, 865 looked at */
+    "3162|7514|2356|4747|2356|7514|3162||", /* 68: 7 colours, mirror, 25 pours, 217 looked at */
+    "5431|3154|2263|7625|1572|4346|6717||", /* 69: 7 colours, rows, 22 pours, 1278 looked at */
+    "3614|2537|4727|6127|4521|3635|4516||", /* 70: 7 colours, shuffle, 24 pours, 507 looked at */
+    "5237|7463|1264|5151|1264|7463|5237||", /* 71: 7 colours, mirror, 25 pours, 325 looked at */
+    "6314|2745|7513|4265|7463|1326|5127||", /* 72: 7 colours, rainbow, 23 pours, 858 looked at */
+    "6271|5754|2327|1343|2156|6157|4346||", /* 73: 7 colours, shuffle, 24 pours, 593 looked at */
+    "4127|1524|3673|5656|3673|1524|4127||", /* 74: 7 colours, mirror, 25 pours, 391 looked at */
+    "7524|3176|6247|5763|2415|1632|4351||", /* 75: 7 colours, showpiece, 23 pours, 925 looked at */
+    "6718|8852|4423|7615|6431|8527|3541|2376||", /* 76: 8 colours, shuffle, 24 pours, 364 looked at */
+    "3583|8145|7227|1774|2431|4362|6818|5656||", /* 77: 8 colours, rows, 23 pours, 729 looked at */
+    "1553|4621|6287|7348|7348|6287|4621|1553||", /* 78: 8 colours, mirror, 26 pours, 254 looked at */
+    "4758|3256|1738|8364|4527|3741|5162|2186||", /* 79: 8 colours, rainbow, 26 pours, 350 looked at */
+    "3487|8756|2216|1525|3423|4761|1853|6874||", /* 80: 8 colours, shuffle, 26 pours, 448 looked at */
+    "8561|3446|8571|2723|2723|8571|3446|8561||", /* 81: 8 colours, mirror, 27 pours, 323 looked at */
+    "3181|4242|7275|3568|4588|5347|7612|6136||", /* 82: 8 colours, shuffle, 26 pours, 613 looked at */
+    "5613|2151|8284|1742|4828|7437|6576|3365||", /* 83: 8 colours, rows, 25 pours, 1174 looked at */
+    "1348|2768|3554|2761|2761|3554|2768|1348||", /* 84: 8 colours, mirror, 27 pours, 507 looked at */
+    "1423|1475|5786|7248|5136|2685|6374|8321||", /* 85: 8 colours, rainbow, 27 pours, 534 looked at */
+    "5348|4138|1368|8261|3454|7756|2721|2567||", /* 86: 8 colours, shuffle, 25 pours, 1399 looked at */
+    "7325|5486|2716|1384|1384|2716|5486|7325||", /* 87: 8 colours, mirror, 28 pours, 440 looked at */
+    "2714|8339|3717|9154|4149|9653|2855|8682|6762||", /* 88: 9 colours, shuffle, 29 pours, 677 looked at */
+    "6714|2927|8451|1669|9382|3596|7245|5133|4878||", /* 89: 9 colours, rows, 27 pours, 1733 looked at */
+    "3861|4561|9473|8925|2727|8925|9473|4561|3861||", /* 90: 9 colours, mirror, 31 pours, 380 looked at */
+    "2547|5216|3468|5613|2781|3971|5698|9472|8493||", /* 91: 9 colours, rainbow, 31 pours, 411 looked at */
+    "5263|3387|1428|4649|2715|9749|3681|7156|9582||", /* 92: 9 colours, shuffle, 29 pours, 1140 looked at */
+    "9251|4688|5973|4132|6767|4132|5973|4688|9251||", /* 93: 9 colours, mirror, 30 pours, 880 looked at */
+    "7396|6859|3636|3185|2414|7478|2952|8159|1247||", /* 94: 9 colours, shuffle, 30 pours, 949 looked at */
+    "8177|9245|9836|2413|6565|2413|9836|9245|8177||", /* 95: 9 colours, mirror, 31 pours, 958 looked at */
+    "4967|3575|2486|9753|1849|6211|8132|5698|7324||", /* 96: 9 colours, rows, 28 pours, 3886 looked at */
+    "4165|6753|4586|4293|8917|7241|8329|9725|6183||", /* 97: 9 colours, rainbow, 31 pours, 1291 looked at */
+    "3518|2824|7986|7267|1647|4595|3631|4358|9291||", /* 98: 9 colours, shuffle, 31 pours, 1330 looked at */
+    "7253|1267|9849|8614|3535|8614|9849|1267|7253||", /* 99: 9 colours, mirror, 33 pours, 1029 looked at */
+    "2457|9215|4192|3968|5723|1349|6831|7684|8576||", /* 100: 9 colours, showpiece, 29 pours, 1851 looked at */
+    "3788|1654|4997|5a66|a394|5736|1259|1a1a|8272|2348||", /* 101: 10 colours, shuffle, 30 pours, 403 looked at */
+    "3723|4a74|5191|75a9|a835|266a|1456|6348|8287|9912||", /* 102: 10 colours, rows, 29 pours, 847 looked at */
+    "5182|4163|2aa6|7495|3879|3879|7495|2aa6|4163|5182||", /* 103: 10 colours, mirror, 33 pours, 299 looked at */
+    "4685|6947|a673|7359|365a|a222|1421|591a|3748|1889||", /* 104: 10 colours, shuffle, 30 pours, 1320 looked at */
+    "4a88|9466|8293|6919|2151|76a4|a547|3735|1822|537a||", /* 105: 10 colours, rows, 29 pours, 2173 looked at */
+    "1129|6448|52a7|a628|1453|938a|6231|3798|795a|6475||", /* 106: 10 colours, shuffle, 31 pours, 892 looked at */
+    "4598|a542|6127|3a71|726a|1a36|3549|9841|3829|6875||", /* 107: 10 colours, rainbow, 33 pours, 387 looked at */
+    "3826|a577|629a|8149|1534|1534|8149|629a|a577|3826||", /* 108: 10 colours, mirror, 33 pours, 527 looked at */
+    "5974|16a2|4763|8135|9a28|9a28|8135|4763|16a2|5974||", /* 109: 10 colours, mirror, 35 pours, 214 looked at */
+    "587a|4635|a327|1416|8299|8299|1416|a327|4635|587a||", /* 110: 10 colours, mirror, 33 pours, 596 looked at */
+    "3569|4232|1359|47a7|21a4|3569|8165|68a2|89a4|1778||", /* 111: 10 colours, shuffle, 33 pours, 618 looked at */
+    "9845|a645|2136|87a1|4a32|1257|3279|4a78|6195|9638||", /* 112: 10 colours, rainbow, 32 pours, 1082 looked at */
+    "78a5|9178|9572|4322|6195|6914|331a|8434|685a|6a72||", /* 113: 10 colours, shuffle, 32 pours, 1087 looked at */
+    "8a72|39a8|a38a|2417|4646|7153|5265|9721|6599|1834||", /* 114: 10 colours, rows, 31 pours, 2391 looked at */
+    "5891|48a7|7265|1634|a392|a392|1634|7265|48a7|5891||", /* 115: 10 colours, mirror, 36 pours, 260 looked at */
+    "4716|854a|5a31|1287|2174|a369|6329|58a9|8234|9576||", /* 116: 10 colours, rainbow, 33 pours, 1120 looked at */
+    "1545|1a47|a337|89a2|9186|6853|4272|6a94|5832|6971||", /* 117: 10 colours, shuffle, 32 pours, 1798 looked at */
+    "1982|3576|945a|6817|423a|423a|6817|945a|3576|1982||", /* 118: 10 colours, mirror, 35 pours, 466 looked at */
+    "297a|1837|1528|a313|2695|44aa|4869|1626|4375|5987||", /* 119: 10 colours, shuffle, 33 pours, 1370 looked at */
+    "9596|6153|3a24|8681|5232|7468|28a7|4949|1715|a37a||", /* 120: 10 colours, rows, 32 pours, 2596 looked at */
+    "4a64|893a|9381|2215|5767|5767|2215|9381|893a|4a64||", /* 121: 10 colours, mirror, 34 pours, 1039 looked at */
+    "7961|9546|3854|a37a|a296|1267|3158|2958|148a|3724||", /* 122: 10 colours, shuffle, 34 pours, 1161 looked at */
+    "1679|2569|87a6|2158|a483|a153|27a4|9148|4396|3725||", /* 123: 10 colours, rainbow, 34 pours, 1167 looked at */
+    "2612|7518|39a8|9543|47a6|47a6|9543|39a8|7518|2612||", /* 124: 10 colours, mirror, 36 pours, 558 looked at */
+    "7149|6724|2635|85a2|5968|3816|1273|4a51|938a|a497||", /* 125: 10 colours, showpiece, 32 pours, 7125 looked at */
+    "7548|7176|5943|63ba|bba9|2241|198a|a571|9663|23b5|2848||", /* 126: 11 colours, shuffle, 33 pours, 812 looked at */
+    "1698|7483|3514|b679|22a5|abab|22a5|b679|3514|7483|1698||", /* 127: 11 colours, mirror, 36 pours, 342 looked at */
+    "1673|9351|88b6|2b88|6924|329b|7549|b165|47a2|5417|aa3a||", /* 128: 11 colours, rows, 32 pours, 2608 looked at */
+    "2619|962b|7258|1947|3756|45b3|9a83|4b6a|8a57|b13a|4821||", /* 129: 11 colours, rainbow, 36 pours, 852 looked at */
+    "3258|325b|43aa|8269|1569|1a37|4ab4|8767|1b61|b792|5948||", /* 130: 11 colours, shuffle, 37 pours, 753 looked at */
+    "4968|22a1|35b9|137a|6b75|4848|6b75|137a|35b9|22a1|4968||", /* 131: 11 colours, mirror, 37 pours, 844 looked at */
+    "b785|25a2|4789|546b|8b19|411a|237a|496b|35a3|2683|6791||", /* 132: 11 colours, shuffle, 36 pours, 1411 looked at */
+    "b359|6262|854a|3421|2713|7674|ab38|189b|9185|49a6|5ab7||", /* 133: 11 colours, rows, 35 pours, 3359 looked at */
+    "1743|1696|a297|b532|b488|5a5a|b488|b532|a297|1696|1743||", /* 134: 11 colours, mirror, 38 pours, 884 looked at */
+    "2947|ba72|6851|45a1|9873|546b|6541|2a13|7938|ba86|239b||", /* 135: 11 colours, rainbow, 37 pours, 1619 looked at */
+    "86a2|46b7|9896|b837|99b5|4a15|3212|87a4|27b5|343a|1561||", /* 136: 11 colours, shuffle, 36 pours, 2664 looked at */
+    "2361|95a6|13b8|875a|4247|9b9b|4247|875a|13b8|95a6|2361||", /* 137: 11 colours, mirror, 39 pours, 909 looked at */
+    "2299|8694|bab6|4561|c738|97ab|38a1|843b|2723|ac65|cc15|5147||", /* 138: 12 colours, shuffle, 37 pours, 2298 looked at */
+    "b792|31c5|1b48|2a66|4375|9ac8|9ac8|4375|2a66|1b48|31c5|b792||", /* 139: 12 colours, mirror, 40 pours, 956 looked at */
+    "ab7a|9384|bcb9|1961|5415|2143|7527|48c2|8a56|32ac|6638|c79b||", /* 140: 12 colours, rows, 37 pours, 4005 looked at */
+    "6758|8c97|78b1|469c|324a|b61a|93a5|235a|643c|42b1|b289|517c||", /* 141: 12 colours, rainbow, 39 pours, 1994 looked at */
+    "6523|14a3|831b|8694|c1ba|5cb9|622b|5ca7|4691|47a5|37c7|8892||", /* 142: 12 colours, shuffle, 39 pours, 2861 looked at */
+    "1cb2|23a5|1c7b|7689|3a89|5446|5446|3a89|7689|1c7b|23a5|1cb2||", /* 143: 12 colours, mirror, 41 pours, 1407 looked at */
+    "1a8a|6293|7bb6|5179|5974|7c5a|3a69|13c8|34b2|2268|b8c5|c414||", /* 144: 12 colours, shuffle, 39 pours, 3950 looked at */
+    "9353|7a34|6817|429a|ab76|16c5|cc8c|21bb|b749|5468|3921|85a2||", /* 145: 12 colours, rows, 36 pours, 16585 looked at */
+    "c86b|9a57|3851|947a|6321|c4b2|c4b2|6321|947a|3851|9a57|c86b||", /* 146: 12 colours, mirror, 44 pours, 725 looked at */
+    "8476|61b9|c937|1bca|a524|b29a|3876|45c8|83a4|3512|2159|6c7b||", /* 147: 12 colours, shuffle, 40 pours, 4618 looked at */
+    "b9a6|5783|196c|8a14|4235|3127|b185|2c34|96ab|bc67|795c|4a28||", /* 148: 12 colours, rainbow, 41 pours, 3825 looked at */
+    "171a|a763|8c52|cb59|b823|9464|9464|b823|cb59|8c52|a763|171a||", /* 149: 12 colours, mirror, 42 pours, 4247 looked at */
+    "587b|7314|c15a|8b29|2745|b461|4c83|32c6|69a2|9a38|159c|a6b7||", /* 150: 12 colours, showpiece, 38 pours, 13116 looked at */
 };
 
 const uint8_t ws_level_par[WS_LEVELS] = {
-    9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 12, 11, 11, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14,
-    16, 16, 16, 16, 16, 16, 16, 17, 19, 16, 18, 18, 16, 18, 17, 17, 17, 19, 20, 18, 19, 20, 20, 19, 20,
-    21, 21, 23, 22, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 23, 22, 21, 22, 23, 22, 24, 24, 24, 23, 23,
-    24, 24, 26, 24, 25, 26, 26, 24, 26, 27, 26, 26, 27, 29, 27, 28, 27, 28, 26, 29, 28, 29, 29, 30, 29,
-    30, 31, 30, 31, 31, 30, 31, 31, 31, 32, 31, 31, 33, 32, 30, 31, 33, 33, 31, 32, 32, 32, 34, 33, 34,
-    35, 33, 35, 35, 36, 34, 36, 37, 39, 36, 38, 36, 35, 36, 38, 36, 37, 40, 38, 37, 39, 39, 40, 39, 41,
+    7, 9, 9, 9, 9, 9, 9, 9, 9, 10, 11, 11, 11, 12, 12, 14, 13, 13, 14, 13, 13, 14, 14, 14, 13,
+    16, 15, 17, 17, 16, 17, 16, 16, 18, 17, 16, 18, 19, 18, 19, 21, 19, 20, 19, 19, 21, 20, 19, 22, 20,
+    22, 21, 22, 23, 23, 23, 23, 21, 21, 23, 22, 22, 22, 23, 23, 23, 22, 25, 22, 24, 25, 23, 24, 25, 23,
+    24, 23, 26, 26, 26, 27, 26, 25, 27, 27, 25, 28, 29, 27, 31, 31, 29, 30, 30, 31, 28, 31, 31, 33, 29,
+    30, 29, 33, 30, 29, 31, 33, 33, 35, 33, 33, 32, 32, 31, 36, 33, 32, 35, 33, 32, 34, 34, 34, 36, 32,
+    33, 36, 32, 36, 37, 37, 36, 35, 38, 37, 36, 39, 37, 40, 37, 39, 39, 41, 39, 36, 44, 40, 41, 42, 38,
 };
