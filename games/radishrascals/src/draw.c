@@ -16,6 +16,14 @@ static int ppal(int p){return p?hu_player_pal(p):0;}
 static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 static int map_w(void){return wide()?128:64;}
 static int fdiv8(int v){return v>=0?v/8:-((7-v)/8);}      /* floor(v / 8) */
+/* a tall screen (portrait, zoomed: DESIGN.md "Tall screen"): BG3 128 tiles wide, the lawn's decor in its columns
+ * DECOR_COL.. (tall_decor), for the lines below the stage */
+static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
+static int bg3_w(void){return tall()?128:map_w();}
+/* the width a view's garden is drawn for: the 4:3 view's (320 or 159 px); one view on a tall screen: GARDEN_TALL_W */
+static int garden_w(int n,const rs_viewport *vp){
+ return n==1 || vp->w>=rs_screen_width()?(tall() && n==1?GARDEN_TALL_W:RS_SCREEN_W):(RS_SCREEN_W-RS_VIEW_DIVIDER)/2;
+}
 static int sx(const view *v,int x){return v->ox+8+x*(v->w-16)/320;}
 static int sy(const view *v,int y){return v->small?40+(y-64)*(v->h-52)/160:y;}
 static void spr(int id,int x,int y,int priority,int pal,const rs_viewport *vp){
@@ -42,20 +50,39 @@ static int layout(int n,rs_viewport *out){
  return k;
 }
 /* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"): above, the sky going on, a little bluer
- * toward the screen's top; below, more lawn (one player: BG3's grass of the stage, 24-line bands taken from four
- * places in turn; 2-4 players: the lawn's colour, in a viewport of its own). The UI, the beds and the sprites are
- * hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+ * toward the screen's top, and the sprites (the score); below, more lawn and its decor (BG3 columns DECOR_COL..: the
+ * pots and the carrot patch, then the vegetable rows and the wheelbarrow of the wide garden, tall_decor; 2-4 players:
+ * the lawn's colour, in a viewport of its own). The UI and the beds are hidden there (window 1); line 0 puts the
+ * stage's settings back, so a 240-line screen is unchanged. */
+#define DECOR_COL 40
+#define DECOR_A_X 240        /* chunk A: the wide garden's x 240..591 in the map's x 320..671 */
+#define DECOR_B_X 672        /* chunk B: its x 672..1023 at the same map x */
+#define BAND_A 96            /* lines below the stage from chunk A (its y 144..239), then chunk B (its y 104..) */
 static void raster_out(int line){
  int top=rs_screen_top();
  if(line==top || line==RS_SCREEN_H){
   rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);
-  rs_bg_window(RS_BG3,line<0?RS_WIN1:0);rs_obj_window(RS_WIN1);
+  rs_bg_window(RS_BG3,line<0?RS_WIN1:0);rs_obj_window(line<0?0:RS_WIN1);
  }
  if(line<0){rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(192,222,222),-line*256/-top));return;}
- static const int16_t src[4]={216,120,168,96};       /* the grass bands' first lines (no bush in 0..319) */
- int d=line-RS_SCREEN_H,b=d/24;
- rs_bg_scroll(RS_BG3,0,(src[b&3]+d%24-line)&255);
+ int d=line-RS_SCREEN_H;
+ if(d<BAND_A)rs_bg_scroll(RS_BG3,DECOR_COL*8,(144+d-line)&255);
+ else rs_bg_scroll(RS_BG3,750,(104+d-BAND_A-line)&255);
  rs_pal_set(0,RS_RGB8(179,199,130));
+}
+/* a tall screen: BG3 128 tiles wide, the wide garden's decor tiles and palette (as widescreen; draw_init, and
+ * draw_relayout after a state of another size was loaded) */
+static void tall_setup(void){
+ if(!tall())return;
+ rs_bg_setup(RS_BG3,bg3_w(),32,VR_BG3);
+ rs_tiles_load(VR_BG3+gm_bg3_tile_count+1,gm_bg3w_tiles,gm_bg3w_tile_count);rs_pal_load(RS_PAL_BG(PAL_WIDE),gm_wide_pal,16);
+}
+/* ... and the decor's two chunks in BG3's columns DECOR_COL..127, every frame (beside the views' columns 0..39) */
+static void tall_decor(void){
+ for(int r=0;r<HILLS_H;r++)for(int c=DECOR_COL;c<128;c++){
+  int hc=c<DECOR_B_X/8?c-DECOR_COL+DECOR_A_X/8:c;
+  rs_bg_put(RS_BG3,c,r,gm_hillsw_map[r*HILLSW_W+hc]);
+ }
 }
 static void raster(int line,void *user){
  (void)user;
@@ -72,7 +99,7 @@ static void wide_setup(void){
 }
 void draw_init(void){
  rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more garden on both sides */
- rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)/3);   /* tall: a third of the rest above (sky), two below */
+ rs_screen_origin_v(rs_screen_height()-RS_SCREEN_H>2*TALL_ABOVE?TALL_ABOVE:(rs_screen_height()-RS_SCREEN_H)/2);   /* tall: the sky and the score above, the lawn below */
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
  rs_bg_setup(RS_BG1,map_w(),32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);rs_bg_setup(RS_BG3,map_w(),32,VR_BG3);
  rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);rs_tiles_load8(VR_BG3+gm_bg3_tile_count,blank,1);
@@ -80,14 +107,16 @@ void draw_init(void){
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
  for(int l=0;l<3;l++)rs_bg_enable(l,1);
  memset(V,0,sizeof V);memset(VP,0,sizeof VP);nviews=0;rs_raster(raster,NULL);
- wide_setup();
+ wide_setup();tall_setup();
 }
-/* After a state was loaded: the width is not in a state; one saved at another width brings that width's maps (64 or
- * 128 tiles wide) and, from a 320 screen, no wide hills. The views, their tiles and the UI are drawn every frame. */
+/* After a state was loaded: the size is not in a state; one saved at another size brings that size's maps (BG1 / BG3:
+ * 64 / 64 tiles wide at 320, 128 / 128 wider, 64 / 128 on a tall screen) and, from a 320 or a tall screen, no wide
+ * hills (a tall one: its decor in BG3). A state of this size: nothing to do (the same bytes). The views, their tiles
+ * and the UI are drawn every frame. */
 void draw_relayout(void){
- if(rs_bg_map_w(RS_BG3)==map_w())return;
+ if(rs_bg_map_w(RS_BG3)==bg3_w() && rs_bg_map_w(RS_BG1)==map_w())return;
  rs_bg_setup(RS_BG1,map_w(),32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);rs_bg_setup(RS_BG3,map_w(),32,VR_BG3);
- wide_setup();
+ wide_setup();tall_setup();
 }
 static void background(const world *w,const view *v,rs_viewport *vp){
  int cols=(vp->w+7)/8,rows=(vp->h+7)/8,offset=v->scroll/64;
@@ -135,7 +164,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
   /* the right-hand views use map columns 20..39: the kit's UI area (its text checks), the same pixels; widescreen:
    * columns 64.. of the 128-tile maps. A view draws the garden of its 4:3 size (320 or 159 px wide) centred. */
-  int cw=nviews==1 || vp->w>=rs_screen_width()?RS_SCREEN_W:(RS_SCREEN_W-RS_VIEW_DIVIDER)/2;
+  int cw=garden_w(nviews,vp);   /* (a tall screen's one view: GARDEN_TALL_W, the beds in the columns shown) */
   v->mx=nviews>1 && vp->x>rs_screen_left()?(wide()?64:20):0;v->my=vp->y?16:0;v->w=cw;v->ox=(vp->w-cw)/2;v->h=vp->h;v->small=vp->h<200;v->scroll=theme_scroll(h);
   for(int y=0;y<vp->h;y++)v->sky[y]=theme_sky(w,y,vp->h);
   if(!wide())background(w,v,vp);
@@ -147,7 +176,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   if(state==ST_PLAY || state==ST_DEAD){
    theme_scene(w,p,st_t,v,vp);
    if(multi){char score[64],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(score,sizeof score,"%s %d",tag,h->score);hu_text(ux+(vp->w/8-hu_width(score,0))/2,v->my+1,score);}
-   else hu_number(h->score,vp->w/2,8,3);
+   else hu_number(h->score,vp->w/2,8+(tall()?rs_screen_top():0),3);   /* (a tall screen: at the screen's top) */
    if(paused){const char *s=HTR(PAUSED);int cols=vp->w/8;  /* 2x, or 1x when 2x is wider than the view */
     if(pbig && hu_width(s,1)<=cols)hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);}
   }hu_view_oam_end(vp);
@@ -161,13 +190,21 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
   }rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
  }else if(rs_screen_height()>RS_SCREEN_H){
-  /* a tall screen: two more viewports past the stage, no layer, no sprite: the raster's sky above, lawn below */
-  rs_viewport all[6];memcpy(all,VP,sizeof(rs_viewport)*nviews);int n=nviews,top=rs_screen_top(),bot=rs_screen_bottom();
-  memset(&all[n],0,2*sizeof(rs_viewport));
-  all[n].x=all[n+1].x=(int16_t)rs_screen_left();all[n].w=all[n+1].w=(int16_t)rs_screen_width();
-  all[n].y=(int16_t)top;all[n].h=(int16_t)-top;all[n+1].y=RS_SCREEN_H;all[n+1].h=(int16_t)(bot-RS_SCREEN_H);
-  rs_viewports(n+2,all,RS_HEX(0x29364a));
+  /* a tall screen: three more viewports past the stage, no sprite: the raster's sky above (no layer), the lawn's
+   * decor below (BG3: its two bands, as raster_out shows them with one view) */
+  rs_viewport all[7];memcpy(all,VP,sizeof(rs_viewport)*nviews);int n=nviews,top=rs_screen_top(),bot=rs_screen_bottom();
+  memset(&all[n],0,3*sizeof(rs_viewport));
+  for(int i=n;i<n+3;i++){all[i].x=(int16_t)rs_screen_left();all[i].w=(int16_t)rs_screen_width();}
+  all[n].y=(int16_t)top;all[n].h=(int16_t)-top;
+  int ha=bot-RS_SCREEN_H<BAND_A?bot-RS_SCREEN_H:BAND_A;
+  all[n+1].y=RS_SCREEN_H;all[n+1].h=(int16_t)ha;all[n+1].layers=4;all[n+1].sx[2]=DECOR_COL*8;all[n+1].sy[2]=144;
+  all[n+2].y=(int16_t)(RS_SCREEN_H+ha);all[n+2].h=(int16_t)(bot-RS_SCREEN_H-ha);all[n+2].layers=4;all[n+2].sx[2]=DECOR_B_X+32;   /* (every column shown: inside chunk B) */all[n+2].sy[2]=104;
+  rs_viewports(all[n+2].h>0?n+3:n+2,all,RS_HEX(0x29364a));
  }else rs_viewports(nviews,VP,RS_HEX(0x29364a));
+ /* a tall screen (DESIGN.md "Tall screen"): one garden fills the display's height (the sides cropped), the lawn's
+  * decor below it; the title, the panels and the split screens show every column */
+ if(tall())tall_decor();
+ rs_screen_fill(nviews==1 && (state==ST_PLAY || state==ST_DEAD));
  shown_state=state;shown_best=best;
 }
 /* Touch (DESIGN.md "Controls"): the four beds of player 1's view are the tap zones; a touch acts on the nearest bed
@@ -178,7 +215,7 @@ int draw_bed_at(int players,int x,int y){
  rs_viewport vps[RS_VIEW_MAX];int n=layout(players>1?players:1,vps);rs_viewport *vp=&vps[0];view v;
  if(n==1){vp->x=0;vp->w=RS_SCREEN_W;}
  else if(x<vp->x || x>=vp->x+vp->w || y<vp->y || y>=vp->y+vp->h)return -1;
- memset(&v,0,sizeof v);v.w=n==1 || vp->w>=rs_screen_width()?RS_SCREEN_W:(RS_SCREEN_W-RS_VIEW_DIVIDER)/2;v.ox=(vp->w-v.w)/2;v.h=vp->h;v.small=vp->h<200;
+ memset(&v,0,sizeof v);v.w=garden_w(n,vp);v.ox=(vp->w-v.w)/2;v.h=vp->h;v.small=vp->h<200;
  int best=-1;long bd=0;
  for(int i=0;i<4;i++){int bx,by;bed_position(i,&bx,&by);long dx=x-(vp->x+sx(&v,bx)),dy=y-(vp->y+sy(&v,by)),d=dx*dx+dy*dy;if(best<0 || d<bd){best=i;bd=d;}}
  return best;

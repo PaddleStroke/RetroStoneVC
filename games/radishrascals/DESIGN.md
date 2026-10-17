@@ -105,12 +105,24 @@ pictures and logs).
   (docs/screenshots/*-427.png, *-520.png).
 
 ## Tall screen
-docs/spec.md "Tall screen": a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the
-RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are the same pixels; the
-stage sits high (`rs_screen_origin_v`: a third of the extra lines above it). The views are the stage's 240-line
-rectangles (draw.c `layout`: rs_viewport_layout's, mapped back from the tall screen it spans), and the raster
-(`raster_out`) draws the lines past the stage: above, the sky going on, a little bluer toward the top; below, more
-lawn (1 player: BG3's grass of the stage again, 24-line bands taken from four places in turn; 2-4 players: two more
-viewports past the stage, no layer and no sprite, showing the lawn's colour). The UI, the beds and the sprites are
-hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. A touch's y is
-taken from the stage's origin (`rs_screen_origin_y`), so the beds are tapped where they are.
+docs/spec.md "Tall screen" (the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (480 lines, game.h)
+first in `game_init`: the RetroStone app scales the 480 lines to the display's height and crops the sides (220 columns
+on a 1080x2340 phone, 204 on a 1080x2520 one), so the farmer, the beds and the rabbits are about 1.5x the size of the
+old 320-column strip.
+- **One garden, the beds closer together**: one view draws its garden GARDEN_TALL_W = 248 px wide instead of 320
+  (draw.c `garden_w`, the same mapping as a split screen's smaller gardens): the side beds come in, all four beds,
+  their rabbits and the fork's reach stay inside the columns shown. The rules, the beds' order and the timing are
+  unchanged; a tap goes to the nearest bed of the garden as drawn (`draw_bed_at` uses the same width).
+- **The stage high** (`rs_screen_origin_v`: TALL_ABOVE = 40 lines of sky above it, with the score at the screen's top:
+  sprites at `rs_screen_top()` + 8), the trees and the fence at its top as in landscape.
+- **More garden below** (raster `raster_out`): the lawn goes on with the wide garden's decor (hills-wide.png, the
+  widescreen's art): BG3 is 128 tiles wide on a tall screen and holds two chunks of it beside the views' columns
+  (`tall_decor`, columns 40..127): 96 lines with the flower pots and the carrot patch, then the vegetable rows and the
+  wheelbarrow, each band taken at its own x (no tiled stripes, the bands cut in plain lawn). BG1, BG2 and the
+  sprites are hidden past the stage (window 1); line 0 puts the stage's settings back, so a 240-line screen is
+  unchanged.
+- **Fill or fit**: one garden in play fills the display's height; the title, the panels and the split screens (2-4
+  players) show every column (`rs_screen_fill(0)`), the split views over the stage's 240 lines with the sky above
+  them and the two decor bands below (three more viewports: no layer above, BG3 below).
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240). A touch's y is taken from the
+  stage's origin (`rs_screen_origin_y`), so the beds are tapped where they are.

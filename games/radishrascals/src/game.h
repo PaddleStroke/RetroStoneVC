@@ -8,6 +8,13 @@
 #define RETRY_LOCK 36
 #define BOT_START 20
 #define MEDAL_SCORES {100,250,500,1000}
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (204 columns on a 9:21 phone); one garden is drawn GARDEN_TALL_W px wide there (the
+ * beds closer together, inside the columns shown), the stage TALL_ABOVE lines below the screen's top (the sky and
+ * the score), more lawn and its decor below it */
+#define ZOOM_H 480
+#define GARDEN_TALL_W 248
+#define TALL_ABOVE 40
 enum {HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF};
 enum {EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16,EV_APPLE=32};
 enum {ST_TITLE,ST_PLAY,ST_DEAD,ST_OVER};
