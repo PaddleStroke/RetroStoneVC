@@ -5,7 +5,9 @@
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution;
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
  *     too), and how often the medium ways were needed;
- *   - near-duplicates dropped (the same numbers turned or mirrored).
+ *   - near-duplicates dropped (the same numbers turned or mirrored);
+ *   - how set by hand its numbers look: about symmetric (turned half round or mirrored), the board's quarters
+ *     numbered alike, no wide stretch without a number, not mostly ones; the better looking half is kept.
  * Each chapter has its makes (a size, a level, how many, and the part of the make's candidates, ranked by that work,
  * they are picked from evenly): 5 x 5 at the easy level first, up to 10 x 10 at the hard level. Then each chapter
  * goes from its smallest and easiest to its biggest and hardest.
@@ -28,7 +30,7 @@ typedef struct {
     nrk_puzzle p;
     int grade, numbers;
     long passes, mediums;
-    double score;
+    double score, taste;
     char key[NRK_CELLS + 8];
 } cand;
 
@@ -78,6 +80,50 @@ static int seen(const char *key)
     return 0;
 }
 
+/* how set by hand its numbers look, higher better: placed about symmetrically (turned half round, or mirrored either
+ * way: the part of the numbers with a number at or beside their partner cell), the four quarters of the board numbered
+ * alike, no wide stretch without a number (the farthest cell from any), and not mostly islands of one */
+static double taste(const nrk_puzzle *p)
+{
+    int n = p->n, all = 0, ones = 0, q[4] = {0, 0, 0, 0}, pair[3] = {0, 0, 0}, most = 0, far = 0;
+    for (int c = 0; c < n * n; c++) {
+        int x = c % n, y = c / n, near = 99;
+        for (int d = 0; d < n * n; d++)
+            if (p->clue[d]) {
+                int dx = abs(d % n - x), dy = abs(d / n - y), e = dx > dy ? dx : dy;
+                near = e < near ? e : near;
+            }
+        far = near > far ? near : far;
+        if (!p->clue[c]) continue;
+        all++;
+        ones += p->clue[c] == 1;
+        q[(x >= (n + 1) / 2) + 2 * (y >= (n + 1) / 2)] += !(n % 2 && (x == n / 2 || y == n / 2));
+        int to[3][2] = {{n - 1 - x, n - 1 - y}, {n - 1 - x, y}, {x, n - 1 - y}};
+        for (int s = 0; s < 3; s++) {
+            int got = 0;
+            for (int dy = -1; dy <= 1; dy++)
+                for (int dx = -1; dx <= 1; dx++) {
+                    int a = to[s][0] + dx, b = to[s][1] + dy;
+                    if (a >= 0 && b >= 0 && a < n && b < n && p->clue[b * n + a]) got = got > 1 ? got : (dx || dy) ? 1 : 2;
+                }
+            pair[s] += got;
+        }
+    }
+    if (!all) return -9;
+    int best = pair[0] > pair[1] ? pair[0] : pair[1];
+    best = best > pair[2] ? best : pair[2];
+    int inq = q[0] + q[1] + q[2] + q[3];
+    for (int i = 0; i < 4; i++) most = q[i] > most ? q[i] : most;
+    return best / (2.0 * all) - (inq ? (most - inq / 4.0) / (inq * 0.75) : 1) - 0.25 * (far > n / 3 ? far - n / 3 : 0)
+           - (ones * 2 > all ? (double)ones / all - 0.5 : 0);
+}
+
+static int by_taste(const void *a, const void *b)
+{
+    const cand *x = a, *y = b;
+    return x->taste > y->taste ? -1 : x->taste < y->taste;
+}
+
 /* one candidate from a seed; 1 when it is of the size and the level and has one solution */
 static int candidate(cand *c, int n, int level, uint32_t seed)
 {
@@ -86,6 +132,7 @@ static int candidate(cand *c, int n, int level, uint32_t seed)
     if (c->p.n != n) return 0;
     c->grade = nrk_effort(&c->p, &c->passes, &c->mediums);
     if (c->grade != level || nrk_count(&c->p, 2) != 1) return 0;
+    c->taste = taste(&c->p);
     c->numbers = 0;
     for (int i = 0; i < n * n; i++) c->numbers += c->p.clue[i] > 0;
     /* the work: the passes, the medium finds weigh more; fewer numbers, a little more */
@@ -104,6 +151,8 @@ static int make_pool(const make *m, uint32_t seed0)
         for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
         if (!dup) k++;
     }
+    qsort(pool, (size_t)k, sizeof pool[0], by_taste);   /* the better looking half, then by their work */
+    if (k > 50) k = k / 2 > 40 ? k / 2 : 40;
     qsort(pool, (size_t)k, sizeof pool[0], by_score);
     return k;
 }
