@@ -447,6 +447,94 @@ static void test_touch(void)
     CHECK(W.g[0].b.x == W2.g[0].b.x && W.g[0].b.y == W2.g[0].b.y, "the same shot as the pad's");
 }
 
+/* the bug hunt's regressions: a ball at a wall's foot comes to rest; the last stroke holed with nothing back leaves
+ * the player out */
+static void test_regressions(void)
+{
+    /* the foot of a wall: 1-px stairs down to a 38-px cliff up (a cliff's or a ledge's foot); the stairs' local slope
+     * (1 px over 2) pulls harder than GRASS_HOLD, so the ball used to tap the wall every frame (a "tok" sound a frame)
+     * until BALL_MAX_T, 20 s (7% of the shots of a soak) */
+    for (int i = 0; i < 2; i++) {
+        int surf = i ? SF_ICE : SF_GRASS;
+        world_init(&W, 1, 5, 0);
+        flat(&W, surf);
+        for (int32_t sx = 0; sx < 116; sx++) W.tr.h[(W.hole_cam + sx) & TMASK] = (int16_t)(150 + (sx - 58) / 7);
+        for (int32_t sx = 116; sx < 200; sx++) W.tr.h[(W.hole_cam + sx) & TMASK] = 120;
+        ball b = rolling(80, i ? FX / 2 : FX);
+        b.y = (int32_t)W.tr.h[(W.hole_cam + 80) & TMASK] << 16;
+        int bounces = 0, f = 0;
+        while ((b.state == BS_FLY || b.state == BS_ROLL) && f < 2000) {
+            if (ball_step(&W, &b) & EV_BOUNCE) bounces++;
+            f++;
+        }
+        CHECK(b.state == BS_REST && f < 400 && bounces < 20 && (b.x >> 16) == 115,
+              "surface %d: a ball rolling into a wall's foot rests there (%d frames, %d bounces, x %d)", surf, f, bounces,
+              (int)(b.x >> 16));
+        /* ... and it can get out: at rest against the wall's side, every shot that way hit the side at once (under
+         * the top): no lob over it, a trap (the soak found such spots at cliffs' and ledges' feet) */
+        W.g[0].b = b;
+        int out = 0;
+        for (int aim = 160; aim <= 200 && !out; aim++)
+            for (int gauge = GAUGE_MIN_SHOT; gauge <= GAUGE_MAX && !out; gauge += 2) {
+                ball e;
+                if (sim_shot(&W, 0, aim, gauge, &e) == BS_REST && (e.x >> 16) >= 116) out = 1;
+            }
+        CHECK(out, "surface %d: a lob gets the ball out of a wall's foot (x %.3f)", surf, b.x / 65536.0);
+    }
+    /* very high hole numbers (the biome's number in 8 bits): the biome drawn (terrain.q) is the one generated and named,
+     * two biomes in a row never share a BG palette (by the number's parity) */
+    {
+        world_init(&W, 1, 7, 1490);
+        int bad = 0, last_q = -1;
+        for (int k = 1490; k < 1580; k++) {
+            W.hole_cam = world_hole(&W, k)->tee_x - TEE_X;
+            world_gen_ahead(&W);
+            const hole_rec *h = world_hole(&W, k);
+            int q = terrain_seq(&W.tr, h->tee_x + 1);
+            if (h->biome != (k / HOLES_PER_BIOME) % BI_COUNT || biome_of_seq(q) != h->biome || q != h->seq) bad++;
+            if (last_q >= 0 && q != last_q && !((q ^ last_q) & 1)) bad++;
+            last_q = q;
+        }
+        CHECK(!bad, "holes 1490-1579: the biomes drawn are the biomes played (%d wrong)", bad);
+    }
+    /* holed with the last stroke, in three (nothing back): out at once, not a free shot at the next tee */
+    {
+        int done = 0;
+        for (uint32_t seed = 1; seed < 20 && !done; seed++) {
+            world_init(&W, 1, seed, 0);
+            W.g[0].b.x = (world_cup_sx(&W) - 12) << 16;          /* a putt from the green */
+            W.g[0].b.y = (int32_t)world_hole(&W, 0)->cup_y << 16;
+            W.g[0].strokes = 1;
+            W.g[0].hole_strokes = 2;
+            bot_shot(&W, 0, 0);
+            for (int i = 0; i < 2000 && W.phase == PH_FLIGHT; i++) step(&W);
+            if (W.phase != PH_HOLED) continue;
+            done = 1;
+            CHECK(W.g[0].strokes == 0 && W.g[0].holes == 1, "holed in three with the last stroke (%d left)", W.g[0].strokes);
+            to_aim(&W);
+            CHECK(W.g[0].out && W.phase == PH_OVER && !world_running(&W) && W.g[0].strokes == 0,
+                  "no stroke left after the hole: out (out %d phase %d strokes %d)", W.g[0].out, W.phase, W.g[0].strokes);
+        }
+        CHECK(done, "a putt holed with the last stroke");
+        /* 2 players: P1 out after holing its last stroke, P2 plays the next hole alone */
+        world_init(&W, 2, 3, 0);
+        W.g[0].b.x = (world_cup_sx(&W) - 12) << 16;
+        W.g[0].b.y = (int32_t)world_hole(&W, 0)->cup_y << 16;
+        W.g[0].strokes = 1;
+        W.g[0].hole_strokes = 2;
+        W.g[1].b.x = W.g[0].b.x;
+        W.g[1].b.y = W.g[0].b.y;
+        W.g[1].hole_strokes = 2;
+        int guard = 0;
+        while (guard++ < 40 && to_aim(&W) && W.hole == 0) bot_shot(&W, W.turn, 0);
+        CHECK(W.g[0].holes == 1 && W.g[1].holes == 1, "2 players: both holed (%d %d)", W.g[0].holes, W.g[1].holes);
+        if (W.g[0].holes == 1)
+            CHECK(W.g[0].out && W.hole == 1 && W.turn == 1 && W.phase == PH_AIM,
+                  "2 players: P1 holed its last stroke, out; P2 tees off alone (out %d hole %d turn %d)", W.g[0].out,
+                  W.hole, W.turn);
+    }
+}
+
 static void test_determinism(void)
 {
     int a = bot_run(321, 6, 60, NULL);
@@ -466,6 +554,7 @@ int main(int argc, char **argv)
     test_budget();
     test_turns();
     test_touch();
+    test_regressions();
     test_playable();
     test_determinism();
     printf("geckogolf rules: %d checks, %d failed\n", checks, fails);

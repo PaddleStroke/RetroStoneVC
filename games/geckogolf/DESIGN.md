@@ -27,7 +27,7 @@ Every number is in src/game.h (the tuning table).
 | a shot | 1 stroke | play.c shoot() |
 | a hole in one / in two / in three or more | 3 / 2 / 0 strokes back (at most 30) | REFUND_ACE, REFUND_TWO, STROKES_MAX |
 | water, out of bounds | 1 penalty stroke, the ball back where it was hit | PENALTY |
-| out | the ball at rest outside the cup with no stroke left | play.c |
+| out | the ball at rest outside the cup with no stroke left (or holed with the last stroke, nothing back) | play.c |
 | score | holes completed | world_score |
 | medals | bronze 6, silver 12, gold 24, pearl 40 holes | MEDAL_SCORES |
 
@@ -46,7 +46,8 @@ follow the gauge), and it maps to the touch slingshot (pull, let go).
 ground it bounces off the slope's normal (the slope over up to 2 px each side), keeping a part of its speed into the
 ground (the bounce) and along it (the slide); slow enough, it rolls: gravity along the slope, the surface's friction,
 and it rests when slow on a slope that holds it. A step of more than 3 px between columns is a wall (half the speed
-back). The ground falling away (a crest, a cliff, the cup) throws the ball into the air again.
+back; a slow ball the slope pushes into it rests there, and a ball never rests against a wall's side but 1 px off it,
+so a steep lob can clear it). The ground falling away (a crest, a cliff, the cup) throws the ball into the air again.
 
 | Surface | Bounce | Slide | Roll friction | Holds on | |
 |---|---|---|---|---|---|

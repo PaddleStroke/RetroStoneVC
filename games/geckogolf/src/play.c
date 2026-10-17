@@ -10,7 +10,7 @@
  *                where the ground steps up, the cup a notch in the ground (a slow ball drops in, a fast one skips)
  *   the turns    the player farthest from the cup plays (ties: the honour, the fewest strokes on the last hole);
  *                each shot costs a stroke of the player's budget; water and out of bounds one more; a hole in one
- *                gives 3 back, in two 1; out of strokes, out
+ *                gives 3 back, in two 2; out of strokes, out
  *   the bot      plays a shot by simulating the candidates (sim_shot) and keeping the one that ends nearest the cup
  *
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/geckogolf/LICENSE.
@@ -168,7 +168,10 @@ static void gen_hole(terrain *t, int k)
     rs_rng r;
     rs_rng_seed(&r, hash32(t->seed, (uint32_t)k) | 1u);
     int d = k < DIFF_MAX ? k : DIFF_MAX;
-    int seq = k / HOLES_PER_BIOME, biome = biome_of_seq(seq);
+    /* the biome's number, kept in 8 bits (terrain.q, hole_rec.seq): modulo 250, a multiple of BI_COUNT and of the 2
+     * BG palettes, so the drawn biome stays the generated one and two biomes in a row never share a palette (a plain
+     * 8-bit wrap at hole 1536 drew dunes in the meadow's colours and named it MEADOW) */
+    int seq = k / HOLES_PER_BIOME % 250, biome = biome_of_seq(seq);
     int32_t T = t->gen_x;
     int y0 = t->gen_y;
     int dist = DIST_MIN + rnd(&r, DIST_RND0 + DIST_RND_D * d);
@@ -410,6 +413,13 @@ static int out_of_bounds(const ball *b) { return b->x < (OB_LEFT << 16) || b->x 
 
 static void at_rest(const pctx *c, ball *b)
 {
+    /* not against a wall's side: at least 1 px off it (in its own column). A ball against the side hits it at the
+     * first sub-step of any shot that way, under the top: a lob over the wall was impossible, the ball trapped at the
+     * foot of a cliff or a ledge (each shot back there, until out of strokes) */
+    int32_t col = floor16(b->x);
+    int h = H(c, col);
+    if (H(c, col + 1) + WALL_TOL < h && b->x > (col << 16)) b->x = col << 16;
+    if (H(c, col - 1) + WALL_TOL < h && b->x < ((col + 1) << 16) - 1) b->x = ((col + 1) << 16) - 1;
     b->state = BS_REST;
     b->vx = b->vy = b->u = 0;
     b->y = ground(c, b->x);
@@ -520,7 +530,14 @@ static int roll(const pctx *c, ball *b)
         int32_t step = dx / n, nx = b->x + step;
         int32_t oc = floor16(b->x), nc = floor16(nx);
         if (nc != oc && (H(c, nc) << 16) < b->y - (WALL_TOL << 16)) {   /* rolling into a wall */
+            int32_t into = b->u;
             b->u = -(int32_t)((int64_t)b->u * WALL_E / 256);
+            /* slow, and the slope pushes it into the wall: the wall holds it (else it taps the wall every frame, a
+             * "tok" a frame, until BALL_MAX_T) */
+            if (iabs(b->u) < STOP_U && (acc > 0) == (into > 0)) {
+                at_rest(c, b);
+                return ev | EV_REST;
+            }
             return ev | EV_BOUNCE;
         }
         int32_t yline = b->y + (int32_t)((int64_t)step * k >> 16);
@@ -628,7 +645,7 @@ void world_init(world *w, int players, uint32_t seed, int first_hole)
     t->seed = seed ? seed : 1;
     if (first_hole < 0) first_hole = 0;
     /* the prelude: gentle ground rising behind the first tee */
-    int y0 = 150, seq = first_hole / HOLES_PER_BIOME;
+    int y0 = 150, seq = first_hole / HOLES_PER_BIOME % 250;    /* as gen_hole */
     for (int32_t x = -PRELUDE; x < 0; x++) {
         int32_t f = (int32_t)((-x) * FX / PRELUDE);
         put(t, x, y0 - (int)((int64_t)36 * smooth16(f) / FX), SF_GRASS, seq);
@@ -867,7 +884,10 @@ void world_step(world *w, const pin in[MAX_PLAYERS])
         }
         break;
     case PH_HOLED:
-        if (w->phase_t >= HOLED_FRAMES) next_turn(w);
+        if (w->phase_t >= HOLED_FRAMES) {
+            if (g->strokes <= 0) go_out(w, w->turn);    /* holed with the last stroke (no refund): none left for the next */
+            next_turn(w);
+        }
         break;
     case PH_SPLASH:
         if (w->phase_t >= SPLASH_FRAMES) {
