@@ -316,6 +316,12 @@ static box last_box;
 static float ccx, ccy, cs;                      /* the cube's middle, its scale */
 static int made_s = -1, made_small = -1;
 static SDL_Texture *t_sticker, *t_sym[6], *t_small, *t_flag;
+/* the cube is drawn into t_cube at cube_f times the screen's size, then laid down smoothly: SDL_RenderGeometry has no
+ * anti-aliasing, the scaling down gives the edges theirs */
+static SDL_Texture *t_cube;
+static int cube_f = 1, cube_w, made_cube;
+static float cube_x0, cube_y0;
+static float qx0, qy0, qf = 1;                  /* put_quad's frame: the screen, or t_cube */
 
 static int solved(void) { return tcb_solved(&G.cube); }
 
@@ -347,7 +353,31 @@ static void layout(box b)
     cs = floorf(side * 0.95f / 3.45f);
     ccx = b.x + b.w / 2;
     ccy = b.y + b.h / 2 + 0.02f * side;
-    int S = (int)fmaxf(16, 2 * cs / (G.n > 0 ? G.n : 3) * 1.15f);
+    /* the turning cube stays within 1.8 cs of its middle (a corner, sqrt 3 out, a little nearer the eye) */
+    int W = 2 * (int)ceilf(1.8f * cs) + 4;
+    SDL_RendererInfo ri;
+    int maxt = SDL_GetRendererInfo(ui.r, &ri) == 0 && ri.max_texture_width > 0 ? ri.max_texture_width : 2048;
+    if (maxt > 4096) maxt = 4096;
+    cube_f = 2 * W <= maxt ? 2 : 1;            /* 2: the linear filter then averages exactly 2 x 2 */
+    cube_x0 = floorf(ccx) - W / 2;
+    cube_y0 = floorf(ccy) - W / 2;
+    if (made_cube != cube_f * W) {
+        made_cube = cube_f * W;
+        ui_free(&t_cube);
+        cube_w = W;
+        if (cube_f > 1) {
+            t_cube = SDL_CreateTexture(ui.r, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, cube_f * W, cube_f * W);
+            if (t_cube) {
+                SDL_SetTextureScaleMode(t_cube, SDL_ScaleModeLinear);
+                /* the picture holds premultiplied colours (drawn over clear); fall back to plain blending */
+                SDL_BlendMode pm = SDL_ComposeCustomBlendMode(SDL_BLENDFACTOR_ONE, SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA,
+                                                              SDL_BLENDOPERATION_ADD, SDL_BLENDFACTOR_ONE,
+                                                              SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA, SDL_BLENDOPERATION_ADD);
+                if (SDL_SetTextureBlendMode(t_cube, pm) != 0) SDL_SetTextureBlendMode(t_cube, SDL_BLENDMODE_BLEND);
+            }
+        }
+    }
+    int S = (int)fmaxf(16, 2 * cs / (G.n > 0 ? G.n : 3) * 1.15f * (t_cube ? cube_f : 1));
     if (made_s != S) {
         made_s = S;
         ui_free(&t_sticker);
@@ -564,7 +594,8 @@ static void put_quad(SDL_Texture *t, const quad *q, const uint8_t rgb[3], float 
     static const float U[4] = {0, 1, 1, 0}, V[4] = {0, 0, 1, 1};
     SDL_Vertex v[4];
     for (int i = 0; i < 4; i++)
-        v[i] = (SDL_Vertex){{mx + (q->x[i] - mx) * shrink, my + (q->y[i] - my) * shrink}, c, {U[i], V[i]}};
+        v[i] = (SDL_Vertex){{(mx + (q->x[i] - mx) * shrink - qx0) * qf, (my + (q->y[i] - my) * shrink - qy0) * qf}, c,
+                            {U[i], V[i]}};
     int idx[6] = {0, 1, 2, 0, 2, 3};
     if (t) SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
     SDL_RenderGeometry(ui.r, t, v, 4, idx, 6);
@@ -603,6 +634,19 @@ static void draw(void)
     }
     quad q[MAXQ];
     int nq = cube_quads(&k, c, axis, layer, deg, 0.94f, q);
+    SDL_Texture *was = SDL_GetRenderTarget(ui.r);
+    int off = t_cube && SDL_SetRenderTarget(ui.r, t_cube) == 0;
+    if (off) {
+        SDL_BlendMode mode;
+        SDL_GetRenderDrawBlendMode(ui.r, &mode);
+        SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_NONE);
+        SDL_SetRenderDrawColor(ui.r, 0, 0, 0, 0);
+        SDL_RenderClear(ui.r);
+        SDL_SetRenderDrawBlendMode(ui.r, mode);
+        qx0 = cube_x0, qy0 = cube_y0, qf = (float)cube_f;
+    }
+    float selx = 0, sely = 0;
+    int sel_on = 0;
     for (int i = 0; i < nq; i++) {
         if (q[i].kind == Q_BODY) {
             put_quad(NULL, &q[i], BODY, q[i].shade, 255, 1.0f);
@@ -615,10 +659,19 @@ static void draw(void)
             put_quad(t_sym[q[i].col], &q[i], dark, q[i].shade, 215, 0.5f);
         }
         if (q[i].sticker == sel && !turn.on) {
-            float mx = (q[i].x[0] + q[i].x[2]) / 2, my = (q[i].y[0] + q[i].y[2]) / 2;
-            ui_mark_gold_a(mx, my, 2.2f * cs / G.n, 0.75f + 0.2f * sinf(now / 240.0f));
-            ui_animate();
+            selx = (q[i].x[0] + q[i].x[2]) / 2, sely = (q[i].y[0] + q[i].y[2]) / 2;
+            sel_on = 1;
         }
+    }
+    if (off) {
+        SDL_SetRenderTarget(ui.r, was);
+        qx0 = qy0 = 0, qf = 1;
+        SDL_FRect d = {cube_x0, cube_y0, (float)cube_w, (float)cube_w};
+        SDL_RenderCopyF(ui.r, t_cube, NULL, &d);
+    }
+    if (sel_on) {
+        ui_mark_gold_a(selx, sely, 2.2f * cs / G.n, 0.75f + 0.2f * sinf(now / 240.0f));
+        ui_animate();
     }
     ui_tool(B_EYE, ICON_EYE, symbols ? UI_ON : 0);
     if (!G.full) ui_tool(B_HINT, ICON_HINT, solved() ? UI_DIM : 0);
