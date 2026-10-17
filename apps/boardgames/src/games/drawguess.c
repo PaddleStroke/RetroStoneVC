@@ -39,7 +39,8 @@ static int npt, nst, open_stroke, ink;          /* open_stroke: a finger drawing
 static box Tb, C;                               /* the table; the sheet on the screen */
 static int cw, ch;                              /* its picture */
 static uint8_t *cbuf;
-static SDL_Texture *ctex;
+static SDL_Texture *ctex, *t_frame;               /* t_frame: the walnut frame round the sheet */
+static int frame_w, frame_h;
 static SDL_Rect dirty;
 static int ddirty;
 
@@ -165,12 +166,25 @@ static void sheet_draw(float alpha)
         SDL_UpdateTexture(ctex, &dirty, cbuf + 4 * ((size_t)dirty.y * cw + dirty.x), cw * 4);
         ddirty = 0;
     }
-    float m = fmaxf(3, 0.12f * ui.unit);
-    ui_fill(C.x - m + 4, C.y - m + 5, C.w + 2 * m, C.h + 2 * m, 0, 0, 0, 70);
-    ui_fill(C.x - m, C.y - m, C.w + 2 * m, C.h + 2 * m, 112, 76, 46, 255);   /* a walnut frame */
+    int m = (int)fmaxf(3, 0.12f * ui.unit), fw = cw + 2 * m, fh = ch + 2 * m;
+    if (!t_frame || frame_w != fw || frame_h != fh) {   /* the house walnut frame, painted once */
+        ui_free(&t_frame);
+        art_plank(cw, ch, m, ui_buf(fw, fh));
+        t_frame = ui_tex(fw, fh, ui_buf(fw, fh));
+        frame_w = fw;
+        frame_h = fh;
+    }
+    for (int i = 1; i <= 4; i++)                /* a soft shadow, to the lower right */
+        ui_fill(C.x - m + 1.5f * i, C.y - m + 2.0f * i, (float)fw, (float)fh, 0, 0, 0, 26);
+    ui_put(t_frame, C.x - m, C.y - m, (float)fw, (float)fh);
     SDL_SetTextureAlphaMod(ctex, (Uint8)(255 * alpha));
     ui_put(ctex, C.x, C.y, C.w, C.h);
     SDL_SetTextureAlphaMod(ctex, 255);
+    float e = fmaxf(2, 0.05f * ui.unit);         /* the sheet set into the frame: its upper and left edges shaded */
+    for (int i = 0; i < 3; i++) {
+        ui_fill(C.x, C.y, C.w, e * (3 - i) / 3, 60, 40, 20, (Uint8)(22 * alpha));
+        ui_fill(C.x, C.y, e * (3 - i) / 3, C.h, 60, 40, 20, (Uint8)(16 * alpha));
+    }
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
