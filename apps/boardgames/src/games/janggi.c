@@ -228,19 +228,19 @@ static void draw(void)
 {
     const jpos *p = jn_pos(&G);
     int sq = B.sq;
-    float x, y, h = sq / 2.0f;
+    float x, y;
     palace_board(&B, t_board);
     draw_trays();
     if (G.ply && G.move[G.ply - 1].from != JN_PASS) {
         jmove m = G.move[G.ply - 1];
         palace_xy(&B, m.from, &x, &y);
-        ui_mark_last(x - h, y - h, sq, sq);
+        ui_mark_last_round(x, y, 0.96f * sq);   /* round: the pieces stand on points */
         palace_xy(&B, m.to, &x, &y);
-        ui_mark_last(x - h, y - h, sq, sq);
+        ui_mark_last_round(x, y, 0.96f * sq);   /* round: the pieces stand on points */
     }
     if (sel >= 0) {
         palace_xy(&B, sel, &x, &y);
-        ui_mark_select(x - h, y - h, sq, sq);
+        ui_mark_select_round(x, y, 0.96f * sq);
     }
     if (state != GS_DRAW && jn_in_check(p, p->side)) {
         palace_xy(&B, jn_general(p, p->side), &x, &y);
