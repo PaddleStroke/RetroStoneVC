@@ -346,9 +346,10 @@ static void draw(void)
             if (col[i] == col[j] && !edge) continue;
             float d = edge ? tg : t;
             const uint8_t *ink = edge ? GOLD : INK;
-            Uint8 a = edge ? 235 : 170;
-            if (way) ui_fill(px, py + q - d / 2, (float)q, d, ink[0], ink[1], ink[2], a);
-            else ui_fill(px + q - d / 2, py, d, (float)q, ink[0], ink[1], ink[2], a);
+            Uint8 a = edge ? 255 : 170;         /* the gold opaque and run on half its width: its corners close */
+            float e = edge ? d / 2 : 0, e0 = (way ? x : y) ? e : 0, e1 = (way ? x : y) < n - 1 ? e : 0;
+            if (way) ui_fill(px - e0, py + q - d / 2, q + e0 + e1, d, ink[0], ink[1], ink[2], a);
+            else ui_fill(px + q - d / 2, py - e0, d, q + e0 + e1, ink[0], ink[1], ink[2], a);
         }
     }
     if (hint_on) {                              /* the cells the hint took, in gold light */
