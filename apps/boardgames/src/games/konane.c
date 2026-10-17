@@ -22,6 +22,8 @@ static int nlegal, n = 8, sq, fr, made = -1, made_n = -1, made_small = -1;
 static float bx, by;                            /* the top left square's corner */
 static SDL_Texture *t_stone[2], *t_small[2], *t_board;
 static int sel = -1;
+static Uint32 sel_t0;                           /* when the selected stone was lifted */
+#define SEL_MS 140
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, who, k; knmove m; int8_t over[KN_MAX_N]; Uint32 t0; } anim;
 
@@ -174,6 +176,14 @@ static void stone_at(int player, float cx, float cy, float d, float alpha)
     ui_flat_at(t_stone[colour(player)], cx, cy, d, alpha, 0);
 }
 
+/* a stone off the board, lift pixels up: its shadow left on the board, softer and wider the higher it goes */
+static void stone_up(int player, float cx, float cy, float d, float lift)
+{
+    float k = lift / sq;
+    ui_shadow_flat(cx + 0.25f * lift, cy + 0.35f * lift, d * (1 + 0.25f * k), d * (1 + 0.25f * k), 1 - 0.8f * k);
+    ui_put_c(t_stone[colour(player)], cx, cy - lift, d * (1 + 0.4f * k), d * (1 + 0.4f * k));
+}
+
 static void draw(void)
 {
     const knpos *p = kn_pos(&G);
@@ -198,7 +208,13 @@ static void draw(void)
     for (int s = 0; s < n * n; s++) {
         if (p->at[s] < 0 || (drag.on && drag.moved && s == drag.from) || (hop && s == anim.m.to)) continue;
         sq_xy(s, &x, &y);
-        stone_at(p->at[s], x, y, d, 1);
+        if (s == sel && !(drag.on && drag.moved)) {   /* the selected stone: lifted a little off the board */
+            float e = ui_ease(fminf(1, (ui_ms() - sel_t0) / (float)SEL_MS));
+            if (e < 1) ui_animate();
+            stone_up(p->at[s], x, y, d, e * 0.1f * sq);
+        } else {
+            stone_at(p->at[s], x, y, d, 1);
+        }
     }
     if (st == GS_PLAY)
         for (int i = 0; i < nlegal; i++) {      /* the stones that may be lifted; where the selected one can go */
@@ -225,11 +241,11 @@ static void draw(void)
         sq_xy(anim.m.from, &sx, &sy);
         sq_xy(anim.m.to, &ex, &ey);
         float ux = (ex - sx) / anim.k, uy = (ey - sy) / anim.k;   /* one jump: two squares */
-        stone_at(anim.who, sx + ux * (j + e), sy + uy * (j + e), d * (1 + 0.16f * sinf(3.14159265f * f)), 1);
+        stone_up(anim.who, sx + ux * (j + e), sy + uy * (j + e), d, 0.3f * sq * sinf(ART_PI * f));
     }
     if (drag.on && drag.moved) {                /* the dragged stone, a little bigger, beside the finger */
         float s = 1.18f * d, off = ui_upside(p->side) ? -0.55f : 0.55f;
-        stone_at(p->side, drag.x, drag.y - s * off, s, 1);
+        stone_up(p->side, drag.x, drag.y - s * off + 0.2f * sq, s, 0.2f * sq);
     }
 }
 
@@ -250,6 +266,7 @@ static void press(float x, float y)
     }
     const knpos *p = kn_pos(&G);
     if (p->at[s] == p->side && can_move(s)) {
+        if (sel != s) sel_t0 = ui_ms();
         sel = s;
         drag.on = 1;
         drag.from = s;
