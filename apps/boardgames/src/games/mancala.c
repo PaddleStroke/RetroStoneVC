@@ -46,6 +46,7 @@ static int variant, sq, fr, sd, made = -1, made_out = -1, made_small = -1;   /* 
 static int out, ncol = COLS;                    /* out: the stores on their own planks, the plank 6 columns long */
 static float bx, by;                            /* the plank's top left corner */
 static float store_h, made_h;                   /* out: a store's height, in columns */
+static SDL_Texture *t_lastpit;                 /* the last pit sown: a soft warm light shaped like the pit */
 static SDL_Texture *t_board, *t_store, *t_seed[TINTS][SHAPES], *t_small[TINTS], *t_num;
 static int num_w, num_h;
 static struct { int on, step, heard; Uint32 t0; heap before; mc_move m; } anim;
@@ -219,6 +220,19 @@ static void make_seed(int tint, int shape, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+/* the last pit sown: a warm tint the pit's own oval shape, its rim soft (anti-aliased) and a little brighter */
+static void paint_lastpit(int w, int h, uint8_t *o)
+{
+    float rx = w / 2.0f, ry = h / 2.0f, feather = 2.5f / fminf(rx, ry);
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            float dx = (x + 0.5f - rx) / rx, dy = (y + 0.5f - ry) / ry, r = sqrtf(dx * dx + dy * dy);
+            float a = clampf((1 - r) / feather, 0, 1) * (80 + 60 * r * r);
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            p[0] = 250, p[1] = 214, p[2] = 90, p[3] = (uint8_t)a;
+        }
+}
+
 /* a store on its own plank: w x h pixels inside a frame of f, its hollow along it */
 static void make_store(int w, int h, int s, int f, uint8_t *o)
 {
@@ -262,6 +276,10 @@ static void layout(box b)
                 make_seed(t, s, d, ui_buf(d, d));
                 t_seed[t][s] = ui_tex(d, d, ui_buf(d, d));
             }
+        ui_free(&t_lastpit);
+        { int lw = (int)(2 * PIT_RX * sq + 0.5f), lh = (int)(2 * PIT_RY * sq + 0.5f);
+          paint_lastpit(lw, lh, ui_buf(lw, lh));
+          t_lastpit = ui_tex(lw, lh, ui_buf(lw, lh)); }
         ui_free(&t_num);                        /* the top player's counts, drawn here and turned round */
         num_h = (int)(NUM * sq + 2);
         num_w = 3 * num_h;
@@ -549,7 +567,8 @@ static void draw(void)
         slot_uv(G.move[G.n - 1], &u, &v);
         at(u - 0.5f, v - 0.75f, &x, &y);
         at(u + 0.5f, v + 0.75f, &x1, &y1);
-        ui_mark_last(fminf(x, x1), fminf(y, y1), (float)sq, 1.5f * sq);
+        if (t_lastpit) ui_put_c(t_lastpit, (x + x1) / 2, (y + y1) / 2, 2 * PIT_RX * sq, 2 * PIT_RY * sq);
+        else ui_mark_last(fminf(x, x1), fminf(y, y1), (float)sq, 1.5f * sq);
     }
     if (playing && !anim.on)                    /* the pits the player may sow: a warm light in them */
         for (int s = 0; s < MC_PITS; s++)
