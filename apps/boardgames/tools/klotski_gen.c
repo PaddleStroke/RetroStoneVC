@@ -4,11 +4,15 @@
  * cells are left); its whole family of positions found by the rules (klt_family: every position the blocks can reach,
  * and the fewest moves out of each, searched back from the solved ones). A family met before, or the mirror of one
  * (read from the right), is left out; so is a family whose great block never gets out (most of the small ones). Few
- * families are both large and deep, so each one gives many levels: at every distance from the way out, a few
- * positions drawn among those at that distance (the great block in the upper half when one is: the way out looks
- * far). The difficulty: the fewest moves, a little more in a large family (more ways to go wrong). Each chapter has
- * its range of moves and keeps 25 candidates spread evenly over its difficulties, from the easiest; never two at one
- * distance from one family, never a position or its mirror twice. Deterministic (fixed seeds).
+ * families are both large and deep, so each one gives many levels: at every distance from the way out, the few
+ * positions that look best set out by hand (taste_of: the blocks alike on both sides, as in the traditional trays;
+ * the great block high and in the middle, the way out far; the two empty cells side by side), the great block in the
+ * upper half when it can be. The difficulty: the fewest moves, a little more in a large family (more ways to go
+ * wrong). Each chapter has its range of moves and keeps 25 candidates spread evenly over its difficulties, from the
+ * easiest: at each step the best looking of a few close in difficulty, the families mixed (one met in the chapter
+ * counts less); the chapter's last level, its showpiece, the best looking among its hardest tenth. Never two at one
+ * distance from one family, never a position or its mirror twice. The trays: 400 laid by chance, then the ones met
+ * before (KNOWN, the families a run of 6000 found). Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/kltgen apps/boardgames/tools/klotski_gen.c -lm && \
  *       /tmp/kltgen > apps/boardgames/src/games/klotski_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -22,12 +26,93 @@
 #include "games/klotski_rules.c"
 
 #define PER (KLT_LEVELS / KLT_CHAPTERS)
-#define LAYS 6000
+#define LAYS 400
 #define SAMPLES 3                               /* the positions kept a distance a family */
 #define FAR 256
 #define MAXC 60000
 
 static const int LO[KLT_CHAPTERS] = {3, 10, 20, 35, 50, 70}, HI[KLT_CHAPTERS] = {9, 19, 34, 49, 69, 255};
+
+/* trays met before (the families a longer run of 6000 trays laid by chance found worth playing), looked at again
+ * after the few laid by chance */
+static const char *const KNOWN[] = {
+    "S00 T01 W02 S10 T12 W20 B30 T32 T33", "T00 T01 T02 T03 S20 W21 B30 S32 T33",
+    "S00 S01 T02 S03 W10 S13 B21 T23 T30 S41 S42", "W00 T02 T03 S10 S11 W22 T30 T31 B32",
+    "W00 W02 W10 S12 S13 S20 W21 B30 S32 S42 S43", "W00 W02 S10 W11 T13 W21 S30 T31 B32",
+    "W00 S03 T10 S11 W12 B21 T23 T30 S41 S43", "T00 W02 W11 T13 S20 W21 B30 S32 T33",
+    "S00 T02 S03 T10 T11 W22 B30 T32 T33", "T00 W01 T11 S13 T20 S22 S23 T31 B32 S40",
+    "W00 T03 S10 T11 T12 T23 B30 T32 S43", "S01 T02 T03 T10 T11 W22 B30 S32 T33",
+    "W00 T02 T03 W10 W20 B30 W32 S42 S43", "S00 T01 T02 T03 S10 T21 W22 T30 B32",
+    "W01 T03 S10 W11 T20 S21 W22 T31 B32", "W00 W02 S10 W11 S13 B20 W22 S32 S33 S40 S41",
+    "S01 W02 S10 T12 T13 W20 T30 T31 B32", "W00 W02 W10 W12 S22 S23 T30 T31 B32",
+    "T01 W02 T10 W12 S22 S23 T30 T31 B32", "W00 T02 S03 T10 T11 T23 B30 T32 S43",
+    "T00 S01 T02 T03 W21 S23 B30 S32 T33 S42", "W00 S02 T03 W10 T20 W21 T31 B32 S40",
+    "S00 S01 S02 T10 T11 T12 S23 B30 S32 T33 S42", "S00 W01 S03 W10 W12 S20 S21 B22 W30 S40 S42",
+    "W00 W02 S10 W12 S20 T22 S23 B30 T33 S42", "T00 T01 T12 T13 B20 W32 S40 S41 W42",
+    "W00 W02 S10 W11 B20 S22 W32 S40 S41 S42 S43", "S00 S01 W02 W10 T12 T13 T21 T30 B32",
+    "W00 W02 S10 W12 B20 S22 W32 S40 S41 S42 S43", "T01 W02 T10 S12 S13 T21 S22 T30 B32 S41",
+    "S01 T02 S03 T10 T13 W21 T30 T31 B32", "T00 T01 W02 W12 B20 S22 T32 T33 S40",
+    "W01 T03 W10 T12 S21 S23 B30 T32 T33", "T00 S01 W02 T12 W20 S23 T30 T31 B32",
+    "W00 W02 W11 T13 B20 T32 T33 S40 S41", "W00 T02 T03 W20 B22 T30 T31 S42 S43",
+    "T00 T01 W02 T12 B20 T32 T33 S40 S41", "S00 W01 T03 T10 W11 B22 T30 T31 S42",
+    "S00 S02 T03 T10 T11 W22 T30 T31 B32", "W00 S02 S03 T10 B11 T13 T30 S32 T33 S42",
+    "S00 T01 S02 S03 T10 B12 T30 T31 S32 S42 S43", "W00 W02 T10 S11 B12 T21 T30 S32 S33 S41",
+    "S00 S01 S02 S03 W10 B12 W20 W30 W32 S42 S43", "T00 S02 T03 T11 S12 T20 W22 T31 B32",
+    "W00 W02 B10 W12 W22 S30 T31 S32 S40 S43", "S00 W01 S03 W10 B12 S21 S30 W31 S33 W40 S43",
+    "W00 W02 W10 B12 S20 S21 S30 T32 S33 S41 S43", "T00 T01 T02 S03 T13 B21 S30 S33 S40 W42",
+    "S00 S01 W02 T10 T11 B12 W30 S32 W41 S43", "S00 S01 W02 W10 B12 T20 T21 S33 W40 S43",
+    "W00 B02 W10 W20 S23 W30 S32 W40 W42", "W00 B02 W10 W20 S22 S23 W31 W40 W42",
+    "T00 S01 S02 T03 B11 T20 T23 S31 W40 S43", "B00 W02 S12 S13 W20 W22 S31 W32 S41 S42 S43",
+    "T00 T01 S03 T12 W20 S23 T30 T31 B32", "W00 B02 T10 T11 S22 S23 T32 T33 S40 S41",
+    "S01 B02 T10 S11 S21 T22 T23 T30 S31 S41 S43", "W00 B02 W10 W20 W22 S31 T32 S33 S40 S43",
+    "W00 B02 W10 S20 S22 S23 W30 S32 W40 W42", "T00 S01 W02 B11 S13 T20 S31 S32 T33 W40",
+    "T00 T01 S02 S03 B12 T20 T21 W32 S42 S43", "B00 S02 T03 S20 S21 S22 T23 S30 T31 T32 S43",
+    "W00 S02 T03 B11 S20 T23 T30 S32 S41 W42", "B00 W02 W12 W21 T23 W30 T32 S41 S43",
+    "W00 W02 W10 B12 S20 S30 W31 W40 W42", "W00 B02 T11 T20 S22 S31 T32 T33 S40 S41",
+    "W00 B02 W10 S20 S21 T23 W30 T32 W40", "W00 S02 T03 B10 S12 T22 S23 W30 W41 S43",
+    "B00 S02 S03 W12 W20 S22 S23 W30 S32 S40 W41", "B00 W12 S20 S21 W22 S30 S31 S32 T33 W40 S42",
+    "S00 W01 S10 T11 B12 S20 T30 S31 W32 W42", "S01 S02 T03 B10 T12 S23 W30 T32 T33 S41",
+    "S00 S01 B02 W10 S21 W22 S30 W31 S33 S41 W42", "B00 S03 T12 S13 S20 S21 S30 S31 W32 W40 W42",
+    "W00 S03 T10 S11 B12 S30 S31 T32 T33 W40", "S00 S01 W02 B10 W12 S22 S23 W30 W32 W40",
+    "W01 S03 W11 S13 W20 W22 W30 B32 W40", "W00 W02 B11 S13 S20 W30 S32 S33 W40 W42",
+    "S00 W01 S03 S10 T11 B12 S30 T32 T33 W40", "W00 W02 S10 B11 S13 S20 S30 S31 W32 S40 W42",
+    "S00 S01 W02 W10 B12 W20 W32 W40 W42", "W01 S03 B10 T12 T13 T30 T32 S33 S41 S43",
+    "T00 S02 S03 B11 T13 S30 T31 T32 S33 S40 S43", "W00 W02 S10 T11 B12 S20 W31 S40 W41 S43",
+    "S00 T01 W02 S10 B12 S20 S21 S30 W31 W41 S43", "W00 B02 T10 S11 T21 W22 S32 S33 W41 S43",
+    "W01 S03 S10 S11 B12 S20 S30 S31 W32 W40 W42", "S00 W01 S11 B12 W20 W30 W32 W40 W42",
+    "S00 B01 T03 S20 T21 W22 T30 S32 T33 S41", "T00 S01 S02 T03 B11 S20 S30 T31 T32 S33 S43",
+    "B00 S02 S03 W12 T20 S21 T22 T31 T33 S40", "B00 W02 S12 W20 S22 T23 W30 T32 W40",
+    "W00 B02 S10 S11 T20 T22 S31 T33 S40 W41", "S00 W01 S03 B10 S12 S13 W22 W31 S33 S40 W41",
+    "B00 S02 S03 S12 S13 T20 W22 W31 S40 W41 S43", "B00 S02 S03 W12 W20 S22 T23 W31 W40 S42",
+    "T01 B02 T10 S21 S22 S23 S31 T32 T33 W40", "W00 S10 S11 B12 W20 W30 W32 S40 W41 S43",
+    "S00 B01 T03 S10 W20 S22 T23 W30 S32 W42", "S00 S01 W02 B10 T12 S30 W31 T33 W40 S42",
+    "B00 W02 T13 W20 W30 T32 S33 W40 S43", "W00 S02 S10 B11 S13 S23 W30 W32 S40 W41 S43",
+    "S01 S02 S10 S11 B12 W20 W30 W32 S40 W41 S43", "W00 B02 S10 S11 W20 W22 S30 W31 W41 S43",
+    "W00 B02 T10 S11 S21 W22 W30 S33 W40 S43", "B00 S02 S03 S12 S13 W20 W22 W31 S40 W41 S43",
+    "S01 B02 S10 S11 W20 T22 S23 W30 W40 S42 S43", "W01 T10 S11 B12 S21 S30 W31 S33 W40 W42",
+    "B00 S03 S12 S13 W21 S23 W30 W32 S40 W41 S43", "S00 S01 S02 S03 B10 W12 W22 T30 W31 S33 S43",
+    "B00 W02 T12 S13 S20 S21 S30 W31 W40 W42", "B00 T02 T03 T20 T22 S23 S33 S40 S41 W42",
+    "S00 B01 T03 S10 S20 W21 T23 T30 T32 S41", "S00 S01 W02 B10 T12 T13 W30 W32 W41",
+    "S00 B01 S03 T13 W20 S22 S31 W32 S40 W41 S43", "S00 S01 W02 S10 B11 T20 T23 S31 W40 W42",
+    "W00 B02 T10 S11 S21 W22 T31 T33 S40 S42", "B00 W02 S12 S20 S21 W22 W30 T33 W40 S42",
+    "T00 B01 S03 T13 W20 S30 T31 S32 T33 S42", "W00 T02 T03 B10 S30 S31 W32 W40 W42",
+    "B00 W02 T13 S20 W21 S30 W31 T33 W40", "W01 T03 B10 T12 S30 S31 W32 W40 W42",
+    "T00 T01 B02 S20 S21 S22 W30 T32 T33 S40", "B00 S02 T03 T20 W21 T23 T31 S32 S40 S43",
+    "B02 W10 T20 W21 S23 S31 W32 S40 S41 W42", "T00 S02 S03 B12 W20 S30 S31 W32 W40 W42",
+    "T00 T01 B02 W20 T23 S30 S31 T32 S40 S43", "B00 S02 T03 S12 W20 S22 T23 T30 W31 S43",
+    "B00 W02 S12 T13 S20 W21 S30 T31 T32 S43", "T00 B01 S03 S13 W20 W22 W31 S40 S41 W42",
+    "S00 B01 S10 T13 W20 W30 W32 S40 S41 W42", "T00 B01 T03 T20 W21 T23 S40 S41 S42 S43",
+    "S00 B01 T03 T10 W22 S30 T31 S32 T33 S40", "T00 B01 S03 T13 W20 T22 T30 S33 S42 S43",
+    "T00 S01 B02 S11 W20 S22 T23 W30 S32 W41", "T00 B01 T03 W20 S22 S23 W30 T32 S33 S41",
+    "T00 S01 T03 B11 S20 S30 W31 S33 W40 W42", "S00 T01 B02 S10 T22 S23 W30 T33 W40 S42",
+    "B00 T02 T03 S20 W21 W30 T33 S40 S41 S42", "T01 S02 T10 B12 S21 S30 W31 T33 S40 W41",
+    "B00 S02 T03 S20 W21 S23 T30 W32 W41 S43", "S00 B02 T10 S11 T21 W22 T30 S32 S33 W42",
+    "T00 B02 S11 S20 S21 W22 W30 T32 W40 S43", "S00 S01 T02 T03 B10 S23 W30 T33 S40 W41",
+    "T00 S01 B02 T11 S20 S23 T30 S31 W32 W42", "B00 S02 S13 S20 W21 S23 T30 W31 T33 W41",
+    "B00 S03 S12 T13 W20 S22 S31 T32 T33 W40", "S00 B01 S03 T13 S20 W21 S30 T31 W32 W42",
+    "S00 S02 T10 S11 B12 T21 T30 W32 W41 S43", "T00 S01 B02 W20 T22 S23 W30 W40 S42 S43",
+};
+#define NKNOWN ((int)(sizeof KNOWN / sizeof *KNOWN))
 
 typedef struct { int np; klt_piece p[KLT_PIECES]; } tray;
 
@@ -35,7 +120,7 @@ typedef struct {
     char text[KLT_PIECES * 4 + 1];
     uint64_t key;                               /* the position's, its mirror's alike */
     int dist, size, fam;
-    double diff;
+    double diff, taste;
 } cand;
 
 static cand cands[MAXC];
@@ -44,14 +129,39 @@ static uint64_t *sigs;
 static int nsigs;
 static uint32_t rng;
 
-/* the family being looked at: its size, its farthest position, and at each distance a few positions drawn (two
- * reservoirs: the great block high, and any) */
+/* the family being looked at: its size, its farthest position, and at each distance the few positions that look
+ * best (two lists: the great block high, and any) */
 typedef struct {
     uint64_t sig;
     int size, far;
     int seen[FAR][2];
     tray pick[FAR][2][SAMPLES];
+    double taste[FAR][2][SAMPLES];
 } look;
+
+/* how well a tray looks set out by hand (higher: better): its blocks alike on both sides (a tray read from the right
+ * the same, as the traditional ones are), the great block high and in the middle (the way out looks far), the two
+ * empty cells side by side */
+static double taste_of(const klt_piece *p, int np)
+{
+    int8_t kind[KLT_W * KLT_H];
+    memset(kind, -1, sizeof kind);
+    int bx = 0, by = 0;
+    for (int i = 0; i < np; i++) {
+        int t = p[i].type;
+        if (t == KLT_BIG) bx = p[i].x, by = p[i].y;
+        for (int dy = 0; dy < PH[t]; dy++)
+            for (int dx = 0; dx < PW[t]; dx++) kind[p[i].x + dx + (p[i].y + dy) * KLT_W] = (int8_t)t;
+    }
+    int same = 0, gap[2], ng = 0;
+    for (int y = 0; y < KLT_H; y++)
+        for (int x = 0; x < KLT_W / 2; x++) same += kind[x + y * KLT_W] == kind[KLT_W - 1 - x + y * KLT_W];
+    for (int c = 0; c < KLT_W * KLT_H && ng < 2; c++)
+        if (kind[c] < 0) gap[ng++] = c;
+    int side = ng == 2 && ((gap[1] - gap[0] == 1 && gap[0] % KLT_W != KLT_W - 1) || gap[1] - gap[0] == KLT_W);
+    return 2.5 * same / (KLT_W / 2 * KLT_H) + (by == 0 ? 1.0 : by == 1 ? 0.5 : 0) + (bx == 1 ? 0.8 : 0) +
+           (side ? 0.3 : 0);
+}
 
 /* blocks laid by chance: the great block, m of 1 x 2 (standing or lying), small ones until two cells are left */
 static int lay(klt_piece *p, uint32_t *s)
@@ -116,11 +226,17 @@ static void second_pass(const klt_game *pos, int dist, void *ctx)
 {
     look *L = ctx;
     if (dist < LO[0] || dist >= FAR) return;
-    int high = big_y(pos->p, pos->np) <= 1, n = ++L->seen[dist][high];
-    int slot = n <= SAMPLES ? n - 1 : pr_below(&rng, n);
-    if (slot >= SAMPLES) return;
+    int high = big_y(pos->p, pos->np) <= 1, n = ++L->seen[dist][high], slot = n - 1;
+    double t = taste_of(pos->p, pos->np);
+    if (slot >= SAMPLES) {                      /* the one that looks worst makes way */
+        slot = 0;
+        for (int s = 1; s < SAMPLES; s++)
+            if (L->taste[dist][high][s] < L->taste[dist][high][slot]) slot = s;
+        if (t <= L->taste[dist][high][slot]) return;
+    }
     L->pick[dist][high][slot].np = pos->np;
     memcpy(L->pick[dist][high][slot].p, pos->p, sizeof pos->p);
+    L->taste[dist][high][slot] = t;
 }
 
 static int by_diff(const void *a, const void *b)
@@ -135,11 +251,12 @@ int main(void)
     static klt_game g;
     int failed = 0, stuck = 0, far_hist[20] = {0};
     rng = pr_seed(4000);
-    sigs = malloc(LAYS * sizeof *sigs);
+    sigs = malloc((LAYS + NKNOWN) * sizeof *sigs);
     if (!sigs) return 1;
-    for (int lay_no = 0; lay_no < LAYS; lay_no++) {
+    for (int lay_no = 0; lay_no < LAYS + NKNOWN; lay_no++) {
         memset(&g, 0, sizeof g);
-        g.np = lay(g.p, &rng);
+        if (lay_no >= LAYS) klt_parse(&g, KNOWN[lay_no - LAYS]);
+        else g.np = lay(g.p, &rng);
         if (!g.np) { failed++; continue; }
         memset(&L, 0, sizeof L);
         if (!klt_family(&g, first_pass, &L)) { failed++; continue; }
@@ -164,9 +281,10 @@ int main(void)
                 c->size = L.size;
                 c->fam = nsigs - 1;
                 c->diff = d + 0.8 * log2((double)L.size) + (high ? 0 : 0.5) + 0.01 * s;
+                c->taste = L.taste[d][high][s];
             }
         }
-        if (lay_no % 500 == 0) fprintf(stderr, "%d trays, %d families, %d candidates\n", lay_no, nsigs, ncand);
+        if (lay_no % 100 == 0) fprintf(stderr, "%d trays, %d families, %d candidates\n", lay_no, nsigs, ncand);
     }
     fprintf(stderr, "%d families, %d trays not laid or too large, %d families stuck; the farthest:", nsigs, failed,
             stuck);
@@ -181,19 +299,29 @@ int main(void)
             if (cands[i].dist >= LO[c] && cands[i].dist <= HI[c]) pool[npool++] = cands[i];
         fprintf(stderr, "chapter %d: %d candidates, %d .. %d moves\n", c + 1, npool, npool ? pool[0].dist : 0,
                 npool ? pool[npool - 1].dist : 0);
+        int used_fam[64], nfam = 0;
         for (int i = 0, last = -1; i < PER && npool; i++) {
             double q = c == 0 && i == 0 ? 0 : 0.03 + 0.94 * i / (PER - 1);
-            int at = (int)(q * (npool - 1) + 0.5);
+            int at = (int)(q * (npool - 1) + 0.5), span = npool / (3 * PER);
             if (at <= last) at = last + 1;
-            for (int bad = 1; bad && at < npool - 1;) {   /* not one distance of a family twice, nor a position */
-                bad = 0;
-                for (int k = 0; k < nout; k++)
-                    bad |= out[k].key == pool[at].key || (out[k].fam == pool[at].fam && out[k].dist == pool[at].dist);
-                if (bad) at++;
+            if (i == PER - 1 && at < npool * 9 / 10) at = npool * 9 / 10;   /* the showpiece: among the hardest */
+            int to = i == PER - 1 ? npool - 1 : at + span, best = -1;
+            double best_score = -1e9;
+            if (to > npool - 1) to = npool - 1;
+            if (c == 0 && i == 0) to = at;
+            for (int k = at; k <= to || (best < 0 && k < npool); k++) {
+                int bad = 0;                    /* not one distance of a family twice, nor a position */
+                for (int o = 0; o < nout && !bad; o++)
+                    bad = out[o].key == pool[k].key || (out[o].fam == pool[k].fam && out[o].dist == pool[k].dist);
+                if (bad) continue;
+                double score = pool[k].taste;   /* the families mixed: one met in the chapter already counts less */
+                for (int f = 0; f < nfam; f++) score -= used_fam[f] == pool[k].fam ? 0.7 : 0;
+                if (score > best_score) { best_score = score; best = k; }
             }
-            if (at >= npool) at = npool - 1;
-            last = at;
-            out[nout++] = pool[at];
+            if (best < 0) best = at < npool ? at : npool - 1;
+            last = best;
+            if (nfam < 64) used_fam[nfam++] = pool[best].fam;
+            out[nout++] = pool[best];
         }
     }
     printf("/*\n"
