@@ -1,16 +1,9 @@
 Konane
 # The aim
-Be the last player able to move. Konane is Hawaiian checkers: every move is a jump that takes a stone.
-# The board
-The board is full: a stone on every square, the two colours alternating like the squares of a chessboard. Dark plays first. The usual board is 8 by 8; you can also choose 6 by 6 or 10 by 10.
-# Moving
-The game opens with two stones lifted off the board:
-- Dark removes one of their own stones, from the four middle squares or from a corner.
-- Light then removes one of their own stones next to that hole (above, below or beside it).
-After that, every move is a jump.
+Be the last player able to move. Every move is a jump that takes a stone. Dark plays first.
+# The start
+Dark removes one of their own stones, from the four middle squares or from a corner. Light then removes one of theirs next to that hole.
 # Capturing
-Jump one of your stones over an enemy stone right next to it (up, down, left or right, never diagonally) onto the empty square just beyond, and take the stone you jumped. The same stone may jump again in the same straight line, over another enemy stone onto the next empty square, and so on, but it may never turn. You may stop after any jump.
+Jump one of your stones over an enemy stone right next to it (up, down, left or right) onto the empty square just beyond, and take it. The same stone may jump again in the same straight line, but never turn. You may stop after any jump.
 # The end of the game
-The first player who cannot move on their turn loses. There are no draws: every move takes a stone, so the game always ends with a winner.
-# Playing on the device
-At the start, the stones that may be lifted have a ring: tap one. Then tap a stone to see where it can land (a dot for each jump, straight on), and tap a dot, or drag the stone. Each bar shows how many stones that player has taken.
+The first player who cannot move on their turn loses. There are no draws.

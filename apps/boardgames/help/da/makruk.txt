@@ -1,27 +1,18 @@
 Makruk
 # Målet
-Makruk er thailandsk skak, en nær slægtning til almindeligt skak. Sæt modstanderens Khun (konge) skakmat: angrib den, så den ikke kan undslippe. Hvid trækker først, derefter skiftes spillerne, ét træk ad gangen.
-# Brættet
-Brættet har otte rækker med otte felter, alle i samme farve. Hver spillers bageste række har, fra venstre: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua for hvid; sorts er den samme, bare vendt om, så de to Khun ikke står lige over for hinanden. Bia står på hver spillers tredje række, så den anden række er tom.
+Thailandsk skak: sæt modstanderens Khun (konge) skakmat. Hvid trækker først.
 # Sådan trækker brikkerne
-- Khun (kongens krone): ét felt i en hvilken som helst retning. Der er ingen rokade.
-- Met (en diamant på en slank krop): ét felt diagonalt.
-- Khon (en tempelklokke med spir): ét felt diagonalt, eller ét felt lige frem.
-- Ma (hestehovedet): som springeren i skak, i en L-form, hen over alle brikker imellem.
-- Rua (tårnet): et vilkårligt antal felter langs en række eller en linje, som tårnet i skak.
-- Bia (den lave muslingeskal): ét felt lige frem, aldrig to. Den slår ét felt skråt frem.
-Brikkerne kan ikke passere gennem andre brikker (undtagen Ma). En brik slår ved at flytte hen på et felt, hvor en modstanderbrik står, som så forlader brættet.
-# Forvandling
-En Bia, der når den sjette række, den række, hvor modstanderens Bia startede, bliver straks til en Met. Fra da af trækker den som en Met.
+- Khun (kronen): ét felt i en hvilken som helst retning. Der er ingen rokade.
+- Met (diamanten): ét felt diagonalt.
+- Khon (klokken): ét felt diagonalt, eller ét felt lige frem.
+- Ma (hesten): som springeren i skak.
+- Rua (tårnet): som tårnet i skak.
+- Bia (muslingeskallen): ét felt lige frem, aldrig to. Den slår ét felt skråt frem. På den sjette række bliver den til en Met.
 # Skak og partiets afslutning
-En Khun, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen Khun i skak.
+Du må aldrig lave et træk, der efterlader din egen Khun i skak.
 - Skakmat: Khun står i skak, og intet træk kan redde den. Den spiller taber.
-- Pat: spilleren i trækket har intet lovligt træk, men står ikke i skak. Partiet er remis.
-- Partiet er også remis, når kun de to Khun er tilbage, eller når den samme stilling opstår for tredje gang med den samme spiller i trækket.
+- Remis: pat (intet lovligt træk, men ikke i skak), kun de to Khun tilbage, eller den samme stilling for tredje gang med den samme spiller i trækket.
 # Optællingen
-Når der ikke er nogen uforvandlet Bia tilbage på brættet, skal partiet slutte inden for et begrænset antal træk. I Thailand tæller den svagere spiller højt; her tæller enheden for dig.
-- Brættets optælling: fra da af tæller den spiller, der trækker næste gang, sine træk. Hvis tællingen når 64, og modstanderen ikke sætter mat med det næste træk, er partiet remis.
-- Brikkernes optælling: når en spiller kun har sin Khun tilbage, er det i stedet den spiller, der tæller, begyndende fra antallet af brikker på brættet (begge Khun medregnet) plus én. Modstanderen skal sætte mat, før tællingen passerer grænsen: 8 med to Rua, 16 med én Rua, 22 med to Khon, 32 med to Ma, 44 med én Khon og ellers 64. Grænsen fastsættes, når optællingen begynder, og ændres ikke, heller ikke hvis der senere bliver slået brikker.
-Mens en optælling kører, viser den tællende spillers panel, hvor mange træk modstanderen har tilbage til at sætte mat.
-# Spil på enheden
-Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En Khun i skak lyser rødt. Hvert panel viser de brikker, den spiller har slået.
+Når der ikke er nogen uforvandlet Bia tilbage, skal partiet snart slutte. Enheden tæller for dig.
+- Brættets optælling: den spiller, der trækker næste gang, tæller sine træk. Hvis tællingen når 64, og modstanderen ikke sætter mat med det næste træk, er partiet remis.
+- Brikkernes optælling: når en spiller kun har sin Khun tilbage, er det i stedet den spiller, der tæller, fra antallet af brikker på brættet (begge Khun medregnet) plus én. Modstanderen skal sætte mat, før tællingen passerer grænsen: 8 med to Rua, 16 med én Rua, 22 med to Khon, 32 med to Ma, 44 med én Khon og ellers 64. Grænsen fastsættes, når optællingen begynder.

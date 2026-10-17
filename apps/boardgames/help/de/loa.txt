@@ -1,16 +1,11 @@
 Lines of Action
 # Das Ziel
-Bringe alle deine Steine zu einer einzigen Gruppe zusammen, in der jeder Stein einen anderen deiner Steine berührt: Seite an Seite oder Ecke an Ecke. Dunkel beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
-# Der Start
-Jeder Spieler hat 12 Steine. Die dunklen stehen auf der obersten und untersten Reihe, die hellen auf der linken und rechten Spalte; die vier Ecken bleiben leer.
+Bringe alle deine Steine zu einer einzigen Gruppe zusammen, in der jeder Stein einen anderen deiner Steine berührt, Seite an Seite oder Ecke an Ecke. Dunkel beginnt.
 # So zieht ein Stein
-- Ein Stein zieht in gerader Linie: entlang seiner Reihe, seiner Spalte oder einer seiner beiden Diagonalen.
-- Er zieht genau so viele Felder weit, wie Steine auf dieser ganzen Linie stehen, beider Farben, der ziehende Stein eingeschlossen. Zähle die ganze Linie, von einem Rand des Bretts zum anderen, auf beiden Seiten des Steins.
-- Er darf über Steine seiner eigenen Farbe springen, aber nie über die des anderen Spielers.
-- Er darf auf einem leeren Feld landen oder auf einem Stein des anderen Spielers, der dann geschlagen wird und das Brett verlässt. Er darf nie auf einem eigenen Stein landen.
+- Ein Stein zieht in gerader Linie, entlang seiner Reihe, seiner Spalte oder einer Diagonale, genau so viele Felder weit, wie Steine auf dieser ganzen Linie stehen: beider Farben, von Rand zu Rand, der ziehende Stein eingeschlossen.
+- Er darf über eigene Steine springen, aber nie über die des anderen Spielers.
+- Er darf auf einem leeren Feld landen oder auf einem gegnerischen Stein, der dann geschlagen wird. Nie auf einem eigenen.
 # Das Ende der Partie
-- Wer alle seine Steine zu einer zusammenhängenden Gruppe verbunden hat, gewinnt. Ein einzelner übrig gebliebener Stein zählt als Gruppe, daher kann ein Schlag den anderen Spieler gewinnen lassen.
-- Bildet ein Zug für beide Spieler zugleich eine geschlossene Gruppe, gewinnt der Spieler, der den Zug gemacht hat.
-- Wer keinen erlaubten Zug hat, passt, und der andere Spieler zieht erneut. Das Gerät passt für dich. Kann keiner der beiden Spieler ziehen, oder nach 1000 Zügen, endet die Partie remis.
-# Spielen auf dem Gerät
-Tippe auf einen Stein, um zu sehen, wohin er ziehen kann, und dann auf ein Feld, oder schieb den Stein mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Jede Leiste zeigt, wie viele Steine der Spieler noch hat. Am Ende leuchtet die siegreiche Gruppe golden auf.
+- Wer alle seine Steine zu einer Gruppe verbunden hat, gewinnt. Ein einzelner übrig gebliebener Stein zählt als Gruppe.
+- Bildet ein Zug für beide Spieler zugleich eine Gruppe, gewinnt der Spieler, der den Zug gemacht hat.
+- Wer keinen erlaubten Zug hat, passt. Kann keiner der beiden Spieler ziehen, oder nach 1000 Zügen, endet die Partie remis.

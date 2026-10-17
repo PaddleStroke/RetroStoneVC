@@ -1,16 +1,14 @@
 Mancala
 # Het doel
-Verover meer zaadjes dan de andere speler. Het bord heeft twee rijen van zes kuiltjes, met vier zaadjes in elk kuiltje. De rij die het dichtst bij je ligt, is van jou, met je verzamelkuil aan het rechteruiteinde. Licht begint.
+Verover meer zaadjes dan de andere speler. Je verzamelkuil ligt aan het rechteruiteinde van je rij. Licht begint.
 # Oware
-- Pak in je beurt alle zaadjes uit een van je kuiltjes en zaai ze een voor een in de volgende kuiltjes, tegen de klok in. Met twaalf zaadjes of meer ga je helemaal rond: het kuiltje dat je hebt leeggemaakt, wordt overgeslagen.
-- Als je laatste zaadje in de rij van de andere speler belandt en daar twee of drie zaadjes van maakt, verover je ze. Je verovert ook het kuiltje ervoor, en het kuiltje daarvoor, zolang ze in de rij van de andere speler liggen en twee of drie zaadjes bevatten.
-- Een zet die alle zaadjes van de andere speler zou veroveren, mag worden gespeeld, maar verovert niets.
-- Als de andere speler geen zaadjes heeft, moet je een zet doen die hem er wat geeft, als je zo'n zet hebt.
-- De partij eindigt als een speler meer dan 24 zaadjes heeft veroverd, als de speler die aan de beurt is niet kan spelen, of als dezelfde stelling terugkomt. In die laatste twee gevallen telt elke speler de zaadjes die nog in zijn eigen rij liggen erbij op. Wie de meeste zaadjes heeft, wint; 24 elk is gelijkspel.
+- Pak alle zaadjes uit een van je kuiltjes en zaai ze een voor een in de volgende kuiltjes, tegen de klok in. Met twaalf zaadjes of meer wordt het kuiltje dat je hebt leeggemaakt overgeslagen.
+- Als je laatste zaadje in de rij van de andere speler belandt en daar twee of drie zaadjes van maakt, verover je ze, en ook de kuiltjes er direct voor in die rij, zolang elk twee of drie zaadjes bevat.
+- Een zet die alle zaadjes van de andere speler zou veroveren, verovert niets.
+- Als de andere speler geen zaadjes heeft, moet je hem er wat geven, als je kunt.
+- De partij eindigt als een speler meer dan 24 zaadjes heeft, als de speler die aan de beurt is niet kan spelen, of als een stelling terugkomt. In die laatste twee gevallen telt elke speler de zaadjes die nog in zijn eigen rij liggen erbij op. 24 elk is gelijkspel.
 # Kalah
-- Pak in je beurt alle zaadjes uit een van je kuiltjes en zaai ze een voor een tegen de klok in in de volgende kuiltjes en in je eigen verzamelkuil, maar niet in die van de andere speler.
+- Zaai tegen de klok in in de volgende kuiltjes en in je eigen verzamelkuil, maar niet in die van de andere speler.
 - Als je laatste zaadje in je verzamelkuil belandt, speel je nog een keer.
-- Als je laatste zaadje in een leeg kuiltje van jou belandt en het kuiltje ertegenover zaadjes bevat, verover je ze allebei: je zaadje en de zaadjes ertegenover gaan naar je verzamelkuil.
-- De partij eindigt als een rij leeg is: de andere speler doet de zaadjes die nog in zijn rij liggen in zijn verzamelkuil. Wie de meeste zaadjes in zijn verzamelkuil heeft, wint; evenveel is gelijkspel.
-# Spelen op het apparaat
-Tik op een van je kuiltjes om het te zaaien: de kuiltjes die je mag spelen, lichten op. De zaadjes gaan een voor een op weg, en veroverde zaadjes vliegen naar de verzamelkuil. Het getal naast elk kuiltje toont hoeveel zaadjes erin liggen, en elke balk toont de zaadjes die die speler heeft veroverd.
+- Als je laatste zaadje in een leeg kuiltje van jou belandt en het kuiltje ertegenover zaadjes bevat, gaan je zaadje en de zaadjes ertegenover naar je verzamelkuil.
+- Als een rij leeg is, doet de andere speler de zaadjes die nog in zijn rij liggen in zijn verzamelkuil. Wie de meeste zaadjes heeft, wint; evenveel is gelijkspel.

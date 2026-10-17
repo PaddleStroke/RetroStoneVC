@@ -1,16 +1,9 @@
 Konane
 # Cíl hry
-Buď posledním hráčem, který ještě může táhnout. Konane je havajská dáma: každý tah je skok, který bere kámen.
-# Deska
-Deska je plná: na každém poli stojí kámen a obě barvy se střídají jako pole šachovnice. Začíná tmavý hráč. Obvyklá deska má 8×8 polí; vybrat si můžeš i 6×6 nebo 10×10.
-# Posouvání
-Hra začíná tím, že se z desky zvednou dva kameny:
-- Tmavý hráč odebere jeden ze svých kamenů ze čtyř prostředních polí nebo z rohu.
-- Světlý hráč pak odebere jeden ze svých kamenů vedle vzniklé díry (nad ní, pod ní nebo vedle ní).
-Potom je každý tah skokem.
+Buď posledním hráčem, který ještě může táhnout. Každý tah je skok, který bere kámen. Začíná tmavý hráč.
+# Začátek
+Tmavý hráč odebere jeden ze svých kamenů ze čtyř prostředních polí nebo z rohu. Světlý hráč pak odebere jeden ze svých kamenů vedle vzniklé díry.
 # Braní
-Přeskoč svým kamenem soupeřův kámen, který stojí hned vedle (nahoru, dolů, doleva nebo doprava, nikdy šikmo), na prázdné pole hned za ním, a přeskočený kámen vezmi. Tentýž kámen smí skákat dál v téže přímce, přes další soupeřův kámen na další prázdné pole a tak dál, ale nikdy nesmí zahnout. Po kterémkoli skoku můžeš přestat.
+Přeskoč svým kamenem soupeřův kámen, který stojí hned vedle (nahoru, dolů, doleva nebo doprava), na prázdné pole hned za ním, a vezmi ho. Tentýž kámen smí skákat dál v téže přímce, ale nikdy nesmí zahnout. Po kterémkoli skoku můžeš přestat.
 # Konec hry
-Prohrává první hráč, který na svém tahu nemůže táhnout. Remíza neexistuje: každý tah bere kámen, takže hra vždy skončí vítězstvím jednoho z hráčů.
-# Hra na zařízení
-Na začátku mají kameny, které lze zvednout, kroužek: klepni na jeden z nich. Potom klepni na kámen a uvidíš, kam může doskočit (jedna tečka za každý skok, rovně dál), a klepni na tečku, nebo kámen přetáhni. Každá lišta ukazuje, kolik kamenů hráč vzal.
+Prohrává první hráč, který na svém tahu nemůže táhnout. Remíza neexistuje.

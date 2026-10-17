@@ -1,16 +1,9 @@
 Konane
 # Lo scopo
-Essere l'ultimo giocatore che può ancora muovere. Il konane è la dama hawaiana: ogni mossa è un salto che cattura una pietra.
-# Il tavoliere
-Il tavoliere è pieno: una pietra su ogni casella, con i due colori che si alternano come le case di una scacchiera. Iniziano le pietre scure. Il tavoliere abituale è 8 per 8; puoi anche scegliere 6 per 6 o 10 per 10.
-# Movimento
-La partita si apre togliendo due pietre dal tavoliere:
-- Il giocatore scuro toglie una delle proprie pietre da una delle quattro caselle centrali o da un angolo.
-- Poi il giocatore chiaro toglie una delle proprie pietre accanto a quel buco (sopra, sotto o di lato).
-Da quel momento ogni mossa è un salto.
+Essere l'ultimo giocatore che può ancora muovere. Ogni mossa è un salto che cattura una pietra. Iniziano le pietre scure.
+# La partenza
+Il giocatore scuro toglie una delle proprie pietre da una delle quattro caselle centrali o da un angolo. Poi il giocatore chiaro toglie una delle sue accanto a quel buco.
 # Catture
-Fai saltare una delle tue pietre sopra una pietra avversaria che le sta proprio accanto (in alto, in basso, a sinistra o a destra, mai in diagonale) fino alla casella vuota subito dietro, e cattura la pietra saltata. La stessa pietra può saltare di nuovo lungo la stessa linea retta, sopra un'altra pietra avversaria fino alla casella vuota successiva, e così via, ma non può mai girare. Puoi fermarti dopo qualsiasi salto.
+Fai saltare una delle tue pietre sopra una pietra avversaria che le sta proprio accanto (in alto, in basso, a sinistra o a destra) fino alla casella vuota subito dietro, e catturala. La stessa pietra può saltare di nuovo lungo la stessa linea retta, ma non può mai girare. Puoi fermarti dopo qualsiasi salto.
 # La fine della partita
-Perde il primo giocatore che, al suo turno, non può muovere. Non esiste la patta: ogni mossa cattura una pietra, quindi la partita finisce sempre con un vincitore.
-# Giocare sul dispositivo
-All'inizio, le pietre che si possono togliere hanno un anello: toccane una. Poi tocca una pietra per vedere dove può atterrare (un puntino per ogni salto, sempre dritto) e tocca un puntino, oppure trascina la pietra. Ogni barra mostra quante pietre ha catturato quel giocatore.
+Perde il primo giocatore che, al suo turno, non può muovere. Non esiste la patta.

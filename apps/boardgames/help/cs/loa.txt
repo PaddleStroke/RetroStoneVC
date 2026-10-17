@@ -1,16 +1,11 @@
 Lines of Action
 # Cíl hry
-Spoj všechny své kameny do jedné skupiny, v níž se každý kámen dotýká jiného tvého kamene: stranou nebo rohem. Začíná tmavý hráč, potom se hráči střídají, každý jedním tahem.
-# Začátek
-Každý hráč má 12 kamenů. Tmavé stojí na horní a dolní řadě, světlé v levém a pravém sloupci; čtyři rohy zůstávají prázdné.
+Spoj všechny své kameny do jedné skupiny, v níž se každý kámen dotýká jiného tvého kamene: stranou nebo rohem. Začíná tmavý hráč.
 # Jak kámen táhne
-- Kámen táhne v přímém směru: po své řadě, svém sloupci nebo jedné ze svých dvou diagonál.
-- Táhne přesně o tolik polí, kolik kamenů je na celé té čáře, obou barev, včetně kamene, který táhne. Počítej celou čáru, od jednoho okraje desky k druhému, na obou stranách kamene.
+- Kámen táhne v přímém směru, po své řadě, svém sloupci nebo diagonále, přesně o tolik polí, kolik kamenů je na celé té čáře: obou barev, od okraje k okraji, včetně kamene, který táhne.
 - Smí přeskakovat kameny své barvy, ale nikdy soupeřovy.
-- Smí dopadnout na volné pole, nebo na soupeřův kámen, který je vzat a opouští desku. Nikdy nesmí dopadnout na vlastní kámen.
+- Smí dopadnout na volné pole, nebo na soupeřův kámen, který je vzat. Nikdy na vlastní kámen.
 # Konec hry
-- Vyhrává hráč, jehož kameny všechny tvoří jednu spojenou skupinu. Jediný zbývající kámen se počítá jako skupina, takže braní může soupeři přinést výhru.
+- Vyhrává hráč, jehož kameny všechny tvoří jednu skupinu. Jediný zbývající kámen se počítá jako skupina.
 - Pokud tah spojí skupiny obou hráčů najednou, vyhrává hráč, který táhl.
-- Hráč, který nemá žádný povolený tah, pasuje a soupeř táhne znovu. Zařízení pasuje za tebe. Pokud nemůže táhnout žádný hráč, nebo po 1000 tazích, hra končí remízou.
-# Hra na zařízení
-Klepni na kámen a uvidíš, kam může táhnout, potom klepni na pole, nebo kámen přetáhni. Tečky ukazují tahy, kroužky braní. Každá lišta ukazuje, kolik kamenů danému hráči zbývá. Na konci se vítězná skupina rozzáří zlatě.
+- Hráč, který nemá žádný povolený tah, pasuje. Pokud nemůže táhnout žádný hráč, nebo po 1000 tazích, hra končí remízou.

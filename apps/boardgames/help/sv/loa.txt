@@ -1,16 +1,11 @@
 Lines of Action
 # Målet
-Samla alla dina pjäser i en enda grupp, där varje pjäs rör vid en annan av dina: sida vid sida eller hörn mot hörn. Den mörka sidan börjar, sedan turas spelarna om, ett drag var.
-# Utgångsläget
-Varje spelare har 12 pjäser. De mörka står på den översta och den nedersta raden, de ljusa i den vänstra och den högra kolumnen; de fyra hörnen är tomma.
+Samla alla dina pjäser i en enda grupp, där varje pjäs rör vid en annan av dina: sida vid sida eller hörn mot hörn. Den mörka sidan börjar.
 # Hur en pjäs går
-- En pjäs flyttar i rak linje: längs sin rad, sin kolumn eller en av sina två diagonaler.
-- Den flyttar exakt lika många rutor som det finns pjäser på hela den linjen, i båda färgerna, den flyttande pjäsen inräknad. Räkna hela linjen, från brädets ena kant till den andra, på båda sidor om pjäsen.
+- En pjäs flyttar i rak linje, längs sin rad, sin kolumn eller en diagonal, exakt lika många rutor som det finns pjäser på hela den linjen: i båda färgerna, från kant till kant, den flyttande pjäsen inräknad.
 - Den får hoppa över pjäser i sin egen färg, men aldrig över motståndarens.
-- Den får landa på en tom ruta, eller på en av motståndarens pjäser, som då slås och lämnar brädet. Den får aldrig landa på en av sina egna.
+- Den får landa på en tom ruta, eller på en av motståndarens pjäser, som då slås. Aldrig på en av sina egna.
 # Partiets slut
-- En spelare vars pjäser alla bildar en sammanhängande grupp vinner. En ensam kvarvarande pjäs räknas som en grupp, så ett slag kan få motståndaren att vinna.
+- En spelare vars pjäser alla bildar en grupp vinner. En ensam kvarvarande pjäs räknas som en grupp.
 - Om ett drag samtidigt fullbordar båda spelarnas grupper vinner spelaren som gjorde draget.
-- En spelare som inte har något tillåtet drag står över, och motståndaren flyttar igen. Enheten står över åt dig. Om ingen av spelarna kan flytta, eller efter 1000 drag, blir partiet oavgjort.
-# Spela på enheten
-Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. Varje fält visar hur många pjäser den spelaren har kvar. I slutet lyser den vinnande gruppen i guld.
+- En spelare som inte har något tillåtet drag står över. Om ingen av spelarna kan flytta, eller efter 1000 drag, blir partiet oavgjort.

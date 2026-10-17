@@ -1,23 +1,15 @@
 Juego de la selva
 # El objetivo
-Llevar uno de tus animales a la guarida del otro jugador, la estrella incrustada en el otro extremo del tablero. También ganas si capturas todos los animales del otro jugador, o cuando el otro jugador no puede mover. Empiezan las claras; después los jugadores se turnan, una jugada cada uno.
-# El tablero
-El tablero tiene siete columnas y nueve filas. En el centro hay dos ríos. La guarida de cada jugador está en el centro de su fila del fondo, con tres trampas alrededor: las casillas talladas a sus lados y delante de ella.
+Llevar uno de tus animales a la guarida del otro jugador. También ganas si capturas todos sus animales, o cuando no puede mover. Empiezan las claras.
 # Los animales
-Cada jugador tiene ocho animales. El número de cada animal es su fuerza: elefante 8, león 7, tigre 6, leopardo 5, lobo 4, perro 3, gato 2, rata 1.
+El número de cada animal es su fuerza, desde el elefante (8) hasta la rata (1).
 # Movimiento
-- Un animal se mueve una casilla hacia delante, hacia atrás o hacia un lado, nunca en diagonal.
-- Ningún animal puede entrar en su propia guarida.
-- Solo la rata sabe nadar: es el único animal que puede entrar en el agua.
-- El león y el tigre pueden saltar por encima de un río, en línea recta, desde la orilla hasta la primera casilla después del agua. No pueden saltar si hay una rata, de cualquier jugador, en el agua por el camino.
+- Un animal se mueve una casilla hacia delante, hacia atrás o hacia un lado. Ningún animal puede entrar en su propia guarida.
+- Solo la rata puede entrar en el agua.
+- El león y el tigre saltan por encima de un río en línea recta, salvo que haya una rata en el agua por el camino.
 # Capturas
-- Un animal captura moviéndose a la casilla de un animal contrario de igual o menor fuerza, que sale del tablero.
-- La rata puede capturar al elefante, pero el elefante no puede capturar a la rata.
-- Un animal en una de las trampas del otro jugador se queda sin fuerza: cualquier animal contrario puede capturarlo. En sus propias trampas conserva su fuerza.
-- No hay capturas entre el agua y la tierra: una rata en el agua solo puede capturar a la otra rata en el agua, y un animal en tierra no puede capturar a una rata en el agua.
+- Un animal captura a un animal contrario de igual o menor fuerza. La rata captura al elefante, pero el elefante no puede capturar a la rata.
+- Un animal en una de las trampas del otro jugador (las casillas talladas alrededor de la guarida) se queda sin fuerza: cualquier animal contrario puede capturarlo.
+- No hay capturas entre el agua y la tierra: una rata en el agua solo puede capturar a la otra rata en el agua.
 # El final de la partida
-- Un animal que entra en la guarida del otro jugador gana la partida.
-- Capturar todos los animales del otro jugador da la victoria, y dejarlo sin movimientos también.
-- La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas.
-# Jugar en el dispositivo
-Toca un animal para ver adónde puede ir y luego toca una casilla, o arrastra el animal. Los puntos muestran las jugadas, los anillos las capturas.
+La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas.

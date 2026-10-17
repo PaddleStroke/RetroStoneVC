@@ -1,23 +1,15 @@
 Dschungelschach
 # Das Ziel
-Ziehe eines deiner Tiere in die Höhle des anderen Spielers, den eingelegten Stern am anderen Ende des Bretts. Du gewinnst auch, wenn du alle Tiere des anderen Spielers schlägst oder wenn der andere Spieler nicht mehr ziehen kann. Hell beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
-# Das Brett
-Das Brett hat sieben Spalten und neun Reihen. In der Mitte liegen zwei Flüsse. Die Höhle jedes Spielers liegt in der Mitte seiner hintersten Reihe, mit drei Fallen darum herum: den geschnitzten Feldern links und rechts von ihr und vor ihr.
+Ziehe eines deiner Tiere in die Höhle des anderen Spielers. Du gewinnst auch, wenn du alle seine Tiere schlägst oder wenn er nicht mehr ziehen kann. Hell beginnt.
 # Die Tiere
-Jeder Spieler hat acht Tiere. Die Zahl auf jedem Tier ist seine Stärke: Elefant 8, Löwe 7, Tiger 6, Leopard 5, Wolf 4, Hund 3, Katze 2, Ratte 1.
+Die Zahl auf jedem Tier ist seine Stärke, vom Elefanten (8) bis hinunter zur Ratte (1).
 # Ziehen
-- Ein Tier zieht ein Feld vorwärts, rückwärts oder zur Seite, nie diagonal.
-- Kein Tier darf seine eigene Höhle betreten.
-- Nur die Ratte kann schwimmen: Sie ist das einzige Tier, das ins Wasser darf.
-- Löwe und Tiger können über einen Fluss springen, in gerader Linie, vom Ufer auf das erste Feld hinter dem Wasser. Sie können nicht springen, wenn eine Ratte, gleich welches Spielers, auf dem Weg im Wasser ist.
+- Ein Tier zieht ein Feld vorwärts, rückwärts oder zur Seite. Kein Tier darf seine eigene Höhle betreten.
+- Nur die Ratte darf ins Wasser.
+- Löwe und Tiger springen in gerader Linie über einen Fluss, außer eine Ratte ist auf dem Weg im Wasser.
 # Schlagen
-- Ein Tier schlägt, indem es auf ein gegnerisches Tier gleicher oder geringerer Stärke zieht; dieses verlässt das Brett.
-- Die Ratte kann den Elefanten schlagen, aber der Elefant kann die Ratte nicht schlagen.
-- Ein Tier in einer der Fallen des anderen Spielers hat keine Stärke mehr: Jedes gegnerische Tier kann es schlagen. In seinen eigenen Fallen behält es seine Stärke.
-- Zwischen Wasser und Land wird nicht geschlagen: Eine Ratte im Wasser kann nur die andere Ratte im Wasser schlagen, und ein Tier an Land kann keine Ratte im Wasser schlagen.
+- Ein Tier schlägt ein gegnerisches Tier gleicher oder geringerer Stärke. Die Ratte schlägt den Elefanten, aber der Elefant kann die Ratte nicht schlagen.
+- Ein Tier in einer der Fallen des anderen Spielers (den geschnitzten Feldern um die Höhle) hat keine Stärke mehr: Jedes gegnerische Tier kann es schlagen.
+- Zwischen Wasser und Land wird nicht geschlagen: Eine Ratte im Wasser kann nur die andere Ratte im Wasser schlagen.
 # Das Ende der Partie
-- Ein Tier, das die Höhle des anderen Spielers betritt, gewinnt die Partie.
-- Wer alle Tiere des anderen Spielers schlägt, gewinnt, ebenso wer ihm keinen Zug mehr lässt.
-- Die Partie endet remis, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen.
-# Spielen auf dem Gerät
-Tippe auf ein Tier, um zu sehen, wohin es ziehen kann, und dann auf ein Feld, oder schieb das Tier mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen.
+Die Partie endet remis, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen.

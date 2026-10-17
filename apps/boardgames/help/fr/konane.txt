@@ -1,16 +1,9 @@
 Konane
 # Le but
-Être le dernier joueur à pouvoir jouer. Le konane, ce sont les dames hawaïennes : chaque coup est un saut qui prend une pierre.
-# Le plateau
-Le plateau est plein : une pierre sur chaque case, les deux couleurs alternant comme les cases d'un échiquier. Les pierres foncées commencent. Le plateau habituel fait 8 sur 8 ; tu peux aussi choisir 6 sur 6 ou 10 sur 10.
-# Les déplacements
-La partie commence en retirant deux pierres du plateau :
-- Le joueur foncé retire une de ses propres pierres, sur l'une des quatre cases du centre ou dans un coin.
-- Le joueur clair retire ensuite une de ses propres pierres à côté de ce trou (au-dessus, au-dessous ou sur le côté).
-Ensuite, chaque coup est un saut.
+Être le dernier joueur à pouvoir jouer. Chaque coup est un saut qui prend une pierre. Les pierres foncées commencent.
+# Le départ
+Le joueur foncé retire une de ses propres pierres, sur l'une des quatre cases du centre ou dans un coin. Le joueur clair retire ensuite une des siennes à côté de ce trou.
 # Les prises
-Fais sauter une de tes pierres par-dessus une pierre adverse juste à côté d'elle (vers le haut, le bas, la gauche ou la droite, jamais en diagonale) jusqu'à la case vide juste derrière, et prends la pierre sautée. La même pierre peut sauter encore dans la même ligne droite, par-dessus une autre pierre adverse jusqu'à la case vide suivante, et ainsi de suite, mais elle ne peut jamais tourner. Tu peux t'arrêter après n'importe quel saut.
+Fais sauter une de tes pierres par-dessus une pierre adverse juste à côté d'elle (vers le haut, le bas, la gauche ou la droite) jusqu'à la case vide juste derrière, et prends-la. La même pierre peut sauter encore dans la même ligne droite, mais elle ne peut jamais tourner. Tu peux t'arrêter après n'importe quel saut.
 # La fin de la partie
-Le premier joueur qui ne peut pas jouer à son tour a perdu. Il n'y a pas de partie nulle : chaque coup prend une pierre, donc la partie se termine toujours par une victoire.
-# Jouer sur l'appareil
-Au début, les pierres qu'on peut retirer sont entourées d'un anneau : touches-en une. Ensuite, touche une pierre pour voir où elle peut atterrir (un point pour chaque saut, tout droit), puis touche un point, ou fais glisser la pierre. Chaque barre indique combien de pierres ce joueur a prises.
+Le premier joueur qui ne peut pas jouer à son tour a perdu. Il n'y a pas de partie nulle.

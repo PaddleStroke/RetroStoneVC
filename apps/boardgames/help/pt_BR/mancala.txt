@@ -1,16 +1,14 @@
 Mancala
 # O objetivo
-Capturar mais sementes do que o outro jogador. O tabuleiro tem duas fileiras de seis covas, com quatro sementes em cada uma. A fileira mais perto de você é a sua, com o seu depósito na ponta direita. O lado claro começa.
+Capturar mais sementes do que o outro jogador. O seu depósito fica na ponta direita da sua fileira. O lado claro começa.
 # Oware
-- Na sua vez, pegue todas as sementes de uma das suas covas e semeie-as uma a uma nas covas seguintes, no sentido anti-horário. Com doze sementes ou mais, você dá a volta completa: a cova que você esvaziou é pulada.
-- Se a sua última semente cair na fileira do outro jogador e deixar ali duas ou três sementes, você as captura. Você também captura a cova anterior, e a que vem antes dela, desde que estejam na fileira do outro jogador e tenham duas ou três sementes.
-- Uma jogada que capturaria todas as sementes do outro jogador pode ser feita, mas não captura nada.
-- Se o outro jogador não tiver sementes, você precisa fazer uma jogada que lhe dê algumas, se tiver uma.
-- A partida termina quando um jogador captura mais de 24 sementes, quando o jogador da vez não pode jogar ou quando a mesma posição se repete. Nos dois últimos casos, cada jogador soma as sementes que restam na sua própria fileira. Vence quem tiver mais sementes; 24 para cada um é empate.
+- Pegue todas as sementes de uma das suas covas e semeie-as uma a uma nas covas seguintes, no sentido anti-horário. Com doze sementes ou mais, a cova que você esvaziou é pulada.
+- Se a sua última semente cair na fileira do outro jogador e deixar ali duas ou três sementes, você as captura, e também as covas logo antes dela nessa fileira, desde que cada uma tenha duas ou três.
+- Uma jogada que capturaria todas as sementes do outro jogador não captura nada.
+- Se o outro jogador não tiver sementes, você precisa lhe dar algumas, se puder.
+- A partida termina quando um jogador tem mais de 24 sementes, quando o jogador da vez não pode jogar ou quando uma posição se repete. Nos dois últimos casos, cada jogador soma as sementes que restam na sua própria fileira. 24 para cada um é empate.
 # Kalah
-- Na sua vez, pegue todas as sementes de uma das suas covas e semeie-as uma a uma, no sentido anti-horário, nas covas seguintes e no seu próprio depósito, mas não no depósito do outro jogador.
+- Semeie no sentido anti-horário nas covas seguintes e no seu próprio depósito, mas não no depósito do outro jogador.
 - Se a sua última semente cair no seu depósito, você joga de novo.
-- Se a sua última semente cair em uma cova sua que estava vazia e a cova em frente tiver sementes, você captura as duas: a sua semente e as sementes da frente vão para o seu depósito.
-- A partida termina quando uma fileira fica vazia: o outro jogador põe as sementes que restam na fileira dele no seu depósito. Vence quem tiver mais sementes no depósito; o mesmo número é empate.
-# Jogando no aparelho
-Toque em uma das suas covas para semeá-la: as covas que você pode jogar brilham. As sementes andam uma a uma, e as sementes capturadas voam para o depósito. O número ao lado de cada cova mostra quantas sementes ela tem, e cada barra mostra as sementes que aquele jogador capturou.
+- Se a sua última semente cair em uma cova sua que estava vazia e a cova em frente tiver sementes, a sua semente e as da frente vão para o seu depósito.
+- Quando uma fileira fica vazia, o outro jogador põe as sementes que restam na fileira dele no seu depósito. Vence quem tiver mais sementes; o mesmo número é empate.

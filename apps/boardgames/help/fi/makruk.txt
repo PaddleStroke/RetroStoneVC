@@ -1,27 +1,18 @@
 Makruk
 # Tavoite
-Makruk on thaimaalainen shakki, tavallisen shakin läheinen sukulainen. Tee vastustajan Khunille (kuninkaalle) matti: uhkaa sitä niin, ettei se pääse pakoon. Valkea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
-# Lauta
-Laudalla on kahdeksan riviä, joissa kussakin on kahdeksan ruutua, kaikki samanvärisiä. Valkean takarivillä on vasemmalta lukien Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua; mustan takarivi on sama käännettynä, joten Khunit eivät ole vastakkain. Bia-nappulat ovat kummankin pelaajan kolmannella rivillä, ja toinen rivi jää tyhjäksi.
+Thaimaalainen shakki: tee vastustajan Khunille (kuninkaalle) matti. Valkea aloittaa.
 # Miten nappulat liikkuvat
-- Khun (kuninkaan kruunu): yhden ruudun mihin suuntaan tahansa. Linnoitusta ei ole.
-- Met (timantti hoikan vartalon päällä): yhden ruudun viistosti.
-- Khon (suippohuippuinen temppelikello): yhden ruudun viistosti tai yhden ruudun suoraan eteenpäin.
-- Ma (hevosen pää): kuten shakin ratsu, L-kirjaimen muotoisesti, hypäten välissä olevien nappuloiden yli.
-- Rua (torni): kuinka monta ruutua tahansa riviä tai linjaa pitkin, kuten shakin torni.
-- Bia (matala simpukankuori): yhden ruudun suoraan eteenpäin, ei koskaan kahta. Se lyö yhden ruudun viistosti eteenpäin.
-Nappulat eivät voi kulkea muiden nappuloiden läpi (paitsi Ma). Nappula lyö siirtymällä ruutuun, jossa on vastustajan nappula, ja lyöty nappula poistuu laudalta.
-# Korotus
-Bia, joka saavuttaa kuudennen rivin eli rivin, jolta vastustajan Bia-nappulat lähtivät, muuttuu heti Metiksi. Siitä lähtien se liikkuu kuten Met.
+- Khun (kruunu): yhden ruudun mihin suuntaan tahansa. Linnoitusta ei ole.
+- Met (timantti): yhden ruudun viistosti.
+- Khon (kello): yhden ruudun viistosti tai yhden ruudun suoraan eteenpäin.
+- Ma (hevonen): kuten shakin ratsu.
+- Rua (torni): kuten shakin torni.
+- Bia (simpukankuori): yhden ruudun suoraan eteenpäin, ei koskaan kahta. Se lyö yhden ruudun viistosti eteenpäin. Kuudennella rivillä siitä tulee Met.
 # Shakki ja pelin loppu
-Uhattu Khun on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman Khunisi shakkiin.
+Et saa koskaan tehdä siirtoa, joka jättää oman Khunisi shakkiin.
 - Matti: Khun on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää.
-- Patti: siirtovuorossa olevalla pelaajalla ei ole yhtään sallittua siirtoa, mutta hän ei ole shakissa. Peli päättyy tasapeliin.
-- Peli päättyy tasapeliin myös, kun jäljellä on vain kaksi Khunia, tai kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa.
+- Tasapeli: patti (ei yhtään sallittua siirtoa, mutta ei shakissa), jäljellä vain kaksi Khunia, tai sama asema kolmannen kerran saman pelaajan ollessa siirtovuorossa.
 # Laskenta
-Kun laudalla ei ole enää yhtään korottamatonta Bia-nappulaa, pelin on päätyttävä rajatun siirtomäärän kuluessa. Thaimaassa heikompi pelaaja laskee ääneen; täällä laite laskee puolestasi.
-- Laudan laskenta: siitä lähtien seuraavaksi siirtävä pelaaja laskee siirtojaan. Jos luku saavuttaa 64 eikä vastustaja tee mattia seuraavalla siirrolla, peli päättyy tasapeliin.
-- Nappuloiden laskenta: kun pelaajalla on jäljellä enää Khun, laskee sen sijaan tämä pelaaja, aloittaen laudalla olevien nappuloiden määrästä (molemmat Khunit mukaan lukien) plus yksi. Vastustajan on tehtävä matti ennen kuin luku ylittää rajan: 8 kahdella Rualla, 16 yhdellä Rualla, 22 kahdella Khonilla, 32 kahdella Ma-nappulalla, 44 yhdellä Khonilla ja muuten 64. Raja määräytyy laskennan alkaessa eikä muutu, vaikka nappuloita lyötäisiin myöhemmin.
-Laskennan aikana laskevan pelaajan palkki näyttää, montako siirtoa vastustajalla on vielä jäljellä matin tekemiseen.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva Khun hehkuu punaisena. Kukin palkki näyttää nappulat, jotka kyseinen pelaaja on lyönyt.
+Kun yhtään korottamatonta Bia-nappulaa ei ole enää jäljellä, pelin on päätyttävä pian. Laite laskee puolestasi.
+- Laudan laskenta: seuraavaksi siirtävä pelaaja laskee siirtojaan. Jos luku saavuttaa 64 eikä vastustaja tee mattia seuraavalla siirrolla, peli päättyy tasapeliin.
+- Nappuloiden laskenta: kun pelaajalla on jäljellä enää Khun, laskee sen sijaan tämä pelaaja, aloittaen laudalla olevien nappuloiden määrästä (molemmat Khunit mukaan lukien) plus yksi. Vastustajan on tehtävä matti ennen kuin luku ylittää rajan: 8 kahdella Rualla, 16 yhdellä Rualla, 22 kahdella Khonilla, 32 kahdella Ma-nappulalla, 44 yhdellä Khonilla ja muuten 64. Raja määräytyy laskennan alkaessa.

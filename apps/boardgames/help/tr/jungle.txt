@@ -1,23 +1,15 @@
 Hayvan Satrancı
 # Amaç
-Hayvanlarından birini rakibinin inine, tahtanın öbür ucundaki kakma yıldıza sok. Rakibinin bütün hayvanlarını alarak ya da rakibin hamle yapamadığında da kazanırsın. Önce açık renk oynar, sonra oyuncular sırayla birer hamle yapar.
-# Tahta
-Tahtada yedi sütun ve dokuz sıra vardır. Ortada iki nehir vardır. Her oyuncunun ini, arka sırasının ortasındadır ve çevresinde üç tuzak bulunur: inin iki yanındaki ve önündeki oyma kareler.
+Hayvanlarından birini rakibinin inine sok. Rakibinin bütün hayvanlarını alarak ya da rakibin hamle yapamadığında da kazanırsın. Önce açık renk oynar.
 # Hayvanlar
-Her oyuncunun sekiz hayvanı vardır. Her hayvanın üzerindeki sayı onun gücüdür: fil 8, aslan 7, kaplan 6, leopar 5, kurt 4, köpek 3, kedi 2, fare 1.
+Her hayvanın üzerindeki sayı onun gücüdür: filden (8) fareye (1) kadar.
 # Hareket
-- Bir hayvan ileri, geri ya da yana bir kare gider, asla çapraz gitmez.
-- Hiçbir hayvan kendi inine giremez.
-- Yalnızca fare yüzebilir: suya girebilen tek hayvandır.
-- Aslan ve kaplan bir nehrin üzerinden, düz bir çizgide, kıyıdan suyun ötesindeki ilk kareye atlayabilir. Yol üzerinde suda herhangi bir oyuncunun faresi varsa atlayamazlar.
+- Bir hayvan ileri, geri ya da yana bir kare gider. Hiçbir hayvan kendi inine giremez.
+- Yalnızca fare suya girebilir.
+- Aslan ve kaplan bir nehrin üzerinden düz bir çizgide atlar; ancak yol üzerinde suda bir fare varsa atlayamaz.
 # Alma
-- Bir hayvan, aynı ya da daha düşük güçteki bir rakip hayvanın üzerine giderek onu alır; alınan hayvan tahtadan çıkar.
-- Fare fili alabilir, ama fil fareyi alamaz.
-- Rakibin tuzaklarından birindeki hayvanın hiç gücü kalmaz: herhangi bir düşman hayvan onu alabilir. Kendi tuzaklarında gücünü korur.
-- Su ile kara arasında alma olmaz: sudaki fare yalnızca sudaki diğer fareyi alabilir, karadaki bir hayvan da sudaki fareyi alamaz.
+- Bir hayvan, aynı ya da daha düşük güçteki bir rakip hayvanı alır. Fare fili alır, ama fil fareyi alamaz.
+- Rakibin tuzaklarından birindeki (inin çevresindeki oyma kareler) hayvanın hiç gücü kalmaz: herhangi bir düşman hayvan onu alabilir.
+- Su ile kara arasında alma olmaz: sudaki fare yalnızca sudaki diğer fareyi alabilir.
 # Oyunun sonu
-- Rakibin inine giren hayvan oyunu kazandırır.
-- Rakibinin bütün hayvanlarını almak da, onu hamlesiz bırakmak da kazandırır.
-- Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da hayvan almadan ellişer hamle yaptığında oyun berabere biter.
-# Cihazda oynamak
-Bir hayvanın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da hayvanı sürükle. Noktalar hamleleri, halkalar alınabilecek hayvanları gösterir.
+Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da hayvan almadan ellişer hamle yaptığında oyun berabere biter.

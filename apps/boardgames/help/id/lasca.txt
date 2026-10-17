@@ -1,19 +1,15 @@
 Lasca
 # Tujuan
-Buat lawan tidak bisa melangkah. Lasca diciptakan pada tahun 1911 oleh juara dunia catur Emanuel Lasker. Cara mainnya seperti dam, tetapi bidak yang dimakan tetap di papan sebagai tawanan di dalam tumpukan. Setiap pemain punya sebelas bidak. Pihak terang jalan lebih dulu.
-# Papan
-Tujuh kali tujuh petak, dan hanya 25 petak terang yang dipakai, termasuk keempat sudutnya. Bidak setiap pemain mengisi petak terang di tiga baris terdekat dengannya; baris tengah kosong.
+Buat lawan tidak bisa melangkah. Lasca dimainkan seperti dam, tetapi bidak yang dimakan tetap di papan sebagai tawanan di dalam tumpukan. Pihak terang jalan lebih dulu.
 # Menggerakkan
-- Bidak berdiri dalam tumpukan. Sebuah tumpukan milik pemain yang bidaknya ada di puncak, dan bergerak seperti bidak itu, membawa seluruh tumpukan bersamanya.
-- Prajurit (bidak polos) bergerak satu petak secara diagonal ke depan. Perwira (bidak bermahkota) bergerak satu petak secara diagonal, ke depan atau ke belakang.
+- Sebuah tumpukan milik pemain yang bidaknya ada di puncak, dan bergerak seperti bidak itu, membawa seluruh tumpukan.
+- Prajurit bergerak satu petak secara diagonal ke depan. Perwira (bidak bermahkota) bergerak satu petak secara diagonal, ke depan atau ke belakang.
 - Prajurit di puncak tumpukannya yang mencapai baris terjauh menjadi perwira.
 # Memakan
-Jika tumpukan lawan berada di sebelah tumpukanmu secara diagonal dan petak tepat di belakangnya kosong, lompati tumpukan itu. Hanya bidak teratas dari tumpukan yang dilompati yang dimakan: bidak itu masuk ke bawah tumpukanmu sebagai tawanan. Bidak-bidak di bawahnya tetap di tempatnya, dan tumpukan itu kini milik pemilik bidak teratasnya yang baru: begitulah tawanan dibebaskan.
+Lompati tumpukan lawan yang berada di sebelah tumpukanmu secara diagonal ke petak kosong tepat di belakangnya. Hanya bidak teratasnya yang dimakan, dan masuk ke bawah tumpukanmu sebagai tawanan. Tumpukan yang tertinggal menjadi milik pemilik bidak teratasnya yang baru.
 - Prajurit hanya memakan ke depan, perwira ke depan maupun ke belakang.
-- Memakan itu wajib. Setelah memakan, tumpukan yang sama terus melompat selama masih bisa, semuanya dalam giliran yang sama, tetapi tidak pernah melompati petak yang sama dua kali. Jika ada beberapa pilihan makan, kamu boleh memilih yang mana saja.
+- Memakan itu wajib, tetapi kamu boleh memilih makan yang mana saja. Tumpukan yang sama terus melompat selama masih bisa, tetapi tidak pernah melompati petak yang sama dua kali.
 - Prajurit yang mencapai baris terjauh saat memakan menjadi perwira, dan gilirannya berakhir di situ.
 # Akhir permainan
-- Pemain yang tidak bisa melangkah kalah: semua bidaknya menjadi tawanan, atau semua tumpukannya terhalang.
+- Pemain yang tidak bisa melangkah kalah.
 - Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah empat puluh kali tanpa memakan atau menggerakkan prajurit.
-# Bermain di perangkat
-Ketuk tumpukanmu lalu petak barunya, atau seret tumpukan itu. Tumpukan yang bisa dimakan diberi cincin: dengan tumpukanmu terpilih, ketuk petak di belakangnya, atau tumpukan bercincin itu sendiri. Dalam rangkaian makan, tumpukanmu tetap terangkat untuk lompatan berikutnya. Setiap bidak dalam tumpukan sedikit menyembul di bawah bidak di atasnya. Angka di sebelah token di bilahmu menunjukkan jumlah tawanan di tumpukan-tumpukanmu.

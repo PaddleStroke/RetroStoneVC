@@ -1,23 +1,15 @@
 Viidakkoshakki
 # Tavoite
-Siirrä yksi eläimistäsi vastustajan pesään, laudan toisessa päässä olevaan upotettuun tähteen. Voitat myös, jos lyöt kaikki vastustajan eläimet tai jos vastustaja ei voi siirtää. Vaalea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
-# Lauta
-Laudalla on seitsemän saraketta ja yhdeksän riviä. Keskellä on kaksi jokea. Kunkin pelaajan pesä on hänen takarivinsä keskellä, ja sen ympärillä on kolme ansaa: kaiverretut ruudut sen sivuilla ja edessä.
+Siirrä yksi eläimistäsi vastustajan pesään. Voitat myös, jos lyöt kaikki vastustajan eläimet tai jos vastustaja ei voi siirtää. Vaalea aloittaa.
 # Eläimet
-Kummallakin pelaajalla on kahdeksan eläintä. Kunkin eläimen numero on sen voima: norsu 8, leijona 7, tiikeri 6, leopardi 5, susi 4, koira 3, kissa 2, rotta 1.
+Kunkin eläimen numero on sen voima, norsusta (8) rottaan (1).
 # Liikkuminen
-- Eläin siirtyy yhden ruudun eteen, taakse tai sivulle, ei koskaan viistosti.
-- Mikään eläin ei saa mennä omaan pesäänsä.
-- Vain rotta osaa uida: se on ainoa eläin, joka saa mennä veteen.
-- Leijona ja tiikeri voivat hypätä joen yli suoraan, rannalta ensimmäiseen ruutuun veden toisella puolella. Ne eivät voi hypätä, jos kumman tahansa pelaajan rotta on vedessä niiden tiellä.
+- Eläin siirtyy yhden ruudun eteen, taakse tai sivulle. Mikään eläin ei saa mennä omaan pesäänsä.
+- Vain rotta saa mennä veteen.
+- Leijona ja tiikeri hyppäävät joen yli suoraan, ellei rotta ole vedessä niiden tiellä.
 # Lyöminen
-- Eläin lyö siirtymällä sellaisen vastustajan eläimen päälle, jonka voima on sama tai pienempi, ja lyöty eläin poistuu laudalta.
-- Rotta voi lyödä norsun, mutta norsu ei voi lyödä rottaa.
-- Vastustajan ansassa olevalla eläimellä ei ole voimaa jäljellä: mikä tahansa vastustajan eläin voi lyödä sen. Omissa ansoissaan se säilyttää voimansa.
-- Veden ja maan välillä ei voi lyödä: vedessä oleva rotta voi lyödä vain toisen vedessä olevan rotan, eikä maalla oleva eläin voi lyödä vedessä olevaa rottaa.
+- Eläin lyö vastustajan eläimen, jonka voima on sama tai pienempi. Rotta lyö norsun, mutta norsu ei voi lyödä rottaa.
+- Vastustajan ansassa (kaiverretut ruudut pesän ympärillä) olevalla eläimellä ei ole voimaa jäljellä: mikä tahansa vastustajan eläin voi lyödä sen.
+- Veden ja maan välillä ei voi lyödä: vedessä oleva rotta voi lyödä vain toisen vedessä olevan rotan.
 # Pelin loppu
-- Eläin, joka pääsee vastustajan pesään, voittaa pelin.
-- Kaikkien vastustajan eläinten lyöminen voittaa, samoin vastustajan jättäminen ilman siirtoa.
-- Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä.
-# Pelaaminen laitteella
-Napauta eläintä nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä eläintä. Pisteet näyttävät siirrot, renkaat lyönnit.
+Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä.

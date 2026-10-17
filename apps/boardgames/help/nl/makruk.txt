@@ -1,27 +1,18 @@
 Makruk
 # Het doel
-Makruk is Thais schaken, een naaste verwant van het schaakspel. Zet de andere Khun (koning) schaakmat: val hem zo aan dat hij niet kan ontsnappen. Wit begint, daarna spelen de spelers om de beurt, elk één zet.
-# Het bord
-Het bord heeft acht rijen van acht velden, allemaal van één kleur. Op de achterste rij van elke speler staan, van links naar rechts: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua voor wit; bij zwart is het dezelfde rij, maar omgedraaid, zodat de twee Khun niet tegenover elkaar staan. De Bia staan op de derde rij van elke speler, zodat de tweede rij leeg blijft.
+Thais schaken: zet de andere Khun (koning) schaakmat. Wit begint.
 # Hoe de stukken bewegen
-- Khun (de koningskroon): één veld in elke richting. Er is geen rokade.
-- Met (een ruit op een slank lijf): één veld schuin.
-- Khon (een tempelbel met een spits): één veld schuin, of één veld recht vooruit.
-- Ma (de paardenkop): zoals het paard bij het schaken, in een L-vorm, waarbij hij over elk stuk ertussen heen springt.
-- Rua (de toren): zoveel velden als je wilt over een rij of een kolom, zoals de toren bij het schaken.
-- Bia (de lage schelp): één veld recht vooruit, nooit twee. Hij slaat één veld schuin vooruit.
-Stukken kunnen niet door andere stukken heen (behalve de Ma). Een stuk slaat door naar een veld te gaan waar een stuk van de tegenstander staat; dat stuk verlaat het bord.
-# Promotie
-Een Bia die de zesde rij bereikt, de rij waar de Bia van de andere speler begonnen, wordt meteen een Met. Vanaf dan beweegt hij als een Met.
+- Khun (de kroon): één veld in elke richting. Er is geen rokade.
+- Met (de ruit): één veld schuin.
+- Khon (de bel): één veld schuin, of één veld recht vooruit.
+- Ma (het paard): zoals het paard bij het schaken.
+- Rua (de toren): zoals de toren bij het schaken.
+- Bia (de schelp): één veld recht vooruit, nooit twee. Hij slaat één veld schuin vooruit. Op de zesde rij wordt hij een Met.
 # Schaak en het einde van de partij
-Een Khun die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen Khun schaak staat.
+Je mag nooit een zet doen waarna je eigen Khun schaak staat.
 - Schaakmat: de Khun staat schaak en geen enkele zet kan hem redden. Die speler verliest.
-- Pat: de speler die aan zet is heeft geen geldige zet, maar staat niet schaak. De partij eindigt in remise.
-- De partij is ook remise als alleen de twee Khun nog over zijn, of als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet.
+- Remise: pat (geen geldige zet, maar niet schaak), alleen de twee Khun nog over, of dezelfde stelling voor de derde keer met dezelfde speler aan zet.
 # Het tellen
-Staat er geen ongepromoveerde Bia meer op het bord, dan moet de partij binnen een beperkt aantal zetten eindigen. In Thailand telt de zwakkere speler hardop; hier telt het apparaat voor je.
-- De bordtelling: vanaf dat moment telt de speler die als volgende aan zet is zijn zetten. Bereikt zijn telling 64 en zet de andere speler met de volgende zet niet mat, dan eindigt de partij in remise.
-- De stukkentelling: als een speler alleen zijn Khun nog over heeft, telt in plaats daarvan die speler, te beginnen bij het aantal stukken op het bord (beide Khun meegerekend) plus één. De andere speler moet mat zetten voordat de telling de grens overschrijdt: 8 met twee Rua, 16 met één Rua, 22 met twee Khon, 32 met twee Ma, 44 met één Khon, en anders 64. De grens wordt vastgelegd als de telling begint en verandert daarna niet meer, ook niet als er later stukken worden geslagen.
-Zolang er geteld wordt, toont de balk van de tellende speler hoeveel zetten de andere speler nog heeft om mat te zetten.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een Khun die schaak staat, licht rood op. Elke balk toont de stukken die die speler heeft geslagen.
+Staat er geen ongepromoveerde Bia meer op het bord, dan moet de partij snel eindigen. Het apparaat telt voor je.
+- De bordtelling: de speler die als volgende aan zet is, telt zijn zetten. Bereikt de telling 64 en zet de andere speler met de volgende zet niet mat, dan eindigt de partij in remise.
+- De stukkentelling: als een speler alleen zijn Khun nog over heeft, telt in plaats daarvan die speler, te beginnen bij het aantal stukken op het bord (beide Khun meegerekend) plus één. De andere speler moet mat zetten voordat de telling de grens overschrijdt: 8 met twee Rua, 16 met één Rua, 22 met twee Khon, 32 met twee Ma, 44 met één Khon, en anders 64. De grens wordt vastgelegd als de telling begint.

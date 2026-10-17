@@ -1,19 +1,15 @@
 Lasca
 # Le but
-Laisser l'autre joueur sans coup possible. Le Lasca a été inventé en 1911 par le champion du monde d'échecs Emanuel Lasker. Il se joue comme les dames, mais les pièces prises restent sur le plateau, prisonnières dans des colonnes. Chaque joueur a onze pièces. Les pièces claires commencent.
-# Le plateau
-Sept cases sur sept, dont seules les 25 cases claires sont utilisées, coins compris. Les pièces de chaque joueur occupent les cases claires des trois rangées les plus proches de lui ; la rangée du milieu est vide.
+Laisser l'autre joueur sans coup possible. Le Lasca se joue comme les dames, mais les pièces prises restent sur le plateau, prisonnières dans des colonnes. Les pièces claires commencent.
 # Les déplacements
-- Les pièces sont empilées en colonnes. Une colonne appartient au joueur dont la pièce est au sommet, et se déplace comme cette pièce, en emportant toute la colonne avec elle.
-- Un soldat (une pièce simple) avance d'une case en diagonale. Un officier (une pièce couronnée) se déplace d'une case en diagonale, vers l'avant ou vers l'arrière.
+- Une colonne appartient au joueur dont la pièce est au sommet, et se déplace comme cette pièce, en emportant toute la colonne.
+- Un soldat avance d'une case en diagonale. Un officier (une pièce couronnée) se déplace d'une case en diagonale, vers l'avant ou vers l'arrière.
 - Un soldat au sommet de sa colonne qui atteint la dernière rangée devient officier.
 # Les prises
-Si une colonne adverse est voisine de la tienne en diagonale et que la case juste derrière elle est libre, saute par-dessus. Seule la pièce au sommet de la colonne sautée est prise : elle passe sous ta colonne, comme prisonnière. Les pièces du dessous restent en place, et cette colonne appartient désormais au joueur à qui revient sa nouvelle pièce du sommet : c'est ainsi que les prisonnières sont libérées.
+Saute par-dessus une colonne adverse voisine de la tienne en diagonale jusqu'à la case libre juste derrière. Seule sa pièce du sommet est prise, et passe sous ta colonne comme prisonnière. La colonne restée en place appartient au joueur à qui revient sa nouvelle pièce du sommet.
 - Les soldats prennent uniquement vers l'avant, les officiers vers l'avant et vers l'arrière.
-- La prise est obligatoire. Après une prise, la même colonne continue de sauter tant qu'elle le peut, le tout dans le même tour, mais elle ne saute jamais deux fois par-dessus la même case. Quand plusieurs prises sont possibles, tu peux choisir n'importe laquelle.
+- La prise est obligatoire, mais tu peux choisir n'importe quelle prise. La même colonne continue de sauter tant qu'elle le peut, mais jamais deux fois par-dessus la même case.
 - Un soldat qui atteint la dernière rangée pendant une prise devient officier, et son tour s'arrête là.
 # La fin de la partie
-- Un joueur qui ne peut pas bouger a perdu : toutes ses pièces sont prisonnières, ou toutes ses colonnes sont bloquées.
+- Un joueur qui ne peut pas bouger a perdu.
 - La partie est nulle quand la même position revient pour la troisième fois, ou après quarante coups de chaque côté sans prise ni coup de soldat.
-# Jouer sur l'appareil
-Touche ta colonne puis sa nouvelle case, ou fais-la glisser. Les colonnes qui peuvent être prises sont entourées d'un anneau : ta colonne sélectionnée, touche la case juste derrière, ou la colonne entourée elle-même. Dans une rafle, ta colonne reste en main pour le saut suivant. Chaque pièce d'une colonne dépasse un peu sous celle du dessus. Le nombre à côté de ta pièce, dans ta barre, compte les prisonnières de tes colonnes.

@@ -1,16 +1,14 @@
 Mancala
 # Tujuan
-Tangkap lebih banyak biji daripada lawan. Papan punya dua baris yang masing-masing berisi enam lubang, dengan empat biji di setiap lubang. Baris yang lebih dekat denganmu adalah milikmu, dengan lumbungmu di ujung kanannya. Pihak terang jalan lebih dulu.
+Tangkap lebih banyak biji daripada lawan. Lumbungmu ada di ujung kanan barismu. Pihak terang jalan lebih dulu.
 # Oware
-- Saat giliranmu, ambil semua biji dari salah satu lubangmu, lalu sebarkan satu per satu ke lubang-lubang berikutnya, berlawanan arah jarum jam. Dengan dua belas biji atau lebih, kamu berkeliling penuh: lubang yang kamu kosongkan dilewati.
-- Jika biji terakhirmu jatuh di baris lawan dan membuat lubang itu berisi dua atau tiga biji, kamu menangkap biji-biji itu. Kamu juga menangkap isi lubang sebelumnya, dan lubang sebelum itu, selama lubang-lubang itu berada di baris lawan dan berisi dua atau tiga biji.
-- Langkah yang akan menangkap semua biji lawan boleh dimainkan, tetapi tidak menangkap apa pun.
-- Jika lawan tidak punya biji, kamu harus memainkan langkah yang memberinya biji, jika kamu punya langkah seperti itu.
-- Permainan berakhir jika seorang pemain sudah menangkap lebih dari 24 biji, jika pemain yang mendapat giliran tidak bisa melangkah, atau jika posisi yang sama muncul lagi. Dalam dua kasus terakhir, setiap pemain menambahkan biji yang tersisa di barisnya sendiri. Biji terbanyak menang; 24 lawan 24 berarti seri.
+- Ambil semua biji dari salah satu lubangmu, lalu sebarkan satu per satu ke lubang-lubang berikutnya, berlawanan arah jarum jam. Dengan dua belas biji atau lebih, lubang yang kamu kosongkan dilewati.
+- Jika biji terakhirmu jatuh di baris lawan dan membuat lubang itu berisi dua atau tiga biji, kamu menangkapnya, juga lubang-lubang tepat sebelumnya di baris itu, selama masing-masing berisi dua atau tiga biji.
+- Langkah yang akan menangkap semua biji lawan tidak menangkap apa pun.
+- Jika lawan tidak punya biji, kamu harus memberinya biji, jika bisa.
+- Permainan berakhir jika seorang pemain punya lebih dari 24 biji, jika pemain yang mendapat giliran tidak bisa melangkah, atau jika sebuah posisi muncul lagi. Dalam dua kasus terakhir, setiap pemain menambahkan biji yang tersisa di barisnya sendiri. 24 lawan 24 berarti seri.
 # Kalah
-- Saat giliranmu, ambil semua biji dari salah satu lubangmu, lalu sebarkan satu per satu berlawanan arah jarum jam ke lubang-lubang berikutnya dan ke lumbungmu sendiri, tetapi tidak ke lumbung lawan.
+- Sebarkan berlawanan arah jarum jam ke lubang-lubang berikutnya dan ke lumbungmu sendiri, tetapi tidak ke lumbung lawan.
 - Jika biji terakhirmu jatuh di lumbungmu, kamu bermain lagi.
-- Jika biji terakhirmu jatuh di lubangmu yang kosong dan lubang di seberangnya berisi biji, kamu menangkap keduanya: bijimu dan biji di seberangnya masuk ke lumbungmu.
-- Permainan berakhir saat satu baris kosong: pemain yang lain memasukkan biji yang tersisa di barisnya ke lumbungnya. Biji terbanyak di lumbung menang; jumlah yang sama berarti seri.
-# Bermain di perangkat
-Ketuk salah satu lubangmu untuk menyebarkan isinya: lubang yang boleh kamu mainkan akan menyala. Biji bergerak satu per satu, dan biji yang tertangkap terbang ke lumbung. Angka di samping setiap lubang menunjukkan jumlah bijinya, dan setiap bilah menunjukkan biji yang telah ditangkap pemain itu.
+- Jika biji terakhirmu jatuh di lubangmu yang kosong dan lubang di seberangnya berisi biji, bijimu dan biji di seberangnya masuk ke lumbungmu.
+- Saat satu baris kosong, pemain yang lain memasukkan biji yang tersisa di barisnya ke lumbungnya. Biji terbanyak menang; jumlah yang sama berarti seri.

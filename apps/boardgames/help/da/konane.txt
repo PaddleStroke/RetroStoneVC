@@ -1,16 +1,9 @@
 Konane
 # Målet
-Vær den sidste spiller, der kan flytte. Konane er hawaiiansk dam: hvert træk er et spring, der slår en sten.
-# Brættet
-Brættet er fuldt: der ligger en sten på hvert felt, og de to farver skifter som felterne på et skakbræt. Den mørke side starter. Det almindelige bræt er 8×8; du kan også vælge 6×6 eller 10×10.
-# Flytning
-Spillet åbner med, at to sten løftes af brættet:
-- Den mørke spiller fjerner en af sine egne sten fra de fire midterste felter eller fra et hjørne.
-- Den lyse spiller fjerner derefter en af sine egne sten ved siden af hullet (over, under eller ved siden af det).
-Derefter er hvert træk et spring.
+Vær den sidste spiller, der kan flytte. Hvert træk er et spring, der slår en sten. Den mørke side starter.
+# Starten
+Den mørke spiller fjerner en af sine egne sten fra de fire midterste felter eller fra et hjørne. Den lyse spiller fjerner derefter en af sine egne sten ved siden af hullet.
 # Slag
-Spring med en af dine sten over en modstandersten lige ved siden af den (op, ned, til venstre eller til højre, aldrig skråt) til det tomme felt lige bagved, og tag den sten, du sprang over. Den samme sten må springe igen i samme lige linje, over endnu en modstandersten til det næste tomme felt og så videre, men den må aldrig dreje. Du kan stoppe efter et hvilket som helst spring.
+Spring med en af dine sten over en modstandersten lige ved siden af den (op, ned, til venstre eller til højre) til det tomme felt lige bagved, og tag den. Den samme sten må springe igen i samme lige linje, men den må aldrig dreje. Du kan stoppe efter et hvilket som helst spring.
 # Spillets afslutning
-Den første spiller, der ikke kan flytte, når det er hans tur, taber. Uafgjort findes ikke: hvert træk slår en sten, så spillet ender altid med en vinder.
-# Spil på enheden
-I starten har de sten, der må løftes, en ring: tryk på en af dem. Tryk derefter på en sten for at se, hvor den kan lande (en prik for hvert spring, lige frem), og tryk på en prik, eller træk stenen. Hvert panel viser, hvor mange sten spilleren har slået.
+Den første spiller, der ikke kan flytte, når det er hans tur, taber. Uafgjort findes ikke.

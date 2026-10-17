@@ -1,16 +1,11 @@
 Lines of Action
 # El objetivo
-Reunir todas tus piezas en un solo grupo, con cada pieza tocando a otra de las tuyas: de lado o por la esquina. Empiezan las oscuras; después los jugadores se turnan, una jugada cada uno.
-# La salida
-Cada jugador tiene 12 piezas. Las oscuras están en las filas de arriba y de abajo; las claras, en las columnas de la izquierda y de la derecha; las cuatro esquinas quedan vacías.
+Reunir todas tus piezas en un solo grupo, con cada pieza tocando a otra de las tuyas: de lado o por la esquina. Empiezan las oscuras.
 # Cómo se mueve una pieza
-- Una pieza se mueve en línea recta: por su fila, por su columna o por una de sus dos diagonales.
-- Se mueve exactamente tantas casillas como piezas hay en toda esa línea, de los dos colores, incluida la que se mueve. Cuenta la línea entera, de un borde del tablero al otro, a ambos lados de la pieza.
-- Puede saltar por encima de piezas de su color, pero nunca por encima de las del otro jugador.
-- Puede caer en una casilla vacía o sobre una pieza del otro jugador, que queda capturada y sale del tablero. Nunca puede caer sobre una de las suyas.
+- Una pieza se mueve en línea recta, por su fila, su columna o una diagonal, exactamente tantas casillas como piezas hay en toda esa línea: de los dos colores, de borde a borde, incluida la que se mueve.
+- Puede saltar por encima de sus propias piezas, pero nunca por encima de las del otro jugador.
+- Puede caer en una casilla vacía o sobre una pieza contraria, que queda capturada. Nunca sobre una de las suyas.
 # El final de la partida
-- Gana el jugador cuyas piezas forman todas un solo grupo conectado. Una sola pieza que quede cuenta como un grupo, así que una captura puede hacer ganar al otro jugador.
-- Si una jugada une a la vez los grupos de los dos jugadores, gana el jugador que la ha hecho.
-- Un jugador que no tiene ninguna jugada legal pasa, y el otro jugador vuelve a mover. El dispositivo pasa por ti. Si ninguno de los dos puede mover, o tras 1000 jugadas, la partida es un empate.
-# Jugar en el dispositivo
-Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Cada barra muestra cuántas piezas le quedan a ese jugador. Al final, el grupo ganador se ilumina en dorado.
+- Gana el jugador cuyas piezas forman todas un solo grupo. Una sola pieza que quede cuenta como un grupo.
+- Si una jugada une a la vez los grupos de los dos jugadores, gana quien la ha hecho.
+- Un jugador sin ninguna jugada legal pasa. Si ninguno de los dos puede mover, o tras 1000 jugadas, la partida es un empate.

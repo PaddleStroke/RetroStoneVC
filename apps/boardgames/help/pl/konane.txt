@@ -1,16 +1,9 @@
 Konane
 # Cel gry
-Bądź ostatnim graczem, który może wykonać ruch. Konane to hawajskie warcaby: każdy ruch jest skokiem, który zbija kamień.
-# Plansza
-Plansza jest pełna: na każdym polu leży kamień, a oba kolory przeplatają się jak pola szachownicy. Ciemne zaczynają. Zwykła plansza ma 8×8 pól; możesz też wybrać 6×6 albo 10×10.
-# Przesuwanie
-Gra zaczyna się od zdjęcia z planszy dwóch kamieni:
-- Gracz ciemny zdejmuje jeden ze swoich kamieni z czterech środkowych pól albo z rogu.
-- Potem gracz jasny zdejmuje jeden ze swoich kamieni obok powstałej dziury (nad nią, pod nią albo z boku).
-Od tej chwili każdy ruch jest skokiem.
+Bądź ostatnim graczem, który może wykonać ruch. Każdy ruch jest skokiem, który zbija kamień. Ciemne zaczynają.
+# Początek
+Gracz ciemny zdejmuje jeden ze swoich kamieni z czterech środkowych pól albo z rogu. Potem gracz jasny zdejmuje jeden ze swoich kamieni obok powstałej dziury.
 # Bicie
-Przeskocz swoim kamieniem kamień przeciwnika leżący tuż obok (w górę, w dół, w lewo albo w prawo, nigdy na ukos) na puste pole tuż za nim i zbij przeskoczony kamień. Ten sam kamień może skakać dalej w tej samej prostej linii, nad kolejnym kamieniem przeciwnika na następne puste pole i tak dalej, ale nigdy nie może skręcić. Po każdym skoku możesz przestać.
+Przeskocz swoim kamieniem kamień przeciwnika leżący tuż obok (w górę, w dół, w lewo albo w prawo) na puste pole tuż za nim i zbij go. Ten sam kamień może skakać dalej w tej samej prostej linii, ale nigdy nie może skręcić. Po każdym skoku możesz przestać.
 # Koniec gry
-Przegrywa pierwszy gracz, który w swojej kolejce nie może wykonać ruchu. Remisów nie ma: każdy ruch zbija kamień, więc gra zawsze kończy się zwycięstwem jednej ze stron.
-# Gra na urządzeniu
-Na początku kamienie, które można zdjąć, mają pierścień: dotknij jednego z nich. Potem dotknij kamienia, aby zobaczyć, gdzie może wylądować (jedna kropka na każdy skok, prosto przed siebie), i dotknij kropki albo przeciągnij kamień. Każdy pasek pokazuje, ile kamieni zbił dany gracz.
+Przegrywa pierwszy gracz, który w swojej kolejce nie może wykonać ruchu. Remisów nie ma.

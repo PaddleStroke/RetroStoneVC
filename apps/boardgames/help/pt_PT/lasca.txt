@@ -1,19 +1,15 @@
 Lasca
 # O objetivo
-Deixar o outro jogador sem jogadas. O Lasca foi inventado em 1911 pelo campeão mundial de xadrez Emanuel Lasker. Joga-se como as damas, mas as peças capturadas ficam no tabuleiro, como prisioneiras em colunas. Cada jogador tem onze peças. As peças claras começam.
-# O tabuleiro
-Sete casas por sete, das quais só são usadas as 25 casas claras, incluindo os cantos. As peças de cada jogador ocupam as casas claras das três filas mais próximas de si; a fila do meio está vazia.
+Deixar o outro jogador sem jogadas. O Lasca joga-se como as damas, mas as peças capturadas ficam no tabuleiro, como prisioneiras em colunas. As peças claras começam.
 # Movimento
-- As peças ficam empilhadas em colunas. Uma coluna pertence ao jogador cuja peça está no topo, e move-se como essa peça, levando consigo a coluna inteira.
-- Um soldado (uma peça simples) avança uma casa na diagonal. Um oficial (uma peça com coroa) move-se uma casa na diagonal, para a frente ou para trás.
+- Uma coluna pertence ao jogador cuja peça está no topo, e move-se como essa peça, levando consigo a coluna inteira.
+- Um soldado avança uma casa na diagonal. Um oficial (uma peça com coroa) move-se uma casa na diagonal, para a frente ou para trás.
 - Um soldado no topo da sua coluna que chega à última fila passa a oficial.
 # Captura
-Se uma coluna adversária estiver ao lado da tua na diagonal e a casa logo a seguir estiver livre, salta por cima dela. Só a peça do topo da coluna saltada é capturada: vai para debaixo da tua coluna, como prisioneira. As peças por baixo dela ficam onde estão, e essa coluna passa a pertencer ao dono da sua nova peça do topo: é assim que as prisioneiras são libertadas.
+Salta por cima de uma coluna adversária ao lado da tua na diagonal para a casa livre logo a seguir. Só a peça do topo é capturada, e vai para debaixo da tua coluna como prisioneira. A coluna que fica passa a pertencer ao dono da sua nova peça do topo.
 - Os soldados capturam só para a frente; os oficiais, para a frente e para trás.
-- A captura é obrigatória. Depois de uma captura, a mesma coluna continua a saltar enquanto puder, tudo na mesma vez, mas nunca salta duas vezes por cima da mesma casa. Quando há várias capturas, podes escolher qualquer uma.
+- A captura é obrigatória, mas podes escolher qualquer captura. A mesma coluna continua a saltar enquanto puder, mas nunca salta duas vezes por cima da mesma casa.
 - Um soldado que chega à última fila durante uma captura passa a oficial, e a sua vez termina aí.
 # O fim do jogo
-- Perde o jogador que não se consegue mover: todas as suas peças estão prisioneiras, ou todas as suas colunas estão bloqueadas.
+- Perde o jogador que não se consegue mover.
 - O jogo termina empatado quando a mesma posição se repete pela terceira vez, ou após quarenta jogadas de cada lado sem capturas nem movimentos de soldados.
-# Jogar no dispositivo
-Toca na tua coluna e depois na sua nova casa, ou arrasta-a. As colunas que podem ser capturadas têm um anel: com a tua coluna selecionada, toca na casa logo a seguir, ou na própria coluna com o anel. Numa cadeia de capturas, a tua coluna fica levantada para o salto seguinte. Cada peça de uma coluna espreita por baixo da que está por cima. O número ao lado da tua peça na barra conta as prisioneiras nas tuas colunas.

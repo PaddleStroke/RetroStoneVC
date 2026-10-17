@@ -1,23 +1,15 @@
 Selva
 # O objetivo
-Levar um dos seus animais até a toca do outro jogador, a estrela incrustada na outra ponta do tabuleiro. Você também vence se capturar todos os animais do outro jogador, ou quando ele não puder se mover. O lado claro começa; depois os jogadores se alternam, uma jogada cada um.
-# O tabuleiro
-O tabuleiro tem sete colunas e nove fileiras. No meio há dois rios. A toca de cada jogador fica no meio da sua última fileira, com três armadilhas em volta: as casas entalhadas dos lados e da frente dela.
+Levar um dos seus animais até a toca do outro jogador. Você também vence se capturar todos os animais dele, ou quando ele não puder se mover. O lado claro começa.
 # Os animais
-Cada jogador tem oito animais. O número em cada animal é a sua força: elefante 8, leão 7, tigre 6, leopardo 5, lobo 4, cachorro 3, gato 2, rato 1.
+O número em cada animal é a sua força, do elefante (8) até o rato (1).
 # Movimento
-- Um animal anda uma casa para a frente, para trás ou para o lado, nunca na diagonal.
-- Nenhum animal pode entrar na própria toca.
-- Só o rato sabe nadar: é o único animal que pode entrar na água.
-- O leão e o tigre podem pular por cima de um rio, em linha reta, da margem até a primeira casa depois da água. Eles não podem pular se houver um rato, de qualquer jogador, na água no caminho.
+- Um animal anda uma casa para a frente, para trás ou para o lado. Nenhum animal pode entrar na própria toca.
+- Só o rato pode entrar na água.
+- O leão e o tigre pulam por cima de um rio em linha reta, a não ser que haja um rato na água no caminho.
 # Capturas
-- Um animal captura indo para a casa de um animal adversário de força igual ou menor, que sai do tabuleiro.
-- O rato pode capturar o elefante, mas o elefante não pode capturar o rato.
-- Um animal em uma das armadilhas do outro jogador perde toda a força: qualquer animal adversário pode capturá-lo. Nas suas próprias armadilhas, ele mantém a força.
-- Não há captura entre a água e a terra: um rato na água só pode capturar o outro rato na água, e um animal em terra não pode capturar um rato na água.
+- Um animal captura um animal adversário de força igual ou menor. O rato captura o elefante, mas o elefante não pode capturar o rato.
+- Um animal em uma das armadilhas do outro jogador (as casas entalhadas em volta da toca) perde toda a força: qualquer animal adversário pode capturá-lo.
+- Não há captura entre a água e a terra: um rato na água só pode capturar o outro rato na água.
 # O fim da partida
-- Um animal que entra na toca do outro jogador ganha a partida.
-- Capturar todos os animais do outro jogador também vence, assim como deixá-lo sem jogada.
-- A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de cinquenta jogadas de cada lado sem captura.
-# Jogando no aparelho
-Toque em um animal para ver aonde ele pode ir e depois toque em uma casa, ou arraste o animal. Os pontos mostram as jogadas, os anéis as capturas.
+A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de cinquenta jogadas de cada lado sem captura.

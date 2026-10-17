@@ -1,23 +1,15 @@
 Džungle
 # Cíl hry
-Dostaň jedno ze svých zvířat do soupeřova doupěte, vykládané hvězdy na druhém konci desky. Vyhraješ také, když vezmeš všechna soupeřova zvířata, nebo když soupeř nemůže táhnout. Začíná světlý hráč, potom se hráči střídají, každý jedním tahem.
-# Deska
-Deska má sedm sloupců a devět řad. Uprostřed jsou dvě řeky. Doupě každého hráče je uprostřed jeho zadní řady a obklopují ho tři pasti: vyřezávaná pole po jeho stranách a před ním.
+Dostaň jedno ze svých zvířat do soupeřova doupěte. Vyhraješ také, když vezmeš všechna soupeřova zvířata, nebo když soupeř nemůže táhnout. Začíná světlý hráč.
 # Zvířata
-Každý hráč má osm zvířat. Číslo na každém zvířeti je jeho síla: slon 8, lev 7, tygr 6, levhart 5, vlk 4, pes 3, kočka 2, krysa 1.
+Číslo na každém zvířeti je jeho síla, od slona (8) až po krysu (1).
 # Tahy
-- Zvíře táhne o jedno pole dopředu, dozadu nebo do strany, nikdy šikmo.
-- Žádné zvíře nesmí vstoupit do vlastního doupěte.
-- Jen krysa umí plavat: je to jediné zvíře, které smí vstoupit do vody.
-- Lev a tygr umějí přeskočit řeku v přímém směru, z břehu na první pole za vodou. Nemohou skočit, pokud je jim v cestě ve vodě krysa kteréhokoli hráče.
+- Zvíře táhne o jedno pole dopředu, dozadu nebo do strany. Žádné zvíře nesmí vstoupit do vlastního doupěte.
+- Jen krysa smí vstoupit do vody.
+- Lev a tygr přeskakují řeku v přímém směru, pokud jim v cestě ve vodě nestojí krysa.
 # Braní
-- Zvíře bere tak, že vstoupí na soupeřovo zvíře se stejnou nebo nižší silou, které opouští desku.
-- Krysa může vzít slona, ale slon nemůže vzít krysu.
-- Zvíře v jedné ze soupeřových pastí nemá žádnou sílu: může ho vzít kterékoli nepřátelské zvíře. Ve vlastních pastech si sílu zachovává.
-- Mezi vodou a souší se nebere: krysa ve vodě může vzít jen druhou krysu ve vodě a zvíře na souši nemůže vzít krysu ve vodě.
+- Zvíře bere soupeřovo zvíře se stejnou nebo nižší silou. Krysa bere slona, ale slon nemůže vzít krysu.
+- Zvíře v jedné ze soupeřových pastí (vyřezávaná pole kolem doupěte) nemá žádnou sílu: může ho vzít kterékoli nepřátelské zvíře.
+- Mezi vodou a souší se nebere: krysa ve vodě může vzít jen druhou krysu ve vodě.
 # Konec hry
-- Zvíře, které vstoupí do soupeřova doupěte, vyhrává hru.
-- Vyhraješ i tím, že vezmeš všechna soupeřova zvířata, nebo že ho necháš bez tahu.
-- Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní.
-# Hra na zařízení
-Klepni na zvíře a uvidíš, kam může táhnout, potom klepni na pole, nebo zvíře přetáhni. Tečky ukazují tahy, kroužky braní.
+Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní.

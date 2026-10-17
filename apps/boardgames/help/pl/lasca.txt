@@ -1,19 +1,15 @@
 Lasca
 # Cel gry
-Pozostaw przeciwnika bez ruchu. Grę Lasca wymyślił w 1911 roku szachowy mistrz świata Emanuel Lasker. Gra się w nią jak w warcaby, ale zbite pionki zostają na planszy jako jeńcy w kolumnach. Każdy gracz ma jedenaście pionków. Jasne zaczynają.
-# Plansza
-Siedem na siedem pól, z których używa się tylko 25 jasnych, w tym narożnych. Pionki każdego gracza zajmują jasne pola trzech najbliższych mu rzędów; środkowy rząd jest pusty.
+Pozostaw przeciwnika bez ruchu. W Lascę gra się jak w warcaby, ale zbite pionki zostają na planszy jako jeńcy w kolumnach. Jasne zaczynają.
 # Przesuwanie
-- Pionki stoją w kolumnach. Kolumna należy do gracza, którego pionek leży na wierzchu, i porusza się tak jak ten pionek, przenosząc ze sobą całą kolumnę.
-- Żołnierz (zwykły pionek) przesuwa się o jedno pole na ukos do przodu. Oficer (pionek z koroną) przesuwa się o jedno pole na ukos, do przodu lub do tyłu.
+- Kolumna należy do gracza, którego pionek leży na wierzchu, i porusza się tak jak ten pionek, przenosząc ze sobą całą kolumnę.
+- Żołnierz przesuwa się o jedno pole na ukos do przodu. Oficer (pionek z koroną) przesuwa się o jedno pole na ukos, do przodu lub do tyłu.
 - Żołnierz na wierzchu swojej kolumny, który dojdzie do ostatniego rzędu, staje się oficerem.
 # Bicie
-Jeśli kolumna przeciwnika stoi na ukos obok twojej, a pole tuż za nią jest wolne, przeskocz ją. Zbity zostaje tylko wierzchni pionek przeskoczonej kolumny: trafia pod twoją kolumnę jako jeniec. Pionki pod nim zostają na miejscu, a ta kolumna należy teraz do właściciela jej nowego wierzchniego pionka: w ten sposób jeńcy odzyskują wolność.
+Przeskocz kolumnę przeciwnika stojącą na ukos obok twojej na wolne pole tuż za nią. Zbity zostaje tylko jej wierzchni pionek i trafia pod twoją kolumnę jako jeniec. Kolumna, która zostaje, należy do właściciela jej nowego wierzchniego pionka.
 - Żołnierze biją tylko do przodu, oficerowie do przodu i do tyłu.
-- Bicie jest obowiązkowe. Po biciu ta sama kolumna skacze dalej, dopóki może, wszystko w tej samej kolejce, ale nigdy nie przeskakuje dwa razy tego samego pola. Gdy możliwych bić jest kilka, możesz wybrać dowolne.
+- Bicie jest obowiązkowe, ale możesz wybrać dowolne. Ta sama kolumna skacze dalej, dopóki może, ale nigdy nie przeskakuje dwa razy tego samego pola.
 - Żołnierz, który dojdzie do ostatniego rzędu w trakcie bicia, staje się oficerem i jego ruch na tym się kończy.
 # Koniec gry
-- Gracz, który nie może wykonać ruchu, przegrywa: wszystkie jego pionki są jeńcami albo wszystkie jego kolumny są zablokowane.
+- Gracz, który nie może wykonać ruchu, przegrywa.
 - Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po czterdziestu ruchach każdej ze stron bez bicia i bez ruchu żołnierzem.
-# Gra na urządzeniu
-Dotknij swojej kolumny, a potem jej nowego pola, albo przeciągnij ją. Kolumny, które można zbić, mają pierścień: przy wybranej kolumnie dotknij pola za taką kolumną albo samej kolumny z pierścieniem. W serii bić twoja kolumna pozostaje podniesiona do następnego skoku. Każdy pionek kolumny wystaje spod pionka nad nim. Liczba obok twojego żetonu pokazuje, ilu jeńców jest w twoich kolumnach.

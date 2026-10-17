@@ -1,16 +1,14 @@
 Mancala
 # Lo scopo
-Catturare più semi dell'altro giocatore. Il tavoliere ha due file di sei buche, con quattro semi in ciascuna. La fila più vicina a te è la tua, con il tuo granaio alla sua estremità destra. Inizia il giocatore chiaro.
+Catturare più semi dell'altro giocatore. Il tuo granaio è all'estremità destra della tua fila. Inizia il giocatore chiaro.
 # Oware
-- Al tuo turno, prendi tutti i semi di una delle tue buche e seminali uno alla volta nelle buche successive, in senso antiorario. Con dodici semi o più fai il giro completo: la buca che hai svuotato viene saltata.
-- Se il tuo ultimo seme cade nella fila dell'altro giocatore e lì fa due o tre semi, li catturi. Catturi anche la buca precedente, e quella prima ancora, finché sono nella fila dell'altro giocatore e contengono due o tre semi.
-- Una mossa che catturerebbe tutti i semi dell'altro giocatore si può giocare, ma non cattura niente.
-- Se l'altro giocatore non ha semi, devi giocare una mossa che gliene dia, se ne hai una.
-- La partita finisce quando un giocatore ha catturato più di 24 semi, quando il giocatore di turno non può giocare, o quando si ripete la stessa posizione. Negli ultimi due casi, ogni giocatore aggiunge i semi rimasti nella propria fila. Vince chi ha più semi; 24 a testa è patta.
+- Prendi tutti i semi di una delle tue buche e seminali uno alla volta nelle buche successive, in senso antiorario. Con dodici semi o più, la buca che hai svuotato viene saltata.
+- Se il tuo ultimo seme cade nella fila dell'altro giocatore e lì fa due o tre semi, li catturi, e catturi anche le buche subito prima in quella fila, finché ognuna contiene due o tre semi.
+- Una mossa che catturerebbe tutti i semi dell'altro giocatore non cattura niente.
+- Se l'altro giocatore non ha semi, devi dargliene, se puoi.
+- La partita finisce quando un giocatore ha più di 24 semi, quando il giocatore di turno non può giocare, o quando si ripete una posizione. Negli ultimi due casi, ogni giocatore aggiunge i semi rimasti nella propria fila. 24 a testa è patta.
 # Kalah
-- Al tuo turno, prendi tutti i semi di una delle tue buche e seminali uno alla volta, in senso antiorario, nelle buche successive e nel tuo granaio, ma non nel granaio dell'altro giocatore.
+- Semina in senso antiorario nelle buche successive e nel tuo granaio, ma non nel granaio dell'altro giocatore.
 - Se il tuo ultimo seme cade nel tuo granaio, giochi di nuovo.
-- Se il tuo ultimo seme cade in una tua buca vuota e la buca di fronte contiene semi, li catturi entrambi: il tuo seme e i semi di fronte vanno nel tuo granaio.
-- La partita finisce quando una fila è vuota: l'altro giocatore mette nel suo granaio i semi rimasti nella sua fila. Vince chi ha più semi nel granaio; con lo stesso numero, è patta.
-# Giocare sul dispositivo
-Tocca una delle tue buche per seminarla: le buche che puoi giocare si illuminano. I semi viaggiano uno alla volta, e i semi catturati volano nel granaio. Il numero accanto a ogni buca mostra i suoi semi, e ogni barra mostra i semi catturati da quel giocatore.
+- Se il tuo ultimo seme cade in una tua buca vuota e la buca di fronte contiene semi, il tuo seme e quelli di fronte vanno nel tuo granaio.
+- Quando una fila è vuota, l'altro giocatore mette nel suo granaio i semi rimasti nella sua fila. Vince chi ha più semi; con lo stesso numero, è patta.

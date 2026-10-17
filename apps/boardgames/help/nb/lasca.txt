@@ -1,19 +1,15 @@
 Lasca
 # Målet
-La motstanderen stå uten trekk. Lasca ble oppfunnet i 1911 av verdensmesteren i sjakk Emanuel Lasker. Det spilles som dam, men de slåtte brikkene blir værende på brettet, som fanger i søyler. Hver spiller har elleve brikker. Den lyse siden begynner.
-# Brettet
-Sju ganger sju ruter, der bare de 25 lyse rutene brukes, hjørnene medregnet. Hver spillers brikker fyller de lyse rutene i de tre radene nærmest spilleren; den midterste raden er tom.
+La motstanderen stå uten trekk. Lasca spilles som dam, men de slåtte brikkene blir værende på brettet, som fanger i søyler. Den lyse siden begynner.
 # Flytting
-- Brikkene står i søyler. En søyle tilhører spilleren som har brikken øverst, og flytter slik den brikken gjør, med hele søylen.
-- En soldat (en vanlig brikke) flytter én rute skrått fram. En offiser (en brikke med krone) flytter én rute skrått, forover eller bakover.
+- En søyle tilhører spilleren som har brikken øverst, og flytter slik den brikken gjør, med hele søylen.
+- En soldat flytter én rute skrått fram. En offiser (en brikke med krone) flytter én rute skrått, forover eller bakover.
 - En soldat øverst i søylen sin som når den bakerste raden på motsatt side, blir offiser.
 # Slag
-Hvis en motstandersøyle står skrått ved siden av din, og ruten rett bak den er tom, hopper du over den. Bare den øverste brikken i søylen du hopper over, blir slått: den havner under søylen din, som fange. Brikkene under den blir stående, og søylen tilhører nå den som eier den nye øverste brikken: slik blir fanger satt fri.
+Hopp over en motstandersøyle skrått ved siden av din til den tomme ruten rett bak. Bare den øverste brikken blir slått, og den havner under søylen din som fange. Søylen som blir igjen, tilhører den som eier den nye øverste brikken.
 - Soldater slår bare forover, offiserer både forover og bakover.
-- Slag er tvunget. Etter et slag fortsetter den samme søylen å hoppe så lenge den kan, alt i samme tur, men den hopper aldri over den samme ruten to ganger. Når det finnes flere slag, kan du velge hvilket som helst av dem.
+- Slag er tvunget, men du kan velge hvilket slag som helst. Den samme søylen fortsetter å hoppe så lenge den kan, men aldri over den samme ruten to ganger.
 - En soldat som når den bakerste raden på motsatt side under et slag, blir offiser, og turen dens slutter der.
 # Slutten på spillet
-- En spiller som ikke kan flytte, taper: alle brikkene til spilleren er fanger, eller alle søylene til spilleren er blokkert.
+- En spiller som ikke kan flytte, taper.
 - Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter førti trekk hver uten slag eller trekk med en soldat.
-# Spill på enheten
-Trykk på søylen din og så på den nye ruten, eller dra den. Søylene som kan slås, har en ring: med søylen din valgt trykker du på ruten bak, eller på selve søylen med ringen. I en kjede av slag forblir søylen din løftet til neste hopp. Hver brikke i en søyle stikker fram under brikken over. Tallet ved siden av markøren din teller fangene i søylene dine.

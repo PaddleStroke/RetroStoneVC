@@ -1,19 +1,15 @@
 Lasca
 # Tavoite
-Jätä vastustaja ilman siirtoa. Lascan keksi vuonna 1911 shakin maailmanmestari Emanuel Lasker. Sitä pelataan kuten tammea, mutta lyödyt nappulat jäävät laudalle vangeiksi torneihin. Kummallakin pelaajalla on yksitoista nappulaa. Vaalea aloittaa.
-# Lauta
-Seitsemän kertaa seitsemän ruutua, joista käytetään vain 25 vaaleaa ruutua, kulmat mukaan lukien. Kunkin pelaajan nappulat täyttävät kolmen häntä lähimmän rivin vaaleat ruudut; keskirivi on tyhjä.
+Jätä vastustaja ilman siirtoa. Lascaa pelataan kuten tammea, mutta lyödyt nappulat jäävät laudalle vangeiksi torneihin. Vaalea aloittaa.
 # Siirtäminen
-- Nappulat ovat torneissa. Torni kuuluu pelaajalle, jonka nappula on päällimmäisenä, ja se liikkuu kuten tuo nappula ja vie koko tornin mukanaan.
-- Sotilas (tavallinen nappula) siirtyy yhden ruudun viistosti eteenpäin. Upseeri (kruunulla merkitty nappula) siirtyy yhden ruudun viistosti eteen- tai taaksepäin.
+- Torni kuuluu pelaajalle, jonka nappula on päällimmäisenä, ja se liikkuu kuten tuo nappula ja vie koko tornin mukanaan.
+- Sotilas siirtyy yhden ruudun viistosti eteenpäin. Upseeri (kruunulla merkitty nappula) siirtyy yhden ruudun viistosti eteen- tai taaksepäin.
 - Tornin päällimmäisestä sotilaasta, joka pääsee vastustajan takariville, tulee upseeri.
 # Lyöminen
-Jos vastustajan torni on viistosti omasi vieressä ja heti sen takana oleva ruutu on tyhjä, hyppää sen yli. Vain ylitetyn tornin päällimmäinen nappula lyödään: se menee tornisi alle vangiksi. Sen alla olevat nappulat jäävät paikoilleen, ja torni kuuluu nyt sille, jonka nappula on sen uusi päällimmäinen: näin vangit vapautuvat.
+Hyppää viistosti omasi vieressä olevan vastustajan tornin yli heti sen takana olevaan tyhjään ruutuun. Vain sen päällimmäinen nappula lyödään, ja se menee tornisi alle vangiksi. Jäljelle jäävä torni kuuluu sille, jonka nappula on sen uusi päällimmäinen.
 - Sotilaat lyövät vain eteenpäin, upseerit sekä eteen- että taaksepäin.
-- Lyöminen on pakollista. Lyönnin jälkeen sama torni jatkaa hyppimistä niin kauan kuin voi, kaikki samalla vuorolla, mutta se ei koskaan hyppää saman ruudun yli kahdesti. Kun lyöntejä on useita, saat valita minkä tahansa niistä.
+- Lyöminen on pakollista, mutta saat valita minkä tahansa lyönnin. Sama torni jatkaa hyppimistä niin kauan kuin voi, mutta se ei koskaan hyppää saman ruudun yli kahdesti.
 - Sotilaasta, joka pääsee vastustajan takariville kesken lyönnin, tulee upseeri, ja sen vuoro päättyy siihen.
 # Pelin loppu
-- Pelaaja, joka ei voi siirtää, häviää: kaikki hänen nappulansa ovat vankeina tai kaikki hänen torninsa ovat jumissa.
+- Pelaaja, joka ei voi siirtää, häviää.
 - Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt neljäkymmentä siirtoa ilman lyöntiä tai sotilaan siirtoa.
-# Pelaaminen laitteella
-Napauta torniasi ja sitten sen uutta ruutua, tai vedä sitä. Lyötävissä olevien tornien ympärillä on rengas: kun tornisi on valittuna, napauta ruutua niiden takana tai renkaalla merkittyä tornia itseään. Lyöntiketjussa tornisi pysyy nostettuna seuraavaa hyppyä varten. Tornin jokainen nappula pilkistää yläpuolisensa alta. Merkkisi vieressä oleva luku kertoo, montako vankia torneissasi on.

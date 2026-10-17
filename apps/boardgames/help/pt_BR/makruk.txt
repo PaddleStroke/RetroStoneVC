@@ -1,27 +1,18 @@
 Makruk
 # O objetivo
-O makruk é o xadrez tailandês, um parente próximo do xadrez. Dar xeque-mate no Khun (rei) adversário: atacá-lo de modo que ele não possa escapar. As brancas jogam primeiro; depois os jogadores se alternam, um lance cada um.
-# O tabuleiro
-O tabuleiro tem oito fileiras de oito casas, todas da mesma cor. A primeira fileira de cada jogador tem, a partir da esquerda: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua para as brancas; a das pretas é igual, só que virada, de modo que os dois Khun não ficam frente a frente. Os Bia ficam na terceira fileira de cada jogador, deixando a segunda fileira vazia.
+O xadrez tailandês: dar xeque-mate no Khun (rei) adversário. As brancas jogam primeiro.
 # Como as peças se movem
-- Khun (a coroa do rei): uma casa em qualquer direção. Não existe roque.
-- Met (um losango sobre um corpo esguio): uma casa na diagonal.
-- Khon (um sino de templo com um pináculo): uma casa na diagonal, ou uma casa reto para a frente.
-- Ma (a cabeça de cavalo): como o cavalo do xadrez, em forma de L, pulando por cima de qualquer peça no caminho.
-- Rua (a torre): quantas casas quiser por uma fileira ou uma coluna, como a torre do xadrez.
-- Bia (a concha baixa): uma casa reto para a frente, nunca duas. Captura uma casa na diagonal para a frente.
-As peças não podem passar através de outras peças (exceto o Ma). Uma peça captura indo para uma casa ocupada por uma peça adversária, que sai do tabuleiro.
-# Promoção
-Um Bia que chega à sexta fileira, a fileira onde começaram os Bia do outro jogador, vira um Met na mesma hora. A partir daí, ele se move como um Met.
+- Khun (a coroa): uma casa em qualquer direção. Não existe roque.
+- Met (o losango): uma casa na diagonal.
+- Khon (o sino): uma casa na diagonal, ou uma casa reto para a frente.
+- Ma (o cavalo): como o cavalo do xadrez.
+- Rua (a torre): como a torre do xadrez.
+- Bia (a concha): uma casa reto para a frente, nunca duas. Captura uma casa na diagonal para a frente. Na sexta fileira, vira um Met.
 # O xeque e o fim da partida
-Um Khun atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio Khun em xeque.
+Você nunca pode fazer um lance que deixe o seu próprio Khun em xeque.
 - Xeque-mate: o Khun está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
-- Afogamento: o jogador da vez não tem nenhum lance legal, mas não está em xeque. A partida termina empatada.
-- A partida também termina empatada quando só restam os dois Khun, ou quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez.
+- Empate: afogamento (nenhum lance legal, mas sem estar em xeque), só restam os dois Khun, ou a mesma posição pela terceira vez com o mesmo jogador da vez.
 # A contagem
-Quando não resta mais nenhum Bia não promovido no tabuleiro, a partida precisa terminar dentro de um número limitado de lances. Na Tailândia, o jogador mais fraco conta em voz alta; aqui, o aparelho conta por você.
-- A contagem do tabuleiro: a partir daí, o jogador que joga em seguida conta os seus lances. Se a contagem dele chegar a 64 e o outro jogador não der xeque-mate no lance seguinte, a partida termina empatada.
-- A contagem das peças: quando um jogador fica só com o seu Khun, é esse jogador que passa a contar, começando pelo número de peças no tabuleiro (incluindo os dois Khun) mais um. O outro jogador precisa dar xeque-mate antes que a contagem passe do limite: 8 com dois Rua, 16 com um Rua, 22 com dois Khon, 32 com dois Ma, 44 com um Khon, e 64 nos outros casos. O limite é fixado quando a contagem começa e não muda, mesmo que peças sejam capturadas depois.
-Enquanto uma contagem está em andamento, a barra do jogador que conta mostra quantos lances ainda restam ao outro jogador para dar xeque-mate.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um Khun em xeque brilha em vermelho. Cada barra mostra as peças que aquele jogador capturou.
+Quando não resta mais nenhum Bia não promovido, a partida precisa terminar logo. O aparelho conta por você.
+- A contagem do tabuleiro: o jogador que joga em seguida conta os seus lances. Se a contagem chegar a 64 e o outro jogador não der xeque-mate no lance seguinte, a partida termina empatada.
+- A contagem das peças: quando um jogador fica só com o seu Khun, é ele que passa a contar, a partir do número de peças no tabuleiro (incluindo os dois Khun) mais um. O outro jogador precisa dar xeque-mate antes que a contagem passe do limite: 8 com dois Rua, 16 com um Rua, 22 com dois Khon, 32 com dois Ma, 44 com um Khon, e 64 nos outros casos. O limite é fixado quando a contagem começa.

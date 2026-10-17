@@ -1,16 +1,11 @@
 Lines of Action
 # Målet
-Saml alle dine brikker i én gruppe, hvor hver brik rører en anden af dine: side om side eller hjørne mod hjørne. Den mørke side trækker først, derefter skiftes spillerne, ét træk ad gangen.
-# Starten
-Hver spiller har 12 brikker. Den mørke sides brikker står på øverste og nederste række, den lyse sides på venstre og højre kolonne; de fire hjørner forbliver tomme.
+Saml alle dine brikker i én gruppe, hvor hver brik rører en anden af dine: side om side eller hjørne mod hjørne. Den mørke side trækker først.
 # Sådan trækker en brik
-- En brik flytter i lige linje: langs sin række, sin kolonne eller en af sine to diagonaler.
-- Den flytter præcis lige så mange felter, som der er brikker på hele den linje, af begge farver, den flyttende brik medregnet. Tæl hele linjen, fra den ene kant af brættet til den anden, på begge sider af brikken.
-- Den må springe over brikker i sin egen farve, men aldrig over modstanderens.
-- Den må lande på et tomt felt eller på en af modstanderens brikker, som så bliver slået og forlader brættet. Den må aldrig lande på en af sine egne.
+- En brik flytter i lige linje, langs sin række, sin kolonne eller en diagonal, præcis lige så mange felter, som der er brikker på hele den linje: af begge farver, fra kant til kant, den flyttende brik medregnet.
+- Den må springe over sine egne brikker, men aldrig over modstanderens.
+- Den må lande på et tomt felt eller på en modstanderbrik, som så bliver slået. Aldrig på en af sine egne.
 # Spillets afslutning
-- En spiller, hvis brikker alle danner én sammenhængende gruppe, vinder. En enkelt tilbageværende brik tæller som en gruppe, så et slag kan få modstanderen til at vinde.
-- Hvis et træk på én gang samler begge spilleres brikker i hver sin gruppe, vinder den spiller, der lavede trækket.
-- En spiller, der intet lovligt træk har, melder pas, og modstanderen trækker igen. Enheden melder pas for dig. Hvis ingen af spillerne kan flytte, eller efter 1000 træk, er spillet uafgjort.
-# Spil på enheden
-Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. Hvert panel viser, hvor mange brikker den spiller har tilbage. Til sidst lyser vindergruppen op i guld.
+- En spiller, hvis brikker alle danner én gruppe, vinder. En enkelt tilbageværende brik tæller som en gruppe.
+- Hvis et træk på én gang samler begge spilleres grupper, vinder den spiller, der lavede trækket.
+- En spiller, der intet lovligt træk har, melder pas. Hvis ingen af spillerne kan flytte, eller efter 1000 træk, er spillet uafgjort.

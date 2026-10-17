@@ -1,16 +1,11 @@
 Linhas de Ação
 # O objetivo
-Juntar todas as suas peças em um só grupo, cada peça encostada em outra peça sua: lado a lado ou canto com canto. As peças escuras começam; depois os jogadores se alternam, um lance cada um.
-# O início
-Cada jogador tem 12 peças. As escuras ficam nas fileiras de cima e de baixo, as claras nas colunas da esquerda e da direita; os quatro cantos ficam vazios.
+Juntar todas as suas peças em um só grupo, cada peça encostada em outra peça sua: lado a lado ou canto com canto. As peças escuras começam.
 # Como uma peça se move
-- Uma peça anda em linha reta: pela sua fileira, pela sua coluna ou por uma das suas duas diagonais.
-- Ela anda exatamente tantas casas quantas são as peças em toda essa linha, das duas cores, incluindo a peça que se move. Conte a linha inteira, de uma borda do tabuleiro à outra, dos dois lados da peça.
+- Uma peça anda em linha reta, pela sua fileira, pela sua coluna ou por uma diagonal, exatamente tantas casas quantas são as peças em toda essa linha: das duas cores, de uma borda à outra, incluindo a peça que se move.
 - Ela pode pular por cima de peças da sua cor, mas nunca por cima das do outro jogador.
-- Ela pode parar em uma casa vazia, ou em uma peça do outro jogador, que é capturada e sai do tabuleiro. Ela nunca pode parar em uma peça da sua cor.
+- Ela pode parar em uma casa vazia, ou em uma peça adversária, que é capturada. Nunca em uma peça da sua cor.
 # O fim da partida
-- Vence o jogador cujas peças formam todas um só grupo conectado. Uma única peça restante conta como um grupo, então uma captura pode dar a vitória ao outro jogador.
+- Vence o jogador cujas peças formam todas um só grupo. Uma única peça restante conta como um grupo.
 - Se um lance juntar os grupos dos dois jogadores ao mesmo tempo, vence o jogador que fez o lance.
-- Um jogador que não tem nenhum lance legal passa a vez, e o outro jogador joga de novo. O aparelho passa por você. Se nenhum jogador puder se mover, ou depois de 1000 lances, a partida termina empatada.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Cada barra mostra quantas peças ainda restam para aquele jogador. No fim, o grupo vencedor se acende em dourado.
+- Um jogador que não tem nenhum lance legal passa a vez. Se nenhum jogador puder se mover, ou depois de 1000 lances, a partida termina empatada.

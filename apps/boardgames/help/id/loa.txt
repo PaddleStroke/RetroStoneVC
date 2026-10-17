@@ -1,16 +1,11 @@
 Lines of Action
 # Tujuan
-Satukan semua bidakmu menjadi satu kelompok, dengan setiap bidak bersentuhan dengan bidakmu yang lain: sisi dengan sisi atau sudut dengan sudut. Pihak gelap jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
-# Awal permainan
-Setiap pemain punya 12 bidak. Bidak gelap berdiri di baris paling atas dan paling bawah, bidak terang di kolom paling kiri dan paling kanan; keempat sudut tetap kosong.
+Satukan semua bidakmu menjadi satu kelompok, dengan setiap bidak bersentuhan dengan bidakmu yang lain: sisi dengan sisi atau sudut dengan sudut. Pihak gelap jalan lebih dulu.
 # Cara bidak bergerak
-- Bidak bergerak dalam garis lurus: sepanjang barisnya, kolomnya, atau salah satu dari dua diagonalnya.
-- Bidak bergerak tepat sebanyak jumlah bidak di seluruh garis itu, dari kedua warna, termasuk bidak yang bergerak. Hitung seluruh garis, dari satu tepi papan ke tepi lainnya, di kedua sisi bidak.
-- Bidak boleh melompati bidak berwarna sama, tetapi tidak pernah melompati bidak lawan.
-- Bidak boleh berhenti di petak kosong, atau di petak bidak lawan, yang kemudian dimakan dan keluar dari papan. Bidak tidak pernah boleh berhenti di petak bidaknya sendiri.
+- Bidak bergerak dalam garis lurus, sepanjang barisnya, kolomnya, atau sebuah diagonal, tepat sebanyak jumlah bidak di seluruh garis itu: dari kedua warna, dari tepi ke tepi, termasuk bidak yang bergerak.
+- Bidak boleh melompati bidaknya sendiri, tetapi tidak pernah melompati bidak lawan.
+- Bidak boleh berhenti di petak kosong, atau di petak bidak lawan, yang kemudian dimakan. Tidak pernah di petak bidaknya sendiri.
 # Akhir permainan
-- Pemain yang semua bidaknya membentuk satu kelompok yang tersambung menang. Satu bidak yang tersisa dihitung sebagai satu kelompok, jadi memakan bidak bisa membuat lawan menang.
+- Pemain yang semua bidaknya membentuk satu kelompok menang. Satu bidak yang tersisa dihitung sebagai satu kelompok.
 - Jika satu langkah menyatukan kelompok kedua pemain sekaligus, pemain yang melangkah menang.
-- Pemain yang tidak punya langkah sah harus pas, dan lawan bermain lagi. Perangkat akan pas untukmu. Jika kedua pemain tidak bisa melangkah, atau setelah 1000 langkah, permainan berakhir seri.
-# Bermain di perangkat
-Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk sebuah petak, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Setiap bilah menunjukkan sisa bidak pemain itu. Di akhir permainan, kelompok pemenang menyala keemasan.
+- Pemain yang tidak punya langkah sah harus pas. Jika kedua pemain tidak bisa melangkah, atau setelah 1000 langkah, permainan berakhir seri.

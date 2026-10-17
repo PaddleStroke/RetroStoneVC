@@ -1,19 +1,15 @@
 Lasca
 # The aim
-Leave the other player without a move. Lasca was invented in 1911 by the chess world champion Emanuel Lasker. It is played like draughts, but the pieces taken stay on the board, as prisoners in columns. Each player has eleven pieces. Light plays first.
-# The board
-Seven squares by seven, of which only the 25 light squares are used, the corners among them. Each player's pieces fill the light squares of the three rows nearest to them; the middle row is empty.
+Leave the other player without a move. Lasca is played like draughts, but the pieces taken stay on the board, as prisoners in columns. Light plays first.
 # Moving
-- Pieces stand in columns. A column belongs to the player whose piece is on top, and moves as that piece does, carrying the whole column with it.
-- A soldier (a plain piece) moves one square diagonally forward. An officer (a piece with a crown) moves one square diagonally, forwards or backwards.
+- A column belongs to the player whose piece is on top, and moves as that piece does, carrying the whole column.
+- A soldier moves one square diagonally forward. An officer (a piece with a crown) moves one square diagonally, forwards or backwards.
 - A soldier on top of its column that reaches the far row becomes an officer.
 # Capturing
-If an enemy column is diagonally next to yours and the square just beyond it is empty, jump over it. Only the top piece of the jumped column is taken: it goes under your column, as a prisoner. The pieces beneath it stay where they are, and that column now belongs to whoever owns its new top piece: this is how prisoners are set free.
+Jump over an enemy column diagonally next to yours onto the empty square just beyond. Only its top piece is taken, and goes under your column as a prisoner. The column left behind belongs to whoever owns its new top piece.
 - Soldiers capture forwards only, officers forwards and backwards.
-- Capturing is compulsory. After a capture, the same column goes on jumping while it can, all in the same turn, but it never jumps over the same square twice. When there are several captures, you may choose any of them.
+- Capturing is compulsory, but you may choose any capture. The same column goes on jumping while it can, but never over the same square twice.
 - A soldier that reaches the far row during a capture becomes an officer, and its turn ends there.
 # The end of the game
-- A player who cannot move loses: all their pieces are prisoners, or all their columns are blocked.
+- A player who cannot move loses.
 - The game is a draw when the same position comes back for the third time, or after forty moves each without a capture or a soldier moving.
-# Playing on the device
-Tap your column and then its new square, or drag it. The columns that can be taken have a ring: with your column selected, tap the square beyond, or the ringed column itself. In a chain of captures, your column stays picked up for the next jump. Each piece of a column peeks out under the one above it. The number next to your token counts the prisoners in your columns.

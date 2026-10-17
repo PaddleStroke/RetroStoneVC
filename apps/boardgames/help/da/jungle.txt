@@ -1,23 +1,15 @@
 Jungleskak
 # Målet
-Flyt et af dine dyr ind i modstanderens hule, den indlagte stjerne i den anden ende af brættet. Du vinder også ved at tage alle modstanderens dyr, eller når modstanderen ikke kan flytte. Den lyse side trækker først, derefter skiftes spillerne, ét træk ad gangen.
-# Brættet
-Brættet har syv kolonner og ni rækker. I midten er der to floder. Hver spillers hule ligger midt på spillerens bageste række med tre fælder omkring sig: de udskårne felter på begge sider af den og foran den.
+Flyt et af dine dyr ind i modstanderens hule. Du vinder også ved at tage alle modstanderens dyr, eller når modstanderen ikke kan flytte. Den lyse side trækker først.
 # Dyrene
-Hver spiller har otte dyr. Tallet på hvert dyr er dets styrke: elefant 8, løve 7, tiger 6, leopard 5, ulv 4, hund 3, kat 2, rotte 1.
+Tallet på hvert dyr er dets styrke, fra elefanten (8) ned til rotten (1).
 # Træk
-- Et dyr flytter ét felt frem, tilbage eller til siden, aldrig diagonalt.
-- Intet dyr må gå ind i sin egen hule.
-- Kun rotten kan svømme: den er det eneste dyr, der må gå i vandet.
-- Løven og tigeren kan springe over en flod, i lige linje, fra bredden til det første felt på den anden side af vandet. De kan ikke springe, hvis der er en rotte i vandet på vejen, uanset hvilken spillers den er.
+- Et dyr flytter ét felt frem, tilbage eller til siden. Intet dyr må gå ind i sin egen hule.
+- Kun rotten må gå i vandet.
+- Løven og tigeren springer over en flod i lige linje, medmindre der er en rotte i vandet på vejen.
 # Slag
-- Et dyr slår ved at flytte hen på et modstanderdyr med samme eller lavere styrke, som så forlader brættet.
-- Rotten kan slå elefanten, men elefanten kan ikke slå rotten.
-- Et dyr i en af modstanderens fælder har ingen styrke tilbage: ethvert modstanderdyr kan slå det. I sine egne fælder beholder det sin styrke.
-- Der slås ikke mellem vand og land: en rotte i vandet kan kun slå den anden rotte i vandet, og et dyr på land kan ikke slå en rotte i vandet.
+- Et dyr slår et modstanderdyr med samme eller lavere styrke. Rotten slår elefanten, men elefanten kan ikke slå rotten.
+- Et dyr i en af modstanderens fælder (de udskårne felter omkring hulen) har ingen styrke tilbage: ethvert modstanderdyr kan slå det.
+- Der slås ikke mellem vand og land: en rotte i vandet kan kun slå den anden rotte i vandet.
 # Spillets afslutning
-- Et dyr, der går ind i modstanderens hule, vinder spillet.
-- Den, der tager alle modstanderens dyr, vinder, og det samme gør den, der efterlader modstanderen uden træk.
-- Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden slag.
-# Spil på enheden
-Tryk på et dyr for at se, hvor det kan gå hen, og tryk derefter på et felt, eller træk dyret. Prikker viser trækkene, ringe slagene.
+Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden slag.

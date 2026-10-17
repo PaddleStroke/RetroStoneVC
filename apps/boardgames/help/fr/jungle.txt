@@ -1,23 +1,15 @@
 Jeu de la jungle
 # Le but
-Amener un de tes animaux dans la tanière de l'autre joueur, l'étoile incrustée à l'autre bout du plateau. Tu gagnes aussi en prenant tous les animaux de l'autre joueur, ou quand l'autre joueur ne peut plus bouger. Le joueur clair commence, puis les joueurs jouent à tour de rôle, un coup chacun.
-# Le plateau
-Le plateau a sept colonnes et neuf rangées. Au milieu se trouvent deux rivières. La tanière de chaque joueur est au milieu de sa rangée du fond, entourée de trois pièges : les cases sculptées sur ses côtés et devant elle.
+Amener un de tes animaux dans la tanière de l'autre joueur. Tu gagnes aussi en prenant tous ses animaux, ou quand il ne peut plus bouger. Le joueur clair commence.
 # Les animaux
-Chaque joueur a huit animaux. Le nombre sur chaque animal est sa force : éléphant 8, lion 7, tigre 6, léopard 5, loup 4, chien 3, chat 2, rat 1.
+Le nombre sur chaque animal est sa force, de l'éléphant (8) jusqu'au rat (1).
 # Les déplacements
-- Un animal se déplace d'une case vers l'avant, vers l'arrière ou sur le côté, jamais en diagonale.
-- Aucun animal ne peut entrer dans sa propre tanière.
-- Seul le rat sait nager : c'est le seul animal qui peut entrer dans l'eau.
-- Le lion et le tigre peuvent sauter par-dessus une rivière, en ligne droite, de la berge jusqu'à la première case après l'eau. Ils ne peuvent pas sauter si un rat, de n'importe quel joueur, se trouve dans l'eau sur leur chemin.
+- Un animal se déplace d'une case vers l'avant, vers l'arrière ou sur le côté. Aucun animal ne peut entrer dans sa propre tanière.
+- Seul le rat peut entrer dans l'eau.
+- Le lion et le tigre sautent par-dessus une rivière en ligne droite, sauf si un rat se trouve dans l'eau sur leur chemin.
 # Les prises
-- Un animal prend en allant sur un animal adverse de force égale ou inférieure, qui quitte alors le plateau.
-- Le rat peut prendre l'éléphant, mais l'éléphant ne peut pas prendre le rat.
-- Un animal dans un des pièges de l'autre joueur n'a plus aucune force : n'importe quel animal adverse peut le prendre. Dans ses propres pièges, il garde sa force.
-- Il n'y a pas de prise entre l'eau et la terre : un rat dans l'eau ne peut prendre que l'autre rat dans l'eau, et un animal sur la terre ne peut pas prendre un rat dans l'eau.
+- Un animal prend un animal adverse de force égale ou inférieure. Le rat prend l'éléphant, mais l'éléphant ne peut pas prendre le rat.
+- Un animal dans un des pièges de l'autre joueur (les cases sculptées autour de la tanière) n'a plus aucune force : n'importe quel animal adverse peut le prendre.
+- Il n'y a pas de prise entre l'eau et la terre : un rat dans l'eau ne peut prendre que l'autre rat dans l'eau.
 # La fin de la partie
-- Un animal qui entre dans la tanière de l'autre joueur fait gagner la partie.
-- Prendre tous les animaux de l'autre joueur fait gagner, tout comme le laisser sans coup possible.
-- La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise.
-# Jouer sur l'appareil
-Touche un animal pour voir où il peut aller, puis touche une case, ou fais glisser l'animal. Les points montrent les coups possibles, les anneaux les prises.
+La partie est nulle quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise.

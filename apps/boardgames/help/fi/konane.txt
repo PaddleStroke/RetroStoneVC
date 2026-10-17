@@ -1,16 +1,9 @@
 Konane
 # Tavoite
-Ole viimeinen pelaaja, joka pystyy vielä siirtämään. Konane on havaijilainen tammi: jokainen siirto on hyppy, joka lyö kiven.
-# Lauta
-Lauta on täynnä: jokaisessa ruudussa on kivi, ja kaksi väriä vuorottelevat kuin shakkilaudan ruudut. Tumma aloittaa. Tavallinen lauta on 8×8; voit valita myös 6×6 tai 10×10.
-# Siirtäminen
-Peli alkaa siitä, että laudalta nostetaan kaksi kiveä:
-- Tumma pelaaja poistaa yhden omista kivistään neljästä keskimmäisestä ruudusta tai kulmasta.
-- Sitten vaalea pelaaja poistaa yhden omista kivistään aukon vierestä (yläpuolelta, alapuolelta tai sivulta).
-Sen jälkeen jokainen siirto on hyppy.
+Ole viimeinen pelaaja, joka pystyy vielä siirtämään. Jokainen siirto on hyppy, joka lyö kiven. Tumma aloittaa.
+# Alku
+Tumma pelaaja poistaa yhden omista kivistään neljästä keskimmäisestä ruudusta tai kulmasta. Sitten vaalea pelaaja poistaa yhden omista kivistään aukon vierestä.
 # Lyöminen
-Hyppää kivelläsi aivan sen vieressä olevan vastustajan kiven yli (ylös, alas, vasemmalle tai oikealle, ei koskaan vinottain) sen takana olevaan tyhjään ruutuun, ja ota hypätty kivi pois. Sama kivi saa hypätä uudelleen samaa suoraa linjaa pitkin, toisen vastustajan kiven yli seuraavaan tyhjään ruutuun ja niin edelleen, mutta se ei saa koskaan kääntyä. Voit lopettaa minkä tahansa hypyn jälkeen.
+Hyppää kivelläsi aivan sen vieressä olevan vastustajan kiven yli (ylös, alas, vasemmalle tai oikealle) sen takana olevaan tyhjään ruutuun, ja ota se pois. Sama kivi saa hypätä uudelleen samaa suoraa linjaa pitkin, mutta se ei saa koskaan kääntyä. Voit lopettaa minkä tahansa hypyn jälkeen.
 # Pelin loppu
-Häviää se pelaaja, joka ei ensimmäisenä pysty siirtämään vuorollaan. Tasapelejä ei ole: jokainen siirto lyö kiven, joten peli päättyy aina jommankumman voittoon.
-# Pelaaminen laitteella
-Alussa niiden kivien ympärillä, jotka saa nostaa, on rengas: napauta yhtä niistä. Napauta sitten kiveä nähdäksesi, minne se voi laskeutua (piste jokaista hyppyä kohti, suoraan eteenpäin), ja napauta pistettä tai vedä kiveä. Jokainen palkki näyttää, montako kiveä pelaaja on lyönyt.
+Häviää se pelaaja, joka ei ensimmäisenä pysty siirtämään vuorollaan. Tasapelejä ei ole.

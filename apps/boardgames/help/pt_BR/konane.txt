@@ -1,16 +1,9 @@
 Konane
 # O objetivo
-Ser o último jogador capaz de se mover. O konane é o jogo de damas havaiano: cada jogada é um pulo que captura uma pedra.
-# O tabuleiro
-O tabuleiro está cheio: uma pedra em cada casa, com as duas cores se alternando como as casas de um tabuleiro de xadrez. As pedras escuras começam. O tabuleiro normal é 8 por 8; você também pode escolher 6 por 6 ou 10 por 10.
-# Movimento
-A partida começa com duas pedras sendo tiradas do tabuleiro:
-- O jogador escuro tira uma das próprias pedras de uma das quatro casas do meio ou de um canto.
-- Depois, o jogador claro tira uma das próprias pedras ao lado desse buraco (acima, abaixo ou do lado).
-A partir daí, toda jogada é um pulo.
+Ser o último jogador capaz de se mover. Cada jogada é um pulo que captura uma pedra. As pedras escuras começam.
+# O início
+O jogador escuro tira uma das próprias pedras de uma das quatro casas do meio ou de um canto. Depois, o jogador claro tira uma das próprias pedras ao lado desse buraco.
 # Captura
-Pule com uma das suas pedras por cima de uma pedra adversária bem ao lado dela (para cima, para baixo, para a esquerda ou para a direita, nunca na diagonal) até a casa vazia logo depois, e capture a pedra pulada. A mesma pedra pode pular de novo na mesma linha reta, por cima de outra pedra adversária até a próxima casa vazia, e assim por diante, mas nunca pode virar. Você pode parar depois de qualquer pulo.
+Pule com uma das suas pedras por cima de uma pedra adversária bem ao lado dela (para cima, para baixo, para a esquerda ou para a direita) até a casa vazia logo depois, e capture-a. A mesma pedra pode pular de novo na mesma linha reta, mas nunca pode virar. Você pode parar depois de qualquer pulo.
 # O fim da partida
-Perde o primeiro jogador que não consegue se mover na sua vez. Não existe empate: toda jogada captura uma pedra, então a partida sempre termina com um vencedor.
-# Jogando no aparelho
-No começo, as pedras que podem ser tiradas ficam com um anel: toque em uma delas. Depois, toque numa pedra para ver onde ela pode cair (um pontinho para cada pulo, sempre em frente) e toque num pontinho, ou arraste a pedra. Cada barra mostra quantas pedras aquele jogador capturou.
+Perde o primeiro jogador que não consegue se mover na sua vez. Não existe empate.

@@ -1,27 +1,18 @@
 Makruk
 # Tujuan
-Makruk adalah catur Thailand, kerabat dekat catur. Skakmat Khun (raja) lawan: serang Khun itu sehingga tidak bisa lolos. Putih jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
-# Papan
-Papan punya delapan baris berisi delapan petak, semuanya berwarna sama. Baris belakang setiap pemain berisi, dari kiri: Rua, Ma, Khon, Khun, Met, Khon, Ma, Rua untuk Putih; susunan Hitam sama tetapi diputar, sehingga kedua Khun tidak saling berhadapan. Bia berdiri di baris ketiga setiap pemain, sehingga baris kedua kosong.
+Catur Thailand: skakmat Khun (raja) lawan. Putih jalan lebih dulu.
 # Cara bidak bergerak
-- Khun (mahkota raja): satu petak ke arah mana pun. Tidak ada rokade.
-- Met (belah ketupat di atas badan ramping): satu petak secara diagonal.
-- Khon (lonceng kuil dengan menara runcing): satu petak secara diagonal, atau satu petak lurus ke depan.
-- Ma (kepala kuda): seperti kuda dalam catur, berbentuk L, melompati bidak apa pun di antaranya.
-- Rua (menara): berapa pun petak sepanjang baris atau kolom, seperti benteng dalam catur.
-- Bia (cangkang rendah): satu petak lurus ke depan, tidak pernah dua. Bia memakan satu petak secara diagonal ke depan.
-Bidak tidak bisa melewati bidak lain (kecuali Ma). Bidak memakan dengan pindah ke petak yang ditempati bidak lawan, yang kemudian keluar dari papan.
-# Promosi
-Bia yang mencapai baris keenam, yaitu baris tempat Bia lawan mulai, langsung menjadi Met. Sejak itu Bia tersebut bergerak sebagai Met.
+- Khun (mahkota): satu petak ke arah mana pun. Tidak ada rokade.
+- Met (belah ketupat): satu petak secara diagonal.
+- Khon (lonceng): satu petak secara diagonal, atau satu petak lurus ke depan.
+- Ma (kuda): seperti kuda dalam catur.
+- Rua (menara): seperti benteng dalam catur.
+- Bia (cangkang): satu petak lurus ke depan, tidak pernah dua. Bia memakan satu petak secara diagonal ke depan. Di baris keenam, Bia menjadi Met.
 # Skak dan akhir permainan
-Khun yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan Khun-mu sendiri dalam keadaan skak.
+Kamu tidak boleh membuat langkah yang membiarkan Khun-mu sendiri dalam keadaan skak.
 - Skakmat: Khun sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah.
-- Pat: pemain yang mendapat giliran tidak punya langkah sah, tetapi tidak sedang diskak. Permainan berakhir remis.
-- Permainan juga berakhir remis jika hanya tersisa kedua Khun, atau jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran.
+- Remis: pat (tidak ada langkah sah, tetapi tidak sedang diskak), hanya tersisa kedua Khun, atau posisi yang sama untuk ketiga kalinya dengan pemain yang sama mendapat giliran.
 # Penghitungan
-Jika di papan tidak ada lagi Bia yang belum dipromosikan, permainan harus selesai dalam jumlah langkah yang terbatas. Di Thailand, pemain yang lebih lemah menghitung dengan suara keras; di sini perangkat yang menghitung untukmu.
-- Hitungan papan: sejak saat itu, pemain yang melangkah berikutnya menghitung langkah-langkahnya. Jika hitungannya mencapai 64 dan lawan tidak memberi skakmat pada langkah berikutnya, permainan berakhir remis.
-- Hitungan bidak: jika seorang pemain hanya punya Khun-nya, pemain itulah yang menghitung, mulai dari jumlah bidak di papan (termasuk kedua Khun) ditambah satu. Lawannya harus memberi skakmat sebelum hitungan melewati batas: 8 dengan dua Rua, 16 dengan satu Rua, 22 dengan dua Khon, 32 dengan dua Ma, 44 dengan satu Khon, dan 64 untuk selain itu. Batas ditetapkan saat hitungan dimulai dan tidak berubah, meskipun ada bidak yang dimakan kemudian.
-Selama hitungan berjalan, bilah pemain yang menghitung menunjukkan berapa langkah lagi yang tersisa bagi lawan untuk memberi skakmat.
-# Bermain di perangkat
-Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Khun yang diskak menyala merah. Setiap bilah menunjukkan bidak yang telah dimakan pemain itu.
+Jika tidak ada lagi Bia yang belum dipromosikan, permainan harus segera selesai. Perangkat yang menghitung untukmu.
+- Hitungan papan: pemain yang melangkah berikutnya menghitung langkah-langkahnya. Jika hitungannya mencapai 64 dan lawan tidak memberi skakmat pada langkah berikutnya, permainan berakhir remis.
+- Hitungan bidak: jika seorang pemain hanya punya Khun-nya, pemain itulah yang menghitung, mulai dari jumlah bidak di papan (termasuk kedua Khun) ditambah satu. Lawannya harus memberi skakmat sebelum hitungan melewati batas: 8 dengan dua Rua, 16 dengan satu Rua, 22 dengan dua Khon, 32 dengan dua Ma, 44 dengan satu Khon, dan selain itu 64. Batas ditetapkan saat hitungan dimulai.

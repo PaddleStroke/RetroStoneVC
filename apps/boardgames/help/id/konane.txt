@@ -1,16 +1,9 @@
 Konane
 # Tujuan
-Jadilah pemain terakhir yang masih bisa melangkah. Konane adalah dam Hawaii: setiap langkah adalah lompatan yang memakan satu batu.
-# Papan
-Papan terisi penuh: ada batu di setiap petak, dan kedua warnanya berselang-seling seperti petak papan catur. Pihak gelap jalan lebih dulu. Papan yang biasa berukuran 8×8; kamu juga bisa memilih 6×6 atau 10×10.
-# Menggerakkan
-Permainan dibuka dengan mengangkat dua batu dari papan:
-- Pemain gelap mengangkat salah satu batunya sendiri dari empat petak tengah atau dari sebuah sudut.
-- Lalu pemain terang mengangkat salah satu batunya sendiri di sebelah lubang itu (di atas, di bawah, atau di sampingnya).
-Setelah itu, setiap langkah adalah lompatan.
+Jadilah pemain terakhir yang masih bisa melangkah. Setiap langkah adalah lompatan yang memakan satu batu. Pihak gelap jalan lebih dulu.
+# Awal permainan
+Pemain gelap mengangkat salah satu batunya sendiri dari empat petak tengah atau dari sebuah sudut. Lalu pemain terang mengangkat salah satu batunya di sebelah lubang itu.
 # Memakan
-Lompati batu lawan yang tepat bersebelahan dengan batumu (ke atas, ke bawah, ke kiri, atau ke kanan, tidak pernah miring) ke petak kosong tepat di belakangnya, lalu ambil batu yang dilompati. Batu yang sama boleh melompat lagi pada garis lurus yang sama, melewati batu lawan lain ke petak kosong berikutnya, dan seterusnya, tetapi tidak boleh berbelok. Kamu boleh berhenti setelah lompatan mana pun.
+Lompati batu lawan yang tepat bersebelahan dengan batumu (ke atas, ke bawah, ke kiri, atau ke kanan) ke petak kosong tepat di belakangnya, lalu ambil batu itu. Batu yang sama boleh melompat lagi pada garis lurus yang sama, tetapi tidak boleh berbelok. Kamu boleh berhenti setelah lompatan mana pun.
 # Akhir permainan
-Pemain pertama yang tidak bisa melangkah pada gilirannya kalah. Tidak ada hasil seri: setiap langkah memakan satu batu, jadi permainan selalu berakhir dengan seorang pemenang.
-# Bermain di perangkat
-Di awal, batu yang boleh diangkat diberi cincin: ketuk salah satunya. Lalu ketuk sebuah batu untuk melihat ke mana batu itu bisa mendarat (satu titik untuk setiap lompatan, lurus ke depan), dan ketuk sebuah titik, atau seret batunya. Setiap bilah menunjukkan berapa batu yang sudah dimakan pemain itu.
+Pemain pertama yang tidak bisa melangkah pada gilirannya kalah. Tidak ada hasil seri.

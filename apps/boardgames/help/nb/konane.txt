@@ -1,16 +1,9 @@
 Konane
 # Målet
-Vær den siste spilleren som kan flytte. Konane er hawaiisk dam: hvert trekk er et hopp som slår en stein.
-# Brettet
-Brettet er fullt: det ligger en stein på hver rute, og de to fargene veksler som rutene på et sjakkbrett. Den mørke siden begynner. Det vanlige brettet er 8×8; du kan også velge 6×6 eller 10×10.
-# Flytting
-Spillet åpner med at to steiner løftes av brettet:
-- Den mørke spilleren fjerner en av sine egne steiner fra de fire midterste rutene eller fra et hjørne.
-- Den lyse spilleren fjerner så en av sine egne steiner ved siden av hullet (over, under eller ved siden av det).
-Etter det er hvert trekk et hopp.
+Vær den siste spilleren som kan flytte. Hvert trekk er et hopp som slår en stein. Den mørke siden begynner.
+# Starten
+Den mørke spilleren fjerner en av sine egne steiner fra de fire midterste rutene eller fra et hjørne. Den lyse spilleren fjerner så en av sine egne steiner ved siden av hullet.
 # Slag
-Hopp med en av steinene dine over en motstanderstein rett ved siden av den (opp, ned, til venstre eller til høyre, aldri på skrå) til den tomme ruten rett bak, og ta steinen du hoppet over. Den samme steinen kan hoppe igjen i samme rette linje, over en ny motstanderstein til neste tomme rute og så videre, men den kan aldri svinge. Du kan stoppe etter hvilket som helst hopp.
+Hopp med en av steinene dine over en motstanderstein rett ved siden av den (opp, ned, til venstre eller til høyre) til den tomme ruten rett bak, og ta den. Den samme steinen kan hoppe igjen i samme rette linje, men den kan aldri svinge. Du kan stoppe etter hvilket som helst hopp.
 # Slutten på spillet
-Den første spilleren som ikke kan flytte når det er hans tur, taper. Det finnes ikke uavgjort: hvert trekk slår en stein, så spillet ender alltid med en vinner.
-# Spill på enheten
-I starten har steinene som kan løftes, en ring: trykk på en av dem. Trykk så på en stein for å se hvor den kan lande (en prikk for hvert hopp, rett frem), og trykk på en prikk, eller dra steinen. Hvert panel viser hvor mange steiner spilleren har slått.
+Den første spilleren som ikke kan flytte når det er hans tur, taper. Det finnes ikke uavgjort.

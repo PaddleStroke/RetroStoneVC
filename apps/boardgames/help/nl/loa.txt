@@ -1,16 +1,11 @@
 Lines of Action
 # Het doel
-Breng al je stukken samen in één groep, waarin elk stuk een ander stuk van jou raakt: zij aan zij of hoek aan hoek. Donker begint, daarna spelen de spelers om de beurt, elk één zet.
-# Het begin
-Elke speler heeft 12 stukken. Die van donker staan op de bovenste en onderste rij, die van licht op de linker- en rechterkolom; de vier hoeken blijven leeg.
+Breng al je stukken samen in één groep, waarin elk stuk een ander stuk van jou raakt, zij aan zij of hoek aan hoek. Donker begint.
 # Hoe een stuk beweegt
-- Een stuk beweegt in een rechte lijn: over zijn rij, zijn kolom of een van zijn twee diagonalen.
-- Het gaat precies zoveel velden als er stukken op die hele lijn staan, van beide kleuren, het bewegende stuk inbegrepen. Tel de hele lijn, van de ene rand van het bord tot de andere, aan beide kanten van het stuk.
-- Het mag over stukken van zijn eigen kleur springen, maar nooit over die van de andere speler.
-- Het mag landen op een leeg veld, of op een stuk van de andere speler, dat dan geslagen wordt en het bord verlaat. Het mag nooit op een eigen stuk landen.
+- Een stuk beweegt in een rechte lijn, over zijn rij, zijn kolom of een diagonaal, precies zoveel velden als er stukken op die hele lijn staan: van beide kleuren, van rand tot rand, het bewegende stuk inbegrepen.
+- Het mag over eigen stukken springen, maar nooit over die van de andere speler.
+- Het mag landen op een leeg veld, of op een stuk van de tegenstander, dat dan geslagen wordt. Nooit op een eigen stuk.
 # Het einde van de partij
-- Een speler van wie alle stukken één aaneengesloten groep vormen, wint. Eén overgebleven stuk telt als groep, dus een slag kan de andere speler laten winnen.
-- Als een zet tegelijk de stukken van beide spelers elk tot één groep maakt, wint de speler die de zet deed.
-- Een speler die geen geldige zet heeft, past, en de andere speler is weer aan zet. Het apparaat past voor je. Als geen van beide spelers kan zetten, of na 1000 zetten, eindigt de partij in remise.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Elke balk toont hoeveel stukken die speler nog heeft. Aan het eind licht de winnende groep goud op.
+- Een speler van wie alle stukken één groep vormen, wint. Eén overgebleven stuk telt als groep.
+- Als een zet tegelijk de groepen van beide spelers vormt, wint de speler die de zet deed.
+- Een speler die geen geldige zet heeft, past. Als geen van beide spelers kan zetten, of na 1000 zetten, eindigt de partij in remise.

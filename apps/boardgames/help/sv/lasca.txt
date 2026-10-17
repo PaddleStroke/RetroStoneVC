@@ -1,19 +1,15 @@
 Lasca
 # Målet
-Lämna motståndaren utan drag. Lasca uppfanns 1911 av världsmästaren i schack Emanuel Lasker. Det spelas som dam, men de tagna pjäserna stannar kvar på brädet, som fångar i torn. Varje spelare har elva pjäser. Den ljusa sidan börjar.
-# Brädet
-Sju gånger sju rutor, av vilka bara de 25 ljusa rutorna används, hörnen inräknade. Varje spelares pjäser fyller de ljusa rutorna i de tre rader som ligger närmast spelaren; mittraden är tom.
+Lämna motståndaren utan drag. Lasca spelas som dam, men de tagna pjäserna stannar kvar på brädet, som fångar i torn. Den ljusa sidan börjar.
 # Förflyttning
-- Pjäserna står i torn. Ett torn tillhör den spelare vars pjäs ligger överst, och flyttas som den pjäsen, med hela tornet.
-- En soldat (en vanlig pjäs) flyttas en ruta snett framåt. En officer (en pjäs med krona) flyttas en ruta snett, framåt eller bakåt.
+- Ett torn tillhör den spelare vars pjäs ligger överst, och flyttas som den pjäsen, med hela tornet.
+- En soldat flyttas en ruta snett framåt. En officer (en pjäs med krona) flyttas en ruta snett, framåt eller bakåt.
 - En soldat överst i sitt torn som når den bortersta raden blir officer.
 # Slag
-Om ett motståndartorn står snett bredvid ditt och rutan precis bakom det är tom, hoppar du över det. Bara den översta pjäsen i tornet du hoppar över tas: den hamnar under ditt torn, som fånge. Pjäserna under den stannar där de är, och tornet tillhör nu den som äger dess nya översta pjäs: så befrias fångar.
+Hoppa över ett motståndartorn snett bredvid ditt till den tomma rutan precis bakom. Bara dess översta pjäs tas, och hamnar under ditt torn som fånge. Tornet som blir kvar tillhör den som äger dess nya översta pjäs.
 - Soldater slår bara framåt, officerare både framåt och bakåt.
-- Slag är tvingande. Efter ett slag fortsätter samma torn att hoppa så länge det kan, allt i samma tur, men det hoppar aldrig över samma ruta två gånger. När det finns flera slag får du välja vilket som helst.
+- Slag är tvingande, men du får välja vilket slag som helst. Samma torn fortsätter att hoppa så länge det kan, men aldrig över samma ruta två gånger.
 - En soldat som når den bortersta raden under ett slag blir officer, och dess tur slutar där.
 # Partiets slut
-- En spelare som inte kan flytta förlorar: alla spelarens pjäser är fångar, eller alla spelarens torn är blockerade.
+- En spelare som inte kan flytta förlorar.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter fyrtio drag var utan slag eller soldatdrag.
-# Spela på enheten
-Tryck på ditt torn och sedan på dess nya ruta, eller dra det. Tornen som kan tas har en ring: med ditt torn valt, tryck på rutan bakom, eller på själva tornet med ringen. I en kedja av slag förblir ditt torn upplyft inför nästa hopp. Varje pjäs i ett torn sticker fram under den ovanför. Siffran bredvid din markör räknar fångarna i dina torn.

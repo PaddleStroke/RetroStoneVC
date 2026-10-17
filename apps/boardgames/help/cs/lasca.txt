@@ -1,19 +1,15 @@
 Lasca
 # Cíl hry
-Nech soupeře bez tahu. Lascu vymyslel v roce 1911 mistr světa v šachu Emanuel Lasker. Hraje se jako dáma, ale vzaté kameny zůstávají na desce jako zajatci ve sloupcích. Každý hráč má jedenáct kamenů. Začíná světlý hráč.
-# Deska
-Sedm krát sedm polí, z nichž se používá jen 25 světlých, včetně rohových. Kameny každého hráče zaplňují světlá pole tří řad, které jsou mu nejblíž; prostřední řada je prázdná.
+Nech soupeře bez tahu. Lasca se hraje jako dáma, ale vzaté kameny zůstávají na desce jako zajatci ve sloupcích. Začíná světlý hráč.
 # Posouvání
-- Kameny stojí ve sloupcích. Sloupec patří hráči, jehož kámen je nahoře, a táhne stejně jako tento kámen, přičemž s sebou nese celý sloupec.
-- Voják (obyčejný kámen) se posouvá o jedno pole šikmo vpřed. Důstojník (kámen s korunou) se posouvá o jedno pole šikmo, vpřed nebo vzad.
+- Sloupec patří hráči, jehož kámen je nahoře, a táhne stejně jako tento kámen, přičemž s sebou nese celý sloupec.
+- Voják se posouvá o jedno pole šikmo vpřed. Důstojník (kámen s korunou) se posouvá o jedno pole šikmo, vpřed nebo vzad.
 - Voják navrchu svého sloupce, který dojde na nejvzdálenější řadu, se stane důstojníkem.
 # Braní
-Pokud soupeřův sloupec stojí šikmo vedle tvého a pole hned za ním je volné, přeskoč ho. Vezme se jen horní kámen přeskočeného sloupce: přijde pod tvůj sloupec jako zajatec. Kameny pod ním zůstanou na místě a ten sloupec teď patří tomu, komu patří jeho nový horní kámen: tak se zajatci osvobozují.
+Přeskoč soupeřův sloupec, který stojí šikmo vedle tvého, na volné pole hned za ním. Vezme se jen jeho horní kámen a přijde pod tvůj sloupec jako zajatec. Sloupec, který zůstane, patří tomu, komu patří jeho nový horní kámen.
 - Vojáci berou jen dopředu, důstojníci dopředu i dozadu.
-- Braní je povinné. Po braní skáče stejný sloupec dál, dokud může, a to vše v tomtéž tahu, ale nikdy nepřeskočí stejné pole dvakrát. Když je možných braní víc, smíš si vybrat kterékoli.
+- Braní je povinné, ale smíš si vybrat kterékoli. Stejný sloupec skáče dál, dokud může, ale nikdy nepřeskočí stejné pole dvakrát.
 - Voják, který během braní dojde na nejvzdálenější řadu, se stane důstojníkem a jeho tah tím končí.
 # Konec hry
-- Hráč, který nemůže táhnout, prohrává: všechny jeho kameny jsou v zajetí, nebo jsou všechny jeho sloupce zablokované.
+- Hráč, který nemůže táhnout, prohrává.
 - Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po čtyřiceti tazích každé strany bez braní a bez tahu vojákem.
-# Hra na zařízení
-Klepni na svůj sloupec a pak na jeho nové pole, nebo ho přetáhni. Sloupce, které lze vzít, mají kroužek: s vybraným sloupcem klepni na pole za ním, nebo přímo na sloupec s kroužkem. Při řetězu braní zůstane tvůj sloupec zvednutý pro další skok. Každý kámen sloupce vykukuje zpod kamene nad ním. Číslo vedle tvého žetonu udává počet zajatců ve tvých sloupcích.

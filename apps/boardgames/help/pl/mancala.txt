@@ -1,16 +1,14 @@
 Mankala
 # Cel gry
-Zdobądź więcej ziaren niż przeciwnik. Plansza ma dwa rzędy po sześć dołków, w każdym cztery ziarna. Rząd bliżej ciebie jest twój, a twój magazyn znajduje się na jego prawym końcu. Jasne zaczynają.
+Zdobądź więcej ziaren niż przeciwnik. Twój magazyn znajduje się na prawym końcu twojego rzędu. Jasne zaczynają.
 # Oware
-- W swojej turze weź wszystkie ziarna z jednego ze swoich dołków i rozsiej je po jednym do kolejnych dołków, przeciwnie do ruchu wskazówek zegara. Przy dwunastu lub więcej ziarnach obchodzisz całą planszę: opróżniony dołek jest pomijany.
-- Jeśli twoje ostatnie ziarno trafi do rzędu przeciwnika i będą tam wtedy dwa lub trzy ziarna, zdobywasz je. Zdobywasz też dołek przed nim i ten przed tamtym, o ile leżą w rzędzie przeciwnika i mają dwa lub trzy ziarna.
-- Ruch, który zabrałby przeciwnikowi wszystkie ziarna, można wykonać, ale niczego nie zdobywa.
-- Jeśli przeciwnik nie ma ziaren, musisz wykonać ruch, który mu jakieś da, o ile taki masz.
-- Gra kończy się, gdy gracz zdobędzie więcej niż 24 ziarna, gdy gracz, który ma ruch, nie może zagrać, lub gdy powtórzy się ta sama pozycja. W dwóch ostatnich przypadkach każdy gracz dolicza sobie ziarna pozostałe w swoim rzędzie. Wygrywa ten, kto ma najwięcej ziaren; po 24 to remis.
+- Weź wszystkie ziarna z jednego ze swoich dołków i rozsiej je po jednym do kolejnych dołków, przeciwnie do ruchu wskazówek zegara. Przy dwunastu lub więcej ziarnach opróżniony dołek jest pomijany.
+- Jeśli twoje ostatnie ziarno trafi do rzędu przeciwnika i będą tam wtedy dwa lub trzy ziarna, zdobywasz je, a także dołki tuż przed nim w tym rzędzie, dopóki każdy ma dwa lub trzy ziarna.
+- Ruch, który zabrałby przeciwnikowi wszystkie ziarna, niczego nie zdobywa.
+- Jeśli przeciwnik nie ma ziaren, musisz mu jakieś dać, o ile możesz.
+- Gra kończy się, gdy gracz zdobędzie więcej niż 24 ziarna, gdy gracz, który ma ruch, nie może zagrać, lub gdy powtórzy się pozycja. W dwóch ostatnich przypadkach każdy gracz dolicza sobie ziarna pozostałe w swoim rzędzie. Po 24 to remis.
 # Kalah
-- W swojej turze weź wszystkie ziarna z jednego ze swoich dołków i rozsiej je po jednym przeciwnie do ruchu wskazówek zegara do kolejnych dołków i do swojego magazynu, ale nie do magazynu przeciwnika.
+- Siej przeciwnie do ruchu wskazówek zegara do kolejnych dołków i do swojego magazynu, ale nie do magazynu przeciwnika.
 - Jeśli twoje ostatnie ziarno trafi do twojego magazynu, grasz jeszcze raz.
-- Jeśli twoje ostatnie ziarno trafi do twojego pustego dołka, a w dołku naprzeciwko są ziarna, zdobywasz jedne i drugie: twoje ziarno i ziarna naprzeciwko trafiają do twojego magazynu.
-- Gra kończy się, gdy jeden rząd jest pusty: drugi gracz przekłada ziarna pozostałe w swoim rzędzie do swojego magazynu. Wygrywa ten, kto ma najwięcej ziaren w magazynie; równa liczba to remis.
-# Gra na urządzeniu
-Dotknij jednego ze swoich dołków, aby rozsiać jego ziarna: dołki, którymi możesz zagrać, świecą. Ziarna wędrują po jednym, a zdobyte ziarna lecą do magazynu. Liczba przy każdym dołku pokazuje, ile ma ziaren, a każdy pasek pokazuje ziarna zdobyte przez danego gracza.
+- Jeśli twoje ostatnie ziarno trafi do twojego pustego dołka, a w dołku naprzeciwko są ziarna, twoje ziarno i ziarna naprzeciwko trafiają do twojego magazynu.
+- Gdy jeden rząd jest pusty, drugi gracz przekłada ziarna pozostałe w swoim rzędzie do swojego magazynu. Wygrywa ten, kto ma najwięcej ziaren; równa liczba to remis.
