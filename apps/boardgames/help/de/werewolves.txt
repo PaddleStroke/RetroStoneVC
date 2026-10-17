@@ -1,0 +1,12 @@
+Werwölfe
+# Das Ziel
+Werwölfe verstecken sich unter den Dorfbewohnern. Das Dorf gewinnt, sobald jeder Werwolf ausgeschieden ist; die Werwölfe gewinnen, sobald sie so viele sind wie die anderen. Für 5 bis 12 Spieler.
+# Die Rollen
+- Werwölfe: 1, ab 7 Spielern 2, ab 10 Spielern 3. Jede Nacht wählen sie gemeinsam ein Opfer.
+- Die Seherin: sieht jede Nacht die Karte eines Spielers.
+- Die Hexe, ab 7 Spielern: sieht das Opfer der Nacht. Einmal pro Partie darf sie das Opfer retten und einmal einen beliebigen Spieler töten.
+- Dorfbewohner: keine Macht außer ihrer Stimme.
+# Die Nacht
+Ruft das Gerät eine Rolle, halten alle anderen die Augen geschlossen, während diese Rolle aufwacht und handelt.
+# Der Tag
+Die Toten der Nacht scheiden aus und zeigen ihre Karten. Das Dorf berät und wählt dann einen Spieler hinaus, dessen Karte gezeigt wird. Ausgeschiedene schweigen bis zum Ende.

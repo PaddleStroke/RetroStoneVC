@@ -1,0 +1,12 @@
+Weerwolven
+# Het doel
+Weerwolven verbergen zich tussen de dorpelingen. Het dorp wint zodra elke weerwolf uit het spel is; de weerwolven winnen zodra ze even talrijk zijn als de anderen. Voor 5 tot 12 spelers.
+# De rollen
+- Weerwolven: 1, vanaf 7 spelers 2, vanaf 10 spelers 3. Elke nacht kiezen ze samen een slachtoffer.
+- De ziener: ziet elke nacht de kaart van één speler.
+- De heks, vanaf 7 spelers: ziet het slachtoffer van de nacht. Eén keer per spel mag ze het slachtoffer redden, en één keer een willekeurige speler doden.
+- Dorpelingen: geen macht behalve hun stem.
+# De nacht
+Als het apparaat een rol oproept, houdt iedereen anders de ogen dicht terwijl die rol wakker wordt en handelt.
+# De dag
+De doden van de nacht liggen eruit en tonen hun kaart. Het dorp praat en stemt dan één speler weg, wiens kaart getoond wordt. Wie uit het spel is, zwijgt tot het einde.

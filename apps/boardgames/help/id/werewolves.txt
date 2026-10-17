@@ -1,0 +1,12 @@
+Manusia serigala
+# Tujuan
+Manusia serigala bersembunyi di antara penduduk desa. Desa menang begitu semua manusia serigala tersingkir; para serigala menang begitu jumlah mereka sama dengan yang lain. Untuk 5 sampai 12 pemain.
+# Peran
+- Manusia serigala: 1, lalu 2 mulai 7 pemain, 3 mulai 10. Setiap malam mereka bersama-sama memilih korban.
+- Peramal: setiap malam melihat kartu satu pemain.
+- Penyihir, mulai 7 pemain: melihat korban malam itu. Sekali dalam permainan ia boleh menyelamatkan korban, dan sekali membunuh pemain mana pun.
+- Penduduk desa: tidak punya kekuatan selain suara mereka.
+# Malam
+Saat perangkat memanggil sebuah peran, semua yang lain memejamkan mata sementara peran itu bangun dan bertindak.
+# Siang
+Yang mati di malam hari tersingkir dan menunjukkan kartunya. Desa berdiskusi, lalu memilih satu pemain untuk keluar; kartunya ditunjukkan. Pemain yang tersingkir diam sampai akhir.

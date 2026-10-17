@@ -1,0 +1,5 @@
+Werewolves: the roles (villager, werewolf, seer, witch)
+Мирный житель
+Оборотень
+Провидица
+Ведьма

@@ -1,0 +1,5 @@
+Werewolves: the roles (villager, werewolf, seer, witch)
+Aldeano
+Hombre lobo
+Vidente
+Bruja

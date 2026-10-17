@@ -1,0 +1,5 @@
+Werewolves: the roles (villager, werewolf, seer, witch)
+마을 사람
+늑대인간
+예언자
+마녀

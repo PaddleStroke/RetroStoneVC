@@ -1,0 +1,12 @@
+Varulve
+# Målet
+Varulve gemmer sig blandt landsbyboerne. Landsbyen vinder, når alle varulve er ude; varulvene vinder, når de er lige så mange som de andre. For 5 til 12 spillere.
+# Rollerne
+- Varulve: 1, så 2 fra 7 spillere og 3 fra 10. Hver nat vælger de sammen et offer.
+- Spåkonen: ser hver nat én spillers kort.
+- Heksen, fra 7 spillere: ser nattens offer. Én gang i spillet må hun redde offeret, og én gang dræbe en hvilken som helst spiller.
+- Landsbyboere: ingen magt ud over deres stemme.
+# Natten
+Når enheden kalder en rolle, holder alle andre øjnene lukket, mens den rolle vågner og handler.
+# Dagen
+Nattens døde er ude og viser deres kort. Landsbyen snakker og stemmer så én spiller ud, hvis kort bliver vist. Spillere, der er ude, tier til slutningen.

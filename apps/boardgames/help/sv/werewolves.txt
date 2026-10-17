@@ -1,0 +1,12 @@
+Varulvar
+# Målet
+Varulvar gömmer sig bland byborna. Byn vinner när alla varulvar är ute; varulvarna vinner när de är lika många som de andra. För 5 till 12 spelare.
+# Rollerna
+- Varulvar: 1, sedan 2 från 7 spelare och 3 från 10. Varje natt väljer de tillsammans ett offer.
+- Siaren: ser varje natt en spelares kort.
+- Häxan, från 7 spelare: ser nattens offer. En gång per parti får hon rädda offret, och en gång döda vilken spelare som helst.
+- Bybor: ingen makt utom sin röst.
+# Natten
+När enheten ropar upp en roll håller alla andra ögonen stängda medan den rollen vaknar och agerar.
+# Dagen
+Nattens döda är ute och visar sina kort. Byn pratar och röstar sedan ut en spelare, vars kort visas. Spelare som är ute tiger till slutet.

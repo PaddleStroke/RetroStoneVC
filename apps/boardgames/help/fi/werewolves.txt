@@ -1,0 +1,12 @@
+Ihmissudet
+# Tavoite
+Ihmissudet piileskelevät kyläläisten joukossa. Kylä voittaa, kun jokainen ihmissusi on pelistä; sudet voittavat, kun heitä on yhtä monta kuin muita. 5–12 pelaajalle.
+# Roolit
+- Ihmissudet: 1, 7 pelaajasta 2, 10 pelaajasta 3. Joka yö he valitsevat yhdessä uhrin.
+- Näkijä: näkee joka yö yhden pelaajan kortin.
+- Noita, 7 pelaajasta alkaen: näkee yön uhrin. Kerran pelissä hän voi pelastaa uhrin ja kerran tappaa kenet tahansa.
+- Kyläläiset: ei muuta valtaa kuin ääni.
+# Yö
+Kun laite kutsuu roolin, kaikki muut pitävät silmänsä kiinni, kun se rooli herää ja toimii.
+# Päivä
+Yön kuolleet putoavat pelistä ja näyttävät korttinsa. Kylä keskustelee ja äänestää sitten yhden pelaajan ulos; hänen korttinsa näytetään. Pelistä pudonneet ovat hiljaa loppuun asti.

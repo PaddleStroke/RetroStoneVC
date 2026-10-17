@@ -1,0 +1,12 @@
+Werewolves
+# The aim
+Werewolves hide among the villagers. The village wins once every werewolf is out; the werewolves win once they are as many as the others. For 5 to 12 players.
+# The roles
+- Werewolves: 1, then 2 from 7 players, 3 from 10. Each night they pick a victim together.
+- The seer: each night, sees one player's card.
+- The witch, from 7 players: sees the night's victim. Once a game she may save the victim, and once kill any player.
+- Villagers: no power but their vote.
+# The night
+When the device calls a role, everyone else keeps their eyes shut while that role wakes up and acts.
+# The day
+The night's dead are out and show their cards. The village talks, then votes one player out, whose card is shown. Players out stay silent until the end.

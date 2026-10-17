@@ -1,0 +1,12 @@
+Loups-garous
+# Le but
+Des loups-garous se cachent parmi les villageois. Le village gagne quand il n'y a plus de loup-garou ; les loups-garous gagnent quand ils sont aussi nombreux que les autres. Pour 5 à 12 joueurs.
+# Les rôles
+- Loups-garous : 1, puis 2 dès 7 joueurs, 3 dès 10. Chaque nuit, ils choisissent ensemble une victime.
+- La voyante : chaque nuit, voit la carte d'un joueur.
+- La sorcière, dès 7 joueurs : voit la victime de la nuit. Une fois dans la partie, elle peut la sauver, et une fois tuer n'importe quel joueur.
+- Villageois : aucun pouvoir, sinon leur vote.
+# La nuit
+Quand l'appareil appelle un rôle, tous les autres gardent les yeux fermés pendant que ce rôle se réveille et agit.
+# Le jour
+Les morts de la nuit sont éliminés et montrent leur carte. Le village discute, puis élimine un joueur par un vote ; sa carte est montrée. Les joueurs éliminés se taisent jusqu'à la fin.

@@ -1,0 +1,12 @@
+Lupi mannari
+# Lo scopo
+I lupi mannari si nascondono tra i contadini. Il villaggio vince quando non resta nessun lupo; i lupi vincono quando sono tanti quanti gli altri. Da 5 a 12 giocatori.
+# I ruoli
+- Lupi mannari: 1, poi 2 da 7 giocatori, 3 da 10. Ogni notte scelgono insieme una vittima.
+- La veggente: ogni notte vede la carta di un giocatore.
+- La strega, da 7 giocatori: vede la vittima della notte. Una volta per partita può salvarla, e una volta uccidere qualunque giocatore.
+- Contadini: nessun potere tranne il voto.
+# La notte
+Quando il dispositivo chiama un ruolo, tutti gli altri tengono gli occhi chiusi mentre quel ruolo si sveglia e agisce.
+# Il giorno
+I morti della notte escono e mostrano la loro carta. Il villaggio discute, poi vota per eliminare un giocatore, la cui carta viene mostrata. Gli eliminati tacciono fino alla fine.

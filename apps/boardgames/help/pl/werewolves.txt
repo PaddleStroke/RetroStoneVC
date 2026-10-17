@@ -1,0 +1,12 @@
+Wilkołaki
+# Cel gry
+Wśród wieśniaków ukrywają się wilkołaki. Wioska wygrywa, gdy odpadnie każdy wilkołak; wilkołaki wygrywają, gdy jest ich tylu co pozostałych. Dla 5 do 12 graczy.
+# Role
+- Wilkołaki: 1, od 7 graczy 2, od 10 graczy 3. Każdej nocy razem wybierają ofiarę.
+- Jasnowidz: każdej nocy widzi kartę jednego gracza.
+- Wiedźma, od 7 graczy: widzi nocną ofiarę. Raz w grze może ją uratować i raz zabić dowolnego gracza.
+- Wieśniacy: żadnej mocy poza głosem.
+# Noc
+Gdy urządzenie wzywa rolę, wszyscy inni mają zamknięte oczy, a ta rola się budzi i działa.
+# Dzień
+Nocne ofiary odpadają i pokazują karty. Wioska rozmawia, a potem w głosowaniu usuwa jednego gracza, którego karta zostaje pokazana. Wyeliminowani milczą do końca.

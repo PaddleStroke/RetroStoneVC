@@ -1,0 +1,5 @@
+Werewolves: the roles (villager, werewolf, seer, witch)
+村人
+人狼
+占い師
+魔女

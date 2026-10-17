@@ -1,0 +1,12 @@
+Hombres lobo
+# El objetivo
+Los hombres lobo se esconden entre los aldeanos. La aldea gana cuando no queda ningún hombre lobo; los hombres lobo ganan cuando son tantos como los demás. Para 5 a 12 jugadores.
+# Los roles
+- Hombres lobo: 1, 2 desde 7 jugadores, 3 desde 10. Cada noche eligen juntos una víctima.
+- La vidente: cada noche ve la carta de un jugador.
+- La bruja, desde 7 jugadores: ve la víctima de la noche. Una vez por partida puede salvarla, y una vez matar a cualquier jugador.
+- Aldeanos: ningún poder salvo su voto.
+# La noche
+Cuando el dispositivo llama a un rol, todos los demás mantienen los ojos cerrados mientras ese rol se despierta y actúa.
+# El día
+Los muertos de la noche quedan fuera y muestran sus cartas. La aldea habla y luego expulsa por votación a un jugador, cuya carta se muestra. Los eliminados callan hasta el final.

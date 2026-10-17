@@ -1,0 +1,5 @@
+Werewolves: the roles (villager, werewolf, seer, witch)
+村民
+狼人
+预言家
+女巫

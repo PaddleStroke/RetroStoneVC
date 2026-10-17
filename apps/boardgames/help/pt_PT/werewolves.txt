@@ -1,0 +1,12 @@
+Lobisomens
+# O objetivo
+Há lobisomens escondidos entre os aldeões. A aldeia ganha quando já não houver nenhum lobisomem; os lobisomens ganham quando forem tantos como os outros. Para 5 a 12 jogadores.
+# Os papéis
+- Lobisomens: 1, 2 a partir de 7 jogadores, 3 a partir de 10. Todas as noites escolhem juntos uma vítima.
+- A vidente: todas as noites vê a carta de um jogador.
+- A bruxa, a partir de 7 jogadores: vê a vítima da noite. Uma vez no jogo pode salvá-la, e uma vez matar qualquer jogador.
+- Aldeões: nenhum poder além do voto.
+# A noite
+Quando o aparelho chama um papel, todos os outros ficam de olhos fechados enquanto esse papel acorda e age.
+# O dia
+Os mortos da noite saem e mostram as cartas. A aldeia conversa e depois vota para expulsar um jogador, cuja carta é mostrada. Quem saiu fica calado até ao fim.

@@ -1,0 +1,12 @@
+Vlkodlaci
+# Cíl hry
+Mezi vesničany se skrývají vlkodlaci. Vesnice vyhraje, jakmile je venku každý vlkodlak; vlkodlaci vyhrají, jakmile je jich stejně jako ostatních. Pro 5 až 12 hráčů.
+# Role
+- Vlkodlaci: 1, od 7 hráčů 2, od 10 hráčů 3. Každou noc si společně vyberou oběť.
+- Věštkyně: každou noc vidí kartu jednoho hráče.
+- Čarodějnice, od 7 hráčů: vidí noční oběť. Jednou za hru smí oběť zachránit a jednou zabít kohokoli.
+- Vesničané: nemají žádnou moc kromě hlasu.
+# Noc
+Když zařízení vyvolá roli, všichni ostatní mají zavřené oči, zatímco se ta role probudí a jedná.
+# Den
+Noční mrtví vypadnou ze hry a ukážou své karty. Vesnice diskutuje a pak hlasováním vyřadí jednoho hráče; jeho karta se ukáže. Vyřazení hráči až do konce mlčí.

@@ -1,0 +1,12 @@
+Kurt adamlar
+# Amaç
+Kurt adamlar köylülerin arasında saklanır. Tüm kurt adamlar oyundan çıkınca köy kazanır; kurt adamlar diğerleri kadar olunca kurt adamlar kazanır. 5 ila 12 oyuncu için.
+# Roller
+- Kurt adamlar: 1; 7 oyuncudan itibaren 2, 10'dan itibaren 3. Her gece birlikte bir kurban seçerler.
+- Kâhin: her gece bir oyuncunun kartını görür.
+- Cadı, 7 oyuncudan itibaren: gecenin kurbanını görür. Oyunda bir kez kurbanı kurtarabilir, bir kez de istediği oyuncuyu öldürebilir.
+- Köylüler: oylarından başka güçleri yoktur.
+# Gece
+Cihaz bir rolü çağırdığında, o rol uyanıp hareket ederken diğer herkes gözlerini kapalı tutar.
+# Gündüz
+Gecenin ölüleri oyundan çıkar ve kartlarını gösterir. Köy konuşur, sonra oyla bir oyuncuyu çıkarır; onun kartı gösterilir. Oyundan çıkanlar sonuna kadar susar.
