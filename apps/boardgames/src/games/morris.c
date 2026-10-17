@@ -181,7 +181,15 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
 
 static void disc_at(int c, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[c], cx, cy, d, alpha, 0); }
 
-static void mark_last(int pt) { lines_mark_last(&L, B->x[pt], B->y[pt]); }
+/* the marks are round: the men stand on points, not in cells */
+static void mark_round(int pt, int select)
+{
+    float x, y;
+    lines_xy(&L, B->x[pt], B->y[pt], &x, &y);
+    if (select) ui_mark_select_round(x, y, 1.3f * L.sq);
+    else ui_mark_last_round(x, y, 1.3f * L.sq);
+}
+static void mark_last(int pt) { mark_round(pt, 0); }
 
 /* the mill just made: a gold band along it, a gold light under its pieces */
 static void draw_mill(const mpos *p)
@@ -220,7 +228,7 @@ static void draw(void)
         if (G.move[k].type != M_TAKE) break;
     }
     if (p->take && G.ply) draw_mill(p);
-    if (sel >= 0) lines_mark_select(&L, B->x[sel], B->y[sel]);
+    if (sel >= 0) mark_round(sel, 1);
     for (int i = 0; st == GS_PLAY && i < nlegal; i++) {          /* where to play, what can be removed */
         const mmove *m = &legal[i];
         if (m->type == M_TAKE) {
