@@ -1,19 +1,17 @@
 Domino
 # Cel gry
-Pozbądź się wszystkich kamieni przed innymi, dokładając je do końców linii. Komplet podwójna szóstka, dla 2 do 4 graczy, każdy gra na siebie. Ręce są tajne: po każdej turze przekaż urządzenie dalej. Trzy gry do wyboru: gra blokowa, gra z dobieraniem i All Fives (Muggins).
+Pozbądź się wszystkich kamieni jako pierwszy, dokładając je do otwartych końców linii.
 # Rozdanie
-28 kamieni miesza się zakrytych. Przy dwóch graczach każdy bierze 7 kamieni, przy trzech lub czterech 5. Reszta leży zakryta: to bank.
+Przy dwóch graczach każdy bierze 7 kamieni, przy trzech lub czterech 5. Reszta to bank.
 # Tura
-- W pierwszej rundzie gracz z najwyższym dubletem wykłada go pierwszy (jeśli nikt nie ma dubletu, najcięższy kamień). W kolejnych rundach zaczyna zwycięzca poprzedniej, dowolnym kamieniem.
-- Po kolei dokładaj kamień, którego jedna połowa pasuje do otwartego końca linii; równe połówki stykają się. Dublety kładzie się w poprzek.
+- Pierwsza runda: zaczyna najwyższy dublet (jeśli nikt nie ma dubletu, najcięższy kamień). Kolejne rundy: zaczyna zwycięzca poprzedniej, dowolnym kamieniem.
+- Dołóż kamień pasujący do otwartego końca linii.
 - Gra blokowa: jeśli nie możesz zagrać, pasuj.
-- Gra z dobieraniem i All Fives: jeśli nie możesz zagrać, dobieraj z banku, aż będziesz mógł. Gdy bank jest pusty, pasuj.
+- Gra z dobieraniem i All Fives: jeśli nie możesz zagrać, dobieraj, aż będziesz mógł; gdy bank jest pusty, pasuj.
 # All Fives
-- Pierwszy zagrany dublet to spinner. Gdy do obu jego długich boków coś dołożono, można dokładać także do jego dwóch krótkich boków: linia ma wtedy cztery końce.
-- Po położeniu kamienia zsumuj otwarte końce. Jeśli suma jest wielokrotnością 5, od razu ją zdobywasz. Dublet na końcu liczy się obiema połówkami.
+- Pierwszy dublet to spinner: gdy do obu jego długich boków coś dołożono, otwierają się też jego krótkie boki.
+- Jeśli po twoim kamieniu suma otwartych końców jest wielokrotnością 5, zdobywasz ją. Dublet na końcu liczy się obiema połówkami.
 # Koniec rundy
-Runda kończy się, gdy gracz położy ostatni kamień albo gdy nikt nie może zagrać. Ten, kto skończył, albo przy zablokowanej grze ten, kto ma najmniej oczek w ręce, wygrywa rundę i zdobywa oczka pozostałe w rękach innych (All Fives: zaokrąglone do najbliższej wielokrotności 5). Jeśli dwóch graczy ma po równo najmniej oczek, nikt nie zdobywa punktów.
+Runda kończy się, gdy gracz położy ostatni kamień albo gdy nikt nie może zagrać. Ten, kto skończył, albo ten, kto ma najmniej oczek w ręce, zdobywa oczka pozostałe w rękach innych (All Fives: zaokrąglone do najbliższej wielokrotności 5); jeśli dwóch graczy ma po równo najmniej oczek, nikt nie zdobywa punktów.
 # Koniec gry
-Gra kończy się po rundzie, w której ktoś osiągnie 100 punktów; w All Fives, gdy tylko ktoś osiągnie 100. Wygrywa najwyższa suma.
-# Gra na urządzeniu
-Twoje kamienie stoją na dole; te, których nie możesz zagrać, są przyciemnione. Dotknij kamienia, a potem jednego ze świecących miejsc, do którego pasuje, albo przeciągnij go tam. Dotknij banku po lewej, aby dobrać; gdy możesz tylko pasować, na twoim pasku pojawia się przycisk pasowania. W All Fives licznik po prawej pokazuje sumę otwartych końców; świeci na złoto przy wielokrotności 5. Pasek każdego gracza pokazuje jego punkty i liczbę kamieni. Po każdej rundzie tabela pokazuje pozostałe kamienie, punkty z rundy i sumy: dotknij jej, by zacząć następną rundę.
+Po rundzie, w której ktoś osiągnie 100 punktów (w All Fives od razu), wygrywa najwyższa suma.

@@ -1,18 +1,16 @@
 Big Two
 # Das Ziel
-Werde als Erster alle deine Karten los. Ein kantonesisches Spiel für 4 Spieler (oder 3), mit 52 Karten, die komplett ausgeteilt werden: 13 für jeden (zu dritt 17 für jeden, und die letzte Karte bekommt, wer die Karo 3 hat).
+Werde als Erster alle deine Karten los. Zu dritt bekommt die letzte Karte, wer die Karo 3 hat.
 # Die Karten
-- Von niedrig bis hoch: 3, 4, 5, 6, 7, 8, 9, 10, Bube, Dame, König, Ass und die 2, die höchste von allen.
-- Die Farben von niedrig bis hoch: Karo, Kreuz, Herz, Pik. Bei zwei Karten desselben Rangs entscheidet die Farbe: Die Pik 2 ist die höchste Karte.
+- Von niedrig bis hoch: 3 bis 10, Bube, Dame, König, Ass, 2.
+- Bei gleichem Rang entscheidet die Farbe, von niedrig bis hoch: Karo, Kreuz, Herz, Pik.
 # Die Kombinationen
 - Eine einzelne Karte, ein Paar, ein Drilling.
-- Eine Hand aus fünf Karten, von niedrig bis hoch: Straße (fünf Ränge in Folge, von 3-4-5-6-7 bis 10-B-D-K-A; die 2 gehört nie dazu), Flush (fünf Karten einer Farbe), Full House (Drilling und Paar), Vierling mit einer beliebigen fünften Karte, Straight Flush.
-- Bei zwei Kombinationen derselben Art entscheidet die höchste Karte. Beim Flush zählt die höchste Karte, dann die nächsten; beim Full House und beim Vierling der Rang der drei oder vier gleichen Karten.
+- Fünf Karten, von niedrig bis hoch: Straße (3-4-5-6-7 bis 10-B-D-K-A, nie mit einer 2), Flush, Full House, Vierling mit einer beliebigen fünften Karte, Straight Flush.
+- Bei gleicher Art entscheidet die höchste Karte (beim Flush dann die nächsten); beim Full House und Vierling die drei oder vier gleichen Karten.
 # Ein Stich
 - Wer die Karo 3 hat, spielt zum ersten Stich aus, mit einer Kombination, die sie enthält.
-- Reihum legt jeder eine höhere Kombination derselben Art und Größe oder passt. Wer gepasst hat, darf trotzdem wieder spielen, wenn er erneut an der Reihe ist.
-- Haben alle anderen nacheinander gepasst, beginnt der Spieler, der zuletzt gespielt hat, einen neuen Stich mit einer beliebigen Kombination.
+- Reihum schlägt jeder den letzten Zug mit einer Kombination derselben Art und Größe oder passt; wer passt, darf später wieder spielen.
+- Haben alle anderen nacheinander gepasst, spielt der Spieler, der zuletzt gespielt hat, eine beliebige Kombination aus.
 # Die Wertung
-Wer zuerst keine Karten mehr hat, gewinnt. Jeder andere Spieler bekommt einen Strafpunkt für jede Karte, die er noch auf der Hand hat, doppelt bei zehn Karten oder mehr.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten, von niedrig bis hoch. Am oberen Rand sitzen die anderen: ihre Karten verdeckt, wie viele es sind, und ein Passe-Zeichen, wenn sie seit dem letzten Zug gepasst haben. Der letzte Zug liegt groß in der Mitte mit dem Stein seines Spielers, die Züge davor kleiner dahinter. Tippe Karten an, um sie zu wählen, dann tippe auf die Mitte oder schieb sie dorthin: Die Mitte leuchtet auf, wenn deine Auswahl gespielt werden kann. Die Karo 3 leuchtet für den Spieler, der mit ihr ausspielen muss. Der Knopf Passe ist in deiner Leiste. Am Ende zeigt eine Tafel für jeden Spieler die übrigen Karten und die Strafpunkte.
+Wer zuerst keine Karten mehr hat, gewinnt. Die anderen bekommen einen Strafpunkt pro übriger Karte, doppelt ab zehn Karten.

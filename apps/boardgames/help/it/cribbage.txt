@@ -1,31 +1,17 @@
 Cribbage
 # Lo scopo
-Essere il primo a segnare 121 punti, contati con i pioli sulla tavoletta. Per 2 giocatori, o 3. I punti arrivano mentre si giocano le carte e quando si contano le mani nel conteggio (show).
+Essere il primo a segnare 121 punti.
 # La distribuzione
-- A ogni mano il mazziere dà 6 carte a ciascun giocatore (con 3 giocatori: 5 a testa, e una carta del mazzo va nel mazzetto, il crib).
-- Ogni giocatore mette da parte 2 carte coperte (con 3 giocatori: 1). Formano il mazzetto, una mano in più che conta per il mazziere.
-- Il giocatore alla sinistra del mazziere alza il mazzo, e la carta in cima viene scoperta: la carta comune (starter). Se è un fante, il mazziere segna 2 punti (his heels).
-- Dopo ogni mano il mazzo passa al giocatore di sinistra.
+- Ogni giocatore riceve 6 carte e ne mette da parte 2 (con 3 giocatori: 5 e 1, più una carta del mazzo): il mazzetto (crib), una mano in più per il mazziere.
+- La carta in cima al mazzo alzato è la carta comune (starter). Se è un fante, il mazziere segna 2 punti (his heels).
 # Il gioco
-- Partendo dalla sinistra del mazziere, i giocatori calano a turno le loro carte scoperte e tengono il conto progressivo dei valori: asso 1, dal 2 al 10 il loro valore, fante, donna e re 10.
-- Il conto non può mai superare 31. Chi non può calare una carta dice «go», e gli altri continuano finché possono.
-- Un conto di esattamente 15 vale 2, di esattamente 31 vale 2.
-- Una carta dello stesso valore della precedente vale 2 per una coppia, 6 per un tris, 12 per un poker.
-- Quando le ultime 3 o più carte calate formano una scala, in qualsiasi ordine, valgono 1 punto per carta.
-- Quando nessuno può più calare, l'ultimo che l'ha fatto segna 1 (niente di più sul 31). Il conto riparte da 0 con il giocatore successivo che ha ancora carte. Anche l'ultimissima carta del gioco vale 1.
+- A turno ognuno cala una carta e la aggiunge al conto (asso 1, fante, donna e re 10), senza mai superare 31; chi non può calare dice «go».
+- Esattamente 15 o 31: 2. Una coppia con la carta precedente: 2, un tris 6, un poker 12. Una scala nelle ultime 3 o più carte, in qualsiasi ordine: 1 per carta.
+- Quando nessuno può più calare, l'ultimo che l'ha fatto segna 1 (niente di più sul 31) e il conto riparte da 0. Anche l'ultima carta del gioco vale 1.
 # Il conteggio
-Le mani si contano con la carta comune come quinta carta: prima il giocatore alla sinistra del mazziere, il mazziere per ultimo, e poi il mazzetto del mazziere.
-- Ogni combinazione di carte che somma 15: 2.
-- Ogni coppia: 2 (un tris fa tre coppie: 6).
-- Ogni scala di 3 carte o più: 1 punto per carta (una scala doppia conta due volte).
-- Quattro carte della mano dello stesso seme: 4, o 5 se anche la carta comune è di quel seme. Il mazzetto conta solo un colore di cinque carte.
+Ogni mano si conta con la carta comune: prima la sinistra del mazziere, il mazziere per ultimo, poi il mazzetto.
+- Ogni 15: 2. Ogni coppia: 2. Ogni scala: 1 per carta (una scala doppia conta due volte).
+- Quattro carte dello stesso seme nella mano: 4, o 5 con la carta comune. Il mazzetto conta solo un colore di cinque carte.
 - Il fante della mano dello stesso seme della carta comune: 1 (his nobs).
 # La fine della partita
-Il primo giocatore che arriva a 121 vince subito, anche a metà del gioco o del conteggio. Per questo l'ordine del conteggio è importante.
-# Giocare sul dispositivo
-Le mani sono segrete: passa il dispositivo quando lo chiede lo schermo, e il giocatore successivo tocca il pulsante di avvio. La tua mano è in basso, quelle degli altri in alto. Sulla tavoletta ogni giocatore ha una corsia: i pioli vanno avanti lungo una fila e tornano lungo l'altra, per due giri, fino al buco finale. Ogni giocatore ha due pioli: quello dietro scavalca quello davanti di tanti buchi quanti sono i punti segnati.
-- Tocca 2 carte (con 3 giocatori: 1) per sceglierle, poi tocca il mazzetto per metterle da parte.
-- Tocca il mazzo per alzarlo.
-- Tocca una carta per sceglierla, poi toccala di nuovo (o trascinala sul tavolo) per calarla. Brillano le carte che non fanno superare 31. Il «go» si dice da solo: un segno appare nella barra del giocatore.
-- Nel conteggio, ogni mano e poi il mazzetto vengono al centro con la carta comune. Ogni combinazione che segna si illumina a turno e i suoi punti salgono sopra di essa (un 15 prima dei punti: un quindici). Poi il piolo avanza. Tocca per proseguire; un tocco durante il conteggio lo mostra subito.
-Annulla ritira le tue azioni, fino al momento in cui è stato passato il dispositivo.
+Il primo che arriva a 121 vince subito, anche a metà del gioco o del conteggio.

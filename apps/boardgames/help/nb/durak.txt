@@ -1,28 +1,18 @@
 Durak
 # Målet
-Bli kvitt alle kortene dine. Den siste spilleren som fortsatt har kort, er durak, tosken, og taper; alle de andre vinner sammen. For 2 til 6 spillere (oftest 2 eller 3), med en kortstokk på 36 kort. To varianter å velge mellom: med tilkasting (podkidnoy) og med videresending (perevodnoy).
+Bli kvitt alle kortene dine. Den siste spilleren som fortsatt har kort, er durak, tosken, og taper.
 # Kortene
-- Fra lavest til høyest: 6, 7, 8, 9, 10, knekt, dame, konge, ess.
-- Hver spiller får seks kort. Det neste kortet snus og legges på tvers under stokken: fargen er trumf hele spillet, og det er det siste kortet som trekkes.
-- Den som har lavest trumf, angriper først; neste spiller forsvarer seg.
+- Fra lavest til høyest: 6 til 10, knekt, dame, konge, ess. Seks kort hver; det snudde kortet under stokken gir trumf og trekkes sist.
+- Lavest trumf angriper først; neste spiller forsvarer seg.
 # Et angrep
-- Angriperen spiller ut ett kort, eller flere kort av samme valør.
-- Forsvareren slår hvert angrepskort med et høyere kort i samme farge, eller med en trumf. En trumf kan bare slås av en høyere trumf.
-- Når alle kortene er slått, kan de andre kaste til flere kort av en valør som allerede ligger på bordet: angriperen først, så hver av de andre etter tur. Også disse må forsvareren slå.
-- Et angrep har høyst seks kort, og aldri flere enn forsvareren hadde på hånden da det begynte.
-- En forsvarer som ikke kan eller vil slå, tar kortene: de andre kan fortsatt kaste til, og så tar forsvareren opp alle kortene på bordet.
+- Angriperen spiller ut ett kort, eller flere av samme valør.
+- Forsvareren slår hvert med et høyere kort i samme farge, eller med en trumf; en trumf bare med en høyere trumf.
+- Når alle er slått, kan de andre, angriperen først, kaste til kort av en valør som ligger på bordet; også disse må slås. Høyst seks angrepskort, aldri flere enn forsvareren hadde ved starten.
+- En forsvarer som ikke kan eller vil slå, tar kortene: etter de siste tilkastene tar han opp alle kortene på bordet.
 # Etter et angrep
-- Ble alle kortene slått og ingen kaster til flere, legges kortene til side, og forsvareren angriper neste gang.
-- Tok forsvareren kortene, mister han sin tur til å angripe: spilleren etter ham angriper.
-- Alle trekker opp til seks kort fra stokken: angriperen først, så de andre etter tur, forsvareren sist.
+- Alt slått: kortene legges til side, og forsvareren angriper neste gang. Tatt: spilleren etter ham angriper.
+- Alle trekker opp til seks kort, angriperen først, forsvareren sist.
 # Slutten på spillet
-Når stokken er tom, er en spiller uten kort ute av spillet, i sikkerhet. Den siste spilleren som fortsatt har kort, er durak. Går de siste spillerne tom for kort samtidig, taper ingen.
+Når stokken er tom, er en spiller uten kort ute av spillet, i sikkerhet. Går de siste spillerne tom for kort samtidig, taper ingen.
 # Spillet med videresending
-Før han har slått noe kort, kan forsvareren sende angrepet videre ved å legge til et kort av samme valør som angrepskortene. Da forsvarer neste spiller seg mot alle disse kortene, hvis han har minst like mange kort som det nå ligger på bordet, og den som sendte angrepet videre, blir med i angrepet.
-# Spill på enheten
-Send enheten rundt: hver spiller ser bare sine egne kort, nederst, sortert etter farge, trumfene sist. Langs toppen sitter de andre: kortene deres med baksiden opp og hvor mange, et sverd ved angriperen, et skjold ved forsvareren, et pass-tegn ved en spiller som har meldt pass. Stokken ligger på den ene siden med trumfkortet under seg (tegnet for fargen når stokken er tom), kortene som er lagt til side, på den andre.
-- Angripe eller kaste til: trykk på kortene dine (de du kan kaste til, lyser), og trykk så på bordet eller dra dem dit. Med pass-knappen i panelet ditt melder du pass.
-- Forsvare: trykk på et kort (kortene det kan slå, lyser), og så på kortet som skal slås. Den runde knappen med pilen tar kortene; den fortsetter å lyse så lenge de andre kaster til.
-- I spillet med videresending får et kort av angrepets valør en tom plass ved siden av angrepet til å lyse: trykk på den for å sende angrepet videre.
-Etter hvert angrep går enheten til forsvareren; når alt er slått, til hver av de andre etter tur, angriperen først, for å kaste til eller melde pass.
-Åpne kort (kortene med et øye i valget): alle hender ligger åpne for alle, og enheten går videre uten at noe skjules – en måte å lære spillet sammen på.
+Før han slår, kan forsvareren sende angrepet videre med et kort av samme valør, hvis neste spiller har minst like mange kort som det da ligger på bordet. Han forsvarer seg mot alle disse kortene; den som sendte videre, blir med i angrepet.

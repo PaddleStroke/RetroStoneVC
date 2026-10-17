@@ -1,28 +1,18 @@
 Durak
 # Målet
-Bli av med alla dina kort. Den sista spelaren som fortfarande har kort är durak, dumbommen, och förlorar; alla andra vinner tillsammans. För 2 till 6 spelare (oftast 2 eller 3), med en kortlek på 36 kort. Två varianter att välja mellan: den där man kastar på (podkidnoy) och den där man skickar vidare (perevodnoy).
+Bli av med alla dina kort. Den sista spelaren som fortfarande har kort är durak, dumbommen, och förlorar.
 # Korten
-- Från lägst till högst: 6, 7, 8, 9, 10, knekt, dam, kung, ess.
-- Varje spelare får sex kort. Nästa kort vänds upp och läggs på tvären under leken: dess färg är trumf hela spelet, och det blir det sista kortet som dras.
-- Den som har lägst trumf anfaller först; nästa spelare försvarar sig.
+- Från lägst till högst: 6 till 10, knekt, dam, kung, ess. Sex kort var; det uppvända kortet under leken ger trumf och dras sist.
+- Lägst trumf anfaller först; nästa spelare försvarar sig.
 # Ett anfall
-- Anfallaren spelar ut ett kort, eller flera kort av samma valör.
-- Försvararen slår varje anfallskort med ett högre kort i samma färg, eller med en trumf. En trumf kan bara slås av en högre trumf.
-- När alla kort är slagna får de andra kasta på fler kort av en valör som redan ligger på bordet: först anfallaren, sedan var och en av de andra i tur och ordning. Även dem måste försvararen slå.
-- Ett anfall har högst sex kort, och aldrig fler än försvararen hade på hand när det började.
-- En försvarare som inte kan eller vill slå tar upp: de andra får fortfarande kasta på kort, sedan tar försvararen upp alla kort på bordet.
+- Anfallaren spelar ut ett kort, eller flera av samma valör.
+- Försvararen slår vart och ett med ett högre kort i samma färg, eller med en trumf; en trumf bara med en högre trumf.
+- När alla är slagna får de andra, först anfallaren, kasta på kort av en valör som ligger på bordet; även de måste slås. Högst sex anfallskort, aldrig fler än försvararen hade i början.
+- En försvarare som inte kan eller vill slå tar upp: efter de sista påkasten tar han upp alla kort på bordet.
 # Efter ett anfall
-- Om alla kort slogs och ingen kastar på fler, läggs korten åt sidan och försvararen anfaller härnäst.
-- Om försvararen tog upp korten förlorar han sin tur att anfalla: spelaren efter honom anfaller.
-- Alla drar upp till sex kort från leken: först anfallaren, sedan de andra i tur och ordning, försvararen sist.
+- Allt slaget: korten läggs åt sidan och försvararen anfaller härnäst. Upptaget: spelaren efter honom anfaller.
+- Alla drar upp till sex kort, först anfallaren, försvararen sist.
 # Partiets slut
-När leken är slut är en spelare utan kort ute ur spelet, räddad. Den sista spelaren som fortfarande har kort är durak. Om de sista spelarna blir av med sina kort samtidigt förlorar ingen.
+När leken är slut är en spelare utan kort ute ur spelet, räddad. Om de sista spelarna blir av med sina kort samtidigt förlorar ingen.
 # Att skicka vidare
-Innan försvararen har slagit något kort får han skicka anfallet vidare genom att lägga till ett kort av samma valör som anfallskorten. Då försvarar sig nästa spelare mot alla dessa kort, om han har minst lika många kort som nu ligger på bordet, och den som skickade vidare deltar i anfallet.
-# Spela på enheten
-Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned, sorterade efter färg, trumfen sist. Längst upp sitter de andra: deras kort med baksidan upp och hur många, ett svärd vid anfallaren, en sköld vid försvararen, ett passtecken vid en spelare som har passat. Leken ligger på ena sidan med trumfkortet under sig (tecknet för dess färg när leken är slut), de bortlagda korten på den andra.
-- Anfalla eller kasta på: tryck på dina kort (de du får kasta på lyser), och tryck sedan på bordet eller dra dit dem. Med passknappen i ditt fält passar du.
-- Försvara: tryck på ett kort (korten det kan slå lyser), sedan på kortet som ska slås. Den runda knappen med pilen tar upp korten; den fortsätter att lysa medan de andra kastar på.
-- I varianten där man skickar vidare tänder ett kort av anfallets valör en tom plats bredvid anfallet: tryck på den för att skicka anfallet vidare.
-Efter varje anfall går enheten till försvararen; när allt är slaget, till var och en av de andra i tur och ordning, anfallaren först, för att kasta på eller passa.
-Öppna kort (korten med ett öga i valet): alla händer ligger öppna för alla, och enheten går vidare utan att något döljs – ett sätt att lära sig spelet tillsammans.
+Innan han slår får försvararen skicka anfallet vidare med ett kort av samma valör, om nästa spelare har minst lika många kort som då ligger på bordet. Han försvarar sig mot alla dessa kort; den som skickade vidare deltar i anfallet.

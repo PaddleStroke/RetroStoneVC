@@ -1,18 +1,16 @@
 Big Two
 # Amaç
-Bütün kartlarını herkesten önce oynamak. 4 oyuncu (ya da 3) için bir Kanton oyunu; 52 kartlık destenin tamamı dağıtılır: herkese 13 kart (3 oyuncuda herkese 17 kart, son kart da karo 3'ü elinde tutan oyuncuya).
+Bütün kartlarını herkesten önce oynamak. 3 oyuncuda son kart, karo 3'ü elinde tutan oyuncuya gider.
 # Kartlar
-- En düşükten en yükseğe: 3, 4, 5, 6, 7, 8, 9, 10, vale, kız, papaz, as ve hepsinden yüksek olan 2.
-- Renkler, en düşükten en yükseğe: karo, sinek, kupa, maça. Aynı değerdeki iki karttan rengi yüksek olan üstündür: maça 2 en yüksek karttır.
+- En düşükten en yükseğe: 3'ten 10'a, vale, kız, papaz, as, 2.
+- Aynı değerdeki kartlarda renk belirler, en düşükten en yükseğe: karo, sinek, kupa, maça.
 # Kombinasyonlar
 - Tek kart, bir çift, bir üçlü.
-- Beş kartlık eller, en düşükten en yükseğe: kent (art arda beş değer, 3-4-5-6-7'den 10-J-Q-K-A'ya kadar; 2 hiçbir zaman kente girmez), floş (aynı renkten beş kart), ful (bir üçlü ve bir çift), kare ve herhangi bir beşinci kart, sıralı floş.
-- Aynı türden iki kombinasyonda en yüksek kartı olan üstündür. Floşta önce en yüksek kart, sonra sıradakiler karşılaştırılır; ful ve karede üç ya da dört aynı kartın değeri belirler.
+- Beş kart, en düşükten en yükseğe: kent (3-4-5-6-7'den 10-J-Q-K-A'ya kadar, asla 2 ile değil), floş, ful, kare ve herhangi bir beşinci kart, sıralı floş.
+- Aynı türde en yüksek kart belirler (floşta sonra sıradakiler); ful ve karede üç ya da dört aynı kart.
 # Bir el
 - Karo 3 elinde olan oyuncu, onu içeren bir kombinasyonla ilk ele başlar.
-- Sırayla her oyuncu aynı türden ve aynı büyüklükte daha yüksek bir kombinasyon oynar ya da pas der. Pas diyen oyuncu, sıra yeniden ona geldiğinde yine oynayabilir.
-- Diğerlerinin hepsi arka arkaya pas deyince, en son oynayan oyuncu istediği bir kombinasyonla yeni bir el başlatır.
+- Sırayla her oyuncu son oyunu aynı türden ve aynı büyüklükte bir kombinasyonla geçer ya da pas der; sonra yine oynayabilir.
+- Diğerlerinin hepsi arka arkaya pas deyince, en son oynayan oyuncu istediği bir kombinasyonla başlar.
 # Puanlama
-Kartları ilk biten oyuncu kazanır. Diğer her oyuncu elinde kalan her kart için bir ceza puanı alır; on ya da daha fazla kart kaldıysa ceza iki katına çıkar.
-# Cihazda oynamak
-Cihazı elden ele verin: herkes yalnızca kendi kartlarını, altta, en düşükten en yükseğe görür. Üst tarafta diğerleri oturur: kapalı kartları, kaç tane oldukları ve son hamleden beri pas dedilerse bir pas işareti. Son hamle, oynayanın puluyla ortada büyük durur, önceki hamleler arkasında daha küçük görünür. Seçmek için kartlara dokun, sonra ortaya dokun ya da onları oraya sürükle: seçimin oynanabiliyorsa orta kısım yanar. Karo 3, onunla başlaması gereken oyuncu için parlar. Pas düğmesi senin şeridindedir. Sonunda bir tablo her oyuncunun kalan kartlarını ve cezasını gösterir.
+Kartları ilk biten oyuncu kazanır. Diğerleri elde kalan her kart için bir ceza puanı alır; on ya da daha fazlaysa iki katı.

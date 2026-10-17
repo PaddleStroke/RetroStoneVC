@@ -1,19 +1,17 @@
 Domino
 # Målet
-Bli kvitt alle brikkene dine før de andre ved å legge dem til endene av rekken. Med dobbel-seks-settet, for 2 til 4 spillere, hver for seg. Hendene er hemmelige: gi enheten videre etter hver tur. Tre spill å velge mellom: blokkspillet, trekkspillet og All Fives (Muggins).
+Bli den første som blir kvitt alle brikkene sine, ved å legge dem til de åpne endene av rekken.
 # Utdelingen
-De 28 brikkene stokkes med baksiden opp. Hver spiller tar 7 brikker med to spillere, 5 med tre eller fire. Resten blir liggende med baksiden opp: bunken.
+Hver spiller får 7 brikker med to spillere, 5 med tre eller fire. Resten er bunken.
 # En tur
-- I første runde legger spilleren med den høyeste dobbeltbrikken den først (har ingen en dobbeltbrikke, den tyngste brikken). I de neste rundene begynner vinneren av forrige runde med en valgfri brikke.
-- Legg etter tur en brikke der den ene halvdelen passer til en åpen ende av rekken, med like halvdeler mot hverandre. Dobbeltbrikker ligger på tvers.
+- Første runde: den høyeste dobbeltbrikken begynner (har ingen en dobbeltbrikke, den tyngste brikken). De neste rundene: vinneren av forrige runde begynner med en valgfri brikke.
+- Legg en brikke som passer til en åpen ende av rekken.
 - Blokkspill: kan du ikke legge, står du over.
-- Trekkspill og All Fives: kan du ikke legge, trekker du fra bunken til du kan. Er bunken tom, står du over.
+- Trekkspill og All Fives: kan du ikke legge, trekker du til du kan; er bunken tom, står du over.
 # All Fives
-- Den første dobbeltbrikken som legges, er spinneren. Når det er lagt til begge langsidene, kan man også legge til de to kortsidene: rekken har da fire ender.
-- Legg sammen de åpne endene når du har lagt brikken din. Er summen et multiplum av 5, får du den med en gang. En dobbeltbrikke ytterst teller med begge halvdelene.
+- Den første dobbeltbrikken er spinneren: når det er lagt til begge langsidene, åpnes også kortsidene.
+- Blir summen av de åpne endene et multiplum av 5 når du har lagt brikken din, får du summen. En dobbeltbrikke ytterst teller med begge halvdelene.
 # Slutten på en runde
-Runden slutter når en spiller legger sin siste brikke, eller når ingen kan legge mer. Den som gikk ut, eller ved et blokkert spill den med færrest øyne på hånden, vinner runden og får øynene på de andre hendene (All Fives: avrundet til nærmeste multiplum av 5). Står to spillere likt med færrest øyne, får ingen poeng.
+Runden slutter når en spiller går ut, eller når ingen kan legge mer. Den som gikk ut, eller den med færrest øyne på hånden, får øynene på de andre hendene (All Fives: avrundet til nærmeste multiplum av 5); står to spillere likt med færrest øyne, får ingen poeng.
 # Slutten på spillet
-Spillet slutter etter runden der en spiller når 100 poeng; i All Fives så snart en spiller når 100. Høyeste sum vinner.
-# Spill på enheten
-Brikkene dine står nederst; de du ikke kan legge, er nedtonet. Trykk på en brikke og så på en av de lysende plassene der den passer, eller dra den dit. Trykk på bunken til venstre for å trekke; kan du bare stå over, kommer pass-knappen fram i panelet ditt. I All Fives viser telleren til høyre summen av de åpne endene; den lyser gull ved et multiplum av 5. Panelet til hver spiller viser poengene og antall brikker. Etter hver runde viser en tavle brikkene som er igjen, rundens poeng og summene: trykk på den for neste runde.
+Etter runden der en spiller når 100 poeng (i All Fives med en gang), vinner høyeste sum.

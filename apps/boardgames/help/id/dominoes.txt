@@ -1,19 +1,17 @@
 Domino
 # Tujuan
-Habiskan semua kartu dominomu sebelum pemain lain dengan mencocokkannya ke ujung barisan permainan. Dengan set balak enam, untuk 2 sampai 4 pemain, masing-masing untuk diri sendiri. Kartu di tangan dirahasiakan: serahkan perangkat setelah setiap giliran. Tiga permainan untuk dipilih: permainan blok, permainan ambil dan All Fives (Muggins).
+Jadilah yang pertama menghabiskan semua kartu dominomu dengan mencocokkannya ke ujung terbuka barisan.
 # Pembagian
-Ke-28 kartu dikocok dalam keadaan tertutup. Setiap pemain mengambil 7 kartu jika berdua, 5 jika bertiga atau berempat. Sisanya tetap tertutup: itulah tumpukan.
+Setiap pemain mengambil 7 kartu jika berdua, 5 jika bertiga atau berempat. Sisanya menjadi tumpukan.
 # Satu giliran
-- Pada ronde pertama, pemain dengan balak tertinggi meletakkannya lebih dulu (jika tidak ada yang punya balak, kartu yang paling berat). Pada ronde berikutnya, pemenang ronde terakhir memulai dengan kartu apa saja.
-- Bergiliran, letakkan satu kartu yang salah satu sisinya cocok dengan ujung terbuka barisan, sisi yang sama saling menempel. Balak diletakkan melintang.
+- Ronde pertama: balak tertinggi memulai (jika tidak ada yang punya balak, kartu yang paling berat). Ronde berikutnya: pemenang ronde terakhir memulai dengan kartu apa saja.
+- Letakkan satu kartu yang cocok dengan ujung terbuka barisan.
 - Permainan blok: jika tidak bisa bermain, lewati giliran.
-- Permainan ambil dan All Fives: jika tidak bisa bermain, ambil dari tumpukan sampai bisa. Jika tumpukan kosong, lewati giliran.
+- Permainan ambil dan All Fives: jika tidak bisa bermain, ambil sampai bisa; jika tumpukan kosong, lewati giliran.
 # All Fives
-- Balak pertama yang dimainkan adalah spinner. Setelah kedua sisi panjangnya disambung, kartu juga boleh diletakkan di kedua sisi pendeknya: barisan lalu punya empat ujung.
-- Setelah meletakkan kartu, jumlahkan ujung-ujung yang terbuka. Jika jumlahnya kelipatan 5, kamu langsung mendapatkannya. Balak di ujung dihitung kedua sisinya.
+- Balak pertama adalah spinner: setelah kedua sisi panjangnya disambung, kedua sisi pendeknya juga terbuka.
+- Jika setelah kartumu jumlah ujung-ujung yang terbuka adalah kelipatan 5, kamu mendapatkannya. Balak di ujung dihitung kedua sisinya.
 # Akhir ronde
-Ronde berakhir ketika seorang pemain meletakkan kartu terakhirnya, atau ketika tak ada yang bisa bermain. Pemain yang habis, atau, jika permainan buntu, pemain dengan mata paling sedikit di tangan, memenangkan ronde dan mendapat mata yang tersisa di tangan pemain lain (All Fives: dibulatkan ke kelipatan 5 terdekat). Jika dua pemain sama-sama punya mata paling sedikit, tak seorang pun mendapat poin.
+Ronde berakhir ketika seorang pemain menghabiskan kartunya, atau ketika tak ada yang bisa bermain. Pemain yang habis, atau pemain dengan mata paling sedikit di tangan, mendapat mata yang tersisa di tangan pemain lain (All Fives: dibulatkan ke kelipatan 5 terdekat); jika dua pemain sama-sama punya mata paling sedikit, tak seorang pun mendapat poin.
 # Akhir permainan
-Permainan berakhir setelah ronde ketika seorang pemain mencapai 100 poin; pada All Fives, begitu seorang pemain mencapai 100. Total tertinggi menang.
-# Bermain di perangkat
-Kartumu berdiri di bawah; kartu yang tidak bisa dimainkan tampak redup. Ketuk sebuah kartu, lalu salah satu tempat menyala yang cocok, atau seret kartu ke sana. Ketuk tumpukan di kiri untuk mengambil; jika kamu hanya bisa melewati giliran, tombol lewati muncul di bilahmu. Pada All Fives, penghitung di kanan menunjukkan jumlah ujung yang terbuka; ia menyala emas pada kelipatan 5. Bilah setiap pemain menunjukkan poinnya dan jumlah kartunya. Setelah setiap ronde, sebuah tabel menunjukkan kartu yang tersisa, poin ronde dan totalnya: ketuk untuk ronde berikutnya.
+Setelah ronde ketika seorang pemain mencapai 100 poin (pada All Fives, saat itu juga), total tertinggi menang.

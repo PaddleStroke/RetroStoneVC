@@ -1,26 +1,20 @@
 Verrückte Acht
 # Das Ziel
-Als Erster alle Karten loswerden. Zwei Spiele zur Wahl: Verrückte Acht mit einem Blatt aus 52 Karten und Letzte Karte mit einem Blatt aus 108 farbigen Karten und Aktionskarten. Für 2 bis 6 Spieler.
+Als Erster alle Karten loswerden.
 # Ein Zug
-- Lege eine Karte auf den Ablagestapel: eine Karte derselben Farbe oder derselben Zahl oder desselben Zeichens wie die oberste Karte.
-- Kannst du nicht legen, ziehst du vom Stapel.
-- Die erste aufgedeckte Karte ist nie eine Acht, eine Aktionskarte oder ein Joker.
+- Lege eine Karte derselben Farbe oder derselben Zahl oder desselben Zeichens wie die oberste Karte des Ablagestapels. Kannst du nicht, ziehst du.
 # Verrückte Acht
-- Zu zweit 7 Karten für jeden, mit mehr Spielern 5.
 - Eine Acht darf man jederzeit legen und bestimmt dann die Farbe, die bedient werden muss.
-- Ziehen darf nur, wer nicht legen kann: eine Karte nach der anderen, bis es geht. Ist nichts mehr zu ziehen, passt man.
-- Punkte: Acht 50, König, Dame und Bube 10, Ass 1, die anderen Karten ihren Wert. Gespielt wird bis 100.
+- Zieh, bis du legen kannst; ist nichts mehr zu ziehen, passt du.
+- Punkte: Acht 50, König, Dame und Bube 10, Ass 1, die anderen ihren Wert. Gespielt wird bis 100.
 # Letzte Karte
-- 7 Karten für jeden. Ein Joker darf jederzeit gelegt werden und bestimmt die Farbe, die folgen muss.
-- Aussetzen: Der nächste Spieler setzt eine Runde aus. Richtungswechsel: Das Spiel läuft andersherum (zu zweit wirkt er wie Aussetzen). Zieh zwei: Der nächste Spieler zieht 2 Karten und setzt aus.
-- Joker Zieh vier: Bestimme die Farbe; der nächste Spieler zieht 4 Karten und setzt aus. Er darf nur gelegt werden, wenn du keine Karte der verlangten Farbe hast. Das Gerät prüft es, darum gibt es keinen Einspruch.
-- Zieh zwei und Zieh vier lassen sich nicht stapeln: Der nächste Spieler zieht einfach.
-- Statt zu legen, darfst du eine Karte ziehen. Passt sie, lege sie sofort, oder behalte sie und passe.
-- Letzte Karte: Kurz bevor du deine vorletzte Karte legst, tippe auf den Knopf für die letzte Karte. Vergisst du es, darf dich der nächste Spieler erwischen, bevor er etwas anderes tut, und du ziehst 2 Karten.
+- Ein Joker darf jederzeit gelegt werden und bestimmt die Farbe, die folgen muss.
+- Aussetzen: Der nächste Spieler setzt eine Runde aus. Richtungswechsel: Das Spiel läuft andersherum (zu zweit ein Aussetzen). Zieh zwei: Der nächste Spieler zieht 2 und setzt aus.
+- Joker Zieh vier: Bestimme die Farbe; der nächste Spieler zieht 4 und setzt aus. Nur erlaubt, wenn du keine Karte der verlangten Farbe hast.
+- Ziehkarten lassen sich nicht stapeln. Statt zu legen, darfst du eine Karte ziehen: Lege sie, wenn sie passt, oder passe.
+- Bevor du deine vorletzte Karte legst, tippe auf den Knopf für die letzte Karte. Vergisst du es, darf dich der nächste Spieler als Erstes erwischen, indem er auf deine Hand tippt: Du ziehst 2.
 - Punkte: Zahlenkarten ihren Wert, Aussetzen, Richtungswechsel und Zieh zwei 20, Joker 50. Gespielt wird bis 500.
 # Das Ende einer Runde
-Wer als Erster keine Karte mehr hat, gewinnt die Runde und bekommt die Punkte der Karten in den anderen Händen. Kann niemand mehr legen oder ziehen, endet die Runde: Wer die wenigsten Punkte auf der Hand hat, gewinnt sie und bekommt den Unterschied zu jeder anderen Hand. Der Geber rückt jede Runde einen Platz weiter.
+Wer als Erster keine Karte mehr hat, bekommt die Punkte der Karten in den anderen Händen. Kann niemand mehr legen oder ziehen, gewinnt die niedrigste Hand und bekommt den Unterschied zu jeder anderen Hand.
 # Das Ende der Partie
 Wer zuerst das Ziel erreicht, gewinnt.
-# Spielen auf dem Gerät
-Das Gerät geht reihum: Jeder sieht unten seine eigene Hand. Die anderen Hände sind kleine Fächer oben, jeder mit dem Stein seines Spielers und seiner Kartenzahl. Bei Letzte Karte zeigt der Pfeilring in der Mitte, in welche Richtung gespielt wird. Tippe auf eine leuchtende Karte, um sie zu legen, oder auf den Stapel, um zu ziehen (er leuchtet, wenn du ziehen musst). Nach einer Acht oder einem Joker tippe auf eine Farbe (ein Ass) oder eine Farbscheibe. Der Knopf für die letzte Karte, eine Karte mit Strahlen, erscheint, wenn du zwei Karten hast; wer ihn gedrückt hat, zeigt ihn neben seiner Hand. Um einen Spieler zu erwischen, der es vergessen hat, tippe auf seine Hand oder seine Leiste. Zum Passen tippe auf den Knopf in deiner Leiste. Nach jeder Runde zeigt eine Tafel die Punkte in jeder Hand, den Gewinn des Siegers und die Summen; tippe darauf für die nächste Runde. Rückgängig nimmt nur eine Wahl in deinem eigenen Zug zurück, nie eine gezogene Karte.

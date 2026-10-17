@@ -1,31 +1,17 @@
 Cribbage
 # Cíl hry
-Jako první získat 121 bodů, zapsaných kolíčky na počítací desce. Pro 2 nebo 3 hráče. Body se získávají během vynášení karet a při počítání rukou.
+Jako první získat 121 bodů.
 # Rozdávání
-- V každém kole rozdá rozdávající každému hráči 6 karet (při 3 hráčích: každému 5 a jedna karta z balíčku jde do cribu).
-- Každý hráč odloží 2 karty lícem dolů (při 3 hráčích: 1). Tvoří crib, ruku navíc, která se počítá rozdávajícímu.
-- Hráč po levici rozdávajícího sejme balíček a horní karta se otočí: startovní karta (starter). Kluk dá rozdávajícímu 2 body (his heels).
-- Po každém kole přechází rozdávání doleva.
+- Každý hráč dostane 6 karet a 2 odloží (při 3 hráčích: 5 a 1, plus jedna karta z balíčku): crib, ruka navíc pro rozdávajícího.
+- Horní karta sejmutého balíčku je startovní karta (starter). Kluk dá rozdávajícímu 2 body (his heels).
 # Hra
-- Počínaje hráčem po levici rozdávajícího vykládají hráči postupně karty lícem nahoru a průběžně sčítají jejich hodnoty: eso 1, 2 až 10 svou hodnotu, kluk, dáma a král 10.
-- Součet nikdy nesmí přesáhnout 31. Hráč, který nemůže vyložit kartu, řekne „go“ a ostatní pokračují, dokud mohou.
-- Součet přesně 15 dává 2, přesně 31 dává 2.
-- Karta stejné hodnoty jako ta předchozí dává 2 za dvojici, 6 za trojici, 12 za čtveřici.
-- Když poslední 3 nebo více vyložených karet tvoří postupku, v jakémkoli pořadí, dává 1 bod za kartu.
-- Když už nikdo nemůže vyložit kartu, hráč, který vyložil poslední, získá 1 (při 31 nic navíc). Součet začíná znovu od 0 dalším hráčem, který ještě má karty. Úplně poslední karta vynášení dává také 1.
+- Postupně každý vyloží kartu a přičte ji k součtu (eso 1, kluk, dáma a král 10), nikdy přes 31; hráč, který nemůže vyložit kartu, řekne „go“.
+- Přesně 15 nebo 31: 2. Dvojice s předchozí kartou: 2, trojice 6, čtveřice 12. Postupka v posledních 3 nebo více kartách, v jakémkoli pořadí: 1 za kartu.
+- Když už nikdo nemůže vyložit kartu, hráč, který vyložil poslední, získá 1 (při 31 nic navíc) a součet začíná znovu od 0. Poslední karta vynášení dává také 1.
 # Počítání rukou
-Ruce se počítají se startovní kartou jako pátou kartou: nejdřív hráč po levici rozdávajícího, rozdávající nakonec a pak crib rozdávajícího.
-- Každá kombinace karet se součtem 15: 2.
-- Každá dvojice: 2 (trojice jsou tři dvojice: 6).
-- Každá postupka ze 3 nebo více karet: 1 bod za kartu (dvojitá postupka se počítá dvakrát).
-- Čtyři karty v ruce stejné barvy: 4, nebo 5, je-li té barvy i startovní karta. Crib počítá jen pět karet stejné barvy.
+Každá ruka se počítá se startovní kartou: nejdřív po levici rozdávajícího, rozdávající nakonec, pak crib.
+- Každá 15: 2. Každá dvojice: 2. Každá postupka: 1 za kartu (dvojitá postupka se počítá dvakrát).
+- Čtyři karty stejné barvy v ruce: 4, nebo 5 se startovní kartou. Crib počítá jen pět karet stejné barvy.
 - Kluk v barvě startovní karty v ruce: 1 (his nobs).
 # Konec hry
-Kdo první dosáhne 121, vyhrává okamžitě, i uprostřed vynášení nebo počítání. Proto záleží na pořadí počítání.
-# Hra na zařízení
-Ruce jsou tajné: když o to obrazovka požádá, podej zařízení dál a další hráč klepne na start. Tvá ruka je dole, ruce ostatních nahoře. Na počítací desce má každý hráč svou dráhu: kolíčky jdou jednou řadou tam a druhou zpět, dvakrát dokola, až do cílové jamky. Každý hráč má dva kolíčky: zadní přeskočí přední o získané body.
-- Klepnutím vyber 2 karty (při 3 hráčích: 1), pak klepni na crib a odlož je.
-- Klepnutím na balíček ho sejmeš.
-- Klepnutím vyber kartu, pak na ni klepni znovu (nebo ji přetáhni na stůl) a vyložíš ji. Karty, se kterými součet nepřesáhne 31, svítí. Go se řekne samo: v liště hráče se ukáže značka.
-- Při počítání přijde každá ruka a pak crib doprostřed se startovní kartou. Každá bodující kombinace se postupně rozsvítí a její body nad ní vystoupají (15 před body: patnáctka). Pak se posune kolíček. Klepnutím pokračuj; klepnutí během počítání ho hned ukáže celé.
-Vrátit vezme zpět tvé vlastní akce, až k okamžiku, kdy se zařízení předalo.
+Kdo první dosáhne 121, vyhrává okamžitě, i uprostřed vynášení nebo počítání.

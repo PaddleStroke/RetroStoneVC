@@ -1,31 +1,17 @@
 Cribbage
 # O objetivo
-Ser o primeiro a chegar aos 121 pontos, marcados com pinos no tabuleiro. Para 2 jogadores, ou 3. Os pontos vêm enquanto as cartas são jogadas e na contagem das mãos.
+Ser o primeiro a chegar aos 121 pontos.
 # A distribuição
-- Em cada mão, quem dá as cartas dá 6 cartas a cada jogador (com 3 jogadores: 5 a cada um, e uma carta do baralho vai para o crib).
-- Cada jogador põe de parte 2 cartas voltadas para baixo (com 3 jogadores: 1). Elas formam o crib, uma mão extra que pontua para quem dá as cartas.
-- O jogador à esquerda de quem dá as cartas corta o baralho, e a carta de cima é virada: é a carta inicial (starter). Um valete dá 2 pontos a quem dá as cartas (his heels).
-- Depois de cada mão, a vez de dar as cartas passa para a esquerda.
+- Cada jogador recebe 6 cartas e põe 2 de parte (com 3 jogadores: 5 e 1, mais uma carta do baralho): o crib, uma mão extra para quem dá as cartas.
+- A carta de cima do baralho cortado é a carta inicial (starter). Um valete dá 2 pontos a quem dá as cartas (his heels).
 # Jogar as cartas
-- A partir da esquerda de quem dá as cartas, os jogadores põem as suas cartas voltadas para cima, um de cada vez, e vão somando os valores: ás 1, 2 a 10 o seu valor, valete, dama e rei 10.
-- A soma nunca pode passar de 31. Um jogador que não pode pôr uma carta diz "go", e os outros continuam enquanto puderem.
-- Uma soma de exatamente 15 vale 2, exatamente 31 vale 2.
-- Uma carta do mesmo valor que a anterior vale 2 por um par, 6 por um trio, 12 por uma quadra.
-- Quando as últimas 3 ou mais cartas postas formam uma sequência, por qualquer ordem, ela vale 1 ponto por carta.
-- Quando ninguém consegue pôr uma carta, o último que pôs marca 1 (nada mais em 31). A soma recomeça do 0 com o jogador seguinte que ainda tem cartas. A última carta de todas também vale 1.
+- À vez, cada um põe uma carta e soma-a ao total (ás 1, valete, dama e rei 10), sem nunca passar de 31; quem não pode pôr uma carta diz "go".
+- Exatamente 15 ou 31: 2. Um par com a carta anterior: 2, um trio 6, uma quadra 12. Uma sequência nas últimas 3 cartas ou mais, por qualquer ordem: 1 por carta.
+- Quando ninguém consegue pôr uma carta, o último que pôs marca 1 (nada mais em 31) e a soma recomeça do 0. A última carta de todas também vale 1.
 # A contagem
-As mãos são contadas com a carta inicial como quinta carta: primeiro o jogador à esquerda de quem dá as cartas, por último quem dá as cartas, e depois o seu crib.
-- Cada combinação de cartas que soma 15: 2.
-- Cada par: 2 (um trio forma três pares: 6).
-- Cada sequência de 3 cartas ou mais: 1 ponto por carta (uma sequência dupla conta duas vezes).
-- Quatro cartas da mão do mesmo naipe: 4, ou 5 se a carta inicial também for desse naipe. No crib só contam cinco cartas do mesmo naipe.
+Cada mão conta com a carta inicial: primeiro a esquerda de quem dá as cartas, por último quem dá as cartas, depois o crib.
+- Cada 15: 2. Cada par: 2. Cada sequência: 1 por carta (uma sequência dupla conta duas vezes).
+- Quatro cartas do mesmo naipe na mão: 4, ou 5 com a carta inicial. No crib só contam cinco cartas do mesmo naipe.
 - O valete do naipe da carta inicial na mão: 1 (his nobs).
 # O fim do jogo
-O primeiro jogador a chegar aos 121 ganha logo, mesmo a meio do jogo das cartas ou da contagem. É por isso que a ordem da contagem importa.
-# Jogar no dispositivo
-As mãos são secretas: passa o dispositivo quando o ecrã o pedir, e o jogador seguinte toca no botão de início. A tua mão fica em baixo, as dos outros em cima. No tabuleiro de pinos cada jogador tem uma pista: os pinos vão por uma fila e voltam pela outra, duas voltas, até ao buraco final. Cada jogador tem dois pinos: o de trás salta para a frente do outro tantos furos quantos os pontos marcados.
-- Toca em 2 cartas (com 3 jogadores: 1) para as escolher e depois toca no crib para as pôr de parte.
-- Toca no baralho para o cortar.
-- Toca numa carta para a escolher e toca-lhe outra vez (ou arrasta-a para a mesa) para a jogar. As cartas que não fazem a soma passar de 31 brilham. O go é dito automaticamente: aparece um sinal na barra do jogador.
-- Na contagem, cada mão e depois o crib vêm para o centro com a carta inicial. Cada combinação que pontua acende-se à vez e os seus pontos sobem por cima dela (um 15 antes dos pontos: um quinze). Depois o pino avança. Toca para continuar; um toque durante a contagem mostra-a de uma vez.
-Anular desfaz as tuas próprias ações, até ao momento em que o dispositivo foi passado.
+O primeiro a chegar aos 121 ganha logo, mesmo a meio do jogo das cartas ou da contagem.

@@ -1,19 +1,17 @@
 Dominos
 # Le but
-Se débarrasser de tous ses dominos avant les autres en les accolant aux bouts de la chaîne. Avec le jeu double-six, de 2 à 4 joueurs, chacun pour soi. Les mains sont secrètes : passe l'appareil après chaque tour. Trois jeux au choix : le jeu bloqué, le jeu avec pioche et All Fives (Muggins).
+Être le premier à se débarrasser de tous ses dominos en les accolant aux bouts ouverts de la chaîne.
 # La donne
-Les 28 dominos sont mélangés face cachée. Chaque joueur en prend 7 à deux joueurs, 5 à trois ou quatre. Les autres restent face cachée : la pioche.
+Chaque joueur prend 7 dominos à deux joueurs, 5 à trois ou quatre. Les autres forment la pioche.
 # Un tour
-- À la première manche, le joueur qui a le plus gros double le pose en premier (si personne n'a de double, le domino le plus lourd). Aux manches suivantes, le gagnant de la dernière manche commence avec le domino de son choix.
-- À ton tour, pose un domino dont un côté correspond à un bout ouvert de la chaîne, les moitiés égales l'une contre l'autre. Les doubles se posent en travers.
+- Première manche : le plus gros double commence (si personne n'a de double, le domino le plus lourd). Manches suivantes : le gagnant de la dernière manche commence avec le domino de son choix.
+- Pose un domino qui correspond à un bout ouvert de la chaîne.
 - Jeu bloqué : si tu ne peux pas jouer, passe.
-- Jeu avec pioche et All Fives : si tu ne peux pas jouer, pioche jusqu'à pouvoir le faire. Quand la pioche est vide, passe.
+- Jeu avec pioche et All Fives : si tu ne peux pas jouer, pioche jusqu'à pouvoir le faire ; quand la pioche est vide, passe.
 # All Fives
-- Le premier double posé est le spinner. Une fois ses deux grands côtés joués, on peut aussi poser sur ses deux petits côtés : la chaîne a alors quatre bouts.
-- Après avoir posé ton domino, additionne les bouts ouverts. Si le total est un multiple de 5, tu le marques aussitôt. Un double en bout de chaîne compte ses deux moitiés.
+- Le premier double est le spinner : une fois ses deux grands côtés joués, ses petits côtés s'ouvrent aussi.
+- Si après ton domino les bouts ouverts font un multiple de 5, tu marques ce total. Un double en bout de chaîne compte ses deux moitiés.
 # La fin d'une manche
-La manche se termine quand un joueur pose son dernier domino, ou quand plus personne ne peut jouer. Celui qui a fini, ou, si le jeu est bloqué, celui qui a le moins de points en main, gagne la manche et marque les points restés dans les autres mains (All Fives : arrondis au multiple de 5 le plus proche). Si deux joueurs sont à égalité pour le moins de points, personne ne marque.
+La manche se termine quand un joueur a posé son dernier domino, ou quand plus personne ne peut jouer. Celui qui a fini, ou celui qui a le moins de points en main, marque les points restés dans les autres mains (All Fives : arrondis au multiple de 5 le plus proche) ; si deux joueurs sont à égalité pour le moins de points, personne ne marque.
 # La fin de la partie
-La partie se termine après la manche où un joueur atteint 100 points ; à All Fives, dès qu'un joueur atteint 100. Le plus gros total gagne.
-# Jouer sur l'appareil
-Tes dominos sont debout en bas ; ceux que tu ne peux pas jouer sont grisés. Touche un domino, puis l'une des places lumineuses où il va, ou fais-le glisser jusque-là. Touche la pioche à gauche pour piocher ; quand tu ne peux que passer, le bouton passer apparaît dans ta barre. À All Fives, le compteur à droite montre la somme des bouts ouverts ; il brille en doré sur un multiple de 5. La barre de chaque joueur montre son score et son nombre de dominos. Après chaque manche, un tableau montre les dominos restants, les points de la manche et les totaux : touche-le pour la manche suivante.
+Après la manche où un joueur atteint 100 points (à All Fives, aussitôt), le plus gros total gagne.

@@ -1,28 +1,18 @@
 Durak
 # Tavoite
-Pääse eroon kaikista korteistasi. Viimeinen pelaaja, jolla on vielä kortteja, on durak eli hölmö ja häviää; kaikki muut voittavat yhdessä. 2–6 pelaajalle (yleensä 2 tai 3), 36 kortin pakalla. Kaksi peliä valittavana: lisäyspeli (podkidnoy) ja siirtopeli (perevodnoy).
+Pääse eroon kaikista korteistasi. Viimeinen pelaaja, jolla on vielä kortteja, on durak eli hölmö ja häviää.
 # Kortit
-- Pienimmästä suurimpaan: 6, 7, 8, 9, 10, jätkä, kuningatar, kuningas, ässä.
-- Jokainen saa kuusi korttia. Seuraava kortti käännetään kuvapuoli ylöspäin ja asetetaan poikittain pakan alle: sen maa on valtti koko pelin ajan, ja se nostetaan viimeisenä.
-- Pienimmän valtin haltija hyökkää ensin; seuraava pelaaja puolustaa.
+- Pienimmästä suurimpaan: 6–10, jätkä, kuningatar, kuningas, ässä. Kuusi korttia kullekin; pakan alle käännetty kortti määrää valtin ja nostetaan viimeisenä.
+- Pienin valtti hyökkää ensin; seuraava pelaaja puolustaa.
 # Hyökkäys
-- Hyökkääjä pelaa yhden kortin tai useita samanarvoisia kortteja.
-- Puolustaja kaataa jokaisen hyökkäyskortin saman maan suuremmalla kortilla tai valtilla. Valtin voi kaataa vain suuremmalla valtilla.
-- Kun kaikki kortit on kaadettu, muut saavat lisätä kortteja, joiden arvo on jo pöydässä: ensin hyökkääjä, sitten vuorollaan kukin muu. Puolustajan on kaadettava nämäkin.
-- Hyökkäyksessä on enintään kuusi korttia, eikä koskaan enempää kuin puolustajalla oli kädessään sen alkaessa.
-- Puolustaja, joka ei voi tai halua kaataa, ottaa kortit: muut saavat vielä lisätä kortteja, ja sitten puolustaja ottaa kaikki pöydän kortit käteensä.
+- Hyökkääjä pelaa yhden kortin tai useita samanarvoisia.
+- Puolustaja kaataa jokaisen saman maan suuremmalla kortilla tai valtilla; valtin vain suuremmalla valtilla.
+- Kun kaikki on kaadettu, muut, ensin hyökkääjä, saavat lisätä kortteja, joiden arvo on pöydässä; nämäkin on kaadettava. Enintään kuusi hyökkäyskorttia, eikä koskaan enempää kuin puolustajalla oli alussa.
+- Puolustaja, joka ei voi tai halua kaataa, ottaa kortit: viimeisten lisäysten jälkeen hän ottaa kaikki pöydän kortit käteensä.
 # Hyökkäyksen jälkeen
-- Jos kaikki kortit kaadettiin eikä kukaan lisää enempää, kortit pannaan sivuun ja puolustaja hyökkää seuraavaksi.
-- Jos puolustaja otti kortit, hän menettää hyökkäysvuoronsa: hänen jälkeensä tuleva pelaaja hyökkää.
-- Kaikki täydentävät kätensä pakasta kuuteen korttiin: ensin hyökkääjä, sitten muut vuorollaan, puolustaja viimeisenä.
+- Kaikki kaadettu: kortit pannaan sivuun ja puolustaja hyökkää seuraavaksi. Otettu: hänen jälkeensä tuleva pelaaja hyökkää.
+- Kaikki täydentävät kätensä kuuteen korttiin, ensin hyökkääjä, puolustaja viimeisenä.
 # Pelin loppu
-Kun pakka on loppunut, pelaaja, jolla ei ole enää kortteja, on pois pelistä ja turvassa. Viimeinen pelaaja, jolla on vielä kortteja, on durak. Jos viimeisiltä pelaajilta loppuvat kortit yhtä aikaa, kukaan ei häviä.
+Kun pakka on loppunut, pelaaja, jolla ei ole enää kortteja, on pois pelistä ja turvassa. Jos viimeisiltä pelaajilta loppuvat kortit yhtä aikaa, kukaan ei häviä.
 # Siirtopeli
-Ennen kuin puolustaja on kaatanut yhtään korttia, hän voi siirtää hyökkäyksen eteenpäin lisäämällä kortin, joka on samanarvoinen kuin hyökkäyskortit. Seuraava pelaaja puolustautuu silloin niitä kaikkia vastaan, jos hänellä on vähintään yhtä monta korttia kuin pöydässä nyt on, ja siirtäjä liittyy hyökkäykseen.
-# Pelaaminen laitteella
-Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla maittain, valtit viimeisinä. Yläreunassa ovat muut: heidän korttinsa kuvapuoli alaspäin ja niiden määrä, miekka hyökkääjän kohdalla, kilpi puolustajan kohdalla ja passimerkki passanneen pelaajan kohdalla. Toisella sivulla on pakka ja valttikortti sen alla (sen maan merkki, kun pakka on loppunut), toisella sivuun pannut kortit.
-- Hyökkääminen tai lisääminen: napauta korttejasi (ne, joita saat lisätä, hehkuvat), napauta sitten pöytää tai vedä ne sinne. Palkkisi Passaa-painikkeella passaat.
-- Puolustaminen: napauta korttia (kortit, jotka se voi kaataa, hehkuvat) ja sitten kaadettavaa korttia. Pyöreä nuolipainike ottaa kortit; se pysyy valaistuna, kun muut lisäävät kortteja.
-- Siirtopelissä hyökkäyksen arvoinen kortti sytyttää tyhjän paikan hyökkäyksen viereen: napauta sitä siirtääksesi hyökkäyksen.
-Laite menee puolustajalle jokaisen hyökkäyksen jälkeen; kun kaikki on kaadettu, vuorollaan kullekin muulle, ensin hyökkääjälle, lisäämään tai passaamaan.
-Avoimet kortit (kortit, joissa on silmä, valinnassa): kaikkien kädet ovat kuvapuoli ylöspäin kaikkien nähtävillä, eikä laitetta ojennettaessa piiloteta mitään – tapa opetella peliä yhdessä.
+Ennen kaatamista puolustaja voi siirtää hyökkäyksen eteenpäin samanarvoisella kortilla, jos seuraavalla pelaajalla on vähintään yhtä monta korttia kuin pöydässä silloin on. Hän puolustautuu niitä kaikkia vastaan; siirtäjä liittyy hyökkäykseen.

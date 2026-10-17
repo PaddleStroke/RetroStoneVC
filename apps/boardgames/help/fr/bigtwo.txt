@@ -1,18 +1,16 @@
 Big Two
 # Le but
-Être le premier à poser toutes ses cartes. Un jeu cantonais pour 4 joueurs (ou 3), avec un jeu de 52 cartes entièrement distribué : 13 chacun (à 3 joueurs, 17 chacun, et la dernière carte à celui qui a le 3 de carreau).
+Être le premier à poser toutes ses cartes. À 3 joueurs, la dernière carte va à celui qui a le 3 de carreau.
 # Les cartes
-- De la plus faible à la plus forte : 3, 4, 5, 6, 7, 8, 9, 10, valet, dame, roi, as, et le 2, la plus forte de toutes.
-- Les couleurs, de la plus faible à la plus forte : carreau, trèfle, cœur, pique. Entre deux cartes de même valeur, la couleur départage : le 2 de pique est la plus forte carte.
+- De la plus faible à la plus forte : 3 à 10, valet, dame, roi, as, 2.
+- Entre deux cartes de même valeur, la couleur départage, de la plus faible à la plus forte : carreau, trèfle, cœur, pique.
 # Les combinaisons
 - Une carte seule, une paire, un brelan.
-- Une main de cinq cartes, de la plus faible à la plus forte : une quinte (cinq valeurs qui se suivent, de 3-4-5-6-7 jusqu'à 10-V-D-R-A ; le 2 n'en fait jamais partie), une couleur (cinq cartes d'une même couleur), un full (un brelan et une paire), un carré avec une cinquième carte quelconque, une quinte flush.
-- Deux combinaisons de même sorte se départagent par leur plus forte carte. Entre deux couleurs, la plus forte carte compte d'abord, puis les suivantes ; entre deux fulls ou deux carrés, la valeur de leurs trois ou quatre cartes.
+- Cinq cartes, de la plus faible à la plus forte : une quinte (3-4-5-6-7 jusqu'à 10-V-D-R-A, jamais avec un 2), une couleur, un full, un carré avec une cinquième carte quelconque, une quinte flush.
+- Deux combinaisons de même sorte se départagent par leur plus forte carte (entre deux couleurs, puis les suivantes) ; deux fulls ou deux carrés par leurs trois ou quatre cartes.
 # Un pli
 - Celui qui a le 3 de carreau entame le premier pli, avec une combinaison qui le contient.
-- Chacun à son tour joue une combinaison plus forte de même sorte et de même taille, ou passe. Un joueur qui a passé peut encore jouer quand son tour revient.
-- Quand tous les autres ont passé à la suite, le dernier à avoir joué commence un nouveau pli avec la combinaison de son choix.
+- Chacun à son tour bat le dernier coup avec une combinaison de même sorte et de même taille, ou passe ; on peut encore jouer ensuite.
+- Quand tous les autres ont passé à la suite, le dernier à avoir joué rejoue ce qu'il veut.
 # Le score
-Le premier qui n'a plus de cartes gagne. Chacun des autres marque un point de pénalité par carte restée en main, doublé à partir de dix cartes.
-# Jouer sur l'appareil
-L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas, de la plus faible à la plus forte. En haut, les autres : leurs cartes face cachée, leur nombre, et un signe passer s'ils ont passé depuis le dernier coup. Le dernier coup est posé en grand au milieu avec le jeton de son joueur, les coups précédents plus petits derrière. Touche des cartes pour les choisir, puis touche le milieu ou fais-les glisser jusque-là : le milieu s'éclaire quand ton choix peut être joué. Le 3 de carreau brille pour le joueur qui doit l'entamer. Le bouton passer est dans ta barre. À la fin, un tableau montre les cartes restantes et la pénalité de chaque joueur.
+Le premier qui n'a plus de cartes gagne. Les autres marquent un point de pénalité par carte restée en main, doublé à partir de dix.

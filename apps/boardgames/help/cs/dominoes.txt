@@ -1,19 +1,17 @@
 Domino
 # Cíl hry
-Zbav se všech svých kostek dřív než ostatní tím, že je přikládáš ke koncům řady. Se sadou dvojitá šestka, pro 2 až 4 hráče, každý sám za sebe. Kostky v ruce jsou tajné: po každém tahu předej zařízení dál. Tři hry na výběr: blokovací hra, hra s dobíráním a All Fives (Muggins).
+Zbav se všech svých kostek jako první tím, že je přikládáš k otevřeným koncům řady.
 # Rozdávání
-28 kostek se zamíchá lícem dolů. Každý hráč si vezme 7 kostek při dvou hráčích, 5 při třech nebo čtyřech. Ostatní zůstanou lícem dolů: to je zásoba.
+Při dvou hráčích má každý 7 kostek, při třech nebo čtyřech 5. Ostatní tvoří zásobu.
 # Tah
-- V prvním kole začíná hráč s nejvyšším dubletem a vyloží ho (nemá-li nikdo dublet, začíná nejtěžší kostkou její majitel). V dalších kolech začíná vítěz minulého kola libovolnou kostkou.
-- Postupně přikládej kostku, jejíž polovina odpovídá otevřenému konci řady; stejné poloviny se dotýkají. Dublety leží napříč.
+- První kolo: začíná nejvyšší dublet (nemá-li nikdo dublet, nejtěžší kostka). Další kola: vítěz minulého kola začíná libovolnou kostkou.
+- Přilož kostku, která odpovídá otevřenému konci řady.
 - Blokovací hra: když nemůžeš hrát, vynech.
-- Hra s dobíráním a All Fives: když nemůžeš hrát, dobírej ze zásoby, dokud nebudeš moct hrát. Když je zásoba prázdná, vynech.
+- Hra s dobíráním a All Fives: když nemůžeš hrát, dobírej, dokud nebudeš moct hrát; když je zásoba prázdná, vynech.
 # All Fives
-- První zahraný dublet je spinner. Jakmile se přiložilo k oběma jeho dlouhým stranám, smí se přikládat i k jeho dvěma krátkým stranám: řada má pak čtyři konce.
-- Po přiložení kostky sečti otevřené konce. Je-li součet násobkem 5, hned ho získáš. Dublet na konci se počítá oběma polovinami.
+- První dublet je spinner: jakmile se přiložilo k oběma jeho dlouhým stranám, otevřou se i jeho krátké strany.
+- Je-li po přiložení tvé kostky součet otevřených konců násobkem 5, získáš ho. Dublet na konci se počítá oběma polovinami.
 # Konec kola
-Kolo končí, když hráč přiloží poslední kostku, nebo když už nikdo nemůže hrát. Kdo dohrál, nebo při zablokované hře ten, kdo má v ruce nejméně ok, vyhrává kolo a získá oka, která zůstala v rukou ostatních (All Fives: zaokrouhleno na nejbližší násobek 5). Mají-li dva hráči stejně nejméně ok, nezíská nikdo nic.
+Kolo končí, když hráč dohraje, nebo když už nikdo nemůže hrát. Kdo dohrál, nebo kdo má v ruce nejméně ok, získá oka, která zůstala v rukou ostatních (All Fives: zaokrouhleno na nejbližší násobek 5); mají-li dva hráči stejně nejméně ok, nezíská nikdo nic.
 # Konec hry
-Hra končí po kole, ve kterém některý hráč dosáhne 100 bodů; v All Fives hned, jak ho někdo dosáhne. Vyhrává nejvyšší součet.
-# Hra na zařízení
-Tvoje kostky stojí dole; ty, které nemůžeš zahrát, jsou ztlumené. Klepni na kostku a pak na jedno ze svítících míst, kam se hodí, nebo ji tam přetáhni. Klepnutím na zásobu vlevo si dobereš; když můžeš jen vynechat, objeví se ve tvé liště tlačítko vynechání. V All Fives ukazuje počítadlo vpravo součet otevřených konců; při násobku 5 svítí zlatě. Lišta každého hráče ukazuje jeho body a počet kostek. Po každém kole ukáže tabulka zbylé kostky, body z kola a součty: klepni na ni a začne další kolo.
+Hra končí po kole, ve kterém některý hráč dosáhne 100 bodů (v All Fives hned); vyhrává nejvyšší součet.

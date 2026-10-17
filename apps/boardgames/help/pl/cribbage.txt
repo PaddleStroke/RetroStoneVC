@@ -1,31 +1,17 @@
 Cribbage
 # Cel gry
-Jako pierwszy zdobyć 121 punktów, odmierzanych kołeczkami na tablicy. Dla 2 graczy albo 3. Punkty zdobywa się podczas wykładania kart oraz przy liczeniu rąk (show).
+Jako pierwszy zdobyć 121 punktów.
 # Rozdanie
-- W każdym rozdaniu rozdający daje każdemu graczowi 6 kart (przy 3 graczach: po 5, a jedna karta z talii trafia do musiku, ang. crib).
-- Każdy gracz odkłada 2 karty zakryte (przy 3 graczach: 1). Tworzą one musik, dodatkową rękę, która liczy się dla rozdającego.
-- Gracz po lewej stronie rozdającego przekłada talię, a jej wierzchnia karta zostaje odkryta: to karta startowa (starter). Walet daje rozdającemu 2 punkty (his heels).
-- Po każdym rozdaniu rozdaje następny gracz po lewej.
+- Każdy gracz dostaje 6 kart i odkłada 2 (przy 3 graczach: 5 i 1, plus jedna karta z talii): musik (ang. crib), dodatkowa ręka dla rozdającego.
+- Wierzchnia karta przełożonej talii to karta startowa (starter). Walet daje rozdającemu 2 punkty (his heels).
 # Rozgrywka
-- Zaczynając od gracza po lewej rozdającego, gracze kolejno wykładają swoje karty odkryte i na bieżąco sumują ich wartości: as 1, 2–10 według wartości, walet, dama i król 10.
-- Suma nigdy nie może przekroczyć 31. Gracz, który nie może wyłożyć karty, mówi „go”, a pozostali grają dalej, dopóki mogą.
-- Suma równa dokładnie 15 daje 2, dokładnie 31 daje 2.
-- Karta tej samej rangi co poprzednia daje 2 za parę, 6 za trójkę, 12 za czwórkę.
-- Gdy ostatnie 3 lub więcej wyłożonych kart tworzą sekwens, w dowolnej kolejności, daje on 1 punkt za kartę.
-- Gdy nikt nie może wyłożyć karty, ostatni gracz, który to zrobił, dostaje 1 (nic więcej przy 31). Suma zaczyna się znów od 0 od następnego gracza, który ma jeszcze karty. Ostatnia karta całego wykładania też daje 1.
+- Po kolei każdy wykłada kartę i dodaje ją do sumy (as 1, walet, dama i król 10), nigdy ponad 31; gracz, który nie może wyłożyć karty, mówi „go”.
+- Dokładnie 15 lub 31: 2. Para z poprzednią kartą: 2, trójka 6, czwórka 12. Sekwens w ostatnich 3 lub więcej kartach, w dowolnej kolejności: 1 za kartę.
+- Gdy nikt nie może wyłożyć karty, ostatni gracz, który to zrobił, dostaje 1 (nic więcej przy 31), a suma zaczyna się znów od 0. Ostatnia karta wykładania też daje 1.
 # Liczenie rąk
-Ręce liczy się z kartą startową jako piątą kartą: najpierw gracz po lewej rozdającego, rozdający na końcu, a potem musik rozdającego.
-- Każda kombinacja kart, która sumuje się do 15: 2.
-- Każda para: 2 (trójka to trzy pary: 6).
-- Każdy sekwens z 3 lub więcej kart: 1 punkt za kartę (podwójny sekwens liczy się dwa razy).
-- Cztery karty ręki w jednym kolorze: 4, albo 5, gdy karta startowa też jest w tym kolorze. Musik liczy tylko pięć kart w jednym kolorze.
+Każdą rękę liczy się z kartą startową: najpierw po lewej rozdającego, rozdający na końcu, potem musik.
+- Każde 15: 2. Każda para: 2. Każdy sekwens: 1 za kartę (podwójny sekwens liczy się dwa razy).
+- Cztery karty w jednym kolorze w ręce: 4, albo 5 z kartą startową. Musik liczy tylko pięć kart w jednym kolorze.
 - Walet w ręce w kolorze karty startowej: 1 (his nobs).
 # Koniec gry
-Pierwszy gracz, który dojdzie do 121, wygrywa od razu, nawet w trakcie wykładania kart lub liczenia rąk. Dlatego kolejność liczenia ma znaczenie.
-# Gra na urządzeniu
-Ręce są tajne: podaj urządzenie, gdy ekran o to poprosi, a następny gracz dotyka przycisku startu. Twoja ręka jest na dole, ręce pozostałych na górze. Na tablicy każdy gracz ma swój tor: kołeczki idą wzdłuż jednego rzędu i wracają wzdłuż drugiego, dwa razy dookoła, do otworu końcowego. Każdy gracz ma dwa kołeczki: tylny przeskakuje przed przedni o tyle otworów, ile zdobył punktów.
-- Dotknij 2 kart (przy 3 graczach: 1), żeby je wybrać, potem dotknij musiku, żeby je odłożyć.
-- Dotknij talii, żeby ją przełożyć.
-- Dotknij karty, żeby ją wybrać, potem dotknij jej jeszcze raz (albo przeciągnij ją na stół), żeby ją wyłożyć. Świecą karty, które nie przekroczą sumy 31. „Go” mówi się samo: na pasku gracza pojawia się znak.
-- Przy liczeniu rąk każda ręka, a potem musik, przechodzi na środek razem z kartą startową. Każda punktowana kombinacja po kolei się podświetla, a jej punkty unoszą się nad nią (15 przed punktami: piętnastka). Potem kołeczek się przesuwa. Dotknij, by przejść dalej; dotknięcie w trakcie liczenia od razu pokazuje wynik.
-Cofnij cofa twoje własne czynności, aż do chwili podania urządzenia.
+Pierwszy, kto dojdzie do 121, wygrywa od razu, nawet w trakcie wykładania kart lub liczenia rąk.

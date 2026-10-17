@@ -1,18 +1,16 @@
 Big Two
 # Målet
-Bliv den første, der har spillet alle sine kort. Et kantonesisk spil for 4 spillere (eller 3), med et spil på 52 kort, der gives helt ud: 13 til hver (med 3 spillere 17 til hver, og det sidste kort til den, der har ruder 3).
+Bliv den første, der har spillet alle sine kort. Med 3 spillere går det sidste kort til den, der har ruder 3.
 # Kortene
-- Fra lav til høj: 3, 4, 5, 6, 7, 8, 9, 10, knægt, dame, konge, es og 2'eren, den højeste af alle.
-- Kulørerne fra lav til høj: ruder, klør, hjerter, spar. Mellem to kort af samme rang afgør kuløren: spar 2 er det højeste kort.
+- Fra lav til høj: 3 til 10, knægt, dame, konge, es, 2.
+- Mellem kort af samme rang afgør kuløren, fra lav til høj: ruder, klør, hjerter, spar.
 # Kombinationerne
 - Et enkelt kort, et par, tre ens.
-- En hånd på fem kort, fra lav til høj: straight (fem kort i rækkefølge, fra 3-4-5-6-7 op til 10-J-Q-K-A; 2'eren er aldrig med), flush (fem kort i samme kulør), fuldt hus (tre ens og et par), fire ens med et vilkårligt femte kort, straight flush.
-- To kombinationer af samme slags afgøres af det højeste kort. En flush afgøres af det højeste kort, derefter de næste; fuldt hus og fire ens af rangen på de tre eller fire ens kort.
+- Fem kort, fra lav til høj: straight (3-4-5-6-7 op til 10-J-Q-K-A, aldrig med en 2'er), flush, fuldt hus, fire ens med et vilkårligt femte kort, straight flush.
+- Samme slags afgøres af det højeste kort (en flush derefter af de næste); fuldt hus og fire ens af de tre eller fire ens kort.
 # Et stik
 - Den, der har ruder 3, spiller ud til første stik med en kombination, der indeholder den.
-- På skift lægger hver spiller en højere kombination af samme slags og størrelse eller melder pas. En spiller, der har meldt pas, må stadig spille, når turen kommer tilbage.
-- Når alle de andre har meldt pas efter hinanden, starter den, der spillede sidst, et nyt stik med en valgfri kombination.
+- På skift slår hver spiller det sidste spil med en kombination af samme slags og størrelse eller melder pas; man må stadig spille senere.
+- Når alle de andre har meldt pas efter hinanden, spiller den, der spillede sidst, en valgfri kombination ud.
 # Pointtælling
-Den første, der er af med alle sine kort, vinder. Hver af de andre får et strafpoint for hvert kort, der er tilbage på hånden, dobbelt ved ti kort eller flere.
-# Spil på enheden
-Send enheden rundt: hver spiller ser kun sine egne kort, nederst, fra lav til høj. Langs toppen sidder de andre: deres kort med bagsiden opad, hvor mange de har, og et pas-tegn, hvis de har meldt pas siden sidste træk. Det sidste træk ligger stort i midten med spillerens markør, de tidligere træk mindre bagved. Tryk på kort for at vælge dem, og tryk så på midten eller træk dem derhen: midten lyser op, når dit valg kan spilles. Ruder 3 lyser for den spiller, der skal spille den ud. Knappen Pas er i dit panel. Til sidst viser en tavle hver spillers resterende kort og strafpoint.
+Den første, der er af med alle sine kort, vinder. De andre får et strafpoint for hvert kort på hånden, dobbelt ved ti eller flere.

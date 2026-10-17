@@ -1,26 +1,20 @@
 Vri åtter
 # Målet
-Å bli først til å spille ut alle kortene sine. To spill å velge mellom: Vri åtter med en kortstokk på 52 kort, og Siste kort med en kortstokk på 108 fargede kort og aksjonskort. For 2 til 6 spillere.
+Å bli først til å spille ut alle kortene sine.
 # En tur
-- Legg ett kort på kastebunken: et kort i samme sort (eller farge) eller med samme tall eller tegn som det øverste kortet.
-- Kan du ikke legge, trekker du fra bunken.
-- Det første kortet som snus, er aldri en åtter, et aksjonskort eller en joker.
+- Legg ett kort i samme sort (eller farge) eller med samme tall eller tegn som det øverste kortet på kastebunken. Kan du ikke, trekker du.
 # Vri åtter
-- 7 kort hver med to spillere, 5 med flere.
 - En åtter kan spilles når som helst: da velger du sorten som skal følges.
-- Man trekker bare når man ikke kan legge, ett kort om gangen, til man kan. Er det ingenting igjen å trekke, står man over.
-- Poeng: åtter 50, konge, dame og knekt 10, ess 1, de andre kortene tallet sitt. Det spilles til 100.
+- Trekk til du kan legge; er det ingenting igjen å trekke, står du over.
+- Poeng: åtter 50, konge, dame og knekt 10, ess 1, de andre tallet sitt. Det spilles til 100.
 # Siste kort
-- 7 kort hver. En joker kan spilles når som helst: da velger du fargen som skal følges.
-- Hopp over: neste spiller mister turen. Snu: spillet går andre veien (med to spillere virker det som hopp over). Trekk to: neste spiller trekker 2 kort og mister turen.
-- Joker trekk fire: velg fargen; neste spiller trekker 4 kort og mister turen. Den kan bare spilles når du ikke har noe kort i fargen som skal følges. Enheten sjekker det, så det finnes ingen utfordring.
-- Trekk to og trekk fire kan ikke legges oppå hverandre: neste spiller bare trekker.
-- I stedet for å legge kan du trekke ett kort. Passer det, legg det med en gang, eller behold det og stå over.
-- Siste kort: rett før du legger ditt nest siste kort, trykker du på knappen for siste kort. Glemmer du det, kan neste spiller ta deg før han gjør noe annet, og du trekker 2 kort.
+- En joker kan spilles når som helst: da velger du fargen som skal følges.
+- Hopp over: neste spiller mister turen. Snu: spillet går andre veien (med to spillere hopp over). Trekk to: neste spiller trekker 2 og mister turen.
+- Joker trekk fire: velg fargen; neste spiller trekker 4 og mister turen. Bare når du ikke har noe kort i fargen som skal følges.
+- Trekkort kan ikke legges oppå hverandre. I stedet for å legge kan du trekke ett kort: legg det hvis det passer, eller stå over.
+- Rett før du legger ditt nest siste kort, trykker du på knappen for siste kort. Glemmer du det, kan neste spiller ta deg først ved å trykke på hånden din: du trekker 2.
 - Poeng: tallkort verdien sin, hopp over, snu og trekk to 20, jokere 50. Det spilles til 500.
 # Slutten på en runde
-Den første spilleren uten kort vinner runden og får poengene for kortene på de andres hender. Kan ingen lenger legge eller trekke, slutter runden: den med færrest poeng på hånden vinner den og får forskjellen til hver annen hånd. Giveren flytter én plass for hver runde.
+Den første spilleren uten kort får poengene for kortene på de andres hender. Kan ingen lenger legge eller trekke, vinner den laveste hånden og får forskjellen til hver annen hånd.
 # Slutten på spillet
 Den første som når målet, vinner.
-# Spill på enheten
-Send enheten rundt: hver spiller ser sin egen hånd nederst. De andres hender er små vifter øverst, hver med spillerens markør og antall kort. I Siste kort viser ringen av piler i midten hvilken vei spillet går. Trykk på et kort som lyser for å legge det; trykk på bunken for å trekke (den lyser når du må trekke). Etter en åtter eller en joker trykker du på en sort (et ess) eller en farge (en skive). Knappen for siste kort, et kort med stråler, dukker opp når du har to kort; en spiller som har brukt den, viser den ved hånden sin. For å ta en spiller som glemte det, trykker du på hånden eller panelet hans. For å stå over trykker du på knappen i panelet ditt. Etter hver runde viser en tabell poengene på hver hånd, vinnerens gevinst og summene; trykk på den for neste runde. Angre tar bare tilbake et valg i din egen tur, aldri et trukket kort.

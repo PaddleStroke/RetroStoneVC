@@ -1,28 +1,18 @@
 Durak
 # Cíl hry
-Zbav se všech svých karet. Poslední hráč, kterému zůstanou karty, je durak, hlupák, a prohrává; všichni ostatní vyhrávají společně. Pro 2 až 6 hráčů (obvykle 2 nebo 3), s balíčkem 36 karet. Na výběr jsou dvě hry: s přihazováním (podkidnoy) a s předáváním (perevodnoy).
+Zbav se všech svých karet. Poslední hráč, kterému zůstanou karty, je durak, hlupák, a prohrává.
 # Karty
-- Od nejnižší po nejvyšší: 6, 7, 8, 9, 10, kluk, dáma, král, eso.
-- Každý hráč dostane šest karet. Další karta se otočí lícem nahoru a položí se napříč pod balíček: její barva je po celou hru trumfová a lízne se jako poslední.
-- Hráč s nejnižším trumfem útočí první; další hráč se brání.
+- Od nejnižší po nejvyšší: 6 až 10, kluk, dáma, král, eso. Každý šest karet; otočená karta pod balíčkem určuje trumfy a lízne se jako poslední.
+- Nejnižší trumf útočí první; další hráč se brání.
 # Útok
 - Útočník vynese kartu, nebo několik karet stejné hodnoty.
-- Obránce přebije každou útočnou kartu vyšší kartou téže barvy, nebo trumfem. Trumf lze přebít jen vyšším trumfem.
-- Jakmile jsou všechny karty přebité, smějí ostatní přihodit další karty hodnoty, která už na stole je: nejdřív útočník, pak postupně každý další hráč. I ty musí obránce přebít.
-- Jeden útok má nejvýš šest karet, a nikdy víc, než kolik měl obránce na začátku v ruce.
-- Obránce, který nemůže nebo nechce přebíjet, bere: ostatní ještě smějí přihazovat a pak obránce sebere všechny karty ze stolu.
+- Obránce přebije každou vyšší kartou téže barvy, nebo trumfem; trumf jen vyšším trumfem.
+- Jakmile je vše přebité, smějí ostatní, nejdřív útočník, přihodit karty hodnoty, která je na stole; i ty se musí přebít. Nejvýš šest útočných karet, nikdy víc, než kolik měl obránce na začátku.
+- Obránce, který nemůže nebo nechce přebíjet, bere: po posledním přihazování sebere všechny karty ze stolu.
 # Po útoku
-- Pokud byly všechny karty přebité a nikdo už nepřihazuje, karty se odloží stranou a dál útočí obránce.
-- Pokud obránce bral, přichází o svůj útok: útočí hráč za ním.
-- Všichni si doberou z balíčku do šesti karet: nejdřív útočník, pak postupně ostatní, obránce poslední.
+- Vše přebité: karty se odloží stranou a dál útočí obránce. Bral: útočí hráč za ním.
+- Všichni si doberou do šesti karet, nejdřív útočník, obránce poslední.
 # Konec hry
-Když je balíček prázdný, hráč bez karet vypadává ze hry, v bezpečí. Poslední hráč, kterému zůstanou karty, je durak. Pokud se poslední hráči zbaví karet zároveň, neprohraje nikdo.
+Když je balíček prázdný, hráč bez karet vypadává ze hry, v bezpečí. Pokud se poslední hráči zbaví karet zároveň, neprohraje nikdo.
 # Hra s předáváním
-Dokud obránce nepřebil žádnou kartu, smí útok předat dál tím, že přidá kartu stejné hodnoty, jakou mají útočné karty. Další hráč se pak brání proti všem, pokud má aspoň tolik karet, kolik jich teď leží na stole, a ten, kdo útok předal, se k útoku přidá.
-# Hra na zařízení
-Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole, podle barev, trumfy nakonec. Podél horního okraje sedí ostatní: jejich karty rubem nahoru a kolik jich mají, meč u útočníka, štít u obránce, znak pasu u hráče, který pasoval. Na jedné straně leží balíček s trumfovou kartou pod ním (po vyčerpání balíčku znak její barvy), na druhé odložené karty.
-- Útok nebo přihazování: klepni na své karty (ty, které smíš přihodit, svítí), pak klepni na stůl nebo je tam přetáhni. Tlačítkem Pas ve své liště pasuješ.
-- Obrana: klepni na kartu (karty, které může přebít, svítí), pak na kartu, kterou chceš přebít. Kulaté tlačítko se šipkou karty bere; svítí dál, dokud ostatní přihazují.
-- Ve hře s předáváním rozsvítí karta hodnoty útoku prázdné místo vedle útoku: klepni na ně a útok předáš dál.
-Po každém útoku jde zařízení k obránci; když je vše přebité, postupně ke každému dalšímu hráči, nejdřív k útočníkovi, aby přihodil nebo pasoval.
-Otevřené karty (karty s okem při výběru hry): karty všech hráčů leží lícem nahoru, všem na očích, a zařízení se předává bez zakrývání – způsob, jak se hru naučit společně.
+Než přebije, smí obránce útok předat dál kartou stejné hodnoty, pokud má další hráč aspoň tolik karet, kolik jich pak leží na stole. Ten se brání proti všem; kdo útok předal, se k útoku přidá.

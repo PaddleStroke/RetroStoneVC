@@ -1,18 +1,16 @@
 Big Two
 # El objetivo
-Sé el primero en jugar todas tus cartas. Un juego cantonés para 4 jugadores (o 3), con una baraja de 52 cartas que se reparte entera: 13 a cada uno (con 3 jugadores, 17 a cada uno, y la última carta para quien tenga el 3 de diamantes).
+Sé el primero en jugar todas tus cartas. Con 3 jugadores, la última carta es para quien tenga el 3 de diamantes.
 # Las cartas
-- De menor a mayor: 3, 4, 5, 6, 7, 8, 9, 10, sota, reina, rey, as y el 2, la más alta de todas.
-- Los palos, de menor a mayor: diamantes, tréboles, corazones, picas. Entre dos cartas del mismo valor decide el palo: el 2 de picas es la carta más alta.
+- De menor a mayor: 3 a 10, sota, reina, rey, as, 2.
+- Entre cartas del mismo valor decide el palo, de menor a mayor: diamantes, tréboles, corazones, picas.
 # Las jugadas
 - Una carta suelta, una pareja, un trío.
-- Una mano de cinco cartas, de menor a mayor: escalera (cinco valores seguidos, de 3-4-5-6-7 hasta 10-J-Q-K-A; el 2 nunca forma parte de ella), color (cinco cartas del mismo palo), full (un trío y una pareja), póker con cualquier quinta carta, escalera de color.
-- Entre dos jugadas del mismo tipo decide la carta más alta. En el color cuenta la carta más alta, luego las siguientes; en el full y el póker, el valor de sus tres o cuatro cartas iguales.
+- Cinco cartas, de menor a mayor: escalera (3-4-5-6-7 hasta 10-J-Q-K-A, nunca con un 2), color, full, póker con cualquier quinta carta, escalera de color.
+- En el mismo tipo decide la carta más alta (en el color, luego las siguientes); en el full y el póker, sus tres o cuatro cartas iguales.
 # Una baza
 - Quien tenga el 3 de diamantes sale en la primera baza, con una jugada que lo incluya.
-- Por turno, cada jugador pone una jugada más alta del mismo tipo y tamaño, o pasa. Un jugador que ha pasado puede seguir jugando cuando le vuelva a tocar.
-- Cuando todos los demás han pasado seguidos, el último que jugó empieza una baza nueva con cualquier jugada.
+- Por turno, cada jugador supera la última jugada con otra del mismo tipo y tamaño, o pasa; después puede volver a jugar.
+- Cuando todos los demás han pasado seguidos, el último que jugó sale con cualquier jugada.
 # La puntuación
-Gana el primero que se queda sin cartas. Cada uno de los demás se anota un punto de penalización por cada carta que le quede en la mano, el doble si le quedan diez cartas o más.
-# Jugar en el dispositivo
-Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo, de menor a mayor. A lo largo de la parte de arriba se sientan los demás: sus cartas boca abajo, cuántas tienen, y un signo de paso si han pasado desde la última jugada. La última jugada está en grande en el centro con la ficha de su jugador, y las anteriores, más pequeñas, detrás. Toca cartas para elegirlas y luego toca el centro o arrástralas hasta allí: el centro se ilumina cuando tu elección se puede jugar. El 3 de diamantes brilla para el jugador que debe salir con él. El botón Paso está en tu barra. Al final, una tabla muestra las cartas que le quedan a cada jugador y su penalización.
+Gana el primero que se queda sin cartas. Los demás se anotan un punto de penalización por cada carta en la mano, el doble con diez o más.

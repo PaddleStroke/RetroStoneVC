@@ -1,26 +1,20 @@
 Crazy Eights
 # The aim
-Be the first to play all your cards. Two games to choose from: Crazy Eights, with a pack of 52 cards, and Last Card, with a pack of 108 coloured cards and action cards. For 2 to 6 players.
+Be the first to play all your cards.
 # A turn
-- Play one card onto the discard pile: a card of the same suit (or colour) or of the same number or symbol as the top card.
-- If you cannot play, draw from the stock.
-- The first card turned up is never an eight, an action card or a wild card.
+- Play a card of the same suit (or colour), number or symbol as the top card of the discard pile. If you cannot, draw.
 # Crazy Eights
-- 7 cards each with two players, 5 with more.
-- An eight can be played at any time: then name the suit to follow.
-- Draw only when you cannot play, one card at a time, until you can. With nothing left to draw, pass.
-- Points: eight 50, king, queen and jack 10, ace 1, the other cards their number. The game goes to 100.
+- An eight can be played at any time: name the suit to follow.
+- Draw until you can play; with nothing left to draw, pass.
+- Points: eight 50, king, queen and jack 10, ace 1, the others their number. The game goes to 100.
 # Last Card
-- 7 cards each. A wild card can be played at any time: then name the colour to follow.
-- Skip: the next player misses a turn. Reverse: play goes the other way round (with two players it works like a skip). Draw two: the next player draws 2 cards and misses a turn.
-- Wild draw four: name the colour; the next player draws 4 cards and misses a turn. You may play it only when you have no card of the colour to follow. The device checks it, so there is no challenge.
-- Draw two and draw four cannot be stacked: the next player just draws.
-- Instead of playing, you may draw one card. If it fits, play it at once or keep it and pass.
-- Last card: just before you play your second last card, tap the last card button. If you forget, the next player may catch you before doing anything else, and you draw 2 cards.
+- A wild card can be played at any time: name the colour to follow.
+- Skip: the next player misses a turn. Reverse: play changes direction (with two players, a skip). Draw two: the next player draws 2 and misses a turn.
+- Wild draw four: name the colour; the next player draws 4 and misses a turn. Only allowed with no card of the colour to follow.
+- Draws cannot be stacked. Instead of playing, you may draw one card: play it if it fits, or pass.
+- Before you play your second last card, tap the last card button. If you forget, the next player may catch you first by tapping your hand: you draw 2.
 - Points: number cards their value, skip, reverse and draw two 20, wild cards 50. The game goes to 500.
 # The end of a round
-The first player with no cards left wins the round and scores the points of the cards left in the other hands. If nobody can play or draw any more, the round ends: the player with the fewest points in hand wins it and scores the difference with each other hand. The deal moves on one seat each round.
+The first player out scores the points left in the other hands. If nobody can play or draw, the lowest hand wins and scores the difference with each other hand.
 # The end of the game
 The first player to reach the target score wins.
-# Playing on the device
-Pass the device: each player sees their own hand at the bottom. The other hands are small fans at the top, each with its player's token and number of cards. In Last Card, the ring of arrows in the middle shows which way play goes. Tap a glowing card to play it; tap the stock to draw (it glows when you must). After an eight or a wild card, tap a suit (an ace) or a colour (a disc). The last card button, a card with a burst, appears when you hold two cards; a player who called it shows it beside their hand. To catch a player who forgot, tap their hand or their bar. To pass, tap the button in your bar. After each round a table shows the points left in each hand, the winner's gain and the totals; tap it for the next round. Undo only takes back a choice in your own turn, never a card drawn.

@@ -1,28 +1,18 @@
 Durak
 # O objetivo
-Livre-se de todas as suas cartas. O último jogador que ainda tiver cartas é o durak, o bobo, e perde; todos os outros ganham juntos. Para 2 a 6 jogadores (geralmente 2 ou 3), com um baralho de 36 cartas. Duas modalidades à escolha: a de acrescentar cartas (podkidnoy) e a de repasse (perevodnoy).
+Livre-se de todas as suas cartas. O último jogador que ainda tiver cartas é o durak, o bobo, e perde.
 # As cartas
-- Da mais baixa para a mais alta: 6, 7, 8, 9, 10, valete, dama, rei, ás.
-- Cada jogador recebe seis cartas. A carta seguinte é virada para cima e posta atravessada embaixo do monte: o seu naipe é o trunfo durante toda a partida, e ela será a última carta comprada.
-- Quem tiver o trunfo mais baixo ataca primeiro; o jogador seguinte defende.
+- Da mais baixa para a mais alta: 6 a 10, valete, dama, rei, ás. Seis cartas para cada um; a carta virada embaixo do monte dá o trunfo e será a última comprada.
+- O trunfo mais baixo ataca primeiro; o jogador seguinte defende.
 # Um ataque
-- O atacante joga uma carta, ou várias cartas do mesmo valor.
-- O defensor cobre cada carta de ataque com uma carta mais alta do mesmo naipe, ou com um trunfo. Um trunfo só pode ser coberto por um trunfo mais alto.
-- Quando todas as cartas estão cobertas, os outros podem acrescentar mais cartas de um valor que já está na mesa: primeiro o atacante, depois cada um dos outros na sua vez. O defensor também precisa cobri-las.
-- Um ataque tem no máximo seis cartas, e nunca mais do que o defensor tinha na mão quando ele começou.
-- O defensor que não pode ou não quer cobrir recolhe: os outros ainda podem acrescentar cartas, e depois ele pega todas as cartas da mesa.
+- O atacante joga uma carta, ou várias do mesmo valor.
+- O defensor cobre cada uma com uma carta mais alta do mesmo naipe, ou com um trunfo; um trunfo só com um trunfo mais alto.
+- Quando todas estão cobertas, os outros, primeiro o atacante, podem acrescentar cartas de um valor que está na mesa, que também precisam ser cobertas. No máximo seis cartas de ataque, nunca mais do que o defensor tinha no começo.
+- O defensor que não pode ou não quer cobrir recolhe: depois das últimas cartas acrescentadas, ele pega todas as cartas da mesa.
 # Depois de um ataque
-- Se todas as cartas foram cobertas e ninguém acrescenta mais nenhuma, elas são postas de lado e o defensor ataca em seguida.
-- Se o defensor recolheu as cartas, ele perde a vez de atacar: ataca o jogador depois dele.
-- Todos compram do monte até voltar a ter seis cartas: primeiro o atacante, depois os outros na sua vez, o defensor por último.
+- Tudo coberto: as cartas são postas de lado e o defensor ataca em seguida. Recolheu: ataca o jogador depois dele.
+- Todos compram até voltar a ter seis cartas, primeiro o atacante, o defensor por último.
 # O fim da partida
-Quando o monte acaba, quem fica sem cartas sai do jogo, a salvo. O último jogador que ainda tiver cartas é o durak. Se os últimos jogadores ficarem sem cartas ao mesmo tempo, ninguém perde.
+Quando o monte acaba, quem fica sem cartas sai do jogo, a salvo. Se os últimos jogadores ficarem sem cartas ao mesmo tempo, ninguém perde.
 # O jogo de repasse
-Antes de cobrir qualquer carta, o defensor pode repassar o ataque acrescentando uma carta do mesmo valor das cartas de ataque. Então o jogador seguinte se defende de todas elas, se tiver pelo menos tantas cartas quantas há agora na mesa, e quem repassou entra no ataque.
-# Jogando no aparelho
-Passem o aparelho: cada jogador só vê as próprias cartas, embaixo, por naipe, com os trunfos por último. Em cima ficam os outros: as cartas viradas para baixo e quantas são, uma espada junto ao atacante, um escudo junto ao defensor, um sinal de passe junto a quem passou. De um lado fica o monte com o trunfo embaixo (o sinal do naipe dele quando o monte acaba), do outro as cartas postas de lado.
-- Atacar ou acrescentar: toque nas suas cartas (as que você pode acrescentar brilham), depois toque na mesa ou arraste-as até lá. O botão de passar na sua barra serve para passar.
-- Defender: toque numa carta (as cartas que ela pode cobrir brilham), depois na carta a cobrir. O botão redondo com a seta recolhe as cartas; ele fica aceso enquanto os outros acrescentam.
-- No jogo de repasse, uma carta do valor do ataque acende um lugar vazio ao lado do ataque: toque nele para repassar o ataque.
-Depois de cada ataque, o aparelho vai para o defensor; quando tudo está coberto, para cada um dos outros na sua vez, começando pelo atacante, para acrescentar ou passar.
-Mãos abertas (as cartas com um olho, na escolha da partida): todas as mãos ficam viradas para cima, à vista de todos, e o aparelho passa sem esconder nada: um jeito de aprender o jogo juntos.
+Antes de cobrir, o defensor pode repassar o ataque com uma carta do mesmo valor, se o jogador seguinte tiver pelo menos tantas cartas quantas houver então na mesa. Esse jogador se defende de todas elas; quem repassou entra no ataque.

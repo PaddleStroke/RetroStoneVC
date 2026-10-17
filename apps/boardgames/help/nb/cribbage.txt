@@ -1,31 +1,17 @@
 Cribbage
 # Målet
-Å være først til 121 poeng, flyttet fram med pinner på brettet. For 2 spillere, eller 3. Poeng får man mens kortene spilles ut, og når hendene telles i opptellingen (show).
+Å være først til 121 poeng.
 # Utdelingen
-- Hver hånd gir giveren 6 kort til hver spiller (3 spillere: 5 hver, og ett kort fra kortstokken går til krybben).
-- Hver spiller legger bort 2 kort med baksiden opp (3 spillere: 1). De blir krybben (crib), en ekstra hånd som teller for giveren.
-- Spilleren til venstre for giveren tar av kortstokken, og det øverste kortet snus: startkortet (starter). En knekt gir giveren 2 poeng (his heels).
-- Givingen går til venstre etter hver hånd.
+- Hver spiller får 6 kort og legger bort 2 (3 spillere: 5 og 1, pluss ett kort fra kortstokken): krybben (crib), en ekstra hånd for giveren.
+- Det øverste kortet i den avtatte kortstokken er startkortet (starter). En knekt gir giveren 2 poeng (his heels).
 # Spillet
-- Fra giverens venstre legger spillerne kortene sine med forsiden opp etter tur og holder en løpende sum av verdiene: ess 1, 2 til 10 sin verdi, knekt, dame og konge 10.
-- Summen kan aldri gå over 31. En spiller som ikke kan legge et kort, sier «go», og de andre fortsetter så lenge de kan.
-- En sum på nøyaktig 15 gir 2, nøyaktig 31 gir 2.
-- Et kort av samme valør som det forrige gir 2 for et par, 6 for tre like, 12 for fire like.
-- Når de siste 3 eller flere lagte kortene danner en rekke, i hvilken som helst rekkefølge, gir det 1 poeng per kort.
-- Når ingen kan legge et kort, får den siste som gjorde det, 1 poeng (ikke noe mer på 31). Summen begynner igjen fra 0 med neste spiller som fortsatt har kort. Det aller siste kortet i utspillet gir også 1.
+- Etter tur legger hver et kort og legger det til summen (ess 1, knekt, dame og konge 10), aldri over 31; en spiller som ikke kan legge et kort, sier «go».
+- Nøyaktig 15 eller 31: 2. Et par med det forrige kortet: 2, tre like 6, fire like 12. En rekke i de siste 3 eller flere kortene, i hvilken som helst rekkefølge: 1 per kort.
+- Når ingen kan legge et kort, får den siste som gjorde det, 1 poeng (ikke noe mer på 31), og summen begynner igjen fra 0. Det siste kortet i utspillet gir også 1.
 # Opptellingen
-Hendene telles med startkortet som femte kort: spilleren til venstre for giveren først, giveren sist, og så giverens krybbe.
-- Hver kombinasjon av kort som blir 15 til sammen: 2.
-- Hvert par: 2 (tre like gir tre par: 6).
-- Hver rekke på 3 kort eller flere: 1 poeng per kort (en dobbel rekke teller to ganger).
-- Fire kort på hånden i samme farge: 4, eller 5 når startkortet også er i den fargen. Krybben teller bare fem kort i samme farge.
+Hver hånd telles med startkortet: til venstre for giveren først, giveren sist, så krybben.
+- Hver 15: 2. Hvert par: 2. Hver rekke: 1 per kort (en dobbel rekke teller to ganger).
+- Fire kort på hånden i samme farge: 4, eller 5 med startkortet. Krybben teller bare fem kort i samme farge.
 - Knekten i startkortets farge på hånden: 1 (his nobs).
 # Slutten på spillet
-Den første spilleren som når 121, vinner med en gang, selv midt i utspillet eller opptellingen. Derfor betyr rekkefølgen i opptellingen noe.
-# Spill på enheten
-Hendene er hemmelige: gi enheten videre når skjermen ber om det, og neste spiller trykker på start. Hånden din er nederst, de andres øverst. På pinnebrettet har hver spiller en bane: pinnene går ut langs én rad og tilbake langs den andre, to ganger rundt, til målhullet. Hver spiller har to pinner: den bakerste hopper forbi den fremste med like mange hull som poengene som ble tatt.
-- Trykk på 2 kort (3 spillere: 1) for å velge dem, og trykk så på krybben for å legge dem bort.
-- Trykk på kortstokken for å ta av.
-- Trykk på et kort for å velge det, og trykk på det igjen (eller dra det til bordet) for å legge det. Kortene som ikke fører summen over 31, lyser. «Go» sies av seg selv: et tegn vises i spillerens panel.
-- I opptellingen kommer hver hånd og så krybben til midten sammen med startkortet. Hver kombinasjon som gir poeng, lyser opp etter tur, og poengene stiger opp over den (et 15 foran poengene: en femten). Så flytter pinnen seg. Trykk for å gå videre; et trykk under tellingen viser den med en gang.
-Angre tar tilbake dine egne handlinger, helt tilbake til øyeblikket enheten ble gitt videre.
+Den første som når 121, vinner med en gang, selv midt i utspillet eller opptellingen.

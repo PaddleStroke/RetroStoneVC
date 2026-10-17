@@ -1,31 +1,17 @@
 Cribbage
 # El objetivo
-Ser el primero en sumar 121 puntos, marcados en el tablero. Para 2 o 3 jugadores. Se ganan puntos mientras se juegan las cartas y cuando se cuentan las manos en el recuento.
+Ser el primero en sumar 121 puntos.
 # El reparto
-- En cada mano, el repartidor da 6 cartas a cada jugador (con 3 jugadores: 5 a cada uno, y una carta del mazo va al crib).
-- Cada jugador aparta 2 cartas boca abajo (con 3 jugadores: 1). Forman el crib, una mano extra que puntúa para el repartidor.
-- El jugador a la izquierda del repartidor corta el mazo, y se vuelve la carta de arriba: la carta inicial (starter). Una sota le da 2 puntos al repartidor (his heels).
-- El reparto pasa a la izquierda después de cada mano.
+- Cada jugador recibe 6 cartas y aparta 2 (con 3 jugadores: 5 y 1, más una carta del mazo): el crib, una mano extra para el repartidor.
+- La carta de arriba del mazo cortado es la carta inicial (starter). Una sota le da 2 puntos al repartidor (his heels).
 # Cómo se juega
-- Empezando por la izquierda del repartidor, los jugadores ponen sus cartas boca arriba por turnos y llevan la cuenta acumulada de sus valores: as 1, del 2 al 10 su valor, sota, reina y rey 10.
-- La cuenta nunca puede pasar de 31. Un jugador que no puede poner carta dice «go», y los demás siguen mientras puedan.
-- Una cuenta de 15 justos vale 2, de 31 justos vale 2.
-- Una carta del mismo rango que la anterior vale 2 por una pareja, 6 por un trío, 12 por un póquer.
-- Cuando las últimas 3 cartas puestas o más forman una escalera, en cualquier orden, vale 1 punto por carta.
-- Cuando nadie puede poner carta, el último jugador que puso una gana 1 (nada más con 31). La cuenta vuelve a empezar desde 0 con el siguiente jugador que aún tenga cartas. La última carta del juego también vale 1.
+- Por turnos, cada uno pone una carta y la suma a la cuenta (as 1, sota, reina y rey 10), sin pasar nunca de 31; quien no puede poner carta dice «go».
+- 15 o 31 justos: 2. Una pareja con la carta anterior: 2, un trío 6, un póquer 12. Una escalera en las últimas 3 cartas o más, en cualquier orden: 1 por carta.
+- Cuando nadie puede poner carta, el último que puso una gana 1 (nada más con 31) y la cuenta vuelve a empezar desde 0. La última carta del juego también vale 1.
 # El recuento
-Las manos se cuentan con la carta inicial como quinta carta: primero el jugador a la izquierda del repartidor, el repartidor el último, y luego el crib del repartidor.
-- Cada combinación de cartas que suma 15: 2.
-- Cada pareja: 2 (un trío son tres parejas: 6).
-- Cada escalera de 3 cartas o más: 1 punto por carta (una escalera doble cuenta dos veces).
-- Cuatro cartas de la mano del mismo palo: 4, o 5 si la carta inicial también es de ese palo. En el crib solo cuentan cinco cartas del mismo palo.
+Cada mano cuenta con la carta inicial: primero la izquierda del repartidor, el repartidor el último, y luego el crib.
+- Cada 15: 2. Cada pareja: 2. Cada escalera: 1 por carta (una escalera doble cuenta dos veces).
+- Cuatro cartas del mismo palo en la mano: 4, o 5 con la carta inicial. En el crib solo cuentan cinco cartas del mismo palo.
 - La sota del palo de la carta inicial en la mano: 1 (his nobs).
 # El final de la partida
-El primer jugador que llega a 121 gana en el acto, incluso en mitad del juego o del recuento. Por eso importa el orden en que se cuenta.
-# Jugar en el dispositivo
-Las manos son secretas: pasa el dispositivo cuando lo pida la pantalla, y el siguiente jugador toca el botón de inicio. Tu mano está abajo, las de los demás arriba. En el tablero cada jugador tiene un carril: las clavijas van por una fila y vuelven por la otra, dos vueltas, hasta el agujero final. Cada jugador tiene dos clavijas: la de atrás salta por delante de la de adelante tantos agujeros como puntos ganados.
-- Toca 2 cartas (con 3 jugadores: 1) para elegirlas y luego toca el crib para apartarlas.
-- Toca el mazo para cortarlo.
-- Toca una carta para elegirla y luego vuelve a tocarla (o arrástrala a la mesa) para ponerla. Brillan las cartas que caben hasta 31. El go se dice solo: aparece una señal en la barra del jugador.
-- En el recuento, cada mano y luego el crib van al centro con la carta inicial. Cada combinación que puntúa se ilumina por turno y sus puntos suben por encima de ella (un 15 delante de los puntos: un quince). Luego avanza la clavija. Toca para seguir; un toque durante la cuenta la muestra entera al instante.
-Deshacer retira tus propias acciones, hasta el momento en que se pasó el dispositivo.
+El primero que llega a 121 gana en el acto, incluso en mitad del juego o del recuento.

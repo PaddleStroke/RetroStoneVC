@@ -1,26 +1,20 @@
 Otto matto
 # Lo scopo
-Essere il primo a giocare tutte le proprie carte. Due giochi a scelta: l'Otto matto, con un mazzo di 52 carte, e Ultima carta, con un mazzo di 108 carte colorate e carte azione. Da 2 a 6 giocatori.
+Essere il primo a giocare tutte le proprie carte.
 # Un turno
-- Metti una carta sugli scarti: una carta dello stesso seme (o colore), o dello stesso numero o simbolo della carta in cima.
-- Se non puoi giocare, pesca dal mazzo.
-- La prima carta scoperta non è mai un otto, una carta azione o un jolly.
+- Metti una carta dello stesso seme (o colore), numero o simbolo della carta in cima agli scarti. Se non puoi, pesca.
 # Otto matto
-- In due 7 carte a testa, in più giocatori 5.
 - Un otto si può giocare in qualsiasi momento: poi scegli il seme da seguire.
-- Si pesca solo se non si può giocare, una carta alla volta, finché si può. Se non resta niente da pescare, si passa.
-- Punti: otto 50, re, donna e fante 10, asso 1, le altre carte il loro numero. La partita si gioca a 100.
+- Pesca finché puoi giocare; se non resta niente da pescare, passi.
+- Punti: otto 50, re, donna e fante 10, asso 1, le altre il loro numero. La partita si gioca a 100.
 # Ultima carta
-- 7 carte a testa. Un jolly si può giocare in qualsiasi momento: poi scegli il colore da seguire.
-- Salta: il giocatore successivo salta il turno. Inverti: il gioco cambia senso (in due vale come un salta). Pesca due: il giocatore successivo pesca 2 carte e salta il turno.
-- Jolly pesca quattro: scegli il colore; il giocatore successivo pesca 4 carte e salta il turno. Si può giocare solo se non hai carte del colore da seguire. Il dispositivo lo controlla, quindi non c'è sfida.
-- Pesca due e pesca quattro non si sommano: il giocatore successivo pesca e basta.
-- Invece di giocare puoi pescare una carta. Se va bene, giocala subito, oppure tienila e passa.
-- Ultima carta: subito prima di giocare la penultima carta, tocca il pulsante dell'ultima carta. Se te ne dimentichi, il giocatore successivo può coglierti in fallo prima di fare qualsiasi altra cosa, e peschi 2 carte.
+- Un jolly si può giocare in qualsiasi momento: poi scegli il colore da seguire.
+- Salta: il giocatore successivo salta il turno. Inverti: il gioco cambia senso (in due, un salta). Pesca due: il giocatore successivo pesca 2 carte e salta il turno.
+- Jolly pesca quattro: scegli il colore; il giocatore successivo pesca 4 carte e salta il turno. Solo se non hai carte del colore da seguire.
+- I pesca non si sommano. Invece di giocare puoi pescare una carta: giocala se va bene, oppure passa.
+- Subito prima di giocare la penultima carta, tocca il pulsante dell'ultima carta. Se te ne dimentichi, il giocatore successivo può coglierti in fallo per primo toccando la tua mano: peschi 2 carte.
 - Punti: i numeri il loro valore, salta, inverti e pesca due 20, jolly 50. La partita si gioca a 500.
 # La fine di una mano
-Il primo giocatore che resta senza carte vince la mano e segna i punti delle carte rimaste nelle altre mani. Se nessuno può più giocare né pescare, la mano finisce: chi ha meno punti in mano la vince e segna la differenza con ogni altra mano. Il mazziere avanza di un posto a ogni mano.
+Il primo giocatore che resta senza carte segna i punti delle carte rimaste nelle altre mani. Se nessuno può più giocare né pescare, vince la mano con meno punti e segna la differenza con ogni altra mano.
 # La fine della partita
 Vince il primo giocatore che raggiunge il punteggio stabilito.
-# Giocare sul dispositivo
-Passate il dispositivo: ognuno vede la propria mano in basso. Le altre mani sono piccoli ventagli in alto, ciascuno con la pedina del suo giocatore e il numero di carte. In Ultima carta, l'anello di frecce al centro mostra il senso del gioco. Tocca una carta che brilla per giocarla; tocca il mazzo per pescare (brilla quando devi pescare). Dopo un otto o un jolly, tocca un seme (un asso) o un colore (un disco). Il pulsante dell'ultima carta, una carta con un lampo, compare quando hai due carte; chi l'ha dichiarata la mostra accanto alla sua mano. Per cogliere in fallo chi se ne è dimenticato, tocca la sua mano o la sua barra. Per passare, tocca il pulsante nella tua barra. Dopo ogni mano una tabella mostra i punti rimasti in ogni mano, il guadagno del vincitore e i totali; toccala per la mano successiva. Annulla ritira solo una scelta del tuo turno, mai una carta pescata.

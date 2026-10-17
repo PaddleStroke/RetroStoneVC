@@ -1,28 +1,18 @@
 Durak
 # El objetivo
-Deshazte de todas tus cartas. El último jugador que aún tenga cartas es el durak, el tonto, y pierde; todos los demás ganan juntos. Para 2 a 6 jugadores (normalmente 2 o 3), con una baraja de 36 cartas. Dos modalidades a elegir: la de añadir cartas (podkidnoy) y la de transferencia (perevodnoy).
+Deshazte de todas tus cartas. El último jugador que aún tenga cartas es el durak, el tonto, y pierde.
 # Las cartas
-- De menor a mayor: 6, 7, 8, 9, 10, sota, reina, rey, as.
-- Cada jugador recibe seis cartas. La siguiente se pone boca arriba, atravesada bajo el mazo: su palo es el triunfo durante toda la partida, y será la última carta que se robe.
-- El jugador con el triunfo más bajo ataca primero; el siguiente defiende.
+- De menor a mayor: 6 a 10, sota, reina, rey, as. Seis cartas cada uno; la carta boca arriba bajo el mazo da el triunfo y será la última que se robe.
+- El triunfo más bajo ataca primero; el siguiente jugador defiende.
 # Un ataque
-- El atacante saca una carta, o varias cartas del mismo valor.
-- El defensor cubre cada carta de ataque con una carta más alta de su palo, o con un triunfo. Un triunfo solo se puede cubrir con un triunfo más alto.
-- Cuando todas están cubiertas, los demás pueden añadir más cartas de un valor que ya esté en la mesa: primero el atacante, luego cada uno de los demás por turno. El defensor también debe cubrirlas.
-- Un ataque tiene como máximo seis cartas, y nunca más de las que tenía el defensor al empezar.
-- El defensor que no puede o no quiere cubrir recoge: los demás aún pueden añadir cartas, y luego se lleva todas las cartas de la mesa.
+- El atacante saca una carta, o varias del mismo valor.
+- El defensor cubre cada una con una carta más alta de su palo, o con un triunfo; un triunfo solo con un triunfo más alto.
+- Cuando todas están cubiertas, los demás, primero el atacante, pueden añadir cartas de un valor que esté en la mesa, que también hay que cubrir. Como máximo seis cartas de ataque, nunca más de las que tenía el defensor al empezar.
+- El defensor que no puede o no quiere cubrir recoge: tras las últimas cartas añadidas, se lleva todas las cartas de la mesa.
 # Después de un ataque
-- Si todas las cartas se cubrieron y nadie añade más, se apartan y el defensor ataca a continuación.
-- Si el defensor recogió las cartas, pierde su turno de atacar: ataca el jugador que le sigue.
-- Todos roban del mazo hasta volver a tener seis cartas: primero el atacante, luego los demás por turno, y el defensor el último.
+- Todo cubierto: las cartas se apartan y el defensor ataca a continuación. Recogió: ataca el jugador que le sigue.
+- Todos roban hasta tener seis cartas, primero el atacante, el defensor el último.
 # El final de la partida
-Cuando el mazo se acaba, el jugador que se queda sin cartas sale del juego, a salvo. El último jugador que aún tenga cartas es el durak. Si los últimos jugadores se quedan sin cartas a la vez, nadie pierde.
+Cuando el mazo se acaba, el jugador que se queda sin cartas sale del juego, a salvo. Si los últimos jugadores se quedan sin cartas a la vez, nadie pierde.
 # La transferencia
-Antes de cubrir ninguna carta, el defensor puede transferir el ataque añadiendo una carta del mismo valor que las cartas de ataque. Entonces el jugador siguiente se defiende de todas ellas, si tiene al menos tantas cartas como hay ahora en la mesa, y quien lo transfirió se suma al ataque.
-# Jugar en el dispositivo
-Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo, por palos, con los triunfos al final. Arriba se sientan los demás: sus cartas boca abajo y cuántas tienen, una espada junto al atacante, un escudo junto al defensor y un signo de paso junto a quien ha pasado. A un lado está el mazo con la carta de triunfo debajo (el signo de su palo cuando el mazo se acaba), y al otro las cartas apartadas.
-- Atacar o añadir: toca tus cartas (brillan las que puedes añadir) y luego toca la mesa o arrástralas hasta allí. El botón Paso de tu barra sirve para pasar.
-- Defender: toca una carta (brillan las cartas que puede cubrir) y luego la carta que quieres cubrir. El botón redondo con la flecha recoge las cartas; sigue encendido mientras los demás añaden.
-- En la transferencia, una carta del valor del ataque ilumina un hueco libre junto al ataque: tócalo para transferir el ataque.
-Tras cada ataque, el dispositivo pasa al defensor; cuando todo está cubierto, a cada uno de los demás por turno, empezando por el atacante, para añadir o pasar.
-Manos abiertas (las cartas con un ojo, al elegir la partida): todas las manos están boca arriba a la vista de todos y el dispositivo pasa sin ocultar nada: una forma de aprender el juego juntos.
+Antes de cubrir, el defensor puede transferir el ataque con una carta del mismo valor, si el jugador siguiente tiene al menos tantas cartas como haya entonces en la mesa. Ese jugador se defiende de todas ellas; quien lo transfirió se suma al ataque.

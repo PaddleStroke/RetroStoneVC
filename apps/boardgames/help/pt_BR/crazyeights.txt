@@ -1,26 +1,20 @@
 Oito maluco
 # O objetivo
-Ser o primeiro a jogar todas as suas cartas. Dois jogos à escolha: o Oito maluco, com um baralho de 52 cartas, e Última carta, com um baralho de 108 cartas coloridas e cartas de ação. De 2 a 6 jogadores.
+Ser o primeiro a jogar todas as suas cartas.
 # Uma jogada
-- Jogue uma carta no monte de descarte: uma carta do mesmo naipe (ou cor), ou do mesmo número ou símbolo que a carta de cima.
-- Se não puder jogar, compre do monte.
-- A primeira carta virada nunca é um oito, uma carta de ação ou um curinga.
+- Jogue uma carta do mesmo naipe (ou cor), número ou símbolo que a carta de cima do descarte. Se não puder, compre.
 # Oito maluco
-- Com dois jogadores, 7 cartas para cada um; com mais, 5.
 - Um oito pode ser jogado a qualquer momento: aí você escolhe o naipe a seguir.
-- Só compra quem não pode jogar, uma carta de cada vez, até poder. Se não houver mais nada para comprar, passe.
-- Pontos: oito 50, rei, dama e valete 10, ás 1, as outras cartas o seu número. A partida vai até 100.
+- Compre até poder jogar; se não houver mais nada para comprar, passe.
+- Pontos: oito 50, rei, dama e valete 10, ás 1, as outras o seu número. A partida vai até 100.
 # Última carta
-- 7 cartas para cada um. Um curinga pode ser jogado a qualquer momento: aí você escolhe a cor a seguir.
-- Pula: o próximo jogador perde a vez. Inverte: o jogo muda de sentido (com dois jogadores, vale como um pula). Compra dois: o próximo jogador compra 2 cartas e perde a vez.
-- Curinga compra quatro: escolha a cor; o próximo jogador compra 4 cartas e perde a vez. Só pode ser jogado se você não tiver nenhuma carta da cor a seguir. O aparelho confere, então não há desafio.
-- Compra dois e compra quatro não se acumulam: o próximo jogador simplesmente compra.
-- Em vez de jogar, você pode comprar uma carta. Se ela servir, jogue-a na hora, ou fique com ela e passe.
-- Última carta: logo antes de jogar a sua penúltima carta, toque no botão de última carta. Se esquecer, o próximo jogador pode pegar você antes de fazer qualquer outra coisa, e você compra 2 cartas.
+- Um curinga pode ser jogado a qualquer momento: aí você escolhe a cor a seguir.
+- Pula: o próximo jogador perde a vez. Inverte: o jogo muda de sentido (com dois jogadores, um pula). Compra dois: o próximo jogador compra 2 e perde a vez.
+- Curinga compra quatro: escolha a cor; o próximo jogador compra 4 e perde a vez. Só se você não tiver nenhuma carta da cor a seguir.
+- Os compra não se acumulam. Em vez de jogar, você pode comprar uma carta: jogue-a se servir, ou passe.
+- Logo antes de jogar a sua penúltima carta, toque no botão de última carta. Se esquecer, o próximo jogador pode pegar você antes de tudo, tocando na sua mão: você compra 2.
 - Pontos: os números o seu valor, pula, inverte e compra dois 20, curingas 50. A partida vai até 500.
 # O fim de uma rodada
-O primeiro jogador que fica sem cartas vence a rodada e marca os pontos das cartas que sobraram nas outras mãos. Se ninguém mais puder jogar nem comprar, a rodada acaba: quem tiver menos pontos na mão vence e marca a diferença para cada outra mão. Quem dá as cartas muda a cada rodada.
+O primeiro jogador que fica sem cartas marca os pontos das cartas que sobraram nas outras mãos. Se ninguém mais puder jogar nem comprar, a mão com menos pontos vence e marca a diferença para cada outra mão.
 # O fim da partida
 Vence o primeiro jogador que chegar à pontuação combinada.
-# Jogando no aparelho
-Passe o aparelho: cada jogador vê a própria mão embaixo. As outras mãos são pequenos leques em cima, cada um com a peça do seu jogador e o número de cartas. Na Última carta, o anel de setas no meio mostra o sentido do jogo. Toque numa carta que brilha para jogá-la; toque no monte para comprar (ele brilha quando você precisa comprar). Depois de um oito ou de um curinga, toque num naipe (um ás) ou numa cor (um disco). O botão de última carta, uma carta com um brilho, aparece quando você tem duas cartas; quem o usou mostra o botão ao lado da sua mão. Para pegar um jogador que esqueceu, toque na mão ou na barra dele. Para passar, toque no botão da sua barra. Depois de cada rodada, uma tabela mostra os pontos que sobraram em cada mão, o ganho do vencedor e os totais; toque nela para a próxima rodada. Desfazer só desfaz uma escolha da sua própria vez, nunca uma carta comprada.

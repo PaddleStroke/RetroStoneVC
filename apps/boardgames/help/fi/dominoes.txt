@@ -1,19 +1,17 @@
 Domino
 # Tavoite
-Pääse eroon kaikista nappuloistasi ennen muita sovittamalla ne pelirivin päihin. Tuplakuutossarjalla, 2–4 pelaajalle, jokainen omissa nimissään. Kädet ovat salaisia: anna laite seuraavalle jokaisen vuoron jälkeen. Kolme peliä valittavana: blokkipeli, nostopeli ja All Fives (Muggins).
+Pääse ensimmäisenä eroon kaikista nappuloistasi sovittamalla ne rivin avoimiin päihin.
 # Jakaminen
-28 nappulaa sekoitetaan kuvapuoli alaspäin. Kahden pelaajan pelissä jokainen ottaa 7 nappulaa, kolmen tai neljän pelissä 5. Loput jäävät kuvapuoli alaspäin: varasto.
+Kahden pelaajan pelissä jokainen saa 7 nappulaa, kolmen tai neljän pelissä 5. Loput ovat varasto.
 # Vuoro
-- Ensimmäisellä kierroksella suurimman tuplan omistaja pelaa sen ensin (jos kenelläkään ei ole tuplaa, painavimman nappulan). Seuraavilla kierroksilla edellisen kierroksen voittaja aloittaa millä nappulalla tahansa.
-- Pelaa vuorollasi nappula, jonka toinen pää sopii rivin avoimeen päähän; samanlaiset puolikkaat vastakkain. Tuplat asetetaan poikittain.
+- Ensimmäinen kierros: suurin tupla aloittaa (jos kenelläkään ei ole tuplaa, painavin nappula). Seuraavat kierrokset: edellisen kierroksen voittaja aloittaa millä nappulalla tahansa.
+- Pelaa nappula, joka sopii rivin avoimeen päähän.
 - Blokkipeli: jos et voi pelata, jätä vuoro väliin.
-- Nostopeli ja All Fives: jos et voi pelata, nosta varastosta, kunnes voit. Kun varasto on tyhjä, jätä vuoro väliin.
+- Nostopeli ja All Fives: jos et voi pelata, nosta, kunnes voit; kun varasto on tyhjä, jätä vuoro väliin.
 # All Fives
-- Ensimmäinen pelattu tupla on spinneri. Kun sen molempiin pitkiin sivuihin on pelattu, myös sen kahteen lyhyeen sivuun saa pelata: rivillä on silloin neljä päätä.
-- Laske nappulasi pelattuasi avoimet päät yhteen. Jos summa on viidellä jaollinen, saat sen heti. Tupla rivin päässä lasketaan molempine puolikkaineen.
+- Ensimmäinen tupla on spinneri: kun sen molempiin pitkiin sivuihin on pelattu, myös sen lyhyet sivut aukeavat.
+- Jos avoimien päiden summa on nappulasi jälkeen viidellä jaollinen, saat sen. Tupla rivin päässä lasketaan molempine puolikkaineen.
 # Kierroksen loppu
-Kierros päättyy, kun pelaaja pelaa viimeisen nappulansa tai kun kukaan ei voi pelata. Loppuun pelannut, tai tukkeutuneessa pelissä se, jonka kädessä on vähiten silmiä, voittaa kierroksen ja saa muiden käsiin jääneet silmät (All Fives: pyöristettynä lähimpään viidellä jaolliseen). Jos kahdella pelaajalla on yhtä vähän silmiä, kukaan ei saa pisteitä.
+Kierros päättyy, kun joku pelaa viimeisen nappulansa tai kun kukaan ei voi pelata. Loppuun pelannut, tai se, jonka kädessä on vähiten silmiä, saa muiden käsiin jääneet silmät (All Fives: pyöristettynä lähimpään viidellä jaolliseen); jos kahdella on yhtä vähän silmiä, kukaan ei saa pisteitä.
 # Pelin loppu
-Peli päättyy sen kierroksen jälkeen, jolla joku saavuttaa 100 pistettä; All Fivesissa heti, kun joku saavuttaa 100. Suurin yhteispistemäärä voittaa.
-# Pelaaminen laitteella
-Nappulasi seisovat alhaalla; ne, joita et voi pelata, ovat himmennettyjä. Napauta nappulaa ja sitten jotakin hehkuvaa paikkaa, johon se sopii, tai vedä se sinne. Napauta vasemmalla olevaa varastoa nostaaksesi; kun voit vain jättää vuoron väliin, ohitapainike tulee palkkiisi. All Fivesissa oikealla oleva laskuri näyttää avointen päiden summan; se hehkuu kultaisena viidellä jaollisella luvulla. Jokaisen pelaajan palkissa näkyvät hänen pisteensä ja nappuloiden määrä. Jokaisen kierroksen jälkeen taulukko näyttää jäljelle jääneet nappulat, kierroksen pisteet ja yhteispisteet: napauta sitä aloittaaksesi seuraavan kierroksen.
+Sen kierroksen jälkeen, jolla joku saavuttaa 100 pistettä (All Fivesissa heti), suurin yhteispistemäärä voittaa.

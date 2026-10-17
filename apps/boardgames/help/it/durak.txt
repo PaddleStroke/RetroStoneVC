@@ -1,28 +1,18 @@
 Durak
 # Lo scopo
-Liberati di tutte le tue carte. L'ultimo giocatore che ha ancora carte in mano è il durak, lo sciocco, e perde; tutti gli altri vincono insieme. Da 2 a 6 giocatori (di solito 2 o 3), con un mazzo di 36 carte. Due varianti a scelta: con aggiunta (podkidnoy) e con trasferimento (perevodnoy).
+Liberati di tutte le tue carte. L'ultimo giocatore che ha ancora carte in mano è il durak, lo sciocco, e perde.
 # Le carte
-- Dalla più bassa alla più alta: 6, 7, 8, 9, 10, fante, donna, re, asso.
-- Ognuno riceve sei carte. La carta successiva si scopre e si mette di traverso sotto il mazzo: il suo seme è briscola per tutta la partita, e sarà l'ultima carta pescata.
-- Chi ha la briscola più bassa attacca per primo; il giocatore successivo difende.
+- Dalla più bassa alla più alta: dal 6 al 10, fante, donna, re, asso. Sei carte a testa; la carta scoperta sotto il mazzo dà la briscola e sarà l'ultima pescata.
+- La briscola più bassa attacca per prima; il giocatore successivo difende.
 # Un attacco
 - L'attaccante gioca una carta, o più carte dello stesso valore.
-- Il difensore batte ogni carta d'attacco con una carta più alta dello stesso seme, o con una briscola. Una briscola si batte solo con una briscola più alta.
-- Quando tutte le carte sono battute, gli altri possono aggiungere altre carte di un valore già presente sul tavolo: prima l'attaccante, poi ciascuno degli altri a turno. Il difensore deve battere anche queste.
-- Un attacco conta al massimo sei carte, e mai più di quante ne aveva in mano il difensore all'inizio.
-- Il difensore che non può o non vuole battere prende: gli altri possono ancora aggiungere carte, poi lui raccoglie tutte le carte sul tavolo.
+- Il difensore batte ognuna con una carta più alta dello stesso seme, o con una briscola; una briscola solo con una briscola più alta.
+- Quando tutte sono battute, gli altri, prima l'attaccante, possono aggiungere carte di un valore presente sul tavolo, da battere anche queste. Al massimo sei carte d'attacco, mai più di quante ne aveva il difensore all'inizio.
+- Il difensore che non può o non vuole battere prende: dopo le ultime aggiunte, raccoglie tutte le carte sul tavolo.
 # Dopo un attacco
-- Se ogni carta è stata battuta e nessuno ne aggiunge altre, le carte vanno messe da parte e ad attaccare è il difensore.
-- Se il difensore ha preso le carte, perde il suo turno d'attacco: attacca il giocatore dopo di lui.
-- Tutti pescano dal mazzo fino a tornare a sei carte: prima l'attaccante, poi gli altri a turno, il difensore per ultimo.
+- Tutto battuto: le carte vanno messe da parte e attacca il difensore. Ha preso: attacca il giocatore dopo di lui.
+- Tutti pescano fino a tornare a sei carte, prima l'attaccante, il difensore per ultimo.
 # La fine della partita
-Quando il mazzo è finito, chi resta senza carte esce dal gioco, salvo. L'ultimo giocatore che ha ancora carte in mano è il durak. Se gli ultimi giocatori restano senza carte nello stesso momento, nessuno perde.
+Quando il mazzo è finito, chi resta senza carte esce dal gioco, salvo. Se gli ultimi giocatori restano senza carte nello stesso momento, nessuno perde.
 # Il trasferimento
-Prima di aver battuto qualsiasi carta, il difensore può trasferire l'attacco aggiungendo una carta dello stesso valore delle carte d'attacco. Il giocatore successivo si difende allora da tutte, se ha almeno tante carte quante ora ce ne sono sul tavolo, e chi ha trasferito si unisce all'attacco.
-# Giocare sul dispositivo
-Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso, divise per seme, con le briscole in fondo. In alto siedono gli altri: le loro carte coperte e quante sono, una spada accanto all'attaccante, uno scudo accanto al difensore, un segno di passo per chi ha passato. Da un lato c'è il mazzo con la briscola sotto (il simbolo del suo seme quando il mazzo è finito), dall'altro le carte messe da parte.
-- Attaccare o aggiungere: tocca le tue carte (brillano quelle che puoi aggiungere), poi tocca il tavolo o trascinale lì. Il pulsante passo nella tua barra serve per passare.
-- Difendere: tocca una carta (brillano le carte che può battere), poi la carta da battere. Il pulsante rotondo con la freccia prende le carte; resta acceso mentre gli altri aggiungono.
-- Nel trasferimento, una carta del valore dell'attacco illumina un posto vuoto accanto all'attacco: toccalo per trasferire l'attacco.
-Dopo ogni attacco il dispositivo va al difensore; quando tutto è battuto, a ciascuno degli altri a turno, cominciando dall'attaccante, per aggiungere o passare.
-Mani scoperte (le carte con l'occhio, nella scelta della partita): tutte le mani sono scoperte e visibili a tutti, e il dispositivo passa senza nascondere nulla: un modo per imparare il gioco insieme.
+Prima di battere, il difensore può trasferire l'attacco con una carta dello stesso valore, se il giocatore successivo ha almeno tante carte quante ce ne sono allora sul tavolo. Quel giocatore si difende da tutte; chi ha trasferito si unisce all'attacco.

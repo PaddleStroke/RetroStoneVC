@@ -1,31 +1,17 @@
 Cribbage
 # Tavoite
-Saada ensimmäisenä 121 pistettä, merkittyinä tapeilla pistelautaan. 2 tai 3 pelaajalle. Pisteitä tulee korttien pelaamisen aikana ja kun kädet lasketaan laskennassa.
+Saada ensimmäisenä 121 pistettä.
 # Jako
-- Joka jaossa jakaja jakaa jokaiselle pelaajalle 6 korttia (3 pelaajaa: 5 kullekin, ja yksi kortti pakasta menee kribiin).
-- Jokainen pelaaja laittaa 2 korttia sivuun kuvapuoli alaspäin (3 pelaajaa: 1). Ne muodostavat kribin (crib), ylimääräisen käden, jonka pisteet saa jakaja.
-- Jakajasta vasemmalla oleva pelaaja nostaa pakasta, ja päällimmäinen kortti käännetään: aloituskortti (starter). Jätkä antaa jakajalle 2 pistettä (his heels).
-- Jakovuoro siirtyy vasemmalle jokaisen jaon jälkeen.
+- Jokainen saa 6 korttia ja laittaa 2 sivuun (3 pelaajaa: 5 ja 1, lisäksi yksi kortti pakasta): kribi (crib), ylimääräinen käsi jakajalle.
+- Nostetun pakan päällimmäinen kortti on aloituskortti (starter). Jätkä antaa jakajalle 2 pistettä (his heels).
 # Pelin kulku
-- Jakajasta vasemmalle alkaen pelaajat lyövät vuorotellen korttejaan kuvapuoli ylöspäin ja laskevat niiden arvoja yhteen: ässä 1, 2–10 arvonsa, jätkä, kuningatar ja kuningas 10.
-- Summa ei saa koskaan ylittää 31:tä. Pelaaja, joka ei voi lyödä korttia, sanoo ”go”, ja muut jatkavat niin kauan kuin voivat.
-- Summa tasan 15 antaa 2, tasan 31 antaa 2.
-- Edellisen kanssa samanarvoinen kortti antaa 2 parista, 6 kolmosista, 12 nelosista.
-- Kun viimeiset 3 tai useampi lyöty kortti muodostavat suoran, missä järjestyksessä tahansa, se antaa 1 pisteen korttia kohden.
-- Kun kukaan ei voi lyödä korttia, viimeksi lyönyt saa 1 (31:stä ei enempää). Summa alkaa taas nollasta seuraavasta pelaajasta, jolla on vielä kortteja. Pelivaiheen aivan viimeinen kortti antaa myös 1.
+- Vuorotellen kukin lyö kortin ja lisää sen summaan (ässä 1, jätkä, kuningatar ja kuningas 10), koskaan yli 31:n; pelaaja, joka ei voi lyödä korttia, sanoo ”go”.
+- Tasan 15 tai 31: 2. Pari edellisen kortin kanssa: 2, kolmoset 6, neloset 12. Suora viimeisissä 3 tai useammassa kortissa, missä järjestyksessä tahansa: 1 korttia kohden.
+- Kun kukaan ei voi lyödä korttia, viimeksi lyönyt saa 1 (31:stä ei enempää) ja summa alkaa taas nollasta. Pelivaiheen viimeinen kortti antaa myös 1.
 # Laskenta
-Kädet lasketaan aloituskortti viidentenä korttina: ensin jakajasta vasemmalla oleva pelaaja, jakaja viimeisenä ja sitten jakajan kribi.
-- Jokainen korttiyhdistelmä, jonka summa on 15: 2.
-- Jokainen pari: 2 (kolmoset ovat kolme paria: 6).
-- Jokainen vähintään 3 kortin suora: 1 piste korttia kohden (tuplasuora lasketaan kahdesti).
-- Neljä samaa maata olevaa korttia kädessä: 4, tai 5, jos aloituskorttikin on samaa maata. Kribissä lasketaan vain viisi samaa maata olevaa korttia.
+Jokainen käsi lasketaan aloituskortin kanssa: ensin jakajasta vasemmalla, jakaja viimeisenä, sitten kribi.
+- Jokainen 15: 2. Jokainen pari: 2. Jokainen suora: 1 korttia kohden (tuplasuora lasketaan kahdesti).
+- Neljä samaa maata olevaa korttia kädessä: 4, tai 5 aloituskortin kanssa. Kribissä lasketaan vain viisi samaa maata olevaa korttia.
 - Aloituskortin maata oleva jätkä kädessä: 1 (his nobs).
 # Pelin loppu
-Ensimmäisenä 121 pisteeseen ehtivä voittaa heti, vaikka kesken pelivaiheen tai laskennan. Siksi laskentajärjestyksellä on väliä.
-# Pelaaminen laitteella
-Kädet ovat salaisia: anna laite eteenpäin, kun näyttö pyytää, ja seuraava pelaaja napauttaa aloitusta. Oma kätesi on alhaalla, muiden ylhäällä. Pistelaudalla jokaisella pelaajalla on oma kaistansa: tapit kulkevat toista riviä pitkin eteenpäin ja toista takaisin, kahdesti ympäri, maalireikään. Jokaisella pelaajalla on kaksi tappia: takimmainen hyppää etummaisen ohi saatujen pisteiden verran.
-- Napauta 2 korttia (3 pelaajaa: 1) valitaksesi ne ja napauta sitten kribiä laittaaksesi ne sivuun.
-- Napauta pakkaa nostaaksesi siitä.
-- Napauta korttia valitaksesi sen ja napauta sitä uudelleen (tai vedä se pöydälle) lyödäksesi sen. Kortit, joilla summa pysyy enintään 31:ssä, hehkuvat. Go sanotaan automaattisesti: pelaajan palkkiin ilmestyy merkki.
-- Laskennassa kukin käsi ja sitten kribi tulevat keskelle aloituskortin kanssa. Jokainen pisteitä tuova yhdistelmä syttyy vuorollaan ja sen pisteet nousevat sen yläpuolelle (15 pisteiden edessä: viisitoista). Sitten tappi siirtyy. Napauta jatkaaksesi; napautus laskennan aikana näyttää sen heti kokonaan.
-Kumoa peruu omat toimintosi siihen hetkeen asti, jolloin laite annettiin eteenpäin.
+Ensimmäisenä 121 pisteeseen ehtivä voittaa heti, vaikka kesken pelivaiheen tai laskennan.

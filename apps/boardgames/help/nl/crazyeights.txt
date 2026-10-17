@@ -1,26 +1,20 @@
 Gekke Achten
 # Het doel
-Als eerste al je kaarten kwijtraken. Twee spellen om uit te kiezen: Gekke Achten, met een spel van 52 kaarten, en Laatste kaart, met een spel van 108 gekleurde kaarten en actiekaarten. Voor 2 tot 6 spelers.
+Als eerste al je kaarten kwijtraken.
 # Een beurt
-- Leg een kaart op de aflegstapel: een kaart van dezelfde soort (of kleur), of met hetzelfde getal of teken als de bovenste kaart.
-- Kun je niet spelen, dan pak je van de stapel.
-- De eerste omgedraaide kaart is nooit een acht, een actiekaart of een joker.
+- Leg een kaart van dezelfde soort (of kleur), of met hetzelfde getal of teken als de bovenste kaart van de aflegstapel. Kun je niet, dan pak je.
 # Gekke Achten
-- Met twee spelers 7 kaarten elk, met meer 5.
 - Een acht mag je altijd spelen: kies dan de soort die gevolgd moet worden.
-- Pakken mag alleen wie niet kan spelen, één kaart tegelijk, tot het wel kan. Valt er niets meer te pakken, dan pas je.
-- Punten: acht 50, heer, vrouw en boer 10, aas 1, de andere kaarten hun getal. Er wordt gespeeld tot 100.
+- Pak tot je kunt spelen; valt er niets meer te pakken, dan pas je.
+- Punten: acht 50, heer, vrouw en boer 10, aas 1, de andere hun getal. Er wordt gespeeld tot 100.
 # Laatste kaart
-- 7 kaarten elk. Een joker mag je altijd spelen: kies dan de kleur die gevolgd moet worden.
-- Overslaan: de volgende speler slaat een beurt over. Omkeren: het spel draait de andere kant op (met twee spelers werkt het als overslaan). Pak twee: de volgende speler pakt 2 kaarten en slaat een beurt over.
-- Joker pak vier: kies de kleur; de volgende speler pakt 4 kaarten en slaat een beurt over. Je mag hem alleen spelen als je geen kaart van de gevraagde kleur hebt. Het apparaat controleert dat, dus er is geen uitdaging.
-- Pak twee en pak vier tellen niet op: de volgende speler pakt gewoon.
-- In plaats van te spelen mag je één kaart pakken. Past die, speel hem dan meteen, of houd hem en pas.
-- Laatste kaart: vlak voordat je je op een na laatste kaart speelt, tik je op de knop voor de laatste kaart. Vergeet je dat, dan mag de volgende speler je betrappen voordat hij iets anders doet, en pak je 2 kaarten.
+- Een joker mag je altijd spelen: kies dan de kleur die gevolgd moet worden.
+- Overslaan: de volgende speler slaat een beurt over. Omkeren: het spel draait de andere kant op (met twee spelers overslaan). Pak twee: de volgende speler pakt 2 en slaat een beurt over.
+- Joker pak vier: kies de kleur; de volgende speler pakt 4 en slaat een beurt over. Alleen als je geen kaart van de gevraagde kleur hebt.
+- Pakkaarten tellen niet op. In plaats van te spelen mag je één kaart pakken: speel hem als hij past, of pas.
+- Vlak voordat je je op een na laatste kaart speelt, tik je op de knop voor de laatste kaart. Vergeet je dat, dan mag de volgende speler je als eerste betrappen door op je hand te tikken: je pakt 2.
 - Punten: getallen hun waarde, overslaan, omkeren en pak twee 20, jokers 50. Er wordt gespeeld tot 500.
 # Het einde van een ronde
-Wie als eerste geen kaarten meer heeft, wint de ronde en krijgt de punten van de kaarten in de andere handen. Kan niemand meer spelen of pakken, dan stopt de ronde: wie de minste punten in de hand heeft, wint hem en krijgt het verschil met elke andere hand. Het delen schuift elke ronde een plaats op.
+Wie als eerste geen kaarten meer heeft, krijgt de punten van de kaarten in de andere handen. Kan niemand meer spelen of pakken, dan wint de laagste hand en krijgt het verschil met elke andere hand.
 # Het einde van de partij
 Wie als eerste de doelscore haalt, wint.
-# Spelen op het apparaat
-Geef het apparaat door: iedereen ziet onderaan de eigen hand. De andere handen zijn kleine waaiers bovenaan, elk met het stuk van die speler en het aantal kaarten. Bij Laatste kaart laat de ring van pijlen in het midden zien welke kant het spel op gaat. Tik op een oplichtende kaart om hem te spelen; tik op de stapel om te pakken (hij licht op als je moet pakken). Na een acht of een joker tik je op een soort (een aas) of een kleur (een schijf). De knop voor de laatste kaart, een kaart met een straal, verschijnt als je twee kaarten hebt; wie hem heeft gebruikt, toont hem naast de eigen hand. Om een speler te betrappen die het vergat, tik je op zijn hand of zijn balk. Om te passen tik je op de knop in je balk. Na elke ronde toont een tabel de punten in elke hand, de winst van de winnaar en de totalen; tik erop voor de volgende ronde. Ongedaan maken neemt alleen een keuze in je eigen beurt terug, nooit een gepakte kaart.

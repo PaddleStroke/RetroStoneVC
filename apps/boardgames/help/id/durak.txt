@@ -1,28 +1,18 @@
 Durak
 # Tujuan
-Habiskan semua kartumu. Pemain terakhir yang masih memegang kartu adalah durak, si bodoh, dan kalah; semua pemain lain menang bersama. Untuk 2 sampai 6 pemain (biasanya 2 atau 3), dengan satu pak berisi 36 kartu. Ada dua permainan untuk dipilih: permainan tambah (podkidnoy) dan permainan pengalihan (perevodnoy).
+Habiskan semua kartumu. Pemain terakhir yang masih memegang kartu adalah durak, si bodoh, dan kalah.
 # Kartu
-- Dari terendah ke tertinggi: 6, 7, 8, 9, 10, jack, queen, king, as.
-- Setiap pemain mendapat enam kartu. Kartu berikutnya dibuka dan diletakkan melintang di bawah tumpukan: jenisnya menjadi truf sepanjang permainan, dan kartu itu menjadi kartu terakhir yang diambil.
-- Pemain yang memegang truf terendah menyerang lebih dulu; pemain berikutnya bertahan.
+- Dari terendah ke tertinggi: 6 sampai 10, jack, queen, king, as. Masing-masing enam kartu; kartu terbuka di bawah tumpukan menentukan truf dan diambil paling akhir.
+- Truf terendah menyerang lebih dulu; pemain berikutnya bertahan.
 # Satu serangan
 - Penyerang memainkan satu kartu, atau beberapa kartu dengan nilai yang sama.
-- Pembela mengalahkan setiap kartu serangan dengan kartu yang lebih tinggi dari jenis yang sama, atau dengan truf. Truf hanya bisa dikalahkan oleh truf yang lebih tinggi.
-- Setelah semua kartu dikalahkan, pemain lain boleh menambahkan kartu lagi dengan nilai yang sudah ada di meja: penyerang lebih dulu, lalu setiap pemain lain secara bergiliran. Pembela harus mengalahkan kartu-kartu ini juga.
-- Satu serangan berisi paling banyak enam kartu, dan tidak pernah lebih dari jumlah kartu yang dipegang pembela saat serangan dimulai.
-- Pembela yang tidak bisa atau tidak mau mengalahkan harus mengambil: pemain lain masih boleh menambahkan kartu, lalu pembela mengambil semua kartu di meja.
+- Pembela mengalahkan masing-masing dengan kartu yang lebih tinggi dari jenis yang sama, atau dengan truf; truf hanya dengan truf yang lebih tinggi.
+- Setelah semuanya dikalahkan, pemain lain, penyerang lebih dulu, boleh menambahkan kartu dengan nilai yang ada di meja; kartu ini juga harus dikalahkan. Paling banyak enam kartu serangan, tidak pernah lebih dari kartu yang dipegang pembela di awal.
+- Pembela yang tidak bisa atau tidak mau mengalahkan harus mengambil: setelah tambahan terakhir, ia mengambil semua kartu di meja.
 # Setelah serangan
-- Jika semua kartu dikalahkan dan tidak ada yang menambahkan lagi, kartu-kartu itu disisihkan dan pembela menyerang berikutnya.
-- Jika pembela mengambil kartu, ia kehilangan gilirannya untuk menyerang: pemain sesudahnya yang menyerang.
-- Semua pemain mengambil kartu dari tumpukan sampai kembali memegang enam: penyerang lebih dulu, lalu yang lain secara bergiliran, pembela paling akhir.
+- Semua dikalahkan: kartu disisihkan dan pembela menyerang berikutnya. Diambil: pemain sesudahnya yang menyerang.
+- Semua pemain mengambil kartu sampai kembali memegang enam, penyerang lebih dulu, pembela paling akhir.
 # Akhir permainan
-Setelah tumpukan habis, pemain yang tidak punya kartu lagi keluar dari permainan dan selamat. Pemain terakhir yang masih memegang kartu adalah durak. Jika pemain-pemain terakhir kehabisan kartu pada saat yang sama, tidak ada yang kalah.
+Setelah tumpukan habis, pemain yang tidak punya kartu lagi keluar dari permainan dan selamat. Jika pemain-pemain terakhir kehabisan kartu pada saat yang sama, tidak ada yang kalah.
 # Permainan pengalihan
-Sebelum mengalahkan kartu apa pun, pembela boleh mengalihkan serangan dengan menambahkan kartu yang nilainya sama dengan kartu-kartu serangan. Pemain berikutnya lalu bertahan melawan semuanya, jika ia memegang kartu paling sedikit sebanyak kartu yang kini ada di meja, dan pemain yang mengalihkan ikut menyerang.
-# Bermain di perangkat
-Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah, menurut jenis, dengan truf di akhir. Di sepanjang bagian atas duduk pemain lain: kartu mereka yang tertutup beserta jumlahnya, pedang di dekat penyerang, perisai di dekat pembela, tanda pas di dekat pemain yang sudah pas. Tumpukan ada di satu sisi dengan kartu truf di bawahnya (tanda jenisnya setelah tumpukan habis), kartu yang disisihkan di sisi lain.
-- Menyerang atau menambahkan: ketuk kartumu (kartu yang boleh kamu tambahkan bersinar), lalu ketuk meja atau seret kartu ke sana. Tombol pas di bilahmu dipakai untuk pas.
-- Bertahan: ketuk sebuah kartu (kartu yang bisa dikalahkannya bersinar), lalu kartu yang akan dikalahkan. Tombol bulat bergambar panah mengambil kartu; tombol itu tetap menyala selama pemain lain menambahkan kartu.
-- Dalam permainan pengalihan, kartu dengan nilai serangan menyalakan tempat kosong di samping serangan: ketuk tempat itu untuk mengalihkan serangan.
-Perangkat berpindah ke pembela setelah setiap serangan; setelah semuanya dikalahkan, ke setiap pemain lain secara bergiliran, penyerang lebih dulu, untuk menambahkan kartu atau pas.
-Kartu terbuka (kartu bergambar mata saat memilih): kartu semua pemain terbuka untuk dilihat semua orang, dan perangkat berpindah tangan tanpa menyembunyikan apa pun: cara belajar permainan bersama.
+Sebelum mengalahkan, pembela boleh mengalihkan serangan dengan kartu yang nilainya sama, jika pemain berikutnya memegang kartu paling sedikit sebanyak kartu yang saat itu ada di meja. Pemain itu bertahan melawan semuanya; pemain yang mengalihkan ikut menyerang.

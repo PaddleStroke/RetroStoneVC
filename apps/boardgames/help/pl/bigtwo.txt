@@ -1,18 +1,16 @@
 Big Two
 # Cel gry
-Pozbądź się wszystkich kart jako pierwszy. Kantońska gra dla 4 graczy (lub 3), z talią 52 kart rozdawaną w całości: każdy dostaje 13 (we trzech po 17, a ostatnią kartę dostaje ten, kto ma trójkę karo).
+Pozbądź się wszystkich kart jako pierwszy. We trzech ostatnią kartę dostaje ten, kto ma trójkę karo.
 # Karty
-- Od najniższej do najwyższej: 3, 4, 5, 6, 7, 8, 9, 10, walet, dama, król, as i 2, najwyższa ze wszystkich.
-- Kolory od najniższego do najwyższego: karo, trefl, kier, pik. Z dwóch kart tej samej wartości wyższa jest ta w wyższym kolorze: dwójka pik to najwyższa karta.
+- Od najniższej do najwyższej: 3 do 10, walet, dama, król, as, 2.
+- Z kart tej samej wartości wyższa jest ta w wyższym kolorze, od najniższego: karo, trefl, kier, pik.
 # Układy
 - Pojedyncza karta, para, trójka.
-- Układ pięciu kart, od najniższego do najwyższego: strit (pięć kolejnych wartości, od 3-4-5-6-7 do 10-W-D-K-A; 2 nigdy do niego nie należy), kolor (pięć kart w jednym kolorze), full (trójka i para), kareta z dowolną piątą kartą, poker (strit w jednym kolorze).
-- Z dwóch układów tego samego rodzaju wyższy jest ten z wyższą najwyższą kartą. Dwa kolory porównuje się najwyższą kartą, potem kolejnymi; fulle i karety wartością ich trzech lub czterech jednakowych kart.
+- Pięć kart, od najniższego układu: strit (od 3-4-5-6-7 do 10-W-D-K-A, nigdy z 2), kolor, full, kareta z dowolną piątą kartą, poker (strit w jednym kolorze).
+- W tym samym rodzaju decyduje najwyższa karta (w kolorze potem kolejne); w fullu i karecie ich trzy lub cztery jednakowe karty.
 # Lewa
 - Gracz z trójką karo wychodzi do pierwszej lewy zagraniem, które ją zawiera.
-- Po kolei każdy zagrywa wyższy układ tego samego rodzaju i wielkości albo pasuje. Gracz, który spasował, może jeszcze zagrać, gdy znów przyjdzie jego kolej.
-- Gdy wszyscy pozostali spasują jeden po drugim, ostatni, który zagrał, zaczyna nową lewę dowolnym zagraniem.
+- Po kolei każdy przebija ostatnie zagranie układem tego samego rodzaju i wielkości albo pasuje; potem może znów zagrać.
+- Gdy wszyscy pozostali spasują jeden po drugim, ostatni, który zagrał, wychodzi dowolnym zagraniem.
 # Punktacja
-Wygrywa ten, kto pierwszy pozbędzie się kart. Każdy z pozostałych dostaje punkt karny za każdą kartę, która została mu w ręce, podwójnie przy dziesięciu kartach lub więcej.
-# Gra na urządzeniu
-Podawajcie sobie urządzenie: każdy gracz widzi tylko swoje karty, na dole, od najniższej do najwyższej. U góry siedzą pozostali: ich karty zakryte, ile ich jest, i znak pasu, jeśli spasowali od ostatniego zagrania. Ostatnie zagranie leży duże na środku z żetonem gracza, który je zagrał, a wcześniejsze, mniejsze, za nim. Dotykaj kart, by je wybrać, potem dotknij środka albo przeciągnij je tam: środek się podświetla, gdy twój wybór można zagrać. Trójka karo świeci dla gracza, który musi nią wyjść. Przycisk pasowania jest na twoim pasku. Na koniec tabela pokazuje pozostałe karty i punkty karne każdego gracza.
+Wygrywa ten, kto pierwszy pozbędzie się kart. Pozostali dostają punkt karny za każdą kartę w ręce, podwójnie przy dziesięciu lub więcej.

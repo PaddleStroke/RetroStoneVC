@@ -1,18 +1,16 @@
 Big Two
 # Lo scopo
-Essere il primo a giocare tutte le proprie carte. Un gioco cantonese per 4 giocatori (o 3), con un mazzo di 52 carte distribuito per intero: 13 a testa (in 3, 17 a testa, e l'ultima carta a chi ha il 3 di quadri).
+Essere il primo a giocare tutte le proprie carte. In 3, l'ultima carta va a chi ha il 3 di quadri.
 # Le carte
-- Dalla più bassa alla più alta: 3, 4, 5, 6, 7, 8, 9, 10, fante, donna, re, asso, e il 2, la più alta di tutte.
-- I semi, dal più basso al più alto: quadri, fiori, cuori, picche. Tra due carte dello stesso valore decide il seme: il 2 di picche è la carta più alta.
+- Dalla più bassa alla più alta: dal 3 al 10, fante, donna, re, asso, 2.
+- Tra carte dello stesso valore decide il seme, dal più basso: quadri, fiori, cuori, picche.
 # Le combinazioni
 - Una carta singola, una coppia, un tris.
-- Una mano di cinque carte, dalla più bassa alla più alta: scala (cinque valori consecutivi, da 3-4-5-6-7 fino a 10-J-Q-K-A; il 2 non ne fa mai parte), colore (cinque carte dello stesso seme), full (un tris e una coppia), poker con una quinta carta qualsiasi, scala colore.
-- Tra due combinazioni dello stesso tipo decide la carta più alta. Nel colore conta la carta più alta, poi le successive; nel full e nel poker, il valore delle tre o quattro carte uguali.
+- Cinque carte, dalla più bassa alla più alta: scala (da 3-4-5-6-7 fino a 10-J-Q-K-A, mai con il 2), colore, full, poker con una quinta carta qualsiasi, scala colore.
+- Nello stesso tipo decide la carta più alta (nel colore poi le successive); nel full e nel poker, le tre o quattro carte uguali.
 # Una presa
 - Chi ha il 3 di quadri apre la prima presa, con una combinazione che lo contiene.
-- A turno, ognuno gioca una combinazione più alta dello stesso tipo e della stessa grandezza, oppure passa. Chi ha passato può comunque giocare quando torna il suo turno.
-- Quando tutti gli altri hanno passato di fila, l'ultimo che ha giocato inizia una nuova presa con una combinazione qualsiasi.
+- A turno, ognuno batte l'ultima giocata con una combinazione dello stesso tipo e grandezza, oppure passa; dopo può giocare ancora.
+- Quando tutti gli altri hanno passato di fila, l'ultimo che ha giocato apre con una combinazione qualsiasi.
 # Il punteggio
-Vince il primo che finisce le carte. Ogni altro giocatore prende un punto di penalità per ogni carta rimasta in mano; con dieci carte o più i punti raddoppiano.
-# Giocare sul dispositivo
-Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso, dalla più bassa alla più alta. Lungo il lato alto siedono gli altri: le loro carte coperte, quante sono, e un segno di passo se hanno passato dall'ultima giocata. L'ultima giocata sta in grande al centro con la pedina del suo giocatore, le giocate precedenti più piccole dietro. Tocca le carte per sceglierle, poi tocca il centro o trascinale lì: il centro si illumina quando la tua scelta si può giocare. Il 3 di quadri brilla per il giocatore che deve aprire con quella carta. Il pulsante passo è nella tua barra. Alla fine, una tabella mostra per ogni giocatore le carte rimaste e la penalità.
+Vince il primo che finisce le carte. Gli altri prendono un punto di penalità per ogni carta rimasta in mano, doppio con dieci o più.

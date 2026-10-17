@@ -1,31 +1,17 @@
 Cribbage
 # Målet
-At være den første, der når 121 point, sat af med pinde på brættet. For 2 eller 3 spillere. Der kommer point, mens kortene spilles, og når hænderne tælles op i optællingen.
+At være den første, der når 121 point.
 # Kortgivningen
-- I hver omgang giver giveren hver spiller 6 kort (3 spillere: 5 hver, og et kort fra bunken går i krybben).
-- Hver spiller lægger 2 kort fra med bagsiden opad (3 spillere: 1). De udgør krybben (crib), en ekstra hånd, der tæller for giveren.
-- Spilleren til venstre for giveren tager af, og det øverste kort vendes: startkortet (starter). En knægt giver giveren 2 point (his heels).
-- Givningen går videre til venstre efter hver omgang.
+- Hver spiller får 6 kort og lægger 2 fra (3 spillere: 5 og 1, plus et kort fra bunken): krybben (crib), en ekstra hånd til giveren.
+- Det øverste kort i den afløftede bunke er startkortet (starter). En knægt giver giveren 2 point (his heels).
 # Spillet
-- Fra giverens venstre side lægger spillerne på skift deres kort med billedsiden opad og tæller værdierne sammen undervejs: es 1, 2 til 10 deres værdi, knægt, dame og konge 10.
-- Summen må aldrig komme over 31. En spiller, der ikke kan lægge et kort, siger »go«, og de andre fortsætter, så længe de kan.
-- En sum på præcis 15 giver 2, præcis 31 giver 2.
-- Et kort af samme rang som det forrige giver 2 for et par, 6 for tre ens, 12 for fire ens.
-- Når de sidste 3 eller flere lagte kort danner en sekvens, i vilkårlig rækkefølge, giver den 1 point pr. kort.
-- Når ingen kan lægge et kort, får den sidste, der gjorde det, 1 (intet ekstra ved 31). Summen starter forfra fra 0 med den næste spiller, der stadig har kort. Udspillets allersidste kort giver også 1.
+- På skift lægger hver et kort og lægger det til summen (es 1, knægt, dame og konge 10), aldrig over 31; en spiller, der ikke kan lægge et kort, siger »go«.
+- Præcis 15 eller 31: 2. Et par med det forrige kort: 2, tre ens 6, fire ens 12. En sekvens i de sidste 3 eller flere kort, i vilkårlig rækkefølge: 1 pr. kort.
+- Når ingen kan lægge et kort, får den sidste, der gjorde det, 1 (intet ekstra ved 31), og summen starter forfra fra 0. Udspillets sidste kort giver også 1.
 # Optællingen
-Hænderne tælles med startkortet som femte kort: spilleren til venstre for giveren først, giveren sidst og derefter giverens krybbe.
-- Hver kombination af kort, der giver 15 tilsammen: 2.
-- Hvert par: 2 (tre ens giver tre par: 6).
-- Hver sekvens på 3 kort eller flere: 1 point pr. kort (en dobbelt sekvens tæller to gange).
-- Fire kort på hånden i samme kulør: 4, eller 5 hvis startkortet også er i den kulør. Krybben tæller kun fem kort i samme kulør.
+Hver hånd tælles med startkortet: til venstre for giveren først, giveren sidst, derefter krybben.
+- Hver 15: 2. Hvert par: 2. Hver sekvens: 1 pr. kort (en dobbelt sekvens tæller to gange).
+- Fire kort på hånden i samme kulør: 4, eller 5 med startkortet. Krybben tæller kun fem kort i samme kulør.
 - Knægten i startkortets kulør på hånden: 1 (his nobs).
 # Spillets afslutning
-Den første, der når 121, vinder straks, selv midt i udspillet eller optællingen. Derfor betyder rækkefølgen i optællingen noget.
-# Spil på enheden
-Hænderne er hemmelige: giv enheden videre, når skærmen beder om det, og den næste spiller trykker på start. Din hånd er nederst, de andres øverst. På pindebrættet har hver spiller en bane: pindene går ud ad den ene række og tilbage ad den anden, to gange rundt, til målhullet. Hver spiller har to pinde: den bageste springer foran den forreste med de scorede point.
-- Tryk på 2 kort (3 spillere: 1) for at vælge dem, og tryk så på krybben for at lægge dem fra.
-- Tryk på bunken for at tage af.
-- Tryk på et kort for at vælge det, og tryk så på det igen (eller træk det ud på bordet) for at lægge det. De kort, der kan lægges uden at komme over 31, lyser. Go siges automatisk: et tegn vises i spillerens panel.
-- I optællingen kommer hver hånd og derefter krybben ind på midten sammen med startkortet. Hver kombination, der giver point, lyser op efter tur, og dens point stiger op over den (et 15-tal foran pointene: en femten). Så flytter pinden. Tryk for at fortsætte; et tryk under optællingen viser den med det samme.
-Fortryd tager dine egne handlinger tilbage, helt til det øjeblik, enheden blev givet videre.
+Den første, der når 121, vinder straks, selv midt i udspillet eller optællingen.

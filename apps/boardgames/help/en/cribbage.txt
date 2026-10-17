@@ -1,31 +1,17 @@
 Cribbage
 # The aim
-Be the first to score 121 points, pegged on the board. For 2 players, or 3. Points come while the cards are played, and when the hands are counted in the show.
+Be the first to score 121 points.
 # The deal
-- Each hand, the dealer deals 6 cards to each player (3 players: 5 each, and one card from the pack goes to the crib).
-- Each player lays 2 cards away face down (3 players: 1). They make the crib, an extra hand that scores for the dealer.
-- The player on the dealer's left cuts the pack, and its top card is turned up: the starter. A jack gives the dealer 2 points (his heels).
-- The deal passes to the left after each hand.
+- Each player gets 6 cards and lays 2 away (3 players: 5 and 1, plus one card from the pack): the crib, an extra hand for the dealer.
+- The top card of the cut pack is the starter. A jack gives the dealer 2 points (his heels).
 # The play
-- From the dealer's left, the players lay their cards face up in turn and keep a running count of their values: ace 1, 2 to 10 their value, jack, queen and king 10.
-- The count may never go past 31. A player who cannot lay a card says "go", and the others carry on while they can.
-- A count of exactly 15 scores 2, exactly 31 scores 2.
-- A card of the same rank as the one before it scores 2 for a pair, 6 for three of a kind, 12 for four of a kind.
-- When the last 3 or more cards laid make a run, in any order, it scores 1 point a card.
-- When nobody can lay a card, the last player who did scores 1 (nothing more on 31). The count starts again from 0 with the next player who still has cards. The very last card of the play scores 1 too.
+- In turn, lay a card and add it to the count (ace 1, pictures 10), never past 31; a player who cannot lay says "go".
+- Exactly 15 or 31: 2. A pair with the card before: 2, three of a kind 6, four 12. A run in the last 3 or more cards, in any order: 1 a card.
+- When nobody can lay, the last player who did scores 1 (nothing more on 31) and the count starts again from 0. The last card of the play scores 1 too.
 # The show
-The hands are counted with the starter as a fifth card: the player on the dealer's left first, the dealer last, and then the dealer's crib.
-- Every combination of cards that adds up to 15: 2.
-- Every pair: 2 (three of a kind makes three pairs: 6).
-- Every run of 3 cards or more: 1 point a card (a double run counts twice).
-- Four cards of the hand of one suit: 4, or 5 when the starter is of that suit too. The crib only counts a flush of five.
+Each hand counts with the starter: the dealer's left first, the dealer last, then the crib.
+- 15s: 2 each. Pairs: 2 each. Runs: 1 a card (a double run counts twice).
+- Four cards of one suit in the hand: 4, or 5 with the starter. The crib only counts a flush of five.
 - The jack of the starter's suit in the hand: 1 (his nobs).
 # The end of the game
-The first player to reach 121 wins at once, even in the middle of the play or of the show. This is why the order of counting matters.
-# Playing on the device
-The hands are secret: pass the device when the screen asks, and the next player taps the start button. Your hand is at the bottom, the others' at the top. On the peg board each player has a lane: the pegs go out along one row and back along the other, twice round, to the game hole. Each player has two pegs: the back one leaps ahead of the front one by the points scored.
-- Tap 2 cards (3 players: 1) to choose them, then tap the crib to lay them away.
-- Tap the pack to cut it.
-- Tap a card to choose it, then tap it again (or drag it onto the table) to lay it. The cards that fit under 31 glow. A go is said by itself: a sign shows in the player's bar.
-- In the show, each hand and then the crib come to the middle with the starter. Each scoring combination lights up in turn and its points rise above it (a 15 before the points: a fifteen). Then the peg moves. Tap to go on; a tap during the count shows it at once.
-Undo takes back your own actions, back to the moment the device was passed.
+The first to reach 121 wins at once, even in the middle of the play or of the show.

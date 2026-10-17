@@ -1,19 +1,17 @@
 Domino
 # Amaç
-Taşlarını oyun sırasının açık uçlarına ekleyerek hepsini ötekilerden önce bitir. Çift altılı takımla, 2-4 oyuncu için, herkes kendi adına. Eller gizlidir: her sıradan sonra cihazı bir sonrakine ver. Üç oyun arasından seç: blok oyunu, çekmeli oyun ve All Fives (Muggins).
+Taşlarını sıranın açık uçlarına ekleyerek hepsini ilk sen bitir.
 # Dağıtım
-28 taş yüzü kapalı karıştırılır. İki oyuncuyla her oyuncu 7 taş alır, üç ya da dört oyuncuyla 5 taş. Kalanlar yüzü kapalı durur: bu, stoktur.
+İki oyuncuyla her oyuncu 7 taş alır, üç ya da dört oyuncuyla 5 taş. Kalanlar stoktur.
 # Bir sıra
-- İlk elde en yüksek çifti olan oyuncu onu ilk koyar (kimsede çift yoksa en ağır taşı). Sonraki ellerde önceki eli kazanan istediği taşla başlar.
-- Sırayla, bir yarısı sıranın açık bir ucuna uyan bir taş koy; aynı yarılar birbirine değsin. Çiftler sıraya enine konur.
+- İlk el: en yüksek çift başlar (kimsede çift yoksa en ağır taş). Sonraki eller: önceki eli kazanan istediği taşla başlar.
+- Sıranın açık bir ucuna uyan bir taş koy.
 - Blok oyunu: oynayamıyorsan pas geç.
-- Çekmeli oyun ve All Fives: oynayamıyorsan oynayabilene kadar stoktan çek. Stok boşsa pas geç.
+- Çekmeli oyun ve All Fives: oynayamıyorsan oynayabilene kadar çek; stok boşsa pas geç.
 # All Fives
-- Oynanan ilk çift spinner'dır. İki uzun kenarına da taş eklendikten sonra iki kısa kenarına da taş eklenebilir: sıranın o zaman dört ucu olur.
-- Taşını koyduktan sonra açık uçları topla. Toplam 5'in katıysa onu hemen kazanırsın. Uçtaki bir çift iki yarısıyla birlikte sayılır.
+- İlk çift spinner'dır: iki uzun kenarına da taş eklendikten sonra kısa kenarları da açılır.
+- Taşından sonra açık uçların toplamı 5'in katıysa onu kazanırsın. Uçtaki bir çift iki yarısıyla birlikte sayılır.
 # Bir elin sonu
-El, bir oyuncu son taşını koyduğunda ya da kimse oynayamadığında biter. Bitiren oyuncu, ya da oyun kilitlendiyse elinde en az puan kalan oyuncu eli kazanır ve öteki ellerde kalan puanları alır (All Fives: 5'in en yakın katına yuvarlanır). İki oyuncu en az puanda eşitse kimse puan almaz.
+El, bir oyuncu son taşını koyduğunda ya da kimse oynayamadığında biter. Bitiren oyuncu, ya da elinde en az puan kalan oyuncu, öteki ellerde kalan puanları alır (All Fives: 5'in en yakın katına yuvarlanır); iki oyuncu en az puanda eşitse kimse puan almaz.
 # Oyunun sonu
-Oyun, bir oyuncunun 100 puana ulaştığı elin sonunda biter; All Fives'ta bir oyuncu 100'e ulaşır ulaşmaz. En yüksek toplam kazanır.
-# Cihazda oynamak
-Taşların aşağıda dik durur; oynayamadıkların soluktur. Bir taşa, sonra onun uyduğu parlayan yerlerden birine dokun, ya da onu oraya sürükle. Çekmek için soldaki stoka dokun; yalnızca pas geçebiliyorsan pas düğmesi şeridinde belirir. All Fives'ta sağdaki sayaç açık uçların toplamını gösterir; 5'in katında altın rengi parlar. Her oyuncunun şeridi puanını ve kaç taşı olduğunu gösterir. Her elden sonra bir tablo kalan taşları, elin puanlarını ve toplamları gösterir: sonraki el için ona dokun.
+Bir oyuncunun 100 puana ulaştığı elin sonunda (All Fives'ta hemen) en yüksek toplam kazanır.

@@ -1,26 +1,20 @@
 Oito maluco
 # O objetivo
-Ser o primeiro a jogar todas as tuas cartas. Dois jogos à escolha: o Oito maluco, com um baralho de 52 cartas, e Última carta, com um baralho de 108 cartas coloridas e cartas de ação. De 2 a 6 jogadores.
+Ser o primeiro a jogar todas as tuas cartas.
 # Uma vez
-- Joga uma carta no monte de descarte: uma carta do mesmo naipe (ou cor), ou do mesmo número ou símbolo que a carta de cima.
-- Se não puderes jogar, compra do baralho.
-- A primeira carta virada nunca é um oito, uma carta de ação nem um joker.
+- Joga uma carta do mesmo naipe (ou cor), número ou símbolo que a carta de cima do descarte. Se não puderes, compra.
 # Oito maluco
-- Com dois jogadores, 7 cartas para cada um; com mais, 5.
 - Um oito pode ser jogado a qualquer momento: escolhes então o naipe a seguir.
-- Só compra quem não pode jogar, uma carta de cada vez, até poder. Se já não houver nada para comprar, passa.
-- Pontos: oito 50, rei, dama e valete 10, ás 1, as outras cartas o seu número. O jogo vai até 100.
+- Compra até poderes jogar; se já não houver nada para comprar, passa.
+- Pontos: oito 50, rei, dama e valete 10, ás 1, as outras o seu número. O jogo vai até 100.
 # Última carta
-- 7 cartas para cada um. Um joker pode ser jogado a qualquer momento: escolhes então a cor a seguir.
-- Salta: o jogador seguinte perde a vez. Inverte: o jogo muda de sentido (com dois jogadores, vale como um salta). Compra duas: o jogador seguinte compra 2 cartas e perde a vez.
-- Joker compra quatro: escolhe a cor; o jogador seguinte compra 4 cartas e perde a vez. Só pode ser jogado se não tiveres nenhuma carta da cor a seguir. O dispositivo verifica-o, por isso não há desafio.
-- Compra duas e compra quatro não se acumulam: o jogador seguinte simplesmente compra.
-- Em vez de jogar, podes comprar uma carta. Se servir, joga-a logo, ou fica com ela e passa.
-- Última carta: mesmo antes de jogares a tua penúltima carta, toca no botão da última carta. Se te esqueceres, o jogador seguinte pode apanhar-te antes de fazer outra coisa, e compras 2 cartas.
+- Um joker pode ser jogado a qualquer momento: escolhes então a cor a seguir.
+- Salta: o jogador seguinte perde a vez. Inverte: o jogo muda de sentido (com dois jogadores, um salta). Compra duas: o jogador seguinte compra 2 e perde a vez.
+- Joker compra quatro: escolhe a cor; o jogador seguinte compra 4 e perde a vez. Só se não tiveres nenhuma carta da cor a seguir.
+- Os compra não se acumulam. Em vez de jogar, podes comprar uma carta: joga-a se servir, ou passa.
+- Mesmo antes de jogares a tua penúltima carta, toca no botão da última carta. Se te esqueceres, o jogador seguinte pode apanhar-te antes de tudo, tocando na tua mão: compras 2.
 - Pontos: os números o seu valor, salta, inverte e compra duas 20, jokers 50. O jogo vai até 500.
 # O fim de uma ronda
-O primeiro jogador que fica sem cartas ganha a ronda e marca os pontos das cartas que ficaram nas outras mãos. Se já ninguém puder jogar nem comprar, a ronda acaba: quem tiver menos pontos na mão ganha-a e marca a diferença para cada outra mão. Quem dá as cartas muda a cada ronda.
+O primeiro jogador que fica sem cartas marca os pontos das cartas que ficaram nas outras mãos. Se já ninguém puder jogar nem comprar, a mão com menos pontos ganha e marca a diferença para cada outra mão.
 # O fim do jogo
 Ganha o primeiro jogador que chegar à pontuação combinada.
-# Jogar no dispositivo
-Passa o dispositivo: cada jogador vê a sua mão em baixo. As outras mãos são pequenos leques em cima, cada um com a peça do seu jogador e o número de cartas. Na Última carta, o anel de setas no meio mostra o sentido do jogo. Toca numa carta que brilha para a jogar; toca no baralho para comprar (brilha quando tens de comprar). Depois de um oito ou de um joker, toca num naipe (um ás) ou numa cor (um disco). O botão da última carta, uma carta com um brilho, aparece quando tens duas cartas; quem o usou mostra-o ao lado da sua mão. Para apanhar um jogador que se esqueceu, toca na mão ou na barra dele. Para passar, toca no botão da tua barra. Depois de cada ronda, uma tabela mostra os pontos que ficaram em cada mão, o ganho do vencedor e os totais; toca nela para a ronda seguinte. Anular só desfaz uma escolha da tua própria vez, nunca uma carta comprada.

@@ -1,26 +1,20 @@
 Çılgın Sekizler
 # Amaç
-Bütün kartlarını ilk bitiren olmak. Seçebileceğin iki oyun var: 52 kartlık desteyle Çılgın Sekizler ve 108 renkli kart ile aksiyon kartlarından oluşan desteyle Son Kart. 2 ile 6 oyuncu için.
+Bütün kartlarını ilk bitiren olmak.
 # Bir sıra
-- Atılan kartlar yığınına bir kart koy: üstteki kartla aynı türden (ya da renkten) ya da aynı sayıda veya işarette bir kart.
-- Oynayamıyorsan desteden kart çek.
-- İlk açılan kart asla bir sekiz, bir aksiyon kartı ya da bir joker olmaz.
+- Atılan kartlar yığınının üstündeki kartla aynı türden (ya da renkten) ya da aynı sayıda veya işarette bir kart koy. Koyamıyorsan çek.
 # Çılgın Sekizler
-- İki oyuncuyla herkese 7 kart, daha fazla oyuncuyla 5.
 - Sekiz her an oynanabilir: o zaman izlenecek türü sen seçersin.
-- Yalnızca oynayamayan kart çeker, birer birer, oynayabilene kadar. Çekecek bir şey kalmadıysa pas geçer.
-- Puanlar: sekiz 50, papaz, kız ve vale 10, as 1, diğer kartlar kendi sayıları. Oyun 100 puana kadar sürer.
+- Oynayabilene kadar çek; çekecek bir şey kalmadıysa pas geç.
+- Puanlar: sekiz 50, papaz, kız ve vale 10, as 1, diğerleri kendi sayıları. Oyun 100 puana kadar sürer.
 # Son Kart
-- Herkese 7 kart. Joker her an oynanabilir: o zaman izlenecek rengi sen seçersin.
-- Atla: sıradaki oyuncu sırasını kaybeder. Yön değiştir: oyun ters yöne döner (iki oyuncuyla atla gibi işler). İki çek: sıradaki oyuncu 2 kart çeker ve sırasını kaybeder.
-- Joker dört çek: rengi seç; sıradaki oyuncu 4 kart çeker ve sırasını kaybeder. Yalnızca izlenecek renkten hiç kartın yoksa oynanabilir. Cihaz bunu denetler, bu yüzden itiraz yoktur.
-- İki çek ve dört çek üst üste eklenmez: sıradaki oyuncu sadece çeker.
-- Oynamak yerine bir kart çekebilirsin. Uyuyorsa hemen oyna ya da elinde tut ve pas geç.
-- Son kart: sondan bir önceki kartını oynamadan hemen önce son kart düğmesine dokun. Unutursan sıradaki oyuncu başka bir şey yapmadan seni yakalayabilir ve sen 2 kart çekersin.
+- Joker her an oynanabilir: o zaman izlenecek rengi sen seçersin.
+- Atla: sıradaki oyuncu sırasını kaybeder. Yön değiştir: oyun ters yöne döner (iki oyuncuyla atla olur). İki çek: sıradaki oyuncu 2 çeker ve sırasını kaybeder.
+- Joker dört çek: rengi seç; sıradaki oyuncu 4 çeker ve sırasını kaybeder. Yalnızca izlenecek renkten hiç kartın yoksa.
+- Çek kartları üst üste eklenmez. Oynamak yerine bir kart çekebilirsin: uyuyorsa oyna ya da pas geç.
+- Sondan bir önceki kartını oynamadan hemen önce son kart düğmesine dokun. Unutursan sıradaki oyuncu her şeyden önce eline dokunarak seni yakalayabilir: 2 kart çekersin.
 - Puanlar: sayı kartları kendi değerleri, atla, yön değiştir ve iki çek 20, jokerler 50. Oyun 500 puana kadar sürer.
 # Bir elin sonu
-Kartı ilk biten oyuncu eli kazanır ve diğer ellerde kalan kartların puanlarını alır. Artık kimse oynayamıyor ve çekemiyorsa el biter: elinde en az puan olan eli kazanır ve diğer her elle arasındaki farkı alır. Kartları dağıtan her elde bir yer kayar.
+Kartı ilk biten oyuncu diğer ellerde kalan kartların puanlarını alır. Artık kimse oynayamıyor ve çekemiyorsa en az puanlı el kazanır ve diğer her elle arasındaki farkı alır.
 # Oyunun sonu
 Hedef puana ilk ulaşan oyuncu kazanır.
-# Cihazda oynamak
-Cihazı elden ele ver: her oyuncu kendi elini altta görür. Diğer eller üstte küçük yelpazelerdir, her birinde oyuncusunun pulu ve kart sayısı vardır. Son Kart'ta ortadaki ok halkası oyunun hangi yöne döndüğünü gösterir. Oynamak için parlayan bir karta dokun; çekmek için desteye dokun (çekmen gerektiğinde parlar). Bir sekizden ya da jokerden sonra bir türe (bir as) ya da bir renge (bir disk) dokun. Son kart düğmesi, ışıltılı bir kart, iki kartın olduğunda görünür; onu kullanan oyuncu elinin yanında gösterir. Unutan bir oyuncuyu yakalamak için onun eline ya da şeridine dokun. Pas geçmek için şeridindeki düğmeye dokun. Her elden sonra bir tablo her elde kalan puanları, kazananın kazancını ve toplamları gösterir; sonraki el için ona dokun. Geri al yalnızca kendi sırandaki bir seçimi geri alır, çekilen bir kartı asla.

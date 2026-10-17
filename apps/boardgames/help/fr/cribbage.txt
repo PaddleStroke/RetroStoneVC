@@ -1,31 +1,17 @@
 Cribbage
 # Le but
-Être le premier à marquer 121 points, comptés sur la planche. À 2 ou 3 joueurs. On marque des points pendant que les cartes sont jouées, et quand les mains sont comptées au décompte.
+Être le premier à marquer 121 points.
 # La donne
-- À chaque main, le donneur distribue 6 cartes à chaque joueur (à 3 joueurs : 5 chacun, et une carte du paquet va au crib).
-- Chaque joueur écarte 2 cartes face cachée (à 3 joueurs : 1). Elles forment le crib, une main de plus qui compte pour le donneur.
-- Le joueur à gauche du donneur coupe le paquet, et la carte du dessus est retournée : la carte de départ (starter). Un valet rapporte 2 points au donneur (his heels).
-- La donne passe à gauche après chaque main.
+- Chaque joueur reçoit 6 cartes et en écarte 2 (à 3 joueurs : 5 et 1, plus une carte du paquet) : le crib, une main de plus qui compte pour le donneur.
+- La carte du dessus du paquet coupé est la carte de départ (starter). Un valet rapporte 2 points au donneur (his heels).
 # Le jeu de la carte
-- En partant de la gauche du donneur, les joueurs posent leurs cartes face visible chacun à son tour et annoncent le total cumulé de leurs valeurs : as 1, 2 à 10 leur valeur, valet, dame et roi 10.
-- Le total ne peut jamais dépasser 31. Un joueur qui ne peut pas poser de carte dit « go », et les autres continuent tant qu'ils le peuvent.
-- Un total d'exactement 15 rapporte 2, d'exactement 31 rapporte 2.
-- Une carte de même rang que la précédente rapporte 2 pour une paire, 6 pour un brelan, 12 pour un carré.
-- Quand les 3 dernières cartes posées ou plus forment une suite, dans n'importe quel ordre, elle rapporte 1 point par carte.
-- Quand plus personne ne peut poser de carte, le dernier joueur qui l'a fait marque 1 (rien de plus sur 31). Le total repart de 0 avec le joueur suivant qui a encore des cartes. La toute dernière carte du jeu marque 1 aussi.
+- Chacun à son tour pose une carte et l'ajoute au total (as 1, valet, dame et roi 10), sans jamais dépasser 31 ; un joueur qui ne peut pas poser dit « go ».
+- Exactement 15 ou 31 : 2. Une paire avec la carte précédente : 2, un brelan 6, un carré 12. Une suite dans les 3 dernières cartes ou plus, dans n'importe quel ordre : 1 par carte.
+- Quand plus personne ne peut poser, le dernier qui l'a fait marque 1 (rien de plus sur 31) et le total repart de 0. La dernière carte du jeu marque 1 aussi.
 # Le décompte
-Les mains sont comptées avec la carte de départ comme cinquième carte : le joueur à gauche du donneur d'abord, le donneur en dernier, puis le crib du donneur.
-- Chaque combinaison de cartes qui fait 15 : 2.
-- Chaque paire : 2 (un brelan fait trois paires : 6).
-- Chaque suite de 3 cartes ou plus : 1 point par carte (une double suite compte deux fois).
-- Quatre cartes de la main de la même couleur : 4, ou 5 si la carte de départ est aussi de cette couleur. Pour le crib, seule une couleur de cinq cartes compte.
-- Le valet de la couleur de la carte de départ dans la main : 1 (his nobs).
+Chaque main compte avec la carte de départ : la gauche du donneur d'abord, le donneur en dernier, puis le crib.
+- Chaque 15 : 2. Chaque paire : 2. Chaque suite : 1 par carte (une double suite compte deux fois).
+- Quatre cartes de la même couleur dans la main : 4, ou 5 avec la carte de départ. Pour le crib, seule une couleur de cinq cartes compte.
+- Le valet de la couleur de la carte de départ dans la main : 1 (his nobs).
 # La fin de la partie
-Le premier joueur qui atteint 121 gagne aussitôt, même au milieu du jeu ou du décompte. C'est pourquoi l'ordre dans lequel on compte est important.
-# Jouer sur l'appareil
-Les mains sont secrètes : passe l'appareil quand l'écran le demande, et le joueur suivant touche le bouton de départ. Ta main est en bas, celles des autres en haut. Sur la planche, chaque joueur a une piste : les fiches partent le long d'une rangée et reviennent par l'autre, deux tours, jusqu'au trou final. Chaque joueur a deux fiches : celle de derrière saute devant celle de devant d'autant de points qu'il en a marqué.
-- Touche 2 cartes (à 3 joueurs : 1) pour les choisir, puis touche le crib pour les écarter.
-- Touche le paquet pour le couper.
-- Touche une carte pour la choisir, puis touche-la encore (ou fais-la glisser sur la table) pour la poser. Les cartes qui ne font pas dépasser 31 brillent. Le go se dit tout seul : un signe s'affiche dans la barre du joueur.
-- Au décompte, chaque main puis le crib viennent au milieu avec la carte de départ. Chaque combinaison qui marque s'allume à son tour et ses points s'élèvent au-dessus d'elle (un 15 devant les points : un quinze). Puis la fiche avance. Touche pour continuer ; une touche pendant le décompte l'affiche aussitôt en entier.
-Annuler reprend tes propres actions, jusqu'au moment où l'appareil a été passé.
+Le premier qui atteint 121 gagne aussitôt, même au milieu du jeu ou du décompte.

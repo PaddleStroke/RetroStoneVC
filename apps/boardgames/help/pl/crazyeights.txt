@@ -1,26 +1,20 @@
 Szalone ósemki
 # Cel gry
-Jako pierwszy pozbyć się wszystkich kart. Dwie gry do wyboru: Szalone ósemki z talią 52 kart i Ostatnia karta z talią 108 kolorowych kart z kartami akcji. Dla 2–6 graczy.
+Jako pierwszy pozbyć się wszystkich kart.
 # Tura
-- Połóż jedną kartę na stos odrzuconych: kartę w tym samym kolorze albo z tą samą liczbą lub znakiem co karta na wierzchu.
-- Jeśli nie możesz zagrać, dobierz ze stosu.
-- Pierwsza odkryta karta nigdy nie jest ósemką, kartą akcji ani dżokerem.
+- Połóż kartę w tym samym kolorze albo z tą samą liczbą lub znakiem co karta na wierzchu stosu odrzuconych. Jeśli nie możesz, dobierz.
 # Szalone ósemki
-- Przy dwóch graczach po 7 kart, przy większej liczbie po 5.
 - Ósemkę można zagrać w każdej chwili: wtedy wybierasz kolor, do którego trzeba dokładać.
-- Dobiera tylko ten, kto nie może zagrać, po jednej karcie, aż będzie mógł. Gdy nie ma już czego dobrać, pasuje.
-- Punkty: ósemka 50, król, dama i walet 10, as 1, pozostałe karty ich liczba. Gra toczy się do 100.
+- Dobieraj, aż będziesz mógł zagrać; gdy nie ma już czego dobrać, pasujesz.
+- Punkty: ósemka 50, król, dama i walet 10, as 1, pozostałe ich liczba. Gra toczy się do 100.
 # Ostatnia karta
-- Po 7 kart. Dżokera można zagrać w każdej chwili: wtedy wybierasz kolor, do którego trzeba dokładać.
-- Stop: następny gracz traci kolejkę. Zmiana kierunku: gra idzie w drugą stronę (we dwóch działa jak stop). Weź dwie: następny gracz dobiera 2 karty i traci kolejkę.
-- Dżoker weź cztery: wybierz kolor; następny gracz dobiera 4 karty i traci kolejkę. Można go zagrać tylko wtedy, gdy nie masz żadnej karty w wymaganym kolorze. Urządzenie to sprawdza, więc nie ma wyzwania.
-- Weź dwie i weź cztery się nie sumują: następny gracz po prostu dobiera.
-- Zamiast zagrać, możesz dobrać jedną kartę. Jeśli pasuje, zagraj ją od razu albo zatrzymaj ją i pasuj.
-- Ostatnia karta: tuż przed zagraniem przedostatniej karty dotknij przycisku ostatniej karty. Jeśli zapomnisz, następny gracz może cię przyłapać, zanim zrobi cokolwiek innego, a ty dobierasz 2 karty.
+- Dżokera można zagrać w każdej chwili: wtedy wybierasz kolor, do którego trzeba dokładać.
+- Stop: następny gracz traci kolejkę. Zmiana kierunku: gra idzie w drugą stronę (we dwóch to stop). Weź dwie: następny gracz dobiera 2 i traci kolejkę.
+- Dżoker weź cztery: wybierz kolor; następny gracz dobiera 4 i traci kolejkę. Tylko wtedy, gdy nie masz żadnej karty w wymaganym kolorze.
+- Karty „weź” się nie sumują. Zamiast zagrać, możesz dobrać jedną kartę: zagraj ją, jeśli pasuje, albo pasuj.
+- Tuż przed zagraniem przedostatniej karty dotknij przycisku ostatniej karty. Jeśli zapomnisz, następny gracz może cię najpierw przyłapać, dotykając twojej ręki: dobierasz 2.
 - Punkty: karty z liczbami ich wartość, stop, zmiana kierunku i weź dwie 20, dżokery 50. Gra toczy się do 500.
 # Koniec rundy
-Pierwszy gracz bez kart wygrywa rundę i dostaje punkty za karty, które zostały w rękach pozostałych. Gdy nikt nie może już zagrać ani dobrać, runda się kończy: wygrywa ją ten, kto ma najmniej punktów w ręce, i dostaje różnicę względem każdej innej ręki. Rozdający przesuwa się o jedno miejsce co rundę.
+Pierwszy gracz bez kart dostaje punkty za karty, które zostały w rękach pozostałych. Gdy nikt nie może już zagrać ani dobrać, wygrywa ręka z najmniejszą liczbą punktów i dostaje różnicę względem każdej innej ręki.
 # Koniec gry
 Wygrywa pierwszy gracz, który osiągnie wyznaczony wynik.
-# Gra na urządzeniu
-Podawajcie sobie urządzenie: każdy widzi na dole swoją rękę. Ręce pozostałych to małe wachlarze na górze, każdy z żetonem gracza i liczbą kart. W Ostatniej karcie pierścień strzałek pośrodku pokazuje kierunek gry. Dotknij świecącej karty, aby ją zagrać; dotknij stosu, aby dobrać (świeci, gdy musisz dobrać). Po ósemce lub dżokerze dotknij koloru: asa albo barwnego krążka. Przycisk ostatniej karty, karta z błyskiem, pojawia się, gdy masz dwie karty; gracz, który go użył, pokazuje go obok swojej ręki. Aby przyłapać gracza, który zapomniał, dotknij jego ręki lub paska. Aby spasować, dotknij przycisku na swoim pasku. Po każdej rundzie tabela pokazuje punkty pozostałe w każdej ręce, zysk zwycięzcy i sumy; dotknij jej, aby zacząć następną rundę. Cofnij cofa tylko wybór w twojej własnej turze, nigdy dobraną kartę.

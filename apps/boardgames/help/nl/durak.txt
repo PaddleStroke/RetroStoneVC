@@ -1,28 +1,18 @@
 Durak
 # Het doel
-Raak al je kaarten kwijt. Wie als laatste nog kaarten heeft, is de durak, de sukkel, en verliest; alle anderen winnen samen. Voor 2 tot 6 spelers (meestal 2 of 3), met een spel van 36 kaarten. Twee varianten om uit te kiezen: bijgooien (podkidnoy) en doorschuiven (perevodnoy).
+Raak al je kaarten kwijt. Wie als laatste nog kaarten heeft, is de durak, de sukkel, en verliest.
 # De kaarten
-- Van laag naar hoog: 6, 7, 8, 9, 10, boer, vrouw, heer, aas.
-- Elke speler krijgt zes kaarten. De volgende kaart wordt opengelegd en dwars onder de stapel gelegd: zijn kleur is de hele partij troef, en hij wordt als laatste gepakt.
-- Wie de laagste troef heeft, valt als eerste aan; de volgende speler verdedigt.
+- Van laag naar hoog: 6 tot 10, boer, vrouw, heer, aas. Zes kaarten per speler; de opengelegde kaart onder de stapel bepaalt troef en wordt als laatste gepakt.
+- De laagste troef valt als eerste aan; de volgende speler verdedigt.
 # Een aanval
-- De aanvaller speelt een kaart uit, of meerdere kaarten van dezelfde rang.
-- De verdediger slaat elke aanvalskaart met een hogere kaart van dezelfde kleur, of met een troef. Een troef kan alleen door een hogere troef geslagen worden.
-- Zodra alle kaarten geslagen zijn, mogen de anderen meer kaarten bijgooien van een rang die al op tafel ligt: eerst de aanvaller, dan om de beurt elke andere speler. Ook die moet de verdediger slaan.
-- Een aanval telt hoogstens zes kaarten, en nooit meer dan de verdediger bij het begin in de hand had.
-- Een verdediger die niet kan of wil slaan, neemt: de anderen mogen nog kaarten bijgooien, daarna pakt hij alle kaarten van tafel op.
+- De aanvaller speelt een kaart uit, of meerdere van dezelfde rang.
+- De verdediger slaat elke kaart met een hogere kaart van dezelfde kleur, of met een troef; een troef alleen met een hogere troef.
+- Zodra alles geslagen is, mogen de anderen, eerst de aanvaller, kaarten bijgooien van een rang die op tafel ligt; ook die moeten geslagen worden. Hoogstens zes aanvalskaarten, nooit meer dan de verdediger bij het begin had.
+- Een verdediger die niet kan of wil slaan, neemt: na het laatste bijgooien pakt hij alle kaarten van tafel op.
 # Na een aanval
-- Is elke kaart geslagen en gooit niemand meer bij, dan gaan de kaarten opzij en valt de verdediger als volgende aan.
-- Heeft de verdediger de kaarten genomen, dan verliest hij zijn beurt om aan te vallen: de speler na hem valt aan.
-- Iedereen pakt van de stapel bij tot zes kaarten: eerst de aanvaller, dan om de beurt de anderen, de verdediger als laatste.
+- Alles geslagen: de kaarten gaan opzij en de verdediger valt als volgende aan. Genomen: de speler na hem valt aan.
+- Iedereen pakt bij tot zes kaarten, eerst de aanvaller, de verdediger als laatste.
 # Het einde van de partij
-Is de stapel op, dan is een speler zonder kaarten uit het spel, veilig. Wie als laatste nog kaarten heeft, is de durak. Raken de laatste spelers tegelijk door hun kaarten heen, dan verliest niemand.
+Is de stapel op, dan is een speler zonder kaarten uit het spel, veilig. Raken de laatste spelers tegelijk door hun kaarten heen, dan verliest niemand.
 # De doorschuifvariant
-Zolang hij nog geen kaart geslagen heeft, mag de verdediger de aanval doorschuiven door er een kaart van dezelfde rang als de aanvalskaarten bij te leggen. De volgende speler verdedigt zich dan tegen al die kaarten, als hij minstens zoveel kaarten heeft als er nu op tafel liggen, en wie doorschoof, doet mee aan de aanval.
-# Spelen op het apparaat
-Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan, per kleur, de troeven achteraan. Bovenaan zitten de anderen: hun kaarten dicht en hoeveel, een zwaard bij de aanvaller, een schild bij de verdediger, een pasteken bij een speler die gepast heeft. Aan de ene kant ligt de stapel met de troefkaart eronder (het teken van zijn kleur zodra de stapel op is), aan de andere kant de opzijgelegde kaarten.
-- Aanvallen of bijgooien: tik op je kaarten (die je mag bijgooien, lichten op), en tik dan op de tafel of sleep ze erheen. Met de pasknop in je balk pas je.
-- Verdedigen: tik op een kaart (de kaarten die hij kan slaan, lichten op), dan op de kaart die je wilt slaan. De ronde knop met de pijl neemt de kaarten; hij blijft verlicht zolang de anderen bijgooien.
-- In de doorschuifvariant laat een kaart van de rang van de aanval een lege plaats naast de aanval oplichten: tik erop om de aanval door te schuiven.
-Na elke aanval gaat het apparaat naar de verdediger; is alles geslagen, dan om de beurt naar elke andere speler, de aanvaller eerst, om bij te gooien of te passen.
-Open kaarten (de kaarten met een oog bij de keuze): alle handen liggen open voor iedereen en het apparaat gaat rond zonder iets te verbergen: zo leer je het spel samen.
+Voordat hij slaat, mag de verdediger de aanval doorschuiven met een kaart van dezelfde rang, als de volgende speler minstens zoveel kaarten heeft als er dan op tafel liggen. Die verdedigt zich tegen al die kaarten; wie doorschoof, doet mee aan de aanval.
