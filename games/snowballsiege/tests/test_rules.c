@@ -519,6 +519,64 @@ static void test_determinism(void)
     CHECK(a.dirty_seq > 5, "and the field got carved (%u splats)", a.dirty_seq);
 }
 
+/* the bug hunt's regressions (snowballsiege-bugs) */
+static void test_regressions(void)
+{
+    /* a critter snowed under by its own fall (0 hearts) on its own turn: the turn ends, it cannot throw */
+    flat_world(&W, 120);
+    world_start(&W);
+    critter *c = world_active(&W);
+    int x0 = c->x >> 16;
+    for (int y = 120; y < 200; y++)
+        for (int x = x0 + 5; x < x0 + 40; x++) terrain_set(&W, x, y, 0);
+    c->hp = 1;
+    tin r = NONE;
+    r.walk = 1;
+    int n;
+    for (n = 0; n < 200 && W.phase == PH_AIM && !(c->state == CS_STAND && (c->y >> 16) == 200); n++) world_step(&W, &r);
+    tin a = NONE;
+    a.a_down = 1;
+    for (int i = 0; i < 3; i++) world_step(&W, &NONE);
+    for (int i = 0; i < 20; i++) world_step(&W, &a);
+    world_step(&W, &NONE);                     /* let go: it would throw */
+    CHECK((c->y >> 16) == 200 && c->hp == 0 && !W.thrown && W.phase != PH_AIM && W.phase != PH_FLIGHT,
+          "a critter snowed under by its own fall loses its turn (y %d hp %d thrown %d phase %d)", c->y >> 16, c->hp,
+          W.thrown, W.phase);
+    steps_until(&W, &NONE, PH_AIM, 400);
+    CHECK(c->state == CS_SNOWED && W.cur_side == 1, "... it is snowed under, the other side plays (side %d)",
+          W.cur_side);
+    /* 1 player, match after match: the computer stays the computer (its level is an int8_t: no wrap at 128) */
+    world_init(&W, 1, 21);
+    world_start(&W);
+    W.level = 127;
+    W.c[2].hp = W.c[3].hp = 0;
+    W.timer = 1;
+    steps_until(&W, &NONE, PH_END, 400);
+    steps_until(&W, &NONE, PH_AIM, END_WAIT + 5);
+    CHECK(W.level == 128 && W.s[1].cpu > 0 && W.cur_side == 1 && world_human_turn(&W) == -1,
+          "match 128: the computer's side is still the computer (cpu %d)", W.s[1].cpu);
+    W.level = 255;
+    W.c[2].hp = W.c[3].hp = 0;
+    W.cur_side = 0;
+    W.cur = 0;
+    W.timer = 1;
+    steps_until(&W, &NONE, PH_END, 2000);
+    steps_until(&W, &NONE, PH_AIM, END_WAIT + 5);
+    CHECK(W.level == 256 && W.s[1].cpu > 0, "match 256: still the computer (cpu %d)", W.s[1].cpu);
+    /* 3 players, the 80th turn: the most hearts win, and the results rank that side first (not the best score) */
+    world_init(&W, 3, 8);
+    world_start(&W);
+    W.turns = MAX_TURNS;
+    W.c[2].hp = W.c[3].hp = 1;                  /* P2: the best score, few hearts */
+    W.c[4].hp = 2;
+    W.s[1].score = 900;
+    W.timer = 1;
+    steps_until(&W, &NONE, PH_END, 400);
+    CHECK(W.phase == PH_END && W.winner == 0 && side_rank_key(&W, 0) > side_rank_key(&W, 1) &&
+          side_rank_key(&W, 1) > side_rank_key(&W, 2), "the 80th turn: the winner (most hearts) ranks first (%d %d %d)",
+          side_rank_key(&W, 0), side_rank_key(&W, 1), side_rank_key(&W, 2));
+}
+
 int main(void)
 {
     test_maths();
@@ -534,6 +592,7 @@ int main(void)
     test_touch();
     test_camera();
     test_determinism();
+    test_regressions();
     printf("%s: %d checks, %d failed\n", fails ? "FAIL" : "ok   the rules", checks, fails);
     return fails ? 1 : 0;
 }

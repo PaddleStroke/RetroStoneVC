@@ -322,7 +322,8 @@ int side_hearts(const world *w, int s)
 int side_rank_key(const world *w, int s)
 {
     int alive = side_alive(w, s) > 0;
-    return (alive ? 1000 : w->s[s].out_turn) * 100000 + imin(w->s[s].score, 99999);
+    int top = alive ? 1000 + (w->phase == PH_END && w->winner == s) : w->s[s].out_turn;   /* the 80th turn's winner */
+    return top * 100000 + imin(w->s[s].score, 99999);
 }
 
 critter *world_active(world *w) { return &w->c[w->cur]; }
@@ -701,7 +702,7 @@ static void next_match(world *w)
 {
     w->level++;
     w->s[1].species = (int8_t)cpu_species(w->level);
-    w->s[1].cpu = (int8_t)w->level;
+    w->s[1].cpu = (int8_t)imin(w->level, 127);  /* an int8_t: no wrap to a human side at match 128 */
     gen_field(w);
     w->winner = -1;
     w->turns = 0;
@@ -932,7 +933,7 @@ void world_step(world *w, const tin *in)
         break;
     case PH_AIM: {
         critter *c = world_active(w);
-        if (crit_out(c)) { w->phase = PH_SETTLE; w->t = 0; break; }
+        if (crit_out(c) || c->hp <= 0) { w->phase = PH_SETTLE; w->t = 0; break; }   /* out, or snowed by a fall */
         tin cin;
         if (w->s[w->cur_side].cpu) {
             cpu_think(w, w->s[w->cur_side].cpu, &cin);
