@@ -893,7 +893,7 @@ int ct_touch_up(ct_touch *t, const ct_table *T, float x, float y, int *card)
 
 void ct_touch_draw(const ct_touch *t, const ct_table *T)
 {
-    if (t->card != CARD_NONE && t->on) cards_draw(T->deck, t->card, t->x, t->y, T->wh, 0, CD_RAISED);
+    if (t->card != CARD_NONE && t->on) cards_draw(T->deck, t->card, t->x, t->y, T->wh, 0, CD_RAISED | CD_LIFT);
 }
 
 int ct_tap_play(ct_touch *t, int card, int legal)
@@ -1374,7 +1374,7 @@ void ct_column_steps(int n, int down, float room, float w, float down_step, floa
 
 void ct_run(int deck, const uint8_t *cards, int n, float x, float y, float w, float step)
 {
-    for (int k = 0; k < n; k++) cards_draw(deck, cards[k], x, y + k * step, w, 0, k == 0 ? CD_RAISED : 0);
+    for (int k = 0; k < n; k++) cards_draw(deck, cards[k], x, y + k * step, w, 0, CD_LIFT | (k == 0 ? CD_RAISED : 0));
 }
 
 void ct_leap(box b, float w, int j, float x0, float y0, float t, float *xs, float *ys)

@@ -171,8 +171,9 @@ void cards_paint_at(uint8_t *rgba, int size, int deck, int card, float cx, float
 void cards_paint_turned(uint8_t *rgba, int size, int deck, int card, float cx, float cy, float w, float deg);
 
 /* how a card is drawn (cards_draw): face down; raised (chosen: lifted, a gold edge); dimmed (cannot be played);
- * a gold light round it (a card that can be played, a place to tap); no shadow */
-enum { CD_DOWN = 1, CD_RAISED = 2, CD_DIM = 4, CD_GLOW = 8, CD_FLAT = 16 };
+ * a gold light round it (a card that can be played, a place to tap); no shadow; held well off the table (under the
+ * finger: its shadow wide, soft and farther) */
+enum { CD_DOWN = 1, CD_RAISED = 2, CD_DIM = 4, CD_GLOW = 8, CD_FLAT = 16, CD_LIFT = 32 };
 /* a card centred on (cx, cy), w wide, turned deg degrees (clockwise); _alpha: faded (0..1), its shadow and light too */
 void cards_draw(int deck, int card, float cx, float cy, float w, float deg, int how);
 void cards_draw_alpha(int deck, int card, float cx, float cy, float w, float deg, int how, float alpha);

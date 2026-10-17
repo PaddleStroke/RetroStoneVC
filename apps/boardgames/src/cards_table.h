@@ -331,7 +331,7 @@ int  ct_rows_hit(const ct_rows *h, float x, float y);
  * A column of n cards (`down` of them face down at its bottom), w wide, steps of down_step and up_step card widths:
  * the steps, closer when they would reach past `room` (the face-up ones first, then the others). */
 void ct_column_steps(int n, int down, float room, float w, float down_step, float up_step, float *dd, float *du);
-/* n cards fanned down from (x, y) by step, w wide, the first raised (a run dragged) */
+/* n cards fanned down from (x, y) by step, w wide, held off the table, the first raised (a run dragged) */
 void ct_run(int deck, const uint8_t *cards, int n, float x, float y, float w, float step);
 /* card j's flight, t ms after it left (x0, y0): thrown sideways, falling, bouncing on the bottom edge of b (cards w
  * wide). Where it is (xs[0], ys[0]) and where it was k x CT_TRAIL_MS before (xs[k]; NAN: not yet thrown then). */

@@ -1151,12 +1151,14 @@ static SDL_Texture *card_tex(int deck, int card, int w, int near)
     return cache[slot].t;
 }
 
-/* soft shapes the size of a card, scaled: the shadow, the gold light, the empty place's outline */
+/* soft shapes the size of a card, scaled: the shadow, the gold light, the empty place's outline, the wide soft shadow
+ * of a card off the table (lifted, flying) */
+#define SOFT_PAD(kind) ((kind) == 2 ? 0 : (kind) == 3 ? 32 : 16)
 static SDL_Texture *soft(int kind, int deck)
 {
-    static SDL_Texture *t[3][DECKS_MAX];
+    static SDL_Texture *t[4][DECKS_MAX];
     if (t[kind][deck]) return t[kind][deck];
-    int w = 96, h = (int)(w * cards_aspect(deck) + 0.5f), pad = kind == 2 ? 0 : 16, W = w + 2 * pad, H = h + 2 * pad;
+    int w = 96, h = (int)(w * cards_aspect(deck) + 0.5f), pad = SOFT_PAD(kind), W = w + 2 * pad, H = h + 2 * pad;
     uint8_t *b = calloc((size_t)W * H, 4);
     if (!b) return NULL;
     for (int y = 0; y < H; y++)
@@ -1164,6 +1166,10 @@ static SDL_Texture *soft(int kind, int deck)
             float d = rr_dist(x + 0.5f - pad, y + 0.5f - pad, (float)w, (float)h, 0.075f * w);
             uint8_t *p = b + 4 * (y * W + x);
             if (kind == 0) p[3] = (uint8_t)(120 * clamp01(0.5f - d / 12));          /* shadow: soft edge */
+            else if (kind == 3) {                                                  /* far below: wide, soft */
+                float k = clamp01(0.5f - (d - 3) / 32);
+                p[3] = (uint8_t)(150 * k * k * (3 - 2 * k));
+            }
             else if (kind == 1) {                                                  /* gold light round it */
                 p[0] = 250, p[1] = 214, p[2] = 90;
                 p[3] = (uint8_t)(230 * powf(clamp01(1 - fabsf(d) / 15), 1.6f));
@@ -1186,21 +1192,31 @@ static void put_tex(SDL_Texture *t, const SDL_FRect *d, float deg, Uint8 alpha)
     if (alpha < 255) SDL_SetTextureAlphaMod(t, 255);
 }
 
-/* the card's picture (or its back) at (cx, cy), w x h, narrowed to sx of its width (a flip), turned deg, faded */
+/* the card's picture (or its back) at (cx, cy), w x h, narrowed to sx of its width (a flip), turned deg, faded, up
+ * above the table (0: lying on it; 1: well off it, its shadow wide, soft and farther; raised: at least 0.5) */
 static void put_card(int deck, int card, float cx, float cy, float w, float sx, float deg, int how, int near,
-                     Uint8 alpha)
+                     Uint8 alpha, float up)
 {
     float h = w * cards_aspect(deck), pad = 16 / 96.0f * w;
     if (how & CD_RAISED) {                      /* lifted towards the card's top */
         float k = 0.14f * w, a = deg * PI_F / 180;
         cx += sinf(a) * k;
         cy -= cosf(a) * k;
+        up = fmaxf(up, 0.5f);
     }
+    if (how & CD_LIFT) up = 1;
+    up = clamp01(up);
     if (!(how & CD_FLAT)) {
-        float off = (how & CD_RAISED ? 0.09f : 0.035f) * w;
+        float off = (0.035f + 0.05f * up) * w;  /* the close shadow, fading as the card rises */
         SDL_FRect d = {cx + off * 0.6f - (w * sx) / 2 - pad * sx, cy + off - h / 2 - pad, (w + 2 * pad) * sx,
                        h + 2 * pad};
-        put_tex(soft(0, deck), &d, deg, alpha);
+        if (up < 1) put_tex(soft(0, deck), &d, deg, (Uint8)(alpha * (1 - up) + 0.5f));
+        if (up > 0) {                           /* the wide soft one, farther the higher */
+            float far = (0.035f + 0.15f * up) * w, g = 1 + 0.05f * up, fp = SOFT_PAD(3) / 96.0f * w * g;
+            SDL_FRect e = {cx + far * 0.6f - (w * g * sx) / 2 - fp * sx, cy + far - h * g / 2 - fp,
+                           (w * g + 2 * fp) * sx, h * g + 2 * fp};
+            put_tex(soft(3, deck), &e, deg, (Uint8)(alpha * (0.35f + 0.65f * up) + 0.5f));
+        }
     }
     if (how & (CD_GLOW | CD_RAISED)) {
         SDL_FRect d = {cx - (w * sx) / 2 - pad * sx, cy - h / 2 - pad, (w + 2 * pad) * sx, h + 2 * pad};
@@ -1208,28 +1224,37 @@ static void put_card(int deck, int card, float cx, float cy, float w, float sx, 
     }
     SDL_Texture *t = card_tex(deck, how & CD_DOWN ? CARD_NONE : card, (int)(w + 0.5f), near);
     if (!t) return;
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 150, 150, 150);
+    /* dimmed; turning over: the light leaves it as it turns edge-on */
+    int lit = (int)((how & CD_DIM ? 150 : 255) * (sx < 1 ? 0.62f + 0.38f * sx : 1) + 0.5f);
+    if (lit < 255) SDL_SetTextureColorMod(t, (Uint8)lit, (Uint8)lit, (Uint8)lit);
     SDL_FRect d = {cx - w * sx / 2, cy - h / 2, w * sx, h};
     put_tex(t, &d, deg, alpha);
-    if (how & CD_DIM) SDL_SetTextureColorMod(t, 255, 255, 255);
+    if (lit < 255) SDL_SetTextureColorMod(t, 255, 255, 255);
 }
 
 void cards_draw(int deck, int card, float cx, float cy, float w, float deg, int how)
 {
-    put_card(deck, card, cx, cy, w, 1, deg, how, 0, 255);
+    put_card(deck, card, cx, cy, w, 1, deg, how, 0, 255, 0);
 }
 
 void cards_draw_alpha(int deck, int card, float cx, float cy, float w, float deg, int how, float alpha)
 {
-    put_card(deck, card, cx, cy, w, 1, deg, how, 0, (Uint8)(255 * clamp01(alpha) + 0.5f));
+    put_card(deck, card, cx, cy, w, 1, deg, how, 0, (Uint8)(255 * clamp01(alpha) + 0.5f), 0);
 }
 
-void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg, float t, int how)
+/* a flip up above the table (a card flying: its height); it rises a little as it turns */
+static void flip_up(int deck, int card, float cx, float cy, float w, float deg, float t, int how, float up)
 {
     t = clamp01(t);
     float sx = fabsf(cosf(t * PI_F)), lift = 1 + 0.08f * sinf(t * PI_F);
     if (sx < 0.02f) sx = 0.02f;
-    put_card(deck, card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1, 255);
+    put_card(deck, card, cx, cy, w * lift, sx, deg, (how & ~CD_DOWN) | (t < 0.5f ? CD_DOWN : 0), 1, 255,
+             fmaxf(up, 0.45f * sinf(t * PI_F)));
+}
+
+void cards_draw_flip(int deck, int card, float cx, float cy, float w, float deg, float t, int how)
+{
+    flip_up(deck, card, cx, cy, w, deg, t, how, 0);
 }
 
 void cards_place(int deck, float cx, float cy, float w)
@@ -1252,9 +1277,9 @@ void cards_pile(int deck, float cx, float cy, float w, int n, int top, int how)
     float step = fmaxf(1, 0.02f * w);
     for (int k = layers; k >= 1; k--)           /* the cards under: their edges, lower right */
         put_card(deck, top, cx + k * step * 0.4f, cy + k * step, w, 1, 0,
-                 (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0, 255);
+                 (top == CARD_NONE ? CD_DOWN : 0) | (k == layers ? 0 : CD_FLAT), 0, 255, 0);
     int look = (top == CARD_NONE ? CD_DOWN : 0) | (layers ? CD_FLAT : 0) | (how & ~CD_DOWN);
-    put_card(deck, top, cx, cy, w, 1, 0, look, 0, 255);
+    put_card(deck, top, cx, cy, w, 1, 0, look, 0, 255, 0);
 }
 
 /* ---- hands ------------------------------------------------------------------------------------------------------- */
@@ -1305,8 +1330,9 @@ int cards_slide_draw(cards_slide *s)
     float x = s->x0 + (s->x1 - s->x0) * e, y = s->y0 + (s->y1 - s->y0) * e, w = s->w0 + (s->w1 - s->w0) * e;
     float a = s->a0 + (s->a1 - s->a0) * e, moved = hypotf(s->x1 - s->x0, s->y1 - s->y0);
     float hop = s->hop > 0 ? s->hop : 0.25f, reach = s->reach > 0 ? s->reach : 0.12f;
-    y -= sinf(e * PI_F) * fminf(hop * w, reach * moved);       /* a little lift on the way */
-    if (s->up0 != s->up1) cards_draw_flip(s->deck, s->card, x, y, w, a, s->up1 ? e : 1 - e, 0);
-    else put_card(s->deck, s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1, 255);
+    float rise = sinf(e * PI_F) * fminf(hop * w, reach * moved), up = rise / (0.25f * w);
+    y -= rise;                                  /* a little lift on the way: its shadow falls farther */
+    if (s->up0 != s->up1) flip_up(s->deck, s->card, x, y, w, a, s->up1 ? e : 1 - e, 0, up);
+    else put_card(s->deck, s->card, x, y, w, 1, a, s->up0 ? 0 : CD_DOWN, 1, 255, up);
     return 1;
 }
