@@ -2,39 +2,39 @@
  * Nonograms' levels: the house's own pictures (tools/nonogram_pictures.txt, drawn for this game),
  * checked and ordered by tools/nonogram_gen.c: each one solvable line by line (one solution, never a
  * guess), by size from 5 x 5 to 15 x 15, each size from its easiest (the line solver's sweeps, the squares
- * left after the first one); six chapters of 25. Each: its size and rows ('.' empty, else a colour:
+ * left after the first one); six chapters of 25, each ending with a showpiece. Each: its size and rows ('.' empty, else a colour:
  * nonogram.h, ng_letters); in the comment its name (never shown: no words in play) and its grade.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 static const ng_picture ng_levels[NG_LEVELS] = {
     /* 1: a tree, 5x5, 1 sweep, 0 left after the first */
     {5, {"..l..", ".lll.", "lllll", "..n..", ".nnn."}},
-    /* 2: a mushroom, 5x5, 1 sweep, 0 left after the first */
+    /* 2: a fish, 5x5, 1 sweep, 0 left after the first */
+    {5, {"b.bb.", "bbbkb", ".bbbb", "bbbbb", "b.bb."}},
+    /* 3: a mushroom, 5x5, 1 sweep, 0 left after the first */
     {5, {".rrr.", "rrwrr", "rrrrr", "..m..", ".mmm."}},
-    /* 3: a ghost, 5x5, 1 sweep, 0 left after the first */
+    /* 4: a ghost, 5x5, 1 sweep, 0 left after the first */
     {5, {".www.", "w.w.w", "wwwww", "wwwww", "w.w.w"}},
-    /* 4: a crown, 5x5, 1 sweep, 0 left after the first */
+    /* 5: a crown, 5x5, 1 sweep, 0 left after the first */
     {5, {".....", "y.y.y", "yyyyy", "yryry", "yyyyy"}},
-    /* 5: a plus sign, 5x5, 1 sweep, 0 left after the first */
+    /* 6: a plus sign, 5x5, 1 sweep, 0 left after the first */
     {5, {"..r..", "..r..", "rrrrr", "..r..", "..r.."}},
-    /* 6: an umbrella, 5x5, 2 sweeps, 2 left after the first */
+    /* 7: an umbrella, 5x5, 2 sweeps, 2 left after the first */
     {5, {".rrr.", "rrrrr", "r.n.r", "..n..", ".nn.."}},
-    /* 7: an apple, 5x5, 2 sweeps, 2 left after the first */
+    /* 8: an apple, 5x5, 2 sweeps, 2 left after the first */
     {5, {"..nl.", "rrrrr", "rrrrr", "rrrrr", ".rrr."}},
-    /* 8: a cat, 5x5, 2 sweeps, 4 left after the first */
+    /* 9: a cat, 5x5, 2 sweeps, 4 left after the first */
     {5, {"k...k", "kkkkk", "k.k.k", "kkkkk", ".kkk."}},
-    /* 9: a bell, 5x5, 2 sweeps, 4 left after the first */
+    /* 10: an arrow, 5x5, 2 sweeps, 4 left after the first */
+    {5, {"..b..", "...b.", "bbbbb", "...b.", "..b.."}},
+    /* 11: a bell, 5x5, 2 sweeps, 4 left after the first */
     {5, {"..n..", ".yyy.", ".yyy.", "yyyyy", "..k.."}},
-    /* 10: a flower, 5x5, 2 sweeps, 4 left after the first */
+    /* 12: a flower, 5x5, 2 sweeps, 4 left after the first */
     {5, {".rrr.", "rryrr", ".rrr.", ".ll..", "..l.."}},
-    /* 11: a little house, 5x5, 2 sweeps, 4 left after the first */
+    /* 13: a little house, 5x5, 2 sweeps, 4 left after the first */
     {5, {"..r..", ".rrr.", "rrrrr", ".wnw.", ".wnw."}},
-    /* 12: a heart, 5x5, 2 sweeps, 6 left after the first */
+    /* 14: a heart, 5x5, 2 sweeps, 6 left after the first */
     {5, {".r.r.", "rrrrr", "rrrrr", ".rrr.", "..r.."}},
-    /* 13: a boat, 5x5, 2 sweeps, 6 left after the first */
-    {5, {"..w..", "..ww.", "..k..", "nnnnn", ".nnn."}},
-    /* 14: an arrow, 5x5, 2 sweeps, 8 left after the first */
-    {5, {"..b..", ".bbb.", "b.b.b", "..b..", "..b.."}},
     /* 15: an anchor, 5x5, 2 sweeps, 8 left after the first */
     {5, {"..k..", ".kkk.", "..k..", "k.k.k", ".kkk."}},
     /* 16: a sword, 5x5, 2 sweeps, 10 left after the first */
@@ -43,22 +43,22 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     {5, {"..y..", "yyyyy", ".yyy.", ".y.y.", "y...y"}},
     /* 18: a musical note, 5x5, 3 sweeps, 20 left after the first */
     {5, {"..kk.", "..k.k", "..k..", "kkk..", "kkk.."}},
-    /* 19: a sun, 6x6, 1 sweep, 0 left after the first */
+    /* 19: a bow tie, 6x6, 1 sweep, 0 left after the first */
+    {6, {"r....r", "rr..rr", "rrpprr", "rrpprr", "rr..rr", "r....r"}},
+    /* 20: a sun, 6x6, 1 sweep, 0 left after the first */
     {6, {"y.yy.y", ".yyyy.", "yyyyyy", "yyyyyy", ".yyyy.", "y.yy.y"}},
-    /* 20: an envelope, 6x6, 1 sweep, 0 left after the first */
-    {6, {"......", "wwwwww", "w.ww.w", "ww..ww", "wwwwww", "wwwwww"}},
-    /* 21: a cup, 6x6, 1 sweep, 0 left after the first */
+    /* 21: an envelope, 6x6, 1 sweep, 0 left after the first */
+    {6, {"bbbbbb", "bb..bb", "b.bb.b", "b....b", "b....b", "bbbbbb"}},
+    /* 22: a cup, 6x6, 1 sweep, 0 left after the first */
     {6, {"......", "wwww..", "wwwwnn", "wwww.n", "wwwwnn", "nnnn.."}},
-    /* 22: a tulip, 6x6, 1 sweep, 0 left after the first */
+    /* 23: a tulip, 6x6, 1 sweep, 0 left after the first */
     {6, {"r.rr.r", "rrrrrr", "rrrrrr", ".rrrr.", "..ll..", ".llll."}},
-    /* 23: a smiley face, 6x6, 2 sweeps, 4 left after the first */
+    /* 24: a smiley face, 6x6, 2 sweeps, 4 left after the first */
     {6, {".yyyy.", "y.yy.y", "yyyyyy", "y.yy.y", "yy..yy", ".yyyy."}},
-    /* 24: a small bird, 6x6, 2 sweeps, 6 left after the first */
+    /* 25: a small bird (a showpiece), 6x6, 2 sweeps, 6 left after the first */
     {6, {"......", ".bb...", "ykbb.b", ".bbbbb", "..bbb.", "..y.y."}},
-    /* 25: a leaf, 6x6, 3 sweeps, 20 left after the first */
+    /* 26: a leaf, 6x6, 3 sweeps, 20 left after the first */
     {6, {"...lll", "..llll", ".lllll", "lllll.", "llll..", "n....."}},
-    /* 26: a moon, 6x6, 3 sweeps, 26 left after the first */
-    {6, {"..yyy.", ".yy...", "yy....", "yy....", ".yy...", "..yyy."}},
     /* 27: a tent, 7x7, 2 sweeps, 2 left after the first */
     {7, {"...r...", "..rrr..", ".rrrrr.", ".rr.rr.", "rrr.rrr", "rr...rr", "lllllll"}},
     /* 28: a pear, 7x7, 2 sweeps, 4 left after the first */
@@ -87,10 +87,10 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     {8, {".ll..ll.", "lkwllwkl", "llllllll", "llllllll", "l.llll.l", "ll....ll", ".llllll.", "........"}},
     /* 40: a car, 8x8, 2 sweeps, 8 left after the first */
     {8, {"........", "..rrrr..", ".rsrrsr.", "rrrrrrrr", "rrrrrrry", "rkkrrkkr", ".kk..kk.", "........"}},
-    /* 41: a duck, 8x8, 3 sweeps, 14 left after the first */
+    /* 41: a pig's face, 8x8, 2 sweeps, 8 left after the first */
+    {8, {"oo....oo", "oooooooo", "o.oooo.o", "oooooooo", "op.pp.po", "oppppppo", ".oooooo.", "..oooo.."}},
+    /* 42: a duck, 8x8, 3 sweeps, 14 left after the first */
     {8, {".yyy....", "rykyy...", ".yyy...y", "..yyyyyy", ".yyyyyyy", ".yyyyyy.", "..yyyy..", "ssssssss"}},
-    /* 42: a mouse, 8x8, 3 sweeps, 16 left after the first */
-    {8, {"nn....nn", "nonnnnon", "nnnnnnnn", ".nknnkn.", ".nnnnnn.", "..nnnn..", "...kk...", "........"}},
     /* 43: a teddy bear's face, 8x8, 3 sweeps, 16 left after the first */
     {8, {"nn....nn", "nnnnnnnn", ".nnnnnn.", ".nknnkn.", ".nnmmnn.", ".nmkkmn.", ".nnmmnn.", "..nnnn.."}},
     /* 44: a rabbit, 8x8, 4 sweeps, 26 left after the first */
@@ -104,15 +104,15 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     /* 47: a fish, 10x10, 2 sweeps, 8 left after the first */
     {10, {"..........", "...bbbb...", ".bbbbbbb.b", "bb.bbbbbbb", "bbbbbbbbbb", "bbbbbbbbbb", 
           ".bbbbbbbbb", "..bbbbbb.b", "...bbbb...", ".........."}},
-    /* 48: a penguin, 10x10, 2 sweeps, 8 left after the first */
-    {10, {"...kkkk...", "..kkkkkk..", "..kwkkwk..", "..kkyykk..", ".kkwwwwkk.", "kkkwwwwkkk", 
-          "k.kwwwwk.k", "..kwwwwk..", "..kkwwkk..", "..yy..yy.."}},
-    /* 49: a snail, 10x10, 2 sweeps, 8 left after the first */
+    /* 48: a snail, 10x10, 2 sweeps, 8 left after the first */
     {10, {"o.o.......", "o.o..nnnn.", "o.o.nyyyyn", "oooonynnyn", "oooonynnyn", ".ooonyyyyn", 
           ".oooonnnn.", ".ooooooooo", "..........", ".........."}},
-    /* 50: a rabbit, 10x10, 2 sweeps, 8 left after the first */
+    /* 49: a rabbit, 10x10, 2 sweeps, 8 left after the first */
     {10, {"..ww..ww..", "..wo..ow..", "..wo..ow..", "..ww..ww..", ".wwwwwwww.", "wwkwwwwkww", 
           "wwwwoowwww", "wwwwwwwwww", ".wwwwwwww.", "..wwwwww.."}},
+    /* 50: a penguin (a showpiece), 10x10, 2 sweeps, 8 left after the first */
+    {10, {"...kkkk...", "..kkkkkk..", "..kwkkwk..", "..kkyykk..", ".kkwwwwkk.", "kkkwwwwkkk", 
+          "k.kwwwwk.k", "..kwwwwk..", "..kkwwkk..", "..yy..yy.."}},
     /* 51: a ladybug, 10x10, 2 sweeps, 12 left after the first */
     {10, {"..k.kk.k..", "...kkkk...", ".rrrkkrrr.", "rrkrkkrkrr", "rrrrkkrrrr", "rkrrkkrrkr", 
           "rrrrkkrrrr", ".rrrkkrrr.", "..rrkkrr..", "...rkkr..."}},
@@ -167,27 +167,27 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     /* 68: a guitar, 10x10, 2 sweeps, 40 left after the first */
     {10, {"....kk....", "....nn....", "....nn....", "....nn....", "...yyyy...", "..yyyyyy..", 
           "...ykky...", "..yykkyy..", ".yyyyyyyy.", "..yykkyy.."}},
-    /* 69: an owl, 10x10, 3 sweeps, 20 left after the first */
-    {10, {".n......n.", ".nn....nn.", ".nnnnnnnn.", "nwwwnnwwwn", "nwkwnnwkwn", "nwwwyywwwn", 
-          ".nnnyynnn.", ".nmnmmnmn.", "..nnnnnn..", "..yy..yy.."}},
-    /* 70: a turtle, 10x10, 3 sweeps, 28 left after the first */
+    /* 69: a turtle, 10x10, 3 sweeps, 28 left after the first */
     {10, {"..........", "...qqqq...", "..qqlqqq..", ".qlqqqlqll", ".qqqqqqqlk", "qqqqqqqqll", 
           ".ll....ll.", ".ll....ll.", "..........", ".........."}},
-    /* 71: a steam engine, 10x10, 3 sweeps, 28 left after the first */
+    /* 70: a steam engine, 10x10, 3 sweeps, 28 left after the first */
     {10, {".ww.......", "ww.ww.....", ".kk...rrrr", ".kk...rssr", "rrrrrrrssr", "rrrrrrrrrr", 
           "rrrrrrrrrr", ".kk.kk.kk.", ".kk.kk.kk.", ".........."}},
-    /* 72: an apple, 10x10, 3 sweeps, 32 left after the first */
+    /* 71: an apple, 10x10, 3 sweeps, 32 left after the first */
     {10, {".....n.l..", "....nlll..", "..rrnrrr..", ".rwrrrrrr.", ".wrrrrrrr.", ".rrrrrrrr.", 
           ".rrrrrrrr.", "..rrrrrr..", "..rr..rr..", ".........."}},
-    /* 73: a fir tree, 10x10, 3 sweeps, 34 left after the first */
+    /* 72: a fir tree, 10x10, 3 sweeps, 34 left after the first */
     {10, {"....ll....", "...llll...", "..llllll..", "...llll...", "..llllll..", ".llllllll.", 
           "..llllll..", ".llllllll.", "llllllllll", "....nn...."}},
-    /* 74: a pineapple, 10x10, 3 sweeps, 36 left after the first */
+    /* 73: a pineapple, 10x10, 3 sweeps, 36 left after the first */
     {10, {"..l.ll.l..", "...llll...", "....ll....", "..yyyyyy..", ".ynyynyyn.", ".yyyyyyyy.", 
           ".yynyynyy.", ".yyyyyyyy.", ".ynyynyyn.", "..yyyyyy.."}},
-    /* 75: an umbrella, 10x10, 3 sweeps, 40 left after the first */
+    /* 74: an umbrella, 10x10, 3 sweeps, 40 left after the first */
     {10, {"....k.....", "..rrwrr...", ".rrrwrrr..", "rrrrwrrrr.", "r.r.k.r.r.", "....k.....", 
           "....k.....", "....k.....", "..k.k.....", "...k......"}},
+    /* 75: an owl (a showpiece), 10x10, 3 sweeps, 20 left after the first */
+    {10, {".n......n.", ".nn....nn.", ".nnnnnnnn.", "nwwwnnwwwn", "nwkwnnwkwn", "nwwwyywwwn", 
+          ".nnnyynnn.", ".nmnmmnmn.", "..nnnnnn..", "..yy..yy.."}},
     /* 76: a dog, 10x10, 3 sweeps, 52 left after the first */
     {10, {"......kk..", ".....nnnn.", "n....nknnk", "n....nnnn.", "nn..nnnn..", ".nnnnnnn..", 
           ".nnnnnnn..", ".nnnnnnn..", ".nn...nn..", ".nn...nn.."}},
@@ -218,51 +218,51 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     /* 85: a submarine, 12x12, 2 sweeps, 14 left after the first */
     {12, {".....kk.....", "......k.....", "......k.....", "....yyyyy...", "....yyyyy...", ".yyyyyyyyyy.", 
           "yyyyyyyyyyyy", "yysyysyysyyy", "yyyyyyyyyyyy", ".yyyyyyyyyy.", "ssssssssssss", ".ss.sss.sss."}},
-    /* 86: a panda's face, 12x12, 2 sweeps, 20 left after the first */
-    {12, {".kk......kk.", "kkkk....kkkk", "kkkwwwwwwkkk", ".wwwwwwwwww.", "wwkkwwwwkkww", "wkkkwwwwkkkw", 
-          "wk.kwwwwk.kw", "wwkkwwwwkkww", "wwwwwkkwwwww", ".wwwwwwwwww.", "..wwwkkwww..", "....wwww...."}},
-    /* 87: a pumpkin, 12x12, 2 sweeps, 20 left after the first */
+    /* 86: a pumpkin, 12x12, 2 sweeps, 20 left after the first */
     {12, {"......ll....", ".....ll.....", "..yyyyyyyy..", ".yyy.yy.yyy.", "yyyy.yy.yyyy", "yyyy.yy.yyyy", 
           "yyyy.yy.yyyy", "yyyy.yy.yyyy", "yyyy.yy.yyyy", ".yyy.yy.yyy.", "..yyyyyyyy..", "............"}},
-    /* 88: a whale, 12x12, 2 sweeps, 26 left after the first */
+    /* 87: a whale, 12x12, 2 sweeps, 26 left after the first */
     {12, {"..s.s.......", "...s........", "...s........", ".bbbbbb.....", "bbbbbbbbb..b", "bbbbbbbbbbbb", 
           "b.bbbbbbbbbb", "bbbbbbbbbbb.", "wwwwwbbbbbb.", "wwwwwwbbbb..", "..wwwwbb....", "............"}},
-    /* 89: a helicopter, 12x12, 2 sweeps, 27 left after the first */
+    /* 88: a helicopter, 12x12, 2 sweeps, 27 left after the first */
     {12, {"kkkkkkkkkkkk", ".....k......", "...yyyyy....", "..ssyyyyy...", ".sssyyyyyy.y", ".ssyyyyyyyyy", 
           ".yyyyyyyyyyy", "..yyyyyyy..y", "...yyyyy....", "...k...k....", ".kkkkkkkkk..", "............"}},
-    /* 90: an octopus, 12x12, 2 sweeps, 28 left after the first */
+    /* 89: an octopus, 12x12, 2 sweeps, 28 left after the first */
     {12, {"...pppppp...", "..pppppppp..", ".pppppppppp.", ".ppw.pp.wpp.", ".pppppppppp.", "..pppppppp..", 
           ".pppppppppp.", "pp.p.pp.p.pp", "p..p.pp.p..p", "p.pp.pp.pp.p", "pp..pp..p.pp", "............"}},
-    /* 91: a bear's face, 12x12, 2 sweeps, 28 left after the first */
+    /* 90: a bear's face, 12x12, 2 sweeps, 28 left after the first */
     {12, {".nn......nn.", "nnnn....nnnn", "nnnnnnnnnnnn", ".nnnnnnnnnn.", ".nnknnnnknn.", ".nnnnnnnnnn.", 
           ".nnnwwwwnnn.", "nnnwwkkwwnnn", "nnnwwwwwwnnn", ".nnnwwwwnnn.", "..nnnnnnnn..", "....nnnn...."}},
-    /* 92: an aeroplane, 12x12, 2 sweeps, 28 left after the first */
+    /* 91: an aeroplane, 12x12, 2 sweeps, 28 left after the first */
     {12, {".....ss.....", "....wwww....", "....wwww....", "...bwwwwb...", ".bbbwwwwbbb.", "bbbbwwwwbbbb", 
           "bbbbwwwwbbbb", "....wwww....", "....wwww....", "...bwwwwb...", "..bbbwwbbb..", ".....ww....."}},
-    /* 93: a tractor, 12x12, 2 sweeps, 37 left after the first */
+    /* 92: a tractor, 12x12, 2 sweeps, 37 left after the first */
     {12, {"..rrrr..k...", "..r..r..k...", "..r..r..k...", "..rrrrrrrr..", ".rrrrrrrrrr.", "rrrrrrrrrrrr", 
           ".kkkk.rrrrrr", "kkkkkkrrrrrr", "kk..kk...kk.", "kk..kk..kkkk", "kkkkkk..kkkk", ".kkkk....kk."}},
-    /* 94: a crab, 12x12, 2 sweeps, 52 left after the first */
+    /* 93: a crab, 12x12, 2 sweeps, 52 left after the first */
     {12, {".r.r....r.r.", ".rrr....rrr.", "..r......r..", "..r.k..k.r..", "..r.r..r.r..", ".rrrrrrrrrr.", 
           "rrrrrrrrrrrr", "rrrrrrrrrrrr", ".rrrrrrrrrr.", "r..r....r..r", ".r..r..r..r.", "r..........r"}},
-    /* 95: a castle tower, 12x12, 2 sweeps, 54 left after the first */
+    /* 94: a castle tower, 12x12, 2 sweeps, 54 left after the first */
     {12, {"......krr...", "......krrr..", "......k.....", ".ww..ww..ww.", ".wwwwwwwwww.", "..wwwwwwww..", 
           "..www..www..", "..wwwwwwww..", "..wwwwwwww..", "..wwwwwwww..", "..www..www..", "..www..www.."}},
-    /* 96: a sunflower, 12x12, 3 sweeps, 28 left after the first */
+    /* 95: a sunflower, 12x12, 3 sweeps, 28 left after the first */
     {12, {"...y.yy.y...", "..yyyyyyyy..", ".yyynnnnyyy.", "yyynnnnnnyyy", ".yynnnnnnyy.", "yyynnnnnnyyy", 
           ".yyynnnnyyy.", "..yyyyyyyy..", "...y.ll.y...", ".lll.ll.lll.", "..llllllll..", ".....ll....."}},
-    /* 97: a small teapot, 12x12, 3 sweeps, 38 left after the first */
+    /* 96: a small teapot, 12x12, 3 sweeps, 38 left after the first */
     {12, {".....kk.....", "...bbbbbb...", "..wwwwwwww..", "b..bbbbbbbbb", "bb.bbbbbbb.b", ".bbbbwwbbb.b", 
           "..bbwwwwbb.b", "..bbbwwbbbbb", "..bbbbbbbbb.", "...bbbbbbb..", "....kkkkk...", "............"}},
-    /* 98: a swan, 12x12, 3 sweeps, 40 left after the first */
+    /* 97: a swan, 12x12, 3 sweeps, 40 left after the first */
     {12, {"..www.......", ".wkwwyy.....", ".ww..y......", ".ww.........", "..ww........", "...ww...ww..", 
           "...ww..www..", "..wwwwwwwww.", ".wwwwwwwwww.", ".wwwwwwwwww.", "..wwwwwwww..", "ssssssssssss"}},
-    /* 99: a horse's head, 12x12, 3 sweeps, 42 left after the first */
+    /* 98: a horse's head, 12x12, 3 sweeps, 42 left after the first */
     {12, {"......k.k...", ".....nnkk...", "....nnnnkk..", "...nnknnnkk.", "..nnnnnnnkk.", ".nnnnnnnnnkk", 
           "nnnnnnnnnnkk", "nnn..nnnnnkk", "nn....nnnnnk", ".......nnnnk", ".......nnnnn", "......nnnnnn"}},
-    /* 100: a windmill, 12x12, 3 sweeps, 44 left after the first */
+    /* 99: a windmill, 12x12, 3 sweeps, 44 left after the first */
     {12, {"ww........ww", "www......www", ".www.nn.www.", "..wwnnnnww..", "...wwkkww...", "...nwwwwn...", 
           "..wwwnnwww..", ".wwwnnnnwww.", "www.nnnn.www", "ww.nnnnnn.ww", "...nnkknn...", "..nnnkknnn.."}},
+    /* 100: a panda's face (a showpiece), 12x12, 2 sweeps, 20 left after the first */
+    {12, {".kk......kk.", "kkkk....kkkk", "kkkwwwwwwkkk", ".wwwwwwwwww.", "wwkkwwwwkkww", "wkkkwwwwkkkw", 
+          "wk.kwwwwk.kw", "wwkkwwwwkkww", "wwwwwkkwwwww", ".wwwwwwwwww.", "..wwwkkwww..", "....wwww...."}},
     /* 101: an acorn, 12x12, 3 sweeps, 46 left after the first */
     {12, {"......n.....", ".....nn.....", "..nnnnnnnn..", ".nnnnnnnnnn.", "nnnnnnnnnnnn", ".yyyyyyyyyy.", 
           ".yyyyyyyyyy.", ".yyyyyyyyyy.", "..yyyyyyyy..", "...yyyyyy...", "....yyyy....", ".....yy....."}},
@@ -293,18 +293,18 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     /* 110: a pair of scissors, 12x12, 9 sweeps, 132 left after the first */
     {12, {".ss......ss.", ".ss......ss.", "..ss....ss..", "...ss..ss...", "....ssss....", ".....kk.....", 
           "....ssss....", "...rr..rr...", ".rrrr..rrrr.", "rr..r..r..rr", "rr..r..r..rr", ".rrrr..rrrr."}},
-    /* 111: a sleeping cat, 15x15, 2 sweeps, 2 left after the first */
-    {15, {"...............", "...............", "...............", ".y...y.........", ".yy.yy...yyy...", 
-          ".yyyyy.yyynyny.", "yyyyyyyyyynynyy", "ykkykkyyyynynyy", "yyyoyyyyyyyyyyy", ".yyyyyyyyyyyyyy", 
-          "n.yyyyyyyyyyyy.", "nyynyynyynyyyy.", "...............", "...............", "..............."}},
+    /* 111: a sleeping cat, 15x15, 2 sweeps, 4 left after the first */
+    {15, {"...............", ".y...y.........", ".yy.yy...yyy...", ".yyyyy.yyynyny.", "yyyyyyyyyynynyy", 
+          "ykkykkyyyynynyy", "yyyoyyyyyyyyyyy", ".yyyyyyyyyyyyyy", "n.yyyyyyyyyyyy.", "nyynyynyynyyyy.", 
+          ".rrrrrrrrrrrrr.", "rrwrrrwrrrwrrrw", "rrrrrrrrrrrrrrr", ".rrrrrrrrrrrrr.", "..............."}},
     /* 112: a castle, 15x15, 2 sweeps, 8 left after the first */
     {15, {".......rr......", ".......k.......", ".r.....k.....r.", "rrr..k.k.k..rrr", "rrr..kkkkk..rrr", 
           "kkk..kk.kk..kkk", "kkk..kk.kk..kkk", "kkkk.kkkkk.kkkk", "kkkkkkkkkkkkkkk", "k.kkkkkkkkkkk.k", 
           "k.kkkkk.kkkkk.k", "kkkkkk...kkkkkk", "kkkkkk...kkkkkk", "kkkkkk...kkkkkk", "lllllllllllllll"}},
-    /* 113: mountains with the sun, 15x15, 2 sweeps, 18 left after the first */
-    {15, {"..........yyy..", ".........yyyyy.", ".........yyyyy.", "....w.....yyy..", "...www.........", 
-          "..wwbww...w....", ".bbbbbbb.www...", "bbbbbbbbbbwbb..", "bbbbbbbbbbbbbb.", "bbbbbbbbbbbbbbb", 
-          "lbbbbbbbbbbbbbl", "llllbbbbbbbllll", "lllllllllllllll", "lll.sssss..llll", "lllllllllllllll"}},
+    /* 113: a tortoise, 15x15, 2 sweeps, 16 left after the first */
+    {15, {"...............", ".....lllll.....", "...lllnlllll...", "..llnllnllnll..", ".lllnllnlllnl..", 
+          ".llnlllnllllnyy", "llllnnnnnnnnyyy", "lnnnllllllllnyk", ".lllllllllllyyy", "..yy.yy..yy.yy.", 
+          "..yy.yy..yy.yy.", "..yy.yy..yy.yy.", "qqqqqqqqqqqqqqq", "qnqqqnqqqqnqqqq", "nnnnnnnnnnnnnnn"}},
     /* 114: a crown with jewels, 15x15, 2 sweeps, 20 left after the first */
     {15, {"...............", ".r.....r.....r.", ".y.....y.....y.", ".yy...yyy...yy.", ".yyy.yyyyy.yyy.", 
           ".yyyyyyyyyyyyy.", ".yyyyyyyyyyyyy.", ".yyryyybyyyryy.", ".yyyyyyyyyyyyy.", ".wwwwwwwwwwwww.", 
@@ -321,18 +321,18 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     {15, {"nnnnnnnnnnnnnnn", ".n.sssssssss.n.", ".n.s.......s.n.", ".n..syyyyys..n.", ".n...syyys...n.", 
           ".n....sys....n.", ".n.....y.....n.", ".n....sys....n.", ".n...s.y.s...n.", ".n..s.yyy.s..n.", 
           ".n.s.yyyyy.s.n.", ".n.syyyyyyys.n.", ".n.syyyyyyys.n.", ".n.sssssssss.n.", "nnnnnnnnnnnnnnn"}},
-    /* 118: a tortoise, 15x15, 2 sweeps, 34 left after the first */
-    {15, {"...............", "...............", ".....lllll.....", "...lllnlllll...", "..llnllnllnll..", 
-          ".lllnllnlllnl..", ".llnlllnllllnyy", "llllnnnnnnnnyyy", "lnnnllllllllnyk", ".lllllllllllyyy", 
-          "..yy.yy..yy.yy.", "..yy.yy..yy.yy.", "..yy.yy..yy.yy.", "...............", "..............."}},
-    /* 119: a butterfly, 15x15, 2 sweeps, 46 left after the first */
+    /* 118: a butterfly, 15x15, 2 sweeps, 46 left after the first */
     {15, {"...k.......k...", "....kk...kk....", ".pppp.k.k.pppp.", "ppyypp.k.ppyypp", "pyyyyppkppyyyyp", 
           "pyykyppkppykyyp", "pyyyyppkppyyyyp", ".ppppppkpppppp.", "..pppppkppppp..", "...ppppkpppp...", 
           "..pppppkppppp..", ".ppooppkppoopp.", ".pooop.k.pooop.", "..ppp.....ppp..", "..............."}},
-    /* 120: a sailing boat, 15x15, 2 sweeps, 52 left after the first */
+    /* 119: a sailing boat, 15x15, 2 sweeps, 52 left after the first */
     {15, {".......k.......", ".......kw......", "......wkww.....", ".....wwkwww....", "....wwwkwwww...", 
           "...wwwwkwwwww..", "..wwwwwkwwwwww.", ".......k.......", ".......k.......", "nnnnnnnnnnnnnnn", 
           ".nnnnnnnnnnnnn.", "..nnnnnnnnnnn..", "...............", "s.s.s.s.s.s.s.s", "sssssssssssssss"}},
+    /* 120: a cottage, 15x15, 2 sweeps, 58 left after the first */
+    {15, {".......r.......", "......rrr.nn...", ".....rrrrrnn...", "....rrrrrrrn...", "...rrrrrrrrr...", 
+          "..rrrrrrrrrrr..", ".rrrrrrrrrrrrr.", "..mmmmmmmmmmm..", "..m..mmmmm..m..", "..m..mmmmm..m..", 
+          "..mmmm...mmmm..", "..mmmm...mmmm..", "l.mmmm...mmmm.l", "llmmmm...mmmmll", "lllllllllllllll"}},
     /* 121: a lighthouse, 15x15, 2 sweeps, 66 left after the first */
     {15, {".......r.......", "......rrr......", ".....rrrrr.....", "yyy..kyyyk..yyy", ".....kyyyk.....", 
           "....kkkkkkk....", ".....rrrrr.....", ".....wwwww.....", ".....rrrrr.....", "....wwwwwww....", 
@@ -349,34 +349,34 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     {15, {".....rrrrr.....", "...yyrrrrryy...", "..ryyrrrrryyr..", ".rryyrrrrryyrr.", ".rryyrrrrryyrr.", 
           "yrryyrrrrryyrry", "yrryyrrrrryyrry", ".rryyrrrrryyrr.", "..ryyrrrrryyr..", "...yyrrrrryy...", 
           "....yrrrrry....", ".....rrrrr.....", ".....k...k.....", ".....nnnnn.....", ".....nnnnn....."}},
-    /* 125: an owl, 15x15, 3 sweeps, 45 left after the first */
-    {15, {"...n.......n...", "...nn.....nn...", "...nnnnnnnnn...", "..nwwwnnnwwwn..", "..nwkwnnnwkwn..", 
-          "..nwwwnynwwwn..", "..nnnnnynnnnn..", "..nnmnmnmnmnn..", "..nmnmnmnmnmn..", "..nnmnmnmnmnn..", 
-          "...nnnnnnnnn...", "....nnn.nnn....", "kkkkykkkkkykkkk", "........kk..ll.", ".........k.ll.."}},
-    /* 126: a steam train, 15x15, 3 sweeps, 48 left after the first */
-    {15, {"..ww.ww........", ".wwwwwww.......", ".kkkk..........", "..kk.....rrrrrr", "..kk..kk..r..r.", 
-          "kkkykkkykkr..r.", "kkkykkkykkrrrr.", "kkkykkkykkrrrr.", "kkkykkkykkrrrr.", "rrrrrrrrrrrrrrr", 
-          ".kkk..kkk..kkk.", ".kyk..kyk..kyk.", ".kkk..kkk..kkk.", "kkkkkkkkkkkkkkk", "n.n.n.n.n.n.n.n"}},
-    /* 127: a treasure chest, 15x15, 3 sweeps, 48 left after the first */
+    /* 125: a treasure chest (a showpiece), 15x15, 3 sweeps, 48 left after the first */
     {15, {"...nnnnnnnnn...", "..nnnnnnnnnnn..", "..nn.......nn..", "..nn...y...nn..", "..nn.yyyyr.nn..", 
           "..nnyyqyyyynn..", "yyyyyyyyyyyyyyy", ".nnynnkkknnynn.", ".nnynnk.knnynn.", ".nnynnkkknnynn.", 
           ".nnynnnnnnnynn.", ".nnynnnnnnnynn.", ".nnynnnnnnnynn.", ".yyyyyyyyyyyyy.", ".nn.........nn."}},
+    /* 126: an owl, 15x15, 3 sweeps, 45 left after the first */
+    {15, {"...n.......n...", "...nn.....nn...", "...nnnnnnnnn...", "..nwwwnnnwwwn..", "..nwkwnnnwkwn..", 
+          "..nwwwnynwwwn..", "..nnnnnynnnnn..", "..nnmnmnmnmnn..", "..nmnmnmnmnmn..", "..nnmnmnmnmnn..", 
+          "...nnnnnnnnn...", "....nnn.nnn....", "kkkkykkkkkykkkk", "........kk..ll.", ".........k.ll.."}},
+    /* 127: a steam train, 15x15, 3 sweeps, 48 left after the first */
+    {15, {"..ww.ww........", ".wwwwwww.......", ".kkkk..........", "..kk.....rrrrrr", "..kk..kk..r..r.", 
+          "kkkykkkykkr..r.", "kkkykkkykkrrrr.", "kkkykkkykkrrrr.", "kkkykkkykkrrrr.", "rrrrrrrrrrrrrrr", 
+          ".kkk..kkk..kkk.", ".kyk..kyk..kyk.", ".kkk..kkk..kkk.", "kkkkkkkkkkkkkkk", "n.n.n.n.n.n.n.n"}},
     /* 128: a snail on a leaf, 15x15, 3 sweeps, 52 left after the first */
     {15, {"...............", "..k.k..........", "..k.k...nnnnn..", "..kk...nyyyyyn.", ".ooo..nyynnnyyn", 
           ".oooo.nynyyynyn", "..ooo.nynynynyn", "..ooo.nyynnyyyn", "..oooooyyyyyyn.", "..ooooooonnnno.", 
           "...oooooooooooo", ".llllllllllllll", "llllllllllllll.", "..llllll.......", "..............."}},
-    /* 129: an ice-cream sundae, 15x15, 3 sweeps, 56 left after the first */
-    {15, {"......rrk......", "......rr.......", ".....ooooo.....", "....ooooooo....", "..wwooooooonn..", 
-          ".wwwooooooonnn.", ".wwwwooooonnnn.", ".wwwwwwwnnnnnn.", "sssssssssssssss", ".sssssssssssss.", 
-          "..sssssssssss..", "....sssssss....", "......sss......", "......sss......", "....sssssss...."}},
-    /* 130: a lion's face, 15x15, 3 sweeps, 58 left after the first */
+    /* 129: a lion's face, 15x15, 3 sweeps, 58 left after the first */
     {15, {"...............", ".....nnnnn.....", "...nnnnnnnnn...", "..nnnyyyyynnn..", "..nnyyyyyyynn..", 
           ".nnykkyyykkynn.", ".nnyyyyyyyyynn.", ".nnyyykkkyyynn.", ".nnyyyykyyyynn.", ".nnyyykykyyynn.", 
           "..nnyyyyyyynn..", "..nnnyyyyynnn..", "...nnnnnnnnn...", ".....nnnnn.....", "..............."}},
-    /* 131: a teapot, 15x15, 3 sweeps, 68 left after the first */
-    {15, {".......n.......", "......nnn......", "....bbbbbbb....", "..bbbbbbbbbbb..", "b.bbbbbbbbbbbbb", 
-          "bbbbbbbbbbbb..b", ".bbbbbbbbbbb..b", "..bbbbbbbbbbbb.", "..bbbbbbbbbbb..", "...bbbbbbbbb...", 
-          "....bbbbbbb....", "...............", "..nnnnnnnnnnn..", "...............", "..............."}},
+    /* 130: a robot, 15x15, 3 sweeps, 60 left after the first */
+    {15, {".......r.......", ".......k.......", "..sssssssssss..", "..ss..sss..ss..", "..ss..sss..ss..", 
+          "..sssssssssss..", "..sss.....sss..", "..sssssssssss..", "......kkk......", ".bbbbbbbbbbbbb.", 
+          "b.bbbrbybsbbb.b", "b.bbbbbbbbbbb.b", "b.bbbbbbbbbbb.b", "...bbb...bbb...", "..kkkk...kkkk.."}},
+    /* 131: a cupcake, 15x15, 3 sweeps, 76 left after the first */
+    {15, {".......k.......", "......rrr......", "......rrr......", "....ooooooo....", "..oooyooobooo..", 
+          ".olooooooooyoo.", "ooooboooolooooo", ".oo.ooo.ooo.oo.", "..nynynynynyn..", "..nynynynynyn..", 
+          "...nynynynyn...", "...nynynynyn...", "...nynynynyn...", "...nynynynyn...", "....nnnnnnn...."}},
     /* 132: a snowman, 15x15, 3 sweeps, 84 left after the first */
     {15, {"......kkk......", "......kkk......", ".....kkkkk.....", ".....wwwww.....", "....ww.w.ww....", 
           "....wwwywww....", ".....wwwww.....", "....rrrrrrr....", ".n..wwwwwww..n.", ".nnwwwwkwwwwnn.", 
@@ -405,52 +405,52 @@ static const ng_picture ng_levels[NG_LEVELS] = {
     {15, {"..n.n.n.n......", "..nnn.nnn......", "...n...n.......", ".nnnnnnnnn.....", "...nknkn.......", 
           "...nnnnn.......", "....nkn........", "....nnn........", "....nnnnnnnnnw.", "....nnnnnnnnnww", 
           "....nnnnnnnnnn.", "....n.n...n.n..", "....n.n...n.n..", "....n.n...n.n..", "....k.k...k.k.."}},
-    /* 139: a peacock, 15x15, 4 sweeps, 44 left after the first */
-    {15, {"....q.q.q.q....", "..qqyqqyqqyqq..", ".qyqqqqqqqqqyq.", ".qqqyqqyqqyqqq.", "qyqqqqqyqqqqqyq", 
-          "qqqyqqqbqqqyqqq", "qqqqqqbbbqqqqqq", ".qyqqqbbbqqqyq.", "..qqqbbbbbqqq..", "...qqbbbbbqq...", 
-          ".....bbbbb.....", "......bbb......", "......y.y......", ".....yy.yy.....", "..............."}},
-    /* 140: an alarm clock, 15x15, 4 sweeps, 119 left after the first */
+    /* 139: an alarm clock, 15x15, 4 sweeps, 119 left after the first */
     {15, {".kk.........kk.", "kkk..rrrrr..kkk", "kk.rrrrrrrrr.kk", "..rrr..k..rrr..", ".rrr...k...rrr.", 
           ".rr....k....rr.", ".rr....k....rr.", ".rrk...kkk.krr.", ".rr.........rr.", ".rr.........rr.", 
           ".rrr.......rrr.", "..rrr..k..rrr..", "...rrrrrrrrr...", "..k..rrrrr..k..", ".kk.........kk."}},
-    /* 141: a windmill, 15x15, 4 sweeps, 120 left after the first */
+    /* 140: a windmill, 15x15, 4 sweeps, 120 left after the first */
     {15, {"www.........www", ".www.......www.", "..www.....www..", "...www.r.www...", "....wwrrrww....", 
           ".....wwkww.....", "....wwnnnww....", "...wwnnnnnww...", "..ww.nn.nn.ww..", ".ww..nnnnn..ww.", 
           "ww..nnnnnnn..ww", "....nnnnnnn....", "....nnn.nnn....", "...nnnn.nnnn...", "lllllllllllllll"}},
-    /* 142: a giraffe, 15x15, 4 sweeps, 142 left after the first */
+    /* 141: a giraffe, 15x15, 4 sweeps, 142 left after the first */
     {15, {".n.n...........", ".yyy...........", "yykyy..........", "yyyyyy.........", "y..yyy.........", 
           "...yny.........", "...yyyy........", "....ynyy.......", "....yyyyyyyyy..", "....ynyynyyyyy.", 
           "....yyyynyyynyn", "....yy.....yy..", "....yy.....yy..", "....yy.....yy..", "....nn.....nn.."}},
-    /* 143: a squirrel, 15x15, 4 sweeps, 149 left after the first */
+    /* 142: a squirrel, 15x15, 4 sweeps, 149 left after the first */
     {15, {".........nnnn..", "........nnnnnn.", "..n....nnnnnnnn", ".nnn...nnn..nnn", ".nnnn..nnn...nn", 
           "nknnn..nnn.....", "nnnnn..nnnn....", ".nnnnn.nnnn....", "..nnnnnnnnn....", ".ynnnnnnnnn....", 
           "yyynnnnnnnn....", ".y.nnnnnnnn....", "...nnnnnnn.....", "...nnnnnnn.....", "..nnn.nnnn....."}},
-    /* 144: a horse, 15x15, 4 sweeps, 158 left after the first */
+    /* 143: a horse, 15x15, 4 sweeps, 158 left after the first */
     {15, {"...............", "...nk..........", "..nnnk.........", ".nknnkk........", "nnnnnnkk.......", 
           "nn..nnnkk......", ".....nnnnnnnnk.", ".....nnnnnnnnkk", ".....nnnnnnnn.k", ".....nnnnnnnn.k", 
           ".....n.n..n.n..", ".....n.n..n.n..", ".....n.n..n.n..", ".....n.n..n.n..", ".....k.k..k.k.."}},
-    /* 145: a dinosaur, 15x15, 4 sweeps, 167 left after the first */
+    /* 144: a dinosaur, 15x15, 4 sweeps, 167 left after the first */
     {15, {".......llllll..", "......llklllll.", "......lllllllll", "......lllwwww..", "......llllll...", 
           ".....lllll.....", "l...llllll.ll..", "ll.lllllllll...", ".llllllllll....", "..lllllllll....", 
           "...lllllll.....", ".....ll.ll.....", ".....l..ll.....", ".....ll.lll....", "....lll........"}},
-    /* 146: a dolphin, 15x15, 5 sweeps, 40 left after the first */
+    /* 145: a dolphin, 15x15, 5 sweeps, 40 left after the first */
     {15, {"...............", "...............", "......bb.......", ".....bbb.......", "...bbbbbbbbb...", 
           "b.bbbbbbbbbbbb.", "bbbbbbbbbbbbkb.", "b.bbbbbbbbbbbbb", "b..bbwwwwwwwbb.", "......bbwww....", 
           ".......bb......", "........b......", "...............", ".s...s...s...s.", "sssssssssssssss"}},
-    /* 147: a rooster, 15x15, 6 sweeps, 124 left after the first */
+    /* 146: a rooster, 15x15, 6 sweeps, 124 left after the first */
     {15, {"...rr..........", "..rrrr.........", "..wwww.....q...", ".ywkwww...qqq..", "yywwwww..qqlqq.", 
           "..rwwww..qqqlq.", "..rnwwww.qlqqq.", "...nnnnnnnqqlq.", "...nnnnnnnnqqq.", "...nnnnnnnnnq..", 
           "....nnnnnnnn...", ".....nnnnnn....", "......y..y.....", "......y..y.....", ".....yy.yy....."}},
-    /* 148: a seahorse, 15x15, 6 sweeps, 152 left after the first */
+    /* 147: a seahorse, 15x15, 6 sweeps, 152 left after the first */
     {15, {".....yy........", "....yyyy.......", "..yyykyyy......", "yyyy..yyyy.....", "......yyyyy....", 
           ".....yyyyyyoo..", "....yyyyyyyoo..", "....yyyyyyyoo..", ".....yyyyyyo...", "......yyyyy....", 
           ".......yyyy....", ".....yy.yyy....", "....yy..yyy....", "....yy.yyy.....", ".....yyyy......"}},
-    /* 149: a hummingbird, 15x15, 6 sweeps, 156 left after the first */
+    /* 148: a hummingbird, 15x15, 6 sweeps, 156 left after the first */
     {15, {"...............", "....qqq........", "...qqqq........", "kkkqkqq.....qq.", "...qrqq...qqqq.", 
           "....rqqqqqqqq..", "....qqqqqqqqq..", ".....qqqqqq....", "......qqqqqq...", ".r.r.....qqqq..", 
           "rrrrr......qq..", ".rrr...........", "..l............", "..l............", ".lll..........."}},
-    /* 150: a flamingo, 15x15, 6 sweeps, 157 left after the first */
+    /* 149: a flamingo, 15x15, 6 sweeps, 157 left after the first */
     {15, {"....ooo........", "...oooko.......", "...o..ok.......", "...o...k.......", "...oo..........", 
           "....oo.........", ".....oo........", ".....oooooo....", "....oooooooooo.", ".....oooooooo..", 
           ".......oooo....", "........o......", "........o.o....", "........oo.....", "........o......"}},
+    /* 150: a peacock (a showpiece), 15x15, 4 sweeps, 44 left after the first */
+    {15, {"....q.q.q.q....", "..qqyqqyqqyqq..", ".qyqqqqqqqqqyq.", ".qqqyqqyqqyqqq.", "qyqqqqqyqqqqqyq", 
+          "qqqyqqqbqqqyqqq", "qqqqqqbbbqqqqqq", ".qyqqqbbbqqqyq.", "..qqqbbbbbqqq..", "...qqbbbbbqq...", 
+          ".....bbbbb.....", "......bbb......", "......y.y......", ".....yy.yy.....", "..............."}},
 };

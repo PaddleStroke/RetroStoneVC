@@ -1,6 +1,7 @@
 # The pictures of the Nonograms levels: our own drawings, made for this game (tools/nonogram_gen.c reads
 # them). A picture: a line "= <name>" then its rows, '.' empty, else the colour of a filled square:
 # k ebony, r red lacquer, y amber, q jade, b lapis, w ivory, n walnut, p plum, s sky, o rose, l leaf, m sand.
+# "= * <name>": a showpiece, the last level of a chapter (one per chapter, of the size that chapter ends with).
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 
 = a heart
@@ -17,12 +18,12 @@ lllll
 ..n..
 .nnn.
 
-= a boat
-..w..
-..ww.
-..k..
-nnnnn
-.nnn.
+= a fish
+b.bb.
+bbbkb
+.bbbb
+bbbbb
+b.bb.
 
 = a cat
 k...k
@@ -40,9 +41,9 @@ rrrrr
 
 = an arrow
 ..b..
-.bbb.
-b.b.b
-..b..
+...b.
+bbbbb
+...b.
 ..b..
 
 = a star
@@ -137,15 +138,15 @@ y.yy.y
 yy..yy
 .yyyy.
 
-= a moon
-..yyy.
-.yy...
-yy....
-yy....
-.yy...
-..yyy.
+= a bow tie
+r....r
+rr..rr
+rrpprr
+rrpprr
+rr..rr
+r....r
 
-= a small bird
+= * a small bird
 ......
 .bb...
 ykbb.b
@@ -162,12 +163,12 @@ yyyyyy
 y.yy.y
 
 = an envelope
-......
-wwwwww
-w.ww.w
-ww..ww
-wwwwww
-wwwwww
+bbbbbb
+bb..bb
+b.bb.b
+b....b
+b....b
+bbbbbb
 
 = a cup
 ......
@@ -344,15 +345,15 @@ ll....ll
 .llllll.
 ........
 
-= a mouse
-nn....nn
-nonnnnon
-nnnnnnnn
-.nknnkn.
-.nnnnnn.
-..nnnn..
-...kk...
-........
+= a pig's face
+oo....oo
+oooooooo
+o.oooo.o
+oooooooo
+op.pp.po
+oppppppo
+.oooooo.
+..oooo..
 
 = a teddy bear's face
 nn....nn
@@ -460,7 +461,7 @@ s..ss..ss.
 ss.ss..ss.
 ..........
 
-= an owl
+= * an owl
 .n......n.
 .nn....nn.
 .nnnnnnnn.
@@ -472,7 +473,7 @@ nwwwyywwwn
 ..nnnnnn..
 ..yy..yy..
 
-= a penguin
+= * a penguin
 ...kkkk...
 ..kkkkkk..
 ..kwkkwk..
@@ -904,7 +905,7 @@ nnnwwwwwwnnn
 ..nnnnnnnn..
 ....nnnn....
 
-= a panda's face
+= * a panda's face
 .kk......kk.
 kkkk....kkkk
 kkkwwwwwwkkk
@@ -1246,22 +1247,22 @@ nnnnnnnnnnnnnnn
 s.s.s.s.s.s.s.s
 sssssssssssssss
 
-= a teapot
-.......n.......
-......nnn......
-....bbbbbbb....
-..bbbbbbbbbbb..
-b.bbbbbbbbbbbbb
-bbbbbbbbbbbb..b
-.bbbbbbbbbbb..b
-..bbbbbbbbbbbb.
-..bbbbbbbbbbb..
-...bbbbbbbbb...
-....bbbbbbb....
-...............
-..nnnnnnnnnnn..
-...............
-...............
+= a robot
+.......r.......
+.......k.......
+..sssssssssss..
+..ss..sss..ss..
+..ss..sss..ss..
+..sssssssssss..
+..sss.....sss..
+..sssssssssss..
+......kkk......
+.bbbbbbbbbbbbb.
+b.bbbrbybsbbb.b
+b.bbbbbbbbbbb.b
+b.bbbbbbbbbbb.b
+...bbb...bbb...
+..kkkk...kkkk..
 
 = a rocket
 .......r.......
@@ -1331,7 +1332,7 @@ y..yyy.........
 .....nnnnn.....
 ...............
 
-= a peacock
+= * a peacock
 ....q.q.q.q....
 ..qqyqqyqqyqq..
 .qyqqqqqqqqqyq.
@@ -1486,7 +1487,6 @@ yyynnnnnnnn....
 
 = a tortoise
 ...............
-...............
 .....lllll.....
 ...lllnlllll...
 ..llnllnllnll..
@@ -1498,8 +1498,9 @@ lnnnllllllllnyk
 ..yy.yy..yy.yy.
 ..yy.yy..yy.yy.
 ..yy.yy..yy.yy.
-...............
-...............
+qqqqqqqqqqqqqqq
+qnqqqnqqqqnqqqq
+nnnnnnnnnnnnnnn
 
 = a flamingo
 ....ooo........
@@ -1554,8 +1555,6 @@ rrrrr......qq..
 
 = a sleeping cat
 ...............
-...............
-...............
 .y...y.........
 .yy.yy...yyy...
 .yyyyy.yyynyny.
@@ -1565,8 +1564,10 @@ yyyoyyyyyyyyyyy
 .yyyyyyyyyyyyyy
 n.yyyyyyyyyyyy.
 nyynyynyynyyyy.
-...............
-...............
+.rrrrrrrrrrrrr.
+rrwrrrwrrrwrrrw
+rrrrrrrrrrrrrrr
+.rrrrrrrrrrrrr.
 ...............
 
 = a horse
@@ -1722,21 +1723,21 @@ n.n.n.n.n.n.n.n
 .......l.......
 ..nnnnnnnnnnn..
 
-= mountains with the sun
-..........yyy..
-.........yyyyy.
-.........yyyyy.
-....w.....yyy..
-...www.........
-..wwbww...w....
-.bbbbbbb.www...
-bbbbbbbbbbwbb..
-bbbbbbbbbbbbbb.
-bbbbbbbbbbbbbbb
-lbbbbbbbbbbbbbl
-llllbbbbbbbllll
-lllllllllllllll
-lll.sssss..llll
+= a cottage
+.......r.......
+......rrr.nn...
+.....rrrrrnn...
+....rrrrrrrn...
+...rrrrrrrrr...
+..rrrrrrrrrrr..
+.rrrrrrrrrrrrr.
+..mmmmmmmmmmm..
+..m..mmmmm..m..
+..m..mmmmm..m..
+..mmmm...mmmm..
+..mmmm...mmmm..
+l.mmmm...mmmm.l
+llmmmm...mmmmll
 lllllllllllllll
 
 = a snowman
@@ -1756,22 +1757,22 @@ lllllllllllllll
 ...wwwwkwwww...
 ....wwwwwww....
 
-= an ice-cream sundae
-......rrk......
-......rr.......
-.....ooooo.....
+= a cupcake
+.......k.......
+......rrr......
+......rrr......
 ....ooooooo....
-..wwooooooonn..
-.wwwooooooonnn.
-.wwwwooooonnnn.
-.wwwwwwwnnnnnn.
-sssssssssssssss
-.sssssssssssss.
-..sssssssssss..
-....sssssss....
-......sss......
-......sss......
-....sssssss....
+..oooyooobooo..
+.olooooooooyoo.
+ooooboooolooooo
+.oo.ooo.ooo.oo.
+..nynynynynyn..
+..nynynynynyn..
+...nynynynyn...
+...nynynynyn...
+...nynynynyn...
+...nynynynyn...
+....nnnnnnn....
 
 = a birthday cake
 ...y...y...y...
@@ -1841,7 +1842,7 @@ kk.rrrrrrrrr.kk
 ..k..rrrrr..k..
 .kk.........kk.
 
-= a treasure chest
+= * a treasure chest
 ...nnnnnnnnn...
 ..nnnnnnnnnnn..
 ..nn.......nn..
