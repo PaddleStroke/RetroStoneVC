@@ -177,6 +177,8 @@ void bot_think(world *W, int p, int skill, pin *out);
 
 /* ---- draw.c ------------------------------------------------------------------------------------------------------------ */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen, ZOOM_H lines (rs_screen_zoom; its sides cropped) */
+#define ZOOM_H        440
 typedef struct vrect { int x, y, w, h; } vrect;
 int  view_layout(int players, vrect out[MAX_PLAYERS]);   /* the views (stage coordinates) */
 int  view_well_x(const vrect *v);                 /* the well's left edge in a view (stage x) */

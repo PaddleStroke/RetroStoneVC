@@ -143,18 +143,26 @@ carrots, clay pots and coins, crystals, lava and coals, fossils, gems and a trea
 too. A state saved at one width loads at another (`draw_state_loaded` sets the maps up again). `make gopherdig-check`
 runs the tests at 320, 427 and 520.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`; the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are the
-same pixels; the stage sits a little high (`rs_screen_origin_v`: the well above it no taller than the 14 rows the world
-keeps above the gopher, ROWS_ABOVE). One full view (1 player, the title, the game over) draws the whole height: the
-well layers' ring is then 64 block rows (128 tile rows; 16 otherwise), and above the stage the real well goes on up
-(what was dug, the blocks left, the strata passed, the grass and more sky with clouds of its own on the title), while
-below the stage the earth goes on down, the shaft filled with plain earth inside its stone lining (`write_below`):
-what lies ahead stays unseen, exactly as far as on a 240-line screen, so the game stays the same game. The UI layer is
-hidden off the stage (window 1 in the raster). The split screen keeps its views on the stage (`view_layout` clamps the
-tall layouts; the margins in the divider's colour). A touch is read in stage coordinates (`touch_cell`: y -
-`rs_screen_origin_y()`), so a tap above the stage aims at the cell drawn there. A 240-line screen is unchanged (the
-same pixels in landscape).
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (440
+lines, game.h) first in `game_init`: the RetroStone app scales the 440 lines to the display's height and crops the
+sides (188 columns on a 1080x2520 phone, 202 on a 1080x2340 one): the well (144 px) fills the width with a strip of
+earth on each side, its blocks 5.7x on a 1080x2520 phone. The 240 lines of the stage are the same pixels; the stage
+sits 92 lines down (`rs_screen_origin_v`, TALL_ABOVE in draw.c), so the gopher stands a little above the screen's
+middle, under the HUD: the well dug above it (no taller than the 14 rows the world keeps above the gopher,
+ROWS_ABOVE) and the well ahead below it, 17 rows of it (10 on a 240-line screen: the camera shows more of the same
+well, the rules are the same). One full view draws the whole height: the well layers' ring is then 64 block rows
+(128 tile rows; 16 otherwise), with more sky and clouds of its own above the grass.
+- **The HUD at the screen's top** while one gopher digs: the DEPTH and AIR panels side by side over the well, in the 22
+  columns every phone shows (BG1's top 64 lines pinned at screen line 12, under the app's back and pause buttons:
+  `rs_bg_pin`; the depth's digits at `rs_screen_top()` + 12 + their y). The controls hint, too wide for the columns
+  shown, takes a line per part (its parts are " - " apart in every language); a checkpoint's panel stays in them.
+  The UI layer is hidden off the stage elsewhere (window 1 in the raster).
+- **Fill or fit**: one gopher digging fills the display's height; the title, the game-over panel and the split screens
+  show every column (`rs_screen_fill(0)`). The split screen keeps its views on the stage (`view_layout` clamps the
+  tall layouts), the sky above them and the earth below, darker with depth (two more viewports with no layer: the
+  raster's colours).
+- A touch is read in stage coordinates (`touch_cell`: y - `rs_screen_origin_y()`), so a tap above or below the stage
+  aims at the cell drawn there. Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo over the sky, the gopher bobbing under it, the player slots, PRESS A TO DIG with the A glyph, BEST,

@@ -113,7 +113,7 @@ static rs_color sky_at(int wy)
     return RS_RGB8(c[0] + 4 * d, c[1] + 2 * d, c[2] + 4 * d);
 }
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): one full view sees the whole height,
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): one full view sees the whole height,
  * so the well layers' ring is 64 block rows (128 tile rows) instead of 16; the split screen keeps the 16 (its views
  * stay on the stage). The ring is the map's height. */
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
@@ -122,14 +122,26 @@ static int ring_ty(int r) { return (r & (ring_rows() - 1)) * 2; }
 static int ring_px_mask(void) { return ring_rows() * CELL - 1; }
 static int16_t slot_tall[MAX_PLAYERS][64];   /* slot_row for the tall ring (not saved: draw_state_loaded clears it) */
 static int16_t *slot_of(int p, int r) { return ring_rows() > 16 ? &slot_tall[p][r & 63] : &slot_row[p][r & 15]; }
+/* the width (in UI columns) of a panel centred on the stage that the display shows whole (a zoomed screen crops the
+ * sides; else all 40) */
+static int shown_cols(void) { return 2 * (20 - (rs_screen_visible_x0() - rs_screen_origin_x() + 7) / 8); }
+
+/* the 1-player HUD on a tall screen: BG1's top HUD_LINES (the two panels) drawn from screen line HUD_PIN_Y, under
+ * the app's back and pause buttons (rs_bg_pin; 0 lines: none, the HUD on the stage) */
+#define HUD_LINES   64
+#define HUD_PIN_Y   12
+#define TALL_ABOVE  92                       /* the lines above the stage at ZOOM_H (draw_init) */
+static int hud_pinned;                       /* set by draw_frame each frame (not saved: drawn again first) */
 
 static void raster(int line, void *user)
 {
     (void)user;
     if (tall()) {
         /* the lines past the stage show the well (BG2-4) but not the UI layer (its 32-row map would repeat there):
-         * window 1 over the whole width hides BG1 off the stage; the stage's lines show it again */
-        if (line < 0 || line >= RS_SCREEN_H) {
+         * window 1 over the whole width hides BG1 off the stage; the stage's lines show it again, and the pinned
+         * HUD's band at the screen's top */
+        int top = rs_screen_top() + HUD_PIN_Y;
+        if ((line < 0 || line >= RS_SCREEN_H) && !(hud_pinned && line >= top && line < top + HUD_LINES)) {
             rs_window(0, rs_screen_left(), rs_screen_right());
             rs_bg_window(RS_BG1, RS_WIN1);
         } else {
@@ -139,13 +151,16 @@ static void raster(int line, void *user)
     int v = rs_viewport_current();
     const vline *L = &VL[v < 0 ? 0 : v];
     int wy = L->cam_y + line - L->y0;
-    int th = L->theme >= 0 ? L->theme : theme_of_row(fdiv(wy, CELL));
+    int th = L->theme >= 0 ? L->theme : L->theme == -2 ? 0 : theme_of_row(fdiv(wy, CELL));
     if (th != ras_theme) {
         rs_pal_load(RS_PAL_BG(PAL_STRATUM), (const rs_color *)gm_strata_pal + th * 16, 16);
         rs_pal_load(RS_PAL_BG(PAL_DECOR), (const rs_color *)gm_decor_pal + th * 16, 16);
         ras_theme = th;
     }
-    rs_pal_set(0, wy < 0 ? sky_at(wy) : gm_strata_pal[th * 16 + 6]);
+    rs_color back = wy < 0 ? sky_at(wy) : gm_strata_pal[th * 16 + 6];
+    if (L->theme == -2 && rs_screen_bottom() > RS_SCREEN_H)
+        back = hu_scale_color(back, 256 - (line - RS_SCREEN_H) * 128 / (rs_screen_bottom() - RS_SCREEN_H));
+    rs_pal_set(0, back);    /* (theme -2: a tall screen's band of earth under the split views, darker with depth) */
 }
 
 /* ---- the map ---------------------------------------------------------------------------------------------------------------- */
@@ -334,28 +349,6 @@ static void write_view(const well *w, int p, int cy, int vh, int title)
     for (int r = fdiv(f, CELL); r <= fdiv(f + vh - 1, CELL); r++) write_row_falling(w, p, r);
 }
 
-/* A tall screen's lines below the stage (one full view; DESIGN.md "Tall screen"): the earth goes on down, the well's
- * shaft filled with plain earth inside its stone lining (what lies ahead stays unseen, as on a 240-line screen), the
- * sides as ever. cy: the camera of the stage's line 0; the rows from the one after the stage's last line's row to
- * the screen's bottom (the falling layer cleared there). */
-static void write_below(const well *w, int p, int cy)
-{
-    int r0 = fdiv(cy + RS_SCREEN_H - 1, CELL) + 1, r1 = fdiv(cy + rs_screen_bottom() - 1, CELL);
-    int wl = well_tile_x(p), f = cy + CELL - well_fall_px(w);
-    for (int r = r0; r <= r1; r++) {
-        if (*slot_of(p, r) != r) {
-            write_sides(p, r, 0);
-            *slot_of(p, r) = (int16_t)r;
-        }
-        for (int c = 0; c < COLS; c++) {
-            put2x2(RS_BG4, wl + 2 * c, ring_ty(r), gm_cell[CELL_EARTH0 + (int)(hash3(r, c, 31) & 3)]);
-            put2x2(RS_BG3, wl + 2 * c, ring_ty(r), ZERO4);
-        }
-    }
-    for (int r = fdiv(f + RS_SCREEN_H - 1, CELL) + 1; r <= fdiv(f + rs_screen_bottom() - 1, CELL); r++)
-        for (int c = 0; c < COLS; c++) put2x2(RS_BG2, wl + 2 * c, ring_ty(r), ZERO4);
-}
-
 /* ---- init --------------------------------------------------------------------------------------------------------------- */
 /* the air gauge's tiles on BG1, in the UI palette: a bubble, then the bar filled 0..8 px (blue, then red) */
 static void bar_tiles(void)
@@ -390,9 +383,10 @@ static void bar_tiles(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());       /* widescreen: the 320-px stage centred, more earth on both sides */
-    /* a tall screen: the stage a little high, the well above it no taller than the rows the world keeps above the
-     * gopher (ROWS_ABOVE), the earth below it */
-    if (tall() && ROWS_ABOVE * CELL - 76 < rs_screen_vmargin()) rs_screen_origin_v(ROWS_ABOVE * CELL - 76);
+    /* a tall screen (DESIGN.md "Tall screen"): TALL_ABOVE of its ZOOM_H - 240 extra lines above the stage, the rest
+     * below: the gopher (76 px into the stage) a little above the screen's middle, under the HUD; the well dug above
+     * it no taller than the rows the world keeps (ROWS_ABOVE), the well ahead below it */
+    if (tall()) rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * TALL_ABOVE / (ZOOM_H - RS_SCREEN_H));
     hu_config hc = hu_defaults();               /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
@@ -707,7 +701,13 @@ static hud1 hud1_layout(int depth)
     L.rx = 30;
     L.top = (hu_tall(TR(DEPTH)) || hu_tall(TR(AIR))) ? 1 : 2;   /* accents and CJK use the row above */
     L.h = 8 - L.top;
-    int cx = (L.lx * 8 + 80) / 2;                                /* the digits and the unit centred together */
+    if (tall()) {       /* a tall screen (pinned at its top): side by side over the well, in the 22 columns kept shown */
+        int g = (22 - L.lw - L.rw) / 2;
+        g = g < 0 ? 0 : g > 1 ? 1 : g;
+        L.lx = 20 - g - L.lw;
+        L.rx = 20 + g;
+    }
+    int cx = (2 * L.lx + L.lw) * 4;                             /* the digits and the unit centred together */
     L.unit_col = fdiv(cx + (d * 12 + 2 + uw) / 2 - uw + 4, 8);
     L.num_x = L.unit_col * 8 - 2 - d * 6;
     return L;
@@ -779,10 +779,30 @@ static void play_texts(const world *W, int state, const vrect *v, int nv, int mu
         add_centred(t, &n, L.rx * 8, L.rw * 8, 3, 0, TR(AIR));
         boxed(t, n);
         if (W->t < HINT_FRAMES && state == ST_PLAY) {           /* the controls, on a panel over the well's bottom */
-            int hw = hu_width(TR(HINT), 0), tall = hu_tall(TR(HINT)), pw = hw + 4 > 40 ? 40 : hw + 4;
-            add_panel(t, &n, (40 - pw) / 2, 26 - tall, pw, 3 + tall);
-            add_centred(t, &n, 0, RS_SCREEN_W, 27, 0, TR(HINT));
-            boxed(t, n);
+            int hw = hu_width(TR(HINT), 0), acc = hu_tall(TR(HINT)), pw = hw + 4 > 40 ? 40 : hw + 4;
+            if (tall() && pw > shown_cols()) {
+                /* a tall screen's columns shown: a line per part (the parts are " - " apart in every language) */
+                char part[3][100];
+                int k = 0, wmax = 0;
+                for (const char *a = TR(HINT); k < 3;) {
+                    const char *b = k < 2 ? strstr(a, " - ") : NULL;
+                    snprintf(part[k], sizeof part[k], "%.*s", b ? (int)(b - a) : (int)strlen(a), a);
+                    if (hu_width(part[k], 0) > wmax) wmax = hu_width(part[k], 0);
+                    k++;
+                    if (!b) break;
+                    a = b + 3;
+                }
+                pw = wmax + 4;
+                add_panel(t, &n, (40 - pw) / 2, 28 - 2 * k - acc, pw, 2 * k + 1 + acc);
+                for (int i = 0; i < k; i++) {
+                    add_centred(t, &n, 0, RS_SCREEN_W, 29 - 2 * k + 2 * i, 0, part[i]);
+                    boxed(t, n);
+                }
+            } else {
+                add_panel(t, &n, (40 - pw) / 2, 26 - acc, pw, 3 + acc);
+                add_centred(t, &n, 0, RS_SCREEN_W, 27, 0, TR(HINT));
+                boxed(t, n);
+            }
         }
     } else {
         for (int p = 0; p < W->players && p < nv; p++) {
@@ -818,7 +838,7 @@ static void play_texts(const world *W, int state, const vrect *v, int nv, int mu
             const char *name = stratum_name(g->stratum);
             int ty = fdiv(v[p].y, 8) + (v[p].h >= 200 ? 14 : 7);    /* under the gopher (view_gopher_y) */
             if (!add_checkpoint(t, &n, multi ? v[p].x + v[p].w / 2 : view_well_x(&v[p]) + WELL_PX / 2, ty,
-                                multi ? v[p].w / 8 - 1 : 40, s, name)) {
+                                multi ? v[p].w / 8 - 1 : tall() ? shown_cols() : 40, s, name)) {
                 int big = hu_width(s, 1) * 8 <= v[p].w - 8;          /* too long for a panel: over the scene */
                 add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 4 : 6), big, s);
                 add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 1 : 3), 0, name);
@@ -943,16 +963,21 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
     rs_oam_clear();
+    /* a tall screen (DESIGN.md "Tall screen"): one gopher digging fills the display's height (zoomed, the sides
+     * cropped), its HUD pinned at the screen's top; the title, the panels and the split screens show every column */
+    int zoom = !multi && (state == ST_PLAY || state == ST_DEAD);
+    hud_pinned = tall() && zoom;
+    rs_screen_fill(zoom);
+    rs_bg_pin(RS_BG1, 0, hud_pinned ? HUD_LINES : 0, HUD_PIN_Y);
+    int hy = hud_pinned ? rs_screen_top() + HUD_PIN_Y : 0;     /* the HUD's sprites: stage y of the pinned band */
 
     if (!multi) {
         /* one full view: player 1's well (the title: its grass) */
         int cy = state == ST_TITLE ? TITLE_CAM : draw_cam_y(0);
         const well *w = &W->w[0];
-        /* a tall screen: the well seen from the screen's top (what was dug, the sky) to the stage's bottom, the earth
-         * below it (write_below) */
-        int top = ring_rows() > 16 ? rs_screen_top() : 0;
-        write_view(w, 0, cy - sy + top, RS_SCREEN_H - top, state == ST_TITLE);
-        if (top) write_below(w, 0, cy - sy);
+        /* a tall screen: the well seen from the screen's top (what was dug, the sky) to its bottom (the well ahead) */
+        int top = ring_rows() > 16 ? rs_screen_top() : 0, bot = ring_rows() > 16 ? rs_screen_bottom() : RS_SCREEN_H;
+        write_view(w, 0, cy - sy + top, bot - top, state == ST_TITLE);
         VL[0].cam_y = cy - sy;
         VL[0].y0 = 0;
         VL[0].theme = -1;
@@ -961,12 +986,12 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         rs_bg_scroll(RS_BG4, x & mw, (cy - sy) & my);
         rs_bg_scroll(RS_BG3, (x - jig) & mw, (cy - sy) & my);
         rs_bg_scroll(RS_BG2, x & mw, (cy - sy + CELL - well_fall_px(w)) & my);
-        sview s = {rs_screen_left(), top, rs_screen_width(), RS_SCREEN_H - top, view_well_x(&v[0]) - rs_screen_left(),
+        sview s = {rs_screen_left(), top, rs_screen_width(), bot - top, view_well_x(&v[0]) - rs_screen_left(),
                    cy + top, SPR_BUDGET, 0};
         if (state == ST_PLAY || state == ST_DEAD) {
             const gopher *g = &w->go;
             hud1 L = hud1_layout(g->depth);
-            hu_number(g->depth, L.num_x, HUD_DIGITS_Y, 3);
+            hu_number(g->depth, L.num_x, HUD_DIGITS_Y + hy, 3);
             air_gauge(L.rx + 1, 5, 6, g, t, 1);
         } else if (state == ST_OVER) {
             if (W->players == 1) {
@@ -1031,6 +1056,18 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         hu_view_oam_end(q);
     }
     int n = nv;
+    if (rs_screen_top() < 0) {      /* a tall screen: the sky above the views, the earth below (the raster's colours) */
+        vrect above = {rs_screen_left(), rs_screen_top(), rs_screen_width(), -rs_screen_top()};
+        vrect below = {rs_screen_left(), RS_SCREEN_H, rs_screen_width(), rs_screen_bottom() - RS_SCREEN_H};
+        for (int k = 0; k < 2; k++) {
+            view_set(&VP[n], k ? &below : &above, 0, -1, 0, t, 0, 0);
+            VP[n].objs = 0;
+            VL[n].cam_y = 0;
+            VL[n].y0 = 0;
+            VL[n].theme = (int16_t)(k ? -2 : 0);
+            n++;
+        }
+    }
     if (paused) {
         vrect band = {rs_screen_left(), 96, rs_screen_width(), 40};
         view_set(&VP[n], &band, 1 << RS_BG1, -1, 0, t, 0, 0);
