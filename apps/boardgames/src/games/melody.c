@@ -827,8 +827,10 @@ static int script(const char *moves)
     while (e > buf && e[-1] == ' ') *--e = 0;
     char *s = e;
     while (s > buf && s[-1] != ' ') s--;
-    char last[16];
-    snprintf(last, sizeof last, "%s", s);
+    char last[16];                              /* (copied by hand: no format-truncation warning) */
+    size_t ln = strlen(s) < sizeof last - 1 ? strlen(s) : sizeof last - 1;
+    memcpy(last, s, ln);
+    last[ln] = 0;
     *s = 0;
     if (!mel_script(&G, buf)) return 0;
     if (!strcmp(last, "h") || !strcmp(last, "l")) {
