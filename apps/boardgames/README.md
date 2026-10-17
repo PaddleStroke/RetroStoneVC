@@ -241,8 +241,11 @@ Free have no `ARCADE`: no tab, nothing of it built (`src/arcade.c`'s stand-ins).
   `best=`), `arcade-review.cfg`.
 - **XP and the Stats page**: 5 XP for a session of 30 s or more (`stats_finish(STATS_ARCADE, ...)`: the day counts in
   the streak, the game counts as played: the Arcade bar is games played of all), 20 for a new best score.
-- **Picture mode**: `--shot out.bmp --size 1280x720 --game arcade_<id> [--at ms] [--pad "START@60 A@120"]`: the game
-  started afresh, run `--at` ms (3000) headless, those buttons pressed 6 frames each from those frames.
+- **Sound**: the game's own audio device (32 kHz stereo, the Arcade's); the app's (`sound.c`) is closed meanwhile and
+  opened again after (`snd_open`): Android's audio drivers play one device at a time, and the game's was silent.
+- **Picture mode**: `--shot out.bmp --size 1280x720 --game arcade_<id> [--at ms] [--pad "START@60 A@120"]
+  [--wav out.wav]`: the game started afresh, run `--at` ms (3000) headless, those buttons pressed 6 frames each from
+  those frames; `--wav`: the sound it mixed, and its peak (0: silent).
 
 ## The free edition
 

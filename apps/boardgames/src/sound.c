@@ -109,11 +109,17 @@ static void mix(void *u, Uint8 *stream, int bytes)
     }
 }
 
-void snd_init(void)
+/* the device: closed while an Arcade tab's game plays on its own (arcade_play.c: Android's audio drivers, OpenSL ES
+ * and AAudio, play one device at a time; a second one opened beside this one was silent), opened again after */
+void snd_open(int on)
 {
-    for (int k = 0; k < VOICES; k++) voice[k].s = -1;
-    synth();
-    if (SDL_InitSubSystem(SDL_INIT_AUDIO)) return;
+    if (!on) {
+        if (dev) SDL_CloseAudioDevice(dev);
+        dev = 0;
+        for (int k = 0; k < VOICES; k++) voice[k].s = -1;
+        return;
+    }
+    if (dev || !SDL_WasInit(SDL_INIT_AUDIO)) return;
     SDL_AudioSpec want = {0}, have;
     want.freq = RATE;
     want.format = AUDIO_S16SYS;
@@ -122,6 +128,14 @@ void snd_init(void)
     want.callback = mix;
     dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
     if (dev) SDL_PauseAudioDevice(dev, 0);
+}
+
+void snd_init(void)
+{
+    for (int k = 0; k < VOICES; k++) voice[k].s = -1;
+    synth();
+    if (SDL_InitSubSystem(SDL_INIT_AUDIO)) return;
+    snd_open(1);
 }
 
 void snd_play(int s) { snd_play_vol(s, 1); }

@@ -22,6 +22,7 @@
 
 const char *save_path(void);                    /* save.c: the app's save file (NULL: the picture mode's memory) */
 const char *text_lang(void);                    /* text.c: the app's language ("fr", "pt_BR") */
+void snd_open(int on);                          /* sound.c: the app's own device, closed while a game plays */
 
 #define ARCADE_XP_PLAYED 5                      /* a session of ARCADE_MIN_S seconds or more */
 #define ARCADE_XP_BEST 20                       /* a new best score */
@@ -129,8 +130,10 @@ int arcade_play(const char *id, SDL_Renderer *r)
     want.format = AUDIO_S16SYS;
     want.channels = 2;
     want.samples = 512;
+    snd_open(0);                                /* Android plays one device at a time: the game's, not the app's */
     audio = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
     if (audio) SDL_PauseAudioDevice(audio, 0);
+    else SDL_Log("arcade: no audio: %s", SDL_GetError());
     open_pads();
     memset(&in, 0, sizeof in);
     nfingers = mouse_down = 0;
@@ -262,6 +265,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
     award(g, frames, best0);
     if (audio) SDL_CloseAudioDevice(audio);
     audio = 0;
+    snd_open(1);                                /* the app's sounds again */
     textures_free();
     SDL_SetRenderTarget(ren, NULL);
     SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
@@ -278,11 +282,12 @@ int arcade_play(const char *id, SDL_Renderer *r)
 int arcade_shot(const char *id, SDL_Renderer *r, SDL_Surface *surf, const char *out, int argc, char **argv)
 {
     int g = game_index(id), ww, wh, ms = 3000;
-    const char *pad = "";
+    const char *pad = "", *wav = NULL;
     if (g < 0) { fprintf(stderr, "no arcade game %s\n", id); return 1; }
     for (int i = 1; i + 1 < argc; i++) {
         if (!strcmp(argv[i], "--at")) ms = atoi(argv[i + 1]);
         if (!strcmp(argv[i], "--pad")) pad = argv[i + 1];
+        if (!strcmp(argv[i], "--wav")) wav = argv[i + 1];      /* the sound mixed, 16-bit stereo */
     }
     SDL_GetRendererOutputSize(r, &ww, &wh);
     if (prepare(r, ww, wh)) return 1;
@@ -291,6 +296,10 @@ int arcade_shot(const char *id, SDL_Renderer *r, SDL_Surface *surf, const char *
     rsb_start(g, 1);                          /* afresh: no saved state */
     memset(&in, 0, sizeof in);
     int frames = ms * RS_FPS / 1000;
+    FILE *wf = wav ? fopen(wav, "wb") : NULL;
+    long nsamp = 0;
+    int peak = 0;
+    if (wf) fseek(wf, 44, SEEK_SET);
     for (int f = 0; f < frames; f++) {
         uint16_t b = 0;
         for (const char *p = pad; *p;) {        /* "START@60 A@120": each pressed 6 frames from that frame */
@@ -310,7 +319,20 @@ int arcade_shot(const char *id, SDL_Renderer *r, SDL_Surface *surf, const char *
         in.connected[0] = 1;
         in.device[0] = RS_DEVICE_PAD;
         in.aspect = wh > 0 ? (float)ww / wh : 16.0f / 9;
-        rsb_frame(&in, &view);
+        if (rsb_frame(&in, &view) && wf) {
+            int n;
+            const int16_t *a = rs_host_audio(&n);
+            for (int i = 0; i < n * 2; i++) peak = abs(a[i]) > peak ? abs(a[i]) : peak;
+            nsamp += (long)fwrite(a, 4, (size_t)n, wf);
+        }
+    }
+    if (wf) {                                   /* the RIFF header, then the peak (0: silent) */
+        uint32_t d = (uint32_t)nsamp * 4, h[11] = {0x46464952, 36 + d, 0x45564157, 0x20746d66, 16, 0x00020001,
+                                                   RS_AUDIO_RATE, RS_AUDIO_RATE * 4, 0x00100004, 0x61746164, d};
+        fseek(wf, 0, SEEK_SET);
+        fwrite(h, 4, 11, wf);
+        fclose(wf);
+        printf("%s: %ld frames of sound, peak %d\n", wav, nsamp, peak);
     }
     present(1, rsb_held());
     textures_free();

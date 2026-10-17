@@ -409,6 +409,7 @@ int  ui_logic_stars(int hints, int mistakes);
 
 /* sound.c */
 void snd_init(void);
+void snd_open(int on);                          /* 0: the device closed (an Arcade game plays its own), 1: again */
 void snd_play(int s);
 void snd_play_vol(int s, float volume);
 void snd_play_at(int s, float volume, int delay_ms);
