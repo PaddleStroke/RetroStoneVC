@@ -6,6 +6,7 @@ checked (C4..C6, the keyboard shown holds them, lengths, durations), graded (the
 the range, the speed), the near-duplicates of one tune dropped (a phrase only a note or two longer than another),
 150 kept (the tunes with the most phrases give up their middle ones first), ordered by grade and cut into six
 chapters of 25. Two levels of the same tune never follow each other (a swap with a level of about the same grade).
+Each chapter ends on a showpiece where the curve allows: a whole tune close in grade to its hardest moves last.
 The keyboard of a level: C4..C5 (8 white keys), C4..G5 (12) or C4..C6 (15), the smallest that holds it.
 
     python3 apps/boardgames/tools/melody_gen.py > apps/boardgames/src/games/melody_levels.h
@@ -176,6 +177,18 @@ def choose(cands):
                         and (j + 1 >= len(cands) or cands[j + 1]["tune"] is not cands[i]["tune"])):
                     cands[i], cands[j] = cands[j], cands[i]
                     break
+    # each chapter ends on a showpiece: a whole tune among its last four, if one is within a grade point of its
+    # hardest, moves to the end (the ones after it move up one)
+    per = LEVELS // CHAPTERS
+    for k in range(CHAPTERS):
+        end = (k + 1) * per - 1
+        for i in range(end - 1, end - 4, -1):
+            c = cands[i]
+            if (c["n"] == len(c["tune"]["notes"]) and cands[end]["grade"] - c["grade"] <= 1.0
+                    and cands[i - 1]["tune"] is not cands[i + 1]["tune"] and cands[end]["tune"] is not c["tune"]
+                    and (end + 1 >= LEVELS or cands[end + 1]["tune"] is not c["tune"])):
+                cands[i:end + 1] = cands[i + 1:end + 1] + [c]
+                break
     return cands
 
 
