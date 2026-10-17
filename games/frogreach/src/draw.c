@@ -28,7 +28,30 @@ static int wide(void) { return rs_screen_width()>RS_SCREEN_W; }
 static const rs_color title_ramps[2][3]={
  {RS_RGB8(216,241,125),RS_RGB8(135,201,80),RS_RGB8(65,124,69)},
  {RS_RGB8(255,213,194),RS_RGB8(232,138,156),RS_RGB8(150,79,116)}};
+static const rs_color field_pal[16]={0,RS_HEX(0x994f74),RS_HEX(0xffbab5),RS_HEX(0xea7894),RS_HEX(0xd9ef7c),RS_HEX(0x87c84f),RS_HEX(0x4c8f46),RS_HEX(0x2a583f),RS_HEX(0x232a3a),RS_HEX(0x5d9ea6),RS_HEX(0x8ec0bc),RS_HEX(0x4f8f9c),RS_HEX(0x72afb0),RS_HEX(0x4a818c),RS_HEX(0xbbe6df),0};
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. Above:
+ * the sky carried on, deeper toward the screen's top. Below: the pond, deeper and darker. One view: the open water
+ * under the pads (BG2's lines WATER_Y.. 239, their ripples) repeated, its blues darker with depth, the other layers
+ * hidden there (their maps would wrap); the split screen: two more viewports over the margins, the backdrop only (the
+ * same sky, the water's colour). Line 0 puts the layers, BG2's scroll and the pond's palette back. */
+#define WATER_Y 216
+#define SKY_TOP_C RS_HEX(0x87b4cd)
+static void raster_out(int line) {
+ int top=rs_screen_top(),bot=rs_screen_bottom();
+ if(line==top || line==RS_SCREEN_H){rs_bg_enable(RS_BG1,0);rs_bg_enable(RS_BG3,0);rs_bg_enable(RS_BG2,line==RS_SCREEN_H);}
+ if(line<0){int k=top<0?-line*72/-top:0;rs_pal_set(0,hu_lerp_color(SKY_TOP_C,RS_HEX(0x4f86b4),k*256/72));return;}
+ int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H,k=n>0?d*110/n:0;
+ if(nviews<=1)rs_bg_scroll(RS_BG2,0,WATER_Y+d%(RS_SCREEN_H-WATER_Y)-line);
+ rs_pal_set(0,hu_scale_color(field_pal[9],236-k));
+ if((d&3)==0)for(int i=9;i<15;i++)rs_pal_set(RS_PAL_BG(PAL_GROUND)+i,hu_scale_color(field_pal[i],236-k));
+}
 static void raster(int line,void *user) {
+ if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
+ if(line==0 && rs_screen_height()>RS_SCREEN_H){       /* back from raster_out: the stage's own settings */
+  for(int l=0;l<3;l++) rs_bg_enable(l,1);
+  if(nviews<=1)rs_bg_scroll(RS_BG2,0,0);
+  rs_pal_load(RS_PAL_BG(PAL_GROUND),field_pal,16);
+ }
  (void)user; int p=rs_viewport_current(); if(p<0 || p>=nviews) p=0;
  int y=line-VP[p].y; if(y>=0 && y<240) rs_pal_set(0,V[p].sky[y]);
 }
@@ -48,8 +71,7 @@ void draw_init(void) {
  uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);
  rs_tiles_load8(VR_BG3+gm_bg3_tile_count,blank,1);
  rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
- static const rs_color field_pal[16]={0,RS_HEX(0x994f74),RS_HEX(0xffbab5),RS_HEX(0xea7894),RS_HEX(0xd9ef7c),RS_HEX(0x87c84f),RS_HEX(0x4c8f46),RS_HEX(0x2a583f),RS_HEX(0x232a3a),RS_HEX(0x5d9ea6),RS_HEX(0x8ec0bc),RS_HEX(0x4f8f9c),RS_HEX(0x72afb0),RS_HEX(0x4a818c),RS_HEX(0xbbe6df),0};
- rs_pal_load(RS_PAL_BG(PAL_GROUND),field_pal,16);
+  rs_pal_load(RS_PAL_BG(PAL_GROUND),field_pal,16);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);
  rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
  for(int l=0;l<3;l++) rs_bg_enable(l,1);
@@ -193,6 +215,11 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);
  int fresh=nviews!=(multi?w->players:1) || shown_state==ST_TITLE;
  nviews=rs_viewport_layout(multi?w->players:1,RS_LAYOUT_HSPLIT,VP);
+ if(rs_screen_height()>RS_SCREEN_H)       /* a tall screen: the layout of the 240-line stage (the margins: raster_out) */
+  for(int p=0;p<nviews;p++){
+   int first=VP[p].y==rs_screen_top(),hh=(RS_SCREEN_H-RS_VIEW_DIVIDER)/2;
+   VP[p].h=(int16_t)(VP[p].h==rs_screen_height()?RS_SCREEN_H:hh);VP[p].y=(int16_t)(first?0:RS_SCREEN_H-hh);
+  }
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
  int next=1;
  for(int p=0;p<nviews;p++) {
@@ -264,6 +291,13 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_bg_scroll(RS_BG1,-hu_ui_x()&(rs_bg_map_w(RS_BG1)*8-1),-slide);   /* the UI centred (widescreen) */
   rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);
   rs_viewports(0,NULL,0);
+ } else if(rs_screen_height()>RS_SCREEN_H) {   /* a tall screen: the margins' viewports, the backdrop only */
+  rs_viewport all[6];memcpy(all,VP,sizeof(rs_viewport)*(size_t)nviews);
+  rs_viewport *m=&all[nviews];memset(m,0,2*sizeof *m);
+  m[0].x=m[1].x=(int16_t)rs_screen_left();m[0].w=m[1].w=(int16_t)rs_screen_width();
+  m[0].y=(int16_t)rs_screen_top();m[0].h=(int16_t)-rs_screen_top();
+  m[1].y=RS_SCREEN_H;m[1].h=(int16_t)(rs_screen_bottom()-RS_SCREEN_H);
+  rs_viewports(nviews+2,all,RS_HEX(0x254f62));
  } else rs_viewports(nviews,VP,RS_HEX(0x254f62));
  shown_state=state;shown_best=best;
 }

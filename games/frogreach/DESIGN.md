@@ -78,3 +78,13 @@ water and the reeds, and before the start (the title too) the pond behind the fi
   at 427 and 520, then tests/wide_test.sh (widths, the same game, `--resize`, states across widths) and the language
   test at 320, 427 and 520; `make frogreach-screenshots` adds title/play/gameover-427/520.png and
   play-4-players-520.png (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
+columns). The 240 lines of the stage are the same pixels, centred; the views keep the stage's layout (the standard
+layouts span the whole tall screen: draw_frame puts them back on the 240 lines). The raster draws the lines past the
+stage (draw.c `raster_out`): above, the sky carried on, deeper toward the screen's top; below, the pond: one view
+repeats the open water under the pads (BG2's lines 216..239 and their ripples), its blues darker with depth, the
+other layers hidden there; the split screen adds two viewports over the margins (the backdrop only: the same sky,
+the water's colour). Line 0 puts the layers, BG2's scroll and the pond's palette back, so a 240-line screen is
+unchanged.
