@@ -74,6 +74,9 @@ static int last_fx_t = -1;
 static void raster(int line, void *user);
 
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+/* a tall screen (DESIGN.md "Tall screen"): the specks' screen-space map holds the whole height (128 rows) */
+static int specks_rows(void) { return rs_screen_height() > 256 ? 128 : 32; }
+static int ray_t;                   /* the rays' sway this frame (the raster carries it past the stage's lines) */
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
 static void colour_pal(int colour, int *pal, int *variant)
@@ -105,7 +108,7 @@ static void maps_setup(void)
     int mw = map_w();
     rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
     rs_bg_setup(RS_BG2, RAYS_MAP, RAYS_MAP, VR_BG2);
-    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
+    rs_bg_setup(RS_BG3, mw, specks_rows(), VR_BG3);
     rs_bg_setup(RS_BG4, FLOOR_MAP, FLOOR_MAP, VR_BG4);
     for (int i = 0; i < RAYS_MAP * RAYS_MAP; i++) rs_bg_put(RS_BG2, i % RAYS_MAP, i / RAYS_MAP, gm_rays_map[i]);
     for (int i = 0; i < FLOOR_MAP * FLOOR_MAP; i++) rs_bg_put(RS_BG4, i % FLOOR_MAP, i / FLOOR_MAP, gm_floor_map[i]);
@@ -253,7 +256,20 @@ static void raster(int line, void *user)
     (void)user;
     int v = rs_viewport_current();
     const vline *L = &VL[v < 0 ? 0 : v];
-    rs_pal_set(0, rim_col[line]);
+    if (line < 0 || line >= RS_SCREEN_H) {
+        /* a tall screen's lines past the stage: more of the pond (the floor, its rim and the specks follow the camera
+         * by themselves), the rim's end colours carried on, the rays swaying on (one view: the layer's scroll; the
+         * line-scroll table is the stage's), no UI layer */
+        rs_bg_enable(RS_BG1, 0);
+        rs_pal_set(0, rim_col[line < 0 ? 0 : RS_SCREEN_H - 1]);
+        rs_bg_scroll(RS_BG2, ray_t / 3 + hu_bob(((line * 3 + ray_t) % 240 + 240) % 240, 240, 3), 0);
+    } else if (line == 0) {
+        rs_bg_enable(RS_BG1, 1);                /* the stage's own (a 240-line screen: as it always is) */
+        if (rs_screen_height() > RS_SCREEN_H) rs_bg_scroll(RS_BG2, ray_t / 3, 0);
+        rs_pal_set(0, rim_col[line]);
+    } else {
+        rs_pal_set(0, rim_col[line]);
+    }
     if (!L->floor_on) {
         rs_window(0, 0, 0);
         rs_window(1, 0, 0);                     /* deep water behind the pause band */
@@ -465,7 +481,7 @@ static void specks_view(const world *w, const vrect *v, const camera *c)
         /* rounded like the floor's scroll: the speck's place on the layer minus the camera's */
         int sx = vcx + zpx(k->x * FX, c->zq) - ccx - 1 + ox, sy = vcy + zpx(k->y * FX, c->zq) - ccy - 1 + oy;
         if (sx < v->x || sy < v->y || sx + 4 > v->x + v->w || sy + 4 > v->y + v->h) continue;
-        int mx = (sx & mask) >> 3, my = (sy >> 3) & 31;
+        int mx = (sx & mask) >> 3, my = (sy >> 3) & (rs_bg_map_h(RS_BG3) - 1);
         uint16_t *e = &m[my * mw + mx];
         if (*e) continue;
         *e = RS_MAP(1 + size * 16 + ((sy & 7) >> 1) * 4 + ((sx & 7) >> 1), PAL_SPECKS + k->kind, 0, 0, 0);
@@ -670,7 +686,7 @@ static void draw_touch(sview *s, const vrect *v, const touch_view *tv)
         {&bs, tv->split_on, SPR_BTN_SPLIT, SPR_BTN_SPLIT_ON, SPR_ICON_SPLIT},
         {&be, tv->eject_on, SPR_BTN_EJECT, SPR_BTN_EJECT_ON, SPR_ICON_EJECT}};
     if (tv->stick_on) {
-        int ox = tv->sx0 - rs_screen_origin_x() + dx, oy = tv->sy0 + dy;
+        int ox = tv->sx0 - rs_screen_origin_x() + dx, oy = tv->sy0 - rs_screen_origin_y() + dy;
         int kx = tv->sx - tv->sx0, ky = tv->sy - tv->sy0, d = isqrt64((int64_t)kx * kx + (int64_t)ky * ky);
         if (d > STICK_R) { kx = kx * STICK_R / d; ky = ky * STICK_R / d; }
         spr_at(s, SPR_KNOB, ox + kx - 8, oy + ky - 8, 2, 3, 0);
@@ -716,14 +732,20 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     bubbles_step(w);
     int t = (int)rs_frame_count();
     for (int y = 0; y < RS_SCREEN_H; y++) ray_dx[y] = (int16_t)((hu_bob(y * 3 + t, 240, 3)));
+    ray_t = t;
     int multi = (state == ST_PLAY || state == ST_DEAD) && w->players > 1;
-    vrect v[4];
+    vrect v[4], vs[4];
     int nv = view_layout(multi ? w->players : 1, rs_screen_left(), rs_screen_width(), v);
     int kind = view_kind(multi ? w->players : 1);
+    /* a tall screen: the views drawn to its top and bottom (more of the pond round each camera); the cameras, their
+     * zoom and the texts keep the stage's rects (vs), so the game and the stage's pictures stay the same */
+    memcpy(vs, v, sizeof v);
+    views_tall(v, nv, rs_screen_top(), rs_screen_bottom());
+    int extra = rs_screen_height() > RS_SCREEN_H ? 80 : 0;     /* the sprites of the taller views */
 
     /* the cameras */
     if (state == ST_PLAY || state == ST_DEAD) {
-        for (int p = 0; p < w->players && p < nv; p++) cam_player(&cam[p], w, p, kind, &v[p]);
+        for (int p = 0; p < w->players && p < nv; p++) cam_player(&cam[p], w, p, kind, &vs[p]);
         cam[CAM_SOLO] = cam[0];
     } else if (state == ST_TITLE) {
         cam_tour(&cam[CAM_SOLO], st_t);
@@ -748,7 +770,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             text_paused = paused;
             if (!paused) shown_text = 0;
         }
-        if (!paused) play_texts(w, state, v, nv, paused);
+        if (!paused) play_texts(w, state, vs, nv, paused);
         lb_lines(multi);
         rs_bg_line_scroll(RS_BG1, NULL, lb_dy);
     } else {
@@ -770,7 +792,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         specks_view(w, &v[0], c);
         rs_bg_scroll(RS_BG3, speck_ofs_x(c), speck_ofs_y(c));
         vline_set(&VL[0], &v[0], c, 1);
-        sview s = {v[0].x, v[0].y, v[0].w, v[0].h, c->x, c->y, c->zq, SPR_BUDGET_1};
+        sview s = {v[0].x, v[0].y, v[0].w, v[0].h, c->x, c->y, c->zq, SPR_BUDGET_1 + extra};
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->own[0].alive) hu_number(owner_mass(w, 0), RS_SCREEN_W / 2, 8, 3);
             if (tv->seen && state == ST_PLAY) draw_touch(&s, &v[0], tv);
@@ -791,7 +813,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             sview k = {rs_screen_left(), 0, rs_screen_width(), RS_SCREEN_H, 0, 0, 65536, 12};
             draw_fish_at(&k, RS_SCREEN_W / 2 + 6, 112 + hu_bob(st_t, 64, 4), 19, 8, 0, (st_t / 10) & 1, 2);
         }
-        s.budget = SPR_BUDGET_1 - rs_oam_next();
+        s.budget = SPR_BUDGET_1 + extra - rs_oam_next();
         draw_world(&s, w, (state == ST_PLAY || state == ST_DEAD) ? 0 : -1, t);
         if (views_on) {
             rs_viewports(0, NULL, 0);
@@ -801,7 +823,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
 
     /* split screen: a viewport per player (3 players: the 4th quarter is the map), the pause band over them */
-    int budget = nv == 2 ? SPR_BUDGET_2 : SPR_BUDGET_4;
+    int budget = (nv == 2 ? SPR_BUDGET_2 : SPR_BUDGET_4) + extra / nv;
     for (int i = 0; i < nv; i++) {
         rs_viewport *q = &VP[i];
         /* quarters: no light rays (the A20's budget: the floor's matrix is decoded twice a line with 4 views) */
@@ -834,7 +856,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             uint16_t *m = rs_bg_map(RS_BG3);
             int mw = rs_bg_map_w(RS_BG3), mask = mw * 8 - 1;
             for (int y = v[i].y; y < v[i].y + v[i].h; y += 8)
-                for (int x = v[i].x; x < v[i].x + v[i].w + 8; x += 8) m[((y >> 3) & 31) * mw + ((x & mask) >> 3)] = 0;
+                for (int x = v[i].x; x < v[i].x + v[i].w + 8; x += 8)
+                    m[((y >> 3) & (rs_bg_map_h(RS_BG3) - 1)) * mw + ((x & mask) >> 3)] = 0;
         }
     }
     int n = nv;
@@ -853,7 +876,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG1) == map_w()) return;
+    rs_bg_enable(RS_BG1, 1);                    /* (a tall screen's raster ends its frame with it off) */
+    if (rs_bg_map_w(RS_BG1) == map_w() && rs_bg_map_h(RS_BG3) == specks_rows()) return;
     maps_setup();
     shown_key = -1;
 }

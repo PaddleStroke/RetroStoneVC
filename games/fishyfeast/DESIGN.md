@@ -156,6 +156,16 @@ width; the bots' vision is fixed). The UI kit centres itself; the leaderboard fo
 touch buttons the view's bottom-right corner. A state saved at one width loads at another. The touch test plays the
 same drag at 320, 427, 520 and 560 and compares the runs.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`: 320 columns by the display's height (692 on a 9:19.5 phone), the 240-line stage centred. The views that
+touch the stage's top or bottom reach the screen's (play.c `views_tall`): **more pond above and below**; the cameras,
+their zoom (and so the game) are the stage's own. The raster draws the floor and the pond's rim for every line by
+itself; past the stage it carries on the rim's end colours, sways the rays by BG2's scroll (the line-scroll table is
+the stage's) and turns the UI layer off (line 0 turns it back on). The specks' map is 128 rows on a tall screen; the
+sprite budget grows by 80. The HUD and the leaderboard stay at the stage's top; the touch SPLIT / EJECT buttons and the
+stick's zone follow the taller view (the buttons at the screen's bottom-right; touches are taken to stage
+coordinates). A 240-line screen is unchanged (the same pixels in landscape).
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the pond going on behind it with the bots, a goldfish bobbing, the player slots, PRESS A TO SWIM with
 the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, Start, the d-pad; a tap) -> play (the

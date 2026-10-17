@@ -217,6 +217,7 @@ int     pond_span(int y, int *x0, int *x1);                  /* the pond's colum
 typedef struct vrect { int x, y, w, h; } vrect;              /* stage coordinates */
 enum { VK_FULL, VK_HALF, VK_QUAD };
 int     view_layout(int players, int left, int width, vrect out[4]);   /* returns the rects (3 players: 4, the 4th a map) */
+void    views_tall(vrect *v, int n, int top, int bottom);      /* a tall screen: the edge views reach top / bottom */
 int     view_kind(int players);
 int     view_target_px(int kind);
 /* touch, player 1 (main.c reads the fingers; the geometry is here, testable) */

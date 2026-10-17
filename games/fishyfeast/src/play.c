@@ -1000,6 +1000,16 @@ int view_layout(int players, int left, int width, vrect out[4])
     return 4;                                   /* 3 players: the 4th quarter shows the whole pond */
 }
 
+/* a tall screen (stage lines top .. bottom - 1): the views at the stage's top and bottom edges reach the screen's */
+void views_tall(vrect *v, int n, int top, int bottom)
+{
+    for (int i = 0; i < n; i++) {
+        int y0 = v[i].y == 0 ? top : v[i].y, y1 = v[i].y + v[i].h == 240 ? bottom : v[i].y + v[i].h;
+        v[i].y = y0;
+        v[i].h = y1 - y0;
+    }
+}
+
 int view_kind(int players) { return players <= 1 ? VK_FULL : players == 2 ? VK_HALF : VK_QUAD; }
 int view_target_px(int kind) { return kind == VK_FULL ? ZOOM_TARGET_FULL : kind == VK_HALF ? ZOOM_TARGET_HALF : ZOOM_TARGET_QUAD; }
 

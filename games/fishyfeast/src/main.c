@@ -175,7 +175,8 @@ static int touch_lifted(int since)
 static void p1_view(vrect *v)
 {
     vrect r[4];
-    view_layout(W.players, rs_screen_left(), rs_screen_width(), r);
+    int n = view_layout(W.players, rs_screen_left(), rs_screen_width(), r);
+    views_tall(r, n, rs_screen_top(), rs_screen_bottom());     /* a tall screen: the views reach its edges */
     *v = r[0];
 }
 
@@ -186,7 +187,7 @@ static void touch_read(pin *in)
     p1_view(&v);
     tbutton bs, be;
     touch_buttons(&v, &bs, &be);
-    int ox = rs_screen_origin_x();
+    int ox = rs_screen_origin_x(), oy = rs_screen_origin_y();    /* screen pixels -> stage coordinates */
     TV.split_on = TV.eject_on = 0;
     for (int i = 0; i < RS_TOUCH_MAX; i++) {
         const rs_touch_point *t = rs_touch(i);
@@ -197,7 +198,7 @@ static void touch_read(pin *in)
         }
         TV.seen = 1;
         if (t->pressed || (!touch_btn_slot[i] && touch_stick_slot != i)) {
-            int x0 = t->x0 - ox, y0 = t->y0;
+            int x0 = t->x0 - ox, y0 = t->y0 - oy;
             /* a button presses as the finger goes down (not again for one still down after a pause or a load) */
             if (touch_on_button(&bs, x0, y0)) {
                 if (t->pressed) in->split = 1;
@@ -420,6 +421,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more of the pond above and below (DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
