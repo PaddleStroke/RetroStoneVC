@@ -18,31 +18,51 @@ typedef struct view { int cx,cy,mx,my; rs_color sky[240]; } view;
 static view V[4];
 static rs_viewport VP[4];
 static int nviews,shown_state=-1,shown_best=-1;
-static uint8_t web_px[RS_SCREEN_W_MAX*RS_SCREEN_H];   /* web(): the foreground layer's pixels (per frame) */
+/* web(): the foreground layer's pixels (per frame): the widest screen's, or a tall screen's (320 columns) */
+#define WEB_PX (RS_SCREEN_W_MAX*RS_SCREEN_H>RS_SCREEN_W*RS_SCREEN_H_MAX?RS_SCREEN_W_MAX*RS_SCREEN_H:RS_SCREEN_W*RS_SCREEN_H_MAX)
+static uint8_t web_px[WEB_PX];
 static int wide(void) { return rs_screen_width()>RS_SCREEN_W; }
 static int map_w(void) { return wide()?128:64; }
+/* a tall screen (DESIGN.md "Tall screen"): the views as tall as the screen (rs_viewport_layout), the maps 64 rows */
+static int tall(void) { return rs_screen_height()>RS_SCREEN_H; }
+static int map_h(void) { return tall()?64:32; }
+static int full(const rs_viewport *vp) { return vp->w==rs_screen_width() && vp->h==rs_screen_height(); }
+/* a zoomed tall screen: the HUD (BG1's top HUD_LINES: the score's and the hint's rows) pinned at screen line
+ * HUD_PIN_Y while one spider climbs */
+#define HUD_PIN_Y 14
+#define HUD_LINES 64
 /* a view's base area: its width at 320 columns (the full screen: 320; a pane: its width at 320) and the view x of
- * its left edge (centred in the view). At 320: the whole view. */
+ * its left edge (centred in the view). At 320: the whole view. A zoomed tall screen's full view: the columns shown
+ * (the camera keeps the climb in them). */
 static int base_w(const rs_viewport *vp) {
+ if(tall() && full(vp)) return rs_screen_visible_x1()-rs_screen_visible_x0();
  if(!wide()) return vp->w;
  if(vp->h==RS_SCREEN_H && vp->w==rs_screen_width()) return RS_SCREEN_W;
  return vp->w*2>rs_screen_width()?RS_SCREEN_W:(RS_SCREEN_W-RS_VIEW_DIVIDER)/2;
 }
-static int base_x(const rs_viewport *vp) { return (vp->w-base_w(vp))/2; }
-/* the full-screen view draws its sprites without viewports (stage coordinates): view x + vp->x */
-static int stage_dx(const rs_viewport *vp) { return vp->w==rs_screen_width() && vp->h==RS_SCREEN_H?vp->x:0; }
+static int base_x(const rs_viewport *vp) {
+ if(tall() && full(vp)) return rs_screen_visible_x0()-rs_screen_origin_x()-vp->x;
+ return (vp->w-base_w(vp))/2;
+}
+/* the full-screen view draws its sprites without viewports (stage coordinates): view x + vp->x, view y + vp->y */
+static int stage_dx(const rs_viewport *vp) { return full(vp)?vp->x:0; }
+static int stage_dy(const rs_viewport *vp) { return full(vp)?vp->y:0; }
 /* 1 when s is plain ASCII (no accent above a letter, no 16x16 glyph: it needs no free row above it) */
 static int ascii(const char *s) { for(;*s;s++) if((unsigned char)*s>=0x80) return 0; return 1; }
+#define SKY_TOP RS_HEX(0x80bbaa)    /* the greenhouse's sky, top to bottom (the raster) */
+#define SKY_BOTTOM RS_HEX(0xf2e8bb)
 static const rs_color title_ramps[2][3]={
  {RS_RGB8(237,194,255),RS_RGB8(182,122,226),RS_RGB8(115,63,158)},
  {RS_RGB8(255,234,153),RS_RGB8(232,182,93),RS_RGB8(155,100,64)}};
 static void raster(int line,void *user) {
  (void)user; int p=rs_viewport_current(); if(p<0 || p>=nviews) p=0;
  int y=line-VP[p].y; if(y>=0 && y<240) rs_pal_set(0,V[p].sky[y]);
+ else if(y>=240 && y<VP[p].h) rs_pal_set(0,hu_lerp_color(SKY_TOP,SKY_BOTTOM,y*256/VP[p].h));   /* a tall view */
 }
-/* the three layers' maps: 128 columns on a wide screen (more than 64 tiles across), 64 at 320 */
+/* the three layers' maps: 128 columns on a wide screen (more than 64 tiles across), 64 at 320; 64 rows on a tall one */
 static void maps_setup(void) {
- rs_bg_setup(RS_BG1,map_w(),32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);rs_bg_setup(RS_BG3,map_w(),32,VR_BG3);
+ int mh=map_h();
+ rs_bg_setup(RS_BG1,map_w(),mh,VR_BG1);rs_bg_setup(RS_BG2,map_w(),mh,VR_BG2);rs_bg_setup(RS_BG3,map_w(),mh,VR_BG3);
 }
 /* the far lianas' tiles; widescreen: the wide panorama's follow the classic ones (a 320 screen loads only those) */
 static void hills_load(void) {
@@ -53,7 +73,7 @@ static void hills_load(void) {
 /* after a state was loaded (main.c state_loaded): one saved at another width brings that width's maps and tiles;
  * set up this width's (every layer is drawn again on the next frame) */
 void draw_relayout(void) {
- if(rs_bg_map_w(RS_BG3)==map_w()) return;
+ if(rs_bg_map_w(RS_BG3)==map_w() && rs_bg_map_h(RS_BG3)==map_h()) return;
  maps_setup();hills_load();
 }
 void draw_init(void) {
@@ -81,7 +101,7 @@ static int sy(const view *v,const rs_viewport *vp,int y) { return (y-v->cy)*zoom
 static void spr(int id,int x,int y,int prio,int pal,const rs_viewport *vp) {
  const gm_sprite_def *s=&gm_spr[id];
  if(x<=-(int)s->w || x>=vp->w || y<=-(int)s->h || y>=vp->h) return;
- rs_spr(x+stage_dx(vp),y,s->tile,s->w,s->h,pal<0?s->pal:pal,prio,0);
+ rs_spr(x+stage_dx(vp),y+stage_dy(vp),s->tile,s->w,s->h,pal<0?s->pal:pal,prio,0);
 }
 static int hero_frame(const hero *h,int t) {
  if(h->state==HS_HIT || h->state==HS_DOWN) return SPR_HERO_HIT;
@@ -159,7 +179,8 @@ static void web(const world *w,int player,const view *v,const rs_viewport *vp,in
    view still;still.cx=still.cy=0;
    vine(pixels,&still,vp,-14,196,1,0);vine(pixels,&still,vp,334,68,-1,0);
   }
-  branch(pixels,bx-14,60,bx+89,102,0,vp);branch(pixels,bx+334,60,bx+231,102,0,vp);
+  int oy=-stage_dy(vp);    /* (a tall screen: the stage's lines lower in the view) */
+  branch(pixels,bx-14,60+oy,bx+89,102+oy,0,vp);branch(pixels,bx+334,60+oy,bx+231,102+oy,0,vp);
  }else{
   /* The foreground stems share the flowers' world coordinates, so their connections never slide apart. */
   for(int side=0;side<2;side++) vine(pixels,v,vp,side?294:26,side*91,side?-1:1,small);
@@ -183,15 +204,24 @@ static void web(const world *w,int player,const view *v,const rs_viewport *vp,in
 static void scene(const world *w,int p,int t,const view *v,const rs_viewport *vp){
  const hero *h=&w->h[p];int small=vp->h<200,size=small?16:32,x=sx(v,vp,(int)(h->wx/Q16_ONE)),y=sy(v,vp,h->y/Q16_ONE);
  spr(small?SPR_HERO_ICON:hero_frame(h,t),x-size/2,y-size/2,2,ppal(p),vp);
- if(h->smooth_t>0){int ax,ay;anchor_pos(w,h->anchor,&ax,&ay);hu_sparkle(sx(v,vp,ax)-4+stage_dx(vp),sy(v,vp,ay)-4,w->t,2);}
+ if(h->smooth_t>0){int ax,ay;anchor_pos(w,h->anchor,&ax,&ay);hu_sparkle(sx(v,vp,ax)-4+stage_dx(vp),sy(v,vp,ay)-4+stage_dy(vp),w->t,2);}
  for(int a=h->anchor-2;a<=h->anchor+6;a++)if(a>=0){
   int ax,ay;anchor_pos(w,a,&ax,&ay);int frame=a==h->anchor && h->wait>flower_life(a)*2/3;
   int fs=small?16:24;
   blossom(w,a,frame,sx(v,vp,ax),sy(v,vp,ay),small,vp);
-  if(a==h->anchor+1)hu_sparkle(sx(v,vp,ax)+fs/2+2+stage_dx(vp),sy(v,vp,ay)-fs/2,w->t,2);
+  if(a==h->anchor+1)hu_sparkle(sx(v,vp,ax)+fs/2+2+stage_dx(vp),sy(v,vp,ay)-fs/2+stage_dy(vp),w->t,2);
   if(a>=h->anchor && h->apple_id<a){dew_pos(w,a,&ax,&ay);spr(SPR_DEW,sx(v,vp,ax)-4,sy(v,vp,ay)-4+hu_bob(w->t+a,80,1),1,-1,vp);}
   if(a>=12 && a%5==3){bee_pos(w,a,w->t,&ax,&ay);spr((small?SPR_BEE_SMALL:SPR_BEE)+(w->t/5)%2,sx(v,vp,ax)-(small?8:12),sy(v,vp,ay)-(small?4:8),2,-1,vp);}
  }
+}
+/* a HUD line centred at row y: on two rows (split at the space nearest its middle) when it is wider than cols
+ * columns (a zoomed tall screen's columns shown). Returns the rows taken. */
+static int hud_line(const char *s,int y,int cols) {
+ int n=(int)strlen(s),cut=-1;
+ if(hu_width(s,0)>cols) for(int i=0;i<n;i++) if(s[i]==' ' && (cut<0 || abs(i-n/2)<abs(cut-n/2))) cut=i;
+ if(cut<0) {hu_text(hu_center(s,0),y,s);return 1;}
+ char a[128];snprintf(a,sizeof a,"%.*s",cut,s);
+ hu_text(hu_center(a,0),y,a);hu_text(hu_center(s+cut+1,0),y+1,s+cut+1);return 2;
 }
 static void icon(int p,int cx,int cy,int t,void *user) {
  (void)user;rs_viewport vp={0};vp.w=320;vp.h=240;
@@ -205,13 +235,19 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);
  int fresh=nviews!=(multi?w->players:1) || shown_state==ST_TITLE;
  nviews=rs_viewport_layout(multi?w->players:1,0,VP);
+ /* a zoomed tall screen (DESIGN.md "Tall screen"): one spider climbing fills the display's height, the sides cropped
+  * (its camera keeps the climb in the columns shown: base_w), the HUD pinned at the screen's top; the title, the panels
+  * and the split screens show every column (rs_screen_fill(0)) */
+ int hud=tall() && !multi && (state==ST_PLAY || state==ST_DEAD);
+ rs_screen_fill(!multi && (state==ST_PLAY || state==ST_DEAD));
+ rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,HUD_PIN_Y);
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
  int next=1;
  for(int p=0;p<nviews;p++) {
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
   /* the right-hand views' scene layers from map column 32 (widescreen: 64, the views are wider) */
   int right=vp->x>rs_screen_left(),bw=base_w(vp);
-  v->mx=right?(wide()?64:32):0;v->my=vp->y?16:0;
+  v->mx=right?(wide()?64:32):0;v->my=vp->y>rs_screen_top()?(tall()?32:16):0;
   int ax,ay;anchor_pos(w,h->anchor+1,&ax,&ay);
   /* the camera: in the view's base area (at 320: the view), the same at every width */
   int cx=((int)(h->wx>>16)+ax)/2-bw*256/zoom_x(vp)/2;
@@ -220,14 +256,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   if(fresh) {v->cx=cx;v->cy=cy;}
   else if(!paused) {v->cx+=(cx-v->cx)/10;v->cy+=(cy-v->cy)/10;}
   if((state==ST_PLAY || state==ST_DEAD) && !paused) {
-   int x=sx(v,vp,(int)(h->wx>>16))-base_x(vp),y=sy(v,vp,h->y>>16),top=multi?52:72;
+   int x=sx(v,vp,(int)(h->wx>>16))-base_x(vp),y=sy(v,vp,h->y>>16),top=multi?52:hud?72+HUD_PIN_Y:72;
    if(x<20) v->cx=(int)(h->wx>>16)-20*256/zoom_x(vp);
    if(x>bw-20) v->cx=(int)(h->wx>>16)-(bw-20)*256/zoom_x(vp);
    if(y<top) v->cy=(h->y>>16)-top*256/zoom_y(vp);
    if(y>vp->h-20) v->cy=(h->y>>16)-(vp->h-20)*256/zoom_y(vp);
   }
-  for(int y=0;y<vp->h;y++) {
-   rs_color top=RS_HEX(0x80bbaa),bottom=RS_HEX(0xf2e8bb);
+  for(int y=0;y<vp->h && y<RS_SCREEN_H;y++) {     /* (a tall view: the raster carries the gradient on) */
+   rs_color top=SKY_TOP,bottom=SKY_BOTTOM;
    v->sky[y]=hu_lerp_color(top,bottom,y*256/vp->h);
   }
   background(v,vp);web(w,p,v,vp,&next,state);
@@ -235,13 +271,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    * keep column 32 (the hills write a 21st column while scrolling). Widescreen: the panel keeps its 320 size,
    * centred in the wider view (the layer scrolled by -base_x); the right-hand views' panels start past what the
    * left-hand views show, so that no view shows its neighbour's (and stay on the kit's UI area of the screen). */
-  int bx=base_x(vp),ux=right?(RS_SCREEN_W/2+bx+7)/8:0;
+  int bx=base_x(vp),ux=right?(RS_SCREEN_W/2+bx+7)/8:hud?bx/8:0;
+  int prow=full(vp)?floor8(vp->y+vp->h/2):v->my+vp->h/16;   /* PAUSED: the view's middle row */
   vp->sx[0]=(int16_t)(ux*8-bx);vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);
   vp->layers=7;vp->objs=1;
   hu_view_oam_begin(vp);
   if(state==ST_PLAY || state==ST_DEAD) {
    scene(w,p,st_t,v,vp);
-   if(!multi) hu_number(h->score,bw/2,8,3);
+   if(!multi) hu_number(h->score,base_x(vp)+bw/2+stage_dx(vp),8+(hud?rs_screen_top()+HUD_PIN_Y:0),3);
    char text[128];int left=flower_life(h->anchor)-h->wait;if(left<0)left=0;
    if(multi) {
     /* the panel: the score line and the state line; a line whose texts have accents or tall glyphs (they take
@@ -260,13 +297,15 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     hu_box_text(ux+1,y2,text);
    } else {
     rs_strf(text,sizeof text,"%s",h->mode==MODE_FLY?TR(MSG_STEER):h->mode==MODE_CATCH?TR(MSG_CAUGHT):TR(MSG_RELEASE));
-    hu_text(hu_center(text,0),4,text);
-    rs_strf(text,sizeof text,TR(HUD_DEW_FLOWER),h->apples,(left+59)/60);hu_text(hu_center(text,0),6,text);
+    /* (a zoomed tall screen: in the columns shown, a line wider than them on two rows) */
+    int cols=hud?RS_SCREEN_W/8-2*((base_x(vp)+stage_dx(vp)+7)/8):1000;
+    int rows=hud_line(text,4,cols);
+    rs_strf(text,sizeof text,TR(HUD_DEW_FLOWER),h->apples,(left+59)/60);hud_line(text,4+rows+1,cols);
    }
    if(paused) {   /* 2x, or 1x when 2x is wider than the view */
     const char *s=HTR(PAUSED);int cols=bw/8;
-    if(hu_width(s,1)<=cols) hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);
-    else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);
+    if(hu_width(s,1)<=cols) hu_big(ux+(cols-hu_width(s,1))/2,prow,s,HU_BIG_FREE);
+    else hu_text(ux+(cols-hu_width(s,0))/2,prow+1,s);
    }
   }
   hu_view_oam_end(vp);
@@ -295,7 +334,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    }
   }
   /* the full view's layers start at its left edge (stage x VP[0].x: -margin on a wide screen) */
-  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,-VP[0].x,0);rs_bg_scroll(RS_BG3,VP[0].sx[2]-VP[0].x,VP[0].sy[2]);
+  rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,-VP[0].x,-VP[0].y);
+  rs_bg_scroll(RS_BG3,VP[0].sx[2]-VP[0].x,VP[0].sy[2]-VP[0].y);    /* (a tall screen: the view from its top) */
   rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x284d42));
  shown_state=state;shown_best=best;

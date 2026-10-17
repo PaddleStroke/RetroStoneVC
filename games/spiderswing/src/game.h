@@ -51,6 +51,8 @@ void draw_init(void);
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused);
 void draw_state(void);
 void draw_relayout(void);
+/* a phone held upright (DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom) */
+#define ZOOM_H 480
 enum { SFX_JUMP,SFX_FLOWER,SFX_COUNT=SFX_FLOWER+FLOWER_TYPES };
 #define SFX_HOUSE SFX_COUNT
 #endif

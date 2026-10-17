@@ -113,6 +113,23 @@ the same logs at 320/427/520/560 (pad input, 1-4 bots, results), `--resize` duri
 runs, and states saved at one width loaded at the others. Screenshots:
 title/play/gameover-427 and -520.
 
+## Tall screen
+
+A phone held upright (docs/spec.md "Tall screen", the zoomed recipe): `rs_screen_zoom(ZOOM_H)` (480 lines, game.h)
+first in `game_init`. The app scales the 480 lines to the display's height and crops the sides (204 columns on a
+1080x2520 phone, 220 on a 1080x2340 one): the spider bigger than in landscape and **twice the climb in sight** (five
+flowers above it instead of two or three). The views are as tall as the screen (`rs_viewport_layout`); the maps are 64
+rows there; the raster carries the sky's gradient over a view's whole height; the foreground layer's pixel buffer
+holds a 320 x 720 screen.
+- **One spider climbing** fills the display's height, the sides cropped: its view's base area is the columns shown,
+  so the camera (the same easing and clamps) keeps the spider and its next flower in them; the flowers (x 83..237)
+  fit, the bees' outer lane shows most of the time and whenever the spider swings toward it. **The HUD at the
+  screen's top**: the score, the hint and the dew line (BG1's top 64 lines pinned at screen line 14 with `rs_bg_pin`,
+  the score at `rs_screen_top()` + 22), in the columns shown: a line wider than them goes on two rows.
+- **Fill or fit**: the title, the panels and the split screens (2-4 players) show every column (`rs_screen_fill(0)`):
+  the panes as tall as the screen (4 players: four 160 x 240 quarters at the full zoom).
+- Landscape and 4:3: the same pixels as before.
+
 Build: make spiderswing-check / spiderswing-windows / spiderswing-screenshots.
 Windows: dist/windows/SpiderSwing.exe. Code MIT; original art/music/sound/design
 CC BY-NC-SA 4.0, as stated in LICENSE.
