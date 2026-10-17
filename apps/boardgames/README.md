@@ -31,7 +31,7 @@ the solved puzzle's card, levels with random play; never shipped).
 | `src/cards_families.c` | the family deck's animals (`games/families_deck.h`, `fam_deck()`: a deck of the kit's own), drawn by code. |
 | `src/cards_table.c` `cards_table.h` | the shared card table (prefix `ct_`): what card games draw round their cards, written once (see "Card and tile games"). |
 | `src/sound.c` | the sounds, made by code: `ui_sound(SND_MOVE / CAPTURE / PLACE / DROP / CHECK / END / TAP / DENY)`. |
-| `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK (and DejaVu Sans for the letters it lacks) cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: the buttons, after every game's rules. |
+| `src/text.c` `text.h`, `help/<lang>/<id>.txt`, `tools/gen_text.py` | the texts: each game's rules (the ? button) and name (the menu card) in 22 languages, the device's language; Noto Sans CJK (and DejaVu Sans for the letters it lacks) cut down at build time to the characters used, drawn with stb_truetype. `help/<lang>/_app.txt`: how the app plays (Settings, How to play). |
 | `src/ai.c` `ai.h` | the AI kit, without SDL: alpha-beta (`ai_ab`, `ai_expecti` with dice), Monte Carlo tree search (`ai_mcts`, hidden hands too), the levels' budgets (see "Bots"). |
 | `src/bots.c` `bots.h`, `src/ai_worker.c` | the bots' registry (`REGISTER_BOT`) and the worker thread that runs one while the screen draws (see "Bots"). |
 | `src/games/<id>.c` | a game: its board on the screen, its input; registers itself (`REGISTER_GAME`). |

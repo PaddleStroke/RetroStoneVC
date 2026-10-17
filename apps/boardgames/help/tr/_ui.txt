@@ -68,3 +68,4 @@ Kaşif
 Her bölümde bir oyun kazan
 Maraton
 100 oyun bitir
+Nasıl oynanır

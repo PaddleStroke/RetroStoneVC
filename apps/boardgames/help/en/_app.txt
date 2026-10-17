@@ -1,19 +1,8 @@
-RetroStone Board
+How to play
 # Playing together
-Two players share one device and take turns. The glowing token in a player's bar shows whose turn it is.
-- Back (top left): to the game's choices or its levels, then to the list of games. A game in progress waits: the gold play button resumes it.
-- Undo: takes back the last move. Tap again to go further back.
-- Flip: turns the board round, so the other player sits at the bottom.
+Two players share one device and take turns. In card games the device goes round the table.
+- Secret hands: between two turns the screen goes dark and shows the next player's token. Pass the device; that player taps the round button to see their cards.
+- Undo: takes back the last move; tap again to go further back. With secret hands, only the moves of your own turn.
 - Face to face: lay the device flat between you. The top player's pieces and bar turn to face them.
-- i (top right): these rules.
-# Card games
-In card games the device goes round the table: the player to move sees their own cards big at the bottom, their bar under them, and the other players' bars at the top. There is no flip nor face to face.
-- Secret hands: between two turns the screen turns green and shows the next player's token. Pass the device; that player taps the round button to see their cards.
-- With secret hands, undo takes back only the moves of your own turn, so nobody ever sees another player's hand.
 # Playing against the device
-In most games for two or more, the device can take a seat. Before a game, each seat shows its token and who plays it: a person, or a robot for the device.
 - Tap a seat to give it to the device. Tap again to make it play better (one, two or three lights: easy, medium, hard), and once more to give the seat back to a person.
-- The device's seats show a small robot in their bar, with dots while it thinks. Your moves wait until it has played.
-- Undo takes you back to your own last move.
-- The device never looks at your cards: it plays with what its seat may see. Alone against it, you get no green screen between turns.
-- Give every seat to the device to watch it play on its own.

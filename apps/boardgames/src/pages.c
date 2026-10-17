@@ -45,6 +45,7 @@ enum { ACH_FIRST, ACH_XP1, ACH_XP2, ACH_XP3, ACH_STREAK1, ACH_STREAK2, ACH_STREA
        ACH_HUNDRED, ACHS };
 static const int ACH_ICON[ACHS] = {ICON_TICK, ICON_BOLT, ICON_MEDAL, ICON_CUP, ICON_FLAME, ICON_FLAME, ICON_FLAME,
                                    ICON_BOT, ICON_STAR, ICON_TILES, ICON_PAR};
+#define U_HOWTO (U_ACH + 2 * ACHS)              /* the line after the achievements: How to play */
 
 static const char *ui_str(int i, char *buf, int size)
 {
@@ -511,7 +512,7 @@ void pages_text(const char *s)
 
 /* ---- the Settings page --------------------------------------------------------------------------------------------- */
 enum { A_NONE, A_REVIEW, A_TIP, A_SOURCE, A_REPORT, A_THEME, A_LANGS, A_LANG, A_AWAKE, A_SOUND, A_PRIVACY, A_TERMS,
-       A_LICENCES };
+       A_LICENCES, A_HOWTO };
 typedef struct { float y; int draw; float hx, hy; int act, val; } walk;   /* drawing, or finding a tap's row */
 
 static int tips_sold(void) { return iap_tips_available() > 0 || TIP.demo; }
@@ -622,6 +623,7 @@ static float settings_walk(walk *k)
         }
     }
     head(k, U_GAMEPLAY);
+    row(k, ICON_HELP, NULL, ui_str(U_HOWTO, b, sizeof b), R_CHEVRON, 0, A_HOWTO, 0);
     row(k, ICON_AWAKE, NULL, ui_str(U_AWAKE, b, sizeof b), R_TOGGLE, awake, A_AWAKE, 0);
     row(k, snd_muted ? ICON_MUTE : ICON_SOUND, NULL, ui_str(U_SOUND, b, sizeof b), R_TOGGLE, !snd_muted, A_SOUND, 0);
     head(k, U_LEGAL);
@@ -680,6 +682,7 @@ static void settings_tap(float x, float y)
     case A_PRIVACY: shell_open_text("_privacy"); break;
     case A_TERMS: shell_open_text("_terms"); break;
     case A_LICENCES: shell_open_text("_licences"); break;
+    case A_HOWTO: shell_open_text("_app"); break;
     }
 }
 

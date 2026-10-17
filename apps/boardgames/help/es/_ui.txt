@@ -68,3 +68,4 @@ Explorador
 Gana un juego en cada sección
 Maratón
 Termina 100 partidas
+Cómo jugar

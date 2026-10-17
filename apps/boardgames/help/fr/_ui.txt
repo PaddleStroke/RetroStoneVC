@@ -68,3 +68,4 @@ Explorateur
 Gagne un jeu dans chaque section
 Marathon
 Termine 100 parties
+Comment jouer

@@ -1,19 +1,8 @@
-RetroStone Board
+Come si gioca
 # Giocare insieme
-Due giocatori condividono un solo dispositivo e giocano a turno. La pedina luminosa nella barra di un giocatore indica di chi è il turno.
-- Indietro (in alto a sinistra): alle scelte o ai livelli del gioco, poi all'elenco dei giochi. Una partita in corso ti aspetta: il pulsante dorato di gioco la riprende.
-- Annulla: ritira l'ultima mossa. Tocca di nuovo per tornare ancora più indietro.
-- Ruota: gira il tavoliere, così l'altro giocatore si trova in basso.
+Due giocatori condividono un solo dispositivo e giocano a turno. Nei giochi di carte il dispositivo fa il giro del tavolo.
+- Mani segrete: tra un turno e l'altro lo schermo si scurisce e mostra la pedina del giocatore successivo. Passagli il dispositivo; quel giocatore tocca il pulsante rotondo per vedere le sue carte.
+- Annulla: ritira l'ultima mossa; tocca di nuovo per tornare più indietro. Con le mani segrete, solo le mosse del tuo turno.
 - Faccia a faccia: appoggia il dispositivo in piano tra voi. I pezzi e la barra del giocatore in alto si girano verso di lui.
-- i (in alto a destra): queste regole.
-# Giochi di carte
-Nei giochi di carte il dispositivo fa il giro del tavolo: chi è di turno vede le proprie carte in grande in basso, con la sua barra sotto, e le barre degli altri giocatori in alto. Non ci sono Ruota né Faccia a faccia.
-- Mani segrete: tra un turno e l'altro lo schermo diventa verde e mostra la pedina del giocatore successivo. Passagli il dispositivo; quel giocatore tocca il pulsante rotondo per vedere le sue carte.
-- Con le mani segrete, Annulla ritira solo le mosse del tuo turno, così nessuno vede mai la mano di un altro giocatore.
 # Giocare contro il dispositivo
-Nella maggior parte dei giochi per due o più, il dispositivo può prendere un posto. Prima di una partita, ogni posto mostra la sua pedina e chi lo gioca: una persona, oppure un robot per il dispositivo.
 - Tocca un posto per darlo al dispositivo. Toccalo di nuovo perché giochi meglio (una, due o tre luci: facile, medio, difficile), e ancora una volta per restituire il posto a una persona.
-- I posti del dispositivo hanno un piccolo robot nella barra, con dei puntini mentre pensa. Le tue mosse aspettano che abbia giocato.
-- Annulla ti riporta alla tua ultima mossa.
-- Il dispositivo non guarda mai le tue carte: gioca con ciò che il suo posto può vedere. Da solo contro di lui, tra un turno e l'altro non c'è nessuno schermo verde.
-- Dai tutti i posti al dispositivo per guardarlo giocare da solo.

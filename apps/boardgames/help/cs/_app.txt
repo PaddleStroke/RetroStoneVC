@@ -1,19 +1,8 @@
-RetroStone Board
+Jak hrát
 # Hra ve dvou
-Dva hráči sdílejí jedno zařízení a střídají se. Svítící žeton v liště hráče ukazuje, kdo je na tahu.
-- Zpět (vlevo nahoře): k volbám nebo úrovním hry, pak na seznam her. Rozehraná hra na tebe počká: zlaté tlačítko hrát v ní pokračuje.
-- Vrátit: vezme zpět poslední tah. Klepni znovu a vrátíš se ještě dál.
-- Otočit: otočí desku, aby druhý hráč seděl dole.
+Dva hráči sdílejí jedno zařízení a střídají se. V karetních hrách putuje zařízení kolem stolu.
+- Tajné karty: mezi dvěma tahy obrazovka ztmavne a ukáže žeton dalšího hráče. Podej mu zařízení; ten hráč klepne na kulaté tlačítko a uvidí své karty.
+- Vrátit: vezme zpět poslední tah; klepni znovu a vrátíš se ještě dál. U tajných karet jen tahy z tvého vlastního kola.
 - Tváří v tvář: polož zařízení naplocho mezi sebe. Figurky a lišta horního hráče se otočí k němu.
-- i (vpravo nahoře): tato pravidla.
-# Karetní hry
-V karetních hrách putuje zařízení kolem stolu: hráč na tahu vidí své karty velké dole, pod nimi svou lištu, a nahoře lišty ostatních hráčů. Otočení ani hra naproti tu nejsou.
-- Tajné karty: mezi dvěma tahy obrazovka zezelená a ukáže žeton dalšího hráče. Podej mu zařízení; ten hráč klepne na kulaté tlačítko a uvidí své karty.
-- U tajných karet vezme Vrátit zpět jen tahy z tvého vlastního kola, takže nikdo nikdy neuvidí karty jiného hráče.
 # Hra proti zařízení
-Ve většině her pro dva a více hráčů může jedno místo hrát zařízení. Před hrou ukazuje každé místo svůj žeton a kdo na něm hraje: člověk, nebo robot za zařízení.
 - Klepni na místo a dáš ho zařízení. Klepni znovu a bude hrát lépe (jedno, dvě nebo tři světla: lehké, střední, těžké), a ještě jednou místo vrátíš člověku.
-- Místa zařízení mají v liště malého robota, a když přemýšlí, objeví se na něm tečky. Tvé tahy počkají, až zahraje.
-- Vrátit tě vezme zpět k tvému vlastnímu poslednímu tahu.
-- Zařízení se nikdy nedívá do tvých karet: hraje s tím, co jeho místo smí vidět. Když hraješ sám proti němu, mezi tahy se zelená obrazovka neobjeví.
-- Dej všechna místa zařízení a můžeš se dívat, jak hraje samo.

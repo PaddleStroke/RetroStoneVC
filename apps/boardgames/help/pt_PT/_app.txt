@@ -1,19 +1,8 @@
-RetroStone Board
+Como jogar
 # Jogar juntos
-Dois jogadores partilham um só dispositivo e jogam à vez. A peça luminosa na barra de um jogador mostra de quem é a vez.
-- Voltar (em cima, à esquerda): para as opções ou os níveis do jogo, depois para a lista de jogos. Uma partida em curso espera por ti: o botão dourado de jogar retoma-a.
-- Anular: desfaz a última jogada. Toca outra vez para recuar mais.
-- Rodar: vira o tabuleiro, para que o outro jogador fique em baixo.
+Dois jogadores partilham um só dispositivo e jogam à vez. Nos jogos de cartas o dispositivo dá a volta à mesa.
+- Mãos secretas: entre duas vezes o ecrã escurece e mostra a peça do jogador seguinte. Passa-lhe o dispositivo; esse jogador toca no botão redondo para ver as suas cartas.
+- Anular: desfaz a última jogada; toca outra vez para recuar mais. Com mãos secretas, só as jogadas da tua própria vez.
 - Frente a frente: pousa o dispositivo deitado entre vocês. As peças e a barra do jogador de cima viram-se para ele.
-- i (em cima, à direita): estas regras.
-# Jogos de cartas
-Nos jogos de cartas o dispositivo dá a volta à mesa: o jogador da vez vê as suas cartas em grande em baixo, com a sua barra por baixo, e as barras dos outros jogadores em cima. Não há Rodar nem Frente a frente.
-- Mãos secretas: entre duas vezes o ecrã fica verde e mostra a peça do jogador seguinte. Passa-lhe o dispositivo; esse jogador toca no botão redondo para ver as suas cartas.
-- Com mãos secretas, Anular só desfaz as jogadas da tua própria vez, para que ninguém veja a mão de outro jogador.
 # Jogar contra o dispositivo
-Na maioria dos jogos para dois ou mais, o dispositivo pode ocupar um lugar. Antes de um jogo, cada lugar mostra a sua peça e quem o joga: uma pessoa, ou um robô pelo dispositivo.
 - Toca num lugar para o dares ao dispositivo. Toca outra vez para ele jogar melhor (uma, duas ou três luzes: fácil, médio, difícil) e mais uma vez para devolveres o lugar a uma pessoa.
-- Os lugares do dispositivo mostram um pequeno robô na barra, com pontinhos enquanto pensa. As tuas jogadas esperam até ele ter jogado.
-- Anular leva-te de volta à tua última jogada.
-- O dispositivo nunca olha para as tuas cartas: joga com o que o seu lugar pode ver. Sozinho contra ele, não tens ecrã verde entre as vezes.
-- Dá todos os lugares ao dispositivo para o veres jogar sozinho.

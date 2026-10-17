@@ -68,3 +68,4 @@ Tutkimusmatkailija
 Voita peli joka osiossa
 Maraton
 Pelaa 100 peliä loppuun
+Peliohjeet

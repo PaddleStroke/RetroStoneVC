@@ -68,3 +68,4 @@ The app's pages (a line a string, in this order; %d: a number, %s: a word; keep 
 Выиграй игру в каждом разделе
 Марафон
 Заверши 100 игр
+Как играть

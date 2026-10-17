@@ -68,3 +68,4 @@ Explorador
 Vence um jogo em cada secção
 Maratona
 Termina 100 partidas
+Como jogar

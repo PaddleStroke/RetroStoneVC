@@ -68,3 +68,4 @@ Ontdekker
 Win een spel in elk onderdeel
 Marathon
 Maak 100 spellen af
+Zo speel je

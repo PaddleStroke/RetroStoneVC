@@ -1,19 +1,8 @@
-RetroStone Board
+Nasıl oynanır
 # Birlikte oynayın
-İki oyuncu tek bir cihazı paylaşır ve sırayla oynar. Bir oyuncunun şeridinde parlayan pul, sıranın kimde olduğunu gösterir.
-- Geri (sol üstte): oyunun seçeneklerine ya da seviyelerine, sonra oyun listesine. Süren bir oyun seni bekler: altın oynat düğmesi onu sürdürür.
-- Geri al: son hamleyi geri alır. Daha geriye gitmek için tekrar dokun.
-- Çevir: tahtayı döndürür, böylece diğer oyuncu altta oturur.
+İki oyuncu tek bir cihazı paylaşır ve sırayla oynar. Kart oyunlarında cihaz masanın etrafında dolaşır.
+- Gizli eller: iki sıra arasında ekran kararır ve sıradaki oyuncunun pulunu gösterir. Cihazı ona ver; o oyuncu kartlarını görmek için yuvarlak düğmeye dokunur.
+- Geri al: son hamleyi geri alır; daha geriye gitmek için tekrar dokun. Gizli ellerde yalnızca kendi sırandaki hamleler geri alınır.
 - Yüz yüze: cihazı aranıza düz bir şekilde yatır. Üstteki oyuncunun taşları ve şeridi ona doğru döner.
-- i (sağ üstte): bu kurallar.
-# Kart oyunları
-Kart oyunlarında cihaz masanın etrafında dolaşır: sırası gelen oyuncu kendi kartlarını altta büyük görür, altında kendi şeridi, üstte de diğer oyuncuların şeritleri vardır. Çevirme ve karşı karşıya oynama yoktur.
-- Gizli eller: iki sıra arasında ekran yeşile döner ve sıradaki oyuncunun pulunu gösterir. Cihazı ona ver; o oyuncu kartlarını görmek için yuvarlak düğmeye dokunur.
-- Gizli ellerde Geri al yalnızca kendi sırandaki hamleleri geri alır, böylece kimse başka bir oyuncunun elini görmez.
 # Cihaza karşı oynayın
-İki veya daha fazla kişilik oyunların çoğunda cihaz bir yere oturabilir. Oyundan önce her yer kendi pulunu ve onu kimin oynadığını gösterir: bir kişi ya da cihaz adına bir robot.
 - Bir yere dokunarak onu cihaza ver. Daha iyi oynaması için tekrar dokun (bir, iki ya da üç ışık: kolay, orta, zor), yeri bir kişiye geri vermek için bir kez daha dokun.
-- Cihazın yerlerinin şeridinde küçük bir robot görünür; düşünürken üzerinde noktalar belirir. Senin hamlelerin, o oynayana kadar bekler.
-- Geri al seni kendi son hamlene götürür.
-- Cihaz kartlarına asla bakmaz: yalnızca kendi yerinin görebildikleriyle oynar. Ona karşı tek başına oynarken turlar arasında yeşil ekran çıkmaz.
-- Cihazın kendi kendine oynamasını izlemek için bütün yerleri ona ver.

@@ -68,3 +68,4 @@ Entdecker
 Gewinne ein Spiel in jedem Bereich
 Marathon
 Beende 100 Spiele
+Spielanleitung

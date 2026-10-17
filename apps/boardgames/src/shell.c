@@ -4300,7 +4300,7 @@ static void draw_levels(void)
 }
 
 /* ---- the rules page ---------------------------------------------------------------------------------------------- */
-static char *help_text;                        /* the game's rules, then the app's buttons */
+static char *help_text;                        /* the game's rules (-1: the app's page, "_app") */
 
 static void help_free(void)
 {
@@ -4311,19 +4311,11 @@ static void help_free(void)
 static const char *help_key;                    /* help.game -2: this text (shell_open_text) */
 static void help_compose(void)
 {
-    if (help.game == -2) {
-        const char *t = text_get(help_key);
-        free(help_text);
-        help_text = malloc(strlen(t ? t : "") + 1);
-        strcpy(help_text, t ? t : "");
-        return;
-    }
-    const char *g = help.game >= 0 ? text_get(games[help.game]->id) : NULL, *a = text_get("_app");
-    if (a && g) a += strcspn(a, "\n") + (a[strcspn(a, "\n")] ? 1 : 0);   /* after a game: the app's part, untitled */
-    size_t n = (g ? strlen(g) : 0) + (a ? strlen(a) : 0) + 2;
+    /* a game's rules alone (how the app plays: Settings, How to play, "_app"); -1: that page */
+    const char *t = text_get(help.game == -2 ? help_key : help.game >= 0 ? games[help.game]->id : "_app");
     free(help_text);
-    help_text = malloc(n);
-    snprintf(help_text, n, "%s%s%s", g ? g : "", g ? "\n" : "", a ? a : "");
+    help_text = malloc(strlen(t ? t : "") + 1);
+    strcpy(help_text, t ? t : "");
 }
 
 static void help_layout(void)

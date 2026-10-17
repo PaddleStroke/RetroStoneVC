@@ -4,8 +4,8 @@
     python3 apps/boardgames/tools/gen_text.py --out build/boardgames/gen
 
 The texts: apps/boardgames/help/<lang>/<game>.txt, the rules of each game in 22 languages (English is the source;
-a missing translation falls back to English), and help/<lang>/_app.txt, what the shell's buttons do (shown after
-every game's rules). The file's format: the first line is the game's name (the menu card, the page's title); then
+a missing translation falls back to English), and help/<lang>/_app.txt, how the app plays (Settings, How
+to play). The file's format: the first line is the game's name (the menu card, the page's title); then
 paragraphs separated by blank lines; "# " starts a heading, "- " a list item. help/<lang>/<game>_words.txt: a
 game's own short words shown in the game (a title line, then a word a line: text_word, ui_word). help/glyphs.txt: the
 characters the boards themselves draw (xiangqi's, shogi's pieces, the word tiles' letters...): a font of their own,

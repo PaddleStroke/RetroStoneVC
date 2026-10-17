@@ -1,19 +1,8 @@
-RetroStone Board
+Slik spiller du
 # Spill sammen
-To spillere deler én enhet og bytter på å spille. Den lysende markøren i en spillers panel viser hvem sin tur det er.
-- Tilbake (øverst til venstre): til spillets valg eller nivåer, deretter til listen over spill. Et spill i gang venter: den gylne spilleknappen fortsetter det.
-- Angre: tar tilbake det siste trekket. Trykk igjen for å gå lenger tilbake.
-- Snu: snur brettet rundt, slik at den andre spilleren sitter nederst.
+To spillere deler én enhet og bytter på å spille. I kortspill går enheten rundt bordet.
+- Hemmelige kort: mellom to turer blir skjermen mørk og viser markøren til neste spiller. Gi enheten videre; den spilleren trykker på den runde knappen for å se kortene sine.
+- Angre: tar tilbake det siste trekket; trykk igjen for å gå lenger tilbake. Med hemmelige kort bare trekkene i din egen tur.
 - Ansikt til ansikt: legg enheten flatt mellom dere. Den øverste spillerens brikker og panel snus mot vedkommende.
-- i (øverst til høyre): disse reglene.
-# Kortspill
-I kortspill går enheten rundt bordet: den som har tur, ser sine egne kort stort nederst med sitt panel under, og de andre spillernes paneler øverst. Det finnes verken Snu eller Ansikt til ansikt her.
-- Hemmelige kort: mellom to turer blir skjermen grønn og viser markøren til neste spiller. Gi enheten videre; den spilleren trykker på den runde knappen for å se kortene sine.
-- Med hemmelige kort tar Angre bare tilbake trekkene i din egen tur, så ingen noen gang ser en annen spillers kort.
 # Spill mot enheten
-I de fleste spill for to eller flere kan enheten ta en plass. Før et spill viser hver plass sin markør og hvem som spiller den: en person, eller en robot for enheten.
 - Trykk på en plass for å gi den til enheten. Trykk igjen for å få den til å spille bedre (ett, to eller tre lys: lett, middels, vanskelig), og én gang til for å gi plassen tilbake til en person.
-- Enhetens plasser har en liten robot i panelet, med prikker mens den tenker. Trekkene dine venter til den har spilt.
-- Angre tar deg tilbake til ditt eget siste trekk.
-- Enheten ser aldri i kortene dine: den spiller med det plassen dens får se. Alene mot den får du ingen grønn skjerm mellom turene.
-- Gi alle plassene til enheten for å se den spille alene.

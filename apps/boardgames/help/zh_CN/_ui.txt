@@ -68,3 +68,4 @@ The app's pages (a line a string, in this order; %d: a number, %s: a word; keep 
 在每个分类中赢一局
 马拉松
 完成 100 局游戏
+玩法说明

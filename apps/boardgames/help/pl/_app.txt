@@ -1,19 +1,8 @@
-RetroStone Board
+Jak grać
 # Wspólna gra
-Dwóch graczy dzieli jedno urządzenie i gra na zmianę. Świecący żeton na pasku gracza pokazuje, czyja jest kolej.
-- Wstecz (u góry po lewej): do opcji lub poziomów gry, potem do listy gier. Rozpoczęta gra czeka: złoty przycisk gry ją wznawia.
-- Cofnij: cofa ostatni ruch. Dotknij ponownie, aby cofnąć się dalej.
-- Obróć: obraca planszę, tak aby drugi gracz siedział na dole.
+Dwóch graczy dzieli jedno urządzenie i gra na zmianę. W grach karcianych urządzenie krąży wokół stołu.
+- Tajne karty: między dwiema turami ekran ciemnieje i pokazuje żeton następnego gracza. Przekaż mu urządzenie; ten gracz dotyka okrągłego przycisku, żeby zobaczyć swoje karty.
+- Cofnij: cofa ostatni ruch; dotknij ponownie, aby cofnąć się dalej. Przy tajnych kartach tylko ruchy z twojej własnej tury.
 - Twarzą w twarz: połóż urządzenie płasko między wami. Pionki i pasek gracza u góry obracają się w jego stronę.
-- i (u góry po prawej): te zasady.
-# Gry karciane
-W grach karcianych urządzenie krąży wokół stołu: gracz, którego jest kolej, widzi swoje karty w dużym rozmiarze na dole, pod nimi swój pasek, a na górze paski pozostałych graczy. Nie ma tu obracania ani gry twarzą w twarz.
-- Tajne karty: między dwiema turami ekran robi się zielony i pokazuje żeton następnego gracza. Przekaż mu urządzenie; ten gracz dotyka okrągłego przycisku, żeby zobaczyć swoje karty.
-- Przy tajnych kartach Cofnij cofa tylko ruchy z twojej własnej tury, więc nikt nigdy nie zobaczy kart innego gracza.
 # Gra przeciwko urządzeniu
-W większości gier dla dwóch lub więcej osób urządzenie może zająć miejsce. Przed partią każde miejsce pokazuje swój żeton i to, kto na nim gra: człowiek albo robot w imieniu urządzenia.
 - Dotknij miejsca, aby oddać je urządzeniu. Dotknij ponownie, aby grało lepiej (jedno, dwa lub trzy światełka: łatwy, średni, trudny), i jeszcze raz, aby oddać miejsce człowiekowi.
-- Miejsca urządzenia mają na pasku małego robota, a gdy myśli, pojawiają się na nim kropki. Twoje ruchy czekają, aż zagra.
-- Cofnij przenosi cię z powrotem do twojego ostatniego ruchu.
-- Urządzenie nigdy nie zagląda w twoje karty: gra tym, co wolno zobaczyć jego miejscu. Gdy grasz sam przeciwko niemu, między turami nie ma zielonego ekranu.
-- Oddaj wszystkie miejsca urządzeniu, aby popatrzeć, jak gra samo.

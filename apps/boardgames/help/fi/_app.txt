@@ -1,19 +1,8 @@
-RetroStone Board
+Peliohjeet
 # Pelatkaa yhdessä
-Kaksi pelaajaa jakaa yhden laitteen ja pelaa vuorotellen. Pelaajan palkissa hehkuva merkki näyttää, kenen vuoro on.
-- Takaisin (vasemmalla ylhäällä): pelin valintoihin tai tasoihin, sitten pelilistaan. Kesken oleva peli odottaa: kultainen pelinappi jatkaa sitä.
-- Kumoa: peruu viimeisen siirron. Napauta uudelleen palataksesi vielä kauemmas taaksepäin.
-- Käännä: kääntää laudan ympäri, niin että toinen pelaaja istuu alhaalla.
+Kaksi pelaajaa jakaa yhden laitteen ja pelaa vuorotellen. Korttipeleissä laite kiertää pöydän ympäri.
+- Salaiset kädet: kahden vuoron välissä näyttö tummuu ja näyttää seuraavan pelaajan merkin. Ojenna laite; se pelaaja napauttaa pyöreää painiketta nähdäkseen korttinsa.
+- Kumoa: peruu viimeisen siirron; napauta uudelleen palataksesi kauemmas. Salaisten käsien peleissä vain oman vuorosi siirrot.
 - Kasvokkain: aseta laite tasaisesti välillenne. Ylemmän pelaajan nappulat ja palkki kääntyvät häntä kohti.
-- i (oikealla ylhäällä): nämä säännöt.
-# Korttipelit
-Korttipeleissä laite kiertää pöydän ympäri: vuorossa oleva näkee omat korttinsa isoina alhaalla, oman palkkinsa niiden alla ja muiden pelaajien palkit ylhäällä. Kääntöä ja vastakkain pelaamista ei ole.
-- Salaiset kädet: kahden vuoron välissä näyttö muuttuu vihreäksi ja näyttää seuraavan pelaajan merkin. Ojenna laite; se pelaaja napauttaa pyöreää painiketta nähdäkseen korttinsa.
-- Salaisten käsien peleissä Kumoa peruu vain oman vuorosi siirrot, joten kukaan ei koskaan näe toisen pelaajan kortteja.
 # Pelaa laitetta vastaan
-Useimmissa kahden tai useamman pelaajan peleissä laite voi ottaa paikan. Ennen peliä jokainen paikka näyttää merkkinsä ja sen, kuka sitä pelaa: ihminen tai robotti laitteen puolesta.
 - Napauta paikkaa antaaksesi sen laitteelle. Napauta uudelleen, niin se pelaa paremmin (yksi, kaksi tai kolme valoa: helppo, keskitaso, vaikea), ja vielä kerran antaaksesi paikan takaisin ihmiselle.
-- Laitteen paikoilla on palkissa pieni robotti, ja siinä näkyy pisteitä, kun se miettii. Siirtosi odottavat, kunnes se on pelannut.
-- Kumoa vie sinut takaisin omaan viimeiseen siirtoosi.
-- Laite ei koskaan katso korttejasi: se pelaa sillä, mitä sen paikka saa nähdä. Kun pelaat yksin sitä vastaan, vuorojen välissä ei näy vihreää näyttöä.
-- Anna kaikki paikat laitteelle, niin voit katsella sen pelaavan yksin.

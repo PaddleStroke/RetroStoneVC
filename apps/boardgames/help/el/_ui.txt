@@ -68,3 +68,4 @@ The app's pages (a line a string, in this order; %d: a number, %s: a word; keep 
 Κέρδισε ένα παιχνίδι σε κάθε ενότητα
 Μαραθώνιος
 Τελείωσε 100 παιχνίδια
+Πώς παίζεται
