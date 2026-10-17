@@ -1,24 +1,20 @@
 Ludo
 # Das Ziel
-Bringe deine vier Figuren einmal ganz um das Brett herum und vor den anderen ins Zentrum. Es spielen zwei, drei oder vier: Wähle vor der Partie, wie viele, und die Regeln: Ludo mit Bauern oder Petits chevaux mit Pferdchen. Jeder Spieler hat vier Figuren in einem Haus seiner Farbe; zu zweit sitzen die Spieler in gegenüberliegenden Ecken. Elfenbein würfelt zuerst, danach geht der Zug im Uhrzeigersinn um das Brett weiter.
+Bringe deine vier Figuren einmal ganz um das Brett herum und vor den anderen ins Zentrum. Für 2 bis 4 Spieler; Petits chevaux mit Pferdchen folgt den Ludo-Regeln unten.
 # Würfeln und Ziehen
-- Würfle und ziehe dann eine deiner Figuren im Uhrzeigersinn auf der Laufbahn um die gewürfelte Zahl weiter.
-- Nur eine 6 bringt eine Figur aus ihrem Haus auf ihr Startfeld, das farbige Feld neben dem Haus. Mit einer 6 darfst du stattdessen auch eine Figur ziehen, die schon auf dem Brett steht.
-- Eine 6 gibt dir einen weiteren Wurf. Eine dritte 6 in Folge verfällt, und dein Zug endet sofort.
-- Kann keine Figur mit der gewürfelten Zahl ziehen, verfällt der Wurf, und der Nächste ist am Zug (nach einer 6 würfelst du trotzdem noch einmal).
+- Würfle und ziehe eine Figur im Uhrzeigersinn um die gewürfelte Zahl weiter.
+- Nur eine 6 bringt eine Figur aus ihrem Haus auf ihr Startfeld. Mit einer 6 darfst du auch eine Figur ziehen, die schon draußen ist.
+- Eine 6 gibt einen weiteren Wurf. Eine dritte 6 in Folge verfällt und beendet deinen Zug.
+- Kann keine Figur ziehen, verfällt der Wurf.
 # Auf andere Figuren treffen
-- Landest du genau auf der Figur eines anderen Spielers, muss sie zurück in ihr Haus. Stehen dort zwei seiner Figuren, müssen beide zurück.
-- Die sicheren Felder sind die vier Startfelder und die vier mit einem Stern markierten Felder. Dort kann niemand hinausgeworfen werden, und Figuren verschiedener Spieler dürfen sich diese Felder teilen.
-- Deine eigenen Figuren dürfen auf demselben Feld stehen. Sie blockieren nicht: Die anderen dürfen an ihnen vorbeiziehen oder auf ihnen landen.
+- Landest du genau auf der Figur eines anderen Spielers, muss sie zurück in ihr Haus (beide, wenn dort zwei stehen).
+- Die Startfelder und die Sternfelder sind sicher: Dort wird niemand hinausgeworfen.
+- Deine eigenen Figuren dürfen auf demselben Feld stehen; sie blockieren nie.
 # Ins Ziel
-Nach einer vollen Runde biegt deine Figur in die Zielgerade ihrer Farbe ab, wo sie sicher ist, und zieht weiter ins Zentrum. Sie muss das Zentrum mit der genauen Zahl erreichen: Mit einem zu hohen Wurf kann diese Figur nicht ziehen.
+Nach einer vollen Runde biegt deine Figur in ihre Zielgerade ab, wo sie sicher ist, und muss das Zentrum mit der genauen Zahl erreichen.
 # Petits chevaux (Pferdchenspiel)
-Der französische Klassiker, auf demselben Brett, mit Pferdchen. Die Regeln oben ändern sich so:
-- Nur eine 6 bringt ein Pferdchen aus seinem Stall. Jede 6 gibt einen weiteren Wurf, ohne Begrenzung.
-- Ein Pferdchen darf nie an einem anderen vorbeiziehen, weder an deinem noch an dem eines anderen Spielers, und zwei Pferdchen teilen nie ein Feld. Landest du genau auf dem Pferdchen eines anderen Spielers, muss es zurück in seinen Stall, auch auf einem Startfeld: Es gibt keine sicheren Felder.
-- Am Ende seiner Runde muss ein Pferdchen genau am Fuß seiner Treppe halten, auf dem Feld direkt vor den farbigen Stufen: Mit einem zu hohen Wurf kann es nicht ziehen.
-- Dann steigt es Stufe für Stufe mit der genauen Zahl hinauf: eine 1 für Stufe 1, eine 2 für Stufe 2 und so weiter bis zu einer 6 für Stufe 6. Danach bringt es eine weitere 6 ins Zentrum. Die Augen auf jeder Stufe zeigen die Zahl, die es braucht.
+- Nur eine 6 bringt ein Pferdchen heraus. Jede 6 gibt einen weiteren Wurf.
+- Ein Pferdchen zieht nie an einem anderen vorbei, und zwei Pferdchen teilen nie ein Feld. Wer auf dem Pferdchen eines anderen Spielers stehen bleibt, schickt es zurück, auch auf einem Startfeld.
+- Ein Pferdchen muss genau am Fuß seiner Treppe halten und steigt dann Stufe für Stufe mit der Zahl der Stufe hinauf, 1 bis 6; eine weitere 6 bringt es ins Zentrum.
 # Das Ende der Partie
-Wer zuerst alle vier Figuren ins Zentrum bringt, gewinnt, und die Partie endet dort, auch zu dritt oder zu viert.
-# Spielen auf dem Gerät
-Dein Würfel wartet golden leuchtend in der leeren Ecke neben dir (zu dritt oder zu viert in der Mitte deines Hauses): Tippe darauf, um zu würfeln. Punkte zeigen, wohin deine Figuren ziehen können, Ringe eine Figur, die du nach Hause schicken würdest: Tippe auf eine Figur oder schieb sie auf ihr Feld, und sie hüpft dorthin. Ein Wurf, mit dem nichts ziehen konnte, bleibt abgedunkelt in rotem Schein, während der nächste Spieler würfelt. Rückgängig nimmt Züge und Würfe zurück, aber ein zurückgenommener Wurf fällt danach genauso wieder. Deine Figuren im Ziel erscheinen in deiner Leiste.
+Wer zuerst alle vier Figuren ins Zentrum bringt, gewinnt.

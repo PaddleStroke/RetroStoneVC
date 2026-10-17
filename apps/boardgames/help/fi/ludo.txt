@@ -1,24 +1,20 @@
 Ludo
 # Tavoite
-Kuljeta neljä nappulaasi koko laudan ympäri ja keskelle ennen muita. Pelaajia voi olla kaksi, kolme tai neljä: valitse ennen peliä, kuinka monta, ja säännöt: Ludo sotilailla tai Petits chevaux hevosilla. Jokaisen pelaajan neljä nappulaa ovat aluksi pelaajan värisessä pesässä; kaksinpelissä pesät ovat vastakkaisissa kulmissa. Norsunluu heittää ensin, minkä jälkeen vuoro kiertää laudan ympäri myötäpäivään.
+Kuljeta neljä nappulaasi koko laudan ympäri ja keskelle ennen muita. 2–4 pelaajalle; Petits chevaux hevosilla noudattaa alla olevia Ludon sääntöjä.
 # Heittäminen ja siirtäminen
-- Heitä noppaa ja siirrä sitten yhtä nappulaasi myötäpäivään rataa pitkin heittämäsi luvun verran.
-- Vain kuutonen tuo nappulan ulos pesästä sen lähtöruutuun, pesän viereiseen värilliseen ruutuun. Kuutosella voit myös siirtää sen sijaan nappulaa, joka on jo laudalla.
-- Kuutonen antaa uuden heiton. Kolmas kuutonen peräkkäin menetetään, ja vuorosi päättyy heti.
-- Jos mikään nappula ei voi liikkua heitetyllä luvulla, heitto menetetään ja vuoro siirtyy (kuutosen jälkeen heität silti uudelleen).
+- Heitä noppaa ja siirrä yhtä nappulaasi myötäpäivään luvun verran.
+- Vain kuutonen tuo nappulan ulos pesästä sen lähtöruutuun. Kuutosella voit myös siirtää nappulaa, joka on jo ulkona.
+- Kuutonen antaa uuden heiton. Kolmas kuutonen peräkkäin menetetään ja päättää vuorosi.
+- Jos mikään nappula ei voi liikkua, heitto menetetään.
 # Kohtaamiset
-- Kun päädyt täsmälleen toisen pelaajan nappulan kohdalle, se palaa pesäänsä. Jos siinä on kaksi hänen nappulaansa, molemmat palaavat.
-- Turvaruudut ovat neljä lähtöruutua ja neljä tähdellä merkittyä ruutua. Niistä ketään ei voi lähettää takaisin, ja eri pelaajien nappulat voivat olla niissä yhtä aikaa.
-- Omat nappulasi voivat olla samassa ruudussa. Ne eivät tuki tietä: muut voivat ohittaa ne tai päätyä niiden päälle.
+- Kun päädyt täsmälleen toisen pelaajan nappulan kohdalle, se palaa pesäänsä (molemmat, jos siinä on kaksi).
+- Lähtöruudut ja tähtiruudut ovat turvaruutuja: niistä ketään ei lähetetä takaisin.
+- Omat nappulasi voivat olla samassa ruudussa; ne eivät koskaan tuki tietä.
 # Kotimatka
-Täyden kierroksen jälkeen nappulasi kääntyy oman värisensä kotisarakkeeseen, jossa se on turvassa, ja jatkaa keskelle. Sen on päästävä keskelle tarkalleen oikealla luvulla: liian suurella heitolla sitä nappulaa ei voi siirtää.
+Täyden kierroksen jälkeen nappulasi kääntyy kotisarakkeeseensa, jossa se on turvassa, ja sen on päästävä keskelle tarkalleen oikealla luvulla.
 # Petits chevaux (hevospeli)
-Ranskalainen klassikko samalla laudalla, hevosilla. Yllä olevat säännöt muuttuvat näin:
-- Vain kuutonen tuo hevosen ulos tallista. Jokainen kuutonen antaa uuden heiton, rajattomasti.
-- Hevonen ei saa koskaan ohittaa toista hevosta, omaa eikä toisen pelaajan, eikä kaksi hevosta ole koskaan samassa ruudussa. Kun päädyt täsmälleen toisen pelaajan hevosen kohdalle, se palaa talliinsa, myös lähtöruudussa: turvaruutuja ei ole.
-- Kierroksen lopussa hevosen on pysähdyttävä täsmälleen portaidensa juurelle, värillisiä askelmia edeltävään ruutuun: liian suurella heitolla sitä ei voi siirtää.
-- Sitten se nousee askelma kerrallaan tarkalla luvulla: ykkönen askelmalle 1, kakkonen askelmalle 2 ja niin edelleen aina kuutoseen askelmalle 6. Sen jälkeen vielä yksi kuutonen vie sen keskelle. Kunkin askelman pisteet näyttävät tarvittavan luvun.
+- Vain kuutonen tuo hevosen ulos. Jokainen kuutonen antaa uuden heiton.
+- Hevonen ei koskaan ohita toista hevosta, eikä kaksi hevosta ole koskaan samassa ruudussa. Kun pysähdyt toisen pelaajan hevosen kohdalle, se palaa talliinsa, myös lähtöruudussa.
+- Hevosen on pysähdyttävä täsmälleen portaidensa juurelle ja noustava sitten askelma kerrallaan askelman luvulla, 1–6; vielä yksi kuutonen vie sen keskelle.
 # Pelin loppu
-Pelaaja, joka tuo ensimmäisenä kaikki neljä nappulaansa keskelle, voittaa, ja peli päättyy siihen, myös kolmella tai neljällä pelaajalla.
-# Pelaaminen laitteella
-Noppasi odottaa kultaisena hehkuen vieressäsi olevassa tyhjässä kulmassa (kolmella tai neljällä pelaajalla pesäsi keskellä): napauta sitä heittääksesi. Pisteet näyttävät, minne nappulasi voivat mennä, renkaat nappulan, jonka lähettäisit pesään: napauta nappulaa tai vedä se ruutuunsa, niin se hyppii sinne. Heitto, jolla ei voinut siirtää, jää himmeäksi punaiseen hehkuun, kun seuraava pelaaja heittää. Kumoa peruu siirtoja ja heittoja, mutta peruttu heitto tulee uudelleen samana. Maaliin päässeet nappulasi näkyvät palkissasi.
+Pelaaja, joka tuo ensimmäisenä kaikki neljä nappulaansa keskelle, voittaa.

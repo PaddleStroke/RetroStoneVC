@@ -1,24 +1,20 @@
 Fia
 # Målet
-För dina fyra pjäser hela varvet runt brädet och in i mitten före de andra. Ni kan vara två, tre eller fyra spelare: välj hur många före partiet, och reglerna: Fia med bönder eller Petits chevaux med hästar. Varje spelare har fyra pjäser i ett bo i sin färg; två spelare sitter i motsatta hörn. Elfenben kastar först, sedan går turen medurs runt brädet.
+För dina fyra pjäser hela varvet runt brädet och in i mitten före de andra. För 2 till 4 spelare; Petits chevaux, med hästar, följer Fia-reglerna nedan.
 # Kast och drag
-- Kasta tärningen och flytta sedan en av dina pjäser medurs längs banan lika många steg som tärningen visar.
-- Bara en sexa tar ut en pjäs ur boet, till dess startruta, den färgade rutan bredvid boet. Med en sexa får du också flytta en pjäs som redan är ute på brädet i stället.
-- En sexa ger ett nytt kast. En tredje sexa i rad går förlorad och din tur slutar direkt.
-- Om ingen pjäs kan flytta med det kastade talet går kastet förlorat och turen går över (efter en sexa kastar du ändå igen).
+- Kasta tärningen och flytta en pjäs medurs lika många steg som tärningen visar.
+- Bara en sexa tar ut en pjäs ur boet till dess startruta. Med en sexa får du också flytta en pjäs som redan är ute.
+- En sexa ger ett nytt kast. En tredje sexa i rad går förlorad och avslutar din tur.
+- Om ingen pjäs kan flytta går kastet förlorat.
 # Möta andra pjäser
-- Den som landar exakt på en annan spelares pjäs skickar tillbaka den till boet. Om två av hans pjäser står där går båda tillbaka.
-- De säkra rutorna är de fyra startrutorna och de fyra rutorna som är märkta med en stjärna. Där kan ingen skickas tillbaka, och olika spelares pjäser får dela dem.
-- Dina egna pjäser får dela ruta. De blockerar inte: de andra får passera dem eller landa på dem.
+- Den som landar exakt på en annan spelares pjäs skickar tillbaka den till boet (båda, om två står där).
+- Startrutorna och stjärnrutorna är säkra: där kan ingen skickas tillbaka.
+- Dina egna pjäser får dela ruta; de blockerar aldrig.
 # Hemvägen
-Efter ett helt varv svänger din pjäs in i hemkolumnen i sin färg, där den är säker, och fortsätter till mitten. Den måste nå mitten med exakt rätt tal: ett för stort kast kan inte flytta den pjäsen.
+Efter ett helt varv svänger din pjäs in i sin hemkolumn, där den är säker, och måste nå mitten med exakt rätt tal.
 # Petits chevaux (hästspel)
-Den franska klassikern, på samma bräde, med hästar. Reglerna ovan ändras så här:
-- Bara en sexa tar ut en häst ur stallet. Varje sexa ger ett nytt kast, utan gräns.
-- En häst får aldrig passera en annan häst, din egen eller en annan spelares, och två hästar delar aldrig ruta. Den som landar exakt på en annan spelares häst skickar tillbaka den till stallet, även på en startruta: det finns inga säkra rutor.
-- I slutet av varvet måste hästen stanna exakt vid foten av sin trappa, rutan precis före de färgade trappstegen: ett för stort kast kan inte flytta den.
-- Sedan klättrar den ett steg i taget med exakt rätt tal: en etta till steg 1, en tvåa till steg 2 och så vidare upp till en sexa till steg 6. Därefter tar ännu en sexa den in i mitten. Prickarna på varje steg visar talet den behöver.
+- Bara en sexa tar ut en häst. Varje sexa ger ett nytt kast.
+- En häst får aldrig passera en annan häst, och två hästar delar aldrig ruta. Den som stannar på en annan spelares häst skickar tillbaka den, även på en startruta.
+- En häst måste stanna exakt vid foten av sin trappa och sedan klättra ett steg i taget med stegets tal, 1 till 6; ännu en sexa tar den in i mitten.
 # Partiets slut
-Den som först får in alla fyra pjäser i mitten vinner, och partiet slutar där, även med tre eller fyra spelare.
-# Spela på enheten
-Din tärning väntar och lyser i guld i det tomma hörnet bredvid dig (med tre eller fyra spelare mitt i ditt bo): tryck på den för att kasta. Prickar visar vart dina pjäser kan gå, ringar en pjäs som du skulle skicka hem: tryck på en pjäs, eller dra den till sin ruta, så hoppar den dit. Ett kast som inte kunde användas förblir nedtonat i ett rött sken medan nästa spelare kastar. Ångra tar tillbaka drag och kast, men ett kast som tas tillbaka blir likadant igen. Dina pjäser i mål visas i ditt fält.
+Den som först får in alla fyra pjäser i mitten vinner.

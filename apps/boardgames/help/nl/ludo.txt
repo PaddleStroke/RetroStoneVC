@@ -1,24 +1,20 @@
 Ludo
 # Het doel
-Breng je vier pionnen helemaal rond het bord en naar het midden, eerder dan de anderen. Je speelt met twee, drie of vier: kies voor de partij met hoeveel, en de regels: Ludo, met pionnen, of Petits chevaux, met paardjes. Elke speler heeft vier pionnen in een huisje van zijn kleur; met twee zitten de spelers in tegenoverliggende hoeken. Ivoor gooit eerst, daarna gaat de beurt met de klok mee rond het bord.
+Breng je vier pionnen helemaal rond het bord en naar het midden, eerder dan de anderen. Voor 2 tot 4 spelers; Petits chevaux, met paardjes, volgt de regels van Ludo hieronder.
 # Gooien en zetten
-- Gooi de dobbelsteen en zet dan een van je pionnen met de klok mee over de baan, evenveel vakjes als je gooide.
-- Alleen een 6 brengt een pion uit zijn huisje naar zijn startvakje, het gekleurde vakje naast het huisje. Met een 6 mag je in plaats daarvan ook een pion verzetten die al op het bord staat.
-- Een 6 geeft je nog een worp. Een derde 6 op rij vervalt, en je beurt eindigt meteen.
-- Als geen enkele pion kan zetten met het gegooide getal, vervalt de worp en gaat de beurt over (na een 6 gooi je toch nog een keer).
+- Gooi de dobbelsteen en zet één pion met de klok mee evenveel vakjes vooruit als je gooide.
+- Alleen een 6 brengt een pion uit zijn huisje naar zijn startvakje. Met een 6 mag je ook een pion verzetten die al buiten staat.
+- Een 6 geeft nog een worp. Een derde 6 op rij vervalt en beëindigt je beurt.
+- Als geen enkele pion kan zetten, vervalt de worp.
 # Andere pionnen tegenkomen
-- Wie precies op een pion van een andere speler landt, stuurt die terug naar zijn huisje. Staan er twee van zijn pionnen, dan gaan ze allebei terug.
-- De veilige vakjes zijn de vier startvakjes en de vier vakjes met een ster. Daar kan niemand worden teruggestuurd, en pionnen van verschillende spelers mogen er samen staan.
-- Je eigen pionnen mogen samen op een vakje staan. Ze blokkeren niet: de anderen mogen ze passeren of erop landen.
+- Wie precies op een pion van een andere speler landt, stuurt die terug naar zijn huisje (allebei, als er twee staan).
+- De startvakjes en de stervakjes zijn veilig: daar wordt niemand teruggestuurd.
+- Je eigen pionnen mogen samen op een vakje staan; ze blokkeren nooit.
 # Naar huis
-Na een volle ronde draait je pion de thuisrij van zijn kleur in, waar hij veilig is, en gaat verder naar het midden. Hij moet het midden met het precieze getal bereiken: met een te hoge worp kan die pion niet zetten.
+Na een volle ronde draait je pion zijn thuisrij in, waar hij veilig is, en moet hij het midden met het precieze getal bereiken.
 # Petits chevaux (paardjesspel)
-De Franse klassieker, op hetzelfde bord, met paardjes. De regels hierboven veranderen zo:
-- Alleen een 6 brengt een paardje uit zijn stal. Elke 6 geeft nog een worp, zonder grens.
-- Een paardje mag nooit een ander paardje passeren, van jou of van een andere speler, en twee paardjes staan nooit op hetzelfde vakje. Wie precies op het paardje van een andere speler landt, stuurt het terug naar zijn stal, ook op een startvakje: er zijn geen veilige vakjes.
-- Aan het eind van zijn ronde moet een paardje precies aan de voet van zijn trap stoppen, het vakje vlak voor de gekleurde treden: met een te hoge worp kan het niet zetten.
-- Daarna klimt het trede voor trede met het precieze getal: een 1 voor trede 1, een 2 voor trede 2, enzovoort tot een 6 voor trede 6. Dan brengt nog een 6 het naar het midden. De ogen op elke trede tonen het getal dat nodig is.
+- Alleen een 6 brengt een paardje naar buiten. Elke 6 geeft nog een worp.
+- Een paardje passeert nooit een ander paardje, en twee paardjes staan nooit op hetzelfde vakje. Wie op het paardje van een andere speler stopt, stuurt het terug, ook op een startvakje.
+- Een paardje moet precies aan de voet van zijn trap stoppen en klimt dan trede voor trede met het getal van de trede, 1 tot 6; nog een 6 brengt het naar het midden.
 # Het einde van de partij
-De eerste speler die alle vier pionnen in het midden heeft, wint, en daar eindigt de partij, ook met drie of vier spelers.
-# Spelen op het apparaat
-Je dobbelsteen wacht goud verlicht in de lege hoek naast je (met drie of vier spelers in het midden van je huisje): tik erop om te gooien. Stippen tonen waar je pionnen heen kunnen, ringen een pion die je naar huis zou sturen: tik op een pion of sleep hem naar zijn vakje, en hij huppelt erheen. Een worp waarmee niets kon zetten, blijft gedimd in een rode gloed terwijl de volgende speler gooit. Ongedaan maken neemt zetten en worpen terug, maar een teruggenomen worp valt daarna weer hetzelfde. Je pionnen die thuis zijn, staan in je balk.
+De eerste speler die alle vier pionnen in het midden heeft, wint.

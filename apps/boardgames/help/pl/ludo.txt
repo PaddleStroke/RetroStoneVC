@@ -1,24 +1,20 @@
 Chińczyk
 # Cel gry
-Przeprowadź swoje cztery pionki dookoła planszy aż do środka przed pozostałymi. Grać mogą dwie, trzy lub cztery osoby: przed grą wybierz, ile, oraz zasady: chińczyka z pionkami albo Petits chevaux z konikami. Każdy gracz ma cztery pionki w bazie w swoim kolorze; przy dwóch graczach bazy są w przeciwległych rogach. Pierwszy rzuca gracz w kolorze kości słoniowej, potem kolejka idzie wokół planszy zgodnie z ruchem wskazówek zegara.
+Przeprowadź swoje cztery pionki dookoła planszy aż do środka przed pozostałymi. Dla 2–4 graczy; Petits chevaux z konikami opiera się na poniższych zasadach chińczyka.
 # Rzuty i ruchy
-- Rzuć kostką, a potem przesuń jeden ze swoich pionków po torze zgodnie z ruchem wskazówek zegara o wyrzuconą liczbę oczek.
-- Tylko 6 wyprowadza pionek z bazy na jego pole startowe, kolorowe pole obok bazy. Mając 6, możesz zamiast tego ruszyć pionkiem, który już jest na planszy.
-- 6 daje ci kolejny rzut. Trzecia 6 z rzędu przepada, a twoja tura od razu się kończy.
-- Jeśli żaden pionek nie może się ruszyć o wyrzuconą liczbę, rzut przepada i tura przechodzi na następnego gracza (po 6 nadal rzucasz ponownie).
+- Rzuć kostką i przesuń jeden pionek zgodnie z ruchem wskazówek zegara o wyrzuconą liczbę oczek.
+- Tylko 6 wyprowadza pionek z bazy na jego pole startowe. Mając 6, możesz też ruszyć pionkiem, który już jest na planszy.
+- 6 daje kolejny rzut. Trzecia 6 z rzędu przepada i kończy twoją turę.
+- Jeśli żaden pionek nie może się ruszyć, rzut przepada.
 # Spotkania z innymi pionkami
-- Jeśli staniesz dokładnie na pionku innego gracza, odsyłasz go z powrotem do bazy. Jeśli stoją tam dwa jego pionki, oba wracają.
-- Bezpieczne pola to cztery pola startowe i cztery pola oznaczone gwiazdką. Nikogo nie można z nich odesłać, a pionki różnych graczy mogą na nich stać razem.
-- Twoje własne pionki mogą stać na jednym polu. Nie blokują: pozostali mogą je mijać lub na nich stawać.
+- Jeśli staniesz dokładnie na pionku innego gracza, odsyłasz go do bazy (oba, jeśli stoją tam dwa).
+- Pola startowe i pola z gwiazdką są bezpieczne: nikogo nie można z nich odesłać.
+- Twoje własne pionki mogą stać na jednym polu; nigdy nie blokują.
 # Droga do domu
-Po pełnym okrążeniu twój pionek skręca do domku w swoim kolorze, gdzie jest bezpieczny, i idzie dalej do środka. Musi dojść do środka dokładną liczbą oczek: za duży rzut nie może ruszyć tego pionka.
+Po pełnym okrążeniu twój pionek skręca do domku w swoim kolorze, gdzie jest bezpieczny, i musi dojść do środka dokładną liczbą oczek.
 # Petits chevaux (koniki)
-Francuski klasyk na tej samej planszy, z konikami. Powyższe zasady zmieniają się tak:
-- Tylko 6 wyprowadza konika ze stajni. Każda 6 daje kolejny rzut, bez ograniczeń.
-- Konik nigdy nie może minąć innego konika, ani twojego, ani innego gracza, a dwa koniki nigdy nie stoją na jednym polu. Jeśli staniesz dokładnie na koniku innego gracza, odsyłasz go do stajni, nawet na polu startowym: nie ma bezpiecznych pól.
-- Pod koniec okrążenia konik musi stanąć dokładnie u stóp swoich schodów, na polu tuż przed kolorowymi stopniami: za duży rzut nie może go ruszyć.
-- Potem wchodzi po jednym stopniu dokładną liczbą: 1 na stopień 1, 2 na stopień 2 i tak dalej aż do 6 na stopień 6. Następnie kolejna 6 wprowadza go do środka. Oczka na każdym stopniu pokazują potrzebną liczbę.
+- Tylko 6 wyprowadza konika. Każda 6 daje kolejny rzut.
+- Konik nigdy nie mija innego konika, a dwa koniki nigdy nie stoją na jednym polu. Jeśli staniesz na koniku innego gracza, odsyłasz go, nawet na polu startowym.
+- Konik musi stanąć dokładnie u stóp swoich schodów, a potem wchodzi po jednym stopniu liczbą równą numerowi stopnia, od 1 do 6; kolejna 6 wprowadza go do środka.
 # Koniec gry
-Wygrywa pierwszy gracz, który wprowadzi wszystkie cztery pionki do środka, i gra na tym się kończy, także przy trzech lub czterech graczach.
-# Gra na urządzeniu
-Twoja kostka czeka, podświetlona na złoto, w pustym rogu obok ciebie (przy trzech lub czterech graczach na środku twojej bazy): dotknij jej, aby rzucić. Kropki pokazują, dokąd mogą pójść twoje pionki, a kółka pionek, który odesłałbyś do bazy: dotknij pionka albo przeciągnij go na jego pole, a przeskoczy tam. Rzut, którym nie dało się ruszyć, pozostaje przyciemniony w czerwonej poświacie, gdy rzuca następny gracz. Cofnij cofa ruchy i rzuty, ale cofnięty rzut wypada potem tak samo. Pionki, które dotarły do celu, widać na twoim pasku.
+Wygrywa pierwszy gracz, który wprowadzi wszystkie cztery pionki do środka.

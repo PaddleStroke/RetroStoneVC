@@ -1,24 +1,20 @@
 Ludo
 # Tujuan
-Bawa keempat bidakmu mengelilingi papan sampai ke tengah sebelum pemain lain. Permainan ini untuk dua, tiga, atau empat pemain: sebelum bermain, pilih jumlah pemain dan aturannya: Ludo dengan pion, atau Petits chevaux dengan kuda. Setiap pemain punya empat bidak di kandang berwarna miliknya; jika berdua, kandangnya di sudut yang berseberangan. Gading melempar lebih dulu, lalu giliran berpindah searah jarum jam mengelilingi papan.
+Bawa keempat bidakmu mengelilingi papan sampai ke tengah sebelum pemain lain. Untuk 2 sampai 4 pemain; Petits chevaux, dengan kuda, mengikuti aturan Ludo di bawah ini.
 # Melempar dan melangkah
-- Lempar dadu, lalu jalankan salah satu bidakmu searah jarum jam di sepanjang lintasan sebanyak angka yang keluar.
-- Hanya angka 6 yang bisa mengeluarkan bidak dari kandangnya ke petak awalnya, yaitu petak berwarna di samping kandang. Dengan angka 6, kamu juga boleh menjalankan bidak yang sudah ada di papan.
-- Angka 6 memberimu satu lemparan lagi. Angka 6 ketiga berturut-turut hangus dan giliranmu langsung berakhir.
-- Jika tidak ada bidak yang bisa bergerak dengan angka yang keluar, lemparan itu hangus dan giliran berpindah ke pemain berikutnya (setelah angka 6 kamu tetap melempar lagi).
+- Lempar dadu dan jalankan satu bidakmu searah jarum jam sebanyak angka yang keluar.
+- Hanya angka 6 yang bisa mengeluarkan bidak dari kandangnya ke petak awalnya. Dengan angka 6, kamu juga boleh menjalankan bidak yang sudah keluar.
+- Angka 6 memberi satu lemparan lagi. Angka 6 ketiga berturut-turut hangus dan mengakhiri giliranmu.
+- Jika tidak ada bidak yang bisa bergerak, lemparan itu hangus.
 # Bertemu bidak lain
-- Berhenti tepat di bidak pemain lain mengirim bidak itu kembali ke kandangnya. Jika ada dua bidaknya di situ, keduanya kembali.
-- Petak aman adalah keempat petak awal dan keempat petak bertanda bintang. Di situ tidak ada bidak yang bisa dipulangkan, dan bidak pemain yang berbeda boleh berbagi petak.
-- Bidakmu sendiri boleh berbagi satu petak. Bidak-bidak itu tidak menghalangi: pemain lain boleh melewatinya atau berhenti di atasnya.
+- Berhenti tepat di bidak pemain lain mengirimnya kembali ke kandangnya (keduanya, jika ada dua di situ).
+- Petak awal dan petak bertanda bintang aman: di situ tidak ada bidak yang dipulangkan.
+- Bidakmu sendiri boleh berbagi satu petak; bidak-bidak itu tidak pernah menghalangi.
 # Pulang
-Setelah satu putaran penuh, bidakmu berbelok masuk ke jalur pulang berwarna miliknya, tempat bidak itu aman, lalu terus ke tengah. Bidak harus mencapai tengah dengan angka yang pas: lemparan yang terlalu besar tidak bisa menjalankan bidak itu.
+Setelah satu putaran penuh, bidakmu berbelok masuk ke jalur pulang berwarna miliknya, tempat bidak itu aman, dan harus mencapai tengah dengan angka yang pas.
 # Petits chevaux (Kuda Kecil)
-Permainan klasik Prancis, di papan yang sama, dengan kuda. Aturan di atas berubah seperti ini:
-- Hanya angka 6 yang bisa mengeluarkan kuda dari kandangnya. Setiap angka 6 memberi satu lemparan lagi, tanpa batas.
-- Kuda tidak pernah boleh melewati kuda lain, milikmu atau milik pemain lain, dan dua kuda tidak pernah berbagi petak. Berhenti tepat di kuda pemain lain mengirimnya kembali ke kandang, bahkan di petak awal: tidak ada petak aman.
-- Di akhir putarannya, kuda harus berhenti tepat di kaki tangganya, yaitu petak tepat sebelum anak tangga berwarna: lemparan yang terlalu besar tidak bisa menjalankannya.
-- Lalu kuda naik satu anak tangga setiap kali dengan angka yang pas: 1 untuk anak tangga 1, 2 untuk anak tangga 2, dan seterusnya sampai 6 untuk anak tangga 6. Setelah itu, satu angka 6 lagi membawanya ke tengah. Titik-titik di setiap anak tangga menunjukkan angka yang dibutuhkan.
+- Hanya angka 6 yang bisa mengeluarkan kuda dari kandangnya. Setiap angka 6 memberi satu lemparan lagi.
+- Kuda tidak pernah melewati kuda lain, dan dua kuda tidak pernah berbagi petak. Berhenti di kuda pemain lain mengirimnya kembali, bahkan di petak awal.
+- Kuda harus berhenti tepat di kaki tangganya, lalu naik satu anak tangga setiap kali dengan angka anak tangga itu, 1 sampai 6; satu angka 6 lagi membawanya ke tengah.
 # Akhir permainan
-Pemain pertama yang membawa keempat bidaknya ke tengah menang, dan permainan berakhir di situ, juga saat bermain bertiga atau berempat.
-# Bermain di perangkat
-Dadumu menunggu, menyala keemasan, di sudut kosong di dekatmu (jika bertiga atau berempat, di tengah kandangmu): ketuk dadu itu untuk melempar. Titik menunjukkan ke mana bidakmu bisa bergerak, lingkaran menunjukkan bidak yang akan kamu pulangkan ke kandang: ketuk sebuah bidak, atau seret ke petaknya, lalu bidak itu melompat-lompat ke sana. Lemparan yang tidak bisa menjalankan bidak tetap redup dengan cahaya merah selama pemain berikutnya melempar. Urungkan membatalkan langkah dan lemparan, tetapi lemparan yang dibatalkan akan keluar sama lagi. Bidakmu yang sudah sampai di tengah terlihat di bilahmu.
+Pemain pertama yang membawa keempat bidaknya ke tengah menang.

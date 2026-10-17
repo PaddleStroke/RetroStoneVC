@@ -1,24 +1,20 @@
 Ludo
 # The aim
-Bring your four tokens all the way round the board and into the centre before the others. Two, three or four players can play: choose how many before the game, and the rules: Ludo, with pawns, or Petits chevaux, with horses. Each player has four tokens in a yard of their colour; two players sit in opposite corners. Ivory throws first, then the turn goes clockwise round the board.
+Bring your four tokens all the way round the board and into the centre before the others. For 2 to 4 players; Petits chevaux, with horses, follows the Ludo rules below.
 # Throwing and moving
-- Throw the die, then move one of your tokens clockwise round the track by the number thrown.
-- Only a 6 brings a token out of its yard, onto its start square, the coloured square next to the yard. With a 6 you may also move a token already on the board instead.
-- A 6 gives you another throw. A third 6 in a row is lost and your turn ends at once.
-- If no token can move with the number thrown, the throw is lost and the turn passes (after a 6 you still throw again).
+- Throw the die and move one token clockwise by the number.
+- Only a 6 brings a token out of its yard onto its start square. With a 6 you may also move a token already out.
+- A 6 gives another throw. A third 6 in a row is lost and ends your turn.
+- If no token can move, the throw is lost.
 # Meeting other tokens
-- Landing exactly on another player's token sends it back to its yard. If two of their tokens stand there, both go back.
-- The safe squares are the four start squares and the four squares marked with a star. Nobody can be sent back there, and tokens of different players may share them.
-- Your own tokens may share a square. They do not block: the others may pass them or land on them.
+- Landing exactly on another player's token sends it back to its yard (both, if two stand there).
+- The start squares and the star squares are safe: nobody is sent back there.
+- Your own tokens may share a square; they never block.
 # Going home
-After a full lap your token turns into the home column of its colour, where it is safe, and goes on to the centre. It must reach the centre with the exact number: a throw that is too big cannot move that token.
+After a full lap your token turns into its home column, where it is safe, and must reach the centre with the exact number.
 # Petits chevaux (Little Horses)
-The French classic, on the same board, with horses. The rules above change like this:
-- Only a 6 brings a horse out of its stable. Every 6 gives another throw, with no limit.
-- A horse can never pass another horse, yours or another player's, and two horses never share a square. Stopping exactly on another player's horse sends it back to its stable, even on a start square: there are no safe squares.
-- At the end of its lap, a horse must stop exactly at the foot of its staircase, the square just before the coloured steps: a throw that is too big cannot move it.
-- It then climbs one step at a time with the exact number: a 1 to reach step 1, a 2 for step 2, and so on up to a 6 for step 6. Then a 6 again takes it into the centre. The pips on each step show the number it needs.
+- Only a 6 brings a horse out. Every 6 gives another throw.
+- A horse never passes another horse, and two never share a square. Stopping on another player's horse sends it back, even on a start square.
+- A horse must stop exactly at the foot of its staircase, then climb one step at a time with the step's number, 1 to 6; a 6 again takes it into the centre.
 # The end of the game
-The first player to bring all four tokens into the centre wins, and the game ends there, even with three or four players.
-# Playing on the device
-Your die waits lit in gold in the empty corner next to you (with three or four players, in the middle of your yard): tap it to throw. Dots show where your tokens can go, rings a token you would send home: tap a token, or drag it to its square, and it hops there. A throw that could not move stays dimmed in a red glow while the next player throws. Undo takes back moves and throws, but a throw taken back comes out the same again. Your tokens home show in your bar.
+The first player to bring all four tokens into the centre wins.

@@ -1,24 +1,20 @@
 Ludo
 # O objetivo
-Levar os seus quatro peões pela volta inteira do tabuleiro até o centro antes dos outros. Podem jogar duas, três ou quatro pessoas: escolha quantas antes da partida, e as regras: o Ludo, com peões, ou os Petits chevaux, com cavalos. Cada jogador tem quatro peões em uma base da sua cor; com dois jogadores, em cantos opostos. O marfim joga o dado primeiro; depois a vez passa no sentido horário.
+Levar os seus quatro peões pela volta inteira do tabuleiro até o centro antes dos outros. De 2 a 4 jogadores; os Petits chevaux, com cavalos, seguem as regras do Ludo abaixo.
 # Lançar e mover
-- Lance o dado e ande com um dos seus peões no sentido horário pelo percurso, o número de casas tirado.
-- Só um 6 tira um peão da base e o coloca na sua casa de saída, a casa colorida ao lado da base. Com um 6 você também pode, em vez disso, mover um peão que já está no tabuleiro.
-- Um 6 dá direito a lançar de novo. Um terceiro 6 seguido é perdido, e a sua vez termina na hora.
-- Se nenhum peão puder andar com o número tirado, o lance é perdido e a vez passa (depois de um 6 você ainda lança de novo).
+- Lance o dado e ande com um peão no sentido horário o número de casas tirado.
+- Só um 6 tira um peão da base para a sua casa de saída. Com um 6 você também pode mover um peão que já saiu.
+- Um 6 dá direito a lançar de novo. Um terceiro 6 seguido é perdido e encerra a sua vez.
+- Se nenhum peão puder andar, o lance é perdido.
 # Encontrar outros peões
-- Parar exatamente em cima de um peão de outro jogador manda-o de volta para a base. Se houver dois peões dele ali, os dois voltam.
-- As casas seguras são as quatro casas de saída e as quatro casas marcadas com uma estrela. Ninguém pode ser mandado de volta ali, e peões de jogadores diferentes podem dividi-las.
-- Os seus próprios peões podem dividir uma casa. Eles não bloqueiam: os outros podem passar por eles ou parar em cima deles.
+- Parar exatamente em cima de um peão de outro jogador o manda de volta para a base (os dois, se houver dois ali).
+- As casas de saída e as casas com estrela são seguras: ninguém pode ser mandado de volta ali.
+- Os seus próprios peões podem dividir uma casa; eles nunca bloqueiam.
 # A chegada
-Depois de uma volta completa, o seu peão entra na reta final da sua cor, onde fica seguro, e segue até o centro. Ele precisa chegar ao centro com o número exato: um lance alto demais não pode mover esse peão.
+Depois de uma volta completa, o seu peão entra na reta final da sua cor, onde fica seguro, e precisa chegar ao centro com o número exato.
 # Petits chevaux (cavalinhos)
-O clássico francês, no mesmo tabuleiro, com cavalos. As regras acima mudam assim:
-- Só um 6 tira um cavalo da cocheira. Cada 6 dá direito a lançar de novo, sem limite.
-- Um cavalo nunca pode passar por outro, seu ou de outro jogador, e dois cavalos nunca dividem uma casa. Parar exatamente em cima do cavalo de outro jogador manda-o de volta para a cocheira, mesmo numa casa de saída: não há casas seguras.
-- No fim da volta, o cavalo precisa parar exatamente ao pé da sua escada, a casa logo antes dos degraus coloridos: um lance alto demais não pode movê-lo.
-- Depois ele sobe um degrau de cada vez com o número exato: um 1 para o degrau 1, um 2 para o degrau 2, e assim por diante até um 6 para o degrau 6. Então mais um 6 o leva ao centro. Os pontos de cada degrau mostram o número de que ele precisa.
+- Só um 6 tira um cavalo. Cada 6 dá direito a lançar de novo.
+- Um cavalo nunca passa por outro, e dois cavalos nunca dividem uma casa. Parar em cima do cavalo de outro jogador o manda de volta, mesmo numa casa de saída.
+- O cavalo precisa parar exatamente ao pé da sua escada e depois subir um degrau de cada vez com o número do degrau, de 1 a 6; mais um 6 o leva ao centro.
 # O fim da partida
-Vence o primeiro jogador que levar os quatro peões até o centro, e a partida termina aí, mesmo com três ou quatro jogadores.
-# Jogando no aparelho
-O seu dado espera, aceso em dourado, no canto vazio ao seu lado (com três ou quatro jogadores, no meio da sua base): toque nele para lançar. Os pontos mostram para onde os seus peões podem ir, e os anéis um peão que você mandaria de volta para a base: toque em um peão, ou arraste-o até a casa dele, e ele vai pulando até lá. Um lance que não pôde mover nenhum peão fica apagado, com um brilho vermelho, enquanto o próximo jogador lança. Desfazer volta jogadas e lances, mas um lance desfeito sai igual de novo. Os seus peões que chegaram ao centro aparecem na sua barra.
+Vence o primeiro jogador que levar os quatro peões até o centro.
