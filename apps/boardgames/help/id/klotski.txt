@@ -1,15 +1,9 @@
 Klotski
 # Tujuan
-Balok-balok kayu mengisi bingkai berukuran 4 × 5 petak, kecuali dua petak: balok merah besar, balok panjang yang berdiri atau berbaring, dan balok kecil. Bawa balok besar turun ke celah di tengah tepi bawah, supaya ia bisa meluncur keluar. Ini teka-teki kuno Tiongkok Huarong Dao: balok besar adalah seorang jenderal, terjebak bersama perwira dan prajuritnya di jalur yang sempit.
-Setiap bingkai di sini dibuat untuk permainan ini: komputer sudah mencoba setiap posisi yang bisa dicapai balok-baloknya, jadi jumlah langkah paling sedikit selalu diketahui.
+Balok-balok kayu mengisi bingkai berukuran 4 × 5 petak, kecuali dua petak. Bawa balok merah besar turun ke celah di tengah tepi bawah, supaya ia bisa meluncur keluar.
 # Satu langkah
-Balok meluncur ke petak kosong, satu petak setiap kali, ke atas, bawah, kiri, atau kanan; balok tidak pernah diangkat. Menurut hitungan tradisi, satu langkah adalah satu balok yang digeser sejauh yang kamu mau, bahkan berbelok di sudut, sebelum kamu menyentuh balok lain.
+Balok meluncur ke petak kosong, satu petak setiap kali, ke atas, bawah, kiri, atau kanan; balok tidak pernah diangkat. Satu langkah adalah satu balok yang digeser sejauh yang kamu mau, bahkan berbelok di sudut, sebelum kamu menyentuh balok lain.
 # Akhir permainan
-Saat balok besar berada di tengah baris bawah, ia meluncur keluar lewat celah dengan cahaya emas: terpecahkan.
+Saat balok besar berada di tengah baris bawah, ia meluncur keluar lewat celah: terpecahkan.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari beberapa langkah sampai jauh lebih dari seratus; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat bingkai baru secara acak: mudah, sedang, atau sulit. Setiap bingkai punya par, jumlah langkah paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi.
-# Bermain di perangkat
-- Seret balok: balok mengikuti jarimu petak demi petak.
-- Atau ketuk balok. Jika hanya ada satu tempat yang bisa ditujunya, ia ke sana. Jika lebih, balok itu terpilih dan titik-titik menunjukkan petak yang bisa dicapainya: ketuk salah satunya, dan balok ke sana lewat jalan terpendek.
-- Ketuk petak kosong yang hanya bisa dicapai satu balok: balok itu datang.
-Lampu di samping bingkai memberi petunjuk: langkah pertama dari jalan terpendek, dengan cahaya emas. Urungkan membatalkan satu langkah setiap kali, sampai ke awal. Bilah menunjukkan langkahmu dan, di ujung kanannya, jumlah paling sedikit untuk posisi awal ini; bilah bersinar keemasan saat kamu menyamainya.
+Selesai tepat par, jumlah langkah paling sedikit untuk menyelesaikannya: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1.

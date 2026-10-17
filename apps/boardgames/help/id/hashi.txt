@@ -1,10 +1,9 @@
 Jembatan
 # Tujuan
-Di papan ada pulau-pulau, masing-masing dengan angka. Hubungkan dengan jembatan, lurus mendatar atau menurun, di antara dua pulau yang tidak terhalang apa pun. Di antara dua pulau boleh ada satu atau dua jembatan, tidak pernah lebih, dan tidak ada jembatan yang boleh memotong jembatan lain. Setiap pulau akhirnya harus punya jembatan sebanyak angkanya, dan semua pulau harus tersambung menjadi satu kelompok. Teka-teki ini juga dikenal sebagai Hashi. Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar. Pilih dulu ukuran dan tingkatnya (batu di bawah setiap gambar):
-- Mudah: menghitung selalu cukup: angka sebuah pulau dibandingkan dengan yang masih bisa diterima tetangganya (angka 4 dengan hanya dua tetangga butuh dua jembatan ganda).
-- Sedang: kamu juga harus menjaga pulau-pulau tetap satu kelompok: tidak ada jembatan yang boleh menutup kelompok kecil terpisah dari yang lain.
-- Sulit: penalaran lebih panjang: coba satu jembatan dan ikuti sampai ada yang tidak cocok.
+Di papan ada pulau-pulau, masing-masing dengan angka. Hubungkan dengan jembatan, lurus mendatar atau menurun, di antara dua pulau yang tidak terhalang apa pun. Di antara dua pulau boleh ada satu atau dua jembatan, tidak pernah lebih, dan tidak ada jembatan yang boleh memotong jembatan lain. Setiap pulau akhirnya harus punya jembatan sebanyak angkanya, dan semua pulau harus tersambung menjadi satu kelompok. Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar.
+# Satu langkah
+Seret dari satu pulau ke pulau lain: sebuah jembatan dipasang. Ulangi untuk jembatan kedua, dan sekali lagi untuk menghapus keduanya.
+# Akhir permainan
+Teka-teki terpecahkan saat setiap pulau punya jembatannya dan semuanya tersambung.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 sampai 16 × 16, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah jembatan yang tidak ada dalam jawaban, yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Seret dari satu pulau ke pulau lain: sebuah jembatan dipasang. Ulangi untuk jembatan kedua, dan sekali lagi untuk menghapus keduanya. Kamu juga bisa mengetuk sebuah pulau lalu pulau lain yang segaris, atau mengetuk jembatan atau air di antara dua pulau. Jembatan yang akan memotong jembatan lain ditolak. Pulau yang sudah lengkap jembatannya bersinar emas; yang kelebihan bersinar merah. Lampu di samping papan memberi petunjuk: menghapus jembatan yang salah, atau memasang jembatan yang ditemukan penalaran, dalam cahaya emas. Urungkan membatalkan satu jembatan setiap kali, sampai awal. Bilah menunjukkan langkahmu. Bila setiap pulau benar dan semuanya tersambung, jembatan-jembatan berubah menjadi emas.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah jembatan yang tidak ada dalam jawaban, yang kamu batalkan dengan Urungkan.

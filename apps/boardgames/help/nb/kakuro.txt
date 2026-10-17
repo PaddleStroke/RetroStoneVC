@@ -1,15 +1,7 @@
 Kakuro
 # Målet
-Fyll hver hvit rute med et siffer fra 1 til 9. En rekke er en linje av hvite ruter, vannrett eller loddrett, mellom mørke ruter; den mørke ruten foran den har summen. Sifrene i en rekke blir til sammen summen, og intet siffer står to ganger i en rekke. I en mørk rute gjelder summen over diagonalen rekken til høyre, summen under den rekken nedenfor. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved resonnering. Velg først størrelse og nivå (steinene under hvert bilde):
-- Lett: måtene å lage hver sum på med rekkens lengde er alltid nok (3 i to ruter kan bare være 1 og 2).
-- Middels: du trenger også et siffer som alle måtene krever og som bare har én rute igjen, og par i en rekke.
-- Vanskelig: du må tenke gjennom en hel rekke på én gang (hvilket siffer kan stå i hvilken rute), eller prøve et siffer og følge det.
+Fyll hver hvit rute med et siffer fra 1 til 9. En rekke er en linje av hvite ruter, vannrett eller loddrett, mellom mørke ruter; den mørke ruten foran den har summen. Sifrene i en rekke blir til sammen summen, og intet siffer står to ganger i en rekke. I en mørk rute gjelder summen over diagonalen rekken til høyre, summen under den rekken nedenfor. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved resonnering.
+# Slutten på spillet
+Oppgaven er løst når alle ruter er riktige.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et galt siffer som du tar tilbake med Angre.
-# Spill på enheten
-Trykk på en hvit rute og så på en tast ved siden av brettet: sifferet kommer inn med blått blekk. Trykk på samme tast igjen for å fjerne det, eller dra en tast til en rute. Rutens to rekker lyser opp, summene deres i gull, og alle ruter med samme siffer varmt. Uten valgt rute lyser en tast opp rutene med sifferet sitt. Knappene ved siden av brettet:
-- Blyant: notater. Tastene setter da små sifre i ruten, eller fjerner dem.
-- Viskelær: fjerner rutens siffer, eller notatene.
-- Lampe: et hint. Den retter et feil siffer, eller fyller ellers en rute som resonneringen finner, i gyllent lys.
-- Øye: viser feil i rødt (et siffer to ganger i en rekke, en rekke over summen sin eller en full rekke med feil sum). Det er på fra start.
-Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine. Når alle ruter er riktige, går en bølge av gyllent lys over brettet.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et galt siffer som du tar tilbake med Angre.

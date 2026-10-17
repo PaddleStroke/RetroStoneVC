@@ -1,15 +1,9 @@
 Klotski
 # O objetivo
-Blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas: o grande bloco vermelho, blocos compridos em pé ou deitados, e blocos pequenos. Leve o grande bloco até a abertura no meio da borda de baixo, para que ele possa deslizar para fora. Este é o antigo quebra-cabeça chinês Huarong Dao: o grande bloco é um general, preso com seus oficiais e soldados numa passagem estreita.
-Cada moldura foi feita para este jogo: o computador testou todas as posições que os blocos podem alcançar, então o mínimo de jogadas é sempre conhecido.
+Blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas. Leve o grande bloco vermelho até a abertura no meio da borda de baixo, para que ele possa deslizar para fora.
 # Uma jogada
-Um bloco desliza para casas vazias, uma casa de cada vez, para cima, para baixo, para a esquerda ou para a direita; ele nunca é levantado. Como manda a tradição, uma jogada é um bloco deslizado até onde você quiser, mesmo virando uma esquina, antes de você tocar em outro bloco.
+Um bloco desliza para casas vazias, uma casa de cada vez, para cima, para baixo, para a esquerda ou para a direita; ele nunca é levantado. Uma jogada é um bloco deslizado até onde você quiser, mesmo virando uma esquina, antes de você tocar em outro bloco.
 # O fim da partida
-Quando o grande bloco está no meio da linha de baixo, ele desliza para fora pela abertura, em luz dourada: resolvido.
+Quando o grande bloco está no meio da linha de baixo, ele desliza para fora pela abertura: resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de poucas jogadas a bem mais de cem; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria uma nova moldura ao acaso: fácil, média ou difícil. Cada moldura tem um par: o mínimo de jogadas que a resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Desfazer volta uma jogada, que deixa de contar.
-# Jogando no aparelho
-- Arraste um bloco: ele segue o seu dedo casa por casa.
-- Ou toque num bloco. Se ele só tiver um lugar para ir, vai para lá. Se tiver mais, fica selecionado e pontos mostram as casas que ele pode alcançar: toque numa delas, e ele vai até lá pelo caminho mais curto.
-- Toque numa casa vazia que só um bloco pode alcançar: esse bloco vem.
-A lâmpada ao lado da moldura dá uma dica: a primeira jogada de um caminho mais curto, em luz dourada. Desfazer volta uma jogada de cada vez, até o começo. A barra mostra as suas jogadas e, na ponta direita, o mínimo possível para esta posição inicial; ela brilha dourada quando você o iguala.
+Resolvido no par, o mínimo de jogadas que o resolvem: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

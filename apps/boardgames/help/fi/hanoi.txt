@@ -1,11 +1,9 @@
 Hanoin tornit
 # Tavoite
-Erikokoiset kiekot ovat kolmessa tapissa, eikä kiekko ole koskaan pienemmän päällä. Kokoa ne kaikki maalitappiin, jonka juuri hehkuu kultaisena, yhdeksi torniksi suurin alimpana. Klassinen tehtävä alkaa koko tornin ollessa vasemmassa tapissa.
+Erikokoiset kiekot ovat kolmessa tapissa, eikä kiekko ole koskaan pienemmän päällä. Kokoa ne kaikki maalitappiin, jonka juuri hehkuu kultaisena, yhdeksi torniksi suurin alimpana.
 # Siirto
 Ota tapin päällimmäinen kiekko ja laita se toiseen tappiin, joka on tyhjä tai jonka päällimmäinen kiekko on suurempi. Kiekkoa ei koskaan laiteta pienemmän päälle.
 # Pelin loppu
-Tehtävä on ratkaistu, kun kaikki kiekot ovat maalitapissa. Klassinen torni vaatii vähintään 7 siirtoa kolmella kiekolla, 15 neljällä, 31 viidellä, 63 kuudella ja 127 seitsemällä (jokainen lisäkiekko kaksinkertaistaa sen ja lisää yhden). Jos onnistut pienimmällä määrällä, koko torni hehkuu kultaisena.
+Tehtävä on ratkaistu, kun kaikki kiekot ovat maalitapissa.
 # Tasot ja tähdet
-Tasoja on 100 viidessä luvussa, yksi kullekin kiekkomäärälle 3:sta 7:ään: kiekot ovat aluksi hajallaan tapeissa, ja jokainen luku päättyy klassiseen torniin. Valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti: 4, 5, 6 tai 7 kiekkoa satunnaisesti hajallaan ja maalitappi. Jokaisella tehtävällä on par eli pienin määrä siirtoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Kumoa peruu siirron, eikä sitä enää lasketa.
-# Pelaaminen laitteella
-Napauta tappia: sen päällimmäinen kiekko nousee. Napauta toista tappia: kiekko siirtyy sinne (jos se ei saa mennä sinne, se tärisee ja jää ylös). Napauta sen omaa tappia laskeaksesi sen takaisin. Voit myös vetää kiekon tapista toiseen. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti. Palkki näyttää siirtosi ja oikeassa päässä pienimmän mahdollisen määrän.
+Ratkaistu parilla eli pienimmällä määrällä siirtoja, joilla sen ratkaisee: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1.

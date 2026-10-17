@@ -1,13 +1,9 @@
 Luncur Es
 # Tujuan
-Sebuah keping merah ada di atas es, di antara batu-batu. Di suatu tempat di es ada sebuah lubang. Dorong keping itu ke dalam lubang dengan dorongan sesedikit mungkin. Pilih dulu teka-tekinya: mudah, sedang, atau sulit (es lebih luas, dorongan lebih banyak).
-Setiap teka-teki baru dan selalu bisa diselesaikan. Par-nya, jumlah dorongan paling sedikit, ditemukan dengan mencoba setiap jalan.
+Sebuah keping merah ada di atas es, di antara batu-batu. Di suatu tempat di es ada sebuah lubang. Dorong keping itu ke dalam lubang dengan dorongan sesedikit mungkin. Setiap teka-teki selalu bisa diselesaikan.
 # Satu langkah
 Dorong keping ke atas, ke bawah, ke kiri, atau ke kanan. Di atas es keping tidak berhenti sendiri: ia meluncur sampai sebuah batu atau tepi es menghentikannya. Jika di tengah jalan ia melewati lubang, ia jatuh ke dalamnya.
 # Akhir permainan
-Teka-teki selesai saat keping jatuh ke dalam lubang. Jika selesai tepat dalam par, cahaya emas berlari di atas es.
+Teka-teki selesai saat keping jatuh ke dalam lubang.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari es 5 × 5 kotak sampai 10 × 9; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah dorongan paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan dorongan paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu dorongan, dan dorongan itu tidak dihitung lagi.
-# Bermain di perangkat
-Usap es ke arah yang kamu mau, ketuk kotak di baris atau kolom keping, atau ketuk salah satu dari empat panah di samping papan (di komputer, tombol panah juga bisa). Panah meredup jika keping tidak bisa bergerak ke arah itu.
-Lampu memberi petunjuk: dorongan berikutnya dari jalan terpendek, panahnya bercahaya emas dan lintasannya bertitik emas. Jika lubang tidak bisa dicapai lagi, petunjuk lebih dulu membatalkan dorongan yang membawa ke sana. Urungkan membatalkan satu dorongan setiap kali, sampai ke awal. Bilah menunjukkan doronganmu dan, di ujung kanannya, par.
+Selesai tepat par, jumlah dorongan paling sedikit untuk menyelesaikannya: 3 bintang; dengan tambahan dorongan paling banyak setengah dari par: 2 bintang; selain itu 1.

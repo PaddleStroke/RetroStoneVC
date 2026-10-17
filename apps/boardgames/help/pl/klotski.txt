@@ -1,15 +1,9 @@
 Klotski
 # Cel gry
-Drewniane klocki wypełniają ramkę 4 × 5 pól, wszystkie oprócz dwóch: wielki czerwony klocek, długie klocki stojące lub leżące i małe. Sprowadź wielki klocek w dół do otworu pośrodku dolnej krawędzi, aby mógł się wysunąć. To stara chińska łamigłówka Huarong Dao: wielki klocek to generał, uwięziony ze swoimi oficerami i żołnierzami w wąskim przesmyku.
-Każda ramka została zrobiona do tej gry: komputer wypróbował każde ustawienie, do którego mogą dojść klocki, więc najmniejsza liczba ruchów jest zawsze znana.
+Drewniane klocki wypełniają ramkę 4 × 5 pól, wszystkie oprócz dwóch. Sprowadź wielki czerwony klocek w dół do otworu pośrodku dolnej krawędzi, aby mógł się wysunąć.
 # Ruch
-Klocek wsuwa się w puste pola, po jednym polu, w górę, w dół, w lewo lub w prawo; nigdy się go nie podnosi. Według tradycji jeden ruch to jeden klocek przesunięty tak daleko, jak chcesz, nawet za róg, zanim dotkniesz innego klocka.
+Klocek wsuwa się w puste pola, po jednym polu, w górę, w dół, w lewo lub w prawo; nigdy się go nie podnosi. Jeden ruch to jeden klocek przesunięty tak daleko, jak chcesz, nawet za róg, zanim dotkniesz innego klocka.
 # Koniec gry
-Gdy wielki klocek stanie pośrodku dolnego rzędu, wysuwa się przez otwór w złotym świetle: rozwiązane.
+Gdy wielki klocek stanie pośrodku dolnego rzędu, wysuwa się przez otwór: rozwiązane.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od kilku ruchów do grubo ponad stu; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową ramkę losowo: łatwą, średnią lub trudną. Każda ramka ma par: najmniejszą liczbę ruchów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Cofnij cofa ruch, który przestaje się liczyć.
-# Gra na urządzeniu
-- Przeciągnij klocek: podąża za palcem pole po polu.
-- Albo dotknij klocka. Jeśli może pójść tylko w jedno miejsce, idzie tam. Jeśli w więcej, zostaje wybrany, a kropki pokazują pola, do których może dotrzeć: dotknij jednej z nich, a pojedzie tam najkrótszą drogą.
-- Dotknij pustego pola, do którego może dotrzeć tylko jeden klocek: ten klocek podjedzie.
-Lampa obok ramki daje podpowiedź: pierwszy ruch najkrótszej drogi, w złotym świetle. Cofnij cofa po jednym ruchu, aż do początku. Pasek pokazuje twoje ruchy, a na prawym końcu najmniejszą możliwą liczbę dla tego ustawienia; świeci złotem, gdy jej dorównasz.
+Rozwiązana w par, czyli najmniejszą liczbą ruchów, która ją rozwiązuje: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

@@ -1,11 +1,9 @@
 Tower of Hanoi
 # The aim
-Discs of different sizes stand on three pegs, never a disc on a smaller one. Gather them all on the goal peg, the one lit in gold at its foot, as one tower with the largest at the bottom. The classic puzzle starts with the whole tower on the left peg.
+Discs of different sizes stand on three pegs, never a disc on a smaller one. Gather them all on the goal peg, the one lit in gold at its foot, as one tower with the largest at the bottom.
 # A move
 Take the top disc of a peg and put it on another peg, either empty or with a larger disc on top. A disc never goes on a smaller one.
 # The end of the game
-The puzzle is solved when every disc stands on the goal peg. The classic tower takes at least 7 moves with 3 discs, 15 with 4, 31 with 5, 63 with 6 and 127 with 7 (each disc more doubles them, plus one). Done in the fewest moves, the whole tower glows gold.
+The puzzle is solved when every disc stands on the goal peg.
 # Levels and stars
-There are 100 levels in five chapters, one for each number of discs from 3 to 7: the discs start scattered over the pegs, and each chapter ends with the classic tower. Choose one on the level screen. The die tab after the chapters makes a new puzzle at random: 4, 5, 6 or 7 discs scattered by chance, and a goal peg. Each puzzle has a par: the fewest moves that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. Undo takes a move back, and it no longer counts.
-# Playing on the device
-Tap a peg: its top disc lifts up. Tap another peg: the disc goes there (a disc that may not go there shakes and stays up). Tap its own peg to put it back down. You can also drag a disc from one peg to another. Undo takes back one move at a time, all the way to the start. The bar shows your moves and, at its right end, the fewest possible.
+Solved at par, the fewest moves that solve it: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

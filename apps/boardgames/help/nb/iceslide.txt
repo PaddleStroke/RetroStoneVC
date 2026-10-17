@@ -1,13 +1,9 @@
 Isgli
 # Målet
-En rød puck ligger på isen mellom steiner. Et sted i isen er det et hull. Dytt pucken ned i hullet med så få dytt som mulig. Velg først oppgaven: lett, middels eller vanskelig (mer is, flere dytt).
-Hver oppgave er ny og kan alltid løses. Dens par, færrest mulige dytt, finnes ved å prøve hver vei.
+En rød puck ligger på isen mellom steiner. Et sted i isen er det et hull. Dytt pucken ned i hullet med så få dytt som mulig. Alle oppgavene kan løses.
 # Et trekk
 Dytt pucken opp, ned, til venstre eller til høyre. På isen stopper den ikke av seg selv: den glir til en stein eller kanten stopper den. Glir den over hullet på veien, faller den ned i det.
 # Slutten på spillet
-Oppgaven er løst når pucken faller ned i hullet. Løst på par løper et gyllent lys ut over isen.
+Oppgaven er løst når pucken faller ned i hullet.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 ruter is opp til 10 × 9; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest dytt som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange dytt til: 2 stjerner; ellers 1. Angre tar tilbake et dytt, og det teller ikke lenger.
-# Spill på enheten
-Sveip på isen i retningen du vil, trykk på en rute i puckens rad eller kolonne, eller trykk på en av de fire pilene ved siden av brettet (på en datamaskin virker piltastene også). En pil er dempet når pucken ikke kan gå den veien.
-Lampen gir et hint: neste dytt på en korteste vei, med pilen i gull og banen prikket i gull. Kan hullet ikke lenger nås, tar hintet først tilbake dyttene som førte dit. Angre tar tilbake ett dytt om gangen, helt til starten. Linjen viser dyttene dine og, ytterst til høyre, par.
+Løst på par, færrest dytt som løser den: 3 stjerner; med opptil halvparten så mange dytt til: 2 stjerner; ellers 1.

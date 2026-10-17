@@ -1,19 +1,9 @@
 Futoshiki
 # Tavoite
-Täytä neliön muotoinen ruudukko niin, että jokaisella rivillä ja jokaisessa sarakkeessa on jokainen luku 1:stä ruudukon kokoon asti täsmälleen kerran. Vierekkäisten ruutujen välisten merkkien täytyy pitää paikkansa: jokaisen merkin kärki osoittaa pienempää lukua (2 < 5, ja samoin ylhäältä alas). Osa luvuista voi olla annettu valmiiksi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (4 × 4 – 7 × 7) ja taso (kivet kunkin kuvan alla):
-- Helppo: aina riittää ruutu, johon sopii enää yksi luku, luku, jolla on enää yksi paikka rivillään tai sarakkeessaan, sekä merkkien asettamat rajat.
-- Keskitaso: tarvitset myös pareja: kaksi saman rivin tai sarakkeen ruutua, joihin sopivat vain samat kaksi lukua.
-- Vaikea: pidempiä kuvioita, ja luvun seuraamista loppuun asti nähdäksesi, mihin se johtaa.
+Täytä neliön muotoinen ruudukko niin, että jokaisella rivillä ja jokaisessa sarakkeessa on jokainen luku 1:stä ruudukon kokoon asti täsmälleen kerran. Vierekkäisten ruutujen välisten merkkien täytyy pitää paikkansa: jokaisen merkin kärki osoittaa pienempää lukua (2 < 5, ja samoin ylhäältä alas). Osa luvuista voi olla annettu valmiiksi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
 # Siirto
-Kirjoita luku tyhjään ruutuun. Voit muuttaa tai poistaa sen milloin tahansa; annetut luvut pysyvät. Pienet muistiinpanot ruudussa auttavat muistamaan, mitkä luvut siihen vielä sopivat.
+Kirjoita luku tyhjään ruutuun. Voit muuttaa tai poistaa sen milloin tahansa; annetut luvut pysyvät.
 # Pelin loppu
-Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein: kultainen valoaalto kulkee laudan yli.
+Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 7 × 7, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä luku, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-Napauta ruutua ja sitten laudan vieressä olevaa näppäintä: sen luku kirjoittuu ruutuun sinisellä musteella (annetut luvut ovat tummia). Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun rivi ja sarake valaistuvat himmeästi ja saman luvun ruudut lämpimämmin. Jos tyhjää ruutua ei ole valittu, näppäin valaisee lukunsa ruudut. Painikkeet laudan vieressä:
-- Kynä: muistiinpanot. Näppäimet lisäävät silloin ruutuun pieniä lukuja tai poistavat niitä. Kirjoittamasi luku poistaa saman muistiinpanon rivistään ja sarakkeestaan.
-- Pyyhekumi: poistaa ruudun luvun tai sen muistiinpanot.
-- Lamppu: vihje. Se korjaa väärän luvun tai muuten täyttää helpoimman ruudun, kultaisessa valossa.
-- Silmä: näyttää virheet (luku, joka on kahdesti rivillä tai sarakkeessa, tai merkki, joka ei pidä, muuttuu punaiseksi). Se on aluksi päällä; napauta sitä piilottaaksesi ne.
-Näppäin haalistuu, kun sen luku on jokaisella rivillä. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä luku, jonka perut Kumoa-painikkeella.

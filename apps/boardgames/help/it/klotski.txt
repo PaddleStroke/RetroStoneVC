@@ -1,15 +1,9 @@
 Klotski
 # Lo scopo
-Dei blocchi di legno riempiono una cornice di 4 × 5 caselle, tutte tranne due: il grande blocco rosso, blocchi lunghi in piedi o coricati, e blocchi piccoli. Porta il grande blocco fino all'apertura al centro del bordo inferiore, così che possa uscire scivolando. È l'antico rompicapo cinese Huarong Dao: il grande blocco è un generale, intrappolato con i suoi ufficiali e soldati in uno stretto passo.
-Ogni cornice è stata fatta per questo gioco: il computer ha provato ogni posizione che i suoi blocchi possono raggiungere, quindi il minimo di mosse è sempre noto.
+Dei blocchi di legno riempiono una cornice di 4 × 5 caselle, tutte tranne due. Porta il grande blocco rosso fino all'apertura al centro del bordo inferiore, così che possa uscire scivolando.
 # Una mossa
-Un blocco scorre nelle caselle vuote, una casella alla volta, in su, in giù, a sinistra o a destra; non si solleva mai. Come vuole la tradizione, una mossa è un blocco fatto scorrere quanto vuoi, anche girando un angolo, prima di toccare un altro blocco.
+Un blocco scorre nelle caselle vuote, una casella alla volta, in su, in giù, a sinistra o a destra; non si solleva mai. Una mossa è un blocco fatto scorrere quanto vuoi, anche girando un angolo, prima di toccare un altro blocco.
 # La fine della partita
-Quando il grande blocco sta al centro della riga in basso, esce dall'apertura in luce dorata: risolto.
+Quando il grande blocco sta al centro della riga in basso, esce dall'apertura: risolto.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da poche mosse a ben oltre cento; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea una nuova cornice a caso: facile, media o difficile. Ogni cornice ha un par: il minimo di mosse che la risolvono. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Annulla toglie una mossa, che non conta più.
-# Giocare sul dispositivo
-- Trascina un blocco: segue il tuo dito casella per casella.
-- Oppure tocca un blocco. Se ha un solo posto dove andare, ci va. Se ne ha di più, viene scelto e dei punti mostrano le caselle che può raggiungere: toccane una, e ci va per la via più breve.
-- Tocca una casella vuota che un solo blocco può raggiungere: quel blocco arriva.
-La lampada accanto alla cornice dà un suggerimento: la prima mossa di un percorso più corto, in luce dorata. Annulla toglie una mossa alla volta, fino all'inizio. La barra mostra le tue mosse e, all'estremità destra, il minimo possibile per questa partenza; si illumina d'oro quando lo eguagli.
+Risolto al par, il minimo di mosse che lo risolvono: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

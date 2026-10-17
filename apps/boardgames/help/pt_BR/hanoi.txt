@@ -1,11 +1,9 @@
 Torre de Hanói
 # O objetivo
-Discos de tamanhos diferentes estão em três pinos, nunca um disco sobre um menor. Junte todos no pino de chegada, o que brilha dourado no pé, numa só torre com o maior embaixo. O quebra-cabeça clássico começa com a torre inteira no pino da esquerda.
+Discos de tamanhos diferentes estão em três pinos, nunca um disco sobre um menor. Junte todos no pino de chegada, o que brilha dourado no pé, numa só torre com o maior embaixo.
 # Uma jogada
 Pegue o disco de cima de um pino e coloque-o em outro pino, vazio ou com um disco maior em cima. Um disco nunca vai sobre um menor.
 # O fim da partida
-O quebra-cabeça está resolvido quando todos os discos estão no pino de chegada. A torre clássica pede pelo menos 7 jogadas com 3 discos, 15 com 4, 31 com 5, 63 com 6 e 127 com 7 (cada disco a mais as dobra, mais uma). Se você conseguir no mínimo, a torre inteira brilha dourada.
+O quebra-cabeça está resolvido quando todos os discos estão no pino de chegada.
 # Níveis e estrelas
-Há 100 níveis em cinco capítulos, um para cada número de discos de 3 a 7: os discos começam espalhados pelos pinos, e cada capítulo termina com a torre clássica. Escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso: 4, 5, 6 ou 7 discos espalhados ao acaso e um pino de chegada. Cada quebra-cabeça tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Desfazer volta uma jogada, que deixa de contar.
-# Jogando no aparelho
-Toque num pino: o disco de cima se levanta. Toque em outro pino: o disco vai para lá (se não puder ir, ele treme e fica no alto). Toque no próprio pino para devolvê-lo. Você também pode arrastar um disco de um pino para outro. Desfazer volta uma jogada de cada vez, até o começo. A barra mostra as suas jogadas e, na ponta direita, o mínimo possível.
+Resolvido no par, o mínimo de jogadas que o resolvem: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

@@ -1,10 +1,9 @@
 Ponti
 # Lo scopo
-Sul tavoliere ci sono delle isole, ognuna con un numero. Collegale con ponti, in linea retta orizzontale o verticale, tra due isole senza niente in mezzo. Tra due isole ci possono essere uno o due ponti, mai di più, e nessun ponte può incrociarne un altro. Ogni isola deve finire con tanti ponti quanto il suo numero, e tutte le isole devono formare un solo gruppo. Il gioco è noto anche come Hashi. Ogni schema ha una sola soluzione, che si trova con il solo ragionamento. Scegli prima la dimensione e il livello (le pietre sotto ogni immagine):
-- Facile: contare basta sempre: il numero di un'isola contro ciò che le vicine possono ancora ricevere (un 4 con due sole vicine richiede due ponti doppi).
-- Medio: dovrai anche tenere le isole in un solo gruppo: nessun ponte può chiudere un piccolo gruppo lontano dagli altri.
-- Difficile: ragionamenti più lunghi: provare un ponte e seguirlo finché qualcosa non torna.
+Sul tavoliere ci sono delle isole, ognuna con un numero. Collegale con ponti, in linea retta orizzontale o verticale, tra due isole senza niente in mezzo. Tra due isole ci possono essere uno o due ponti, mai di più, e nessun ponte può incrociarne un altro. Ogni isola deve finire con tanti ponti quanto il suo numero, e tutte le isole devono formare un solo gruppo. Ogni schema ha una sola soluzione, che si trova con il solo ragionamento.
+# Una mossa
+Trascina da un'isola verso un'altra: viene posato un ponte. Rifallo per un secondo ponte, e ancora una volta per toglierli entrambi.
+# La fine della partita
+Lo schema è risolto quando ogni isola ha i suoi ponti e tutte sono collegate.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 16 × 16, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un ponte che la soluzione non ha e che togli con Annulla.
-# Giocare sul dispositivo
-Trascina da un'isola verso un'altra: viene posato un ponte. Rifallo per un secondo ponte, e ancora una volta per toglierli entrambi. Puoi anche toccare un'isola e poi un'altra allineata, oppure toccare un ponte o l'acqua tra due isole. Un ponte che ne incrocerebbe un altro è rifiutato. Un'isola con tutti i suoi ponti brilla d'oro; una con troppi brilla di rosso. La lampada accanto al tavoliere dà un suggerimento: toglie un ponte sbagliato, oppure posa un ponte che il ragionamento trova, in luce dorata. Annulla toglie un ponte alla volta, fino all'inizio. La barra mostra le tue mosse. Quando ogni isola è giusta e tutte sono collegate, i ponti diventano d'oro.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un ponte che la soluzione non ha e che togli con Annulla.

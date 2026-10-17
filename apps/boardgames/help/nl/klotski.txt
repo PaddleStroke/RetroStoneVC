@@ -1,15 +1,9 @@
 Klotski
 # Het doel
-Houten blokken vullen een raam van 4 × 5 vakjes, op twee na: het grote rode blok, lange blokken staand of liggend, en kleine. Breng het grote blok omlaag naar de opening midden in de onderrand, zodat het eruit kan schuiven. Dit is de oude Chinese puzzel Huarong Dao: het grote blok is een generaal, met zijn officieren en soldaten ingesloten in een nauwe pas.
-Elk raam hier is voor dit spel gemaakt: de computer heeft elke stand geprobeerd die de blokken kunnen bereiken, dus het kleinste aantal zetten is altijd bekend.
+Houten blokken vullen een raam van 4 × 5 vakjes, op twee na. Breng het grote rode blok omlaag naar de opening midden in de onderrand, zodat het eruit kan schuiven.
 # Een zet
-Een blok schuift in lege vakjes, één vakje tegelijk, omhoog, omlaag, naar links of naar rechts; het wordt nooit opgetild. Volgens de traditie is één zet één blok dat zo ver als je wilt wordt geschoven, ook om een hoek, voordat je een ander blok aanraakt.
+Een blok schuift in lege vakjes, één vakje tegelijk, omhoog, omlaag, naar links of naar rechts; het wordt nooit opgetild. Eén zet is één blok dat zo ver als je wilt wordt geschoven, ook om een hoek, voordat je een ander blok aanraakt.
 # Het einde van het spel
-Staat het grote blok midden in de onderste rij, dan schuift het in gouden licht door de opening naar buiten: opgelost.
+Staat het grote blok midden in de onderste rij, dan schuift het door de opening naar buiten: opgelost.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van een paar zetten tot ruim boven de honderd; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurig nieuw raam: makkelijk, gemiddeld of moeilijk. Elk raam heeft een par: het kleinste aantal zetten waarmee het op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
-# Spelen op het apparaat
-- Sleep een blok: het volgt je vinger vakje voor vakje.
-- Of tik op een blok. Kan het maar naar één plek, dan gaat het daarheen. Kan het naar meer plekken, dan wordt het gekozen en tonen stippen de vakjes die het kan bereiken: tik op een ervan, en het gaat erheen langs de kortste weg.
-- Tik op een leeg vakje dat maar één blok kan bereiken: dat blok komt.
-De lamp naast het raam geeft een hint: de eerste zet van een kortste weg, in gouden licht. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin. De balk toont je zetten en, aan het rechtereinde, het kleinste mogelijke aantal voor deze beginstand; hij gloeit goud als je dat evenaart.
+Opgelost op par, het kleinste aantal zetten waarmee het op te lossen is: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

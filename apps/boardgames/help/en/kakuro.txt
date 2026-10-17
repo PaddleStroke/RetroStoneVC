@@ -1,15 +1,7 @@
 Kakuro
 # The aim
-Fill every white square with a digit from 1 to 9. A run is a line of white squares, across or down, between dark ones; the dark square before it holds its clue. The digits of a run add up to its clue, and no digit appears twice in a run. In a dark square, the clue above the diagonal is for the run to its right, the one below it for the run underneath. Every puzzle has exactly one solution, found by reasoning alone. Choose the size and the level first (the stones under each picture):
-- Easy: the ways of making each clue with its run's length are always enough (3 in two squares can only be 1 and 2).
-- Medium: you will also need a digit that every way needs, with one square left for it, and pairs in a run.
-- Hard: you will need to work out a whole run at once (which digit can go in which square), or to try a digit and follow it.
+Fill every white square with a digit from 1 to 9. A run is a line of white squares, across or down, between dark ones; the dark square before it holds its clue. The digits of a run add up to its clue, and no digit appears twice in a run. In a dark square, the clue above the diagonal is for the run to its right, the one below it for the run underneath. Every puzzle has exactly one solution, found by reasoning alone.
+# The end of the game
+The puzzle is solved when every square is right.
 # Levels and stars
-There are 150 levels in six chapters, from 5 × 5 up to 12 × 12, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
-# Playing on the device
-Tap a white square, then a key beside the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a square. The square's two runs are lit, their clues in gold, and every square holding its digit warmly. With no square picked, a key lights the squares of its digit. The buttons beside the board:
-- Pencil: notes. The keys then put small digits in the square, or take them out.
-- Eraser: takes out the square's digit, or its notes.
-- Lamp: a hint. It puts a wrong digit right, or else fills a square that reasoning finds, in gold light.
-- Eye: shows clashes in red (a digit twice in a run, a run whose digits go past its clue, or a full run with the wrong sum). It is on at first.
-Undo takes back one action at a time, all the way to the start. The bar shows your moves. When every square is right, a wave of gold light runs over the board.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.

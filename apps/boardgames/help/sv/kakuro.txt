@@ -1,15 +1,7 @@
 Kakuro
 # Målet
-Fyll varje vit ruta med en siffra från 1 till 9. En rad är en följd av vita rutor, vågrätt eller lodrätt, mellan mörka rutor; den mörka rutan före den har dess summa. Siffrorna i en rad blir tillsammans summan, och ingen siffra står två gånger i en rad. I en mörk ruta gäller summan ovanför diagonalen raden till höger, summan under den raden nedanför. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera. Välj först storlek och nivå (stenarna under varje bild):
-- Lätt: sätten att bilda varje summa med radens längd räcker alltid (3 i två rutor kan bara vara 1 och 2).
-- Medel: du behöver också en siffra som alla sätt kräver och som bara har en ruta kvar, och par i en rad.
-- Svår: du måste tänka igenom en hel rad på en gång (vilken siffra som kan stå i vilken ruta), eller pröva en siffra och följa den.
+Fyll varje vit ruta med en siffra från 1 till 9. En rad är en följd av vita rutor, vågrätt eller lodrätt, mellan mörka rutor; den mörka rutan före den har dess summa. Siffrorna i en rad blir tillsammans summan, och ingen siffra står två gånger i en rad. I en mörk ruta gäller summan ovanför diagonalen raden till höger, summan under den raden nedanför. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera.
+# Partiets slut
+Pusslet är löst när alla rutor är rätt.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 12 × 12, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.
-# Spela på enheten
-Tryck på en vit ruta och sedan på en tangent bredvid brädet: siffran skrivs in med blått bläck. Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans två rader lyser upp, deras summor i guld, och alla rutor med samma siffra varmt. Utan vald ruta tänder en tangent rutorna med sin siffra. Knapparna bredvid brädet:
-- Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem.
-- Suddgummi: tar bort rutans siffra, eller anteckningarna.
-- Lampa: en ledtråd. Den rättar en felaktig siffra, eller fyller annars en ruta som resonemanget hittar, i gyllene ljus.
-- Öga: visar fel i rött (en siffra två gånger i en rad, en rad över sin summa eller en full rad med fel summa). Det är på från början.
-Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag. När alla rutor är rätt sveper en våg av gyllene ljus över brädet.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.

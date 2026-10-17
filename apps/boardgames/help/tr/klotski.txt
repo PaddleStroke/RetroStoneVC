@@ -1,15 +1,9 @@
 Klotski
 # Amaç
-Tahta bloklar, 4 × 5 karelik bir çerçevenin iki kare dışında tamamını doldurur: büyük kırmızı blok, dik ya da yatık duran uzun bloklar ve küçük bloklar. Büyük bloğu alt kenarın ortasındaki açıklığa indir ki dışarı kayabilsin. Bu, eski Çin bulmacası Huarong Dao'dur: büyük blok, subayları ve askerleriyle birlikte dar bir geçitte kıstırılmış bir generaldir.
-Buradaki her çerçeve bu oyun için yapıldı: bilgisayar blokların ulaşabileceği her konumu denedi, bu yüzden en az hamle sayısı her zaman bilinir.
+Tahta bloklar, 4 × 5 karelik bir çerçevenin iki kare dışında tamamını doldurur. Büyük kırmızı bloğu alt kenarın ortasındaki açıklığa indir ki dışarı kayabilsin.
 # Bir hamle
-Bir blok boş karelere, her seferinde bir kare, yukarı, aşağı, sola ya da sağa kayar; asla kaldırılmaz. Geleneksel sayıma göre bir hamle, başka bir bloğa dokunmadan önce istediğin kadar uzağa, hatta bir köşeyi dönerek kaydırılan tek bir bloktur.
+Bir blok boş karelere, her seferinde bir kare, yukarı, aşağı, sola ya da sağa kayar; asla kaldırılmaz. Bir hamle, başka bir bloğa dokunmadan önce istediğin kadar uzağa, hatta bir köşeyi dönerek kaydırılan tek bir bloktur.
 # Oyunun sonu
-Büyük blok alt sıranın ortasına geldiğinde altın ışık içinde açıklıktan dışarı kayar: bulmaca çözüldü.
+Büyük blok alt sıranın ortasına geldiğinde açıklıktan dışarı kayar: bulmaca çözüldü.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; birkaç hamleden yüzün epey üstüne kadar uzanıyorlar. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir çerçeve yapar: kolay, orta ya da zor. Her çerçevenin bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
-# Cihazda oynamak
-- Bir bloğu sürükle: parmağını kare kare izler.
-- Ya da bir bloğa dokun. Gidebileceği tek bir yer varsa oraya gider. Daha fazlası varsa seçilir ve noktalar ulaşabileceği kareleri gösterir: birine dokun, en kısa yoldan oraya gider.
-- Yalnızca tek bir bloğun ulaşabileceği boş bir kareye dokun: o blok gelir.
-Çerçevenin yanındaki lamba bir ipucu verir: en kısa yollardan birinin ilk hamlesi, altın ışıkla. Geri al her seferinde bir hamleyi geri alır, en başa kadar. Şerit hamlelerini ve sağ ucunda bu başlangıç için mümkün olan en azı gösterir; ona ulaştığında altın gibi parlar.
+Par ile, yani çerçeveyi çözen en az hamleyle çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

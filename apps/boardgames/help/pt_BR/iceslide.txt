@@ -1,13 +1,9 @@
 Deslize no gelo
 # O objetivo
-Um disco vermelho está sobre o gelo, entre pedras. Em algum lugar do gelo há um buraco. Empurre o disco até o buraco com o menor número de empurrões possível. Escolha primeiro o desafio: fácil, médio ou difícil (mais gelo, mais empurrões).
-Cada desafio é novo e sempre tem solução. O seu par, o menor número de empurrões possível, é encontrado testando todos os caminhos.
+Um disco vermelho está sobre o gelo, entre pedras. Em algum lugar do gelo há um buraco. Empurre o disco até o buraco com o menor número de empurrões possível. Todo desafio tem solução.
 # Uma jogada
 Empurre o disco para cima, para baixo, para a esquerda ou para a direita. No gelo ele não para sozinho: desliza até uma pedra ou a borda o deter. Se passar por cima do buraco no caminho, cai dentro.
 # O fim da partida
-O desafio está resolvido quando o disco cai no buraco. Resolvido no par, uma luz dourada corre pelo gelo.
+O desafio está resolvido quando o disco cai no buraco.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de um gelo de 5 × 5 casas até 10 × 9; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Cada quebra-cabeça tem um par: o mínimo de empurrões que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de empurrões: 2 estrelas; senão, 1. Desfazer volta um empurrão, que deixa de contar.
-# Jogando no aparelho
-Deslize o dedo sobre o gelo na direção desejada, toque numa casa da linha ou da coluna do disco, ou toque numa das quatro setas ao lado do tabuleiro (no computador, as teclas de seta também funcionam). Uma seta fica apagada quando o disco não pode ir para aquele lado.
-A lâmpada dá uma dica: o próximo empurrão de um caminho mais curto, com a seta dourada e o trajeto pontilhado de ouro. Se o buraco não puder mais ser alcançado, a dica primeiro desfaz os empurrões que levaram até ali. Desfazer volta um empurrão de cada vez, até o começo. A barra mostra os seus empurrões e, na ponta direita, o par.
+Resolvido no par, o mínimo de empurrões que o resolvem: 3 estrelas; com até metade a mais de empurrões: 2 estrelas; senão, 1.

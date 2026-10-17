@@ -1,19 +1,9 @@
 Futoshiki
 # Cíl hry
-Vyplň čtvercovou mřížku tak, aby každý řádek a každý sloupec obsahoval každé číslo od 1 do velikosti mřížky právě jednou. Znaménka mezi sousedními políčky musí platit: každé znaménko míří hrotem k menšímu číslu (2 < 5, a stejně shora dolů). Některá čísla mohou být dána předem. Každá úloha má právě jedno řešení, které najdeš jen úvahou. Vyber velikost (4 × 4 až 7 × 7) a obtížnost (kameny pod každým obrázkem):
-- Lehká: vždy stačí políčko, kam se vejde už jen jedno číslo, číslo, které má ve svém řádku nebo sloupci už jen jedno místo, a meze, které dávají znaménka.
-- Střední: budeš potřebovat i dvojice: dvě políčka řádku nebo sloupce, kam se vejdou jen stejná dvě čísla.
-- Těžká: delší obrazce a sledování čísla až do konce, abys viděl, kam vede.
+Vyplň čtvercovou mřížku tak, aby každý řádek a každý sloupec obsahoval každé číslo od 1 do velikosti mřížky právě jednou. Znaménka mezi sousedními políčky musí platit: každé znaménko míří hrotem k menšímu číslu (2 < 5, a stejně shora dolů). Některá čísla mohou být dána předem. Každá úloha má právě jedno řešení, které najdeš jen úvahou.
 # Tah
-Napiš číslo do prázdného políčka. Kdykoli ho můžeš změnit nebo smazat; daná čísla zůstávají. Malé poznámky v políčku ti pomohou zapamatovat si čísla, která do něj ještě patří.
+Napiš číslo do prázdného políčka. Kdykoli ho můžeš změnit nebo smazat; daná čísla zůstávají.
 # Konec hry
-Úloha je vyřešena, když je mřížka plná a správně: deskou proběhne vlna zlatého světla.
+Úloha je vyřešena, když je mřížka plná a správně.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 4 × 4 po 7 × 7, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné číslo; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
-# Hra na zařízení
-Klepni na políčko a pak na klávesu vedle desky: její číslo se zapíše modrým inkoustem (daná čísla jsou tmavá). Dalším klepnutím na stejnou klávesu ho smažeš, nebo můžeš klávesu přetáhnout na políčko. Řádek a sloupec políčka se jemně rozsvítí a políčka se stejným číslem výrazněji. Když není vybráno prázdné políčko, klávesa rozsvítí políčka se svým číslem. Tlačítka vedle desky:
-- Tužka: poznámky. Klávesy pak do políčka píšou malá čísla nebo je mažou. Zapsané číslo smaže tuto poznámku ve svém řádku a sloupci.
-- Guma: smaže číslo v políčku, nebo jeho poznámky.
-- Lampa: nápověda. Opraví špatné číslo, jinak vyplní nejsnazší políčko, ve zlatém světle.
-- Oko: ukazuje chyby (číslo, které je v řádku nebo sloupci dvakrát, nebo znaménko, které neplatí, zčervená). Na začátku je zapnuté; klepnutím je skryješ.
-Klávesa vybledne, jakmile je její číslo v každém řádku. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné číslo; počítá se, když ji vezmeš zpět tlačítkem Vrátit.

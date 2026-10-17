@@ -1,11 +1,9 @@
 Türme von Hanoi
 # Das Ziel
-Scheiben verschiedener Größe stecken auf drei Stäben, nie eine Scheibe auf einer kleineren. Sammle sie alle auf dem Zielstab, dessen Fuß golden leuchtet, zu einem einzigen Turm, die größte unten. Das klassische Rätsel beginnt mit dem ganzen Turm auf dem linken Stab.
+Scheiben verschiedener Größe stecken auf drei Stäben, nie eine Scheibe auf einer kleineren. Sammle sie alle auf dem Zielstab, dessen Fuß golden leuchtet, zu einem einzigen Turm, die größte unten.
 # Ein Zug
 Nimm die oberste Scheibe eines Stabs und lege sie auf einen anderen Stab, der leer ist oder oben eine größere Scheibe trägt. Eine Scheibe kommt nie auf eine kleinere.
 # Das Ende der Partie
-Das Rätsel ist gelöst, wenn alle Scheiben auf dem Zielstab stehen. Der klassische Turm braucht mindestens 7 Züge mit 3 Scheiben, 15 mit 4, 31 mit 5, 63 mit 6 und 127 mit 7 (jede Scheibe mehr verdoppelt sie, plus eins). Gelingt es mit den wenigsten Zügen, leuchtet der ganze Turm golden.
+Das Rätsel ist gelöst, wenn alle Scheiben auf dem Zielstab stehen.
 # Level und Sterne
-Es gibt 100 Level in fünf Kapiteln, eines für jede Zahl von Scheiben von 3 bis 7: Die Scheiben liegen am Anfang verstreut auf den Stäben, und jedes Kapitel endet mit dem klassischen Turm. Wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall: 4, 5, 6 oder 7 zufällig verstreute Scheiben und ein Zielstab. Jedes Rätsel hat ein Par: die wenigsten Züge, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-Tippe einen Stab an: Seine oberste Scheibe hebt sich. Tippe einen anderen Stab an: Die Scheibe kommt dorthin (darf sie nicht dorthin, wackelt sie und bleibt oben). Tippe ihren eigenen Stab an, um sie wieder abzulegen. Du kannst eine Scheibe auch von einem Stab zum anderen ziehen. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge und am rechten Ende die wenigsten möglichen.
+Gelöst mit Par, also mit den wenigsten Zügen, die es lösen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

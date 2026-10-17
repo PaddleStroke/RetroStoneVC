@@ -1,15 +1,7 @@
 Kakuro
 # Cel gry
-Wpisz w każde białe pole cyfrę od 1 do 9. Odcinek to ciąg białych pól, poziomy lub pionowy, między ciemnymi polami; ciemne pole przed nim zawiera jego sumę. Cyfry odcinka dają razem tę sumę i żadna cyfra nie powtarza się w odcinku. W ciemnym polu suma nad przekątną dotyczy odcinka po prawej, a suma pod nią odcinka poniżej. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczą sposoby uzyskania każdej sumy przy długości jej odcinka (3 w dwóch polach to tylko 1 i 2).
-- Średni: potrzebna będzie też cyfra, której wymagają wszystkie sposoby i dla której zostało jedno pole, oraz pary w odcinku.
-- Trudny: trzeba przemyśleć cały odcinek naraz (która cyfra może trafić do którego pola) albo wypróbować cyfrę i śledzić ją.
+Wpisz w każde białe pole cyfrę od 1 do 9. Odcinek to ciąg białych pól, poziomy lub pionowy, między ciemnymi polami; ciemne pole przed nim zawiera jego sumę. Cyfry odcinka dają razem tę sumę i żadna cyfra nie powtarza się w odcinku. W ciemnym polu suma nad przekątną dotyczy odcinka po prawej, a suma pod nią odcinka poniżej. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy wszystkie pola są poprawne.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij białego pola, a potem klawisza obok planszy: jego cyfra wpisuje się niebieskim atramentem. Dotknij tego samego klawisza jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Oba odcinki pola się podświetlają, ich sumy na złoto, a pola z tą samą cyfrą ciepłym światłem. Gdy żadne pole nie jest wybrane, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
-- Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają.
-- Gumka: usuwa cyfrę z pola albo jego notatki.
-- Lampa: podpowiedź. Poprawia błędną cyfrę, a jeśli takiej nie ma, wypełnia pole znalezione rozumowaniem, w złotym świetle.
-- Oko: pokazuje błędy na czerwono (cyfra dwa razy w odcinku, odcinek ponad swoją sumę albo pełny odcinek ze złą sumą). Na początku jest włączone.
-Cofnij cofa po jednej akcji, aż do początku. Pasek pokazuje twoje ruchy. Gdy wszystkie pola są poprawne, po planszy przebiega fala złotego światła.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.

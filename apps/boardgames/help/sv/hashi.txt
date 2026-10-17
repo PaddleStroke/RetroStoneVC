@@ -1,10 +1,9 @@
 Broar
 # Målet
-På brädet ligger öar, var och en med ett tal. Förbind dem med broar, rakt vågrätt eller lodrätt, mellan två öar utan något emellan. Mellan två öar får det finnas en eller två broar, aldrig fler, och ingen bro får korsa en annan. Varje ö ska till slut ha lika många broar som sitt tal, och alla öar ska hänga ihop i en enda grupp. Pusslet kallas också Hashi. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera. Välj först storlek och nivå (stenarna under varje bild):
-- Lätt: att räkna räcker alltid: en ös tal mot det grannarna fortfarande kan ta (en 4:a med bara två grannar behöver två dubbla broar).
-- Medel: du måste också hålla öarna i en grupp: ingen bro får stänga in en liten grupp skild från de andra.
-- Svår: längre resonemang: pröva en bro och följ den tills något går sönder.
+På brädet ligger öar, var och en med ett tal. Förbind dem med broar, rakt vågrätt eller lodrätt, mellan två öar utan något emellan. Mellan två öar får det finnas en eller två broar, aldrig fler, och ingen bro får korsa en annan. Varje ö ska till slut ha lika många broar som sitt tal, och alla öar ska hänga ihop i en enda grupp. Varje uppgift har exakt en lösning, som går att hitta bara genom att resonera.
+# Ett drag
+Dra från en ö mot en annan: en bro läggs. Gör det igen för en bro till, och en gång till för att ta bort båda.
+# Partiets slut
+Pusslet är löst när varje ö har sina broar och alla hänger ihop.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 upp till 16 × 16, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en bro som lösningen inte har och som du tar tillbaka med Ångra.
-# Spela på enheten
-Dra från en ö mot en annan: en bro läggs. Gör det igen för en bro till, och en gång till för att ta bort båda. Du kan också trycka på en ö och sedan på en annan i linje med den, eller trycka på en bro eller vattnet mellan två öar. En bro som skulle korsa en annan nekas. En ö med alla sina broar lyser gyllene; en med för många lyser rött. Lampan bredvid brädet ger en ledtråd: den tar bort en felaktig bro, eller lägger annars en som resonemanget hittar, i gyllene ljus. Ångra tar tillbaka en bro i taget, ända till början. Listen visar dina drag. När varje ö stämmer och alla hänger ihop blir broarna gyllene.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en bro som lösningen inte har och som du tar tillbaka med Ångra.

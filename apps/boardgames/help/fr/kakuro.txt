@@ -1,15 +1,7 @@
 Kakuro
 # Le but
-Remplis chaque case blanche avec un chiffre de 1 à 9. Une suite est une ligne de cases blanches, horizontale ou verticale, entre des cases sombres ; la case sombre qui la précède porte sa somme. Les chiffres d'une suite font sa somme, et aucun chiffre n'y apparaît deux fois. Dans une case sombre, la somme au-dessus de la diagonale est celle de la suite à sa droite, celle du dessous celle de la suite en dessous. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis d'abord la taille et le niveau (les pions sous chaque image) :
-- Facile : les façons d'obtenir chaque somme avec la longueur de sa suite suffisent toujours (3 en deux cases, ce ne peut être que 1 et 2).
-- Moyen : il te faudra aussi un chiffre que toutes les façons demandent et qui n'a plus qu'une case possible, et des paires dans une suite.
-- Difficile : il faudra examiner une suite entière d'un coup (quel chiffre peut aller dans quelle case), ou essayer un chiffre et le suivre.
+Remplis chaque case blanche avec un chiffre de 1 à 9. Une suite est une ligne de cases blanches, horizontale ou verticale, entre des cases sombres ; la case sombre qui la précède porte sa somme. Les chiffres d'une suite font sa somme, et aucun chiffre n'y apparaît deux fois. Dans une case sombre, la somme au-dessus de la diagonale est celle de la suite à sa droite, celle du dessous celle de la suite en dessous. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement.
+# La fin de la partie
+La grille est résolue quand toutes les cases sont justes.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 12 × 12, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.
-# Jouer sur l'appareil
-Touche une case blanche, puis une touche à côté du plateau : son chiffre s'y inscrit, à l'encre bleue. Touche encore la même touche pour l'enlever, ou fais glisser une touche sur une case. Les deux suites de la case s'éclairent, leurs sommes en or, et les cases qui portent son chiffre plus chaudement. Sans case choisie, une touche éclaire les cases de son chiffre. Les boutons à côté du plateau :
-- Crayon : les notes. Les touches mettent alors de petits chiffres dans la case, ou les enlèvent.
-- Gomme : enlève le chiffre de la case, ou ses notes.
-- Lampe : un indice. Elle corrige un chiffre faux, ou sinon remplit une case que le raisonnement trouve, dans une lumière dorée.
-- Œil : montre les conflits en rouge (un chiffre deux fois dans une suite, une suite qui dépasse sa somme, ou une suite pleine dont la somme est fausse). Il est allumé au départ.
-Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups. Quand toutes les cases sont justes, une vague de lumière dorée parcourt le plateau.
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un chiffre faux que tu reprends avec Annuler.

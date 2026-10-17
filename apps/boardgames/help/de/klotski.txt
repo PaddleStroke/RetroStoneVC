@@ -1,15 +1,9 @@
 Klotski
 # Das Ziel
-Holzklötze füllen einen Rahmen von 4 × 5 Feldern, bis auf zwei: der große rote Klotz, lange Klötze stehend oder liegend und kleine. Bringe den großen Klotz hinunter zur Öffnung in der Mitte des unteren Rands, damit er hinausgleiten kann. Das ist das alte chinesische Rätsel Huarong Dao: Der große Klotz ist ein General, der mit seinen Offizieren und Soldaten in einem engen Pass gefangen ist.
-Jeder Rahmen hier wurde für dieses Spiel gemacht: Der Computer hat jede Stellung ausprobiert, die seine Klötze erreichen können, daher sind die wenigsten Züge immer bekannt.
+Holzklötze füllen einen Rahmen von 4 × 5 Feldern, bis auf zwei. Bringe den großen roten Klotz hinunter zur Öffnung in der Mitte des unteren Rands, damit er hinausgleiten kann.
 # Ein Zug
-Ein Klotz gleitet in leere Felder, ein Feld nach dem anderen, nach oben, unten, links oder rechts; er wird nie angehoben. Nach traditioneller Zählung ist ein Zug ein Klotz, der beliebig weit geschoben wird, auch um eine Ecke, bevor du einen anderen Klotz berührst.
+Ein Klotz gleitet in leere Felder, ein Feld nach dem anderen, nach oben, unten, links oder rechts; er wird nie angehoben. Ein Zug ist ein Klotz, der beliebig weit geschoben wird, auch um eine Ecke, bevor du einen anderen Klotz berührst.
 # Das Ende der Partie
-Steht der große Klotz in der Mitte der unteren Reihe, gleitet er in goldenem Licht durch die Öffnung hinaus: gelöst.
+Steht der große Klotz in der Mitte der unteren Reihe, gleitet er durch die Öffnung hinaus: gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von wenigen Zügen bis weit über hundert; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht einen neuen Rahmen nach Zufall: leicht, mittel oder schwer. Jeder Rahmen hat ein Par: die wenigsten Züge, mit denen er sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-- Ziehe einen Klotz: Er folgt deinem Finger Feld für Feld.
-- Oder tippe einen Klotz an. Kann er nur an einen Platz, geht er dorthin. Kann er an mehrere, wird er ausgewählt, und Punkte zeigen die Felder, die er erreichen kann: Tippe eines an, und er geht auf dem kürzesten Weg dorthin.
-- Tippe ein leeres Feld an, das nur ein Klotz erreichen kann: Dieser Klotz kommt.
-Die Lampe neben dem Rahmen gibt einen Tipp: den ersten Zug eines kürzesten Wegs, in goldenem Licht. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge und am rechten Ende die wenigsten möglichen für diese Startstellung; sie leuchtet golden, wenn du sie erreichst.
+Gelöst mit Par, also mit den wenigsten Zügen, die ihn lösen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

@@ -1,15 +1,7 @@
 Kakuro
 # Tavoite
-Täytä jokainen valkoinen ruutu numerolla 1–9. Jono on valkoisten ruutujen rivi, vaaka- tai pystysuunnassa, tummien ruutujen välissä; sitä edeltävässä tummassa ruudussa on jonon summa. Jonon numerot antavat yhteensä summan, eikä mikään numero esiinny jonossa kahdesti. Tummassa ruudussa lävistäjän yläpuolella oleva summa koskee oikealla olevaa jonoa ja alapuolella oleva alla olevaa jonoa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Valitse ensin koko ja taso (kivet kunkin kuvan alla):
-- Helppo: tavat muodostaa kukin summa jonon pituudella riittävät aina (3 kahdessa ruudussa voi olla vain 1 ja 2).
-- Keskitaso: tarvitset myös numeron, jota jokainen tapa vaatii ja jolle on enää yksi ruutu, sekä pareja jonossa.
-- Vaikea: sinun on mietittävä kokonainen jono kerralla (mikä numero sopii mihinkin ruutuun) tai kokeiltava numeroa ja seurattava sitä.
+Täytä jokainen valkoinen ruutu numerolla 1–9. Jono on valkoisten ruutujen rivi, vaaka- tai pystysuunnassa, tummien ruutujen välissä; sitä edeltävässä tummassa ruudussa on jonon summa. Jonon numerot antavat yhteensä summan, eikä mikään numero esiinny jonossa kahdesti. Tummassa ruudussa lävistäjän yläpuolella oleva summa koskee oikealla olevaa jonoa ja alapuolella oleva alla olevaa jonoa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki ruudut ovat oikein.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-Napauta valkoista ruutua ja sitten näppäintä laudan vieressä: numero kirjoittuu sinisellä musteella. Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun kaksi jonoa valaistuvat, niiden summat kullalla, ja saman numeron ruudut lämpimästi. Kun ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Painikkeet laudan vieressä:
-- Lyijykynä: muistiinpanot. Näppäimet panevat silloin ruutuun pieniä numeroita tai poistavat niitä.
-- Pyyhekumi: poistaa ruudun numeron tai sen muistiinpanot.
-- Lamppu: vihje. Se korjaa väärän numeron tai muuten täyttää ruudun, jonka päättely löytää, kultaisessa valossa.
-- Silmä: näyttää virheet punaisina (numero kahdesti jonossa, jono yli summansa tai täysi jono väärällä summalla). Se on aluksi päällä.
-Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi. Kun kaikki ruudut ovat oikein, kultaisen valon aalto kulkee laudan yli.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.

@@ -1,11 +1,9 @@
 Torres de Hanói
 # El objetivo
-Discos de distintos tamaños están en tres varillas, nunca un disco sobre uno más pequeño. Reúnelos todos en la varilla de llegada, la que brilla en dorado al pie, en una sola torre, con el más grande abajo. El rompecabezas clásico empieza con toda la torre en la varilla de la izquierda.
+Discos de distintos tamaños están en tres varillas, nunca un disco sobre uno más pequeño. Reúnelos todos en la varilla de llegada, la que brilla en dorado al pie, en una sola torre, con el más grande abajo.
 # Una jugada
 Toma el disco de arriba de una varilla y ponlo en otra varilla, vacía o con un disco más grande arriba. Un disco nunca va sobre uno más pequeño.
 # El final de la partida
-El rompecabezas está resuelto cuando todos los discos están en la varilla de llegada. La torre clásica pide al menos 7 jugadas con 3 discos, 15 con 4, 31 con 5, 63 con 6 y 127 con 7 (cada disco más las duplica, más una). Si lo logras con el mínimo, toda la torre brilla en dorado.
+El rompecabezas está resuelto cuando todos los discos están en la varilla de llegada.
 # Niveles y estrellas
-Hay 100 niveles en cinco capítulos, uno por cada número de discos, de 3 a 7: los discos empiezan repartidos por las varillas, y cada capítulo termina con la torre clásica. Elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar: 4, 5, 6 o 7 discos repartidos al azar y una varilla de llegada. Cada rompecabezas tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Deshacer anula una jugada, que ya no cuenta.
-# Jugar en el dispositivo
-Toca una varilla: su disco de arriba se levanta. Toca otra varilla: el disco va allí (si no puede ir, tiembla y se queda arriba). Toca su propia varilla para volver a dejarlo. También puedes arrastrar un disco de una varilla a otra. Deshacer anula una jugada cada vez, hasta el principio. La barra muestra tus jugadas y, en su extremo derecho, el mínimo posible.
+Resuelto en el par, el mínimo de jugadas que lo resuelven: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

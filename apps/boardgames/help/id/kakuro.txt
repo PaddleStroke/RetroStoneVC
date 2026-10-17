@@ -1,15 +1,7 @@
 Kakuro
 # Tujuan
-Isi setiap kotak putih dengan angka 1 sampai 9. Deret adalah sebaris kotak putih, mendatar atau menurun, di antara kotak gelap; kotak gelap di depannya memuat jumlahnya. Angka-angka sebuah deret jika dijumlahkan sama dengan angka itu, dan tidak ada angka yang muncul dua kali dalam satu deret. Di kotak gelap, jumlah di atas garis diagonal untuk deret di sebelah kanannya, dan yang di bawahnya untuk deret di bawahnya. Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar. Pilih dulu ukuran dan tingkatnya (batu di bawah setiap gambar):
-- Mudah: cara-cara membentuk setiap jumlah dengan panjang deretnya selalu cukup (3 dalam dua kotak hanya bisa 1 dan 2).
-- Sedang: kamu juga perlu angka yang dibutuhkan semua cara dan tinggal punya satu kotak, serta pasangan dalam satu deret.
-- Sulit: kamu harus memikirkan satu deret utuh sekaligus (angka mana bisa masuk kotak mana), atau mencoba satu angka dan mengikutinya.
+Isi setiap kotak putih dengan angka 1 sampai 9. Deret adalah sebaris kotak putih, mendatar atau menurun, di antara kotak gelap; kotak gelap di depannya memuat jumlahnya. Angka-angka sebuah deret jika dijumlahkan sama dengan angka itu, dan tidak ada angka yang muncul dua kali dalam satu deret. Di kotak gelap, jumlah di atas garis diagonal untuk deret di sebelah kanannya, dan yang di bawahnya untuk deret di bawahnya. Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar.
+# Akhir permainan
+Teka-teki terpecahkan saat semua kotak benar.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Ketuk sebuah kotak putih, lalu sebuah tombol di samping papan: angkanya masuk dengan tinta biru. Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Kedua deret kotak itu menyala, jumlahnya berwarna emas, dan kotak yang memuat angka yang sama menyala hangat. Bila tidak ada kotak yang dipilih, sebuah tombol menyalakan kotak-kotak angkanya. Tombol-tombol di samping papan:
-- Pensil: catatan. Tombol angka lalu menaruh angka kecil di kotak, atau menghapusnya.
-- Penghapus: menghapus angka kotak, atau catatannya.
-- Lampu: petunjuk. Membetulkan angka yang salah, atau mengisi kotak yang ditemukan penalaran, dalam cahaya emas.
-- Mata: menunjukkan kesalahan dengan merah (angka dua kali dalam satu deret, deret yang melewati jumlahnya, atau deret penuh dengan jumlah salah). Mula-mula menyala.
-Urungkan membatalkan satu tindakan setiap kali, sampai awal. Bilah menunjukkan langkahmu. Bila semua kotak benar, gelombang cahaya emas menyapu papan.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.

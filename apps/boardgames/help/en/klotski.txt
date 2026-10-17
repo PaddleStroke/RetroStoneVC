@@ -1,15 +1,9 @@
 Klotski
 # The aim
-Wooden blocks fill a tray of 4 × 5 cells, all but two: the great red block, long blocks standing or lying, and small ones. Bring the great block down to the opening in the middle of the bottom edge, so it can slide out. This is the old Chinese puzzle Huarong Dao: the great block is a general, trapped with his officers and soldiers in a narrow pass.
-Every tray here was made for this game: the computer tried every position its blocks can reach, so the fewest moves are always known.
+Wooden blocks fill a tray of 4 × 5 cells, all but two. Bring the great red block down to the opening in the middle of the bottom edge, so it can slide out.
 # A move
-A block slides into empty cells, one cell at a time, up, down, left or right; it is never lifted. As the tradition counts, one move is one block slid as far as you like, even round a corner, before you touch another block.
+A block slides into empty cells, one cell at a time, up, down, left or right; it is never lifted. One move is one block slid as far as you like, even round a corner, before you touch another block.
 # The end of the game
-When the great block stands in the middle of the bottom row, it slides out through the opening in gold light: solved.
+When the great block stands in the middle of the bottom row, it slides out through the opening: solved.
 # Levels and stars
-There are 150 levels in six chapters, from a few moves to well over a hundred; choose one on the level screen. The die tab after the chapters makes a new tray at random: easy, medium or hard. Each tray has a par: the fewest moves that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. Undo takes a move back, and it no longer counts.
-# Playing on the device
-- Drag a block: it follows your finger cell by cell.
-- Or tap a block. If it has only one place to go, it goes there. If it has more, it is picked and dots show the cells it can reach: tap one, and it goes there by the shortest way.
-- Tap an empty cell that only one block can reach: that block comes.
-The lamp beside the tray gives a hint: the first move of a shortest way, in gold light. Undo takes back one move at a time, all the way to the start. The bar shows your moves and, at its right end, the fewest possible for this start; it glows gold when you match it.
+Solved at par, the fewest moves that solve it: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

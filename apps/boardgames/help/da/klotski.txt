@@ -1,15 +1,9 @@
 Klotski
 # Målet
-Træklodser fylder en ramme på 4 × 5 felter, alle på nær to: den store røde klods, lange klodser, der står eller ligger, og små. Få den store klods ned til åbningen midt på den nederste kant, så den kan glide ud. Det er det gamle kinesiske puslespil Huarong Dao: den store klods er en general, fanget med sine officerer og soldater i et smalt pas.
-Hver ramme her er lavet til dette spil: computeren har prøvet hver stilling, klodserne kan nå, så det mindste antal træk er altid kendt.
+Træklodser fylder en ramme på 4 × 5 felter, alle på nær to. Få den store røde klods ned til åbningen midt på den nederste kant, så den kan glide ud.
 # Et træk
-En klods glider ind på tomme felter, ét felt ad gangen, op, ned, til venstre eller til højre; den løftes aldrig. Efter traditionens optælling er ét træk én klods, der skubbes så langt du vil, også om et hjørne, før du rører en anden klods.
+En klods glider ind på tomme felter, ét felt ad gangen, op, ned, til venstre eller til højre; den løftes aldrig. Ét træk er én klods, der skubbes så langt du vil, også om et hjørne, før du rører en anden klods.
 # Spillets afslutning
-Når den store klods står midt i den nederste række, glider den ud gennem åbningen i gyldent lys: løst.
+Når den store klods står midt i den nederste række, glider den ud gennem åbningen: løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra få træk til et godt stykke over hundrede; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny ramme tilfældigt: let, middel eller svær. Hver ramme har et par: det mindste antal træk, der løser den. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Fortryd tager et træk tilbage, og det tæller ikke længere.
-# Spil på enheden
-- Træk i en klods: den følger din finger felt for felt.
-- Eller tryk på en klods. Har den kun ét sted at gå hen, går den derhen. Har den flere, bliver den valgt, og prikker viser de felter, den kan nå: tryk på et af dem, og den går derhen ad den korteste vej.
-- Tryk på et tomt felt, som kun én klods kan nå: den klods kommer.
-Lampen ved siden af rammen giver et tip: det første træk på en korteste vej, i gyldent lys. Fortryd tager ét træk tilbage ad gangen, helt til starten. Bjælken viser dine træk og, yderst til højre, det mindste mulige antal for denne startopstilling; den gløder gyldent, når du når det.
+Løst på par, det mindste antal træk, der løser den: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1.

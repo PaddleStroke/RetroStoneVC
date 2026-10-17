@@ -1,15 +1,9 @@
 Klotski
 # O objetivo
-Blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas: o grande bloco vermelho, blocos compridos de pé ou deitados, e blocos pequenos. Leva o grande bloco até à abertura no meio do bordo inferior, para que possa deslizar para fora. É o antigo quebra-cabeças chinês Huarong Dao: o grande bloco é um general, encurralado com os seus oficiais e soldados num desfiladeiro estreito.
-Cada moldura foi feita para este jogo: o computador experimentou todas as posições que os blocos podem alcançar, por isso o mínimo de jogadas é sempre conhecido.
+Blocos de madeira enchem uma moldura de 4 × 5 casas, todas menos duas. Leva o grande bloco vermelho até à abertura no meio do bordo inferior, para que possa deslizar para fora.
 # Uma jogada
-Um bloco desliza para casas vazias, uma casa de cada vez, para cima, para baixo, para a esquerda ou para a direita; nunca é levantado. Como manda a tradição, uma jogada é um bloco deslizado até onde quiseres, mesmo a contornar uma esquina, antes de tocares noutro bloco.
+Um bloco desliza para casas vazias, uma casa de cada vez, para cima, para baixo, para a esquerda ou para a direita; nunca é levantado. Uma jogada é um bloco deslizado até onde quiseres, mesmo a contornar uma esquina, antes de tocares noutro bloco.
 # O fim do jogo
-Quando o grande bloco fica no meio da linha de baixo, desliza para fora pela abertura, em luz dourada: resolvido.
+Quando o grande bloco fica no meio da linha de baixo, desliza para fora pela abertura: resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de poucas jogadas a bem mais de cem; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria uma nova moldura ao acaso: fácil, média ou difícil. Cada moldura tem um par: o mínimo de jogadas que a resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Anular desfaz uma jogada, que deixa de contar.
-# Jogar no dispositivo
-- Arrasta um bloco: segue o teu dedo casa a casa.
-- Ou toca num bloco. Se só tiver um sítio para onde ir, vai para lá. Se tiver mais, fica selecionado e pontos mostram as casas que pode alcançar: toca numa delas, e vai para lá pelo caminho mais curto.
-- Toca numa casa vazia que só um bloco pode alcançar: esse bloco vem.
-A lâmpada ao lado da moldura dá uma pista: a primeira jogada de um caminho mais curto, em luz dourada. Anular desfaz uma jogada de cada vez, até ao início. A barra mostra as tuas jogadas e, na ponta direita, o mínimo possível para esta posição inicial; brilha dourada quando o igualas.
+Resolvido no par, o mínimo de jogadas que o resolvem: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1.

@@ -1,10 +1,9 @@
 Mosty
 # Cel gry
-Na planszy leżą wyspy, każda z liczbą. Połącz je mostami, prosto w poziomie lub w pionie, między dwiema wyspami, między którymi nic nie ma. Między dwiema wyspami może być jeden lub dwa mosty, nigdy więcej, i żaden most nie może przecinać innego. Każda wyspa musi na końcu mieć tyle mostów, ile wynosi jej liczba, a wszystkie wyspy muszą tworzyć jedną grupę. Łamigłówka znana jest też jako Hashi. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczy liczenie: liczba wyspy wobec tego, co sąsiedzi mogą jeszcze przyjąć (czwórka z tylko dwoma sąsiadami potrzebuje dwóch podwójnych mostów).
-- Średni: trzeba też trzymać wyspy w jednej grupie: żaden most nie może zamknąć małej grupy z dala od reszty.
-- Trudny: dłuższe rozumowanie: wypróbuj most i śledź go, aż coś się nie zgodzi.
+Na planszy leżą wyspy, każda z liczbą. Połącz je mostami, prosto w poziomie lub w pionie, między dwiema wyspami, między którymi nic nie ma. Między dwiema wyspami może być jeden lub dwa mosty, nigdy więcej, i żaden most nie może przecinać innego. Każda wyspa musi na końcu mieć tyle mostów, ile wynosi jej liczba, a wszystkie wyspy muszą tworzyć jedną grupę. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem.
+# Ruch
+Przeciągnij od jednej wyspy w stronę drugiej: kładzie się most. Zrób to jeszcze raz, aby dodać drugi most, i jeszcze raz, by usunąć oba.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każda wyspa ma swoje mosty, a wszystkie są połączone.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 16 × 16, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to most, którego nie ma w rozwiązaniu; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Przeciągnij od jednej wyspy w stronę drugiej: kładzie się most. Zrób to jeszcze raz, aby dodać drugi most, i jeszcze raz, by usunąć oba. Możesz też dotknąć wyspy, a potem innej w tej samej linii, albo dotknąć mostu lub wody między dwiema wyspami. Most, który przeciąłby inny, zostaje odrzucony. Wyspa ze wszystkimi swoimi mostami świeci na złoto; wyspa z nadmiarem świeci na czerwono. Lampa obok planszy daje podpowiedź: usuwa błędny most, a jeśli takiego nie ma, kładzie most znaleziony rozumowaniem, w złotym świetle. Cofnij cofa po jednym moście, aż do początku. Pasek pokazuje twoje ruchy. Gdy każda wyspa się zgadza i wszystkie są połączone, mosty stają się złote.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to most, którego nie ma w rozwiązaniu; liczy się w chwili cofnięcia przyciskiem Cofnij.

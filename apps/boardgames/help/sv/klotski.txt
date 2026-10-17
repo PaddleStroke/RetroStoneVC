@@ -1,15 +1,9 @@
 Klotski
 # Målet
-Träklossar fyller alla utom två av rutorna i en ram på 4 × 5: den stora röda klossen, långa klossar som står eller ligger, och små. Flytta ned den stora klossen till öppningen mitt på nederkanten, så att den kan glida ut. Detta är det gamla kinesiska pusslet Huarong Dao: den stora klossen är en general, instängd med sina officerare och soldater i ett trångt pass.
-Varje ram här är gjord för det här spelet: datorn har prövat varje ställning som klossarna kan nå, så det minsta antalet drag är alltid känt.
+Träklossar fyller alla utom två av rutorna i en ram på 4 × 5. Flytta ned den stora röda klossen till öppningen mitt på nederkanten, så att den kan glida ut.
 # Ett drag
-En kloss glider in i tomma rutor, en ruta i taget, uppåt, nedåt, åt vänster eller åt höger; den lyfts aldrig. Enligt traditionens räkning är ett drag en kloss som skjuts hur långt som helst, till och med runt ett hörn, innan du rör en annan kloss.
+En kloss glider in i tomma rutor, en ruta i taget, uppåt, nedåt, åt vänster eller åt höger; den lyfts aldrig. Ett drag är en kloss som skjuts hur långt som helst, till och med runt ett hörn, innan du rör en annan kloss.
 # Partiets slut
-När den stora klossen står mitt i den nedersta raden glider den ut genom öppningen i gyllene ljus: löst.
+När den stora klossen står mitt i den nedersta raden glider den ut genom öppningen: löst.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från några få drag till en bra bit över hundra; välj en i banöversikten. Fliken med tärningen efter kapitlen gör en ny ram på slump: lätt, mellan eller svår. Varje ram har ett par: det minsta antalet drag som löser den. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. Ångra tar tillbaka ett drag, och det räknas inte längre.
-# Spela på enheten
-- Dra en kloss: den följer fingret ruta för ruta.
-- Eller tryck på en kloss. Har den bara ett ställe att gå till går den dit. Har den fler blir den vald, och prickar visar rutorna den kan nå: tryck på en, så går den dit den kortaste vägen.
-- Tryck på en tom ruta som bara en kloss kan nå: den klossen kommer dit.
-Lampan bredvid ramen ger en ledtråd: det första draget på en kortaste väg, i gyllene ljus. Ångra tar tillbaka ett drag i taget, ända till början. Listen visar dina drag och, längst till höger, minsta möjliga antal för den här startställningen; det lyser guld när du når det.
+Löst på par, det minsta antalet drag som löser den: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1.

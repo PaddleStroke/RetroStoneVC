@@ -1,10 +1,9 @@
 Pontes
 # O objetivo
-Há ilhas no tabuleiro, cada uma com um número. Liga-as com pontes, em linha reta na horizontal ou na vertical, entre duas ilhas sem nada pelo meio. Entre duas ilhas pode haver uma ou duas pontes, nunca mais, e nenhuma ponte pode cruzar outra. Cada ilha tem de acabar com tantas pontes quanto o seu número, e todas as ilhas têm de formar um só grupo. O quebra-cabeças também é conhecido como Hashi. Cada problema tem uma única solução, que se encontra só a raciocinar. Escolhe primeiro o tamanho e o nível (as pedras debaixo de cada imagem):
-- Fácil: contar chega sempre: o número de uma ilha face ao que as vizinhas ainda podem receber (um 4 com só duas vizinhas precisa de duas pontes duplas).
-- Médio: vais também ter de manter as ilhas num só grupo: nenhuma ponte pode fechar um grupo pequeno à parte dos outros.
-- Difícil: raciocínios mais longos: experimentar uma ponte e segui-la até algo falhar.
+Há ilhas no tabuleiro, cada uma com um número. Liga-as com pontes, em linha reta na horizontal ou na vertical, entre duas ilhas sem nada pelo meio. Entre duas ilhas pode haver uma ou duas pontes, nunca mais, e nenhuma ponte pode cruzar outra. Cada ilha tem de acabar com tantas pontes quanto o seu número, e todas as ilhas têm de formar um só grupo. Cada problema tem uma única solução, que se encontra só a raciocinar.
+# Uma jogada
+Arrasta de uma ilha para outra: é colocada uma ponte. Repete para uma segunda ponte, e mais uma vez para tirar as duas.
+# O fim do jogo
+O problema está resolvido quando cada ilha tem as suas pontes e todas estão ligadas.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 5 × 5 ao 16 × 16, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma ponte que a solução não tem e que tiras com Anular.
-# Jogar no dispositivo
-Arrasta de uma ilha para outra: é colocada uma ponte. Repete para uma segunda ponte, e mais uma vez para tirar as duas. Também podes tocar numa ilha e depois noutra alinhada com ela, ou tocar numa ponte ou na água entre duas ilhas. Uma ponte que cruzaria outra é recusada. Uma ilha com todas as suas pontes brilha a dourado; uma com pontes a mais brilha a vermelho. A lâmpada ao lado do tabuleiro dá uma pista: tira uma ponte errada ou, senão, coloca uma que o raciocínio encontra, com luz dourada. Anular desfaz uma ponte de cada vez, até ao início. A barra mostra as tuas jogadas. Quando todas as ilhas estão certas e ligadas, as pontes ficam douradas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma ponte que a solução não tem e que tiras com Anular.

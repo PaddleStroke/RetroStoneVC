@@ -1,19 +1,9 @@
 Futoshiki
 # Målet
-Udfyld det kvadratiske gitter, så hver række og hver kolonne indeholder hvert tal fra 1 til gitterets størrelse præcis én gang. Tegnene mellem nabofelter skal passe: hvert tegn peger mod det mindste tal (2 < 5, og ligeså oppefra og ned). Nogle tal kan være givet fra start. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft. Vælg størrelse (4 × 4 til 7 × 7) og niveau (stenene under hvert billede):
-- Let: et felt, hvor kun ét tal er muligt, et tal med kun én plads tilbage i sin række eller kolonne, og de grænser, tegnene sætter, er altid nok.
-- Mellem: du får også brug for par: to felter i en række eller kolonne, der kun kan rumme de samme to tal.
-- Svær: længere mønstre, og at følge et tal til ende for at se, hvor det fører hen.
+Udfyld det kvadratiske gitter, så hver række og hver kolonne indeholder hvert tal fra 1 til gitterets størrelse præcis én gang. Tegnene mellem nabofelter skal passe: hvert tegn peger mod det mindste tal (2 < 5, og ligeså oppefra og ned). Nogle tal kan være givet fra start. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft.
 # Et træk
-Skriv et tal i et tomt felt. Du kan ændre det eller tage det ud når som helst; de givne tal bliver stående. Små noter i et felt hjælper dig med at huske, hvilke tal det stadig kan rumme.
+Skriv et tal i et tomt felt. Du kan ændre det eller tage det ud når som helst; de givne tal bliver stående.
 # Spillets afslutning
-Opgaven er løst, når gitteret er fyldt og rigtigt: en bølge af gyldent lys løber over brættet.
+Opgaven er løst, når gitteret er fyldt og rigtigt.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 4 × 4 op til 7 × 7, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert tal, som du tager tilbage med Fortryd.
-# Spil på enheden
-Tryk på et felt og derefter på en tast ved siden af brættet: dens tal kommer ind med blåt blæk (de givne tal er mørke). Tryk på samme tast igen for at tage det ud, eller træk en tast hen på et felt. Feltets række og kolonne lyser svagt op, og felter med samme tal varmere. Er der ikke valgt et tomt felt, lyser en tast felterne med dens tal op. Knapperne ved siden af brættet:
-- Blyant: noter. Tasterne sætter så små tal i feltet eller fjerner dem. Et tal, du skriver ind, sletter den note i sin række og kolonne.
-- Viskelæder: tager feltets tal ud eller dets noter.
-- Lampe: et tip. Den retter et forkert tal eller udfylder ellers det letteste felt, i gyldent lys.
-- Øje: viser fejl (et tal, der står to gange i en række eller kolonne, eller et tegn, der ikke passer, bliver rødt). Det er tændt fra start; tryk på det for at skjule dem.
-En tast blegner, når dens tal står i hver række. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert tal, som du tager tilbage med Fortryd.

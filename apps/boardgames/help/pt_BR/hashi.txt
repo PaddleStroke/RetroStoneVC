@@ -1,10 +1,9 @@
 Pontes
 # O objetivo
-Há ilhas no tabuleiro, cada uma com um número. Ligue-as com pontes, em linha reta na horizontal ou na vertical, entre duas ilhas sem nada no meio. Entre duas ilhas pode haver uma ou duas pontes, nunca mais, e nenhuma ponte pode cruzar outra. Cada ilha deve terminar com tantas pontes quanto o seu número, e todas as ilhas devem formar um único grupo. O quebra-cabeça também é conhecido como Hashi. Todo desafio tem uma única solução, encontrada só pelo raciocínio. Escolha primeiro o tamanho e o nível (as pedras sob cada figura):
-- Fácil: contar sempre basta: o número de uma ilha contra o que as vizinhas ainda podem receber (um 4 com só duas vizinhas precisa de duas pontes duplas).
-- Médio: você também vai precisar manter as ilhas num só grupo: nenhuma ponte pode fechar um grupo pequeno longe dos outros.
-- Difícil: raciocínios mais longos: testar uma ponte e segui-la até algo dar errado.
+Há ilhas no tabuleiro, cada uma com um número. Ligue-as com pontes, em linha reta na horizontal ou na vertical, entre duas ilhas sem nada no meio. Entre duas ilhas pode haver uma ou duas pontes, nunca mais, e nenhuma ponte pode cruzar outra. Cada ilha deve terminar com tantas pontes quanto o seu número, e todas as ilhas devem formar um único grupo. Todo desafio tem uma única solução, encontrada só pelo raciocínio.
+# Uma jogada
+Arraste de uma ilha até outra: uma ponte é colocada. Faça de novo para uma segunda ponte, e mais uma vez para tirar as duas.
+# O fim da partida
+O desafio está resolvido quando cada ilha tem as suas pontes e todas estão ligadas.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 5 × 5 ao 16 × 16, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma ponte que a solução não tem e que você tira com Desfazer.
-# Jogando no aparelho
-Arraste de uma ilha até outra: uma ponte é colocada. Faça de novo para uma segunda ponte, e mais uma vez para tirar as duas. Você também pode tocar numa ilha e depois em outra alinhada com ela, ou tocar numa ponte ou na água entre duas ilhas. Uma ponte que cruzaria outra é recusada. Uma ilha com todas as suas pontes brilha dourada; uma com pontes demais brilha vermelha. A lâmpada ao lado do tabuleiro dá uma dica: tira uma ponte errada ou, senão, coloca uma que o raciocínio encontra, com luz dourada. Desfazer volta uma ponte por vez, até o começo. A barra mostra as suas jogadas. Quando todas as ilhas estão certas e ligadas, as pontes ficam douradas.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma ponte que a solução não tem e que você tira com Desfazer.

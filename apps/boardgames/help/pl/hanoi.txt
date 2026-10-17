@@ -1,11 +1,9 @@
 Wieże Hanoi
 # Cel gry
-Krążki różnej wielkości stoją na trzech prętach, nigdy krążek na mniejszym. Zbierz je wszystkie na pręcie docelowym, tym, którego podstawa świeci złotem, w jedną wieżę z największym na dole. Klasyczna łamigłówka zaczyna się od całej wieży na lewym pręcie.
+Krążki różnej wielkości stoją na trzech prętach, nigdy krążek na mniejszym. Zbierz je wszystkie na pręcie docelowym, tym, którego podstawa świeci złotem, w jedną wieżę z największym na dole.
 # Ruch
 Weź górny krążek z pręta i połóż go na innym pręcie, pustym albo z większym krążkiem na wierzchu. Krążek nigdy nie trafia na mniejszy.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy wszystkie krążki stoją na pręcie docelowym. Klasyczna wieża wymaga co najmniej 7 ruchów przy 3 krążkach, 15 przy 4, 31 przy 5, 63 przy 6 i 127 przy 7 (każdy krążek więcej ją podwaja i dodaje jeden). Jeśli ci się uda w najmniejszej liczbie ruchów, cała wieża rozbłyśnie złotem.
+Łamigłówka jest rozwiązana, gdy wszystkie krążki stoją na pręcie docelowym.
 # Poziomy i gwiazdki
-Jest 100 poziomów w pięciu rozdziałach, po jednym na każdą liczbę krążków od 3 do 7: krążki leżą na początku rozrzucone po prętach, a każdy rozdział kończy się klasyczną wieżą. Wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo: 4, 5, 6 lub 7 krążków rozrzuconych losowo i pręt docelowy. Każda łamigłówka ma par: najmniejszą liczbę ruchów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Cofnij cofa ruch, który przestaje się liczyć.
-# Gra na urządzeniu
-Dotknij pręta: jego górny krążek się unosi. Dotknij innego pręta: krążek tam trafia (jeśli nie wolno mu tam, drży i zostaje w górze). Dotknij jego własnego pręta, aby go odłożyć. Możesz też przeciągnąć krążek z pręta na pręt. Cofnij cofa po jednym ruchu, aż do początku. Pasek pokazuje twoje ruchy, a na prawym końcu najmniejszą możliwą liczbę.
+Rozwiązana w par, czyli najmniejszą liczbą ruchów, która ją rozwiązuje: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

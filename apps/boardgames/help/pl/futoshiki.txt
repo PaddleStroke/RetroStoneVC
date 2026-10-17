@@ -1,19 +1,9 @@
 Futoshiki
 # Cel gry
-Wypełnij kwadratowy diagram tak, aby każdy wiersz i każda kolumna zawierały każdą liczbę od 1 do rozmiaru diagramu dokładnie raz. Znaki między sąsiednimi polami muszą się zgadzać: każdy znak wskazuje ostrzem mniejszą liczbę (2 < 5, i tak samo z góry na dół). Niektóre liczby mogą być podane na starcie. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem. Wybierz rozmiar (od 4 × 4 do 7 × 7) i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczą pole, w którym zostaje tylko jedna liczba, liczba, która ma już tylko jedno miejsce w swoim wierszu lub kolumnie, oraz granice wyznaczone przez znaki.
-- Średni: potrzebne będą też pary: dwa pola wiersza lub kolumny, w które pasują tylko te same dwie liczby.
-- Trudny: dłuższe układy i śledzenie liczby do końca, by zobaczyć, dokąd prowadzi.
+Wypełnij kwadratowy diagram tak, aby każdy wiersz i każda kolumna zawierały każdą liczbę od 1 do rozmiaru diagramu dokładnie raz. Znaki między sąsiednimi polami muszą się zgadzać: każdy znak wskazuje ostrzem mniejszą liczbę (2 < 5, i tak samo z góry na dół). Niektóre liczby mogą być podane na starcie. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem.
 # Ruch
-Wpisz liczbę w puste pole. W każdej chwili możesz ją zmienić lub usunąć; podane liczby zostają. Małe notatki w polu pomagają zapamiętać, które liczby jeszcze do niego pasują.
+Wpisz liczbę w puste pole. W każdej chwili możesz ją zmienić lub usunąć; podane liczby zostają.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny: po planszy przebiega fala złotego światła.
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 7 × 7, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna liczba; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij pola, a potem klawisza obok planszy: jego liczba wpisze się niebieskim atramentem (podane liczby są ciemne). Dotknij tego samego klawisza jeszcze raz, aby ją usunąć, albo przeciągnij klawisz na pole. Wiersz i kolumna pola lekko się podświetlają, a pola z tą samą liczbą mocniej. Gdy nie wybrano pustego pola, klawisz podświetla pola ze swoją liczbą. Przyciski obok planszy:
-- Ołówek: notatki. Klawisze wpisują wtedy do pola małe liczby albo je usuwają. Wpisana liczba usuwa tę notatkę ze swojego wiersza i kolumny.
-- Gumka: usuwa liczbę z pola albo jego notatki.
-- Lampa: podpowiedź. Poprawia błędną liczbę, a jeśli takiej nie ma, wypełnia najłatwiejsze pole, w złotym świetle.
-- Oko: pokazuje błędy (liczba, która występuje dwa razy w wierszu lub kolumnie, albo znak, który się nie zgadza, robi się czerwony). Na początku jest włączone; dotknij go, aby je ukryć.
-Klawisz blednie, gdy jego liczba jest już w każdym wierszu. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna liczba; liczy się w chwili cofnięcia przyciskiem Cofnij.

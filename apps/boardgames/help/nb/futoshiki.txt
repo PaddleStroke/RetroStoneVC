@@ -1,19 +1,9 @@
 Futoshiki
 # Målet
-Fyll det kvadratiske rutenettet slik at hver rad og hver kolonne inneholder hvert tall fra 1 til rutenettets størrelse nøyaktig én gang. Tegnene mellom naboruter må stemme: hvert tegn peker mot det minste tallet (2 < 5, og likedan ovenfra og ned). Noen tall kan være gitt fra start. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke. Velg størrelse (4 × 4 til 7 × 7) og nivå (steinene under hvert bilde):
-- Lett: en rute der bare ett tall er mulig, et tall med bare én plass igjen i raden eller kolonnen sin, og grensene tegnene setter, er alltid nok.
-- Middels: du trenger også par: to ruter i en rad eller kolonne som bare kan romme de samme to tallene.
-- Vanskelig: lengre mønstre, og å følge et tall til endes for å se hvor det fører.
+Fyll det kvadratiske rutenettet slik at hver rad og hver kolonne inneholder hvert tall fra 1 til rutenettets størrelse nøyaktig én gang. Tegnene mellom naboruter må stemme: hvert tegn peker mot det minste tallet (2 < 5, og likedan ovenfra og ned). Noen tall kan være gitt fra start. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke.
 # Et trekk
-Skriv et tall i en tom rute. Du kan endre det eller ta det bort når som helst; de gitte tallene blir stående. Små notater i en rute hjelper deg å huske hvilke tall den fortsatt kan romme.
+Skriv et tall i en tom rute. Du kan endre det eller ta det bort når som helst; de gitte tallene blir stående.
 # Slutten på spillet
-Oppgaven er løst når rutenettet er fullt og riktig: en bølge av gyllent lys går over brettet.
+Oppgaven er løst når rutenettet er fullt og riktig.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 7 × 7, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil tall som du tar tilbake med Angre.
-# Spill på enheten
-Trykk på en rute og så på en tast ved siden av brettet: tallet kommer inn med blått blekk (de gitte tallene er mørke). Trykk på samme tast igjen for å ta det bort, eller dra en tast til en rute. Rutens rad og kolonne lyser svakt opp, og ruter med samme tall varmere. Er ingen tom rute valgt, lyser en tast opp rutene med tallet sitt. Knappene ved siden av brettet:
-- Blyant: notater. Tastene setter da små tall i ruten eller tar dem bort. Et tall du skriver inn, sletter det notatet i raden og kolonnen sin.
-- Viskelær: tar bort rutens tall eller notatene.
-- Lampe: et hint. Den retter et feil tall, eller fyller ellers den letteste ruten, i gyllent lys.
-- Øye: viser feil (et tall som står to ganger i en rad eller kolonne, eller et tegn som ikke stemmer, blir rødt). Det er på fra start; trykk på det for å skjule dem.
-En tast blekner når tallet dens står i hver rad. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil tall som du tar tilbake med Angre.

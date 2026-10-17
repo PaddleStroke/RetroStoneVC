@@ -1,19 +1,9 @@
 Futoshiki
 # Tujuan
-Isi kisi persegi sehingga setiap baris dan setiap kolom berisi setiap bilangan dari 1 sampai ukuran kisi tepat satu kali. Tanda di antara kotak yang bersebelahan harus terpenuhi: ujung setiap tanda menunjuk ke bilangan yang lebih kecil (2 < 5, begitu juga dari atas ke bawah). Beberapa bilangan bisa sudah diberikan sejak awal. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih ukuran (4 × 4 sampai 7 × 7) dan tingkat (batu di bawah setiap gambar):
-- Mudah: selalu cukup dengan kotak yang hanya bisa diisi satu bilangan, bilangan yang tinggal punya satu tempat di baris atau kolomnya, dan batas yang diberikan tanda-tanda.
-- Sedang: kamu juga perlu pasangan: dua kotak dalam satu baris atau kolom yang hanya bisa berisi dua bilangan yang sama.
-- Sulit: pola yang lebih panjang, dan menelusuri sebuah bilangan sampai akhir untuk melihat ke mana arahnya.
+Isi kisi persegi sehingga setiap baris dan setiap kolom berisi setiap bilangan dari 1 sampai ukuran kisi tepat satu kali. Tanda di antara kotak yang bersebelahan harus terpenuhi: ujung setiap tanda menunjuk ke bilangan yang lebih kecil (2 < 5, begitu juga dari atas ke bawah). Beberapa bilangan bisa sudah diberikan sejak awal. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
 # Satu langkah
-Tulis bilangan di kotak kosong. Kamu bisa mengubah atau menghapusnya kapan saja; bilangan yang diberikan tetap di tempatnya. Catatan kecil di kotak membantumu mengingat bilangan apa saja yang masih mungkin.
+Tulis bilangan di kotak kosong. Kamu bisa mengubah atau menghapusnya kapan saja; bilangan yang diberikan tetap di tempatnya.
 # Akhir permainan
-Teka-teki selesai saat kisi penuh dan benar: gelombang cahaya emas menyapu papan.
+Teka-teki selesai saat kisi penuh dan benar.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 4 × 4 sampai 7 × 7, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bilangan salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Ketuk sebuah kotak, lalu tombol di samping papan: bilangannya masuk dengan tinta biru (bilangan yang diberikan berwarna gelap). Ketuk tombol yang sama lagi untuk menghapusnya, atau seret tombol ke sebuah kotak. Baris dan kolom kotak itu menyala samar, dan kotak yang berisi bilangan yang sama menyala lebih hangat. Jika tidak ada kotak kosong yang dipilih, tombol menyalakan kotak-kotak bilangannya. Tombol-tombol di samping papan:
-- Pensil: catatan. Tombol bilangan lalu menaruh bilangan kecil di kotak, atau menghapusnya. Bilangan yang kamu isi menghapus catatan itu dari baris dan kolomnya.
-- Penghapus: menghapus bilangan di kotak, atau catatannya.
-- Lampu: petunjuk. Lampu membetulkan bilangan yang salah, atau kalau tidak ada, mengisi kotak termudah, dalam cahaya emas.
-- Mata: menunjukkan kesalahan (bilangan yang muncul dua kali dalam baris atau kolom, atau tanda yang tidak terpenuhi, menjadi merah). Awalnya menyala; ketuk untuk menyembunyikannya.
-Tombol memudar setelah bilangannya ada di setiap baris. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bilangan salah yang kamu batalkan dengan Urungkan.

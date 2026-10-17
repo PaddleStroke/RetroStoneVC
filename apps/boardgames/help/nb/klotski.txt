@@ -1,15 +1,9 @@
 Klotski
 # Målet
-Treklosser fyller en ramme på 4 × 5 ruter, alle unntatt to: den store røde klossen, lange klosser som står eller ligger, og små. Få den store klossen ned til åpningen midt på nederste kant, så den kan gli ut. Dette er det gamle kinesiske puslespillet Huarong Dao: den store klossen er en general, fanget sammen med offiserene og soldatene sine i et trangt pass.
-Hver ramme her er laget for dette spillet: datamaskinen har prøvd hver stilling klossene kan nå, så færrest mulige trekk er alltid kjent.
+Treklosser fyller en ramme på 4 × 5 ruter, alle unntatt to. Få den store røde klossen ned til åpningen midt på nederste kant, så den kan gli ut.
 # Et trekk
-En kloss glir inn i tomme ruter, én rute om gangen, opp, ned, til venstre eller til høyre; den løftes aldri. Etter tradisjonen er ett trekk én kloss skjøvet så langt du vil, også rundt et hjørne, før du rører en annen kloss.
+En kloss glir inn i tomme ruter, én rute om gangen, opp, ned, til venstre eller til høyre; den løftes aldri. Ett trekk er én kloss skjøvet så langt du vil, også rundt et hjørne, før du rører en annen kloss.
 # Slutten på spillet
-Når den store klossen står midt på nederste rad, glir den ut gjennom åpningen i gyllent lys: løst.
+Når den store klossen står midt på nederste rad, glir den ut gjennom åpningen: løst.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra noen få trekk til godt over hundre; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny ramme tilfeldig: lett, middels eller vanskelig. Hver ramme har en par: færrest trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Angre tar tilbake et trekk, og det teller ikke lenger.
-# Spill på enheten
-- Dra en kloss: den følger fingeren din rute for rute.
-- Eller trykk på en kloss. Har den bare ett sted å gå, går den dit. Har den flere, blir den valgt, og prikker viser rutene den kan nå: trykk på én, så går den dit den korteste veien.
-- Trykk på en tom rute som bare én kloss kan nå: den klossen kommer.
-Lampen ved siden av rammen gir et hint: første trekk på en korteste vei, i gyllent lys. Angre tar tilbake ett trekk om gangen, helt til starten. Linjen viser trekkene dine og, ytterst til høyre, færrest mulige for denne startstillingen; den gløder gyllent når du klarer det.
+Løst på par, færrest trekk som løser den: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1.

@@ -1,13 +1,9 @@
 Deslizar en el hielo
 # El objetivo
-Un disco rojo está sobre el hielo, entre rocas. En algún lugar del hielo hay un agujero. Empuja el disco hasta el agujero con el menor número de empujones posible. Elige primero el rompecabezas: fácil, medio o difícil (más hielo, más empujones).
-Cada rompecabezas es nuevo y siempre tiene solución. Su par, el menor número de empujones posible, se encuentra probando todos los caminos.
+Un disco rojo está sobre el hielo, entre rocas. En algún lugar del hielo hay un agujero. Empuja el disco hasta el agujero con el menor número de empujones posible. Todos los rompecabezas tienen solución.
 # Una jugada
 Empuja el disco hacia arriba, abajo, la izquierda o la derecha. En el hielo no se para solo: se desliza hasta que una roca o el borde lo detienen. Si pasa por encima del agujero, cae dentro.
 # El final de la partida
-El rompecabezas está resuelto cuando el disco cae en el agujero. Resuelto en el par, una luz dorada recorre el hielo.
+El rompecabezas está resuelto cuando el disco cae en el agujero.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, de un hielo de 5 × 5 casillas hasta 10 × 9; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada rompecabezas tiene un par: el mínimo de empujones que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de empujones: 2 estrellas; si no, 1. Deshacer anula un empujón, que ya no cuenta.
-# Jugar en el dispositivo
-Desliza el dedo sobre el hielo en la dirección que quieras, toca una casilla de la fila o la columna del disco, o toca una de las cuatro flechas junto al tablero (en un ordenador también sirven las teclas de flecha). Una flecha se atenúa cuando el disco no puede ir por ahí.
-La lámpara da una pista: el siguiente empujón de un camino más corto, con su flecha dorada y su recorrido punteado en oro. Si ya no se puede llegar al agujero, la pista deshace primero los empujones que llevaron allí. Deshacer quita un empujón cada vez, hasta el principio. La barra muestra tus empujones y, en su extremo derecho, el par.
+Resuelto en el par, el mínimo de empujones que lo resuelven: 3 estrellas; con hasta la mitad más de empujones: 2 estrellas; si no, 1.

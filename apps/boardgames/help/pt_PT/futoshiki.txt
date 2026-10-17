@@ -1,19 +1,9 @@
 Futoshiki
 # O objetivo
-Preenche a grelha quadrada de modo que cada linha e cada coluna tenha uma vez cada número de 1 até ao tamanho da grelha. Os sinais entre casas vizinhas têm de ser respeitados: cada sinal aponta para o número mais pequeno (2 < 5, e o mesmo de cima para baixo). Alguns números podem vir dados. Cada grelha tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 4 × 4 a 7 × 7) e o nível (as peças sob cada imagem):
-- Fácil: bastam sempre uma casa onde só cabe um número, um número que só tem um lugar na sua linha, e os limites que os sinais impõem.
-- Médio: vais precisar também de pares: duas casas de uma linha que só podem ter os mesmos dois números.
-- Difícil: figuras mais longas, e seguir um número até ao fim para ver onde leva.
+Preenche a grelha quadrada de modo que cada linha e cada coluna tenha uma vez cada número de 1 até ao tamanho da grelha. Os sinais entre casas vizinhas têm de ser respeitados: cada sinal aponta para o número mais pequeno (2 < 5, e o mesmo de cima para baixo). Alguns números podem vir dados. Cada grelha tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Põe um número numa casa vazia. Podes mudá-lo ou tirá-lo quando quiseres; os números dados ficam. Pequenas notas numa casa ajudam-te a lembrar os números que ela ainda pode ter.
+Põe um número numa casa vazia. Podes mudá-lo ou tirá-lo quando quiseres; os números dados ficam.
 # O fim do jogo
-A grelha está resolvida quando está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+A grelha está resolvida quando está cheia e certa.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que tiras com Anular.
-# Jogar no dispositivo
-Toca numa casa e depois numa tecla ao lado do tabuleiro: o número dela entra, a tinta azul (os números dados são escuros). Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla para uma casa. A linha e a coluna da casa acendem-se levemente, e as casas com o mesmo número com mais força. Sem uma casa vazia escolhida, uma tecla acende as casas do seu número. Os botões ao lado do tabuleiro:
-- Lápis: notas. As teclas passam a pôr números pequenos na casa, ou a tirá-los. Um número que pões apaga essa nota da sua linha e da sua coluna.
-- Borracha: tira o número da casa, ou as suas notas.
-- Lâmpada: uma pista. Corrige um número errado ou, se não houver, preenche a casa mais fácil, numa luz dourada.
-- Olho: mostra os erros (um número repetido numa linha, ou um sinal que não se cumpre, fica vermelho). Começa ligado; toca-lhe para os esconder.
-Uma tecla esbate-se quando o seu número já está em todas as linhas. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que tiras com Anular.

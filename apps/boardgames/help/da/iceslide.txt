@@ -1,13 +1,9 @@
 Isglid
 # Målet
-En rød puck ligger på isen mellem sten. Et sted i isen er der et hul. Skub pucken ned i hullet med så få skub som muligt. Vælg først opgaven: let, middel eller svær (mere is, flere skub).
-Hver opgave er ny og kan altid løses. Dens par, det mindste mulige antal skub, findes ved at prøve hver vej.
+En rød puck ligger på isen mellem sten. Et sted i isen er der et hul. Skub pucken ned i hullet med så få skub som muligt. Alle opgaver kan løses.
 # Et træk
 Skub pucken op, ned, til venstre eller til højre. På isen standser den ikke af sig selv: den glider, til en sten eller kanten stopper den. Glider den hen over hullet på vejen, falder den ned i det.
 # Spillets afslutning
-Opgaven er løst, når pucken falder ned i hullet. Løst på par løber et gyldent lys ud over isen.
+Opgaven er løst, når pucken falder ned i hullet.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 5 × 5 felter is op til 10 × 9; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal skub, der løser den. Løst på par: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1. Fortryd tager et skub tilbage, og det tæller ikke længere.
-# Spil på enheden
-Stryg hen over isen i den retning, du vil, tryk på et felt i puckens række eller søjle, eller tryk på en af de fire pile ved siden af brættet (på en computer virker piletasterne også). En pil er dæmpet, når pucken ikke kan gå den vej.
-Lampen giver et tip: det næste skub på en korteste vej, med pilen i guld og banen prikket i guld. Kan hullet ikke længere nås, tager tippet først de skub tilbage, der førte dertil. Fortryd tager ét skub tilbage ad gangen, helt til starten. Bjælken viser dine skub og, yderst til højre, par.
+Løst på par, det mindste antal skub, der løser den: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1.

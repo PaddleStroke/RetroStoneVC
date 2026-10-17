@@ -1,13 +1,9 @@
 Scivolata sul ghiaccio
 # Lo scopo
-Un disco rosso è sul ghiaccio, tra le rocce. Da qualche parte sul ghiaccio c'è una buca. Spingi il disco nella buca con il minor numero di spinte possibile. Scegli prima il rompicapo: facile, medio o difficile (più ghiaccio, più spinte).
-Ogni rompicapo è nuovo e ha sempre una soluzione. Il suo par, il minor numero di spinte possibile, si trova provando ogni percorso.
+Un disco rosso è sul ghiaccio, tra le rocce. Da qualche parte sul ghiaccio c'è una buca. Spingi il disco nella buca con il minor numero di spinte possibile. Ogni rompicapo ha sempre una soluzione.
 # Una mossa
 Spingi il disco in su, in giù, a sinistra o a destra. Sul ghiaccio non si ferma da solo: scivola finché una roccia o il bordo lo fermano. Se passa sopra la buca, ci cade dentro.
 # La fine della partita
-Il rompicapo è risolto quando il disco cade nella buca. Risolto nel par, una luce dorata corre sul ghiaccio.
+Il rompicapo è risolto quando il disco cade nella buca.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da un ghiaccio di 5 × 5 caselle fino a 10 × 9; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di spinte che lo risolvono. Risolto al par: 3 stelle; con fino a metà spinte in più: 2 stelle; altrimenti 1. Annulla toglie una spinta, che non conta più.
-# Giocare sul dispositivo
-Scorri il dito sul ghiaccio nella direzione voluta, tocca una casella nella riga o nella colonna del disco, oppure una delle quattro frecce accanto al tavoliere (sul computer funzionano anche i tasti freccia). Una freccia è attenuata quando il disco non può andare da quella parte.
-La lampada dà un suggerimento: la prossima spinta di un percorso più corto, con la freccia dorata e il tragitto punteggiato d'oro. Se la buca non è più raggiungibile, il suggerimento annulla prima le spinte che hanno portato lì. Annulla toglie una spinta alla volta, fino all'inizio. La barra mostra le tue spinte e, all'estremità destra, il par.
+Risolto al par, il minimo di spinte che lo risolvono: 3 stelle; con fino a metà spinte in più: 2 stelle; altrimenti 1.

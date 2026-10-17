@@ -1,13 +1,9 @@
 Glissade sur glace
 # Le but
-Un palet rouge est posé sur la glace, parmi des rochers. Quelque part sur la glace, il y a un trou. Pousse le palet dans le trou en le moins de poussées possible. Choisis d'abord le casse-tête : facile, moyen ou difficile (une glace plus grande, plus de poussées).
-Chaque casse-tête est neuf et a toujours une solution. Son par, le moins de poussées possible, est trouvé en essayant tous les chemins.
+Un palet rouge est posé sur la glace, parmi des rochers. Quelque part sur la glace, il y a un trou. Pousse le palet dans le trou en le moins de poussées possible. Chaque casse-tête a toujours une solution.
 # Un coup
-Pousse le palet vers le haut, le bas, la gauche ou la droite. Sur la glace il ne s'arrête pas tout seul : il glisse jusqu'à ce qu'un rocher ou le bord l'arrête. S'il passe sur le trou en chemin, il tombe dedans.
+Pousse le palet vers le haut, le bas, la gauche ou la droite. Sur la glace il ne s'arrête pas tout seul : il glisse jusqu'à ce qu'un rocher ou le bord l'arrête. S'il passe sur le trou en chemin, il tombe dedans.
 # La fin de la partie
-Le casse-tête est résolu quand le palet tombe dans le trou. Résolu dans le par, une lumière dorée court sur la glace.
+Le casse-tête est résolu quand le palet tombe dans le trou.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, d'une glace de 5 × 5 cases jusqu'à 10 × 9 ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins de poussées qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de poussées : 2 étoiles ; sinon 1. Annuler reprend une poussée, qui ne compte plus.
-# Jouer sur l'appareil
-Fais glisser ton doigt sur la glace dans le sens voulu, ou touche une case de la ligne ou de la colonne du palet, ou touche l'une des quatre flèches à côté du plateau (sur un ordinateur, les flèches du clavier marchent aussi). Une flèche est grisée quand le palet ne peut pas aller par là.
-La lampe donne un indice : la prochaine poussée d'un plus court chemin, sa flèche dorée et son trajet en pointillés dorés. Si le trou n'est plus accessible, l'indice reprend d'abord les poussées qui y ont mené. Annuler reprend une poussée à la fois, jusqu'au début. La barre montre tes poussées et, à son extrémité droite, le par.
+Résolu au par, le moins de poussées qui le résolvent : 3 étoiles ; jusqu'à moitié plus de poussées : 2 étoiles ; sinon 1.
