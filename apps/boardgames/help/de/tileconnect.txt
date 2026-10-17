@@ -8,4 +8,4 @@ Ein Bild kann öfter als zweimal vorkommen: Wähle dann sorgfältig, welche zwei
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn alle Steine weg sind. Lässt sich kein Paar verbinden, mische: Die übrigen Steine werden neu verteilt, sodass sie sich weiter leeren lassen.
 # Level und Sterne
-150 Level in sechs Kapiteln; der Würfel-Reiter macht ein zufälliges Brett in der gewählten Größe. Ohne Tipp und ohne Mischen: 3 Sterne; bis zu zwei Tipps, Mischen zählt als zwei: 2 Sterne; sonst 1.
+Ohne Tipp und ohne Mischen: 3 Sterne; bis zu zwei Tipps, Mischen zählt als zwei: 2 Sterne; sonst 1.

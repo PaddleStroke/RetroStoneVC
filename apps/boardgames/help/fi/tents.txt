@@ -1,21 +1,10 @@
 Teltat
 # Tavoite
 Pystytä teltta jokaisen puun viereen: suoraan sen yläpuolelle, alapuolelle, vasemmalle tai oikealle. Jokaisella puulla on oma telttansa ja jokaisella teltalla oma puunsa. Teltat eivät koskaan kosketa toisiaan, eivät edes kulmittain. Rivien vasemmalla puolella ja sarakkeiden yläpuolella olevat luvut kertovat, montako telttaa niissä on.
-Jokaisella kentällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (6 × 6:sta 12 × 12:een) ja taso (kivet kunkin kuvan alla):
-- Helppo: yksi silmäys riittää aina: ei telttaa kaukana puista eikä teltan ympärillä; linja, jolla on kaikki telttansa tai juuri tarpeeksi tilaa niille; puu, jolle on jäljellä vain yksi paikka.
-- Keskitaso: tarvitset myös vapaiden ruutujen jaksot, joihin linjan teltat juuri ja juuri mahtuvat, ja sinun on ajateltava yksi teltta eteenpäin: teltta tässä jättäisi puun tai linjan ilman tilaa.
-- Vaikea: pidempiä päättelyketjuja, ei koskaan arvaamista.
+Jokaisella kentällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
 # Siirto
-Pystytä teltta ruutuun tai pura se. Voit myös laittaa ruutuun ruohoa muistaaksesi, ettei siihen tule telttaa; ruoho on vain oma muistiinpanosi.
+Napauta ruutua pystyttääksesi teltan, uudelleen purkaaksesi sen. Pidä sormea ruudulla laittaaksesi siihen ruohoa: muistiinpano, ettei siihen tule telttaa.
 # Pelin loppu
-Kenttä on ratkaistu, kun jokaisella puulla on telttansa, mitkään teltat eivät kosketa toisiaan ja jokainen luku pitää paikkansa: kultaisen valon aalto kulkee kentän yli.
+Kenttä on ratkaistu, kun jokaisella puulla on telttansa, mitkään teltat eivät kosketa toisiaan ja jokainen luku pitää paikkansa.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 12 × 12, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä teltta tai ruoho, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-- Napauta ruutua pystyttääksesi teltan; napauta uudelleen purkaaksesi sen.
-- Pidä sormea hetki ruudulla laittaaksesi siihen ruohoa tai poistaaksesi sen.
-- Vedä pitkin riviä tai saraketta laittaaksesi ruohoa koko jaksolle (tai poistaaksesi sen ruohojaksolta).
-Toisiaan koskettavat teltat hehkuvat punaisina, samoin puu, jonka teltalle ei ole enää tilaa. Luku muuttuu punaiseksi, kun sen linjalla on liikaa telttoja, ja haalistuu, kun sillä on ne kaikki. Laudan vieressä olevat painikkeet:
-- Teltta tai ruoho: mitä napautus laittaa. Napauta sitä vaihtaaksesi napautuksen ja painalluksen paikkaa.
-- Hehkulamppu: vihje. Se korjaa väärän ruudun tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
-Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä teltta tai ruoho, jonka perut Kumoa-painikkeella.

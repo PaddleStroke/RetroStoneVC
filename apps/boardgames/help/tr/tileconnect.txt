@@ -8,4 +8,4 @@ Bir resim ikiden fazla kez bulunabilir: o zaman hangi ikisinin birlikte gideceğ
 # Oyunun sonu
 Tüm taşlar gidince bulmaca çözülür. Hiçbir çift birleşemiyorsa karıştır: kalan taşlar yine temizlenebilecek şekilde yeniden dağıtılır.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye; zar sekmesi seçtiğin boyutta rastgele bir tahta yapar. İpucu ve karıştırma yoksa 3 yıldız; en çok iki ipucu (bir karıştırma iki sayılır) 2 yıldız; aksi hâlde 1.
+İpucu ve karıştırma yoksa 3 yıldız; en çok iki ipucu (bir karıştırma iki sayılır) 2 yıldız; aksi hâlde 1.

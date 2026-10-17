@@ -1,21 +1,10 @@
 Stany
 # Cíl hry
 Postav stan vedle každého stromu: hned nad něj, pod něj, vlevo nebo vpravo od něj. Každý strom má svůj stan a každý stan svůj strom. Stany se nikdy nedotýkají, ani rohem. Čísla vlevo od řádků a nad sloupci říkají, kolik je v nich stanů.
-Každé pole má právě jedno řešení, které lze najít jen úvahou. Zvol velikost (od 6 × 6 do 12 × 12) a obtížnost (kameny pod každým obrázkem):
-- Lehká: vždy stačí jeden pohled: žádný stan daleko od stromů ani kolem stanu; řada, která má všechny své stany, nebo přesně tolik místa pro ně; strom, kterému zbývá jediné místo.
-- Střední: budeš potřebovat i úseky volných políček, do kterých se stany řady tak tak vejdou, a myslet o stan dopředu: stan tady by nechal strom nebo řadu bez místa.
-- Těžká: delší řetězce úvah, nikdy hádání.
+Každé pole má právě jedno řešení, které lze najít jen úvahou.
 # Tah
-Postav stan na políčko, nebo ho sbal. Do políčka můžeš také dát trávu, abys věděl, že tam stan nepatří; tráva je jen tvoje poznámka.
+Klepnutím na políčko postavíš stan, dalším klepnutím ho sbalíš. Podržením políčka do něj dáš trávu: poznámku, že tam stan nepatří.
 # Konec hry
-Pole je vyřešené, když má každý strom svůj stan, žádné stany se nedotýkají a každé číslo sedí: po poli přeběhne vlna zlatého světla.
+Pole je vyřešené, když má každý strom svůj stan, žádné stany se nedotýkají a každé číslo sedí.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 5 × 5 po 12 × 12, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatný stan nebo tráva; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
-# Hra na zařízení
-- Klepnutím na políčko postavíš stan; dalším klepnutím ho sbalíš.
-- Když na políčku chvíli podržíš prst, dáš do něj trávu, nebo ji odebereš.
-- Táhni prstem po řádku nebo sloupci a dáš trávu do celého úseku (nebo ji z úseku trávy odebereš).
-Stany, které se dotýkají, svítí červeně, stejně jako strom, kterému nezbylo místo na stan. Číslo zčervená, když má jeho řada příliš mnoho stanů, a vybledne, když má všechny. Tlačítka vedle desky:
-- Stan nebo tráva: co klepnutí postaví. Klepnutím na něj prohodíš klepnutí a podržení.
-- Žárovka: nápověda. Opraví chybné políčko, nebo ukáže další políčko, ke kterému úvaha vede, ve zlatém světle.
-Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatný stan nebo tráva, které vezmeš zpět tlačítkem Vrátit.

@@ -8,4 +8,4 @@ A face may come more than twice: then choose with care which two go together. Ev
 # The end of the game
 The puzzle is solved when every tile is gone. If no pair can be joined, shuffle: the tiles left are dealt again so that they can still be cleared.
 # Levels and stars
-150 levels in six chapters; the die tab makes a board at random, in the size you choose. No hint and no shuffle: 3 stars; up to two hints, a shuffle counting as two: 2 stars; otherwise 1.
+No hint and no shuffle: 3 stars; up to two hints, a shuffle counting as two: 2 stars; otherwise 1.

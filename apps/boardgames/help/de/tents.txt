@@ -1,21 +1,10 @@
 Zelte
 # Das Ziel
 Stelle neben jeden Baum ein Zelt: direkt darüber, darunter, links oder rechts davon. Jeder Baum hat sein eigenes Zelt und jedes Zelt seinen eigenen Baum. Zelte berühren sich nie, nicht einmal an einer Ecke. Die Zahlen links der Zeilen und über den Spalten sagen, wie viele Zelte darin stehen.
-Jedes Feld hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle die Größe (von 6 × 6 bis 12 × 12) und die Stufe (die Steine unter jedem Bild):
-- Leicht: Ein Blick reicht immer: kein Zelt fern der Bäume oder rund um ein Zelt; eine Linie mit allen ihren Zelten oder mit genau genug Platz dafür; ein Baum mit nur noch einem Platz.
-- Mittel: Du brauchst auch die Abschnitte freier Felder, in die die Zelte einer Linie gerade passen, und musst ein Zelt vorausdenken: Ein Zelt hier ließe einem Baum oder einer Linie keinen Platz.
-- Schwer: längere Ketten von Schlüssen, nie Raten.
+Jedes Feld hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
 # Ein Zug
-Stelle ein Zelt in ein Feld oder baue es ab. Du kannst auch Gras in ein Feld setzen, um dir zu merken, dass dort kein Zelt hinkommt; das Gras ist nur eine Notiz für dich.
+Tippe ein Feld an, um ein Zelt aufzustellen, noch einmal, um es abzubauen. Halte ein Feld, um Gras hineinzusetzen: eine Notiz, dass dort kein Zelt hinkommt.
 # Das Ende der Partie
-Das Feld ist gelöst, wenn jeder Baum sein Zelt hat, sich keine Zelte berühren und jede Zahl stimmt: Eine Welle goldenen Lichts läuft über das Feld.
+Das Feld ist gelöst, wenn jeder Baum sein Zelt hat, sich keine Zelte berühren und jede Zahl stimmt.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 12 × 12, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Zelt oder falsches Gras, das du mit Rückgängig zurücknimmst.
-# Spielen auf dem Gerät
-- Tippe ein Feld an, um ein Zelt aufzustellen; tippe noch einmal, um es abzubauen.
-- Halte ein Feld einen Moment, um Gras hineinzusetzen oder es zu entfernen.
-- Ziehe entlang einer Zeile oder Spalte, um Gras in einen ganzen Abschnitt zu setzen (oder es aus einem Abschnitt voller Gras zu entfernen).
-Zelte, die sich berühren, glühen rot, ebenso ein Baum, der keinen Platz mehr für sein Zelt hat. Eine Zahl wird rot, wenn ihre Linie zu viele Zelte hat, und verblasst, sobald sie alle hat. Die Knöpfe neben dem Brett:
-- Zelt oder Gras: was ein Tippen setzt. Tippe ihn an, um Tippen und Halten zu tauschen.
-- Glühbirne: ein Tipp. Sie berichtigt ein falsches Feld oder zeigt sonst das nächste Feld, das sich erschließen lässt, in goldenem Licht.
-Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Zelt oder falsches Gras, das du mit Rückgängig zurücknimmst.

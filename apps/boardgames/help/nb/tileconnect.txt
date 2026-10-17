@@ -8,4 +8,4 @@ Et motiv kan komme mer enn to ganger: velg da nøye hvilke to som hører sammen.
 # Slutten på spillet
 Oppgaven er løst når alle brikkene er borte. Kan ingen par kobles, stokk: brikkene som er igjen, deles ut på nytt så de fortsatt kan fjernes.
 # Nivåer og stjerner
-150 nivåer i seks kapitler; terningfanen lager et tilfeldig brett i størrelsen du velger. Ingen hint og ingen stokking: 3 stjerner; opptil to hint, en stokking teller som to: 2 stjerner; ellers 1.
+Ingen hint og ingen stokking: 3 stjerner; opptil to hint, en stokking teller som to: 2 stjerner; ellers 1.

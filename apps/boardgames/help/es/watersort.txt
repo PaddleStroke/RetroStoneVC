@@ -1,14 +1,12 @@
 Ordenar el agua
 # El objetivo
-Unos tubos de cristal guardan capas de líquidos de colores, todas mezcladas, y dos tubos están vacíos. Trasvasa hasta que cada color llene un tubo para él solo. Elige primero el tamaño: 4 colores en 6 tubos, 7 en 9, 10 en 12 o 12 en 14. En un tubo caben cuatro capas.
-Todos los rompecabezas tienen solución: el ordenador resuelve cada uno antes de que lo veas, y se quedan los que piden más trasvases.
+Unos tubos de cristal guardan capas de líquidos de colores, todas mezcladas, y dos tubos están vacíos. Trasvasa hasta que cada color llene un tubo para él solo. En un tubo caben cuatro capas.
+Todos los rompecabezas tienen solución.
 # Una jugada
-Vierte un tubo en otro. Pasa la capa de arriba y todas las del mismo color que haya justo debajo, mientras quepan en el otro tubo. Solo se puede verter sobre el mismo color o en un tubo vacío.
+Toca un tubo y luego otro para verter en él. Pasa la capa de arriba y todas las del mismo color que haya justo debajo, mientras quepan en el otro tubo. Solo se puede verter sobre el mismo color o en un tubo vacío.
 # El tubo extra
-Una vez por rompecabezas puedes poner un tubo vacío más en el estante. Conserva un aro de latón en el pie, para que se vea que se ha usado.
+Una vez por rompecabezas puedes añadir un tubo vacío más: toca el tubo tenue con un más al final del último estante.
 # El final de la partida
-El rompecabezas está resuelto cuando cada color llena un tubo para él solo y los demás tubos están vacíos. Cada tubo lleno recibe un tapón de corcho y luego todos los tubos se iluminan en dorado.
+El rompecabezas está resuelto cuando cada color llena un tubo para él solo y los demás tubos están vacíos.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, de 3 colores hasta 12; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada rompecabezas tiene un par: el mínimo de trasvases que lo resuelven, hallado por el ordenador. Resuelto en el par: 3 estrellas; con hasta la mitad más de trasvases: 2 estrellas; si no, 1. El tubo extra deja el rompecabezas en 2 estrellas como máximo. Deshacer anula un trasvase, que ya no cuenta.
-# Jugar en el dispositivo
-Toca un tubo: se levanta. Toca otro tubo: el primero vuela hasta él, se inclina y vierte. Si el trasvase no está permitido, el tubo tiembla; vuelve a tocarlo para dejarlo en su sitio. También puedes arrastrar un tubo sobre otro. Cada capa lleva un pequeño signo además de su color. Para usar el tubo extra, toca su sitio al final del último estante (un tubo tenue con un más). La lámpara da una pista: levanta el tubo del que verter e ilumina el tubo donde verter, o el sitio del tubo extra. Si la lámpara brilla en rojo, ya no hay salida desde aquí: deshaz algunas jugadas. Deshacer anula una jugada cada vez, hasta el principio, también el tubo extra. La barra cuenta tus trasvases.
+Cada rompecabezas tiene un par: el mínimo de trasvases que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de trasvases: 2 estrellas; si no, 1. El tubo extra deja el rompecabezas en 2 estrellas como máximo.

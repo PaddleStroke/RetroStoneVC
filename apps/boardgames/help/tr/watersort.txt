@@ -1,14 +1,12 @@
 Su Sıralama
 # Amaç
-Cam tüplerde renkli sıvı katmanları birbirine karışmış durur ve iki tüp boştur. Her renk kendine ait bir tüpü dolduruncaya kadar sıvıları dök. Önce boyutu seç: 6 tüpte 4 renk, 9 tüpte 7, 12 tüpte 10 ya da 14 tüpte 12. Bir tüp dört katman alır.
-Her bulmaca çözülebilir: bilgisayar her birini sen görmeden önce çözer ve en çok dökme gerektirenleri saklar.
+Cam tüplerde renkli sıvı katmanları birbirine karışmış durur ve iki tüp boştur. Her renk kendine ait bir tüpü dolduruncaya kadar sıvıları dök. Bir tüp dört katman alır.
+Her bulmaca çözülebilir.
 # Bir hamle
-Bir tüpü başka bir tüpe dök. En üstteki katman ve hemen altındaki aynı renkten her katman, öbür tüpte yer olduğu kadar geçer. Yalnızca aynı rengin üstüne ya da boş bir tüpe dökebilirsin.
+Bir tüpe, sonra içine dökmek için başka bir tüpe dokun. En üstteki katman ve hemen altındaki aynı renkten her katman, öbür tüpte yer olduğu kadar geçer. Yalnızca aynı rengin üstüne ya da boş bir tüpe dökebilirsin.
 # Ek tüp
-Her bulmacada bir kez rafa fazladan boş bir tüp koyabilirsin. Kullanıldığı belli olsun diye dibinde pirinç bir halka kalır.
+Her bulmacada bir kez fazladan boş bir tüp ekleyebilirsin: son rafın ucundaki artı işaretli soluk tüpe dokun.
 # Oyunun sonu
-Her renk kendine ait bir tüpü doldurduğunda ve öbür tüpler boş olduğunda bulmaca çözülür. Her dolu tüpe bir mantar tıpa takılır, sonra bütün tüpler altın gibi parlar.
+Her renk kendine ait bir tüpü doldurduğunda ve öbür tüpler boş olduğunda bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 3 renkten 12 renge kadar uzanıyorlar. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: bilgisayarın bulduğu, onu çözen en az dökme sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla dökmeyle 2 yıldız; yoksa 1. Ek tüpü kullanmak bulmacayı en fazla 2 yıldızla sınırlar. Geri al bir dökmeyi geri alır, o dökme artık sayılmaz.
-# Cihazda oynamak
-Bir tüpe dokun: kalkar. Başka bir tüpe dokun: ilki oraya uçar, eğilir ve döker. İzin verilmeyen bir dökmede tüp titrer; yerine koymak için ona yeniden dokun. Bir tüpü başka bir tüpün üstüne sürükleyebilirsin de. Her katmanın renginin yanı sıra küçük bir işareti de vardır. Ek tüpü kullanmak için son rafın ucundaki yerine dokun (artı işaretli soluk bir tüp). Lamba bir ipucu verir: dökülecek tüpü kaldırır ve içine dökülecek tüpü ya da ek tüpün yerini aydınlatır. Lamba kırmızı yanıyorsa buradan artık çıkış yoktur: birkaç hamleyi geri al. Geri al her seferinde bir hamleyi geri alır, en başa kadar; ek tüpü de. Şerit dökmelerini sayar.
+Her bulmacanın bir par değeri vardır: onu çözen en az dökme sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla dökmeyle 2 yıldız; yoksa 1. Ek tüpü kullanmak bulmacayı en fazla 2 yıldızla sınırlar.

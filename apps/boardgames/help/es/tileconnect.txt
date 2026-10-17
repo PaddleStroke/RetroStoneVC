@@ -8,4 +8,4 @@ Una figura puede salir más de dos veces: elige entonces con cuidado cuáles van
 # El final de la partida
 El puzle está resuelto cuando no queda ninguna ficha. Si ninguna pareja se puede unir, baraja: las fichas que quedan se reparten de nuevo para que aún se puedan quitar.
 # Niveles y estrellas
-150 niveles en seis capítulos; la pestaña del dado crea un tablero al azar, del tamaño que elijas. Sin pistas ni barajar: 3 estrellas; hasta dos pistas, contando cada barajada como dos: 2 estrellas; si no, 1.
+Sin pistas ni barajar: 3 estrellas; hasta dos pistas, contando cada barajada como dos: 2 estrellas; si no, 1.

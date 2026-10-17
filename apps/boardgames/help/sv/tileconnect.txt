@@ -8,4 +8,4 @@ Ett motiv kan finnas fler än två gånger: välj då noga vilka två som hör i
 # Partiets slut
 Pusslet är löst när alla brickor är borta. Går inget par att koppla ihop, blanda: de brickor som är kvar delas ut igen så att de fortfarande kan tas bort.
 # Banor och stjärnor
-150 banor i sex kapitel; tärningsfliken gör ett slumpat bräde i den storlek du väljer. Ingen ledtråd och ingen blandning: 3 stjärnor; upp till två ledtrådar, en blandning räknas som två: 2 stjärnor; annars 1.
+Ingen ledtråd och ingen blandning: 3 stjärnor; upp till två ledtrådar, en blandning räknas som två: 2 stjärnor; annars 1.

@@ -8,4 +8,4 @@ Jeden obrázek může být víc než dvakrát: pak pečlivě vyber, které dva p
 # Konec hry
 Hádanka je vyřešená, když zmizí všechny kameny. Když nejde spojit žádná dvojice, zamíchej: zbylé kameny se rozdají znovu tak, aby šly stále odebrat.
 # Úrovně a hvězdy
-150 úrovní v šesti kapitolách; záložka s kostkou vytvoří náhodnou desku zvolené velikosti. Bez nápovědy a bez míchání: 3 hvězdy; nejvýš dvě nápovědy, míchání se počítá za dvě: 2 hvězdy; jinak 1.
+Bez nápovědy a bez míchání: 3 hvězdy; nejvýš dvě nápovědy, míchání se počítá za dvě: 2 hvězdy; jinak 1.

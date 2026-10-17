@@ -1,18 +1,13 @@
 Carris
 # O objetivo
-Assenta uma única linha de comboio na grelha, desde a entrada numa borda do tabuleiro até à saída noutra borda. Escolhe primeiro o tamanho: 6 × 6, 8 × 8 ou 10 × 10.
+Assenta uma única linha de comboio na grelha, desde a entrada numa borda do tabuleiro até à saída noutra borda.
 - A linha passa de casa em casa pelos lados: cada casa que usa tem um carril reto ou uma curva. Nunca se divide nem se cruza.
 - O número por cima de cada coluna e à esquerda de cada fila diz quantas das suas casas a linha usa.
-- Alguns carris são dados, em casas mais escuras; a linha sai do tabuleiro na entrada e na saída.
-Cada problema tem uma única solução, que se encontra só a raciocinar. Os tabuleiros maiores pedem mais: a linha nunca se pode fechar num laço, e atravessa o espaço entre duas colunas (ou duas filas) um número ímpar de vezes quando a entrada e a saída ficam de lados diferentes, e um número par caso contrário.
+- Alguns carris são dados, em casas mais escuras.
+Cada problema tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Põe um carril numa casa, troca-o, ou marca com uma cruz uma casa que sabes que fica vazia. As cruzes são apenas notas para ti.
+Arrasta de casa em casa para assentar a via debaixo do dedo. Mantém o dedo numa casa para a marcar com uma cruz: uma nota de que a linha não a usa.
 # O fim do jogo
-Quando a linha está completa e todos os números estão certos, o problema está resolvido: um pequeno comboio percorre a linha da entrada à saída e as casas acendem-se a dourado atrás dele.
+Quando a linha está completa e todos os números estão certos, o problema está resolvido: um pequeno comboio percorre a linha da entrada à saída.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou uma cruz numa casa que ela usa; Anular não o apaga.
-# Jogar no dispositivo
-- Arrasta de casa em casa para assentar a via debaixo do dedo; liga-se aos carris que já lá estão.
-- Toca numa casa para um carril (primeiro o que melhor encaixa nos vizinhos), outra vez para o seguinte; depois do sexto, a casa fica vazia.
-- Mantém o dedo um instante numa casa para a marcar com uma cruz. O botão da cruz faz os toques e arrastos marcarem cruzes; mostra o que faz um toque.
-Um número desvanece quando a sua linha tem esses carris, e fica vermelho quando tem demasiados. A lâmpada é uma pista: acerta uma casa e ilumina-a a dourado. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou uma cruz numa casa que ela usa; Anular não o apaga.

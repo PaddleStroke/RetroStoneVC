@@ -1,12 +1,10 @@
 Ontwarren
 # Het doel
-Koperen pinnen staan op het bord, verbonden door koordjes, en de koordjes kruisen elkaar. Verschuif de pinnen tot geen twee koordjes elkaar nog kruisen. Kies eerst hoeveel pinnen: 10, 20, 30 of 45.
-Elke puzzel kan ontward worden: de pinnen stonden eerst zonder één kruising, en werden daarna in een gehusselde volgorde in een cirkel gezet.
+Koperen pinnen staan op het bord, verbonden door koordjes, en de koordjes kruisen elkaar. Verschuif de pinnen tot geen twee koordjes elkaar nog kruisen.
+Elke puzzel kan ontward worden.
 # Een zet
-Verschuif één pin naar een willekeurige plek op het bord; zijn koordjes volgen hem.
+Sleep één pin naar een willekeurige plek op het bord; zijn koordjes volgen hem.
 # Het einde van het spel
-Als geen koordje een ander kruist of een pin raakt die niet de zijne is, is de puzzel opgelost: de koordjes worden goud en een gouden licht loopt over de pinnen.
+Als geen koordje een ander kruist of een pin raakt die niet de zijne is, is de puzzel opgelost.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 6 tot 36 pinnen: in elk level zijn een paar pinnen verplaatst uit een opstelling zonder één kruising. Kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Elke puzzel heeft een par: in een level het aantal verplaatste pinnen; in een willekeurige puzzel het kleinste gevonden aantal pinnen dat moet verschuiven. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1. Ongedaan maken neemt een zet terug, die dan niet meer telt.
-# Spelen op het apparaat
-Sleep een pin met je vinger. Terwijl je hem verschuift, licht elk koordje dat een ander kruist rood op; is er geen meer over, dan worden ze allemaal goud. De balk toont je zetten en de kruisingen die er nog zijn. De lamp is een hint: hij zet één pin waar die de meeste kruisingen weghaalt, of, als geen enkele zet helpt, op zijn plaats in een opstelling zonder kruising; de pin glijdt er in goud licht heen. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin.
+Elke puzzel heeft een par: in een level het aantal verplaatste pinnen; in een willekeurige puzzel het kleinste gevonden aantal pinnen dat moet verschuiven. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1.

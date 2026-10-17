@@ -1,12 +1,10 @@
 Floke
 # Målet
-Messingnåler står i brettet, bundet sammen med snorer, og snorene krysser hverandre. Flytt nålene til ingen to snorer krysser hverandre. Velg først hvor mange nåler: 10, 20, 30 eller 45.
-Hver oppgave kan løses opp: nålene stod først helt uten kryssinger og ble så satt i en sirkel i blandet rekkefølge.
+Messingnåler står i brettet, bundet sammen med snorer, og snorene krysser hverandre. Flytt nålene til ingen to snorer krysser hverandre.
+Hver oppgave kan løses opp.
 # Et trekk
-Flytt én nål hvor som helst på brettet; snorene dens følger med.
+Dra én nål hvor som helst på brettet; snorene dens følger med.
 # Slutten på spillet
-Når ingen snor krysser en annen eller rører en nål som ikke er dens egen, er oppgaven løst: snorene blir gylne og et gyllent lys løper over nålene.
+Når ingen snor krysser en annen eller rører en nål som ikke er dens egen, er oppgaven løst.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 6 nåler opp til 36: i hvert er noen få nåler flyttet ut av et mønster helt uten kryssinger. Velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: på et nivå antallet nåler som er flyttet; i en tilfeldig oppgave færrest nåler man vet må flyttes. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1. Angre tar tilbake et trekk, og det teller ikke lenger.
-# Spill på enheten
-Dra en nål med fingeren. Mens du flytter den, lyser hver snor som krysser en annen rødt; når ingen er igjen, blir alle gylne. Linjen viser trekkene dine og kryssingene som er igjen. Lampen er et hint: den flytter én nål dit den fjerner flest kryssinger, eller, når ingen enkelt flytting hjelper, setter den der den står i et oppsett uten kryssinger; nålen glir dit i gyllent lys. Angre tar tilbake ett trekk om gangen, helt til begynnelsen.
+Hver oppgave har en par: på et nivå antallet nåler som er flyttet; i en tilfeldig oppgave færrest nåler man vet må flyttes. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1.

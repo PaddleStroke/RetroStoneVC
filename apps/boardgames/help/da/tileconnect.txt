@@ -8,4 +8,4 @@ Et motiv kan komme mere end to gange: vælg så med omhu, hvilke to der hører s
 # Spillets afslutning
 Opgaven er løst, når alle brikker er væk. Kan intet par forbindes, så bland: de resterende brikker fordeles igen, så de stadig kan fjernes.
 # Baner og stjerner
-150 baner i seks kapitler; terningefanen laver en tilfældig plade i den valgte størrelse. Ingen ledetråd og ingen blanding: 3 stjerner; op til to ledetråde, en blanding tæller som to: 2 stjerner; ellers 1.
+Ingen ledetråd og ingen blanding: 3 stjerner; op til to ledetråde, en blanding tæller som to: 2 stjerner; ellers 1.

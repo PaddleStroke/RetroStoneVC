@@ -1,18 +1,13 @@
 Trilhos
 # O objetivo
-Assente uma única linha de trem pela grade, da entrada numa borda do tabuleiro até a saída em outra borda. Escolha primeiro o tamanho: 6 × 6, 8 × 8 ou 10 × 10.
+Assente uma única linha de trem pela grade, da entrada numa borda do tabuleiro até a saída em outra borda.
 - A linha passa de casa em casa pelos lados: cada casa que ela usa tem um trilho reto ou uma curva. Ela nunca se divide nem se cruza.
 - O número acima de cada coluna e à esquerda de cada fileira diz quantas das suas casas a linha usa.
-- Alguns trilhos já vêm dados, em casas mais escuras; a linha sai do tabuleiro na entrada e na saída.
-Cada problema tem uma única solução, encontrada só com raciocínio. Os tabuleiros maiores pedem mais: a linha nunca pode se fechar num laço, e atravessa o vão entre duas colunas (ou duas fileiras) um número ímpar de vezes quando a entrada e a saída ficam de lados diferentes, e um número par caso contrário.
+- Alguns trilhos já vêm dados, em casas mais escuras.
+Cada problema tem uma única solução, encontrada só com raciocínio.
 # Uma jogada
-Coloque um trilho numa casa, troque-o, ou marque com um X uma casa que você sabe que fica vazia. Os X são só anotações suas.
+Arraste de casa em casa para assentar o trilho sob o dedo. Segure uma casa para marcá-la com um X: uma anotação de que a linha não a usa.
 # O fim da partida
-Quando a linha está completa e todos os números batem, o problema está resolvido: um trenzinho percorre a linha da entrada até a saída, e as casas se acendem em dourado atrás dele.
+Quando a linha está completa e todos os números batem, o problema está resolvido: um trenzinho percorre a linha da entrada até a saída.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 5 × 5 ao 10 × 10, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou uma cruz numa casa que ela usa; Desfazer não o apaga.
-# Jogando no aparelho
-- Arraste de casa em casa para assentar o trilho sob o dedo; ele se liga aos trilhos que já estão lá.
-- Toque numa casa para um trilho (primeiro o que melhor se encaixa nos vizinhos), de novo para o seguinte; depois do sexto, a casa fica vazia.
-- Segure uma casa por um instante para marcá-la com um X. O botão do X faz os toques e arrastes marcarem X; ele mostra o que um toque faz.
-Um número esmaece quando sua linha tem essa quantidade de trilhos, e fica vermelho quando tem demais. A lâmpada é uma dica: ela acerta uma casa e a ilumina em dourado. Desfazer volta uma ação de cada vez, até o início. A barra mostra suas jogadas.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça posta numa casa que a linha não usa, ou um X numa casa que ela usa; Desfazer não o apaga.

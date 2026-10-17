@@ -1,12 +1,10 @@
 Entwirren
 # Das Ziel
-Messingstifte stecken im Brett, durch Schnüre verbunden, und die Schnüre kreuzen sich. Verschiebe die Stifte, bis sich keine zwei Schnüre mehr kreuzen. Wähle zuerst die Zahl der Stifte: 10, 20, 30 oder 45.
-Jedes Rätsel lässt sich entwirren: Die Stifte lagen zuerst ganz ohne Kreuzung, dann wurden sie in gemischter Reihenfolge im Kreis aufgestellt.
+Messingstifte stecken im Brett, durch Schnüre verbunden, und die Schnüre kreuzen sich. Verschiebe die Stifte, bis sich keine zwei Schnüre mehr kreuzen.
+Jedes Rätsel lässt sich entwirren.
 # Ein Zug
-Verschiebe einen Stift an eine beliebige Stelle des Bretts; seine Schnüre folgen ihm.
+Ziehe einen Stift an eine beliebige Stelle des Bretts; seine Schnüre folgen ihm.
 # Das Ende der Partie
-Wenn keine Schnur eine andere kreuzt oder einen fremden Stift berührt, ist das Rätsel gelöst: Die Schnüre werden golden, und ein goldenes Licht läuft über die Stifte.
+Wenn keine Schnur eine andere kreuzt oder einen fremden Stift berührt, ist das Rätsel gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 6 bis 36 Stiften: In jedem wurden ein paar Stifte aus einer Anordnung ganz ohne Kreuzung herausgerückt. Wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: in einem Level die Zahl der verschobenen Stifte; bei einem Zufallsrätsel die wenigsten Stifte, die nach bisherigem Wissen bewegt werden müssen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-Ziehe einen Stift mit dem Finger. Während du ihn bewegst, leuchtet jede Schnur rot, die eine andere kreuzt; ist keine mehr übrig, werden alle golden. Die Leiste zeigt deine Züge und die verbleibenden Kreuzungen. Die Lampe ist ein Tipp: Sie setzt einen Stift dorthin, wo er die meisten Kreuzungen beseitigt, oder, wenn kein einzelner Zug hilft, an seinen Platz in einer Anordnung ohne Kreuzung; der Stift gleitet in goldenem Licht dorthin. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang.
+Jedes Rätsel hat ein Par: in einem Level die Zahl der verschobenen Stifte; bei einem Zufallsrätsel die wenigsten Stifte, die nach bisherigem Wissen bewegt werden müssen. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1.

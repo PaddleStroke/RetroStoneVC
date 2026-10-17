@@ -1,14 +1,12 @@
 Veden lajittelu
 # Tavoite
-Lasiputkissa on kerroksittain värillisiä nesteitä sekaisin, ja kaksi putkea on tyhjiä. Kaada nesteitä, kunnes jokainen väri täyttää oman putkensa. Valitse ensin koko: 4 väriä 6 putkessa, 7 väriä 9:ssä, 10 väriä 12:ssa tai 12 väriä 14:ssä. Putkeen mahtuu neljä kerrosta.
-Jokainen tehtävä on ratkaistavissa: tietokone ratkaisee jokaisen ennen kuin näet sen, ja jäljelle jätetään ne, jotka vaativat eniten kaatoja.
+Lasiputkissa on kerroksittain värillisiä nesteitä sekaisin, ja kaksi putkea on tyhjiä. Kaada nesteitä, kunnes jokainen väri täyttää oman putkensa. Putkeen mahtuu neljä kerrosta.
+Jokainen tehtävä on ratkaistavissa.
 # Siirto
-Kaada putkesta toiseen. Päällimmäinen kerros valuu yli, ja sen mukana jokainen samanvärinen kerros heti sen alta, niin paljon kuin toiseen putkeen mahtuu. Kaataa saa vain saman värin päälle tai tyhjään putkeen.
+Napauta putkea ja sitten toista kaataaksesi siihen. Päällimmäinen kerros valuu yli, ja sen mukana jokainen samanvärinen kerros heti sen alta, niin paljon kuin toiseen putkeen mahtuu. Kaataa saa vain saman värin päälle tai tyhjään putkeen.
 # Lisäputki
-Kerran tehtävää kohden saat nostaa hyllylle ylimääräisen tyhjän putken. Sen juureen jää messinkirengas, josta näkee, että sitä on käytetty.
+Kerran tehtävää kohden saat ottaa ylimääräisen tyhjän putken: napauta haaleaa putkea, jossa on plus, viimeisen hyllyn päässä.
 # Pelin loppu
-Tehtävä on ratkaistu, kun jokainen väri täyttää oman putkensa ja muut putket ovat tyhjiä. Jokainen täysi putki saa korkin, ja sitten kaikki putket syttyvät kultaisiksi.
+Tehtävä on ratkaistu, kun jokainen väri täyttää oman putkensa ja muut putket ovat tyhjiä.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, 3 väristä 12 väriin; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä kaatoja, joilla sen ratkaisee, tietokoneen löytämänä. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän kaatoja: 2 tähteä; muuten 1. Lisäputki rajaa tehtävän 2 tähteen. Kumoa peruu kaadon, eikä sitä enää lasketa.
-# Pelaaminen laitteella
-Napauta putkea: se nousee. Napauta toista putkea: ensimmäinen lentää sen luo, kallistuu ja kaataa. Jos kaato ei ole sallittu, putki tärisee; napauta sitä uudelleen laskeaksesi sen alas. Voit myös vetää putken toisen päälle. Jokaisessa kerroksessa on värin lisäksi pieni merkki. Kun haluat käyttää lisäputkea, napauta sen paikkaa viimeisen hyllyn päässä (haalea putki, jossa on plus). Lamppu antaa vihjeen: se nostaa putken, josta kaadetaan, ja valaisee putken, johon kaadetaan, tai lisäputken paikan. Jos lamppu hehkuu punaisena, tästä ei ole enää ulospääsyä: kumoa muutama siirto. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti, myös lisäputken. Palkki laskee kaatosi.
+Jokaisella tehtävällä on par eli pienin määrä kaatoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän kaatoja: 2 tähteä; muuten 1. Lisäputki rajaa tehtävän 2 tähteen.

@@ -1,18 +1,13 @@
 Rails
 # Le but
-Pose une seule ligne de chemin de fer dans la grille, de l'entrée sur un bord du plateau à la sortie sur un autre bord. Choisis d'abord la taille : 6 × 6, 8 × 8 ou 10 × 10.
-- La ligne va de case en case par leurs côtés : chaque case qu'elle emprunte porte un rail droit ou une courbe. Elle ne se divise jamais et ne se croise jamais.
+Pose une seule ligne de chemin de fer dans la grille, de l'entrée sur un bord du plateau à la sortie sur un autre bord.
+- La ligne va de case en case par leurs côtés : chaque case qu'elle emprunte porte un rail droit ou une courbe. Elle ne se divise jamais et ne se croise jamais.
 - Le nombre au-dessus de chaque colonne et à gauche de chaque rangée dit combien de ses cases la ligne emprunte.
-- Quelques rails sont donnés, sur des cases plus sombres ; la ligne sort du plateau à l'entrée et à la sortie.
-Chaque problème a une seule solution, que l'on trouve en raisonnant. Les grands plateaux en demandent davantage : la ligne ne peut jamais se refermer en boucle, et elle franchit l'espace entre deux colonnes (ou deux rangées) un nombre impair de fois quand l'entrée et la sortie sont de part et d'autre, un nombre pair sinon.
+- Quelques rails sont donnés, sur des cases plus sombres.
+Chaque problème a une seule solution, que l'on trouve par le seul raisonnement.
 # Un coup
-Pose un rail dans une case, change-le, ou marque d'une croix une case que tu sais vide. Les croix ne sont que des notes pour toi.
+Fais glisser le doigt de case en case pour poser la voie sous ton doigt. Garde le doigt sur une case pour la marquer d'une croix : une note pour dire que la ligne ne l'emprunte pas.
 # La fin de la partie
-Quand la ligne est complète et que chaque nombre est juste, le problème est résolu : un petit train roule de l'entrée à la sortie, et les cases s'illuminent d'or derrière lui.
+Quand la ligne est complète et que chaque nombre est juste, le problème est résolu : un petit train roule de l'entrée à la sortie.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 5 × 5 jusqu'au 10 × 10, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une pièce posée sur une case que la ligne n'emprunte pas, ou une croix sur une case qu'elle emprunte ; Annuler ne l'efface pas.
-# Jouer sur l'appareil
-- Fais glisser le doigt de case en case pour poser la voie sous ton doigt ; elle se raccorde aux rails déjà posés.
-- Touche une case pour un rail (celui qui se raccorde le mieux aux voisins vient d'abord), encore pour le suivant ; après le sixième, la case est de nouveau vide.
-- Garde le doigt un instant sur une case pour la marquer d'une croix. Le bouton à la croix fait mettre des croix aux touches et aux glissés ; il montre ce que fait une touche.
-Un nombre pâlit quand sa ligne a autant de rails, et rougit quand elle en a trop. La lampe est un indice : elle met une case juste et l'éclaire en or. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une pièce posée sur une case que la ligne n'emprunte pas, ou une croix sur une case qu'elle emprunte ; Annuler ne l'efface pas.

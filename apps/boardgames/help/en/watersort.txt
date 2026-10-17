@@ -1,14 +1,12 @@
 Water Sort
 # The aim
-Glass tubes hold layers of coloured liquid, all mixed up, with two tubes empty. Pour them until each colour fills a tube of its own. Choose the size first: 4 colours in 6 tubes, 7 in 9, 10 in 12 or 12 in 14. A tube holds four layers.
-Every puzzle can be solved: each one is solved by the computer before you see it, and the ones that need the most pours are kept.
+Glass tubes hold layers of coloured liquid, all mixed up, with two tubes empty. Pour them until each colour fills a tube of its own. A tube holds four layers.
+Every puzzle can be solved.
 # A move
-Pour from one tube into another. The top layer goes, and every layer of the same colour just under it, as far as the other tube has room. You may only pour onto the same colour, or into an empty tube.
+Tap a tube, then another to pour into it. The top layer goes, and every layer of the same colour just under it, as far as the other tube has room. You may only pour onto the same colour, or into an empty tube.
 # The extra tube
-Once per puzzle you may set an extra empty tube on the shelf. It keeps a brass band at its foot, so you can see it was used.
+Once per puzzle you may add an extra empty tube: tap the faint tube with a plus at the end of the last shelf.
 # The end of the game
-The puzzle is solved when every colour fills a tube of its own and the other tubes are empty. Each full tube gets a cork, and then all the tubes light up in gold.
+The puzzle is solved when every colour fills a tube of its own and the other tubes are empty.
 # Levels and stars
-There are 150 levels in six chapters, from 3 colours up to 12; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each puzzle has a par: the fewest pours that solve it, found by the computer. Solved at par: 3 stars; with up to half as many pours again: 2 stars; otherwise 1. Using the extra tube keeps the puzzle to 2 stars. Undo takes a pour back, and it no longer counts.
-# Playing on the device
-Tap a tube: it lifts. Tap another tube: the first one flies over, tilts and pours. A pour that is not allowed makes the tube shake; tap it again to put it down. You can also drag a tube onto another. Each layer carries a small sign as well as its colour. To use the extra tube, tap its place at the end of the last shelf (a faint tube with a plus). The lamp gives a hint: it lifts the tube to pour from and lights the tube to pour into, or the extra tube's place. If the lamp glows red, there is no way out from here: undo some moves. Undo takes back one move at a time, all the way to the start, the extra tube too. The bar counts your pours.
+Each puzzle has a par: the fewest pours that solve it. Solved at par: 3 stars; with up to half as many pours again: 2 stars; otherwise 1. Using the extra tube keeps the puzzle to 2 stars.

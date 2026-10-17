@@ -8,4 +8,4 @@ Ten sam obrazek może wystąpić więcej niż dwa razy: wybierz wtedy uważnie, 
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy znikną wszystkie kamienie. Gdy żadnej pary nie da się połączyć, potasuj: pozostałe kamienie zostaną rozłożone na nowo tak, by dało się je dalej usuwać.
 # Poziomy i gwiazdki
-150 poziomów w sześciu rozdziałach; karta z kostką tworzy losową planszę wybranej wielkości. Bez podpowiedzi i bez tasowania: 3 gwiazdki; do dwóch podpowiedzi, tasowanie liczy się za dwie: 2 gwiazdki; inaczej 1.
+Bez podpowiedzi i bez tasowania: 3 gwiazdki; do dwóch podpowiedzi, tasowanie liczy się za dwie: 2 gwiazdki; inaczej 1.

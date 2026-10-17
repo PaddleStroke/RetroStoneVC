@@ -1,21 +1,10 @@
 Namioty
 # Cel gry
 Rozbij namiot obok każdego drzewa: tuż nad nim, pod nim, z lewej albo z prawej. Każde drzewo ma swój namiot, a każdy namiot swoje drzewo. Namioty nigdy się nie stykają, nawet rogami. Liczby po lewej stronie wierszy i nad kolumnami mówią, ile mają namiotów.
-Każde pole ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem. Wybierz rozmiar (od 6 × 6 do 12 × 12) i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczy jedno spojrzenie: żadnego namiotu z dala od drzew ani wokół namiotu; linia, która ma wszystkie namioty albo dokładnie tyle miejsca, ile trzeba; drzewo, któremu zostało jedno miejsce.
-- Średni: przydadzą się też odcinki wolnych pól, w których namioty linii ledwie się mieszczą, i myślenie jeden namiot naprzód: namiot tutaj zostawiłby drzewo albo linię bez miejsca.
-- Trudny: dłuższe łańcuchy rozumowania, nigdy zgadywanie.
+Każde pole ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
 # Ruch
-Rozbij namiot na polu albo go zwiń. Możesz też położyć trawę na polu, by pamiętać, że nie ma tam namiotu; trawa to tylko twoja notatka.
+Dotknij pola, aby rozbić namiot, i jeszcze raz, aby go zwinąć. Przytrzymaj pole, aby położyć na nim trawę: notatkę, że nie ma tam namiotu.
 # Koniec gry
-Pole jest rozwiązane, gdy każde drzewo ma swój namiot, żadne namioty się nie stykają, a każda liczba się zgadza: po polu przebiega fala złotego światła.
+Pole jest rozwiązane, gdy każde drzewo ma swój namiot, żadne namioty się nie stykają, a każda liczba się zgadza.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle rozbity namiot lub źle położona trawa; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-- Dotknij pola, aby rozbić namiot; dotknij jeszcze raz, aby go zwinąć.
-- Przytrzymaj chwilę palec na polu, aby położyć trawę albo ją usunąć.
-- Przeciągnij wzdłuż wiersza lub kolumny, aby położyć trawę na całym odcinku (albo usunąć ją z odcinka trawy).
-Stykające się namioty świecą na czerwono, podobnie jak drzewo, któremu nie zostało miejsca na namiot. Liczba robi się czerwona, gdy jej linia ma za dużo namiotów, i blednie, gdy ma je wszystkie. Przyciski obok planszy:
-- Namiot albo trawa: co stawia dotknięcie. Dotknij go, aby zamienić dotknięcie z przytrzymaniem.
-- Żarówka: podpowiedź. Poprawia błędne pole albo pokazuje następne pole, do którego prowadzi rozumowanie, w złotym świetle.
-Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle rozbity namiot lub źle położona trawa, które cofasz przyciskiem Cofnij.

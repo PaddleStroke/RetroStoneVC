@@ -8,4 +8,4 @@ Une figure peut venir plus de deux fois : choisis alors avec soin lesquelles von
 # La fin de la partie
 Le puzzle est résolu quand toutes les tuiles sont parties. Si aucune paire ne peut être reliée, mélange : les tuiles restantes sont redistribuées pour pouvoir encore être vidées.
 # Niveaux et étoiles
-150 niveaux en six chapitres ; l'onglet du dé crée un plateau au hasard, de la taille choisie. Sans indice ni mélange : 3 étoiles ; jusqu'à deux indices, un mélange comptant pour deux : 2 étoiles ; sinon 1.
+Sans indice ni mélange : 3 étoiles ; jusqu'à deux indices, un mélange comptant pour deux : 2 étoiles ; sinon 1.

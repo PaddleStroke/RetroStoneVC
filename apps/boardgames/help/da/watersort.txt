@@ -1,14 +1,12 @@
 Sortér vandet
 # Målet
-Glasrør rummer lag af farvet væske, helt blandet sammen, og to rør er tomme. Hæld over, til hver farve fylder sit eget rør. Vælg først størrelsen: 4 farver i 6 rør, 7 i 9, 10 i 12 eller 12 i 14. Et rør kan rumme fire lag.
-Alle opgaver kan løses: computeren løser hver enkelt, før du ser den, og de opgaver, der kræver flest hældninger, bliver beholdt.
+Glasrør rummer lag af farvet væske, helt blandet sammen, og to rør er tomme. Hæld over, til hver farve fylder sit eget rør. Et rør kan rumme fire lag.
+Alle opgaver kan løses.
 # Et træk
-Hæld fra ét rør over i et andet. Det øverste lag løber over, sammen med alle lag i samme farve lige under det, så langt der er plads i det andet rør. Du må kun hælde oven på samme farve eller ned i et tomt rør.
+Tryk på et rør og så på et andet for at hælde over i det. Det øverste lag løber over, sammen med alle lag i samme farve lige under det, så langt der er plads i det andet rør. Du må kun hælde oven på samme farve eller ned i et tomt rør.
 # Det ekstra rør
-Én gang pr. opgave må du stille et ekstra tomt rør på hylden. Det beholder en messingring om foden, så man kan se, at det er brugt.
+Én gang pr. opgave må du tage et ekstra tomt rør: tryk på det svage rør med et plus for enden af den sidste hylde.
 # Spillets afslutning
-Opgaven er løst, når hver farve fylder sit eget rør, og de andre rør er tomme. Hvert fyldt rør får en prop i, og så lyser alle rørene op i guld.
+Opgaven er løst, når hver farve fylder sit eget rør, og de andre rør er tomme.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 3 farver op til 12; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal hældninger, der løser den, fundet af computeren. Løst på par: 3 stjerner; med op til halvt så mange hældninger mere: 2 stjerner; ellers 1. Det ekstra rør giver højst 2 stjerner. Fortryd tager en hældning tilbage, og det tæller ikke længere.
-# Spil på enheden
-Tryk på et rør: det løftes. Tryk på et andet rør: det første flyver derhen, vipper og hælder. Er det ikke tilladt, ryster røret; tryk på det igen for at sætte det ned. Du kan også trække et rør hen på et andet. Hvert lag har et lille tegn ud over sin farve. Vil du bruge det ekstra rør, så tryk på dets plads for enden af den sidste hylde (et svagt rør med et plus). Lampen giver et tip: den løfter røret, der skal hældes fra, og lyser røret op, der skal hældes i, eller det ekstra rørs plads. Lyser lampen rødt, er der ingen vej ud herfra: fortryd nogle træk. Fortryd tager ét træk tilbage ad gangen, helt til starten, også det ekstra rør. Bjælken tæller dine hældninger.
+Hver opgave har et par: det mindste antal hældninger, der løser den. Løst på par: 3 stjerner; med op til halvt så mange hældninger mere: 2 stjerner; ellers 1. Det ekstra rør giver højst 2 stjerner.

@@ -1,12 +1,10 @@
 Udred
 # Målet
-Messingnåle står i brættet, forbundet med snore, og snorene krydser hinanden. Flyt nålene, til ingen to snore krydser hinanden. Vælg først, hvor mange nåle: 10, 20, 30 eller 45.
-Hver opgave kan udredes: nålene stod først helt uden krydsninger og blev så sat i en cirkel i blandet rækkefølge.
+Messingnåle står i brættet, forbundet med snore, og snorene krydser hinanden. Flyt nålene, til ingen to snore krydser hinanden.
+Hver opgave kan udredes.
 # Et træk
-Flyt én nål hen et hvilket som helst sted på brættet; dens snore følger med.
+Træk én nål hen et hvilket som helst sted på brættet; dens snore følger med.
 # Spillets afslutning
-Når ingen snor krydser en anden eller rører en nål, der ikke er dens egen, er opgaven løst: snorene bliver gyldne, og et gyldent lys løber hen over nålene.
+Når ingen snor krydser en anden eller rører en nål, der ikke er dens egen, er opgaven løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 6 nåle op til 36: i hver er nogle få nåle flyttet ud af et mønster helt uden krydsninger. Vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: i en bane antallet af flyttede nåle; i en tilfældig opgave det mindste antal nåle, man ved skal flyttes. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1. Fortryd tager et træk tilbage, og det tæller ikke længere.
-# Spil på enheden
-Træk en nål med fingeren. Mens du flytter den, lyser hver snor, der krydser en anden, rødt; når der ikke er flere, bliver de alle gyldne. Bjælken viser dine træk og de krydsninger, der er tilbage. Lampen er et tip: den flytter én nål derhen, hvor den fjerner flest krydsninger, eller, når intet enkelt træk hjælper, sætter den, hvor den står i en opstilling uden krydsninger; nålen glider derhen i gyldent lys. Fortryd tager ét træk tilbage ad gangen, helt til begyndelsen.
+Hver opgave har et par: i en bane antallet af flyttede nåle; i en tilfældig opgave det mindste antal nåle, man ved skal flyttes. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1.

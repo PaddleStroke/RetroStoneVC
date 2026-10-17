@@ -1,18 +1,13 @@
 Raiteet
 # Tavoite
-Rakenna yksi rautatielinja ruudukon halki, laudan reunalla olevasta sisäänajosta toisella reunalla olevaan ulosajoon. Valitse ensin koko: 6 × 6, 8 × 8 tai 10 × 10.
+Rakenna yksi rautatielinja ruudukon halki, laudan reunalla olevasta sisäänajosta toisella reunalla olevaan ulosajoon.
 - Linja kulkee ruudusta toiseen niiden sivujen kautta: jokaisessa käyttämässään ruudussa on suora pala tai kaarre. Se ei koskaan haaraudu eikä risteä itsensä kanssa.
 - Kunkin sarakkeen yläpuolella ja kunkin rivin vasemmalla puolella oleva luku kertoo, montako sen ruutua linja käyttää.
-- Muutama pala on annettu, tummemmissa ruuduissa; sisäänajossa ja ulosajossa linja jatkuu laudan ulkopuolelle.
-Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Suuremmat laudat vaativat sitä enemmän: linja ei saa koskaan sulkeutua silmukaksi, ja se ylittää kahden sarakkeen (tai rivin) välisen raon parittoman määrän kertoja, kun sisäänajo ja ulosajo ovat eri puolilla, muuten parillisen määrän.
+- Muutama pala on annettu, tummemmissa ruuduissa.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
 # Siirto
-Laita ruutuun raidepala, vaihda se, tai merkitse ristillä ruutu, jonka tiedät jäävän tyhjäksi. Ristit ovat vain muistiinpanojasi.
+Vedä ruudusta ruutuun rakentaaksesi raiteen sormesi alle. Pidä sormea ruudulla merkitäksesi sen ristillä: muistiinpano, ettei linja käytä sitä.
 # Pelin loppu
-Kun linja on valmis ja jokainen luku täsmää, tehtävä on ratkaistu: pieni juna ajaa sisäänajosta ulosajoon, ja ruudut syttyvät kultaisiksi sen perässä.
+Kun linja on valmis ja jokainen luku täsmää, tehtävä on ratkaistu: pieni juna ajaa sisäänajosta ulosajoon.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 5 × 5 kokoon 10 × 10, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kiskopala ruudussa, jota rata ei käytä, tai risti ruudussa, jota se käyttää; Kumoa ei poista sitä.
-# Pelaaminen laitteella
-- Vedä ruudusta ruutuun rakentaaksesi raiteen sormesi alle; se liittyy jo oleviin paloihin.
-- Napauta ruutua saadaksesi palan (naapureihin parhaiten sopiva ensin), uudelleen seuraavan; kuudennen jälkeen ruutu on taas tyhjä.
-- Pidä sormea hetki ruudulla merkitäksesi sen ristillä. Ristipainike saa napautukset ja vedot merkitsemään ristejä; se näyttää, mitä napautus tekee.
-Luku himmenee, kun sen linjalla on niin monta palaa, ja muuttuu punaiseksi, kun niitä on liikaa. Lamppu on vihje: se korjaa yhden ruudun ja valaisee sen kultaisena. Kumoa peruu yhden toiminnon kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kiskopala ruudussa, jota rata ei käytä, tai risti ruudussa, jota se käyttää; Kumoa ei poista sitä.

@@ -8,4 +8,4 @@ Satu gambar bisa muncul lebih dari dua kali: pilihlah dengan cermat dua mana yan
 # Akhir permainan
 Teka-teki selesai saat semua ubin habis. Jika tidak ada pasangan yang bisa dihubungkan, kocok: ubin yang tersisa dibagikan lagi agar tetap bisa dihabiskan.
 # Level dan bintang
-150 level dalam enam bab; tab dadu membuat papan acak dengan ukuran pilihanmu. Tanpa petunjuk dan tanpa kocok: 3 bintang; sampai dua petunjuk, satu kocokan dihitung dua: 2 bintang; selain itu 1.
+Tanpa petunjuk dan tanpa kocok: 3 bintang; sampai dua petunjuk, satu kocokan dihitung dua: 2 bintang; selain itu 1.

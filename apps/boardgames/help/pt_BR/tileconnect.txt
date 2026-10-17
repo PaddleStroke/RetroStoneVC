@@ -8,4 +8,4 @@ Uma figura pode aparecer mais de duas vezes: escolha então com cuidado quais v�
 # O fim da partida
 O quebra-cabeça está resolvido quando não sobra nenhuma peça. Se nenhum par puder ser unido, embaralhe: as peças restantes são distribuídas de novo para ainda poderem sair.
 # Níveis e estrelas
-150 níveis em seis capítulos; a aba do dado cria um tabuleiro ao acaso, do tamanho escolhido. Sem dicas nem embaralhar: 3 estrelas; até duas dicas, contando cada embaralhada como duas: 2 estrelas; senão, 1.
+Sem dicas nem embaralhar: 3 estrelas; até duas dicas, contando cada embaralhada como duas: 2 estrelas; senão, 1.

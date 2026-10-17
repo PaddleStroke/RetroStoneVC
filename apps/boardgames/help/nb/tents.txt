@@ -1,21 +1,10 @@
 Telt
 # Målet
 Sett opp et telt ved siden av hvert tre: rett over, under, til venstre eller til høyre for det. Hvert tre har sitt eget telt og hvert telt sitt eget tre. Teltene berører aldri hverandre, ikke engang på skrå. Tallene til venstre for radene og over kolonnene forteller hvor mange telt de har.
-Hver mark har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg størrelse (fra 6 × 6 til 12 × 12) og nivå (steinene under hvert bilde):
-- Lett: Ett blikk er alltid nok: ingen telt langt fra trærne eller rundt et telt; en linje med alle teltene sine, eller med akkurat nok plass til dem; et tre med bare én plass igjen.
-- Middels: Du trenger også stykkene med frie ruter der en linjes telt så vidt får plass, og må tenke ett telt fram: Et telt her ville latt et tre eller en linje stå uten plass.
-- Vanskelig: lengre kjeder av slutninger, aldri gjetting.
+Hver mark har nøyaktig én løsning, som kan finnes bare ved å resonnere.
 # Et trekk
-Sett opp et telt i en rute, eller ta det ned. Du kan også legge gress i en rute for å huske at det ikke skal stå et telt der; gresset er bare et notat til deg selv.
+Trykk på en rute for å sette opp et telt, igjen for å ta det ned. Hold på en rute for å legge gress i den: et notat om at det ikke skal stå et telt der.
 # Slutten på spillet
-Marken er løst når hvert tre har sitt telt, ingen telt berører hverandre og hvert tall stemmer: En bølge av gyllent lys går over marken.
+Marken er løst når hvert tre har sitt telt, ingen telt berører hverandre og hvert tall stemmer.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 12 × 12, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil telt eller gress som du tar tilbake med Angre.
-# Spill på enheten
-- Trykk på en rute for å sette opp et telt; trykk igjen for å ta det ned.
-- Hold fingeren et øyeblikk på en rute for å legge gress, eller ta det bort.
-- Dra langs en rad eller kolonne for å legge gress i et helt stykke (eller ta det bort fra et stykke med gress).
-Telt som berører hverandre, gløder rødt, og det samme gjør et tre uten plass til teltet sitt. Et tall blir rødt når linjen har for mange telt, og blekner når den har alle. Knappene ved siden av brettet:
-- Telt eller gress: hva et trykk setter. Trykk på den for å bytte om trykk og hold.
-- Lyspære: et hint. Den retter en feil rute eller viser ellers neste rute resonneringen finner, i gyllent lys.
-Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil telt eller gress som du tar tilbake med Angre.

@@ -8,4 +8,4 @@ Een afbeelding kan vaker dan twee keer voorkomen: kies dan goed welke twee bij e
 # Het einde van het spel
 De puzzel is opgelost als alle stenen weg zijn. Kan geen enkel paar meer verbonden worden, schud dan: de overgebleven stenen worden opnieuw verdeeld zodat ze nog weg kunnen.
 # Levels en sterren
-150 levels in zes hoofdstukken; het dobbelsteentabblad maakt een willekeurig bord in de gekozen grootte. Geen hint en niet geschud: 3 sterren; tot twee hints, schudden telt als twee: 2 sterren; anders 1.
+Geen hint en niet geschud: 3 sterren; tot twee hints, schudden telt als twee: 2 sterren; anders 1.

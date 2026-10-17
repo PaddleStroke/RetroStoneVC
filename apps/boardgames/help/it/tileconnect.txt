@@ -8,4 +8,4 @@ Una figura può comparire più di due volte: scegli allora con cura quali vanno 
 # La fine della partita
 Il rompicapo è risolto quando non resta nessuna tessera. Se nessuna coppia si può unire, mescola: le tessere rimaste vengono ridistribuite in modo da poterle ancora togliere.
 # Livelli e stelle
-150 livelli in sei capitoli; la scheda del dado crea una tavola a caso, della misura scelta. Nessun aiuto e nessun mescolamento: 3 stelle; fino a due aiuti, un mescolamento conta due: 2 stelle; altrimenti 1.
+Nessun aiuto e nessun mescolamento: 3 stelle; fino a due aiuti, un mescolamento conta due: 2 stelle; altrimenti 1.

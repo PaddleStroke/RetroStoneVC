@@ -8,4 +8,4 @@ Uma figura pode aparecer mais de duas vezes: escolhe então com cuidado quais v�
 # O fim do jogo
 O puzzle fica resolvido quando não resta nenhuma peça. Se nenhum par se puder unir, baralha: as peças que restam são distribuídas de novo para ainda poderem sair.
 # Níveis e estrelas
-150 níveis em seis capítulos; o separador do dado cria um tabuleiro ao acaso, do tamanho que escolheres. Sem dicas nem baralhar: 3 estrelas; até duas dicas, contando cada baralhar como duas: 2 estrelas; caso contrário, 1.
+Sem pistas nem baralhar: 3 estrelas; até duas pistas, contando cada baralhar como duas: 2 estrelas; caso contrário, 1.

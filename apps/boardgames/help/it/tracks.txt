@@ -1,18 +1,13 @@
 Binari
 # Lo scopo
-Posa un'unica linea ferroviaria nella griglia, dall'ingresso su un bordo del tavoliere all'uscita su un altro bordo. Scegli prima la misura: 6 × 6, 8 × 8 o 10 × 10.
+Posa un'unica linea ferroviaria nella griglia, dall'ingresso su un bordo del tavoliere all'uscita su un altro bordo.
 - La linea passa da casella a casella attraverso i loro lati: ogni casella che usa porta un binario dritto o una curva. Non si dirama mai e non si incrocia mai.
 - Il numero sopra ogni colonna e a sinistra di ogni riga dice quante delle sue caselle usa la linea.
-- Alcuni binari sono dati, su caselle più scure; la linea esce dal tavoliere all'ingresso e all'uscita.
-Ogni rompicapo ha una sola soluzione, che si trova solo ragionando. I tavolieri grandi ne chiedono di più: la linea non può mai chiudersi ad anello, e attraversa lo spazio tra due colonne (o due righe) un numero dispari di volte quando ingresso e uscita stanno ai due lati, un numero pari altrimenti.
+- Alcuni binari sono dati, su caselle più scure.
+Ogni rompicapo ha una sola soluzione, che si trova solo ragionando.
 # Una mossa
-Posa un pezzo di binario in una casella, cambialo, o segna con una croce una casella che sai vuota. Le croci sono solo appunti per te.
+Trascina da casella a casella per posare il binario sotto il dito. Tieni premuta una casella per segnarla con una croce: un appunto per ricordare che la linea non la usa.
 # La fine della partita
-Quando la linea è completa e ogni numero torna, il rompicapo è risolto: un trenino corre dall'ingresso all'uscita e le caselle si accendono d'oro dietro di lui.
+Quando la linea è completa e ogni numero torna, il rompicapo è risolto: un trenino corre dall'ingresso all'uscita.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 10 × 10, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un pezzo posato su una casella che la linea non usa, o una croce su una casella che usa; Annulla non lo toglie.
-# Giocare sul dispositivo
-- Trascina da casella a casella per posare il binario sotto il dito; si collega ai pezzi già posati.
-- Tocca una casella per un binario (prima quello che meglio si raccorda ai vicini), di nuovo per il successivo; dopo il sesto la casella torna vuota.
-- Tieni premuta una casella un istante per segnarla con una croce. Il pulsante con la croce fa segnare croci a tocchi e trascinamenti; mostra cosa fa un tocco.
-Un numero sbiadisce quando la sua linea ha quei binari, e diventa rosso quando ne ha troppi. La lampada è un suggerimento: sistema una casella e la illumina d'oro. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un pezzo posato su una casella che la linea non usa, o una croce su una casella che usa; Annulla non lo toglie.

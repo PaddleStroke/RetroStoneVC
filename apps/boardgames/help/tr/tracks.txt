@@ -1,18 +1,13 @@
 Raylar
 # Amaç
-Izgaranın içinden tek bir demiryolu hattı döşe: tahtanın bir kenarındaki girişten başka bir kenardaki çıkışa. Önce boyutu seç: 6 × 6, 8 × 8 ya da 10 × 10.
+Izgaranın içinden tek bir demiryolu hattı döşe: tahtanın bir kenarındaki girişten başka bir kenardaki çıkışa.
 - Hat kareden kareye kenarlarından geçer: kullandığı her karede düz bir parça ya da bir viraj vardır. Asla dallanmaz ve asla kendini kesmez.
 - Her sütunun üstündeki ve her satırın solundaki sayı, hattın oradaki kaç kareyi kullandığını söyler.
-- Birkaç parça daha koyu karelerde verilmiştir; hat giriş ve çıkışta tahtanın dışına uzanır.
-Her bulmacanın tam olarak bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Büyük tahtalar bunu daha çok ister: hat asla bir döngü olarak kapanamaz ve iki sütun (ya da iki satır) arasındaki aralığı, giriş ile çıkış iki ayrı yandaysa tek sayıda, değilse çift sayıda geçer.
+- Birkaç parça daha koyu karelerde verilmiştir.
+Her bulmacanın tam olarak bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
 # Bir hamle
-Bir kareye ray parçası koy, onu değiştir ya da boş kalacağını bildiğin bir kareyi çarpıyla işaretle. Çarpılar yalnızca senin notlarındır.
+Rayı parmağının altına döşemek için kareden kareye sürükle. Bir kareyi çarpıyla işaretlemek için parmağını üzerinde tut: hattın onu kullanmadığına dair bir not.
 # Oyunun sonu
-Hat tamamlanıp her sayı doğru olduğunda bulmaca çözülmüştür: küçük bir tren girişten çıkışa gider ve kareler arkasından altın renkle aydınlanır.
+Hat tamamlanıp her sayı doğru olduğunda bulmaca çözülmüştür: küçük bir tren girişten çıkışa gider.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 5 × 5'ten 10 × 10'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, hattın kullanmadığı bir kareye konan bir ray parçası ya da kullandığı bir kareye konan bir çarpıdır; hemen sayılır ve Geri al onu silmez.
-# Cihazda oynamak
-- Rayı parmağının altına döşemek için kareden kareye sürükle; zaten orada olan parçalara bağlanır.
-- Bir parça için kareye dokun (komşularına en iyi uyan önce gelir), bir sonraki için yeniden dokun; altıncıdan sonra kare yeniden boşalır.
-- Bir kareyi çarpıyla işaretlemek için parmağını bir an üzerinde tut. Çarpı düğmesi dokunuşları ve sürüklemeleri çarpıya çevirir; bir dokunuşun ne yaptığını gösterir.
-Bir sayı, hattında o kadar parça olunca solar, fazlası olunca kırmızılaşır. Lamba bir ipucudur: bir kareyi düzeltir ve altın renkle aydınlatır. Geri al her seferinde bir işlemi en başa kadar geri alır. Şerit hamlelerini gösterir.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, hattın kullanmadığı bir kareye konan bir ray parçası ya da kullandığı bir kareye konan bir çarpıdır; Geri al onu silmez.
