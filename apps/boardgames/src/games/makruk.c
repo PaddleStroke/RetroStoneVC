@@ -248,11 +248,12 @@ static int xy_sq(float x, float y)
 }
 
 /* a standing piece at (x, y), size x size, with its shadow; turned round for the top player face to face; alpha */
-static void piece_at(int pc, float x, float y, float size, float alpha)
+static void piece_at(int pc, float x, float y, float size, float alpha, float lift)
 {
     int c = MK_COLOR(pc), up = ui_upside(c);
     SDL_Texture *t = t_piece[c][MK_KIND(pc)];
-    if (alpha >= 1) ui_shadow(x, up ? y - 0.79f * size : y, size);
+    if (alpha >= 1) ui_shadow(x + 0.4f * lift, (up ? y - 0.79f * size : y) + 0.4f * lift, size);
+    y -= lift;                                  /* lifted: picked up, or hopping over the board */
     SDL_SetTextureAlphaMod(t, (Uint8)(255 * clampf(alpha, 0, 1)));
     if (up) ui_put_rot(t, x + size / 2, y + size / 2, size, size, 180);
     else ui_put(t, x, y, size, size);
@@ -290,7 +291,7 @@ static void draw(void)
     for (int s = 0; s < 64; s++) {
         if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
         sq_xy(s, &x, &y);
-        piece_at(p->sq[s], x, y, (float)sq, 1);
+        piece_at(p->sq[s], x, y, (float)sq, 1, s == sel ? 0.09f * sq : 0);
     }
     if (sel >= 0)                               /* where the selected piece can go */
         for (int i = 0; i < nlegal; i++) {
@@ -302,14 +303,14 @@ static void draw(void)
     if (anim.on) {
         float x0, y0;
         sq_xy(anim.m.to, &x, &y);
-        if (anim.m.taken && t * ANIM_MS < FADE_MS) piece_at(anim.m.taken, x, y, (float)sq, 1 - e);   /* fading */
+        if (anim.m.taken && t * ANIM_MS < FADE_MS) piece_at(anim.m.taken, x, y, (float)sq, 1 - e, 0);   /* fading */
         sq_xy(anim.m.from, &x0, &y0);
         float px = x0 + (x - x0) * e, py = y0 + (y - y0) * e;
-        piece_at(anim.pc, px, py, (float)sq, 1);   /* a promoting Bia arrives as a Bia */
+        piece_at(anim.pc, px, py, (float)sq, 1, 0.35f * sq * ui_hop(t));   /* a promoting Bia arrives as a Bia */
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
-        piece_at(p->sq[drag.from], drag.x - s / 2, drag.y - s * off, s, 1);
+        piece_at(p->sq[drag.from], drag.x - s / 2, drag.y - s * off, s, 1, 0.1f * s);
     }
 }
 
