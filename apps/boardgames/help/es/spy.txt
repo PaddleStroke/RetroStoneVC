@@ -1,0 +1,16 @@
+El espía
+# El objetivo
+Todos los jugadores menos uno conocen el mismo lugar secreto; el otro es el espía, que no lo conoce. Desenmascarad al espía o, como espía, adivina el lugar. Para 3 a 10 jugadores.
+# Una ronda
+- Pasad el dispositivo: cada jugador mira su carta a solas.
+- Luego dejadlo en el centro. El jugador en dorado hace a cualquiera una pregunta sobre el lugar; ese jugador responde y hace la siguiente pregunta.
+- Responde con la claridad justa para mostrar que conoces el lugar, pero sin delatarlo.
+- Cuando se acabe el tiempo, o antes, poneos de acuerdo en un sospechoso y tocadlo.
+- El espía puede parar la charla en cualquier momento e intentar nombrar el lugar: la lupa.
+# La puntuación
+- Si acusan al espía, tiene un intento para nombrar el lugar.
+- El espía acierta el lugar: 3 puntos para el espía.
+- El espía dice un lugar equivocado: 1 punto para cada otro jugador.
+- Acusan a otro: 2 puntos para el espía.
+# El final de la partida
+Tras 5 rondas, gana quien tenga más puntos.

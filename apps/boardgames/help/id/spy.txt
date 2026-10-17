@@ -1,0 +1,16 @@
+Mata-mata
+# Tujuan
+Semua pemain kecuali satu mengetahui tempat rahasia yang sama; satu orang itu adalah mata-mata yang tidak mengetahuinya. Bongkar mata-matanya, atau sebagai mata-mata, tebak tempatnya. Untuk 3 sampai 10 pemain.
+# Satu ronde
+- Edarkan perangkat: setiap pemain melihat kartunya sendirian.
+- Lalu letakkan di tengah. Pemain berwarna emas mengajukan pertanyaan tentang tempat itu kepada siapa saja; pemain itu menjawab, lalu mengajukan pertanyaan berikutnya.
+- Jawab cukup jelas untuk menunjukkan bahwa kamu tahu tempatnya, tetapi cukup samar agar tidak membocorkannya.
+- Saat waktu habis, atau lebih awal, sepakati satu tersangka dan ketuk dia.
+- Mata-mata boleh menghentikan obrolan kapan saja dan mencoba menyebut tempatnya: kaca pembesar.
+# Skor
+- Mata-mata yang dituduh mendapat satu kesempatan menebak tempatnya.
+- Mata-mata menebak benar: 3 poin untuk mata-mata.
+- Mata-mata menyebut tempat yang salah: 1 poin untuk setiap pemain lain.
+- Orang lain yang dituduh: 2 poin untuk mata-mata.
+# Akhir permainan
+Setelah 5 ronde, poin terbanyak menang.

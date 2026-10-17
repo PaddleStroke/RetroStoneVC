@@ -1,0 +1,16 @@
+The Spy
+# The aim
+All the players but one share a secret place; the other one is the spy, who does not know it. Unmask the spy, or, as the spy, work out the place. For 3 to 10 players.
+# A round
+- Pass the device round: each player looks at their card alone.
+- Then lay it in the middle. The player in gold asks anyone a question about the place; that player answers, then asks the next question.
+- Answer clearly enough to show you know the place, but vaguely enough not to give it away.
+- When the time is up, or sooner, agree on a suspect and tap them.
+- The spy may stop the talk at any time and try to name the place: the magnifying glass.
+# Points
+- The spy is accused: they get one try at the place.
+- The spy names the place: 3 points for the spy.
+- The spy names a wrong place: 1 point for each other player.
+- Someone else is accused: 2 points for the spy.
+# The end of the game
+After 5 rounds, the most points win.

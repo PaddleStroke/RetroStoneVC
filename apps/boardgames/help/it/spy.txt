@@ -1,0 +1,16 @@
+La spia
+# Lo scopo
+Tutti i giocatori tranne uno conoscono lo stesso luogo segreto; l'ultimo è la spia, che non lo conosce. Smascherate la spia o, se sei la spia, indovina il luogo. Da 3 a 10 giocatori.
+# Un giro
+- Passate il dispositivo: ognuno guarda la propria carta da solo.
+- Poi posatelo al centro. Il giocatore in oro fa a chiunque una domanda sul luogo; questi risponde e fa la domanda seguente.
+- Rispondi in modo abbastanza chiaro da mostrare che conosci il luogo, ma abbastanza vago da non svelarlo.
+- Allo scadere del tempo, o prima, accordatevi su un sospetto e toccatelo.
+- La spia può fermare la discussione in qualsiasi momento e provare a nominare il luogo: la lente.
+# Il punteggio
+- Se la spia viene accusata, ha un tentativo per nominare il luogo.
+- La spia indovina il luogo: 3 punti alla spia.
+- La spia nomina un luogo sbagliato: 1 punto a ogni altro giocatore.
+- Viene accusato un altro: 2 punti alla spia.
+# La fine della partita
+Dopo 5 giri vince chi ha più punti.

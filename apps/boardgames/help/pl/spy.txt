@@ -1,0 +1,16 @@
+Szpieg
+# Cel gry
+Wszyscy gracze oprócz jednego znają to samo tajne miejsce; ten ostatni jest szpiegiem i go nie zna. Zdemaskujcie szpiega albo, jako szpieg, odgadnij miejsce. Dla 3 do 10 graczy.
+# Runda
+- Podawajcie urządzenie dookoła: każdy sam ogląda swoją kartę.
+- Potem połóżcie je na środku. Gracz w złocie zadaje komukolwiek pytanie o miejsce; ten odpowiada i zadaje następne pytanie.
+- Odpowiadaj na tyle jasno, by pokazać, że znasz miejsce, i na tyle mgliście, by go nie zdradzić.
+- Gdy skończy się czas, lub wcześniej, wybierzcie podejrzanego i dotknijcie go.
+- Szpieg może w każdej chwili przerwać rozmowę i spróbować nazwać miejsce: lupa.
+# Punktacja
+- Oskarżony szpieg ma jedną próbę nazwania miejsca.
+- Szpieg nazywa miejsce: 3 punkty dla szpiega.
+- Szpieg podaje złe miejsce: 1 punkt dla każdego innego gracza.
+- Oskarżony zostaje ktoś inny: 2 punkty dla szpiega.
+# Koniec gry
+Po 5 rundach wygrywa najwięcej punktów.

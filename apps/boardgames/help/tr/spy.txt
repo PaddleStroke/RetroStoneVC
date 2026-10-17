@@ -1,0 +1,16 @@
+Casus
+# Amaç
+Biri hariç bütün oyuncular aynı gizli yeri bilir; o biri casustur ve yeri bilmez. Casusu ortaya çıkarın ya da casussanız yeri bulun. 3 ila 10 oyuncu için.
+# Bir tur
+- Cihazı elden ele dolaştırın: herkes kartına tek başına bakar.
+- Sonra ortaya koyun. Altın renkli oyuncu herhangi birine yer hakkında bir soru sorar; o da cevaplar ve sıradaki soruyu sorar.
+- Yeri bildiğinizi gösterecek kadar açık, ama ele vermeyecek kadar belirsiz cevap verin.
+- Süre dolunca ya da daha önce, bir şüphelide anlaşın ve ona dokunun.
+- Casus istediği an konuşmayı durdurup yeri tahmin edebilir: büyüteç.
+# Puanlama
+- Suçlanan casusun yeri söylemek için bir hakkı olur.
+- Casus yeri bilir: casusa 3 puan.
+- Casus yanlış yer söyler: diğer her oyuncuya 1 puan.
+- Başka biri suçlanır: casusa 2 puan.
+# Oyunun sonu
+5 turdan sonra en çok puanı olan kazanır.

@@ -1,0 +1,61 @@
+The Spy: the places (a line each, in tools/spy_places.tsv's order)
+Letiště
+Banka
+Pláž
+Nemocnice
+Hotel
+Škola
+Restaurace
+Supermarket
+Kino
+Divadlo
+Muzeum
+Knihovna
+Zoo
+Cirkus
+Nádraží
+Ponorka
+Vesmírná stanice
+Pirátská loď
+Hrad
+Kostel
+Statek
+Policejní stanice
+Hasičská zbrojnice
+Pošta
+Bazén
+Stadion
+Posilovna
+Lyžařské středisko
+Kemp
+Poušť
+Džungle
+Tropický ostrov
+Maják
+Výletní loď
+Noční vlak
+Letadlo
+Autobus
+Autoservis
+Pekárna
+Kadeřnictví
+Zubař
+Kancelář
+Továrna
+Staveniště
+Svatba
+Narozeninová oslava
+Koncert
+Noční klub
+Kasino
+Zábavní park
+Tržiště
+Vězení
+Vojenská základna
+Univerzita
+Dětské hřiště
+Velvyslanectví
+Polární stanice
+Vinice
+Lázně
+Akvárium

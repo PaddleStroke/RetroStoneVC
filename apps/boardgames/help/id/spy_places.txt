@@ -1,0 +1,61 @@
+The Spy: the places (a line each, in tools/spy_places.tsv's order)
+Bandara
+Bank
+Pantai
+Rumah sakit
+Hotel
+Sekolah
+Restoran
+Supermarket
+Bioskop
+Teater
+Museum
+Perpustakaan
+Kebun binatang
+Sirkus
+Stasiun kereta
+Kapal selam
+Stasiun luar angkasa
+Kapal bajak laut
+Kastil
+Gereja
+Peternakan
+Kantor polisi
+Pos pemadam kebakaran
+Kantor pos
+Kolam renang
+Stadion
+Pusat kebugaran
+Resor ski
+Perkemahan
+Gurun
+Hutan rimba
+Pulau tropis
+Mercusuar
+Kapal pesiar
+Kereta malam
+Pesawat
+Bus
+Bengkel
+Toko roti
+Salon rambut
+Dokter gigi
+Kantor
+Pabrik
+Proyek konstruksi
+Pernikahan
+Pesta ulang tahun
+Konser
+Klub malam
+Kasino
+Taman hiburan
+Pasar
+Penjara
+Markas tentara
+Universitas
+Taman bermain
+Kedutaan besar
+Stasiun kutub
+Kebun anggur
+Pemandian air panas
+Akuarium

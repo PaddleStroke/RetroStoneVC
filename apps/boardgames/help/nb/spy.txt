@@ -1,0 +1,16 @@
+Spionen
+# Målet
+Alle spillerne unntatt én kjenner det samme hemmelige stedet; den siste er spionen, som ikke kjenner det. Avslør spionen, eller gjett stedet som spion. For 3 til 10 spillere.
+# En runde
+- Send enheten rundt: hver spiller ser på kortet sitt alene.
+- Legg den så i midten. Spilleren i gull stiller hvem som helst et spørsmål om stedet; den spilleren svarer og stiller neste spørsmål.
+- Svar tydelig nok til å vise at du kjenner stedet, men vagt nok til ikke å avsløre det.
+- Når tiden er ute, eller før, blir dere enige om en mistenkt og trykker på vedkommende.
+- Spionen kan når som helst stoppe praten og prøve å nevne stedet: forstørrelsesglasset.
+# Poengene
+- Blir spionen anklaget, får spionen ett forsøk på å nevne stedet.
+- Spionen nevner stedet: 3 poeng til spionen.
+- Spionen nevner feil sted: 1 poeng til hver av de andre.
+- En annen blir anklaget: 2 poeng til spionen.
+# Slutten på spillet
+Etter 5 runder vinner flest poeng.

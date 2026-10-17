@@ -1,0 +1,16 @@
+Spionen
+# Målet
+Alla spelare utom en känner till samma hemliga plats; den sista är spionen, som inte vet den. Avslöja spionen, eller lista ut platsen som spion. För 3 till 10 spelare.
+# En omgång
+- Skicka runt enheten: var och en tittar på sitt kort ensam.
+- Lägg den sedan i mitten. Spelaren i guld ställer en fråga om platsen till vem som helst; den spelaren svarar och ställer nästa fråga.
+- Svara tydligt nog för att visa att du känner platsen, men vagt nog för att inte avslöja den.
+- När tiden är slut, eller tidigare, enas om en misstänkt och tryck på hen.
+- Spionen får när som helst stoppa samtalet och försöka nämna platsen: förstoringsglaset.
+# Poängen
+- Anklagas spionen får hen ett försök att nämna platsen.
+- Spionen nämner platsen: 3 poäng till spionen.
+- Spionen nämner fel plats: 1 poäng till var och en av de andra.
+- Någon annan anklagas: 2 poäng till spionen.
+# Partiets slut
+Efter 5 omgångar vinner flest poäng.

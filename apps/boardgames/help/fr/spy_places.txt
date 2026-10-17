@@ -1,0 +1,61 @@
+The Spy: the places (a line each, in tools/spy_places.tsv's order)
+Aéroport
+Banque
+Plage
+Hôpital
+Hôtel
+École
+Restaurant
+Supermarché
+Cinéma
+Théâtre
+Musée
+Bibliothèque
+Zoo
+Cirque
+Gare
+Sous-marin
+Station spatiale
+Bateau pirate
+Château fort
+Église
+Ferme
+Commissariat
+Caserne de pompiers
+Bureau de poste
+Piscine
+Stade
+Salle de sport
+Station de ski
+Camping
+Désert
+Jungle
+Île tropicale
+Phare
+Paquebot
+Train de nuit
+Avion
+Autobus
+Garage
+Boulangerie
+Salon de coiffure
+Cabinet dentaire
+Bureau
+Usine
+Chantier
+Mariage
+Fête d'anniversaire
+Concert
+Boîte de nuit
+Casino
+Parc d'attractions
+Marché
+Prison
+Caserne
+Université
+Aire de jeux
+Ambassade
+Base polaire
+Vignoble
+Thermes
+Aquarium

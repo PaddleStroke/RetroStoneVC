@@ -1,0 +1,16 @@
+L'espion
+# Le but
+Tous les joueurs sauf un partagent un même lieu secret ; le dernier est l'espion, qui ne le connaît pas. Démasquez l'espion ou, espion, devinez le lieu. Pour 3 à 10 joueurs.
+# Une manche
+- Faites passer l'appareil : chacun regarde sa carte seul.
+- Posez-le ensuite au milieu. Le joueur en or pose à qui il veut une question sur le lieu ; celui-ci répond, puis pose la question suivante.
+- Répondez assez clairement pour montrer que vous connaissez le lieu, mais assez vaguement pour ne pas le trahir.
+- Quand le temps est écoulé, ou avant, mettez-vous d'accord sur un suspect et touchez-le.
+- L'espion peut à tout moment arrêter la discussion et tenter de nommer le lieu : la loupe.
+# Le score
+- L'espion accusé a un essai pour nommer le lieu.
+- L'espion trouve le lieu : 3 points pour l'espion.
+- L'espion nomme un mauvais lieu : 1 point pour chacun des autres joueurs.
+- Un autre joueur est accusé : 2 points pour l'espion.
+# La fin de la partie
+Après 5 manches, le plus de points gagne.

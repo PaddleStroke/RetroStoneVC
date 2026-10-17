@@ -1,0 +1,61 @@
+en	cs	da	de	el	es	fi	fr	id	it	ja	ko	nb	nl	pl	pt_BR	pt_PT	ru	sv	tr	uk	zh_CN
+Airport	Letiště	Lufthavn	Flughafen	Αεροδρόμιο	Aeropuerto	Lentoasema	Aéroport	Bandara	Aeroporto	空港	공항	Flyplass	Vliegveld	Lotnisko	Aeroporto	Aeroporto	Аэропорт	Flygplats	Havalimanı	Аеропорт	机场
+Bank	Banka	Bank	Bank	Τράπεζα	Banco	Pankki	Banque	Bank	Banca	銀行	은행	Bank	Bank	Bank	Banco	Banco	Банк	Bank	Banka	Банк	银行
+Beach	Pláž	Strand	Strand	Παραλία	Playa	Uimaranta	Plage	Pantai	Spiaggia	ビーチ	해변	Strand	Strand	Plaża	Praia	Praia	Пляж	Strand	Plaj	Пляж	海滩
+Hospital	Nemocnice	Hospital	Krankenhaus	Νοσοκομείο	Hospital	Sairaala	Hôpital	Rumah sakit	Ospedale	病院	병원	Sykehus	Ziekenhuis	Szpital	Hospital	Hospital	Больница	Sjukhus	Hastane	Лікарня	医院
+Hotel	Hotel	Hotel	Hotel	Ξενοδοχείο	Hotel	Hotelli	Hôtel	Hotel	Albergo	ホテル	호텔	Hotell	Hotel	Hotel	Hotel	Hotel	Гостиница	Hotell	Otel	Готель	酒店
+School	Škola	Skole	Schule	Σχολείο	Escuela	Koulu	École	Sekolah	Scuola	学校	학교	Skole	School	Szkoła	Escola	Escola	Школа	Skola	Okul	Школа	学校
+Restaurant	Restaurace	Restaurant	Restaurant	Εστιατόριο	Restaurante	Ravintola	Restaurant	Restoran	Ristorante	レストラン	식당	Restaurant	Restaurant	Restauracja	Restaurante	Restaurante	Ресторан	Restaurang	Restoran	Ресторан	餐厅
+Supermarket	Supermarket	Supermarked	Supermarkt	Σούπερ μάρκετ	Supermercado	Supermarketti	Supermarché	Supermarket	Supermercato	スーパー	슈퍼마켓	Supermarked	Supermarkt	Supermarket	Supermercado	Supermercado	Супермаркет	Mataffär	Süpermarket	Супермаркет	超市
+Cinema	Kino	Biograf	Kino	Σινεμά	Cine	Elokuvateatteri	Cinéma	Bioskop	Cinema	映画館	영화관	Kino	Bioscoop	Kino	Cinema	Cinema	Кинотеатр	Biograf	Sinema	Кінотеатр	电影院
+Theatre	Divadlo	Teater	Theater	Θέατρο	Teatro	Teatteri	Théâtre	Teater	Teatro	劇場	극장	Teater	Theater	Teatr	Teatro	Teatro	Театр	Teater	Tiyatro	Театр	剧院
+Museum	Muzeum	Museum	Museum	Μουσείο	Museo	Museo	Musée	Museum	Museo	博物館	박물관	Museum	Museum	Muzeum	Museu	Museu	Музей	Museum	Müze	Музей	博物馆
+Library	Knihovna	Bibliotek	Bibliothek	Βιβλιοθήκη	Biblioteca	Kirjasto	Bibliothèque	Perpustakaan	Biblioteca	図書館	도서관	Bibliotek	Bibliotheek	Biblioteka	Biblioteca	Biblioteca	Библиотека	Bibliotek	Kütüphane	Бібліотека	图书馆
+Zoo	Zoo	Zoologisk have	Zoo	Ζωολογικός κήπος	Zoológico	Eläintarha	Zoo	Kebun binatang	Zoo	動物園	동물원	Dyrepark	Dierentuin	Zoo	Zoológico	Jardim zoológico	Зоопарк	Djurpark	Hayvanat bahçesi	Зоопарк	动物园
+Circus	Cirkus	Cirkus	Zirkus	Τσίρκο	Circo	Sirkus	Cirque	Sirkus	Circo	サーカス	서커스	Sirkus	Circus	Cyrk	Circo	Circo	Цирк	Cirkus	Sirk	Цирк	马戏团
+Railway station	Nádraží	Banegård	Bahnhof	Σιδηροδρομικός σταθμός	Estación de tren	Rautatieasema	Gare	Stasiun kereta	Stazione ferroviaria	駅	기차역	Jernbanestasjon	Treinstation	Dworzec kolejowy	Estação de trem	Estação de comboios	Вокзал	Järnvägsstation	Tren istasyonu	Вокзал	火车站
+Submarine	Ponorka	Ubåd	U-Boot	Υποβρύχιο	Submarino	Sukellusvene	Sous-marin	Kapal selam	Sottomarino	潜水艦	잠수함	Ubåt	Onderzeeër	Okręt podwodny	Submarino	Submarino	Подводная лодка	Ubåt	Denizaltı	Підводний човен	潜水艇
+Space station	Vesmírná stanice	Rumstation	Raumstation	Διαστημικός σταθμός	Estación espacial	Avaruusasema	Station spatiale	Stasiun luar angkasa	Stazione spaziale	宇宙ステーション	우주 정거장	Romstasjon	Ruimtestation	Stacja kosmiczna	Estação espacial	Estação espacial	Космическая станция	Rymdstation	Uzay istasyonu	Космічна станція	空间站
+Pirate ship	Pirátská loď	Piratskib	Piratenschiff	Πειρατικό πλοίο	Barco pirata	Merirosvolaiva	Bateau pirate	Kapal bajak laut	Nave pirata	海賊船	해적선	Piratskip	Piratenschip	Statek piracki	Navio pirata	Navio pirata	Пиратский корабль	Piratskepp	Korsan gemisi	Піратський корабель	海盗船
+Castle	Hrad	Borg	Burg	Κάστρο	Castillo	Linna	Château fort	Kastil	Castello	城	성	Borg	Kasteel	Zamek	Castelo	Castelo	Замок	Borg	Kale	Замок	城堡
+Church	Kostel	Kirke	Kirche	Εκκλησία	Iglesia	Kirkko	Église	Gereja	Chiesa	教会	교회	Kirke	Kerk	Kościół	Igreja	Igreja	Церковь	Kyrka	Kilise	Церква	教堂
+Farm	Statek	Bondegård	Bauernhof	Φάρμα	Granja	Maatila	Ferme	Peternakan	Fattoria	農場	농장	Gård	Boerderij	Gospodarstwo rolne	Fazenda	Quinta	Ферма	Bondgård	Çiftlik	Ферма	农场
+Police station	Policejní stanice	Politistation	Polizeiwache	Αστυνομικό τμήμα	Comisaría	Poliisiasema	Commissariat	Kantor polisi	Commissariato	警察署	경찰서	Politistasjon	Politiebureau	Komisariat	Delegacia	Esquadra da polícia	Полицейский участок	Polisstation	Karakol	Відділок поліції	警察局
+Fire station	Hasičská zbrojnice	Brandstation	Feuerwache	Πυροσβεστικός σταθμός	Parque de bomberos	Paloasema	Caserne de pompiers	Pos pemadam kebakaran	Caserma dei pompieri	消防署	소방서	Brannstasjon	Brandweerkazerne	Remiza strażacka	Quartel de bombeiros	Quartel de bombeiros	Пожарная часть	Brandstation	İtfaiye	Пожежна частина	消防站
+Post office	Pošta	Posthus	Postamt	Ταχυδρομείο	Oficina de correos	Posti	Bureau de poste	Kantor pos	Ufficio postale	郵便局	우체국	Postkontor	Postkantoor	Poczta	Agência dos correios	Estação de correios	Почта	Postkontor	Postane	Пошта	邮局
+Swimming pool	Bazén	Svømmehal	Schwimmbad	Πισίνα	Piscina	Uimahalli	Piscine	Kolam renang	Piscina	プール	수영장	Svømmehall	Zwembad	Basen	Piscina	Piscina	Бассейн	Simhall	Yüzme havuzu	Басейн	游泳池
+Stadium	Stadion	Stadion	Stadion	Στάδιο	Estadio	Stadion	Stade	Stadion	Stadio	スタジアム	경기장	Stadion	Stadion	Stadion	Estádio	Estádio	Стадион	Stadion	Stadyum	Стадіон	体育场
+Gym	Posilovna	Fitnesscenter	Fitnessstudio	Γυμναστήριο	Gimnasio	Kuntosali	Salle de sport	Pusat kebugaran	Palestra	ジム	헬스장	Treningssenter	Sportschool	Siłownia	Academia	Ginásio	Спортзал	Gym	Spor salonu	Спортзал	健身房
+Ski resort	Lyžařské středisko	Skisportssted	Skigebiet	Χιονοδρομικό κέντρο	Estación de esquí	Hiihtokeskus	Station de ski	Resor ski	Stazione sciistica	スキー場	스키장	Skisenter	Skioord	Ośrodek narciarski	Estação de esqui	Estância de esqui	Горнолыжный курорт	Skidort	Kayak merkezi	Гірськолижний курорт	滑雪场
+Campsite	Kemp	Campingplads	Campingplatz	Κάμπινγκ	Camping	Leirintäalue	Camping	Perkemahan	Campeggio	キャンプ場	캠핑장	Campingplass	Camping	Kemping	Acampamento	Parque de campismo	Кемпинг	Campingplats	Kamp alanı	Кемпінг	露营地
+Desert	Poušť	Ørken	Wüste	Έρημος	Desierto	Aavikko	Désert	Gurun	Deserto	砂漠	사막	Ørken	Woestijn	Pustynia	Deserto	Deserto	Пустыня	Öken	Çöl	Пустеля	沙漠
+Jungle	Džungle	Jungle	Dschungel	Ζούγκλα	Selva	Viidakko	Jungle	Hutan rimba	Giungla	ジャングル	정글	Jungel	Jungle	Dżungla	Selva	Selva	Джунгли	Djungel	Yağmur ormanı	Джунглі	丛林
+Tropical island	Tropický ostrov	Tropisk ø	Tropeninsel	Τροπικό νησί	Isla tropical	Trooppinen saari	Île tropicale	Pulau tropis	Isola tropicale	南の島	열대 섬	Tropisk øy	Tropisch eiland	Tropikalna wyspa	Ilha tropical	Ilha tropical	Тропический остров	Tropisk ö	Tropik ada	Тропічний острів	热带岛屿
+Lighthouse	Maják	Fyrtårn	Leuchtturm	Φάρος	Faro	Majakka	Phare	Mercusuar	Faro	灯台	등대	Fyr	Vuurtoren	Latarnia morska	Farol	Farol	Маяк	Fyr	Deniz feneri	Маяк	灯塔
+Cruise ship	Výletní loď	Krydstogtskib	Kreuzfahrtschiff	Κρουαζιερόπλοιο	Crucero	Risteilyalus	Paquebot	Kapal pesiar	Nave da crociera	客船	유람선	Cruiseskip	Cruiseschip	Statek wycieczkowy	Navio de cruzeiro	Navio de cruzeiro	Круизный лайнер	Kryssningsfartyg	Yolcu gemisi	Круїзний лайнер	游轮
+Night train	Noční vlak	Nattog	Nachtzug	Νυχτερινό τρένο	Tren nocturno	Yöjuna	Train de nuit	Kereta malam	Treno notturno	夜行列車	야간열차	Nattog	Nachttrein	Pociąg nocny	Trem noturno	Comboio noturno	Ночной поезд	Nattåg	Gece treni	Нічний потяг	夜班火车
+Aeroplane	Letadlo	Fly	Flugzeug	Αεροπλάνο	Avión	Lentokone	Avion	Pesawat	Aereo	飛行機	비행기	Fly	Vliegtuig	Samolot	Avião	Avião	Самолёт	Flygplan	Uçak	Літак	飞机
+Bus	Autobus	Bus	Bus	Λεωφορείο	Autobús	Bussi	Autobus	Bus	Autobus	バス	버스	Buss	Bus	Autobus	Ônibus	Autocarro	Автобус	Buss	Otobüs	Автобус	公交车
+Garage	Autoservis	Autoværksted	Autowerkstatt	Συνεργείο	Taller mecánico	Autokorjaamo	Garage	Bengkel	Officina	自動車整備工場	정비소	Bilverksted	Garage	Warsztat samochodowy	Oficina mecânica	Oficina	Автосервис	Bilverkstad	Oto tamirhanesi	Автосервіс	汽车修理厂
+Bakery	Pekárna	Bageri	Bäckerei	Φούρνος	Panadería	Leipomo	Boulangerie	Toko roti	Panetteria	パン屋	빵집	Bakeri	Bakkerij	Piekarnia	Padaria	Padaria	Пекарня	Bageri	Fırın	Пекарня	面包店
+Hairdresser's	Kadeřnictví	Frisør	Friseursalon	Κομμωτήριο	Peluquería	Kampaamo	Salon de coiffure	Salon rambut	Parrucchiere	美容院	미용실	Frisør	Kapper	Salon fryzjerski	Salão de beleza	Cabeleireiro	Парикмахерская	Frisörsalong	Kuaför	Перукарня	理发店
+Dentist's	Zubař	Tandlæge	Zahnarztpraxis	Οδοντιατρείο	Dentista	Hammaslääkäri	Cabinet dentaire	Dokter gigi	Dentista	歯医者	치과	Tannlege	Tandarts	Gabinet dentystyczny	Dentista	Dentista	Стоматология	Tandläkare	Dişçi	Стоматологія	牙科诊所
+Office	Kancelář	Kontor	Büro	Γραφείο	Oficina	Toimisto	Bureau	Kantor	Ufficio	オフィス	사무실	Kontor	Kantoor	Biuro	Escritório	Escritório	Офис	Kontor	Ofis	Офіс	办公室
+Factory	Továrna	Fabrik	Fabrik	Εργοστάσιο	Fábrica	Tehdas	Usine	Pabrik	Fabbrica	工場	공장	Fabrikk	Fabriek	Fabryka	Fábrica	Fábrica	Завод	Fabrik	Fabrika	Завод	工厂
+Building site	Staveniště	Byggeplads	Baustelle	Εργοτάξιο	Obra	Rakennustyömaa	Chantier	Proyek konstruksi	Cantiere	工事現場	공사장	Byggeplass	Bouwplaats	Plac budowy	Canteiro de obras	Estaleiro de obras	Стройка	Byggarbetsplats	İnşaat alanı	Будівництво	建筑工地
+Wedding	Svatba	Bryllup	Hochzeit	Γάμος	Boda	Häät	Mariage	Pernikahan	Matrimonio	結婚式	결혼식	Bryllup	Bruiloft	Wesele	Casamento	Casamento	Свадьба	Bröllop	Düğün	Весілля	婚礼
+Birthday party	Narozeninová oslava	Fødselsdagsfest	Geburtstagsfeier	Πάρτι γενεθλίων	Fiesta de cumpleaños	Syntymäpäiväjuhlat	Fête d'anniversaire	Pesta ulang tahun	Festa di compleanno	誕生日パーティー	생일 파티	Bursdagsfest	Verjaardagsfeest	Przyjęcie urodzinowe	Festa de aniversário	Festa de anos	День рождения	Födelsedagskalas	Doğum günü partisi	День народження	生日派对
+Concert	Koncert	Koncert	Konzert	Συναυλία	Concierto	Konsertti	Concert	Konser	Concerto	コンサート	콘서트	Konsert	Concert	Koncert	Show	Concerto	Концерт	Konsert	Konser	Концерт	音乐会
+Nightclub	Noční klub	Natklub	Nachtclub	Νυχτερινό κέντρο	Discoteca	Yökerho	Boîte de nuit	Klub malam	Discoteca	ナイトクラブ	나이트클럽	Nattklubb	Nachtclub	Klub nocny	Boate	Discoteca	Ночной клуб	Nattklubb	Gece kulübü	Нічний клуб	夜店
+Casino	Kasino	Kasino	Kasino	Καζίνο	Casino	Kasino	Casino	Kasino	Casinò	カジノ	카지노	Kasino	Casino	Kasyno	Cassino	Casino	Казино	Kasino	Kumarhane	Казино	赌场
+Amusement park	Zábavní park	Forlystelsespark	Freizeitpark	Λούνα παρκ	Parque de atracciones	Huvipuisto	Parc d'attractions	Taman hiburan	Luna park	遊園地	놀이공원	Fornøyelsespark	Pretpark	Wesołe miasteczko	Parque de diversões	Parque de diversões	Парк аттракционов	Nöjesfält	Lunapark	Парк розваг	游乐园
+Market	Tržiště	Marked	Markt	Λαϊκή αγορά	Mercado	Tori	Marché	Pasar	Mercato	市場	시장	Marked	Markt	Targ	Feira	Mercado	Рынок	Marknad	Pazar	Ринок	菜市场
+Prison	Vězení	Fængsel	Gefängnis	Φυλακή	Cárcel	Vankila	Prison	Penjara	Prigione	刑務所	교도소	Fengsel	Gevangenis	Więzienie	Prisão	Prisão	Тюрьма	Fängelse	Hapishane	В'язниця	监狱
+Army base	Vojenská základna	Militærbase	Kaserne	Στρατόπεδο	Base militar	Kasarmi	Caserne	Markas tentara	Caserma	軍事基地	군부대	Militærleir	Kazerne	Baza wojskowa	Base militar	Quartel	Военная база	Militärbas	Askeri üs	Військова база	军事基地
+University	Univerzita	Universitet	Universität	Πανεπιστήμιο	Universidad	Yliopisto	Université	Universitas	Università	大学	대학교	Universitet	Universiteit	Uniwersytet	Universidade	Universidade	Университет	Universitet	Üniversite	Університет	大学
+Playground	Dětské hřiště	Legeplads	Spielplatz	Παιδική χαρά	Parque infantil	Leikkipuisto	Aire de jeux	Taman bermain	Parco giochi	遊び場	놀이터	Lekeplass	Speeltuin	Plac zabaw	Parquinho	Parque infantil	Детская площадка	Lekplats	Oyun parkı	Дитячий майданчик	儿童游乐场
+Embassy	Velvyslanectví	Ambassade	Botschaft	Πρεσβεία	Embajada	Suurlähetystö	Ambassade	Kedutaan besar	Ambasciata	大使館	대사관	Ambassade	Ambassade	Ambasada	Embaixada	Embaixada	Посольство	Ambassad	Büyükelçilik	Посольство	大使馆
+Polar base	Polární stanice	Polarstation	Polarstation	Πολικός σταθμός	Base polar	Napa-asema	Base polaire	Stasiun kutub	Base polare	極地基地	극지 기지	Polarstasjon	Poolstation	Stacja polarna	Base polar	Base polar	Полярная станция	Polarstation	Kutup üssü	Полярна станція	极地科考站
+Vineyard	Vinice	Vingård	Weinberg	Αμπελώνας	Viñedo	Viinitila	Vignoble	Kebun anggur	Vigneto	ぶどう園	포도밭	Vingård	Wijngaard	Winnica	Vinhedo	Vinha	Виноградник	Vingård	Bağ	Виноградник	葡萄园
+Spa	Lázně	Kurbad	Therme	Ιαματικά λουτρά	Balneario	Kylpylä	Thermes	Pemandian air panas	Terme	温泉	온천	Kurbad	Kuuroord	Uzdrowisko	Termas	Termas	Санаторий	Kurort	Kaplıca	Санаторій	温泉
+Aquarium	Akvárium	Akvarium	Aquarium	Ενυδρείο	Acuario	Akvaario	Aquarium	Akuarium	Acquario	水族館	수족관	Akvarium	Aquarium	Oceanarium	Aquário	Aquário	Океанариум	Akvarium	Akvaryum	Океанаріум	水族馆

@@ -1,0 +1,16 @@
+Vakooja
+# Tavoite
+Kaikki pelaajat yhtä lukuun ottamatta tietävät saman salaisen paikan; viimeinen on vakooja, joka ei tiedä sitä. Paljastakaa vakooja, tai vakoojana päättele paikka. 3–10 pelaajalle.
+# Kierros
+- Kierrättäkää laitetta: jokainen katsoo korttinsa yksin.
+- Laittakaa se sitten keskelle. Kullalla merkitty pelaaja kysyy keneltä tahansa kysymyksen paikasta; tämä vastaa ja esittää seuraavan kysymyksen.
+- Vastaa niin selvästi, että näkyy, että tiedät paikan, mutta niin epämääräisesti, ettet paljasta sitä.
+- Kun aika loppuu, tai aiemmin, sopikaa epäilty ja napauttakaa häntä.
+- Vakooja voi milloin tahansa keskeyttää keskustelun ja yrittää nimetä paikan: suurennuslasi.
+# Pisteet
+- Jos vakoojaa syytetään, hän saa yhden yrityksen nimetä paikka.
+- Vakooja nimeää paikan: vakoojalle 3 pistettä.
+- Vakooja nimeää väärän paikan: jokaiselle muulle 1 piste.
+- Syytetään jotakuta muuta: vakoojalle 2 pistettä.
+# Pelin loppu
+5 kierroksen jälkeen eniten pisteitä voittaa.

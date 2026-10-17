@@ -1,0 +1,16 @@
+O espião
+# O objetivo
+Todos os jogadores menos um conhecem o mesmo local secreto; o outro é o espião, que não o conhece. Desmascarem o espião ou, sendo o espião, descubra o local. Para 3 a 10 jogadores.
+# Uma ronda
+- Passem o aparelho: cada jogador vê a sua carta sozinho.
+- Depois pousem-no no meio. O jogador a dourado faz a qualquer um uma pergunta sobre o local; esse responde e faz a pergunta seguinte.
+- Responda com clareza suficiente para mostrar que conhece o local, mas sem o denunciar.
+- Quando o tempo acabar, ou antes, combinem um suspeito e toquem nele.
+- O espião pode parar a conversa a qualquer momento e tentar dizer o local: a lupa.
+# A pontuação
+- Se o espião for acusado, tem uma tentativa de dizer o local.
+- O espião acerta o local: 3 pontos para o espião.
+- O espião erra o local: 1 ponto para cada outro jogador.
+- Outro jogador é acusado: 2 pontos para o espião.
+# O fim do jogo
+Ao fim de 5 rondas, ganha quem tiver mais pontos.

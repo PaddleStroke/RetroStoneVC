@@ -1,0 +1,16 @@
+Špion
+# Cíl hry
+Všichni hráči kromě jednoho znají stejné tajné místo; ten poslední je špion a místo nezná. Odhalte špiona, nebo jako špion uhodněte místo. Pro 3 až 10 hráčů.
+# Kolo
+- Pošlete zařízení dokola: každý se sám podívá na svou kartu.
+- Pak ho položte doprostřed. Hráč ve zlatém se zeptá kohokoli na otázku o místě; ten odpoví a položí další otázku.
+- Odpovídejte tak jasně, abyste ukázali, že místo znáte, ale tak vágně, abyste ho neprozradili.
+- Když vyprší čas, nebo dřív, shodněte se na podezřelém a ťukněte na něj.
+- Špion může rozhovor kdykoli zastavit a zkusit místo uhodnout: lupa.
+# Počítání bodů
+- Obviněný špion má jeden pokus uhodnout místo.
+- Špion uhodne místo: 3 body pro špiona.
+- Špion řekne špatné místo: 1 bod pro každého jiného hráče.
+- Obviněn je někdo jiný: 2 body pro špiona.
+# Konec hry
+Po 5 kolech vyhrává nejvíc bodů.

@@ -1,0 +1,16 @@
+Der Spion
+# Das Ziel
+Alle Spieler bis auf einen kennen denselben geheimen Ort; der letzte ist der Spion und kennt ihn nicht. Entlarvt den Spion, oder errate als Spion den Ort. Für 3 bis 10 Spieler.
+# Eine Runde
+- Gebt das Gerät herum: Jeder sieht sich seine Karte allein an.
+- Dann legt es in die Mitte. Der Spieler in Gold stellt irgendwem eine Frage zum Ort; dieser antwortet und stellt die nächste Frage.
+- Antworte klar genug, um zu zeigen, dass du den Ort kennst, aber vage genug, um ihn nicht zu verraten.
+- Ist die Zeit um, oder vorher, einigt euch auf einen Verdächtigen und tippt ihn an.
+- Der Spion darf das Gespräch jederzeit beenden und den Ort raten: die Lupe.
+# Die Wertung
+- Wird der Spion beschuldigt, hat er einen Versuch, den Ort zu nennen.
+- Der Spion nennt den Ort: 3 Punkte für den Spion.
+- Der Spion nennt einen falschen Ort: 1 Punkt für jeden anderen Spieler.
+- Ein anderer wird beschuldigt: 2 Punkte für den Spion.
+# Das Ende der Partie
+Nach 5 Runden gewinnen die meisten Punkte.

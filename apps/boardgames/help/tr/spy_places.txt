@@ -1,0 +1,61 @@
+The Spy: the places (a line each, in tools/spy_places.tsv's order)
+Havalimanı
+Banka
+Plaj
+Hastane
+Otel
+Okul
+Restoran
+Süpermarket
+Sinema
+Tiyatro
+Müze
+Kütüphane
+Hayvanat bahçesi
+Sirk
+Tren istasyonu
+Denizaltı
+Uzay istasyonu
+Korsan gemisi
+Kale
+Kilise
+Çiftlik
+Karakol
+İtfaiye
+Postane
+Yüzme havuzu
+Stadyum
+Spor salonu
+Kayak merkezi
+Kamp alanı
+Çöl
+Yağmur ormanı
+Tropik ada
+Deniz feneri
+Yolcu gemisi
+Gece treni
+Uçak
+Otobüs
+Oto tamirhanesi
+Fırın
+Kuaför
+Dişçi
+Ofis
+Fabrika
+İnşaat alanı
+Düğün
+Doğum günü partisi
+Konser
+Gece kulübü
+Kumarhane
+Lunapark
+Pazar
+Hapishane
+Askeri üs
+Üniversite
+Oyun parkı
+Büyükelçilik
+Kutup üssü
+Bağ
+Kaplıca
+Akvaryum
