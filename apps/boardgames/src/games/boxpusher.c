@@ -72,6 +72,54 @@ static void paint_crate(int q, int on, uint8_t *o)
     puz_bevel(o, q, q, 0.08f * q, fmaxf(1.5f, 0.08f * q), 0.4f);
 }
 
+/* is (x, y) a walnut block */
+static int bp_is_wall(const bp_game *g, int x, int y)
+{
+    return x >= 0 && y >= 0 && x < g->w && y < g->h && g->map[y * g->w + x] == BP_WALL;
+}
+
+/* is (x, y) off the storehouse (nothing drawn there) */
+static int bp_is_out(const bp_game *g, int x, int y)
+{
+    return x < 0 || y < 0 || x >= g->w || y >= g->h || g->map[y * g->w + x] == BP_OUT;
+}
+
+/* a walnut block (q x q, cell cx, cy) joined to its neighbours into one wall: lit and shaded only along its open
+ * sides, a faint seam where two blocks meet, its outer corners rounded where nothing lies beyond them */
+static void wall_bevel(const bp_game *g, int cx, int cy, int q, uint8_t *t)
+{
+    int op[4] = {!bp_is_wall(g, cx - 1, cy), !bp_is_wall(g, cx + 1, cy),   /* open: left, right, top, bottom */
+                 !bp_is_wall(g, cx, cy - 1), !bp_is_wall(g, cx, cy + 1)};
+    int out[4] = {bp_is_out(g, cx - 1, cy), bp_is_out(g, cx + 1, cy), bp_is_out(g, cx, cy - 1), bp_is_out(g, cx, cy + 1)};
+    float b = fmaxf(2, 0.12f * q), rad = 0.18f * q, depth = 0.45f;
+    for (int y = 0; y < q; y++)
+        for (int x = 0; x < q; x++) {
+            float px = x + 0.5f, py = y + 0.5f, nx = 0, ny = 0, d = 1e9f, a = 1;
+            float ds[4] = {px, q - px, py, q - py};
+            for (int s = 0; s < 4; s++)
+                if (op[s] && ds[s] < d) { d = ds[s]; nx = s == 0 ? -1 : s == 1 ? 1 : 0; ny = s == 2 ? -1 : s == 3 ? 1 : 0; }
+            int sx = px < q / 2.0f ? 0 : 1, sy = py < q / 2.0f ? 2 : 3;   /* the nearest corner's sides */
+            if (op[sx] && op[sy]) {
+                float ex = rad - ds[sx], ey = rad - ds[sy];
+                if (ex > 0 && ey > 0) {             /* a rounded outer corner */
+                    float l = hypotf(ex, ey);
+                    d = rad - l;
+                    nx = (sx ? 1 : -1) * ex / l;
+                    ny = (sy == 3 ? 1 : -1) * ey / l;
+                    if (out[sx] && out[sy] && bp_is_out(g, cx + (sx ? 1 : -1), cy + (sy == 3 ? 1 : -1)))
+                        a = clampf(d + 0.5f, 0, 1);
+                }
+            }
+            uint8_t *p = t + 4 * (y * q + x);
+            float k = 1;
+            if (d < b) k = 1 + depth * (1 - d / b) * -(nx + ny) * 0.7071f;
+            if ((!op[0] && x == 0) || (!op[2] && y == 0)) k *= 0.9f;      /* the seam with the block before */
+            else if ((!op[0] && x == 1) || (!op[2] && y == 1)) k *= 1.06f;
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(p[i] * k, 0, 255);
+            p[3] = (uint8_t)(255 * a);
+        }
+}
+
 /* the storehouse: the plank floor, the brass rings of the places, the walnut blocks; outside: nothing */
 static void paint_map(const bp_game *g, int q, uint8_t *o)
 {
@@ -86,8 +134,7 @@ static void paint_map(const bp_game *g, int q, uint8_t *o)
         for (int y = 0; y < q; y++) memcpy(t + 4 * y * q, plank + 4 * ((size_t)(y0 + y) * W + x0), (size_t)q * 4);
         if (g->map[c] == BP_WALL) {
             for (int i = 0; i < q * q; i++) pzt_tint(t + 4 * i, WALNUT, 1.0f);
-            puz_bevel(t, q, q, 0.06f * q, fmaxf(2, 0.12f * q), 0.45f);
-            for (int i = 0; i < q * q; i++) t[4 * i + 3] = 255;   /* square: the blocks meet */
+            wall_bevel(g, c % g->w, c / g->w, q, t);   /* the blocks joined into one wall */
         } else {
             int up = c >= g->w && g->map[c - g->w] == BP_WALL, left = c % g->w && g->map[c - 1] == BP_WALL;
             float sh = 0.22f * q;
