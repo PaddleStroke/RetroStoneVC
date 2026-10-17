@@ -336,7 +336,9 @@ int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player) && !
  * animations have ended) or to --at ms after the last one, so the same picture comes out every time */
 static Uint32 ms_ahead;
 static int shot_clock;
-Uint32 ui_ms(void) { return (shot_clock ? 1000 : SDL_GetTicks()) + ms_ahead; }
+static int rp_on;                               /* a kept game played again (the shell's resume): its own clock */
+static Uint32 rp_now;
+Uint32 ui_ms(void) { return rp_on ? rp_now : (shot_clock ? 1000 : SDL_GetTicks()) + ms_ahead; }
 void ui_animate(void) { need_frame = 1; }
 
 static int perf_tex;                            /* --perf: the textures made (counted per frame) */
@@ -2746,8 +2748,10 @@ static void view_to(int player)
 }
 
 /* the start button: the cover lifts, the view is the player's */
+static void jr_mark_uncover(void);
 static void uncover(void)
 {
+    jr_mark_uncover();                          /* (kept in the game's record) */
     hand.up = 0;
     ui.viewer = view_of[cur] = hand.player;
     if (screen == SCR_GAME) layout();
@@ -2784,6 +2788,177 @@ static void view_start(int fresh)
     int p = fresh ? games[cur]->turn() : view_of[cur];
     view_to(human_from(p < 0 || p >= ui.players ? 0 : p));
 }
+
+/* ---- the game in progress kept (closed or killed in the background: opened again where it was) -----------------
+ * Each game's record (J[g]): how it began (its variant, players, seats, the random state start() was given, the
+ * screen) and then everything the game was given, in order, with the time between: the presses, motions (a finger
+ * down) and releases it got, keys, fingers, passes, undos, the cover lifted, the moves played by the bots or by
+ * script(), the screen turned or flipped, and the random state whenever something else drew from it between two.
+ * Kept in the save store after each one (shell/run/<id>/<k>: 4 KB pieces) while the game is on, taken out once it is
+ * over; a new game begins a new one. Opened from the menu with no game in progress (the app started again), a game
+ * with a record is played again from it at once, silently, on a clock of its own (its animations land), on the screen
+ * it was played on, undo history and all; then laid out for the screen as it is now. A hidden-hand game comes back
+ * on its cover. JR_ON 0: nothing kept, nothing resumed. */
+#define JR_ON 1
+#define JR_PIECE 4096
+#define JR_PIECES 48
+#define JR_MAX (JR_PIECE * JR_PIECES)
+enum { EV_PRESS = 1, EV_MOTION, EV_RELEASE, EV_FINGER, EV_KEY, EV_PASS, EV_UNDO, EV_UNCOVER, EV_SCRIPT, EV_BOT, EV_VIEW,
+       EV_RNG };
+static struct jrec {
+    uint8_t *b;
+    int n, cap, ok;                             /* ok 0: too long, or not begun (nothing kept) */
+    Uint32 last;                                /* ui_ms() at the last event */
+    uint32_t rng;                               /* the random state after the last event */
+    int w, h, flipped, f2f;                     /* the screen as last recorded */
+    int kept;                                   /* the pieces in the store */
+} J[MAX_GAMES];
+static int jr_quiet;                            /* 1 while a record plays again: nothing recorded */
+static int jr_dirty = -1;                       /* the game whose record changed since it was last kept (-1: none) */
+
+static int jr_room(struct jrec *r, int n)
+{
+    if (!r->ok) return 0;
+    if (r->n + n > JR_MAX) { r->ok = 0; return 0; }   /* too long: not kept (the store is small) */
+    if (r->n + n > r->cap) {
+        int c = r->cap ? r->cap * 2 : 1024;
+        while (c < r->n + n) c *= 2;
+        uint8_t *m = realloc(r->b, (size_t)c);
+        if (!m) { r->ok = 0; return 0; }
+        r->b = m;
+        r->cap = c;
+    }
+    return 1;
+}
+
+static void jr_u8(struct jrec *r, unsigned v) { if (jr_room(r, 1)) r->b[r->n++] = (uint8_t)v; }
+static void jr_u16(struct jrec *r, unsigned v) { jr_u8(r, v & 255); jr_u8(r, v >> 8 & 255); }
+static void jr_u32(struct jrec *r, uint32_t v) { jr_u16(r, v & 0xffff); jr_u16(r, v >> 16); }
+static void jr_var(struct jrec *r, uint32_t v)  /* 7 bits a byte, the last without its top bit */
+{
+    while (v >= 128) { jr_u8(r, (v & 127) | 128); v >>= 7; }
+    jr_u8(r, v);
+}
+static void jr_xy(struct jrec *r, float x, float y)   /* quarter pixels */
+{
+    jr_u16(r, (unsigned)clampf(x * 4 + 0.5f, 0, 65535));
+    jr_u16(r, (unsigned)clampf(y * 4 + 0.5f, 0, 65535));
+}
+
+static void jr_key(int g, int k, char *s, size_t n) { snprintf(s, n, "shell/run/%s/%d", games[g]->id, k); }
+
+/* the record kept in the store (the game on), or taken out of it (over, or none) */
+static void jr_keep(int g)
+{
+    struct jrec *r = &J[g];
+    char k[96];
+    int on = JR_ON && r->ok && started[g] && games[g]->status() == GS_PLAY;
+    int pieces = on ? (r->n + JR_PIECE - 1) / JR_PIECE : 0;
+    for (int i = 0; i < pieces; i++) {
+        jr_key(g, i, k, sizeof k);
+        int len = r->n - i * JR_PIECE < JR_PIECE ? r->n - i * JR_PIECE : JR_PIECE;
+        ui_save_set(k, r->b + i * JR_PIECE, len);
+    }
+    for (int i = pieces; i < r->kept || i == pieces; i++) {   /* the pieces no longer needed (one more: a past run's) */
+        jr_key(g, i, k, sizeof k);
+        if (!ui_save_get(k, NULL, 0)) break;
+        ui_save_set(k, NULL, 0);
+    }
+    r->kept = pieces;
+}
+
+static void jr_flush(void)
+{
+    if (jr_dirty >= 0) jr_keep(jr_dirty);
+    jr_dirty = -1;
+}
+
+/* the start of an event of the game on the screen: the screen and the random state first, if they changed; NULL:
+ * nothing kept */
+static struct jrec *jr_event(int type)
+{
+    if (!JR_ON || jr_quiet || cur < 0) return NULL;
+    struct jrec *r = &J[cur];
+    if (!r->ok) return NULL;
+    if (jr_dirty >= 0 && jr_dirty != cur) jr_flush();
+    Uint32 now = ui_ms(), dt = now - r->last;
+    if (dt > 3600000) dt = 3600000;
+    r->last = now;
+    if (r->w != ui.w || r->h != ui.h || r->flipped != ui.flipped || r->f2f != ui.f2f) {
+        jr_u8(r, EV_VIEW);
+        jr_var(r, 0);
+        jr_u16(r, (unsigned)ui.w);
+        jr_u16(r, (unsigned)ui.h);
+        jr_u8(r, (unsigned)(ui.flipped | ui.f2f << 1));
+        r->w = ui.w;
+        r->h = ui.h;
+        r->flipped = ui.flipped;
+        r->f2f = ui.f2f;
+    }
+    if (r->rng != rng) {
+        jr_u8(r, EV_RNG);
+        jr_var(r, 0);
+        jr_u32(r, rng);
+    }
+    jr_u8(r, (unsigned)type);
+    jr_var(r, dt);
+    jr_dirty = cur;
+    return r;
+}
+
+/* an event's end: the random state it left (what draws from it next, unrecorded, is recorded as a new state) */
+static void jr_done(struct jrec *r)
+{
+    if (r) r->rng = rng;
+}
+
+static struct jrec *jr_point(int type, float x, float y)
+{
+    struct jrec *r = jr_event(type);
+    if (r) jr_xy(r, x, y);
+    return r;
+}
+
+static struct jrec *jr_move(int type, int seat, const char *move)
+{
+    struct jrec *r = jr_event(type);
+    if (!r) return NULL;
+    size_t n = strlen(move);
+    if (n > 65535) { r->ok = 0; return NULL; }
+    jr_u8(r, (unsigned)(seat & 255));
+    jr_u16(r, (unsigned)n);
+    for (size_t i = 0; i < n; i++) jr_u8(r, (uint8_t)move[i]);
+    return r;
+}
+
+/* a new game of the open one begins its record (its start: start_rng[cur], variant v) */
+static void jr_begin(int v)
+{
+    if (!JR_ON || jr_quiet) return;
+    struct jrec *r = &J[cur];
+    r->n = 0;
+    r->ok = 1;
+    jr_u8(r, 'R');
+    jr_u8(r, 'J');
+    jr_u8(r, 1);                                /* the record's version */
+    jr_u16(r, (unsigned)v);
+    jr_u8(r, (unsigned)in_random(cur));
+    jr_u8(r, (unsigned)ui.players);
+    for (int p = 0; p < MAX_PLAYERS; p++) jr_u8(r, seat_lv[cur][p]);
+    jr_u32(r, start_rng[cur]);
+    jr_u16(r, (unsigned)ui.w);
+    jr_u16(r, (unsigned)ui.h);
+    jr_u8(r, (unsigned)(ui.flipped | ui.f2f << 1));
+    r->w = ui.w;
+    r->h = ui.h;
+    r->flipped = ui.flipped;
+    r->f2f = ui.f2f;
+    r->last = ui_ms();
+    r->rng = rng;
+    jr_dirty = cur;
+}
+#define JR_HEAD (7 + MAX_PLAYERS + 9)            /* the record's head, bytes */
+static void jr_mark_uncover(void) { jr_done(jr_event(EV_UNCOVER)); }
 
 /* ---- the bots at play (bots.h's integration plan) -----------------------------------------------------------------
  * Each frame (bot_step): a bot starts when none thinks, the game is on (GS_PLAY), not busy(), no hand-off waits, the
@@ -2872,7 +3047,9 @@ static void bot_step(void)
             return;
         }
         bot_moving = seat;
+        struct jrec *jr = jr_move(EV_BOT, seat, BT.move);
         int ok = cbot->play ? cbot->play(BT.move) : g->script ? g->script(BT.move) : 0;
+        jr_done(jr);
         bot_moving = -1;
         if (!ok) {
             bot_gives_up(seat, "move refused");
@@ -2917,10 +3094,12 @@ static int undo_human(void)
 {
     const game *g = games[cur];
     bot_stop();
-    if (!g->undo()) return 0;
-    for (int k = 0; k < 256 && botmask && humans() && g->status() == GS_PLAY && is_bot(bot_actor()); k++)
+    struct jrec *jr = jr_event(EV_UNDO);
+    int done = g->undo();
+    for (int k = 0; done && k < 256 && botmask && humans() && g->status() == GS_PLAY && is_bot(bot_actor()); k++)
         if (!g->undo()) break;
-    return 1;
+    jr_done(jr);
+    return done;
 }
 
 /* the end of a game shown (once a game: an undo and the same end again gives nothing more): the stats (stats.h).
@@ -2973,7 +3152,16 @@ static void start_game(int v, int same)
     started[cur] = 1;
     awarded[cur] = 0;
     card_t0 = 0;
+    jr_begin(v);
 }
+
+/* the game's kept record looked at again soon (a game left, a new one) */
+static void jr_touch(int g)
+{
+    if (jr_dirty >= 0 && jr_dirty != g) jr_flush();
+    jr_dirty = g;
+}
+static int jr_resume(int g);
 
 static void open_game(int i, int fresh_variant)
 {
@@ -2992,6 +3180,8 @@ static void open_game(int i, int fresh_variant)
         remember_game(i);
         start_game(fresh_variant, 0);
         fresh = 1;
+    } else if (!started[i] && jr_resume(i)) {   /* kept from the last run: played again to where it was */
+        fresh = 0;
     } else if (!started[i]) {
         if (needs_picker(i)) {
             show_picker(i);
@@ -3052,6 +3242,7 @@ static void new_game(void)
     bot_stop();
     if (needs_picker(cur)) {
         started[cur] = 0;
+        jr_touch(cur);                          /* (the game left: its record too) */
         show_picker(cur);
         return;
     }
@@ -4515,7 +4706,9 @@ static int press_bar(float x, float y)
         if (ui_upside(p)) { lx = b.w - lx; ly = b.h - ly; }
         float r = 0.42f * ui.unit;
         if (in_circle(lx, ly, b.w - r - 0.05f * ui.unit, b.h / 2, r)) {
+            struct jrec *jr = jr_event(EV_PASS);
             games[cur]->pass();
+            jr_done(jr);
             snd_play(SND_TAP);
             return 1;
         }
@@ -4614,6 +4807,7 @@ static void levels_release(float x, float y)
         }
 }
 
+static void game_press(float x, float y);
 static void press(float x, float y)
 {
     PT.game = PT.stray = 0;                     /* a new press: the last one has lifted */
@@ -4649,7 +4843,7 @@ static void press(float x, float y)
             box b = L.pills[k];
             if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
             snd_play(SND_TAP);
-            if (ui.players != L.pill_n[k]) started[cur] = 0;   /* (a game in progress: left) */
+            if (ui.players != L.pill_n[k]) { started[cur] = 0; jr_touch(cur); }   /* (a game in progress: left) */
             nplayers[cur] = ui.players = L.pill_n[k];
             remember_game(cur);
             bots_update();
@@ -4661,6 +4855,7 @@ static void press(float x, float y)
             if (!in_box(L.seats[k], x, y)) continue;
             snd_play(SND_TAP);
             started[cur] = 0;                   /* (a game in progress: left) */
+            jr_touch(cur);
             seat_lv[cur][k] = (uint8_t)((seat_lv[cur][k] + 1) % (2 + AI_HARD));
             remember_game(cur);
             bots_update();
@@ -4777,16 +4972,24 @@ static void press(float x, float y)
     PT.live = games[cur]->status() == GS_PLAY;
     PT.x = x;
     PT.y = y;
+    game_press(x, y);
+}
+
+/* a press that is the game's: a bar's (its own use of it), else the board's (kept in the game's record) */
+static void game_press(float x, float y)
+{
+    struct jrec *jr = jr_point(EV_PRESS, x, y);
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
         box b = L.bar[p];
         if (x < b.x || y < b.y || x >= b.x + b.w || y >= b.y + b.h) continue;
         float fx = x, fy = y;                   /* in the frame bar() drew in */
         if (ui_upside(p) && t_bartex) { fx = bar_m + b.w - (x - b.x); fy = bar_m + b.h - (y - b.y); }
-        if (games[cur]->bar_press(p, fx, fy)) return;
+        if (games[cur]->bar_press(p, fx, fy)) { jr_done(jr); return; }
     }
     bot_last = -1;                              /* a person acted: the next bot's move is a new turn */
     games[cur]->press(x, y);                    /* (solved by it, the finger still down: its gesture goes on, the
                                                  * end waits for it to lift: gesture_held) */
+    jr_done(jr);
 }
 
 static void motion(float x, float y)
@@ -4819,7 +5022,9 @@ static void motion(float x, float y)
     /* a stray finger: nobody's; a puzzle solved: only the gesture the game had then (it goes on to its lifting: the pin
      * placed where the player wants it), or a tool's press */
     if (PT.stray || (solved_card() && !PT.game)) return;
+    struct jrec *jr = PT.game ? jr_point(EV_MOTION, x, y) : NULL;   /* (a mouse hovering: not kept) */
     games[cur]->motion(x, y);
+    jr_done(jr);
     if (!PT.game) return;
     PT.x = x;
     PT.y = y;
@@ -4871,7 +5076,11 @@ static void release(float x, float y)
     }
     if (held_press) held_press = 0;           /* a finger put down on a bot's turn: none of it the game's */
     else if (stray || (!mine && solved_card())) return;   /* down when the game ended, or on its card: nobody's */
-    else if (screen == SCR_GAME && !(is_view() && hand.up)) games[cur]->release(x, y);
+    else if (screen == SCR_GAME && !(is_view() && hand.up)) {
+        struct jrec *jr = jr_point(EV_RELEASE, x, y);
+        games[cur]->release(x, y);
+        jr_done(jr);
+    }
 }
 
 static void menu_wheel(float dy)
@@ -4954,7 +5163,10 @@ static void touch(Uint32 type, long long id, float x, float y)
     int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
     if (phase == FINGER_DOWN && PT.nheld < MAX_FINGERS) PT.held[PT.nheld++] = id;
     if (phase == FINGER_UP) id_drop(PT.held, &PT.nheld, id);
+    struct jrec *jr = jr_point(EV_FINGER, x, y);
+    if (jr) { jr_u32(jr, (uint32_t)(id & 0x7fffffff)); jr_u8(jr, (unsigned)phase); }
     games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);   /* (ended under them: they go on, gesture_held) */
+    jr_done(jr);
 }
 
 /* ---- the pages' hooks (pages.h) ------------------------------------------------------------------------------------ */
@@ -5313,6 +5525,7 @@ static int shot(int argc, char **argv)
     int steps = 0, think = 0;                   /* --steps n: the bots play n moves; --think: one starts */
     const char *pg = NULL, *theme = NULL, *search = NULL;   /* --page, --theme, --search: the app's pages */
     int demo = 0, tips = 0;                     /* --stats-demo, --tips-demo */
+    int resume = 0;                             /* --resume: the game kept in --save DIR, played again */
     int held = -1;                              /* held: the last gesture's hold (ms), the finger still down */
     Uint32 base = 0;                            /* the clock before the last tap */
     ui.w = 720;
@@ -5344,6 +5557,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (uint32_t)strtoul(argv[++i], NULL, 10);
         else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--reveal")) reveal = 1;
+        else if (!strcmp(argv[i], "--resume")) resume = 1;
         else if (!strcmp(argv[i], "--random")) rnd = 1;
         else if (!strcmp(argv[i], "--icons")) icons = 1;
         else if (!strcmp(argv[i], "--save") && i + 1 < argc) save_dir = argv[++i];
@@ -5403,8 +5617,13 @@ static int shot(int argc, char **argv)
             }
             if (rnd && !has_random(cur)) { fprintf(stderr, "no random play\n"); return 1; }
             rnd_mode[cur] = rnd;                /* --random: a game of levels at random (--variant n) */
-            open_game(cur, level > 0 ? level - 1 : v);   /* --level n: level n (1..) */
-            if (moves && (!games[cur]->script || !games[cur]->script(moves))) {
+            open_game(cur, resume ? -1 : level > 0 ? level - 1 : v);   /* --level n: level n (1..); --resume: the game
+                                                                        * kept in --save DIR */
+            if (resume) base = ms_ahead;
+            struct jrec *jr = moves ? jr_move(EV_SCRIPT, 255, moves) : NULL;   /* (kept: --save DIR) */
+            int bad = moves && (!games[cur]->script || !games[cur]->script(moves));
+            jr_done(jr);
+            if (bad) {
                 fprintf(stderr, "bad moves\n");
                 return 1;
             }
@@ -5445,6 +5664,7 @@ static int shot(int argc, char **argv)
     int st = id && started[cur] ? games[cur]->status() : -1;   /* -1: the menu, or a game not started (--pick) */
     printf("%s: %dx%d %s status %d\n", out, ui.w, ui.h, id ? id : "menu", st);
     bot_stop();
+    jr_flush();
     save_flush();                               /* --save DIR: written back (else nothing to write) */
     return 0;
 }
@@ -5861,8 +6081,188 @@ static void key(SDL_Keycode k, int repeat)
     else if (k == SDLK_t && shown(B_F2F)) ui.f2f = !ui.f2f;
     else if (k == SDLK_n) new_game();
     else if (k != SDLK_f && k != SDLK_t && games[cur]->key && !repeat && !(is_view() && hand.up) && !ui_handing() &&
-             !bot_holds() && !solved_card())
+             !bot_holds() && !solved_card()) {
+        struct jrec *jr = jr_event(EV_KEY);
+        if (jr) jr_u32(jr, (uint32_t)k);
         games[cur]->key(k);                     /* the game's own keys (the arrows: a push; none once solved) */
+        jr_done(jr);
+    }
+}
+
+/* ---- a kept game played again (the record: see "the game in progress kept") ------------------------------------- */
+static uint32_t jr_rd(const uint8_t *b, int n, int *p, int bytes)   /* little-endian; past the end: 0 */
+{
+    uint32_t v = 0;
+    for (int i = 0; i < bytes; i++, ++*p) v |= (uint32_t)(*p < n ? b[*p] : 0) << 8 * i;
+    return v;
+}
+
+static uint32_t jr_rdvar(const uint8_t *b, int n, int *p)
+{
+    uint32_t v = 0;
+    for (int s = 0; *p < n && s < 35; s += 7) {
+        uint8_t c = b[(*p)++];
+        v |= (uint32_t)(c & 127) << s;
+        if (!(c & 128)) break;
+    }
+    return v;
+}
+
+/* the clock on to `to`, as the frames went meanwhile: drawn every 50 ms while the game is busy (its animations land,
+ * what draw() starts starts, the hand-off comes), then at once */
+static void jr_advance(Uint32 to)
+{
+    const game *g = games[cur];
+    for (int k = 0; rp_now != to; k++) {
+        draw();
+        int busy = (g->busy && g->busy()) || ui_dice_busy();
+        Uint32 left = to - rp_now;
+        rp_now += !busy || k >= 400 || left < 50 ? left : 50;
+    }
+    draw();
+}
+
+/* game g (open, cur) played again from its record in the store; 0: none (or not this game's) */
+static int jr_resume(int g)
+{
+    if (!JR_ON || !games[g]->start || ui.w <= 0) return 0;
+    uint8_t *b = NULL;
+    int n = 0;
+    for (int k = 0; k < JR_PIECES; k++) {       /* its pieces, in order */
+        char kn[96];
+        jr_key(g, k, kn, sizeof kn);
+        int len = ui_save_get(kn, NULL, 0);
+        if (len <= 0) break;
+        uint8_t *m = realloc(b, (size_t)(n + len));
+        if (!m) break;
+        b = m;
+        n += ui_save_get(kn, b + n, len);
+        if (len < JR_PIECE) break;
+    }
+    int p = 3;
+    if (n < JR_HEAD || b[0] != 'R' || b[1] != 'J' || b[2] != 1) { free(b); return 0; }
+    int v = (int)jr_rd(b, n, &p, 2), rnd = b[p++], np = b[p++];
+    uint8_t seats[MAX_PLAYERS];
+    memcpy(seats, b + p, MAX_PLAYERS);
+    p += MAX_PLAYERS;
+    uint32_t r0 = jr_rd(b, n, &p, 4);
+    int w = (int)jr_rd(b, n, &p, 2), h = (int)jr_rd(b, n, &p, 2), fl = b[p++];
+    int nv = rnd || !games[g]->levels ? (games[g]->axes[0] > 0 ? games[g]->axes[0] * games[g]->axes[1]
+                                                               : games[g]->variants) : nlevels(g);
+    if (np < 1 || np > MAX_PLAYERS || !(player_counts(g) >> np & 1) || (rnd && !has_random(g)) || v < 0 ||
+        v >= (nv > 0 ? nv : 1) || w <= 0 || h <= 0) {
+        free(b);
+        return 0;
+    }
+    /* the game set up as it began: its players, seats, variant (or level) */
+    nplayers[g] = ui.players = np;
+    memcpy(seat_lv[g], seats, MAX_PLAYERS);
+    rnd_mode[g] = rnd;
+    if (rnd) rvariant[g] = v;
+    else variant[g] = v;
+    chosen[g] = 1;
+    remember_game(g);
+    bots_update();
+    seats_view();
+    int sw = ui.w, sh = ui.h, muted = snd_muted, was = screen;
+    jr_quiet = 1;
+    snd_muted = 1;
+    rp_now = ui_ms() - (instant ? 0 : 0x40000000u);   /* long ago: back on the real clock, every animation has landed
+                                                 * (the picture mode: its clock goes on as the first run's went) */
+    rp_on = 1;
+    start_rng[g] = r0;
+    start_game(v, 1);
+    awarded[g] = 1;                             /* (an end passed on the way, then taken back: not counted again) */
+    view_start(1);
+    screen = SCR_GAME;
+    over_hidden = 0;
+    ui.w = w;
+    ui.h = h;
+    ui.flipped = fl & 1;
+    ui.f2f = fl >> 1 & 1;
+    layout();
+    last_status = games[g]->status();
+    const game *gm = games[g];
+    Uint32 t = rp_now;
+    int events = 0;
+    while (p < n) {
+        int type = b[p++];
+        t += jr_rdvar(b, n, &p);
+        if (type != EV_VIEW && type != EV_RNG) jr_advance(t);
+        float x = 0, y = 0;
+        if (type == EV_PRESS || type == EV_MOTION || type == EV_RELEASE || type == EV_FINGER) {
+            x = (float)jr_rd(b, n, &p, 2) / 4;
+            y = (float)jr_rd(b, n, &p, 2) / 4;
+        }
+        if (type == EV_PRESS) game_press(x, y);
+        else if (type == EV_MOTION) gm->motion(x, y);
+        else if (type == EV_RELEASE) gm->release(x, y);
+        else if (type == EV_FINGER) {
+            int id = (int)jr_rd(b, n, &p, 4), phase = b[p < n ? p : n - 1];
+            p++;
+            if (gm->finger) gm->finger(id, phase, x, y);
+        } else if (type == EV_KEY) {
+            SDL_Keycode k = (SDL_Keycode)jr_rd(b, n, &p, 4);
+            if (gm->key) gm->key(k);
+        } else if (type == EV_PASS) {
+            if (gm->pass) gm->pass();
+        } else if (type == EV_UNDO) undo_human();
+        else if (type == EV_UNCOVER) uncover();
+        else if (type == EV_SCRIPT || type == EV_BOT) {
+            int seat = (int)jr_rd(b, n, &p, 1), len = (int)jr_rd(b, n, &p, 2);
+            char *mv = p + len <= n ? malloc((size_t)len + 1) : NULL;
+            if (!mv) break;
+            memcpy(mv, b + p, (size_t)len);
+            mv[len] = 0;
+            p += len;
+            if (type == EV_SCRIPT) {
+                if (gm->script) gm->script(mv);
+            } else {
+                bot_moving = seat;
+                if (cbot && cbot->play) cbot->play(mv);
+                else if (gm->script) gm->script(mv);
+                bot_moving = -1;
+                bot_last = seat;
+            }
+            free(mv);
+        } else if (type == EV_VIEW) {
+            ui.w = (int)jr_rd(b, n, &p, 2);
+            ui.h = (int)jr_rd(b, n, &p, 2);
+            int f = p < n ? b[p] : 0;
+            p++;
+            ui.flipped = f & 1;
+            ui.f2f = f >> 1 & 1;
+            layout();
+        } else if (type == EV_RNG) rng = jr_rd(b, n, &p, 4);
+        else break;                             /* (not a record of ours: played as far as it went) */
+        after_input();
+        events++;
+    }
+    if (!instant) jr_advance(t + 600000);        /* the last move landed */
+    rp_on = 0;
+    if (instant) ms_ahead = t - 1000;           /* (shot_clock's: ui_ms() goes on from the last event) */
+    jr_quiet = 0;
+    snd_muted = muted;
+    awarded[g] = 0;
+    struct jrec *r = &J[g];                     /* the record goes on from here */
+    free(r->b);
+    r->b = b;
+    r->n = r->cap = n;
+    r->ok = 1;
+    r->kept = (n + JR_PIECE - 1) / JR_PIECE;
+    r->last = ui_ms();
+    r->rng = rng;
+    r->w = ui.w;
+    r->h = ui.h;
+    r->flipped = ui.flipped;
+    r->f2f = ui.f2f;
+    ui.w = sw;
+    ui.h = sh;
+    if (is_view()) view_of[g] = hand.pending >= 0 ? hand.pending : hand.up ? hand.player : ui.viewer;
+    hand.pending = -1;
+    screen = was;
+    if (instant) fprintf(stderr, "resume: %s, %d events played again, status %d\n", gm->id, events, gm->status());
+    return 1;
 }
 
 int main(int argc, char **argv)
@@ -5932,6 +6332,7 @@ int main(int argc, char **argv)
                 case SDL_APP_WILLENTERBACKGROUND:     /* the bot thinking stops (it starts again on return) */
                 case SDL_APP_TERMINATING:
                     bot_stop();
+                    jr_flush();
                     save_flush();
                     PT.game = 0;                /* a finger down then is lost: an end waiting for it shows */
                     fingers_stray();
@@ -6015,8 +6416,10 @@ int main(int argc, char **argv)
         draw();
         frames_log(perf_now() - t0);
         SDL_RenderPresent(ui.r);
+        jr_flush();
         save_flush();                           /* what changed, written at once (nothing: no write) */
     }
+    jr_flush();
     save_flush();
     bot_stop();
     worker_park();                              /* no picture half painted */
