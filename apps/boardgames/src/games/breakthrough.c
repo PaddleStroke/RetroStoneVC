@@ -148,13 +148,21 @@ static int xy_sq(float x, float y)
     return ui.flipped ? (7 - r) * 8 + 7 - f : r * 8 + f;
 }
 
-static void piece_at(int player, float x, float y, float size)
+/* a pawn on the square at (x, y), lifted off its shadow by lift (0 standing .. 1 a little up and bigger), faded */
+static void piece_lift(int player, float x, float y, float size, float lift, float alpha)
 {
     int up = ui_upside(player);
-    ui_shadow(x, up ? y - 0.79f * size : y, size);
-    if (up) ui_put_rot(t_piece[player], x + size / 2, y + size / 2, size, size, 180);
-    else ui_put(t_piece[player], x, y, size, size);
+    if (alpha >= 1) ui_shadow(x, up ? y - 0.79f * size : y, size);
+    float s = size * (1 + 0.1f * lift), dy = 0.12f * size * lift;
+    x -= (s - size) / 2;
+    y -= (s - size) / 2 + (up ? -dy : dy);
+    SDL_SetTextureAlphaMod(t_piece[player], (Uint8)(255 * fmaxf(0, fminf(1, alpha))));
+    if (up) ui_put_rot(t_piece[player], x + s / 2, y + s / 2, s, s, 180);
+    else ui_put(t_piece[player], x, y, s, s);
+    SDL_SetTextureAlphaMod(t_piece[player], 255);
 }
+
+static void piece_at(int player, float x, float y, float size) { piece_lift(player, x, y, size, 0, 1); }
 
 static void draw(void)
 {
@@ -172,11 +180,12 @@ static void draw(void)
         sq_xy(sel, &x, &y);
         ui_mark_select(x, y, sq, sq);
     }
-    float t = 1;
+    float t = 1, lin = 1;
     if (anim.on) {
         t = (ui_ms() - anim.t0) / (float)ANIM_MS;
         if (t >= 1) t = 1, anim.on = 0;
         else ui_animate();
+        lin = t;
         t = 1 - (1 - t) * (1 - t) * (1 - t);
     }
     if (G.ply && status() != GS_PLAY && !anim.on) {   /* the winning piece: through, or the last one taken */
@@ -186,11 +195,11 @@ static void draw(void)
     for (int s = 0; s < BT_SQUARES; s++) {
         if (p->at[s] < 0 || (drag.on && drag.moved && s == drag.from)) continue;
         sq_xy(s, &x, &y);
-        if (anim.on && s == anim.m.to) {        /* the piece taken stays until the taker arrives */
-            if (anim.m.capture) piece_at(!p->at[s], x, y, (float)sq);
+        if (anim.on && s == anim.m.to) {        /* the piece taken fades as the taker comes down on it */
+            if (anim.m.capture) piece_lift(!p->at[s], x, y, (float)sq, 0, t < 0.5f ? 1 : 2 - 2 * t);
             continue;
         }
-        piece_at(p->at[s], x, y, (float)sq);
+        piece_lift(p->at[s], x, y, (float)sq, s == sel && !drag.moved ? 1 : 0, 1);   /* the one picked lifts */
     }
     if (sel >= 0)                               /* where the selected piece can go */
         for (int i = 0; i < nlegal; i++) {
@@ -203,7 +212,7 @@ static void draw(void)
         float x0, y0, x1, y1;
         sq_xy(anim.m.from, &x0, &y0);
         sq_xy(anim.m.to, &x1, &y1);
-        piece_at(p->at[anim.m.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq);
+        piece_lift(p->at[anim.m.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq, sinf(3.14159265f * lin), 1);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
