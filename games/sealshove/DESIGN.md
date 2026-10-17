@@ -143,13 +143,20 @@ on the left and a fishing boat on the right, at 520 more icebergs, penguins and 
 top corners, the DASH button its bottom-right corner, the UI kit centres itself. A state saved at one width loads at
 another. Checks at 320, 427 and 520; the touch test plays the same drag at 320, 427, 520 and 560 and compares.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`; the 240 lines of the stage are the same pixels, centred. The raster draws the lines past the stage: the
-sea goes on (its gradient carried on at a third of its slope), BG3 always holds the whole 1024-px panorama there and
-shows its far columns past the stage (above: the boat and an iceberg; below: two icebergs; none of them on the 320-px
-stage); the UI and the floe are hidden there, and line 0 puts the stage's settings back (a 240-line screen is
-unchanged). The touches are read in stage coordinates (y less `rs_screen_origin_y()`); the DASH button sits in the
-screen's bottom-right corner, under the thumb (stage y past 240), the stick anywhere as before.
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (520 lines,
+game.h) first in `game_init`: the app scales the 520 lines to the display's height and crops the sides, 222 columns on a
+1080x2520 phone (the floe, 196 px with its wobble, and the splashes at its rim), 240 on a 1080x2340 one; the floe is
+5x on a 1080x2520 phone. The stage sits `TALL_UP` (130) lines down. The rules are the same.
+- **The HUD at the screen's top**: the score at its top, the seals' heads and pips in two rows under the frontend's corner
+  buttons, at the edges of the columns shown (`vis_left()` / `vis_right()`, game.h). The DASH button in the bottom-right
+  corner of the columns shown, the stick on their left 55% (main.c and draw.c read the same columns).
+- **The sea past the stage** (the raster): its gradient carried on; BG3 shows other parts of the 1024-px panorama, moved
+  into the columns shown: above, the boat on the left and the lone penguin's iceberg under the score; below (from line
+  256), the three penguins' iceberg on the left, the DASH button on the right. Their penguins are drawn with them (and
+  cheer with the others). The UI and the floe are hidden there; line 0 puts the stage's settings back.
+- **Fill or fit**: the matches fill the display's height; the title and the game-over panels show every column
+  (`rs_screen_fill(0)`).
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the sea and the penguins, a seal in its cap bobbing, the player slots, PRESS A TO SHOVE with the A

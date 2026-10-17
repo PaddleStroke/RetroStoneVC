@@ -176,7 +176,7 @@ static int touch_lifted(int since)
 static void touch_read(pin *in)
 {
     tbutton b;
-    touch_button(rs_screen_right(), &b);
+    touch_button(vis_right(), &b);              /* (the columns shown: a zoomed screen crops its sides) */
     b.y += rs_screen_bottom() - RS_SCREEN_H;    /* a tall screen: DASH in the screen's bottom-right corner */
     int ox = rs_screen_origin_x(), oy = rs_screen_origin_y();
     TV.dash_on = 0;
@@ -194,7 +194,7 @@ static void touch_read(pin *in)
                 /* only a finger going down slides (as A): not one held through a pause or a load */
                 if (!touch_btn_slot[i] && t->pressed) in->dash = 1;
                 touch_btn_slot[i] = 1;
-            } else if (touch_stick_slot < 0 && touch_stick_zone(rs_screen_left(), rs_screen_width(), x0, y0)) {
+            } else if (touch_stick_slot < 0 && touch_stick_zone(vis_left(), vis_right() - vis_left(), x0, y0)) {
                 touch_stick_slot = i;
                 TV.sx0 = t->x0;
                 TV.sy0 = t->y0;
@@ -403,7 +403,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);          /* a phone held upright: more sea above and below (draw.c, DESIGN.md) */
+    rs_screen_zoom(ZOOM_H);                   /* a phone held upright: zoomed on the floe (draw.c, DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);

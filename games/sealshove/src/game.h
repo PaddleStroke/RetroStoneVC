@@ -134,6 +134,16 @@
 #define BTN_DY        38
 #define BTN_SLOP      8         /* px around it that still press it */
 
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen, ZOOM_H lines (rs_screen_zoom; 222 columns shown
+ * on a 1080x2520 phone, 240 on a 1080x2340 one: the floe and its rim's splashes), the stage TALL_UP lines from the
+ * screen's top (the HUD above the floe, the DASH button below it); landscape and 4:3: 240 lines, unchanged */
+#define ZOOM_H        520
+#define TALL_UP       130
+static inline int tall_screen(void) { return rs_screen_height() > 240; }
+/* the stage x of the columns the display shows (every column without a zoom: rs_screen_left() .. right()) */
+static inline int vis_left(void) { return rs_screen_visible_x0() - rs_screen_origin_x(); }
+static inline int vis_right(void) { return rs_screen_visible_x1() - rs_screen_origin_x(); }
+
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
 enum { CH_ICE, CH_WARN, CH_GONE };
 typedef struct chunk {

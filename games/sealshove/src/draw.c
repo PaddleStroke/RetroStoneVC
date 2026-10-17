@@ -34,9 +34,14 @@ static const rs_color title_ramps[2][3] = {
 #define DRIFT_WET   70              /* ... wet from here (sinking) ... */
 #define DRIFT_FADE  110             /* ... see-through from here */
 #define CHEER_FRAMES 50             /* the penguins cheer after a splash */
-/* a tall screen: the sea's columns past the stage, from the stage's (the 1024-px panorama's far parts) */
-#define TALL_SEA_ABOVE 258
-#define TALL_SEA_BELOW (-320)
+/* a tall screen (zoomed): the sea past the stage shows other parts of the 1024-px panorama, moved (x, y) into the
+ * columns shown: above, the boat on the left and the lone penguin's iceberg in the middle (under the score); below
+ * (from line 256), the three penguins' iceberg on the left (the DASH button on the right) */
+#define TALL_ABOVE_X 260
+#define TALL_ABOVE_Y 144
+#define TALL_BELOW_X (-122)
+#define TALL_BELOW_Y 54
+#define HUD_TALL_Y   26             /* the seals' rows under the score and the frontend's corner buttons */
 
 static rs_color line_col[RS_SCREEN_H];
 static int shown_key = -1, shown_best = -1, text_paused;
@@ -80,8 +85,9 @@ static void raster(int line, void *user)
             rs_bg_enable(RS_BG1, 0);
             rs_bg_enable(RS_BG2, 0);
         }
-        int band = line < 0 ? TALL_SEA_ABOVE : line >= 256 ? TALL_SEA_BELOW : 0;
-        rs_bg_scroll(RS_BG3, (tall_sea_x + band) & (sea_w() * 8 - 1), tall_sea_y);
+        int bx = line < 0 ? TALL_ABOVE_X : line >= 256 ? TALL_BELOW_X : 0;
+        int by = line < 0 ? TALL_ABOVE_Y : line >= 256 ? TALL_BELOW_Y : 0;
+        rs_bg_scroll(RS_BG3, (tall_sea_x + bx) & (sea_w() * 8 - 1), (tall_sea_y + by) & 255);
         rs_pal_set(0, sea_color_out(line));
         return;
     }
@@ -134,6 +140,8 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more sea on both sides */
+    /* a tall screen: the stage TALL_UP lines down (in proportion on a shorter one): the HUD above the floe */
+    if (tall_screen()) rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * TALL_UP / (ZOOM_H - RS_SCREEN_H));
     hu_config hc = hu_defaults();           /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;             /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -455,16 +463,25 @@ static void draw_penguins(int t)
         int cheering = cheer_t < CHEER_FRAMES;
         if (cheering) f = ((cheer_t + i * 3) / 6) & 1 ? 2 : 0;
         spr(SPR_PENG0 + f, gm_penguins[i][0] - 8, gm_penguins[i][1] - 15, 1, -1, (i & 1) ? RS_SPR_HFLIP : 0);
+        /* a tall screen: the bergs past the stage are other parts of the panorama (raster): their penguins with them
+         * (the three of the berg at x -52 below the stage, the lone one at x 392 above it) */
+        if (tall_screen() && i >= 2 && i != 5) {
+            int ax = i == 6 ? TALL_ABOVE_X : TALL_BELOW_X, ay = i == 6 ? TALL_ABOVE_Y : TALL_BELOW_Y - 256;
+            spr(SPR_PENG0 + f, gm_penguins[i][0] - ax - 8, gm_penguins[i][1] - ay - 15, 1, -1,
+                (i & 1) ? RS_SPR_HFLIP : 0);
+        }
     }
 }
 
-/* the HUD: each seal's head and its round pips in the screen's top corners (the first two left, the others right) */
+/* the HUD: each seal's head and its round pips in the screen's top corners (the first two left, the others right; a
+ * tall screen: at its top, in the columns shown, under the frontend's corner buttons) */
 static void draw_hud(const world *w, int t)
 {
+    int y0 = tall_screen() ? rs_screen_top() + HUD_TALL_Y : 0;
     for (int i = 0; i < SEALS; i++) {
         const seal *s = &w->s[i];
-        int right = i >= 2, row = 4 + (i & 1) * 18, pal = hu_player_pal(i);
-        int ix = right ? rs_screen_right() - 20 : rs_screen_left() + 4;
+        int right = i >= 2, row = y0 + 4 + (i & 1) * 18, pal = hu_player_pal(i);
+        int ix = right ? vis_right() - 20 : vis_left() + 4;
         int out = s->state == SS_OUT || s->state == SS_FALL;
         spr(out ? SPR_SEAL_HEAD0 + ((t / 16) & 1) : SPR_SEAL_ICON, ix, row, 3, pal, 0);
         for (int k = 0; k < WIN_ROUNDS; k++) {
@@ -482,7 +499,7 @@ static void draw_hud(const world *w, int t)
 static void draw_touch(const world *w, const touch_view *tv)
 {
     tbutton b;
-    touch_button(rs_screen_right(), &b);
+    touch_button(vis_right(), &b);
     b.y += rs_screen_bottom() - RS_SCREEN_H;    /* a tall screen: in the screen's bottom-right corner (main.c) */
     if (tv->stick_on) {
         int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0 - rs_screen_origin_y();
@@ -644,6 +661,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (drawn_width != rs_screen_width()) maps_setup();
     int t = (int)rs_frame_count(), sx = hu_shake_x(), sy = hu_shake_y();
     int playing = state == ST_PLAY || state == ST_DEAD;
+    rs_screen_fill(playing);                    /* a tall screen: the title and the panels show every column */
     hu_standing rs;
     standing(w, &rs);
     if (!paused) {
@@ -703,7 +721,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (playing && tv->seen && state == ST_PLAY) draw_touch(w, tv);
     if (playing) {
-        if (w->humans == 1) hu_number(w->s[0].score, RS_SCREEN_W / 2, 6, 3);
+        if (w->humans == 1)
+            hu_number(w->s[0].score, (vis_left() + vis_right()) / 2, 6 + (tall_screen() ? rs_screen_top() + 4 : 0), 3);
         draw_hud(w, t);
     }
     draw_seals(w, t, sx, sy, w->humans > 1);
