@@ -4,9 +4,12 @@
  * taken away; kept when the solver lays the whole track: one solution). Each candidate:
  *   - its grade (the highest reasoning the solver used: a cell's sides and the counts; no loop; the cuts' crossings;
  *     a side tried and followed to a contradiction), the line's length and the pieces given;
+ *   - its look: the line crosses every row and every column (no count of 0, no empty band of the board); no long
+ *     straight run, about one turn every two cells, the given pieces spread out;
  *   - near-duplicates dropped (the same line turned or mirrored).
- * Each chapter has its makes (5 x 5 with the plainest reasoning up to 10 x 10 needing trials); a make's candidates
- * are ranked by difficulty and picked evenly over them. Then each chapter goes from its easiest to its hardest.
+ * Each chapter has its makes (5 x 5 with the plainest reasoning up to 10 x 10 needing trials); a make's best-looking
+ * two thirds are ranked by difficulty and picked evenly over them. Then each chapter goes from its easiest to its
+ * hardest.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/tkgen apps/boardgames/tools/tracks_gen.c \
  *       apps/boardgames/src/games/tracks_rules.c && /tmp/tkgen > apps/boardgames/src/games/tracks_levels.h
@@ -23,7 +26,7 @@
 typedef struct {
     tk_game g;
     int len, givens;
-    double score;
+    double score, look;
     char key[TK_CELLS + 1];
 } cand;
 
@@ -81,10 +84,51 @@ static int seen(const char *key)
     return 0;
 }
 
+static int by_look(const void *a, const void *b)
+{
+    const cand *x = a, *y = b;
+    return x->look < y->look ? -1 : x->look > y->look;
+}
+
+/* how the line looks (0 best; -1: refused): it must cross every row and every column (no count of 0, no wasted
+ * band of the board); then the longest straight run against the side, turns far from about one cell in two, the
+ * given pieces bunched (their spread against the board's) */
+static double look(const tk_game *g)
+{
+    int n = g->n, turns = 0, len = 0, longest = 0;
+    for (int i = 0; i < n; i++)
+        if (!g->rows[i] || !g->cols[i]) return -1;
+    for (int y = 0; y < n; y++)                 /* straight runs across, then down */
+        for (int x = 0, r = 0; x < n; x++) {
+            r = g->sol[y * n + x] == (TK_E | TK_W) ? r + 1 : 0;
+            if (r > longest) longest = r;
+        }
+    for (int x = 0; x < n; x++)
+        for (int y = 0, r = 0; y < n; y++) {
+            r = g->sol[y * n + x] == (TK_N | TK_S) ? r + 1 : 0;
+            if (r > longest) longest = r;
+        }
+    double gx = 0, gy = 0, gk = 0, sp = 0;
+    for (int c = 0; c < n * n; c++) {
+        int v = g->sol[c];
+        if (!v) continue;
+        len++;
+        turns += v != (TK_E | TK_W) && v != (TK_N | TK_S);
+        if (g->given[c]) gx += c % n, gy += c / n, gk++;
+    }
+    for (int c = 0; c < n * n && gk > 1; c++)
+        if (g->given[c]) {
+            double dx = c % n - gx / gk, dy = c / n - gy / gk;
+            sp += dx * dx + dy * dy;
+        }
+    double bunched = gk > 1 ? 1.0 - sp / gk / (n * n / 6.0) : 0, t = turns / (double)len - 0.5;
+    return (double)longest / n + 2.0 * t * t + 0.3 * (bunched > 0 ? bunched : 0);
+}
+
 static int make_pool(const tk_config *cf, uint32_t seed0)
 {
     int k = 0;
-    for (uint32_t seed = seed0; k < CANDS && seed < seed0 + 20 * CANDS; seed++) {
+    for (uint32_t seed = seed0; k < CANDS && seed < seed0 + 40 * CANDS; seed++) {
         cand *c = &pool[k];
         if (tk_make(&c->g, cf, seed, 400, 20000) != 2) continue;
         uint8_t out[TK_CELLS];
@@ -92,6 +136,7 @@ static int make_pool(const tk_config *cf, uint32_t seed0)
         if (!tk_deduce(&c->g, cf->level, &grade, out) || memcmp(out, c->g.sol, (size_t)(cf->n * cf->n))) continue;
         c->len = c->givens = 0;
         for (int i = 0; i < cf->n * cf->n; i++) c->len += c->g.sol[i] != 0, c->givens += c->g.given[i];
+        if ((c->look = look(&c->g)) < 0) continue;
         canon(&c->g, c->key);
         int dup = 0;
         for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
@@ -111,6 +156,9 @@ int main(void)
             const part *pt = &CHAPTER[ch].p[p];
             int k = make_pool(&pt->cf, 1000u * (uint32_t)(ch * 2 + p + 1));
             fprintf(stderr, "chapter %d, make %d: %d candidates\n", ch + 1, p + 1, k);
+            qsort(pool, (size_t)k, sizeof pool[0], by_look);   /* the best-looking two thirds, by difficulty */
+            if (k * 2 / 3 > pt->count + 4) k = k * 2 / 3;
+            qsort(pool, (size_t)k, sizeof pool[0], by_score);
             for (int i = 0; i < pt->count; i++) {
                 int at = (int)((i + 0.5f) / pt->count * (k - 1));
                 while (at < k && seen(pool[at].key)) at++;
