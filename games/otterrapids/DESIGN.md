@@ -79,3 +79,13 @@ screens, the save states); tests/wide_test.sh checks the picture widths, the sam
 the same picture as at 320 (the start of a run, its first hazards, four otters, the title, later in a run), `--resize`
 during a run and states loaded across widths (`--any-width`); the language test runs at the three widths.
 Screenshots: title, play and game over at 427 and 520.
+
+## Tall screen
+
+A phone held upright (docs/spec.md "Tall screen"): `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`; the 240
+lines of the stage are the same pixels, centred. The foreground is made of tiles drawn each frame for the stage only
+(up to 1023 of them), so the lines past the stage are drawn by the raster instead (draw.c `raster_out`): the river
+further up and down, the water's gradient carried on in the backdrop, its banks and islands where the world has them
+(window 1 the river's span, window 2 an island's, the land a fog of the banks' green over the backdrop). No hazard,
+fish or otter is drawn there: the play stays on the stage. BG1 and BG2 show their empty bottom rows there (their
+scroll set per line); line 0 puts the scroll and the fog back.

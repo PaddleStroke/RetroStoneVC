@@ -4,3 +4,5 @@
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 play.row_cache      pure course geometry keyed by seed and section ID; any cache miss rebuilds identical terrain
+draw.tall_w        a tall screen: the world drawn, set by draw_frame before every picture (the banks past the stage)
+draw.bg1_sy        ... BG1's vertical scroll, the same

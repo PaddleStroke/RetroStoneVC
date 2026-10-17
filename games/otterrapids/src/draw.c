@@ -10,7 +10,30 @@
 static rs_color water[240];
 static const rs_color river_pal[16]={0,RS_RGB8(126,199,192),RS_RGB8(78,162,168),RS_RGB8(43,119,138),RS_RGB8(224,173,106),RS_RGB8(166,112,67),RS_RGB8(79,53,47),RS_RGB8(175,188,188),RS_RGB8(113,135,151),RS_RGB8(55,75,101),RS_RGB8(178,207,122),RS_RGB8(112,163,110),RS_RGB8(62,116,98),RS_RGB8(238,246,217),RS_RGB8(235,173,132),RS_RGB8(39,50,75)};
 static const rs_color ramps[2][3]={{RS_RGB8(254,219,147),RS_RGB8(219,154,85),RS_RGB8(160,93,57)},{RS_RGB8(165,236,220),RS_RGB8(93,189,196),RS_RGB8(45,125,155)}};
-static void raster(int y,void*u){(void)u;if(y>=0 && y<240)rs_pal_set(0,water[y]);}
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240 show
+ * the river further up and down: the water's gradient carried on (the backdrop), its banks and islands where the
+ * world has them (window 1: the river's span, window 2: an island's), the land a fog of the banks' green over the
+ * backdrop. The foreground is drawn for the stage only (its tiles are made each frame), so no rock, log or otter out
+ * there: BG1 and BG2 show their empty bottom rows (the scroll set per line). Line 0 puts the scroll and the fog back.
+ * A 240-line screen never gets these lines: the same pixels. */
+static const world*tall_w;              /* the world drawn (draw_frame), for the banks past the stage */
+static int bg1_sy;                      /* BG1's vertical scroll as written (the game-over panel slides) */
+static void raster_out(int y){
+ if(y==rs_screen_top()||y==240)rs_fog(RS_WIN1_OUT|RS_WIN2,RS_RGB8(112,163,110),RS_MATH_BACK);
+ int e=(y>=0?y:-y)&4?3:0,c[3]={86+e+y/24,169+e+y/32,175+e+y/40};
+ for(int i=0;i<3;i++)c[i]=c[i]<0?0:c[i]>255?255:c[i];
+ rs_pal_set(0,RS_RGB8(c[0],c[1],c[2]));
+ int ly=240+(y&15)-y;rs_bg_scroll(RS_BG1,0,ly);rs_bg_scroll(RS_BG2,0,ly);  /* map rows 30-31: empty */
+ if(!tall_w){rs_window(0,0,RS_SCREEN_W);rs_window(1,0,0);return;}
+ int d=HERO_LINE+tall_w->scroll-y,left,right,center,width;river_banks(tall_w,d,&left,&right);
+ rs_window(0,left,right+1);
+ width=river_island(tall_w,d,&center);
+ if(width)rs_window(1,center-width-1,center+width+2);else rs_window(1,0,0);
+}
+static void raster(int y,void*u){(void)u;
+ if(y<0||y>=240){raster_out(y);return;}
+ if(y==0&&rs_screen_height()>RS_SCREEN_H){rs_fog(0,0,0);rs_bg_scroll(RS_BG1,0,bg1_sy);rs_bg_scroll(RS_BG2,0,0);}
+ rs_pal_set(0,water[y]);}
 void draw_init(void){hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
  rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,64,32,VR_BG2);rs_bg_enable(RS_BG1,1);rs_bg_enable(RS_BG2,1);rs_bg_enable(RS_BG3,0);
  uint8_t empty[64]={0};rs_tiles_load8(VR_BG2,empty,1);rs_pal_load(RS_PAL_BG(1),river_pal,16);
@@ -291,5 +314,6 @@ void draw_frame(const world*w,int state,int t,int best,int fresh,int paused){hu_
  }else{int slide=hu_slide_in(t,20,200);if(w->players==1){static const int med[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,fresh,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,med),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);hu_results_panel(&s,NULL);hu_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;hu_results_icon_pos(&s,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(s.order[i]));}hu_retry_line_at(hu_results_retry_row(&s),t,RETRY_LOCK,HTR(BACK_TITLE));}rs_bg_scroll(RS_BG1,0,-slide);}
  if(state!=ST_OVER)rs_bg_scroll(RS_BG1,0,0);
  rs_bg_scroll(RS_BG2,0,0);rs_viewports(0,NULL,0);
+ tall_w=w;bg1_sy=state==ST_OVER?-hu_slide_in(t,20,200):0;   /* (a tall screen: raster_out, line 0) */
 }
 void draw_state(void){rs_state_var("draw.water",water,sizeof water);RS_STATE_RASTER(raster);}
