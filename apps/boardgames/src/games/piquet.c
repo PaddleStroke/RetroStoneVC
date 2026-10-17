@@ -25,6 +25,7 @@
 #include "games/piquet.h"
 #include "games/endtable.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 #define LIFT 0.14f
@@ -406,7 +407,7 @@ static void draw_seats(void)
         if (q == o) x = T.sx[o] - (x - T.sx[o]);
         if (p->phase <= PQ_DECLARE && p->ex[q]) ct_badge(x, y, 0.95f * T.tok, p->ex[q]);
         int pts = p->dpts[q] + p->ppts[q] + p->bonus[q];
-        if (p->phase == PQ_PLAY && pts) ui_number(x, y, 0.5f * T.tok, pts, 1);
+        if (p->phase == PQ_PLAY && pts) ui_number(x, y, 0.5f * T.tok, pts, TH.dark);   /* (the table's ink) */
     }
 }
 
