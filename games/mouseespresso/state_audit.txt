@@ -7,6 +7,7 @@ draw.pixels         foreground(): the furniture layer's pixels, per-frame scratc
 draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
 draw.tile_slot      foreground(): the playfield tiles shared this frame, per-frame scratch (cleared every frame)
 draw.tile_seen      foreground(): the tiles loaded this frame, per-frame scratch
+draw.hud_pinned     a tall screen: whether the HUD is pinned at the screen's top, set by draw_frame before every picture (the raster)
 bot.eye             bot_decide(): the playfield picture it reads, rebuilt from the world every frame (look())
 bot.solid           bot_decide(): that picture as bits, rebuilt with it
 bot.tall            bot_decide(): dilation scratch

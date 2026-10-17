@@ -16,6 +16,8 @@
 #define WIDE_LEFT_NUM 1
 #define WIDE_LEFT_DEN 3
 #define WIDE_LEFT(extra) (((extra)*WIDE_LEFT_NUM*2+WIDE_LEFT_DEN)/(2*WIDE_LEFT_DEN))
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen's height (rs_screen_zoom; draw.c) */
+#define ZOOM_H 540
 enum hero_state { HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF };
 enum { EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16,EV_APPLE=32 };
 enum { ST_TITLE,ST_PLAY,ST_DEAD,ST_OVER };

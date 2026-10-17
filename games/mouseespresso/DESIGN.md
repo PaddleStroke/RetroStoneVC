@@ -173,12 +173,21 @@ passed, the back wall and the counter, and before the start (the title too) the 
   `make mouseespresso-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
   (tools/wide_shots.sh).
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`; the 240 lines of the stage are the same
-pixels, centred, and the flight is the same (the ceiling and the counter stay where they are). The raster draws the
-lines past the stage (draw.c `raster_out`): above, the back wall's planks (BG3's row 14, the planks alone between the
-windows and the rail, repeated) up to the screen's top, a little darker toward it, and the strings of the hanging
-lamps, cups and tea bags carried up (BG2's line 0, where only strings are, repeated); below, the counter's wooden
-front (the backdrop: a shadow under its top, panels with a groove every 40 lines, darker with depth), every layer
-hidden there. The UI is hidden past the stage; line 0 puts the stage's layers and scroll back, so a 240-line screen is
-unchanged. The frontend's touch zones sit on the counter's front.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (540 lines, game.h) first in `game_init`. The app scales the 540 lines to the
+display's height and crops the sides: 231 columns on a 1080x2520 phone, 249 on a 1080x2340 one, 270 at 720x1440; the
+mice are 4.7x on a 1080x2520 phone (3.4x before). The flight is the same (the ceiling and the counter stay where they
+are); the camera pans (`rs_screen_focus_x`) so the columns shown start `TALL_BEHIND` (32) px behind the first mouse: the
+most of the course ahead (199 px of the 248 at 4:3 on a 1080x2520 phone, 217 on a 1080x2340 one).
+- **A taller café**: the stage sits low, 40 lines of the counter's wooden front under it (the backdrop: a shadow under
+  its top, darker with depth). Above it the back wall goes on (draw.c `raster_out`): 24 lines of planks, then the wall's
+  upper storey (BG3's map rows 32..45 on a tall screen: the wall's top 112 lines, half a period along, so boards stand
+  over the windows and windows over the boards), then planks (BG3's row 14 repeated) up to the ceiling's beam at the
+  screen's top (dark wood, a lit edge, its shadow on the wall), a little darker toward it; the strings of the hanging
+  lamps, cups and tea bags carried up to the beam (BG2's line 0 repeated).
+- **The HUD on the beam**: BG1's top 44 lines pinned at the screen's top (`rs_bg_pin`) while the mice fly, the score
+  sprites at `rs_screen_top()`, centred in the columns shown; 2-4 players: the tags on row 4, under the frontend's corner
+  buttons, spread over the columns shown.
+- **Fill or fit**: the title and the panels show every column (`rs_screen_fill(0)`), the run fills the height.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240). The frontend's touch zone (hold
+  anywhere) is the whole screen.

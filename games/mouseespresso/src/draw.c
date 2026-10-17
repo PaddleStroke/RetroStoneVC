@@ -16,6 +16,17 @@
 typedef struct view {int cx,mx,my,zx,zy;rs_color sky[240];} view;
 static view V[4];static rs_viewport VP[4];static int nviews,shown_state=-1,shown_best=-1;
 static int laid_w;                     /* the width the maps were laid out for (a state of another width: relayout) */
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen, ZOOM_H lines (rs_screen_zoom: 231 columns shown on
+ * a 1080x2520 phone, 249 on a 1080x2340 one), the stage low (TALL_BELOW lines of the counter's front under it), the
+ * wall's upper storey (TALL_UPPER lines) above it, the ceiling's beam with the HUD at the screen's top (HUD_LINES);
+ * the columns shown start TALL_BEHIND px behind the first mouse (the most of the course ahead) */
+#define TALL_BELOW 40
+#define TALL_UPPER 112
+#define TALL_GAP 24                     /* planks between the upper storey and the stage */
+#define HUD_LINES 44
+#define TALL_BEHIND 32
+static int tall(void) {return rs_screen_height()>RS_SCREEN_H;}
+static int bg3_rows(void) {return tall()?64:32;}   /* a tall screen: the upper storey in rows 32..45 */
 /* the furniture layer's pixels (foreground(): per-frame scratch, state_audit.txt), as wide as the widest screen */
 #define PIX_W RS_SCREEN_W_MAX
 static uint8_t pixels[PIX_W*240];
@@ -26,25 +37,34 @@ static int p1_drawn_x;                 /* tests (draw_view_log): the screen x of
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd8ba),RS_HEX(0xea9868),RS_HEX(0xa65951)},
  {RS_HEX(0xe1eddd),RS_HEX(0x9bc1bd),RS_HEX(0x567f91)}};
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the café goes on past the stage.
- * Above: the back wall's planks (BG3's row 14, between the windows and the rail, repeated) up to the screen's top,
- * a little darker toward it, and the strings of the hanging things carried up to the ceiling (BG2's line 0 repeated:
- * only strings there); below: the counter's wooden front, its panels' grooves every 40 lines, darker with depth. The
- * UI is hidden past the stage; line 0 puts the stage's settings back (a 240-line screen: the same values, so the same
- * pixels). */
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): a taller café, zoomed. The stage sits
+ * low (TALL_BELOW lines of the counter's front under it). Above it: the back wall's upper storey (BG3's map rows 32..45:
+ * the wall's top 112 lines, windows and boards, half a period along: boards over the windows, windows over the boards),
+ * then its planks (BG3's row 14, between the windows and the rail, repeated) up to the ceiling's beam at the screen's
+ * top, which holds the HUD (BG1's top HUD_LINES pinned there while playing); the strings of the hanging things carried
+ * up to the beam (BG2's line 0 repeated: only strings there); the wall a little darker toward the top. Below: the
+ * counter's wooden front, its panels' grooves every 40 lines, darker with depth. The UI is hidden past the stage (but
+ * the HUD); line 0 puts the stage's settings back (a 240-line screen: the same values, so the same pixels). */
 static rs_color tall_scale(rs_color c,int k){   /* darker by k/256, rounded (soft steps) */
  return RS_RGB(((c&31)*k+128)/256,(((c>>5)&31)*k+128)/256,(((c>>10)&31)*k+128)/256);
 }
 #define TALL_PLANKS 112                 /* the back wall's row of planks alone (between the windows and the rail) */
+static int hud_pinned;                  /* the HUD's lines pinned at the screen's top (draw_frame; not saved) */
 static void raster_out(int line){
- int top=rs_screen_top();
- if(line==top){rs_bg_enable(RS_BG1,0);rs_bg_enable(RS_BG2,1);rs_bg_enable(RS_BG3,1);}
+ int top=rs_screen_top(),beam=top+HUD_LINES;
+ if(line==top){rs_bg_enable(RS_BG1,hud_pinned);rs_bg_enable(RS_BG2,0);rs_bg_enable(RS_BG3,0);}
+ if(line==beam && line<0){rs_bg_enable(RS_BG1,0);rs_bg_enable(RS_BG2,1);rs_bg_enable(RS_BG3,1);}
  if(line==RS_SCREEN_H)for(int l=0;l<3;l++)rs_bg_enable(l,0);
+ if(line<0 && line<beam){               /* the ceiling's beam: dark wood, a lit edge, its shadow on the wall */
+  int d=beam-line;
+  rs_pal_set(0,d==1?RS_HEX(0x423a4b):d==2?RS_HEX(0xb48a62):d==3?RS_HEX(0x906b56):(line&4)?RS_HEX(0x5a4d53):RS_HEX(0x584449));
+  return;
+ }
  if(line<0){
-  int k=top<0?-line*40/-top:0;
-  rs_pal_set(0,tall_scale(V[0].sky[(line&4)?4:0],256-k));
+  int k=top<0?-line*40/-top:0,u=line+TALL_UPPER+TALL_GAP,up=u>=0 && u<TALL_UPPER;
+  rs_pal_set(0,tall_scale(V[0].sky[up?u:(line&4)?4:0],256-k));
   rs_bg_scroll(RS_BG2,0,-line);
-  rs_bg_scroll(RS_BG3,VP[0].sx[2],TALL_PLANKS+(line&7)-line);
+  rs_bg_scroll(RS_BG3,VP[0].sx[2],up?32*8+u-line:TALL_PLANKS+(line&7)-line);
   return;
  }
  int d=line-RS_SCREEN_H,n=rs_screen_bottom()-RS_SCREEN_H,k=n>0?d*72/n:0,g=d%40,dd=(line&4)?4:0;
@@ -64,13 +84,15 @@ static void raster(int line,void *user) {
 /* the maps of this width: 64 tiles at 320, 128 wider */
 static void maps_setup(void) {
  int mw=wide()?128:64;
- rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,mw,32,VR_BG2);rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+ rs_bg_setup(RS_BG1,mw,32,VR_BG1);rs_bg_setup(RS_BG2,mw,32,VR_BG2);rs_bg_setup(RS_BG3,mw,bg3_rows(),VR_BG3);
  laid_w=rs_screen_width();
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
  * width's up (each frame draws the whole screen again). Same width: nothing. */
-void draw_relayout(void) {if(laid_w!=rs_screen_width())maps_setup();}
+void draw_relayout(void) {if(laid_w!=rs_screen_width() || rs_bg_map_h(RS_BG3)!=bg3_rows())maps_setup();}
 void draw_init(void) {
+ int below=rs_screen_height()-RS_SCREEN_H>2*TALL_BELOW?TALL_BELOW:(rs_screen_height()-RS_SCREEN_H)/2;
+ if(tall())rs_screen_origin_v(rs_screen_height()-RS_SCREEN_H-below);   /* the stage low (DESIGN.md) */
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
  maps_setup();
  rs_tiles_load(VR_BG3,gm_bg3_tiles,gm_bg3_tile_count);
@@ -104,6 +126,9 @@ static void background(const view *v,rs_viewport *vp) {
    (uint16_t)(gm_hills_map[yy*64+127-xx]^RS_MAP_HFLIP);
   rs_bg_put(RS_BG3,v->mx+c,v->my+r,tile);
  }
+ /* a tall screen: the wall's upper storey in rows 32..45, its top 112 lines half a period (128 px) along */
+ if(tall())for(int r=0;r<TALL_UPPER/8;r++)for(int c=0;c<cols;c++)
+  rs_bg_put(RS_BG3,v->mx+c,32+r,gm_hills_map[r*64+((fx+c+16)&63)]);
  vp->sx[2]=(int16_t)(v->mx*8+dx);vp->sy[2]=(int16_t)(v->my*8);
 }
 static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewport *vp) {
@@ -188,9 +213,23 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  background(v,vp);int next=1;foreground(w,v,vp,&next);
  vp->sx[0]=vp->sx[1]=vp->sy[0]=vp->sy[1]=0;vp->layers=7;vp->objs=1;
  if(state==ST_TITLE)title_ui(st_t,best);
- if(state==ST_PLAY || state==ST_DEAD){
-  if(w->players==1){hu_number(w->h[0].score,160,8,3);char text[128];rs_strf(text,sizeof text,TR(HUD_BISCUITS_DIST),w->h[0].apples,w->scroll/12);hu_text(hu_center(text,0),4,text);}
-  else for(int p=0;p<w->players;p++){char text[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(text,sizeof text,"%s %d",tag,w->h[p].score);hu_text(p*10,1,text);}
+ /* a tall screen: the run fills the display's height, the columns shown from TALL_BEHIND px behind the first mouse,
+  * the HUD on the ceiling's beam (BG1's top HUD_LINES pinned at the screen's top); the title and the panels show
+  * every column */
+ int run=state==ST_PLAY || state==ST_DEAD,hud=tall() && run;
+ rs_screen_fill(run);
+ if(hud)rs_screen_focus_x(hero_start_x(w->players,0)-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
+ else rs_screen_focus_x(-1);
+ rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);hud_pinned=hud;
+ int vx0=rs_screen_visible_x0()-rs_screen_origin_x(),vx1=rs_screen_visible_x1()-rs_screen_origin_x();
+ int hy=hud?rs_screen_top():0,hc=hud?((vx0+vx1)/2-160)/8:0;   /* the HUD's top, its centre's offset in columns */
+ if(run){
+  if(w->players==1){hu_number(w->h[0].score,160+hc*8,8+hy,3);char text[128];rs_strf(text,sizeof text,TR(HUD_BISCUITS_DIST),w->h[0].apples,w->scroll/12);hu_text(hu_center(text,0)+hc,4,text);}
+  else for(int p=0;p<w->players;p++){
+   char text[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(text,sizeof text,"%s %d",tag,w->h[p].score);
+   if(hud)hu_text((vx0+4)/8+p*((vx1-vx0)/8)/4,4,text);   /* (a tall screen: under the corner buttons, in the columns shown) */
+   else hu_text(p*10,1,text);
+  }
   if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
  }
  if(state==ST_TITLE || state==ST_PLAY || state==ST_DEAD)scene(w,w->t,v,vp);
