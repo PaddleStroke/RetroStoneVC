@@ -7,9 +7,9 @@
  * (B leaves); P1 starts the run at once with A (or an extra START INPUT); one press on the game-over panel
  * (hu_over_back) goes BACK TO THE TITLE, with the same players.
  * The pads: the d-pad moves the ship, A (B, X, Y too) fires, held: a seed as soon as the last one is gone.
- * Touch (rs_game.touch_native, docs/spec.md "Touch"; player 1, DESIGN.md "Controls"): while a finger is down the
- * ship slides toward its x at its normal top speed and fires by itself; a tap (a finger lifted) starts from the title
- * and leaves the game-over panel. Nothing derived from a touch is kept between frames (the states hold nothing more).
+ * Touch (player 1, DESIGN.md "Touch"): the game reads no touches (touch_native off). The phone apps turn them into
+ * P1's pad (apps/launcher/games.cfg): the left / right half holds Left / Right, two drawn shoot buttons hold A. So a
+ * tap starts from the title and leaves the game-over panel as a press of Left, Right or A does.
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_decide); botruns=N runs;
@@ -155,18 +155,6 @@ static void new_run(int state)
 
 static int is_bot(int p) { return p < opt_bot; }
 
-/* ---- touch (player 1) ------------------------------------------------------------------------------------------- */
-/* A finger was lifted this frame that went down during the last `since` frames (on this screen, after its lock):
- * the touch screen's "press A" (a tap; a finger still down from the run before never counts). */
-static int touch_lifted(int since)
-{
-    for (int i = 0; i < RS_TOUCH_MAX; i++) {
-        const rs_touch_point *t = rs_touch(i);
-        if (t && t->released && t->frames < since) return 1;
-    }
-    return 0;
-}
-
 static pin player_input(int p)
 {
     pin in = {0, 0, -1};
@@ -188,14 +176,6 @@ static pin player_input(int p)
     uint16_t pad = rs_pad(hu_player_pad(p));
     in.dir = (pad & RS_BTN_RIGHT ? 1 : 0) - (pad & RS_BTN_LEFT ? 1 : 0);
     if (pad & ACT_BUTTONS) in.fire = 1;
-    if (p == 0) {                               /* touch: slide toward the finger, firing */
-        const rs_touch_point *t = rs_touch_first();
-        if (t && t->down) {
-            in.target = t->x - rs_screen_origin_x();
-            if (in.target < 0) in.target = 0;  /* widescreen: a finger in the left margin (stage x < 0) */
-            in.fire = 1;
-        }
-    }
     return in;
 }
 
@@ -277,7 +257,7 @@ static void play_update(void)
     }
 }
 
-/* the title: players join and leave (the kit's lobby), P1 starts (A, a start input, or a tap) */
+/* the title: players join and leave (the kit's lobby), P1 starts (A or a start input; a tap) */
 static void title_update(void)
 {
     int ev = hu_title_update();
@@ -288,7 +268,7 @@ static void title_update(void)
         new_run(ST_TITLE);                      /* the world follows the players */
         st_t = t;
     }
-    if ((ev & HU_TITLE_START) || touch_lifted(st_t) || (opt_bot && st_t >= BOT_START)) {
+    if ((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) {
         ha_play(HA_CONFIRM);
         new_run(ST_PLAY);
         start_press = 1;                        /* the run starts at once: WAVE 1, the mice fly in */
@@ -317,7 +297,6 @@ static void game_update(void)
         int back = 0;
         if (st_t >= RETRY_LOCK) {
             back = hu_over_back();              /* house rule: after a game over, back to the title (the only menu) */
-            if (touch_lifted(st_t - RETRY_LOCK)) back = 1;   /* a tap that began after the lock */
             if (opt_bot && runs_done < opt_botruns && st_t == RETRY_LOCK + 10) back = 1;
         }
         if (back) {
@@ -388,8 +367,10 @@ static void game_state(void)
 
 const rs_game *rs_game_main(void)
 {
-    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md); touch_native: it reads the touches */
+    /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Hamster Havoc", "hamsterhavoc", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, draw_state_loaded, 1, RS_SCREEN_W_MAX, 1};
+                              game_shutdown, gm_assets, game_state, draw_state_loaded, 1, RS_SCREEN_W_MAX,
+                              0 /* touch_native off: the app's halves and drawn A buttons (apps/launcher/games.cfg;
+                                 * the owner's choice: as Mole Marbles) */};
     return &g;
 }

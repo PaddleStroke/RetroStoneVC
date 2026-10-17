@@ -133,23 +133,25 @@ medal, the wave reached; 2-4 players: the ranking by score with medals) -> one p
 | A (or B, X, Y, Start, Left, Right) on the title | start |
 | Select (or Start in a run) | pause / resume |
 | pads 2-4: A or Start on the title | join (B leaves) |
-| A, Start or Select on the game-over panel | back to the title |
+| A, Start or Select (or B, X, Y, Left, Right) on the game-over panel | back to the title |
 
 ### Touch (docs/spec.md "Touch")
-The game reads the touches itself (`rs_game.touch_native = 1`): the phone apps pass it the fingers and draw no buttons.
-Touch is player 1, alongside the pad (players 2-4 join with pads).
+As Mole Marbles (the owner's choice; it replaces "slide toward the finger"): the game reads no touches
+(`rs_game.touch_native = 0`). The phone apps turn them into player 1's pad (apps/launcher/games.cfg) and draw two
+shoot buttons; players 2-4 join with pads.
 
 | Touch | Action |
 |---|---|
-| a finger down anywhere | the ship slides toward its x at its normal top speed (1.5 px a frame) and stops under it; it fires by itself while the finger is down (A held) |
-| a finger that moves | the ship follows it |
-| a tap (a finger lifted) on the title | start |
-| a tap on the game-over panel | back to the title (after the same lock as A; a finger left down from the run does not count) |
+| hold the left half of the screen | Left: the ship moves left (released: it stops) |
+| hold the right half | Right: the ship moves right |
+| a drawn shoot button (one at each side, at mid-height; on a tall screen the app puts them in the band below the picture) | A: fire (held: a seed as soon as the last one is gone); one thumb on a button, the other on a half |
+| a tap on the title | start (Left, Right or A) |
+| a tap on the game-over panel | back to the title (after the same lock as a press) |
 | the app's pause button | pause / resume (it presses Start) |
 
-The finger's x is a stage x (the screen's x minus the margin), so the same finger plays the same at every width. Nothing
-derived from a touch is kept between frames: the save states need nothing more. `tests/touch_test.sh` (in the check, at
-every width) plays scripted fingers through the headless runner and compares with the pad's runs.
+The game's pictures are unchanged (the app draws the buttons over them). `tests/touch_test.sh` (in the check, at every
+width) checks that raw touches do nothing in the game and plays the app's buttons (Left, Right, A) through the
+headless runner.
 
 ## Up to four players
 Pads 2-4 join with A on the title (B leaves). Everyone defends the same moon at once, each with their own ship, seeds
@@ -196,7 +198,7 @@ speed-up as the mice thin out and from wave to wave, the layouts, the seeds (one
 popping the bottom mouse of its column, the shelters bitten from below and from above and dug through, the mice
 nibbling them, the bubble shield taking exactly one hit, one hit ending the run (the hit-stop, nothing moves after),
 2 players: one out, the other on, nothing paused, the end with the last one; the landing, the saucer's points and its
-capsule, the mothership and its spreads, the touch slide, determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, the intro and the march,
+capsule, the mothership and its spreads, the target slide (the bot), determinism and the bot), the libretro loader, the smoke tests (flow, start inputs, the intro and the march,
 moving and firing, the game over and back to the title, pause, save RAM, joining and leaving, 4 players, the mothership,
 no strict-mode warning, the bot, determinism with 1 and 4 players), the touch tests, the UI screens (tests/ui_test.sh: the
 title with 0-3 players joined, play, pause, 4 players, the mothership, the game over with a medal, the results), the save

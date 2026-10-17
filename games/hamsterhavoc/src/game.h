@@ -24,7 +24,7 @@
 #define SHIP_HALF     10
 #define SHIP_MIN_X    20        /* the ship's centre stays in 20..300 */
 #define SHIP_MAX_X    300
-#define SHIP_SPEED    98304     /* Q16 px/frame (1.5): the d-pad, and a touch target's slide */
+#define SHIP_SPEED    98304     /* Q16 px/frame (1.5): the d-pad, and a target's slide (the bot) */
 #define SHIP_GAP      48        /* 2-4 players: the ships start this far apart */
 /* the sunflower seeds */
 #define SEED_SPEED    327680    /* Q16 px/frame (5) up */
@@ -130,7 +130,7 @@ enum { BK_CRUMB, BK_PEA, BK_JELLY, BK_KINDS };
 typedef struct bomb { int32_t x, y, vx, vy; int on, kind; } bomb;
 enum { FX_POP, FX_SPLAT, FX_POINTS, FX_BIGPOP, FX_BUBBLE };
 typedef struct effect { int16_t x, y, value; uint8_t kind, t, on, pad; } effect;
-/* one player's input for a frame: the d-pad's direction (-1, 0, 1), fire held, a touch target (stage x; -1: none) */
+/* one player's input for a frame: the d-pad's direction (-1, 0, 1), fire held, a target (the bot; stage x; -1: none) */
 typedef struct pin { int dir, fire, target; } pin;
 
 enum { PH_READY, PH_INTRO, PH_PLAY, PH_CLEAR, PH_OVER };

@@ -1,10 +1,10 @@
 #!/bin/sh
-# Hamster Havoc touch controls (DESIGN.md "Controls", docs/spec.md "Touch"; rs_game.touch_native): headless runs with
-# scripted fingers, checked on the final state's log line and against the same runs played on the pad. A tap starts
-# on the title (as the finger is lifted); in play a finger down makes the ship slide toward its x at the ship's top
-# speed (the very run of the d-pad held that way) and fire by itself (A held); it stops under the finger; it follows a
-# finger that moves; nothing while paused; a tap on the game-over panel goes back to the title (not a finger left down
-# from the run, not a tap before the lock). The same run at every width (the finger at the same stage x).
+# Hamster Havoc touch controls (DESIGN.md "Touch"): the game reads no touches (rs_game.touch_native = 0); the phone
+# apps turn them into P1's pad (apps/launcher/games.cfg: the left / right half holds Left / Right, two drawn shoot
+# buttons hold A). Headless runs, checked on the final state's log line: raw fingers do nothing (title, play); the
+# app's inputs do the scheme: a tap of Left, Right or A starts on the title; Left / Right held move the ship and stop
+# when released; A held fires (one thumb on a button, the other on a half: both); a tap leaves the game-over panel
+# after its lock. The same run at every width.
 #   touch_test.sh <hamsterhavoc_headless> <out dir> [widths]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/hamsterhavoc/LICENSE.
 H=$1
@@ -23,73 +23,58 @@ run() {
     grep "state:" "$O/$1.log" | tail -1
 }
 field() { echo "$1" | sed -n "s/.* $2=\([^ ]*\).*/\1/p"; }
-same() { [ "$(field "$1" hash)" = "$(field "$2" hash)" ] && [ "$(field "$1" x)" = "$(field "$2" x)" ] &&
-         [ "$(field "$1" shots)" = "$(field "$2" shots)" ] && [ "$(field "$1" score)" = "$(field "$2" score)" ]; }
 
-START="20 tap-at 50%% 30%%\n"         # a tap: the title starts as the finger is lifted (frame 23)
-PAD="23 tap A\n"                      # the same start on the pad
+START="20 tap A\n"                    # the start (a shoot button's tap)
 
-# the title
-s=$(run title 60 "")
-[ "$(field "$s" st)" = 0 ] && ok "the title waits (no touch)" || ko "the title did not wait: $s"
-a=$(run start 50 "$START")
-b=$(run start-pad 50 "$PAD")
-if [ "$(field "$a" st)" = 1 ] && same "$a" "$b"; then ok "a tap on the title starts the run (the very run of A)"
-else ko "a tap on the title: $a / pad $b"; fi
-s=$(run hold-title 60 "20 touch 50%% 30%%\n")
-[ "$(field "$s" st)" = 0 ] && ok "a finger still down on the title does not start yet" || ko "finger down: $s"
+# the title: a raw finger does nothing; the app's Left, Right or A (a tap anywhere) starts
+s=$(run raw-title 60 "20 tap-at 50%% 30%%\n")
+[ "$(field "$s" st)" = 0 ] && ok "a raw tap does nothing on the title (touch_native off)" || ko "raw tap: $s"
+for b in LEFT RIGHT A; do
+    s=$(run "start-$b" 50 "20 tap $b\n")
+    [ "$(field "$s" st)" = 1 ] && ok "a tap of $b (the app's touch) starts the run" || ko "start with $b: $s"
+done
 
-# play: slide toward the finger at full speed, firing (the run of the d-pad and A held)
-a=$(run slide 170 "${START}130 touch @300 120\n")
-b=$(run slide-pad 170 "${PAD}130 RIGHT+A\n")
-if [ "$(field "$a" x)" = 220 ] && [ "$(field "$a" shots)" -gt 0 ] && same "$a" "$b"; then
-    ok "a finger on the right: the ship slides at 1.5 px a frame and fires (the run of Right and A held)"
-else ko "slide: $a / pad $b"; fi
-a=$(run stop 330 "${START}130 touch @200 120\n")
-[ "$(field "$a" x)" = 200 ] && ok "it stops under the finger" || ko "stop: $a"
-a=$(run follow 330 "${START}130 touch @250 120\n200 move @90 120\n")
-[ "$(field "$a" x)" = 90 ] && ok "it follows the finger as it moves" || ko "follow: $a"
-a=$(run nofire 300 "${START}")
-[ "$(field "$a" shots)" = 0 ] && ok "no finger, no seed" || ko "no finger: $a"
-a=$(run lift 200 "${START}130 touch @200 120\n180 up\n")
-b=$(run lift-later 330 "${START}130 touch @200 120\n180 up\n")
-if [ "$(field "$a" x)" = 200 ] && [ "$(field "$b" x)" = 200 ] && [ "$(field "$a" shots)" = "$(field "$b" shots)" ]; then
-    ok "lifted, it stays and holds its fire ($(field "$a" shots) seeds)"
-else ko "lift: $a / later $b"; fi
+# play: a raw finger neither moves nor fires
+s=$(run raw-play 200 "${START}130 touch @300 120\n")
+if [ "$(field "$s" x)" = 160 ] && [ "$(field "$s" shots)" = 0 ]; then ok "a raw finger in play does nothing"
+else ko "raw finger in play: $s"; fi
+# the left / right half (Left / Right held): 1.5 px a frame, no seed
+s=$(run left 170 "${START}130 LEFT\n")
+if [ "$(field "$s" x)" = 100 ] && [ "$(field "$s" shots)" = 0 ]; then ok "the left half: the ship moves left"
+else ko "left half: $s"; fi
+s=$(run right 170 "${START}130 RIGHT\n")
+[ "$(field "$s" x)" = 220 ] && ok "the right half: the ship moves right" || ko "right half: $s"
+s=$(run release 200 "${START}130 LEFT\n150 -\n")
+[ "$(field "$s" x)" = 130 ] && ok "released: it stops" || ko "release: $s"
+# a shoot button (A held): seeds, the ship stays
+s=$(run fire 300 "${START}130 A\n")
+if [ "$(field "$s" x)" = 160 ] && [ "$(field "$s" shots)" -gt 1 ]; then
+    ok "a shoot button held: it fires again and again ($(field "$s" shots) seeds)"
+else ko "fire: $s"; fi
+s=$(run both 170 "${START}130 RIGHT+A\n")
+if [ "$(field "$s" x)" = 220 ] && [ "$(field "$s" shots)" -gt 0 ]; then ok "a half and a button: it moves and fires"
+else ko "both: $s"; fi
 
-# pause: the fingers do nothing
-s=$(run paused 260 "${START}100 tap SELECT\n130 touch @300 120\n")
-if [ "$(field "$s" paused)" = 1 ] && [ "$(field "$s" x)" = 160 ] && [ "$(field "$s" shots)" = 0 ]; then
-    ok "paused: a finger neither moves nor fires"
-else ko "paused: $s"; fi
-
-# the game over (an idle ship is shot): a tap goes back to the title
+# the game over (an idle ship is shot): a tap (Left, Right or A) after the lock goes back to the title
 s=$(run over 4000 "$START")
 over=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/over.log")
 if [ "$(field "$s" st)" = 3 ] && [ -n "$over" ]; then ok "an idle run ends (the panel at frame $over)"
 else ko "no game over: $s"; over=3000; fi
-s=$(run back $((over + 60)) "${START}$((over + 40)) tap-at 50%% 50%%\n")
-[ "$(field "$s" st)" = 0 ] && ok "a tap on the game-over panel goes back to the title" || ko "back: $s"
-s=$(run early $((over + 60)) "${START}$((over + 10)) tap-at 50%% 50%%\n")
-[ "$(field "$s" st)" = 3 ] && ok "not a tap before the panel's lock" || ko "early tap: $s"
-s=$(run held $((over + 60)) "${START}$((over - 30)) touch 50%% 50%%\n$((over + 45)) up\n")
-[ "$(field "$s" st)" = 3 ] && ok "not a finger left down from the run" || ko "held finger: $s"
-s=$(run again $((over + 80)) "${START}$((over + 40)) tap-at 50%% 50%%\n$((over + 60)) tap-at 50%% 50%%\n")
-[ "$(field "$s" st)" = 1 ] && ok "and another tap starts another run" || ko "again: $s"
-
-# widescreen: a finger in the left margin (left of the stage, stage x < 0) slides the ship to the left edge, as
-# Left held (the margin's x is not "no finger")
-for w in $WS 560; do
-    a=$(run "margin$w" 330 "${START}130 touch 2 120\n" "$w")
-    b=$(run "margin-pad$w" 330 "${PAD}130 LEFT+A\n" "$w")
-    if [ "$(field "$a" x)" = 20 ] && same "$a" "$b"; then ok "width $w: a finger in the left margin slides the ship left"
-    else ko "width $w, a finger in the left margin: $a / pad $b"; fi
+for b in LEFT RIGHT A; do
+    s=$(run "back-$b" $((over + 60)) "${START}$((over + 40)) tap $b\n")
+    [ "$(field "$s" st)" = 0 ] && ok "a tap of $b on the game-over panel: the title" || ko "back with $b: $s"
 done
+s=$(run early $((over + 60)) "${START}$((over + 10)) tap A\n")
+[ "$(field "$s" st)" = 3 ] && ok "not a tap before the panel's lock" || ko "early tap: $s"
+s=$(run raw-over $((over + 60)) "${START}$((over + 40)) tap-at 50%% 50%%\n")
+[ "$(field "$s" st)" = 3 ] && ok "a raw tap does nothing on the panel" || ko "raw tap on the panel: $s"
 
-# every width: the same game (the finger at the same stage x)
-ref=$(run w320 400 "${START}130 touch @80 120\n250 move @260 100\n" 320)
+# every width: the same game
+ref=$(run w320 400 "${START}130 LEFT+A\n200 RIGHT\n300 -\n" 320)
 for w in $WS 560; do
-    s=$(run "w$w" 400 "${START}130 touch @80 120\n250 move @260 100\n" "$w")
-    same "$s" "$ref" && ok "width $w: the same run as at 320" || ko "width $w: $s / $ref"
+    s=$(run "w$w" 400 "${START}130 LEFT+A\n200 RIGHT\n300 -\n" "$w")
+    if [ "$(field "$s" hash)" = "$(field "$ref" hash)" ] && [ "$(field "$s" x)" = "$(field "$ref" x)" ]; then
+        ok "width $w: the same run as at 320"
+    else ko "width $w: $s / $ref"; fi
 done
 exit $fail

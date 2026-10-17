@@ -314,7 +314,7 @@ static void step_heroes(world *w, const pin in[MAX_PLAYERS])
         switch (h->state) {
         case SH_PLAY: {
             int32_t d;
-            if (in[p].target >= 0) {                            /* a touch: slide toward the finger at full speed */
+            if (in[p].target >= 0) {                            /* a target (the bot): slide there at full speed */
                 d = ((int32_t)in[p].target << 16) - h->x;
                 if (d > SHIP_SPEED) d = SHIP_SPEED;
                 if (d < -SHIP_SPEED) d = -SHIP_SPEED;
