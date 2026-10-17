@@ -5,14 +5,14 @@
 VERB = RACE
 #. The lap counter at the top left during a race: this lap, of how many. max 18
 LAP = LAP %d/%d
-#. Big letters (2x: two columns each) in the middle of the screen when the leader starts the last lap. max 36
+#. Big letters (2x: two columns each) in the middle of the screen when you (1 player) or the leader start the last lap. max 36
 FINAL_LAP = FINAL LAP!
-#. Big letters (2x) when the leader crosses the line for the last time. max 36
+#. Big letters (2x) when the race is over (you finished, or the leader). max 36
 FINISH = FINISH!
-#. When you fall too far behind the leader and leave the screen (you lose the point). max 34
-BEHIND = LEFT BEHIND!
-#. The same with several players: %s is a player tag (P2). max 34
+#. 2-4 players: a racer (%s: a player tag P2, or a bot's name) fell too far behind the leader and left the screen: out of the race. max 34
 BEHIND_P = %s LEFT BEHIND!
+#. 2-4 players: a racer (%s: P2, or a bot's name) fell off the table: out of the race. max 34
+FELL_P = %s FELL OFF!
 #. Before the start: which race of the championship (or the cup) this is. max 24
 RACE_N = RACE %d/%d
 #. The tracks' names (before the start and on the results). max 22
@@ -35,6 +35,8 @@ NEXT = A: NEXT RACE
 GO_ON = A: GO ON
 #. 1 player, under the results: a 4th place ends the championship. max 34
 OUT = 4TH PLACE: OUT!
+#. 2-4 players: in the standings at the top right, in place of the points of a racer out of the race. max 3
+OUT_TAG = OUT
 #. The note at the foot of the game-over panel when you won all the races. max 22
 CHAMPION = CHAMPION!
 #. The note at the foot of the game-over panel: how far you got. max 22

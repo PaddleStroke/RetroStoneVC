@@ -1,10 +1,12 @@
 /*
  * Ladybug Laps: the rules alone (src/play.c and src/tracks.c, no video, no sound, no screen width: this program links
  * them with the SDK's RNG only): the tracks (closed, on the band, the start grid), the handling (gas, top speed,
- * brake, reverse, steering toward the direction held), the surfaces (rough, jam, puddle, a hop over a bump, a fall off
- * the table), the bumps (two ladybugs, an object, a wall), the laps and the checkpoints (no shortcut), the left-behind
- * rule (the fixed zone, the point to the leader, put back behind it), the bots completing every track both ways, the
- * points and the championship, the touch geometry at every width, determinism.
+ * brake, reverse, the pad's rotating steering, the stick's steering toward a direction), the surfaces (rough, jam,
+ * puddle, a hop over a bump, a fall off the table), the bumps (two ladybugs, an object, a wall), the laps and the
+ * checkpoints (no shortcut), 2-4 players (the fixed zone; left behind or fallen off: out of the race, the order out,
+ * the end with one racer left or the leader's last lap, the places), 1 player (the camera on the player, nobody out,
+ * the end when the player or the three bots finish), no stall (the time limit), the spots where a racer is put back,
+ * the bots completing every track both ways, the championship, the touch geometry at every width, determinism.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/ladybuglaps/LICENSE.
  */
 #include "game.h"
@@ -112,14 +114,60 @@ static void test_handling(void)
     steps(&W, 80);
     CHECK(car_speed(&W.c[0]) <= -REV_MAX + REV_ACCEL && car_speed(&W.c[0]) >= -REV_MAX - REV_ACCEL, "B held still: reverse (%d)",
           car_speed(&W.c[0]));
-    /* steering: toward the direction held (south from east: clockwise), at the turn rate */
+    /* the pad's steering: Right / Left ROTATE the ladybug (its nose to its right: clockwise on the screen, y down),
+     * gently at first (a tap is a small correction), up to the full rate; whatever way it faces */
+    solo(&W, 3, 1);
+    put(&W, 0, 300, 96, 0);
+    in[0].gas = 1;
+    steps(&W, 60);
+    in[0].turn = 1;
+    int a0 = W.c[0].ang;
+    world_step(&W, in);
+    CHECK(ang_diff(a0, W.c[0].ang) == ROT_START, "Right tapped: a small turn clockwise (%d)", ang_diff(a0, W.c[0].ang));
+    steps(&W, 3);
+    CHECK(ang_diff(a0, W.c[0].ang) == ROT_START * 4 + ROT_RAMP * 6, "Right held: it ramps up (%d in 4 frames)",
+          ang_diff(a0, W.c[0].ang));
+    a0 = W.c[0].ang;
+    steps(&W, 4);
+    CHECK(ang_diff(a0, W.c[0].ang) == 4 * ROT_RATE, "... to %d a frame at speed (%d in 4)", ROT_RATE, ang_diff(a0, W.c[0].ang));
+    steps(&W, 200);
+    CHECK(car_speed(&W.c[0]) > 200, "held at speed: it goes round in circles, still driving (%d)", car_speed(&W.c[0]));
+    in[0].turn = -1;                            /* Left: the other way, also when heading west or north */
+    for (int k = 0; k < 4; k++) {
+        a0 = W.c[0].ang;
+        steps(&W, 6);
+        CHECK(ang_diff(a0, W.c[0].ang) < 0, "Left: counter-clockwise from heading %d", a0);
+    }
+    in[0].turn = 0;
+    a0 = W.c[0].ang;
+    steps(&W, 10);
+    CHECK(W.c[0].ang == a0, "let go: the heading is kept");
+    in[0].gas = 0;                              /* reversing: Right still turns the nose clockwise */
+    in[0].brake = 1;
+    steps(&W, 100);
+    in[0].turn = 1;
+    a0 = W.c[0].ang;
+    steps(&W, 4);
+    CHECK(car_speed(&W.c[0]) < 0 && ang_diff(a0, W.c[0].ang) > 0, "reversing: Right turns the nose clockwise too (%d)",
+          ang_diff(a0, W.c[0].ang));
+    in[0].turn = 0;
+    in[0].brake = 0;
+    put(&W, 0, 300, 96, 0);                     /* at a standstill: slower */
+    in[0].turn = 1;
+    steps(&W, 10);
+    a0 = W.c[0].ang;
+    steps(&W, 1);
+    CHECK(ang_diff(a0, W.c[0].ang) <= ROT_STILL + 1, "at a standstill it turns at %d a frame (%d)", ROT_STILL,
+          ang_diff(a0, W.c[0].ang));
+    in[0].turn = 0;
+    /* the touch stick (and the bots): toward the direction held (south from east: clockwise), at the turn rate */
     solo(&W, 3, 1);
     put(&W, 0, 300, 96, 0);
     in[0].gas = 1;
     steps(&W, 60);
     in[0].dx = 0;
     in[0].dy = 256;
-    int a0 = W.c[0].ang;
+    a0 = W.c[0].ang;
     steps(&W, 4);
     int d = ang_diff(a0, W.c[0].ang);
     CHECK(d == 4 * TURN_RATE, "down held: it turns clockwise toward south at %d a frame (%d in 4)", TURN_RATE, d);
@@ -335,10 +383,18 @@ static void test_laps(void)
     CHECK(W.phase == PH_DONE, "then the race is done");
 }
 
+/* put car i on waypoint k of lap 0, heading along the track, still */
+static void at_wp(world *w, int i, int k)
+{
+    put(w, i, w->wp.x[k], w->wp.y[k], w->wp.dir[k]);
+    w->c[i].wp = (int16_t)k;
+    w->c[i].lap = 0;
+}
+
 static void test_left_behind(void)
 {
-    /* the zone: fixed, 320 x 240 round the camera (ZONE_OUT px of grace), whatever the screen's width */
-    world_init(&W, 0, 0, 5, 1, 3);
+    /* the zone (2-4 players): fixed, 320 x 240 round the camera (ZONE_OUT px of grace), whatever the screen's width */
+    world_init(&W, 0, 0, 5, 2, 3);
     W.camx = 600 * FX;
     W.camy = 400 * FX;
     CHECK(!racer_out_of_zone(&W, (600 + ZONE_HW + ZONE_OUT) * FX, 400 * FX), "the zone's edge + %d px: still in", ZONE_OUT);
@@ -346,37 +402,77 @@ static void test_left_behind(void)
     CHECK(racer_out_of_zone(&W, (600 - ZONE_HW - ZONE_OUT - 1) * FX, 400 * FX), "out on the left too");
     CHECK(racer_out_of_zone(&W, 600 * FX, (400 + ZONE_HH + ZONE_OUT + 1) * FX), "out below");
     CHECK(!racer_out_of_zone(&W, 600 * FX, (400 - ZONE_HH) * FX), "in at the top edge");
-    /* a race: the leader (car 0) far ahead of car 1 */
-    solo(&W, 0, 2);
-    put(&W, 0, W.wp.x[43], W.wp.y[43], W.wp.dir[43]);   /* car 0 at waypoint 43: the leader, the camera on it */
-    W.c[0].wp = 43;
-    W.c[0].lap = 0;
+    CHECK(race_elimination(&W) && race_focus(&W) == W.leader, "2 players: the zone, the camera on the leader");
+    /* 4 players on Tea Time's top straight: car 0 leads (waypoint 43), cars 1 and 3 close behind, car 2 600 px back */
+    world_init(&W, 0, 0, 5, 4, 3);
+    W.phase = PH_RACE;
+    W.phase_t = DROP_GRACE + 10;
+    memset(in, 0, sizeof in);
+    at_wp(&W, 0, 43);
+    at_wp(&W, 1, 40);
+    at_wp(&W, 2, 2);
+    at_wp(&W, 3, 38);
     W.camx = W.c[0].x;
     W.camy = W.c[0].y;
-    put(&W, 1, W.wp.x[2], W.wp.y[2], 0);        /* car 1 600 px behind */
-    W.c[1].wp = 2;
-    W.c[1].lap = 0;
-    W.c[1].points = 2;
-    int pts = W.c[0].points;
-    for (int k = 0; k < 5; k++) {
-        int i = 43;
-        put(&W, 0, W.wp.x[i], W.wp.y[i], W.wp.dir[i]);
+    world_step(&W, in);
+    CHECK(W.leader == 0 && W.c[2].state == CS_OUT && W.c[2].out == 1 && (W.events[2] & EV_OUT),
+          "left behind: OUT of the race (state %d, out %d)", W.c[2].state, W.c[2].out);
+    CHECK(W.c[0].points == 0 && W.c[2].points == 0, "no point taken, none lost (%d, %d)", W.c[0].points, W.c[2].points);
+    CHECK(W.c[1].state == CS_RACE && W.c[3].state == CS_RACE && !W.c[1].out && !W.c[3].out, "the others race on");
+    at_wp(&W, 3, 5);                            /* car 3 falls far behind too: the second out */
+    world_step(&W, in);
+    CHECK(W.c[3].out == 2 && W.eliminated == 2, "the second one out (%d)", W.c[3].out);
+    int back = 0;
+    for (int k = 0; k < 400; k++) {
+        at_wp(&W, 0, 43);
+        at_wp(&W, 1, 41);
         world_step(&W, in);
-        if (W.c[1].state == CS_OUT) break;
+        back |= (W.c[2].state != CS_OUT) | (W.c[3].state != CS_OUT);
     }
-    CHECK(W.leader == 0, "the leader is the one furthest along");
-    CHECK(W.c[1].state == CS_OUT && W.c[1].drops == 1, "left behind: out of the zone, gone (state %d)", W.c[1].state);
-    CHECK(W.c[0].points == pts + DROP_POINTS, "the leader takes the point (%d -> %d)", pts, W.c[0].points);
-    CHECK(W.c[1].points == 2 - DROP_LOSS, "... the one left behind loses one (2 -> %d)", W.c[1].points);
-    for (int k = 0; k < DROP_DELAY + 1; k++) {
-        put(&W, 0, W.wp.x[43], W.wp.y[43], W.wp.dir[43]);
+    CHECK(!back && W.phase == PH_RACE, "they never come back; the race goes on");
+    CHECK(W.order[2] == 3 && W.order[3] == 2, "the standings: the ones out last, the first out at the bottom (%d %d %d %d)",
+          W.order[0], W.order[1], W.order[2], W.order[3]);
+    /* car 1 goes over the table's edge (in the zone): out too; one racer left: the race is over, it wins */
+    put(&W, 1, 1000, 26, 768);
+    W.c[1].vy = -400;
+    int fell = 0;
+    for (int k = 0; k < 4 && W.phase == PH_RACE; k++) {
+        at_wp(&W, 0, 43);
+        world_step(&W, in);
+        fell |= W.events[1] & EV_FALL;
+    }
+    CHECK(fell && W.c[1].out == 3 && W.phase == PH_FINISH, "fallen off the table: out; one left: the race is over (out %d, "
+          "phase %d)", W.c[1].out, W.phase);
+    CHECK(W.final_place[0] == 1 && W.final_place[1] == 2 && W.final_place[3] == 3 && W.final_place[2] == 4,
+          "the places: the last one in, then the ones out, the first out last (%d %d %d %d)", W.final_place[0],
+          W.final_place[1], W.final_place[2], W.final_place[3]);
+    CHECK(W.c[0].points == 3 && W.c[1].points == 2 && W.c[3].points == 1 && W.c[2].points == 0, "3, 2, 1, 0 points");
+    steps(&W, FALL_FRAMES + 2);
+    CHECK(W.c[1].state == CS_OUT, "the fall ends: gone (state %d)", W.c[1].state);
+    /* the leader completes the laps: the race is over; the ones still in by how far along, the ones out below */
+    world_init(&W, 0, 0, 5, 4, 3);
+    W.phase = PH_RACE;
+    W.phase_t = DROP_GRACE + 10;
+    at_wp(&W, 0, W.wp.n - 2);
+    W.c[0].lap = LAPS - 1;
+    at_wp(&W, 1, W.wp.n - 6);
+    W.c[1].lap = LAPS - 1;
+    at_wp(&W, 2, W.wp.n - 4);
+    W.c[2].lap = LAPS - 1;
+    W.c[3].state = CS_OUT;
+    W.c[3].out = 1;
+    W.eliminated = 1;
+    W.camx = W.c[0].x;
+    W.camy = W.c[0].y;
+    for (int s = 0; s < 4 && W.phase == PH_RACE; s++) {
+        int k = (W.wp.n - 2 + s) % W.wp.n;
+        put(&W, 0, W.wp.x[k], W.wp.y[k], W.wp.dir[k]);
         world_step(&W, in);
     }
-    CHECK(W.c[1].state == CS_RACE && W.c[1].ghost > 0, "after %d frames it is back, blinking", DROP_DELAY);
-    CHECK(W.c[1].wp < W.c[0].wp && W.c[0].wp - W.c[1].wp <= DROP_BACK_WP + 2 && !racer_out_of_zone(&W, W.c[1].x, W.c[1].y),
-          "... just behind the leader, in the zone (waypoint %d, the leader's %d)", W.c[1].wp, W.c[0].wp);
-    CHECK(W.c[1].prog < W.c[0].prog, "... and still behind it in the race");
-    CHECK(W.c[1].gift > 500, "... the ground it was carried does not count for its place (%d px)", W.c[1].gift);
+    CHECK(W.phase == PH_FINISH && W.c[0].fin == 1, "the leader's last lap: the race is over (phase %d)", W.phase);
+    CHECK(W.final_place[0] == 1 && W.final_place[2] == 2 && W.final_place[1] == 3 && W.final_place[3] == 4,
+          "the places: the winner, the others by how far along, the one out last (%d %d %d %d)", W.final_place[0],
+          W.final_place[1], W.final_place[2], W.final_place[3]);
     /* no one is left behind in the first seconds */
     world_init(&W, 0, 0, 5, 2, 9);
     W.phase = PH_RACE;
@@ -384,6 +480,47 @@ static void test_left_behind(void)
     put(&W, 1, 1100, 700, 0);
     world_step(&W, in);
     CHECK(W.c[1].state == CS_RACE, "no left-behind in the first %d frames", DROP_GRACE);
+}
+
+/* 1 player: the camera follows the player, no zone, no one is out; the race ends when the player finishes, or when
+ * the three bots have (an idle player cannot block the game) */
+static void test_one_player(void)
+{
+    world_init(&W, 3, 0, 0, 1, 5);
+    memset(in, 0, sizeof in);                   /* the player never drives */
+    int far = 0, outs = 0, frames = 0;
+    while (W.phase != PH_DONE && frames < 60 * 300) {
+        world_step(&W, in);
+        frames++;
+        int dx = iabs_v(PX(W.camx - W.c[0].x)), dy = iabs_v(PX(W.camy - W.c[0].y));
+        if (frames > 60 && (dx > ZONE_HW || dy > ZONE_HH)) far++;   /* (the camera stops at the world's edges) */
+        for (int i = 0; i < RACERS; i++) outs += W.c[i].out || W.c[i].state == CS_OUT || W.c[i].warn;
+    }
+    CHECK(!race_elimination(&W) && race_focus(&W) == 0 && far == 0, "1 player: the camera stays on the player (%d frames "
+          "away)", far);
+    CHECK(outs == 0, "1 player: nobody is ever left behind (%d)", outs);
+    CHECK(W.phase == PH_DONE && W.finished == 3 && W.final_place[0] == 4 && W.c[0].points == 0 && frames < RACE_LIMIT,
+          "the player idle: the race ends when the three bots finish (%d s), the player 4th", frames / 60);
+    int order = 1;
+    for (int i = 1; i < RACERS; i++) order &= W.final_place[i] == W.c[i].fin;
+    CHECK(order, "the bots' places: the order they finished in");
+}
+
+/* no race can stall: 4 players who never drive (nobody leaves the zone): the time limit ends it */
+static void test_no_stall(void)
+{
+    world_init(&W, 1, 0, 0, 4, 5);
+    memset(in, 0, sizeof in);
+    int frames = 0;
+    while (W.phase != PH_DONE && frames < COUNTDOWN + RACE_LIMIT + FINISH_FRAMES + 10) {
+        world_step(&W, in);
+        frames++;
+    }
+    CHECK(W.phase == PH_DONE && frames == COUNTDOWN + RACE_LIMIT + FINISH_FRAMES, "4 idle players: the race ends at the "
+          "time limit (%d frames)", frames);
+    int sum = 0;
+    for (int i = 0; i < RACERS; i++) sum += W.c[i].points;
+    CHECK(sum == 6, "... the places scored all the same (%d)", sum);
 }
 
 /* a ladybug at (x, y) px overlapping a solid object */
@@ -401,10 +538,8 @@ static int overlaps_solid(const world *w, int x, int y)
     return 0;
 }
 
-/* bugs found: the spots where a racer is put back (a sugar cube and the snail sit on the band: a lane through them
- * put the ladybug inside the object); a leader far off the track (its waypoint left behind) pulled the race zone
- * away from the spot behind it: the racers put back there were left behind again at once, every 31 frames, a point
- * to the leader each time (points without end, and the others never raced again) */
+/* a bug found: the spots where a racer is put back after a fall (a sugar cube and the snail sit on the band: a lane
+ * through them put the ladybug inside the object) */
 static void test_respawns(void)
 {
     int inside = 0, off = 0, tried = 0;
@@ -431,37 +566,6 @@ static void test_respawns(void)
         }
     CHECK(inside == 0 && off == 0 && tried > 2000, "put back: never inside an object, always on the band (%d inside, %d off, "
           "of %d)", inside, off, tried);
-    /* the leader (car 0, Tea Time's top straight) drives far off the track and stops on the table */
-    solo(&W, 0, 2);
-    W.c[0].wp = 43;
-    W.c[0].lap = 0;
-    put(&W, 0, W.wp.x[43], W.wp.y[43] + 200, 256);
-    W.camx = W.c[0].x;
-    W.camy = W.c[0].y;
-    put(&W, 1, W.wp.x[20], W.wp.y[20], 0);
-    W.c[1].wp = 20;
-    W.c[1].lap = 0;
-    W.c[1].state = CS_OUT;                      /* left behind a moment ago */
-    W.c[1].timer = 1;
-    W.c[1].points = 3;
-    W.c[0].points = 0;
-    int back = 0;
-    for (int k = 0; k < 300; k++) {
-        world_step(&W, in);
-        back |= W.events[1] & EV_BACK;
-    }
-    CHECK(W.leader == 0 && W.c[0].wp == 43, "off the track: still the leader, its waypoint left behind (%d)", W.c[0].wp);
-    CHECK(W.c[0].points == 0 && W.c[1].points == 3 && W.c[1].drops == 0, "no point for the racers it cannot have behind it "
-          "(%d points, %d drops)", W.c[0].points, W.c[1].drops);
-    CHECK(W.c[1].state == CS_OUT && !back, "... they wait to be put back (state %d)", W.c[1].state);
-    for (int k = 0; k < 120; k++) {            /* back on the track: they come back behind it, and stay */
-        put(&W, 0, W.wp.x[43], W.wp.y[43], 0);
-        world_step(&W, in);
-        back |= W.events[1] & EV_BACK;
-    }
-    CHECK(back && W.c[1].state == CS_RACE && W.c[1].drops == 0 && W.c[0].points == 0,
-          "the leader back on the track: it is put back behind it, in the zone (state %d, %d drops)", W.c[1].state,
-          W.c[1].drops);
 }
 
 /* a whole race of bots on every track, both ways: they finish, within reason */
@@ -511,6 +615,15 @@ static void test_bots(void)
             frames++;
         }
         top3 += W2.final_place[0] <= 3;
+        /* 1 player: the race ends as the player finishes (or after the three bots): its place, the order it finished in */
+        const world *ws[2] = {&W, &W2};
+        for (int k = 0; k < 2; k++) {
+            const world *x = ws[k];
+            int ok = x->c[0].fin ? x->final_place[0] == x->c[0].fin && x->finished == x->c[0].fin
+                                 : x->final_place[0] == RACERS && x->finished == RACERS - 1;
+            CHECK(ok, "%s: the race ended as the player finished (finished %d, place %d, %d done)", NAMES[t], x->c[0].fin,
+                  x->final_place[0], x->finished);
+        }
     }
     CHECK(wins >= 4, "the player bot wins the first race on most tracks (%d of 5)", wins);
     CHECK(top3 >= 3, "a beginner-like bot reaches the top 3 at the easiest level (%d of 5)", top3);
@@ -528,14 +641,6 @@ static void test_points(void)
 {
     static const int fp[RACERS] = FINISH_POINTS;
     CHECK(fp[0] > fp[1] && fp[1] > fp[2] && fp[2] >= fp[3], "the finish points go down with the place");
-    world_init(&W, 0, 0, 0, 1, 1);
-    for (int i = 0; i < RACERS; i++) W.c[i].place = (int16_t)(i + 1);
-    W.c[0].points = 2;
-    W.c[1].points = 5;
-    W.c[2].points = 2;
-    W.c[3].points = 0;
-    CHECK(race_points_place(&W, 1) == 1 && race_points_place(&W, 0) == 2 && race_points_place(&W, 2) == 3 &&
-          race_points_place(&W, 3) == 4, "most points first; the same points: the better place");
     CHECK(champ_qualifies(1) && champ_qualifies(3) && !champ_qualifies(4), "1 player: the top 3 go on, 4th is out");
     int seen[TRACKS][2];
     memset(seen, 0, sizeof seen);
@@ -579,6 +684,8 @@ int main(void)
     test_bumps();
     test_laps();
     test_left_behind();
+    test_one_player();
+    test_no_stall();
     test_respawns();
     test_points();
     test_touch();

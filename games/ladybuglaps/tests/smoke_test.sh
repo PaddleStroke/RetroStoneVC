@@ -41,9 +41,19 @@ printf "30 tap A\n160 A\n220 -\n" > "$T/gas.input"
 a=$(run --frames 221 --input "$T/gas.input")
 d=$(( $(field "$a" x) - $(field "$b" x) ))
 if [ "$d" -ge 50 ] && [ "$d" -le 110 ]; then ok "A held 1 s after GO: $d px east"; else ko "gas: $d px"; fi
-printf "30 tap A\n160 A+DOWN\n220 -\n" > "$T/steer.input"
+# the pad rotates the ladybug: heading east, Right turns its nose to its right (south), Left to its left (north)
+printf "30 tap A\n160 A+RIGHT\n220 -\n" > "$T/steer.input"
 s=$(run --frames 221 --input "$T/steer.input")
-[ "$(field "$s" y)" -gt "$(field "$a" y)" ] && ok "A + Down: it turns south ($(field "$s" y) > $(field "$a" y))" || ko "steer: $s"
+[ "$(field "$s" y)" -gt "$(field "$a" y)" ] && ok "A + Right: it turns to its right, south ($(field "$s" y) > $(field "$a" y))" || ko "steer: $s"
+printf "30 tap A\n160 A+LEFT\n220 -\n" > "$T/steerl.input"
+s=$(run --frames 221 --input "$T/steerl.input")
+[ "$(field "$s" y)" -lt "$(field "$a" y)" ] && ok "A + Left: to its left, north ($(field "$s" y) < $(field "$a" y))" || ko "steer left: $s"
+printf "30 tap A\n160 A+DOWN\n220 -\n" > "$T/down2.input"
+s=$(run --frames 221 --input "$T/down2.input")
+[ "$(field "$s" hash)" = "$(field "$a" hash)" ] && ok "Down does not steer" || ko "down: $s"
+printf "30 tap A\n160 UP\n220 -\n" > "$T/up.input"
+s=$(run --frames 221 --input "$T/up.input")
+[ "$(field "$s" hash)" = "$(field "$a" hash)" ] && ok "Up is the gas too (as A)" || ko "up: $s"
 printf "30 tap A\n160 A\n200 B\n260 -\n" > "$T/brake.input"
 s=$(run --frames 261 --input "$T/brake.input")
 [ "$(field "$s" x)" -lt "$(( $(field "$a" x) + 20 ))" ] && ok "B brakes (and backs up)" || ko "brake: $s"

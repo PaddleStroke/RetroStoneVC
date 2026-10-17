@@ -8,7 +8,8 @@
  * 1 player: the championship, 10 races (the 5 tracks, then the 5 driven the other way), a top-3 place goes on; 2-4
  * players: a cup of 3 races. After the last race (or a 4th place in 1 player) the game-over panel; one press
  * (hu_over_back) goes BACK TO THE TITLE, with the same players.
- * The pads: the d-pad turns the ladybug toward the direction held, A is the gas, B the brake (and reverse).
+ * The pads: Left / Right rotate the ladybug (its nose to its left / right), A (or Up) is the gas, B the brake (and
+ * reverse).
  * Touch (rs_game.touch_native, docs/spec.md "Touch"; player 1, DESIGN.md "Controls"): a virtual stick (a finger down
  * anywhere on the left part, dragged: the ladybug turns toward it and accelerates while the finger is down), a round
  * BRAKE button at the bottom right; a tap starts from the title, goes on from the results and leaves the game-over panel.
@@ -68,10 +69,11 @@ static uint16_t save_sum(const save_data *s)
 static void save_load(void)
 {
     memcpy(&SV, rs_sram(), sizeof SV);
-    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 1 || SV.sum != save_sum(&SV)) {
+    /* version 2: the scoring of the races changed (3, 2, 1, 0 a race): the bests of version 1 do not compare */
+    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 2 || SV.sum != save_sum(&SV)) {
         memset(&SV, 0, sizeof SV);
         memcpy(SV.magic, MAGIC, 4);
-        SV.version = 1;
+        SV.version = 2;
     }
 }
 
@@ -261,11 +263,8 @@ static pin player_input(int p)
     }
     int pad = hu_player_pad(p);
     uint16_t held = rs_pad(pad);
-    int dx = (held & RS_BTN_RIGHT ? 1 : 0) - (held & RS_BTN_LEFT ? 1 : 0);
-    int dy = (held & RS_BTN_DOWN ? 1 : 0) - (held & RS_BTN_UP ? 1 : 0);
-    in.dx = (int16_t)(dx * (dy ? 181 : 256));
-    in.dy = (int16_t)(dy * (dx ? 181 : 256));
-    in.gas = (held & RS_BTN_A) != 0;
+    in.turn = (int8_t)((held & RS_BTN_RIGHT ? 1 : 0) - (held & RS_BTN_LEFT ? 1 : 0));   /* rotate */
+    in.gas = (held & (RS_BTN_A | RS_BTN_UP)) != 0;
     in.brake = (held & RS_BTN_B) != 0;
     if (held & (RS_BTN_A | RS_BTN_B | HU_IN_DPAD)) in.any = 1;
     if (p == 0) touch_read(&in);
@@ -318,14 +317,13 @@ static void race_sounds(void)
         if (ev & EV_SPLASH) sfx_car(SFX_SPLASH, i, HA_VOL_FEEDBACK);
         if (ev & EV_JAM) sfx_car(SFX_JAM, i, HA_VOL_FEEDBACK);
         if (ev & EV_DROP) ha_play_slot(SFX_DROP, W.c[i].human ? HA_VOL_CRASH : 60, RS_SCREEN_W / 2, 0);
-        if (ev & EV_POINT) sfx_car(SFX_POINT, i, W.c[i].human ? HA_VOL_ACTION : 60);
-        if ((ev & EV_LAP) && (W.c[i].human || i == W.leader)) ha_play_slot(SFX_LAP, HA_VOL_FEEDBACK, RS_SCREEN_W / 2, 0);
+        if ((ev & EV_LAP) && (W.c[i].human || i == race_focus(&W))) ha_play_slot(SFX_LAP, HA_VOL_FEEDBACK, RS_SCREEN_W / 2, 0);
         if (ev & EV_BEEP) ha_play_slot(SFX_BEEP, HA_VOL_UI, RS_SCREEN_W / 2, 0);
         if (ev & EV_GO) ha_play_slot(SFX_GO, HA_VOL_ACTION, RS_SCREEN_W / 2, 0);
         if ((ev & EV_FINISH) && i == 0) ha_play_slot(SFX_FINISH, HA_VOL_ACTION, RS_SCREEN_W / 2, 1);
         if ((ev & EV_DROP) && W.c[i].human) {
             hu_shake(2, 10);                    /* house rule: shake on a hit only, <= 4 px, <= 16 frames */
-            rs_log("player %d left behind at frame %u (race %d)", W.c[i].human, rs_frame_count(), RI.race + 1);
+            rs_log("player %d left behind (out) at frame %u (race %d)", W.c[i].human, rs_frame_count(), RI.race + 1);
         }
         if ((ev & EV_FALL) && W.c[i].human) {
             hu_shake(3, 12);

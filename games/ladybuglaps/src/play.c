@@ -6,15 +6,18 @@
  * The track: tracks.c's grid of pieces, traced from the start into a centre line of waypoints (16 px apart), with a
  * racing line (toward the inside of the turns) for the bots; the surface of any pixel comes from the pieces (on the
  * band or not), the zones (jam, puddles) and the objects (bumps); solid objects and walls are collisions.
- * The ladybugs: top-down arcade cars. The d-pad (or the touch stick) gives the direction the ladybug turns to (at
- * TURN_RATE), A the gas, B the brake (and reverse from a standstill). The velocity is split into forward and sideways
- * parts: the gas and the brake act on the first, the surface's grip eats the second (a slide when it is low: the
- * drift, the puddles). A bump at speed throws it into the air (a hop); two ladybugs bump off each other.
- * The race (the Micro Machines way, DESIGN.md "The race"): the camera follows the leader (the racer furthest along);
- * a racer whose centre leaves the fixed 320 x 240 race zone round the camera is LEFT BEHIND: the leader takes a point,
- * and it is put back on the track behind the leader a moment later. The checkpoints are the waypoints: a racer only
- * moves on to one of the next few, so a shortcut over the table gains nothing (and it is soon left behind). The race
- * ends when the leader completes the last lap: the places then score 3, 2, 1, 0 more points; most points wins.
+ * The ladybugs: top-down arcade cars. The d-pad's Left / Right rotate the ladybug (ROT_RATE, ramping up); the touch
+ * stick (and the bots' brains) give a direction it turns toward (TURN_RATE); A the gas, B the brake (and reverse from
+ * a standstill). The velocity is split into forward and sideways parts: the gas and the brake act on the first, the
+ * surface's grip eats the second (a slide when it is low: the drift, the puddles). A bump at speed throws it into the
+ * air (a hop); two ladybugs bump off each other.
+ * The race (DESIGN.md "The race"): 3 laps; the checkpoints are the waypoints: a racer only moves on to one of the
+ * next few, so a shortcut over the table gains nothing. 1 player: the camera follows the player, a fall puts it back
+ * where it fell; the race ends when the player finishes (its place: the order it finished in) or when the three bots
+ * have. 2-4 players (Micro Machines' way): the camera follows the leader (the racer furthest along); a racer whose
+ * centre leaves the fixed 320 x 240 race zone round it is LEFT BEHIND, and one that falls off the table, OUT of the
+ * race; the race ends when the leader completes the last lap, or when one racer is left. The racers out rank below
+ * the others, the first out last. The places score 3, 2, 1, 0 points. A race never lasts more than RACE_LIMIT.
  */
 #include "game.h"
 #include <string.h>
@@ -44,6 +47,9 @@ const int16_t sin_q14[ANG_FULL / 4 + 1] = {
 static const int16_t surf_table[SF_COUNT][4] = SURF_TABLE;
 static const int16_t bot_table[RACERS][6] = BOT_TABLE;
 static const int finish_points[RACERS] = FINISH_POINTS;
+
+int race_elimination(const world *w) { return w->humans >= 2; }
+int race_focus(const world *w) { return w->humans == 1 ? 0 : w->leader; }
 
 /* ---- integer maths -------------------------------------------------------------------------------------------------- */
 int isin(int a)
@@ -585,10 +591,20 @@ static void collide_cars(world *w)
 /* ---- one car's step ------------------------------------------------------------------------------------------------- */
 static void steer(car *c, const pin *in)
 {
+    int f = iabs(car_speed(c)), fa = f < TURN_FULL_AT ? f : TURN_FULL_AT;
+    if (in->turn) {                             /* the pad: rotate (the same way when reversing) */
+        int dir = in->turn > 0 ? 1 : -1, full = ROT_STILL + (ROT_RATE - ROT_STILL) * fa / TURN_FULL_AT;
+        int held = c->steer * dir;              /* the last frame's turn, this way: the press ramps up */
+        int rate = held > 0 ? held + ROT_RAMP : ROT_START;
+        if (rate > full) rate = full;
+        c->ang = (int16_t)((c->ang + dir * rate) & (ANG_FULL - 1));
+        c->steer = (int16_t)(dir * rate);
+        return;
+    }
     c->steer = 0;
     if (!in->dx && !in->dy) return;
     int target = iatan2(in->dy, in->dx), d = ang_diff(c->ang, target);
-    int f = iabs(car_speed(c)), rate = TURN_STILL + (TURN_RATE - TURN_STILL) * (f < TURN_FULL_AT ? f : TURN_FULL_AT) / TURN_FULL_AT;
+    int rate = TURN_STILL + (TURN_RATE - TURN_STILL) * fa / TURN_FULL_AT;
     int s = d > rate ? rate : d < -rate ? -rate : d;
     c->ang = (int16_t)((c->ang + s) & (ANG_FULL - 1));
     c->steer = (int16_t)s;
@@ -666,30 +682,19 @@ static void respawn_here(world *w, car *c)
     c->surf = SF_TRACK;
 }
 
-/* back on the track after being left behind: behind the leader, in its own lane. 0: not yet (the leader is off the
- * track, far from its waypoint: that spot is out of the race zone, the racer would be left behind again at once, a
- * point to the leader each time; it waits until the leader is back near the track) */
-static int respawn_behind(world *w, car *c)
+/* 2-4 players: out of the race (left behind, or fallen off: it ends its fall first) */
+static void eliminate(world *w, int i)
 {
-    const car *L = &w->c[w->leader];
-    const waypoints *p = &w->wp;
-    int k = L->wp - DROP_BACK_WP - (c->colour & 1);
-    int lap = L->lap;
-    if (k < 0) { k = (k % p->n + p->n) % p->n; lap--; }
-    int32_t f = car_speed(L) * DROP_SPEED / 100, x, y;
-    lane_spot(p, k, (c->colour * 9) - 13, &x, &y);
-    if (racer_out_of_zone(w, x, y)) {
-        c->timer = 1;
-        return 0;
+    car *c = &w->c[i];
+    c->out = (int16_t)++w->eliminated;
+    if (c->state == CS_RACE) {
+        c->state = CS_OUT;
+        c->drops++;
+        c->z = c->vz = 0;
+        w->events[i] |= EV_DROP;
     }
-    place_at(w, c, k, (c->colour * 9) - 13, f > 0 ? f : 0);
-    c->lap = (int16_t)lap;
-    c->prog = progress_of(w, c);
-    if (c->prog > c->drop_prog) c->gift += c->prog - c->drop_prog;   /* the places count the ground driven */
-    c->state = CS_RACE;
-    c->ghost = GHOST_FRAMES;
-    c->surf = SF_TRACK;
-    return 1;
+    c->warn = 0;
+    w->events[i] |= EV_OUT;
 }
 
 int racer_out_of_zone(const world *w, int32_t x, int32_t y)
@@ -700,7 +705,7 @@ int racer_out_of_zone(const world *w, int32_t x, int32_t y)
 
 static void camera_step(world *w, int snap)
 {
-    const car *L = &w->c[w->leader];
+    const car *L = &w->c[race_focus(w)];
     int32_t lx = L->vx * LOOK_FRAMES, ly = L->vy * LOOK_FRAMES;
     int32_t lm = LOOK_MAX * FX;
     int64_t ll = (int64_t)lx * lx + (int64_t)ly * ly;
@@ -722,16 +727,24 @@ static void camera_step(world *w, int snap)
     w->camy = clampi(w->camy, ZONE_HH * FX, (w->wpy - ZONE_HH) * FX);
 }
 
+/* the places: the finishers in the order they finished, then the racers still in by how far along they are, then the
+ * racers out, the last one out first */
+static int64_t rank_key(const car *c)
+{
+    if (c->fin) return ((int64_t)1 << 40) - c->fin;
+    if (c->out) return -((int64_t)1 << 40) + c->out;
+    return c->prog;
+}
+
 static void rank_places(world *w)
 {
     int ord[RACERS];
     for (int i = 0; i < RACERS; i++) ord[i] = i;
-    for (int i = 1; i < RACERS; i++)            /* by progress, the cars gone for a moment last */
-        for (int j = i; j > 0; j--) {
-            const car *a = &w->c[ord[j - 1]], *b = &w->c[ord[j]];
-            int64_t ka = a->state == CS_OUT ? INT32_MIN : (int64_t)a->prog - a->gift;
-            int64_t kb = b->state == CS_OUT ? INT32_MIN : (int64_t)b->prog - b->gift;
-            if (kb > ka) { int t = ord[j]; ord[j] = ord[j - 1]; ord[j - 1] = t; }
+    for (int i = 1; i < RACERS; i++)
+        for (int j = i; j > 0 && rank_key(&w->c[ord[j]]) > rank_key(&w->c[ord[j - 1]]); j--) {
+            int t = ord[j];
+            ord[j] = ord[j - 1];
+            ord[j - 1] = t;
         }
     for (int i = 0; i < RACERS; i++) {
         w->order[i] = ord[i];
@@ -739,23 +752,27 @@ static void rank_places(world *w)
     }
 }
 
-int race_points_place(const world *w, int i)
-{
-    int key = w->c[i].points * 8 + (RACERS - w->c[i].place), n = 1;
-    for (int j = 0; j < RACERS; j++)
-        if (j != i && w->c[j].points * 8 + (RACERS - w->c[j].place) > key) n++;
-    return n;
-}
-
+/* the race is over: the places as they stand score 3, 2, 1, 0 */
 static void finish_race(world *w)
 {
     rank_places(w);
     for (int i = 0; i < RACERS; i++) {
         car *c = &w->c[w->order[i]];
         c->points = (int16_t)(c->points + finish_points[i]);
+        w->final_place[w->order[i]] = i + 1;
     }
-    for (int i = 0; i < RACERS; i++) w->final_place[i] = race_points_place(w, i);
     for (int i = 0; i < RACERS; i++) w->events[i] |= EV_FINISH;
+    w->phase = PH_FINISH;
+    w->phase_t = 0;
+}
+
+/* is the race over? (the player, or the leader, finished; one racer left; the three bots finished; the time) */
+static int race_over(const world *w)
+{
+    if (w->phase_t >= RACE_LIMIT) return 1;
+    if (race_elimination(w)) return w->finished > 0 || RACERS - w->eliminated <= 1;
+    if (w->humans == 1) return w->c[0].fin || w->finished >= RACERS - 1;
+    return w->finished > 0;                     /* the title's race of bots */
 }
 
 void world_step(world *w, const pin in[RACERS])
@@ -780,14 +797,19 @@ void world_step(world *w, const pin in[RACERS])
         }
         return;
     }
+    int elim = race_elimination(w) && w->phase == PH_RACE;
     for (int i = 0; i < RACERS; i++) {
         car *c = &w->c[i];
         if (c->state == CS_RACE) {
             drive(w, i, &cmd[i]);
-        } else if (--c->timer <= 0) {
-            if (c->state == CS_FALL) respawn_here(w, c);
-            else if (!respawn_behind(w, c)) continue;
-            w->events[i] |= EV_BACK;
+            if (elim && c->state == CS_FALL) eliminate(w, i);     /* 2-4 players: off the table is out */
+        } else if (c->state == CS_FALL && --c->timer <= 0) {
+            if (c->out) {
+                c->state = CS_OUT;              /* the end of its fall: gone */
+            } else {
+                respawn_here(w, c);
+                w->events[i] |= EV_BACK;
+            }
         }
     }
     collide_cars(w);
@@ -797,43 +819,32 @@ void world_step(world *w, const pin in[RACERS])
         int lap0 = c->lap;
         update_wp(w, c);
         if (c->lap > lap0 && c->lap >= 1 && w->phase == PH_RACE) w->events[i] |= EV_LAP;
+        if (w->phase == PH_RACE && !c->fin && !c->out && c->lap >= LAPS) c->fin = (int16_t)++w->finished;
     }
-    /* the leader: furthest along (not the ones gone for a moment) */
+    /* the leader: furthest along (of the racers still in) */
     int lead = -1;
     for (int i = 0; i < RACERS; i++) {
         const car *c = &w->c[i];
-        if (c->state == CS_OUT) continue;
+        if (c->state == CS_OUT || c->out) continue;
         if (lead < 0 || c->prog > w->c[lead].prog) lead = i;
     }
     if (lead >= 0) w->leader = lead;
     camera_step(w, 0);
-    rank_places(w);
+    if (w->phase <= PH_RACE) rank_places(w);    /* after the race: the final places stay */
     for (int i = 0; i < RACERS; i++) {
         car *c = &w->c[i];
         int32_t dx = iabs((c->x - w->camx) / FX), dy = iabs((c->y - w->camy) / FX);
-        c->warn = (uint8_t)(c->state == CS_RACE && i != w->leader &&
+        c->warn = (uint8_t)(elim && c->state == CS_RACE && i != w->leader &&
                             (dx > ZONE_HW - WARN_PX || dy > ZONE_HH - WARN_PX));
     }
     if (w->phase == PH_RACE) {
-        if (w->phase_t > DROP_GRACE)
+        if (elim && w->phase_t > DROP_GRACE)    /* 2-4 players: left behind, out of the race */
             for (int i = 0; i < RACERS; i++) {
                 car *c = &w->c[i];
                 if (i == w->leader || c->state != CS_RACE || !racer_out_of_zone(w, c->x, c->y)) continue;
-                c->state = CS_OUT;
-                c->timer = DROP_DELAY;
-                c->drops++;
-                c->drop_prog = c->prog;
-                c->z = c->vz = 0;
-                w->c[w->leader].points += DROP_POINTS;
-                c->points = (int16_t)(c->points > DROP_LOSS ? c->points - DROP_LOSS : 0);
-                w->events[i] |= EV_DROP;
-                w->events[w->leader] |= EV_POINT;
+                eliminate(w, i);
             }
-        if (w->c[w->leader].lap >= LAPS) {
-            finish_race(w);
-            w->phase = PH_FINISH;
-            w->phase_t = 0;
-        }
+        if (race_over(w)) finish_race(w);
     } else if (w->phase == PH_FINISH && w->phase_t >= FINISH_FRAMES) {
         w->phase = PH_DONE;
     }
@@ -857,7 +868,8 @@ void bot_think(world *w, int i, pin *out)
         c->err_t = (int16_t)(react + rs_rng_range(&w->rng, react + 1));
         c->err = (int16_t)(line_err ? rs_rng_range(&w->rng, 2 * line_err + 1) - line_err : 0);
     }
-    int look = BOT_LOOK_WP + (f > 0 ? f / BOT_LOOK_SPEED : 0);
+    int side = iabs(c->err) >= 2 * HALF_W;      /* getting round an obstacle (below): line up on the other side first */
+    int look = side ? 1 : BOT_LOOK_WP + (f > 0 ? f / BOT_LOOK_SPEED : 0);
     int k = (c->wp + look) % n;
     int rl = p->rl[k];
     int off = rl + c->lane + c->err;
@@ -866,14 +878,39 @@ void bot_think(world *w, int i, pin *out)
     off = clampi(off, -(HALF_W - CAR_R - 2), HALF_W - CAR_R - 2);
     int a = p->dir[k];
     int tx = p->x[k] - ((off * isin(a)) >> 14), ty = p->y[k] + ((off * icos(a)) >> 14);
+    /* a solid object on its way (the target, or halfway to it): aim at the side of the band that is clear */
+    if (in_solid(w, tx * FX, ty * FX) || in_solid(w, (c->x + tx * FX) / 2, (c->y + ty * FX) / 2)) {
+        int edge = HALF_W - CAR_R - 2;
+        for (int s = 0; s < 2; s++) {
+            int o2 = (off > 0) == (s == 0) ? -edge : edge;      /* the far side first */
+            int x2 = p->x[k] - ((o2 * isin(a)) >> 14), y2 = p->y[k] + ((o2 * icos(a)) >> 14);
+            if (!in_solid(w, x2 * FX, y2 * FX) && !in_solid(w, (c->x + x2 * FX) / 2, (c->y + y2 * FX) / 2)) {
+                tx = x2;
+                ty = y2;
+                off = o2;
+                break;
+            }
+        }
+    }
     int ta = iatan2(ty * FX - c->y, tx * FX - c->x);
-    /* stuck against something: back out */
-    if (w->phase == PH_RACE && c->rev_t <= 0) {
-        if (iabs(f) < 50 && c->ghost == 0) c->stuck_t++;
-        else c->stuck_t = 0;
-        if (c->stuck_t > BOT_STUCK) {
+    /* stuck against something (a sugar cube on its line, a ladybug): back out, then take the other side of the band
+     * for a while (nobody is put back on the track any more: it must get round by itself) */
+    int sdx = c->x / FX - c->stuck_x, sdy = c->y / FX - c->stuck_y;
+    if (w->phase == PH_COUNT || c->ghost || c->rev_t > 0 || sdx * sdx + sdy * sdy > BOT_STUCK_PX * BOT_STUCK_PX) {
+        c->stuck_x = (int16_t)(c->x / FX);
+        c->stuck_y = (int16_t)(c->y / FX);
+        c->stuck_t = 0;
+    } else {
+        if (++c->stuck_t > BOT_STUCK) {
             c->rev_t = BOT_REVERSE;
             c->stuck_t = 0;
+            c->err = (int16_t)(off > 0 ? -2 * HALF_W : 2 * HALF_W);    /* (clamped to the band's side) */
+            c->err_t = BOT_REVERSE + BOT_SIDE;
+            for (int j = 0; j < RACERS; j++) {  /* wedged against a ladybug (one that does not drive, by an object): */
+                const car *o = &w->c[j];        /* it goes through the others a moment, blinking (as one put back) */
+                int64_t dx = o->x - c->x, dy = o->y - c->y, r = (2 * CAR_R + 4) * FX;
+                if (j != i && o->state == CS_RACE && dx * dx + dy * dy < r * r) c->ghost = GHOST_FRAMES;
+            }
         }
     }
     if (c->rev_t > 0) {

@@ -2,7 +2,7 @@
 # Ladybug Laps touch controls (DESIGN.md "Controls", docs/spec.md "Touch"; rs_game.touch_native): headless runs with
 # scripted fingers, checked on the final state's log line. A tap starts on the title (as the finger is lifted); in a
 # race a finger down on the left part of the screen is a stick: the ladybug turns toward the drag and accelerates while
-# the finger is down (the very run of the pad's direction + A); a finger elsewhere does nothing; the round BRAKE button
+# the finger is down (the pad rotates it instead); a finger elsewhere does nothing; the round BRAKE button
 # at the bottom right; nothing while paused; a tap goes on from the results and leaves the game-over panel (not a
 # finger left down from the race, not a tap before the lock). The same run at every width.
 #   touch_test.sh <ladybuglaps_headless> <out dir> [widths]
@@ -36,15 +36,17 @@ else ko "a tap on the title: $a / pad $b"; fi
 s=$(run hold-title 60 "20 touch 50%% 30%%\n")
 [ "$(field "$s" st)" = 0 ] && ok "a finger still down on the title does not start yet" || ko "finger down: $s"
 
-# the stick (after the lights, GO at frame 144): down at (60, 150), dragged right: the pad's Right + A
+# the stick (after the lights, GO at frame 144): down at (60, 150), dragged right (the way the ladybug faces on the
+# grid): it accelerates straight on, the very race of A on the pad
 a=$(run stick 260 "${START}160 touch 60 150\n161 move 90 150\n240 up\n")
-b=$(run stick-pad 260 "${PAD}160 A\n161 A+RIGHT\n240 -\n")     # the finger down at 160: the gas already
+b=$(run stick-pad 260 "${PAD}160 A\n240 -\n")     # the finger down at 160: the gas already
 if [ "$(field "$a" x)" = "$(field "$b" x)" ] && [ "$(field "$a" hash)" = "$(field "$b" hash)" ]; then
-    ok "the stick dragged right: it accelerates that way, as Right + A (x $(field "$a" x))"
+    ok "the stick dragged right: it accelerates that way, as A (x $(field "$a" x))"
 else ko "stick: $a / pad $b"; fi
+# dragged down: it turns toward the finger (south) and stops turning there (the stick steers toward a direction; the
+# pad rotates the ladybug)
 a=$(run stick-down 260 "${START}160 touch 60 150\n161 move 60 180\n240 up\n")
-b=$(run stick-down-pad 260 "${PAD}160 A\n161 A+DOWN\n240 -\n")
-[ "$(field "$a" hash)" = "$(field "$b" hash)" ] && ok "dragged down: as Down + A" || ko "stick down: $a / $b"
+[ "$(field "$a" ang)" = 256 ] && [ "$(field "$a" y)" -gt "$(field "$b" y)" ] && ok "dragged down: it turns south and goes that way" || ko "stick down: $a / $b"
 x0=$(field "$(run still 260 "$START")" x)
 s=$(run tiny 260 "${START}160 touch 60 150\n161 move 62 150\n240 up\n")
 [ "$(field "$s" x)" -gt "$x0" ] && [ "$(field "$s" ang)" = 0 ] && ok "a finger held still: straight on, accelerating" || ko "tiny drag: $s"

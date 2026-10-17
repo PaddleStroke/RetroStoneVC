@@ -37,9 +37,15 @@
 #define COAST         3         /* no pedal: rolling to a stop */
 #define REV_ACCEL     6         /* B held at a standstill: reverse ... */
 #define REV_MAX       320       /* ... up to 1.25 px a frame */
-#define TURN_RATE     12        /* angle units a frame (a full turn in 85 frames) ... */
+#define TURN_RATE     12        /* the touch stick (and the bots): turning toward a direction, angle units a frame ... */
 #define TURN_STILL    6         /* ... half that at a standstill */
-#define TURN_FULL_AT  256       /* the full rate from 1 px a frame */
+#define TURN_FULL_AT  256       /* the full rate from 1 px a frame (both steerings) */
+/* the pad: Left / Right ROTATE the ladybug (its nose to its left / right, whatever way it faces; the same when
+ * reversing); a press starts gently and ramps up to the full rate (a tap is a small correction, no twitch) */
+#define ROT_RATE      13        /* angle units a frame at speed (a full turn in 79 frames: a tight corner flat out) */
+#define ROT_STILL     7         /* ... at a standstill */
+#define ROT_START     5         /* the first frame of a press ... */
+#define ROT_RAMP      2         /* ... then this much more each frame held, up to the rate */
 #define OVERSPEED_DIV 10        /* faster than the surface allows: lose 1/10 of the excess a frame */
 /* the surfaces: max speed (Q8), accel %, grip (/256 of the sideways speed lost a frame: low = slippery), drag
  * (/256 of the speed lost a frame) */
@@ -61,16 +67,13 @@ enum { SF_TRACK, SF_ROUGH, SF_JAM, SF_WATER, SF_BUMP, SF_FALL, SF_WALL, SF_COUNT
 #define BUMP_E        150       /* /256: the bounce between two ladybugs (restitution) */
 #define WALL_E        110       /* /256: the bounce off an object or a wall */
 #define BUMP_SFX_MIN  96        /* Q8: a softer touch makes no sound */
-/* falling off the table, being left behind */
+/* falling off the table (1 player: put back where it fell; 2-4 players: out of the race) */
 #define FALL_FRAMES   42        /* the fall (it shrinks away), then it is put back on the track */
 #define GHOST_FRAMES  60        /* after being put back: blinking, it goes through the others */
-#define DROP_DELAY    30        /* left behind: gone this long, then put back behind the leader */
-#define DROP_BACK_WP  3         /* ... this many waypoints behind it (and in its own lane) */
-#define DROP_SPEED    85        /* % of the leader's speed it starts with */
+/* 2-4 players: the camera follows the leader (the racer furthest along the track), looking ahead; the race zone is a
+ * FIXED 320 x 240 box round it (the same at every screen width): a racer whose centre leaves it by more than ZONE_OUT
+ * px is LEFT BEHIND: out of the race. 1 player: the camera follows the player, there is no zone */
 #define DROP_GRACE    120       /* frames after the start before anyone can be left behind */
-/* the camera follows the leader (the racer furthest along the track), looking ahead; the race zone is a FIXED
- * 320 x 240 box round it (the same at every screen width): a racer whose centre leaves it by more than ZONE_OUT px
- * is left behind */
 #define ZONE_HW       160
 #define ZONE_HH       120
 #define ZONE_OUT      4
@@ -79,12 +82,11 @@ enum { SF_TRACK, SF_ROUGH, SF_JAM, SF_WATER, SF_BUMP, SF_FALL, SF_WALL, SF_COUNT
 #define LOOK_MAX      56        /* ... at most 56 px ahead */
 #define CAM_EASE      8         /* it goes 1/8 of the way a frame ... */
 #define CAM_MAX_STEP  5         /* ... at most 5 px a frame (a new leader: a smooth pan) */
-/* the race: points */
-#define DROP_POINTS   1         /* a racer left behind: the leader takes a point ... */
-#define DROP_LOSS     1         /* ... and it loses one (never under 0) */
-#define FINISH_POINTS {3, 2, 1, 0}   /* and the places at the finish */
+/* the race: points for the places */
+#define FINISH_POINTS {3, 2, 1, 0}
 #define COUNTDOWN     120       /* frames of the start lights (3, 2, 1: 40 frames each), then GO */
-#define FINISH_FRAMES 150       /* the leader crossed the line: the race goes on this long behind the flag */
+#define FINISH_FRAMES 150       /* the race is over: it goes on this long behind the flag */
+#define RACE_LIMIT    (60 * 240)  /* frames after GO: the race ends whatever happens (no race can stall) */
 /* the start grid: 2 x 2 behind the line */
 #define GRID_BACK     20        /* px behind the line, the first row */
 #define GRID_ROW      26        /* px between the rows */
@@ -94,7 +96,7 @@ enum { SF_TRACK, SF_ROUGH, SF_JAM, SF_WATER, SF_BUMP, SF_FALL, SF_WALL, SF_COUNT
 #define CHAMP_RACES   10
 #define QUALIFY_PLACE 3
 #define CUP_RACES     3         /* 2-4 players: a cup of 3 races */
-#define MEDAL_SCORES  {20, 80, 160, 280}    /* bronze, silver, gold, pearl: the championship points */
+#define MEDAL_SCORES  {8, 15, 21, 27}       /* bronze, silver, gold, pearl: the championship points (30 at most) */
 /* the bots (play.c bot_think): they drive the racing line with some error, brake for the corners they see coming;
  * rubber band: mild; the difficulty rises along the championship */
 #define BOT_LOOK_WP   3         /* aim this many waypoints ahead (+1 per BOT_LOOK_SPEED of speed) */
@@ -103,8 +105,10 @@ enum { SF_TRACK, SF_ROUGH, SF_JAM, SF_WATER, SF_BUMP, SF_FALL, SF_WALL, SF_COUNT
 #define BOT_TURN_FREE 70        /* ... up to this (a sweeping corner) at full speed; sharper: Q8 BOT_TURN_K slower */
 #define BOT_TURN_K    1         /* per angle unit (/ the bot's corner %) ... */
 #define BOT_SAFE_MIN  400       /* ... never under 1 px a frame */
-#define BOT_STUCK     45        /* frames slower than 0.2 px a frame: reverse out */
+#define BOT_STUCK     45        /* frames never BOT_STUCK_PX from where it was (wedged, bouncing off a cube): back out */
+#define BOT_STUCK_PX  8
 #define BOT_REVERSE   36
+#define BOT_SIDE      90        /* ... then the other side of the band this long */
 #define RL_K          3         /* the racing line: px toward the inside per 16 units of turn ahead ... */
 #define RL_MAX        14        /* ... at most */
 #define RUBBER_PX     260       /* 1 player: a bot this far ahead of the player eases off, this far behind tries harder */
@@ -171,7 +175,7 @@ typedef struct track_def {
 extern const track_def tracks[TRACKS];
 
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
-enum { CS_RACE, CS_FALL, CS_OUT };              /* racing; falling off the table; left behind (gone for a moment) */
+enum { CS_RACE, CS_FALL, CS_OUT };              /* racing; falling off the table; out of the race (2-4 players) */
 typedef struct car {
     int32_t x, y, vx, vy;               /* Q8 */
     int32_t z, vz;                      /* Q8: the hop's height */
@@ -180,9 +184,10 @@ typedef struct car {
     int16_t timer, ghost;               /* frames left in the state; of passing through the others */
     int16_t wp, lap;                    /* the nearest waypoint (the checkpoints: only a few ahead count), laps done */
     int32_t prog;                       /* progress along the race (px): lap x length + the distance along */
-    int32_t gift, drop_prog;            /* the ground gained by being put back behind the leader (not counted for the
-                                         * places); the progress when it was left behind */
-    int16_t points, place;              /* this race's points; the place now (1..4) */
+    int16_t stuck_x, stuck_y;           /* the brain: where it was when it last moved (px) */
+    int16_t fin, out;                   /* 1..4: the order it finished in; the order it went out in (2-4 players);
+                                         * 0: not (yet) */
+    int16_t points, place;              /* this race's points (given at its end); the place now (1..4) */
     int16_t drops, falls;               /* counts: left behind, fallen */
     /* the brain (bots and the player bot) */
     int16_t err, err_t, stuck_t, rev_t, react;
@@ -208,6 +213,7 @@ typedef struct world {
     int track, reverse, level, humans;  /* the track, driven backwards?, the bots' difficulty, players racing */
     int phase, phase_t, t;
     int leader;
+    int finished, eliminated;           /* how many racers finished, went out */
     int32_t camx, camy;                 /* Q8: the camera (the centre of the race zone) */
     int wpx, wpy;                       /* the world's size, px */
     int order[RACERS];                  /* the cars by place */
@@ -217,10 +223,13 @@ typedef struct world {
     rs_rng rng;
     uint32_t seed;
 } world;
-enum { EV_BUMP = 1, EV_WALL = 2, EV_HOP = 4, EV_LAND = 8, EV_FALL = 16, EV_DROP = 32, EV_POINT = 64, EV_LAP = 128,
+/* EV_DROP: left behind; EV_OUT: out of the race (left behind, or fallen off: 2-4 players) */
+enum { EV_BUMP = 1, EV_WALL = 2, EV_HOP = 4, EV_LAND = 8, EV_FALL = 16, EV_DROP = 32, EV_OUT = 64, EV_LAP = 128,
        EV_FINISH = 256, EV_SPLASH = 512, EV_JAM = 1024, EV_GO = 2048, EV_BEEP = 4096, EV_BACK = 8192 };
 
-typedef struct pin { int16_t dx, dy; uint8_t gas, brake, any, pad_; } pin;   /* a racer's input this frame */
+/* a racer's input this frame: turn -1 / +1 rotates it (the pad's Left / Right); else (dx, dy) is a direction it turns
+ * toward (the touch stick, the bots); 0, 0: it keeps its heading */
+typedef struct pin { int16_t dx, dy; uint8_t gas, brake, any; int8_t turn; } pin;
 
 extern const char *const bot_names[RACERS];
 extern const int16_t sin_q14[ANG_FULL / 4 + 1];
@@ -236,7 +245,8 @@ int     surface_at(const world *w, int x, int y);     /* SF_* at a world pixel *
 int     car_speed(const car *c);                      /* Q8, forward (negative: reversing) */
 void    bot_think(world *w, int i, pin *out);         /* the brain (bots, and player 1 with bot=1) */
 int     racer_out_of_zone(const world *w, int32_t x, int32_t y);  /* the left-behind test (Q8 position) */
-int     race_points_place(const world *w, int i);    /* the place of car i by points then progress (1..4) */
+int     race_elimination(const world *w);             /* 1: 2-4 players (the zone, out of the race); 0: 1 player */
+int     race_focus(const world *w);                   /* the racer the camera follows (1 player: the player) */
 /* the championship and the cup */
 int     champ_track(int race);                        /* which track race n is on (0..TRACKS-1) */
 int     champ_reverse(int race);

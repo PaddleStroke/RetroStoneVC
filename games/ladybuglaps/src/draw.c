@@ -167,12 +167,19 @@ static void fx_step(const world *w)
         int ev = w->events[i], x = c->x / FX, y = c->y / FX, f = car_speed(c);
         if (ev & (EV_BUMP | EV_WALL)) fx_add(x + (i & 1 ? 4 : -4), y - 4, PK_SPARK, 12);
         if (ev & (EV_LAND | EV_SPLASH | EV_JAM)) fx_add(x, y + 3, ev & EV_SPLASH ? PK_SPLASH : PK_DUST, 18);
-        if (ev & EV_POINT) fx_add(x, y - 14, PK_PLUS, 40);
-        if (ev & EV_DROP && c->human) {
-            msg_drop = MSG_FRAMES;
-            msg_drop_car = i;
+        if (ev & EV_DROP) {                             /* left behind, out: a puff where it left the zone's box */
+            int cx = w->camx / FX, cy = w->camy / FX;
+            int px = x < cx - ZONE_HW + 8 ? cx - ZONE_HW + 8 : x > cx + ZONE_HW - 8 ? cx + ZONE_HW - 8 : x;
+            int py = y < cy - ZONE_HH + 8 ? cy - ZONE_HH + 8 : y > cy + ZONE_HH - 8 ? cy + ZONE_HH - 8 : y;
+            fx_add(px, py, PK_DUST, 18);
+            fx_add(px - 5, py + 3, PK_DUST, 14);
+            fx_add(px + 5, py + 2, PK_SPARK, 12);
         }
-        if ((ev & EV_LAP) && i == w->leader && c->lap == LAPS - 1) msg_final = MSG_FRAMES;
+        if (ev & EV_OUT) {                              /* 2-4 players: who is out (+ RACERS: it fell off) */
+            msg_drop = MSG_FRAMES;
+            msg_drop_car = i + (ev & EV_DROP ? 0 : RACERS);
+        }
+        if ((ev & EV_LAP) && i == race_focus(w) && c->lap == LAPS - 1) msg_final = MSG_FRAMES;
         if (c->state != CS_RACE || c->z > 0) continue;
         int fast = f > 300 || f < -200;
         if (fast && (w->t + i * 3) % 7 == 0) {         /* dust on the rough, drops on the water, behind it */
@@ -379,10 +386,10 @@ static void racer_name(const world *w, int i, char *s, size_t n)
 static int stand_right(void) { return fdiv8(hu_ui_right()) - (rs_screen_width() > RS_SCREEN_W ? 1 : 2); }
 static int stand_place(int right) { return rs_screen_width() > RS_SCREEN_W && right - 5 < 41 ? 41 : right - 5; }
 
-/* the zone's sides on a wide screen: dashed lines just outside the 320-px stage */
-static void zone_lines(void)
+/* the zone's sides on a wide screen: dashed lines just outside the 320-px stage (2-4 players: 1 player has no zone) */
+static void zone_lines(const world *w)
 {
-    if (rs_screen_width() <= RS_SCREEN_W) return;
+    if (rs_screen_width() <= RS_SCREEN_W || !race_elimination(w)) return;
     int mw = rs_bg_map_w(RS_BG1);
     for (int y = 0; y < 30; y++) {
         rs_bg_put(RS_BG1, (-1) & (mw - 1), y, RS_MAP(ZONE_TILE, 0, 0, 0, 0));
@@ -396,18 +403,22 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
     ptext t[PTEXTS];
     int n = 0;
     char s[64], nm[32];
-    int lap = w->c[w->leader].lap + 1;
+    int lap = w->c[race_focus(w)].lap + 1;          /* 1 player: yours; 2-4: the leader's */
     if (lap < 1) lap = 1;
     if (lap > LAPS) lap = LAPS;
     rs_strf(s, sizeof s, TR(LAP), lap, LAPS);
     add_text(t, &n, 1, 1, 0, s);
     int right = stand_right();                      /* the standings: the place, the icon (a sprite), the points */
-    for (int k = 0; k < RACERS; k++) {
-        const car *c = &w->c[w->order[k]];
+    for (int k = 0; k < RACERS; k++) {              /* (the run's so far, with this race's once it is over) */
+        int i = w->order[k];
+        const car *c = &w->c[i];
         snprintf(s, sizeof s, "%d", k + 1);
         add_text(t, &n, stand_place(right), 1 + k * 2, 0, s);
-        snprintf(s, sizeof s, "%2d", c->points);
-        add_text(t, &n, right - 1, 1 + k * 2, 0, s);
+        if (c->out) add_text(t, &n, right + 1 - hu_width(TR(OUT_TAG), 0), 1 + k * 2, 0, TR(OUT_TAG));
+        else {
+            snprintf(s, sizeof s, "%2d", ri->total[i] + c->points);
+            add_text(t, &n, right - 1, 1 + k * 2, 0, s);
+        }
     }
     if (w->phase == PH_COUNT) {
         track_title(w, s, sizeof s);
@@ -421,13 +432,9 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
     } else if (msg_final > 0) {
         add_centred(t, &n, 9, 1, TR(FINAL_LAP));
     }
-    if (msg_drop > 0 && w->phase == PH_RACE) {
-        if (w->humans > 1) {
-            racer_name(w, msg_drop_car, nm, sizeof nm);
-            rs_strf(s, sizeof s, TR(BEHIND_P), nm);
-        } else {
-            snprintf(s, sizeof s, "%s", TR(BEHIND));
-        }
+    if (msg_drop > 0 && w->phase == PH_RACE) {      /* 2-4 players: who went out, and how */
+        racer_name(w, msg_drop_car % RACERS, nm, sizeof nm);
+        rs_strf(s, sizeof s, msg_drop_car >= RACERS ? TR(FELL_P) : TR(BEHIND_P), nm);
         add_centred(t, &n, 13, 0, s);
     }
     if (ri->race == 0 && w->humans == 1 && !tv->seen && w->t < HINT_FRAMES + COUNTDOWN)
@@ -438,7 +445,7 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
     if (h == shown_text) return;
     shown_text = h;
     hu_clear();
-    zone_lines();
+    zone_lines(w);
     for (int i = 0; i < n; i++) {
         if (t[i].big) hu_big(t[i].x, t[i].y, t[i].s, HU_BIG_FREE);
         else hu_text(t[i].x, t[i].y, t[i].s);
