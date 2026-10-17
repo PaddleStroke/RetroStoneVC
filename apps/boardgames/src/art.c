@@ -1074,9 +1074,15 @@ static float hash(int a, int b)
     return (h & 0xffff) / 65535.0f;
 }
 
+/* the frame's wood: 0 walnut, 1 light maple (art_frame_light; each thread its own: the menu's pictures paint on one) */
+static _Thread_local int frame_light;
+
+void art_frame_light(int on) { frame_light = on != 0; }
+int art_frame_is_light(void) { return frame_light; }
+
 /* the wood inside (iw x ih pixels: squares of sq when checkered; a plank's grain at the scale of a plank gs wide) in
- * its walnut frame (fr pixels) */
-typedef struct { int iw, ih, sq, fr, checkered; float gs; uint8_t *o; } board_job;
+ * its frame (fr pixels): walnut, or light maple (light) */
+typedef struct { int iw, ih, sq, fr, checkered; float gs; uint8_t *o; int light; } board_job;
 
 static void board_rows(void *ctx, int y0, int y1)
 {
@@ -1085,7 +1091,7 @@ static void board_rows(void *ctx, int y0, int y1)
     float gs = j->gs;
     uint8_t *o = j->o;
     static const float light[3] = {236, 212, 172}, dark[3] = {176, 124, 82}, plain[3] = {222, 184, 128},
-                       frame[3] = {92, 60, 40};
+                       frame[3] = {92, 60, 40}, maple[3] = {236, 218, 186};
     int w = iw + 2 * fr, h = ih + 2 * fr;
     float rad = fr * 0.7f;
     for (int y = y0; y < y1; y++)
@@ -1108,6 +1114,18 @@ static void board_rows(void *ctx, int y0, int y1)
                     float k = 1 + 0.06f * (g - 0.5f);
                     for (int i = 0; i < 3; i++) c[i] = plain[i] * k;
                 }
+            } else if (j->light) {
+                /* the light theme's frame: pale maple, a soft groove next to the wood, a gentle bevel, its outer edge
+                 * shaded warm (a soft rim: the frame stands off the ivory table) */
+                float dx = fminf(x, w - 1 - x), dy = fminf(y, h - 1 - y), edge = fminf(dx, dy);
+                float g = sinf((x + y * 0.15f) * 0.09f + 1.7f * sinf(y * 0.013f)) * 0.5f + 0.5f;
+                float k = 1 + 0.05f * (g - 0.5f);
+                if (fr - edge < fr * 0.14f) k *= 0.80f;                   /* the groove */
+                else if (edge < fr * 0.18f) k *= (x * h + y * w < w * h) ? 1.04f : 0.90f;
+                k *= 0.80f + 0.20f * clampf(edge / fmaxf(1.5f, fr * 0.16f), 0, 1);   /* the rim */
+                for (int i = 0; i < 3; i++) c[i] = maple[i] * k;
+                float cx = fmaxf(rad - x, x - (w - 1 - rad)), cy = fmaxf(rad - y, y - (h - 1 - rad));
+                if (cx > 0 && cy > 0) a = clampf(rad - sqrtf(cx * cx + cy * cy) + 0.5f, 0, 1);
             } else {
                 /* the frame: walnut, a groove next to the squares, a bevel lit from the top left, rounded corners */
                 float dx = fminf(x, w - 1 - x), dy = fminf(y, h - 1 - y), edge = fminf(dx, dy);
@@ -1127,7 +1145,7 @@ static void board_rows(void *ctx, int y0, int y1)
 /* (its rows painted on the helpers too: a board is many pixels) */
 static void board(int iw, int ih, int sq, float gs, int fr, int checkered, uint8_t *o)
 {
-    board_job j = {iw, ih, sq, fr, checkered, gs, o};
+    board_job j = {iw, ih, sq, fr, checkered, gs, o, frame_light};
     pool_rows(board_rows, &j, ih + 2 * fr, 16);
 }
 

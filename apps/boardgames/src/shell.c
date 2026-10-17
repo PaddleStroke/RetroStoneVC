@@ -180,6 +180,11 @@ static int locked_game(const game *g)
     return 1;
 }
 static int locked(int g) { return locked_game(games[g]); }
+
+/* the frame round a game's board (art_frame_light, this thread's): the light theme's puzzles in light maple, every
+ * other one (and the dark theme) in walnut. Set for the game about to paint: cur's, or a card's (then cur's again) */
+static int frame_light_of(int g) { return g >= 0 && !TH.dark && section_of(games[g]) == SEC_PUZZLE; }
+static void frame_for(int g) { art_frame_light(frame_light_of(g)); }
 static int level_locked(int l) { return free_now() && ed_free_levels > 0 && l >= ed_free_levels; }
 static void full_open(void);
 
@@ -1718,7 +1723,21 @@ static void layout_game(void)
                                      bar_h + 2 * bar_m);
         if (t_bartex) SDL_SetTextureBlendMode(t_bartex, SDL_BLENDMODE_BLEND);
     }
-    if (cur >= 0) games[cur]->layout(L.board);
+    if (cur >= 0) {
+        /* its frame changed since it was laid out (the theme): laid out once at another size first, so the pictures
+         * it keeps by their size are made again in the new wood */
+        static signed char laid_light[MAX_GAMES];   /* 0: never laid out; 1 walnut, 2 light */
+        int light = frame_light_of(cur);
+        frame_for(cur);
+        if (laid_light[cur] && laid_light[cur] != 1 + light) {
+            box half = L.board;
+            half.w = floorf(half.w / 2);
+            half.h = floorf(half.h / 2);
+            games[cur]->layout(half);
+        }
+        laid_light[cur] = (signed char)(1 + light);
+        games[cur]->layout(L.board);
+    }
 }
 
 /* ---- a grid of square cells fitted into a box (game.fill's room): turned a quarter when that makes them bigger --- */
@@ -2732,6 +2751,7 @@ static void show_picker(int g)
 {
     worker_park();                              /* game code from here on: the menu's helper waits */
     SDL_StopTextInput();                        /* a search's keyboard put away (its letters: shortcuts here) */
+    frame_for(g);                               /* (the level screen's pictures) */
     if (in_random(g) && (games[g]->variants > 1 || many_counts(g))) {   /* random play's picker, under the tabs */
         chapters_make(g);
         screen = SCR_PICK;
@@ -3283,6 +3303,7 @@ static void open_game(int i, int fresh_variant)
     SDL_StopTextInput();                        /* (a search's keyboard) */
     if (cur != i) bot_stop();
     cur = i;
+    frame_for(cur);
     ui.players = players_of(i);
     bots_update();
     seats_view();
@@ -4064,6 +4085,7 @@ static int worker_main(void *arg)
         if (b) {
             SDL_LockMutex(WK.paint);            /* not while the main thread runs game code */
             int dark = TH.dark;
+            frame_for(i);                       /* (this thread's) */
             games[i]->thumb(-1, s, b);
             SDL_UnlockMutex(WK.paint);
             if (dark != TH.dark) {              /* the theme changed meanwhile: painted again when wanted */
@@ -4188,7 +4210,9 @@ static SDL_Texture *thumb_ex(int i, int v, int ahead)
     double t0 = perf_now();
     uint8_t *b = calloc((size_t)s * s, 4);      /* its own buffer: the game may use ui_buf() while drawing */
     if (!b) return NULL;
+    frame_for(i);
     games[i]->thumb(v, s, b);
+    frame_for(cur);
     ui_free(&t_thumb[i][k]);
     t_thumb[i][k] = ui_tex(s, s, b);
     t_thumb_sz[i][k] = s;
@@ -5361,6 +5385,7 @@ void shell_theme_changed(void)
     for (int i = 0; i < MAX_GAMES; i++) ui_free(&t_name[i]);   /* the cards' names: the theme's ink */
     help_free();
     if (help.open) help_layout();
+    frame_for(cur);                             /* (a puzzle's frame: light maple in the light theme) */
     if (ui.r && made_unit > 0) layout();       /* (laid out before) the chrome's pictures: they know their theme */
     need_frame = 1;
 }
@@ -5941,6 +5966,7 @@ static int perf(int argc, char **argv)
         for (int i = 0; i < ngames; i++)
             for (int z = 0; z < 3; z++) {
                 int sz = sizes[z];
+                frame_for(i);
                 uint8_t *b = calloc((size_t)sz * sz, 4);
                 char fn[512];
                 for (int k = -1 - ART_PLAYERS; k < MAX_VARIANTS + 8; k++) {
@@ -6037,6 +6063,7 @@ static int perf(int argc, char **argv)
         for (int i = 0; i < ngames; i++) {
             memset(b, 0, (size_t)sz * sz * 4);
             t0 = perf_now();
+            frame_for(i);
             games[i]->thumb(-1, sz, b);
             double t = perf_now() - t0;
             all += t;

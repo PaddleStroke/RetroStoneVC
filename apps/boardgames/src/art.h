@@ -93,6 +93,10 @@ void art_board_n(int nx, int ny, int sq, int fr, int checkered, uint8_t *rgba);
  * all), its grain at the scale of a square plank of its short side (art_board_n's plain wood sets it by the square:
  * finer grain): a tray under a grid, a field stretched over the whole room */
 void art_plank(int w, int h, int fr, uint8_t *rgba);
+/* the frame of art_board / art_board_n / art_plank: 0 the house's walnut, 1 light maple (the light theme's puzzles);
+ * each thread its own (the shell sets it for the game it paints: a game itself need not) */
+void art_frame_light(int on);
+int art_frame_is_light(void);
 /* an inlaid tile in a picture (pw x ph) of wood: the wood under a rounded rectangle (x0, y0, w x h, corners rad;
  * pixels) tinted by tone (a factor per channel, so the grain stays), a darker seam round it, seam pixels wide: the
  * squares of the race games, a scorecard, a groove */

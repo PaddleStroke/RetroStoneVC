@@ -867,12 +867,13 @@ static inline void bench_stones(uint8_t *rgba, int size, int top, int level)
     free(st);
 }
 
-/* the bar's small picture: the game's token at 0.6 unit, made again when the unit changes */
+/* the bar's small picture: the game's token at 0.6 unit, made again when the unit or its frame's wood (the theme)
+ * changes */
 static inline void bench_small(SDL_Texture **t, int *made, void (*token)(int player, int size, uint8_t *rgba))
 {
     int small = (int)(0.6f * ui.unit);
-    if (*made == small && *t) return;
-    *made = small;
+    if (*made == small * 2 + art_frame_is_light() && *t) return;
+    *made = small * 2 + art_frame_is_light();
     ui_free(t);
     uint8_t *b = calloc((size_t)small * small, 4);
     if (!b) return;
