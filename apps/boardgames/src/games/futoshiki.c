@@ -240,6 +240,7 @@ static void draw(void)
     ui_put(t_board, bx, by, bw, bw);
     bench_dg_marks(&dg);
     float ss = GAP * q * 1.25f, x, y;           /* the signs */
+    float lip = fmaxf(1, roundf(0.035f * q));
     for (int c = 0; c < n * n; c++)
         for (int way = 0; way < 2; way++) {
             int r = G.p.rel[way][c];
@@ -248,6 +249,10 @@ static void draw(void)
             float sx = x + q / 2 + (way ? 0 : pitch / 2), sy = y + q / 2 + (way ? pitch / 2 : 0);
             int dir = way ? (r == FSK_LT ? 1 : 3) : (r == FSK_LT ? 0 : 2);
             const uint8_t *ink = dg.clash && !won && sign_broken(way, c) ? BENCH_RED : PUZ_INK;
+            SDL_SetTextureColorMod(t_sign, 255, 244, 214);  /* the burn's lit lower lip, then the burn */
+            SDL_SetTextureAlphaMod(t_sign, 150);
+            ui_put_rot(t_sign, sx, sy + lip, ss, ss, 90.0 * dir);
+            SDL_SetTextureAlphaMod(t_sign, 255);
             SDL_SetTextureColorMod(t_sign, ink[0], ink[1], ink[2]);
             ui_put_rot(t_sign, sx, sy, ss, ss, 90.0 * dir);
         }
