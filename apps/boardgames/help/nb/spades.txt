@@ -1,18 +1,16 @@
 Spar
 # Målet
-To lag med to makkere som sitter overfor hverandre: elfenben og rød mot ibenholt og jade. Hver spiller melder hvor mange stikk han skal ta; så prøver lagene å klare meldingen sin. Det første laget som når 500 poeng, vinner. For 4 spillere som sender enheten rundt; ingen ser kortene til de andre.
+To lag med to makkere som sitter overfor hverandre. Hver spiller melder hvor mange stikk han skal ta; så prøver lagene å klare meldingen sin. Det første laget som når 500 poeng, vinner.
 # Meldingen
-Alle 52 kortene deles ut, 13 til hver. Etter tur melder hver spiller et antall stikk fra 1 til 13, eller null: ikke å ta et eneste stikk. Meldingene til de to makkerne legges sammen til lagets kontrakt. I første runde melder elfenben først; deretter flytter den første spilleren seg en plass hver runde.
+13 kort hver. Etter tur melder hver spiller fra 1 til 13 stikk, eller null: ikke å ta et eneste stikk. Meldingene til de to makkerne legges sammen til lagets kontrakt.
 # Spillet
-- Den som meldte først, spiller ut til første stikk. Etter tur følger hver spiller farge hvis han kan; ellers spiller han et hvilket som helst kort.
-- Spar er alltid trumf: den høyeste sparen vinner stikket, eller uten spar det høyeste kortet i utspilt farge. Esset er høyt. Vinneren spiller ut til neste stikk.
-- Man kan ikke spille ut spar før en spar er spilt på en annen farge (spar er brutt), med mindre man bare har spar.
+- Den som meldte først, spiller ut. Følg farge hvis du kan; ellers spill et hvilket som helst kort.
+- Spar er alltid trumf: den høyeste sparen vinner stikket, ellers det høyeste kortet i utspilt farge. Esset er høyt. Vinneren spiller ut til neste stikk.
+- Man kan ikke spille ut spar før en spar er spilt på en annen farge, med mindre man bare har spar.
 # Poengene
-- Kontrakten klart (makkerne som ikke meldte null, tok til sammen minst kontrakten): 10 poeng for hvert meldt stikk og 1 poeng for hvert ekstra stikk, et overstikk.
-- Kontrakten tapt: minus 10 poeng for hvert meldt stikk.
-- Null: 100 poeng hvis spilleren ikke tar et eneste stikk, minus 100 hvis han tar ett. Stikkene til en nullspiller teller aldri for kontrakten; de teller som overstikk.
-- Overstikk samles fra runde til runde: hver gang et lag har 10, mister det 100 poeng, og de 10 overstikkene forsvinner.
+- Kontrakten klart (av makkerne som ikke meldte null): 10 poeng for hvert meldt stikk og 1 for hvert ekstra stikk, et overstikk.
+- Kontrakten tapt: minus 10 for hvert meldt stikk.
+- Null: 100 hvis spilleren ikke tar et eneste stikk, ellers minus 100. Stikkene til en nullspiller teller aldri for kontrakten; de teller som overstikk.
+- Hver gang et lag har 10 overstikk, mister det 100 poeng, og de overstikkene forsvinner.
 # Slutten på spillet
-Spillet slutter etter runden der et lag når 500 poeng; laget med flest poeng vinner. Står lagene likt, spilles det en runde til.
-# Spill på enheten
-Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin, viftet ut nederst. Brikkene til spillerne står rundt midten, makkeren din overfor deg, og hvert spilt kort ligger foran brikken til spilleren sin. For å melde trykker du på et tall (den overstrekte 0 er null) og så på haken. Hver melding står i en mørk skive ved brikken til spilleren, med stikkene han har tatt like ved. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Hver linje viser kortene på hånden og poengene til laget. Etter hver runde viser en tavle for hvert lag poengene i runden, summen og overstikkene i en mørk skive (et rødt skjær: ti overstikk kostet 100); trykk på den for neste runde. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.
+Etter runden der et lag når 500 poeng, vinner laget med flest poeng; står lagene likt, spilles det en runde til.

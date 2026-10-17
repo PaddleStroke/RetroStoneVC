@@ -1,16 +1,12 @@
 Korsika Savaşı
 # Amaç
-Bütün kartları kazan. Hızlı bir refleks ve sinir oyunu, Fransa'da "Bataille corse" denir: herkes aynı cihazda oynar ve desteye gerçek zamanlı vurur. 2 ila 4 oyuncu için.
+Bütün kartları kazan. Hızlı bir sinir oyunu, Fransa'da "Bataille corse" denir: herkes desteye gerçek zamanlı vurur.
 # Kart açmak
 - 52 kartın hepsi kapalı dağıtılır, her oyuncuya bir deste. Kimse kartlarına bakmaz.
 - Sırayla herkes destesinin en üstteki kartını ortadaki destenin üstüne açar.
-- As, papaz, kız ya da vale vergi ister: sonraki oyuncu kendisi de böyle bir kart açana kadar kart açar; as için 4, papaz için 3, kız için 2, vale için 1 hakkı vardır. Başarırsa vergi sıradaki oyuncuya geçer; başaramazsa resimli kartı oynayan bütün desteyi kazanır, kendi destesinin altına koyar ve yeniden oynar.
+- As, papaz, kız ya da vale vergi ister: sonraki oyuncu kendisi de böyle bir kart açana kadar kart açar; as için 4, papaz için 3, kız için 2, vale için 1 hakkı vardır. Başarırsa vergi sıradaki oyuncuya geçer; başaramazsa resimli kartı oynayan bütün desteyi kazanır ve yeniden oynar.
 # Vurmak
-- Herkes her an desteye vurabilir. Bir çift, üst üste aynı değerde iki kart, desteyi ilk vurana verir ve o devam eder.
-- Sandviçli oyunda (seçim kartında papaz, dört ve papaz) sandviç de sayılır: aralarında bir kart olan aynı değerde iki kart.
+- Herkes her an desteye vurabilir: kendi alanına, destenden uzağa dokun. Bir çift, üst üste aynı değerde iki kart, desteyi ilk vurana verir ve o devam eder.
+- Sandviçli oyunda sandviç de sayılır: aralarında bir kart olan aynı değerde iki kart.
 - Yanlış vuruş bir karta mal olur: en üstteki kartın kapalı olarak ortadaki destenin altına gider.
-- Kartı kalmayan oyuncu artık kart açmaz ama geri dönmek için vurabilir. Verecek kartı yokken yanlış vurursa oyundan çıkar.
-# Oyunun sonu
-Bütün kartları kazanan oyunu kazanır.
-# Cihazda oynamak
-Cihazı oyuncuların arasına düz koy. Masa her oyuncu için bir bölgeye ayrılır: iki kişide ekranın yarısı, üç kişide üst yarı ikiye bölünmüş, dört kişide birer çeyrek. Yüz yüze açıkken karşıdaki bölgeler kendi oyuncularına doğru çevrilir; herkesin şeridi kendi tarafındadır. Bölgen desteni, pulunu ve kaç kartın olduğunu gösterir. Sıra sendeyken destenin ışığı yanar: kart açmak için ona dokun. Vurmak için bölgende başka herhangi bir yere dokun. Bir destenin üstündeki her nokta, vergiyi ödemek için kalan bir haktır. Cihazın gördüğü ilk vuruş kazanır: doğru vuruş bölgeyi altın renginde, yanlışı kırmızı yakar. Bir vergi ödenmezse, son bir çifte hâlâ vurulabilsin diye deste bir an bekler, sonra resimli kartın sahibine gider; o da bölgesine dokunarak desteyi hemen alabilir. Herkes ekrana aynı anda, kendi bölgesinde dokunabilir. Geri al son hamleyi geri alır.
+- Kartı kalmayan oyuncu geri dönmek için yine de vurabilir. Verecek kartı yokken yanlış vurursa oyundan çıkar.

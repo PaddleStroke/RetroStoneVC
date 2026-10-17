@@ -1,15 +1,15 @@
 Štír
 # Cíl hry
-Poskládat ve sloupcích čtyři barvy, každou popořadě od krále dolů po eso. Hra pro jednoho hráče.
+Poskládat ve sloupcích čtyři barvy, každou popořadě od krále dolů po eso.
 # Rozložení
-- Sedm sloupců po sedmi kartách. V prvních čtyřech jsou tři spodní karty rubem nahoru; všechny ostatní lícem nahoru.
+- Sedm sloupců po sedmi kartách. V prvních čtyřech jsou tři spodní karty rubem nahoru.
 - Poslední tři karty čekají vlevo nahoře.
 # Přesouvání karet
 - Kteroukoli otočenou kartu lze přesunout i se všemi kartami, které na ní leží, na vrchní kartu sloupce o jednu vyšší a stejné barvy: srdcovou 6 na srdcovou 7.
 - Prázdný sloupec smí obsadit jen král i s tím, co na něm leží.
 - Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
-- Ťukni na tři čekající karty a rozdáš je, po jedné na každý z prvních tří sloupců: kdykoli, ale jen jednou.
+- Jednou, kdykoli, ťukni na tři čekající karty a rozdáš je na první tři sloupce.
 # Konec hry
 Celá barva, která leží popořadě od krále po eso na vrchu sloupce, odejde sama. Vyhraješ, když odejdou všechny čtyři barvy.
 # Úrovně a hvězdy
-150 úrovní v šesti kapitolách, každá je rozdání, které se dá vyhrát; záložka s kostkou rozdává náhodně. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě dohromady: 2 hvězdy; jinak 1.
+Bez nápovědy a bez vráceného tahu: 3 hvězdy.

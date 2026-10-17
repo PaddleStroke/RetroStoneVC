@@ -1,18 +1,16 @@
 Piky
 # Cíl hry
-Dvě dvojice spoluhráčů, kteří sedí naproti sobě: slonovinový a červený proti ebenovému a nefritovému. Každý ohlásí, kolik štychů udělá; pak se dvojice snaží svůj závazek splnit. Vyhrává dvojice, která první dosáhne 500 bodů. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+Dvě dvojice spoluhráčů, kteří sedí naproti sobě. Každý ohlásí, kolik štychů udělá; pak se dvojice snaží svůj závazek splnit. Vyhrává dvojice, která první dosáhne 500 bodů.
 # Hlášení
-Rozdá se všech 52 karet, po 13. Postupně každý ohlásí počet štychů od 1 do 13, nebo nulu: neudělat ani jeden štych. Hlášení obou spoluhráčů se sečtou v závazek dvojice. V prvním kole hlásí první slonovinový hráč; potom se první hráč každé kolo posune o jedno místo.
+Každý dostane 13 karet. Postupně každý ohlásí počet štychů od 1 do 13, nebo nulu: neudělat ani jeden štych. Hlášení obou spoluhráčů se sečtou v závazek dvojice.
 # Hra
-- Kdo hlásil první, vynáší do prvního štychu. Každý na řadě přizná barvu, pokud může; jinak zahraje libovolnou kartu.
+- Kdo hlásil první, vynáší. Přiznej vynesenou barvu, pokud můžeš; jinak zahraj libovolnou kartu.
 - Piky jsou vždy trumfy: nejvyšší pik bere štych, a bez piků nejvyšší karta vynesené barvy. Eso je nejvyšší. Vítěz vynáší do dalšího štychu.
-- Piky se nesmí vynést, dokud nebyl pik zahrán na jinou barvu (piky jsou prolomeny), ledaže vynášející má jen piky.
+- Piky se nesmí vynést, dokud nebyl pik zahrán na jinou barvu, ledaže vynášející má jen piky.
 # Počítání bodů
-- Závazek splněn (spoluhráči, kteří nehlásili nulu, udělali dohromady aspoň závazek): 10 bodů za každý ohlášený štych a 1 bod za každý štych navíc.
-- Závazek nesplněn: minus 10 bodů za každý ohlášený štych.
-- Nula: 100 bodů, pokud hráč neudělá žádný štych, minus 100, pokud udělá aspoň jeden. Štychy hráče s nulou se nikdy nepočítají do závazku; počítají se jako štychy navíc.
-- Štychy navíc se sčítají z kola do kola: pokaždé, když jich dvojice má 10, ztratí 100 bodů a těch 10 štychů navíc propadne.
+- Závazek splněn (spoluhráči, kteří nehlásili nulu): 10 bodů za každý ohlášený štych a 1 za každý další, tzv. štych navíc.
+- Závazek nesplněn: minus 10 za každý ohlášený štych.
+- Nula: 100, pokud hráč neudělá žádný štych, jinak minus 100. Štychy hráče s nulou se nikdy nepočítají do závazku; počítají se jako štychy navíc.
+- Pokaždé, když má dvojice 10 štychů navíc, ztratí 100 bodů a ty štychy navíc propadnou.
 # Konec hry
-Hra končí po kole, ve kterém některá dvojice dosáhne 500 bodů; vyhrává dvojice s více body. Při rovnosti se hraje ještě jedno kolo.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole. Kameny hráčů stojí kolem středu stolu, tvůj spoluhráč naproti tobě, a každá zahraná karta leží před kamenem svého hráče. Pro hlášení klepni na číslo (přeškrtnutá 0 je nula) a pak na fajfku. Každé hlášení je v tmavém kotouči vedle kamene hráče a udělané štychy hned vedle. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Každá lišta ukazuje karty v ruce a body dvojice. Po každém kole ukáže tabulka pro každou dvojici body z kola, součet a štychy navíc v tmavém kotouči (červená záře: deset štychů navíc stálo 100); klepnutím na ni začne další kolo. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy kartu poté, co se zařízení předalo.
+Po kole, ve kterém některá dvojice dosáhne 500 bodů, vyhrává dvojice s více body; mají-li obě stejně, hraje se další kolo.

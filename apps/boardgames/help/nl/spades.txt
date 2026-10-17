@@ -1,18 +1,16 @@
 Schoppen
 # Het doel
-Twee teams van twee partners die tegenover elkaar zitten: ivoor en rood tegen ebben en jade. Iedereen biedt hoeveel slagen hij zal halen; daarna proberen de teams hun bod te halen. Het eerste team met 500 punten wint. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+Twee teams van twee partners die tegenover elkaar zitten. Iedereen biedt hoeveel slagen hij zal halen; daarna proberen de teams hun bod te halen. Het eerste team met 500 punten wint.
 # Bieden
-Alle 52 kaarten worden gedeeld, 13 per speler. Om de beurt biedt ieder een aantal slagen van 1 tot 13, of nul: helemaal geen slag halen. De biedingen van de twee partners samen vormen het contract van hun team. In de eerste ronde biedt ivoor eerst; daarna schuift de eerste speler elke ronde een plaats door.
+Elk 13 kaarten. Om de beurt biedt ieder 1 tot 13 slagen, of nul: helemaal geen slag halen. De biedingen van de twee partners samen vormen het contract van hun team.
 # Het spel
-- Wie eerst bood, komt uit in de eerste slag. Om de beurt bekent ieder kleur als dat kan, anders speelt hij een willekeurige kaart.
-- Schoppen is altijd troef: de hoogste schoppen wint de slag, of zonder schoppen de hoogste kaart van de gevraagde kleur. De aas is hoog. De winnaar komt uit in de volgende slag.
-- Met schoppen uitkomen mag pas als er een schoppen op een andere kleur gespeeld is (schoppen zijn gebroken), tenzij je alleen nog schoppen hebt.
+- Wie eerst bood, komt uit. Beken kleur als je kunt, anders speel je een willekeurige kaart.
+- Schoppen is altijd troef: de hoogste schoppen wint de slag, anders de hoogste kaart van de gevraagde kleur. De aas is hoog. De winnaar komt uit in de volgende slag.
+- Met schoppen uitkomen mag pas als er een schoppen op een andere kleur gespeeld is, tenzij je alleen nog schoppen hebt.
 # De telling
-- Contract gehaald (de partners die geen nul boden haalden samen minstens het contract): 10 punten per geboden slag en 1 punt per slag erboven, een overslag.
-- Contract niet gehaald: min 10 punten per geboden slag.
-- Nul: 100 punten als de bieder geen slag haalt, min 100 als hij er een haalt. De slagen van een nulbieder tellen nooit voor het contract; ze tellen als overslagen.
-- Overslagen tellen op van ronde tot ronde: telkens als een team er 10 heeft, verliest het 100 punten en vervallen die 10 overslagen.
+- Contract gehaald (door de partners die geen nul boden): 10 punten per geboden slag en 1 per slag erboven, een overslag.
+- Contract niet gehaald: min 10 per geboden slag.
+- Nul: 100 als de bieder geen slag haalt, anders min 100. De slagen van een nulbieder tellen nooit voor het contract; ze tellen als overslagen.
+- Telkens als een team 10 overslagen heeft, verliest het 100 punten en vervallen die overslagen.
 # Het einde van de partij
-De partij eindigt na de ronde waarin een team 500 punten bereikt; het team met de meeste punten wint. Staan beide teams gelijk, dan volgt nog een ronde.
-# Spelen op het apparaat
-Geef het apparaat aan de speler wiens fiche verschijnt; die tikt op start en ziet zijn hand, onderaan in een waaier. De fiches van de spelers liggen rond het midden, je partner tegenover je, en elke gespeelde kaart ligt voor het fiche van zijn speler. Om te bieden tik je een getal aan (de doorgestreepte 0 is nul) en dan het vinkje. Elk bod staat in een donkere schijf naast het fiche van zijn speler, met de gehaalde slagen ernaast. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Elke balk toont de kaarten in de hand en de stand van het team. Na elke ronde toont een tabel per team de punten van de ronde, het totaal en de overslagen in een donkere schijf (rode gloed: tien overslagen kostten 100); tik erop voor de volgende ronde. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een kaart als het apparaat al doorgegeven is.
+Na de ronde waarin een team 500 punten bereikt, wint het team met de meeste punten; staan beide teams gelijk, dan volgt nog een ronde.

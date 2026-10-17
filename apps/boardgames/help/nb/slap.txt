@@ -1,16 +1,12 @@
 Korsikansk slag
 # Målet
-Vinn alle kortene. Et raskt nervespill, i Frankrike kalt «Bataille corse»: alle spiller på samme enhet og slår på bunken i sanntid. For 2 til 4 spillere.
+Vinn alle kortene. Et raskt nervespill, i Frankrike kalt «Bataille corse»: alle slår på bunken i sanntid.
 # Snu kort
 - Alle 52 kortene deles ut med baksiden opp, én bunke per spiller. Ingen ser på kortene sine.
 - Etter tur snur hver spiller det øverste kortet i bunken sin opp på bunken i midten.
-- Et ess, en konge, en dame eller en knekt krever tributt: neste spiller snur kort til han selv snur et slikt, med 4 forsøk for et ess, 3 for en konge, 2 for en dame og 1 for en knekt. Klarer han det, går tributten videre til neste spiller; ellers vinner den som la bildekortet, hele bunken, legger den under sin egen og spiller igjen.
+- Et ess, en konge, en dame eller en knekt krever tributt: neste spiller snur kort til han selv snur et slikt, med 4 forsøk for et ess, 3 for en konge, 2 for en dame og 1 for en knekt. Klarer han det, skylder neste spiller tributt; ellers vinner den som la bildekortet, hele bunken og spiller igjen.
 # Slå
-- Hvem som helst kan slå på bunken når som helst. Et par, to kort med samme verdi oppå hverandre, gir bunken til den som slår først, og som så spiller videre.
-- I spillet med sandwich (valgkortet med konge, fire og konge) teller også en sandwich: to kort med samme verdi og ett kort imellom.
+- Hvem som helst kan slå på bunken når som helst: trykk i din egen sone, unna bunken din. Et par, to kort med samme verdi oppå hverandre, gir bunken til den som slår først, og som så spiller videre.
+- I spillet med sandwich teller også en sandwich: to kort med samme verdi og ett kort imellom.
 - Et feil slag koster et kort: det øverste kortet ditt legges med baksiden opp under bunken i midten.
-- Den som ikke har flere kort, snur ikke flere, men kan slå for å komme tilbake. Slår han feil uten kort å gi, er han ute.
-# Slutten på spillet
-Den som vinner alle kortene, vinner spillet.
-# Spill på enheten
-Legg enheten flatt mellom spillerne. Bordet er delt i én sone per spiller: en halv skjerm hver med to, den øverste halvdelen delt i to med tre, en firedel hver med fire. Med ansikt til ansikt er sonene på motsatt side snudd mot spillerne sine; hver spillers linje står på hans side. Sonen din viser bunken din, brikken din og hvor mange kort du har. Når det er din tur, lyser bunken din: trykk på den for å snu et kort. For å slå trykker du hvor som helst ellers i sonen din. Hver prikk over en bunke er et forsøk som gjenstår for å betale en tributt. Det første slaget enheten ser, vinner: et riktig slag tenner sonen i gull, et feil i rødt. Blir en tributt ikke betalt, venter bunken et øyeblikk så man fortsatt kan slå på et siste par, og går så til den som la bildekortet, som også kan trykke på sonen sin for å ta den med en gang. Alle kan røre skjermen samtidig, hver i sin sone. Angre tar tilbake den siste handlingen.
+- Den som ikke har flere kort, kan fortsatt slå for å komme tilbake. Slår han feil uten kort å gi, er han ute.

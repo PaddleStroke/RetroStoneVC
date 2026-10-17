@@ -1,13 +1,6 @@
 Pająk
 # Cel gry
-Ułożyć osiem ciągów od króla do asa, każdy w jednym kolorze, i usunąć je wszystkie ze stołu. Gra dla jednej osoby dwiema taliami: 104 karty.
-# Warianty
-- Jeden kolor: wszystkie karty to piki. Najłatwiejszy.
-- Dwa kolory: piki i kiery.
-- Cztery kolory: dwie pełne talie. Najtrudniejszy.
-# Rozłożenie
-- Dziesięć kolumn: po 6 kart w pierwszych czterech, po 5 w pozostałych; odkryta jest tylko wierzchnia karta każdej kolumny.
-- Pozostałe 50 kart to talia, w prawym górnym rogu: jeden rewers na każde jeszcze czekające rozdanie dziesięciu kart. W lewym górnym rogu osiem miejsc na ukończone ciągi.
+Ułożyć osiem ciągów od króla do asa, każdy w jednym kolorze, i usunąć je wszystkie ze stołu. Dwie talie: 104 karty.
 # Przekładanie kart
 - Na kolumnę kładzie się kartę o jeden niższą, w dowolnym kolorze: 6 na dowolną 7.
 - Kilka kart przesuwa się razem tylko wtedy, gdy następują po sobie w jednym kolorze.
@@ -15,10 +8,8 @@ Ułożyć osiem ciągów od króla do asa, każdy w jednym kolorze, i usunąć j
 - Gdy na wierzchu kolumny zostaje zakryta karta, odwraca się.
 - Gdy tylko kolumna kończy się pełnym ciągiem w jednym kolorze, od króla do asa, ciąg sam schodzi ze stołu.
 # Talia
-Dotknij talii, by rozdać po jednej odkrytej karcie na każdą kolumnę. Jak w klasycznych zasadach, rozdawać można tylko wtedy, gdy żadna kolumna nie jest pusta.
+Dotknij talii, by rozdać po jednej odkrytej karcie na każdą kolumnę. Rozdawać można tylko wtedy, gdy żadna kolumna nie jest pusta.
 # Koniec gry
-Wygrywasz, gdy wszystkie osiem ciągów jest ukończonych. Jeśli utkniesz, cofnij ruchy albo zacznij nowe rozdanie.
+Wygrywasz, gdy wszystkie osiem ciągów jest ukończonych.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 4 gra się jednym kolorem, w rozdziałach 5 i 6 dwoma. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej (także cztery kolory). Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Dotknij karty, by przenieść ją razem z kartami leżącymi na niej na najlepsze miejsce: na kartę w tym samym kolorze, jeśli się da, a jeśli nie, na dowolną kartę o jeden wyższą, a jeśli nie, do pustej kolumny. Ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampa pokazuje przydatny ruch; liczba na twoim pasku liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki.

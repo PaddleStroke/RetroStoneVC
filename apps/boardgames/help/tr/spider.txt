@@ -1,24 +1,15 @@
 Örümcek
 # Amaç
-Her biri tek takımdan, papazdan asa sekiz dizi kurmak ve hepsini masadan kaldırmak. İki desteyle oynanan tek kişilik bir oyun: 104 kart.
-# Çeşitler
-- Tek takım: bütün kartlar maçadır. En kolayı.
-- İki takım: maça ve kupa.
-- Dört takım: iki tam deste. En zoru.
-# Diziliş
-- On sütun: ilk dördünde 6'şar, ötekilerde 5'er kart; her sütunun yalnızca en üstteki kartı açıktır.
-- Kalan 50 kart sağ üstteki destedir: gelecek her on kartlık dağıtım için bir sırt. Sol üstte, tamamlanan diziler için sekiz yer vardır.
+Her biri tek takımdan, papazdan asa sekiz dizi kur ve hepsini masadan kaldır. İki deste: 104 kart.
 # Kartları taşımak
 - Bir sütuna, herhangi bir takımdan bir aşağı değerde bir kart konur: herhangi bir 7'nin üstüne bir 6.
 - Birden çok kart, ancak aynı takımda birbirini izliyorsa birlikte taşınır.
 - Boş bir sütuna herhangi bir kart ya da dizi konabilir.
-- Bir sütunun üstünde kapalı bir kart kalınca kendiliğinden açılır.
+- Bir sütunun üstünde kapalı bir kart kalınca açılır.
 - Bir sütun, papazdan asa tek takımdan tam bir diziyle biter bitmez, dizi masadan kendiliğinden kalkar.
 # Deste
-Her sütuna birer açık kart dağıtmak için desteye dokun. Klasik kurallardaki gibi, ancak hiçbir sütun boş değilken dağıtılabilir.
+Her sütuna birer açık kart dağıtmak için desteye dokun. Ancak hiçbir sütun boş değilken dağıtılabilir.
 # Oyunun sonu
-Sekiz dizinin hepsi tamamlanınca kazanırsın. Takılırsan hamleleri geri al ya da yeni bir dağıtım başlat.
+Sekiz dizinin hepsi tamamlanınca kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 4'e kadar olan bölümler tek takımla, 5. ve 6. bölümler iki takımla oynanır. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle (dört takım da seçilebilir) rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Bir kartı, üstündeki kartlarla birlikte en iyi yerine taşımak için ona dokun: olabiliyorsa kendi takımından bir kartın üstüne, olmuyorsa bir yüksek değerdeki herhangi bir kartın üstüne, o da olmuyorsa boş bir sütuna. Bir diziyi sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; şeridindeki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+İpucu da geri alma da yoksa 3 yıldız.

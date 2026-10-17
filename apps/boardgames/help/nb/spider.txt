@@ -1,13 +1,6 @@
 Edderkopp
 # Målet
-Bygg åtte rekker fra konge ned til ess, hver i én farge, og få dem alle vekk fra bordet. Et spill for én spiller med to kortstokker: 104 kort.
-# Variantene
-- Én farge: alle kortene er spar. Den letteste.
-- To farger: spar og hjerter.
-- Fire farger: to hele kortstokker. Den vanskeligste.
-# Oppstillingen
-- Ti rekker: 6 kort i hver av de fire første, 5 i de andre; bare det øverste kortet i hver rekke er synlig.
-- De andre 50 kortene er bunken, øverst til høyre: én bakside for hver runde på ti kort som gjenstår. Øverst til venstre åtte plasser for de ferdige rekkene.
+Bygg åtte rekker fra konge ned til ess, hver i én farge, og få dem alle vekk fra bordet. To kortstokker: 104 kort.
 # Flytte kort
 - På en rekke legges et kort som er én lavere, i hvilken som helst farge: en 6 på hvilken som helst 7.
 - Flere kort flyttes bare sammen hvis de følger hverandre i samme farge.
@@ -15,10 +8,8 @@ Bygg åtte rekker fra konge ned til ess, hver i én farge, og få dem alle vekk 
 - Når et skjult kort ligger øverst i en rekke, snus det.
 - Så snart en rekke ender med en hel rekke i én farge, fra konge til ess, forlater den bordet av seg selv.
 # Bunken
-Trykk på bunken for å dele ut ett synlig kort på hver rekke. Som i de klassiske reglene kan du bare dele ut når ingen plass er tom.
+Trykk på bunken for å dele ut ett synlig kort på hver rekke. Du kan bare dele ut når ingen plass er tom.
 # Slutten på spillet
-Du vinner når alle åtte rekkene er ferdige. Står du fast, angre eller start et nytt spill.
+Du vinner når alle åtte rekkene er ferdige.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. Kapittel 1 til 4 spilles med én farge, kapittel 5 og 6 med to. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor (også fire farger). Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
-# Spill på enheten
-Trykk på et kort for å flytte det, med kortene oppå, til den beste plassen: på et kort i samme farge hvis det går, ellers på et hvilket som helst kort én høyere, ellers til en tom plass. Du kan også dra en rekke dit du vil. Lampen viser et nyttig trekk; tallet i panelet ditt teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Uten hint og uten angrede trekk: 3 stjerner.

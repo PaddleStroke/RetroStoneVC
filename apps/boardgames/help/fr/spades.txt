@@ -1,18 +1,16 @@
 Pique
 # Le but
-Deux équipes de deux partenaires assis face à face : ivoire et rouge contre ébène et jade. Chacun annonce combien de plis il va faire, puis les équipes essaient de réussir leur contrat. La première équipe à 500 points gagne. Pour 4 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Deux équipes de deux partenaires assis face à face. Chacun annonce combien de plis il va faire, puis les équipes essaient de réussir leur contrat. La première équipe à 500 points gagne.
 # Les annonces
-Les 52 cartes sont distribuées, 13 chacun. Chacun à son tour annonce un nombre de plis de 1 à 13, ou nul : ne faire aucun pli. Les annonces des deux partenaires s'additionnent pour faire le contrat de l'équipe. Ivoire annonce en premier à la première manche ; ensuite le premier joueur avance d'une place à chaque manche.
+13 cartes chacun. Chacun à son tour annonce un nombre de plis de 1 à 13, ou nul : ne faire aucun pli. Les annonces des deux partenaires s'additionnent pour faire le contrat de l'équipe.
 # Le jeu
-- Celui qui a annoncé en premier entame le premier pli. Chacun à son tour fournit la couleur demandée s'il le peut, sinon joue n'importe quelle carte.
-- Le pique est toujours atout : le plus fort pique remporte le pli, ou, sans pique, la plus forte carte de la couleur demandée. L'as est la plus forte. Le gagnant entame le pli suivant.
-- On ne peut pas entamer à pique tant qu'un pique n'a pas été joué sur une autre couleur (les piques sont ouverts), sauf si on n'a plus que des piques.
+- Celui qui a annoncé en premier entame. Fournis la couleur demandée si tu peux, sinon joue n'importe quelle carte.
+- Le pique est toujours atout : le plus fort pique remporte le pli, sinon la plus forte carte de la couleur demandée. L'as est la plus forte. Le gagnant entame le pli suivant.
+- On ne peut pas entamer à pique tant qu'un pique n'a pas été joué sur une autre couleur, sauf si on n'a plus que des piques.
 # Le score
-- Contrat réussi (les partenaires qui n'ont pas annoncé nul ont fait au moins le contrat) : 10 points par pli annoncé, et 1 point par pli en trop, appelé surlevée.
-- Contrat chuté : moins 10 points par pli annoncé.
-- Nul : 100 points si le joueur ne fait aucun pli, moins 100 s'il en fait un. Les plis d'un joueur qui a annoncé nul ne comptent jamais pour le contrat ; ils comptent comme surlevées.
-- Les surlevées s'accumulent de manche en manche : chaque fois qu'une équipe en a 10, elle perd 100 points et ces 10 surlevées disparaissent.
+- Contrat réussi (par les partenaires qui n'ont pas annoncé nul) : 10 points par pli annoncé, et 1 point par pli en trop, appelé surlevée.
+- Contrat chuté : moins 10 points par pli annoncé.
+- Nul : 100 points si le joueur ne fait aucun pli, moins 100 sinon. Les plis d'un joueur qui a annoncé nul ne comptent jamais pour le contrat ; ils comptent comme surlevées.
+- Chaque fois qu'une équipe a 10 surlevées, elle perd 100 points et ces surlevées disparaissent.
 # La fin de la partie
-La partie s'arrête après la manche où une équipe atteint 500 points ; l'équipe qui a le plus de points gagne. Si les deux équipes sont à égalité, on joue une manche de plus.
-# Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce s'affiche ; il touche le bouton de départ et voit sa main, en éventail en bas. Les pièces des joueurs entourent le milieu de la table, ton partenaire en face de toi, et chaque carte jouée se pose devant la pièce de son joueur. Pour annoncer, touche un nombre (le 0 barré, c'est nul), puis la coche. Chaque annonce s'affiche dans un disque sombre à côté de la pièce du joueur, avec les plis faits juste à côté. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Chaque barre montre les cartes en main et le score de l'équipe. Après chaque manche, un tableau montre pour chaque équipe les points de la manche, son total et ses surlevées dans un disque sombre (une lueur rouge : dix surlevées ont coûté 100) ; touche-le pour la manche suivante. Annuler reprend un choix pas encore validé, jamais une carte une fois l'appareil passé.
+Après la manche où une équipe atteint 500 points, l'équipe qui a le plus de points gagne ; si les deux sont à égalité, on joue une manche de plus.

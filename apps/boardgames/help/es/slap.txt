@@ -1,16 +1,12 @@
 Batalla corsa
 # El objetivo
-Gana todas las cartas. Un juego rápido de nervios, llamado «Bataille corse» en Francia: todos juegan en el mismo dispositivo y golpean el montón en tiempo real. De 2 a 4 jugadores.
+Gana todas las cartas. Un juego rápido de nervios, llamado «Bataille corse» en Francia: todos golpean el montón en tiempo real.
 # Descubrir cartas
 - Las 52 cartas se reparten boca abajo, un montón por jugador. Nadie mira sus cartas.
 - Por turno, cada jugador descubre la carta de arriba de su montón sobre el montón del centro.
-- Un as, un rey, una dama o una jota exige tributo: el siguiente jugador descubre cartas hasta que saca una de esas, con 4 intentos para un as, 3 para un rey, 2 para una dama y 1 para una jota. Si lo consigue, el tributo pasa al jugador siguiente; si no, el jugador de la figura gana todo el montón, lo pone bajo el suyo y vuelve a jugar.
+- Un as, un rey, una dama o una jota exige tributo: el siguiente jugador descubre cartas hasta que saca también una de esas, con 4 intentos para un as, 3 para un rey, 2 para una dama y 1 para una jota. Si lo consigue, el tributo pasa al jugador siguiente; si no, el jugador de la figura gana todo el montón y vuelve a jugar.
 # Golpear
-- Cualquiera puede golpear el montón en cualquier momento. Una pareja, dos cartas del mismo rango una sobre otra, da el montón al primero que golpea, que vuelve a jugar.
-- En el juego con sándwich (la carta del selector con un rey, un cuatro y un rey), también cuenta un sándwich: dos cartas del mismo rango con una carta entre ellas.
+- Cualquiera puede golpear el montón en cualquier momento: toca tu propia zona, lejos de tu montón. Una pareja, dos cartas del mismo rango una sobre otra, da el montón al primero que golpea, que vuelve a jugar.
+- En el juego con sándwich, también cuenta un sándwich: dos cartas del mismo rango con una carta entre ellas.
 - Golpear mal cuesta una carta: la de arriba de tu montón va boca abajo bajo el montón del centro.
-- Quien se queda sin cartas ya no descubre ninguna, pero puede golpear para volver. Si golpea mal sin carta que dar, queda eliminado.
-# El final de la partida
-Quien gana todas las cartas gana la partida.
-# Jugar en el dispositivo
-Deja el dispositivo plano entre los jugadores. La mesa se divide en una zona por jugador: media pantalla cada uno con dos, la mitad de arriba partida en dos con tres, un cuarto cada uno con cuatro. Con cara a cara, las zonas de enfrente se giran hacia sus jugadores; la barra de cada uno está de su lado. Tu zona muestra tu montón, tu ficha y tu número de cartas. Cuando es tu turno, tu montón brilla: tócalo para descubrir una carta. Para golpear, toca cualquier otro sitio de tu zona. Cada punto sobre un montón es un intento que queda para pagar un tributo. Gana el primer golpe que ve el dispositivo: un buen golpe ilumina la zona en oro, uno malo en rojo. Cuando no se paga un tributo, el montón espera un momento para que aún se pueda golpear una última pareja, y luego va al jugador de la figura, que también puede tocar su zona para llevárselo en seguida. Todos pueden tocar la pantalla a la vez, cada uno en su zona. Deshacer anula la última acción.
+- Quien se queda sin cartas aún puede golpear para volver. Si golpea mal sin carta que dar, queda eliminado.

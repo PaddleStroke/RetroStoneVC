@@ -1,15 +1,15 @@
 Schorpioen
 # Het doel
-De vier kleuren in de kolommen opbouwen, elk op volgorde van de heer omlaag tot de aas. Een spel voor één speler.
+De vier kleuren in de kolommen opbouwen, elk op volgorde van de heer omlaag tot de aas.
 # De opstelling
-- Zeven kolommen van zeven kaarten. In de eerste vier liggen de onderste drie kaarten gedekt; alle andere liggen open.
+- Zeven kolommen van zeven kaarten. In de eerste vier liggen de onderste drie kaarten gedekt.
 - De laatste drie kaarten wachten linksboven.
 # Kaarten verplaatsen
-- Elke open kaart mag verplaatst worden, met alle kaarten die erop liggen, naar de bovenste kaart van een kolom die één hoger is en van dezelfde kleur: harten 6 op harten 7.
+- Elke open kaart mag verplaatst worden, met alle kaarten erop, naar de bovenste kaart van een kolom die één hoger is en van dezelfde kleur: harten 6 op harten 7.
 - Alleen een heer, met wat erop ligt, mag een lege kolom vullen.
-- Ligt er bovenop een kolom een gedekte kaart, dan draait die open.
-- Tik op de drie wachtende kaarten om ze te delen, één op elk van de eerste drie kolommen: wanneer je wilt, maar één keer.
+- Een gedekte kaart die bovenop een kolom ligt, draait open.
+- Eén keer, wanneer je wilt, tik je op de drie wachtende kaarten om ze op de eerste drie kolommen te delen.
 # Het einde van de partij
 Een hele kleur die bovenop een kolom op volgorde van heer tot aas ligt, gaat vanzelf weg. Je wint als alle vier de kleuren weg zijn.
 # Levels en sterren
-150 levels in zes hoofdstukken, elk een spel dat te winnen is; het tabblad met de dobbelsteen deelt willekeurig. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee samen: 2 sterren; anders 1.
+Zonder hint en zonder ongedaan gemaakte zet: 3 sterren.

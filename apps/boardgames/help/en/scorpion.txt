@@ -1,15 +1,15 @@
 Scorpion
 # The aim
-Build the four suits in the columns, each one in order from the king down to the ace. A game for one player.
+Build the four suits in the columns, each one in order from the king down to the ace.
 # The layout
-- Seven columns of seven cards. In the first four, the three bottom cards are face down; all the others are face up.
+- Seven columns of seven cards. In the first four, the three bottom cards are face down.
 - The last three cards wait at the top left.
 # Moving cards
-- Any face-up card can move, with all the cards lying on it, onto the top card of a column that is one rank higher and of the same suit: the 6 of hearts on the 7 of hearts.
+- Any face-up card can move, with all the cards on it, onto the top card of a column that is one rank higher and of the same suit: the 6 of hearts on the 7 of hearts.
 - Only a king, with what lies on it, may fill an empty column.
-- When a face-down card is left on top of a column, it turns face up.
-- Tap the three waiting cards to deal them, one on each of the first three columns: at any time, but only once.
+- A face-down card left on top of a column turns face up.
+- Once, at any time, tap the three waiting cards to deal them onto the first three columns.
 # The end of the game
-A whole suit lying in order from the king to the ace on top of a column goes off by itself. You win when all four suits have gone off.
+A whole suit in order from king to ace on top of a column goes off by itself. You win when all four suits have gone.
 # Levels and stars
-150 levels in six chapters, each a deal that can be won; the die tab deals at random. No hint and no undo: 3 stars; up to two in all: 2 stars; otherwise 1.
+No hint and no undo: 3 stars.

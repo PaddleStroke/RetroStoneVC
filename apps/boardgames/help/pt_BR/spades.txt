@@ -1,18 +1,16 @@
 Espadas
 # O objetivo
-Duas duplas de parceiros sentados frente a frente: marfim e vermelho contra ébano e jade. Cada jogador diz quantas vazas vai fazer; depois as duplas tentam cumprir o que disseram. Vence a primeira dupla a chegar a 500 pontos. Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+Duas duplas de parceiros sentados frente a frente. Cada jogador diz quantas vazas vai fazer; depois as duplas tentam cumprir o que disseram. Vence a primeira dupla a chegar a 500 pontos.
 # Os lances
-As 52 cartas são distribuídas, 13 para cada um. Na sua vez, cada um dá um lance de 1 a 13 vazas, ou nulo: não fazer vaza nenhuma. Os lances dos dois parceiros se somam no contrato da dupla. Na primeira rodada o marfim dá o primeiro lance; depois o primeiro jogador avança um lugar a cada rodada.
+13 cartas para cada um. Na sua vez, cada um dá um lance de 1 a 13 vazas, ou nulo: não fazer vaza nenhuma. Os lances dos dois parceiros se somam no contrato da dupla.
 # O jogo
-- Quem deu o primeiro lance abre a primeira vaza. Na sua vez, cada um joga uma carta do naipe de saída se puder; senão, qualquer carta.
-- Espadas são sempre trunfo: a espada mais alta ganha a vaza ou, sem espadas, a carta mais alta do naipe de saída. O ás é a mais alta. Quem ganha abre a próxima vaza.
-- Não se pode abrir com espadas antes que uma espada tenha sido jogada sobre outro naipe (espadas quebradas), a menos que você só tenha espadas.
+- Quem deu o primeiro lance abre. Jogue uma carta do naipe de saída se puder; senão, qualquer carta.
+- Espadas são sempre trunfo: a espada mais alta ganha a vaza ou, sem espadas, a carta mais alta do naipe de saída. O ás é a mais alta. Quem ganha abre a próxima.
+- Não se pode abrir com espadas antes que uma espada tenha sido jogada sobre outro naipe, a menos que quem abre só tenha espadas.
 # A pontuação
-- Contrato cumprido (os parceiros que não pediram nulo fizeram pelo menos o contrato): 10 pontos por vaza do lance e 1 ponto por vaza a mais, chamada sobra.
-- Contrato perdido: menos 10 pontos por vaza do lance.
-- Nulo: 100 pontos se quem pediu não fizer nenhuma vaza, menos 100 se fizer alguma. As vazas de quem pediu nulo nunca contam para o contrato; contam como sobras.
-- As sobras se acumulam de rodada em rodada: cada vez que uma dupla junta 10, perde 100 pontos e essas 10 sobras somem.
+- Contrato cumprido (pelos parceiros que não pediram nulo): 10 pontos por vaza do lance e 1 por vaza a mais, chamada sobra.
+- Contrato perdido: menos 10 por vaza do lance.
+- Nulo: 100 se quem pediu não fizer nenhuma vaza, menos 100 se fizer. As vazas de quem pediu nulo nunca contam para o contrato; contam como sobras.
+- Cada vez que uma dupla junta 10 sobras, perde 100 pontos e essas sobras somem.
 # O fim da partida
-A partida termina depois da rodada em que uma dupla chega a 500 pontos; vence a dupla com mais pontos. Se as duas estiverem empatadas, joga-se mais uma rodada.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo. As fichas dos jogadores ficam em volta do centro da mesa, o seu parceiro na sua frente, e cada carta jogada fica diante da ficha do seu jogador. Para dar o lance, toque num número (o 0 riscado é nulo) e depois no sinal de confirmação. Cada lance aparece num disco escuro ao lado da ficha do jogador, com as vazas feitas logo ao lado. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e a pontuação da dupla. Depois de cada rodada, uma tabela mostra para cada dupla os pontos da rodada, o total e as sobras num disco escuro (um brilho vermelho: dez sobras custaram 100); toque nela para a próxima rodada. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.
+Depois da rodada em que uma dupla chega a 500 pontos, vence a dupla com mais pontos; se as duas estiverem empatadas, joga-se mais uma rodada.

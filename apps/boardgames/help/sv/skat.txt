@@ -1,36 +1,32 @@
 Skat
 # Målet
-Tysklands stora kortspel för tre. I varje giv spelar en spelare, spelföraren, ensam mot de andra två: han vinner budgivningen, väljer spel och försöker vinna det. Ett parti är en lista på 12 eller 36 giv, efter val; högsta summan i slutet vinner. Reglerna följer den internationella skatordningen (Internationale Skatordnung). För 3 spelare som skickar enheten runt; ingen ser de andras kort.
+Tysklands stora kortspel för tre, med reglerna i den internationella skatordningen. I varje giv spelar spelföraren, som vinner budgivningen, ensam mot de andra två.
 # Utdelningen
-Leken har 32 kort, från 7 till ess. Varje spelare får 10 kort; 2 till ligger med baksidan upp: skatten. Givaren flyttar en plats framåt för varje giv. Spelaren efter givaren är förhand och spelar ut till första sticket; sedan kommer mellanhand och bakhand (givaren).
+32 kort, från 7 till ess. 10 kort var; 2 till ligger med baksidan upp: skatten. Efter givaren kommer förhand, som spelar ut först, mellanhand och bakhand (givaren).
 # Budgivningen
 - Man bjuder i spelvärden: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 och så vidare.
-- Mellanhand bjuder till förhand, som svarar ja (han håller budet) eller passar; mellanhand bjuder högre eller passar.
-- Den som är kvar lyssnar sedan på bakhand, som bjuder på samma sätt. Den sista spelaren som är kvar blir spelförare, på det sista budet.
-- Om ingen bjuder får förhand ändå bjuda 18. Passar han också kastas korten in: given räknas i listan, utan poäng.
+- Mellanhand bjuder till förhand, som svarar ja eller passar; mellanhand bjuder högre eller passar. Den som är kvar lyssnar sedan på bakhand på samma sätt. Den sista spelaren som är kvar blir spelförare, på det sista budet.
+- Om ingen bjuder får förhand ändå bjuda 18; passar han också kastas korten in (given räknas i listan, utan poäng).
 # Skatten och spelet
-- Spelföraren får ta upp skatten och lägga undan två valfria kort; de räknas till honom. Eller så spelar han handspel: han lämnar skatten orörd, och den räknas ändå till honom i slutet.
-- Sedan väljer han spel: ett färgspel (ruter 9, hjärter 10, spader 11, klöver 12), grand (24: bara knektarna är trumf) eller noll (Null).
-- Noll: spelföraren får inte ta ett enda stick. Det finns ingen trumf, och varje färg går ess, kung, dam, knekt, 10, 9, 8, 7. Noll är värt 23, noll hand 35, noll ouvert 46, noll ouvert hand 59. Ett nollspel som är värt mindre än budet kan inte väljas.
-- I ett handspel får spelföraren ropa ut schneider, schwarz (med schneider) och ouvert (med schwarz): hans kort läggs då med framsidan upp så att alla ser dem. Noll ouvert spelas också öppet, med eller utan skatten.
+- Spelföraren tar upp skatten och lägger undan två valfria kort, eller spelar handspel och lämnar den orörd. I båda fallen räknas skatten till honom.
+- Han väljer spel: en färg (ruter 9, hjärter 10, spader 11, klöver 12), grand (24: bara knektarna är trumf) eller noll.
+- Noll: ta inte ett enda stick. Ingen trumf; varje färg går ess, kung, dam, knekt, 10, 9, 8, 7. Värt 23, noll hand 35, noll ouvert 46, noll ouvert hand 59; ett nollspel som är värt mindre än budet kan inte väljas.
+- I ett handspel får han ropa ut schneider, schwarz (med schneider) och ouvert (med schwarz: hans kort med framsidan upp). Noll ouvert är också öppet.
 # Trumf och spel
-- I färgspel och grand är de fyra knektarna de högsta trumferna, i den här ordningen: klöver, spader, hjärter, ruter. I ett färgspel kommer sedan trumffärgen: ess, 10, kung, dam, 9, 8, 7.
-- De andra färgerna går ess, 10, kung, dam, 9, 8, 7. En knekt hör alltid till trumfen, aldrig till sin egen färg.
-- Förhand spelar ut. Bekänn färg om du kan, annars spela valfritt kort. Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
+- I färgspel och grand är de fyra knektarna de högsta trumferna: klöver, spader, hjärter, ruter. I ett färgspel kommer sedan trumffärgen: ess, 10, kung, dam, 9, 8, 7.
+- De andra färgerna går ess, 10, kung, dam, 9, 8, 7. En knekt hör alltid till trumfen.
+- Bekänn färg om du kan, annars spela valfritt kort. Högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa.
 # Vunnet eller förlorat
-- Kortpoäng: ess 11, tia 10, kung 4, dam 3, knekt 2: 120 totalt. Spelföraren lägger skatten till sina stick och behöver 61 för att vinna.
+- Kortpoäng: ess 11, tia 10, kung 4, dam 3, knekt 2: 120 totalt. Med skatten behöver spelföraren 61.
 - Schneider: en sida med 30 poäng eller mindre. Schwarz: en sida utan stick. Utropad schneider kräver 90 poäng, utropad schwarz alla stick.
 - Noll är förlorat så snart spelföraren tar ett stick.
 # Spelets värde
-- Färgspel och grand: grundvärdet (9, 10, 11, 12 eller 24) gånger antalet steg.
+- Färgspel och grand: grundvärdet (9, 10, 11, 12 eller 24) gånger stegen.
 - Matadorerna: den obrutna raden av högsta trumfer, från klöver knekt och nedåt, som spelföraren har ("med 2") eller saknar ("utan 3"), skatten inräknad.
-- Stegen: matadorerna, plus 1 för spelet, 1 för hand, 1 för schneider, 1 till om den är utropad, 1 för schwarz, 1 till om den är utropad, och 1 för ouvert.
+- Stegen: matadorerna, plus 1 vardera för spelet, hand, schneider, utropad schneider, schwarz, utropad schwarz och ouvert.
 - Exempel: klöver med 2, spelat från handen: (2 + 1 + 1) x 12 = 48.
-- Överbjudet: är värdet lägre än budet är spelet förlorat. Det räknas då som den minsta multipeln av grundvärdet som når budet.
+- Överbjudet: ett värde lägre än budet förlorar, och räknas som den minsta multipeln av grundvärdet som når budet.
 # Poängen
-- Ett vunnet spel ger spelföraren dess värde; ett förlorat spel kostar dubbla värdet, i minus.
-- Till det kommer Seeger-Fabian-poäng: 50 för varje vunnet spel, minus 50 för varje förlorat spel, och 40 till var och en av de två andra spelarna för varje spel som en spelförare förlorar.
-# Partiets slut
-Efter listans sista giv vinner högsta summan. Vid lika summa delar spelarna segern.
-# Spela på enheten
-Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. Skatten ligger med baksidan upp längst upp medan det bjuds. För att bjuda trycker du på ett värde (pilarna visar högre värden) och sedan på bocken, eller på pass. För att svara på ett bud trycker du på bocken för ja, eller på pass. Varje plats visar spelarens senaste ord: värdet i en mörk skiva, en bock för ja, passtecknet. Spelföraren trycker på skatten för att ta upp den och sedan på två kort för att lägga undan dem (tryck på ett kort i skatten för att ta tillbaka det); för att spela handspel väljer han spel utan att röra skatten. Spelen: de fyra färgerna, grand (knektens figur) och noll (ett överstruket kort); sedan utropen: 90 för schneider, 120 för schwarz, de öppna korten för ouvert; sedan bocken. Under spelet visar spelförarens plats hans bud, hans spel och, vid handspel, två kortbaksidor. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Efter varje giv visar en tavla spelet och dess bud; klöver knekt (överstruken: utan) och matadorerna, stegen gånger grundvärdet och värdet (ett rött sken: överbjudet); skatten och spelförarens kortpoäng (en guldbock: vunnet); varje spelares poäng, Seeger-Fabian-poäng och summa; och listan över given, med en bricka i varje spelförares färg (guldljus: vunnet, nedtonad: förlorat, en tom ring: inkastat). Tryck på den för nästa giv. Varje list visar korten på handen och summan. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.
+- Ett vunnet spel ger dess värde; ett förlorat spel dubbla värdet, i minus.
+- Seeger-Fabian-poäng: 50 för varje vunnet spel, minus 50 för varje förlorat, och 40 till var och en av de två andra för varje spel som en spelförare förlorar.
+- Efter listans sista giv vinner högsta summan; vid lika summa delar spelarna segern.

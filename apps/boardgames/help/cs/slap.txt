@@ -1,16 +1,12 @@
 Korsická bitva
 # Cíl hry
-Získej všechny karty. Rychlá hra na nervy, ve Francii zvaná „Bataille corse“: všichni hrají na stejném zařízení a v reálném čase plácají na hromádku. Pro 2 až 4 hráče.
+Získej všechny karty. Rychlá hra na nervy, ve Francii zvaná „Bataille corse“: všichni plácají na hromádku v reálném čase.
 # Otáčení karet
 - Všech 52 karet se rozdá rubem nahoru, jedna hromádka pro každého. Nikdo se na své karty nedívá.
 - Hráči postupně otáčejí vrchní kartu své hromádky na hromádku uprostřed.
-- Eso, král, dáma nebo kluk žádá daň: další hráč otáčí karty, dokud sám takovou neotočí, a má na to 4 pokusy u esa, 3 u krále, 2 u dámy a 1 u kluka. Když se mu to podaří, daň platí další hráč; jinak vyhraje hráč obrázkové karty celou hromádku, dá ji pod svou a hraje znovu.
+- Eso, král, dáma nebo kluk žádá daň: další hráč otáčí karty, dokud sám takovou neotočí, a má na to 4 pokusy u esa, 3 u krále, 2 u dámy a 1 u kluka. Když se mu to podaří, daň platí další hráč; jinak vyhraje hráč obrázkové karty celou hromádku a hraje znovu.
 # Plácání
-- Kdokoli smí kdykoli plácnout na hromádku. Dvojice, dvě karty stejné hodnoty na sobě, dá hromádku tomu, kdo plácne první, a ten hraje dál.
-- Ve hře se sendvičem (karta výběru s králem, čtyřkou a králem) platí i sendvič: dvě karty stejné hodnoty s jednou kartou mezi nimi.
+- Kdokoli smí kdykoli plácnout na hromádku: klepni do své zóny, mimo svou hromádku. Dvojice, dvě karty stejné hodnoty na sobě, dá hromádku tomu, kdo plácne první, a ten hraje dál.
+- Ve hře se sendvičem platí i sendvič: dvě karty stejné hodnoty s jednou kartou mezi nimi.
 - Špatné plácnutí stojí kartu: tvoje vrchní karta jde rubem nahoru pod hromádku uprostřed.
-- Hráč bez karet už nic neotáčí, ale smí plácat, aby se vrátil. Plácne-li špatně a nemá kartu, kterou by dal, vypadává.
-# Konec hry
-Hru vyhrává ten, kdo získá všechny karty.
-# Hra na zařízení
-Polož zařízení naplocho mezi hráče. Stůl je rozdělen na jednu zónu pro každého: ve dvou polovina obrazovky každému, ve třech horní polovina rozdělená na dvě, ve čtyřech čtvrtina každému. V režimu tváří v tvář jsou zóny naproti otočené ke svým hráčům; lišta každého hráče je na jeho straně. Tvoje zóna ukazuje tvou hromádku, tvůj kámen a počet tvých karet. Když jsi na tahu, tvá hromádka svítí: klepni na ni a otočíš kartu. Pro plácnutí klepni kamkoli jinam do své zóny. Každá tečka nad hromádkou je zbývající pokus na zaplacení daně. Vyhrává první plácnutí, které zařízení zaznamená: správné rozsvítí zónu zlatě, špatné červeně. Když daň zaplacena není, hromádka chvíli počká, aby se dalo ještě plácnout na poslední dvojici, a pak jde hráči obrázkové karty, který si ji může vzít hned klepnutím do své zóny. Všichni se mohou obrazovky dotýkat zároveň, každý ve své zóně. Vrátit vezme zpět poslední akci.
+- Hráč bez karet ještě smí plácat, aby se vrátil. Plácne-li špatně a nemá kartu, kterou by dal, vypadává.

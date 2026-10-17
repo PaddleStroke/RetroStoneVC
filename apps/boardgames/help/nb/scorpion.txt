@@ -1,15 +1,15 @@
 Skorpion
 # Målet
-Bygg opp de fire fargene i rekkene, hver i rekkefølge fra kongen ned til esset. Et spill for én spiller.
+Bygg opp de fire fargene i rekkene, hver i rekkefølge fra kongen ned til esset.
 # Oppstillingen
-- Sju rekker med sju kort. I de fire første ligger de tre nederste kortene skjult; alle de andre ligger synlige.
+- Sju rekker med sju kort. I de fire første ligger de tre nederste kortene skjult.
 - De tre siste kortene venter øverst til venstre.
 # Flytte kort
 - Ethvert synlig kort kan flyttes, med alle kortene som ligger på det, over på det øverste kortet i en rekke som er én høyere og i samme farge: hjerter 6 på hjerter 7.
 - Bare en konge, med det som ligger på den, kan fylle en tom rekke.
-- Når et skjult kort ligger øverst i en rekke, snus det.
-- Trykk på de tre ventende kortene for å dele dem ut, ett på hver av de tre første rekkene: når som helst, men bare én gang.
+- Et skjult kort som ligger øverst i en rekke, snus.
+- Én gang, når som helst, kan du trykke på de tre ventende kortene for å dele dem ut på de tre første rekkene.
 # Slutten på spillet
-En hel farge som ligger i rekkefølge fra konge til ess øverst i en rekke, går av seg selv. Du vinner når alle fire fargene er gått.
+En hel farge i rekkefølge fra konge til ess øverst i en rekke går av seg selv. Du vinner når alle fire fargene er gått.
 # Nivåer og stjerner
-150 nivåer i seks kapitler, hvert et spill som kan vinnes; fanen med terningen deler ut tilfeldig. Uten hint og uten angrede trekk: 3 stjerner; opptil to til sammen: 2 stjerner; ellers 1.
+Uten hint og uten angrede trekk: 3 stjerner.

@@ -1,16 +1,12 @@
 Batalha corsa
 # O objetivo
-Ganha todas as cartas. Um jogo rápido e de nervos, em França «Bataille corse»: todos jogam no mesmo dispositivo e batem no monte em tempo real. De 2 a 4 jogadores.
+Ganha todas as cartas. Um jogo rápido e de nervos, em França «Bataille corse»: todos batem no monte em tempo real.
 # Voltar as cartas
 - As 52 cartas são distribuídas voltadas para baixo, um monte por jogador. Ninguém olha para as suas cartas.
 - Na sua vez, cada jogador volta a carta de cima do seu monte para o monte do centro.
-- Um ás, rei, dama ou valete exige tributo: o jogador seguinte volta cartas até voltar também uma dessas, com 4 tentativas para um ás, 3 para um rei, 2 para uma dama e 1 para um valete. Se conseguir, o tributo passa ao jogador seguinte; se não, quem jogou a figura ganha o monte todo, põe-no debaixo do seu e joga outra vez.
+- Um ás, rei, dama ou valete exige tributo: o jogador seguinte volta cartas até voltar também uma dessas, com 4 tentativas para um ás, 3 para um rei, 2 para uma dama e 1 para um valete. Se conseguir, o tributo passa ao jogador seguinte; se não, quem jogou a figura ganha o monte todo e joga a seguir.
 # Bater
-- Qualquer um pode bater no monte a qualquer momento. Um par, duas cartas do mesmo valor uma sobre a outra, dá o monte a quem bater primeiro, que joga a seguir.
-- No jogo com sanduíche (a carta da escolha com um rei, um quatro e um rei), conta também o sanduíche: duas cartas do mesmo valor com uma carta entre elas.
+- Qualquer um pode bater no monte a qualquer momento: toca na tua zona, longe do teu monte. Um par, duas cartas do mesmo valor uma sobre a outra, dá o monte a quem bater primeiro, que joga a seguir.
+- No jogo com sanduíche, conta também o sanduíche: duas cartas do mesmo valor com uma carta entre elas.
 - Bater mal custa uma carta: a de cima do teu monte vai voltada para baixo para debaixo do monte do centro.
-- Quem fica sem cartas já não volta nenhuma, mas ainda pode bater para regressar. Se bater mal sem carta para dar, fica de fora.
-# O fim do jogo
-Quem ganha todas as cartas ganha o jogo.
-# Jogar no dispositivo
-Pousa o dispositivo deitado entre os jogadores. A mesa é dividida numa zona por jogador: meio ecrã para cada um com dois, a metade de cima dividida em duas com três, um quarto para cada um com quatro. Com frente a frente, as zonas do outro lado ficam viradas para os seus jogadores; a barra de cada um fica do seu lado. A tua zona mostra o teu monte, a tua peça e quantas cartas tens. Na tua vez, o teu monte brilha: toca-lhe para voltar uma carta. Para bater, toca em qualquer outro sítio da tua zona. Cada ponto por cima de um monte é uma tentativa que resta para pagar um tributo. Ganha a primeira batida que o dispositivo vê: uma batida certa acende a zona a dourado, uma errada a vermelho. Quando um tributo não é pago, o monte espera um momento para ainda se poder bater num último par, e depois vai para quem jogou a figura, que também pode tocar na sua zona para o levar logo. Todos podem tocar no ecrã ao mesmo tempo, cada um na sua zona. Anular desfaz a última ação.
+- Quem fica sem cartas ainda pode bater para regressar. Se bater mal sem carta para dar, fica de fora.

@@ -1,15 +1,15 @@
 Akrep
 # Amaç
-Dört takımı sütunlarda, her birini papazdan asa doğru sırayla dizmek. Tek kişilik bir oyun.
+Dört takımı sütunlarda, her birini papazdan asa doğru sırayla diz.
 # Diziliş
-- Yedişer kartlık yedi sütun. İlk dört sütunda en alttaki üç kart kapalıdır; ötekilerin hepsi açıktır.
+- Yedişer kartlık yedi sütun. İlk dört sütunda en alttaki üç kart kapalıdır.
 - Son üç kart sol üstte bekler.
 # Kartları taşımak
-- Açık olan her kart, üstündeki bütün kartlarla birlikte, bir sütunun en üstündeki kartın üstüne taşınabilir; o kart bir büyük ve aynı takımdan olmalıdır: kupa 6, kupa 7'nin üstüne.
+- Açık olan her kart, üstündeki bütün kartlarla birlikte, bir sütunun en üstündeki, bir büyük ve aynı takımdan olan kartın üstüne taşınabilir: kupa 6, kupa 7'nin üstüne.
 - Boş bir sütuna yalnızca bir papaz, üstündekilerle birlikte, konabilir.
-- Bir sütunun üstünde kapalı bir kart kalınca kendiliğinden açılır.
-- Bekleyen üç karta dokununca, ilk üç sütunun her birine bir tane dağıtılır: istediğin an, ama yalnızca bir kez.
+- Bir sütunun üstünde kapalı bir kart kalınca açılır.
+- Bir kez, istediğin an, bekleyen üç karta dokun: ilk üç sütuna dağıtılırlar.
 # Oyunun sonu
 Bir sütunun üstünde papazdan asa sıralı duran tam bir takım kendiliğinden gider. Dört takım da gidince kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var, her biri kazanılabilen bir dağıtım; zar sekmesi rastgele dağıtır. İpucu da geri alma da yoksa 3 yıldız; toplam en fazla ikiyse 2 yıldız; yoksa 1.
+İpucu da geri alma da yoksa 3 yıldız.

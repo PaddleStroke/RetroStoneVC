@@ -1,13 +1,6 @@
 Pavouk
 # Cíl hry
-Složit osm řad od krále po eso, každou v jedné barvě, a všechny je odklidit ze stolu. Hra pro jednoho hráče se dvěma balíčky: 104 karet.
-# Varianty
-- Jedna barva: všechny karty jsou piky. Nejlehčí.
-- Dvě barvy: piky a srdce.
-- Čtyři barvy: dva celé balíčky. Nejtěžší.
-# Rozložení
-- Deset sloupců: po 6 kartách v prvních čtyřech, po 5 v ostatních; lícem nahoru leží jen horní karta každého sloupce.
-- Zbylých 50 karet tvoří balíček vpravo nahoře: jeden rub za každé ještě čekající rozdání deseti karet. Vlevo nahoře je osm míst pro hotové řady.
+Složit osm řad od krále po eso, každou v jedné barvě, a všechny je odklidit ze stolu. Dva balíčky: 104 karet.
 # Přesouvání karet
 - Na sloupec patří karta o jednu nižší, v jakékoli barvě: 6 na jakoukoli 7.
 - Více karet se přesouvá spolu, jen když jdou po sobě v jedné barvě.
@@ -15,10 +8,8 @@ Složit osm řad od krále po eso, každou v jedné barvě, a všechny je odklid
 - Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
 - Jakmile sloupec končí celou řadou jedné barvy, od krále po eso, řada sama opustí stůl.
 # Balíček
-Klepni na balíček a na každý sloupec se rozdá jedna karta lícem nahoru. Jako v klasických pravidlech se smí rozdávat, jen když není žádný sloupec prázdný.
+Klepni na balíček a na každý sloupec se rozdá jedna karta lícem nahoru. Rozdávat se smí, jen když není žádný sloupec prázdný.
 # Konec hry
-Vyhráváš, když je všech osm řad hotových. Když se zasekneš, vrať tahy nebo začni nové rozdání.
+Vyhráváš, když je všech osm řad hotových.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. Kapitoly 1 až 4 se hrají s jednou barvou, kapitoly 5 a 6 se dvěma. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše (i se čtyřmi barvami). Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
-# Hra na zařízení
-Klepni na kartu a přesuneš ji i s kartami na ní na nejlepší místo: na kartu stejné barvy, pokud to jde, jinak na jakoukoli kartu o jednu vyšší, jinak do prázdného sloupce. Řadu můžeš také přetáhnout a pustit, kam chceš. Lampa ukáže užitečný tah; číslo v tvé liště počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Bez nápovědy a bez vráceného tahu: 3 hvězdy.

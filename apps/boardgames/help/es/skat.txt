@@ -1,36 +1,32 @@
 Skat
 # El objetivo
-El gran juego de cartas de Alemania, para tres. En cada ronda un jugador, el declarante, juega solo contra los otros dos: gana la subasta, elige el juego e intenta cumplirlo. Una partida es una lista de 12 o 36 rondas, a elegir; al final gana el total más alto. Las reglas son las del reglamento internacional del Skat. Para 3 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+El gran juego de cartas de Alemania, para tres, con las reglas del reglamento internacional del Skat. En cada ronda el declarante, que gana la subasta, juega solo contra los otros dos.
 # El reparto
-La baraja tiene 32 cartas, del 7 al as. Cada jugador recibe 10 cartas; otras 2 quedan boca abajo: el skat. El que reparte avanza un puesto en cada ronda. El jugador que sigue al que reparte es el primero (Vorhand) y sale en la primera baza; después vienen el segundo (Mittelhand) y el tercero (Hinterhand), que es el que reparte.
+32 cartas, del 7 al as. 10 cartas cada uno; otras 2 quedan boca abajo: el skat. Tras el que reparte vienen el primero (Vorhand), que sale primero, el segundo (Mittelhand) y el tercero (Hinterhand, el que reparte).
 # La subasta
 - Se puja con valores de juego: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, etcétera.
-- El segundo le puja al primero, que responde sí (mantiene la puja) o pasa; el segundo sube o pasa.
-- El que queda escucha después al tercero, que puja del mismo modo. El último jugador que queda es el declarante, con la última puja.
-- Si nadie puja, el primero aún puede pujar 18. Si también pasa, se tiran las cartas: la ronda cuenta en la lista, sin puntuación.
+- El segundo le puja al primero, que dice sí o pasa; el segundo sube o pasa. El que queda escucha después al tercero del mismo modo. El último jugador que queda es el declarante, con la última puja.
+- Si nadie puja, el primero aún puede pujar 18; si también pasa, se tiran las cartas (la ronda cuenta en la lista, sin puntuación).
 # El skat y el juego
-- El declarante puede tomar el skat y apartar dos cartas cualesquiera, que cuentan para él. O juega de mano (Hand): deja el skat sin tocar, y aun así cuenta para él al final.
-- Luego nombra el juego: un juego de palo (diamantes 9, corazones 10, picas 11, tréboles 12), Grand (24: solo las sotas son triunfo) o Null.
-- Null: el declarante no debe ganar ni una baza. No hay triunfo y cada palo se ordena as, rey, reina, sota, 10, 9, 8, 7. El Null vale 23; el Null de mano, 35; el Null ouvert, 46; el Null ouvert de mano, 59. No se puede elegir un Null que valga menos que la puja.
-- En un juego de mano, el declarante puede anunciar Schneider, Schwarz (con Schneider) y ouvert (con Schwarz): entonces juega con sus cartas boca arriba, a la vista de todos. El Null ouvert también se juega descubierto, con o sin el skat.
+- El declarante toma el skat y aparta dos cartas cualesquiera, o juega de mano (Hand), sin tocarlo. En los dos casos el skat cuenta para él.
+- Nombra el juego: un palo (diamantes 9, corazones 10, picas 11, tréboles 12), Grand (24: solo las sotas son triunfo) o Null.
+- Null: no ganar ni una baza. No hay triunfo; cada palo se ordena as, rey, reina, sota, 10, 9, 8, 7. Vale 23; el Null de mano, 35; el Null ouvert, 46; el Null ouvert de mano, 59. No se puede elegir un Null que valga menos que la puja.
+- En un juego de mano puede anunciar Schneider, Schwarz (con Schneider) y ouvert (con Schwarz: sus cartas boca arriba). El Null ouvert también se juega descubierto.
 # Los triunfos y el juego
-- En los juegos de palo y en el Grand, las cuatro sotas son los triunfos más altos, en este orden: tréboles, picas, corazones, diamantes. En un juego de palo les sigue el palo de triunfo: as, 10, rey, reina, 9, 8, 7.
-- Los demás palos se ordenan as, 10, rey, reina, 9, 8, 7. Una sota siempre es triunfo, nunca una carta de su propio palo.
-- Sale el primero. Sirve el palo de salida si puedes; si no, juega cualquier carta. El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
+- En los juegos de palo y en el Grand, las cuatro sotas son los triunfos más altos: tréboles, picas, corazones, diamantes. En un juego de palo les sigue el palo de triunfo: as, 10, rey, reina, 9, 8, 7.
+- Los demás palos se ordenan as, 10, rey, reina, 9, 8, 7. Una sota siempre es triunfo.
+- Sirve el palo si puedes; si no, juega cualquier carta. El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente.
 # Ganar el juego
-- Puntos de las cartas: as 11, diez 10, rey 4, reina 3, sota 2: 120 en total. El declarante suma el skat a sus bazas y necesita 61 para ganar.
-- Schneider: un bando con 30 puntos o menos. Schwarz: un bando sin ninguna baza. Un Schneider anunciado exige 90 puntos; un Schwarz anunciado, todas las bazas.
+- Puntos de las cartas: as 11, diez 10, rey 4, reina 3, sota 2: 120 en total. Con el skat, el declarante necesita 61.
+- Schneider: un bando con 30 puntos o menos. Schwarz: un bando sin ninguna baza. Anunciados, el Schneider exige 90 puntos y el Schwarz todas las bazas.
 - El Null se pierde en cuanto el declarante gana una baza.
 # El valor del juego
 - Juegos de palo y Grand: el valor base (9, 10, 11, 12 o 24) por el multiplicador.
-- Los matadores: la serie seguida de triunfos más altos, desde la sota de tréboles hacia abajo, que el declarante tiene (se dice con 2) o que le faltan (sin 3), skat incluido.
-- El multiplicador: los matadores, más 1 por el juego, 1 por jugar de mano, 1 por Schneider, 1 más si se anunció, 1 por Schwarz, 1 más si se anunció, y 1 por ouvert.
+- Los matadores: la serie seguida de triunfos más altos, desde la sota de tréboles hacia abajo, que el declarante tiene («con 2») o que le faltan («sin 3»), skat incluido.
+- El multiplicador: los matadores, más 1 por el juego, por jugar de mano, por Schneider, por Schneider anunciado, por Schwarz, por Schwarz anunciado y por ouvert.
 - Ejemplo: tréboles con 2, jugado de mano: (2 + 1 + 1) x 12 = 48.
-- Puja excesiva: si el valor queda por debajo de la puja, el juego se pierde. Entonces cuenta como el múltiplo más bajo de su valor base que alcanza la puja.
+- Puja excesiva: si el valor queda por debajo de la puja, el juego se pierde, y cuenta como el múltiplo más bajo de su valor base que alcanza la puja.
 # La puntuación
-- Un juego ganado suma su valor al declarante; un juego perdido le resta el doble de su valor.
-- Se añaden los puntos Seeger-Fabian: 50 por cada juego ganado, menos 50 por cada juego perdido, y 40 a cada uno de los otros dos jugadores por cada juego que pierde un declarante.
-# El final de la partida
-Tras la última ronda de la lista, gana el total más alto. Los totales empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Durante la subasta, el skat está boca abajo en la parte de arriba. Para pujar, toca un valor (las flechas muestran los más altos) y luego la marca de visto, o toca Paso. Para responder a una puja, toca la marca de visto para decir sí, o Paso. Cada puesto muestra lo último que dijo su jugador: el valor en un disco oscuro, una marca de visto para el sí, el signo de paso. El declarante toca el skat para tomarlo y luego toca dos cartas para apartarlas (toca una del skat para recuperarla); para jugar de mano, elige el juego sin tocar el skat. Los juegos: los cuatro palos, Grand (la figura de la sota) y Null (una carta tachada); después los anuncios: 90 para Schneider, 120 para Schwarz, las cartas descubiertas para ouvert; y luego la marca de visto. Durante el juego, el puesto del declarante muestra su puja, su juego y, si juega de mano, dos reversos de carta. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada ronda, una tabla muestra el juego y su puja; la sota de tréboles (tachada: sin) y los matadores, el multiplicador por el valor base y el valor (un brillo rojo: puja excesiva); el skat y los puntos de cartas del declarante (una marca dorada: ganado); la puntuación, los puntos Seeger-Fabian y el total de cada jugador; y la lista de rondas, con una ficha del color de cada declarante (luz dorada: ganado; atenuada: perdido; un anillo vacío: cartas tiradas). Tócala para la ronda siguiente. Cada barra muestra las cartas en la mano y el total. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.
+- Un juego ganado suma su valor; un juego perdido resta el doble de su valor.
+- Puntos Seeger-Fabian: 50 por cada juego ganado, menos 50 por cada juego perdido, y 40 a cada uno de los otros dos por cada juego que pierde un declarante.
+- Tras la última ronda de la lista, gana el total más alto; los totales empatados comparten la victoria.

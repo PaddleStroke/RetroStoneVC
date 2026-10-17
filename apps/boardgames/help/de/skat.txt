@@ -1,36 +1,32 @@
 Skat
 # Das Ziel
-Deutschlands großes Kartenspiel für drei. In jedem Spiel tritt einer, der Alleinspieler, gegen die beiden anderen an: Er gewinnt das Reizen, bestimmt das Spiel und muss es gewinnen. Eine Partie ist eine Liste von 12 oder 36 Spielen, nach Wahl; am Ende gewinnt die höchste Summe. Es gelten die Regeln der Internationalen Skatordnung. Für 3 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+Deutschlands großes Kartenspiel für drei, nach den Regeln der Internationalen Skatordnung. In jedem Spiel spielt der Alleinspieler, der das Reizen gewinnt, allein gegen die beiden anderen.
 # Das Geben
-Gespielt wird mit 32 Karten, von der 7 bis zum Ass. Jeder Spieler bekommt 10 Karten; 2 weitere liegen verdeckt: der Skat. Der Geber rückt mit jedem Spiel einen Platz weiter. Der Spieler nach dem Geber ist Vorhand und spielt zum ersten Stich aus; dann folgen Mittelhand und Hinterhand (der Geber).
+32 Karten, von der 7 bis zum Ass. Jeder bekommt 10 Karten; 2 weitere liegen verdeckt: der Skat. Nach dem Geber kommen Vorhand, die zuerst ausspielt, Mittelhand und Hinterhand (der Geber).
 # Das Reizen
 - Gereizt wird mit Spielwerten: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 und so weiter.
-- Mittelhand sagt, Vorhand hört: Vorhand antwortet mit „ja“ und hält damit das Gebot, oder mit „passe“. Mittelhand sagt höher oder passt.
-- Wer übrig bleibt, hört dann Hinterhand, die ebenso sagt. Der zuletzt verbliebene Spieler wird Alleinspieler, zum letzten Gebot.
-- Sagt niemand, darf Vorhand noch 18 reizen. Passt auch Vorhand, ist das Spiel eingepasst: Es zählt in der Liste, ohne Wertung.
+- Mittelhand sagt, Vorhand hört und antwortet mit „ja“ oder passt; Mittelhand sagt höher oder passt. Wer übrig bleibt, hört dann Hinterhand ebenso. Der zuletzt verbliebene Spieler wird Alleinspieler, zum letzten Gebot.
+- Sagt niemand, darf Vorhand noch 18 reizen; passt auch Vorhand, ist das Spiel eingepasst (es zählt in der Liste, ohne Wertung).
 # Der Skat und das Spiel
-- Der Alleinspieler darf den Skat aufnehmen und zwei beliebige Karten drücken; sie zählen für ihn. Oder er spielt aus der Hand (Handspiel): Er lässt den Skat unberührt liegen, und der zählt am Ende trotzdem für ihn.
-- Dann sagt er das Spiel an: ein Farbspiel (Karo 9, Herz 10, Pik 11, Kreuz 12), Grand (24: nur die Buben sind Trumpf) oder Null.
-- Null: Der Alleinspieler darf keinen einzigen Stich bekommen. Es gibt keinen Trumpf, und jede Farbe hat die Reihenfolge Ass, König, Dame, Bube, 10, 9, 8, 7. Null zählt 23, Null Hand 35, Null ouvert 46, Null ouvert Hand 59. Ein Nullspiel, das weniger wert ist als das Gebot, kann nicht gewählt werden.
-- Bei einem Handspiel darf der Alleinspieler Schneider ansagen, Schwarz (schließt Schneider ein) und offen, also ouvert (schließt Schwarz ein): Seine Karten liegen dann für alle sichtbar auf dem Tisch. Null ouvert wird ebenfalls offen gespielt, mit oder ohne Skat.
+- Der Alleinspieler nimmt den Skat auf und drückt zwei beliebige Karten, oder er spielt aus der Hand und lässt ihn unberührt. In beiden Fällen zählt der Skat für ihn.
+- Er sagt das Spiel an: ein Farbspiel (Karo 9, Herz 10, Pik 11, Kreuz 12), Grand (24: nur die Buben sind Trumpf) oder Null.
+- Null: keinen einzigen Stich bekommen. Kein Trumpf; jede Farbe hat die Reihenfolge A K D B 10 9 8 7. Null zählt 23, Null Hand 35, Null ouvert 46, Null ouvert Hand 59; ein Nullspiel, das weniger wert ist als das Gebot, kann nicht gewählt werden.
+- Bei einem Handspiel darf er Schneider ansagen, Schwarz (mit Schneider) und ouvert (mit Schwarz: seine Karten liegen offen). Null ouvert wird ebenfalls offen gespielt.
 # Trumpf und Spielverlauf
-- Im Farbspiel und im Grand sind die vier Buben die höchsten Trümpfe, in dieser Reihenfolge: Kreuz, Pik, Herz, Karo. Im Farbspiel folgt die Trumpffarbe: Ass, 10, König, Dame, 9, 8, 7.
-- Die anderen Farben: Ass, 10, König, Dame, 9, 8, 7. Ein Bube gehört immer zu den Trümpfen, nie zu seiner Farbe.
-- Vorhand spielt aus. Wer kann, muss die ausgespielte Farbe bedienen, sonst darf er eine beliebige Karte spielen. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
+- Im Farbspiel und im Grand sind die vier Buben die höchsten Trümpfe: Kreuz, Pik, Herz, Karo. Im Farbspiel folgt die Trumpffarbe: A 10 K D 9 8 7.
+- Die anderen Farben: A 10 K D 9 8 7. Ein Bube gehört immer zu den Trümpfen.
+- Bediene, wenn du kannst, sonst spiel eine beliebige Karte. Der höchste Trumpf gewinnt, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
 # Gewonnen oder verloren
-- Die Augen: Ass 11, Zehn 10, König 4, Dame 3, Bube 2: zusammen 120. Der Alleinspieler zählt den Skat zu seinen Stichen und braucht 61 Augen zum Gewinnen.
+- Die Augen: Ass 11, Zehn 10, König 4, Dame 3, Bube 2: zusammen 120. Mit dem Skat braucht der Alleinspieler 61.
 - Schneider: eine Partei mit 30 Augen oder weniger. Schwarz: eine Partei ohne Stich. Angesagter Schneider verlangt 90 Augen, angesagtes Schwarz alle Stiche.
 - Ein Nullspiel ist verloren, sobald der Alleinspieler einen Stich bekommt.
 # Der Spielwert
 - Farbspiele und Grand: der Grundwert (9, 10, 11, 12 oder 24) mal die Gewinnstufen.
 - Die Spitzen: die ununterbrochene Folge der höchsten Trümpfe, vom Kreuz-Buben abwärts, die der Alleinspieler hat („mit 2“) oder die ihm fehlt („ohne 3“), den Skat eingerechnet.
-- Die Gewinnstufen: die Spitzen, dazu 1 für Spiel, 1 für Hand, 1 für Schneider, 1 weitere, wenn angesagt, 1 für Schwarz, 1 weitere, wenn angesagt, und 1 für ouvert.
+- Die Gewinnstufen: die Spitzen, dazu je 1 für Spiel, Hand, Schneider, Schneider angesagt, Schwarz, Schwarz angesagt und ouvert.
 - Beispiel: Kreuz mit 2, aus der Hand gespielt: (2 + 1 + 1) x 12 = 48.
-- Überreizt: Liegt der Spielwert unter dem Gebot, ist das Spiel verloren. Es zählt dann als das kleinste Vielfache seines Grundwerts, das das Gebot erreicht.
+- Überreizt: Ein Spielwert unter dem Gebot verliert und zählt als das kleinste Vielfache seines Grundwerts, das das Gebot erreicht.
 # Die Wertung
-- Ein gewonnenes Spiel bringt dem Alleinspieler seinen Wert; ein verlorenes kostet ihn den doppelten Wert, als Minuspunkte.
-- Dazu kommen die Punkte nach Seeger-Fabian: 50 für jedes gewonnene Spiel, minus 50 für jedes verlorene, und 40 für jeden der beiden anderen Spieler bei jedem Spiel, das ein Alleinspieler verliert.
-# Das Ende der Partie
-Nach dem letzten Spiel der Liste gewinnt die höchste Summe. Bei gleicher Summe teilen sich die Spieler den Sieg.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Während gereizt wird, liegt der Skat verdeckt oben. Zum Reizen tippe einen Wert an (die Pfeile zeigen höhere), dann den Haken, oder tippe auf Passe. Um auf ein Gebot zu antworten, tippe auf den Haken für ja oder auf Passe. Jeder Platz zeigt das letzte Wort seines Spielers: den Wert in einer dunklen Scheibe, einen Haken für ja, das Passe-Zeichen. Der Alleinspieler tippt auf den Skat, um ihn aufzunehmen, dann auf zwei Karten, um sie zu drücken (tippe eine Karte im Skat an, um sie zurückzunehmen); für ein Handspiel wählt er das Spiel, ohne den Skat zu berühren. Die Spiele: die vier Farben, Grand (die Figur des Buben) und Null (eine durchgestrichene Karte); dann die Ansagen: 90 für Schneider, 120 für Schwarz, die offenen Karten für ouvert; dann der Haken. Während des Spiels zeigt der Platz des Alleinspielers sein Gebot, sein Spiel und bei einem Handspiel zwei Kartenrücken. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jedem Spiel zeigt eine Tafel das Spiel und sein Gebot; den Kreuz-Buben (durchgestrichen: ohne) und die Spitzen, die Gewinnstufen mal den Grundwert und den Spielwert (rotes Leuchten: überreizt); den Skat und die Augen des Alleinspielers (ein goldener Haken: gewonnen); Punkte, Seeger-Fabian-Punkte und Summe jedes Spielers; und die Liste der Spiele, mit einem Stein in der Farbe jedes Alleinspielers (goldenes Licht: gewonnen, abgedunkelt: verloren, ein leerer Ring: eingepasst). Tippe darauf für das nächste Spiel. Jede Leiste zeigt die Karten auf der Hand und die Summe. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.
+- Ein gewonnenes Spiel bringt seinen Wert; ein verlorenes kostet den doppelten Wert, als Minuspunkte.
+- Punkte nach Seeger-Fabian: 50 für jedes gewonnene Spiel, minus 50 für jedes verlorene, und 40 für jeden der beiden anderen bei jedem Spiel, das ein Alleinspieler verliert.
+- Nach dem letzten Spiel der Liste gewinnt die höchste Summe; bei gleicher Summe teilen sich die Spieler den Sieg.

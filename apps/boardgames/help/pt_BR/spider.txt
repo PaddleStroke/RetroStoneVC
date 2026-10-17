@@ -1,13 +1,6 @@
 Paciência Spider
 # O objetivo
-Montar oito sequências do rei ao ás, cada uma de um só naipe, e tirar todas da mesa. Um jogo para um jogador com dois baralhos: 104 cartas.
-# As variantes
-- Um naipe: todas as cartas são de espadas. A mais fácil.
-- Dois naipes: espadas e copas.
-- Quatro naipes: dois baralhos completos. A mais difícil.
-# A arrumação
-- Dez colunas: 6 cartas em cada uma das quatro primeiras, 5 nas outras; só a carta de cima de cada coluna fica virada para cima.
-- As outras 50 cartas formam o monte, no alto à direita: um verso para cada distribuição de dez cartas que ainda falta. No alto à esquerda, oito lugares para as sequências completas.
+Montar oito sequências do rei ao ás, cada uma de um só naipe, e tirar todas da mesa. Dois baralhos: 104 cartas.
 # Mover as cartas
 - Numa coluna, ponha uma carta um valor abaixo, de qualquer naipe: um 6 sobre qualquer 7.
 - Várias cartas só se movem juntas se seguem umas às outras no mesmo naipe.
@@ -15,10 +8,8 @@ Montar oito sequências do rei ao ás, cada uma de um só naipe, e tirar todas d
 - Quando uma carta virada para baixo fica em cima de uma coluna, ela se vira.
 - Assim que uma coluna termina com uma sequência completa de um naipe, do rei ao ás, a sequência sai da mesa sozinha.
 # O monte
-Toque no monte para dar uma carta virada para cima em cada coluna. Como nas regras clássicas, só se pode dar quando nenhuma coluna está vazia.
+Toque no monte para dar uma carta virada para cima em cada coluna. Só se pode dar quando nenhuma coluna está vazia.
 # O fim da partida
-Você vence quando as oito sequências estão completas. Se ficar travado, desfaça ou comece uma nova distribuição.
+Você vence quando as oito sequências estão completas.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolha um na tela de níveis. Os capítulos 1 a 4 são jogados com um naipe, os capítulos 5 e 6, com dois. A aba do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima (também com quatro naipes). Sem dicas nem jogadas desfeitas: 3 estrelas; até duas dicas e jogadas desfeitas no total: 2 estrelas; senão, 1.
-# Jogando no aparelho
-Toque numa carta para movê-la, com as cartas que estão por cima, para o melhor lugar: sobre uma carta do mesmo naipe, se puder, senão sobre qualquer carta um valor acima, senão para uma coluna vazia. Você também pode arrastar uma sequência e soltá-la onde quiser. A lâmpada mostra uma jogada útil; o número na sua barra conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Sem dicas nem jogadas desfeitas: 3 estrelas.

@@ -1,13 +1,6 @@
 Spindelharpan
 # Målet
-Bygg åtta följder från kung ned till ess, var och en i en färg, och få bort alla från bordet. Ett spel för en spelare med två kortlekar: 104 kort.
-# Varianterna
-- En färg: alla kort är spader. Den lättaste.
-- Två färger: spader och hjärter.
-- Fyra färger: två hela kortlekar. Den svåraste.
-# Uppläggningen
-- Tio kolumner: 6 kort i var och en av de fyra första, 5 i de andra; bara det översta kortet i varje kolumn är synligt.
-- De andra 50 korten är talongen, längst upp till höger: en baksida för varje omgång på tio kort som återstår. Längst upp till vänster åtta platser för de färdiga följderna.
+Bygg åtta följder från kung ned till ess, var och en i en färg, och få bort alla från bordet. Två kortlekar: 104 kort.
 # Flytta kort
 - På en kolumn läggs ett kort som är ett steg lägre, i vilken färg som helst: en 6 på vilken 7 som helst.
 - Flera kort flyttas bara tillsammans om de följer på varandra i samma färg.
@@ -15,10 +8,8 @@ Bygg åtta följder från kung ned till ess, var och en i en färg, och få bort
 - När ett dolt kort hamnar överst i en kolumn vänds det upp.
 - Så snart en kolumn slutar med en hel följd i en färg, från kung till ess, lämnar följden bordet av sig själv.
 # Talongen
-Tryck på talongen för att ge ett synligt kort till varje kolumn. Som i de klassiska reglerna får man bara ge när ingen kolumn är tom.
+Tryck på talongen för att ge ett synligt kort till varje kolumn. Man får bara ge när ingen kolumn är tom.
 # Partiets slut
-Du vinner när alla åtta följderna är klara. Sitter du fast, ångra eller börja en ny giv.
+Du vinner när alla åtta följderna är klara.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. Kapitel 1 till 4 spelas med en färg, kapitel 5 och 6 med två. Fliken med tärningen efter kapitlen delar ut en ny giv på slump, med det val som beskrivs ovan (även fyra färger). Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
-# Spela på enheten
-Tryck på ett kort för att flytta det, med korten ovanpå, till sin bästa plats: på ett kort i samma färg om det går, annars på vilket kort som helst som är ett steg högre, annars till en tom kolumn. Du kan också dra en följd dit du vill. Lampan visar ett nyttigt drag; talet i ditt fält räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Utan ledtråd och utan ångrat drag: 3 stjärnor.

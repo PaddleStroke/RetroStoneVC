@@ -1,36 +1,32 @@
 Skat
 # Lo scopo
-Il grande gioco di carte della Germania, per tre. In ogni smazzata un giocatore, il dichiarante, gioca da solo contro gli altri due: vince l'asta, sceglie il gioco e cerca di realizzarlo. Una partita è una serie di 12 o 36 smazzate, a scelta; alla fine vince il totale più alto. Le regole sono quelle del regolamento internazionale dello Skat. Per 3 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Il grande gioco di carte della Germania, per tre, con le regole del regolamento internazionale dello Skat. In ogni smazzata il dichiarante, che vince l'asta, gioca da solo contro gli altri due.
 # La distribuzione
-Il mazzo ha 32 carte, dal 7 all'asso. Ogni giocatore riceve 10 carte; altre 2 restano coperte: lo skat. Il mazziere avanza di un posto a ogni smazzata. Il giocatore dopo il mazziere è il primo (Vorhand) ed esce nella prima presa; seguono il secondo (Mittelhand) e il terzo (Hinterhand), cioè il mazziere.
+32 carte, dal 7 all'asso. 10 carte a testa; altre 2 restano coperte: lo skat. Dopo il mazziere vengono il primo (Vorhand), che esce nella prima presa, il secondo (Mittelhand) e il terzo (Hinterhand, il mazziere).
 # L'asta
 - Si dichiarano valori di gioco: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 e così via.
-- Il secondo dichiara al primo, che risponde sì (tiene la dichiarazione) oppure passa; il secondo rilancia o passa.
-- Chi resta ascolta poi il terzo, che dichiara allo stesso modo. L'ultimo giocatore rimasto è il dichiarante, all'ultima dichiarazione.
-- Se nessuno dichiara, il primo può ancora dichiarare 18. Se passa anche lui, le carte si buttano: la smazzata conta nella serie, senza punteggio.
+- Il secondo dichiara al primo, che risponde sì o passa; il secondo rilancia o passa. Chi resta ascolta poi il terzo allo stesso modo. L'ultimo giocatore rimasto è il dichiarante, all'ultima dichiarazione.
+- Se nessuno dichiara, il primo può ancora dichiarare 18; se passa anche lui, le carte si buttano (la smazzata conta nella serie, senza punteggio).
 # Lo skat e il gioco
-- Il dichiarante può prendere lo skat e scartare due carte qualsiasi, che contano per lui. Oppure gioca di mano (Hand): lascia lo skat intatto, e alla fine conta comunque per lui.
-- Poi nomina il gioco: un gioco a seme (quadri 9, cuori 10, picche 11, fiori 12), Grand (24: sono briscola solo i fanti) o Null.
-- Null: il dichiarante non deve fare nemmeno una presa. Non ci sono briscole e ogni seme va in quest'ordine: asso, re, donna, fante, 10, 9, 8, 7. Il Null vale 23, il Null di mano 35, il Null ouvert 46, il Null ouvert di mano 59. Non si può scegliere un Null che valga meno della dichiarazione.
-- In un gioco di mano il dichiarante può annunciare Schneider, Schwarz (con Schneider) e ouvert (con Schwarz): allora gioca a carte scoperte, sotto gli occhi di tutti. Anche il Null ouvert si gioca a carte scoperte, con o senza lo skat.
+- Il dichiarante prende lo skat e scarta due carte qualsiasi, oppure gioca di mano (Hand) lasciando lo skat intatto. In entrambi i casi lo skat conta per lui.
+- Nomina il gioco: un seme (quadri 9, cuori 10, picche 11, fiori 12), Grand (24: sono briscola solo i fanti) o Null.
+- Null: non fare nemmeno una presa. Niente briscole; ogni seme va asso, re, donna, fante, 10, 9, 8, 7. Il Null vale 23, il Null di mano 35, il Null ouvert 46, il Null ouvert di mano 59; non si può scegliere un Null che valga meno della dichiarazione.
+- In un gioco di mano può annunciare Schneider, Schwarz (con Schneider) e ouvert (con Schwarz: le sue carte scoperte). Anche il Null ouvert si gioca a carte scoperte.
 # Le briscole e il gioco
-- Nei giochi a seme e nel Grand i quattro fanti sono le briscole più alte, in quest'ordine: fiori, picche, cuori, quadri. In un gioco a seme seguono le carte del seme di briscola: asso, 10, re, donna, 9, 8, 7.
-- Gli altri semi vanno in quest'ordine: asso, 10, re, donna, 9, 8, 7. Un fante è sempre briscola, mai una carta del suo seme.
-- Esce il primo. Rispondi al seme d'uscita se puoi, altrimenti gioca una carta qualsiasi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
+- Nei giochi a seme e nel Grand i quattro fanti sono le briscole più alte: fiori, picche, cuori, quadri. In un gioco a seme segue il seme di briscola: asso, 10, re, donna, 9, 8, 7.
+- Gli altri semi vanno asso, 10, re, donna, 9, 8, 7. Un fante è sempre briscola.
+- Rispondi al seme d'uscita se puoi, altrimenti gioca una carta qualsiasi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
 # Vincere il gioco
-- Punti delle carte: asso 11, dieci 10, re 4, donna 3, fante 2: 120 in tutto. Il dichiarante aggiunge lo skat alle sue prese e gli servono 61 punti per vincere.
+- Punti delle carte: asso 11, dieci 10, re 4, donna 3, fante 2: 120 in tutto. Con lo skat, al dichiarante servono 61 punti.
 - Schneider: una parte con 30 punti o meno. Schwarz: una parte senza nessuna presa. Uno Schneider annunciato richiede 90 punti, uno Schwarz annunciato tutte le prese.
 - Il Null è perso appena il dichiarante fa una presa.
 # Il valore del gioco
 - Giochi a seme e Grand: il valore base (9, 10, 11, 12 o 24) per il moltiplicatore.
-- I matador: la serie continua delle briscole più alte, dal fante di fiori in giù, che il dichiarante ha (si dice con 2) o che gli mancano (senza 3), skat compreso.
-- Il moltiplicatore: i matador, più 1 per il gioco, 1 per la mano, 1 per Schneider, 1 in più se annunciato, 1 per Schwarz, 1 in più se annunciato, e 1 per ouvert.
+- I matador: la serie continua delle briscole più alte, dal fante di fiori in giù, che il dichiarante ha («con 2») o che gli mancano («senza 3»), skat compreso.
+- Il moltiplicatore: i matador, più 1 per ognuno di questi: il gioco, la mano, Schneider, Schneider annunciato, Schwarz, Schwarz annunciato e ouvert.
 - Esempio: fiori con 2, giocato di mano: (2 + 1 + 1) x 12 = 48.
-- Dichiarazione eccessiva: se il valore è sotto la dichiarazione, il gioco è perso. Conta allora come il più piccolo multiplo del suo valore base che raggiunge la dichiarazione.
+- Dichiarazione eccessiva: un valore sotto la dichiarazione perde, e conta come il più piccolo multiplo del suo valore base che raggiunge la dichiarazione.
 # Il punteggio
-- Un gioco vinto porta il suo valore al dichiarante; un gioco perso gli costa il doppio del suo valore, in negativo.
-- Si aggiungono i punti Seeger-Fabian: 50 per ogni gioco vinto, meno 50 per ogni gioco perso, e 40 a ciascuno degli altri due giocatori per ogni gioco che un dichiarante perde.
-# La fine della partita
-Dopo l'ultima smazzata della serie vince il totale più alto. Chi è a pari totale divide la vittoria.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Durante l'asta lo skat sta coperto in alto. Per dichiarare, tocca un valore (le frecce mostrano quelli più alti), poi il segno di spunta, oppure tocca passo. Per rispondere a una dichiarazione, tocca il segno di spunta per dire sì, oppure passo. Ogni posto mostra l'ultima parola del suo giocatore: il valore in un disco scuro, un segno di spunta per il sì, il segno di passo. Il dichiarante tocca lo skat per prenderlo, poi tocca due carte per scartarle (tocca una carta dello skat per riprenderla); per giocare di mano, sceglie il gioco senza toccare lo skat. I giochi: i quattro semi, Grand (la figura del fante) e Null (una carta barrata); poi gli annunci: 90 per Schneider, 120 per Schwarz, le carte scoperte per ouvert; poi il segno di spunta. Durante il gioco il posto del dichiarante mostra la sua dichiarazione, il suo gioco e, in un gioco di mano, due dorsi di carta. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni smazzata una tabella mostra il gioco e la sua dichiarazione; il fante di fiori (barrato: senza) e i matador, il moltiplicatore per il valore base e il valore (un bagliore rosso: dichiarazione eccessiva); lo skat e i punti carta del dichiarante (un segno di spunta dorato: vinto); il punteggio, i punti Seeger-Fabian e il totale di ogni giocatore; e la serie delle smazzate, con un gettone del colore di ogni dichiarante (luce dorata: vinto, attenuato: perso, un anello vuoto: carte buttate). Toccala per la smazzata successiva. Ogni barra mostra le carte in mano e il totale. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.
+- Un gioco vinto porta il suo valore; un gioco perso costa il doppio del suo valore, in negativo.
+- Punti Seeger-Fabian: 50 per ogni gioco vinto, meno 50 per ogni gioco perso, e 40 a ciascuno degli altri due giocatori per ogni gioco che un dichiarante perde.
+- Dopo l'ultima smazzata della serie vince il totale più alto; chi è a pari totale divide la vittoria.

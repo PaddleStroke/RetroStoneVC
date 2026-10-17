@@ -1,18 +1,16 @@
 Pata
 # Tavoite
-Kaksi kahden hengen paria, parit vastakkain: norsunluu ja punainen vastaan eebenpuu ja jade. Jokainen tarjoaa, montako tikkiä aikoo ottaa; sitten parit yrittävät saada tarjouksensa täyteen. Ensimmäisenä 500 pisteeseen ehtivä pari voittaa. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Kaksi kahden hengen paria, parit vastakkain. Jokainen tarjoaa, montako tikkiä aikoo ottaa; sitten parit yrittävät saada tarjouksensa täyteen. Ensimmäisenä 500 pisteeseen ehtivä pari voittaa.
 # Tarjoukset
-Kaikki 52 korttia jaetaan, 13 kullekin. Vuorollaan jokainen tarjoaa 1–13 tikkiä tai nollan: ei yhtään tikkiä. Parin kummankin tarjoukset lasketaan yhteen parin sopimukseksi. Ensimmäisellä kierroksella norsunluu tarjoaa ensin; sen jälkeen aloittaja siirtyy paikan eteenpäin joka kierroksella.
+13 korttia kullekin. Vuorollaan jokainen tarjoaa 1–13 tikkiä tai nollan: ei yhtään tikkiä. Parin kummankin tarjoukset lasketaan yhteen parin sopimukseksi.
 # Pelaaminen
-- Ensin tarjonnut avaa ensimmäisen tikin. Vuorollaan jokainen tunnustaa avatun maan, jos voi; muuten hän pelaa minkä tahansa kortin.
-- Pata on aina valttia: suurin pata voittaa tikin, tai ilman pataa avatun maan suurin kortti. Ässä on suurin. Voittaja avaa seuraavan tikin.
-- Padalla ei saa avata ennen kuin pataa on pelattu toisen maan päälle (pata on murrettu), ellei avaajalla ole pelkkiä patoja.
+- Ensin tarjonnut avaa. Tunnusta avattua maata, jos voit, muuten pelaa mikä tahansa kortti.
+- Pata on aina valttia: suurin pata voittaa tikin, muuten avatun maan suurin kortti. Ässä on suurin. Voittaja avaa seuraavan.
+- Padalla ei saa avata ennen kuin pataa on pelattu toisen maan päälle, ellei avaajalla ole pelkkiä patoja.
 # Pisteet
-- Sopimus täyttyi (nollaa tarjoamattomat parin jäsenet ottivat yhteensä vähintään sopimuksen): 10 pistettä jokaisesta tarjotusta tikistä ja 1 piste jokaisesta ylimääräisestä tikistä eli ylitikistä.
-- Sopimus jäi vajaaksi: miinus 10 pistettä jokaisesta tarjotusta tikistä.
-- Nolla: 100 pistettä, jos tarjoaja ei ota yhtään tikkiä, miinus 100, jos hän ottaa yhdenkin. Nollan tarjonneen tikit eivät koskaan laske sopimukseen; ne lasketaan ylitikeiksi.
-- Ylitikit kertyvät kierroksesta toiseen: aina kun parilla on niitä 10, se menettää 100 pistettä ja ne 10 ylitikkiä poistuvat.
+- Sopimus täyttyi (nollaa tarjoamattomien toimesta): 10 pistettä jokaisesta tarjotusta tikistä ja 1 jokaisesta ylimääräisestä tikistä eli ylitikistä.
+- Sopimus jäi vajaaksi: miinus 10 jokaisesta tarjotusta tikistä.
+- Nolla: 100, jos tarjoaja ei ota yhtään tikkiä, muuten miinus 100. Nollan tarjonneen tikit eivät koskaan laske sopimukseen; ne lasketaan ylitikeiksi.
+- Aina kun parilla on 10 ylitikkiä, se menettää 100 pistettä ja ne ylitikit poistuvat.
 # Pelin loppu
-Peli päättyy sen kierroksen jälkeen, jolla jokin pari saavuttaa 500 pistettä; enemmän pisteitä saanut pari voittaa. Jos parit ovat tasoissa, pelataan vielä yksi kierros.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla. Pelaajien nappulat ovat keskustan ympärillä, parisi vastapäätä sinua, ja jokainen pelattu kortti on pelaajansa nappulan edessä. Tarjoa napauttamalla lukua (yliviivattu 0 on nolla) ja sitten rastia. Jokainen tarjous näkyy tummassa kiekossa pelaajan nappulan vieressä, otetut tikit heti sen vieressä. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokainen palkki näyttää kädessä olevat kortit ja parin pisteet. Jokaisen kierroksen jälkeen taulukko näyttää kummallekin parille kierroksen pisteet, yhteissumman ja ylitikit tummassa kiekossa (punainen hehku: kymmenen ylitikkiä maksoi 100); napauta sitä seuraavaa kierrosta varten. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia sen jälkeen, kun laite on annettu eteenpäin.
+Sen kierroksen jälkeen, jolla jokin pari saavuttaa 500 pistettä, enemmän pisteitä saanut pari voittaa; jos parit ovat tasoissa, pelataan vielä yksi kierros.

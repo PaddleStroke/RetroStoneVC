@@ -1,16 +1,12 @@
 Pertempuran Korsika
 # Tujuan
-Menangkan semua kartu. Permainan cepat yang menguji refleks dan saraf, di Prancis disebut "Bataille corse": semua bermain di perangkat yang sama dan menepuk tumpukan secara langsung. Untuk 2 sampai 4 pemain.
+Menangkan semua kartu. Permainan cepat yang menguji saraf, di Prancis disebut "Bataille corse": semua menepuk tumpukan secara langsung.
 # Membuka kartu
 - Ke-52 kartu dibagikan tertutup, satu tumpukan untuk setiap pemain. Tidak ada yang melihat kartunya.
 - Bergiliran, setiap pemain membuka kartu teratas tumpukannya ke atas tumpukan di tengah.
-- As, raja, ratu, atau jack menuntut upeti: pemain berikutnya membuka kartu sampai ia sendiri membuka kartu seperti itu, dengan 4 kesempatan untuk as, 3 untuk raja, 2 untuk ratu, dan 1 untuk jack. Jika berhasil, upeti beralih ke pemain berikutnya; jika tidak, pemain kartu bergambar memenangkan seluruh tumpukan, menaruhnya di bawah tumpukannya sendiri, dan bermain lagi.
+- As, raja, ratu, atau jack menuntut upeti: pemain berikutnya membuka kartu sampai ia sendiri membuka kartu seperti itu, dengan 4 kesempatan untuk as, 3 untuk raja, 2 untuk ratu, 1 untuk jack. Jika berhasil, upeti beralih ke pemain berikutnya; jika tidak, pemain kartu bergambar memenangkan seluruh tumpukan dan bermain berikutnya.
 # Menepuk
-- Siapa saja boleh menepuk tumpukan kapan saja. Sepasang, dua kartu bernilai sama yang bertumpuk, memberi tumpukan kepada yang pertama menepuk, lalu dia yang bermain.
-- Dalam permainan roti lapis (kartu pilihan dengan raja, empat, dan raja), roti lapis juga dihitung: dua kartu bernilai sama dengan satu kartu di antaranya.
+- Siapa saja boleh menepuk tumpukan kapan saja: ketuk zonamu sendiri, di luar tumpukanmu. Sepasang, dua kartu bernilai sama yang bertumpuk, memberi tumpukan kepada yang pertama menepuk, lalu dia yang bermain.
+- Dalam permainan roti lapis, roti lapis juga dihitung: dua kartu bernilai sama dengan satu kartu di antaranya.
 - Tepukan yang salah kena denda satu kartu: kartu teratasmu masuk tertutup ke bawah tumpukan tengah.
-- Pemain yang kehabisan kartu tidak membuka kartu lagi, tetapi masih boleh menepuk untuk kembali. Jika ia salah menepuk tanpa kartu untuk diberikan, ia keluar.
-# Akhir permainan
-Pemain yang memenangkan semua kartu memenangkan permainan.
-# Bermain di perangkat
-Letakkan perangkat datar di antara para pemain. Meja dibagi menjadi satu zona untuk setiap pemain: berdua masing-masing setengah layar, bertiga bagian atas dibagi dua, berempat masing-masing seperempat. Dengan mode berhadapan, zona di seberang diputar menghadap pemainnya; bilah setiap pemain ada di sisinya. Zonamu menunjukkan tumpukanmu, bidakmu, dan jumlah kartumu. Saat giliranmu, tumpukanmu menyala: ketuk untuk membuka kartu. Untuk menepuk, ketuk di mana saja di zonamu selain tumpukan. Setiap titik di atas tumpukan adalah satu kesempatan tersisa untuk membayar upeti. Tepukan pertama yang dilihat perangkat menang: tepukan benar menyalakan zona dengan warna emas, yang salah dengan merah. Jika upeti tidak terbayar, tumpukan menunggu sebentar agar pasangan terakhir masih bisa ditepuk, lalu pergi ke pemain kartu bergambar, yang juga bisa mengetuk zonanya untuk langsung mengambilnya. Semua bisa menyentuh layar bersamaan, masing-masing di zonanya. Urungkan membatalkan tindakan terakhir.
+- Pemain yang kehabisan kartu masih boleh menepuk untuk kembali. Jika ia salah menepuk tanpa kartu untuk diberikan, ia keluar.

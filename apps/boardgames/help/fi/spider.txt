@@ -1,13 +1,6 @@
 Hämähäkki
 # Tavoite
-Rakenna kahdeksan jonoa kuninkaasta ässään, kukin yhtä maata, ja poista ne kaikki pöydältä. Peli yhdelle pelaajalle kahdella korttipakalla: 104 korttia.
-# Muunnelmat
-- Yksi maa: kaikki kortit ovat patoja. Helpoin.
-- Kaksi maata: padat ja hertat.
-- Neljä maata: kaksi kokonaista pakkaa. Vaikein.
-# Asetelma
-- Kymmenen saraketta: neljässä ensimmäisessä 6 korttia, muissa 5; vain kunkin sarakkeen päällimmäinen kortti näkyy.
-- Loput 50 korttia ovat pakka, oikealla ylhäällä: yksi selkäpuoli kutakin vielä tulevaa kymmenen kortin jakoa kohti. Vasemmalla ylhäällä kahdeksan paikkaa valmiille jonoille.
+Rakenna kahdeksan jonoa kuninkaasta ässään, kukin yhtä maata, ja poista ne kaikki pöydältä. Kaksi korttipakkaa: 104 korttia.
 # Korttien siirtäminen
 - Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi, mitä maata tahansa: 6 mille tahansa 7:lle.
 - Useampi kortti siirtyy yhdessä vain, jos ne seuraavat toisiaan samassa maassa.
@@ -15,10 +8,8 @@ Rakenna kahdeksan jonoa kuninkaasta ässään, kukin yhtä maata, ja poista ne k
 - Kun piilossa oleva kortti jää sarakkeen päällimmäiseksi, se kääntyy.
 - Heti kun sarake päättyy kokonaiseen yhden maan jonoon kuninkaasta ässään, jono lähtee pöydältä itsestään.
 # Pakka
-Napauta pakkaa jakaaksesi yhden kortin kuvapuoli ylöspäin jokaiseen sarakkeeseen. Kuten perinteisissä säännöissä, jakaa saa vain, kun yksikään sarake ei ole tyhjä.
+Napauta pakkaa jakaaksesi yhden kortin kuvapuoli ylöspäin jokaiseen sarakkeeseen. Jakaa saa vain, kun yksikään sarake ei ole tyhjä.
 # Pelin loppu
-Voitat, kun kaikki kahdeksan jonoa ovat valmiita. Jos jäät jumiin, kumoa siirtoja tai aloita uusi jako.
+Voitat, kun kaikki kahdeksan jonoa ovat valmiita.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–4 pelataan yhdellä maalla, luvuissa 5 ja 6 kahdella. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla (myös neljällä maalla). Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta korttia siirtääksesi sen päällä olevine kortteineen parhaaseen paikkaan: saman maan kortin päälle, jos voi, muuten minkä tahansa yhtä suuremman kortin päälle, muuten tyhjään sarakkeeseen. Voit myös vetää jonon minne haluat. Lamppu näyttää hyödyllisen siirron; palkkisi luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä.

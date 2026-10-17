@@ -1,15 +1,15 @@
 Skorpion
 # Målet
-Bygg upp de fyra färgerna i kolumnerna, var och en i ordning från kungen ned till esset. Ett spel för en spelare.
+Bygg upp de fyra färgerna i kolumnerna, var och en i ordning från kungen ned till esset.
 # Uppläggningen
-- Sju kolumner med sju kort. I de fyra första ligger de tre understa korten dolda; alla andra ligger synliga.
+- Sju kolumner med sju kort. I de fyra första ligger de tre understa korten dolda.
 - De tre sista korten väntar längst upp till vänster.
 # Flytta kort
 - Vilket synligt kort som helst kan flyttas, med alla kort som ligger på det, till det översta kortet i en kolumn som är ett steg högre och i samma färg: hjärter 6 på hjärter 7.
 - Bara en kung, med det som ligger på den, får fylla en tom kolumn.
 - När ett dolt kort hamnar överst i en kolumn vänds det upp.
-- Tryck på de tre väntande korten för att dela ut dem, ett på var och en av de tre första kolumnerna: när som helst, men bara en gång.
+- En gång, när som helst, trycker du på de tre väntande korten för att dela ut dem på de tre första kolumnerna.
 # Partiets slut
 En hel färg som ligger i ordning från kung till ess överst i en kolumn går bort av sig själv. Du vinner när alla fyra färgerna har gått.
 # Banor och stjärnor
-150 banor i sex kapitel, var och en en giv som går att vinna; fliken med tärningen delar ut på slump. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två sammanlagt: 2 stjärnor; annars 1.
+Utan ledtråd och utan ångrat drag: 3 stjärnor.

@@ -1,36 +1,32 @@
 Skat
 # Amaç
-Almanya'nın üç kişilik büyük kart oyunu. Her dağıtımda bir oyuncu, üstlenen, diğer ikisine karşı tek başına oynar: ihaleyi kazanır, oyunu seçer ve onu yapmaya çalışır. Bir parti, seçime göre 12 ya da 36 dağıtımlık bir listedir; sonunda toplamı en yüksek olan kazanır. Kurallar Uluslararası Skat Kuralları'nınkilerdir. Cihazı elden ele geçiren 3 oyuncu için; kimse başkalarının kartlarını görmez.
+Almanya'nın üç kişilik büyük kart oyunu, Uluslararası Skat Kuralları'yla. Her dağıtımda ihaleyi kazanan üstlenen, diğer ikisine karşı tek başına oynar.
 # Dağıtım
-Destede 7'den asa kadar 32 kart vardır. Her oyuncuya 10 kart verilir; kalan 2 kart kapalı durur: skat. Dağıtan her dağıtımda bir kişi kayar. Dağıtandan sonraki oyuncu ön oyuncudur (Vorhand) ve ilk eli açar; ardından orta oyuncu (Mittelhand) ve arka oyuncu (Hinterhand, yani dağıtan) gelir.
+7'den asa kadar 32 kart. Herkese 10 kart; kalan 2 kart kapalı durur: skat. Dağıtandan sonra ilk eli açan ön oyuncu (Vorhand), orta oyuncu (Mittelhand) ve arka oyuncu (Hinterhand, yani dağıtan) gelir.
 # İhale
 - Teklifler oyun değerleridir: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 ve böyle devam eder.
-- Orta oyuncu ön oyuncuya teklif verir; ön oyuncu evet der (teklifi üstüne alır) ya da pas der; orta oyuncu daha yüksek teklif verir ya da pas der.
-- Kalan oyuncu sonra arka oyuncunun tekliflerini dinler; arka oyuncu da aynı şekilde teklif verir. Sona kalan oyuncu, son teklifle üstlenen olur.
-- Kimse teklif vermezse ön oyuncu yine de 18 diyebilir. O da pas derse kartlar bozulur: dağıtım listede sayılır ama puan yazılmaz.
+- Orta oyuncu ön oyuncuya teklif verir; ön oyuncu evet ya da pas der; orta oyuncu daha yüksek teklif verir ya da pas der. Kalan oyuncu sonra aynı şekilde arka oyuncuyu dinler. Sona kalan oyuncu, son teklifle üstlenen olur.
+- Kimse teklif vermezse ön oyuncu yine de 18 diyebilir; o da pas derse kartlar bozulur (dağıtım listede sayılır, puan yazılmaz).
 # Skat ve oyun
-- Üstlenen skatı alıp istediği iki kartı gömebilir; gömülen kartlar onun sayılır. Ya da hand oynar: skata dokunmaz; skat sonunda yine onun sayılır.
-- Sonra oyunu söyler: bir renk oyunu (karo 9, kupa 10, maça 11, sinek 12), grand (24: yalnızca valeler kozdur) ya da null.
-- Null: üstlenen tek bir el bile almamalıdır. Koz yoktur ve her renkte sıralama as, papaz, kız, vale, 10, 9, 8, 7'dir. Null 23, null hand 35, null ouvert 46, null ouvert hand 59 değerindedir. Değeri tekliften düşük bir null seçilemez.
-- Hand oyununda üstlenen schneider, schwarz (schneider'i de içerir) ve ouvert (schwarz'ı da içerir) ilan edebilir: ouvert'te kartları herkesin görmesi için açılır. Null ouvert de açık oynanır, skat alınsa da alınmasa da.
+- Üstlenen skatı alıp istediği iki kartı gömer ya da hand oynar ve skata dokunmaz. İki durumda da skat onun sayılır.
+- Oyunu söyler: bir renk (karo 9, kupa 10, maça 11, sinek 12), grand (24: yalnızca valeler kozdur) ya da null.
+- Null: hiç el alma. Koz yoktur; her renkte sıralama as, papaz, kız, vale, 10, 9, 8, 7'dir. Değeri 23, null hand 35, null ouvert 46, null ouvert hand 59; değeri tekliften düşük bir null seçilemez.
+- Hand oyununda schneider, schwarz (schneider ile) ve ouvert (schwarz ile: kartları açık) ilan edebilir. Null ouvert de açık oynanır.
 # Kozlar ve oynanış
-- Renk oyunlarında ve grand'da dört vale en büyük kozlardır, şu sırayla: sinek, maça, kupa, karo. Renk oyununda onları koz rengi izler: as, 10, papaz, kız, 9, 8, 7.
-- Diğer renklerin sıralaması: as, 10, papaz, kız, 9, 8, 7. Vale her zaman kozlara aittir, asla kendi rengine değil.
-- İlk eli ön oyuncu açar. Yapabiliyorsan açılan renkten kart at; yapamıyorsan istediğin kartı at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
+- Renk oyunlarında ve grand'da dört vale en büyük kozlardır: sinek, maça, kupa, karo. Renk oyununda onları koz rengi izler: as, 10, papaz, kız, 9, 8, 7.
+- Diğer renkler: as, 10, papaz, kız, 9, 8, 7. Vale her zaman kozlara aittir.
+- Yapabiliyorsan açılan renkten kart at; yapamıyorsan istediğin kartı at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
 # Kazanmak
-- Kart puanları: as 11, on 10, papaz 4, kız 3, vale 2; toplam 120. Üstlenen skatı kendi aldığı ellere ekler ve kazanmak için 61 puana ihtiyacı vardır.
-- Schneider: 30 ya da daha az puan yapan taraf. Schwarz: hiç el almayan taraf. İlan edilmiş schneider için 90 puan, ilan edilmiş schwarz için bütün eller gerekir.
+- Kart puanları: as 11, on 10, papaz 4, kız 3, vale 2: toplam 120. Skatla birlikte üstlenenin 61 puana ihtiyacı vardır.
+- Schneider: 30 ya da daha az puan yapan taraf. Schwarz: hiç el almayan taraf. İlan edildiyse schneider için 90 puan, schwarz için bütün eller gerekir.
 - Null, üstlenen bir el aldığı anda kaybedilir.
 # Oyunun değeri
 - Renk oyunları ve grand: temel değer (9, 10, 11, 12 ya da 24) çarpı kat sayısı.
-- Matadorlar: sinek valesinden aşağı doğru, kesintisiz en büyük kozlar dizisi; üstlenenin elinde olanlar ("2 ile") ya da elinde olmayanlar ("3'süz"), skat dahil.
-- Kat sayısı: matadorlar, artı oyun için 1, hand için 1, schneider için 1, ilan edildiyse 1 daha, schwarz için 1, ilan edildiyse 1 daha ve ouvert için 1.
+- Matadorlar: sinek valesinden aşağı doğru, üstlenenin elinde olan ("2 ile") ya da olmayan ("3'süz") kesintisiz en büyük kozlar dizisi, skat dahil.
+- Kat sayısı: matadorlar, artı oyun, hand, schneider, ilan edilmiş schneider, schwarz, ilan edilmiş schwarz ve ouvert için birer.
 - Örnek: 2 ile sinek, hand oynandı: (2 + 1 + 1) x 12 = 48.
-- Aşırı teklif: değer tekliften düşükse oyun kaybedilir. O zaman temel değerinin, teklife ulaşan en küçük katı sayılır.
+- Aşırı teklif: değeri tekliften düşük oyun kaybedilir ve temel değerinin, teklife ulaşan en küçük katı sayılır.
 # Puanlama
-- Kazanılan oyun, değeri kadar üstlenene yazılır; kaybedilen oyun, değerinin iki katı kadar eksi yazılır.
-- Seeger-Fabian puanları eklenir: kazanılan her oyun için 50, kaybedilen her oyun için eksi 50 ve bir üstlenen her oyun kaybettiğinde diğer iki oyuncunun her birine 40.
-# Oyunun sonu
-Listenin son dağıtımından sonra toplamı en yüksek olan kazanır. Toplamları eşit olanlar galibiyeti paylaşır.
-# Cihazda oynamak
-Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. İhale sırasında skat üstte kapalı durur. Teklif vermek için bir değere dokun (oklar daha yüksek değerleri getirir), sonra onay işaretine; ya da pas'a dokun. Bir teklife cevap vermek için evet olarak onay işaretine ya da pas'a dokun. Her oyuncunun yerinde son sözü görünür: koyu bir diskte değer, evet için onay işareti ya da pas işareti. Üstlenen skatı almak için ona dokunur, sonra gömmek için iki karta dokunur (geri almak için skattaki bir karta dokunur); hand oynamak için skata dokunmadan oyunu seçer. Oyunlar: dört renk, grand (valenin figürü) ve null (üstü çizili bir kart); sonra ilanlar: schneider için 90, schwarz için 120, ouvert için açık kartlar; sonra onay işareti. Oyun sırasında üstlenenin yerinde teklifi, oyunu ve hand oyununda iki kart sırtı görünür. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her dağıtımdan sonra bir tablo şunları gösterir: oyun ve teklifi; sinek valesi (üstü çizili: onsuz) ve matadorlar, kat sayısı çarpı temel değer ve değer (kırmızı parıltı: aşırı teklif); skat ve üstlenenin kart puanları (altın onay işareti: kazandı); her oyuncunun puanı, Seeger-Fabian puanları ve toplamı; ve dağıtımlar listesi, her dağıtımda üstlenenin renginde bir pul (altın ışık: kazandı, soluk: kaybetti, boş halka: kartlar bozuldu). Sonraki dağıtım için ona dokun. Her şerit eldeki kartları ve toplamı gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.
+- Kazanılan oyun değeri kadar, kaybedilen oyun değerinin iki katı kadar eksi yazılır.
+- Seeger-Fabian puanları: kazanılan her oyun için 50, kaybedilen her oyun için eksi 50 ve bir üstlenen her oyun kaybettiğinde diğer iki oyuncunun her birine 40.
+- Listenin son dağıtımından sonra toplamı en yüksek olan kazanır; eşit toplamlar galibiyeti paylaşır.

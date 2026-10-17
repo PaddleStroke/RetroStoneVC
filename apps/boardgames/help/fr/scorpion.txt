@@ -1,15 +1,15 @@
 Scorpion
 # Le but
-Reconstituer les quatre couleurs dans les colonnes, chacune dans l'ordre du roi jusqu'à l'as. Un jeu pour un joueur.
+Reconstituer les quatre couleurs dans les colonnes, chacune dans l'ordre du roi jusqu'à l'as.
 # La mise en place
-- Sept colonnes de sept cartes. Dans les quatre premières, les trois cartes du bas sont face cachée ; toutes les autres sont face visible.
+- Sept colonnes de sept cartes. Dans les quatre premières, les trois cartes du bas sont face cachée.
 - Les trois dernières cartes attendent en haut à gauche.
 # Déplacer les cartes
 - N'importe quelle carte visible peut bouger, avec toutes les cartes posées dessus, sur la carte du dessus d'une colonne d'un rang de plus et de la même couleur : le 6 de cœur sur le 7 de cœur.
 - Seul un roi, avec ce qui est posé dessus, peut occuper une colonne vide.
 - Quand une carte cachée se retrouve sur le dessus d'une colonne, elle se retourne.
-- Touche les trois cartes en attente pour les distribuer, une sur chacune des trois premières colonnes : à tout moment, mais une seule fois.
+- Une seule fois, à tout moment, touche les trois cartes en attente pour les distribuer sur les trois premières colonnes.
 # La fin de la partie
 Une couleur complète, en ordre du roi à l'as sur le dessus d'une colonne, s'en va toute seule. Tu gagnes quand les quatre couleurs sont parties.
 # Niveaux et étoiles
-150 niveaux en six chapitres, chacun une donne qui se gagne ; l'onglet du dé distribue au hasard. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux en tout : 2 étoiles ; sinon 1.
+Sans indice ni coup annulé : 3 étoiles.

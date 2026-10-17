@@ -1,16 +1,12 @@
 Korsikanskt slag
 # Målet
-Vinn alla kort. Ett snabbt nervspel, i Frankrike kallat ”Bataille corse”: alla spelar på samma enhet och slår på högen i realtid. För 2 till 4 spelare.
+Vinn alla kort. Ett snabbt nervspel, i Frankrike kallat ”Bataille corse”: alla slår på högen i realtid.
 # Vända kort
 - Alla 52 kort delas ut nedvända, en hög per spelare. Ingen tittar på sina kort.
 - I tur och ordning vänder var och en det översta kortet i sin hög upp på högen i mitten.
-- Ett ess, en kung, en dam eller en knekt kräver tribut: nästa spelare vänder kort tills han själv vänder ett sådant, med 4 försök för ett ess, 3 för en kung, 2 för en dam och 1 för en knekt. Lyckas han går tributen vidare till nästa spelare; annars vinner den som lade klätt kort hela högen, lägger den under sin egen och spelar igen.
+- Ett ess, en kung, en dam eller en knekt kräver tribut: nästa spelare vänder kort tills han själv vänder ett sådant, med 4 försök för ett ess, 3 för en kung, 2 för en dam, 1 för en knekt. Lyckas han går tributen vidare till nästa spelare; annars vinner den som lade klätt kort hela högen och spelar igen.
 # Slå
-- Vem som helst får slå på högen när som helst. Ett par, två kort av samma valör på varandra, ger högen till den som slår först, och den spelaren fortsätter.
-- I spelet med smörgås (valkortet med kung, fyra och kung) räknas också en smörgås: två kort av samma valör med ett kort emellan.
+- Vem som helst får slå på högen när som helst: tryck i din egen zon, utanför din hög. Ett par, två kort av samma valör på varandra, ger högen till den som slår först, och den spelaren fortsätter.
+- I spelet med smörgås räknas också en smörgås: två kort av samma valör med ett kort emellan.
 - Ett felaktigt slag kostar ett kort: ditt översta kort läggs nedvänt under högen i mitten.
-- Den som har slut på kort vänder inga fler, men får slå för att komma tillbaka. Slår han fel utan kort att ge är han ute.
-# Partiets slut
-Den som vinner alla kort vinner partiet.
-# Spela på enheten
-Lägg enheten platt mellan spelarna. Bordet är delat i en zon per spelare: en halv skärm var med två, övre halvan delad i två med tre, en fjärdedel var med fyra. Med ansikte mot ansikte är zonerna mittemot vända mot sina spelare; var och ens list står på hans sida. Din zon visar din hög, din bricka och hur många kort du har. När det är din tur lyser din hög: tryck på den för att vända ett kort. För att slå trycker du var som helst annars i din zon. Varje prick ovanför en hög är ett försök som återstår för att betala en tribut. Det första slaget enheten ser vinner: ett rätt slag tänder zonen i guld, ett fel i rött. När en tribut inte betalas väntar högen ett ögonblick så att man ännu kan slå på ett sista par, och går sedan till den som lade klätt kort, som också kan trycka på sin zon för att ta den direkt. Alla kan röra skärmen samtidigt, var och en i sin zon. Ångra tar tillbaka den senaste handlingen.
+- Den som har slut på kort får ändå slå för att komma tillbaka. Slår han fel utan kort att ge är han ute.

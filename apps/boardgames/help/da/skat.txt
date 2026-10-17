@@ -1,36 +1,32 @@
 Skat
 # Målet
-Tysklands store kortspil for tre. I hvert giv spiller én spiller, spilføreren, alene mod de to andre: han vinder meldingen, vælger spillet og prøver at vinde det. Et parti er en liste på 12 eller 36 giv, efter valg; den højeste sum til sidst vinder. Reglerne følger den internationale skatordning (Internationale Skatordnung). For 3 spillere, der sender enheden rundt; ingen ser de andres kort.
+Tysklands store kortspil for tre, efter den internationale skatordning. I hvert giv spiller spilføreren, der vinder meldingen, alene mod de to andre.
 # Kortgivningen
-Spillet har 32 kort, fra 7 til es. Hver spiller får 10 kort; 2 mere ligger med bagsiden opad: skatten. Giveren rykker én plads videre for hvert giv. Spilleren efter giveren er forhånd og spiller ud til første stik; derefter kommer mellemhånd og baghånd (giveren).
+32 kort, 7 til es. 10 kort til hver; 2 mere ligger med bagsiden opad: skatten. Efter giveren kommer forhånd, som spiller ud først, mellemhånd og baghånd (giveren).
 # Meldingen
 - Der meldes i spilværdier: 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 og så videre.
-- Mellemhånd melder til forhånd, som svarer ja (han holder buddet) eller melder pas; mellemhånd melder højere eller melder pas.
-- Den, der er tilbage, hører derefter baghånd, som melder på samme måde. Den sidste spiller, der er tilbage, bliver spilfører på det sidste bud.
-- Melder ingen, må forhånd stadig melde 18. Melder han også pas, smides kortene ind: givet tæller i listen, uden point.
+- Mellemhånd melder til forhånd, som svarer ja eller melder pas; mellemhånd melder højere eller melder pas. Den, der er tilbage, hører derefter baghånd på samme måde. Den sidste spiller, der er tilbage, bliver spilfører på det sidste bud.
+- Melder ingen, må forhånd stadig melde 18; melder han også pas, smides kortene ind (givet tæller i listen, uden point).
 # Skatten og spillet
-- Spilføreren må tage skatten op og lægge to vilkårlige kort fra sig; de tæller for ham. Eller han spiller håndspil: han lader skatten ligge urørt, og den tæller alligevel for ham til sidst.
-- Så nævner han spillet: et kulørspil (ruder 9, hjerter 10, spar 11, klør 12), grand (24: kun knægtene er trumf) eller nul (Null).
-- Nul: spilføreren må ikke tage et eneste stik. Der er ingen trumf, og hver kulør rangerer es, konge, dame, knægt, 10, 9, 8, 7. Nul er værd 23, nul hånd 35, nul ouvert 46, nul ouvert hånd 59. Et nulspil, der er mindre værd end buddet, kan ikke vælges.
-- I et håndspil kan spilføreren melde schneider, schwarz (med schneider) og ouvert (med schwarz): hans kort lægges så med billedsiden opad, så alle kan se dem. Nul ouvert spilles også åbent, med eller uden skatten.
+- Spilføreren tager skatten op og lægger to vilkårlige kort fra sig, eller spiller håndspil og lader den ligge urørt. Skatten tæller under alle omstændigheder for ham.
+- Han nævner spillet: et kulørspil (ruder 9, hjerter 10, spar 11, klør 12), grand (24: kun knægtene er trumf) eller nul.
+- Nul: tag ikke et eneste stik. Ingen trumf; hver kulør rangerer es, konge, dame, knægt, 10, 9, 8, 7. Værd 23, nul hånd 35, nul ouvert 46, nul ouvert hånd 59; et nulspil, der er mindre værd end buddet, kan ikke vælges.
+- I et håndspil kan han melde schneider, schwarz (med schneider) og ouvert (med schwarz: hans kort med billedsiden opad). Nul ouvert er også åbent.
 # Trumf og spil
-- I kulørspil og grand er de fire knægte de højeste trumfer, i denne rækkefølge: klør, spar, hjerter, ruder. I et kulørspil kommer trumfkuløren derefter: es, 10, konge, dame, 9, 8, 7.
-- De andre kulører rangerer es, 10, konge, dame, 9, 8, 7. En knægt hører altid til trumferne, aldrig til sin egen kulør.
-- Forhånd spiller ud. Bekend kulør, hvis du kan; ellers spil et vilkårligt kort. Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
+- I kulørspil og grand er de fire knægte de højeste trumfer: klør, spar, hjerter, ruder. I et kulørspil kommer trumfkuløren derefter: es, 10, konge, dame, 9, 8, 7.
+- De andre kulører rangerer es, 10, konge, dame, 9, 8, 7. En knægt hører altid til trumferne.
+- Bekend kulør, hvis du kan; ellers spil et vilkårligt kort. Den højeste trumf vinder, ellers det højeste kort i den udspillede kulør. Vinderen spiller ud til næste stik.
 # Vundet eller tabt
-- Kortpoint: es 11, tier 10, konge 4, dame 3, knægt 2: 120 i alt. Spilføreren lægger skatten til sine stik og skal have 61 for at vinde.
+- Kortpoint: es 11, tier 10, konge 4, dame 3, knægt 2: 120 i alt. Med skatten skal spilføreren have 61.
 - Schneider: en side med 30 point eller mindre. Schwarz: en side uden stik. Meldt schneider kræver 90 point, meldt schwarz alle stik.
 - Nul er tabt, så snart spilføreren tager et stik.
 # Spillets værdi
-- Kulørspil og grand: grundværdien (9, 10, 11, 12 eller 24) gange antallet af trin.
+- Kulørspil og grand: grundværdien (9, 10, 11, 12 eller 24) gange trinene.
 - Matadorerne: den ubrudte række af de højeste trumfer, fra klør knægt og nedad, som spilføreren har ("med 2") eller mangler ("uden 3"), skatten medregnet.
-- Trinene: matadorerne plus 1 for spillet, 1 for hånd, 1 for schneider, 1 mere, hvis den er meldt, 1 for schwarz, 1 mere, hvis den er meldt, og 1 for ouvert.
+- Trinene: matadorerne plus 1 hver for spillet, hånd, schneider, meldt schneider, schwarz, meldt schwarz og ouvert.
 - Eksempel: klør med 2, spillet på hånden: (2 + 1 + 1) x 12 = 48.
-- Overmeldt: er værdien under buddet, er spillet tabt. Det tæller så som det mindste multiplum af grundværdien, der når buddet.
+- Overmeldt: en værdi under buddet taber og tæller som det mindste multiplum af grundværdien, der når buddet.
 # Pointene
-- Et vundet spil giver spilføreren dets værdi; et tabt spil koster det dobbelte af værdien, i minus.
-- Dertil kommer Seeger-Fabian-point: 50 for hvert vundet spil, minus 50 for hvert tabt spil, og 40 til hver af de to andre spillere for hvert spil, en spilfører taber.
-# Spillets afslutning
-Efter listens sidste giv vinder den højeste sum. Ved lige sum deles sejren.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. Skatten ligger med bagsiden opad øverst, mens der meldes. For at melde trykker du på en værdi (pilene viser højere værdier) og så på fluebenet, eller du trykker på pas. For at svare på et bud trykker du på fluebenet for ja, eller på pas. Hver plads viser spillerens sidste ord: værdien i en mørk skive, et flueben for ja, pastegnet. Spilføreren trykker på skatten for at tage den op og så på to kort for at lægge dem fra sig (tryk på et kort i skatten for at tage det tilbage); for at spille håndspil vælger han spillet uden at røre skatten. Spillene: de fire kulører, grand (knægtens figur) og nul (et overstreget kort); så meldingerne: 90 for schneider, 120 for schwarz, de åbne kort for ouvert; så fluebenet. Under spillet viser spilførerens plads hans bud, hans spil og, ved et håndspil, to kortbagsider. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle spillet og dets bud; klør knægt (overstreget: uden) og matadorerne, trinene gange grundværdien og værdien (et rødt skær: overmeldt); skatten og spilførerens kortpoint (et guldflueben: vundet); hver spillers point, Seeger-Fabian-point og sum; og listen over givene, med en brik i hver spilførers farve (gyldent lys: vundet, nedtonet: tabt, en tom ring: smidt ind). Tryk på den for næste giv. Hver bjælke viser kortene på hånden og summen. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.
+- Et vundet spil giver dets værdi; et tabt spil det dobbelte af værdien, i minus.
+- Seeger-Fabian-point: 50 for hvert vundet spil, minus 50 for hvert tabt spil, og 40 til hver af de to andre for hvert spil, en spilfører taber.
+- Efter listens sidste giv vinder den højeste sum; ved lige sum deles sejren.

@@ -1,13 +1,6 @@
 Spider
 # Das Ziel
-Acht Reihen vom König bis zum Ass in je einer Farbe bilden und alle vom Tisch räumen. Ein Spiel für eine Person mit zwei Kartenspielen: 104 Karten.
-# Die Varianten
-- Eine Farbe: Alle Karten sind Pik. Die leichteste.
-- Zwei Farben: Pik und Herz.
-- Vier Farben: zwei ganze Kartenspiele. Die schwerste.
-# Der Aufbau
-- Zehn Spalten: je 6 Karten in den ersten vier, 5 in den anderen; nur die oberste Karte jeder Spalte liegt offen.
-- Die übrigen 50 Karten sind der Stapel, oben rechts: eine Rückseite für jede Runde von zehn Karten, die noch kommt. Oben links acht Plätze für die fertigen Reihen.
+Acht Reihen vom König bis zum Ass in je einer Farbe bilden und alle vom Tisch räumen. Zwei Kartenspiele: 104 Karten.
 # Karten bewegen
 - Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist, in jeder Farbe: eine 6 auf jede 7.
 - Mehrere Karten ziehen nur zusammen, wenn sie in einer Farbe aufeinander folgen.
@@ -15,10 +8,8 @@ Acht Reihen vom König bis zum Ass in je einer Farbe bilden und alle vom Tisch r
 - Liegt oben auf einer Spalte eine verdeckte Karte, wird sie aufgedeckt.
 - Sobald eine Spalte mit einer ganzen Reihe einer Farbe endet, vom König bis zum Ass, verlässt die Reihe von selbst den Tisch.
 # Der Stapel
-Tippe auf den Stapel, um auf jede Spalte eine Karte offen zu geben. Wie in den klassischen Regeln darf nur gegeben werden, wenn keine Spalte leer ist.
+Tippe auf den Stapel, um auf jede Spalte eine Karte offen zu geben. Gegeben werden darf nur, wenn keine Spalte leer ist.
 # Das Ende der Partie
-Du gewinnst, wenn alle acht Reihen fertig sind. Kommst du nicht weiter, nimm Züge zurück oder beginne ein neues Spiel.
+Du gewinnst, wenn alle acht Reihen fertig sind.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. Die Kapitel 1 bis 4 werden mit einer Farbe gespielt, die Kapitel 5 und 6 mit zwei. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall, mit der oben beschriebenen Wahl (auch mit vier Farben). Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf eine Karte ihrer Farbe, wenn es geht, sonst auf eine beliebige Karte einen Rang höher, sonst in eine leere Spalte. Du kannst eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl in deiner Leiste zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne.

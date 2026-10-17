@@ -1,36 +1,32 @@
 Skat
 # Le but
-Le grand jeu de cartes allemand, à trois joueurs. À chaque donne, un joueur, le déclarant, joue seul contre les deux autres : il remporte les enchères, choisit le jeu et tente de le réussir. Une partie est une liste de 12 ou 36 donnes, au choix ; à la fin, le plus gros total gagne. Les règles sont celles du règlement international du Skat. Pour 3 joueurs qui se passent l'appareil ; personne ne voit les cartes des autres.
+Le grand jeu de cartes allemand, à trois joueurs, selon le règlement international du Skat. À chaque donne, le déclarant, qui remporte les enchères, joue seul contre les deux autres.
 # La donne
-Le jeu compte 32 cartes, du 7 à l'as. Chaque joueur reçoit 10 cartes ; les 2 dernières restent face cachée : c'est le skat. Le donneur avance d'une place à chaque donne. Le joueur après le donneur est le premier (Vorhand) et entame le premier pli ; viennent ensuite le deuxième (Mittelhand) et le troisième (Hinterhand), qui est le donneur.
+32 cartes, du 7 à l'as. 10 cartes chacun ; 2 autres restent face cachée : le skat. Après le donneur viennent le premier (Vorhand), qui entame le premier pli, le deuxième (Mittelhand) et le troisième (Hinterhand, le donneur).
 # Les enchères
-- On enchérit en valeurs de jeu : 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 et ainsi de suite.
-- Le deuxième propose ses enchères au premier, qui répond oui (il tient l'enchère) ou passe ; le deuxième monte ou passe.
-- Celui qui reste écoute ensuite le troisième, qui enchérit de la même façon. Le dernier joueur en lice devient le déclarant, à la dernière enchère.
-- Si personne n'enchérit, le premier peut encore annoncer 18. S'il passe lui aussi, on jette les cartes : la donne compte dans la liste, sans aucun score.
+- On enchérit en valeurs de jeu : 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40 et ainsi de suite.
+- Le deuxième propose ses enchères au premier, qui répond oui ou passe ; le deuxième monte ou passe. Celui qui reste écoute ensuite le troisième de la même façon. Le dernier joueur en lice devient le déclarant, à la dernière enchère.
+- Si personne n'enchérit, le premier peut encore annoncer 18 ; s'il passe lui aussi, on jette les cartes (la donne compte dans la liste, sans aucun score).
 # Le skat et le jeu
-- Le déclarant peut prendre le skat et écarter deux cartes de son choix ; elles comptent pour lui. Ou il joue la main (Hand) : il ne touche pas au skat, qui compte quand même pour lui à la fin.
-- Puis il annonce le jeu : un jeu de couleur (carreau 9, cœur 10, pique 11, trèfle 12), Grand (24 : seuls les valets sont atouts) ou Null.
-- Null : le déclarant ne doit faire aucun pli. Il n'y a pas d'atout et chaque couleur se classe as, roi, dame, valet, 10, 9, 8, 7. Le Null vaut 23, le Null main 35, le Null ouvert 46, le Null ouvert main 59. On ne peut pas choisir un Null qui vaut moins que l'enchère.
-- Dans un jeu de main, le déclarant peut annoncer Schneider, Schwarz (avec Schneider) et ouvert (avec Schwarz) : il étale alors ses cartes face visible, sous les yeux de tous. Le Null ouvert se joue aussi cartes sur table, avec ou sans le skat.
+- Le déclarant prend le skat et écarte deux cartes de son choix, ou joue la main (Hand) sans toucher au skat. Dans les deux cas, le skat compte pour lui.
+- Il annonce le jeu : une couleur (carreau 9, cœur 10, pique 11, trèfle 12), Grand (24 : seuls les valets sont atouts) ou Null.
+- Null : ne faire aucun pli. Pas d'atout ; chaque couleur se classe as, roi, dame, valet, 10, 9, 8, 7. Le Null vaut 23, le Null main 35, le Null ouvert 46, le Null ouvert main 59 ; on ne peut pas choisir un Null qui vaut moins que l'enchère.
+- Dans un jeu de main, il peut annoncer Schneider, Schwarz (avec Schneider) et ouvert (avec Schwarz : ses cartes face visible). Le Null ouvert se joue aussi cartes sur table.
 # Les atouts et le jeu
-- En couleur et au Grand, les quatre valets sont les plus forts atouts, dans cet ordre : trèfle, pique, cœur, carreau. Dans un jeu de couleur, la couleur d'atout vient ensuite : as, 10, roi, dame, 9, 8, 7.
-- Les autres couleurs se classent as, 10, roi, dame, 9, 8, 7. Un valet est toujours un atout, jamais une carte de sa propre couleur.
-- Le premier entame. Fournis la couleur demandée si tu peux, sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
+- En couleur et au Grand, les quatre valets sont les plus forts atouts : trèfle, pique, cœur, carreau. Dans un jeu de couleur, la couleur d'atout vient ensuite : as, 10, roi, dame, 9, 8, 7.
+- Les autres couleurs se classent as, 10, roi, dame, 9, 8, 7. Un valet est toujours un atout.
+- Fournis la couleur demandée si tu peux, sinon joue n'importe quelle carte. Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée. Le gagnant entame le pli suivant.
 # Gagner son jeu
-- Les points des cartes : as 11, dix 10, roi 4, dame 3, valet 2 : 120 en tout. Le déclarant ajoute le skat à ses plis et doit faire 61 pour gagner.
-- Schneider : un camp qui a 30 points ou moins. Schwarz : un camp qui n'a fait aucun pli. Un Schneider annoncé demande 90 points, un Schwarz annoncé tous les plis.
+- Les points des cartes : as 11, dix 10, roi 4, dame 3, valet 2 : 120 en tout. Avec le skat, le déclarant doit faire 61.
+- Schneider : un camp qui a 30 points ou moins. Schwarz : un camp qui n'a fait aucun pli. Un Schneider annoncé demande 90 points, un Schwarz annoncé tous les plis.
 - Le Null est perdu dès que le déclarant fait un pli.
 # La valeur du jeu
-- En couleur et au Grand : la valeur de base (9, 10, 11, 12 ou 24) fois le multiplicateur.
-- Les matadors : la suite sans trou des plus forts atouts, à partir du valet de trèfle, que le déclarant possède (on dit avec 2) ou qui lui manquent (sans 3), skat compris.
-- Le multiplicateur : les matadors, plus 1 pour le jeu, 1 pour la main, 1 pour Schneider, 1 de plus s'il est annoncé, 1 pour Schwarz, 1 de plus s'il est annoncé, et 1 pour ouvert.
-- Exemple : trèfle avec 2, joué en main : (2 + 1 + 1) x 12 = 48.
-- Enchère trop haute : si la valeur du jeu est inférieure à l'enchère, le jeu est perdu. Il compte alors pour le plus petit multiple de sa valeur de base qui atteint l'enchère.
+- En couleur et au Grand : la valeur de base (9, 10, 11, 12 ou 24) fois le multiplicateur.
+- Les matadors : la suite sans trou des plus forts atouts, à partir du valet de trèfle, que le déclarant possède (« avec 2 ») ou qui lui manquent (« sans 3 »), skat compris.
+- Le multiplicateur : les matadors, plus 1 pour chacun de ces points : le jeu, la main, Schneider, Schneider annoncé, Schwarz, Schwarz annoncé et ouvert.
+- Exemple : trèfle avec 2, joué en main : (2 + 1 + 1) x 12 = 48.
+- Enchère trop haute : une valeur inférieure à l'enchère perd, et compte pour le plus petit multiple de sa valeur de base qui atteint l'enchère.
 # Le score
-- Un jeu gagné rapporte sa valeur au déclarant ; un jeu perdu lui coûte deux fois sa valeur, en négatif.
-- On ajoute les points Seeger-Fabian : 50 pour chaque jeu gagné, moins 50 pour chaque jeu perdu, et 40 à chacun des deux autres joueurs pour chaque jeu qu'un déclarant perd.
-# La fin de la partie
-Après la dernière donne de la liste, le plus gros total gagne. Les joueurs à égalité se partagent la victoire.
-# Jouer sur l'appareil
-Passe l'appareil au joueur dont la pièce brille ; il touche le bouton de départ et voit sa main. Pendant les enchères, le skat est posé face cachée en haut. Pour enchérir, touche une valeur (les flèches montrent les suivantes), puis la coche, ou touche le bouton passer. Pour répondre à une enchère, touche la coche pour dire oui, ou passer. Chaque place montre le dernier mot de son joueur : la valeur dans un disque sombre, une coche pour oui, le signe de passe. Le déclarant touche le skat pour le prendre, puis touche deux cartes pour les écarter (touche une carte du skat pour la reprendre) ; pour jouer la main, il choisit le jeu sans toucher au skat. Les jeux : les quatre couleurs, Grand (la figure du valet) et Null (une carte barrée) ; puis les annonces : 90 pour Schneider, 120 pour Schwarz, les cartes ouvertes pour ouvert ; puis la coche. Pendant le jeu, la place du déclarant montre son enchère, son jeu, et deux dos de cartes pour un jeu de main. Pour jouer, touche une carte qui brille pour la lever, puis touche-la encore ou touche sa place au milieu ; ou fais-la glisser jusque-là. Touche le paquet en bas à droite pour revoir le dernier pli. Après chaque donne, un tableau montre le jeu et son enchère ; le valet de trèfle (barré : sans) et les matadors, le multiplicateur fois la valeur de base, et la valeur du jeu (une lueur rouge : enchère trop haute) ; le skat et les points de cartes du déclarant (une coche dorée : gagné) ; le score, les points Seeger-Fabian et le total de chaque joueur ; et la liste des donnes, avec un jeton à la couleur de chaque déclarant (éclat doré : gagné, terni : perdu, un anneau vide : cartes jetées). Touche-le pour la donne suivante. Chaque barre montre les cartes en main et le total. Annuler reprend un choix pas encore validé, jamais un choix une fois l'appareil passé.
+- Un jeu gagné rapporte sa valeur ; un jeu perdu coûte deux fois sa valeur, en négatif.
+- Les points Seeger-Fabian : 50 pour chaque jeu gagné, moins 50 pour chaque jeu perdu, et 40 à chacun des deux autres joueurs pour chaque jeu qu'un déclarant perd.
+- Après la dernière donne de la liste, le plus gros total gagne ; les joueurs à égalité se partagent la victoire.

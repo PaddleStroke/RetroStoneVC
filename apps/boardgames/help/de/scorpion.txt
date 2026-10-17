@@ -1,15 +1,15 @@
 Skorpion
 # Das Ziel
-Die vier Farben in den Spalten aufbauen, jede der Reihe nach vom König hinunter bis zum Ass. Ein Spiel für eine Person.
+Die vier Farben in den Spalten aufbauen, jede der Reihe nach vom König hinunter bis zum Ass.
 # Der Aufbau
-- Sieben Spalten zu sieben Karten. In den ersten vier liegen die drei untersten Karten verdeckt; alle anderen liegen offen.
+- Sieben Spalten zu sieben Karten. In den ersten vier liegen die drei untersten Karten verdeckt.
 - Die letzten drei Karten warten oben links.
 # Karten bewegen
-- Jede offene Karte darf ziehen, mit allen Karten, die auf ihr liegen: auf die oberste Karte einer Spalte, die einen Rang höher ist und dieselbe Farbe hat, etwa die Herz 6 auf die Herz 7.
+- Jede offene Karte darf ziehen, mit allen Karten auf ihr, auf die oberste Karte einer Spalte, die einen Rang höher ist und dieselbe Farbe hat: die Herz 6 auf die Herz 7.
 - Nur ein König, mit allem, was auf ihm liegt, darf eine leere Spalte füllen.
-- Liegt oben auf einer Spalte eine verdeckte Karte, wird sie aufgedeckt.
-- Tippe auf die drei wartenden Karten, um sie auszuteilen, je eine auf die ersten drei Spalten: jederzeit, aber nur einmal.
+- Eine verdeckte Karte, die oben auf einer Spalte liegt, wird aufgedeckt.
+- Einmal, jederzeit, tippe auf die drei wartenden Karten, um sie auf die ersten drei Spalten auszuteilen.
 # Das Ende der Partie
 Eine ganze Farbe, die oben auf einer Spalte geordnet vom König bis zum Ass liegt, geht von selbst ab. Du gewinnst, wenn alle vier Farben abgegangen sind.
 # Level und Sterne
-150 Level in sechs Kapiteln, jedes ein Spiel, das zu gewinnen ist; der Reiter mit dem Würfel teilt nach Zufall aus. Ohne Tipp und ohne Rücknahme: 3 Sterne; bis zu zwei zusammen: 2 Sterne; sonst 1.
+Ohne Tipp und ohne Rücknahme: 3 Sterne.

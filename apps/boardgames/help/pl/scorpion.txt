@@ -1,15 +1,15 @@
 Skorpion
 # Cel gry
-Ułożyć w kolumnach cztery kolory, każdy po kolei od króla w dół do asa. Gra dla jednej osoby.
+Ułożyć w kolumnach cztery kolory, każdy po kolei od króla w dół do asa.
 # Rozłożenie
-- Siedem kolumn po siedem kart. W pierwszych czterech trzy dolne karty są zakryte; wszystkie pozostałe są odkryte.
+- Siedem kolumn po siedem kart. W pierwszych czterech trzy dolne karty są zakryte.
 - Trzy ostatnie karty czekają w lewym górnym rogu.
 # Przekładanie kart
 - Każdą odkrytą kartę można przełożyć, razem ze wszystkimi kartami, które na niej leżą, na wierzchnią kartę kolumny o jeden wyższą i w tym samym kolorze: 6 kier na 7 kier.
 - Pustą kolumnę może zająć tylko król, z tym, co na nim leży.
 - Gdy na wierzchu kolumny zostaje zakryta karta, odwraca się.
-- Dotknij trzech czekających kart, by je rozdać, po jednej na każdą z pierwszych trzech kolumn: w dowolnej chwili, ale tylko raz.
+- Raz, w dowolnej chwili, dotknij trzech czekających kart, by rozdać je na pierwsze trzy kolumny.
 # Koniec gry
 Cały kolor ułożony po kolei od króla do asa na wierzchu kolumny schodzi sam. Wygrywasz, gdy zejdą wszystkie cztery kolory.
 # Poziomy i gwiazdki
-150 poziomów w sześciu rozdziałach, każdy to rozdanie możliwe do wygrania; zakładka z kostką rozdaje losowo. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie razem: 2 gwiazdki; inaczej 1.
+Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki.

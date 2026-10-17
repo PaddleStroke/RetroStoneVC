@@ -1,13 +1,6 @@
 Spider
 # Tujuan
-Susun delapan deret dari raja sampai as, masing-masing satu jenis, lalu singkirkan semuanya dari meja. Permainan untuk satu pemain dengan dua pak kartu: 104 kartu.
-# Varian
-- Satu jenis: semua kartu sekop. Yang paling mudah.
-- Dua jenis: sekop dan hati.
-- Empat jenis: dua pak lengkap. Yang paling sulit.
-# Susunan
-- Sepuluh kolom: masing-masing 6 kartu di empat kolom pertama, 5 di kolom lainnya; hanya kartu teratas tiap kolom yang terbuka.
-- Sisa 50 kartu adalah tumpukan di kanan atas: satu punggung kartu untuk tiap pembagian sepuluh kartu yang masih tersisa. Di kiri atas ada delapan tempat untuk deret yang selesai.
+Susun delapan deret dari raja sampai as, masing-masing satu jenis, lalu singkirkan semuanya dari meja. Dua pak kartu: 104 kartu.
 # Memindahkan kartu
 - Di atas kolom diletakkan kartu yang satu tingkat lebih rendah, jenis apa pun: 6 di atas 7 mana saja.
 - Beberapa kartu hanya pindah bersama jika berurutan dalam satu jenis.
@@ -15,10 +8,8 @@ Susun delapan deret dari raja sampai as, masing-masing satu jenis, lalu singkirk
 - Kartu tertutup yang tertinggal di puncak kolom akan terbuka sendiri.
 - Begitu sebuah kolom berakhir dengan deret lengkap satu jenis, dari raja sampai as, deret itu meninggalkan meja sendiri.
 # Tumpukan
-Ketuk tumpukan untuk membagikan satu kartu terbuka ke setiap kolom. Seperti aturan klasiknya, pembagian hanya boleh jika tidak ada kolom yang kosong.
+Ketuk tumpukan untuk membagikan satu kartu terbuka ke setiap kolom. Pembagian hanya boleh jika tidak ada kolom yang kosong.
 # Akhir permainan
-Kamu menang bila kedelapan deret sudah lengkap. Kalau buntu, urungkan langkah atau mulai pembagian baru.
+Kamu menang bila kedelapan deret sudah lengkap.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Bab 1 sampai 4 dimainkan dengan satu jenis, bab 5 dan 6 dengan dua. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas (termasuk empat jenis). Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu untuk memindahkannya, bersama kartu di atasnya, ke tempat terbaiknya: ke kartu yang sejenis jika bisa, kalau tidak ke kartu mana saja yang satu tingkat lebih tinggi, kalau tidak ke kolom kosong. Kamu juga bisa menyeret deret dan melepasnya di mana saja. Lampu menunjukkan langkah yang berguna; angka di bilahmu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang.

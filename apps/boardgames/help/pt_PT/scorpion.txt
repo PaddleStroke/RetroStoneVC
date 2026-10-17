@@ -1,15 +1,15 @@
 Escorpião
 # O objetivo
-Montar os quatro naipes nas colunas, cada um por ordem do rei até ao ás. Um jogo para um jogador.
+Monta os quatro naipes nas colunas, cada um por ordem do rei até ao ás.
 # A disposição
-- Sete colunas de sete cartas. Nas quatro primeiras, as três cartas de baixo estão voltadas para baixo; todas as outras, voltadas para cima.
+- Sete colunas de sete cartas. Nas quatro primeiras, as três cartas de baixo estão voltadas para baixo.
 - As três últimas cartas esperam em cima à esquerda.
 # Mover as cartas
 - Qualquer carta voltada para cima se pode mover, com todas as cartas que estão sobre ela, para a carta do topo de uma coluna que seja um valor acima e do mesmo naipe: o 6 de copas sobre o 7 de copas.
 - Só um rei, com o que está sobre ele, pode ocupar uma coluna vazia.
 - Quando uma carta voltada para baixo fica no topo de uma coluna, vira-se.
-- Toca nas três cartas em espera para as distribuir, uma em cada uma das três primeiras colunas: em qualquer altura, mas só uma vez.
+- Uma só vez, em qualquer altura, toca nas três cartas em espera para as distribuir pelas três primeiras colunas.
 # O fim do jogo
 Um naipe inteiro, por ordem do rei ao ás no topo de uma coluna, sai sozinho. Ganhas quando os quatro naipes saíram.
 # Níveis e estrelas
-150 níveis em seis capítulos, cada um uma distribuição que pode ser ganha; o separador do dado distribui ao acaso. Sem pistas nem jogadas anuladas: 3 estrelas; até duas no total: 2 estrelas; senão, 1.
+Sem pistas nem jogadas anuladas: 3 estrelas.

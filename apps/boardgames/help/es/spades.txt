@@ -1,18 +1,16 @@
 Picas
 # El objetivo
-Dos equipos de dos compañeros sentados frente a frente: marfil y rojo contra ébano y jade. Cada jugador declara cuántas bazas hará; luego los equipos intentan cumplir lo declarado. Gana el primer equipo que llega a 500 puntos. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+Dos equipos de dos compañeros sentados frente a frente. Cada jugador declara cuántas bazas hará; luego los equipos intentan cumplir lo declarado. Gana el primer equipo que llega a 500 puntos.
 # La subasta
-Se reparten las 52 cartas, 13 a cada uno. Por turnos, cada uno declara un número de bazas del 1 al 13, o nulo: no hacer ninguna baza. Las declaraciones de los dos compañeros se suman y forman el contrato del equipo. En la primera ronda declara primero el marfil; después el primer jugador avanza un puesto cada ronda.
+13 cartas cada uno. Por turnos, cada uno declara de 1 a 13 bazas, o nulo: no hacer ninguna baza. Las declaraciones de los dos compañeros se suman y forman el contrato del equipo.
 # El juego
-- Quien declaró primero sale en la primera baza. Por turnos, cada uno sirve el palo de salida si puede; si no, juega cualquier carta.
-- Las picas son siempre triunfo: la pica más alta gana la baza o, si no hay picas, la carta más alta del palo de salida. El as es la más alta. Quien gana sale en la siguiente baza.
-- No se puede salir con picas hasta que se haya jugado una pica sobre otro palo (las picas están rotas), salvo que solo te queden picas.
+- Quien declaró primero sale. Sirve el palo de salida si puedes; si no, juega cualquier carta.
+- Las picas son siempre triunfo: la pica más alta gana la baza o, si no hay, la carta más alta del palo de salida. El as es la más alta. Quien gana sale en la siguiente.
+- No se puede salir con picas hasta que se haya jugado una pica sobre otro palo, salvo que quien sale solo tenga picas.
 # La puntuación
-- Contrato cumplido (los compañeros que no declararon nulo hicieron al menos el contrato): 10 puntos por cada baza declarada y 1 punto por cada baza de más, llamada saco.
-- Contrato fallado: menos 10 puntos por cada baza declarada.
-- Nulo: 100 puntos si quien lo declaró no hace ninguna baza, menos 100 si hace alguna. Las bazas de quien declaró nulo nunca cuentan para el contrato; cuentan como sacos.
-- Los sacos se acumulan de una ronda a otra: cada vez que un equipo llega a 10, pierde 100 puntos y esos 10 sacos desaparecen.
+- Contrato cumplido (por los compañeros que no declararon nulo): 10 puntos por cada baza declarada y 1 por cada baza de más, llamada saco.
+- Contrato fallado: menos 10 por cada baza declarada.
+- Nulo: 100 si quien lo declaró no hace ninguna baza, menos 100 si no. Las bazas de quien declaró nulo nunca cuentan para el contrato; cuentan como sacos.
+- Cada vez que un equipo llega a 10 sacos, pierde 100 puntos y esos sacos desaparecen.
 # El final de la partida
-La partida termina tras la ronda en que un equipo llega a 500 puntos; gana el equipo con más puntos. Si los dos equipos empatan, se juega otra ronda.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo. Las fichas de los jugadores rodean el centro de la mesa, tu compañero enfrente de ti, y cada carta jugada queda delante de la ficha de su jugador. Para declarar, toca un número (el 0 tachado es nulo) y luego la marca de visto. Cada declaración aparece en un disco oscuro junto a la ficha del jugador, con las bazas hechas al lado. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Cada barra muestra las cartas en la mano y la puntuación del equipo. Tras cada ronda, una tabla muestra para cada equipo los puntos de la ronda, su total y sus sacos en un disco oscuro (un brillo rojo: diez sacos costaron 100); tócala para la ronda siguiente. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.
+Tras la ronda en que un equipo llega a 500 puntos, gana el equipo con más puntos; si los dos empatan, se juega otra ronda.

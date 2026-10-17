@@ -1,13 +1,6 @@
 Spider
 # El objetivo
-Formar ocho escaleras del rey al as, cada una de un solo palo, y quitarlas todas de la mesa. Un juego para un jugador con dos barajas: 104 cartas.
-# Las variantes
-- Un palo: todas las cartas son picas. La más fácil.
-- Dos palos: picas y corazones.
-- Cuatro palos: dos barajas completas. La más difícil.
-# La disposición
-- Diez columnas: 6 cartas en cada una de las cuatro primeras, 5 en las demás; solo la carta de arriba de cada columna está boca arriba.
-- Las otras 50 cartas forman el mazo, arriba a la derecha: un reverso por cada reparto de diez cartas que queda. Arriba a la izquierda, ocho sitios para las escaleras terminadas.
+Forma ocho escaleras del rey al as, cada una de un solo palo, y quítalas todas de la mesa. Dos barajas: 104 cartas.
 # Mover cartas
 - Sobre una columna se pone una carta de un valor menos, de cualquier palo: un 6 sobre cualquier 7.
 - Varias cartas solo se mueven juntas si se siguen en un mismo palo.
@@ -15,10 +8,8 @@ Formar ocho escaleras del rey al as, cada una de un solo palo, y quitarlas todas
 - Cuando una carta boca abajo queda arriba de una columna, se da la vuelta.
 - En cuanto una columna termina con una escalera completa de un palo, del rey al as, la escalera sale sola de la mesa.
 # El mazo
-Toca el mazo para repartir una carta boca arriba sobre cada columna. Como en las reglas clásicas, solo se puede repartir si no hay ninguna columna vacía.
+Toca el mazo para repartir una carta boca arriba sobre cada columna. Solo se puede repartir si no hay ninguna columna vacía.
 # El final de la partida
-Ganas cuando las ocho escaleras están completas. Si te atascas, deshaz o empieza un reparto nuevo.
+Ganas cuando las ocho escaleras están completas.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. Los capítulos 1 a 4 se juegan con un palo, los capítulos 5 y 6 con dos. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar, con la elección descrita arriba (también cuatro palos). Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-Toca una carta para moverla, con las que tiene encima, a su mejor sitio: sobre una carta de su palo si puede, si no, sobre cualquier carta de un valor más, y si no, a una columna vacía. También puedes arrastrar una escalera y soltarla donde quieras. La lámpara muestra un movimiento útil; el número de tu barra cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Sin pistas ni movimientos deshechos: 3 estrellas.
