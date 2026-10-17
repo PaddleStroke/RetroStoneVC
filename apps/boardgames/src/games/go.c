@@ -26,6 +26,8 @@ static grid B = {.n = 19};
 static int made_u = -1, made_z = -1;
 static SDL_Texture *t_small[2], *t_half, *t_zstone[2];   /* t_zstone: the loupe's stones */
 static struct { int on, k, pt[GO_PTS]; uint8_t who[GO_PTS]; Uint32 t0; } fade;
+static struct { int on; Uint32 t0; } drop;      /* the stone just played, set down from a little above */
+#define DROP_MS 170
 static box room;                                /* the shell's room: the board in its middle, the loupe in it */
 static struct { float x, y, dx, dy; } fing;     /* the finger on the board, and its offset to the ghost (a tap near
                                                  * it on small points) */
@@ -37,6 +39,7 @@ static void calm(void)
 {
     grid_calm(&B);
     fade.on = 0;
+    drop.on = 0;
 }
 
 enum { V_9, V_13, V_19, V_CAPTURE9, V_CAPTURE13, VARIANTS };
@@ -73,6 +76,8 @@ static void play(int pt)
     fade.on = took > 0;
     fade.k = 0;
     fade.t0 = ui_ms();
+    drop.on = 1;
+    drop.t0 = fade.t0;
     for (int p = 0; p < B.n * B.n; p++)
         if (before.pt[p] != GO_EMPTY && go_now(&G)->pt[p] == GO_EMPTY) {
             fade.pt[fade.k] = p;
@@ -194,7 +199,14 @@ static void draw_board(const grid *g)
         grid_xy(g, last, &x, &y);
         ui_mark_gold(x, y, 2.6f * g->sq);
     }
-    grid_stones(g, p->pt, counting ? G.dead : NULL, -1);   /* the dead stones faded */
+    float dt = drop.on && last >= 0 && p->pt[last] != GO_EMPTY ? (ui_ms() - drop.t0) / (float)DROP_MS : 1;
+    grid_stones(g, p->pt, counting ? G.dead : NULL, dt < 1 ? last : -1);   /* the dead stones faded */
+    if (dt < 1) {                               /* the stone just played comes down onto its point */
+        ui_animate();
+        grid_xy(g, last, &x, &y);
+        float u = (1 - dt) * (1 - dt);
+        grid_stone(g, p->pt[last] - 1, x, y - 0.08f * g->sq * u, g->sq * (1 + 0.14f * u), 255);
+    }
     if (fade.on) {
         float t = (ui_ms() - fade.t0) / (float)FADE_MS;
         ui_animate();
@@ -237,6 +249,7 @@ static void draw(void)
 {
     draw_board(&B);
     if (fade.on && ui_ms() - fade.t0 >= FADE_MS) fade.on = 0;
+    if (drop.on && ui_ms() - drop.t0 >= DROP_MS) drop.on = 0;
     draw_loupe();
 }
 
