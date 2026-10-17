@@ -30,6 +30,16 @@ static inline int tree_cols(void) { return rs_bg_map_w(RS_BG2) / 4; }
 #define RBRANCH_COL   14
 #define TRUNK_MAP_X   64          /* the trunk's left edge in the map (player 1) */
 
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped; the stage low, TALL_BELOW lines of earth under it, the trunk up to the screen's top
+ * (at most TALL_ABOVE lines above the stage: segment 15, the last kept, still reaches the top while the trunk drops);
+ * BG2's map is TALL_ROWS rows tall there (the 16 segments kept), and the HUD (BG1's top HUD_LINES) at the screen's top */
+#define ZOOM_H        440
+#define TALL_BELOW    40
+#define TALL_ABOVE    160
+#define TALL_ROWS     64
+#define HUD_LINES     48
+
 /* versus: a view per player (2: halves; 3-4: columns, hu_split HU_SPLIT_COLUMNS), each its own OAM range; a view
  * shows the middle of the panorama: from PANO_X + 160 - its width / 2 (2 players: PANO_X + 80) */
 
@@ -39,9 +49,11 @@ void scene_relayout(void);                   /* after a save state of another wi
 void scene_restart(int stage);
 void scene_frame(int stage, int dam_logs, int lean_side, int players, int t);
 void scene_bg_scroll(int view_sx);
-/* a tall screen (rs_screen_tall): the trunk's left edge (stage x; -1: none) and BG2's scroll, for the bark that
- * rises above the stage (the raster repeats two plain segments' rows there, the branches' columns hidden) */
+/* a tall screen (rs_screen_zoom): the trunk's left edge (stage x; -1: none, a split screen) and BG2's scroll: the
+ * trunk shown above the stage (with its branches: BG2 holds the 16 segments kept) */
 void scene_trunk(int x, int sx, int sy);
+/* a tall screen: BG1's top lines drawn at the screen's top (draw.c: rs_bg_pin), shown by the raster there (0: none) */
+void scene_hud(int lines);
 int  scene_stage_shown(void);
 int  scene_tod(void);
 int  scene_season(void);

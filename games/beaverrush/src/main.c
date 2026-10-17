@@ -174,7 +174,9 @@ static void play_update(int pads)
         int s = W.bv[p].state;
         if (s == BV_READY || s == BV_PLAY) press[p] = gnaw_pressed(p);
     }
-    uint32_t reroll = (!W.started && !opt_seed_fixed && !opt_skip) ? frame_seed() | 1 : 0;
+    /* (a tall screen shows the whole trunk kept, TRUNK_N segments: no re-roll, it would change those on screen) */
+    int tall = rs_screen_height() > RS_SCREEN_H;
+    uint32_t reroll = !W.started && !opt_seed_fixed && !opt_skip && !tall ? frame_seed() | 1 : 0;
     int standing = world_standing(&W);
     world_step(&W, press, reroll);
     draw_events(&W);
@@ -284,7 +286,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, W.players >= 2 ? SV.best_
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more sky and ground (scene.c, DESIGN.md) */
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, the trunk up to the top (DESIGN.md) */
     save_load();
     audio_set(rs_option_int("music", 1), rs_option_int("sound", 1));
     sfx_init();

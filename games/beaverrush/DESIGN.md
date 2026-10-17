@@ -189,15 +189,26 @@ The game opts in (`max_width` = 560, `WIDESCREEN_beaverrush = 1`): 320 x 240 is 
   widths, and changes the width three times during 1-player, versus and 4-player runs (`--resize`: a save state, a
   restart, the state loaded): they go on exactly as the runs that never changed.
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
-the display's height at 320 columns (693 lines on a 9:19.5 phone). The 240 lines of the stage are the same pixels;
-the stage sits low (`rs_screen_origin_v`: two thirds of the extra lines above it). The raster draws the lines past
-the stage (scene.c `raster_out`): above, the sky carried on (its top colour, deeper toward the screen's top) and the
-trunk rising into it (BG2's rows of two plain segments repeated, window 2 keeping only the trunk's columns: no
-branch is ever shown there); below, the earth, darker with depth. The other layers are hidden there (window 1), and
-line 0 puts the stage's windows, masks and scroll back, so a 240-line screen is unchanged. Versus: the sky only
-above the stage (no trunk). The touch halves span the whole display, so nothing else moves.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (440 lines, draw.h) first in `game_init`. The RetroStone app scales the
+440 lines to the display's height and crops the sides: 202 columns on a 1080x2340 phone, 188 on a 1080x2520 one, so
+the trunk and the beaver are bigger than in landscape (5.3x on a 1080x2340 phone). The 240 lines of the stage are the
+same pixels; the stage sits low (`rs_screen_origin_v`: 160 lines above it, 40 of earth below).
+- **The trunk up to the screen's top, with its branches from the start**: BG2's map is 64 rows tall there and holds
+  the 16 segments kept (segments 0..14 shown, 15 coming in while the trunk drops); the bot still reads segments 0 and
+  1 at the same rows. A tall screen does not re-roll the trunk at the first gnaw (it would change branches on
+  screen): the run's tree comes from its seed alone (the frame of the new run).
+- **The HUD at the screen's top**: the score (sprites at `rs_screen_top()` + 10) and the timer bar (BG1's top 48
+  lines, `rs_bg_pin`) while one beaver plays; the raster shows BG1 there only.
+- **Fill or fit**: one beaver playing (and its bonk) fills the display's height; the title, the game-over panel and
+  the split screens (2-4 players) show every column (`rs_screen_fill(0)`: the whole 320 x 440 picture across the
+  width). In versus the views keep the stage's 240 lines, with the sky above them and the earth below (two more
+  viewports with no layer: the raster's colours).
+- **Decor**: the raster draws the lines past the stage (scene.c `raster_out`): above, the sky carried on from its
+  top colour, deeper toward the screen's top, more stars at night; below, the earth, darker with depth. BG3 and BG4
+  are hidden there (window 1), line 0 puts the stage's windows back. The weather falls from the screen's top across
+  the columns shown; the sun and the moon stay in them.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## The beaver
 About 24x24 on screen (32x32 cells), code-drawn with the house helpers (ellipses and capsules shaded from the

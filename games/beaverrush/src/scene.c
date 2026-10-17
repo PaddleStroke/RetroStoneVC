@@ -38,6 +38,7 @@ static int8_t line_fur[RS_SCREEN_H];            /* ... for a viewport of FUR_BY_
 /* a tall screen (rs_screen_tall: a phone held upright): the trunk above the stage, set by draw.c each frame (not
  * saved: drawn again before each picture) */
 static int trunk_x = -1, trunk_sx, trunk_sy;
+static int hud_lines;                           /* the HUD's band of BG1 at the screen's top (draw.c: rs_bg_pin) */
 
 int scene_stage_shown(void) { return scene_to; }
 int scene_tod(void) { return (fade_t < SCENE_FADE / 2 ? scene_from : scene_to) % TIMES_OF_DAY; }
@@ -148,6 +149,8 @@ static void sky_lines(int t)
     }
 }
 
+void scene_hud(int lines) { hud_lines = lines; }
+
 void scene_trunk(int x, int sx, int sy)
 {
     trunk_x = x;
@@ -156,30 +159,22 @@ void scene_trunk(int x, int sx, int sy)
 }
 
 /* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: the sky carried on, deeper toward
- * the top, and the trunk rising into it (BG2's rows of two plain segments, repeated; only the trunk's columns, window
- * 2); below: the earth, darker with depth. The other layers are hidden there (window 1 over the whole width); line 0
- * puts the stage's windows, masks and BG2 scroll back. */
+ * the top, and the trunk rising into it with its branches (1 player: BG2 holds the 16 segments kept; a split screen:
+ * the sky only), the HUD's band of BG1 at the screen's top (rs_bg_pin, draw.c); below: the earth, darker with depth.
+ * The other layers are hidden there (window 1 over the whole width); line 0 puts the stage's windows back. */
 static void raster_out(int line)
 {
     int top = rs_screen_top(), bot = rs_screen_bottom();
     if (line == top || line == RS_SCREEN_H) {
         rs_window(0, rs_screen_left(), rs_screen_right());
-        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_bg_window(RS_BG1, line == top && hud_lines ? 0 : RS_WIN1);
         rs_bg_window(RS_BG3, RS_WIN1);
-        if (line == top && trunk_x >= 0) {
-            rs_window(1, trunk_x, trunk_x + TRUNK_W);
-            rs_bg_window(RS_BG2, RS_WIN2_OUT);
-        } else {
-            rs_bg_window(RS_BG2, RS_WIN1);
-        }
+        rs_bg_window(RS_BG2, line == top && trunk_x >= 0 ? 0 : RS_WIN1);
     }
+    if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);   /* past the HUD's band */
     if (line < 0) {
         int k = top < 0 ? -line * 96 / -top : 0;            /* 0 at the stage's top .. 96 at the screen's */
         rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));
-        if (trunk_x >= 0) {                                 /* map y 48..95: two segments below the screen's top */
-            int m = ((line % 48) + 48) % 48;
-            rs_bg_scroll(RS_BG2, trunk_sx, TRUNK_SCROLL_Y + m - line);
-        }
     } else {
         int d = line - RS_SCREEN_H, n = bot - RS_SCREEN_H;
         int k = n > 0 ? d * 112 / n : 0;

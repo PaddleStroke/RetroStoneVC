@@ -66,7 +66,9 @@ static int view_oam[MAX_PLAYERS][2];            /* the last frame's OAM range of
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const br_sprite_def *d = &br_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -76,9 +78,18 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
 static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
 static int map_w(void) { return wide() ? 128 : 64; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }      /* floor(v / 8) */
+/* a tall screen (portrait, DESIGN.md "Tall screen"): BG2 holds the 16 segments kept (TALL_ROWS rows) */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int bg2_rows(void) { return tall() ? TALL_ROWS : 32; }
 
-/* the split screen: a full-height view per player (2: halves; 3-4: columns) */
-static int split(int players, rs_viewport *v) { return hu_split(players, HU_SPLIT_COLUMNS, v); }
+/* the split screen: a full-height view per player (2: halves; 3-4: columns); the stage's 240 lines (a tall screen:
+ * draw_frame's two more views, the sky above them and the earth below) */
+static int split(int players, rs_viewport *v)
+{
+    int n = hu_split(players, HU_SPLIT_COLUMNS, v);
+    for (int i = 0; i < n; i++) v[i].y = 0, v[i].h = RS_SCREEN_H;
+    return n;
+}
 
 static int view_w(const world *w)
 {
@@ -193,9 +204,8 @@ static void bar_geom(const world *w, int p, int *col, int *inner)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());       /* widescreen: the 320-px stage centred, the scenery wider */
-    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (the trunk rises into the sky),
-     * a third below (the ground; the touch halves span the whole screen) */
-    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
+    /* a tall screen (portrait): the stage low, TALL_BELOW lines of earth under it, the trunk up to the top (draw.h) */
+    rs_screen_origin_v(clampi(rs_screen_height() - RS_SCREEN_H - TALL_BELOW, 0, TALL_ABOVE));
     hu_config hc = hu_defaults();   /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = 0;                /* the kit sprites first (HU_OBJ_TILES), ours from OBJ_FIRST */
     hc.obj_vram = VR_OBJ;
@@ -204,7 +214,7 @@ void draw_init(void)
     hu_init(&hc);
     bar_tiles();
     rs_bg_setup(RS_BG1, map_w(), 32, VR_BG1);
-    rs_bg_setup(RS_BG2, map_w(), 32, VR_BG2);   /* four trees, a quarter of the map apart (tree_cols) */
+    rs_bg_setup(RS_BG2, map_w(), bg2_rows(), VR_BG2);   /* four trees, a quarter of the map apart (tree_cols) */
     rs_tiles_load(VR_BG2, br_bg2_tiles, br_bg2_tile_count);
     scene_init();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
@@ -219,22 +229,24 @@ void draw_init(void)
 /* ---- the trunk ----------------------------------------------------------------------------------------------------- */
 static void tree_draw(int p, const tree *t)
 {
-    int r0 = 0, c0 = p * tree_cols(), mw = rs_bg_map_w(RS_BG2) - 1;
-    for (int r = 0; r < 32; r++)
-        for (int c = LBRANCH_COL; c < LBRANCH_COL + 16; c++) rs_bg_put(RS_BG2, (c0 + c) & mw, r0 + r, 0);
-    for (int k = 0; k <= SEG_SHOWN; k++) {
+    /* (a tall screen: every segment kept, up to the screen's top; the map's rows wrap, TALL_ROWS of them) */
+    int c0 = p * tree_cols(), mw = rs_bg_map_w(RS_BG2) - 1, mh = rs_bg_map_h(RS_BG2) - 1;
+    for (int r = 0; r <= mh; r++)
+        for (int c = LBRANCH_COL; c < LBRANCH_COL + 16; c++) rs_bg_put(RS_BG2, (c0 + c) & mw, r, 0);
+    for (int k = 0; k <= (tall() ? TRUNK_N - 1 : SEG_SHOWN); k++) {
         const seg *s = &t->s[k];
-        int row = r0 + (TRUNK_MAP_Y0 - SEG_H * (k + 1)) / 8;
+        int row = fdiv8(TRUNK_MAP_Y0 - SEG_H * (k + 1));
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 6; c++) {
                 uint16_t e = br_seg_map[s->look * 18 + r * 6 + c];
                 if (s->gold) e = (uint16_t)((e & ~0x1c00) | (PAL_GOLD << 10));
-                rs_bg_put(RS_BG2, (c0 + TRUNK_COL + c) & mw, row + r, e);
+                rs_bg_put(RS_BG2, (c0 + TRUNK_COL + c) & mw, (row + r) & mh, e);
             }
             if (s->branch) {
                 int b = (s->branch == SIDE_L ? 0 : 1) + (s->stolen ? 2 : 0);
                 int col = s->branch == SIDE_L ? LBRANCH_COL : RBRANCH_COL;
-                for (int c = 0; c < 5; c++) rs_bg_put(RS_BG2, (c0 + col + c) & mw, row + r, br_branch_map[b * 15 + r * 5 + c]);
+                for (int c = 0; c < 5; c++)
+                    rs_bg_put(RS_BG2, (c0 + col + c) & mw, (row + r) & mh, br_branch_map[b * 15 + r * 5 + c]);
             }
         }
     }
@@ -557,11 +569,22 @@ static void draw_sky(const world *w, int view_w, int t)
                                         {206, 36}, {236, 18}, {262, 6}, {288, 30}, {310, 12}};
     /* widescreen: the sky spans the screen (1 player: stage x0 .. x0 + span) or the wider views (x scaled to them) */
     int wd = wide(), x0 = wd && k == 1 ? rs_screen_left() : 0, span = wd && k == 1 ? rs_screen_width() : view_w;
+    /* a tall screen: the weather falls from the screen's top, over the columns shown (the stage y of the top, its
+     * height: 0 and 240 on a 240-line screen) */
+    int top = rs_screen_top(), sh = rs_screen_bottom() - top;
+    if (k == 1 && tall()) {
+        x0 = rs_screen_visible_x0() - rs_screen_origin_x();
+        span = rs_screen_visible_x1() - rs_screen_visible_x0();
+    }
 #define SKY_X(x) (wd && k > 1 ? (x) * view_w / RS_SCREEN_W : (x) / k)
     if (tod == 3) {
-        spr(SPR_MOON, k == 2 ? SKY_X(48) : SKY_X(54), 18, 0, -1, 0);
+        spr(SPR_MOON, k == 2 ? SKY_X(48) : k == 1 && tall() ? clampi(54, x0 + 4, 160) : SKY_X(54), 18, 0, -1, 0);
         for (int i = 0; i < 12; i++)
             if (i % k == 0) spr(SPR_STAR + ((t / 20 + i) % 5 == 0), SKY_X(stars[i][0]), stars[i][1] + 2 * (i % 3), 0, -1, 0);
+        for (int band = 1; k == 1 && -band * 64 > top - 48; band++)    /* a tall screen: more stars above the stage */
+            for (int i = band % 2; i < 12; i += 2)
+                spr(SPR_STAR + ((t / 20 + i + band) % 5 == 0), stars[(i + band * 5) % 12][0],
+                    stars[i][1] - band * 64, 0, -1, 0);
         if (wd && k == 1)                       /* the margins: the stars mirrored (spr clips them to the screen) */
             for (int i = 0; i < 12; i++) {
                 int y = stars[(i + 5) % 12][1] + 2 * (i % 3), f = (t / 20 + i + 3) % 5 == 0;
@@ -571,6 +594,7 @@ static void draw_sky(const world *w, int view_w, int t)
     } else {
         static const int sun[3][2] = {{36, 64}, {244, 12}, {268, 60}};
         int sx = sun[tod][0], sy = sun[tod][1];
+        if (k == 1 && tall()) sx = clampi(sx, x0 + 4, x0 + span - 36);    /* (a zoomed screen: in the columns shown) */
         spr(SPR_SUN, SKY_X(sx), sy, 0, -1, 0);
     }
 #undef SKY_X
@@ -591,7 +615,7 @@ static void draw_sky(const world *w, int view_w, int t)
             if ((t / 9 + i) % 7) spr(SPR_FIREFLY + (t / 12 + i) % 2, x, y, 2, -1, 0);
             continue;
         }
-        int y = (i * 71 + t * speed / (kind ? 2 : 3)) % 260 - 10;
+        int y = top + (i * 71 + t * speed / (kind ? 2 : 3)) % (sh + 20) - 10;
         int sway = ((t / 4 + i * 11) % 32), dx = sway < 16 ? sway : 32 - sway;
         int x = x0 + (i * 97 + t / 5 + dx) % (span + 8) - 4;
         if (kind == 1) spr(SPR_SNOW + i % 2, x, y, i % 3 ? 2 : 0, -1, 0);
@@ -754,15 +778,21 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int sx = hu_shake_x(), sy = hu_shake_y(), cx = tree_cx(w), vw = view_w(w);
     if (!multi) {
         int tx = (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (rs_bg_map_w(RS_BG2) * 8 - 1);
-        int ty = (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255;
+        int ty = (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & (rs_bg_map_h(RS_BG2) * 8 - 1);
         rs_bg_scroll(RS_BG2, tx, ty);
-        scene_trunk(160 - TRUNK_W / 2 + sx, tx, ty);    /* a tall screen: the bark above the stage */
+        scene_trunk(160 - TRUNK_W / 2 + sx, tx, ty);    /* a tall screen: the trunk above the stage */
         scene_bg_scroll(PANO_X);
     }
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
+    /* a tall screen (DESIGN.md "Tall screen"): one beaver plays filling the display's height (the sides cropped); the
+     * title, the panels and a split screen show every column; the HUD (the score, the bar) at the screen's top */
+    int hud = tall() && !multi && (state == DS_PLAY || state == DS_END), hy = hud ? rs_screen_top() : 0;
+    rs_screen_fill(!multi && (state == DS_PLAY || state == DS_END));
+    rs_bg_pin(RS_BG1, 0, hud ? HUD_LINES : 0, 0);
+    scene_hud(hud ? HUD_LINES : 0);
 
     rs_viewport v[RS_VIEW_MAX];
     int nv = multi ? split(w->players, v) : 0;
@@ -783,7 +813,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (multi) hu_view_oam_begin(&v[p]);
         int ox = sx, oy = sy;
         if (state == DS_PLAY || state == DS_END) {
-            hu_number(w->bv[p].score, cx, 10, 3);
+            hu_number(w->bv[p].score, cx, 10 + hy, 3);
             if (multi) {                                /* whose view: the player's head by the score */
                 char d[12];
                 int len = snprintf(d, sizeof d, "%d", w->bv[p].score);
@@ -819,6 +849,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         scene_view_fur(p, p);
     }
     int n = nv;
+    if (tall() && rs_screen_top() < 0) {      /* a tall screen: the sky above the views, the earth below (raster_out) */
+        view_rect(&v[n], rs_screen_left(), rs_screen_top(), rs_screen_width(), -rs_screen_top(), 0, 0);
+        view_rect(&v[n + 1], rs_screen_left(), RS_SCREEN_H, rs_screen_width(), rs_screen_bottom() - RS_SCREEN_H, 0, 0);
+        v[n].layers = v[n + 1].layers = 0;
+        scene_view_fur(n, -1);
+        scene_view_fur(n + 1, -1);
+        n += 2;
+    }
     if (state == DS_OVER) {                     /* the banner and the ranking over the views, sliding up */
         rs_viewport *bn = &v[n], *pn = &v[n + 1];
         int rows = 3 * rs.n + 4;
@@ -849,7 +887,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
  * drawn again on the next frame (where the views of this width want them; the same place at the same width). */
 void draw_relayout(const world *w, int state)
 {
-    if (laid_w == rs_screen_width()) return;    /* a state of this width: nothing to do (it saves the same bytes) */
+    /* a state of this size: nothing to do (it saves the same bytes; a tall screen's BG2 is taller: bg2_rows) */
+    if (laid_w == rs_screen_width() && rs_bg_map_h(RS_BG2) == bg2_rows()) return;
     laid_w = rs_screen_width();
     scene_relayout();
     if (rs_bg_map_w(RS_BG1) != map_w()) {
@@ -860,8 +899,8 @@ void draw_relayout(const world *w, int state)
         for (int y = 0; y < 32; y++)
             for (int x = 0; x < 40; x++) rs_bg_put(RS_BG1, x, y, ui[y][x]);
     }
-    if (rs_bg_map_w(RS_BG2) != map_w()) {
-        rs_bg_setup(RS_BG2, map_w(), 32, VR_BG2);
+    if (rs_bg_map_w(RS_BG2) != map_w() || rs_bg_map_h(RS_BG2) != bg2_rows()) {
+        rs_bg_setup(RS_BG2, map_w(), bg2_rows(), VR_BG2);
         for (int p = 0; p < w->players; p++) {
             tree_draw(p, &w->bv[p].tr);
             PV[p].drawn_logs = w->bv[p].logs;
