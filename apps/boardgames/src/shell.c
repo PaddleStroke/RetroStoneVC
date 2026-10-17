@@ -138,6 +138,7 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"nurikabe", SEC_PUZZLE}, {"hitori", SEC_PUZZLE}, {"thermometers", SEC_PUZZLE}, {"parking", SEC_PUZZLE},
     {"rollblock", SEC_PUZZLE}, {"loopshift", SEC_PUZZLE}, {"goproblems", SEC_PUZZLE}, {"shogimate", SEC_PUZZLE},
     {"masyu", SEC_PUZZLE}, {"fillomino", SEC_PUZZLE}, {"heyawake", SEC_PUZZLE},
+    {"spy", SEC_GUESS}, {"werewolves", SEC_GUESS}, {"drawguess", SEC_GUESS},
     {"carrom", SEC_STRATEGY}, {"pool", SEC_STRATEGY},
 };
 
