@@ -52,7 +52,8 @@ whose middle leaves the ice falls in.
 - **Fish**: 7 s after GO!, then every 9-15 s, a fish flops onto solid ice (14 px of ice round it, 34 px from every
   seal) for 8 s. The seal that touches it gets its power: the **blue fish: BIG BELLY!** (2.5 x the mass and a bigger
   body for 7 s: hard to push, hits hard), the **golden fish: MEGA SLIDE!** (its next slide within 10 s goes 1.3 x as
-  fast and hits as 2.5 x its mass). An icon over the seal shows it (blinking before it ends).
+  fast and hits as 2.5 x its mass). A badge over the seal shows it (an iron weight on blue, a bolt on gold; blinking
+  before it ends).
 - **Rounds and matches**: ROUND n (1.5 s, everyone in place on a circle of radius 46, facing the middle), GO!, the
   fight; the last seal on the floe wins the round (the last two falling in the same moment: NOBODY WINS THIS ROUND!).
   The first to 3 rounds wins the match.
@@ -127,7 +128,7 @@ one, gold two or three matches won, pearl a long run into the level-3 and level-
 | backdrop | the sea: a raster gradient, lighter at the top, the house 2-line dither | - |
 | BG3 | the sea panorama (1024 x 256): ripples (palette cycling: they shimmer), icebergs, ice bits, a fishing boat | fixed (+ shake) |
 | BG2 | the floe: a canvas of its own tiles (the ones it may cover: 569), PAINTED pixel by pixel by draw.c from the rules' field: the lit rim (top-left), the shaded rim, drifts of snow (value noise), twinkles, the side below the edge and the submerged skirt round it, a dark crack round a cracking chunk and its blink (2 animated palette entries) | fixed (+ shake); window 1 keeps its 208 columns |
-| BG1 | the house UI kit: the logo, ROUND n and GO! (2x), the round's and match's winner on a panel, the messages, the hint, the panels, PAUSED | fixed |
+| BG1 | the house UI kit: the logo, ROUND n and GO! (2x, in the middle of the ring of seals), the round's and match's winner on a panel (under the winner when it stands in the floe's top half, over it otherwise), the messages, the hint, the panels, PAUSED | fixed |
 | OBJ | the seals (OBJ 0, 1, 4, 5), a chunk drifting off (OBJ 6, painted into one of 2 sprite slots of 56 x 56), splashes, puffs, chips, stars, fish, icons, the HUD's pips, the touch controls (OBJ 2), the penguins (OBJ 7), the kit's digits, glyphs and medals (OBJ 3) | |
 
 Only the tiles of a chunk that changed are painted again (its box; the whole floe at a new round: about 5 ms on the

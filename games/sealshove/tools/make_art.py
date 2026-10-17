@@ -415,21 +415,37 @@ def fish(kind, frame):
     return cv
 
 
+def _badge(ramp):
+    """A round badge (16x16, the disc 13 px across with its outline) over a seal with a power: the fish's colour, lit
+    from the top-left; the symbol goes on it."""
+    cv = Canvas(16, 16)
+    hs.ellipse(cv, 8.0, 8.0, 6.0, 6.0, ramp)
+    return cv
+
+
 def icon_heavy():
-    cv = Canvas(8, 8)
-    hs.ellipse(cv, 4.0, 5.0, 3.0, 2.6, [pc(12), pc(12), pc(13), pc(13)])
-    cv.rect(3, 1, 4, 2, pc(13))
-    cv.set(2, 4, pc(2))
+    """BIG BELLY: an iron weight on the blue fish's badge."""
+    cv = _badge([pc(4), pc(6), pc(6), pc(7)])
+    hs.ellipse(cv, 8.0, 9.8, 4.2, 3.0, [pc(12), pc(12), pc(13), pc(13)])   # the weight
+    for x, y in ((6, 3), (7, 3), (8, 3), (9, 3), (10, 3), (5, 4), (6, 4), (10, 4), (11, 4), (5, 5), (11, 5), (5, 6),
+                 (11, 6)):                                                  # its handle
+        cv.set(x, y, pc(13))
+    cv.set(6, 8, pc(2)), cv.set(7, 3, pc(12))
     cv.outline(pc(1))
     return cv
 
 
 def icon_mega():
-    cv = Canvas(8, 8)
-    for x, y in ((4, 0), (3, 1), (4, 1), (2, 2), (3, 2), (2, 3), (3, 3), (4, 3), (5, 3), (4, 4), (5, 4), (3, 5), (4, 5),
-                 (3, 6)):
-        cv.set(x, y, pc(8))
-    cv.set(4, 0, pc(15))
+    """MEGA SLIDE: a white bolt on the golden fish's badge."""
+    cv = _badge([pc(8), pc(8), pc(9), pc(9)])
+    bolt = ((9, 2), (10, 2), (8, 3), (9, 3), (7, 4), (8, 4), (6, 5), (7, 5), (5, 6), (6, 6), (7, 6), (8, 6), (9, 6),
+            (10, 6), (8, 7), (9, 7), (7, 8), (8, 8), (6, 9), (7, 9), (5, 10), (6, 10), (5, 11))
+    for x, y in bolt:
+        cv.set(x, y, pc(2))
+    for x, y in bolt:                                                       # a dark edge on its right and below
+        for dx, dy in ((1, 0), (0, 1)):
+            if (x + dx, y + dy) not in bolt and cv.get(x + dx, y + dy) is not None:
+                cv.set(x + dx, y + dy, pc(9))
     cv.outline(pc(1))
     return cv
 
@@ -567,13 +583,13 @@ SEA = dict(r1=(160, 214, 242), r2=(124, 192, 234), sp=(236, 250, 255),
            h0=(222, 74, 70), h1=(160, 42, 52), w0=(222, 172, 112), w1=(170, 120, 72), w2=(116, 78, 46),
            c0=(246, 246, 240), c1=(196, 200, 214), g0=(44, 70, 120), o=(42, 30, 52), fl=(255, 236, 120))
 # icebergs and ice bits: (stage x, stage y, width, height, seed); the 320 stage shows the first ones, 427 and 520
-# columns more
-BERGS = [(6, 186, 40, 28, 1), (-52, 98, 46, 40, 2), (-98, 176, 36, 30, 3), (378, 26, 36, 30, 4)]
-BITS = [(282, 40, 12, 7, 5), (300, 210, 10, 6, 6), (18, 60, 12, 7, 7), (-88, 36, 12, 7, 8), (398, 192, 12, 7, 9),
+# columns more; the top corners (y < 44) stay clear for the HUD (draw.c draw_hud) at every width
+BERGS = [(6, 186, 40, 28, 1), (-52, 98, 46, 40, 2), (-98, 176, 36, 30, 3), (378, 60, 36, 30, 4)]
+BITS = [(282, 40, 12, 7, 5), (300, 210, 10, 6, 6), (18, 60, 12, 7, 7), (-88, 50, 12, 7, 8), (398, 192, 12, 7, 9),
         (408, 118, 10, 6, 10), (-24, 214, 10, 6, 11), (346, 222, 12, 7, 12)]
 BOAT = (330, 86)
 # the penguins (src/draw.c): stage positions of their feet, on the bergs
-PENGUINS = [(18, 196), (32, 198), (-44, 108), (-30, 106), (-17, 110), (-84, 186), (392, 38)]
+PENGUINS = [(18, 196), (32, 198), (-44, 108), (-30, 106), (-17, 110), (-84, 186), (392, 72)]
 
 
 def berg(cv, X, Y, w, h, seed):

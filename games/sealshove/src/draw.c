@@ -44,6 +44,7 @@ static uint8_t drawn_rev[MAX_CHUNKS], drawn_st[MAX_CHUNKS];
 typedef struct drift { int16_t chunk, t, x, y, dx, dy; uint8_t on, stage, pad_[2]; } drift;
 static drift DR[DRIFT_SLOTS];
 static int cheer_t = 99;
+static int panel_low;                           /* the winner's panel under the winner (play_texts) */
 static uint8_t tile_buf[64];                    /* scratch: one tile being painted (state_audit.txt) */
 
 static void raster(int line, void *user)
@@ -347,8 +348,9 @@ static void draw_seals(const world *w, int t, int sx, int sy, int show_tags)
         int pal = hu_player_pal(i);
         if (show_tags && s->human) spr(SPR_TAG1 + i, x - 4, y - 40 + hu_bob(t + i * 16, 48, 1), 2, pal, 0);
         if (s->stun > 0) spr(SPR_STARS0 + ((t / 6) & 1), x - 12, y - 28, 2, -1, 0);
-        if (s->power == PW_HEAVY && (s->power_t > 90 || (t / 6) & 1)) spr(SPR_ICON_HEAVY, x + 8, y - 24, 2, -1, 0);
-        if (s->power == PW_MEGA && (s->power_t > 90 || (t / 6) & 1)) spr(SPR_ICON_MEGA, x + 8, y - 24, 2, -1, 0);
+        /* the power's badge, top right of the head (clear of the tag) */
+        if (s->power == PW_HEAVY && (s->power_t > 90 || (t / 6) & 1)) spr(SPR_ICON_HEAVY, x + 3, y - 31, 2, -1, 0);
+        if (s->power == PW_MEGA && (s->power_t > 90 || (t / 6) & 1)) spr(SPR_ICON_MEGA, x + 3, y - 31, 2, -1, 0);
         if (s->ready_t < 14 && s->state == SS_PLAY) hu_sparkle(x + 8 - hu_ui_x(), y - 20, (s->ready_t / 4) & 1, 2);
     }
     for (int k = 0; k < n; k++) {
@@ -526,19 +528,30 @@ static void play_texts(const world *w, int st_t, const touch_view *tv)
         (w->phase == PH_INTRO || (w->phase == PH_FIGHT && w->phase_t < HINT_FRAMES)))
         snprintf(hint, sizeof hint, "%s", TR(HINT));
     (void)st_t;
+    /* the winner's panel goes where it does not hide the winner: under it when it stands in the floe's top half, over
+     * it otherwise (a seal is drawn from 20 px above its place to 12 below, its tag from 40 above); a margin keeps the
+     * panel from hopping while it waddles */
+    int who = w->phase == PH_END ? w->round_winner : w->phase == PH_MATCH ? w->match_winner : -1;
+    if (who >= 0 && who < SEALS) {
+        int wy = (int)(w->s[who].y / FX);
+        if (!panel_low && wy < 144) panel_low = 1;
+        else if (panel_low && wy > 160) panel_low = 0;
+    }
+    int prow = panel_low ? 21 : 10;
     uint32_t h = 2166136261u;
     h = hash_str(h, big, 1, 0);
-    h = hash_str(h, line, 2, 0);
+    h = hash_str(h, line, 2, prow);
     h = hash_str(h, top, 3, 0);
     h = hash_str(h, hint, 4, 0);
     if (h == shown_text) return;
     shown_text = h;
     hu_clear();
-    if (big[0]) hu_big(hu_center(big, 1), 12, big, HU_BIG_FREE);
+    /* ROUND n and GO! in the middle of the ring of seals: between the top one's feet and the side ones' caps */
+    if (big[0]) hu_big(hu_center(big, 1), 13, big, HU_BIG_FREE);
     if (line[0]) {
         int wdt = hu_width(line, 0), pw = wdt + 4, px = 20 - pw / 2;
-        hu_panel(px, 10, pw, 5);
-        hu_box_text(hu_center(line, 0), 12, line);
+        hu_panel(px, prow, pw, 5);
+        hu_box_text(hu_center(line, 0), prow + 2, line);
     }
     if (top[0]) hu_text(hu_center(top, 0), 5, top);
     if (hint[0]) hu_text(hu_center(hint, 0), 28, hint);
@@ -665,7 +678,7 @@ void draw_state_loaded(void)
 void draw_state(void)
 {
     S(line_col); S(shown_key); S(shown_best); S(text_paused); S(shown_text); S(canvas_gen); S(drawn_rev); S(drawn_st);
-    S(DR); S(cheer_t);
+    S(DR); S(cheer_t); S(panel_low);
     RS_STATE_RASTER(raster);
 }
 #undef S
