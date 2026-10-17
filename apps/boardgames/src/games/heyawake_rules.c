@@ -579,12 +579,7 @@ void hyk_make_ex(int n, int level, uint32_t seed, long budget, hyk_puzzle *p, ui
     for (int attempt = 0; attempt < 300; attempt++) {
         cut_rooms(&q, n, &s);
         ctx_make(&k, &q);
-        if (!shade(&k, sh, &s, pr_below(&s, n))) {
-#ifdef HYK_DEBUG
-            fprintf(stderr, "shade failed\n");
-#endif
-            continue;
-        }
+        if (!shade(&k, sh, &s, pr_below(&s, n))) continue;
         count_rooms(&q, sh);
         int und[HYK_CELLS], nu, lv, got = progress(&q, &work, level, &lv, und, &nu);
         for (int step = 0; step < 30 * n && (lv < BENCH_EASY || lv > level); step++) {
@@ -616,9 +611,6 @@ void hyk_make_ex(int n, int level, uint32_t seed, long budget, hyk_puzzle *p, ui
             ctx_make(&k, &q);
             if (work > 2 * budget) break;
         }
-#ifdef HYK_DEBUG
-        fprintf(stderr, "climb: lv %d got %d of %d work %ld\n", lv, got, n * n, work);
-#endif
         if (lv >= BENCH_EASY && lv <= level) {
             int8_t full[HYK_CELLS];
             memcpy(full, q.num, sizeof full);
