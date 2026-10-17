@@ -6,7 +6,11 @@
  *     and a path's one colour; each pair's dots joined through the squares that may take its colour; the squares
  *     every such way passes through) and the passes of deduction it took;
  *   - its pairs (fewer, longer paths are harder);
- *   - near-duplicates dropped (the same dots turned or mirrored, whatever their colours).
+ *   - near-duplicates dropped (the same dots turned or mirrored, whatever their colours);
+ *   - taste: none with a pair side by side (a path of two squares is no puzzle) or one path over two fifths of the
+ *     grid, none with its dots heaped in one quarter (the fullest at most three times the emptiest) or more than
+ *     three in five on the edges; and how symmetric its dots are (the share with a dot at their half-turn image).
+ * Each chapter ends on a showpiece: of its hardest candidates, the one with the most symmetric dots.
  * Each chapter has its sizes (5 x 5 up to 12 x 12); a size's candidates are ranked by difficulty and picked evenly
  * over a band of that ranking that moves up with the chapters. Then each chapter goes from its easiest to its hardest.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
@@ -25,6 +29,7 @@
 
 typedef struct {
     int n, pairs, grade, rounds;
+    double sym;                                 /* the share of dots with a dot at their half-turn image */
     double score;
     uint8_t colour[NK_CELLS], end[NK_COLOURS][2];
     char key[NK_CELLS + 1];
@@ -95,6 +100,29 @@ static int seen(const char *key)
     return 0;
 }
 
+/* taste: 0 when the dots look made by chance (a pair side by side, a path that fills much of the grid, dots heaped
+ * in one quarter or along the edges); else 1, and *sym: the share of dots whose half-turn image is a dot too */
+static int tasteful(const cand *c, double *sym)
+{
+    int n = c->n, len[NK_COLOURS] = {0}, dot[NK_CELLS] = {0}, q[4] = {0}, edge = 0, mirrored = 0;
+    for (int i = 0; i < n * n; i++) len[c->colour[i]]++;
+    for (int p = 0; p < c->pairs; p++) {
+        if (len[p] < 3 || len[p] * 5 > n * n * 2) return 0;
+        for (int e = 0; e < 2; e++) {
+            int s = c->end[p][e], x = s % n, y = s / n;
+            dot[s] = 1;
+            edge += x == 0 || y == 0 || x == n - 1 || y == n - 1;
+            if (2 * x + 1 != n && 2 * y + 1 != n) q[(2 * x >= n) + 2 * (2 * y >= n)]++;
+        }
+    }
+    int lo = q[0], hi = q[0], dots = 2 * c->pairs;
+    for (int i = 1; i < 4; i++) lo = q[i] < lo ? q[i] : lo, hi = q[i] > hi ? q[i] : hi;
+    if (!lo || hi > 3 * lo || edge * 5 > dots * 3) return 0;
+    for (int s = 0; s < n * n; s++) mirrored += dot[s] && dot[n * n - 1 - s];
+    *sym = (double)mirrored / dots;
+    return 1;
+}
+
 static int make_pool(int n, uint32_t seed0)
 {
     int k = 0, lo, hi;
@@ -104,7 +132,7 @@ static int make_pool(int n, uint32_t seed0)
         memset(c, 0, sizeof *c);
         c->n = n;
         nk_make_n(n, lo, hi, seed, c->colour, c->end, &c->pairs);
-        if (c->pairs < lo || c->pairs > hi) continue;
+        if (c->pairs < lo || c->pairs > hi || !tasteful(c, &c->sym)) continue;
         c->grade = nk_grade(n, c->pairs, (const uint8_t (*)[2])c->end, &c->rounds);
         if (c->grade < 0 || nk_count(n, c->pairs, (const uint8_t (*)[2])c->end, 2, 2000000) != 1) continue;
         canon(c, c->key);
@@ -133,9 +161,14 @@ int main(void)
                     fprintf(stderr, "chapter %d: not enough %dx%d\n", ch + 1, pt->n, pt->n);
                     return 1;
                 }
+                if (p == 1 && i == pt->count - 1)   /* the showpiece: the most symmetric dots of the hardest */
+                    for (int j = at + 1; j < k; j++)
+                        if (!seen(pool[j].key) && pool[j].grade <= pool[at].grade && pool[j].sym > pool[at].sym)
+                            at = j;
                 chosen[nchosen++] = pool[at];
             }
         }
+        cand show = chosen[nchosen - 1];
         for (int i = first + 1; i < nchosen; i++)   /* the chapter from its easiest to its hardest */
             for (int j = i; j > first; j--) {
                 cand *a = &chosen[j - 1], *b = &chosen[j];
@@ -144,6 +177,13 @@ int main(void)
                 *a = *b;
                 *b = t;
             }
+        for (int i = first; i < nchosen; i++)   /* the showpiece last */
+            if (!strcmp(chosen[i].key, show.key)) {
+                memmove(&chosen[i], &chosen[i + 1], (size_t)(nchosen - 1 - i) * sizeof show);
+                chosen[nchosen - 1] = show;
+                break;
+            }
+        fprintf(stderr, "chapter %d: showpiece symmetry %.2f\n", ch + 1, show.sym);
     }
     printf("/*\n * Paths' levels: our own, made by tools/paths_gen.c (paths grown by chance over the grid, kept when the\n"
            " * deductions alone solve them, ranked by how hard those deductions are), six chapters of 25 from the easiest.\n"
