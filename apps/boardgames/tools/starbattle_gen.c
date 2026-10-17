@@ -1,14 +1,17 @@
 /*
- * Star Battle's levels, made by chance and chosen: src/games/starbattle_levels.h. Our own puzzles, from the game's own
- * maker (the stars placed by chance, regions grown round them, cells passed between regions until the reasoning
- * grader finishes it at its level: one solution). Each candidate:
+ * Star Battle's levels, made by chance and chosen for their look: src/games/starbattle_levels.h. Our own
+ * puzzles, from the game's own maker (the stars placed by chance, regions grown round them, cells passed between
+ * regions until the reasoning grader finishes it at its level: one solution). Each candidate:
  *   - its grade (the hardest reasoning the grader needed, in tiers: the cells round a star, full lines and regions;
  *     a star's room, a region held in a line; two or three regions held in as many lines, a star followed to a
  *     contradiction) and its steps, weighed by their tier (its effort);
+ *   - its look (taste): region sizes near each other (no one-cell region, none swallowing the board), compact
+ *     shapes (outlines near a square's: no snakes or ragged arms);
  *   - near-duplicates dropped (the same regions turned or mirrored).
- * Each chapter has two makes (a size, its stars and a level); a make's candidates are ranked by effort and picked
- * evenly over them (the last chapter over its harder part). Then each chapter goes from its smallest and easiest to
- * its biggest and hardest: 5 x 5 with one star a line first, 10 x 10 with two hard last.
+ * Each chapter has two makes (a size, its stars and a level); a make's candidates are ranked by effort, cut in as
+ * many slices as picks, and each pick takes the best-looking of its slice (the last chapter over its harder part).
+ * Then each chapter goes from its smallest and easiest to its biggest and hardest: 5 x 5 with one star a line first,
+ * 10 x 10 with two hard last.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/sbxgen apps/boardgames/tools/starbattle_gen.c \
  *       apps/boardgames/src/games/starbattle_rules.c && /tmp/sbxgen > apps/boardgames/src/games/starbattle_levels.h
@@ -20,13 +23,13 @@
 
 #include "games/starbattle.h"
 
-#define CANDS 60                                /* candidates made for each make */
+#define CANDS 120                               /* candidates made for each make */
 #define CODE (SBX_CELLS + 8)
 
 typedef struct {
     sbx_puz p;
     int grade, steps;
-    double score;
+    double score, taste;
     char key[CODE];
 } cand;
 
@@ -83,6 +86,29 @@ static int seen(const char *key)
     return 0;
 }
 
+/* the look of the regions, lower the better: sizes near each other (no region of one cell, none swallowing the
+ * board), compact shapes (a region's outline against a square's of its size: no snakes, no ragged arms) */
+static double taste(const sbx_puz *p)
+{
+    int n = p->n, size[SBX_MAX] = {0}, edge[SBX_MAX] = {0};
+    for (int y = 0; y < n; y++)
+        for (int x = 0; x < n; x++) {
+            int r = p->region[y * n + x];
+            size[r]++;
+            edge[r] += (x == 0 || p->region[y * n + x - 1] != r) + (x == n - 1 || p->region[y * n + x + 1] != r) +
+                       (y == 0 || p->region[(y - 1) * n + x] != r) + (y == n - 1 || p->region[(y + 1) * n + x] != r);
+        }
+    double mean = (double)n, spread = 0, shape = 0, t = 0;
+    for (int r = 0; r < n; r++) {
+        double d = (size[r] - mean) / mean, sq = 16.0 * size[r];   /* a square's outline, squared */
+        spread += d * d;
+        shape += (double)edge[r] * edge[r] / sq;
+        if (size[r] == 1) t += 1.0;                     /* a one-cell region gives its star away */
+        if (size[r] > 2.2 * mean) t += size[r] / mean - 2.2;
+    }
+    return 3.0 * spread / n + 2.0 * (shape / n - 1) + t;
+}
+
 static int make_pool(const make *m, uint32_t seed0)
 {
     int k = 0;
@@ -96,6 +122,7 @@ static int make_pool(const make *m, uint32_t seed0)
         for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
         if (dup) continue;
         c->score = c->steps + 0.01 * (seed % 7);
+        c->taste = taste(&c->p);
         k++;
     }
     qsort(pool, (size_t)k, sizeof pool[0], by_score);
@@ -112,9 +139,13 @@ int main(void)
             fprintf(stderr, "chapter %d, make %d (%dx%d, %d a line, level %d): %d candidates, effort %d..%d\n", ch + 1,
                     mi + 1, m->n, m->n, m->k, m->level, k, k ? pool[0].steps : 0, k ? pool[k - 1].steps : 0);
             for (int i = 0; i < m->count; i++) {
-                int lo = m->lo * (k - 1) / 100, at = lo + (int)((i + 0.5f) / m->count * (k - 1 - lo));
-                while (at < k && seen(pool[at].key)) at++;
-                if (at >= k) {
+                int lo = m->lo * (k - 1) / 100, at = -1;   /* the best-looking of the pick's own slice */
+                int a = lo + i * (k - 1 - lo) / m->count, b = lo + (i + 1) * (k - 1 - lo) / m->count;
+                for (int j = a; j <= b && j < k; j++)
+                    if (!seen(pool[j].key) && (at < 0 || pool[j].taste < pool[at].taste)) at = j;
+                for (int j = b + 1; at < 0 && j < k; j++)
+                    if (!seen(pool[j].key)) at = j;
+                if (at < 0) {
                     fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, mi + 1);
                     return 1;
                 }
