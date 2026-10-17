@@ -603,11 +603,29 @@ static int hero_frame(const world *w, int i, int t)
     return (t / 24) & 1 ? SPR_HERO_IDLE1 : SPR_HERO_IDLE0;
 }
 
+static int chef_frame(const world *w)
+{
+    const field *c = &w->f[1];
+    return !c->alive ? 2 : (w->lost || (c->chain_shown >= 2 && c->chain_t < 60)) ? 1 : 0;
+}
+
+/* wide screens, 2 fields: the hero and the chef (or the two heroes) on the shelves beside the fields; also behind the
+ * game-over and results panels, which leave them in sight */
+static void side_characters(const world *w, const flayout *L, int t)
+{
+    int xl = (rs_screen_left() + L[0].x - 4) / 2 - 16;
+    int xr = L[1].x + L[1].w + 8 + (rs_screen_right() - (L[1].x + L[1].w + 8)) / 2 - 16;
+    if (w->mode == MODE_DUEL) {
+        chef_load(w->level);
+        chef_spr(chef_frame(w), xr, 128 + hu_bob(t, 64, 2));
+        spr(hero_frame(w, 0, t), xl, 128 + hu_bob(t + 20, 64, 2), 2, 0);
+    } else {
+        for (int i = 0; i < 2; i++) spr(hero_frame(w, i, t), i ? xr : xl, 128 + hu_bob(t + i * 20, 64, 2), 2, player_pal(i));
+    }
+}
+
 static void play_sprites(const world *w, const flayout *L, const region *R, int side, int t)
 {
-    int sx = hu_shake_x(), sy = hu_shake_y();
-    (void)sx;
-    (void)sy;
     if (w->nf == 2) {
         int bx = L[0].x + L[0].w + 4, bw = L[1].x - 4 - bx, mid = bx + bw / 2;
         for (int i = 0; i < 2; i++) {
@@ -615,25 +633,16 @@ static void play_sprites(const world *w, const flayout *L, const region *R, int 
             hu_number_at(f->score, L[i].x + L[i].w / 2, 4, 0, 3);
             if (f->alive && w->phase == PH_PLAY) next_pair(w, f, i ? mid + 8 : mid - 24, 48, 16);
         }
+        if (side) side_characters(w, L, t);
         if (w->mode == MODE_DUEL) {
-            const field *c = &w->f[1];
-            int frame = !c->alive ? 2 : (w->lost || (c->chain_shown >= 2 && c->chain_t < 60)) ? 1 : 0;
-            int bob = hu_bob(t, 64, 2);
             chef_load(w->level);
-            if (side) {
-                int x = L[1].x + L[1].w + 8 + (rs_screen_right() - (L[1].x + L[1].w + 8)) / 2 - 16;
-                chef_spr(frame, x, 128 + bob);
-                spr(hero_frame(w, 0, t), (rs_screen_left() + L[0].x - 4) / 2 - 16, 128 + hu_bob(t + 20, 64, 2), 2, 0);
-            } else {
-                chef_spr(frame, mid - 16, 112 + bob);
+            if (!side) {
+                chef_spr(chef_frame(w), mid - 16, 112 + hu_bob(t, 64, 2));
                 spr(hero_frame(w, 0, t), mid - 16, 184 + hu_bob(t + 20, 64, 2), 2, 0);
             }
         } else {
             for (int i = 0; i < 2; i++) {
-                int x = side ? (i ? L[1].x + L[1].w + 8 + (rs_screen_right() - (L[1].x + L[1].w + 8)) / 2 - 16
-                                  : (rs_screen_left() + L[0].x - 4) / 2 - 16)
-                             : (i ? mid + 2 : mid - 34);
-                spr(hero_frame(w, i, t), x, (side ? 128 : 120) + hu_bob(t + i * 20, 64, 2), 2, player_pal(i));
+                if (!side) spr(hero_frame(w, i, t), i ? mid + 2 : mid - 34, 120 + hu_bob(t + i * 20, 64, 2), 2, player_pal(i));
                 for (int k = 0; k < WINS_NEEDED; k++)                /* the rounds won */
                     spr(w->f[i].wins > k ? SPR_STAR_ON : SPR_STAR_OFF, (i ? mid + 10 : mid - 26) + k * 9, 172, 2, -1);
             }
@@ -715,6 +724,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 spr(SPR_HERO_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]));
             }
         }
+        if (side && w->nf == 2) side_characters(w, L, t);   /* (the shelves beside are bare without them) */
     }
     if (!title && state != ST_OVER) play_sprites(w, L, R, side, t);   /* the panels: only the fields behind */
 }
