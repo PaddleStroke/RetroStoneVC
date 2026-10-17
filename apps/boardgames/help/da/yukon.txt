@@ -1,19 +1,13 @@
 Yukon
 # Målet
-Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge. Et spil for én spiller, i familie med den almindelige kabale, men uden bunke.
-# Opstillingen
-- Syv rækker: den første er ét synligt kort; de andre har 1 til 6 skjulte kort under 5 synlige kort.
-- Alle kort bliver givet: der er ingen bunke.
-- De fire grundbunker ligger øverst til højre, tomme fra start.
+Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge. I familie med den almindelige kabale, men alle kort bliver givet: der er ingen bunke.
 # Flyt kort
 - På en række lægges et kort, der er én lavere og har den anden farve, rød på sort eller sort på rød: en rød 6 på en sort 7.
 - Ethvert synligt kort kan flyttes sammen med alle de kort, der ligger på det, også selv om de ikke ligger i orden.
-- Kun en konge, med det der ligger på den, må fylde en tom plads.
+- Kun en konge, med det der ligger på den, må fylde en tom række.
 - Når et skjult kort ligger øverst i en række, vendes det.
 - Et kort fra en grundbunke må komme ned på en række igen.
 # Spillets afslutning
-Du vinder, når alle kort ligger på grundbunkerne. Så snart alle kort er synlige og kan gå op efter hinanden, går de op af sig selv. Sidder du fast, så fortryd eller start en ny kabale.
+Du vinder, når alle kort ligger på grundbunkerne.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
-# Spil på enheden
-Tryk på et kort for at sende det, med kortene ovenpå, til dets bedste plads: en grundbunke, hvis det kan, ellers en række. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække kort hen, hvor du vil. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Uden tip og uden fortrudte træk: 3 stjerner.

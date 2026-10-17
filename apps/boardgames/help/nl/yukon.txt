@@ -1,10 +1,6 @@
 Yukon
 # Het doel
-Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Een spel voor één speler, verwant aan de gewone patience, maar zonder stapel.
-# De opstelling
-- Zeven kolommen: de eerste is één open kaart; de andere hebben 1 tot 6 gedekte kaarten onder 5 open kaarten.
-- Alle kaarten worden gedeeld: er is geen stapel.
-- De vier aflegstapels liggen rechtsboven, leeg bij het begin.
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Verwant aan de gewone patience, maar alle kaarten worden gedeeld: er is geen stapel.
 # Kaarten verplaatsen
 - Op een kolom leg je een kaart die één lager is en van de andere kleur, rood op zwart of zwart op rood: een rode 6 op een zwarte 7.
 - Elke open kaart mag verplaatst worden, samen met alle kaarten die erop liggen, ook als die niet op volgorde liggen.
@@ -12,8 +8,6 @@ Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van
 - Ligt er bovenop een kolom een gedekte kaart, dan draait die open.
 - Een kaart van een aflegstapel mag terug naar een kolom.
 # Het einde van de partij
-Je wint als alle kaarten op de aflegstapels liggen. Zodra alle kaarten open liggen en ze er een voor een heen kunnen, gaan ze vanzelf omhoog. Zit je vast, maak dan zetten ongedaan of begin een nieuw spel.
+Je wint als alle kaarten op de aflegstapels liggen.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
-# Spelen op het apparaat
-Tik op een kaart om hem, met de kaarten die erop liggen, naar zijn beste plek te sturen: een aflegstapel als hij daar past, anders een kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt kaarten ook slepen en neerleggen waar je wilt. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Zonder hint en zonder ongedaan gemaakte zet: 3 sterren.

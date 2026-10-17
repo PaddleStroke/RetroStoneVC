@@ -1,6 +1,6 @@
 War
 # The aim
-Win all the cards. The children's classic: nobody chooses anything, the cards decide. For 2 to 4 players.
+Win all the cards. Nobody chooses anything: the cards decide.
 # A battle
 - All 52 cards are dealt face down, into one pile for each player.
 - Each player turns over the top card of their pile. The highest card takes all the cards turned and puts them under its pile. Ace is highest, then king, queen, jack, 10 and so on down to 2.
@@ -9,6 +9,4 @@ Win all the cards. The children's classic: nobody chooses anything, the cards de
 - A player with no cards left is out.
 # The end of the game
 - War: the game ends when one player has all the cards.
-- Short game: the game also ends after 26 battles. The player with the most cards wins; players with as many share the win. The number in the middle counts the battles left.
-# Playing on the device
-Lay the device flat between the players: the first player sits at the bottom, the others round the table. Each player taps their own pile to turn a card; the piles waiting for a tap glow. The winning card lights up, then all the cards fly to the winner's pile. In a war the equal cards glow red. Beside each pile: its player's token and number of cards. Undo takes back the last tap.
+- Short game: the game also ends after 26 battles. The player with the most cards wins; players with as many share the win.

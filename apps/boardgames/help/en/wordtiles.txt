@@ -1,23 +1,20 @@
 Word Tiles
 # The aim
-Lay letter tiles on the board to make words that cross like a crossword, and score the most points. For 2 to 4 players. Each rack is secret: the device passes from hand to hand.
-# No dictionary
-The game never checks the words. It only checks where the tiles go, and counts the points of every word a play makes. The players keep each other honest with the challenge.
+Lay letter tiles on the board to make words that cross like a crossword, and score the most points. The game never checks the words, only where the tiles go: the players keep each other honest with the challenge.
 # A turn
-Each player has 7 tiles on their rack. On your turn, do one of these:
-- Play: lay one or more tiles in a single row or column, with no gap (tiles already on the board may fill the gaps), touching the tiles already played. The first play covers the centre star and uses at least two tiles. Then draw from the bag back up to 7 tiles.
-- Exchange: put some of your tiles back in the bag and draw as many new ones, while the bag holds at least 7 tiles.
+Each player has 7 tiles. On your turn, do one of these:
+- Play: lay one or more tiles in a single row or column, with no gap (tiles already on the board may fill the gaps), touching the tiles already played. The first play covers the centre star and uses at least two tiles. Then draw back up to 7.
+- Exchange: put some tiles back in the bag and draw as many, while the bag holds at least 7.
 - Pass.
 # The score
 Every new word a play makes, along its line and across it, scores the values of its letters. The coloured squares count only for the tiles just laid on them:
-- Light green: double letter. Dark green: triple letter (diamonds).
-- Amber: double word. Red: triple word (discs). The centre star is a double word.
-- Two marks: double; three marks: triple.
+- Light green: double letter. Dark green: triple letter.
+- Amber: double word. Red: triple word. The centre star is a double word.
 All seven tiles in one play: 50 more points.
 # The challenge
-Before doing anything else, the next player may challenge the last play. There is no dictionary, so a challenge always succeeds: the play is taken back, its tiles go back to their owner's rack (still hidden) and its points are removed. As in the official rule, that player has lost their turn; the challenger then plays on. Only the next player may challenge. Play fair: challenge a word that does not exist, not a good one.
+Before doing anything else, the next player may challenge the last play. A challenge always succeeds: the play is taken back, its tiles go back to their owner's rack, and that player has lost their turn. Play fair: challenge only a word that does not exist.
 # The tiles
-Our own sets, one per language, worked out from how often each letter appears in that language: 100 letters and 2 blanks. The commoner a letter, the more tiles and the fewer points. A blank stands for any letter and scores nothing. The set follows the app's language (Japanese, Korean and Chinese use the English set). The English set, by points:
+100 letters and 2 blanks, a set for each language: the commoner a letter, the more tiles and the fewer points. A blank stands for any letter and scores nothing. The English set, by points:
 - 1: A×8, E×11, H×6, I×7, N×6, O×7, R×6, S×6, T×8
 - 2: C×3, D×4, L×4, U×3
 - 3: B×2, F×2, G×2, M×3, P×2, W×2, Y×2
@@ -26,6 +23,4 @@ Our own sets, one per language, worked out from how often each letter appears in
 - 8: J×1, Q×1, X×1
 - 9: Z×1
 # The end of the game
-The game ends when a player lays their last tile while the bag is empty (the next player may still challenge that play, or accept it), or after six scoreless turns in a row (passes, exchanges, plays taken back). Each player then loses the points of the tiles left on their rack; the player who went out gains them all. The highest score wins.
-# Playing on the device
-Pass the device round: you only ever see your own rack, at the bottom. Drag a tile onto a square, or tap a tile and then a square. Or tap a square first: an arrow shows the way the word goes (tap it again to turn it down), then tap your tiles one after another. While your finger is on the board, a loupe above it shows the squares magnified: slide to the right square before you lift your finger. Tap a tile you just laid to take it back, or drag it elsewhere; drag tiles along the rack to sort them. A blank opens a grid of letters: tap the one it stands for. The disc on the corner of the word shows what the play would score. The buttons: take the tiles back, shuffle the rack, exchange (tap the tiles to give back, then the check), challenge (it glows when you may), and play (the check; at the end it accepts the last play). The pass button is beside your score; the bag shows the tiles left. Undo takes back the last tile laid, never past the hand-off. At the end, a table shows the tiles left on each rack, the points lost or gained, and the scores.
+The game ends when a player lays their last tile while the bag is empty (the next player may still challenge it), or after six scoreless turns in a row. Each player then loses the points left on their rack; the player who went out gains them all.

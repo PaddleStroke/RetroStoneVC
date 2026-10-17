@@ -1,10 +1,6 @@
 Yukon
 # Das Ziel
-Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, ähnlich wie Klondike, aber ohne Stapel.
-# Der Aufbau
-- Sieben Spalten: Die erste ist eine einzelne offene Karte; die anderen haben 1 bis 6 verdeckte Karten unter 5 offenen Karten.
-- Alle Karten werden ausgeteilt: Es gibt keinen Stapel.
-- Die vier Ablagestapel liegen oben rechts, am Anfang leer.
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ähnlich wie Klondike, aber alle Karten werden ausgeteilt: Es gibt keinen Stapel.
 # Karten bewegen
 - Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist und die andere Farbe hat, Rot auf Schwarz oder Schwarz auf Rot: eine rote 6 auf eine schwarze 7.
 - Jede offene Karte darf ziehen, zusammen mit allen Karten, die auf ihr liegen, auch wenn sie nicht geordnet sind.
@@ -12,8 +8,6 @@ Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufstei
 - Liegt oben auf einer Spalte eine verdeckte Karte, wird sie aufgedeckt.
 - Eine Karte von einem Ablagestapel darf zurück auf eine Spalte.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sobald alle Karten offen liegen und alle der Reihe nach hinaufkönnen, wandern sie von selbst nach oben. Kommst du nicht weiter, nimm Züge zurück oder beginne ein neues Spiel.
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Tippe auf eine Karte, um sie mit den Karten darauf an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst Karten auch ziehen und ablegen, wo du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne.

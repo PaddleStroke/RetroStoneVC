@@ -1,6 +1,6 @@
 Krig
 # Målet
-Att vinna alla korten. Barnens klassiker: ingen väljer något, korten bestämmer. För 2 till 4 spelare.
+Att vinna alla korten. Ingen väljer något: korten bestämmer.
 # Ett stick
 - Alla 52 kort delas ut med baksidan upp, i en hög för varje spelare.
 - Varje spelare vänder det översta kortet i sin hög. Det högsta kortet vinner alla vända kort och lägger dem under sin hög. Ess är högst, sedan kung, dam, knekt, 10 och så vidare ned till 2.
@@ -9,6 +9,4 @@ Att vinna alla korten. Barnens klassiker: ingen väljer något, korten bestämme
 - En spelare utan kort är ute.
 # Partiets slut
 - Krig: partiet slutar när en spelare har alla korten.
-- Kort parti: partiet slutar också efter 26 stick. Den med flest kort vinner; spelare med lika många delar segern. Talet i mitten räknar sticken som är kvar.
-# Spela på enheten
-Lägg enheten platt mellan spelarna: den första spelaren sitter längst ned, de andra runt bordet. Varje spelare trycker på sin egen hög för att vända ett kort; högarna som väntar lyser. Det vinnande kortet lyser upp, och sedan flyger alla korten till vinnarens hög. I ett krig glöder de lika korten rött. Vid varje hög: spelarens markör och antal kort. Ångra tar tillbaka det senaste trycket.
+- Kort parti: partiet slutar också efter 26 stick. Den med flest kort vinner; spelare med lika många delar segern.

@@ -2,13 +2,10 @@ Whist
 # O objetivo
 Duas equipas de dois parceiros, sentados frente a frente, tentam fazer vazas. Cada vaza acima de seis vale um ponto; ganha a primeira equipa a chegar aos 5 pontos (10 no whist longo).
 # O jogo
-- Distribuem-se as 52 cartas, 13 a cada um. A última carta de quem dá é virada para cima: o seu naipe é o trunfo da mão. Fica à vista até quem deu a jogar.
-- Joga primeiro o jogador a seguir a quem deu. Cada um, na sua vez, assiste ao naipe se puder; caso contrário, joga qualquer carta.
-- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe jogado. O ás é a mais alta. Quem ganha a vaza joga primeiro na seguinte.
-# A pontuação
-- Uma equipa marca 1 ponto por cada vaza acima de seis.
-- Honras, quando contam: a equipa que recebeu o ás, o rei, a dama e o valete de trunfo marca 4 pontos; três deles, 2. As vazas contam primeiro, e uma equipa a um ponto da vitória não marca honras.
+- 13 cartas a cada um. A última carta de quem dá é virada para cima: o seu naipe é o trunfo.
+- Joga primeiro o jogador a seguir a quem deu. Assiste ao naipe se puderes; senão, joga qualquer carta.
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe jogado. O ás é a mais alta. Quem ganha joga primeiro na seguinte.
+# As honras
+Quando contam, a equipa que recebeu o ás, o rei, a dama e o valete de trunfo marca 4 pontos; três deles, 2. As vazas contam primeiro, e uma equipa a um ponto da vitória não marca honras.
 # Whist a dois
 Para 2 jogadores: 13 cartas a cada um; o resto forma um monte com a carta de cima virada, e o seu naipe é o trunfo. É obrigatório assistir. Quem ganha a vaza fica com a carta virada, o outro com a seguinte, sem a mostrar; depois vira-se uma nova carta. Esgotado o monte, jogam-se as 13 últimas vazas, e só elas contam: um ponto por cada vaza acima de seis.
-# O fim do jogo
-Ganha a primeira equipa a chegar aos 5 pontos (10 no whist longo).

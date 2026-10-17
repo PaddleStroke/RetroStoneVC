@@ -1,6 +1,6 @@
 Válka
 # Cíl hry
-Vyhrát všechny karty. Dětská klasika: nikdo nic nevybírá, rozhodují karty. Pro 2 až 4 hráče.
+Vyhrát všechny karty. Nikdo nic nevybírá: rozhodují karty.
 # Bitva
 - Všech 52 karet se rozdá lícem dolů, do jedné hromádky pro každého hráče.
 - Každý hráč otočí vrchní kartu své hromádky. Nejvyšší karta bere všechny otočené karty a dá je pod svou hromádku. Nejvyšší je eso, pak král, dáma, kluk, 10 a tak dál až ke 2.
@@ -9,6 +9,4 @@ Vyhrát všechny karty. Dětská klasika: nikdo nic nevybírá, rozhodují karty
 - Hráč bez karet je vyřazen.
 # Konec hry
 - Válka: hra končí, když jeden hráč má všechny karty.
-- Krátká hra: hra končí také po 26 bitvách. Vyhrává ten, kdo má nejvíc karet; hráči se stejným počtem se o vítězství dělí. Číslo uprostřed odpočítává zbývající bitvy.
-# Hra na zařízení
-Položte zařízení naplocho mezi hráče: první hráč sedí dole, ostatní kolem stolu. Každý klepne na svou hromádku a otočí kartu; hromádky, které čekají, svítí. Vítězná karta se rozsvítí a pak všechny karty odletí na hromádku vítěze. Ve válce stejné karty svítí červeně. U každé hromádky: žeton jejího hráče a počet karet. Vrátit vezme zpět poslední klepnutí.
+- Krátká hra: hra končí také po 26 bitvách. Vyhrává ten, kdo má nejvíc karet; hráči se stejným počtem se o vítězství dělí.

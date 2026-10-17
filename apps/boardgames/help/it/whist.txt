@@ -2,13 +2,10 @@ Whist
 # Lo scopo
 Due coppie di compagni, seduti uno di fronte all'altro, cercano di fare prese. Ogni presa oltre la sesta vale un punto; vince la prima coppia che arriva a 5 punti (10 nel whist lungo).
 # Il gioco
-- Si distribuiscono tutte le 52 carte, 13 a testa. L'ultima carta del mazziere viene scoperta: il suo seme è la briscola della mano. Resta in vista finché il mazziere non la gioca.
-- Apre il giocatore dopo il mazziere. A turno ciascuno risponde al seme se può, altrimenti gioca una carta qualsiasi.
+- 13 carte a testa. L'ultima carta del mazziere viene scoperta: il suo seme è la briscola.
+- Apre il giocatore dopo il mazziere. Rispondi al seme se puoi, altrimenti gioca una carta qualsiasi.
 - Vince la presa la briscola più alta, altrimenti la carta più alta del seme d'uscita; l'asso è la più alta. Chi vince la presa apre la successiva.
-# Il punteggio
-- Una coppia segna 1 punto per ogni presa oltre la sesta.
-- Gli onori, quando contano: la coppia che ha ricevuto asso, re, donna e fante di briscola segna 4 punti, tre di essi 2. Le prese contano per prime, e una coppia a un punto dalla vittoria non segna onori.
+# Gli onori
+Quando contano, la coppia che ha ricevuto asso, re, donna e fante di briscola segna 4 punti, tre di essi 2. Le prese contano per prime, e una coppia a un punto dalla vittoria non segna onori.
 # Il whist a due
 Per 2 giocatori: 13 carte a testa, il resto forma un tallone con la prima carta scoperta; il suo seme è la briscola. Bisogna rispondere al seme se si può. Chi vince la presa prende la carta scoperta, l'altro la successiva, senza mostrarla; poi si scopre una nuova carta. Finito il tallone, si giocano le ultime 13 prese, e contano solo quelle: un punto per ogni presa oltre la sesta.
-# La fine della partita
-Vince la prima coppia che arriva a 5 punti (10 nel whist lungo).

@@ -2,13 +2,10 @@ Whist
 # Le but
 Deux équipes de deux partenaires, assis face à face, cherchent à faire des plis. Chaque pli au-delà de six rapporte un point ; la première équipe à 5 points gagne (10 au whist long).
 # Le jeu
-- Les 52 cartes sont distribuées, 13 chacun. La dernière carte du donneur est retournée : sa couleur est l'atout de la donne. Elle reste visible jusqu'à ce que le donneur la joue.
-- Le joueur après le donneur entame. Chacun à son tour fournit la couleur demandée s'il le peut, sinon joue n'importe quelle carte.
+- 13 cartes chacun. La dernière carte du donneur est retournée : sa couleur est l'atout.
+- Le joueur après le donneur entame. Fournis la couleur demandée si tu peux, sinon joue n'importe quelle carte.
 - Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur entamée ; l'as est la plus forte. Le gagnant entame le pli suivant.
-# Le score
-- Une équipe marque 1 point par pli au-delà de six.
-- Les honneurs, quand ils comptent : l'équipe qui a reçu l'as, le roi, la dame et le valet d'atout marque 4 points, trois d'entre eux 2. Les plis comptent d'abord, et une équipe à un point de la victoire ne marque pas d'honneurs.
+# Les honneurs
+Quand ils comptent, l'équipe qui a reçu l'as, le roi, la dame et le valet d'atout marque 4 points, trois d'entre eux 2. Les plis comptent d'abord, et une équipe à un point de la victoire ne marque pas d'honneurs.
 # Le whist à deux
 Pour 2 joueurs : 13 cartes chacun, le reste forme un talon dont la carte du dessus est retournée ; sa couleur est l'atout. Il faut fournir si on le peut. Le gagnant de chaque pli prend la carte retournée, le perdant la suivante, sans la montrer ; puis une nouvelle carte est retournée. Une fois le talon épuisé, on joue les 13 derniers plis, et eux seuls comptent : un point par pli au-delà de six.
-# La fin de la partie
-La première équipe à 5 points (10 au whist long) gagne.

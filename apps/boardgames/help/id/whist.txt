@@ -2,13 +2,10 @@ Whist
 # Tujuan
 Dua tim berisi dua pasangan yang duduk berhadapan berusaha memenangkan trik. Setiap trik di atas enam bernilai satu poin; tim pertama yang mencapai 5 poin menang (10 pada whist panjang).
 # Permainan
-- Ke-52 kartu dibagikan, masing-masing 13. Kartu terakhir pembagi dibuka: jenisnya menjadi truf untuk putaran itu. Kartu itu tetap terlihat sampai pembagi memainkannya.
-- Pemain setelah pembagi membuka. Bergiliran, setiap pemain mengikuti jenis kartu yang dibuka jika bisa; jika tidak, ia memainkan kartu apa saja.
-- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dibuka. As adalah yang tertinggi. Pemenang trik membuka trik berikutnya.
-# Skor
-- Sebuah tim mendapat 1 poin untuk setiap trik di atas enam.
-- Kartu kehormatan, jika dihitung: tim yang mendapat as, raja, ratu, dan jack truf meraih 4 poin, tiga di antaranya 2 poin. Trik dihitung lebih dulu, dan tim yang tinggal satu poin lagi menang tidak mendapat poin kehormatan.
+- Masing-masing 13 kartu. Kartu terakhir pembagi dibuka: jenisnya menjadi truf.
+- Pemain setelah pembagi membuka. Ikuti jenis kartu yang dibuka jika bisa; jika tidak, mainkan kartu apa saja.
+- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dibuka; as adalah yang tertinggi. Pemenang membuka trik berikutnya.
+# Kartu kehormatan
+Jika dihitung, tim yang mendapat as, raja, ratu, dan jack truf meraih 4 poin, tiga di antaranya 2 poin. Trik dihitung lebih dulu, dan tim yang tinggal satu poin lagi menang tidak mendapat poin kehormatan.
 # Whist berdua
-Untuk 2 pemain: masing-masing 13 kartu, sisanya menjadi tumpukan dengan kartu teratas terbuka; jenisnya adalah truf. Wajib mengikuti jenis kartu. Pemenang trik mengambil kartu terbuka, yang kalah mengambil kartu berikutnya secara tertutup; lalu kartu baru dibuka. Setelah tumpukan habis, 13 trik terakhir dimainkan, dan hanya itu yang dihitung: satu poin untuk setiap trik di atas enam.
-# Akhir permainan
-Tim pertama yang mencapai 5 poin (10 pada whist panjang) menang.
+Untuk 2 pemain: masing-masing 13 kartu, sisanya menjadi tumpukan dengan kartu teratas terbuka; jenisnya adalah truf. Ikuti jenis jika bisa. Pemenang trik mengambil kartu terbuka, yang kalah mengambil kartu berikutnya secara tertutup; lalu kartu baru dibuka. Setelah tumpukan habis, 13 trik terakhir dimainkan, dan hanya itu yang dihitung: satu poin untuk setiap trik di atas enam.

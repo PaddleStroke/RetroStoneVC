@@ -1,23 +1,20 @@
 Ordbrickor
 # Målet
-Lägg bokstavsbrickor på brädet så att orden korsar varandra som i ett korsord, och få flest poäng. För 2 till 4 spelare. Varje ställ är hemligt: enheten går från hand till hand.
-# Ingen ordlista
-Spelet kontrollerar aldrig orden. Det kontrollerar bara var brickorna läggs och räknar poängen för varje ord som bildas. Spelarna håller koll på varandra med invändningen.
+Lägg bokstavsbrickor på brädet så att orden korsar varandra som i ett korsord, och få flest poäng. Spelet kontrollerar aldrig orden, bara var brickorna läggs: spelarna håller koll på varandra med invändningen.
 # En tur
-Varje spelare har 7 brickor på sitt ställ. När det är din tur gör du en av de här sakerna:
-- Lägga: lägg en eller flera brickor i en enda rad eller kolumn, utan luckor (brickor på brädet får fylla luckorna), så att de rör vid de brickor som redan ligger där. Första draget täcker stjärnan i mitten och använder minst två brickor. Dra sedan ur påsen tills du har 7 igen.
-- Byta: lägg tillbaka brickor i påsen och dra lika många nya, så länge påsen har minst 7.
+Varje spelare har 7 brickor. När det är din tur gör du en av de här sakerna:
+- Lägga: lägg en eller flera brickor i en enda rad eller kolumn, utan luckor (brickor på brädet får fylla luckorna), så att de rör vid de brickor som redan ligger där. Första draget täcker stjärnan i mitten och använder minst två brickor. Dra sedan tills du har 7 igen.
+- Byta: lägg tillbaka brickor i påsen och dra lika många, så länge påsen har minst 7.
 - Stå över.
 # Poängen
 Varje nytt ord ett drag bildar, på längden och på tvären, ger värdet av sina bokstäver. De färgade rutorna räknas bara för brickorna som just lagts på dem:
-- Ljusgrön: dubbel bokstav. Mörkgrön: trippel bokstav (romber).
-- Bärnsten: dubbelt ord. Röd: trippelt ord (skivor). Stjärnan i mitten ger dubbelt ord.
-- Två märken: dubbelt; tre märken: trippelt.
+- Ljusgrön: dubbel bokstav. Mörkgrön: trippel bokstav.
+- Bärnsten: dubbelt ord. Röd: trippelt ord. Stjärnan i mitten ger dubbelt ord.
 Alla sju brickorna i ett drag: 50 poäng extra.
 # Invändningen
-Innan nästa spelare gör något annat får hen invända mot det senaste draget. Det finns ingen ordlista, så en invändning lyckas alltid: draget tas tillbaka, brickorna går tillbaka till ägarens ställ (fortfarande dolda) och poängen dras av. Som den officiella regeln säger har den spelaren förlorat sin tur; sedan spelar den som invände. Bara nästa spelare får invända. Spela juste: invänd mot ett ord som inte finns, inte mot ett bra.
+Innan nästa spelare gör något annat får hen invända mot det senaste draget. En invändning lyckas alltid: draget tas tillbaka, brickorna går tillbaka till ägarens ställ, och den spelaren har förlorat sin tur. Spela juste: invänd bara mot ett ord som inte finns.
 # Brickorna
-Våra egna satser, en per språk, beräknade utifrån hur ofta varje bokstav förekommer i språket: 100 bokstäver och 2 blanka. Ju vanligare en bokstav är, desto fler brickor och desto färre poäng. En blank bricka står för vilken bokstav som helst och ger inga poäng. Satsen följer appens språk. Å, Ä och Ö är egna bokstäver. Den svenska satsen, efter poäng:
+100 bokstäver och 2 blanka, en sats per språk: ju vanligare en bokstav är, desto fler brickor och desto färre poäng. En blank bricka står för vilken bokstav som helst och ger inga poäng. Å, Ä och Ö är egna bokstäver. Den svenska satsen, efter poäng:
 - 1: A×9, D×5, E×9, I×6, L×5, N×8, R×8, S×6, T×7
 - 2: G×3, K×3, M×4, O×4
 - 3: B×2, C×2, F×2, H×2, P×2, U×2, V×3, Ä×2
@@ -26,6 +23,4 @@ Våra egna satser, en per språk, beräknade utifrån hur ofta varje bokstav fö
 - 8: X×1
 - 10: Z×1
 # Partiets slut
-Partiet slutar när en spelare lägger sin sista bricka medan påsen är tom (nästa spelare får fortfarande invända mot draget eller godta det), eller efter sex turer i rad utan poäng (stå över, byten, drag som tagits tillbaka). Varje spelare förlorar då poängen för brickorna på sitt ställ; den som gick ut får dem alla. Högst poäng vinner.
-# Spela på enheten
-Skicka runt enheten: du ser bara ditt eget ställ, längst ned. Dra en bricka till en ruta, eller tryck på en bricka och sedan på en ruta. Eller tryck först på en ruta: en pil visar ordets riktning (tryck igen för att vända den nedåt), och tryck sedan på dina brickor efter varandra. Medan fingret är på brädet visar ett förstoringsglas ovanför rutorna förstorade: glid till rätt ruta innan du lyfter fingret. Tryck på en bricka du just lagt för att ta tillbaka den, eller dra den någon annanstans; dra brickor längs stället för att ordna dem. En blank bricka öppnar ett rutnät med bokstäver: tryck på den den står för. Skivan i ordets hörn visar vad draget skulle ge. Knapparna: ta tillbaka brickorna, blanda stället, byt (tryck på brickorna du lämnar tillbaka, sedan på bocken), invänd (lyser när du får) och lägg (bocken; i slutet godtar den det senaste draget). Stå över-knappen finns vid din poäng; påsen visar brickorna som är kvar. Ångra tar tillbaka den senast lagda brickan, aldrig förbi överlämningen. I slutet visar en tavla brickorna kvar på varje ställ, poängen som förlorats eller vunnits och poängställningen.
+Partiet slutar när en spelare lägger sin sista bricka medan påsen är tom (nästa spelare får fortfarande invända), eller efter sex turer i rad utan poäng. Varje spelare förlorar då poängen för brickorna på sitt ställ; den som gick ut får dem alla.

@@ -1,23 +1,20 @@
 Kelime Taşları
 # Amaç
-Harf taşlarını tahtaya, kelimeler bir bulmacadaki gibi kesişecek şekilde diz ve en çok puanı topla. 2 ila 4 oyuncu için. Herkesin ıstakası gizlidir: cihaz elden ele dolaşır.
-# Sözlük yok
-Oyun kelimeleri hiçbir zaman denetlemez. Yalnızca taşların nereye konduğunu denetler ve oluşan her kelimenin puanını sayar. Oyuncular itirazla birbirlerini gözetir.
+Harf taşlarını tahtaya, kelimeler bir bulmacadaki gibi kesişecek şekilde diz ve en çok puanı topla. Oyun kelimeleri hiçbir zaman denetlemez, yalnızca taşların nereye konduğunu: oyuncular itirazla birbirlerini gözetir.
 # Bir sıra
-Her oyuncunun ıstakasında 7 taş vardır. Sıran geldiğinde şunlardan birini yap:
-- Oyna: bir ya da daha fazla taşı tek bir satıra ya da sütuna, boşluk bırakmadan (tahtadaki taşlar boşlukları doldurabilir), daha önce oynanmış taşlara değecek şekilde koy. İlk hamle ortadaki yıldızı kapatır ve en az iki taş kullanır. Sonra torbadan çekerek yeniden 7 taşa tamamla.
-- Değiştir: bazı taşları torbaya geri koy ve aynı sayıda yeni taş çek; torbada en az 7 taş olduğu sürece.
+Her oyuncunun 7 taşı vardır. Sıran geldiğinde şunlardan birini yap:
+- Oyna: bir ya da daha fazla taşı tek bir satıra ya da sütuna, boşluk bırakmadan (tahtadaki taşlar boşlukları doldurabilir), daha önce oynanmış taşlara değecek şekilde koy. İlk hamle ortadaki yıldızı kapatır ve en az iki taş kullanır. Sonra yeniden 7 taşa tamamla.
+- Değiştir: bazı taşları torbaya geri koy ve aynı sayıda taş çek; torbada en az 7 taş olduğu sürece.
 - Pas geç.
 # Puanlar
 Bir hamlenin oluşturduğu her yeni kelime, boyuna ve enine, harflerinin değerini kazandırır. Renkli kareler yalnızca üzerlerine yeni konan taşlar için geçerlidir:
-- Açık yeşil: harf iki kat. Koyu yeşil: harf üç kat (baklavalar).
-- Kehribar: kelime iki kat. Kırmızı: kelime üç kat (diskler). Ortadaki yıldız kelimeyi ikiye katlar.
-- İki işaret: iki kat; üç işaret: üç kat.
+- Açık yeşil: harf iki kat. Koyu yeşil: harf üç kat.
+- Kehribar: kelime iki kat. Kırmızı: kelime üç kat. Ortadaki yıldız kelimeyi ikiye katlar.
 Yedi taşın hepsi tek hamlede: 50 puan daha.
 # İtiraz
-Bir sonraki oyuncu, başka bir şey yapmadan önce son hamleye itiraz edebilir. Sözlük olmadığı için itiraz her zaman kazanır: hamle geri alınır, taşlar sahibinin ıstakasına döner (hâlâ gizli) ve puanları silinir. Resmî kuraldaki gibi o oyuncu sırasını kaybeder; ardından itiraz eden oynar. Yalnızca bir sonraki oyuncu itiraz edebilir. Dürüst oyna: var olmayan bir kelimeye itiraz et, iyi bir kelimeye değil.
+Bir sonraki oyuncu, başka bir şey yapmadan önce son hamleye itiraz edebilir. İtiraz her zaman kazanır: hamle geri alınır, taşlar sahibinin ıstakasına döner ve o oyuncu sırasını kaybeder. Dürüst oyna: yalnızca var olmayan bir kelimeye itiraz et.
 # Taşlar
-Kendi setlerimiz, her dil için bir tane, her harfin o dilde ne sıklıkta geçtiğine göre hesaplandı: 100 harf ve 2 boş taş. Bir harf ne kadar yaygınsa o kadar çok taşı vardır ve o kadar az puan değer. Boş taş herhangi bir harfin yerine geçer ve puan getirmez. Set, uygulamanın dilini izler. I ile İ ayrı harflerdir. Türkçe set, puana göre:
+100 harf ve 2 boş taş, her dil için bir set: bir harf ne kadar yaygınsa o kadar çok taşı vardır ve o kadar az puan değer. Boş taş herhangi bir harfin yerine geçer ve puan getirmez. I ile İ ayrı harflerdir. Türkçe set, puana göre:
 - 1: A×11, D×5, E×8, I×5, İ×8, K×5, L×6, N×7, R×7
 - 2: B×3, M×4, S×3, T×3, U×3, Y×3
 - 3: O×3, Ş×2, Ü×2, Z×2
@@ -25,6 +22,4 @@ Kendi setlerimiz, her dil için bir tane, her harfin o dilde ne sıklıkta geçt
 - 5: F×1, Ö×1
 - 10: J×1
 # Oyunun sonu
-Oyun, bir oyuncu torba boşken son taşını koyduğunda (bir sonraki oyuncu bu hamleye yine de itiraz edebilir ya da kabul edebilir) ya da art arda altı puansız sıradan sonra (paslar, değişimler, geri alınan hamleler) biter. Her oyuncu o zaman ıstakasında kalan taşların puanını kaybeder; bitiren oyuncu hepsini kazanır. En yüksek puan kazanır.
-# Cihazda oynamak
-Cihazı elden ele verin: yalnızca kendi ıstakanı görürsün, altta. Bir taşı bir kareye sürükle ya da bir taşa, sonra bir kareye dokun. Ya da önce bir kareye dokun: bir ok kelimenin yönünü gösterir (aşağı çevirmek için yeniden dokun), sonra taşlarına sırayla dokun. Parmağın tahtadayken üstündeki büyüteç kareleri büyük gösterir: parmağını kaldırmadan önce doğru kareye kaydır. Az önce koyduğun bir taşa dokunarak onu geri al ya da başka yere sürükle; taşları düzenlemek için ıstaka boyunca sürükle. Boş taş bir harf ızgarası açar: yerine geçtiği harfe dokun. Kelimenin köşesindeki disk hamlenin kaç puan getireceğini gösterir. Düğmeler: taşları geri al, ıstakayı karıştır, değiştir (geri vereceğin taşlara, sonra onay işaretine dokun), itiraz et (yapabildiğinde parlar) ve oyna (onay işareti; sonunda son hamleyi kabul eder). Pas düğmesi puanının yanındadır; torba kalan taşları gösterir. Geri al son konan taşı geri alır; cihazın el değiştirdiği andan öteye hiçbir zaman geçmez. Sonunda bir tablo her ıstakada kalan taşları, kaybedilen ya da kazanılan puanları ve skorları gösterir.
+Oyun, bir oyuncu torba boşken son taşını koyduğunda (bir sonraki oyuncu yine de itiraz edebilir) ya da art arda altı puansız sıradan sonra biter. Her oyuncu o zaman ıstakasında kalan puanları kaybeder; bitiren oyuncu hepsini kazanır.

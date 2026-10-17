@@ -1,6 +1,6 @@
 Oorlogje
 # Het doel
-Alle kaarten winnen. De kinderklassieker: niemand kiest iets, de kaarten beslissen. Voor 2 tot 4 spelers.
+Alle kaarten winnen. Niemand kiest iets: de kaarten beslissen.
 # Een slag
 - Alle 52 kaarten worden gesloten gedeeld, in één stapel per speler.
 - Elke speler draait de bovenste kaart van zijn stapel om. De hoogste kaart wint alle omgedraaide kaarten en legt ze onder de eigen stapel. Aas is het hoogst, dan heer, vrouw, boer, 10 en zo verder tot de 2.
@@ -9,6 +9,4 @@ Alle kaarten winnen. De kinderklassieker: niemand kiest iets, de kaarten besliss
 - Wie geen kaarten meer heeft, is uit.
 # Het einde van de partij
 - Oorlogje: de partij eindigt als één speler alle kaarten heeft.
-- Kort spel: de partij eindigt ook na 26 slagen. Wie de meeste kaarten heeft, wint; spelers met evenveel delen de winst. Het getal in het midden telt de slagen die over zijn.
-# Spelen op het apparaat
-Leg het apparaat plat tussen de spelers: de eerste speler zit onderaan, de anderen rond de tafel. Iedereen tikt op de eigen stapel om een kaart om te draaien; de stapels die wachten lichten op. De winnende kaart licht op, en dan vliegen alle kaarten naar de stapel van de winnaar. In een oorlog gloeien de gelijke kaarten rood. Naast elke stapel: het stuk van die speler en het aantal kaarten. Ongedaan maken neemt de laatste tik terug.
+- Kort spel: de partij eindigt ook na 26 slagen. Wie de meeste kaarten heeft, wint; spelers met evenveel delen de winst.

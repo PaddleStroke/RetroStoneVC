@@ -1,19 +1,13 @@
 Yukon
 # Le but
-Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Un jeu pour un joueur, proche du Klondike mais sans pioche.
-# La mise en place
-- Sept colonnes : la première n'a qu'une carte, face visible ; les autres ont de 1 à 6 cartes face cachée sous 5 cartes face visible.
-- Toutes les cartes sont distribuées : il n'y a pas de pioche.
-- Les quatre fondations sont en haut à droite, vides au début.
+Monter les 52 cartes sur les quatre fondations, une par couleur, de l'as au roi. Proche du Klondike, mais toutes les cartes sont distribuées : il n'y a pas de pioche.
 # Déplacer les cartes
-- Sur une colonne, pose une carte d'un rang de moins, rouge sur noir ou noir sur rouge : un 6 rouge sur un 7 noir.
+- Sur une colonne, pose une carte d'un rang de moins et de l'autre couleur, rouge sur noir ou noir sur rouge : un 6 rouge sur un 7 noir.
 - N'importe quelle carte visible peut bouger, avec toutes les cartes posées dessus, même si elles ne se suivent pas.
 - Seul un roi, avec ce qui est posé dessus, peut occuper une colonne vide.
 - Quand une carte cachée se retrouve sur le dessus d'une colonne, elle se retourne.
 - Une carte d'une fondation peut redescendre sur une colonne.
 # La fin de la partie
-Tu gagnes quand toutes les cartes sont sur les fondations. Dès que toutes les cartes sont visibles et qu'elles peuvent toutes monter à la suite, elles montent toutes seules. Si tu es bloqué, annule ou commence une nouvelle donne.
+Tu gagnes quand toutes les cartes sont sur les fondations.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
-# Jouer sur l'appareil
-Touche une carte pour l'envoyer, avec les cartes posées dessus, à sa meilleure place : une fondation si elle peut y aller, sinon une colonne. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser des cartes et les poser où tu veux. La lampe montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+Sans indice ni coup annulé : 3 étoiles.

@@ -1,23 +1,20 @@
 Peças de palavras
 # O objetivo
-Coloca peças com letras no tabuleiro para formar palavras que se cruzam como nas palavras cruzadas, e faz mais pontos do que todos. De 2 a 4 jogadores. Cada suporte é secreto: o dispositivo passa de mão em mão.
-# Sem dicionário
-O jogo nunca verifica as palavras. Só verifica onde vão as peças e conta os pontos de cada palavra formada. Os jogadores vigiam-se uns aos outros com a contestação.
+Coloca peças com letras no tabuleiro para formar palavras que se cruzam como nas palavras cruzadas, e faz mais pontos do que todos. O jogo nunca verifica as palavras, só onde vão as peças: os jogadores vigiam-se uns aos outros com a contestação.
 # Uma vez
-Cada jogador tem 7 peças no seu suporte. Na tua vez, faz uma destas coisas:
-- Jogar: coloca uma ou mais peças numa só linha ou coluna, sem buracos (peças já no tabuleiro podem preencher os buracos), a tocar nas peças já jogadas. A primeira jogada cobre a estrela do centro e usa pelo menos duas peças. Depois tira do saco até voltares a ter 7.
+Cada jogador tem 7 peças. Na tua vez, faz uma destas coisas:
+- Jogar: coloca uma ou mais peças numa só linha ou coluna, sem buracos (peças já no tabuleiro podem preencher os buracos), a tocar nas peças já jogadas. A primeira jogada cobre a estrela do centro e usa pelo menos duas peças. Depois tira até voltares a ter 7.
 - Trocar: devolve peças ao saco e tira outras tantas, enquanto o saco tiver pelo menos 7.
 - Passar.
 # Os pontos
 Cada palavra nova que a jogada forma, na sua linha e atravessada, vale a soma das suas letras. As casas coloridas só contam para as peças acabadas de colocar nelas:
-- Verde-claro: letra dupla. Verde-escuro: letra tripla (losangos).
-- Âmbar: palavra dupla. Vermelho: palavra tripla (discos). A estrela do centro é palavra dupla.
-- Duas marcas: duplo; três marcas: triplo.
+- Verde-claro: letra dupla. Verde-escuro: letra tripla.
+- Âmbar: palavra dupla. Vermelho: palavra tripla. A estrela do centro é palavra dupla.
 As sete peças numa só jogada: mais 50 pontos.
 # A contestação
-Antes de fazer qualquer outra coisa, o jogador seguinte pode contestar a última jogada. Não há dicionário, por isso a contestação ganha sempre: a jogada é desfeita, as peças voltam ao suporte do dono (sempre escondidas) e os pontos são retirados. Como manda a regra oficial, esse jogador perdeu a vez; a seguir joga quem contestou. Só o jogador seguinte pode contestar. Joga limpo: contesta uma palavra que não existe, não uma boa.
+Antes de fazer qualquer outra coisa, o jogador seguinte pode contestar a última jogada. A contestação ganha sempre: a jogada é desfeita, as peças voltam ao suporte do dono e esse jogador perdeu a vez. Joga limpo: contesta só uma palavra que não existe.
 # As peças
-Os nossos próprios conjuntos, um por língua, calculados pela frequência de cada letra na língua: 100 letras e 2 jokers. Quanto mais comum a letra, mais peças e menos pontos. Um joker vale qualquer letra e não marca pontos. O conjunto segue a língua da aplicação. Os acentos são ignorados; o Ç é uma letra. O conjunto português, por pontos:
+100 letras e 2 jokers, um conjunto por língua: quanto mais comum a letra, mais peças e menos pontos. Um joker vale qualquer letra e não marca pontos. Os acentos são ignorados; o Ç é uma letra. O conjunto português, por pontos:
 - 1: A×13, D×5, E×11, I×6, M×5, N×5, O×10, R×6, S×7, U×5
 - 2: C×4, L×3, T×4
 - 3: P×3, V×2
@@ -26,6 +23,4 @@ Os nossos próprios conjuntos, um por língua, calculados pela frequência de ca
 - 6: J×1
 - 7: X×1
 # O fim do jogo
-O jogo acaba quando um jogador coloca a sua última peça com o saco vazio (o jogador seguinte ainda pode contestar essa jogada ou aceitá-la), ou depois de seis vezes seguidas sem pontos (passagens, trocas, jogadas desfeitas). Cada jogador perde então os pontos das peças que lhe sobraram no suporte; quem terminou ganha-os todos. Ganha a maior pontuação.
-# Jogar no dispositivo
-Passem o dispositivo: só vês o teu suporte, em baixo. Arrasta uma peça para uma casa, ou toca numa peça e depois numa casa. Ou toca primeiro numa casa: uma seta mostra o sentido da palavra (toca outra vez para a virar para baixo), e depois toca nas tuas peças uma a seguir à outra. Enquanto o dedo está no tabuleiro, uma lupa por cima mostra as casas ampliadas: desliza até à casa certa antes de levantares o dedo. Toca numa peça acabada de colocar para a recuperares, ou arrasta-a para outro sítio; arrasta as peças ao longo do suporte para as ordenares. Um joker abre uma grelha de letras: toca na que ele representa. O disco no canto da palavra mostra quanto valeria a jogada. Os botões: recolher as peças, baralhar o suporte, trocar (toca nas peças a devolver, depois no visto), contestar (brilha quando podes) e jogar (o visto; no fim, aceita a última jogada). O botão de passar está ao lado da tua pontuação; o saco mostra as peças que restam. Anular recolhe a última peça colocada, nunca além da troca de mãos. No fim, uma tabela mostra as peças que sobraram em cada suporte, os pontos perdidos ou ganhos e as pontuações.
+O jogo acaba quando um jogador coloca a sua última peça com o saco vazio (o jogador seguinte ainda a pode contestar), ou depois de seis vezes seguidas sem pontos. Cada jogador perde então os pontos que lhe sobraram no suporte; quem terminou ganha-os todos.

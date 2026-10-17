@@ -2,13 +2,10 @@ Whist
 # The aim
 Two sides of two partners, sitting face to face, try to take tricks. Each trick over six scores a point; the first side to reach 5 points wins (10 in long whist).
 # Playing
-- All 52 cards are dealt, 13 each. The dealer's last card is turned face up: its suit is trumps for the deal. It stays in sight until the dealer plays it.
-- The player after the dealer leads. Each player in turn follows suit if they can, otherwise plays any card.
-- The highest trump wins the trick, or else the highest card of the suit led; the ace is high. The winner leads the next trick.
-# Scoring
-- A side scores 1 point for each trick over six.
-- Honours, when counted: a side dealt the ace, king, queen and jack of trumps scores 4 points, three of them 2. Tricks count first, and a side one point short of the game scores no honours.
+- 13 cards each. The dealer's last card is turned face up: its suit is trumps.
+- The player after the dealer leads. Follow suit if you can, otherwise play any card.
+- The highest trump wins the trick, or else the highest card of the suit led; the ace is high. The winner leads next.
+# Honours
+When counted, a side dealt the ace, king, queen and jack of trumps scores 4 points, three of them 2. Tricks count first, and a side one point short of the game scores no honours.
 # German whist
 For 2 players: 13 cards each, the rest a stock with its top card face up; its suit is trumps. Follow suit if you can. The winner of each trick takes the face-up card, the loser the next one, unseen; then a new card is turned. Once the stock is gone, the last 13 tricks are played, and only they score: a point for each trick over six.
-# The end of the game
-The first side to reach 5 points (10 in long whist) wins.

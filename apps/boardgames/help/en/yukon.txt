@@ -1,10 +1,6 @@
 Yukon
 # The aim
-Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. A game for one player, close to Klondike but with no stock.
-# The layout
-- Seven columns: the first one is a single card face up; the others have 1 to 6 cards face down under 5 cards face up.
-- All the cards are dealt: there is no stock.
-- The four foundations are at the top right, empty at the start.
+Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. Close to Klondike, but all the cards are dealt: there is no stock.
 # Moving cards
 - On a column, put a card one rank lower and of the other colour, red on black or black on red: a red 6 on a black 7.
 - Any face-up card can move, together with all the cards lying on it, even if they are not in order.
@@ -12,8 +8,6 @@ Move all 52 cards to the four foundations, one for each suit, built up from the 
 - When a face-down card is left on top of a column, it turns face up.
 - A card on a foundation may come back down onto a column.
 # The end of the game
-You win when all the cards are on the foundations. Once every card is face up and they can all go up in turn, they go up by themselves. If you are stuck, undo or start a new deal.
+You win when all the cards are on the foundations.
 # Levels and stars
-There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. The die tab after the chapters deals a new game at random. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
-# Playing on the device
-Tap a card to send it, with the cards on it, to its best place: a foundation if it can go there, otherwise a column. A quick second tap sends a card only to a foundation. You can also drag cards and drop them where you want. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+No hint and no undo: 3 stars.

@@ -1,6 +1,6 @@
 Krieg
 # Das Ziel
-Alle Karten gewinnen. Der Kinderklassiker: Niemand wählt etwas, die Karten entscheiden. Für 2 bis 4 Spieler.
+Alle Karten gewinnen. Niemand wählt etwas: Die Karten entscheiden.
 # Ein Stich
 - Alle 52 Karten werden verdeckt verteilt, ein Stapel für jeden Spieler.
 - Jeder Spieler deckt die oberste Karte seines Stapels auf. Die höchste Karte gewinnt alle aufgedeckten Karten und legt sie unter ihren Stapel. Das Ass ist am höchsten, dann König, Dame, Bube, 10 und so weiter bis zur 2.
@@ -9,6 +9,4 @@ Alle Karten gewinnen. Der Kinderklassiker: Niemand wählt etwas, die Karten ents
 - Wer keine Karten mehr hat, ist draußen.
 # Das Ende der Partie
 - Krieg: Die Partie endet, wenn ein Spieler alle Karten hat.
-- Kurzes Spiel: Die Partie endet auch nach 26 Stichen. Wer die meisten Karten hat, gewinnt; Spieler mit gleich vielen teilen sich den Sieg. Die Zahl in der Mitte zählt die übrigen Stiche.
-# Spielen auf dem Gerät
-Lege das Gerät flach zwischen die Spieler: Der erste Spieler sitzt unten, die anderen rund um den Tisch. Jeder tippt auf seinen eigenen Stapel, um eine Karte aufzudecken; die Stapel, die warten, leuchten. Die siegreiche Karte leuchtet auf, dann fliegen alle Karten zum Stapel des Siegers. Im Krieg leuchten die gleichen Karten rot. Neben jedem Stapel: der Stein seines Spielers und seine Kartenzahl. Rückgängig nimmt das letzte Tippen zurück.
+- Kurzes Spiel: Die Partie endet auch nach 26 Stichen. Wer die meisten Karten hat, gewinnt; Spieler mit gleich vielen teilen sich den Sieg.

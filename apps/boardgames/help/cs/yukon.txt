@@ -1,10 +1,6 @@
 Yukon
 # Cíl hry
-Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče, příbuzná obyčejnému solitéru, ale bez balíčku.
-# Rozložení
-- Sedm sloupců: první tvoří jediná karta lícem nahoru; ostatní mají 1 až 6 karet rubem nahoru pod 5 kartami lícem nahoru.
-- Rozdají se všechny karty: balíček není.
-- Čtyři cílové hromádky jsou vpravo nahoře, na začátku prázdné.
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra příbuzná obyčejnému solitéru, ale rozdají se všechny karty: balíček není.
 # Přesouvání karet
 - Na sloupec patří karta o jednu nižší a druhé barvy, červená na černou nebo černá na červenou: červená 6 na černou 7.
 - Přesunout lze kteroukoli otočenou kartu spolu se všemi kartami, které na ní leží, i když nejdou po sobě.
@@ -12,8 +8,6 @@ Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barv
 - Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
 - Kartu z cílové hromádky můžeš vrátit zpět na sloupec.
 # Konec hry
-Vyhraješ, když jsou všechny karty na cílových hromádkách. Jakmile jsou všechny karty otočené a mohou tam postupně dojít, přesunou se samy. Když se zasekneš, vrať tahy nebo začni nové rozdání.
+Vyhraješ, když jsou všechny karty na cílových hromádkách.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami rozdá novou hru náhodně. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
-# Hra na zařízení
-Klepni na kartu a pošleš ji i s kartami na ní na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na sloupec. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Karty můžeš také přetáhnout, kam chceš. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+Bez nápovědy a bez vráceného tahu: 3 hvězdy.

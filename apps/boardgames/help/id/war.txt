@@ -1,6 +1,6 @@
 Perang
 # Tujuan
-Memenangkan semua kartu. Permainan klasik anak-anak: tidak ada yang memilih apa pun, kartulah yang menentukan. Untuk 2 sampai 4 pemain.
+Memenangkan semua kartu. Tidak ada yang memilih apa pun: kartulah yang menentukan.
 # Satu pertempuran
 - Ke-52 kartu dibagikan tertutup, satu tumpukan untuk setiap pemain.
 - Setiap pemain membuka kartu teratas tumpukannya. Kartu tertinggi mengambil semua kartu yang dibuka dan menaruhnya di bawah tumpukannya. As paling tinggi, lalu raja, ratu, jack, 10, dan seterusnya sampai 2.
@@ -9,6 +9,4 @@ Memenangkan semua kartu. Permainan klasik anak-anak: tidak ada yang memilih apa 
 - Pemain yang kartunya habis keluar dari permainan.
 # Akhir permainan
 - Perang: permainan berakhir saat seorang pemain memegang semua kartu.
-- Permainan singkat: permainan juga berakhir setelah 26 pertempuran. Yang punya kartu terbanyak menang; yang jumlahnya sama berbagi kemenangan. Angka di tengah menghitung pertempuran yang tersisa.
-# Bermain di perangkat
-Letakkan perangkat datar di antara para pemain: pemain pertama duduk di bawah, yang lain mengelilingi meja. Setiap pemain mengetuk tumpukannya sendiri untuk membuka kartu; tumpukan yang menunggu menyala. Kartu pemenang bersinar, lalu semua kartu terbang ke tumpukan pemenang. Dalam perang, kartu yang sama menyala merah. Di samping setiap tumpukan: token pemiliknya dan jumlah kartunya. Urungkan membatalkan ketukan terakhir.
+- Permainan singkat: permainan juga berakhir setelah 26 pertempuran. Yang punya kartu terbanyak menang; yang jumlahnya sama berbagi kemenangan.

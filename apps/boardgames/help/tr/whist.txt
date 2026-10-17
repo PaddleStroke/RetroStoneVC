@@ -2,13 +2,10 @@ Whist
 # Amaç
 Karşılıklı oturan iki kişilik iki takım el almaya çalışır. Altının üstündeki her el bir puan getirir; 5 puana ilk ulaşan takım kazanır (uzun whist'te 10).
 # Oyun
-- 52 kartın hepsi dağıtılır, herkese 13. Dağıtanın son kartı açılır: rengi bu elin kozudur. Dağıtan onu oynayana kadar açıkta kalır.
-- Dağıtandan sonraki oyuncu başlar. Herkes sırayla, yapabiliyorsa açılan rengi izler, yoksa istediği kartı oynar.
+- Herkese 13 kart. Dağıtanın son kartı açılır: rengi kozdur.
+- Dağıtandan sonraki oyuncu başlar. Yapabiliyorsan açılan rengi izle, yoksa istediğin kartı oyna.
 - Eli en büyük koz alır, koz yoksa açılan rengin en büyük kartı; en büyüğü as'tır. Eli alan sonrakini başlatır.
-# Puanlama
-- Bir takım altının üstündeki her el için 1 puan alır.
-- Onurlar, sayıldığında: kozun as, papaz, kız ve vale'sini almış takım 4 puan, üçünü almış takım 2 puan alır. Önce eller sayılır; kazanmaya bir puanı kalan takım onur puanı alamaz.
+# Onurlar
+Sayıldığında, kozun as, papaz, kız ve vale'si dağıtılmış takım 4 puan, üçü dağıtılmış takım 2 puan alır. Önce eller sayılır; kazanmaya bir puanı kalan takım onur puanı alamaz.
 # İki kişilik whist
-2 oyuncu için: herkese 13 kart, kalanlar üstteki kartı açık bir deste olur; onun rengi kozdur. Renk izlemek zorunludur. Eli alan açık kartı, kaybeden sonrakini gizlice alır; sonra yeni bir kart açılır. Deste bitince son 13 el oynanır ve yalnızca onlar sayılır: altının üstündeki her el bir puan.
-# Oyunun sonu
-5 puana (uzun whist'te 10) ilk ulaşan takım kazanır.
+2 oyuncu için: herkese 13 kart, kalanlar üstteki kartı açık bir deste olur; onun rengi kozdur. Yapabiliyorsan renk izle. Eli alan açık kartı, kaybeden sonrakini gizlice alır; sonra yeni bir kart açılır. Deste bitince son 13 el oynanır ve yalnızca onlar sayılır: altının üstündeki her el bir puan.

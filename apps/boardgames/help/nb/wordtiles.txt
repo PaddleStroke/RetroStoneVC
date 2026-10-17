@@ -1,23 +1,20 @@
 Ordbrikker
 # Målet
-Legg bokstavbrikker på brettet slik at ordene krysser hverandre som i et kryssord, og få flest poeng. For 2 til 4 spillere. Hvert stativ er hemmelig: enheten går fra hånd til hånd.
-# Ingen ordbok
-Spillet sjekker aldri ordene. Det sjekker bare hvor brikkene legges, og teller poengene for hvert ord som dannes. Spillerne holder øye med hverandre med innsigelsen.
+Legg bokstavbrikker på brettet slik at ordene krysser hverandre som i et kryssord, og få flest poeng. Spillet sjekker aldri ordene, bare hvor brikkene legges: spillerne holder øye med hverandre med innsigelsen.
 # En tur
-Hver spiller har 7 brikker på stativet sitt. Når det er din tur, gjør du én av disse tingene:
-- Legge: legg én eller flere brikker i én rad eller kolonne, uten hull (brikker på brettet kan fylle hullene), inntil brikkene som allerede ligger der. Første trekk dekker stjernen i midten og bruker minst to brikker. Trekk deretter fra posen til du har 7 igjen.
-- Bytte: legg brikker tilbake i posen og trekk like mange nye, så lenge posen har minst 7.
+Hver spiller har 7 brikker. Når det er din tur, gjør du én av disse tingene:
+- Legge: legg én eller flere brikker i én rad eller kolonne, uten hull (brikker på brettet kan fylle hullene), inntil brikkene som allerede ligger der. Første trekk dekker stjernen i midten og bruker minst to brikker. Trekk deretter til du har 7 igjen.
+- Bytte: legg noen brikker tilbake i posen og trekk like mange, så lenge posen har minst 7.
 - Stå over.
 # Poengene
 Hvert nytt ord et trekk danner, på langs og på tvers, gir verdien av bokstavene sine. De fargede rutene teller bare for brikkene som nettopp er lagt på dem:
-- Lysegrønn: dobbel bokstav. Mørkegrønn: trippel bokstav (ruter).
-- Rav: dobbelt ord. Rød: trippelt ord (skiver). Stjernen i midten gir dobbelt ord.
-- To merker: dobbelt; tre merker: trippelt.
+- Lysegrønn: dobbel bokstav. Mørkegrønn: trippel bokstav.
+- Rav: dobbelt ord. Rød: trippelt ord. Stjernen i midten gir dobbelt ord.
 Alle sju brikkene i ett trekk: 50 poeng ekstra.
 # Innsigelsen
-Før neste spiller gjør noe annet, kan han protestere mot det siste trekket. Det finnes ingen ordbok, så en innsigelse lykkes alltid: trekket tas tilbake, brikkene går tilbake til eierens stativ (fortsatt skjult), og poengene trekkes fra. Som den offisielle regelen sier, har den spilleren mistet turen sin; deretter spiller den som protesterte. Bare neste spiller kan protestere. Spill ærlig: protester mot et ord som ikke finnes, ikke mot et godt.
+Før neste spiller gjør noe annet, kan han protestere mot det siste trekket. En innsigelse lykkes alltid: trekket tas tilbake, brikkene går tilbake til eierens stativ, og den spilleren har mistet turen sin. Spill ærlig: protester bare mot et ord som ikke finnes.
 # Brikkene
-Våre egne sett, ett per språk, regnet ut fra hvor ofte hver bokstav forekommer i språket: 100 bokstaver og 2 blanke. Jo vanligere en bokstav er, jo flere brikker og jo færre poeng. En blank brikke står for hvilken som helst bokstav og gir ingen poeng. Settet følger appens språk. Æ, Ø og Å er egne bokstaver. Det norske settet, etter poeng:
+100 bokstaver og 2 blanke, ett sett per språk: jo vanligere en bokstav er, jo flere brikker og jo færre poeng. En blank brikke står for hvilken som helst bokstav og gir ingen poeng. Æ, Ø og Å er egne bokstaver. Det norske settet, etter poeng:
 - 1: A×6, E×14, I×6, L×5, N×8, O×5, R×8, S×6, T×7
 - 2: D×5, G×4, K×3, M×4
 - 3: B×2, F×2, H×2, P×2, U×2, V×3
@@ -26,6 +23,4 @@ Våre egne sett, ett per språk, regnet ut fra hvor ofte hver bokstav forekommer
 - 7: Æ×1
 - 8: C×1
 # Slutten på spillet
-Spillet slutter når en spiller legger sin siste brikke mens posen er tom (neste spiller kan fortsatt protestere mot trekket eller godta det), eller etter seks turer på rad uten poeng (stå over, bytte, trekk tatt tilbake). Hver spiller mister da poengene for brikkene på stativet sitt; den som gikk ut, får dem alle. Høyeste poengsum vinner.
-# Spill på enheten
-Send enheten rundt: du ser bare ditt eget stativ, nederst. Dra en brikke til en rute, eller trykk på en brikke og så på en rute. Eller trykk først på en rute: en pil viser ordets retning (trykk igjen for å snu den nedover), og trykk så på brikkene dine etter hverandre. Mens fingeren er på brettet, viser en lupe over den rutene forstørret: skyv til riktig rute før du løfter fingeren. Trykk på en brikke du nettopp la, for å ta den tilbake, eller dra den et annet sted; dra brikker langs stativet for å ordne dem. En blank brikke åpner et rutenett med bokstaver: trykk på den den står for. Skiven i ordets hjørne viser hva trekket ville gi. Knappene: ta brikkene tilbake, stokk stativet, bytt (trykk på brikkene du gir tilbake, så på haken), innsigelse (lyser når du kan) og legg (haken; til slutt godtar den det siste trekket). Stå over-knappen er ved poengsummen din; posen viser brikkene som er igjen. Angre tar tilbake den sist lagte brikken, aldri forbi overleveringen. Til slutt viser en tavle brikkene igjen på hvert stativ, poengene tapt eller vunnet og poengsummene.
+Spillet slutter når en spiller legger sin siste brikke mens posen er tom (neste spiller kan fortsatt protestere), eller etter seks turer på rad uten poeng. Hver spiller mister da poengene for brikkene på stativet sitt; den som gikk ut, får dem alle.

@@ -2,13 +2,10 @@ Whist
 # Het doel
 Twee teams van twee partners, tegenover elkaar, proberen slagen te halen. Elke slag boven de zes levert een punt op; het eerste team met 5 punten wint (10 bij lang whist).
 # Het spel
-- Alle 52 kaarten worden gedeeld, 13 per speler. De laatste kaart van de gever wordt open gelegd: die kleur is troef voor dit spel. Ze blijft zichtbaar tot de gever haar speelt.
-- De speler na de gever komt uit. Om de beurt bekent ieder kleur als dat kan, anders speelt hij een willekeurige kaart.
-- De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur; de aas is het hoogst. Wie de slag wint, komt weer uit.
-# De telling
-- Een team krijgt 1 punt voor elke slag boven de zes.
-- Honneurs, als ze tellen: een team dat aas, heer, vrouw en boer van troef kreeg, krijgt 4 punten, voor drie ervan 2. De slagen tellen eerst, en een team dat nog één punt van de winst af is, krijgt geen honneurs.
+- Elk 13 kaarten. De laatste kaart van de gever wordt opengelegd: die kleur is troef.
+- De speler na de gever komt uit. Beken kleur als je kunt, anders speel je een willekeurige kaart.
+- De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur; de aas is het hoogst. De winnaar komt weer uit.
+# Honneurs
+Als ze tellen, krijgt een team dat aas, heer, vrouw en boer van troef kreeg 4 punten, voor drie ervan 2. De slagen tellen eerst, en een team dat nog één punt van de winst af is, krijgt geen honneurs.
 # Whist voor twee
 Voor 2 spelers: 13 kaarten elk, de rest vormt een stapel met de bovenste kaart open; die kleur is troef. Kleur bekennen is verplicht. Wie een slag wint, neemt de open kaart, de ander de volgende, gesloten; dan wordt een nieuwe kaart omgedraaid. Is de stapel op, dan worden de laatste 13 slagen gespeeld, en alleen die tellen: een punt voor elke slag boven de zes.
-# Het einde van de partij
-Het eerste team met 5 punten (10 bij lang whist) wint.

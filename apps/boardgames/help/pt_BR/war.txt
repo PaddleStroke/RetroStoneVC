@@ -1,6 +1,6 @@
 Guerra
 # O objetivo
-Ganhar todas as cartas. O clássico das crianças: ninguém escolhe nada, as cartas decidem. De 2 a 4 jogadores.
+Ganhar todas as cartas. Ninguém escolhe nada: as cartas decidem.
 # Uma rodada
 - As 52 cartas são distribuídas viradas para baixo, num monte para cada jogador.
 - Cada jogador vira a carta de cima do seu monte. A carta mais alta leva todas as cartas viradas e as põe embaixo do seu monte. O ás é a mais alta, depois rei, dama, valete, 10 e assim por diante até o 2.
@@ -9,6 +9,4 @@ Ganhar todas as cartas. O clássico das crianças: ninguém escolhe nada, as car
 - Quem fica sem cartas está fora.
 # O fim da partida
 - Guerra: a partida acaba quando um jogador tem todas as cartas.
-- Partida curta: ela também acaba depois de 26 rodadas. Vence quem tiver mais cartas; quem tiver o mesmo número divide a vitória. O número no meio conta as rodadas que faltam.
-# Jogando no aparelho
-Deixe o aparelho deitado entre os jogadores: o primeiro jogador fica embaixo, os outros em volta da mesa. Cada um toca no próprio monte para virar uma carta; os montes que estão esperando brilham. A carta vencedora se ilumina, e então todas as cartas voam para o monte do vencedor. Na guerra, as cartas iguais brilham em vermelho. Ao lado de cada monte: a peça do seu jogador e o número de cartas. Desfazer desfaz o último toque.
+- Partida curta: ela também acaba depois de 26 rodadas. Vence quem tiver mais cartas; quem tiver o mesmo número divide a vitória.

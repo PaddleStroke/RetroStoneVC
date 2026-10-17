@@ -1,6 +1,6 @@
 Battaglia
 # Lo scopo
-Vincere tutte le carte. Il classico dei bambini: nessuno sceglie niente, decidono le carte. Da 2 a 4 giocatori.
+Vincere tutte le carte. Nessuno sceglie niente: decidono le carte.
 # Una presa
 - Si distribuiscono tutte le 52 carte coperte, in un mucchio per ogni giocatore.
 - Ogni giocatore scopre la carta in cima al suo mucchio. La carta più alta prende tutte le carte scoperte e le mette sotto il suo mucchio. L'asso è la più alta, poi re, donna, fante, 10 e così via fino al 2.
@@ -9,6 +9,4 @@ Vincere tutte le carte. Il classico dei bambini: nessuno sceglie niente, decidon
 - Chi resta senza carte è fuori.
 # La fine della partita
 - Battaglia: la partita finisce quando un giocatore ha tutte le carte.
-- Partita breve: finisce anche dopo 26 prese. Vince chi ha più carte; chi ne ha altrettante condivide la vittoria. Il numero al centro conta le prese rimaste.
-# Giocare sul dispositivo
-Appoggiate il dispositivo piatto tra i giocatori: il primo giocatore siede in basso, gli altri intorno al tavolo. Ognuno tocca il proprio mucchio per scoprire una carta; i mucchi in attesa brillano. La carta vincente si illumina, poi tutte le carte volano al mucchio del vincitore. In una battaglia le carte uguali brillano di rosso. Accanto a ogni mucchio: la pedina del suo giocatore e il numero di carte. Annulla ritira l'ultimo tocco.
+- Partita breve: finisce anche dopo 26 prese. Vince chi ha più carte; chi ne ha altrettante condivide la vittoria.

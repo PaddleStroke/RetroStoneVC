@@ -2,13 +2,10 @@ Whist
 # Målet
 To hold med to makkere, der sidder over for hinanden, prøver at tage stik. Hvert stik over seks giver et point; det første hold med 5 point vinder (10 i langt whist).
 # Spillet
-- Alle 52 kort gives ud, 13 til hver. Kortgiverens sidste kort vendes: dets kulør er trumf i spillet. Det bliver liggende synligt, indtil kortgiveren spiller det.
-- Spilleren efter kortgiveren spiller ud. På skift bekender hver kulør, hvis det er muligt, ellers spilles et vilkårligt kort.
+- 13 kort til hver. Kortgiverens sidste kort vendes: dets kulør er trumf.
+- Spilleren efter kortgiveren spiller ud. Bekend kulør, hvis du kan, ellers spil et vilkårligt kort.
 - Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør; esset er højest. Vinderen spiller ud til næste stik.
-# Pointene
-- Et hold får 1 point for hvert stik over seks.
-- Honnører, når de tæller: et hold, der fik es, konge, dame og knægt i trumf, får 4 point, for tre af dem 2. Stikkene tæller først, og et hold, der mangler ét point, får ingen honnører.
+# Honnører
+Når de tæller, får et hold, der fik es, konge, dame og knægt i trumf, 4 point, for tre af dem 2. Stikkene tæller først, og et hold, der mangler ét point til spillet, får ingen honnører.
 # Whist for to
-For 2 spillere: 13 kort til hver, resten er en bunke med det øverste kort vendt; dets kulør er trumf. Man skal bekende kulør. Vinderen af stikket tager det vendte kort, taberen det næste, skjult; så vendes et nyt kort. Når bunken er tom, spilles de sidste 13 stik, og kun de tæller: et point for hvert stik over seks.
-# Spillets afslutning
-Det første hold med 5 point (10 i langt whist) vinder.
+For 2 spillere: 13 kort til hver, resten er en bunke med det øverste kort vendt; dets kulør er trumf. Bekend kulør, hvis du kan. Vinderen af hvert stik tager det vendte kort, taberen det næste, skjult; så vendes et nyt kort. Når bunken er tom, spilles de sidste 13 stik, og kun de tæller: et point for hvert stik over seks.

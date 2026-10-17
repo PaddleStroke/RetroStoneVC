@@ -2,13 +2,10 @@ Whist
 # Das Ziel
 Zwei Parteien aus je zwei Partnern, die einander gegenübersitzen, versuchen Stiche zu machen. Jeder Stich über sechs bringt einen Punkt; die Partei, die zuerst 5 Punkte erreicht, gewinnt (10 beim langen Whist).
 # Das Spiel
-- Alle 52 Karten werden verteilt, 13 für jeden. Die letzte Karte des Gebers wird aufgedeckt: Ihre Farbe ist Trumpf für dieses Spiel. Sie bleibt sichtbar, bis der Geber sie spielt.
-- Der Spieler nach dem Geber spielt aus. Reihum bedient jeder die ausgespielte Farbe, wenn er kann, sonst spielt er eine beliebige Karte.
-- Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe; das Ass ist am höchsten. Wer den Stich gewinnt, spielt als Nächster aus.
-# Die Wertung
-- Eine Partei erhält 1 Punkt für jeden Stich über sechs.
-- Honneurs, wenn sie zählen: Eine Partei, die Ass, König, Dame und Bube in Trumpf erhalten hat, bekommt 4 Punkte, für drei davon 2. Die Stiche zählen zuerst, und eine Partei, der nur noch ein Punkt fehlt, bekommt keine Honneurs.
+- Jeder bekommt 13 Karten. Die letzte Karte des Gebers wird aufgedeckt: Ihre Farbe ist Trumpf.
+- Der Spieler nach dem Geber spielt aus. Bediene die ausgespielte Farbe, wenn du kannst, sonst spiel eine beliebige Karte.
+- Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe; das Ass ist am höchsten. Der Gewinner spielt als Nächster aus.
+# Honneurs
+Wenn sie zählen, bekommt eine Partei, die Ass, König, Dame und Bube in Trumpf erhalten hat, 4 Punkte, für drei davon 2. Die Stiche zählen zuerst, und eine Partei, der nur noch ein Punkt fehlt, bekommt keine Honneurs.
 # Whist zu zweit
 Für 2 Spieler: je 13 Karten, der Rest bildet einen Stapel, dessen oberste Karte offen liegt; ihre Farbe ist Trumpf. Es besteht Bedienpflicht. Wer einen Stich gewinnt, nimmt die offene Karte, der andere die nächste, verdeckt; dann wird eine neue Karte aufgedeckt. Ist der Stapel leer, werden die letzten 13 Stiche gespielt, und nur sie zählen: ein Punkt für jeden Stich über sechs.
-# Das Ende der Partie
-Die Partei, die zuerst 5 Punkte erreicht (10 beim langen Whist), gewinnt.

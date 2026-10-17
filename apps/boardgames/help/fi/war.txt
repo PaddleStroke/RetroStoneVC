@@ -1,6 +1,6 @@
 Sota
 # Tavoite
-Voita kaikki kortit. Lasten klassikko: kukaan ei valitse mitään, kortit ratkaisevat. 2–4 pelaajalle.
+Voita kaikki kortit. Kukaan ei valitse mitään: kortit ratkaisevat.
 # Tikki
 - Kaikki 52 korttia jaetaan kuvapuoli alaspäin, yksi pino kullekin pelaajalle.
 - Jokainen kääntää pinonsa päällimmäisen kortin. Suurin kortti voittaa kaikki käännetyt kortit ja panee ne pinonsa pohjalle. Ässä on suurin, sitten kuningas, kuningatar, jätkä, 10 ja niin edelleen kakkoseen asti.
@@ -9,6 +9,4 @@ Voita kaikki kortit. Lasten klassikko: kukaan ei valitse mitään, kortit ratkai
 - Pelaaja, jolta kortit loppuvat, on ulkona.
 # Pelin loppu
 - Sota: peli päättyy, kun yhdellä pelaajalla on kaikki kortit.
-- Lyhyt peli: peli päättyy myös 26 tikin jälkeen. Eniten kortteja omaava voittaa; yhtä monta omaavat jakavat voiton. Keskellä oleva luku laskee jäljellä olevat tikit.
-# Pelaaminen laitteella
-Pane laite pöydälle pelaajien väliin: ensimmäinen pelaaja istuu alhaalla, muut pöydän ympärillä. Jokainen napauttaa omaa pinoaan kääntääkseen kortin; vuoroaan odottavat pinot hehkuvat. Voittava kortti syttyy valoon, ja sitten kaikki kortit lentävät voittajan pinoon. Sodassa tasakortit hehkuvat punaisina. Jokaisen pinon vieressä: pelaajan merkki ja korttien määrä. Kumoa peruu viimeisen napautuksen.
+- Lyhyt peli: peli päättyy myös 26 tikin jälkeen. Eniten kortteja omaava voittaa; yhtä monta omaavat jakavat voiton.

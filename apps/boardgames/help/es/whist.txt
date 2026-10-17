@@ -2,13 +2,10 @@ Whist
 # El objetivo
 Dos equipos de dos compañeros, sentados frente a frente, intentan ganar bazas. Cada baza por encima de seis vale un punto; gana el primer equipo que llega a 5 puntos (10 en el whist largo).
 # El juego
-- Se reparten las 52 cartas, 13 a cada uno. La última carta del repartidor se pone boca arriba: su palo es el triunfo de la mano. Queda a la vista hasta que el repartidor la juega.
-- Sale el jugador que sigue al repartidor. Cada uno a su turno sirve el palo de salida si puede; si no, juega cualquier carta.
-- Gana la baza el triunfo más alto o, si no hay, la carta más alta del palo de salida; el as es la más alta. Quien gana la baza sale en la siguiente.
-# La puntuación
-- Un equipo gana 1 punto por cada baza por encima de seis.
-- Los honores, cuando cuentan: el equipo que recibió el as, el rey, la reina y la jota de triunfo gana 4 puntos; tres de ellos, 2. Las bazas cuentan primero, y un equipo al que le falta un punto para ganar no cuenta honores.
+- 13 cartas cada uno. La última carta del repartidor se pone boca arriba: su palo es el triunfo.
+- Sale el jugador que sigue al repartidor. Sirve el palo de salida si puedes; si no, juega cualquier carta.
+- Gana la baza el triunfo más alto o, si no hay, la carta más alta del palo de salida; el as es la más alta. Quien gana sale en la siguiente.
+# Los honores
+Cuando cuentan, el equipo que recibió el as, el rey, la reina y la jota de triunfo gana 4 puntos; tres de ellos, 2. Las bazas cuentan primero, y un equipo al que le falta un punto para ganar no cuenta honores.
 # El whist para dos
 Para 2 jugadores: 13 cartas cada uno; el resto forma un mazo con la carta de arriba boca arriba, y su palo es el triunfo. Hay que servir si se puede. Quien gana cada baza toma la carta descubierta, y el otro la siguiente, sin mostrarla; luego se descubre otra carta. Cuando se acaba el mazo, se juegan las 13 últimas bazas, y solo ellas cuentan: un punto por cada baza por encima de seis.
-# El final de la partida
-Gana el primer equipo que llega a 5 puntos (10 en el whist largo).

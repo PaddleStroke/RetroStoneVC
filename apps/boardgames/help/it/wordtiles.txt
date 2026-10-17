@@ -1,29 +1,24 @@
 Tessere di parole
 # Lo scopo
-Posa tessere con lettere sul tabellone per formare parole che si incrociano come in un cruciverba, e fai più punti di tutti. Da 2 a 4 giocatori. Ogni leggio è segreto: il dispositivo passa di mano in mano.
-# Niente dizionario
-Il gioco non controlla mai le parole. Controlla solo dove vanno le tessere e conta i punti di ogni parola formata. I giocatori si controllano a vicenda con la contestazione.
+Posa tessere con lettere sul tabellone per formare parole che si incrociano come in un cruciverba, e fai più punti di tutti. Il gioco non controlla mai le parole, solo dove vanno le tessere: i giocatori si controllano a vicenda con la contestazione.
 # Un turno
-Ogni giocatore ha 7 tessere sul leggio. Al tuo turno, fai una di queste cose:
-- Giocare: posa una o più tessere in una sola riga o colonna, senza buchi (le tessere già sul tabellone possono riempirli), toccando le tessere già giocate. La prima giocata copre la stella al centro e usa almeno due tessere. Poi pesca dal sacchetto fino a tornare a 7.
+Ogni giocatore ha 7 tessere. Al tuo turno, fai una di queste cose:
+- Giocare: posa una o più tessere in una sola riga o colonna, senza buchi (le tessere già sul tabellone possono riempirli), toccando le tessere già giocate. La prima giocata copre la stella al centro e usa almeno due tessere. Poi pesca fino a tornare a 7.
 - Cambiare: rimetti delle tessere nel sacchetto e pescane altrettante, finché il sacchetto ne contiene almeno 7.
 - Passare.
 # I punti
 Ogni nuova parola formata, lungo la giocata e di traverso, vale la somma delle sue lettere. Le caselle colorate contano solo per le tessere appena posate sopra:
-- Verde chiaro: lettera doppia. Verde scuro: lettera tripla (rombi).
-- Ambra: parola doppia. Rosso: parola tripla (dischi). La stella al centro è parola doppia.
-- Due segni: doppio; tre segni: triplo.
+- Verde chiaro: lettera doppia. Verde scuro: lettera tripla.
+- Ambra: parola doppia. Rosso: parola tripla. La stella al centro è parola doppia.
 Tutte e sette le tessere in una giocata: 50 punti in più.
 # La contestazione
-Prima di fare qualsiasi altra cosa, il giocatore successivo può contestare l'ultima giocata. Non c'è dizionario, quindi la contestazione riesce sempre: la giocata viene ritirata, le sue tessere tornano sul leggio del proprietario (sempre nascoste) e i suoi punti vengono tolti. Come vuole la regola ufficiale, quel giocatore ha perso il turno; poi gioca chi ha contestato. Solo il giocatore successivo può contestare. Gioca pulito: contesta una parola che non esiste, non una buona.
+Prima di fare qualsiasi altra cosa, il giocatore successivo può contestare l'ultima giocata. La contestazione riesce sempre: la giocata viene ritirata, le sue tessere tornano sul leggio del proprietario, e quel giocatore ha perso il turno. Gioca pulito: contesta solo una parola che non esiste.
 # Le tessere
-I nostri set, uno per lingua, calcolati in base a quanto spesso ogni lettera compare nella lingua: 100 lettere e 2 jolly. Più una lettera è comune, più tessere ha e meno punti vale. Un jolly sostituisce qualsiasi lettera e non vale nulla. Il set segue la lingua dell'app. Gli accenti si ignorano. Il set italiano, per punti:
+100 lettere e 2 jolly, un set per lingua: più una lettera è comune, più tessere ha e meno punti vale. Un jolly sostituisce qualsiasi lettera e non vale nulla. Il set segue la lingua dell'app. Gli accenti si ignorano. Il set italiano, per punti:
 - 1: A×11, E×11, I×11, L×6, N×7, O×9, R×6, S×5, T×6
 - 2: C×5, D×4, P×3, U×3
 - 3: G×2, H×2, M×3, V×2
 - 4: B×1, F×1
 - 5: Q×1, Z×1
 # La fine della partita
-La partita finisce quando un giocatore posa l'ultima tessera con il sacchetto vuoto (il giocatore successivo può ancora contestare quella giocata o accettarla), oppure dopo sei turni di fila senza punti (passaggi, cambi, giocate ritirate). Ognuno perde allora i punti delle tessere rimaste sul leggio; chi ha chiuso li guadagna tutti. Vince il punteggio più alto.
-# Giocare sul dispositivo
-Passa il dispositivo: vedi solo il tuo leggio, in basso. Trascina una tessera su una casella, oppure tocca una tessera e poi una casella. Oppure tocca prima una casella: una freccia mostra la direzione della parola (toccala di nuovo per girarla in basso), poi tocca le tessere una dopo l'altra. Finché il dito è sul tabellone, una lente sopra mostra le caselle ingrandite: scorri fino alla casella giusta prima di sollevare il dito. Tocca una tessera appena posata per riprenderla, o trascinala altrove; trascina le tessere lungo il leggio per ordinarle. Un jolly apre una griglia di lettere: tocca quella che rappresenta. Il disco all'angolo della parola mostra quanto varrebbe la giocata. I pulsanti: riprendere le tessere, mescolare il leggio, cambiare (tocca le tessere da rendere, poi la spunta), contestare (si illumina quando puoi) e giocare (la spunta; alla fine accetta l'ultima giocata). Il pulsante per passare è accanto al tuo punteggio; il sacchetto mostra le tessere rimaste. Annulla riprende l'ultima tessera posata, mai oltre il passaggio di mano. Alla fine, una tabella mostra le tessere rimaste su ogni leggio, i punti persi o guadagnati e i punteggi.
+La partita finisce quando un giocatore posa l'ultima tessera con il sacchetto vuoto (il giocatore successivo può ancora contestare quella giocata), oppure dopo sei turni di fila senza punti. Ognuno perde allora i punti delle tessere rimaste sul leggio; chi ha chiuso li guadagna tutti.

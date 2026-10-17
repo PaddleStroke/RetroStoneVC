@@ -1,10 +1,6 @@
 Yukon
 # Tujuan
-Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain, mirip Solitaire biasa tetapi tanpa tumpukan.
-# Susunan
-- Tujuh kolom: yang pertama satu kartu terbuka; yang lain berisi 1 sampai 6 kartu tertutup di bawah 5 kartu terbuka.
-- Semua kartu dibagikan: tidak ada tumpukan.
-- Empat fondasi ada di kanan atas, kosong di awal.
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Mirip Solitaire biasa, tetapi semua kartu dibagikan: tidak ada tumpukan.
 # Memindahkan kartu
 - Di atas kolom diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain, merah di atas hitam atau hitam di atas merah: 6 merah di atas 7 hitam.
 - Kartu terbuka mana pun bisa dipindahkan bersama semua kartu di atasnya, walaupun tidak berurutan.
@@ -12,8 +8,6 @@ Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai ra
 - Kartu tertutup yang tertinggal di puncak kolom akan terbuka sendiri.
 - Kartu di fondasi boleh turun lagi ke kolom.
 # Akhir permainan
-Kamu menang saat semua kartu ada di fondasi. Begitu semua kartu terbuka dan bisa naik satu per satu, kartu-kartu itu naik sendiri. Kalau buntu, urungkan langkah atau mulai pembagian baru.
+Kamu menang saat semua kartu ada di fondasi.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu untuk mengirimnya, bersama kartu di atasnya, ke tempat terbaiknya: fondasi jika bisa, kalau tidak ke kolom. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang.

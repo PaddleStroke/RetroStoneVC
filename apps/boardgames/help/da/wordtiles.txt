@@ -1,29 +1,24 @@
 Ordbrikker
 # Målet
-Læg bogstavbrikker på brættet, så ordene krydser hinanden som i en krydsogtværs, og få flest point. For 2 til 4 spillere. Hver bakke er hemmelig: enheden går fra hånd til hånd.
-# Ingen ordbog
-Spillet tjekker aldrig ordene. Det tjekker kun, hvor brikkerne lægges, og tæller pointene for hvert ord, der dannes. Spillerne holder øje med hinanden med indsigelsen.
+Læg bogstavbrikker på brættet, så ordene krydser hinanden som i en krydsogtværs, og få flest point. Spillet tjekker aldrig ordene, kun hvor brikkerne lægges: spillerne holder øje med hinanden med indsigelsen.
 # En tur
-Hver spiller har 7 brikker på sin bakke. Når det er din tur, gør du én af disse ting:
-- Lægge: læg en eller flere brikker i én række eller søjle, uden huller (brikker på brættet må udfylde hullerne), så de rører de brikker, der allerede ligger. Første træk dækker stjernen i midten og bruger mindst to brikker. Træk derefter fra posen, til du har 7 igen.
-- Bytte: læg brikker tilbage i posen og træk lige så mange nye, så længe posen har mindst 7.
+Hver spiller har 7 brikker. Når det er din tur, gør du én af disse ting:
+- Lægge: læg en eller flere brikker i én række eller søjle, uden huller (brikker på brættet må udfylde hullerne), så de rører de brikker, der allerede ligger. Første træk dækker stjernen i midten og bruger mindst to brikker. Træk derefter, til du har 7 igen.
+- Bytte: læg nogle brikker tilbage i posen og træk lige så mange, så længe posen har mindst 7.
 - Melde pas.
 # Pointene
 Hvert nyt ord, et træk danner, på langs og på tværs, giver værdien af sine bogstaver. De farvede felter tæller kun for de brikker, der lige er lagt på dem:
-- Lysegrøn: dobbelt bogstav. Mørkegrøn: tredobbelt bogstav (ruder).
-- Rav: dobbelt ord. Rød: tredobbelt ord (skiver). Stjernen i midten giver dobbelt ord.
-- To tegn: dobbelt; tre tegn: tredobbelt.
+- Lysegrøn: dobbelt bogstav. Mørkegrøn: tredobbelt bogstav.
+- Rav: dobbelt ord. Rød: tredobbelt ord. Stjernen i midten giver dobbelt ord.
 Alle syv brikker i ét træk: 50 point ekstra.
 # Indsigelsen
-Før den næste spiller gør noget andet, må han gøre indsigelse mod det sidste træk. Der er ingen ordbog, så en indsigelse lykkes altid: trækket tages tilbage, brikkerne går tilbage på ejerens bakke (stadig skjult), og pointene trækkes fra. Som den officielle regel siger, har den spiller mistet sin tur; derefter spiller den, der gjorde indsigelse. Kun den næste spiller må gøre indsigelse. Spil fair: gør indsigelse mod et ord, der ikke findes, ikke mod et godt.
+Før den næste spiller gør noget andet, må han gøre indsigelse mod det sidste træk. En indsigelse lykkes altid: trækket tages tilbage, brikkerne går tilbage på ejerens bakke, og den spiller har mistet sin tur. Spil fair: gør kun indsigelse mod et ord, der ikke findes.
 # Brikkerne
-Vores egne sæt, ét pr. sprog, beregnet ud fra hvor ofte hvert bogstav forekommer i sproget: 100 bogstaver og 2 blanke. Jo mere almindeligt et bogstav er, jo flere brikker og jo færre point. En blank brik står for ethvert bogstav og giver ingen point. Sættet følger appens sprog. Æ, Ø og Å er egne bogstaver. Det danske sæt, efter point:
+100 bogstaver og 2 blanke, ét sæt pr. sprog: jo mere almindeligt et bogstav er, jo flere brikker og jo færre point. En blank brik står for ethvert bogstav og giver ingen point. Æ, Ø og Å er egne bogstaver. Det danske sæt, efter point:
 - 1: A×6, D×6, E×14, I×6, L×5, N×7, O×5, R×8, S×6, T×7
 - 2: G×4, K×4, M×3
 - 3: B×2, F×3, H×2, P×2, U×2, V×2
 - 4: Æ×1, Ø×1, Å×1
 - 5: C×1, J×1, Y×1
 # Spillets afslutning
-Spillet slutter, når en spiller lægger sin sidste brik, mens posen er tom (den næste spiller må stadig gøre indsigelse mod trækket eller godtage det), eller efter seks ture i træk uden point (pas, byt, trukne træk tilbage). Hver spiller mister så pointene for brikkerne på sin bakke; den, der gik ud, får dem alle. Højeste score vinder.
-# Spil på enheden
-Send enheden rundt: du ser kun din egen bakke, nederst. Træk en brik hen på et felt, eller tryk på en brik og så på et felt. Eller tryk først på et felt: en pil viser ordets retning (tryk igen for at vende den nedad), og tryk så på dine brikker efter hinanden. Mens din finger er på brættet, viser en lup over den felterne forstørret: glid hen til det rigtige felt, før du løfter fingeren. Tryk på en brik, du lige har lagt, for at tage den tilbage, eller træk den et andet sted hen; træk brikker langs bakken for at ordne dem. En blank brik åbner et gitter med bogstaver: tryk på det, den står for. Skiven i ordets hjørne viser, hvad trækket ville give. Knapperne: tag brikkerne tilbage, bland bakken, byt (tryk på brikkerne, du giver tilbage, så på fluebenet), indsigelse (lyser, når du må) og læg (fluebenet; til sidst godtager det det sidste træk). Pas-knappen er ved din score; posen viser de brikker, der er tilbage. Fortryd tager den sidst lagte brik tilbage, aldrig forbi overdragelsen. Til sidst viser en tavle brikkerne tilbage på hver bakke, de tabte eller vundne point og scorerne.
+Spillet slutter, når en spiller lægger sin sidste brik, mens posen er tom (den næste spiller må stadig gøre indsigelse), eller efter seks ture i træk uden point. Hver spiller mister så pointene for brikkerne på sin bakke; den, der gik ud, får dem alle.

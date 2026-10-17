@@ -1,19 +1,13 @@
 Yukon
 # Amaç
-52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek. Tek kişilik bir oyun; klasik Solitaire'e yakındır ama destesi yoktur.
-# Diziliş
-- Yedi sütun: ilki tek bir açık karttır; ötekilerde 5 açık kartın altında 1 ile 6 arası kapalı kart vardır.
-- Bütün kartlar dağıtılır: deste yoktur.
-- Dört temel yığın sağ üsttedir, başta boştur.
+52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru diz. Klasik Solitaire'e yakındır ama bütün kartlar dağıtılır: deste yoktur.
 # Kartları taşımak
 - Bir sütuna, bir aşağı değerde ve öbür renkte bir kart konur, siyahın üstüne kırmızı ya da kırmızının üstüne siyah: siyah bir 7'nin üstüne kırmızı bir 6.
 - Açık olan her kart, üstündeki bütün kartlarla birlikte taşınabilir, sıralı olmasalar bile.
 - Boş bir sütuna yalnızca bir papaz, üstündekilerle birlikte, konabilir.
-- Bir sütunun üstünde kapalı bir kart kalınca kendiliğinden açılır.
+- Bir sütunun üstünde kapalı bir kart kalınca açılır.
 - Temel yığındaki bir kart yeniden bir sütuna inebilir.
 # Oyunun sonu
-Bütün kartlar temel yığınlardayken kazanırsın. Bütün kartlar açılıp hepsi sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Takılırsan hamleleri geri al ya da yeni bir dağıtıma başla.
+Bütün kartlar temel yığınlardayken kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Bir kartı, üstündeki kartlarla birlikte en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir sütuna. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+İpucu da geri alma da yoksa 3 yıldız.

@@ -2,13 +2,10 @@ Whist
 # O objetivo
 Duas duplas de parceiros, sentados frente a frente, tentam ganhar vazas. Cada vaza acima de seis vale um ponto; vence a primeira dupla a chegar a 5 pontos (10 no whist longo).
 # O jogo
-- As 52 cartas são distribuídas, 13 para cada um. A última carta do carteador é virada para cima: seu naipe é o trunfo da mão. Ela fica à vista até o carteador jogá-la.
-- O jogador depois do carteador abre. Cada um, na sua vez, segue o naipe pedido se puder; senão, joga qualquer carta.
-- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe pedido. O ás é a mais alta. Quem ganha a vaza abre a próxima.
-# A pontuação
-- Uma dupla marca 1 ponto por vaza acima de seis.
-- Honras, quando contam: a dupla que recebeu ás, rei, dama e valete de trunfo marca 4 pontos; três deles, 2. As vazas contam primeiro, e uma dupla a um ponto da vitória não marca honras.
+- 13 cartas para cada um. A última carta do carteador é virada para cima: seu naipe é o trunfo.
+- O jogador depois do carteador abre. Siga o naipe pedido se puder; senão, jogue qualquer carta.
+- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe pedido; o ás é a mais alta. Quem ganha abre a próxima.
+# As honras
+Quando contam, a dupla que recebeu ás, rei, dama e valete de trunfo marca 4 pontos; três deles, 2. As vazas contam primeiro, e uma dupla a um ponto da vitória não marca honras.
 # Whist para dois
-Para 2 jogadores: 13 cartas cada um; o resto forma um monte com a carta de cima virada, e seu naipe é o trunfo. É preciso seguir o naipe se puder. Quem ganha a vaza pega a carta virada, o outro a seguinte, sem mostrar; depois uma nova carta é virada. Acabado o monte, jogam-se as 13 últimas vazas, e só elas contam: um ponto por vaza acima de seis.
-# O fim da partida
-Vence a primeira dupla a chegar a 5 pontos (10 no whist longo).
+Para 2 jogadores: 13 cartas cada um; o resto forma um monte com a carta de cima virada, e seu naipe é o trunfo. Siga o naipe se puder. Quem ganha a vaza pega a carta virada, o outro a seguinte, sem mostrar; depois uma nova carta é virada. Acabado o monte, jogam-se as 13 últimas vazas, e só elas contam: um ponto por vaza acima de seis.

@@ -1,6 +1,6 @@
 Wojna
 # Cel gry
-Zdobyć wszystkie karty. Dziecięcy klasyk: nikt niczego nie wybiera, decydują karty. Dla 2–4 graczy.
+Zdobyć wszystkie karty. Nikt niczego nie wybiera: decydują karty.
 # Bitwa
 - Wszystkie 52 karty rozdaje się zakryte, w jeden stos dla każdego gracza.
 - Każdy gracz odkrywa wierzchnią kartę swojego stosu. Najwyższa karta zabiera wszystkie odkryte karty i kładzie je pod swoim stosem. Najwyższy jest as, potem król, dama, walet, 10 i tak dalej aż do 2.
@@ -9,6 +9,4 @@ Zdobyć wszystkie karty. Dziecięcy klasyk: nikt niczego nie wybiera, decydują 
 - Gracz bez kart odpada.
 # Koniec gry
 - Wojna: gra kończy się, gdy jeden gracz ma wszystkie karty.
-- Krótka gra: kończy się też po 26 bitwach. Wygrywa ten, kto ma najwięcej kart; gracze z równą liczbą dzielą zwycięstwo. Liczba pośrodku odlicza pozostałe bitwy.
-# Gra na urządzeniu
-Połóżcie urządzenie płasko między graczami: pierwszy gracz siedzi na dole, pozostali wokół stołu. Każdy dotyka swojego stosu, aby odkryć kartę; stosy, które czekają, świecą. Zwycięska karta się rozjaśnia, a potem wszystkie karty lecą na stos zwycięzcy. W wojnie równe karty świecą na czerwono. Przy każdym stosie: żeton jego gracza i liczba kart. Cofnij cofa ostatnie dotknięcie.
+- Krótka gra: kończy się też po 26 bitwach. Wygrywa ten, kto ma najwięcej kart; gracze z równą liczbą dzielą zwycięstwo.
