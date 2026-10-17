@@ -15,6 +15,7 @@
 #include "cards_table.h"
 #include "games/dominoes.h"
 #include "games/endtable.h"
+#include "pages.h"
 #include "shell.h"
 
 #define SLIDE_MS 320
@@ -595,7 +596,8 @@ static void draw_yard(int glow)
     int n = p->nyard, show = n > 3 ? 3 : n;
     if (glow) ui_mark_gold(T.yx, T.yy, 2.0f * T.yl);
     if (!n) {
-        ui_fill(T.yx - T.yl / 2, T.yy - T.yl / 4, T.yl, T.yl / 2, 246, 238, 220, 30);
+        if (TH.dark) ui_fill(T.yx - T.yl / 2, T.yy - T.yl / 4, T.yl, T.yl / 2, 246, 238, 220, 30);
+        else ui_fill(T.yx - T.yl / 2, T.yy - T.yl / 4, T.yl, T.yl / 2, 46, 40, 30, 22);   /* the light table: ink */
         return;
     }
     for (int i = 0; i < show; i++) {
@@ -603,7 +605,7 @@ static void draw_yard(int glow)
         draw_bone(0, 0, T.yx + off * 0.4f, T.yy - off + (show - 1) * 0.045f * T.yl, T.yl, 0, 0,
                   (i ? BD_FLAT : 0) | (variant == DOM_BLOCK ? BD_DIM : 0));
     }
-    ui_number(T.yx, T.yy + 0.52f * T.yl, 0.36f * ui.unit, n, 1);
+    ui_number(T.yx, T.yy + 0.52f * T.yl, 0.36f * ui.unit, n, TH.dark);   /* cream; ink on the light table */
 }
 
 /* All Fives: the open ends' pips added up, in ebony on an ivory bone face, in gold light on a multiple of 5 (it
