@@ -112,6 +112,10 @@ RIND = (130, 80, 34)
 RIM = (255, 248, 210)
 CHEESE = [(255, 236, 160), (246, 206, 98), (220, 170, 70), (176, 126, 50)]
 HOLE = [(196, 146, 60), (150, 104, 40)]
+# the moon's body below its lit horizon, in shadow (two bands: from line 224, the credits' row, and from 232) and the
+# craters there (dark, lit edge)
+DEEP = [(164, 108, 44), (136, 88, 38)]
+HOLE_DEEP = [[(136, 88, 38), (186, 132, 56)], [(112, 72, 32), (164, 108, 44)]]
 TEAL = [(96, 140, 160), (74, 112, 138), (56, 88, 116)]
 RING = [(176, 160, 140), (136, 122, 112)]
 PURP = [(120, 96, 160), (94, 74, 132)]
@@ -230,8 +234,13 @@ def seed_shape(cv, cx, top, h=6):
 
 
 def seed():
+    """The player's shot: a sunflower seed, tip up, striped white / ink / light grey so it reads on the night sky."""
     cv = Canvas(8, 8)
-    seed_shape(cv, 4, 0, 7)
+    rows = ("..W..", ".WWH.", ".WSH.", ".HSM.", ".HSM.", ".MMM.")     # pointed tip up, lit left, the dark stripe
+    for y, row in enumerate(rows):
+        for x, k in enumerate(row):
+            if k != ".":
+                cv.set(x + 2, y + 1, {"W": WHITE, "H": HULL[1], "M": HULL[2], "S": SEEDD}[k])
     cv.outline(OUT)
     return cv
 
@@ -574,8 +583,8 @@ def moon():
             cv.set(X, top - 1, RIND)
         for y in range(max(0, top), H):
             d = y - top
-            c = RIM if d == 0 else CHEESE[0] if d < 3 else CHEESE[1] if y + MOON_Y0 < 226 else CHEESE[2] if \
-                y + MOON_Y0 < 234 else CHEESE[3]
+            c = RIM if d == 0 else CHEESE[0] if d < 3 else CHEESE[1] if y + MOON_Y0 < 221 else CHEESE[2] if \
+                y + MOON_Y0 < 224 else DEEP[0] if y + MOON_Y0 < 232 else DEEP[1]
             cv.set(X, y, c)
     for hx, hy, r in holes:
         for y in range(int(hy - r) - 1, int(hy + r) + 2):
@@ -584,7 +593,9 @@ def moon():
                     continue
                 dx, dy = (x + 0.5 - hx) / (r * 1.6), (y + 0.5 - hy) / r
                 if dx * dx + dy * dy <= 1:
-                    cv.set(x, y, HOLE[1] if dy < 0 else HOLE[0])
+                    base = cv.get(x, y)
+                    pair = HOLE_DEEP[base == DEEP[1]] if base in DEEP else (HOLE[1], HOLE[0])
+                    cv.set(x, y, pair[0] if dy < 0 else pair[1])
     return cv
 
 
@@ -637,7 +648,7 @@ def decor():
             for xx in range(X(hx) - 3, X(hx) + 4):
                 if dist(xx, yy, X(hx), hy) <= rr and cv.get(xx, yy) is not None:
                     cv.set(xx, yy, PURP[1] if yy < hy else PURP[0])
-    planet(420, 160, 6, GREYM)                             # a moonlet (520+)
+    planet(402, 160, 6, GREYM)                             # a moonlet (520+)
     # a comet (far left: 520+)
     hx, hy = X(-96), 40
     for i in range(26):

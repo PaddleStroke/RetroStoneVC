@@ -25,6 +25,7 @@ static const rs_color title_ramps[2][3] = {
 #define SKY_TOP     0x0a0c28
 #define SKY_LOW     0x2c1e56
 #define TITLE_SHIP_Y 92
+#define WAVE_ROW     4          /* the intro's WAVE n: between the score and the formation's top (line 48 at wave 1) */
 
 static const int SHELTER_X[SHELTERS] = SHELTER_XS;
 static rs_color line_col[RS_SCREEN_H];
@@ -318,9 +319,12 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             if (w->landed) {
                 text_centered(13, TR(LANDED), 1);
             } else if (w->phase == PH_INTRO) {
+                /* WAVE n above the formation (in the middle it covered the mice); the mothership's waves keep the
+                 * middle, under the ship */
+                int boss = world_is_boss(w);
                 rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
-                text_centered(12, s, 1);
-                if (world_is_boss(w)) text_centered(15, TR(BOSS), 1);
+                text_centered(boss ? 12 : WAVE_ROW, s, 1);
+                if (boss) text_centered(15, TR(BOSS), 1);
             }
             if (w->msg && !w->landed) {
                 const char *m = w->msg == MSG_DOUBLE ? TR(POWER_DOUBLE) :
@@ -369,7 +373,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG4, (t / 24 - sx) & pm, (-sy) & 255);
     rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & 255);
     rs_bg_scroll(RS_BG2, (-sx) & pm, (-sy) & 255);
-    shelters_upload(w, state != ST_TITLE);
+    shelters_upload(w, state == ST_PLAY || state == ST_DEAD);    /* not behind the game-over panels (cut by them) */
     boss_palette(w);
 
     screen_text(w, state, st_t, best, new_best, &rs);

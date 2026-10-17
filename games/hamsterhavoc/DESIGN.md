@@ -106,8 +106,8 @@ A state saved at one width loads at another.
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the hamster's ship bobbing between two marching mice, a seed flying up, the player slots, PRESS A TO
 PLAY with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, X, Y, Start, Left, Right; a tap)
--> WAVE 1: the formation flies in -> play (the score at the top; Select, or Start, pauses)
--> a hit: the ship pops (or the mice land) -> game over (the banner, the panel sliding up: score, best / new best, the
+-> WAVE 1 (above the formation; a mothership wave: in the middle): the formation flies in -> play (the score at the top; Select, or Start, pauses)
+-> a hit: the ship pops (or the mice land) -> game over (the sky and the moon alone, the banner, the panel sliding up: score, best / new best, the
 medal, the wave reached; 2-4 players: the ranking by score with medals) -> one press (or a tap): back to the title
 (the same players start again with A).
 
@@ -155,7 +155,9 @@ mint mice with star antennae, two march frames each, a mischievous grin; they po
 and crumbs. The shots: a cheese crumb, a green space pea, a wiggly jelly bean. The saucer: a cheese wheel with
 blinking lights, a fat grey mouse at the wheel in a dome. The mothership: a big violet saucer with blinking lights and
 three crumb cannons, its captain in a cheese crown under a big dome. The shelters: cheese wedges with holes and a rind,
-a mouse hole underneath. The moon: cheese with holes, curving away at the screen's sides. The title logo: HAMSTER in
+a mouse hole underneath. The moon: cheese with holes, curving away at the screen's sides, lit along its horizon, its body in shadow below
+(the credits and the bottom score chips read on it). The seed: striped white, ink and grey, tip up (it reads on the
+night sky). The title logo: HAMSTER in
 cheese gold, HAVOC in space violet.
 
 ## Sound and music
