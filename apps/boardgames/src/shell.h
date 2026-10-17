@@ -132,6 +132,14 @@ typedef struct game {
     int  (*hidden)(void);
     /* optional: the variant offered before one is chosen (0: the first); a game of levels: its random play's */
     int variant_first;
+    /* optional, for play between devices later (docs/multiplayer-ready.md): the moves played since start(), in
+     * script()'s notation, one action each (a throw of the dice, a card, a pass of three cards, a tap to the next
+     * round...). Returns how many there are now (undo takes them back; a long game that forgets its first moves still
+     * counts them); with move not NULL and 0 <= i < that count, writes move i, NUL-terminated, at most cap bytes ("":
+     * forgotten). start(variant) given the same random state, then script() of all the moves joined by spaces, must
+     * play the same game again. Whoever made them: a person's taps, a bot, script(). The shell keeps the list (and
+     * logs it in the game's record); history(-1, NULL, 0) asks the count alone, often (each frame). NULL: none. */
+    int  (*history)(int i, char *move, int cap);
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };

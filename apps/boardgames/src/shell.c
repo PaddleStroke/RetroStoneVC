@@ -89,7 +89,24 @@ static unsigned bot_off[MAX_GAMES];
 static const bot *cbot;
 static unsigned botmask;
 static int is_bot(int p) { return p >= 0 && p < MAX_PLAYERS && (botmask >> p & 1); }
-static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~botmask); }
+
+/* who plays a seat: a person at this device, the device's bot, or (later, play between devices:
+ * docs/multiplayer-ready.md) a player elsewhere whose moves come in the game's notation. Nothing makes a remote seat
+ * yet (remotemask stays 0). What only a person here gets (the input, the view and the cover, face to face, the pass
+ * button, undo back to their move) asks seat_is_local_person(); a seat whose move comes from elsewhere than this
+ * device's input (a bot's worker; the network) asks seat_waits_for_move(): the input is held meanwhile. is_bot()
+ * stays for what is a bot's own (its thinking, its level). A seat out of range is nobody's: taken as a person's. */
+enum { SEAT_PERSON, SEAT_BOT, SEAT_REMOTE };
+static unsigned remotemask;                     /* the remote seats in the game on the screen (none yet) */
+static int seat_kind(int p)
+{
+    if (p < 0 || p >= MAX_PLAYERS) return SEAT_PERSON;
+    return botmask >> p & 1 ? SEAT_BOT : remotemask >> p & 1 ? SEAT_REMOTE : SEAT_PERSON;
+}
+static int seat_waits_for_move(int p) { return seat_kind(p) != SEAT_PERSON; }
+static int seat_is_local_person(int p) { return seat_kind(p) == SEAT_PERSON; }
+static unsigned elsewhere(void) { return botmask | remotemask; }   /* the seats no person here plays */
+static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~elsewhere()); }
 
 /* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
  * order. The games not listed are strategy games. SEC_ARCADE: the RetroStone app's Arcade games (arcade.h; none in
@@ -331,7 +348,7 @@ static int seat_top(int p)
 }
 
 /* face to face turns the people's pieces only (a bot's seat faces nobody) */
-int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player) && !is_bot(player); }
+int ui_upside(int player) { return ui.f2f && !is_view() && seat_top(player) && seat_is_local_person(player); }
 /* the picture mode's clock is its own (shot_clock): it stands still, and moves on only past a gesture (its
  * animations have ended) or to --at ms after the last one, so the same picture comes out every time */
 static Uint32 ms_ahead;
@@ -2676,7 +2693,7 @@ int ui_bot_moving(void) { return bot_moving; }
 static int human_from(int p)
 {
     for (int k = 0; k < ui.players && humans(); k++)
-        if (!is_bot((p + k) % ui.players)) return (p + k) % ui.players;
+        if (seat_is_local_person((p + k) % ui.players)) return (p + k) % ui.players;
     return p;
 }
 
@@ -2760,7 +2777,7 @@ static void uncover(void)
 void ui_handoff(int player)
 {
     if (!is_view() || player < 0 || player >= ui.players) return;
-    if (is_bot(player) && humans()) return;     /* to a bot: the view stays the last person's */
+    if (seat_waits_for_move(player) && humans()) return;   /* to a bot: the view stays the last person's */
     if (player == ui.viewer && !hand.up) { hand.pending = -1; return; }
     hand.pending = player;
     need_frame = 1;
@@ -2798,13 +2815,16 @@ static void view_start(int fresh)
  * over; a new game begins a new one. Opened from the menu with no game in progress (the app started again), a game
  * with a record is played again from it at once, silently, on a clock of its own (its animations land), on the screen
  * it was played on, undo history and all; then laid out for the screen as it is now. A hidden-hand game comes back
- * on its cover. JR_ON 0: nothing kept, nothing resumed. */
+ * on its cover. JR_ON 0: nothing kept, nothing resumed.
+ * A person's moves come in as taps, so the record replays the input. A game with history() also gets its moves'
+ * notation logged beside it (EV_NOTE, see "the moves' notation" below; nothing when played again but the list rebuilt):
+ * the record a game between devices will need. Version 2 (with the notes); version 1 is still played again. */
 #define JR_ON 1
 #define JR_PIECE 4096
 #define JR_PIECES 48
 #define JR_MAX (JR_PIECE * JR_PIECES)
 enum { EV_PRESS = 1, EV_MOTION, EV_RELEASE, EV_FINGER, EV_KEY, EV_PASS, EV_UNDO, EV_UNCOVER, EV_SCRIPT, EV_BOT, EV_VIEW,
-       EV_RNG };
+       EV_RNG, EV_NOTE };
 static struct jrec {
     uint8_t *b;
     int n, cap, ok;                             /* ok 0: too long, or not begun (nothing kept) */
@@ -2906,10 +2926,14 @@ static struct jrec *jr_event(int type)
     return r;
 }
 
-/* an event's end: the random state it left (what draws from it next, unrecorded, is recorded as a new state) */
+/* an event's end: the random state it left (what draws from it next, unrecorded, is recorded as a new state); the
+ * moves it made, in their notation (notes_check) */
+static void notes_check(void);
 static void jr_done(struct jrec *r)
 {
-    if (r) r->rng = rng;
+    if (!r) return;
+    r->rng = rng;
+    notes_check();
 }
 
 static struct jrec *jr_point(int type, float x, float y)
@@ -2940,7 +2964,7 @@ static void jr_begin(int v)
     r->ok = 1;
     jr_u8(r, 'R');
     jr_u8(r, 'J');
-    jr_u8(r, 1);                                /* the record's version */
+    jr_u8(r, 2);                                /* the record's version (2: with the moves' notation) */
     jr_u16(r, (unsigned)v);
     jr_u8(r, (unsigned)in_random(cur));
     jr_u8(r, (unsigned)ui.players);
@@ -2959,6 +2983,93 @@ static void jr_begin(int v)
 }
 #define JR_HEAD (7 + MAX_PLAYERS + 9)            /* the record's head, bytes */
 static void jr_mark_uncover(void) { jr_done(jr_event(EV_UNCOVER)); }
+
+/* ---- the moves' notation (game.history) ---------------------------------------------------------------------------
+ * The one path a move will take between devices: the game's notation. A person's move reaches the shell as taps, a
+ * bot's and script()'s as notation; a game with history() gives every move's notation, whoever made it. After each
+ * event of the record and each frame of the game, the shell compares the game's moves with the list it keeps for it
+ * (NT[g]): the moves undone are taken off, the new ones added, and the change is logged in the record (EV_NOTE: how
+ * many of the list stay, how many come, each one's notation; no time of its own, nothing played when the record is
+ * played again but the list rebuilt). Only the count is asked while nothing moves; the last move kept is compared
+ * too (an undo and a new move together). Nothing else reads the list yet (--notation prints it): the moves a game
+ * between devices will send, the record it will keep. */
+#define NOTE_CAP BOT_MOVE_CAP
+static struct notes {
+    char *s;                                    /* the moves' notation, each NUL-terminated, one after the other */
+    int *at;                                    /* move i's start in s */
+    int n, len, cap, cap_at;
+} NT[MAX_GAMES];
+
+static void nt_cut(struct notes *t, int keep)   /* the first `keep` moves stay */
+{
+    if (keep >= t->n) return;
+    t->n = keep < 0 ? 0 : keep;
+    t->len = t->n ? t->at[t->n - 1] + (int)strlen(t->s + t->at[t->n - 1]) + 1 : 0;
+}
+
+static void nt_add(struct notes *t, const char *m)
+{
+    int k = (int)strlen(m) + 1;
+    if (t->len + k > t->cap) {
+        int c = t->cap ? t->cap * 2 : 1024;
+        while (c < t->len + k) c *= 2;
+        char *s = realloc(t->s, (size_t)c);
+        if (!s) return;
+        t->s = s;
+        t->cap = c;
+    }
+    if (t->n == t->cap_at) {
+        int c = t->cap_at ? t->cap_at * 2 : 256;
+        int *a = realloc(t->at, (size_t)c * sizeof *a);
+        if (!a) return;
+        t->at = a;
+        t->cap_at = c;
+    }
+    memcpy(t->s + t->len, m, (size_t)k);
+    t->at[t->n++] = t->len;
+    t->len += k;
+}
+
+static void nt_move(const game *g, int i, char *m)   /* the game's move i ("": forgotten) */
+{
+    m[0] = 0;
+    g->history(i, m, NOTE_CAP);
+    m[NOTE_CAP - 1] = 0;
+}
+
+static void notes_check(void)
+{
+    if (cur < 0 || jr_quiet || !started[cur] || !games[cur]->history) return;
+    const game *g = games[cur];
+    struct notes *t = &NT[cur];
+    int n = g->history(-1, NULL, 0);
+    if (n < 0) n = 0;
+    int keep = n < t->n ? n : t->n;
+    char m[NOTE_CAP];
+    if (keep > 0 && keep == t->n) {             /* the last move kept: still the same? */
+        nt_move(g, keep - 1, m);
+        if (m[0] && strcmp(m, t->s + t->at[keep - 1])) keep--;
+    }
+    if (keep == t->n && n == t->n) return;
+    nt_cut(t, keep);
+    struct jrec *r = JR_ON && J[cur].ok ? &J[cur] : NULL;
+    if (r) {
+        if (jr_dirty >= 0 && jr_dirty != cur) jr_flush();
+        jr_u8(r, EV_NOTE);
+        jr_var(r, 0);                           /* (no time: the event before it made the moves) */
+        jr_var(r, (uint32_t)keep);
+        jr_var(r, (uint32_t)(n - keep));
+        jr_dirty = cur;
+    }
+    for (int i = keep; i < n; i++) {
+        nt_move(g, i, m);
+        nt_add(t, m);
+        if (!r) continue;
+        int k = (int)strlen(m);
+        jr_u8(r, (unsigned)k);
+        for (int j = 0; j < k; j++) jr_u8(r, (uint8_t)m[j]);
+    }
+}
 
 /* ---- the bots at play (bots.h's integration plan) -----------------------------------------------------------------
  * Each frame (bot_step): a bot starts when none thinks, the game is on (GS_PLAY), not busy(), no hand-off waits, the
@@ -3006,8 +3117,8 @@ static void bot_stop(void)
 /* the game's own input held: a bot's turn (not in a race), the game on */
 static int bot_holds(void)
 {
-    if (!botmask || cur < 0 || screen != SCR_GAME || realtime() || games[cur]->status() != GS_PLAY) return 0;
-    return is_bot(bot_actor()) || bot_thinking() || BT.held;
+    if (!elsewhere() || cur < 0 || screen != SCR_GAME || realtime() || games[cur]->status() != GS_PLAY) return 0;
+    return seat_waits_for_move(bot_actor()) || bot_thinking() || BT.held;
 }
 
 /* the seat's bot could not move: the people play that seat for the rest of the game */
@@ -3096,7 +3207,8 @@ static int undo_human(void)
     bot_stop();
     struct jrec *jr = jr_event(EV_UNDO);
     int done = g->undo();
-    for (int k = 0; done && k < 256 && botmask && humans() && g->status() == GS_PLAY && is_bot(bot_actor()); k++)
+    for (int k = 0; done && k < 256 && elsewhere() && humans() && g->status() == GS_PLAY &&
+                    seat_waits_for_move(bot_actor()); k++)
         if (!g->undo()) break;
     jr_done(jr);
     return done;
@@ -3121,7 +3233,7 @@ static void game_finished(void)
         stats_finish(sec, g->id, xp, st == GS_WIN0, 0);
         return;
     }
-    unsigned people = ((1u << ui.players) - 1) & ~botmask;
+    unsigned people = ((1u << ui.players) - 1) & ~elsewhere();
     int won = (winners_of(st) & people) != 0, lv = 0;
     for (int p = 0; p < ui.players; p++)
         if (is_bot(p) && seat_lv[cur][p] > lv) lv = seat_lv[cur][p];   /* 1 + the bot's level */
@@ -3152,6 +3264,7 @@ static void start_game(int v, int same)
     started[cur] = 1;
     awarded[cur] = 0;
     card_t0 = 0;
+    nt_cut(&NT[cur], 0);                        /* (its moves' notation: none yet) */
     jr_begin(v);
 }
 
@@ -3296,7 +3409,7 @@ static void draw_button(float x, float y, float r, int icon, SDL_Texture *disc)
 static int shows_pass(int p)
 {
     const game *g = games[cur];
-    return g->can_pass && g->status() == GS_PLAY && g->turn() == p && !is_bot(p) && g->can_pass();
+    return g->can_pass && g->status() == GS_PLAY && g->turn() == p && seat_is_local_person(p) && g->can_pass();
 }
 
 /* a bot's seat in its bar: a small robot on a dark disc at the token's lower right; while it thinks, three dots on
@@ -3831,6 +3944,7 @@ static void draw_game(void)
     const game *g = games[cur];
     handoff_settle();
     level_check();
+    notes_check();                              /* (a move a frame made: one that waited for its animation) */
     next_btn.d = replay_btn.d = 0;
     memset(link_box, 0, sizeof link_box);
     /* the end: its tune, the final position a moment, then the card (due: it shows this frame, ui_over(); the game
@@ -5526,6 +5640,7 @@ static int shot(int argc, char **argv)
     const char *pg = NULL, *theme = NULL, *search = NULL;   /* --page, --theme, --search: the app's pages */
     int demo = 0, tips = 0;                     /* --stats-demo, --tips-demo */
     int resume = 0;                             /* --resume: the game kept in --save DIR, played again */
+    int notation = 0;                           /* --notation: the moves' notation the shell kept, printed */
     int held = -1;                              /* held: the last gesture's hold (ms), the finger still down */
     Uint32 base = 0;                            /* the clock before the last tap */
     ui.w = 720;
@@ -5558,6 +5673,7 @@ static int shot(int argc, char **argv)
         else if (!strcmp(argv[i], "--at") && i + 1 < argc) at = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--reveal")) reveal = 1;
         else if (!strcmp(argv[i], "--resume")) resume = 1;
+        else if (!strcmp(argv[i], "--notation")) notation = 1;
         else if (!strcmp(argv[i], "--random")) rnd = 1;
         else if (!strcmp(argv[i], "--icons")) icons = 1;
         else if (!strcmp(argv[i], "--save") && i + 1 < argc) save_dir = argv[++i];
@@ -5663,6 +5779,12 @@ static int shot(int argc, char **argv)
     if (!out || SDL_SaveBMP(surf, out)) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     int st = id && started[cur] ? games[cur]->status() : -1;   /* -1: the menu, or a game not started (--pick) */
     printf("%s: %dx%d %s status %d\n", out, ui.w, ui.h, id ? id : "menu", st);
+    if (notation && id && started[cur]) {       /* "notation: e2e4 e7e5": --moves of it plays the same game again */
+        notes_check();
+        printf("notation:");
+        for (int i = 0; i < NT[cur].n; i++) printf(" %s", NT[cur].s + NT[cur].at[i]);
+        printf("\n");
+    }
     bot_stop();
     jr_flush();
     save_flush();                               /* --save DIR: written back (else nothing to write) */
@@ -6140,7 +6262,7 @@ static int jr_resume(int g)
         if (len < JR_PIECE) break;
     }
     int p = 3;
-    if (n < JR_HEAD || b[0] != 'R' || b[1] != 'J' || b[2] != 1) { free(b); return 0; }
+    if (n < JR_HEAD || b[0] != 'R' || b[1] != 'J' || (b[2] != 1 && b[2] != 2)) { free(b); return 0; }
     int v = (int)jr_rd(b, n, &p, 2), rnd = b[p++], np = b[p++];
     uint8_t seats[MAX_PLAYERS];
     memcpy(seats, b + p, MAX_PLAYERS);
@@ -6188,7 +6310,7 @@ static int jr_resume(int g)
     while (p < n) {
         int type = b[p++];
         t += jr_rdvar(b, n, &p);
-        if (type != EV_VIEW && type != EV_RNG) jr_advance(t);
+        if (type != EV_VIEW && type != EV_RNG && type != EV_NOTE) jr_advance(t);
         float x = 0, y = 0;
         if (type == EV_PRESS || type == EV_MOTION || type == EV_RELEASE || type == EV_FINGER) {
             x = (float)jr_rd(b, n, &p, 2) / 4;
@@ -6234,7 +6356,20 @@ static int jr_resume(int g)
             ui.f2f = f >> 1 & 1;
             layout();
         } else if (type == EV_RNG) rng = jr_rd(b, n, &p, 4);
-        else break;                             /* (not a record of ours: played as far as it went) */
+        else if (type == EV_NOTE) {             /* the moves' notation: the list rebuilt, nothing played */
+            int keep = (int)jr_rdvar(b, n, &p), k = (int)jr_rdvar(b, n, &p);
+            nt_cut(&NT[g], keep);
+            for (int i = 0; i < k && p < n; i++) {
+                char m[256];
+                int len = b[p++];
+                if (len > n - p) len = n - p;
+                memcpy(m, b + p, (size_t)len);
+                m[len] = 0;
+                p += len;
+                nt_add(&NT[g], m);
+            }
+            continue;
+        } else break;                           /* (not a record of ours: played as far as it went) */
         after_input();
         events++;
     }
