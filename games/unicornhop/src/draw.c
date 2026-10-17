@@ -41,9 +41,45 @@ static const skydef SKIES[4] = {
 static rs_color line_col[RS_SCREEN_H], star_a[RS_SCREEN_H], star_b[RS_SCREEN_H];
 static int shown_state = -1, shown_best = -1, shown_rainbow, bg3_content = -1, bg3_on, bg3_top;
 
+static int map_w(void);
+
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. The
+ * sky carried on: above, its top colour deepening toward the screen's top; below, the horizon's colour; the stars and
+ * the far and near decor layers go on (their maps wrap, as they always do when the camera climbs). The start scene's
+ * land carries on below the stage (its last row repeated); the rainbow stays on the stage; the UI layer is hidden
+ * there. The play clouds of every level the screen shows are drawn there too (draw_frame). Line 0 puts the UI layer
+ * and BG3's scroll back. */
+static void raster_out(int line)
+{
+    if (line == rs_screen_top() || line == RS_SCREEN_H) rs_bg_enable(RS_BG1, 0);
+    if (line < 0) {
+        int top = rs_screen_top(), k = -line * 64 / -top;
+        rs_pal_set(0, hu_scale_color((line & 4) ? line_col[4] : line_col[0], 256 - k));
+        rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_A, star_a[0]);
+        rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_B, star_b[0]);
+        rs_bg_enable(RS_BG3, 0);
+    } else {
+        rs_pal_set(0, (line & 4) ? line_col[236] : line_col[232]);
+        rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_A, star_a[RS_SCREEN_H - 1]);
+        rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_B, star_b[RS_SCREEN_H - 1]);
+        int on = bg3_content == 0 && bg3_on && line >= bg3_top, last = bg3_top + SCENE_H * 8 - 8;
+        rs_bg_enable(RS_BG3, on);
+        if (on && line >= last)                     /* the land below the scene: its last row repeated */
+            rs_bg_scroll(RS_BG3, (-hu_shake_x()) & (map_w() * 8 - 1), SCENE_H * 8 - 8 + ((line - last) & 7) - line);
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {  /* back from raster_out: the stage's own settings */
+        rs_bg_enable(RS_BG1, 1);
+        rs_bg_scroll(RS_BG3, (-hu_shake_x()) & (map_w() * 8 - 1), (-bg3_top - hu_shake_y()) & 255);
+    }
     rs_pal_set(0, line_col[line]);
     rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_A, star_a[line]);
     rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_B, star_b[line]);
@@ -205,7 +241,9 @@ void draw_init(void)
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())              /* (a tall screen: its lines past the stage too) */
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -402,7 +440,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG3, 0);
     } else {
         bg3_top = SCENE_TOP + camd / 2;
-        bg3_on = bg3_top < RS_SCREEN_H;
+        bg3_on = bg3_top < rs_screen_bottom();     /* (a tall screen: the scene may show below the stage) */
         rs_bg_scroll(RS_BG3, (-sx) & pm, (-bg3_top - sy) & 255);
         rs_math(RS_MATH_OFF, 0, 0);
     }
@@ -440,7 +478,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         draw_cloud(CENTER_X, feet, 48, 1, 2, 0, 0);
     } else {
         for (int p = 0; p < w->players; p++) draw_hero(w, p, sx, sy);
-        int lo = (camd - (RS_SCREEN_H - STAND_Y) - 40) / LEVEL_H, hi = (camd + STAND_Y + 40) / LEVEL_H;
+        /* the levels the screen shows (a tall screen: more of them, above and below the stage) */
+        int lo = (camd - (rs_screen_bottom() - STAND_Y) - 40) / LEVEL_H;
+        int hi = (camd + STAND_Y - rs_screen_top() + 40) / LEVEL_H;
         for (int L = lo < 0 ? 0 : lo; L <= hi; L++) {
             const cloud *c = world_cloud(w, L);
             if (c) draw_level(w, c, sx, sy);

@@ -103,6 +103,17 @@ bottom is out. The unicorns are white (P1), lilac (P2), pink (P3) and mint (P4):
 the horn and the eyes the same (tools/build_assets.py). The HUD shows each player's height (3-4 players in the
 corners); the results rank everyone by height (the same height, the same place) with medals.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
+columns). The 240 lines of the stage are the same pixels, centred (the tap zone in the band below it). The sky goes
+on above and below: the raster (draw.c `raster_out`) carries the gradient on (its top colour deepening toward the
+screen's top, the horizon's colour below), the stars and the decor layers go on (their maps wrap, as when the camera
+climbs), the UI layer is hidden there, and the start scene's land goes on below the stage (its last row repeated);
+the rainbow stays on the stage. The play clouds of every level the screen shows are drawn there too (the world
+already keeps 8 levels above the camera and 8 below: no rule changes): about three more levels ahead and four behind
+are seen, the same for every player. Line 0 puts the UI layer and BG3's scroll back, so a 240-line screen is
+unchanged.
+
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The unicorn: a white
 body shaded lavender (light from the top-left), a pastel rainbow mane and tail (pink, peach, mint, sky, lilac), a
