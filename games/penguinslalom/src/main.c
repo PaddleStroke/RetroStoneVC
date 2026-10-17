@@ -239,6 +239,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, panning with the penguin (draw.c, DESIGN.md) */
     save_load();
     run_best = (int)SV.best; /* Keep the title's displayed record stable when a saved title starts again. */
     opt_music = rs_option_int("music", 1);

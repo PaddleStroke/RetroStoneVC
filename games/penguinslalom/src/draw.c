@@ -7,24 +7,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct view {int scroll;rs_color sky[240];} view;
+typedef struct view {int scroll;rs_color sky[240];int cam;} view;   /* cam: a tall screen's pan (Q8 stage x) */
 static view V;static int shown_state=-1,shown_best=-1;
 #include "theme.inc"
 static int ppal(int p){return p?hu_player_pal(p):0;}
 static int course_y(int distance){return HERO_LINE+(distance-V.scroll)*3/5;}
-static void raster(int line,void *user){(void)user;if(line>=0 && line<240)rs_pal_set(0,V.sky[line]);}
+/* A tall screen (rs_screen_zoom, DESIGN.md "Tall screen", game.h ZOOM_H): the course drawn from the screen's top (the
+ * lines above the stage: the slope behind the penguins), the snow's colour carried on there; BG1 shown only in the
+ * HUD's band pinned at the top (hud_lines) and on the stage (its map would wrap). */
+static int tall_screen(void){return rs_screen_height()>RS_SCREEN_H;}
+static int hud_lines;
+static rs_color snow_at(int y){int d=(y&4)?2:0;return RS_RGB8(232+y*8/240+d,241+y*5/240+d/2,238+y*4/240+d/2);}
+static void raster(int line,void *user){
+ (void)user;if(line>=0 && line<240){rs_pal_set(0,V.sky[line]);if(line==0 && tall_screen())rs_bg_enable(RS_BG1,1);return;}
+ if(!tall_screen())return;
+ if(line==rs_screen_top() || line==RS_SCREEN_H)rs_bg_enable(RS_BG1,line<0 && hud_lines);
+ if(hud_lines && line==rs_screen_top()+hud_lines)rs_bg_enable(RS_BG1,0);
+ rs_pal_set(0,snow_at(line));
+}
 /* Widescreen (DESIGN.md "Widescreen"): a vertical scroller, centred. The 320-px course keeps its stage (origin =
  * the margin) and the slope is drawn wider on both sides: the banks go on into a snowy forest. The ground layer
  * (BG2) is redrawn each frame from a canvas as wide as the screen, on a 128-tile map beyond 320 columns. */
 static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 static int map_w(void){return wide()?128:64;}
 static int fdiv(int v,int d){return v>=0?v/d:-((d-1-v)/d);}             /* floor(v / d), d > 0 */
-static uint8_t canvas[(RS_SCREEN_W_MAX+16)*240];                        /* the ground, redrawn each frame */
-static int CX0=0,CW=320;                                               /* its stage x 0 and width (set each frame) */
+/* the ground, redrawn each frame: as wide as the screen (widescreen), or the columns shown by the whole height (a tall
+ * screen; every column when the display fits them) */
+#define CANVAS_MAX ((RS_SCREEN_W_MAX+16)*240>(RS_SCREEN_W+8)*ZOOM_H?(RS_SCREEN_W_MAX+16)*240:(RS_SCREEN_W+8)*ZOOM_H)
+static uint8_t canvas[CANVAS_MAX];
+static int CX0=0,CW=320,CY0=0,CH=240;                                  /* its stage x 0, y 0 and size (set each frame) */
+static int map_h(void){return tall_screen()?64:32;}
 void draw_init(void){
  rs_screen_origin(rs_screen_margin());
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
- rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
+ rs_bg_setup(RS_BG1,64,32,VR_BG1);rs_bg_setup(RS_BG2,map_w(),map_h(),VR_BG2);rs_bg_setup(RS_BG3,64,32,VR_BG3);
+ if(tall_screen())rs_screen_origin_v(rs_screen_height()-RS_SCREEN_H);   /* a tall screen: the lines above, behind the penguins */
  uint8_t blank[64]={0};rs_tiles_load8(VR_BG2,blank,1);rs_tiles_load8(VR_BG3,blank,1);
  rs_pal_load(RS_PAL_BG(PAL_GROUND),theme_pal,16);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);
@@ -33,17 +50,17 @@ void draw_init(void){
  memset(&V,0,sizeof V);rs_raster(raster,NULL);
 }
 static void spr(int id,int x,int y,int pal){
- const gm_sprite_def *s=&gm_spr[id];if(x<=rs_screen_left()-(int)s->w || x>=rs_screen_right() || y<=-(int)s->h || y>=240)return;
+ const gm_sprite_def *s=&gm_spr[id];if(x<=rs_screen_left()-(int)s->w || x>=rs_screen_right() || y<=rs_screen_top()-(int)s->h || y>=rs_screen_bottom())return;
  rs_spr(x,y,s->tile,s->w,s->h,pal<0?s->pal:pal,2,0);
 }
 /* x: stage coordinates; the canvas covers CX0 .. CX0 + CW - 1 (0 .. 319 at 320 columns) */
-static void pixel(uint8_t *p,int x,int y,int color){x-=CX0;if(x>=0 && x<CW && y>=0 && y<240)p[y*CW+x]=(uint8_t)color;}
+static void pixel(uint8_t *p,int x,int y,int color){x-=CX0;y-=CY0;if(x>=0 && x<CW && y>=0 && y<CH)p[y*CW+x]=(uint8_t)color;}
 static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color){
- x0-=CX0;x1-=CX0;
+ x0-=CX0;x1-=CX0;y0-=CY0;y1-=CY0;
  if(x0<0)x0=0;
  if(y0<0)y0=0;
  if(x1>CW-1)x1=CW-1;
- if(y1>239)y1=239;
+ if(y1>CH-1)y1=CH-1;
  for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*CW+x]=(uint8_t)color;
 }
 static void line(uint8_t *p,int x0,int y0,int x1,int y1,int color){
@@ -81,7 +98,7 @@ static void polygon(uint8_t *p,int cx,int cy,const int *xy,int n,int color){
  }
 }
 static void obstacle(uint8_t *p,const slope_obstacle *o,int t){
- int x=o->x,y=course_y(o->distance);if(y<-70 || y>290)return;
+ int x=o->x,y=course_y(o->distance);if(y<CY0-70 || y>CY0+CH+50)return;
  if(o->kind==PROP_ROCK){
   static const int edge[]={-17,2,-14,-8,-5,-16,7,-14,14,-8,17,5,12,10,-8,9};
   static const int face[]={-15,2,-12,-7,-4,-14,6,-12,12,-7,15,5,11,8,-7,7};
@@ -142,7 +159,7 @@ static void flag(uint8_t *p,int x,int y,int dir,int blue,int t){
 static void bear_marker(uint8_t *p,int x,int y,int left,int len,int t){
  int q=(len-left)*16/len,rx=6+q,ry=2+q*5/16;                    /* q: 0 .. 15 as the landing nears */
  for(int k=0;k<9;k++){                                          /* powder sliding down the lane, three streams */
-  int lane=k%3-1,yy=(t*4+k*29+lane*11)%(y>12?y-12:1);
+  int lane=k%3-1,yy=CY0+(t*4+k*29+lane*11)%(y-CY0>12?y-CY0-12:1);   /* (a tall screen: from its top) */
   if(yy>y-24)continue;
   rect(p,x+lane*9,yy,x+lane*9,yy+3,4);pixel(p,x+lane*9+1,yy+1,2);
  }
@@ -220,23 +237,32 @@ static int tile_id(const uint8_t *tile,int *next){
 }
 static void foreground(const world *w){
  CX0=fdiv(rs_screen_left(),8)*8;CW=fdiv(rs_screen_right()+7,8)*8-CX0;  /* 320 columns: 0, 320 */
- uint8_t *pixels=canvas;memset(pixels,0,(size_t)CW*240);
- for(int y=0;y<240;y++){
+ CY0=0;CH=240;
+ if(tall_screen()){   /* the columns shown (the 8-px columns around them), the whole height */
+  int x0=rs_screen_visible_x0()-rs_screen_origin_x(),x1=rs_screen_visible_x1()-rs_screen_origin_x();
+  CX0=fdiv(x0,8)*8;CW=fdiv(x1+7,8)*8-CX0;
+  CY0=fdiv(rs_screen_top(),8)*8;CH=fdiv(rs_screen_bottom()+7,8)*8-CY0;
+  if(CW*CH>CANVAS_MAX)CH=CANVAS_MAX/CW/8*8;
+ }
+ uint8_t *pixels=canvas;memset(pixels,0,(size_t)CW*CH);
+ for(int y=CY0;y<CY0+CH;y++){
   int bend=ss_sine[(y/2+V.scroll/12)&255]*2/32767;
   rect(pixels,0,y,10+bend,y,2);rect(pixels,309+bend,y,319,y,2);
   pixel(pixels,11+bend,y,1);pixel(pixels,308+bend,y,1);
  }
  if(wide())forest(pixels);
  // Rounded powder drifts travel with the gates, with no mountain horizon or ice glints.
- int first=(V.scroll-200)/70;if(first<0)first=0;
- for(int id=first;id<first+12;id++){
+ int up=-CY0*5/3,more=(up+(CY0+CH-240)*5/3)/70+1;   /* a tall screen: the world px above the stage */
+ if(!CY0)more=0;
+ int first=up?fdiv(V.scroll-200-up,70):(V.scroll-200)/70;if(first<0 && !up)first=0;   /* (tall: the slope before the start too) */
+ for(int id=first;id<first+12+more;id++){
   int y=course_y(id*70),side=(id&1)?202:38,span=42+(id*17)%31;
   for(int x=0;x<span;x++){
    int yy=y+x*x/(span*6);pixel(pixels,side+x,yy,2);pixel(pixels,side+x,yy-1,1);
   }
  }
- int tree_first=(V.scroll-240)/135;if(tree_first<0)tree_first=0;
- for(int id=tree_first;id<tree_first+8;id++){
+ int tree_first=up?fdiv(V.scroll-240-up,135):(V.scroll-240)/135;if(tree_first<0 && !up)tree_first=0;
+ for(int id=tree_first;id<tree_first+8+(more?more*70/135+1:0);id++){
   int y=course_y(id*135),x=(id&1)?315:5;pine(pixels,x,y,10+id%3);
  }
  for(int p=0;p<w->players;p++){
@@ -248,8 +274,9 @@ static void foreground(const world *w){
   }
   if(h->state!=HS_OFF)oval(pixels,h->x+2,player_y(w->players,p)+14,14,4,3);
  }
- int base=course_index(w,V.scroll);
- for(int id=base>0?base-1:0;id<=base+2;id++){
+ int base=course_index(w,V.scroll),lo=base>0?base-1:0;
+ if(up){int b=course_index(w,V.scroll-HERO_LINE*5/3-up-60);if(b-1<lo)lo=b>0?b-1:0;}   /* a tall screen: those behind */
+ for(int id=lo;id<=base+2;id++){
   slope_obstacle o;course_obstacle(w,id,V.scroll,w->t,&o);obstacle(pixels,&o,w->t);
  }
  for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
@@ -257,20 +284,21 @@ static void foreground(const world *w){
   if(b->warn)bear_marker(pixels,o.x,course_y(o.distance),b->warn,b->warn_len,w->t);
   else{obstacle(pixels,&o,w->t);bear_puff(pixels,o.x,course_y(o.distance),b->age);}
  }
- for(int id=base>0?base-1:0;id<=base+2;id++){
-  row r;course_row(w,id,&r);int y=course_y(r.distance);if(y<-30 || y>275)continue;
+ for(int id=lo;id<=base+2;id++){
+  row r;course_row(w,id,&r);int y=course_y(r.distance);if(y<CY0-30 || y>CY0+CH+35)continue;
   flag(pixels,r.left,y,1,r.kind,w->t);flag(pixels,r.right,y,-1,r.kind,w->t);
  }
  int next=1,cols=CW/8,c0=CX0/8,mw=rs_bg_map_w(RS_BG2);
- if(wide())memset(tile_slot,0,sizeof tile_slot);
- for(int r=0;r<30;r++)for(int c=0;c<cols;c++){
+ int share=wide() || tall_screen(),mh=rs_bg_map_h(RS_BG2),r0=CY0/8;   /* (a tall screen: shared tiles too) */
+ if(share)memset(tile_slot,0,sizeof tile_slot);
+ for(int r=0;r<CH/8;r++)for(int c=0;c<cols;c++){
   uint8_t tile[64];int ink=0;for(int y=0;y<8;y++)for(int x=0;x<8;x++){tile[y*8+x]=pixels[(r*8+y)*CW+c*8+x];ink|=tile[y*8+x];}
-  int id=0;if(ink){if(wide())id=tile_id(tile,&next);else{id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}}
-  rs_bg_put(RS_BG2,((c0+c)%mw+mw)%mw,r,RS_MAP(id,PAL_GROUND,0,0,0));
+  int id=0;if(ink){if(share)id=tile_id(tile,&next);else{id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}}
+  rs_bg_put(RS_BG2,((c0+c)%mw+mw)%mw,((r0+r)%mh+mh)%mh,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
 /* Widescreen: a state saved at another width loads at this one (the ground's map for this width; all redrawn) */
-void draw_relayout(void){if(rs_bg_map_w(RS_BG2)!=map_w())rs_bg_setup(RS_BG2,map_w(),32,VR_BG2);}
+void draw_relayout(void){if(rs_bg_map_w(RS_BG2)!=map_w() || rs_bg_map_h(RS_BG2)!=map_h())rs_bg_setup(RS_BG2,map_w(),map_h(),VR_BG2);}
 static void scene(const world *w){
  // Draw the downhill penguins first when their silhouettes overlap.
  for(int p=w->players-1;p>=0;p--){
@@ -312,8 +340,51 @@ static void title_ui(int t,int best){
  else rs_strf(text,sizeof text,"%s",TR(FULL));
  hu_text(hu_center(text,0),sp?28:27,text);hu_copyright(29);hu_title_sprites(t,icon,NULL);
 }
+/* A tall screen (DESIGN.md "Tall screen"): where the zoomed view centres, in stage x. The penguin always, with the bears
+ * warned or sliding near its line while they fit in the columns shown; then, while they still fit: the next gate's
+ * flags, the obstacles near. When the gate does not fit, the penguin (and its bears) at the edge on the gate's side. */
+static void cam_add(int *a,int *b,int lo,int hi,int vw){
+ int na=lo<*a?lo:*a,nb=hi>*b?hi:*b;
+ if(nb-na<=vw){*a=na;*b=nb;}
+}
+static int cam_target(const world *w){
+ const hero *h=&w->h[0];int vw=rs_screen_visible_x1()-rs_screen_visible_x0();
+ int id=course_index(w,h->distance);row r;course_row(w,id,&r);if(r.distance<=h->distance)course_row(w,id+1,&r);
+ int a=h->x-28,b=h->x+28;
+ for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
+  slope_obstacle o;bear_obstacle(w,i,0,&o);int y=course_y(o.distance);
+  if(y>HERO_LINE-110 && y<HERO_LINE+90)cam_add(&a,&b,o.x-o.rx-8,o.x+o.rx+8,vw);
+ }
+ int ga=r.left-14,gb=r.right+14,na=ga<a?ga:a,nb=gb>b?gb:b;
+ if(nb-na>vw)return ga<a?b-vw/2:a+vw/2;
+ a=na;b=nb;
+ for(int k=id>0?id-1:0;k<=id+1;k++){
+  slope_obstacle o;course_obstacle(w,k,V.scroll,w->t,&o);int y=course_y(o.distance);
+  if(y>HERO_LINE-40 && y<HERO_LINE+128)cam_add(&a,&b,o.x-o.rx-8,o.x+o.rx+8,vw);
+ }
+ return (a+b)/2;
+}
+/* the HUD's text, centred on the columns shown */
+static void hud_text(int row,const char *s){
+ int x0=rs_screen_visible_x0()-rs_screen_origin_x(),x1=rs_screen_visible_x1()-rs_screen_origin_x(),n=hu_width(s,0);
+ int c=((x0+x1)/2-n*4+4)/8;
+ if(c+n>x1/8)c=x1/8-n;
+ if(c<(x0+7)/8)c=(x0+7)/8;
+ hu_text(c,row,s);
+}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);V.scroll=w->scroll;
+ /* a tall screen (game.h ZOOM_H): one penguin racing fills the display's height, the columns shown panning with it
+  * (cam_target, smoothed); the title, the panels and 2-4 players show every column. The HUD pinned at the top. */
+ int zoom=tall_screen() && w->players==1 && (state==ST_PLAY || state==ST_DEAD);
+ if(tall_screen()){
+  rs_screen_fill(zoom);
+  if(zoom){int target=cam_target(w)*256;if(!V.cam)V.cam=target;else if(!paused)V.cam+=(target-V.cam)/6;}
+  else V.cam=0;
+  rs_screen_focus_x(zoom?V.cam/256+rs_screen_origin_x():-1);
+ }
+ hud_lines=tall_screen() && (state==ST_PLAY || state==ST_DEAD)?(w->players==1?48:16):0;
+ rs_bg_pin(RS_BG1,0,hud_lines,0);
  for(int y=0;y<240;y++){int d=(y&4)?2:0;V.sky[y]=RS_RGB8(232+y*8/240+d,241+y*5/240+d/2,238+y*4/240+d/2);}
  foreground(w);
  if(state==ST_TITLE){
@@ -322,12 +393,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   scene(w);
  }else if(state==ST_PLAY || state==ST_DEAD){
   if(w->players==1){
-   hu_number(w->h[0].score,160,8,3);char text[128];
+   char text[128];
+   if(zoom)hu_number(w->h[0].score,(rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x(),rs_screen_top()+8,3);
+   else hu_number(w->h[0].score,160,8,3);
    if(w->h[0].state==HS_RUN)rs_strf(text,sizeof text,TR(HUD_GATES_FISH),w->h[0].anchor,w->h[0].apples);
    else rs_strf(text,sizeof text,"%s",w->h[0].reason==2?TR(MSG_CRASH):TR(MSG_MISSED_GATE));
-   hu_text(hu_center(text,0),4,text);
+   if(zoom)hud_text(4,text);else hu_text(hu_center(text,0),4,text);
   }else for(int p=0;p<w->players;p++){char text[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(text,sizeof text,"%s %d",tag,w->h[p].score);hu_text(p*10,1,text);}
-  if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+  if(paused)hu_big(zoom?((rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x())/8-hu_width(HTR(PAUSED),1)/2:hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);   /* (zoomed: on the columns shown) */
   scene(w);
  }else if(state==ST_OVER){
   int slide=hu_slide_in(st_t,20,200);
@@ -345,5 +418,5 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  rs_bg_scroll(RS_BG2,0,0);rs_viewports(0,NULL,0);shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
-void draw_state(void){S(V);S(shown_state);S(shown_best);RS_STATE_RASTER(raster);}
+void draw_state(void){S(V);S(shown_state);S(shown_best);S(hud_lines);RS_STATE_RASTER(raster);}
 #undef S

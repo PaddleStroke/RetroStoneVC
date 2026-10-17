@@ -6,5 +6,7 @@ main.SV             the battery save's copy (best scores, medals): stays in the 
 draw.canvas         foreground(): the ground's canvas, cleared and redrawn every frame (widescreen: as wide as the screen)
 draw.CX0            foreground(): the canvas's stage x, set every frame from the width
 draw.CW             foreground(): the canvas's width, set every frame from the width
+draw.CY0            foreground(): the canvas's stage y, set every frame from the height (a tall screen)
+draw.CH             foreground(): the canvas's height, set every frame from the height (a tall screen)
 draw.tile_slot      tile_id(): the ground's tiles shared within one frame (widescreen), cleared every frame
 draw.tile_seen      tile_id(): the pictures of those tiles, rewritten every frame

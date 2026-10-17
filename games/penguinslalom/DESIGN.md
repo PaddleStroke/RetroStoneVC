@@ -166,9 +166,27 @@ Build: make penguinslalom-check / penguinslalom-windows / penguinslalom-screensh
 Windows output: dist/windows/PenguinSlalom.exe, statically linked SDL2.
 Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
 
-## Tall screen (docs/spec.md "Tall screen"): not used
-The game does not call `rs_screen_tall`: upright, the app shows its 4:3 picture across the width (blurred edges above
-and below, the touch halves under it). A top-down slope has no decor to add above or below the course: the lines
-past the stage would have to show more of the course itself, ahead of the penguins (more warning of the gates,
-rocks and bears: an easier game) or behind them, and the ground is a picture redrawn by the CPU every frame (the
-canvas, 240 lines), which would grow to three times its size on the RetroStone2's Cortex-A7.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (512 lines, game.h) first in `game_init`. The app scales the 512 lines
+to the display's height and crops the sides: 219 columns on a 1080x2520 phone, 236 on a 1080x2340 one, 256 on a
+720x1440 one, so the penguin is 1.46x the size of the letterboxed 4:3 picture. The 240 lines of the stage are the same
+pixels, at the bottom of the screen (`rs_screen_origin_v`: 272 lines above it, none below).
+- **Fair**: the lines above show the slope behind the penguins (the gates passed, the trails, the bears sliding in
+  from uphill); below the penguin the course shows exactly the 128 lines of 4:3, so the warning of the gates, the
+  obstacles and the bears' landing spots is unchanged. Rules, speeds, the course and the bears are unchanged.
+- **The pan**: the columns shown follow one penguin (rs_screen_focus_x, smoothed over a few frames). They always hold
+  the penguin, with the bears warned or sliding near its line; then, while they fit, the next gate's two flags and the
+  obstacles near. A gate wider apart from the penguin than the columns shown: the penguin at the edge on its side.
+  The rest of the course's 320 columns may be out of view: nothing there is on the penguin's way before the camera
+  turns to it (the gates come one at a time, at least 219 world px apart).
+- **The canvas** (the ground, redrawn by the CPU each frame) covers the columns shown by the whole height (the
+  8-px columns around them): 224 x 512 = 115k pixels on a 9:21 phone against 320 x 240 = 77k in 4:3 and 576 x 240 =
+  138k at 560 columns, so it stays within the widescreen budget (the host's frame time: 4:3 1.0x, the tall screen
+  1.6x, 560 columns 1.65x). Its tiles are shared as in widescreen (one per distinct picture), BG2's map 64 rows tall.
+  The drifts and the bank's pines go on over the whole height (the slope before the start too, behind the title).
+- **The HUD at the screen's top**: the score (kit sprites at `rs_screen_top()` + 8) and the gates/fish line (BG1's top
+  48 lines, `rs_bg_pin`) centred on the columns shown; 2-4 players their tags (16 lines). BG1 is hidden past the stage
+  elsewhere (its map would wrap). The snow's colour carries on above the stage (the raster).
+- **Fill or fit**: one penguin racing fills the display's height; the title, the panels and 2-4 players (side by side
+  across the whole course) show every column (`rs_screen_fill(0)`: the whole 320 x 512 picture across the width).
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
