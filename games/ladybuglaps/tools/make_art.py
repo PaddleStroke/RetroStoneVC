@@ -475,10 +475,11 @@ def obj_apple(var):
     cv = Canvas(40, 40)
     c = 19.5
     shaded_disc(cv, c, c, 17.0, APPLE[var])
-    for k in range(5):                                      # the stem and a leaf
-        cv.set(int(c + 1), int(c - 2 + k), STEM[0])
+    for k in range(5):                                      # the stem and a leaf (colours the apple's tiles hold)
+        cv.set(int(c + 1), int(c - 2 + k), GREEN[3])
     hs.ellipse(cv, c + 6, c - 4, 4.5, 2.4, None, flat=STEM[1])
-    cv.set(int(c - 7), int(c - 8), PORC[0]), cv.set(int(c - 6), int(c - 8), PORC[0])
+    glint = PORC[0] if var == 0 else APPLE[var][0]
+    cv.set(int(c - 7), int(c - 8), glint), cv.set(int(c - 6), int(c - 8), glint)
     outline(cv, APPLE[var][3])
     return cv
 
@@ -654,6 +655,574 @@ OBJ_DRAW = {
 FLAT = {"OB_SPOON", "OB_PENCIL", "OB_TWIG", "OB_CARROT"}         # lying on the ground: a thin shadow
 
 
+# ---- the scenery: flat things lying about off the band (no rules: napkins, crumbs, drawings, daisies, moss...) ---------
+# Each is a "stamp" a whole number of tiles wide and high, put down at the same place in its 64-px cell where there is
+# room (the ground alone round it), maybe flipped about the cell's middle: the ground is mirrored in each cell, so all
+# its copies are the same tiles (flipped): a stamp costs its own tiles once. Their colours are ones the track's
+# palettes hold with its ground (build_assets.py packs them: no tile may lose a colour).
+def blob(cv, pts, c):
+    for x, y in pts:
+        cv.set(x, y, c)
+
+
+def poly_in(px, py, pts):
+    """Even-odd rule: is (px, py) inside the polygon pts?"""
+    inside = False
+    for i in range(len(pts)):
+        ax, ay = pts[i]
+        bx, by = pts[(i + 1) % len(pts)]
+        if (ay > py) != (by > py) and px < ax + (py - ay) * (bx - ax) / (by - ay):
+            inside = not inside
+    return inside
+
+
+# -- Tea Time: a table laid for tea
+def sc_napkin(var):
+    """A blue gingham napkin folded in four, lying flat, its top corner turned back."""
+    cv = Canvas(32, 32)
+    for y in range(4, 28):
+        for x in range(4, 28):
+            if x - y > 13:                                  # the corner turned back
+                continue
+            a, b = ((x - 4) // 4) % 2, ((y - 4) // 4) % 2
+            cv.set(x, y, PATTERN[0] if (a and b) else BLUEW[1] if (a or b) else PORC[0])
+    for y in range(4, 15):                                  # the corner folded over: its back, plain
+        for x in range(17, 28):
+            if 2 < x - y <= 13:
+                cv.set(x, y, PORC[1] if x - y == 13 else PORC[0])
+    cv.outline(PORC[3])
+    return cv
+
+
+def sc_doily(var):
+    """A lace doily: a scalloped ring of white lace with a ring of holes, the table showing through."""
+    cv = Canvas(32, 32)
+    c = 16.0
+    for y in range(32):
+        for x in range(32):
+            dx, dy = x + 0.5 - c, y + 0.5 - c
+            d, a = math.hypot(dx, dy), math.atan2(dy, dx)
+            if d > 13.2 + 1.4 * math.cos(a * 10):
+                continue
+            if (abs(d - 9.6) < 1.1 and math.cos(a * 10) > 0.25) or (abs(d - 4.4) < 0.8 and math.cos(a * 6) > 0.3):
+                continue                                    # the holes of the lace
+            cv.set(x, y, PORC[1] if (dx + dy > 8 and d > 10.5) else PORC[0])
+    cv.outline(PORC[2])
+    return cv
+
+
+def sc_teabag(var):
+    """A used tea bag, its string and its paper tag."""
+    cv = Canvas(24, 16)
+    for y in range(3, 13):
+        for x in range(2, 11):
+            if x in (2, 10) and y in (3, 12):
+                continue
+            cv.set(x, y, BROWN[1] if x + y < 14 else BROWN[2])
+    blob(cv, ((4, 5), (5, 5), (4, 6)), BROWN[0])
+    cv.outline(BROWN[3])
+    for k in range(9):                                      # the string
+        cv.set(11 + k, 7 + (1 if 3 < k < 7 else 0), PORC[2])
+    for y in range(4, 11):                                  # the tag
+        for x in range(19, 23):
+            cv.set(x, y, PORC[0] if y < 9 else PORC[1])
+    blob(cv, ((20, 6), (21, 6)), RED[1])
+    return cv
+
+
+def sc_crumbs(var):
+    """A corner broken off a biscuit (its straight broken edges, golden) and its crumbs."""
+    cv = Canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot(x + 0.5 - 3.0, y + 0.5 - 3.0)
+            if x >= 3 and y >= 3 and d <= 9.0:              # a quarter of a round biscuit
+                cv.set(x, y, COOKIE[0] if (x < 5 or y < 5) else COOKIE[1])
+    for x in range(3, 12):                                  # the broken edges are rough
+        if x % 3 == 1:
+            cv.set(x, 3, None)
+            cv.set(3, x, None)
+    blob(cv, ((7, 7), (9, 6), (6, 9)), COOKIE[2])
+    cv.outline(COOKIE[2])
+    for x, y in ((1, 1), (13, 3), (2, 13), (14, 12)):
+        cv.set(x, y, COOKIE[1])
+    return cv
+
+def sc_stain(var):
+    """A tea ring left by a cup, broken at the top-left."""
+    cv = Canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot(x + 0.5 - 8, y + 0.5 - 8)
+            a = math.atan2(y + 0.5 - 8, x + 0.5 - 8)
+            if 5.4 <= d <= 6.7 and not (-2.7 < a < -1.8):
+                cv.set(x, y, BROWN[1] if -0.4 < a < 2.4 else BROWN[0])
+    return cv
+
+
+def sc_petals(cols):
+    """Three petals, fallen."""
+    cv = Canvas(16, 8)
+    for (cx, cy) in ((3.0, 3.0), (7.5, 5.0), (12.5, 2.5)):
+        hs.ellipse(cv, cx, cy, 2.2, 1.6, None, flat=cols[0])
+        cv.set(int(cx), int(cy), cols[1])
+        cv.set(int(cx) + 1, int(cy), cols[1])
+    return cv
+
+
+# -- Crayon Desk: a child's desk
+def sc_drawing(var):
+    """A child's crayon drawing on a sheet of paper: the sun, a house, the sky."""
+    cv = Canvas(48, 40)
+    paper, edge = (255, 255, 247), (239, 239, 239)
+    for y in range(4, 36):
+        for x in range(4, 44):
+            cv.set(x, y, edge if (x > 41 or y > 33) else paper)
+    hs.ellipse(cv, 12.0, 12.0, 4.0, 4.0, None, flat=ORANGE[0])  # the sun and its rays
+    for k in range(8):
+        a = k * math.pi / 4
+        for r in (6, 7):
+            cv.set(int(12 + math.cos(a) * r), int(12 + math.sin(a) * r), ORANGE[1])
+    for y in range(22, 32):                                 # the house
+        for x in range(24, 37):
+            cv.set(x, y, (236, 96, 84) if (x in (24, 36) or y in (22, 31)) else paper)
+    for k in range(9):                                      # its roof
+        for x in range(23 + k, 38 - k):
+            if k == 0 or x in (23 + k, 37 - k):
+                cv.set(x, 21 - k, ORANGE[2])
+    for y in range(26, 32):                                 # the door
+        blob(cv, ((29, y), (30, y)), ORANGE[3])
+    for x in range(6, 42):                                  # the grass line, in blue (the crayon at hand)
+        cv.set(x, 32 - (x // 3) % 2, BLUEW[3])
+    cv.outline(THEMES["TH_DESK"]["g"][3])
+    return cv
+
+
+def sc_sticky(var):
+    """A yellow sticky note with a few lines on it, its bottom edge curling up."""
+    cv = Canvas(24, 24)
+    for y in range(3, 21):
+        for x in range(3, 21):
+            cv.set(x, y, ORANGE[0] if y < 18 else BROWN[0])
+    for y in (8, 11, 14):
+        for x in range(6, 18 - (4 if y == 14 else 0)):
+            if (x + y) % 5:
+                cv.set(x, y, ORANGE[1])
+    cv.outline(ORANGE[2])
+    return cv
+
+
+def sc_star(var):
+    """A gold star sticker."""
+    cv = Canvas(16, 16)
+    pts = [(8 + (6.6 if k % 2 == 0 else 2.9) * math.cos(-math.pi / 2 + k * math.pi / 5),
+            8.5 + (6.6 if k % 2 == 0 else 2.9) * math.sin(-math.pi / 2 + k * math.pi / 5)) for k in range(10)]
+    for y in range(16):
+        for x in range(16):
+            if poly_in(x + 0.5, y + 0.5, pts):
+                cv.set(x, y, ORANGE[0] if x + y < 15 else ORANGE[1])
+    cv.outline(ORANGE[2])
+    return cv
+
+
+def sc_heart(var):
+    """A pink heart sticker."""
+    cv = Canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            px, py = x + 0.5, y + 0.5
+            if (math.hypot(px - 5.6, py - 6.2) <= 3.1 or math.hypot(px - 10.4, py - 6.2) <= 3.1
+                    or poly_in(px, py, ((2.6, 7.2), (13.4, 7.2), (8.0, 13.4)))):
+                cv.set(x, y, PINK[1])
+    blob(cv, ((4, 5), (5, 4), (4, 6)), PINK[0])
+    cv.outline(RED[2])
+    return cv
+
+def sc_shavings(cols):
+    """Crayon shavings: a frilly ring, the crayon's colour (light, mid, outline) round the pale wood."""
+    cv = Canvas(16, 16)
+    for y in range(16):
+        for x in range(16):
+            dx, dy = x + 0.5 - 8, y + 0.5 - 8
+            d, a = math.hypot(dx, dy), math.atan2(dy, dx)
+            rim = 5.4 + 0.9 * math.sin(a * 7)
+            if 1.6 < d <= rim and a < 2.2:                  # a ring, opened at the bottom left
+                cv.set(x, y, cols[3] if d < rim - 1.6 else cols[0] if (dx + dy) < 0 else cols[1])
+    cv.outline(cols[2])
+    return cv
+
+
+def sc_scribble(col):
+    """A crayon scribble: loops along a line."""
+    cv = Canvas(24, 16)
+    for k in range(160):
+        t = k / 159.0
+        cv.set(int(3.5 + t * 16 + 2.6 * math.cos(t * 6.283 * 4)),
+               int(8.0 + 4.4 * math.sin(t * 6.283 * 4) - 1.5 * math.sin(t * 3.1)), col)
+    return cv
+
+
+def sc_paper(cols):
+    """A scrap of lined paper, a corner torn off: paper, the lines, the outline."""
+    cv = Canvas(16, 16)
+    for y in range(3, 14):
+        for x in range(2, 14):
+            if x + y > 23 or (y == 3 and x > 10):
+                continue
+            cv.set(x, y, cols[1] if (y % 3 == 0 or x == 4) else cols[0])
+    cv.outline(cols[2])
+    return cv
+
+
+def sc_splat(cols):
+    """A splash of paint and its drops."""
+    cv = Canvas(16, 16)
+    hs.ellipse(cv, 6.5, 6.5, 4.2, 3.6, None, flat=cols[1])
+    for a in range(0, 360, 60):
+        r = math.radians(a + 15)
+        hs.ellipse(cv, 6.5 + math.cos(r) * 4.2, 6.5 + math.sin(r) * 3.6, 1.4, 1.4, None, flat=cols[1])
+    blob(cv, ((4, 4), (5, 4), (4, 5)), cols[0])
+    blob(cv, ((13, 12), (12, 13), (13, 13), (2, 13)), cols[1])
+    return cv
+
+
+def sc_bits(cols):
+    """Rolled-up bits of eraser."""
+    cv = Canvas(8, 8)
+    for x, y in ((1, 2), (4, 4), (2, 6), (5, 1)):
+        cv.set(x, y, cols[0])
+        cv.set(x + 1, y, cols[1])
+    return cv
+
+
+# -- Picnic: the lawn
+def daisy(cv, x, y, big=True):
+    r = 2 if big else 1
+    for dx, dy in ((0, -r), (r, 0), (0, r), (-r, 0)):
+        cv.set(x + dx, y + dy, PORC[0])
+    if big:
+        for dx, dy in ((-1, -1), (1, -1), (-1, 1), (1, 1)):
+            cv.set(x + dx, y + dy, PORC[0])
+    cv.set(x, y, ORANGE[0])
+
+
+def sc_daisies(var):
+    """Daisies in the grass (var 1: a patch of them, with their leaves)."""
+    if var == 0:
+        cv = Canvas(16, 16)
+        daisy(cv, 4, 4), daisy(cv, 11, 10), daisy(cv, 12, 3, False)
+        return cv
+    cv = Canvas(24, 24)
+    for x, y in ((5, 8), (9, 15), (16, 6), (18, 17), (12, 10)):
+        blob(cv, ((x - 1, y + 3), (x, y + 3), (x + 1, y + 4)), GREEN[2])
+    for x, y, big in ((5, 6, 1), (10, 13, 1), (16, 4, 1), (19, 15, 1), (13, 9, 0), (4, 16, 0)):
+        daisy(cv, x, y, big)
+    return cv
+
+
+def sc_dandelions(var):
+    cv = Canvas(16, 16)
+    for x, y, r in ((5, 9, 2.6), (11, 4, 2.1)):
+        blob(cv, ((x - 2, y + 3), (x - 1, y + 3), (x + 2, y + 3)), GREEN[2])
+        hs.ellipse(cv, x + 0.5, y + 0.5, r, r, None, flat=ORANGE[0])
+        blob(cv, ((x, y), (x + 1, y + 1)), ORANGE[1])
+    return cv
+
+
+def sc_clover(var):
+    """Clover: trefoils of darker leaves, one white flower."""
+    cv = Canvas(16, 16)
+    for x, y in ((4, 4), (11, 6), (6, 11)):
+        for dx, dy in ((0, -1.6), (-1.5, 0.9), (1.5, 0.9)):
+            hs.ellipse(cv, x + 0.5 + dx, y + 0.5 + dy, 1.5, 1.5, None, flat=GREEN[2])
+        cv.set(x, y, GREEN[1])
+    blob(cv, ((12, 12), (13, 12), (12, 13), (13, 13), (12, 11)), PORC[0])
+    return cv
+
+
+def sc_tuft(var):
+    """A tuft of longer grass: darker blades."""
+    cv = Canvas(8, 8)
+    for bx, h, lean in ((1, 4, 1), (3, 6, 0), (4, 5, 1), (6, 4, -1)):
+        for k in range(h):
+            cv.set(bx + (lean * k) // 3, 7 - k, GREEN[2] if k < h - 1 else GREEN[1])
+    return cv
+
+
+def sc_ants(var):
+    """A line of ants marching to the picnic."""
+    cv = Canvas(32, 8)
+    for k in range(6):
+        x, y = 2 + k * 5, 4 + (1 if k % 2 else 0) - (1 if k == 3 else 0)
+        blob(cv, ((x, y), (x + 1, y), (x + 3, y)), BROWN[3])
+        blob(cv, ((x + 1, y - 1), (x + 2, y + 1)), BROWN[3])
+    return cv
+
+
+def sc_leaf(var):
+    """A fallen leaf (var 0 green, 1 autumn)."""
+    cv = Canvas(16, 16)
+    ramp = [ORANGE[0], ORANGE[1], ORANGE[2]] if var else [GREEN[0], GREEN[1], GREEN[2]]
+    ax, ay, bx, by = 3.0, 12.5, 13.0, 3.5
+    L = math.hypot(bx - ax, by - ay)
+    ux, uy = (bx - ax) / L, (by - ay) / L
+    for y in range(16):
+        for x in range(16):
+            px, py = x + 0.5 - ax, y + 0.5 - ay
+            t, s = px * ux + py * uy, -px * uy + py * ux
+            if 0 <= t <= L and abs(s) <= 4.2 * math.sin(math.pi * t / L) ** 0.8:
+                cv.set(x, y, ramp[2] if abs(s) < 0.6 else ramp[0] if s < 0 else ramp[1])
+    blob(cv, ((2, 13), (1, 14)), ramp[2])
+    cv.outline(ORANGE[3] if var else GREEN[3])
+    return cv
+
+
+# -- Veggie Patch: the soil
+def sprout(cv, x, y):
+    blob(cv, ((x + 1, y + 2), (x + 1, y + 3)), GREEN[2])
+    hs.ellipse(cv, x + 0.0, y + 1.5, 1.6, 1.2, None, flat=GREEN[1])
+    hs.ellipse(cv, x + 3.0, y + 1.0, 1.6, 1.2, None, flat=GREEN[1])
+    blob(cv, ((x - 1, y + 1), (x + 2, y)), GREEN[0])
+
+
+def sc_sprouts(n):
+    """Seedlings: n of them in a little row."""
+    cv = Canvas(8 * n, 8)
+    for k in range(n):
+        sprout(cv, 2 + k * 8, 2 + (k % 2))
+    cv.outline(GREEN[3])
+    return cv
+
+
+def sc_rosette(var):
+    """A young plant: a rosette of five leaves."""
+    cv = Canvas(16, 16)
+    for k in range(5):
+        a = k * 2 * math.pi / 5 - math.pi / 2
+        hs.ellipse(cv, 8 + math.cos(a) * 3.4, 8 + math.sin(a) * 3.4, 2.4, 2.4, LETTUCE)
+    hs.ellipse(cv, 8.0, 8.0, 1.6, 1.6, None, flat=GREEN[0])
+    cv.outline(GREEN[3])
+    return cv
+
+
+def sc_pebbles(var):
+    cv = Canvas(8, 8)
+    hs.ellipse(cv, 2.5, 2.5, 1.8, 1.5, STONE)
+    hs.ellipse(cv, 5.5, 5.5, 1.5, 1.2, STONE)
+    cv.outline(STONE[3])
+    return cv
+
+
+def sc_worm(var):
+    """An earthworm wriggling along."""
+    cv = Canvas(16, 8)
+    for k in range(13):
+        x, y = 2 + k, 4 + int(round(1.4 * math.sin(k * 0.75)))
+        cv.set(x, y, PINK[1] if k % 3 else RED[0])
+        cv.set(x, y - 1, PINK[0] if k < 12 else PINK[1])
+    cv.outline(RED[2])
+    return cv
+
+
+def sc_chips(var):
+    """Wood chips strayed off the path."""
+    cv = Canvas(8, 8)
+    for x, y in ((1, 1), (4, 3), (2, 5), (5, 6)):
+        cv.set(x, y, BROWN[0])
+        cv.set(x + 1, y, BROWN[1])
+    return cv
+
+
+def sc_prints(col):
+    """A bird's footprints across the soft soil."""
+    cv = Canvas(24, 24)
+    for k, (x, y) in enumerate(((4, 18), (10, 12), (14, 16), (20, 8))):
+        for dx, dy in ((0, 0), (0, 1), (0, 2), (-1, -1), (-2, -2), (1, -1), (2, -2), (0, -1), (0, -2)):
+            cv.set(x + dx, y + dy, col)
+    return cv
+
+
+# -- Rainy Patio: the wet flagstones
+def sc_wetslab(arg):
+    """A slab darker with the rain (the ground of a slab, one shade down, a pale reflection across it). arg: (T,
+    ground, x and y of the slab in the cell)."""
+    T, ground, ox, oy = arg
+    g = T["g"]
+    down = {g[0]: g[1], g[1]: g[1], g[2]: g[0], g[3]: g[3]}
+    cv = Canvas(32, 32)
+    for y in range(32):
+        for x in range(32):
+            c = ground(T, ox + x, oy + y)
+            mx, my = mirror(ox + x), mirror(oy + y)
+            if mx in (0, 31) or my in (0, 31):
+                cv.set(x, y, c)                             # the joints stay
+            elif 7 < x + y * 0.5 < 10 and 4 < y < 26:
+                cv.set(x, y, g[2])                          # the sky in it
+            else:
+                cv.set(x, y, down[c])
+    return cv
+
+
+def sc_ripples(cols):
+    """Rain falling in a film of water: two rings spreading (their lit half, their shadowed half)."""
+    cv = Canvas(16, 16)
+    for cx, cy, rx, ry in ((8, 8, 5.6, 4.0), (8, 8, 2.4, 1.6)):
+        for y in range(16):
+            for x in range(16):
+                d = math.hypot((x + 0.5 - cx) / rx, (y + 0.5 - cy) / ry)
+                if abs(d - 1.0) < 0.5 / min(rx, ry) + 0.05:
+                    cv.set(x, y, cols[0] if y + 0.5 < cy else cols[1])
+    return cv
+
+
+def sc_moss(var):
+    """Moss in the joint between two slabs (the stamp sits on a joint: its x 7 and 8, or its y 7 and 8: var 1)."""
+    cv = Canvas(16, 16)
+    rnd = random.Random(90 + var)
+    for a in range(2, 14):
+        for b in (7, 8):
+            if rnd.random() < 0.8:
+                cv.set(b, a, GREEN[2]) if var == 0 else cv.set(a, b, GREEN[2])
+        if rnd.random() < 0.35:
+            b = 6 if rnd.random() < 0.5 else 9
+            cv.set(b, a, GREEN[1]) if var == 0 else cv.set(a, b, GREEN[1])
+    return cv
+
+
+def sc_wet(cols):
+    """A little puddle left by the rain, with its shine (water, shine, outline)."""
+    cv = Canvas(24, 16)
+    hs.ellipse(cv, 12.0, 8.0, 8.5, 4.0, None, flat=cols[0])
+    hs.ellipse(cv, 17.0, 10.0, 3.5, 2.5, None, flat=cols[0])
+    blob(cv, ((7, 6), (8, 6), (9, 6), (10, 6), (8, 7)), cols[1])
+    cv.outline(cols[2])
+    return cv
+
+
+def sc_meadow(var):
+    """A patch of wild flowers: daisies, dandelions and clover together."""
+    cv = Canvas(32, 32)
+    rnd = random.Random(44)
+    for k in range(9):
+        x, y = rnd.randint(4, 27), rnd.randint(5, 27)
+        blob(cv, ((x - 1, y + 3), (x, y + 3), (x + 1, y + 4), (x - 2, y + 2)), GREEN[2])
+    for x, y in ((6, 7), (14, 4), (24, 9), (9, 17), (20, 19), (27, 25), (12, 26), (4, 24)):
+        daisy(cv, x, y, (x + y) % 3 != 0)
+    for x, y in ((18, 11), (5, 14), (22, 27)):
+        hs.ellipse(cv, x + 0.5, y + 0.5, 1.8, 1.8, None, flat=ORANGE[0])
+        cv.set(x, y, ORANGE[1])
+    return cv
+
+
+def sc_packet(var):
+    """A packet of carrot seeds, dropped: a paper envelope, a carrot drawn on it."""
+    cv = Canvas(24, 32)
+    for y in range(3, 29):
+        for x in range(3, 21):
+            cv.set(x, y, (250, 228, 176) if y > 7 else ORANGE[0])
+    for y in range(11, 25):                                 # the carrot on the label
+        w = (25 - y) * 0.28
+        for x in range(12 - int(w), 12 + int(w) + 1):
+            cv.set(x, y, ORANGE[1] if x < 12 else ORANGE[2])
+    for k in range(4):
+        blob(cv, ((11 - k // 2, 10 - k), (13 + k // 2, 10 - k), (12, 10 - k)), GREEN[1])
+    for x in range(5, 19, 2):
+        cv.set(x, 5, ORANGE[2])
+    cv.outline(BROWN[3])
+    return cv
+
+
+def sc_flowers(var):
+    """Flower heads fallen from the pots."""
+    cv = Canvas(16, 16)
+    for x, y, cols in ((4, 5, (PINK[0], ORANGE[0])), (11, 10, (ORANGE[0], ORANGE[1]))):
+        for dx, dy in ((0, -2), (2, 0), (0, 2), (-2, 0)):
+            hs.ellipse(cv, x + 0.5 + dx * 0.8, y + 0.5 + dy * 0.8, 1.5, 1.5, None, flat=cols[0])
+        cv.set(x, y, cols[1])
+    return cv
+
+
+# per theme: (stamp, its argument, x and y in the cell (multiples of 8), how many, the orientations: 0 as drawn,
+# 1 flipped left-right, 2 upside down, 3 both)
+ANY4, UPRIGHT, AS_DRAWN = (0, 1, 2, 3), (0, 1), (0,)
+
+
+def scenery(theme, T, ground):
+    if theme == "TH_TEA":
+        return [(sc_napkin, 0, 16, 16, 6, AS_DRAWN), (sc_doily, 0, 24, 24, 4, AS_DRAWN), (sc_teabag, 0, 24, 40, 4, AS_DRAWN),
+                (sc_crumbs, 0, 8, 40, 18, ANY4), (sc_stain, 0, 40, 8, 14, ANY4),
+                (sc_petals, (PINK[0], PINK[1]), 24, 8, 24, ANY4)]
+    if theme == "TH_DESK":
+        return [(sc_drawing, 0, 8, 16, 3, AS_DRAWN), (sc_sticky, 0, 32, 8, 5, AS_DRAWN), (sc_star, 0, 24, 24, 8, AS_DRAWN),
+                (sc_heart, 0, 40, 40, 6, AS_DRAWN),
+                (sc_shavings, (RED[1], RED[2], RED[3], PORC[1]), 40, 8, 10, ANY4),
+                (sc_shavings, (BLUEW[1], BLUEW[2], BLUEW[3], BLUEW[0]), 8, 40, 10, ANY4),
+                (sc_scribble, GREEN[2], 32, 40, 5, ANY4), (sc_scribble, ORANGE[1], 8, 8, 5, ANY4),
+                (sc_paper, ((255, 255, 247), (236, 96, 84), T["g"][3]), 48, 24, 5, ANY4),
+                (sc_splat, (BLUEW[1], BLUEW[2]), 16, 32, 8, ANY4), (sc_splat, (PINK[0], PINK[1]), 40, 48, 8, ANY4),
+                (sc_bits, (PINK[0], PINK[1]), 24, 48, 14, ANY4)]
+    if theme == "TH_PICNIC":
+        return [(sc_meadow, 0, 0, 0, 10, ANY4), (sc_ants, 0, 16, 24, 4, ANY4), (sc_daisies, 1, 32, 32, 18, ANY4),
+                (sc_daisies, 0, 8, 8, 20, ANY4), (sc_dandelions, 0, 40, 8, 16, ANY4), (sc_clover, 0, 8, 40, 20, ANY4),
+                (sc_leaf, 1, 40, 0, 14, ANY4), (sc_leaf, 0, 24, 48, 12, ANY4),
+                (sc_tuft, 0, 32, 16, 40, UPRIGHT), (sc_tuft, 0, 16, 40, 40, UPRIGHT), (sc_tuft, 0, 48, 0, 30, UPRIGHT)]
+    if theme == "TH_VEG":
+        return [(sc_packet, 0, 16, 8, 2, AS_DRAWN), (sc_prints, T["g"][3], 32, 32, 4, ANY4), (sc_sprouts, 3, 8, 8, 10, UPRIGHT), (sc_sprouts, 3, 16, 48, 10, UPRIGHT),
+                (sc_rosette, 0, 40, 40, 14, ANY4), (sc_sprouts, 1, 24, 40, 12, UPRIGHT), (sc_sprouts, 1, 48, 16, 12, UPRIGHT), (sc_worm, 0, 32, 8, 6, ANY4),
+                (sc_pebbles, 0, 24, 24, 16, ANY4), (sc_chips, 0, 48, 24, 20, ANY4), (sc_leaf, 1, 8, 40, 10, ANY4)]
+    if theme == "TH_PATIO":
+        return [(sc_wetslab, (T, ground, 0, 0), 0, 0, 16, ANY4), (sc_wet, (BLUEW[1], T["g"][2], BLUEW[3]), 8, 40, 12, UPRIGHT),
+                (sc_moss, 0, 24, 40, 18, ANY4), (sc_moss, 1, 40, 24, 18, ANY4), (sc_flowers, 0, 40, 8, 10, ANY4),
+                (sc_leaf, 0, 8, 8, 12, ANY4), (sc_leaf, 1, 16, 24, 8, ANY4), (sc_petals, (TERRA[0], TERRA[1]), 8, 24, 16, ANY4)]
+    return []
+
+def flipped(cv, hf, vf):
+    out = Canvas(cv.w, cv.h)
+    for y in range(cv.h):
+        for x in range(cv.w):
+            out.p[y][x] = cv.p[cv.h - 1 - y if vf else y][cv.w - 1 - x if hf else x]
+    return out
+
+
+def scatter(wd, t, T, ground, keep_out):
+    """Put the theme's stamps down where the ground alone is round them (4 px of it on every side): not on or near the
+    band, the zones, the blanket, the objects and their shadows (keep_out: boxes), the table's rim or the garden's
+    frame; spread out (a stamp's copies apart). Returns how many."""
+    x0, y0, x1, y1 = t.rect if t.table else (0, 0, t.w, t.h)
+    edge = 7 if t.table else 16
+    sx, sy, _d = td.start_line(t)                           # the start's view stays calm: the title's texts, the lights
+    placed = list(keep_out) + [(sx - 300, sy - 130, sx + 300, sy + 150)]
+    n = 0
+    for si, (fn, arg, ox, oy, count, orients) in enumerate(scenery(t.theme, T, ground)):
+        base = fn(arg)
+        flips = {o: flipped(base, o & 1, o >> 1) for o in orients}
+        cands = [(cx, cy, o) for cy in range(t.gh) for cx in range(t.gw) for o in orients]
+        random.Random(1000 + 37 * si + 7 * len(t.name) + t.gw).shuffle(cands)
+        apart = 0.6 * math.sqrt((x1 - x0) * (y1 - y0) / float(count))
+        mine = []
+        for cx, cy, o in cands:
+            if len(mine) >= count:
+                break
+            hf, vf = o & 1, o >> 1
+            x = cx * CELL + (CELL - ox - base.w if hf else ox)
+            y = cy * CELL + (CELL - oy - base.h if vf else oy)
+            bx0, by0, bx1, by1 = x - 4, y - 4, x + base.w + 4, y + base.h + 4
+            if bx0 < x0 + edge or by0 < y0 + edge or bx1 > x1 - edge or by1 > y1 - edge:
+                continue
+            if any(math.hypot(x - mx, y - my) < apart for mx, my in mine):
+                continue
+            if any(bx0 < q[2] + 4 and q[0] - 4 < bx1 and by0 < q[3] + 4 and q[1] - 4 < by1 for q in placed):
+                continue
+            if any(wd.get(xx, yy) is None or wd.get(xx, yy) != ground(T, xx, yy)
+                   for yy in range(by0, by1) for xx in range(bx0, bx1)):
+                continue
+            paste(wd, flips[o], x, y)
+            placed.append((x, y, x + base.w, y + base.h))
+            mine.append((x, y))
+            n += 1
+    return n
+
+
 # ---- a track's world ----------------------------------------------------------------------------------------------------------
 def zone_colour(T, z, x, y):
     surf, shape, zx, zy, rx, ry = z
@@ -732,6 +1301,8 @@ def render_track(t, kinds):
             cache[key] = OBJ_DRAW[kind](var)
         cv = cache[key]
         drawn.append((kind, cv, ox - cv.w // 2, oy - cv.h // 2))
+    # the scenery, clear of the objects and their shadows
+    scatter(wd, t, T, ground, [(x, y, x + cv.w + 3, y + cv.h + 3) for kind, cv, x, y in drawn])
     for kind, cv, x, y in drawn:
         sh = 1 if kind in FLAT else 3
         shadow(wd, cv, x, y, T["shadow"], sh, sh)
@@ -806,18 +1377,20 @@ def bug_palette(colour):
 
 
 SHEET_BUG = bug_palette("red")
-SPOTS = [(1.5, 2.5), (-2.6, 2.3)]
+SPOTS = [(0.7, 2.5), (-3.0, 2.5)]                     # u (forward), |v|: two spots on each wing case
 
 
 def ladybug(deg, hop=False, scale=1.0, size=16):
     """A ladybug seen from above, heading `deg` degrees (0 east, 90 south). Sampled in its own frame (u forward, v
-    right), shaded by the house light in screen space."""
+    right), shaded by the house light in screen space. The front reads at every heading: a black head and pronotum
+    with the two white patches of a seven-spot ladybird; the spots are crisp 2 x 2 dots."""
     out, r4 = RAMPS["red"]
     cv = Canvas(size, size)
     c = size / 2.0
     a = math.radians(deg)
     ca, sa = math.cos(a), math.sin(a)
     k = 1.0 / scale
+    ANG = 0.32                                              # the wing cases opened on a hop
 
     def local(x, y):
         dx, dy = (x + 0.5 - c) * k, (y + 0.5 - c) * k
@@ -837,41 +1410,58 @@ def ladybug(deg, hop=False, scale=1.0, size=16):
                     rv = -s * wu * math.sin(0.55) + wv * math.cos(0.55)
                     if (ru / 6.4) ** 2 + (rv / 2.5) ** 2 <= 1.0:
                         col = WING[1] if (abs(rv) < 0.5 or (ru < -3 and abs(rv) < 1.2)) else WING[0]
-            # the head and the pronotum (black, two white eyes)
-            if ((u - 4.4) / 2.3) ** 2 + (v / 3.0) ** 2 <= 1.0:
-                col = INK
-                if (u - 5.3) ** 2 + (abs(v) - 1.5) ** 2 <= 0.55:
-                    col = WHITE
-                elif u < 4.4 and v < -0.6 and u > 2.8:
-                    nx, ny = screen_n(0.0, -1.0)
-                    if nx * hs.LIGHT_DIR[0] + ny * hs.LIGHT_DIR[1] > 0.2:
-                        col = HEAD_SHINE
             # the shell: two elytra (opened on a hop)
             for s in ((-1, 1) if hop else (0,)):
                 if hop:
                     eu, ev = u + 0.6, v - s * 2.2
-                    ang = 0.32
-                    ru = eu * math.cos(ang) + s * ev * math.sin(ang)
-                    rv = -s * eu * math.sin(ang) + ev * math.cos(ang)
+                    ru = eu * math.cos(ANG) + s * ev * math.sin(ANG)
+                    rv = -s * eu * math.sin(ANG) + ev * math.cos(ANG)
                     inside = (ru / 5.4) ** 2 + (rv / 2.7) ** 2 <= 1.0 and s * rv > -2.7
                     nu, nv = ru / 5.4, (rv + s * 1.2) / 3.6
                 else:
-                    eu, ev = u + 0.9, v
-                    inside = (eu / 5.7) ** 2 + (ev / 4.9) ** 2 <= 1.0
-                    nu, nv = eu / 5.7, ev / 4.9
+                    eu, ev = u + 1.1, v
+                    inside = (eu / 5.3) ** 2 + (ev / 4.9) ** 2 <= 1.0
+                    nu, nv = eu / 5.3, ev / 4.9
                 if not inside:
                     continue
                 sx, sy = screen_n(nu, nv)
                 nd = sx * hs.LIGHT_DIR[0] + sy * hs.LIGHT_DIR[1] - 0.25 * (nu * nu + nv * nv) + 0.15
                 col = hs.shade_nd(nd, r4)
-                if not hop and abs(v) < 0.42 and u < 2.6:   # the line between the elytra
+                if not hop and -0.48 < v <= 0.52 and u < 2.4:   # the line between the elytra (one pixel: v = 0.5)
                     col = INK
-                for (su, sv) in SPOTS:                      # the spots
-                    for sg in ((1, -1) if sv else (1,)):
-                        if (u - su) ** 2 + (v - sg * sv) ** 2 <= 1.2 ** 2:
-                            col = INK
+            # the pronotum and the head in front (black), the white patches on its sides
+            if ((u - 4.2) / 2.5) ** 2 + (v / 3.4) ** 2 <= 1.0 and u > 2.5 + 0.13 * v * v:
+                col = INK
+                if u > 5.0 and v < 0 and screen_n(0.0, -1.0)[0] * hs.LIGHT_DIR[0] + \
+                        screen_n(0.0, -1.0)[1] * hs.LIGHT_DIR[1] > 0.2 and abs(v) < 1.0:
+                    col = HEAD_SHINE
             if col is not None:
                 cv.set(x, y, col)
+    # the white patches on the pronotum and the spots: 2 x 2 dots on the pixel grid, the spots either side of the line (v = 0.5)
+    def corner(pu, pv):
+        return (int(math.floor(c + (pu * ca - pv * sa) * scale + 0.5)),
+                int(math.floor(c + (pu * sa + pv * ca) * scale + 0.5)))
+
+    for pv in (-2.0, 2.0):                                 # (the patches either side of the head's middle)
+        gx, gy = corner(3.9, pv)
+        for py in (gy - 1, gy):
+            for px in (gx - 1, gx):
+                if cv.get(px, py) == INK:
+                    cv.set(px, py, WHITE)
+    for su, sv in SPOTS:
+        for s in (-1, 1):
+            if hop:                                         # on the opened wing case
+                ru, rv = su + 0.6, s * sv - s * 2.2
+                eu = ru * math.cos(ANG) - s * rv * math.sin(ANG)
+                ev = s * ru * math.sin(ANG) + rv * math.cos(ANG)
+                pu, pv = eu - 0.6, ev + s * 2.2
+            else:
+                pu, pv = su, 0.5 + s * sv
+            gx, gy = corner(pu, pv)
+            for py in (gy - 1, gy):
+                for px in (gx - 1, gx):
+                    if cv.get(px, py) in r4:
+                        cv.set(px, py, INK)
     # the glint: top-left of the shell
     best = None
     for y in range(size):
@@ -880,11 +1470,10 @@ def ladybug(deg, hop=False, scale=1.0, size=16):
                 sc = x + y
                 if best is None or sc < best[0]:
                     best = (sc, x, y)
-    if best:
+    if best and cv.get(best[1] + 1, best[2] + 1) in r4:
         cv.set(best[1] + 1, best[2] + 1, WHITE)
     cv.outline(out)
     return cv
-
 
 def mini_bug(size, heading_deg):
     """A tiny ladybug (the HUD icons, falling away)."""

@@ -42,16 +42,21 @@ static int msg_final, msg_drop, msg_drop_car;   /* frames left of FINAL LAP! and
 static int map_w(void) { return rs_screen_width() > 504 ? 128 : 64; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
-/* the zone's lines: a dotted column at the right edge of a tile (left side) and at the left edge (right side) */
+/* the zone's lines: a dashed column at the right edge of a tile (left side) and at the left edge (right side): cream
+   dashes 4 px long, outlined in navy on the outer side and at their ends (readable on the pale tracks too) */
 static void zone_tiles(void)
 {
     uint8_t px[2][64];
     memset(px, 0, sizeof px);
-    for (int y = 0; y < 8; y++)
-        if ((y & 3) < 2) {
-            px[0][y * 8 + 7] = HU_CREAM;
-            px[1][y * 8] = HU_CREAM;
+    for (int y = 0; y < 8; y++) {
+        int dash = y < 4, cap = y == 4 || y == 7;
+        px[0][y * 8 + 7] = dash ? HU_CREAM : cap ? HU_OUTLINE : 0;
+        px[1][y * 8] = px[0][y * 8 + 7];
+        if (dash || cap) {
+            px[0][y * 8 + 6] = HU_OUTLINE;
+            px[1][y * 8 + 1] = HU_OUTLINE;
         }
+    }
     rs_tiles_load8(VR_BG1 + ZONE_TILE, px[0], 2);
 }
 
@@ -369,7 +374,12 @@ static void racer_name(const world *w, int i, char *s, size_t n)
     else snprintf(s, n, "%s", bot_names[w->c[i].colour]);
 }
 
-/* the zone's sides on a wide screen: dotted lines just outside the 320-px stage */
+/* the standings' columns (the place, the icon, the points): on 320 a column in from the right edge (as LAP is on the
+   left); on a wide screen in the margin, the place clear of the zone's line (column 40) */
+static int stand_right(void) { return fdiv8(hu_ui_right()) - (rs_screen_width() > RS_SCREEN_W ? 1 : 2); }
+static int stand_place(int right) { return rs_screen_width() > RS_SCREEN_W && right - 5 < 41 ? 41 : right - 5; }
+
+/* the zone's sides on a wide screen: dashed lines just outside the 320-px stage */
 static void zone_lines(void)
 {
     if (rs_screen_width() <= RS_SCREEN_W) return;
@@ -391,11 +401,11 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
     if (lap > LAPS) lap = LAPS;
     rs_strf(s, sizeof s, TR(LAP), lap, LAPS);
     add_text(t, &n, 1, 1, 0, s);
-    int right = fdiv8(hu_ui_right()) - 1;           /* the standings: the place, the icon (a sprite), the points */
+    int right = stand_right();                      /* the standings: the place, the icon (a sprite), the points */
     for (int k = 0; k < RACERS; k++) {
         const car *c = &w->c[w->order[k]];
         snprintf(s, sizeof s, "%d", k + 1);
-        add_text(t, &n, right - 5, 1 + k * 2, 0, s);
+        add_text(t, &n, stand_place(right), 1 + k * 2, 0, s);
         snprintf(s, sizeof s, "%2d", c->points);
         add_text(t, &n, right - 1, 1 + k * 2, 0, s);
     }
@@ -437,7 +447,7 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
 
 static void race_icons(const world *w)
 {
-    int right = fdiv8(hu_ui_right()) - 1;
+    int right = stand_right();
     for (int k = 0; k < RACERS; k++) {
         const car *c = &w->c[w->order[k]];
         spr(SPR_ICON, (right - 3) * 8 + hu_ui_x(), (1 + k * 2) * 8, racer_pal(c->colour), 3, 0);
@@ -460,12 +470,13 @@ static int result_car(const world *w, int k)
 static void results_screen(const world *w, int st_t, const run_info *ri, int key)
 {
     char s[64], nm[32];
+    int out = w->humans == 1 && ri->out;        /* 1 player out: the note in the panel too (readable over any track) */
     if (key != shown_key) {
         hu_clear();
         hu_banner(2, TR(RESULTS));
         track_title(w, s, sizeof s);
         hu_text(hu_center(s, 0), 7, s);
-        hu_panel(6, 9, 28, 16);                 /* the rows 3 apart, each with the row above it free (accents) */
+        hu_panel(6, 9, 28, out ? 18 : 16);      /* the rows 3 apart, each with the row above it free (accents) */
         static const int rk[4] = {HS_RANK_1, HS_RANK_2, HS_RANK_3, HS_RANK_4};
         for (int k = 0; k < RACERS; k++) {
             int i = result_car(w, k), y = 11 + k * 3, p = w->final_place[i];
@@ -477,11 +488,11 @@ static void results_screen(const world *w, int st_t, const run_info *ri, int key
             snprintf(s, sizeof s, "%d", ri->total[i]);
             hu_box_text(32 - hu_width(s, 0), y, s);
         }
-        if (w->humans == 1 && ri->out) hu_text(hu_center(TR(OUT), 0), 27, TR(OUT));
+        if (out) hu_box_text(hu_center(TR(OUT), 0), 23, TR(OUT));
         shown_key = key;
     }
     const char *line = ri->out || ri->race + 1 >= ri->races ? TR(GO_ON) : TR(NEXT);
-    hu_retry_line_at(23, st_t, RESULTS_LOCK, line);
+    hu_retry_line_at(out ? 25 : 23, st_t, RESULTS_LOCK, line);
 }
 
 static void results_icons(const world *w, int slide)
@@ -509,7 +520,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 
     /* the UI layer */
     hu_standing rs;
-    int score[MAX_PLAYERS];
+    int score[MAX_PLAYERS] = {0};               /* (the title has no players: hu_rank reads score[0] all the same) */
     for (int p = 0; p < w->humans && p < MAX_PLAYERS; p++) score[p] = ri->score[p];
     hu_rank(&rs, w->humans > 0 ? w->humans : 1, score, score);
     int slide = 0;

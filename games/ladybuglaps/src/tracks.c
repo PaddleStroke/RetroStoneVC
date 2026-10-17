@@ -200,10 +200,10 @@ static const tzone veg_zone[] = {
     {SF_WATER, ZS_ELLIPSE, 480, 480, 56, 18},
 };
 static const tleaf veg_leaf[] = {
-    {LF_FROND, 0, 384, 272},
-    {LF_FROND, 1, 512, 300},
-    {LF_FROND, 0, 640, 272},
-    {LF_FROND, 1, 768, 300},
+    {LF_FROND, 0, 384, 284},            /* the carrots' tops: from the top of each carrot (OB_CARROT at y 288) */
+    {LF_FROND, 1, 512, 284},
+    {LF_FROND, 0, 640, 284},
+    {LF_FROND, 1, 768, 284},
     {LF_LEAF2, 0, 352, 136},
     {LF_LEAF2, 3, 736, 184},
 };

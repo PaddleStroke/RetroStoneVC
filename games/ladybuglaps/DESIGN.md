@@ -30,7 +30,7 @@ same five the other way round; finish in the top 3 to go on.
   frames, at most 56 px), easing at most 5 px a frame (a new leader: a smooth pan). Play.c owns it: the rules never
   ask the screen's width.
 - **Left behind.** The race zone is a fixed 320 x 240 box round the camera, **the same at every screen width**
-  (docs/spec.md "Widescreen": a wider screen shows more of the track, and on it two dotted lines mark the zone's
+  (docs/spec.md "Widescreen": a wider screen shows more of the track, and on it two dashed lines mark the zone's
   sides). A racer whose centre leaves it by more than 4 px (after the first 2 s of a race) is left behind: **the
   leader takes a point, and the one left behind loses one** (never under 0); it is gone half a second, then put back
   3 waypoints behind the leader, in its own lane, at 85% of the leader's speed, blinking for a second (it goes
@@ -155,13 +155,14 @@ championship led from the front.
 | backdrop | dark (never seen: BG4 covers it) | - |
 | BG4 | below the table (the lawn, the carpet) or beyond the garden's frame: a 64-px texture repeated | 1/2 under a table (far below), 1 for the gardens |
 | BG3 | the track's world: a 64 x 32 map (128 x 32 beyond 504 columns) **streamed** from the track's whole map (up to 192 x 120 entries) round the camera every frame; off the table: transparent | the camera |
-| BG1 | the house UI kit: the logo, the lap, the standings, the messages, the panels, PAUSED; on a wide screen the zone's dotted sides | fixed |
+| BG1 | the house UI kit: the logo, the lap, the standings, the messages, the panels, PAUSED; on a wide screen the zone's dashed sides | fixed |
 | OBJ | the kit's digits, glyphs and medals (OBJ 3); the touch controls, tags, the "!", the lights, the flag, dust, splashes, sparks, "+1" and the shadows (OBJ 2); the leaves over the track (OBJ 6, see-through in the middle); the ladybugs (OBJ 0, 1, 4, 5) | |
 
 **The tracks on a tile console.** A track's world is drawn whole by make_art.py, then cut into 8x8 tiles, the
 duplicates (also flipped) shared: the grounds and the band's textures repeat every 64 px **and are mirrored in each
 cell**, so a corner and its three flipped twins are the same tiles, and repeated objects sit at the same place
-modulo 64 px. A track is 400-545 tiles (at most 600: VRAM 768..1367, loaded when its race starts) in 4-5 BG
+modulo 64 px, as do the bits of scenery (each a stamp put down at the same place in its cell, maybe flipped). A
+track is 470-590 tiles (at most 600: VRAM 768..1367, loaded when its race starts) in 4-5 BG
 palettes (1-4 and 7; build_assets.py packs the tiles' colours, the objects drawn from a few shared colour
 families). The VRAM in English: about 1.9k tiles' worth with the maps (the 64 KiB guideline holds; strict mode is
 on in the tests). **The ladybugs** are 9 headings (0 to 90 degrees, 16 x 16; the hop 24 x 24 with the wings open),
@@ -169,7 +170,7 @@ flipped for the other 23 of the 32. Sprites: at most about 40.
 
 **Widescreen** (docs/spec.md "Widescreen"): the game opts in (`max_width`, `WIDESCREEN_ladybuglaps = 1`). A wider
 screen (427, 520) shows **more of the track round the camera**; the rules are unchanged: the camera and the race
-zone are play.c's, 320 x 240 at every width, and two dotted lines on the UI layer mark the zone's sides (a racer
+zone are play.c's, 320 x 240 at every width, and two dashed lines on the UI layer (cream, outlined in navy) mark the zone's sides (a racer
 past them is left behind, even when the wide screen still shows it). The HUD stays in the 320 columns (the standings
 at the screen's right edge); the touch BRAKE button follows the screen's bottom-right corner. A state saved at one
 width loads at another. The touch test drives the same stick at 320, 427, 520 and 560 and compares the races.
@@ -219,12 +220,16 @@ race. A cup of three races; the results rank the players by their points, with m
 
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The ladybugs: round
-shells in four colours (red, yellow, blue, green) with black spots and a split down the middle, a black head with two
-white eyes, a glint top-left, the outline the shell's darkest shade; the hop: the shells open, the pale wings out.
+shells in four colours (red, yellow, blue, green) with crisp 2x2 black spots and a split down the middle, a black head
+and pronotum with the two white patches of a seven-spot ladybird (the front reads at every heading), a glint top-left, the outline the shell's darkest shade; the hop: the shells open, the pale wings out.
 Big everyday objects seen from above with their shadows down-right: porcelain teacups with patterns and tea, a
 teapot, sugar cubes, biscuits, a spoon; crayons with paper wrappers, erasers, paint jars with a brush, a pencil;
 the gingham blanket, a wicker basket, a sandwich, apples, juice with a straw; lettuces, carrots, pumpkins, a watering
-can; flower pots, a snail. Glossy jam and glue, puddles with a shine. The canopy: green and autumn leaves and carrot
+can; flower pots, a snail. Glossy jam and glue, puddles with a shine. The scenery off the band (flat, no rules; kept
+away from the band, the objects and the start's view): napkins, doilies, tea bags, biscuit crumbs, tea rings and rose
+petals on the tea table; a child's drawing, sticky notes, stickers, crayon shavings, scribbles and paint splashes on
+the desk; daisies, dandelions, clover, ants and fallen leaves on the lawn; seedlings, a seed packet, a worm, a bird's
+footprints and pebbles in the soil; rain-dark slabs, puddles, moss in the joints and fallen flowers on the patio. The canopy: green and autumn leaves and carrot
 fronds over the track (sprites, see-through in the middle with the house checker so the ladybugs show). The title
 logo: LADYBUG in ladybug red, LAPS in leaf green.
 

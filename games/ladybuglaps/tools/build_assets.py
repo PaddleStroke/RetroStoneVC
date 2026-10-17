@@ -68,10 +68,11 @@ def convert_world(cells, slots):
                 left += freq[s]
         return left, pals
 
-    # the richest sets first, then a few shuffles of the same (seeded): the packing that leaves the fewest tiles out
+    # the richest sets first, then shuffles of the same (seeded) until one leaves no tile out (a full track can take a
+    # few hundred): the packing that leaves the fewest tiles out
     best = pack(uniq)
     rnd = random.Random(1)
-    for _ in range(60):
+    for _ in range(3000):
         if best[0] == 0:
             break
         order = sorted(uniq, key=lambda s: (-len(s) + rnd.random() * 4))
