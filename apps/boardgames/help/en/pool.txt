@@ -1,0 +1,13 @@
+Pool
+# The aim
+8-ball: pocket your group, the solids (1 to 7) or the stripes (9 to 15), then the black 8. 9-ball: pocket the 9.
+# A shot
+- Pull back from the cue ball and let go, or aim and tap the power gauge.
+- Pocketing a ball gives you another shot (8-ball: a ball of your group).
+- The break must pocket a ball or drive four balls to a cushion.
+# Fouls
+The cue ball pocketed, no ball struck or the wrong ball struck first, or after the contact no ball pocketed and none at a cushion. After a foul, your opponent places the cue ball anywhere.
+# 8-ball
+The table is open after the break: the first ball you pocket gives you its group. While it is open, do not strike the 8 first. Pocketing the 8 before your group is cleared, or with a foul, loses the game.
+# 9-ball
+Always strike the lowest ball on the table first. A 9 pocketed on a foul goes back to its spot.

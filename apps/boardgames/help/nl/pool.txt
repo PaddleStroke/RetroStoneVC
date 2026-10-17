@@ -1,0 +1,13 @@
+Pool
+# Het doel
+8-ball: pot je groep, de vollen (1 tot 7) of de halven (9 tot 15), en dan de zwarte 8. 9-ball: pot de 9.
+# Een stoot
+- Trek terug vanaf de witte bal en laat los, of richt en tik op de krachtmeter.
+- Pot je een bal, dan mag je nog een keer (8-ball: een bal van je groep).
+- De break moet een bal potten of vier ballen tegen een band laten komen.
+# Fouten
+De witte gepot, geen bal geraakt of eerst de verkeerde bal geraakt, of na het contact geen bal gepot en geen tegen een band. Na een fout legt de tegenstander de witte waar hij wil.
+# 8-ball
+Na de break is de tafel open: de eerste bal die je pot, geeft je zijn groep. Zolang de tafel open is, raak je de 8 niet als eerste. Wie de 8 pot voordat zijn groep weg is, of met een fout, verliest.
+# 9-ball
+Raak altijd eerst de laagste bal op tafel. Een 9 die met een fout gepot wordt, gaat terug naar haar plek.

@@ -1,0 +1,13 @@
+Biliardo americano
+# Lo scopo
+Palla 8: imbuca il tuo gruppo, le piene (da 1 a 7) o le rigate (da 9 a 15), poi la 8 nera. Palla 9: imbuca la 9.
+# Un tiro
+- Tira indietro dalla bilia bianca e lascia, oppure mira e tocca l'indicatore di forza.
+- Imbucare una bilia ti dà un altro tiro (palla 8: una bilia del tuo gruppo).
+- L'apertura deve imbucare una bilia o portare quattro bilie a una sponda.
+# I falli
+La bianca in buca, nessuna bilia colpita o colpita prima quella sbagliata, oppure, dopo il contatto, nessuna bilia in buca e nessuna su una sponda. Dopo un fallo l'avversario mette la bianca dove vuole.
+# Palla 8
+Dopo l'apertura il tavolo è aperto: la prima bilia che imbuchi ti dà il suo gruppo. Finché è aperto, non colpire per prima la 8. Imbucare la 8 prima di aver finito il tuo gruppo, o con un fallo, fa perdere la partita.
+# Palla 9
+Colpisci sempre per prima la bilia più bassa sul tavolo. Una 9 imbucata con un fallo torna sul suo punto.

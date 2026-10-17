@@ -1,0 +1,13 @@
+Bilhar
+# O objetivo
+Bola 8: mete o teu grupo, as lisas (1 a 7) ou as riscadas (9 a 15), e depois a 8 preta. Bola 9: mete a 9.
+# Uma jogada
+- Puxa para trás a partir da bola branca e larga, ou aponta e toca no medidor de força.
+- Meter uma bola dá-te outra jogada (bola 8: uma bola do teu grupo).
+- A abertura tem de meter uma bola ou levar quatro bolas a uma tabela.
+# As faltas
+A branca metida, nenhuma bola tocada ou a bola errada tocada primeiro, ou, depois do contacto, nenhuma bola metida e nenhuma numa tabela. Depois de uma falta, o adversário coloca a branca onde quiser.
+# Bola 8
+A mesa fica aberta depois da abertura: a primeira bola que meteres dá-te o grupo dela. Enquanto estiver aberta, não toques primeiro na 8. Meter a 8 antes de acabares o teu grupo, ou com falta, perde o jogo.
+# Bola 9
+Toca sempre primeiro na bola de número mais baixo na mesa. Uma 9 metida com falta volta ao seu ponto.

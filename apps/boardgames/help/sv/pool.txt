@@ -1,0 +1,13 @@
+Biljard
+# Målet
+8-ball: sänk din grupp, de hela (1 till 7) eller de halva (9 till 15), och sedan den svarta 8:an. 9-ball: sänk 9:an.
+# Ett skott
+- Dra bakåt från den vita bollen och släpp, eller sikta och tryck på kraftmätaren.
+- Sänker du en boll får du ett skott till (8-ball: en boll ur din grupp).
+- Öppningsstöten måste sänka en boll eller få fyra bollar till en vall.
+# Regelbrott
+Den vita sänkt, ingen boll träffad eller fel boll träffad först, eller efter träffen ingen boll sänkt och ingen vid en vall. Efter ett regelbrott lägger motståndaren den vita var han vill.
+# 8-ball
+Bordet är öppet efter öppningsstöten: den första boll du sänker ger dig dess grupp. Så länge det är öppet får du inte träffa 8:an först. Den som sänker 8:an innan gruppen är klar, eller med ett regelbrott, förlorar.
+# 9-ball
+Träffa alltid den lägsta bollen på bordet först. En 9:a som sänks vid ett regelbrott ställs tillbaka på sin punkt.

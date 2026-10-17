@@ -1,0 +1,13 @@
+Sinuca
+# O objetivo
+Bola 8: encaçape o seu grupo, as lisas (1 a 7) ou as listradas (9 a 15), e depois a 8 preta. Bola 9: encaçape a 9.
+# Uma tacada
+- Puxe para trás a partir da bola branca e solte, ou mire e toque no medidor de força.
+- Encaçapar uma bola dá outra tacada (bola 8: uma bola do seu grupo).
+- A saída deve encaçapar uma bola ou levar quatro bolas a uma tabela.
+# As faltas
+A branca encaçapada, nenhuma bola atingida ou a bola errada atingida primeiro, ou, depois do contato, nenhuma bola encaçapada e nenhuma numa tabela. Depois de uma falta, o adversário coloca a branca onde quiser.
+# Bola 8
+A mesa fica aberta depois da saída: a primeira bola que você encaçapar lhe dá o grupo dela. Enquanto estiver aberta, não atinja a 8 primeiro. Encaçapar a 8 antes de terminar o seu grupo, ou com falta, perde a partida.
+# Bola 9
+Atinja sempre primeiro a bola de menor número na mesa. Uma 9 encaçapada com falta volta ao seu ponto.

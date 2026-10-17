@@ -1,0 +1,13 @@
+Biljardi
+# Tavoite
+Kasipallo: pussita ryhmäsi, ehjät (1–7) tai raidalliset (9–15), ja sitten musta 8. Ysipallo: pussita 9.
+# Lyönti
+- Vedä valkoisesta pallosta taaksepäin ja päästä irti, tai tähtää ja napauta voimamittaria.
+- Kun pussitat pallon, saat uuden lyönnin (kasipallo: oman ryhmäsi pallo).
+- Aloituslyönnin on pussitettava pallo tai vietävä neljä palloa vallille.
+# Virheet
+Valkoinen pussiin, mihinkään ei osuta tai ensin osutaan väärään palloon, tai osuman jälkeen mikään pallo ei mene pussiin eikä vallille. Virheen jälkeen vastustaja asettaa valkoisen minne haluaa.
+# Kasipallo
+Pöytä on avoin aloituslyönnin jälkeen: ensimmäinen pussittamasi pallo antaa sinulle ryhmänsä. Niin kauan kuin pöytä on avoin, älä osu ensin kahdeksikkoon. Kahdeksikon pussittaminen ennen kuin ryhmäsi on pussissa, tai virheen kanssa, häviää pelin.
+# Ysipallo
+Osu aina ensin pöydän pienimpään palloon. Virheellä pussitettu 9 palaa paikalleen.

@@ -1,0 +1,13 @@
+Poolbillard
+# Das Ziel
+8-Ball: Versenke deine Gruppe, die Vollen (1 bis 7) oder die Halben (9 bis 15), dann die schwarze 8. 9-Ball: Versenke die 9.
+# Ein Stoß
+- Zieh von der weißen Kugel zurück und lass los, oder ziele und tippe auf die Kraftanzeige.
+- Versenkst du eine Kugel, darfst du noch einmal (8-Ball: eine Kugel deiner Gruppe).
+- Der Anstoß muss eine Kugel versenken oder vier Kugeln an eine Bande bringen.
+# Fouls
+Die Weiße versenkt, keine Kugel oder zuerst die falsche getroffen, oder nach dem Kontakt keine Kugel versenkt und keine an einer Bande. Nach einem Foul legt der Gegner die Weiße, wohin er will.
+# 8-Ball
+Nach dem Anstoß ist der Tisch offen: Die erste Kugel, die du versenkst, gibt dir ihre Gruppe. Solange er offen ist, triff nicht zuerst die 8. Wer die 8 versenkt, bevor seine Gruppe abgeräumt ist, oder mit einem Foul, verliert.
+# 9-Ball
+Triff immer zuerst die niedrigste Kugel auf dem Tisch. Eine bei einem Foul versenkte 9 kommt zurück auf ihren Punkt.

@@ -1,0 +1,13 @@
+Pool
+# Målet
+8-ball: få din gruppe i hul, de hele (1 til 7) eller de halve (9 til 15), og derefter den sorte 8. 9-ball: få 9'eren i hul.
+# Et skud
+- Træk tilbage fra den hvide kugle og slip, eller sigt og tryk på kraftmåleren.
+- Får du en kugle i hul, får du et skud mere (8-ball: en kugle fra din gruppe).
+- Åbningsstødet skal få en kugle i hul eller sende fire kugler til en vandel.
+# Fejl
+Den hvide i hul, ingen kugle ramt eller den forkerte ramt først, eller efter berøringen ingen kugle i hul og ingen ved en vandel. Efter en fejl lægger modstanderen den hvide, hvor han vil.
+# 8-ball
+Bordet er åbent efter åbningsstødet: den første kugle, du får i hul, giver dig dens gruppe. Så længe det er åbent, må du ikke ramme 8'eren først. Får du 8'eren i hul, før din gruppe er væk, eller med en fejl, taber du.
+# 9-ball
+Ram altid den laveste kugle på bordet først. En 9'er, der kommer i hul ved en fejl, sættes tilbage på sit punkt.

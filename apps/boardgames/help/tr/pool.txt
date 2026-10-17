@@ -1,0 +1,13 @@
+Bilardo
+# Amaç
+8 top: grubunu, düzleri (1–7) ya da çizgilileri (9–15), sonra da siyah 8'i deliğe sok. 9 top: 9'u sok.
+# Atış
+- Beyaz toptan geriye çekip bırak ya da nişan alıp güç göstergesine dokun.
+- Bir top sokarsan bir atış daha yaparsın (8 top: kendi grubundan bir top).
+- Açılış atışı bir top sokmalı ya da dört topu bir bandaya göndermeli.
+# Fauller
+Beyazın deliğe girmesi, hiçbir topa ya da önce yanlış topa vurmak, ya da temastan sonra hiçbir topun girmemesi ve hiçbirinin bandaya değmemesi. Fauldan sonra rakip beyazı istediği yere koyar.
+# 8 top
+Açılıştan sonra masa açıktır: soktuğun ilk top sana kendi grubunu verir. Masa açıkken önce 8'e vurma. 8'i grubunu bitirmeden ya da faulle sokan kaybeder.
+# 9 top
+Her zaman önce masadaki en küçük numaralı topa vur. Faulle giren 9 kendi noktasına geri konur.

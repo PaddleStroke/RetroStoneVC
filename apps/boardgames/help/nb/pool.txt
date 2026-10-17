@@ -1,0 +1,13 @@
+Biljard
+# Målet
+8-ball: få gruppen din i hull, de helfargede (1 til 7) eller de stripete (9 til 15), og så den svarte 8. 9-ball: få 9-eren i hull.
+# Et skudd
+- Trekk tilbake fra den hvite kula og slipp, eller sikt og trykk på kraftmåleren.
+- Får du en kule i hull, får du et skudd til (8-ball: en kule fra gruppen din).
+- Åpningsstøtet må få en kule i hull eller sende fire kuler til en vant.
+# Feil
+Den hvite i hull, ingen kule truffet eller feil kule truffet først, eller etter berøringen ingen kule i hull og ingen ved en vant. Etter en feil legger motstanderen den hvite der han vil.
+# 8-ball
+Bordet er åpent etter åpningsstøtet: den første kula du får i hull, gir deg gruppen dens. Så lenge det er åpent, må du ikke treffe 8-eren først. Får du 8-eren i hull før gruppen din er borte, eller med en feil, taper du.
+# 9-ball
+Treff alltid den laveste kula på bordet først. En 9-er som går i hull ved en feil, settes tilbake på punktet sitt.

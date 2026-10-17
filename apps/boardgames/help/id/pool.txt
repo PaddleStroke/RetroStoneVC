@@ -1,0 +1,13 @@
+Biliar
+# Tujuan
+Bola 8: masukkan kelompokmu, bola polos (1–7) atau bergaris (9–15), lalu bola 8 hitam. Bola 9: masukkan bola 9.
+# Satu pukulan
+- Tarik mundur dari bola putih lalu lepas, atau bidik lalu ketuk pengukur tenaga.
+- Memasukkan bola memberimu satu pukulan lagi (bola 8: bola dari kelompokmu).
+- Pukulan pembuka harus memasukkan bola atau membawa empat bola ke bantalan.
+# Pelanggaran
+Bola putih masuk, tidak ada bola yang terkena atau bola yang salah terkena lebih dulu, atau setelah sentuhan tidak ada bola masuk dan tidak ada yang menyentuh bantalan. Setelah pelanggaran, lawan menaruh bola putih di mana saja.
+# Bola 8
+Meja terbuka setelah pembukaan: bola pertama yang kamu masukkan memberimu kelompoknya. Selama meja terbuka, jangan kenai bola 8 lebih dulu. Memasukkan bola 8 sebelum kelompokmu habis, atau dengan pelanggaran, kalah.
+# Bola 9
+Selalu kenai lebih dulu bola bernomor terkecil di meja. Bola 9 yang masuk karena pelanggaran kembali ke titiknya.

@@ -1,0 +1,13 @@
+Bilard
+# Cel gry
+Ósemka: wbij swoją grupę, pełne (1–7) albo połówki (9–15), a potem czarną 8. Dziewiątka: wbij 9.
+# Uderzenie
+- Pociągnij od białej bili do tyłu i puść albo wyceluj i dotknij wskaźnika siły.
+- Wbicie bili daje ci kolejne uderzenie (ósemka: bila z twojej grupy).
+- Rozbicie musi wbić bilę albo doprowadzić cztery bile do bandy.
+# Faule
+Biała w łuzie, żadna bila nie trafiona albo najpierw trafiona zła, albo po zetknięciu żadna bila nie wpadła i żadna nie dotknęła bandy. Po faulu przeciwnik kładzie białą, gdzie chce.
+# Ósemka
+Po rozbiciu stół jest otwarty: pierwsza wbita bila daje ci swoją grupę. Dopóki jest otwarty, nie trafiaj najpierw w 8. Wbicie 8, zanim skończysz swoją grupę, albo z faulem przegrywa partię.
+# Dziewiątka
+Zawsze trafiaj najpierw najniższą bilę na stole. Dziewiątka wbita przy faulu wraca na swój punkt.

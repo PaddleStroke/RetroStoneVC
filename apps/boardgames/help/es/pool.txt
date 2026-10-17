@@ -1,0 +1,13 @@
+Billar americano
+# El objetivo
+Bola 8: mete tu grupo, las lisas (1 a 7) o las rayadas (9 a 15), y después la 8 negra. Bola 9: mete la 9.
+# Un tiro
+- Tira hacia atrás desde la bola blanca y suelta, o apunta y toca el indicador de fuerza.
+- Meter una bola te da otro tiro (bola 8: una bola de tu grupo).
+- La salida debe meter una bola o llevar cuatro bolas a una banda.
+# Las faltas
+La blanca metida, ninguna bola tocada o la bola equivocada tocada primero, o tras el contacto ninguna bola metida y ninguna en una banda. Tras una falta, el rival coloca la blanca donde quiera.
+# Bola 8
+La mesa queda abierta tras la salida: la primera bola que metes te da su grupo. Mientras está abierta, no toques primero la 8. Meter la 8 antes de acabar tu grupo, o con falta, hace perder la partida.
+# Bola 9
+Toca siempre primero la bola más baja de la mesa. Una 9 metida con falta vuelve a su punto.

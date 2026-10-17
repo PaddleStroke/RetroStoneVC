@@ -1,0 +1,13 @@
+Billard américain
+# Le but
+Jeu de la 8 : empoche ton groupe, les pleines (1 à 7) ou les rayées (9 à 15), puis la 8 noire. Jeu de la 9 : empoche la 9.
+# Un coup
+- Tire en arrière depuis la bille blanche puis lâche, ou vise et touche la jauge de puissance.
+- Empocher une bille te donne un coup de plus (jeu de la 8 : une bille de ton groupe).
+- La casse doit empocher une bille ou envoyer quatre billes contre une bande.
+# Les fautes
+La blanche empochée, aucune bille touchée ou la mauvaise bille touchée en premier, ou, après le contact, aucune bille empochée et aucune contre une bande. Après une faute, l'adversaire place la blanche où il veut.
+# Jeu de la 8
+La table est ouverte après la casse : la première bille que tu empoches te donne son groupe. Tant qu'elle est ouverte, ne touche pas la 8 en premier. Empocher la 8 avant d'avoir fini ton groupe, ou sur une faute, fait perdre la partie.
+# Jeu de la 9
+Touche toujours en premier la bille au plus petit numéro. Une 9 empochée sur une faute revient sur son point.

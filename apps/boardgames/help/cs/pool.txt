@@ -1,0 +1,13 @@
+Kulečník
+# Cíl hry
+Osmička: potop svou skupinu, plné (1–7) nebo půlené (9–15), a pak černou osmičku. Devítka: potop devítku.
+# Šťouch
+- Táhni od bílé koule dozadu a pusť, nebo zamiř a ťukni na ukazatel síly.
+- Když potopíš kouli, hraješ znovu (osmička: kouli své skupiny).
+- Rozstřel musí potopit kouli nebo dostat čtyři koule k mantinelu.
+# Fauly
+Bílá v díře, žádná koule netrefená nebo jako první trefená špatná, nebo po dotyku žádná koule v díře a žádná u mantinelu. Po faulu položí soupeř bílou, kam chce.
+# Osmička
+Po rozstřelu je stůl otevřený: první koule, kterou potopíš, ti dá svou skupinu. Dokud je otevřený, netref jako první osmičku. Kdo potopí osmičku dřív, než dohraje svou skupinu, nebo s faulem, prohrává.
+# Devítka
+Vždy tref jako první nejnižší kouli na stole. Devítka potopená při faulu se vrací na svůj bod.
