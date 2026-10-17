@@ -173,7 +173,7 @@ static void touch_cell(int sx, int sy, int *col, int *row)
 {
     vrect v[MAX_PLAYERS];
     view_layout(W.players > 1 ? W.players : 1, v);
-    int x = sx - rs_screen_origin_x(), y = sy;
+    int x = sx - rs_screen_origin_x(), y = sy - rs_screen_origin_y();   /* (stage coordinates: a tall screen too) */
     int wx = view_well_x(&v[0]);
     int dx = x - wx, dy = y - v[0].y + draw_cam_y(0);
     *col = dx >= 0 ? dx / CELL : -1 - (-dx - 1) / CELL;
@@ -385,6 +385,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);          /* a phone held upright: the well above, the earth below (DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
