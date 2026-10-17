@@ -2,6 +2,7 @@
  * Thermometers' levels, made by chance and chosen: src/games/thermometers_levels.h. Our own puzzles, from the game's
  * own maker (thermometers laid by chance, their levels then changed a little at a time until the solver solves the grid
  * at its level; thermometers_rules.c). Each candidate:
+ *   - its taste: at most one row or column left empty, and few lone bulbs (thermometers of one cell);
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution;
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
  *     too), and how often the medium ways were needed;
@@ -91,6 +92,12 @@ static int candidate(cand *c, int n, int level, uint32_t seed)
     uint8_t sol[THM_CELLS];
     thm_make_ex(n, level, seed, BUDGET, &c->p, sol);
     if (c->p.n != n) return 0;
+    /* the taste: a lone bulb (a thermometer of one cell) or an empty row or column now and then, not often */
+    int lone = 0, empty = 0;
+    for (int t = 0; t < c->p.thermos; t++) lone += c->p.len[t] == 1;
+    for (int w = 0; w < 2; w++)
+        for (int i = 0; i < n; i++) empty += c->p.count[w][i] == 0;
+    if (lone > (n >= 9 ? 2 : 1) || empty > 1) return 0;
     c->grade = thm_effort(&c->p, &c->passes, &c->mediums);
     if (c->grade != level || thm_count(&c->p, 2) != 1) return 0;
     c->numbers = 0;
