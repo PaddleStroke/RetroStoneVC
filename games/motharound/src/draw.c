@@ -27,8 +27,27 @@ static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffe8a0),RS_HEX(0xf1b750),RS_HEX(0x99623c)},
  {RS_HEX(0xebc8fc),RS_HEX(0xbb83d0),RS_HEX(0x76509a)}};
+/* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"): above, the sky going on, deeper toward
+ * the screen's top; below, the hedge's shade, darker with depth. The other layers and the sprites are hidden there
+ * (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+static void raster_out(int line) {
+ int top=rs_screen_top(),bot=rs_screen_bottom();
+ if(line==top || line==RS_SCREEN_H) {
+  rs_window(0,rs_screen_left(),rs_screen_right());
+  for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_window(l,RS_WIN1);
+  rs_obj_window(RS_WIN1);
+ }
+ if(line<0)rs_pal_set(0,hu_scale_color(V[0].sky[0],256-(-line*100/-top)-((line&4)?4:0)));   /* the house dither */
+ else {
+  int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H,k=n>0?d*120/n:0;
+  rs_pal_set(0,hu_scale_color(RS_RGB8(36,61,74),236-k-((line&4)?6:0)));
+ }
+}
 static void raster(int line,void *user) {
- (void)user;int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
+ (void)user;
+ if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
+ if(line==0){for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_window(l,0);rs_obj_window(0);}   /* back from raster_out */
+ int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
  int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);
 }
 /* the maps of this width: 64 tiles at 320; 128 wider (the UI's corner tags, the rings' layer as wide as the screen,
@@ -46,6 +65,7 @@ static void maps_setup(void) {
 void draw_relayout(void) {if(laid_w!=rs_screen_width())maps_setup();}
 void draw_init(void) {
  rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px garden centred, more of it on both sides */
+ rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)*2/3);   /* tall: the stage low, two thirds of the rest above */
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
  maps_setup();
  static const rs_color ring_pal[16]={0,RS_HEX(0x263c46),RS_HEX(0x527766),RS_HEX(0x91b47d),
@@ -189,6 +209,7 @@ static rs_color skycolor(int night,int y,int height) {
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused) {
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);
  nviews=rs_viewport_layout(1,0,VP);
+ VP[0].y=0;VP[0].h=RS_SCREEN_H;      /* a tall screen: the view is the stage's 240 lines (the raster draws the rest) */
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++) {
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
@@ -247,6 +268,11 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   /* the global scrolls: the ring layer's view column 0 at the view's left edge, the garden in stage coordinates */
   rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,(V[0].mx*8-vp->x)&(rs_bg_map_w(RS_BG2)*8-1),0);
   rs_bg_scroll(RS_BG3,(vp->sx[2]-vp->x)&(rs_bg_map_w(RS_BG3)*8-1),vp->sy[2]);rs_viewports(0,NULL,0);
+ } else if(rs_screen_height()>RS_SCREEN_H) {
+  /* a tall screen (320 columns: the view is the stage, x 0, y 0): the view's scrolls as the screen's, no viewport,
+   * so the raster draws the lines past the stage */
+  for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_scroll(l,VP[0].sx[l],VP[0].sy[l]);
+  rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x252b43));
  shown_state=state;shown_best=best;
 }

@@ -88,3 +88,12 @@ The game opts in (`max_width` = 560, `WIDESCREEN_motharound = 1`): 320 x 240 is 
 - `make motharound-check` runs the libretro test, tests/check_game.py (strict mode included) and the state tests
   again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
   `make motharound-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
+display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: two thirds of the extra lines above it). The view is the stage's 240 lines (`VP[0]`, whatever
+the layout says), and with 2-4 players the view's scrolls become the screen's (no viewport) so that the raster
+(draw.c `raster_out`) draws the lines past the stage: above, the dusk or night sky going on, deeper toward the top;
+below, the hedge's shade, darker with depth. The other layers and the sprites are hidden there (window 1); line 0
+puts the stage's settings back, so a 240-line screen is unchanged.
