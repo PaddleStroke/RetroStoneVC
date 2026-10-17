@@ -23,9 +23,9 @@ static const look looks[5] = {
 
 static int cur_look[12], tgt_look[12], shown_look[12] = {-1};
 static rs_color line_col[RS_SCREEN_H];
-static uint32_t bg2_key[32][128];               /* the world cell each BG2 map cell holds (+1; 0 = none) */
+static uint32_t bg2_key[64][128];               /* the world cell each BG2 map cell holds (+1; 0 = none; tall: 64 rows) */
 static int32_t far_col[128];                    /* the BG4 world column each BG4 map column holds */
-static int16_t bg3_row[32];                     /* the mid-ground row each BG3 map row holds */
+static int16_t bg3_row[64];                     /* the mid-ground row each BG3 map row holds */
 static int far_slot[3];                         /* the district (wide: the panorama) whose tiles are in each BG4 slot */
 static int redraw_ui;                           /* transient: a state of another width was loaded (state_audit.txt) */
 static int drawn_width;                         /* the screen width the maps were set up for (saved) */
@@ -45,6 +45,20 @@ static int wide(void) { return rs_screen_width() > RS_SCREEN_W; }
 static int scenery_w(void) { return wide() ? 128 : 64; }
 static int ui_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
 static int screen_cols(void) { return (rs_screen_width() + 7) / 8; }    /* 40 at 320 */
+/* A tall screen (a phone held upright, DESIGN.md "Tall screen"): the scenery maps are 64 rows tall (the world's whole
+ * height) and the screen shows the world from view_y (world y of its top line; above 0: the sky) down to the street:
+ * the stage (the camera's 240 lines) sits TALL_ABOVE lines below the screen's top, lower near the street. */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int map_rows(void) { return tall() ? 64 : 32; }
+static int fdiv(int v, int d) { return v >= 0 ? v / d : -((d - 1 - v) / d); }   /* v / d rounded down */
+static int view_y;                              /* transient: the world y of the screen's top line (state_audit.txt) */
+static int view_cam_y;                          /* transient: the camera y of this picture (the shake included) */
+static int hud_lines;                           /* transient: the UI layer's lines pinned at the screen's top */
+static int ui_dx;                               /* transient: the UI's shift to the middle of the columns shown */
+static int mid_a3;                              /* transient: the mid-ground's virtual y at the screen's top */
+static int pan_x0 = -1;                         /* a zoomed screen: the first column shown (-1: none yet; saved) */
+int draw_ui_dx(void) { return ui_dx; }
+int draw_hud_y(void) { return hud_lines ? rs_screen_top() : 0; }
 static int32_t sky_redrawn[8];                  /* buildings whose broken skylight was redrawn */
 static int sky_redrawn_n;
 static int scroll_x, scroll_y;
@@ -65,6 +79,23 @@ static void split(rs_color c, int *r, int *g, int *b)
     *b = ((c >> 10) & 31) * 255 / 31;
 }
 
+/* the mid-ground's colour i (0..4): the horizon's colour mixed with the district's ink, by tone; shade 256 = as is
+ * (a tall screen: the city below the mid-ground's roofs darker with depth, raster_tall) */
+static rs_color mid_color(int i, int shade)
+{
+    static const int mid_mix[5] = {40, 55, 70, 85, 0};
+    const int *tint = &cur_look[6], *ink = &cur_look[9], *hor = &cur_look[3];
+    int k = mid_mix[i];
+    int r = hor[0] + (ink[0] - hor[0]) * k / 100, g = hor[1] + (ink[1] - hor[1]) * k / 100,
+        b = hor[2] + (ink[2] - hor[2]) * k / 100;
+    if (i == C_MWIN - 1) {
+        if (tint[0] < 180) r = 250, g = 214, b = 120;           /* the night: lit windows */
+        else r = hor[0], g = hor[1], b = hor[2];
+    }
+    if (shade < 256) r = r * shade / 256, g = g * shade / 256, b = b * shade / 256;
+    return rgb(r, g, b);
+}
+
 static void apply_palettes(void)
 {
     const int *tint = &cur_look[6], *ink = &cur_look[9], *hor = &cur_look[3];
@@ -80,14 +111,8 @@ static void apply_palettes(void)
             rs_pal_set(RS_PAL_BG(p) + i, c);
         }
     /* the mid-ground and the backdrop: the horizon's colour mixed with the district's ink, by tone */
-    static const int mid_mix[5] = {40, 55, 70, 85, 0}, far_mix[6] = {18, 30, 42, 54, -40, 30};
-    for (int i = 0; i < 5; i++) {
-        int k = mid_mix[i];
-        rs_color c = rgb(hor[0] + (ink[0] - hor[0]) * k / 100, hor[1] + (ink[1] - hor[1]) * k / 100,
-                         hor[2] + (ink[2] - hor[2]) * k / 100);
-        if (i == C_MWIN - 1) c = night ? rgb(250, 214, 120) : rgb(hor[0], hor[1], hor[2]);
-        rs_pal_set(RS_PAL_BG(PAL_MID) + i + 1, c);
-    }
+    static const int far_mix[6] = {18, 30, 42, 54, -40, 30};
+    for (int i = 0; i < 5; i++) rs_pal_set(RS_PAL_BG(PAL_MID) + i + 1, mid_color(i, 256));
     for (int i = 0; i < 6; i++) {
         int k = far_mix[i];
         rs_color c = k >= 0 ? rgb(hor[0] + (ink[0] - hor[0]) * k / 100, hor[1] + (ink[1] - hor[1]) * k / 100,
@@ -115,9 +140,45 @@ static void sky_lines(int camy)
 static int test_backdrop;                       /* tests: a flat magenta backdrop, so that no tile can match it */
 void draw_test_backdrop(int on) { test_backdrop = on; }
 
+/* A tall screen's lines (DESIGN.md "Tall screen"): the sky's gradient over the screen's height (from the world y of
+ * its top, as the stage's from the camera's); the UI layer shows only the stage and the HUD's band pinned at the
+ * screen's top; the play layer only from the world's top down (above it the map would wrap: the street) */
+static void raster_tall(int line)
+{
+    int top = rs_screen_top(), sl = line - top;
+    if (line == top) {
+        rs_bg_enable(RS_BG1, hud_lines > 0);
+        rs_bg_enable(RS_BG2, view_y >= 0);
+    }
+    if (hud_lines && line == top + hud_lines) rs_bg_enable(RS_BG1, 0);
+    if (line == -view_cam_y) rs_bg_enable(RS_BG2, 1);   /* the world's top */
+    if (line == 0) rs_bg_enable(RS_BG1, 1);
+    if (line == RS_SCREEN_H) rs_bg_enable(RS_BG1, 0);
+    /* the city below the mid-ground's roofs (its last row, repeated): darker with depth, not a flat band */
+    int below = mid_a3 + sl - (MID_Y + 16 + MID_H) * 8;
+    if (line == top || below >= 0) {
+        int shade = below <= 0 ? 256 : 256 - (below < 192 ? below : 192) * 96 / 192;
+        for (int i = 0; i < 5; i++) rs_pal_set(RS_PAL_BG(PAL_MID) + i + 1, mid_color(i, shade));
+    }
+    if (test_backdrop) {
+        rs_pal_set(0, RS_RGB(31, 0, 31));
+        return;
+    }
+    const int *tp = &cur_look[0], *hor = &cur_look[3];
+    int k = clampi((sl + fdiv(view_y, 8)) * 256 / 250, 0, 256);
+    k = k * k / 256;
+    int r = tp[0] + (hor[0] - tp[0]) * k / 256, g = tp[1] + (hor[1] - tp[1]) * k / 256,
+        b = tp[2] + (hor[2] - tp[2]) * k / 256, d = (sl & 4) ? 4 : 0;
+    rs_pal_set(0, rgb(r + d, g + d / 2, b + d));
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (tall()) {
+        raster_tall(line);
+        return;
+    }
     rs_pal_set(0, test_backdrop ? RS_RGB(31, 0, 31) : line_col[line]);
 }
 
@@ -326,19 +387,24 @@ static void stream_bg2(const world *w, int camx, int camy)
         sky_redrawn[sky_redrawn_n++ & 7] = b->index;
         if (sky_redrawn_n > 8) sky_redrawn_n = 8;
         for (int x = (int)b->x0 + b->sky0; x < b->x0 + b->sky1; x += 8)
-            for (int r = 0; r < 32; r++) bg2_key[r][(x / 8) & cm] = 0;
+            for (int r = 0; r < map_rows(); r++) bg2_key[r][(x / 8) & cm] = 0;
     }
     bldg behind = behind_start();
     int tx0 = floor8(camx + rs_screen_left()), ty0 = camy >> 3;     /* (widescreen: from the left view) */
+    int ty1 = ty0 + RS_SCREEN_H / 8, rm = map_rows() - 1;
+    if (tall()) {                                   /* a tall screen: its lines, from the world's top at most */
+        ty0 = view_y > 0 ? view_y >> 3 : 0;
+        ty1 = (view_y + rs_screen_height() - 1) >> 3;
+    }
     for (int tx = tx0; tx <= tx0 + screen_cols(); tx++) {
         const bldg *b = world_bldg_at(w, tx * 8);
         if (!b && tx < 0) b = &behind;
-        for (int ty = ty0; ty <= ty0 + RS_SCREEN_H / 8 && ty < WORLD_H / 8; ty++) {
+        for (int ty = ty0; ty <= ty1 && ty < WORLD_H / 8; ty++) {
             uint32_t key = ((uint32_t)tx << 6 | (uint32_t)ty) + 1;
-            uint32_t *k = &bg2_key[ty & 31][tx & cm];
+            uint32_t *k = &bg2_key[ty & rm][tx & cm];
             if (*k == key) continue;
             *k = key;
-            rs_bg_put(RS_BG2, tx & cm, ty & 31, world_tile(w, b, tx * 8, ty * 8));
+            rs_bg_put(RS_BG2, tx & cm, ty & rm, world_tile(w, b, tx * 8, ty * 8));
         }
     }
 }
@@ -348,17 +414,18 @@ static void stream_bg2(const world *w, int camx, int camy)
 #define MID_TOP_ROWS (MID_Y + 16)               /* the virtual layer's sky rows above the roofs (room for the drop) */
 static int mid_drop;                            /* px the mid-ground sinks by (the Eiffel Tower district: the tower shows) */
 
-static void stream_bg3(int s3)
+static void stream_bg3(int s3, int lines)
 {
-    for (int v = s3 / 8; v <= s3 / 8 + RS_SCREEN_H / 8; v++) {
-        if (bg3_row[v & 31] == v) continue;
-        bg3_row[v & 31] = (int16_t)v;
+    int rm = map_rows() - 1;                        /* (a tall screen: 64 rows, its lines from s3, < 0 the sky) */
+    for (int v = fdiv(s3, 8); v <= fdiv(s3, 8) + lines / 8; v++) {
+        if (bg3_row[v & rm] == v) continue;
+        bg3_row[v & rm] = (int16_t)v;
         int r = v - MID_TOP_ROWS, rr = r < MID_H ? r : MID_H - 1;
         for (int x = 0; x < MID_W; x++)
-            rs_bg_put(RS_BG3, x, v & 31, r < 0 ? 0 : pm_mid_map[rr * MID_W + x]);
+            rs_bg_put(RS_BG3, x, v & rm, r < 0 ? 0 : pm_mid_map[rr * MID_W + x]);
         if (rs_bg_map_w(RS_BG3) > MID_W)           /* widescreen: the panorama's second half */
             for (int x = 0; x < MID_W; x++)
-                rs_bg_put(RS_BG3, MID_W + x, v & 31, r < 0 ? 0 : pm_mid_wide_map[rr * MID_W + x]);
+                rs_bg_put(RS_BG3, MID_W + x, v & rm, r < 0 ? 0 : pm_mid_wide_map[rr * MID_W + x]);
     }
 }
 
@@ -399,7 +466,7 @@ void draw_invalidate(void)
 {
     memset(bg2_key, 0, sizeof bg2_key);
     for (int i = 0; i < 128; i++) far_col[i] = INT32_MIN;      /* (none: the left view shows columns < 0) */
-    for (int i = 0; i < 32; i++) bg3_row[i] = -1;
+    for (int i = 0; i < 64; i++) bg3_row[i] = INT16_MIN;      /* (none: a tall screen streams rows < 0, the sky) */
     sky_redrawn_n = 0;
 }
 
@@ -407,9 +474,9 @@ void draw_invalidate(void)
 static void maps_setup(void)
 {
     rs_bg_setup(RS_BG1, ui_w(), 32, VR_BG1);
-    rs_bg_setup(RS_BG2, scenery_w(), 32, VR_BG2);
-    rs_bg_setup(RS_BG3, scenery_w(), 32, VR_BG3);
-    rs_bg_setup(RS_BG4, scenery_w(), 32, VR_BG4);
+    rs_bg_setup(RS_BG2, scenery_w(), map_rows(), VR_BG2);   /* (a tall screen: 64 rows, the world's height) */
+    rs_bg_setup(RS_BG3, scenery_w(), map_rows(), VR_BG3);
+    rs_bg_setup(RS_BG4, scenery_w(), map_rows(), VR_BG4);
 }
 
 void draw_init(void)
@@ -437,7 +504,8 @@ void draw_init(void)
 void draw_state_loaded(void)
 {
     rs_screen_origin(view_left());              /* (not part of a state: this width's) */
-    if (drawn_width == rs_screen_width()) return;
+    /* (a state of another height: a tall screen's maps are 64 rows, else 32) */
+    if (drawn_width == rs_screen_width() && rs_bg_map_h(RS_BG2) == map_rows()) return;
     drawn_width = rs_screen_width();
     maps_setup();
     if (wide()) rs_tiles_load(VR_BG3, pm_mid_tiles, pm_mid_wide_tile_count);
@@ -536,10 +604,17 @@ void fx_update(const world *w)
 
 /* ---- sprites ---------------------------------------------------------------------------------------------------------- */
 
+/* a sprite past the screen's edges (a tall screen: its lines above and below the stage too) */
+static int off_screen(const pm_sprite_def *d, int sx, int sy)
+{
+    return sx <= rs_screen_left() - (int)d->w || sx >= rs_screen_right() || sy <= rs_screen_top() - (int)d->h ||
+           sy >= rs_screen_bottom();
+}
+
 static void spr_at(int id, int sx, int sy, int pal, int flags)
 {
     const pm_sprite_def *d = &pm_spr[id];
-    if (sx <= rs_screen_left() - (int)d->w || sx >= rs_screen_right() || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
+    if (off_screen(d, sx, sy)) return;
     rs_spr(sx, sy, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, 2, flags);
 }
 
@@ -549,7 +624,7 @@ static void spr_w_prio(int id, int wx, int wy, int flags, int prio)
 {
     const pm_sprite_def *d = &pm_spr[id];
     int sx = wx - camx_i, sy = wy - camy_i;
-    if (sx <= rs_screen_left() - (int)d->w || sx >= rs_screen_right() || sy <= -(int)d->h || sy >= RS_SCREEN_H) return;
+    if (off_screen(d, sx, sy)) return;
     rs_spr(sx, sy, d->tile, d->w, d->h, d->pal, prio, flags);
 }
 
@@ -598,8 +673,8 @@ static void draw_player(const world *w, int p)
         spr_at(SPR_STAR + (w->t / 4) % 2, sx + 12 - g->w / 2, sy + 30 - g->h, -1, 0);
     }
     spr_at(SPR_MAMIE + f, sx, sy, player_pal[p], flip);
-    if (sy + 8 < 0 && (m->state == MS_AIR || m->state == MS_TUMBLE))
-        spr_at(SPR_ARROW, sx + 8, 2, -1, 0);       /* above the screen */
+    if (sy + 8 < rs_screen_top() && (m->state == MS_AIR || m->state == MS_TUMBLE))     /* above the screen */
+        spr_at(SPR_ARROW, sx + 8, rs_screen_top() + hud_lines + 2, -1, 0);           /* (tall: under the HUD) */
 }
 
 /* ---- the clothesline's rope: 8-px chords between points on its curve (obj_line_y), the points 8 px apart and
@@ -730,13 +805,17 @@ static void draw_objects(const world *w)
             break;
         }
         case OB_GUST: {
-            int l = camx_i + rs_screen_left(), r = camx_i + rs_screen_right();       /* the screen, in the world */
+            /* the columns shown, in the world (the screen's; a zoomed screen's are fewer), and its lines */
+            int l = camx_i + rs_screen_visible_x0() - rs_screen_origin_x();
+            int r = camx_i + rs_screen_visible_x1() - rs_screen_origin_x();
             int x0 = (int)o->x > l ? (int)o->x : l, x1 = o->x + o->w < r ? (int)(o->x + o->w) : r;
+            int y0 = tall() ? camy_i + rs_screen_top() + HUD_LINES + 8 : camy_i + 24;
+            int dy = tall() ? (rs_screen_height() - HUD_LINES - 40) / 6 : 31;
             if (x1 - x0 <= 24) break;
             for (int k = 0; k < 6; k++) {
                 int span = x1 - x0 - 16;
                 int ph = (((t * 3 * (o->dir < 0 ? -1 : 1) + k * 57) % span) + span) % span;
-                spr_w(SPR_WIND + (k & 1), x0 + ph, camy_i + 24 + k * 31 + (k * 13 + t / 3) % 9, o->dir < 0 ? RS_SPR_HFLIP : 0);
+                spr_w(SPR_WIND + (k & 1), x0 + ph, y0 + k * dy + (k * 13 + t / 3) % 9, o->dir < 0 ? RS_SPR_HFLIP : 0);
             }
             break;
         }
@@ -793,7 +872,43 @@ void draw_reset(const world *w)
 {
     draw_invalidate();
     memset(fx, 0, sizeof fx);
+    pan_x0 = -1;
     look_update(w, 1);
+}
+
+/* A tall screen's frame (DESIGN.md "Tall screen"). The screen shows the world from TALL_ABOVE lines above the camera
+ * down to the street at most (the stage lower then: the screen still, the stage moving in it); the shake moves the
+ * playfield, not that view. One player playing (or fallen) fills the display's height, the columns shown panned so
+ * that the leader stays near their left (PAN_MIN .. PAN_MAX: more of what comes ahead); the title, "get ready", the
+ * panels and a race (2-4 players: every racer must be seen) show every column. The HUD at the screen's top. */
+#define TALL_MID_Y 84                           /* the mid-ground's virtual y at the screen's top for a view_y of 0 */
+#define TALL_FAR_Y (-16)                        /* the backdrop's map y ... */
+#define PAN_MIN    32                           /* the leader's x in the columns shown: kept from PAN_MIN to PAN_MAX */
+#define PAN_MAX    60
+static void tall_frame(const world *w, int state)
+{
+    int wy = world_camy(w), play = state == DS_PLAY || state == DS_FALL, one = play && w->players == 1;
+    int vy = wy - TALL_ABOVE < WORLD_H - rs_screen_height() ? wy - TALL_ABOVE : WORLD_H - rs_screen_height();
+    int o = clampi(wy - vy, 0, rs_screen_height() - RS_SCREEN_H);
+    rs_screen_origin_v(o);
+    view_y = camy_i - o;                            /* (the shake included: the playfield shakes) */
+    view_cam_y = camy_i;
+    rs_screen_fill(one);
+    hud_lines = play ? HUD_LINES : 0;
+    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    int v = rs_screen_visible_x1() - rs_screen_visible_x0();
+    if (one) {
+        int lx = (int)(w->m[w->leader].x >> 16) - camx_i;
+        if (pan_x0 < 0) pan_x0 = lx - (PAN_MIN + PAN_MAX) / 2;
+        else if (lx < pan_x0 + PAN_MIN) pan_x0 -= clampi(pan_x0 + PAN_MIN - lx, 0, 2);
+        else if (lx > pan_x0 + PAN_MAX) pan_x0 += clampi(lx - pan_x0 - PAN_MAX, 0, 2);
+        pan_x0 = clampi(pan_x0, 0, RS_SCREEN_W - v);
+        rs_screen_focus_x(pan_x0 + v / 2);
+    } else {
+        pan_x0 = -1;
+        rs_screen_focus_x(-1);
+    }
+    ui_dx = one ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : 0;
 }
 
 void draw_frame(const world *w, int state, int st_t, int paused)
@@ -804,20 +919,31 @@ void draw_frame(const world *w, int state, int st_t, int paused)
     if (camy < 0) camy = 0;
     camx_i = camx;
     camy_i = camy;
+    if (tall()) tall_frame(w, state);
     look_update(w, 0);
     sky_lines(camy);
     stream_bg2(w, camx, camy);
     stream_bg4(camx);
     int pm = scenery_w() * 8 - 1;                   /* the maps' period - 1: 511, or 1023 on a wide screen */
+    int ym = map_rows() * 8 - 1;                    /* ... and their height - 1: 255, or 511 on a tall screen */
     scroll_x = camx & pm;
-    scroll_y = camy & 255;
+    scroll_y = camy & ym;
     rs_bg_scroll(RS_BG2, scroll_x, scroll_y);
     int xc = camx + rs_screen_left() + rs_screen_width() / 2, drop_to = district_at(xc) == 3 && !night_at(xc) ? 56 : 0;
     mid_drop += mid_drop < drop_to ? 1 : mid_drop > drop_to ? -1 : 0;
-    int s3 = camy / 2 + 128 - mid_drop;
-    stream_bg3(s3);
-    rs_bg_scroll(RS_BG3, (camx / 2) & pm, s3 & 255);
-    rs_bg_scroll(RS_BG4, (camx / 8) & pm, 40 + camy / 4);
+    if (tall()) {
+        /* a tall screen: the mid-ground and the backdrop placed from the world y of the screen's top (their parallax
+         * the stage's), so that the far landmarks and the roofs stand above the playfield as on the stage */
+        int a3 = mid_a3 = fdiv(view_y, 2) + TALL_MID_Y - mid_drop, top = rs_screen_top();
+        stream_bg3(a3, rs_screen_height());
+        rs_bg_scroll(RS_BG3, (camx / 2) & pm, (a3 - top) & ym);
+        rs_bg_scroll(RS_BG4, (camx / 8) & pm, (fdiv(view_y, 4) + TALL_FAR_Y - top) & ym);
+    } else {
+        int s3 = camy / 2 + 128 - mid_drop;
+        stream_bg3(s3, RS_SCREEN_H);
+        rs_bg_scroll(RS_BG3, (camx / 2) & pm, s3 & 255);
+        rs_bg_scroll(RS_BG4, (camx / 8) & pm, 40 + camy / 4);
+    }
     (void)paused;
     /* sprites, front to back: the UI (ui.c), the players, effects, the cat, things */
     rs_oam_clear();
@@ -835,6 +961,7 @@ void draw_state(void)
 {
     S(cur_look); S(tgt_look); S(shown_look); S(line_col); S(bg2_key); S(far_col); S(bg3_row); S(mid_drop); S(far_slot); S(sky_redrawn);
     S(sky_redrawn_n); S(test_backdrop); S(scroll_x); S(scroll_y); S(night_blink); S(fx_rng); S(fx); S(camx_i); S(camy_i); S(drawn_width);
+    S(pan_x0);
     RS_STATE_RASTER(raster);
 }
 #undef S

@@ -65,7 +65,7 @@ static void read_bg2(void)
         land_y[c] = wall_y[c] = NONE_Y;
         col_kind[c] = K_GAP;
         for (int r = 0; r <= RS_SCREEN_H / 8; r++) {
-            uint16_t e = rs_bg_get(RS_BG2, mx, ((sy >> 3) + r) & 31);
+            uint16_t e = rs_bg_get(RS_BG2, mx, ((sy >> 3) + r) & (rs_bg_map_h(RS_BG2) - 1));   /* (tall: 64 rows) */
             int t = RS_MAP_TILE(e);
             if (t >= T_COUNT) continue;
             int fl = pm_tile_flags[t];

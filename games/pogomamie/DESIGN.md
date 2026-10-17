@@ -204,6 +204,35 @@ players, **two thirds on the right**, ahead (`WIDE_LEFT_SHARE_NUM / _DEN` in tun
 - `make pogomamie-check` runs the alignment, smoke, touch, UI and state tests again at 427 and 520, then
   tests/wide_test.sh (which also finds the 320 picture at its place in the wider ones: the left share).
 
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (480 lines, pm.h) first in `game_init`. The app scales the 480 lines to
+the display's height and crops the sides: 221 columns on a 1080x2340 phone, 205 on a 1080x2520 one, 240 on a 720x1440
+one (Mamie about 4.9x on a 1080x2340 phone, a little bigger than in landscape). A larger H shows more columns (what is
+ahead) but smaller sprites; 480 is nearly the world's whole height (512), so Paris shows from the sky to the street.
+- **The view**: the camera (the stage's 240 lines, world.c, unchanged) is shown with `TALL_ABOVE` (72) lines of sky
+  above it, and the rest of the screen below it, down to the street at most (WORLD_H): when the camera is low the
+  screen stays still on the street and the stage moves in it (`rs_screen_origin_v` each frame; the shake still shakes
+  the playfield). The play layer's, mid-ground's and backdrop's maps are 64 rows tall there (the world's height): the
+  facades go down to the shops, the pavement and the road (or the river); above the world's top (y < 0) the raster
+  hides the play layer (its map would wrap there).
+- **The scenery**: the mid-ground and the backdrop are placed from the world y of the screen's top with their
+  parallax (`TALL_MID_Y`, `TALL_FAR_Y`, draw.c), so the landmarks (the Eiffel Tower whole) and the far roofs stand
+  above the playfield as on the stage; the sky's gradient runs over the screen's height; the city below the far roofs
+  (the mid-ground's last row, repeated) gets darker with depth (raster_tall: no flat band).
+- **The columns shown** (`rs_screen_focus_x`): one player playing (or fallen) fills the display's height, panned so
+  that the leader stays from 32 to 60 columns into the columns shown (at most 2 px a frame; `pan_x0`, saved): most of
+  them are ahead, and the stage's left edge (where she cannot go back past) comes into view when she brakes. The roofs,
+  things and the gusts' streaks come in at the visible right edge (BG2 is streamed over the stage's 320 columns, the
+  sprites culled at the screen's edges, not the stage's).
+- **Fill or fit**: the title, "get ready", the game-over panel and the races (2-4 players: every racer must be seen,
+  the camera waits for them) show every column (`rs_screen_fill(0)`: the whole 320 x 480 picture across the width).
+- **The HUD at the screen's top** while playing: the UI layer's top 48 lines pinned (`rs_bg_pin`: the score, the
+  tags), the distance and the score chips at `rs_screen_top()` (draw_hud_y), centred in the columns shown
+  (draw_ui_dx); the power-up icons under the app's back button. The UI layer shows only the stage's lines otherwise.
+- **Touch**: the halves are those of the columns shown (their middle, main.c `touch_buttons`); at 320, 427 or 520
+  columns that is the screen's middle, as before.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
+
 ## Audio
 - House sounds (games/common/src/house_audio.c): the confirm chime (start, join), the pause blip, the medal
   arpeggio, the game-over sting, the swish, the ding (the stunts), the thud (the sidewalk).

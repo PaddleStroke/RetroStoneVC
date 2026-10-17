@@ -244,6 +244,15 @@ int  draw_redraw_ui(void);          /* ... then 1 once: the UI layer must be dra
 int  draw_player_pal(int p);        /* the OBJ palette of player p's sprite */
 /* the rope of a clothesline as drawn: the segments' end points (world px); returns the count */
 int  draw_line_points(const obj *o, int *xs, int *ys, int max);
+/* A phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (221 columns on a 1080x2340 phone, 205 on a 1080x2520 one). The screen shows the world
+ * from TALL_ABOVE lines above the camera's 240 (the stage) down to the street at most (WORLD_H); the play layer's,
+ * mid-ground's and backdrop's maps are 64 rows tall there. The HUD (the UI layer's top HUD_LINES) at the screen's top. */
+#define ZOOM_H     480
+#define TALL_ABOVE 72
+#define HUD_LINES  48
+int  draw_ui_dx(void);              /* the UI's shift to the middle of the columns shown (0 but on a zoomed screen) */
+int  draw_hud_y(void);              /* the stage y of the HUD's top (the screen's top on a tall screen, else 0) */
 
 /* ui.c: text, panels, the title, the HUD (to move to games/common/house_ui) */
 void ui_init(void);

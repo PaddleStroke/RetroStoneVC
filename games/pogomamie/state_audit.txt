@@ -3,3 +3,8 @@
 # ui.c ui_state(), sfx.c sfx_state(), bot.c bot_state(), the house kit's hu_state() and ha_state()).
 main.SV             the battery save's copy (best distance and score, medals): stays in the .srm, a state never takes it back
 draw.redraw_ui      transient: set by draw_state_loaded() after a state of another width, consumed by the next ui_frame
+draw.view_y         transient: a tall screen's view (the world y of its top), set by draw_frame before each picture
+draw.view_cam_y     transient: the camera y of that picture (the raster's world top), set by draw_frame
+draw.hud_lines      transient: the UI lines pinned at a tall screen's top, set by draw_frame before each picture
+draw.ui_dx          transient: the UI's shift to the middle of the zoomed columns shown, set by draw_frame
+draw.mid_a3         transient: the mid-ground's virtual y at a tall screen's top (the raster's shading), set by draw_frame

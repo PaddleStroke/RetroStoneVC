@@ -90,10 +90,12 @@ static int touch_steers(const rs_touch_point *t)
 
 static uint16_t touch_buttons(void)
 {
+    /* the halves of the columns shown (a zoomed screen pans, DESIGN.md "Tall screen"; else the screen's halves) */
     uint16_t b = 0;
+    int mid = (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2;
     for (int i = 0; i < RS_TOUCH_MAX; i++) {
         const rs_touch_point *t = rs_touch(i);
-        if (t && touch_steers(t)) b |= rs_touch_half(t->x) == RS_TOUCH_LEFT ? RS_BTN_LEFT : RS_BTN_RIGHT;
+        if (t && touch_steers(t)) b |= t->x < mid ? RS_BTN_LEFT : RS_BTN_RIGHT;
     }
     return b;
 }
@@ -303,6 +305,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, Paris from the sky to the street (DESIGN.md) */
     save_load();
     audio_set(rs_option_int("music", 1), rs_option_int("sound", 1));
     sfx_init();

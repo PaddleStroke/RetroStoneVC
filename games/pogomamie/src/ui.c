@@ -117,14 +117,16 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
     if (redraw && paused) hu_pause(0, 13);        /* ... and PAUSED, if it shows */
     hu_pause(paused, 13);
     /* widescreen: the UI centred on the screen (the stage origin is 0: the UI layer scrolls by -hu_ui_x()) */
-    rs_bg_scroll(RS_BG1, -hu_ui_x(), state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
+    rs_bg_scroll(RS_BG1, -hu_ui_x() - draw_ui_dx(), state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
 }
 
 /* ---- sprites: the distance, power-ups, the medal, the A glyph ------------------------------------------------------ */
 static void spr(int id, int x, int y)
 {
     const pm_sprite_def *d = &pm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())                /* (a tall screen: its lines above and below the stage too) */
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, d->pal, 3, 0);
 }
 
@@ -150,13 +152,19 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
 {
     (void)best_m;
     if (state == DS_PLAY || state == DS_FALL) {
+        /* (a tall screen: the HUD at the screen's top, draw_hud_y, in the middle of the columns shown, draw_ui_dx) */
+        int hy = draw_hud_y();
         if (w->players == 1) {
-            distance(w->m[0].dist_m, RS_SCREEN_W / 2, 10 - 8);
-            powerups(&w->m[0], rs_screen_left() + 8, 6);  /* the screen's top-left corner (stage x: wide, the left view) */
+            distance(w->m[0].dist_m, RS_SCREEN_W / 2 + draw_ui_dx(), hy + 10 - 8);
+            if (hy)                             /* the columns shown: under the app's back button */
+                powerups(&w->m[0], rs_screen_visible_x0() - rs_screen_origin_x() + 8, hy + 34);
+            else                                /* the screen's top-left corner (stage x: wide, the left view) */
+                powerups(&w->m[0], rs_screen_left() + 8, 6);
         } else {
-            int values[MAX_PLAYERS];
-            for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;
-            hu_score_chips(w->players, values, 0);
+            for (int p = 0; p < w->players; p++) {  /* hu_score_chips, the top chips at the screen's top */
+                hu_chip c = hu_score_chip(w->players, p, 0);
+                hu_number_at(w->m[p].dist_m, c.x, c.y + (c.y < RS_SCREEN_H / 2 ? hy : 0), c.align, 3);
+            }
         }
     }
     if (state == DS_OVER) {
