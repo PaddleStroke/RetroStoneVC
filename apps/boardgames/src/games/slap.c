@@ -20,6 +20,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/slap.h"
+#include "pages.h"
 #include "shell.h"
 
 #define PLAY_MS 220
@@ -245,7 +246,9 @@ static void draw_zone(int q, Uint32 now)
     box z = T.zone[q];
     float u = ui.unit, deg = zone_deg(q), x, y;
     int out = p->out >> q & 1;
-    ui_fill(z.x, z.y, z.w, z.h, TINT[q][0], TINT[q][1], TINT[q][2], q == 1 ? 40 : 22);   /* the zone, faintly */
+    /* the zone, faintly (the light table: the ebony fainter, not a grey band; the ivory a warm beige) */
+    if (!TH.dark && q == 0) ui_fill(z.x, z.y, z.w, z.h, 170, 140, 96, 22);
+    else ui_fill(z.x, z.y, z.w, z.h, TINT[q][0], TINT[q][1], TINT[q][2], q == 1 ? (TH.dark ? 40 : 14) : 22);
     if (flash.t0 && now - flash.t0 < FLASH_MS && flash.q == q) {   /* a slap: gold (right), red (wrong) */
         ui_animate();
         zone_pt(q, z.w / 2, z.h * 0.55f, &x, &y);
@@ -269,7 +272,7 @@ static void draw_zone(int q, Uint32 now)
         SDL_SetTextureAlphaMod(tk, out ? 90 : 255);
         ui_put_rot(tk, tx, ty, ts, ts, deg);
     }
-    ui_number_rot(nx, ny, 0.55f * ts, p->n[q], 1, deg);
+    ui_number_rot(nx, ny, 0.55f * ts, p->n[q], TH.dark, deg);   /* (cream on the dark table, dark on the light) */
     /* the tribute owed: a dot a try left, above the pile */
     if (p->owed && p->phase == SLP_PLAY && p->turn == q)
         for (int i = 0; i < p->owed; i++) {
@@ -287,9 +290,10 @@ static void draw(void)
     for (int q = 0; q < p->players; q++) draw_zone(q, now);
     /* the lines between the zones */
     float t = fmaxf(1, 0.03f * ui.unit);
-    ui_fill(T.b.x, T.cy - t / 2, T.b.w, t, 246, 238, 220, 50);
+    const Uint8 *lc = TH.dark ? (const Uint8[3]){246, 238, 220} : (const Uint8[3]){84, 56, 36};   /* the light: ink */
+    ui_fill(T.b.x, T.cy - t / 2, T.b.w, t, lc[0], lc[1], lc[2], 50);
     for (int q = 0; q < p->players; q++)
-        if (T.zone[q].x > T.b.x + 1) ui_fill(T.zone[q].x - t / 2, T.zone[q].y, t, T.zone[q].h, 246, 238, 220, 50);
+        if (T.zone[q].x > T.b.x + 1) ui_fill(T.zone[q].x - t / 2, T.zone[q].y, t, T.zone[q].h, lc[0], lc[1], lc[2], 50);
     /* the centre pile: the cards face down under it, then the last ones face up, askew */
     int nc = p->nc - ct_hides(&MV, TAG_CENTRE, -1, -1), from = nc > 7 ? nc - 7 : 0;
     if (!nc && !ct_hides(&MV, TAG_PILE, -1, -1)) cards_place(DECK_FRENCH, T.cx, T.cy, T.wc);
