@@ -576,6 +576,16 @@ static void outline(float x, float y, float w, float h, float t, Uint8 r, Uint8 
     ui_fill(x + w, y, t, h, r, g, b, a);
 }
 
+/* a frame's shadow: its own rounded shape in black (the back's picture), a little down and right */
+static void shadow(float x, float y, float w, float h, float off)
+{
+    SDL_SetTextureColorMod(t_back, 0, 0, 0);
+    SDL_SetTextureAlphaMod(t_back, 80);
+    ui_put(t_back, x + off, y + off, w, h);
+    SDL_SetTextureColorMod(t_back, 255, 255, 255);
+    SDL_SetTextureAlphaMod(t_back, 255);
+}
+
 /* a frame standing (or put down), folding over when it turns: t 0..1 of the turn */
 static void draw_frame(int f, float x, float y, int down)
 {
@@ -592,7 +602,7 @@ static void draw_frame(int f, float x, float y, int down)
     }
     float hh = h * fmaxf(0.04f, k), yy = y + h - hh;
     float sh = fmaxf(1, 0.04f * w);
-    ui_fill(x + sh, yy + sh, w, hh, 0, 0, 0, 60);
+    shadow(x, yy, w, hh, sh);
     ui_put(show_down ? t_back : t_face[f], x, yy, w, hh);
 }
 
@@ -600,7 +610,7 @@ static void draw_secret(void)
 {
     int s = P->secret[me()];
     float x = T.sx, y = T.sy;
-    ui_fill(x + 2, y + 2, T.sw, T.sh, 0, 0, 0, 60);
+    shadow(x, y, T.sw, T.sh, fmaxf(2, 0.04f * T.sw));
     if (ui.viewer < 0) ui_put(t_back, x, y, T.sw, T.sh);   /* the hand-off cover: kept face down */
     else if (s >= 0) ui_put(t_face[s], x, y, T.sw, T.sh);
     else {
@@ -653,7 +663,7 @@ static void draw(void)
         int s = P->secret[!m];
         float w = T.sw, h = T.sh, x = T.ax - w / 2, y = T.ay - h / 2;
         ui_mark_gold(T.ax, T.ay, h * 1.6f);
-        ui_fill(x + 2, y + 2, w, h, 0, 0, 0, 60);
+        shadow(x, y, w, h, fmaxf(2, 0.04f * w));
         if (s >= 0) ui_put(t_face[s], x, y, w, h);
     }
     if (ph == MF_PICK) {
