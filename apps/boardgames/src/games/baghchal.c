@@ -18,6 +18,7 @@
 #define JUMP_MS 230
 #define FADE_MS 240
 #define PLACE_MS 160
+#define LIFT_MS 120                             /* a piece picked up rises off the plank */
 
 static bcgame G;
 static bcmove legal[BC_MAX_MOVES];
@@ -26,6 +27,7 @@ static lines_geo L = {.cells = BC_SIDE};        /* the plank: a point in the mid
 static int made_small = -1;
 static SDL_Texture *t_piece[2], *t_small[2], *t_board;
 static int sel = -1;
+static Uint32 sel_t0;                           /* when it was picked up */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, who; bcmove m; Uint32 t0; } anim;
 
@@ -303,6 +305,18 @@ static void piece_at(int who, float cx, float cy, float d, float alpha)
     ui_flat_at(t_piece[who], cx, cy, d, alpha, ui_upside(who));
 }
 
+/* a piece held off the plank, lift 0..1: its shadow left on the wood, softer and smaller the higher it goes; the
+ * piece itself a little bigger and raised */
+static void piece_lifted(int who, float cx, float cy, float d, float lift)
+{
+    ui_shadow_flat(cx + 0.06f * d * lift, cy + 0.08f * d * lift, d * (1 - 0.08f * lift), d * (1 - 0.08f * lift),
+                   1 - 0.45f * lift);
+    float k = d * (1 + 0.12f * lift);
+    cy -= 0.2f * d * lift;
+    if (ui_upside(who)) ui_put_rot(t_piece[who], cx, cy, k, k, 180);
+    else ui_put_c(t_piece[who], cx, cy, k, k);
+}
+
 static void draw(void)
 {
     const bcpos *p = bc_pos(&G);
@@ -323,7 +337,9 @@ static void draw(void)
         else ui_animate();
     }
     for (int i = 0; i < BC_POINTS; i++) {
-        if (p->at[i] < 0 || (drag.on && drag.moved && i == drag.from) || (anim.on && i == anim.m.to)) continue;
+        if (p->at[i] < 0 || (drag.on && drag.moved && i == drag.from) || (anim.on && i == anim.m.to) ||
+            (playing && i == sel))
+            continue;
         pt_xy(i, &x, &y);
         piece_at(p->at[i], x, y, d, 1);
     }
@@ -350,10 +366,18 @@ static void draw(void)
                 pt_xy(anim.m.over, &ox, &oy);
                 piece_at(BC_GOAT, ox, oy, d * (1 + 0.2f * k), 1 - k);
             }
-            float hop = anim.m.over >= 0 ? 1 + 0.16f * sinf(3.14159265f * t) : 1;   /* a jump: up and over */
             pt_xy(anim.m.from, &x0, &y0);
-            piece_at(anim.who, x0 + (x - x0) * e, y0 + (y - y0) * e, d * hop, 1);
+            if (anim.m.over >= 0)                   /* a jump: up and over, its shadow on the plank */
+                piece_lifted(anim.who, x0 + (x - x0) * e, y0 + (y - y0) * e, d, sinf(3.14159265f * t));
+            else
+                piece_at(anim.who, x0 + (x - x0) * e, y0 + (y - y0) * e, d, 1);
         }
+    }
+    if (playing && sel >= 0 && p->at[sel] >= 0 && !(drag.on && drag.moved)) {   /* the piece picked up: raised */
+        float k = clampf((ui_ms() - sel_t0) / (float)LIFT_MS, 0, 1);
+        if (k < 1) ui_animate();
+        pt_xy(sel, &x, &y);
+        piece_lifted(p->at[sel], x, y, d, 0.5f * (1 - (1 - k) * (1 - k)));
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * d, off = ui_upside(p->side) ? -0.55f : 0.55f;
@@ -383,6 +407,7 @@ static void press(float x, float y)
         return;
     }
     if (p->at[pt] == p->side && can_move(pt)) {
+        if (sel != pt) sel_t0 = ui_ms();
         sel = pt;
         drag.on = 1;
         drag.from = pt;
