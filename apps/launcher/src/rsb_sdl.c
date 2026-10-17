@@ -11,6 +11,8 @@
  *   A tall display (portrait): the picture across the width, centred; above and below it its edges mirrored,
  *   blurred and dark, and the touch zones that do not span the whole height (games.cfg button=) in the band below
  *   it. A game that opts in to the tall screen (rs_screen_tall) gets the display's height at 320 columns instead.
+ *   A zoomed game (rs_screen_zoom) fills the display's height instead, its sides cropped, centred on the columns it
+ *   shows (rs_screen_visible_x0 .. x1); the touch buttons in the band below its stage, or over the bottom of it.
  * Input: touches (Android) or the mouse (desktop) go to the runtime (apps/launcher/games.cfg maps them to the pad),
  *   the keyboard as the SDK's desktop runner (arrows, X = A, Z = B, Enter = Start, Backspace = Select), game
  *   controllers in the SNES layout, Back = Android's Back button, Esc, or the pad's Guide button.
@@ -295,6 +297,14 @@ static void present(int show_pause, int show_held)
         if (k >= 1 && k * fh * 10 >= dh * 9) { dh = k * fh; dw = fw * k; }
     }
     SDL_Rect dst = {(ww - dw) / 2, (wh - dh) / 2, dw, dh};
+    int vx0 = rs_screen_visible_x0(), vx1 = rs_screen_visible_x1(), zoomed = wh > ww && vx1 - vx0 < fw;
+    if (zoomed) {
+        /* a zoomed game (rs_screen_zoom): its height fills the display's, the sides cropped, centred on the columns
+         * it shows (the touches follow: view.x < 0, view.w > 1) */
+        dh = wh;
+        dw = (int)((long long)fw * wh / fh);
+        dst = (SDL_Rect){ww / 2 - (int)((long long)(vx0 + vx1) * wh / (2 * fh)), 0, dw, dh};
+    }
     view.x = (float)dst.x / ww;
     view.y = (float)dst.y / wh;
     view.w = (float)dst.w / ww;
@@ -305,6 +315,7 @@ static void present(int show_pause, int show_held)
     if (wh > ww) {
         int oy = rs_screen_origin_y();
         int sb = dst.y + (int)((long long)(oy + RS_SCREEN_H > fh ? fh : oy + RS_SCREEN_H) * dh / fh);
+        if (zoomed && (wh - sb) * 20 < ww * 9) sb = wh - ww * 9 / 20;  /* zoomed: the bottom at least */
         if ((wh - sb) * 10 >= ww * 3) {
             view.zy = (float)sb / wh;
             view.zh = (float)(wh - sb) / wh;
@@ -399,6 +410,7 @@ static void present(int show_pause, int show_held)
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 110);
         SDL_RenderFillRect(ren, &dst);
         float cx = dst.x + dst.w / 2.0f, cy = dst.y + dst.h / 2.0f, r = (fh > RS_SCREEN_H ? dst.w * 0.75f : dst.h) * 0.12f;
+        if (zoomed) cx = ww / 2.0f, r = ww * 0.75f * 0.12f;   /* (the display's middle, its width) */
         SDL_Vertex v[3 + 48 * 3];
         int n = 0;
         SDL_Color disc = {16, 24, 56, 200}, tri = {255, 246, 220, 255};
@@ -436,11 +448,12 @@ static int width_for(int ww, int wh)
     return w < 320 ? 320 : w > 560 ? 560 : w & ~1;
 }
 
-/* the height a tall game may use (portrait): the display's aspect at 320 columns, even, 240..720 */
+/* the height a tall game may use (portrait): the display's aspect at 320 columns, even, from 240 (the runtime gives a
+ * game at most RS_SCREEN_H_MAX lines; a zoomed one's columns come from the whole of it: rs_screen_zoom) */
 static int height_for(int ww, int wh)
 {
     int h = ww > 0 ? (int)((long long)RS_SCREEN_W * wh / ww) : RS_SCREEN_H;
-    return h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h & ~1;
+    return h < RS_SCREEN_H ? RS_SCREEN_H : h & ~1;
 }
 
 /* the system's language (docs/i18n.md): the first of the user's preferred locales the games have (-1: none) */

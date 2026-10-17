@@ -324,14 +324,14 @@ void rsb_set_width(int w)
 
 int  rsb_width(void) { return cur_width; }
 
-void rsb_set_height(int h) { want_height = h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h; }
+/* (past RS_SCREEN_H_MAX too: the display's shape, for a zoomed game's columns, rs_screen_zoom) */
+void rsb_set_height(int h) { want_height = h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_W * 4 ? RS_SCREEN_W * 4 : h; }
 
 void rsb_resize(int w)
 {
     rsb_set_width(w);
-    if (cur >= 0) {                             /* a widescreen or tall game restarts from a state */
-        const rs_game *g = rsb_games[cur].module->game_main();
-        if (want_width == cur_width && rs_host_height_for(g, want_width, want_height) == rs_screen_height()) return;
+    if (cur >= 0) {             /* a widescreen or tall game restarts from a state (a zoomed one also when only the
+                                 * display's shape changes: rs_host_change_size tells) */
         cur_width = rs_host_change_size(want_width, want_height);
         return;
     }
