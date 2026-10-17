@@ -237,6 +237,10 @@ void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused, const touch_view *tv);
 void draw_state(void);
 void draw_state_loaded(void);       /* widescreen: after a state saved at another width */
+/* a phone held upright (DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom), the sides cropped
+ * while one fish plays; view_shown cuts a view to the columns the display shows (the camera's fit, the touch buttons) */
+#define ZOOM_H 420
+void view_shown(vrect *v);
 void draw_new_run(const world *w);  /* the cameras jump to the fish */
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */

@@ -78,6 +78,22 @@ static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
 static int specks_rows(void) { return rs_screen_height() > 256 ? 128 : 32; }
 static int ray_t;                   /* the rays' sway this frame (the raster carries it past the stage's lines) */
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
+/* a zoomed tall screen while one fish plays (DESIGN.md "Tall screen"): BG1's top HUD_LINES (the leaderboard) pinned at
+ * screen line HUD_PIN_Y (under the frontend's pause button), set by draw_frame before every picture; 0: none */
+#define HUD_PIN_Y 22
+#define HUD_LINES (LB_SOLO_FREE_ROW * 8)
+static int hud_lines;
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+
+void view_shown(vrect *v)
+{
+    int x0 = rs_screen_visible_x0() - rs_screen_origin_x(), x1 = rs_screen_visible_x1() - rs_screen_origin_x();
+    if (v->x < x0) v->w -= x0 - v->x, v->x = x0;
+    if (v->x + v->w > x1) v->w = x1 - v->x;
+}
+
+/* the UI x just past the right edge the HUD keeps to: the screen's, or a zoomed screen's last column shown */
+static int ui_right(void) { return tall() ? rs_screen_visible_x1() - rs_screen_origin_x() : hu_ui_right(); }
 
 static void colour_pal(int colour, int *pal, int *variant)
 {
@@ -259,8 +275,9 @@ static void raster(int line, void *user)
     if (line < 0 || line >= RS_SCREEN_H) {
         /* a tall screen's lines past the stage: more of the pond (the floor, its rim and the specks follow the camera
          * by themselves), the rim's end colours carried on, the rays swaying on (one view: the layer's scroll; the
-         * line-scroll table is the stage's), no UI layer */
-        rs_bg_enable(RS_BG1, 0);
+         * line-scroll table is the stage's), no UI layer but the HUD's band pinned at the top (rs_bg_pin) */
+        int top = rs_screen_top() + HUD_PIN_Y;
+        rs_bg_enable(RS_BG1, hud_lines && line >= top && line < top + hud_lines);
         rs_pal_set(0, rim_col[line < 0 ? 0 : RS_SCREEN_H - 1]);
         rs_bg_scroll(RS_BG2, ray_t / 3 + hu_bob(((line * 3 + ray_t) % 240 + 240) % 240, 240, 3), 0);
     } else if (line == 0) {
@@ -565,7 +582,7 @@ static void play_texts(const world *w, int state, const vrect *v, int nv, int pa
     char s[64], nm[24];
     int top[5], nt = leaderboard(w, top, 5);
     if (w->players == 1) {
-        int right = fdiv8(hu_ui_right()) - 1;
+        int right = fdiv8(ui_right()) - 1;      /* (a zoomed screen: in the columns shown) */
         int me_in = 0;
         for (int i = 0; i < nt; i++) {
             name_of(w, top[i], nm, sizeof nm);
@@ -680,7 +697,9 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 static void draw_touch(sview *s, const vrect *v, const touch_view *tv)
 {
     tbutton bs, be;
-    touch_buttons(v, &bs, &be);
+    vrect vb = *v;
+    view_shown(&vb);                            /* a zoomed screen: the buttons in the columns shown (main.c p1_view) */
+    touch_buttons(&vb, &bs, &be);
     int dx = s->ox - v->x, dy = s->oy - v->y;      /* stage -> sprite coordinates */
     const struct { const tbutton *b; int on, q, qon, icon; } btn[2] = {
         {&bs, tv->split_on, SPR_BTN_SPLIT, SPR_BTN_SPLIT_ON, SPR_ICON_SPLIT},
@@ -742,6 +761,17 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     memcpy(vs, v, sizeof v);
     views_tall(v, nv, rs_screen_top(), rs_screen_bottom());
     int extra = rs_screen_height() > RS_SCREEN_H ? 80 : 0;     /* the sprites of the taller views */
+    /* a zoomed tall screen (DESIGN.md "Tall screen"): one fish playing fills the display's height, the sides cropped:
+     * its camera fits the columns shown and the whole height, the leaderboard at the screen's top (BG1's top lines
+     * pinned, the raster shows them), the mass above it; the title, the panels and a split screen show every column */
+    int solo = (state == ST_PLAY || state == ST_DEAD) && w->players == 1;
+    rs_screen_fill(solo);
+    hud_lines = tall() && solo ? HUD_LINES : 0;
+    rs_bg_pin(RS_BG1, 0, hud_lines, HUD_PIN_Y);
+    if (hud_lines) {
+        vs[0] = v[0];
+        view_shown(&vs[0]);
+    }
 
     /* the cameras */
     if (state == ST_PLAY || state == ST_DEAD) {
@@ -794,7 +824,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         vline_set(&VL[0], &v[0], c, 1);
         sview s = {v[0].x, v[0].y, v[0].w, v[0].h, c->x, c->y, c->zq, SPR_BUDGET_1 + extra};
         if (state == ST_PLAY || state == ST_DEAD) {
-            if (w->own[0].alive) hu_number(owner_mass(w, 0), RS_SCREEN_W / 2, 8, 3);
+            if (w->own[0].alive) hu_number(owner_mass(w, 0), RS_SCREEN_W / 2, 8 + (hud_lines ? rs_screen_top() : 0), 3);
             if (tv->seen && state == ST_PLAY) draw_touch(&s, &v[0], tv);
         } else if (state == ST_OVER) {
             if (w->players == 1) {

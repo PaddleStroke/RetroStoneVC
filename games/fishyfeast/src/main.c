@@ -178,6 +178,7 @@ static void p1_view(vrect *v)
     int n = view_layout(W.players, rs_screen_left(), rs_screen_width(), r);
     views_tall(r, n, rs_screen_top(), rs_screen_bottom());     /* a tall screen: the views reach its edges */
     *v = r[0];
+    view_shown(v);                              /* a zoomed screen: the buttons in the columns shown */
 }
 
 /* the fingers of player 1: the stick (the steering), the buttons (their presses this frame: in->split, in->eject) */
@@ -421,7 +422,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more of the pond above and below (DESIGN.md) */
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, the sides cropped (DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
