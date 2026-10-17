@@ -237,7 +237,15 @@ static void piece_at(int who, float cx, float cy, float d, float alpha)
     ui_flat_at(t_piece[who], cx, cy, d, alpha, who == FG_FOX && ui_upside(FG_FOX));
 }
 
-static void mark_last(int pt) { lines_mark_last(&L, fg_x[pt], fg_y[pt]); }
+/* the marks are round: the pieces stand on points, not in cells */
+static void mark_round(int pt, int select)
+{
+    float x, y;
+    lines_xy(&L, fg_x[pt], fg_y[pt], &x, &y);
+    if (select) ui_mark_select_round(x, y, 1.3f * L.sq);
+    else ui_mark_last_round(x, y, 1.3f * L.sq);
+}
+static void mark_last(int pt) { mark_round(pt, 0); }
 
 static void draw(void)
 {
@@ -252,7 +260,7 @@ static void draw(void)
             mark_last(G.move[k].to);
         }
     }
-    if (sel >= 0) lines_mark_select(&L, fg_x[sel], fg_y[sel]);
+    if (sel >= 0) mark_round(sel, 1);
     float t = 1;
     if (anim.on) {
         int ms = anim.m.over >= 0 ? JUMP_MS : STEP_MS;
