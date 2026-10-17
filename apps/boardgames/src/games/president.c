@@ -19,6 +19,7 @@
 #include "cards_table.h"
 #include "games/president.h"
 #include "games/endtable.h"
+#include "pages.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -373,7 +374,7 @@ static void draw_others(void)
                 ui_put_c(ct_icon(ICON_PASS, (int)d, 246, 238, 220), px, y, d, d);
             }
             float nh = fminf(0.42f * u, 0.45f * T.sbw * asp), nw = ct_number_w(n, floorf(nh + 0.5f), 0);
-            ui_number(px + 0.62f * T.sbw + 0.08f * u + nw / 2, y, nh, n, 1);
+            ui_number(px + 0.62f * T.sbw + 0.08f * u + nw / 2, y, nh, n, TH.dark);   /* (the table's ink) */
         }
     }
 }
