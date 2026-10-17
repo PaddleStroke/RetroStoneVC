@@ -10,6 +10,9 @@
 #define HIT_FREEZE 8
 #define BOT_START 20
 #define MEDAL_SCORES {100,250,500,1000}
+/* a phone held upright (DESIGN.md "Tall screen"): rs_screen_zoom(ZOOM_H): 258 columns shown on a 1080x2340 phone, 240
+ * on a 1080x2520 one (the snails 4.5x, as in landscape) */
+#define ZOOM_H 560
 /* Widescreen (DESIGN.md "Widescreen"): the share of the extra width (the columns past 320) shown BEHIND the snails, on
  * the left: one third (the owner's decision), the other two thirds ahead. The stage origin is WIDE_LEFT(width - 320):
  * 36 px at 427, 67 at 520, 80 at 560, 0 at 320 (rounded). */

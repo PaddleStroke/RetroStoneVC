@@ -10,43 +10,61 @@ static rs_color line_col[240];
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd2df),RS_HEX(0xee88bb),RS_HEX(0xab4b80)},
  {RS_HEX(0xddf4a4),RS_HEX(0xa9cf64),RS_HEX(0x5f954b)}};
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's 240 lines in the middle;
- * the lines past them are the raster's. Above: the canopy goes on (BG3's lines TALL_CANOPY_Y .. + TALL_CANOPY,
- * mirrored up from the stage's edge, then down, up...: no seam), darker toward the top (TALL_CANOPY_DARK); below: a
- * forest pool, the forest mirrored in it (BG3 read upward from the stage's last line, the hills' palette and the mist
- * tinted toward TALL_WATER, a ripple shifting every 4 lines of 8).
- * The UI, the vine and the sprites are hidden there (window 1 over the whole width). Line 0 puts the stage's settings
- * back: the windows and the hills' palette always (a state saved on a tall screen may hold the margins' settings),
- * BG3's scroll on a tall screen. tall_sx: BG3's scroll x of this frame, set by draw_frame before every picture. */
+/* A tall screen (a phone held upright; DESIGN.md "Tall screen"): rs_screen_zoom(ZOOM_H), the display's height filled
+ * and its sides cropped; the stage TALL_ABOVE_NUM / 10 of the extra lines down; the lines past it are the raster's.
+ * Above: the canopy goes on (BG3's lines TALL_CANOPY_Y .. + TALL_CANOPY, mirrored up from the stage's edge, then down:
+ * no seam), darker toward the top (TALL_CANOPY_DARK), the HUD over it (the scores' digits; 3-4 players: BG1's top
+ * HUD_LINES pinned there, the P1..P4 tags); below: a forest pool, the forest and the vine mirrored in it (BG3 and BG2
+ * read upward from the stage's last line, their palettes tinted toward TALL_WATER, a ripple shifting every 4 lines of
+ * 8). The UI is hidden there (window 1 over the whole width), and so are the sprites below the stage. Line 0 puts the
+ * stage's settings back: the windows and the palettes always (a state saved on a tall screen may hold the margins'
+ * settings), BG2's and BG3's scroll on a tall screen. tall_sx, tall_fx / tall_fy, hud_lines: BG3's scroll x, BG2's scroll
+ * and the HUD's band of this frame, set by draw_frame before every picture. */
+#define TALL_ABOVE_NUM 3        /* the stage's origin: 3/10 of the extra lines above it (96 at 560), 7/10 of pool */
+#define HUD_LINES 32            /* 3-4 players: BG1's rows 0..3 (the tags of hu_score_tags(players, HUD_LOW_Y)) */
+#define HUD_LOW_Y 20            /* 3-4 players: P3 and P4's chips under P1 and P2's, in the HUD at the top */
+#define HUD_Y 6                 /* the HUD's band: this many lines below the screen's top (clear of the corner buttons) */
 #define TALL_CANOPY_Y 0
 #define TALL_CANOPY 64
 #define TALL_WATER RS_HEX(0x34575a)
 #define TALL_CANOPY_DARK RS_HEX(0x2e4a3c)
 #define TALL_SHADE 120          /* the canopy's shade at the screen's top (of 256) */
-static int tall_sx;
+static int tall_sx,tall_fx,tall_fy,hud_lines;
+static const rs_color ground_pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX(0x619248),
+ RS_HEX(0x94bd59),RS_HEX(0xd5e594),RS_HEX(0x573343),RS_HEX(0xa65162),RS_HEX(0xe88189),
+ RS_HEX(0xffc6a7),RS_HEX(0x805034),RS_HEX(0xc08038),RS_HEX(0xf2ba50),
+ RS_HEX(0xfbf0c6),RS_HEX(0x384d44),RS_HEX(0x63856a)};
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
 static void raster_out(int y){
- if(y==rs_screen_top()||y==RS_SCREEN_H){
+ int top=rs_screen_top();
+ if(y==top||y==RS_SCREEN_H){
   rs_window(0,rs_screen_left(),rs_screen_right());
-  rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);rs_obj_window(RS_WIN1);
+  rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,y==top?RS_WIN1:0);
+  rs_obj_window(y==top?0:RS_WIN1);
  }
+ if(hud_lines&&(y==top+HUD_Y||y==top+HUD_Y+hud_lines))rs_bg_window(RS_BG1,y==top+HUD_Y?0:RS_WIN1);   /* the HUD band */
  if(y<0){   /* the canopy: the band read down, up, down... (no seam), darker toward the screen's top every 8 lines */
-  int top=rs_screen_top(),d=-1-y,ph=d%(2*TALL_CANOPY),k=top<0?d*TALL_SHADE/-top:0;
+  int d=-1-y,ph=d%(2*TALL_CANOPY),k=top<0?d*TALL_SHADE/-top:0;
   rs_bg_scroll(RS_BG3,tall_sx,TALL_CANOPY_Y+(ph<TALL_CANOPY?ph:2*TALL_CANOPY-1-ph)-y);
   if(y==top||(d&7)==7)for(int i=1;i<16;i++)rs_pal_set(RS_PAL_BG(PAL_HILLS)+i,hu_lerp_color(gm_hills_pal[i],TALL_CANOPY_DARK,k));
   rs_pal_set(0,hu_lerp_color(line_col[0],TALL_CANOPY_DARK,k));
   return;
  }
- if(y==RS_SCREEN_H)for(int i=1;i<16;i++)rs_pal_set(RS_PAL_BG(PAL_HILLS)+i,hu_lerp_color(gm_hills_pal[i],TALL_WATER,112));
+ if(y==RS_SCREEN_H)for(int i=1;i<16;i++){
+  rs_pal_set(RS_PAL_BG(PAL_HILLS)+i,hu_lerp_color(gm_hills_pal[i],TALL_WATER,112));
+  rs_pal_set(RS_PAL_BG(PAL_GROUND)+i,hu_lerp_color(ground_pal[i],TALL_WATER,176));
+ }
  int m=2*RS_SCREEN_H-1-y;if(m<0)m=0;
  int ripple=((y+(int)(rs_frame_count()>>3))&7)<4?0:1;
- rs_bg_scroll(RS_BG3,tall_sx+ripple,m-y);rs_pal_set(0,hu_lerp_color(line_col[m],TALL_WATER,112));
+ rs_bg_scroll(RS_BG3,tall_sx+ripple,m-y);rs_bg_scroll(RS_BG2,tall_fx+ripple,m-y);
+ rs_pal_set(0,hu_lerp_color(line_col[m],TALL_WATER,112));
 }
 static void raster(int y,void*u){(void)u;
  if(y<0||y>=RS_SCREEN_H){raster_out(y);return;}
  if(y==0){
   rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_obj_window(0);rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
-  if(tall())rs_bg_scroll(RS_BG3,tall_sx,0);
+  rs_pal_load(RS_PAL_BG(PAL_GROUND),ground_pal,16);
+  if(tall()){rs_bg_scroll(RS_BG3,tall_sx,0);rs_bg_scroll(RS_BG2,tall_fx,tall_fy);}
  }
  rs_pal_set(0,line_col[y]);}
 /* Widescreen (DESIGN.md "Widescreen"): the maps are 64 tiles (512 px) wide up to 512 columns, 128 beyond. The misty
@@ -69,12 +87,10 @@ void draw_init(void){
  rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
  /* widescreen: a third of the extra width behind the snails (game.h WIDE_LEFT): the stage origin; 0 at 320 */
  rs_screen_origin(WIDE_LEFT(rs_screen_width()-RS_SCREEN_W));
+ /* a tall screen: the stage TALL_ABOVE_NUM / 10 of the extra lines down (the HUD and the canopy above, the pool below) */
+ rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)*TALL_ABOVE_NUM/10);
  maps_setup();
- static const rs_color pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX(0x619248),
- RS_HEX(0x94bd59),RS_HEX(0xd5e594),RS_HEX(0x573343),RS_HEX(0xa65162),RS_HEX(0xe88189),
- RS_HEX(0xffc6a7),RS_HEX(0x805034),RS_HEX(0xc08038),RS_HEX(0xf2ba50),
- RS_HEX(0xfbf0c6),RS_HEX(0x384d44),RS_HEX(0x63856a)};
- rs_pal_load(RS_PAL_BG(PAL_GROUND),pal,16);
+ rs_pal_load(RS_PAL_BG(PAL_GROUND),ground_pal,16);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);
  rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
  for(int y=0;y<240;y++)line_col[y]=RS_RGB8(199-y/12,221-y/12,183-y/16);
@@ -220,7 +236,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         if (state == ST_TITLE) hu_logo("SNAIL SWITCH", title_ramps, 2, 2, 0);
-        if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
+        if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, tall() ? HUD_LOW_Y : 0);    /* P1..P4 by the corner chips */
         if (state == ST_OVER) {
             if (w->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
@@ -248,6 +264,21 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     }
 }
 
+/* The play's view and its scores. A tall screen (DESIGN.md "Tall screen"): zoomed, the columns shown at the stage's
+ * right edge (the things ahead come in there, as at 4:3: every snail sees as far ahead), when every snail fits in
+ * them with a margin behind; else (more players, a less tall display) every column. The scores at the screen's top;
+ * 3-4 players in two rows there (the tags pinned: BG1's top HUD_LINES). A 240-line screen: the corner chips. */
+static void tall_hud(const world*w){
+ int sc[4];for(int p=0;p<w->players;p++)sc[p]=w->h[p].score;
+ if(!tall()){hu_score_chips(w->players,sc,0);return;}
+ int back=RS_SCREEN_W;for(int p=0;p<w->players;p++)if(w->h[p].x-24<back)back=w->h[p].x-24;
+ rs_screen_fill(1);rs_screen_focus_x(RS_SCREEN_W);
+ if(rs_screen_visible_x0()>back)rs_screen_fill(0);
+ int x0=rs_screen_visible_x0(),vw=rs_screen_visible_x1()-x0,top=rs_screen_top();
+ hud_lines=w->players>=3?HUD_LINES:0;rs_bg_pin(RS_BG1,0,hud_lines,HUD_Y);
+ if(w->players<=2){for(int p=0;p<w->players;p++)hu_number(sc[p],x0+vw*(2*p+1)/(2*w->players),top+12,3);return;}
+ for(int p=0;p<w->players;p++){hu_chip c=hu_score_chip(w->players,p,HUD_LOW_Y);hu_number_at(sc[p],c.x,c.y+top+HUD_Y,c.align,3);}
+}
 void draw_frame(const world*w,int state,int st_t,int best,int new_best,int paused){
  static const int medals[4]=MEDAL_SCORES;
  int sx=hu_shake_x(),sy=hu_shake_y();hu_standing rank;standing(w,&rank);
@@ -257,7 +288,9 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  rs_bg_scroll(RS_BG1,-hu_ui_x(),-slide);       /* the UI centred on the screen (widescreen) */
  if(redraw_pause&&paused)hu_pause(0,13);       /* the UI layer was set up again (a state of another width) */
  redraw_pause=0;hu_pause(paused,13);rs_oam_clear();
- if(state==ST_PLAY||state==ST_DEAD){int sc[4];for(int p=0;p<w->players;p++)sc[p]=w->h[p].score;hu_score_chips(w->players,sc,0);}
+ tall_fx=rs_screen_origin_x()-sx;tall_fy=-sy;
+ int play=state==ST_PLAY||state==ST_DEAD;
+ if(play)tall_hud(w);else{rs_screen_fill(0);hud_lines=0;rs_bg_pin(RS_BG1,0,0,0);}
  if(state==ST_TITLE)hu_title_sprites(st_t,slot_icon,NULL);
  if(state!=ST_OVER)draw_heroes(w,w->t,sx,sy);
  if(state==ST_OVER){

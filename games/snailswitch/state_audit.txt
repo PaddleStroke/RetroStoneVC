@@ -6,4 +6,7 @@ main.SV             the battery save's copy (best scores, medals): stays in the 
 draw.fg_px          the foreground's pixels: scratch, redrawn in full by foreground() every frame
 draw.redraw_pause   transient: set by draw_state_loaded() after a state of another width, consumed by the next draw
 draw.tall_sx        a tall screen: BG3's scroll x for the lines past the stage, set by draw_frame before every picture
+draw.tall_fx        a tall screen: BG2's scroll x for the pool's lines and line 0, set by draw_frame before every picture
+draw.tall_fy        a tall screen: BG2's scroll y (the shake) for line 0, set by draw_frame before every picture
+draw.hud_lines      a tall screen: the HUD's band of BG1 pinned at the top (3-4 players), set by draw_frame every picture
 draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame

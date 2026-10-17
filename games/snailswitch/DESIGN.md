@@ -84,14 +84,24 @@ presses 20 frames before holding its side would stop working (at least 4 before 
 ## Widescreen
 Snail Switch is a side-scroller: it opts in (`max_width` = 560, `WIDESCREEN_snailswitch = 1`) and a wider screen simply reveals more of the vine: a third of the extra width behind the snails, two thirds ahead. 320 (4:3) is unchanged pixel for pixel. The owner's decision: with all of the extra width ahead the snails sat too far left before a long empty stretch. The stage origin is `WIDE_LEFT(width - 320)` (game.h: 36 px at 427, 67 at 520, 80 at 560, 0 at 320): the snails race that much further right on the screen (x 116 + the origin, the others 27 px behind) and the screen shows the rest further ahead. Behind them the vine is drawn like the rest (the foreground canvas starts at the screen's real left edge, its camera the scroll less the origin): the passed leaves, hazards and fruits, and before the start (the title too) the vine behind the starting line. The world is width-independent: the vine, its leaves, the hazards and their fruits are placed in one world coordinate by the seeded director (the course buffer is filled to 800 px past the scroll whatever the width), and the rules never look at the width, so the same inputs give the same game, bots included, at 320, 427, 520 and 560. The start of a run is the same at every width: the first thing on the vine sits 334..394 px ahead of the snails, just past a 4:3 screen's edge and already in view from the first frame on a wider one (no longer run-up on a wide screen; test_scenery.c asserts it). Seeing further ahead makes it a little easier; that is accepted, not compensated. The foreground is drawn every frame for the screen's tile columns (its hazards and leaves culled at the real right edge, at most 370 runtime tiles at 560, within its 512-tile range). The misty forest is 512 px wide: up to 512 columns its 64-tile map never shows twice; beyond, its map is 128 tiles with the second half the first one mirrored (the same tiles h-flipped: no VRAM, seamless joins). The UI layer is scrolled by -hu_ui_x(), so the title, panels, results and pause are centred, and the slot and results icons add hu_ui_x(); the score chips go to the screen's centre (1 player), halves (2) or corners (3-4, with their tags; the UI map is 128 tiles beyond 512 columns). Multiplayer shares the one wider screen, the snails where they were. A state saved at one width loads at another (`state_loaded` sets the maps up again). Tests: tests/test_scenery.c checks the foreground at 320/432/520/560 (no pop-in, the 4:3 picture extended, the tile budget, the vine behind the start in the third on the left); `make snailswitch-check` runs the libretro, smoke, UI and state tests again at 427 and 520, then tests/wide_test.sh (picture widths, strict mode, the same log at every width, the view: the third on the left, P1's screen x, that of 320 plus the third, and the next hazard's distance on the screen, that of 320, from `--opt view=1`; live resizes, states across widths).
 
-## Tall screen (docs/spec.md "Tall screen")
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
 
-The game opts in (`rs_screen_tall(RS_SCREEN_H_MAX)` in game_init): a phone held upright gives 320 x up to 720
-lines; the 240-line stage stays centred, the same pixels, and a 240-line screen (landscape, 4:3, wide) is unchanged.
-- **Above: more canopy**: the forest's first 64 lines mirrored upward from the stage's edge, then read down, up...
-  (no seam), darker toward the top of the screen.
-- **Below: a forest pool**: the whole forest mirrored in still water (BG3 read upward from the stage's last line),
-  its palette and the mist tinted toward a deep teal, a one-pixel ripple drifting down.
-- The raster draws these lines; the UI, the vine and the sprites are hidden there (window 1). Line 0 puts the
-  stage's windows and the hills' palette back on every screen (a state saved on a tall screen may hold the margins'
-  settings), BG3's scroll on a tall one.
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (560 lines, game.h) first in game_init. The app scales the 560 lines to
+the display's height and crops the sides: 258 columns on a 1080x2340 phone, 240 on a 1080x2520 one, 280 on a 2:1
+one, so the snails are as big as in landscape (4.5x on a 1080x2520 phone; the old 320 x 700 strip: 3.4x). The 240
+lines of the stage are the same pixels; a 240-line screen (landscape, 4:3, wide) is unchanged.
+- **The columns shown end at the stage's right edge** (`rs_screen_focus_x(320)`): the hazards and fruits come in
+  there as at 4:3, so every snail sees exactly as far ahead (the warning is the same); only the forest behind the
+  snails is cropped. When the last snail would not fit with 8 px behind it (2 players on a 9:21 phone, 3-4 players),
+  the play shows every column (`rs_screen_fill(0)`); so do the title and the panels.
+- **The HUD at the screen's top**: 1-2 players, the scores' digits centred in the columns shown, over the canopy; 3-4
+  players, P1 / P2 on a first row and P3 / P4 under them (`hu_score_tags(players, 20)`, BG1's top 32 lines pinned
+  there: `rs_bg_pin`).
+- **The stage sits 3/10 down** (`rs_screen_origin_v`: 96 lines above it, 224 below). **Above: the canopy** goes on
+  (the forest's first 64 lines mirrored up from the stage's edge, then down: no seam), darker toward the top. **Below:
+  a forest pool**: the forest and the vine, its leaves, fruits and hazards mirrored in still water (BG3 and BG2 read
+  upward from the stage's last line, their palettes tinted toward a deep teal, a one-pixel ripple drifting down; the
+  224 lines never repeat a line).
+- The raster draws these lines; the UI is hidden there (window 1) but in the HUD's band, the sprites below the stage
+  (a falling snail leaves at the stage's bottom, as before). Line 0 puts the stage's windows and palettes back on
+  every screen (a state saved on a tall screen may hold the margins' settings), BG2's and BG3's scroll on a tall one.
