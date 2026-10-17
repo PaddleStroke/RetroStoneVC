@@ -84,6 +84,8 @@ static void record(gen *g, int depth)
     dmove *m = &g->out[g->count++];
     *m = g->cur;
     m->n = m->ncap = (uint8_t)depth;
+    memset(m->path + depth, 0, sizeof m->path - (size_t)depth);   /* the tail of a longer sequence tried before: none */
+    memset(m->cap + depth, 0, sizeof m->cap - (size_t)depth);
     m->crown = g->man && (g->king || m->path[depth - 1] / g->n == g->far);   /* a man a king by now: Russian */
 }
 

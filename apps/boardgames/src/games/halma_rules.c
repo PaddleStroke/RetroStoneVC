@@ -144,6 +144,7 @@ int hl_targets(const hl_game *g, int from, int *to)
 int hl_route(const hl_game *g, int from, int to, hl_path *p)
 {
     init();
+    memset(p, 0, sizeof *p);                    /* (the holes past the end: none, the same every time) */
     if (!movable(g, from) || to < 0 || to >= HL_HOLES || to == from) return 0;
     if (is_step(g, from, to)) {
         p->n = 2;
