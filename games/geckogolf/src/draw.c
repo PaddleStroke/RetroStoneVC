@@ -6,11 +6,13 @@
  *   kit's digits, glyphs and medals (OBJ 3), the sky (OBJ 6: clouds, sun, moon, stars, behind the hills), the decor
  *   (OBJ 7).
  * The course: one height per px (play.c); each 8-px column of the screen is cut into tiles: blank above the ground,
- * three shared soil tiles deep below it, and the tiles the surface crosses drawn pixel by pixel (the dark top line,
- * the grass, sand, ice or mushroom band, the water, the cup, the cliffs' outline, the soil), shared when two are the
+ * shared deep soil tiles below it (specks, pebbles, two wavy strata), and the tiles the surface crosses drawn pixel by
+ * pixel (the dark top line, the grass, sand, ice or mushroom band, thicker on a steep slope, the water, the cup, the
+ * cliffs' outline and lit or shaded face, the roots, the topsoil fading into the deep soil), shared when two are the
  * same. They are drawn again only when the camera moves (the pan between holes) or the course changes (a cup dug or
- * filled). Each biome its palette (TERRAIN_PAL): the biome before and the one after a change are BG palettes 1 and 2
- * (by the biome's number along the run), so both show during the pan; the sky, the hills and the clouds blend.
+ * filled). Each biome its palette (TERRAIN_PAL): the biomes at the screen's two edges are BG palettes 1 and 2 (by the
+ * biome's number along the run), so both show during the pan, and the soil fades from one into the other at their
+ * border (BG palette 4 holds both soils, an ordered dither); the sky, the hills and the clouds blend.
  * Widescreen (docs/spec.md "Widescreen", DESIGN.md): the 320-px stage (one hole) is centred (rs_screen_origin) and a
  * wider screen shows more of the course on both sides (the last hole behind, the next one ahead); the UI kit centres
  * itself.
@@ -60,9 +62,20 @@ static const uint32_t SKY_PAL[BI_COUNT][9] = {
 
 #define WATER_D   10            /* px of water drawn under a pond's surface */
 #define POOL_MAX  448           /* the course's tiles that change (shared when the same) */
-#define T_DEEP    1             /* the three deep soil tiles (1..3); the pool after */
-#define T_POOL    4
+#define N_PLAIN   4             /* the deep soil's tiles: plain (specks), pebbles, the strata's wave (4 phases) */
+#define N_PEBBLE  3
+#define N_STRATA  4
+#define N_DEEP    (N_PLAIN + N_PEBBLE + N_STRATA)
+#define T_DEEP    1             /* the deep soil tiles (1..N_DEEP); the pool after */
+#define T_POOL    (T_DEEP + N_DEEP)
 #define HASH_N    1024
+#define TOPSOIL   14            /* px of lighter topsoil under the grass band, then a dithered fade into the deep soil */
+#define BAND_DEEP 22            /* below a column's top (its lip), every pixel is the deep soil's (or a cliff's face) */
+/* the soil between two biomes: near the border the tiles of plain soil fade from one biome's soil into the other's, an
+ * ordered dither over BLEND_W px, in BG palette 4 (free: docs/art-direction.md) holding both soils, so the ground never
+ * shows a straight cut */
+#define PAL_BLEND 4
+#define BLEND_W   48
 
 static rs_color line_col[RS_SCREEN_H];
 static int shown_state = -1, shown_best = -1, shown_ui = -1;
@@ -114,17 +127,100 @@ static uint32_t lerp_hex(uint32_t a, uint32_t b, int k)
 static int map_w(void) { return rs_screen_width() > 496 ? 128 : 64; }
 
 /* ---- the course's tiles ------------------------------------------------------------------------------------------------ */
-static const uint8_t DEEP[3][64] = {
-#define R(a, b, c, d, e, f, g, h) a, b, c, d, e, f, g, h
-    {R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 5, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 5, 6),
-     R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 5, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6)},
-    {R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 5, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6),
-     R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 5), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 5, 6, 6, 6, 6)},
-    {R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 5, 5, 6, 6, 6, 6, 6),
-     R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6), R(6, 6, 6, 6, 6, 5, 6, 6), R(6, 6, 6, 6, 6, 6, 6, 6)}};
-#undef R
+/* the deep soil (colours 4-6 only, so its tiles can take a biome blend's palette): dark soil with specks, pebbles lit
+ * from the top-left, and a wavy stratum every few rows (a 32-px wave over 4 tiles). Made once by draw_init. */
+static uint8_t deep_tiles[N_DEEP][64];
 
-static int deep_var(int32_t tx, int ty) { return (int)(((uint32_t)tx * 7u + (uint32_t)ty * 3u) % 3u); }
+static void deep_make(void)
+{
+    static const uint8_t SPECK[N_PLAIN][3][2] = {{{2, 1}, {6, 3}, {1, 6}}, {{4, 2}, {7, 5}, {3, 7}},
+                                                 {{1, 3}, {5, 6}, {6, 1}}, {{3, 0}, {0, 4}, {5, 4}}};
+    /* the pebbles: 0 the soil, 1 the light top-left, 2 the body, 3 its shaded underside (the topsoil's tone) */
+    static const char *PEBBLE[N_PEBBLE][8] = {
+        {"........", "........", "..112...", ".11222..", ".122223.", "..2233..", "........", "........"},
+        {"........", ".....12.", "....1223", ".....33.", "........", ".12.....", "..3.....", "........"},
+        {"........", "........", "........", "...112..", "..12222.", "..22233.", "...33...", "........"}};
+    for (int v = 0; v < N_DEEP; v++) memset(deep_tiles[v], 6, 64);
+    for (int v = 0; v < N_PLAIN; v++)
+        for (int i = 0; i < 3; i++) {
+            int x = SPECK[v][i][0], y = SPECK[v][i][1];
+            deep_tiles[v][y * 8 + x] = 5;
+            if (i == 2 && x < 7) deep_tiles[v][y * 8 + x + 1] = 5;      /* a 2-px dash */
+        }
+    for (int v = 0; v < N_PEBBLE; v++)
+        for (int y = 0; y < 8; y++)
+            for (int x = 0; x < 8; x++) {
+                char c = PEBBLE[v][y][x];
+                if (c != '.') deep_tiles[N_PLAIN + v][y * 8 + x] = (uint8_t)(c == '1' ? 4 : 5);
+                if (c == '3') deep_tiles[N_PLAIN + v][y * 8 + x] = 6;  /* (the underside reads as the soil's shadow) */
+            }
+    /* the stratum: a 2-px band of the mid tone along a gentle wave, lit on top where it rises */
+    static const int8_t WAVE[32] = {3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4,
+                                    4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 3, 3};
+    for (int v = 0; v < N_STRATA; v++) {
+        uint8_t *tl = deep_tiles[N_PLAIN + N_PEBBLE + v];
+        for (int x = 0; x < 8; x++) {
+            int X = v * 8 + x, y0 = WAVE[X], yp = WAVE[(X + 31) & 31];
+            tl[y0 * 8 + x] = 5;
+            tl[(y0 + 1) * 8 + x] = 5;
+            if (y0 < yp || (X % 5) == 1) tl[(y0 - 1) * 8 + x] = 4;     /* the light top edge */
+            if ((X % 7) == 3) tl[(y0 + 2) * 8 + x] = 5;                /* crumbs under it */
+        }
+    }
+}
+
+/* the deep tile at tile column tx, row ty: a stratum on rows 16 and 23 (clear of the title's and the hint's text rows), else specks with now and then a pebble */
+static int deep_tile(int32_t tx, int ty)
+{
+    if (ty == 16 || ty == 23) return N_PLAIN + N_PEBBLE + (int)(tx & 3);
+    uint32_t h = (uint32_t)tx * 0x9e3779b1u + (uint32_t)ty * 0x85ebca77u;
+    h ^= h >> 15;
+    h *= 0x2c1b3c6du;
+    h ^= h >> 12;
+    h *= 0x297a2d39u;
+    h ^= h >> 15;
+    if (h % 11u == 0) return N_PLAIN + (int)((h >> 8) % N_PEBBLE);
+    return (int)((h >> 12) % N_PLAIN);
+}
+
+static int deep_px(int32_t wx, int y) { return deep_tiles[deep_tile(wx >> 3, y >> 3)][(y & 7) * 8 + (wx & 7)]; }
+
+/* a column's top as its neighbours see it: a cup's lip, not its floor */
+static int lip_y(const terrain *t, int32_t wx)
+{
+    int y = terrain_y(t, wx);
+    return terrain_surf(t, wx) == SF_CUP ? y - CUP_DEPTH : y;
+}
+
+/* the band's extra thickness on a slope (the grass keeps its look along a steep slope instead of thinning into steps);
+ * none at a cliff's top (a wall in the next two columns) */
+static int band_extra(const terrain *t, int32_t wx)
+{
+    int a = lip_y(t, wx + 2) - lip_y(t, wx - 2);
+    if (a < 0) a = -a;
+    return a > 16 ? 0 : a / 2 > 6 ? 6 : a / 2;
+}
+
+/* a root under the grass at world x: its length (2-5 px), or 0 (about one column in 11) */
+static int root_len(int32_t wx)
+{
+    uint32_t h = (uint32_t)wx * 0x9e3779b1u;
+    h ^= h >> 16;
+    h *= 0x85ebca6bu;
+    h ^= h >> 13;
+    return h % 11u == 0 ? 2 + (int)((h >> 8) & 3) : 0;
+}
+
+/* the soil at depth d under the band:the topsoil (lighter, specks), an ordered-dither fade, the deep soil */
+static int soil_px(int32_t wx, int y, int d)
+{
+    int top = ((wx * 7 + y * 3) % 19 == 0) ? 4 : ((wx * 11 + y * 5) % 23 == 0) ? 6 : 5;
+    if (d < TOPSOIL - 2) return top;
+    if (d == TOPSOIL - 2) return ((wx + 2 * y) & 3) == 0 ? 6 : top;
+    if (d == TOPSOIL - 1) return ((wx + y) & 1) ? 6 : top;
+    if (d == TOPSOIL) return ((wx + 2 * y) & 3) == 0 ? top : deep_px(wx, y);
+    return deep_px(wx, y);
+}
 
 /* the colour index of the course at world x, screen y */
 static int course_px(const terrain *t, int32_t wx, int y)
@@ -133,38 +229,49 @@ static int course_px(const terrain *t, int32_t wx, int y)
     if (s == SF_CUP) {
         int lip = top - CUP_DEPTH;
         if (y < lip) return 0;
-        if (y < top) return 15;                         /* the cup: dark */
-    } else if (y < top) {
-        return 0;
+        if (y <= top) return 15;                        /* the cup: dark, its floor too */
+        return soil_px(wx, y, y - lip);                 /* under it the soil, level with the green's */
     }
+    if (y < top) return 0;
     int d = y - top;
     if (s == SF_WATER) {
         if (d == 0) return 13;
         if (d < WATER_D) return ((wx * 3 + y * 5) % 17 == 0) ? 13 : 14;
         if (d == WATER_D) return 15;
+        return soil_px(wx, y, d);
     }
-    int nl = terrain_y(t, wx - 1), nr = terrain_y(t, wx + 1);
-    if (terrain_surf(t, wx - 1) == SF_CUP) nl -= CUP_DEPTH;
-    if (terrain_surf(t, wx + 1) == SF_CUP) nr -= CUP_DEPTH;
-    if (d > 0 && s != SF_WATER && (y < nl || y < nr)) return 15;   /* a cliff's side */
+    int nl = lip_y(t, wx - 1), nr = lip_y(t, wx + 1);
+    if (d > 0 && (y < nl || y < nr)) return 15;         /* a cliff's side */
     if (d == 0) return 15;
-    if (d <= 5) {
+    int ex = band_extra(t, wx), band = 5 + ex;
+    if (d <= band) {
+        int mid = 1 + (band - 1) / 2;                   /* 3 on the flat */
         switch (s) {
-        case SF_SAND: return (d == 5 || ((wx * 5 + y * 3) % 7 == 0)) ? 8 : 7;
-        case SF_ICE: return d == 1 ? 9 : (d < 5 && ((wx + y * 2) % 9 == 0)) ? 9 : 10;
+        case SF_SAND: return (d == band || ((wx * 5 + y * 3) % 7 == 0)) ? 8 : 7;
+        case SF_ICE: return d == 1 ? 9 : (d < band && ((wx + y * 2) % 9 == 0)) ? 9 : 10;
         case SF_MUSH: return ((wx * 3 + y * 5) % 6 == 0 && d > 1) ? 12 : 11;
-        case SF_WATER: break;
         default:
             if (d == 1) return 1;
-            if (biome_of_seq(terrain_seq(t, wx)) == BI_CANDY && d >= 2 && d <= 4 && (wx * 7 + y * 5) % 11 == 0)
+            if (biome_of_seq(terrain_seq(t, wx)) == BI_CANDY && d >= 2 && d < band && (wx * 7 + y * 5) % 11 == 0)
                 return (wx & 1) ? 11 : 9;               /* sprinkles in the frosting */
-            if (d <= 3) return 2;
-            return (d == 4 && (wx % 3) == 0) ? 2 : 3;
+            if (d <= mid) return 2;
+            return (d == mid + 1 && (wx % 3) == 0) ? 2 : 3;
         }
     }
-    if (s == SF_MUSH && d <= 8) return 12;
-    if (d < 14) return ((wx * 7 + y * 3) % 19 == 0) ? 4 : ((wx * 11 + y * 5) % 23 == 0) ? 6 : 5;
-    return DEEP[deep_var(wx >> 3, y >> 3)][(y & 7) * 8 + (wx & 7)];
+    if (s == SF_MUSH && d <= band + 3) return 12;
+    /* a cliff's face, the column inside its outline: lit when it faces left (the light from the top-left), in shade
+     * when it faces right */
+    if (y < lip_y(t, wx - 2)) return 4;
+    if (y < lip_y(t, wx + 2)) return 6;
+    /* the grass's roots in the topsoil (the meadow, the night course): a thread down, a step aside at its end */
+    if (s == SF_GRASS && d - band <= 6) {
+        int bio = biome_of_seq(terrain_seq(t, wx));
+        if (bio == BI_MEADOW || bio == BI_NIGHT) {
+            int r0 = root_len(wx), r1 = root_len(wx - 1);
+            if ((r0 && d - band <= r0) || (r1 && d - band == r1 + 1)) return 6;
+        }
+    }
+    return soil_px(wx, y, d - ex);
 }
 
 static int pool_tile(const uint8_t *px)
@@ -183,6 +290,24 @@ static int pool_tile(const uint8_t *px)
     return T_POOL + pool_n++;
 }
 
+/* a tile of plain soil (colours 4-6) at x0 px from a biome's border (the right biome from 0): the right biome's pixels
+ * become 7-9 (PAL_BLEND holds the left soil at 4-6, the right soil at 7-9), by a 4x4 ordered dither over BLEND_W px,
+ * the border a little ragged from row to row; returns the right biome's pixel count */
+static int blend_tile(uint8_t *px, int32_t x0, int r)
+{
+    static const uint8_t BAYER[16] = {0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5};
+    int wob = (int)((((uint32_t)r * 2654435761u) >> 27) % 9u) - 4, n = 0;
+    for (int y = 0; y < 8; y++)
+        for (int x = 0; x < 8; x++) {
+            int dx = (int)x0 + x + wob + BLEND_W / 2, lv = dx <= 0 ? 0 : dx >= BLEND_W ? 17 : dx * 17 / BLEND_W;
+            if (BAYER[(y & 3) * 4 + (int)((x0 + x) & 3)] < lv) {
+                px[y * 8 + x] = (uint8_t)(px[y * 8 + x] + 3);
+                n++;
+            }
+        }
+    return n;
+}
+
 static void course_build(const world *w)
 {
     const terrain *t = &w->tr;
@@ -196,34 +321,50 @@ static void course_build(const world *w)
     for (int c = 0; c < cols; c++) {
         int32_t wt = wt0 + c, bx = wt * 8;
         int lo = 999, hi = -999;
-        for (int x = -1; x <= 8; x++) {
-            int top = terrain_y(t, bx + x);
-            if (terrain_surf(t, bx + x) == SF_CUP) top -= CUP_DEPTH;
-            if (x >= 0 && x < 8) {
-                if (top < lo) lo = top;
-                if (top + 14 > hi) hi = top + 14;
-            }
-            if (top > hi && x >= 0 && x < 8) hi = top;
-        }
-        /* a cliff next to this column: its side runs down to the lower neighbour's top */
         for (int x = 0; x < 8; x++) {
-            int nl = terrain_y(t, bx + x - 1), nr = terrain_y(t, bx + x + 1);
-            if (nl > hi) hi = nl;
-            if (nr > hi) hi = nr;
+            int top = lip_y(t, bx + x);
+            if (top < lo) lo = top;
+            if (top + BAND_DEEP > hi) hi = top + BAND_DEEP;
+        }
+        /* a cliff next to this column: its side and its face run down to the lower neighbours' tops */
+        for (int x = -2; x < 10; x++) {
+            int n = terrain_y(t, bx + x);
+            if (n > hi) hi = n;
         }
         int seq = terrain_seq(t, bx + 4);
         int pal = (seq & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A;
+        /* near a biome's border, the plain soil fades from one biome's into the other's (ordered dither) */
+        int32_t xb = 0;
+        int reach = BLEND_W / 2 + 12;
+        int sl = terrain_seq(t, bx + 4 - reach), sr = terrain_seq(t, bx + 4 + reach), near = 1;
+        if (sl != seq) for (xb = bx + 4 - reach; terrain_seq(t, xb) != seq; xb++) {}
+        else if (sr != seq) for (xb = bx + 4; terrain_seq(t, xb) == seq; xb++) {}
+        else near = 0;
+        int pal_l = (sl & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A, pal_r = (sr & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A;
         int mx = (int)(((wt % mw) + mw) % mw);
         for (int r = 0; r < 30; r++) {
-            int tile;
-            if (r * 8 + 7 < lo) tile = 0;
-            else if (r * 8 >= hi) tile = T_DEEP + deep_var(wt, r);
-            else {
+            int tile = -1, soil = 1, p = pal;
+            if (r * 8 + 7 < lo) tile = 0, soil = 0;
+            else if (r * 8 >= hi) {
+                tile = T_DEEP + deep_tile(wt, r);
+                memcpy(px, deep_tiles[tile - T_DEEP], 64);
+            } else {
                 for (int y = 0; y < 8; y++)
-                    for (int x = 0; x < 8; x++) px[y * 8 + x] = (uint8_t)course_px(t, bx + x, r * 8 + y);
-                tile = pool_tile(px);
+                    for (int x = 0; x < 8; x++) {
+                        int v = course_px(t, bx + x, r * 8 + y);
+                        px[y * 8 + x] = (uint8_t)v;
+                        if (v < 4 || v > 6) soil = 0;
+                    }
             }
-            rs_bg_put(RS_BG2, mx, r, RS_MAP(tile, pal, 0, 0, 0));
+            if (near && soil) {
+                int n_r = blend_tile(px, bx - xb, r);
+                if (n_r == 64) p = pal_r;
+                else if (n_r == 0) p = pal_l;
+                else p = PAL_BLEND, tile = pool_tile(px);
+                if (n_r == 64) for (int i = 0; i < 64; i++) px[i] = (uint8_t)(px[i] - 3);
+            }
+            if (tile < 0) tile = pool_tile(px);
+            rs_bg_put(RS_BG2, mx, r, RS_MAP(tile, p, 0, 0, 0));
         }
     }
     drawn_cam = w->view_cam;
@@ -259,7 +400,8 @@ void draw_init(void)
     hu_init(&hc);
     uint8_t blank[64] = {0};
     rs_tiles_load8(VR_BG2, blank, 1);
-    rs_tiles_load8(VR_BG2 + T_DEEP, &DEEP[0][0], 3);
+    deep_make();
+    rs_tiles_load8(VR_BG2 + T_DEEP, &deep_tiles[0][0], N_DEEP);
     rs_tiles_load(VR_BG3, gm_bg3_tiles, gm_bg3_tile_count);
     maps_setup();
     for (int l = 0; l < 3; l++) rs_bg_enable(l, 1);
@@ -305,14 +447,20 @@ static void biome_blend(const world *w, blend *bl)
 
 static void palettes(const world *w, const blend *bl)
 {
-    /* the course: the two biomes on screen (by their number's parity) */
-    int seqs[2] = {bl->seq_a, bl->seq_b};
+    /* the course: the biomes at the screen's two edges (by their number's parity; the tiles drawn reach 8 px past the
+     * edges, a border's blend 40 px further), and the two blends between them for the soil at their border */
+    int32_t wx0 = w->view_cam + rs_screen_left();
+    int seqs[2] = {terrain_seq(&w->tr, wx0 - 48), terrain_seq(&w->tr, wx0 + rs_screen_width() + 56)};
     for (int i = 0; i < 2; i++) {
         int bio = biome_of_seq(seqs[i]), pal = (seqs[i] & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A;
         for (int c = 0; c < 15; c++) rs_pal_set(RS_PAL_BG(pal) + 1 + c, hexc(TERRAIN_PAL[bio][c]));
         /* the water shimmers: its light colour breathes */
         int ph = (w->t / 6) % 16, k = ph < 8 ? ph * 10 : (16 - ph) * 10;
         rs_pal_set(RS_PAL_BG(pal) + 13, hexc(lerp_hex(TERRAIN_PAL[bio][12], 0xffffff, k)));
+    }
+    for (int c = 0; c < 3; c++) {
+        rs_pal_set(RS_PAL_BG(PAL_BLEND) + 4 + c, hexc(TERRAIN_PAL[biome_of_seq(seqs[0])][3 + c]));
+        rs_pal_set(RS_PAL_BG(PAL_BLEND) + 7 + c, hexc(TERRAIN_PAL[biome_of_seq(seqs[1])][3 + c]));
     }
     for (int c = 0; c < 5; c++) rs_pal_set(RS_PAL_BG(PAL_HILLS) + 1 + c, hexc(lerp_hex(HILL_PAL[bl->a][c], HILL_PAL[bl->b][c], bl->k)));
     for (int c = 0; c < 9; c++) rs_pal_set(RS_PAL_OBJ(OBJ_PAL_SKY) + 1 + c, hexc(lerp_hex(SKY_PAL[bl->a][c], SKY_PAL[bl->b][c], bl->k)));

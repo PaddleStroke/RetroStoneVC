@@ -113,11 +113,15 @@ does not count). tests/touch_test.sh checks it at 320, 427, 520 and 560.
 | BG1 | the house UI kit: the logo, the messages, the hint, the panels, PAUSED | fixed |
 | OBJ | the gecko, the balls, the flag, the aim's dots, the gauge, the stakes, the splash, the decor, the kit's digits, glyphs and medals | |
 
-**The course's tiles**: each 8-px column of the screen is cut into tiles: blank above the ground, three shared soil
-tiles deep below it, and the tiles the surface crosses drawn pixel by pixel (the dark top line, the grass, sand, ice
-or mushroom band, the water, the cup, the cliffs' outline, the soil), shared when two are the same (about 150-300
-tiles a screen). They are drawn again only when the camera moves (the pan) or the course changes (a cup dug or
-filled). Two BG palettes (1, 2) hold the biome before and after a change, so both show during the pan.
+**The course's tiles**: each 8-px column of the screen is cut into tiles: blank above the ground, 11 shared deep soil
+tiles below it (specks, pebbles lit from the top-left, two wavy strata at rows 16 and 23, clear of the text rows),
+and the tiles the surface crosses drawn pixel by pixel (the dark top line, the grass, sand, ice or mushroom band,
+thicker on a steep slope so it keeps its look, the water, the cup, the cliffs' outline and their face lit facing left
+or shaded facing right, roots under the meadow's and the night's grass, the topsoil fading into the deep soil with an
+ordered dither), shared when two are the same (about 200-320 tiles a screen, of 448). They are drawn again only when
+the camera moves (the pan) or the course changes (a cup dug or filled). Two BG palettes (1, 2) hold the biomes at the
+screen's two edges, so both show during the pan; at their border the soil fades from one biome's into the other's over
+48 px (an ordered dither, in BG palette 4, which holds both soils), never a straight cut.
 
 **Widescreen** (docs/spec.md "Widescreen"): the 320-px stage (one hole) is centred; a wider screen (427, 520) shows
 more of the course on both sides: the last hole behind, the next one ahead (no flag there yet: a cup is dug when its
