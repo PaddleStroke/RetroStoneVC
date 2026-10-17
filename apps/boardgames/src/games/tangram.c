@@ -357,6 +357,16 @@ static void put_tan(int i, int rot, int flip, float px, float py, float lift, fl
     int v = rot + 8 * flip;
     float w = tan_w[i][v] * lift, h = tan_h[i][v] * lift;
     float ox = tan_off[i][v][0] * lift + w / 2, oy = tan_off[i][v][1] * lift + h / 2;   /* its centre from its middle */
+    if (lift > 1 && deg == 0) {                 /* carried: its shadow falls further, soft, down and right */
+        SDL_SetTextureColorMod(t, 0, 0, 0);
+        for (int s = 0; s < 3; s++) {
+            SDL_SetTextureAlphaMod(t, (Uint8)(34 - 8 * s));
+            float d = (0.16f + 0.05f * s) * k, g = 0.03f * k * s;
+            ui_put(t, px + ox - w / 2 + d - g, py + oy - h / 2 + d * 1.3f - g, w + 2 * g, h + 2 * g);
+        }
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t, 255);
+    }
     if (deg == 0) { ui_put(t, px + ox - w / 2, py + oy - h / 2, w, h); return; }
     float a = deg * PUZ_PI / 180, c = cosf(a), s = sinf(a);
     ui_put_rot(t, px + ox * c - oy * s, py + ox * s + oy * c, w, h, deg);
@@ -388,7 +398,7 @@ static void draw(void)
             if (p > 0) { ui_mark_gold(px, py, 2.6f * k * p); ui_animate(); }
             else hint.piece = -1;
         }
-        float lift = ptr.on && ptr.moved && ptr.piece == i ? 1.04f : 1;
+        float lift = ptr.on && ptr.moved && ptr.piece == i ? 1.06f : 1;
         if (turning.piece == i && now - turning.t0 < TURN_MS) {   /* the old turning, swung round */
             float t = puz_ease((now - turning.t0) / (float)TURN_MS);
             put_tan(i, turning.rot0, turning.flip0, px, py, lift, 45 * t);
