@@ -19,6 +19,7 @@
 #include "cards_table.h"
 #include "games/belote.h"
 #include "games/endtable.h"
+#include "pages.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -587,7 +588,8 @@ static void bar(int player, box b)
     x += wt + gap;
     if (word == 1) {
         float d = 0.55f * u * k;
-        ui_put_c(ct_icon(ICON_PASS, (int)d, 246, 238, 220), x + d / 2, cy, d, d);
+        SDL_Texture *ic = TH.dark ? ct_icon(ICON_PASS, (int)d, 246, 238, 220) : ct_icon(ICON_PASS, (int)d, 46, 40, 30);
+        ui_put_c(ic, x + d / 2, cy, d, d);       /* (the light table: ink) */
         x += d;
     } else if (word == 2) {
         int suit = p->phase <= BP_AUCTION ? BA_ARG(p->said[player]) & 3 : p->trump;
