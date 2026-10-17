@@ -197,6 +197,8 @@ static int pad_turn(int p, uint16_t held)
 /* the slingshot (player 1): a finger down anywhere, pulled back; let go: the shot */
 static void touch_read(pin *in)
 {
+    if (touch_slot < 0 && W.phase == PH_CHARGE && W.charge_touch)
+        in->cancel = 1;                                 /* the finger that charged is gone (a pause): no shot */
     if (touch_slot < 0) {
         for (int i = 0; i < RS_TOUCH_MAX; i++) {
             const rs_touch_point *t = rs_touch(i);
@@ -277,8 +279,12 @@ static pin player_input(int p)
     in.cancel = (pr & RS_BTN_B) != 0;
     if (held & (RS_BTN_A | RS_BTN_B | HU_IN_DPAD)) in.any = 1;
     if (p == 0) {
-        touch_read(&in);
-        if (TV.on || in.shoot || in.set_gauge >= 0) in.hold = 0;   /* the finger leads */
+        if (W.phase == PH_CHARGE && !W.charge_touch) {
+            touch_reset();                              /* the pad charges: a finger then is no let-go (no shot) */
+        } else {
+            touch_read(&in);
+            if (TV.on || in.shoot || in.set_gauge >= 0) in.hold = 0;   /* the finger leads */
+        }
     }
     return in;
 }

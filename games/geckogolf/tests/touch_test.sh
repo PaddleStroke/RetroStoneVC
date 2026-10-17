@@ -65,6 +65,12 @@ s=$(run p2turn 600 "10 P2 tap A\n${PAD}60 A\n80 -\n420 touch 200 100\n421 move 1
 # pause: the fingers do nothing
 s=$(run paused 200 "${START}50 tap SELECT\n60 touch 200 100\n62 move 150 150\n100 up\n")
 [ "$(field "$s" shots)" = 0 ] && [ "$(field "$s" paused)" = 1 ] && ok "paused: the slingshot does nothing" || ko "paused: $s"
+# a pull cut by a pause (the finger lifted meanwhile): dropped, no shot; the pad's A shoots again (it was stuck charging)
+s=$(run pause-pull 200 "${START}60 touch 200 100\n61 move 150 150\n70 tap SELECT\n80 up\n90 tap SELECT\n100 A\n130 -\n")
+[ "$(field "$s" shots)" = 1 ] && [ "$(field "$s" phase)" = 2 ] && ok "a pull cut by a pause: dropped, the pad's A shoots again" || ko "pause mid-pull: $s"
+# the pad charging: a finger on the screen is no let-go (it used to shoot at once)
+s=$(run pad-touch 80 "${PAD}40 A\n60 touch 200 100\n62 move 150 150\n70 up\n100 -\n")
+[ "$(field "$s" shots)" = 0 ] && [ "$(field "$s" phase)" = 1 ] && ok "the pad charging: a finger is no shot" || ko "pad and finger: $s"
 
 # the game over (the bot gives up after a hole): a tap goes back to the title
 B="--opt bot=1 --opt botstop=1 --opt strokes=2"
