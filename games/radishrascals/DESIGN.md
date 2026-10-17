@@ -103,3 +103,14 @@ pictures and logs).
   at 320, 427, 520 and 560 (each farmer at its view's centre, sprites clipped, views independent, margins not flat);
   the language test at 320, 427 and 520; wide_test.sh. Screenshots: title, play and game over at 427 and 520
   (docs/screenshots/*-427.png, *-520.png).
+
+## Tall screen
+docs/spec.md "Tall screen": a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the
+RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are the same pixels; the
+stage sits high (`rs_screen_origin_v`: a third of the extra lines above it). The views are the stage's 240-line
+rectangles (draw.c `layout`: rs_viewport_layout's, mapped back from the tall screen it spans), and the raster
+(`raster_out`) draws the lines past the stage: above, the sky going on, a little bluer toward the top; below, more
+lawn (1 player: BG3's grass of the stage again, 24-line bands taken from four places in turn; 2-4 players: two more
+viewports past the stage, no layer and no sprite, showing the lawn's colour). The UI, the beds and the sprites are
+hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. A touch's y is
+taken from the stage's origin (`rs_screen_origin_y`), so the beds are tapped where they are.
