@@ -236,6 +236,18 @@ static void piece_at(int pc, float x, float y, float size, Uint8 alpha)
     ui_flat_at(t_man[colour(pl)][DR_IS_KING(pc)], x + size / 2, y + size / 2, size, alpha / 255.0f, ui_upside(pl));
 }
 
+/* a man lifted off the board (picked up, or hopping along its path): a little bigger and higher, its shadow left
+ * behind on the board, softer; lift 0..1 */
+static void lifted_at(int pc, float x, float y, float size, float lift)
+{
+    int pl = DR_OWNER(pc);
+    float cx = x + size / 2, cy = y + size / 2, d = size * (1 + 0.1f * lift), up = 0.07f * size * lift;
+    SDL_Texture *t = t_man[colour(pl)][DR_IS_KING(pc)];
+    ui_shadow_flat(cx + 0.5f * up, cy + up, size, size, 1 - 0.3f * lift);
+    if (ui_upside(pl)) ui_put_rot(t, cx, cy - up, d, d, 180);
+    else ui_put_c(t, cx, cy - up, d, d);
+}
+
 /* the piece on square s of a position, at (x, y) (its square's corner): bashni's whole column */
 static void stack_at(const dpos *p, int s, float x, float y, float size, Uint8 alpha)
 {
@@ -297,7 +309,7 @@ static void draw(void)
     if (sel >= 0 && !(drag.on && drag.moved)) {
         sq_xy(at, &x, &y);
         if (cols) column_at(dr_column(p, sel), dr_height(p, sel), t_man, x + h, y + h, (float)sq, PIECE * sq, 0, 1);
-        else piece_at(p->sq[sel], x, y, (float)sq, 255);
+        else lifted_at(p->sq[sel], x, y, (float)sq, 1);
     }
     if (anim.on) {                              /* the slide, square to square along the path */
         int segs = anim.m.n - anim.first, k = (int)(t * segs);
@@ -306,7 +318,9 @@ static void draw(void)
         float x0, y0, x1, y1, f = t * segs - k;
         sq_xy(a, &x0, &y0);
         sq_xy(b, &x1, &y1);
-        stack_at(shown, anim.m.from, x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (float)sq, 255);
+        if (cols) stack_at(shown, anim.m.from, x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (float)sq, 255);
+        else lifted_at(shown->sq[anim.m.from], x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, (float)sq,
+                       sinf(ART_PI * f));       /* a hop each square, over the man it takes */
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
