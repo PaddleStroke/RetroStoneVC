@@ -53,6 +53,8 @@ int bot_decide(const world*,int);
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
+#define ZOOM_H 440                      /* a tall screen (portrait): the zoomed height (DESIGN.md "Tall screen") */
+#define TALL_BELOW 50                   /* ... the river's lines below the stage (the rest above it: the lookahead) */
 void draw_init(void);
 void draw_layout(const world *w);       /* widescreen: the layers for rs_screen_width() (init, a loaded state) */
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);

@@ -4,5 +4,9 @@
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 play.row_cache      pure course geometry keyed by seed and section ID; any cache miss rebuilds identical terrain
-draw.tall_w        a tall screen: the world drawn, set by draw_frame before every picture (the banks past the stage)
-draw.bg1_sy        ... BG1's vertical scroll, the same
+draw.bg1_sy        a tall screen: BG1's vertical scroll, set by draw_frame before every picture (raster_out, line 0)
+draw.bg1_sx        ... BG1's horizontal scroll (the pause text in the columns shown), the same
+draw.hud_pin       ... BG1's HUD lines pinned at the screen's top, the same
+draw.fg_px         draw_frame's scratch: the foreground drawn each frame, then made into BG2's tiles
+draw.tall_tile     ... a tall screen's tiles loaded this frame (each different tile once), the same
+draw.tall_hash     ... their ids by hash, the same

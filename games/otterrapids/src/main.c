@@ -228,7 +228,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);           /* a phone held upright: more of the river (draw.c, DESIGN.md "Tall screen") */
+    rs_screen_zoom(ZOOM_H);                     /* a phone held upright: zoomed, the river big (draw.c, DESIGN.md "Tall screen") */
     /* widescreen: the 320-px stage centred, the land shows on both sides (draw.c, DESIGN.md "Widescreen") */
     rs_screen_origin(rs_screen_margin());
     save_load();
