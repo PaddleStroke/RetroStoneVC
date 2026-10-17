@@ -26,6 +26,8 @@
  * the stage's 320 columns at every width: things come from beyond the widest screen and the shots' reach is fixed */
 #define WIDE_LEFT_NUM 1
 #define WIDE_LEFT_DEN 3
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen's lines (rs_screen_zoom: 256-300 columns shown) */
+#define ZOOM_H        600
 #define SPAWN_R       496       /* enemies from the right appear here (560 px: the right edge is 480) ... */
 #define SPAWN_L       (-96)     /* ... from the left here (560 px: the left edge is -80) */
 #define ENTRY_R       336       /* a flight pattern starts (t = 0) just off the stage ... */

@@ -16,6 +16,9 @@ Writes, in the art folder (default games/cosmocorgi/art):
   tiles/terrain.png (64x24): the walls, 8 tiles per theme (rock, station, ice): surface, corners, fill, sides
   tiles/clouds.png (512x240): BG3, the nebula clouds and the planets (recoloured for each section)
   tiles/stars.png (512x240): BG4, the stars (two twinkle groups, lit by the game)
+  tiles/bank.png (512x48), tiles/planet.png (1024x96): a tall screen only (portrait): the nebula's cloud bank past the
+      stage (BG2) and the big planet at the screen's bottom (BG4); tiles/clouds_bare.png (512x240): the clouds
+      without their planets (BG3's copies past the stage)
 
     python3 games/cosmocorgi/tools/make_art.py [--out DIR] [--preview]
 
@@ -72,6 +75,9 @@ SPRITES = [
 BOSSES = [("ladybird", 0, 0), ("crab", 128, 0), ("owl", 0, 48), ("walrus", 128, 48)]   # two 64x48 frames each
 PANORAMAS = {"clouds": ("tiles/clouds.png", 512, 240), "stars": ("tiles/stars.png", 512, 240)}
 TERRAIN = ("tiles/terrain.png", 64, 24)
+# a tall screen (portrait) only: the nebula's cloud bank past the stage (BG2) and the big planet at the bottom (BG4)
+BANKS = {"bank": ("tiles/bank.png", 512, 48), "planet": ("tiles/planet.png", 1024, 96)}
+CLOUDS_BARE = "tiles/clouds_bare.png"     # (and the clouds without their planets: their copies past the stage)
 TER_KINDS = ["top", "top_l", "top_lr", "fill", "fill2", "side_l", "side_lr", "top2"]
 
 # ---- colours (each group fits one 15-colour sprite palette) ---------------------------------------------------------
@@ -140,6 +146,9 @@ CLOUD_THEMES = {   # per section: the same entries, in its colours (rock: dusty 
 }
 STARS = [(255, 255, 160), (160, 255, 255)]                # the twinkle keys (lit by the game)
 STAR_FAINT = [(110, 110, 170), (170, 176, 220)]
+# the big planet of a tall screen: its rim, five bands from lit to night, the atmosphere's glow
+PLANET_LIMB = [(176, 218, 238), (122, 148, 196), (102, 124, 178), (84, 102, 156), (64, 78, 128), (46, 56, 98),
+               (86, 116, 168)]
 
 
 def dist(x, y, cx, cy):
@@ -876,9 +885,10 @@ def terrain():
 
 
 # ---- the far layers -------------------------------------------------------------------------------------------------
-def clouds():
+def clouds(planets=True):
     """The nebula: soft clouds of three tones (dithered at their edges), a ringed planet, a moon, a far planet. Low
-    contrast, no outline; 512 px wide, it repeats."""
+    contrast, no outline; 512 px wide, it repeats. planets=False: the clouds alone (a tall screen's copies of the
+    panorama past the stage: tiles/clouds_bare.png)."""
     W, H = PANORAMAS["clouds"][1:]
     cv = Canvas(W, H)
     rng = random.Random(11)
@@ -911,6 +921,8 @@ def clouds():
                     nd = ((xx + 0.5 - cx) * -0.62 + (yy + 0.5 - cy) * -0.78) / r
                     cv.set(xx % W, yy, ramp[0] if nd > 0.3 else ramp[1] if nd > -0.35 or len(ramp) < 3 else ramp[2])
 
+    if not planets:
+        return cv
     cx, cy, r = 392, 64, 17                                        # the ringed planet
     for xx in range(cx - 32, cx + 33):
         for yy in range(cy - 8, cy + 9):
@@ -927,6 +939,85 @@ def clouds():
     for hx, hy in ((117, 183), (123, 190)):
         cv.set(hx, hy, MOON[1]), cv.set(hx + 1, hy, MOON[1])
     planet(250, 104, 4, PLANET)                                    # a far planet
+    return cv
+
+
+def bank():
+    """A tall screen (portrait): the nebula's cloud bank framing the play above and below the stage (BG2 there, in front
+    of the robots coming in): 512 x 48, it repeats; the outer edge puffs up at the top (rows 0..15), the body in rows
+    16..39, thin wisps reaching into the stage at the bottom (rows 40..47). The clouds' colours (CLOUD: its palette)."""
+    W, H = BANKS["bank"][1:]
+    cv = Canvas(W, H)
+    rng = random.Random(31)
+    puffs = [(rng.randint(0, W - 1), rng.randint(12, 30), rng.randint(5, 13)) for _ in range(34)]
+    wisps = [(rng.randint(0, W - 1), rng.randint(10, 24), rng.randint(2, 6)) for _ in range(26)]
+
+    def profile(x, bumps):
+        h = 0.0
+        for bx, rx, hh in bumps:
+            for wx in (bx - W, bx, bx + W):                        # it repeats every 512 px
+                d = (x + 0.5 - wx) / rx
+                if abs(d) < 1.0:
+                    h = max(h, hh * math.sqrt(1.0 - d * d))
+        return h
+
+    for x in range(W):
+        top, bot = 16 - profile(x, puffs), 40 + profile(x, wisps)
+        for y in range(H):
+            if not top <= y + 0.5 <= bot:
+                continue
+            d = min(y + 0.5 - top, bot - y - 0.5)                  # from the nearest edge
+            if d < 1.6:
+                if hs.checker(x, y):
+                    cv.set(x, y, CLOUD[2])
+            elif y + 0.5 - top < 6 and y < 24:
+                cv.set(x, y, CLOUD[0])                             # the puffs' lit caps
+            else:
+                cv.set(x, y, CLOUD[1])
+    for k in range(22):                                            # lighter puffs inside the body, a shadow under
+        bx, by, rx, ry = rng.randint(0, W - 1), rng.randint(22, 32), rng.randint(6, 14), rng.randint(2, 4)
+        for yy in range(by - ry, by + ry + 2):
+            for xx in range(bx - rx, bx + rx + 1):
+                dx, dy = (xx + 0.5 - bx) / rx, (yy + 0.5 - by) / ry
+                if cv.get(xx % W, yy) != CLOUD[1]:
+                    continue
+                if dx * dx + dy * dy <= 1.0:
+                    cv.set(xx % W, yy, CLOUD[0])
+                elif dx * dx + (dy - 0.6) ** 2 <= 1.0 and hs.checker(xx, yy):
+                    cv.set(xx % W, yy, CLOUD[2])
+    return cv
+
+
+def planet_limb():
+    """A tall screen (portrait): a big banded planet rising at the screen's bottom, past the stage (BG4 with the stars,
+    its own palette): 1024 x 96, one planet (its arc about 620 px wide: never two at once in 320 columns); lit from the
+    top-left, a pale rim of atmosphere."""
+    W, H = BANKS["planet"][1:]
+    cv = Canvas(W, H)
+    cx, R = 300.0, 540.0
+    cy = 5.0 + R
+    bands = [(0, 1), (7, 0), (12, 2), (22, 1), (30, 3), (41, 2), (50, 1), (58, 3), (70, 4)]
+    for y in range(H):
+        for x in range(W):
+            depth = R - dist(x, y, cx, cy)
+            if depth < -2:
+                continue
+            if depth < 0:                                          # the atmosphere's glow, dithered
+                if hs.checker(x, y):
+                    cv.set(x, y, PLANET_LIMB[6])
+                continue
+            if depth < 1.5:
+                cv.set(x, y, PLANET_LIMB[0])
+                continue
+            v = depth + 2.5 * math.sin(x / 41.0) + 1.5 * math.sin(x / 17.0 + 1.0)
+            lvl = 1
+            for start, b in bands:
+                if v >= start:
+                    lvl = b + 1
+            f = (x - cx + 40) / 130.0 + depth / 160.0               # lit from the top-left: darker to the right
+            lvl += int(math.floor(f + hs.bayer4(x, y) / 16.0))     # (an ordered dither between the shades)
+            lvl = max(lvl, 1)
+            cv.set(x, y, PLANET_LIMB[min(lvl, 5)])
     return cv
 
 
@@ -968,7 +1059,9 @@ def build_bosses():
 def write_all(out, preview=False):
     os.makedirs(os.path.join(out, "tiles"), exist_ok=True)
     files = {"sprites.png": build_sheet(), "bosses.png": build_bosses(), TERRAIN[0]: terrain().image(),
-             PANORAMAS["clouds"][0]: clouds().image(), PANORAMAS["stars"][0]: stars().image()}
+             PANORAMAS["clouds"][0]: clouds().image(), PANORAMAS["stars"][0]: stars().image(),
+             BANKS["bank"][0]: bank().image(), BANKS["planet"][0]: planet_limb().image(),
+             CLOUDS_BARE: clouds(False).image()}
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:

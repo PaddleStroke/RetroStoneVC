@@ -176,13 +176,35 @@ The extra width shows more of the stars, clouds, planets and walls. A state save
 Tests: the rules test checks the spawns, the reach and the fire over a whole loop; the touch test plays the same drag
 and the same bot run at 320, 427, 520 and 560 and compares them.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`; the 240 lines of the stage are the same pixels, centred, and the gameplay is the same (the rockets fly on
-the stage). The raster draws the lines past the stage (draw.c `raster_out`): space goes on, the backdrop's gradient
-carried on and darker toward the screen's edges, the clouds and the stars from half a panorama away (no copy of what
-the stage shows), the walls' fill repeated (BG2's row 31, the ceiling's rock, above; row 30, the floor's, below, where
-the section has them); the UI is hidden there, and line 0 puts the stage's settings back (a 240-line screen is
-unchanged). Sprites are drawn wherever the screen shows them. The touch drag is relative: nothing changes.
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (600
+lines, game.h) first in `game_init`: the app scales the 600 lines to the display's height and crops the sides, 256
+columns on a 1080x2520 phone, 276 on a 1080x2340 one, 300 on a 720x1440 one (the rockets and the robots 4.2x on a
+1080x2520 phone; v1's 320 x 720 strip: 3.4x). Layout only: the rules, the 320-px stage, the spawns and the reach are
+those of every width. The stage is centred (180 lines above and below it at 600).
+- **The camera** (draw.c `camera`): in play the view pans over the stage's 320 columns with more room ahead of the
+  corgis (the robots come from the right): one corgi about 30% from the view's left edge, several their middle at 40%,
+  every corgi at least 24 px from the edges (the leftmost first), a boss flying in or fighting kept in view; eased (3
+  px a frame at most; `cam_x` is in the states).
+- **Fairness**: a robot on the stage (the 320 columns would show it) but outside the columns shown gets the warning
+  arrow at that edge, at its height (blinking; `edge_marks`); the arrow for the robots from behind is at the view's
+  left edge.
+- **The HUD at the screen's top**: the scores as sprites at `rs_screen_top()` + 8 in the columns shown (1 player
+  centred; 2-4 with each corgi's icon, P1 P2 side by side, P3 P4 under them; no corner tags); the UI layer is scrolled
+  so its centred texts (the section's name, BIG ROBOT!, the power-ups, PAUSED) and the boss bar sit in the middle of
+  the columns shown (a big text wider than them uses the small letters). The title and the game-over panels show every
+  column (`rs_screen_fill(0)`).
+- **Past the stage** (BG2-BG4 maps 128 rows tall on a tall screen: the stage's rows, then the rows below it from row 30
+  down and the rows above it up from row 127, the wrap putting them in place without a raster): the walls go on in a
+  band of rock, metal or ice 3-6 tiles deep, rolling, its outer side a lit surface (`walls_tall`); in the nebula (and
+  the title) a bank of clouds (art/tiles/bank.png, the clouds' palette, its wisps reaching into the stage's first and
+  last rows). Both are drawn in front of the robots past the stage (the map's priority bit): a swoop comes out from
+  behind them. The clouds and the stars go on from other parts of their panoramas, the clouds without their planets
+  and moon (art/tiles/clouds_bare.png: no copy of what the stage shows); a big banded planet rises at the screen's
+  bottom (art/tiles/planet.png on BG4's 1024-px map, its own palette 4, scrolling with the stars: never twice in view;
+  the raster anchors its rows at the screen's bottom). The backdrop's gradient goes on, darker toward the screen's
+  edges; the UI is hidden there; line 0 puts the stage's settings back.
+- Landscape and 4:3 are the same pixels (the maps 32 rows, the extra tiles not loaded; checked at 320x240, 520x240 and
+  2340x1080). The touch drag is relative: nothing changes.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the corgi's rocket bobbing with a puppy pod and a bark flying ahead, a ladybug, the player slots,

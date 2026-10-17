@@ -21,8 +21,10 @@ sys.path.insert(0, os.path.join(ROOT, "games", "common", "tools"))
 import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
-# BG palettes: 0 the UI (the kit), 1-3 the walls (rock, station, ice), 5 the logo (the kit), 6 the clouds, 7 the stars
+# BG palettes: 0 the UI (the kit), 1-3 the walls (rock, station, ice), 4 the big planet (a tall screen), 5 the logo
+# (the kit), 6 the clouds, 7 the stars
 PAL_WALLS, PAL_LOGO, PAL_CLOUDS, PAL_STARS = 1, 5, 6, 7
+PAL_TALL = 4                                              # a tall screen: the big planet
 # OBJ palettes: 0 the corgi (P1), 1 P2, 2 the robots and the bosses, 3 the kit, 4 P3, 5 P4, 6 the props, 7 the gold
 # robots (the capsule groups; a boss flashes in it when hit)
 OBJ_PAL = {"hero": 0, "robots": 2, "props": 6}
@@ -62,8 +64,8 @@ def main():
          "#ifndef GM_ASSETS_H\n#define GM_ASSETS_H\n#include <stdint.h>\n#include \"rs.h\"\n",
          "#define VR_BG1 %d\n#define VR_BG2 %d\n#define VR_BG3 %d\n#define VR_BG4 %d\n#define VR_OBJ %d\n"
          "#define KIT_OBJ_TILE %d" % (VR_BG1, VR_BG2, VR_BG3, VR_BG4, VR_OBJ, KIT_OBJ_TILE),
-         "#define PAL_WALLS %d\n#define PAL_LOGO %d\n#define PAL_CLOUDS %d\n#define PAL_STARS %d\n#define PAL_GOLD %d" %
-         (PAL_WALLS, PAL_LOGO, PAL_CLOUDS, PAL_STARS, PAL_GOLD)]
+         "#define PAL_WALLS %d\n#define PAL_LOGO %d\n#define PAL_CLOUDS %d\n#define PAL_STARS %d\n#define PAL_GOLD %d\n"
+         "#define PAL_TALL %d" % (PAL_WALLS, PAL_LOGO, PAL_CLOUDS, PAL_STARS, PAL_GOLD, PAL_TALL)]
     stats = []
 
     # ---- BG2: the walls, 8 tiles per theme, one palette each -------------------------------------------------------
@@ -103,12 +105,49 @@ def main():
             pals = p16 + [v for t in (1, 2, 3) for v in remap(p16, make_art.CLOUD_THEMES[t])]
             c.append(arr("gm_clouds_pal", pals))
             h.append("extern const uint16_t gm_clouds_pal[4 * 16];")
+            cloud_pal = r.palettes[0]
+            # a tall screen: the clouds without their planets (the copies past the stage): the same palette, their own
+            # tiles after the panorama's (loaded at VR_BG3 + gm_clouds_tile_count on a tall screen only)
+            bare = rsasset.load(os.path.join(a.art, make_art.CLOUDS_BARE))
+            rb = rsasset.convert_bg(cells8(img, 0, 0, w, hh) + cells8(bare, 0, 0, w, hh), 1, pal_base=pal, tile_base=0)
+            assert rb.palettes == r.palettes and rb.tiles[:len(r.tiles)] == r.tiles
+            extra = rb.tiles[len(r.tiles):]
+            assert VR_BG3 + len(rb.tiles) <= VR_BG4, "the bare clouds' tiles overlap the stars'"
+            c.append(rsasset.c_bytes("gm_clouds_extra_tiles", rsasset.tiles_bytes(extra)))
+            c.append("const int gm_clouds_extra_count = %d;" % len(extra))
+            c.append(arr("gm_clouds_bare_map", [m[0] for m in rb.metas[len(r.metas):]]))
+            h.append("extern const uint8_t gm_clouds_extra_tiles[];\nextern const int gm_clouds_extra_count;")
+            h.append("extern const uint16_t gm_clouds_bare_map[CLOUDS_W * CLOUDS_H];")
+            stats.append("bare clouds %d" % len(extra))
         else:
             c.append(arr("gm_stars_pal", p16))
             h.append("extern const uint16_t gm_stars_pal[16];")
             for name, rgb in (("STAR_A", make_art.STARS[0]), ("STAR_B", make_art.STARS[1])):
                 h.append("#define IDX_%s %d" % (name, r.palettes[0].index(rsasset.to555(rgb)) + 1))
         stats.append("%s %d" % (key, len(r.tiles)))
+
+    # ---- a tall screen only: the nebula's cloud bank (BG2, in the clouds' palette) and the big planet (BG4) -----------
+    for key, pal in (("bank", PAL_CLOUDS), ("planet", PAL_TALL)):
+        f, w, hh = make_art.BANKS[key]
+        img = rsasset.load(os.path.join(a.art, f))
+        r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=pal, tile_base=0)
+        assert len(r.palettes) == 1, key
+        assert key != "bank" or len(r.tiles) <= 224, "the bank's tiles: BG2 32..255 (draw.c VR_BANK; 256: the clouds)"
+        if key == "bank":                                    # the clouds' palette indices (its colours are theirs)
+            ix = [0] + [cloud_pal.index(v) + 1 for v in r.palettes[0]]
+            r.tiles = [[ix[v] for v in t] for t in r.tiles]
+        else:
+            c.append(arr("gm_planet_pal", rsasset.palette16(r.palettes[0])))
+            h.append("extern const uint16_t gm_planet_pal[16];")
+        up = key.upper()
+        c.append(rsasset.c_bytes("gm_%s_tiles" % key, rsasset.tiles_bytes(r.tiles)))
+        c.append("const int gm_%s_tile_count = %d;" % (key, len(r.tiles)))
+        c.append(arr("gm_%s_map" % key, [m[0] for m in r.metas]))
+        h.append("#define %s_W %d\n#define %s_H %d" % (up, w // 8, up, hh // 8))
+        h.append("extern const uint8_t gm_%s_tiles[];\nextern const int gm_%s_tile_count;" % (key, key))
+        h.append("extern const uint16_t gm_%s_map[%s_W * %s_H];" % (key, up, up))
+        stats.append("%s %d" % (key, len(r.tiles)))
+    assert len(r.tiles) <= 1024 - 96, "the planet's tiles: BG4's 1024 from VR_BG4, after the stars (draw.c VR_PLANET)"
 
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))

@@ -5,3 +5,6 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.tall_x         a tall screen: the stage's BG2-BG4 scroll, set by draw_frame before every picture (the raster's line 0)
 draw.tall_y         ... the same
+draw.planet_y       ... the same (BG4's scroll for the big planet under the stage)
+draw.view_x0        the stage columns shown this frame (draw_frame: the screen, or the zoomed view), set before use
+draw.view_x1        ... the same

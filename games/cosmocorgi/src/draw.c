@@ -31,16 +31,24 @@ static rs_color line_col[RS_SCREEN_H];
 static int16_t star_dx[RS_SCREEN_H];           /* BG4's line scroll: the near star bands */
 static int shown_key = -1, shown_best = -1, sky_key = -1, star_key = -1;
 static int boss_loaded = -1;                   /* the boss whose tiles are in the slot */
-static int drawn_width;                        /* the width the maps and the UI were set up for */
+static int drawn_width, drawn_height;          /* the screen's size the maps and the UI were set up for */
+static int cam_x = -1;                         /* a zoomed screen in play: the first stage column shown (-1: none) */
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's scroll of BG2, BG3 and BG4
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): the stage's scroll of BG2, BG3 and BG4
  * this frame, for the raster's lines past the stage (set by draw_frame before every picture: not saved) */
-static int tall_x[RS_BG_COUNT], tall_y;
-#define TALL_ABOVE 256          /* past the stage, the clouds and stars from other parts of their panoramas: above, */
-#define TALL_BELOW 384          /* ... and below */
+static int tall_x[RS_BG_COUNT], tall_y, planet_y;
+#define TALL_ROWS    128        /* a tall screen: the BG2-BG4 maps are 128 rows tall: the stage's 30, then below it, */
+#define BELOW_ROW    30         /* ... from row 30 down, and above it, up from row 127 (the wrap: line -1 is row 127) */
+#define PLANET_ROW   40         /* BG4: the big planet's 12 rows (anchored at the screen's bottom by the raster) */
+#define VR_BANK      32         /* BG2: the cloud bank's tiles (after the walls' 23) */
+#define VR_PLANET    96         /* BG4: the planet's tiles (after the stars' 80) */
+#define TALL_HUD_Y   8          /* the scores' top, lines under the screen's top */
 
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 static int view_left(void) { return (rs_screen_width() - RS_SCREEN_W) * WIDE_LEFT_NUM / WIDE_LEFT_DEN; }
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+static int map4_w(void) { return tall() ? 128 : map_w(); }     /* BG4: the planet needs 1024 px (never twice in view) */
+static int map_ym(void) { return (tall() ? TALL_ROWS : 32) * 8 - 1; }
 
 static rs_color tall_scale(rs_color c, int k)   /* darker by k / 256, rounded (soft steps in the dark colours) */
 {
@@ -48,27 +56,21 @@ static rs_color tall_scale(rs_color c, int k)   /* darker by k / 256, rounded (s
 }
 
 /* The lines past the stage (a tall screen): space goes on. The backdrop's gradient carried on (darker toward the
- * screen's edges), the clouds and the stars from other parts of their panoramas (no copy of what the stage shows),
- * the walls' fill rows repeated (BG2's row 31: the ceiling's rock above, row 30: the floor's below, where the section
- * has them); the UI hidden there. Line 0 puts the stage's settings back (a 240-line screen: the same values, so the
- * same pixels). */
+ * screen's edges); BG2-BG4 go on in their tall maps (the walls' bands or the nebula's cloud bank, the clouds and the
+ * stars from other parts of their panoramas, the big planet at the bottom: maps_setup, walls_draw); the UI hidden
+ * there. Line 0 puts the stage's settings back (a 240-line screen: the same values, so the same pixels). */
 static void raster_out(int line)
 {
-    int pm = map_w() * 8 - 1;
     if (line == rs_screen_top() || line == RS_SCREEN_H) {
-        int far = line < 0 ? TALL_ABOVE : TALL_BELOW;
         rs_bg_enable(RS_BG1, 0);
-        rs_bg_scroll(RS_BG3, (tall_x[RS_BG3] + far) & pm, tall_y);
-        rs_bg_scroll(RS_BG4, (tall_x[RS_BG4] + far) & pm, tall_y);
+        if (line == RS_SCREEN_H) rs_bg_scroll(RS_BG4, tall_x[RS_BG4], planet_y);
     }
     if (line < 0) {
         int top = rs_screen_top(), k = top < 0 ? -line * 96 / -top : 0;
         rs_pal_set(0, tall_scale(line_col[(line & 4) ? 4 : 0], 256 - k));
-        rs_bg_scroll(RS_BG2, tall_x[RS_BG2], (31 * 8 + (line & 7) - line) & 255);
     } else {
         int n = rs_screen_bottom() - RS_SCREEN_H, k = n > 0 ? (line - RS_SCREEN_H) * 64 / n : 0;
         rs_pal_set(0, tall_scale(line_col[(line & 4) ? RS_SCREEN_H - 1 : RS_SCREEN_H - 5], 256 - k));
-        rs_bg_scroll(RS_BG2, tall_x[RS_BG2], (30 * 8 + (line & 7) - line) & 255);
     }
 }
 
@@ -118,18 +120,43 @@ static int tri(int t, int period)          /* 0..256..0 */
  * the clouds and the stars are 512-px panoramas that repeat. */
 static void maps_setup(void)
 {
-    int mw = map_w();
+    int mw = map_w(), t = tall(), mh = t ? TALL_ROWS : 32, w4 = map4_w();
     rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
-    rs_bg_setup(RS_BG4, mw, 32, VR_BG4);
+    rs_bg_setup(RS_BG2, mw, mh, VR_BG2);
+    rs_bg_setup(RS_BG3, mw, mh, VR_BG3);
+    rs_bg_setup(RS_BG4, w4, mh, VR_BG4);
     for (int y = 0; y < CLOUDS_H; y++)
         for (int x = 0; x < mw; x++) rs_bg_put(RS_BG3, x, y, gm_clouds_map[y * CLOUDS_W + x % CLOUDS_W]);
     for (int y = 0; y < STARS_H; y++)
-        for (int x = 0; x < mw; x++) rs_bg_put(RS_BG4, x, y, gm_stars_map[y * STARS_W + x % STARS_W]);
+        for (int x = 0; x < w4; x++) rs_bg_put(RS_BG4, x, y, gm_stars_map[y * STARS_W + x % STARS_W]);
+    if (t) {
+        /* past the stage: the clouds from other parts of their panorama (below: 384 px aside; above: 256), without
+         * its planets and moon (gm_clouds_bare_map: no copy of them); the stars from other rows; the big planet at
+         * PLANET_ROW */
+        for (int y = CLOUDS_H; y < mh; y++) {
+            int sy = y < 80 ? (y - BELOW_ROW) % CLOUDS_H : (y - mh + 2 * CLOUDS_H) % CLOUDS_H, dx = y < 80 ? 48 : 32;
+            for (int x = 0; x < mw; x++) {
+                int sx = (x + dx) % CLOUDS_W;
+                rs_bg_put(RS_BG3, x, y, gm_clouds_bare_map[sy * CLOUDS_W + sx]);
+            }
+        }
+        for (int y = STARS_H; y < mh; y++)
+            for (int x = 0; x < w4; x++) {
+                uint16_t e = gm_stars_map[(y * 7 % STARS_H) * STARS_W + (x + y / STARS_H * 21) % STARS_W];
+                int py = y - PLANET_ROW;
+                if (py >= 0 && py < PLANET_H && x < PLANET_W && RS_MAP_TILE(gm_planet_map[py * PLANET_W + x]))
+                    e = (uint16_t)(gm_planet_map[py * PLANET_W + x] + VR_PLANET);
+                rs_bg_put(RS_BG4, x, y, e);
+            }
+        rs_tiles_load(VR_BG3 + gm_clouds_tile_count, gm_clouds_extra_tiles, gm_clouds_extra_count);
+        rs_tiles_load(VR_BG2 + VR_BANK, gm_bank_tiles, gm_bank_tile_count);
+        rs_tiles_load(VR_BG4 + VR_PLANET, gm_planet_tiles, gm_planet_tile_count);
+        rs_pal_load(RS_PAL_BG(PAL_TALL), gm_planet_pal, 16);
+    }
     rs_bg_line_scroll(RS_BG4, star_dx, NULL);
     shown_key = -1;
     drawn_width = rs_screen_width();
+    drawn_height = rs_screen_height();
 }
 
 void draw_init(void)
@@ -174,11 +201,58 @@ static uint16_t wall_entry(int theme, int top, int lopen, int ropen, int c, int 
     return (uint16_t)(gm_walls_map[(theme - 1) * TER_KINDS + kind] ^ flip);
 }
 
-static void walls_draw(const world *w, int scroll)
+/* A tall screen: the walls' band past the stage, at world column c: 3 to 6 tiles deep, rolling (0: no walls there) */
+static int band_depth(const world *w, int c, int title)
+{
+    if (title || !ter_theme_at(w, c)) return 0;
+    int a = ((c % 22) + 22) % 22, b = ((c % 14) + 14) % 14;
+    return 3 + (a < 11 ? a : 22 - a) / 4 + (b < 7 ? b : 14 - b) / 4;
+}
+
+/* the nebula's cloud bank (a tall screen): its row r (0 the puffs' tops .. 5 the wisps) at column c; in front of the
+ * robots past the stage (they come in from behind it), behind them in the stage (the wisps) */
+static uint16_t bank_entry(int r, int c, int vflip, int front)
+{
+    uint16_t e = gm_bank_map[r * BANK_W + (c & (BANK_W - 1))];
+    if (!RS_MAP_TILE(e)) return 0;
+    return (uint16_t)((e + VR_BANK) ^ (vflip ? RS_MAP_VFLIP : 0)) | (front ? RS_MAP_PRIO : 0);
+}
+
+/* A tall screen: the rows past the stage at column c (map column mc): the walls go on in a band of rock, metal or
+ * ice (its outer side a surface, in front of the robots: a swoop comes out from behind it), or in the nebula (and
+ * the title) a bank of clouds; the stage's own first and last rows get the bank's wisps */
+static void walls_tall(const world *w, int c, int mc, int th, int ce, int fl, int title)
+{
+    for (int r = BELOW_ROW; r < TALL_ROWS; r++) rs_bg_put(RS_BG2, mc, r, 0);
+    if (!th) {
+        for (int k = 0; k < 5; k++) {
+            rs_bg_put(RS_BG2, mc, TALL_ROWS - 1 - k, bank_entry(4 - k, c, 0, 1));
+            rs_bg_put(RS_BG2, mc, BELOW_ROW + k, bank_entry(4 - k, c + 23, 1, 1));
+        }
+        rs_bg_put(RS_BG2, mc, 0, bank_entry(5, c, 0, 0));
+        rs_bg_put(RS_BG2, mc, 29, bank_entry(5, c + 23, 1, 0));
+        return;
+    }
+    int d = band_depth(w, c, title), dl = band_depth(w, c - 1, title), dr = band_depth(w, c + 1, title);
+    for (int k = 0; k < d; k++) {
+        uint16_t up, down;
+        if (k == d - 1) {                                 /* the band's outer side: a surface */
+            up = wall_entry(th, 1, k >= dl, k >= dr, c, 0);
+            down = wall_entry(th, 1, k >= dl, k >= dr, c, 1);
+        } else {
+            up = k == 0 && !ce ? wall_entry(th, 1, 0, 0, c, 1) : wall_entry(th, 0, k >= dl, k >= dr, c, 0);
+            down = k == 0 && !fl ? wall_entry(th, 1, 0, 0, c, 0) : wall_entry(th, 0, k >= dl, k >= dr, c, 1);
+        }
+        rs_bg_put(RS_BG2, mc, TALL_ROWS - 1 - k, up | RS_MAP_PRIO);
+        rs_bg_put(RS_BG2, mc, BELOW_ROW + k, down | RS_MAP_PRIO);
+    }
+}
+
+static void walls_draw(const world *w, int scroll, int title)
 {
     int mw = map_w(), c0 = fdiv8(scroll + rs_screen_left()) - 1, c1 = fdiv8(scroll + rs_screen_right()) + 1;
     for (int c = c0; c <= c1; c++) {
-        int mc = c & (mw - 1), th = ter_theme_at(w, c);
+        int mc = c & (mw - 1), th = title ? 0 : ter_theme_at(w, c);
         int ce = ter_ceil_at(w, c), fl = ter_floor_at(w, c);
         int cl = ter_ceil_at(w, c - 1), cr = ter_ceil_at(w, c + 1), fll = ter_floor_at(w, c - 1), flr = ter_floor_at(w, c + 1);
         for (int r = 0; r < 32; r++) {
@@ -195,6 +269,7 @@ static void walls_draw(const world *w, int scroll)
             }
             rs_bg_put(RS_BG2, mc, r, e);
         }
+        if (tall()) walls_tall(w, c, mc, th, ce, fl, title);
     }
 }
 
@@ -289,6 +364,32 @@ static int enemy_sprite(const world *w, const enemy *e, int *flags)
     return SPR_BUG;
 }
 
+/* the stage columns shown: view_x0 .. view_x1 - 1 (the whole screen, but on a zoomed screen in play) */
+static int view_x0, view_x1;
+
+/* A zoomed screen: a robot on the stage (the 320 columns would show it) but outside the columns shown gets a warning
+ * arrow at that edge, at its height (blinking), the warning the stage's width gives; at most 4, not stacked */
+static void edge_marks(const world *w, int sx, int sy)
+{
+    int marked = 0, my[4], mside[4];
+    for (int i = 0; i < MAX_ENEMIES && marked < 4; i++) {
+        const enemy *e = &w->en[i];
+        if (!e->on || e->t < 0) continue;
+        int x = e->x >> 16, y = e->y >> 16, side;
+        if (x + 8 <= view_x0 && x + 8 > 0) side = 0;
+        else if (x - 8 >= view_x1 && x - 8 < STAGE_W) side = 1;
+        else continue;
+        if (y < -8 || y > STAGE_H + 8) continue;
+        int dup = 0;
+        for (int k = 0; k < marked; k++) dup |= mside[k] == side && y > my[k] - 20 && y < my[k] + 20;
+        if (dup) continue;
+        my[marked] = y, mside[marked++] = side;
+        if ((w->t / 8 + i) % 3)
+            spr(SPR_WARN + (w->t / 16) % 2, side ? view_x1 - 18 + sx : view_x0 + 2 + sx, y - 8 + sy, 2, -1,
+                side ? RS_SPR_HFLIP : 0);
+    }
+}
+
 static void draw_world(const world *w, int sx, int sy)
 {
     /* the points and the warnings (front) */
@@ -304,8 +405,9 @@ static void draw_world(const world *w, int sx, int sy)
         for (int k = 0; k < warned; k++) dup |= y > warn_y[k] - 24 && y < warn_y[k] + 24;
         if (dup) continue;
         warn_y[warned++] = y;
-        if ((w->t / 8) % 2 == 0) spr(SPR_WARN + (w->t / 16) % 2, rs_screen_left() + 2 + sx, y - 8 + sy, 2, -1, 0);
+        if ((w->t / 8) % 2 == 0) spr(SPR_WARN + (w->t / 16) % 2, view_x0 + 2 + sx, y - 8 + sy, 2, -1, 0);
     }
+    if (view_x0 > rs_screen_left() || view_x1 < rs_screen_right()) edge_marks(w, sx, sy);
     /* the robots' shots: on top of the play, the clearest */
     for (int i = 0; i < MAX_EBULLETS; i++) {
         const ebullet *b = &w->eb[i];
@@ -399,11 +501,11 @@ static void draw_world(const world *w, int sx, int sy)
 }
 
 /* the boss's strength left: 16 segments at the bottom centre */
-static void boss_bar(const world *w)
+static void boss_bar(const world *w, int ui_dx)
 {
     const boss *b = &w->b;
     if (!b->on || (b->phase != BP_FIGHT && b->phase != BP_ENTER)) return;
-    int segs = 16, full = b->hp * segs * 2 / (b->hp0 ? b->hp0 : 1), x0 = 160 - segs * 4 + hu_ui_x();
+    int segs = 16, full = b->hp * segs * 2 / (b->hp0 ? b->hp0 : 1), x0 = 160 - segs * 4 + hu_ui_x() + ui_dx;
     for (int k = 0; k < segs; k++) {
         int f = full >= 2 * k + 2 ? 0 : full == 2 * k + 1 ? 1 : 2;
         spr(SPR_HP + f, x0 + k * 8, 226, 1, -1, 0);
@@ -413,7 +515,8 @@ static void boss_bar(const world *w)
 /* ---- the BG screens -------------------------------------------------------------------------------------------- */
 static void text_centered(int row, const char *s, int big)
 {
-    if (big && hu_width(s, 1) > 38) big = 0;           /* a long translation: the small letters */
+    int cols = (view_x1 - view_x0) / 8 - 1;           /* (a zoomed screen: the columns shown) */
+    if (big && hu_width(s, 1) > (cols < 38 ? cols : 38)) big = 0;     /* a long translation: the small letters */
     if (big) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
     else hu_text(hu_center(s, 0), row, s);
 }
@@ -462,7 +565,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         char s[64];
         hu_clear();
         if (state == ST_TITLE) hu_logo("COSMO CORGI", title_ramps, 2, 2, 0);
-        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3) hu_score_tags(w->players, 0);
+        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall()) hu_score_tags(w->players, 0);
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->phase == PH_INTRO && w->phase_t < INTRO_FRAMES) {
                 text_centered(11, section_name(w->sec), 1);
@@ -514,6 +617,53 @@ static void boss_tiles(int kind)
     boss_loaded = kind;
 }
 
+/* A zoomed screen in play: the camera (the first stage column shown, n columns shown). The corgis in view with more
+ * room ahead of them (the robots come from the right): one corgi about 30% from the left edge, several their middle
+ * at 40%, all of them at least 24 px from the edges (the leftmost first); a boss fighting kept in view. Eased (3 px a
+ * frame at most), from the game's state (cam_x is saved: a state loads with the same view). */
+static void camera(const world *w, int n)
+{
+    int minx = 1 << 20, maxx = -(1 << 20);
+    for (int p = 0; p < w->players; p++) {
+        const hero *h = &w->h[p];
+        if (h->state == SH_OUT || h->state == SH_OFF) continue;
+        int x = h->x >> 16;
+        minx = x < minx ? x : minx;
+        maxx = x > maxx ? x : maxx;
+    }
+    int want = (STAGE_W - n) / 2;
+    if (minx <= maxx) {
+        want = minx == maxx ? minx - n * 3 / 10 : (minx + maxx) / 2 - n * 2 / 5;
+        const boss *b = &w->b;
+        if (b->on && (b->phase == BP_ENTER || b->phase == BP_FIGHT || b->phase == BP_DOWN)) {
+            int bx = (b->x >> 16) + 36;
+            if (bx > STAGE_W) bx = STAGE_W;
+            if (want < bx - n) want = bx - n;
+        }
+        if (want < maxx + 24 - n) want = maxx + 24 - n;
+        if (want > minx - 24) want = minx - 24;
+    }
+    if (want > STAGE_W - n) want = STAGE_W - n;
+    if (want < 0) want = 0;
+    if (cam_x < 0) cam_x = want;
+    cam_x += want > cam_x + 3 ? 3 : want < cam_x - 3 ? -3 : want - cam_x;
+    rs_screen_focus_x(cam_x + n / 2 + rs_screen_origin_x());
+}
+
+/* a zoomed screen: the scores at the screen's top, in the columns shown: 1 player centred; 2-4 each with its corgi's
+ * icon, P1 and P2 side by side, P3 and P4 under them */
+static void tall_scores(const world *w)
+{
+    int n = w->players, cx = (view_x0 + view_x1) / 2, dx = (view_x1 - view_x0) / 5, ui = hu_ui_x();
+    for (int p = 0; p < n; p++) {
+        char s[12];
+        int len = snprintf(s, sizeof s, "%d", w->h[p].score < 0 ? 0 : w->h[p].score);
+        int x = n == 1 ? cx : p & 1 ? cx + dx : cx - dx, y = rs_screen_top() + TALL_HUD_Y + (p >= 2) * 22;
+        if (n > 1) spr(SPR_ICON, x - len * 6 - 18 + 10, y, 3, player_pal(p), 0);
+        hu_number_at(w->h[p].score, x - ui + (n > 1) * 10, y, 0, 3);
+    }
+}
+
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
 {
     static const int medals[4] = MEDAL_SCORES;
@@ -521,6 +671,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int scroll = state == ST_TITLE ? st_t * 2 : (int)(w->scroll >> 16);
     hu_standing rs;
     standing(w, &rs);
+
+    /* a tall screen (DESIGN.md "Tall screen"): zoomed in play, the camera on the corgis; every column on the title and
+     * the panels */
+    int zoom = tall() && (state == ST_PLAY || state == ST_DEAD), ui_dx = 0;
+    view_x0 = rs_screen_left();
+    view_x1 = rs_screen_right();
+    if (tall()) {
+        rs_screen_fill(zoom);
+        if (zoom) {
+            camera(w, rs_screen_visible_x1() - rs_screen_visible_x0());
+            view_x0 = rs_screen_visible_x0() - rs_screen_origin_x();
+            view_x1 = rs_screen_visible_x1() - rs_screen_origin_x();
+            ui_dx = (view_x0 + view_x1) / 2 - (rs_screen_left() + rs_screen_right()) / 2;
+        } else {
+            cam_x = -1;
+        }
+        if (drawn_height != rs_screen_height()) maps_setup();
+    }
 
     /* the section's colours: blended in from the last section's as it begins */
     int th = state == ST_TITLE ? 0 : world_theme(w->sec), prev = th, k = 256;
@@ -540,22 +708,25 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         star_key = near;
         for (int y = 0; y < RS_SCREEN_H; y++) star_dx[y] = (int16_t)((y / 24) % 2 ? near : 0);
     }
-    tall_x[RS_BG4] = (scroll / 16 - sx) & pm;   /* (kept for the raster's line 0 on a tall screen) */
+    tall_x[RS_BG4] = (scroll / 16 - sx) & (map4_w() * 8 - 1);  /* (kept for the raster's line 0 on a tall screen) */
     tall_x[RS_BG3] = (scroll / 4 - sx) & pm;
     tall_x[RS_BG2] = (scroll - sx) & pm;
-    tall_y = (-sy) & 255;
+    tall_y = (-sy) & map_ym();
+    /* (a tall screen: the big planet's rows end at the screen's bottom) */
+    planet_y = (PLANET_ROW * 8 - (rs_screen_bottom() - PLANET_H * 8)) & map_ym();
     for (int l = RS_BG2; l <= RS_BG4; l++) rs_bg_scroll(l, tall_x[l], tall_y);
     if (state == ST_TITLE) {
         for (int c = 0; c < map_w(); c++)
-            for (int r = 0; r < 32; r++) rs_bg_put(RS_BG2, c, r, 0);
+            for (int r = 0; r <= map_ym() / 8; r++) rs_bg_put(RS_BG2, c, r, 0);
+        if (tall()) walls_draw(w, scroll, 1);       /* (the cloud bank) */
     } else {
-        walls_draw(w, scroll);
+        walls_draw(w, scroll, 0);
     }
     if (state != ST_TITLE) boss_tiles(world_theme(w->sec));
 
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);          /* the UI centred on the screen (widescreen) */
+    rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);  /* the UI centred on the screen (widescreen), or the view */
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -563,8 +734,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (state == ST_PLAY || state == ST_DEAD) {
         int v[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) v[p] = w->h[p].score;
-        hu_score_chips(w->players, v, 0);       /* 1: centred; 2: on the halves; 3-4: the corners */
-        boss_bar(w);
+        if (zoom) tall_scores(w);
+        else hu_score_chips(w->players, v, 0);  /* 1: centred; 2: on the halves; 3-4: the corners */
+        boss_bar(w, ui_dx);
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
@@ -598,11 +770,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another size brings maps of another size: set them up for this one, redraw the UI */
 void draw_state_loaded(void)
 {
     rs_screen_origin(view_left());              /* (not part of a state: this width's) */
-    if (drawn_width == rs_screen_width()) return;
+    if (drawn_width == rs_screen_width() && drawn_height == rs_screen_height()) return;
     maps_setup();                               /* and the UI is drawn again (shown_key: the corners' tags) */
 }
 
@@ -610,6 +782,7 @@ void draw_state_loaded(void)
 void draw_state(void)
 {
     S(line_col); S(star_dx); S(shown_key); S(shown_best); S(sky_key); S(star_key); S(boss_loaded); S(drawn_width);
+    S(drawn_height); S(cam_x);
     RS_STATE_RASTER(raster);
 }
 #undef S
