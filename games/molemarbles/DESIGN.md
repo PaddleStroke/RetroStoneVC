@@ -110,3 +110,13 @@ game a little easier).
 - `make molemarbles-check` runs the libretro, smoke, UI, touch and state tests again at 427 and 520, then
   tests/wide_test.sh and the language test at 320, 427 and 520; `make molemarbles-screenshots` adds
   title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
+display's height at 320 columns. The arena and the 240 lines of the stage are the same pixels, centred (the default
+origin; the frontend's touch buttons sit in the band below). The raster draws the lines past the stage (draw.c
+`raster_out`): above, the cavern rising on (BG3's band of pillars, map lines 16..47, repeated up to the screen's top,
+the backdrop the stage's first colour); below, the stone floor going down (the bricks of map lines 224..239 repeated).
+The UI and marbles' layers are hidden there (window 1 over the whole width: their 32-row maps would repeat); line 0
+puts the stage's windows and BG3's scroll back, so a 240-line screen is unchanged. Nothing of the play changes: the
+ceiling stays at y 24 and the floor at y 208.

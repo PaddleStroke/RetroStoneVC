@@ -9,7 +9,19 @@
 static const rs_color ramps[2][3]={{RS_RGB8(255,225,157),RS_RGB8(227,174,85),RS_RGB8(161,101,60)},{RS_RGB8(170,247,221),RS_RGB8(82,210,174),RS_RGB8(42,141,147)}};
 static const rs_color field_pal[16]={0,RS_RGB8(29,29,55),RS_RGB8(255,238,194),RS_RGB8(246,255,248),RS_RGB8(255,181,210),RS_RGB8(222,99,157),RS_RGB8(117,53,119),RS_RGB8(174,246,205),RS_RGB8(74,193,155),RS_RGB8(35,109,121),RS_RGB8(168,220,254),RS_RGB8(91,156,232),RS_RGB8(57,80,154),RS_RGB8(255,226,121),RS_RGB8(199,140,67),RS_RGB8(33,34,57)};
 static rs_color lines[240];
-static void raster(int y,void*user){(void)user;rs_pal_set(0,lines[y]);}
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the cavern goes on above the stage
+ * (BG3's band of pillars, map lines 16..47, repeated up to the screen's top) and its stone floor below (the bricks of
+ * map lines 224..239 repeated); the UI and the marbles' layers are hidden there (window 1 over the whole width: their
+ * 32-row maps would repeat). Line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+static void raster_out(int y){
+ if(y==rs_screen_top()||y==RS_SCREEN_H){rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);}
+ if(y<0){rs_bg_scroll(RS_BG3,0,16+((y%32)+32)%32-y);rs_pal_set(0,lines[0]);}
+ else{rs_bg_scroll(RS_BG3,0,224+(y-RS_SCREEN_H)%16-y);rs_pal_set(0,lines[RS_SCREEN_H-1]);}
+}
+static void raster(int y,void*user){(void)user;
+ if(y<0||y>=RS_SCREEN_H){raster_out(y);return;}
+ if(y==0&&rs_screen_height()>RS_SCREEN_H){rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_bg_scroll(RS_BG3,0,0);}
+ rs_pal_set(0,lines[y]);}
 /* the marbles' layer is drawn in pixels (stage coordinates), one screen wide: fb_w columns, stage x -fb_ox .. */
 static int fb_w=320,fb_ox;
 static uint8_t fbuf[RS_SCREEN_W_MAX*240];
