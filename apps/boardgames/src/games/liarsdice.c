@@ -21,6 +21,7 @@
 #include "cards.h"
 #include "games/endtable.h"
 #include "games/liarsdice.h"
+#include "pages.h"
 #include "shell.h"
 
 #define BID_MS 320                              /* a bid landing in the middle */
@@ -35,6 +36,8 @@ static const lpos *P = &G.pos;
 static int sel_count, sel_face, peek, seen_viewer = -2, rolled[LD_MAXP];
 static Uint32 bid_t0, rev_t0, roll_t0, quiet;
 static const uint8_t CREAM[3] = {246, 238, 220};   /* the digits, faded */
+static const uint8_t INK[3] = {46, 40, 30};     /* the light theme's: digits on its ivory table */
+static const uint8_t *table_ink(void) { return TH.dark ? CREAM : INK; }
 
 /* ---- the geometry ------------------------------------------------------------------------------------------------ */
 static struct {
@@ -47,6 +50,7 @@ static struct {
 } T;
 
 enum { K_BID, K_LIAR, K_NEXT, KNOBS };
+#define PAINT_NEXT_INK KNOBS                    /* the next button's arrow in ink (the light theme's white disc) */
 
 static void layout(box b)
 {
@@ -134,10 +138,10 @@ static void paint_knob(int kind, int s, uint8_t *o)
 {
     static const uint8_t cream[3] = {246, 238, 220}, red[3] = {196, 64, 48}, dark[3] = {52, 34, 22};
     art_fig *f = art_fig_new();
-    if (kind == K_NEXT) {
+    if (kind == K_NEXT || kind == PAINT_NEXT_INK) {
         art_arc(f, ART_PART, 0.5f, 0.52f, 0.17f, 0.25f, 200, 480);
         art_head(f, ART_PART, 0.29f, 0.45f, 250, 0.2f);
-        art_fig_paint(o, s, f, cream, NULL, 0, 0.1f);
+        art_fig_paint(o, s, f, kind == K_NEXT ? cream : INK, NULL, 0, 0.1f);
         return;
     }
     static const float body[] = {0.36f, 0.16f, 0.6f, 0.16f, 0.68f, 0.48f, 0.28f, 0.48f};
@@ -179,10 +183,11 @@ static void textures(void)
     }
     float cx, cy, w, h;
     num_cell(1, &cx, &cy, &w, &h);
-    int key = (int)w * 1000 + (int)h;
-    if (made_chip != key) {                     /* the numbers' chips: plain, chosen */
+    int key = ((int)w * 1000 + (int)h) * 2 + TH.dark;
+    if (made_chip != key) {                     /* the numbers' chips: plain (the light theme: soft beige), chosen */
         made_chip = key;
-        const uint8_t off[4] = {40, 56, 50, 255}, on[4] = {150, 118, 46, 255};
+        const uint8_t dark_off[4] = {40, 56, 50, 255}, light_off[4] = {228, 216, 192, 255};
+        const uint8_t *off = TH.dark ? dark_off : light_off, on[4] = {150, 118, 46, 255};
         ui_free(&t_chip);
         ui_free(&t_chip_on);
         art_roundrect((int)w, (int)h, 0.3f * h, off, ui_buf((int)w, (int)h));
@@ -362,7 +367,7 @@ static void draw_bid_row(float cx, float cy, float h, int player, int count, int
     ui_put_c(t_tok[player], x + tw / 2, cy, tw, tw);
     SDL_SetTextureAlphaMod(t_tok[player], 255);
     x += tw + gap;
-    ui_number_ex(x + nw / 2, cy, h, count, CREAM, (Uint8)(255 * fade), 0);
+    ui_number_ex(x + nw / 2, cy, h, count, table_ink(), (Uint8)(255 * fade), 0);
     x += nw + gap;
     ui_die(x + dw / 2, cy, dw, player, face, 0, 0, alpha, 1);
 }
@@ -429,7 +434,9 @@ static void draw_picker(void)
         SDL_SetTextureAlphaMod(t, ok || on ? 255 : 90);
         ui_put_c(t, cx, cy, w, h);
         SDL_SetTextureAlphaMod(t, 255);
-        ui_number(cx, cy, fminf(0.56f * h, w / (n >= 10 ? 1.6f : 0.9f)), n, ok || on);
+        float nh = fminf(0.56f * h, w / (n >= 10 ? 1.6f : 0.9f));
+        if (TH.dark || on) ui_number(cx, cy, nh, n, ok || on);
+        else ui_number_ex(cx, cy, nh, n, INK, ok ? 255 : 110, 0);   /* the light theme: ink on beige */
     }
     for (int f = 2; f <= 6; f++) {
         float cx, cy;
@@ -466,7 +473,7 @@ static void draw_reveal(void)
             if (P->held) ui_mark_gold_a(nx, top, 3.2f * h, 1 - gone);
             else ui_mark_glow(nx, top, 3.2f * h * (1 - gone));
         }
-        ui_number_ex(nx, top, 1.3f * h, lit, CREAM, (Uint8)(255 * (1 - gone)), 0);
+        ui_number_ex(nx, top, 1.3f * h, lit, table_ink(), (Uint8)(255 * (1 - gone)), 0);
     }
     /* the players' rows */
     int n = P->players, row = 0;
@@ -527,7 +534,7 @@ static void draw_reveal(void)
         float x, y, d;
         knob_xy(K_NEXT, &x, &y, &d);
         y = b.y + b.h - 0.7f * d;
-        ui_button_paint(x, y, d, paint_knob, K_NEXT, 1, UI_LIT);
+        ui_button_paint(x, y, d, paint_knob, TH.dark ? K_NEXT : PAINT_NEXT_INK, 1, UI_LIT);
     }
 }
 
