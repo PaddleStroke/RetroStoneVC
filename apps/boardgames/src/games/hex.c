@@ -310,7 +310,7 @@ static void layout(box b)
     paint_last(ui_buf(last_size, last_size), last_size, &local);
     t_last = ui_tex(last_size, last_size, ui_buf(last_size, last_size));
     SDL_SetTextureColorMod(t_last, 250, 214, 90);
-    SDL_SetTextureAlphaMod(t_last, 100);
+    SDL_SetTextureAlphaMod(t_last, 190);
 }
 
 
