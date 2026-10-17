@@ -1,11 +1,9 @@
 Prikker og kasser
 # Målet
-Vind flere kasser end modstanderen. Brættet er et gitter af prikker. Vælg størrelsen før spillet: 3×3 kasser til et hurtigt spil, 5×5 eller 7×7. Den lyse side starter.
+Vind flere kasser end modstanderen. Den lyse side starter.
 # En tur
-- Tegn én streg mellem to prikker ved siden af hinanden, vandret eller lodret. Hver streg kan kun tegnes én gang.
-- Hvis din streg lukker den fjerde side af en kasse, er kassen din: den får din farve. Én streg kan lukke to kasser på én gang.
+- Tegn én streg mellem to prikker ved siden af hinanden, vandret eller lodret.
+- Hvis din streg lukker den fjerde side af en kasse, er kassen din. Én streg kan lukke to kasser på én gang.
 - Hver gang du lukker en kasse, skal du tegne endnu en streg. Din tur slutter med en streg, der ikke lukker nogen kasse.
 # Spillets afslutning
-Spillet slutter, når alle streger er tegnet. Spilleren med flest kasser vinder. Hvert bræt har et ulige antal kasser, så der er altid en vinder.
-# Spil på enheden
-Tryk mellem to prikker for at tegne stregen der. Hold fingeren nede for at se, hvilken streg det bliver, lad den glide for at vælge en anden, og løft den for at tegne. Den sidst tegnede streg lyser, og det gør de kasser, den lukkede, også. Hvert panel viser, hvor mange kasser den spiller har.
+Når alle streger er tegnet, vinder spilleren med flest kasser. Der er altid en vinder.

@@ -1,13 +1,10 @@
 Dara
 # The aim
-Capture the other player's pieces until they have only two left. Dara is a game of lines from Nigeria and Niger, played on 5 rows of 6 holes, often dug in the sand. Each player has 12 pieces. Light places and moves first.
+Capture the other player's pieces until they have only two left. Light places and moves first.
 # Placing
-The players take turns placing one piece in any empty hole, until all the pieces are on the board. You may never place a piece so that three or more of your pieces stand in a row, across or up and down. A player who has no such hole left passes; when neither can place, the pieces still in hand stay out of the game.
+The players take turns placing one piece in any empty hole, until all the pieces are on the board. You may never place a piece so that three or more of yours stand in a row, across or up and down. A player with no such hole left passes; when neither can place, the pieces still in hand stay out of the game.
 # Moving
-Then, on your turn, move one of your pieces one hole across or up and down (never diagonally) to an empty hole. If the move makes a row of exactly three of your pieces, across or up and down, take any one enemy piece off the board. A row of four does not count. Making two rows with one move still takes only one piece.
+Then move one of your pieces one hole across or up and down to an empty hole. If the move makes a row of exactly three of your pieces, take any one enemy piece. A row of four does not count, and two rows made at once still take only one piece.
 # The end of the game
-- A player left with two pieces loses: they can never make a row again.
-- A player who cannot move on their turn loses.
+- A player left with two pieces, or who cannot move on their turn, loses.
 - After 100 moves in a row (both players' moves counted) without a capture, the game is a draw.
-# Playing on the device
-To place, tap a hole with a dot: the holes without one would make a row of three. To move, tap one of your pieces, then a dot, or drag the piece. A dot in a gold light makes a row of three. Then the row glows gold and the pieces you may take glow red: tap one. While placing, each bar shows the pieces still in hand; later, the pieces that player has taken. When few moves are left before the draw, their number shows at the end of the bar of the player to move.

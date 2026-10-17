@@ -1,11 +1,9 @@
 Punti e quadrati
 # Lo scopo
-Conquistare più quadrati dell'altro giocatore. Il tavoliere è una griglia di punti. Scegli la sua grandezza prima della partita: 3 per 3 quadrati per una partita veloce, 5 per 5, o 7 per 7. Inizia il giocatore chiaro.
+Conquistare più quadrati dell'altro giocatore. Inizia il giocatore chiaro.
 # Un turno
-- Traccia una linea tra due punti vicini, in orizzontale o in verticale. Ogni linea si può tracciare una sola volta.
-- Se la tua linea chiude il quarto lato di un quadrato, il quadrato è tuo: prende il tuo colore. Una sola linea può chiudere due quadrati insieme.
+- Traccia una linea tra due punti vicini, in orizzontale o in verticale.
+- Se la tua linea chiude il quarto lato di un quadrato, il quadrato è tuo. Una sola linea può chiudere due quadrati insieme.
 - Ogni volta che chiudi un quadrato, devi tracciare un'altra linea. Il tuo turno finisce con una linea che non chiude nessun quadrato.
 # La fine della partita
-La partita finisce quando tutte le linee sono tracciate. Vince il giocatore con più quadrati. Ogni tavoliere ha un numero dispari di quadrati, quindi c'è sempre un vincitore.
-# Giocare sul dispositivo
-Tocca tra due punti per tracciare lì la linea. Tieni il dito appoggiato per vedere quale linea sarà, fallo scorrere per sceglierne un'altra e sollevalo per tracciarla. L'ultima linea tracciata è illuminata, e così i quadrati che ha chiuso. Ogni barra mostra quanti quadrati ha quel giocatore.
+Quando tutte le linee sono tracciate, vince il giocatore con più quadrati. C'è sempre un vincitore.

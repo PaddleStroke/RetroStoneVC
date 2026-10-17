@@ -1,57 +1,38 @@
 Schach
 # Das Ziel
-Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Weiß beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
+Setze den gegnerischen König matt: Greife ihn so an, dass er nicht entkommen kann. Weiß beginnt.
 # So ziehen die Figuren
-- König: ein Feld in jede Richtung.
-- Dame: beliebig viele Felder geradeaus, entlang einer Reihe, einer Linie oder einer Diagonale.
-- Turm: beliebig viele Felder entlang einer Reihe oder einer Linie.
-- Läufer: beliebig viele Felder entlang einer Diagonale.
+- König: ein Feld in jede Richtung. Dame: beliebig viele Felder entlang einer Reihe, einer Linie oder einer Diagonale. Turm: entlang einer Reihe oder einer Linie. Läufer: entlang einer Diagonale.
 - Springer: in L-Form, zwei Felder in eine Richtung und ein Feld zur Seite. Er ist die einzige Figur, die über andere hinwegspringt.
 - Bauer: ein Feld vorwärts, oder zwei von seinem Ausgangsfeld aus. Er schlägt ein Feld schräg nach vorn.
-Figuren können nicht durch andere Figuren hindurchziehen (außer dem Springer). Eine Figur schlägt, indem sie auf ein Feld zieht, auf dem eine gegnerische Figur steht; diese verlässt das Brett.
+- Eine Figur schlägt, indem sie auf eine gegnerische Figur zieht.
 # Besondere Züge
-- Rochade: Der König zieht zwei Felder auf einen Turm zu, und der Turm springt auf das Feld, das der König überquert hat. Nur erlaubt, wenn keine der beiden Figuren schon gezogen hat, die Felder zwischen ihnen leer sind und der König nicht im Schach steht, kein angegriffenes Feld überquert und nicht im Schach landet.
-- En passant: Zieht ein Bauer zwei Felder vor und landet neben einem gegnerischen Bauern, darf dieser ihn schlagen, als wäre er nur ein Feld gezogen, aber nur im unmittelbar folgenden Zug.
-- Umwandlung: Ein Bauer, der die letzte Reihe erreicht, wird nach deiner Wahl zur Dame, zum Turm, zum Läufer oder zum Springer.
+- Rochade: Der König zieht zwei Felder auf einen Turm zu, und der Turm springt auf das Feld, das der König überquert hat. Nur wenn keine der beiden Figuren schon gezogen hat, nichts zwischen ihnen steht und der König nicht im Schach steht, kein angegriffenes Feld überquert und nicht im Schach landet.
+- En passant: Ein Bauer, der gerade zwei Felder gezogen ist und neben einem gegnerischen Bauern landet, darf von diesem geschlagen werden, als wäre er nur ein Feld gezogen, aber nur im unmittelbar folgenden Zug.
+- Umwandlung: Ein Bauer, der die letzte Reihe erreicht, wird zur Dame, zum Turm, zum Läufer oder zum Springer.
 # Schach und das Ende der Partie
-Ein angegriffener König steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener König im Schach steht.
+Du darfst nie einen Zug machen, nach dem dein eigener König im Schach (angegriffen) steht.
 - Schachmatt: Der König steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
-- Patt: Der Spieler am Zug hat keinen erlaubten Zug, steht aber nicht im Schach. Die Partie endet remis.
-- Remis ist die Partie auch, wenn keine Seite je mattsetzen kann (zu wenig Figuren übrig), wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen und ohne Bauernzug.
+- Remis: Patt (kein erlaubter Zug, aber kein Schach), zu wenig Figuren zum Mattsetzen übrig, dieselbe Stellung zum dritten Mal, oder fünfzig Züge jeder Seite ohne Schlagen und ohne Bauernzug.
 # Chess960
-Chess960 (Fischer-Random-Schach) wird nach denselben Regeln gespielt, aber die Figuren der Grundreihe beginnen in einer von 960 Anordnungen, die für jede Partie zufällig ausgelost wird. Die Bauern stehen wie gewohnt, und die schwarzen Figuren stehen den weißen Linie für Linie gegenüber. Die Läufer stehen immer auf Feldern unterschiedlicher Farbe, und der König irgendwo zwischen den beiden Türmen.
-- Rochade: König und Turm landen auf denselben Feldern wie im normalen Schach: der König auf g und der Turm auf f mit dem Turm auf der h-Seite, der König auf c und der Turm auf d mit dem Turm auf der a-Seite. Nur erlaubt, wenn keine der beiden Figuren schon gezogen hat, jedes Feld, das sie überqueren oder auf dem sie landen, leer ist (abgesehen von den beiden selbst) und der König nicht im Schach steht, kein angegriffenes Feld überquert und nicht im Schach landet.
-- Zum Rochieren ziehst du den König auf den Turm, mit dem er rochiert. Du kannst ihn auch auf sein Zielfeld ziehen, außer der König könnte auch mit einem gewöhnlichen Zug dorthin ziehen oder steht bereits dort.
+Die Figuren der Grundreihe beginnen in zufälliger Anordnung, die Läufer auf Feldern unterschiedlicher Farbe und der König zwischen den Türmen. Die Rochade endet wie im normalen Schach (der König auf g und der Turm auf f, oder der König auf c und der Turm auf d), und jedes Feld, das sie überqueren oder auf dem sie landen, muss leer sein, abgesehen von den beiden selbst. Zum Rochieren ziehst du den König auf seinen Turm.
 # Crazyhouse
-Schach mit einer weiteren Zugart: Eine Figur, die du schlägst, wechselt die Seite und kommt in deinen Vorrat, der in deiner Leiste steht. Statt zu ziehen, darfst du eine Figur aus deinem Vorrat auf ein beliebiges leeres Feld einsetzen.
-- Ein Bauer darf nicht auf die erste oder die letzte Reihe eingesetzt werden. Ein Einsetzen darf Schach geben, sogar matt setzen.
-- Eine umgewandelte Figur, die geschlagen wird, kommt als Bauer in den Vorrat.
-- Kein Remis wegen zu wenig Material: Keine Figur verlässt je das Spiel.
-- Zum Einsetzen tippe die Figur in deiner Leiste an und dann ein Feld (Punkte zeigen, wohin sie kann), oder ziehe sie aufs Brett.
+Eine Figur, die du schlägst, wechselt die Seite und kommt in deinen Vorrat. Statt zu ziehen, darfst du eine Figur aus deinem Vorrat auf ein beliebiges leeres Feld einsetzen, sogar um Schach zu geben oder matt zu setzen. Kein Bauer auf der ersten oder letzten Reihe. Eine geschlagene umgewandelte Figur kommt als Bauer zurück. Kein Remis wegen zu wenig Material.
 # Dreischach
-Schach, aber wer als Erster dreimal Schach gibt, gewinnt. Matt gewinnt ebenfalls. Jede Leiste hat drei Plätze, und für jedes Schach, das der Spieler gibt, leuchtet einer davon rot auf.
+Wer als Erster dreimal Schach gibt, gewinnt. Matt gewinnt ebenfalls.
 # König des Hügels
-Schach, aber wessen König als Erster eines der vier Mittelfelder (d4, e4, d5, e5) erreicht, die golden umrahmt sind, gewinnt sofort. Matt gewinnt ebenfalls. Der König darf sich trotzdem nie ins Schach stellen.
+Wessen König als Erster eines der vier Mittelfelder erreicht, gewinnt. Matt gewinnt ebenfalls.
 # Schlagschach
-Schach auf den Kopf gestellt: Ziel ist es, alle eigenen Figuren zu verlieren.
-- Schlagen ist Pflicht: Wenn du schlagen kannst, musst du es tun, aber du darfst wählen, was du schlägst.
-- Der König ist eine gewöhnliche Figur: Es gibt kein Schach, der König kann geschlagen werden, und es gibt keine Rochade. Ein Bauer kann auch in einen König umgewandelt werden (die fünfte Wahl der Auswahl).
-- Du gewinnst, wenn du keine Figur mehr hast oder nicht mehr ziehen kannst.
-- Die Partie ist remis, wenn nur noch Läufer übrig sind und die jeder Seite auf Feldern verschiedener Farbe stehen: Sie können einander nie schlagen.
+Ziel ist es, alle eigenen Figuren zu verlieren: Du gewinnst, wenn du keine mehr hast oder nicht mehr ziehen kannst.
+- Schlagen ist Pflicht, aber du darfst wählen, was du schlägst.
+- Der König ist eine gewöhnliche Figur: kein Schach, er kann geschlagen werden, keine Rochade. Ein Bauer kann auch in einen König umgewandelt werden.
+- Nur noch Läufer übrig, die jeder Seite auf Feldern verschiedener Farbe: remis.
 # Atomschach
 Jedes Schlagen ist eine Explosion: Die geschlagene Figur, die schlagende Figur und alle Figuren außer Bauern auf den acht Feldern ringsum verschwinden vom Brett.
-- Du gewinnst, indem du den gegnerischen König in die Luft sprengst, selbst wenn dein eigener König im Schach steht. Auch Schachmatt gewinnt.
-- Ein König darf nicht schlagen, und kein Zug darf den eigenen König sprengen.
-- Stehen die beiden Könige nebeneinander, steht keiner im Schach: Den einen zu schlagen, würde beide sprengen.
-- Die Partie ist remis, wenn keine Seite mehr genug Figuren zum Gewinnen hat.
+- Wer den gegnerischen König in die Luft sprengt, gewinnt, selbst wenn der eigene König im Schach steht. Auch Schachmatt gewinnt.
+- Ein König darf nicht schlagen, und kein Zug darf den eigenen König sprengen. Zwei Könige nebeneinander stehen nie im Schach.
+- Remis, wenn keine Seite mehr genug Figuren zum Gewinnen hat.
 # Königsrennen
-Alle Figuren beginnen auf den ersten beiden Reihen, nebeneinander, ohne Bauern. Kein Zug darf Schach geben.
-- Der erste König, der die letzte Reihe erreicht, golden umrahmt, gewinnt.
-- Kommt der weiße König zuerst an, hat Schwarz noch einen Zug: Erreicht auch der schwarze König die letzte Reihe, ist die Partie remis.
+Keine Bauern, und kein Zug darf Schach geben. Der erste König, der die letzte Reihe erreicht, gewinnt; kommt der weiße König zuerst an und folgt der schwarze König gleich im nächsten Zug, ist die Partie remis.
 # Horde
-Weiß hat 36 Bauern und keinen König, gegen die übliche Armee von Schwarz.
-- Weiß gewinnt, indem es den schwarzen König mattsetzt; Schwarz gewinnt, indem es alle weißen Figuren schlägt.
-- Weiße Bauern auf der ersten Reihe dürfen auch zwei Felder ziehen (dann können sie nicht en passant geschlagen werden).
-- Weiß hat keinen König und steht deshalb nie im Schach.
-# Spielen auf dem Gerät
-Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein König im Schach leuchtet rot. Zum Rochieren ziehst du den König zwei Felder auf den Turm zu oder auf den Turm.
+Weiß hat 36 Bauern und keinen König und steht deshalb nie im Schach. Weiß gewinnt durch Matt, Schwarz, indem es alle weißen Figuren schlägt. Weiße Bauern auf der ersten Reihe dürfen auch zwei Felder ziehen (dann können sie nicht en passant geschlagen werden).

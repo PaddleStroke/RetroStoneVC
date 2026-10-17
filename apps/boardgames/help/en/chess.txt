@@ -1,57 +1,38 @@
 Chess
 # The aim
-Checkmate the other king: attack it so that it cannot escape. White moves first, then the players take turns, one move each.
+Checkmate the other king: attack it so that it cannot escape. White moves first.
 # How the pieces move
-- King: one square in any direction.
-- Queen: any number of squares in a straight line, along a row, a column or a diagonal.
-- Rook: any number of squares along a row or a column.
-- Bishop: any number of squares along a diagonal.
-- Knight: in an L shape, two squares one way and one square to the side. It is the only piece that jumps over others.
+- King: one square in any direction. Queen: any number of squares along a row, a column or a diagonal. Rook: along a row or a column. Bishop: along a diagonal.
+- Knight: an L shape, two squares one way and one to the side. It is the only piece that jumps over others.
 - Pawn: one square forward, or two from its starting square. It captures one square diagonally forward.
-Pieces cannot pass through other pieces (except the knight). A piece captures by moving onto a square held by an enemy piece, which leaves the board.
+- A piece captures by moving onto an enemy piece.
 # Special moves
-- Castling: the king moves two squares towards a rook, and the rook jumps to the square the king crossed. Allowed only if neither piece has moved yet, the squares between them are empty, and the king is not in check, does not cross an attacked square and does not land in check.
-- En passant: when a pawn moves two squares and lands beside an enemy pawn, that pawn may capture it as if it had moved only one square, on the very next move only.
-- Promotion: a pawn reaching the last row becomes a queen, rook, bishop or knight of your choice.
+- Castling: the king moves two squares towards a rook, and the rook jumps to the square the king crossed. Only if neither has moved, nothing stands between them, and the king is not in check, does not cross an attacked square and does not land in check.
+- En passant: a pawn that has just moved two squares, landing beside an enemy pawn, may be taken by it as if it had moved one square, on the very next move only.
+- Promotion: a pawn reaching the last row becomes a queen, rook, bishop or knight.
 # Check and the end of the game
-A king that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own king in check.
+You may never make a move that leaves your own king in check (attacked).
 - Checkmate: the king is in check and no move can save it. That player loses.
-- Stalemate: the player to move has no legal move but is not in check. The game is a draw.
-- The game is also a draw when neither side can ever checkmate (too few pieces left), when the same position comes back for the third time, or after fifty moves each without a capture or a pawn move.
+- Draw: stalemate (no legal move, but not in check), too few pieces left to checkmate, the same position for the third time, or fifty moves each without a capture or a pawn move.
 # Chess960
-Chess960 (Fischer random chess) plays by the same rules, but the pieces of the back row start in one of 960 orders, drawn at random for each game. The pawns stand as usual, and Black's pieces face White's, file for file. The bishops always stand on squares of opposite colours, and the king somewhere between the two rooks.
-- Castling: the king and the rook end on the same squares as in ordinary chess: the king on g and the rook on f with the rook of the h side, the king on c and the rook on d with the rook of the a side. Allowed only if neither piece has moved yet, every square they cross or land on is empty (apart from the two of them), and the king is not in check, does not cross an attacked square and does not land in check.
-- To castle, move the king onto the rook it castles with. You may also move it onto its destination square, unless the king could go there with an ordinary move too, or it already stands there.
+The back-row pieces start in a random order, the bishops on opposite colours and the king between the rooks. Castling ends as in chess (the king on g and the rook on f, or the king on c and the rook on d), and every square they cross or land on must be empty apart from them. To castle, move the king onto its rook.
 # Crazyhouse
-Chess with one more kind of move: a piece you capture changes sides and goes into your hand, shown in your bar. Instead of moving, you may drop a piece from your hand onto any empty square.
-- A pawn may not be dropped on the first or the last row. A drop may give check, and even checkmate.
-- A promoted piece that is captured goes into the hand as a pawn again.
-- No draw for lack of pieces: no piece ever leaves the game.
-- To drop, tap the piece in your bar, then a square (dots show where it can go), or drag it onto the board.
+A piece you capture changes sides and goes into your hand. Instead of moving, you may drop a piece from your hand on any empty square, even to give check or mate. No pawn on the first or last row. A captured promoted piece returns as a pawn. No draw for lack of pieces.
 # Three-check
-Chess, but the first player to give check three times wins. Checkmate also wins. Each bar has three slots, and a red light comes on in one of them for every check that player gives.
+The first player to give check three times wins. Checkmate also wins.
 # King of the Hill
-Chess, but the first player whose king reaches one of the four centre squares (d4, e4, d5, e5), framed in gold, wins at once. Checkmate also wins. The king may still never move into check.
+The first king to reach one of the four centre squares wins. Checkmate also wins.
 # Losing chess
-Chess turned upside down: the aim is to lose all your pieces.
-- Capturing is compulsory: when you can capture, you must, but you may choose which capture.
-- The king is an ordinary piece: there is no check, the king may be captured, and there is no castling. A pawn may also be promoted to a king (the fifth choice of the picker).
-- You win when you have no pieces left, or when you cannot move.
-- The game is a draw when only bishops are left and each side's stand on squares of a different colour, so that they can never capture each other.
+The aim is to lose all your pieces: you win when you have none left, or cannot move.
+- Capturing is compulsory, but you may choose which capture.
+- The king is an ordinary piece: no check, it can be captured, no castling. A pawn may also promote to a king.
+- Only bishops left, each side's on squares of a different colour: a draw.
 # Atomic
-Every capture is an explosion: the captured piece, the capturing piece and every piece except pawns on the eight squares around are removed from the board.
-- You win by blowing up the other king, even when your own king is in check. Checkmate also wins.
-- A king may not capture, and no move may blow up your own king.
-- When the two kings stand side by side, neither is in check: capturing one would blow up both.
-- The game is a draw when neither side has enough pieces left to win.
+Every capture explodes: the captured piece, the capturing piece and every piece except pawns on the eight squares around leave the board.
+- Blowing up the other king wins, even when your own king is in check. Checkmate also wins.
+- A king may not capture, and no move may blow up your own king. Two kings side by side are never in check.
+- A draw when neither side has enough pieces left to win.
 # Racing Kings
-All the pieces start on the first two rows, side by side, with no pawns. No move may give check.
-- The first king to reach the last row, framed in gold, wins.
-- If the white king gets there first, Black still has one move: if the black king reaches the last row too, the game is a draw.
+No pawns, and no move may give check. The first king to reach the last row wins; if the white king gets there first and the black king follows on the very next move, it is a draw.
 # Horde
-White has 36 pawns and no king, against Black's usual army.
-- White wins by checkmating the black king; Black wins by capturing every white piece.
-- White's pawns on the first row may move two squares as well (they cannot be taken en passant then).
-- White has no king, so it is never in check.
-# Playing on the device
-Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. To castle, move the king two squares towards the rook, or onto the rook.
+White has 36 pawns and no king, so it is never in check. White wins by checkmate, Black by capturing every white piece. White's pawns on the first row may also move two squares (they cannot be taken en passant then).

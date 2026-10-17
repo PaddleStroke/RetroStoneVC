@@ -1,9 +1,7 @@
 Vier in einer Reihe
 # Das Ziel
-Bring als Erster vier Steine deiner Farbe in eine Reihe: waagerecht, senkrecht oder diagonal.
+Bring als Erster vier Steine deiner Farbe in eine Reihe: waagerecht, senkrecht oder diagonal. Hell beginnt.
 # Ein Zug
-Das Brett steht aufrecht und hat sieben Spalten. Wenn du dran bist, wirf einen Stein in eine Spalte: Er fällt in das unterste freie Loch. Eine volle Spalte nimmt keinen Stein mehr auf. Hell beginnt.
+Wirf einen Stein in eine Spalte: Er fällt in das unterste freie Loch.
 # Das Ende der Partie
 Wer zuerst vier Steine in einer Reihe hat, gewinnt. Füllt sich das Brett, ohne dass eine Viererreihe entsteht, endet die Partie unentschieden.
-# Spielen auf dem Gerät
-Tippe auf eine Spalte, oder schieb deinen Stein oben entlang und lass ihn los. Jede Leiste zeigt, wie viele Steine der Spieler noch hat.

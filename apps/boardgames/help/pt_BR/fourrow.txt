@@ -1,9 +1,7 @@
 Quatro em linha
 # O objetivo
-Ser o primeiro a alinhar quatro peças da sua cor: na horizontal, na vertical ou na diagonal.
+Ser o primeiro a alinhar quatro peças da sua cor: na horizontal, na vertical ou na diagonal. As peças claras começam.
 # Uma jogada
-O tabuleiro fica em pé e tem sete colunas. Na sua vez, solte uma peça em uma coluna: ela cai até o buraco livre mais baixo. Uma coluna cheia não aceita mais peças. As peças claras começam.
+Solte uma peça em uma coluna: ela cai até o buraco livre mais baixo.
 # O fim da partida
 Vence o primeiro jogador que tiver quatro peças em linha. Se o tabuleiro encher sem nenhuma linha de quatro, a partida termina empatada.
-# Jogando no aparelho
-Toque em uma coluna, ou deslize a sua peça pela parte de cima e solte. Cada barra mostra quantas peças ainda restam para aquele jogador.

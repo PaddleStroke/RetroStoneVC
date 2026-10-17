@@ -1,57 +1,38 @@
 Schaken
 # Het doel
-Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Wit begint, daarna spelen de spelers om de beurt, elk één zet.
+Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Wit begint.
 # Hoe de stukken bewegen
-- Koning: één veld in elke richting.
-- Dame: zoveel velden als je wilt in een rechte lijn, over een rij, een kolom of een diagonaal.
-- Toren: zoveel velden als je wilt over een rij of een kolom.
-- Loper: zoveel velden als je wilt over een diagonaal.
+- Koning: één veld in elke richting. Dame: zoveel velden als je wilt over een rij, een kolom of een diagonaal. Toren: over een rij of een kolom. Loper: over een diagonaal.
 - Paard: in een L-vorm, twee velden de ene kant op en één veld opzij. Het is het enige stuk dat over andere stukken heen springt.
 - Pion: één veld vooruit, of twee vanaf zijn beginveld. Hij slaat één veld schuin vooruit.
-Stukken kunnen niet door andere stukken heen (behalve het paard). Een stuk slaat door naar een veld te gaan waar een stuk van de tegenstander staat; dat stuk verlaat het bord.
+- Een stuk slaat door naar een stuk van de tegenstander te gaan.
 # Bijzondere zetten
-- Rokade: de koning gaat twee velden naar een toren toe, en de toren springt naar het veld dat de koning is gepasseerd. Alleen toegestaan als geen van beide stukken al heeft bewogen, de velden ertussen leeg zijn, en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
-- En passant: als een pion twee velden vooruitgaat en naast een pion van de tegenstander belandt, mag die pion hem slaan alsof hij maar één veld was opgeschoven, maar alleen in de direct volgende zet.
-- Promotie: een pion die de laatste rij bereikt, wordt een dame, toren, loper of paard, naar keuze.
+- Rokade: de koning gaat twee velden naar een toren toe, en de toren springt naar het veld dat de koning is gepasseerd. Alleen als geen van beide al heeft bewogen, er niets tussen staat, en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
+- En passant: een pion die net twee velden is opgeschoven en naast een pion van de tegenstander belandt, mag door die pion geslagen worden alsof hij maar één veld was opgeschoven, maar alleen in de direct volgende zet.
+- Promotie: een pion die de laatste rij bereikt, wordt een dame, toren, loper of paard.
 # Schaak en het einde van de partij
-Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen koning schaak staat.
+Je mag nooit een zet doen waarna je eigen koning schaak (aangevallen) staat.
 - Schaakmat: de koning staat schaak en geen enkele zet kan hem redden. Die speler verliest.
-- Pat: de speler die aan zet is heeft geen geldige zet, maar staat niet schaak. De partij eindigt in remise.
-- De partij is ook remise als geen van beide kanten ooit nog mat kan zetten (te weinig stukken over), als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slaan of pionzet.
+- Remise: pat (geen geldige zet, maar niet schaak), te weinig stukken over om mat te zetten, dezelfde stelling voor de derde keer, of vijftig zetten van elke speler zonder slaan of pionzet.
 # Chess960
-Chess960 (Fischer Random Chess) volgt dezelfde regels, maar de stukken op de achterste rij beginnen in een van 960 opstellingen, voor elke partij willekeurig gekozen. De pionnen staan zoals gewoonlijk, en de stukken van zwart staan tegenover die van wit, kolom voor kolom. De lopers staan altijd op velden van verschillende kleur, en de koning ergens tussen de twee torens.
-- Rokade: de koning en de toren eindigen op dezelfde velden als bij gewoon schaken: de koning op g en de toren op f met de toren van de h-kant, de koning op c en de toren op d met de toren van de a-kant. Alleen toegestaan als geen van beide stukken al heeft bewogen, elk veld dat ze passeren of waarop ze landen leeg is (op hen tweeën na), en de koning niet schaak staat, geen aangevallen veld passeert en niet schaak komt te staan.
-- Om te rokeren zet je de koning op de toren waarmee hij rokeert. Je mag hem ook op zijn eindveld zetten, tenzij de koning daar ook met een gewone zet heen zou kunnen, of er al staat.
+De stukken op de achterste rij beginnen in een willekeurige volgorde, de lopers op velden van verschillende kleur en de koning tussen de torens. De rokade eindigt zoals bij gewoon schaken (de koning op g en de toren op f, of de koning op c en de toren op d), en elk veld dat ze passeren of waarop ze landen moet leeg zijn, op hen tweeën na. Om te rokeren zet je de koning op zijn toren.
 # Crazyhouse
-Schaken met één soort zet meer: een stuk dat je slaat, wisselt van kant en gaat naar je voorraad, die in je balk staat. In plaats van een zet mag je een stuk uit je voorraad op een leeg veld naar keuze inzetten.
-- Een pion mag niet op de eerste of de laatste rij worden ingezet. Inzetten mag schaak geven, zelfs mat.
-- Een gepromoveerd stuk dat geslagen wordt, gaat als pion terug naar de voorraad.
-- Geen remise door te weinig materiaal: geen stuk verlaat ooit het spel.
-- Om in te zetten tik je het stuk in je balk aan en dan een veld (stippen tonen waar het heen kan), of sleep je het op het bord.
+Een stuk dat je slaat, wisselt van kant en gaat naar je voorraad. In plaats van een zet mag je een stuk uit je voorraad op een leeg veld naar keuze inzetten, zelfs om schaak te geven of mat te zetten. Geen pion op de eerste of laatste rij. Een geslagen gepromoveerd stuk komt terug als pion. Geen remise door te weinig materiaal.
 # Driemaal schaak
-Schaken, maar wie als eerste drie keer schaak geeft, wint. Mat wint ook. Elke balk heeft drie vakjes, en bij elk schaak dat die speler geeft, gaat er in een ervan een rood licht aan.
+Wie als eerste drie keer schaak geeft, wint. Mat wint ook.
 # Koning van de heuvel
-Schaken, maar wiens koning als eerste een van de vier middenvelden (d4, e4, d5, e5) bereikt, goud omlijst, wint meteen. Mat wint ook. De koning mag nog steeds nooit schaak komen te staan.
+Wiens koning als eerste een van de vier middenvelden bereikt, wint. Mat wint ook.
 # Slagschaak
-Schaken op zijn kop: het doel is al je stukken te verliezen.
-- Slaan is verplicht: als je kunt slaan, moet je dat doen, maar je kiest zelf welke slag.
-- De koning is een gewoon stuk: er is geen schaak, de koning mag geslagen worden en er wordt niet gerokeerd. Een pion mag ook promoveren tot koning (de vijfde keuze van de kiezer).
-- Je wint als je geen stukken meer hebt, of als je geen zet meer kunt doen.
-- De partij is remise als er alleen lopers over zijn en die van elke kant op velden van een andere kleur staan: ze kunnen elkaar nooit slaan.
+Het doel is al je stukken te verliezen: je wint als je er geen meer hebt, of als je geen zet meer kunt doen.
+- Slaan is verplicht, maar je kiest zelf welke slag.
+- De koning is een gewoon stuk: geen schaak, hij mag geslagen worden, geen rokade. Een pion mag ook promoveren tot koning.
+- Alleen lopers over, die van elke kant op velden van een andere kleur: remise.
 # Atoomschaak
 Elke slag is een ontploffing: het geslagen stuk, het slaande stuk en alle stukken behalve pionnen op de acht velden eromheen verdwijnen van het bord.
-- Je wint door de andere koning op te blazen, zelfs als je eigen koning schaak staat. Schaakmat wint ook.
-- Een koning mag niet slaan, en geen zet mag je eigen koning opblazen.
-- Staan de twee koningen naast elkaar, dan staat geen van beide schaak: de een slaan zou ze allebei opblazen.
-- De partij is remise als geen van beide kanten genoeg stukken heeft om te winnen.
+- Wie de andere koning opblaast, wint, zelfs als zijn eigen koning schaak staat. Schaakmat wint ook.
+- Een koning mag niet slaan, en geen zet mag je eigen koning opblazen. Twee koningen naast elkaar staan nooit schaak.
+- Remise als geen van beide kanten genoeg stukken heeft om te winnen.
 # Koningsrace
-Alle stukken beginnen op de eerste twee rijen, naast elkaar, zonder pionnen. Geen zet mag schaak geven.
-- De eerste koning die de laatste rij bereikt, met goud omrand, wint.
-- Komt de witte koning daar het eerst, dan heeft zwart nog één zet: bereikt de zwarte koning ook de laatste rij, dan is de partij remise.
+Geen pionnen, en geen zet mag schaak geven. De eerste koning die de laatste rij bereikt, wint; komt de witte koning daar het eerst en volgt de zwarte koning in de direct volgende zet, dan is de partij remise.
 # Horde
-Wit heeft 36 pionnen en geen koning, tegen het gewone leger van zwart.
-- Wit wint door de zwarte koning mat te zetten; zwart wint door alle witte stukken te slaan.
-- Witte pionnen op de eerste rij mogen ook twee velden vooruit (ze kunnen dan niet en passant geslagen worden).
-- Wit heeft geen koning en staat dus nooit schaak.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Om te rokeren zet je de koning twee velden naar de toren toe, of op de toren.
+Wit heeft 36 pionnen en geen koning, en staat dus nooit schaak. Wit wint door mat te zetten, zwart door alle witte stukken te slaan. Witte pionnen op de eerste rij mogen ook twee velden vooruit (ze kunnen dan niet en passant geslagen worden).

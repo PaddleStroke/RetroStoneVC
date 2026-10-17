@@ -1,55 +1,38 @@
 Dames
 # Le but
-Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Choisis les règles avant la partie : les dames internationales sur un damier de 10 sur 10, les dames anglaises (checkers), russes, brésiliennes ou turques sur un damier de 8 sur 8. Les pièces se placent uniquement sur les cases foncées et se déplacent en diagonale, sauf aux dames turques.
+Prendre toutes les pièces de l'autre joueur, ou le laisser sans coup possible. Les pièces se placent sur les cases foncées et se déplacent en diagonale, sauf aux dames turques.
 # Dames internationales (10 sur 10)
-- Les pièces claires commencent. Un pion avance d'une case en diagonale.
-- Un pion prend en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière. Les pions prennent vers l'avant et vers l'arrière.
-- La prise est obligatoire, et tu dois prendre le plus grand nombre de pièces possible. Après un saut, si une autre prise est possible depuis la case d'arrivée, la pièce doit continuer à sauter dans le même coup.
-- Les pièces prises sont retirées à la fin du coup. Une pièce ne peut pas être sautée deux fois.
-- Un pion qui termine son coup sur la dernière rangée devient une dame. Une dame se déplace d'autant de cases qu'elle veut le long d'une diagonale, et prend à distance, en s'arrêtant sur n'importe quelle case vide après la pièce prise.
-- Partie nulle : quand la même position revient pour la troisième fois, ou après 25 coups de chaque côté où seules des dames bougent, sans aucune prise.
+- Les pièces claires commencent. Les pions avancent d'une case en diagonale, et prennent vers l'avant et vers l'arrière en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière.
+- La prise est obligatoire : prends le plus grand nombre de pièces possible, en continuant à sauter dans le même coup. Les pièces prises sont retirées à la fin du coup, et aucune n'est sautée deux fois.
+- Un pion qui termine son coup sur la dernière rangée devient une dame. Les dames se déplacent d'autant de cases qu'elles veulent en diagonale, et prennent à distance, en s'arrêtant sur n'importe quelle case vide après la pièce prise.
+- Nulle : la même position pour la troisième fois, ou 25 coups de chaque côté où seules des dames bougent, sans prise.
 # Dames anglaises (8 sur 8)
-- Les pièces foncées commencent. Les pions se déplacent et prennent uniquement vers l'avant.
-- La prise est obligatoire, mais tu peux choisir quelle prise faire. Une fois qu'une pièce commence à sauter, elle doit prendre toutes les pièces qu'elle peut sur son chemin.
-- Un pion qui atteint la dernière rangée devient une dame, et le coup s'arrête là. Une dame se déplace et prend d'une case en diagonale, dans n'importe quelle direction.
-- Partie nulle : quand la même position revient pour la troisième fois, ou après 40 coups de chaque côté sans prise ni coup de pion.
+- Les pièces foncées commencent. Les pions se déplacent et prennent uniquement vers l'avant. Les dames se déplacent et prennent d'une case en diagonale, dans n'importe quelle direction.
+- La prise est obligatoire, mais tu peux choisir quelle prise faire. Une pièce qui commence à sauter doit prendre toutes les pièces qu'elle peut. Devenir dame termine le coup.
+- Nulle : la même position pour la troisième fois, ou 40 coups de chaque côté sans prise ni coup de pion.
 # Dames russes (8 sur 8)
-- Les pièces claires commencent. Un pion avance d'une case en diagonale, et prend vers l'avant et vers l'arrière.
-- Les dames se déplacent et prennent à distance le long des diagonales, comme aux dames internationales. Après une prise, une dame doit s'arrêter sur une case d'où elle peut continuer à prendre, s'il y en a une.
-- La prise est obligatoire, mais tu peux choisir quelle prise faire. Une fois qu'une pièce commence à sauter, elle doit prendre toutes les pièces qu'elle peut sur son chemin.
-- Les pièces prises sont retirées à la fin du coup. Une pièce ne peut pas être sautée deux fois.
-- Un pion qui atteint la dernière rangée devient dame aussitôt, même au milieu d'une rafle, et continue alors à prendre comme une dame s'il le peut.
-- Partie nulle : quand la même position revient pour la troisième fois, ou après 15 coups de chaque côté où seules des dames bougent, sans aucune prise.
+- Comme les dames internationales, mais tu peux choisir quelle prise faire. Une pièce qui commence à sauter doit prendre toutes les pièces qu'elle peut.
+- Après une prise, une dame doit s'arrêter sur une case d'où elle peut continuer à prendre, s'il y en a une.
+- Un pion qui atteint la dernière rangée devient dame aussitôt, même au milieu d'une rafle, et continue à prendre comme une dame.
+- Nulle : la même position pour la troisième fois, ou 15 coups de chaque côté où seules des dames bougent, sans prise.
 # Dames brésiliennes (8 sur 8)
-- Les règles des dames internationales, sur un damier de 8 sur 8. Les pièces claires commencent.
-- Les pions prennent vers l'avant et vers l'arrière, les dames se déplacent et prennent à distance, et tu dois prendre le plus grand nombre de pièces possible.
-- Un pion ne devient dame que s'il termine son coup sur la dernière rangée.
-- Partie nulle : quand la même position revient pour la troisième fois, ou après 20 coups de chaque côté où seules des dames bougent, sans aucune prise.
+Les dames internationales sur un damier de 8 sur 8. Nulle : la même position pour la troisième fois, ou 20 coups de chaque côté où seules des dames bougent, sans prise.
 # Dames turques (8 sur 8)
-- Les 64 cases sont utilisées. Chaque joueur commence avec 16 pions sur ses deuxième et troisième rangées. Les pièces claires commencent.
-- Un pion avance d'une case tout droit ou se déplace d'une case sur le côté, jamais en diagonale et jamais vers l'arrière. Il prend de la même façon, en sautant par-dessus une pièce adverse voisine pour atterrir sur la case vide juste derrière.
-- Un pion qui atteint la dernière rangée devient une dame. Une dame se déplace d'autant de cases qu'elle veut le long d'une rangée ou d'une colonne, et prend à distance, en s'arrêtant sur n'importe quelle case vide après la pièce prise.
-- La prise est obligatoire, et tu dois prendre le plus grand nombre de pièces possible.
-- Chaque pièce prise est retirée aussitôt, au moment où elle est sautée. Dans une rafle de plusieurs pièces, une pièce ne peut pas faire demi-tour pour repartir par où elle est venue.
-- Partie nulle : quand la même position revient pour la troisième fois, ou après 25 coups de chaque côté sans prise ni coup de pion.
+- Les 64 cases sont utilisées : 16 pions chacun, sur ses deuxième et troisième rangées. Les pièces claires commencent.
+- Les pions se déplacent et prennent d'une case tout droit vers l'avant ou sur le côté. Les dames se déplacent d'autant de cases qu'elles veulent le long d'une rangée ou d'une colonne, et prennent à distance.
+- La prise est obligatoire : prends le plus grand nombre de pièces possible. Chaque pièce prise est retirée aussitôt, et la pièce qui prend ne peut pas faire demi-tour.
+- Nulle : la même position pour la troisième fois, ou 25 coups de chaque côté sans prise ni coup de pion.
 # Dames frisonnes (10 sur 10)
-- Les pièces claires commencent. Un pion avance d'une case en diagonale, comme aux dames internationales.
-- Pions et dames prennent aussi en ligne droite, le long des rangées et des colonnes : par-dessus une pièce adverse sur la case foncée suivante, deux cases plus loin, jusqu'à la case foncée juste derrière. Les pions prennent aussi vers l'arrière.
-- Une dame se déplace d'autant de cases qu'elle veut en diagonale, et prend à distance dans les huit directions.
-- La prise est obligatoire, et tu dois prendre les pièces de plus grande valeur : une dame vaut plus qu'un pion mais moins que deux. Si une dame et un pion peuvent prendre la même valeur, c'est la dame qui doit prendre.
-- Un pion qui termine son coup sur la dernière rangée devient une dame.
-- Tant qu'il te reste des pions, une même dame ne peut pas jouer plus de trois coups de suite sans prendre ; une autre pièce doit alors jouer.
-- Nulle : quand deux dames font face à une seule et que chacun a joué sept coups, quand une dame fait face à une autre et que chacun a joué deux coups, ou quand la même position revient pour la troisième fois.
+- Les dames internationales, mais pions et dames prennent aussi en ligne droite le long des rangées et des colonnes, par-dessus une pièce adverse deux cases plus loin, jusqu'à la case foncée juste derrière. Les dames prennent à distance dans les huit directions.
+- Tu dois prendre les pièces de plus grande valeur : une dame vaut plus qu'un pion mais moins que deux. Si une dame et un pion peuvent prendre la même valeur, c'est la dame qui doit prendre.
+- Tant qu'il te reste des pions, une même dame ne peut pas jouer plus de trois coups de suite sans prendre.
+- Nulle : deux dames contre une après sept coups de chaque côté, une dame contre une après deux coups de chaque côté, ou la même position pour la troisième fois.
 # Dames canadiennes (12 sur 12)
-Les règles des dames internationales sur un damier de 12 sur 12, avec 30 pions chacun.
+Les dames internationales sur un damier de 12 sur 12, avec 30 pions chacun.
 # Bashni (8 sur 8)
-Les dames russes en colonnes : les règles des dames russes, mais les pièces prises restent en jeu.
-- Une prise n'enlève que la pièce du dessus de la colonne sautée, et la place sous la colonne qui prend. Les pièces restées dessous ne bougent pas, et obéissent à leur nouvelle pièce du dessus.
-- Une colonne appartient au joueur dont la pièce est au sommet, et se déplace comme elle, en pion ou en dame. Seule la pièce du dessus est promue.
-- Une colonne ne peut être sautée qu'une fois dans une même prise. Les pièces prises passent sous la colonne qui prend à la fin du coup.
-- Chaque barre indique combien de pièces adverses ce joueur tient dans ses colonnes. Un joueur qui ne peut plus jouer perd, même s'il a des pièces prisonnières sous les colonnes adverses.
-- Nulle : comme aux dames russes.
+Les dames russes, mais les pièces prises restent en jeu.
+- Une prise n'enlève que la pièce du dessus de la colonne sautée, et la place sous la colonne qui prend à la fin du coup. Les pièces restées dessous restent, et obéissent à leur nouvelle pièce du dessus.
+- Une colonne appartient au joueur dont la pièce est au sommet, et se déplace comme elle. Seule la pièce du dessus est promue. Une colonne ne peut être sautée qu'une fois dans une même prise.
+- Un joueur qui ne peut plus jouer perd, même s'il a des pièces prisonnières sous les colonnes adverses. Nulle : comme aux dames russes.
 # La fin de la partie
 Un joueur qui n'a plus de pièces, ou qui ne peut plus bouger, a perdu.
-# Jouer sur l'appareil
-Seules les pièces qui peuvent bouger peuvent être sélectionnées. Touche une pièce, puis la case où elle arrive. Pour une rafle de plusieurs pièces, touche chaque case d'arrivée l'une après l'autre, ou seulement la dernière. Les pièces sur le point d'être prises s'estompent.

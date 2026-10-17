@@ -1,9 +1,7 @@
 Fire på række
 # Målet
-Vær den første til at få fire brikker i din farve på række: vandret, lodret eller diagonalt.
+Vær den første til at få fire brikker i din farve på række: vandret, lodret eller diagonalt. Den lyse side starter.
 # Et træk
-Brættet står oprejst med syv søjler. Når det er din tur, slipper du én brik ned i en søjle: den falder ned i det laveste tomme hul. En fuld søjle kan ikke tage flere brikker. Den lyse side starter.
+Slip én brik ned i en søjle: den falder ned i det laveste tomme hul.
 # Spillets afslutning
 Den første spiller med fire brikker på række vinder. Hvis brættet bliver fyldt uden nogen række på fire, er spillet uafgjort.
-# Spil på enheden
-Tryk på en søjle, eller skub din brik hen langs toppen og slip. Hvert panel viser, hvor mange brikker den spiller har tilbage.

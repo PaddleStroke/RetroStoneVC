@@ -1,13 +1,10 @@
 Dara
 # O objetivo
-Capturar as peças do outro jogador até ele ficar só com duas. O Dara é um jogo de filas da Nigéria e do Níger, jogado em 5 filas de 6 buracos, muitas vezes escavados na areia. Cada jogador tem 12 peças. As claras colocam e jogam primeiro.
+Capturar as peças do outro jogador até ele ficar só com duas. As claras colocam e jogam primeiro.
 # Colocação
 Os jogadores colocam à vez uma peça num buraco vazio qualquer, até todas as peças estarem no tabuleiro. Nunca podes colocar uma peça de modo que três ou mais das tuas peças fiquem em fila, na horizontal ou na vertical. Quem já não tiver nenhum buraco possível passa; quando nenhum dos dois pode colocar, as peças que ficaram na mão ficam fora do jogo.
 # Movimento
-Depois, na tua vez, move uma das tuas peças um buraco na horizontal ou na vertical (nunca na diagonal) para um buraco vazio. Se o movimento formar uma fila de exatamente três peças tuas, na horizontal ou na vertical, tira do tabuleiro uma peça inimiga à tua escolha. Uma fila de quatro não conta. Formar duas filas com um só movimento tira na mesma só uma peça.
+Depois, move uma das tuas peças um buraco na horizontal ou na vertical para um buraco vazio. Se o movimento formar uma fila de exatamente três peças tuas, tira do tabuleiro uma peça inimiga à tua escolha. Uma fila de quatro não conta, e formar duas filas de uma vez tira na mesma só uma peça.
 # O fim do jogo
-- Perde quem fica com duas peças: nunca mais poderá formar uma fila.
-- Perde quem não pode mover na sua vez.
+- Perde quem fica com duas peças, ou não pode mover na sua vez.
 - Ao fim de 100 lances seguidos (contando os dos dois jogadores) sem capturas, o jogo fica empatado.
-# Jogar no dispositivo
-Para colocar, toca num buraco com um ponto: os buracos sem ponto formariam uma fila de três. Para mover, toca numa das tuas peças e depois num ponto, ou arrasta a peça. Um ponto numa luz dourada forma uma fila de três. Então a fila brilha a dourado e as peças que podes tirar brilham a vermelho: toca numa. Durante a colocação, cada barra mostra as peças ainda na mão; depois, as peças que esse jogador capturou. Quando faltam poucos lances para o empate, o número deles aparece no fim da barra do jogador da vez.

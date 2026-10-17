@@ -1,13 +1,10 @@
 Dara
 # Cel gry
-Bić pionki przeciwnika, aż zostaną mu tylko dwa. Dara to gra w rzędy z Nigerii i Nigru, w którą gra się na 5 rzędach po 6 dołków, często wykopanych w piasku. Każdy gracz ma 12 pionków. Jasny pierwszy rozstawia i pierwszy się rusza.
+Bić pionki przeciwnika, aż zostaną mu tylko dwa. Jasny pierwszy rozstawia i pierwszy się rusza.
 # Rozstawianie
-Gracze na zmianę kładą po jednym pionku w dowolnym pustym dołku, aż wszystkie pionki będą na planszy. Nigdy nie wolno położyć pionka tak, by trzy lub więcej twoich pionków stało w rzędzie, poziomo lub pionowo. Kto nie ma już żadnego dozwolonego dołka, pasuje; gdy żaden z graczy nie może już kłaść, pionki pozostałe w ręce zostają poza grą.
+Gracze na zmianę kładą po jednym pionku w dowolnym pustym dołku, aż wszystkie pionki będą na planszy. Nigdy nie wolno położyć pionka tak, by trzy lub więcej twoich pionków stało w rzędzie, poziomo lub pionowo. Kto nie ma już takiego dołka, pasuje; gdy żaden z graczy nie może już kłaść, pionki pozostałe w ręce zostają poza grą.
 # Przesuwanie
-Potem w swojej turze przesuń jeden ze swoich pionków o jeden dołek poziomo lub pionowo (nigdy po skosie) do pustego dołka. Jeśli ruch tworzy rząd dokładnie trzech twoich pionków, poziomo lub pionowo, zdejmij z planszy dowolny pionek przeciwnika. Rząd czterech się nie liczy. Dwa rzędy utworzone jednym ruchem i tak dają tylko jeden pionek.
+Potem przesuń jeden ze swoich pionków o jeden dołek poziomo lub pionowo do pustego dołka. Jeśli ruch tworzy rząd dokładnie trzech twoich pionków, zbij dowolny pionek przeciwnika. Rząd czterech się nie liczy, a dwa rzędy utworzone naraz i tak dają tylko jeden pionek.
 # Koniec gry
-- Przegrywa gracz, któremu zostały dwa pionki: nigdy już nie ułoży rzędu.
-- Przegrywa gracz, który w swojej turze nie może się ruszyć.
+- Przegrywa gracz, któremu zostały dwa pionki albo który w swojej turze nie może się ruszyć.
 - Po 100 ruchach z rzędu (licząc ruchy obu graczy) bez bicia gra kończy się remisem.
-# Gra na urządzeniu
-Aby położyć pionek, dotknij dołka z kropką: dołki bez kropki utworzyłyby rząd trzech. Aby przesunąć, dotknij swojego pionka, a potem kropki, albo przeciągnij pionek. Kropka w złotym świetle tworzy rząd trzech. Wtedy rząd świeci na złoto, a pionki, które możesz zdjąć, świecą na czerwono: dotknij jednego. Podczas rozstawiania każdy pasek pokazuje pionki, które gracz ma jeszcze w ręce; później pionki, które zbił. Gdy do remisu zostaje niewiele ruchów, ich liczba pojawia się na końcu paska gracza, którego jest kolej.

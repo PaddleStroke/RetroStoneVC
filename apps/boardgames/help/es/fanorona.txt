@@ -1,19 +1,14 @@
 Fanorona
 # El objetivo
-Capturar todas las fichas del otro jugador. Cada jugador tiene veintidós fichas. Empiezan las claras.
-# El tablero
-Cuarenta y cinco puntos unidos por líneas, nueve a lo ancho y cinco a lo largo: cada fila, cada columna y las diagonales trazadas en el tablero. Las fichas de cada jugador llenan las dos filas más cercanas a él; en la fila central los colores se alternan y solo el punto central está vacío.
+Capturar todas las fichas del otro jugador. Empiezan las claras.
 # Movimiento
-En tu turno, mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Una jugada que no captura nada (paika) solo está permitida cuando no hay ninguna captura posible en todo el tablero.
+Mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Una jugada que no captura nada solo está permitida cuando no hay ninguna captura posible en todo el tablero.
 # Capturas
 Las fichas capturan sin saltar, de dos maneras:
 - Por aproximación: avanza hacia una ficha contraria de modo que acabes justo a su lado en la misma línea. Esa ficha queda capturada, y también cada ficha contraria que esté justo detrás de ella en esa línea, hasta el primer hueco o una ficha tuya.
 - Por alejamiento: muévete en línea recta lejos de una ficha contraria que estaba justo a tu lado. Queda capturada junto con la fila continua de fichas contrarias que haya detrás de ella.
-- Cuando una misma jugada puede hacer las dos cosas, tú eliges qué fila capturar.
-- Capturar es obligatorio: cuando puedes capturar, debes hacerlo. Puedes elegir cualquier captura, no solo la mayor.
-- Tras una captura, la misma ficha puede seguir capturando en el mismo turno, paso a paso. No puede volver a un punto en el que ya ha estado en este turno, ni moverse dos veces seguidas en la misma dirección. Seguir es opcional: puedes parar cuando quieras.
+- Cuando una misma jugada puede hacer las dos cosas, tú eliges. Capturar es obligatorio, pero puedes elegir cualquier captura, no solo la mayor.
+- Tras una captura, la misma ficha puede seguir capturando, paso a paso, pero nunca volver a un punto en el que ya ha estado en este turno, ni moverse dos veces seguidas en la misma dirección. Puedes parar cuando quieras: toca la ficha.
 # El final de la partida
 - Pierde el jugador que se queda sin fichas o que no puede mover.
 - La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin ninguna captura.
-# Jugar en el dispositivo
-Toca tu ficha y luego su nuevo punto, o arrástrala. Los puntos oscuros muestran adónde puede ir y los anillos, las fichas que capturaría: también puedes tocar directamente una ficha con anillo. Cuando una jugada puede capturar una de dos filas, la ficha avanza y las dos filas quedan con anillo: toca la que quieras. En una cadena de capturas tu ficha sigue levantada; para parar, tócala, o toca el botón de pasar en tu barra.

@@ -1,55 +1,38 @@
 Damas
 # El objetivo
-Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Elige las reglas antes de la partida: damas internacionales en un tablero de 10 por 10, o damas inglesas (checkers), rusas, brasileñas o turcas en un tablero de 8 por 8. Las piezas solo ocupan las casillas oscuras y se mueven en diagonal, salvo en las damas turcas.
+Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Las piezas ocupan las casillas oscuras y se mueven en diagonal, salvo en las damas turcas.
 # Damas internacionales (10 por 10)
-- Empiezan las piezas claras. Un peón avanza una casilla en diagonal.
-- Un peón captura saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás. Los peones capturan hacia delante y hacia atrás.
-- Capturar es obligatorio, y debes capturar el mayor número de piezas posible. Tras un salto, si desde la casilla de llegada es posible otra captura, la pieza debe seguir saltando en la misma jugada.
-- Las piezas capturadas se retiran al final de la jugada. Una pieza no puede ser saltada dos veces.
-- Un peón que termina su jugada en la última fila se convierte en dama. Una dama se mueve cualquier número de casillas por una diagonal y captura a distancia, cayendo en cualquier casilla vacía más allá de la pieza que captura.
-- Tablas: cuando la misma posición se repite por tercera vez, o tras 25 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+- Empiezan las piezas claras. Los peones avanzan una casilla en diagonal, y capturan hacia delante y hacia atrás saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás.
+- Capturar es obligatorio: captura el mayor número de piezas posible, siguiendo con los saltos en la misma jugada. Las piezas capturadas se retiran al final de la jugada, y ninguna puede ser saltada dos veces.
+- Un peón que termina su jugada en la última fila se convierte en dama. Las damas se mueven cualquier número de casillas en diagonal y capturan a distancia, cayendo en cualquier casilla vacía más allá.
+- Tablas: la misma posición por tercera vez, o 25 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
 # Damas inglesas (8 por 8)
-- Empiezan las piezas oscuras. Los peones se mueven y capturan solo hacia delante.
-- Capturar es obligatorio, pero puedes elegir qué captura hacer. Cuando una pieza empieza a saltar, debe capturar todas las piezas que pueda en su camino.
-- Un peón que llega a la última fila se convierte en dama, y con eso termina la jugada. Una dama se mueve y captura una casilla en diagonal, en cualquier dirección.
-- Tablas: cuando la misma posición se repite por tercera vez, o tras 40 jugadas de cada uno sin capturas ni movimientos de peón.
+- Empiezan las piezas oscuras. Los peones se mueven y capturan solo hacia delante. Las damas se mueven y capturan una casilla en diagonal, en cualquier dirección.
+- Capturar es obligatorio, pero puedes elegir qué captura hacer. Una pieza que empieza a saltar debe capturar todas las piezas que pueda. Convertirse en dama termina la jugada.
+- Tablas: la misma posición por tercera vez, o 40 jugadas de cada uno sin capturas ni movimientos de peón.
 # Damas rusas (8 por 8)
-- Empiezan las piezas claras. Un peón avanza una casilla en diagonal, y captura hacia delante y hacia atrás.
-- Las damas se mueven y capturan a distancia por las diagonales, como en las damas internacionales. Tras una captura, una dama debe caer en una casilla desde la que pueda seguir capturando, si la hay.
-- Capturar es obligatorio, pero puedes elegir qué captura hacer. Cuando una pieza empieza a saltar, debe capturar todas las piezas que pueda en su camino.
-- Las piezas capturadas se retiran al final de la jugada. Una pieza no puede ser saltada dos veces.
-- Un peón que llega a la última fila se convierte en dama en el acto, incluso en mitad de una captura, y sigue capturando como dama si puede.
-- Tablas: cuando la misma posición se repite por tercera vez, o tras 15 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+- Como las damas internacionales, pero puedes elegir qué captura hacer. Una pieza que empieza a saltar debe capturar todas las piezas que pueda.
+- Tras una captura, una dama debe caer en una casilla desde la que pueda seguir capturando, si la hay.
+- Un peón que llega a la última fila se convierte en dama en el acto, incluso en mitad de una captura, y sigue capturando como dama.
+- Tablas: la misma posición por tercera vez, o 15 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
 # Damas brasileñas (8 por 8)
-- Las reglas de las damas internacionales en un tablero de 8 por 8. Empiezan las piezas claras.
-- Los peones capturan hacia delante y hacia atrás, las damas se mueven y capturan a distancia, y debes capturar el mayor número de piezas posible.
-- Un peón solo se convierte en dama si termina su jugada en la última fila.
-- Tablas: cuando la misma posición se repite por tercera vez, o tras 20 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
+Las damas internacionales en un tablero de 8 por 8. Tablas: la misma posición por tercera vez, o 20 jugadas de cada uno en las que solo se mueven damas y no hay capturas.
 # Damas turcas (8 por 8)
-- Se usan las 64 casillas. Cada jugador empieza con 16 peones en su segunda y su tercera fila. Empiezan las piezas claras.
-- Un peón se mueve una casilla recto hacia delante o hacia un lado, nunca en diagonal y nunca hacia atrás. Captura del mismo modo, saltando por encima de una pieza contraria contigua hasta la casilla vacía justo detrás.
-- Un peón que llega a la última fila se convierte en dama. Una dama se mueve cualquier número de casillas por una fila o una columna y captura a distancia, cayendo en cualquier casilla vacía más allá de la pieza que captura.
-- Capturar es obligatorio, y debes capturar el mayor número de piezas posible.
-- Cada pieza capturada se retira en el acto, al ser saltada. En una captura de varias piezas, una pieza no puede dar media vuelta para volver por donde ha venido.
-- Tablas: cuando la misma posición se repite por tercera vez, o tras 25 jugadas de cada uno sin capturas ni movimientos de peón.
+- Se usan las 64 casillas: 16 peones cada uno, en su segunda y su tercera fila. Empiezan las piezas claras.
+- Los peones se mueven y capturan una casilla recto hacia delante o hacia un lado. Las damas se mueven cualquier número de casillas por una fila o una columna y capturan a distancia.
+- Capturar es obligatorio: captura el mayor número de piezas posible. Cada pieza capturada se retira en el acto, y la pieza que captura no puede dar media vuelta.
+- Tablas: la misma posición por tercera vez, o 25 jugadas de cada uno sin capturas ni movimientos de peón.
 # Damas frisonas (10 por 10)
-- Empiezan las piezas claras. Un peón avanza una casilla en diagonal, como en las damas internacionales.
-- Peones y damas también capturan en línea recta por filas y columnas: por encima de una pieza rival en la siguiente casilla oscura, a dos casillas, hasta la casilla oscura justo detrás. Los peones capturan también hacia atrás.
-- Una dama se mueve cuantas casillas quiera en diagonal, y captura a distancia en las ocho direcciones.
-- Capturar es obligatorio, y debes capturar las piezas de más valor: una dama vale más que un peón pero menos que dos. Si una dama y un peón pueden capturar el mismo valor, debe capturar la dama.
-- Un peón que termina su jugada en la última fila se convierte en dama.
-- Mientras te queden peones, una misma dama no puede hacer más de tres jugadas seguidas sin capturar; después debe mover otra pieza.
-- Tablas: cuando dos damas se enfrentan a una y cada jugador ha hecho siete jugadas, cuando una dama se enfrenta a otra y cada uno ha hecho dos jugadas, o cuando la misma posición se repite por tercera vez.
+- Las damas internacionales, pero peones y damas también capturan en línea recta por filas y columnas, por encima de una pieza rival a dos casillas, hasta la casilla oscura justo detrás. Las damas capturan a distancia en las ocho direcciones.
+- Debes capturar las piezas de más valor: una dama vale más que un peón pero menos que dos. Si una dama y un peón pueden capturar el mismo valor, debe capturar la dama.
+- Mientras te queden peones, una misma dama no puede hacer más de tres jugadas seguidas sin capturar.
+- Tablas: dos damas contra una tras siete jugadas de cada uno, una dama contra una tras dos jugadas de cada uno, o la misma posición por tercera vez.
 # Damas canadienses (12 por 12)
-Las reglas de las damas internacionales en un tablero de 12 por 12, con 30 peones cada uno.
+Las damas internacionales en un tablero de 12 por 12, con 30 peones cada uno.
 # Bashni (8 por 8)
-Damas rusas en columnas: las reglas de las damas rusas, pero las piezas capturadas siguen en juego.
-- Una captura solo se lleva la pieza de arriba de la columna saltada y la pone debajo de la columna que captura. Las piezas que quedan debajo se quedan en su sitio y obedecen a su nueva pieza de arriba.
-- Una columna es del jugador cuya pieza está arriba, y se mueve como ella, como peón o como dama. Solo se corona la pieza de arriba.
-- Una columna solo puede saltarse una vez en la misma captura. Las piezas capturadas pasan debajo de la columna que captura al terminar la jugada.
-- Cada barra muestra cuántas piezas rivales tiene ese jugador en sus columnas. Quien no puede mover pierde, aunque tenga piezas bajo las columnas rivales.
-- Tablas: como en las damas rusas.
+Damas rusas, pero las piezas capturadas siguen en juego.
+- Una captura solo se lleva la pieza de arriba de la columna saltada y la pone debajo de la columna que captura al terminar la jugada. Las piezas que quedan debajo se quedan en su sitio y obedecen a su nueva pieza de arriba.
+- Una columna es del jugador cuya pieza está arriba, y se mueve como ella. Solo se corona la pieza de arriba. Una columna solo puede saltarse una vez en la misma captura.
+- Quien no puede mover pierde, aunque tenga piezas bajo las columnas rivales. Tablas como en las damas rusas.
 # El final de la partida
 Pierde el jugador que se queda sin piezas o que no puede mover.
-# Jugar en el dispositivo
-Solo se pueden seleccionar las piezas que pueden moverse. Toca una pieza y luego la casilla donde cae. Para una captura de varias piezas, toca cada casilla de llegada por orden, o solo la última. Las piezas que van a ser capturadas se desvanecen.

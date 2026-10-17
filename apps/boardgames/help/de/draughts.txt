@@ -1,55 +1,38 @@
 Dame
 # Das Ziel
-Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Wähle die Regeln vor der Partie: internationales Dame auf einem Brett mit 10 mal 10 Feldern, englisches Dame (Checkers), russisches, brasilianisches oder türkisches Dame auf einem Brett mit 8 mal 8 Feldern. Die Steine stehen nur auf den dunklen Feldern und ziehen diagonal, außer beim türkischen Dame.
+Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Die Steine stehen auf den dunklen Feldern und ziehen diagonal, außer beim türkischen Dame.
 # Internationales Dame (10 mal 10)
-- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts.
-- Ein einfacher Stein schlägt, indem er über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springt. Einfache Steine schlagen vorwärts und rückwärts.
-- Schlagen ist Pflicht, und du musst so viele Steine wie möglich schlagen. Ist nach einem Sprung vom Landefeld aus ein weiterer Schlag möglich, muss der Stein im selben Zug weiterspringen.
-- Die geschlagenen Steine werden erst am Ende des Zuges entfernt. Ein Stein kann nicht zweimal übersprungen werden.
-- Ein einfacher Stein, der seinen Zug auf der gegnerischen Grundreihe beendet, wird zur Dame. Eine Dame zieht beliebig viele Felder entlang einer Diagonale und schlägt auf Distanz: Sie landet auf einem beliebigen leeren Feld hinter dem geschlagenen Stein.
-- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 25 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+- Hell beginnt. Einfache Steine ziehen ein Feld diagonal vorwärts und schlagen vorwärts und rückwärts, indem sie über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springen.
+- Schlagen ist Pflicht: Schlage so viele Steine wie möglich und springe im selben Zug weiter. Die geschlagenen Steine werden erst am Ende des Zuges entfernt, und kein Stein wird zweimal übersprungen.
+- Ein einfacher Stein, der seinen Zug auf der gegnerischen Grundreihe beendet, wird zur Dame. Damen ziehen beliebig viele Felder diagonal und schlagen auf Distanz: Sie landen auf einem beliebigen leeren Feld dahinter.
+- Remis: dieselbe Stellung zum dritten Mal, oder 25 Züge jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
 # Englisches Dame (8 mal 8)
-- Dunkel beginnt. Einfache Steine ziehen und schlagen nur vorwärts.
-- Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Hat ein Stein einmal zu springen begonnen, muss er alle Steine schlagen, die er auf seinem Weg schlagen kann.
-- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird zur Dame, und damit endet der Zug. Eine Dame zieht und schlägt ein Feld diagonal in jede Richtung.
-- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 40 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
+- Dunkel beginnt. Einfache Steine ziehen und schlagen nur vorwärts. Damen ziehen und schlagen ein Feld diagonal in jede Richtung.
+- Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Ein Stein, der zu springen beginnt, muss alle Steine schlagen, die er kann. Wird ein Stein zur Dame, endet der Zug.
+- Remis: dieselbe Stellung zum dritten Mal, oder 40 Züge jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
 # Russisches Dame (8 mal 8)
-- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts und schlägt vorwärts und rückwärts.
-- Damen ziehen und schlagen auf Distanz entlang der Diagonalen, wie beim internationalen Dame. Nach einem Schlag muss eine Dame auf einem Feld landen, von dem aus sie weiterschlagen kann, falls es eines gibt.
-- Schlagen ist Pflicht, aber du darfst wählen, welchen Schlag du ausführst. Hat ein Stein einmal zu springen begonnen, muss er alle Steine schlagen, die er auf seinem Weg schlagen kann.
-- Die geschlagenen Steine werden erst am Ende des Zuges entfernt. Ein Stein kann nicht zweimal übersprungen werden.
-- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird sofort zur Dame, auch mitten in einem Schlag, und schlägt dann als Dame weiter, wenn er kann.
-- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 15 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+- Wie internationales Dame, aber du darfst wählen, welchen Schlag du ausführst. Ein Stein, der zu springen beginnt, muss alle Steine schlagen, die er kann.
+- Nach einem Schlag muss eine Dame auf einem Feld landen, von dem aus sie weiterschlagen kann, falls es eines gibt.
+- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird sofort zur Dame, auch mitten in einem Schlag, und schlägt als Dame weiter.
+- Remis: dieselbe Stellung zum dritten Mal, oder 15 Züge jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
 # Brasilianisches Dame (8 mal 8)
-- Die Regeln des internationalen Dame auf einem Brett mit 8 mal 8 Feldern. Hell beginnt.
-- Einfache Steine schlagen vorwärts und rückwärts, Damen ziehen und schlagen auf Distanz, und du musst so viele Steine wie möglich schlagen.
-- Ein einfacher Stein wird nur zur Dame, wenn er seinen Zug auf der gegnerischen Grundreihe beendet.
-- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 20 Zügen jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
+Internationales Dame auf einem Brett mit 8 mal 8 Feldern. Remis: dieselbe Stellung zum dritten Mal, oder 20 Züge jeder Seite, in denen nur Damen ziehen und nichts geschlagen wird.
 # Türkisches Dame (8 mal 8)
-- Alle 64 Felder werden benutzt. Jeder Spieler beginnt mit 16 einfachen Steinen auf seiner zweiten und dritten Reihe. Hell beginnt.
-- Ein einfacher Stein zieht ein Feld geradeaus vorwärts oder zur Seite, nie diagonal und nie rückwärts. Er schlägt auf dieselbe Weise, indem er über einen benachbarten gegnerischen Stein auf das leere Feld direkt dahinter springt.
-- Ein einfacher Stein, der die gegnerische Grundreihe erreicht, wird zur Dame. Eine Dame zieht beliebig viele Felder entlang einer Reihe oder Spalte und schlägt auf Distanz: Sie landet auf einem beliebigen leeren Feld hinter dem geschlagenen Stein.
-- Schlagen ist Pflicht, und du musst so viele Steine wie möglich schlagen.
-- Jeder geschlagene Stein wird sofort entfernt, sobald er übersprungen ist. Bei einem Mehrfachschlag darf ein Stein nicht direkt in die Richtung umkehren, aus der er kam.
-- Remis: wenn dieselbe Stellung zum dritten Mal entsteht, oder nach 25 Zügen jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
+- Alle 64 Felder werden benutzt: je 16 einfache Steine auf der zweiten und dritten Reihe. Hell beginnt.
+- Einfache Steine ziehen und schlagen ein Feld geradeaus vorwärts oder zur Seite. Damen ziehen beliebig viele Felder entlang einer Reihe oder Spalte und schlagen auf Distanz.
+- Schlagen ist Pflicht: Schlage so viele Steine wie möglich. Jeder geschlagene Stein wird sofort entfernt, und der schlagende Stein darf nicht direkt umkehren.
+- Remis: dieselbe Stellung zum dritten Mal, oder 25 Züge jeder Seite ohne Schlagen und ohne Zug eines einfachen Steins.
 # Friesisches Dame (10 mal 10)
-- Hell beginnt. Ein einfacher Stein zieht ein Feld diagonal vorwärts, wie beim internationalen Dame.
-- Steine und Damen schlagen auch gerade entlang der Reihen und Spalten: über einen gegnerischen Stein auf dem nächsten dunklen Feld, zwei Felder weiter, auf das dunkle Feld direkt dahinter. Einfache Steine schlagen auch rückwärts.
-- Eine Dame zieht beliebig viele Felder entlang einer Diagonale und schlägt auf Distanz in alle acht Richtungen.
-- Schlagen ist Pflicht, und du musst die wertvollsten Steine schlagen: Eine Dame ist mehr wert als ein Stein, aber weniger als zwei. Können eine Dame und ein Stein gleich viel Wert schlagen, muss die Dame schlagen.
-- Ein Stein, der seinen Zug auf der gegnerischen Grundreihe beendet, wird zur Dame.
-- Solange du noch einfache Steine hast, darf dieselbe Dame höchstens dreimal hintereinander ziehen, ohne zu schlagen; danach muss ein anderer Stein ziehen.
-- Remis: wenn zwei Damen gegen eine stehen und jeder sieben Züge gemacht hat, wenn eine Dame gegen eine steht und jeder zwei Züge gemacht hat, oder wenn dieselbe Stellung zum dritten Mal entsteht.
+- Internationales Dame, aber Steine und Damen schlagen auch gerade entlang der Reihen und Spalten, über einen gegnerischen Stein zwei Felder weiter auf das dunkle Feld direkt dahinter. Damen schlagen auf Distanz in alle acht Richtungen.
+- Du musst die wertvollsten Steine schlagen: Eine Dame ist mehr wert als ein Stein, aber weniger als zwei. Können eine Dame und ein Stein gleich viel Wert schlagen, muss die Dame schlagen.
+- Solange du noch einfache Steine hast, darf dieselbe Dame höchstens dreimal hintereinander ziehen, ohne zu schlagen.
+- Remis: zwei Damen gegen eine nach sieben Zügen jeder Seite, eine Dame gegen eine nach zwei Zügen jeder Seite, oder dieselbe Stellung zum dritten Mal.
 # Kanadisches Dame (12 mal 12)
-Die Regeln des internationalen Dame auf einem Brett von 12 mal 12, mit je 30 Steinen.
+Internationales Dame auf einem Brett von 12 mal 12, mit je 30 Steinen.
 # Baschni (8 mal 8)
-Russisches Säulendame: die Regeln des russischen Dame, aber geschlagene Steine bleiben im Spiel.
-- Ein Schlag nimmt nur den obersten Stein der übersprungenen Säule und legt ihn unter die schlagende Säule. Die Steine darunter bleiben stehen und gehorchen ihrem neuen obersten Stein.
-- Eine Säule gehört dem Spieler, dessen Stein oben liegt, und zieht wie dieser: als einfacher Stein oder als Dame. Nur der oberste Stein wird zur Dame.
-- Eine Säule kann in einem Schlag nur einmal übersprungen werden. Die geschlagenen Steine kommen am Ende des Zuges unter die schlagende Säule.
-- Jede Leiste zeigt, wie viele gegnerische Steine der Spieler in seinen Säulen hält. Wer nicht mehr ziehen kann, verliert, auch mit Steinen unter den gegnerischen Säulen.
-- Remis: wie beim russischen Dame.
+Russisches Dame, aber geschlagene Steine bleiben im Spiel.
+- Ein Schlag nimmt nur den obersten Stein der übersprungenen Säule und legt ihn am Ende des Zuges unter die schlagende Säule. Die Steine darunter bleiben stehen und gehorchen ihrem neuen obersten Stein.
+- Eine Säule gehört dem Spieler, dessen Stein oben liegt, und zieht wie dieser. Nur der oberste Stein wird zur Dame. Eine Säule kann in einem Schlag nur einmal übersprungen werden.
+- Wer nicht mehr ziehen kann, verliert, auch mit Steinen unter den gegnerischen Säulen. Remis wie beim russischen Dame.
 # Das Ende der Partie
 Wer keine Steine mehr hat oder nicht mehr ziehen kann, verliert.
-# Spielen auf dem Gerät
-Nur Steine, die ziehen können, lassen sich auswählen. Tippe auf einen Stein und dann auf das Feld, auf dem er landet. Bei einem Mehrfachschlag tippe nacheinander auf jedes Landefeld oder nur auf das letzte. Die Steine, die gleich geschlagen werden, verblassen.

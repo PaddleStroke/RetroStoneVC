@@ -1,9 +1,7 @@
 Cztery w rzędzie
 # Cel gry
-Jako pierwszy ułóż w jednej linii cztery krążki w swoim kolorze: w poziomie, w pionie lub po przekątnej.
+Jako pierwszy ułóż w jednej linii cztery krążki w swoim kolorze: w poziomie, w pionie lub po przekątnej. Jasne zaczynają.
 # Ruch
-Plansza stoi pionowo i ma siedem kolumn. W swojej kolejce wrzuć jeden krążek do kolumny: spada on do najniższego wolnego otworu. Do pełnej kolumny nie można wrzucić kolejnego krążka. Jasne zaczynają.
+Wrzuć jeden krążek do kolumny: spada on do najniższego wolnego otworu.
 # Koniec gry
 Wygrywa pierwszy gracz, który ułoży cztery krążki w rzędzie. Jeśli plansza się zapełni, a nikt nie ułożył czwórki, gra kończy się remisem.
-# Gra na urządzeniu
-Dotknij kolumny albo przesuń swój krążek wzdłuż górnej krawędzi i puść. Każdy pasek pokazuje, ile krążków zostało danemu graczowi.

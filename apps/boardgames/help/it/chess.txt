@@ -1,57 +1,38 @@
 Scacchi
 # Lo scopo
-Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Bianco muove per primo, poi i giocatori si alternano, una mossa ciascuno.
+Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Bianco muove per primo.
 # Come si muovono i pezzi
-- Re: una casella in qualsiasi direzione.
-- Donna: di quante caselle vuoi in linea retta, lungo una traversa, una colonna o una diagonale.
-- Torre: di quante caselle vuoi lungo una traversa o una colonna.
-- Alfiere: di quante caselle vuoi lungo una diagonale.
+- Re: una casella in qualsiasi direzione. Donna: di quante caselle vuoi lungo una traversa, una colonna o una diagonale. Torre: lungo una traversa o una colonna. Alfiere: lungo una diagonale.
 - Cavallo: a forma di L, due caselle in una direzione e una di lato. È l'unico pezzo che salta gli altri.
 - Pedone: una casella in avanti, o due dalla sua casella di partenza. Cattura una casella in diagonale in avanti.
-I pezzi non possono attraversare altri pezzi (tranne il cavallo). Un pezzo cattura spostandosi su una casella occupata da un pezzo avversario, che esce dalla scacchiera.
+- Un pezzo cattura spostandosi su un pezzo avversario.
 # Mosse speciali
-- Arrocco: il re si sposta di due caselle verso una torre, e la torre salta sulla casella che il re ha attraversato. È consentito solo se nessuno dei due pezzi si è ancora mosso, le caselle tra loro sono vuote e il re non è sotto scacco, non attraversa una casella attaccata e non finisce sotto scacco.
-- Presa en passant: quando un pedone avanza di due caselle e si ferma accanto a un pedone avversario, quel pedone può catturarlo come se avesse avanzato di una sola casella, ma solo alla mossa immediatamente successiva.
-- Promozione: un pedone che raggiunge l'ultima traversa diventa una donna, una torre, un alfiere o un cavallo, a tua scelta.
+- Arrocco: il re si sposta di due caselle verso una torre, e la torre salta sulla casella che il re ha attraversato. Solo se nessuno dei due pezzi si è ancora mosso, non c'è nulla tra loro e il re non è sotto scacco, non attraversa una casella attaccata e non finisce sotto scacco.
+- Presa en passant: un pedone che ha appena avanzato di due caselle e si ferma accanto a un pedone avversario può essere catturato da questo come se avesse avanzato di una sola casella, ma solo alla mossa immediatamente successiva.
+- Promozione: un pedone che raggiunge l'ultima traversa diventa una donna, una torre, un alfiere o un cavallo.
 # Lo scacco e la fine della partita
-Un re attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo re sotto scacco.
+Non puoi mai fare una mossa che lasci il tuo re sotto scacco (attaccato).
 - Scacco matto: il re è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
-- Stallo: il giocatore di turno non ha mosse legali ma non è sotto scacco. La partita è patta.
-- La partita è patta anche quando nessuno dei due può più dare scacco matto (sono rimasti troppo pochi pezzi), quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture né mosse di pedone.
+- Patta: stallo (nessuna mossa legale, ma senza scacco), troppo pochi pezzi per dare matto, la stessa posizione per la terza volta, o cinquanta mosse ciascuno senza catture né mosse di pedone.
 # Scacchi 960
-Gli scacchi 960 (scacchi casuali di Fischer) seguono le stesse regole, ma i pezzi della prima traversa partono in uno di 960 ordini possibili, sorteggiato a ogni partita. I pedoni stanno come al solito, e i pezzi neri stanno di fronte a quelli bianchi, colonna per colonna. Gli alfieri stanno sempre su caselle di colore opposto, e il re da qualche parte tra le due torri.
-- Arrocco: il re e la torre finiscono sulle stesse caselle degli scacchi normali: il re in g e la torre in f con la torre del lato h, il re in c e la torre in d con la torre del lato a. È consentito solo se nessuno dei due pezzi si è ancora mosso, tutte le caselle che attraversano o su cui arrivano sono vuote (a parte loro due) e il re non è sotto scacco, non attraversa una casella attaccata e non finisce sotto scacco.
-- Per arroccare, porta il re sulla torre con cui arrocca. Puoi anche portarlo sulla sua casella di arrivo, a meno che il re possa andarci anche con una mossa normale, o vi si trovi già.
+I pezzi della prima traversa partono in un ordine casuale, gli alfieri su caselle di colore opposto e il re tra le torri. L'arrocco finisce come negli scacchi (il re in g e la torre in f, oppure il re in c e la torre in d), e tutte le caselle che attraversano o su cui arrivano devono essere vuote, a parte loro. Per arroccare, porta il re sulla sua torre.
 # Crazyhouse
-Gli scacchi con un tipo di mossa in più: un pezzo che catturi cambia colore e va nella tua riserva, mostrata nella tua barra. Invece di muovere, puoi paracadutare un pezzo della riserva su qualsiasi casa vuota.
-- Un pedone non può essere paracadutato sulla prima o sull'ultima traversa. Un paracadutaggio può dare scacco, e perfino scacco matto.
-- Un pezzo promosso che viene catturato torna nella riserva come pedone.
-- Niente patta per materiale insufficiente: nessun pezzo lascia mai il gioco.
-- Per paracadutare, tocca il pezzo nella tua barra e poi una casa (i punti mostrano dove può andare), oppure trascinalo sulla scacchiera.
+Un pezzo che catturi cambia colore e va nella tua riserva. Invece di muovere, puoi paracadutare un pezzo della riserva su qualsiasi casa vuota, anche per dare scacco o scacco matto. Nessun pedone sulla prima o sull'ultima traversa. Un pezzo promosso che viene catturato torna come pedone. Niente patta per materiale insufficiente.
 # Tre scacchi
-Gli scacchi, ma vince il primo giocatore che dà scacco tre volte. Anche lo scacco matto vince. Ogni barra ha tre caselle, e in una di esse si accende una luce rossa per ogni scacco dato da quel giocatore.
+Vince il primo giocatore che dà scacco tre volte. Anche lo scacco matto vince.
 # Re della collina
-Gli scacchi, ma vince subito il primo giocatore il cui re raggiunge una delle quattro case centrali (d4, e4, d5, e5), incorniciate d'oro. Anche lo scacco matto vince. Il re non può comunque mai mettersi sotto scacco.
+Vince il primo re che raggiunge una delle quattro case centrali. Anche lo scacco matto vince.
 # Vinciperdi
-Gli scacchi alla rovescia: lo scopo è perdere tutti i propri pezzi.
-- Catturare è obbligatorio: quando puoi catturare devi farlo, ma scegli tu quale cattura.
-- Il re è un pezzo normale: non c'è scacco, il re può essere catturato e non c'è arrocco. Un pedone può anche essere promosso a re (la quinta scelta del selettore).
-- Vinci quando non ti resta nessun pezzo, o quando non puoi muovere.
-- La partita è patta quando restano solo alfieri e quelli di ciascun colore stanno su case di colore diverso: non potranno mai catturarsi.
+Lo scopo è perdere tutti i tuoi pezzi: vinci quando non te ne resta nessuno, o quando non puoi muovere.
+- Catturare è obbligatorio, ma scegli tu quale cattura.
+- Il re è un pezzo normale: niente scacco, può essere catturato, niente arrocco. Un pedone può anche essere promosso a re.
+- Restano solo alfieri, quelli di ciascun colore su case di colore diverso: la partita è patta.
 # Atomici
 Ogni cattura è un'esplosione: il pezzo catturato, il pezzo che cattura e tutti i pezzi, tranne i pedoni, delle otto case intorno lasciano la scacchiera.
-- Vinci facendo esplodere il re avversario, anche se il tuo re è sotto scacco. Anche lo scacco matto vince.
-- Un re non può catturare, e nessuna mossa può far esplodere il tuo re.
-- Quando i due re sono uno accanto all'altro, nessuno è sotto scacco: catturarne uno li farebbe esplodere entrambi.
+- Far esplodere il re avversario vince, anche se il tuo re è sotto scacco. Anche lo scacco matto vince.
+- Un re non può catturare, e nessuna mossa può far esplodere il tuo re. Due re uno accanto all'altro non sono mai sotto scacco.
 - La partita è patta quando nessuno dei due ha abbastanza pezzi per vincere.
 # Corsa dei re
-Tutti i pezzi partono dalle prime due traverse, fianco a fianco, senza pedoni. Nessuna mossa può dare scacco.
-- Vince il primo re che raggiunge l'ultima traversa, incorniciata d'oro.
-- Se arriva prima il re bianco, il Nero ha ancora una mossa: se anche il re nero raggiunge l'ultima traversa, la partita è patta.
+Niente pedoni, e nessuna mossa può dare scacco. Vince il primo re che raggiunge l'ultima traversa; se il re bianco arriva per primo e il re nero lo segue alla mossa immediatamente successiva, la partita è patta.
 # Orda
-Il Bianco ha 36 pedoni e nessun re, contro il solito esercito del Nero.
-- Il Bianco vince dando scacco matto al re nero; il Nero vince catturando tutti i pezzi bianchi.
-- I pedoni bianchi della prima traversa possono anche avanzare di due case (in quel caso non si possono catturare en passant).
-- Il Bianco non ha re, quindi non è mai sotto scacco.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso. Per arroccare, sposta il re di due caselle verso la torre, oppure sulla torre.
+Il Bianco ha 36 pedoni e nessun re, quindi non è mai sotto scacco. Il Bianco vince dando scacco matto, il Nero catturando tutti i pezzi bianchi. I pedoni bianchi della prima traversa possono anche avanzare di due case (in quel caso non si possono catturare en passant).

@@ -1,9 +1,7 @@
 Quatre en ligne
 # Le but
-Être le premier à aligner quatre pions de ta couleur : horizontalement, verticalement ou en diagonale.
+Être le premier à aligner quatre pions de ta couleur : horizontalement, verticalement ou en diagonale. Les pions clairs commencent.
 # Un coup
-La grille est verticale et compte sept colonnes. À ton tour, lâche un pion dans une colonne : il tombe dans le trou libre le plus bas. Une colonne pleine ne peut plus recevoir de pion. Les pions clairs commencent.
+Lâche un pion dans une colonne : il tombe dans le trou libre le plus bas.
 # La fin de la partie
 Le premier joueur qui aligne quatre pions gagne. Si la grille se remplit sans aucun alignement de quatre, la partie est nulle.
-# Jouer sur l'appareil
-Touche une colonne, ou fais glisser ton pion le long du haut de la grille et lâche-le. Chaque barre indique combien de pions il reste à ce joueur.

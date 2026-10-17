@@ -1,57 +1,38 @@
 Skak
 # Målet
-Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Hvid trækker først, derefter skiftes spillerne, ét træk ad gangen.
+Sæt modstanderens konge skakmat: angrib den, så den ikke kan undslippe. Hvid trækker først.
 # Sådan trækker brikkerne
-- Konge: ét felt i en hvilken som helst retning.
-- Dronning: et vilkårligt antal felter i lige linje, langs en række, en linje eller en diagonal.
-- Tårn: et vilkårligt antal felter langs en række eller en linje.
-- Løber: et vilkårligt antal felter langs en diagonal.
+- Konge: ét felt i en hvilken som helst retning. Dronning: et vilkårligt antal felter langs en række, en linje eller en diagonal. Tårn: langs en række eller en linje. Løber: langs en diagonal.
 - Springer: i en L-form, to felter i én retning og ét felt til siden. Det er den eneste brik, der springer over andre.
 - Bonde: ét felt frem, eller to fra sit udgangsfelt. Den slår ét felt skråt frem.
-Brikkerne kan ikke passere gennem andre brikker (undtagen springeren). En brik slår ved at flytte hen på et felt, hvor en modstanderbrik står, som så forlader brættet.
+- En brik slår ved at flytte hen på en modstanderbrik.
 # Særlige træk
-- Rokade: kongen flytter to felter mod et tårn, og tårnet springer hen på det felt, kongen passerede. Kun tilladt, hvis ingen af de to brikker har flyttet endnu, felterne mellem dem er tomme, og kongen ikke står i skak, ikke passerer et angrebet felt og ikke ender i skak.
-- En passant: når en bonde flytter to felter og ender ved siden af en modstanderbonde, må den bonde slå den, som om den kun havde flyttet ét felt, men kun i det umiddelbart følgende træk.
-- Forvandling: en bonde, der når den sidste række, bliver til en dronning, et tårn, en løber eller en springer efter eget valg.
+- Rokade: kongen flytter to felter mod et tårn, og tårnet springer hen på det felt, kongen passerede. Kun hvis ingen af de to har flyttet, intet står mellem dem, og kongen ikke står i skak, ikke passerer et angrebet felt og ikke ender i skak.
+- En passant: en bonde, der lige har flyttet to felter og er endt ved siden af en modstanderbonde, må slås af den, som om den kun havde flyttet ét felt, men kun i det umiddelbart følgende træk.
+- Forvandling: en bonde, der når den sidste række, bliver til en dronning, et tårn, en løber eller en springer.
 # Skak og partiets afslutning
-En konge, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen konge i skak.
+Du må aldrig lave et træk, der efterlader din egen konge i skak (angrebet).
 - Skakmat: kongen står i skak, og intet træk kan redde den. Den spiller taber.
-- Pat: spilleren i trækket har intet lovligt træk, men står ikke i skak. Partiet er remis.
-- Partiet er også remis, når ingen af siderne nogensinde kan sætte mat (for få brikker tilbage), når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden slag eller bondetræk.
+- Remis: pat (intet lovligt træk, men ikke i skak), for få brikker tilbage til at sætte mat, den samme stilling for tredje gang, eller halvtreds træk hver uden slag eller bondetræk.
 # Chess960
-Chess960 (Fischer Random-skak) spilles efter de samme regler, men brikkerne på bageste række starter i én af 960 opstillinger, der trækkes tilfældigt til hvert parti. Bønderne står som sædvanlig, og sorts brikker står over for hvids, linje for linje. Løberne står altid på felter af hver sin farve, og kongen et sted mellem de to tårne.
-- Rokade: kongen og tårnet ender på de samme felter som i almindelig skak: kongen på g og tårnet på f med tårnet på h-siden, kongen på c og tårnet på d med tårnet på a-siden. Kun tilladt, hvis ingen af de to brikker har flyttet endnu, alle felter, de passerer eller lander på, er tomme (bortset fra de to selv), og kongen ikke står i skak, ikke passerer et angrebet felt og ikke ender i skak.
-- For at rokere flytter du kongen hen på det tårn, den rokerer med. Du kan også flytte den til dens slutfelt, medmindre kongen også kunne komme derhen med et almindeligt træk, eller allerede står der.
+Brikkerne på bageste række starter i tilfældig rækkefølge, løberne på felter af hver sin farve og kongen mellem tårnene. Rokaden ender som i almindelig skak (kongen på g og tårnet på f, eller kongen på c og tårnet på d), og alle felter, de passerer eller lander på, skal være tomme bortset fra de to selv. For at rokere flytter du kongen hen på dens tårn.
 # Crazyhouse
-Skak med én slags træk mere: en brik, du slår, skifter side og kommer i din reserve, som vises i dit panel. I stedet for at flytte må du sætte en brik fra din reserve ind på et vilkårligt tomt felt.
-- En bonde må ikke sættes ind på første eller sidste række. En indsættelse må give skak, endda skakmat.
-- En forvandlet brik, der bliver slået, kommer tilbage i reserven som bonde.
-- Ingen remis på grund af for lidt materiale: ingen brik forlader nogensinde spillet.
-- For at sætte ind skal du trykke på brikken i dit panel og derefter på et felt (prikker viser, hvor den kan sættes), eller trække den ind på brættet.
+En brik, du slår, skifter side og kommer i din reserve. I stedet for at flytte må du sætte en brik fra din reserve ind på et vilkårligt tomt felt, endda for at give skak eller mat. Ingen bonde på første eller sidste række. En forvandlet brik, der bliver slået, kommer tilbage som bonde. Ingen remis på grund af for lidt materiale.
 # Tre skak
-Skak, men den første spiller, der giver skak tre gange, vinder. Skakmat vinder også. Hvert panel har tre pladser, og der tændes et rødt lys i en af dem for hver skak, spilleren giver.
+Den første spiller, der giver skak tre gange, vinder. Skakmat vinder også.
 # Bakkens konge
-Skak, men den første spiller, hvis konge når et af de fire midterfelter (d4, e4, d5, e5), som er indrammet med guld, vinder med det samme. Skakmat vinder også. Kongen må stadig aldrig stille sig i skak.
+Den første konge, der når et af de fire midterfelter, vinder. Skakmat vinder også.
 # Taberskak
-Skak på hovedet: målet er at miste alle sine brikker.
-- Det er pligt at slå: kan du slå, skal du, men du vælger selv hvilket slag.
-- Kongen er en almindelig brik: der er ingen skak, kongen kan slås, og der er ingen rokade. En bonde kan også forvandles til en konge (vælgerens femte valg).
-- Du vinder, når du ikke har flere brikker, eller når du ikke kan trække.
-- Partiet er remis, når der kun er løbere tilbage, og hver sides løbere står på felter af forskellig farve: de kan aldrig slå hinanden.
+Målet er at miste alle sine brikker: du vinder, når du ikke har flere tilbage, eller når du ikke kan trække.
+- Det er pligt at slå, men du vælger selv hvilket slag.
+- Kongen er en almindelig brik: ingen skak, den kan slås, ingen rokade. En bonde kan også forvandles til en konge.
+- Kun løbere tilbage, og hver sides løbere står på felter af forskellig farve: remis.
 # Atomskak
 Hvert slag er en eksplosion: den slåede brik, den slående brik og alle brikker undtagen bønder på de otte felter omkring forsvinder fra brættet.
 - Du vinder ved at sprænge modstanderens konge i luften, også selvom din egen konge står i skak. Skakmat vinder også.
-- En konge må ikke slå, og intet træk må sprænge din egen konge.
-- Står de to konger side om side, står ingen af dem i skak: at slå den ene ville sprænge dem begge.
-- Partiet er remis, når ingen af siderne har brikker nok til at vinde.
+- En konge må ikke slå, og intet træk må sprænge din egen konge. To konger side om side står aldrig i skak.
+- Remis, når ingen af siderne har brikker nok tilbage til at vinde.
 # Kongeløb
-Alle brikker starter på de to første rækker, side om side, uden bønder. Intet træk må give skak.
-- Den første konge, der når den sidste række, indrammet i guld, vinder.
-- Kommer den hvide konge først, har sort stadig ét træk: når den sorte konge også den sidste række, er partiet remis.
+Ingen bønder, og intet træk må give skak. Den første konge, der når den sidste række, vinder; kommer den hvide konge først, og den sorte konge følger efter i det umiddelbart følgende træk, er partiet remis.
 # Horde
-Hvid har 36 bønder og ingen konge mod sorts sædvanlige hær.
-- Hvid vinder ved at sætte den sorte konge mat; sort vinder ved at slå alle hvide brikker.
-- Hvide bønder på første række må også gå to felter (så kan de ikke slås en passant).
-- Hvid har ingen konge og står derfor aldrig i skak.
-# Spil på enheden
-Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. En konge i skak lyser rødt. For at rokere flytter du kongen to felter mod tårnet eller hen på tårnet.
+Hvid har 36 bønder og ingen konge og står derfor aldrig i skak. Hvid vinder ved at sætte mat, sort ved at slå alle hvide brikker. Hvide bønder på første række må også gå to felter (så kan de ikke slås en passant).

@@ -1,57 +1,38 @@
 Schack
 # Målet
-Gör motståndarens kung schack matt: angrip den så att den inte kan komma undan. Vit börjar, sedan turas spelarna om, ett drag var.
+Gör motståndarens kung schack matt: angrip den så att den inte kan komma undan. Vit börjar.
 # Hur pjäserna går
-- Kung: en ruta åt vilket håll som helst.
-- Dam: hur många rutor som helst i rak linje, längs en rad, en linje eller en diagonal.
-- Torn: hur många rutor som helst längs en rad eller en linje.
-- Löpare: hur många rutor som helst längs en diagonal.
+- Kung: en ruta åt vilket håll som helst. Dam: hur många rutor som helst längs en rad, en linje eller en diagonal. Torn: längs en rad eller en linje. Löpare: längs en diagonal.
 - Springare: i en L-form, två rutor åt ett håll och en ruta åt sidan. Den är den enda pjäsen som hoppar över andra.
 - Bonde: en ruta framåt, eller två från sin utgångsruta. Den slår en ruta snett framåt.
-Pjäserna kan inte passera andra pjäser (utom springaren). En pjäs slår genom att flytta till en ruta där en motståndarpjäs står, som då lämnar brädet.
+- En pjäs slår genom att flytta till en ruta där en motståndarpjäs står.
 # Specialdrag
-- Rockad: kungen flyttar två rutor mot ett torn, och tornet hoppar till rutan som kungen passerade. Tillåtet bara om ingen av pjäserna har flyttat än, rutorna mellan dem är tomma, och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
-- En passant: när en bonde flyttar två rutor och hamnar bredvid en motståndarbonde, får den bonden slå den som om den bara hade flyttat en ruta, men endast i det direkt följande draget.
-- Förvandling: en bonde som når sista raden förvandlas till en dam, ett torn, en löpare eller en springare, som du väljer.
+- Rockad: kungen flyttar två rutor mot ett torn, och tornet hoppar till rutan som kungen passerade. Bara om ingen av dem har flyttat, inget står mellan dem, och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
+- En passant: en bonde som just har flyttat två rutor och hamnat bredvid en motståndarbonde får slås av den som om den bara hade flyttat en ruta, men endast i det direkt följande draget.
+- Förvandling: en bonde som når sista raden blir en dam, ett torn, en löpare eller en springare.
 # Schack och partiets slut
-En kung som är angripen står i schack: nästa drag måste få den ur schack. Du får aldrig göra ett drag som lämnar din egen kung i schack.
+Du får aldrig göra ett drag som lämnar din egen kung i schack (angripen).
 - Schack matt: kungen står i schack och inget drag kan rädda den. Den spelaren förlorar.
-- Patt: spelaren som är vid draget har inget tillåtet drag men står inte i schack. Partiet blir remi.
-- Partiet blir också remi när ingen av sidorna någonsin kan göra matt (för få pjäser kvar), när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag eller bondedrag.
+- Remi: patt (inget tillåtet drag, men inte i schack), för få pjäser kvar för att göra matt, samma ställning för tredje gången, eller femtio drag var utan slag eller bondedrag.
 # Chess960
-Chess960 (Fischers slumpschack) spelas med samma regler, men pjäserna på den bakersta raden börjar i en av 960 uppställningar, som lottas fram för varje parti. Bönderna står som vanligt, och svarts pjäser står mitt emot vits, linje för linje. Löparna står alltid på rutor av olika färg, och kungen någonstans mellan de två tornen.
-- Rockad: kungen och tornet hamnar på samma rutor som i vanligt schack: kungen på g och tornet på f med tornet på h-sidan, kungen på c och tornet på d med tornet på a-sidan. Tillåtet bara om ingen av pjäserna har flyttat än, varje ruta som de passerar eller hamnar på är tom (bortsett från de två själva), och kungen inte står i schack, inte passerar en angripen ruta och inte hamnar i schack.
-- För att rockera flyttar du kungen till tornet som den rockerar med. Du kan också flytta den till dess målruta, utom när kungen skulle kunna gå dit med ett vanligt drag också, eller redan står där.
+Pjäserna på den bakersta raden börjar i slumpvis ordning, löparna på rutor av olika färg och kungen mellan tornen. Rockaden slutar som i vanligt schack (kungen på g och tornet på f, eller kungen på c och tornet på d), och varje ruta som de passerar eller hamnar på måste vara tom, bortsett från de två själva. För att rockera flyttar du kungen till sitt torn.
 # Crazyhouse
-Schack med ytterligare ett slags drag: en pjäs du slår byter sida och hamnar i din reserv, som visas i ditt fält. I stället för att flytta får du sätta in en pjäs från reserven på valfri tom ruta.
-- En bonde får inte sättas in på första eller sista raden. En insättning får ge schack, till och med schackmatt.
-- En förvandlad pjäs som slås går tillbaka till reserven som bonde.
-- Ingen remi för för lite material: ingen pjäs lämnar någonsin spelet.
-- För att sätta in trycker du på pjäsen i ditt fält och sedan på en ruta (prickar visar var den kan sättas), eller drar den till brädet.
+En pjäs du slår byter sida och hamnar i din reserv. I stället för att flytta får du sätta in en pjäs från reserven på valfri tom ruta, även för att ge schack eller matt. Ingen bonde på första eller sista raden. En förvandlad pjäs som slås kommer tillbaka som bonde. Ingen remi för för lite material.
 # Tre schackar
-Schack, men den som först ger schack tre gånger vinner. Schackmatt vinner också. Varje fält har tre platser, och ett rött ljus tänds i en av dem för varje schack spelaren ger.
+Den som först ger schack tre gånger vinner. Schack matt vinner också.
 # Kung på kullen
-Schack, men den spelare vars kung först når en av de fyra mittrutorna (d4, e4, d5, e5), inramade i guld, vinner direkt. Schackmatt vinner också. Kungen får fortfarande aldrig ställa sig i schack.
+Den första kungen som når en av de fyra mittrutorna vinner. Schack matt vinner också.
 # Förlorarschack
-Schack upp och ner: målet är att förlora alla sina pjäser.
-- Det är tvång att slå: kan du slå måste du, men du väljer själv vilket slag.
-- Kungen är en vanlig pjäs: det finns ingen schack, kungen kan slås och det finns ingen rockad. En bonde kan också förvandlas till en kung (väljarens femte val).
-- Du vinner när du inte har några pjäser kvar, eller när du inte kan dra.
-- Partiet är remi när bara löpare är kvar och varje sidas löpare står på rutor av olika färg: de kan aldrig slå varandra.
+Målet är att förlora alla sina pjäser: du vinner när du inte har några kvar, eller när du inte kan dra.
+- Det är tvång att slå, men du väljer själv vilket slag.
+- Kungen är en vanlig pjäs: ingen schack, den kan slås, ingen rockad. En bonde kan också förvandlas till en kung.
+- Bara löpare kvar, och varje sidas löpare på rutor av olika färg: remi.
 # Atomschack
 Varje slag är en explosion: den slagna pjäsen, den slående pjäsen och alla pjäser utom bönder på de åtta rutorna runt omkring försvinner från brädet.
-- Du vinner genom att spränga motståndarens kung, även om din egen kung står i schack. Schack matt vinner också.
-- En kung får inte slå, och inget drag får spränga din egen kung.
-- När de två kungarna står bredvid varandra står ingen av dem i schack: att slå den ena skulle spränga båda.
-- Partiet är remi när ingen sida har tillräckligt med pjäser för att vinna.
+- Att spränga motståndarens kung vinner, även om din egen kung står i schack. Schack matt vinner också.
+- En kung får inte slå, och inget drag får spränga din egen kung. Två kungar bredvid varandra står aldrig i schack.
+- Remi när ingen sida har tillräckligt med pjäser kvar för att vinna.
 # Kungarnas kapplöpning
-Alla pjäser börjar på de två första raderna, sida vid sida, utan bönder. Inget drag får ge schack.
-- Den första kungen som når den sista raden, inramad i guld, vinner.
-- Kommer den vita kungen först har svart fortfarande ett drag: når den svarta kungen också den sista raden blir partiet remi.
+Inga bönder, och inget drag får ge schack. Den första kungen som når den sista raden vinner; kommer den vita kungen dit först och den svarta kungen följer efter i det direkt följande draget blir partiet remi.
 # Horden
-Vit har 36 bönder och ingen kung, mot svarts vanliga armé.
-- Vit vinner genom att göra den svarta kungen matt; svart vinner genom att slå alla vita pjäser.
-- Vita bönder på första raden får också gå två rutor (de kan då inte slås en passant).
-- Vit har ingen kung och står därför aldrig i schack.
-# Spela på enheten
-Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen, ringar slagen. En kung i schack lyser rött. För att rockera, flytta kungen två rutor mot tornet, eller till tornet.
+Vit har 36 bönder och ingen kung, och står därför aldrig i schack. Vit vinner genom schack matt, svart genom att slå alla vita pjäser. Vita bönder på första raden får också gå två rutor (de kan då inte slås en passant).

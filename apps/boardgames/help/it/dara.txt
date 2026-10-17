@@ -1,13 +1,10 @@
 Dara
 # Lo scopo
-Catturare i pezzi dell'avversario finché non gliene restano solo due. Il Dara è un gioco di allineamenti della Nigeria e del Niger, che si gioca su 5 file di 6 buche, spesso scavate nella sabbia. Ogni giocatore ha 12 pezzi. Il chiaro piazza e muove per primo.
+Catturare i pezzi dell'avversario finché non gliene restano solo due. Il chiaro piazza e muove per primo.
 # Piazzamento
 A turno, i giocatori mettono un pezzo in una buca vuota qualsiasi, finché tutti i pezzi sono sul tavoliere. Non puoi mai piazzare un pezzo in modo che tre o più dei tuoi pezzi stiano in fila, in orizzontale o in verticale. Chi non ha più una buca possibile passa; quando nessuno dei due può piazzare, i pezzi rimasti in mano restano fuori dal gioco.
 # Movimento
-Poi, al tuo turno, muovi uno dei tuoi pezzi di una buca in orizzontale o in verticale (mai in diagonale) su una buca vuota. Se la mossa forma una fila di esattamente tre tuoi pezzi, in orizzontale o in verticale, togli dal tavoliere un pezzo nemico a tua scelta. Una fila di quattro non conta. Formare due file con una sola mossa fa comunque togliere un solo pezzo.
+Poi muovi uno dei tuoi pezzi di una buca in orizzontale o in verticale su una buca vuota. Se la mossa forma una fila di esattamente tre tuoi pezzi, togli un pezzo nemico a tua scelta. Una fila di quattro non conta, e formare due file con una sola mossa fa comunque togliere un solo pezzo.
 # La fine della partita
-- Perde chi resta con due pezzi: non potrà mai più formare una fila.
-- Perde chi non può muovere quando è il suo turno.
+- Perde chi resta con due pezzi, o chi non può muovere quando è il suo turno.
 - Dopo 100 mosse di fila (contando quelle di entrambi i giocatori) senza catture, la partita è patta.
-# Giocare sul dispositivo
-Per piazzare, tocca una buca con un punto: le buche senza punto formerebbero una fila di tre. Per muovere, tocca uno dei tuoi pezzi, poi un punto, oppure trascina il pezzo. Un punto in una luce dorata forma una fila di tre. Allora la fila si illumina d'oro e i pezzi che puoi togliere si illuminano di rosso: toccane uno. Durante il piazzamento ogni barra mostra i pezzi ancora in mano; dopo, i pezzi catturati da quel giocatore. Quando restano poche mosse prima della patta, il loro numero compare in fondo alla barra di chi è di turno.

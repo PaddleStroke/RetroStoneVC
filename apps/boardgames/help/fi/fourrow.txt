@@ -1,9 +1,7 @@
 Neljän suora
 # Tavoite
-Saa ensimmäisenä neljä oman värisesi kiekkoa riviin: vaakasuoraan, pystysuoraan tai viistosti.
+Saa ensimmäisenä neljä oman värisesi kiekkoa riviin: vaakasuoraan, pystysuoraan tai viistosti. Vaalea aloittaa.
 # Siirto
-Lauta seisoo pystyssä, ja siinä on seitsemän saraketta. Pudota vuorollasi yksi kiekko sarakkeeseen: se putoaa alimpaan tyhjään reikään. Täyteen sarakkeeseen ei mahdu enää kiekkoja. Vaalea aloittaa.
+Pudota yksi kiekko sarakkeeseen: se putoaa alimpaan tyhjään reikään.
 # Pelin loppu
 Pelaaja, joka saa ensimmäisenä neljä kiekkoa riviin, voittaa. Jos lauta täyttyy ilman neljän suoraa, peli päättyy tasapeliin.
-# Pelaaminen laitteella
-Napauta saraketta tai liu'uta kiekkoasi ylälaitaa pitkin ja päästä irti. Kukin palkki näyttää, montako kiekkoa kyseisellä pelaajalla on jäljellä.

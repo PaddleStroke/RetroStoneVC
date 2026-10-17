@@ -1,57 +1,38 @@
 Ajedrez
 # El objetivo
-Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Las blancas mueven primero; después los jugadores se turnan, una jugada cada uno.
+Dar jaque mate al rey contrario: atacarlo de modo que no pueda escapar. Las blancas mueven primero.
 # Cómo se mueven las piezas
-- Rey: una casilla en cualquier dirección.
-- Dama: cualquier número de casillas en línea recta, por una fila, una columna o una diagonal.
-- Torre: cualquier número de casillas por una fila o una columna.
-- Alfil: cualquier número de casillas por una diagonal.
+- Rey: una casilla en cualquier dirección. Dama: cualquier número de casillas por una fila, una columna o una diagonal. Torre: por una fila o una columna. Alfil: por una diagonal.
 - Caballo: en forma de L, dos casillas en una dirección y una hacia un lado. Es la única pieza que salta por encima de las demás.
 - Peón: una casilla hacia delante, o dos desde su casilla inicial. Captura una casilla en diagonal hacia delante.
-Las piezas no pueden atravesar otras piezas (salvo el caballo). Una pieza captura moviéndose a una casilla ocupada por una pieza contraria, que sale del tablero.
+- Una pieza captura moviéndose sobre una pieza contraria.
 # Jugadas especiales
-- Enroque: el rey se mueve dos casillas hacia una torre, y la torre salta a la casilla que el rey ha cruzado. Solo se permite si ninguna de las dos piezas se ha movido aún, las casillas entre ellas están vacías y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
-- Captura al paso: cuando un peón avanza dos casillas y queda junto a un peón contrario, este puede capturarlo como si hubiera avanzado una sola casilla, pero solo en la jugada inmediatamente siguiente.
-- Promoción: un peón que llega a la última fila se convierte en dama, torre, alfil o caballo, a tu elección.
+- Enroque: el rey se mueve dos casillas hacia una torre, y la torre salta a la casilla que el rey ha cruzado. Solo si ninguna de las dos se ha movido, no hay nada entre ellas y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
+- Captura al paso: un peón que acaba de avanzar dos casillas y queda junto a un peón contrario puede ser capturado por este como si hubiera avanzado una sola, pero solo en la jugada inmediatamente siguiente.
+- Promoción: un peón que llega a la última fila se convierte en dama, torre, alfil o caballo.
 # El jaque y el final de la partida
-Un rey atacado está en jaque: la siguiente jugada debe sacarlo del jaque. Nunca puedes hacer una jugada que deje a tu propio rey en jaque.
+Nunca puedes hacer una jugada que deje a tu propio rey en jaque (atacado).
 - Jaque mate: el rey está en jaque y ninguna jugada puede salvarlo. Ese jugador pierde.
-- Rey ahogado: el jugador al que le toca mover no tiene ninguna jugada legal, pero no está en jaque. La partida termina en tablas.
-- La partida también termina en tablas cuando ningún bando puede ya dar mate (quedan muy pocas piezas), cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas ni movimientos de peón.
+- Tablas: rey ahogado (ninguna jugada legal, pero sin estar en jaque), muy pocas piezas para dar mate, la misma posición por tercera vez, o cincuenta jugadas de cada uno sin capturas ni movimientos de peón.
 # Ajedrez 960
-El ajedrez 960 (ajedrez aleatorio de Fischer) se juega con las mismas reglas, pero las piezas de la primera fila empiezan en uno de 960 órdenes posibles, sorteado en cada partida. Los peones se colocan como siempre, y las piezas negras quedan frente a las blancas, columna por columna. Los alfiles están siempre en casillas de colores opuestos, y el rey en algún lugar entre las dos torres.
-- Enroque: el rey y la torre terminan en las mismas casillas que en el ajedrez normal: el rey en g y la torre en f con la torre del lado h, el rey en c y la torre en d con la torre del lado a. Solo se permite si ninguna de las dos piezas se ha movido aún, todas las casillas que cruzan o en las que terminan están vacías (aparte de ellas dos) y el rey no está en jaque, no cruza una casilla atacada y no termina en jaque.
-- Para enrocar, mueve el rey sobre la torre con la que enroca. También puedes moverlo a su casilla de destino, salvo que el rey pudiera ir allí también con una jugada normal, o que ya esté en ella.
+Las piezas de la primera fila empiezan en un orden al azar, los alfiles en colores opuestos y el rey entre las torres. El enroque termina como en el ajedrez normal (el rey en g y la torre en f, o el rey en c y la torre en d), y todas las casillas que cruzan o en las que terminan deben estar vacías, aparte de ellas dos. Para enrocar, mueve el rey sobre su torre.
 # Crazyhouse
-Ajedrez con un tipo de jugada más: una pieza que capturas cambia de bando y pasa a tu reserva, que se ve en tu barra. En lugar de mover, puedes colocar una pieza de tu reserva en cualquier casilla vacía.
-- Un peón no puede colocarse en la primera ni en la última fila. Una colocación puede dar jaque, e incluso mate.
-- Una pieza coronada que es capturada vuelve a la reserva como peón.
-- No hay tablas por falta de material: ninguna pieza sale nunca del juego.
-- Para colocar, toca la pieza en tu barra y después una casilla (los puntos muestran dónde puede ir), o arrástrala al tablero.
+Una pieza que capturas cambia de bando y pasa a tu reserva. En lugar de mover, puedes colocar una pieza de tu reserva en cualquier casilla vacía, incluso para dar jaque o mate. Ningún peón en la primera ni en la última fila. Una pieza coronada capturada vuelve como peón. No hay tablas por falta de material.
 # Tres jaques
-Ajedrez, pero gana el primer jugador que da jaque tres veces. El mate también gana. Cada barra tiene tres huecos, y se enciende una luz roja en uno de ellos por cada jaque que da ese jugador.
+Gana el primer jugador que da jaque tres veces. El mate también gana.
 # Rey de la colina
-Ajedrez, pero gana al instante el primer jugador cuyo rey llega a una de las cuatro casillas centrales (d4, e4, d5, e5), enmarcadas en oro. El mate también gana. El rey sigue sin poder ponerse en jaque.
+Gana el primer rey que llega a una de las cuatro casillas centrales. El mate también gana.
 # Pierde gana
-El ajedrez al revés: el objetivo es perder todas tus piezas.
-- Capturar es obligatorio: cuando puedes capturar, debes hacerlo, pero eliges qué captura.
-- El rey es una pieza normal: no hay jaque, el rey puede ser capturado y no hay enroque. Un peón también puede coronar en rey (la quinta opción del selector).
-- Ganas cuando no te queda ninguna pieza o cuando no puedes mover.
-- La partida es tablas cuando solo quedan alfiles y los de cada bando están en casillas de distinto color: nunca podrán capturarse.
+El objetivo es perder todas tus piezas: ganas cuando no te queda ninguna o cuando no puedes mover.
+- Capturar es obligatorio, pero eliges qué captura.
+- El rey es una pieza normal: no hay jaque, puede ser capturado y no hay enroque. Un peón también puede coronar en rey.
+- Solo quedan alfiles, los de cada bando en casillas de distinto color: tablas.
 # Atómico
 Cada captura es una explosión: la pieza capturada, la pieza que captura y todas las piezas, salvo los peones, de las ocho casillas de alrededor salen del tablero.
-- Ganas haciendo estallar al rey contrario, aunque tu propio rey esté en jaque. El jaque mate también gana.
-- Un rey no puede capturar, y ninguna jugada puede hacer estallar a tu propio rey.
-- Cuando los dos reyes están uno al lado del otro, ninguno está en jaque: capturar a uno haría estallar a los dos.
-- La partida es tablas cuando ningún bando tiene piezas suficientes para ganar.
+- Hacer estallar al rey contrario gana, aunque tu propio rey esté en jaque. El jaque mate también gana.
+- Un rey no puede capturar, y ninguna jugada puede hacer estallar a tu propio rey. Dos reyes uno al lado del otro nunca están en jaque.
+- Tablas cuando ningún bando tiene piezas suficientes para ganar.
 # Carrera de reyes
-Todas las piezas empiezan en las dos primeras filas, una al lado de otra, sin peones. Ninguna jugada puede dar jaque.
-- Gana el primer rey que llega a la última fila, enmarcada en oro.
-- Si el rey blanco llega primero, las negras aún juegan una vez: si el rey negro también llega a la última fila, la partida es tablas.
+Sin peones, y ninguna jugada puede dar jaque. Gana el primer rey que llega a la última fila; si el rey blanco llega primero y el rey negro lo sigue en la jugada inmediatamente siguiente, son tablas.
 # Horda
-Las blancas tienen 36 peones y ningún rey, contra el ejército habitual de las negras.
-- Las blancas ganan dando mate al rey negro; las negras ganan capturando todas las piezas blancas.
-- Los peones blancos de la primera fila también pueden avanzar dos casillas (entonces no se pueden capturar al paso).
-- Las blancas no tienen rey, así que nunca están en jaque.
-# Jugar en el dispositivo
-Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Un rey en jaque brilla en rojo. Para enrocar, mueve el rey dos casillas hacia la torre, o sobre la torre.
+Las blancas tienen 36 peones y ningún rey, así que nunca están en jaque. Las blancas ganan dando mate, las negras capturando todas las piezas blancas. Los peones blancos de la primera fila también pueden avanzar dos casillas (entonces no se pueden capturar al paso).

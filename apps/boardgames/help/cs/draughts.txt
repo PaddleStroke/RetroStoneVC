@@ -1,55 +1,38 @@
 Dáma
 # Cíl hry
-Vezmi všechny soupeřovy kameny, nebo ho nech bez tahu. Před hrou si vyber pravidla: mezinárodní dáma na desce 10×10, anglická dáma (checkers), ruská, brazilská nebo turecká dáma na desce 8×8. Kameny stojí jen na tmavých polích a pohybují se šikmo, kromě turecké dámy.
+Vezmi všechny soupeřovy kameny, nebo ho nech bez tahu. Kameny stojí na tmavých polích a pohybují se šikmo, kromě turecké dámy.
 # Mezinárodní dáma (10×10)
-- Začíná světlý hráč. Obyčejný kámen se posouvá o jedno pole šikmo vpřed.
-- Obyčejný kámen bere tak, že přeskočí sousední soupeřův kámen na volné pole hned za ním. Obyčejné kameny berou dopředu i dozadu.
-- Braní je povinné a musíš vzít co nejvíce kamenů. Pokud je po skoku z pole, kam kámen dopadl, možné další braní, musí v témže tahu skákat dál.
-- Vzaté kameny se odstraňují až na konci tahu. Žádný kámen nelze přeskočit dvakrát.
+- Začíná světlý hráč. Obyčejné kameny se posouvají o jedno pole šikmo vpřed a berou dopředu i dozadu tak, že přeskočí sousední soupeřův kámen na volné pole hned za ním.
+- Braní je povinné: vezmi co nejvíce kamenů a v témže tahu skákej dál. Vzaté kameny se odstraňují až na konci tahu a žádný kámen nelze přeskočit dvakrát.
 - Obyčejný kámen, který skončí tah na nejvzdálenější řadě, se stane dámou. Dáma se pohybuje o libovolný počet polí po diagonále a bere na dálku: dopadne na kterékoli volné pole za braným kamenem.
-- Remíza: když se stejná pozice zopakuje potřetí, nebo po 25 tazích každé strany, kdy táhly jen dámy a nic se nebralo.
+- Remíza: stejná pozice potřetí, nebo 25 tahů každé strany, kdy táhnou jen dámy a nic se nebere.
 # Anglická dáma (8×8)
-- Začíná tmavý hráč. Obyčejné kameny táhnou a berou jen dopředu.
-- Braní je povinné, ale můžeš si vybrat, které braní provedeš. Jakmile kámen začne skákat, musí cestou vzít všechny kameny, které může.
-- Obyčejný kámen, který dojde na nejvzdálenější řadu, se stane dámou, a tím tah končí. Dáma táhne a bere o jedno pole šikmo libovolným směrem.
-- Remíza: když se stejná pozice zopakuje potřetí, nebo po 40 tazích každé strany bez braní a bez tahu obyčejným kamenem.
+- Začíná tmavý hráč. Obyčejné kameny táhnou a berou jen dopředu. Dámy táhnou a berou o jedno pole šikmo libovolným směrem.
+- Braní je povinné, ale můžeš si vybrat, které braní provedeš. Jakmile kámen začne skákat, musí vzít všechny kameny, které může. Proměna v dámu tah ukončí.
+- Remíza: stejná pozice potřetí, nebo 40 tahů každé strany bez braní a bez tahu obyčejným kamenem.
 # Ruská dáma (8×8)
-- Začíná světlý hráč. Obyčejný kámen se posouvá o jedno pole šikmo vpřed a bere dopředu i dozadu.
-- Dámy táhnou a berou na dálku po diagonálách, jako v mezinárodní dámě. Po braní musí dáma dopadnout na pole, ze kterého může brát dál, pokud takové je.
-- Braní je povinné, ale můžeš si vybrat, které braní provedeš. Jakmile kámen začne skákat, musí cestou vzít všechny kameny, které může.
-- Vzaté kameny se odstraňují až na konci tahu. Žádný kámen nelze přeskočit dvakrát.
-- Obyčejný kámen, který dojde na nejvzdálenější řadu, se stane dámou okamžitě, i uprostřed braní, a pokud může, pokračuje v braní už jako dáma.
-- Remíza: když se stejná pozice zopakuje potřetí, nebo po 15 tazích každé strany, kdy táhly jen dámy a nic se nebralo.
+- Jako mezinárodní dáma, ale můžeš si vybrat, které braní provedeš. Jakmile kámen začne skákat, musí vzít všechny kameny, které může.
+- Po braní musí dáma dopadnout na pole, ze kterého může brát dál, pokud takové je.
+- Obyčejný kámen, který dojde na nejvzdálenější řadu, se stane dámou okamžitě, i uprostřed braní, a pokračuje v braní už jako dáma.
+- Remíza: stejná pozice potřetí, nebo 15 tahů každé strany, kdy táhnou jen dámy a nic se nebere.
 # Brazilská dáma (8×8)
-- Pravidla mezinárodní dámy na desce 8×8. Začíná světlý hráč.
-- Obyčejné kameny berou dopředu i dozadu, dámy táhnou a berou na dálku a musíš vzít co nejvíce kamenů.
-- Obyčejný kámen se stane dámou, jen pokud skončí tah na nejvzdálenější řadě.
-- Remíza: když se stejná pozice zopakuje potřetí, nebo po 20 tazích každé strany, kdy táhly jen dámy a nic se nebralo.
+Pravidla mezinárodní dámy na desce 8×8. Remíza: stejná pozice potřetí, nebo 20 tahů každé strany, kdy táhnou jen dámy a nic se nebere.
 # Turecká dáma (8×8)
-- Hraje se na všech 64 polích. Každý hráč začíná se 16 obyčejnými kameny na své druhé a třetí řadě. Začíná světlý hráč.
-- Obyčejný kámen táhne o jedno pole rovně vpřed nebo do strany, nikdy šikmo a nikdy zpět. Bere stejně: přeskočí sousední soupeřův kámen na volné pole hned za ním.
-- Obyčejný kámen, který dojde na nejvzdálenější řadu, se stane dámou. Dáma táhne o libovolný počet polí po řadě nebo sloupci a bere na dálku: dopadne na kterékoli volné pole za braným kamenem.
-- Braní je povinné a musíš vzít co nejvíce kamenů.
-- Každý vzatý kámen se odstraní hned, jakmile je přeskočen. Při braní více kamenů se kámen nesmí obrátit přímo zpět směrem, odkud přišel.
-- Remíza: když se stejná pozice zopakuje potřetí, nebo po 25 tazích každé strany bez braní a bez tahu obyčejným kamenem.
+- Hraje se na všech 64 polích: každý má 16 obyčejných kamenů na své druhé a třetí řadě. Začíná světlý hráč.
+- Obyčejné kameny táhnou a berou o jedno pole rovně vpřed nebo do strany. Dámy táhnou o libovolný počet polí po řadě nebo sloupci a berou na dálku.
+- Braní je povinné: vezmi co nejvíce kamenů. Každý vzatý kámen se odstraní hned a kámen, který bere, se nesmí obrátit přímo zpět.
+- Remíza: stejná pozice potřetí, nebo 25 tahů každé strany bez braní a bez tahu obyčejným kamenem.
 # Fríská dáma (10×10)
-- Začíná světlý hráč. Obyčejný kámen se posouvá o jedno pole šikmo vpřed, jako v mezinárodní dámě.
-- Kameny i dámy berou také rovně po řadách a sloupcích: přes soupeřův kámen na nejbližším tmavém poli, o dvě pole dál, na tmavé pole hned za ním. Obyčejné kameny berou i dozadu.
-- Dáma táhne o libovolný počet polí po diagonále a bere na dálku ve všech osmi směrech.
-- Braní je povinné a musíš vzít nejcennější kameny: dáma má větší cenu než jeden kámen, ale menší než dva. Pokud dáma a obyčejný kámen mohou vzít stejnou hodnotu, musí brát dáma.
-- Kámen, který skončí tah na poslední řadě, se mění v dámu.
-- Dokud máš obyčejné kameny, smí stejná dáma táhnout nejvýš třikrát po sobě bez braní; pak musí táhnout jiný kámen.
-- Remíza: když stojí dvě dámy proti jedné a každý odehrál sedm tahů, když stojí dáma proti dámě a každý odehrál dva tahy, nebo když se stejná pozice objeví potřetí.
+- Mezinárodní dáma, ale kameny i dámy berou také rovně po řadách a sloupcích, přes soupeřův kámen o dvě pole dál na tmavé pole hned za ním. Dámy berou na dálku ve všech osmi směrech.
+- Musíš vzít nejcennější kameny: dáma má větší cenu než jeden kámen, ale menší než dva. Pokud dáma a obyčejný kámen mohou vzít stejnou hodnotu, musí brát dáma.
+- Dokud máš obyčejné kameny, smí stejná dáma táhnout nejvýš třikrát po sobě bez braní.
+- Remíza: dvě dámy proti jedné po sedmi tazích každého, dáma proti dámě po dvou tazích každého, nebo stejná pozice potřetí.
 # Kanadská dáma (12×12)
 Pravidla mezinárodní dámy na desce 12×12, každý hráč má 30 kamenů.
 # Bašni (8×8)
-Ruská sloupcová dáma: pravidla ruské dámy, ale vzaté kameny zůstávají ve hře.
-- Braní odebere jen horní kámen přeskočeného sloupce a dá ho pod sloupec, který bere. Kameny pod ním zůstanou stát a poslouchají svůj nový horní kámen.
-- Sloupec patří hráči, jehož kámen je nahoře, a táhne jako ten kámen, jako obyčejný kámen nebo jako dáma. V dámu se mění jen horní kámen.
-- Stejný sloupec lze v jednom braní přeskočit jen jednou. Vzaté kameny přejdou pod sloupec, který bere, na konci tahu.
-- Každá lišta ukazuje, kolik soupeřových kamenů má hráč ve svých sloupcích. Kdo nemůže táhnout, prohrává, i když má kameny pod soupeřovými sloupci.
-- Remíza: jako v ruské dámě.
+Ruská dáma, ale vzaté kameny zůstávají ve hře.
+- Braní odebere jen horní kámen přeskočeného sloupce a na konci tahu ho dá pod sloupec, který bere. Kameny pod ním zůstanou stát a poslouchají svůj nový horní kámen.
+- Sloupec patří hráči, jehož kámen je nahoře, a táhne jako ten kámen. V dámu se mění jen horní kámen. Stejný sloupec lze v jednom braní přeskočit jen jednou.
+- Kdo nemůže táhnout, prohrává, i když má kameny pod soupeřovými sloupci. Remízy jako v ruské dámě.
 # Konec hry
 Hráč, kterému nezbyl žádný kámen nebo který nemůže táhnout, prohrává.
-# Hra na zařízení
-Zvednout lze jen kameny, které mohou táhnout. Klepni na kámen a pak na pole, kam dopadne. Při braní více kamenů klepni postupně na každé pole dopadu, nebo jen na poslední. Kameny, které budou brány, blednou.

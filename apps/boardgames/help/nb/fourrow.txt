@@ -1,9 +1,7 @@
 Fire på rad
 # Målet
-Bli den første til å få fire brikker i din farge på rad: vannrett, loddrett eller diagonalt.
+Bli den første til å få fire brikker i din farge på rad: vannrett, loddrett eller diagonalt. Den lyse siden begynner.
 # Et trekk
-Brettet står oppreist med sju kolonner. Når det er din tur, slipper du én brikke ned i en kolonne: den faller ned til det laveste tomme hullet. En full kolonne kan ikke ta imot flere brikker. Den lyse siden begynner.
+Slipp én brikke ned i en kolonne: den faller ned til det laveste tomme hullet.
 # Slutten på spillet
 Den første spilleren med fire brikker på rad vinner. Hvis brettet blir fullt uten noen rad med fire, blir det uavgjort.
-# Spill på enheten
-Trykk på en kolonne, eller skyv brikken din langs toppen og slipp. Hvert panel viser hvor mange brikker den spilleren har igjen.

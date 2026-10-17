@@ -1,19 +1,14 @@
 Fanorona
 # Tujuan
-Makan semua bidak lawan. Setiap pemain punya dua puluh dua bidak. Pihak terang jalan lebih dulu.
-# Papan
-Empat puluh lima titik yang dihubungkan oleh garis, sembilan ke samping dan lima ke depan: setiap baris, setiap kolom, dan diagonal yang digambar di papan. Bidak setiap pemain mengisi dua baris terdekat dengannya; di baris tengah warnanya berselang-seling, dan hanya titik pusat yang kosong.
+Makan semua bidak lawan. Pihak terang jalan lebih dulu.
 # Menggerakkan
-Saat giliranmu, gerakkan salah satu bidakmu di sepanjang garis ke titik berikutnya, jika titik itu kosong. Langkah yang tidak memakan apa pun (paika) hanya boleh dilakukan jika tidak ada makan yang mungkin di mana pun di papan.
+Gerakkan salah satu bidakmu di sepanjang garis ke titik berikutnya, jika titik itu kosong. Langkah yang tidak memakan apa pun hanya boleh dilakukan jika tidak ada makan yang mungkin di mana pun di papan.
 # Memakan
 Bidak memakan tanpa melompat, dengan dua cara:
 - Mendekat: melangkahlah ke arah bidak lawan sehingga kamu berhenti tepat di sebelahnya pada garis yang sama. Bidak itu dimakan, begitu juga setiap bidak lawan yang berada tepat di belakangnya pada garis itu, sampai celah pertama atau bidakmu sendiri.
 - Menjauh: melangkahlah lurus menjauhi bidak lawan yang tadinya tepat di sebelahmu. Bidak itu dimakan bersama barisan bidak lawan tanpa celah di belakangnya.
-- Jika satu langkah bisa melakukan keduanya, kamu memilih barisan mana yang dimakan.
-- Memakan itu wajib: jika kamu bisa memakan, kamu harus melakukannya. Kamu boleh memilih makan yang mana saja, tidak harus yang terbesar.
-- Setelah memakan, bidak yang sama boleh terus memakan dalam giliran yang sama, selangkah demi selangkah. Bidak itu tidak boleh kembali ke titik yang sudah pernah ditempatinya dalam giliran ini, dan tidak boleh bergerak dua kali berturut-turut ke arah yang sama. Meneruskan tidak wajib: kamu boleh berhenti kapan saja.
+- Jika satu langkah bisa melakukan keduanya, kamu yang memilih. Memakan itu wajib, tetapi kamu boleh memilih makan yang mana saja, tidak harus yang terbesar.
+- Setelah memakan, bidak yang sama boleh terus memakan, selangkah demi selangkah, tetapi tidak pernah kembali ke titik yang sudah ditempatinya dalam giliran ini, dan tidak pernah dua kali berturut-turut ke arah yang sama. Kamu boleh berhenti kapan saja: ketuk bidak itu.
 # Akhir permainan
 - Pemain yang kehilangan semua bidaknya, atau tidak bisa melangkah, kalah.
 - Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa memakan.
-# Bermain di perangkat
-Ketuk bidakmu lalu titik barunya, atau seret bidak itu. Titik menunjukkan ke mana bidak itu bisa pergi, cincin menunjukkan bidak yang akan dimakannya: kamu juga bisa langsung mengetuk bidak bercincin. Jika satu langkah bisa memakan salah satu dari dua barisan, bidak itu maju dan kedua barisan diberi cincin: ketuk barisan yang kamu inginkan. Dalam rangkaian makan, bidakmu tetap terangkat; untuk berhenti, ketuk bidak itu, atau tombol pas di bilahmu.

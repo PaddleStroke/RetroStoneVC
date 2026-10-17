@@ -1,57 +1,38 @@
 Catur
 # Tujuan
-Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Putih jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu langkah.
+Skakmat raja lawan: serang raja itu sehingga tidak bisa lolos. Putih jalan lebih dulu.
 # Cara bidak bergerak
-- Raja: satu petak ke arah mana pun.
-- Menteri: berapa pun petak dalam garis lurus, sepanjang baris, kolom, atau diagonal.
-- Benteng: berapa pun petak sepanjang baris atau kolom.
-- Gajah: berapa pun petak sepanjang diagonal.
+- Raja: satu petak ke arah mana pun. Menteri: berapa pun petak sepanjang baris, kolom, atau diagonal. Benteng: sepanjang baris atau kolom. Gajah: sepanjang diagonal.
 - Kuda: berbentuk L, dua petak ke satu arah lalu satu petak ke samping. Kuda adalah satu-satunya bidak yang bisa melompati bidak lain.
 - Pion: satu petak maju, atau dua petak dari petak awalnya. Pion memakan satu petak secara diagonal ke depan.
-Bidak tidak bisa melewati bidak lain (kecuali kuda). Bidak memakan dengan pindah ke petak yang ditempati bidak lawan, yang kemudian keluar dari papan.
+- Bidak memakan dengan pindah ke petak bidak lawan.
 # Langkah khusus
-- Rokade: raja bergerak dua petak ke arah benteng, dan benteng melompat ke petak yang dilewati raja. Hanya boleh jika kedua bidak itu belum pernah bergerak, petak di antara keduanya kosong, dan raja tidak sedang diskak, tidak melewati petak yang diserang, dan tidak berakhir dalam keadaan skak.
-- En passant: jika pion maju dua petak dan berhenti tepat di samping pion lawan, pion lawan itu boleh memakannya seolah-olah pion tadi hanya maju satu petak, tetapi hanya pada langkah tepat berikutnya.
-- Promosi: pion yang mencapai baris terakhir berubah menjadi menteri, benteng, gajah, atau kuda sesuai pilihanmu.
+- Rokade: raja bergerak dua petak ke arah benteng, dan benteng melompat ke petak yang dilewati raja. Hanya jika keduanya belum pernah bergerak, tidak ada apa pun di antara keduanya, dan raja tidak sedang diskak, tidak melewati petak yang diserang, dan tidak berakhir dalam keadaan skak.
+- En passant: pion yang baru saja maju dua petak dan berhenti di samping pion lawan boleh dimakan oleh pion itu seolah-olah hanya maju satu petak, tetapi hanya pada langkah tepat berikutnya.
+- Promosi: pion yang mencapai baris terakhir berubah menjadi menteri, benteng, gajah, atau kuda.
 # Skak dan akhir permainan
-Raja yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan rajamu sendiri dalam keadaan skak.
+Kamu tidak boleh membuat langkah yang membiarkan rajamu sendiri dalam keadaan skak (diserang).
 - Skakmat: raja sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah.
-- Pat: pemain yang mendapat giliran tidak punya langkah sah, tetapi tidak sedang diskak. Permainan berakhir remis.
-- Permainan juga berakhir remis jika tidak ada pihak yang bisa memberi skakmat (bidak yang tersisa terlalu sedikit), jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa memakan bidak atau menggerakkan pion.
+- Remis: pat (tidak ada langkah sah, tetapi tidak sedang diskak), bidak yang tersisa terlalu sedikit untuk skakmat, posisi yang sama untuk ketiga kalinya, atau lima puluh langkah masing-masing tanpa memakan bidak atau menggerakkan pion.
 # Catur960
-Catur960 (catur acak Fischer) dimainkan dengan aturan yang sama, tetapi bidak-bidak di baris belakang mulai dalam salah satu dari 960 susunan, yang diundi secara acak untuk setiap permainan. Pion berdiri seperti biasa, dan bidak Hitam berhadapan dengan bidak Putih, lajur demi lajur. Kedua gajah selalu berdiri di petak yang warnanya berlawanan, dan raja di suatu tempat di antara kedua benteng.
-- Rokade: raja dan benteng berakhir di petak yang sama seperti dalam catur biasa: raja di g dan benteng di f dengan benteng sisi h, raja di c dan benteng di d dengan benteng sisi a. Hanya boleh jika kedua bidak itu belum pernah bergerak, setiap petak yang dilewati atau ditempati keduanya kosong (selain oleh kedua bidak itu sendiri), dan raja tidak sedang diskak, tidak melewati petak yang diserang, dan tidak berakhir dalam keadaan skak.
-- Untuk rokade, pindahkan raja ke atas benteng yang menjadi pasangan rokadenya. Kamu juga boleh memindahkannya ke petak tujuannya, kecuali jika raja juga bisa ke sana dengan langkah biasa, atau raja sudah berada di sana.
+Bidak baris belakang mulai dalam susunan acak, kedua gajah di petak berwarna berlawanan dan raja di antara kedua benteng. Rokade berakhir seperti dalam catur biasa (raja di g dan benteng di f, atau raja di c dan benteng di d), dan setiap petak yang dilewati atau ditempati keduanya harus kosong, selain oleh kedua bidak itu sendiri. Untuk rokade, pindahkan raja ke atas bentengnya.
 # Crazyhouse
-Catur dengan satu jenis langkah tambahan: buah yang kamu makan berganti pihak dan masuk ke cadanganmu, yang tampil di bilahmu. Alih-alih melangkah, kamu boleh menurunkan buah dari cadangan ke petak kosong mana saja.
-- Pion tidak boleh diturunkan di baris pertama atau terakhir. Penurunan boleh memberi skak, bahkan skakmat.
-- Buah hasil promosi yang dimakan kembali ke cadangan sebagai pion.
-- Tidak ada remis karena bahan kurang: tak ada buah yang pernah keluar dari permainan.
-- Untuk menurunkan buah, ketuk buah itu di bilahmu, lalu sebuah petak (titik-titik menunjukkan tempat yang bisa), atau seret ke papan.
+Buah yang kamu makan berganti pihak dan masuk ke cadanganmu. Alih-alih melangkah, kamu boleh menurunkan buah dari cadangan ke petak kosong mana saja, bahkan untuk memberi skak atau skakmat. Pion tidak boleh di baris pertama atau terakhir. Buah hasil promosi yang dimakan kembali sebagai pion. Tidak ada remis karena bahan kurang.
 # Tiga skak
-Catur, tetapi pemain pertama yang memberi skak tiga kali menang. Skakmat juga menang. Setiap bilah punya tiga tempat, dan satu lampu merah menyala di salah satunya untuk setiap skak yang diberikan pemain itu.
+Pemain pertama yang memberi skak tiga kali menang. Skakmat juga menang.
 # Raja Bukit
-Catur, tetapi pemain pertama yang rajanya mencapai salah satu dari empat petak tengah (d4, e4, d5, e5), yang berbingkai emas, langsung menang. Skakmat juga menang. Raja tetap tidak boleh melangkah ke petak yang terkena skak.
+Raja pertama yang mencapai salah satu dari empat petak tengah menang. Skakmat juga menang.
 # Kalah jadi menang
-Catur terbalik: tujuannya adalah kehilangan semua bidakmu.
-- Memakan wajib: kalau kamu bisa memakan, kamu harus memakan, tetapi kamu boleh memilih yang mana.
-- Raja adalah bidak biasa: tidak ada skak, raja bisa dimakan, dan tidak ada rokade. Pion juga bisa dipromosikan menjadi raja (pilihan kelima di pemilih).
-- Kamu menang kalau bidakmu sudah habis, atau kalau kamu tidak bisa melangkah.
-- Permainan seri kalau yang tersisa hanya gajah dan gajah tiap pihak berdiri di petak berwarna berbeda: mereka tidak akan pernah bisa saling memakan.
+Tujuannya adalah kehilangan semua bidakmu: kamu menang kalau bidakmu sudah habis, atau kalau kamu tidak bisa melangkah.
+- Memakan wajib, tetapi kamu boleh memilih yang mana.
+- Raja adalah bidak biasa: tidak ada skak, raja bisa dimakan, dan tidak ada rokade. Pion juga bisa dipromosikan menjadi raja.
+- Hanya tersisa gajah, dan gajah tiap pihak berdiri di petak berwarna berbeda: seri.
 # Catur atom
 Setiap makan adalah ledakan: bidak yang dimakan, bidak yang memakan, dan semua bidak kecuali pion di delapan petak sekelilingnya keluar dari papan.
-- Kamu menang dengan meledakkan raja lawan, meskipun rajamu sendiri sedang diskak. Skakmat juga menang.
-- Raja tidak boleh memakan, dan tidak ada langkah yang boleh meledakkan rajamu sendiri.
-- Kalau kedua raja berdiri bersebelahan, tidak ada yang terkena skak: memakan salah satunya akan meledakkan keduanya.
-- Permainan seri kalau tidak ada pihak yang punya cukup bidak untuk menang.
+- Meledakkan raja lawan menang, meskipun rajamu sendiri sedang diskak. Skakmat juga menang.
+- Raja tidak boleh memakan, dan tidak ada langkah yang boleh meledakkan rajamu sendiri. Dua raja yang bersebelahan tidak pernah terkena skak.
+- Seri kalau tidak ada pihak yang punya cukup bidak untuk menang.
 # Balapan raja
-Semua bidak mulai di dua baris pertama, berdampingan, tanpa pion. Tidak ada langkah yang boleh memberi skak.
-- Raja pertama yang mencapai baris terakhir, yang berbingkai emas, menang.
-- Kalau raja putih tiba lebih dulu, hitam masih punya satu langkah: kalau raja hitam juga mencapai baris terakhir, permainan seri.
+Tanpa pion, dan tidak ada langkah yang boleh memberi skak. Raja pertama yang mencapai baris terakhir menang; kalau raja putih tiba lebih dulu dan raja hitam menyusul pada langkah tepat berikutnya, permainan seri.
 # Gerombolan
-Putih punya 36 pion dan tanpa raja, melawan pasukan biasa milik hitam.
-- Putih menang dengan men-skakmat raja hitam; hitam menang dengan memakan semua bidak putih.
-- Pion putih di baris pertama juga boleh maju dua petak (setelah itu tidak bisa dimakan en passant).
-- Putih tidak punya raja, jadi tidak pernah terkena skak.
-# Bermain di perangkat
-Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk petak tujuan, atau seret bidaknya. Titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Raja yang diskak menyala merah. Untuk rokade, gerakkan raja dua petak ke arah benteng, atau ke atas benteng.
+Putih punya 36 pion dan tanpa raja, jadi tidak pernah terkena skak. Putih menang dengan skakmat, hitam dengan memakan semua bidak putih. Pion putih di baris pertama juga boleh maju dua petak (setelah itu tidak bisa dimakan en passant).

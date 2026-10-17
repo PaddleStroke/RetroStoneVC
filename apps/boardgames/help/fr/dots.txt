@@ -1,11 +1,9 @@
 Pipopipette
 # Le but
-Remporter plus de carrés que l'autre joueur. Le plateau est une grille de points. Choisis sa taille avant la partie : 3 sur 3 carrés pour une partie rapide, 5 sur 5, ou 7 sur 7. Le joueur clair commence.
+Remporter plus de carrés que l'autre joueur. Le joueur clair commence.
 # Un tour
-- Trace un trait entre deux points voisins, horizontalement ou verticalement. Chaque trait ne peut être tracé qu'une seule fois.
-- Si ton trait ferme le quatrième côté d'un carré, le carré est à toi : il prend ta couleur. Un seul trait peut fermer deux carrés à la fois.
+- Trace un trait entre deux points voisins, horizontalement ou verticalement.
+- Si ton trait ferme le quatrième côté d'un carré, le carré est à toi. Un seul trait peut fermer deux carrés à la fois.
 - Chaque fois que tu fermes un carré, tu dois tracer un autre trait. Ton tour se termine par un trait qui ne ferme aucun carré.
 # La fin de la partie
-La partie se termine quand tous les traits sont tracés. Le joueur qui a le plus de carrés gagne. Chaque plateau a un nombre impair de carrés, il y a donc toujours un gagnant.
-# Jouer sur l'appareil
-Touche entre deux points pour y tracer le trait. Garde le doigt appuyé pour voir quel trait ce sera, fais-le glisser pour en choisir un autre, et lève-le pour tracer. Le dernier trait tracé est éclairé, ainsi que les carrés qu'il a fermés. Chaque barre indique combien de carrés a ce joueur.
+Quand tous les traits sont tracés, le joueur qui a le plus de carrés gagne. Il y a toujours un gagnant.

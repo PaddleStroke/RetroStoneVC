@@ -1,13 +1,10 @@
 Dara
 # Amaç
-Rakibin pullarını, elinde yalnızca iki pul kalana kadar almak. Dara, Nijerya ve Nijer'den gelen bir sıra oyunudur; çoğu zaman kuma kazılmış, 6 çukurlu 5 sıra üzerinde oynanır. Her oyuncunun 12 pulu vardır. Yerleştirmeye ve oynamaya açık renk başlar.
+Rakibin pullarını, elinde yalnızca iki pul kalana kadar almak. Yerleştirmeye ve oynamaya açık renk başlar.
 # Yerleştirme
 Oyuncular sırayla boş bir çukura bir pul koyar, bütün pullar tahtaya konana kadar. Bir pulu asla, üç ya da daha fazla pulun yatay ya da dikey olarak yan yana gelecek biçimde koyamazsın. Uygun çukuru kalmayan oyuncu pas geçer; ikisi de koyamazsa elde kalan pullar oyun dışında kalır.
 # Hareket
-Sonra sıran geldiğinde pullarından birini yatay ya da dikey (asla çapraz değil) bir çukur, boş bir çukura götür. Hamle, yatay ya da dikey olarak tam üç pulundan oluşan bir sıra yaparsa, rakibin istediğin bir pulunu tahtadan al. Dörtlü sıra sayılmaz. Tek hamleyle iki sıra yapmak da yine yalnızca bir pul aldırır.
+Sonra pullarından birini yatay ya da dikey bir çukur, boş bir çukura götür. Hamle tam üç pulundan oluşan bir sıra yaparsa, rakibin istediğin bir pulunu al. Dörtlü sıra sayılmaz ve tek hamleyle yapılan iki sıra da yine yalnızca bir pul aldırır.
 # Oyunun sonu
-- İki pulu kalan oyuncu kaybeder: bir daha asla sıra yapamaz.
-- Sırası geldiğinde hamle yapamayan oyuncu kaybeder.
+- İki pulu kalan ya da sırası geldiğinde hamle yapamayan oyuncu kaybeder.
 - Arka arkaya 100 hamle boyunca (iki oyuncunun hamleleri birlikte sayılır) pul alınmazsa oyun berabere biter.
-# Cihazda oynamak
-Pul koymak için noktalı bir çukura dokun: noktasız çukurlar üçlü bir sıra yapardı. Oynamak için pullarından birine, sonra bir noktaya dokun ya da pulu sürükle. Altın ışıklı bir nokta üçlü sıra yapar. O zaman sıra altın gibi parlar ve alabileceğin pullar kırmızı parlar: birine dokun. Yerleştirme sırasında her şerit elde kalan pulları, sonra da o oyuncunun aldığı pulları gösterir. Beraberliğe az hamle kaldığında, kalan sayı sırası gelenin şeridinin sonunda görünür.

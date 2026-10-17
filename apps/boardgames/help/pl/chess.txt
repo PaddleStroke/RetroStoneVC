@@ -1,57 +1,38 @@
 Szachy
 # Cel gry
-Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Białe zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+Zamatuj króla przeciwnika: zaatakuj go tak, aby nie mógł uciec. Białe zaczynają.
 # Jak poruszają się bierki
-- Król: o jedno pole w dowolnym kierunku.
-- Hetman: o dowolną liczbę pól w linii prostej: w poziomie, w pionie lub po przekątnej.
-- Wieża: o dowolną liczbę pól w poziomie lub w pionie.
-- Goniec: o dowolną liczbę pól po przekątnej.
+- Król: o jedno pole w dowolnym kierunku. Hetman: o dowolną liczbę pól w poziomie, w pionie lub po przekątnej. Wieża: w poziomie lub w pionie. Goniec: po przekątnej.
 - Skoczek: po literze L, dwa pola w jednym kierunku i jedno pole w bok. To jedyna bierka, która przeskakuje nad innymi.
 - Pion: o jedno pole do przodu lub o dwa ze swojego pola początkowego. Bije o jedno pole na ukos do przodu.
-Bierki nie mogą przechodzić przez inne bierki (z wyjątkiem skoczka). Bierka bije, wchodząc na pole zajęte przez bierkę przeciwnika, która schodzi z planszy.
+- Bierka bije, wchodząc na pole zajęte przez bierkę przeciwnika.
 # Ruchy specjalne
-- Roszada: król przesuwa się o dwa pola w stronę wieży, a wieża przeskakuje na pole, przez które przeszedł król. Dozwolona tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, pola między nimi są puste, a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
-- Bicie w przelocie: gdy pion przesunie się o dwa pola i stanie obok piona przeciwnika, ten pion może go zbić tak, jakby tamten przesunął się tylko o jedno pole, ale wyłącznie w bezpośrednio następnym ruchu.
-- Promocja: pion, który dojdzie do ostatniego rzędu, zamienia się w wybranego przez ciebie hetmana, wieżę, gońca lub skoczka.
+- Roszada: król przesuwa się o dwa pola w stronę wieży, a wieża przeskakuje na pole, przez które przeszedł król. Tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, nic między nimi nie stoi, a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
+- Bicie w przelocie: pion, który właśnie przesunął się o dwa pola i stanął obok piona przeciwnika, może zostać przez niego zbity tak, jakby przesunął się tylko o jedno pole, ale wyłącznie w bezpośrednio następnym ruchu.
+- Promocja: pion, który dojdzie do ostatniego rzędu, zamienia się w hetmana, wieżę, gońca lub skoczka.
 # Szach i koniec partii
-Atakowany król jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny król byłby szachowany.
+Nigdy nie możesz wykonać ruchu, po którym twój własny król byłby szachowany (atakowany).
 - Mat: król jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
-- Pat: gracz, który ma ruch, nie ma żadnego dozwolonego ruchu, ale nie jest szachowany. Partia kończy się remisem.
-- Partia kończy się remisem także wtedy, gdy żadna ze stron nie jest w stanie dać mata (zostało za mało bierek), gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia i bez ruchu pionem.
+- Remis: pat (brak dozwolonego ruchu, ale bez szacha), za mało bierek, by dać mata, ta sama pozycja po raz trzeci, albo pięćdziesiąt ruchów każdej ze stron bez bicia i bez ruchu pionem.
 # Chess960
-Chess960 (szachy losowe Fischera) toczą się według tych samych zasad, ale bierki z tylnego rzędu zaczynają w jednym z 960 ustawień, losowanym na każdą partię. Piony stoją jak zwykle, a bierki czarnych stoją naprzeciw bierek białych, kolumna w kolumnę. Gońce zawsze stoją na polach przeciwnego koloru, a król gdzieś między dwiema wieżami.
-- Roszada: król i wieża kończą na tych samych polach co w zwykłych szachach: król na g, a wieża na f przy roszadzie z wieżą od strony h; król na c, a wieża na d przy roszadzie z wieżą od strony a. Dozwolona tylko wtedy, gdy żadna z tych bierek jeszcze się nie ruszała, każde pole, przez które przechodzą lub na którym stają, jest puste (poza nimi dwiema), a król nie jest szachowany, nie przechodzi przez atakowane pole i nie staje na szachowanym polu.
-- Aby wykonać roszadę, przesuń króla na wieżę, z którą ją wykonuje. Możesz też przesunąć go na jego pole docelowe, chyba że król mógłby tam pójść także zwykłym ruchem albo już tam stoi.
+Bierki z tylnego rzędu zaczynają w losowym ustawieniu, gońce na polach przeciwnego koloru, a król między wieżami. Roszada kończy się jak w zwykłych szachach (król na g i wieża na f albo król na c i wieża na d), a każde pole, przez które przechodzą lub na którym stają, musi być puste (poza nimi dwiema). Aby wykonać roszadę, przesuń króla na jego wieżę.
 # Crazyhouse
-Szachy z jeszcze jednym rodzajem ruchu: zbita przez ciebie bierka zmienia stronę i trafia do twojego zapasu, widocznego na twoim pasku. Zamiast ruchu możesz postawić bierkę z zapasu na dowolnym pustym polu.
-- Pionka nie wolno postawić na pierwszej ani ostatniej linii. Postawienie może dać szacha, a nawet mata.
-- Promowana bierka, gdy zostanie zbita, wraca do zapasu jako pionek.
-- Nie ma remisu z braku materiału: żadna bierka nigdy nie opuszcza gry.
-- Aby postawić bierkę, dotknij jej na swoim pasku, a potem pola (kropki pokazują, gdzie może stanąć), albo przeciągnij ją na szachownicę.
+Zbita przez ciebie bierka zmienia stronę i trafia do twojego zapasu. Zamiast ruchu możesz postawić bierkę z zapasu na dowolnym pustym polu, nawet dając szacha lub mata. Pionka nie wolno postawić na pierwszej ani ostatniej linii. Zbita promowana bierka wraca jako pionek. Nie ma remisu z braku bierek.
 # Trzy szachy
-Szachy, ale wygrywa gracz, który pierwszy da szacha trzy razy. Mat też wygrywa. Każdy pasek ma trzy miejsca i w jednym z nich zapala się czerwone światło za każdego szacha danego przez tego gracza.
+Wygrywa gracz, który pierwszy da szacha trzy razy. Mat też wygrywa.
 # Król wzgórza
-Szachy, ale od razu wygrywa gracz, którego król pierwszy dotrze na jedno z czterech środkowych pól (d4, e4, d5, e5), obramowanych złotem. Mat też wygrywa. Król nadal nie może wejść pod szacha.
+Wygrywa król, który pierwszy dotrze na jedno z czterech środkowych pól. Mat też wygrywa.
 # Szachy na przegraną
-Szachy na odwrót: celem jest stracić wszystkie swoje bierki.
-- Bicie jest obowiązkowe: gdy możesz bić, musisz, ale sam wybierasz, które bicie.
-- Król jest zwykłą bierką: nie ma szacha, króla można zbić i nie ma roszady. Pionek może też awansować na króla (piąty wybór w okienku).
-- Wygrywasz, gdy nie zostanie ci żadna bierka albo gdy nie możesz wykonać ruchu.
-- Partia kończy się remisem, gdy zostały same gońce, a gońce każdej strony stoją na polach różnego koloru: nigdy nie mogą się zbić.
+Celem jest stracić wszystkie swoje bierki: wygrywasz, gdy nie zostanie ci żadna albo gdy nie możesz wykonać ruchu.
+- Bicie jest obowiązkowe, ale sam wybierasz, które bicie.
+- Król jest zwykłą bierką: nie ma szacha, króla można zbić i nie ma roszady. Pionek może też awansować na króla.
+- Zostały same gońce, a gońce każdej strony stoją na polach różnego koloru: remis.
 # Szachy atomowe
 Każde bicie to wybuch: zbita bierka, bierka, która bije, i wszystkie bierki oprócz pionków na ośmiu sąsiednich polach znikają z szachownicy.
 - Wygrywasz, wysadzając króla przeciwnika, nawet jeśli twój król jest szachowany. Mat też wygrywa.
-- Król nie może bić i żaden ruch nie może wysadzić twojego własnego króla.
-- Gdy obaj królowie stoją obok siebie, żaden nie jest szachowany: zbicie jednego wysadziłoby obu.
-- Partia kończy się remisem, gdy żadna ze stron nie ma dość bierek, by wygrać.
+- Król nie może bić i żaden ruch nie może wysadzić twojego własnego króla. Dwaj królowie stojący obok siebie nigdy nie są szachowani.
+- Remis, gdy żadna ze stron nie ma dość bierek, by wygrać.
 # Wyścig królów
-Wszystkie bierki zaczynają na dwóch pierwszych rzędach, obok siebie, bez pionków. Żaden ruch nie może dać szacha.
-- Wygrywa pierwszy król, który dotrze do ostatniego rzędu, obramowanego złotem.
-- Jeśli biały król dotrze tam pierwszy, czarne mają jeszcze jeden ruch: jeśli czarny król też dotrze do ostatniego rzędu, partia kończy się remisem.
+Bez pionków i żaden ruch nie może dać szacha. Wygrywa pierwszy król, który dotrze do ostatniego rzędu; jeśli biały król dotrze tam pierwszy, a czarny król dotrze tam w bezpośrednio następnym ruchu, jest remis.
 # Horda
-Białe mają 36 pionków i nie mają króla, przeciw zwykłej armii czarnych.
-- Białe wygrywają, dając mata czarnemu królowi; czarne wygrywają, zbijając wszystkie białe bierki.
-- Białe pionki z pierwszego rzędu mogą też iść o dwa pola (wtedy nie można ich zbić w przelocie).
-- Białe nie mają króla, więc nigdy nie są szachowane.
-# Gra na urządzeniu
-Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany król świeci na czerwono. Aby wykonać roszadę, przesuń króla o dwa pola w stronę wieży albo na wieżę.
+Białe mają 36 pionków i nie mają króla, więc nigdy nie są szachowane. Białe wygrywają, dając mata, czarne, zbijając wszystkie białe bierki. Białe pionki z pierwszego rzędu mogą też iść o dwa pola (wtedy nie można ich zbić w przelocie).

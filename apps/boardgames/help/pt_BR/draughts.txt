@@ -1,55 +1,38 @@
 Damas
 # O objetivo
-Capturar todas as peças do outro jogador ou deixá-lo sem jogada. Escolha as regras antes da partida: damas internacionais em um tabuleiro de 10 por 10, damas inglesas (checkers), russas, brasileiras ou turcas em um tabuleiro de 8 por 8. As peças ficam só nas casas escuras e se movem na diagonal, exceto nas damas turcas.
+Capturar todas as peças do outro jogador ou deixá-lo sem jogada. As peças ficam nas casas escuras e se movem na diagonal, exceto nas damas turcas.
 # Damas internacionais (10 por 10)
-- As peças claras começam. Uma pedra anda uma casa na diagonal para a frente.
-- Uma pedra captura pulando por cima de uma peça adversária vizinha até a casa vazia logo depois dela. As pedras capturam para a frente e para trás.
-- A captura é obrigatória, e você deve capturar o maior número possível de peças. Depois de um salto, se outra captura for possível a partir da casa onde a peça caiu, ela precisa continuar pulando no mesmo lance.
-- As peças capturadas são retiradas no fim do lance. Uma peça não pode ser pulada duas vezes.
-- Uma pedra que termina o lance na última fileira vira dama. A dama anda quantas casas quiser por uma diagonal e captura à distância, parando em qualquer casa vazia depois da peça capturada.
-- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 25 lances de cada lado em que só as damas se movem, sem nenhuma captura.
+- As peças claras começam. As pedras andam uma casa na diagonal para a frente e capturam para a frente e para trás, pulando por cima de uma peça adversária vizinha até a casa vazia logo depois dela.
+- A captura é obrigatória: capture o maior número possível de peças, continuando a pular no mesmo lance. As peças capturadas são retiradas no fim do lance, e nenhuma é pulada duas vezes.
+- Uma pedra que termina o lance na última fileira vira dama. A dama anda quantas casas quiser na diagonal e captura à distância, parando em qualquer casa vazia depois da peça capturada.
+- Empate: a mesma posição pela terceira vez, ou 25 lances de cada lado em que só as damas se movem, sem nenhuma captura.
 # Damas inglesas (8 por 8)
-- As peças escuras começam. As pedras andam e capturam só para a frente.
-- A captura é obrigatória, mas você pode escolher qual captura fazer. Quando uma peça começa a pular, ela deve capturar todas as peças que puder pelo caminho.
-- Uma pedra que chega à última fileira vira dama, e isso encerra o lance. A dama anda e captura uma casa na diagonal, em qualquer direção.
-- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 40 lances de cada lado sem captura nem movimento de pedra.
+- As peças escuras começam. As pedras andam e capturam só para a frente. A dama anda e captura uma casa na diagonal, em qualquer direção.
+- A captura é obrigatória, mas você pode escolher qual captura fazer. Quando uma peça começa a pular, ela deve capturar todas as peças que puder. Virar dama encerra o lance.
+- Empate: a mesma posição pela terceira vez, ou 40 lances de cada lado sem captura nem movimento de pedra.
 # Damas russas (8 por 8)
-- As peças claras começam. Uma pedra anda uma casa na diagonal para a frente e captura para a frente e para trás.
-- As damas andam e capturam à distância pelas diagonais, como nas damas internacionais. Depois de uma captura, a dama precisa parar em uma casa a partir da qual possa continuar capturando, se houver uma.
-- A captura é obrigatória, mas você pode escolher qual captura fazer. Quando uma peça começa a pular, ela deve capturar todas as peças que puder pelo caminho.
-- As peças capturadas são retiradas no fim do lance. Uma peça não pode ser pulada duas vezes.
-- Uma pedra que chega à última fileira vira dama na hora, mesmo no meio de uma captura, e então continua capturando como dama, se puder.
-- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 15 lances de cada lado em que só as damas se movem, sem nenhuma captura.
+- Como nas damas internacionais, mas você pode escolher qual captura fazer. Quando uma peça começa a pular, ela deve capturar todas as peças que puder.
+- Depois de uma captura, a dama precisa parar em uma casa a partir da qual possa continuar capturando, se houver uma.
+- Uma pedra que chega à última fileira vira dama na hora, mesmo no meio de uma captura, e continua capturando como dama.
+- Empate: a mesma posição pela terceira vez, ou 15 lances de cada lado em que só as damas se movem, sem nenhuma captura.
 # Damas brasileiras (8 por 8)
-- As regras das damas internacionais em um tabuleiro de 8 por 8. As peças claras começam.
-- As pedras capturam para a frente e para trás, as damas andam e capturam à distância, e você deve capturar o maior número possível de peças.
-- Uma pedra só vira dama se terminar o lance na última fileira.
-- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 20 lances de cada lado em que só as damas se movem, sem nenhuma captura.
+As damas internacionais em um tabuleiro de 8 por 8. Empate: a mesma posição pela terceira vez, ou 20 lances de cada lado em que só as damas se movem, sem nenhuma captura.
 # Damas turcas (8 por 8)
-- Todas as 64 casas são usadas. Cada jogador começa com 16 pedras na sua segunda e na sua terceira fileiras. As peças claras começam.
-- Uma pedra anda uma casa reto para a frente ou para o lado, nunca na diagonal e nunca para trás. Ela captura do mesmo jeito, pulando por cima de uma peça adversária vizinha até a casa vazia logo depois dela.
-- Uma pedra que chega à última fileira vira dama. A dama anda quantas casas quiser por uma fileira ou uma coluna e captura à distância, parando em qualquer casa vazia depois da peça capturada.
-- A captura é obrigatória, e você deve capturar o maior número possível de peças.
-- Cada peça capturada é retirada na hora, assim que é pulada. Em uma captura de várias peças, uma peça não pode dar meia-volta e voltar direto pelo caminho por onde veio.
-- Empate: quando a mesma posição se repete pela terceira vez, ou depois de 25 lances de cada lado sem captura nem movimento de pedra.
+- Todas as 64 casas são usadas: 16 pedras para cada um, na sua segunda e na sua terceira fileiras. As peças claras começam.
+- As pedras andam e capturam uma casa reto para a frente ou para o lado. A dama anda quantas casas quiser por uma fileira ou uma coluna e captura à distância.
+- A captura é obrigatória: capture o maior número possível de peças. Cada peça capturada é retirada na hora, e a peça que captura não pode dar meia-volta direto para trás.
+- Empate: a mesma posição pela terceira vez, ou 25 lances de cada lado sem captura nem movimento de pedra.
 # Damas frísias (10 por 10)
-- As peças claras começam. Uma pedra anda uma casa na diagonal para a frente, como nas damas internacionais.
-- Pedras e damas também capturam em linha reta, pelas fileiras e colunas: por cima de uma peça adversária na próxima casa escura, a duas casas, até a casa escura logo atrás. As pedras também capturam para trás.
-- Uma dama anda quantas casas quiser na diagonal, e captura à distância nas oito direções.
-- A captura é obrigatória, e você deve capturar as peças de maior valor: uma dama vale mais que uma pedra, mas menos que duas. Se uma dama e uma pedra puderem capturar o mesmo valor, a dama deve capturar.
-- Uma pedra que termina o lance na última fileira vira dama.
-- Enquanto você tiver pedras, a mesma dama não pode fazer mais de três lances seguidos sem capturar; depois outra peça deve se mover.
-- Empate: quando duas damas enfrentam uma e cada jogador fez sete lances, quando uma dama enfrenta outra e cada um fez dois lances, ou quando a mesma posição aparece pela terceira vez.
+- Damas internacionais, mas pedras e damas também capturam em linha reta, pelas fileiras e colunas, por cima de uma peça adversária a duas casas até a casa escura logo atrás. As damas capturam à distância nas oito direções.
+- Você deve capturar as peças de maior valor: uma dama vale mais que uma pedra, mas menos que duas. Se uma dama e uma pedra puderem capturar o mesmo valor, a dama deve capturar.
+- Enquanto você tiver pedras, a mesma dama não pode fazer mais de três lances seguidos sem capturar.
+- Empate: duas damas contra uma depois de sete lances de cada lado, uma dama contra uma depois de dois lances de cada lado, ou a mesma posição pela terceira vez.
 # Damas canadenses (12 por 12)
-As regras das damas internacionais em um tabuleiro de 12 por 12, com 30 pedras para cada um.
+As damas internacionais em um tabuleiro de 12 por 12, com 30 pedras para cada um.
 # Bashni (8 por 8)
-Damas russas em colunas: as regras das damas russas, mas as peças capturadas continuam no jogo.
-- Uma captura leva só a peça de cima da coluna saltada e a coloca embaixo da coluna que captura. As peças que ficam embaixo continuam no lugar e passam a obedecer à nova peça de cima.
-- Uma coluna pertence ao jogador cuja peça está em cima, e se move como ela, como pedra ou como dama. Só a peça de cima é promovida.
-- Uma coluna só pode ser saltada uma vez na mesma captura. As peças capturadas vão para baixo da coluna que captura no fim do lance.
-- Cada barra mostra quantas peças adversárias aquele jogador tem em suas colunas. Quem não pode mover perde, mesmo com peças embaixo das colunas adversárias.
-- Empate: como nas damas russas.
+Damas russas, mas as peças capturadas continuam no jogo.
+- Uma captura leva só a peça de cima da coluna saltada e a coloca embaixo da coluna que captura quando o lance termina. As peças que ficam embaixo continuam no lugar, comandadas pela nova peça de cima.
+- Uma coluna pertence ao jogador cuja peça está em cima, e se move como ela. Só a peça de cima é promovida. Uma coluna só pode ser saltada uma vez na mesma captura.
+- Quem não pode mover perde, mesmo com peças embaixo das colunas adversárias. Empates como nas damas russas.
 # O fim da partida
 Perde o jogador que fica sem peças ou que não consegue se mover.
-# Jogando no aparelho
-Só as peças que podem se mover podem ser selecionadas. Toque em uma peça e depois na casa onde ela vai parar. Em uma captura de várias peças, toque em cada casa de parada, uma de cada vez, ou só na última. As peças que vão ser capturadas vão sumindo.

@@ -1,11 +1,9 @@
 Prikker og ruter
 # Målet
-Ta flere ruter enn motstanderen. Brettet er et rutenett av prikker. Velg størrelse før spillet: 3×3 ruter for et raskt spill, 5×5 eller 7×7. Den lyse siden begynner.
+Ta flere ruter enn motstanderen. Den lyse siden begynner.
 # En tur
-- Tegn én strek mellom to prikker som ligger ved siden av hverandre, vannrett eller loddrett. Hver strek kan bare tegnes én gang.
-- Hvis streken din lukker den fjerde siden av en rute, blir ruten din: den får din farge. Én strek kan lukke to ruter samtidig.
+- Tegn én strek mellom to prikker som ligger ved siden av hverandre, vannrett eller loddrett.
+- Hvis streken din lukker den fjerde siden av en rute, blir ruten din. Én strek kan lukke to ruter samtidig.
 - Hver gang du lukker en rute, må du tegne en strek til. Turen din slutter med en strek som ikke lukker noen rute.
 # Slutten på spillet
-Spillet slutter når alle strekene er tegnet. Spilleren med flest ruter vinner. Hvert brett har et oddetall ruter, så det finnes alltid en vinner.
-# Spill på enheten
-Trykk mellom to prikker for å tegne streken der. Hold fingeren nede for å se hvilken strek det blir, skyv den for å velge en annen, og løft den for å tegne. Den sist tegnede streken lyser, og det samme gjør rutene den lukket. Hvert panel viser hvor mange ruter den spilleren har.
+Når alle strekene er tegnet, vinner spilleren med flest ruter. Det finnes alltid en vinner.

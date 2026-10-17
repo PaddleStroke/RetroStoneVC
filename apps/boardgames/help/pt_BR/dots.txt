@@ -1,11 +1,9 @@
 Jogo dos pontinhos
 # O objetivo
-Conquistar mais quadradinhos do que o outro jogador. O tabuleiro é uma grade de pontos. Escolha o tamanho antes da partida: 3 por 3 quadradinhos para uma partida rápida, 5 por 5, ou 7 por 7. O lado claro começa.
+Conquistar mais quadradinhos do que o outro jogador. O lado claro começa.
 # A sua vez
-- Trace uma linha entre dois pontos vizinhos, na horizontal ou na vertical. Cada linha só pode ser traçada uma vez.
-- Se a sua linha fechar o quarto lado de um quadradinho, ele é seu: fica com a sua cor. Uma linha pode fechar dois quadradinhos de uma vez.
+- Trace uma linha entre dois pontos vizinhos, na horizontal ou na vertical.
+- Se a sua linha fechar o quarto lado de um quadradinho, ele é seu. Uma linha pode fechar dois quadradinhos de uma vez.
 - Cada vez que você fecha um quadradinho, precisa traçar outra linha. A sua vez termina com uma linha que não fecha nenhum quadradinho.
 # O fim da partida
-A partida termina quando todas as linhas estão traçadas. Vence o jogador com mais quadradinhos. Todo tabuleiro tem um número ímpar de quadradinhos, então sempre há um vencedor.
-# Jogando no aparelho
-Toque entre dois pontos para traçar a linha ali. Mantenha o dedo na tela para ver qual linha vai ser, deslize-o para escolher outra e levante-o para traçar. A última linha traçada fica acesa, assim como os quadradinhos que ela fechou. Cada barra mostra quantos quadradinhos aquele jogador tem.
+Quando todas as linhas estão traçadas, vence o jogador com mais quadradinhos. Sempre há um vencedor.

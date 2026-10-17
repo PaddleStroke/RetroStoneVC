@@ -1,13 +1,10 @@
 Dara
 # Le but
-Prendre les pièces de l'autre joueur jusqu'à ce qu'il ne lui en reste que deux. Le dara est un jeu d'alignement du Nigeria et du Niger, joué sur 5 rangées de 6 trous, souvent creusés dans le sable. Chaque joueur a 12 pièces. Les pièces claires commencent, à la pose comme aux déplacements.
+Prendre les pièces de l'autre joueur jusqu'à ce qu'il ne lui en reste que deux. Les pièces claires commencent, à la pose comme aux déplacements.
 # La pose
 Les joueurs posent à tour de rôle une pièce dans n'importe quel trou vide, jusqu'à ce que toutes les pièces soient sur le plateau. Tu ne peux jamais poser une pièce de sorte que trois de tes pièces ou plus soient alignées, horizontalement ou verticalement. Un joueur à qui il ne reste aucun trou permis passe ; quand aucun des deux ne peut poser, les pièces encore en main restent hors du jeu.
 # Les déplacements
-Ensuite, à ton tour, déplace une de tes pièces d'un trou horizontalement ou verticalement (jamais en diagonale) vers un trou vide. Si le coup forme une ligne d'exactement trois de tes pièces, horizontale ou verticale, retire du plateau la pièce adverse de ton choix. Une ligne de quatre ne compte pas. Former deux lignes d'un seul coup ne prend tout de même qu'une pièce.
+Ensuite, déplace une de tes pièces d'un trou horizontalement ou verticalement vers un trou vide. Si le coup forme une ligne d'exactement trois de tes pièces, retire la pièce adverse de ton choix. Une ligne de quatre ne compte pas, et former deux lignes d'un seul coup ne prend tout de même qu'une pièce.
 # La fin de la partie
-- Un joueur à qui il ne reste que deux pièces a perdu : il ne pourra plus jamais former de ligne.
-- Un joueur qui ne peut pas jouer à son tour a perdu.
+- Un joueur à qui il ne reste que deux pièces, ou qui ne peut pas jouer à son tour, a perdu.
 - Après 100 coups d'affilée (ceux des deux joueurs comptés) sans prise, la partie est nulle.
-# Jouer sur l'appareil
-Pour poser, touche un trou marqué d'un point : les trous sans point formeraient une ligne de trois. Pour déplacer, touche une de tes pièces, puis un point, ou fais glisser la pièce. Un point dans une lueur dorée forme une ligne de trois. La ligne brille alors en or et les pièces que tu peux prendre brillent en rouge : touches-en une. Pendant la pose, chaque barre indique les pièces encore en main ; ensuite, les pièces prises par ce joueur. Quand il reste peu de coups avant la nulle, leur nombre s'affiche au bout de la barre du joueur dont c'est le tour.

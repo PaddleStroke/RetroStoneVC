@@ -1,57 +1,38 @@
 Sjakk
 # Målet
-Sett motstanderens konge sjakkmatt: angrip den slik at den ikke kan unnslippe. Hvit trekker først, deretter bytter spillerne på, ett trekk hver.
+Sett motstanderens konge sjakkmatt: angrip den slik at den ikke kan unnslippe. Hvit trekker først.
 # Slik går brikkene
-- Konge: én rute i hvilken som helst retning.
-- Dronning: så mange ruter den vil i rett linje, langs en rad, en linje eller en diagonal.
-- Tårn: så mange ruter det vil langs en rad eller en linje.
-- Løper: så mange ruter den vil langs en diagonal.
+- Konge: én rute i hvilken som helst retning. Dronning: så mange ruter den vil langs en rad, en linje eller en diagonal. Tårn: langs en rad eller en linje. Løper: langs en diagonal.
 - Springer: i en L-form, to ruter i én retning og én rute til siden. Den er den eneste brikken som hopper over andre.
 - Bonde: én rute fram, eller to fra startruten. Den slår én rute skrått fram.
-Brikkene kan ikke passere andre brikker (unntatt springeren). En brikke slår ved å flytte til en rute der en motstanderbrikke står, og den slåtte brikken forlater brettet.
+- En brikke slår ved å flytte til en rute der en motstanderbrikke står.
 # Spesielle trekk
-- Rokade: kongen flytter to ruter mot et tårn, og tårnet hopper til ruten kongen passerte. Bare lov hvis ingen av brikkene har flyttet ennå, rutene mellom dem er tomme, og kongen ikke står i sjakk, ikke passerer en angrepet rute og ikke havner i sjakk.
-- En passant: når en bonde flytter to ruter og havner ved siden av en motstanderbonde, kan den bonden slå den som om den bare hadde flyttet én rute, men bare i det aller neste trekket.
-- Forvandling: en bonde som når siste rad, blir til en dronning, et tårn, en løper eller en springer etter eget valg.
+- Rokade: kongen flytter to ruter mot et tårn, og tårnet hopper til ruten kongen passerte. Bare hvis ingen av dem har flyttet, ingenting står mellom dem, og kongen ikke står i sjakk, ikke passerer en angrepet rute og ikke havner i sjakk.
+- En passant: en bonde som nettopp har flyttet to ruter og havnet ved siden av en motstanderbonde, kan slås av den som om den bare hadde flyttet én rute, men bare i det aller neste trekket.
+- Forvandling: en bonde som når siste rad, blir til en dronning, et tårn, en løper eller en springer.
 # Sjakk og slutten på partiet
-En konge som er angrepet, står i sjakk: neste trekk må få den ut av sjakk. Du kan aldri gjøre et trekk som lar din egen konge stå i sjakk.
+Du kan aldri gjøre et trekk som lar din egen konge stå i sjakk (angrepet).
 - Sjakkmatt: kongen står i sjakk, og ingen trekk kan redde den. Den spilleren taper.
-- Patt: spilleren som er i trekket, har ingen lovlige trekk, men står ikke i sjakk. Partiet er remis.
-- Partiet er også remis når ingen av sidene noen gang kan sette matt (for få brikker igjen), når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten slag eller bondetrekk.
+- Remis: patt (ingen lovlige trekk, men ikke i sjakk), for få brikker igjen til å sette matt, den samme stillingen for tredje gang, eller femti trekk hver uten slag eller bondetrekk.
 # Chess960
-Chess960 (Fischer Random) spilles etter de samme reglene, men brikkene på bakerste rad starter i en av 960 oppstillinger, trukket tilfeldig for hvert parti. Bøndene står som vanlig, og svarts brikker står rett overfor hvits, linje for linje. Løperne står alltid på ruter med forskjellig farge, og kongen et sted mellom de to tårnene.
-- Rokade: kongen og tårnet ender på de samme rutene som i vanlig sjakk: kongen på g og tårnet på f med tårnet på h-siden, kongen på c og tårnet på d med tårnet på a-siden. Bare lov hvis ingen av brikkene har flyttet ennå, hver rute de passerer eller lander på, er tom (bortsett fra de to selv), og kongen ikke står i sjakk, ikke passerer en angrepet rute og ikke havner i sjakk.
-- For å rokere flytter du kongen til tårnet den rokerer med. Du kan også flytte den til målruten, med mindre kongen kunne gått dit med et vanlig trekk også, eller allerede står der.
+Brikkene på bakerste rad starter i tilfeldig rekkefølge, løperne på ruter med forskjellig farge og kongen mellom tårnene. Rokaden ender som i vanlig sjakk (kongen på g og tårnet på f, eller kongen på c og tårnet på d), og hver rute de passerer eller lander på, må være tom bortsett fra de to selv. For å rokere flytter du kongen til tårnet sitt.
 # Crazyhouse
-Sjakk med én type trekk til: en brikke du slår, bytter side og havner i reserven din, som vises i panelet ditt. I stedet for å flytte kan du sette inn en brikke fra reserven på en hvilken som helst tom rute.
-- En bonde kan ikke settes inn på første eller siste rad. Et innsett kan gi sjakk, til og med sjakkmatt.
-- En forvandlet brikke som blir slått, går tilbake til reserven som bonde.
-- Ingen remis på grunn av for lite materiell: ingen brikke forlater noen gang spillet.
-- For å sette inn trykker du på brikken i panelet ditt og så på en rute (prikker viser hvor den kan settes), eller drar den inn på brettet.
+En brikke du slår, bytter side og havner i reserven din. I stedet for å flytte kan du sette inn en brikke fra reserven på en hvilken som helst tom rute, til og med for å gi sjakk eller matt. Ingen bonde på første eller siste rad. En forvandlet brikke som blir slått, går tilbake som bonde. Ingen remis på grunn av for lite materiell.
 # Tre sjakk
-Sjakk, men den første som gir sjakk tre ganger, vinner. Sjakkmatt vinner også. Hvert panel har tre plasser, og et rødt lys tennes i én av dem for hvert sjakk spilleren gir.
+Den første som gir sjakk tre ganger, vinner. Sjakkmatt vinner også.
 # Kongen på haugen
-Sjakk, men den første spilleren som får kongen sin til en av de fire midtrutene (d4, e4, d5, e5), som er innrammet i gull, vinner med en gang. Sjakkmatt vinner også. Kongen kan fortsatt aldri stille seg i sjakk.
+Den første kongen som når en av de fire midtrutene, vinner. Sjakkmatt vinner også.
 # Tapsjakk
-Sjakk snudd på hodet: målet er å miste alle brikkene sine.
-- Det er plikt å slå: kan du slå, må du, men du velger selv hvilket slag.
-- Kongen er en vanlig brikke: det finnes ingen sjakk, kongen kan slås, og det er ingen rokade. En bonde kan også forvandles til en konge (velgerens femte valg).
-- Du vinner når du ikke har flere brikker, eller når du ikke kan flytte.
-- Partiet er remis når det bare er løpere igjen og løperne til hver side står på felter med forskjellig farge: de kan aldri slå hverandre.
+Målet er å miste alle brikkene sine: du vinner når du ikke har flere igjen, eller når du ikke kan flytte.
+- Det er plikt å slå, men du velger selv hvilket slag.
+- Kongen er en vanlig brikke: ingen sjakk, den kan slås, ingen rokade. En bonde kan også forvandles til en konge.
+- Bare løpere igjen, og løperne til hver side står på felter med forskjellig farge: remis.
 # Atomsjakk
 Hvert slag er en eksplosjon: den slåtte brikken, brikken som slår, og alle brikker unntatt bønder på de åtte feltene rundt forsvinner fra brettet.
 - Du vinner ved å sprenge motstanderens konge, selv om din egen konge står i sjakk. Sjakkmatt vinner også.
-- En konge kan ikke slå, og ingen trekk kan sprenge din egen konge.
-- Står de to kongene side om side, står ingen av dem i sjakk: å slå den ene ville sprenge begge.
-- Partiet er remis når ingen av sidene har nok brikker igjen til å vinne.
+- En konge kan ikke slå, og ingen trekk kan sprenge din egen konge. To konger side om side står aldri i sjakk.
+- Remis når ingen av sidene har nok brikker igjen til å vinne.
 # Kongeløp
-Alle brikkene starter på de to første radene, side om side, uten bønder. Ingen trekk kan gi sjakk.
-- Den første kongen som når den siste raden, innrammet i gull, vinner.
-- Kommer den hvite kongen først, har svart fortsatt ett trekk: når den svarte kongen også den siste raden, er partiet remis.
+Ingen bønder, og ingen trekk kan gi sjakk. Den første kongen som når den siste raden, vinner; kommer den hvite kongen først og den svarte kongen følger etter i det aller neste trekket, er partiet remis.
 # Horde
-Hvit har 36 bønder og ingen konge, mot svarts vanlige hær.
-- Hvit vinner ved å sette den svarte kongen matt; svart vinner ved å slå alle de hvite brikkene.
-- Hvite bønder på første rad kan også gå to felter (da kan de ikke slås en passant).
-- Hvit har ingen konge og står derfor aldri i sjakk.
-# Spill på enheten
-Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. En konge i sjakk lyser rødt. For å rokere flytter du kongen to ruter mot tårnet, eller til tårnet.
+Hvit har 36 bønder og ingen konge, og står derfor aldri i sjakk. Hvit vinner ved å sette matt, svart ved å slå alle de hvite brikkene. Hvite bønder på første rad kan også gå to felter (da kan de ikke slås en passant).

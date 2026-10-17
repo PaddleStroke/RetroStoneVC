@@ -1,19 +1,14 @@
 Fanorona
 # Målet
-Ta alla motståndarens pjäser. Varje spelare har tjugotvå pjäser. Den ljusa sidan börjar.
-# Brädet
-Fyrtiofem punkter förbundna med linjer, nio på bredden och fem på djupet: varje rad, varje kolumn och de diagonaler som är ritade på brädet. Varje spelares pjäser fyller de två rader som ligger närmast spelaren; i mittraden växlar färgerna, och bara mittpunkten är tom.
+Ta alla motståndarens pjäser. Den ljusa sidan börjar.
 # Förflyttning
-När det är din tur flyttar du en av dina pjäser längs en linje till nästa punkt, om den är tom. Ett drag som inte tar något (paika) är bara tillåtet när inget slag är möjligt någonstans på brädet.
+Flytta en av dina pjäser längs en linje till nästa punkt, om den är tom. Ett drag som inte tar något är bara tillåtet när inget slag är möjligt någonstans på brädet.
 # Slag
 Pjäserna slår utan att hoppa, på två sätt:
 - Närmande: flytta mot en motståndarpjäs så att du hamnar alldeles intill den på samma linje. Den tas, och det gör också varje motståndarpjäs som står direkt bakom den på linjen, fram till första lucka eller en av dina egna pjäser.
 - Tillbakadragande: flytta rakt bort från en motståndarpjäs som stod alldeles intill dig. Den tas tillsammans med den obrutna raden av motståndarpjäser bakom den.
-- När ett drag kan göra båda, väljer du själv vilken rad du tar.
-- Slag är tvingande: när du kan slå måste du. Du får välja vilket slag som helst, inte bara det största.
-- Efter ett slag får samma pjäs fortsätta slå under samma tur, ett steg i taget. Den får inte återvända till en punkt där den redan har stått under denna tur, och inte flytta åt samma håll två gånger i rad. Att fortsätta är frivilligt: du kan sluta när du vill.
+- När ett drag kan göra båda, väljer du själv. Slag är tvingande, men du får välja vilket slag som helst, inte bara det största.
+- Efter ett slag får samma pjäs fortsätta slå, ett steg i taget, men aldrig tillbaka till en punkt där den redan har stått under denna tur, och aldrig åt samma håll två gånger i rad. Du kan sluta när du vill: tryck på pjäsen.
 # Partiets slut
 - En spelare som förlorar alla sina pjäser, eller inte kan flytta, förlorar.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag.
-# Spela på enheten
-Tryck på din pjäs och sedan på dess nya punkt, eller dra den. Prickarna visar vart den kan gå, ringarna de pjäser den skulle ta: du kan också trycka direkt på en pjäs med ring. När ett drag kan ta den ena av två rader flyttar pjäsen fram och båda raderna får ringar: tryck på den du vill ta. I en kedja av slag förblir din pjäs upplyft; för att sluta trycker du på den, eller på passknappen i ditt fält.

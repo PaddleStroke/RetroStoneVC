@@ -1,19 +1,14 @@
 Fanorona
 # Målet
-Slå alle modstanderens brikker. Hver spiller har toogtyve brikker. Den lyse side starter.
-# Brættet
-Femogfyrre punkter forbundet af linjer, ni på tværs og fem i dybden: hver række, hver kolonne og de diagonaler, der er tegnet på brættet. Hver spillers brikker fylder de to rækker nærmest spilleren; i den midterste række skifter farverne, og kun midterpunktet er tomt.
+Slå alle modstanderens brikker. Den lyse side starter.
 # Flytning
-Når det er din tur, flytter du en af dine brikker langs en linje til det næste punkt, hvis det er tomt. Et træk, der ikke slår noget (paika), er kun tilladt, når der ikke er noget muligt slag nogen steder på brættet.
+Flyt en af dine brikker langs en linje til det næste punkt, hvis det er tomt. Et træk, der ikke slår noget, er kun tilladt, når der ikke er noget muligt slag nogen steder på brættet.
 # Slag
 Brikkerne slår uden at springe, på to måder:
 - Tilnærmelse: ryk hen mod en modstanderbrik, så du ender lige ved siden af den på samme linje. Den bliver slået, og det gør hver modstanderbrik lige bag den på linjen også, indtil det første hul eller en af dine egne brikker.
 - Tilbagetrækning: ryk lige væk fra en modstanderbrik, der stod lige ved siden af dig. Den bliver slået sammen med den ubrudte række af modstanderbrikker bag den.
-- Når ét træk kan begge dele, vælger du selv, hvilken række du slår.
-- Slag er tvungent: når du kan slå, skal du. Du må vælge et hvilket som helst slag, ikke kun det største.
-- Efter et slag må den samme brik slå videre i samme tur, ét skridt ad gangen. Den må ikke vende tilbage til et punkt, den allerede har stået på i denne tur, og den må ikke flytte i samme retning to gange i træk. Det er frivilligt at fortsætte: du kan stoppe, når du vil.
+- Når ét træk kan begge dele, vælger du selv. Slag er tvungent, men du må vælge et hvilket som helst slag, ikke kun det største.
+- Efter et slag må den samme brik slå videre, ét skridt ad gangen, men aldrig tilbage til et punkt, den har stået på i denne tur, og aldrig i samme retning to gange i træk. Du kan stoppe, når du vil: tryk på brikken.
 # Spillets afslutning
 - En spiller, der mister alle sine brikker eller ikke kan flytte, taber.
 - Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden et slag.
-# Spil på enheden
-Tryk på din brik og derefter på dens nye punkt, eller træk den. Prikkerne viser, hvor den kan flytte hen, ringene de brikker, den ville slå: du kan også trykke direkte på en brik med ring. Når et træk kan slå den ene af to rækker, rykker brikken frem, og begge rækker får ring: tryk på den, du vil slå. I en kæde af slag forbliver din brik løftet; for at stoppe trykker du på den eller på pas-knappen i dit panel.

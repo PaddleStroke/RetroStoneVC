@@ -1,55 +1,38 @@
 Dama
 # Amaç
-Rakibin bütün taşlarını al ya da onu hamlesiz bırak. Oyundan önce kuralları seç: 10×10 tahtada uluslararası dama ya da 8×8 tahtada İngiliz daması (checkers), Rus, Brezilya veya Türk daması. Türk daması dışında taşlar yalnızca koyu karelerde durur ve çapraz hareket eder.
+Rakibin bütün taşlarını al ya da onu hamlesiz bırak. Türk daması dışında taşlar koyu karelerde durur ve çapraz hareket eder.
 # Uluslararası dama (10×10)
-- Önce açık renk oynar. Sıradan bir taş çapraz olarak bir kare ileri gider.
-- Sıradan taş, yanındaki rakip taşın üzerinden hemen arkasındaki boş kareye atlayarak onu alır. Sıradan taşlar hem ileri hem geri alabilir.
-- Taş almak zorunludur ve alabileceğin en çok sayıda taşı almalısın. Bir atlayıştan sonra taşın indiği kareden yeni bir alma mümkünse, aynı hamlede atlamaya devam etmelidir.
-- Alınan taşlar hamlenin sonunda tahtadan kaldırılır. Bir taşın üzerinden iki kez atlanamaz.
-- Hamlesini rakibin en arka sırasında bitiren sıradan taş dama olur. Dama, bir çapraz boyunca istediği kadar kare gider ve uzaktan alır: aldığı taşın ötesindeki herhangi bir boş kareye iner.
-- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 25'er hamle yaptığında.
+- Önce açık renk oynar. Sıradan taşlar çapraz olarak bir kare ileri gider; yanlarındaki rakip taşın üzerinden hemen arkasındaki boş kareye atlayarak hem ileri hem geri alır.
+- Taş almak zorunludur: aynı hamlede atlamaya devam ederek alabileceğin en çok sayıda taşı al. Alınan taşlar hamlenin sonunda kaldırılır ve hiçbir taşın üzerinden iki kez atlanamaz.
+- Hamlesini rakibin en arka sırasında bitiren sıradan taş dama olur. Damalar çapraz olarak istedikleri kadar kare gider ve uzaktan alır: ötedeki herhangi bir boş kareye iner.
+- Beraberlik: aynı pozisyonun üçüncü kez gelmesi ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 25'er hamle yapması.
 # İngiliz daması (8×8)
-- Önce koyu renk oynar. Sıradan taşlar yalnızca ileri gider ve yalnızca ileri alır.
-- Taş almak zorunludur, ama hangi almayı yapacağını seçebilirsin. Bir taş atlamaya başladıktan sonra, yolu üzerinde alabileceği her taşı almalıdır.
-- Rakibin en arka sırasına ulaşan sıradan taş dama olur ve bu, hamleyi bitirir. Dama, her yöne çapraz olarak bir kare gider ve alır.
-- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ve sıradan taş oynamadan 40'ar hamle yaptığında.
+- Önce koyu renk oynar. Sıradan taşlar yalnızca ileri gider ve yalnızca ileri alır. Damalar her yöne çapraz olarak bir kare gider ve alır.
+- Taş almak zorunludur, ama hangi almayı yapacağını seçebilirsin. Atlamaya başlayan bir taş alabileceği her taşı almalıdır. Dama olmak hamleyi bitirir.
+- Beraberlik: aynı pozisyonun üçüncü kez gelmesi ya da iki taraf da taş almadan ve sıradan taş oynamadan 40'ar hamle yapması.
 # Rus daması (8×8)
-- Önce açık renk oynar. Sıradan bir taş çapraz olarak bir kare ileri gider, hem ileri hem geri alabilir.
-- Damalar, uluslararası damadaki gibi çaprazlar boyunca uzaktan hareket eder ve alır. Bir almadan sonra dama, varsa almaya devam edebileceği bir kareye inmelidir.
-- Taş almak zorunludur, ama hangi almayı yapacağını seçebilirsin. Bir taş atlamaya başladıktan sonra, yolu üzerinde alabileceği her taşı almalıdır.
-- Alınan taşlar hamlenin sonunda tahtadan kaldırılır. Bir taşın üzerinden iki kez atlanamaz.
-- Rakibin en arka sırasına ulaşan sıradan taş, bir almanın ortasında bile hemen dama olur ve alabiliyorsa almaya dama olarak devam eder.
-- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 15'er hamle yaptığında.
+- Uluslararası damadaki gibi, ama hangi almayı yapacağını seçebilirsin. Atlamaya başlayan bir taş alabileceği her taşı almalıdır.
+- Bir almadan sonra dama, varsa almaya devam edebileceği bir kareye inmelidir.
+- Rakibin en arka sırasına ulaşan sıradan taş, bir almanın ortasında bile hemen dama olur ve almaya dama olarak devam eder.
+- Beraberlik: aynı pozisyonun üçüncü kez gelmesi ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 15'er hamle yapması.
 # Brezilya daması (8×8)
-- 8×8 tahtada uluslararası dama kuralları. Önce açık renk oynar.
-- Sıradan taşlar hem ileri hem geri alır, damalar uzaktan hareket eder ve alır, ve alabileceğin en çok sayıda taşı almalısın.
-- Sıradan taş ancak hamlesini rakibin en arka sırasında bitirirse dama olur.
-- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 20'şer hamle yaptığında.
+8×8 tahtada uluslararası dama. Beraberlik: aynı pozisyonun üçüncü kez gelmesi ya da iki taraf da yalnızca damaların oynadığı ve taş alınmayan 20'şer hamle yapması.
 # Türk daması (8×8)
-- 64 karenin hepsi kullanılır. Her oyuncu, ikinci ve üçüncü sırasına dizilmiş 16 taşla başlar. Önce açık renk oynar.
-- Taş bir kare dümdüz ileri ya da yana gider; asla çapraz, asla geri gitmez. Aynı şekilde alır: yanındaki rakip taşın üzerinden hemen arkasındaki boş kareye atlar.
-- Rakibin en arka sırasına ulaşan taş dama çıkar. Dama, yatay ya da dikey olarak istediği kadar kare gider ve uzaktan alır: aldığı taşın ötesindeki herhangi bir boş kareye iner.
-- Taş almak (yemek) zorunludur ve alabileceğin en çok sayıda taşı almalısın.
-- Alınan her taş, üzerinden atlanır atlanmaz kaldırılır. Birden çok taş alırken taş, geldiği yöne doğru geri dönemez.
-- Beraberlik: aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da taş almadan ve dama olmayan bir taş oynatmadan 25'er hamle yaptığında.
+- 64 karenin hepsi kullanılır: her oyuncunun ikinci ve üçüncü sırasında 16 taşı vardır. Önce açık renk oynar.
+- Taşlar bir kare dümdüz ileri ya da yana gider ve alır. Damalar yatay ya da dikey olarak istedikleri kadar kare gider ve uzaktan alır.
+- Taş almak zorunludur: alabileceğin en çok sayıda taşı al. Alınan her taş hemen kaldırılır ve alan taş dümdüz geri dönemez.
+- Beraberlik: aynı pozisyonun üçüncü kez gelmesi ya da iki taraf da taş almadan ve dama olmayan bir taş oynatmadan 25'er hamle yapması.
 # Frizya daması (10×10)
-- Önce açık renk oynar. Sıradan bir taş, uluslararası damadaki gibi çapraz olarak bir kare ileri gider.
-- Taşlar ve damalar satırlar ve sütunlar boyunca düz de alır: bir sonraki koyu karedeki, yani iki kare ötedeki rakip taşın üzerinden hemen arkasındaki koyu kareye atlayarak. Sıradan taşlar geriye doğru da alır.
-- Dama bir çapraz boyunca istediği kadar kare gider ve sekiz yönün hepsinde uzaktan alır.
-- Taş almak zorunludur ve en değerli taşları almalısın: bir dama bir taştan daha değerli, iki taştan daha az değerlidir. Bir dama ve sıradan bir taş aynı değeri alabiliyorsa, damanın alması gerekir.
-- Hamlesini en uzak sırada bitiren sıradan taş dama olur.
-- Sıradan taşın kaldıkça, aynı dama taş almadan arka arkaya en fazla üç hamle yapabilir; sonra başka bir taş oynamalıdır.
-- Beraberlik: iki dama bir damaya karşıyken ve her oyuncu yedi hamle yaptığında, bir dama bir damaya karşıyken ve her oyuncu iki hamle yaptığında ya da aynı konum üçüncü kez oluştuğunda.
+- Uluslararası dama, ama taşlar ve damalar satırlar ve sütunlar boyunca düz de alır: iki kare ötedeki rakip taşın üzerinden hemen arkasındaki koyu kareye atlayarak. Damalar sekiz yönün hepsinde uzaktan alır.
+- En değerli taşları almalısın: bir dama bir taştan daha değerli, iki taştan daha az değerlidir. Bir dama ve sıradan bir taş aynı değeri alabiliyorsa, damanın alması gerekir.
+- Sıradan taşın kaldıkça, aynı dama taş almadan arka arkaya en fazla üç hamle yapabilir.
+- Beraberlik: iki dama bir damaya karşıyken her oyuncu yedi hamle yaptıktan sonra, bir dama bir damaya karşıyken her oyuncu iki hamle yaptıktan sonra ya da aynı konum üçüncü kez oluştuğunda.
 # Kanada daması (12×12)
-12×12 tahtada, oyuncu başına 30 taşla uluslararası dama kuralları.
+12×12 tahtada, oyuncu başına 30 taşla uluslararası dama.
 # Başni (8×8)
-Rus kule daması: Rus daması kuralları, ama alınan taşlar oyunda kalır.
-- Almak, üzerinden atlanan kulenin yalnızca en üstteki taşını alır ve onu alan kulenin altına koyar. Altta kalan taşlar yerinde durur ve yeni en üstteki taşlarına uyar.
-- Kule, en üstteki taşın sahibine aittir ve o taş gibi, sıradan taş ya da dama olarak hareket eder. Yalnızca en üstteki taş dama olur.
-- Aynı kulenin üzerinden bir almada yalnızca bir kez atlanabilir. Alınan taşlar hamle bitince alan kulenin altına geçer.
-- Her şerit, oyuncunun kulelerinde tuttuğu rakip taş sayısını gösterir. Hamle yapamayan oyuncu, rakip kulelerin altında taşı olsa bile kaybeder.
-- Beraberlik: Rus damasındaki gibi.
+Rus daması, ama alınan taşlar oyunda kalır.
+- Almak, üzerinden atlanan kulenin yalnızca en üstteki taşını alır ve hamle bitince onu alan kulenin altına koyar. Altta kalan taşlar yerinde durur ve yeni en üstteki taşlarına uyar.
+- Kule, en üstteki taşın sahibine aittir ve o taş gibi hareket eder. Yalnızca en üstteki taş dama olur. Aynı kulenin üzerinden bir almada yalnızca bir kez atlanabilir.
+- Hamle yapamayan oyuncu, rakip kulelerin altında taşı olsa bile kaybeder. Beraberlik Rus damasındaki gibidir.
 # Oyunun sonu
 Hiç taşı kalmayan ya da hamle yapamayan oyuncu kaybeder.
-# Cihazda oynamak
-Yalnızca hareket edebilen taşlar seçilebilir. Bir taşa, sonra ineceği kareye dokun. Birden çok taş alırken her iniş karesine sırayla ya da yalnızca sonuncusuna dokun. Alınmak üzere olan taşlar soluklaşır.

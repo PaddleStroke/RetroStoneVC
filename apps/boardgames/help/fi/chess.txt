@@ -1,57 +1,38 @@
 Shakki
 # Tavoite
-Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Valkea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
+Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Valkea aloittaa.
 # Miten nappulat liikkuvat
-- Kuningas: yhden ruudun mihin suuntaan tahansa.
-- Kuningatar: kuinka monta ruutua tahansa suoraan, riviä, linjaa tai viistoa pitkin.
-- Torni: kuinka monta ruutua tahansa riviä tai linjaa pitkin.
-- Lähetti: kuinka monta ruutua tahansa viistoa pitkin.
+- Kuningas: yhden ruudun mihin suuntaan tahansa. Kuningatar: kuinka monta ruutua tahansa riviä, linjaa tai viistoa pitkin. Torni: riviä tai linjaa pitkin. Lähetti: viistoa pitkin.
 - Ratsu: L-kirjaimen muotoisesti, kaksi ruutua yhteen suuntaan ja yhden sivulle. Se on ainoa nappula, joka hyppää muiden yli.
 - Sotilas: yhden ruudun eteenpäin, tai kaksi lähtöruudustaan. Se lyö yhden ruudun viistosti eteenpäin.
-Nappulat eivät voi kulkea muiden nappuloiden läpi (paitsi ratsu). Nappula lyö siirtymällä ruutuun, jossa on vastustajan nappula, ja lyöty nappula poistuu laudalta.
+- Nappula lyö siirtymällä vastustajan nappulan päälle.
 # Erikoissiirrot
-- Linnoitus: kuningas siirtyy kaksi ruutua tornia kohti, ja torni hyppää ruutuun, jonka yli kuningas kulki. Sallittu vain, jos kumpikaan nappula ei ole vielä liikkunut, niiden välissä olevat ruudut ovat tyhjiä, eikä kuningas ole shakissa, kulje uhatun ruudun yli eikä päädy shakkiin.
-- Ohestalyönti: kun sotilas siirtyy kaksi ruutua ja päätyy vastustajan sotilaan viereen, tämä sotilas saa lyödä sen kuin se olisi siirtynyt vain yhden ruudun, mutta vain heti seuraavalla siirrolla.
-- Korotus: viimeiselle riville päässyt sotilas muuttuu valintasi mukaan kuningattareksi, torniksi, lähetiksi tai ratsuksi.
+- Linnoitus: kuningas siirtyy kaksi ruutua tornia kohti, ja torni hyppää ruutuun, jonka yli kuningas kulki. Vain jos kumpikaan ei ole liikkunut, niiden välissä ei ole mitään, eikä kuningas ole shakissa, kulje uhatun ruudun yli eikä päädy shakkiin.
+- Ohestalyönti: kun sotilas on juuri siirtynyt kaksi ruutua ja päätynyt vastustajan sotilaan viereen, tämä sotilas saa lyödä sen kuin se olisi siirtynyt vain yhden ruudun, mutta vain heti seuraavalla siirrolla.
+- Korotus: viimeiselle riville päässyt sotilas muuttuu kuningattareksi, torniksi, lähetiksi tai ratsuksi.
 # Shakki ja pelin loppu
-Uhattu kuningas on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman kuninkaasi shakkiin.
+Et saa koskaan tehdä siirtoa, joka jättää oman kuninkaasi shakkiin (uhatuksi).
 - Matti: kuningas on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää.
-- Patti: siirtovuorossa olevalla pelaajalla ei ole yhtään sallittua siirtoa, mutta hän ei ole shakissa. Peli päättyy tasapeliin.
-- Peli päättyy tasapeliin myös, kun kumpikaan ei voi enää koskaan tehdä mattia (liian vähän nappuloita jäljellä), kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä tai sotilaan siirtoa.
+- Tasapeli: patti (ei yhtään sallittua siirtoa, mutta ei shakissa), liian vähän nappuloita jäljellä matin tekemiseen, sama asema kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman lyöntiä tai sotilaan siirtoa.
 # Chess960
-Chess960 (Fischerin satunnaisshakki) pelataan samoilla säännöillä, mutta takarivin nappulat aloittavat yhdessä 960 järjestyksestä, joka arvotaan jokaiseen peliin. Sotilaat ovat tavallisilla paikoillaan, ja mustan nappulat ovat valkean nappuloita vastapäätä, linja linjalta. Lähetit ovat aina erivärisillä ruuduilla ja kuningas jossakin kahden tornin välissä.
-- Linnoitus: kuningas ja torni päätyvät samoihin ruutuihin kuin tavallisessa shakissa: kuningas g-linjalle ja torni f-linjalle h-puolen tornin kanssa, kuningas c-linjalle ja torni d-linjalle a-puolen tornin kanssa. Sallittu vain, jos kumpikaan nappula ei ole vielä liikkunut, jokainen ruutu, jonka yli ne kulkevat tai johon ne päätyvät, on tyhjä (niitä kahta lukuun ottamatta), eikä kuningas ole shakissa, kulje uhatun ruudun yli eikä päädy shakkiin.
-- Linnoittaaksesi siirrä kuningas sen tornin päälle, jonka kanssa se linnoittautuu. Voit myös siirtää sen kohderuutuunsa, paitsi jos kuningas voisi mennä sinne myös tavallisella siirrolla tai se on jo siellä.
+Takarivin nappulat aloittavat satunnaisessa järjestyksessä, lähetit erivärisillä ruuduilla ja kuningas tornien välissä. Linnoitus päättyy kuten tavallisessa shakissa (kuningas g-linjalle ja torni f-linjalle, tai kuningas c-linjalle ja torni d-linjalle), ja jokaisen ruudun, jonka yli ne kulkevat tai johon ne päätyvät, on oltava tyhjä niitä kahta lukuun ottamatta. Linnoittaaksesi siirrä kuningas tornisi päälle.
 # Crazyhouse
-Shakkia yhdellä lisäsiirtotavalla: lyömäsi nappula vaihtaa puolta ja siirtyy varastoosi, joka näkyy palkissasi. Siirron sijaan voit pudottaa nappulan varastostasi mihin tahansa tyhjään ruutuun.
-- Sotilasta ei saa pudottaa ensimmäiselle eikä viimeiselle riville. Pudotus saa antaa shakin, jopa matin.
-- Korotettu nappula, joka lyödään, palaa varastoon sotilaana.
-- Ei tasapeliä liian vähäisen materiaalin takia: yksikään nappula ei koskaan poistu pelistä.
-- Pudota napauttamalla nappulaa palkissasi ja sitten ruutua (pisteet näyttävät, minne se voi mennä), tai vedä se laudalle.
+Lyömäsi nappula vaihtaa puolta ja siirtyy varastoosi. Siirron sijaan voit pudottaa nappulan varastostasi mihin tahansa tyhjään ruutuun, jopa antaaksesi shakin tai matin. Sotilasta ei saa pudottaa ensimmäiselle eikä viimeiselle riville. Lyöty korotettu nappula palaa sotilaana. Ei tasapeliä liian vähäisen materiaalin takia.
 # Kolme shakkia
-Shakkia, mutta voittaja on se, joka ensimmäisenä antaa shakin kolme kertaa. Myös matti voittaa. Kussakin palkissa on kolme paikkaa, ja yhteen niistä syttyy punainen valo jokaisesta pelaajan antamasta shakista.
+Se, joka ensimmäisenä antaa shakin kolme kertaa, voittaa. Myös matti voittaa.
 # Kukkulan kuningas
-Shakkia, mutta se, jonka kuningas ensimmäisenä pääsee johonkin neljästä keskiruudusta (d4, e4, d5, e5), jotka on kehystetty kullalla, voittaa heti. Myös matti voittaa. Kuningas ei silti koskaan saa siirtyä shakkiin.
+Ensimmäinen kuningas, joka pääsee johonkin neljästä keskiruudusta, voittaa. Myös matti voittaa.
 # Häviöshakki
-Shakki ylösalaisin: tavoitteena on menettää kaikki omat nappulat.
-- Lyöminen on pakollista: kun voit lyödä, sinun on lyötävä, mutta saat valita, minkä lyönnin teet.
-- Kuningas on tavallinen nappula: shakkia ei ole, kuninkaan voi lyödä, eikä linnoitusta ole. Sotilaan voi korottaa myös kuninkaaksi (valitsimen viides vaihtoehto).
-- Voitat, kun sinulla ei ole enää nappuloita tai kun et voi siirtää.
-- Peli päättyy tasapeliin, kun jäljellä on vain lähettejä ja kummankin puolen lähetit ovat eriväristen ruutujen päällä: ne eivät voi koskaan lyödä toisiaan.
+Tavoitteena on menettää kaikki omat nappulat: voitat, kun sinulla ei ole enää nappuloita tai kun et voi siirtää.
+- Lyöminen on pakollista, mutta saat valita, minkä lyönnin teet.
+- Kuningas on tavallinen nappula: shakkia ei ole, kuninkaan voi lyödä, eikä linnoitusta ole. Sotilaan voi korottaa myös kuninkaaksi.
+- Jäljellä vain lähettejä, ja kummankin puolen lähetit eriväristen ruutujen päällä: tasapeli.
 # Atomishakki
 Jokainen lyönti on räjähdys: lyöty nappula, lyövä nappula ja kaikki muut paitsi sotilaat ympäröivillä kahdeksalla ruudulla poistuvat laudalta.
-- Voitat räjäyttämällä vastustajan kuninkaan, vaikka oma kuninkaasi olisi shakissa. Myös matti voittaa.
-- Kuningas ei saa lyödä, eikä mikään siirto saa räjäyttää omaa kuningastasi.
-- Kun kuninkaat ovat vierekkäin, kumpikaan ei ole shakissa: toisen lyöminen räjäyttäisi molemmat.
-- Peli päättyy tasapeliin, kun kummallakaan ei ole tarpeeksi nappuloita voittoon.
+- Vastustajan kuninkaan räjäyttäminen voittaa, vaikka oma kuninkaasi olisi shakissa. Myös matti voittaa.
+- Kuningas ei saa lyödä, eikä mikään siirto saa räjäyttää omaa kuningastasi. Vierekkäiset kuninkaat eivät ole koskaan shakissa.
+- Tasapeli, kun kummallakaan ei ole tarpeeksi nappuloita jäljellä voittoon.
 # Kuninkaiden kilpajuoksu
-Kaikki nappulat aloittavat kahdelta ensimmäiseltä riviltä rinnakkain, ilman sotilaita. Mikään siirto ei saa antaa shakkia.
-- Ensimmäinen kuningas, joka pääsee viimeiselle kultareunaiselle riville, voittaa.
-- Jos valkea kuningas ehtii ensin, mustalla on vielä yksi siirto: jos musta kuningas pääsee myös viimeiselle riville, peli päättyy tasapeliin.
+Ei sotilaita, eikä mikään siirto saa antaa shakkia. Ensimmäinen kuningas, joka pääsee viimeiselle riville, voittaa; jos valkea kuningas ehtii sinne ensin ja musta kuningas seuraa heti seuraavalla siirrolla, peli päättyy tasapeliin.
 # Lauma
-Valkealla on 36 sotilasta eikä kuningasta mustan tavallista armeijaa vastaan.
-- Valkea voittaa tekemällä mustalle kuninkaalle matin; musta voittaa lyömällä kaikki valkeat nappulat.
-- Valkeat sotilaat ensimmäisellä rivillä saavat myös siirtyä kaksi ruutua (silloin niitä ei voi lyödä ohestalyönnillä).
-- Valkealla ei ole kuningasta, joten se ei ole koskaan shakissa.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena. Linnoittaaksesi siirrä kuningasta kaksi ruutua tornia kohti tai tornin päälle.
+Valkealla on 36 sotilasta eikä kuningasta, joten se ei ole koskaan shakissa. Valkea voittaa matilla, musta lyömällä kaikki valkeat nappulat. Valkeat sotilaat ensimmäisellä rivillä saavat myös siirtyä kaksi ruutua (silloin niitä ei voi lyödä ohestalyönnillä).

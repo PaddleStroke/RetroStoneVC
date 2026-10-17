@@ -1,19 +1,14 @@
 Fanorona
 # Cíl hry
-Vezmi soupeři všechny kameny. Každý hráč má dvacet dva kamenů. Začíná světlý hráč.
-# Deska
-Čtyřicet pět bodů spojených čarami, devět na šířku a pět na hloubku: každá řada, každý sloupec a úhlopříčky nakreslené na desce. Kameny každého hráče zaplňují dvě řady, které jsou mu nejblíž; v prostřední řadě se barvy střídají a prázdný je jen středový bod.
+Vezmi soupeři všechny kameny. Začíná světlý hráč.
 # Posouvání
-Ve svém tahu posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný. Tah, který nic nebere (paika), je dovolen jen tehdy, když nikde na desce nelze brát.
+Posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný. Tah, který nic nebere, je dovolen jen tehdy, když nikde na desce nelze brát.
 # Braní
 Kameny berou bez přeskakování, a to dvěma způsoby:
 - Přiblížením: posuň se k soupeřovu kameni tak, abys skončil hned vedle něj na téže čáře. Ten je vzat, a s ním i každý soupeřův kámen přímo za ním na téže čáře, až po první mezeru nebo tvůj vlastní kámen.
 - Odstoupením: posuň se přímo pryč od soupeřova kamene, který stál hned vedle tebe. Ten je vzat i s nepřerušenou řadou soupeřových kamenů za ním.
-- Když jeden krok umožňuje obojí, sám si vybereš, kterou řadu vezmeš.
-- Braní je povinné: když můžeš brát, musíš. Smíš si ale vybrat kterékoli braní, nejen to největší.
-- Po braní smí tentýž kámen ve stejném tahu brát dál, krok za krokem. Nesmí se vrátit na bod, na kterém už v tomto tahu stál, a nesmí se pohnout dvakrát po sobě stejným směrem. Pokračovat není povinné: přestat můžeš, kdykoli chceš.
+- Když jeden krok umožňuje obojí, vybereš si. Braní je povinné, ale smíš si vybrat kterékoli braní, nejen to největší.
+- Po braní smí tentýž kámen brát dál, krok za krokem, ale nikdy se nevrátí na bod, na kterém už v tomto tahu stál, a nikdy se nepohne dvakrát po sobě stejným směrem. Přestat můžeš, kdykoli chceš: klepni na kámen.
 # Konec hry
 - Hráč, který přijde o všechny kameny nebo nemůže táhnout, prohrává.
 - Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní.
-# Hra na zařízení
-Klepni na svůj kámen a pak na jeho nový bod, nebo ho přetáhni. Tečky ukazují, kam může jít, kroužky kameny, které by vzal: můžeš klepnout i přímo na kámen s kroužkem. Když krok může vzít jednu ze dvou řad, kámen se posune a obě řady dostanou kroužek: klepni na tu, kterou chceš. Při řetězu braní zůstane tvůj kámen zvednutý; chceš-li skončit, klepni na něj, nebo na tlačítko pasu ve své liště.

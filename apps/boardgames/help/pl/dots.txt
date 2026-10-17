@@ -1,11 +1,9 @@
 Kropki i kwadraty
 # Cel gry
-Zdobądź więcej kwadratów niż przeciwnik. Plansza to siatka kropek. Przed grą wybierz jej rozmiar: 3×3 kwadraty do szybkiej partii, 5×5 lub 7×7. Jasne zaczynają.
+Zdobądź więcej kwadratów niż przeciwnik. Jasne zaczynają.
 # Tura
-- Narysuj jedną kreskę między dwiema sąsiednimi kropkami, w poziomie lub w pionie. Każdą kreskę można narysować tylko raz.
-- Jeśli twoja kreska zamyka czwarty bok kwadratu, kwadrat jest twój: przybiera twój kolor. Jedna kreska może zamknąć naraz dwa kwadraty.
+- Narysuj jedną kreskę między dwiema sąsiednimi kropkami, w poziomie lub w pionie.
+- Jeśli twoja kreska zamyka czwarty bok kwadratu, kwadrat jest twój. Jedna kreska może zamknąć naraz dwa kwadraty.
 - Za każdym razem, gdy zamkniesz kwadrat, musisz narysować kolejną kreskę. Twoja tura kończy się kreską, która nie zamyka żadnego kwadratu.
 # Koniec gry
-Gra kończy się, gdy wszystkie kreski są narysowane. Wygrywa gracz, który ma więcej kwadratów. Każda plansza ma nieparzystą liczbę kwadratów, więc zawsze jest zwycięzca.
-# Gra na urządzeniu
-Dotknij między dwiema kropkami, aby narysować tam kreskę. Przytrzymaj palec, aby zobaczyć, która to będzie kreska, przesuń go, aby wybrać inną, i podnieś, aby ją narysować. Ostatnia narysowana kreska jest podświetlona, podobnie jak zamknięte przez nią kwadraty. Każdy pasek pokazuje, ile kwadratów ma dany gracz.
+Gdy wszystkie kreski są narysowane, wygrywa gracz, który ma więcej kwadratów. Zawsze jest zwycięzca.

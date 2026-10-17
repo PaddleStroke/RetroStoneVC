@@ -1,13 +1,10 @@
 Dara
 # Het doel
-Sla stukken van de andere speler tot hij er nog maar twee heeft. Dara is een rijenspel uit Nigeria en Niger, gespeeld op 5 rijen van 6 kuiltjes, vaak in het zand gegraven. Elke speler heeft 12 stukken. Licht plaatst en zet als eerste.
+Sla stukken van de andere speler tot hij er nog maar twee heeft. Licht plaatst en zet als eerste.
 # Plaatsen
-De spelers plaatsen om beurten een stuk in een leeg kuiltje naar keuze, tot alle stukken op het bord staan. Je mag een stuk nooit zo plaatsen dat drie of meer van je stukken op een rij staan, horizontaal of verticaal. Wie geen enkel mogelijk kuiltje meer heeft, past; als geen van beiden nog kan plaatsen, blijven de stukken in de hand buiten het spel.
+De spelers plaatsen om beurten een stuk in een leeg kuiltje naar keuze, tot alle stukken op het bord staan. Je mag een stuk nooit zo plaatsen dat drie of meer van je stukken op een rij staan, horizontaal of verticaal. Wie zo geen kuiltje meer heeft, past; als geen van beiden nog kan plaatsen, blijven de stukken in de hand buiten het spel.
 # Schuiven
-Daarna verschuif je in je beurt een van je stukken één kuiltje horizontaal of verticaal (nooit diagonaal) naar een leeg kuiltje. Maakt de zet een rij van precies drie van je stukken, horizontaal of verticaal, dan neem je een vijandelijk stuk naar keuze van het bord. Een rij van vier telt niet. Wie met één zet twee rijen maakt, neemt toch maar één stuk.
+Daarna verschuif je een van je stukken één kuiltje horizontaal of verticaal naar een leeg kuiltje. Maakt de zet een rij van precies drie van je stukken, dan neem je een vijandelijk stuk naar keuze. Een rij van vier telt niet, en twee rijen tegelijk leveren toch maar één stuk op.
 # Het einde van de partij
-- Een speler met nog twee stukken verliest: hij kan nooit meer een rij maken.
-- Een speler die aan de beurt niet kan zetten, verliest.
+- Een speler met nog twee stukken, of die aan de beurt niet kan zetten, verliest.
 - Na 100 zetten op rij (die van beide spelers geteld) zonder te slaan, is de partij remise.
-# Spelen op het apparaat
-Om te plaatsen tik je op een kuiltje met een stip: de kuiltjes zonder stip zouden een rij van drie maken. Om te schuiven tik je op een van je stukken en dan op een stip, of sleep je het stuk. Een stip in een gouden licht maakt een rij van drie. Dan licht de rij goud op en lichten de stukken die je mag nemen rood op: tik er een aan. Tijdens het plaatsen toont elke balk de stukken die nog in de hand zijn; daarna de stukken die die speler heeft geslagen. Als er nog maar weinig zetten zijn tot de remise, staat hun aantal aan het eind van de balk van wie aan de beurt is.

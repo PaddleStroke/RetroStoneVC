@@ -1,19 +1,14 @@
 Fanorona
 # O objetivo
-Capturar todas as peças do outro jogador. Cada jogador tem vinte e duas peças. As peças claras começam.
-# O tabuleiro
-Quarenta e cinco pontos ligados por linhas, nove na largura e cinco na profundidade: cada fila, cada coluna e as diagonais desenhadas no tabuleiro. As peças de cada jogador ocupam as duas filas mais próximas de si; na fila do meio as cores alternam-se, e só o ponto central está vazio.
+Capturar todas as peças do outro jogador. As peças claras começam.
 # Movimento
-Na tua vez, move uma das tuas peças ao longo de uma linha para o ponto vizinho, se estiver livre. Uma jogada que não captura nada (paika) só é permitida quando não há nenhuma captura possível em todo o tabuleiro.
+Move uma das tuas peças ao longo de uma linha para o ponto vizinho, se estiver livre. Uma jogada que não captura nada só é permitida quando não há nenhuma captura possível em todo o tabuleiro.
 # Captura
 As peças capturam sem saltar, de duas maneiras:
 - Por aproximação: avança na direção de uma peça adversária de modo a ficares mesmo ao lado dela, na mesma linha. Essa peça é capturada, e também cada peça adversária logo atrás dela nessa linha, até ao primeiro espaço livre ou a uma peça tua.
 - Por afastamento: afasta-te em linha reta de uma peça adversária que estava mesmo ao teu lado. É capturada juntamente com a fila contínua de peças adversárias que está atrás dela.
-- Quando uma mesma jogada pode fazer as duas coisas, és tu que escolhes que fila capturar.
-- A captura é obrigatória: quando podes capturar, tens de o fazer. Podes escolher qualquer captura, não só a maior.
-- Depois de uma captura, a mesma peça pode continuar a capturar na mesma vez, um passo de cada vez. Não pode voltar a um ponto onde já esteve nesta vez, nem mover-se duas vezes seguidas na mesma direção. Continuar é opcional: podes parar quando quiseres.
+- Quando uma mesma jogada pode fazer as duas coisas, és tu que escolhes. A captura é obrigatória, mas podes escolher qualquer captura, não só a maior.
+- Depois de uma captura, a mesma peça pode continuar a capturar, um passo de cada vez, mas nunca voltando a um ponto onde já esteve nesta vez, nem duas vezes seguidas na mesma direção. Podes parar quando quiseres: toca na peça.
 # O fim do jogo
 - Perde o jogador que fica sem peças ou que não se consegue mover.
 - O jogo termina empatado quando a mesma posição se repete pela terceira vez, ou após cinquenta jogadas de cada lado sem capturas.
-# Jogar no dispositivo
-Toca na tua peça e depois no seu novo ponto, ou arrasta-a. Os pontos mostram para onde pode ir, e os anéis as peças que capturaria: também podes tocar diretamente numa peça com anel. Quando uma jogada pode capturar uma de duas filas, a peça avança e as duas filas ficam com anel: toca na que quiseres. Numa cadeia de capturas, a tua peça fica levantada; para parar, toca nela, ou no botão de passar na tua barra.

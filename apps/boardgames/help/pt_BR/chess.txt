@@ -1,57 +1,38 @@
 Xadrez
 # O objetivo
-Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As brancas jogam primeiro; depois os jogadores se alternam, um lance cada um.
+Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As brancas jogam primeiro.
 # Como as peças se movem
-- Rei: uma casa em qualquer direção.
-- Dama: quantas casas quiser em linha reta, por uma fileira, uma coluna ou uma diagonal.
-- Torre: quantas casas quiser por uma fileira ou uma coluna.
-- Bispo: quantas casas quiser por uma diagonal.
+- Rei: uma casa em qualquer direção. Dama: quantas casas quiser por uma fileira, uma coluna ou uma diagonal. Torre: por uma fileira ou uma coluna. Bispo: por uma diagonal.
 - Cavalo: em forma de L, duas casas em uma direção e uma para o lado. É a única peça que pula por cima das outras.
 - Peão: uma casa para a frente, ou duas a partir da sua casa inicial. Captura uma casa na diagonal para a frente.
-As peças não podem passar através de outras peças (exceto o cavalo). Uma peça captura indo para uma casa ocupada por uma peça adversária, que sai do tabuleiro.
+- Uma peça captura indo para uma casa ocupada por uma peça adversária.
 # Lances especiais
 - Roque: o rei anda duas casas em direção a uma torre, e a torre pula para a casa que o rei atravessou. Só é permitido se nenhuma das duas peças se moveu ainda, as casas entre elas estão vazias e o rei não está em xeque, não atravessa uma casa atacada e não termina em xeque.
 - En passant: quando um peão avança duas casas e para ao lado de um peão adversário, esse peão pode capturá-lo como se ele tivesse avançado só uma casa, mas apenas no lance imediatamente seguinte.
-- Promoção: um peão que chega à última fileira vira uma dama, torre, bispo ou cavalo, à sua escolha.
+- Promoção: um peão que chega à última fileira vira uma dama, torre, bispo ou cavalo.
 # O xeque e o fim da partida
-Um rei atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio rei em xeque.
+Você nunca pode fazer um lance que deixe o seu próprio rei em xeque (atacado).
 - Xeque-mate: o rei está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
-- Afogamento: o jogador da vez não tem nenhum lance legal, mas não está em xeque. A partida termina empatada.
-- A partida também termina empatada quando nenhum dos lados consegue mais dar xeque-mate (restam poucas peças), quando a mesma posição se repete pela terceira vez, ou depois de cinquenta lances de cada lado sem captura nem movimento de peão.
+- Empate: afogamento (nenhum lance legal, mas sem estar em xeque), peças insuficientes para dar xeque-mate, a mesma posição pela terceira vez, ou cinquenta lances de cada lado sem captura nem movimento de peão.
 # Xadrez 960
-O Xadrez 960 (xadrez aleatório de Fischer) segue as mesmas regras, mas as peças da primeira fileira começam em uma de 960 ordens, sorteada a cada partida. Os peões ficam como de costume, e as peças pretas ficam de frente para as brancas, coluna por coluna. Os bispos sempre ficam em casas de cores opostas, e o rei em algum lugar entre as duas torres.
-- Roque: o rei e a torre terminam nas mesmas casas que no xadrez comum: o rei em g e a torre em f com a torre do lado h, o rei em c e a torre em d com a torre do lado a. Só é permitido se nenhuma das duas peças se moveu ainda, todas as casas que elas atravessam ou onde param estão vazias (sem contar as duas), e o rei não está em xeque, não atravessa uma casa atacada e não termina em xeque.
-- Para fazer o roque, leve o rei para cima da torre com a qual ele faz o roque. Você também pode levá-lo direto para a casa de destino dele, a não ser que o rei também pudesse ir até lá com um lance comum, ou que ele já esteja nela.
+As peças da primeira fileira começam em uma ordem sorteada, os bispos em casas de cores opostas e o rei entre as torres. O roque termina como no xadrez comum (o rei em g e a torre em f, ou o rei em c e a torre em d), e todas as casas que elas atravessam ou onde param devem estar vazias (sem contar as duas). Para fazer o roque, leve o rei para cima da sua torre.
 # Crazyhouse
-Xadrez com mais um tipo de lance: uma peça que você captura muda de lado e vai para a sua reserva, mostrada na sua barra. Em vez de mover, você pode colocar uma peça da reserva em qualquer casa vazia.
-- Um peão não pode ser colocado na primeira nem na última fileira. Uma colocação pode dar xeque, e até xeque-mate.
-- Uma peça promovida que é capturada volta para a reserva como peão.
-- Não há empate por falta de material: nenhuma peça sai do jogo.
-- Para colocar, toque a peça na sua barra e depois uma casa (os pontos mostram aonde ela pode ir), ou arraste-a para o tabuleiro.
+Uma peça que você captura muda de lado e vai para a sua reserva. Em vez de mover, você pode colocar uma peça da reserva em qualquer casa vazia, até para dar xeque ou xeque-mate. Nenhum peão na primeira nem na última fileira. Uma peça promovida que é capturada volta como peão. Não há empate por falta de material.
 # Três xeques
-Xadrez, mas vence o primeiro jogador que der xeque três vezes. O xeque-mate também vence. Cada barra tem três espaços, e uma luz vermelha acende em um deles a cada xeque dado por aquele jogador.
+Vence o primeiro jogador que der xeque três vezes. O xeque-mate também vence.
 # Rei da colina
-Xadrez, mas vence na hora o primeiro jogador cujo rei chegar a uma das quatro casas centrais (d4, e4, d5, e5), emolduradas em dourado. O xeque-mate também vence. O rei continua sem poder se colocar em xeque.
+Vence o primeiro rei a chegar a uma das quatro casas centrais. O xeque-mate também vence.
 # Perde-ganha
-O xadrez de pernas para o ar: o objetivo é perder todas as suas peças.
-- Capturar é obrigatório: quando puder capturar, você deve, mas escolhe qual captura.
-- O rei é uma peça comum: não há xeque, o rei pode ser capturado e não há roque. Um peão também pode ser promovido a rei (a quinta opção do seletor).
-- Você vence quando não lhe resta nenhuma peça, ou quando não pode jogar.
-- A partida empata quando só restam bispos e os de cada lado estão em casas de cores diferentes: eles nunca poderão se capturar.
+O objetivo é perder todas as suas peças: você vence quando não lhe resta nenhuma, ou quando não pode jogar.
+- Capturar é obrigatório, mas você escolhe qual captura.
+- O rei é uma peça comum: não há xeque, o rei pode ser capturado e não há roque. Um peão também pode ser promovido a rei.
+- Só restam bispos, os de cada lado em casas de cores diferentes: empate.
 # Atômico
 Cada captura é uma explosão: a peça capturada, a peça que captura e todas as peças, menos os peões, das oito casas em volta saem do tabuleiro.
 - Você vence explodindo o rei adversário, mesmo que o seu rei esteja em xeque. O xeque-mate também vence.
-- Um rei não pode capturar, e nenhum lance pode explodir o seu próprio rei.
-- Quando os dois reis estão lado a lado, nenhum está em xeque: capturar um explodiria os dois.
+- Um rei não pode capturar, e nenhum lance pode explodir o seu próprio rei. Dois reis lado a lado nunca estão em xeque.
 - A partida empata quando nenhum lado tem peças suficientes para vencer.
 # Corrida de reis
-Todas as peças começam nas duas primeiras fileiras, lado a lado, sem peões. Nenhum lance pode dar xeque.
-- Vence o primeiro rei a chegar à última fileira, emoldurada em dourado.
-- Se o rei branco chegar primeiro, as pretas ainda jogam uma vez: se o rei preto também chegar à última fileira, a partida empata.
+Sem peões, e nenhum lance pode dar xeque. Vence o primeiro rei a chegar à última fileira; se o rei branco chegar primeiro e o rei preto também chegar no lance seguinte, a partida empata.
 # Horda
-As brancas têm 36 peões e nenhum rei, contra o exército habitual das pretas.
-- As brancas vencem dando xeque-mate no rei preto; as pretas vencem capturando todas as peças brancas.
-- Os peões brancos da primeira fileira também podem andar duas casas (aí não podem ser capturados en passant).
-- As brancas não têm rei, então nunca estão em xeque.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho. Para fazer o roque, leve o rei duas casas em direção à torre, ou para cima da torre.
+As brancas têm 36 peões e nenhum rei, então nunca estão em xeque. As brancas vencem dando xeque-mate, as pretas capturando todas as peças brancas. Os peões brancos da primeira fileira também podem andar duas casas (aí não podem ser capturados en passant).

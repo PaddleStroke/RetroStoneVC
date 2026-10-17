@@ -1,57 +1,38 @@
 Échecs
 # Le but
-Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Les Blancs commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
+Mettre le roi adverse échec et mat : l'attaquer de sorte qu'il ne puisse pas s'échapper. Les Blancs commencent.
 # Le déplacement des pièces
-- Roi : une case dans n'importe quelle direction.
-- Dame : d'autant de cases que tu veux en ligne droite, le long d'une rangée, d'une colonne ou d'une diagonale.
-- Tour : d'autant de cases que tu veux le long d'une rangée ou d'une colonne.
-- Fou : d'autant de cases que tu veux le long d'une diagonale.
+- Roi : une case dans n'importe quelle direction. Dame : d'autant de cases que tu veux le long d'une rangée, d'une colonne ou d'une diagonale. Tour : le long d'une rangée ou d'une colonne. Fou : le long d'une diagonale.
 - Cavalier : en forme de L, deux cases dans une direction puis une case sur le côté. C'est la seule pièce qui saute par-dessus les autres.
 - Pion : une case vers l'avant, ou deux depuis sa case de départ. Il prend en diagonale, une case vers l'avant.
-Les pièces ne peuvent pas traverser d'autres pièces (sauf le cavalier). Une pièce prend en allant sur une case occupée par une pièce adverse, qui quitte alors l'échiquier.
+- Une pièce prend en allant sur une pièce adverse.
 # Les coups spéciaux
-- Roque : le roi se déplace de deux cases vers une tour, et la tour saute sur la case que le roi a franchie. Il n'est permis que si aucune des deux pièces n'a encore bougé, si les cases entre elles sont vides, et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
-- Prise en passant : quand un pion avance de deux cases et arrive à côté d'un pion adverse, ce pion peut le prendre comme s'il n'avait avancé que d'une case, mais seulement au coup qui suit immédiatement.
-- Promotion : un pion qui atteint la dernière rangée devient une dame, une tour, un fou ou un cavalier, au choix.
+- Roque : le roi se déplace de deux cases vers une tour, et la tour saute sur la case que le roi a franchie. Seulement si aucune des deux pièces n'a encore bougé, si rien ne se trouve entre elles, et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
+- Prise en passant : un pion qui vient d'avancer de deux cases et arrive à côté d'un pion adverse peut être pris par celui-ci comme s'il n'avait avancé que d'une case, mais seulement au coup qui suit immédiatement.
+- Promotion : un pion qui atteint la dernière rangée devient une dame, une tour, un fou ou un cavalier.
 # L'échec et la fin de la partie
-Un roi attaqué est en échec : le coup suivant doit le sortir de l'échec. Tu ne peux jamais jouer un coup qui laisse ton propre roi en échec.
+Tu ne peux jamais jouer un coup qui laisse ton propre roi en échec (attaqué).
 - Échec et mat : le roi est en échec et aucun coup ne peut le sauver. Ce joueur a perdu.
-- Pat : le joueur dont c'est le tour n'a aucun coup légal mais n'est pas en échec. La partie est nulle.
-- La partie est aussi nulle quand aucun des deux camps ne peut plus jamais mater (il reste trop peu de pièces), quand la même position revient pour la troisième fois, ou après cinquante coups de chaque côté sans prise ni coup de pion.
+- Nulle : pat (aucun coup légal, mais pas d'échec), trop peu de pièces pour mater, la même position pour la troisième fois, ou cinquante coups de chaque côté sans prise ni coup de pion.
 # Échecs 960
-Les échecs 960 (échecs aléatoires de Fischer) se jouent avec les mêmes règles, mais les pièces de la première rangée partent dans l'un de 960 ordres, tiré au sort à chaque partie. Les pions sont placés comme d'habitude, et les pièces noires font face aux pièces blanches, colonne par colonne. Les fous sont toujours sur des cases de couleurs opposées, et le roi quelque part entre les deux tours.
-- Roque : le roi et la tour finissent sur les mêmes cases qu'aux échecs ordinaires : le roi en g et la tour en f avec la tour du côté h, le roi en c et la tour en d avec la tour du côté a. Il n'est permis que si aucune des deux pièces n'a encore bougé, si toutes les cases qu'elles traversent ou sur lesquelles elles arrivent sont vides (à part elles deux), et si le roi n'est pas en échec, ne traverse pas une case attaquée et ne se retrouve pas en échec.
-- Pour roquer, place le roi sur la tour avec laquelle il roque. Tu peux aussi le placer sur sa case d'arrivée, sauf si le roi pourrait aussi y aller par un coup ordinaire, ou s'il s'y trouve déjà.
+Les pièces de la première rangée partent dans un ordre tiré au sort, les fous sur des cases de couleurs opposées et le roi entre les tours. Le roque finit comme aux échecs (le roi en g et la tour en f, ou le roi en c et la tour en d), et toutes les cases qu'ils traversent ou sur lesquelles ils arrivent doivent être vides, à part eux. Pour roquer, place le roi sur sa tour.
 # Crazyhouse
-Les échecs avec un coup de plus : une pièce que tu prends change de camp et va dans ta réserve, affichée dans ta barre. Au lieu de jouer un coup, tu peux parachuter une pièce de ta réserve sur n'importe quelle case vide.
-- Un pion ne peut pas être parachuté sur la première ni sur la dernière rangée. Un parachutage peut donner échec, et même mat.
-- Une pièce issue d'une promotion qui est prise retourne dans la réserve sous forme de pion.
-- Pas de nulle faute de matériel : aucune pièce ne quitte jamais la partie.
-- Pour parachuter, touche la pièce dans ta barre, puis une case (les points montrent où elle peut aller), ou fais-la glisser sur l'échiquier.
+Une pièce que tu prends change de camp et va dans ta réserve. Au lieu de jouer un coup, tu peux parachuter une pièce de ta réserve sur n'importe quelle case vide, même pour donner échec ou mat. Pas de pion sur la première ni sur la dernière rangée. Une pièce issue d'une promotion qui est prise revient sous forme de pion. Pas de nulle faute de matériel.
 # Trois échecs
-Les échecs, mais le premier joueur qui donne trois fois échec gagne. Le mat gagne aussi. Chaque barre a trois cases, et une lumière rouge s'allume dans l'une d'elles à chaque échec donné par ce joueur.
+Le premier joueur qui donne trois fois échec gagne. Le mat gagne aussi.
 # Roi de la colline
-Les échecs, mais le premier joueur dont le roi atteint l'une des quatre cases du centre (d4, e4, d5, e5), encadrées d'or, gagne aussitôt. Le mat gagne aussi. Le roi ne peut toujours pas se mettre en échec.
+Le premier roi qui atteint l'une des quatre cases du centre gagne. Le mat gagne aussi.
 # Qui perd gagne
-Les échecs à l'envers : le but est de perdre toutes ses pièces.
-- La prise est obligatoire : quand tu peux prendre, tu dois le faire, mais tu choisis quelle prise.
-- Le roi est une pièce ordinaire : il n'y a pas d'échec, le roi peut être pris, et il n'y a pas de roque. Un pion peut aussi être promu en roi (le cinquième choix du sélecteur).
-- Tu gagnes quand il ne te reste plus aucune pièce, ou quand tu ne peux plus jouer.
-- La partie est nulle quand il ne reste que des fous et que ceux de chaque camp sont sur des cases d'une couleur différente : ils ne pourront jamais se prendre.
+Le but est de perdre toutes tes pièces : tu gagnes quand il ne t'en reste plus aucune, ou quand tu ne peux plus jouer.
+- La prise est obligatoire, mais tu choisis quelle prise.
+- Le roi est une pièce ordinaire : pas d'échec, il peut être pris, pas de roque. Un pion peut aussi être promu en roi.
+- Il ne reste que des fous, ceux de chaque camp sur des cases d'une couleur différente : la partie est nulle.
 # Atomique
 Chaque prise est une explosion : la pièce prise, la pièce qui prend et toutes les pièces, sauf les pions, des huit cases autour quittent le plateau.
-- Tu gagnes en faisant exploser le roi adverse, même si ton propre roi est en échec. Le mat gagne aussi.
-- Un roi ne peut pas prendre, et aucun coup ne peut faire exploser ton propre roi.
-- Quand les deux rois sont côte à côte, aucun n'est en échec : prendre l'un ferait exploser les deux.
+- Faire exploser le roi adverse gagne, même si ton propre roi est en échec. Le mat gagne aussi.
+- Un roi ne peut pas prendre, et aucun coup ne peut faire exploser ton propre roi. Deux rois côte à côte ne sont jamais en échec.
 - La partie est nulle quand aucun camp n'a assez de pièces pour gagner.
 # Course de rois
-Toutes les pièces partent des deux premières rangées, côte à côte, sans pions. Aucun coup ne peut donner échec.
-- Le premier roi qui atteint la dernière rangée, encadrée d'or, gagne.
-- Si le roi blanc y arrive le premier, les Noirs jouent encore un coup : si le roi noir atteint aussi la dernière rangée, la partie est nulle.
+Pas de pions, et aucun coup ne peut donner échec. Le premier roi qui atteint la dernière rangée gagne ; si le roi blanc y arrive le premier et que le roi noir le suit au coup suivant, la partie est nulle.
 # La horde
-Les Blancs ont 36 pions et pas de roi, contre l'armée habituelle des Noirs.
-- Les Blancs gagnent en matant le roi noir ; les Noirs gagnent en prenant toutes les pièces blanches.
-- Les pions blancs de la première rangée peuvent aussi avancer de deux cases (ils ne peuvent alors pas être pris en passant).
-- Les Blancs n'ont pas de roi : ils ne sont jamais en échec.
-# Jouer sur l'appareil
-Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Un roi en échec brille en rouge. Pour roquer, déplace le roi de deux cases vers la tour, ou place-le sur la tour.
+Les Blancs ont 36 pions et pas de roi : ils ne sont donc jamais en échec. Les Blancs gagnent par le mat, les Noirs en prenant toutes les pièces blanches. Les pions blancs de la première rangée peuvent aussi avancer de deux cases (ils ne peuvent alors pas être pris en passant).

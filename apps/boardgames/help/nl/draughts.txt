@@ -1,55 +1,38 @@
 Dammen
 # Het doel
-Sla alle stukken van de andere speler, of laat hem zonder zet. Kies de regels voor de partij: internationaal dammen op een bord van 10 bij 10, Engels dammen (checkers), Russisch, Braziliaans of Turks dammen op een bord van 8 bij 8. De stukken staan alleen op de donkere velden en bewegen diagonaal, behalve bij Turks dammen.
+Sla alle stukken van de andere speler, of laat hem zonder zet. De stukken staan op de donkere velden en bewegen diagonaal, behalve bij Turks dammen.
 # Internationaal dammen (10 bij 10)
-- Licht begint. Een schijf gaat één veld schuin vooruit.
-- Een schijf slaat door over een aangrenzend stuk van de tegenstander te springen, naar het lege veld er direct achter. Schijven slaan vooruit en achteruit.
-- Slaan is verplicht, en je moet zoveel mogelijk stukken slaan. Als na een sprong vanaf het landingsveld nog een slag mogelijk is, moet het stuk in dezelfde zet doorspringen.
-- De geslagen stukken worden aan het einde van de zet weggenomen. Een stuk kan niet twee keer worden overgesprongen.
-- Een schijf die zijn zet aan de overkant beëindigt, promoveert tot dam. Een dam gaat zoveel velden als hij wil over een diagonaal en slaat op afstand: hij landt op een willekeurig leeg veld achter het stuk dat hij slaat.
-- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 25 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
+- Licht begint. Schijven gaan één veld schuin vooruit, en slaan vooruit en achteruit door over een aangrenzend stuk van de tegenstander te springen, naar het lege veld er direct achter.
+- Slaan is verplicht: sla zoveel mogelijk stukken en spring in dezelfde zet door. De geslagen stukken worden aan het einde van de zet weggenomen, en geen stuk wordt twee keer overgesprongen.
+- Een schijf die zijn zet aan de overkant beëindigt, promoveert tot dam. Dammen gaan zoveel velden als ze willen schuin, en slaan op afstand: ze landen op een willekeurig leeg veld erachter.
+- Remise: dezelfde stelling voor de derde keer, of 25 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
 # Engels dammen (8 bij 8)
-- Donker begint. Schijven bewegen en slaan alleen vooruit.
-- Slaan is verplicht, maar je mag kiezen welke slag je doet. Zodra een stuk begint te springen, moet het alle stukken slaan die het onderweg kan slaan.
-- Een schijf die de overkant bereikt, promoveert tot dam, en daarmee eindigt de zet. Een dam beweegt en slaat één veld schuin in elke richting.
-- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 40 zetten van elke speler zonder slag en zonder schijfzet.
+- Donker begint. Schijven bewegen en slaan alleen vooruit. Dammen bewegen en slaan één veld schuin in elke richting.
+- Slaan is verplicht, maar je mag kiezen welke slag je doet. Een stuk dat begint te springen, moet alle stukken slaan die het kan. Promoveren tot dam beëindigt de zet.
+- Remise: dezelfde stelling voor de derde keer, of 40 zetten van elke speler zonder slag en zonder schijfzet.
 # Russisch dammen (8 bij 8)
-- Licht begint. Een schijf gaat één veld schuin vooruit, en slaat vooruit en achteruit.
-- Dammen bewegen en slaan op afstand over de diagonalen, zoals bij internationaal dammen. Na een slag moet een dam landen op een veld vanwaar hij verder kan slaan, als zo'n veld er is.
-- Slaan is verplicht, maar je mag kiezen welke slag je doet. Zodra een stuk begint te springen, moet het alle stukken slaan die het onderweg kan slaan.
-- De geslagen stukken worden aan het einde van de zet weggenomen. Een stuk kan niet twee keer worden overgesprongen.
-- Een schijf die de overkant bereikt, promoveert meteen tot dam, ook midden in een slag, en slaat dan als dam verder als dat kan.
-- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 15 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
+- Zoals internationaal dammen, maar je mag kiezen welke slag je doet. Een stuk dat begint te springen, moet alle stukken slaan die het kan.
+- Na een slag moet een dam landen op een veld vanwaar hij verder kan slaan, als zo'n veld er is.
+- Een schijf die de overkant bereikt, promoveert meteen tot dam, ook midden in een slag, en slaat als dam verder.
+- Remise: dezelfde stelling voor de derde keer, of 15 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
 # Braziliaans dammen (8 bij 8)
-- De regels van internationaal dammen op een bord van 8 bij 8. Licht begint.
-- Schijven slaan vooruit en achteruit, dammen bewegen en slaan op afstand, en je moet zoveel mogelijk stukken slaan.
-- Een schijf promoveert alleen tot dam als hij zijn zet aan de overkant beëindigt.
-- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 20 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
+Internationaal dammen op een bord van 8 bij 8. Remise: dezelfde stelling voor de derde keer, of 20 zetten van elke speler waarin alleen dammen bewegen en niets geslagen wordt.
 # Turks dammen (8 bij 8)
-- Alle 64 velden worden gebruikt. Elke speler begint met 16 schijven op zijn tweede en derde rij. Licht begint.
-- Een schijf gaat één veld recht vooruit of opzij, nooit schuin en nooit achteruit. Hij slaat op dezelfde manier, door over een aangrenzend stuk van de tegenstander te springen, naar het lege veld er direct achter.
-- Een schijf die de overkant bereikt, promoveert tot dam. Een dam gaat zoveel velden als hij wil over een rij of een kolom, en slaat op afstand: hij landt op een willekeurig leeg veld achter het stuk dat hij slaat.
-- Slaan is verplicht, en je moet zoveel mogelijk stukken slaan.
-- Elk geslagen stuk wordt meteen weggenomen, zodra het is overgesprongen. Bij een slag van meerdere stukken mag een stuk niet rechtsomkeert maken in de richting waar het vandaan kwam.
-- Remise: als dezelfde stelling voor de derde keer terugkomt, of na 25 zetten van elke speler zonder slag en zonder schijfzet.
+- Alle 64 velden worden gebruikt: 16 schijven per speler, op zijn tweede en derde rij. Licht begint.
+- Schijven bewegen en slaan één veld recht vooruit of opzij. Dammen gaan zoveel velden als ze willen over een rij of een kolom, en slaan op afstand.
+- Slaan is verplicht: sla zoveel mogelijk stukken. Elk geslagen stuk wordt meteen weggenomen, en het slaande stuk mag niet rechtsomkeert maken.
+- Remise: dezelfde stelling voor de derde keer, of 25 zetten van elke speler zonder slag en zonder schijfzet.
 # Fries dammen (10 bij 10)
-- Licht begint. Een schijf gaat één veld schuin vooruit, zoals bij internationaal dammen.
-- Schijven en dammen slaan ook recht langs rijen en kolommen: over een stuk van de tegenstander op het volgende donkere veld, twee velden verder, naar het donkere veld er direct achter. Schijven slaan ook achteruit.
-- Een dam gaat zoveel velden als hij wil over een diagonaal, en slaat op afstand in alle acht richtingen.
-- Slaan is verplicht, en je moet de meest waardevolle stukken slaan: een dam is meer waard dan één schijf maar minder dan twee. Kunnen een dam en een schijf evenveel waarde slaan, dan moet de dam slaan.
-- Een schijf die zijn zet op de achterste rij van de tegenstander eindigt, wordt een dam.
-- Zolang je nog schijven hebt, mag dezelfde dam niet vaker dan drie keer achter elkaar zetten zonder te slaan; daarna moet een ander stuk zetten.
-- Remise: als twee dammen tegen één staan en ieder zeven zetten heeft gedaan, als één dam tegen één staat en ieder twee zetten heeft gedaan, of als dezelfde stelling voor de derde keer terugkomt.
+- Internationaal dammen, maar schijven en dammen slaan ook recht langs rijen en kolommen, over een stuk van de tegenstander twee velden verder naar het donkere veld er direct achter. Dammen slaan op afstand in alle acht richtingen.
+- Je moet de meest waardevolle stukken slaan: een dam is meer waard dan één schijf maar minder dan twee. Kunnen een dam en een schijf evenveel waarde slaan, dan moet de dam slaan.
+- Zolang je nog schijven hebt, mag dezelfde dam niet vaker dan drie keer achter elkaar zetten zonder te slaan.
+- Remise: twee dammen tegen één na zeven zetten van elke speler, één dam tegen één na twee zetten van elke speler, of dezelfde stelling voor de derde keer.
 # Canadees dammen (12 bij 12)
-De regels van internationaal dammen op een bord van 12 bij 12, met 30 schijven per speler.
+Internationaal dammen op een bord van 12 bij 12, met 30 schijven per speler.
 # Bashni (8 bij 8)
-Russisch torendammen: de regels van Russisch dammen, maar geslagen stukken blijven in het spel.
-- Een slag neemt alleen het bovenste stuk van de overgesprongen toren en legt het onder de slaande toren. De stukken die eronder liggen, blijven staan en gehoorzamen hun nieuwe bovenste stuk.
-- Een toren is van de speler wiens stuk bovenop ligt, en beweegt zoals dat stuk: als schijf of als dam. Alleen het bovenste stuk promoveert.
-- Een toren kan in één slag maar één keer worden overgesprongen. De geslagen stukken gaan aan het eind van de zet onder de slaande toren.
-- Elke balk toont hoeveel stukken van de tegenstander die speler in zijn torens heeft. Wie niet meer kan zetten, verliest, ook met stukken onder de torens van de tegenstander.
-- Remise: zoals bij Russisch dammen.
+Russisch dammen, maar geslagen stukken blijven in het spel.
+- Een slag neemt alleen het bovenste stuk van de overgesprongen toren, en legt het aan het eind van de zet onder de slaande toren. De stukken die eronder liggen, blijven staan en gehoorzamen hun nieuwe bovenste stuk.
+- Een toren is van de speler wiens stuk bovenop ligt, en beweegt zoals dat stuk. Alleen het bovenste stuk promoveert. Een toren kan in één slag maar één keer worden overgesprongen.
+- Wie niet meer kan zetten, verliest, ook met stukken onder de torens van de tegenstander. Remise zoals bij Russisch dammen.
 # Het einde van de partij
 Een speler die geen stukken meer heeft, of niet meer kan zetten, verliest.
-# Spelen op het apparaat
-Alleen de stukken die kunnen bewegen, kun je kiezen. Tik op een stuk en dan op het veld waar het landt. Bij een slag van meerdere stukken tik je elk landingsveld na elkaar aan, of alleen het laatste. De stukken die zo meteen geslagen worden, vervagen.
