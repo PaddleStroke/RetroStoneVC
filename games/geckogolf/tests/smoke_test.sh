@@ -100,6 +100,8 @@ nostrict "4 bots" "$out"
 out=$(run --frames 600 --opt bot=1 --opt ready=1 --opt hole=20 --opt strict=1)
 check "a later hole (another biome)" "state: st=1 .*hole=2[0-9] " "$out"
 nostrict "hole 20" "$out"
+out=$(run --frames 300 --opt bot=1 --opt ready=1 --opt hole=40000 --opt strict=1)
+check "a very high hole (40000: no int overflow under make SAN=1)" "state: st=1 .*hole=4000[0-9] " "$out"
 
 [ -n "$Q" ] && exit $fail
 

@@ -683,7 +683,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (screen == ST_PLAY) {
         int hint = w->players == 1 && w->shots == 0 && w->hole == 0;
         ui = 1 + (msg_on(w) ? w->msg * 64 + w->msg_n * 2 + 1024 * (w->msg_p + 1) : 0) + hint * 8192 * (1 + (tv && tv->seen))
-             + w->hole * 65536;
+             + (w->hole & 0x7fff) * 65536;      /* 15 bits: no int overflow from hole 32768 */
     }
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || ui != shown_ui) {
         hu_clear();
