@@ -25,6 +25,7 @@
 #define CUT 3.897f                              /* the points' inner edges: half way from row 3 to row 4 (spacings) */
 #define STEP_MS 150
 #define HOP_MS 210
+#define LIFT_MS 120                             /* a marble picked up rises out of its hole */
 
 static hl_game G;
 static int targets[HL_HOLES], ntargets;
@@ -32,6 +33,7 @@ static int q, fr, made_w = -1, made_flip = -1, made_np = -1, made_small = -1;
 static float bx, by, cx, cy, s;                 /* the board's corner, the star's middle, the spacing (pixels) */
 static SDL_Texture *t_board, *t_marble[HL_PLAYERS], *t_small[HL_PLAYERS], *t_empty;
 static int sel = -1;
+static Uint32 sel_t0;                           /* when it was picked up */
 static struct { int on, from, moved; float x, y; } drag;
 static struct { int on, heard; hl_path p; Uint32 t0; } anim;
 
@@ -61,6 +63,7 @@ static int turn(void) { return hl_turn(&G); }
 
 static void select_hole(int h)
 {
+    if (h != sel) sel_t0 = ui_ms();
     sel = h;
     ntargets = h >= 0 ? hl_targets(&G, h, targets) : 0;
 }
@@ -309,9 +312,10 @@ static void draw(void)
         ui_mark_select_round(x, y, m);
     }
     int moving = anim.on ? anim.p.hole[anim.p.n - 1] : -1, held = drag.on && drag.moved ? drag.from : -1;
+    int raised = sel >= 0 && held < 0 && G.cell[sel] ? sel : -1;
     for (int pass = 0; pass < 2; pass++)        /* the shadows first: they fall on the wood only */
         for (int h = 0; h < HL_HOLES; h++) {
-            if (!G.cell[h] || h == moving || h == held) continue;
+            if (!G.cell[h] || h == moving || h == held || h == raised) continue;
             hole_xy(h, &x, &y);
             if (pass) ui_put_c(t_marble[G.cell[h] - 1], x, y, d, d);
             else ui_shadow_flat(x, y, d, d, 1);
@@ -332,6 +336,13 @@ static void draw(void)
         float k = 1 + 0.16f * lift;
         ui_shadow_flat(ax, ay, d, d, 1 - 0.45f * lift);
         ui_put_c(t_marble[p], ax, ay - 0.22f * d * lift, d * k, d * k);
+    }
+    if (raised >= 0) {                          /* the marble picked up: raised out of its hole, its shadow below */
+        float k = clampf((ui_ms() - sel_t0) / (float)LIFT_MS, 0, 1), lf = 0.45f * (1 - (1 - k) * (1 - k));
+        if (k < 1) ui_animate();
+        hole_xy(raised, &x, &y);
+        ui_shadow_flat(x + 0.05f * d * lf, y + 0.07f * d * lf, d, d, 1 - 0.4f * lf);
+        ui_put_c(t_marble[G.cell[raised] - 1], x, y - 0.22f * d * lf, d * (1 + 0.16f * lf), d * (1 + 0.16f * lf));
     }
     if (held >= 0) {                            /* the dragged marble, a little bigger, beside the finger */
         float k = 1.15f * d, off = ui_upside(turn()) ? 0.3f : -0.3f;
