@@ -1,15 +1,9 @@
 Tangram
 # Målet
-Tangram är ett gammalt kinesiskt pussel: en kvadrat som skurits i sju bitar, tanerna. Två stora trianglar, en mellanstor, två små, en kvadrat och ett parallellogram. Använd alla sju för att fylla den mörka siluetten, utan att något överlappar.
+En kvadrat är skuren i sju bitar, tanerna: två stora trianglar, en mellanstor, två små, en kvadrat och ett parallellogram. Använd alla sju för att fylla den mörka siluetten, utan att något överlappar.
 # Ett drag
-Flytta en tan, vrid den en åttondels varv eller vänd på parallellogrammet (de andra ser likadana ut åt båda hållen). Tanerna ligger platt och överlappar aldrig.
+Dra en tan: när du släpper den lägger den sig på en plats som passar. Tryck på en tan för att vrida den en åttondels varv. Tryck två gånger snabbt på parallellogrammet för att vända det.
 # Partiets slut
-Figuren är löst när de sju tanerna täcker siluetten exakt: ett guldljus sveper över dem. Varje sätt som fyller siluetten räknas, inte bara det som figuren lades med.
+Figuren är löst när de sju tanerna täcker siluetten exakt. Varje sätt som fyller siluetten räknas, inte bara det som figuren lades med.
 # Banor och stjärnor
-Det finns 98 figurer i sex kapitel: former, människor, djur, båtar och hus, saker, bokstäver och siffror. Varje figur är lagd för det här spelet med de sju tanerna, så alla går att lösa. Utan ledtråd: 3 stjärnor; upp till två ledtrådar: 2 stjärnor; annars 1.
-# Spela på enheten
-Välj en figur på banskärmen; de lösta visar sina stjärnor.
-- Dra en tan. När du släpper den lägger den sig på en plats som passar: dess hörn möter siluettens eller en annan tans hörn.
-- Tryck på en tan: den vrids en åttondels varv.
-- Tryck två gånger snabbt på parallellogrammet: det vänds.
-Tanen du rörde sist ligger överst. Lampan ger en ledtråd: den skjuter en tan på plats, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina handlingar.
+Utan ledtråd: 3 stjärnor; upp till två ledtrådar: 2 stjärnor; annars 1.

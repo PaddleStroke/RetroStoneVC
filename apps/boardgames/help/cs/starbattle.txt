@@ -1,15 +1,9 @@
 Star Battle
 # Cíl hry
-Rozmísti do mřížky hvězdy tak, aby každý řádek, každý sloupec a každá ohraničená oblast obsahovaly stejný počet hvězd: jednu v mřížkách 6 × 6 a 8 × 8, dvě v mřížce 10 × 10. Dvě hvězdy se nikdy nedotýkají, ani rohem. Každá úloha má právě jedno řešení, které najdeš jen úvahou. Vyber mřížku a obtížnost (kameny pod každým obrázkem):
-- Lehká: políčka kolem hvězdy jsou prázdná; řádek, sloupec nebo oblast se všemi svými hvězdami už další nedostane, a kde zbývá tolik volných políček, kolik chybí hvězd, patří hvězda do každého z nich.
-- Střední: budeš potřebovat i políčka, jejichž hvězda by řádku, sloupci nebo oblasti nechala příliš málo místa, a oblasti vtěsnané do jediného řádku nebo sloupce (zbytek je pak prázdný).
-- Těžká: dvě nebo tři oblasti vtěsnané do stejného počtu řádků nebo sloupců a sledování hvězdy až do konce, abys viděl, kam vede.
-Mřížka se dvěma hvězdami je na každé úrovni o stupeň těžší: už její lehké úlohy vyžadují úvahy střední úrovně.
+Rozmísti do mřížky hvězdy tak, aby každý řádek, každý sloupec a každá ohraničená oblast obsahovaly stejný počet hvězd: jednu, v mřížce 10 × 10 dvě. Dvě hvězdy se nikdy nedotýkají, ani rohem. Každá úloha má právě jedno řešení, které najdeš jen úvahou.
 # Tah
-Dej hvězdu do políčka, nebo tečku do políčka, o kterém víš, že je prázdné. Tečky jsou jen poznámky pro tebe.
+Klepni na políčko pro hvězdu, znovu pro tečku (poznámku, že zůstane prázdné) a ještě jednou pro vyprázdnění.
 # Konec hry
-Úloha je vyřešena, když jsou všechny hvězdy na svém místě: deskou proběhne vlna zlatého světla.
+Úloha je vyřešena, když jsou všechny hvězdy na svém místě.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 5 × 5 s jednou hvězdou v každé řadě po 10 × 10 se dvěma, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná hvězda nebo tečka; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
-# Hra na zařízení
-Klepni na políčko pro hvězdu, znovu pro tečku a ještě jednou pro vyprázdnění. Táhni podél řádku nebo sloupce z prázdného políčka, abys dal tečky do prázdných políček po cestě, nebo z tečky, abys tečky odebral. Hvězdy, které se dotýkají, nebo příliš mnoho hvězd v řádku, sloupci či oblasti zčervenají. Tlačítko s lampou dává nápovědu: odebere špatnou hvězdu nebo tečku, jinak umístí nejsnazší hvězdu, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná hvězda nebo tečka, kterou vezmeš zpět tlačítkem Vrátit.

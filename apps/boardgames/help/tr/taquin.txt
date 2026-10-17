@@ -1,12 +1,10 @@
 15 Bulmacası
 # Amaç
-Numaralı karolar, bir yeri boş olan bir çerçevede karışık durur. Onları kaydırarak yeniden sıraya diz: 1, 2, 3... sol üst köşeden başlayıp satır satır, boş yer en sonda, sağ altta. Önce çerçeveyi seç: 3 × 3 (8 karo), 4 × 4 (klasik 15 karo) ya da 5 × 5 (24 karo); numaralı ya da bir resimden kesilmiş (süren bir satranç oyunu, her karonun numarası köşesinde küçük).
-Her karışım çözülebilir. Karoları karıştırmanın yollarının yarısı kaydırarak asla sıraya dönemez; bunlar hiç dağıtılmaz.
+Numaralı karolar, bir yeri boş olan bir çerçevede karışık durur. Onları kaydırarak yeniden sıraya diz: 1, 2, 3... sol üst köşeden başlayıp satır satır, boş yer en sonda, sağ altta. Resimde her karonun numarası köşesinde küçük yazılıdır.
+Her karışım çözülebilir.
 # Bir hamle
-Boş yerin yanındaki bir karo oraya kayar. Karolar yalnızca kaydırılır; çerçeveden asla çıkarılmaz.
+Boş yerle aynı satırda ya da sütunda olan bir karoya dokun: kayar, onunla boş yer arasındaki karolar da onunla birlikte kayar.
 # Oyunun sonu
-Her karo yerine oturduğunda bulmaca çözülür: karoların üzerinden sırayla altın renkli bir ışık geçer ve resim eksik parçasına kavuşur.
+Her karo yerine oturduğunda bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var: 3 × 3, 4 × 4 ve 5 × 5 çerçeveler, numaralı ya da resimden kesilmiş. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: bilgisayarın bulduğu en az taşınan karo sayısı (rastgele yapılmış büyük bir çerçevede, bir anda bulabildiği en iyi yol). Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla taşınan karoyla 2 yıldız; yoksa 1. Geri al bir kaydırmayı geri alır, o kaydırma artık sayılmaz.
-# Cihazda oynamak
-Boş yerle aynı satırda ya da sütunda olan bir karoya dokun: kayar, onunla boş yer arasındaki karolar da onunla birlikte kayar. Bir karoyu parmağınla boş yere doğru da itebilirsin: yarı yolu geçince devam eder, yoksa geri döner. Geri al her seferinde bir kaydırmayı geri alır, en başa kadar. Şerit taşınan karoları sayar: üç karoluk bir kaydırma üç sayılır.
+Her bulmacanın bir par değeri vardır: bilgisayarın bulduğu en az taşınan karo sayısı (rastgele yapılmış büyük bir çerçevede, bir anda bulabildiği en iyi yol). Üç karoluk bir kaydırma üç sayılır. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla taşınan karoyla 2 yıldız; yoksa 1.

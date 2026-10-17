@@ -1,20 +1,9 @@
 Sudoku
 # O objetivo
-Preenche a grelha de 9 × 9 casas de modo que cada linha, cada coluna e cada bloco de 3 × 3 tenha uma vez cada algarismo de 1 a 9. Alguns algarismos já são dados. Cada sudoku tem uma única solução, que se encontra só a raciocinar. Escolhe primeiro o nível (as peças sob cada imagem):
-- Fácil: basta sempre uma casa onde só cabe um algarismo, ou um algarismo que só tem um lugar na sua linha, coluna ou bloco.
-- Médio: vais precisar também de pares, e de algarismos cujos lugares num bloco ficam todos na mesma linha ou coluna.
-- Difícil: trios, e figuras que atravessam várias linhas e colunas.
-- Perito: cadeias de raciocínio mais longas.
+Preenche a grelha de 9 × 9 casas de modo que cada linha, cada coluna e cada bloco de 3 × 3 tenha uma vez cada algarismo de 1 a 9. Alguns algarismos já são dados. Cada sudoku tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Põe um algarismo numa casa vazia. Podes mudá-lo ou tirá-lo quando quiseres; os algarismos dados ficam. Pequenas notas numa casa ajudam-te a lembrar os algarismos que ela ainda pode ter.
+Toca numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra. Podes mudá-lo ou tirá-lo quando quiseres; os algarismos dados ficam. Com o lápis, as teclas põem antes pequenas notas: os algarismos que a casa ainda pode ter.
 # O fim do jogo
-O sudoku está resolvido quando a grelha está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+O sudoku está resolvido quando a grelha está cheia e certa.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, cada um com uma única solução: os primeiros dão muitos algarismos e só pedem os passos mais simples, os últimos fazem-te experimentar um algarismo e segui-lo até algo falhar. Escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo sudoku ao acaso, no nível que escolheres. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.
-# Jogar no dispositivo
-Toca numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra, a tinta azul (os algarismos dados são escuros). Toca outra vez na mesma tecla para o tirar, ou arrasta uma tecla até uma casa. A linha, a coluna e o bloco da casa acendem-se levemente, e as casas com o mesmo algarismo, mais. Sem nenhuma casa vazia escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
-- Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los. Um algarismo colocado apaga essa nota da sua linha, coluna e bloco.
-- Borracha: tira o algarismo da casa, ou as suas notas.
-- Lâmpada: uma pista. Corrige um algarismo errado ou, se não houver, preenche a casa mais fácil, com luz dourada.
-- Olho: mostra os conflitos (um algarismo que já está na sua linha, coluna ou bloco fica vermelho). Começa ligado; toca-lhe para os esconder.
-Uma tecla esbate-se quando os seus nove algarismos já estão no tabuleiro. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que tiras com Anular.

@@ -1,12 +1,10 @@
 Femtonspel
 # Målet
-Numrerade brickor ligger hopblandade i en ram där en plats är tom. Skjut tillbaka dem i ordning: 1, 2, 3... rad för rad från övre vänstra hörnet, med den tomma platsen sist, längst ned till höger. Välj först ram: 3 × 3 (8 brickor), 4 × 4 (det klassiska femtonspelet) eller 5 × 5 (24 brickor), med siffror eller utskuret ur en bild (ett pågående schackparti, varje brickas nummer litet i hörnet).
-Varje blandning går att lösa. Hälften av alla sätt att blanda brickorna skulle aldrig gå att skjuta tillbaka i ordning, och de delas aldrig ut.
+Numrerade brickor ligger hopblandade i en ram där en plats är tom. Skjut tillbaka dem i ordning: 1, 2, 3... rad för rad från övre vänstra hörnet, med den tomma platsen sist, längst ned till höger. På en bild står varje brickas nummer litet i hörnet.
+Varje blandning går att lösa.
 # Ett drag
-En bricka bredvid den tomma platsen glider in i den. Brickorna glider bara; de lyfts aldrig ur ramen.
+Tryck på en bricka i samma rad eller kolumn som den tomma platsen: den glider, och brickorna mellan den och den tomma platsen följer med.
 # Partiets slut
-När varje bricka ligger på sin plats är pusslet löst: ett guldljus sveper över brickorna i ordning, och en bild får sin saknade bit.
+När varje bricka ligger på sin plats är pusslet löst.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel: ramar på 3 × 3, 4 × 4 och 5 × 5, med siffror eller utskurna ur bilden; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Varje pussel har ett par: det minsta antalet flyttade brickor, framtaget av datorn (på en stor slumpad ram den bästa väg den hittar på ett ögonblick). Löst på par: 3 stjärnor; med upp till hälften så många flyttade brickor till: 2 stjärnor; annars 1. Ångra tar tillbaka en förskjutning, och det räknas inte längre.
-# Spela på enheten
-Tryck på en bricka i samma rad eller kolumn som den tomma platsen: den glider, och brickorna mellan den och den tomma platsen följer med. Du kan också skjuta en bricka med fingret mot den tomma platsen: efter halva vägen fortsätter den, annars faller den tillbaka. Ångra tar tillbaka en förskjutning i taget, ända till början. Listen räknar de flyttade brickorna: en förskjutning av tre brickor räknas som tre.
+Varje pussel har ett par: det minsta antalet flyttade brickor, framtaget av datorn (på en stor slumpad ram den bästa väg den hittar på ett ögonblick). En förskjutning av tre brickor räknas som tre. Löst på par: 3 stjärnor; med upp till hälften så många flyttade brickor till: 2 stjärnor; annars 1.

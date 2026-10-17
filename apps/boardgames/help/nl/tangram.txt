@@ -1,15 +1,9 @@
 Tangram
 # Het doel
-Tangram is een oude Chinese puzzel: een vierkant, in zeven stukken gesneden, de tans. Twee grote driehoeken, een middelgrote, twee kleine, een vierkant en een parallellogram. Gebruik alle zeven om het donkere silhouet te vullen, zonder dat ze overlappen.
+Een vierkant is in zeven stukken gesneden, de tans: twee grote driehoeken, een middelgrote, twee kleine, een vierkant en een parallellogram. Gebruik alle zeven om het donkere silhouet te vullen, zonder dat ze overlappen.
 # Een zet
-Verschuif een tan, draai hem een achtste slag of keer het parallellogram om (de andere zien er aan beide kanten hetzelfde uit). Tans liggen plat en overlappen nooit.
+Sleep een tan: laat je hem los, dan valt hij op een passende plek. Tik op een tan om hem een achtste slag te draaien. Tik twee keer snel op het parallellogram om het om te keren.
 # Het einde van het spel
-De figuur is opgelost als de zeven tans het silhouet precies bedekken: goud licht loopt over ze heen. Elke manier die het silhouet vult telt, niet alleen die waarmee het gemaakt is.
+De figuur is opgelost als de zeven tans het silhouet precies bedekken. Elke manier die het silhouet vult telt, niet alleen die waarmee het gemaakt is.
 # Levels en sterren
-Er zijn 98 figuren in zes hoofdstukken: vormen, mensen, dieren, boten en huizen, dingen, letters en cijfers. Elke figuur is voor dit spel met de zeven tans gelegd, dus elke figuur is op te lossen. Zonder hint: 3 sterren; tot twee hints: 2 sterren; anders 1.
-# Spelen op het apparaat
-Kies een figuur op het levelscherm; opgeloste figuren tonen hun sterren.
-- Sleep een tan. Laat je hem los, dan valt hij op een passende plek: zijn hoeken komen op de hoeken van het silhouet of van een andere tan.
-- Tik op een tan: hij draait een achtste slag.
-- Tik twee keer snel op het parallellogram: het keert om.
-De tan die je het laatst aanraakte ligt bovenop. De lamp geeft een hint: hij schuift een tan op zijn plek, in goud licht. Ongedaan maken neemt één actie tegelijk terug, tot aan het begin. De balk toont je acties.
+Zonder hint: 3 sterren; tot twee hints: 2 sterren; anders 1.

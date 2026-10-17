@@ -1,12 +1,10 @@
 15-peli
 # Tavoite
-Numeroidut laatat ovat sekaisin kehyksessä, jossa yksi paikka on tyhjä. Liu'uta ne takaisin järjestykseen: 1, 2, 3... rivi kerrallaan vasemmasta yläkulmasta alkaen, tyhjä paikka viimeisenä oikeassa alakulmassa. Valitse ensin kehys: 3 × 3 (8 laattaa), 4 × 4 (klassinen 15 laatan peli) tai 5 × 5 (24 laattaa), numeroilla tai kuvasta leikattuna (käynnissä oleva shakkipeli, kunkin laatan numero pienenä kulmassa).
-Jokainen sekoitus on ratkaistavissa. Puolta kaikista tavoista sekoittaa laatat ei voisi koskaan liu'uttaa takaisin järjestykseen, eikä sellaisia koskaan jaeta.
+Numeroidut laatat ovat sekaisin kehyksessä, jossa yksi paikka on tyhjä. Liu'uta ne takaisin järjestykseen: 1, 2, 3... rivi kerrallaan vasemmasta yläkulmasta alkaen, tyhjä paikka viimeisenä oikeassa alakulmassa. Kuvassa kunkin laatan numero on pienenä kulmassa.
+Jokainen sekoitus on ratkaistavissa.
 # Siirto
-Tyhjän paikan vieressä oleva laatta liukuu siihen. Laattoja vain liu'utetaan; niitä ei koskaan nosteta pois kehyksestä.
+Napauta laattaa, joka on samalla rivillä tai samassa sarakkeessa kuin tyhjä paikka: se liukuu, ja sen ja tyhjän paikan välissä olevat laatat liukuvat mukana.
 # Pelin loppu
-Kun jokainen laatta on paikallaan, peli on ratkaistu: kultainen valo kulkee laattojen yli järjestyksessä, ja kuva saa puuttuvan palansa.
+Kun jokainen laatta on paikallaan, peli on ratkaistu.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa: kehyksiä 3 × 3, 4 × 4 ja 5 × 5, numeroilla tai kuvasta leikattuina; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä liikutettuja laattoja, tietokoneen löytämänä (suuressa satunnaisessa kehyksessä paras reitti, jonka se löytää hetkessä). Ratkaistu parilla: 3 tähteä; enintään puolet enemmän liikutettuja laattoja: 2 tähteä; muuten 1. Kumoa peruu liu'utuksen, eikä sitä enää lasketa.
-# Pelaaminen laitteella
-Napauta laattaa, joka on samalla rivillä tai samassa sarakkeessa kuin tyhjä paikka: se liukuu, ja sen ja tyhjän paikan välissä olevat laatat liukuvat mukana. Voit myös työntää laattaa sormella kohti tyhjää paikkaa: puolivälin jälkeen se jatkaa, muuten se palaa takaisin. Kumoa peruu yhden liu'utuksen kerrallaan, aina alkuun asti. Palkki laskee liikutetut laatat: kolmen laatan liu'utus lasketaan kolmeksi.
+Jokaisella tehtävällä on par eli pienin määrä liikutettuja laattoja, tietokoneen löytämänä (suuressa satunnaisessa kehyksessä paras reitti, jonka se löytää hetkessä). Kolmen laatan liu'utus lasketaan kolmeksi. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän liikutettuja laattoja: 2 tähteä; muuten 1.

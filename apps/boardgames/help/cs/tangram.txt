@@ -1,15 +1,9 @@
 Tangram
 # Cíl hry
-Tangram je starý čínský hlavolam: čtverec rozřezaný na sedm dílků, tanů. Dva velké trojúhelníky, jeden střední, dva malé, čtverec a rovnoběžník. Použij všech sedm a vyplň tmavou siluetu tak, aby se nic nepřekrývalo.
+Čtverec je rozřezaný na sedm dílků, tanů: dva velké trojúhelníky, jeden střední, dva malé, čtverec a rovnoběžník. Použij všech sedm a vyplň tmavou siluetu tak, aby se nic nepřekrývalo.
 # Tah
-Posuň tan, otoč ho o osminu otáčky, nebo převrať rovnoběžník (ostatní vypadají z obou stran stejně). Tany leží naplocho a nikdy se nepřekrývají.
+Přetáhni tan: když ho pustíš, usadí se na místo, kam pasuje. Klepnutím na tan ho otočíš o osminu otáčky. Rychlým dvojím klepnutím na rovnoběžník ho převrátíš.
 # Konec hry
-Obrazec je vyřešený, když sedm tanů přesně pokryje siluetu: přeběhne po nich zlaté světlo. Platí každý způsob, který siluetu vyplní, nejen ten, kterým byla složena.
+Obrazec je vyřešený, když sedm tanů přesně pokryje siluetu. Platí každý způsob, který siluetu vyplní, nejen ten, kterým byla složena.
 # Úrovně a hvězdy
-Je tu 98 obrazců v šesti kapitolách: tvary, lidé, zvířata, lodě a domy, věci, písmena a číslice. Každý byl pro tuto hru složen ze sedmi tanů, takže každý jde vyřešit. Bez nápovědy: 3 hvězdy; nejvýš dvě nápovědy: 2 hvězdy; jinak 1.
-# Hra na zařízení
-Zvol obrazec na obrazovce úrovní; vyřešené ukazují své hvězdy.
-- Přetáhni tan. Když ho pustíš, usadí se na místo, kam pasuje: jeho rohy se setkají s rohy siluety nebo jiného tanu.
-- Klepni na tan: otočí se o osminu otáčky.
-- Klepni rychle dvakrát na rovnoběžník: převrátí se.
-Naposledy dotčený tan leží navrchu. Lampa dá nápovědu: posune jeden tan na jeho místo, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé akce.
+Bez nápovědy: 3 hvězdy; nejvýš dvě nápovědy: 2 hvězdy; jinak 1.

@@ -1,14 +1,12 @@
 Same Game
 # Tujuan
-Sebuah baki penuh dengan ubin berwarna. Ambil kelompok-kelompok ubin untuk mengumpulkan poin sebanyak mungkin, dan kosongkan seluruh baki jika bisa. Pilih dulu ukurannya: 10 × 10 ubin dengan 3 warna, 15 × 10 dengan 4, atau 20 × 12 dengan 5.
-Setiap baki bisa dikosongkan: masing-masing disusun mundur dari baki yang kosong. Menemukan jalannya adalah tugasmu.
+Sebuah baki penuh dengan ubin berwarna. Ambil kelompok-kelompok ubin untuk mengumpulkan poin sebanyak mungkin, dan kosongkan seluruh baki jika bisa. Setiap baki bisa dikosongkan.
 # Satu langkah
-Kelompok adalah dua ubin atau lebih berwarna sama yang bersentuhan sisi dengan sisi (bukan hanya sudut dengan sudut). Ambil sebuah kelompok: ubin di atasnya jatuh mengisi celah, dan jika sebuah kolom kosong, kolom-kolom di sebelah kanannya bergeser ke kiri merapat. Ubin tunggal tidak pernah bisa diambil.
+Kelompok adalah dua ubin atau lebih berwarna sama yang bersentuhan sisi dengan sisi (bukan hanya sudut dengan sudut). Ketuk sebuah kelompok, lalu ketuk lagi untuk mengambilnya: ubin di atasnya jatuh mengisi celah, dan jika sebuah kolom kosong, kolom-kolom di sebelah kanannya bergeser ke kiri merapat.
+Petunjuk mengikuti jalan untuk mengosongkan baki bila ia tahu satu jalan dari posisi ini; kalau tidak, ia memilih kelompok yang paling banyak poinnya, dan baki mungkin tidak bisa dikosongkan lagi.
 # Skor
-Kelompok berisi n ubin bernilai (n - 2) × (n - 2): 2 ubin bernilai 0, 3 bernilai 1, 4 bernilai 4, 5 bernilai 9, 10 bernilai 64. Kelompok besar jauh lebih menguntungkan, jadi biarkan ubin satu warna berkumpul dulu sebelum diambil. Mengosongkan seluruh baki memberi 1000 poin tambahan.
+Kelompok berisi n ubin bernilai (n - 2) × (n - 2): 2 ubin bernilai 0, 3 bernilai 1, 4 bernilai 4, 10 bernilai 64. Mengosongkan seluruh baki memberi 1000 poin tambahan.
 # Akhir permainan
-Permainan berakhir saat tidak ada kelompok yang tersisa. Baki yang berhasil dikosongkan bersinar keemasan. Apa pun hasilnya, skor akhirmu tampil di sebuah plakat kuningan.
+Permainan berakhir saat tidak ada kelompok yang tersisa.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 6 × 6 ubin dengan 3 warna sampai 20 × 12 dengan 5; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap baki punya sasaran: sembilan per sepuluh dari skor terbaik yang ditemukan komputer untuknya. Sasaran tercapai: 3 bintang; separuhnya, atau baki yang hampir kosong (sisa ubin paling banyak sepersepuluh): 2 bintang; kurang dari itu: 1 bintang. Kartu akhir menunjukkan skormu di samping sasaran.
-# Bermain di perangkat
-Ketuk sebuah kelompok: kelompok itu mendapat bingkai emas, ubin lainnya meredup, dan poinnya tampil di atasnya. Ketuk lagi untuk mengambilnya, atau ketuk kelompok lain saja. Setiap warna juga punya tanda kecil. Lampu memberi petunjuk: lampu memilih kelompok untuk diambil, yang berkedip keemasan (selama baki masih bisa dikosongkan, lampu menunjukkan jalan untuk mengosongkannya); ketuk kelompok itu untuk mengambilnya. Urungkan membatalkan satu langkah setiap kali, sampai ke awal. Bilah menunjukkan skormu.
+Setiap baki punya sasaran: sembilan per sepuluh dari skor terbaik yang ditemukan komputer untuknya. Sasaran tercapai: 3 bintang; separuhnya, atau baki yang hampir kosong (sisa ubin paling banyak sepersepuluh): 2 bintang; kurang dari itu: 1 bintang.

@@ -1,15 +1,9 @@
 Tangram
 # The aim
-The tangram is an old Chinese puzzle: a square cut into seven pieces, the tans. Two large triangles, a medium one, two small ones, a square and a parallelogram. Use all seven to fill the dark silhouette, without any overlap.
+A square is cut into seven pieces, the tans: two large triangles, a medium one, two small ones, a square and a parallelogram. Use all seven to fill the dark silhouette, without any overlap.
 # A move
-Move a tan, turn it an eighth of a turn, or turn the parallelogram over (the others look the same either way). Tans lie flat and never overlap.
+Drag a tan: when you let go, it settles into a fitting place. Tap a tan to turn it an eighth of a turn. Tap the parallelogram twice quickly to turn it over.
 # The end of the game
-The figure is solved when the seven tans cover the silhouette exactly: gold light runs over them. Any way that fills the silhouette counts, not only the one it was made with.
+The figure is solved when the seven tans cover the silhouette exactly. Any way that fills the silhouette counts, not only the one it was made with.
 # Levels and stars
-There are 98 figures in six chapters: shapes, people, animals, boats and houses, things, letters and numbers. Each one was made for this game from the seven tans, so every figure can be solved. No hint: 3 stars; up to two hints: 2 stars; otherwise 1.
-# Playing on the device
-Choose a figure on the level screen; the solved ones show their stars.
-- Drag a tan. When you let go, it settles into a fitting place: its corners meet the corners of the silhouette or of another tan.
-- Tap a tan: it turns an eighth of a turn.
-- Tap the parallelogram twice quickly: it turns over.
-The tan you touched last lies on top. The lamp gives a hint: it slides one tan into its place, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your actions.
+No hint: 3 stars; up to two hints: 2 stars; otherwise 1.

@@ -1,12 +1,10 @@
 15-spil
 # Målet
-Nummererede brikker ligger blandet i en ramme med én tom plads. Skub dem tilbage i rækkefølge: 1, 2, 3... række for række fra øverste venstre hjørne, med den tomme plads til sidst, nederst til højre. Vælg først rammen: 3 × 3 (8 brikker), 4 × 4 (det klassiske 15-spil) eller 5 × 5 (24 brikker), med tal eller skåret ud af et billede (et skakparti i gang, hver briks nummer småt i hjørnet).
-Hver blanding kan løses. Halvdelen af alle måder at blande brikkerne på kunne aldrig skubbes tilbage i orden, og de bliver aldrig givet.
+Nummererede brikker ligger blandet i en ramme med én tom plads. Skub dem tilbage i rækkefølge: 1, 2, 3... række for række fra øverste venstre hjørne, med den tomme plads til sidst, nederst til højre. På et billede står hver briks nummer småt i hjørnet.
+Hver blanding kan løses.
 # Et træk
-En brik ved siden af den tomme plads glider ind på den. Brikkerne glider kun; de løftes aldrig ud af rammen.
+Tryk på en brik i samme række eller kolonne som den tomme plads: den glider, og brikkerne mellem den og den tomme plads følger med.
 # Spillets afslutning
-Når hver brik ligger på sin plads, er opgaven løst: et gyldent lys går over brikkerne i rækkefølge, og et billede får sin manglende brik.
+Når hver brik ligger på sin plads, er opgaven løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler: rammer på 3 × 3, 4 × 4 og 5 × 5, med tal eller skåret ud af billedet; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal flyttede brikker, fundet af computeren (på en stor tilfældig ramme den bedste vej, den finder på et øjeblik). Løst på par: 3 stjerner; med op til halvt så mange flyttede brikker mere: 2 stjerner; ellers 1. Fortryd tager et skub tilbage, og det tæller ikke længere.
-# Spil på enheden
-Tryk på en brik i samme række eller kolonne som den tomme plads: den glider, og brikkerne mellem den og den tomme plads følger med. Du kan også skubbe en brik med fingeren mod den tomme plads: over halvvejs fortsætter den, ellers falder den tilbage. Fortryd tager ét skub tilbage ad gangen, helt til starten. Bjælken tæller de flyttede brikker: et skub med tre brikker tæller tre.
+Hver opgave har et par: det mindste antal flyttede brikker, fundet af computeren (på en stor tilfældig ramme den bedste vej, den finder på et øjeblik). Et skub med tre brikker tæller tre. Løst på par: 3 stjerner; med op til halvt så mange flyttede brikker mere: 2 stjerner; ellers 1.

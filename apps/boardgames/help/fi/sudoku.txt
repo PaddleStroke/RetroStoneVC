@@ -1,20 +1,9 @@
 Sudoku
 # Tavoite
-Täytä 9 × 9 ruudun ruudukko niin, että jokaisella rivillä, jokaisessa sarakkeessa ja jokaisessa 3 × 3 -laatikossa on jokainen numero 1–9 kerran. Osa numeroista on annettu valmiiksi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse ensin taso (kivet kunkin kuvan alla):
-- Helppo: aina riittää ruutu, johon sopii enää yksi numero, tai numero, jolla on enää yksi paikka rivillään, sarakkeessaan tai laatikossaan.
-- Keskitaso: tarvitset myös pareja ja numeroita, joiden paikat laatikossa ovat kaikki samalla rivillä tai sarakkeella.
-- Vaikea: kolmikoita ja kuvioita useiden rivien ja sarakkeiden yli.
-- Mestari: pidempiä päättelyketjuja.
+Täytä 9 × 9 ruudun ruudukko niin, että jokaisella rivillä, jokaisessa sarakkeessa ja jokaisessa 3 × 3 -laatikossa on jokainen numero 1–9 kerran. Osa numeroista on annettu valmiiksi. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
 # Siirto
-Laita numero tyhjään ruutuun. Voit vaihtaa tai poistaa sen milloin tahansa; annetut numerot pysyvät. Pienet muistiinpanot ruudussa auttavat muistamaan, mitkä numerot siihen vielä sopivat.
+Napauta ruutua ja sitten näppäintä laudan vieressä: sen numero kirjoittuu ruutuun. Voit vaihtaa tai poistaa sen milloin tahansa; annetut numerot pysyvät. Lyijykynällä näppäimet laittavat sen sijaan pieniä muistiinpanoja: numerot, jotka ruutuun vielä sopivat.
 # Pelin loppu
-Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein: kultainen valoaalto kulkee laudan yli.
+Tehtävä on ratkaistu, kun ruudukko on täynnä ja oikein.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, ja jokaisessa on vain yksi ratkaisu: ensimmäisissä on annettu paljon numeroita ja riittää etsiä ruutu tai numero, jolla on enää yksi vaihtoehto, viimeisissä sinun täytyy kokeilla numeroa ja seurata sitä, kunnes jokin menee rikki. Valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, valitsemallasi tasolla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-Napauta ruutua ja sitten näppäintä laudan vieressä: sen numero kirjoittuu sinisellä musteella (annetut numerot ovat tummia). Napauta samaa näppäintä uudelleen poistaaksesi sen, tai vedä näppäin ruutuun. Ruudun rivi, sarake ja laatikko valaistuvat hieman, ja saman numeron ruudut lämpimämmin. Jos tyhjää ruutua ei ole valittu, näppäin valaisee numeronsa ruudut. Napit laudan vieressä:
-- Lyijykynä: muistiinpanot. Näppäimet laittavat silloin ruutuun pieniä numeroita tai poistavat niitä. Kirjoittamasi numero poistaa saman muistiinpanon riviltään, sarakkeestaan ja laatikostaan.
-- Pyyhekumi: poistaa ruudun numeron tai sen muistiinpanot.
-- Lamppu: vihje. Se korjaa väärän numeron tai muuten täyttää helpoimman ruudun kultaisessa valossa.
-- Silmä: näyttää ristiriidat (numero, joka on jo rivillään, sarakkeessaan tai laatikossaan, muuttuu punaiseksi). Se on aluksi päällä; napauta sitä piilottaaksesi ne.
-Näppäin haalistuu, kun sen kaikki yhdeksän numeroa ovat laudalla. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.

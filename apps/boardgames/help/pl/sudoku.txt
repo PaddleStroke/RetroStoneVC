@@ -1,20 +1,9 @@
 Sudoku
 # Cel gry
-Wypełnij diagram 9 × 9 pól tak, aby każdy wiersz, każda kolumna i każdy kwadrat 3 × 3 zawierał każdą cyfrę od 1 do 9 dokładnie raz. Niektóre cyfry są podane na starcie. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem. Najpierw wybierz poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczy pole, w którym zostaje tylko jedna cyfra, albo cyfra, która ma już tylko jedno miejsce w swoim wierszu, kolumnie lub kwadracie.
-- Średni: potrzebne będą też pary oraz cyfry, których miejsca w kwadracie leżą wszystkie w jednym wierszu lub kolumnie.
-- Trudny: trójki i układy obejmujące kilka wierszy i kolumn.
-- Ekspert: dłuższe łańcuchy wnioskowania.
+Wypełnij diagram 9 × 9 pól tak, aby każdy wiersz, każda kolumna i każdy kwadrat 3 × 3 zawierał każdą cyfrę od 1 do 9 dokładnie raz. Niektóre cyfry są podane na starcie. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
 # Ruch
-Wpisz cyfrę w puste pole. Możesz ją zmienić lub usunąć w każdej chwili; podane cyfry zostają. Małe notatki w polu pomagają zapamiętać, jakie cyfry mogą tam jeszcze być.
+Dotknij pola, a potem klawisza obok planszy: jego cyfra zostaje wpisana. Możesz ją zmienić lub usunąć w każdej chwili; podane cyfry zostają. Z ołówkiem klawisze wpisują zamiast tego małe notatki: cyfry, które mogą tam jeszcze być.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny: po planszy przebiega fala złotego światła.
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, każdy z jednym rozwiązaniem: pierwsze podają wiele cyfr i wystarczy w nich szukać pola z jedyną możliwą cyfrą albo cyfry z jedynym miejscem, ostatnie każą wypróbować cyfrę i śledzić ją, aż coś się nie zgodzi. Wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, na wybranym przez ciebie poziomie trudności. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij pola, a potem klawisza obok planszy: jego cyfra zostaje wpisana niebieskim atramentem (podane cyfry są ciemne). Dotknij tego samego klawisza jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Wiersz, kolumna i kwadrat pola lekko się podświetlają, a pola z tą samą cyfrą mocniej. Gdy nie wybrano pustego pola, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
-- Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają. Wpisana cyfra kasuje tę notatkę ze swojego wiersza, kolumny i kwadratu.
-- Gumka: usuwa cyfrę z pola albo jego notatki.
-- Lampa: podpowiedź. Poprawia błędną cyfrę, a jeśli takiej nie ma, wypełnia najłatwiejsze pole, w złotym świetle.
-- Oko: pokazuje konflikty (cyfra, która już jest w swoim wierszu, kolumnie lub kwadracie, robi się czerwona). Na początku jest włączone; dotknij go, by je ukryć.
-Klawisz blednie, gdy wszystkie dziewięć jego cyfr jest na planszy. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra, którą cofasz przyciskiem Cofnij.

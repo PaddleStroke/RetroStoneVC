@@ -1,14 +1,12 @@
 Same Game
 # El objetivo
-Un tablero está lleno de fichas de colores. Quita grupos de fichas para sumar todos los puntos que puedas, y vacía el tablero entero si lo consigues. Elige primero el tamaño: 10 × 10 fichas en 3 colores, 15 × 10 en 4 o 20 × 12 en 5.
-Todos los tableros se pueden vaciar: cada uno se construye al revés, a partir de un tablero vacío. Encontrar el camino es cosa tuya.
+Un tablero está lleno de fichas de colores. Quita grupos de fichas para sumar todos los puntos que puedas, y vacía el tablero entero si lo consigues. Todos los tableros se pueden vaciar.
 # Una jugada
-Un grupo son dos o más fichas del mismo color unidas por un lado (no por una esquina). Quita un grupo: las fichas de encima caen en los huecos y, cuando una columna se vacía, las columnas de su derecha se juntan hacia la izquierda. Una ficha sola nunca se puede quitar.
+Un grupo son dos o más fichas del mismo color unidas por un lado (no por una esquina). Toca un grupo y tócalo otra vez para quitarlo: las fichas de encima caen en los huecos y, cuando una columna se vacía, las columnas de su derecha se juntan hacia la izquierda.
+La pista sigue un camino para vaciar el tablero cuando conoce uno desde aquí; si no, elige el grupo que más puntos da, y puede que el tablero ya no se pueda vaciar.
 # La puntuación
-Un grupo de n fichas vale (n - 2) × (n - 2): 2 fichas valen 0, 3 valen 1, 4 valen 4, 5 valen 9, 10 valen 64. Los grupos grandes dan muchísimo más, así que deja que las fichas de un color se junten antes de quitarlas. Vaciar el tablero entero da 1000 puntos más.
+Un grupo de n fichas vale (n - 2) × (n - 2): 2 fichas valen 0, 3 valen 1, 4 valen 4, 10 valen 64. Vaciar el tablero entero da 1000 puntos más.
 # El final de la partida
-La partida termina cuando no queda ningún grupo. Un tablero vaciado se ilumina en dorado. En cualquier caso, tu puntuación final aparece en una placa de latón.
+La partida termina cuando no queda ningún grupo.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, de 6 × 6 fichas en 3 colores hasta 20 × 12 en 5; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada tablero tiene una meta: nueve décimas partes de la mejor puntuación que el ordenador encontró. Meta alcanzada: 3 estrellas; la mitad, o un tablero casi vaciado (como mucho una décima parte de las fichas sin quitar): 2 estrellas; menos: 1 estrella. La tarjeta final muestra tu puntuación junto a la meta.
-# Jugar en el dispositivo
-Toca un grupo: se rodea de un borde dorado, las demás fichas se oscurecen y sus puntos aparecen encima. Tócalo otra vez para quitarlo, o toca otro grupo en su lugar. Cada color lleva también un pequeño signo. La lámpara da una pista: elige un grupo para quitar, que parpadea en dorado (mientras el tablero aún se pueda vaciar, muestra un camino para vaciarlo); tócalo para quitarlo. Deshacer anula una jugada cada vez, hasta el principio. La barra muestra tu puntuación.
+Cada tablero tiene una meta: nueve décimas partes de la mejor puntuación que el ordenador encontró. Meta alcanzada: 3 estrellas; la mitad, o un tablero casi vaciado (como mucho una décima parte de las fichas sin quitar): 2 estrellas; menos: 1 estrella.

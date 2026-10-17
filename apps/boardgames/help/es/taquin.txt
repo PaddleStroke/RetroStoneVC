@@ -1,12 +1,10 @@
 Juego del 15
 # El objetivo
-Unas fichas numeradas están mezcladas en un marco con un hueco libre. Deslízalas hasta ponerlas en orden: 1, 2, 3... fila a fila desde arriba a la izquierda, con el hueco al final, abajo a la derecha. Elige primero el marco: 3 × 3 (8 fichas), 4 × 4 (el clásico de 15 fichas) o 5 × 5 (24 fichas), con números o recortado de una imagen (una partida de ajedrez en curso, con el número de cada ficha pequeño en su esquina).
-Toda mezcla tiene solución. La mitad de las formas de mezclar las fichas nunca podrían devolverse al orden deslizándolas, y esas nunca se reparten.
+Unas fichas numeradas están mezcladas en un marco con un hueco libre. Deslízalas hasta ponerlas en orden: 1, 2, 3... fila a fila desde arriba a la izquierda, con el hueco al final, abajo a la derecha. En una imagen, el número de cada ficha está pequeño en su esquina.
+Toda mezcla tiene solución.
 # Una jugada
-Una ficha junto al hueco se desliza a él. Las fichas solo se deslizan; nunca se sacan del marco.
+Toca una ficha de la misma fila o columna que el hueco: se desliza, y las fichas que hay entre ella y el hueco se mueven con ella.
 # El final de la partida
-Cuando cada ficha está en su sitio, el juego está resuelto: una luz dorada recorre las fichas en orden, y una imagen recibe su pieza que faltaba.
+Cuando cada ficha está en su sitio, el juego está resuelto.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos: marcos de 3 × 3, 4 × 4 y 5 × 5, con números o recortados de la imagen; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada rompecabezas tiene un par: el mínimo de fichas movidas, hallado por el ordenador (en un marco grande hecho al azar, el mejor camino que encuentra en un momento). Resuelto en el par: 3 estrellas; con hasta la mitad más de fichas movidas: 2 estrellas; si no, 1. Deshacer anula un deslizamiento, que ya no cuenta.
-# Jugar en el dispositivo
-Toca una ficha de la misma fila o columna que el hueco: se desliza, y las fichas que hay entre ella y el hueco se mueven con ella. También puedes empujar una ficha con el dedo hacia el hueco: pasada la mitad sigue, si no, vuelve atrás. Deshacer anula un deslizamiento cada vez, hasta el principio. La barra cuenta las fichas movidas: un deslizamiento de tres fichas cuenta tres.
+Cada rompecabezas tiene un par: el mínimo de fichas movidas, hallado por el ordenador (en un marco grande hecho al azar, el mejor camino que encuentra en un momento). Un deslizamiento de tres fichas cuenta tres. Resuelto en el par: 3 estrellas; con hasta la mitad más de fichas movidas: 2 estrellas; si no, 1.

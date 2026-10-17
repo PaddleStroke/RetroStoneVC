@@ -1,15 +1,9 @@
 Star Battle
 # Cel gry
-Umieść w diagramie gwiazdy tak, aby każdy wiersz, każda kolumna i każdy obrysowany obszar zawierały tyle samo gwiazd: jedną w diagramach 6 × 6 i 8 × 8, dwie w diagramie 10 × 10. Dwie gwiazdy nigdy się nie stykają, nawet rogiem. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem. Wybierz diagram i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: pola wokół gwiazdy są puste; wiersz, kolumna lub obszar ze wszystkimi swoimi gwiazdami nie dostaje już kolejnych; tam, gdzie zostało tyle wolnych pól, ile brakuje gwiazd, w każdym z nich jest gwiazda.
-- Średni: potrzebne będą też pola, których gwiazda zostawiłaby wierszowi, kolumnie lub obszarowi za mało miejsca, oraz obszary wciśnięte w jeden wiersz lub kolumnę (reszta tego wiersza lub kolumny jest wtedy pusta).
-- Trudny: dwa lub trzy obszary wciśnięte w tyle samo wierszy lub kolumn i śledzenie gwiazdy do końca, by zobaczyć, dokąd prowadzi.
-Diagram z dwiema gwiazdami jest na każdym poziomie o stopień trudniejszy: już jego łatwe łamigłówki wymagają rozumowań poziomu średniego.
+Umieść w diagramie gwiazdy tak, aby każdy wiersz, każda kolumna i każdy obrysowany obszar zawierały tyle samo gwiazd: jedną, a w diagramie 10 × 10 dwie. Dwie gwiazdy nigdy się nie stykają, nawet rogiem. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem.
 # Ruch
-Postaw gwiazdę w polu albo kropkę w polu, o którym wiesz, że jest puste. Kropki to tylko twoje notatki.
+Dotknij pola, aby postawić gwiazdę, jeszcze raz, aby postawić kropkę (notatkę, że pole zostaje puste), i jeszcze raz, aby je opróżnić.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy wszystkie gwiazdy są na swoich miejscach: po planszy przebiega fala złotego światła.
+Łamigłówka jest rozwiązana, gdy wszystkie gwiazdy są na swoich miejscach.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 z jedną gwiazdą w każdym wierszu i kolumnie do 10 × 10 z dwiema, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna gwiazda lub kropka; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij pola, aby postawić gwiazdę, jeszcze raz, aby postawić kropkę, i jeszcze raz, aby je opróżnić. Przeciągnij wzdłuż wiersza lub kolumny od pustego pola, aby postawić kropki w pustych polach po drodze, albo od kropki, aby kropki usunąć. Gwiazdy, które się stykają, albo zbyt wiele gwiazd w wierszu, kolumnie lub obszarze robią się czerwone. Przycisk z lampą daje podpowiedź: usuwa błędną gwiazdę lub kropkę, a jeśli takiej nie ma, stawia najłatwiejszą gwiazdę, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna gwiazda lub kropka, którą cofasz przyciskiem Cofnij.

@@ -1,15 +1,9 @@
 Star Battle
 # The aim
-Place stars in the grid so that every row, every column and every outlined region holds the same number of stars: one on the 6 × 6 and 8 × 8 grids, two on the 10 × 10 grid. Two stars never touch, not even at a corner. Every puzzle has exactly one solution, found by reasoning alone. Choose the grid and the level (the stones under each picture):
-- Easy: the cells around a star are empty; a line or region with all its stars has no more; one with as many cells left as stars missing has a star in each of them.
-- Medium: you will also need cells whose star would leave a line or region too little room, and regions squeezed into a single line (the rest of that line is then empty).
-- Hard: two or three regions squeezed into as many lines, and following a star through to see where it leads.
-The two-star grid is a step harder at each level: its easy puzzles already need the medium ways.
+Place stars in the grid so that every row, every column and every outlined region holds the same number of stars: one, or two on the 10 × 10 grid. Two stars never touch, not even at a corner. Every puzzle has exactly one solution, found by reasoning alone.
 # A move
-Put a star in a cell, or a dot in a cell you know is empty. The dots are only notes for you.
+Tap a cell to put a star in it, tap again for a dot (a note that it stays empty), and once more to empty it.
 # The end of the game
-The puzzle is solved when all the stars are in place: a wave of gold light runs over the board.
+The puzzle is solved when all the stars are in place.
 # Levels and stars
-There are 150 levels in six chapters, from 5 × 5 with one star in each line up to 10 × 10 with two, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong star or dot that you take back with undo.
-# Playing on the device
-Tap a cell to put a star in it, tap again for a dot, and once more to empty it. Drag along a row or a column from an empty cell to put dots in the empty cells on the way, or from a dot to take the dots away. Stars that touch, or too many stars in a line or region, turn red. The lamp button gives a hint: it takes away a wrong star or dot, or else places the easiest star, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong star or dot that you take back with undo.

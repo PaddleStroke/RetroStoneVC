@@ -1,15 +1,9 @@
 Star Battle
 # Tujuan
-Taruh bintang di kisi sehingga setiap baris, setiap kolom, dan setiap wilayah yang dibatasi garis berisi bintang dalam jumlah sama: satu di kisi 6 × 6 dan 8 × 8, dua di kisi 10 × 10. Dua bintang tidak pernah bersentuhan, bahkan di sudut sekalipun. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih kisi dan tingkat (batu di bawah setiap gambar):
-- Mudah: kotak di sekitar bintang kosong; baris, kolom, atau wilayah yang sudah lengkap bintangnya tidak mendapat bintang lagi; yang sisa kotaknya sama dengan bintang yang kurang berisi bintang di setiap kotak itu.
-- Sedang: kamu juga perlu kotak yang bintangnya akan menyisakan terlalu sedikit tempat bagi sebuah baris, kolom, atau wilayah, dan wilayah yang terjepit di satu baris atau kolom saja (sisa baris atau kolom itu kosong).
-- Sulit: dua atau tiga wilayah yang terjepit di baris atau kolom yang sama banyaknya, dan menelusuri sebuah bintang sampai akhir untuk melihat ke mana arahnya.
-Kisi dua bintang selangkah lebih sulit di setiap tingkat: teka-teki mudahnya pun sudah memerlukan penalaran tingkat sedang.
+Taruh bintang di kisi sehingga setiap baris, setiap kolom, dan setiap wilayah yang dibatasi garis berisi bintang dalam jumlah sama: satu, atau dua di kisi 10 × 10. Dua bintang tidak pernah bersentuhan, bahkan di sudut sekalipun. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
 # Satu langkah
-Taruh bintang di sebuah kotak, atau titik di kotak yang kamu tahu kosong. Titik hanyalah catatan untukmu.
+Ketuk sebuah kotak untuk menaruh bintang, ketuk lagi untuk titik (catatan bahwa kotak itu tetap kosong), dan sekali lagi untuk mengosongkannya.
 # Akhir permainan
-Teka-teki selesai saat semua bintang berada di tempatnya: gelombang cahaya emas menyapu papan.
+Teka-teki selesai saat semua bintang berada di tempatnya.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 dengan satu bintang di setiap baris dan kolom sampai 10 × 10 dengan dua, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bintang atau titik salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Ketuk sebuah kotak untuk menaruh bintang, ketuk lagi untuk titik, dan sekali lagi untuk mengosongkannya. Seret di sepanjang baris atau kolom dari kotak kosong untuk menaruh titik di kotak-kotak kosong yang dilewati, atau dari sebuah titik untuk mengambil titik-titiknya. Bintang yang bersentuhan, atau terlalu banyak bintang di sebuah baris, kolom, atau wilayah, menjadi merah. Tombol lampu memberi petunjuk: mengambil bintang atau titik yang salah, atau kalau tidak ada, menaruh bintang yang termudah, dalam cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah bintang atau titik salah yang kamu batalkan dengan Urungkan.

@@ -1,14 +1,12 @@
 Same Game
 # O objetivo
-Uma bandeja está cheia de peças coloridas. Tire grupos de peças para fazer o máximo de pontos que puder, e esvazie a bandeja inteira se conseguir. Escolha primeiro o tamanho: 10 × 10 peças em 3 cores, 15 × 10 em 4 ou 20 × 12 em 5.
-Toda bandeja pode ser esvaziada: cada uma é montada de trás para a frente, a partir de uma bandeja vazia. Achar o caminho é com você.
+Uma bandeja está cheia de peças coloridas. Tire grupos de peças para fazer o máximo de pontos que puder, e esvazie a bandeja inteira se conseguir. Toda bandeja pode ser esvaziada.
 # Uma jogada
-Um grupo são duas ou mais peças da mesma cor ligadas pelo lado (não pela ponta). Tire um grupo: as peças de cima caem nos buracos e, quando uma coluna fica vazia, as colunas à direita dela se juntam para a esquerda. Uma peça sozinha nunca pode ser tirada.
+Um grupo são duas ou mais peças da mesma cor ligadas pelo lado (não pela ponta). Toque num grupo e depois toque nele de novo para tirá-lo: as peças de cima caem nos buracos e, quando uma coluna fica vazia, as colunas à direita dela se juntam para a esquerda.
+A dica segue um caminho para esvaziar a bandeja quando conhece um a partir daqui; senão, escolhe o grupo que vale mais, e talvez a bandeja não possa mais ser esvaziada.
 # A pontuação
-Um grupo de n peças vale (n - 2) × (n - 2): 2 peças valem 0, 3 valem 1, 4 valem 4, 5 valem 9, 10 valem 64. Grupos grandes rendem muito mais, então deixe as peças de uma cor se juntarem antes de tirá-las. Esvaziar a bandeja inteira dá 1000 pontos a mais.
+Um grupo de n peças vale (n - 2) × (n - 2): 2 peças valem 0, 3 valem 1, 4 valem 4, 10 valem 64. Esvaziar a bandeja inteira dá 1000 pontos a mais.
 # O fim da partida
-A partida termina quando não sobra nenhum grupo. Uma bandeja esvaziada se acende em dourado. De todo jeito, a sua pontuação final aparece numa placa de latão.
+A partida termina quando não sobra nenhum grupo.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de 6 × 6 peças em 3 cores até 20 × 12 em 5; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Cada bandeja tem uma meta: nove décimos da melhor pontuação que o computador achou para ela. Meta alcançada: 3 estrelas; a metade, ou uma bandeja quase vazia (no máximo um décimo das peças sobrando): 2 estrelas; menos: 1 estrela. O cartão final mostra a sua pontuação ao lado da meta.
-# Jogando no aparelho
-Toque num grupo: ele ganha uma borda dourada, as outras peças escurecem e os pontos dele aparecem acima. Toque nele de novo para tirá-lo, ou toque em outro grupo. Cada cor também traz um pequeno sinal. A lâmpada dá uma dica: ela escolhe um grupo para tirar, que pisca em dourado (enquanto a bandeja ainda puder ser esvaziada, ela mostra um caminho para esvaziá-la); toque nele para tirá-lo. Desfazer volta uma jogada de cada vez, até o começo. A barra mostra a sua pontuação.
+Cada bandeja tem uma meta: nove décimos da melhor pontuação que o computador achou para ela. Meta alcançada: 3 estrelas; a metade, ou uma bandeja quase vazia (no máximo um décimo das peças sobrando): 2 estrelas; menos: 1 estrela.

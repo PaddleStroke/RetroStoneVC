@@ -1,15 +1,9 @@
 Star Battle
 # El objetivo
-Coloca estrellas en la cuadrícula para que cada fila, cada columna y cada región marcada tenga el mismo número de estrellas: una en las cuadrículas de 6 × 6 y 8 × 8, dos en la de 10 × 10. Dos estrellas nunca se tocan, ni siquiera por una esquina. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando. Elige la cuadrícula y el nivel (las fichas bajo cada imagen):
-- Fácil: las casillas alrededor de una estrella están vacías; una línea o región con todas sus estrellas no admite más; una a la que le quedan tantas casillas como estrellas le faltan lleva una estrella en cada una.
-- Medio: también necesitarás las casillas cuya estrella dejaría demasiado poco sitio a una línea o región, y las regiones metidas en una sola línea (el resto de esa línea queda vacío).
-- Difícil: dos o tres regiones metidas en otras tantas líneas, y seguir una estrella hasta el final para ver adónde lleva.
-La cuadrícula de dos estrellas es un paso más difícil en cada nivel: sus cuadrículas fáciles ya piden los razonamientos del nivel medio.
+Coloca estrellas en la cuadrícula para que cada fila, cada columna y cada región marcada tenga el mismo número de estrellas: una, o dos en la de 10 × 10. Dos estrellas nunca se tocan, ni siquiera por una esquina. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando.
 # Una jugada
-Pon una estrella en una casilla, o un punto en una casilla que sabes vacía. Los puntos son solo notas para ti.
+Toca una casilla para poner una estrella, otra vez para un punto (una nota: queda vacía) y otra más para vaciarla.
 # El final de la partida
-La cuadrícula está resuelta cuando todas las estrellas están en su sitio: una ola de luz dorada recorre el tablero.
+La cuadrícula está resuelta cuando todas las estrellas están en su sitio.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 5 × 5 con una estrella en cada línea al 10 × 10 con dos, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una estrella o un punto equivocado que quitas con Deshacer.
-# Jugar en el dispositivo
-Toca una casilla para poner una estrella, otra vez para un punto y otra más para vaciarla. Arrastra a lo largo de una fila o columna desde una casilla vacía para poner puntos en las casillas vacías del camino, o desde un punto para quitar los puntos. Las estrellas que se tocan, o demasiadas estrellas en una línea o región, se vuelven rojas. El botón de la lámpara da una pista: quita una estrella o un punto equivocado o, si no, coloca la estrella más fácil, con luz dorada. Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una estrella o un punto equivocado que quitas con Deshacer.

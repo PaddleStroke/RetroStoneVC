@@ -1,15 +1,9 @@
 Star Battle
 # Das Ziel
-Setze Sterne so ins Gitter, dass jede Zeile, jede Spalte und jedes umrandete Gebiet gleich viele Sterne enthält: einen auf den Gittern 6 × 6 und 8 × 8, zwei auf dem Gitter 10 × 10. Zwei Sterne berühren sich nie, nicht einmal an einer Ecke. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle das Gitter und die Stufe (die Steine unter jedem Bild):
-- Leicht: Die Felder um einen Stern sind leer; eine Reihe oder ein Gebiet mit allen seinen Sternen bekommt keinen mehr; eine Reihe oder ein Gebiet mit so vielen freien Feldern wie fehlenden Sternen hat in jedem einen Stern.
-- Mittel: Du brauchst auch Felder, deren Stern einer Reihe oder einem Gebiet zu wenig Platz ließe, und Gebiete, die in eine einzige Reihe gedrängt sind (der Rest dieser Reihe ist dann leer).
-- Schwer: zwei oder drei Gebiete, die in ebenso viele Reihen gedrängt sind, und einen Stern bis zum Ende verfolgen, um zu sehen, wohin er führt.
-Das Gitter mit zwei Sternen ist auf jeder Stufe eine Spur schwerer: Seine leichten Rätsel brauchen schon die Schlüsse der mittleren Stufe.
+Setze Sterne so ins Gitter, dass jede Zeile, jede Spalte und jedes umrandete Gebiet gleich viele Sterne enthält: einen, oder zwei auf dem Gitter 10 × 10. Zwei Sterne berühren sich nie, nicht einmal an einer Ecke. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
 # Ein Zug
-Setze einen Stern in ein Feld oder einen Punkt in ein Feld, von dem du weißt, dass es leer ist. Die Punkte sind nur Notizen für dich.
+Tippe ein Feld an, um einen Stern hineinzusetzen, noch einmal für einen Punkt (eine Notiz, dass es leer bleibt) und ein weiteres Mal, um es zu leeren.
 # Das Ende der Partie
-Das Rätsel ist gelöst, wenn alle Sterne an ihrem Platz sind: Eine Welle goldenen Lichts läuft über das Brett.
+Das Rätsel ist gelöst, wenn alle Sterne an ihrem Platz sind.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 mit einem Stern in jeder Reihe bis 10 × 10 mit zweien, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falscher Stern oder Punkt, den du mit Rückgängig zurücknimmst.
-# Spielen auf dem Gerät
-Tippe ein Feld an, um einen Stern hineinzusetzen, noch einmal für einen Punkt und ein weiteres Mal, um es zu leeren. Ziehe von einem leeren Feld aus eine Zeile oder Spalte entlang, um Punkte in die leeren Felder auf dem Weg zu setzen, oder von einem Punkt aus, um die Punkte wegzunehmen. Sterne, die sich berühren, oder zu viele Sterne in einer Reihe oder einem Gebiet werden rot. Der Lampenknopf gibt einen Tipp: Er nimmt einen falschen Stern oder Punkt weg oder setzt sonst den leichtesten Stern, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falscher Stern oder Punkt, den du mit Rückgängig zurücknimmst.

@@ -1,20 +1,9 @@
 Sudoku
 # Målet
-Udfyld gitteret på 9 × 9 felter, så hver række, hver kolonne og hver 3 × 3-boks indeholder hvert ciffer fra 1 til 9 én gang. Nogle cifre er givet fra start. Hver opgave har præcis én løsning, som kan findes ved ren tankegang. Vælg først niveau (stenene under hvert billede):
-- Let: et felt, hvor kun ét ciffer er muligt, eller et ciffer med kun én plads tilbage i sin række, kolonne eller boks, er altid nok.
-- Mellem: du får også brug for par, og cifre hvis pladser i en boks alle ligger i samme række eller kolonne.
-- Svær: tripler, og mønstre på tværs af flere rækker og kolonner.
-- Ekspert: længere kæder af slutninger.
+Udfyld gitteret på 9 × 9 felter, så hver række, hver kolonne og hver 3 × 3-boks indeholder hvert ciffer fra 1 til 9 én gang. Nogle cifre er givet fra start. Hver opgave har præcis én løsning, som kan findes ved ren tankegang.
 # Et træk
-Sæt et ciffer i et tomt felt. Du kan ændre det eller fjerne det når som helst; de givne cifre bliver stående. Små noter i et felt hjælper dig med at huske, hvilke cifre det stadig kan have.
+Tryk på et felt og derefter på en tast ved siden af brættet: cifret skrives ind. Du kan ændre det eller fjerne det når som helst; de givne cifre bliver stående. Med blyanten sætter tasterne i stedet små noter: de cifre, feltet stadig kan have.
 # Spillets afslutning
-Opgaven er løst, når gitteret er fuldt og rigtigt: en bølge af gyldent lys går hen over brættet.
+Opgaven er løst, når gitteret er fuldt og rigtigt.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, hver med kun én løsning: de første kræver kun singler og giver mange cifre, de sidste beder dig prøve et ciffer og følge det, til noget går galt. Vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, på det niveau, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.
-# Spil på enheden
-Tryk på et felt og derefter på en tast ved siden af brættet: cifret skrives ind med blåt blæk (de givne cifre er mørke). Tryk på samme tast igen for at fjerne det, eller træk en tast hen på et felt. Feltets række, kolonne og boks lyser svagt op, og alle felter med samme ciffer varmere. Er intet tomt felt valgt, lyser en tast felterne med dens ciffer op. Knapperne ved siden af brættet:
-- Blyant: noter. Tasterne sætter så små cifre i feltet eller fjerner dem. Et ciffer, du skriver ind, sletter den note i sin række, kolonne og boks.
-- Viskelæder: fjerner feltets ciffer eller dets noter.
-- Lampe: et tip. Den retter et forkert ciffer eller udfylder ellers det letteste felt, i gyldent lys.
-- Øje: viser konflikter (et ciffer, der allerede står i sin række, kolonne eller boks, bliver rødt). Det er tændt fra start; tryk på det for at skjule dem.
-En tast blegner, når alle ni af dens cifre er på brættet. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert ciffer, som du tager tilbage med Fortryd.

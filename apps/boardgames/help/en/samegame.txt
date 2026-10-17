@@ -1,14 +1,12 @@
 Same Game
 # The aim
-A tray is full of coloured tiles. Take away groups of tiles to score as many points as you can, and clear the whole tray if you can. Choose the size first: 10 × 10 tiles in 3 colours, 15 × 10 in 4, or 20 × 12 in 5.
-Every tray can be cleared: each one is built backwards from an empty tray. Finding the way is up to you.
+A tray is full of coloured tiles. Take away groups of tiles to score as many points as you can, and clear the whole tray if you can. Every tray can be cleared.
 # A move
-A group is two or more tiles of the same colour joined side by side (not corner to corner). Take a group away: the tiles above fall into the gaps, and when a column is empty, the columns on its right close up to the left. A single tile can never be taken.
+A group is two or more tiles of the same colour joined side by side (not corner to corner). Tap a group, then tap it again to take it away: the tiles above fall into the gaps, and when a column is empty, the columns on its right close up to the left.
+The hint follows a way to clear the tray when it knows one from here; otherwise it picks the group that scores most, and the tray may no longer clear.
 # The score
-A group of n tiles scores (n - 2) × (n - 2): 2 tiles score 0, 3 score 1, 4 score 4, 5 score 9, 10 score 64. Big groups pay far more, so let tiles of one colour gather before you take them. Clearing the whole tray earns 1000 points more.
+A group of n tiles scores (n - 2) × (n - 2): 2 tiles score 0, 3 score 1, 4 score 4, 10 score 64. Clearing the whole tray earns 1000 points more.
 # The end of the game
-The game ends when no group is left. A cleared tray lights up in gold. Either way, your final score is shown on a brass plaque.
+The game ends when no group is left.
 # Levels and stars
-There are 150 levels in six chapters, from 6 × 6 tiles in 3 colours up to 20 × 12 in 5; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. Each tray has a goal: nine tenths of the best score the computer found for it. Reach the goal: 3 stars; half of it, or a tray nearly cleared (a tenth of the tiles left at most): 2 stars; less: 1 star. The end card shows your score beside the goal.
-# Playing on the device
-Tap a group: it gets a gold rim, the other tiles dim, and its points show above it. Tap it again to take it away, or tap another group instead. Each colour also carries a small sign. The lamp gives a hint: it picks a group to take, blinking in gold (when it knows a way to clear the tray from here, it follows it; otherwise it picks the group that scores most, and the tray may no longer clear); tap it to take it. Undo takes back one move at a time, all the way to the start. The bar shows your score.
+Each tray has a goal: nine tenths of the best score the computer found for it. Reach the goal: 3 stars; half of it, or a tray nearly cleared (a tenth of the tiles left at most): 2 stars; less: 1 star.

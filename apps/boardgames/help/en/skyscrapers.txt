@@ -1,18 +1,10 @@
 Skyscrapers
 # The aim
 The grid is a town seen from above. Put a building in every cell, its height from 1 to the size of the grid, each height once in every row and every column. A number on the edge tells how many buildings you see from there, looking along that row or column: a taller building hides every lower one behind it.
-Some heights may be given at the start, on darker cells. Every puzzle has exactly one solution, found by reasoning alone. Choose the size (from 4 × 4 to 7 × 7) and the level (the stones under each picture):
-- Easy: a height with one place left in its row or column, a cell with one height left, and what an edge number allows near it (1: the tallest stands first; the full count: all in order, lowest first).
-- Medium: you will also need to look at a whole line: every order of its heights that fits its numbers agrees on some cells.
-- Hard: longer chains of reasoning, never a guess.
+Some heights may be given at the start, on darker cells. Every puzzle has exactly one solution, found by reasoning alone.
 # A move
-Put a height in a cell, change it or take it out. Small notes in a cell help you remember the heights it could still hold.
+Tap a cell, then a key beside the board: its height goes in. With the pencil, the keys put small notes instead: the heights the cell could still hold.
 # The end of the game
-The puzzle is solved when every cell has its building and the town keeps every rule: a wave of gold light runs over the board.
+The puzzle is solved when every cell has its building and the town keeps every rule.
 # Levels and stars
-There are 150 levels in six chapters, from 4 × 4 up to 7 × 7, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong height that you take back with undo.
-# Playing on the device
-Tap a cell, then a key beside the board: its height goes in (the same key again takes it out). You can also drag a key onto a cell. Tap the chosen cell again to raise its building by one; hold a cell a moment to clear it. The buildings are little wooden towers: the taller, the bigger. The buttons beside the board:
-- Pencil: notes. The keys then put small heights in the cell, or take them out. A height you put in clears that note from its row and column.
-- Light bulb: a hint. It puts a wrong height right, or else fills the next cell reasoning finds, in gold light.
-A height twice in a row or a column turns red. An edge number fades when its full line shows the right count, and turns red when it shows another. A key fades once its height is in every row. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong height that you take back with undo.

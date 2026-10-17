@@ -1,15 +1,9 @@
 Star Battle
 # Amaç
-Izgaraya yıldızları, her satırda, her sütunda ve çerçeveli her bölgede aynı sayıda yıldız olacak şekilde yerleştir: 6 × 6 ve 8 × 8 ızgaralarda bir, 10 × 10 ızgarada iki. İki yıldız hiçbir zaman, köşeden bile, birbirine değmez. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Izgarayı ve seviyeyi (her resmin altındaki taşlar) seç:
-- Kolay: bir yıldızın çevresindeki kareler boştur; bütün yıldızlarını almış bir satır, sütun ya da bölge başka yıldız almaz; eksik yıldızı kadar boş karesi kalan her birinin her karesinde yıldız vardır.
-- Orta: yıldızı bir satıra, sütuna ya da bölgeye çok az yer bırakacak karelere ve tek bir satıra ya da sütuna sıkışmış bölgelere de (o satır ya da sütunun geri kalanı boştur) ihtiyacın olacak.
-- Zor: aynı sayıda satıra ya da sütuna sıkışmış iki ya da üç bölge ve bir yıldızı nereye vardığını görmek için sonuna kadar izlemek.
-İki yıldızlı ızgara her seviyede bir basamak daha zordur: kolay bulmacaları bile orta seviyenin akıl yürütmelerini ister.
+Izgaraya yıldızları, her satırda, her sütunda ve çerçeveli her bölgede aynı sayıda yıldız olacak şekilde yerleştir: bir, ya da 10 × 10 ızgarada iki. İki yıldız hiçbir zaman, köşeden bile, birbirine değmez. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
 # Bir hamle
-Bir kareye yıldız koy ya da boş olduğunu bildiğin bir kareye nokta koy. Noktalar yalnızca senin için notlardır.
+Yıldız koymak için bir kareye dokun, nokta (orasının boş kalacağına dair bir not) için bir kez daha, boşaltmak için bir kez daha.
 # Oyunun sonu
-Bütün yıldızlar yerine oturduğunda bulmaca çözülmüştür: tahtanın üzerinden altın bir ışık dalgası geçer.
+Bütün yıldızlar yerine oturduğunda bulmaca çözülmüştür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; her satır ve sütunda bir yıldızlı 5 × 5'ten iki yıldızlı 10 × 10'a kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir yıldız ya da noktadır.
-# Cihazda oynamak
-Yıldız koymak için bir kareye dokun, nokta için bir kez daha, boşaltmak için bir kez daha. Yol üzerindeki boş karelere nokta koymak için boş bir kareden bir satır ya da sütun boyunca sürükle; noktaları kaldırmak için bir noktadan başla. Birbirine değen yıldızlar ya da bir satırda, sütunda veya bölgede fazla yıldızlar kırmızıya döner. Lamba düğmesi ipucu verir: yanlış bir yıldızı ya da noktayı kaldırır, yoksa en kolay yıldızı altın bir ışık içinde yerleştirir. Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit hamlelerini gösterir.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir yıldız ya da noktadır.

@@ -1,15 +1,9 @@
 Tangram
 # Cel gry
-Tangram to stara chińska łamigłówka: kwadrat pocięty na siedem części, zwanych tanami. Dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło.
+Kwadrat jest pocięty na siedem części, zwanych tanami: dwa duże trójkąty, jeden średni, dwa małe, kwadrat i równoległobok. Użyj wszystkich siedmiu, aby wypełnić ciemną sylwetkę, tak by nic na siebie nie nachodziło.
 # Ruch
-Przesuń tan, obróć go o jedną ósmą obrotu albo odwróć równoległobok na drugą stronę (pozostałe wyglądają tak samo z obu stron). Tany leżą płasko i nigdy na siebie nie nachodzą.
+Przeciągnij tan: gdy go puścisz, ułoży się w pasującym miejscu. Dotknij tana, aby obrócić go o jedną ósmą obrotu. Dotknij szybko dwa razy równoległoboku, aby odwrócić go na drugą stronę.
 # Koniec gry
-Figura jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę: przebiega po nich złote światło. Liczy się każdy sposób, który wypełnia sylwetkę, nie tylko ten, którym ją ułożono.
+Figura jest rozwiązana, gdy siedem tanów dokładnie pokrywa sylwetkę. Liczy się każdy sposób, który wypełnia sylwetkę, nie tylko ten, którym ją ułożono.
 # Poziomy i gwiazdki
-Jest 98 figur w sześciu rozdziałach: kształty, ludzie, zwierzęta, łodzie i domy, przedmioty, litery i cyfry. Każdą ułożono do tej gry z siedmiu tanów, więc każdą da się rozwiązać. Bez podpowiedzi: 3 gwiazdki; najwyżej dwie podpowiedzi: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Wybierz figurę na ekranie poziomów; rozwiązane pokazują swoje gwiazdki.
-- Przeciągnij tan. Gdy go puścisz, ułoży się w pasującym miejscu: jego rogi spotkają się z rogami sylwetki lub innego tana.
-- Dotknij tana: obraca się o jedną ósmą obrotu.
-- Dotknij szybko dwa razy równoległoboku: odwraca się na drugą stronę.
-Tan dotknięty jako ostatni leży na wierzchu. Lampa daje podpowiedź: wsuwa jeden tan na jego miejsce, w złotym świetle. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje czynności.
+Bez podpowiedzi: 3 gwiazdki; najwyżej dwie podpowiedzi: 2 gwiazdki; inaczej 1.

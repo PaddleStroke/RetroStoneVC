@@ -1,14 +1,12 @@
 Same Game
 # Lo scopo
-Un vassoio è pieno di tessere colorate. Togli gruppi di tessere per fare più punti che puoi, e svuota tutto il vassoio se ci riesci. Scegli prima la grandezza: 10 × 10 tessere in 3 colori, 15 × 10 in 4 o 20 × 12 in 5.
-Ogni vassoio si può svuotare: ciascuno è costruito a ritroso partendo da un vassoio vuoto. Trovare la strada tocca a te.
+Un vassoio è pieno di tessere colorate. Togli gruppi di tessere per fare più punti che puoi, e svuota tutto il vassoio se ci riesci. Ogni vassoio si può svuotare.
 # Una mossa
-Un gruppo è formato da due o più tessere dello stesso colore che si toccano di lato (non d'angolo). Togli un gruppo: le tessere sopra cadono nei vuoti e, quando una colonna si svuota, le colonne alla sua destra si stringono verso sinistra. Una tessera da sola non si può mai togliere.
+Un gruppo è formato da due o più tessere dello stesso colore che si toccano di lato (non d'angolo). Tocca un gruppo, poi toccalo di nuovo per toglierlo: le tessere sopra cadono nei vuoti e, quando una colonna si svuota, le colonne alla sua destra si stringono verso sinistra.
+Il suggerimento segue una strada per svuotare il vassoio quando ne conosce una da qui; altrimenti sceglie il gruppo che vale di più, e il vassoio potrebbe non svuotarsi più.
 # Il punteggio
-Un gruppo di n tessere vale (n - 2) × (n - 2): 2 tessere valgono 0, 3 valgono 1, 4 valgono 4, 5 valgono 9, 10 valgono 64. I gruppi grandi rendono molto di più, quindi lascia che le tessere di un colore si radunino prima di toglierle. Svuotare tutto il vassoio vale 1000 punti in più.
+Un gruppo di n tessere vale (n - 2) × (n - 2): 2 tessere valgono 0, 3 valgono 1, 4 valgono 4, 10 valgono 64. Svuotare tutto il vassoio vale 1000 punti in più.
 # La fine della partita
-La partita finisce quando non resta nessun gruppo. Un vassoio svuotato si illumina d'oro. In ogni caso, il tuo punteggio finale compare su una targa d'ottone.
+La partita finisce quando non resta nessun gruppo.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da 6 × 6 tessere in 3 colori fino a 20 × 12 in 5; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni vassoio ha un traguardo: i nove decimi del miglior punteggio che il computer ha trovato. Traguardo raggiunto: 3 stelle; la metà, o un vassoio quasi vuoto (al massimo un decimo delle tessere rimaste): 2 stelle; meno: 1 stella. La carta finale mostra il tuo punteggio accanto al traguardo.
-# Giocare sul dispositivo
-Tocca un gruppo: prende un bordo dorato, le altre tessere si scuriscono e i suoi punti compaiono sopra. Toccalo di nuovo per toglierlo, oppure tocca un altro gruppo. Ogni colore porta anche un piccolo segno. La lampada dà un suggerimento: sceglie un gruppo da togliere, che lampeggia d'oro (finché il vassoio si può ancora svuotare, mostra una strada per svuotarlo); toccalo per toglierlo. Annulla toglie una mossa alla volta, fino all'inizio. La barra mostra il tuo punteggio.
+Ogni vassoio ha un traguardo: i nove decimi del miglior punteggio che il computer ha trovato. Traguardo raggiunto: 3 stelle; la metà, o un vassoio quasi vuoto (al massimo un decimo delle tessere rimaste): 2 stelle; meno: 1 stella.

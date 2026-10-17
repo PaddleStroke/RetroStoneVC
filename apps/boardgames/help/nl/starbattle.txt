@@ -1,15 +1,9 @@
 Star Battle
 # Het doel
-Zet sterren in het rooster zo dat elke rij, elke kolom en elk omlijnd gebied evenveel sterren bevat: één op de roosters van 6 × 6 en 8 × 8, twee op het rooster van 10 × 10. Twee sterren raken elkaar nooit, ook niet met een hoek. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies het rooster en het niveau (de stenen onder elk plaatje):
-- Makkelijk: de vakjes rond een ster zijn leeg; een rij, kolom of gebied met al zijn sterren krijgt er geen meer bij; een met evenveel vrije vakjes als ontbrekende sterren heeft in elk vakje een ster.
-- Gemiddeld: je hebt ook vakjes nodig waarvan de ster een rij, kolom of gebied te weinig ruimte zou laten, en gebieden die in één rij of kolom geperst zitten (de rest van die rij of kolom is dan leeg).
-- Moeilijk: twee of drie gebieden die in evenveel rijen of kolommen geperst zitten, en een ster tot het eind volgen om te zien waar hij heen leidt.
-Het rooster met twee sterren is op elk niveau een stapje moeilijker: zijn makkelijke puzzels vragen al de redeneringen van het gemiddelde niveau.
+Zet sterren in het rooster zo dat elke rij, elke kolom en elk omlijnd gebied evenveel sterren bevat: één, of twee op het rooster van 10 × 10. Twee sterren raken elkaar nooit, ook niet met een hoek. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt.
 # Een zet
-Zet een ster in een vakje, of een stip in een vakje waarvan je weet dat het leeg is. De stippen zijn alleen notities voor jezelf.
+Tik op een vakje voor een ster, nog eens voor een stip (een notitie dat het leeg blijft) en nog een keer om het leeg te maken.
 # Het einde van het spel
-De puzzel is opgelost als alle sterren op hun plek staan: een golf van gouden licht loopt over het bord.
+De puzzel is opgelost als alle sterren op hun plek staan.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 5 × 5 met één ster in elke rij en kolom tot 10 × 10 met twee, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde ster of stip die je met Ongedaan maken terugneemt.
-# Spelen op het apparaat
-Tik op een vakje voor een ster, nog eens voor een stip en nog een keer om het leeg te maken. Sleep langs een rij of kolom vanaf een leeg vakje om stippen te zetten in de lege vakjes onderweg, of vanaf een stip om de stippen weg te halen. Sterren die elkaar raken, of te veel sterren in een rij, kolom of gebied, worden rood. De lampknop geeft een hint: hij haalt een foute ster of stip weg, of zet anders de makkelijkste ster, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde ster of stip die je met Ongedaan maken terugneemt.

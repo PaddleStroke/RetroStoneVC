@@ -1,18 +1,10 @@
 Skyskrapere
 # Målet
 Rutenettet er en by sett ovenfra. Sett et bygg i hver rute, med en høyde fra 1 til rutenettets størrelse, hver høyde én gang i hver rad og hver kolonne. Et tall på kanten forteller hvor mange bygg man ser derfra når man ser langs den raden eller kolonnen: Et høyere bygg skjuler alle lavere bak seg.
-Noen høyder kan være gitt fra start, på mørkere ruter. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg størrelse (fra 4 × 4 til 7 × 7) og nivå (steinene under hvert bilde):
-- Lett: en høyde med bare én plass i raden eller kolonnen sin, en rute med bare én høyde igjen, og hva et kanttall tillater nær seg (1: det høyeste står først; hele tallet: alle i rekkefølge, det laveste først).
-- Middels: Du må også se på en hel linje: Alle rekkefølger av høydene som passer med tallene, er enige om noen ruter.
-- Vanskelig: lengre kjeder av slutninger, aldri gjetting.
+Noen høyder kan være gitt fra start, på mørkere ruter. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere.
 # Et trekk
-Sett en høyde i en rute, endre den eller ta den bort. Små notater i en rute hjelper deg å huske hvilke høyder den fortsatt kan ha.
+Trykk på en rute og så på en tast ved siden av brettet: Høyden settes inn. Med blyanten setter tastene i stedet små notater: høydene ruten fortsatt kan ha.
 # Slutten på spillet
-Oppgaven er løst når hver rute har bygget sitt og byen følger alle reglene: En bølge av gyllent lys går over brettet.
+Oppgaven er løst når hver rute har bygget sitt og byen følger alle reglene.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 7 × 7, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil høyde som du tar tilbake med Angre.
-# Spill på enheten
-Trykk på en rute og så på en tast ved siden av brettet: Høyden settes inn (samme tast igjen tar den bort). Du kan også dra en tast til en rute. Trykk på den valgte ruten igjen for å gjøre bygget én etasje høyere; hold fingeren et øyeblikk på en rute for å tømme den. Byggene er små tårn av tre: jo høyere, desto større. Knappene ved siden av brettet:
-- Blyant: notater. Tastene setter da små høyder i ruten, eller tar dem bort. En høyde du setter inn, sletter det notatet i raden og kolonnen sin.
-- Lyspære: et hint. Den retter en feil høyde eller fyller ellers neste rute resonneringen finner, i gyllent lys.
-En høyde som står to ganger i en rad eller kolonne, blir rød. Et kanttall blekner når den fulle linjen viser riktig antall, og blir rødt når den viser et annet. En tast blekner når høyden dens står i hver rad. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil høyde som du tar tilbake med Angre.

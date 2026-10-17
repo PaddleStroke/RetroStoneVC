@@ -1,18 +1,10 @@
 Gratte-ciel
 # Le but
-La grille est une ville vue d'en haut. Mets un immeuble dans chaque case, de hauteur 1 jusqu'à la taille de la grille, chaque hauteur une fois dans chaque ligne et chaque colonne. Un nombre au bord dit combien d'immeubles on voit de là en regardant le long de cette ligne ou colonne : un immeuble plus haut cache tous les plus bas derrière lui.
-Certaines hauteurs peuvent être données au départ, sur des cases plus sombres. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Choisis la taille (de 4 × 4 à 7 × 7) et le niveau (les pions sous chaque image) :
-- Facile : une hauteur qui n'a plus qu'une place dans sa ligne ou sa colonne, une case où il ne reste qu'une hauteur, et ce qu'un nombre du bord permet près de lui (1 : le plus haut est devant ; le compte complet : tous dans l'ordre, du plus bas au plus haut).
-- Moyen : il faut aussi regarder une ligne en entier : tous les ordres de ses hauteurs qui vont avec ses nombres s'accordent sur certaines cases.
-- Difficile : des raisonnements enchaînés plus longs, jamais au hasard.
+La grille est une ville vue d'en haut. Mets un immeuble dans chaque case, de hauteur 1 jusqu'à la taille de la grille, chaque hauteur une fois dans chaque ligne et chaque colonne. Un nombre au bord dit combien d'immeubles on voit de là en regardant le long de cette ligne ou colonne : un immeuble plus haut cache tous les plus bas derrière lui.
+Certaines hauteurs peuvent être données au départ, sur des cases plus sombres. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement.
 # Un coup
-Mets une hauteur dans une case, change-la ou enlève-la. De petites notes dans une case t'aident à retenir les hauteurs qu'elle peut encore recevoir.
+Touche une case, puis une touche à côté du plateau : sa hauteur s'y inscrit. Avec le crayon, les touches mettent plutôt de petites notes : les hauteurs que la case peut encore recevoir.
 # La fin de la partie
-La grille est résolue quand chaque case a son immeuble et que la ville respecte toutes les règles : une vague de lumière dorée parcourt le plateau.
+La grille est résolue quand chaque case a son immeuble et que la ville respecte toutes les règles.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 7 × 7, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une hauteur fausse que tu reprends avec Annuler.
-# Jouer sur l'appareil
-Touche une case, puis une touche à côté du plateau : sa hauteur s'y inscrit (la même touche encore l'enlève). Tu peux aussi faire glisser une touche sur une case. Touche encore la case choisie pour monter son immeuble d'un étage ; garde le doigt un instant sur une case pour la vider. Les immeubles sont de petites tours de bois : plus ils sont hauts, plus ils sont grands. Les boutons à côté du plateau :
-- Crayon : les notes. Les touches mettent alors de petites hauteurs dans la case, ou les enlèvent. Une hauteur posée efface cette note de sa ligne et de sa colonne.
-- Ampoule : un indice. Elle corrige une hauteur fausse, ou sinon remplit la prochaine case que le raisonnement trouve, dans une lumière dorée.
-Une hauteur présente deux fois dans une ligne ou une colonne devient rouge. Un nombre du bord pâlit quand sa ligne pleine montre le bon compte, et devient rouge quand elle en montre un autre. Une touche pâlit quand sa hauteur est dans toutes les lignes. Annuler reprend une action à la fois, jusqu'au début. La barre montre tes coups.
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une hauteur fausse que tu reprends avec Annuler.

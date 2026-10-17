@@ -1,15 +1,9 @@
 Tangram
 # Tujuan
-Tangram adalah teka-teki kuno Tiongkok: sebuah persegi yang dipotong menjadi tujuh keping, yaitu tan. Dua segitiga besar, satu sedang, dua kecil, sebuah persegi, dan sebuah jajaran genjang. Gunakan ketujuhnya untuk mengisi siluet gelap, tanpa ada yang bertumpuk.
+Sebuah persegi dipotong menjadi tujuh keping, yaitu tan: dua segitiga besar, satu sedang, dua kecil, sebuah persegi, dan sebuah jajaran genjang. Gunakan ketujuhnya untuk mengisi siluet gelap, tanpa ada yang bertumpuk.
 # Satu langkah
-Pindahkan sebuah tan, putar seperdelapan putaran, atau balik jajaran genjang (yang lain tampak sama dari kedua sisi). Tan selalu terbaring datar dan tidak pernah bertumpuk.
+Seret sebuah tan: saat kamu melepasnya, tan itu menempati tempat yang pas. Ketuk tan untuk memutarnya seperdelapan putaran. Ketuk jajaran genjang dua kali dengan cepat untuk membaliknya.
 # Akhir permainan
-Gambar terpecahkan saat ketujuh tan menutupi siluet dengan tepat: cahaya emas menyapu tan-tan itu. Cara apa pun yang mengisi siluet dihitung, bukan hanya cara yang dipakai untuk menyusunnya.
+Gambar terpecahkan saat ketujuh tan menutupi siluet dengan tepat. Cara apa pun yang mengisi siluet dihitung, bukan hanya cara yang dipakai untuk menyusunnya.
 # Level dan bintang
-Ada 98 gambar dalam enam bab: bentuk, orang, hewan, perahu dan rumah, benda, huruf dan angka. Setiap gambar disusun untuk permainan ini dari ketujuh tan, jadi semuanya bisa dipecahkan. Tanpa petunjuk: 3 bintang; paling banyak dua petunjuk: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Pilih gambar di layar level; yang sudah terpecahkan menunjukkan bintangnya.
-- Seret sebuah tan. Saat kamu melepasnya, tan itu menempati tempat yang pas: sudut-sudutnya bertemu dengan sudut siluet atau tan lain.
-- Ketuk tan: tan berputar seperdelapan putaran.
-- Ketuk jajaran genjang dua kali dengan cepat: ia terbalik.
-Tan yang terakhir kamu sentuh berada paling atas. Lampu memberi petunjuk: lampu menggeser satu tan ke tempatnya, dengan cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan tindakanmu.
+Tanpa petunjuk: 3 bintang; paling banyak dua petunjuk: 2 bintang; selain itu 1.

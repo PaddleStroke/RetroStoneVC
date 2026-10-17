@@ -1,15 +1,9 @@
 Tangram
 # Målet
-Tangram er et gammelt kinesisk puslespill: et kvadrat skåret i sju biter, tans. To store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping.
+Et kvadrat er skåret i sju biter, tans: to store trekanter, en middels, to små, et kvadrat og et parallellogram. Bruk alle sju til å fylle den mørke silhuetten, uten noen overlapping.
 # Et trekk
-Flytt en tan, drei den en åttendedels omdreining, eller snu parallellogrammet (de andre ser like ut begge veier). Tans ligger flatt og overlapper aldri.
+Dra en tan: når du slipper, legger den seg på en plass som passer. Trykk på en tan for å dreie den en åttendedels omdreining. Trykk raskt to ganger på parallellogrammet for å snu det.
 # Slutten på spillet
-Figuren er løst når de sju tans dekker silhuetten nøyaktig: gyllent lys går over dem. Enhver måte som fyller silhuetten, teller, ikke bare den figuren ble lagt med.
+Figuren er løst når de sju tans dekker silhuetten nøyaktig. Enhver måte som fyller silhuetten, teller, ikke bare den figuren ble lagt med.
 # Nivåer og stjerner
-Det finnes 98 figurer i seks kapitler: former, mennesker, dyr, båter og hus, ting, bokstaver og tall. Hver av dem er lagt for dette spillet med de sju tans, så alle kan løses. Uten hint: 3 stjerner; opptil to hint: 2 stjerner; ellers 1.
-# Spill på enheten
-Velg en figur på nivåskjermen; de løste viser stjernene sine.
-- Dra en tan. Når du slipper, legger den seg på en plass som passer: hjørnene møter hjørnene til silhuetten eller til en annen tan.
-- Trykk på en tan: den dreier en åttendedels omdreining.
-- Trykk raskt to ganger på parallellogrammet: det snus.
-Tanen du rørte sist, ligger øverst. Lampen gir et hint: den skyver én tan på plass, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser handlingene dine.
+Uten hint: 3 stjerner; opptil to hint: 2 stjerner; ellers 1.

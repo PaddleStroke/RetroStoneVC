@@ -1,14 +1,12 @@
 Same Game
 # Het doel
-Een bak zit vol gekleurde tegeltjes. Haal groepen tegeltjes weg om zo veel mogelijk punten te scoren, en maak de hele bak leeg als het lukt. Kies eerst de grootte: 10 × 10 tegeltjes in 3 kleuren, 15 × 10 in 4 of 20 × 12 in 5.
-Elke bak kan leeg: hij wordt achterstevoren opgebouwd vanuit een lege bak. De weg vinden is aan jou.
+Een bak zit vol gekleurde tegeltjes. Haal groepen tegeltjes weg om zo veel mogelijk punten te scoren, en maak de hele bak leeg als het lukt. Elke bak kan leeg.
 # Een zet
-Een groep is twee of meer tegeltjes van dezelfde kleur die met een zijkant aan elkaar grenzen (niet alleen met een hoek). Haal een groep weg: de tegeltjes erboven vallen in de gaten, en raakt een kolom leeg, dan schuiven de kolommen rechts ervan naar links op. Eén los tegeltje kan nooit weg.
+Een groep is twee of meer tegeltjes van dezelfde kleur die met een zijkant aan elkaar grenzen (niet alleen met een hoek). Tik op een groep en dan nog eens om hem weg te halen: de tegeltjes erboven vallen in de gaten, en raakt een kolom leeg, dan schuiven de kolommen rechts ervan naar links op.
+De hint volgt een weg om de bak leeg te maken als hij er vanaf hier een kent; anders kiest hij de groep die het meest oplevert, en kan de bak misschien niet meer leeg.
 # De score
-Een groep van n tegeltjes levert (n - 2) × (n - 2) op: 2 tegeltjes leveren 0 op, 3 leveren 1, 4 leveren 4, 5 leveren 9, 10 leveren 64. Grote groepen leveren veel meer op, dus laat tegeltjes van één kleur samenkomen voordat je ze weghaalt. Wie de hele bak leegmaakt, krijgt er 1000 punten bij.
+Een groep van n tegeltjes levert (n - 2) × (n - 2) op: 2 tegeltjes leveren 0 op, 3 leveren 1, 4 leveren 4, 10 leveren 64. Wie de hele bak leegmaakt, krijgt er 1000 punten bij.
 # Het einde van het spel
-Het spel eindigt als er geen groep meer over is. Een leeggemaakte bak licht goud op. Hoe dan ook staat je eindscore op een plaatje van messing.
+Het spel eindigt als er geen groep meer over is.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 6 × 6 tegeltjes in 3 kleuren tot 20 × 12 in 5; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Elke bak heeft een doel: negen tiende van de beste score die de computer ervoor vond. Doel gehaald: 3 sterren; de helft ervan, of een bak die bijna leeg is (hooguit een tiende van de tegeltjes over): 2 sterren; minder: 1 ster. De eindkaart toont je score naast het doel.
-# Spelen op het apparaat
-Tik op een groep: hij krijgt een gouden rand, de andere tegeltjes worden donkerder, en zijn punten verschijnen erboven. Tik er nog eens op om hem weg te halen, of tik in plaats daarvan op een andere groep. Elke kleur draagt ook een klein teken. De lamp geeft een hint: hij kiest een groep om weg te halen, die goud knippert (zolang de bak nog leeg kan, wijst hij een weg om hem leeg te maken); tik erop om hem weg te halen. Ongedaan maken neemt één zet tegelijk terug, helemaal tot het begin. De balk toont je score.
+Elke bak heeft een doel: negen tiende van de beste score die de computer ervoor vond. Doel gehaald: 3 sterren; de helft ervan, of een bak die bijna leeg is (hooguit een tiende van de tegeltjes over): 2 sterren; minder: 1 ster.

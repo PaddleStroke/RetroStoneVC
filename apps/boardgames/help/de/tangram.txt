@@ -1,15 +1,9 @@
 Tangram
 # Das Ziel
-Das Tangram ist ein altes chinesisches Legespiel: ein Quadrat, in sieben Teile zerschnitten, die Tans. Zwei große Dreiecke, ein mittleres, zwei kleine, ein Quadrat und ein Parallelogramm. Lege alle sieben so, dass sie die dunkle Silhouette ausfüllen, ohne sich zu überlappen.
+Ein Quadrat ist in sieben Teile zerschnitten, die Tans: zwei große Dreiecke, ein mittleres, zwei kleine, ein Quadrat und ein Parallelogramm. Lege alle sieben so, dass sie die dunkle Silhouette ausfüllen, ohne sich zu überlappen.
 # Ein Zug
-Verschiebe einen Tan, drehe ihn um eine Achteldrehung oder wende das Parallelogramm (die anderen sehen von beiden Seiten gleich aus). Die Tans liegen flach und überlappen sich nie.
+Ziehe einen Tan: Lässt du ihn los, rastet er an einer passenden Stelle ein. Tippe auf einen Tan, um ihn um eine Achteldrehung zu drehen. Tippe zweimal schnell auf das Parallelogramm, um es zu wenden.
 # Das Ende der Partie
-Die Figur ist gelöst, wenn die sieben Tans die Silhouette genau bedecken: Goldenes Licht läuft über sie. Jede Lösung, die die Silhouette füllt, zählt, nicht nur die, mit der sie gelegt wurde.
+Die Figur ist gelöst, wenn die sieben Tans die Silhouette genau bedecken. Jede Lösung, die die Silhouette füllt, zählt, nicht nur die, mit der sie gelegt wurde.
 # Level und Sterne
-Es gibt 98 Figuren in sechs Kapiteln: Formen, Menschen, Tiere, Boote und Häuser, Dinge, Buchstaben und Ziffern. Jede wurde für dieses Spiel aus den sieben Tans gelegt, also ist jede lösbar. Ohne Tipp: 3 Sterne; bis zu zwei Tipps: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Wähle eine Figur auf dem Levelbildschirm; gelöste Figuren zeigen ihre Sterne.
-- Ziehe einen Tan. Lässt du ihn los, rastet er an einer passenden Stelle ein: Seine Ecken treffen die Ecken der Silhouette oder eines anderen Tans.
-- Tippe auf einen Tan: Er dreht sich um eine Achteldrehung.
-- Tippe zweimal schnell auf das Parallelogramm: Es wird gewendet.
-Der zuletzt berührte Tan liegt oben. Die Lampe gibt einen Tipp: Sie schiebt einen Tan an seinen Platz, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Aktionen.
+Ohne Tipp: 3 Sterne; bis zu zwei Tipps: 2 Sterne; sonst 1.

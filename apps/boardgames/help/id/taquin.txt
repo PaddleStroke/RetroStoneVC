@@ -1,12 +1,10 @@
 Teka-teki 15
 # Tujuan
-Ubin-ubin bernomor teracak di dalam bingkai yang punya satu tempat kosong. Geser ubin-ubin itu sampai urut kembali: 1, 2, 3... baris demi baris dari kiri atas, dengan tempat kosong paling akhir, di kanan bawah. Pilih dulu bingkainya: 3 × 3 (8 ubin), 4 × 4 (yang klasik, 15 ubin), atau 5 × 5 (24 ubin), dengan angka atau dipotong dari sebuah gambar (permainan catur yang sedang berlangsung, nomor tiap ubin kecil di sudutnya).
-Setiap acakan bisa diselesaikan. Separuh dari semua cara mengacak ubin tidak akan pernah bisa digeser kembali ke urutannya, dan yang seperti itu tidak pernah diberikan.
+Ubin-ubin bernomor teracak di dalam bingkai yang punya satu tempat kosong. Geser ubin-ubin itu sampai urut kembali: 1, 2, 3... baris demi baris dari kiri atas, dengan tempat kosong paling akhir, di kanan bawah. Pada gambar, nomor tiap ubin kecil di sudutnya.
+Setiap acakan bisa diselesaikan.
 # Satu langkah
-Ubin di sebelah tempat kosong meluncur ke sana. Ubin hanya digeser; tidak pernah diangkat dari bingkai.
+Ketuk ubin di baris atau kolom yang sama dengan tempat kosong: ubin itu meluncur, dan ubin di antaranya dan tempat kosong ikut bergeser.
 # Akhir permainan
-Saat setiap ubin ada di tempatnya, teka-teki terpecahkan: cahaya emas menyapu ubin-ubin sesuai urutannya, dan gambar mendapatkan kepingnya yang hilang.
+Saat setiap ubin ada di tempatnya, teka-teki terpecahkan.
 # Level dan bintang
-Ada 150 level dalam enam bab: bingkai 3 × 3, 4 × 4, dan 5 × 5, dengan angka atau dipotong dari gambar; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah ubin dipindahkan paling sedikit, yang ditemukan komputer (untuk bingkai besar yang dibuat acak, jalan terbaik yang ditemukannya dalam sekejap). Selesai tepat par: 3 bintang; dengan tambahan ubin dipindahkan paling banyak setengah dari par: 2 bintang; selain itu 1. Urungkan membatalkan satu geseran, dan geseran itu tidak dihitung lagi.
-# Bermain di perangkat
-Ketuk ubin di baris atau kolom yang sama dengan tempat kosong: ubin itu meluncur, dan ubin di antaranya dan tempat kosong ikut bergeser. Kamu juga bisa mendorong ubin dengan jari ke arah tempat kosong: lewat dari setengah jalan ia terus meluncur, kalau tidak ia kembali. Urungkan membatalkan satu geseran setiap kali, sampai ke awal. Bilah menghitung ubin yang dipindahkan: geseran tiga ubin dihitung tiga.
+Setiap teka-teki punya par, jumlah ubin dipindahkan paling sedikit, yang ditemukan komputer (untuk bingkai besar yang dibuat acak, jalan terbaik yang ditemukannya dalam sekejap). Geseran tiga ubin dihitung tiga. Selesai tepat par: 3 bintang; dengan tambahan ubin dipindahkan paling banyak setengah dari par: 2 bintang; selain itu 1.

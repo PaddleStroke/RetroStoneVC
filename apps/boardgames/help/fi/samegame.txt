@@ -1,14 +1,12 @@
 Same Game
 # Tavoite
-Tarjotin on täynnä värillisiä laattoja. Poista laattaryhmiä saadaksesi mahdollisimman paljon pisteitä, ja tyhjennä koko tarjotin, jos pystyt. Valitse ensin koko: 10 × 10 laattaa ja 3 väriä, 15 × 10 ja 4 väriä tai 20 × 12 ja 5 väriä.
-Jokaisen tarjottimen voi tyhjentää: jokainen rakennetaan takaperin tyhjästä tarjottimesta. Reitin löytäminen jää sinulle.
+Tarjotin on täynnä värillisiä laattoja. Poista laattaryhmiä saadaksesi mahdollisimman paljon pisteitä, ja tyhjennä koko tarjotin, jos pystyt. Jokaisen tarjottimen voi tyhjentää.
 # Siirto
-Ryhmä on kaksi tai useampia samanvärisiä laattoja, jotka koskettavat toisiaan sivuittain (ei pelkästään kulmittain). Poista ryhmä: yläpuolella olevat laatat putoavat aukkoihin, ja kun sarake tyhjenee, sen oikealla puolella olevat sarakkeet siirtyvät vasemmalle umpeen. Yksittäistä laattaa ei voi koskaan poistaa.
+Ryhmä on kaksi tai useampia samanvärisiä laattoja, jotka koskettavat toisiaan sivuittain (ei pelkästään kulmittain). Napauta ryhmää ja sitten uudelleen poistaaksesi sen: yläpuolella olevat laatat putoavat aukkoihin, ja kun sarake tyhjenee, sen oikealla puolella olevat sarakkeet siirtyvät vasemmalle umpeen.
+Vihje seuraa tietä tarjottimen tyhjentämiseen, kun se tuntee sellaisen tästä eteenpäin; muuten se valitsee eniten pisteitä antavan ryhmän, eikä tarjotinta ehkä voi enää tyhjentää.
 # Pisteet
-Ryhmä, jossa on n laattaa, antaa (n - 2) × (n - 2) pistettä: 2 laattaa antaa 0, 3 antaa 1, 4 antaa 4, 5 antaa 9, 10 antaa 64. Suuret ryhmät tuottavat paljon enemmän, joten anna saman värin laattojen kerääntyä yhteen ennen kuin poistat ne. Koko tarjottimen tyhjentämisestä saa 1000 pistettä lisää.
+Ryhmä, jossa on n laattaa, antaa (n - 2) × (n - 2) pistettä: 2 laattaa antaa 0, 3 antaa 1, 4 antaa 4, 10 antaa 64. Koko tarjottimen tyhjentämisestä saa 1000 pistettä lisää.
 # Pelin loppu
-Peli päättyy, kun ryhmiä ei ole enää jäljellä. Tyhjennetty tarjotin syttyy kultaiseksi. Joka tapauksessa lopulliset pisteesi näkyvät messinkikyltissä.
+Peli päättyy, kun ryhmiä ei ole enää jäljellä.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, 6 × 6 laatasta ja 3 väristä 20 × 12 laattaan ja 5 väriin; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tarjottimella on tavoite: yhdeksän kymmenesosaa parhaasta pistemäärästä, jonka tietokone löysi. Tavoite saavutettu: 3 tähteä; puolet siitä, tai lähes tyhjä tarjotin (enintään kymmenesosa laatoista jäljellä): 2 tähteä; vähemmän: 1 tähti. Loppukortti näyttää pisteesi tavoitteen vieressä.
-# Pelaaminen laitteella
-Napauta ryhmää: se saa kultaisen reunuksen, muut laatat himmenevät ja sen pisteet näkyvät sen yläpuolella. Napauta sitä uudelleen poistaaksesi sen, tai napauta sen sijaan toista ryhmää. Jokaisessa värissä on myös pieni merkki. Lamppu antaa vihjeen: se valitsee poistettavan ryhmän, joka vilkkuu kultaisena (niin kauan kuin tarjottimen voi vielä tyhjentää, se näyttää tien sen tyhjentämiseen); napauta ryhmää poistaaksesi sen. Kumoa peruu yhden siirron kerrallaan, aina alkuun asti. Palkki näyttää pisteesi.
+Jokaisella tarjottimella on tavoite: yhdeksän kymmenesosaa parhaasta pistemäärästä, jonka tietokone löysi. Tavoite saavutettu: 3 tähteä; puolet siitä, tai lähes tyhjä tarjotin (enintään kymmenesosa laatoista jäljellä): 2 tähteä; vähemmän: 1 tähti.

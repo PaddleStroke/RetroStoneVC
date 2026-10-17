@@ -1,20 +1,9 @@
 Sudoku
 # Målet
-Fyll rutnätet med 9 × 9 rutor så att varje rad, varje kolumn och varje 3 × 3-box innehåller varje siffra från 1 till 9 en gång. Några siffror är givna. Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera. Välj först nivå (stenarna under varje bild):
-- Lätt: en ruta där bara en siffra återstår, eller en siffra som bara har en plats kvar i sin rad, kolumn eller box, räcker alltid.
-- Medel: du behöver också par, och siffror vars platser i en box alla ligger i samma rad eller kolumn.
-- Svår: trippler, och mönster över flera rader och kolumner.
-- Expert: längre kedjor av slutsatser.
+Fyll rutnätet med 9 × 9 rutor så att varje rad, varje kolumn och varje 3 × 3-box innehåller varje siffra från 1 till 9 en gång. Några siffror är givna. Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera.
 # Ett drag
-Sätt en siffra i en tom ruta. Du kan ändra den eller ta bort den när du vill; de givna siffrorna ligger kvar. Små anteckningar i en ruta hjälper dig att minnas vilka siffror den fortfarande kan få.
+Tryck på en ruta och sedan på en tangent bredvid brädet: siffran skrivs in. Du kan ändra den eller ta bort den när du vill; de givna siffrorna ligger kvar. Med pennan sätter tangenterna i stället små anteckningar: de siffror rutan fortfarande kan få.
 # Partiets slut
-Pusslet är löst när rutnätet är fullt och rätt: en våg av guldljus sveper över brädet.
+Pusslet är löst när rutnätet är fullt och rätt.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, var och en med bara en lösning: de första kräver bara singlar och ger många siffror, de sista ber dig pröva en siffra och följa den tills något går sönder. Välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, på den nivå du väljer. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.
-# Spela på enheten
-Tryck på en ruta och sedan på en tangent bredvid brädet: siffran skrivs in med blått bläck (de givna siffrorna är mörka). Tryck på samma tangent igen för att ta bort den, eller dra en tangent till en ruta. Rutans rad, kolumn och box lyser svagt, och alla rutor med samma siffra varmare. Om ingen tom ruta är vald tänder en tangent rutorna med dess siffra. Knapparna bredvid brädet:
-- Penna: anteckningar. Tangenterna sätter då små siffror i rutan, eller tar bort dem. En siffra som du skriver in suddar den anteckningen i sin rad, kolumn och box.
-- Suddgummi: tar bort rutans siffra, eller dess anteckningar.
-- Lampa: en ledtråd. Den rättar en fel siffra, eller fyller annars den lättaste rutan, i guldljus.
-- Öga: visar krockar (en siffra som redan finns i sin rad, kolumn eller box blir röd). Det är på från början; tryck på det för att dölja dem.
-En tangent bleknar när alla nio av dess siffror finns på brädet. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig siffra som du tar tillbaka med Ångra.

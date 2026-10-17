@@ -1,18 +1,10 @@
 Wolkenkrabbers
 # Het doel
 Het rooster is een stad van bovenaf gezien. Zet in elk vakje een gebouw met een hoogte van 1 tot de grootte van het rooster, elke hoogte één keer in elke rij en elke kolom. Een getal aan de rand zegt hoeveel gebouwen je vandaar ziet als je langs die rij of kolom kijkt: een hoger gebouw verbergt alle lagere erachter.
-Sommige hoogtes kunnen gegeven zijn, op donkerdere vakjes. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies de grootte (van 4 × 4 tot 7 × 7) en het niveau (de stenen onder elk plaatje):
-- Makkelijk: een hoogte met nog maar één plek in haar rij of kolom, een vakje met nog maar één hoogte, en wat een randgetal vlak bij zich toelaat (1: het hoogste staat vooraan; het volle aantal: alle op volgorde, het laagste eerst).
-- Gemiddeld: je moet ook naar een hele lijn kijken: alle volgordes van zijn hoogtes die bij zijn getallen passen, zijn het over sommige vakjes eens.
-- Moeilijk: langere redeneringen achter elkaar, nooit gokken.
+Sommige hoogtes kunnen gegeven zijn, op donkerdere vakjes. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt.
 # Een zet
-Zet een hoogte in een vakje, verander haar of haal haar weg. Kleine notities in een vakje helpen je onthouden welke hoogtes er nog in kunnen.
+Tik op een vakje en dan op een toets naast het bord: de hoogte komt erin. Met het potlood zetten de toetsen in plaats daarvan kleine notities: de hoogtes die er nog in kunnen.
 # Het einde van het spel
-De puzzel is opgelost als elk vakje zijn gebouw heeft en de stad zich aan alle regels houdt: een golf van gouden licht gaat over het bord.
+De puzzel is opgelost als elk vakje zijn gebouw heeft en de stad zich aan alle regels houdt.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 4 × 4 tot 7 × 7, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde hoogte die je met Ongedaan maken terugneemt.
-# Spelen op het apparaat
-Tik op een vakje en dan op een toets naast het bord: de hoogte komt erin (dezelfde toets nog eens haalt haar weg). Je kunt ook een toets naar een vakje slepen. Tik nog eens op het gekozen vakje om zijn gebouw een verdieping hoger te maken; houd een vakje even vast om het te legen. De gebouwen zijn houten torentjes: hoe hoger, hoe groter. De knoppen naast het bord:
-- Potlood: notities. De toetsen zetten dan kleine hoogtes in het vakje, of halen ze weg. Een hoogte die je invult, wist die notitie uit haar rij en kolom.
-- Gloeilamp: een hint. Hij verbetert een foute hoogte, of vult anders het volgende vakje in dat redeneren oplevert, in gouden licht.
-Een hoogte die twee keer in een rij of kolom staat, wordt rood. Een randgetal vervaagt als zijn volle lijn het juiste aantal toont, en wordt rood als hij een ander toont. Een toets vervaagt zodra zijn hoogte in elke rij staat. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde hoogte die je met Ongedaan maken terugneemt.

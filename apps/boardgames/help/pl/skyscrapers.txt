@@ -1,18 +1,10 @@
 Drapacze chmur
 # Cel gry
 Diagram to miasto widziane z góry. Postaw budynek na każdym polu, o wysokości od 1 do rozmiaru diagramu, każdą wysokość raz w każdym wierszu i każdej kolumnie. Liczba na krawędzi mówi, ile budynków widać stamtąd, patrząc wzdłuż tego wiersza lub kolumny: wyższy budynek zasłania wszystkie niższe za sobą.
-Niektóre wysokości mogą być podane na starcie, na ciemniejszych polach. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem. Wybierz rozmiar (od 4 × 4 do 7 × 7) i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: wysokość, która ma tylko jedno miejsce w swoim wierszu lub kolumnie, pole z jedną możliwą wysokością i to, na co pozwala liczba z krawędzi w swoim pobliżu (1: najwyższy stoi z przodu; pełna liczba: wszystkie po kolei, od najniższego).
-- Średni: trzeba też spojrzeć na całą linię: wszystkie kolejności jej wysokości pasujące do jej liczb zgadzają się co do niektórych pól.
-- Trudny: dłuższe łańcuchy rozumowania, nigdy zgadywanie.
+Niektóre wysokości mogą być podane na starcie, na ciemniejszych polach. Każda łamigłówka ma dokładnie jedno rozwiązanie, do którego dochodzi się samym rozumowaniem.
 # Ruch
-Wpisz wysokość na pole, zmień ją albo usuń. Małe notatki na polu pomagają pamiętać wysokości, które mogą się tam jeszcze znaleźć.
+Dotknij pola, a potem klawisza obok planszy: jego wysokość trafia na pole. Z ołówkiem klawisze wpisują zamiast tego małe notatki: wysokości, które mogą się tam jeszcze znaleźć.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy każde pole ma swój budynek, a miasto spełnia wszystkie zasady: po planszy przebiega fala złotego światła.
+Łamigłówka jest rozwiązana, gdy każde pole ma swój budynek, a miasto spełnia wszystkie zasady.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 7 × 7, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna wysokość; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij pola, a potem klawisza obok planszy: jego wysokość trafia na pole (ten sam klawisz jeszcze raz ją usuwa). Możesz też przeciągnąć klawisz na pole. Dotknij wybranego pola jeszcze raz, aby podwyższyć budynek o jedno piętro; przytrzymaj chwilę palec na polu, aby je opróżnić. Budynki to małe drewniane wieże: im wyższe, tym większe. Przyciski obok planszy:
-- Ołówek: notatki. Klawisze wpisują wtedy małe wysokości na pole albo je usuwają. Wpisana wysokość kasuje tę notatkę w swoim wierszu i kolumnie.
-- Żarówka: podpowiedź. Poprawia błędną wysokość albo wypełnia następne pole, do którego prowadzi rozumowanie, w złotym świetle.
-Wysokość, która stoi dwa razy w wierszu lub kolumnie, robi się czerwona. Liczba z krawędzi blednie, gdy jej pełna linia pokazuje właściwą liczbę, i robi się czerwona, gdy pokazuje inną. Klawisz blednie, gdy jego wysokość jest w każdym wierszu. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna wysokość, którą cofasz przyciskiem Cofnij.

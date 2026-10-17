@@ -1,12 +1,10 @@
 15-spill
 # Målet
-Nummererte brikker ligger blandet i en ramme med én tom plass. Skyv dem tilbake i rekkefølge: 1, 2, 3... rad for rad fra øverste venstre hjørne, med den tomme plassen sist, nederst til høyre. Velg først ramme: 3 × 3 (8 brikker), 4 × 4 (det klassiske 15-spillet) eller 5 × 5 (24 brikker), med tall eller skåret ut av et bilde (et sjakkparti i gang, nummeret på hver brikke smått i hjørnet).
-Hver blanding kan løses. Halvparten av alle måter å blande brikkene på kunne aldri skyves tilbake i orden, og de blir aldri gitt.
+Nummererte brikker ligger blandet i en ramme med én tom plass. Skyv dem tilbake i rekkefølge: 1, 2, 3... rad for rad fra øverste venstre hjørne, med den tomme plassen sist, nederst til høyre. På et bilde står nummeret på hver brikke smått i hjørnet.
+Hver blanding kan løses.
 # Et trekk
-En brikke ved siden av den tomme plassen glir inn på den. Brikkene glir bare; de løftes aldri ut av rammen.
+Trykk på en brikke i samme rad eller kolonne som den tomme plassen: den glir, og brikkene mellom den og den tomme plassen følger med.
 # Slutten på spillet
-Når hver brikke ligger på sin plass, er oppgaven løst: et gyllent lys går over brikkene i rekkefølge, og et bilde får den manglende biten sin.
+Når hver brikke ligger på sin plass, er oppgaven løst.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler: rammer på 3 × 3, 4 × 4 og 5 × 5, med tall eller skåret ut av bildet; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest flyttede brikker, funnet av datamaskinen (på en stor tilfeldig ramme den beste veien den finner på et øyeblikk). Løst på par: 3 stjerner; med opptil halvparten så mange flyttede brikker til: 2 stjerner; ellers 1. Angre tar tilbake et skyv, og det teller ikke lenger.
-# Spill på enheten
-Trykk på en brikke i samme rad eller kolonne som den tomme plassen: den glir, og brikkene mellom den og den tomme plassen følger med. Du kan også skyve en brikke med fingeren mot den tomme plassen: over halvveis fortsetter den, ellers faller den tilbake. Angre tar tilbake ett skyv om gangen, helt til starten. Linjen teller de flyttede brikkene: et skyv med tre brikker teller tre.
+Hver oppgave har en par: færrest flyttede brikker, funnet av datamaskinen (på en stor tilfeldig ramme den beste veien den finner på et øyeblikk). Et skyv med tre brikker teller tre. Løst på par: 3 stjerner; med opptil halvparten så mange flyttede brikker til: 2 stjerner; ellers 1.

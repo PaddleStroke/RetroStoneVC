@@ -1,18 +1,10 @@
 Arranha-céus
 # O objetivo
 A grelha é uma cidade vista de cima. Põe um prédio em cada casa, com altura de 1 até ao tamanho da grelha, cada altura uma vez em cada linha e em cada coluna. Um número no bordo diz quantos prédios se veem dali, olhando ao longo dessa linha ou coluna: um prédio mais alto esconde todos os mais baixos atrás de si.
-Algumas alturas podem ser dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 4 × 4 a 7 × 7) e o nível (as peças sob cada imagem):
-- Fácil: uma altura com um só lugar na sua linha ou coluna, uma casa com uma só altura possível, e o que um número do bordo permite perto de si (1: o mais alto fica à frente; a contagem toda: todos por ordem, do mais baixo ao mais alto).
-- Médio: vais precisar também de olhar para uma linha inteira: todas as ordens das suas alturas que batem certo com os seus números concordam em algumas casas.
-- Difícil: cadeias de raciocínio mais longas, nunca ao acaso.
+Algumas alturas podem ser dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Põe uma altura numa casa, muda-a ou tira-a. Pequenas notas numa casa ajudam-te a lembrar as alturas que ela ainda pode ter.
+Toca numa casa e depois numa tecla ao lado do tabuleiro: a altura entra. Com o lápis, as teclas põem antes pequenas notas: as alturas que a casa ainda pode ter.
 # O fim do jogo
-O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade cumpre todas as regras: uma onda de luz dourada percorre o tabuleiro.
+O tabuleiro está resolvido quando cada casa tem o seu prédio e a cidade cumpre todas as regras.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 4 × 4 ao 7 × 7, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma altura errada que tiras com Anular.
-# Jogar no dispositivo
-Toca numa casa e depois numa tecla ao lado do tabuleiro: a altura entra (a mesma tecla outra vez tira-a). Também podes arrastar uma tecla até uma casa. Toca outra vez na casa escolhida para subir o prédio um andar; mantém o dedo numa casa por um instante para a esvaziar. Os prédios são pequenas torres de madeira: quanto mais altos, maiores. Os botões ao lado do tabuleiro:
-- Lápis: notas. As teclas passam a pôr alturas pequenas na casa, ou a tirá-las. Uma altura colocada apaga essa nota da sua linha e coluna.
-- Lâmpada acesa: uma pista. Corrige uma altura errada ou, se não houver, preenche a próxima casa que o raciocínio encontra, com luz dourada.
-Uma altura repetida numa linha ou coluna fica vermelha. Um número do bordo esbate-se quando a sua linha cheia mostra a contagem certa, e fica vermelho quando mostra outra. Uma tecla esbate-se quando a sua altura já está em todas as linhas. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma altura errada que tiras com Anular.

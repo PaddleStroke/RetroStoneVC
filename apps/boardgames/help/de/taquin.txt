@@ -1,12 +1,10 @@
 15-Puzzle
 # Das Ziel
-Nummerierte Plättchen liegen durcheinander in einem Rahmen, ein Platz ist frei. Schiebe sie wieder in die richtige Reihenfolge: 1, 2, 3... Zeile für Zeile von links oben, der freie Platz zuletzt, rechts unten. Wähle zuerst den Rahmen: 3 × 3 (8 Plättchen), 4 × 4 (das klassische 15-Puzzle) oder 5 × 5 (24 Plättchen), mit Zahlen oder aus einem Bild geschnitten (eine laufende Schachpartie, die Nummer jedes Plättchens klein in seiner Ecke).
-Jede Mischung ist lösbar. Die Hälfte aller Arten, die Plättchen zu mischen, ließe sich nie zurückschieben, und solche werden nie gegeben.
+Nummerierte Plättchen liegen durcheinander in einem Rahmen, ein Platz ist frei. Schiebe sie wieder in die richtige Reihenfolge: 1, 2, 3... Zeile für Zeile von links oben, der freie Platz zuletzt, rechts unten. Bei einem Bild steht die Nummer jedes Plättchens klein in seiner Ecke.
+Jede Mischung ist lösbar.
 # Ein Zug
-Ein Plättchen neben dem freien Platz gleitet hinein. Plättchen werden nur geschoben, nie herausgenommen.
+Tippe ein Plättchen in derselben Zeile oder Spalte wie der freie Platz an: Es gleitet, und die Plättchen zwischen ihm und dem freien Platz gleiten mit.
 # Das Ende der Partie
-Liegt jedes Plättchen an seinem Platz, ist das Rätsel gelöst: Ein goldenes Licht läuft der Reihe nach über die Plättchen, und ein Bild bekommt sein fehlendes Stück.
+Liegt jedes Plättchen an seinem Platz, ist das Rätsel gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln: Rahmen von 3 × 3, 4 × 4 und 5 × 5, mit Zahlen oder aus dem Bild geschnitten; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten bewegten Plättchen, mit denen der Computer es lösen kann (bei einem großen zufälligen Rahmen der beste Weg, den er in einem Augenblick findet). Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen bewegten Plättchen mehr: 2 Sterne; sonst 1. Rückgängig nimmt einen Schub zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-Tippe ein Plättchen in derselben Zeile oder Spalte wie der freie Platz an: Es gleitet, und die Plättchen zwischen ihm und dem freien Platz gleiten mit. Du kannst ein Plättchen auch mit dem Finger zum freien Platz schieben: Über die Hälfte hinaus gleitet es weiter, sonst fällt es zurück. Rückgängig nimmt einen Schub nach dem anderen zurück, bis zum Anfang. Die Leiste zählt die bewegten Plättchen: Ein Schub von drei Plättchen zählt drei.
+Jedes Rätsel hat ein Par: die wenigsten bewegten Plättchen, mit denen der Computer es lösen kann (bei einem großen zufälligen Rahmen der beste Weg, den er in einem Augenblick findet). Ein Schub von drei Plättchen zählt drei. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen bewegten Plättchen mehr: 2 Sterne; sonst 1.

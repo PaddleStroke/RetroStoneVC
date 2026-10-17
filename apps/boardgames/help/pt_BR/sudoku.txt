@@ -1,20 +1,9 @@
 Sudoku
 # O objetivo
-Preencha a grade de 9 × 9 casas para que cada linha, cada coluna e cada bloco de 3 × 3 tenha uma vez cada algarismo de 1 a 9. Alguns algarismos já vêm dados. Cada sudoku tem uma única solução, encontrada só pelo raciocínio. Escolha primeiro o nível (as peças sob cada imagem):
-- Fácil: sempre basta uma casa onde só cabe um algarismo, ou um algarismo que só tem um lugar na sua linha, coluna ou bloco.
-- Médio: você também vai precisar de pares, e de algarismos cujos lugares num bloco ficam todos numa mesma linha ou coluna.
-- Difícil: trincas, e figuras que cruzam várias linhas e colunas.
-- Especialista: cadeias de raciocínio mais longas.
+Preencha a grade de 9 × 9 casas para que cada linha, cada coluna e cada bloco de 3 × 3 tenha uma vez cada algarismo de 1 a 9. Alguns algarismos já vêm dados. Cada sudoku tem uma única solução, encontrada só pelo raciocínio.
 # Uma jogada
-Ponha um algarismo numa casa vazia. Você pode trocá-lo ou tirá-lo quando quiser; os algarismos dados ficam. Notas pequenas numa casa ajudam a lembrar os algarismos que ela ainda pode ter.
+Toque numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra. Você pode trocá-lo ou tirá-lo quando quiser; os algarismos dados ficam. Com o lápis, as teclas põem notas pequenas: os algarismos que a casa ainda pode ter.
 # O fim da partida
-O sudoku está resolvido quando a grade está cheia e certa: uma onda de luz dourada percorre o tabuleiro.
+O sudoku está resolvido quando a grade está cheia e certa.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, cada um com uma única solução: os primeiros dão muitos algarismos e só pedem os passos mais simples, os últimos fazem você testar um algarismo e segui-lo até algo dar errado. Escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo sudoku ao acaso, no nível que você escolher. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que você tira com Desfazer.
-# Jogando no aparelho
-Toque numa casa e depois numa tecla ao lado do tabuleiro: o algarismo entra, em tinta azul (os algarismos dados são escuros). Toque de novo na mesma tecla para tirá-lo, ou arraste uma tecla até uma casa. A linha, a coluna e o bloco da casa se acendem de leve, e as casas com o mesmo algarismo, mais. Sem nenhuma casa vazia escolhida, uma tecla acende as casas do seu algarismo. Os botões ao lado do tabuleiro:
-- Lápis: notas. As teclas passam a pôr algarismos pequenos na casa, ou a tirá-los. Um algarismo colocado apaga essa nota da sua linha, coluna e bloco.
-- Borracha: tira o algarismo da casa, ou as suas notas.
-- Lâmpada: uma dica. Corrige um algarismo errado ou, se não houver, preenche a casa mais fácil, com luz dourada.
-- Olho: mostra os conflitos (um algarismo que já está na sua linha, coluna ou bloco fica vermelho). Começa ligado; toque nele para escondê-los.
-Uma tecla fica apagada quando os seus nove algarismos já estão no tabuleiro. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um algarismo errado que você tira com Desfazer.

@@ -1,15 +1,9 @@
 Tangram
 # Målet
-Tangram er et gammelt kinesisk puslespil: et kvadrat skåret i syv stykker, kaldet tans. To store trekanter, en mellemstor, to små, et kvadrat og et parallelogram. Brug alle syv til at udfylde den mørke silhuet, uden at nogen overlapper.
+Et kvadrat er skåret i syv stykker, kaldet tans: to store trekanter, en mellemstor, to små, et kvadrat og et parallelogram. Brug alle syv til at udfylde den mørke silhuet, uden at nogen overlapper.
 # Et træk
-Flyt en tan, drej den en ottendedel omgang, eller vend parallelogrammet (de andre ser ens ud fra begge sider). Tans ligger fladt og overlapper aldrig.
+Træk en tan: når du slipper, falder den på en plads, der passer. Tryk på en tan for at dreje den en ottendedel omgang. Tryk hurtigt to gange på parallelogrammet for at vende det.
 # Spillets afslutning
-Figuren er løst, når de syv tans dækker silhuetten præcist: et gyldent lys løber over dem. Enhver måde, der fylder silhuetten, tæller, ikke kun den, figuren blev lagt med.
+Figuren er løst, når de syv tans dækker silhuetten præcist. Enhver måde, der fylder silhuetten, tæller, ikke kun den, figuren blev lagt med.
 # Baner og stjerner
-Der er 98 figurer i seks kapitler: former, mennesker, dyr, både og huse, ting, bogstaver og tal. Hver figur er lagt til dette spil med de syv tans, så alle kan løses. Uden tip: 3 stjerner; op til to tip: 2 stjerner; ellers 1.
-# Spil på enheden
-Vælg en figur på baneskærmen; de løste viser deres stjerner.
-- Træk en tan. Når du slipper, falder den på en plads, der passer: dens hjørner møder hjørnerne på silhuetten eller på en anden tan.
-- Tryk på en tan: den drejer en ottendedel omgang.
-- Tryk hurtigt to gange på parallelogrammet: det vender.
-Den tan, du sidst rørte ved, ligger øverst. Lampen giver et tip: den skubber én tan på plads, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine handlinger.
+Uden tip: 3 stjerner; op til to tip: 2 stjerner; ellers 1.
