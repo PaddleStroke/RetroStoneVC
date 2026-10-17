@@ -31,37 +31,33 @@ static const rs_color title_ramps[2][3] = {
 static int shown_key = -1, shown_best = -1, shown_room = -1;
 static int win_on;              /* the sprite window (in play) */
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240 show
- * more of the room: above, the back wall carried up plain (the backdrop: its colour, darker toward the ceiling; the
- * kitchen's tiles keep their grout lines; the garden's sky deepens); below, the floor carried on (BG3's scroll set per
- * line: a band of its bottom lines repeated, a whole period of its pattern, below the furniture). BG1 and BG2 are
- * hidden there (window 2), BG3 too above; line 0 puts the stage's BG3 scroll, windows and backdrop back. A 240-line
- * screen never gets these lines: the same pixels. */
-static const uint32_t wall_col[ROOMS][2] = {   /* each room's back wall at the stage's top, and toward the ceiling */
-    {0xecf2ee, 0xb4c2c0}, {0xecdec4, 0xb4a282}, {0x404a84, 0x1e2656}, {0x96cef0, 0x5c96d4}, {0x966e4e, 0x563c2c}};
-static const uint8_t floor_band[ROOMS] = {32, 32, 32, 16, 16};  /* each room's bottom lines repeated below the stage */
-static int bg3_sx, bg3_sy;      /* BG3's scroll as written (the screen shake), restored at line 0 */
-static rs_color stage_back;     /* the stage's backdrop, restored at line 0 */
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): ZOOM_H lines filling the display's
+ * height, the sides cropped (the whole maze and its pet doors in the columns shown). BG3 then holds the room's tall
+ * picture (gm_room_tall_map: the back wall carried up, the HUD at its top, the floor and its furniture under the
+ * maze), 128 rows so that it never wraps; the stage sits TALL_ABOVE lines low. BG1 and BG2 are hidden past the stage
+ * (window 2), except the game-over panel sliding up from the screen's bottom (ui_slide); line 0 puts their windows
+ * back. A 240-line screen never gets these lines: the same pixels. */
+#define ZOOM_H      544         /* 232 columns on a 9:21 phone (1080x2520): the maze's 216 and its pet doors */
+#define HUD_INSET   30          /* the HUD clear of the app's back and pause buttons in the top corners */
+static int ui_slide;            /* the game-over panel's slide (BG1's scroll), set by draw_frame before every picture */
+
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int bg3_rows(void) { return tall() ? 128 : 32; }
+
+/* a tall screen's BG1: only the lines that show its map's first 240 (the panel sliding up from the screen's bottom,
+ * never wrapped round onto the stage) */
+static void ui_lines(int line)
+{
+    rs_bg_window(RS_BG1, line - ui_slide >= 0 && line - ui_slide < RS_SCREEN_H ? 0 : RS_WIN2);
+}
 
 static void raster_out(int line)
 {
-    int top = rs_screen_top(), room = shown_room < 0 ? 0 : shown_room;
-    if (line == top || line == RS_SCREEN_H) {
+    if (line == rs_screen_top() || line == RS_SCREEN_H) {
         rs_window(1, rs_screen_left(), rs_screen_right());
-        rs_bg_window(RS_BG1, RS_WIN2);
         rs_bg_window(RS_BG2, RS_WIN2);
-        rs_bg_window(RS_BG3, line < 0 ? RS_WIN2 : 0);
-        if (line == top) stage_back = rs_pal_get(0);
     }
-    if (line < 0) {
-        int k = top < 0 ? line * 256 / top : 0;           /* 0 at the stage's top .. 256 at the screen's */
-        rs_color c = hu_lerp_color(RS_HEX(wall_col[room][0]), RS_HEX(wall_col[room][1]), k);
-        if (room == 0 && (line & 7) == 7) c = hu_lerp_color(c, RS_HEX(0x9aaaa8), 120);   /* the tiles' grout */
-        rs_pal_set(0, c);
-    } else {
-        int ly = RS_SCREEN_H - floor_band[room] + (line - RS_SCREEN_H) % floor_band[room];
-        rs_bg_scroll(RS_BG3, bg3_sx, (ly - line) & 255);
-    }
+    ui_lines(line);
     rs_window(0, rs_screen_left(), rs_screen_right());
 }
 
@@ -74,12 +70,9 @@ static void raster(int line, void *user)
         raster_out(line);
         return;
     }
-    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
-        rs_bg_window(RS_BG1, 0);
-        rs_bg_window(RS_BG2, 0);
-        rs_bg_window(RS_BG3, 0);
-        rs_bg_scroll(RS_BG3, bg3_sx, bg3_sy);
-        rs_pal_set(0, stage_back);
+    if (tall()) {                               /* back from raster_out: the stage's own windows */
+        if (line == 0) rs_bg_window(RS_BG2, 0);
+        ui_lines(line);
     }
     if (win_on && line >= MAZE_Y && line < MAZE_Y + MAZE_H * CELL) rs_window(0, MAZE_X, MAZE_X + MAZE_W * CELL);
     else rs_window(0, rs_screen_left(), rs_screen_right());
@@ -101,6 +94,20 @@ static void put_pano(int layer, const uint16_t *pano, int mw)
     }
 }
 
+/* the room around the maze on BG3: its panorama, or on a tall screen its tall picture (stage rows -TALL_ABOVE / 8 ..,
+ * the map's rows wrapping) */
+static void put_room(int maze)
+{
+    if (!tall()) {
+        put_pano(RS_BG3, gm_room_map[maze], map_w());
+        return;
+    }
+    const uint16_t *m = gm_room_tall_map[maze];
+    int mh = rs_bg_map_h(RS_BG3) - 1;
+    for (int r = 0; r < TALL_ROWS; r++)
+        for (int c = 0; c < TALL_COLS; c++) rs_bg_put(RS_BG3, c, (r - TALL_ABOVE / 8) & mh, m[r * TALL_COLS + c]);
+}
+
 /* a room's art: its walls' tiles and colours (BG2), the room around the maze (BG3) */
 static void load_room(int maze)
 {
@@ -108,7 +115,7 @@ static void load_room(int maze)
     rs_pal_load(RS_PAL_BG(PAL_WALL), gm_wall_pals + maze * 16, 16);
     rs_tiles_load(VR_BG3, gm_room_tiles[maze], gm_room_tile_count[maze]);
     rs_pal_load(RS_PAL_BG(PAL_ROOM), gm_room_pals + maze * 64, 64);
-    put_pano(RS_BG3, gm_room_map[maze], map_w());
+    put_room(maze);
     shown_room = maze;
 }
 
@@ -117,14 +124,18 @@ static void maps_setup(void)
     int mw = map_w();
     rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
     rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
-    if (shown_room >= 0) put_pano(RS_BG3, gm_room_map[shown_room], mw);
+    rs_bg_setup(RS_BG3, mw, bg3_rows(), VR_BG3);
+    if (shown_room >= 0) put_room(shown_room);
 }
+
+int draw_zoom(void) { return rs_screen_zoom(ZOOM_H); }
 
 void draw_init(void)
 {
     static const uint8_t blank[RS_TILE_BYTES];
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more of the room on both sides */
+    if (tall())             /* a tall screen: the stage low (TALL_ABOVE lines of wall above it, at most) */
+        rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * TALL_ABOVE / (ZOOM_H - RS_SCREEN_H));
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -206,8 +217,30 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
     const gm_sprite_def *d = &gm_spr[id];
     x += hu_shake_x();                  /* a catch's shake moves the actors with the maze and the room (BG2, BG3) */
     y += hu_shake_y();
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
+}
+
+/* the tall screen's HUD at the screen's top, in the columns shown (clear of the app's buttons in the corners): one
+ * player's score centred; 2-4 players a kitten in each one's colours by its score, P1 / P2 on the first row (left,
+ * right), P3 / P4 on a second (the corners of the landscape HUD) */
+static int player_pal(int p);
+static void hud_tall(const world *w)
+{
+    int top = rs_screen_top(), x0 = rs_screen_visible_x0() - rs_screen_origin_x() + HUD_INSET;
+    int x1 = rs_screen_visible_x1() - rs_screen_origin_x() - HUD_INSET;
+    if (w->players == 1) {
+        hu_number_at(w->k[0].score, RS_SCREEN_W / 2, top + 8, 0, 3);
+        return;
+    }
+    const gm_sprite_def *d = &gm_spr[SPR_KIT_ICON];
+    for (int p = 0; p < w->players; p++) {
+        int y = top + 4 + (p / 2) * 18, right = p & 1, ix = right ? x1 - (int)d->w : x0;
+        rs_spr(ix, y, d->tile, d->w, d->h, player_pal(p), 3, 0);
+        hu_number_at(w->k[p].score, right ? ix - 2 : ix + (int)d->w + 2, y, right ? 1 : -1, 3);
+    }
 }
 
 /* an actor at maze pixel (x, y) (its centre): a 16x16 sprite, and its other half across a tunnel's wrap */
@@ -333,10 +366,17 @@ static const char *room_name(int maze)
 /* P2 CAUGHT! on a little panel in the band above the maze (the back wall: readable over any room's windows and
  * pictures, between the 2 players' scores and the 3-4 players' corner chips); a text with accents or CJK glyphs
  * takes one more row (its marks need the panel's fill above them) */
+/* the widest panel: 38 tiles, or on a zoomed screen the columns shown (less a tile each side) */
+static int panel_max(void)
+{
+    int n = (rs_screen_visible_x1() - rs_screen_visible_x0()) / 8 - 2;
+    return n < 38 ? n : 38;
+}
+
 static void caught_panel(const char *s)
 {
     int tall = hu_tall(s), w = hu_width(s, 0) + 4;
-    if (w > 38) w = 38;
+    if (w > panel_max()) w = panel_max();
     hu_panel((40 - w) / 2, 0, w, 3 + tall);
     hu_box_text(hu_center(s, 0), 1 + tall, s);
 }
@@ -344,10 +384,10 @@ static void caught_panel(const char *s)
 /* the room's name (and number) or ROOM CLEAR! on a little panel over the dock: gold 2x letters, small ones if long */
 static void room_panel(const char *small, const char *big)
 {
-    int bigw = hu_width(big, 1), fits = bigw <= 34, w = fits ? bigw : hu_width(big, 0);
+    int bigw = hu_width(big, 1), fits = bigw <= panel_max() - 4, w = fits ? bigw : hu_width(big, 0);
     if (small && hu_width(small, 0) > w) w = hu_width(small, 0);
     w += 4;
-    if (w > 38) w = 38;
+    if (w > panel_max()) w = panel_max();
     int top = small ? 10 : 12, row = small ? 14 : 14;
     hu_panel((40 - w) / 2, top, w, small ? 8 : 5);
     if (small) hu_box_text(hu_center(small, 0), 12, small);
@@ -375,7 +415,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         char s[64];
         hu_clear();
         if (state == ST_TITLE) hu_logo("KITTY KIBBLE", title_ramps, 2, 2, 0);
-        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3) hu_score_tags(w->players, BOTTOM_CHIPS);
+        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall())  /* (tall: hud_tall's kittens) */
+            hu_score_tags(w->players, BOTTOM_CHIPS);
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->phase == PH_INTRO || w->phase == PH_READY) {
                 rs_strf(s, sizeof s, TR(ROOM_N), w->room);
@@ -433,15 +474,18 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     standing(w, &rs);
     if (w->maze != shown_room) load_room(w->maze);
     int pm = map_w() * 8 - 1;
-    bg3_sx = (-sx) & pm;
-    bg3_sy = (-sy) & 255;
-    rs_bg_scroll(RS_BG3, bg3_sx, bg3_sy);
+    rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & (rs_bg_map_h(RS_BG3) * 8 - 1));
     rs_bg_scroll(RS_BG2, (-(MAZE_X - MAZE_COL0 * 8) - sx) & pm, (-(MAZE_Y - MAZE_ROW0 * 8) - sy) & 255);
     maze_put(w, state != ST_TITLE);
     wall_palette(w);
 
+    /* a tall screen (DESIGN.md "Tall screen"): the play (and one player's game-over panel) zoomed, the sides cropped;
+     * the title and the 2-4 players' results show every column */
+    rs_screen_fill(state == ST_PLAY || state == ST_DEAD || (state == ST_OVER && w->players == 1));
     screen_text(w, state, st_t, best, new_best, &rs);
-    int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
+    /* the panel slides up, ease-out (a tall screen: from the screen's bottom) */
+    int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200 + rs_screen_bottom() - RS_SCREEN_H) : 0;
+    ui_slide = slide;
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
 
@@ -452,7 +496,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (state == ST_PLAY || state == ST_DEAD) {
         int v[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) v[p] = w->k[p].score;
-        hu_score_chips(w->players, v, BOTTOM_CHIPS);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
+        if (tall()) hud_tall(w);                        /* the screen's top */
+        else hu_score_chips(w->players, v, BOTTOM_CHIPS);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
@@ -478,7 +523,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG2) == map_w()) return;
+    if (rs_bg_map_w(RS_BG2) == map_w() && rs_bg_map_h(RS_BG3) == bg3_rows()) return;   /* (tall: BG3's 128 rows) */
     maps_setup();
     shown_key = -1;
 }

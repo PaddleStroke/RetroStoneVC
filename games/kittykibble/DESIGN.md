@@ -116,7 +116,7 @@ reaches S (the tests' game over).
 
 Window 1 hides the sprites outside the maze's columns on its lines (the raster callback sets it per line): the actors
 go out through the pet doors and come back on the other side. VRAM: the UI and its glyph pool 0..767, the maze at 1024
-(47 wall shapes + 4), the room at 1280 (up to 720 tiles: 180-457 by room, loaded with its palettes when a room
+(47 wall shapes + 4), the room at 1280 (up to 720 tiles: 305-670 by room with the tall screen's picture, loaded with its palettes when a room
 begins), the sprites at 2048 (202 tiles, then the kit's).
 
 **Widescreen** (docs/spec.md "Widescreen"): the game opts in (`max_width`, `WIDESCREEN_kittykibble = 1`). The maze and
@@ -126,13 +126,34 @@ the widest the room's side walls. The rooms are "stage panoramas" (576 px from s
 twice; each prop lies wholly inside or wholly outside each width's view (stage x 0..319, -53..373, -100..419, its
 shadow included), so no screen edge cuts a piece of furniture. A state saved at one width loads at another.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`; the 240 lines of the stage are the same pixels, centred. The raster shows more of the room on the lines
-past the stage (draw.c `raster_out`): above, the back wall carried up plain (the backdrop in its colour, darker
-toward the ceiling, `wall_col` per room; the kitchen's tiles keep their grout lines, the garden's sky deepens);
-below, the floor carried on (BG3's scroll set per line: its bottom lines repeated, a whole period of its pattern,
-below the furniture: `floor_band`). BG1 and BG2 are hidden there (window 2), BG3 too above; line 0 puts the stage's
-BG3 scroll, windows and backdrop back. The play and the swipes are unchanged.
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (544
+lines, draw.c `draw_zoom`) first in `game_init`: the RetroStone app scales the 544 lines to the display's height and
+crops the sides, 232 columns on a 9:21 phone (1080x2520), 250 on a 1080x2340 one, 272 at 720x1440.
+- **Why 544 and no panning**: the maze is 216 px wide (232 with its pet doors) and wider than tall, so it cannot be
+  cropped fairly: a camera following the kitten would hide a vacuum coming the other way, and 2-4 kittens share the
+  maze. 544 is the least zoom that shows the whole maze with its pet doors on the narrowest phone (9:21), 4.6x there
+  (4.3x at 1080x2340), about 40% bigger than the 320 columns across. The play, the rules and the swipes are unchanged.
+- **The room re-composed for portrait**: each room has a second picture (tools/make_art.py `tall=True`, 320 x 544,
+  stage y -80 .. 463; build_assets.py: its tiles and colours shared with the panorama, the same colour merges, so the
+  landscape pixels do not change), BG3's map 128 rows tall there. The back wall rises 80 lines above the stage with
+  taller windows in the columns shown and the room's things between them (the kitchen's clock and two shelves of
+  jars, the living room's five pictures, the attic's third round window, the garden's sun and clouds); under the maze
+  the floor carries on with the furniture that the margins hold in landscape (the bowls, the table and its chairs,
+  plants and a rug; armchairs, the round rug and its basket, lamps, a coffee table; the bed between its bedside
+  tables, the wardrobe, the toy box, the teddy; a tree, the pond, flower beds, stones, the bird bath; boxes, the
+  trunk, lamps). The stage's margins are floor again there (a title showing every column shows each thing once).
+  The stage sits 80 lines low (`rs_screen_origin_v`; less on a display less tall): the floor below it is the
+  swiping thumb's place.
+- **The HUD at the screen's top** (`hud_tall`, sprites at `rs_screen_top()`): one player's score centred; 2-4 players
+  a kitten in each one's colours by its score, P1 / P2 left and right, P3 / P4 on a second row (the landscape
+  corners), 30 columns clear of the app's back and pause buttons. The BG tags of 3-4 players are not drawn there.
+- **Fill or fit**: the play and one player's game-over panel fill the display's height; the title and the 2-4
+  players' results show every column (`rs_screen_fill(0)`). The room's name and P2 CAUGHT! keep to the columns
+  shown (`panel_max`). The game-over panel slides up from the screen's bottom (BG1 shown only on the lines that
+  show its map's first 240, never wrapped: `ui_lines`); BG2 is hidden past the stage (window 2). Sprites are culled
+  at the screen's edges, not the stage's.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240: the title, play, 2-4 players,
+  the game over, the five rooms).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the kitchen, the logo, the kitten bobbing with its ball of yarn, the four vacuums gliding by, the player slots,

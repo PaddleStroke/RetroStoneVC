@@ -179,6 +179,7 @@ int  bot_decide(world *w, int p, int skill);
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
+int  draw_zoom(void);               /* first in game_init: the zoomed tall screen (DESIGN.md "Tall screen") */
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_state(void);

@@ -61,6 +61,10 @@ SPRITES = [
 ]
 ROOMS = ["kitchen", "living", "bedroom", "garden", "attic"]
 PANO_W, PANO_H, PANO_X0 = 576, 240, -128
+# a phone held upright (DESIGN.md "Tall screen"): each room again as a 320 x 544 picture (stage y -80 .. 463), the
+# back wall carried up (the HUD at its top) and the floor carried down under the maze, the props re-composed in the
+# columns a zoomed screen shows (stage x 44..275 on a 9:21 phone)
+TALL_W, TALL_ABOVE, TALL_H = 320, 80, 544
 MAZE_X, MAZE_Y, MAZE_W, MAZE_H, CELL = 52, 28, 27, 24, 8
 
 # ---- colours ------------------------------------------------------------------------------------------------------
@@ -612,21 +616,26 @@ def items_sheet():
 
 # ---- the rooms around the maze (BG3) ------------------------------------------------------------------------------
 class Room:
-    """A 576x240 panorama (x 0 = stage x -128): sx(x) converts a stage x."""
+    """A 576x240 panorama (x 0 = stage x -128), or the tall screen's 320x544 picture (x 0 = stage x 0, y 0 = stage
+    y -TALL_ABOVE): sx(x), sy(y) convert a stage x, y."""
 
-    def __init__(self):
-        self.cv = Canvas(PANO_W, PANO_H)
+    def __init__(self, tall=False):
+        self.tall = tall
+        self.cv = Canvas(TALL_W, TALL_H) if tall else Canvas(PANO_W, PANO_H)
+        self.x0, self.y0 = (0, -TALL_ABOVE) if tall else (PANO_X0, 0)
         self.sh = None                  # the floor's shadow colours: props cast a shadow down-right
 
-    @staticmethod
-    def sx(x):
-        return x - PANO_X0
+    def sx(self, x):
+        return x - self.x0
+
+    def sy(self, y):
+        return y - self.y0
 
     def put(self, x, y, c):
-        self.cv.set(int(x) - PANO_X0, int(y), c)
+        self.cv.set(int(x) - self.x0, int(y) - self.y0, c)
 
     def get(self, x, y):
-        return self.cv.get(int(x) - PANO_X0, int(y))
+        return self.cv.get(int(x) - self.x0, int(y) - self.y0)
 
     def paste(self, other, x, y, flat=False):
         """A prop at stage (x, y); its silhouette darkens the floor 2 px right and 3 px down (unless flat)."""
@@ -637,14 +646,24 @@ class Room:
                         c = self.get(x + xx + 2, y + yy + 3)
                         if c in self.sh:
                             self.put(x + xx + 2, y + yy + 3, self.sh[c])
-        self.cv.paste(other, int(x) - PANO_X0, int(y))
+        self.cv.paste(other, int(x) - self.x0, int(y) - self.y0)
 
     def fill(self, fn):
-        for y in range(PANO_H):
-            for x in range(PANO_W):
-                c = fn(x + PANO_X0, y)
+        if not hasattr(self, "floor"):
+            self.floor = fn             # the floor: refloor() paints it again
+        for y in range(self.cv.h):
+            for x in range(self.cv.w):
+                c = fn(x + self.x0, y + self.y0)
                 if c is not None:
                     self.cv.p[y][x] = c
+
+
+def refloor(rm):
+    """The tall screen: the floor again in the stage's margins (x < 44, x >= 276; their props are re-composed under the
+    maze, and a title showing every column shows them only once)."""
+    for y in range(MAZE_Y, PANO_H):
+        for x in list(range(0, 44)) + list(range(276, TALL_W)):
+            rm.put(x, y, rm.floor(x, y))
 
 
 def stamp(fn, w, h, out):
@@ -742,8 +761,8 @@ def box(cv, x, y, w, h, card, tape):
         cv.set(x + w // 2, yy, tape), cv.set(x + w // 2 - 1, yy, tape)
 
 
-def room_kitchen():
-    rm = Room()
+def room_kitchen(tall=False):
+    rm = Room(tall)
     fl = [(238, 232, 214), (198, 208, 216), (214, 206, 188)]      # cream and blue-grey squares; shadow
     rm.fill(lambda x, y: fl[0] if ((x - MAZE_X) // 16 + (y - MAZE_Y) // 16) % 2 == 0 else fl[1])
     tile = [(236, 242, 238), (198, 212, 208)]
@@ -753,8 +772,12 @@ def room_kitchen():
     wood = [(222, 170, 112), (180, 126, 76), (128, 84, 50)]
     glass = [(178, 220, 244), (140, 194, 232)]
     cur = [(232, 116, 100), (184, 76, 72)]
-    rm.paste(stamp(lambda cv: window(cv, 44, 22, [tile[0], wood[2]], glass, cur), 46, 24, out), 6, 0)
-    rm.paste(stamp(lambda cv: window(cv, 44, 22, [tile[0], wood[2]], glass, cur), 46, 24, out), 226, 0)
+    if tall:        # (the tall screen: taller windows in the columns shown, the clock and the shelves between them)
+        for x in (56, 218):
+            rm.paste(stamp(lambda cv: window(cv, 44, 60, [tile[0], wood[2]], glass, cur), 46, 62, out), x, -38)
+    else:
+        rm.paste(stamp(lambda cv: window(cv, 44, 22, [tile[0], wood[2]], glass, cur), 46, 24, out), 6, 0)
+        rm.paste(stamp(lambda cv: window(cv, 44, 22, [tile[0], wood[2]], glass, cur), 46, 24, out), 226, 0)
 
     def clock(cv):
         disc(cv, 8, 8, 7, tile[0])
@@ -765,7 +788,8 @@ def room_kitchen():
             cv.set(8, 8 - i, out)
         for i in range(3):
             cv.set(8 + i, 8, cur[1])
-    rm.paste(stamp(clock, 17, 17, out), 112, 3)                # clear of the score, under the P2 CAUGHT! panel
+    if not tall:
+        rm.paste(stamp(clock, 17, 17, out), 112, 3)            # clear of the score, under the P2 CAUGHT! panel
 
     jars = [cur, glass, [(246, 214, 120), (214, 168, 70)]]
 
@@ -798,11 +822,34 @@ def room_kitchen():
         rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
                                         [(126, 192, 92), (70, 132, 62)]), 32, 32, out), x, y)
     rm.paste(stamp(lambda cv: rug(cv, 23, 15, 22, 14, (232, 150, 120), (196, 96, 86)), 46, 31, out), 325, 74, flat=True)
+    if tall:        # the wall between the windows; under the maze the bowls, the table and its chairs, a rug, plants
+        refloor(rm)
+        rm.paste(stamp(clock, 17, 17, out), 152, -34)
+        for y in (-14, 4):
+            rm.paste(stamp(shelf, 48, 19, out), 112, y)
+            rm.paste(stamp(shelf, 48, 19, out), 160, y)
+        rm.paste(stamp(lambda cv: bowl(cv, 14, 11, 12, [(120, 160, 226), (78, 108, 178)],
+                                       [KIB[0], KIB[1], KIB[1], KIB[2]]), 30, 24, out), 60, 234)
+        rm.paste(stamp(lambda cv: bowl(cv, 13, 10, 11, [(250, 250, 250), (196, 200, 210)],
+                                       [glass[0], glass[0], glass[1], glass[1]]), 28, 22, out), 94, 236)
+        rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
+                                        [(126, 192, 92), (70, 132, 62)]), 32, 32, out), 234, 232)
+        for cx in (124, 180):
+            rm.paste(stamp(lambda cv: chair(cv, 1, 5, wood, cur), 18, 22, out), cx, 282)
+        rm.paste(stamp(lambda cv: table(cv, 1, 1, 98, 40, wood,
+                                        lambda c: (bowl(c, 26, 18, 7, [(250, 250, 250), (196, 200, 210)], None),
+                                                   bowl(c, 74, 18, 7, [(250, 250, 250), (196, 200, 210)], None))),
+                       100, 42, out), 110, 306)
+        rm.paste(stamp(lambda cv: rug(cv, 23, 15, 22, 14, (232, 150, 120), (196, 96, 86)), 46, 31, out), 137, 396,
+                 flat=True)
+        for x, y in ((54, 384), (232, 404)):
+            rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
+                                            [(126, 192, 92), (70, 132, 62)]), 32, 32, out), x, y)
     return rm
 
 
-def room_living():
-    rm = Room()
+def room_living(tall=False):
+    rm = Room(tall)
     fl = [(196, 146, 98), (178, 128, 84), (150, 104, 68)]         # honey planks, seams
     def planks(x, y):
         yy = y - MAZE_Y
@@ -819,16 +866,20 @@ def room_living():
     wood = [(176, 112, 70), (138, 84, 52), (96, 58, 38)]
     glass = [(178, 220, 244), (140, 194, 232)]
     cur = [(108, 158, 136), (72, 116, 100)]
-    rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 2, 0)
-    rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 236, 0)
+    if tall:        # (the tall screen: taller windows in the columns shown, a few pictures between them)
+        for x in (52, 214):
+            rm.paste(stamp(lambda cv: window(cv, 52, 60, [paper[0], wood[2]], glass, cur), 54, 62, out), x, -38)
+    else:
+        rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 2, 0)
+        rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 236, 0)
 
     def picture(cv):
         rect(cv, 0, 0, 23, 17, (216, 172, 82))
         rect(cv, 2, 2, 21, 15, (150, 200, 230))
         rect(cv, 2, 11, 21, 15, (110, 170, 96))
         disc(cv, 15, 6, 2.2, (250, 230, 140))
-    rm.paste(stamp(picture, 25, 19, out), 96, 2)                # either side of the score (x 128..192)
-    rm.paste(stamp(picture, 25, 19, out), 199, 2)
+    for x, y in (((120, -2), (174, -2), (120, -28), (174, -28), (147, -15)) if tall else ((96, 2), (199, 2))):
+        rm.paste(stamp(picture, 25, 19, out), x, y)             # either side of the score (x 128..192)
     # an armchair, a round rug with a basket of yarn, a floor lamp, a plant, a coffee table
     sh = {fl[0]: (170, 122, 80), fl[1]: (154, 108, 72)}
     rm.sh = sh
@@ -862,11 +913,26 @@ def room_living():
     rm.paste(stamp(lambda cv: table(cv, 1, 1, 24, 48, wood,
                                     lambda c: bowl(c, 12, 16, 5, [(250, 250, 250), (200, 200, 210)], None)),
                    26, 50, out), 281, 120)
+    if tall:        # under the maze: two armchairs, the round rug and its basket, lamps, plants, a coffee table
+        refloor(rm)
+        rm.paste(stamp(armchair, 32, 30, out), 56, 236)
+        rm.paste(stamp(armchair, 32, 30, out), 230, 236)
+        rm.paste(stamp(lambda cv: rug(cv, 24, 21, 23, 20, (120, 168, 200), (232, 214, 150)), 50, 44, out), 135, 276,
+                 flat=True)
+        rm.paste(stamp(basket, 22, 20, out), 149, 288)
+        rm.paste(stamp(lamp, 23, 23, out), 60, 330)
+        rm.paste(stamp(lamp, 23, 23, out), 236, 330)
+        rm.paste(stamp(lambda cv: table(cv, 1, 1, 50, 26, wood,
+                                        lambda c: bowl(c, 25, 12, 5, [(250, 250, 250), (200, 200, 210)], None)),
+                       52, 28, out), 134, 372)
+        for x, y in ((52, 412), (236, 412)):
+            rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
+                                            [(126, 192, 92), (70, 132, 62)]), 32, 32, out), x, y)
     return rm
 
 
-def room_bedroom():
-    rm = Room()
+def room_bedroom(tall=False):
+    rm = Room(tall)
     fl = [(238, 200, 176), (228, 188, 164)]                       # a peach carpet
     rm.fill(lambda x, y: fl[1] if (x * 3 + y * 5) % 11 == 0 or (x + y * 2) % 13 == 0 else fl[0])
     paper = [(64, 74, 132), (96, 108, 170), (250, 236, 170)]      # a night-blue wallpaper with little stars
@@ -876,8 +942,14 @@ def room_bedroom():
     wood = [(230, 214, 236), (190, 168, 210), (140, 118, 168)]
     glass = [(40, 50, 104), (30, 38, 86)]
     cur = [(250, 190, 210), (220, 140, 172)]
-    rm.paste(stamp(lambda cv: window(cv, 44, 22, [paper[1], wood[2]], glass, cur, night=True), 46, 24, out), 4, 0)
-    rm.paste(stamp(lambda cv: window(cv, 44, 22, [paper[1], wood[2]], glass, cur, night=True), 46, 24, out), 228, 0)
+    if tall:        # (the tall screen: taller windows in the columns shown)
+        for x in (60, 214):
+            rm.paste(stamp(lambda cv: window(cv, 44, 60, [paper[1], wood[2]], glass, cur, night=True), 46, 62, out),
+                     x, -38)
+    else:
+        rm.paste(stamp(lambda cv: window(cv, 44, 22, [paper[1], wood[2]], glass, cur, night=True), 46, 24, out), 4, 0)
+        rm.paste(stamp(lambda cv: window(cv, 44, 22, [paper[1], wood[2]], glass, cur, night=True), 46, 24, out), 228,
+                 0)
     sh = {fl[0]: (214, 174, 152), fl[1]: (204, 164, 144)}
     rm.sh = sh
     quilt = [(162, 178, 238), (98, 110, 184)]
@@ -933,11 +1005,26 @@ def room_bedroom():
         disc(cv, 12, 9, 5.5, (250, 228, 150))
         disc(cv, 12, 9, 3.5, (252, 244, 210))
     rm.paste(stamp(nightstand, 24, 20, out), 386, 44)
+    if tall:        # under the maze: the bed between its bedside tables, the wardrobe, the toy box, a rug, the teddy
+        refloor(rm)
+        rm.paste(stamp(wardrobe, 40, 26, out), 52, 236)
+        rm.paste(stamp(nightstand, 24, 20, out), 106, 240)
+        rm.paste(stamp(bed, 48, 86, out), 136, 236)
+        rm.paste(stamp(nightstand, 24, 20, out), 190, 240)
+        rm.paste(stamp(toybox, 28, 22, out), 236, 238)
+        rm.paste(stamp(teddy, 19, 24, out), 76, 300)
+        rm.paste(stamp(slippers, 17, 15, out), 104, 330)
+        rm.paste(stamp(lambda cv: rug(cv, 23, 16, 22, 15, (250, 220, 240), (200, 170, 230)), 46, 33, out), 220, 320,
+                 flat=True)
+        rm.paste(stamp(lambda cv: rug(cv, 23, 16, 22, 15, (250, 220, 240), (200, 170, 230)), 46, 33, out), 137, 372,
+                 flat=True)
+        rm.paste(stamp(toybox, 28, 22, out), 60, 410)
+        rm.paste(stamp(teddy, 19, 24, out), 238, 404)
     return rm
 
 
-def room_garden():
-    rm = Room()
+def room_garden(tall=False):
+    rm = Room(tall)
     lawn = [(122, 180, 90), (110, 166, 80), (140, 196, 104)]
     path = [(222, 208, 172), (204, 188, 150)]                      # gravel paths between the hedges
     mx0, my0, mx1, my1 = MAZE_X - 2, MAZE_Y - 2, MAZE_X + MAZE_W * CELL + 2, MAZE_Y + MAZE_H * CELL + 2
@@ -961,7 +1048,13 @@ def room_garden():
     out = (24, 44, 30)
     for cx in (20, 200, 300):                                       # little clouds
         for k in range(3):
-            disc(rm.cv, rm.sx(cx + k * 5), 4 + (k % 2), 3, (250, 250, 250))
+            disc(rm.cv, rm.sx(cx + k * 5), rm.sy(4 + (k % 2)), 3, (250, 250, 250))
+    if tall:        # (the tall screen: more sky above the fence, the sun and more clouds in the columns shown)
+        disc(rm.cv, rm.sx(232), rm.sy(-26), 9, (250, 220, 110))
+        disc(rm.cv, rm.sx(232), rm.sy(-26), 6, (250, 250, 250))
+        for cx, cy, n in ((70, -36, 4), (150, -12, 3), (112, -54, 3), (196, -50, 3), (258, -2, 3), (62, -6, 2)):
+            for k in range(n):
+                disc(rm.cv, rm.sx(cx + k * 5), rm.sy(cy + (k % 2)), 3 + (k % 2), (250, 250, 250))
     sh = {lawn[0]: (96, 148, 72), lawn[1]: (90, 140, 68), lawn[2]: (110, 160, 84)}
     rm.sh = sh
     leaf = [(110, 176, 80), (66, 128, 58), (40, 94, 46)]
@@ -1014,11 +1107,24 @@ def room_garden():
     rm.paste(stamp(birdbath, 19, 19, out), 290, 150)
     rm.paste(stamp(birdbath, 19, 19, out), -40, 190)
     rm.paste(stamp(birdbath, 19, 19, out), 390, 176)
+    if tall:        # under the maze: a tree, the pond, flower beds, stepping stones, the bird bath
+        refloor(rm)
+        rm.paste(stamp(tree, 46, 46, out), 52, 238)
+        rm.paste(stamp(flowers, 30, 14, out), 118, 236)
+        rm.paste(stamp(flowers, 30, 14, out), 176, 236)
+        rm.paste(stamp(birdbath, 19, 19, out), 240, 250)
+        rm.paste(stamp(stones, 18, 30, out), 140, 270)
+        rm.paste(stamp(pond, 46, 30, out), 176, 310)
+        rm.paste(stamp(flowers, 30, 14, out), 66, 312)
+        rm.paste(stamp(stones, 18, 30, out), 104, 356)
+        rm.paste(stamp(birdbath, 19, 19, out), 70, 410)
+        rm.paste(stamp(tree, 46, 46, out), 214, 384)
+        rm.paste(stamp(flowers, 30, 14, out), 136, 424)
     return rm
 
 
-def room_attic():
-    rm = Room()
+def room_attic(tall=False):
+    rm = Room(tall)
     fl = [(132, 136, 150), (118, 122, 138), (96, 98, 116)]         # dusty blue-grey boards
     def boards(x, y):
         xx = x - MAZE_X
@@ -1047,8 +1153,8 @@ def room_attic():
                 if dist(x, y, 11, 11) < 8.5 and (x == 11 or y == 11):
                     cv.set(x, y, beam[2])
         cv.set(7, 7, (250, 250, 250))
-    rm.paste(stamp(round_window, 23, 23, out), 18, 0)
-    rm.paste(stamp(round_window, 23, 23, out), 260, 0)
+    for x in ((64, 233) if tall else (18, 260)):    # (the tall screen: in the columns shown)
+        rm.paste(stamp(round_window, 23, 23, out), x, 0)
     card = [(228, 192, 138), (198, 152, 100), (150, 108, 68)]
     tape = (236, 220, 176)
     sh = {fl[0]: (104, 106, 122), fl[1]: (94, 96, 112)}
@@ -1082,6 +1188,16 @@ def room_attic():
         disc(cv, 8, 8, 4.5, (252, 244, 210))
     rm.paste(stamp(lamp, 17, 17, out), 14, 64)
     rm.paste(stamp(lamp, 17, 17, out), 290, 110)
+    if tall:        # the roof: a third round window; under the maze: boxes piled up, the trunk, lamps, a cobweb
+        refloor(rm)
+        rm.paste(stamp(round_window, 23, 23, out), 148, -34)
+        for x, y, w, h in ((52, 234, 36, 28), (92, 246, 28, 24), (226, 236, 30, 26), (190, 292, 26, 22),
+                           (56, 392, 30, 26), (90, 410, 28, 24), (222, 400, 34, 26)):
+            rm.paste(stamp(lambda cv, w=w, h=h: box(cv, 0, 0, w, h, card, tape), w + 1, h + 1, out), x, y)
+        rm.paste(stamp(trunk, 44, 26, out), 136, 330)
+        rm.paste(stamp(lamp, 17, 17, out), 150, 248)
+        rm.paste(stamp(lamp, 17, 17, out), 70, 320)
+        rm.paste(stamp(lamp, 17, 17, out), 238, 350)
     return rm
 
 
@@ -1126,6 +1242,8 @@ def write_all(out_dir, preview=False):
     files = [("sprites.png", sheet()), ("tiles/walls.png", walls_sheet()), ("tiles/items.png", items_sheet())]
     for room in ROOMS:
         files.append(("tiles/%s.png" % room, ROOM_FNS[room]().cv.image()))
+    for room in ROOMS:
+        files.append(("tiles/%s-tall.png" % room, ROOM_FNS[room](tall=True).cv.image()))
     for name, im in files:
         im.save(os.path.join(out_dir, name))
         print("wrote", os.path.join(out_dir, name))

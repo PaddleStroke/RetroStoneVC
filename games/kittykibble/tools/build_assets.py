@@ -61,9 +61,27 @@ def indexed(img, x0, y0, colours):
     return [0 if v is None else lut[v] for row in c for v in row]
 
 
-def fit_palettes(cells, n, name):
+def fit_palettes(cells, n, name, extra=None):
     """Merge the two closest colours of the picture (the rarer into the commoner) until its tiles pack into n
-    palettes of 15 (rsasset's clustering would recolour whole tiles): returns the cells."""
+    palettes of 15 (rsasset's clustering would recolour whole tiles): returns the cells. extra (the tall screen's
+    picture) gets the same merges, chosen from cells alone (so the panorama is unchanged), and is returned after
+    them; it must pack with them."""
+    if extra is not None:
+        cells = fit_palettes(cells, n, name)
+        before = {v for c in cells for row in c for v in row}
+        src = [[[v for v in row] for row in c] for c in extra]
+        # each colour of extra that the panorama merged away: the colour it became (the nearest one kept)
+        allc = {v for c in src for row in c for v in row if v is not None}
+        lut = {}
+        for v in allc:
+            if v not in before:
+                lut[v] = min((k for k in before if k is not None),
+                             key=lambda k: rsasset.dist2(rsasset.rgb888(k), rsasset.rgb888(v)))
+        src = [[[lut.get(v, v) for v in row] for row in c] for c in src]
+        both = cells + src
+        assert rsasset.pack_palettes([rsasset.colors_of(c) for c in both], n) is not None, \
+            "room %s: the tall picture does not fit the panorama's %d palettes" % (name, n)
+        return both
     merged = 0
     while rsasset.pack_palettes([rsasset.colors_of(c) for c in cells], n) is None:
         counts = {}
@@ -134,14 +152,20 @@ def main():
     stats.append("walls %d x %d" % (nb, nr))
 
     # ---- BG3: each room around the maze (two palettes) ------------------------------------------------------------
-    names_t, names_n, names_m, pals = [], [], [], []
+    # (and each room's tall-screen picture, DESIGN.md "Tall screen": its tiles and colours shared with the panorama)
+    names_t, names_n, names_m, names_tm, pals = [], [], [], [], []
+    npano = (make_art.PANO_W // 8) * (make_art.PANO_H // 8)
     for r, room in enumerate(make_art.ROOMS):
         img = rsasset.load(os.path.join(a.art, "tiles", "%s.png" % room))
-        cells = fit_palettes(cells8(img, 0, 0, make_art.PANO_W, make_art.PANO_H), ROOM_PALS, room)
+        tall = rsasset.load(os.path.join(a.art, "tiles", "%s-tall.png" % room))
+        cells = fit_palettes(cells8(img, 0, 0, make_art.PANO_W, make_art.PANO_H), ROOM_PALS, room,
+                             cells8(tall, 0, 0, make_art.TALL_W, make_art.TALL_H))
         res = rsasset.convert_bg(cells, ROOM_PALS, pal_base=PAL_ROOM, tile_base=0)
         assert len(res.tiles) <= ROOM_TILES_MAX, "room %s: %d tiles" % (room, len(res.tiles))
         c.append(rsasset.c_bytes("room_tiles_%d" % r, rsasset.tiles_bytes(res.tiles), static=True))
-        c.append(arr("room_map_%d" % r, [m[0] for m in res.metas], static=True))
+        c.append(arr("room_map_%d" % r, [m[0] for m in res.metas[:npano]], static=True))
+        c.append(arr("room_tall_map_%d" % r, [m[0] for m in res.metas[npano:]], static=True))
+        names_tm.append("room_tall_map_%d" % r)
         p = []
         for k in range(ROOM_PALS):
             p += rsasset.palette16(res.palettes[k]) if k < len(res.palettes) else [0] * 16
@@ -153,10 +177,15 @@ def main():
     c.append("const uint8_t *const gm_room_tiles[%d] = {%s};" % (nr, ", ".join(names_t)))
     c.append("const int gm_room_tile_count[%d] = {%s};" % (nr, ", ".join(names_n)))
     c.append("const uint16_t *const gm_room_map[%d] = {%s};" % (nr, ", ".join(names_m)))
+    c.append("const uint16_t *const gm_room_tall_map[%d] = {%s};" % (nr, ", ".join(names_tm)))
     c.append(arr("gm_room_pals", pals))
     h.append("extern const uint8_t *const gm_room_tiles[%d];\nextern const int gm_room_tile_count[%d];\n"
              "extern const uint16_t *const gm_room_map[%d];\nextern const uint16_t gm_room_pals[%d * 64];" %
              (nr, nr, nr, nr))
+    h.append("/* the tall screen's picture of each room: TALL_COLS x TALL_ROWS tiles from stage (0, -TALL_ABOVE) */\n"
+             "#define TALL_COLS %d\n#define TALL_ROWS %d\n#define TALL_ABOVE %d\n"
+             "extern const uint16_t *const gm_room_tall_map[%d];" %
+             (make_art.TALL_W // 8, make_art.TALL_H // 8, make_art.TALL_ABOVE, nr))
 
     # ---- sprites ----------------------------------------------------------------------------------------------------
     sheet = rsasset.load(os.path.join(a.art, "sprites.png"))
