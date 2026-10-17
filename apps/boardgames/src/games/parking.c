@@ -78,15 +78,58 @@ static void over(uint8_t *p, const uint8_t rgb[3], float k, float a)
     over_px(p, c, a);
 }
 
-/* a vehicle seen from above, its front to the right: w x h pixels (len bays long), its lacquer; a truck (len 3): the
- * cab at the front, a wooden crate behind it */
+static float smin(float a, float b, float k)    /* a smooth union of two distances, k wide */
+{
+    float e = fmaxf(k - fabsf(a - b), 0) / k;
+    return fminf(a, b) - e * e * k / 4;
+}
+
+static float cover(float d) { return clampf(0.5f - d, 0, 1); }
+
+/* a vehicle's outline: its body (a truck: the cab, and the bed under the crate), swelling over its wheels */
+typedef struct { float h, x0, x1, y0, y1, cab, wl, wx[3]; int nw, truck; } shape;
+
+static float body_d(const shape *s, float px, float py)
+{
+    float h = s->h, d = s->truck ? fminf(rr(px, py, s->cab, s->y0, s->x1, s->y1, 0.26f * h),
+                                         rr(px, py, s->x0, s->y0, s->cab + 0.1f * h, s->y1, 0.1f * h))
+                                 : rr(px, py, s->x0, s->y0, s->x1, s->y1, 0.34f * h);
+    for (int k = 0; k < s->nw; k++)
+        d = smin(d, rr(px, py, s->wx[k] - s->wl / 2 - 0.07f * h, 0.085f * h, s->wx[k] + s->wl / 2 + 0.07f * h,
+                       h - 0.085f * h, 0.15f * h), 0.1f * h);
+    return d;
+}
+
+/* a vehicle seen from above, its front to the right: w x h pixels (len bays long), its lacquer. A toy: the body lit
+ * as if round, a gloss along its upper side, swelling over the wheels that peek out at its sides; the glass all round
+ * the roof (the windscreen, the side windows, the rear window), the roof lit on its own; the lamps. A truck (len 3):
+ * the cab at the front, a wooden crate on its bed behind it. The red car: a pair of ivory stripes along it. A soft
+ * shadow under it all. */
 static void paint_vehicle(uint8_t *o, int w, int h, int len, const uint8_t col[3])
 {
+    static const uint8_t WHITE[3] = {255, 252, 244}, STRIPE[3] = {246, 238, 220}, BED[3] = {58, 52, 50},
+                         SHADE[3] = {0, 0, 0};
     memset(o, 0, (size_t)w * h * 4);
-    float m = 0.07f * h, r = 0.26f * h, x0 = m, x1 = w - m, y0 = 1.3f * m, y1 = h - 1.3f * m;
-    float cab = len == 3 ? x1 - 0.9f * h : x0;  /* where the coloured body begins (a truck: its cab) */
+    int red = col == RED;
+    shape s = {.h = (float)h, .x0 = 0.05f * h, .x1 = w - 0.07f * h, .y0 = 0.115f * h, .y1 = h - 0.115f * h,
+               .wl = 0.34f * h, .truck = len == 3};
+    float H = (float)h, L = s.x1 - s.x0;
+    s.cab = s.truck ? s.x1 - 0.95f * H : s.x0;
+    if (s.truck) {
+        s.nw = 3;
+        s.wx[0] = s.x0 + 0.32f * H;
+        s.wx[1] = s.x0 + 0.72f * H;
+        s.wx[2] = s.x1 - 0.32f * H;
+    } else {
+        s.nw = 2;
+        s.wx[0] = s.x0 + 0.42f * H;
+        s.wx[1] = s.x1 - 0.44f * H;
+    }
+    /* the glass round the roof, and the roof */
+    float g0 = s.truck ? s.cab + 0.1f * H : s.x0 + 0.2f * L, g1 = s.truck ? s.x1 - 0.28f * H : s.x0 + 0.72f * L;
+    float r0 = s.truck ? s.cab + 0.12f * H : s.x0 + 0.33f * L, r1 = s.truck ? s.x1 - 0.45f * H : s.x0 + 0.6f * L;
     uint8_t *crate = NULL;
-    if (len == 3 && (crate = malloc((size_t)w * h * 4))) {
+    if (s.truck && (crate = malloc((size_t)w * h * 4))) {
         pzt_plank(crate, w, h, 5);
         static const uint8_t wood[3] = {214, 170, 112};
         for (int i = 0; i < w * h; i++) pzt_tint(crate + 4 * i, wood, 1);
@@ -95,56 +138,70 @@ static void paint_vehicle(uint8_t *o, int w, int h, int len, const uint8_t col[3
         for (int x = 0; x < w; x++) {
             float px = x + 0.5f, py = y + 0.5f;
             uint8_t *p = o + 4 * (y * w + x);
-            /* the wheels, under the body, showing at its sides */
-            float wl = 0.36f * h, wx[2] = {x0 + 0.2f * h + wl / 2, x1 - 0.2f * h - wl / 2};
-            for (int k = 0; k < 2; k++) {
-                float d = rr(px, py, wx[k] - wl / 2, 0.02f * h, wx[k] + wl / 2, h - 0.02f * h, 0.08f * h);
-                if (d < 0.5f) over(p, TYRE, 1, clampf(0.5f - d, 0, 1));
+            /* the shadow it casts on the lot, close under it */
+            float ds = body_d(&s, px - 0.025f * H, py - 0.04f * H);
+            if (ds < 0.06f * H) over_px(p, SHADE, 0.32f * clampf(1 - ds / (0.06f * H), 0, 1));
+            /* the wheels: a tread lit across its middle */
+            for (int k = 0; k < s.nw; k++) {
+                float d = rr(px, py, s.wx[k] - s.wl / 2, 0.025f * H, s.wx[k] + s.wl / 2, H - 0.025f * H, 0.1f * H);
+                if (d < 0.5f) {
+                    float t = (px - s.wx[k]) / (s.wl / 2);
+                    over(p, TYRE, 1 + 1.3f * expf(-t * t * 3) * (0.6f + 0.4f * (1 - py / H)), cover(d));
+                }
             }
-            if (len == 3) {                     /* a truck's middle wheels */
-                float cxw = (x0 + cab) / 2;
-                float d = rr(px, py, cxw - wl / 2, 0.02f * h, cxw + wl / 2, h - 0.02f * h, 0.08f * h);
-                if (d < 0.5f) over(p, TYRE, 1, clampf(0.5f - d, 0, 1));
-            }
-            /* the body: lit as if round, darker at its rim, a gloss along its upper side */
-            float d = rr(px, py, x0, y0, x1, y1, len == 3 ? 0.16f * h : r);   /* (a truck: its bed under the crate) */
+            /* the body */
+            float d = body_d(&s, px, py);
             if (d < 0.5f) {
-                float in = clampf(-d / (0.22f * h), 0, 1);
-                float k = 0.62f + 0.48f * sqrtf(in) + 0.16f * expf(-powf((py - 0.32f * h) / (0.1f * h), 2)) * in;
-                k *= 1 - 0.08f * (px / w);
-                over(p, col, k, clampf(0.5f - d, 0, 1));
-                if (d > -1.4f) over(p, PZT_DARK, 1, 0.45f * clampf(0.5f - d, 0, 1) * clampf(d + 1.4f, 0, 1));
+                const uint8_t *c = s.truck && px < s.cab + 0.02f * H &&
+                                           rr(px, py, s.cab, s.y0, s.x1, s.y1, 0.26f * H) > 0.5f
+                                       ? BED : col;
+                float z = sqrtf(clampf(-d / (0.24f * H), 0, 1));
+                float k = (0.56f + 0.5f * z) * (1.08f - 0.18f * py / H);
+                over(p, c, k, cover(d));
+                if (c == col) {
+                    over_px(p, WHITE, 0.42f * z * z * expf(-powf((py - 0.29f * H) / (0.07f * H), 2)) * cover(d));
+                    if (red) over(p, STRIPE, 0.9f + 0.2f * z, cover(fabsf(fabsf(py - 0.5f * H) - 0.075f * H) -
+                                                                   0.032f * H) * cover(d));
+                }
+                if (d > -1.5f) over(p, PZT_DARK, 1, 0.5f * cover(d) * clampf(d + 1.5f, 0, 1));
             }
-            if (crate) {                        /* the crate on the bed: planks across, a darker seam round it */
-                float dc = rr(px, py, x0 + 0.08f * h, y0 + 0.07f * h, cab - 0.08f * h, y1 - 0.07f * h, 0.05f * h);
+            if (crate) {                        /* the crate on the bed: planks along it, a lid's lit rim */
+                float dc = rr(px, py, s.x0 + 0.02f * H, s.y0 + 0.01f * H, s.cab - 0.05f * H, s.y1 - 0.01f * H,
+                              0.06f * H);
                 if (dc < 0.5f) {
-                    const uint8_t *c = crate + 4 * (y * w + x);
-                    float k = 1 - 0.12f * (py / h) + (fmodf(px - x0, 0.42f * h) < 1.2f ? -0.3f : 0);
-                    if (dc > -1.6f) k *= 0.6f;
-                    uint8_t cc[3] = {c[0], c[1], c[2]};
-                    over(p, cc, k, clampf(0.5f - dc, 0, 1));
+                    const uint8_t *cw = crate + 4 * (y * w + x);
+                    float seam = fmodf(py - s.y0, (s.y1 - s.y0) / 3);
+                    float k = 1.02f - 0.16f * (py / H) + (seam < 1.1f && dc < -2 ? -0.32f : 0);
+                    if (dc > -0.07f * H) k *= 0.82f + 0.3f * (1 - py / H);
+                    if (dc > -1.6f) k *= 0.55f;
+                    uint8_t cc[3] = {cw[0], cw[1], cw[2]};
+                    over(p, cc, k, cover(dc));
                 }
             }
-            /* the windscreen and the rear window, dark glass with a light streak */
-            float fw0 = x1 - 0.62f * h, fw1 = x1 - 0.36f * h;
-            float dw = rr(px, py, fw0, y0 + 0.13f * h, fw1, y1 - 0.13f * h, 0.1f * h);
-            if (len == 2) {
-                float rw0 = x0 + 0.22f * h, rw1 = x0 + 0.42f * h;
-                dw = fminf(dw, rr(px, py, rw0, y0 + 0.17f * h, rw1, y1 - 0.17f * h, 0.08f * h));
+            /* the glass: dark, lighter towards the sky, a streak across the windscreen */
+            float dg = rr(px, py, g0, 0.2f * H, g1, H - 0.2f * H, (s.truck ? 0.14f : 0.17f) * H);
+            if (dg < 0.5f) {
+                float streak = expf(-powf((px + 0.4f * py - (g1 - 0.06f * H + 0.2f * H)) / (0.045f * H), 2));
+                over(p, GLASS, 1.0f + 0.7f * (1 - py / H) + 1.6f * streak * (px > r1), cover(dg));
+                if (dg > -1.2f) over(p, PZT_DARK, 1, 0.4f * cover(dg));
             }
-            if (dw < 0.5f) {
-                float streak = expf(-powf((px - py * 0.5f - (fw0 - 0.1f * h)) / (0.05f * h), 2));
-                over(p, GLASS, 1 + 0.9f * streak, clampf(0.5f - dw, 0, 1));
+            /* the roof: the lacquer again, a dome with its own gloss */
+            float dr = rr(px, py, r0, 0.27f * H, r1, H - 0.27f * H, 0.11f * H);
+            if (dr < 0.5f) {
+                float z = sqrtf(clampf(-dr / (0.12f * H), 0, 1));
+                over(p, col, (0.72f + 0.42f * z) * (1.06f - 0.14f * py / H), cover(dr));
+                float sx = (px - (r0 + 0.35f * (r1 - r0))) / (0.25f * (r1 - r0) + 1), sy = (py - 0.38f * H) / (0.09f * H);
+                over_px(p, WHITE, 0.4f * z * expf(-sx * sx - sy * sy) * cover(dr));
+                if (red) over(p, STRIPE, 1.0f, cover(fabsf(fabsf(py - 0.5f * H) - 0.075f * H) - 0.032f * H) * cover(dr));
             }
-            /* the lamps: two at the front, two small red ones at the back */
+            /* the lamps: two at the front with a little glow, two red ones at the back */
             for (int k = 0; k < 2; k++) {
-                float ly = k ? y1 - 0.17f * h : y0 + 0.17f * h;
-                float dl = hypotf(px - (x1 - 0.1f * h), py - ly) - 0.075f * h;
-                if (dl < 0.5f) over(p, LAMP, 1, clampf(0.5f - dl, 0, 1));
-                if (len == 2) {
-                    float dt = rr(px, py, x0 + 0.02f * h, ly - 0.07f * h, x0 + 0.1f * h, ly + 0.07f * h, 0.03f * h);
-                    if (dt < 0.5f) over(p, TAIL, 1, 0.9f * clampf(0.5f - dt, 0, 1));
-                }
+                float ly = (k ? 0.7f : 0.3f) * H;
+                float dl = rr(px, py, s.x1 - 0.13f * H, ly - 0.06f * H, s.x1 - 0.045f * H, ly + 0.06f * H, 0.05f * H);
+                if (dl < 0.5f) over(p, LAMP, 1, cover(dl));
+                else if (dl < 0.08f * H) over_px(p, LAMP, 0.25f * (1 - dl / (0.08f * H)));
+                float dt = rr(px, py, s.x0 + 0.04f * H, ly - 0.065f * H, s.x0 + 0.095f * H, ly + 0.065f * H, 0.03f * H);
+                if (dt < 0.5f) over(p, TAIL, 1.2f, 0.95f * cover(dt));
             }
         }
     free(crate);
