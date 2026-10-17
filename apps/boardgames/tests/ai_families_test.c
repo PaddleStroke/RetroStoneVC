@@ -8,10 +8,10 @@
 
 #include "games/families.h"
 
-static fgame T;                                 /* the "screen's" game: the bot reads it */
+static fam_game T;                                 /* the "screen's" game: the bot reads it */
 static int pending;                             /* a new game, dealt at its first move from the game's seed */
 static void deal_now(uint64_t seed);
-const fgame *families_live(void) { deal_now(ai_session_seed()); return &T; }
+const fam_game *families_live(void) { deal_now(ai_session_seed()); return &T; }
 int families_show(const char *move) { return fam_script(&T, move); }
 
 static int one(const char *m) { return fam_script(&T, m); }

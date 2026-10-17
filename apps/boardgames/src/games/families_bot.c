@@ -37,12 +37,12 @@ typedef struct {
 
 /* what `seat` knows of the table in g: the questions and answers since the deal (the last `memory` of them; <0 all),
  * replayed from the deal for their answers alone */
-static void listen(const fgame *g, int seat, int memory, knowledge *k)
+static void listen(const fam_game *g, int seat, int memory, knowledge *k)
 {
     memset(k->holder, -1, sizeof k->holder);
     memset(k->lacks, 0, sizeof k->lacks);
     memset(k->keen, 0, sizeof k->keen);
-    fgame *r = malloc(sizeof *r);
+    fam_game *r = malloc(sizeof *r);
     if (!r) return;
     fam_new(r, g->players, g->seed);
     int from_act = memory < 0 || g->n <= memory ? 0 : g->n - memory;
@@ -74,7 +74,7 @@ static void listen(const fgame *g, int seat, int memory, knowledge *k)
 }
 
 /* the question for the seat to move in p (its view: the others' hands and the stock read only as counts) */
-int famb_ask(const fgame *g, int level, uint64_t seed)
+int famb_ask(const fam_game *g, int level, uint64_t seed)
 {
     const fpos *p = &g->pos;
     if (p->phase != FP_ASK) return -1;
@@ -127,7 +127,7 @@ int famb_ask(const fgame *g, int level, uint64_t seed)
 
 static int think(int seat, int level, char *move, int cap)
 {
-    fgame g = *families_live();                 /* the copy, at entry */
+    fam_game g = *families_live();                 /* the copy, at entry */
     if (g.pos.phase != FP_ASK || g.pos.turn != seat || cap < 5) return 0;
     for (int q = 0; q < g.pos.players; q++)     /* the others' hands: their counts only (the replay deals anew) */
         if (q != seat) memset(g.pos.hand[q], FAM_NONE, sizeof g.pos.hand[q]);

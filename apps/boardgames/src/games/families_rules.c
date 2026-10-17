@@ -77,7 +77,7 @@ static void turn_to(fpos *p, int pl)
     p->phase = FP_OVER;                         /* (nobody holds a card: every family is down) */
 }
 
-void fam_new(fgame *g, int players, uint32_t seed)
+void fam_new(fam_game *g, int players, uint32_t seed)
 {
     memset(g, 0, sizeof *g);
     fpos *p = &g->pos;
@@ -115,7 +115,7 @@ int fam_legal(const fpos *p, int a)
            FAM_MEMBER(card) < FAM_MEMBERS && fam_has_family(p, pl, FAM_FAMILY(card)) && !fam_holds(p, pl, card);
 }
 
-int fam_play(fgame *g, int a)
+int fam_play(fam_game *g, int a)
 {
     fpos *p = &g->pos;
     if (g->n >= FAM_MAX_ACTS || !fam_legal(p, a)) return 0;
@@ -144,7 +144,7 @@ int fam_play(fgame *g, int a)
     return 1;
 }
 
-int fam_undo(fgame *g)
+int fam_undo(fam_game *g)
 {
     if (!g->n) return 0;
     int n = g->n - 1;
@@ -190,7 +190,7 @@ int fam_auto(const fpos *p)
     return fallback;
 }
 
-int fam_script(fgame *g, const char *s)
+int fam_script(fam_game *g, const char *s)
 {
     while (*s) {
         char c = *s++;

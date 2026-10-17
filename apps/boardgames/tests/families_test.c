@@ -11,7 +11,7 @@
 static int checks, failed;
 #define CHECK(c) do { checks++; if (!(c)) { failed++; printf("FAIL line %d: %s\n", __LINE__, #c); } } while (0)
 
-static fgame G, H;
+static fam_game G, H;
 static fpos *P = &G.pos;
 
 /* the 42 cards once each: hands, stock, families down */

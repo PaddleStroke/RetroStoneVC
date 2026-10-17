@@ -47,27 +47,27 @@ typedef struct {
     uint8_t players;
     uint16_t act[FAM_MAX_ACTS];
     int n;
-} fgame;
+} fam_game;
 
 #define FAM_ASK(player, card) ((player) << 8 | (card))
 #define FAM_ASK_PLAYER(a) ((a) >> 8)
 #define FAM_ASK_CARD(a) ((a) & 0xff)
 
-void fam_new(fgame *g, int players, uint32_t seed);
+void fam_new(fam_game *g, int players, uint32_t seed);
 int  fam_holds(const fpos *p, int player, int card);
 int  fam_has_family(const fpos *p, int player, int family);
 int  fam_askable(const fpos *p, int player);    /* the player to move may ask them (they hold cards, or nobody
                                                  * else does) */
 int  fam_legal(const fpos *p, int ask);
-int  fam_play(fgame *g, int ask);               /* 0: not allowed */
-int  fam_undo(fgame *g);                        /* back one question (a replay from the deal) */
+int  fam_play(fam_game *g, int ask);            /* 0: not allowed */
+int  fam_undo(fam_game *g);                     /* back one question (a replay from the deal) */
 unsigned fam_winners(const fpos *p);            /* FP_OVER: the most families (bit n: player n) */
 int  fam_auto(const fpos *p);                   /* a plain question (it knows the hands: for the tests) */
-int  fam_script(fgame *g, const char *moves);   /* 0: a question is bad */
+int  fam_script(fam_game *g, const char *moves);   /* 0: a question is bad */
 
 /* the bot (families_bot.c, bots.h), and what the screen (families.c) gives it; a headless test defines both */
-const fgame *families_live(void);               /* the game on the screen, read-only: the bot copies it at entry */
+const fam_game *families_live(void);            /* the game on the screen, read-only: the bot copies it at entry */
 int families_show(const char *move);            /* main thread: "a<p><f><m>" asked as taps do; 0: not legal */
-int famb_ask(const fgame *g, int level, uint64_t seed);   /* the question (FAM_ASK) for the player to move; -1 */
+int famb_ask(const fam_game *g, int level, uint64_t seed);   /* the question (FAM_ASK) for the player to move; -1 */
 
 #endif

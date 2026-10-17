@@ -17,7 +17,7 @@
 
 #define SLIDE_MS 380
 
-static fgame G;
+static fam_game G;
 static int dealing, target = -1, chosen = -1;   /* the player to ask, the family whose members show (-1) */
 static ct_moves MV = {.rest = 300};
 static Uint32 flash_t;                          /* a card given (or the lucky draw): its gold light until then */
@@ -217,7 +217,7 @@ static void ask(int card)
 }
 
 /* the bot (families_bot.c): the game read-only; a question asked as taps do (the player, then the card) */
-const fgame *families_live(void) { return &G; }
+const fam_game *families_live(void) { return &G; }
 
 int families_show(const char *move)
 {
