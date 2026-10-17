@@ -226,15 +226,20 @@ static void draw(void)
         float x0, y0, t = puz_ease(st);
         bpz_xy(&B, anim.from % w, anim.from / w, 0, &x0, &y0);
         x = x0 + (x - x0) * t;
-        y = y0 + (y - y0) * t - sinf(PUZ_PI * t) * 0.35f * B.sq;   /* a knight leaps */
+        y = y0 + (y - y0) * t;
         stroke(anim.from, G.path[G.len - 1], 52, 34, 22, (Uint8)(80 * t), 0.06f);
+        float up = sinf(PUZ_PI * t);            /* a knight leaps: its shadow stays on the board, smaller below it */
+        float sk = 1 - 0.18f * up, ss = sk * B.sq;
+        ui_shadow(x + (B.sq - ss) / 2 + 0.12f * up * B.sq, y + (B.sq - ss) / 2, ss);
+        y -= up * 0.35f * B.sq;
         ui_animate();
     } else if (kt_stuck(&G) || hint.none) ui_mark_glow(x + B.sq / 2.0f, y + B.sq / 2.0f, 1.2f * B.sq);
     if (drag.on && drag.moved) {
         x = drag.x - B.sq / 2.0f;
         y = drag.y - 0.62f * B.sq;
     }
-    bpz_piece_at(&B, KNIGHT, WHITE, x, y, drag.on && drag.moved ? 1.12f : 1, 255);
+    /* in the air, its shadow drawn above: 254, all but opaque, draws the piece alone (bpz_piece_at) */
+    bpz_piece_at(&B, KNIGHT, WHITE, x, y, drag.on && drag.moved ? 1.12f : 1, anim.on && !(drag.on && drag.moved) ? 254 : 255);
     ui_tool(0, ICON_HINT, (hint.sq >= 0 ? UI_ON : 0) | (kt_done(&G) || kt_stuck(&G) ? UI_DIM : 0));   /* the lamp */
 }
 
