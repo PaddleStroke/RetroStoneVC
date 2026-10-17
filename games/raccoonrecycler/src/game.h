@@ -14,6 +14,8 @@
 #define BELT_JOIN 160
 #define BELT_START 48
 #define RULE_HOLD 90
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen, ZOOM_H lines (rs_screen_zoom; its sides cropped) */
+#define ZOOM_H 440
 enum {HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF};
 enum {ST_TITLE,ST_PLAY,ST_DEAD,ST_OVER};
 enum {EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_RULE=16};

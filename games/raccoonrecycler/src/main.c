@@ -247,6 +247,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    rs_screen_zoom(ZOOM_H);                   /* a phone held upright: zoomed, the conveyor up to the top (DESIGN.md) */
     save_load();
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);

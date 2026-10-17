@@ -108,3 +108,25 @@ numbers; checked against the pre-widescreen pictures and logs).
   integration checks (check_game.py: strict mode, the item and badge pixels at the centred stage), the UI screens,
   the save states, then tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: title, play and
   gameover at 427 and 520 (`make raccoonrecycler-screenshots`).
+
+## Tall screen
+A phone held upright (docs/spec.md "Tall screen", the zoomed recipe): `rs_screen_zoom(ZOOM_H)` (440 lines, game.h)
+first in `game_init`. The app scales the 440 lines to the display's height and crops the sides: 188 columns on a
+1080x2520 phone, 202 on a 1080x2340 one, enough for the conveyor, the junction and the three bins (stage x 70..250),
+5.7x on a 1080x2520 phone. The 240 lines of the stage are the same pixels, at the screen's bottom
+(`rs_screen_origin_v`); the 200 lines above them are the conveyor rising into the sky. The rules are unchanged.
+- **The conveyor up to the screen's top** (draw.c, the raster): BG3's top row (the sky and the belt) repeated above
+  the stage, shown only in the belt's columns (window 2); BG1 and BG2 hidden there (window 1). The treads go on to the
+  top, and **the toys still to come are already on the belt** (`upcoming`): a copy of the world is played forward
+  (every player routing right, so it never stops) and each toy it delivers is drawn where it is now, its spawn line
+  less the belt's run until then, so a toy rides down from the screen's top into the stage without a jump.
+- **The sky**: the backdrop carried on from the stage's top colour (the same colour at the seam), bluer toward the top
+  with the house 2-line dither; two puffy clouds drawn in code (BG4, palette 7: six of them over a 512-px map) drift
+  behind the belt. BG4 is set up on a tall screen only.
+- **The HUD at the screen's top** in play: the score (sprites at `rs_screen_top()` + 4 + their y) and, with 2-4
+  players, the tags (BG1's top 24 lines pinned at screen line 4: `rs_bg_pin`).
+- **Fill or fit**: one raccoon playing fills the display's height, its workstation moved into the columns shown (the
+  station stays the same: only where it is drawn); the title, the game-over panel, the results and 2-4 players show
+  every column (`rs_screen_fill(0)`: the raccoons stand where they are).
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240); the touch columns are the
+  bins' at any height.

@@ -3,3 +3,5 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.hud_pinned     a tall screen: the HUD band pinned at the screen's top, set by draw_frame before every picture
+draw.stage_back     the stage's backdrop colour, read once by draw_init (the raster puts it back at line 0)
