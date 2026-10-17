@@ -103,16 +103,26 @@ bottom is out. The unicorns are white (P1), lilac (P2), pink (P3) and mint (P4):
 the horn and the eyes the same (tools/build_assets.py). The HUD shows each player's height (3-4 players in the
 corners); the results rank everyone by height (the same height, the same place) with medals.
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
-columns). The 240 lines of the stage are the same pixels, centred (the tap zone in the band below it). The sky goes
-on above and below: the raster (draw.c `raster_out`) carries the gradient on (its top colour deepening toward the
-screen's top, the horizon's colour below), the stars and the decor layers go on (their maps wrap, as when the camera
-climbs), the UI layer is hidden there, and the start scene's land goes on below the stage (its last row repeated);
-the rainbow stays on the stage. The play clouds of every level the screen shows are drawn there too (the world
-already keeps 8 levels above the camera and 8 below: no rule changes): about three more levels ahead and four behind
-are seen, the same for every player. Line 0 puts the UI layer and BG3's scroll back, so a 240-line screen is
-unchanged.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (520 lines, game.h) first in `game_init`. The RetroStone app scales the
+520 lines to the display's height and crops the sides: 222 columns on a 9:21 phone, 240 on a 9:19.5 one (1.4x the
+size of the plain tall screen). The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: TALL_BELOW, 40 lines under it), so the screen shows about six levels ahead of the unicorn up to
+its top, one behind.
+- **The columns shown** (1 player): centred on the unicorn (`rs_screen_focus_x`, clamped to the screen): it rides its
+  cloud and jumps straight up, so the view follows it smoothly; the cloud above shows over about 110 px on each side,
+  more than it slides during a jump (70 px at the fastest).
+- **The HUD at the screen's top**: the score (sprites at `rs_screen_top()`); 2-4 players: a row of each player's icon
+  and height (no corner tags there).
+- **Fill or fit**: the title, the panels and 2-4 players (the unicorns spread over the band) show every column
+  (`rs_screen_fill(0)`).
+- **Decor**: the raster (draw.c `raster_out`) carries the gradient on (its top colour deepening toward the screen's
+  top, the horizon's colour below), the stars and the decor layers go on (their maps wrap, as when the camera climbs),
+  the UI layer is hidden there, and the start scene's land goes on below the stage (its last row repeated); the
+  rainbow stays on the stage. The play clouds of every level the screen shows are drawn there too (the world already
+  keeps 8 levels above the camera and 8 below: no rule changes). The moon stays in the columns shown. Line 0 puts the
+  UI layer and BG3's scroll back.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## Art
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. The unicorn: a white

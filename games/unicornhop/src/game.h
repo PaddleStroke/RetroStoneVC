@@ -38,6 +38,11 @@
 #define CAM_EASE      20        /* /256 of the distance each frame: the camera eases up after a landing */
 #define OUT_BELOW     44        /* px: a unicorn whose hooves are this far below the camera line is off the screen */
 #define TITLE_CAM     32        /* px: the title looks a little higher (the castle sinks under the player slots) */
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (222 columns shown on a 9:21 phone, 240 on a 9:19.5 one) and centred on the unicorn
+ * (1 player); the stage low, TALL_BELOW lines under it, the levels ahead above it up to the screen's top */
+#define ZOOM_H        520
+#define TALL_BELOW    40
 /* the clouds: widths (32 + 16 px per middle piece) and speeds, by level */
 #define START_W       160       /* the start cloud (level 0), still */
 #define FIRST_W       128       /* level 1: wide, right above the start (the start press is the first jump) */

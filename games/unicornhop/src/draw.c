@@ -43,7 +43,7 @@ static int shown_state = -1, shown_best = -1, shown_rainbow, bg3_content = -1, b
 
 static int map_w(void);
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. The
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. The
  * sky carried on: above, its top colour deepening toward the screen's top; below, the horizon's colour; the stars and
  * the far and near decor layers go on (their maps wrap, as they always do when the camera climbs). The start scene's
  * land carries on below the stage (its last row repeated); the rainbow stays on the stage; the UI layer is hidden
@@ -213,6 +213,9 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more sky on both sides */
+    /* a tall screen (portrait, game.h ZOOM_H): the stage low, the levels ahead above it */
+    int below = rs_screen_height() - RS_SCREEN_H < TALL_BELOW ? 0 : TALL_BELOW;
+    rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H - below);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -388,7 +391,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         rainbow != shown_rainbow) {
         hu_clear();
         if (state == ST_TITLE) hu_logo("UNICORN HOP", title_ramps, 2, 2, 0);
-        if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
+        if (screen == ST_PLAY && w->players >= 3 && rs_screen_height() == RS_SCREEN_H)
+            hu_score_tags(w->players, 0);       /* P1..P4 by the corner chips (a tall screen: icons, draw_frame) */
         if (rainbow) hu_big(hu_center(TR(RAINBOW), 1), 5, TR(RAINBOW), HU_BIG_FREE);
         if (state == ST_OVER) {
             if (w->players == 1) {
@@ -450,9 +454,26 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
 
+    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): one unicorn climbing fills the display's height, the
+     * columns shown centred on it (it rides its cloud, it jumps straight up: the view follows it smoothly), its score
+     * at the screen's top; the title, the panels and 2-4 players show every column */
+    int zoom = rs_screen_height() > RS_SCREEN_H && w->players == 1 && (state == ST_PLAY || state == ST_DEAD);
+    rs_screen_fill(zoom);
+    rs_screen_focus_x(zoom ? (w->h[0].x >> 16) + rs_screen_origin_x() : -1);
+    int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vx1 = rs_screen_visible_x1() - rs_screen_origin_x();
+
     rs_oam_clear();
     /* front to back: the UI, the unicorns, the clouds, the moon */
-    if (state == ST_PLAY || state == ST_DEAD) {
+    if (zoom) {
+        hu_number(w->h[0].score, (vx0 + vx1) / 2 - hu_ui_x(), rs_screen_top() + 10, 3);
+    } else if ((state == ST_PLAY || state == ST_DEAD) && rs_screen_height() > RS_SCREEN_H) {
+        /* a tall screen, 2-4 players: the heights in a row at the screen's top, each after its player's icon */
+        for (int p = 0; p < w->players; p++) {
+            int cx = (2 * p + 1) * RS_SCREEN_W / (2 * w->players), y = rs_screen_top() + 10;
+            spr(SPR_UNI_ICON, cx - 22, y, 3, player_pal(p), 0);
+            hu_number_at(w->h[p].height, cx - 2 - hu_ui_x(), y, -1, 3);
+        }
+    } else if (state == ST_PLAY || state == ST_DEAD) {
         int v[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) v[p] = w->players == 1 ? w->h[p].score : w->h[p].height;
         hu_score_chips(w->players, v, 0);       /* 1: the score; 2-4: the heights (the race up) */
@@ -488,7 +509,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (sk.moon > 0) {                             /* the moon comes down at night */
         int my = 22 - (256 - sk.moon) * 70 / 256;
-        spr(SPR_MOON, 248, my + hu_bob(w->t, 240, 2), 1, 0, 0);
+        spr(SPR_MOON, vx1 - 72 < 248 ? vx1 - 72 : 248, my + hu_bob(w->t, 240, 2), 1, 0, 0);
     }
 }
 
