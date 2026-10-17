@@ -276,26 +276,28 @@ static void draw(void)
     float g = 0.7f * cs, wt = win.on && now >= win.t0 ? (float)(now - win.t0) : -1;
     if (win.on && wt < 0) ui_animate();
     for (int c = 0; c < G.n * G.n; c++) {
-        float x, y, lit = G.on[c];
+        float x, y, lit = G.on[c], sz = g;
         lamp_xy(c, &x, &y);
         if (turn_at[c]) {                       /* fading over: before its time, still the other way */
             float t = now < turn_at[c] ? 0 : (now - turn_at[c]) / (float)FADE_MS;
             if (t < 1) {
                 float e = puz_ease(t);
                 lit = G.on[c] ? e : 1 - e;
+                sz = g * (1 - 0.07f * sinf(3.14159265f * t));   /* it clicks down and springs back as it turns */
                 ui_animate();
             }
         }
+        if (c == down && !lmp_solved(&G)) sz = g * 0.93f;   /* held under the finger: pressed in */
         if (lit > 0) ui_mark_gold(x, y, 1.45f * cs * lit);
         if (wt >= 0) {                          /* the win: the wave of light */
             float dist = hypotf((float)(c % G.n - win.from % G.n), (float)(c / G.n - win.from / G.n));
             float p = puz_pulse(wt, dist * WAVE_STEP, WAVE_LEN);
             if (p > 0) ui_mark_gold(x, y, 2.2f * cs * p);
         }
-        if (lit < 1) ui_put_c(t_dark, x, y, g, g);
+        if (lit < 1) ui_put_c(t_dark, x, y, sz, sz);
         if (lit > 0) {
             SDL_SetTextureAlphaMod(t_lit, (Uint8)(255 * lit));
-            ui_put_c(t_lit, x, y, g, g);
+            ui_put_c(t_lit, x, y, sz, sz);
             SDL_SetTextureAlphaMod(t_lit, 255);
         }
         if (c == down && !lmp_solved(&G)) ui_mark_select_round(x, y, 0.9f * cs);
