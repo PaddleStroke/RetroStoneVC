@@ -2,12 +2,15 @@
  * Tile Connect's levels, made by the rules' own generator and chosen: src/games/tileconnect_levels.h. Our own levels:
  * no published set is used.
  * Six chapters of 25, each in groups of a size, a fall and how many blocked cells: still tiles from 6 x 4 to 10 x 6,
- * then falling down, to the left, towards the middle, and the big boards with all three. A candidate: blocked cells
- * placed at random in pairs turned half round the middle (never on the edge, never side by side), the faces of a
- * share of the pairs different (the rest come again: four or six tiles of a face), the board made by tcn_make (played
- * out first, so it always clears). Its difficulty: how often a player taking pairs at random gets stuck (out of
- * PLAYS tries), then how hard the search works to clear it. Each group keeps its levels spread over the candidates'
- * difficulties, the later groups of a chapter from further up. The first level of all has every face once.
+ * then falling down, to the left, towards the middle, and the big boards with all three. A candidate: the board's
+ * shape from a hand-made design of blocked cells (DESIGN: cut corners, an octagon, pillars, notches, a centre stone,
+ * bars...; mirrored both ways), the group's designs taken in turn; the faces of a share of the pairs different (the
+ * rest come again: four or six tiles of a face), the board made by tcn_make (played out first, so it always clears);
+ * then its faces given from one or two families (THEME: the dots, the bamboo, the honours, the flowers...). Its
+ * difficulty: how often a player taking pairs at random gets stuck (out of PLAYS tries), then how hard the search
+ * works to clear it. Each group keeps its levels spread over the candidates' difficulties, the later groups of a
+ * chapter from further up, never the design or the faces' families of the level before. The first level of all has
+ * every face once.
  * Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/tcngen apps/boardgames/tools/tileconnect_gen.c && \
  *       /tmp/tcngen > apps/boardgames/src/games/tileconnect_levels.h
@@ -23,53 +26,91 @@
 #define CAND 24
 #define PLAYS 40
 
-typedef struct { int w, h, fall, count, blk0, blk1; float f0, f1; } group;
+typedef struct { int w, h, fall, count, d0, d1; float f0, f1; } group;   /* d0..d1: the designs (DESIGN) used */
 typedef struct { const group *g; int n; } chapter;
 
-static const group G0[] = {{6, 4, TCN_STILL, 9, 0, 0, 1.0f, 0.55f}, {8, 4, TCN_STILL, 8, 0, 0, 0.75f, 0.5f},
-                           {8, 5, TCN_STILL, 8, 0, 0, 0.6f, 0.5f}};
-static const group G1[] = {{8, 6, TCN_STILL, 9, 0, 0, 0.6f, 0.5f}, {10, 5, TCN_STILL, 8, 1, 2, 0.55f, 0.5f},
-                           {10, 6, TCN_STILL, 8, 1, 3, 0.5f, 0.45f}};
-static const group G2[] = {{8, 5, TCN_DOWN, 8, 0, 0, 0.7f, 0.5f}, {8, 6, TCN_DOWN, 9, 0, 1, 0.6f, 0.5f},
-                           {10, 6, TCN_DOWN, 8, 1, 2, 0.55f, 0.45f}};
-static const group G3[] = {{8, 6, TCN_LEFT, 8, 0, 1, 0.6f, 0.5f}, {10, 6, TCN_LEFT, 9, 1, 2, 0.55f, 0.45f},
-                           {10, 7, TCN_LEFT, 8, 1, 3, 0.5f, 0.45f}};
-static const group G4[] = {{10, 6, TCN_CENTRE, 8, 0, 1, 0.55f, 0.5f}, {10, 7, TCN_CENTRE, 9, 1, 2, 0.5f, 0.45f},
-                           {12, 7, TCN_CENTRE, 8, 1, 3, 0.5f, 0.4f}};
-static const group G5[] = {{12, 7, TCN_DOWN, 6, 1, 3, 0.5f, 0.4f}, {12, 7, TCN_LEFT, 6, 2, 3, 0.5f, 0.4f},
-                           {12, 8, TCN_CENTRE, 6, 2, 4, 0.45f, 0.4f}, {12, 8, TCN_DOWN, 7, 2, 4, 0.45f, 0.36f}};
+static const group G0[] = {{6, 4, TCN_STILL, 9, 0, 3, 1.0f, 0.55f}, {8, 4, TCN_STILL, 8, 0, 4, 0.75f, 0.5f},
+                           {8, 5, TCN_STILL, 8, 0, 5, 0.6f, 0.5f}};
+static const group G1[] = {{8, 6, TCN_STILL, 9, 0, 6, 0.6f, 0.5f}, {10, 5, TCN_STILL, 8, 1, 8, 0.55f, 0.5f},
+                           {10, 6, TCN_STILL, 8, 2, 10, 0.5f, 0.45f}};
+static const group G2[] = {{8, 5, TCN_DOWN, 8, 0, 5, 0.7f, 0.5f}, {8, 6, TCN_DOWN, 9, 1, 8, 0.6f, 0.5f},
+                           {10, 6, TCN_DOWN, 8, 2, 12, 0.55f, 0.45f}};
+static const group G3[] = {{8, 6, TCN_LEFT, 8, 0, 6, 0.6f, 0.5f}, {10, 6, TCN_LEFT, 9, 1, 9, 0.55f, 0.45f},
+                           {10, 7, TCN_LEFT, 8, 2, 12, 0.5f, 0.45f}};
+static const group G4[] = {{10, 6, TCN_CENTRE, 8, 0, 8, 0.55f, 0.5f}, {10, 7, TCN_CENTRE, 9, 1, 10, 0.5f, 0.45f},
+                           {12, 7, TCN_CENTRE, 8, 2, 12, 0.5f, 0.4f}};
+static const group G5[] = {{12, 7, TCN_DOWN, 6, 1, 12, 0.5f, 0.4f}, {12, 7, TCN_LEFT, 6, 1, 12, 0.5f, 0.4f},
+                           {12, 8, TCN_CENTRE, 6, 2, 12, 0.45f, 0.4f}, {12, 8, TCN_DOWN, 7, 2, 12, 0.45f, 0.36f}};
 static const chapter CH[TCN_CHAPTERS] = {{G0, 3}, {G1, 3}, {G2, 3}, {G3, 3}, {G4, 3}, {G5, 4}};
 
 typedef struct {
     tcn_game g;
     double dead, nodes;
-    int faces, blocks;
+    int faces, blocks, design, theme;
 } cand;
 
 static cand pool[CAND];
 static uint32_t rng = 20261016u;
 
-/* blocked cells: k pairs, each cell and its half turn round the middle, inside the edge, never side by side */
-static int place_blocks(int w, int h, int k, uint8_t *blk)
+/* the board's shapes: hand-made designs of blocked cells, mirrored both ways (the widths are even: an even number of
+ * cells is left). Features, in the top left quarter: */
+enum { F_CORNER = 1, F_BEVEL = 2, F_PILLAR = 4, F_CENTRE = 8, F_NOTCH = 16, F_SIDES = 32, F_BAR = 64 };
+static const int DESIGN[] = {
+    0, F_CORNER, F_PILLAR, F_NOTCH, F_CORNER | F_BEVEL, F_CENTRE, F_CORNER | F_CENTRE, F_BAR, F_NOTCH | F_SIDES,
+    F_CORNER | F_BEVEL | F_CENTRE, F_PILLAR | F_NOTCH, F_CORNER | F_BAR, F_PILLAR | F_SIDES,
+};
+static const char *const DESIGN_NAME[] = {"plain", "corners", "pillars", "notches", "octagon", "centre", "corners+centre",
+                                          "bars", "gates", "octagon+centre", "pillars+notches", "corners+bars",
+                                          "pillars+sides"};
+#define NDESIGN ((int)(sizeof DESIGN / sizeof DESIGN[0]))
+
+static void block4(uint8_t *blk, int w, int h, int x, int y)
 {
+    if (x < 0 || y < 0 || x >= w || y >= h) return;
+    blk[x + y * w] = blk[w - 1 - x + y * w] = blk[x + (h - 1 - y) * w] = blk[w - 1 - x + (h - 1 - y) * w] = 1;
+}
+
+static int place_design(int w, int h, int d, uint8_t *blk)
+{
+    int f = DESIGN[d], mid = (h - 1) / 2;
     memset(blk, 0, TCN_CELLS);
-    for (int placed = 0, tries = 0; placed < k && tries < 500; tries++) {
-        int x = 1 + pr_below(&rng, w - 2), y = 1 + pr_below(&rng, h - 2), c = x + y * w, m = w * h - 1 - c;
-        int bad = blk[c] || blk[m] || c == m;
-        for (int d = 0; d < 4 && !bad; d++) {
-            static const int DX[4] = {1, -1, 0, 0}, DY[4] = {0, 0, 1, -1};
-            int nx = x + DX[d], ny = y + DY[d], mx = m % w + DX[d], my = m / w + DY[d];
-            if (nx >= 0 && ny >= 0 && nx < w && ny < h && blk[nx + ny * w]) bad = 1;
-            if (mx >= 0 && my >= 0 && mx < w && my < h && blk[mx + my * w]) bad = 1;
-            if (mx + my * w == c) bad = 1;      /* the pair itself side by side */
-        }
-        if (bad) continue;
-        blk[c] = blk[m] = 1;
-        placed++;
-    }
+    if (f & F_CORNER) block4(blk, w, h, 0, 0);
+    if (f & F_BEVEL) block4(blk, w, h, 1, 0), block4(blk, w, h, 0, 1);
+    if (f & F_PILLAR) block4(blk, w, h, w / 4, h / 4);
+    if (f & F_CENTRE) block4(blk, w, h, w / 2 - 1, h % 2 ? mid : h / 2 - 1);
+    if (f & F_NOTCH) block4(blk, w, h, w / 2 - 1, 0);
+    if (f & F_SIDES) block4(blk, w, h, 0, mid);
+    if (f & F_BAR)
+        for (int x = 2; x <= w / 2 - 2; x++) block4(blk, w, h, x, mid);
     int n = 0;
     for (int c = 0; c < w * h; c++) n += blk[c];
     return n;
+}
+
+/* the faces of a level from one family or two (the suits, the honours, the flowers and seasons): the faces made are
+ * given again, one for one, from the smallest set that holds them (or a pair of sets) */
+static const int THEME[][2] = {{0, 9}, {9, 9}, {18, 9}, {27, 7}, {34, 8}, {27, 15}, {0, 18}, {9, 18}, {18, 16}, {18, 24},
+                               {0, 27}, {9, 33}, {0, 42}};
+#define NTHEME ((int)(sizeof THEME / sizeof THEME[0]))
+static int theme_faces(tcn_game *g, int pick)
+{
+    int used[TCN_FACES] = {0}, n = 0, map[TCN_FACES];
+    for (int c = 0; c < g->b.w * g->b.h; c++)
+        if (g->b.face[c] < TCN_FACES && !used[g->b.face[c]]) used[g->b.face[c]] = 1, n++;
+    int fit[NTHEME], nf = 0;
+    for (int t = 0; t < NTHEME; t++)
+        if (THEME[t][1] >= n && THEME[t][1] <= n + 12) fit[nf++] = t;
+    if (!nf) fit[nf++] = NTHEME - 1;
+    int t = fit[pick % nf], set[TCN_FACES];
+    for (int i = 0; i < THEME[t][1]; i++) set[i] = THEME[t][0] + i;
+    for (int i = THEME[t][1] - 1; i > 0; i--) {
+        int j = pr_below(&rng, i + 1), x = set[i];
+        set[i] = set[j], set[j] = x;
+    }
+    for (int f = 0, k = 0; f < TCN_FACES; f++) map[f] = used[f] ? set[k++] : f;
+    for (int c = 0; c < g->b.w * g->b.h; c++)
+        if (g->b.face[c] < TCN_FACES) g->b.face[c] = (uint8_t)map[g->b.face[c]];
+    return t;
 }
 
 /* a player taking pairs at random: how often out of PLAYS they get stuck */
@@ -125,19 +166,19 @@ int main(void)
            "takes each tile (the tests play it).\n * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n */\n");
     printf("const tcn_lvl tcn_levels[TCN_LEVELS] = {\n");
     int level = 0;
+    int prev_design = -1, prev_theme = -1;
     for (int ch = 0; ch < TCN_CHAPTERS; ch++) {
         int made = 0;
         for (int gi = 0; gi < CH[ch].n; gi++) {
             const group *G = &CH[ch].g[gi];
             for (int i = 0; i < CAND; i++) {
                 cand *c = &pool[i];
-                float t = (float)i / (CAND - 1);
-                int blk = G->blk0 + (int)((G->blk1 - G->blk0 + 1) * t);
-                if (blk > G->blk1) blk = G->blk1;
+                int design = G->d0 + i % (G->d1 - G->d0 + 1), tries = 0;
                 uint8_t blocks[TCN_CELLS];
                 int nb, faces, made = 0;
-                do {                            /* blocks that no plan gets past: placed again */
-                    nb = place_blocks(G->w, G->h, blk, blocks);
+                do {                            /* a design that no plan gets past: the next one */
+                    if (tries++ > 8) design = G->d0 + (design - G->d0 + 1) % (G->d1 - G->d0 + 1), tries = 0;
+                    nb = place_design(G->w, G->h, design, blocks);
                     int pairs = (G->w * G->h - nb) / 2;
                     float f = G->f0 + (G->f1 - G->f0) * (float)pr_below(&rng, 1000) / 999.0f;
                     faces = (int)(f * pairs + 0.5f);
@@ -153,6 +194,8 @@ int main(void)
                 c->nodes = r == 1 ? (double)nodes : 1e9;
                 c->faces = faces;
                 c->blocks = nb;
+                c->design = design;
+                c->theme = theme_faces(&c->g, i / (G->d1 - G->d0 + 1) + i);
                 if (getenv("TCN_VERBOSE")) fprintf(stderr, "  candidate %d: dead %.2f nodes %.0f\n", i, c->dead, c->nodes);
             }
             cand first = pool[0];
@@ -167,9 +210,23 @@ int main(void)
             }
             /* spread over the difficulties: the first group from the easiest, the later ones further up */
             float lo = CH[ch].n > 1 ? 0.35f * gi / (CH[ch].n - 1) : 0, hi = lo + 0.65f;
+            int taken[CAND] = {0};
             for (int k = 0; k < G->count; k++) {
                 int i = (int)((lo + (hi - lo) * k / (G->count > 1 ? G->count - 1 : 1)) * (CAND - 1) + 0.5f);
                 if (level == 0 && k == 0) i = 0;
+                /* a mix: not the design or the faces of the level before, nor a board already taken; the nearest
+                 * difficulty that differs */
+                int best = -1, any = -1;
+                for (int d = 0; d < 2 * CAND && level > 0; d++) {
+                    int j = i + (d % 2 ? -(d + 1) / 2 : d / 2);
+                    if (j < 0 || j >= CAND || taken[j]) continue;
+                    if (any < 0) any = j;
+                    if (pool[j].design != prev_design && pool[j].theme != prev_theme) { best = j; break; }
+                }
+                if (level > 0) i = best >= 0 ? best : any;
+                taken[i] = 1;
+                prev_design = pool[i].design;
+                prev_theme = pool[i].theme;
                 const tcn_game *g = &pool[i].g;
                 char fc[TCN_CELLS + 1], oc[TCN_CELLS + 1];
                 int n = g->b.w * g->b.h;
@@ -180,9 +237,9 @@ int main(void)
                 }
                 fc[n] = oc[n] = 0;
                 printf("    {%d, %d, %d, \"%s\",\n     \"%s\"}, /* %d: %d x %d, %s, %d faces, %d blocked, stuck %.0f%%"
-                       ", search %.0f */\n",
+                       ", search %.0f, %s */\n",
                        g->b.w, g->b.h, g->b.fall, fc, oc, level + 1, g->b.w, g->b.h, FALL_NAME[g->b.fall],
-                       pool[i].faces, pool[i].blocks, 100 * pool[i].dead, pool[i].nodes);
+                       pool[i].faces, pool[i].blocks, 100 * pool[i].dead, pool[i].nodes, DESIGN_NAME[pool[i].design]);
                 level++;
                 made++;
             }

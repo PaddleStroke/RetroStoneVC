@@ -5,304 +5,304 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 const tcn_lvl tcn_levels[TCN_LEVELS] = {
-    {6, 4, 0, "ioAAJFFPPuqJuozGzMiGLLqM",
-     "1877944665A958B2B31200A3"}, /* 1: 6 x 4, still, 12 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "BBzyzzlllddByBAAzKDKlKKD",
-     "55070633B22878996A1AB441"}, /* 2: 6 x 4, still, 8 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "IceecmPHrBBBJHJPBmrIsOOs",
-     "953350A27411626A40798BB8"}, /* 3: 6 x 4, still, 11 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "nbibirObbriiPCnrJPbOJCrb",
-     "854943159A227B8A67016B30"}, /* 4: 6 x 4, still, 8 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "AGpnnnAJpkJJGonJGknoGkkn",
-     "678BA165832294B573A49001"}, /* 5: 6 x 4, still, 7 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "NDNfzdDehFFxGehzfGwAdAxw",
-     "6963A8945112B45A3B078720"}, /* 6: 6 x 4, still, 12 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "EkEEBEBlvlkvwwvbxwvBBbxw",
-     "0806B6B41489AA1532977532"}, /* 7: 6 x 4, still, 8 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "NNsqCsCDNCDDCDPPNDGqDGqq",
-     "9156853018A430BB9476A722"}, /* 8: 6 x 4, still, 7 faces, 0 blocked, stuck 0%, search 12 */
-    {6, 4, 0, "bEhfbhrroovEhEEovEhEofHH",
-     "6A136177825B90B25A908344"}, /* 9: 6 x 4, still, 8 faces, 0 blocked, stuck 0%, search 12 */
-    {8, 4, 0, "FKPjPdKKchgPPhPBcFKdgPccaKccKjaB",
-     "653A395E0D422DF706894FCB1ECB8A17"}, /* 10: 8 x 4, still, 10 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "ADaAynDsncAcaksaDaycnaDccAAAnkac",
-     "9DC9EFA3F8617B32D7E15CA084465B20"}, /* 11: 8 x 4, still, 8 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "mEFFjFFHExxjBBxxmmmBEzFHzBEaBaBF",
-     "7DF36C31DEE6880074495BC1B95A2A2F"}, /* 12: 8 x 4, still, 9 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "wfCOgOCewCOcOcfzowCCOoOeggccgCwz",
-     "8105790A8E93231BDCEF2D5A44667FCB"}, /* 13: 8 x 4, still, 9 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "aDdkDCFfdkkjjkjCvpkFfkCCaCCpjvzz",
-     "215F16A75F8BD4B0CE8A7460299EDC33"}, /* 14: 8 x 4, still, 11 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "LELLEKIIadqdEEIIqqqvKKKILvIdvvda",
-     "32EE2610C878AAD0744F99613BD5FB5C"}, /* 15: 8 x 4, still, 8 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "wAFuAAAFFkkFApANDwuuwpwkuDFkkkFN",
-     "80495704DAAF7251E633628B9EDBCCF1"}, /* 16: 8 x 4, still, 8 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 4, 0, "KrfJrKDDrPHfHrrDrjfxjfDHjPAAJjHx",
-     "1A9BA1746DCF83346EF2E9785D00B5C2"}, /* 17: 8 x 4, still, 10 faces, 0 blocked, stuck 0%, search 16 */
-    {8, 5, 0, "pFaFatAoEAAAzpzPborEoFFoPbqqtrrotbrotzbz",
-     "F8J8JGA5HDDABF4EI79H5110E622G330C697C4IB"}, /* 18: 8 x 5, still, 12 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "tsitLNtMHNivwHHNvivccwkwNHwNstLLvskiLNsM",
-     "0H2FDB065I2EGAAB19E88JCJ45GIHF3317C9D476"}, /* 19: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "dznezAJfdwwzgzgJjJngAzexwwfgzfnxdnfdfjfJ",
-     "BIJ7FE6CB11I52564GJHE27D33AHFA9D0980C48G"}, /* 20: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "xGcDwccGcbOOicibbODDGIDbcxGbGOIObBBOxwxG",
-     "7D4HC22906FGA4A5EI33BJH507BEDGJI611F8C89"}, /* 21: 8 x 5, still, 10 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "kIPfffBIzBBPBkIGezPlPBcIemllIBcccmfIclcG",
-     "DH4F9FCA300JCDHG734IJ1BA752261EBE5968I8G"}, /* 22: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "wrvbmwMgjvggvCCirrbvvmjiiitrgtrjwjtrwtvM",
-     "1A9841DBHF773JJ0EA893450CCIGB2G56HIE62FD"}, /* 23: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "eeBEByCCeLyLynLEeeesOnLjOOOsypLCEjLCEpnn",
-     "00EBEHF23DJDJ7GB3886C7A9C446HIA219GF1I55"}, /* 24: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 0, "blEwwbOpyyggOwClwOpOECwillrrpwOpbiggObgg",
-     "3EDBB351229JG8CI8G46DC7FIE004751HF9A6HJA"}, /* 25: 8 x 5, still, 11 faces, 0 blocked, stuck 12%, search 20 */
-    {8, 6, 0, "vbvPjwyCahaPjjyFIbyjbFwhayjIaPccIfjfcPchhCFbIaaF",
-     "AJABD30K57GB1108FJCDL83I5C2ME4HHF929646I7KNLMEGN"}, /* 26: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "MHbltAyAaHMlllyjHvGADGtjGADADGDajjDvHbccAHDGGHgg",
-     "JCN79KEKICJ7GGE56HF248953142M8MI00AHDNBB1DAF36LL"}, /* 27: 8 x 6, still, 14 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "HifhHihLPPfLHifHhhLhfwwkwwLEEHhiFkrrHLLzsFFkskFz",
-     "0A91041622G6L49E7JF7G8NM8NFHHEJABIKKLDD35BCI5MC3"}, /* 28: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "hvjJxHAJjhGJoHyJGKKjwwnjAzAowonGGzvoyKGKwGAwxJJw",
-     "BLA3I6J39BG5M6F58009NK1ADCD4EM128CL4F727NGJEIHHK"}, /* 29: 8 x 6, still, 14 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "qaAAlaleEENzazeqALqqzzaLeyNjAyllqyLKAjzzAeyKLqaa",
-     "29443D36HHLJDJ6I1NGGBB9F5MLE8MAA2CNK8E7715CKFI00"}, /* 30: 8 x 6, still, 12 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "oLlxOLxoFFrbOxlyOOFFHxNyOrrNHmmbHyyrysHOLsbLPybP",
-     "07KH57H033EJ58KFLM22C8BFL44BA66JC11EIGAMDGND9IN9"}, /* 31: 8 x 6, still, 14 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "pOOqiEqqzfzEdEzEeeqdfjjHOzzEuufjzqpsOifjHpEpeeqs",
-     "HKNFG1AF0EJI91JI33A9744BK22LCC780DHMNGE8B5L566DM"}, /* 32: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "vLqqvHbHPPLxNxysyNdduuvsPbPbNxLLvsNsNbxbPyCCyNbP",
-     "HK00N1E18GKFBFI6IL4433N68MJA2C55HDBD2ACEG9779LMJ"}, /* 33: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 0, "PnItnIIItjjJBajzfzttBCfBPBrBjCBzffrfttjPjfeJaePz",
-     "2NH8N6H68EEMLKG04ICCLAF32D1DBA30471F55BJG79MK9JI"}, /* 34: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24 */
-    {10, 5, 0, "yjryPfPyjPB#rqPqkkkyqKK#pJ#jjkqjKKjJPq#PCBfpKKrCqr",
-     "7H67G9LKHBJ#6FGECAAKFD8#I0#11CM32230LM#B4J9I8D54E5"}, /* 35: 10 x 5, still, 12 faces, 4 blocked, stuck 0%, search 23 */
-    {10, 5, 0, "qDowBqqArzwDNNN#AoNBrqLLAAoMMBLoLr#zwBNKrwBowwNKBo",
-     "M2LDK99GNBD2A44#GLAKCM7HFFJ668HJ7N#B3815CI0E3I150E"}, /* 36: 10 x 5, still, 12 faces, 2 blocked, stuck 0%, search 24 */
-    {10, 5, 0, "PgPPdPnbDgndrrgf#ldbrcgDlfhmhbrmd#ccdmrbhmmchdllrm",
-     "NF6NE6HGMFHEAAC4#B930DCMI4212G0LJ#KK9153788D7JIB5L"}, /* 37: 10 x 5, still, 12 faces, 2 blocked, stuck 0%, search 24 */
-    {10, 5, 0, "KegrgKnrfdKr#fqlcetKecNllqdKtnGtgrKlf#fcccngNceGtn",
-     "45D2D4I2EF9K#E38L51HGBJ003F917CAMKH8N#NLB6IMJ6GCA7"}, /* 38: 10 x 5, still, 13 faces, 2 blocked, stuck 0%, search 24 */
-    {10, 5, 0, "ELFLuJEkFurzu#u#xxEEFzGGJPPPkHGruG#L#zPHuFGHHLHHzG",
-     "AGLGMKAEJI87I#M#11BBJ794KFF6E298D4#H#562DLC03H305C"}, /* 39: 10 x 5, still, 12 faces, 4 blocked, stuck 2%, search 23 */
-    {10, 5, 0, "sOsDKDiKOyiIyOOywccjFIO#sc#sscOKiKwAAKKiiIiIFjyscc",
-     "B1AH8HK81FKD4334M77INCE#BL#669E525MGG00JJD2CNIFAL9"}, /* 40: 10 x 5, still, 12 faces, 2 blocked, stuck 2%, search 24 */
-    {10, 5, 0, "IvbPPbJIazgvbzcvvaIxb#bbcdae#IzdccgJaPBzBezIzIxPJJ",
-     "2AE44ID26CFAJM0776G9E#JI0K35#LHKNNFD31BCB5HLMG9188"}, /* 41: 10 x 5, still, 13 faces, 2 blocked, stuck 2%, search 24 */
-    {10, 5, 0, "FiCHNHFFzCii#FuppCdNi#pBeuzC#uhBdBepp#iiuCdChduBpu",
-     "2G5IAIF2H5DD#F633KJAG#984LHK#LE817400#CCBM1MEJ679B"}, /* 42: 10 x 5, still, 12 faces, 4 blocked, stuck 5%, search 23 */
-    {10, 6, 0, "eggttdgGglpztlvzGstdpptsvszd#Gp#GIIsGKpKGdltepPvldzzPPldPvzl",
-     "MGG22RFHFJDN9J0OHKQEDI9K0COR#SI#B33CBPLPSA4QML568E7N118A5674"}, /* 43: 10 x 6, still, 13 faces, 2 blocked, stuck 0%, search 29 */
-    {10, 6, 0, "vkhhhKkziKlh#xhhKoKzlvPxv#sKiivxkP#zAAisxxkossK#szzxzPqqkkPs",
-     "RHQAJ4HKG46J#1QAONOK6R31M#E8PPM573#I22GD957NLL8#EIF9FB00CCBD"}, /* 44: 10 x 6, still, 13 faces, 4 blocked, stuck 2%, search 28 */
-    {10, 6, 0, "cxzBeexBzBc#ucBleenuLnu#klD#zDLi#iDl#nziyLLinlik#cylLLDclciu",
-     "N72CQQ7C2ON#0PO9BBDE1I0#L9M#6M1K#8GH#D6J5438IHJL#F5A34GPAFKE"}, /* 45: 10 x 6, still, 13 faces, 6 blocked, stuck 5%, search 27 */
-    {10, 6, 0, "bpsggEgbpsppxuBhEcghubsu#hMucBbpsxb#EhuoMBBhbgOeEgOpchcuEeEo",
-     "GJ9O7B7LP9AJNKRSBMOIHL3K#S8DMRGP3NC#5IHF866QCE425E4A1Q1D020F"}, /* 46: 10 x 6, still, 14 faces, 2 blocked, stuck 5%, search 29 */
-    {10, 6, 0, "EccqkaaajuJj#xyu#accqfqExqE#jfkf#keElujfJjc#jal#fuyeckkaekfe",
-     "8AAKBOPHDQ2J#EGQ#H991018EKI#DCB0#MLIFN6C2J7#6PF#4NG5733O5M4L"}, /* 47: 10 x 6, still, 13 faces, 6 blocked, stuck 15%, search 46 */
-    {10, 6, 0, "ccowojozgvcfp#z#cwgqppvp#covoIcwzzf#oIvvjjzP#P#jvwjgIgHHIzqj",
-     "13BDBFIG4M1QN#G#KO4PNHLH#K9LI83DCCQ#9822AA5E#E#JMOF7076605PJ"}, /* 48: 10 x 6, still, 13 faces, 6 blocked, stuck 32%, search 27 */
-    {10, 6, 0, "swDIInnIIsonnEoI#I#jcccoAAE#sjcD#KjnsKKjE#E#owwKKvnivEiwwEKw",
-     "7QML911597J44KPL#5#G6IIJCCO#A26M#HGFA332K#O#PEE88NFDN0DBB0HQ"}, /* 49: 10 x 6, still, 13 faces, 6 blocked, stuck 38%, search 27 */
-    {10, 6, 0, "zLggsuuEsucgLg#Og#LzOLN#cczfHHunNnnO#NHHcu#fu#ttsEOnNfsfgOOz",
-     "E8750I4P04HQL5#N7#8B1L3#66EK22DA3AON#GJJHI#CD#99MP1OGCMKQFFB"}, /* 50: 10 x 6, still, 13 faces, 6 blocked, stuck 52%, search 27 */
-    {8, 5, 1, "FccNNIcFqdcqaMggvMvvltaNNMItIMcdvlcNNIpp",
-     "385E7H53FI8FGB220944DJG769CJCBAI0DAE6H11"}, /* 51: 8 x 5, down, 13 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 1, "AOytAuOyygxxkgOsgaOuiuxkytgiJkxJaeeMMsuk",
-     "8H5G8D654B22AB6EIJHC9C014GI97A07JFF33ED1"}, /* 52: 8 x 5, down, 14 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 1, "gzuznPdPvnugzPuuAhAOOdhAzzzggPAwvOPdwPOd",
-     "G86FI1294I6GF100DJDHE2JB833559BC4EA7CAH7"}, /* 53: 8 x 5, down, 11 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 1, "OwOhhtwIpzzAztGhMBBtOOMIpAhtIGMzMuIruxxr",
-     "IHIBC5H60GJAJ59C1FF822760AB8D97G13D43EE4"}, /* 54: 8 x 5, down, 14 faces, 0 blocked, stuck 0%, search 20 */
-    {8, 5, 1, "qzMNzxizaqqqNaaMzMrzxOOzaOrfMINNMxMIiOxf",
-     "G087A9F0E11G7228JIBJ9DDAE5BCI6HH3436F54C"}, /* 55: 8 x 5, down, 11 faces, 0 blocked, stuck 2%, search 20 */
-    {8, 5, 1, "ADGDMrACAelDMlGumeeumbbrAeDqqDACmmDflAlf",
-     "1D6B0817GJAF0A6I322IE448CJD55BC73EFH9G9H"}, /* 56: 8 x 5, down, 13 faces, 0 blocked, stuck 5%, search 20 */
-    {8, 5, 1, "zdttzMHdhtzMwKwGhczctKAHtAAAAMGdtGAdHMHG",
-     "F21184E2CI84737GCHFHI3BA6JB55DG960J9ADE0"}, /* 57: 8 x 5, down, 11 faces, 0 blocked, stuck 8%, search 20 */
-    {8, 5, 1, "GcPqAiKiPcAGkGGokkkqqqkPcGcGKkPouuPPuuDD",
-     "543D6AJA376CB88122F00DFH457CJBE19IHE9IGG"}, /* 58: 8 x 5, down, 11 faces, 0 blocked, stuck 8%, search 20 */
-    {8, 6, 1, "BMIxOaIfBFAMOEIciAcMIakkBBoEMFEfiFoxAcEifFAcicfc",
-     "7CKJ58F17IMB5GF2HMLBK844009GCI61HD9JNA6E3DNLEA32"}, /* 59: 8 x 6, down, 14 faces, 0 blocked, stuck 0%, search 24 */
-    {8, 6, 1, "oAiuIiAIiHiuJArIzHsIzJNIjoAIsoGGjzrrrGNGiorrizJJ",
-     "NFEK49H4GA9KDHJ23AL1MDC208F1LNB503IJIBC5E866GM77"}, /* 60: 8 x 6, down, 13 faces, 0 blocked, stuck 2%, search 24 */
-    {8, 6, 1, "JqoayudyMq#ynKuyJoJonunyJaauonKdMqyao#ojfqqnnfqj",
-     "D02CGJ5AH0#A39L8727M3L68DCEJM695HBGEK#K4IB1FFI14"}, /* 61: 8 x 6, down, 12 faces, 2 blocked, stuck 5%, search 23 */
-    {8, 6, 1, "MFarKKrJMaPIMI#rJJcJIIMcMPcaooecM#rJfoeJfoffoaoF",
-     "4E7H88F61JALMI#FKD0DLIMB1A07C5GB4#HK35G69C392J2E"}, /* 62: 8 x 6, down, 12 faces, 2 blocked, stuck 8%, search 23 */
-    {8, 6, 1, "mrmnzkrGmipp#nzhltprGhnnitmmrzrkmzp#izrIlGGkizkI",
-     "L1LCEG1D7AMI#CEB9KM5FB00AK225J367HI#8J349FDG8H64"}, /* 63: 8 x 6, down, 12 faces, 2 blocked, stuck 8%, search 23 */
-    {8, 6, 1, "CFLCDleAbACjDjGlFLDmyFFmGLDGybdeGALdAddCbCbbbGGC",
-     "LGNJ6CIAK7LF6F5CG09M422ME09D4K3IE7NBAB38HJH11D58"}, /* 64: 8 x 6, down, 13 faces, 0 blocked, stuck 8%, search 25 */
-    {8, 6, 1, "imIOgigxsNmNfdcOffmsc#mxIx#HHfHINsmxiNHdIsgffgmi",
-     "37FC4340LG7GDIECHHJLE#J0A8#22D9FK168MK9IA15BB56M"}, /* 65: 8 x 6, down, 12 faces, 2 blocked, stuck 12%, search 23 */
-    {8, 6, 1, "zwGbcwglzuguIbIgybgmGuMuwtlmGGMlytltzbztDDGcwGtt",
-     "FGL6EGMBFJHJCNCM36HK8D0D571K8L0B371I9N9I22AE5A44"}, /* 66: 8 x 6, down, 14 faces, 0 blocked, stuck 15%, search 24 */
-    {8, 6, 1, "xxKxDiarGiKDIICrzxfLIyxLGKzzLiILxfzLKyfBifaLffBC",
-     "4HGL5NI308F52C93KHE62BL10F7K68C14E7DGBJANMIDJMA9"}, /* 67: 8 x 6, down, 14 faces, 0 blocked, stuck 20%, search 24 */
-    {10, 6, 1, "LzggLcllLLcqlc#lzymHPycwcLlzmlqwzNggLzyByNBNc#HwmyPNqyqDwmDz",
-     "5RFF5ABBDJAMK6#9RGOIH7NP6D98OKMEL233J81S74S2N#IEC1H4QGQ0PC0L"}, /* 68: 10 x 6, down, 14 faces, 2 blocked, stuck 5%, search 29 */
-    {10, 6, 1, "FmowFOAuwwwhmh#uAOuwvppvpuAI#Am#pOvoIoOxoOhhv#FOmwpAoFopAExE",
-     "EAGJELHMBBJNAN#2H5M3ODC8D2P1#7R#CF8Q1Q54KL66O#9FR3IPG9KI7040"}, /* 69: 10 x 6, down, 13 faces, 4 blocked, stuck 10%, search 28 */
-    {10, 6, 1, "hECJgJJGCwgEtJz#mEteeE#JJegetzetzggoo#zogwGw#ePPEEdwhdGbmGbo",
-     "MCH2K77FHD9CP2E#AIGNBI#448KNGLBPE3311#LR9JFD#8OO55QJMQ06A06R"}, /* 70: 10 x 6, down, 15 faces, 4 blocked, stuck 10%, search 28 */
-    {10, 6, 1, "klFlCqCGFkvD#lGzqDmmvGhGgFFkGqvhlhMgvkqDvMggkzh#qGzgzqrrgvDk",
-     "94J4MIMAJ65N#CHRINGG5FBFD887AQ3OCBEDS7PK3ELL9RO#PH101Q220SK6"}, /* 71: 10 x 6, down, 14 faces, 2 blocked, stuck 15%, search 29 */
-    {10, 6, 1, "oiCeoOCOGwkBLBkkwH#xLwGOeooewGjCCKBkCieKi#CBjjxBHKOiGGjGKBKK",
-     "5FCL5HQH3KBJDJBEA9#GDKRML22IA3SC7POEQ8I6F#7ONSG091M844NR60P1"}, /* 72: 10 x 6, down, 14 faces, 2 blocked, stuck 18%, search 29 */
-    {10, 6, 1, "sJDaxjuJMrrjniuxur#DuiDMxx#ajMntM#jxDvDts#iJDrjvjsuuivsxJiiv",
-     "236HK483CGE45AF1FG#J8A6700#HIC5O7#M1PDJO2#QNPEMDIRLL9BRKN9QB"}, /* 73: 10 x 6, down, 13 faces, 4 blocked, stuck 22%, search 28 */
-    {10, 6, 1, "nLmvpLpvbmnpnf#NwNNpELeeE#wvnddpNw#vELbdEwwef#jdLwpdLeDDffjd",
-     "501GC0AGD156K9#LJ44A3Q22P#JMK8HCLO#MPFD83II79#NHFO6RQ7BBEENR"}, /* 74: 10 x 6, down, 14 faces, 4 blocked, stuck 28%, search 28 */
-    {10, 6, 1, "EEhHemebhHehGBB#xxLGhLGLCE#eimGLr#xCxCibGGrx#vvhihHCxmyyEHim",
-     "77A1MJOR61MN0EE#DDGPA90GQK#O83P95#IFIQ8R225C#44NL6HFCJBBKHL3"}, /* 75: 10 x 6, down, 15 faces, 4 blocked, stuck 35%, search 28 */
-    {8, 6, 2, "cctMhAhtHuuKAhvOHvvh#vMMAAv#tcuMMOzOOcKKBKzBvutM",
-     "44A7CECAF22KEDMIFBBD#L7166M#98H1JI300855GK3GLH9J"}, /* 76: 8 x 6, left, 12 faces, 2 blocked, stuck 0%, search 23 */
-    {8, 6, 2, "nPeArAeEeam#rePJJeOmOrrAmmneHHalnlcc#OEJnaaJPOAP",
-     "DBJ0M0J7LIF#MHB34HGFG88966DLEEIC1CKK#A7312245A95"}, /* 77: 8 x 6, left, 13 faces, 2 blocked, stuck 0%, search 23 */
-    {8, 6, 2, "bbcActAMwwqq#twmjjwmdbdmMjNNqMMmqqN#mmAANjNqJJNb",
-     "CC202B0ELD44#BL6FKDIHMH6EF38G55I113#JJ998KAG77AM"}, /* 78: 8 x 6, left, 12 faces, 2 blocked, stuck 2%, search 23 */
-    {8, 6, 2, "qAawwxqaqitccxcEKssAAKdmcEcAKmddAEKmFFmdKEiqtKcA",
-     "J5FBB1NFJMK8816I722CL3E9D0DL39EGC0HA44AG7IMNKH65"}, /* 79: 8 x 6, left, 14 faces, 0 blocked, stuck 2%, search 24 */
-    {8, 6, 2, "rMMMkjJjhjDhjJxLrxD#JpLphhhD#JMkhnDkxrrnnnAnnkAx",
-     "39G9BDEL5L14DEK83K1#A787254H#AGB2IHMJ66FI0C0FMCJ"}, /* 80: 8 x 6, left, 12 faces, 2 blocked, stuck 8%, search 23 */
-    {8, 6, 2, "uuwNjNxAjAxjaNwAjucucajGxxLHcHAGLuaausscNGaGajAA",
-     "55CNH3G2KLGME3C2KDFD1EM744B818L7BA66A00FN9I9IHJJ"}, /* 81: 8 x 6, left, 12 faces, 0 blocked, stuck 8%, search 24 */
-    {8, 6, 2, "sMfMHnnnEf#ssEOnefsEsrffEEEHdrHzetdsj#zHrfrzjtzO",
-     "K9E9DAA2ME#JJIL26CKIH8BBM33F47F56G4H1#0D8C751G0L"}, /* 82: 8 x 6, left, 13 faces, 2 blocked, stuck 15%, search 23 */
-    {8, 6, 2, "LLGIeBBeoawooaLLorwwGKwGrHooNererHNLLkkkNHHNGKIk",
-     "H9JG70072N8CCN9H2L8MJDMAKB66F4L4KBF33551IEEIADG1"}, /* 83: 8 x 6, left, 13 faces, 0 blocked, stuck 18%, search 24 */
-    {10, 6, 2, "pppLCmpsspwwpCfbImCfdsqqbb#I#Lw#b#jxLxwsdsCxbbPjLxffPLxxsfLf",
-     "0FF9250MOQIRQLGJP52G16KK8J#P#9I#8#4ADHRM16LE33N4DABBN7EHOC7C"}, /* 84: 10 x 6, left, 14 faces, 4 blocked, stuck 5%, search 28 */
-    {10, 6, 2, "PgbygPiyroybbMwwiOibs#cMs#inbbswPw#rnv#onvPvnrnycyswnyOrPPvw",
-     "46D164H1OCQEE577LNLDG#P5B#HKFFBA2A#OKI#CJ929R0RMPQG8JMN033I8"}, /* 85: 10 x 6, left, 14 faces, 4 blocked, stuck 12%, search 28 */
-    {10, 6, 2, "iDInEltIlEcdddopopDottiEEi#xnixKK#icffdxjjxzippoDlltzcctnnDt",
-     "DC9801L910N22QRIRICJ55SGGS#M8DPKK#6N44QMEEPF6HHJ3AAOF77OBB3L"}, /* 86: 10 x 6, left, 16 faces, 2 blocked, stuck 12%, search 29 */
-    {10, 6, 2, "PGGPIGDppIJxxOOj#jGIpvdvJCCyCIpvdILDCdyCvDI#CDfxdBJpBDJLfxpD",
-     "B6IBHIL00GF22KKM#M6H394CR77N8G3C4QPL8DNJ9SQ#JS1ODAFEA5RP1OE5"}, /* 87: 10 x 6, left, 16 faces, 2 blocked, stuck 12%, search 305 */
-    {10, 6, 2, "IwNeIoPeaPNwuNodzozadd#FzdzzozGuNIINo#joGejjneGyyNGyFajuanyu",
-     "M5DRMNJS6J85IDG37G9622#O7300N94I8FFQK#HKPSBBLRPEAQ4EO1HC1LAC"}, /* 88: 10 x 6, left, 15 faces, 2 blocked, stuck 15%, search 29 */
-    {10, 6, 2, "AjjiqjNHiHjNqccHHjxKvx#kiiPNpkvkaavPv#aAAvvKNkkccKHAKkAjHAap",
-     "I33H5GPOHOMR5EE99GSJ0S#Q224RFB0QCC646#NIK77DPAALLJ1KDB8M18NF"}, /* 89: 10 x 6, left, 14 faces, 2 blocked, stuck 15%, search 65 */
-    {10, 6, 2, "ybbyedbddiPiiyydEEdbyEEHDHdy#vP#OeDeOeOvOlOleoPbivbooGePOGov",
-     "9GA9FPAN8B76611PJJNQRDDK0K8R#47#3I0ISFH2SE3EOLMQB4G55COMHCL2"}, /* 90: 10 x 6, left, 14 faces, 2 blocked, stuck 22%, search 30 */
-    {10, 6, 2, "EuEopLommaauIIannEMnjpau#Er#nLrj#uv#rIIjrCCavmvmvarmjjMjmLLr",
-     "H0QNOPNJJ2B066BGGHL1ROKE#QD#1AIM#E7#D44RI55KC979C283FFLM3AP8"}, /* 91: 10 x 6, left, 14 faces, 4 blocked, stuck 25%, search 28 */
-    {10, 6, 2, "lghONzhgwzhgCPzxbNzwPbxMM#Nx#Oh#Ng#xNPPxzbohhwvzxblbCbvOowNO",
-     "239OBP93QP5INEJ8CBJQEC877#6G#O5#MI#F6AAFKR4DDHLKGR20N0L14HM1"}, /* 92: 10 x 6, left, 14 faces, 4 blocked, stuck 32%, search 28 */
-    {10, 7, 2, "ssifAaivwAzqwv#kslasskDAAEEwlfaaEzzIwwIIAIIAfkkxzfEppzw#lDsIqzpqlpxqEE",
-     "8A7I9K7RH9OXGR#VUWK8AVQ00EEGWB44J33C225NFC5FI11SLBJT6LH#MQUNDO6DMTSXPP"}, /* 93: 10 x 7, left, 16 faces, 2 blocked, stuck 10%, search 34 */
-    {10, 7, 2, "HhBwwHBjNNNE#bbHjrehwbrrEirrrhHI#ielE#wdHINNIINbjhwHhjdub#bjduojEolwhd",
-     "MJ0WWS0H66GD#33SVQE7BR44D5NNQ718#5EUO#KI1A228AGRCLBMLCPTF#FHPT9VO9UKJI"}, /* 94: 10 x 7, left, 16 faces, 4 blocked, stuck 12%, search 33 */
-    {10, 7, 2, "xjyxyfsjvFoIyyocscGINGGi#JjoooNvsIipJpoIisKjJ#jsIjKiiJfGfNIsFNKGiFKFfG",
-     "P54P4R05UKSFNNSJ0JTQ322O#7XAAL3UBFVG7GL8HBMXW#C98CMOVWITRDQ91D6EHK61IE"}, /* 95: 10 x 7, left, 16 faces, 2 blocked, stuck 25%, search 34 */
-    {10, 7, 2, "edyBmmAFrBHNHxFHeudrMDDNy#NNyAy#b#bx#x#eurHm#DFFMyeMrxMxmbbBBrurDuuxyu",
-     "1EN277HSC2B5BJSDUVECI445L#00NHL#A#AM#M#UVGDR#Q99TK1IGJTPR33OOF8FQ66PK8"}, /* 96: 10 x 7, left, 15 faces, 6 blocked, stuck 30%, search 32 */
-    {10, 7, 2, "LLFrPnHGObnccMtJGFffn#ctFvGbnFPHJFvHttOGGPvPrHJP#FLGvLrMwwrLcMnfMLfJnP",
-     "KU6RWLVTA43E1XCG97223#1CQ5P4L7WVMQ5D88A9PJHJIDMB#6KTHUIX00RSENFONSOGFB"}, /* 97: 10 x 7, left, 16 faces, 2 blocked, stuck 40%, search 34 */
-    {10, 7, 2, "kNtnbNNzbrcHtFpnnrrFHAFFeFt#tzpwwcncpFrrPH#zHAzpHPAzAttNzPPrHkennkkccc",
-     "SVIJ2CCE2DWPMRTJ93354A88ORM#INTBBF9F6511UP#NGQE6GUAXQHHVX77D4LO00LSWKK"}, /* 98: 10 x 7, left, 15 faces, 2 blocked, stuck 45%, search 34 */
-    {10, 7, 2, "yfyjAGHzzxdse#AseG#HddPPeGezMxxjjdoPeMoMsfxPxypppMA#oHMp#eHojGAAyAMszx",
-     "4C4MOF5EEU28H#NLTF#52177HPTKAGU001SBJA638CWBWRD993O#SIQD#JI6MPVVRNQLKG"}, /* 99: 10 x 7, left, 15 faces, 4 blocked, stuck 48%, search 36 */
-    {10, 7, 2, "mPwwPsyyNwMEDdEEybGNKKNGtb#s#KdMyDdtbbrGN#t#tyyGEEMmNrMDGEbNsdMsGDMKbw",
-     "IUWFUMVOTFDQR911O7N088ANB7#M#GHJVR9BCCPSA#L#L55SQ4DITPE3K4206HJ6K3EG2W"}, /* 100: 10 x 7, left, 15 faces, 4 blocked, stuck 57%, search 33 */
-    {10, 6, 3, "jjjHuHNNuvxxNtfHHfokv#JktPkkNNvjgJkPfd#xvHoxvgkfdNvgoHyogyoo",
-     "00EJ9JIB9ORAIK8118SQ2#MQKH33FB5EPMNHCG#A26LRO7NCGF5P46D47DLS"}, /* 101: 10 x 6, centre, 15 faces, 2 blocked, stuck 0%, search 29 */
-    {10, 6, 3, "HpvoooPvonNpOupp#NunLPOzokkNvzcLLoniHivDNHv#nNNnHnLLvzHDcHLz",
-     "BNEIJJQEI50NCO66#AO58QCM2DDAKMGLL21H4HKR0F7#133P4P897SBRGF9S"}, /* 102: 10 x 6, centre, 15 faces, 2 blocked, stuck 5%, search 29 */
-    {10, 6, 3, "DdKtAKtDjdIdaKAdfakAkdaaAup#NNIq#MKIIjpfjqjqqMtdutMaaupupqMq",
-     "JBQGLQGJIB6MSPNM5ROLODFFNK3#4461#HP22I35C1CEEA7DK7HSR08089A9"}, /* 103: 10 x 6, centre, 15 faces, 2 blocked, stuck 5%, search 29 */
-    {10, 6, 3, "kknivjjqqjriMMMnuikkjnrvMrttrkMuzNujdiFkrFzNujnibiuFrdMFdubd",
-     "99C5BJDHHJ75336CM8E0DN7B6I44I0QMT2KRP8GELST2KRNA1AOGLPQSFO1F"}, /* 104: 10 x 6, centre, 15 faces, 0 blocked, stuck 5%, search 30 */
-    {10, 6, 3, "gCbbxcxgxiFqyGIiECCxcaGIqqcFIFbcqbiDDIIIFaiiBCCBNCcciyNaaENN",
-     "CMGIOLBCBT5HQAETDMPO9FAE00R636I9HGKNN2235F774114SPLRKQ8JJD8S"}, /* 105: 10 x 6, centre, 16 faces, 0 blocked, stuck 8%, search 30 */
-    {10, 6, 3, "dBgPHtPHtntoBHCBCbtgtKK#KiiKbnhphpdd#hodgbgoJBddbotgboJhobgH",
-     "D471C21M2F6N4MHLHK67500#SBBSRFPQPQ88#O9DEIJNAL33K95JRGAOGIEC"}, /* 106: 10 x 6, centre, 15 faces, 2 blocked, stuck 10%, search 29 */
-    {10, 6, 3, "yqFnnFOFOopoEFMFfqpBoqBpMpfqqyyIIBBoFsIyppyMyHssrIrHaMEqrrsa",
-     "FK69968L8TSTR747IJSPDKPH4HIJQE3AA55DL0OE223CFMG01OBMNCRQB1GN"}, /* 107: 10 x 6, centre, 16 faces, 0 blocked, stuck 15%, search 30 */
-    {10, 6, 3, "LbCbgaooGgbappCwLwwGIadbbkKgogpwccwodoLKdpakLkdwFidbkIKiKFdo",
-     "S9C9BDHHEBQDIICTONTELAFMQP47578R00R212S4F8APOK1N3JGMKL6J63G5"}, /* 108: 10 x 6, centre, 16 faces, 0 blocked, stuck 18%, search 30 */
-    {10, 7, 3, "dFodDjdhFFHooEDjEyDhhhAjHbb#EFAOO#jH#rrrvD#AAbhEorveErEbejjoHGorydhdGd",
-     "A1SA3BHQ14IEEV3BVUFW225LD77#G4588#LD#00CRF#NNMWGPCRTK6KMT99PIJS6UOQOJH"}, /* 109: 10 x 7, centre, 16 faces, 4 blocked, stuck 8%, search 33 */
-    {10, 7, 3, "eceAMAecAwEBMccc#ANBm#JNtIcEbMNmBitwIwNbBBBttmwE#JJEE#imEwMJAAefttfeew",
-     "EAEW79RA9CTV711J#WGVK#PLQBJS8MLKDFQ4B5G8D662234H#UPTH#F3S5MU00NIOOINRC"}, /* 110: 10 x 7, centre, 15 faces, 4 blocked, stuck 10%, search 33 */
-    {10, 7, 3, "NIAnMvMeIncebA#DevvCHutvvKKDbfHNKntcKcCKnHHDDIICCtAHHKe#uuCeeuAnCcntfv",
-     "RMU8CHCEM8QJXU#FE3346NPWW11FXS6RA9KVIQ4I97722GG00KD55AL#BBOJLNDTOVTPSH"}, /* 111: 10 x 7, centre, 16 faces, 2 blocked, stuck 10%, search 34 */
-    {10, 7, 3, "rGttsxfxsrAoroPGlArrl#PPoxcHolmGGGPCcCCfAAmGACsm#PlmdoodttsramHHxAPHam",
-     "7SRRA1G1A8MEOFQSBV87D#66FT2LEBXHHIQ42WWGVKXIK4NU#PD0C99C33NOJ055TMPLJU"}, /* 112: 10 x 7, centre, 16 faces, 2 blocked, stuck 12%, search 34 */
-    {10, 7, 3, "ccutwwFtuFwwcewA#Ffctc#wgfegtFxffugfeAxecxauItj#gIxja#lvvltIIujxAujfAx",
-     "084QBBKL41SS8WPR#KOGQG#PJF9ML1H226JF9RVW0HU6IAT#MDCEU#5335AIDNTV7NEO7C"}, /* 113: 10 x 7, centre, 15 faces, 4 blocked, stuck 15%, search 33 */
-    {10, 7, 3, "xsjxIFdDzsDj#HHF#ABtDxkkxdzADtHJkksdzjIkItJJsJFjzBjht#HBD#IBBdjFhhBDhk",
-     "2842OQWKP8L4#33Q#0FALD11DBP0KATH775BMJICOESH5SRJMFVUE#TNG#I99WVRU6NG6C"}, /* 114: 10 x 7, centre, 15 faces, 4 blocked, stuck 18%, search 33 */
-    {10, 7, 3, "kCGdJvrdvkcGrjcPrfhPPhr#JckkxhPc#BkJx#jBhkmBfx#xxJCfmGCCBvGBrxPdPBdvfr",
-     "9BN6JC46C9FV2LOE4TPE3U2#KO88DU3F#AHKD#L5PH0ARW#GGJBR0V11QSN5MWI7IQ7STM"}, /* 115: 10 x 7, centre, 15 faces, 4 blocked, stuck 22%, search 33 */
-    {10, 7, 3, "zuiOoGuGPzA#diGLzdPyzdyy#oiiAOKxuOxddLyouzuOy#KKdoyrLzKAOt#GhhrLuAKtOK",
-     "0NI3K7N72AG#MIOUAB260M11#J44G3RT85T99U6JSD85V#WQBKVLEDQCPF#OHHLESCRFPW"}, /* 116: 10 x 7, centre, 16 faces, 4 blocked, stuck 32%, search 33 */
-    {10, 7, 3, "yzAIrHmrycMyIyIrdOOdeHzMIAOmddO#EEmAAe#emdcmAeEeEBOAGGyrrEemEttOrycdcB",
-     "AMN6CWPCAKDB6B4XO008LWMD4JTG8O7#22HFF3#5PUKHJLV3E17N99RQQE5GVSSTXRIUI1"}, /* 117: 10 x 7, centre, 16 faces, 2 blocked, stuck 32%, search 203 */
-    {12, 7, 3, "dduMndLMbrgPuGNbNLbLgg#OiGbciilrOlkku#OOLiyyOr#OhhtnchrnccPtd#gyyLnLhguKdkuGukGdrKrg",
-     "MQ51dMS1RFZIX4PLPSRN00#7U4LYUET89TCC5#AANE6698#7bWOVYbFV33IOG#c22adaWcXKGDJHJDHQBKBZ"}, /* 118: 12 x 7, centre, 20 faces, 4 blocked, stuck 2%, search 248 */
-    {12, 7, 3, "vvlcKMcllfltNdKyyMd#mmNtizlMzzfccyKydkkqdzdOOvKMziqqvzNNKKvlNyyq#ffvdqoONoMccOAooAMq",
-     "22F6BW6FVUPJ0cB77Qe#EEYJZLVQOOUIIR4Re99MdDc55X4WLZGMbD3388bP0HHG#aaXdCNSYNKAAST11TKC"}, /* 119: 12 x 7, centre, 18 faces, 2 blocked, stuck 8%, search 41 */
-    {12, 7, 3, "PoEdoMfPmMmyd#EvAAJJIIvjwyjjvIINPNEjhNJEwwojjKKNNwyoftotPPyMohMMMvvNPJ#tEtEmKmvtKJJt",
-     "DHXLHBVDFBFQL#ZWaa4422W1bd55eMMcP3O1JIYZUUE77663IbdTVGEGPKQNTJNSSeAcK0#CXCO9R9A8R0Y8"}, /* 120: 12 x 7, centre, 18 faces, 2 blocked, stuck 10%, search 41 */
-    {12, 7, 3, "mMnCMClCGlmwvllNNGllI#kPv#PgnCIwmsswGgPHbbHrkPLmIbNNbGbrbw#wCB#NvNgCLIssBgsrvgsgmrmw",
-     "92MJ2ZAJaA9W0LLIIRPPK#d50#BQMcYUD113RQBTGGT6d5XDKV88VaF6FW#3Z7#bHbScXYCC7NE4HNESO4OU"}, /* 121: 12 x 7, centre, 19 faces, 4 blocked, stuck 12%, search 40 */
-    {12, 7, 3, "rgvInNNHCnvrC#CnIwIHCnwagaKKMwqrrDgHaqgaMNmIwnvvnqDNNqmmDIqMhmmMNqMmCw#HvIhfHDMvHwfC",
-     "8IBTH557EdK8W#WH2127EbeZQZAAX1aYYNI0VPQVXJDRedKBbaMJG3D6MRPcUFFcG3L6S4#0OTUC9NLO94CS"}, /* 122: 12 x 7, centre, 17 faces, 2 blocked, stuck 15%, search 333 */
-    {12, 7, 3, "sHJrseaaekwwrHrKKDwss#keddH#HDDeak#OrOOLbLzwJkwxJ#bbsbxw#OdexO#ksDraaeOdDkKJKDraxxzx",
-     "ELaOEZXMPKDDBLOAAVR77#K133S#SWWZM6#JBUUcIcb8a6RTF#GI4GY8#N21HJ#549QCXPN2950F0VQCHYbT"}, /* 123: 12 x 7, centre, 16 faces, 6 blocked, stuck 20%, search 39 */
-    {12, 7, 3, "kimvyuKayikmlKaaafz#llzuluzl#NffzeifCCK#Nake#veuzaKhhIk#iyCNzNNt#IjkkeCmmuNyCjlujjCt",
-     "6ESR9GLc9E6DaL44cbH#55N7VGNa#K00H2YbTU3#KCF2#RI7MC3AABF#YZUWM88X#BJQQI1DSOWZTJVOPP1X"}, /* 124: 12 x 7, centre, 18 faces, 6 blocked, stuck 25%, search 40 */
-    {12, 7, 3, "iPcymDmtytaccatzyzOf#atyuEaEPPoBBo#fufyO#Pf#cBBNu#PBDffuucyNzPu#gBttENbczNbDgiEiiaaD",
-     "aOP73Y3UNU6PSGVE7EXH#6VBFKGK44D22D#QFRNX#OH#Sbb8L#MTYRQJJIB85ML#9T001cZI5cZW9A1AaCCW"}, /* 125: 12 x 7, centre, 18 faces, 6 blocked, stuck 55%, search 39 */
-    {12, 7, 1, "BMzwDtaKMaaBKwtuqNzaMKNhq#hzhpp#zz#amDhMhNplllaqP#up#mAmml#NKuquwwAzPAKhyqgMyAgDMDKq",
-     "GD5SU6c10MMG9S6BQPZc01E4b#358CC#VV#AYU3D8PaHHLAbT#Ba#YFWWL#E9OQOKKFZTRI42NXJ2RX7J7IN"}, /* 126: 12 x 7, down, 19 faces, 6 blocked, stuck 0%, search 39 */
-    {12, 7, 1, "xJIkKdrDJiDIdo#rkiJJkpKpxkorIpdKcpmcc#cDDIzJcJ#zhMkMIrKppKxzhDxdmzKxd#xIiokocDMhhidM",
-     "4RH82MX0DC0AMV#Z8CRDcN2U4cVZHUdJ3NaKY#Y55TEW3W#BPIObTX199JSBFGQLaE1Sd#QA67O7KGbPF6LI"}, /* 127: 12 x 7, down, 16 faces, 4 blocked, stuck 0%, search 40 */
-    {12, 7, 1, "tCFKAFCFFAAKhKN#KplIlMMpKINltljNIhpJhoNNCCJjCGFAjINCAjGIIlyJhooJAOoF#OyGttGOKOoltotp",
-     "YaEI7BJBE73U0TP#UOSWe662IGZeYXKZWcORcF4P88QbJVd3KG4a9bNLLS5R0DFQ9HMd#H5V1ANCTCMX1DA2"}, /* 128: 12 x 7, down, 17 faces, 2 blocked, stuck 2%, search 41 */
-    {12, 7, 1, "wtjcrIaqtulLrajw#pqBLurIrLccuIBI#IpiwuaMpIMliMiruLj#LiBDDcMMMaicLDB#DrwiDjjBjacpDaBu",
-     "U1SDRKAW14dHTAMU#cWXG4QKTG22F5XB#BcZV7JNE5adL6LQ7HS#8YC99D6aNJYb8OC#IRVZO0MP03bEI3PF"}, /* 129: 12 x 7, down, 16 faces, 4 blocked, stuck 5%, search 40 */
-    {12, 7, 1, "kagsMKsgmFxxnaCM#ECzCJPzugmgEKPC#k#aumFkEzmPaFkkk#J#ECJamPKunzJxFPC#FaPFmnnnxKxnKxKu",
-     "3HA01c0JbN88UHI1#OILRVQLSJZAacQR#K#TSWXPaFbGDNKP3#6#O5VDZG94UF6MX75#ET7EWBYBM2CY9C24"}, /* 130: 12 x 7, down, 16 faces, 6 blocked, stuck 8%, search 39 */
-    {12, 7, 1, "kyFFaLkznHgakJsFLgLztPoNgJg#ynOOkaKPtLgP#Kn#aosKzognFKnF#ooJHFPOatnLNLoNzGkOstasNGkJ",
-     "IRTABSC3bcMBI0ZANUN3XKV5M0U#RQ11CdDKXS27#EP#dLZD9V2bTEPY#L6JcY74GFQaWa659OH48FG8WOHJ"}, /* 131: 12 x 7, down, 18 faces, 4 blocked, stuck 8%, search 40 */
-    {12, 7, 2, "CmBCNlbBGhhfwaBN#lwGNlbmmCBCjaN#mhhsccB#OlON#smmGGjj#iiBbNsscffjawc#sicwlfiGGcwlwabs",
-     "3IA3H1FAKGRSVWYb#1VKHXF0I626DWO#UGRc5L2#9X9O#cU088D4#CCYabTT5JS4MPL#QENZ7JEBBNZ7PMaQ"}, /* 132: 12 x 7, left, 16 faces, 6 blocked, stuck 5%, search 39 */
-    {12, 7, 2, "gJtBxEtbABxEgpEoBApAFAJBwoE#dBpdH#dBattwpJrooFEEJo#tdrrd#AgrrrggowwHHxgAabHJxdwHwtHJ",
-     "4JN5GDNTKSGDCd37aI1IZKcaP73#US1FO#F5Q00PdcM66ZAAJX#WLMRU#BbR224CXHH889bBQTVY9LEVEWOY"}, /* 133: 12 x 7, left, 16 faces, 4 blocked, stuck 10%, search 40 */
-    {12, 7, 2, "CbDEECdllfbbLDLd#wwnfILEfLn#COOPI#OoCfnwwDdonMMbGI#iiDPO#bEGGILfLEn#OOnGCGddwfEwGdbC",
-     "EQH88EWCCUQbNHNW#BBZUSY7aYA#P44MS#cGVaAKK9IG5113OJ#DD9Mc#370OJXFXLZ#6650VT22RFLRTIbP"}, /* 134: 12 x 7, left, 17 faces, 6 blocked, stuck 15%, search 39 */
-    {12, 7, 2, "hfIxBfBKootIjxtbGjcB#gKov#xxj#ywhgwIOjgGBcycbttoOygovG#ogh#Ctgy#fcGvvfIxtxfvhfyvBBCy",
-     "RBVTABAUJJWDcTWKGOaS#5UPX#11O#FIR5IVQcZGSHFHK33PQ8YNb9#NZL#C2Y8#4a9bE7D6267EL40XMMC0"}, /* 135: 12 x 7, left, 18 faces, 6 blocked, stuck 28%, search 39 */
-    {12, 7, 2, "cNfcceMMOANcipp#tetyAArrFctFooyhAAeio#tfNOONNe#cmOphphirtmAoiorMhrFt#DOrimoMNDOmFmmi",
-     "YZTYb2EEdGS91JJ#M2M4GU77Ob6OHH4W885DC#6TA00AS5#9cdIBIWXVFcUN1CRQBRKF#aLVX3NQZaLPK3PD"}, /* 136: 12 x 7, left, 17 faces, 4 blocked, stuck 30%, search 40 */
-    {12, 7, 2, "wlBBDIlOElEtwmOIOAEAl#tiFKmBtCEssIwws#CtwBtiEK#DwFDeeFFNltCssl#IBCNKKsNEBKKONDONNOii",
-     "13LLMETR535CaKREXJ8JO#CSFbKYHW8BBcQQ0#WHaY7SdP#I1FM22DDZO7GA0T#cVGZ99A6dVbP4NIX6N4UU"}, /* 137: 12 x 7, left, 17 faces, 4 blocked, stuck 32%, search 1000000000 */
-    {12, 8, 3, "pddNwdGpsjsKggmmAAGPN#vdwH#JJNvvNNGndmJJFAPPNGmPFmHJGAnpvoosHCConnwwv#wGJB#oHHBmpvjKwFHCPsKKPCdF",
-     "bFTXQTGbdOI2SSAACCGK4#PF19#DeX8804gZf6eRiNEE0WVK36jRgNZUP55I9MM7HHLLY#QWDh#7ajhVUYO213aBcdJJcBfi"}, /* 138: 12 x 8, centre, 20 faces, 4 blocked, stuck 10%, search 46 */
-    {12, 8, 3, "ceonFDcFjPHjdkH#n#sfcD#DozIDDgsfczdekzI#cCHfkknCdCgcCfnn#sdsttjeAkHznAePP#joAk#P#zdPdoCACzjjPADA",
-     "MQOK1UM1VTRA0JR#K#aSHU#7O84FFgaSHeCLJ84#NbXG99fcZcgNbG66#DCDPPBQIhXWfdLT5#BYIh#E#eZE0Y2d2WVA5373"}, /* 139: 12 x 8, centre, 19 faces, 8 blocked, stuck 15%, search 44 */
-    {12, 8, 3, "kpOIqcqsxcyysscIs#ICaxqIy#pyDqJJEDcDvGCyDovE#OcIEJG#qqaGddJxEcGnnnndDO#xkooJEE#dDyaIoxxndGJnGOad",
-     "MTdgAJAeVJcQDDHge#XWZVObQ#T3NOGGI858YaW3NfYI#R5X0hC#KKZaEEh70HCUUSSLBd#4Mf69FF#LBc1b674i2P9iPR12"}, /* 140: 12 x 8, centre, 19 faces, 6 blocked, stuck 20%, search 45 */
-    {12, 8, 3, "ezLzkCCikLqiyLaCmaajoijyjpp#jxxippjoykCCd#iiN#qlLk#ldy#NmNNyoLdpCBqN#qqymllmxxekLqpNaeBIkIaoadej",
-     "SIcIEDD6EcP625VdYaaQMg3eiAA#QOOHLL3M29JJK#gHX#Ph59#hKe#CYXTGUNFbdWfC#BBGR44R00SZNfbTV8W7Z71U1F8i"}, /* 141: 12 x 8, centre, 19 faces, 6 blocked, stuck 22%, search 7267 */
-    {12, 8, 3, "frffeAAMzAzxx#erNrNfApzGMK#B#rnyyApdKyudnMMneejGGBxMfjBnNNjdGnneGjB#f#dzGccuAMcjez#pydjrxrcdpxzx",
-     "haFFiHHgYeBSS#dab2bXWZBcJ6#D#28IIWZV67NV811QPP3UcDTJXf0QOO3GLEEdUR0#h#GYL44Neg5RiM#K7Af9T95AKCMC"}, /* 142: 12 x 8, centre, 18 faces, 6 blocked, stuck 32%, search 127 */
-    {12, 8, 3, "oAyAAfihaAfCaOf#JKiaaCaCMOkfKK#KciakMfKme#cwe#hioe#iie#KewEJkoEmJ#oMJyEyAoCfeEmM#kkkyMCMwwyyomCA",
-     "3GLGENTZIENSV0O#XMThIYhYD0UfHM#edbV5DOHB6#dWQ#Zb3K#226#eQW8cU1gBX#aAcR8R914fKgPA#FF5C747JJCLaPS9"}, /* 143: 12 x 8, centre, 18 faces, 8 blocked, stuck 60%, search 44 */
-    {12, 8, 1, "vzzPhrHfKgrlvlm#hzmfm#HHKwgIghIzKKHIvhqwIhffmPrkKBzwDkHBPrPPPBzqqDKDDhHkvC#IBkgq#IgkvCkAAvCgwCAA",
-     "Q99dPTi8fgTH4HZ#PUZ8O#SSDaLWL7XUKKcWQjeaX766OhbVDCEJ1AiYhb33dCE551fMMjcVNG#IYARe#IRF4BF00NGgJB22"}, /* 144: 12 x 8, down, 19 faces, 4 blocked, stuck 10%, search 46 */
-    {12, 8, 1, "gogCgeLfocLIfww#xeuMoCebGeFrFG#PIKLCLeFGCrILMK#Fc#KcCPMMbIboLxfuF#xxooIfgcfKxCgg#bIFcPPxGfceuuPP",
-     "UfFGFPIgfdhZb44#EVN6RKVOXeWLBD#AJ9IKCPWD7LJh69#0Y#Qd7ASSOZ3RCiHNB#55cc1gUTHQEG22#310Y8aiXbTeMMa8"}, /* 145: 12 x 8, down, 18 faces, 6 blocked, stuck 12%, search 45 */
-    {12, 8, 1, "OMMdzAABAmPeCNn#zsdGAA#emNNB#sssGnyyOee#mAsnncGcBBPNBeGs#cCmeCnlBcm#CCzCl#PPyymP#zacyGNPadGncdyN",
-     "599A0ZGDZgSOc8d#07AQHH#Og8CV#7BMQU22544#hGBLLRabDVfCYXaM#RehXcdNYWP#IIJeN#fF11PS#JTb3E6FTKEUWK36"}, /* 146: 12 x 8, down, 18 faces, 8 blocked, stuck 18%, search 48 */
-    {12, 8, 1, "yEyCoywCEjwyEsK#twwCEoddK#opjtN#Ns#dtCNiPjpiNEddiKNCCPAssjtti#oi#sAKop#wipKoPtsp#PEdKByyxNpBPPwx",
-     "AJAN459HcaQ5JhM#YQ9NcdUWg#4O1Xb#bV#8XHLDF1SPZfUWPMZ00F3hVa226#ID#R3gde#G6OEIKYRS#Kf8ETBBCLeT77GC"}, /* 147: 12 x 8, down, 17 faces, 8 blocked, stuck 22%, search 44 */
-    {12, 8, 1, "aNDwkhhpAhahprAwhk#taOhDnFAk#NjtcFAApnwjnrjwNNnnpFfnwjrANFOjOllFlkf#cNOOpOfDl#kDwfjfafrklttplDFD",
-     "4eKJaZBEhZ4gEj3JBa#LUbgWFI3D#e2LGRfhXFc1C72c6TddAIOCH17f6RQiN55V0DP#GTQbANOK0#MWHYiYUPjM899X8SVS"}, /* 148: 12 x 8, down, 17 faces, 4 blocked, stuck 22%, search 46 */
-    {12, 8, 1, "KsKOciccKKeOqDliPAM#siiOJBBqMDiiJAKjsluqA#DJMsMjDqOlPP#OeejeDAjjBBsOAKAuJulp#sBcMMucqPuqllBcupDj",
-     "UIEL6j6BEUHLMFSjcXP#K00Y1eaJdbDDZigAISNJi#bZdhPAVMYfTT#8RRQHFX2255K8WgWG1N49#heCOOGB7c374faC39VQ"}, /* 149: 12 x 8, down, 17 faces, 4 blocked, stuck 30%, search 47 */
-    {12, 8, 1, "DokujrjjDgofrx#DEuEfnfAArxrxGkGwnurwDzl#GojADuxkxluFEAjG#EkgxlCwwollrottDCFdEzggl#ojfzdCCfzzzuEf",
-     "ObH12hQ2FEb7ec#OB1V75R99efhf0HZK5IaKPid#0SJWFIcMUCXABWJZ#VMEUCL88gGGaS66PLATYjDDd#gQ3iT443jNNXYR"}, /* 150: 12 x 8, down, 20 faces, 4 blocked, stuck 65%, search 46 */
+    {6, 4, 0, "CBLLNDDMMEPNEBOIOKCIJJPK",
+     "1877944665A958B2B31200A3"}, /* 1: 6 x 4, still, 12 faces, 0 blocked, stuck 0%, search 12, plain */
+    {6, 4, 0, "GE##FEFGDGFHEHHGDBFH##EB",
+     "96##7832597481125034##60"}, /* 2: 6 x 4, still, 6 faces, 4 blocked, stuck 0%, search 10, notches */
+    {6, 4, 0, "tjjxssA#ux#jt#zu#juAzutt",
+     "4775668#95#14#39#1083022"}, /* 3: 6 x 4, still, 7 faces, 4 blocked, stuck 0%, search 10, pillars */
+    {6, 4, 0, "#ssuw#yysusxuuwxAs#AsAA#",
+     "#2235#446369005978#1817#"}, /* 4: 6 x 4, still, 6 faces, 4 blocked, stuck 0%, search 10, corners */
+    {6, 4, 0, "nq##crnjbfcfnonbrjqo##jj",
+     "14##0817560632358942##97"}, /* 5: 6 x 4, still, 8 faces, 4 blocked, stuck 0%, search 10, notches */
+    {6, 4, 0, "BDCHOOD#NP#CB#HP#DKKDNMM",
+     "0756117#82#50#62#9339844"}, /* 6: 6 x 4, still, 9 faces, 4 blocked, stuck 0%, search 10, pillars */
+    {6, 4, 0, "#bhrf#qhfrggqekkba#ieai#",
+     "#9815#685100672294#3743#"}, /* 7: 6 x 4, still, 10 faces, 4 blocked, stuck 0%, search 10, corners */
+    {6, 4, 0, "DC##yDvxyBBGssvCEwwx##EG",
+     "34##5328500711246998##67"}, /* 8: 6 x 4, still, 10 faces, 4 blocked, stuck 0%, search 10, notches */
+    {6, 4, 0, "LKILKON#PJ#KJ#PL#MINLMOK",
+     "1371349#58#08#56#2796240"}, /* 9: 6 x 4, still, 8 faces, 4 blocked, stuck 0%, search 10, pillars */
+    {8, 4, 0, "#jqjklj#krpjmmqjlrpkmmoj#orrook#",
+     "#A52CDA#96B24451D6BC0031#788379#"}, /* 10: 8 x 4, still, 8 faces, 4 blocked, stuck 0%, search 14, corners */
+    {8, 4, 0, "HJDNDGJEOB#LJ#BBEB#LN#CCEGEJGHGO",
+     "5D191A3C4B#03#882B#09#7726CDA564"}, /* 11: 8 x 4, still, 10 faces, 4 blocked, stuck 0%, search 14, pillars */
+    {8, 4, 0, "#HHHByD#BEEEDAGBEHyuGAuB#uxxuEE#",
+     "#5779DA#9336A04265DB4082#B118CC#"}, /* 12: 8 x 4, still, 9 faces, 4 blocked, stuck 0%, search 14, corners */
+    {8, 4, 0, "uxpupkmlsx#us#kluq#kj#mruruqmmjk",
+     "63050B41D3#5D#216A#BC#47979A88C2"}, /* 13: 8 x 4, still, 10 faces, 4 blocked, stuck 0%, search 14, pillars */
+    {8, 4, 0, "#mkkoko#nqqolojjnmloloqp#lppqpk#",
+     "#844BC5#177A6533182A6B9D#2009DC#"}, /* 14: 8 x 4, still, 8 faces, 4 blocked, stuck 0%, search 14, corners */
+    {8, 4, 0, "bedbiehieiaahcabeffidcahgbabbahg",
+     "28CA15415933F0E28669C0E4BD7DA7FB"}, /* 15: 8 x 4, still, 9 faces, 0 blocked, stuck 0%, search 16, plain */
+    {8, 4, 0, "LMM##JLLPKKPKNOOLNKKLLJNJJK##INI",
+     "399##B227C17C644361500DADB5##8A8"}, /* 16: 8 x 4, still, 8 faces, 4 blocked, stuck 0%, search 14, notches */
+    {8, 4, 0, "DGGDBFFGOGCHHNDGOCBFBBNDCIFFGCIF",
+     "CFF47881EDB00AC1EB9579A42653D263"}, /* 17: 8 x 4, still, 9 faces, 0 blocked, stuck 0%, search 16, plain */
+    {8, 5, 0, "#zHAAHE#FvAAzvvFEtwwBAAtFFHFBzzv#tCHFCt#",
+     "#DGHH79#68CCA44F932210036E7E1DA8#5BGFB5#"}, /* 18: 8 x 5, still, 10 faces, 4 blocked, stuck 0%, search 18, corners */
+    {8, 5, 0, "jir##klflffiqklrjincqkrkifhchlrrljl##jrn",
+     "53G##879700AH8FE53D1HBEBA9C1C466F24##2GD"}, /* 19: 8 x 5, still, 10 faces, 4 blocked, stuck 0%, search 18, notches */
+    {8, 5, 0, "ztwEszwzsx#sz#EHHHHswzzwHw#AA#tyBwxAHyAB",
+     "0G13501C8D#57#3FE228HC7HF4#BB#GA94D6EA69"}, /* 20: 8 x 5, still, 10 faces, 4 blocked, stuck 0%, search 18, pillars */
+    {8, 5, 0, "PNOKHCKCLHOOCEKNPNN##FIKCHENOHKHLFCNCHKI",
+     "48H032021BAAGIE84DD##FC76BI9H5731F69G5EC"}, /* 21: 8 x 5, still, 10 faces, 2 blocked, stuck 0%, search 19, centre */
+    {8, 5, 0, "sxHxxyGxByCCGuAGHuCCABuAyyszAsuHFFHzusuG",
+     "I1FAA2D1E255DCHG7CBB3E6H44I93J6F00798J8G"}, /* 22: 8 x 5, still, 11 faces, 0 blocked, stuck 0%, search 20, plain */
+    {8, 5, 0, "koqmnmssso#xn#umkrrqmmsruu#xx#pmkpkpxupr",
+     "4B71319AAB#H3#D64CC75592EE#H8#06FGFG8D02"}, /* 23: 8 x 5, still, 10 faces, 4 blocked, stuck 2%, search 18, pillars */
+    {8, 5, 0, "agllallemonmmiiofokknigmedkkhkeofdgegkhi",
+     "FGHHFEEICBA552DJ0B19A26C481973IJ08G4637D"}, /* 24: 8 x 5, still, 12 faces, 0 blocked, stuck 0%, search 20, plain */
+    {8, 5, 0, "KJJKKHHCBB#II#CJKBGJJJGLBB#GC#EGBGPGCPEL",
+     "9GG8844D65#11#DE95BFFE2H6A#C7#02AB3C730H"}, /* 25: 8 x 5, still, 10 faces, 4 blocked, stuck 5%, search 18, pillars */
+    {8, 6, 0, "##CzCF###HzsFGB#sHsGsDBvvGvGHzzv#GDsHCs###BCGB##",
+     "##3935###E9C5B6#GEA1AH6DF8D1422F#8HC47G###07B0##"}, /* 26: 8 x 6, still, 9 faces, 12 blocked, stuck 0%, search 18, octagon */
+    {8, 6, 0, "#AmyAux#momyuxuutts##xytmos##AtqmqmtsAnq#qntsyx#",
+     "#HF1HID#G5F1IJ77338##JB4E58##A42G0E96AC2#0C96BD#"}, /* 27: 8 x 6, still, 10 faces, 8 blocked, stuck 0%, search 20, corners+centre */
+    {8, 6, 0, "wwF##HwyyCFGzzsxBxBGuGEsBxxFCCCGHwzzuEHFHFB##wFw",
+     "LE1##IEJJA1600FHGH86K7DF822BA557CL44KDI9C9G##3B3"}, /* 28: 8 x 6, still, 12 faces, 4 blocked, stuck 0%, search 22, notches */
+    {8, 6, 0, "knagbanjkllgbnbbpme##pankmm##pnkpmejgglngfabbflg",
+     "6ICBLCFEJDDBLFGGK92##H8I611##H5JK92EA745A3800347"}, /* 29: 8 x 6, still, 11 faces, 4 blocked, stuck 0%, search 22, centre */
+    {8, 6, 0, "JMKKGGKJLD#EM#IBFDIIPPIEFGGBBBMMKO#IB#KBFOLOIFOK",
+     "7C225597LA#GC#J80A66BBJG044E3EKKH1#I3#98F1LDIFDH"}, /* 30: 8 x 6, still, 12 faces, 4 blocked, stuck 0%, search 22, pillars */
+    {8, 6, 0, "sAACBsCxyysCCvFFBFx##EFutyy##vFyuBzxFvyxtsBBBzvE",
+     "599FA5FJ22G66LEEAHC##80IKBB##10DI74CH1DJKG3374L8"}, /* 31: 8 x 6, still, 12 faces, 4 blocked, stuck 0%, search 22, centre */
+    {8, 6, 0, "Css##zPDJsMsMwPxJLHMLMCxHtJzMKKDKtJtHPPKHtz##wMz",
+     "A22##F180KLKLI1E0JGHJ9AE3B569448D757GCCD3B6##IHF"}, /* 32: 8 x 6, still, 13 faces, 4 blocked, stuck 0%, search 22, notches */
+    {8, 6, 0, "ickcmmhkho#dd#pfhfhocipjpoggghpjpg#pa#chkkkoaaka",
+     "HB381153KD#77#EILILDBHF46CG00KF46G#EJ#85992CJA2A"}, /* 33: 8 x 6, still, 12 faces, 4 blocked, stuck 0%, search 22, pillars */
+    {8, 6, 0, "NGKHBGGKJNKPNFFCBGHPECMMKBONCBMGJCOEKBKGDMMDDBDM",
+     "9KFBDCCF39J1HAAGDKB1ENM2JL4HG6803N4E76705M8IIL52"}, /* 34: 8 x 6, still, 13 faces, 0 blocked, stuck 0%, search 24, plain */
+    {10, 5, 0, "ppvq##tovqwAmqqnlonk#AnAonokk#omlnnppolktssw##wAlw",
+     "II4A##L24AB6711CG2J0#6JDECK99#K7F5533EF0L88B##HDGH"}, /* 35: 10 x 5, still, 12 faces, 6 blocked, stuck 0%, search 22, gates */
+    {10, 5, 0, "#EItNyyvD#FFIGFtEvCINtFC##IDCDFtDCzzvtFt#uGuCCvuu#",
+     "#H1LI3347#EE1DFGH409ILJ8##970BFKB566AGJK#CD258AC2#"}, /* 36: 10 x 5, still, 12 faces, 6 blocked, stuck 0%, search 22, corners+centre */
+    {10, 5, 0, "chijjhhoijeb#beel#cebqnnbjleeojr#qrhr#rrlllrlppjpp",
+     "E283GL2K83IJ#9FFC#EIJA669GB11K5M#AML7#HH4C47BD050D"}, /* 37: 10 x 5, still, 12 faces, 4 blocked, stuck 0%, search 23, pillars */
+    {10, 5, 0, "njkn##pnptkksnqssxjjAtrwqjAytxkqyjjsnppArrrt##nAqw",
+     "BJF0##9B98F6M01EE755G4DL1CGK8763KJCMIAAH22D4##IH3L"}, /* 38: 10 x 5, still, 12 faces, 4 blocked, stuck 0%, search 23, notches */
+    {10, 5, 0, "BBPLJPJJDMLJ#EHPM#EEFDLMMPOOCCFB#HLIC#IFDHDCFDBHED",
+     "22H7GH4GDF74#IE3F#IL8DBAA311JJ85#EBM6#MKC096KC50L9"}, /* 39: 10 x 5, still, 12 faces, 4 blocked, stuck 0%, search 23, pillars */
+    {10, 5, 0, "#zFxxDvDz#wtEHHAAwwDvHHwtEuzBBwEFuzAEHwD#uuEzzEHA#",
+     "#3I776J63#D8F22BBHCKJLLC8ME5GGDMIE49F1HK#00A45A19#"}, /* 40: 10 x 5, still, 12 faces, 4 blocked, stuck 0%, search 23, corners */
+    {10, 5, 0, "AzPuGAzAAuCzzLLACACBLutu##uuLFGtGvBLsCBFGBLMBvPsBM",
+     "71GNM8H67ND1HKK8A6ALF9CJ##J9F43CME2BIDL432B50EGI05"}, /* 41: 10 x 5, still, 13 faces, 2 blocked, stuck 0%, search 24, centre */
+    {10, 5, 0, "JMKK##OOCMPGGNBJNECC#JHNHEKGN#LLPNNOBGOCJJJP##GKPG",
+     "KG99##CCJG78E1FKLBJ2#6D1DBA5L#337IIHF5H20604##8A4E"}, /* 42: 10 x 5, still, 12 faces, 6 blocked, stuck 5%, search 22, gates */
+    {10, 6, 0, "#tKKuuKDD#ytyKKFFMIwtBxy##wwIFtxMM##MFKwDDHyHIxFHF#uIBHIIxu#",
+     "#D8822J99#7DGCC00PHF5E4G##BBHO5433##PMJF11I7IKNMLO#A6ELK6NA#"}, /* 43: 10 x 6, still, 12 faces, 8 blocked, stuck 0%, search 26, corners+centre */
+    {10, 6, 0, "khgq##ihidkkljibnldg#lqlnanjd##jqnnaeej#qjbkkbhabkiadd##hjnd",
+     "J3GK##838EJP1MOCDL4G#10L96DM4##N0A9622F#KNI55CBHIPOH77##BFAE"}, /* 44: 10 x 6, still, 12 faces, 8 blocked, stuck 0%, search 26, gates */
+    {10, 6, 0, "FvzuuyEyFvxCzHzCCCtGAHzH##CyEEHHwG##xwwFAyHGCwGyxutuywxwGGFE",
+     "AI711LKLAIQM04733JPREN04##JDK8GGO9##C66BEHN9M52DCFPFHOQ52RB8"}, /* 45: 10 x 6, still, 13 faces, 4 blocked, stuck 0%, search 28, centre */
+    {10, 6, 0, "oijf##jgronkifkledcdonnnoeeckkgpddjjdpradkkcoleplajopc##ljll",
+     "5813##1RK9HG83GAEB2B5QHQ977200RIPN66N4KOPFFCLAE4JODLIC##MDJM"}, /* 46: 10 x 6, still, 14 faces, 4 blocked, stuck 0%, search 28, notches */
+    {10, 6, 0, "ELGBPBPGEICC#MJHI#BBILOFFLEFIIBIHMJOLFNNBN#LEHN#JHLNNOOEHHJE",
+     "5G41D1D45E22#3ARO#BBLJI0079KLENOH3AIJK88NP#79HP#MCGQQFF6CRM6"}, /* 47: 10 x 6, still, 13 faces, 4 blocked, stuck 0%, search 28, pillars */
+    {10, 6, 0, "##wvAxzA###FtyxxvxA#vFDH##tHAyzzHH##zADD#DttDDyyA###vwtyyt##",
+     "##C835I3###DG975871#FDJA##GA194466##IKEE#J22BBLHK###FC0LH0##"}, /* 48: 10 x 6, still, 10 faces, 16 blocked, stuck 8%, search 22, octagon+centre */
+    {10, 6, 0, "KICCOIOIEEMCJLLNNIOEJB##JF##IEMC##PK##IJLKFDDOKPDBLBKKJPBPDJ",
+     "MH668DID11EF42299H8BNP##4L##7BEF##GK##7NCOL33IM0AJCPKO5GJ0A5"}, /* 49: 10 x 6, still, 13 faces, 8 blocked, stuck 8%, search 26, bars */
+    {10, 6, 0, "vttt##FzEzFs#CCHH#utvuvEtxzzssvDDExuEDzBsv#EssD#DvuxEt##BDzx",
+     "2ONN##6ALA6M#BBFF#J72K9LOPI800911HPJGD85M4#HCCE#D4K3G7##5EI3"}, /* 50: 10 x 6, still, 12 faces, 8 blocked, stuck 10%, search 26, pillars+notches */
+    {8, 5, 1, "##vtvu###xzstAu#zusxzzxz#uyxzyA###ytty##",
+     "##3734###9AC7B4#D0C82A9D#05821B###5661##"}, /* 51: 8 x 5, down, 8 faces, 12 blocked, stuck 0%, search 14, octagon */
+    {8, 5, 1, "#okommn#rppkmkjkqqpkmpprjlokrlpr#joojon#",
+     "#5D536G#AC913DHE00916BBFH84EA8CF#72472G#"}, /* 52: 8 x 5, down, 9 faces, 4 blocked, stuck 0%, search 18, corners */
+    {8, 5, 1, "wzk##zkoootynppyrozmmsstrmtmmwnzmkt##zkz",
+     "GB2##B2FF9HAC88A0957466H0E174GCDE31##53D"}, /* 53: 8 x 5, down, 11 faces, 4 blocked, stuck 0%, search 18, notches */
+    {8, 5, 1, "ifjbbmlibfibbgqrmmljciqmogpocbrfpmpkkpmf",
+     "74B53AGCF4C5FJ9H66GB179AEJ2E13HDI8200I8D"}, /* 54: 8 x 5, down, 13 faces, 0 blocked, stuck 0%, search 20, plain */
+    {8, 5, 1, "NEM##NENEDEMCOPPODDDOCBNCDDMCMBGOLG##LEE",
+     "46E##C64717GAF008122F9BCA33E9GBH85H##5DD"}, /* 55: 8 x 5, down, 10 faces, 4 blocked, stuck 2%, search 18, notches */
+    {8, 5, 1, "#rfdglf#dhgmiigqrkkrmiqliibbrool#hglidd#",
+     "#H2G5E2#DB57C4F9H11A74908866A330#BFECDG#"}, /* 56: 8 x 5, down, 12 faces, 4 blocked, stuck 5%, search 18, corners */
+    {8, 5, 1, "MIHJJPMEKMFJMMNHDMF##PIIIHJJEEPKBHNDJEBP",
+     "8652B789D4A200C5E4A##73361BIG9FDH1CEIGHF"}, /* 57: 8 x 5, down, 11 faces, 2 blocked, stuck 10%, search 19, centre */
+    {8, 5, 1, "##pafg###ppqplg#aafanlbb#iqanrr###ppai##",
+     "##1D29###71A789#3325C800#BA5C66###44DB##"}, /* 58: 8 x 5, down, 10 faces, 12 blocked, stuck 12%, search 18, octagon */
+    {8, 6, 1, "jwv##uzjAjAuwuszvtAAutkllpkvskktpqAAvtllzqm##zjm",
+     "G3D##F8EHGHF3JI8LC11JC24KB9DI927BA00L7K45A6##5E6"}, /* 59: 8 x 6, down, 13 faces, 4 blocked, stuck 2%, search 22, notches */
+    {8, 6, 1, "KINDCHIIHGNCKBHPOG#KO#LIHN#HO#LHBNJDONBPKOJNIIOB",
+     "63LJ7F39C0I7AHDKG0#AG#59CL#F4#5D8IBJE2HK6EB21148"}, /* 60: 8 x 6, down, 12 faces, 4 blocked, stuck 2%, search 22, bars */
+    {8, 6, 1, "##gege###fhahhg#cfhdafbacfiifiba#fhdgei###ihei##",
+     "##BFAF###3E422A#03E64HD90C11C8D9#H76BG8###57G5##"}, /* 61: 8 x 6, down, 9 faces, 12 blocked, stuck 5%, search 18, octagon */
+    {8, 6, 1, "wytEtCEzttytzFCtJAs##sFEAII##KzBKKCCzwJBJwBBEKwJ",
+     "I3C0A20KEE3C942A8HJ##J4LH77##B9GFF55KI6D81GDLB16"}, /* 62: 8 x 6, down, 13 faces, 4 blocked, stuck 5%, search 22, centre */
+    {8, 6, 1, "uyCFyuzEyt#FD#zyyttCCBCxtEtEwByCDE#wE#xCzwwzFEtF",
+     "BJ4FJB0K1G#FL#071G522E4AC359IE76L3#I9#A68DD8HKCH"}, /* 63: 8 x 6, down, 11 faces, 4 blocked, stuck 5%, search 22, pillars */
+    {8, 6, 1, "iokrkoggdnorimgmlc#gd#cinn#lh#halilagniohignrhnr",
+     "CL858G11HIG5E9A93K#AH#KC4I#FD#DJ30FJB7EL20B46276"}, /* 64: 8 x 6, down, 12 faces, 4 blocked, stuck 8%, search 22, bars */
+    {8, 6, 1, "JNB##BLMBFNGCNLMGFFGFIIMKGIFINFJKBCBCOGMBOC##CGC",
+     "JED##F2IF4EBK926C43BA00I7CG3G9AJ7HLHL586D51##18K"}, /* 65: 8 x 6, down, 11 faces, 4 blocked, stuck 12%, search 22, notches */
+    {8, 6, 1, "#Bwsuwu#BEGsFFxsEzG##ysuxHz##wxsEyzzyyxu#FEHsFw#",
+     "#FE4AEA#FH7422319C7##B10JGI##83D9BCI55J0#6HGD68#"}, /* 66: 8 x 6, down, 11 faces, 8 blocked, stuck 20%, search 20, corners+centre */
+    {8, 6, 1, "##CKHD###CIJJID#KNGIGIIHKGGJIPPH#NKJNFF###KKNH##",
+     "##8DGC###8E227C#1H3BF7E01F34B550#HD4A66###99AG##"}, /* 67: 8 x 6, down, 10 faces, 12 blocked, stuck 28%, search 18, octagon */
+    {10, 6, 1, "DDIIGPtsHGws#HPGG#wHPOIKOwtMMKDPIOywsHEEHB#OyDB#BBHPIGPIBsGB",
+     "77446AQ8C6J8#OAKK#JO3RFPRLQ99PI3F0ELNCBB2M#0EID#GG215H15DNHM"}, /* 68: 10 x 6, down, 14 faces, 4 blocked, stuck 2%, search 28, pillars */
+    {10, 6, 1, "kovotswoxoyrvxqvuuskkt##qz##yyjq##qz##oyktjttwzvoyytjvjxvzrx",
+     "C3N4J8P463BGL6KL008DDJ##7I##F2MK##7E##5FC1MOOPEH52B19N9AHIGA"}, /* 69: 10 x 6, down, 13 faces, 8 blocked, stuck 2%, search 4890, bars */
+    {10, 6, 1, "#ecgpfcfe#hgfecbcapnkifc##kaonhaai##nnookiekcnknii#kieboaae#",
+     "#L6N5383L#GN7J6P8D521M7E##CDH2GKKO##44HI1MJCEFBF99#BOAPI00A#"}, /* 70: 10 x 6, down, 12 faces, 8 blocked, stuck 8%, search 26, corners+centre */
+    {10, 6, 1, "AEzszvvDusyzHHEHExtAuztt##HxwFzuEv##GEDFyxuDvDttDwsHxGEzstHD",
+     "QJ9G922ELG3M77KFJDIQH866##F5NA8HKP##R4EA35LCPCI0ONB1DR4MB01O"}, /* 71: 10 x 6, down, 14 faces, 4 blocked, stuck 8%, search 28, centre */
+    {10, 6, 1, "#IIzIsssz#LEIzvuBJFzsIsE##NNFzIFvE##xxBxFEszFuuuxu#BuLFJJBJ#",
+     "#AAP3IBLE#KM36CJFH9EL7B0##119P7OC0##N8FNOMI6455G8J#2GK4DD2H#"}, /* 72: 10 x 6, down, 12 faces, 8 blocked, stuck 10%, search 26, corners+centre */
+    {10, 6, 1, "ipgc##hjbcbbgfrrhjep#qplfbccj##lleejbek#kibcfklfcrkfqf##ddpr",
+     "IN48##69LD224B556EKG#PNABM8FE##JA339LKO#1IMDHOJCF01CPH##77G0"}, /* 73: 10 x 6, down, 14 faces, 8 blocked, stuck 18%, search 26, gates */
+    {10, 6, 1, "NNLHHHIHIGME#KKED#EK#GPLEMDKE##KPLJFFDD#MK#JJEN#IJLDGGJNMDIJ",
+     "EEDCC0505MAL#66J4#29#M3HLG492##83HKII11#A8#OKJP#BOD7NNFPG7BF"}, /* 74: 10 x 6, down, 12 faces, 8 blocked, stuck 50%, search 26, pillars+sides */
+    {10, 6, 1, "tDAy##BGEAsD#zvGA#HtDtAyyzAyCADBECvExxztsB#EvvH#DEFBFD##BzBE",
+     "65JF##G9OPB5#CD97#I846J33C7FKP4GOKDH22M8BN#HAAI#L01E1L##NME0"}, /* 75: 10 x 6, down, 14 faces, 8 blocked, stuck 62%, search 372, pillars+notches */
+    {8, 6, 2, "##DBMB###MMBBIG#LKDIMGKDLCFCMKNN#CICMFD###KKIK##",
+     "##G2E2###118834#DHG3E469DFC576BB#FA57C9###00AH##"}, /* 76: 8 x 6, left, 10 faces, 12 blocked, stuck 0%, search 18, octagon */
+    {8, 6, 2, "#nvkjyk#jjknvmmypzk##onkvjz##qqqmmvkpqon#oorppr#",
+     "#ADBE9G#E70AD669F30##IHG873##JCC118BFJIH#225445#"}, /* 77: 8 x 6, left, 11 faces, 8 blocked, stuck 0%, search 20, corners+centre */
+    {8, 6, 2, "OLI##IKFzzOxIIJLxLIzMzvvKOFEMEKvELOIMJDxEKD##Mxv",
+     "6AD##2BL336852EF8F5I4IK0G7LC4CB01A7D9EJH1GJ##9HK"}, /* 78: 8 x 6, left, 12 faces, 4 blocked, stuck 0%, search 22, notches */
+    {8, 6, 2, "##sDCE###wwvsEC#AAxvsAsAwwvvDADx#sswwAy###DDDy##",
+     "##GF8B###663CB8#77A352521199H0HA#GC440E###FDDE##"}, /* 79: 8 x 6, left, 9 faces, 12 blocked, stuck 2%, search 18, octagon */
+    {8, 6, 2, "#uwsuyq#AuyyrrryqsAAlrwuwwllkkzqAqvvwrwr#jzkjlk#",
+     "#6DC937#E611BA53HC22JAL9KKJG88F7EHIILBD5#4F04G0#"}, /* 80: 8 x 6, left, 12 faces, 4 blocked, stuck 12%, search 22, corners */
+    {8, 6, 2, "##LNNC###LBNOEP#BLBDNEPPBBBOPNLO#MDFNJC###OFMJ##",
+     "##C99A###05F723#605GF2436EE74DCB#HG1D8A###B1H8##"}, /* 81: 8 x 6, left, 11 faces, 12 blocked, stuck 15%, search 18, octagon */
+    {8, 6, 2, "FDE##zwDFBEGDxFFGFEvvwwxBBxsszwyBHFwssxyEHv##Dwv",
+     "46A##KG54F2H6ILBHL2887GD99I00K73FJBE11D3AJC##5EC"}, /* 82: 8 x 6, left, 12 faces, 4 blocked, stuck 22%, search 22, notches */
+    {8, 6, 2, "dmibbhmbcdmbdlgiohc##lgimnq##cdmoqhdhhdimnbhnbnc",
+     "JCF9ALC9IJEA6342BHI##34F05G##76EBGH8118205DLKDK7"}, /* 83: 8 x 6, left, 11 faces, 4 blocked, stuck 22%, search 22, centre */
+    {10, 6, 2, "#PGGPGBJJ#MBEDJBPEEJJMDE##DLLLJONN##HIPDONGEEILIDL#ILDIBHNI#",
+     "#C1P81K93#AJEF9J82230AFE##M44706BN##IGCO6BP55DLDM7#HLOGKINH#"}, /* 84: 10 x 6, left, 12 faces, 8 blocked, stuck 5%, search 26, corners+centre */
+    {10, 6, 2, "klamikjalkhc#imgj#gkcgkbqpjnkhjgjddjccqhhq#hhbq#nbllbaeeapee",
+     "BH5JAIP5HQ8F#AJKL#KBF7IRONLDQGP74004119G89#33CO#DC22RM6EMN6E"}, /* 85: 10 x 6, left, 15 faces, 4 blocked, stuck 5%, search 28, pillars */
+    {10, 6, 2, "#FDKMFFMK#NCFILHCGGDMBMN##IEIEHBLM##KKIENKKDNLDMHO#IOHLILEL#",
+     "#73E0220E#1L7JIFLPP3A6A9##JD4DM6IG##CC4H1BBO98OGFN#5NMK58HK#"}, /* 86: 10 x 6, left, 13 faces, 8 blocked, stuck 10%, search 26, corners+centre */
+    {10, 6, 2, "##zDHHxz###AAvvDFAu#zttzGFyAHHHEzFFzHyyy#EDDuxBxu###BvuGvx##",
+     "##IK99JI###44NNKME5#FAAFLMDE11H78338HBBD#7220GCG5###C60L6J##"}, /* 87: 10 x 6, left, 13 faces, 12 blocked, stuck 12%, search 24, octagon */
+    {10, 6, 2, "gcnnkgnokegnnorrookngj##ho##kemj##hg##bbcmbqqbebbcefejjfcgoe",
+     "7932K72LKGJBBD55D803J4##C8##0GP4##CM##EE9PFAAFHIIO1NH66NOML1"}, /* 88: 10 x 6, left, 13 faces, 8 blocked, stuck 12%, search 26, bars */
+    {10, 6, 2, "#HLHLLILI#MHCGLGILFKOOCGGCCIFCMNCDIFFIKGHNJDHHBBPD#JKGPKJJD#",
+     "#KIKB8484#LO9FIREB2H557667NQ29LDNMQ00EHFODJMAA33GC#J1RG1PPC#"}, /* 89: 10 x 6, left, 14 faces, 4 blocked, stuck 12%, search 28, corners */
+    {10, 6, 2, "nomz##vojmuyyvvzzoju#jllznvuk##ppjxxnom#ykyrnvmkunqrrr##qvkn",
+     "P29K##I2C9M8800JKFC5#744JOHMG##337EEOFB#NLNAPIBG516DDA##6HL1"}, /* 90: 10 x 6, left, 14 faces, 8 blocked, stuck 15%, search 26, gates */
+    {10, 6, 2, "qgcgmqmggqfnnnnffnnmkj##qq##mcfj##oo##ogakpfeaapoqagmmjjeppf",
+     "KFOBHNLFBKD11AA55PPHG0##66##COD0##44##29EGMJ833M2NE9LC778IIJ"}, /* 91: 10 x 6, left, 12 faces, 8 blocked, stuck 15%, search 27, bars */
+    {10, 6, 2, "pwpw##pvpwrwqjjmnnsztmvkvqsynkrnvkttqryksnzkrrsvvsnmtm##rksq",
+     "9408##9P08F4L55KDDOGMK6CPQN7HEFI6CJMQ37RNHGE11B22BIAJA##3ROL"}, /* 92: 10 x 6, left, 13 faces, 4 blocked, stuck 22%, search 28, notches */
+    {10, 7, 2, "##JvBJLv###wwACKKMB#MGtKtCMtKLGyGMGMJKAAxxwywwJABB#wvtvKBMA###tAtGBG##",
+     "##9IG9DI###LLSF44CH#NBRJRFCEPD212NBM7JQ500A18A7SH3#8OEOP3M5###KQK6G6##"}, /* 93: 10 x 7, left, 13 faces, 12 blocked, stuck 15%, search 29, octagon */
+    {10, 7, 2, "JJJEKEHCKFFH#PPLJ#ENFMLLFIGGILHKNOJDDGEEEKHOJODOCCKH#NHFG#DOFMKODNBBCD",
+     "41192NLT2ORL#55M4#9G7C88RQFFQMVBUIDH0JKKNBSID60633ES#GVOJ#HP7CEPAUWWTA"}, /* 94: 10 x 7, left, 15 faces, 4 blocked, stuck 20%, search 33, pillars */
+    {10, 7, 2, "MHCLPLMMPOHOCMvvDCsGHAwPOwHHGEFDwF##sEMMFFFLALHwDOAwPDADCDCuLCxwxFLEEu",
+     "MQK5I5LMIWOWKL11XHA2OU7TJRDD29FX7V##A933FGG808QSPJURT404NPHBEN6S6VECCB"}, /* 95: 10 x 7, left, 16 faces, 2 blocked, stuck 22%, search 34, centre */
+    {10, 7, 2, "OCLM##MMMFHFLFNOENHGPPJNHENHHG#JJPPBCBI#IIJHEKJPIKFNNCEDJDFLCLMC##PCMF",
+     "EO0H##55H1VF0FAE93ICMMDAQ93VIC#SDBBPUPL#KK8Q2TS7LTR6642G8GRNUNJ4##7OJ1"}, /* 96: 10 x 7, left, 15 faces, 6 blocked, stuck 28%, search 291, gates */
+    {10, 7, 2, "ccqc##jjqirninlqoqgglriarcbcjirllanbbbeddhrbbdoeojdnndmmraqqhhho##nadc",
+     "FSJF##NNK1BI3IMJRK22MG3DG969O1BEEDQ006TP8LV447UTUO8CC7AAV5WWHLHR##Q5PS"}, /* 97: 10 x 7, left, 15 faces, 4 blocked, stuck 32%, search 33, notches */
+    {10, 7, 2, "AMMxwKzKzwwt#uxNu#NxLNAAtxwOuH#yOyLMMNP#LMyvuLuKyPHv#KMyy#HvAzNHuvLLNz",
+     "P116MBABAQMK#G9IG#I63UDDK9QSRH#FST7LVUE#3VFJ878CTENJ#CL44#HOP05NRO2250"}, /* 98: 10 x 7, left, 15 faces, 6 blocked, stuck 45%, search 32, pillars+sides */
+    {10, 7, 2, "GuyBDvvyDvGBusFtBGFAAHGstuxxBxww##Au##CyAuEEHHEttxzxyyzECxAHHuvEGGHEyA",
+     "EN4O1HL41HRON3KPSEK86MR3P2GGS0BB##I2##UF6TAAMW9770VQCCV9UQIWDTL5JJD5F8"}, /* 99: 10 x 7, left, 16 faces, 4 blocked, stuck 57%, search 35, bars */
+    {10, 7, 2, "nqin##hmhohaqijjlllonfjlhhaqplfdbgddmaamdmgblaqkjanfphkkiiqdfmmp##kpqd",
+     "4B54##QKO9OWB5336UU9VTR6JJDHES1CMF77I00ICNFMSW8GRDVTPQ22LL8A1NKP##GEHA"}, /* 100: 10 x 7, left, 15 faces, 4 blocked, stuck 68%, search 132, notches */
+    {10, 6, 3, "wust##uxwxyuAtGHuzzH#GCAGGvHD##yyCHBGtt#wGAAsBxxHHywyx##vyDx",
+     "3EP4##BAFA0E64OMB99M#KC6ODJGH##5NCL8D77#3K11P822LG0F5I##JNHI"}, /* 101: 10 x 6, centre, 14 faces, 8 blocked, stuck 0%, search 26, gates */
+    {10, 6, 3, "#hlobdlkj#lleeddffmgmbeheffiikrordbhboporeribhbapj#iffkeakg#",
+     "#DCGBMCQF#00341188PIPB3D499JJQHGHMA5EK6KR7ROA5EN6F#OLL27N2I#"}, /* 102: 10 x 6, centre, 15 faces, 4 blocked, stuck 0%, search 28, corners */
+    {10, 6, 3, "##IBIBtN###NNNNLtvv#NBvzMMIILLOJvyzyvyLv#yLwwMMOL###JBJOOJ##",
+     "##BHBHJM###N7MNIJEE#7DF655221I98FK6KAL1A#LG4433CG###0D89C0##"}, /* 103: 10 x 6, centre, 12 faces, 12 blocked, stuck 2%, search 24, octagon */
+    {10, 6, 3, "tvEt##CHuCEHAAGzssHx#HttxxAHx##EHttsADD#zEuEEsszzsyFvG##Fvyv",
+     "8PE8##3NK3EBFFGLDDBM#JHH77AJM##0NII9AOO#L0K1196556C24G##24CP"}, /* 104: 10 x 6, centre, 14 faces, 8 blocked, stuck 2%, search 26, gates */
+    {10, 6, 3, "yjtr##mltnntnrnupumlnpAsscpemnypApmyueecreepmyaautjyey##mkkr",
+     "CKA2##OIA39L92JD7D4I38M55N7B4JC8MEP1HBQN6RREP1GGHLK0Q0##OFF6"}, /* 105: 10 x 6, centre, 15 faces, 4 blocked, stuck 2%, search 28, notches */
+    {10, 6, 3, "bepkldaklkgpeppaaqgggbar##bdqrfclr##ggnrebrrblmnddfeckebehhm",
+     "L4AO2NPR2R7B4ABCCHFF7GP1##LNHQD8I1##MMKQ96556IJK00D98O3G3EEJ"}, /* 106: 10 x 6, centre, 15 faces, 4 blocked, stuck 8%, search 28, centre */
+    {10, 6, 3, "##GyJJGO###KOyGyyGH#zHHyvyvzxxvxKKttvwKw#xHHDwttw###xGDGHx##",
+     "##EK55EF###NF6IBBIJ#L116HKHL449233889GNG#2AADC77C###0MDMJ0##"}, /* 107: 10 x 6, centre, 12 faces, 12 blocked, stuck 12%, search 24, octagon */
+    {10, 6, 3, "bclmlimmgcmblorhodhinijjrllhaaklneeidkagkghceqkeajrqgcqqjere",
+     "32E4EJ4A92A3LFCMFIDGKJ88C66D557LKQRGIH097PMNRSHQ0BTOPNSOB1T1"}, /* 108: 10 x 6, centre, 16 faces, 0 blocked, stuck 10%, search 30, plain */
+    {10, 7, 3, "##yIMOOM###DEtDtIIt#vvEEDOtyHHytDP##CPLOPtMMDxCIIL#ywPELLPI###xDwPxx##",
+     "##CNJ33J###QPD29559#OOHH2BDC00K4QR##FM8BM4EELGF778#KIRPAA6N###1LI61G##"}, /* 109: 10 x 7, centre, 14 faces, 14 blocked, stuck 2%, search 28, octagon+centre */
+    {10, 7, 3, "#ddomrrko#fiknmoderqfoffbhdhreligl##iogqaaflmbhppelbbieehppe#odmmnmfd#",
+     "#99HE44UH#2JUVEM6P752OIIRK6K7LBNTD##NMT5AASDQR013LBFFJ88013P#OCGQVGSC#"}, /* 110: 10 x 7, centre, 16 faces, 6 blocked, stuck 10%, search 32, corners+centre */
+    {10, 7, 3, "##ONsPNM###MJJsPAMP#AOxPxPzCCGxPxzOOKKCAFCMKKGzzFA#CHHHHNCF###OANFOA##",
+     "##I68K65###RHH8KQ5S#QI1SOJMBPFOJ1EDD44B9NPRAAFME29#GL00LCG2###73CN73##"}, /* 111: 10 x 7, centre, 14 faces, 12 blocked, stuck 8%, search 29, octagon */
+    {10, 7, 3, "#iecrcirp#oellhejhhrdhncqkkqqdaoddlfpqqejnllcffqpmaccldmadjr#mafmjaap#",
+     "#0GDMD0MH#NGFFQIC112AQEWP8833L4N66VUKBBISEV9W55PKO4779ARJLC2#OTURSJTH#"}, /* 112: 10 x 7, centre, 16 faces, 4 blocked, stuck 15%, search 33, corners */
+    {10, 7, 3, "EDGGJMKMHGPD#KMGM#JOCFKFMGMPONNCEEFKONPPEBBLLKGIOPJL#FKNE#IEPBLFJHLLBF",
+     "HD5590W0POGD#U4FV#97JLWR4FVANQQJ66R2NKA3HII112O873TS#LUKC#8CGESBTPMMEB"}, /* 113: 10 x 7, centre, 15 faces, 4 blocked, stuck 22%, search 33, pillars */
+    {10, 7, 3, "uvmp##pmxuuk#oowo#rutntkwwnAoynxqvxxnyAmttxqAAAtmxzk#ktwr#rrrAzz##yzry",
+     "KON3##3NI99J#DDBC#QKPAPLSBG8C5A6EO00GR8HFF6ET22UHI4J#LUSQ#771T4M##RM15"}, /* 114: 10 x 7, centre, 15 faces, 8 blocked, stuck 25%, search 31, pillars+notches */
+    {10, 7, 3, "##vGvFGB###CDwEFDvv#swEwBwuBFuGssBDDGFswwAAssCuDyu#CyBHCDxy###xvyvBH##",
+     "##FQFSQ9###IP7NSP66#CON7MOL9D8RCKMGGRDKJJBB44ELA38#I2H5EA13###1020H5##"}, /* 115: 10 x 7, centre, 14 faces, 12 blocked, stuck 35%, search 30, octagon */
+    {10, 7, 3, "awfficncpiccakllwewkajuggjeuprcnva##ejrerbcavgbvbwbijjlgwviabllnbjlnrw",
+     "OX88WGVGIUBBKE11949EKMQ77S4QI6LVPF##NM6NDHLFPAJCJRHU55TARCWO20032ST3DX"}, /* 116: 10 x 7, centre, 16 faces, 2 blocked, stuck 35%, search 34, centre */
+    {10, 7, 3, "koqq##ylquqokmmpylusvkptqpAuplotwjwkuvkoqAtjvuAvAlzjoovuljksvtzs##sttl",
+     "FSV2##462W5AQMMD46PBOFRKVDUPR8AKJ0JNW3NS5UT01HC3CGELII1HGLQBO7E9##9T78"}, /* 117: 10 x 7, centre, 15 faces, 4 blocked, stuck 38%, search 33, notches */
+    {12, 7, 3, "qmfejqafemffnqm#iiaa#kfrrggkkflnaciaoabkbddliqqrinhknmkddcoooqn#jjmg#hmrijrpgbnbgpgr",
+     "7BJFO7LVFBJVWKc#33LY#dUPQAADDUGXTHRYbTM2M88GR00PCNZ2Wcd66H99bKN#44aE#ZaICOQ5S1X1E5SI"}, /* 118: 12 x 7, centre, 18 faces, 4 blocked, stuck 10%, search 40, pillars */
+    {12, 7, 3, "#xvvuvuGGEE#wCEwzzuuyAAtEEGCxxyBwxEDHA###wD###wtzvvHuuDCFDFDAwzBHHHHCDBG#CxzAAxCvBz#",
+     "#NSHFHFGGW5#UZWU11006JJEKKaZII6XMN57DO###Y9###MECBBD889RQ2Q7PYCVTLLTR2Va#4A3OPA4SX3#"}, /* 119: 12 x 7, centre, 15 faces, 10 blocked, stuck 18%, search 37, corners+bars */
+    {12, 7, 3, "##PLCAAFyt###tILEEGIyut#tsEtPPPLuFIFPGyyG##KFsFPsECLIIuuFsGG#ItKCCLLAGE###CEAAACww##",
+     "##FJG33C0A###9YQ88RO0KA#97IXEEUQKCSNFM55M##V4PNU7IGJSYTT4PHR#OXV11BBWHD###LD66WL22##"}, /* 120: 12 x 7, centre, 14 faces, 14 blocked, stuck 22%, search 35, octagon+centre */
+    {12, 7, 3, "snlylurosxooqjzjqsqAArxnmzrttsqqrzoymj###zl###vuxxqwovmlsAlkzzxuuumrswAkjlnpxurjojpn",
+     "AZ7V7BQHAR5HSPUbOLO11QRZ9UNIILCCNY5V9P###Ya###cB22STWc3K0FKEJJ8G44360TFEMaDX8G6bWMXD"}, /* 121: 12 x 7, centre, 18 faces, 6 blocked, stuck 25%, search 39, bars */
+    {12, 7, 3, "ghbno##dmfgpngp#obqd#cihkqiiooajdcifhcndhiihbbfphcnekpeqqadfbbg#llpj#rrpdgmeg##fkfke",
+     "ESA90##DWOEG9UY#0ALD#2KJbL88HHRTP2K6SNQZaIIJBB6GaNQVbMV55RPO11U#33MT#44YZXW7X##FCFC7"}, /* 122: 12 x 7, centre, 18 faces, 8 blocked, stuck 32%, search 38, pillars+notches */
+    {12, 7, 3, "xyyww##xottysjnkokuxuqjlmmnpquqvqkryopnrrssvulrwwsokqmttnkywqmlzzpptmmwxlulnk##tunly",
+     "Z326Y##0WBB2LDOTWSF0F9DAHHdEXaXN9S43KEO77bbNaA4YGLKTPUccVQM6PUCRRII8JJGZ15CdQ##85V1M"}, /* 123: 12 x 7, centre, 17 faces, 4 blocked, stuck 42%, search 40, notches */
+    {12, 7, 3, "ywHzuwxsDwHBEBxCxDDFsCtwHEBCvvvFyzztuH###xy###yyDEFEFCssvvABuyvEFuDHHGAGuFEzGsuGDszz",
+     "QF9aLOXTbO9D6NE1EKK7TRGF26N1VBB7SaMGL2###XS###CCbYcW3RIIHH0DPQVY3ZU44J0JZcW5A8PAU8M5"}, /* 124: 12 x 7, centre, 16 faces, 6 blocked, stuck 45%, search 13780, bars */
+    {12, 7, 3, "tydhnngpgdqptyykoomddmgypkisseeiheeopyqov##mmgpmeviovqvduusmeivqkkvudtqgtytogqsultpl",
+     "LIOXeeACAOVRL44JWWF88Fd6EJaGG99aX00bEIcHY##UUQC37NKHNVSDBBT37KYM55S1DZcQZ62bdMT1P2RP"}, /* 125: 12 x 7, centre, 17 faces, 2 blocked, stuck 57%, search 41, centre */
+    {12, 7, 1, "#wJCwLJCCHw#PDsLCJOwsHFODMsJwLOIsMIFFF###wO###yyPLyyvuuJvPPOFIzFzIILJCvv#CHOIzvLvzH#",
+     "#SRYKE4YZ1O#3F6IZ40O81A7Fa6RKE0W8aVADH###ST###MM3IBBUPPQU997DXLHLVXGQC22#CNTW5JGJ5N#"}, /* 126: 12 x 7, down, 16 faces, 10 blocked, stuck 0%, search 37, corners+bars */
+    {12, 7, 1, "ymtwasmmkvwAyqysbsqaqAahjabksAmvqbekst###Ah###mmhsearrhjejbebhraevjrjqrdjebdqvhdrdyk",
+     "C3R2K5738D2Fc9C5LI9K4FbZ6bS8I17D4LTEHR###1G###00NHaMOWGJXVSaQNOMTBJPVUWY6XQYUBZAPAcE"}, /* 127: 12 x 7, down, 16 faces, 6 blocked, stuck 0%, search 39, bars */
+    {12, 7, 1, "#LKEDJKKAAM#xyyIDAEwIEwDxHExBFwMMOMJKJBIAFEHwwDDxJxzDIyOwMBAxAOzJIyBBOBE#JKzILMzzzK#",
+     "#bGFIRGQdAP#BLLaIdT2aS3CBYFXWZ2cPV8RQNW9UZTYE3MC5NX7MKHOE81A5UO6JKH00V1S#J469bcDD74#"}, /* 128: 12 x 7, down, 16 faces, 4 blocked, stuck 2%, search 40, corners */
+    {12, 7, 1, "nkjmqlqdohjlbmhbabnjqcheeiffberrfchhdoocm##fnanqigcqmddaocfeidfpbaajagihkpnnbgkdgkcq",
+     "VKBPI7TaJDB7ZeDRXZSWTC1NQd66RQ55EC1UA88GP##EScVM4YGIe00HJ9bN4AbLOcHWX3dUKLFFOY2a329M"}, /* 129: 12 x 7, down, 18 faces, 2 blocked, stuck 2%, search 41, centre */
+    {12, 7, 1, "xtHBF##GHuuCDBCtFGHxBxHzsxGBtGEzvAEE#uuGvDEwuAG#ywyvEzwwHBwzBCyvEyyxzDsxyuDzs##tsCHw",
+     "SX8bA##G8CCEKOEXA2PSFRPNWZGbV21NUB00#66aUK15HBa#JMQDcYT59FTYOIQDc33R7LWZJHL74##V4I9M"}, /* 130: 12 x 7, down, 16 faces, 6 blocked, stuck 8%, search 39, gates */
+    {12, 7, 1, "xtxddjatfstytxh#eqmr#sAfmxqiihmjmqqfgrshgheatAqjtiiqgggfexrygrs#jjjm#xssaaemyfdfhydh",
+     "d2d55ZOTWQKE23B#HSIc#QG6Y3R44NIMYS96UDCBFNXbKG9MT00RF11WXJcEUDC#88ZV#J77bOHVAPaPLAaL"}, /* 131: 12 x 7, down, 16 faces, 4 blocked, stuck 10%, search 40, pillars */
+    {12, 7, 2, "#vBPyvPMMKv#PCCKKLvLtBDCHNvtKFvFuFHyHNyNF##uyHtJPzFtNIHyHPPIzFyuNINLCCJI#IuJuLuJIDC#",
+     "#7YTXCTLLb7#Bccb3DCDFYVUONIF38IP5PQKONSW8##5XAR2BEJRMHQKA110EJS6MHWaUG20#49Z6a9Z4VG#"}, /* 132: 12 x 7, left, 17 faces, 6 blocked, stuck 5%, search 39, corners+centre */
+    {12, 7, 2, "zjzqigybizjqtbn#knuj#yzntrnogiAqyyww#rrigzugkjj#kkvozeeguvmqvii#vAmA#jkuytbcrctkbAyg",
+     "B2bCQMIUQB2CFU9#ZWLE#IaWFX9Y8DRKAAJJ#VVD8a4cHE7#11OYb55c4GSKO66#GTSR#7HL3P0NXNPZ0T3M"}, /* 133: 12 x 7, left, 19 faces, 6 blocked, stuck 10%, search 39, pillars+sides */
+    {12, 7, 2, "yxzpkuzojouwjjs#knoA#ppxvjppxxAwymmuoowAumAwAyowywrsqkklqqlksvs#qpqv#jnqnlrnlrrkvjmA",
+     "ICBTZ0BAcA0N889#bRVL#STCQcHH66d1U22KOOYdKXL1GUVNIYDJ544P77PZ9QJ#5SWM#3RWaEDaEFFbM3XG"}, /* 134: 12 x 7, left, 17 faces, 4 blocked, stuck 22%, search 40, pillars */
+    {12, 7, 2, "qxxxt##xfvxslcctmbbfchhverqmghczrarAwqqgqgvrwahmAllagavwwhwAAlfwttdibezsibfdf##mqhxf",
+     "NP0PA##09FE6RDDAXdd9UO5FaZcWITUH414BYcV8VIJZL15XQ2Rb8bJ77OLBQ2SY33MGKaH6GKCMS##WNTEC"}, /* 135: 12 x 7, left, 20 faces, 4 blocked, stuck 35%, search 40, notches */
+    {12, 7, 2, "MGAEPEGDKuDPBBJuPvAKJuLsMHPKJBEEvsHHBH###JL###EsxPxwwGJKAsPEOOMMuAJuLDLuKxGKxIDLssIL",
+     "VIUN8NIXW2X7QQEZ8SUWb2L9V06FER55SYPPR0###bL###49C6CAAa1FcY74MMBBZc1JTOTJ3Da3DGOHKKGH"}, /* 136: 12 x 7, left, 18 faces, 6 blocked, stuck 40%, search 39, bars */
+    {12, 7, 2, "kAmdm##dbiqmoiikbyhhyfiqkxfxxklloxbq#fttdbdyhht#fwrrxikkbryqxwApArAimtpddhror##hbooo",
+     "AQ0D0##D7OGJUCCT7N11NaO9AIX66TVVUZLG#aSSbBMP55R#X4KKZY22BcP9I4QHW8WYJRHMb3cF8##3LEEF"}, /* 137: 12 x 7, left, 17 faces, 6 blocked, stuck 50%, search 39, gates */
+    {12, 8, 3, "##wswFEzyz###JBsFPPCyAA#CJJCPCCFCPvPBvxxNGNFGvJvsByGGGwwyzzuKKusvAAGJJPu#zzxxvIBxIE###uFwwEFxE##",
+     "##8T87cL2L###AWT755V2HH#CAfCZIIJVZOEbOPPFDFJSaYadWMD4400MBB6KKUdQ11SYfE6#99NNQebGec###UXRR3XG3##"}, /* 138: 12 x 8, centre, 18 faces, 12 blocked, stuck 8%, search 42, octagon */
+    {12, 8, 3, "##dvhjjenz###hjdnxevzbb#sxjbxgwdwtvgshdbg##viihnsgntj##vvthxsddaesyyhjgn#asgyiizzff###ewywtnii##",
+     "##ScRCCNY5###b0XYQNF522#KU0JUZWSWHFdTRXJZ##9GGPDKdBaV##9cHPQ6338ET11bVMD#86MOLL44II###E7O7aBAA##"}, /* 139: 12 x 8, centre, 17 faces, 16 blocked, stuck 12%, search 40, octagon+centre */
+    {12, 8, 3, "#spqpzqmAmA#zoowqyryzApoqnkknyswwxxory###wp###AAkz###zt###mpktznntvoplyArtxuutssxluy#tourvmsuus#",
+     "#cdSATS7575#W11bXBaKTQAMXUJJUBcFF22MaK###bd###LLGW###DZ###NHGZDCC8RYH4PQO0I338EEI49P#0Y9ORN6VV6#"}, /* 140: 12 x 8, centre, 17 faces, 16 blocked, stuck 18%, search 40, corners+bars */
+    {12, 8, 3, "AHPxEEJPDyxyIAwIzLJtPPDvNsK#NNsL#MvsszvzvvsMNuwCKuuHzKKtuCttxHI#HDAM#DFMuMAAEKttEMzFzsxIDDvKuAFF",
+     "ZcQDLLJQCGDGAZgTIYJh66CMVWU#EE9Y#OMW5RaI889dVPgbUKKeRXXhPb774cT#ejiB#jfO2diSNH33NB1f154AFFaH2S00"}, /* 141: 12 x 8, centre, 21 faces, 4 blocked, stuck 22%, search 46, pillars */
+    {12, 8, 3, "fpelb##qaoelfbhnnghcklloffe#hghc#hdqqmdkarajkrmmmbbjbiqjfrrlijb#rdpi#cleqinnpkpifacddpoqp##oihdr",
+     "PdVEB##fgeXE8BR113CDT00eP8V#R3CD#baY6GUWhZh4TO22GAAJKQY4FSO5cJK#ZU7L#95X6QMMIW7LFg9HadNfI##NcbHS"}, /* 142: 12 x 8, centre, 18 faces, 8 blocked, stuck 30%, search 44, pillars+notches */
+    {12, 8, 3, "ofanhoAmaAxweebnnxxwwbbvshbkoiivwggvxkshp##mhAbnlaape##wvAffppgnhhkzzrrbrgarrskmwonslksmvsaverkf",
+     "EgPZXE5eP5Kcjj0AA99c288VNU0bfDDa2LLVKbNUi##eXY3Z4MMId##TaY11iIRS77BFFQQ3GRJOO6BWTfSh4HhWC6JCdGHg"}, /* 143: 12 x 8, centre, 20 faces, 4 blocked, stuck 32%, search 46, centre */
+    {12, 8, 1, "xosto##nqomolAkntlsprrmmxwwkssysmomjovkqwwyntjlzvwwApsmprlrvlnnvputtrqrzyvnkjjuytujyvqjlk##ykuzz",
+     "SihVM##IeMEG8JAPVjTQLLEFS33WhNcTgGFZiCAeBBcI6ZY7C11JaNgQ2jDX8P4daKbb25D7fX4WHHKf60OUd5OYR##UR099"}, /* 144: 12 x 8, down, 18 faces, 4 blocked, stuck 8%, search 46, notches */
+    {12, 8, 1, "bjieuquqvcioAvnrzzhhhcibbwwrnvchjbAoAn###iw###cbbt###gv###ponewvppvoegihtgdhgnnoppiecgeAercrgdpo",
+     "YcOdP3P35ABbEfVH11X77AOQT00HV5aecYNSEI###BW###MQTL###Z2###DGIdWfFU2SRZ8XL4Ke9CCbUD8Ra46N6JMJ9KFG"}, /* 145: 12 x 8, down, 19 faces, 12 blocked, stuck 12%, search 42, bars */
+    {12, 8, 1, "EywAM##BAFEKPsyBEsEAFECMPCJ#CAJA#KtwssxOBCAHKPEIwCKOBtDDCJxKwHs#ItPx#JJvItswtJDDxxIxItKIP##vyPwy",
+     "SCIMJ##LMHW81TCLSTWPHGZJ1FU#NReP#EbY22a4ANRVEcGgIFO4A5DDZXf8YV9#g5ca#Xedh39QbU77KfhKB3OB0##d60Q6"}, /* 146: 12 x 8, down, 19 faces, 8 blocked, stuck 15%, search 44, pillars+notches */
+    {12, 8, 1, "knknbbeqpprekaibhhegmjrpbjj#qjkg#deahqqdgginikfmnemeaorcidfpkrd#qaci#dcmnhjqbponrgimcdjbcphmrgch",
+     "bKbGII4PSSLc9eFB0041ZXLRB22#PXi1#fcga33f66TjdiOVKUAUeCYhdHOR9Y7#MgJT#HhZGE5MW8CjQNFVJ75WD8EAQNDa"}, /* 147: 12 x 8, down, 17 faces, 4 blocked, stuck 15%, search 46, pillars */
+    {12, 8, 1, "#HwANtCHAzH#uMwttJFIPDAzFOLMINzuFxFPOOHPM##EDwtPuEACC##AswxPJIxLONJsACzPJJxtMNJsItzz#IDNDuDIDNs#",
+     "#53DKZT6DV6#2h3HHOWeR7MaXGEJeKVQW8XAGS5RJ##d71cA2dMBB##If18NO49ESgPCITaN009chbPCLZYY#4UbUQFLFgf#"}, /* 148: 12 x 8, down, 19 faces, 8 blocked, stuck 25%, search 44, corners+centre */
+    {12, 8, 1, "yhxdtytimpxhdhdnmodkkkpAwiynttifaanAmmyin##oAkwkwioss##wAakwbmeebllwfnjjbmhiolxoddatbobhleetxnbh",
+     "MFDJPMIegjDZJFfigbfULLjRHG15cPedYYiR991G5##XQ8VUHWbhh##2Qa8VCB33S662dNAAEBTWOK7X00aICOETK44c7NSZ"}, /* 149: 12 x 8, down, 20 faces, 4 blocked, stuck 30%, search 46, centre */
+    {12, 8, 1, "BxMCGBMMyxuuysIMDBsuJJutPKH#tzxy#JPy#DHtCJxysBP##BGDJGCDDBt#Cyv#zGJv#GuPPuvsxGKvCCPHAHvAsDxIsttv",
+     "R6baC0GbL6NfhXUGD0cZQ5NFIe2#JBHE#5YL#d2JK7VEcWY##RTdQ1K33WF#ahS#B178#Tf9IZSXHCe8AA9MgM4gPDVUPOO4"}, /* 150: 12 x 8, down, 18 faces, 8 blocked, stuck 65%, search 50, pillars+sides */
 };
