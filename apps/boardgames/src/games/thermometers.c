@@ -71,17 +71,28 @@ static void paint_shape(const bench_geo *g, const thm_puzzle *p, int t, int upto
     float m = fmaxf(r, rb) + 2;
     for (int y = (int)fmaxf(0, y0 - m); y < (int)fminf((float)g->h, y1 + m); y++)
         for (int x = (int)fmaxf(0, x0 - m); x < (int)fminf((float)g->w, x1 + m); x++) {
-            float px = x + 0.5f, py = y + 0.5f, d = hypotf(px - cx[0], py - cy[0]) - rb, up = (py - cy[0]) / rb;
+            /* (ux, uy): across the nearest part, -1..1 (the ball: both ways); (hx, hy): where the light glints */
+            float px = x + 0.5f, py = y + 0.5f, d = hypotf(px - cx[0], py - cy[0]) - rb;
+            float ux = (px - cx[0]) / rb, uy = (py - cy[0]) / rb, hx = -0.35f, hy = -0.35f;
             for (int k = 1; k < upto; k++) {
                 float e = seg_dist(px, py, cx[k - 1], cy[k - 1], cx[k], cy[k]) - r;
                 if (e < d) {
                     d = e;
-                    up = cx[k] == cx[k - 1] ? (px - cx[k]) / r : (py - cy[k]) / r;
+                    int down = cx[k] == cx[k - 1];
+                    float lo = down ? fminf(cy[k], cy[k - 1]) : fminf(cx[k], cx[k - 1]),
+                          hi = down ? fmaxf(cy[k], cy[k - 1]) : fmaxf(cx[k], cx[k - 1]);
+                    float jx = down ? cx[k] : clampf(px, lo, hi), jy = down ? clampf(py, lo, hi) : cy[k];
+                    ux = (px - jx) / r, uy = (py - jy) / r;   /* past a joint: round it, as the bend's elbow */
+                    hx = down ? -0.4f : 0, hy = down ? 0 : -0.4f;
                 }
             }
             float cover = clampf(0.5f - d, 0, 1);
             if (cover <= 0) continue;
-            float rim = clampf(d + line + 0.5f, 0, 1), light = 1 + 0.18f * clampf(-up, -1, 1);
+            /* a round glass rod: darker towards its sides, a bright glint along its upper left */
+            float roundness = sqrtf(fmaxf(0, 1 - ux * ux - uy * uy));
+            float glint = powf(fmaxf(0, 1 - 3 * hypotf(ux - hx, uy - hy)), 2);
+            float rim = clampf(d + line + 0.5f, 0, 1),
+                  light = 0.84f + 0.2f * roundness - 0.06f * clampf(ux + uy, -1, 1) + 0.35f * glint;
             uint8_t *pp = o + 4 * ((size_t)y * g->w + x);
             for (int i = 0; i < 3; i++) {
                 float body = clampf(fill[i] * light, 0, 255), v = body + (ink[i] - body) * rim;
