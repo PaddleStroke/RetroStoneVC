@@ -21,5 +21,8 @@ draw.order          ... the sprites sorted by rank
 draw.nq0            ... the 4:3 screen's sprites in it (0 between two frames; widescreen)
 draw.spr_ui_dx      set and reset within one spr_ui() call: always 0 between two frames
 draw.redraw_ui      transient: set by draw_state_loaded() after a state of another width, consumed by the next draw
-draw.tall_sy        a tall screen: BG3's vertical scroll, set by draw_frame before every picture (restored at line 0)
-draw.tall_back      ... the stage's backdrop, read by the raster at the screen's first line of every picture
+draw.zoom_band_dx   a tall screen: BG2's scroll for the band, set by draw_frame before every picture (raster_tall)
+draw.zoom_shade_dx  ... for the cloud shadows past the stage, the same
+draw.zoom_hud       ... the HUD pinned at the screen's top, the same
+draw.ui_off         the stage x of the UI (hu_ui_x(), or the zoomed view's), set by draw_frame before every picture
+draw.hud_vw         a tall screen: the columns the solo HUD's text was laid out for (-1 after a start: drawn again)

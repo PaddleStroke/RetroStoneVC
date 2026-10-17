@@ -25,6 +25,10 @@ static inline int modi(int a, int m) { int r = a % m; return r < 0 ? r + m : r; 
 static inline int screen_cols(void) { return (rs_screen_width() + CELL - 1) / CELL; }
 static inline int wide_left(void) { return (rs_screen_width() - RS_SCREEN_W) * WIDE_LEFT_NUM / WIDE_LEFT_DEN; }
 static inline int left_cols(void) { return (wide_left() + CELL - 1) / CELL; }   /* world columns shown behind */
+/* A phone held upright (DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom), the stage centred:
+ * 128 lines above it (the sky band and the HUD at the top, then the lanes carried on) and 128 below; at most 512, the
+ * 64-row maps of BG2 and BG3 */
+#define ZOOM_H 496
 
 /* ================================ lanes.c ========================================================== */
 enum lane_kind { LK_GRASS, LK_ROAD, LK_RIVER, LK_RAIL, LK_PARK, LK_POND, LK_NEST, LK_HEDGE, LK_KINDS };

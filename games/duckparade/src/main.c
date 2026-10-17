@@ -448,7 +448,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);   /* a phone held upright: more sky and meadow (draw.c, DESIGN.md "Tall screen") */
+    rs_screen_zoom(ZOOM_H);            /* a phone held upright: zoomed, the lanes past the field (draw.c, DESIGN.md) */
     /* widescreen: a third of the extra width behind the duck, the 320-column stage after it (DESIGN.md "Widescreen";
      * the kit's UI stays centred on the screen: hu_ui_x()) */
     rs_screen_origin(wide_left());

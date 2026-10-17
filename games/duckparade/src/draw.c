@@ -41,41 +41,42 @@ static int scroll_reg;           /* the BG3 scroll register as written (the bot 
 
 int draw_scroll_x(void) { return scroll_reg; }
 
-/* ---- a tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen") --------------------------------
- * The lines past the stage's 240: above, the sky carried on over the band, deeper toward the screen's top; below, the
- * meadow and its lanes carried on (the field's 14 rows repeated by BG3's scroll), darker with depth: no traffic, no
- * duckling there (the play stays on the stage). BG1 (the UI) and BG2 (the band, the cloud shadows) are hidden there
- * (window 2), BG3 too above; line 0 puts the stage's windows, BG3 scroll and backdrop back. A 240-line screen never
- * gets these lines: the same pixels. */
-#define SKY_DEEP 0x2e6cc8        /* the sky at the screen's top */
-static int tall_sy;              /* BG3's vertical scroll as written (the screen shake), restored at line 0 */
-static rs_color tall_back;       /* the stage's backdrop, restored at line 0 */
-
-static void raster_out(int line)
+/* ---- the math of the field: the cloud shadows, the banking flash, the title's haze -------------------------------- */
+static void field_math(void)
 {
-    int top = rs_screen_top();
-    if (line == top || line == RS_SCREEN_H) {
-        rs_window(1, rs_screen_left(), rs_screen_right());
-        rs_bg_window(RS_BG1, RS_WIN2);
-        rs_bg_window(RS_BG2, RS_WIN2);
-        rs_bg_window(RS_BG3, line < 0 ? RS_WIN2 : 0);
-        if (line == top) {
-            tall_back = rs_pal_get(0);
-            rs_math(RS_MATH_OFF, 0, 0);
-        }
-    }
-    if (line < 0) {
-        int k = top < 0 ? line * 256 / top : 0;           /* 0 at the stage's top .. 256 at the screen's */
-        int a[3] = {(SKY_TOP >> 16) & 255, (SKY_TOP >> 8) & 255, SKY_TOP & 255};
-        int b[3] = {(SKY_DEEP >> 16) & 255, (SKY_DEEP >> 8) & 255, SKY_DEEP & 255}, c[3];
-        for (int i = 0; i < 3; i++) c[i] = (a[i] * (256 - k) + b[i] * k) / 256;
-        rs_pal_set(0, RS_RGB8(c[0] + ((line & 4) ? 4 : 0), c[1] + ((line & 4) ? 2 : 0), c[2] + ((line & 4) ? 4 : 0)));
+    if (math_mode == 1) rs_math(RS_MATH_ADD | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BG2, RS_RGB(flash_k, flash_k, flash_k));
+    else if (math_mode == 2) rs_math(RS_MATH_ADD | RS_MATH_HALF | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BG2, RS_HEX(0xf4f0dc));
+    else rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+}
+
+/* ---- a tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen") --------------------------------
+ * The zoomed screen (ZOOM_H lines, dp.h) shows the lanes carried on past the field, above and below it, the same
+ * ground at the same brightness (BG3's map is 64 rows tall there: draw_column), with their traffic (draw_traffic: the
+ * loop of 22 cells repeats there, so what drives into the field is what was seen coming; the trains come from the
+ * screen's edge) and the cloud shadows (BG2's map 64 rows: rows 0-1 the band, the shadows under it). The sky band
+ * (BG2 rows 0-1, the house raster gradient) and the HUD (BG1's top 16 lines, rs_bg_pin) go to the screen's top
+ * (band_y()); BG1 is hidden past the stage (window 2), but for the pinned HUD. The raster sets BG2's scroll per line
+ * (the stage's lines take the line-scroll table, the others none). A 240-line screen never gets here: the same
+ * pixels. */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int map_h(void) { return tall() ? 64 : 32; }                  /* BG2, BG3 */
+/* the stage y of the sky band: the screen's top on a tall screen with room for it above the stage, else 0 */
+static int band_y(void) { return tall() && rs_screen_top() <= -FIELD_Y ? rs_screen_top() : 0; }
+static int zoom_band_dx, zoom_shade_dx;   /* BG2's scroll for the band and the shadows, set by draw_frame (not saved) */
+static int zoom_hud;                      /* the HUD pinned at the screen's top (draw_frame; not saved) */
+static int ui_off;                        /* the stage x of UI x 0: hu_ui_x(), or the zoomed view's (draw_frame) */
+
+static void raster_tall(int line)
+{
+    int by = band_y(), band = line >= by && line < by + FIELD_Y, stage = line >= 0 && line < RS_SCREEN_H;
+    if (line == rs_screen_top()) rs_window(1, rs_screen_left(), rs_screen_right());
+    rs_bg_window(RS_BG1, stage || (band && zoom_hud) ? 0 : RS_WIN2);
+    rs_bg_scroll(RS_BG2, stage ? 0 : band ? zoom_band_dx : zoom_shade_dx, -by);
+    if (band) {
+        rs_pal_set(RS_PAL_BG(PAL_CLOUD) + SKY_IDX, line_col[line - by]);
+        rs_math(RS_MATH_OFF, 0, 0);
     } else {
-        int d = line - RS_SCREEN_H, n = rs_screen_bottom() - RS_SCREEN_H;
-        int ly = FIELD_Y + (line - FIELD_Y) % (ROWS * CELL);   /* the field's rows again, from row 0 */
-        rs_bg_scroll(RS_BG3, scroll_reg, ly - line);
-        int k = 3 + (n > 0 ? d * 13 / n : 0);
-        rs_math(RS_MATH_SUB | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BACK, RS_RGB(k, k, k));
+        field_math();
     }
 }
 
@@ -83,24 +84,15 @@ static void raster_out(int line)
 static void raster(int line, void *user)
 {
     (void)user;
-    if (line < 0 || line >= RS_SCREEN_H) {
-        raster_out(line);
+    if (tall()) {
+        raster_tall(line);
         return;
-    }
-    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
-        rs_bg_window(RS_BG1, 0);
-        rs_bg_window(RS_BG2, 0);
-        rs_bg_window(RS_BG3, 0);
-        rs_bg_scroll(RS_BG3, scroll_reg, -tall_sy);
-        rs_pal_set(0, tall_back);
     }
     if (line < FIELD_Y) {
         rs_pal_set(RS_PAL_BG(PAL_CLOUD) + SKY_IDX, line_col[line]);
         if (line == 0) rs_math(RS_MATH_OFF, 0, 0);
     } else if (line == FIELD_Y) {
-        if (math_mode == 1) rs_math(RS_MATH_ADD | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BG2, RS_RGB(flash_k, flash_k, flash_k));
-        else if (math_mode == 2) rs_math(RS_MATH_ADD | RS_MATH_HALF | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BG2, RS_HEX(0xf4f0dc));
-        else rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_BG2, 0);
+        field_math();
     }
 }
 
@@ -134,8 +126,8 @@ int draw_col_shown(int32_t col) { return drawn_col[col & (slots() - 1)] == col; 
 static void maps_setup(void)
 {
     rs_bg_setup(RS_BG1, ui_w(), 32, VR_BG1);
-    rs_bg_setup(RS_BG2, map_w(), 32, VR_FAR);
-    rs_bg_setup(RS_BG3, map_w(), 32, VR_FIELD);
+    rs_bg_setup(RS_BG2, map_w(), map_h(), VR_FAR);       /* (a tall screen: 64 rows, DESIGN.md "Tall screen") */
+    rs_bg_setup(RS_BG3, map_w(), map_h(), VR_FIELD);
     rs_tiles_load(VR_FIELD, dp_field_tiles, dp_field_tile_count);
     rs_tiles_load(VR_FAR, dp_far_tiles, wide() ? dp_far_wide_tile_count : dp_far_tile_count);
     /* the sky band (BG2 rows 0-1, high priority: over the world's sprites) and the cloud shadows (rows 2-29) */
@@ -144,7 +136,7 @@ static void maps_setup(void)
             uint16_t e = x < 64 ? dp_sky_map[y * 64 + x] : dp_sky_wide_map[y * 64 + x - 64];
             rs_bg_put(RS_BG2, x, y, (uint16_t)(e | RS_MAP_PRIO));
         }
-    for (int y = BAND_ROWS; y < 32; y++)
+    for (int y = BAND_ROWS; y < map_h(); y++)
         for (int x = 0; x < map_w(); x++) rs_bg_put(RS_BG2, x, y, dp_shadow_map[((y - BAND_ROWS) & 15) * 32 + (x & 31)]);
     for (int i = 0; i < 64; i++) drawn_col[i] = NO_COL;
 }
@@ -198,7 +190,7 @@ static int river_shift(const lane *l, uint32_t t)
 
 static void put_cell(int slot, int row, const uint16_t m[4])
 {
-    int tx = slot * 2, ty = BAND_ROWS + row * 2;
+    int tx = slot * 2, ty = (BAND_ROWS + row * 2) & (rs_bg_map_h(RS_BG3) - 1);   /* (a tall screen: rows past the field) */
     rs_bg_put(RS_BG3, tx, ty, m[0]);
     rs_bg_put(RS_BG3, tx + 1, ty, m[1]);
     rs_bg_put(RS_BG3, tx, ty + 1, m[2]);
@@ -216,6 +208,45 @@ static int blocked_meta(int32_t col, int row)
     uint32_t h = hash2(col * 7 + 3, row);
     int k = (int)(h % 10);
     return k < 6 ? META_TREE0 + k % 3 : k < 9 ? META_BUSH0 + (k & 1) : META_ROCK;
+}
+
+/* a tall screen (DESIGN.md "Tall screen"): the lane carried on past the field's edges, rows -9..-1 above it and
+ * 14..22 below (BG3's 64-row map: map row 2 + 2 * row, wrapping); the same ground, its decor spread from the
+ * column's hash: trees and bushes on the meadow, pads on the ponds; beyond a nest pond's reeds, the meadow */
+static void draw_column_out(const world *w, const lane *l, int kind, int32_t col, int slot, int lk, int rk)
+{
+    for (int r = -9; r <= 22; r++) {
+        if (r == 0) r = ROWS;
+        uint32_t h = hash2(col * 13 + 5, r + 64);
+        int m;
+        switch (kind) {
+        case LK_HEDGE: m = META_HEDGE0 + (int)(hash2(col, r) & 1); break;
+        case LK_ROAD: {
+            int bike = l->deco == 1, left = lk == LK_ROAD, right = rk == LK_ROAD, dash = !(r & 1);
+            static const int road[2][2][2] = {
+                {{META_ROAD_KERB_KERB_0, META_ROAD_KERB_KERB_0}, {META_ROAD_KERB_PLAIN_0, META_ROAD_KERB_PLAIN_0}},
+                {{META_ROAD_DASH_KERB_0, META_ROAD_DASH_KERB_1}, {META_ROAD_DASH_PLAIN_0, META_ROAD_DASH_PLAIN_1}}};
+            static const int bk[2][2][2] = {
+                {{META_BIKE_KERB_KERB_0, META_BIKE_KERB_KERB_0}, {META_BIKE_KERB_PLAIN_0, META_BIKE_KERB_PLAIN_0}},
+                {{META_BIKE_DASH_KERB_0, META_BIKE_DASH_KERB_1}, {META_BIKE_DASH_PLAIN_0, META_BIKE_DASH_PLAIN_1}}};
+            m = bike ? bk[left][right][dash] : road[left][right][dash];
+            break;
+        }
+        case LK_RAIL: m = META_RAIL0 + (int)(hash2(col, r) % 5 == 0); break;
+        case LK_PARK: {
+            static const int pm[2][2] = {{META_PATH_00_0, META_PATH_01_0}, {META_PATH_10_0, META_PATH_11_0}};
+            m = pm[lk != LK_PARK][rk != LK_PARK] + (int)(hash2(col, r) & 1);
+            break;
+        }
+        case LK_POND: m = h % 4 == 0 ? META_PONDPAD0 + (int)(h / 4 % 3) : META_POND0 + (int)(hash2(col, r) % 3); break;
+        case LK_RIVER:          /* reeds just past the field's edge: a raft carried there sweeps the duck off */
+            if (r == -1 || r == ROWS) { m = (r < 0 ? META_NEST_REEDS_BOTTOM0 : META_NEST_REEDS_TOP0) + (int)(col & 1); break; }
+            put_cell(slot, r, dp_river[river_shift(l, w->t)][lk != LK_RIVER][rk != LK_RIVER]);
+            continue;
+        default: m = h % 100 < 15 ? blocked_meta(col, r) : grass_meta(col, r, l ? l->deco : 0); break;   /* the meadow */
+        }
+        put_cell(slot, r, dp_meta[m]);
+    }
 }
 
 static void draw_column(const world *w, int32_t col, int slot)
@@ -267,6 +298,7 @@ static void draw_column(const world *w, int32_t col, int slot)
         }
         put_cell(slot, r, dp_meta[m]);
     }
+    if (tall()) draw_column_out(w, l, kind, col, slot, lk, rk);
     drawn_col[slot] = col;
     drawn_shift[slot] = (int8_t)(l && kind == LK_RIVER ? river_shift(l, w->t) : -1);
 }
@@ -386,8 +418,11 @@ int draw_dropped(void) { return spr_dropped; }
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const dp_sprite_def *d = &dp_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
-    int ux = x - spr_ui_dx, tier = ux >= RS_SCREEN_W || ux <= -(int)d->w;   /* off a 4:3 screen: only a wider one shows it */
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
+    /* off a 4:3 screen (a wider one's columns, a tall one's lines past the stage): only that screen shows it */
+    int ux = x - spr_ui_dx, tier = ux >= RS_SCREEN_W || ux <= -(int)d->w || y >= RS_SCREEN_H || y <= -(int)d->h;
     if (tier ? nq >= Q_MAX : nq0 >= Q_CLASSIC) return;
     nq0 += !tier;
     qspr *s = &q[nq++];
@@ -400,23 +435,26 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
 /* a sprite at the kit's UI coordinates (the title's slots, the HUD, the panels): centred with the UI on a wide screen */
 static void spr_ui(int id, int x, int y, int prio, int pal, int flags)
 {
-    spr_ui_dx = hu_ui_x();
+    spr_ui_dx = ui_off;
     spr(id, x + spr_ui_dx, y, prio, pal, flags);
     spr_ui_dx = 0;
 }
 
 static void spr_flush(void)
 {
-    static uint8_t line_n[RS_SCREEN_H];
+    /* (the lines counted: the screen's, rs_screen_top() .. bottom() - 1; the stage's 240 on a 240-line screen) */
+    static uint8_t line_n[RS_SCREEN_H_MAX];
     static uint8_t keep[Q_MAX];
     static uint16_t order[Q_MAX];
     int count[2 * RK_COUNT + 1] = {0}, total = 0, line_max[2] = {32, 32 * rs_screen_width() / RS_SCREEN_W};
+    int top = rs_screen_top(), bot = rs_screen_bottom();
+    uint8_t *ln = line_n - top;            /* ln[y]: stage line y */
     memset(line_n, 0, sizeof line_n);
     for (int i = 0; i < RS_OAM_MAX; i++) {          /* the kit's sprites, already in OAM */
         const rs_sprite *s = rs_oam(i);
         if (!s || !s->used || (s->flags & RS_SPR_HIDE)) continue;
         total++;
-        for (int y = s->y < 0 ? 0 : s->y; y < s->y + s->h && y < RS_SCREEN_H; y++) line_n[y]++;
+        for (int y = s->y < top ? top : s->y; y < s->y + s->h && y < bot; y++) ln[y]++;
     }
 #define KEY(s) ((s)->tier * RK_COUNT + (s)->rank)
     for (int i = 0; i < nq; i++) count[KEY(&q[i]) + 1]++;           /* a counting sort by tier and rank (stable) */
@@ -426,12 +464,12 @@ static void spr_flush(void)
     spr_dropped = 0;
     for (int k = 0; k < nq; k++) {
         const qspr *s = &q[order[k]];
-        int y0 = s->y < 0 ? 0 : s->y, y1 = s->y + s->h > RS_SCREEN_H ? RS_SCREEN_H : s->y + s->h, ok = total < 128;
-        for (int y = y0; y < y1 && ok; y++) ok = line_n[y] < line_max[s->tier];
+        int y0 = s->y < top ? top : s->y, y1 = s->y + s->h > bot ? bot : s->y + s->h, ok = total < 128;
+        for (int y = y0; y < y1 && ok; y++) ok = ln[y] < line_max[s->tier];
         keep[order[k]] = (uint8_t)ok;
         if (!ok) { spr_dropped++; continue; }
         total++;
-        for (int y = y0; y < y1; y++) line_n[y]++;
+        for (int y = y0; y < y1; y++) ln[y]++;
     }
     for (int i = 0; i < nq; i++)
         if (keep[i]) rs_spr(q[i].x, q[i].y, q[i].tile, q[i].w, q[i].h, q[i].pal, q[i].prio, q[i].flags);
@@ -587,16 +625,31 @@ static int mover_sprite(int kind, int down, int t, int i, int *dy)
     }
 }
 
+/* the train's span in field px (1: shown). A tall screen (DESIGN.md "Tall screen"): also on the lines past the field,
+ * the locomotive coming from the screen's edge just before it enters the field (the light already flashes) and the
+ * last carriage leaving to the other edge; a 240-line screen: train_at's, inside the field */
+static int train_span(const lane *l, uint32_t t, int *y0, int *y1)
+{
+    if (!tall()) return train_at(l, t, y0, y1) == 2;
+    if (l->kind != LK_RAIL || !l->period) return 0;
+    int out = rs_screen_bottom() - rs_screen_top();         /* more than the lines past the field, either side */
+    int cyc = (int)((t + l->phase) % l->period), front = (cyc - TRAIN_WARN) * TRAIN_V / 256, tl = train_len(l);
+    if (front <= -out || front - tl >= FIELD_H + out) return 0;
+    if (l->down) *y0 = front - tl, *y1 = front;
+    else *y0 = FIELD_H - front, *y1 = FIELD_H - front + tl;
+    return 1;
+}
+
 static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int platforms)
 {
-    int c0 = cam >> 4;
+    int c0 = cam >> 4, tl = tall();
     for (int32_t c = c0 - left_cols(); c <= c0 + screen_cols(); c++) {  /* widescreen: from the real left edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam + sx;
         if (l->kind == LK_RAIL && !platforms) {
-            int y0, y1, ph = train_at(l, w->t, &y0, &y1);
-            if (ph == 2) {
+            int y0, y1;
+            if (train_span(l, w->t, &y0, &y1)) {
                 int nc = l->cars;
                 for (int k = 0; k < nc; k++) {
                     int y = l->down ? y1 - (k + 1) * TRAIN_CAR_PX : y0 + k * TRAIN_CAR_PX;
@@ -612,6 +665,10 @@ static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int pla
             int y = field_y_of_loop(mover_pos(l, i, w->t)), dy;
             int id = mover_sprite(l->m[i].kind, l->down, t, i, &dy);
             spr(id, x, FIELD_Y + y + dy + sy, 2, -1, 0);
+            if (tl) {                   /* a tall screen: the loop again past it (spr culls what the screen lacks) */
+                spr(id, x, FIELD_Y + y - LOOP_PX + dy + sy, 2, -1, 0);
+                spr(id, x, FIELD_Y + y + LOOP_PX + dy + sy, 2, -1, 0);
+            }
         }
     }
 }
@@ -619,16 +676,16 @@ static void draw_traffic(const world *w, int cam, int sx, int sy, int t, int pla
 /* the band: crossing lights over the railways, the nest ponds' signs */
 static void draw_band(const world *w, int cam, int t)
 {
-    int c0 = cam >> 4;
+    int c0 = cam >> 4, by = band_y();           /* (a tall screen: the band at the screen's top) */
     for (int32_t c = c0 - left_cols(); c <= c0 + screen_cols(); c++) {  /* widescreen: from the real left edge */
         const lane *l = world_lane(w, c);
         if (!l) continue;
         int x = c * CELL - cam;
         if (l->kind == LK_RAIL) {
             int y0, y1, ph = train_at(l, w->t, &y0, &y1);
-            spr(SPR_SIGNAL + (ph ? 1 + ((t / 8) & 1) : 0), x, 0, 3, -1, 0);
+            spr(SPR_SIGNAL + (ph ? 1 + ((t / 8) & 1) : 0), x, by, 3, -1, 0);
         } else if (l->kind == LK_NEST) {
-            spr(SPR_NEST_SIGN + ((t / 20) & 1), x, 0 + ((t / 30) & 1), 3, -1, 0);
+            spr(SPR_NEST_SIGN + ((t / 20) & 1), x, by + ((t / 30) & 1), 3, -1, 0);
         }
     }
 }
@@ -667,7 +724,28 @@ static const int16_t hud_icon_x[MAX_PLAYERS] = {2, 42, 236, 276};
 static int hud_count_col(int p) { return (hud_icon_x[p] + 27) / 8; }      /* 3, 8, 32, 37 */
 static int in_run(const duck *d) { return d->state == DK_READY || d->state == DK_ALIVE; }
 
-static void hud(const world *w, int state, int best)
+/* The solo HUD in the vw columns shown, centred on UI x 160 (a 4:3 screen: 320, the classic layout; a zoomed one: the
+ * visible columns, HUD_INSET px from their edges, clear of the app's back and pause buttons): the duckling icon at UI
+ * x *icon, the line's count at column *ccol, BEST n ending at column *bend, the score's digits centred on *cx (moved
+ * left if a long BEST n would touch them). */
+#define HUD_INSET 18
+static int hud_vw = -1;           /* the visible width the solo HUD's text is laid out for (not saved: drawn again) */
+static void solo_layout(int vw, int best, int score, int *icon, int *ccol, int *bend, int *cx)
+{
+    char s[64];
+    rs_strf(s, sizeof s, HTR(BEST_N), best);
+    int zoomed = vw < RS_SCREEN_W;
+    *icon = zoomed ? RS_SCREEN_W / 2 - vw / 2 + HUD_INSET : 4;
+    *ccol = (*icon + 27) / 8;
+    *bend = zoomed ? (RS_SCREEN_W / 2 + vw / 2 - HUD_INSET) / 8 : 39;
+    *cx = RS_SCREEN_W / 2;
+    int nd = 1;
+    for (int v = score; v >= 10; v /= 10) nd++;
+    int bl = (*bend - hu_width(s, 0)) * 8;
+    if (zoomed && *cx + nd * 6 + 4 > bl) *cx = bl - nd * 6 - 4;
+}
+
+static void hud(const world *w, int state, int best, int vw)
 {
     char s[64];
     int line = world_line_total(w);
@@ -676,15 +754,17 @@ static void hud(const world *w, int state, int best)
         sig = 0;
         for (int p = 0; p < w->players; p++) sig = sig * 64 + (in_run(&w->d[p]) ? 1 + w->d[p].nline : 0);
     }
-    if (line != hud_line || best != hud_best || sig != hud_score2) {
+    if (line != hud_line || best != hud_best || sig != hud_score2 || (tall() && vw != hud_vw)) {
         hu_clear_rows(0, 1);
         hu_clear_rows(1, 1);
         if (state != DS_TITLE) {
             if (w->players == 1) {
+                int icon, ccol, bend, cx;
+                solo_layout(vw, best, score, &icon, &ccol, &bend, &cx);
                 snprintf(s, sizeof s, "%d", line);
-                hu_text(3, 1, s);
+                hu_text(ccol, 1, s);
                 rs_strf(s, sizeof s, HTR(BEST_N), best);
-                hu_text(39 - hu_width(s, 0), 1, s);
+                hu_text(bend - hu_width(s, 0), 1, s);
             } else {
                 for (int p = 0; p < w->players; p++) {
                     if (!in_run(&w->d[p])) continue;
@@ -696,19 +776,24 @@ static void hud(const world *w, int state, int best)
         hud_line = line;
         hud_best = best;
         hud_score2 = sig;
+        hud_vw = vw;
     }
     hud_score = score;
 }
 
-static void hud_sprites(const world *w, int t)
+/* the HUD's sprites, in the band (a tall screen: at the screen's top, band_y()) */
+static void hud_sprites(const world *w, int t, int best, int vw)
 {
+    int y = band_y();
     if (w->players == 1) {
-        hu_number(world_score(w, 0), RS_SCREEN_W / 2, 0, 3);
-        spr_ui(SPR_LING_RIGHT + ((t / 16) & 1), 4, 0, 3, -1, 0);
+        int icon, ccol, bend, cx;
+        solo_layout(vw, best, world_score(w, 0), &icon, &ccol, &bend, &cx);
+        hu_number(world_score(w, 0), cx + ui_off - hu_ui_x(), y, 3);
+        spr_ui(SPR_LING_RIGHT + ((t / 16) & 1), icon, y, 3, -1, 0);
     } else {
-        hu_number(world_total(w), RS_SCREEN_W / 2, 0, 3);
+        hu_number(world_total(w), RS_SCREEN_W / 2, y, 3);
         for (int p = 0; p < w->players; p++)
-            if (in_run(&w->d[p])) spr_ui(SPR_DUCK_HEAD + (w->bank_t[p] >= 0 && w->bank_t[p] < 30), hud_icon_x[p], 0, 3, pal_of(p), 0);
+            if (in_run(&w->d[p])) spr_ui(SPR_DUCK_HEAD + (w->bank_t[p] >= 0 && w->bank_t[p] < 30), hud_icon_x[p], y, 3, pal_of(p), 0);
     }
 }
 
@@ -838,6 +923,37 @@ static void photo(const world *w, int cam, int t)
     (void)w;
 }
 
+/* A tall screen (DESIGN.md "Tall screen"): Mother alone fills the display's height, the sides cropped, the view panned
+ * with her: she stands at about 2/5 of the columns shown, following half her moves around her usual column (smooth),
+ * always with VIEW_BEHIND px behind her centre and VIEW_AHEAD ahead of it in view, so the fox's edge is shown whenever
+ * she is near it (it warns within 56 px). The title, the panels and co-op show every column (rs_screen_fill(0): the
+ * parents spread over the stage's width). Returns the columns shown (RS_SCREEN_W: every one). */
+#define VIEW_BEHIND 72
+#define VIEW_AHEAD  56
+static int zoom_view(const world *w, int cam, int zoom)
+{
+    if (!tall()) return RS_SCREEN_W;
+    rs_screen_fill(zoom);
+    rs_screen_focus_x(-1);
+    int v = rs_screen_visible_x1() - rs_screen_visible_x0();
+    if (!zoom || v >= RS_SCREEN_W) return v;
+    const duck *d = &w->d[0];
+    int mx;
+    if (d->state == DK_HIT || d->state == DK_SWEPT || d->state == DK_CAUGHT) {
+        mx = d->death_col - cam;
+    } else {
+        int x, y, lift, sq;
+        duck_visual(w, d, &x, &y, &lift, &sq);
+        mx = x - cam;
+    }
+    int mc = mx + CELL / 2, rest = CAM_ANCHOR_COL * CELL + CELL / 2;
+    int l = rest - v * 2 / 5 + (mc - rest) / 2;
+    l = clampi(l, mc + VIEW_AHEAD - v, mc - VIEW_BEHIND);
+    l = clampi(l, 0, RS_SCREEN_W - v);
+    rs_screen_focus_x(l + v / 2);
+    return v;
+}
+
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused)
 {
     int t = (int)rs_frame_count();
@@ -850,26 +966,33 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int pm = map_w() * 8 - 1;                     /* the maps' period - 1: 511, or 1023 on a wide screen */
     scroll_reg = (cam - sx) & pm;
     rs_bg_scroll(RS_BG3, scroll_reg, -sy);
-    tall_sy = sy;                                 /* (a tall screen: line 0 writes it again) */
-    /* BG2: the band's clouds drift slowly (1/4 of the camera), the shadows with the camera and the wind */
-    int band_dx = (cam / 4 + t / 16) & pm, shade_dx = (cam - sx + t / 4) & pm;
-    for (int y = 0; y < RS_SCREEN_H; y++) bg2_dx[y] = (int16_t)(y < FIELD_Y ? band_dx : shade_dx);
-    rs_bg_scroll(RS_BG2, 0, 0);
+    /* BG2: the band's clouds drift slowly (1/4 of the camera), the shadows with the camera and the wind (a tall
+     * screen: the band at the screen's top, band_y(); the raster scrolls the lines past the stage) */
+    int band_dx = (cam / 4 + t / 16) & pm, shade_dx = (cam - sx + t / 4) & pm, by = band_y();
+    for (int y = 0; y < RS_SCREEN_H; y++) bg2_dx[y] = (int16_t)(y >= by && y < by + FIELD_Y ? band_dx : shade_dx);
+    rs_bg_scroll(RS_BG2, 0, -by);
+    zoom_band_dx = band_dx;
+    zoom_shade_dx = shade_dx;
     /* the banking flash: the field brightened, fading */
     if (photo_t >= 0 && photo_t < 10) { math_mode = 1; flash_k = 31 - photo_t * 3; }
     else math_mode = state == DS_TITLE ? 2 : 0;
 
+    int play = state == DS_PLAY || state == DS_DEAD || state == DS_READY;
+    int vw = zoom_view(w, cam, play && w->players == 1);
+    ui_off = vw < RS_SCREEN_W ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : hu_ui_x();
+    zoom_hud = by < 0;                            /* the HUD's rows at the screen's top (rs_bg_pin) */
+    if (tall()) rs_bg_pin(RS_BG1, 0, zoom_hud ? FIELD_Y : 0, 0);
     screen_text(w, state, st_t, best, new_best);
-    if (state == DS_PLAY || state == DS_DEAD || state == DS_READY) hud(w, state, best);
+    if (play) hud(w, state, best, vw);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
-    rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);    /* the UI centred on the screen (widescreen) */
+    rs_bg_scroll(RS_BG1, -ui_off, -slide);       /* the UI centred on the screen (widescreen) or the view (zoomed) */
     if (redraw_ui && paused) hu_pause(0, 13);     /* the UI layer was set up again (a state of another width) */
     hu_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: the HUD and the UI, the photo, the band, the fox, the ducks, the lines, the loose ducklings
      * and the effects, the traffic and the trains, the platforms */
-    if (state == DS_PLAY || state == DS_DEAD || state == DS_READY) hud_sprites(w, t);
+    if (play) hud_sprites(w, t, best, vw);
     if (state == DS_OVER) {
         static const int th[4] = {MEDAL_BRONZE, MEDAL_SILVER, MEDAL_GOLD, MEDAL_PEARL};
         int oy = slide;
@@ -938,7 +1061,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
  * is the same at every width. Same width: nothing to do. */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG3) == map_w() && rs_bg_map_w(RS_BG1) == ui_w()) return;
+    if (rs_bg_map_w(RS_BG3) == map_w() && rs_bg_map_h(RS_BG3) == map_h() && rs_bg_map_w(RS_BG1) == ui_w()) return;
     maps_setup();
     shown_state = -1;                             /* screen_text clears the UI layer and draws it again */
     hud_line = -1;

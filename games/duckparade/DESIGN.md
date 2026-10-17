@@ -79,14 +79,40 @@ world stays in view; `WIDE_LEFT_NUM / WIDE_LEFT_DEN` in tuning.h): 35 px behind 
   tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: `title-`, `play-`, `gameover-427.png`
   and `-520.png`, `coop-4-players-520.png`.
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
-the display's height at 320 columns. The 240 lines of the stage are the same pixels, centred (the default origin).
-The raster draws the lines past the stage (draw.c `raster_out`): above, the sky carried on over the band, deeper
-toward the screen's top; below, the meadow and its lanes carried on (the field's 14 rows repeated by BG3's scroll,
-the camera's column), darker with depth. The play stays on the stage: no traffic, raft or duckling is drawn past it.
-BG1 and BG2 are hidden there (window 2; BG3 too above), line 0 puts the stage's windows, BG3 scroll and backdrop
-back. Touches are read in stage y (`- rs_screen_origin_y()`).
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (496 lines, dp.h) first in `game_init`. The RetroStone app scales the
+496 lines to the display's height and crops the sides: 212 columns on a 1080x2520 phone, 228 on a 1080x2340 one, 248
+on a 720x1440 one (5.1x on a 1080x2520 phone, landscape's 4.5x). The 240 lines of the stage are the same pixels,
+centred (the default origin): 128 lines above it, 128 below. The lanes run up and down, so the screen's height
+simply shows more of them.
+- **The lanes carried on, no seam**: BG3's and BG2's maps are 64 rows tall there (at most 512 lines: hence 496).
+  draw.c `draw_column_out` draws each lane past the field's edges with the same tiles at the same brightness (roads
+  with their dashes and kerbs, rails, paths, rapids, ponds with pads; the meadow with trees and bushes from the
+  column's hash, about one cell in seven; beyond a nest pond's reeds, the meadow); the cloud shadows drift over all
+  of it. On a river, a cell of reeds just past each edge of the field marks where a raft carried on sweeps the duck
+  off (the rule is unchanged: rows 0..13).
+- **The traffic carried on**: the movers' loop of 22 cells repeats past the field (each mover drawn again 352 px
+  above and below; `spr` culls at `rs_screen_top()` / `bottom()`), so whatever drives or drifts into the field is
+  what was seen coming, with no car popping in; a train comes from the screen's edge (`train_span`: the same
+  timing, drawn before it enters the field and after it leaves). These sprites go after the stage's in the budget
+  (tier 1, as the wide screen's), and the bot never looks at them (bot.c `look`): it plays the same in portrait.
+- **The band and the HUD at the screen's top**: the sky band (BG2 rows 0-1 at BG2's scroll y `-band_y()`) with its
+  crossing lights and nest signs, and the HUD (BG1's top 16 lines, `rs_bg_pin`; its sprites at `band_y()`). The
+  raster (`raster_tall`) gives each line BG2's scroll (the band's clouds, or the shadows'), the band's gradient and
+  the math (none on the band, the field's elsewhere: the shadows, the banking flash, the title's haze), and hides BG1
+  past the stage but for the pinned HUD.
+- **Mother alone fills the height, the view panned with her** (`zoom_view`): she stands at about 2/5 of the columns
+  shown and the view follows half her moves around her usual column, always keeping 72 px behind her and 56 ahead of
+  her in view, so the fox's edge (stage x 0) is on screen whenever she is near it (it warns within 56 px). The solo
+  HUD is laid out in the columns shown (`solo_layout`: the icon and count, the score, BEST n, 18 px from their
+  edges), and the UI layer and its sprites follow the view (`ui_off`): the family photo and PAUSED stay centred.
+- **Fill or fit**: the title, the game-over panel and co-op (2-4 parents: the camera keeps the leader up to column
+  16 and the fox takes stragglers at column 0, so the whole width matters) show every column (`rs_screen_fill(0)`:
+  the 320 x 496 picture across the width), the HUD still at the top.
+- Touches are read in stage y (`- rs_screen_origin_y()`): a finger on the lanes above the field targets row 0 of
+  that column, below it row 13.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240: title, play, co-op, the fox and
+  the game over).
 
 ## Controls
 | Button | Action |
