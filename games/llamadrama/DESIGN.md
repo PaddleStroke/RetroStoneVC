@@ -123,14 +123,29 @@ x 336; the touch test plays the same taps and the same bot run at 320, 427, 520 
 at one width loads at another.
 
 ## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
-display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
-(`rs_screen_origin_v`: two thirds of the extra lines above it). Above (draw.c `raster_out`): the sky carried on from
-its top colour, deeper toward the screen's top, with the stars of the scenery's top rows (BG2's map y 0..23 repeated,
-each band shifted sideways); below: the meadow's flowers (its last 32 lines repeated, each band shifted). The UI and
-the sprites are hidden there (window 1: a panel sliding in shows only on the stage), and line 0 puts the stage's
-windows and BG2 scroll back, so a 240-line screen is unchanged. A touch's aim point is taken in stage coordinates
-(`t->y - rs_screen_origin_y()`), so a tap in the sky above the stage aims there.
+A phone held upright: the zoomed screen, `rs_screen_zoom(ZOOM_H)` (480 lines) first in `game_init`. The app scales the
+480 lines to the display's height and crops the sides: in play the screen's left columns are shown
+(`rs_screen_focus_x(0)`: 205 at 1080x2520, 221 at 1080x2340, 240 at 720x1440), the herd and the sky ahead of it,
+4.9-5.3x on a phone (v1: 3.4x). Layout only: the rules, the 320-px field, the spit's reach and the spawns are those of
+every width (game.h). The stage sits low (`rs_screen_origin_v`: TALL_BELOW 32 lines of meadow under it, 208 above).
+- **The field's right part.** A hornet the 320 columns would show but the columns shown do not gets a "!" at the
+  right edge at its height (blinking; steady for a dart winding up to dash: draw.c `edge_marks`), the warning a wider
+  screen gives; the spit still flies its whole reach (a pop past the edge counts).
+- **The HUD at the screen's top**: the scores as sprites at `rs_screen_top()` in the columns shown (`tall_scores`: 1
+  player centred; 2-4 with each llama's icon, P1 P2 side by side, P3 P4 under them; no corner tags); the UI layer is
+  scrolled so its centred texts (the hint, the new hornets' names, PAUSED) sit in the middle of the columns shown.
+  The title and the game-over panels show every column (`rs_screen_fill(0)`).
+- **Above the stage** (draw.c `raster_out`): a far range of the Andes rises behind the near one: BG3 holds the same
+  panorama FAR_DY 120 px higher and FAR_DX aside in a hazy palette (PAL_FAR 6: eased toward the horizon, the greens
+  turned to rock), fading into the sky's colour over the stage's first FAR_MIST lines (the raster eases PAL_FAR per
+  line; BG3 hidden past them). The stars' colour is also the snow's lit side, so BG2 uses a copy of the scenery tiles
+  without the lone stars (VR_BG2_TALL) and the night stars come from BG4 (the panorama's starry top rows, over the
+  sky above the stage only). Four more clouds drift there (a 400-px round: seen often), the sun and the moon in the
+  columns shown, from under the HUD; the sprites are culled at the screen's edges, not the stage's.
+- **Below**: the meadow's flowers (its last 32 lines, shifted); the UI and the sprites hidden there.
+Line 0 puts the stage's windows and scrolls back; BG3 and BG4 exist only on a tall screen (maps_setup, set up again
+when a state of another size loads: `drawn_height`), so landscape and 4:3 are the same pixels. A touch's aim point is
+taken in stage coordinates (`t->y - rs_screen_origin_y()`), so a tap in the sky above the stage aims there.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the meadow, the herd waiting on the left and looking around, a hornet buzzing on the right, the player

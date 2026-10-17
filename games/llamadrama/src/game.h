@@ -38,6 +38,11 @@
 #define SLOT_Y        {182, 170, 196, 160}
 #define SLOT_NECK     {64, 92, 30, 118}
 #define DRAW_ORDER    {2, 0, 1, 3}      /* front to back: P3, P1, P2, P4 */
+/* a phone held upright (DESIGN.md "Tall screen"; layout only, the rules unchanged): a screen of ZOOM_H lines
+ * (rs_screen_zoom) filling the display's height, the sides cropped: the left columns shown (the herd and the sky ahead
+ * of it, 205..240 columns on today's phones), the stage low, TALL_BELOW lines of meadow under it */
+#define ZOOM_H        480
+#define TALL_BELOW    32
 /* aiming: UP/DOWN turn the head (and lean the neck) between the grass and the sky */
 #define AIM_MIN       (-100)    /* -35 degrees: low, at the grass ... */
 #define AIM_MAX       156       /* ... 55 degrees: high in the sky ... */
