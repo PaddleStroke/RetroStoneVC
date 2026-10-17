@@ -258,7 +258,7 @@ static void draw_world(const world *w, int sx, int sy)
         for (int k = 0; k < warned; k++) dup |= y > warn_y[k] - 24 && y < warn_y[k] + 24;
         if (dup) continue;
         warn_y[warned++] = y;
-        if ((w->t / 8) % 2 == 0) spr(SPR_WARN + (w->t / 16) % 2, 2 + sx, y - 8 + sy, 2, -1, 0);
+        if ((w->t / 8) % 2 == 0) spr(SPR_WARN + (w->t / 16) % 2, rs_screen_left() + 2 + sx, y - 8 + sy, 2, -1, 0);
     }
     /* the robots' shots: on top of the play, the clearest */
     for (int i = 0; i < MAX_EBULLETS; i++) {
@@ -281,7 +281,11 @@ static void draw_world(const world *w, int sx, int sy)
     for (int i = 0; i < MAX_PLAYERS * SHOTS_PER_PLAYER; i++) {
         const shot *s = &w->shots[i];
         if (!s->on) continue;
-        int x = (s->x >> 16) + sx, y = (s->y >> 16) + sy, pal = player_pal(s->owner);
+        int x = (s->x >> 16) + sx, y = (s->y >> 16) + sy, pal = player_pal(s->owner), left = SHOT_RANGE - (s->x >> 16);
+        if (left < 16) {                              /* the end of its reach (widescreen): a tiny star, then dust */
+            spr(SPR_FADE + (left < 8), x - 4, y - 4, 2, pal, 0);
+            continue;
+        }
         switch (s->kind) {
         case SK_BARK: spr(SPR_BARK + (w->t / 4 + i) % 2, x - 4, y - 4, 2, pal, 0); break;
         case SK_SPREAD: spr(SPR_SPREAD, x - 4, y - 4, 2, pal, 0); break;
@@ -298,7 +302,8 @@ static void draw_world(const world *w, int sx, int sy)
             spr(SPR_POP + e->t / 6, e->x - 8 + sx, e->y - 8 + sy, 2, -1, 0);
             break;
         case FX_FIZZLE:
-            spr(SPR_FIZZLE + e->t / 4, e->x - 4 + sx, e->y - 4 + sy, 2, -1, 0);
+            /* (a shot at its reach has already faded into dust: no fizzle, no dotted line down the screen) */
+            if (e->value != 0 || e->x != SHOT_RANGE) spr(SPR_FIZZLE + e->t / 4, e->x - 4 + sx, e->y - 4 + sy, 2, -1, 0);
             break;
         case FX_SPARK:
             spr(SPR_SPARK + (e->t / 6) % 2, e->x - 4 + sx, e->y - 4 - e->t / 3 + sy, 2, -1, 0);
@@ -531,8 +536,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int b = hu_bob(st_t, 64, READY_BOB), x = 160 + hu_ui_x();
         spr(SPR_ROCKET + (st_t / 4) % 2, x - 16, TITLE_Y - 14 + b, 2, 0, 0);
         spr(SPR_POD + (st_t / 16) % 2, x - 44, TITLE_Y - 8 + hu_bob(st_t + 20, 64, READY_BOB), 2, 0, 0);
-        spr(SPR_BARK + (st_t / 4) % 2, x + 18 + (st_t % 40) * 2, TITLE_Y - 4 + b, 2, 0, 0);
+        spr(SPR_BARK + (st_t / 4) % 2, x + 18 + (st_t % 34) * 2, TITLE_Y - 4 + b, 2, 0, 0);     /* (up to the bug) */
         spr(SPR_BUG + (st_t / 8) % 2, x + 92, TITLE_Y - 8 + hu_bob(st_t + 40, 64, 6), 2, -1, 0);
+        /* the logo's extra: stars twinkling round it, each in its turn */
+        static const int tw[4][2] = {{-130, 58}, {128, 14}, {-44, 6}, {56, 78}};
+        for (int k = 0; k < 4; k++) {
+            int ph = (st_t + k * 29) % 96;
+            if (ph < 40) spr(SPR_SPARK + (ph < 8 || ph >= 32), x + tw[k][0] - 4, tw[k][1] - 4, 2, -1, 0);
+        }
     } else if (state != ST_OVER) {                 /* the panels show over the sky alone */
         draw_world(w, sx, sy);
     }

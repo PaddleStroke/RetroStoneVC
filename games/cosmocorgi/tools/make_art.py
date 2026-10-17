@@ -8,7 +8,7 @@ The sheet layout (SPRITES, BOSSES) is shared with build_assets.py.
 Writes, in the art folder (default games/cosmocorgi/art):
   sprites.png (256x128): the corgi's rocket (red-tan corgi, red rocket; players 2-4 recolour the rocket's paint and
       the fur: blue and sable, green and black, purple and fawn), its icon, the puppy pods, the shield, the shots: the
-      bark, the spread pellet, the star beam, the homing bones (OBJ 0); the robots: the wind-up ladybug, the propeller
+      bark, the spread star, the star beam, the homing bones (OBJ 0); the robots: the wind-up ladybug, the propeller
       drone, the little UFO, the dasher fish, the gift carrier, the turret, an asteroid, a comet, the robo-turtle (OBJ 2,
       and gold for the capsule groups: OBJ 7); the capsules, the pops into sparkles and bolts, the robots' pellets and
       icicles, the warning arrow, the boss bar, small digits (OBJ 6)
@@ -46,6 +46,7 @@ SPRITES = [
     ("spread", 224, 0, 8, 8, 1, "hero"),        # the spread shot's pellet
     ("beam", 160, 16, 16, 8, 2, "hero"),        # the star beam
     ("bone", 192, 16, 8, 8, 4, "hero"),         # a homing bone: 0, 45, 90, 135 degrees
+    ("fade", 224, 16, 8, 8, 2, "hero"),         # a shot at the end of its reach: a tiny star, dust
     ("shield", 0, 24, 48, 32, 1, "hero"),       # the shield bubble
     ("bug", 0, 56, 16, 16, 2, "robots"),        # the wind-up ladybug (sine waves, lines)
     ("drone", 32, 56, 16, 16, 2, "robots"),     # the propeller drone (loops, swoops, from behind)
@@ -248,8 +249,15 @@ def rocket(pose):
 
 
 def icon():
+    """The corgi's head with a collar in its rocket's paint (the four players' icons differ by the collar too)."""
     cv = Canvas(16, 16)
-    corgi_head(cv, 7.0, 10.0, 1.15)
+    corgi_head(cv, 7.0, 8.6, 1.08)
+    poly(cv, [(2.4, 11.6), (11.0, 12.4), (11.0, 14.4), (2.4, 13.6)], ACC[1])          # the collar
+    for x in range(3, 11):
+        if cv.get(x, 12) is not None:
+            cv.set(x, 12, ACC[0])
+    cv.set(4, 14, ACC[2]), cv.set(5, 14, ACC[2])
+    cv.set(8, 13, YEL), cv.set(8, 14, YEL), cv.set(9, 14, YEL)                         # the tag
     cv.outline(OUT)
     return cv
 
@@ -283,10 +291,29 @@ def bark(frame):
 
 
 def spread():
+    """The spread shot: a little four-point star in the paint colour (the robots' shots are round)."""
     cv = Canvas(8, 8)
-    disc(cv, 4.0, 4.0, 2.2, ACC[0])
-    cv.set(3, 3, YEL), cv.set(4, 3, YEL), cv.set(3, 4, YEL), cv.set(4, 4, WHITE)
+    for d in (1, 2):
+        for x, y in ((3 + d, 3), (3 - d, 3), (3, 3 + d), (3, 3 - d)):
+            cv.set(x, y, ACC[0] if d == 2 else ACC[1])
+    for x, y in ((2, 2), (4, 2), (2, 4), (4, 4)):
+        cv.set(x, y, ACC[1] if (x, y) != (2, 2) else ACC[0])
+    cv.set(3, 3, YEL), cv.set(3, 2, WHITE)
     cv.outline(OUT)
+    return cv
+
+
+def fade(frame):
+    """A shot at the end of its reach (the stage's 320 columns and a little more): it shrinks into stardust."""
+    cv = Canvas(8, 8)
+    if frame == 0:                                                     # a tiny star
+        for x, y in ((2, 3), (4, 3), (3, 2), (3, 4)):
+            cv.set(x, y, ACC[0])
+        cv.set(3, 3, YEL)
+        cv.outline(OUT)
+    else:                                                              # dust (checker: fading, no outline)
+        for x, y in ((2, 2), (4, 4), (2, 4), (5, 2), (4, 1)):
+            cv.set(x, y, YEL if (x + y) % 4 == 0 else ACC[0])
     return cv
 
 
@@ -703,10 +730,12 @@ def pellet(frame):
 
 
 def big(frame):
+    """The walrus' snowball: outlined, so that it shows on the pale comet clouds too."""
     cv = Canvas(8, 8)
-    disc(cv, 4.0, 4.0, 3.6, GLASSP[1] if frame else GLASSP[0])
-    disc(cv, 3.6, 3.6, 2.4, WHITE)
-    cv.set(2, 2, WHITE)
+    disc(cv, 4.0, 4.0, 3.0, GLASSP[1] if frame else GLASSP[0])
+    disc(cv, 3.6, 3.6, 2.0, WHITE)
+    cv.set(5, 5, GLASSP[1])
+    cv.outline(OUTP)
     return cv
 
 
@@ -773,7 +802,7 @@ def sprite_frame(name, i):
     fn = {"rocket": rocket, "pod": pod, "bark": bark, "beam": beam, "bone": bone, "bug": bug, "drone": drone,
           "ufo": ufo, "dasher": dasher, "carrier": carrier, "turret": turret, "tank": tank, "capsule": capsule,
           "pop": pop, "spark": spark, "bolt": bolt, "pellet": pellet, "big": big, "fizzle": fizzle, "warn": warn,
-          "hp": hp, "digit": digit}[name]
+          "hp": hp, "digit": digit, "fade": fade}[name]
     return fn(i)
 
 

@@ -169,7 +169,9 @@ The rockets fly on the 320-px stage; robots from the right appear at x 496, beyo
 and glide in along their entry line to x 336 where their pattern starts, so they reach the stage at the same moment at
 every width (a wide screen shows them coming sooner, never earlier or nearer); robots from behind appear at x -96,
 beyond the widest left edge (-80); turrets are placed on the walls at x 496; the corgis' shots reach x 336 and end
-there in a fizzle (a wide screen sees the fizzle; at 320 it is just off the edge); robots fire only from the stage.
+there: over their last 16 px they shrink to a tiny star, then to dust (a wide screen sees them fade; at 320 it is
+just off the edge); robots fire only from the stage. The warning arrow for robots from behind is at the screen's
+left edge.
 The extra width shows more of the stars, clouds, planets and walls. A state saved at one width loads at another.
 Tests: the rules test checks the spawns, the reach and the fire over a whole loop; the touch test plays the same drag
 and the same bot run at 320, 427, 520 and 560 and compares them.
@@ -222,7 +224,9 @@ Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no i
 hull with the player's paint (nose cone, stripe, fins), a porthole, a flickering flame, the corgi in its open cockpit
 (big pointed ears, a white blaze and muzzle, the house eye); its nose tilts up or down as it climbs or dives; X eyes
 and a dent when hit. The puppy pods: a corgi puppy in a glass bubble, ears flopping. The shield: a glass bubble rim.
-The shots: a little ")" bark, a round pellet, a star beam, a spinning dog bone. The robots: a wind-up ladybug (its
+The player icon (title slots, results): the corgi's head with a collar in its rocket's paint. The shots: a
+little ")" bark, a four-point star (the spread: the robots' shots are round), a star beam, a spinning dog bone; the
+walrus' snowball is outlined (it shows on the pale comet clouds). The robots: a wind-up ladybug (its
 key turning), a propeller drone with one big eye, a little UFO with a robot in its dome, a dasher fish (a key while
 it winds up, a flame when it dashes), a drone carrying a gift box, a dome turret aiming (V-flipped on a ceiling), an
 asteroid, an icy comet, a robo-turtle; gold groups are the same robots in gold. The bosses (64x48, two frames): the
@@ -230,7 +234,7 @@ clockwork ladybird (its key on its back, wings peeking out), the rock crab (two 
 eyes, wings out, a blink), the snow walrus (goggles, tusks, its mouth opening). The capsules: a glass orb with the
 power's colour and icon (a fan of shots, a beam, a bone, chevrons, a bubble, a puppy). The pops: a sparkle burst, then
 sparkles and nuts and bolts. The walls: rock with a lit lip, metal plates with hazard stripes and vent lights, ice
-with a snow cap and icicles. The title logo: COSMO in starry violet, CORGI in corgi orange.
+with a snow cap and icicles. The title logo: COSMO in starry violet, CORGI in corgi orange, stars twinkling round it in turn.
 
 ## Sound and music
 The house synthesiser (games/common/src/house_audio.c) for the effects (main.c sound_init): a soft "pew" for the
