@@ -275,6 +275,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 const run_info *ri);
 void draw_state(void);
 void draw_state_loaded(void);       /* widescreen: after a state saved at another width */
+/* a phone held upright (DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom), the sides cropped
+ * while one player races; view_cols gives the stage columns shown (left, width): the touch controls stay inside them */
+#define ZOOM_H 420
+void view_cols(int *left, int *width);
 void draw_new_race(const world *w); /* a new track: its tiles, palettes, map */
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */

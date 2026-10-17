@@ -45,6 +45,39 @@ static int map_w(void) { return rs_screen_width() > 504 ? 128 : 64; }
 static int map_h(void) { return rs_screen_height() > 256 ? 128 : 32; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
+/* a zoomed tall screen (DESIGN.md "Tall screen"): one player racing fills the display's height, the sides cropped, the
+ * display panned to keep the ladybug well inside the columns shown (pan: their shift from the middle; the UI layer and
+ * the HUD sprites follow it). In a race (any player count) the HUD (BG1's top HUD_LINES: the lap, the standings) is
+ * pinned at the screen's top (hud_on), at screen line hud_y: HUD_PIN_Y while one player races (under the frontend's
+ * back and pause buttons), HUD_PIN_FIT for 2-4 players (every column shown: the buttons over the bands above). Set by
+ * draw_frame before every picture. */
+#define HUD_PIN_Y 22
+#define HUD_PIN_FIT 4
+#define HUD_LINES 64
+#define PAN_MARGIN 52               /* px the ladybug keeps from the edges of the columns shown */
+static int hud_on, hud_y, pan;
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+
+void view_cols(int *left, int *width)
+{
+    *left = rs_screen_visible_x0() - rs_screen_origin_x();
+    *width = rs_screen_visible_x1() - rs_screen_visible_x0();
+}
+
+/* the HUD's columns (UI x): the columns shown with the display in the middle (the UI layer scrolls with the pan) */
+static int hud_x0(void)
+{
+    int l, w;
+    view_cols(&l, &w);
+    return l - pan;
+}
+static int hud_x1(void)
+{
+    int l, w;
+    view_cols(&l, &w);
+    return l - pan + w;
+}
+
 /* the zone's lines: a dashed column at the right edge of a tile (left side) and at the left edge (right side): cream
    dashes 4 px long, outlined in navy on the outer side and at their ends (readable on the pale tracks too) */
 static void zone_tiles(void)
@@ -324,7 +357,9 @@ static void draw_marks(const world *w, const view *v, int t)
 static void draw_touch(const touch_view *tv)
 {
     tbutton b;
-    touch_brake_button(rs_screen_left(), rs_screen_width(), &b);
+    int vl, vw;
+    view_cols(&vl, &vw);                                /* (a zoomed screen: the columns shown) */
+    touch_brake_button(vl, vw, &b);
     b.y += rs_screen_bottom() - RS_SCREEN_H;            /* a tall screen: at its bottom (main.c touch_read) */
     if (tv->stick_on) {
         int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0 - rs_screen_origin_y();
@@ -397,8 +432,12 @@ static void racer_name(const world *w, int i, char *s, size_t n)
 }
 
 /* the standings' columns (the place, the icon, the points): on 320 a column in from the right edge (as LAP is on the
-   left); on a wide screen in the margin, the place clear of the zone's line (column 40) */
-static int stand_right(void) { return fdiv8(hu_ui_right()) - (rs_screen_width() > RS_SCREEN_W ? 1 : 2); }
+   left); on a wide screen in the margin, the place clear of the zone's line (column 40); a zoomed screen: in the
+   columns shown */
+static int stand_right(void)
+{
+    return fdiv8(tall() ? hud_x1() : hu_ui_right()) - (rs_screen_width() > RS_SCREEN_W ? 1 : 2);
+}
 static int stand_place(int right) { return rs_screen_width() > RS_SCREEN_W && right - 5 < 41 ? 41 : right - 5; }
 
 /* the zone's sides on a wide screen: dashed lines just outside the 320-px stage (2-4 players: 1 player has no zone) */
@@ -429,7 +468,7 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
     if (lap < 1) lap = 1;
     if (lap > LAPS) lap = LAPS;
     rs_strf(s, sizeof s, TR(LAP), lap, LAPS);
-    add_text(t, &n, 1, 1, 0, s);
+    add_text(t, &n, tall() ? fdiv8(hud_x0() + 7) + 1 : 1, 1, 0, s);    /* (a zoomed screen: in the columns shown) */
     int right = stand_right();                      /* the standings: the place, the icon (a sprite), the points */
     for (int k = 0; k < RACERS; k++) {              /* (the run's so far, with this race's once it is over) */
         int i = w->order[k];
@@ -459,7 +498,8 @@ static void race_texts(const world *w, int st_t, int paused, const touch_view *t
         rs_strf(s, sizeof s, msg_drop_car >= RACERS ? TR(FELL_P) : TR(BEHIND_P), nm);
         add_centred(t, &n, 13, 0, s);
     }
-    if (ri->race == 0 && w->humans == 1 && !tv->seen && w->t < HINT_FRAMES + COUNTDOWN)
+    if (ri->race == 0 && w->humans == 1 && !tv->seen && w->t < HINT_FRAMES + COUNTDOWN &&
+        (!tall() || hu_width(TR(HINT), 0) * 8 <= hud_x1() - hud_x0() - 8))    /* (where it fits: a zoomed screen) */
         add_centred(t, &n, 27, 0, TR(HINT));
     (void)st_t;
     uint32_t h = 2166136261u + (uint32_t)paused;
@@ -479,7 +519,8 @@ static void race_icons(const world *w)
     int right = stand_right();
     for (int k = 0; k < RACERS; k++) {
         const car *c = &w->c[w->order[k]];
-        spr(SPR_ICON, (right - 3) * 8 + hu_ui_x(), (1 + k * 2) * 8, racer_pal(c->colour), 3, 0);
+        spr(SPR_ICON, (right - 3) * 8 + hu_ui_x() + pan, (1 + k * 2) * 8 + (hud_on ? rs_screen_top() + hud_y : 0),
+            racer_pal(c->colour), 3, 0);
     }
 }
 
@@ -547,6 +588,30 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     v.sh_y = hu_shake_y();
     stream_world(w, v.x0 - v.sh_x, v.y0 - v.sh_y);
 
+    /* a zoomed tall screen (see hud_on): one player racing fills the display's height, panned after the ladybug; the
+     * title, the panels and 2-4 players (the race zone: the whole stage) show every column */
+    int solo = (state == ST_PLAY || state == ST_DEAD) && w->humans <= 1;
+    rs_screen_fill(solo);
+    hud_on = tall() && (state == ST_PLAY || state == ST_DEAD);
+    hud_y = solo ? HUD_PIN_Y : HUD_PIN_FIT;
+    pan = 0;
+    int focus = -1;
+    if (hud_on && solo) {
+        int l, cw;
+        view_cols(&l, &cw);
+        int half = cw / 2, bx = w->c[0].x / FX - v.x0;
+        focus = RS_SCREEN_W / 2;
+        if (bx < focus - half + PAN_MARGIN) focus = bx + half - PAN_MARGIN;
+        if (bx > focus + half - PAN_MARGIN) focus = bx - half + PAN_MARGIN;
+        focus += rs_screen_origin_x();
+    }
+    rs_screen_focus_x(focus);
+    if (hud_on && solo) {
+        int l, cw;
+        view_cols(&l, &cw);
+        pan = l + rs_screen_origin_x() - (rs_screen_width() - cw) / 2;
+    }
+
     /* the UI layer */
     hu_standing rs;
     int score[MAX_PLAYERS] = {0};               /* (the title has no players: hu_rank reads score[0] all the same) */
@@ -594,7 +659,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
         if (state == ST_OVER) slide = hu_slide_in(st_t, 20, 200);
     }
-    rs_bg_scroll(RS_BG1, 0, -slide);
+    rs_bg_scroll(RS_BG1, -pan, -slide);
+    rs_bg_pin(RS_BG1, 0, hud_on ? HUD_LINES : 0, hud_y);
     hu_pause(paused, 13);
 
     /* the sprites, front to back */

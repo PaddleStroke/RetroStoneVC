@@ -196,13 +196,21 @@ no zone and no lines). The HUD stays in the 320 columns (the standings
 at the screen's right edge); the touch BRAKE button follows the screen's bottom-right corner. A state saved at one
 width loads at another. The touch test drives the same stick at 320, 427, 520 and 560 and compares the races.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`: 320 columns by the display's height (692 on a 9:19.5 phone), the 240-line stage centred: **more of the
-track above and below the camera**. The world's streamed map (BG3) and the UI layer are 128 rows on a tall screen
-(the UI's rows past the stage stay blank: no raster needed); the rows streamed cover the whole height. The race zone
-is still the 320 x 240 stage: with 2-4 players two dashed lines (the same cream and navy) mark its top and bottom. The
-HUD stays at the stage's top; BRAKE sits at the screen's bottom-right; touches are taken to stage coordinates. A
-240-line screen is unchanged (the same pixels in landscape).
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)` (420
+lines, game.h) first in `game_init`: the app scales the 420 lines to the display's height and crops the sides (180
+columns on a 1080x2520 phone, 194 on a 1080x2340 one), the 240-line stage centred: **the ladybugs bigger and more of
+the track above and below the camera**. The world's streamed map (BG3) and the UI layer are 128 rows on a tall screen
+(the UI's rows past the stage stay blank: no raster needed); the rows streamed cover the whole height.
+- **One player racing** fills the display's height, the sides cropped; the display pans (`rs_screen_focus_x`) only to
+  keep the ladybug 52 px inside the columns shown (the rules' camera, clamped at the world's edges, may put it off
+  the middle); the UI layer and the HUD sprites follow the pan. The touch BRAKE button and the stick's zone are in the
+  columns shown (`view_cols`), BRAKE at the screen's bottom-right. The controls hint shows only where it fits.
+- **The HUD at the screen's top** in every race: the lap and the standings (BG1's top 64 lines pinned with
+  `rs_bg_pin`, the standings' icons at `rs_screen_top()` + the same line), in the columns shown: at screen line 22
+  for one player (under the frontend's back and pause buttons), 4 for 2-4 players.
+- **Fill or fit**: the title, the panels and 2-4 players show every column (`rs_screen_fill(0)`): the race zone is
+  still the 320 x 240 stage, two dashed lines (the same cream and navy) mark its top and bottom.
+- Touches are taken to stage coordinates. A 240-line screen is unchanged (the same pixels in landscape and 4:3).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo over the four bots racing, the player slots, PRESS A TO RACE with the A glyph, BEST, the join line,
