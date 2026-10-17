@@ -227,14 +227,18 @@ static int xy_sq(float x, float y)
     return c < 0 || c > 8 || r < 0 || r > 8 ? -1 : SG_SQ(c, r);
 }
 
-static void piece_at(int pc, float x, float y, float size, int alpha)
+/* a piece; lift 0..1: how high it is held (its shadow falls further off and fainter: picked up, sliding) */
+static void piece_lift(int pc, float x, float y, float size, int alpha, float lift)
 {
     SDL_Texture *t = t_pc[SG_OWNER(pc)][sma_tex_of(pc)];
-    ui_shadow_flat(x + size / 2, y + size / 2, 0.86f * size * sma_width(SG_KIND(pc)), 0.9f * size, 0.75f * alpha / 255);
+    float off = (0.03f + 0.09f * lift) * size;
+    ui_shadow_flat(x + size / 2 + off, y + size / 2 + 1.6f * off, 0.86f * size * sma_width(SG_KIND(pc)), 0.9f * size,
+                   (0.75f - 0.3f * lift) * alpha / 255);
     SDL_SetTextureAlphaMod(t, (Uint8)alpha);
     ui_put(t, x, y, size, size);
     SDL_SetTextureAlphaMod(t, 255);
 }
+static void piece_at(int pc, float x, float y, float size, int alpha) { piece_lift(pc, x, y, size, alpha, 0); }
 
 static void pick_at(int i, float *x, float *y)  /* the picker: the promoted piece on the square, the other below */
 {
@@ -299,11 +303,11 @@ static void draw(void)
         sq_xy(mv.to, &x1, &y1);
         if (mv.drop) {
             float z = 1 + 0.22f * (1 - t);
-            piece_at(p->sq[mv.to], x1 + sq * (1 - z) / 2, y1 + sq * (1 - z) / 2, sq * z, (int)(255 * t));
+            piece_lift(p->sq[mv.to], x1 + sq * (1 - z) / 2, y1 + sq * (1 - z) / 2, sq * z, (int)(255 * t), 1 - t);
         } else {
             float x0, y0;
             sq_xy(mv.from, &x0, &y0);
-            piece_at(p->sq[mv.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq, 255);
+            piece_lift(p->sq[mv.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq, 255, sinf(3.14159265f * t));
         }
         ui_animate();
     } else if (k < G.ply) ui_animate();
@@ -320,7 +324,7 @@ static void draw(void)
     }
     if (drag.on && drag.moved && drag.from >= 0) {
         float s = 1.18f * sq;
-        piece_at(p->sq[drag.from], drag.x - s / 2, drag.y - 0.75f * s, s, 255);
+        piece_lift(p->sq[drag.from], drag.x - s / 2, drag.y - 0.75f * s, s, 255, 1);
     }
     if (promo.on) {
         ui_fill(bx - m, by - m, (float)n, (float)n, 0, 0, 0, 110);
