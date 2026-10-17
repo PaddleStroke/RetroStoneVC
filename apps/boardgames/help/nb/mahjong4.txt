@@ -1,39 +1,31 @@
 Mahjong
 # Målet
-Det klassiske bordspillet for fire spillere, etter Hongkong-reglene (gammel stil). Bli den første til å fullføre en hånd på 14 brikker, og få poeng for den. Hendene er hemmelige: enheten går fra spiller til spiller. Velg hvor langt spillet skal være: bare østrunden, eller øst- og sørrunden.
+Det klassiske spillet for fire, etter Hongkong-reglene (gammel stil). Bli den første til å fullføre en hånd på 14 brikker som er verdt minst 3 faan.
 # Brikkene
-- Tre farger, nummerert fra 1 til 9: sirkler, bambus (pinner; 1-eren er en fugl) og tegn (et kinesisk tall over 萬).
-- Æresbrikkene: vindene 東 øst, 南 sør, 西 vest, 北 nord, og dragene 中 rød, 發 grønn og hvit (en blå ramme).
-- Hver av dem finnes fire ganger. De fire blomstene og de fire årstidene, én av hver, er bonusbrikker: legg dem til side så snart du får dem, og ta en erstatning fra enden av muren.
-# Utdelingen
-De fire murene, to brikker høye, danner et kvadrat. Giveren, øst, kaster tre terninger for å avgjøre hvor muren brytes. Alle får 13 brikker, giveren 14. De siste 14 brikkene i muren er den døde muren: erstatningene for blomster og kongs tas fra enden av den. Plassvindene: giveren er øst, deretter følger sør, vest og nord.
+- Tre farger, fra 1 til 9: sirkler, bambus (1-eren er en fugl) og tegn (et kinesisk tall over 萬).
+- Æresbrikkene: vindene 東 øst, 南 sør, 西 vest, 北 nord; dragene 中 rød, 發 grønn og hvit (en blå ramme).
+- Fire av hver. Blomstene og årstidene er bonusbrikker: legg dem straks til side, og ta en erstatning fra enden av muren.
 # En tur
-Trekk en brikke fra muren, eller krev den sist kastede brikken; kast så en brikke med forsiden opp foran deg. Før du kaster, kan du også:
-- melde en kong: fire like på hånden, eller den fjerde brikken lagt til en pung du har lagt ned. Trekk en erstatning, og kast så.
-- melde seier.
+13 brikker hver, giveren (øst) 14. Trekk fra muren, eller krev den sist kastede brikken, og kast så en brikke. Før du kaster, kan du melde seier, eller en kong (fire like på hånden, eller den fjerde brikken lagt til en pung du har lagt ned) og trekke en erstatning.
 # Kombinasjoner og krav
-- En chow er tre brikker på rad i samme farge, en pung tre like, en kong fire like, et par to like.
-- Enhver spiller kan kreve den sist kastede brikken for å lage en pung eller en kong med brikker fra hånden, eller for å vinne med den. Bare neste spiller kan kreve den til en chow. Kombinasjonen legges ned med forsiden opp; den som krevde, kaster deretter, og spillet fortsetter etter ham.
-- Seier går foran en pung eller en kong, som går foran en chow. Vil to spillere vinne, får den som kommer først etter kasteren i turrekkefølgen, brikken.
-- En brikke som legges til en pung for å gjøre den til en kong, kan ranes av en spiller som vinner med den.
+- Chow: tre på rad i samme farge. Pung: tre like. Kong: fire like. Par: to like.
+- Hvem som helst kan kreve den sist kastede brikken til en pung, en kong eller en seier; bare neste spiller til en chow. Kombinasjonen legges ned med forsiden opp, den som krevde, kaster, og spillet fortsetter etter ham.
+- Seier går foran en pung eller en kong, som går foran en chow. Mellom to seire får den som kommer først etter kasteren, brikken.
+- En brikke som legges til en pung, kan ranes av en spiller som vinner med den.
 - Når muren er brukt opp, kan den sist kastede brikken bare kreves for å vinne; ellers blir utdelingen uavgjort.
 # Seier
-En vinnende hånd er fire kombinasjoner (chows, pungs eller kongs) og et par, eller sju forskjellige par, eller tretten foreldreløse (én av hver 1-er, 9-er og æresbrikke, pluss én til av dem). Den må være verdt minst 3 faan.
+Fire kombinasjoner og et par, sju forskjellige par, eller tretten foreldreløse (én av hver 1-er, 9-er og æresbrikke, pluss én til av dem).
 # Faan
-- 1: selvtrukket; lukket hånd (ingen krevde kombinasjoner); bare chows; hver pung av drager; en pung av plassvinden din; en pung av rundevinden; hver av din egen blomst og årstid (øst 1, sør 2, vest 3, nord 4); ingen blomster eller årstider i det hele tatt; seier med den siste brikken, med en erstatningsbrikke eller ved å rane en kong.
+- 1: selvtrukket; lukket hånd; bare chows; hver pung av drager; en pung av plassvinden din eller av rundevinden; hver av din egen blomst og årstid (øst 1, sør 2, vest 3, nord 4); ingen blomster eller årstider; seier med den siste brikken, med en erstatningsbrikke eller ved å rane en kong.
 - 2: alle fire blomstene, eller alle fire årstidene.
 - 3: bare pungs; halv farge (én farge og æresbrikker).
 - 4: sju par.
-- 5: små tre drager (to pungs av drager og et par av den tredje), telt i stedet for dragenes pungs.
+- 5: små tre drager (to pungs av drager og et par av den tredje), i stedet for dragenes pungs.
 - 7: ren farge (bare én farge).
 - 8: store tre drager.
-- 10, maksimum: tretten foreldreløse, bare æresbrikker, bare 1-ere og 9-ere, små eller store fire vinder, ni porter (1112345678999 i én farge og én til i samme farge), fire kongs, fire lukkede pungs.
+- 10, maksimum: tretten foreldreløse, bare æresbrikker, bare 1-ere og 9-ere, små eller store fire vinder, ni porter (1112345678999 i én farge og én til), fire kongs, fire lukkede pungs.
 En hånd telles på den beste måten den kan leses, opptil 10 faan.
 # Betaling
-En hånd på 3 til 10 faan er verdt 8, 16, 24, 32, 48, 64, 96 eller 128 poeng. Vunnet på en kastet brikke: kasteren betaler vinneren det dobbelte, de to andre det enkle. Selvtrukket: alle tre betaler det dobbelte. En uavgjort utdeling: ingen betaler.
+3 til 10 faan er verdt 8, 16, 24, 32, 48, 64, 96 eller 128 poeng. På en kastet brikke betaler kasteren det dobbelte og de andre det enkle; selvtrukket betaler alle tre det dobbelte.
 # Slutten på spillet
-Vinner giveren, gir han igjen; ellers blir neste spiller giver. Når alle har gitt, er runden over, og rundevinden skifter fra øst til sør. Spillet slutter etter den siste valgte runden; den høyeste summen vinner.
-# Spill på enheten
-Hånden din står nederst, brikken du nettopp trakk litt for seg selv; kombinasjonene og blomstene dine over den. Trykk på en brikke for å løfte den, og trykk så på den igjen eller på bordet for å kaste den, eller dra den til bordet. Når du kan vinne eller lage en kong, en pung eller en chow, lyser kombinasjonene over hånden din: trykk på én. Pass-knappen i panelet ditt lar en kastet brikke gå forbi; når det er din tur, trekker du med et trykk på murene.
-Etter et kast går enheten bare til spillere som kan tenkes å kreve brikken. Hvis en av de to spillerne som sitter to og tre plasser etter kasteren, kan det, blir begge alltid spurt, i den rekkefølgen, så ingen kan se hvem. En spiller uten noe å kreve ser bare den kastede brikken et øyeblikk; så trekker neste spiller.
-Etter hver utdeling viser en tavle den vinnende hånden kombinasjon for kombinasjon, faan, hva hver spiller betaler og summene: trykk på den for neste utdeling. Midt på bordet vises rundevinden, hvilken utdeling i runden det er, terningene og hvor mange brikker som er igjen i muren. Hvert panel viser plassvinden og summen til spilleren.
+Giveren gir igjen hvis han vinner; ellers går giveren videre. Når alle har gitt, skifter rundevinden fra øst til sør. Etter siste runde vinner den høyeste summen.

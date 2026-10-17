@@ -1,39 +1,31 @@
 Mahjong
 # Das Ziel
-Das klassische Tischspiel für vier Spieler, nach den Hongkong-Regeln (alter Stil). Vervollständige als Erster eine Hand aus 14 Steinen und hol damit Punkte. Die Hände sind geheim: Das Gerät geht von Spieler zu Spieler. Wähle die Länge der Partie: nur die Ostrunde oder die Ost- und die Südrunde.
+Das klassische Spiel für vier, nach den Hongkong-Regeln (alter Stil). Vervollständige als Erster eine Hand aus 14 Steinen, die mindestens 3 Faan wert ist.
 # Die Steine
-- Drei Farben, von 1 bis 9 nummeriert: Kreise, Bambus (Stäbe; die 1 ist ein Vogel) und Schriftzeichen (eine chinesische Zahl über 萬).
-- Die Ehrensteine: die Winde 東 Osten, 南 Süden, 西 Westen, 北 Norden, und die Drachen 中 rot, 發 grün und weiß (ein blauer Rahmen).
-- Jeder dieser Steine kommt viermal vor. Die vier Blumen und die vier Jahreszeiten, je einmal vorhanden, sind Bonussteine: Sie werden beiseitegelegt, sobald man sie bekommt, und vom Ende der Mauer ersetzt.
-# Das Austeilen
-Die vier Mauern, zwei Steine hoch, bilden ein Quadrat. Der Geber, Osten, wirft drei Würfel, um zu bestimmen, wo die Mauer geöffnet wird. Jeder nimmt 13 Steine, der Geber 14. Die letzten 14 Steine der Mauer sind die tote Mauer: Die Ersatzsteine für Blumen und Kongs kommen von ihrem Ende. Die Platzwinde: Der Geber ist Osten, dann folgen reihum Süden, Westen und Norden.
+- Drei Farben, von 1 bis 9: Kreise, Bambus (die 1 ist ein Vogel) und Schriftzeichen (eine chinesische Zahl über 萬).
+- Die Ehrensteine: die Winde 東 Osten, 南 Süden, 西 Westen, 北 Norden; die Drachen 中 rot, 發 grün und weiß (ein blauer Rahmen).
+- Jeder viermal. Die Blumen und Jahreszeiten sind Bonussteine: Sie werden sofort beiseitegelegt und vom Ende der Mauer ersetzt.
 # Ein Zug
-Zieh einen Stein von der Mauer oder nimm den letzten Abwurf; wirf dann einen Stein offen vor dir ab. Vor dem Abwerfen kannst du auch:
-- ein Kong ansagen: vier gleiche Steine in deiner Hand oder der vierte Stein, an ein ausgelegtes Pung angelegt. Zieh einen Ersatzstein, dann wirf ab.
-- deinen Sieg ansagen.
+Jeder hat 13 Steine, der Geber (Osten) 14. Zieh von der Mauer oder nimm den letzten Abwurf, dann wirf einen Stein ab. Vor dem Abwerfen kannst du deinen Sieg ansagen oder ein Kong (vier gleiche Steine in deiner Hand oder der vierte Stein, an ein ausgelegtes Pung angelegt) und einen Ersatzstein ziehen.
 # Kombinationen und Ansprüche
-- Ein Chow sind drei Steine in Folge aus einer Farbe, ein Pung drei gleiche, ein Kong vier gleiche, ein Paar zwei gleiche.
-- Jeder Spieler darf den letzten Abwurf beanspruchen, um mit Steinen aus seiner Hand ein Pung oder ein Kong zu bilden oder um damit zu gewinnen. Für ein Chow darf ihn nur der nächste Spieler nehmen. Die Kombination wird offen ausgelegt; wer den Stein genommen hat, wirft dann ab, und das Spiel geht nach ihm weiter.
-- Ein Sieg geht vor einem Pung oder Kong, und diese gehen vor einem Chow. Wollen zwei Spieler gewinnen, bekommt ihn der, der nach dem Abwerfenden zuerst an der Reihe ist.
-- Ein Stein, der an ein Pung angelegt wird, um ein Kong zu bilden, kann von einem Spieler geraubt werden, der damit gewinnt.
+- Chow: drei in Folge aus einer Farbe. Pung: drei gleiche. Kong: vier gleiche. Paar: zwei gleiche.
+- Jeder darf den letzten Abwurf für ein Pung, ein Kong oder einen Sieg nehmen; für ein Chow nur der nächste Spieler. Die Kombination wird offen ausgelegt, wer den Stein genommen hat, wirft ab, und das Spiel geht nach ihm weiter.
+- Ein Sieg geht vor einem Pung oder Kong, und diese vor einem Chow. Bei zwei Siegen bekommt ihn der, der nach dem Abwerfenden zuerst an der Reihe ist.
+- Ein Stein, der an ein Pung angelegt wird, kann von einem Spieler geraubt werden, der damit gewinnt.
 - Ist die Mauer aufgebraucht, darf der letzte Abwurf nur noch zum Gewinnen genommen werden; sonst endet der Durchgang unentschieden.
 # Gewinnen
-Eine Gewinnhand besteht aus vier Kombinationen (Chows, Pungs oder Kongs) und einem Paar, oder aus sieben verschiedenen Paaren, oder aus den dreizehn Waisen (je ein Stein jeder 1, jeder 9 und jedes Ehrensteins, und einer davon doppelt). Sie muss mindestens 3 Faan wert sein.
+Vier Kombinationen und ein Paar, sieben verschiedene Paare oder die dreizehn Waisen (je ein Stein jeder 1, jeder 9 und jedes Ehrensteins, und einer davon doppelt).
 # Faan
-- 1: selbst gezogen; verdeckte Hand (keine genommenen Kombinationen); nur Chows; jedes Pung aus Drachen; ein Pung deines Platzwinds; ein Pung des Rundenwinds; jede deiner eigenen Blumen und Jahreszeiten (Osten 1, Süden 2, Westen 3, Norden 4); gar keine Blumen oder Jahreszeiten; Sieg mit dem letzten Stein, mit einem Ersatzstein oder durch Rauben eines Kongs.
+- 1: selbst gezogen; verdeckte Hand; nur Chows; jedes Pung aus Drachen; ein Pung deines Platzwinds oder des Rundenwinds; jede deiner eigenen Blumen und Jahreszeiten (Osten 1, Süden 2, Westen 3, Norden 4); gar keine Blumen oder Jahreszeiten; Sieg mit dem letzten Stein, mit einem Ersatzstein oder durch Rauben eines Kongs.
 - 2: alle vier Blumen oder alle vier Jahreszeiten.
 - 3: nur Pungs; halbreine Hand (eine Farbe und Ehrensteine).
 - 4: sieben Paare.
-- 5: kleine drei Drachen (zwei Pungs aus Drachen und ein Paar des dritten), gezählt statt der Drachen-Pungs.
+- 5: kleine drei Drachen (zwei Pungs aus Drachen und ein Paar des dritten), statt der Drachen-Pungs.
 - 7: reine Hand (nur eine Farbe).
 - 8: große drei Drachen.
-- 10, das Limit: dreizehn Waisen, nur Ehrensteine, nur 1er und 9er, kleine oder große vier Winde, neun Tore (1112345678999 einer Farbe und ein weiterer Stein dieser Farbe), vier Kongs, vier verdeckte Pungs.
+- 10, das Limit: dreizehn Waisen, nur Ehrensteine, nur 1er und 9er, kleine oder große vier Winde, neun Tore (1112345678999 einer Farbe und ein weiterer Stein), vier Kongs, vier verdeckte Pungs.
 Eine Hand zählt so, wie sie sich am besten lesen lässt, bis zu 10 Faan.
 # Zahlungen
-Eine Hand mit 3 bis 10 Faan ist 8, 16, 24, 32, 48, 64, 96 oder 128 Punkte wert. Sieg mit einem Abwurf: Der Abwerfende zahlt dem Gewinner das Doppelte, die beiden anderen den einfachen Wert. Selbst gezogen: Alle drei zahlen das Doppelte. Unentschieden: Niemand zahlt.
+3 bis 10 Faan sind 8, 16, 24, 32, 48, 64, 96 oder 128 Punkte wert. Bei einem Abwurf zahlt der Abwerfende das Doppelte, die anderen den einfachen Wert; selbst gezogen zahlen alle drei das Doppelte.
 # Das Ende der Partie
-Gewinnt der Geber, bleibt er Geber; sonst geht das Geben an den nächsten Spieler. Wenn jeder einmal gegeben hat, ist die Runde vorbei und der Rundenwind wechselt von Osten zu Süden. Die Partie endet nach der letzten gewählten Runde; die höchste Summe gewinnt.
-# Spielen auf dem Gerät
-Deine Hand liegt unten, der gerade gezogene Stein etwas abseits; deine Kombinationen und Blumen darüber. Tippe einen Stein an, um ihn anzuheben, dann tippe ihn noch einmal oder den Tisch an, um ihn abzuwerfen, oder zieh ihn auf den Tisch. Wenn du gewinnen oder ein Kong, ein Pung oder ein Chow bilden kannst, leuchten die Kombinationen über deiner Hand: Tippe eine an. Mit dem Passen-Knopf in deiner Leiste lässt du einen Abwurf vorbeigehen; bist du am Zug, zieht ein Tippen auf die Mauern einen Stein.
-Nach einem Abwurf geht das Gerät nur an Spieler, die ihn beanspruchen könnten. Kann einer der beiden Spieler, die zwei und drei Plätze nach dem Abwerfenden sitzen, ihn nehmen, werden immer beide gefragt, in dieser Reihenfolge, damit niemand erkennen kann, welcher. Ein Spieler, der nichts nehmen kann, sieht den Abwurf nur kurz; dann zieht der nächste Spieler.
-Nach jedem Durchgang zeigt eine Tafel die Gewinnhand Kombination für Kombination, ihre Faan, die Zahlung jedes Spielers und die Summen: Tippe darauf für den nächsten Durchgang. Die Mitte des Tisches zeigt den Rundenwind, den wievielten Durchgang der Runde, die Würfel und die übrigen Steine der Mauer. Jede Leiste zeigt den Platzwind des Spielers und seine Summe.
+Gewinnt der Geber, bleibt er Geber; sonst geht das Geben weiter. Wenn jeder einmal gegeben hat, wechselt der Rundenwind von Osten zu Süden. Nach der letzten Runde gewinnt die höchste Summe.

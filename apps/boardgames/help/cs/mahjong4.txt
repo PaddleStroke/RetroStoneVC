@@ -1,39 +1,31 @@
 Mahjong
 # Cíl hry
-Klasická stolní hra pro čtyři hráče podle hongkongských pravidel (starý styl). Buď první, kdo složí ruku ze 14 kamenů, a získej za ni body. Kameny v ruce jsou tajné: zařízení putuje od hráče k hráči. Zvol délku hry: jen východní kolo, nebo východní a jižní kolo.
+Klasická hra pro čtyři hráče podle hongkongských pravidel (starý styl). Buď první, kdo složí ruku ze 14 kamenů s hodnotou aspoň 3 faan.
 # Kameny
-- Tři barvy, číslované od 1 do 9: kruhy (kolečka), bambusy (tyčky; jednička je pták) a znaky (čínská číslice nad znakem 萬).
-- Čestné kameny: větry 東 východ, 南 jih, 西 západ, 北 sever a draci 中 červený, 發 zelený a bílý (modrý rámeček).
-- Každý z nich je ve hře čtyřikrát. Čtyři květiny a čtyři roční období, každé jednou, jsou bonusové kameny: jakmile je dostaneš, odlož je stranou a lízni si náhradu z konce zdi.
-# Rozdávání
-Čtyři zdi, každá dva kameny vysoká, tvoří čtverec. Rozdávající, tedy východ, hodí třemi kostkami a tím určí, kde se zeď rozlomí. Každý dostane 13 kamenů, rozdávající 14. Posledních 14 kamenů zdi tvoří mrtvou zeď: z jejího konce se berou náhrady za květiny a kongy. Větry míst: rozdávající je východ, po něm postupně jih, západ a sever.
+- Tři barvy, od 1 do 9: kruhy, bambusy (jednička je pták) a znaky (čínská číslice nad znakem 萬).
+- Čestné kameny: větry 東 východ, 南 jih, 西 západ, 北 sever; draci 中 červený, 發 zelený a bílý (modrý rámeček).
+- Každý z nich je ve hře čtyřikrát. Květiny a roční období jsou bonusové kameny: hned je odlož stranou a lízni si náhradu z konce zdi.
 # Tah
-Lízni si kámen ze zdi, nebo si vezmi poslední odhozený kámen; pak jeden kámen odhoď lícem nahoru před sebe. Před odhozením můžeš také:
-- ohlásit kong: čtyři stejné kameny v ruce, nebo čtvrtý kámen přidaný k vyloženému pungu. Lízni si náhradu a pak odhoď.
-- ohlásit výhru.
+Každý má 13 kamenů, rozdávající (východ) 14. Lízni si kámen ze zdi, nebo si vezmi poslední odhozený kámen, pak jeden kámen odhoď. Před odhozením můžeš ohlásit výhru nebo kong (čtyři stejné kameny v ruce, nebo čtvrtý kámen přidaný k vyloženému pungu) a líznout si náhradu.
 # Sestavy a braní kamenů
-- Chow jsou tři kameny jedné barvy jdoucí po sobě, pung tři stejné kameny, kong čtyři stejné, pár dva stejné.
-- Poslední odhozený kámen si může vzít kterýkoli hráč, aby s kameny z ruky složil pung nebo kong, nebo aby s ním vyhrál. Na chow si ho smí vzít jen následující hráč. Sestava se vyloží lícem nahoru; kdo si kámen vzal, pak odhodí a hra pokračuje hráčem po něm.
-- Výhra má přednost před pungem nebo kongem a ty zase před chowem. Chtějí-li vyhrát dva hráči, dostane kámen ten, kdo je po odhazujícím na řadě dřív.
-- Kámen, který někdo přidává k pungu na kong, může ukrást hráč, který s ním vyhraje.
+- Chow: tři kameny jedné barvy jdoucí po sobě. Pung: tři stejné. Kong: čtyři stejné. Pár: dva stejné.
+- Poslední odhozený kámen si může vzít kdokoli na pung, kong nebo výhru; na chow jen následující hráč. Sestava se vyloží lícem nahoru, kdo si kámen vzal, odhodí a hra pokračuje hráčem po něm.
+- Výhra má přednost před pungem nebo kongem a ty zase před chowem. Ze dvou výher dostane kámen ten, kdo je po odhazujícím na řadě dřív.
+- Kámen přidávaný k pungu může ukrást hráč, který s ním vyhraje.
 - Když dojde zeď, lze poslední odhozený kámen vzít už jen na výhru; jinak rozdání končí remízou.
 # Výhra
-Vítězná ruka jsou čtyři sestavy (chowy, pungy nebo kongy) a pár, nebo sedm různých párů, nebo třináct sirotků (po jednom z každé jedničky, devítky a čestného kamene a k tomu ještě jeden z nich). Musí mít hodnotu aspoň 3 faan.
+Čtyři sestavy a pár, sedm různých párů, nebo třináct sirotků (po jednom z každé jedničky, devítky a čestného kamene a k tomu ještě jeden z nich).
 # Faan
-- 1: výhra vlastním líznutím; skrytá ruka (žádná vzatá sestava); samé chowy; každý pung draků; pung větru tvého místa; pung větru kola; každá tvoje vlastní květina a každé tvoje roční období (východ 1, jih 2, západ 3, sever 4); žádná květina ani roční období; výhra posledním kamenem, náhradním kamenem nebo ukradením kongu.
+- 1: výhra vlastním líznutím; skrytá ruka; samé chowy; každý pung draků; pung větru tvého místa nebo větru kola; každá tvoje vlastní květina a každé tvoje roční období (východ 1, jih 2, západ 3, sever 4); žádná květina ani roční období; výhra posledním kamenem, náhradním kamenem nebo ukradením kongu.
 - 2: všechny čtyři květiny, nebo všechna čtyři roční období.
 - 3: samé pungy; smíšená barva (jedna barva a čestné kameny).
 - 4: sedm párů.
-- 5: malí tři draci (dva pungy draků a pár třetího), počítají se místo pungů draků.
+- 5: malí tři draci (dva pungy draků a pár třetího), místo pungů draků.
 - 7: čistá barva (jen jedna barva).
 - 8: velcí tři draci.
-- 10, limit: třináct sirotků, samé čestné kameny, samé jedničky a devítky, malé nebo velké čtyři větry, devět bran (1112345678999 jedné barvy a ještě jeden kámen té barvy), čtyři kongy, čtyři skryté pungy.
+- 10, limit: třináct sirotků, samé čestné kameny, samé jedničky a devítky, malé nebo velké čtyři větry, devět bran (1112345678999 jedné barvy a ještě jeden kámen), čtyři kongy, čtyři skryté pungy.
 Ruka se počítá tak, jak ji lze přečíst nejvýhodněji, nejvýše do 10 faan.
 # Platby
-Ruka za 3 až 10 faan má hodnotu 8, 16, 24, 32, 48, 64, 96 nebo 128 bodů. Výhra z odhozeného kamene: odhazující platí vítězi dvojnásobek, oba ostatní jednoduchou hodnotu. Výhra vlastním líznutím: všichni tři platí dvojnásobek. Remíza: neplatí nikdo.
+3 až 10 faan má hodnotu 8, 16, 24, 32, 48, 64, 96 nebo 128 bodů. Při výhře z odhozeného kamene platí odhazující dvojnásobek a ostatní jednoduchou hodnotu; při výhře vlastním líznutím platí všichni tři dvojnásobek.
 # Konec hry
-Rozdávající, který vyhrál, rozdává znovu; jinak rozdává další hráč. Když už rozdával každý, kolo končí a vítr kola se mění z východu na jih. Hra končí po posledním zvoleném kole; vyhrává nejvyšší součet.
-# Hra na zařízení
-Tvoje ruka je dole, právě líznutý kámen kousek stranou; nad ní jsou tvoje sestavy a květiny. Klepnutím kámen zvedneš, dalším klepnutím na něj nebo na stůl ho odhodíš; můžeš ho také přetáhnout na stůl. Když můžeš vyhrát nebo složit kong, pung či chow, svítí nad tvou rukou sestavy: klepni na jednu z nich. Tlačítkem vynechání v liště necháš odhozený kámen projít; když jsi na tahu, klepnutím na zeď si lízneš.
-Po odhození jde zařízení jen k hráčům, kteří by si kámen mohli vzít. Pokud by to mohl některý z hráčů sedících dvě a tři místa za odhazujícím, jsou vždy dotázáni oba, v tomto pořadí, takže nikdo nepozná, který z nich. Hráč, který si nemá co vzít, jen chvíli vidí odhozený kámen; pak si lízne další hráč.
-Po každém rozdání ukáže tabulka vítěznou ruku sestavu po sestavě, její faan, platbu každého hráče a součty: klepni na ni a začne další rozdání. Uprostřed stolu je vidět vítr kola, kolikáté rozdání kola se hraje, kostky a počet kamenů, které zbývají ve zdi. Lišta každého hráče ukazuje vítr jeho místa a jeho součet.
+Rozdávající, který vyhrál, rozdává znovu; jinak rozdává další hráč. Když už rozdával každý, vítr kola se mění z východu na jih. Po posledním kole vyhrává nejvyšší součet.

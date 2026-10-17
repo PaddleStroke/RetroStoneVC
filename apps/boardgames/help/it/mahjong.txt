@@ -1,18 +1,11 @@
 Mahjong solitario
 # Lo scopo
-Le tessere di un gioco di mahjong sono impilate secondo uno schema. Toglile tutte, a coppie uguali. Scegli prima lo schema:
-- Tartaruga: quello classico, tutte le 144 tessere su cinque piani. Su un telefono le sue tessere sono piccole.
-- Piramide: 80 tessere su tre piani, tessere più grandi, una partita più breve.
-Ogni distribuzione si può sgombrare del tutto.
+Togli tutte le tessere dallo schema, a coppie uguali. Ogni distribuzione si può sgombrare del tutto.
 # Le tessere
-- Tre semi, numerati da 1 a 9: cerchi, bambù (canne; l'1 è un uccello) e caratteri (un numero cinese sopra 萬, diecimila).
-- I quattro venti: 東 est, 南 sud, 西 ovest, 北 nord.
-- I tre draghi: 中 rosso, 發 verde, e quello bianco, una cornice blu.
+- Tre semi, numerati da 1 a 9: cerchi, bambù (l'1 è un uccello) e caratteri (un numero cinese sopra 萬).
+- I quattro venti 東 est, 南 sud, 西 ovest, 北 nord, e i tre draghi: 中 rosso, 發 verde, e quello bianco, una cornice blu.
 - Quattro fiori e quattro stagioni, ognuno con il suo numero in un angolo.
-Ogni tessera dei semi, dei venti e dei draghi c'è quattro volte; ogni fiore e ogni stagione una volta sola.
 # Una mossa
-Togli due tessere libere uguali. Una tessera è libera quando nessuna tessera le sta sopra, nemmeno in parte, e il suo lato sinistro o il suo lato destro è sgombro (nessuna tessera proprio accanto sul suo piano). Due tessere fanno coppia quando sono uguali; qualsiasi fiore va con qualsiasi fiore, e qualsiasi stagione con qualsiasi stagione.
+Togli due tessere libere uguali. Una tessera è libera quando nessuna tessera le sta sopra, nemmeno in parte, e il suo lato sinistro o il suo lato destro è sgombro. Due tessere fanno coppia quando sono uguali; qualsiasi fiore va con qualsiasi fiore, e qualsiasi stagione con qualsiasi stagione.
 # La fine della partita
-Vinci quando tutte le tessere sono sparite. Se non resta nessuna coppia di tessere libere, puoi mescolare: le tessere rimaste vengono ridistribuite negli stessi posti, in modo da poterle ancora togliere tutte. Se nemmeno questo basta (una tessera bloccata sotto un'altra), la partita è finita.
-# Giocare sul dispositivo
-Tocca una tessera libera, poi la sua compagna: si sollevano entrambe. Tocca di nuovo la tessera scelta per lasciarla. Le tessere che non sono libere sono più scure, e un tocco proprio accanto a una tessera libera la sceglie lo stesso. La lampada mostra una coppia. Quando non resta nessuna coppia, il pulsante per mescolare si illumina e compare anche al centro del tavoliere. Se le tessere sono piccole (su un telefono tenuto in verticale), la lente le avvicina: spostale di lato col dito. Tocca di nuovo la lente per vederle tutte. Annulla toglie una coppia o un mescolamento. La barra mostra quante tessere restano.
+Vinci quando tutte le tessere sono sparite. Se non resta nessuna coppia, puoi mescolare: le tessere rimaste vengono ridistribuite negli stessi posti. Se nemmeno questo basta, la partita è finita.

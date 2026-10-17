@@ -1,18 +1,11 @@
 Mahjong Solitaire
 # The aim
-The tiles of a Mahjong set lie stacked in a layout. Take them all away, in matching pairs. Choose the layout first:
-- Turtle: the classic one, all 144 tiles in five layers. On a phone its tiles are small.
-- Pyramid: 80 tiles in three layers, larger tiles, a shorter game.
-Every deal can be cleared.
+Take all the tiles away from the layout, in matching pairs. Every deal can be cleared.
 # The tiles
-- Three suits, numbered 1 to 9: dots (circles), bamboo (sticks; the 1 is a bird) and characters (a Chinese numeral above 萬, ten thousand).
-- The four winds: 東 east, 南 south, 西 west, 北 north.
-- The three dragons: 中 red, 發 green, and the white one, a blue frame.
+- Three suits, numbered 1 to 9: dots, bamboo (the 1 is a bird) and characters (a Chinese numeral above 萬).
+- The four winds 東 east, 南 south, 西 west, 北 north, and the three dragons: 中 red, 發 green, and white, a blue frame.
 - Four flowers and four seasons, each with its number in a corner.
-Each tile of the suits, winds and dragons comes four times; each flower and each season once.
 # A move
-Take away two matching free tiles. A tile is free when no tile lies on it, even partly, and its left side or its right side is open (no tile right beside it on its layer). Two tiles match when they are the same; any flower matches any flower, and any season any season.
+Take away two matching free tiles. A tile is free when no tile lies on it, even partly, and its left or right side is open. Two tiles match when they are the same; any flower matches any flower, and any season any season.
 # The end of the game
-You win when every tile is gone. If no pair of free tiles is left, you can shuffle: the tiles left are dealt again in the same places, so that they can still all be cleared. If even that cannot help (a tile stuck under another one), the game is over.
-# Playing on the device
-Tap a free tile, then its match: both lift away. Tap the chosen tile again to let it go. The tiles that are not free are dimmed, and a tap just beside a free tile picks it too. The lamp shows a pair. When no pair is left, the shuffle button lights up and also appears in the middle of the board. When the tiles are small (on a phone held upright), the magnifying glass brings them near: drag them sideways with a finger. Tap the glass again to see them all. Undo takes back a pair or a shuffle. The bar shows how many tiles are left.
+You win when every tile is gone. If no pair is left, you can shuffle: the tiles left are dealt again in the same places. If even that cannot help, the game is over.

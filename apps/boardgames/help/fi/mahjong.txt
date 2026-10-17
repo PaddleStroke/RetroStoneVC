@@ -1,18 +1,11 @@
 Mahjong-pasianssi
 # Tavoite
-Mahjong-pelin laatat ovat pinottuina kuvioon. Poista ne kaikki, samanlaisina pareina. Valitse ensin kuvio:
-- Kilpikonna: klassinen, kaikki 144 laattaa viidessä kerroksessa. Puhelimessa sen laatat ovat pieniä.
-- Pyramidi: 80 laattaa kolmessa kerroksessa, isommat laatat, lyhyempi peli.
-Jokainen jako voidaan purkaa kokonaan.
+Poista kaikki laatat kuviosta, samanlaisina pareina. Jokainen jako voidaan purkaa kokonaan.
 # Laatat
-- Kolme maata, numeroitu 1–9: ympyrät, bambut (tikut; ykkönen on lintu) ja merkit (kiinalainen numero merkin 萬, kymmenentuhatta, yläpuolella).
-- Neljä tuulta: 東 itä, 南 etelä, 西 länsi, 北 pohjoinen.
-- Kolme lohikäärmettä: 中 punainen, 發 vihreä ja valkoinen, sininen kehys.
+- Kolme maata, numeroitu 1–9: ympyrät, bambut (ykkönen on lintu) ja merkit (kiinalainen numero merkin 萬 yläpuolella).
+- Neljä tuulta 東 itä, 南 etelä, 西 länsi, 北 pohjoinen, ja kolme lohikäärmettä: 中 punainen, 發 vihreä ja valkoinen, sininen kehys.
 - Neljä kukkaa ja neljä vuodenaikaa, kussakin numeronsa kulmassa.
-Maiden, tuulten ja lohikäärmeiden laattoja on kutakin neljä; kutakin kukkaa ja vuodenaikaa yksi.
 # Siirto
-Poista kaksi samanlaista vapaata laattaa. Laatta on vapaa, kun sen päällä ei ole laattaa, ei edes osittain, ja sen vasen tai oikea sivu on avoin (ei laattaa aivan vieressä samassa kerroksessa). Kaksi laattaa sopii pariksi, kun ne ovat samanlaiset; mikä tahansa kukka käy minkä tahansa kukan pariksi ja mikä tahansa vuodenaika minkä tahansa vuodenajan.
+Poista kaksi samanlaista vapaata laattaa. Laatta on vapaa, kun sen päällä ei ole laattaa, ei edes osittain, ja sen vasen tai oikea sivu on avoin. Kaksi laattaa sopii pariksi, kun ne ovat samanlaiset; mikä tahansa kukka käy minkä tahansa kukan pariksi ja mikä tahansa vuodenaika minkä tahansa vuodenajan.
 # Pelin loppu
-Voitat, kun kaikki laatat ovat poissa. Jos vapaita pareja ei enää ole, voit sekoittaa: jäljellä olevat laatat jaetaan uudelleen samoille paikoille niin, että ne voidaan yhä poistaa kaikki. Jos sekään ei auta (laatta on jumissa toisen alla), peli päättyy.
-# Pelaaminen laitteella
-Napauta vapaata laattaa ja sitten sen paria: molemmat nousevat pois. Napauta valittua laattaa uudelleen päästääksesi sen. Laatat, jotka eivät ole vapaita, ovat tummempia, ja napautus aivan vapaan laatan vieressä valitsee senkin. Lamppu näyttää parin. Kun pareja ei ole, sekoituspainike syttyy ja ilmestyy myös laudan keskelle. Kun laatat ovat pieniä (pystyasennossa pidetyssä puhelimessa), suurennuslasi tuo ne lähemmäs: siirrä niitä sormella sivuttain. Napauta suurennuslasia uudelleen nähdäksesi kaikki laatat. Kumoa peruu parin tai sekoituksen. Palkki näyttää, montako laattaa on jäljellä.
+Voitat, kun kaikki laatat ovat poissa. Jos pareja ei enää ole, voit sekoittaa: jäljellä olevat laatat jaetaan uudelleen samoille paikoille. Jos sekään ei auta, peli päättyy.

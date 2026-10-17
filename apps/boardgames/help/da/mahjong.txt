@@ -1,18 +1,11 @@
 Mahjong-kabale
 # Målet
-Brikkerne fra et mahjongspil ligger stablet i et mønster. Fjern dem alle, i ens par. Vælg først mønsteret:
-- Skildpadde: det klassiske, alle 144 brikker i fem lag. På en telefon er brikkerne små.
-- Pyramide: 80 brikker i tre lag, større brikker, et kortere spil.
-Hvert spil kan ryddes helt.
+Fjern alle brikkerne fra mønsteret, i ens par. Hvert spil kan ryddes helt.
 # Brikkerne
-- Tre farver, nummereret fra 1 til 9: cirkler, bambus (pinde; 1'eren er en fugl) og tegn (et kinesisk tal over 萬, ti tusind).
-- De fire vinde: 東 øst, 南 syd, 西 vest, 北 nord.
-- De tre drager: 中 rød, 發 grøn, og den hvide, en blå ramme.
+- Tre farver, nummereret fra 1 til 9: cirkler, bambus (1'eren er en fugl) og tegn (et kinesisk tal over 萬).
+- De fire vinde 東 øst, 南 syd, 西 vest, 北 nord, og de tre drager: 中 rød, 發 grøn, og den hvide, en blå ramme.
 - Fire blomster og fire årstider, hver med sit nummer i et hjørne.
-Hver brik i farverne, vindene og dragerne findes fire gange; hver blomst og hver årstid én gang.
 # Et træk
-Fjern to ens frie brikker. En brik er fri, når ingen brik ligger på den, heller ikke delvist, og dens venstre eller højre side er åben (ingen brik lige ved siden af i dens lag). To brikker passer sammen, når de er ens; enhver blomst passer til enhver blomst, og enhver årstid til enhver årstid.
+Fjern to ens frie brikker. En brik er fri, når ingen brik ligger på den, heller ikke delvist, og dens venstre eller højre side er åben. To brikker passer sammen, når de er ens; enhver blomst passer til enhver blomst, og enhver årstid til enhver årstid.
 # Spillets afslutning
-Du vinder, når alle brikker er væk. Er der intet par frie brikker tilbage, kan du blande: de resterende brikker deles ud igen på de samme pladser, så de stadig alle kan fjernes. Hjælper selv det ikke (en brik sidder fast under en anden), er spillet slut.
-# Spil på enheden
-Tryk på en fri brik og derefter på dens makker: begge løftes væk. Tryk igen på den valgte brik for at slippe den. Brikker, der ikke er frie, er mørkere, og et tryk lige ved siden af en fri brik vælger den også. Lampen viser et par. Når der ikke er flere par, lyser bland-knappen op og kommer også frem midt på brættet. Når brikkerne er små (på en telefon, der holdes på højkant), henter luppen dem tæt på: træk brikkerne til siden med en finger. Tryk på luppen igen for at se det hele. Fortryd tager et par eller en blanding tilbage. Bjælken viser, hvor mange brikker der er tilbage.
+Du vinder, når alle brikker er væk. Er der intet par tilbage, kan du blande: de resterende brikker deles ud igen på de samme pladser. Hjælper selv det ikke, er spillet slut.

@@ -1,50 +1,24 @@
 Koi-Koi
 # Cíl hry
-Získat nejvíc bodů za 12 kol, jedno za každý měsíc roku, nebo za 6 kol v krátké hře. Pro 2 hráče. Ber karty tak, že k sobě přiložíš stejné měsíce, a skládej yaku, kombinace, které dávají body. Pak se rozhodni: skončit a hned bodovat, nebo ohlásit koi-koi a hrát dál o víc.
+Ber karty tak, že k sobě přiložíš stejné měsíce, a skládej yaku, kombinace, které dávají body. Pak skonči a získej body, nebo ohlas koi-koi a hraj dál o víc. Vyhrává hráč s nejvíce body po 12 kolech (6 v krátké hře).
 # Karty
-Balíček hanafuda má 48 karet: 12 měsíců po 4 kartách, každý měsíc se svou rostlinou. Leden borovice, únor slivoň, březen třešeň, duben vistárie, květen kosatec, červen pivoňka, červenec keřový jetel, srpen pampová tráva, září chryzantéma, říjen javor, listopad vrba, prosinec pavlovnie.
-- Světla (5): jeřáb (leden), opona (březen), měsíc (srpen), muž v dešti (listopad) a fénix (prosinec).
-- Zvířata (9): pěnice, kukačka, most, motýli, divočák, husy, miska saké, jelen a vlaštovka.
-- Stuhy (10): tři červené stuhy s básní, popsané (leden, únor, březen), tři modré stuhy (červen, září, říjen) a čtyři obyčejné červené stuhy (duben, květen, červenec, listopad).
-- Obyčejné karty (24): všechny ostatní, mezi nimi listopadový blesk.
-# Rozdávání
-Každý hráč dostane 8 karet a dalších 8 se položí lícem nahoru na pole; zbytek je dobírací balíček. Leží-li na poli všechny čtyři karty jednoho měsíce, rozdává se znovu. Rozdávající hraje první: v prvním kole hráč slonovinové barvy, potom vítěz předchozího kola. Po kole bez vítěze rozdává tentýž hráč.
+48 karet: 12 měsíců po 4.
+- Světla (5): jeřáb, opona, měsíc, muž v dešti a fénix.
+- Zvířata (9), stuhy (10: tři červené stuhy s básní, popsané, tři modré, čtyři obyčejné červené) a obyčejné karty (24).
 # Tah
-- Zahraj kartu z ruky na pole. Má-li karta na poli stejný měsíc, bereš obě. Mají-li ho dvě, vybereš si, kterou vezmeš. Mají-li ho tři, bereš všechny čtyři. Nemá-li ho žádná, tvoje karta zůstane ležet na poli.
+Každý dostane 8 karet a 8 leží lícem nahoru na poli; leží-li na poli celý měsíc, rozdává se znovu. Začíná rozdávající: hráč slonovinové barvy, potom vítěz předchozího kola.
+- Zahraj kartu z ruky: vezme kartu na poli stejného měsíce (ze dvou si vybereš; při třech bereš všechny čtyři). Jinak zůstane ležet na poli.
 - Pak otoč vrchní kartu balíčku a zahraj ji stejně.
-- Karty, které vezmeš, leží před tebou lícem nahoru.
 # Yaku
-- Gokō: 5 světel, 10 bodů.
-- Shikō: 4 světla bez muže v dešti, 8 bodů.
-- Ame-Shikō: 4 světla s mužem v dešti, 7 bodů.
-- Sankō: 3 světla bez muže v dešti, 5 bodů. Tři světla s ním nedávají nic.
-- Inoshikachō: divočák, jelen a motýli, 5 bodů.
-- Akatan: 3 stuhy s básní, 5 bodů.
-- Aotan: 3 modré stuhy, 5 bodů.
-- Hanami-zake: opona a miska saké, 5 bodů.
-- Tsukimi-zake: měsíc a miska saké, 5 bodů.
-- Tane: 5 zvířat, 1 bod, a 1 navíc za každé další zvíře.
-- Tan: 5 stuh, 1 bod, a 1 navíc za každou další stuhu.
-- Kasu: 10 obyčejných karet, 1 bod, a 1 navíc za každou další.
-Ze čtyř yaku se světly se počítá jen to nejlepší; všechna ostatní yaku se sčítají. Miska saké se počítá jako zvíře i jako obyčejná karta. Hanami-zake a Tsukimi-zake tu platí vždy.
+- Gokō: 5 světel, 10. Shikō: 4 světla bez muže v dešti, 8. Ame-Shikō: 4 s ním, 7. Sankō: 3 bez něj, 5.
+- Inoshikachō: divočák, jelen a motýli, 5.
+- Akatan: 3 stuhy s básní, 5. Aotan: 3 modré stuhy, 5.
+- Hanami-zake: opona a miska saké, 5. Tsukimi-zake: měsíc a miska saké, 5.
+- Tane (5 zvířat), Tan (5 stuh), Kasu (10 obyčejných karet): 1, a 1 navíc za každou další kartu.
+Počítá se jen nejlepší yaku se světly. Miska saké je zvíře i obyčejná karta.
 # Skončit, nebo koi-koi
-Když tvůj tah skončí s novým yaku nebo s vyšším počtem bodů z tvých yaku, vybereš si:
-- Skončit: kolo skončí a ty získáš body.
-- Koi-koi: kolo pokračuje. Skončit můžeš znovu až poté, co ti body opět stoupnou. Pokud soupeř skončí dřív, nezískáš nic a jeho body se zdvojnásobí.
-Nemáš-li už v ruce žádnou kartu, končíš.
+Když tvůj tah skončí s novým yaku nebo s vyšším počtem bodů, skonči a získej body, nebo ohlas koi-koi a hraj dál. Pokud pak soupeř skončí dřív, nezískáš nic a jeho body se zdvojnásobí. Nemáš-li už v ruce žádnou kartu, končíš.
 # Body
-- Body všech tvých yaku sečtené.
-- Zdvojnásobené, dosáhnou-li 7 a víc.
-- Znovu zdvojnásobené, pokud soupeř ohlásil koi-koi.
+- Body tvých yaku sečtené, zdvojnásobené od 7 bodů a znovu zdvojnásobené, pokud soupeř ohlásil koi-koi.
 - Dohrají-li se obě ruce a nikdo neskončí, nikdo body nezíská.
-- Teshi (čtyři karty jednoho měsíce v rozdané ruce) a Kuttsuki (čtyři dvojice měsíců v rozdané ruce) vyhrávají kolo hned, za 6 bodů. Nejdřív se kontroluje ruka rozdávajícího.
-# Konec hry
-Po posledním kole vyhrává hráč s nejvíce body.
-# Hra na zařízení
-Ruce jsou tajné: předej zařízení, když o to obrazovka požádá, a další hráč klepne na tlačítko startu. Tvoje ruka je dole, soupeřova rubem nahoru nahoře; balíček a pole jsou uprostřed a pod balíčkem je tečka za každé kolo. Vzaté karty každého hráče jsou seřazené podle druhu: světla, zvířata, stuhy, obyčejné karty, s počtem na každé skupině. Složená yaku se ukazují jako odznaky s kartami a body, červený kotouč ukazuje ohlášené koi-koi. Co soupeř udělal ve svém posledním tahu, je na stole označené.
-- Klepni na kartu v ruce: karty na poli stejného měsíce se rozzáří. Klepni na jednu z nich nebo znovu na svou kartu a zahraješ ji; můžeš ji také přetáhnout na pole. Když nic nepasuje, tečka ukáže, kam si lehne.
-- Pasují-li dvě karty, klepni na tu, kterou bereš.
-- Pak klepni na balíček a otočíš jeho vrchní kartu.
-- Když složíš yaku, objeví se dvě velká tlačítka: otevřená dlaň končí (číslo pod ní je to, co bys teď získal), dvojitá šipka ohlásí koi-koi.
-- Po každém kole ukáže panel yaku, zdvojení (křížek a 2) a body; klepni na něj pro další kolo. Celkový součet každého hráče je v jeho liště.
-Vrátit vezme zpět tvé vlastní tahy, dokud neotočíš kartu z balíčku.
+- Čtyři karty jednoho měsíce (Teshi) nebo čtyři dvojice měsíců (Kuttsuki) v rozdané ruce vyhrávají kolo hned, za 6 bodů.

@@ -1,39 +1,31 @@
 Mahjong
 # Amaç
-Dört oyuncu için klasik masa oyunu, Hong Kong kurallarıyla (Eski Stil). 14 taşlık bir eli ilk tamamlayan ol ve onunla puan kazan. Eller gizlidir: cihaz oyuncudan oyuncuya geçer. Oyunun uzunluğunu seç: yalnızca Doğu turu ya da Doğu ve Güney turları.
+Dört oyuncu için klasik oyun, Hong Kong kurallarıyla (Eski Stil). En az 3 faan değerinde 14 taşlık bir eli ilk tamamlayan ol.
 # Taşlar
-- 1'den 9'a numaralı üç takım: daireler (noktalar), bambular (çubuklar; 1'i bir kuştur) ve karakterler (萬 işaretinin üstünde bir Çince rakam).
-- Onur taşları: rüzgârlar 東 doğu, 南 güney, 西 batı, 北 kuzey ve ejderhalar 中 kırmızı, 發 yeşil ve beyaz (mavi bir çerçeve).
-- Bunların her biri dört kez bulunur. Birer tane olan dört çiçek ve dört mevsim bonus taşlarıdır: eline geçer geçmez kenara konur ve yerine duvarın sonundan taş çekilir.
-# Dağıtım
-İki taş yüksekliğindeki dört duvar bir kare oluşturur. Dağıtıcı, yani doğu, duvarın nereden açılacağını seçmek için üç zar atar. Herkes 13 taş alır, dağıtıcı 14. Duvarın son 14 taşı ölü duvardır: çiçeklerin ve kong'ların yerine gelen taşlar onun sonundan çekilir. Oturma rüzgârları: dağıtıcı doğudur, ardından sırayla güney, batı ve kuzey gelir.
+- 1'den 9'a üç takım: daireler, bambular (1'i bir kuştur) ve karakterler (萬 işaretinin üstünde bir Çince rakam).
+- Onur taşları: rüzgârlar 東 doğu, 南 güney, 西 batı, 北 kuzey; ejderhalar 中 kırmızı, 發 yeşil ve beyaz (mavi bir çerçeve).
+- Her biri dört kez bulunur. Çiçekler ve mevsimler bonus taşlarıdır: hemen kenara konur ve yerine duvarın sonundan taş çekilir.
 # Bir sıra
-Duvardan bir taş çek ya da son atılan taşı al; sonra bir taşı önüne açık olarak at. Atmadan önce şunları da yapabilirsin:
-- kong ilan etmek: elindeki dört aynı taş ya da açtığın bir pung'a eklenen dördüncü taş. Yerine bir taş çek, sonra at.
-- kazandığını ilan etmek.
+Herkes 13 taş alır, dağıtıcı (doğu) 14. Duvardan bir taş çek ya da son atılan taşı al, sonra bir taş at. Atmadan önce kazandığını ya da bir kong (elindeki dört aynı taş ya da açtığın bir pung'a eklenen dördüncü taş) ilan edip yerine bir taş çekebilirsin.
 # Gruplar ve talepler
-- Chow aynı takımdan sıralı üç taş, pung aynı üç taş, kong aynı dört taş, çift ise aynı iki taştır.
-- Her oyuncu, elindeki taşlarla pung ya da kong yapmak veya onunla kazanmak için son atılan taşı alabilir. Chow için onu yalnızca sıradaki oyuncu alabilir. Grup açık olarak yere konur; taşı alan sonra bir taş atar ve oyun ondan sonraki oyuncuyla sürer.
+- Chow: aynı takımdan sıralı üç taş. Pung: aynı üç taş. Kong: aynı dört taş. Çift: aynı iki taş.
+- Son atılan taşı pung, kong ya da kazanmak için herkes alabilir; chow için yalnızca sıradaki oyuncu. Grup açık olarak yere konur, taşı alan bir taş atar ve oyun ondan sonraki oyuncuyla sürer.
 - Kazanmak pung'dan ya da kong'dan, onlar da chow'dan önce gelir. İki oyuncu kazanmak isterse taşı, atandan sonra sırası önce gelen alır.
-- Bir pung'u kong yapmak için eklenen taşı, onunla kazanan bir oyuncu kapabilir.
+- Bir pung'a eklenen taşı, onunla kazanan bir oyuncu kapabilir.
 - Duvar bitince son atılan taş yalnızca kazanmak için alınabilir; yoksa el berabere biter.
 # Kazanmak
-Kazanan el dört grup (chow, pung ya da kong) ve bir çift, ya da yedi farklı çift, ya da on üç yetimdir (her 1'den, her 9'dan ve her onur taşından birer tane, ve bunlardan bir tane daha). En az 3 faan değerinde olmalıdır.
+Dört grup ve bir çift, yedi farklı çift ya da on üç yetim (her 1'den, her 9'dan ve her onur taşından birer tane, ve bunlardan bir tane daha).
 # Faan
-- 1: kendi çektiğin taşla kazanmak; kapalı el (alınmış grup yok); hepsi chow; her ejderha pung'u; kendi oturma rüzgârının pung'u; tur rüzgârının pung'u; kendi çiçeğinin ve kendi mevsiminin her biri (doğu 1, güney 2, batı 3, kuzey 4); hiç çiçek ya da mevsim olmaması; son taşla, yerine çekilen bir taşla ya da bir kong'u kaparak kazanmak.
+- 1: kendi çektiğin taşla kazanmak; kapalı el; hepsi chow; her ejderha pung'u; kendi oturma rüzgârının ya da tur rüzgârının pung'u; kendi çiçeğinin ve kendi mevsiminin her biri (doğu 1, güney 2, batı 3, kuzey 4); hiç çiçek ya da mevsim olmaması; son taşla, yerine çekilen bir taşla ya da bir kong'u kaparak kazanmak.
 - 2: dört çiçeğin hepsi ya da dört mevsimin hepsi.
 - 3: hepsi pung; yarı saf el (tek takım ve onur taşları).
 - 4: yedi çift.
-- 5: küçük üç ejderha (iki ejderha pung'u ve üçüncüsünden bir çift), ejderha pung'larının yerine sayılır.
+- 5: küçük üç ejderha (iki ejderha pung'u ve üçüncüsünden bir çift), ejderha pung'larının yerine.
 - 7: saf el (yalnızca tek takım).
 - 8: büyük üç ejderha.
-- 10, sınır: on üç yetim, hepsi onur taşı, hepsi 1 ve 9, küçük ya da büyük dört rüzgâr, dokuz kapı (tek takımdan 1112345678999 ve aynı takımdan bir taş daha), dört kong, dört kapalı pung.
+- 10, sınır: on üç yetim, hepsi onur taşı, hepsi 1 ve 9, küçük ya da büyük dört rüzgâr, dokuz kapı (tek takımdan 1112345678999 ve bir taş daha), dört kong, dört kapalı pung.
 Bir el, okunabileceği en iyi şekilde sayılır, en çok 10 faan'a kadar.
 # Ödemeler
-3 ile 10 faan arasındaki bir el 8, 16, 24, 32, 48, 64, 96 ya da 128 puan değerindedir. Atılan taşla kazanılırsa taşı atan kazanana bunun iki katını, diğer ikisi bir katını öder. Kendi çektiği taşla kazanılırsa üçü de iki katını öder. Berabere biten el: kimse ödemez.
+3 ile 10 faan 8, 16, 24, 32, 48, 64, 96 ya da 128 puan değerindedir. Atılan taşla kazanılırsa taşı atan bunun iki katını, diğerleri bir katını öder; kendi çekilen taşla kazanılırsa üçü de iki katını öder.
 # Oyunun sonu
-Dağıtıcı kazanırsa dağıtmaya devam eder; yoksa dağıtma sırası sonraki oyuncuya geçer. Herkes dağıttığında tur biter ve tur rüzgârı doğudan güneye döner. Oyun seçilen son turdan sonra biter; en yüksek toplam kazanır.
-# Cihazda oynamak
-Elin altta, yeni çektiğin taş biraz ayrıdadır; grupların ve çiçeklerin elinin üstündedir. Bir taşı kaldırmak için ona dokun, sonra atmak için ona yeniden ya da masaya dokun, ya da onu masaya sürükle. Kazanabildiğinde ya da kong, pung veya chow yapabildiğinde gruplar elinin üstünde parlar: birine dokun. Şeridindeki pas düğmesiyle atılan taşı geçersin; sıra sendeyken duvarlara dokunmak taş çeker.
-Bir taş atıldıktan sonra cihaz yalnızca onu alabilecek oyunculara gider. Taşı atandan iki ve üç sıra sonra oturan iki oyuncudan biri alabilecekse, hangisi olduğu anlaşılmasın diye her zaman ikisine de, bu sırayla sorulur. Alacak bir şeyi olmayan oyuncu atılan taşı yalnızca bir an görür; sonra sıradaki oyuncu taş çeker.
-Her elden sonra bir tablo kazanan eli grup grup, faan'ını, her oyuncunun ödemesini ve toplamları gösterir: sonraki el için ona dokun. Masanın ortası tur rüzgârını, turun kaçıncı eli olduğunu, zarları ve duvarda kalan taşları gösterir. Her oyuncunun şeridi oturma rüzgârını ve toplamını gösterir.
+Dağıtıcı kazanırsa dağıtmaya devam eder; yoksa dağıtma sırası sonrakine geçer. Herkes dağıttığında tur rüzgârı doğudan güneye döner. Son turdan sonra en yüksek toplam kazanır.

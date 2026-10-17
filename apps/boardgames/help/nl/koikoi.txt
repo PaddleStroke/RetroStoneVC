@@ -1,50 +1,24 @@
 Koi-Koi
 # Het doel
-Scoor de meeste punten in 12 rondes, één voor elke maand van het jaar, of in 6 rondes in het korte spel. Voor 2 spelers. Vang kaarten door hun maanden te combineren en vorm yaku, de combinaties die punten opleveren. Kies dan: stoppen en meteen scoren, of koi-koi roepen en doorspelen voor meer.
+Vang kaarten door hun maanden te combineren en vorm yaku, de combinaties die punten opleveren. Stop dan en scoor, of roep koi-koi en speel door voor meer. Wie na 12 rondes (6 in het korte spel) de meeste punten heeft, wint.
 # De kaarten
-Het hanafuda-spel heeft 48 kaarten: 12 maanden van 4 kaarten, elke maand met een eigen plant. Januari den, februari pruim, maart kers, april blauweregen, mei iris, juni pioen, juli struikklaver, augustus pampagras, september chrysant, oktober esdoorn, november wilg, december keizersboom.
-- Lichten (5): de kraanvogel (januari), het gordijn (maart), de maan (augustus), de man in de regen (november) en de feniks (december).
-- Dieren (9): de struikzanger, de koekoek, de brug, de vlinders, het everzwijn, de ganzen, de sakekom, het hert en de zwaluw.
-- Linten (10): drie rode gedichtlinten met schrift (januari, februari, maart), drie blauwe linten (juni, september, oktober) en vier effen rode linten (april, mei, juli, november).
-- Gewone kaarten (24): alle andere, waaronder de bliksem van november.
-# Het delen
-Elke speler krijgt 8 kaarten en nog 8 gaan open op het veld; de rest is de stapel. Liggen alle vier de kaarten van een maand op het veld, dan wordt opnieuw gedeeld. De gever speelt eerst: de ivoren speler in de eerste ronde, daarna de winnaar van de vorige ronde. Na een ronde zonder winnaar blijft de gever dezelfde.
+48 kaarten: 12 maanden van 4.
+- Lichten (5): de kraanvogel, het gordijn, de maan, de man in de regen en de feniks.
+- Dieren (9), linten (10: drie rode gedichtlinten met schrift, drie blauwe, vier effen rode) en gewone kaarten (24).
 # Een beurt
-- Speel een kaart uit je hand op het veld. Heeft een veldkaart dezelfde maand, dan vang je ze allebei. Hebben twee dat, dan kies je welke je neemt. Hebben drie dat, dan vang je alle vier. Heeft geen enkele dat, dan blijft je kaart op het veld liggen.
+Elk 8 kaarten en 8 open op het veld; ligt een hele maand op het veld, dan wordt opnieuw gedeeld. De gever begint: ivoor, daarna de winnaar van de vorige ronde.
+- Speel een kaart uit je hand: ze vangt een veldkaart van haar maand (bij twee kies je, bij drie neem je alle vier). Anders blijft ze op het veld liggen.
 - Draai daarna de bovenste kaart van de stapel om en speel die op dezelfde manier.
-- De kaarten die je vangt blijven open voor je liggen.
 # De yaku
-- Gokō: de 5 lichten, 10 punten.
-- Shikō: 4 lichten zonder de man in de regen, 8 punten.
-- Ame-Shikō: 4 lichten met de man in de regen, 7 punten.
-- Sankō: 3 lichten zonder de man in de regen, 5 punten. Drie lichten met hem leveren niets op.
-- Inoshikachō: het everzwijn, het hert en de vlinders, 5 punten.
-- Akatan: de 3 gedichtlinten, 5 punten.
-- Aotan: de 3 blauwe linten, 5 punten.
-- Hanami-zake: het gordijn en de sakekom, 5 punten.
-- Tsukimi-zake: de maan en de sakekom, 5 punten.
-- Tane: 5 dieren, 1 punt, en 1 meer voor elk dier extra.
-- Tan: 5 linten, 1 punt, en 1 meer voor elk lint extra.
-- Kasu: 10 gewone kaarten, 1 punt, en 1 meer voor elke gewone kaart extra.
-Van de vier licht-yaku telt alleen de beste; alle andere yaku tellen op. De sakekom telt als dier en ook als gewone kaart. Hanami-zake en Tsukimi-zake tellen hier altijd.
+- Gokō: de 5 lichten, 10. Shikō: 4 lichten zonder de man in de regen, 8. Ame-Shikō: 4 met hem, 7. Sankō: 3 zonder hem, 5.
+- Inoshikachō: het everzwijn, het hert en de vlinders, 5.
+- Akatan: de 3 gedichtlinten, 5. Aotan: de 3 blauwe linten, 5.
+- Hanami-zake: het gordijn en de sakekom, 5. Tsukimi-zake: de maan en de sakekom, 5.
+- Tane (5 dieren), Tan (5 linten), Kasu (10 gewone kaarten): 1, en 1 meer voor elke kaart extra.
+Alleen de beste licht-yaku telt. De sakekom is een dier en ook een gewone kaart.
 # Stoppen of koi-koi
-Eindigt je beurt met een nieuwe yaku, of met meer punten uit je yaku, dan kies je:
-- Stoppen: de ronde eindigt en je scoort.
-- Koi-koi: de ronde gaat door. Je kunt pas weer stoppen als je punten opnieuw gestegen zijn. Stopt je tegenstander eerst, dan scoor je niets en worden zijn punten verdubbeld.
-Heb je geen kaart meer in je hand, dan stop je.
+Eindigt je beurt met een nieuwe yaku of meer punten, dan stop je en scoor je, of je roept koi-koi en speelt door. Stopt je tegenstander dan eerst, dan scoor je niets en worden zijn punten verdubbeld. Heb je geen kaart meer in je hand, dan stop je.
 # De punten
-- De punten van al je yaku bij elkaar opgeteld.
-- Verdubbeld als het er 7 of meer zijn.
-- Nog eens verdubbeld als je tegenstander koi-koi had geroepen.
+- Je yaku bij elkaar opgeteld, verdubbeld vanaf 7 punten, en nog eens verdubbeld als je tegenstander koi-koi had geroepen.
 - Zijn beide handen uitgespeeld en heeft niemand gestopt, dan scoort niemand.
-- Teshi (vier kaarten van één maand in de gedeelde hand) en Kuttsuki (vier paren van maanden in de gedeelde hand) winnen de ronde meteen, voor 6 punten. De hand van de gever wordt eerst bekeken.
-# Het einde van de partij
-Na de laatste ronde wint de speler met de meeste punten.
-# Spelen op het apparaat
-De handen zijn geheim: geef het apparaat door als het scherm erom vraagt, en de volgende speler tikt op de startknop. Jouw hand ligt onderaan, die van je tegenstander dicht bovenaan; de stapel en het veld liggen in het midden, met een stip voor elke ronde onder de stapel. De gevangen kaarten van elke speler liggen per soort: lichten, dieren, linten, gewone kaarten, met het aantal op elke groep. Gevormde yaku verschijnen als badges met hun kaarten en hun punten, en een rode schijf toont een koi-koi-roep. Wat je tegenstander in zijn laatste beurt deed, is op tafel gemarkeerd.
-- Tik op een kaart in je hand: de veldkaarten van haar maand lichten op. Tik op een daarvan, of nog eens op je kaart, om haar te spelen; je kunt haar ook naar het veld slepen. Past er niets, dan wijst een stip aan waar ze komt te liggen.
-- Passen er twee kaarten, tik dan op de kaart die je neemt.
-- Tik daarna op de stapel om de bovenste kaart om te draaien.
-- Vorm je een yaku, dan verschijnen twee grote knoppen: de open hand stopt (het getal eronder is wat je nu zou scoren), de dubbele pijl roept koi-koi.
-- Na elke ronde toont een paneel de yaku, de verdubbelingen (een kruisje en een 2) en de punten; tik erop voor de volgende ronde. Het totaal van elke speler staat in zijn balk.
-Ongedaan maken neemt je eigen zetten terug, tot je de kaart van de stapel omdraait.
+- Vier kaarten van één maand (Teshi) of vier paren van maanden (Kuttsuki) in de gedeelde hand winnen de ronde meteen, voor 6 punten.

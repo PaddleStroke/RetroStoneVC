@@ -1,16 +1,11 @@
 Montana
 # Tavoite
-Järjestä kortit neljään riviin, kukin yhtä maata kakkosesta kuninkaaseen, siirtämällä kortteja aukkoihin. Peli yhdelle pelaajalle, myös nimeltä Aukot.
-# Asetelma
-Kaikki 52 korttia jaetaan kuvapuoli ylöspäin neljään 13 kortin riviin; sitten neljä ässää poistetaan, ja jäljelle jää neljä aukkoa.
+Järjestä kortit neljään riviin, kukin yhtä maata kakkosesta kuninkaaseen, siirtämällä kortteja aukkoihin. Ässät poistetaan, jolloin jää neljä aukkoa.
 # Korttien siirtäminen
 - Aukkoon käy kortti, joka on samaa maata ja yhtä suurempi kuin aukon vasemmalla puolella oleva kortti: risti 5:n jälkeen risti 6.
 - Ensimmäisen sarakkeen aukkoon käy mikä tahansa kakkonen.
 - Kuninkaan jälkeistä aukkoa ei voi täyttää.
-- Järjestyksessä oleva rivi alkaa kakkosella ensimmäisessä sarakkeessa ja jatkuu samaa maata; se hehkuu hiljaa.
 # Uudelleenjaot
-Kolmesti pelin aikana voit napauttaa kättä (paikkaa, jossa nuoli kiertää): kortit, jotka eivät vielä ole järjestyksessä, kerätään, sekoitetaan ja jaetaan uudelleen kunkin rivin järjestetyn osan jälkeisiin paikkoihin niin, että heti sen perään jää yksi aukko. Käden alla oleva luku näyttää jäljellä olevat uudelleenjaot.
+Kolmesti pelin aikana voit napauttaa kättä (kiertävä nuoli): kortit, jotka eivät vielä ole järjestyksessä, sekoitetaan ja jaetaan uudelleen kunkin rivin järjestetyn osan perään niin, että heti sen jälkeen jää yksi aukko.
 # Pelin loppu
-Voitat, kun kaikki neljä riviä ovat järjestyksessä ja kunkin aukko on lopussa. Peli päättyy, kun yhtään aukkoa ei voi täyttää eikä uudelleenjakoja ole jäljellä. Kaikkia jakoja ei voi voittaa.
-# Pelaaminen laitteella
-Napauta korttia lähettääksesi sen aukkoon, johon se käy, tai napauta aukkoa tuodaksesi siihen sopivan kortin. Voit myös vetää kortin aukkoonsa. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Voitat, kun kaikki neljä riviä ovat järjestyksessä. Peli päättyy, kun yhtään aukkoa ei voi täyttää eikä uudelleenjakoja ole jäljellä. Kaikkia jakoja ei voi voittaa.

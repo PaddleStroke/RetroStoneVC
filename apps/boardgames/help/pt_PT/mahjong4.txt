@@ -1,39 +1,31 @@
 Mahjong
 # O objetivo
-O clássico jogo de mesa para quatro jogadores, com as regras de Hong Kong (estilo antigo). Sê o primeiro a completar uma mão de 14 peças e marca pontos com ela. As mãos são secretas: o dispositivo passa de jogador para jogador. Escolhe a duração do jogo: só a ronda de Este, ou as rondas de Este e de Sul.
+O clássico jogo para quatro, com as regras de Hong Kong (estilo antigo). Sê o primeiro a completar uma mão de 14 peças que valha pelo menos 3 faan.
 # As peças
-- Três naipes, numerados de 1 a 9: círculos, bambus (canas; o 1 é um pássaro) e caracteres (um número chinês por cima de 萬).
-- As honras: os ventos 東 este, 南 sul, 西 oeste, 北 norte, e os dragões 中 vermelho, 發 verde e branco (uma moldura azul).
-- Cada uma destas peças existe quatro vezes. As quatro flores e as quatro estações, uma de cada, são peças de bónus: põem-se de parte logo que chegam e são substituídas por uma peça do fim da muralha.
-# A distribuição
-As quatro muralhas, com duas peças de altura, formam um quadrado. O distribuidor, sentado a este, lança três dados para escolher onde se abre a muralha. Cada um recebe 13 peças, o distribuidor 14. As últimas 14 peças da muralha são a muralha morta: as peças de substituição das flores e dos kongs saem do fim dela. Os ventos de lugar: o distribuidor tem o vento este, seguindo-se, à vez, sul, oeste e norte.
+- Três naipes, de 1 a 9: círculos, bambus (o 1 é um pássaro) e caracteres (um número chinês por cima de 萬).
+- As honras: os ventos 東 este, 南 sul, 西 oeste, 北 norte; os dragões 中 vermelho, 發 verde e branco (uma moldura azul).
+- Quatro de cada. As flores e as estações são peças de bónus: põem-se logo de parte e são substituídas por uma peça do fim da muralha.
 # Uma vez
-Compra uma peça da muralha ou apanha o último descarte; depois descarta uma peça voltada para cima à tua frente. Antes de descartar, também podes:
-- declarar um kong: quatro peças iguais na mão, ou a quarta juntada a um pung que já baixaste. Compra uma peça de substituição e depois descarta.
-- declarar a vitória.
+13 peças cada um, o distribuidor (este) 14. Compra da muralha ou apanha o último descarte, depois descarta uma peça. Antes de descartar podes declarar a vitória, ou um kong (quatro iguais na mão, ou a quarta juntada a um pung que baixaste) e comprar uma peça de substituição.
 # Combinações e descartes
-- Um chow são três peças seguidas do mesmo naipe; um pung, três iguais; um kong, quatro iguais; um par, duas iguais.
-- Qualquer jogador pode apanhar o último descarte para fazer um pung ou um kong com peças da sua mão, ou para ganhar com ele. Só o jogador seguinte o pode apanhar para um chow. A combinação é baixada voltada para cima; quem apanhou o descarte descarta a seguir, e o jogo continua a partir dele.
-- Ganhar tem prioridade sobre um pung ou um kong, que têm prioridade sobre um chow. Se dois jogadores quiserem ganhar, fica com ele o primeiro a seguir a quem descartou, pela ordem de jogo.
-- Uma peça juntada a um pung para fazer um kong pode ser roubada por um jogador que ganhe com ela.
+- Chow: três seguidas do mesmo naipe. Pung: três iguais. Kong: quatro iguais. Par: duas iguais.
+- Qualquer um pode apanhar o último descarte para um pung, um kong ou para ganhar; só o jogador seguinte para um chow. A combinação é baixada voltada para cima, quem a apanhou descarta e o jogo continua a partir dele.
+- Ganhar tem prioridade sobre um pung ou um kong, que têm prioridade sobre um chow. Entre duas vitórias, fica com ela o primeiro a seguir a quem descartou.
+- Uma peça juntada a um pung pode ser roubada por um jogador que ganhe com ela.
 - Quando a muralha se esgota, o último descarte só pode ser apanhado para ganhar; caso contrário, a mão fica empatada.
 # Ganhar
-Uma mão vencedora tem quatro combinações (chows, pungs ou kongs) e um par, ou sete pares diferentes, ou os treze órfãos (um de cada 1, de cada 9 e de cada honra, e mais um de qualquer deles). Tem de valer pelo menos 3 faan.
+Quatro combinações e um par, sete pares diferentes, ou os treze órfãos (um de cada 1, de cada 9 e de cada honra, e mais um deles).
 # Faan
-- 1: vitória na tua própria compra; mão fechada (nenhuma combinação feita com um descarte); só chows; cada pung de dragões; um pung do teu vento de lugar; um pung do vento da ronda; cada uma das tuas flores e estações (este 1, sul 2, oeste 3, norte 4); nenhuma flor nem estação; ganhar com a última peça, com uma peça de substituição ou roubando um kong.
+- 1: vitória na tua própria compra; mão fechada; só chows; cada pung de dragões; um pung do teu vento de lugar ou do vento da ronda; cada uma das tuas flores e estações (este 1, sul 2, oeste 3, norte 4); nenhuma flor nem estação; ganhar com a última peça, com uma peça de substituição ou roubando um kong.
 - 2: as quatro flores, ou as quatro estações.
 - 3: só pungs; cor mista (um só naipe e honras).
 - 4: sete pares.
-- 5: três dragões pequenos (dois pungs de dragões e um par do terceiro), contados em vez dos pungs de dragões.
+- 5: três dragões pequenos (dois pungs de dragões e um par do terceiro), em vez dos pungs de dragões.
 - 7: cor pura (um só naipe).
 - 8: três dragões grandes.
-- 10, o limite: treze órfãos, só honras, só 1 e 9, quatro ventos pequenos ou grandes, nove portões (1112345678999 de um naipe e mais uma peça desse naipe), quatro kongs, quatro pungs fechados.
+- 10, o limite: treze órfãos, só honras, só 1 e 9, quatro ventos pequenos ou grandes, nove portões (1112345678999 de um naipe e mais uma), quatro kongs, quatro pungs fechados.
 Uma mão conta da melhor maneira como possa ser lida, até 10 faan.
 # Os pagamentos
-Uma mão de 3 a 10 faan vale 8, 16, 24, 32, 48, 64, 96 ou 128 pontos. Vitória com descarte: quem descartou paga o dobro ao vencedor, e os outros dois o valor simples. Vitória na própria compra: os três pagam o dobro. Mão empatada: ninguém paga.
+De 3 a 10 faan valem 8, 16, 24, 32, 48, 64, 96 ou 128 pontos. Com descarte, quem descartou paga o dobro e os outros o valor simples; na própria compra, os três pagam o dobro.
 # O fim do jogo
-O distribuidor volta a distribuir se ganhar; senão, a distribuição passa ao jogador seguinte. Quando todos já distribuíram, a ronda acaba e o vento da ronda passa de este para sul. O jogo acaba depois da última ronda escolhida; ganha o maior total.
-# Jogar no dispositivo
-A tua mão está em baixo, com a peça que acabaste de comprar um pouco afastada; as tuas combinações e flores estão por cima. Toca numa peça para a levantar, depois toca-lhe outra vez ou toca na mesa para a descartar, ou arrasta-a para a mesa. Quando podes ganhar ou fazer um kong, um pung ou um chow, as combinações brilham por cima da tua mão: toca numa delas. O botão de passar na tua barra deixa passar um descarte; na tua vez, um toque nas muralhas compra.
-Depois de um descarte, o dispositivo só vai para os jogadores que o poderiam apanhar. Se um dos dois jogadores sentados duas e três posições depois de quem descartou o puder fazer, os dois são sempre consultados, por essa ordem, para que ninguém saiba qual deles. Um jogador sem nada para apanhar só vê o descarte por um momento; depois o jogador seguinte compra.
-Depois de cada mão, um painel mostra a mão vencedora combinação a combinação, os seus faan, o pagamento de cada jogador e os totais: toca nele para a mão seguinte. O meio da mesa mostra o vento da ronda, que mão da ronda se está a jogar, os dados e as peças que restam na muralha. Cada barra mostra o vento de lugar do jogador e o seu total.
+O distribuidor volta a distribuir se ganhar; senão, a distribuição passa ao seguinte. Quando todos já distribuíram, o vento da ronda passa de este para sul. Depois da última ronda, ganha o maior total.

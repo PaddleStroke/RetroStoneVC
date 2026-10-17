@@ -1,39 +1,31 @@
 Mahjong
 # El objetivo
-El clásico juego de mesa para cuatro jugadores, con las reglas de Hong Kong (estilo antiguo). Sé el primero en completar una mano de 14 fichas y gana puntos con ella. Las manos son secretas: el dispositivo pasa de un jugador a otro. Elige la duración de la partida: solo la ronda del Este, o las rondas del Este y del Sur.
+El clásico juego para cuatro, con las reglas de Hong Kong (estilo antiguo). Sé el primero en completar una mano de 14 fichas que valga al menos 3 faan.
 # Las fichas
-- Tres palos, numerados del 1 al 9: círculos, bambúes (cañas; el 1 es un pájaro) y caracteres (un número chino encima de 萬).
-- Los honores: los vientos 東 este, 南 sur, 西 oeste, 北 norte, y los dragones 中 rojo, 發 verde y blanco (un marco azul).
-- Cada una de estas fichas aparece cuatro veces. Las cuatro flores y las cuatro estaciones, una vez cada una, son fichas de bonificación: se apartan en cuanto se reciben y se reponen desde el final del muro.
-# El reparto
-Los cuatro muros, de dos fichas de alto, forman un cuadrado. El repartidor, el este, tira tres dados para elegir por dónde se abre el muro. Cada uno toma 13 fichas, el repartidor 14. Las 14 últimas fichas del muro son el muro muerto: las fichas de reposición de las flores y los kongs salen de su extremo. Los vientos de asiento: el repartidor es el este, y siguen por turno el sur, el oeste y el norte.
+- Tres palos, del 1 al 9: círculos, bambúes (el 1 es un pájaro) y caracteres (un número chino encima de 萬).
+- Los honores: los vientos 東 este, 南 sur, 西 oeste, 北 norte; los dragones 中 rojo, 發 verde y blanco (un marco azul).
+- Cuatro de cada. Las flores y las estaciones son fichas de bonificación: se apartan en el acto y se reponen desde el final del muro.
 # Un turno
-Roba una ficha del muro o reclama el último descarte; después descarta una ficha boca arriba delante de ti. Antes de descartar también puedes:
-- declarar un kong: cuatro fichas iguales en tu mano, o la cuarta añadida a un pung que ya hayas bajado. Roba una ficha de reposición y luego descarta.
-- declarar que ganas.
+13 fichas cada uno, el repartidor (el este) 14. Roba del muro o reclama el último descarte, y después descarta una ficha. Antes de descartar puedes declarar que ganas, o un kong (cuatro iguales en tu mano, o la cuarta añadida a un pung que hayas bajado) y robar una ficha de reposición.
 # Combinaciones y reclamaciones
-- Un chow son tres fichas seguidas de un mismo palo; un pung, tres iguales; un kong, cuatro iguales; una pareja, dos iguales.
-- Cualquier jugador puede reclamar el último descarte para formar un pung o un kong con fichas de su mano, o para ganar con él. Solo el jugador siguiente puede reclamarlo para un chow. La combinación se baja boca arriba; quien la reclamó descarta entonces, y el juego sigue después de él.
-- Ganar tiene prioridad sobre un pung o un kong, y estos sobre un chow. Si dos jugadores quieren ganar, se lo lleva el primero que sigue en el turno a quien descartó.
-- Una ficha añadida a un pung para hacer un kong se la puede arrebatar un jugador que gane con ella.
+- Chow: tres seguidas de un mismo palo. Pung: tres iguales. Kong: cuatro iguales. Pareja: dos iguales.
+- Cualquiera puede reclamar el último descarte para un pung, un kong o para ganar; solo el jugador siguiente para un chow. La combinación se baja boca arriba, quien la reclamó descarta y el juego sigue después de él.
+- Ganar tiene prioridad sobre un pung o un kong, y estos sobre un chow. Entre dos jugadores que ganan, se lo lleva el primero después de quien descartó.
+- Una ficha añadida a un pung se la puede arrebatar un jugador que gane con ella.
 - Cuando se acaba el muro, el último descarte solo se puede reclamar para ganar; si no, la mano queda en tablas.
 # Ganar
-Una mano ganadora son cuatro combinaciones (chows, pungs o kongs) y una pareja, o siete parejas distintas, o los trece huérfanos (uno de cada 1, cada 9 y cada honor, y uno más de cualquiera de ellos). Debe valer al menos 3 faan.
+Cuatro combinaciones y una pareja, siete parejas distintas, o los trece huérfanos (uno de cada 1, cada 9 y cada honor, y uno más de ellos).
 # Faan
-- 1: ganar con tu propio robo; mano oculta (sin combinaciones reclamadas); todo chows; cada pung de dragones; un pung de tu viento de asiento; un pung del viento dominante; cada flor y estación tuya (este 1, sur 2, oeste 3, norte 4); ninguna flor ni estación; ganar con la última ficha, con una ficha de reposición o arrebatando un kong.
+- 1: ganar con tu propio robo; mano oculta; todo chows; cada pung de dragones; un pung de tu viento de asiento o del viento dominante; cada flor y estación tuya (este 1, sur 2, oeste 3, norte 4); ninguna flor ni estación; ganar con la última ficha, con una ficha de reposición o arrebatando un kong.
 - 2: las cuatro flores, o las cuatro estaciones.
 - 3: todo pungs; color mixto (un solo palo y honores).
 - 4: siete parejas.
-- 5: tres dragones pequeños (dos pungs de dragones y una pareja del tercero), que cuentan en lugar de los pungs de dragones.
+- 5: tres dragones pequeños (dos pungs de dragones y una pareja del tercero), en lugar de los pungs de dragones.
 - 7: color puro (un solo palo).
 - 8: tres dragones grandes.
-- 10, el límite: trece huérfanos, todo honores, todo 1 y 9, cuatro vientos pequeños o grandes, nueve puertas (1112345678999 de un palo y una ficha más de ese palo), cuatro kongs, cuatro pungs ocultos.
+- 10, el límite: trece huérfanos, todo honores, todo 1 y 9, cuatro vientos pequeños o grandes, nueve puertas (1112345678999 de un palo y una más), cuatro kongs, cuatro pungs ocultos.
 Una mano cuenta de la mejor manera en que se pueda leer, hasta 10 faan.
 # Los pagos
-Una mano de 3 a 10 faan vale 8, 16, 24, 32, 48, 64, 96 o 128 puntos. Ganada con un descarte: quien descartó paga el doble al ganador, y los otros dos, el valor simple. Ganada con robo propio: los tres pagan el doble. Mano en tablas: nadie paga.
+De 3 a 10 faan valen 8, 16, 24, 32, 48, 64, 96 o 128 puntos. Con un descarte, quien descartó paga el doble y los otros el valor simple; con robo propio, los tres pagan el doble.
 # El final de la partida
-El repartidor sigue repartiendo si gana; si no, el reparto pasa al jugador siguiente. Cuando todos han repartido, la ronda termina y el viento dominante pasa del este al sur. La partida termina tras la última ronda elegida; gana el total más alto.
-# Jugar en el dispositivo
-Tu mano está abajo, con la ficha que acabas de robar un poco aparte; tus combinaciones y tus flores, encima. Toca una ficha para levantarla y vuelve a tocarla o toca la mesa para descartarla, o arrástrala a la mesa. Cuando puedes ganar o hacer un kong, un pung o un chow, las combinaciones brillan encima de tu mano: toca una. El botón de pasar de tu barra deja ir un descarte; cuando es tu turno, un toque en los muros roba.
-Tras un descarte, el dispositivo solo pasa a los jugadores que podrían reclamarlo. Si alguno de los dos jugadores sentados dos y tres puestos después de quien descartó puede hacerlo, siempre se pregunta a los dos, en ese orden, para que nadie sepa cuál. Un jugador sin nada que reclamar solo ve el descarte un momento; luego el jugador siguiente roba.
-Tras cada mano, una tabla muestra la mano ganadora combinación por combinación, sus faan, el pago de cada jugador y los totales: tócala para la mano siguiente. El centro de la mesa muestra el viento dominante, qué mano de la ronda se juega, los dados y las fichas que quedan en el muro. Cada barra muestra el viento de asiento del jugador y su total.
+El repartidor sigue repartiendo si gana; si no, el reparto pasa al siguiente. Cuando todos han repartido, el viento dominante pasa del este al sur. Tras la última ronda gana el total más alto.

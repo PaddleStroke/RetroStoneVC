@@ -1,16 +1,11 @@
 Montana
 # Das Ziel
-Ordne die Karten in vier Reihen, jede in einer einzigen Farbe von der 2 bis zum König, indem du Karten in die Lücken schiebst. Ein Spiel für eine Person, auch Lückenpatience genannt.
-# Der Aufbau
-Die 52 Karten liegen offen in vier Reihen zu 13; dann werden die vier Asse herausgenommen, und es bleiben vier Lücken.
+Ordne die Karten in vier Reihen, jede in einer einzigen Farbe von der 2 bis zum König, indem du Karten in die Lücken schiebst. Die Asse werden herausgenommen, so bleiben vier Lücken.
 # Karten bewegen
 - In eine Lücke kommt die Karte derselben Farbe, die einen Rang höher ist als die Karte links davon: nach der Kreuz 5 die Kreuz 6.
 - Eine Lücke in der ersten Spalte nimmt jede 2.
 - Eine Lücke hinter einem König kann nichts füllen.
-- Eine geordnete Reihe beginnt mit einer 2 in der ersten Spalte und geht in derselben Farbe weiter; sie leuchtet sanft.
 # Das Neumischen
-Dreimal in einer Partie kannst du auf den Platz mit dem kreisenden Pfeil tippen: Die Karten, die noch nicht geordnet sind, werden eingesammelt, gemischt und wieder auf die Plätze hinter der geordneten Folge jeder Reihe ausgelegt, mit einer Lücke direkt dahinter. Die Zahl unter diesem Platz zeigt, wie oft du noch neu mischen kannst.
+Dreimal in einer Partie tippst du auf die Hand (den kreisenden Pfeil): Die Karten, die noch nicht geordnet sind, werden gemischt und hinter der Folge jeder Reihe neu ausgelegt, mit einer Lücke direkt dahinter.
 # Das Ende der Partie
-Du gewinnst, wenn alle vier Reihen geordnet sind, jede mit ihrer Lücke am Ende. Die Partie ist verloren, wenn sich keine Lücke mehr füllen lässt und du nicht mehr neu mischen kannst. Nicht jedes Spiel ist zu gewinnen.
-# Spielen auf dem Gerät
-Tippe auf eine Karte, um sie in die Lücke zu schicken, die sie füllt, oder tippe auf eine Lücke, um die passende Karte zu holen. Du kannst eine Karte auch in ihre Lücke ziehen. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Du gewinnst, wenn die vier Reihen geordnet sind. Die Partie ist vorbei, wenn sich keine Lücke mehr füllen lässt und du nicht mehr neu mischen kannst. Nicht jedes Spiel ist zu gewinnen.

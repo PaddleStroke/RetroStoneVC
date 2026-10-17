@@ -1,16 +1,11 @@
 Montana
 # Målet
-Legg kortene i fire rader, hver i én farge fra 2 til konge, ved å flytte kort inn i hullene. Et spill for én spiller, også kalt Hullene.
-# Oppstillingen
-De 52 kortene deles ut med bildesiden opp i fire rader med 13; så tas de fire essene bort, og det blir fire hull.
+Legg kortene i fire rader, hver i én farge fra 2 til konge, ved å flytte kort inn i hullene. Essene tas bort, og det blir fire hull.
 # Flytte kort
 - Et hull fylles med kortet i samme farge som er én høyere enn kortet til venstre for hullet: etter kløver 5 kommer kløver 6.
 - Et hull i første kolonne tar hvilken som helst 2.
 - Et hull etter en konge kan ikke fylles.
-- En rad i rekkefølge begynner med en 2 i første kolonne og fortsetter i samme farge; den lyser svakt.
 # Nye utdelinger
-Tre ganger i et spill kan du trykke på hånden (plassen med pila som går rundt): kortene som ennå ikke ligger i rekkefølge, samles, stokkes og deles ut igjen på plassene etter hver rads følge, slik at det blir ett hull rett etter den. Tallet under hånden viser hvor mange utdelinger som er igjen.
+Tre ganger i et spill kan du trykke på hånden (pila som går rundt): kortene som ennå ikke ligger i rekkefølge, stokkes og deles ut igjen etter hver rads følge, slik at det blir ett hull rett etter den.
 # Slutten på spillet
-Du vinner når de fire radene ligger i rekkefølge, hver med hullet sitt til slutt. Spillet er slutt når ingen hull kan fylles og det ikke er flere utdelinger. Ikke alle kabaler går opp.
-# Spill på enheten
-Trykk på et kort for å sende det til hullet det passer i, eller trykk på et hull for å hente kortet som passer der. Du kan også dra et kort til hullet sitt. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Du vinner når de fire radene ligger i rekkefølge. Spillet er slutt når ingen hull kan fylles og det ikke er flere utdelinger. Ikke alle kabaler går opp.

@@ -1,16 +1,11 @@
 Montana
 # Amaç
-Kartları boşluklara taşıyarak her biri tek bir takımdan, 2'den papaza dek giden dört sıra hâline getirmek. Tek kişilik bir oyun; Boşluklar diye de bilinir.
-# Diziliş
-52 kart açık olarak 13'erli dört sıraya dağıtılır; sonra dört as çıkarılır ve dört boşluk kalır.
+Kartları boşluklara taşıyarak her biri tek bir takımdan, 2'den papaza dek giden dört sıra hâline getir. Aslar çıkarılır, böylece dört boşluk kalır.
 # Kartları taşımak
 - Bir boşluğa, solundaki kartla aynı takımdan ve ondan bir yüksek olan kart gelir: sinek 5'ten sonra sinek 6.
 - İlk sütundaki bir boşluğa herhangi bir 2 gelebilir.
 - Papazdan sonraki boşluk doldurulamaz.
-- Sıralı bir sıra ilk sütunda bir 2 ile başlar ve aynı takımla sürer; hafifçe parlar.
 # Yeniden dağıtımlar
-Oyunda üç kez ele dokun (dönen okun olduğu yer): henüz sıralı olmayan kartlar toplanır, karılır ve her sıranın sıralı kısmından sonraki yerlere yeniden dağıtılır; sıralı kısmın hemen ardında bir boşluk bırakılır. Elin altındaki sayı kalan yeniden dağıtımları gösterir.
+Oyunda üç kez ele dokun (dönen ok): henüz sıralı olmayan kartlar karılır ve her sıranın sıralı kısmından sonra yeniden dağıtılır; sıralı kısmın hemen ardında bir boşluk kalır.
 # Oyunun sonu
-Dört sıra da sıralı olup her birinin boşluğu sonda olunca kazanırsın. Hiçbir boşluk doldurulamaz ve yeniden dağıtım kalmazsa oyun biter. Her dağıtım kazanılamaz.
-# Cihazda oynamak
-Bir kartı dolduracağı boşluğa göndermek için ona dokun ya da bir boşluğa dokunarak onu dolduran kartı getir. Bir kartı boşluğuna sürükleyebilirsin de. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+Dört sıra da sıralı olunca kazanırsın. Hiçbir boşluk doldurulamaz ve yeniden dağıtım kalmazsa oyun biter. Her dağıtım kazanılamaz.

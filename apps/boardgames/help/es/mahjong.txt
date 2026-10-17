@@ -1,18 +1,11 @@
 Mahjong solitario
 # El objetivo
-Las fichas de un juego de mahjong están apiladas formando una figura. Retíralas todas, por parejas iguales. Elige primero la figura:
-- Tortuga: la clásica, las 144 fichas en cinco pisos. En un teléfono sus fichas son pequeñas.
-- Pirámide: 80 fichas en tres pisos, fichas más grandes, una partida más corta.
-Todas las partidas se pueden completar.
+Retira todas las fichas de la figura, por parejas iguales. Todas las partidas se pueden completar.
 # Las fichas
-- Tres palos, numerados del 1 al 9: círculos, bambúes (cañas; el 1 es un pájaro) y caracteres (un número chino encima de 萬, diez mil).
-- Los cuatro vientos: 東 este, 南 sur, 西 oeste, 北 norte.
-- Los tres dragones: 中 rojo, 發 verde, y el blanco, un marco azul.
+- Tres palos, numerados del 1 al 9: círculos, bambúes (el 1 es un pájaro) y caracteres (un número chino encima de 萬).
+- Los cuatro vientos 東 este, 南 sur, 西 oeste, 北 norte, y los tres dragones: 中 rojo, 發 verde, y el blanco, un marco azul.
 - Cuatro flores y cuatro estaciones, cada una con su número en una esquina.
-Cada ficha de los palos, los vientos y los dragones aparece cuatro veces; cada flor y cada estación, una vez.
 # Una jugada
-Retira dos fichas libres iguales. Una ficha está libre cuando ninguna ficha está encima de ella, ni siquiera en parte, y su lado izquierdo o su lado derecho está despejado (ninguna ficha justo al lado en su piso). Dos fichas forman pareja cuando son iguales; cualquier flor va con cualquier flor, y cualquier estación con cualquier estación.
+Retira dos fichas libres iguales. Una ficha está libre cuando ninguna ficha está encima de ella, ni siquiera en parte, y su lado izquierdo o su lado derecho está despejado. Dos fichas forman pareja cuando son iguales; cualquier flor va con cualquier flor, y cualquier estación con cualquier estación.
 # El final de la partida
-Ganas cuando ya no queda ninguna ficha. Si no queda ninguna pareja de fichas libres, puedes barajar: las fichas que quedan se reparten de nuevo en los mismos sitios, de modo que todavía se puedan retirar todas. Si ni siquiera eso sirve (una ficha atrapada debajo de otra), la partida termina.
-# Jugar en el dispositivo
-Toca una ficha libre y luego su pareja: las dos se levantan y desaparecen. Toca otra vez la ficha elegida para soltarla. Las fichas que no están libres se ven más oscuras, y un toque justo al lado de una ficha libre también la elige. La lámpara muestra una pareja. Cuando no queda ninguna pareja, el botón de barajar se ilumina y aparece también en el centro del tablero. Si las fichas se ven pequeñas (en un móvil en vertical), la lupa las acerca: deslízalas hacia los lados con un dedo. Vuelve a tocar la lupa para verlas todas. Deshacer anula una pareja o un barajado. La barra muestra cuántas fichas quedan.
+Ganas cuando ya no queda ninguna ficha. Si no queda ninguna pareja, puedes barajar: las fichas que quedan se reparten de nuevo en los mismos sitios. Si ni siquiera eso sirve, la partida termina.

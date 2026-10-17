@@ -1,39 +1,31 @@
 Mahjong
 # The aim
-The classic table game for four players, played by the Hong Kong rules (Old Style). Be the first to complete a hand of 14 tiles, and score points with it. The hands are secret: the device goes from player to player. Choose the length of the game: the East round only, or the East and South rounds.
+The classic game for four, by the Hong Kong rules (Old Style). Be the first to complete a hand of 14 tiles worth at least 3 faan.
 # The tiles
-- Three suits, numbered 1 to 9: dots (circles), bamboo (sticks; the 1 is a bird) and characters (a Chinese numeral above 萬).
-- The honours: the winds 東 east, 南 south, 西 west, 北 north, and the dragons 中 red, 發 green and white (a blue frame).
-- Each of these comes four times. The four flowers and four seasons, once each, are bonus tiles: put aside as soon as you get them and replaced from the end of the wall.
-# The deal
-The four walls, two tiles high, form a square. The dealer, east, throws three dice to choose where the wall is broken. Everyone takes 13 tiles, the dealer 14. The last 14 tiles of the wall are the dead wall: the replacements for flowers and kongs come from its end. The seat winds: the dealer is east, then south, west and north in turn.
+- Three suits, 1 to 9: dots, bamboo (the 1 is a bird) and characters (a Chinese numeral above 萬).
+- The honours: the winds 東 east, 南 south, 西 west, 北 north; the dragons 中 red, 發 green and white (a blue frame).
+- Four of each. The flowers and seasons are bonus tiles: put aside at once and replaced from the end of the wall.
 # A turn
-Draw a tile from the wall, or claim the last discard; then discard one tile face up in front of you. Before discarding you may also:
-- declare a kong: four of a kind in your hand, or the fourth tile added to a pung you laid down. Draw a replacement, then discard.
-- declare a win.
+13 tiles each, the dealer (east) 14. Draw from the wall or claim the last discard, then discard a tile. Before discarding you may declare a win, or a kong (four of a kind in your hand, or the fourth tile added to a pung you laid down) and draw a replacement.
 # Sets and claims
-- A chow is three tiles in a row of one suit, a pung three of a kind, a kong four of a kind, a pair two of a kind.
-- Any player may claim the last discard to make a pung or a kong with tiles from their hand, or to win with it. Only the next player may claim it for a chow. The set is laid down face up; the claimer then discards, and play goes on after them.
-- A win beats a pung or a kong, which beats a chow. If two players want to win, the first after the discarder in turn takes it.
-- A tile added to a pung to make a kong can be robbed by a player who wins with it.
+- Chow: three in a row of one suit. Pung: three of a kind. Kong: four of a kind. Pair: two of a kind.
+- Anyone may claim the last discard for a pung, a kong or a win; only the next player for a chow. The set is laid face up, the claimer discards, and play goes on after them.
+- A win beats a pung or a kong, which beats a chow. Between two wins, the first after the discarder takes it.
+- A tile added to a pung can be robbed by a player who wins with it.
 - Once the wall is used up, the last discard can only be claimed for a win; otherwise the hand is a draw.
 # Winning
-A winning hand is four sets (chows, pungs or kongs) and a pair, or seven different pairs, or thirteen orphans (one of each 1, 9 and honour, and one more of them). It must be worth at least 3 faan.
+Four sets and a pair, seven different pairs, or thirteen orphans (one of each 1, 9 and honour, plus one more of them).
 # Faan
-- 1: self-drawn; concealed hand (no claimed sets); all chows; each pung of dragons; a pung of your seat wind; a pung of the prevailing wind; each of your own flower and season (east 1, south 2, west 3, north 4); no flowers or seasons at all; winning with the last tile, with a replacement tile, or by robbing a kong.
+- 1: self-drawn; concealed hand; all chows; each pung of dragons; a pung of your seat wind or of the prevailing wind; each of your own flower and season (east 1, south 2, west 3, north 4); no flowers or seasons; winning with the last tile, a replacement tile, or by robbing a kong.
 - 2: all four flowers, or all four seasons.
 - 3: all pungs; half flush (one suit and honours).
 - 4: seven pairs.
-- 5: small three dragons (two pungs of dragons and a pair of the third), counted instead of the dragon pungs.
+- 5: small three dragons (two pungs of dragons and a pair of the third), instead of the dragon pungs.
 - 7: full flush (one suit only).
 - 8: big three dragons.
-- 10, the limit: thirteen orphans, all honours, all 1s and 9s, small or big four winds, nine gates (1112345678999 of one suit and one more of that suit), four kongs, four concealed pungs.
+- 10, the limit: thirteen orphans, all honours, all 1s and 9s, small or big four winds, nine gates (1112345678999 of one suit plus one more), four kongs, four concealed pungs.
 A hand counts the best way it can be read, up to 10 faan.
 # Payments
-A hand of 3 to 10 faan is worth 8, 16, 24, 32, 48, 64, 96 or 128 points. Won on a discard: the discarder pays the winner twice that, the two others once. Self-drawn: all three pay twice. A drawn hand: nobody pays.
+3 to 10 faan are worth 8, 16, 24, 32, 48, 64, 96 or 128 points. On a discard, the discarder pays twice that and the others once; self-drawn, all three pay twice.
 # The end of the game
-The dealer keeps the deal after winning; otherwise the deal passes to the next player. When everyone has dealt, the round is over and the prevailing wind changes from east to south. The game ends after the last round chosen; the highest total wins.
-# Playing on the device
-Your hand is at the bottom, the tile you just drew a little apart; your sets and flowers above it. Tap a tile to lift it, then tap it again or the table to discard it, or drag it onto the table. When you can win, make a kong, a pung or a chow, the sets glow above your hand: tap one. The pass button in your bar lets a discard go; when it is your turn, a tap on the walls draws.
-After a discard the device only goes to players who might claim it. If either of the two players two and three seats after the discarder could, both are always asked, in that order, so nobody can tell which. A player with nothing to claim just sees the discard a moment; the next player then draws.
-After each hand a panel shows the winning hand set by set, its faan, each player's payment and the totals: tap it for the next hand. The middle of the table shows the prevailing wind, which hand of the round it is, the dice and the tiles left in the wall. Each bar shows the player's seat wind and total.
+The dealer keeps the deal by winning; otherwise it passes on. When everyone has dealt, the prevailing wind turns from east to south. After the last round, the highest total wins.

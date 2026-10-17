@@ -1,39 +1,31 @@
 Mahjong
 # Lo scopo
-Il classico gioco da tavolo per quattro giocatori, con le regole di Hong Kong (vecchio stile). Sii il primo a completare una mano di 14 tessere, e fai punti con essa. Le mani sono segrete: il dispositivo passa da un giocatore all'altro. Scegli la durata della partita: solo il giro dell'Est, oppure i giri dell'Est e del Sud.
+Il gioco classico per quattro giocatori, con le regole di Hong Kong (vecchio stile). Sii il primo a completare una mano di 14 tessere che valga almeno 3 faan.
 # Le tessere
-- Tre semi, numerati da 1 a 9: cerchi, bambù (canne; l'1 è un uccello) e caratteri (un numero cinese sopra 萬).
-- Gli onori: i venti 東 est, 南 sud, 西 ovest, 北 nord, e i draghi 中 rosso, 發 verde e bianco (una cornice blu).
-- Ognuna di queste tessere c'è quattro volte. I quattro fiori e le quattro stagioni, una volta sola ciascuno, sono tessere bonus: si mettono da parte appena arrivano e si sostituiscono con una tessera dalla fine del muro.
-# La distribuzione
-I quattro muri, alti due tessere, formano un quadrato. Il mazziere, est, tira tre dadi per scegliere dove aprire il muro. Ognuno prende 13 tessere, il mazziere 14. Le ultime 14 tessere del muro sono il muro morto: le tessere sostitutive dei fiori e dei kong vengono dalla sua fine. I venti dei posti: il mazziere è est, poi vengono a turno sud, ovest e nord.
+- Tre semi, da 1 a 9: cerchi, bambù (l'1 è un uccello) e caratteri (un numero cinese sopra 萬).
+- Gli onori: i venti 東 est, 南 sud, 西 ovest, 北 nord; i draghi 中 rosso, 發 verde e bianco (una cornice blu).
+- Quattro di ognuna. I fiori e le stagioni sono tessere bonus: si mettono subito da parte e si sostituiscono con una tessera dalla fine del muro.
 # Un turno
-Pesca una tessera dal muro, oppure chiama l'ultimo scarto; poi scarta una tessera scoperta davanti a te. Prima di scartare puoi anche:
-- dichiarare un kong: quattro tessere uguali in mano, o la quarta aggiunta a un pung che hai calato. Pesca una tessera sostitutiva, poi scarta.
-- dichiarare la vittoria.
+13 tessere a testa, il mazziere (est) 14. Pesca dal muro o chiama l'ultimo scarto, poi scarta una tessera. Prima di scartare puoi dichiarare la vittoria, o un kong (quattro tessere uguali in mano, o la quarta aggiunta a un pung che hai calato) e pescare una tessera sostitutiva.
 # Combinazioni e chiamate
-- Un chow sono tre tessere in fila dello stesso seme, un pung tre uguali, un kong quattro uguali, una coppia due uguali.
-- Qualsiasi giocatore può chiamare l'ultimo scarto per fare un pung o un kong con tessere della sua mano, o per vincere con esso. Solo il giocatore successivo può chiamarlo per un chow. La combinazione si cala scoperta; chi ha chiamato poi scarta, e il gioco riprende dopo di lui.
-- La vittoria batte un pung o un kong, che battono un chow. Se due giocatori vogliono vincere, lo prende il primo dopo chi ha scartato, nell'ordine di gioco.
-- Una tessera aggiunta a un pung per farne un kong può essere rubata da un giocatore che vince con essa.
+- Chow: tre tessere in fila dello stesso seme. Pung: tre uguali. Kong: quattro uguali. Coppia: due uguali.
+- Chiunque può chiamare l'ultimo scarto per un pung, un kong o per vincere; solo il giocatore successivo per un chow. La combinazione si cala scoperta, chi ha chiamato scarta, e il gioco riprende dopo di lui.
+- La vittoria batte un pung o un kong, che battono un chow. Tra due vittorie, lo prende il primo dopo chi ha scartato.
+- Una tessera aggiunta a un pung può essere rubata da un giocatore che vince con essa.
 - Finito il muro, l'ultimo scarto si può chiamare solo per vincere; altrimenti la mano è patta.
 # Vincere
-Una mano vincente è fatta di quattro combinazioni (chow, pung o kong) e una coppia, oppure di sette coppie diverse, oppure dei tredici orfani (uno per ogni 1, ogni 9 e ogni onore, e uno in più di uno di essi). Deve valere almeno 3 faan.
+Quattro combinazioni e una coppia, sette coppie diverse, oppure i tredici orfani (uno per ogni 1, ogni 9 e ogni onore, e uno in più di uno di essi).
 # Faan
-- 1: vincere pescando tu stesso la tessera; mano nascosta (nessuna combinazione chiamata); tutti chow; ogni pung di draghi; un pung del tuo vento del posto; un pung del vento prevalente; ognuno dei tuoi fiori e delle tue stagioni (est 1, sud 2, ovest 3, nord 4); nessun fiore né stagione; vincere con l'ultima tessera, con una tessera sostitutiva o rubando un kong.
+- 1: vincere pescando tu stesso la tessera; mano nascosta; tutti chow; ogni pung di draghi; un pung del tuo vento del posto o del vento prevalente; ognuno dei tuoi fiori e delle tue stagioni (est 1, sud 2, ovest 3, nord 4); nessun fiore né stagione; vincere con l'ultima tessera, con una tessera sostitutiva o rubando un kong.
 - 2: tutti e quattro i fiori, o tutte e quattro le stagioni.
 - 3: tutti pung; mezzo colore (un solo seme e onori).
 - 4: sette coppie.
-- 5: tre draghi piccoli (due pung di draghi e una coppia del terzo), contati al posto dei pung di draghi.
+- 5: tre draghi piccoli (due pung di draghi e una coppia del terzo), al posto dei pung di draghi.
 - 7: colore puro (un solo seme).
 - 8: tre draghi grandi.
 - 10, il limite: tredici orfani, tutti onori, tutti 1 e 9, quattro venti piccoli o grandi, nove porte (1112345678999 di un seme e una tessera in più di quel seme), quattro kong, quattro pung nascosti.
 Una mano si conta nel modo migliore in cui si può leggere, fino a 10 faan.
 # I pagamenti
-Una mano da 3 a 10 faan vale 8, 16, 24, 32, 48, 64, 96 o 128 punti. Vinta su uno scarto: chi ha scartato paga al vincitore il doppio, gli altri due il valore semplice. Vinta pescando da sé: tutti e tre pagano il doppio. Mano patta: nessuno paga.
+Una mano da 3 a 10 faan vale 8, 16, 24, 32, 48, 64, 96 o 128 punti. Su uno scarto, chi ha scartato paga il doppio e gli altri il valore semplice; pescando da sé, tutti e tre pagano il doppio.
 # La fine della partita
-Il mazziere resta mazziere se vince; altrimenti la distribuzione passa al giocatore successivo. Quando tutti hanno fatto il mazziere, il giro finisce e il vento prevalente passa da est a sud. La partita finisce dopo l'ultimo giro scelto; vince il totale più alto.
-# Giocare sul dispositivo
-La tua mano è in basso, la tessera appena pescata un po' in disparte; le tue combinazioni e i tuoi fiori sopra. Tocca una tessera per sollevarla, poi toccala di nuovo o tocca il tavolo per scartarla, oppure trascinala sul tavolo. Quando puoi vincere o fare un kong, un pung o un chow, le combinazioni si illuminano sopra la tua mano: toccane una. Il pulsante passa nella tua barra lascia andare uno scarto; quando è il tuo turno, un tocco sui muri pesca.
-Dopo uno scarto il dispositivo va solo ai giocatori che potrebbero chiamarlo. Se uno dei due giocatori seduti due e tre posti dopo chi ha scartato può farlo, vengono sempre interpellati entrambi, in quest'ordine, così nessuno può capire quale. Un giocatore che non ha niente da chiamare vede solo lo scarto per un momento; poi il giocatore successivo pesca.
-Dopo ogni mano, un pannello mostra la mano vincente combinazione per combinazione, i suoi faan, il pagamento di ogni giocatore e i totali: toccalo per la mano successiva. Il centro del tavolo mostra il vento prevalente, quale mano del giro si sta giocando, i dadi e le tessere rimaste nel muro. Ogni barra mostra il vento del posto del giocatore e il suo totale.
+Il mazziere resta mazziere se vince; altrimenti la distribuzione passa al giocatore successivo. Quando tutti hanno fatto il mazziere, il vento prevalente passa da est a sud. Dopo l'ultimo giro vince il totale più alto.

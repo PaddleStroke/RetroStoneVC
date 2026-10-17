@@ -1,16 +1,11 @@
 Montana
 # The aim
-Arrange the cards in four rows, each one of a single suit from the 2 to the king, by moving cards into the gaps. A game for one player, also called Gaps.
-# The layout
-The 52 cards are dealt face up in four rows of 13; then the four aces are taken out, which leaves four gaps.
+Arrange the cards in four rows, each one of a single suit from the 2 to the king, by moving cards into the gaps. The aces are taken out, which leaves four gaps.
 # Moving cards
 - A gap is filled with the card of the same suit and one rank higher than the card to its left: after the 5 of clubs, the 6 of clubs.
 - A gap in the first column takes any 2.
 - Nothing can fill a gap after a king.
-- A row in order starts with a 2 in the first column and goes on in the same suit; it glows softly.
 # The redeals
-Three times in a game, tap the hand (the place with the arrow going round): the cards that are not yet in order are gathered, shuffled and dealt again into the places after each row's run, leaving one gap right after it. The number under the hand shows the redeals left.
+Three times in a game, tap the hand (the arrow going round): the cards not yet in order are shuffled and dealt again after each row's run, leaving one gap right after it.
 # The end of the game
-You win when the four rows are in order, each with its gap at the end. The game is over when no gap can be filled and no redeal is left. Not every deal can be won.
-# Playing on the device
-Tap a card to send it to the gap it fills, or tap a gap to bring the card that fills it. You can also drag a card to its gap. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+You win when the four rows are in order. The game is over when no gap can be filled and no redeal is left. Not every deal can be won.

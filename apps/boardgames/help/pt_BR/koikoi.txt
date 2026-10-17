@@ -1,50 +1,24 @@
 Koi-Koi
 # O objetivo
-Fazer mais pontos ao longo de 12 rodadas, uma para cada mês do ano, ou de 6 rodadas na partida curta. Para 2 jogadores. Capture cartas combinando os meses e forme yaku, as combinações que pontuam. Depois escolha: parar e marcar agora, ou pedir koi-koi e continuar jogando para ganhar mais.
+Capture cartas combinando os meses e forme yaku, as combinações que pontuam. Depois pare e marque, ou peça koi-koi e continue jogando para ganhar mais. Vence quem tiver mais pontos depois de 12 rodadas (6 na partida curta).
 # As cartas
-O baralho de hanafuda tem 48 cartas: 12 meses de 4 cartas, cada mês com sua planta. Janeiro pinheiro, fevereiro ameixeira, março cerejeira, abril glicínia, maio íris, junho peônia, julho trevo-arbustivo, agosto capim-dos-pampas, setembro crisântemo, outubro bordo, novembro salgueiro, dezembro paulównia.
-- Luzes (5): o grou (janeiro), a cortina (março), a lua (agosto), o homem na chuva (novembro) e a fênix (dezembro).
-- Animais (9): o rouxinol-japonês, o cuco, a ponte, as borboletas, o javali, os gansos, a taça de saquê, o cervo e a andorinha.
-- Fitas (10): três fitas vermelhas de poesia, com escrita (janeiro, fevereiro, março), três fitas azuis (junho, setembro, outubro) e quatro fitas vermelhas lisas (abril, maio, julho, novembro).
-- Cartas simples (24): todas as outras, entre elas o relâmpago de novembro.
-# A distribuição
-Cada jogador recebe 8 cartas, e outras 8 ficam viradas para cima no campo; o resto é o monte. Se o campo tiver as quatro cartas de um mês, as cartas são distribuídas de novo. Quem dá as cartas joga primeiro: o jogador marfim na primeira rodada e depois o vencedor da rodada anterior. Depois de uma rodada sem vencedor, continua o mesmo.
+48 cartas: 12 meses de 4.
+- Luzes (5): o grou, a cortina, a lua, o homem na chuva e a fênix.
+- Animais (9), fitas (10: três fitas vermelhas de poesia, com escrita, três azuis, quatro vermelhas lisas) e cartas simples (24).
 # Uma jogada
-- Jogue uma carta da sua mão no campo. Se uma carta do campo for do mesmo mês, você captura as duas. Se forem duas, você escolhe qual leva. Se forem três, captura as quatro. Se não houver nenhuma, sua carta fica no campo.
+8 cartas para cada um e 8 viradas para cima no campo; as cartas são distribuídas de novo se o campo tiver um mês inteiro. Quem dá as cartas começa: o marfim, depois o vencedor da rodada anterior.
+- Jogue uma carta da sua mão: ela captura uma carta do campo do mesmo mês (se forem duas, você escolhe; se forem três, leva as quatro). Senão, ela fica no campo.
 - Depois vire a carta de cima do monte e jogue-a do mesmo jeito.
-- As cartas capturadas ficam na sua frente, viradas para cima.
 # Os yaku
-- Gokō: as 5 luzes, 10 pontos.
-- Shikō: 4 luzes sem o homem na chuva, 8 pontos.
-- Ame-Shikō: 4 luzes com o homem na chuva, 7 pontos.
-- Sankō: 3 luzes sem o homem na chuva, 5 pontos. Três luzes com ele não valem nada.
-- Inoshikachō: o javali, o cervo e as borboletas, 5 pontos.
-- Akatan: as 3 fitas de poesia, 5 pontos.
-- Aotan: as 3 fitas azuis, 5 pontos.
-- Hanami-zake: a cortina e a taça de saquê, 5 pontos.
-- Tsukimi-zake: a lua e a taça de saquê, 5 pontos.
-- Tane: 5 animais, 1 ponto, e mais 1 para cada animal a mais.
-- Tan: 5 fitas, 1 ponto, e mais 1 para cada fita a mais.
-- Kasu: 10 cartas simples, 1 ponto, e mais 1 para cada carta simples a mais.
-Dos quatro yaku de luzes, só o melhor conta; todos os outros se somam. A taça de saquê conta como animal e também como carta simples. Aqui Hanami-zake e Tsukimi-zake sempre contam.
+- Gokō: as 5 luzes, 10. Shikō: 4 luzes sem o homem na chuva, 8. Ame-Shikō: 4 com ele, 7. Sankō: 3 sem ele, 5.
+- Inoshikachō: o javali, o cervo e as borboletas, 5.
+- Akatan: as 3 fitas de poesia, 5. Aotan: as 3 fitas azuis, 5.
+- Hanami-zake: a cortina e a taça de saquê, 5. Tsukimi-zake: a lua e a taça de saquê, 5.
+- Tane (5 animais), Tan (5 fitas), Kasu (10 cartas simples): 1, e mais 1 para cada carta a mais.
+Só o melhor yaku de luzes conta. A taça de saquê conta como animal e também como carta simples.
 # Parar ou koi-koi
-Quando sua jogada termina com um yaku novo, ou com mais pontos nos seus yaku, você escolhe:
-- Parar: a rodada termina e você marca.
-- Koi-koi: a rodada continua. Você só poderá parar de novo quando seus pontos subirem outra vez. Se o adversário parar antes, você não marca nada e os pontos dele dobram.
-Se não sobrar nenhuma carta na sua mão, você para.
+Quando sua jogada termina com um yaku novo ou com mais pontos, pare e marque, ou peça koi-koi e continue. Se o adversário parar antes, você não marca nada e os pontos dele dobram. Se não sobrar nenhuma carta na sua mão, você para.
 # A pontuação
-- Os pontos de todos os seus yaku somados.
-- Dobrados se chegarem a 7 ou mais.
-- Dobrados de novo se o adversário tinha pedido koi-koi.
+- Seus yaku somados, dobrados a partir de 7 pontos, e dobrados de novo se o adversário tinha pedido koi-koi.
 - Se as duas mãos forem jogadas até o fim e ninguém parar, ninguém marca.
-- Teshi (quatro cartas de um mês na mão recebida) e Kuttsuki (quatro pares de meses na mão recebida) ganham a rodada na hora, com 6 pontos. A mão de quem deu as cartas é vista primeiro.
-# O fim da partida
-Depois da última rodada, vence o jogador com mais pontos.
-# Jogando no aparelho
-As mãos são secretas: passe o aparelho quando a tela pedir, e o próximo jogador toca no botão de início. Sua mão fica embaixo, a do adversário virada para baixo em cima; o monte e o campo ficam no meio, com um ponto para cada rodada sob o monte. As cartas capturadas de cada jogador ficam agrupadas por tipo: luzes, animais, fitas, cartas simples, com a contagem em cada grupo. Os yaku formados aparecem como emblemas com suas cartas e seus pontos, e um disco vermelho mostra um koi-koi pedido. O que o adversário fez na última jogada fica marcado na mesa.
-- Toque numa carta da sua mão: as cartas do campo do mesmo mês brilham. Toque numa delas, ou de novo na sua carta, para jogá-la; você também pode arrastá-la para o campo. Quando nada combina, um ponto mostra onde ela vai ficar.
-- Quando duas cartas combinam, toque na que você leva.
-- Depois toque no monte para virar a carta de cima.
-- Quando você forma um yaku, aparecem dois botões grandes: a mão aberta para (o número embaixo é o que você marcaria agora), a seta dupla pede koi-koi.
-- Depois de cada rodada, um painel mostra os yaku, as dobras (uma cruz e um 2) e os pontos; toque nele para a próxima rodada. O total de cada jogador fica na sua barra.
-Desfazer volta suas próprias jogadas, até você virar a carta do monte.
+- Quatro cartas de um mês (Teshi) ou quatro pares de meses (Kuttsuki) na mão recebida ganham a rodada na hora, com 6 pontos.

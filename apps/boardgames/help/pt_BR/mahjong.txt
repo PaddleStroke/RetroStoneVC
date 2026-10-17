@@ -1,18 +1,11 @@
 Paciência Mahjong
 # O objetivo
-As peças de um jogo de mahjong estão empilhadas formando uma figura. Retire todas, em pares iguais. Escolha primeiro a figura:
-- Tartaruga: a clássica, as 144 peças em cinco andares. No celular as peças ficam pequenas.
-- Pirâmide: 80 peças em três andares, peças maiores, uma partida mais curta.
-Toda distribuição pode ser retirada por inteiro.
+Retire todas as peças da figura, em pares iguais. Toda distribuição pode ser retirada por inteiro.
 # As peças
-- Três naipes, numerados de 1 a 9: círculos, bambus (varetas; o 1 é um pássaro) e caracteres (um número chinês acima de 萬, dez mil).
-- Os quatro ventos: 東 leste, 南 sul, 西 oeste, 北 norte.
-- Os três dragões: 中 vermelho, 發 verde, e o branco, uma moldura azul.
+- Três naipes, numerados de 1 a 9: círculos, bambus (o 1 é um pássaro) e caracteres (um número chinês acima de 萬).
+- Os quatro ventos 東 leste, 南 sul, 西 oeste, 北 norte, e os três dragões: 中 vermelho, 發 verde, e o branco, uma moldura azul.
 - Quatro flores e quatro estações, cada uma com o seu número num canto.
-Cada peça dos naipes, ventos e dragões aparece quatro vezes; cada flor e cada estação, uma vez.
 # Uma jogada
-Retire duas peças livres iguais. Uma peça está livre quando nenhuma peça está em cima dela, nem em parte, e o seu lado esquerdo ou o seu lado direito está livre (nenhuma peça logo ao lado, no mesmo andar). Duas peças formam par quando são iguais; qualquer flor combina com qualquer flor, e qualquer estação com qualquer estação.
+Retire duas peças livres iguais. Uma peça está livre quando nenhuma peça está em cima dela, nem em parte, e o seu lado esquerdo ou direito está livre. Duas peças formam par quando são iguais; qualquer flor combina com qualquer flor, e qualquer estação com qualquer estação.
 # O fim da partida
-Você ganha quando todas as peças saírem. Se não sobrar nenhum par de peças livres, você pode embaralhar: as peças que sobram são distribuídas de novo nos mesmos lugares, de modo que ainda possam ser todas retiradas. Se nem isso adiantar (uma peça presa debaixo de outra), a partida acaba.
-# Jogando no aparelho
-Toque numa peça livre e depois no seu par: as duas sobem e somem. Toque de novo na peça escolhida para soltá-la. As peças que não estão livres ficam mais escuras, e um toque logo ao lado de uma peça livre também a escolhe. A lâmpada mostra um par. Quando não sobra nenhum par, o botão de embaralhar se acende e aparece também no meio do tabuleiro. Quando as peças ficam pequenas (num celular em pé), a lupa as aproxima: arraste-as para os lados com o dedo. Toque na lupa de novo para ver todas. Desfazer volta um par ou um embaralhamento. A barra mostra quantas peças sobram.
+Você ganha quando todas as peças saírem. Se não sobrar nenhum par, você pode embaralhar: as peças que sobram são distribuídas de novo nos mesmos lugares. Se nem isso adiantar, a partida acaba.

@@ -1,16 +1,11 @@
 Montana
 # El objetivo
-Ordenar las cartas en cuatro filas, cada una de un solo palo del 2 al rey, moviendo cartas a los huecos. Un juego para un jugador, también llamado Huecos.
-# La disposición
-Las 52 cartas se reparten boca arriba en cuatro filas de 13; después se quitan los cuatro ases, lo que deja cuatro huecos.
+Ordena las cartas en cuatro filas, cada una de un solo palo del 2 al rey, moviendo cartas a los huecos. Se quitan los ases, lo que deja cuatro huecos.
 # Mover cartas
 - Un hueco se llena con la carta del mismo palo y de un valor más que la carta de su izquierda: después del 5 de tréboles, el 6 de tréboles.
 - Un hueco en la primera columna admite cualquier 2.
 - Nada puede llenar un hueco que sigue a un rey.
-- Una fila en orden empieza con un 2 en la primera columna y sigue en el mismo palo; brilla suavemente.
 # Los nuevos repartos
-Tres veces por partida, toca el sitio de la flecha que gira: las cartas que aún no están en orden se recogen, se barajan y se vuelven a repartir en los sitios que siguen a la escalera de cada fila, dejando un hueco justo después de ella. El número bajo ese sitio indica los repartos que quedan.
+Tres veces por partida, toca la mano (la flecha que gira): las cartas que aún no están en orden se barajan y se vuelven a repartir después de la escalera de cada fila, dejando un hueco justo después de ella.
 # El final de la partida
-Ganas cuando las cuatro filas están en orden, cada una con su hueco al final. La partida se pierde cuando ningún hueco se puede llenar y no queda ningún nuevo reparto. No todos los repartos se pueden ganar.
-# Jugar en el dispositivo
-Toca una carta para mandarla al hueco que llena, o toca un hueco para traer la carta que lo llena. También puedes arrastrar una carta a su hueco. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+Ganas cuando las cuatro filas están en orden. La partida se pierde cuando ningún hueco se puede llenar y no queda ningún nuevo reparto. No todos los repartos se pueden ganar.

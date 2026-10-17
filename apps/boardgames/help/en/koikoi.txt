@@ -1,50 +1,24 @@
 Koi-Koi
 # The aim
-Score the most points over 12 rounds, one for each month of the year, or over 6 rounds in the short game. For 2 players. Capture cards by matching their months and form yaku, the scoring combinations. Then choose: stop and score now, or call koi-koi and play on for more.
+Capture cards by matching their months and form yaku, the scoring combinations. Then stop and score, or call koi-koi and play on for more. The most points after 12 rounds (6 in the short game) wins.
 # The cards
-The hanafuda deck has 48 cards: 12 months of 4 cards, each month with its own plant. January pine, February plum, March cherry, April wisteria, May iris, June peony, July bush clover, August pampas grass, September chrysanthemum, October maple, November willow, December paulownia.
-- Brights (5): the crane (January), the curtain (March), the moon (August), the rain man (November) and the phoenix (December).
-- Animals (9): the bush warbler, the cuckoo, the bridge, the butterflies, the boar, the geese, the sake cup, the deer and the swallow.
-- Ribbons (10): three red poetry ribbons with writing (January, February, March), three blue ribbons (June, September, October) and four plain red ribbons (April, May, July, November).
-- Plains (24): all the others, November's lightning among them.
-# The deal
-Each player gets 8 cards, and 8 more go face up on the field; the rest is the stock. If the field holds all four cards of a month, the cards are dealt again. The dealer plays first: the ivory player in the first round, then the winner of the last round. After a round nobody won, the dealer stays the same.
+48 cards: 12 months of 4.
+- Brights (5): the crane, the curtain, the moon, the rain man and the phoenix.
+- Animals (9), ribbons (10: three red poetry ribbons with writing, three blue, four plain red) and plains (24).
 # A turn
-- Play a card from your hand onto the field. If a field card has the same month, you capture both. If two do, you choose the one you take. If three do, you capture all four. If none does, your card stays on the field.
-- Then turn over the top card of the stock and play it in the same way.
-- The cards you capture stay in front of you, face up.
+8 cards each and 8 face up on the field, dealt again if the field holds a whole month. The dealer starts: ivory, then the winner of the last round.
+- Play a card from your hand: it captures a field card of its month (with two, you choose; with three, you take all four). Otherwise it stays on the field.
+- Then turn over the top card of the stock and play it the same way.
 # The yaku
-- Gokō: the 5 brights, 10 points.
-- Shikō: 4 brights without the rain man, 8 points.
-- Ame-Shikō: 4 brights with the rain man, 7 points.
-- Sankō: 3 brights without the rain man, 5 points. Three brights with him make nothing.
-- Inoshikachō: the boar, the deer and the butterflies, 5 points.
-- Akatan: the 3 poetry ribbons, 5 points.
-- Aotan: the 3 blue ribbons, 5 points.
-- Hanami-zake: the curtain and the sake cup, 5 points.
-- Tsukimi-zake: the moon and the sake cup, 5 points.
-- Tane: 5 animals, 1 point, and 1 more for each further animal.
-- Tan: 5 ribbons, 1 point, and 1 more for each further ribbon.
-- Kasu: 10 plains, 1 point, and 1 more for each further plain.
-Only the best of the four bright yaku counts; all the other yaku add up. The sake cup counts both as an animal and as a plain. Hanami-zake and Tsukimi-zake always count here.
+- Gokō: the 5 brights, 10. Shikō: 4 brights without the rain man, 8. Ame-Shikō: 4 with him, 7. Sankō: 3 without him, 5.
+- Inoshikachō: the boar, the deer and the butterflies, 5.
+- Akatan: the 3 poetry ribbons, 5. Aotan: the 3 blue ribbons, 5.
+- Hanami-zake: the curtain and the sake cup, 5. Tsukimi-zake: the moon and the sake cup, 5.
+- Tane (5 animals), Tan (5 ribbons), Kasu (10 plains): 1, plus 1 for each further card.
+Only the best bright yaku counts. The sake cup is both an animal and a plain.
 # Stop or koi-koi
-When your turn ends with a new yaku, or with more points from your yaku, you choose:
-- Stop: the round ends and you score.
-- Koi-koi: the round goes on. You may stop again only once your points have gone up again. If your opponent stops first, you score nothing and their points are doubled.
-With no card left in your hand, you stop.
+When your turn ends with a new yaku or more points, stop and score, or call koi-koi and play on. If your opponent then stops first, you score nothing and their points are doubled. With no card left in your hand, you stop.
 # The points
-- The points of all your yaku added up.
-- Doubled if they reach 7 or more.
-- Doubled again if your opponent had called koi-koi.
-- If both hands are played out and nobody has stopped, nobody scores.
-- Teshi (four cards of one month in the hand dealt) and Kuttsuki (four pairs of months in the hand dealt) win the round at once, for 6 points. The dealer's hand is looked at first.
-# The end of the game
-After the last round, the player with the most points wins.
-# Playing on the device
-The hands are secret: pass the device when the screen asks, and the next player taps the start button. Your hand is at the bottom, your opponent's face down at the top; the stock and the field are in the middle, with a dot for each round under the stock. Each player's captured cards are grouped by type: brights, animals, ribbons, plains, with a count on each group. The yaku formed show as badges with their cards and their points, and a red disc shows a koi-koi call. What your opponent did in their last turn is marked on the table.
-- Tap a card in your hand: the field cards of its month glow. Tap one of them, or your card again, to play it; you can also drag it onto the field. When nothing matches, a dot marks where it will lie.
-- When two cards match, tap the one you take.
-- Then tap the stock to turn over its top card.
-- When you form a yaku, two big buttons appear: the open hand stops (the number under it is what you would score now), the double arrow calls koi-koi.
-- After each round a panel shows the yaku, the doublings (a cross and a 2) and the points; tap it for the next round. Each player's total is in their bar.
-Undo takes back your own moves, until you turn over the stock's card.
+- Your yaku added up, doubled from 7 points, and doubled again if your opponent had called koi-koi.
+- If both hands are played out and nobody stopped, nobody scores.
+- Four cards of one month (Teshi) or four pairs of months (Kuttsuki) in the hand dealt win the round at once, for 6 points.

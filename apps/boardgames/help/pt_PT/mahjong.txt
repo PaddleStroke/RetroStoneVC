@@ -1,18 +1,11 @@
 Paciência Mahjong
 # O objetivo
-As peças de um jogo de mahjong estão empilhadas numa figura. Retira-as todas, aos pares iguais. Escolhe primeiro a figura:
-- Tartaruga: a clássica, as 144 peças em cinco andares. Num telemóvel, as peças são pequenas.
-- Pirâmide: 80 peças em três andares, peças maiores, um jogo mais curto.
-Todas as distribuições podem ser retiradas por completo.
+Retira todas as peças da figura, aos pares iguais. Todas as distribuições podem ser retiradas por completo.
 # As peças
-- Três naipes, numerados de 1 a 9: círculos, bambus (canas; o 1 é um pássaro) e caracteres (um número chinês por cima de 萬, dez mil).
-- Os quatro ventos: 東 este, 南 sul, 西 oeste, 北 norte.
-- Os três dragões: 中 vermelho, 發 verde, e o branco, uma moldura azul.
+- Três naipes, numerados de 1 a 9: círculos, bambus (o 1 é um pássaro) e caracteres (um número chinês por cima de 萬).
+- Os quatro ventos 東 este, 南 sul, 西 oeste, 北 norte, e os três dragões: 中 vermelho, 發 verde, e o branco, uma moldura azul.
 - Quatro flores e quatro estações, cada uma com o seu número num canto.
-Cada peça dos naipes, dos ventos e dos dragões existe quatro vezes; cada flor e cada estação, uma vez.
 # Uma jogada
-Retira duas peças livres iguais. Uma peça está livre quando nenhuma peça está em cima dela, nem sequer em parte, e o seu lado esquerdo ou o seu lado direito está desimpedido (nenhuma peça mesmo ao lado, no mesmo andar). Duas peças formam par quando são iguais; qualquer flor vai com qualquer flor, e qualquer estação com qualquer estação.
+Retira duas peças livres iguais. Uma peça está livre quando nenhuma peça está em cima dela, nem sequer em parte, e o seu lado esquerdo ou o seu lado direito está desimpedido. Duas peças formam par quando são iguais; qualquer flor vai com qualquer flor, e qualquer estação com qualquer estação.
 # O fim do jogo
-Ganhas quando todas as peças tiverem saído. Se não restar nenhum par de peças livres, podes baralhar: as peças que restam são distribuídas de novo nos mesmos lugares, de forma a poderem ainda ser todas retiradas. Se nem isso ajudar (uma peça presa debaixo de outra), o jogo acaba.
-# Jogar no dispositivo
-Toca numa peça livre e depois no seu par: as duas levantam-se e desaparecem. Toca outra vez na peça escolhida para a largar. As peças que não estão livres ficam mais escuras, e um toque mesmo ao lado de uma peça livre também a escolhe. A lâmpada mostra um par. Quando não resta nenhum par, o botão de baralhar acende-se e aparece também no meio do tabuleiro. Quando as peças são pequenas (num telemóvel na vertical), a lupa aproxima-as: arrasta-as para os lados com o dedo. Toca outra vez na lupa para as veres todas. Anular desfaz um par ou um baralhar. A barra mostra quantas peças restam.
+Ganhas quando todas as peças tiverem saído. Se não restar nenhum par, podes baralhar: as peças que restam são distribuídas de novo nos mesmos lugares. Se nem isso ajudar, o jogo acaba.

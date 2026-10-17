@@ -1,39 +1,31 @@
 Mahjong
 # Tavoite
-Klassinen neljän pelaajan pöytäpeli Hongkongin säännöillä (vanha tyyli). Kokoa ensimmäisenä 14 laatan käsi ja saa sillä pisteitä. Kädet ovat salaisia: laite kiertää pelaajalta toiselle. Valitse pelin pituus: pelkkä idän kierros tai idän ja etelän kierrokset.
+Klassinen neljän pelaajan peli Hongkongin säännöillä (vanha tyyli). Kokoa ensimmäisenä 14 laatan käsi, joka on vähintään 3 faanin arvoinen.
 # Laatat
-- Kolme maata, numeroitu 1–9: ympyrät, bambut (tikut; ykkönen on lintu) ja merkit (kiinalainen numero merkin 萬 yläpuolella).
-- Kunnialaatat: tuulet 東 itä, 南 etelä, 西 länsi, 北 pohjoinen, ja lohikäärmeet 中 punainen, 發 vihreä ja valkoinen (sininen kehys).
-- Kutakin näistä on neljä. Neljä kukkaa ja neljä vuodenaikaa, kutakin yksi, ovat bonuslaattoja: ne pannaan sivuun heti, kun saat ne, ja tilalle otetaan laatta muurin päästä.
-# Jakaminen
-Neljä muuria, kahden laatan korkuisia, muodostavat neliön. Jakaja, itä, heittää kolmea noppaa, jotka ratkaisevat, mistä kohtaa muuri avataan. Jokainen saa 13 laattaa, jakaja 14. Muurin viimeiset 14 laattaa ovat kuollut muuri: kukkien ja kongien korvaavat laatat otetaan sen päästä. Paikkatuulet: jakaja on itä, ja sen jälkeen vuorossa ovat etelä, länsi ja pohjoinen.
+- Kolme maata, 1–9: ympyrät, bambut (ykkönen on lintu) ja merkit (kiinalainen numero merkin 萬 yläpuolella).
+- Kunnialaatat: tuulet 東 itä, 南 etelä, 西 länsi, 北 pohjoinen; lohikäärmeet 中 punainen, 發 vihreä ja valkoinen (sininen kehys).
+- Kutakin neljä. Kukat ja vuodenajat ovat bonuslaattoja: ne pannaan heti sivuun ja tilalle otetaan laatta muurin päästä.
 # Vuoro
-Nosta laatta muurista tai vaadi viimeksi heitetty laatta; heitä sitten yksi laatta kuvapuoli ylöspäin eteesi. Ennen heittoa voit myös:
-- julistaa kongin: neljä samaa kädessäsi, tai neljäs laatta lisättynä esille laskemaasi pungiin. Nosta korvaava laatta ja heitä sitten.
-- julistaa voiton.
+Jokainen saa 13 laattaa, jakaja (itä) 14. Nosta muurista tai vaadi viimeksi heitetty laatta, heitä sitten yksi laatta. Ennen heittoa voit julistaa voiton tai kongin (neljä samaa kädessäsi, tai neljäs laatta lisättynä esille laskemaasi pungiin) ja nostaa korvaavan laatan.
 # Sarjat ja vaatiminen
-- Chow on kolme peräkkäistä saman maan laattaa, pung kolme samaa, kong neljä samaa, pari kaksi samaa.
-- Kuka tahansa saa vaatia viimeksi heitetyn laatan tehdäkseen siitä ja kätensä laatoista pungin tai kongin, tai voittaakseen sillä. Vain seuraava pelaaja saa vaatia sen chow'hun. Sarja lasketaan esille kuvapuoli ylöspäin; vaatija heittää sitten laatan, ja peli jatkuu hänen jälkeensä.
-- Voitto menee pungin tai kongin edelle, ja ne menevät chow'n edelle. Jos kaksi pelaajaa haluaa voittaa, laatan saa se, joka on vuorojärjestyksessä ensin heittäjän jälkeen.
-- Laatan, joka lisätään pungiin kongiksi, voi ryöstää pelaaja, joka voittaa sillä.
+- Chow: kolme peräkkäistä samaa maata. Pung: kolme samaa. Kong: neljä samaa. Pari: kaksi samaa.
+- Kuka tahansa saa vaatia viimeksi heitetyn laatan pungiin, kongiin tai voittoon; vain seuraava pelaaja chow'hun. Sarja lasketaan esille kuvapuoli ylöspäin, vaatija heittää laatan, ja peli jatkuu hänen jälkeensä.
+- Voitto menee pungin tai kongin edelle, ja ne menevät chow'n edelle. Kahdesta voitosta laatan saa se, joka on ensin heittäjän jälkeen.
+- Pungiin lisätyn laatan voi ryöstää pelaaja, joka voittaa sillä.
 - Kun muuri on loppunut, viimeksi heitetyn laatan saa vaatia vain voittoon; muuten jako päättyy tasapeliin.
 # Voitto
-Voittava käsi on neljä sarjaa (chow'ta, pungia tai kongia) ja pari, tai seitsemän eri paria, tai kolmetoista orpoa (yksi jokaista ykköstä, yhdeksikköä ja kunnialaattaa, ja yksi niistä toiseen kertaan). Sen täytyy olla vähintään 3 faanin arvoinen.
+Neljä sarjaa ja pari, seitsemän eri paria tai kolmetoista orpoa (yksi jokaista ykköstä, yhdeksikköä ja kunnialaattaa, ja yksi niistä toiseen kertaan).
 # Faan
-- 1: itse nostettu; suljettu käsi (ei vaadittuja sarjoja); pelkkiä chow'ta; jokainen lohikäärmeiden pung; oman paikkatuulesi pung; kierroksen tuulen pung; kukin oma kukkasi ja vuodenaikasi (itä 1, etelä 2, länsi 3, pohjoinen 4); ei lainkaan kukkia eikä vuodenaikoja; voitto viimeisellä laatalla, korvaavalla laatalla tai ryöstämällä kong.
+- 1: itse nostettu; suljettu käsi; pelkkiä chow'ta; jokainen lohikäärmeiden pung; oman paikkatuulesi tai kierroksen tuulen pung; kukin oma kukkasi ja vuodenaikasi (itä 1, etelä 2, länsi 3, pohjoinen 4); ei kukkia eikä vuodenaikoja; voitto viimeisellä laatalla, korvaavalla laatalla tai ryöstämällä kong.
 - 2: kaikki neljä kukkaa tai kaikki neljä vuodenaikaa.
 - 3: pelkkiä pungeja; puolipuhdas käsi (yksi maa ja kunnialaatat).
 - 4: seitsemän paria.
-- 5: pienet kolme lohikäärmettä (kaksi lohikäärmepungia ja pari kolmatta), lasketaan lohikäärmepungien sijaan.
+- 5: pienet kolme lohikäärmettä (kaksi lohikäärmepungia ja pari kolmatta), lohikäärmepungien sijaan.
 - 7: puhdas käsi (vain yksi maa).
 - 8: suuret kolme lohikäärmettä.
-- 10, enimmäismäärä: kolmetoista orpoa, pelkkiä kunnialaattoja, pelkkiä ykkösiä ja yhdeksikköjä, pienet tai suuret neljä tuulta, yhdeksän porttia (1112345678999 yhtä maata ja yksi lisää samaa maata), neljä kongia, neljä suljettua pungia.
+- 10, enimmäismäärä: kolmetoista orpoa, pelkkiä kunnialaattoja, pelkkiä ykkösiä ja yhdeksikköjä, pienet tai suuret neljä tuulta, yhdeksän porttia (1112345678999 yhtä maata ja yksi lisää), neljä kongia, neljä suljettua pungia.
 Käsi lasketaan parhaan mahdollisen tulkinnan mukaan, enintään 10 faania.
 # Maksut
-3–10 faanin käsi on 8, 16, 24, 32, 48, 64, 96 tai 128 pisteen arvoinen. Voitto heitetyllä laatalla: heittäjä maksaa voittajalle kaksi kertaa summan, kaksi muuta kerran. Itse nostettu: kaikki kolme maksavat kaksi kertaa. Tasapeliin päättynyt jako: kukaan ei maksa.
+3–10 faania ovat 8, 16, 24, 32, 48, 64, 96 tai 128 pisteen arvoisia. Heitetyllä laatalla heittäjä maksaa kaksi kertaa ja muut kerran; itse nostettuna kaikki kolme maksavat kaksi kertaa.
 # Pelin loppu
-Voittanut jakaja jakaa uudelleen; muuten jakovuoro siirtyy seuraavalle pelaajalle. Kun kaikki ovat jakaneet, kierros päättyy ja kierroksen tuuli vaihtuu idästä etelään. Peli päättyy viimeisen valitun kierroksen jälkeen; suurin yhteissumma voittaa.
-# Pelaaminen laitteella
-Kätesi on alhaalla, juuri nostamasi laatta hieman erillään; sarjasi ja kukkasi sen yläpuolella. Nosta laatta napauttamalla sitä, ja heitä se napauttamalla sitä uudelleen tai pöytää, tai vedä se pöydälle. Kun voit voittaa tai tehdä kongin, pungin tai chow'n, sarjat hehkuvat kätesi yläpuolella: napauta yhtä. Palkkisi ohitapainikkeella päästät heitetyn laatan ohi; omalla vuorollasi nostat napauttamalla muureja.
-Heiton jälkeen laite menee vain pelaajille, jotka voisivat vaatia laatan. Jos jompikumpi kahdesta pelaajasta, jotka istuvat kaksi ja kolme paikkaa heittäjän jälkeen, voisi, kummaltakin kysytään aina, tässä järjestyksessä, jottei kukaan voi päätellä kumpi. Pelaaja, jolla ei ole mitään vaadittavaa, näkee heitetyn laatan vain hetken; sitten seuraava pelaaja nostaa.
-Jokaisen jaon jälkeen paneeli näyttää voittavan käden sarja sarjalta, sen faanit, kunkin pelaajan maksun ja yhteissummat: napauta sitä seuraavaa jakoa varten. Pöydän keskellä näkyvät kierroksen tuuli, monesko kierroksen jako on menossa, nopat ja muurissa jäljellä olevat laatat. Jokainen palkki näyttää pelaajan paikkatuulen ja yhteissumman.
+Jakaja pitää jakovuoron voittamalla; muuten se siirtyy eteenpäin. Kun kaikki ovat jakaneet, kierroksen tuuli vaihtuu idästä etelään. Viimeisen kierroksen jälkeen suurin yhteissumma voittaa.

@@ -1,22 +1,16 @@
 Manille
 # Amaç
-Dört kişilik bir Fransız el alma oyunu; karşılıklı oturan ortaklardan iki takım. Onluları ve asları, en iyi kartları içeren elleri al ve 34 puana ilk ulaşan takım ol.
+Karşılıklı oturan ortaklardan iki takım. Onluları ve asları içeren elleri al; 34 puana ilk ulaşan takım kazanır.
 # Kartlar
-- 7'den asa 32 kart. Her türde en büyük kart on, yani manille'dir; sonra as, yani manillon, sonra papaz, kız, vale, 9, 8 ve 7.
-- On 5 puan, as 4, papaz 3, kız 2, vale 1 eder: destede 60. Her el 1 puan daha eder: bir dağıtımda 68.
-# Dağıtım
-Dağıtan, kendinden sonraki oyuncudan başlayarak herkese dörder dörder 8 kart verir. Kendi son kartı açılır: türü kozdur ve kart dağıtanın elinde kalır. Dağıtan her dağıtımda bir yer ilerler.
+- 32 kart. Her türde en büyük kart on, yani manille'dir; sonra as, yani manillon, sonra papaz, kız, vale, 9, 8, 7.
+- On 5 puan, as 4, papaz 3, kız 2, vale 1 eder, her el de 1 puan daha: bir dağıtımda 68.
+- Dağıtanın son kartı açılır: türü kozdur.
 # Katlama
-İlk karttan önce herkes sırayla, dağıtandan sonrakinden başlayarak, pas der ya da katlar: dağıtım o zaman iki kat sayılır. Bir katlamadan sonra, katlayan takımın rakipleri yeniden katlayabilir: dağıtım dört kat sayılır.
+İlk karttan önce herkes sırayla katlayabilir: dağıtım iki kat sayılır. Sonra diğer takım yeniden katlayabilir: dört kat.
 # Oyun
-- Dağıtandan sonraki oyuncu ilk ele başlar; bir eli alan bir sonrakine başlar.
-- Yapabiliyorsan istenen türden oyna. Eli bir rakip o türden bir kartla tutuyorsa, yapabiliyorsan onu geçmelisin.
-- İstenen tür sende yoksa ve eli bir rakip tutuyorsa koz atmalısın, bir rakibin kozunu da yapabiliyorsan geçmelisin; yapamıyorsan istediğin kartı oyna.
-- Eli ortağın tutuyorsa ve istenen tür sende yoksa istediğin kartı oynayabilirsin.
-- Eli en büyük koz alır; koz yoksa başlanan türün en büyük kartı.
+- Yapabiliyorsan istenen türden oyna. Eli bir rakip o türle tutuyorsa, yapabiliyorsan onu geç.
+- İstenen tür sende yoksa ve eli bir rakip tutuyorsa koz at, yapabiliyorsan kozunu geç; yoksa istediğin kartı oyna.
+- Eli ortağın tutuyorsa ve istenen tür sende yoksa istediğin kartı oyna.
+- Eli en büyük koz alır; yoksa başlanan türün en büyük kartı.
 # Puanlama
-Her takım kartlarının puanlarını ve her el için 1 puanı toplar. 34'ten fazlası olan takım farkı yazar; dağıtım katlandıysa iki ya da dört katını. 34'e 34'te kimse yazmaz.
-# Oyunun sonu
-34 puana ilk ulaşan takım kazanır.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür, kozlar solda. Dağıtanın açılan kartı ilk el bitene kadar onun pulunun yanında durur; koz (onun ası) ve varsa katlama sol üst köşede görünür. Katlamak için ortadaki yuvarlak düğmeye dokun (bir çarpı ve 2; bir çarpı ve 4 yeniden katlar); pas için şeridindeki pas düğmesine. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her şerit eldeki kartları ve takımın puanını gösterir. Her dağıtımdan sonra bir tablo her takımın puanlarını, dağıtımın skorunu ve toplamları gösterir; bir sonraki dağıtım için ona dokun. Geri al henüz onaylanmamış bir seçimi geri alır, cihaz el değiştirdikten sonra bir kartı asla.
+Dağıtımda 34'ten fazlası olan takım farkı yazar; dağıtım katlandıysa iki ya da dört katını. 34'e 34'te kimse yazmaz.

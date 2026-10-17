@@ -1,16 +1,11 @@
 Montana
 # Het doel
-De kaarten in vier rijen leggen, elk van één kleur van 2 tot heer, door kaarten naar de gaten te schuiven. Een spel voor één speler, ook Gaten genoemd.
-# De opstelling
-De 52 kaarten worden open gedeeld in vier rijen van 13; dan worden de vier azen weggenomen, wat vier gaten laat.
+De kaarten in vier rijen leggen, elk van één kleur van 2 tot heer, door kaarten naar de gaten te schuiven. De azen worden weggenomen, wat vier gaten laat.
 # Kaarten verplaatsen
 - Een gat wordt gevuld met de kaart van dezelfde kleur die één hoger is dan de kaart links ervan: na klaveren 5 komt klaveren 6.
 - Een gat in de eerste kolom neemt elke 2.
 - Een gat na een heer kan niet meer gevuld worden.
-- Een rij op volgorde begint met een 2 in de eerste kolom en gaat verder in dezelfde kleur; ze licht zacht op.
 # Opnieuw delen
-Drie keer per partij tik je op de hand (de plaats met de draaiende pijl): de kaarten die nog niet op volgorde liggen, worden verzameld, geschud en opnieuw gedeeld op de plaatsen na de reeks van elke rij, met één gat direct na die reeks. Het getal onder de hand toont hoe vaak dat nog kan.
+Drie keer per partij tik je op de hand (de draaiende pijl): de kaarten die nog niet op volgorde liggen, worden geschud en opnieuw gedeeld na de reeks van elke rij, met één gat direct erna.
 # Het einde van de partij
-Je wint als de vier rijen op volgorde liggen, elk met het gat aan het eind. De partij is voorbij als geen gat meer gevuld kan worden en je niet meer opnieuw kunt delen. Niet elk spel is te winnen.
-# Spelen op het apparaat
-Tik op een kaart om hem naar het gat te sturen dat hij vult, of tik op een gat om de kaart te halen die erin past. Je kunt een kaart ook naar zijn gat slepen. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Je wint als de vier rijen op volgorde liggen. De partij is voorbij als geen gat meer gevuld kan worden en je niet meer opnieuw kunt delen. Niet elk spel is te winnen.

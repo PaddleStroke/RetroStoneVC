@@ -1,50 +1,24 @@
 Koi-Koi
 # Tujuan
-Kumpulkan poin terbanyak selama 12 ronde, satu untuk setiap bulan dalam setahun, atau 6 ronde pada permainan singkat. Untuk 2 pemain. Ambil kartu dengan memasangkan bulannya dan bentuk yaku, kombinasi yang memberi poin. Lalu pilih: berhenti dan dapat poin sekarang, atau serukan koi-koi dan lanjut bermain untuk poin lebih banyak.
+Ambil kartu dengan memasangkan bulannya dan bentuk yaku, kombinasi yang memberi poin. Lalu berhenti dan dapat poin, atau serukan koi-koi dan lanjut bermain untuk poin lebih banyak. Poin terbanyak setelah 12 ronde (6 pada permainan singkat) menang.
 # Kartu
-Dek hanafuda berisi 48 kartu: 12 bulan masing-masing 4 kartu, tiap bulan dengan tanamannya sendiri. Januari pinus, Februari plum, Maret sakura, April wisteria, Mei iris, Juni peoni, Juli semak semanggi, Agustus rumput pampas, September krisan, Oktober maple, November dedalu, Desember paulownia.
-- Cahaya (5): bangau (Januari), tirai (Maret), bulan (Agustus), orang di tengah hujan (November) dan burung phoenix (Desember).
-- Hewan (9): burung semak, burung kukuk, jembatan, kupu-kupu, babi hutan, angsa liar, cawan sake, rusa dan burung layang-layang.
-- Pita (10): tiga pita puisi merah bertulisan (Januari, Februari, Maret), tiga pita biru (Juni, September, Oktober) dan empat pita merah polos (April, Mei, Juli, November).
-- Kartu biasa (24): semua sisanya, termasuk kilat bulan November.
-# Pembagian kartu
-Setiap pemain mendapat 8 kartu, dan 8 kartu lagi diletakkan terbuka di lapangan; sisanya menjadi tumpukan. Jika lapangan berisi keempat kartu dari satu bulan, kartu dibagikan ulang. Pembagi bermain lebih dulu: pemain gading pada ronde pertama, lalu pemenang ronde sebelumnya. Setelah ronde tanpa pemenang, pembaginya tetap sama.
+48 kartu: 12 bulan masing-masing 4 kartu.
+- Cahaya (5): bangau, tirai, bulan, orang di tengah hujan dan burung phoenix.
+- Hewan (9), pita (10: tiga pita puisi merah bertulisan, tiga biru, empat merah polos) dan kartu biasa (24).
 # Satu giliran
-- Mainkan satu kartu dari tanganmu ke lapangan. Jika ada kartu lapangan dari bulan yang sama, kamu mengambil keduanya. Jika ada dua, kamu memilih mana yang diambil. Jika ada tiga, kamu mengambil keempatnya. Jika tidak ada, kartumu tetap di lapangan.
+Masing-masing 8 kartu dan 8 kartu terbuka di lapangan; kartu dibagikan ulang jika lapangan berisi satu bulan lengkap. Pembagi mulai: pemain gading, lalu pemenang ronde sebelumnya.
+- Mainkan satu kartu dari tanganmu: kartu itu mengambil kartu lapangan dari bulan yang sama (jika ada dua, kamu memilih; jika ada tiga, kamu mengambil keempatnya). Jika tidak, kartu itu tetap di lapangan.
 - Lalu buka kartu teratas tumpukan dan mainkan dengan cara yang sama.
-- Kartu yang kamu ambil tetap terbuka di depanmu.
 # Yaku
-- Gokō: kelima cahaya, 10 poin.
-- Shikō: 4 cahaya tanpa orang di tengah hujan, 8 poin.
-- Ame-Shikō: 4 cahaya dengan orang di tengah hujan, 7 poin.
-- Sankō: 3 cahaya tanpa orang di tengah hujan, 5 poin. Tiga cahaya dengannya tidak bernilai apa-apa.
-- Inoshikachō: babi hutan, rusa dan kupu-kupu, 5 poin.
-- Akatan: 3 pita puisi, 5 poin.
-- Aotan: 3 pita biru, 5 poin.
-- Hanami-zake: tirai dan cawan sake, 5 poin.
-- Tsukimi-zake: bulan dan cawan sake, 5 poin.
-- Tane: 5 hewan, 1 poin, dan 1 lagi untuk setiap hewan berikutnya.
-- Tan: 5 pita, 1 poin, dan 1 lagi untuk setiap pita berikutnya.
-- Kasu: 10 kartu biasa, 1 poin, dan 1 lagi untuk setiap kartu biasa berikutnya.
-Dari empat yaku cahaya, hanya yang terbaik yang dihitung; semua yaku lainnya dijumlahkan. Cawan sake dihitung sebagai hewan sekaligus kartu biasa. Di sini Hanami-zake dan Tsukimi-zake selalu dihitung.
+- Gokō: kelima cahaya, 10. Shikō: 4 cahaya tanpa orang di tengah hujan, 8. Ame-Shikō: 4 dengannya, 7. Sankō: 3 tanpa dia, 5.
+- Inoshikachō: babi hutan, rusa dan kupu-kupu, 5.
+- Akatan: 3 pita puisi, 5. Aotan: 3 pita biru, 5.
+- Hanami-zake: tirai dan cawan sake, 5. Tsukimi-zake: bulan dan cawan sake, 5.
+- Tane (5 hewan), Tan (5 pita), Kasu (10 kartu biasa): 1, dan 1 lagi untuk setiap kartu berikutnya.
+Hanya yaku cahaya terbaik yang dihitung. Cawan sake dihitung sebagai hewan sekaligus kartu biasa.
 # Berhenti atau koi-koi
-Saat giliranmu berakhir dengan yaku baru, atau dengan poin yaku yang bertambah, kamu memilih:
-- Berhenti: ronde berakhir dan kamu mendapat poin.
-- Koi-koi: ronde berlanjut. Kamu baru bisa berhenti lagi setelah poinmu naik lagi. Jika lawanmu berhenti lebih dulu, kamu tidak mendapat apa-apa dan poin lawan dilipatgandakan.
-Jika tidak ada kartu lagi di tanganmu, kamu berhenti.
+Saat giliranmu berakhir dengan yaku baru atau poin yang bertambah, berhenti dan dapat poin, atau serukan koi-koi dan lanjut bermain. Jika lawanmu lalu berhenti lebih dulu, kamu tidak mendapat apa-apa dan poin lawan dilipatgandakan. Jika tidak ada kartu lagi di tanganmu, kamu berhenti.
 # Poin
-- Poin semua yaku-mu dijumlahkan.
-- Dilipatgandakan jika mencapai 7 atau lebih.
-- Dilipatgandakan lagi jika lawanmu tadi menyerukan koi-koi.
+- Poin yaku-mu dijumlahkan, dilipatgandakan mulai 7 poin, dan dilipatgandakan lagi jika lawanmu tadi menyerukan koi-koi.
 - Jika kedua tangan habis dimainkan dan tak ada yang berhenti, tidak ada yang mendapat poin.
-- Teshi (empat kartu dari satu bulan di tangan yang dibagikan) dan Kuttsuki (empat pasang bulan di tangan yang dibagikan) langsung memenangkan ronde dengan 6 poin. Tangan pembagi diperiksa lebih dulu.
-# Akhir permainan
-Setelah ronde terakhir, pemain dengan poin terbanyak menang.
-# Bermain di perangkat
-Kartu di tangan bersifat rahasia: oper perangkat saat layar memintanya, lalu pemain berikutnya mengetuk tombol mulai. Tanganmu ada di bawah, tangan lawan tertutup di atas; tumpukan dan lapangan ada di tengah, dengan satu titik untuk setiap ronde di bawah tumpukan. Kartu yang diambil setiap pemain dikelompokkan menurut jenis: cahaya, hewan, pita, kartu biasa, dengan jumlah di tiap kelompok. Yaku yang terbentuk tampil sebagai lencana berisi kartu dan poinnya, dan cakram merah menandai seruan koi-koi. Apa yang dilakukan lawan pada giliran terakhirnya ditandai di meja.
-- Ketuk kartu di tanganmu: kartu lapangan dari bulan yang sama menyala. Ketuk salah satunya, atau ketuk kartumu lagi, untuk memainkannya; kamu juga bisa menyeretnya ke lapangan. Jika tidak ada yang cocok, sebuah titik menandai tempat kartu itu akan diletakkan.
-- Jika dua kartu cocok, ketuk kartu yang kamu ambil.
-- Lalu ketuk tumpukan untuk membuka kartu teratasnya.
-- Saat kamu membentuk yaku, muncul dua tombol besar: tangan terbuka untuk berhenti (angka di bawahnya adalah poin yang kamu dapat sekarang), panah ganda untuk koi-koi.
-- Setelah setiap ronde, sebuah panel menampilkan yaku, penggandaan (tanda silang dan angka 2) dan poin; ketuk untuk ronde berikutnya. Total setiap pemain ada di bilahnya.
-Urungkan membatalkan langkahmu sendiri, sampai kamu membuka kartu dari tumpukan.
+- Empat kartu dari satu bulan (Teshi) atau empat pasang bulan (Kuttsuki) di tangan yang dibagikan langsung memenangkan ronde dengan 6 poin.

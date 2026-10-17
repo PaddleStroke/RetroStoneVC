@@ -1,22 +1,16 @@
 Manille
 # The aim
-A French trick-taking game for four, in two teams of partners sitting face to face. Win the tricks that hold the tens and the aces, the best cards, and be the first team to reach 34 points.
+Two teams of partners sitting face to face. Win the tricks that hold the tens and the aces; the first team to reach 34 points wins.
 # The cards
-- 32 cards, from 7 to ace. In each suit the ten, called the manille, is the highest card, then the ace, the manillon, then king, queen, jack, 9, 8 and 7.
-- The ten is worth 5 points, the ace 4, the king 3, the queen 2, the jack 1: 60 in the pack. Each trick is worth 1 more: 68 in a deal.
-# The deal
-The dealer gives 8 cards to each player, 4 at a time, starting with the player after them. The dealer's last card is turned face up: its suit is trumps, and the card stays in the dealer's hand. The dealer moves on one seat each deal.
+- 32 cards. In each suit the ten, the manille, is highest, then the ace, the manillon, then king, queen, jack, 9, 8, 7.
+- Ten 5 points, ace 4, king 3, queen 2, jack 1, and each trick 1 more: 68 in a deal.
+- The dealer's last card is turned face up: its suit is trumps.
 # Doubling
-Before the first card, each player in turn, starting after the dealer, passes or doubles: the deal then counts twice. After a double, the doubling team's opponents may redouble: the deal counts four times.
+Before the first card, each player in turn may double: the deal counts twice. The other team may then redouble: four times.
 # Playing
-- The player after the dealer leads the first trick; the winner of a trick leads the next.
-- Follow suit if you can. If an opponent holds the trick with a card of that suit, you must beat it if you can.
-- If you cannot follow suit and an opponent holds the trick, you must trump, and over-trump an opponent's trump if you can; if you cannot, play any card.
-- When your partner holds the trick, you may play any card if you cannot follow suit.
-- The highest trump wins the trick; without a trump, the highest card of the suit led.
+- Follow suit if you can. If an opponent holds the trick with that suit, beat it if you can.
+- If you cannot follow and an opponent holds the trick, trump, over-trumping if you can; otherwise play any card.
+- If your partner holds the trick and you cannot follow, play any card.
+- The highest trump wins, or else the highest card of the suit led.
 # Scoring
-Each team adds up the points of its cards and 1 point for each trick. The team with more than 34 scores the difference, doubled or quadrupled if the deal was. At 34 each, nobody scores.
-# The end of the game
-The first team to reach 34 points wins.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom, trumps on the left. The dealer's turned card lies beside their token until the first trick is over; the trumps (their ace) and any doubling stay in the top left corner. To double, tap the round button in the middle (a cross and 2; a cross and 4 redoubles); to pass, tap the pass button in your bar. To play, tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. Tap the pile at the bottom right to see the last trick. Each bar shows the cards in hand and the team's score. After each deal a table shows each team's points, the score of the deal and the totals; tap it for the next deal. Undo takes back a choice not yet made, never a card once the device has passed.
+The team with more than 34 in the deal scores the difference, doubled or quadrupled if the deal was. At 34 each, nobody scores.

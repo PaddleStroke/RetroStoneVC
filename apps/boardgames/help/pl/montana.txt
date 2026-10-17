@@ -1,16 +1,11 @@
 Montana
 # Cel gry
-Ułożyć karty w czterech rzędach, każdy w jednym kolorze od 2 do króla, przekładając karty w luki. Gra dla jednej osoby, zwana też Lukami.
-# Rozłożenie
-52 karty rozdaje się odkryte w czterech rzędach po 13; potem usuwa się cztery asy, co zostawia cztery luki.
+Ułożyć karty w czterech rzędach, każdy w jednym kolorze od 2 do króla, przekładając karty w luki. Asy się usuwa, co zostawia cztery luki.
 # Przekładanie kart
 - Lukę zajmuje karta w tym samym kolorze i o jeden wyższa od karty po jej lewej stronie: po 5 trefl przychodzi 6 trefl.
 - Luka w pierwszej kolumnie przyjmuje dowolną 2.
 - Luki za królem nie można zająć.
-- Rząd ułożony po kolei zaczyna się od 2 w pierwszej kolumnie i biegnie dalej w tym samym kolorze; delikatnie świeci.
 # Ponowne rozdania
-Trzy razy w grze dotknij ręki (miejsca z krążącą strzałką): karty, które nie są jeszcze po kolei, zbiera się, tasuje i rozdaje na nowo na miejsca za ułożoną częścią każdego rzędu, zostawiając jedną lukę tuż za nią. Liczba pod ręką pokazuje, ile rozdań zostało.
+Trzy razy w grze dotknij ręki (krążącej strzałki): karty, które nie są jeszcze po kolei, zostają potasowane i rozdane na nowo za ułożoną częścią każdego rzędu, z jedną luką tuż za nią.
 # Koniec gry
-Wygrywasz, gdy cztery rzędy są ułożone, każdy z luką na końcu. Gra kończy się, gdy żadnej luki nie da się zająć i nie zostało już żadne rozdanie. Nie każde rozdanie da się wygrać.
-# Gra na urządzeniu
-Dotknij karty, by wysłać ją do luki, którą zajmuje, albo dotknij luki, by przywołać pasującą do niej kartę. Kartę możesz też przeciągnąć do jej luki. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Wygrywasz, gdy cztery rzędy są ułożone. Gra kończy się, gdy żadnej luki nie da się zająć i nie zostało już żadne rozdanie. Nie każde rozdanie da się wygrać.

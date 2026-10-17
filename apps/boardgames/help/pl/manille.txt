@@ -1,22 +1,16 @@
 Manille
 # Cel gry
-Francuska gra w lewy dla czterech osób w dwóch parach, partnerzy siedzą naprzeciw siebie. Zdobywaj lewy z dziesiątkami i asami, najlepszymi kartami, i bądź pierwszą parą z 34 punktami.
+Dwie pary partnerów siedzących naprzeciw siebie. Zdobywaj lewy z dziesiątkami i asami; wygrywa pierwsza para, która zdobędzie 34 punkty.
 # Karty
-- 32 karty, od siódemki do asa. W każdym kolorze dziesiątka, manille, jest najwyższą kartą, potem as, manillon, potem król, dama, walet, 9, 8 i 7.
-- Dziesiątka jest warta 5 punktów, as 4, król 3, dama 2, walet 1: w talii 60. Każda lewa jest warta 1 punkt więcej: 68 w rozdaniu.
-# Rozdanie
-Rozdający daje każdemu 8 kart, po 4, zaczynając od gracza po sobie. Jego własna ostatnia karta zostaje odkryta: jej kolor to atut, a karta zostaje w jego ręce. Rozdający przesuwa się o jedno miejsce co rozdanie.
+- 32 karty. W każdym kolorze dziesiątka, manille, jest najwyższa, potem as, manillon, potem król, dama, walet, 9, 8, 7.
+- Dziesiątka jest warta 5 punktów, as 4, król 3, dama 2, walet 1, a każda lewa 1 więcej: 68 w rozdaniu.
+- Ostatnia karta rozdającego zostaje odkryta: jej kolor to atut.
 # Kontra
-Przed pierwszą kartą każdy po kolei, zaczynając po rozdającym, pasuje albo kontruje: rozdanie liczy się wtedy podwójnie. Po kontrze przeciwnicy pary, która kontrowała, mogą dać rekontrę: rozdanie liczy się poczwórnie.
+Przed pierwszą kartą każdy po kolei może kontrować: rozdanie liczy się podwójnie. Druga para może wtedy dać rekontrę: poczwórnie.
 # Rozgrywka
-- Gracz po rozdającym wychodzi do pierwszej lewy; kto weźmie lewę, wychodzi do następnej.
-- Dokładaj do koloru, jeśli możesz. Jeśli lewę trzyma przeciwnik kartą tego koloru, musisz ją przebić, jeśli możesz.
-- Jeśli nie masz koloru, a lewę trzyma przeciwnik, musisz zagrać atut, i przebić atut przeciwnika, jeśli możesz; w przeciwnym razie zagraj dowolną kartę.
-- Gdy lewę trzyma twój partner, możesz zagrać dowolną kartę, jeśli nie masz koloru.
-- Lewę bierze najwyższy atut; bez atutu najwyższa karta wyjściowego koloru.
+- Dokładaj do koloru, jeśli możesz. Jeśli lewę trzyma przeciwnik kartą tego koloru, przebij ją, jeśli możesz.
+- Jeśli nie masz koloru, a lewę trzyma przeciwnik, zagraj atut, przebijając jego atut, jeśli możesz; w przeciwnym razie zagraj dowolną kartę.
+- Gdy lewę trzyma twój partner, a nie masz koloru, zagraj dowolną kartę.
+- Lewę bierze najwyższy atut, a bez atutu najwyższa karta wyjściowego koloru.
 # Punktacja
-Każda para liczy punkty swoich kart i 1 punkt za lewę. Para, która ma więcej niż 34, dostaje różnicę, podwójną lub poczwórną przy kontrze lub rekontrze. Przy 34 na 34 nikt nie dostaje nic.
-# Koniec gry
-Wygrywa pierwsza para, która zdobędzie 34 punkty.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę, rozłożoną w wachlarz na dole, atuty po lewej. Odkryta karta rozdającego leży przy jego pionku do końca pierwszej lewy; atut (jego as) i ewentualna kontra są w lewym górnym rogu. Aby kontrować, dotknij okrągłego przycisku na środku (krzyżyk i 2; krzyżyk i 4 to rekontra); aby spasować, przycisku pasowania na swoim pasku. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Każdy pasek pokazuje karty w ręce i wynik pary. Po każdym rozdaniu tabela pokazuje punkty każdej pary, wynik rozdania i sumy; dotknij jej, by przejść do następnego rozdania. Cofnij wycofuje niezatwierdzony wybór, nigdy kartę po przekazaniu urządzenia.
+Para, która ma w rozdaniu więcej niż 34, dostaje różnicę, podwójną lub poczwórną przy kontrze lub rekontrze. Przy 34 na 34 nikt nie dostaje nic.

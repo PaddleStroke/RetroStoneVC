@@ -1,22 +1,16 @@
 Manille
 # Das Ziel
-Ein französisches Stichspiel für vier in zwei Teams, die Partner sitzen sich gegenüber. Gewinne die Stiche mit den Zehnen und Assen, den besten Karten, und erreiche als erstes Team 34 Punkte.
+Zwei Teams, die Partner sitzen sich gegenüber. Gewinne die Stiche mit den Zehnen und Assen; das erste Team mit 34 Punkten gewinnt.
 # Die Karten
-- 32 Karten, von der 7 bis zum Ass. In jeder Farbe ist die Zehn, die Manille, die höchste Karte, dann das Ass, der Manillon, dann König, Dame, Bube, 9, 8 und 7.
-- Die Zehn zählt 5 Punkte, das Ass 4, der König 3, die Dame 2, der Bube 1: 60 im Blatt. Jeder Stich zählt 1 Punkt mehr: 68 pro Runde.
-# Das Geben
-Der Geber gibt jedem 8 Karten, je 4 auf einmal, beginnend beim Spieler nach ihm. Seine eigene letzte Karte wird aufgedeckt: Ihre Farbe ist Trumpf, und die Karte bleibt in seiner Hand. Der Geber rückt jede Runde einen Platz weiter.
+- 32 Karten. In jeder Farbe ist die Zehn, die Manille, die höchste, dann das Ass, der Manillon, dann König, Dame, Bube, 9, 8, 7.
+- Zehn 5 Punkte, Ass 4, König 3, Dame 2, Bube 1, und jeder Stich 1 mehr: 68 pro Runde.
+- Die letzte Karte des Gebers wird aufgedeckt: Ihre Farbe ist Trumpf.
 # Doppeln
-Vor der ersten Karte passt oder doppelt jeder der Reihe nach, beginnend nach dem Geber: Die Runde zählt dann doppelt. Nach einem Doppel dürfen die Gegner des doppelnden Teams redoppeln: Die Runde zählt vierfach.
+Vor der ersten Karte darf jeder der Reihe nach doppeln: Die Runde zählt doppelt. Das andere Team darf dann redoppeln: vierfach.
 # Der Spielverlauf
-- Der Spieler nach dem Geber spielt zum ersten Stich aus; wer einen Stich gewinnt, spielt zum nächsten aus.
-- Bediene die ausgespielte Farbe, wenn du kannst. Hält ein Gegner den Stich mit einer Karte dieser Farbe, musst du ihn überstechen, wenn du kannst.
-- Kannst du nicht bedienen und hält ein Gegner den Stich, musst du trumpfen, und den Trumpf eines Gegners übertrumpfen, wenn du kannst; sonst spiele irgendeine Karte.
-- Hält dein Partner den Stich, darfst du jede Karte spielen, wenn du nicht bedienen kannst.
-- Der höchste Trumpf gewinnt den Stich; ohne Trumpf die höchste Karte der ausgespielten Farbe.
+- Bediene, wenn du kannst. Hält ein Gegner den Stich mit dieser Farbe, stich ihn über, wenn du kannst.
+- Kannst du nicht bedienen und hält ein Gegner den Stich, trumpfe, und übertrumpfe, wenn du kannst; sonst spiele irgendeine Karte.
+- Hält dein Partner den Stich und du kannst nicht bedienen, spiele irgendeine Karte.
+- Der höchste Trumpf gewinnt, sonst die höchste Karte der ausgespielten Farbe.
 # Die Wertung
-Jedes Team zählt die Punkte seiner Karten und 1 Punkt pro Stich. Das Team mit mehr als 34 bekommt den Unterschied, verdoppelt oder vervierfacht, wenn gedoppelt wurde. Bei 34 zu 34 bekommt niemand etwas.
-# Das Ende der Partie
-Das erste Team mit 34 Punkten gewinnt.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand, unten aufgefächert, die Trümpfe links. Die aufgedeckte Karte des Gebers liegt bis zum Ende des ersten Stichs neben seinem Stein; Trumpf (sein Ass) und ein Doppel stehen oben links in der Ecke. Zum Doppeln tippe auf den runden Knopf in der Mitte (ein Kreuz und 2; ein Kreuz und 4 zum Redoppeln); zum Passen auf den Passen-Knopf in deiner Leiste. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Jede Leiste zeigt die Karten auf der Hand und den Stand des Teams. Nach jeder Runde zeigt eine Tafel die Punkte jedes Teams, die Wertung der Runde und die Summen; tippe darauf für die nächste Runde. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Karte, wenn das Gerät weitergegeben wurde.
+Das Team mit mehr als 34 in der Runde bekommt den Unterschied, verdoppelt oder vervierfacht, wenn gedoppelt wurde. Bei 34 zu 34 bekommt niemand etwas.

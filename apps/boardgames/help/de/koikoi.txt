@@ -1,50 +1,24 @@
 Koi-Koi
 # Das Ziel
-Erziele in 12 Runden, einer für jeden Monat des Jahres, die meisten Punkte, oder in 6 Runden im kurzen Spiel. Für 2 Spieler. Fange Karten, indem du gleiche Monate zusammenbringst, und bilde Yaku, die punktenden Kombinationen. Dann entscheide: aufhören und sofort punkten, oder Koi-Koi rufen und für mehr weiterspielen.
+Fange Karten, indem du gleiche Monate zusammenbringst, und bilde Yaku, die punktenden Kombinationen. Dann hör auf und punkte, oder rufe Koi-Koi und spiel für mehr weiter. Wer nach 12 Runden (6 im kurzen Spiel) die meisten Punkte hat, gewinnt.
 # Die Karten
-Das Hanafuda-Spiel hat 48 Karten: 12 Monate zu je 4 Karten, jeder Monat mit seiner eigenen Pflanze. Januar Kiefer, Februar Pflaume, März Kirsche, April Glyzinie, Mai Iris, Juni Pfingstrose, Juli Buschklee, August Pampasgras, September Chrysantheme, Oktober Ahorn, November Weide, Dezember Paulownie.
-- Lichter (5): der Kranich (Januar), der Vorhang (März), der Mond (August), der Mann im Regen (November) und der Phönix (Dezember).
-- Tiere (9): der Buschsänger, der Kuckuck, die Brücke, die Schmetterlinge, das Wildschwein, die Wildgänse, die Sakeschale, der Hirsch und die Schwalbe.
-- Bänder (10): drei rote Gedichtbänder mit Schrift (Januar, Februar, März), drei blaue Bänder (Juni, September, Oktober) und vier schlichte rote Bänder (April, Mai, Juli, November).
-- Einfache Karten (24): alle übrigen, darunter der Blitz des Novembers.
-# Das Geben
-Jeder Spieler erhält 8 Karten, weitere 8 liegen offen auf dem Feld; der Rest ist der Stapel. Liegen alle vier Karten eines Monats auf dem Feld, wird neu gegeben. Der Geber spielt zuerst: in der ersten Runde der Spieler Elfenbein, danach der Gewinner der letzten Runde. Nach einer Runde ohne Gewinner bleibt der Geber derselbe.
+48 Karten: 12 Monate zu je 4.
+- Lichter (5): der Kranich, der Vorhang, der Mond, der Mann im Regen und der Phönix.
+- Tiere (9), Bänder (10: drei rote Gedichtbänder mit Schrift, drei blaue, vier schlichte rote) und einfache Karten (24).
 # Ein Zug
-- Spiele eine Karte aus deiner Hand auf das Feld. Hat eine Feldkarte denselben Monat, fängst du beide. Haben ihn zwei, wählst du, welche du nimmst. Haben ihn drei, fängst du alle vier. Hat ihn keine, bleibt deine Karte auf dem Feld liegen.
+Je 8 Karten und 8 offen auf dem Feld; liegt ein ganzer Monat auf dem Feld, wird neu gegeben. Der Geber beginnt: Elfenbein, danach der Gewinner der letzten Runde.
+- Spiele eine Karte aus deiner Hand: Sie fängt eine Feldkarte ihres Monats (bei zweien wählst du, bei dreien nimmst du alle vier). Sonst bleibt sie auf dem Feld liegen.
 - Dann deckst du die oberste Karte des Stapels auf und spielst sie genauso.
-- Deine gefangenen Karten bleiben offen vor dir liegen.
 # Die Yaku
-- Gokō: die 5 Lichter, 10 Punkte.
-- Shikō: 4 Lichter ohne den Mann im Regen, 8 Punkte.
-- Ame-Shikō: 4 Lichter mit dem Mann im Regen, 7 Punkte.
-- Sankō: 3 Lichter ohne den Mann im Regen, 5 Punkte. Drei Lichter mit ihm zählen nichts.
-- Inoshikachō: Wildschwein, Hirsch und Schmetterlinge, 5 Punkte.
-- Akatan: die 3 Gedichtbänder, 5 Punkte.
-- Aotan: die 3 blauen Bänder, 5 Punkte.
-- Hanami-zake: der Vorhang und die Sakeschale, 5 Punkte.
-- Tsukimi-zake: der Mond und die Sakeschale, 5 Punkte.
-- Tane: 5 Tiere, 1 Punkt, und 1 mehr für jedes weitere Tier.
-- Tan: 5 Bänder, 1 Punkt, und 1 mehr für jedes weitere Band.
-- Kasu: 10 einfache Karten, 1 Punkt, und 1 mehr für jede weitere.
-Von den vier Lichter-Yaku zählt nur das beste; alle anderen Yaku werden addiert. Die Sakeschale zählt als Tier und zugleich als einfache Karte. Hanami-zake und Tsukimi-zake zählen hier immer.
+- Gokō: die 5 Lichter, 10. Shikō: 4 Lichter ohne den Mann im Regen, 8. Ame-Shikō: 4 mit ihm, 7. Sankō: 3 ohne ihn, 5.
+- Inoshikachō: Wildschwein, Hirsch und Schmetterlinge, 5.
+- Akatan: die 3 Gedichtbänder, 5. Aotan: die 3 blauen Bänder, 5.
+- Hanami-zake: der Vorhang und die Sakeschale, 5. Tsukimi-zake: der Mond und die Sakeschale, 5.
+- Tane (5 Tiere), Tan (5 Bänder), Kasu (10 einfache Karten): 1, und 1 mehr für jede weitere Karte.
+Nur das beste Lichter-Yaku zählt. Die Sakeschale ist Tier und zugleich einfache Karte.
 # Aufhören oder Koi-Koi
-Endet dein Zug mit einem neuen Yaku oder mit mehr Punkten aus deinen Yaku, wählst du:
-- Aufhören: Die Runde endet und du punktest.
-- Koi-Koi: Die Runde geht weiter. Aufhören kannst du erst wieder, wenn deine Punkte erneut gestiegen sind. Hört dein Gegner zuerst auf, bekommst du nichts und seine Punkte werden verdoppelt.
-Hast du keine Karte mehr auf der Hand, hörst du auf.
+Endet dein Zug mit einem neuen Yaku oder mehr Punkten, hörst du auf und punktest, oder du rufst Koi-Koi und spielst weiter. Hört dein Gegner dann zuerst auf, bekommst du nichts und seine Punkte werden verdoppelt. Hast du keine Karte mehr auf der Hand, hörst du auf.
 # Die Punkte
-- Die Punkte aller deiner Yaku zusammengezählt.
-- Verdoppelt, wenn es 7 oder mehr sind.
-- Nochmals verdoppelt, wenn dein Gegner Koi-Koi gerufen hatte.
+- Deine Yaku zusammengezählt, verdoppelt ab 7 Punkten und nochmals verdoppelt, wenn dein Gegner Koi-Koi gerufen hatte.
 - Sind beide Hände ausgespielt und niemand hat aufgehört, punktet niemand.
-- Teshi (vier Karten eines Monats in der gegebenen Hand) und Kuttsuki (vier Monatspaare in der gegebenen Hand) gewinnen die Runde sofort, mit 6 Punkten. Zuerst wird die Hand des Gebers geprüft.
-# Das Ende der Partie
-Nach der letzten Runde gewinnt der Spieler mit den meisten Punkten.
-# Spielen auf dem Gerät
-Die Hände sind geheim: Gib das Gerät weiter, wenn der Bildschirm darum bittet, und der nächste Spieler tippt auf den Startknopf. Deine Hand liegt unten, die deines Gegners verdeckt oben; Stapel und Feld sind in der Mitte, mit einem Punkt für jede Runde unter dem Stapel. Die gefangenen Karten jedes Spielers sind nach Art geordnet: Lichter, Tiere, Bänder, einfache Karten, mit der Anzahl auf jeder Gruppe. Gebildete Yaku erscheinen als Abzeichen mit ihren Karten und Punkten, eine rote Scheibe zeigt einen Koi-Koi-Ruf. Was dein Gegner in seinem letzten Zug getan hat, ist auf dem Tisch markiert.
-- Tippe auf eine Karte deiner Hand: Die Feldkarten ihres Monats leuchten. Tippe auf eine davon oder nochmals auf deine Karte, um sie zu spielen; du kannst sie auch aufs Feld ziehen. Passt nichts, markiert ein Punkt, wo sie liegen wird.
-- Passen zwei Karten, tippe auf die, die du nimmst.
-- Tippe dann auf den Stapel, um seine oberste Karte aufzudecken.
-- Bildest du ein Yaku, erscheinen zwei große Knöpfe: Die offene Hand hört auf (die Zahl darunter ist, was du jetzt punkten würdest), der Doppelpfeil ruft Koi-Koi.
-- Nach jeder Runde zeigt eine Tafel die Yaku, die Verdopplungen (ein Kreuz und eine 2) und die Punkte; tippe darauf für die nächste Runde. Die Summe jedes Spielers steht in seiner Leiste.
-Rückgängig nimmt deine eigenen Züge zurück, bis du die Karte des Stapels aufdeckst.
+- Vier Karten eines Monats (Teshi) oder vier Monatspaare (Kuttsuki) in der gegebenen Hand gewinnen die Runde sofort, mit 6 Punkten.
