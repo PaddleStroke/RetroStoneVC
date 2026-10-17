@@ -1,27 +1,22 @@
 Golf
 # Tavoite
-Saada pienimmät pisteet viimeisen kierroksen jälkeen. Jokaisella pelaajalla on edessään ruudukko kuvapuoli alaspäin olevia kortteja; aluksi kukaan ei tunne niitä, ei edes niiden omistaja. Vaihda suuret korttisi pieniin ja käännä ruudukkosi esiin. Kaksi peliä valittavana: klassinen Golf 52 kortin pakalla ja Numerogolf, golfin muunnelma korteilla -2:sta 12:een. 2–6 pelaajalle.
+Saada pienimmät pisteet viimeisen kierroksen jälkeen.
 # Kierroksen alussa
-- Klassinen Golf: 6 korttia kullekin, 2 riviin kolmittain. Numerogolf: 12 korttia kullekin, 3 riviin neljittäin.
 - Jokainen pelaaja kääntää kaksi korttiaan esiin.
-- Klassinen Golf: aloittaja vaihtuu joka kierroksella seuraavaan. Numerogolf: aloittaa se, jonka kahden kortin summa on suurin.
 # Vuoro
-- Nosta pakan päällimmäinen kortti tai ota poistopinon päällimmäinen kortti.
-- Vaihda se johonkin korttiisi, avoimeen tai piilossa olevaan: vanha korttisi menee kuvapuoli ylöspäin poistopinoon.
+- Nosta pakasta tai ota poistopinon päällimmäinen kortti.
+- Vaihda se johonkin korttiisi: vanha korttisi menee kuvapuoli ylöspäin poistopinoon.
 - Tai, jos nostit sen pakasta, heitä se poistopinoon ja käännä yksi piilossa olevista korteistasi.
-- Poistopinosta otettu kortti on vaihdettava.
 # Kierroksen loppu
-Heti kun jollakulla on kaikki kortit esillä, jokainen muu pelaa vielä yhden vuoron. Sitten kaikki kortit käännetään ja kierros lasketaan.
+Heti kun jollakulla on kaikki kortit esillä, jokainen muu pelaa vielä yhden vuoron.
 # Klassinen Golf
 - Ässä 1 piste, 2–10 arvonsa, jätkä ja kuningatar 10, kuningas 0.
 - Kaksi samanarvoista korttia samassa sarakkeessa on 0.
-- Peli kestää yhdeksän kierrosta, yhdeksän reikää.
+- Peli kestää yhdeksän kierrosta.
 # Numerogolf
-- Jokainen kortti on lukunsa arvoinen, -2:sta 12:een. Pakka: viisi -2, kymmenen -1, viisitoista 0 ja kymmenen kutakin korttia 1–12.
+- Jokainen kortti on lukunsa arvoinen, -2:sta 12:een.
 - Kolme avointa saman luvun korttia samassa sarakkeessa menee heti poistopinoon eikä tuo pisteitä.
 - Kierroksen päättänyt saa tuplapisteet, jos hänen tuloksensa on yli nollan eikä ole kierroksen ehdottomasti pienin.
 - Peli päättyy sen kierroksen jälkeen, jolla joku saavuttaa 100 pistettä.
 # Pelin loppu
 Pienimmän yhteispistemäärän saanut voittaa.
-# Pelaaminen laitteella
-Antakaa laite kiertää: vuorossa olevan kortit ovat aina isoina alhaalla, muiden pienempinä ylhäällä heidän merkkiensä alla. Nosta napauttamalla pakkaa tai poistopinoa. Napauta sitten jotakin korttiasi vaihtaaksesi, tai napauta poistopinoa heittääksesi kortin pois ja napauta piilossa olevaa korttia kääntääksesi sen. Kortit, joita voit napauttaa, hehkuvat. Jokaisen kierroksen jälkeen taulukko näyttää kierroksen pisteet ja jokaisen pelaajan yhteispisteet (risti ja 2: tuplattu); napauta sitä aloittaaksesi seuraavan kierroksen. Jokaisen pelaajan yhteispisteet näkyvät hänen palkissaan. Kumoa peruu viimeisimmän toiminnon, yhden kerrallaan.

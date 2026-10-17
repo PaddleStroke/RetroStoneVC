@@ -1,18 +1,14 @@
 Zeven families
 # Het doel
-Hele families verzamelen. Het spel heeft 7 dierenfamilies, elk met een eigen kleur: beren, konijnen, katten, muizen, uilen, leeuwen en kikkers. Elke familie heeft 6 leden: opa, oma, vader, moeder, zoon en dochter. Voor 2 tot 6 spelers.
+Hele families verzamelen: 7 families van 6 leden (opa, oma, vader, moeder, zoon en dochter).
 # De kaarten
-- De kleur en het dier tonen de familie.
-- Wat het dier draagt, toont het familielid: bril en witte snor voor opa, bril en grijze knot voor oma, een strikje voor vader, een parelketting voor moeder, een pet voor de zoon, een haarstrik voor de dochter. De kinderen zijn kleiner.
-- Het figuurtje in de hoek en de rij van zes figuurtjes onderaan de kaart tonen het familielid ook.
+- De kleur en het dier tonen de familie; het figuurtje in de hoek toont het familielid.
 # Een beurt
-- Met 2 of 3 spelers 7 kaarten elk, met 4 spelers 6, met 5 of 6 spelers 5. De overige kaarten vormen de stapel.
-- Vraag een andere speler om één kaart: een lid van een familie waarvan je al een kaart hebt, maar geen kaart die je zelf hebt.
+- Met 2 of 3 spelers 7 kaarten elk, met 4 spelers 6, met 5 of 6 spelers 5. De rest vormt de stapel.
+- Vraag een andere speler om een lid van een familie waarvan je al een kaart hebt, maar geen kaart die je zelf hebt.
 - Heeft hij hem, dan geeft hij hem aan jou en vraag je opnieuw.
-- Zo niet, dan „pioche!”: pak een kaart van de stapel. Is het de gevraagde kaart, vraag dan opnieuw; anders is de volgende speler aan de beurt.
+- Zo niet, dan „pioche!”: pak van de stapel. Is het de gevraagde kaart, vraag dan opnieuw; anders is de volgende speler aan de beurt.
 - Een volledige familie wordt meteen neergelegd.
-- Ben je aan de beurt zonder kaarten, pak er dan een. Heeft niemand anders kaarten, vraag dan wie je wilt: de stapel antwoordt.
+- Zonder kaarten aan de beurt, pak er een. Heeft niemand anders kaarten, vraag dan wie je wilt: de stapel antwoordt.
 # Het einde van de partij
 Als alle 7 families liggen, wint wie de meeste heeft; spelers met evenveel delen de winst.
-# Spelen op het apparaat
-Geef het apparaat door: iedereen ziet onderaan de eigen hand en vlak daarboven de eigen families. De andere handen zijn kleine waaiers bovenaan, elk met het stuk van die speler, het aantal kaarten en de families. De speler aan wie je het gaat vragen licht op: tik op een andere speler om te wisselen. Tik op een kaart in je hand: de zes leden van die familie verschijnen, die je al hebt flets. Tik op het lid dat je wilt: het antwoord komt meteen, en de kaart vliegt over van de andere speler of van de stapel. Het midden toont de laatste vraag, wie wie om welke kaart vroeg: hij licht op als de kaart gegeven is, en een kleine kaartrug betekent „pioche”. Elke balk toont de neergelegde families. Ongedaan maken neemt geen vraag terug.

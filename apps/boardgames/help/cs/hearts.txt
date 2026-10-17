@@ -1,20 +1,17 @@
 Srdce
 # Cíl hry
-Nasbírat co nejméně bodů: každé srdce, které vyhraješ ve štychu, stojí 1 bod, piková dáma 13. Jakmile někdo dosáhne 100 bodů, vyhrává nejnižší součet. Pro 3 až 6 hráčů, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+Nasbírat co nejméně bodů.
 # Karty
-Rozdá se všech 52 karet: při 4 hráčích po 13. Při 3 hráčích se vyřadí kárová dvojka (po 17); při 5 kárová a piková dvojka (po 10); při 6 kárové a pikové dvojky a trojky (po 8). Eso je nejvyšší karta, pak král, dáma, kluk, 10 a tak dále až po 2.
+Rozdá se všech 52 karet. Při 3 hráčích se vyřadí kárová dvojka; při 5 kárová a piková dvojka; při 6 kárové a pikové dvojky a trojky. Eso je nejvyšší karta.
 # Předávání karet
-Před hrou každý předá tři karty: v prvním kole doleva, ve druhém doprava, ve třetím naproti (při 4 nebo 6 hráčích), ve čtvrtém vůbec, a tak dále. Při 3 nebo 5 hráčích: doleva, doprava, nic. Hráči vybírají postupně; karty si vymění majitele, až všichni vyberou.
+Před hrou každý předá tři karty: v prvním kole doleva, ve druhém doprava, ve třetím naproti, ve čtvrtém vůbec, a tak dále. Při 3 nebo 5 hráčích: doleva, doprava, nic.
 # Hra
 - Hráč, který má křížovou dvojku, jí vynáší do prvního štychu.
-- Každý na řadě přizná barvu, pokud může; jinak zahraje libovolnou kartu.
-- Nejvyšší karta vynesené barvy bere štych a jeho vítěz vynáší do dalšího. Trumfy nejsou.
+- Přiznej barvu, pokud můžeš. Nejvyšší karta vynesené barvy bere štych; trumfy nejsou.
 - V prvním štychu nikdo nesmí zahrát srdce ani pikovou dámu, ledaže nemá nic jiného.
-- Srdce se nesmí vynést, dokud nebylo zahráno žádné srdce (srdce jsou prolomena), ledaže vynášející má jen srdce.
+- Srdce se nesmí vynést, dokud nebylo zahráno žádné srdce, ledaže vynášející má jen srdce.
 # Počítání bodů
 - Každé získané srdce: 1 bod. Piková dáma: 13 bodů.
 - Střelit měsíc: kdo získá všech 13 srdcí i pikovou dámu, nedostane nic a každý z ostatních dostane 26.
 # Konec hry
 Hra končí po kole, ve kterém některý hráč dosáhne 100 bodů. Vyhrává nejnižší součet; hráči se stejným součtem se o vítězství dělí.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole. Kameny hráčů stojí kolem středu stolu a každá zahraná karta leží před kamenem svého hráče; číslo vedle kamene jsou body z tohoto kola. Pro předání klepni na tři karty: přesunou se doprostřed (klepnutím na jednu z nich ji vezmeš zpět); pak klepni na šipku, která ukazuje na příjemce. Karty, které jsi dostal, stojí o něco výš až do tvé první karty. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Každá lišta ukazuje karty v ruce a součet. Po každém kole ukáže tabulka body z kola a součet každého hráče (měsíc: kdo ho střelil); klepnutím na ni začne další kolo. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy kartu poté, co se zařízení předalo.

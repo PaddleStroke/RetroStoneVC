@@ -1,20 +1,17 @@
 Copas
 # O objetivo
-Pegar o mínimo de pontos possível: cada copas que você ganha numa vaza custa 1 ponto, a dama de espadas 13. Quando alguém chega a 100 pontos, vence o menor total. De 3 a 6 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+Pegar o mínimo de pontos possível.
 # As cartas
-As 52 cartas são distribuídas: 13 para cada um com 4 jogadores. Com 3 jogadores tira-se o 2 de ouros (17 cada); com 5, o 2 de ouros e o 2 de espadas (10 cada); com 6, os 2 e os 3 de ouros e de espadas (8 cada). O ás é a carta mais alta, depois rei, dama, valete, 10 e assim por diante até o 2.
+As 52 cartas são distribuídas. Com 3 jogadores tira-se o 2 de ouros; com 5, o 2 de ouros e o 2 de espadas; com 6, os 2 e os 3 de ouros e de espadas. O ás é a carta mais alta.
 # A passagem
-Antes de jogar, cada um passa três cartas: para a esquerda na primeira rodada, para a direita na segunda, para o jogador da frente na terceira (com 4 ou 6 jogadores), para ninguém na quarta, e assim por diante. Com 3 ou 5 jogadores: esquerda, direita, nada. Os jogadores escolhem um de cada vez; as cartas trocam de mão quando todos escolheram.
+Antes de jogar, cada um passa três cartas: para a esquerda na primeira rodada, para a direita na segunda, para o jogador da frente na terceira, para ninguém na quarta, e assim por diante. Com 3 ou 5 jogadores: esquerda, direita, nada.
 # O jogo
 - Quem tem o 2 de paus abre a primeira vaza com ele.
-- Na sua vez, cada um joga uma carta do naipe de saída se puder; senão, qualquer carta.
-- A carta mais alta do naipe de saída ganha a vaza, e quem ganha abre a próxima. Não há trunfo.
+- Siga o naipe de saída se puder. A carta mais alta do naipe de saída ganha a vaza; não há trunfo.
 - Na primeira vaza ninguém pode jogar copas nem a dama de espadas, a menos que não tenha outra coisa.
-- Não se pode abrir com copas antes que alguém tenha jogado copas (copas quebradas), a menos que você só tenha copas.
+- Não se pode abrir com copas antes que alguém tenha jogado copas, a menos que você só tenha copas.
 # A pontuação
 - Cada copas ganha: 1 ponto. A dama de espadas: 13 pontos.
 - Atirar na lua: quem pega as 13 copas e a dama de espadas não marca nada, e cada um dos outros marca 26.
 # O fim da partida
 A partida termina depois da rodada em que um jogador chega a 100 pontos. Vence o menor total; os empatados dividem a vitória.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo. As fichas dos jogadores ficam em volta do centro da mesa, e cada carta jogada fica diante da ficha do seu jogador; o número ao lado de uma ficha são os pontos pegos na rodada. Para passar, toque em três cartas: elas vão para o centro (toque numa delas ali para pegá-la de volta); depois toque na seta, que aponta para quem vai recebê-las. As cartas recebidas ficam um pouco mais altas até a sua primeira carta. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e o total. Depois de cada rodada, uma tabela mostra os pontos da rodada e o total de cada um (uma lua: quem atirou nela); toque nela para a próxima rodada. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.

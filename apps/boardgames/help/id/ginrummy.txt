@@ -1,31 +1,19 @@
 Gin Rummy
 # Tujuan
-Menjadi yang pertama mencapai 100 poin. Untuk 2 pemain. Kumpulkan kartumu menjadi kombinasi, singkirkan sisanya, yaitu kartu matimu, lalu tutup untuk mengakhiri ronde.
+Menjadi yang pertama mencapai 100 poin: kumpulkan kartumu menjadi kombinasi, lalu tutup.
 # Kartu
-- Kombinasi: tiga atau empat kartu dengan nilai sama, atau tiga kartu atau lebih dengan jenis sama secara berurutan. As selalu rendah: A 2 3 adalah urutan, Q K A bukan.
-- Kartu mati (deadwood): kartu yang tidak masuk kombinasi apa pun, dihitung sesuai nilainya: as 1, 2 sampai 10 sesuai nilainya, jack, queen, dan king 10.
+- Kombinasi: tiga atau empat kartu dengan nilai sama, atau tiga kartu atau lebih dengan jenis sama secara berurutan. As selalu rendah: Q K A bukan urutan.
+- Kartu mati (deadwood): kartu di luar kombinasi, dihitung sesuai nilainya; jack, queen, dan king 10.
 # Pembagian kartu
-- Setiap pemain mendapat 10 kartu. Kartu berikutnya dibuka untuk memulai tumpukan buangan; sisanya menjadi tumpukan.
-- Pemain yang bukan pembagi boleh mengambil kartu pertama ini atau pas; lalu pembagi boleh mengambilnya. Jika keduanya pas, pemain yang bukan pembagi mulai dengan mengambil dari tumpukan.
-- Pembagi bergantian.
+- Setiap pemain mendapat 10 kartu. Kartu pertama yang dibuka boleh diambil pemain yang bukan pembagi, lalu pembagi.
 # Satu giliran
-- Ambil kartu teratas dari tumpukan atau dari tumpukan buangan.
-- Lalu buang satu kartu terbuka ke tumpukan buangan. Kartu yang baru diambil dari tumpukan buangan tidak boleh langsung dibuang lagi.
+- Ambil kartu dari tumpukan atau tumpukan buangan, lalu buang satu kartu, tetapi bukan kartu yang baru diambil dari tumpukan buangan.
 # Menutup
-- Pemain yang kartu matinya bernilai 10 atau kurang setelah membuang boleh menutup (knock): ia membuang, dan ronde berakhir.
-- Gin: menutup tanpa kartu mati sama sekali.
-- Kedua tangan diperlihatkan dalam kombinasi. Pemain lain, si bertahan, lalu boleh menempelkan kartu mati ke kombinasi si penutup: kartu keempat sebuah set, kartu yang memperpanjang urutan. Kartu tidak boleh ditempelkan pada gin.
+- Jika kartu matimu bernilai 10 atau kurang setelah membuang, kamu boleh menutup dan mengakhiri ronde. Gin: tanpa kartu mati sama sekali.
+- Si bertahan boleh menempelkan kartu mati ke kombinasi si penutup, kecuali pada gin.
 # Poin
-- Si penutup mendapat selisih nilai kartu mati keduanya.
-- Undercut: jika kartu mati si bertahan sama rendahnya dengan milik si penutup atau lebih rendah, si bertahan mendapat selisihnya ditambah 25.
-- Gin bernilai 25 ditambah kartu mati si bertahan.
-- Jika setelah membuang hanya tersisa dua kartu di tumpukan dan belum ada yang menutup, ronde batal: tak ada yang mendapat poin, dan pembagi yang sama membagi lagi.
+- Si penutup mendapat selisih kartu mati keduanya; gin bernilai 25 ditambah kartu mati si bertahan.
+- Undercut: jika kartu mati si bertahan sama rendah atau lebih rendah, si bertahan mendapat selisihnya ditambah 25.
+- Jika hanya tersisa dua kartu di tumpukan dan belum ada yang menutup, ronde batal, dan pembagi yang sama membagi lagi.
 # Akhir permainan
-Permainan berakhir saat seorang pemain mencapai 100 poin. Pemenang menambah 100 (bonus permainan), dan setiap pemain menambah 25 untuk setiap ronde yang dimenangkannya (bonus kotak). Jika yang kalah tidak memenangkan satu ronde pun, total pemenang menjadi dua kali lipat (shutout).
-# Bermain di perangkat
-Kartu di tangan dirahasiakan: oper perangkat saat layar memintanya, dan pemain berikutnya mengetuk tombol mulai. Tanganmu ada di bawah dan tersusun sendiri: kombinasi lebih dulu, masing-masing dengan garis emas di bawahnya, lalu kartu matimu dengan poinnya di atasnya. Seret kartu di sepanjang tanganmu untuk menaruhnya di mana pun kamu mau; ketuk poin kartu mati untuk menyusun ulang tanganmu.
-- Ketuk tumpukan atau tumpukan buangan untuk mengambil. Untuk menolak kartu pertama, ketuk tombol pas di bilahmu.
-- Ketuk kartu untuk memilihnya, lalu ketuk lagi atau ketuk tumpukan buangan untuk membuangnya (atau seret ke tumpukan buangan).
-- Saat kamu bisa menutup, sebuah tombol bulat muncul di samping tumpukan buangan dengan nilai kartu mati yang akan tersisa. Ketuk tombol itu untuk menutup dengan kartu yang dipilih; jika kartu itu tidak bisa dipakai menutup, tombol memilih kartu terbaik, dan ketukan kedua menutup.
-- Di akhir ronde kedua tangan dijajarkan dalam kombinasi, kartu yang ditempelkan terbang ke kombinasi si penutup dan bersinar, dan poin diberikan ke pemenang (25 terpisah, dalam cincin emas). Ketuk untuk ronde berikutnya. Bilah menunjukkan poin, dan kotak emas kecil untuk setiap ronde yang dimenangkan. Di akhir permainan sebuah tabel menunjukkan poin setiap pemain, ronde yang dimenangkan, bonus, dan total.
-Urungkan membatalkan tindakanmu sendiri, sampai saat perangkat dioper.
+Pada 100 poin, pemenang menambah 100, dan setiap pemain 25 untuk setiap ronde yang dimenangkannya. Jika yang kalah tidak memenangkan satu ronde pun, total pemenang menjadi dua kali lipat.

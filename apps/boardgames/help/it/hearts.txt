@@ -1,20 +1,17 @@
 Cuori
 # Lo scopo
-Prendere meno punti possibile: ogni cuori vinto in una presa costa 1 punto, la donna di picche 13. Quando qualcuno arriva a 100 punti, vince il totale più basso. Da 3 a 6 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Prendere meno punti possibile.
 # Le carte
-Si distribuiscono tutte le 52 carte: 13 a testa in 4. In 3 si toglie il 2 di quadri (17 a testa); in 5, il 2 di quadri e il 2 di picche (10 a testa); in 6, i 2 e i 3 di quadri e di picche (8 a testa). L'asso è la carta più alta, poi il re, la donna, il fante, il 10 e così via fino al 2.
+Si distribuiscono tutte le 52 carte. In 3 si toglie il 2 di quadri; in 5, il 2 di quadri e il 2 di picche; in 6, i 2 e i 3 di quadri e di picche. L'asso è la carta più alta.
 # Il passaggio
-Prima di giocare ognuno passa tre carte: a sinistra nella prima mano, a destra nella seconda, di fronte nella terza (in 4 o 6), a nessuno nella quarta, e così via. In 3 o 5: sinistra, destra, niente. I giocatori scelgono a turno; le carte cambiano mano quando tutti hanno scelto.
+Prima di giocare ognuno passa tre carte: a sinistra nella prima mano, a destra nella seconda, di fronte nella terza, a nessuno nella quarta, e così via. In 3 o 5: sinistra, destra, niente.
 # Il gioco
 - Chi ha il 2 di fiori lo gioca per primo nella prima presa.
-- A turno ognuno risponde al seme di uscita se può, altrimenti gioca una carta qualsiasi.
-- La carta più alta del seme di uscita vince la presa, e chi la vince esce nella successiva. Non ci sono briscole.
+- Rispondi al seme di uscita se puoi. La carta più alta del seme di uscita vince la presa; non ci sono briscole.
 - Nella prima presa nessuno può giocare cuori o la donna di picche, a meno che non abbia nient'altro.
-- Non si può uscire a cuori finché non è stato giocato un cuori (i cuori sono aperti), a meno di avere solo cuori.
+- Non si può uscire a cuori finché non è stato giocato un cuori, a meno di avere solo cuori.
 # Il punteggio
 - Ogni cuori preso: 1 punto. La donna di picche: 13 punti.
 - Tirare alla luna: chi prende tutti i 13 cuori e la donna di picche non segna nulla, e ognuno degli altri segna 26.
 # La fine della partita
 La partita finisce dopo la mano in cui un giocatore arriva a 100 punti. Vince il totale più basso; i giocatori a pari merito condividono la vittoria.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso. Le pedine dei giocatori stanno intorno al centro del tavolo, e ogni carta giocata si posa davanti alla pedina del suo giocatore; il numero accanto a una pedina indica i punti presi nella mano. Per passare, tocca tre carte: vanno al centro (toccane una lì per riprenderla); poi tocca la freccia, che indica chi le riceve. Le carte ricevute restano un po' più in alto fino alla tua prima carta. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Ogni barra mostra le carte in mano e il totale. Dopo ogni mano una tabella mostra i punti della mano e il totale di ciascuno (una luna: chi l'ha tirata); toccala per la mano successiva. Annulla ritira una scelta non ancora confermata, mai una carta una volta passato il dispositivo.

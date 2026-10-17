@@ -1,27 +1,22 @@
 Golf
 # El objetivo
-Tener la puntuación más baja tras la última ronda. Cada jugador tiene delante una cuadrícula de cartas boca abajo; al principio nadie las conoce, ni siquiera su dueño. Cambia tus cartas altas por bajas y destapa tu cuadrícula. Dos juegos a elegir: el Golf clásico con una baraja de 52 cartas y el Golf de números, una variante del Golf con cartas de -2 a 12. De 2 a 6 jugadores.
+Tener la puntuación más baja tras la última ronda.
 # Al empezar una ronda
-- Golf clásico: 6 cartas cada uno, en 2 filas de 3. Golf de números: 12 cartas cada uno, en 3 filas de 4.
 - Cada jugador destapa dos de sus cartas.
-- Golf clásico: el primer jugador avanza un puesto en cada ronda. Golf de números: empieza el jugador cuyas dos cartas suman más.
 # Un turno
-- Roba la carta de arriba del mazo o toma la carta de arriba de la pila de descartes.
-- Cámbiala por una de tus cartas, destapada o tapada: tu carta anterior va boca arriba a los descartes.
+- Roba del mazo o toma la carta de arriba de la pila de descartes.
+- Cámbiala por una de tus cartas: tu carta anterior va boca arriba a los descartes.
 - O, si la robaste del mazo, tírala a los descartes y destapa una de tus cartas tapadas.
-- Una carta tomada de los descartes debe cambiarse.
 # El final de una ronda
-En cuanto un jugador tiene todas sus cartas boca arriba, cada uno de los demás juega un último turno. Luego se destapan todas las cartas y se puntúa la ronda.
+En cuanto un jugador tiene todas sus cartas boca arriba, cada uno de los demás juega un último turno.
 # Golf clásico
 - As 1 punto, del 2 al 10 su valor, sota y reina 10, rey 0.
 - Dos cartas del mismo rango en una columna valen 0.
-- La partida dura nueve rondas, los nueve hoyos.
+- La partida dura nueve rondas.
 # Golf de números
-- Cada carta vale su número, de -2 a 12. La baraja: cinco -2, diez -1, quince 0 y diez de cada carta del 1 al 12.
+- Cada carta vale su número, de -2 a 12.
 - Tres cartas destapadas con el mismo número en una columna van enseguida a los descartes y no cuentan.
 - El jugador que terminó la ronda puntúa doble si su resultado es mayor que cero y no es estrictamente el más bajo de la ronda.
 - La partida termina después de la ronda en la que un jugador llega a 100 puntos.
 # El final de la partida
 Gana el jugador con el total más bajo.
-# Jugar en el dispositivo
-Pasaos el dispositivo: el jugador al que le toca siempre ve sus cartas en grande abajo; las de los demás, más pequeñas arriba, bajo sus fichas. Toca el mazo o los descartes para robar. Después toca una de tus cartas para cambiarla, o toca los descartes para tirar la carta y toca una carta tapada para destaparla. Las cartas que puedes tocar brillan. Tras cada ronda, una tabla muestra los puntos de la ronda y el total de cada jugador (una cruz y un 2: doble); tócala para la siguiente ronda. El total de cada jugador aparece en su barra. Deshacer retira la última acción, una a una.

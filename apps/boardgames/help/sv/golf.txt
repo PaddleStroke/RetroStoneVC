@@ -1,27 +1,22 @@
 Golf
 # Målet
-Att ha lägst poäng efter sista omgången. Varje spelare har ett rutnät av kort med baksidan upp framför sig; först känner ingen till dem, inte ens ägaren. Byt dina höga kort mot låga och vänd upp ditt rutnät. Två spel att välja mellan: klassisk Golf med en kortlek på 52 kort och Siffergolf, en golfvariant med kort från -2 till 12. För 2 till 6 spelare.
+Att ha lägst poäng efter sista omgången.
 # I början av en omgång
-- Klassisk Golf: 6 kort var, i 2 rader om 3. Siffergolf: 12 kort var, i 3 rader om 4.
 - Varje spelare vänder upp två av sina kort.
-- Klassisk Golf: den första spelaren flyttar en plats framåt varje omgång. Siffergolf: den vars två kort tillsammans är värda mest börjar.
 # En tur
-- Dra översta kortet från högen, eller ta översta kortet från slänghögen.
-- Byt det mot ett av dina kort, öppet eller dolt: ditt gamla kort läggs med framsidan upp på slänghögen.
+- Dra från högen, eller ta översta kortet från slänghögen.
+- Byt det mot ett av dina kort: ditt gamla kort läggs med framsidan upp på slänghögen.
 - Eller, om du drog det från högen, släng det och vänd upp ett av dina dolda kort.
-- Ett kort taget från slänghögen måste bytas.
 # Slutet på en omgång
-Så snart en spelare har alla sina kort uppvända får varje annan spelare en sista tur. Sedan vänds alla kort upp och omgången räknas.
+Så snart en spelare har alla sina kort uppvända får varje annan spelare en sista tur.
 # Klassisk Golf
 - Ess 1 poäng, 2 till 10 sitt värde, knekt och dam 10, kung 0.
 - Två kort av samma valör i en kolumn räknas som 0.
-- Partiet varar nio omgångar, de nio hålen.
+- Partiet varar nio omgångar.
 # Siffergolf
-- Varje kort är värt sitt tal, från -2 till 12. Leken: fem -2, tio -1, femton 0 och tio av varje kort från 1 till 12.
+- Varje kort är värt sitt tal, från -2 till 12.
 - Tre uppvända kort med samma tal i en kolumn går genast till slänghögen och räknas inte.
 - Den som avslutade omgången får dubbelt om poängen är över noll och inte strikt är omgångens lägsta.
 - Partiet slutar efter den omgång där någon når 100 poäng.
 # Partiets slut
 Spelaren med lägst summa vinner.
-# Spela på enheten
-Skicka runt enheten: den som har tur har alltid sina kort stort längst ned; de andras är mindre längst upp, under deras markörer. Tryck på högen eller slänghögen för att dra. Tryck sedan på ett av dina kort för att byta, eller tryck på slänghögen för att slänga kortet och tryck på ett dolt kort för att vända upp det. Korten du kan trycka på lyser. Efter varje omgång visar en tavla omgångens poäng och varje spelares summa (ett kryss och en 2: dubbelt); tryck på den för nästa omgång. Varje spelares summa står i spelarens fält. Ångra tar tillbaka den senaste handlingen, en i taget.

@@ -1,31 +1,19 @@
 Gin rummy
 # Målet
-Å være først til 100 poeng. For 2 spillere. Samle kortene dine i kombinasjoner, bli kvitt resten, de døde kortene dine, og bank for å avslutte hånden.
+Å være først til 100 poeng: samle kortene dine i kombinasjoner, og bank.
 # Kortene
-- En kombinasjon: tre eller fire kort av samme valør, eller tre eller flere kort i samme farge i rekkefølge. Esset er alltid lavt: ess 2 3 er en rekke, dame konge ess er det ikke.
-- Døde kort (deadwood): kortene som ikke er med i noen kombinasjon, regnet etter verdien: ess 1, 2 til 10 sin verdi, knekt, dame og konge 10.
+- En kombinasjon: tre eller fire kort av samme valør, eller tre eller flere kort i samme farge i rekkefølge. Esset er lavt: dame konge ess er ingen rekke.
+- Døde kort (deadwood): kortene utenfor kombinasjonene, regnet etter verdien; knekt, dame og konge 10.
 # Utdelingen
-- Hver spiller får 10 kort. Neste kort snus og starter kastebunken; resten er bunken.
-- Den som ikke gir, kan ta dette første kortet eller passe; så kan giveren ta det. Passer begge, begynner den som ikke gir, med å trekke fra bunken.
-- Spillerne gir annenhver gang.
+- Hver spiller får 10 kort. Den som ikke gir, og så giveren, kan ta det første kortet som snus.
 # En tur
-- Trekk det øverste kortet fra bunken eller fra kastebunken.
-- Kast så ett kort med forsiden opp på kastebunken. Et kort du nettopp tok fra kastebunken, kan ikke gå rett tilbake.
+- Trekk fra bunken eller kastebunken, og kast så ett kort, men ikke kortet du nettopp tok fra kastebunken.
 # Å banke
-- En spiller som etter kastet vil ha 10 eller mindre i døde kort, kan banke: spilleren kaster, og hånden er slutt.
-- Gin: å banke uten et eneste dødt kort.
-- Begge hendene vises i kombinasjoner. Den andre spilleren, forsvareren, kan da legge døde kort til bankerens kombinasjoner: det fjerde kortet i et sett, kort som gjør en rekke lengre. Mot gin kan man ikke legge til.
+- Har du 10 eller mindre i døde kort etter kastet, kan du banke og avslutte hånden. Gin: ingen døde kort i det hele tatt.
+- Forsvareren kan legge døde kort til bankerens kombinasjoner, unntatt mot gin.
 # Poengene
-- Bankeren får differansen mellom de to spillernes døde kort.
-- Undercut: har forsvareren like lite i døde kort som bankeren eller mindre, får forsvareren differansen og 25 til.
-- Gin gir 25 pluss forsvarerens døde kort.
-- Er det bare to kort igjen i bunken etter et kast og ingen har banket, er hånden død: ingen får poeng, og samme giver gir på nytt.
+- Bankeren får differansen mellom de døde kortene; gin gir 25 pluss forsvarerens døde kort.
+- Undercut: har forsvareren like lite i døde kort eller mindre, får forsvareren differansen og 25 til.
+- Er det bare to kort igjen i bunken og ingen har banket, er hånden død, og samme giver gir på nytt.
 # Slutten på spillet
-Spillet slutter når en spiller når 100 poeng. Vinneren legger til 100 (spillbonusen), og hver spiller legger til 25 for hver hånd de har vunnet (boksbonusen). Hvis taperen ikke vant en eneste hånd, dobles vinnerens sum (shutout).
-# Spill på enheten
-Hendene er hemmelige: gi enheten videre når skjermen ber om det, og neste spiller trykker på start. Hånden din er nederst og sorterer seg selv: kombinasjonene først, med en gullstrek under hver, så de døde kortene dine med poengene over. Dra et kort langs hånden for å plassere det der du vil; trykk på poengene til de døde kortene for å få hånden sortert på nytt.
-- Trykk på bunken eller kastebunken for å trekke. For å si nei til det første kortet trykker du på pass-knappen i panelet ditt.
-- Trykk på et kort for å velge det, og trykk på det igjen eller på kastebunken for å kaste det (eller dra det til kastebunken).
-- Når du kan banke, vises en rund knapp ved kastebunken med poengene i døde kort du ville beholde. Trykk på den for å banke med det valgte kortet; kan ikke det kortet banke, velger knappen det beste, og et nytt trykk banker.
-- På slutten av en hånd legges begge hendene ut i kombinasjoner, kortene som legges til, flyr til bankerens kombinasjoner og lyser, og poengene går til vinneren (de 25 for seg, i en gullring). Trykk for neste hånd. Panelene viser poengene, og en liten gullfirkant for hver vunnet hånd. På slutten av spillet viser en tavle hver spillers poeng, vunne hender, bonusene og summen.
-Angre tar tilbake dine egne handlinger, helt tilbake til øyeblikket enheten ble gitt videre.
+Ved 100 poeng legger vinneren til 100, og hver spiller 25 for hver hånd de har vunnet. Hvis taperen ikke vant en eneste hånd, dobles vinnerens sum.

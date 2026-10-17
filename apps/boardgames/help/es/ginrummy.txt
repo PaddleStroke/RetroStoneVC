@@ -1,31 +1,19 @@
 Gin Rummy
 # El objetivo
-Ser el primero en llegar a 100 puntos. Para 2 jugadores. Reúne tus cartas en combinaciones, deshazte de las demás, tus cartas sueltas, y cierra para terminar la mano.
+Ser el primero en llegar a 100 puntos: reúne tus cartas en combinaciones y cierra.
 # Las cartas
-- Una combinación: tres o cuatro cartas del mismo rango, o tres o más cartas seguidas de un mismo palo. El as siempre es bajo: as, 2, 3 es una escalera; reina, rey, as no.
-- Cartas sueltas (deadwood): las que no están en ninguna combinación, contadas por su valor: as 1, del 2 al 10 su valor, sota, reina y rey 10.
+- Una combinación: tres o cuatro cartas del mismo rango, o tres o más cartas seguidas de un mismo palo. El as es bajo: reina, rey, as no es escalera.
+- Cartas sueltas (deadwood): las que no están en ninguna combinación, por su valor; sota, reina y rey 10.
 # El reparto
-- Cada jugador recibe 10 cartas. La siguiente se pone boca arriba para empezar la pila de descartes; el resto es el mazo.
-- El que no reparte puede tomar esta primera carta o pasar; luego puede tomarla el repartidor. Si los dos pasan, empieza el que no reparte robando del mazo.
-- El reparto se alterna.
+- Cada jugador recibe 10 cartas. La primera carta boca arriba puede tomarla el que no reparte, y luego el repartidor.
 # Un turno
-- Roba la carta de arriba del mazo o de la pila de descartes.
-- Luego descarta una carta boca arriba en la pila de descartes. Una carta recién tomada de los descartes no puede volver a ellos enseguida.
+- Roba del mazo o de la pila de descartes y luego descarta, pero no la carta recién tomada de los descartes.
 # Cerrar
-- Un jugador cuyas cartas sueltas vayan a sumar 10 o menos después de descartar puede cerrar (knock): descarta y la mano termina.
-- Gin: cerrar sin ninguna carta suelta.
-- Se muestran las dos manos en combinaciones. El otro jugador, el defensor, puede entonces colocar cartas sueltas en las combinaciones del que cierra: la cuarta carta de un trío, cartas que alargan una escalera. Contra un gin no se colocan cartas.
+- Si tus cartas sueltas suman 10 o menos después de descartar, puedes cerrar y terminar la mano. Gin: ninguna carta suelta.
+- El defensor puede colocar cartas sueltas en las combinaciones del que cierra, salvo contra un gin.
 # Los puntos
-- El que cierra gana la diferencia entre las cartas sueltas de los dos.
-- Contragolpe (undercut): si las cartas sueltas del defensor suman lo mismo que las del que cierra o menos, el defensor gana la diferencia y 25 más.
-- El gin vale 25 más las cartas sueltas del defensor.
-- Si después de un descarte solo quedan dos cartas en el mazo y nadie ha cerrado, la mano es nula: nadie puntúa y el mismo repartidor vuelve a repartir.
+- El que cierra gana la diferencia entre las cartas sueltas; el gin vale 25 más las cartas sueltas del defensor.
+- Contragolpe (undercut): si las cartas sueltas del defensor suman lo mismo o menos, el defensor gana la diferencia y 25 más.
+- Si solo quedan dos cartas en el mazo y nadie ha cerrado, la mano es nula y el mismo repartidor vuelve a repartir.
 # El final de la partida
-La partida termina cuando un jugador llega a 100 puntos. El ganador suma 100 (el bono de partida), y cada jugador suma 25 por cada mano ganada (el bono de línea). Si el perdedor no ganó ni una mano, el total del ganador se duplica (un blanqueo).
-# Jugar en el dispositivo
-Las manos son secretas: pasa el dispositivo cuando lo pida la pantalla, y el siguiente jugador toca el botón de inicio. Tu mano está abajo y se ordena sola: primero las combinaciones, cada una con una línea dorada debajo, y luego tus cartas sueltas con sus puntos encima. Arrastra una carta a lo largo de tu mano para ponerla donde quieras; toca los puntos de las cartas sueltas para volver a ordenar la mano.
-- Toca el mazo o la pila de descartes para robar. Para rechazar la primera carta, toca el botón Paso en tu barra.
-- Toca una carta para elegirla y luego vuelve a tocarla o toca la pila de descartes para descartarla (o arrástrala a la pila).
-- Cuando puedes cerrar, aparece un botón redondo junto a la pila de descartes con las cartas sueltas que te quedarían. Tócalo para cerrar con la carta elegida; si esa carta no permite cerrar, el botón elige la mejor, y un segundo toque cierra.
-- Al final de una mano, las dos manos se muestran en combinaciones, las cartas colocadas vuelan a las combinaciones del que cerró y brillan, y los puntos van al ganador (los 25 aparte, en un anillo dorado). Toca para la siguiente mano. Las barras muestran los puntos y un pequeño cuadrado dorado por cada mano ganada. Al final de la partida, una tabla muestra los puntos de cada jugador, sus manos ganadas, los bonos y el total.
-Deshacer retira tus propias acciones, hasta el momento en que se pasó el dispositivo.
+A los 100 puntos el ganador suma 100, y cada jugador 25 por cada mano ganada. Si el perdedor no ganó ni una mano, el total del ganador se duplica.

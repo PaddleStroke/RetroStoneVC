@@ -1,20 +1,17 @@
 Hjerter
 # Målet
-Få så få poeng som mulig: hvert hjerter du vinner i et stikk koster 1 poeng, spar dame 13. Når noen når 100 poeng, vinner den laveste summen. For 3 til 6 spillere som sender enheten rundt; ingen ser kortene til de andre.
+Få så få poeng som mulig.
 # Kortene
-Alle 52 kortene deles ut: 13 til hver med 4 spillere. Med 3 spillere tas ruter 2 ut (17 hver); med 5 ruter 2 og spar 2 (10 hver); med 6 toerne og treerne i ruter og spar (8 hver). Esset er det høyeste kortet, så konge, dame, knekt, 10 og så videre ned til 2.
+Alle 52 kortene deles ut. Med 3 spillere tas ruter 2 ut; med 5 ruter 2 og spar 2; med 6 toerne og treerne i ruter og spar. Esset er det høyeste kortet.
 # Å gi videre
-Før spillet gir hver spiller tre kort videre: til venstre i første runde, til høyre i andre, til den som sitter overfor i tredje (med 4 eller 6 spillere), ikke i det hele tatt i fjerde, og så videre. Med 3 eller 5 spillere: venstre, høyre, ingenting. Spillerne velger etter tur; kortene bytter hender når alle har valgt.
+Før spillet gir hver spiller tre kort videre: til venstre i første runde, til høyre i andre, til den som sitter overfor i tredje, ikke i det hele tatt i fjerde, og så videre. Med 3 eller 5 spillere: venstre, høyre, ingenting.
 # Spillet
 - Den som har kløver 2, spiller den ut til første stikk.
-- Etter tur følger hver spiller farge hvis han kan; ellers spiller han et hvilket som helst kort.
-- Det høyeste kortet i utspilt farge vinner stikket, og vinneren spiller ut til det neste. Det er ingen trumf.
+- Følg farge hvis du kan. Det høyeste kortet i utspilt farge vinner stikket; det er ingen trumf.
 - I første stikk kan ingen spille hjerter eller spar dame, med mindre han ikke har noe annet.
-- Man kan ikke spille ut hjerter før et hjerter er spilt (hjerter er brutt), med mindre man bare har hjerter.
+- Man kan ikke spille ut hjerter før et hjerter er spilt, med mindre man bare har hjerter.
 # Poengene
 - Hvert vunnet hjerter: 1 poeng. Spar dame: 13 poeng.
 - Å skyte månen: den som tar alle 13 hjerter og spar dame, får ingenting, og hver av de andre får 26.
 # Slutten på spillet
 Spillet slutter etter runden der en spiller når 100 poeng. Den laveste summen vinner; spillere som står likt, deler seieren.
-# Spill på enheten
-Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin, viftet ut nederst. Brikkene til spillerne står rundt midten, og hvert spilt kort ligger foran brikken til spilleren sin; tallet ved en brikke er poengene i runden. For å gi videre trykker du på tre kort: de går til midten (trykk på ett av dem der for å ta det tilbake); trykk så på pilen, som peker på den som får dem. Kortene du har fått, står litt høyere fram til ditt første kort. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Hver linje viser kortene på hånden og summen. Etter hver runde viser en tavle poengene i runden og summen til hver spiller (en måne: den som skjøt den); trykk på den for neste runde. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.

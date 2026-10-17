@@ -1,18 +1,14 @@
 Seitsemän perhettä
 # Tavoite
-Kerää kokonaisia perheitä. Pelissä on 7 eläinperhettä, kullakin oma värinsä: karhut, kanit, kissat, hiiret, pöllöt, leijonat ja sammakot. Jokaisessa perheessä on 6 jäsentä: isoisä, isoäiti, isä, äiti, poika ja tytär. 2–6 pelaajalle.
+Kerää kokonaisia perheitä: 7 perhettä, joissa kussakin 6 jäsentä (isoisä, isoäiti, isä, äiti, poika ja tytär).
 # Kortit
-- Väri ja eläin kertovat perheen.
-- Se, mitä eläimellä on yllään, kertoo jäsenen: silmälasit ja valkoiset viikset isoisällä, silmälasit ja harmaa nuttura isoäidillä, rusetti isällä, helminauha äidillä, lippis pojalla, hiusrusetti tyttärellä. Lapset ovat pienempiä.
-- Kulman hahmo ja kortin alareunan kuuden hahmon rivi näyttävät myös jäsenen.
+- Väri ja eläin kertovat perheen; kulman hahmo kertoo jäsenen.
 # Vuoro
-- 2 tai 3 pelaajalla 7 korttia kullekin, 4 pelaajalla 6, 5 tai 6 pelaajalla 5. Loput kortit ovat pakka.
-- Pyydä toiselta pelaajalta yhtä korttia: sellaisen perheen jäsentä, josta sinulla jo on kortti, mutta et korttia, joka sinulla itselläsi on.
+- 2 tai 3 pelaajalla 7 korttia kullekin, 4 pelaajalla 6, 5 tai 6 pelaajalla 5. Loput ovat pakka.
+- Pyydä toiselta pelaajalta sellaisen perheen jäsentä, josta sinulla jo on kortti, mutta et korttia, joka sinulla itselläsi on.
 - Jos hänellä on se, hän antaa sen sinulle ja kysyt uudelleen.
-- Jos ei, ”pioche!”: nosta kortti pakasta. Jos se on pyytämäsi kortti, kysyt uudelleen; muuten on seuraavan pelaajan vuoro.
+- Jos ei, ”pioche!”: nosta pakasta. Jos se on pyytämäsi kortti, kysyt uudelleen; muuten on seuraavan pelaajan vuoro.
 - Täysi perhe pannaan heti pöytään.
-- Jos vuorosi tulee eikä sinulla ole kortteja, nostat yhden. Jos kenelläkään muulla ei ole kortteja, kysy keneltä tahansa: pakka vastaa.
+- Jos sinulla ei ole vuorollasi kortteja, nostat yhden. Jos kenelläkään muulla ei ole kortteja, kysy keneltä tahansa: pakka vastaa.
 # Pelin loppu
 Kun kaikki 7 perhettä ovat pöydässä, eniten perheitä kerännyt voittaa; yhtä monta kerränneet jakavat voiton.
-# Pelaaminen laitteella
-Anna laite kiertää: jokainen näkee kätensä alhaalla ja perheensä heti sen yläpuolella. Muiden kädet ovat pieniä viuhkoja ylhäällä, kussakin pelaajan merkki, korttien määrä ja perheet. Pelaaja, jolta aiot kysyä, hehkuu: vaihda napauttamalla toista pelaajaa. Napauta korttia kädessäsi: sen perheen kuusi jäsentä ilmestyvät, sinulla olevat himmeinä. Napauta haluamaasi jäsentä: vastaus tulee heti, ja kortti lentää toiselta pelaajalta tai pakasta. Keskellä näkyy viimeisin kysymys, kuka pyysi keneltä mitä korttia: se hehkuu, jos kortti annettiin, ja pieni kortin selkä tarkoittaa ”pioche”. Jokainen palkki näyttää pöytään pannut perheet. Kumoa ei peru kysymystä.

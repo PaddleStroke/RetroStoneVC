@@ -1,27 +1,22 @@
 Golfe
 # O objetivo
-Ter a pontuação mais baixa depois da última ronda. Cada jogador tem à sua frente uma grelha de cartas voltadas para baixo; no início ninguém as conhece, nem o próprio dono. Troca as tuas cartas altas por baixas e vira a tua grelha. Dois jogos à escolha: o Golfe clássico com um baralho de 52 cartas e o Golfe dos números, uma variante do Golfe com cartas de -2 a 12. De 2 a 6 jogadores.
+Ter a pontuação mais baixa depois da última ronda.
 # No início de uma ronda
-- Golfe clássico: 6 cartas para cada um, em 2 filas de 3. Golfe dos números: 12 cartas para cada um, em 3 filas de 4.
 - Cada jogador vira duas das suas cartas para cima.
-- Golfe clássico: o primeiro jogador avança um lugar em cada ronda. Golfe dos números: começa o jogador cujas duas cartas somam mais.
 # Uma vez
-- Tira a carta de cima do baralho, ou pega na carta de cima da pilha de descarte.
-- Troca-a por uma das tuas cartas, aberta ou fechada: a tua carta antiga vai voltada para cima para o descarte.
+- Tira uma carta do baralho, ou pega na carta de cima da pilha de descarte.
+- Troca-a por uma das tuas cartas: a tua carta antiga vai voltada para cima para o descarte.
 - Ou, se a tiraste do baralho, descarta-a e vira uma das tuas cartas fechadas.
-- Uma carta tirada do descarte tem de ser trocada.
 # O fim de uma ronda
-Logo que um jogador tem todas as cartas voltadas para cima, cada um dos outros joga uma última vez. Depois todas as cartas são viradas e a ronda é contada.
+Logo que um jogador tem todas as cartas voltadas para cima, cada um dos outros joga uma última vez.
 # Golfe clássico
 - Ás 1 ponto, 2 a 10 o seu valor, valete e dama 10, rei 0.
 - Duas cartas do mesmo valor na mesma coluna valem 0.
-- O jogo dura nove rondas, os nove buracos.
+- O jogo dura nove rondas.
 # Golfe dos números
-- Cada carta vale o seu número, de -2 a 12. O baralho: cinco -2, dez -1, quinze 0 e dez de cada carta de 1 a 12.
+- Cada carta vale o seu número, de -2 a 12.
 - Três cartas abertas com o mesmo número numa coluna vão logo para o descarte e não contam.
 - Quem terminou a ronda conta a dobrar se o seu resultado for acima de zero e não for estritamente o mais baixo da ronda.
 - O jogo acaba depois da ronda em que um jogador chega aos 100 pontos.
 # O fim do jogo
 Ganha o jogador com o total mais baixo.
-# Jogar no dispositivo
-Passem o dispositivo: o jogador da vez tem sempre as suas cartas em grande em baixo; as dos outros ficam mais pequenas em cima, sob as suas peças. Toca no baralho ou no descarte para tirar uma carta. Depois toca numa das tuas cartas para a trocar, ou toca no descarte para deitar a carta fora e toca numa carta fechada para a virar. As cartas em que podes tocar brilham. Depois de cada ronda, uma tabela mostra os pontos da ronda e o total de cada jogador (uma cruz e um 2: a dobrar); toca nela para a ronda seguinte. O total de cada jogador aparece na sua barra. Anular desfaz a última ação, uma de cada vez.

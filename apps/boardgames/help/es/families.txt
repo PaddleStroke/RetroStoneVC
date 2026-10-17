@@ -1,18 +1,14 @@
 Siete familias
 # El objetivo
-Reunir familias completas. El juego tiene 7 familias de animales, cada una de su color: osos, conejos, gatos, ratones, búhos, leones y ranas. Cada familia tiene 6 miembros: abuelo, abuela, padre, madre, hijo e hija. De 2 a 6 jugadores.
+Reunir familias completas: 7 familias de 6 miembros (abuelo, abuela, padre, madre, hijo e hija).
 # Las cartas
-- El color y el animal indican la familia.
-- Lo que lleva el animal indica el miembro: gafas y bigote blanco el abuelo, gafas y moño gris la abuela, pajarita el padre, collar de perlas la madre, gorra el hijo, lazo en el pelo la hija. Los hijos son más pequeños.
-- La figura de la esquina y la fila de seis figuras al pie de la carta también muestran el miembro.
+- El color y el animal indican la familia; la figura de la esquina indica el miembro.
 # Un turno
-- 7 cartas cada uno con 2 o 3 jugadores, 6 con 4, 5 con 5 o 6. Las demás cartas forman el mazo.
-- Pide una carta a otro jugador: un miembro de una familia de la que ya tienes una carta, pero no una carta que tengas.
+- 7 cartas cada uno con 2 o 3 jugadores, 6 con 4, 5 con 5 o 6. El resto forma el mazo.
+- Pide a otro jugador un miembro de una familia de la que ya tienes una carta, pero no una carta que tengas.
 - Si la tiene, te la da y vuelves a pedir.
-- Si no, «¡pioche!»: roba una carta del mazo. Si es la carta que pediste, vuelves a pedir; si no, juega el siguiente.
+- Si no, «¡pioche!»: roba del mazo. Si es la carta que pediste, vuelves a pedir; si no, juega el siguiente.
 - Una familia completa se baja enseguida.
-- Si te toca y no tienes cartas, roba una. Si nadie más tiene cartas, pide a cualquiera: responde el mazo.
+- Si te toca sin cartas, roba una. Si nadie más tiene cartas, pide a cualquiera: responde el mazo.
 # El final de la partida
 Cuando las 7 familias están bajadas, gana quien tenga más; los empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo: cada jugador ve su mano abajo y sus familias justo encima. Las otras manos son pequeños abanicos arriba, cada uno con la ficha de su jugador, su número de cartas y sus familias. El jugador al que vas a pedir brilla: toca a otro para cambiar. Toca una carta de tu mano: aparecen los seis miembros de su familia, los que ya tienes atenuados. Toca el miembro que quieres: la respuesta llega enseguida y la carta vuela desde el otro jugador o desde el mazo. El centro muestra la última pregunta, quién pidió qué carta a quién: brilla si la carta se dio, y un pequeño dorso de carta significa «pioche». Cada barra muestra las familias bajadas. Deshacer no retira una pregunta.

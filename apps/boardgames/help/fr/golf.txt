@@ -1,27 +1,22 @@
 Golf
 # Le but
-Avoir le score le plus bas après la dernière manche. Chaque joueur a devant lui une grille de cartes posées face cachée ; au début, personne ne les connaît, pas même leur propriétaire. Échange tes fortes cartes contre des faibles et retourne ta grille. Deux jeux au choix : le Golf classique avec un jeu de 52 cartes, et le Golf des nombres, une variante du Golf avec des cartes de -2 à 12. De 2 à 6 joueurs.
+Avoir le score le plus bas après la dernière manche.
 # Au début d'une manche
-- Golf classique : 6 cartes chacun, en 2 rangées de 3. Golf des nombres : 12 cartes chacun, en 3 rangées de 4.
 - Chaque joueur retourne deux de ses cartes face visible.
-- Golf classique : le premier joueur avance d'une place à chaque manche. Golf des nombres : commence le joueur dont les deux cartes font le plus gros total.
 # Un tour
-- Pioche la carte du dessus de la pioche, ou prends la carte du dessus de la défausse.
-- Échange-la contre une de tes cartes, visible ou cachée : ton ancienne carte va face visible sur la défausse.
+- Pioche, ou prends la carte du dessus de la défausse.
+- Échange-la contre une de tes cartes : ton ancienne carte va face visible sur la défausse.
 - Ou, si tu l'as piochée, jette-la sur la défausse et retourne une de tes cartes cachées.
-- Une carte prise dans la défausse doit être échangée.
 # La fin d'une manche
-Dès qu'un joueur a toutes ses cartes face visible, chacun des autres joue un dernier tour. Puis toutes les cartes sont retournées et la manche est comptée.
+Dès qu'un joueur a toutes ses cartes face visible, chacun des autres joue un dernier tour.
 # Golf classique
 - As 1 point, 2 à 10 leur valeur, valet et dame 10, roi 0.
 - Deux cartes de même rang dans une colonne comptent 0.
-- La partie dure neuf manches, les neuf trous.
+- La partie dure neuf manches.
 # Golf des nombres
-- Chaque carte vaut son nombre, de -2 à 12. Le jeu : cinq -2, dix -1, quinze 0 et dix de chaque carte de 1 à 12.
+- Chaque carte vaut son nombre, de -2 à 12.
 - Trois cartes visibles du même nombre dans une colonne partent aussitôt sur la défausse et ne comptent rien.
 - Le joueur qui a fini la manche compte double si son score est au-dessus de zéro et s'il n'a pas strictement le plus petit score de la manche.
 - La partie s'arrête après la manche où un joueur atteint 100 points.
 # La fin de la partie
 Le joueur au plus petit total gagne.
-# Jouer sur l'appareil
-L'appareil passe de main en main : le joueur dont c'est le tour a toujours ses cartes en grand en bas, celles des autres sont plus petites en haut, sous leurs pièces. Touche la pioche ou la défausse pour piocher. Puis touche une de tes cartes pour l'échanger, ou touche la défausse pour jeter la carte et touche une carte cachée pour la retourner. Les cartes que tu peux toucher brillent. Après chaque manche, un tableau montre les points de la manche et le total de chaque joueur (une croix et un 2 : compté double) ; touche-le pour la manche suivante. Le total de chaque joueur s'affiche dans sa barre. Annuler reprend la dernière action, une à la fois.

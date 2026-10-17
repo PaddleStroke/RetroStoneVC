@@ -1,18 +1,14 @@
 Sete famílias
 # O objetivo
-Juntar famílias completas. O jogo tem 7 famílias de animais, cada uma com a sua cor: ursos, coelhos, gatos, ratos, corujas, leões e sapos. Cada família tem 6 membros: avô, avó, pai, mãe, filho e filha. De 2 a 6 jogadores.
+Juntar famílias completas: 7 famílias de 6 membros (avô, avó, pai, mãe, filho e filha).
 # As cartas
-- A cor e o animal mostram a família.
-- O que o animal usa mostra o membro: óculos e bigode branco para o avô, óculos e coque grisalho para a avó, gravata-borboleta para o pai, colar de pérolas para a mãe, boné para o filho, laço no cabelo para a filha. Os filhos são menores.
-- A figura no canto e a fileira de seis figuras no pé da carta também mostram o membro.
+- A cor e o animal mostram a família; a figura no canto mostra o membro.
 # Uma jogada
-- 7 cartas para cada um com 2 ou 3 jogadores, 6 com 4, 5 com 5 ou 6. As outras cartas formam o monte.
-- Peça uma carta a outro jogador: um membro de uma família da qual você já tem uma carta, mas não uma carta que você tenha.
+- 7 cartas para cada um com 2 ou 3 jogadores, 6 com 4, 5 com 5 ou 6. O resto forma o monte.
+- Peça a outro jogador um membro de uma família da qual você já tem uma carta, mas não uma carta que você tenha.
 - Se ele tiver, ele a dá para você e você pede de novo.
-- Se não, "pioche!": compre uma carta do monte. Se for a carta pedida, peça de novo; se não, é a vez do próximo.
+- Se não, "pioche!": compre do monte. Se for a carta pedida, peça de novo; se não, é a vez do próximo.
 - Uma família completa é baixada na hora.
-- Se chegar a sua vez e você não tiver cartas, compre uma. Se ninguém mais tiver cartas, peça a qualquer um: o monte responde.
+- Se chegar a sua vez sem cartas, compre uma. Se ninguém mais tiver cartas, peça a qualquer um: o monte responde.
 # O fim da partida
 Quando as 7 famílias estiverem baixadas, vence quem tiver mais; quem tiver o mesmo número divide a vitória.
-# Jogando no aparelho
-Passe o aparelho: cada jogador vê a própria mão embaixo e as suas famílias logo acima. As outras mãos são pequenos leques em cima, cada um com a peça do seu jogador, o número de cartas e as famílias. O jogador a quem você vai pedir brilha: toque em outro para trocar. Toque numa carta da sua mão: aparecem os seis membros da família dela, os que você já tem apagados. Toque no membro que você quer: a resposta vem na hora, e a carta voa do outro jogador ou do monte. O meio mostra a última pergunta, quem pediu qual carta a quem: ela brilha se a carta foi dada, e um pequeno verso de carta quer dizer "pioche". Cada barra mostra as famílias baixadas. Desfazer não desfaz uma pergunta.

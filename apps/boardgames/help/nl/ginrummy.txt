@@ -1,31 +1,19 @@
 Gin rummy
 # Het doel
-Als eerste 100 punten halen. Voor 2 spelers. Breng je kaarten samen in combinaties, raak de rest kwijt, je losse kaarten, en klop om de hand te beëindigen.
+Als eerste 100 punten halen: breng je kaarten samen in combinaties en klop.
 # De kaarten
-- Een combinatie: drie of vier kaarten van dezelfde rang, of drie of meer opeenvolgende kaarten van één kleur. De aas is altijd laag: aas 2 3 is een reeks, vrouw heer aas niet.
-- Losse kaarten (deadwood): de kaarten die in geen enkele combinatie zitten, geteld tegen hun waarde: aas 1, 2 tot 10 hun waarde, boer, vrouw en heer 10.
+- Een combinatie: drie of vier kaarten van dezelfde rang, of drie of meer opeenvolgende kaarten van één kleur. De aas is laag: vrouw heer aas is geen reeks.
+- Losse kaarten (deadwood): de kaarten buiten de combinaties, geteld tegen hun waarde; boer, vrouw en heer 10.
 # Het delen
-- Elke speler krijgt 10 kaarten. De volgende kaart wordt opengedraaid als begin van de aflegstapel; de rest is de stapel.
-- De niet-gever mag deze eerste kaart nemen of passen; daarna mag de gever haar nemen. Passen beiden, dan begint de niet-gever door van de stapel te trekken.
-- Er wordt om de beurt gegeven.
+- Elke speler krijgt 10 kaarten. De eerste opengedraaide kaart mag de niet-gever nemen, daarna de gever.
 # Een beurt
-- Trek de bovenste kaart van de stapel of van de aflegstapel.
-- Leg daarna één kaart open af op de aflegstapel. Een kaart die je net van de aflegstapel nam, mag er niet meteen weer op.
+- Trek van de stapel of de aflegstapel en leg daarna af, maar niet de kaart die je net van de aflegstapel nam.
 # Kloppen
-- Wie na het afleggen 10 punten of minder aan losse kaarten heeft, mag kloppen: hij legt af, en de hand is uit.
-- Gin: kloppen zonder één losse kaart.
-- Beide handen worden in combinaties getoond. De andere speler, de verdediger, mag dan losse kaarten aanleggen bij de combinaties van de klopper: de vierde kaart van een set, kaarten die een reeks langer maken. Bij gin mag er niet aangelegd worden.
+- Met 10 punten of minder aan losse kaarten na het afleggen mag je kloppen en de hand beëindigen. Gin: geen enkele losse kaart.
+- De verdediger mag losse kaarten aanleggen bij de combinaties van de klopper, behalve bij gin.
 # De punten
-- De klopper scoort het verschil tussen de losse kaarten van beiden.
-- Undercut: heeft de verdediger evenveel aan losse kaarten als de klopper of minder, dan scoort de verdediger het verschil plus 25.
-- Gin levert 25 op plus de losse kaarten van de verdediger.
-- Liggen er na het afleggen nog maar twee kaarten op de stapel en heeft niemand geklopt, dan is de hand dood: niemand scoort, en dezelfde gever deelt opnieuw.
+- De klopper scoort het verschil tussen de losse kaarten; gin levert 25 op plus de losse kaarten van de verdediger.
+- Undercut: heeft de verdediger evenveel aan losse kaarten of minder, dan scoort de verdediger het verschil plus 25.
+- Liggen er nog maar twee kaarten op de stapel en heeft niemand geklopt, dan is de hand dood, en dezelfde gever deelt opnieuw.
 # Het einde van de partij
-De partij eindigt als een speler 100 punten haalt. De winnaar telt er 100 bij op (de partijbonus), en elke speler telt 25 op voor elke gewonnen hand (de boxbonus). Heeft de verliezer geen enkele hand gewonnen, dan wordt het totaal van de winnaar verdubbeld (een shutout).
-# Spelen op het apparaat
-De handen zijn geheim: geef het apparaat door als het scherm erom vraagt, en de volgende speler tikt op start. Je hand ligt onderaan en sorteert zichzelf: eerst de combinaties, elk met een gouden streep eronder, dan je losse kaarten met hun punten erboven. Sleep een kaart langs je hand om haar te leggen waar je wilt; tik op de punten van de losse kaarten om de hand opnieuw te laten sorteren.
-- Tik op de stapel of de aflegstapel om te trekken. Om de eerste kaart te weigeren, tik je op de pasknop in je balk.
-- Tik op een kaart om haar te kiezen, en tik er nog eens op of tik op de aflegstapel om haar af te leggen (of sleep haar naar de aflegstapel).
-- Als je kunt kloppen, verschijnt naast de aflegstapel een ronde knop met de punten aan losse kaarten die je zou houden. Tik erop om met de gekozen kaart te kloppen; kan die kaart niet kloppen, dan kiest de knop de beste, en een tweede tik klopt.
-- Aan het eind van een hand worden beide handen in combinaties neergelegd, de aangelegde kaarten vliegen naar de combinaties van de klopper en lichten op, en de punten gaan naar de winnaar (de 25 apart, in een gouden ring). Tik voor de volgende hand. De balken tonen de punten, en een gouden vierkantje voor elke gewonnen hand. Aan het eind van de partij toont een tabel ieders punten, gewonnen handen, de bonussen en het totaal.
-Ongedaan maken neemt je eigen acties terug, tot het moment dat het apparaat werd doorgegeven.
+Bij 100 punten telt de winnaar er 100 bij op, en elke speler 25 voor elke gewonnen hand. Heeft de verliezer geen enkele hand gewonnen, dan wordt het totaal van de winnaar verdubbeld.

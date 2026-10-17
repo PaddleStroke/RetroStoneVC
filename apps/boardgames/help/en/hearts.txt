@@ -1,20 +1,17 @@
 Hearts
 # The aim
-Take as few points as you can: each heart you win in a trick costs 1 point, the queen of spades 13. When someone reaches 100 points, the lowest total wins. For 3 to 6 players passing the device round; nobody sees the others' cards.
+Take as few points as you can.
 # The cards
-All 52 cards are dealt: 13 each with 4 players. With 3 players the 2 of diamonds is taken out (17 each); with 5, the 2 of diamonds and the 2 of spades (10 each); with 6, the 2s and 3s of diamonds and spades (8 each). The ace is the highest card, then king, queen, jack, 10 down to 2.
+All 52 cards are dealt. With 3 players the 2 of diamonds is taken out; with 5, the 2 of diamonds and the 2 of spades; with 6, the 2s and 3s of diamonds and spades. The ace is the highest card.
 # Passing
-Before the play each player passes three cards: to the left in the first round, to the right in the second, across in the third (4 or 6 players), none in the fourth, and so on. With 3 or 5 players: left, right, none. The players choose in turn; the cards change hands once everyone has chosen.
+Before the play each player passes three cards: to the left, then to the right, then across, then none, and so on. With 3 or 5 players: left, right, none.
 # Playing
 - The player holding the 2 of clubs leads it to the first trick.
-- Each player in turn plays a card of the suit led if they can, otherwise any card.
-- The highest card of the suit led wins the trick, and its winner leads the next. There are no trumps.
+- Follow suit if you can. The highest card of the suit led wins the trick; there are no trumps.
 - On the first trick nobody may play a heart or the queen of spades, unless they hold nothing else.
-- Hearts may not be led until a heart has been played (hearts are broken), unless the leader holds only hearts.
+- Hearts may not be led until a heart has been played, unless the leader holds only hearts.
 # Scoring
 - Each heart taken: 1 point. The queen of spades: 13 points.
 - Shooting the moon: a player who takes all 13 hearts and the queen of spades scores nothing, and every other player scores 26.
 # The end of the game
 The game ends after the round in which a player reaches 100 points. The lowest total wins; players tied for it share the win.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom. The tokens sit round the middle, and each card played lies in front of its player's token; the number beside a token is the points taken this round. To pass, tap three cards: they go to the middle (tap one there to take it back); then tap the arrow, which points at the player who gets them. The cards you received stand a little higher until your first card. To play, tap a glowing card so it rises, then tap it again or its place in the middle; or drag it there. Tap the pile at the bottom right to see the last trick. Each bar shows the cards in hand and the total. After each round a table shows everyone's points for the round and their total (a moon: the player who shot it); tap it for the next round. Undo takes back a choice not yet made, never a card once the device has passed.

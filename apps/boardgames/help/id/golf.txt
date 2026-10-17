@@ -1,27 +1,22 @@
 Golf
 # Tujuan
-Memiliki skor terendah setelah ronde terakhir. Setiap pemain punya kisi kartu tertutup di depannya; awalnya tak ada yang tahu kartu itu, bahkan pemiliknya. Tukar kartu tinggimu dengan yang rendah dan buka kisimu. Dua permainan untuk dipilih: Golf klasik dengan satu dek 52 kartu, dan Golf Angka, varian Golf dengan kartu dari -2 sampai 12. Untuk 2 sampai 6 pemain.
+Memiliki skor terendah setelah ronde terakhir.
 # Di awal ronde
-- Golf klasik: masing-masing 6 kartu, dalam 2 baris berisi 3. Golf Angka: masing-masing 12 kartu, dalam 3 baris berisi 4.
 - Setiap pemain membuka dua kartunya.
-- Golf klasik: pemain pertama bergeser satu tempat setiap ronde. Golf Angka: yang mulai adalah pemain yang jumlah dua kartunya paling besar.
 # Satu giliran
-- Ambil kartu teratas dari tumpukan, atau ambil kartu teratas dari tumpukan buangan.
-- Tukar dengan salah satu kartumu, terbuka atau tertutup: kartu lamamu masuk ke tumpukan buangan dalam keadaan terbuka.
+- Ambil kartu dari tumpukan, atau ambil kartu teratas dari tumpukan buangan.
+- Tukar dengan salah satu kartumu: kartu lamamu masuk ke tumpukan buangan dalam keadaan terbuka.
 - Atau, jika kamu mengambilnya dari tumpukan, buang kartu itu dan buka salah satu kartumu yang tertutup.
-- Kartu yang diambil dari tumpukan buangan harus ditukar.
 # Akhir ronde
-Begitu seorang pemain membuka semua kartunya, setiap pemain lain mendapat satu giliran terakhir. Lalu semua kartu dibuka dan ronde dihitung.
+Begitu seorang pemain membuka semua kartunya, setiap pemain lain mendapat satu giliran terakhir.
 # Golf klasik
 - As 1 poin, 2 sampai 10 sesuai nilainya, jack dan queen 10, king 0.
 - Dua kartu dengan nilai sama dalam satu kolom bernilai 0.
-- Permainan berlangsung sembilan ronde, sembilan lubang.
+- Permainan berlangsung sembilan ronde.
 # Golf Angka
-- Setiap kartu bernilai angkanya, dari -2 sampai 12. Deknya: lima -2, sepuluh -1, lima belas 0, dan sepuluh kartu untuk setiap angka 1 sampai 12.
+- Setiap kartu bernilai angkanya, dari -2 sampai 12.
 - Tiga kartu terbuka dengan angka sama dalam satu kolom langsung dibuang dan tidak dihitung.
 - Pemain yang mengakhiri ronde mendapat skor ganda jika skornya di atas nol dan bukan yang benar-benar terendah di ronde itu.
 - Permainan berakhir setelah ronde ketika seorang pemain mencapai 100 poin.
 # Akhir permainan
 Pemain dengan total terendah menang.
-# Bermain di perangkat
-Gilirkan perangkat: pemain yang mendapat giliran selalu melihat kartunya besar di bawah, kartu pemain lain lebih kecil di atas, di bawah token mereka. Ketuk tumpukan atau tumpukan buangan untuk mengambil. Lalu ketuk salah satu kartumu untuk menukar, atau ketuk tumpukan buangan untuk membuang kartu dan ketuk kartu tertutup untuk membukanya. Kartu yang bisa kamu ketuk bersinar. Setelah setiap ronde, sebuah tabel menunjukkan poin ronde dan total setiap pemain (tanda silang dan angka 2: ganda); ketuk untuk ronde berikutnya. Total setiap pemain tampil di bilahnya. Urungkan membatalkan tindakan terakhir, satu per satu.

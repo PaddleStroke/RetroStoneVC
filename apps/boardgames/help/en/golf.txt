@@ -1,27 +1,22 @@
 Golf
 # The aim
-Have the lowest score after the last round. Each player has a grid of cards lying face down in front of them; nobody knows them at first, not even their owner. Swap your high cards for low ones and turn your grid face up. Two games to choose from: classic Golf with a pack of 52 cards, and Number Golf, a Golf variant with cards from -2 to 12. For 2 to 6 players.
+Have the lowest score after the last round.
 # At the start of a round
-- Classic Golf: 6 cards each, in 2 rows of 3. Number Golf: 12 cards each, in 3 rows of 4.
 - Each player turns two of their cards face up.
-- Classic Golf: the first player moves on one seat each round. Number Golf: the player whose two cards add up to the most starts.
 # A turn
-- Draw the top card of the stock, or take the top card of the discard pile.
-- Swap it for one of your cards, face up or face down: your old card goes face up onto the discard pile.
-- Or, if you drew it from the stock, throw it on the discard pile and turn one of your face-down cards up.
-- A card taken from the discard pile must be swapped.
+- Draw from the stock, or take the top card of the discard pile.
+- Swap it for one of your cards: your old card goes face up onto the discard pile.
+- Or, if you drew it from the stock, discard it and turn one of your face-down cards up.
 # The end of a round
-As soon as a player has all their cards face up, every other player has one last turn. Then all the cards are turned up and the round is scored.
+As soon as a player has all their cards face up, every other player has one last turn.
 # Classic Golf
 - Ace 1 point, 2 to 10 their value, jack and queen 10, king 0.
 - Two cards of the same rank in one column score 0.
-- The game lasts nine rounds, the nine holes.
+- The game lasts nine rounds.
 # Number Golf
-- Each card scores its number, from -2 to 12. The pack: five -2, ten -1, fifteen 0 and ten of each card from 1 to 12.
-- Three face-up cards of the same number in one column are thrown onto the discard pile at once, and score nothing.
-- The player who ended the round scores double if their score is above zero and they do not have strictly the lowest score of the round.
+- Each card scores its number, from -2 to 12.
+- Three face-up cards of the same number in one column are discarded at once and score nothing.
+- The player who ended the round scores double if their score is above zero and not strictly the lowest of the round.
 - The game ends after the round in which a player reaches 100 points.
 # The end of the game
-The player with the lowest total wins.
-# Playing on the device
-Pass the device round: the player to move always has their cards big at the bottom, the others' cards are smaller at the top, under their tokens. Tap the stock or the discard pile to draw. Then tap one of your cards to swap, or tap the discard pile to throw the card away and tap a face-down card to turn it up. The cards you can tap glow. After each round, a table shows the points of the round and each player's total (a cross and a 2: doubled); tap it for the next round. Each player's total shows in their bar. Undo takes back the last action, one at a time.
+The lowest total wins.

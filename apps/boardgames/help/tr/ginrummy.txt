@@ -1,31 +1,19 @@
 Cin Remi
 # Amaç
-100 puana ilk ulaşan olmak. 2 oyuncu için. Kartlarını perlerde topla, diğerlerinden, yani boştaki kartlarından kurtul ve eli bitirmek için kapat.
+100 puana ilk ulaşan olmak: kartlarını perlerde topla ve kapat.
 # Kartlar
-- Per: aynı değerde üç ya da dört kart (üçlü ya da dörtlü), ya da aynı renkten sıralı üç ya da daha fazla kart (seri). As her zaman küçüktür: as-2-3 bir seridir, kız-papaz-as değildir.
-- Boştaki kartlar (deadwood): hiçbir perde olmayan kartlar, değerleriyle sayılır: as 1, 2'den 10'a kendi değeri, vale, kız ve papaz 10.
+- Per: aynı değerde üç ya da dört kart, ya da aynı renkten sıralı üç ya da daha fazla kart. As her zaman küçüktür: kız-papaz-as seri değildir.
+- Boştaki kartlar (deadwood): hiçbir perde olmayan kartlar, değerleriyle sayılır; vale, kız ve papaz 10.
 # Dağıtım
-- Her oyuncu 10 kart alır. Sonraki kart atılan kartlar yığınını başlatmak için açılır; kalanı destedir.
-- Dağıtmayan oyuncu bu ilk kartı alabilir ya da pas geçebilir; sonra dağıtan onu alabilir. İkisi de pas geçerse dağıtmayan desteden çekerek başlar.
-- Oyuncular sırayla dağıtır.
+- Her oyuncu 10 kart alır. Açılan ilk kartı önce dağıtmayan, sonra dağıtan alabilir.
 # Bir sıra
-- Destenin ya da atılanların üstündeki kartı çek.
-- Sonra bir kartı açık olarak atılanlara at. Atılanlardan az önce alınan kart hemen geri atılamaz.
+- Desteden ya da atılanlardan çek, sonra bir kart at, ama atılanlardan az önce aldığın kartı değil.
 # Kapatmak
-- Kart attıktan sonra boştaki kartları 10 ya da daha az kalacak oyuncu kapatabilir (knock): kartını atar ve el biter.
-- Cin: hiç boştaki kart olmadan kapatmak.
-- İki el de perler halinde açılır. Diğer oyuncu, yani savunan, boştaki kartlarını kapatanın perlerine işleyebilir: bir üçlünün dördüncü kartı, bir seriyi uzatan kartlar. Cine karşı kart işlenmez.
+- Kart attıktan sonra boştaki kartların 10 ya da daha az ise kapatıp eli bitirebilirsin. Cin: hiç boştaki kart olmaması.
+- Savunan, boştaki kartlarını kapatanın perlerine işleyebilir, ama cine karşı kart işlenmez.
 # Puanlama
-- Kapatan, iki eldeki boştaki kartlar arasındaki farkı alır.
-- Alttan vurma (undercut): savunanın boştaki kartları kapatanınki kadar ya da daha azsa, savunan farkı ve 25 puan daha alır.
-- Cin, 25 puan ve savunanın boştaki kartlarını kazandırır.
-- Bir atıştan sonra destede yalnızca iki kart kalmışsa ve kimse kapatmamışsa el ölüdür: kimse puan almaz ve aynı oyuncu yeniden dağıtır.
+- Kapatan, boştaki kartlar arasındaki farkı alır; cin, 25 puan ve savunanın boştaki kartlarını kazandırır.
+- Alttan vurma (undercut): savunanın boştaki kartları aynı ya da daha azsa, savunan farkı ve 25 puan daha alır.
+- Destede yalnızca iki kart kalmışsa ve kimse kapatmamışsa el ölüdür ve aynı oyuncu yeniden dağıtır.
 # Oyunun sonu
-Bir oyuncu 100 puana ulaşınca oyun biter. Kazanan 100 ekler (oyun bonusu) ve her oyuncu kazandığı her el için 25 ekler (el bonusu). Kaybeden tek bir el bile kazanmadıysa kazananın toplamı iki katına çıkar (mars).
-# Cihazda oynamak
-Eller gizlidir: ekran istediğinde cihazı ver, sıradaki oyuncu başlat düğmesine dokunur. Senin elin altta ve kendi kendine sıralanır: önce perler, her birinin altında altın bir çizgi, sonra üstünde puanlarıyla boştaki kartların. Bir kartı istediğin yere koymak için elin boyunca sürükle; eli yeniden sıralatmak için boştaki kartların puanına dokun.
-- Çekmek için desteye ya da atılanlara dokun. İlk kartı geri çevirmek için şeridindeki pas düğmesine dokun.
-- Seçmek için bir karta dokun, sonra atmak için ona ya da atılanlara yeniden dokun (ya da onu yığına sürükle).
-- Kapatabildiğinde atılanların yanında, elinde kalacak boştaki kartları gösteren yuvarlak bir düğme belirir. Seçili kartla kapatmak için ona dokun; o kartla kapatılamıyorsa düğme en iyisini seçer ve ikinci dokunuş kapatır.
-- Elin sonunda iki el de perler halinde açılır, işlenen kartlar kapatanın perlerine uçar ve parlar, puanlar da kazanana gider (25 ayrıca, altın bir halkada). Sonraki el için dokun. Şeritler puanları ve kazanılan her el için küçük altın bir kare gösterir. Oyunun sonunda bir tablo her oyuncunun puanlarını, kazandığı elleri, bonusları ve toplamı gösterir.
-Geri al cihazın verildiği ana kadar kendi eylemlerini geri alır.
+100 puanda kazanan 100 ekler ve her oyuncu kazandığı her el için 25 ekler. Kaybeden tek bir el bile kazanmadıysa kazananın toplamı iki katına çıkar.

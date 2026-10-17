@@ -1,20 +1,17 @@
 Hati
 # Tujuan
-Kumpulkan poin sesedikit mungkin: setiap kartu hati yang kamu menangkan dalam satu trik bernilai 1 poin, ratu sekop 13. Saat seseorang mencapai 100 poin, total terendah menang. Untuk 3 sampai 6 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+Kumpulkan poin sesedikit mungkin.
 # Kartu
-Ke-52 kartu dibagikan semua: 13 per orang untuk 4 pemain. Untuk 3 pemain, 2 wajik disisihkan (17 per orang); untuk 5, 2 wajik dan 2 sekop (10 per orang); untuk 6, kartu 2 dan 3 wajik serta sekop (8 per orang). As adalah kartu tertinggi, lalu raja, ratu, jack, 10 dan seterusnya sampai 2.
+Ke-52 kartu dibagikan semua. Untuk 3 pemain, 2 wajik disisihkan; untuk 5, 2 wajik dan 2 sekop; untuk 6, kartu 2 dan 3 wajik serta sekop. As adalah kartu tertinggi.
 # Mengoper kartu
-Sebelum bermain, setiap pemain mengoper tiga kartu: ke kiri di ronde pertama, ke kanan di ronde kedua, ke seberang di ronde ketiga (4 atau 6 pemain), tidak ke siapa pun di ronde keempat, dan seterusnya. Untuk 3 atau 5 pemain: kiri, kanan, tidak ada. Pemain memilih bergiliran; kartu berpindah tangan setelah semua memilih.
+Sebelum bermain, setiap pemain mengoper tiga kartu: ke kiri di ronde pertama, ke kanan di ronde kedua, ke seberang di ronde ketiga, tidak ke siapa pun di ronde keempat, dan seterusnya. Untuk 3 atau 5 pemain: kiri, kanan, tidak ada.
 # Permainan
 - Pemegang 2 keriting membuka trik pertama dengan kartu itu.
-- Bergiliran, setiap pemain mengikuti jenis kartu yang dibuka jika bisa; jika tidak, ia boleh memainkan kartu apa saja.
-- Kartu tertinggi dari jenis yang dibuka memenangkan trik, dan pemenangnya membuka trik berikutnya. Tidak ada truf.
+- Ikuti jenis kartu yang dibuka jika bisa. Kartu tertinggi dari jenis yang dibuka memenangkan trik; tidak ada truf.
 - Pada trik pertama tidak ada yang boleh memainkan hati atau ratu sekop, kecuali ia tidak punya kartu lain.
-- Trik tidak boleh dibuka dengan hati sebelum ada hati yang dimainkan (hati sudah pecah), kecuali pembuka hanya punya hati.
+- Trik tidak boleh dibuka dengan hati sebelum ada hati yang dimainkan, kecuali pembuka hanya punya hati.
 # Skor
 - Setiap hati yang diambil: 1 poin. Ratu sekop: 13 poin.
 - Menembak bulan: pemain yang mengambil ke-13 hati dan ratu sekop tidak mendapat apa pun, dan setiap pemain lain mendapat 26.
 # Akhir permainan
 Permainan berakhir setelah ronde ketika seorang pemain mencapai 100 poin. Total terendah menang; pemain yang seri berbagi kemenangan.
-# Bermain di perangkat
-Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah. Bidak para pemain mengelilingi bagian tengah meja, dan setiap kartu yang dimainkan diletakkan di depan bidak pemainnya; angka di samping bidak adalah poin yang diambil di ronde ini. Untuk mengoper, ketuk tiga kartu: kartu pindah ke tengah (ketuk salah satunya di sana untuk mengambilnya kembali); lalu ketuk panah, yang menunjuk ke pemain penerima. Kartu yang kamu terima berdiri sedikit lebih tinggi sampai kartu pertamamu. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setiap bilah menunjukkan kartu di tangan dan total. Setelah setiap ronde, sebuah tabel menunjukkan poin ronde dan total setiap pemain (bulan: pemain yang menembaknya); ketuk untuk ronde berikutnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah kartu setelah perangkat dioper.

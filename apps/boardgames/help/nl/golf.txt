@@ -1,27 +1,22 @@
 Golf
 # Het doel
-Na de laatste ronde de laagste score hebben. Elke speler heeft een raster van gedekte kaarten voor zich; eerst kent niemand ze, ook hun eigenaar niet. Ruil je hoge kaarten voor lage en draai je raster open. Twee spellen om uit te kiezen: klassiek Golf met een spel van 52 kaarten, en Getallengolf, een golfvariant met kaarten van -2 tot 12. Voor 2 tot 6 spelers.
+Na de laatste ronde de laagste score hebben.
 # Aan het begin van een ronde
-- Klassiek Golf: 6 kaarten per speler, in 2 rijen van 3. Getallengolf: 12 kaarten per speler, in 3 rijen van 4.
 - Elke speler draait twee van zijn kaarten open.
-- Klassiek Golf: de eerste speler schuift elke ronde een plaats op. Getallengolf: wie met zijn twee open kaarten het meest heeft, begint.
 # Een beurt
-- Trek de bovenste kaart van de stapel, of neem de bovenste kaart van de aflegstapel.
-- Ruil haar voor een van je kaarten, open of gedekt: je oude kaart gaat open op de aflegstapel.
+- Trek van de stapel, of neem de bovenste kaart van de aflegstapel.
+- Ruil haar voor een van je kaarten: je oude kaart gaat open op de aflegstapel.
 - Of, als je haar van de stapel trok, leg haar af en draai een van je gedekte kaarten open.
-- Een kaart van de aflegstapel moet je ruilen.
 # Het einde van een ronde
-Zodra een speler al zijn kaarten open heeft liggen, speelt elke andere speler nog één laatste beurt. Daarna worden alle kaarten opengedraaid en wordt de ronde geteld.
+Zodra een speler al zijn kaarten open heeft liggen, speelt elke andere speler nog één laatste beurt.
 # Klassiek Golf
 - Aas 1 punt, 2 tot 10 hun waarde, boer en vrouw 10, heer 0.
 - Twee kaarten van dezelfde rang in één kolom tellen 0.
-- De partij duurt negen rondes, de negen holes.
+- De partij duurt negen rondes.
 # Getallengolf
-- Elke kaart telt haar getal, van -2 tot 12. Het spel: vijf -2, tien -1, vijftien 0 en tien van elke kaart van 1 tot 12.
+- Elke kaart telt haar getal, van -2 tot 12.
 - Drie open kaarten met hetzelfde getal in één kolom gaan meteen naar de aflegstapel en tellen niet.
 - Wie de ronde beëindigde, telt dubbel als zijn score boven nul is en hij niet strikt de laagste score van de ronde heeft.
 - De partij eindigt na de ronde waarin een speler 100 punten haalt.
 # Het einde van de partij
 De speler met het laagste totaal wint.
-# Spelen op het apparaat
-Geef het apparaat door: wie aan de beurt is, heeft zijn kaarten altijd groot onderaan, die van de anderen kleiner bovenaan, onder hun stukken. Tik op de stapel of de aflegstapel om te trekken. Tik dan op een van je kaarten om te ruilen, of tik op de aflegstapel om de kaart af te leggen en tik op een gedekte kaart om haar open te draaien. De kaarten waarop je kunt tikken lichten op. Na elke ronde toont een tabel de punten van de ronde en het totaal van elke speler (een kruis en een 2: dubbel geteld); tik erop voor de volgende ronde. Het totaal van elke speler staat in zijn balk. Ongedaan maken neemt de laatste actie terug, één tegelijk.

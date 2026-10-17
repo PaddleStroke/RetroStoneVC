@@ -1,20 +1,17 @@
 Corazones
 # El objetivo
-Llevarse los menos puntos posible: cada corazón que ganas en una baza cuesta 1 punto, la reina de picas 13. Cuando alguien llega a 100 puntos, gana el total más bajo. De 3 a 6 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+Llevarse los menos puntos posible.
 # Las cartas
-Se reparten las 52 cartas: 13 a cada uno con 4 jugadores. Con 3 jugadores se quita el 2 de diamantes (17 cada uno); con 5, el 2 de diamantes y el 2 de picas (10 cada uno); con 6, los 2 y los 3 de diamantes y de picas (8 cada uno). El as es la carta más alta, luego el rey, la reina, la jota, el 10 y así hasta el 2.
+Se reparten las 52 cartas. Con 3 jugadores se quita el 2 de diamantes; con 5, el 2 de diamantes y el 2 de picas; con 6, los 2 y los 3 de diamantes y de picas. El as es la carta más alta.
 # El pase
-Antes de jugar, cada uno pasa tres cartas: a la izquierda en la primera ronda, a la derecha en la segunda, al de enfrente en la tercera (con 4 o 6 jugadores), a nadie en la cuarta, y vuelta a empezar. Con 3 o 5 jugadores: izquierda, derecha, nada. Los jugadores eligen por turnos; las cartas cambian de mano cuando todos han elegido.
+Antes de jugar, cada uno pasa tres cartas: a la izquierda en la primera ronda, a la derecha en la segunda, al de enfrente en la tercera, a nadie en la cuarta, y vuelta a empezar. Con 3 o 5 jugadores: izquierda, derecha, nada.
 # El juego
 - Quien tiene el 2 de tréboles sale con él en la primera baza.
-- Por turnos, cada uno sirve el palo de salida si puede; si no, juega cualquier carta.
-- La carta más alta del palo de salida gana la baza, y quien la gana sale en la siguiente. No hay triunfos.
+- Sirve el palo de salida si puedes. La carta más alta del palo de salida gana la baza; no hay triunfos.
 - En la primera baza nadie puede jugar un corazón ni la reina de picas, salvo que no tenga otra cosa.
-- No se puede salir con corazones hasta que se haya jugado alguno (los corazones están rotos), salvo que solo te queden corazones.
+- No se puede salir con corazones hasta que se haya jugado alguno, salvo que solo te queden corazones.
 # La puntuación
 - Cada corazón ganado: 1 punto. La reina de picas: 13 puntos.
 - Disparar a la luna: quien se lleva los 13 corazones y la reina de picas no se apunta nada, y cada uno de los demás se apunta 26.
 # El final de la partida
 La partida termina tras la ronda en que un jugador llega a 100 puntos. Gana el total más bajo; los empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo. Las fichas de los jugadores rodean el centro de la mesa, y cada carta jugada queda delante de la ficha de su jugador; el número junto a una ficha son los puntos ganados en la ronda. Para pasar, toca tres cartas: van al centro (toca una allí para recuperarla); luego toca la flecha, que señala al jugador que las recibe. Las cartas recibidas quedan un poco más altas hasta tu primera carta. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Cada barra muestra las cartas en la mano y el total. Tras cada ronda, una tabla muestra los puntos de la ronda y el total de cada uno (una luna: quien la disparó); tócala para la ronda siguiente. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.

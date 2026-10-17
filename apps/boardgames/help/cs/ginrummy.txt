@@ -1,31 +1,19 @@
 Gin rummy
 # Cíl hry
-Jako první dosáhnout 100 bodů. Pro 2 hráče. Sestav karty do kombinací, zbav se ostatních, svých mrtvých karet, a zaklepej, abys ukončil kolo.
+Jako první dosáhnout 100 bodů: sestav karty do kombinací a zaklepej.
 # Karty
-- Kombinace: tři nebo čtyři karty stejné hodnoty, nebo tři či více karet jedné barvy v řadě za sebou. Eso je vždy nízké: eso, 2, 3 je postupka, dáma, král, eso ne.
-- Mrtvé karty (deadwood): karty, které nejsou v žádné kombinaci, počítané podle hodnoty: eso 1, 2 až 10 svou hodnotu, kluk, dáma a král 10.
+- Kombinace: tři nebo čtyři karty stejné hodnoty, nebo tři či více karet jedné barvy v řadě za sebou. Eso je vždy nízké: dáma, král, eso není postupka.
+- Mrtvé karty (deadwood): karty mimo kombinace, počítané podle hodnoty; kluk, dáma a král 10.
 # Rozdávání
-- Každý hráč dostane 10 karet. Další karta se otočí a začne odhazovací hromádku; zbytek je balíček.
-- Nerozdávající může tuto první kartu vzít, nebo pasovat; pak ji může vzít rozdávající. Pokud oba pasují, začíná nerozdávající líznutím z balíčku.
-- Rozdává se střídavě.
+- Každý hráč dostane 10 karet. První otočenou kartu může vzít nerozdávající, pak rozdávající.
 # Tah
-- Lízni horní kartu z balíčku nebo z odhazovací hromádky.
-- Pak odhoď jednu kartu lícem nahoru na odhazovací hromádku. Kartu právě vzatou z odhazovací hromádky nelze hned vrátit zpět.
+- Lízni z balíčku nebo z odhazovací hromádky, pak odhoď, ale ne kartu právě vzatou z hromádky.
 # Zaklepání
-- Hráč, jehož mrtvé karty budou po odhození dohromady 10 nebo méně, může zaklepat: odhodí a kolo končí.
-- Gin: zaklepání úplně bez mrtvých karet.
-- Obě ruce se ukážou rozložené do kombinací. Druhý hráč, obránce, pak smí přiložit mrtvé karty ke kombinacím klepajícího: čtvrtou kartu ke stejným hodnotám, karty, které prodlouží postupku. Proti ginu se nepřikládá.
+- Máš-li po odhození mrtvé karty za 10 nebo méně, můžeš zaklepat a ukončit kolo. Gin: žádné mrtvé karty.
+- Obránce smí přiložit mrtvé karty ke kombinacím klepajícího, ne však proti ginu.
 # Body
-- Klepající získá rozdíl mezi mrtvými kartami obou hráčů.
-- Podseknutí (undercut): má-li obránce mrtvé karty stejně nízké jako klepající nebo nižší, získá obránce rozdíl a 25 navíc.
-- Gin dává 25 a mrtvé karty obránce.
-- Zůstanou-li po odhození v balíčku jen dvě karty a nikdo nezaklepal, kolo je mrtvé: nikdo nic nezíská a tentýž hráč rozdává znovu.
+- Klepající získá rozdíl mezi mrtvými kartami; gin dává 25 a mrtvé karty obránce.
+- Podseknutí (undercut): obránce se stejně nízkými nebo nižšími mrtvými kartami získá rozdíl a 25 navíc.
+- Zůstanou-li v balíčku jen dvě karty a nikdo nezaklepal, kolo je mrtvé a tentýž hráč rozdává znovu.
 # Konec hry
-Hra končí, když některý hráč dosáhne 100 bodů. Vítěz si přičte 100 (bonus za hru) a každý hráč si přičte 25 za každé vyhrané kolo (bonus za kola). Pokud poražený nevyhrál ani jedno kolo, vítězův součet se zdvojnásobí (čisté konto).
-# Hra na zařízení
-Ruce jsou tajné: když o to obrazovka požádá, podej zařízení dál a další hráč klepne na start. Tvá ruka je dole a sama se třídí: nejdřív kombinace, každá se zlatou čarou pod sebou, pak tvé mrtvé karty s jejich body nad nimi. Přetažením karty podél ruky ji dáš, kam chceš; klepnutím na body mrtvých karet ruku znovu setřídíš.
-- Klepnutím na balíček nebo odhazovací hromádku si lízneš. Chceš-li první kartu odmítnout, klepni na tlačítko Pas ve své liště.
-- Klepnutím vyber kartu, pak na ni klepni znovu nebo klepni na odhazovací hromádku a odhodíš ji (nebo ji na hromádku přetáhni).
-- Když můžeš zaklepat, objeví se vedle odhazovací hromádky kulaté tlačítko s mrtvými kartami, které by ti zůstaly. Klepnutím na něj zaklepeš s vybranou kartou; pokud s tou kartou zaklepat nejde, tlačítko vybere tu nejlepší a druhé klepnutí zaklepe.
-- Na konci kola se obě ruce rozloží do kombinací, přiložené karty přeletí ke kombinacím klepajícího a svítí, a body jdou vítězi (těch 25 zvlášť, ve zlatém kroužku). Klepni pro další kolo. Lišty ukazují body a malý zlatý čtvereček za každé vyhrané kolo. Na konci hry ukáže tabulka body každého hráče, jeho vyhraná kola, bonusy a součet.
-Vrátit vezme zpět tvé vlastní akce, až k okamžiku, kdy se zařízení předalo.
+Při 100 bodech si vítěz přičte 100 a každý hráč 25 za každé vyhrané kolo. Pokud poražený nevyhrál ani jedno kolo, vítězův součet se zdvojnásobí.

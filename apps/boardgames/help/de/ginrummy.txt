@@ -1,31 +1,19 @@
 Gin-Rommé
 # Das Ziel
-Als Erster 100 Punkte erreichen. Für 2 Spieler. Ordne deine Karten zu Kombinationen, werde die übrigen los, deine Restkarten, und klopfe, um die Runde zu beenden.
+Als Erster 100 Punkte erreichen: ordne deine Karten zu Kombinationen und klopfe.
 # Die Karten
-- Eine Kombination: drei oder vier Karten gleichen Rangs, oder drei oder mehr Karten einer Farbe in Folge. Das Ass ist immer niedrig: Ass, 2, 3 ist eine Folge, Dame, König, Ass nicht.
-- Restkarten (deadwood): die Karten, die in keiner Kombination sind, gezählt nach ihrem Wert: Ass 1, 2 bis 10 ihr Wert, Bube, Dame und König 10.
+- Eine Kombination: drei oder vier Karten gleichen Rangs, oder drei oder mehr Karten einer Farbe in Folge. Das Ass ist niedrig: Dame, König, Ass ist keine Folge.
+- Restkarten (deadwood): die Karten in keiner Kombination, nach ihrem Wert gezählt; Bube, Dame und König 10.
 # Das Geben
-- Jeder Spieler bekommt 10 Karten. Die nächste Karte wird aufgedeckt und beginnt den Ablagestapel; der Rest ist der Stapel.
-- Der Nicht-Geber darf diese erste Karte nehmen oder passen; dann darf der Geber sie nehmen. Passen beide, beginnt der Nicht-Geber und zieht vom Stapel.
-- Das Geben wechselt ab.
+- Jeder Spieler bekommt 10 Karten. Die erste aufgedeckte Karte darf der Nicht-Geber nehmen, dann der Geber.
 # Ein Zug
-- Zieh die oberste Karte vom Stapel oder vom Ablagestapel.
-- Wirf dann eine Karte offen auf den Ablagestapel ab. Eine gerade vom Ablagestapel genommene Karte darf nicht sofort zurück.
+- Zieh vom Stapel oder vom Ablagestapel und wirf dann ab, aber nicht die gerade vom Ablagestapel genommene Karte.
 # Klopfen
-- Wer nach dem Abwerfen Restkarten im Wert von 10 oder weniger hat, darf klopfen: Er wirft ab, und die Runde endet.
-- Gin: Klopfen ganz ohne Restkarten.
-- Beide Hände werden in Kombinationen gezeigt. Der andere Spieler, der Verteidiger, darf dann Restkarten an die Kombinationen des Klopfenden anlegen: die vierte Karte eines Satzes, Karten, die eine Folge verlängern. Gegen Gin wird nicht angelegt.
+- Mit Restkarten im Wert von 10 oder weniger nach dem Abwerfen darfst du klopfen und die Runde beenden. Gin: gar keine Restkarten.
+- Der Verteidiger darf Restkarten an die Kombinationen des Klopfenden anlegen, außer gegen Gin.
 # Die Punkte
-- Der Klopfende bekommt die Differenz zwischen den beiden Restkarten-Werten.
-- Unterbieten (undercut): Sind die Restkarten des Verteidigers genauso niedrig wie die des Klopfenden oder niedriger, bekommt der Verteidiger die Differenz und 25 dazu.
-- Gin bringt 25 und die Restkarten des Verteidigers.
-- Liegen nach einem Abwurf nur noch zwei Karten im Stapel und hat niemand geklopft, ist die Runde tot: Niemand punktet, und derselbe Geber gibt neu.
+- Der Klopfende bekommt die Differenz der Restkarten; Gin bringt 25 und die Restkarten des Verteidigers.
+- Unterbieten (undercut): Hat der Verteidiger genauso niedrige Restkarten oder niedrigere, bekommt er die Differenz und 25 dazu.
+- Liegen nur noch zwei Karten im Stapel und hat niemand geklopft, ist die Runde tot, und derselbe Geber gibt neu.
 # Das Ende der Partie
-Die Partie endet, wenn ein Spieler 100 Punkte erreicht. Der Gewinner bekommt 100 dazu (der Partiebonus), und jeder Spieler bekommt 25 für jede gewonnene Runde (der Linienbonus). Hat der Verlierer keine einzige Runde gewonnen, wird die Summe des Gewinners verdoppelt (Schneider).
-# Spielen auf dem Gerät
-Die Hände sind geheim: Gib das Gerät weiter, wenn der Bildschirm es verlangt, und der nächste Spieler tippt auf Start. Deine Hand ist unten und sortiert sich selbst: zuerst die Kombinationen, jede mit einer goldenen Linie darunter, dann deine Restkarten mit ihren Punkten darüber. Zieh eine Karte entlang deiner Hand, um sie dorthin zu legen, wo du willst; tippe auf die Punkte der Restkarten, um die Hand neu sortieren zu lassen.
-- Tippe auf den Stapel oder den Ablagestapel, um zu ziehen. Um die erste Karte abzulehnen, tippe auf den Knopf Passe in deiner Leiste.
-- Tippe eine Karte an, um sie auszuwählen, und tippe sie dann noch einmal oder den Ablagestapel an, um sie abzuwerfen (oder zieh sie auf den Ablagestapel).
-- Wenn du klopfen kannst, erscheint neben dem Ablagestapel ein runder Knopf mit den Restpunkten, die dir blieben. Tippe darauf, um mit der gewählten Karte zu klopfen; kann diese Karte nicht klopfen, wählt der Knopf die beste, und ein zweites Tippen klopft.
-- Am Ende einer Runde werden beide Hände in Kombinationen ausgelegt, die angelegten Karten fliegen zu den Kombinationen des Klopfenden und leuchten, und die Punkte gehen an den Gewinner (die 25 extra, in einem goldenen Ring). Tippe für die nächste Runde. Die Leisten zeigen die Punkte und ein kleines goldenes Quadrat für jede gewonnene Runde. Am Ende der Partie zeigt eine Tafel die Punkte jedes Spielers, seine gewonnenen Runden, die Boni und die Summe.
-Rückgängig nimmt deine eigenen Aktionen zurück, bis zu dem Moment, als das Gerät weitergegeben wurde.
+Bei 100 Punkten bekommt der Gewinner 100 dazu, und jeder Spieler 25 für jede gewonnene Runde. Hat der Verlierer keine einzige Runde gewonnen, wird die Summe des Gewinners verdoppelt.

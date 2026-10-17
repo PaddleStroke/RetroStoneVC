@@ -1,31 +1,19 @@
 Gin remik
 # Cel gry
-Jako pierwszy dojść do 100 punktów. Dla 2 graczy. Zbieraj karty w układy, pozbywaj się pozostałych, czyli luźnych kart, i zapukaj, by zakończyć rozdanie.
+Jako pierwszy dojść do 100 punktów: zbieraj karty w układy i zapukaj.
 # Karty
-- Układ: trzy lub cztery karty tej samej rangi albo trzy lub więcej kart jednego koloru po kolei. As jest zawsze niski: as 2 3 to sekwens, dama król as już nie.
-- Luźne karty (deadwood): karty spoza układów, liczone według wartości: as 1, 2–10 według wartości, walet, dama i król 10.
+- Układ: trzy lub cztery karty tej samej rangi albo trzy lub więcej kart jednego koloru po kolei. As jest niski: dama król as to nie sekwens.
+- Luźne karty (deadwood): karty spoza układów, liczone według wartości; walet, dama i król 10.
 # Rozdanie
-- Każdy gracz dostaje 10 kart. Następna karta zostaje odkryta i zaczyna stos odrzuconych; reszta tworzy stos.
-- Gracz, który nie rozdawał, może wziąć tę pierwszą kartę albo spasować; potem może ją wziąć rozdający. Jeśli obaj spasują, zaczyna gracz, który nie rozdawał, dobierając ze stosu.
-- Gracze rozdają na zmianę.
+- Każdy gracz dostaje 10 kart. Pierwszą odkrytą kartę może wziąć gracz, który nie rozdawał, a potem rozdający.
 # Tura
-- Dobierz wierzchnią kartę ze stosu albo ze stosu odrzuconych.
-- Potem odrzuć jedną kartę odkrytą na stos odrzuconych. Karta wzięta przed chwilą ze stosu odrzuconych nie może od razu na niego wrócić.
+- Dobierz ze stosu albo ze stosu odrzuconych, potem odrzuć kartę, ale nie tę wziętą przed chwilą ze stosu odrzuconych.
 # Pukanie
-- Gracz, któremu po odrzuceniu zostanie 10 lub mniej punktów w luźnych kartach, może zapukać: odrzuca kartę i rozdanie się kończy.
-- Gin: zapukanie bez żadnej luźnej karty.
-- Obie ręce zostają pokazane w układach. Drugi gracz, broniący się, może wtedy dołożyć luźne karty do układów pukającego: czwartą kartę do grupy, karty przedłużające sekwens. Do ginu nie można dokładać.
+- Jeśli po odrzuceniu masz 10 lub mniej punktów w luźnych kartach, możesz zapukać i zakończyć rozdanie. Gin: żadnej luźnej karty.
+- Broniący się może dołożyć luźne karty do układów pukającego, ale nie do ginu.
 # Punkty
-- Pukający dostaje różnicę między luźnymi kartami obu graczy.
-- Podcięcie (undercut): jeśli broniący się ma w luźnych kartach tyle samo co pukający albo mniej, to on dostaje różnicę i jeszcze 25.
-- Gin daje 25 plus luźne karty broniącego się.
-- Jeśli po odrzuceniu w stosie zostały tylko dwie karty, a nikt nie zapukał, rozdanie jest martwe: nikt nie dostaje punktów, a ten sam gracz rozdaje ponownie.
+- Pukający dostaje różnicę między luźnymi kartami; gin daje 25 plus luźne karty broniącego się.
+- Podcięcie (undercut): jeśli broniący się ma w luźnych kartach tyle samo albo mniej, to on dostaje różnicę i jeszcze 25.
+- Jeśli w stosie zostały tylko dwie karty, a nikt nie zapukał, rozdanie jest martwe i ten sam gracz rozdaje ponownie.
 # Koniec gry
-Gra kończy się, gdy któryś gracz dojdzie do 100 punktów. Zwycięzca dodaje 100 (premia za grę), a każdy gracz dodaje 25 za każde wygrane rozdanie (premia za rozdania). Jeśli przegrany nie wygrał ani jednego rozdania, suma zwycięzcy się podwaja (shutout).
-# Gra na urządzeniu
-Ręce są tajne: podaj urządzenie, gdy ekran o to poprosi, a następny gracz dotyka przycisku startu. Twoja ręka jest na dole i sama się sortuje: najpierw układy, każdy ze złotą kreską pod spodem, potem luźne karty z ich punktami nad nimi. Przeciągnij kartę wzdłuż ręki, żeby położyć ją, gdzie chcesz; dotknij punktów luźnych kart, żeby ręka znów się posortowała.
-- Dotknij stosu lub stosu odrzuconych, żeby dobrać. Aby odmówić pierwszej karty, dotknij przycisku pasowania na swoim pasku.
-- Dotknij karty, żeby ją wybrać, potem dotknij jej jeszcze raz albo dotknij stosu odrzuconych, żeby ją odrzucić (albo przeciągnij ją na stos odrzuconych).
-- Gdy możesz zapukać, obok stosu odrzuconych pojawia się okrągły przycisk z punktami luźnych kart, które by ci zostały. Dotknij go, żeby zapukać wybraną kartą; jeśli tą kartą nie da się zapukać, przycisk wybiera najlepszą, a drugie dotknięcie puka.
-- Na końcu rozdania obie ręce zostają rozłożone w układy, dołożone karty lecą do układów pukającego i świecą, a punkty trafiają do zwycięzcy (25 osobno, w złotym kółku). Dotknij, by przejść do następnego rozdania. Paski pokazują punkty i mały złoty kwadracik za każde wygrane rozdanie. Na końcu gry tabela pokazuje punkty każdego gracza, wygrane rozdania, premie i sumę.
-Cofnij cofa twoje własne czynności, aż do chwili podania urządzenia.
+Przy 100 punktach zwycięzca dodaje 100, a każdy gracz 25 za każde wygrane rozdanie. Jeśli przegrany nie wygrał ani jednego rozdania, suma zwycięzcy się podwaja.

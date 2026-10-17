@@ -1,18 +1,14 @@
 Yedi Aile
 # Amaç
-Tam aileler toplamak. Oyunda her biri kendi renginde 7 hayvan ailesi var: ayılar, tavşanlar, kediler, fareler, baykuşlar, aslanlar ve kurbağalar. Her ailenin 6 üyesi var: dede, nine, baba, anne, oğul ve kız. 2 ile 6 oyuncu için.
+Tam aileler toplamak: her biri 6 üyeli 7 aile (dede, nine, baba, anne, oğul ve kız).
 # Kartlar
-- Renk ve hayvan aileyi gösterir.
-- Hayvanın taktığı şey üyeyi gösterir: dedede gözlük ve beyaz bıyık, ninede gözlük ve gri topuz, babada papyon, annede inci kolye, oğulda kep, kızda saç fiyonku. Çocuklar daha küçüktür.
-- Köşedeki figür ve kartın altındaki altı figürlük sıra da üyeyi gösterir.
+- Renk ve hayvan aileyi gösterir; köşedeki figür üyeyi gösterir.
 # Bir sıra
-- 2 ya da 3 oyuncuyla herkese 7 kart, 4 oyuncuyla 6, 5 ya da 6 oyuncuyla 5. Kalan kartlar desteyi oluşturur.
-- Başka bir oyuncudan bir kart iste: elinde zaten kartı olan bir ailenin bir üyesi, ama elindeki bir kart değil.
+- 2 ya da 3 oyuncuyla herkese 7 kart, 4 oyuncuyla 6, 5 ya da 6 oyuncuyla 5. Kalanı desteyi oluşturur.
+- Başka bir oyuncudan, elinde zaten kartı olan bir ailenin bir üyesini iste, ama elindeki bir kartı değil.
 - Onda varsa sana verir ve yeniden istersin.
-- Yoksa, "pioche!": desteden bir kart çek. İstediğin kartsa yeniden istersin; değilse sıra sonraki oyuncuya geçer.
+- Yoksa, "pioche!": desteden çek. İstediğin kartsa yeniden istersin; değilse sıra sonraki oyuncuya geçer.
 - Tamamlanan bir aile hemen masaya konur.
-- Sıra sana geldiğinde hiç kartın yoksa bir kart çekersin. Başka kimsenin kartı yoksa herhangi birinden iste: deste cevap verir.
+- Sıran geldiğinde hiç kartın yoksa bir kart çekersin. Başka kimsenin kartı yoksa herhangi birinden iste: deste cevap verir.
 # Oyunun sonu
 7 ailenin hepsi masaya konunca en çok ailesi olan kazanır; eşit sayıda ailesi olanlar zaferi paylaşır.
-# Cihazda oynamak
-Cihazı elden ele ver: her oyuncu kendi elini altta, ailelerini de hemen üstünde görür. Diğer eller üstte küçük yelpazelerdir, her birinde oyuncusunun pulu, kart sayısı ve aileleri vardır. Soracağın oyuncu parlar; değiştirmek için başka bir oyuncuya dokun. Elindeki bir karta dokun: ailesinin altı üyesi görünür, sende olanlar soluktur. İstediğin üyeye dokun: cevap hemen gelir ve kart diğer oyuncudan ya da desteden uçar. Ortada son soru görünür, kim kimden hangi kartı istedi: kart verildiyse parlar, küçük bir kart arkası ise "pioche" demektir. Her şerit masaya konan aileleri gösterir. Geri al bir soruyu geri almaz.

@@ -1,18 +1,14 @@
 Sju familier
 # Målet
-Å samle hele familier. Spillet har 7 dyrefamilier, hver med sin egen farge: bjørner, kaniner, katter, mus, ugler, løver og frosker. Hver familie har 6 medlemmer: bestefar, bestemor, far, mor, sønn og datter. For 2 til 6 spillere.
+Å samle hele familier: 7 familier med 6 medlemmer (bestefar, bestemor, far, mor, sønn og datter).
 # Kortene
-- Fargen og dyret viser familien.
-- Det dyret har på seg, viser medlemmet: briller og hvit bart for bestefar, briller og grå knute for bestemor, sløyfe for far, perlekjede for mor, caps for sønnen, hårsløyfe for datteren. Barna er mindre.
-- Figuren i hjørnet og raden med seks figurer nederst på kortet viser også medlemmet.
+- Fargen og dyret viser familien; figuren i hjørnet viser medlemmet.
 # En tur
-- 7 kort hver med 2 eller 3 spillere, 6 med 4, 5 med 5 eller 6. Resten av kortene er bunken.
-- Be en annen spiller om ett kort: et medlem av en familie du allerede har et kort av, men ikke et kort du har selv.
+- 7 kort hver med 2 eller 3 spillere, 6 med 4, 5 med 5 eller 6. Resten er bunken.
+- Be en annen spiller om et medlem av en familie du allerede har et kort av, men ikke et kort du har selv.
 - Har han det, gir han deg det, og du spør igjen.
-- Hvis ikke, «pioche!»: trekk et kort fra bunken. Er det kortet du ba om, spør du igjen; ellers er det neste spillers tur.
+- Hvis ikke, «pioche!»: trekk fra bunken. Er det kortet du ba om, spør du igjen; ellers er det neste spillers tur.
 - En hel familie legges ned med en gang.
-- Er det din tur og du har ingen kort, trekker du ett. Har ingen andre kort, spør hvem som helst: bunken svarer.
+- Har du ingen kort når det er din tur, trekker du ett. Har ingen andre kort, spør hvem som helst: bunken svarer.
 # Slutten på spillet
 Når alle 7 familiene ligger, vinner den med flest; spillere med like mange deler seieren.
-# Spill på enheten
-Send enheten rundt: hver spiller ser hånden sin nederst og familiene sine like over. De andres hender er små vifter øverst, hver med spillerens markør, antall kort og familier. Spilleren du skal spørre, lyser: trykk på en annen spiller for å bytte. Trykk på et kort på hånden din: de seks medlemmene i familien dukker opp, de du har, er bleke. Trykk på medlemmet du vil ha: svaret kommer med en gang, og kortet flyr over fra den andre spilleren eller fra bunken. Midten viser det siste spørsmålet, hvem som ba hvem om hvilket kort: det lyser hvis kortet ble gitt, og en liten kortbakside betyr «pioche». Hvert panel viser familiene som er lagt ned. Angre kan ikke ta tilbake et spørsmål.

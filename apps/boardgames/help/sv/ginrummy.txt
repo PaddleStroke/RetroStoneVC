@@ -1,31 +1,19 @@
 Gin rummy
 # Målet
-Att först nå 100 poäng. För 2 spelare. Samla dina kort i kombinationer, gör dig av med de andra, dina döda kort, och knacka för att avsluta given.
+Att först nå 100 poäng: samla dina kort i kombinationer och knacka.
 # Korten
-- En kombination: tre eller fyra kort av samma valör (ett tretal eller fyrtal), eller tre eller fler kort i samma färg i följd (en stege). Esset är alltid lågt: ess-2-3 är en stege, dam-kung-ess är det inte.
-- Döda kort: korten som inte ingår i någon kombination, räknade efter sitt värde: ess 1, 2 till 10 sitt värde, knekt, dam och kung 10.
+- En kombination: tre eller fyra kort av samma valör, eller tre eller fler kort i samma färg i följd (en stege). Esset är lågt: dam-kung-ess är ingen stege.
+- Döda kort: korten utanför kombinationerna, räknade efter sitt värde; knekt, dam och kung 10.
 # Given
-- Varje spelare får 10 kort. Nästa kort vänds upp och börjar slänghögen; resten blir högen.
-- Den som inte gav får ta det första kortet eller passa; sedan får givaren ta det. Om båda passar börjar den som inte gav med att dra från högen.
-- Spelarna ger varannan gång.
+- Varje spelare får 10 kort. Det första uppvända kortet får tas av den som inte gav, sedan av givaren.
 # En tur
-- Dra översta kortet från högen eller från slänghögen.
-- Släng sedan ett kort med framsidan upp på slänghögen. Ett kort som just tagits från slänghögen får inte slängas direkt igen.
+- Dra från högen eller slänghögen och släng sedan ett kort, men inte det kort du just tog från slänghögen.
 # Knacka
-- En spelare vars döda kort blir värda 10 eller mindre efter slängningen får knacka: spelaren slänger, och given tar slut.
-- Gin: att knacka helt utan döda kort.
-- Båda händerna visas i kombinationer. Den andra spelaren, försvararen, får då lägga till döda kort på knackarens kombinationer: det fjärde kortet i ett tretal, kort som förlänger en stege. Mot gin får inget läggas till.
+- Är dina döda kort värda 10 eller mindre efter slängningen får du knacka och avsluta given. Gin: inga döda kort alls.
+- Försvararen får lägga till döda kort på knackarens kombinationer, utom mot gin.
 # Poängen
-- Knackaren får skillnaden mellan de båda händernas döda kort.
-- Underknack (undercut): om försvararens döda kort är värda lika lite som knackarens eller mindre, får försvararen skillnaden och 25 till.
-- Gin ger 25 plus försvararens döda kort.
-- Om bara två kort är kvar i högen efter en slängning och ingen har knackat är given död: ingen får poäng, och samma spelare ger igen.
+- Knackaren får skillnaden mellan de döda korten; gin ger 25 plus försvararens döda kort.
+- Underknack (undercut): är försvararens döda kort värda lika lite eller mindre, får försvararen skillnaden och 25 till.
+- Om bara två kort är kvar i högen och ingen har knackat är given död, och samma spelare ger igen.
 # Partiets slut
-Partiet slutar när en spelare når 100 poäng. Vinnaren lägger till 100 (partibonus), och varje spelare lägger till 25 för varje vunnen giv (givbonus). Om förloraren inte vann en enda giv fördubblas vinnarens summa (shutout).
-# Spela på enheten
-Händerna är hemliga: lämna över enheten när skärmen ber om det, så trycker nästa spelare på startknappen. Din hand ligger längst ned och sorterar sig själv: först kombinationerna, med en guldlinje under var och en, sedan dina döda kort med deras poäng ovanför. Dra ett kort längs handen för att lägga det där du vill; tryck på de döda kortens poäng för att sortera handen igen.
-- Tryck på högen eller slänghögen för att dra. Tryck på passknappen i ditt fält för att tacka nej till det första kortet.
-- Tryck på ett kort för att välja det, och tryck sedan på det igen eller på slänghögen för att slänga det (eller dra det till slänghögen).
-- När du kan knacka visas en rund knapp bredvid slänghögen med de döda kort du skulle behålla. Tryck på den för att knacka med det valda kortet; om det kortet inte kan knacka väljer knappen det bästa, och ett andra tryck knackar.
-- I slutet av en giv läggs båda händerna upp i kombinationer, de tillagda korten flyger till knackarens kombinationer och lyser, och poängen går till vinnaren (de 25 för sig, i en guldring). Tryck för nästa giv. Fälten visar poängen och en liten guldruta för varje vunnen giv. I slutet av partiet visar en tavla varje spelares poäng, vunna givar, bonusarna och summan.
-Ångra tar tillbaka dina egna handlingar, ända tillbaka till när enheten lämnades över.
+Vid 100 poäng lägger vinnaren till 100, och varje spelare 25 för varje vunnen giv. Om förloraren inte vann en enda giv fördubblas vinnarens summa.

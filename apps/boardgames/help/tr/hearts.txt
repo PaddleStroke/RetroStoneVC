@@ -1,20 +1,17 @@
 Kupa
 # Amaç
-Olabildiğince az puan almak: bir elde kazandığın her kupa 1 puan, maça kızı 13 puan değerindedir. Biri 100 puana ulaştığında en düşük toplam kazanır. Cihazı elden ele geçiren 3 ila 6 oyuncu için; kimse başkalarının kartlarını görmez.
+Olabildiğince az puan almak.
 # Kartlar
-52 kartın hepsi dağıtılır: 4 oyuncuda herkese 13. 3 oyuncuda karo 2 çıkarılır (herkese 17); 5 oyuncuda karo 2 ve maça 2 (herkese 10); 6 oyuncuda karo ve maçanın 2'leri ve 3'leri (herkese 8). As en büyük karttır, sonra papaz, kız, vale, 10 ve 2'ye kadar böyle iner.
+52 kartın hepsi dağıtılır. 3 oyuncuda karo 2 çıkarılır; 5 oyuncuda karo 2 ve maça 2; 6 oyuncuda karo ve maçanın 2'leri ve 3'leri. As en büyük karttır.
 # Kart geçirme
-Oyundan önce herkes üç kart geçirir: ilk elde sola, ikincide sağa, üçüncüde karşıya (4 veya 6 oyuncuda), dördüncüde hiç kimseye, ve böyle sürer. 3 veya 5 oyuncuda: sol, sağ, yok. Oyuncular sırayla seçer; herkes seçince kartlar el değiştirir.
+Oyundan önce herkes üç kart geçirir: ilk elde sola, ikincide sağa, üçüncüde karşıya, dördüncüde hiç kimseye, ve böyle sürer. 3 veya 5 oyuncuda: sol, sağ, yok.
 # Oyun
 - Sinek 2 kimdeyse ilk eli onunla açar.
-- Sırayla herkes yapabiliyorsa açılan renkten kart atar; yapamıyorsa istediği kartı atar.
-- Açılan rengin en büyük kartı eli alır ve eli alan bir sonrakini açar. Koz yoktur.
+- Yapabiliyorsan açılan renkten kart at. Açılan rengin en büyük kartı eli alır; koz yoktur.
 - İlk elde, başka kartı olmadıkça kimse kupa ya da maça kızı atamaz.
-- Bir kupa oynanmadan (kupa kırılmadan) kupayla el açılamaz; elinde yalnız kupa kalan hariç.
+- Bir kupa oynanmadan kupayla el açılamaz; elinde yalnız kupa kalan hariç.
 # Puanlama
 - Alınan her kupa: 1 puan. Maça kızı: 13 puan.
 - Ay'ı vurmak: 13 kupanın hepsini ve maça kızını alan oyuncu hiç puan almaz, diğer her oyuncu 26 puan alır.
 # Oyunun sonu
 Oyun, bir oyuncunun 100 puana ulaştığı elden sonra biter. En düşük toplam kazanır; eşit olanlar galibiyeti paylaşır.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür. Oyuncuların pulları masanın ortasının çevresindedir ve oynanan her kart kendi oyuncusunun pulunun önüne düşer; bir pulun yanındaki sayı o eldeki puanlardır. Kart geçirmek için üç karta dokun: ortaya giderler (geri almak için oradakilerden birine dokun); sonra kartları alacak oyuncuyu gösteren oka dokun. Aldığın kartlar ilk kartını oynayana dek biraz daha yukarıda durur. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her şerit eldeki kartları ve toplamı gösterir. Her elden sonra bir tablo herkesin o elde aldığı puanı ve toplamını gösterir (ay: onu vuran oyuncu); sonraki el için ona dokun. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir kartı geri almaz.

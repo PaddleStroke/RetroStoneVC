@@ -1,18 +1,14 @@
 Sieben Familien
 # Das Ziel
-Ganze Familien sammeln. Das Spiel hat 7 Tierfamilien, jede in ihrer eigenen Farbe: Bären, Hasen, Katzen, Mäuse, Eulen, Löwen und Frösche. Jede Familie hat 6 Mitglieder: Großvater, Großmutter, Vater, Mutter, Sohn und Tochter. Für 2 bis 6 Spieler.
+Ganze Familien sammeln: 7 Familien mit 6 Mitgliedern (Großvater, Großmutter, Vater, Mutter, Sohn und Tochter).
 # Die Karten
-- Farbe und Tier zeigen die Familie.
-- Was das Tier trägt, zeigt das Mitglied: Brille und weißer Schnurrbart beim Großvater, Brille und grauer Dutt bei der Großmutter, eine Fliege beim Vater, eine Perlenkette bei der Mutter, eine Mütze beim Sohn, eine Haarschleife bei der Tochter. Die Kinder sind kleiner.
-- Die Figur in der Ecke und die Reihe der sechs Figuren unten auf der Karte zeigen das Mitglied ebenfalls.
+- Farbe und Tier zeigen die Familie; die Figur in der Ecke zeigt das Mitglied.
 # Ein Zug
-- Zu zweit oder dritt 7 Karten für jeden, zu viert 6, zu fünft oder sechst 5. Die übrigen Karten bilden den Stapel.
-- Bitte einen anderen Spieler um eine Karte: ein Mitglied einer Familie, von der du schon eine Karte hast, aber keine Karte, die du selbst hast.
+- Zu zweit oder dritt 7 Karten für jeden, zu viert 6, zu fünft oder sechst 5. Der Rest bildet den Stapel.
+- Bitte einen anderen Spieler um ein Mitglied einer Familie, von der du schon eine Karte hast, aber keine Karte, die du selbst hast.
 - Hat er sie, gibt er sie dir, und du fragst weiter.
-- Wenn nicht, heißt es „Pioche!“: Ziehe eine Karte vom Stapel. Ist es die gewünschte Karte, fragst du weiter; sonst ist der nächste Spieler dran.
+- Wenn nicht, heißt es „Pioche!“: Ziehe vom Stapel. Ist es die gewünschte Karte, fragst du weiter; sonst ist der nächste Spieler dran.
 - Eine vollständige Familie wird sofort abgelegt.
-- Kommst du an die Reihe und hast keine Karten, ziehst du eine. Hat sonst niemand Karten, frage irgendwen: Der Stapel antwortet.
+- Hast du an der Reihe keine Karten, ziehst du eine. Hat sonst niemand Karten, frage irgendwen: Der Stapel antwortet.
 # Das Ende der Partie
 Sind alle 7 Familien abgelegt, gewinnt, wer die meisten hat; Spieler mit gleich vielen teilen sich den Sieg.
-# Spielen auf dem Gerät
-Das Gerät geht reihum: Jeder sieht unten seine Hand und gleich darüber seine Familien. Die anderen Hände sind kleine Fächer oben, jeder mit dem Stein seines Spielers, seiner Kartenzahl und seinen Familien. Der Spieler, den du fragen wirst, leuchtet: Tippe auf einen anderen, um zu wechseln. Tippe auf eine Karte deiner Hand: Die sechs Mitglieder ihrer Familie erscheinen, die du schon hast, blass. Tippe auf das Mitglied, das du willst: Die Antwort kommt sofort, die Karte fliegt vom anderen Spieler oder vom Stapel herüber. Die Mitte zeigt die letzte Frage, wer wen um welche Karte gebeten hat: Sie leuchtet, wenn die Karte gegeben wurde, und eine kleine Kartenrückseite bedeutet „Pioche“. Jede Leiste zeigt die abgelegten Familien. Rückgängig nimmt keine Frage zurück.

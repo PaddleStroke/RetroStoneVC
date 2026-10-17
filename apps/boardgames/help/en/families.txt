@@ -1,18 +1,14 @@
 Happy Families
 # The aim
-Collect whole families. The deck has 7 animal families, each with its own colour: bears, rabbits, cats, mice, owls, lions and frogs. Each family has 6 members: grandfather, grandmother, father, mother, son and daughter. For 2 to 6 players.
+Collect whole families: 7 families of 6 members (grandfather, grandmother, father, mother, son and daughter).
 # The cards
-- The colour and the animal tell the family.
-- What the animal wears tells the member: glasses and a white moustache for the grandfather, glasses and a grey bun for the grandmother, a bow tie for the father, a pearl necklace for the mother, a cap for the son, a hair bow for the daughter. The children are smaller.
-- The figure in the corner, and the row of six figures at the foot of the card, show the member too.
+- The colour and the animal tell the family; the figure in the corner tells the member.
 # A turn
-- 7 cards each with 2 or 3 players, 6 with 4, 5 with 5 or 6. The other cards make the stock.
-- Ask another player for one card: a member of a family you already hold a card of, but not a card you hold.
+- 7 cards each with 2 or 3 players, 6 with 4, 5 with 5 or 6. The rest is the stock.
+- Ask another player for a member of a family you already hold a card of, but not a card you hold.
 - If they have it, they give it to you and you ask again.
-- If not, "pioche!": draw a card from the stock. If it is the card you asked for, ask again; if not, the next player plays.
+- If not, "pioche!": draw from the stock. If it is the card you asked for, ask again; if not, the next player plays.
 - A complete family is laid down at once.
-- If your turn comes and you have no cards, draw one. If nobody else has cards, ask anyone: the stock answers.
+- With no cards on your turn, draw one. If nobody else has cards, ask anyone: the stock answers.
 # The end of the game
-When all 7 families are down, the player with the most families wins; players with as many share the win.
-# Playing on the device
-Pass the device: each player sees their own hand at the bottom and their families just above it. The other hands are small fans at the top, each with its player's token, number of cards and families. The player you will ask glows: tap another player to change. Tap a card of your hand: the six members of its family appear, the ones you hold dimmed. Tap the member you want: the answer comes at once, and the card flies over from the other player or from the stock. The middle shows the last question, who asked whom for which card: it glows if the card was given, and a small card back means "pioche". Each bar shows the families laid down. Undo cannot take back a question.
+When all 7 families are down, the most families wins; equal players share the win.

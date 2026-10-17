@@ -1,18 +1,14 @@
 Jeu des 7 familles
 # Le but
-Réunir des familles complètes. Le jeu compte 7 familles d'animaux, chacune de sa couleur : les ours, les lapins, les chats, les souris, les hiboux, les lions et les grenouilles. Chaque famille a 6 membres : le grand-père, la grand-mère, le père, la mère, le fils et la fille. De 2 à 6 joueurs.
+Réunir des familles complètes : 7 familles de 6 membres (le grand-père, la grand-mère, le père, la mère, le fils et la fille).
 # Les cartes
-- La couleur et l'animal disent la famille.
-- Ce que porte l'animal dit le membre : des lunettes et une moustache blanche pour le grand-père, des lunettes et un chignon gris pour la grand-mère, un nœud papillon pour le père, un collier de perles pour la mère, une casquette pour le fils, un nœud dans les cheveux pour la fille. Les enfants sont plus petits.
-- La silhouette dans le coin, et la rangée des six silhouettes au pied de la carte, montrent aussi le membre.
+- La couleur et l'animal disent la famille ; la silhouette dans le coin dit le membre.
 # Un tour
-- 7 cartes chacun à 2 ou 3 joueurs, 6 à 4, 5 à 5 ou 6. Les autres cartes font la pioche.
-- Demande une carte à un autre joueur : un membre d'une famille dont tu as déjà une carte, mais pas une carte que tu as.
+- 7 cartes chacun à 2 ou 3 joueurs, 6 à 4, 5 à 5 ou 6. Le reste fait la pioche.
+- Demande à un autre joueur un membre d'une famille dont tu as déjà une carte, mais pas une carte que tu as.
 - S'il l'a, il te la donne et tu demandes encore.
-- Sinon, « pioche ! » : tire une carte de la pioche. Si c'est la carte demandée, demande encore ; sinon, c'est au joueur suivant.
+- Sinon, « pioche ! » : tire une carte de la pioche. Si c'est la carte demandée, demande encore ; sinon, c'est au joueur suivant.
 - Une famille complète est posée aussitôt.
-- Si ton tour arrive et que tu n'as plus de cartes, pioches-en une. Si personne d'autre n'a de cartes, demande à n'importe qui : la pioche répond.
+- Sans cartes à ton tour, pioches-en une. Si personne d'autre n'a de cartes, demande à n'importe qui : la pioche répond.
 # La fin de la partie
-Quand les 7 familles sont posées, le joueur qui en a le plus gagne ; les joueurs à égalité partagent la victoire.
-# Jouer sur l'appareil
-L'appareil passe de main en main : chacun voit sa main en bas et ses familles juste au-dessus. Les autres mains sont de petits éventails en haut, chacun avec la pièce de son joueur, son nombre de cartes et ses familles. Le joueur à qui tu vas demander brille : touche un autre joueur pour changer. Touche une carte de ta main : les six membres de sa famille apparaissent, ceux que tu as en grisé. Touche le membre que tu veux : la réponse vient aussitôt, la carte arrive de l'autre joueur ou de la pioche. Le milieu montre la dernière question, qui a demandé quelle carte à qui : elle brille si la carte a été donnée, et un petit dos de carte veut dire « pioche ». Chaque barre montre les familles posées. Annuler ne reprend pas une question.
+Quand les 7 familles sont posées, celui qui en a le plus gagne ; les joueurs à égalité partagent la victoire.
