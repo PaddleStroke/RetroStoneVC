@@ -202,19 +202,19 @@ static void draw_trays(void)
 static void draw(void)
 {
     const xpos *p = xq_pos(&G);
-    float x, y, h = sq / 2.0f;
+    float x, y;
     palace_board(&B, t_board);
     draw_trays();
     if (G.ply) {
         xmove m = G.move[G.ply - 1];
         pt_xy(m.from, &x, &y);
-        ui_mark_last(x - h, y - h, sq, sq);
+        ui_mark_last_round(x, y, 1.12f * sq);   /* round marks: the pieces are discs on the points */
         pt_xy(m.to, &x, &y);
-        ui_mark_last(x - h, y - h, sq, sq);
+        ui_mark_last_round(x, y, 1.12f * sq);
     }
     if (sel >= 0) {
         pt_xy(sel, &x, &y);
-        ui_mark_select(x - h, y - h, sq, sq);
+        ui_mark_select_round(x, y, 1.12f * sq);
     }
     if (state != GS_DRAW && xq_in_check(p, p->side)) {
         pt_xy(xq_general(p, p->side), &x, &y);
@@ -231,6 +231,7 @@ static void draw(void)
         for (int s = 0; s < XQ_PTS; s++) {
             if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
             pt_xy(s, &x, &y);
+            if (s == sel && !(drag.on && drag.moved)) continue;   /* the selected piece: lifted, drawn last */
             if (pass) piece_at(p->sq[s], x, y, (float)sq);
             else ui_shadow_flat(x, y, (float)sq, (float)sq, 1);
         }
@@ -242,14 +243,21 @@ static void draw(void)
             else ui_mark_dot(x, y, 0.32f * sq);
         }
     }
+    if (sel >= 0 && p->sq[sel] && !(drag.on && drag.moved)) {
+        float up = 0.07f * sq;
+        pt_xy(sel, &x, &y);
+        ui_shadow_flat(x + 0.4f * up, y + 0.6f * up, 1.07f * sq, 1.07f * sq, 0.86f);
+        piece_at(p->sq[sel], x, y - up, 1.07f * sq);
+    }
     if (anim.on) {
         float x0, y0, x1, y1;
         pt_xy(anim.m.from, &x0, &y0);
         pt_xy(anim.m.to, &x1, &y1);
         x = x0 + (x1 - x0) * t;
         y = y0 + (y1 - y0) * t;
-        ui_shadow_flat(x, y, (float)sq, (float)sq, 1);
-        piece_at(p->sq[anim.m.to], x, y, (float)sq);
+        float k = 1 + 0.12f * sinf(3.14159265f * t), up = (k - 1) * sq;   /* a little hop: up, then down */
+        ui_shadow_flat(x + 0.4f * up, y + 0.6f * up, sq, sq, 1 - 2 * (k - 1));
+        piece_at(p->sq[anim.m.to], x, y - up, k * sq);
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? 0.25f : -0.25f;
