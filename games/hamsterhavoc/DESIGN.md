@@ -109,7 +109,13 @@ the same pixels; the stage sits low (`rs_screen_origin_v`: two thirds of the ext
 (draw.c `raster_out`) draws the lines past it: above, more space (the sky deeper toward the top, the stars again, the
 ringed planet of the wide screen's margin); below, the moon's deep cheese going down, darker with depth. The UI, the
 moon's rows, the shelters and the sprites are hidden there (window 1); line 0 puts the stage's settings back, so a
-240-line screen is unchanged.
+240-line screen is unchanged. During a run the HUD is at the screen's top, not mid-screen: the score chips (sprites
+at `rs_screen_top()`; 3-4 players in two rows, P3 and P4 under P1 and P2 instead of at the moon's foot) and the
+players' tags (BG1's top 32 lines, `rs_bg_pin`).
+Why not the zoomed screen (v2): the play spans the whole stage width (the ships slide over 4..316, the formation
+marches from wall to wall, the saucer crosses it all), and a zoom crops the sides to 188-236 columns on today's
+phones: a third of the play would be hidden, or a camera would have to follow the ship and hide the mice and the
+shots on the other side. The full width at the display's width it stays.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the hamster's ship bobbing between two marching mice, a seed flying up, the player slots, PRESS A TO

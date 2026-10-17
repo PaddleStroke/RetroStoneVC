@@ -7,3 +7,4 @@ draw.star_sx        a tall screen: the stars' scroll for the lines past the stag
 draw.star_sy        ... the same
 draw.deco_sx        ... the decor's scroll, the same
 draw.deco_sy        ... the same
+draw.hud_lines      a tall screen: the HUD band at the screen top (rs_bg_pin), set by draw_frame before every picture

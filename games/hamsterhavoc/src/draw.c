@@ -34,6 +34,13 @@ static int shown_key = -1, shown_best = -1;
 /* a tall screen (rs_screen_tall: a phone held upright): this frame's scrolls of the stars and the decor, for the
  * raster's lines past the stage (not saved: set by draw_frame before every picture) */
 static int star_sx, star_sy, deco_sx, deco_sy;
+/* a tall screen's HUD (the score chips and the 3-4 players' tags) at the screen's top: BG1's top HUD_LINES drawn
+ * there (rs_bg_pin), the chips two rows (P3 and P4 at line HUD_ROW2, not at the stage's foot); 0: none (set by
+ * draw_frame before every picture, not saved) */
+#define HUD_LINES  32
+#define HUD_ROW2   20
+static int hud_lines;
+static int hud_bottom(void) { return rs_screen_height() > RS_SCREEN_H ? HUD_ROW2 : 0; }
 #define PLANET_X   72           /* the ringed planet above the stage: its centre, stage x ... */
 #define PLANET_PX  360          /* ... the decor's (stage x of the margin's planet, on a wide screen) */
 #define PLANET_Y0  44           /* the decor's lines shown for it (the planet and its ring) */
@@ -52,8 +59,11 @@ static void raster_out(int line)
         rs_window(1, PLANET_X - 40, PLANET_X + 40);
         for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, RS_WIN1);
         if (line < 0) rs_bg_window(RS_BG4, 0);
-        rs_obj_window(RS_WIN1);
+        if (line < 0 && hud_lines) rs_bg_window(RS_BG1, 0);    /* the HUD's band at the screen's top (rs_bg_pin) */
+        rs_obj_window(line < 0 && hud_lines ? 0 : RS_WIN1);
     }
+    if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);     /* past the HUD's band ... */
+    if (hud_lines && line == top + HUD_ROW2 + 16) rs_obj_window(RS_WIN1);        /* ... and its second row's digits */
     if (line < 0) {
         int k = -line * 120 / -top;                         /* 0 at the stage's top .. 120 at the screen's */
         rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));
@@ -368,7 +378,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         char s[64];
         hu_clear();
         if (state == ST_TITLE) hu_logo("HAMSTER HAVOC", title_ramps, 2, 2, 0);
-        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3) hu_score_tags(w->players, 0);
+        if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3) hu_score_tags(w->players, hud_bottom());
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->landed) {
                 text_centered(13, TR(LANDED), 1);
@@ -437,6 +447,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
+    /* a tall screen (DESIGN.md "Tall screen"): during a run the score chips and the tags at the screen's top */
+    hud_lines = rs_screen_height() > RS_SCREEN_H && (state == ST_PLAY || state == ST_DEAD) ? HUD_LINES : 0;
+    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -444,7 +457,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (state == ST_PLAY || state == ST_DEAD) {
         int v[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) v[p] = w->h[p].score;
-        hu_score_chips(w->players, v, 0);       /* 1: centred; 2: x 80 / 240; 3-4: the corners */
+        /* 1: centred; 2: x 80 / 240; 3-4: the corners (a tall screen: all at the screen's top, two rows) */
+        for (int p = 0; p < w->players; p++) {
+            hu_chip c = hu_score_chip(w->players, p, hud_bottom());
+            hu_number_at(v[p], c.x, c.y + (hud_lines ? rs_screen_top() : 0), c.align, 3);
+        }
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
