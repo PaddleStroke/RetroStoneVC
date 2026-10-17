@@ -16,8 +16,8 @@
 
 /* ---- the runtime's side (arcade_play.c; stand-ins without ARCADE) ------------------------------------------------ */
 /* plays the Arcade game `id` ("leadysquid") in the renderer's window until it is left (its back button, Back, Esc),
- * full screen (Android: no system bars), the device held either way (portrait: rsb_sdl.c's picture across the width,
- * the touch buttons below it). Its save state and save RAM (its best score) are kept as the Arcade app keeps them
+ * the device held either way: full screen in landscape (Android: no system bars), the bars kept upright (rsb_sdl.c's
+ * picture across the width, the touch buttons below it). Its save state and save RAM (its best score) are kept as the Arcade app keeps them
  * (beside the app's save file: arcade-<id>.state, .srm); the session gives XP (stats.h: STATS_ARCADE). 1: the app
  * was closed meanwhile (an SDL_QUIT is queued again for the shell). */
 int  arcade_play(const char *id, SDL_Renderer *r);

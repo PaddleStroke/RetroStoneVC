@@ -66,14 +66,19 @@ static int prepare(SDL_Renderer *r, int ww, int wh)
     return 0;
 }
 
-/* Truly full screen while a game runs, in whatever way the device is held (the app's own orientation, fullUser:
- * apps/android/app-retrostone.conf's ORIENTATION; a game plays upright too, rsb_sdl.c's portrait picture).
- * Android: the system bars hidden, immersive sticky (a swipe from the edge shows them a moment), through SDL's
- * fullscreen window (SDLActivity.setWindowStyle), then as the app was. iOS: the status bar is hidden already (the
- * borderless window, apps/ios/<app>/project.yml UIStatusBarHidden); the home indicator fades out, and a swipe up
- * the edge reaches the game first (SDL_HINT_IOS_HIDE_HOME_INDICATOR, as the Arcade app does). */
+/* Full screen while a game runs in LANDSCAPE (the owner's choice: upright, the picture is tall enough and the bars
+ * stay). The device may be held either way (the app's own orientation, fullUser: apps/android/app-retrostone.conf's
+ * ORIENTATION; rsb_sdl.c's portrait picture): full_screen(ww > wh) at the start and at each change of size, 0 when
+ * the game is left. Android: the system bars hidden, immersive sticky (a swipe from the edge shows them a moment),
+ * through SDL's fullscreen window (SDLActivity.setWindowStyle), then as the app was (hiding them keeps the window's
+ * orientation: no back and forth). iOS: the status bar is hidden in the whole app already (the borderless window,
+ * apps/ios/<app>/project.yml UIStatusBarHidden); in landscape the home indicator fades out and a swipe up the edge
+ * reaches the game first (SDL_HINT_IOS_HIDE_HOME_INDICATOR, as the Arcade app does). */
+static int fs_on;
 static void full_screen(int on)
 {
+    if (on == fs_on) return;
+    fs_on = on;
 #ifdef __ANDROID__
     static Uint32 was;
     if (on) was = SDL_GetWindowFlags(win) & SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -85,8 +90,6 @@ static void full_screen(int on)
         snprintf(was, sizeof was, "%s", h ? h : "0");
     }
     SDL_SetHint(SDL_HINT_IOS_HIDE_HOME_INDICATOR, on ? "2" : was);
-#else
-    (void)on;
 #endif
 }
 
@@ -119,7 +122,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
     if (prepare(r, ww, wh)) return 0;
     if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
     if (!SDL_WasInit(SDL_INIT_AUDIO)) SDL_InitSubSystem(SDL_INIT_AUDIO);
-    full_screen(1);
+    full_screen(ww > wh);                       /* landscape: no system bars */
     SDL_AudioSpec want, have;
     SDL_zero(want);
     want.freq = RS_AUDIO_RATE;
@@ -205,6 +208,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
             case SDL_WINDOWEVENT:
                 if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {   /* turned, the bars hidden, a window resized */
                     output_size(&ww, &wh);
+                    full_screen(ww > wh);   /* turned: the bars hidden in landscape only */
                     rsb_set_height(height_for(ww, wh));
                     rsb_resize(width_for(ww, wh));
                 }
