@@ -399,16 +399,21 @@ static void make_pieces(void)
     free(board);
 }
 
-static void make_well(void)                     /* the board: a walnut frame, its floor darker wood */
+/* the board: a walnut frame, its floor darker wood, sunk: a soft shadow falling in from the frame's top and left, a
+ * lit lip along its bottom and right */
+static void make_well(void)
 {
     int w = (int)(G.cols * cell), h = (int)(G.rows * cell), f = (int)fr;
     ui_free(&t_well);
     uint8_t *b = ui_buf(w + 2 * f, h + 2 * f);
     art_plank(w, h, f, b);
+    float s = fmaxf(4, 0.9f * fr);
     for (int y = f; y < f + h; y++)
         for (int x = f; x < f + w; x++) {
             uint8_t *p = b + 4 * ((size_t)y * (w + 2 * f) + x);
-            float k = 0.5f + 0.06f * ((y - f) < 3 || (x - f) < 3 ? -1 : 0);
+            float t = fmaxf(0, 1 - (y - f) / s), l = fmaxf(0, 1 - (x - f) / (0.7f * s));
+            float k = 0.5f * (1 - 0.32f * t * t - 0.22f * l * l);
+            if (f + h - y <= 2 || f + w - x <= 2) k += 0.05f;
             for (int c = 0; c < 3; c++) p[c] = (uint8_t)(p[c] * k);
         }
     t_well = ui_tex(w + 2 * f, h + 2 * f, b);
