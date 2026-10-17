@@ -174,6 +174,7 @@ typedef struct {
 } ctx;
 
 #define NODE_LIMIT 3000000L                     /* a search's most positions (then: not known) */
+#define REPLY_LIMIT 280000L                     /* the device's reply: fewer (some 0.25 s on a PC at most) */
 
 
 
@@ -323,11 +324,11 @@ int gpz_prove(const gpz_problem *pz, const gpz_board *b, int side, int passes, c
     return GPZ_UNK;
 }
 
-int gpz_analyse(const gpz_problem *pz, const gpz_board *b, int side, int passes, const uint64_t *path, int npath,
-                int maxdepth, gpz_eval *out, long *nodes)
+static int analyse(const gpz_problem *pz, const gpz_board *b, int side, int passes, const uint64_t *path, int npath,
+                   int maxdepth, gpz_eval *out, long *nodes, long limit)
 {
     own(pz);
-    ctx s = {.pz = pz, .limit = NODE_LIMIT};
+    ctx s = {.pz = pz, .limit = limit};
     set_path(&s, path, npath);
     int mv[GPZ_MAXMOVES], n = order(pz, b, -1, mv), k = 0;
     for (int i = 0; i < n; i++) {
@@ -353,6 +354,12 @@ int gpz_analyse(const gpz_problem *pz, const gpz_board *b, int side, int passes,
     }
     if (nodes) *nodes = s.nodes;
     return k;
+}
+
+int gpz_analyse(const gpz_problem *pz, const gpz_board *b, int side, int passes, const uint64_t *path, int npath,
+                int maxdepth, gpz_eval *out, long *nodes)
+{
+    return analyse(pz, b, side, passes, path, npath, maxdepth, out, nodes, NODE_LIMIT);
 }
 
 /* ---- the problems ------------------------------------------------------------------------------------------------ */
@@ -578,7 +585,8 @@ static int reply(gpz_game *g, int *right)
     uint64_t path[256];
     gpz_eval ev[GPZ_MAXMOVES];
     local(g, g->g.nmoves, &b);
-    int np = path_of(g, path), n = gpz_analyse(&g->pz, &b, GPZ_WHITE, passes_now(g), path, np, budget(g), ev, NULL);
+    int np = path_of(g, path),
+        n = analyse(&g->pz, &b, GPZ_WHITE, passes_now(g), path, np, budget(g), ev, NULL, REPLY_LIMIT);
     int mine = g->pz.kind == GPZ_KILL ? GPZ_DWIN : GPZ_AWIN;   /* the device's win */
     int best = -1;
     for (int i = 0; i < n; i++)                 /* a refutation: the quickest win */
