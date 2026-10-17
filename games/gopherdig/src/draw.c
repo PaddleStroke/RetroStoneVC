@@ -161,18 +161,18 @@ static int tunnel_len(int r, int side)
 }
 
 /* the cell k of row r beside the well (k 0: against the stone lining) */
-static const uint16_t *side_cell(int r, int side, int k)
+static const uint16_t *side_cell(int r, int side, int k, int title)
 {
     uint32_t h = hash3(r, side * 1000 + k, 5);
     if (r < -1) {
         int rr = -r;                                    /* clouds, in pairs */
-        if (rr >= 4 && rr <= 9 && (hash3(r, side, k >> 1) % 9) == 0)
+        if (rr >= 5 && rr <= 9 && (rr & 1) && (hash3(r, side, k >> 1) % 6) == 0)   /* rows clear of the title's slots */
             return gm_cell[((k & 1) ^ side) ? CELL_CLOUD_L : CELL_CLOUD_R];
         return ZERO4;
     }
     if (r == -1) {
         static const int surf[8] = {CELL_TUFT, -1, CELL_FLOWERS0, -1, CELL_TUFT, CELL_FLOWERS1, -1, CELL_MUSHROOM};
-        int c = surf[h % 8];
+        int c = title && k < 4 ? -1 : surf[h % 8];   /* the title: no tuft under its copyright line */
         return c < 0 ? ZERO4 : gm_cell[c];
     }
     if (r == 0) return gm_cell[CELL_GRASS0 + (h & 1)];
@@ -194,7 +194,7 @@ static const uint16_t *side_cell(int r, int side, int k)
 }
 
 /* BG4's sides of ring slot (row r) in player p's region */
-static void write_sides(int p, int r)
+static void write_sides(int p, int r, int title)
 {
     int rt = region_tiles(), x0 = (p % map_nreg) * rt, wl = well_tile_x(p), ty = (r & 15) * 2;
     int ncell = (wl - 1 - x0) / 2;
@@ -211,13 +211,13 @@ static void write_sides(int p, int r)
         rs_bg_put(RS_BG4, ex & (map_mw - 1), ty + 1, e1);
         for (int k = 0; k < ncell; k++) {
             int tx = side ? wl + 2 * COLS + 1 + 2 * k : wl - 3 - 2 * k;
-            put2x2(RS_BG4, tx, ty, side_cell(r, side, k));
+            put2x2(RS_BG4, tx, ty, side_cell(r, side, k, title));
         }
         /* an odd tile left at the region's edge: earth */
         int used = 1 + 2 * ncell, left = (side ? x0 + rt - (wl + 2 * COLS) : wl - x0) - used;
         for (int i = 0; i < left; i++) {
             int tx = side ? wl + 2 * COLS + used + i : x0 + i;
-            const uint16_t *m = side_cell(r, side, ncell);
+            const uint16_t *m = side_cell(r, side, ncell, title);
             rs_bg_put(RS_BG4, tx & (map_mw - 1), ty, m[0]);
             rs_bg_put(RS_BG4, tx & (map_mw - 1), ty + 1, m[2]);
         }
@@ -258,7 +258,7 @@ static void write_row_still(const well *w, int p, int r)
         uint16_t m4[4], m3[4] = {0, 0, 0, 0};
         if (r < 0) {
             int rr = -r, pair = c >> 1;
-            if (rr >= 5 && rr <= 8 && c < COLS - 1 && hash3(r, 9, pair) % 5 == 0)
+            if ((rr == 5 || rr == 7) && c < COLS - 1 && hash3(r, 9, pair) % 3 == 0)   /* clear of the title hero */
                 memcpy(m4, gm_cell[(c & 1) ? CELL_CLOUD_R : CELL_CLOUD_L], sizeof m4);
             else
                 memset(m4, 0, sizeof m4);
@@ -286,14 +286,16 @@ static void write_row_falling(const well *w, int p, int r)
     }
 }
 
-/* the rows of player p's well that a view of height vh at camera cy shows */
-static void write_view(const well *w, int p, int cy, int vh)
+/* the rows of player p's well that a view of height vh at camera cy shows (title: the surface row as the title shows
+ * it, kept in the ring as row -1000) */
+static void write_view(const well *w, int p, int cy, int vh, int title)
 {
     int r0 = fdiv(cy, CELL), r1 = fdiv(cy + vh - 1, CELL);
     for (int r = r0; r <= r1; r++) {
-        if (slot_row[p][r & 15] != r) {
-            write_sides(p, r);
-            slot_row[p][r & 15] = (int16_t)r;
+        int key = title && r == -1 ? -1000 : r;
+        if (slot_row[p][r & 15] != key) {
+            write_sides(p, r, title && r == -1);
+            slot_row[p][r & 15] = (int16_t)key;
         }
         write_row_still(w, p, r);
     }
@@ -323,6 +325,13 @@ static void bar_tiles(void)
     uint8_t *cap = px + 19 * 64;                                /* the bar's right end */
     for (int y = 0; y < 8; y++) cap[y * 8] = HU_DARK, cap[y * 8 + 1] = (y > 0 && y < 7) ? HU_DARK : 0;
     rs_tiles_load8(VR_BG1 + BAR_TILE, px, 20);
+    /* the same on a panel (1 player): the panel's fill round it, the empty part of the bar a dark groove */
+    for (int i = 0; i < 20 * 64; i++) {
+        int bar = i >= 64 && i < 19 * 64, y = (i % 64) / 8;
+        if (px[i] == 0) px[i] = HU_FILL;
+        else if (bar && px[i] == HU_FILL && y > 0 && y < 7) px[i] = HU_OUTLINE;
+    }
+    rs_tiles_load8(VR_BG1 + BAR_TILE + 20, px, 20);
 }
 
 void draw_init(void)
@@ -521,12 +530,15 @@ static uint32_t hash_str(uint32_t h, const char *s, int x, int y)
     return h;
 }
 
-typedef struct ptext { int16_t x, y, big; char s[100]; } ptext;
+/* the play texts: big (0 small, 1 2x); box: on a panel (small: the panel's fill, 2x: the banner's gold); a panel
+ * (w x h tiles) is drawn before every text */
+typedef struct ptext { int16_t x, y, big, box, w, h; char s[100]; } ptext;
 #define PTEXTS 32
 
 static void add_text(ptext *t, int *n, int x, int y, int big, const char *s)
 {
     if (*n >= PTEXTS) return;
+    memset(&t[*n], 0, sizeof t[*n]);
     t[*n].x = (int16_t)x;
     t[*n].y = (int16_t)y;
     t[*n].big = (int16_t)big;
@@ -538,6 +550,56 @@ static void add_text(ptext *t, int *n, int x, int y, int big, const char *s)
 static void add_centred(ptext *t, int *n, int x0, int w, int y, int big, const char *s)
 {
     add_text(t, n, fdiv(x0 + w / 2, 8) - hu_width(s, big) / 2, y, big, s);
+}
+
+static void add_panel(ptext *t, int *n, int x, int y, int w, int h)
+{
+    if (*n >= PTEXTS) return;
+    add_text(t, n, x, y, 0, "");
+    t[*n - 1].w = (int16_t)w;
+    t[*n - 1].h = (int16_t)h;
+}
+
+/* the last text added goes on a panel */
+static void boxed(ptext *t, int n) { if (n > 0) t[n - 1].box = 1; }
+
+/* widescreen: a view's left part may be at negative UI columns, which the kit's ASCII paths (and its panels) do not
+ * wrap round the map: the kit draws the columns >= 0, these helpers the others, at the wrapped column */
+static int ui_mask(void) { return rs_bg_map_w(RS_BG1) - 1; }
+
+static void ui_panel(int x, int y, int w, int h)
+{
+    hu_panel(x, y, w, h);
+    if (x < 0) hu_panel(x + ui_mask() + 1, y, w, h);         /* its columns < 0 land at the map's end */
+}
+
+static void ui_small(int x, int y, const char *s, int box)
+{
+    if (box) hu_box_text(x, y, s); else hu_text(x, y, s);    /* sets the text up, loads the glyphs, checks the cells */
+    if (x >= 0 || !is_ascii(s)) return;                      /* the UTF-8 path wraps by itself */
+    for (int k = 0; s[k] && x + k < 0; k++) {
+        char one[2] = {s[k], 0};
+        rs_text((x + k) & ui_mask(), y, one);
+    }
+}
+
+static void ui_big(int x, int y, const char *s, int style)
+{
+    hu_big(x, y, s, style);
+    if (x >= 0 || !is_ascii(s)) return;
+    for (int k = 0; s[k] && x + 2 * k < 0; k++) {
+        if (s[k] == ' ') continue;
+        /* the kit's 2x glyph of that character, drawn at columns 0-1 for a moment, then moved */
+        uint16_t keep[4], e[4];
+        char one[2] = {s[k], 0};
+        for (int q = 0; q < 4; q++) keep[q] = rs_bg_get(RS_BG1, q & 1, y + (q >> 1));
+        hu_big(0, y, one, style);
+        for (int q = 0; q < 4; q++) {
+            e[q] = rs_bg_get(RS_BG1, q & 1, y + (q >> 1));
+            rs_bg_put(RS_BG1, q & 1, y + (q >> 1), keep[q]);
+        }
+        for (int q = 0; q < 4; q++) rs_bg_put(RS_BG1, (x + 2 * k + (q & 1)) & ui_mask(), y + (q >> 1), e[q]);
+    }
 }
 
 static const char *stratum_name(int s)
@@ -552,20 +614,20 @@ static const char *stratum_name(int s)
     }
 }
 
-/* the air gauge on BG1: the bubble, n tiles of bar, the end */
-static void air_gauge(int tx, int ty, int n, const gopher *g, int t)
+/* the air gauge on BG1: the bubble, n tiles of bar, the end (on_panel: its tiles drawn on the panel's fill) */
+static void air_gauge(int tx, int ty, int n, const gopher *g, int t, int on_panel)
 {
-    int mask = rs_bg_map_w(RS_BG1) - 1, low = g->air < AIR_LOW;
+    int mask = rs_bg_map_w(RS_BG1) - 1, low = g->air < AIR_LOW, bt = BAR_TILE + (on_panel ? 20 : 0);
     int fill = (int)((int64_t)g->air * (n * 8) / AIR_FULL);
     if (g->air > 0 && fill == 0) fill = 1;
     int red = low && (!g->alive || (t / 15) % 2 == 0);
-    rs_bg_put(RS_BG1, tx & mask, ty, RS_MAP(BAR_TILE, 0, 1, 0, 0));
+    rs_bg_put(RS_BG1, tx & mask, ty, RS_MAP(bt, 0, 1, 0, 0));
     for (int i = 0; i < n; i++) {
         int f = fill - i * 8;
         f = f < 0 ? 0 : f > 8 ? 8 : f;
-        rs_bg_put(RS_BG1, (tx + 1 + i) & mask, ty, RS_MAP(BAR_TILE + 1 + red * 9 + f, 0, 1, 0, 0));
+        rs_bg_put(RS_BG1, (tx + 1 + i) & mask, ty, RS_MAP(bt + 1 + red * 9 + f, 0, 1, 0, 0));
     }
-    rs_bg_put(RS_BG1, (tx + 1 + n) & mask, ty, RS_MAP(BAR_TILE + 19, 0, 1, 0, 0));
+    rs_bg_put(RS_BG1, (tx + 1 + n) & mask, ty, RS_MAP(bt + 19, 0, 1, 0, 0));
 }
 
 static int digits(int n)
@@ -573,6 +635,70 @@ static int digits(int n)
     int d = 1;
     while (n >= 10) { n /= 10; d++; }
     return d;
+}
+
+/* the 1-player HUD: two navy panels on the earth beside the well's top (the stage's columns 0-9 and 30-39; a longer
+ * word widens them towards the screen's edge): DEPTH, the big digits and the unit; AIR and the gauge */
+typedef struct hud1 { int lx, lw, rx, rw, top, h, num_x, unit_col; } hud1;
+#define HUD_DIGITS_Y 36
+static hud1 hud1_layout(int depth)
+{
+    hud1 L;
+    int dw = hu_width(TR(DEPTH), 0), aw = hu_width(TR(AIR), 0), uw = hu_width(TR(UNIT_M), 0) * 8, d = digits(depth);
+    L.lw = dw + 2 > 10 ? dw + 2 : 10;
+    L.lx = 10 - L.lw;
+    L.rw = aw + 2 > 10 ? aw + 2 : 10;
+    L.rx = 30;
+    L.top = (hu_tall(TR(DEPTH)) || hu_tall(TR(AIR))) ? 1 : 2;   /* accents and CJK use the row above */
+    L.h = 8 - L.top;
+    int cx = (L.lx * 8 + 80) / 2;                                /* the digits and the unit centred together */
+    L.unit_col = fdiv(cx + (d * 12 + 2 + uw) / 2 - uw + 4, 8);
+    L.num_x = L.unit_col * 8 - 2 - d * 6;
+    return L;
+}
+
+/* the checkpoint: "200 M" in gold and the stratum's name on a panel, centred on stage x cx from row ty (under the
+ * gopher, which stands still meanwhile); 0 when it does not fit in max_w columns */
+static int add_checkpoint(ptext *t, int *n, int cx, int ty, int max_w, const char *big, const char *name)
+{
+    int bw = hu_width(big, 1), nw = hu_width(name, 0), tb = hu_tall(big);
+    int w = (bw > nw ? bw : nw) + 4;
+    if (w > max_w) w -= 2;                                      /* a narrow view: a tighter panel */
+    if (w > max_w) return 0;
+    int x = fdiv(cx, 8) - w / 2;
+    add_panel(t, n, x, ty, w, 6 + tb);                          /* a row between: the name's accents, CJK */
+    add_text(t, n, x + (w - bw) / 2, ty + 1 + tb, 1, big);
+    boxed(t, *n);
+    add_text(t, n, x + (w - nw) / 2, ty + 4 + tb, 0, name);
+    boxed(t, *n);
+    return 1;
+}
+
+/* the race in the 4th quarter (3 players): place i's line "1ST  P2    70 M" (the player's icon in the gap after its
+ * tag), its first column and row, the icon's centre (stage x, row); the widest line's columns */
+static int race_line(const world *W, const hu_standing *rs, const vrect *v4, int i, char *s, int ns, int *x, int *y,
+                     int *icon_x, int *wmax)
+{
+    char tag[16], m[24], pre[48];
+    *wmax = 0;
+    for (int k = 0; k < rs->n; k++) {
+        int p = rs->order[k];
+        rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), p + 1);
+        rs_strf(m, sizeof m, HTR(METRES_N), W->w[p].go.depth);
+        snprintf(pre, sizeof pre, "%s  %s", hu_str(HS_RANK_1 + rs->rank[k]), tag);
+        snprintf(s, (size_t)ns, "%s    %s", pre, m);
+        int wk = hu_width(s, 0);
+        if (wk > *wmax) *wmax = wk;
+        if (k == i) *icon_x = hu_width(pre, 0) + 2;
+    }
+    int p = rs->order[i];
+    rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), p + 1);
+    rs_strf(m, sizeof m, HTR(METRES_N), W->w[p].go.depth);
+    snprintf(s, (size_t)ns, "%s  %s    %s", hu_str(HS_RANK_1 + rs->rank[i]), tag, m);
+    *x = fdiv(v4->x + v4->w / 2, 8) - *wmax / 2;                /* the lines aligned on the left */
+    *y = fdiv(v4->y, 8) + 4 + i * 3;
+    *icon_x = (*x + *icon_x) * 8;
+    return p;
 }
 
 /* the play texts (drawn again only when they change) */
@@ -583,29 +709,42 @@ static void play_texts(const world *W, int state, const vrect *v, int nv, int mu
     char s[96];
     if (!multi) {
         const gopher *g = &W->w[0].go;
-        add_centred(t, &n, 0, 88, 3, 0, TR(DEPTH));
-        add_text(t, &n, fdiv(44 + digits(g->depth) * 6 + 2, 8), 6, 0, TR(UNIT_M));
-        add_centred(t, &n, 232, 88, 3, 0, TR(AIR));
-        if (W->t < HINT_FRAMES && state == ST_PLAY) add_centred(t, &n, 0, RS_SCREEN_W, 27, 0, TR(HINT));
+        hud1 L = hud1_layout(g->depth);
+        add_panel(t, &n, L.lx, L.top, L.lw, L.h);
+        add_centred(t, &n, L.lx * 8, L.lw * 8, 3, 0, TR(DEPTH));
+        boxed(t, n);
+        add_text(t, &n, L.unit_col, 6, 0, TR(UNIT_M));
+        boxed(t, n);
+        add_panel(t, &n, L.rx, L.top, L.rw, L.h);
+        add_centred(t, &n, L.rx * 8, L.rw * 8, 3, 0, TR(AIR));
+        boxed(t, n);
+        if (W->t < HINT_FRAMES && state == ST_PLAY) {           /* the controls, on a panel over the well's bottom */
+            int hw = hu_width(TR(HINT), 0), tall = hu_tall(TR(HINT)), pw = hw + 4 > 40 ? 40 : hw + 4;
+            add_panel(t, &n, (40 - pw) / 2, 26 - tall, pw, 3 + tall);
+            add_centred(t, &n, 0, RS_SCREEN_W, 27, 0, TR(HINT));
+            boxed(t, n);
+        }
     } else {
         for (int p = 0; p < W->players && p < nv; p++) {
             const gopher *g = &W->w[p].go;
             int row = fdiv(v[p].y + v[p].h - 16, 8);
             rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
             add_text(t, &n, fdiv(v[p].x, 8) + 1, fdiv(v[p].y, 8) + 1, 0, s);
-            add_text(t, &n, fdiv(v[p].x + 6 + digits(g->depth) * 12 + 2, 8), row + 1, 0, TR(UNIT_M));
+            /* the unit 1-2 px right of the digits (rounded up: at any width the view's x is not a multiple of 8) */
+            add_text(t, &n, fdiv(v[p].x + 6 + digits(g->depth) * 12 + 1 + 7, 8), row + 1, 0, TR(UNIT_M));
         }
         if (nv == 4 && W->players == 3) {                       /* the race, in the 4th quarter */
             hu_standing rs;
             standing(W, &rs);
+            int x, y, ix, wmax, ty = fdiv(v[3].y, 8) + 2, pad = 0;
             for (int i = 0; i < rs.n; i++) {
-                char tag[16];
-                int p = rs.order[i];
-                rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), p + 1);
-                char m[24];
-                rs_strf(m, sizeof m, HTR(METRES_N), W->w[p].go.depth);
-                snprintf(s, sizeof s, "%s  %s  %s", hu_str(HS_RANK_1 + rs.rank[i]), tag, m);
-                add_centred(t, &n, v[3].x, v[3].w, fdiv(v[3].y, 8) + 4 + i * 3, 0, s);
+                race_line(W, &rs, &v[3], i, s, sizeof s, &x, &y, &ix, &wmax);
+                if (i == 0) {                                   /* on a panel when it fits in the quarter */
+                    pad = wmax + 4 <= v[3].w / 8 - 1 ? 2 : wmax + 2 <= v[3].w / 8 - 1 ? 1 : 0;
+                    if (pad) add_panel(t, &n, x - pad, ty, wmax + 2 * pad, 3 * rs.n + 2);
+                }
+                add_text(t, &n, x, y, 0, s);
+                if (pad) boxed(t, n);
             }
         }
     }
@@ -617,32 +756,28 @@ static void play_texts(const world *W, int state, const vrect *v, int nv, int mu
             add_centred(t, &n, v[p].x, v[p].w, mid - 3, 0, g->out == OUT_CRUSH ? TR(CRUSHED) : TR(NO_AIR));
         } else if (w->freeze > 0) {
             rs_strf(s, sizeof s, HTR(METRES_N), g->stratum * STRATUM_M);
-            int big = hu_width(s, 1) * 8 <= v[p].w - 8;
-            add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 4 : 6), big, s);
-            add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 1 : 3), 0, stratum_name(g->stratum));
+            const char *name = stratum_name(g->stratum);
+            int ty = fdiv(v[p].y, 8) + (v[p].h >= 200 ? 14 : 7);    /* under the gopher (view_gopher_y) */
+            if (!add_checkpoint(t, &n, multi ? v[p].x + v[p].w / 2 : view_well_x(&v[p]) + WELL_PX / 2, ty,
+                                multi ? v[p].w / 8 - 1 : 40, s, name)) {
+                int big = hu_width(s, 1) * 8 <= v[p].w - 8;          /* too long for a panel: over the scene */
+                add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 4 : 6), big, s);
+                add_centred(t, &n, v[p].x, v[p].w, mid - (multi ? 1 : 3), 0, name);
+            }
         }
     }
     uint32_t h = 2166136261u;
-    for (int i = 0; i < n; i++) h = hash_str(h, t[i].s, t[i].x, t[i].y * 3 + t[i].big);
+    for (int i = 0; i < n; i++)
+        h = hash_str(h, t[i].s, t[i].x, ((t[i].y * 3 + t[i].big) * 2 + t[i].box) * 4096 + t[i].w * 64 + t[i].h);
     if (h == shown_text) return;
     shown_text = h;
-    /* widescreen: a view's left part may be at negative UI columns, which the kit's ASCII path does not wrap: those
-     * texts are written here, a character at a time at the wrapped column, after the kit has loaded their glyphs */
-    for (int i = 0; i < n; i++)
-        if (t[i].x < 0 && !t[i].big && is_ascii(t[i].s)) hu_text(0, 29, t[i].s);
     hu_clear();
+    for (int i = 0; i < n; i++)                                 /* the panels first, the texts on them */
+        if (t[i].w > 0) ui_panel(t[i].x, t[i].y, t[i].w, t[i].h);
     for (int i = 0; i < n; i++) {
-        if (t[i].big) {
-            hu_big(t[i].x < 0 ? 0 : t[i].x, t[i].y, t[i].s, HU_BIG_FREE);
-        } else if (t[i].x < 0 && is_ascii(t[i].s)) {
-            int mask = rs_bg_map_w(RS_BG1) - 1;
-            for (int k = 0; t[i].s[k]; k++) {
-                char one[2] = {t[i].s[k], 0};
-                rs_text((t[i].x + k) & mask, t[i].y, one);
-            }
-        } else {
-            hu_text(t[i].x, t[i].y, t[i].s);
-        }
+        if (t[i].w > 0) continue;
+        if (t[i].big) ui_big(t[i].x, t[i].y, t[i].s, t[i].box ? HU_BIG_BANNER : HU_BIG_FREE);
+        else ui_small(t[i].x, t[i].y, t[i].s, t[i].box);
     }
 }
 
@@ -754,7 +889,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         /* one full view: player 1's well (the title: its grass) */
         int cy = state == ST_TITLE ? TITLE_CAM : draw_cam_y(0);
         const well *w = &W->w[0];
-        write_view(w, 0, cy - sy, RS_SCREEN_H);
+        write_view(w, 0, cy - sy, RS_SCREEN_H, state == ST_TITLE);
         VL[0].cam_y = cy - sy;
         VL[0].y0 = 0;
         VL[0].theme = -1;
@@ -766,8 +901,9 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         sview s = {rs_screen_left(), 0, rs_screen_width(), RS_SCREEN_H, view_well_x(&v[0]) - rs_screen_left(), cy, SPR_BUDGET, 0};
         if (state == ST_PLAY || state == ST_DEAD) {
             const gopher *g = &w->go;
-            hu_number(g->depth, 44, 34, 3);
-            air_gauge(30, 5, 7, g, t);
+            hud1 L = hud1_layout(g->depth);
+            hu_number(g->depth, L.num_x, HUD_DIGITS_Y, 3);
+            air_gauge(L.rx + 1, 5, 6, g, t, 1);
         } else if (state == ST_OVER) {
             if (W->players == 1) {
                 hu_gameover_sprites(1, w->go.depth, 0, best, hu_medal_of(w->go.depth, medals), st_t, slide);
@@ -804,11 +940,19 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
             VL[i].cam_y = 0;
             VL[i].y0 = (int16_t)v[i].y;
             VL[i].theme = 0;
+            hu_view_oam_begin(q);                              /* the race: each player's icon */
+            for (int k = 0; k < rs.n; k++) {
+                char s[96];
+                int x, y, ix, wmax, pk = race_line(W, &rs, &v[i], k, s, sizeof s, &x, &y, &ix, &wmax);
+                rs_spr(ix - 8 - v[i].x, y * 8 - 4 - v[i].y + hu_bob(t + pk * 16, 64, 1), gm_spr[SPR_ICON].tile, 16, 16,
+                       pk ? hu_player_pal(pk) : gm_spr[SPR_ICON].pal, 3, 0);
+            }
+            hu_view_oam_end(q);
             continue;
         }
         const well *w = &W->w[p];
         int cy = cam[p];
-        write_view(w, p, cy - sy, v[i].h);
+        write_view(w, p, cy - sy, v[i].h, 0);
         view_set(q, &v[i], 0x0f, p, cy, t, sx, sy);
         q->sy[RS_BG2] = (int16_t)((cy - sy + CELL - well_fall_px(w)) & 255);
         VL[i].cam_y = cy - sy;
@@ -817,7 +961,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         hu_view_oam_begin(q);
         const gopher *g = &w->go;
         hu_number(g->depth, 6 + digits(g->depth) * 6, v[i].h - 18, 3);
-        air_gauge(fdiv(v[i].x + v[i].w - 4, 8) - 8, fdiv(v[i].y + v[i].h - 12, 8), 6, g, t);
+        air_gauge(fdiv(v[i].x + v[i].w - 4, 8) - 8, fdiv(v[i].y + v[i].h - 12, 8), 6, g, t, 0);
         sview s = {0, 0, v[i].w, v[i].h, view_well_x(&v[i]) - v[i].x, cy, budget - (rs_oam_next() - q->oam_first), 1};
         draw_well_sprites(&s, W, p, t, sx, sy, 1);
         hu_view_oam_end(q);
