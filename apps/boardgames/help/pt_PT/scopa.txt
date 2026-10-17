@@ -1,27 +1,22 @@
 Scopa
 # O objetivo
-Apanhar cartas da mesa jogando uma carta do mesmo valor, e limpar a mesa: cada vez que ela fica vazia é uma scopa, que vale um ponto. Ganha a primeira equipa a chegar aos 11 pontos. Para 2 jogadores, ou 4 em duas equipas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade); ninguém vê as cartas dos outros.
+Apanha cartas jogando uma carta do mesmo valor, e limpa a mesa: cada vez que ela fica vazia é uma scopa, que vale um ponto. Para 2 jogadores, ou 4 em duas equipas de parceiros sentados frente a frente. Ganha a primeira equipa a chegar aos 11 pontos.
 # As cartas
-O baralho italiano de 40 cartas, em quatro naipes: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni). Cada naipe vai do 1 ao 7, depois o fante, que vale 8, o cavallo, que vale 9, e o re, que vale 10. Aqui o fante é um peão, o cavallo um cavalo e o re um rei.
-# A distribuição
-Cada jogador recebe 3 cartas e 4 cartas ficam viradas para cima na mesa (volta-se a dar se aparecerem três ou quatro re entre elas). Sempre que todas as mãos ficam vazias, cada um recebe mais 3, até o baralho acabar. Quem dá muda a cada mão, e começa o jogador seguinte.
+O baralho italiano de 40 cartas: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni), do 1 ao 7, depois o fante (8, um peão), o cavallo (9, um cavalo) e o re (10, um rei).
 # O jogo
-- Joga uma carta da tua mão.
-- Se na mesa houver uma carta do mesmo valor, a tua carta apanha-a. Se houver várias, escolhes qual.
-- Senão, se algumas cartas da mesa somarem o valor dela, a tua carta apanha-as todas. Se houver várias combinações, escolhes uma.
-- Uma carta sozinha vem sempre antes de uma soma: com um 7 na mesa, um 7 não pode apanhar um 3 e um 4.
-- Uma carta que pode apanhar tem de apanhar. Uma carta que não apanha nada fica na mesa.
+3 cartas a cada um e 4 viradas para cima na mesa (volta-se a dar se aparecerem três ou quatro re); mais 3 a cada um sempre que todas as mãos ficam vazias, até o baralho acabar.
+- Joga uma carta. Apanha uma carta da mesa do mesmo valor (se houver várias, escolhes uma); senão, cartas da mesa que somem o seu valor (se houver várias combinações, escolhes uma).
+- Uma carta sozinha vem antes de uma soma: com um 7 na mesa, um 7 não pode apanhar um 3 e um 4.
+- Uma carta que pode apanhar tem de apanhar; uma que não pode fica na mesa.
 - Esvaziar a mesa é uma scopa, que vale 1 ponto, exceto com a última carta da mão.
-- No fim da mão, as cartas que ficaram na mesa vão para quem apanhou por último.
+- No fim da mão, as cartas que ficaram vão para quem apanhou por último.
 # A pontuação
-No fim de cada mão, cada equipa marca:
-- 1 ponto por ter mais cartas;
-- 1 ponto por ter mais ouros;
-- 1 ponto pelo settebello, o 7 de ouros;
-- 1 ponto pela primiera: cada equipa pega na sua melhor carta de cada naipe, contando o 7 como 21, o 6 como 18, o ás como 16, o 5 como 15, o 4 como 14, o 3 como 13, o 2 como 12 e as figuras como 10, e ganha o total mais alto. A equipa a quem falte um naipe não tem primiera;
-- 1 ponto por cada scopa.
+Depois de cada mão, cada equipa marca 1 ponto por:
+- ter mais cartas;
+- ter mais ouros;
+- o settebello, o 7 de ouros;
+- a primiera: a melhor carta de cada naipe de cada equipa, contando o 7 como 21, o 6 como 18, o ás como 16, o 5 como 15, o 4 como 14, o 3 como 13, o 2 como 12 e as figuras como 10; ganha o total mais alto, e a equipa a quem falte um naipe não tem;
+- cada scopa.
 Em caso de empate, ninguém marca esse ponto.
 # O fim do jogo
-O jogo acaba depois da mão em que uma equipa chega aos 11 pontos; ganha a que tiver mais. Se as duas equipas estiverem empatadas, joga-se mais uma mão.
-# Jogar no dispositivo
-Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão em baixo, com o baralho à esquerda e as cartas apanhadas à direita. As cartas e os montes dos outros ficam em cima. A carta de cada scopa fica atravessada sobre o monte de quem a fez, virada para cima. Toca numa carta da tua mão: ela sobe e as cartas da mesa que pode apanhar brilham. Toca-lhe outra vez, ou toca na mesa, para a jogar; ou arrasta-a para a mesa. Se puder apanhar mais de uma carta ou combinação, toca nas cartas da mesa que queres até a soma bater certo. Depois de cada mão, uma tabela mostra para cada equipa as cartas, os ouros, o settebello, a primiera, as scope (uma carta atravessada sobre um monte), os pontos da mão e o total; as contagens que dão ponto brilham. Toca-lhe para a mão seguinte. Cada barra mostra o total da equipa. Anular desfaz uma escolha ainda não confirmada, nunca uma carta depois de o dispositivo passar.
+Depois da mão em que uma equipa chega aos 11 pontos, ganha a que tiver mais; se as duas estiverem empatadas, joga-se mais uma mão.

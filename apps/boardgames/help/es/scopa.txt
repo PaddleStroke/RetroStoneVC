@@ -1,27 +1,22 @@
 Scopa
 # El objetivo
-Llevarse cartas de la mesa jugando otra del mismo valor, y dejar la mesa limpia: cada vez que se vacía es una scopa, que vale un punto. Gana el primer equipo que llega a 11 puntos. Para 2 jugadores, o 4 en dos parejas sentadas frente a frente (marfil y rojo contra ébano y jade); nadie ve las cartas de los demás.
+Llévate cartas jugando otra del mismo valor, y deja la mesa limpia: cada vez que se vacía es una scopa, que vale un punto. Para 2 jugadores, o 4 en dos parejas sentadas frente a frente. Gana el primer equipo que llega a 11 puntos.
 # Las cartas
-La baraja italiana de 40 cartas, en cuatro palos: oros (denari), copas (coppe), espadas (spade) y bastos (bastoni). Cada palo va del 1 al 7, luego el fante, que vale 8, el cavallo, que vale 9, y el re, que vale 10. Aquí el fante es un peón, el cavallo un caballo y el re un rey.
-# El reparto
-Cada jugador recibe 3 cartas y se ponen 4 boca arriba en la mesa (se reparte de nuevo si entre ellas salen tres o cuatro re). Cada vez que todas las manos se vacían, todos reciben 3 más, hasta que se acaba el mazo. El que reparte cambia en cada ronda, y empieza el jugador que le sigue.
+La baraja italiana de 40 cartas: oros (denari), copas (coppe), espadas (spade) y bastos (bastoni), del 1 al 7, luego el fante (8, un peón), el cavallo (9, un caballo) y el re (10, un rey).
 # El juego
-- Juega una carta de tu mano.
-- Si en la mesa hay una carta del mismo valor, tu carta se la lleva. Si hay varias, eliges cuál.
-- Si no, y unas cartas de la mesa suman su valor, tu carta se las lleva todas. Si hay varias combinaciones, eliges una.
-- Una carta sola va siempre antes que una suma: con un 7 en la mesa, un 7 no puede llevarse un 3 y un 4.
-- Una carta que puede llevarse algo debe hacerlo. Una carta que no se lleva nada se queda en la mesa.
+3 cartas cada uno y 4 boca arriba en la mesa (se reparte de nuevo si salen tres o cuatro re); 3 más cada uno cada vez que todas las manos se vacían, hasta que se acaba el mazo.
+- Juega una carta. Se lleva una carta de la mesa del mismo valor (si hay varias, eliges una); si no, unas cartas de la mesa que sumen su valor (si hay varias combinaciones, eliges una).
+- Una carta sola va antes que una suma: con un 7 en la mesa, un 7 no puede llevarse un 3 y un 4.
+- Una carta que puede llevarse algo debe hacerlo; una que no puede se queda en la mesa.
 - Vaciar la mesa es una scopa, que vale 1 punto, salvo con la última carta de la ronda.
-- Al final de la ronda, las cartas que quedan en la mesa son para quien se llevó cartas el último.
+- Al final de la ronda, las cartas que quedan son para quien se llevó cartas el último.
 # La puntuación
-Al final de cada ronda, cada equipo suma:
-- 1 punto por tener más cartas;
-- 1 punto por tener más oros;
-- 1 punto por el settebello, el 7 de oros;
-- 1 punto por la primiera: cada equipo toma su mejor carta de cada palo, contando el 7 como 21, el 6 como 18, el as como 16, el 5 como 15, el 4 como 14, el 3 como 13, el 2 como 12 y las figuras como 10, y gana el total más alto. El equipo al que le falta un palo no tiene primiera;
-- 1 punto por cada scopa.
+Tras cada ronda, cada equipo se anota 1 punto por:
+- tener más cartas;
+- tener más oros;
+- el settebello, el 7 de oros;
+- la primiera: la mejor carta de cada palo de cada equipo, contando el 7 como 21, el 6 como 18, el as como 16, el 5 como 15, el 4 como 14, el 3 como 13, el 2 como 12 y las figuras como 10; gana el total más alto, y el equipo al que le falta un palo no tiene;
+- cada scopa.
 En caso de empate, ese punto no es para nadie.
 # El final de la partida
-La partida termina tras la ronda en la que un equipo llega a 11 puntos; gana el que tiene más. Si los dos equipos empatan, se juega otra ronda.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano abajo, con el mazo a la izquierda y sus cartas ganadas a la derecha. Las cartas y las bazas de los demás están arriba. La carta de cada scopa queda atravesada sobre el montón de su equipo, boca arriba. Toca una carta de tu mano: se levanta y brillan las cartas de la mesa que puede llevarse. Tócala otra vez, o toca la mesa, para jugarla; o arrástrala a la mesa. Si puede llevarse más de una carta o combinación, toca las cartas de la mesa que quieras hasta que la suma cuadre. Tras cada ronda, una tabla muestra para cada equipo sus cartas, sus oros, el settebello, la primiera, sus scope (una carta atravesada sobre un montón), los puntos de la ronda y el total; las cuentas que dan punto brillan. Tócala para la ronda siguiente. Cada barra muestra el total del equipo. Deshacer anula una elección aún no confirmada, nunca una carta una vez pasado el dispositivo.
+Tras la ronda en la que un equipo llega a 11 puntos, gana el que tiene más; si los dos empatan, se juega otra ronda.

@@ -1,24 +1,16 @@
 Prezident
 # Cíl hry
-Zbav se všech svých karet dřív než ostatní. Kdo dohraje první, stane se Prezidentem, poslední Žebrákem, a hodnosti se mění z rozdání na rozdání. Pro 3 až 6 hráčů, s balíčkem 52 karet rozdaných po jedné (někteří hráči mohou mít o kartu víc). Hraje se pět rozdání; vyhrává nejvyšší součet.
+Zbav se svých karet dřív než ostatní. Kdo dohraje první, stane se Prezidentem, poslední Žebrákem, a hodnosti se mění z rozdání na rozdání. Po pěti rozdáních vyhrává nejvyšší součet.
 # Karty
-- Od nejnižší po nejvyšší: 3, 4, 5, 6, 7, 8, 9, 10, kluk, dáma, král, eso a 2, nejvyšší ze všech.
-- Na barvách nezáleží.
+Od nejnižší po nejvyšší: 3 až 10, kluk, dáma, král, eso a 2, nejvyšší ze všech. Na barvách nezáleží.
 # Štych
 - Vynášející zahraje jednu kartu, nebo dvě, tři či čtyři karty stejné hodnoty.
-- Postupně každý z ostatních zahraje stejný počet karet vyšší hodnoty, nebo pasuje. Hráč, který pasoval, smí znovu hrát, když na něj opět přijde řada.
-- Když všichni ostatní za sebou pasují, štych končí. Poslední hráč, který hrál, vynáší do dalšího; pokud už nemá karty, vynáší další hráč, který ještě nějaké má.
+- Postupně ostatní zahrají stejný počet karet vyšší hodnoty, nebo pasují; hráč, který pasoval, smí znovu hrát, když na něj opět přijde řada.
+- Když všichni ostatní za sebou pasují, poslední hráč, který hrál, vynáší do dalšího štychu (pokud už nemá karty, další hráč, který ještě nějaké má).
 - Dvojka štych okamžitě ukončí: kdo ji zahrál, vynáší znovu.
 # Dohrání
-Hráč, který zahrál všechny své karty, dohrál. Pořadí, v jakém hráči dohrají, určuje hodnosti pro další rozdání:
-- první: Prezident, koruna;
-- druhý: Viceprezident, malá koruna (od čtyř hráčů);
-- prostřední místa: Neutrál, bez znaku;
-- předposlední: Vicežebrák, šipka dolů (od čtyř hráčů);
-- poslední: Žebrák, dvě šipky dolů.
+Pořadí, v jakém hráči dohrají, určuje hodnosti pro další rozdání: Prezident, Viceprezident (od čtyř hráčů), Neutrál uprostřed, Vicežebrák (od čtyř hráčů), Žebrák.
 # Výměna
-Od druhého rozdání dostává karty jako první Žebrák a také vynáší. Žebrák hned dá své dvě nejlepší karty Prezidentovi a Vicežebrák svou nejlepší kartu Viceprezidentovi. Potom Prezident vrátí Žebrákovi libovolné dvě karty a Viceprezident Vicežebrákovi libovolnou jednu kartu, tajně.
+Od druhého rozdání vynáší Žebrák. Žebrák dá své dvě nejlepší karty Prezidentovi a Vicežebrák svou nejlepší kartu Viceprezidentovi. Potom Prezident vrátí libovolné dvě karty a Viceprezident libovolnou jednu.
 # Počítání bodů
-V každém rozdání získá první, kdo dohraje, o bod méně, než je počet hráčů, další o bod méně a tak dál: poslední nezíská nic. Po pěti rozdáních vyhrává nejvyšší součet; hráči se stejným součtem se o vítězství dělí.
-# Hra na zařízení
-Posílejte si zařízení: každý hráč vidí jen své vlastní karty, dole, od trojek po dvojky. Podél horního okraje stolu sedí ostatní, v pořadí jejich lišt: kolik mají karet a znak pasu, pokud od posledního zahrání pasovali; po dohrání znak jejich nové hodnosti. Poslední zahrání leží velké uprostřed s žetonem svého hráče, předchozí zahrání menší za ním. Klepnutím na karty je vybereš (když odpovídáš na vynesení, vybere jedno klepnutí tolik karet té hodnoty, kolik je potřeba), pak klepni doprostřed nebo je tam přetáhni. Tlačítko Pas je ve tvé liště. Při výměně vyber karty, které dáváš, a klepni na místa vedle žetonu příjemce; karty, které jsi dostal, svítí. Každá lišta ukazuje hodnost a součet hráče. Po každém rozdání ukáže tabulka hráče v pořadí, v jakém dohráli, jejich nové hodnosti, body a součty; klepni na ni a začne další rozdání.
+V každém rozdání získá první, kdo dohraje, o bod méně, než je počet hráčů, další znovu o bod méně a tak dál až po 0 pro posledního. Hráči se stejným součtem se o vítězství dělí.

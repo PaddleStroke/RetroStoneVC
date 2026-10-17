@@ -1,24 +1,16 @@
 Presiden
 # Tujuan
-Menghabiskan semua kartumu sebelum pemain lain. Pemain pertama yang kartunya habis menjadi Presiden, yang terakhir menjadi Pengemis, dan peringkat berpindah tangan dari ronde ke ronde. Untuk 3 sampai 6 pemain, dengan dek 52 kartu yang dibagikan satu per satu (beberapa pemain mungkin mendapat satu kartu lebih). Dimainkan lima ronde; total tertinggi menang.
+Habiskan kartumu sebelum pemain lain. Pemain pertama yang kartunya habis menjadi Presiden, yang terakhir menjadi Pengemis, dan peringkat berpindah dari ronde ke ronde. Setelah lima ronde, total tertinggi menang.
 # Kartu
-- Dari terendah ke tertinggi: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, as, dan 2, yang tertinggi dari semuanya.
-- Jenis kartu tidak berpengaruh.
+Dari terendah ke tertinggi: 3 sampai 10, jack, queen, king, as, dan 2, yang tertinggi dari semuanya. Jenis kartu tidak berpengaruh.
 # Satu trik
 - Pemain yang memulai memainkan satu kartu, atau dua, tiga, atau empat kartu dengan nilai yang sama.
-- Bergiliran, setiap pemain lain memainkan jumlah kartu yang sama dengan nilai lebih tinggi, atau pas. Pemain yang sudah pas boleh bermain lagi saat gilirannya tiba kembali.
-- Saat semua pemain lain pas berturut-turut, trik selesai. Pemain terakhir yang bermain memulai trik berikutnya; jika kartunya sudah habis, yang memulai adalah pemain berikutnya yang masih punya kartu.
+- Bergiliran, pemain lain memainkan jumlah kartu yang sama dengan nilai lebih tinggi, atau pas; pemain yang sudah pas boleh bermain lagi saat gilirannya tiba kembali.
+- Saat semua pemain lain pas berturut-turut, pemain terakhir yang bermain memulai trik berikutnya (jika kartunya sudah habis, pemain berikutnya yang masih punya kartu).
 - Angka 2 langsung mengakhiri trik: pemainnya memulai lagi.
 # Keluar
-Pemain yang sudah memainkan semua kartunya keluar. Urutan keluarnya para pemain menentukan peringkat untuk ronde berikutnya:
-- pertama: Presiden, sebuah mahkota;
-- kedua: Wakil Presiden, mahkota kecil (empat pemain atau lebih);
-- tempat di tengah: Netral, tanpa tanda;
-- kedua dari terakhir: Wakil Pengemis, panah ke bawah (empat pemain atau lebih);
-- terakhir: Pengemis, dua panah ke bawah.
+Urutan keluarnya para pemain menentukan peringkat untuk ronde berikutnya: Presiden, Wakil Presiden (empat pemain atau lebih), Netral di tengah, Wakil Pengemis (empat pemain atau lebih), Pengemis.
 # Pertukaran
-Mulai ronde kedua, Pengemis mendapat kartu pertama dan memulai. Segera, Pengemis memberikan dua kartu terbaiknya kepada Presiden, dan Wakil Pengemis memberikan kartu terbaiknya kepada Wakil Presiden. Lalu Presiden mengembalikan dua kartu apa saja kepada Pengemis, dan Wakil Presiden satu kartu apa saja kepada Wakil Pengemis, secara rahasia.
+Mulai ronde kedua, Pengemis memulai. Pengemis memberikan dua kartu terbaiknya kepada Presiden, dan Wakil Pengemis kartu terbaiknya kepada Wakil Presiden. Lalu Presiden mengembalikan dua kartu apa saja, dan Wakil Presiden satu kartu apa saja.
 # Skor
-Di setiap ronde, pemain pertama yang keluar mendapat poin satu kurang dari jumlah pemain, pemain berikutnya satu poin lebih sedikit, dan seterusnya: yang terakhir tidak mendapat apa-apa. Setelah lima ronde, total tertinggi menang; pemain dengan total sama berbagi kemenangan.
-# Bermain di perangkat
-Gilirkan perangkat: setiap pemain hanya melihat kartunya sendiri, di bawah, dari 3 sampai 2. Di sepanjang bagian atas meja duduk pemain lain, sesuai urutan bilah mereka: berapa kartu yang mereka pegang, dan tanda pas jika mereka pas sejak kartu terakhir dimainkan; setelah keluar, tanda peringkat baru mereka. Kartu yang terakhir dimainkan tampil besar di tengah bersama token pemainnya, kartu-kartu sebelumnya lebih kecil di belakangnya. Ketuk kartu untuk memilihnya (saat mengikuti, satu ketukan memilih kartu bernilai itu sebanyak yang dibutuhkan), lalu ketuk bagian tengah atau seret kartu ke sana. Tombol pas ada di bilahmu. Saat pertukaran, pilih kartu yang akan diberikan dan ketuk tempat di samping token penerimanya; kartu yang kamu terima bersinar. Setiap bilah menunjukkan peringkat dan total pemain. Setelah setiap ronde, sebuah tabel menunjukkan para pemain sesuai urutan keluarnya, peringkat baru mereka, poin, dan total mereka; ketuk untuk ronde berikutnya.
+Di setiap ronde, pemain pertama yang keluar mendapat poin satu kurang dari jumlah pemain, pemain berikutnya satu lagi lebih sedikit, dan seterusnya sampai 0 untuk yang terakhir. Pemain dengan total sama berbagi kemenangan.

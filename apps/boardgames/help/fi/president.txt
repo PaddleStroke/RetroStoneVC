@@ -1,24 +1,16 @@
 Presidentti
 # Tavoite
-Päästä eroon kaikista korteistaan ennen muita. Ensimmäisenä korteistaan päässyt on Presidentti, viimeinen Kerjäläinen, ja asemat vaihtavat omistajaa jaosta toiseen. 3–6 pelaajalle, 52 kortin pakalla, joka jaetaan kortti kerrallaan (joillakin voi olla yksi kortti enemmän). Pelataan viisi jakoa; suurin yhteispistemäärä voittaa.
+Päästä eroon korteistaan ennen muita. Ensimmäisenä korteistaan päässyt on Presidentti, viimeinen Kerjäläinen, ja asemat vaihtuvat jaosta toiseen. Viiden jaon jälkeen suurin yhteispistemäärä voittaa.
 # Kortit
-- Pienimmästä suurimpaan: 3, 4, 5, 6, 7, 8, 9, 10, jätkä, kuningatar, kuningas, ässä ja 2, kaikista suurin.
-- Maalla ei ole merkitystä.
+Pienimmästä suurimpaan: 3–10, jätkä, kuningatar, kuningas, ässä ja 2, kaikista suurin. Maalla ei ole merkitystä.
 # Tikki
 - Aloittaja pelaa yhden kortin tai kaksi, kolme tai neljä samanarvoista korttia.
-- Vuorollaan kukin muista pelaa saman määrän kortteja, arvoltaan suurempia, tai passaa. Passannut pelaaja saa pelata taas, kun hänen vuoronsa tulee uudelleen.
-- Kun kaikki muut ovat passanneet peräkkäin, tikki on ohi. Viimeksi pelannut aloittaa seuraavan; jos häneltä ovat kortit loppuneet, aloittaa seuraava pelaaja, jolla niitä vielä on.
+- Vuorollaan muut pelaavat saman määrän arvoltaan suurempia kortteja tai passaavat; passannut saa pelata taas, kun hänen vuoronsa tulee uudelleen.
+- Kun kaikki muut ovat passanneet peräkkäin, viimeksi pelannut aloittaa seuraavan tikin (jos hän on ulkona, seuraava pelaaja, jolla on vielä kortteja).
 - 2 päättää tikin heti: sen pelannut aloittaa uudelleen.
 # Ulos pääseminen
-Pelaaja, joka on pelannut kaikki korttinsa, on päässyt ulos. Järjestys, jossa pelaajat pääsevät ulos, määrää asemat seuraavaan jakoon:
-- ensimmäinen: Presidentti, kruunu;
-- toinen: Varapresidentti, pieni kruunu (vähintään neljällä pelaajalla);
-- keskimmäiset sijat: Tavallinen, ei merkkiä;
-- toiseksi viimeinen: Varakerjäläinen, alaspäin osoittava nuoli (vähintään neljällä pelaajalla);
-- viimeinen: Kerjäläinen, kaksi alaspäin osoittavaa nuolta.
+Järjestys, jossa pelaajat pääsevät ulos, määrää asemat seuraavaan jakoon: Presidentti, Varapresidentti (vähintään neljällä pelaajalla), Tavallinen keskellä, Varakerjäläinen (vähintään neljällä pelaajalla), Kerjäläinen.
 # Vaihto
-Toisesta jaosta alkaen Kerjäläinen saa kortit ensimmäisenä ja aloittaa. Heti Kerjäläinen antaa kaksi parasta korttiaan Presidentille ja Varakerjäläinen parhaan korttinsa Varapresidentille. Sitten Presidentti antaa Kerjäläiselle takaisin mitkä tahansa kaksi korttia ja Varapresidentti Varakerjäläiselle minkä tahansa yhden kortin, salassa.
+Toisesta jaosta alkaen Kerjäläinen aloittaa. Kerjäläinen antaa kaksi parasta korttiaan Presidentille ja Varakerjäläinen parhaan korttinsa Varapresidentille. Sitten Presidentti antaa takaisin mitkä tahansa kaksi korttia ja Varapresidentti minkä tahansa yhden.
 # Pisteet
-Jokaisessa jaossa ensimmäisenä ulos päässyt saa yhden pisteen vähemmän kuin pelaajia on, seuraava yhden pisteen vähemmän ja niin edelleen: viimeinen ei saa mitään. Viiden jaon jälkeen suurin yhteispistemäärä voittaa; tasapisteissä olevat jakavat voiton.
-# Pelaaminen laitteella
-Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla, kolmosista kakkosiin. Pöydän yläreunassa istuvat muut, samassa järjestyksessä kuin heidän palkkinsa: kuinka monta korttia heillä on, ja passimerkki, jos he ovat passanneet viimeisimmän pelatun kortin jälkeen; ulos päästyään heidän uuden asemansa merkki. Viimeksi pelatut kortit ovat isoina keskellä pelaajansa merkin kanssa, aiemmat pienempinä niiden takana. Valitse kortit napauttamalla (kun pelaat perään, yksi napautus valitsee niin monta sen arvon korttia kuin tarvitaan), napauta sitten keskustaa tai vedä ne sinne. Passaa-painike on palkissasi. Vaihdossa valitse annettavat kortit ja napauta paikkoja vastaanottajan merkin vieressä; saamasi kortit hehkuvat. Jokainen palkki näyttää pelaajan aseman ja yhteispisteet. Jokaisen jaon jälkeen taulukko näyttää pelaajat siinä järjestyksessä, jossa he pääsivät ulos, heidän uudet asemansa, pisteensä ja yhteispisteensä; napauta sitä aloittaaksesi seuraavan jaon.
+Jokaisessa jaossa ensimmäisenä ulos päässyt saa yhden pisteen vähemmän kuin pelaajia on, seuraava taas yhden vähemmän ja niin edelleen, viimeinen 0. Tasapisteissä olevat jakavat voiton.

@@ -1,27 +1,22 @@
 Scopa
 # Målet
-Tag kort fra bordet ved at spille et kort med samme værdi, og fej bordet rent: hver gang det bliver tomt, er det en scopa, som giver et point. Det første hold, der når 11 point, vinder. For 2 spillere, eller 4 i to hold af makkere, der sidder over for hinanden (elfenben og rød mod ibenholt og jade); ingen ser de andres kort.
+Tag kort ved at matche deres værdi, og fej bordet rent: hver gang er en scopa, som giver et point. For 2 spillere, eller 4 i to hold af makkere, der sidder over for hinanden. Det første hold, der når 11 point, vinder.
 # Kortene
-Det italienske spil med 40 kort i fire kulører: mønter (denari), bægre (coppe), sværd (spade) og køller (bastoni). Hver kulør går fra 1 til 7, så kommer fante, der er 8 værd, cavallo, 9, og re, 10. Her er fante en bonde, cavallo en springer og re en konge.
-# Kortgivningen
-Hver spiller får 3 kort, og 4 kort lægges med billedsiden op på bordet (der gives om, hvis tre eller fire re ligger blandt dem). Hver gang alle hænder er tomme, får alle 3 til, indtil bunken er brugt op. Giveren rykker en plads hver runde, og spilleren efter giveren begynder.
+Det italienske spil med 40 kort: mønter (denari), bægre (coppe), sværd (spade) og køller (bastoni), fra 1 til 7, så fante (8, en bonde), cavallo (9, en springer) og re (10, en konge).
 # Spillet
-- Spil et kort fra din hånd.
-- Ligger der et kort med samme værdi på bordet, tager dit kort det. Ligger der flere, vælger du hvilket.
-- Ellers, hvis nogle kort på bordet tilsammen giver dets værdi, tager dit kort dem alle. Er der flere sådanne grupper, vælger du en.
-- Et enkelt kort går altid forud for en sum: med en 7'er på bordet kan en 7'er ikke tage en 3'er og en 4'er.
-- Et kort, der kan tage, skal tage. Et kort, der ikke tager noget, bliver liggende på bordet.
+3 kort til hver og 4 med billedsiden op på bordet (der gives om, hvis tre eller fire re ligger der); 3 til hver, hver gang alle hænder er tomme, indtil bunken er brugt op.
+- Spil et kort. Det tager et kort på bordet med samme værdi (ligger der flere, vælger du ét); ellers kort på bordet, der tilsammen giver dets værdi (er der flere grupper, vælger du en).
+- Et enkelt kort går forud for en sum: med en 7'er på bordet kan en 7'er ikke tage en 3'er og en 4'er.
+- Et kort, der kan tage, skal tage; et kort, der ikke kan, bliver liggende på bordet.
 - At tømme bordet er en scopa, som giver 1 point, undtagen med rundens allersidste kort.
-- Ved rundens slutning går kortene, der stadig ligger på bordet, til den, der tog sidst.
+- Ved rundens slutning går de resterende kort til den, der tog sidst.
 # Pointene
-Ved slutningen af hver runde får hvert hold:
-- 1 point for flest kort;
-- 1 point for flest mønter;
-- 1 point for settebello, mønt-7'eren;
-- 1 point for primiera: hvert hold tager sit bedste kort i hver kulør, hvor 7'eren tæller 21, 6'eren 18, esset 16, 5'eren 15, 4'eren 14, 3'eren 13, 2'eren 12 og billedkortene 10, og den højeste sum vinder. Et hold, der mangler en kulør, har ingen primiera;
-- 1 point for hver scopa.
+Efter hver runde får hvert hold 1 point for:
+- flest kort;
+- flest mønter;
+- settebello, mønt-7'eren;
+- primiera: hvert holds bedste kort i hver kulør, hvor 7'eren tæller 21, 6'eren 18, esset 16, 5'eren 15, 4'eren 14, 3'eren 13, 2'eren 12 og billedkortene 10; den højeste sum vinder, og et hold, der mangler en kulør, har ingen;
+- hver scopa.
 Ved lighed får ingen det point.
 # Spillets afslutning
-Spillet slutter efter den runde, hvor et hold når 11 point; holdet med flest point vinder. Står holdene lige, spilles der en runde mere.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd forneden, med bunken til venstre og sine tagne kort til højre. De andres kort og bunker ligger øverst. Kortet fra hver scopa ligger på tværs og med billedsiden op under holdets bunke. Tryk på et kort på din hånd: det løfter sig, og kortene på bordet, som det kan tage, lyser. Tryk på det igen, eller på bordet, for at spille det; eller træk det ind på bordet. Kan det tage mere end ét kort eller én gruppe, så tryk på de kort på bordet, du vil have, indtil summen passer. Efter hver runde viser en tabel for hvert hold kortene, mønterne, settebello, primiera, scope (et kort på tværs af en bunke), rundens point og summen; det, der giver point, lyser. Tryk på den for næste runde. Hver bjælke viser holdets sum. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et kort, når enheden er givet videre.
+Efter den runde, hvor et hold når 11 point, vinder holdet med flest point; står holdene lige, spilles der en runde mere.

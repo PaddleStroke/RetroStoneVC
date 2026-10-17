@@ -1,16 +1,13 @@
 Rikiki
 # The aim
-Say exactly how many tricks you will take, then take exactly that many. For 3 to 6 players passing the device round; nobody sees the others' cards.
+Say exactly how many tricks you will take, then take exactly that many.
 # The cards
-52 cards; the ace is the highest card. The first deal gives 1 card each, the next 2, and so on up to the most (13; 10 with 5 players; 8 with 6), then back down to 1. After each deal the next card of the pack is turned face up: its suit is trumps. When no card is left (4 players, 13 cards each) the deal has no trumps.
+52 cards, ace high. The first deal gives 1 card each, the next 2, and so on up to the most (13; 10 with 5 players; 8 with 6), then back down to 1. After each deal the next card is turned face up: its suit is trumps. When no card is left, there are no trumps.
 # Bidding
-The player after the dealer bids first, the dealer last. Each player says how many tricks they will take, from 0 to the number of cards in hand. The dealer may not make the bids add up to the number of cards each player holds: somebody must fail (the dealer's rule, usual in France).
+The player after the dealer bids first, the dealer last: from 0 to the number of cards in hand. The dealer may not make the bids add up to the number of cards each holds: somebody must fail.
 # Playing
 The player after the dealer leads. Follow suit if you can; otherwise play any card (you need not trump). The highest trump wins the trick, or else the highest card of the suit led; its winner leads the next.
 # Scoring
 - The bid made exactly: 10 points and 1 more for each trick taken.
 - Missed: minus 1 for each trick too many or too few.
-# The end of the game
 After the last deal of one card, the highest total wins; tied players share the win.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom. To bid, tap a number on the pad (the dealer's forbidden number is struck out), then the tick. Each token shows its bid in a dark disc and the tricks taken beside it; a small card back marks the dealer. The turned card lies in the lower left corner (struck out: no trumps). To play, tap a glowing card so it rises, then tap it again or its place in the middle; or drag it there. Tap the pile at the bottom right to see the last trick. Each bar shows the cards in hand and the total. After each deal a table shows every player's bid, tricks (in gold: made exactly), points and total; tap it for the next deal. Undo takes back a choice not yet made, never a card once the device has passed.

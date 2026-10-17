@@ -1,22 +1,15 @@
 Piramide
 # Het doel
-Maak de piramide van 28 kaarten leeg door paren kaarten weg te nemen die samen 13 zijn. Een spel voor één speler.
-# De opstelling
-- 28 open kaarten in een piramide van zeven rijen; elke rij ligt half over de rij erboven.
-- De andere 24 kaarten vormen de stapel, gedekt, onder de piramide; ernaast liggen de omgedraaide kaart en de getrokken kaarten.
-- Rechts ligt de hoop weggenomen kaarten.
+Maak de piramide van 28 kaarten leeg door paren kaarten weg te nemen die samen 13 zijn.
 # Kaarten verplaatsen
-- Een kaart is vrij als er geen kaart meer over ligt. Aan het begin is de onderste rij vrij.
-- Neem twee vrije kaarten weg die samen 13 zijn: een aas telt 1, een boer 11, een vrouw 12. Een vrouw gaat met een aas, een boer met een 2, een 10 met een 3, een 9 met een 4, een 8 met een 5, een 7 met een 6.
+- Een kaart is vrij als er geen kaart meer over ligt.
+- Neem twee vrije kaarten weg die samen 13 zijn: een aas telt 1, een boer 11, een vrouw 12.
 - Een heer telt 13: hij gaat alleen weg.
 - De omgedraaide kaart en de bovenste getrokken kaart zijn ook vrij: maak er een paar mee met een kaart van de piramide, of met elkaar.
 # De stapel
-- Tik op de stapel om de bovenste kaart om te draaien. Draai je de volgende om, dan gaat de omgedraaide kaart bij de getrokken kaarten.
-- Eén ronde: de stapel gaat maar één keer rond.
-- Drie rondes: is de stapel leeg, tik dan op zijn plek om de getrokken kaarten om te draaien en weer als stapel te gebruiken. Het getal onder de stapel toont de rondes die over zijn.
+- Tik op de stapel om de bovenste kaart om te draaien; de kaart die eerder was omgedraaid, gaat bij de getrokken kaarten.
+- Met één ronde gaat de stapel maar één keer rond. Met drie rondes tik je op de lege stapel om de getrokken kaarten weer om te draaien.
 # Het einde van de partij
-Je wint zodra de piramide leeg is, ook als er nog kaarten in de stapel of bij de getrokken kaarten liggen. De partij is verloren als er geen zet meer is. De kaarten worden willekeurig geschud, dus niet elk spel is te winnen.
+Je wint zodra de piramide leeg is, ook als er nog kaarten in de stapel of bij de getrokken kaarten liggen. De partij is verloren als er geen zet meer is.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. In de hoofdstukken 1 tot 5 gaat de stapel drie keer rond, in hoofdstuk 6 één keer. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
-# Spelen op het apparaat
-Tik op een kaart om hem op te tillen en tik dan op de kaart die er samen 13 mee is; tik nog eens op een opgetilde kaart om hem terug te leggen. Een heer gaat weg met één tik. Je kunt een kaart ook op zijn partner slepen. De lamp toont een mogelijke zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Zonder hint en zonder ongedaan gemaakte zet: 3 sterren.

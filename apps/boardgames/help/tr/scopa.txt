@@ -1,27 +1,22 @@
 Scopa
 # Amaç
-Aynı değerde bir kart oynayarak masadan kart topla ve masayı süpür: masa her boşaldığında bu bir scopa'dır ve bir puan getirir. 11 puana ilk ulaşan taraf kazanır. 2 oyuncu için, ya da karşılıklı oturan iki kişilik iki takım hâlinde 4 oyuncu için (fildişi ve kırmızı, abanoz ve yeşime karşı); kimse başkalarının kartlarını görmez.
+Aynı değerde bir kart oynayarak kart topla ve masayı süpür: her süpürme bir scopa'dır ve bir puan getirir. 2 oyuncu için, ya da karşılıklı oturan iki kişilik iki takım hâlinde 4 oyuncu için. 11 puana ilk ulaşan taraf kazanır.
 # Kartlar
-Dört renkten 40 kartlık İtalyan destesi: sikkeler (denari), kupalar (coppe), kılıçlar (spade) ve sopalar (bastoni). Her renk 1'den 7'ye gider, sonra 8 değerindeki fante, 9 değerindeki cavallo ve 10 değerindeki re gelir. Burada fante bir piyon, cavallo bir at, re de bir şahtır.
-# Dağıtım
-Her oyuncu 3 kart alır ve masaya 4 kart açık konur (aralarında üç ya da dört re varsa yeniden dağıtılır). Bütün eller her boşaldığında herkes 3 kart daha alır; deste bitene kadar böyle sürer. Dağıtan her elde bir kişi kayar ve dağıtandan sonraki oyuncu başlar.
+40 kartlık İtalyan destesi: sikkeler (denari), kupalar (coppe), kılıçlar (spade) ve sopalar (bastoni); 1'den 7'ye, sonra fante (8, bir piyon), cavallo (9, bir at) ve re (10, bir şah).
 # Oyun
-- Elinden bir kart oyna.
-- Masada aynı değerde bir kart varsa, kartın onu alır. Birden çok varsa, hangisini alacağını sen seçersin.
-- Yoksa, masadaki bazı kartların toplamı onun değerini tutuyorsa, kartın hepsini alır. Böyle birden çok grup varsa, birini seçersin.
-- Tek kart her zaman toplamdan önce gelir: masada bir 7 varken, bir 7 bir 3 ile bir 4'ü alamaz.
-- Alabilen kart almak zorundadır. Hiçbir şey almayan kart masada kalır.
+Herkese 3 kart, masaya da 4 açık kart (üç ya da dört re çıkarsa yeniden dağıtılır); bütün eller her boşaldığında, deste bitene kadar herkese 3 kart daha.
+- Bir kart oyna. Masadaki aynı değerde bir kartı alır (birden çok varsa birini seçersin); yoksa toplamı onun değerini tutan masa kartlarını alır (birden çok grup varsa birini seçersin).
+- Tek kart toplamdan önce gelir: masada bir 7 varken, bir 7 bir 3 ile bir 4'ü alamaz.
+- Alabilen kart almak zorundadır; alamayan masada kalır.
 - Masayı boşaltmak scopa'dır ve 1 puan getirir; elin en son kartıyla yapılan hariç.
-- El bitince masada kalan kartlar en son alan oyuncuya gider.
+- El bitince kalan kartlar en son alan oyuncuya gider.
 # Puanlama
-Her elin sonunda her taraf şunları kazanır:
-- en çok kart için 1 puan;
-- en çok sikke için 1 puan;
-- settebello, yani sikke 7'si için 1 puan;
-- primiera için 1 puan: her taraf her renkteki en iyi kartını alır; 7 21, 6 18, as 16, 5 15, 4 14, 3 13, 2 12 ve resimli kartlar 10 sayılır, büyük toplam kazanır. Bir rengi eksik olan tarafın primierası olmaz;
-- her scopa için 1 puan.
+Her elden sonra her taraf şunlar için 1 puan alır:
+- en çok kart;
+- en çok sikke;
+- settebello, yani sikke 7'si;
+- primiera: her tarafın her renkteki en iyi kartı; 7 21, 6 18, as 16, 5 15, 4 14, 3 13, 2 12, resimli kartlar 10 sayılır; büyük toplam kazanır, bir rengi eksik olan tarafın primierası olmaz;
+- her scopa.
 Eşitlikte o puanı kimse almaz.
 # Oyunun sonu
-Oyun, bir tarafın 11 puana ulaştığı elden sonra biter; puanı çok olan kazanır. İki taraf eşitse bir el daha oynanır.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve elini altta görür, solunda deste, sağında aldığı kartlar. Diğerlerinin kartları ve yığınları üsttedir. Her scopa'nın kartı, tarafının yığınının altında enine ve açık durur. Elindeki bir karta dokun: yükselir ve masada alabileceği kartlar parlar. Oynamak için ona yeniden ya da masaya dokun; ya da onu masaya sürükle. Birden çok kart ya da grup alabiliyorsa, toplam tutana kadar masada istediğin kartlara dokun. Her elden sonra bir tablo her taraf için kartları, sikkeleri, settebelloyu, primierayı, scopaları (bir yığının üzerinde enine bir kart), elin puanlarını ve toplamı gösterir; puan getirenler parlar. Sonraki el için tabloya dokun. Her şerit tarafın toplamını gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir kartı geri almaz.
+Bir tarafın 11 puana ulaştığı elden sonra puanı çok olan kazanır; iki taraf eşitse bir el daha oynanır.

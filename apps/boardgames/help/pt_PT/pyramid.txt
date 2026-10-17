@@ -1,22 +1,15 @@
 Pirâmide
 # O objetivo
-Esvaziar a pirâmide de 28 cartas tirando pares de cartas que somam 13. Um jogo para um jogador.
-# A disposição
-- 28 cartas voltadas para cima numa pirâmide de sete filas; cada fila tapa metade da fila de cima.
-- As outras 24 cartas formam o baralho, voltadas para baixo, por baixo da pirâmide; ao lado, a carta virada e o descarte.
-- À direita, o monte das cartas tiradas.
+Esvazia a pirâmide de 28 cartas tirando pares de cartas que somam 13.
 # Mover as cartas
-- Uma carta está livre quando já nenhuma carta a tapa. No início, a fila de baixo está livre.
-- Tira duas cartas livres que somam 13: o ás vale 1, o valete 11, a dama 12. Uma dama vai com um ás, um valete com um 2, um 10 com um 3, um 9 com um 4, um 8 com um 5, um 7 com um 6.
+- Uma carta está livre quando já nenhuma carta a tapa.
+- Tira duas cartas livres que somam 13: o ás vale 1, o valete 11, a dama 12.
 - O rei vale 13: sai sozinho.
 - A carta virada e a de cima do descarte também estão livres: junta-as a uma carta da pirâmide, ou uma à outra.
 # O baralho
-- Toca no baralho para virar a carta de cima. Ao virares a seguinte, a carta virada vai para o descarte.
-- Uma passagem: o baralho só é percorrido uma vez.
-- Três passagens: quando o baralho fica vazio, toca no lugar dele para voltar o descarte e usá-lo outra vez como baralho. O número por baixo do baralho mostra as passagens que restam.
+- Toca no baralho para virar a carta de cima; a carta virada antes vai para o descarte.
+- Com uma passagem, o baralho só é percorrido uma vez. Com três passagens, toca no baralho vazio para voltar o descarte.
 # O fim do jogo
-Ganhas assim que a pirâmide fica vazia, mesmo que sobrem cartas no baralho ou no descarte. O jogo está perdido quando já não há nenhuma jogada. As cartas são baralhadas ao acaso, por isso nem todas as distribuições se podem ganhar.
+Ganhas assim que a pirâmide fica vazia, mesmo que sobrem cartas no baralho ou no descarte. O jogo está perdido quando já não há nenhuma jogada.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Nos capítulos 1 a 5 o baralho é percorrido três vezes, no capítulo 6, só uma vez. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
-# Jogar no dispositivo
-Toca numa carta para a levantar e depois na carta que soma 13 com ela; toca outra vez numa carta levantada para a pousar. Um rei sai com um só toque. Também podes arrastar uma carta até ao par dela. A lâmpada mostra uma jogada possível; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Sem pistas nem jogadas anuladas: 3 estrelas.

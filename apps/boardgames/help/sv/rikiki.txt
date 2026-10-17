@@ -1,16 +1,13 @@
 Rikiki
 # Målet
-Säg exakt hur många stick du tar, och ta sedan exakt så många. För 3 till 6 spelare som skickar enheten runt; ingen ser de andras kort.
+Säg exakt hur många stick du tar, och ta sedan exakt så många.
 # Korten
-52 kort; esset är högsta kortet. I första given får varje spelare 1 kort, i nästa 2 och så vidare upp till det högsta (13; 10 med 5 spelare; 8 med 6), sedan ner igen till 1. Efter varje utdelning vänds nästa kort i leken upp: dess färg är trumf. Finns inget kort kvar (4 spelare, 13 kort var) spelas given utan trumf.
+52 kort; esset är högst. I första given får var och en 1 kort, i nästa 2 och så vidare upp till det högsta (13; 10 med 5 spelare; 8 med 6), sedan ner igen till 1. Efter varje utdelning vänds nästa kort upp: dess färg är trumf. Finns inget kort kvar spelas det utan trumf.
 # Budgivningen
-Spelaren efter givaren bjuder först, givaren sist. Varje spelare säger hur många stick han ska ta, från 0 till antalet kort på handen. Givaren får inte bjuda så att buden tillsammans blir lika med antalet kort varje spelare har: någon måste gå bet (givarens regel, vanlig i Frankrike).
+Spelaren efter givaren bjuder först, givaren sist: från 0 till antalet kort på handen. Givaren får inte bjuda så att buden tillsammans blir lika med antalet kort var och en har: någon måste gå bet.
 # Spelet
 Spelaren efter givaren spelar ut. Bekänn färg om du kan; annars spela valfritt kort (du behöver inte trumfa). Högsta trumfen vinner sticket, annars det högsta kortet i utspelad färg; vinnaren spelar ut till nästa.
 # Poängen
 - Budet taget exakt: 10 poäng och 1 till för varje taget stick.
 - Bet: minus 1 för varje stick för mycket eller för lite.
-# Partiets slut
 Efter sista given med ett kort vinner högsta summan; spelare som står lika delar segern.
-# Spela på enheten
-Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner. För att bjuda trycker du på ett tal på knappsatsen (givarens förbjudna tal är överstruket) och sedan på bocken. Varje bricka visar sitt bud i en mörk skiva och de tagna sticken bredvid; en liten kortbaksida markerar givaren. Det uppvända kortet ligger i hörnet nere till vänster (överstruket: utan trumf). För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Tryck på högen längst ner till höger för att se det senaste sticket. Varje list visar korten på handen och summan. Efter varje giv visar en tavla varje spelares bud, stick (i guld: taget exakt), poäng och summa; tryck på den för nästa giv. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.

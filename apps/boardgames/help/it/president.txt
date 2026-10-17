@@ -1,24 +1,16 @@
 Presidente
 # Lo scopo
-Liberarsi di tutte le carte prima degli altri. Il primo a finire le carte diventa il Presidente, l'ultimo il Mendicante, e i titoli passano di mano da una smazzata all'altra. Da 3 a 6 giocatori, con un mazzo di 52 carte distribuite una alla volta (alcuni possono averne una in più). Si giocano cinque smazzate; vince il totale più alto.
+Liberarsi delle carte prima degli altri. Il primo a finire le carte diventa il Presidente, l'ultimo il Mendicante, e i titoli cambiano da una smazzata all'altra. Dopo cinque smazzate vince il totale più alto.
 # Le carte
-- Dalla più bassa alla più alta: 3, 4, 5, 6, 7, 8, 9, 10, fante, donna, re, asso, e il 2, la più alta di tutte.
-- I semi non contano.
+Dalla più bassa alla più alta: dal 3 al 10, fante, donna, re, asso, e il 2, la più alta di tutte. I semi non contano.
 # Una presa
 - Chi apre gioca una carta, oppure due, tre o quattro carte dello stesso valore.
-- A turno, ognuno degli altri gioca lo stesso numero di carte, di valore più alto, oppure passa. Chi ha passato può giocare di nuovo quando torna il suo turno.
-- Quando tutti gli altri hanno passato di fila, la presa è finita. L'ultimo che ha giocato apre la successiva; se non ha più carte, apre il giocatore successivo che ne ha ancora.
+- A turno, gli altri giocano lo stesso numero di carte di valore più alto, oppure passano; chi ha passato può giocare di nuovo quando torna il suo turno.
+- Quando tutti gli altri hanno passato di fila, l'ultimo che ha giocato apre la presa successiva (se non ha più carte, il giocatore successivo che ne ha ancora).
 - Un 2 chiude subito la presa: chi l'ha giocato apre di nuovo.
 # Uscire
-Un giocatore che ha giocato tutte le sue carte è fuori. L'ordine in cui i giocatori escono dà i titoli per la smazzata successiva:
-- il primo: Presidente, una corona;
-- il secondo: Vicepresidente, una piccola corona (da quattro giocatori in su);
-- i posti di mezzo: Neutrale, nessun segno;
-- il penultimo: Vicemendicante, una freccia in giù (da quattro giocatori in su);
-- l'ultimo: Mendicante, due frecce in giù.
+L'ordine in cui i giocatori escono dà i titoli per la smazzata successiva: Presidente, Vicepresidente (da quattro giocatori in su), Neutrale in mezzo, Vicemendicante (da quattro giocatori in su), Mendicante.
 # Lo scambio
-Dalla seconda smazzata in poi, il Mendicante riceve le carte per primo e apre. Subito il Mendicante dà le sue due carte migliori al Presidente, e il Vicemendicante la sua carta migliore al Vicepresidente. Poi il Presidente restituisce al Mendicante due carte a scelta, e il Vicepresidente una carta a scelta al Vicemendicante, in segreto.
+Dalla seconda smazzata in poi, apre il Mendicante. Il Mendicante dà le sue due carte migliori al Presidente, e il Vicemendicante la sua carta migliore al Vicepresidente. Poi il Presidente restituisce due carte a scelta, e il Vicepresidente una.
 # Il punteggio
-In ogni smazzata il primo a uscire segna un punto in meno del numero di giocatori, il successivo un punto in meno, e così via: l'ultimo non segna niente. Dopo cinque smazzate vince il totale più alto; i giocatori in parità condividono la vittoria.
-# Giocare sul dispositivo
-Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso, dai 3 fino ai 2. Lungo il lato alto del tavolo siedono gli altri, nell'ordine delle loro barre: quante carte hanno in mano, e un segno di passo se hanno passato dall'ultima giocata; una volta fuori, il segno del loro nuovo titolo. L'ultima giocata sta in grande al centro con la pedina del suo giocatore, le giocate precedenti più piccole dietro. Tocca le carte per sceglierle (quando rispondi, un tocco sceglie tante carte di quel valore quante ne servono), poi tocca il centro o trascinale lì. Il pulsante passo è nella tua barra. Nello scambio, scegli le carte da dare e tocca i posti accanto alla pedina di chi le riceve; le carte che hai ricevuto brillano. Ogni barra mostra il titolo e il totale del giocatore. Dopo ogni smazzata, una tabella mostra i giocatori nell'ordine in cui sono usciti, i loro nuovi titoli, i punti e i totali; toccala per la smazzata successiva.
+In ogni smazzata il primo a uscire segna un punto in meno del numero di giocatori, il successivo un punto in meno, e così via fino a 0 per l'ultimo. I giocatori in parità condividono la vittoria.

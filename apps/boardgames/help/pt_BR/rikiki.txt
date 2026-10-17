@@ -1,16 +1,13 @@
 Rikiki
 # O objetivo
-Dizer exatamente quantas vazas você vai fazer e depois fazer exatamente essas. De 3 a 6 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+Dizer exatamente quantas vazas você vai fazer e depois fazer exatamente essas.
 # As cartas
-52 cartas; o ás é a carta mais alta. A primeira rodada dá 1 carta para cada um, a seguinte 2, e assim por diante até o máximo (13; 10 com 5 jogadores; 8 com 6), e depois volta a descer até 1. Depois de cada distribuição, a carta seguinte do baralho é virada para cima: o seu naipe é o trunfo. Quando não sobra nenhuma carta (4 jogadores, 13 cartas cada), a rodada é jogada sem trunfo.
+52 cartas; o ás é a mais alta. A primeira rodada dá 1 carta para cada um, a seguinte 2, e assim por diante até o máximo (13; 10 com 5 jogadores; 8 com 6), e depois volta a descer até 1. Depois de cada distribuição, a carta seguinte é virada para cima: o seu naipe é o trunfo. Quando não sobra nenhuma carta, não há trunfo.
 # Os lances
-O jogador depois de quem deu as cartas dá o primeiro lance, e quem deu as cartas o último. Cada um diz quantas vazas vai fazer, de 0 até o número de cartas na mão. Quem deu as cartas não pode fazer os lances somarem o número de cartas de cada jogador: alguém tem de errar (a regra do carteador, comum na França).
+O jogador depois de quem deu as cartas dá o primeiro lance, e quem deu as cartas o último: de 0 até o número de cartas na mão. Quem deu as cartas não pode fazer os lances somarem o número de cartas de cada jogador: alguém tem de errar.
 # O jogo
-O jogador depois de quem deu as cartas abre. Siga o naipe de saída se puder; senão, jogue qualquer carta (você não é obrigado a jogar trunfo). O trunfo mais alto ganha a vaza, ou então a carta mais alta do naipe de saída; quem ganha abre a próxima.
+O jogador depois de quem deu as cartas abre. Siga o naipe se puder; senão, jogue qualquer carta (você não é obrigado a jogar trunfo). O trunfo mais alto ganha a vaza, ou então a carta mais alta do naipe de saída; quem ganha abre a próxima.
 # A pontuação
 - Lance cumprido exatamente: 10 pontos e mais 1 por vaza feita.
 - Lance errado: menos 1 por vaza a mais ou a menos.
-# O fim da partida
 Depois da última rodada de uma carta, vence o maior total; os empatados dividem a vitória.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo. Para dar o lance, toque num número do teclado (o número proibido para quem deu as cartas aparece riscado) e depois no sinal de confirmação. Cada ficha mostra o seu lance num disco escuro e as vazas feitas ao lado; um pequeno verso de carta marca quem deu as cartas. A carta virada fica no canto inferior esquerdo (riscada: sem trunfo). Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. Toque no monte embaixo à direita para ver a última vaza. Cada barra mostra as cartas na mão e o total. Depois de cada rodada, uma tabela mostra o lance, as vazas (em dourado: lance cumprido exatamente), os pontos e o total de cada um; toque nela para a próxima rodada. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.

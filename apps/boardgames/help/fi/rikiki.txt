@@ -1,16 +1,13 @@
 Rikiki
 # Tavoite
-Sano tarkalleen, montako tikkiä otat, ja ota juuri niin monta. 3–6 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Sano tarkalleen, montako tikkiä otat, ja ota juuri niin monta.
 # Kortit
-52 korttia; ässä on suurin. Ensimmäisessä jaossa jokainen saa 1 kortin, seuraavassa 2 ja niin edelleen suurimpaan asti (13; viidellä pelaajalla 10; kuudella 8), sitten taas alas 1:een. Jokaisen jaon jälkeen pakan seuraava kortti käännetään: sen maa on valtti. Kun kortteja ei jää (4 pelaajaa, 13 korttia kullekin), jako pelataan ilman valttia.
+52 korttia; ässä on suurin. Ensimmäisessä jaossa jokainen saa 1 kortin, seuraavassa 2 ja niin edelleen suurimpaan asti (13; viidellä pelaajalla 10; kuudella 8), sitten taas alas 1:een. Jokaisen jaon jälkeen seuraava kortti käännetään: sen maa on valtti. Kun kortteja ei jää, pelataan ilman valttia.
 # Tarjoukset
-Jakajan jälkeinen pelaaja tarjoaa ensin, jakaja viimeisenä. Jokainen sanoo, montako tikkiä ottaa, 0:sta kädessä olevien korttien määrään. Jakaja ei saa tehdä tarjousten summasta yhtä suurta kuin kunkin korttimäärä: jonkun on epäonnistuttava (jakajan sääntö, Ranskassa yleinen).
+Jakajan jälkeinen pelaaja tarjoaa ensin, jakaja viimeisenä: 0:sta kädessä olevien korttien määrään. Jakaja ei saa tehdä tarjousten summasta yhtä suurta kuin kunkin korttimäärä: jonkun on epäonnistuttava.
 # Pelaaminen
 Jakajan jälkeinen pelaaja avaa. Tunnusta maata jos voit; muuten pelaa mikä tahansa kortti (valtata ei tarvitse). Suurin valtti voittaa tikin, muuten avatun maan suurin kortti; voittaja avaa seuraavan.
 # Pisteet
 - Tarjous tarkalleen: 10 pistettä ja 1 lisää jokaisesta tikistä.
 - Ohi: miinus 1 jokaisesta liian monesta tai liian vähästä tikistä.
-# Pelin loppu
 Viimeisen yhden kortin jaon jälkeen suurin yhteissumma voittaa; tasapisteissä olevat jakavat voiton.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla. Tarjoa napauttamalla numeroa (jakajan kielletty luku on yliviivattu), sitten valintamerkkiä. Jokainen nappula näyttää tarjouksensa tummassa kiekossa ja vieressä otetut tikit; pieni kortin selkä merkitsee jakajaa. Käännetty kortti on vasemmassa alakulmassa (yliviivattu: ei valttia). Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokainen palkki näyttää kädessä olevat kortit ja yhteissumman. Jokaisen jaon jälkeen taulukko näyttää kunkin tarjouksen, tikit (kultaiset: tarkalleen), pisteet ja yhteissumman; napauta sitä seuraavaa jakoa varten. Kumoa peruu vahvistamattoman valinnan, ei koskaan korttia sen jälkeen, kun laite on annettu eteenpäin.

@@ -1,22 +1,15 @@
 Pyramidi
 # Tavoite
-Tyhjennä 28 kortin pyramidi poistamalla korttipareja, joiden summa on 13. Peli yhdelle pelaajalle.
-# Asetelma
-- 28 korttia kuvapuoli ylöspäin seitsemänrivisenä pyramidina; jokainen rivi peittää puolet yläpuolisesta rivistä.
-- Loput 24 korttia ovat pakka, kuvapuoli alaspäin, pyramidin alla; sen vieressä ovat käännetty kortti ja poistopino.
-- Oikealla on poistettujen korttien kasa.
+Tyhjennä 28 kortin pyramidi poistamalla korttipareja, joiden summa on 13.
 # Korttien siirtäminen
-- Kortti on vapaa, kun mikään kortti ei enää ole sen päällä. Alussa alin rivi on vapaa.
-- Poista kaksi vapaata korttia, joiden summa on 13: ässä on 1, sotilas 11, rouva 12. Rouva käy ässän kanssa, sotilas kakkosen, kymppi kolmosen, ysi nelosen, kasi vitosen ja seiska kutosen kanssa.
+- Kortti on vapaa, kun mikään kortti ei enää ole sen päällä.
+- Poista kaksi vapaata korttia, joiden summa on 13: ässä on 1, sotilas 11, rouva 12.
 - Kuningas on 13: se poistuu yksin.
 - Käännetty kortti ja poistopinon päällimmäinen kortti ovat myös vapaita: yhdistä ne pyramidin korttiin tai toisiinsa.
 # Pakka
-- Napauta pakkaa kääntääksesi sen päällimmäisen kortin. Kun käännät seuraavan, käännetty kortti siirtyy poistopinoon.
-- Yksi kierros: pakka käydään läpi vain kerran.
-- Kolme kierrosta: kun pakka on tyhjä, napauta sen paikkaa, niin poistopino käännetään uudeksi pakaksi. Pakan alla oleva luku näyttää jäljellä olevat kierrokset.
+- Napauta pakkaa kääntääksesi sen päällimmäisen kortin; aiemmin käännetty kortti siirtyy poistopinoon.
+- Yhdellä kierroksella pakka käydään läpi vain kerran. Kolmella kierroksella napauta tyhjää pakkaa, niin poistopino käännetään takaisin.
 # Pelin loppu
-Voitat heti, kun pyramidi on tyhjä, vaikka pakkaan tai poistopinoon jäisi kortteja. Peli on hävitty, kun siirtoja ei enää ole. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+Voitat heti, kun pyramidi on tyhjä, vaikka pakkaan tai poistopinoon jäisi kortteja. Peli on hävitty, kun siirtoja ei enää ole.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–5 pakka käydään läpi kolme kertaa, luvussa 6 kerran. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta korttia nostaaksesi sen ja napauta sitten korttia, jonka kanssa summa on 13; napauta nostettua korttia uudelleen laskeaksesi sen takaisin. Kuningas poistuu yhdellä napautuksella. Voit myös vetää kortin parinsa päälle. Lamppu näyttää mahdollisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä.

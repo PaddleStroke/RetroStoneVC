@@ -1,27 +1,22 @@
 Scopa
 # Cel gry
-Zbieraj karty ze stołu, zagrywając kartę o tej samej wartości, i zmiataj stół do czysta: każde opróżnienie stołu to scopa, warta punkt. Wygrywa strona, która pierwsza dojdzie do 11 punktów. Dla 2 graczy albo 4 w dwóch parach partnerów siedzących naprzeciw siebie (kość słoniowa i czerwony przeciw hebanowi i nefrytowi); nikt nie widzi kart pozostałych.
+Zbieraj karty, zagrywając kartę o tej samej wartości, i zmiataj stół do czysta: każde opróżnienie stołu to scopa, warta punkt. Dla 2 graczy albo 4 w dwóch parach partnerów siedzących naprzeciw siebie. Wygrywa strona, która pierwsza dojdzie do 11 punktów.
 # Karty
-Włoska talia 40 kart w czterech kolorach: monety (denari), kielichy (coppe), miecze (spade) i buławy (bastoni). Każdy kolor idzie od 1 do 7, potem fante, wart 8, cavallo, wart 9, i re, wart 10. Tutaj fante to pionek, cavallo to skoczek, a re to król.
-# Rozdanie
-Każdy gracz dostaje 3 karty, a 4 karty trafiają odkryte na stół (rozdaje się od nowa, jeśli są wśród nich trzy lub cztery re). Za każdym razem, gdy wszystkie ręce są puste, każdy dostaje kolejne 3, aż do wyczerpania talii. Rozdający zmienia się w każdej rundzie, a zaczyna gracz po nim.
+Włoska talia 40 kart: monety (denari), kielichy (coppe), miecze (spade) i buławy (bastoni), od 1 do 7, potem fante (8, pionek), cavallo (9, skoczek) i re (10, król).
 # Rozgrywka
-- Zagraj jedną kartę z ręki.
-- Jeśli na stole leży karta o tej samej wartości, twoja karta ją bierze. Jeśli jest ich kilka, wybierasz którą.
-- W przeciwnym razie, jeśli karty na stole sumują się do jej wartości, twoja karta bierze je wszystkie. Jeśli takich zestawów jest kilka, wybierasz jeden.
-- Pojedyncza karta zawsze ma pierwszeństwo przed sumą: gdy na stole leży 7, siódemka nie może wziąć 3 i 4.
-- Karta, która może brać, musi brać. Karta, która nic nie bierze, zostaje na stole.
+Każdy dostaje 3 karty, a 4 leżą odkryte na stole (rozdaje się od nowa, jeśli są wśród nich trzy lub cztery re); za każdym razem, gdy wszystkie ręce są puste, każdy dostaje kolejne 3, aż do wyczerpania talii.
+- Zagraj kartę. Bierze ona kartę ze stołu o tej samej wartości (jeśli jest ich kilka, wybierasz jedną); w przeciwnym razie karty ze stołu, które sumują się do jej wartości (jeśli zestawów jest kilka, wybierasz jeden).
+- Pojedyncza karta ma pierwszeństwo przed sumą: gdy na stole leży 7, siódemka nie może wziąć 3 i 4.
+- Karta, która może brać, musi brać; karta, która nie może, zostaje na stole.
 - Opróżnienie stołu to scopa, warta 1 punkt, z wyjątkiem ostatniej karty rundy.
 - Na koniec rundy karty pozostałe na stole dostaje ten, kto brał ostatni.
 # Punktacja
-Na koniec każdej rundy każda strona dostaje:
-- 1 punkt za najwięcej kart;
-- 1 punkt za najwięcej monet;
-- 1 punkt za settebello, siódemkę monet;
-- 1 punkt za primierę: każda strona bierze swoją najlepszą kartę w każdym kolorze, licząc 7 jako 21, 6 jako 18, asa jako 16, 5 jako 15, 4 jako 14, 3 jako 13, 2 jako 12 i figury jako 10, i wygrywa wyższa suma. Strona, której brakuje jakiegoś koloru, nie ma primiery;
-- 1 punkt za każdą scopę.
+Po każdej rundzie każda strona dostaje 1 punkt za:
+- najwięcej kart;
+- najwięcej monet;
+- settebello, siódemkę monet;
+- primierę: najlepsza karta strony w każdym kolorze, 7 liczy się jako 21, 6 jako 18, as jako 16, 5 jako 15, 4 jako 14, 3 jako 13, 2 jako 12, figury jako 10; wygrywa wyższa suma, a strona, której brakuje jakiegoś koloru, nie ma primiery;
+- każdą scopę.
 Przy remisie nikt nie dostaje tego punktu.
 # Koniec gry
-Gra kończy się po rundzie, w której któraś strona dojdzie do 11 punktów; wygrywa ta, która ma ich więcej. Jeśli obie mają tyle samo, gra się jeszcze jedną rundę.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoją rękę na dole, z talią po lewej i swoimi zdobyczami po prawej. Karty i stosy pozostałych są u góry. Karta każdej scopy leży w poprzek pod stosem swojej strony, odkryta. Dotknij karty w ręce: unosi się, a karty na stole, które może wziąć, świecą. Dotknij jej ponownie albo stołu, aby ją zagrać; albo przeciągnij ją na stół. Jeśli może wziąć więcej niż jedną kartę lub zestaw, dotykaj kart na stole, które chcesz, aż suma się zgodzi. Po każdej rundzie tabela pokazuje dla każdej strony karty, monety, settebello, primierę, scopy (karta w poprzek stosu), punkty rundy i sumę; to, co daje punkt, świeci. Dotknij jej, aby zacząć następną rundę. Każdy pasek pokazuje sumę strony. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy kartę po podaniu urządzenia.
+Po rundzie, w której któraś strona dojdzie do 11 punktów, wygrywa strona, która ma ich więcej; jeśli obie mają tyle samo, gra się jeszcze jedną rundę.

@@ -1,22 +1,15 @@
 Piramit
 # Amaç
-Toplamı 13 eden kart çiftlerini kaldırarak 28 kartlık piramidi boşaltmak. Tek kişilik bir oyun.
-# Diziliş
-- Yedi sıralık bir piramitte 28 açık kart; her sıra üstündeki sıranın yarısını örter.
-- Kalan 24 kart kapalı olarak piramidin altındaki destedir; yanında çevrilen kart ve açılan kartlar durur.
-- Sağda kaldırılan kartların yığını durur.
+Toplamı 13 eden kart çiftlerini kaldırarak 28 kartlık piramidi boşalt.
 # Kartları taşımak
-- Bir kartın üstünde artık hiçbir kart yoksa o kart serbesttir. Başta en alt sıra serbesttir.
-- Toplamı 13 eden iki serbest kartı kaldır: as 1, vale 11, kız 12 sayılır. Kız ile as, vale ile 2, 10 ile 3, 9 ile 4, 8 ile 5, 7 ile 6 eşleşir.
+- Bir kartın üstünde artık hiçbir kart yoksa o kart serbesttir.
+- Toplamı 13 eden iki serbest kartı kaldır: as 1, vale 11, kız 12 sayılır.
 - Papaz 13 sayılır: tek başına gider.
 - Çevrilen kart ve açılan kartların en üstteki de serbesttir: onları piramitteki bir kartla ya da birbirleriyle eşleştir.
 # Deste
-- Destenin en üstteki kartını çevirmek için desteye dokun. Bir sonrakini çevirdiğinde çevrilen kart açılan kartların üstüne gider.
-- Bir tur: deste yalnızca bir kez dolaşılır.
-- Üç tur: deste boşalınca yerine dokun, açılan kartlar ters çevrilip yeniden deste olur. Destenin altındaki sayı kalan turları gösterir.
+- Destenin en üstteki kartını açmak için desteye dokun; önceki çevrilen kart açılan kartların üstüne gider.
+- Bir turda deste yalnızca bir kez dolaşılır. Üç turda, açılan kartları ters çevirip yeniden deste yapmak için boş desteye dokun.
 # Oyunun sonu
-Piramit boşalır boşalmaz kazanırsın, destede ya da açılan kartlarda kart kalsa bile. Hiç hamle kalmayınca oyun kaybedilir. Kartlar rastgele karıştırılır, bu yüzden her dağıtım kazanılamaz.
+Piramit boşalır boşalmaz kazanırsın, destede ya da açılan kartlarda kart kalsa bile. Hiç hamle kalmayınca oyun kaybedilir.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 5'e kadar olan bölümlerde deste üç kez, 6. bölümde bir kez dolaşılır. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Bir kartı kaldırmak için ona dokun, sonra onunla 13 eden karta dokun; kaldırılmış bir karta yeniden dokunursan yerine iner. Papaz tek dokunuşla gider. Bir kartı eşinin üstüne sürükleyebilirsin de. Lamba olası bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+İpucu da geri alma da yoksa 3 yıldız.

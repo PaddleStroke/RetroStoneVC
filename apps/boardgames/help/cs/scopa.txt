@@ -1,27 +1,22 @@
 Scopa
 # Cíl hry
-Ber karty ze stolu kartou stejné hodnoty a vymeť stůl do čista: každé vyprázdnění stolu je scopa, která má cenu bodu. Vyhrává strana, která první dosáhne 11 bodů. Pro 2 hráče, nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě (slonovinový a červený proti ebenovému a nefritovému); nikdo nevidí karty ostatních.
+Ber karty kartou stejné hodnoty a vymeť stůl do čista: každé vyprázdnění stolu je scopa, která má cenu bodu. Pro 2 hráče, nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě. Vyhrává strana, která první dosáhne 11 bodů.
 # Karty
-Italské karty, 40 listů ve čtyřech barvách: mince (denari), poháry (coppe), meče (spade) a hole (bastoni). Každá barva má karty od 1 do 7, pak fante za 8, cavallo za 9 a re za 10. Fante je tu pěšec, cavallo jezdec a re král.
-# Rozdání
-Každý hráč dostane 3 karty a 4 karty se položí lícem nahoru na stůl (rozdává se znovu, pokud jsou mezi nimi tři nebo čtyři re). Kdykoli mají všichni prázdné ruce, každý dostane další 3, dokud balíček nedojde. Rozdávající se každé kolo posune o místo a začíná hráč po něm.
+Italské karty, 40 listů: mince (denari), poháry (coppe), meče (spade) a hole (bastoni), od 1 do 7, pak fante (8, pěšec), cavallo (9, jezdec) a re (10, král).
 # Hra
-- Zahraj jednu kartu z ruky.
-- Leží-li na stole karta stejné hodnoty, tvoje karta ji vezme. Leží-li jich tam víc, vybereš si kterou.
-- Jinak, dají-li karty na stole dohromady její hodnotu, tvoje karta je vezme všechny. Je-li takových skupin víc, jednu si vybereš.
-- Jediná karta má vždy přednost před součtem: když na stole leží 7, sedmička nemůže vzít 3 a 4.
-- Karta, která může brát, musí brát. Karta, která nic nebere, zůstane ležet na stole.
+Každý dostane 3 karty a 4 leží lícem nahoru na stole (rozdává se znovu, jsou-li mezi nimi tři nebo čtyři re); kdykoli mají všichni prázdné ruce, každý dostane další 3, dokud balíček nedojde.
+- Zahraj kartu. Vezme kartu na stole stejné hodnoty (je-li jich víc, jednu si vybereš); jinak karty na stole, které dají dohromady její hodnotu (je-li skupin víc, jednu si vybereš).
+- Jediná karta má přednost před součtem: když na stole leží 7, sedmička nemůže vzít 3 a 4.
+- Karta, která může brát, musí brát; karta, která nemůže, zůstane ležet na stole.
 - Vyprázdnit stůl je scopa za 1 bod, ale ne úplně poslední kartou kola.
 - Na konci kola dostane karty, které zbyly na stole, ten, kdo bral naposledy.
 # Počítání bodů
-Na konci každého kola dostane každá strana:
-- 1 bod za nejvíc karet;
-- 1 bod za nejvíc mincí;
-- 1 bod za settebello, mincovou sedmičku;
-- 1 bod za primieru: každá strana vezme svou nejlepší kartu v každé barvě, přičemž 7 se počítá za 21, 6 za 18, eso za 16, 5 za 15, 4 za 14, 3 za 13, 2 za 12 a figury za 10, a vyšší součet vyhrává. Strana, které nějaká barva chybí, primieru nemá;
-- 1 bod za každou scopu.
+Po každém kole dostane každá strana 1 bod za:
+- nejvíc karet;
+- nejvíc mincí;
+- settebello, mincovou sedmičku;
+- primieru: nejlepší karta strany v každé barvě, 7 se počítá za 21, 6 za 18, eso za 16, 5 za 15, 4 za 14, 3 za 13, 2 za 12, figury za 10; vyšší součet vyhrává a strana, které nějaká barva chybí, primieru nemá;
+- každou scopu.
 Při rovnosti nedostane ten bod nikdo.
 # Konec hry
-Hra končí po kole, ve kterém některá strana dosáhne 11 bodů; vyhrává ta, která jich má víc. Mají-li obě stejně, hraje se další kolo.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku dole, nalevo od ní balíček a napravo své sebrané karty. Karty a hromádky ostatních jsou nahoře. Karta každé scopy leží napříč a lícem nahoru pod hromádkou své strany. Klepni na kartu v ruce: zvedne se a karty na stole, které může vzít, se rozzáří. Klepni na ni znovu nebo na stůl a zahraješ ji; nebo ji přetáhni na stůl. Může-li vzít víc než jednu kartu či skupinu, klepej na karty na stole, které chceš, dokud součet nesedí. Po každém kole ukáže tabulka pro každou stranu karty, mince, settebello, primieru, scopy (karta napříč přes hromádku), body kola a celkový součet; co přinese bod, září. Klepni na ni a začne další kolo. Každá lišta ukazuje součet strany. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy kartu poté, co se zařízení předalo.
+Po kole, ve kterém některá strana dosáhne 11 bodů, vyhrává strana, která jich má víc; mají-li obě stejně, hraje se další kolo.

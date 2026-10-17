@@ -1,22 +1,15 @@
 Pyramide
 # Le but
-Vider la pyramide de 28 cartes en retirant des paires de cartes dont la somme fait 13. Un jeu pour un joueur.
-# La mise en place
-- 28 cartes face visible en une pyramide de sept rangées ; chaque rangée recouvre à moitié celle du dessus.
-- Les 24 autres cartes forment la pioche, face cachée, sous la pyramide ; à côté, la carte retournée et le talon.
-- À droite, le tas des cartes retirées.
+Vider la pyramide de 28 cartes en retirant des paires de cartes dont la somme fait 13.
 # Déplacer les cartes
-- Une carte est libre quand plus aucune carte ne la recouvre. Au début, la rangée du bas est libre.
-- Retire deux cartes libres dont la somme fait 13 : l'as vaut 1, le valet 11, la dame 12. Une dame va avec un as, un valet avec un 2, un 10 avec un 3, un 9 avec un 4, un 8 avec un 5, un 7 avec un 6.
-- Le roi vaut 13 : il part tout seul.
-- La carte retournée et la carte du dessus du talon sont libres aussi : associe-les à une carte de la pyramide, ou entre elles.
+- Une carte est libre quand plus aucune carte ne la recouvre.
+- Retire deux cartes libres dont la somme fait 13 : l'as vaut 1, le valet 11, la dame 12.
+- Le roi vaut 13 : il part tout seul.
+- La carte retournée et la carte du dessus du talon sont libres aussi : associe-les à une carte de la pyramide, ou entre elles.
 # La pioche
-- Touche la pioche pour retourner sa carte du dessus. Retourner la suivante pose la carte retournée sur le talon.
-- Un passage : la pioche ne se parcourt qu'une fois.
-- Trois passages : quand la pioche est vide, touche sa place pour retourner le talon et en refaire la pioche. Le nombre sous la pioche indique les passages restants.
+- Touche la pioche pour retourner sa carte du dessus ; la carte retournée avant va sur le talon.
+- Avec un passage, la pioche ne se parcourt qu'une fois. Avec trois passages, touche la pioche vide pour retourner le talon.
 # La fin de la partie
-Tu gagnes dès que la pyramide est vide, même s'il reste des cartes dans la pioche ou le talon. La partie est perdue quand il ne reste aucun coup. Les donnes sont mélangées au hasard : toutes ne peuvent pas être gagnées.
+Tu gagnes dès que la pyramide est vide, même s'il reste des cartes dans la pioche ou le talon. La partie est perdue quand il ne reste aucun coup.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. Dans les chapitres 1 à 5, la pioche se parcourt trois fois, dans le chapitre 6 une seule fois. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard, avec le choix décrit plus haut. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
-# Jouer sur l'appareil
-Touche une carte pour la soulever, puis touche la carte qui fait 13 avec elle ; touche de nouveau une carte soulevée pour la reposer. Un roi part d'une seule touche. Tu peux aussi faire glisser une carte sur sa paire. La lampe montre un coup possible ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+Sans indice ni coup annulé : 3 étoiles.

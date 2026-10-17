@@ -1,22 +1,15 @@
 Pyramid
 # Målet
-Töm pyramiden på 28 kort genom att ta bort par av kort som tillsammans blir 13. Ett spel för en spelare.
-# Uppläggningen
-- 28 kort med framsidan upp i en pyramid av sju rader; varje rad täcker halva raden ovanför.
-- De andra 24 korten är talongen, med baksidan upp, under pyramiden; bredvid ligger det vända kortet och slänghögen.
-- Till höger ligger de borttagna korten.
+Töm pyramiden på 28 kort genom att ta bort par av kort som tillsammans blir 13.
 # Flytta kort
-- Ett kort är fritt när inget kort ligger över det längre. I början är den nedersta raden fri.
-- Ta bort två fria kort som tillsammans blir 13: ess räknas som 1, knekt 11, dam 12. En dam går med ett ess, en knekt med en tvåa, en tia med en trea, en nia med en fyra, en åtta med en femma, en sjua med en sexa.
+- Ett kort är fritt när inget kort ligger över det längre.
+- Ta bort två fria kort som tillsammans blir 13: ess räknas som 1, knekt 11, dam 12.
 - En kung räknas som 13: den går bort ensam.
 - Det vända kortet och det översta kortet i slänghögen är också fria: para ihop dem med ett kort i pyramiden eller med varandra.
 # Talongen
-- Tryck på talongen för att vända dess översta kort. När du vänder nästa läggs det vända kortet i slänghögen.
-- En omgång: talongen gås igenom bara en gång.
-- Tre omgångar: när talongen är tom trycker du på dess plats för att vända slänghögen till en ny talong. Talet under talongen visar omgångarna som är kvar.
+- Tryck på talongen för att vända dess översta kort; kortet som vändes innan läggs i slänghögen.
+- Med en omgång gås talongen igenom bara en gång. Med tre omgångar trycker du på den tomma talongen för att vända tillbaka slänghögen.
 # Partiets slut
-Du vinner så fort pyramiden är tom, även om det finns kort kvar i talongen eller slänghögen. Partiet är förlorat när inget drag finns kvar. Korten blandas slumpvis, så alla givar går inte att vinna.
+Du vinner så fort pyramiden är tom, även om det finns kort kvar i talongen eller slänghögen. Partiet är förlorat när inget drag finns kvar.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från den lättaste given till den svåraste, och var och en går att vinna; välj en i banöversikten. I kapitel 1 till 5 gås talongen igenom tre gånger, i kapitel 6 en gång. Fliken med tärningen efter kapitlen delar ut en ny giv på slump, med det val som beskrivs ovan. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två ledtrådar och ångrade drag tillsammans: 2 stjärnor; annars 1.
-# Spela på enheten
-Tryck på ett kort för att lyfta det, och tryck sedan på kortet som blir 13 tillsammans med det; tryck på ett lyft kort igen för att lägga tillbaka det. En kung går bort med ett tryck. Du kan också dra ett kort till dess partner. Lampan visar ett möjligt drag; talet bredvid dina kort räknar dina drag. Ångra tar tillbaka drag, ända till given.
+Utan ledtråd och utan ångrat drag: 3 stjärnor.

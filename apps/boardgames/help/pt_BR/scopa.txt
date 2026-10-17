@@ -1,27 +1,22 @@
 Scopa
 # O objetivo
-Recolher cartas da mesa jogando uma carta de mesmo valor, e limpar a mesa: cada vez que ela fica vazia é uma scopa, que vale um ponto. Vence a primeira dupla a chegar a 11 pontos. Para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade); ninguém vê as cartas dos outros.
+Recolher cartas jogando uma carta de mesmo valor, e limpar a mesa: cada vez é uma scopa, que vale um ponto. Para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente. Vence a primeira dupla a chegar a 11 pontos.
 # As cartas
-O baralho italiano de 40 cartas, em quatro naipes: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni). Cada naipe vai de 1 a 7, depois o fante, que vale 8, o cavallo, que vale 9, e o re, que vale 10. Aqui o fante é um peão, o cavallo um cavalo e o re um rei.
-# A distribuição
-Cada jogador recebe 3 cartas e 4 cartas ficam viradas para cima na mesa (dá-se de novo se três ou quatro re aparecerem entre elas). Sempre que todas as mãos ficam vazias, cada um recebe mais 3, até acabar o monte. Quem dá as cartas muda a cada rodada, e começa o jogador seguinte.
+O baralho italiano de 40 cartas: ouros (denari), copas (coppe), espadas (spade) e paus (bastoni), de 1 a 7, depois o fante (8, um peão), o cavallo (9, um cavalo) e o re (10, um rei).
 # O jogo
-- Jogue uma carta da sua mão.
-- Se houver na mesa uma carta de mesmo valor, a sua carta a recolhe. Se houver várias, você escolhe qual.
-- Senão, se algumas cartas da mesa somam o valor dela, a sua carta recolhe todas. Se houver várias combinações, você escolhe uma.
-- Uma carta sozinha vem sempre antes de uma soma: com um 7 na mesa, um 7 não pode recolher um 3 e um 4.
-- Uma carta que pode recolher tem de recolher. Uma carta que não recolhe nada fica na mesa.
+3 cartas para cada um e 4 viradas para cima na mesa (dá-se de novo se aparecerem três ou quatro re); mais 3 para cada um sempre que todas as mãos ficam vazias, até acabar o monte.
+- Jogue uma carta. Ela recolhe uma carta da mesa de mesmo valor (se houver várias, você escolhe uma); senão, cartas da mesa que somam o valor dela (se houver várias combinações, você escolhe uma).
+- Uma carta sozinha vem antes de uma soma: com um 7 na mesa, um 7 não pode recolher um 3 e um 4.
+- Uma carta que pode recolher tem de recolher; uma que não pode fica na mesa.
 - Esvaziar a mesa é uma scopa, que vale 1 ponto, menos com a última carta da rodada.
-- No fim da rodada, as cartas que sobraram na mesa vão para quem recolheu por último.
+- No fim da rodada, as cartas que sobraram vão para quem recolheu por último.
 # A pontuação
-No fim de cada rodada, cada dupla marca:
-- 1 ponto por ter mais cartas;
-- 1 ponto por ter mais ouros;
-- 1 ponto pelo settebello, o 7 de ouros;
-- 1 ponto pela primiera: cada dupla pega a sua melhor carta de cada naipe, contando o 7 como 21, o 6 como 18, o ás como 16, o 5 como 15, o 4 como 14, o 3 como 13, o 2 como 12 e as figuras como 10, e o maior total vence. A dupla que não tem algum naipe fica sem primiera;
-- 1 ponto por scopa.
+No fim de cada rodada, cada dupla marca 1 ponto:
+- por ter mais cartas;
+- por ter mais ouros;
+- pelo settebello, o 7 de ouros;
+- pela primiera: a melhor carta de cada dupla em cada naipe, o 7 contando 21, o 6 18, o ás 16, o 5 15, o 4 14, o 3 13, o 2 12, as figuras 10; o maior total vence, e a dupla sem algum naipe fica sem primiera;
+- por scopa.
 Em caso de empate, ninguém marca esse ponto.
 # O fim da partida
-A partida termina depois da rodada em que uma dupla chega a 11 pontos; vence quem tiver mais. Se as duas duplas estiverem empatadas, joga-se mais uma rodada.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão embaixo, com o monte à esquerda e as cartas recolhidas à direita. As cartas e os montinhos dos outros ficam em cima. A carta de cada scopa fica atravessada sobre o montinho de quem a fez, virada para cima. Toque numa carta da sua mão: ela sobe e as cartas da mesa que ela pode recolher brilham. Toque nela de novo, ou na mesa, para jogá-la; ou arraste-a para a mesa. Se ela puder recolher mais de uma carta ou combinação, toque nas cartas da mesa que quiser até a soma fechar. Depois de cada rodada, uma tabela mostra para cada dupla as cartas, os ouros, o settebello, a primiera, as scope (uma carta atravessada sobre um montinho), os pontos da rodada e o total; as contagens que valem ponto brilham. Toque nela para a próxima rodada. Cada barra mostra o total da dupla. Desfazer cancela uma escolha ainda não confirmada, nunca uma carta depois que o aparelho passou.
+Depois da rodada em que uma dupla chega a 11 pontos, vence quem tiver mais; se as duas estiverem empatadas, joga-se mais uma rodada.

@@ -1,36 +1,27 @@
 Schafkopf
 # El objetivo
-El gran juego de cartas de Baviera, para cuatro. En cada ronda, el jugador que gana la subasta juega un juego, con un compañero al que llama o solo, contra los demás; el juego se paga en puntos según la tarifa. Una partida es una lista de 12 rondas; al final gana el total más alto. Las reglas son las bávaras. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+El gran juego de cartas de Baviera, para cuatro, con las reglas bávaras. En cada ronda, el que gana la subasta juega un juego, con un compañero al que llama o solo, contra los demás. Tras 12 rondas gana el total más alto; los totales empatados comparten la victoria.
 # Las cartas
-La baraja tiene 32 cartas, del 7 al as. El Schafkopf se juega con palos alemanes; aquí las cartas tienen palos franceses, que también se usan mucho para este juego: tréboles por bellotas (Eichel), picas por hojas (Gras), corazones por corazones (Herz), diamantes por cascabeles (Schellen). Las reinas son los Ober; las sotas, los Unter; los ases, las Sau. Los palos alemanes quizá lleguen más adelante.
-# El reparto
-Cada jugador recibe 8 cartas. Reparte primero el jade; después el que reparte avanza un puesto en cada ronda. El jugador que sigue al que reparte habla primero y sale en la primera baza.
+32 cartas, del 7 al as, con palos franceses por los alemanes: tréboles por bellotas (Eichel), picas por hojas (Gras), corazones (Herz), diamantes por cascabeles (Schellen). Las reinas son los Ober; las sotas, los Unter; los ases, las Sau. 8 cartas cada uno; el jugador que sigue al que reparte habla primero y sale.
 # La subasta
-- Cada jugador por turno pasa (weiter) o dice que jugaría, eligiendo su juego en secreto: un Rufspiel, un Wenz o un Solo.
-- Rufspiel (juego de llamada): llama al as (la Sau) de un palo (tréboles, picas o diamantes, nunca corazones) del que tiene alguna carta, pero no ese as. El jugador que lo tiene es su compañero, desconocido hasta que se juega el as.
+- Por turno, cada jugador pasa (weiter) o se ofrece a jugar: un Rufspiel, un Wenz o un Solo.
+- Rufspiel: llama al as de un palo (tréboles, picas o diamantes, nunca corazones) del que tiene alguna carta, pero no el as. Quien lo tiene es su compañero, desconocido hasta que se juega el as.
 - Wenz y Solo: juega solo contra los otros tres.
-- Se juega el juego más alto: Solo, luego Wenz, luego Rufspiel; entre juegos iguales, el del primero que habló. Si todos pasan, se tiran las cartas o, si se eligió el Ramsch, se juega un Ramsch.
+- El Solo gana al Wenz, y el Wenz al Rufspiel; entre juegos iguales, el del primero que habló. Si todos pasan, se tiran las cartas, o se juega un Ramsch si se eligió.
 # Los triunfos
-- Rufspiel: los cuatro Ober (tréboles, picas, corazones, diamantes) son los triunfos más altos, luego los cuatro Unter en el mismo orden, luego los corazones: as, 10, rey, 9, 8, 7. 14 triunfos.
-- Solo: lo mismo, con el palo elegido en lugar de corazones.
-- Wenz: solo los cuatro Unter son triunfo.
-- Los demás palos se ordenan as, 10, rey, (Ober), (Unter), 9, 8, 7.
+- Rufspiel: los cuatro Ober (tréboles, picas, corazones, diamantes), luego los cuatro Unter en el mismo orden, luego los corazones: as, 10, rey, 9, 8, 7.
+- Solo: lo mismo, con el palo elegido en lugar de corazones. Wenz: solo los cuatro Unter.
+- Los demás palos: as, 10, rey, (Ober), (Unter), 9, 8, 7.
 # El juego
-- Sirve el palo de salida si puedes (todos los triunfos cuentan como un solo palo); si no, juega cualquier carta. El triunfo más alto gana la baza o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente baza.
-- El as llamado: la primera vez que se sale a su palo, quien lo tiene debe jugar el as. Hasta entonces no puede descartar el as sobre otro palo, y solo puede salir a ese palo con el as, salvo que tenga cuatro o más cartas de él: entonces puede escaparse (davonlaufen) con otra. En la última baza vale todo.
+- Sirve el palo si puedes (todos los triunfos cuentan como un solo palo); si no, juega cualquier carta. El triunfo más alto gana o, si no hay, la carta más alta del palo de salida. Quien gana sale en la siguiente.
+- El as llamado debe jugarse la primera vez que se sale a su palo. Hasta entonces quien lo tiene no puede descartarlo, y solo puede salir a ese palo con el as, salvo que tenga cuatro o más cartas de él: entonces puede escaparse (davonlaufen) con otra. En la última baza vale todo.
 # Ganar el juego
-- Puntos de las cartas: as 11, 10 10, rey 4, Ober 3, Unter 2: 120 en total.
-- El jugador y su compañero (o el solista) ganan con 61 puntos o más.
-- Schneider: el bando del jugador gana con 91 puntos o más, o pierde con 30 o menos; a los rivales les bastan 30 para librarse. Schwarz: el bando perdedor no ganó ninguna baza.
+- Puntos de las cartas: as 11, 10 10, rey 4, Ober 3, Unter 2: 120 en total. El bando que juega gana con 61 o más.
+- Schneider: el bando que juega gana con 91 o más, o pierde con 30 o menos. Schwarz: el bando perdedor no ganó ninguna baza.
 # La tarifa
-- Rufspiel, 10 puntos; Solo y Wenz, 50.
-- Schneider, 10 más; Schwarz, 10 más.
-- Laufende (triunfos seguidos): la serie seguida de triunfos más altos desde el Ober de tréboles hacia abajo (en el Wenz, desde el Unter de tréboles) que tiene un bando, el que juega o el otro: 10 cada uno, a partir de 3 (en el Wenz, a partir de 2).
+- Rufspiel 10 puntos; Solo y Wenz 50; Schneider 10 más, Schwarz 10 más.
+- Laufende: la serie seguida de triunfos más altos desde el Ober de tréboles hacia abajo (en el Wenz, desde el Unter de tréboles) que tiene un bando: 10 cada uno, a partir de 3 (en el Wenz, a partir de 2).
 - Rufspiel: cada ganador se anota el valor y cada perdedor lo pierde. Solo y Wenz: el solista gana o pierde el triple del valor; cada uno de los demás, una vez.
-- No se juegan aquí: los doblajes (Kontra, Re), el Tout (anunciar que se ganan todas las bazas), el Sie (los ocho triunfos más altos en la mano) ni otros juegos caseros.
+- Sin Kontra, Re, Tout ni Sie.
 # El Ramsch
-Cuando todos pasan y se eligió el Ramsch, cada uno juega para sí, con los triunfos del Rufspiel. El jugador con más puntos de cartas paga 10 a cada uno de los demás; con los puntos empatados, paga el que tiene más bazas y, si siguen empatados, paga cada uno de ellos. Ganar todas las bazas (Durchmarsch) cobra 50 de cada uno.
-# El final de la partida
-Tras la 12.ª ronda, gana el total más alto. Los totales empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha brilla; toca el botón de inicio y ve su mano. Para pujar, toca un juego y luego la marca de visto (o el mismo juego otra vez): uno de los tres ases para un Rufspiel (en gris cuando no puedes llamarlo), el alfil (la figura del Unter) para un Wenz, o el signo de un palo para ese Solo; para pasar, toca Paso. Cada puesto muestra lo que dijo su jugador: el signo de paso, o una marca de visto para un jugador que jugaría. Durante el juego, el puesto del jugador muestra su juego: el as llamado, el Wenz o el palo del Solo; el puesto del compañero también muestra el as una vez jugado. Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio en el centro; o arrástrala hasta allí. Toca el montón de abajo a la derecha para ver la última baza. Tras cada ronda, una tabla muestra el bando que juega con su juego y sus puntos de cartas (una marca dorada: ganado), 90 para Schneider y 120 para Schwarz; el Ober de tréboles (en un Wenz, el Unter de tréboles) con los Laufende contados, la tarifa (por 3 para un solista) y el valor; en un Ramsch, los puntos de cartas de cada jugador, los que pagan en rojo. Después, la puntuación y el total de cada jugador, y la lista de rondas, con las fichas de los jugadores en dorado cuando ganaron. Tócala para la ronda siguiente. Cada barra muestra las cartas en la mano y el total. Deshacer anula una elección aún no confirmada, nunca una vez pasado el dispositivo.
+Cada uno juega para sí, con los triunfos del Rufspiel. El jugador con más puntos de cartas paga 10 a cada uno de los demás; con los puntos empatados, el que tiene más bazas; si siguen empatados, cada uno de ellos. Ganar todas las bazas (Durchmarsch) cobra 50 de cada uno.

@@ -1,16 +1,13 @@
 Rikiki
 # Målet
-Meld nøyaktig hvor mange stikk du tar, og ta så nøyaktig så mange. For 3 til 6 spillere som sender enheten rundt; ingen ser kortene til de andre.
+Meld nøyaktig hvor mange stikk du tar, og ta så nøyaktig så mange.
 # Kortene
-52 kort; esset er det høyeste kortet. I første giv får hver spiller 1 kort, i det neste 2 og så videre opp til det meste (13; 10 med 5 spillere; 8 med 6), og så ned igjen til 1. Etter hver utdeling snus neste kort i bunken: fargen er trumf. Er det ingen kort igjen (4 spillere, 13 kort hver), spilles givet uten trumf.
+52 kort; esset er høyest. I første giv får hver spiller 1 kort, i det neste 2 og så videre opp til det meste (13; 10 med 5 spillere; 8 med 6), og så ned igjen til 1. Etter hver utdeling snus neste kort: fargen er trumf. Er det ingen kort igjen, er det ingen trumf.
 # Meldingen
-Spilleren etter giveren melder først, giveren sist. Hver spiller melder hvor mange stikk han vil ta, fra 0 til antallet kort på hånden. Giveren kan ikke melde slik at meldingene til sammen blir like mange som kortene hver spiller har: noen må gå bet (giverens regel, vanlig i Frankrike).
+Spilleren etter giveren melder først, giveren sist: fra 0 til antallet kort på hånden. Giveren kan ikke melde slik at meldingene til sammen blir like mange som kortene hver spiller har: noen må gå bet.
 # Spillet
 Spilleren etter giveren spiller ut. Følg farge hvis du kan; ellers spill hvilket som helst kort (du trenger ikke trumfe). Den høyeste trumfen vinner stikket, ellers det høyeste kortet i utspilt farge; vinneren spiller ut til det neste.
 # Poengene
 - Meldingen tatt nøyaktig: 10 poeng og 1 til for hvert stikk du tok.
 - Bet: minus 1 for hvert stikk for mye eller for lite.
-# Slutten på spillet
 Etter det siste givet med ett kort vinner den høyeste summen; spillere som står likt, deler seieren.
-# Spill på enheten
-Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin, viftet ut nederst. For å melde trykker du på et tall på tastaturet (giverens forbudte tall er strøket over), og så på haken. Hver brikke viser meldingen sin i en mørk skive og stikkene ved siden av; en liten kortbakside markerer giveren. Det snudde kortet ligger i hjørnet nede til venstre (strøket over: uten trumf). For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Hver linje viser kortene på hånden og summen. Etter hvert giv viser en tavle meldingen, stikkene (i gull: tatt nøyaktig), poengene og summen til hver spiller; trykk på den for neste giv. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et kort når enheten er gitt videre.

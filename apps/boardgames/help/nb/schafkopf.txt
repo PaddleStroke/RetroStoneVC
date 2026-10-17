@@ -1,36 +1,27 @@
 Schafkopf
 # Målet
-Bayerns store kortspill for fire. I hvert giv spiller den som vinner meldingen, et spill mot de andre, med en makker han kaller, eller alene; spillet betales i poeng etter tariffen. Et parti er en liste på 12 giv; høyeste sum til slutt vinner. Reglene er de bayerske. For 4 spillere som sender enheten rundt; ingen ser kortene til de andre.
+Bayerns store kortspill for fire, etter de bayerske reglene. I hvert giv spiller den som vinner meldingen, et spill mot de andre, med en makker han kaller, eller alene. Etter 12 giv vinner høyeste sum; ved lik sum deles seieren.
 # Kortene
-Kortstokken har 32 kort, 7 til ess. Schafkopf spilles med tyske farger; her har kortene franske, som også er mye brukt til spillet: kløver for eikenøtter (Eichel), spar for blader (Gras), hjerter for hjerter (Herz), ruter for bjeller (Schellen). Damene er Ober, knektene Unter, essene Sau (purke). Tyske farger kommer kanskje senere.
-# Utdelingen
-Hver spiller får 8 kort. Jade gir først; deretter flytter giveren én plass videre for hvert giv. Spilleren etter giveren snakker først og spiller ut til første stikk.
+32 kort, 7 til ess, med franske farger for de tyske: kløver for eikenøtter (Eichel), spar for blader (Gras), hjerter (Herz), ruter for bjeller (Schellen). Damene er Ober, knektene Unter, essene Sau. 8 kort hver; spilleren etter giveren snakker først og spiller ut.
 # Meldingen
-- Etter tur melder hver spiller pass (weiter) eller sier at han vil spille, og velger spillet sitt i hemmelighet: et Rufspiel, en Wenz eller en Solo.
-- Rufspiel (kallespill): han kaller esset (Sau) i en farge (kløver, spar eller ruter, aldri hjerter) som han har et kort i, men ikke selve esset. Den som har det, er makkeren hans, ukjent til esset spilles.
+- Etter tur melder hver spiller pass (weiter) eller tilbyr å spille: et Rufspiel, en Wenz eller en Solo.
+- Rufspiel: han kaller esset i en farge (kløver, spar eller ruter, aldri hjerter) som han har et kort i, men ikke selve esset. Den som har det, er makkeren hans, ukjent til esset spilles.
 - Wenz og Solo: han spiller alene mot de tre andre.
-- Det høyeste spillet spilles: Solo, så Wenz, så Rufspiel; mellom like spill den som snakket først. Melder alle pass, kastes kortene inn, eller, hvis Ramsch er valgt, spilles det Ramsch.
+- Solo slår Wenz, som slår Rufspiel; mellom like spill den som snakket først. Melder alle pass, kastes kortene inn, eller det spilles Ramsch hvis det er valgt.
 # Trumfene
-- Rufspiel: de fire Ober (kløver, spar, hjerter, ruter) er de høyeste trumfene, så de fire Unter i samme rekkefølge, så hjerterne: ess, 10, konge, 9, 8, 7. 14 trumfer.
-- Solo: det samme, med den valgte fargen i stedet for hjerter.
-- Wenz: bare de fire Unter er trumf.
-- De andre fargene går ess, 10, konge, (Ober), (Unter), 9, 8, 7.
+- Rufspiel: de fire Ober (kløver, spar, hjerter, ruter), så de fire Unter i samme rekkefølge, så hjerterne: ess, 10, konge, 9, 8, 7.
+- Solo: det samme, med den valgte fargen i stedet for hjerter. Wenz: bare de fire Unter.
+- De andre fargene: ess, 10, konge, (Ober), (Unter), 9, 8, 7.
 # Spillet
-- Følg farge hvis du kan (alle trumfer teller som én farge); ellers spill et hvilket som helst kort. Høyeste trumf vinner stikket, ellers det høyeste kortet i utspilt farge. Vinneren spiller ut til neste stikk.
-- Det kalte esset: når fargen spilles ut for første gang, må den som har esset, legge det. Til da kan han ikke kaste esset på en annen farge, og han kan bare spille ut den fargen med esset, med mindre han har fire eller flere kort i den: da kan han løpe fra (davonlaufen) med et annet kort. I siste stikk er alt lov.
+- Følg farge hvis du kan (alle trumfer teller som én farge); ellers spill et hvilket som helst kort. Høyeste trumf vinner, ellers det høyeste kortet i utspilt farge. Vinneren spiller ut til neste stikk.
+- Det kalte esset må legges første gang fargen spilles ut. Til da kan den som har det, ikke kaste det, og han kan bare spille ut den fargen med esset, med mindre han har fire eller flere kort i den: da kan han løpe fra (davonlaufen) med et annet kort. I siste stikk er alt lov.
 # Vunnet eller tapt
-- Kortpoeng: ess 11, 10 10, konge 4, Ober 3, Unter 2: 120 i alt.
-- Spilleren og makkeren hans (eller solisten) vinner med 61 poeng eller mer.
-- Schneider: spillerens side vinner med 91 poeng eller mer, eller taper med 30 eller mindre; motstanderne slipper unna allerede med 30. Schwarz: den tapende siden tok ikke et eneste stikk.
+- Kortpoeng: ess 11, 10 10, konge 4, Ober 3, Unter 2: 120 i alt. Den spillende siden vinner med 61 eller mer.
+- Schneider: den spillende siden vinner med 91 eller mer, eller taper med 30 eller mindre. Schwarz: den tapende siden tok ikke et eneste stikk.
 # Tariffen
-- Rufspiel 10 poeng; Solo og Wenz 50.
-- Schneider 10 mer, schwarz 10 mer.
-- Laufende: den ubrutte rekken av de høyeste trumfene fra kløver Ober og nedover (i Wenz fra kløver Unter) som én side har, den spillende siden eller den andre: 10 hver, fra og med 3 (i Wenz fra og med 2).
+- Rufspiel 10 poeng; Solo og Wenz 50; schneider 10 mer, schwarz 10 mer.
+- Laufende: den ubrutte rekken av de høyeste trumfene fra kløver Ober og nedover (i Wenz fra kløver Unter) som én side har: 10 hver, fra og med 3 (i Wenz fra og med 2).
 - Rufspiel: hver vinner får verdien, hver taper mister den. Solo og Wenz: solisten vinner eller taper tre ganger verdien, hver av de andre én gang.
-- Spilles ikke her: dobling (Kontra, Re), Tout, Sie og andre husspill.
+- Ingen Kontra, Re, Tout eller Sie.
 # Ramsch
-Når alle melder pass og Ramsch er valgt, spiller hver for seg, med trumfene fra Rufspiel. Den som har flest kortpoeng, betaler 10 til hver av de andre; ved like poeng betaler den med flest stikk, og er det også likt, betaler hver av dem. Den som tar alle stikkene (Durchmarsch, gjennommarsj), vinner 50 fra hver.
-# Slutten på spillet
-Etter det 12. givet vinner høyeste sum. Ved lik sum deles seieren.
-# Spill på enheten
-Gi enheten til spilleren som har brikken som lyser; han trykker på start og ser hånden sin. For å melde trykker du på et spill og så på haken (eller på det samme spillet igjen): et av de tre essene for et Rufspiel (grått når du ikke kan kalle det), løperen (figuren til Unter) for en Wenz, eller tegnet til en farge for den Soloen; for å melde pass trykker du på pass. Hver plass viser spillerens ord: pass-tegnet, eller en hake for en spiller som vil spille. Under spillet viser spillerens plass spillet hans: det kalte esset, Wenz eller fargen til Soloen; makkerens plass viser også esset når det er spilt. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Etter hvert giv viser en tavle den spillende siden med spillet og kortpoengene (en gullhake: vunnet), 90 for schneider og 120 for schwarz; kløver Ober (i en Wenz kløver Unter) med de talte Laufende, tariffen (ganger 3 for en solist) og verdien; i en Ramsch kortpoengene til hver spiller, de som betaler, i rødt. Så poengene og summen til hver spiller, og listen over givene, med spillernes brikker i gull når de vant. Trykk på den for neste giv. Hver linje viser kortene på hånden og summen. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et når enheten er gitt videre.
+Hver spiller for seg, med trumfene fra Rufspiel. Den som har flest kortpoeng, betaler 10 til hver av de andre; ved like poeng den med flest stikk; er det også likt, betaler hver av dem. Den som tar alle stikkene (Durchmarsch), vinner 50 fra hver.

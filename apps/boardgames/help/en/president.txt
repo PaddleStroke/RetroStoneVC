@@ -1,24 +1,16 @@
 President
 # The aim
-Get rid of all your cards before the others. The first one out becomes the Président, the last one the Trou, and the ranks change hands from deal to deal. For 3 to 6 players, with a pack of 52 cards dealt out one at a time (some players may get one card more). Five deals are played; the highest total wins.
+Get rid of your cards before the others. The first one out becomes the Président, the last one the Trou, and the ranks change from deal to deal. After five deals, the highest total wins.
 # The cards
-- From low to high: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace, and the 2, the highest of all.
-- Suits do not matter.
+From low to high: 3 to 10, jack, queen, king, ace, and the 2, the highest of all. Suits do not matter.
 # A trick
 - The leader plays one card, or two, three or four cards of the same rank.
-- In turn, each of the others plays the same number of cards, of a higher rank, or passes. A player who passed may play again when their turn comes back.
-- When all the others have passed in a row, the trick is over. The last player who played leads the next one; if they have no cards left, the next player who still has some leads.
+- In turn, the others play as many cards of a higher rank, or pass; a player who passed may play again when their turn comes back.
+- When all the others have passed in a row, the last player who played leads the next trick (if they are out, the next player who still has cards).
 - A 2 ends the trick at once: its player leads again.
 # Going out
-A player who has played all their cards is out. The order in which the players go out gives the ranks for the next deal:
-- the first: Président, a crown;
-- the second: Vice-président, a small crown (four players or more);
-- the middle places: Neutre, no sign;
-- the second to last: Vice-trou, a down arrow (four players or more);
-- the last: Trou, two down arrows.
+The order in which the players go out gives the ranks for the next deal: Président, Vice-président (four players or more), Neutre in the middle, Vice-trou (four players or more), Trou.
 # The exchange
-From the second deal on, the Trou is dealt to first and leads. At once, the Trou gives their two best cards to the Président, and the Vice-trou gives their best card to the Vice-président. Then the Président gives any two cards back to the Trou, and the Vice-président any one card to the Vice-trou, in secret.
+From the second deal on, the Trou leads. The Trou gives their two best cards to the Président, and the Vice-trou their best card to the Vice-président. Then the Président gives any two cards back, and the Vice-président any one.
 # The score
-In each deal the first player out scores one point less than the number of players, the next one point less, and so on: the last scores nothing. After five deals, the highest total wins; tied players share the win.
-# Playing on the device
-Pass the device round: each player sees only their own cards, at the bottom, from the 3s up to the 2s. Along the top of the table sit the others, in the order of their bars: how many cards they hold, and a pass sign if they passed since the last play; once out, the sign of their new rank. The last play lies big in the middle with its player's chip, the plays before it smaller behind. Tap cards to choose them (when following, one tap chooses as many cards of that rank as needed), then tap the middle or drag them there. The pass button is in your bar. In the exchange, choose the cards to give and tap the places next to the receiver's chip; the cards you received glow. Each bar shows the player's rank and total. After each deal a table shows the players in the order they went out, their new ranks, their points and totals; tap it for the next deal.
+In each deal the first player out scores one point less than the number of players, the next one less again, and so on down to 0 for the last. Tied players share the win.

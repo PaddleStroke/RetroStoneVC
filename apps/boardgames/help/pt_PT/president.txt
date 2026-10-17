@@ -1,24 +1,16 @@
 Presidente
 # O objetivo
-Livrar-se de todas as cartas antes dos outros. O primeiro a ficar sem cartas torna-se o Presidente, o último o Lanterna, e os títulos mudam de mãos de uma ronda para a outra. De 3 a 6 jogadores, com um baralho de 52 cartas dadas uma a uma (alguns jogadores podem ficar com uma carta a mais). Jogam-se cinco rondas; ganha o total mais alto.
+Livra-te das tuas cartas antes dos outros. O primeiro a ficar sem cartas torna-se o Presidente, o último o Lanterna, e os títulos mudam de uma ronda para a outra. Depois de cinco rondas, ganha o total mais alto.
 # As cartas
-- Da mais baixa para a mais alta: 3, 4, 5, 6, 7, 8, 9, 10, valete, dama, rei, ás, e o 2, a mais alta de todas.
-- Os naipes não contam.
+Da mais baixa para a mais alta: do 3 ao 10, valete, dama, rei, ás, e o 2, a mais alta de todas. Os naipes não contam.
 # Uma vaza
 - Quem abre joga uma carta, ou duas, três ou quatro cartas do mesmo valor.
-- À vez, cada um dos outros joga o mesmo número de cartas, de valor mais alto, ou passa. Quem passou pode voltar a jogar quando chegar outra vez a sua vez.
-- Quando todos os outros passam seguidos, a vaza acaba. O último a jogar abre a seguinte; se já não tiver cartas, abre o jogador seguinte que ainda as tenha.
+- À vez, os outros jogam o mesmo número de cartas de valor mais alto, ou passam; quem passou pode voltar a jogar quando chegar outra vez a sua vez.
+- Quando todos os outros passam seguidos, o último a jogar abre a vaza seguinte (se já não tiver cartas, o jogador seguinte que ainda as tenha).
 - Um 2 fecha logo a vaza: quem o jogou volta a abrir.
 # Ficar sem cartas
-Um jogador que jogou todas as cartas está fora. A ordem pela qual os jogadores ficam sem cartas dá os títulos da ronda seguinte:
-- o primeiro: Presidente, uma coroa;
-- o segundo: Vice-presidente, uma coroa pequena (a partir de quatro jogadores);
-- os lugares do meio: Neutro, sem sinal;
-- o penúltimo: Vice-lanterna, uma seta para baixo (a partir de quatro jogadores);
-- o último: Lanterna, duas setas para baixo.
+A ordem pela qual os jogadores ficam sem cartas dá os títulos da ronda seguinte: Presidente, Vice-presidente (a partir de quatro jogadores), Neutro no meio, Vice-lanterna (a partir de quatro jogadores), Lanterna.
 # A troca
-A partir da segunda ronda, o Lanterna recebe as cartas primeiro e abre. Logo a seguir, o Lanterna dá as suas duas melhores cartas ao Presidente, e o Vice-lanterna a sua melhor carta ao Vice-presidente. Depois o Presidente devolve duas cartas à escolha ao Lanterna, e o Vice-presidente uma carta à escolha ao Vice-lanterna, em segredo.
+A partir da segunda ronda, o Lanterna abre. O Lanterna dá as suas duas melhores cartas ao Presidente, e o Vice-lanterna a sua melhor carta ao Vice-presidente. Depois o Presidente devolve duas cartas à escolha, e o Vice-presidente uma.
 # A pontuação
-Em cada ronda, o primeiro a ficar sem cartas marca um ponto a menos do que o número de jogadores, o seguinte menos um, e assim por diante: o último não marca nada. Depois de cinco rondas, ganha o total mais alto; os jogadores empatados partilham a vitória.
-# Jogar no dispositivo
-Passem o dispositivo: cada jogador só vê as suas cartas, em baixo, dos 3 até aos 2. Na parte de cima da mesa estão os outros, pela ordem das suas barras: quantas cartas têm, e um sinal de passe se passaram desde a última jogada; depois de saírem, o sinal do seu novo título. A última jogada fica em grande no meio com a peça de quem a fez, e as jogadas anteriores, mais pequenas, atrás dela. Toca nas cartas para as escolher (ao seguir, um toque escolhe tantas cartas desse valor quantas forem precisas), depois toca no meio ou arrasta-as até lá. O botão de passar está na tua barra. Na troca, escolhe as cartas a dar e toca nos lugares ao lado da peça de quem as recebe; as cartas que recebeste brilham. Cada barra mostra o título e o total do jogador. Depois de cada ronda, uma tabela mostra os jogadores pela ordem em que saíram, os seus novos títulos, os pontos e os totais; toca nela para a ronda seguinte.
+Em cada ronda, o primeiro a ficar sem cartas marca um ponto a menos do que o número de jogadores, o seguinte menos um, e assim por diante até 0 para o último. Os jogadores empatados partilham a vitória.

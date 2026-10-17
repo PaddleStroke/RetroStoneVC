@@ -1,22 +1,15 @@
 Piramida
 # Tujuan
-Kosongkan piramida 28 kartu dengan mengambil pasangan kartu yang jumlahnya 13. Permainan untuk satu pemain.
-# Susunan
-- 28 kartu terbuka dalam piramida tujuh baris; tiap baris menutupi separuh baris di atasnya.
-- Sisa 24 kartu adalah tumpukan, tertutup, di bawah piramida; di sebelahnya ada kartu yang dibalik dan tumpukan buangan.
-- Di kanan ada tumpukan kartu yang sudah diambil.
+Kosongkan piramida 28 kartu dengan mengambil pasangan kartu yang jumlahnya 13.
 # Memindahkan kartu
-- Kartu bebas jika tidak ada lagi kartu yang menutupinya. Di awal, baris paling bawah bebas.
-- Ambil dua kartu bebas yang jumlahnya 13: as bernilai 1, jack 11, queen 12. Queen berpasangan dengan as, jack dengan 2, 10 dengan 3, 9 dengan 4, 8 dengan 5, 7 dengan 6.
+- Kartu bebas jika tidak ada lagi kartu yang menutupinya.
+- Ambil dua kartu bebas yang jumlahnya 13: as bernilai 1, jack 11, queen 12.
 - King bernilai 13: ia pergi sendiri.
 - Kartu yang dibalik dan kartu teratas tumpukan buangan juga bebas: pasangkan dengan kartu piramida, atau satu sama lain.
 # Tumpukan
-- Ketuk tumpukan untuk membalik kartu teratasnya. Saat kamu membalik kartu berikutnya, kartu yang dibalik pindah ke tumpukan buangan.
-- Satu putaran: tumpukan hanya dilalui sekali.
-- Tiga putaran: saat tumpukan habis, ketuk tempatnya untuk membalik tumpukan buangan menjadi tumpukan lagi. Angka di bawah tumpukan menunjukkan sisa putaran.
+- Ketuk tumpukan untuk membalik kartu teratasnya; kartu yang dibalik sebelumnya pindah ke tumpukan buangan.
+- Dengan satu putaran, tumpukan hanya dilalui sekali. Dengan tiga putaran, ketuk tumpukan yang kosong untuk membalik tumpukan buangan kembali.
 # Akhir permainan
-Kamu menang begitu piramida kosong, walaupun masih ada kartu di tumpukan atau tumpukan buangan. Permainan kalah jika tidak ada langkah lagi. Kartu dikocok secara acak, jadi tidak semua pembagian bisa dimenangkan.
+Kamu menang begitu piramida kosong, walaupun masih ada kartu di tumpukan atau tumpukan buangan. Permainan kalah jika tidak ada langkah lagi.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Di bab 1 sampai 5 tumpukan dilalui tiga kali, di bab 6 sekali. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu untuk mengangkatnya, lalu ketuk kartu yang jumlahnya 13 dengannya; ketuk lagi kartu yang terangkat untuk menurunkannya. King pergi dengan satu ketukan. Kamu juga bisa menyeret kartu ke pasangannya. Lampu menunjukkan langkah yang mungkin; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang.

@@ -1,24 +1,16 @@
 Präsident
 # Das Ziel
-Werde alle deine Karten vor den anderen los. Wer zuerst keine Karten mehr hat, wird Präsident, der Letzte Bettler, und die Ränge wechseln von Runde zu Runde. Für 3 bis 6 Spieler, mit 52 Karten, die einzeln ausgeteilt werden (manche Spieler bekommen eventuell eine Karte mehr). Es werden fünf Runden gespielt; die höchste Summe gewinnt.
+Werde deine Karten vor den anderen los. Wer zuerst keine Karten mehr hat, wird Präsident, der Letzte Bettler, und die Ränge wechseln von Runde zu Runde. Nach fünf Runden gewinnt die höchste Summe.
 # Die Karten
-- Von niedrig bis hoch: 3, 4, 5, 6, 7, 8, 9, 10, Bube, Dame, König, Ass und die 2, die höchste von allen.
-- Die Farben spielen keine Rolle.
+Von niedrig bis hoch: 3 bis 10, Bube, Dame, König, Ass und die 2, die höchste von allen. Die Farben spielen keine Rolle.
 # Ein Stich
 - Wer ausspielt, legt eine Karte, oder zwei, drei oder vier Karten desselben Rangs.
-- Reihum legt jeder der anderen gleich viele Karten eines höheren Rangs oder passt. Wer gepasst hat, darf wieder spielen, wenn er erneut an der Reihe ist.
-- Haben alle anderen nacheinander gepasst, ist der Stich vorbei. Wer zuletzt gespielt hat, spielt zum nächsten aus; hat er keine Karten mehr, spielt der nächste Spieler aus, der noch welche hat.
+- Reihum legen die anderen gleich viele Karten eines höheren Rangs oder passen; wer gepasst hat, darf wieder spielen, wenn er erneut an der Reihe ist.
+- Haben alle anderen nacheinander gepasst, spielt der, der zuletzt gespielt hat, zum nächsten Stich aus (ist er raus, der nächste Spieler, der noch Karten hat).
 - Eine 2 beendet den Stich sofort: Wer sie gespielt hat, spielt erneut aus.
 # Rausgehen
-Ein Spieler, der alle seine Karten gespielt hat, ist raus. Die Reihenfolge, in der die Spieler rausgehen, ergibt die Ränge für die nächste Runde:
-- der Erste: Präsident, eine Krone;
-- der Zweite: Vizepräsident, eine kleine Krone (ab vier Spielern);
-- die mittleren Plätze: Bürger, kein Zeichen;
-- der Vorletzte: Vizebettler, ein Pfeil nach unten (ab vier Spielern);
-- der Letzte: Bettler, zwei Pfeile nach unten.
+Die Reihenfolge, in der die Spieler rausgehen, ergibt die Ränge für die nächste Runde: Präsident, Vizepräsident (ab vier Spielern), Bürger in der Mitte, Vizebettler (ab vier Spielern), Bettler.
 # Der Tausch
-Ab der zweiten Runde bekommt der Bettler als Erster Karten und spielt aus. Sofort gibt der Bettler seine zwei besten Karten dem Präsidenten und der Vizebettler seine beste Karte dem Vizepräsidenten. Dann gibt der Präsident dem Bettler zwei beliebige Karten zurück und der Vizepräsident dem Vizebettler eine beliebige Karte, geheim.
+Ab der zweiten Runde spielt der Bettler aus. Der Bettler gibt seine zwei besten Karten dem Präsidenten und der Vizebettler seine beste Karte dem Vizepräsidenten. Dann gibt der Präsident zwei beliebige Karten zurück und der Vizepräsident eine beliebige.
 # Die Wertung
-In jeder Runde bekommt der Erste, der rausgeht, einen Punkt weniger als die Zahl der Spieler, der Nächste einen Punkt weniger und so weiter: Der Letzte bekommt nichts. Nach fünf Runden gewinnt die höchste Summe; Spieler mit gleicher Summe teilen sich den Sieg.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten, von den 3ern bis zu den 2ern. Am oberen Rand des Tisches sitzen die anderen, in der Reihenfolge ihrer Leisten: wie viele Karten sie haben, und ein Passe-Zeichen, wenn sie seit dem letzten Zug gepasst haben; sind sie raus, das Zeichen ihres neuen Rangs. Der letzte Zug liegt groß in der Mitte mit dem Stein seines Spielers, die Züge davor kleiner dahinter. Tippe Karten an, um sie zu wählen (beim Nachlegen wählt ein Tipp so viele Karten dieses Rangs wie nötig), dann tippe auf die Mitte oder schieb sie dorthin. Der Knopf Passe ist in deiner Leiste. Beim Tausch wähle die Karten, die du gibst, und tippe auf die Plätze neben dem Stein des Empfängers; die Karten, die du bekommen hast, leuchten. Jede Leiste zeigt Rang und Summe des Spielers. Nach jeder Runde zeigt eine Tafel die Spieler in der Reihenfolge, in der sie rausgegangen sind, ihre neuen Ränge, ihre Punkte und Summen; tippe darauf für die nächste Runde.
+In jeder Runde bekommt der Erste, der rausgeht, einen Punkt weniger als die Zahl der Spieler, der Nächste wieder einen weniger und so weiter bis 0 für den Letzten. Spieler mit gleicher Summe teilen sich den Sieg.

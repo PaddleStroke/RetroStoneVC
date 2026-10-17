@@ -1,36 +1,27 @@
 Schafkopf
 # Amaç
-Bavyera'nın dört kişilik büyük kart oyunu. Her dağıtımda ihaleyi kazanan oyuncu, çağırdığı bir eşle ya da tek başına, diğerlerine karşı bir oyun oynar; oyun, tarifeye göre puanla ödenir. Bir parti 12 dağıtımlık bir listedir; sonunda toplamı en yüksek olan kazanır. Kurallar Bavyera kurallarıdır. Cihazı elden ele geçiren 4 oyuncu için; kimse başkalarının kartlarını görmez.
+Bavyera'nın dört kişilik büyük kart oyunu, Bavyera kurallarıyla. Her dağıtımda ihaleyi kazanan oyuncu, çağırdığı bir eşle ya da tek başına, diğerlerine karşı bir oyun oynar. 12 dağıtımdan sonra toplamı en yüksek olan kazanır; eşit toplamlar galibiyeti paylaşır.
 # Kartlar
-Destede 7'den asa kadar 32 kart vardır. Schafkopf Alman renkleriyle oynanır; burada kartlar, onun için de yaygın olarak kullanılan Fransız renklerindedir: meşe palamudu (Eichel) yerine sinek, yaprak (Gras) yerine maça, kalp (Herz) yerine kupa, çıngırak (Schellen) yerine karo. Kızlar Ober ("üst"), valeler Unter ("alt"), aslar Sau'dur ("dişi domuz"). Alman renkleri ileride gelebilir.
-# Dağıtım
-Her oyuncuya 8 kart verilir. İlk yeşim dağıtır; sonra her dağıtımda dağıtan bir kişi kayar. Dağıtandan sonraki oyuncu ilk konuşur ve ilk eli açar.
+7'den asa kadar 32 kart, Alman renkleri yerine Fransız renkleri: meşe palamudu (Eichel) yerine sinek, yaprak (Gras) yerine maça, kupa (Herz), çıngırak (Schellen) yerine karo. Kızlar Ober, valeler Unter, aslar Sau'dur. Herkese 8 kart; dağıtandan sonraki oyuncu ilk konuşur ve ilk eli açar.
 # İhale
-- Her oyuncu sırayla pas der (weiter, "devam") ya da oynayacağını söyler ve oyununu gizlice seçer: Rufspiel, Wenz ya da Solo.
-- Rufspiel (çağrı oyunu): bir rengin (sinek, maça ya da karo, asla kupa değil) asını (Sau) çağırır; o renkten bir kartı olmalı, ama o as onda olmamalıdır. Ası tutan oyuncu onun eşidir; as oynanana kadar kim olduğu bilinmez.
+- Her oyuncu sırayla pas der (weiter) ya da oynamayı önerir: Rufspiel, Wenz ya da Solo.
+- Rufspiel: bir rengin (sinek, maça ya da karo, asla kupa değil) asını çağırır; o renkten bir kartı olmalı, ama o as onda olmamalıdır. Ası tutan oyuncu onun eşidir; as oynanana kadar kim olduğu bilinmez.
 - Wenz ve Solo: diğer üçüne karşı tek başına oynar.
-- En yüksek oyun oynanır: Solo, sonra Wenz, sonra Rufspiel; eşit oyunlar arasında önce konuşan. Herkes pas derse kartlar bozulur ya da Ramsch seçildiyse bir Ramsch oynanır.
+- Solo Wenz'i, Wenz de Rufspiel'i yener; eşit oyunlar arasında önce konuşan. Herkes pas derse kartlar bozulur ya da seçildiyse bir Ramsch oynanır.
 # Kozlar
-- Rufspiel: dört Ober (sinek, maça, kupa, karo) en büyük kozlardır, sonra aynı sırayla dört Unter, sonra kupalar: as, 10, papaz, 9, 8, 7. Toplam 14 koz.
-- Solo: aynısı, kupa yerine seçilen renkle.
-- Wenz: yalnızca dört Unter kozdur.
-- Diğer renklerin sıralaması: as, 10, papaz, (Ober), (Unter), 9, 8, 7.
+- Rufspiel: dört Ober (sinek, maça, kupa, karo), sonra aynı sırayla dört Unter, sonra kupalar: as, 10, papaz, 9, 8, 7.
+- Solo: aynısı, kupa yerine seçilen renkle. Wenz: yalnızca dört Unter.
+- Diğer renkler: as, 10, papaz, (Ober), (Unter), 9, 8, 7.
 # Oyun
 - Yapabiliyorsan açılan renkten kart at (bütün kozlar tek renk sayılır); yapamıyorsan istediğin kartı at. Eli en büyük koz alır; koz yoksa açılan rengin en büyük kartı. Eli alan bir sonrakini açar.
-- Çağrılan as: rengi ilk kez açıldığında, ası tutan oyuncu ası oynamak zorundadır. O zamana kadar ası başka bir renge atamaz ve o rengi yalnızca asla açabilir; meğer ki o renkten dört ya da daha fazla kartı olsun: o zaman başka bir kartla kaçabilir (davonlaufen). Son elde her şey serbesttir.
+- Çağrılan as, rengi ilk kez açıldığında oynanmalıdır. O zamana kadar ası tutan oyuncu onu başka bir renge atamaz ve o rengi yalnızca asla açabilir; meğer ki o renkten dört ya da daha fazla kartı olsun: o zaman başka bir kartla kaçabilir (davonlaufen). Son elde her şey serbesttir.
 # Kazanmak
-- Kart puanları: as 11, 10 10, papaz 4, Ober 3, Unter 2; toplam 120.
-- Oyuncu ve eşi (ya da solocu) 61 ya da daha fazla puanla kazanır.
-- Schneider: oyuncunun tarafı 91 ya da daha fazla puanla kazanır veya 30 ya da daha az puanla kaybeder; rakiplerin kurtulması için 30 puan yeter. Schwarz: kaybeden taraf hiç el almamıştır.
+- Kart puanları: as 11, 10 10, papaz 4, Ober 3, Unter 2: toplam 120. Oynayan taraf 61 ya da daha fazla puanla kazanır.
+- Schneider: oynayan taraf 91 ya da daha fazla puanla kazanır veya 30 ya da daha az puanla kaybeder. Schwarz: kaybeden taraf hiç el almamıştır.
 # Tarife
-- Rufspiel 10 puan; Solo ve Wenz 50.
-- Schneider 10 daha, schwarz 10 daha.
-- Laufende ("koşanlar"): sinek Ober'den (Wenz'de sinek Unter'den) aşağı doğru, bir tarafın, oynayan tarafın ya da diğerinin elindeki kesintisiz en büyük kozlar dizisi: 3'ten başlayarak (Wenz'de 2'den) her biri 10.
+- Rufspiel 10 puan; Solo ve Wenz 50; schneider 10 daha, schwarz 10 daha.
+- Laufende: bir tarafın elindeki, sinek Ober'den (Wenz'de sinek Unter'den) aşağı doğru kesintisiz en büyük kozlar dizisi: 3'ten başlayarak (Wenz'de 2'den) her biri 10.
 - Rufspiel: her kazanan değeri yazar, her kaybeden değeri kaybeder. Solo ve Wenz: solocu değerin üç katını yazar ya da kaybeder, diğer oyuncuların her biri bir katını.
-- Burada oynanmayanlar: katlama (Kontra, Re), Tout (bütün elleri alacağını ilan etmek), Sie (dört Ober ve dört Unter'in hepsi elde) ve diğer ev oyunları.
+- Kontra, Re, Tout ya da Sie yoktur.
 # Ramsch
-Herkes pas dediğinde ve Ramsch seçilmişse, herkes kendi adına, Rufspiel'in kozlarıyla oynar. En çok kart puanı yapan oyuncu diğerlerinin her birine 10 öder; puanlar eşitse daha çok el alan öder, o da eşitse hepsi öder. Bütün elleri almak (Durchmarsch, "baştan sona geçiş") her birinden 50 kazandırır.
-# Oyunun sonu
-12. dağıtımdan sonra toplamı en yüksek olan kazanır. Toplamları eşit olanlar galibiyeti paylaşır.
-# Cihazda oynamak
-Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Teklif vermek için bir oyuna, sonra onay işaretine (ya da aynı oyuna yeniden) dokun: Rufspiel için üç astan biri (çağıramadığında gri), Wenz için fil (Unter'in figürü) ya da o rengin Solosu için rengin işareti; pas demek için pas'a dokun. Her oyuncunun yerinde sözü görünür: pas işareti ya da oynamak isteyen oyuncu için onay işareti. Oyun sırasında oyuncunun yerinde oyunu görünür: çağrılan as, Wenz ya da Solo'nun rengi; as oynandıktan sonra eşin yerinde de görünür. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Son eli görmek için sağ alttaki desteye dokun. Her dağıtımdan sonra bir tablo şunları gösterir: oyunu ve kart puanlarıyla oynayan taraf (altın onay işareti: kazandı), schneider için 90 ve schwarz için 120; sinek Ober (Wenz'de sinek Unter) ve sayılan Laufende, tarife (solocu için 3 katı) ve değer; Ramsch'ta her oyuncunun kart puanları, ödeyenler kırmızıyla. Sonra her oyuncunun puanı ve toplamı ve dağıtımlar listesi; kazandıklarında oyuncuların pulları altın renginde. Sonraki dağıtım için ona dokun. Her şerit eldeki kartları ve toplamı gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.
+Herkes kendi adına, Rufspiel'in kozlarıyla oynar. En çok kart puanı yapan oyuncu diğerlerinin her birine 10 öder; puanlar eşitse daha çok el alan, o da eşitse hepsi öder. Bütün elleri almak (Durchmarsch) her birinden 50 kazandırır.

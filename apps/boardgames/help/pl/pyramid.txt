@@ -1,22 +1,15 @@
 Piramida
 # Cel gry
-Opróżnij piramidę z 28 kart, zdejmując pary kart, które razem dają 13. Gra dla jednego gracza.
-# Rozłożenie
-- 28 odkrytych kart w piramidzie z siedmiu rzędów; każdy rząd zakrywa do połowy rząd nad nim.
-- Pozostałe 24 karty to talia, zakryta, pod piramidą; obok leżą odwrócona karta i stos odrzuconych.
-- Po prawej leży stos zdjętych kart.
+Opróżnij piramidę z 28 kart, zdejmując pary kart, które razem dają 13.
 # Przekładanie kart
-- Karta jest wolna, gdy nie leży już na niej żadna karta. Na początku wolny jest dolny rząd.
-- Zdejmij dwie wolne karty, które razem dają 13: as liczy się za 1, walet za 11, dama za 12. Dama idzie z asem, walet z dwójką, dziesiątka z trójką, dziewiątka z czwórką, ósemka z piątką, siódemka z szóstką.
+- Karta jest wolna, gdy nie leży już na niej żadna karta.
+- Zdejmij dwie wolne karty, które razem dają 13: as liczy się za 1, walet za 11, dama za 12.
 - Król liczy się za 13: schodzi sam.
 - Odwrócona karta i wierzchnia karta stosu odrzuconych też są wolne: połącz je z kartą piramidy albo ze sobą.
 # Talia
-- Dotknij talii, by odwrócić jej wierzchnią kartę. Gdy odwrócisz następną, odwrócona karta trafia na stos odrzuconych.
-- Jedno przejście: talię przechodzi się tylko raz.
-- Trzy przejścia: gdy talia jest pusta, dotknij jej miejsca, by odwrócić stos odrzuconych i zrobić z niego nową talię. Liczba pod talią pokazuje pozostałe przejścia.
+- Dotknij talii, by odwrócić jej wierzchnią kartę; karta odwrócona wcześniej trafia na stos odrzuconych.
+- Przy jednym przejściu talię przechodzi się tylko raz. Przy trzech przejściach dotknij pustej talii, by odwrócić stos odrzuconych.
 # Koniec gry
-Wygrywasz, gdy tylko piramida jest pusta, nawet jeśli w talii lub na stosie odrzuconych zostały karty. Gra jest przegrana, gdy nie ma już żadnego ruchu. Karty są tasowane losowo, więc nie każde rozdanie da się wygrać.
+Wygrywasz, gdy tylko piramida jest pusta, nawet jeśli w talii lub na stosie odrzuconych zostały karty. Gra jest przegrana, gdy nie ma już żadnego ruchu.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 5 talię przechodzi się trzy razy, w rozdziale 6 raz. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Dotknij karty, by ją podnieść, a potem karty, która razem z nią daje 13; dotknij podniesionej karty jeszcze raz, by ją odłożyć. Król schodzi jednym dotknięciem. Kartę możesz też przeciągnąć na jej parę. Lampa pokazuje możliwy ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki.

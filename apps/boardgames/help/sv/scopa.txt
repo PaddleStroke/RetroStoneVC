@@ -1,27 +1,22 @@
 Scopa
 # Målet
-Ta kort från bordet genom att spela ett kort med samma värde, och sopa bordet rent: varje gång det blir tomt är det en scopa, som ger en poäng. Första laget som når 11 poäng vinner. För 2 spelare, eller 4 i två lag med partner som sitter mittemot varandra (elfenben och rött mot ebenholts och jade); ingen ser de andras kort.
+Ta kort genom att spela ett kort med samma värde, och sopa bordet rent: varje gång är en scopa, som ger en poäng. För 2 spelare, eller 4 i två lag med partner som sitter mittemot varandra. Första laget som når 11 poäng vinner.
 # Korten
-Den italienska kortleken med 40 kort i fyra färger: mynt (denari), bägare (coppe), svärd (spade) och klubbor (bastoni). Varje färg går från 1 till 7, sedan kommer fante, värd 8, cavallo, 9, och re, 10. Här är fante en bonde, cavallo en springare och re en kung.
-# Given
-Varje spelare får 3 kort, och 4 kort läggs med framsidan upp på bordet (det ges om ifall tre eller fyra re finns bland dem). Varje gång alla händer är tomma får alla 3 till, tills leken är slut. Given går vidare en plats varje runda, och spelaren efter given börjar.
+Den italienska kortleken med 40 kort: mynt (denari), bägare (coppe), svärd (spade) och klubbor (bastoni), från 1 till 7, sedan fante (8, en bonde), cavallo (9, en springare) och re (10, en kung).
 # Spelet
-- Spela ett kort från handen.
-- Ligger ett kort med samma värde på bordet tar ditt kort det. Ligger flera där väljer du vilket.
-- Annars, om några kort på bordet tillsammans blir dess värde, tar ditt kort alla. Finns flera sådana grupper väljer du en.
-- Ett ensamt kort går alltid före en summa: med en sjua på bordet kan en sjua inte ta en trea och en fyra.
-- Ett kort som kan ta måste ta. Ett kort som inte tar något blir kvar på bordet.
+3 kort var och 4 med framsidan upp på bordet (det ges om ifall tre eller fyra re syns); 3 till var varje gång alla händer är tomma, tills leken är slut.
+- Spela ett kort. Det tar ett kort på bordet med samma värde (finns flera väljer du ett); annars kort på bordet som tillsammans blir dess värde (finns flera grupper väljer du en).
+- Ett ensamt kort går före en summa: med en sjua på bordet kan en sjua inte ta en trea och en fyra.
+- Ett kort som kan ta måste ta; ett som inte kan blir kvar på bordet.
 - Att tömma bordet är en scopa, som ger 1 poäng, utom med rundans allra sista kort.
-- När rundan är slut går korten som ligger kvar på bordet till den som tog sist.
+- När rundan är slut går korten som ligger kvar till den som tog sist.
 # Poängen
-I slutet av varje runda får varje lag:
-- 1 poäng för flest kort;
-- 1 poäng för flest mynt;
-- 1 poäng för settebello, myntsjuan;
-- 1 poäng för primiera: varje lag tar sitt bästa kort i varje färg, där sjuan räknas som 21, sexan 18, esset 16, femman 15, fyran 14, trean 13, tvåan 12 och klätt 10, och den högsta summan vinner. Ett lag som saknar en färg har ingen primiera;
-- 1 poäng för varje scopa.
+Efter varje runda får varje lag 1 poäng för:
+- flest kort;
+- flest mynt;
+- settebello, myntsjuan;
+- primiera: varje lags bästa kort i varje färg, där sjuan räknas som 21, sexan 18, esset 16, femman 15, fyran 14, trean 13, tvåan 12 och klätt 10; den högsta summan vinner, och ett lag som saknar en färg har ingen;
+- varje scopa.
 Vid lika får ingen den poängen.
 # Partiets slut
-Partiet slutar efter rundan då ett lag når 11 poäng; laget med flest poäng vinner. Står lagen lika spelas en runda till.
-# Spela på enheten
-Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand längst ner, med leken till vänster och sina tagna kort till höger. De andras kort och högar ligger högst upp. Kortet från varje scopa ligger på tvären med framsidan upp under lagets hög. Tryck på ett kort i handen: det lyfts och korten på bordet som det kan ta lyser. Tryck på det igen, eller på bordet, för att spela det; eller dra det till bordet. Kan det ta mer än ett kort eller en grupp, trycker du på de kort på bordet du vill ha tills summan stämmer. Efter varje runda visar en tabell för varje lag korten, mynten, settebello, primiera, scope (ett kort på tvären över en hög), rundans poäng och summan; det som ger poäng lyser. Tryck på den för nästa runda. Varje list visar lagets summa. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett kort när enheten har skickats vidare.
+Efter rundan då ett lag når 11 poäng vinner laget med flest poäng; står lagen lika spelas en runda till.
