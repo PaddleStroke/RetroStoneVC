@@ -172,3 +172,13 @@ passed, the back wall and the counter, and before the start (the title too) the 
   again at 427 and 520, then tests/wide_test.sh and the language test at 320, 427 and 520;
   `make mouseespresso-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
   (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`; the 240 lines of the stage are the same
+pixels, centred, and the flight is the same (the ceiling and the counter stay where they are). The raster draws the
+lines past the stage (draw.c `raster_out`): above, the back wall's planks (BG3's row 14, the planks alone between the
+windows and the rail, repeated) up to the screen's top, a little darker toward it, and the strings of the hanging
+lamps, cups and tea bags carried up (BG2's line 0, where only strings are, repeated); below, the counter's wooden
+front (the backdrop: a shadow under its top, panels with a groove every 40 lines, darker with depth), every layer
+hidden there. The UI is hidden past the stage; line 0 puts the stage's layers and scroll back, so a 240-line screen is
+unchanged. The frontend's touch zones sit on the counter's front.

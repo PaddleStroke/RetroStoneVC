@@ -26,8 +26,39 @@ static int p1_drawn_x;                 /* tests (draw_view_log): the screen x of
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd8ba),RS_HEX(0xea9868),RS_HEX(0xa65951)},
  {RS_HEX(0xe1eddd),RS_HEX(0x9bc1bd),RS_HEX(0x567f91)}};
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the café goes on past the stage.
+ * Above: the back wall's planks (BG3's row 14, between the windows and the rail, repeated) up to the screen's top,
+ * a little darker toward it, and the strings of the hanging things carried up to the ceiling (BG2's line 0 repeated:
+ * only strings there); below: the counter's wooden front, its panels' grooves every 40 lines, darker with depth. The
+ * UI is hidden past the stage; line 0 puts the stage's settings back (a 240-line screen: the same values, so the same
+ * pixels). */
+static rs_color tall_scale(rs_color c,int k){   /* darker by k/256, rounded (soft steps) */
+ return RS_RGB(((c&31)*k+128)/256,(((c>>5)&31)*k+128)/256,(((c>>10)&31)*k+128)/256);
+}
+#define TALL_PLANKS 112                 /* the back wall's row of planks alone (between the windows and the rail) */
+static void raster_out(int line){
+ int top=rs_screen_top();
+ if(line==top){rs_bg_enable(RS_BG1,0);rs_bg_enable(RS_BG2,1);rs_bg_enable(RS_BG3,1);}
+ if(line==RS_SCREEN_H)for(int l=0;l<3;l++)rs_bg_enable(l,0);
+ if(line<0){
+  int k=top<0?-line*40/-top:0;
+  rs_pal_set(0,tall_scale(V[0].sky[(line&4)?4:0],256-k));
+  rs_bg_scroll(RS_BG2,0,-line);
+  rs_bg_scroll(RS_BG3,VP[0].sx[2],TALL_PLANKS+(line&7)-line);
+  return;
+ }
+ int d=line-RS_SCREEN_H,n=rs_screen_bottom()-RS_SCREEN_H,k=n>0?d*72/n:0,g=d%40,dd=(line&4)?4:0;
+ rs_color c=d<3?RS_HEX(0x423a4b):g==38?RS_HEX(0x584449):g==39?RS_HEX(0xb48a62):RS_RGB8(144+dd,107+dd/2,86+dd);
+ rs_pal_set(0,tall_scale(c,256-k));
+}
 static void raster(int line,void *user) {
- (void)user;int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
+ (void)user;
+ if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
+ if(line==0){
+  for(int l=0;l<3;l++)rs_bg_enable(l,1);
+  rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,VP[0].sx[2],VP[0].sy[2]);
+ }
+ int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
  int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);
 }
 /* the maps of this width: 64 tiles at 320, 128 wider */
