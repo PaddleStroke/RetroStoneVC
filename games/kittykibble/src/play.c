@@ -7,7 +7,8 @@
  * actor runs along the corridors' centre lines and decides at cell centres; a kitten keeps the direction pressed
  * (and let go) for TURN_BUFFER frames and takes it at the next junction, even CORNER_PX before or after its centre;
  * it turns round at once. The vacuums never turn round on their own: at each cell they take the open way (not back)
- * that brings them closest to their target (their personality), or a random one when scared.
+ * that brings them closest to their target (their personality), or a random one when scared; a caught one's eyes
+ * take the shortest way home.
  */
 #include "game.h"
 #include <string.h>
@@ -414,10 +415,48 @@ static int vacuum_open(const world *w, const vacuum *v, int cx, int cy, int dir)
     return walkable(c);
 }
 
+/* a caught vacuum's eyes: the way of the shortest path to the dock's exit cell (a breadth-first search over the
+ * corridors, the tunnels wrapping), straight on when it ties, back only when it is the shortest (just caught going
+ * away). The greedy choice of the roaming vacuums would circle a loop of corridors for ever (the living room's top
+ * corners: the target down-right, the loop's only way out down-left). */
+static int home_dir(const world *w, int cx, int cy, int dir)
+{
+    static const int order[4] = {0, 1, 3, 2};          /* straight on, the sides, back */
+    int16_t dist[MAZE_H * MAZE_W], q[MAZE_H * MAZE_W];
+    for (int c = 0; c < MAZE_H * MAZE_W; c++) dist[c] = -1;
+    int head = 0, tail = 0, s = DOCK_Y * MAZE_W + DOCK_X;
+    dist[s] = 0;
+    q[tail++] = (int16_t)s;
+    while (head < tail) {
+        int c = q[head++], x = c % MAZE_W, y = c / MAZE_W;
+        for (int d = 0; d < 4; d++) {
+            int nx = (x + DX[d] + MAZE_W) % MAZE_W, ny = y + DY[d], n = ny * MAZE_W + nx;
+            if (ny < 0 || ny >= MAZE_H || !walkable(w->cell[ny][nx]) || dist[n] >= 0) continue;
+            dist[n] = (int16_t)(dist[c] + 1);
+            q[tail++] = (int16_t)n;
+        }
+    }
+    int best = dir, bd = 1 << 30;
+    for (int k = 0; k < 4; k++) {
+        int d = (dir + order[k]) & 3, nx = (cx + DX[d] + MAZE_W) % MAZE_W, ny = cy + DY[d];
+        if (ny < 0 || ny >= MAZE_H || !walkable(w->cell[ny][nx])) continue;
+        int dd = dist[ny * MAZE_W + nx];
+        if (dd >= 0 && dd < bd) { bd = dd; best = d; }
+    }
+    return best;
+}
+
 static void vacuum_decide(world *w, int i)
 {
     vacuum *v = &w->v[i];
     int cx = cell_x(v->x), cy = (int)(v->y / Q(CELL));
+    if (v->state == VS_HOME) {
+        v->reverse = 0;
+        v->tx = DOCK_X;
+        v->ty = DOCK_Y;
+        v->dir = home_dir(w, cx, cy, v->dir);
+        return;
+    }
     if (v->reverse) {
         v->reverse = 0;
         if (vacuum_open(w, v, cx, cy, OPP(v->dir))) { v->dir = OPP(v->dir); return; }

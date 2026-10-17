@@ -3,7 +3,9 @@
  * and the turn buffer (taken at the junction, before or just after its centre; forgotten after TURN_BUFFER frames),
  * turning round, walls, the tunnels, kibble and the room clear, the fish treat, each vacuum's target (Dash, Sneak,
  * Patrol, Wobble; scatter), the dock, the yarn (scared vacuums turn round, are caught for 20, 40... points and zip
- * home), one catch ending the run (and with 2 players only that kitten's), the touch swipe, determinism and the bot.
+ * home), one catch ending the run (and with 2 players only that kitten's), the eyes home from everywhere (a busy dock
+ * too), meeting head-on (never through each other; the end of yarn time), the room clean as a vacuum arrives, 4 kittens
+ * on one kibble, the touch swipe, determinism and the bot.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/kittykibble/LICENSE.
  */
 #include "game.h"
@@ -457,6 +459,151 @@ static void test_caught(void)
     CHECK(W.k[1].x != x2, "nothing stops for long");
 }
 
+/* a caught vacuum's eyes reach the dock from every corridor cell, going every way, in every room (they used to circle
+ * the living room's top corners for ever: the greedy way to the dock's exit cell runs round a loop) */
+static void test_eyes_home(void)
+{
+    int stuck = 0, worst = 0, fx = -1, fy = -1, fm = -1;
+    for (int m = 0; m < ROOMS; m++) {
+        quiet(&W, 1);
+        world_start_room(&W, m + 1);
+        W.phase = PH_PLAY;
+        for (int i = 0; i < VACUUMS; i++) { W.v[i].state = VS_DOCK; W.v[i].wait = 1 << 30; }
+        W.kibble_left = 999;
+        put(&W.k[0], 1, 1, DIR_LEFT);                   /* the kitten out of the way, stopped in a corner */
+        W.k[0].moving = 0;
+        static world base;
+        base = W;
+        idle();
+        for (int y = 0; y < MAZE_H; y++)
+            for (int x = 0; x < MAZE_W; x++)
+                for (int d = 0; d < 4; d++) {
+                    int c = cell_at(&base, x, y);
+                    if (c == C_WALL || c == C_GATE || c == C_DOCK || (x == 1 && y == 1)) continue;
+                    W = base;
+                    vacuum *v = &W.v[V_DASH];
+                    v->state = VS_HOME;
+                    v->x = CX(x);
+                    v->y = CX(y);
+                    v->dir = d;
+                    int f = 0;
+                    while (v->state != VS_DOCK && f < 1000) { world_step(&W, in); f++; }
+                    if (v->state != VS_DOCK) { if (!stuck++) { fx = x; fy = y; fm = m; } }
+                    else if (f > worst) worst = f;
+                }
+    }
+    CHECK(!stuck, "the eyes get home from everywhere: %d stuck (the first: room %d, cell %d,%d)", stuck, fm + 1, fx, fy);
+    CHECK(worst < 200, "... quickly (at most %d frames)", worst);
+    /* home while the dock is busy: Wobble still charges in the slot Dash's eyes go to */
+    quiet(&W, 1);
+    put(&W.k[0], 1, 1, DIR_LEFT);
+    vacuum *v = &W.v[V_DASH];
+    v->state = VS_HOME;
+    v->x = CX(1);
+    v->y = CX(22);
+    v->dir = DIR_DOWN;
+    int f = 0, docked = 0, wobble = 0;
+    while (f < 600 && v->state != VS_ROAM) {
+        world_step(&W, in);
+        f++;
+        if (v->state == VS_DOCK && !docked) { docked = f; W.v[V_WOBBLE].wait = 0; }   /* Wobble leaves meanwhile */
+        if (W.v[V_WOBBLE].state == VS_LEAVE) wobble = 1;
+    }
+    CHECK(docked && v->state == VS_ROAM && !v->scared_t && wobble, "home into a busy dock (frame %d), out again", docked);
+}
+
+/* meeting head-on: at the fastest speeds (room 11, the kitten in yarn time), at every sub-pixel phase, in a corridor
+ * and through a pet door's wrap, a kitten and a vacuum never pass through each other */
+static void test_meeting(void)
+{
+    int missed = 0, tries = 0;
+    for (int room = 1; room <= 11; room += 10)
+        for (int scared = 0; scared < 2; scared++)
+            for (int lane = 0; lane < 2; lane++)
+                for (int ph = 0; ph < 64; ph++) {
+                    quiet(&W, 1);
+                    world_start_room(&W, room);    /* the kitchen (rooms 1, 11): row 22, or the pet doors' row 10 */
+                    W.phase = PH_PLAY;
+                    for (int i = 0; i < VACUUMS; i++) { W.v[i].state = VS_DOCK; W.v[i].wait = 1 << 30; }
+                    for (int y = 0; y < MAZE_H; y++)
+                        for (int x = 0; x < MAZE_W; x++)
+                            if (W.cell[y][x] == C_KIBBLE || W.cell[y][x] == C_YARN) W.cell[y][x] = C_EMPTY;
+                    W.kibble_left = 999;
+                    W.fish_n = 2;
+                    int row = lane ? 10 : 22;
+                    kitten *k = &W.k[0];
+                    put(k, lane ? 1 : 8, row, lane ? DIR_LEFT : DIR_RIGHT);    /* lane 1: out by the left pet door */
+                    k->x += ph * (Q16_ONE / 8);
+                    vacuum *v = &W.v[V_DASH];
+                    v->state = VS_ROAM;
+                    v->x = CX(lane ? 22 : 14);                  /* ... the vacuum to the right one */
+                    v->y = CX(row);
+                    v->dir = lane ? DIR_RIGHT : DIR_LEFT;
+                    v->scared_t = scared ? 1000 : 0;
+                    W.mode = MODE_CHASE;
+                    W.mode_t = -1;
+                    W.v[V_SNEAK].scared_t = 1000;               /* yarn time: the kitten at its fastest */
+                    idle();
+                    int f = 0, met = 0;
+                    while (f < 200 && !met) {
+                        world_step(&W, in);
+                        f++;
+                        met = k->state != KS_PLAY || v->state == VS_HOME;
+                    }
+                    tries++;
+                    if (!met) missed++;
+                }
+    CHECK(!missed, "a kitten and a vacuum meeting head-on always meet (%d of %d passed through)", missed, tries);
+    /* yarn time's last frame: still caught by the kitten; the frame it ends, the vacuum catches the kitten */
+    for (int last = 0; last < 2; last++) {
+        quiet(&W, 1);
+        kitten *k = &W.k[0];
+        put(k, 20, 16, DIR_LEFT);
+        k->pause = 5;                                        /* (it stays put) */
+        vacuum *v = &W.v[V_DASH];
+        v->state = VS_ROAM;
+        v->y = k->y;
+        v->dir = DIR_RIGHT;
+        v->scared_t = 1000;
+        v->x = k->x - Q(CATCH_PX) + 1 - vacuum_speed(&W, v);  /* it comes within reach on the next step ... */
+        v->scared_t = last ? 1 : 2;                          /* ... as its fright ends (1) or a frame before (2) */
+        idle();
+        world_step(&W, in);
+        if (last) CHECK(k->state == KS_CAUGHT && v->state == VS_ROAM, "yarn time over: the vacuum catches the kitten");
+        else CHECK(k->state == KS_PLAY && v->state == VS_HOME, "yarn time's last frame: the kitten catches it");
+    }
+}
+
+/* the room clean with a vacuum reaching the kitten in the same frame: the room ends, the kitten plays on; 4 kittens
+ * on one kibble: it is eaten once */
+static void test_clear_and_shared(void)
+{
+    quiet(&W, 1);
+    kitten *k = &W.k[0];
+    W.cell[16][19] = C_KIBBLE;
+    W.kibble_left = 1;
+    put(k, 20, 16, DIR_LEFT);
+    k->x -= Q(CELL / 2 - 1);                                 /* about to enter the cell of the last kibble */
+    vacuum *v = &W.v[V_DASH];
+    v->state = VS_ROAM;
+    v->x = k->x - Q(CATCH_PX + 1);
+    v->y = k->y;
+    v->dir = DIR_RIGHT;
+    idle();
+    int f = 0;
+    while (W.phase == PH_PLAY && k->state == KS_PLAY && f < 30) { world_step(&W, in); f++; }
+    CHECK(W.phase == PH_CLEAR && k->state == KS_PLAY, "the last kibble eaten as a vacuum arrives: the room is clean");
+    step(&W, CLEAR_FRAMES + INTRO_FRAMES + 2);
+    CHECK(W.room == 2 && W.phase == PH_PLAY && k->state == KS_PLAY, "... and the kitten plays the next room");
+    quiet(&W, 4);
+    W.cell[16][19] = C_KIBBLE;
+    W.kibble_left = 2;                                       /* (one more somewhere: the room goes on) */
+    for (int p = 0; p < 4; p++) put(&W.k[p], 20, 16, DIR_LEFT);
+    for (f = 0; f < 10; f++) world_step(&W, in);
+    int pts = W.k[0].score + W.k[1].score + W.k[2].score + W.k[3].score;
+    CHECK(pts == 1 && W.kibble_left == 1 && W.cell[16][19] == C_EMPTY, "4 kittens on one kibble: eaten once (%d)", pts);
+}
+
 static void test_touch(void)
 {
     world_init(&W, 1, 3);
@@ -522,6 +669,9 @@ int main(void)
     test_dock();
     test_yarn();
     test_caught();
+    test_eyes_home();
+    test_meeting();
+    test_clear_and_shared();
     test_touch();
     test_determinism_and_bot();
     printf("kittykibble rules: %d checks, %d failed\n", checks, fails);
