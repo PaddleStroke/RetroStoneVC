@@ -1,16 +1,12 @@
 Alquerque
 # Cíl hry
-Vezmi soupeři všechny kameny, nebo ho nech bez tahu. Každý hráč má dvanáct kamenů. Začíná světlý hráč.
-# Deska
-Dvacet pět bodů spojených čarami: každá řada, každý sloupec a úhlopříčky nakreslené na desce. Kameny každého hráče zaplňují dvě řady, které jsou mu nejblíž, a dva body po jeho pravé ruce v prostřední řadě. Prázdný je jen středový bod.
+Vezmi soupeři všechny kameny, nebo ho nech bez tahu. Začíná světlý hráč.
 # Posouvání
-Ve svém tahu posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný. Kámen se pohybuje dopředu, rovně nebo šikmo, nebo do strany, ale nikdy dozadu.
+Posuň jeden ze svých kamenů po čáře na sousední bod, pokud je volný: dopředu, rovně nebo šikmo, nebo do strany, nikdy dozadu.
 # Braní
-Pokud soupeřův kámen stojí na čáře vedle tvého a bod hned za ním je volný, přeskoč ho a odeber ho z desky. Kámen smí brát všemi směry, i dozadu. Po braní skáče stejný kámen dál, dokud může vzít další kámen, a to vše v tomtéž tahu.
-- Braní je povinné: když můžeš vzít kámen, musíš, a řetěz braní musí pokračovat až do konce. Když je možných braní víc, smíš si vybrat kterékoli, nejen to nejdelší.
-- Za opomenuté braní se žádný kámen neodebírá jako trest: braní nelze opomenout.
+- Přeskoč soupeřův kámen, který stojí na čáře vedle tvého, na volný bod hned za ním a vezmi ho. Kameny berou všemi směry, i dozadu.
+- Po braní skáče stejný kámen dál, dokud může vzít další kámen.
+- Braní je povinné a řetěz braní musí pokračovat až do konce. Smíš si vybrat kterékoli braní, nejen to nejdelší.
 # Konec hry
 - Hráč, který nemůže táhnout nebo už nemá žádné kameny, prohrává.
 - Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní.
-# Hra na zařízení
-Klepni na svůj kámen a pak na jeho nový bod, nebo ho přetáhni. Kameny, které lze vzít, mají kroužek: s vybraným kamenem klepni na bod za ním, nebo přímo na kámen s kroužkem. Při řetězu braní zůstane tvůj kámen zvednutý pro další skok.

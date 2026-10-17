@@ -1,12 +1,12 @@
 Bao
 # Cel gry
-Zostaw przeciwnika z pustym rzędem wewnętrznym albo bez ruchu. Na początku w każdym dołku leżą dwa ziarna. Dwa rzędy po twojej stronie są twoje; twój rząd wewnętrzny leży naprzeciw rzędu przeciwnika. Zaczynają jasne.
+Zostaw przeciwnika z pustym rzędem wewnętrznym albo bez ruchu. Dwa rzędy bliżej ciebie są twoje. Zaczynają jasne.
 # Siew
 - Weź wszystkie ziarna z jednego swojego dołka, w którym są co najmniej dwa, i siej je po jednym wokół swoich dwóch rzędów, zgodnie z ruchem wskazówek zegara lub przeciwnie.
 - Jeśli ostatnie ziarno wpadnie do pustego dołka, twoja kolej się kończy. Jeśli w dołku były ziarna, weź je wszystkie i siej dalej.
 # Zbijanie
 - Jeśli ostatnie ziarno wpadnie do zajętego dołka twojego rzędu wewnętrznego, a w dołku naprzeciw są ziarna, zbijasz je.
-- Zbite ziarna siej w swoim rzędzie wewnętrznym od jednego końca: od lewego, jeśli zbicie nastąpiło w dwóch lewych dołkach, od prawego po prawej, w przeciwnym razie od końca, który zachowuje ten sam kierunek siewu.
+- Zbite ziarna siej w swoim rzędzie wewnętrznym od skrajnego dołka: od lewego końca, jeśli zbicie nastąpiło w dwóch lewych dołkach, od prawego po prawej, w przeciwnym razie od końca, który zachowuje ten sam kierunek siewu.
 - Jeśli możesz zbić, musisz. Ruch, który nie zaczyna się od zbicia, niczego nie zbija i musi zaczynać się w rzędzie wewnętrznym, jeśli to możliwe.
 # Koniec gry
 Przegrywasz, gdy twój rząd wewnętrzny jest pusty albo nie możesz wykonać ruchu. Po 600 ruchach wygrywa ten, kto ma więcej ziaren.

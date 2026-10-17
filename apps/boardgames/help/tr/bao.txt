@@ -1,6 +1,6 @@
 Bao
 # Amaç
-Rakibi iç sırası boş ya da hamlesiz bırak. Her çukurda başta iki tohum vardır. Senin tarafındaki iki sıra senindir; iç sıran rakibin iç sırasına bakar. Açık renk başlar.
+Rakibi iç sırası boş ya da hamlesiz bırak. Senin tarafındaki iki sıra senindir. Açık renk başlar.
 # Ekme
 - İki ya da daha çok tohum olan bir çukurundaki bütün tohumları al ve iki sıranın çevresinde birer birer ek, saat yönünde ya da tersine.
 - Son tohum boş bir çukura düşerse sıran biter. Çukurda tohum varsa hepsini al ve ekmeye devam et.

@@ -1,16 +1,12 @@
 Alquerque
 # Lo scopo
-Catturare tutte le pedine dell'altro giocatore, o lasciarlo senza mosse. Ogni giocatore ha dodici pedine. Iniziano le pedine chiare.
-# Il tavoliere
-Venticinque punti uniti da linee: ogni riga, ogni colonna e le diagonali tracciate sul tavoliere. Le pedine di ciascun giocatore occupano le due righe più vicine a lui e i due punti alla sua destra nella riga centrale. Solo il punto centrale è vuoto.
+Catturare tutte le pedine dell'altro giocatore, o lasciarlo senza mosse. Iniziano le pedine chiare.
 # Movimento
-Al tuo turno, sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero. Una pedina si muove in avanti, dritta o in diagonale, oppure di lato, ma mai all'indietro.
+Sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero: in avanti, dritta o in diagonale, oppure di lato, mai all'indietro.
 # Catture
-Se una pedina avversaria è accanto alla tua lungo una linea e il punto subito dietro è libero, saltala e toglila dal tavoliere. Una pedina può catturare in qualsiasi direzione, anche all'indietro. Dopo una cattura, la stessa pedina continua a saltare finché può prendere un'altra pedina, tutto nello stesso turno.
-- La presa è obbligatoria: quando puoi prendere una pedina, devi farlo, e una catena di prese deve continuare fino alla fine. Quando ci sono più prese possibili, puoi scegliere quella che vuoi, non solo la più lunga.
-- Nessuna pedina viene tolta per punizione per una presa mancata (niente soffio): una presa non può essere mancata.
+- Salta una pedina avversaria accanto alla tua lungo una linea fino al punto libero subito dietro, e catturala. Le pedine catturano in qualsiasi direzione, anche all'indietro.
+- Dopo una cattura, la stessa pedina continua a saltare finché può prendere un'altra pedina.
+- La presa è obbligatoria, e una catena di prese deve continuare fino alla fine. Puoi scegliere la presa che vuoi, non solo la più lunga.
 # La fine della partita
 - Perde il giocatore che non può muovere o che non ha più pedine.
 - La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza prese.
-# Giocare sul dispositivo
-Tocca la tua pedina e poi il suo nuovo punto, oppure trascinala. Le pedine che si possono prendere hanno un anello: con la tua pedina selezionata, tocca il punto subito oltre, oppure la pedina con l'anello. In una catena di prese, la tua pedina resta sollevata per il salto successivo.

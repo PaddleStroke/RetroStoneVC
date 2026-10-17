@@ -1,6 +1,6 @@
 Bao
 # O objetivo
-Deixar o adversário com a fileira interna vazia ou sem jogada. Cada cova começa com duas sementes. As duas fileiras do seu lado são suas; sua fileira interna fica de frente para a do adversário. As claras começam.
+Deixar o adversário com a fileira interna vazia ou sem jogada. As duas fileiras do seu lado são suas. As claras começam.
 # Semear
 - Pegue todas as sementes de uma cova sua com duas ou mais e semeie uma a uma em volta das suas duas fileiras, no sentido horário ou anti-horário.
 - Se a última semente cair numa cova vazia, sua vez termina. Se a cova tinha sementes, pegue todas e continue semeando.

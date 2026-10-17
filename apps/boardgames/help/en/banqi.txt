@@ -1,21 +1,17 @@
 Banqi
 # The aim
-Capture all of the other player's pieces, or leave them without a move. Banqi (Chinese dark chess) uses the 32 pieces of xiangqi on half of its board, 4 by 8 squares. The pieces start face down, shuffled, one on every square: nobody knows where anything is. These are the Taiwanese rules.
+Capture all of the other player's pieces, or leave them without a move. The 32 pieces of xiangqi start face down and shuffled, one on every square.
 # Colours
-The first player turns any piece over: its colour, red or black, becomes theirs, and the other player takes the other colour. Until then the bar at the bottom shows red, but the first piece decides.
+The first player turns any piece over: its colour, red or black, becomes theirs, and the other player takes the other colour.
 # A turn
 Do one of these:
 - Turn any face-down piece over, of either colour.
 - Move one of your face-up pieces one square along a row or a column, to an empty square.
-- Capture: move one of your face-up pieces one square onto an enemy piece that is face up and that it may capture.
+- Capture: move one of your face-up pieces one square onto a face-up enemy piece that it may capture. Face-down pieces can never be captured.
 # Ranks
 From the highest: general, advisor, elephant, chariot, horse, cannon, soldier. A piece captures pieces of its own rank or lower, with two exceptions:
-- The soldier captures the general (and soldiers). The general cannot capture a soldier.
-- The cannon captures differently: it jumps along a row or a column over exactly one piece (face up or down, of either colour), any distance, and lands on the enemy piece just beyond it. It can capture any face-up enemy piece that way, but never the piece next to it. Without capturing, it moves one square like the others.
-Face-down pieces can never be captured.
+- The soldier captures the general. The general cannot capture a soldier.
+- The cannon captures by jumping along a row or a column over exactly one piece (face up or down, of either colour), any distance, onto the enemy piece just beyond. It can take any face-up enemy piece that way, but never the piece next to it.
 # The end of the game
-- A player whose sixteen pieces have all been captured loses.
-- A player who cannot move on their turn loses.
+- A player who has lost all sixteen pieces, or cannot move on their turn, loses.
 - After 50 turns in a row (both players' turns counted) without a piece turned over and without a capture, the game is a draw.
-# Playing on the device
-Pass the device round: the player to move has their bar at the bottom. Tap a face-down piece to turn it over. Tap one of your pieces to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. Each bar shows the pieces that player has captured. When few turns are left before the draw, their number shows at the end of the bar of the player to move.

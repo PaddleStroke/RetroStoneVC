@@ -1,16 +1,12 @@
 Alquerque
 # Målet
-Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Varje spelare har tolv pjäser. Den ljusa sidan börjar.
-# Brädet
-Tjugofem punkter förbundna med linjer: varje rad, varje kolumn och de diagonaler som är ritade på brädet. Varje spelares pjäser fyller de två rader som ligger närmast spelaren och de två punkterna till höger om spelaren i mittraden. Bara mittpunkten är tom.
+Ta alla motståndarens pjäser, eller lämna motståndaren utan drag. Den ljusa sidan börjar.
 # Förflyttning
-När det är din tur flyttar du en av dina pjäser längs en linje till nästa punkt, om den är tom. En pjäs flyttas framåt, rakt eller snett, eller åt sidan, men aldrig bakåt.
+Flytta en av dina pjäser längs en linje till nästa punkt, om den är tom: framåt, rakt eller snett, eller åt sidan, aldrig bakåt.
 # Slag
-Om en motståndarpjäs står bredvid din längs en linje och punkten precis bakom den är tom, hoppar du över den och tar bort den från brädet. En pjäs får slå i alla riktningar, även bakåt. Efter ett slag fortsätter samma pjäs att hoppa så länge den kan ta en pjäs till, allt i samma tur.
-- Slag är tvingande: när du kan ta en pjäs måste du göra det, och en kedja av slag måste fortsätta till slutet. När det finns flera slag får du välja vilket som helst, inte bara det längsta.
-- Ingen pjäs tas bort som straff för ett missat slag: ett slag kan inte missas.
+- Hoppa över en motståndarpjäs som står bredvid din längs en linje till den tomma punkten precis bakom, och ta den. Pjäserna slår i alla riktningar, även bakåt.
+- Efter ett slag fortsätter samma pjäs att hoppa så länge den kan ta en pjäs till.
+- Slag är tvingande, och en kedja av slag måste fortsätta till slutet. Du får välja vilket slag som helst, inte bara det längsta.
 # Partiets slut
 - En spelare som inte kan flytta, eller inte har några pjäser kvar, förlorar.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan slag.
-# Spela på enheten
-Tryck på din pjäs och sedan på dess nya punkt, eller dra den. Pjäserna som kan tas har en ring: med din pjäs vald, tryck på punkten bakom, eller på själva pjäsen med ringen. I en kedja av slag förblir din pjäs upplyft inför nästa hopp.

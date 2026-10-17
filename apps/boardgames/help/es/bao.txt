@@ -1,6 +1,6 @@
 Bao
 # El objetivo
-Dejar al rival con la fila interior vacía o sin movimiento posible. Cada hoyo empieza con dos semillas. Las dos filas de tu lado son tuyas; tu fila interior está frente a la del rival. Empiezan las claras.
+Dejar al rival con la fila interior vacía o sin movimiento posible. Las dos filas de tu lado son tuyas. Empiezan las claras.
 # Sembrar
 - Toma todas las semillas de uno de tus hoyos que tenga dos o más y siémbralas una a una alrededor de tus dos filas, en el sentido de las agujas del reloj o al revés.
 - Si la última semilla cae en un hoyo vacío, tu turno termina. Si el hoyo tenía semillas, tómalas todas y sigue sembrando.

@@ -1,21 +1,17 @@
 Banqi
 # Målet
-Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. Banqi (kinesisk skjult skak) spilles med de 32 brikker fra xiangqi på halvdelen af dets bræt, 4 gange 8 felter. Brikkerne starter med bagsiden opad og blandet, én på hvert felt: ingen ved, hvor noget er. Dette er de taiwanske regler.
+Slå alle modstanderens brikker, eller efterlad modstanderen uden træk. De 32 brikker fra xiangqi starter med bagsiden opad og blandet, én på hvert felt.
 # Farverne
-Den første spiller vender en vilkårlig brik: dens farve, rød eller sort, bliver spillerens, og modstanderen får den anden farve. Indtil da viser panelet nederst rødt, men den første brik afgør det.
+Den første spiller vender en vilkårlig brik: dens farve, rød eller sort, bliver spillerens, og modstanderen får den anden farve.
 # En tur
 Gør én af disse ting:
 - Vend en vilkårlig skjult brik, uanset farve.
 - Flyt en af dine synlige brikker ét felt langs en række eller en søjle til et tomt felt.
-- Slå: flyt en af dine synlige brikker ét felt hen på en synlig modstanderbrik, som den må slå.
+- Slå: flyt en af dine synlige brikker ét felt hen på en synlig modstanderbrik, som den må slå. Skjulte brikker kan aldrig slås.
 # Rangfølgen
 Fra den højeste: general, rådgiver, elefant, vogn, hest, kanon, soldat. En brik slår brikker af samme eller lavere rang, med to undtagelser:
-- Soldaten slår generalen (og soldater). Generalen kan ikke slå en soldat.
-- Kanonen slår anderledes: den springer langs en række eller en søjle over præcis én brik (synlig eller skjult, uanset farve), på en hvilken som helst afstand, og lander på modstanderbrikken lige bagved. Den kan på den måde slå enhver synlig modstanderbrik, men aldrig brikken lige ved siden af sig. Uden at slå flytter den ét felt ligesom de andre.
-Skjulte brikker kan aldrig slås.
+- Soldaten slår generalen. Generalen kan ikke slå en soldat.
+- Kanonen slår ved at springe langs en række eller en søjle over præcis én brik (synlig eller skjult, uanset farve), på en hvilken som helst afstand, hen på modstanderbrikken lige bagved. Den kan på den måde slå enhver synlig modstanderbrik, men aldrig brikken lige ved siden af sig.
 # Spillets afslutning
-- En spiller, der har fået alle sine seksten brikker slået, taber.
-- En spiller, der ikke kan trække i sin tur, taber.
+- En spiller, der har fået alle sine seksten brikker slået, eller ikke kan trække i sin tur, taber.
 - Efter 50 ture i streg (begge spilleres ture tæller med) uden at en brik bliver vendt og uden slag, er spillet uafgjort.
-# Spil på enheden
-Send enheden rundt: den, der har tur, har sit panel nederst. Tryk på en skjult brik for at vende den. Tryk på en af dine brikker for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene, ringe slagene. Hvert panel viser de brikker, den spiller har slået. Når der er få ture tilbage før uafgjort, står antallet for enden af panelet hos den spiller, der har tur.

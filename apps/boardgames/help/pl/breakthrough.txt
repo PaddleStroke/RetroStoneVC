@@ -1,16 +1,11 @@
 Breakthrough
 # Cel gry
-Przełam szyki przeciwnika: jako pierwszy doprowadź jeden ze swoich pionków na drugi koniec planszy, do wyjściowego rzędu przeciwnika.
-# Ustawienie początkowe
-Gra toczy się na szachownicy. Każdy gracz ma szesnaście pionków, które wypełniają jego dwa pierwsze rzędy. Jasne zaczynają, potem gracze wykonują ruchy na zmianę, po jednym.
+Jako pierwszy doprowadź jeden ze swoich pionków na drugi koniec planszy, do wyjściowego rzędu przeciwnika. Jasne zaczynają.
 # Jak poruszają się pionki
 - Pionek przesuwa się o jedno pole do przodu, prosto lub na ukos, na wolne pole.
-- Pionek bije, przesuwając się o jedno pole na ukos do przodu na pionek przeciwnika, który schodzi z planszy.
-- Pionek nigdy nie bije prosto do przodu: pionek przeciwnika stojący tuż przed nim blokuje go.
+- Pionek bije, przesuwając się o jedno pole na ukos do przodu na pionek przeciwnika. Nigdy nie bije prosto do przodu: pionek przeciwnika stojący tuż przed nim blokuje go.
 - Pionki nigdy nie poruszają się w bok ani do tyłu. Bicie nigdy nie jest obowiązkowe.
 # Koniec gry
 - Wygrywa pierwszy gracz, który dotrze do wyjściowego rzędu przeciwnika.
 - Gracz, który straci wszystkie pionki, przegrywa.
-Nie ma remisów: gracz, któremu zostały pionki, zawsze może wykonać ruch.
-# Gra na urządzeniu
-Dotknij pionka, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij pionek. Kropki pokazują ruchy, kółka bicia. Zwycięski pionek lśni złotem.
+Nie ma remisów.

@@ -1,17 +1,10 @@
 Amazonen
 # Das Ziel
-Sei der letzte Spieler, der noch ziehen kann. Jeder Zug brennt ein weiteres Feld des Bretts nieder, sodass der Platz zum Ziehen schrumpft, bis ein Spieler eingemauert ist: Dieser Spieler verliert.
-# Der Start
-Das Brett hat 10 Reihen mit je 10 Feldern. Jeder Spieler hat vier Amazonen. Die hellen Amazonen stehen auf der untersten und auf der vierten Reihe, die dunklen auf der obersten und auf der siebten Reihe, ihnen gegenüber. Hell beginnt, danach ziehen die Spieler abwechselnd.
+Sei der letzte Spieler, der noch ziehen kann. Hell beginnt.
 # Ein Zug
 Jeder Zug hat zwei Teile, beide von derselben Amazone ausgeführt:
-- Ziehen: Eine deiner Amazonen zieht wie eine Dame im Schach, beliebig viele Felder geradeaus, entlang einer Reihe, einer Spalte oder einer Diagonale. Sie darf nur leere Felder überqueren und nur auf leeren Feldern landen: Amazonen springen nie und schlagen nie.
-- Schießen: Von dem Feld, auf dem sie gelandet ist, schießt die Amazone einen Pfeil, ebenfalls wie eine Dame, auf ein leeres Feld. Dieses Feld ist verbrannt und für den Rest der Partie gesperrt: Keine Amazone darf darauf stehen oder es überqueren, und kein Pfeil darf darüber fliegen.
-Der Pfeil darf auf das Feld zurückfliegen, das die Amazone gerade verlassen hat, oder darüber hinweg.
+- Ziehen: Eine deiner Amazonen zieht wie eine Dame im Schach, beliebig viele leere Felder entlang einer Reihe, einer Spalte oder einer Diagonale. Amazonen springen nie und schlagen nie.
+- Schießen: Von dem Feld, auf dem sie gelandet ist, schießt die Amazone einen Pfeil, ebenfalls wie eine Dame, auf ein leeres Feld. Dieses Feld ist für den Rest der Partie verbrannt: Keine Amazone darf darauf stehen oder es überqueren, und kein Pfeil darf darüber fliegen.
+- Der Pfeil darf auf das Feld zurückfliegen, das die Amazone gerade verlassen hat, oder darüber hinweg.
 # Das Ende der Partie
 Wer zu Beginn seines Zuges keine Amazone ziehen kann, verliert. Es gibt kein Remis.
-# Tipps
-- Bereiche des Bretts, die durch verbrannte Felder und Amazonen abgeriegelt sind, werden zu eigenem Gebiet: Zähle die Felder, auf denen jeder Spieler noch ziehen kann.
-- Eine Amazone, die in einem kleinen Winkel eingesperrt ist, ist so gut wie verloren: Halte deine Amazonen auf freiem Feld.
-# Spielen auf dem Gerät
-Tippe auf eine deiner Amazonen, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Amazone mit dem Finger dorthin. Danach zeigen goldene Lichter, wohin ihr Pfeil fliegen kann: Tippe auf eines, und der Pfeil verbrennt dieses Feld. Der letzte Zug bleibt markiert: woher die Amazone kam, wohin sie zog und welches Feld sie verbrannt hat. Rückgängig nimmt zuerst den Pfeil zurück, dann den Zug.

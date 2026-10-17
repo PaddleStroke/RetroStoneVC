@@ -1,18 +1,14 @@
 Bagh-Chal
 # O objetivo
-O Bagh-Chal, “tigres e cabras”, vem do Nepal. Um jogador tem quatro tigres; o outro, vinte cabras. Os tigres tentam pegar cabras; as cabras tentam encurralar os tigres de modo que nenhum deles consiga se mover. As cabras (claras) começam.
-# O tabuleiro
-Vinte e cinco pontos ligados por linhas: cada fileira, cada coluna e as diagonais desenhadas no tabuleiro. As peças só andam ao longo dessas linhas, de um ponto ao seguinte. Os quatro tigres (escuros) começam nos cantos; as cabras começam fora do tabuleiro.
+Quatro tigres contra vinte cabras. Os tigres tentam pegar cinco cabras; as cabras tentam encurralar os tigres de modo que nenhum deles consiga se mover. As cabras começam.
 # Movimento
 - Primeiro as cabras entram: em cada uma das suas vezes, as cabras colocam uma cabra nova em qualquer ponto vazio, até que todas as vinte tenham entrado. Enquanto isso, os tigres já se movem. Uma cabra no tabuleiro não pode se mover antes que todas as vinte tenham entrado.
-- Depois, na sua vez, as cabras movem uma cabra ao longo de uma linha até o ponto seguinte, se ele estiver vazio, em qualquer direção.
+- Depois, as cabras movem uma cabra ao longo de uma linha até o próximo ponto vazio, em qualquer direção.
 - Um tigre anda ao longo de uma linha até o próximo ponto vazio, em qualquer direção, ou captura.
 # Captura
-Só os tigres capturam. Quando uma cabra está ao lado de um tigre ao longo de uma linha e o ponto logo depois dela está vazio, o tigre pode pular por cima dela até esse ponto e tirar a cabra do tabuleiro. Só uma cabra por vez: um tigre nunca pula duas vezes seguidas, e nunca pula por cima de outro tigre. Capturar não é obrigatório.
+Só os tigres capturam: um tigre pula ao longo de uma linha por cima de uma cabra ao lado dele até o ponto vazio logo depois dela, e tira a cabra do tabuleiro. Só uma cabra por vez: um tigre nunca pula duas vezes seguidas, e nunca pula por cima de outro tigre. Capturar não é obrigatório.
 # O fim da partida
-- Os tigres vencem quando tiverem capturado cinco cabras. Essa é a regra mais comum (há quem continue jogando para capturar mais).
+- Os tigres vencem quando tiverem capturado cinco cabras.
 - As cabras vencem quando nenhum tigre consegue se mover nem pular.
-- Perde o jogador que não consegue se mover na sua vez: as cabras também perdem se nenhuma delas conseguir se mover.
+- Perde o jogador que não consegue se mover na sua vez.
 - A partida termina empatada quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, ou depois de cinquenta jogadas de cada lado sem captura, a partir do momento em que todas as cabras entraram.
-# Jogando no aparelho
-Enquanto ainda faltarem cabras para entrar, toque em um ponto vazio para colocar uma cabra: os pontinhos mostram os pontos livres. Em seguida, toque em uma peça e depois no novo ponto dela, ou arraste-a. As cabras que os tigres podem capturar ficam com um anel: toque em um tigre e depois no ponto logo depois da cabra, ou na própria cabra com o anel. A barra das cabras mostra quantas cabras ainda estão por entrar, e a dos tigres, quantas cabras eles já capturaram.

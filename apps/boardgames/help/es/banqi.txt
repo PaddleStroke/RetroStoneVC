@@ -1,21 +1,17 @@
 Banqi
 # El objetivo
-Capturar todas las piezas del otro jugador o dejarlo sin movimientos. El banqi (ajedrez chino oculto) se juega con las 32 piezas del xiangqi sobre la mitad de su tablero, 4 por 8 casillas. Las piezas empiezan boca abajo, mezcladas, una en cada casilla: nadie sabe dónde está cada cosa. Estas son las reglas taiwanesas.
+Capturar todas las piezas del otro jugador o dejarlo sin movimientos. Las 32 piezas del xiangqi empiezan boca abajo y mezcladas, una en cada casilla.
 # Los colores
-El primer jugador da la vuelta a cualquier pieza: su color, rojo o negro, pasa a ser el suyo, y el otro jugador se queda con el otro color. Hasta entonces la barra de abajo se ve roja, pero decide la primera pieza.
+El primer jugador da la vuelta a cualquier pieza: su color, rojo o negro, pasa a ser el suyo, y el otro jugador se queda con el otro color.
 # Un turno
 Haz una de estas cosas:
 - Dar la vuelta a cualquier pieza boca abajo, de cualquier color.
 - Mover una de tus piezas boca arriba una casilla a lo largo de una fila o una columna, a una casilla vacía.
-- Capturar: mover una de tus piezas boca arriba una casilla sobre una pieza contraria que esté boca arriba y que pueda capturar.
+- Capturar: mover una de tus piezas boca arriba una casilla sobre una pieza contraria boca arriba que pueda capturar. Las piezas boca abajo nunca pueden ser capturadas.
 # Los rangos
 De mayor a menor: general, consejero, elefante, carro, caballo, cañón, soldado. Una pieza captura piezas de su mismo rango o de uno inferior, con dos excepciones:
-- El soldado captura al general (y a los soldados). El general no puede capturar a un soldado.
-- El cañón captura de otra manera: salta a lo largo de una fila o una columna por encima de exactamente una pieza (boca arriba o boca abajo, de cualquier color), a cualquier distancia, y cae sobre la pieza contraria que está justo detrás. Así puede capturar cualquier pieza contraria boca arriba, pero nunca la que tiene al lado. Sin capturar, se mueve una casilla como las demás.
-Las piezas boca abajo nunca pueden ser capturadas.
+- El soldado captura al general. El general no puede capturar a un soldado.
+- El cañón captura saltando a lo largo de una fila o una columna por encima de exactamente una pieza (boca arriba o boca abajo, de cualquier color), a cualquier distancia, y cae sobre la pieza contraria justo detrás. Así puede capturar cualquier pieza contraria boca arriba, pero nunca la que tiene al lado.
 # El final de la partida
-- Pierde el jugador al que le han capturado sus dieciséis piezas.
-- Pierde el jugador que no puede mover en su turno.
+- Pierde el jugador que se ha quedado sin sus dieciséis piezas o que no puede mover en su turno.
 - Tras 50 turnos seguidos (contando los de ambos jugadores) sin dar la vuelta a ninguna pieza y sin capturas, la partida termina en tablas.
-# Jugar en el dispositivo
-Pasaos el dispositivo: el jugador al que le toca tiene su barra abajo. Toca una pieza boca abajo para darle la vuelta. Toca una de tus piezas para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas, los anillos las capturas. Cada barra muestra las piezas que ha capturado ese jugador. Cuando quedan pocos turnos para las tablas, su número aparece al final de la barra del jugador al que le toca.

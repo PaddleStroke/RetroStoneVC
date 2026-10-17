@@ -1,16 +1,11 @@
 Breakthrough
 # O objetivo
-Romper as linhas do exército adversário: ser o primeiro a levar uma das tuas peças até ao outro lado do tabuleiro, a fila inicial do outro jogador.
-# O início
-O jogo joga-se num tabuleiro de xadrez. Cada jogador tem dezasseis peças, que ocupam as suas duas primeiras filas. As peças claras começam; depois os jogadores jogam à vez, um lance cada um.
+Ser o primeiro a levar uma das tuas peças até ao outro lado do tabuleiro, a fila inicial do outro jogador. As peças claras começam.
 # Como se movem as peças
 - Uma peça avança uma casa, a direito ou na diagonal, para uma casa livre.
-- Uma peça captura avançando uma casa na diagonal para uma casa ocupada por uma peça adversária, que sai do tabuleiro.
-- Uma peça nunca captura a direito: uma peça adversária mesmo à sua frente bloqueia-a.
+- Captura avançando uma casa na diagonal para uma casa ocupada por uma peça adversária. Nunca captura a direito: uma peça adversária mesmo à sua frente bloqueia-a.
 - As peças nunca se movem para o lado nem para trás. A captura nunca é obrigatória.
 # O fim do jogo
 - Ganha o primeiro jogador a chegar à fila inicial do outro jogador.
 - Perde o jogador que perder todas as suas peças.
-Não há empates: um jogador que ainda tenha peças pode sempre mover-se.
-# Jogar no dispositivo
-Toca numa peça para ver para onde pode ir, depois toca numa casa, ou arrasta a peça. Os pontos mostram os lances, os anéis as capturas. A peça vencedora brilha a dourado.
+Não há empates.

@@ -1,6 +1,6 @@
 Bao
 # Målet
-Efterlad modspilleren med en tom inderste række eller uden træk. Hvert hul starter med to frø. De to rækker på din side er dine; din inderste række vender mod modspillerens. Lys begynder.
+Efterlad modspilleren med en tom inderste række eller uden træk. De to rækker nærmest dig er dine. Lys begynder.
 # Så
 - Tag alle frø fra et af dine huller med to eller flere, og så dem et ad gangen rundt om dine to rækker, med eller mod uret.
 - Falder det sidste frø i et tomt hul, slutter din tur. Var der frø i hullet, tager du dem alle op og sår videre.

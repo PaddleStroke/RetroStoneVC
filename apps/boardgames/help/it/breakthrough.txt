@@ -1,16 +1,11 @@
 Breakthrough
 # Lo scopo
-Sfondare le linee dell'esercito avversario: essere il primo a portare uno dei tuoi pezzi dall'altra parte del tavoliere, sulla riga di partenza dell'altro giocatore.
-# La partenza
-Si gioca su una scacchiera. Ogni giocatore ha sedici pezzi, che riempiono le sue prime due righe. Muovono per primi i pezzi chiari, poi i giocatori si alternano, una mossa ciascuno.
+Essere il primo a portare uno dei tuoi pezzi dall'altra parte del tavoliere, sulla riga di partenza dell'altro giocatore. Muovono per primi i pezzi chiari.
 # Come si muovono i pezzi
 - Un pezzo avanza di una casella, dritto o in diagonale, su una casella vuota.
-- Un pezzo cattura avanzando di una casella in diagonale su un pezzo avversario, che esce dal tavoliere.
-- Un pezzo non cattura mai dritto davanti a sé: un pezzo avversario proprio davanti lo blocca.
+- Cattura avanzando di una casella in diagonale su un pezzo avversario. Non cattura mai dritto davanti a sé: un pezzo avversario proprio davanti lo blocca.
 - I pezzi non si muovono mai di lato né all'indietro. Catturare non è mai obbligatorio.
 # La fine della partita
 - Vince il primo giocatore che raggiunge la riga di partenza dell'altro giocatore.
 - Perde il giocatore che perde tutti i suoi pezzi.
-Non c'è mai patta: un giocatore a cui restano pezzi può sempre muovere.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Il pezzo vincente brilla d'oro.
+Non c'è mai patta.

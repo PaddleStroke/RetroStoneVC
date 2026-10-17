@@ -1,21 +1,17 @@
 Banqi
 # Cel gry
-Zbić wszystkie bierki przeciwnika albo zostawić go bez ruchu. Banqi (chińskie szachy w ciemno) używa 32 bierek xiangqi na połowie jego planszy, 4 na 8 pól. Bierki leżą na początku zakryte i przemieszane, po jednej na każdym polu: nikt nie wie, co gdzie jest. To są zasady tajwańskie.
+Zbić wszystkie bierki przeciwnika albo zostawić go bez ruchu. 32 bierki xiangqi leżą na początku zakryte i przemieszane, po jednej na każdym polu.
 # Kolory
-Pierwszy gracz odkrywa dowolną bierkę: jej kolor, czerwony albo czarny, staje się jego kolorem, a drugi gracz bierze drugi kolor. Do tej pory pasek na dole pokazuje czerwony, ale decyduje pierwsza bierka.
+Pierwszy gracz odkrywa dowolną bierkę: jej kolor, czerwony albo czarny, staje się jego kolorem, a drugi gracz bierze drugi kolor.
 # Tura
 Zrób jedną z tych rzeczy:
 - Odkryj dowolną zakrytą bierkę, w dowolnym kolorze.
 - Przesuń jedną ze swoich odkrytych bierek o jedno pole wzdłuż rzędu lub kolumny na puste pole.
-- Bicie: przesuń jedną ze swoich odkrytych bierek o jedno pole na odkrytą bierkę przeciwnika, którą może zbić.
+- Bicie: przesuń jedną ze swoich odkrytych bierek o jedno pole na odkrytą bierkę przeciwnika, którą może zbić. Zakrytych bierek nigdy nie można zbić.
 # Stopnie
 Od najwyższego: generał, doradca, słoń, rydwan, koń, armata, żołnierz. Bierka bije bierki tego samego stopnia lub niższego, z dwoma wyjątkami:
-- Żołnierz bije generała (i żołnierzy). Generał nie może zbić żołnierza.
-- Armata bije inaczej: przeskakuje wzdłuż rzędu lub kolumny nad dokładnie jedną bierką (odkrytą lub zakrytą, w dowolnym kolorze), z dowolnej odległości, i ląduje na bierce przeciwnika tuż za nią. Tak może zbić każdą odkrytą bierkę przeciwnika, ale nigdy tej obok. Bez bicia przesuwa się o jedno pole jak pozostałe.
-Zakrytych bierek nigdy nie można zbić.
+- Żołnierz bije generała. Generał nie może zbić żołnierza.
+- Armata bije, przeskakując wzdłuż rzędu lub kolumny nad dokładnie jedną bierką (odkrytą lub zakrytą, w dowolnym kolorze), z dowolnej odległości, i ląduje na bierce przeciwnika tuż za nią. Tak może zbić każdą odkrytą bierkę przeciwnika, ale nigdy tej obok.
 # Koniec gry
-- Przegrywa gracz, któremu zbito wszystkie szesnaście bierek.
-- Przegrywa gracz, który w swojej turze nie może wykonać ruchu.
+- Przegrywa gracz, któremu zbito wszystkie szesnaście bierek albo który w swojej turze nie może wykonać ruchu.
 - Po 50 turach z rzędu (licząc tury obu graczy) bez odkrycia bierki i bez bicia gra kończy się remisem.
-# Gra na urządzeniu
-Podawajcie sobie urządzenie: gracz, którego jest kolej, ma swój pasek na dole. Dotknij zakrytej bierki, żeby ją odkryć. Dotknij swojej bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij pola, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Każdy pasek pokazuje bierki zbite przez danego gracza. Gdy do remisu zostaje niewiele tur, ich liczba pojawia się na końcu paska gracza, którego jest kolej.

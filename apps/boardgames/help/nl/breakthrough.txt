@@ -1,16 +1,11 @@
 Breakthrough
 # Het doel
-Breek door het andere leger heen: breng als eerste een van je stukken naar de overkant van het bord, de achterste rij van de andere speler.
-# Het begin
-Het spel wordt gespeeld op een schaakbord. Elke speler heeft zestien stukken, die zijn eigen eerste twee rijen vullen. Licht begint, daarna spelen de spelers om de beurt, elk één zet.
+Breng als eerste een van je stukken naar de overkant van het bord, de achterste rij van de andere speler. Licht begint.
 # Hoe de stukken bewegen
 - Een stuk gaat één veld vooruit, recht of schuin, naar een leeg veld.
-- Een stuk slaat door één veld schuin vooruit te gaan naar een stuk van de tegenstander; dat stuk verlaat het bord.
-- Een stuk slaat nooit recht vooruit: een stuk van de tegenstander er recht voor blokkeert het.
+- Het slaat door één veld schuin vooruit te gaan naar een stuk van de tegenstander. Het slaat nooit recht vooruit: een stuk van de tegenstander er recht voor blokkeert het.
 - Stukken gaan nooit opzij of achteruit. Slaan is nooit verplicht.
 # Het einde van de partij
 - De eerste speler die de achterste rij van de andere speler bereikt, wint.
 - Een speler die al zijn stukken kwijtraakt, verliest.
-Er is nooit remise: een speler die nog stukken heeft, kan altijd zetten.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Het winnende stuk glanst goud.
+Er is nooit remise.

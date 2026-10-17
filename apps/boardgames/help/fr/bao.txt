@@ -1,6 +1,6 @@
 Bao
 # Le but
-Laisser l'adversaire avec une rangée intérieure vide, ou sans coup possible. Chaque trou commence avec deux graines. Les deux rangées de votre côté sont à vous ; votre rangée intérieure fait face à celle de l'adversaire. Le clair commence.
+Laisser l'adversaire avec une rangée intérieure vide, ou sans coup possible. Les deux rangées de votre côté sont à vous. Le clair commence.
 # Semer
 - Prenez toutes les graines d'un de vos trous qui en contient au moins deux, et semez-les une par une autour de vos deux rangées, dans le sens des aiguilles d'une montre ou dans l'autre.
 - Si la dernière graine tombe dans un trou vide, votre tour s'arrête. Si le trou contenait des graines, ramassez-les toutes et continuez à semer.

@@ -1,16 +1,11 @@
 Läpimurto
 # Tavoite
-Murtaudu vastustajan armeijan läpi: vie ensimmäisenä yksi nappuloistasi laudan vastakkaiselle puolelle, vastustajan kotiriville.
-# Alkuasema
-Peliä pelataan shakkilaudalla. Kummallakin pelaajalla on kuusitoista nappulaa, jotka täyttävät hänen kaksi ensimmäistä riviään. Vaalea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
+Vie ensimmäisenä yksi nappuloistasi laudan vastakkaiselle puolelle, vastustajan kotiriville. Vaalea aloittaa.
 # Miten nappulat liikkuvat
 - Nappula siirtyy yhden ruudun eteenpäin, suoraan tai viistosti, tyhjään ruutuun.
-- Nappula lyö siirtymällä yhden ruudun viistosti eteenpäin vastustajan nappulan päälle, ja lyöty nappula poistuu laudalta.
-- Nappula ei koskaan lyö suoraan eteenpäin: suoraan sen edessä oleva vastustajan nappula estää sen.
+- Se lyö siirtymällä yhden ruudun viistosti eteenpäin vastustajan nappulan päälle. Se ei koskaan lyö suoraan eteenpäin: suoraan sen edessä oleva vastustajan nappula estää sen.
 - Nappulat eivät koskaan liiku sivulle tai taaksepäin. Lyöminen ei ole koskaan pakollista.
 # Pelin loppu
 - Pelaaja, joka pääsee ensimmäisenä vastustajan kotiriville, voittaa.
 - Pelaaja, joka menettää kaikki nappulansa, häviää.
-Tasapelejä ei ole: pelaaja, jolla on nappuloita jäljellä, voi aina siirtää.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Voittava nappula loistaa kultaisena.
+Tasapelejä ei ole.

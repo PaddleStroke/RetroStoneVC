@@ -1,16 +1,11 @@
 Breakthrough
 # The aim
-Break through the other army: be the first to bring one of your pieces to the far side of the board, the other player's home row.
-# The start
-The game is played on a chessboard. Each player has sixteen pieces, filling their own first two rows. Light moves first, then the players take turns, one move each.
+Be the first to bring one of your pieces to the far side of the board, the other player's home row. Light moves first.
 # How the pieces move
 - A piece moves one square forward, straight ahead or diagonally, to an empty square.
-- A piece captures by moving one square diagonally forward onto an enemy piece, which leaves the board.
-- A piece never captures straight ahead: an enemy piece right in front of it blocks it.
+- It captures by moving one square diagonally forward onto an enemy piece. It never captures straight ahead: an enemy piece right in front of it blocks it.
 - Pieces never move sideways or backwards. Capturing is never compulsory.
 # The end of the game
 - The first player to reach the other player's home row wins.
 - A player who loses all their pieces loses.
-There are no draws: a player with pieces left can always move.
-# Playing on the device
-Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. The winning piece shines gold.
+There are no draws.

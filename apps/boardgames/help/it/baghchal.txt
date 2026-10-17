@@ -1,18 +1,14 @@
 Bagh-Chal
 # Lo scopo
-Il Bagh-Chal, «tigri e capre», viene dal Nepal. Un giocatore ha quattro tigri, l'altro venti capre. Le tigri cercano di prendere le capre; le capre cercano di chiudere le tigri in modo che nessuna di loro possa più muoversi. Iniziano le capre (chiare).
-# Il tavoliere
-Venticinque punti uniti da linee: ogni riga, ogni colonna e le diagonali tracciate sul tavoliere. I pezzi si muovono solo lungo queste linee, da un punto al successivo. Le quattro tigri (scure) partono dagli angoli; le capre partono fuori dal tavoliere.
+Quattro tigri contro venti capre. Le tigri cercano di catturare cinque capre; le capre cercano di chiudere le tigri in modo che nessuna di loro possa più muoversi. Iniziano le capre.
 # Movimento
 - Prima entrano le capre: a ogni loro turno, le capre piazzano una nuova capra su un punto libero qualsiasi, finché non sono entrate tutte e venti. Nel frattempo le tigri si muovono già. Una capra sul tavoliere non può muoversi prima che siano entrate tutte e venti.
-- Poi, al loro turno, le capre spostano una capra lungo una linea fino al punto successivo, se è libero, in qualsiasi direzione.
+- Poi le capre spostano una capra lungo una linea fino al punto libero successivo, in qualsiasi direzione.
 - Una tigre si muove lungo una linea fino al punto libero successivo, in qualsiasi direzione, oppure cattura.
 # Catture
-Solo le tigri catturano. Quando una capra è accanto a una tigre lungo una linea e il punto subito dietro è libero, la tigre può saltarla fino a quel punto e togliere la capra dal tavoliere. Una capra per turno: una tigre non salta mai due volte di fila, e non salta mai un'altra tigre. Catturare non è obbligatorio.
+Solo le tigri catturano: una tigre salta lungo una linea una capra accanto a lei fino al punto libero subito dietro, e la cattura. Una capra per turno: una tigre non salta mai due volte di fila, e non salta mai un'altra tigre. Catturare non è obbligatorio.
 # La fine della partita
-- Le tigri vincono quando hanno catturato cinque capre. È la regola più diffusa (c'è chi continua per catturarne di più).
+- Le tigri vincono quando hanno catturato cinque capre.
 - Le capre vincono quando nessuna tigre può né muoversi né saltare.
-- Perde il giocatore che non può muovere al suo turno: anche le capre perdono se nessuna di loro può muoversi.
+- Perde il giocatore che non può muovere al suo turno.
 - La partita è patta quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno, o dopo cinquanta mosse ciascuno senza catture una volta entrate tutte le capre.
-# Giocare sul dispositivo
-Finché restano capre da far entrare, tocca un punto libero per piazzare una capra: i puntini mostrano i punti liberi. Poi tocca un pezzo e il suo nuovo punto, oppure trascinalo. Le capre che le tigri possono catturare hanno un anello: tocca una tigre, poi il punto subito oltre la capra, oppure la capra con l'anello. La barra delle capre mostra quante capre devono ancora entrare, quella delle tigri quante capre hanno catturato.

@@ -1,17 +1,10 @@
 Amasoner
 # Målet
-Vær den siste spilleren som kan flytte. Hver tur brenner én rute til på brettet, så plassen å bevege seg på krymper til en spiller er stengt inne: den spilleren taper.
-# Startoppstillingen
-Brettet har 10 rader med 10 ruter. Hver spiller har fire amasoner. De lyse amasonene står på nederste rad og på fjerde rad, de mørke på øverste rad og på sjuende rad, rett overfor dem. Den lyse siden trekker først, deretter bytter spillerne på.
+Vær den siste spilleren som kan flytte. Den lyse siden trekker først.
 # En tur
 Hver tur har to deler, som begge gjøres av den samme amasonen:
-- Flytt: en av amasonene dine flytter som en dronning i sjakk, så mange ruter den vil i rett linje, langs en rad, en kolonne eller en diagonal. Den kan bare passere og lande på tomme ruter: amasoner hopper aldri og slår aldri.
-- Skyt: fra ruten der den landet, skyter amasonen en pil, også som en dronning, til en tom rute. Den ruten er brent og sperret resten av spillet: ingen amasone kan stå på den eller passere den, og ingen pil kan fly over den.
-Pilen kan fly tilbake til ruten amasonen nettopp forlot, eller over den.
+- Flytt: en av amasonene dine flytter som en dronning i sjakk, så mange tomme ruter den vil langs en rad, en kolonne eller en diagonal. Amasoner hopper aldri og slår aldri.
+- Skyt: fra ruten der den landet, skyter amasonen en pil, også som en dronning, til en tom rute. Den ruten er brent resten av spillet: ingen amasone kan stå på den eller passere den, og ingen pil kan fly over den.
+- Pilen kan fly tilbake til ruten amasonen nettopp forlot, eller over den.
 # Slutten på spillet
 En spiller som ikke kan flytte noen amasone ved begynnelsen av turen sin, taper. Det blir aldri uavgjort.
-# Tips
-- Områder av brettet som stenges av med brente ruter og amasoner, blir privat territorium: tell rutene hver spiller fortsatt har å bevege seg på.
-- En amasone som er fanget i en liten lomme, er nesten tapt: hold amasonene dine i det åpne.
-# Spill på enheten
-Trykk på en av amasonene dine for å se hvor den kan gå, og trykk så på en rute, eller dra amasonen. Deretter viser gylne lys hvor pilen kan fly: trykk på ett, og pilen brenner den ruten. Den siste turen forblir markert: hvor amasonen kom fra, hvor den gikk og ruten den brente. Angre tar tilbake pilen først, deretter trekket.

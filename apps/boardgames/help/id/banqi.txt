@@ -1,21 +1,17 @@
 Banqi
 # Tujuan
-Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Banqi (catur Tionghoa tertutup) memakai 32 bidak xiangqi di separuh papannya, 4 kali 8 petak. Semua bidak mulai dalam keadaan tertutup dan diacak, satu di setiap petak: tidak ada yang tahu bidak apa ada di mana. Ini aturan Taiwan.
+Makan semua bidak lawan, atau buat lawan tidak bisa melangkah. Ke-32 bidak xiangqi mulai dalam keadaan tertutup dan diacak, satu di setiap petak.
 # Warna
-Pemain pertama membuka bidak mana saja: warnanya, merah atau hitam, menjadi warnanya, dan pemain lain mendapat warna yang satunya. Sebelum itu bilah di bawah menunjukkan merah, tetapi bidak pertamalah yang menentukan.
+Pemain pertama membuka bidak mana saja: warnanya, merah atau hitam, menjadi warnanya, dan pemain lain mendapat warna yang satunya.
 # Satu giliran
 Lakukan salah satu:
 - Buka bidak tertutup mana saja, dari warna apa pun.
 - Gerakkan salah satu bidak terbukamu satu petak sepanjang baris atau kolom ke petak kosong.
-- Makan: gerakkan salah satu bidak terbukamu satu petak ke bidak lawan yang terbuka dan boleh dimakannya.
+- Makan: gerakkan salah satu bidak terbukamu satu petak ke bidak lawan yang terbuka dan boleh dimakannya. Bidak tertutup tidak pernah bisa dimakan.
 # Pangkat
 Dari yang tertinggi: jenderal, penasihat, gajah, kereta, kuda, meriam, prajurit. Sebuah bidak memakan bidak yang pangkatnya sama atau lebih rendah, dengan dua pengecualian:
-- Prajurit memakan jenderal (dan prajurit). Jenderal tidak bisa memakan prajurit.
-- Meriam makan dengan cara lain: ia melompat sepanjang baris atau kolom melewati tepat satu bidak (terbuka atau tertutup, warna apa pun), sejauh apa pun, lalu mendarat di bidak lawan tepat di baliknya. Dengan cara ini ia bisa memakan bidak lawan terbuka apa pun, tetapi tidak pernah bidak di sebelahnya. Jika tidak makan, ia bergerak satu petak seperti yang lain.
-Bidak tertutup tidak pernah bisa dimakan.
+- Prajurit memakan jenderal. Jenderal tidak bisa memakan prajurit.
+- Meriam makan dengan melompat sepanjang baris atau kolom melewati tepat satu bidak (terbuka atau tertutup, warna apa pun), sejauh apa pun, lalu mendarat di bidak lawan tepat di baliknya. Dengan cara ini ia bisa memakan bidak lawan terbuka apa pun, tetapi tidak pernah bidak di sebelahnya.
 # Akhir permainan
-- Pemain yang keenam belas bidaknya sudah dimakan semua kalah.
-- Pemain yang tidak bisa melangkah pada gilirannya kalah.
+- Pemain yang keenam belas bidaknya sudah dimakan semua, atau yang tidak bisa melangkah pada gilirannya, kalah.
 - Setelah 50 giliran berturut-turut (giliran kedua pemain dihitung) tanpa membuka bidak dan tanpa memakan, permainan seri.
-# Bermain di perangkat
-Gilirkan perangkat: pemain yang mendapat giliran punya bilahnya di bawah. Ketuk bidak tertutup untuk membukanya. Ketuk salah satu bidakmu untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk sebuah petak, atau seret bidaknya. Titik-titik menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Setiap bilah menunjukkan bidak yang telah dimakan pemain itu. Jika tinggal sedikit giliran sebelum seri, jumlahnya muncul di ujung bilah pemain yang mendapat giliran.

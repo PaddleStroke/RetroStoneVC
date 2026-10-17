@@ -1,16 +1,12 @@
 Alquerque
 # O objetivo
-Capturar todas as peças do outro jogador, ou deixá-lo sem jogada. Cada jogador tem doze peças. As peças claras começam.
-# O tabuleiro
-Vinte e cinco pontos ligados por linhas: cada fileira, cada coluna e as diagonais desenhadas no tabuleiro. As peças de cada jogador ocupam as duas fileiras mais próximas dele e os dois pontos à direita dele na fileira do meio. Só o ponto central fica vazio.
+Capturar todas as peças do outro jogador, ou deixá-lo sem jogada. As peças claras começam.
 # Movimento
-Na sua vez, mova uma das suas peças ao longo de uma linha até o ponto vizinho, se ele estiver vazio. Uma peça anda para a frente, reto ou na diagonal, ou para o lado, mas nunca para trás.
+Mova uma das suas peças ao longo de uma linha até o ponto vizinho, se ele estiver vazio: para a frente, reto ou na diagonal, ou para o lado, nunca para trás.
 # Captura
-Se uma peça adversária estiver ao lado da sua ao longo de uma linha e o ponto logo depois dela estiver vazio, pule por cima dela e tire-a do tabuleiro. Uma peça pode capturar em qualquer direção, inclusive para trás. Depois de uma captura, a mesma peça continua pulando enquanto puder capturar outra peça, tudo na mesma vez.
-- A captura é obrigatória: quando você pode capturar uma peça, precisa capturar, e uma sequência de capturas tem que ir até o fim. Quando houver várias capturas, você pode escolher qualquer uma, não só a mais longa.
-- Nenhuma peça é tirada como punição por uma captura não feita (não existe sopro): não há como deixar de fazer uma captura.
+- Pule por cima de uma peça adversária ao lado da sua ao longo de uma linha até o ponto vazio logo depois dela, e tire-a do tabuleiro. As peças capturam em qualquer direção, inclusive para trás.
+- Depois de uma captura, a mesma peça continua pulando enquanto puder capturar outra peça.
+- A captura é obrigatória, e uma sequência de capturas tem que ir até o fim. Você pode escolher qualquer captura, não só a mais longa.
 # O fim da partida
 - Perde o jogador que não consegue se mover ou que fica sem peças.
 - A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de cinquenta jogadas de cada lado sem captura.
-# Jogando no aparelho
-Toque na sua peça e depois no novo ponto dela, ou arraste-a. As peças que podem ser capturadas ficam com um anel: com a sua peça selecionada, toque no ponto logo depois ou na própria peça com o anel. Numa sequência de capturas, sua peça continua levantada para o próximo pulo.

@@ -1,6 +1,6 @@
 Bao
 # Tavoite
-Jätä vastustaja tyhjän sisärivin kanssa tai ilman siirtoa. Jokaisessa kuopassa on aluksi kaksi siementä. Omalla puolellasi olevat kaksi riviä ovat sinun; sisärivisi on vastustajan sisäriviä vastapäätä. Vaalea aloittaa.
+Jätä vastustaja tyhjän sisärivin kanssa tai ilman siirtoa. Omalla puolellasi olevat kaksi riviä ovat sinun. Vaalea aloittaa.
 # Kylväminen
 - Ota kaikki siemenet jostakin kuopastasi, jossa on vähintään kaksi, ja kylvä ne yksi kerrallaan kahden rivisi ympäri myötä- tai vastapäivään.
 - Jos viimeinen siemen putoaa tyhjään kuoppaan, vuorosi päättyy. Jos kuopassa oli siemeniä, nosta ne kaikki ja jatka kylvämistä.

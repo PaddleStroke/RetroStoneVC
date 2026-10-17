@@ -1,18 +1,14 @@
 Bagh-Chal
 # The aim
-Bagh-Chal, "tigers and goats", comes from Nepal. One player has four tigers, the other twenty goats. The tigers try to catch goats; the goats try to hem the tigers in so that none of them can move. The goats (light) play first.
-# The board
-Twenty-five points joined by lines: every row, every column, and the diagonals drawn on the board. Pieces move only along these lines, from one point to the next. The four tigers (dark) start on the corners; the goats start off the board.
+Four tigers against twenty goats. The tigers try to take five goats; the goats try to hem the tigers in so that none of them can move. The goats play first.
 # Moving
-- First the goats come in: on each of their turns the goats set one new goat down on any empty point, until all twenty are in. Meanwhile the tigers already move. A goat on the board may not move before all twenty are in.
-- Then, on their turn, the goats move one goat along a line to the next point, if it is empty, in any direction.
+- First the goats come in: on each of their turns the goats set one new goat on any empty point, until all twenty are in. Meanwhile the tigers already move. No goat on the board may move before all twenty are in.
+- Then the goats move one goat along a line to the next empty point, in any direction.
 - A tiger moves along a line to the next empty point, in any direction, or captures.
 # Capturing
-Only the tigers capture. When a goat is next to a tiger along a line and the point just beyond it is empty, the tiger may jump over it to that point and take the goat off the board. One goat per turn: a tiger never jumps twice in a row, and never jumps over another tiger. Capturing is not compulsory.
+Only the tigers capture: a tiger jumps along a line over a goat next to it onto the empty point just beyond, and takes it. One goat per turn: a tiger never jumps twice in a row, and never over another tiger. Capturing is not compulsory.
 # The end of the game
-- The tigers win when they have taken five goats. This is the most common rule (some play on for more).
+- The tigers win when they have taken five goats.
 - The goats win when no tiger can move or jump.
-- A player who cannot move on their turn loses: the goats lose too if none of them can move.
+- A player who cannot move on their turn loses.
 - The game is a draw when the same position comes back for the third time with the same player to move, or after fifty moves each without a capture once all the goats are in.
-# Playing on the device
-While goats are still to come, tap an empty point to set a goat down: dots show the free points. Then tap a piece and its new point, or drag it. The goats the tigers can take wear a ring: tap a tiger, then the point beyond the goat, or the ringed goat itself. The goats' bar shows how many goats are still to come, the tigers' bar how many goats they have taken.

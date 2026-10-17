@@ -1,16 +1,11 @@
 Breakthrough
 # Cíl hry
-Prolom soupeřovu armádu: buď první, kdo dovede jeden ze svých kamenů na druhou stranu desky, do soupeřovy výchozí řady.
-# Začátek
-Hraje se na šachovnici. Každý hráč má šestnáct kamenů, které zaplňují jeho první dvě řady. Začíná světlý hráč, potom se hráči střídají, každý jedním tahem.
+Buď první, kdo dovede jeden ze svých kamenů na druhou stranu desky, do soupeřovy výchozí řady. Začíná světlý hráč.
 # Jak se kameny pohybují
 - Kámen táhne o jedno pole vpřed, rovně nebo šikmo, na volné pole.
-- Kámen bere tak, že táhne o jedno pole šikmo vpřed na soupeřův kámen, který opouští desku.
-- Kámen nikdy nebere rovně vpřed: soupeřův kámen přímo před ním ho blokuje.
+- Kámen bere tak, že táhne o jedno pole šikmo vpřed na soupeřův kámen. Nikdy nebere rovně vpřed: soupeřův kámen přímo před ním ho blokuje.
 - Kameny nikdy netáhnou do strany ani dozadu. Braní nikdy není povinné.
 # Konec hry
 - Vyhrává první hráč, který dojde do soupeřovy výchozí řady.
 - Hráč, který přijde o všechny kameny, prohrává.
-Remíza nikdy nenastane: hráč, kterému zbyly kameny, může vždy táhnout.
-# Hra na zařízení
-Klepni na kámen a uvidíš, kam může táhnout, potom klepni na pole, nebo kámen přetáhni. Tečky ukazují tahy, kroužky braní. Vítězný kámen září zlatě.
+Remíza nikdy nenastane.

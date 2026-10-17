@@ -1,6 +1,6 @@
 Bao
 # The aim
-Leave the other player with an empty inner row, or with no move. Each pit starts with two seeds. The two rows nearer you are yours; your inner row faces the other player's. Light starts.
+Leave the other player with an empty inner row, or with no move. The two rows nearer you are yours. Light starts.
 # Sowing
 - Take all the seeds of one of your pits holding two or more, and sow them one by one round your two rows, clockwise or anticlockwise.
 - If the last seed falls in an empty pit, your turn ends. If the pit held seeds, take them all up and sow on.

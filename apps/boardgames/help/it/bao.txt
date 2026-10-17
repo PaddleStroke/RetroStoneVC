@@ -1,6 +1,6 @@
 Bao
 # Lo scopo
-Lasciare l'avversario con la fila interna vuota o senza mosse. Ogni buca comincia con due semi. Le due file dal tuo lato sono tue; la tua fila interna sta di fronte a quella dell'avversario. Inizia il chiaro.
+Lasciare l'avversario con la fila interna vuota o senza mosse. Le due file dal tuo lato sono tue. Inizia il chiaro.
 # Seminare
 - Prendi tutti i semi di una tua buca che ne ha almeno due e seminali uno alla volta lungo le tue due file, in senso orario o antiorario.
 - Se l'ultimo seme cade in una buca vuota, il turno finisce. Se la buca aveva semi, raccoglili tutti e continua a seminare.

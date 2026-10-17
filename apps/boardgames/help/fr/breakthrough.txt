@@ -1,16 +1,11 @@
 Breakthrough
 # Le but
-Percer les lignes de l'armée adverse : être le premier à amener une de tes pièces de l'autre côté du plateau, sur la rangée de départ de l'autre joueur.
-# Le départ
-La partie se joue sur un échiquier. Chaque joueur a seize pièces, qui remplissent ses deux premières rangées. Les pièces claires commencent, puis les joueurs jouent à tour de rôle, un coup chacun.
+Être le premier à amener une de tes pièces de l'autre côté du plateau, sur la rangée de départ de l'autre joueur. Les pièces claires commencent.
 # Le déplacement des pièces
 - Une pièce avance d'une case, tout droit ou en diagonale, vers une case vide.
-- Une pièce prend en avançant d'une case en diagonale sur une pièce adverse, qui quitte alors le plateau.
-- Une pièce ne prend jamais tout droit : une pièce adverse juste devant elle la bloque.
+- Elle prend en avançant d'une case en diagonale sur une pièce adverse. Elle ne prend jamais tout droit : une pièce adverse juste devant elle la bloque.
 - Les pièces ne se déplacent jamais sur le côté ni vers l'arrière. La prise n'est jamais obligatoire.
 # La fin de la partie
 - Le premier joueur qui atteint la rangée de départ de l'autre joueur gagne.
 - Un joueur qui perd toutes ses pièces a perdu.
-Il n'y a jamais de partie nulle : un joueur à qui il reste des pièces peut toujours bouger.
-# Jouer sur l'appareil
-Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. La pièce gagnante brille en or.
+Il n'y a jamais de partie nulle.

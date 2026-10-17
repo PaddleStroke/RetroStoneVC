@@ -1,17 +1,10 @@
 Amasoner
 # Målet
-Var den sista spelaren som kan flytta. Varje tur bränner ytterligare en ruta på brädet, så utrymmet att röra sig krymper tills en spelare är instängd: den spelaren förlorar.
-# Utgångsläget
-Brädet har 10 rader med 10 rutor. Varje spelare har fyra amasoner. De ljusa amasonerna står på den nedersta raden och på den fjärde raden, de mörka på den översta raden och på den sjunde raden, mitt emot dem. Den ljusa sidan börjar, sedan turas spelarna om.
+Var den sista spelaren som kan flytta. Den ljusa sidan börjar.
 # En tur
 Varje tur har två delar, som båda görs av samma amason:
-- Flytta: en av dina amasoner går som en dam i schack, hur många rutor som helst i rak linje, längs en rad, en kolumn eller en diagonal. Den får bara passera och landa på tomma rutor: amasoner hoppar aldrig och slår aldrig.
-- Skjut: från rutan där den landade skjuter amasonen en pil, också som en dam, till en tom ruta. Den rutan är bränd och blockerad resten av partiet: ingen amason får stå på den eller passera den, och ingen pil får flyga över den.
-Pilen får flyga tillbaka till rutan som amasonen just lämnade, eller över den.
+- Flytta: en av dina amasoner går som en dam i schack, hur många tomma rutor som helst längs en rad, en kolumn eller en diagonal. Amasoner hoppar aldrig och slår aldrig.
+- Skjut: från rutan där den landade skjuter amasonen en pil, också som en dam, till en tom ruta. Den rutan är bränd resten av partiet: ingen amason får stå på den eller passera den, och ingen pil får flyga över den.
+- Pilen får flyga tillbaka till rutan som amasonen just lämnade, eller över den.
 # Partiets slut
 En spelare som inte kan flytta någon amason i början av sin tur förlorar. Det blir aldrig oavgjort.
-# Tips
-- Områden på brädet som stängs av med brända rutor och amasoner blir privat territorium: räkna rutorna som varje spelare fortfarande har att röra sig på.
-- En amason som är instängd i en liten ficka är nästan förlorad: håll dina amasoner ute i det öppna.
-# Spela på enheten
-Tryck på en av dina amasoner för att se vart den kan gå, tryck sedan på en ruta, eller dra amasonen. Sedan visar gyllene ljus vart dess pil kan flyga: tryck på ett, så bränner pilen den rutan. Den senaste turen förblir markerad: var amasonen kom ifrån, vart den gick och rutan den brände. Ångra tar tillbaka pilen först, sedan draget.

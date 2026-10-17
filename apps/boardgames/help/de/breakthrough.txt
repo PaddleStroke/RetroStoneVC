@@ -1,16 +1,11 @@
 Breakthrough
 # Das Ziel
-Durchbrich die gegnerische Armee: Bringe als Erster eine deiner Figuren auf die andere Seite des Bretts, die Grundreihe des anderen Spielers.
-# Der Start
-Gespielt wird auf einem Schachbrett. Jeder Spieler hat sechzehn Figuren, die seine eigenen ersten beiden Reihen füllen. Hell beginnt, danach ziehen die Spieler abwechselnd, jeder einen Zug.
+Bringe als Erster eine deiner Figuren auf die andere Seite des Bretts, die Grundreihe des anderen Spielers. Hell beginnt.
 # So ziehen die Figuren
 - Eine Figur zieht ein Feld vorwärts, geradeaus oder diagonal, auf ein leeres Feld.
-- Eine Figur schlägt, indem sie ein Feld diagonal vorwärts auf eine gegnerische Figur zieht; diese verlässt das Brett.
-- Eine Figur schlägt nie geradeaus: Eine gegnerische Figur direkt vor ihr blockiert sie.
+- Sie schlägt, indem sie ein Feld diagonal vorwärts auf eine gegnerische Figur zieht. Sie schlägt nie geradeaus: Eine gegnerische Figur direkt vor ihr blockiert sie.
 - Figuren ziehen nie zur Seite oder rückwärts. Schlagen ist nie Pflicht.
 # Das Ende der Partie
 - Wer zuerst die Grundreihe des anderen Spielers erreicht, gewinnt.
 - Wer alle seine Figuren verliert, verliert die Partie.
-Es gibt kein Remis: Wer noch Figuren hat, kann immer ziehen.
-# Spielen auf dem Gerät
-Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Die siegreiche Figur glänzt golden.
+Es gibt kein Remis.

@@ -1,18 +1,14 @@
 Bagh-Chal
 # Målet
-Bagh-Chal, ”tigrar och getter”, kommer från Nepal. Den ena spelaren har fyra tigrar, den andra tjugo getter. Tigrarna försöker fånga getter; getterna försöker stänga in tigrarna så att ingen av dem kan flytta. Getterna (ljusa) börjar.
-# Brädet
-Tjugofem punkter förbundna med linjer: varje rad, varje kolumn och de diagonaler som är ritade på brädet. Pjäserna flyttas bara längs dessa linjer, från en punkt till nästa. De fyra tigrarna (mörka) står i hörnen från början; getterna börjar utanför brädet.
+Fyra tigrar mot tjugo getter. Tigrarna försöker ta fem getter; getterna försöker stänga in tigrarna så att ingen av dem kan flytta. Getterna börjar.
 # Förflyttning
-- Först kommer getterna in: i varje drag sätter getterna ut en ny get på valfri tom punkt, tills alla tjugo är inne. Under tiden flyttar tigrarna redan. En get på brädet får inte flytta förrän alla tjugo är inne.
-- Sedan flyttar getterna, när det är deras tur, en get längs en linje till nästa punkt, om den är tom, åt vilket håll som helst.
+- Först kommer getterna in: i varje drag sätter getterna ut en ny get på valfri tom punkt, tills alla tjugo är inne. Under tiden flyttar tigrarna redan. Ingen get på brädet får flytta förrän alla tjugo är inne.
+- Sedan flyttar getterna en get längs en linje till nästa tomma punkt, åt vilket håll som helst.
 - En tiger flyttar längs en linje till nästa tomma punkt, åt vilket håll som helst, eller slår.
 # Slag
-Bara tigrarna slår. När en get står bredvid en tiger längs en linje och punkten precis bakom den är tom, får tigern hoppa över den till den punkten och ta bort geten från brädet. En get per drag: en tiger hoppar aldrig två gånger i rad, och aldrig över en annan tiger. Slag är inte tvingande.
+Bara tigrarna slår: en tiger hoppar längs en linje över en get bredvid den till den tomma punkten precis bakom, och tar den. En get per drag: en tiger hoppar aldrig två gånger i rad, och aldrig över en annan tiger. Slag är inte tvingande.
 # Partiets slut
-- Tigrarna vinner när de har tagit fem getter. Det är den vanligaste regeln (en del spelar vidare för att ta fler).
+- Tigrarna vinner när de har tagit fem getter.
 - Getterna vinner när ingen tiger kan flytta eller hoppa.
-- En spelare som inte kan flytta när det är dennes tur förlorar: även getterna förlorar om ingen av dem kan flytta.
+- En spelare som inte kan flytta när det är dennes tur förlorar.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången med samma spelare vid draget, eller efter femtio drag var utan slag sedan alla getter har kommit in.
-# Spela på enheten
-Så länge det finns getter kvar att sätta ut, tryck på en tom punkt för att sätta ut en get: prickar visar de lediga punkterna. Tryck sedan på en pjäs och på dess nya punkt, eller dra den. Getterna som tigrarna kan ta har en ring: tryck på en tiger och sedan på punkten bakom geten, eller på själva geten med ringen. Getternas fält visar hur många getter som är kvar att sätta ut, tigrarnas fält hur många getter de har tagit.

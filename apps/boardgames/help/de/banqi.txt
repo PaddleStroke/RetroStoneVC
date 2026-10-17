@@ -1,21 +1,17 @@
 Banqi
 # Das Ziel
-Schlage alle Figuren des anderen Spielers oder lass ihm keinen Zug mehr. Banqi (chinesisches verdecktes Schach) wird mit den 32 Figuren des Xiangqi auf der Hälfte seines Bretts gespielt, 4 mal 8 Feldern. Die Figuren liegen anfangs verdeckt und gemischt, eine auf jedem Feld: Niemand weiß, wo was liegt. Es gelten die taiwanischen Regeln.
+Schlage alle Figuren des anderen Spielers oder lass ihm keinen Zug mehr. Die 32 Figuren des Xiangqi liegen anfangs verdeckt und gemischt, eine auf jedem Feld.
 # Die Farben
-Der erste Spieler deckt eine beliebige Figur auf: Ihre Farbe, Rot oder Schwarz, wird seine, und der andere Spieler bekommt die andere Farbe. Bis dahin zeigt die Leiste unten Rot, aber die erste Figur entscheidet.
+Der erste Spieler deckt eine beliebige Figur auf: Ihre Farbe, Rot oder Schwarz, wird seine, und der andere Spieler bekommt die andere Farbe.
 # Ein Zug
 Tu eines davon:
 - Decke eine beliebige verdeckte Figur auf, gleich welcher Farbe.
 - Ziehe eine deiner offenen Figuren ein Feld entlang einer Reihe oder Spalte auf ein leeres Feld.
-- Schlagen: Ziehe eine deiner offenen Figuren ein Feld weit auf eine offene gegnerische Figur, die sie schlagen darf.
+- Schlagen: Ziehe eine deiner offenen Figuren ein Feld weit auf eine offene gegnerische Figur, die sie schlagen darf. Verdeckte Figuren können nie geschlagen werden.
 # Die Ränge
 Vom höchsten an: General, Berater, Elefant, Wagen, Pferd, Kanone, Soldat. Eine Figur schlägt Figuren ihres eigenen oder eines niedrigeren Rangs, mit zwei Ausnahmen:
-- Der Soldat schlägt den General (und Soldaten). Der General kann keinen Soldaten schlagen.
-- Die Kanone schlägt anders: Sie springt entlang einer Reihe oder Spalte über genau eine Figur (offen oder verdeckt, gleich welcher Farbe), beliebig weit, und landet auf der gegnerischen Figur direkt dahinter. So kann sie jede offene gegnerische Figur schlagen, aber nie die Figur direkt neben ihr. Ohne zu schlagen, zieht sie wie die anderen ein Feld.
-Verdeckte Figuren können nie geschlagen werden.
+- Der Soldat schlägt den General. Der General kann keinen Soldaten schlagen.
+- Die Kanone schlägt, indem sie entlang einer Reihe oder Spalte über genau eine Figur (offen oder verdeckt, gleich welcher Farbe) springt, beliebig weit, und auf der gegnerischen Figur direkt dahinter landet. So kann sie jede offene gegnerische Figur schlagen, aber nie die Figur direkt neben ihr.
 # Das Ende der Partie
-- Wer alle sechzehn Figuren verloren hat, verliert.
-- Wer am Zug ist und nicht ziehen kann, verliert.
+- Wer alle sechzehn Figuren verloren hat oder am Zug ist und nicht ziehen kann, verliert.
 - Nach 50 Zügen in Folge (die Züge beider Spieler mitgezählt) ohne aufgedeckte Figur und ohne Schlagen endet die Partie unentschieden.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Wer am Zug ist, hat seine Leiste unten. Tippe auf eine verdeckte Figur, um sie aufzudecken. Tippe auf eine deiner Figuren, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Jede Leiste zeigt die Figuren, die der Spieler geschlagen hat. Wenn nur noch wenige Züge bis zum Unentschieden bleiben, steht ihre Zahl am Ende der Leiste des Spielers am Zug.

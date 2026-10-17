@@ -1,17 +1,10 @@
 Amazzoni
 # Lo scopo
-Essere l'ultimo giocatore in grado di muovere. Ogni turno brucia un'altra casella del tavoliere, così lo spazio per muoversi si restringe finché un giocatore resta murato: quel giocatore perde.
-# La partenza
-Il tavoliere ha 10 righe di 10 caselle. Ogni giocatore ha quattro amazzoni. Le amazzoni chiare stanno sulla riga in basso e sulla quarta riga, quelle scure sulla riga in alto e sulla settima riga, di fronte a loro. Iniziano le chiare, poi i giocatori si alternano.
+Essere l'ultimo giocatore in grado di muovere. Iniziano le chiare.
 # Un turno
 Ogni turno ha due parti, fatte entrambe dalla stessa amazzone:
-- Movimento: una delle tue amazzoni si muove come la donna degli scacchi, di quante caselle vuoi in linea retta, lungo una riga, una colonna o una diagonale. Può attraversare e raggiungere solo caselle vuote: le amazzoni non saltano mai e non catturano mai.
-- Tiro: dalla casella dove si è fermata, l'amazzone scocca una freccia, anche questa come una donna, su una casella vuota. Quella casella è bruciata e bloccata per il resto della partita: nessuna amazzone può fermarcisi o attraversarla, e nessuna freccia può passarci sopra.
-La freccia può tornare sulla casella che l'amazzone ha appena lasciato, o attraversarla.
+- Movimento: una delle tue amazzoni si muove come la donna degli scacchi, di quante caselle vuote vuoi lungo una riga, una colonna o una diagonale. Le amazzoni non saltano mai e non catturano mai.
+- Tiro: dalla casella dove si è fermata, l'amazzone scocca una freccia, anche questa come una donna, su una casella vuota. Quella casella è bruciata per il resto della partita: nessuna amazzone può fermarcisi o attraversarla, e nessuna freccia può passarci sopra.
+- La freccia può tornare sulla casella che l'amazzone ha appena lasciato, o attraversarla.
 # La fine della partita
 Perde il giocatore che non può muovere nessuna amazzone all'inizio del suo turno. Non c'è mai patta.
-# Consigli
-- Le zone del tavoliere chiuse da caselle bruciate e amazzoni diventano territorio privato: conta le caselle in cui ogni giocatore può ancora muoversi.
-- Un'amazzone intrappolata in una piccola sacca è quasi persa: tieni le tue amazzoni negli spazi aperti.
-# Giocare sul dispositivo
-Tocca una delle tue amazzoni per vedere dove può andare, poi tocca una casella, oppure trascina l'amazzone. Poi delle luci dorate mostrano dove può volare la sua freccia: toccane una, e la freccia brucia quella casella. L'ultimo turno resta segnato: da dove è partita l'amazzone, dove è andata e la casella che ha bruciato. Annulla ritira prima la freccia, poi il movimento.

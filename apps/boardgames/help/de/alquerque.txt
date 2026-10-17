@@ -1,16 +1,12 @@
 Alquerque
 # Das Ziel
-Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Jeder Spieler hat zwölf Steine. Hell beginnt.
-# Das Brett
-Fünfundzwanzig Punkte, durch Linien verbunden: jede Reihe, jede Spalte und die auf dem Brett eingezeichneten Diagonalen. Die Steine jedes Spielers füllen die beiden Reihen, die ihm am nächsten sind, und die beiden Punkte rechts von ihm in der mittleren Reihe. Nur der Mittelpunkt ist frei.
+Schlage alle Steine des anderen Spielers oder lass ihm keinen Zug mehr. Hell beginnt.
 # Ziehen
-Wenn du dran bist, ziehst du einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist. Ein Stein zieht vorwärts, gerade oder schräg, oder seitwärts, aber nie rückwärts.
+Ziehe einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist: vorwärts, gerade oder schräg, oder seitwärts, nie rückwärts.
 # Schlagen
-Steht ein gegnerischer Stein auf einer Linie neben deinem und ist der Punkt direkt dahinter frei, springst du über ihn und nimmst ihn vom Brett. Ein Stein darf in jede Richtung schlagen, auch rückwärts. Nach einem Schlag springt derselbe Stein weiter, solange er noch einen Stein schlagen kann, alles im selben Zug.
-- Schlagen ist Pflicht: Wenn du einen Stein schlagen kannst, musst du es tun, und ein Mehrfachschlag muss bis zum Ende ausgeführt werden. Gibt es mehrere Schläge, darfst du jeden davon wählen, nicht nur den längsten.
-- Für einen versäumten Schlag wird kein Stein zur Strafe entfernt (kein Pusten): Ein Schlag kann gar nicht versäumt werden.
+- Springe entlang einer Linie über einen gegnerischen Stein neben deinem auf den freien Punkt direkt dahinter und nimm ihn vom Brett. Steine schlagen in jede Richtung, auch rückwärts.
+- Nach einem Schlag springt derselbe Stein weiter, solange er noch einen Stein schlagen kann.
+- Schlagen ist Pflicht, und ein Mehrfachschlag muss bis zum Ende ausgeführt werden. Du darfst jeden Schlag wählen, nicht nur den längsten.
 # Das Ende der Partie
 - Wer nicht ziehen kann oder keine Steine mehr hat, verliert.
 - Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Schlagen.
-# Spielen auf dem Gerät
-Tippe auf deinen Stein und dann auf seinen neuen Punkt, oder schieb ihn mit dem Finger. Die Steine, die geschlagen werden können, tragen einen Ring: Tippe bei ausgewähltem Stein auf den Punkt dahinter oder auf den beringten Stein selbst. Bei einem Mehrfachschlag bleibt dein Stein für den nächsten Sprung aufgenommen.

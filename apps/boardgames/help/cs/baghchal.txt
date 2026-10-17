@@ -1,18 +1,14 @@
 Bagh-Chal
 # Cíl hry
-Bagh-Chal, „tygři a kozy“, pochází z Nepálu. Jeden hráč má čtyři tygry, druhý dvacet koz. Tygři se snaží chytat kozy; kozy se snaží tygry obklíčit tak, aby se žádný z nich nemohl pohnout. Začínají kozy (světlé).
-# Deska
-Dvacet pět bodů spojených čarami: každá řada, každý sloupec a úhlopříčky nakreslené na desce. Figurky se pohybují jen po těchto čarách, z jednoho bodu na další. Čtyři tygři (tmaví) začínají v rozích; kozy začínají mimo desku.
+Čtyři tygři proti dvaceti kozám. Tygři se snaží vzít pět koz; kozy se snaží tygry obklíčit tak, aby se žádný z nich nemohl pohnout. Začínají kozy.
 # Posouvání
 - Nejdřív kozy vstupují do hry: v každém svém tahu postaví kozy jednu novou kozu na libovolný volný bod, dokud jich na desce není všech dvacet. Tygři mezitím už táhnou. Koza na desce se nesmí pohnout, dokud nejsou na desce všechny.
-- Potom kozy ve svém tahu posunou jednu kozu po čáře na další bod, pokud je volný, libovolným směrem.
+- Potom kozy posunou jednu kozu po čáře na další volný bod, libovolným směrem.
 - Tygr se posune po čáře na další volný bod, libovolným směrem, nebo bere.
 # Braní
-Berou jen tygři. Když koza stojí na čáře vedle tygra a bod hned za ní je volný, smí ji tygr přeskočit na tento bod a kozu odebrat z desky. Jedna koza za tah: tygr nikdy neskáče dvakrát za sebou a nikdy nepřeskakuje jiného tygra. Braní není povinné.
+Berou jen tygři: tygr přeskočí po čáře kozu vedle sebe na volný bod hned za ní a vezme ji. Jedna koza za tah: tygr nikdy neskáče dvakrát za sebou a nikdy nepřeskakuje jiného tygra. Braní není povinné.
 # Konec hry
-- Tygři vyhrají, když vezmou pět koz. To je nejběžnější pravidlo (někteří hrají dál, o víc koz).
+- Tygři vyhrají, když vezmou pět koz.
 - Kozy vyhrají, když se žádný tygr nemůže pohnout ani skočit.
-- Hráč, který ve svém tahu nemůže táhnout, prohrává: i kozy prohrají, pokud se žádná z nich nemůže pohnout.
+- Hráč, který ve svém tahu nemůže táhnout, prohrává.
 - Hra končí remízou, když se stejná pozice zopakuje potřetí se stejným hráčem na tahu, nebo po padesáti tazích každé strany bez braní od chvíle, kdy jsou na desce všechny kozy.
-# Hra na zařízení
-Dokud ještě nějaké kozy čekají na vstup, klepni na volný bod a postav tam kozu: tečky ukazují volné body. Potom klepni na figurku a na její nový bod, nebo ji přetáhni. Kozy, které mohou tygři vzít, mají kroužek: klepni na tygra a pak na bod za kozou, nebo přímo na kozu s kroužkem. Lišta koz ukazuje, kolik koz ještě zbývá přivést do hry, lišta tygrů, kolik koz už vzali.

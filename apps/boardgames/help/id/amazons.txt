@@ -1,17 +1,10 @@
 Amazon
 # Tujuan
-Jadilah pemain terakhir yang masih bisa melangkah. Setiap giliran membakar satu petak lagi di papan, sehingga ruang gerak makin menyempit sampai salah satu pemain terkurung: pemain itu kalah.
-# Awal permainan
-Papan punya 10 baris yang masing-masing berisi 10 petak. Setiap pemain punya empat amazon. Amazon terang berdiri di baris paling bawah dan di baris keempat, amazon gelap di baris paling atas dan di baris ketujuh, berhadapan dengan amazon terang. Pihak terang jalan lebih dulu, lalu para pemain bergiliran.
+Jadilah pemain terakhir yang masih bisa melangkah. Pihak terang jalan lebih dulu.
 # Satu giliran
 Setiap giliran terdiri dari dua bagian, keduanya dilakukan oleh amazon yang sama:
-- Melangkah: salah satu amazonmu bergerak seperti menteri dalam catur, berapa pun petak dalam garis lurus, sepanjang baris, kolom, atau diagonal. Amazon hanya boleh melewati dan berhenti di petak kosong: amazon tidak pernah melompat dan tidak pernah memakan.
-- Menembak: dari petak tempatnya berhenti, amazon menembakkan panah, juga seperti menteri, ke petak kosong. Petak itu terbakar dan tertutup sampai permainan berakhir: tidak ada amazon yang boleh berdiri di situ atau melewatinya, dan tidak ada panah yang boleh terbang melewatinya.
-Panah boleh terbang kembali ke petak yang baru saja ditinggalkan amazon, atau melewatinya.
+- Melangkah: salah satu amazonmu bergerak seperti menteri dalam catur, berapa pun petak kosong sepanjang baris, kolom, atau diagonal. Amazon tidak pernah melompat dan tidak pernah memakan.
+- Menembak: dari tempatnya berhenti, amazon menembakkan panah, juga seperti menteri, ke petak kosong. Petak itu terbakar sampai permainan berakhir: tidak ada amazon yang boleh berdiri di situ atau melewatinya, dan tidak ada panah yang boleh terbang melewatinya.
+- Panah boleh terbang kembali ke petak yang baru saja ditinggalkan amazon, atau melewatinya.
 # Akhir permainan
 Pemain yang tidak bisa menggerakkan amazon mana pun di awal gilirannya kalah. Tidak ada seri.
-# Tips
-- Bagian papan yang terpisah oleh petak terbakar dan amazon menjadi wilayah pribadi: hitung petak yang masih tersedia bagi setiap pemain untuk bergerak.
-- Amazon yang terjebak di kantong kecil hampir pasti kalah: jaga amazonmu tetap di area terbuka.
-# Bermain di perangkat
-Ketuk salah satu amazonmu untuk melihat ke mana amazon itu bisa bergerak, lalu ketuk sebuah petak, atau seret amazonnya. Lalu cahaya keemasan menunjukkan ke mana panahnya bisa terbang: ketuk salah satunya, dan panah itu membakar petak tersebut. Giliran terakhir tetap ditandai: asal amazon, tujuannya, dan petak yang dibakarnya. Urungkan membatalkan panah lebih dulu, lalu langkahnya.

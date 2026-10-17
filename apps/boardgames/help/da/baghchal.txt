@@ -1,18 +1,14 @@
 Bagh-Chal
 # Målet
-Bagh-Chal, »tigre og geder«, kommer fra Nepal. Den ene spiller har fire tigre, den anden tyve geder. Tigrene prøver at fange geder; gederne prøver at spærre tigrene inde, så ingen af dem kan flytte. Gederne (lyse) starter.
-# Brættet
-Femogtyve punkter forbundet af linjer: hver række, hver kolonne og de diagonaler, der er tegnet på brættet. Brikkerne flytter kun langs disse linjer, fra ét punkt til det næste. De fire tigre (mørke) starter i hjørnerne; gederne starter uden for brættet.
+Fire tigre mod tyve geder. Tigrene prøver at tage fem geder; gederne prøver at spærre tigrene inde, så ingen af dem kan flytte. Gederne starter.
 # Flytning
 - Først kommer gederne ind: i hver af deres ture sætter gederne en ny ged på et hvilket som helst tomt punkt, indtil alle tyve er inde. Imens flytter tigrene allerede. En ged på brættet må ikke flytte, før alle tyve er inde.
-- Derefter flytter gederne, når det er deres tur, én ged langs en linje til det næste punkt, hvis det er tomt, i en hvilken som helst retning.
+- Derefter flytter gederne én ged langs en linje til det næste tomme punkt, i en hvilken som helst retning.
 - En tiger flytter langs en linje til det næste tomme punkt, i en hvilken som helst retning, eller slår.
 # Slag
-Kun tigrene slår. Når en ged står ved siden af en tiger langs en linje, og punktet lige bagved er tomt, må tigeren springe over den hen på det punkt og fjerne geden fra brættet. Én ged pr. tur: en tiger springer aldrig to gange i træk og springer aldrig over en anden tiger. Det er ikke tvungent at slå.
+Kun tigrene slår: en tiger springer langs en linje over en ged ved siden af sig hen på det tomme punkt lige bagved og tager den. Én ged pr. tur: en tiger springer aldrig to gange i træk og springer aldrig over en anden tiger. Det er ikke tvungent at slå.
 # Spillets afslutning
-- Tigrene vinder, når de har taget fem geder. Det er den mest udbredte regel (nogle spiller videre for at tage flere).
+- Tigrene vinder, når de har taget fem geder.
 - Gederne vinder, når ingen tiger kan flytte eller springe.
-- En spiller, der ikke kan flytte i sin tur, taber: også gederne taber, hvis ingen af dem kan flytte.
+- En spiller, der ikke kan flytte i sin tur, taber.
 - Spillet er uafgjort, når den samme stilling opstår for tredje gang med den samme spiller i trækket, eller efter halvtreds træk hver uden et slag, efter at alle gederne er kommet ind.
-# Spil på enheden
-Så længe der stadig mangler geder, trykker du på et tomt punkt for at sætte en ged: prikker viser de ledige punkter. Derefter trykker du på en brik og på dens nye punkt, eller trækker den. De geder, tigrene kan tage, har en ring: tryk på en tiger og derefter på punktet bag geden, eller på selve geden med ringen. Gedernes panel viser, hvor mange geder der mangler at komme ind, og tigrenes panel, hvor mange geder de har taget.

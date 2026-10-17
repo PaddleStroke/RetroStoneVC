@@ -1,6 +1,6 @@
 Bao
 # Het doel
-De ander achterlaten met een lege binnenrij, of zonder zet. Elk kuiltje begint met twee zaden. De twee rijen aan jouw kant zijn van jou; jouw binnenrij ligt tegenover die van de ander. Licht begint.
+De ander achterlaten met een lege binnenrij, of zonder zet. De twee rijen aan jouw kant zijn van jou. Licht begint.
 # Zaaien
 - Neem alle zaden uit een van je kuiltjes met twee of meer en zaai ze een voor een rond je twee rijen, met de klok mee of ertegenin.
 - Valt het laatste zaad in een leeg kuiltje, dan eindigt je beurt. Lagen er al zaden, neem ze dan allemaal op en zaai verder.

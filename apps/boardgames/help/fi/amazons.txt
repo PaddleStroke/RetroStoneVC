@@ -1,17 +1,10 @@
 Amatsonit
 # Tavoite
-Ole viimeinen pelaaja, joka pystyy siirtämään. Jokainen vuoro polttaa laudalta yhden ruudun lisää, joten liikkumatila kutistuu, kunnes toinen pelaaja on täysin saarrettu: se pelaaja häviää.
-# Alkuasema
-Laudalla on 10 riviä, joissa kussakin on 10 ruutua. Kummallakin pelaajalla on neljä amatsonia. Vaaleat amatsonit ovat alimmalla ja neljännellä rivillä, tummat ylimmällä ja seitsemännellä rivillä niitä vastapäätä. Vaalea aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen.
+Ole viimeinen pelaaja, joka pystyy siirtämään. Vaalea aloittaa.
 # Vuoro
 Jokaisessa vuorossa on kaksi osaa, ja saman amatsonin on tehtävä molemmat:
-- Siirto: yksi amatsoneistasi liikkuu kuten kuningatar shakissa, kuinka monta ruutua tahansa suoraan, riviä, saraketta tai viistoa pitkin. Se saa kulkea vain tyhjien ruutujen yli ja päätyä vain tyhjään ruutuun: amatsonit eivät koskaan hyppää eivätkä lyö.
-- Ammunta: ruudusta, johon se päätyi, amatsoni ampuu nuolen, myös kuningattaren tavoin, tyhjään ruutuun. Ruutu palaa ja on suljettu pelin loppuun asti: mikään amatsoni ei saa seistä siinä eikä kulkea sen yli, eikä mikään nuoli saa lentää sen yli.
-Nuoli saa lentää takaisin ruutuun, josta amatsoni juuri lähti, tai sen yli.
+- Siirto: yksi amatsoneistasi liikkuu kuten kuningatar shakissa, kuinka monta tyhjää ruutua tahansa riviä, saraketta tai viistoa pitkin. Amatsonit eivät koskaan hyppää eivätkä lyö.
+- Ammunta: ruudusta, johon se päätyi, amatsoni ampuu nuolen, myös kuningattaren tavoin, tyhjään ruutuun. Ruutu palaa pelin loppuun asti: mikään amatsoni ei saa seistä siinä eikä kulkea sen yli, eikä mikään nuoli saa lentää sen yli.
+- Nuoli saa lentää takaisin ruutuun, josta amatsoni juuri lähti, tai sen yli.
 # Pelin loppu
 Pelaaja, joka ei voi siirtää yhtään amatsonia vuoronsa alussa, häviää. Tasapelejä ei ole.
-# Vinkkejä
-- Laudan alueista, jotka palaneet ruudut ja amatsonit erottavat muusta laudasta, tulee yksityistä aluetta: laske ruudut, joilla kummallakin pelaajalla on vielä tilaa liikkua.
-- Pieneen taskuun loukkuun jäänyt amatsoni on lähes menetetty: pidä amatsonisi avoimessa tilassa.
-# Pelaaminen laitteella
-Napauta yhtä amatsoneistasi nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä amatsonia. Sitten kultaiset valot näyttävät, minne sen nuoli voi lentää: napauta yhtä, niin nuoli polttaa sen ruudun. Viimeisin vuoro jää merkityksi: mistä amatsoni tuli, minne se meni ja ruutu, jonka se poltti. Kumoa peruu ensin nuolen, sitten siirron.

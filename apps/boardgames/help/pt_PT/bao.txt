@@ -1,6 +1,6 @@
 Bao
 # O objetivo
-Deixar o adversário com a fila interior vazia ou sem jogada. Cada casa começa com duas sementes. As duas filas do seu lado são suas; a sua fila interior fica em frente à do adversário. As claras começam.
+Deixar o adversário com a fila interior vazia ou sem jogada. As duas filas do seu lado são suas. As claras começam.
 # Semear
 - Tire todas as sementes de uma casa sua com duas ou mais e semeie-as uma a uma à volta das suas duas filas, no sentido dos ponteiros do relógio ou no contrário.
 - Se a última semente cair numa casa vazia, a sua vez acaba. Se a casa tinha sementes, apanhe-as todas e continue a semear.

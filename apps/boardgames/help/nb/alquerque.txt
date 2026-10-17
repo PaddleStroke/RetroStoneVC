@@ -1,16 +1,12 @@
 Alquerque
 # Målet
-Slå alle motstanderens brikker, eller la motstanderen stå uten trekk. Hver spiller har tolv brikker. Den lyse siden begynner.
-# Brettet
-Tjuefem punkter forbundet med linjer: hver rad, hver kolonne og diagonalene som er tegnet på brettet. Hver spillers brikker fyller de to radene nærmest spilleren og de to punktene til høyre for spilleren i den midterste raden. Bare midtpunktet er tomt.
+Slå alle motstanderens brikker, eller la motstanderen stå uten trekk. Den lyse siden begynner.
 # Flytting
-Når det er din tur, flytter du én av brikkene dine langs en linje til neste punkt, hvis det er tomt. En brikke flytter forover, rett eller på skrå, eller til siden, men aldri bakover.
+Flytt én av brikkene dine langs en linje til neste punkt, hvis det er tomt: forover, rett eller på skrå, eller til siden, aldri bakover.
 # Slag
-Hvis en motstanderbrikke står ved siden av din langs en linje, og punktet rett bak den er tomt, hopper du over den og fjerner den fra brettet. En brikke kan slå i alle retninger, også bakover. Etter et slag fortsetter den samme brikken å hoppe så lenge den kan slå en brikke til, alt i samme tur.
-- Slag er tvunget: når du kan slå en brikke, må du gjøre det, og en kjede av slag må fortsette helt til slutt. Når det finnes flere slag, kan du velge hvilket som helst av dem, ikke bare det lengste.
-- Ingen brikke fjernes som straff for et oversett slag: et slag kan ikke overses.
+- Hopp over en motstanderbrikke ved siden av din langs en linje til det tomme punktet rett bak den, og ta den. Brikker slår i alle retninger, også bakover.
+- Etter et slag fortsetter den samme brikken å hoppe så lenge den kan slå en brikke til.
+- Slag er tvunget, og en kjede av slag må fortsette helt til slutt. Du kan velge hvilket som helst slag, ikke bare det lengste.
 # Slutten på spillet
 - En spiller som ikke kan flytte, eller ikke har flere brikker, taper.
 - Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten slag.
-# Spill på enheten
-Trykk på brikken din og så på det nye punktet, eller dra den. Brikkene som kan slås, har en ring: med brikken din valgt trykker du på punktet bak, eller på selve brikken med ringen. I en kjede av slag forblir brikken din løftet til neste hopp.

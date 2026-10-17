@@ -1,6 +1,6 @@
 Bao
 # Målet
-La motstanderen stå igjen med en tom indre rad, eller uten trekk. Hvert hull starter med to frø. De to radene på din side er dine; den indre raden din vender mot motstanderens. Lys begynner.
+La motstanderen stå igjen med en tom indre rad, eller uten trekk. De to radene nærmest deg er dine. Lys begynner.
 # Så
 - Ta alle frøene fra et av hullene dine med to eller flere, og så dem ett og ett rundt de to radene dine, med eller mot klokka.
 - Faller det siste frøet i et tomt hull, slutter turen. Lå det frø i hullet, tar du opp alle og sår videre.

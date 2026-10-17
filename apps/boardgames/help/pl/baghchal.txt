@@ -1,18 +1,14 @@
 Bagh-Chal
 # Cel gry
-Bagh-Chal, „tygrysy i kozy”, pochodzi z Nepalu. Jeden gracz ma cztery tygrysy, drugi dwadzieścia kóz. Tygrysy próbują łapać kozy; kozy próbują osaczyć tygrysy tak, aby żaden z nich nie mógł się ruszyć. Kozy (jasne) zaczynają.
-# Plansza
-Dwadzieścia pięć punktów połączonych liniami: każdy rząd, każda kolumna i przekątne narysowane na planszy. Pionki poruszają się tylko po tych liniach, z jednego punktu na następny. Cztery tygrysy (ciemne) zaczynają w rogach; kozy zaczynają poza planszą.
+Cztery tygrysy przeciw dwudziestu kozom. Tygrysy próbują zbić pięć kóz; kozy próbują osaczyć tygrysy tak, aby żaden z nich nie mógł się ruszyć. Kozy zaczynają.
 # Przesuwanie
 - Najpierw kozy wchodzą do gry: w każdej swojej kolejce kozy stawiają jedną nową kozę na dowolnym wolnym punkcie, aż wszystkie dwadzieścia znajdą się na planszy. W tym czasie tygrysy już się ruszają. Koza na planszy nie może się ruszyć, dopóki wszystkie dwadzieścia nie wejdą do gry.
-- Potem kozy w swojej kolejce przesuwają jedną kozę wzdłuż linii na następny punkt, jeśli jest wolny, w dowolnym kierunku.
+- Potem kozy przesuwają jedną kozę wzdłuż linii na następny wolny punkt, w dowolnym kierunku.
 - Tygrys przesuwa się wzdłuż linii na następny wolny punkt, w dowolnym kierunku, albo bije.
 # Bicie
-Bić mogą tylko tygrysy. Gdy koza stoi na linii obok tygrysa, a punkt tuż za nią jest wolny, tygrys może ją przeskoczyć na ten punkt i zdjąć kozę z planszy. Jedna koza na kolejkę: tygrys nigdy nie skacze dwa razy z rzędu i nigdy nie przeskakuje innego tygrysa. Bicie nie jest obowiązkowe.
+Bić mogą tylko tygrysy: tygrys przeskakuje wzdłuż linii kozę stojącą obok niego na wolny punkt tuż za nią i zbija ją. Jedna koza na kolejkę: tygrys nigdy nie skacze dwa razy z rzędu i nigdy nie przeskakuje innego tygrysa. Bicie nie jest obowiązkowe.
 # Koniec gry
-- Tygrysy wygrywają, gdy zbiją pięć kóz. To najczęstsza zasada (niektórzy grają dalej, o więcej kóz).
+- Tygrysy wygrywają, gdy zbiją pięć kóz.
 - Kozy wygrywają, gdy żaden tygrys nie może się ruszyć ani skoczyć.
-- Gracz, który w swojej kolejce nie może wykonać ruchu, przegrywa: kozy także przegrywają, jeśli żadna z nich nie może się ruszyć.
+- Gracz, który w swojej kolejce nie może wykonać ruchu, przegrywa.
 - Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, lub po pięćdziesięciu ruchach każdej ze stron bez bicia, odkąd wszystkie kozy są na planszy.
-# Gra na urządzeniu
-Dopóki są jeszcze kozy do wprowadzenia, dotknij wolnego punktu, aby postawić kozę: kropki pokazują wolne punkty. Potem dotknij pionka i jego nowego punktu, albo go przeciągnij. Kozy, które tygrysy mogą zbić, mają kółko: dotknij tygrysa, a potem punktu za kozą albo samej kozy z kółkiem. Pasek kóz pokazuje, ile kóz zostało jeszcze do wprowadzenia, a pasek tygrysów, ile kóz już zbiły.

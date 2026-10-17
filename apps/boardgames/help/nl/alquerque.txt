@@ -1,16 +1,12 @@
 Alquerque
 # Het doel
-Sla alle stukken van de andere speler, of laat hem zonder zet. Elke speler heeft twaalf stukken. Licht begint.
-# Het bord
-Vijfentwintig punten, verbonden door lijnen: elke rij, elke kolom en de diagonalen die op het bord getekend zijn. De stukken van elke speler vullen de twee rijen die het dichtst bij hem liggen en de twee punten rechts van hem in de middelste rij. Alleen het middelpunt is leeg.
+Sla alle stukken van de andere speler, of laat hem zonder zet. Licht begint.
 # Schuiven
-Als je aan de beurt bent, schuif je een van je stukken langs een lijn naar het volgende punt, als dat leeg is. Een stuk gaat vooruit, recht of schuin, of opzij, maar nooit achteruit.
+Schuif een van je stukken langs een lijn naar het volgende punt, als dat leeg is: vooruit, recht of schuin, of opzij, nooit achteruit.
 # Slaan
-Staat een stuk van de tegenstander langs een lijn naast het jouwe en is het punt er direct achter leeg, dan spring je eroverheen en neem je het van het bord. Een stuk mag in elke richting slaan, ook achteruit. Na een slag springt hetzelfde stuk door zolang het nog een stuk kan slaan, allemaal in dezelfde beurt.
-- Slaan is verplicht: als je een stuk kunt slaan, moet je dat doen, en een reeks slagen moet tot het einde worden afgemaakt. Zijn er meerdere slagen mogelijk, dan mag je er willekeurig een kiezen, niet alleen de langste.
-- Voor een gemiste slag wordt geen stuk als straf weggenomen (geen blazen): een slag kan niet worden gemist.
+- Spring langs een lijn over een stuk van de tegenstander naast het jouwe naar het lege punt er direct achter, en neem het van het bord. Stukken slaan in elke richting, ook achteruit.
+- Na een slag springt hetzelfde stuk door zolang het nog een stuk kan slaan.
+- Slaan is verplicht, en een reeks slagen moet tot het einde worden afgemaakt. Je mag elke slag kiezen, niet alleen de langste.
 # Het einde van het spel
 - Een speler die niet kan zetten of geen stukken meer heeft, verliest.
 - Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slag.
-# Spelen op het apparaat
-Tik op je stuk en dan op zijn nieuwe punt, of sleep het. De stukken die geslagen kunnen worden, hebben een ring: tik, met je stuk gekozen, op het punt erachter of op het stuk met de ring zelf. Bij een reeks slagen blijft je stuk opgepakt voor de volgende sprong.

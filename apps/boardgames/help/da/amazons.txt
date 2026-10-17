@@ -1,17 +1,10 @@
 Amazoner
 # Målet
-Vær den sidste spiller, der kan flytte. Hver tur brænder endnu et felt af brættet, så pladsen at flytte på skrumper, indtil en spiller er muret inde: den spiller taber.
-# Starten
-Brættet har 10 rækker med 10 felter. Hver spiller har fire amazoner. De lyse amazoner står på nederste række og på fjerde række, de mørke på øverste række og på syvende række, over for dem. Den lyse side trækker først, derefter skiftes spillerne.
+Vær den sidste spiller, der kan flytte. Den lyse side trækker først.
 # En tur
 Hver tur har to dele, begge udført af den samme amazone:
-- Træk: en af dine amazoner flytter som en dronning i skak, et vilkårligt antal felter i lige linje, langs en række, en kolonne eller en diagonal. Den må kun passere og lande på tomme felter: amazoner springer aldrig og slår aldrig.
-- Skud: fra feltet, hvor den landede, skyder amazonen en pil, også som en dronning, hen på et tomt felt. Det felt er brændt og spærret resten af spillet: ingen amazone må stå på det eller passere det, og ingen pil må flyve over det.
-Pilen må flyve tilbage til det felt, amazonen lige har forladt, eller hen over det.
+- Træk: en af dine amazoner flytter som en dronning i skak, et vilkårligt antal tomme felter langs en række, en kolonne eller en diagonal. Amazoner springer aldrig og slår aldrig.
+- Skud: fra feltet, hvor den landede, skyder amazonen en pil, også som en dronning, hen på et tomt felt. Det felt er brændt resten af spillet: ingen amazone må stå på det eller passere det, og ingen pil må flyve over det.
+- Pilen må flyve tilbage til det felt, amazonen lige har forladt, eller hen over det.
 # Spillets afslutning
 En spiller, der ikke kan flytte nogen amazone ved starten af sin tur, taber. Spillet bliver aldrig uafgjort.
-# Tips
-- Områder af brættet, der er lukket af med brændte felter og amazoner, bliver privat territorium: tæl de felter, hver spiller stadig har at flytte i.
-- En amazone, der er fanget i en lille lomme, er næsten tabt: hold dine amazoner ude i det åbne.
-# Spil på enheden
-Tryk på en af dine amazoner for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk amazonen. Derefter viser gyldne lys, hvor dens pil kan flyve hen: tryk på et af dem, og pilen brænder det felt. Den sidste tur forbliver markeret: hvor amazonen kom fra, hvor den gik hen, og det felt, den brændte. Fortryd tager først pilen tilbage, derefter trækket.

@@ -1,16 +1,12 @@
 Alquerque
 # Cel gry
-Zbij wszystkie pionki przeciwnika albo pozbaw go ruchu. Każdy gracz ma dwanaście pionków. Jasne zaczynają.
-# Plansza
-Dwadzieścia pięć punktów połączonych liniami: każdy rząd, każda kolumna i przekątne narysowane na planszy. Pionki każdego gracza zajmują dwa najbliższe mu rzędy oraz dwa punkty po jego prawej stronie w środkowym rzędzie. Pusty jest tylko punkt środkowy.
+Zbij wszystkie pionki przeciwnika albo pozbaw go ruchu. Jasne zaczynają.
 # Przesuwanie
-W swojej kolejce przesuń jeden ze swoich pionków wzdłuż linii na sąsiedni punkt, jeśli jest wolny. Pionek porusza się do przodu, prosto lub na ukos, albo w bok, ale nigdy do tyłu.
+Przesuń jeden ze swoich pionków wzdłuż linii na sąsiedni punkt, jeśli jest wolny: do przodu, prosto lub na ukos, albo w bok, nigdy do tyłu.
 # Bicie
-Jeśli pionek przeciwnika stoi na linii obok twojego, a punkt tuż za nim jest wolny, przeskocz go i zdejmij z planszy. Pionek może bić w każdym kierunku, także do tyłu. Po biciu ten sam pionek skacze dalej, dopóki może zbić kolejny pionek, wszystko w tej samej kolejce.
-- Bicie jest obowiązkowe: gdy możesz zbić pionek, musisz to zrobić, a seria bić musi trwać do końca. Gdy możliwych bić jest kilka, możesz wybrać dowolne, nie tylko najdłuższe.
-- Za pominięte bicie żaden pionek nie jest zdejmowany za karę: bicia nie da się pominąć.
+- Przeskocz pionek przeciwnika stojący na linii obok twojego na wolny punkt tuż za nim i zbij go. Pionki biją w każdym kierunku, także do tyłu.
+- Po biciu ten sam pionek skacze dalej, dopóki może zbić kolejny pionek.
+- Bicie jest obowiązkowe, a seria bić musi trwać do końca. Możesz wybrać dowolne bicie, nie tylko najdłuższe.
 # Koniec gry
 - Gracz, który nie może wykonać ruchu albo nie ma już pionków, przegrywa.
 - Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci, lub po pięćdziesięciu ruchach każdej ze stron bez bicia.
-# Gra na urządzeniu
-Dotknij swojego pionka, a potem jego nowego punktu, albo przeciągnij go. Pionki, które można zbić, mają pierścień: przy wybranym pionku dotknij punktu za takim pionkiem albo samego pionka z pierścieniem. W serii bić twój pionek pozostaje podniesiony do następnego skoku.

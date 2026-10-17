@@ -1,16 +1,12 @@
 Alquerque
 # O objetivo
-Capturar todas as peças do outro jogador, ou deixá-lo sem jogadas. Cada jogador tem doze peças. As peças claras começam.
-# O tabuleiro
-Vinte e cinco pontos ligados por linhas: cada fila, cada coluna e as diagonais desenhadas no tabuleiro. As peças de cada jogador ocupam as duas filas mais próximas de si e os dois pontos à sua direita na fila do meio. Só o ponto central está vazio.
+Capturar todas as peças do outro jogador, ou deixá-lo sem jogadas. As peças claras começam.
 # Movimento
-Na tua vez, move uma das tuas peças ao longo de uma linha para o ponto vizinho, se estiver livre. Uma peça avança, a direito ou na diagonal, ou move-se para o lado, mas nunca para trás.
+Move uma das tuas peças ao longo de uma linha para o ponto vizinho, se estiver livre: para a frente, a direito ou na diagonal, ou para o lado, nunca para trás.
 # Captura
-Se uma peça adversária estiver ao lado da tua ao longo de uma linha e o ponto logo a seguir estiver livre, salta por cima dela e retira-a do tabuleiro. Uma peça pode capturar em qualquer direção, também para trás. Depois de uma captura, a mesma peça continua a saltar enquanto puder capturar outra peça, tudo na mesma vez.
-- A captura é obrigatória: quando podes capturar uma peça, tens de o fazer, e uma cadeia de capturas tem de ir até ao fim. Quando há várias capturas, podes escolher qualquer uma, não só a mais longa.
-- Nenhuma peça é retirada como castigo por uma captura falhada (não há sopro): não é possível falhar uma captura.
+- Salta por cima de uma peça adversária ao lado da tua ao longo de uma linha para o ponto livre logo a seguir, e retira-a do tabuleiro. As peças capturam em qualquer direção, também para trás.
+- Depois de uma captura, a mesma peça continua a saltar enquanto puder capturar outra peça.
+- A captura é obrigatória, e uma cadeia de capturas tem de ir até ao fim. Podes escolher qualquer captura, não só a mais longa.
 # O fim do jogo
 - Perde o jogador que não se consegue mover ou que fica sem peças.
 - O jogo termina empatado quando a mesma posição se repete pela terceira vez, ou após cinquenta jogadas de cada lado sem capturas.
-# Jogar no dispositivo
-Toca na tua peça e depois no seu novo ponto, ou arrasta-a. As peças que podem ser capturadas têm um anel: com a tua peça selecionada, toca no ponto logo a seguir, ou na própria peça com o anel. Numa cadeia de capturas, a tua peça fica levantada para o salto seguinte.

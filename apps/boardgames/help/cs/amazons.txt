@@ -1,17 +1,10 @@
 Amazonky
 # Cíl hry
-Buď poslední hráč, který může táhnout. Každý tah spálí další pole desky, takže místa k pohybu ubývá, až je jeden hráč zazděn: ten prohrává.
-# Začátek
-Deska má 10 řad po 10 polích. Každý hráč má čtyři amazonky. Světlé amazonky stojí na spodní řadě a na čtvrté řadě, tmavé na horní řadě a na sedmé řadě, naproti nim. Začíná světlý hráč, potom se hráči střídají.
+Buď poslední hráč, který může táhnout. Začíná světlý hráč.
 # Tah
 Každý tah má dvě části, obě provede tatáž amazonka:
-- Pohyb: jedna z tvých amazonek táhne jako dáma v šachu, o libovolný počet polí v přímém směru, po řadě, sloupci nebo diagonále. Smí přecházet a dopadat jen na volná pole: amazonky nikdy nepřeskakují a nikdy neberou.
-- Výstřel: z pole, kam dopadla, amazonka vystřelí šíp, také jako dáma, na volné pole. To pole je spálené a zablokované do konce hry: žádná amazonka na něm nesmí stát ani přes něj přejít a žádný šíp nad ním nesmí přeletět.
-Šíp smí letět zpět na pole, které amazonka právě opustila, nebo přes něj.
+- Pohyb: jedna z tvých amazonek táhne jako dáma v šachu, o libovolný počet volných polí po řadě, sloupci nebo diagonále. Amazonky nikdy nepřeskakují a nikdy neberou.
+- Výstřel: z pole, kam dopadla, amazonka vystřelí šíp, také jako dáma, na volné pole. To pole je spálené do konce hry: žádná amazonka na něm nesmí stát ani přes něj přejít a žádný šíp nad ním nesmí přeletět.
+- Šíp smí letět zpět na pole, které amazonka právě opustila, nebo přes něj.
 # Konec hry
 Hráč, který na začátku svého tahu nemůže táhnout žádnou amazonkou, prohrává. Remíza nikdy nenastane.
-# Rady
-- Oblasti desky oddělené spálenými poli a amazonkami se stávají soukromým územím: spočítej pole, na kterých se každý hráč ještě může pohybovat.
-- Amazonka uvězněná v malé kapse je skoro ztracená: drž své amazonky v otevřeném prostoru.
-# Hra na zařízení
-Klepni na jednu ze svých amazonek a uvidíš, kam může táhnout, potom klepni na pole, nebo amazonku přetáhni. Pak zlatá světla ukážou, kam může letět její šíp: klepni na jedno z nich a šíp to pole spálí. Poslední tah zůstane označený: odkud amazonka přišla, kam šla a které pole spálila. Vrátit bere zpět nejdřív šíp, potom pohyb.

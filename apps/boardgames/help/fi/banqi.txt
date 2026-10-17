@@ -1,21 +1,17 @@
 Banqi
 # Tavoite
-Lyö kaikki vastustajan nappulat tai jätä hänet ilman siirtoa. Banqia (kiinalaista piiloshakkia) pelataan xiangqin 32 nappulalla sen laudan puolikkaalla, jossa on 4×8 ruutua. Nappulat ovat aluksi kuvapuoli alaspäin, sekoitettuina, yksi joka ruudussa: kukaan ei tiedä, missä mikäkin on. Nämä ovat taiwanilaiset säännöt.
+Lyö kaikki vastustajan nappulat tai jätä hänet ilman siirtoa. Xiangqin 32 nappulaa ovat aluksi kuvapuoli alaspäin, sekoitettuina, yksi joka ruudussa.
 # Värit
-Ensimmäinen pelaaja kääntää minkä tahansa nappulan: sen väri, punainen tai musta, tulee hänen värikseen, ja toinen pelaaja saa toisen värin. Siihen asti alapalkki näkyy punaisena, mutta ensimmäinen nappula ratkaisee.
+Ensimmäinen pelaaja kääntää minkä tahansa nappulan: sen väri, punainen tai musta, tulee hänen värikseen, ja toinen pelaaja saa toisen värin.
 # Vuoro
 Tee yksi näistä:
 - Käännä mikä tahansa piilossa oleva nappula, kumman tahansa värinen.
 - Siirrä yhtä näkyvää nappulaasi yksi ruutu rivillä tai sarakkeella tyhjään ruutuun.
-- Lyönti: siirrä yhtä näkyvää nappulaasi yksi ruutu näkyvän vastustajan nappulan päälle, jonka se saa lyödä.
+- Lyönti: siirrä yhtä näkyvää nappulaasi yksi ruutu näkyvän vastustajan nappulan päälle, jonka se saa lyödä. Piilossa olevia nappuloita ei voi koskaan lyödä.
 # Arvojärjestys
 Korkeimmasta alkaen: kenraali, neuvonantaja, norsu, vaunu, hevonen, tykki, sotilas. Nappula lyö oman arvoisiaan tai alempia nappuloita, kahta poikkeusta lukuun ottamatta:
-- Sotilas lyö kenraalin (ja sotilaat). Kenraali ei voi lyödä sotilasta.
-- Tykki lyö eri tavalla: se hyppää rivillä tai sarakkeella tasan yhden nappulan yli (näkyvän tai piilossa olevan, kumman tahansa värisen), kuinka pitkälle tahansa, ja laskeutuu heti sen takana olevan vastustajan nappulan päälle. Näin se voi lyödä minkä tahansa näkyvän vastustajan nappulan, mutta ei koskaan vieressään olevaa. Lyömättä se liikkuu yhden ruudun kuten muut.
-Piilossa olevia nappuloita ei voi koskaan lyödä.
+- Sotilas lyö kenraalin. Kenraali ei voi lyödä sotilasta.
+- Tykki lyö hyppäämällä rivillä tai sarakkeella tasan yhden nappulan yli (näkyvän tai piilossa olevan, kumman tahansa värisen), kuinka pitkälle tahansa, heti sen takana olevan vastustajan nappulan päälle. Näin se voi lyödä minkä tahansa näkyvän vastustajan nappulan, mutta ei koskaan vieressään olevaa.
 # Pelin loppu
-- Pelaaja, jonka kaikki kuusitoista nappulaa on lyöty, häviää.
-- Pelaaja, joka ei voi siirtää vuorollaan, häviää.
+- Pelaaja, joka on menettänyt kaikki kuusitoista nappulaansa tai ei voi siirtää vuorollaan, häviää.
 - Kun 50 vuoroa peräkkäin (kummankin pelaajan vuorot lasketaan) on kulunut ilman nappulan kääntämistä ja ilman lyöntiä, peli päättyy tasapeliin.
-# Pelaaminen laitteella
-Antakaa laite kiertää: vuorossa olevan pelaajan palkki on alhaalla. Käännä piilossa oleva nappula napauttamalla sitä. Napauta nappulaasi nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Kukin palkki näyttää nappulat, jotka kyseinen pelaaja on lyönyt. Kun tasapeliin on jäljellä vain muutama vuoro, niiden määrä näkyy vuorossa olevan pelaajan palkin lopussa.

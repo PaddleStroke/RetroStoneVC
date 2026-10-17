@@ -1,12 +1,12 @@
 Bao
 # Cíl hry
-Nech soupeře s prázdnou vnitřní řadou nebo bez tahu. Na začátku jsou v každé jamce dvě semínka. Dvě řady na tvé straně jsou tvoje; tvoje vnitřní řada leží naproti soupeřově. Začíná světlý.
+Nech soupeře s prázdnou vnitřní řadou nebo bez tahu. Dvě řady blíž k tobě jsou tvoje. Začíná světlý.
 # Setí
 - Vezmi všechna semínka z jedné své jamky, kde jsou aspoň dvě, a rozsévej je po jednom kolem svých dvou řad, po směru hodinových ručiček nebo proti němu.
 - Padne-li poslední semínko do prázdné jamky, tah končí. Byla-li v jamce semínka, vezmi je všechna a rozsévej dál.
 # Braní
 - Padne-li poslední semínko do obsazené jamky tvé vnitřní řady a v jamce naproti jsou semínka, bereš je.
-- Vzatá semínka zasej do své vnitřní řady od jednoho konce: od levého, pokud braní proběhlo ve dvou levých jamkách, od pravého vpravo, jinak od konce, z něhož setí pokračuje stejným směrem.
+- Vzatá semínka zasej do své vnitřní řady od krajní jamky: od levého konce, pokud braní proběhlo ve dvou levých jamkách, od pravého vpravo, jinak od konce, z něhož setí pokračuje stejným směrem.
 - Můžeš-li brát, musíš. Tah, který nezačíná braním, nebere nic a musí začít ve vnitřní řadě, pokud to jde.
 # Konec hry
 Prohráváš, když je tvoje vnitřní řada prázdná nebo nemůžeš táhnout. Po 600 tazích vyhrává ten, kdo má víc semínek.

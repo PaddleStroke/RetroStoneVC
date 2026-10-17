@@ -1,18 +1,14 @@
 Bagh-Chal
 # Amaç
-Bagh-Chal, yani “kaplanlar ve keçiler”, Nepal'den gelir. Bir oyuncunun dört kaplanı, diğerinin yirmi keçisi vardır. Kaplanlar keçi yakalamaya çalışır; keçiler ise kaplanları hiçbiri hareket edemeyecek şekilde sıkıştırmaya çalışır. Önce keçiler (açık) oynar.
-# Tahta
-Çizgilerle birbirine bağlı yirmi beş nokta: her sıra, her sütun ve tahtada çizili köşegenler. Taşlar yalnızca bu çizgiler üzerinde, bir noktadan bir sonrakine gider. Dört kaplan (koyu) köşelerden başlar; keçiler tahtanın dışında başlar.
+Yirmi keçiye karşı dört kaplan. Kaplanlar beş keçi almaya çalışır; keçiler ise kaplanları hiçbiri hareket edemeyecek şekilde sıkıştırmaya çalışır. Önce keçiler oynar.
 # Hareket
 - Önce keçiler oyuna girer: keçiler, yirmisi de tahtaya girene kadar her sıralarında herhangi bir boş noktaya yeni bir keçi koyar. Bu arada kaplanlar şimdiden hareket eder. Yirmi keçinin hepsi girmeden tahtadaki hiçbir keçi hareket edemez.
-- Sonra keçiler, sıraları geldiğinde bir keçiyi bir çizgi boyunca, boşsa bir sonraki noktaya, herhangi bir yöne götürür.
+- Sonra keçiler bir keçiyi bir çizgi boyunca bir sonraki boş noktaya, herhangi bir yöne götürür.
 - Bir kaplan bir çizgi boyunca bir sonraki boş noktaya, herhangi bir yöne gider ya da keçi alır.
 # Taş alma
-Yalnızca kaplanlar taş alır. Bir çizgi üzerinde bir keçi bir kaplanın yanındaysa ve hemen arkasındaki nokta boşsa, kaplan onun üzerinden o noktaya atlayıp keçiyi tahtadan alabilir. Her sırada tek keçi: bir kaplan asla art arda iki kez atlamaz ve asla başka bir kaplanın üzerinden atlamaz. Taş almak zorunlu değildir.
+Yalnızca kaplanlar taş alır: bir kaplan, bir çizgi boyunca yanındaki bir keçinin üzerinden hemen arkasındaki boş noktaya atlar ve onu alır. Her sırada tek keçi: bir kaplan asla art arda iki kez atlamaz ve asla başka bir kaplanın üzerinden atlamaz. Taş almak zorunlu değildir.
 # Oyunun sonu
-- Kaplanlar beş keçi aldıklarında kazanır. En yaygın kural budur (bazıları daha fazla keçi için oynamaya devam eder).
+- Kaplanlar beş keçi aldıklarında kazanır.
 - Hiçbir kaplan hareket edemez ve atlayamazsa keçiler kazanır.
-- Sırası geldiğinde hamle yapamayan oyuncu kaybeder: keçilerden hiçbiri hareket edemiyorsa keçiler de kaybeder.
+- Sırası geldiğinde hamle yapamayan oyuncu kaybeder.
 - Aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında ya da bütün keçiler girdikten sonra iki taraf da taş almadan ellişer hamle yaptığında oyun berabere biter.
-# Cihazda oynamak
-Girecek keçi kaldığı sürece keçi koymak için boş bir noktaya dokun: küçük noktalar boş yerleri gösterir. Sonra bir taşa ve yeni noktasına dokun ya da onu sürükle. Kaplanların alabileceği keçilerin çevresinde bir halka vardır: bir kaplana, sonra keçinin arkasındaki noktaya ya da halkalı keçinin kendisine dokun. Keçilerin şeridi daha kaç keçinin gireceğini, kaplanların şeridi kaç keçi aldıklarını gösterir.

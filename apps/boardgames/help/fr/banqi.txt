@@ -1,21 +1,17 @@
 Banqi
 # Le but
-Prendre toutes les pièces de l'autre joueur, ou le laisser sans aucun coup possible. Le banqi (les échecs chinois cachés) se joue avec les 32 pièces du xiangqi sur la moitié de son plateau, 4 sur 8 cases. Les pièces commencent face cachée, mélangées, une sur chaque case : personne ne sait où se trouve quoi. Ce sont les règles taïwanaises.
+Prendre toutes les pièces de l'autre joueur, ou le laisser sans aucun coup possible. Les 32 pièces du xiangqi commencent face cachée, mélangées, une sur chaque case.
 # Les couleurs
-Le premier joueur retourne la pièce de son choix : sa couleur, rouge ou noire, devient la sienne, et l'autre joueur prend l'autre couleur. Jusque-là, la barre du bas est rouge, mais c'est la première pièce qui décide.
+Le premier joueur retourne la pièce de son choix : sa couleur, rouge ou noire, devient la sienne, et l'autre joueur prend l'autre couleur.
 # Un tour
 Fais l'une de ces actions :
 - Retourner n'importe quelle pièce face cachée, de l'une ou l'autre couleur.
 - Déplacer une de tes pièces face visible d'une case le long d'une rangée ou d'une colonne, vers une case vide.
-- Prendre : déplacer une de tes pièces face visible d'une case sur une pièce adverse face visible qu'elle a le droit de prendre.
+- Prendre : déplacer une de tes pièces face visible d'une case sur une pièce adverse face visible qu'elle a le droit de prendre. Une pièce face cachée ne peut jamais être prise.
 # Les rangs
 Du plus fort au plus faible : général, conseiller, éléphant, char, cheval, canon, soldat. Une pièce prend les pièces de son rang ou d'un rang inférieur, à deux exceptions près :
-- Le soldat prend le général (et les soldats). Le général ne peut pas prendre un soldat.
-- Le canon prend autrement : il saute le long d'une rangée ou d'une colonne par-dessus exactement une pièce (face visible ou cachée, de n'importe quelle couleur), à n'importe quelle distance, et atterrit sur la pièce adverse juste derrière. Il peut ainsi prendre n'importe quelle pièce adverse face visible, mais jamais celle qui est juste à côté de lui. Sans prendre, il se déplace d'une case comme les autres.
-Une pièce face cachée ne peut jamais être prise.
+- Le soldat prend le général. Le général ne peut pas prendre un soldat.
+- Le canon prend en sautant le long d'une rangée ou d'une colonne par-dessus exactement une pièce (face visible ou cachée, de n'importe quelle couleur), à n'importe quelle distance, et atterrit sur la pièce adverse juste derrière. Il peut ainsi prendre n'importe quelle pièce adverse face visible, mais jamais celle qui est juste à côté de lui.
 # La fin de la partie
-- Un joueur dont les seize pièces ont toutes été prises a perdu.
-- Un joueur qui ne peut pas jouer à son tour a perdu.
+- Un joueur qui a perdu ses seize pièces, ou qui ne peut pas jouer à son tour, a perdu.
 - Après 50 tours d'affilée (ceux des deux joueurs comptés) sans pièce retournée et sans prise, la partie est nulle.
-# Jouer sur l'appareil
-L'appareil passe de main en main : le joueur dont c'est le tour a sa barre en bas. Touche une pièce face cachée pour la retourner. Touche une de tes pièces pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles, les anneaux les prises. Chaque barre indique les pièces prises par ce joueur. Quand il reste peu de tours avant la nulle, leur nombre s'affiche au bout de la barre du joueur dont c'est le tour.

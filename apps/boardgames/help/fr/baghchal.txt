@@ -1,18 +1,14 @@
 Bagh-Chal
 # Le but
-Le Bagh-Chal, « tigres et chèvres », vient du Népal. Un joueur a quatre tigres, l'autre vingt chèvres. Les tigres cherchent à attraper des chèvres ; les chèvres cherchent à encercler les tigres pour qu'aucun d'eux ne puisse plus bouger. Les chèvres (claires) commencent.
-# Le plateau
-Vingt-cinq points reliés par des lignes : chaque rangée, chaque colonne et les diagonales tracées sur le plateau. Les pièces se déplacent uniquement le long de ces lignes, d'un point au suivant. Les quatre tigres (foncés) partent des coins ; les chèvres commencent hors du plateau.
+Quatre tigres contre vingt chèvres. Les tigres cherchent à prendre cinq chèvres ; les chèvres cherchent à encercler les tigres pour qu'aucun d'eux ne puisse plus bouger. Les chèvres commencent.
 # Les déplacements
 - D'abord, les chèvres entrent en jeu : à chacun de leurs tours, elles posent une nouvelle chèvre sur n'importe quel point libre, jusqu'à ce que les vingt soient posées. Pendant ce temps, les tigres se déplacent déjà. Une chèvre posée ne peut pas bouger tant que les vingt ne sont pas toutes entrées.
-- Ensuite, à leur tour, les chèvres déplacent une chèvre le long d'une ligne jusqu'au point suivant, s'il est libre, dans n'importe quelle direction.
+- Ensuite, les chèvres déplacent une chèvre le long d'une ligne jusqu'au point libre suivant, dans n'importe quelle direction.
 - Un tigre se déplace le long d'une ligne jusqu'au point libre suivant, dans n'importe quelle direction, ou bien il prend.
 # Les prises
-Seuls les tigres prennent. Quand une chèvre est voisine d'un tigre sur une ligne et que le point juste derrière elle est libre, le tigre peut sauter par-dessus jusqu'à ce point et retirer la chèvre du plateau. Une seule chèvre par tour : un tigre ne saute jamais deux fois de suite, et ne saute jamais par-dessus un autre tigre. La prise n'est pas obligatoire.
+Seuls les tigres prennent : un tigre saute le long d'une ligne par-dessus une chèvre voisine jusqu'au point libre juste derrière elle, et la prend. Une seule chèvre par tour : un tigre ne saute jamais deux fois de suite, et ne saute jamais par-dessus un autre tigre. La prise n'est pas obligatoire.
 # La fin de la partie
-- Les tigres gagnent quand ils ont pris cinq chèvres. C'est la règle la plus courante (certains continuent pour en prendre davantage).
+- Les tigres gagnent quand ils ont pris cinq chèvres.
 - Les chèvres gagnent quand aucun tigre ne peut ni bouger ni sauter.
-- Un joueur qui ne peut pas bouger à son tour a perdu : les chèvres perdent elles aussi si aucune d'elles ne peut bouger.
+- Un joueur qui ne peut pas bouger à son tour a perdu.
 - La partie est nulle quand la même position revient pour la troisième fois avec le même joueur au trait, ou après cinquante coups de chaque côté sans prise une fois toutes les chèvres entrées.
-# Jouer sur l'appareil
-Tant qu'il reste des chèvres à entrer, touche un point libre pour y poser une chèvre : des points marquent les emplacements libres. Ensuite, touche une pièce puis son nouveau point, ou fais-la glisser. Les chèvres que les tigres peuvent prendre sont entourées d'un anneau : touche un tigre, puis le point juste derrière la chèvre, ou la chèvre entourée elle-même. La barre des chèvres indique combien de chèvres restent à entrer, celle des tigres combien de chèvres ils ont prises.
