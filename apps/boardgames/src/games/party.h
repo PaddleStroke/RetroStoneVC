@@ -19,6 +19,7 @@
 
 #include "cards.h"
 #include "cards_table.h"
+#include "pages.h"
 #include "shell.h"
 #include "text.h"
 
@@ -45,6 +46,21 @@ static inline void pt_pass(pt_seat *s, int who)
     ui_tokens_changed();
     ui_handoff(s->slot);
 }
+
+/* ---- the table's theme: things drawn straight on the table (not on a panel, a card or the sheet) in cream on the
+ * dark table, in the house ink on the light one */
+static inline int pt_dark(void) { return TH.dark; }
+static inline const uint8_t *pt_ink(void)
+{
+    static const uint8_t cream[3] = {246, 238, 220}, ink[3] = {84, 56, 36};
+    return TH.dark ? cream : ink;
+}
+static inline SDL_Texture *pt_icon(int icon, int size)   /* a shell icon in that ink */
+{
+    const uint8_t *c = pt_ink();
+    return ct_icon(icon, size, c[0], c[1], c[2]);
+}
+static inline void pt_plus(float cx, float cy, float h, int v) { ui_number_signed(cx, cy, h, v, TH.dark, 1); }
 
 /* ---- painting into pictures -------------------------------------------------------------------------------------- */
 /* a line of text centred on (cx, cy) in a picture (w x h), bold, px high, shrunk to maxw; returns its width */

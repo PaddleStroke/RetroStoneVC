@@ -316,13 +316,19 @@ static void draw_people(int wolves_marked)
     }
 }
 
+/* the moon, the sun: pale gold on the dark table, deeper on the light one */
+static SDL_Texture *sky(int icon, int size)
+{
+    return pt_dark() ? ct_icon(icon, size, 246, 226, 150) : ct_icon(icon, size, 196, 140, 40);
+}
+
 static void top_picture(int k, int moon)
 {
     box t = L.top;
     float d = fminf(1.6f * ui.unit, t.h * 0.7f), x = t.x + t.w / 2, y = t.y + t.h / 2;
     if (moon) {
         float m = d * 0.7f;
-        ui_put_c(ct_icon(moon > 0 ? ICON_MOON : ICON_SUN, (int)m, 246, 226, 150), x - 1.1f * d, y, m, m);
+        ui_put_c(sky(moon > 0 ? ICON_MOON : ICON_SUN, (int)m), x - 1.1f * d, y, m, m);
     }
     badge(k, x, y, d);
 }
@@ -340,7 +346,7 @@ static void draw_dead(const int *who, int n)
     }
     if (!n) {                                   /* nobody: the sun alone */
         float d = fminf(2.4f * u, m.h * 0.5f);
-        ui_put_c(ct_icon(ICON_SUN, (int)d, 246, 226, 150), m.x + m.w / 2, m.y + m.h / 2, d, d);
+        ui_put_c(sky(ICON_SUN, (int)d), m.x + m.w / 2, m.y + m.h / 2, d, d);
     }
 }
 
@@ -495,8 +501,8 @@ static void bar(int player, box b)
 {
     if (player == S.slot) return;
     int s = (int)(0.6f * ui.unit);
-    ui_count c[3] = {{ct_icon(ICON_MOON, s, 246, 226, 150), P.night}, {ct_picture(paint_pic, WW_WOLF, s),
-                     ww_alive(&P, WW_WOLF)}, {ct_icon(ICON_PERSON, s, 246, 238, 220), ww_alive(&P, -1)}};
+    ui_count c[3] = {{sky(ICON_MOON, s), P.night}, {ct_picture(paint_pic, WW_WOLF, s),
+                     ww_alive(&P, WW_WOLF)}, {pt_icon(ICON_PERSON, s), ww_alive(&P, -1)}};
     ui_bar_fit(b, c, 3, 0);
 }
 

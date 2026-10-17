@@ -276,7 +276,7 @@ static void draw_clock(void)
     box t = L.top;
     float u = ui.unit, h = fminf(1.2f * u, t.h * 0.42f), y = t.y + t.h * 0.42f;
     int left = talk_left();
-    pt_clock(t.x + t.w / 2, y, h, left, left <= 30 ? (const uint8_t[3]){236, 120, 96} : CREAM);
+    pt_clock(t.x + t.w / 2, y, h, left, left <= 30 ? (const uint8_t[3]){222, 96, 70} : pt_ink());
     float bw = fminf(t.w * 0.8f, 6 * u);
     pt_timebar(t.x + (t.w - bw) / 2, y + 0.85f * h, bw, fmaxf(3, 0.1f * u), left / (spy_minutes(P.n) * 60.0f));
     float d = fminf(1.1f * u, t.h * 0.42f), x = L.wide ? t.x + t.w / 2 : t.x + 0.9f * u, fy = L.wide ? y + 1.6f * h : y;
@@ -364,7 +364,7 @@ static void draw(void)
     case SPY_VOTE: {
         box t = L.top;
         float d = fminf(1.3f * ui.unit, t.h * 0.6f);
-        ui_put_c(ct_icon(ICON_PERSON, (int)d, 246, 238, 220), t.x + t.w / 2, t.y + t.h / 2, d, d);
+        ui_put_c(pt_icon(ICON_PERSON, (int)d), t.x + t.w / 2, t.y + t.h / 2, d, d);
         for (int i = 0; i < P.n; i++) {
             if (i == pick) ui_mark_gold(cx[i], cy[i], cd * 1.55f);
             pt_chip_at(i, cx[i], cy[i], cd, 1);

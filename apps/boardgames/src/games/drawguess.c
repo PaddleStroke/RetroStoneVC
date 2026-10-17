@@ -303,7 +303,7 @@ static void draw_chips(int lit)
         if (i == P.drawer) continue;
         if (i == P.guesser) ui_mark_gold(L.cx[i], L.cy[i], L.cd * 1.55f);
         pt_chip_at(i, L.cx[i], L.cy[i], L.cd, lit || i == P.guesser ? 1 : 0.55f);
-        if (P.gain[i]) ct_plus(L.cx[i] + L.cd * 0.62f, L.cy[i] - L.cd * 0.42f, L.cd * 0.34f, P.gain[i]);
+        if (P.gain[i]) pt_plus(L.cx[i] + L.cd * 0.62f, L.cy[i] - L.cd * 0.42f, L.cd * 0.34f, P.gain[i]);
     }
 }
 
@@ -313,15 +313,15 @@ static void draw_top(void)
     float u = ui.unit, d = fminf(0.85f * u, t.h * 0.7f), y = t.y + t.h / 2;
     float x = t.x + 0.6f * u;
     if (!L.wide) y -= 0.1f * u;
-    ui_put_c(ct_icon(ICON_PENCIL, (int)(d * 0.8f), 246, 238, 220), x + d * 0.9f, y, d * 0.8f, d * 0.8f);
+    ui_put_c(pt_icon(ICON_PENCIL, (int)(d * 0.8f)), x + d * 0.9f, y, d * 0.8f, d * 0.8f);
     pt_chip_at(P.drawer, x, y, d, 1);           /* the one drawing */
-    if (P.gain[P.drawer]) ct_plus(x + d * 0.62f, y - d * 0.42f, d * 0.4f, P.gain[P.drawer]);
+    if (P.gain[P.drawer]) pt_plus(x + d * 0.62f, y - d * 0.42f, d * 0.4f, P.gain[P.drawer]);
     int ms = left_ms();
     if (P.phase == DG_DRAW) {
         float w = t.w - 0.4f * u;
         pt_timebar(t.x + 0.2f * u, t.y + t.h - 0.2f * u, w, fmaxf(3, 0.1f * u), ms / (DG_SECONDS * 1000.0f));
         ui_number_ex(t.x + t.w - 0.7f * u, y, 0.62f * u, (ms + 999) / 1000,
-                     ms < 10000 ? (const uint8_t[3]){236, 120, 96} : CT_CREAM, 255, 0);
+                     ms < 10000 ? (const uint8_t[3]){222, 96, 70} : pt_ink(), 255, 0);
     }
 }
 
