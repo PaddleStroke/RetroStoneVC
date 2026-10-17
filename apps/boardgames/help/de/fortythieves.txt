@@ -1,18 +1,15 @@
 Vierzig Räuber
 # Das Ziel
-Alle 104 Karten aus zwei Kartenspielen auf die acht Ablagestapel bringen, zwei für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, und kein leichtes.
+Alle 104 Karten aus zwei Kartenspielen auf die acht Ablagestapel bringen, zwei für jede Farbe, aufsteigend vom Ass bis zum König.
 # Der Aufbau
 - Zehn Spalten mit je vier Karten, alle offen.
-- Die übrigen 64 Karten sind der Stapel, verdeckt oben links; daneben liegen die gezogenen Karten.
-- Die acht Ablagestapel liegen oben, am Anfang leer.
+- Die übrigen 64 Karten sind der Stapel.
 # Karten bewegen
 - Auf eine Spalte kommt eine Karte derselben Farbe, die einen Rang niedriger ist: die Kreuz 6 auf die Kreuz 7.
 - Es zieht immer nur eine Karte, nie eine Reihe.
 - Jede Karte darf eine leere Spalte füllen.
 - Eine Karte auf einem Ablagestapel bleibt dort.
 # Der Stapel
-Tippe auf den Stapel, um eine Karte aufzudecken; die oberste gezogene Karte ist spielbar. Der Stapel wird nur einmal durchgespielt: Es wird nicht neu gegeben.
+Tippe auf den Stapel, um eine Karte aufzudecken; die oberste gezogene Karte ist spielbar. Der Stapel wird nur einmal durchgespielt.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sind Stapel und gezogene Karten leer und können die übrigen Karten alle der Reihe nach hinauf, wandern sie von selbst nach oben. Nur wenige Spiele sind zu gewinnen: Plane voraus und halte dir leere Spalten frei.
-# Spielen auf dem Gerät
-Tippe auf eine oberste Karte, um sie an ihren besten Platz zu schicken: auf einen Ablagestapel, auf die Karte ihrer Farbe, die einen Rang höher ist, oder in eine leere Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst eine Karte auch ziehen, wohin du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Nur wenige Spiele sind zu gewinnen.

@@ -1,22 +1,20 @@
 Barbu
 # The aim
-Score the most points over a series of seven contracts, each player in turn choosing them. For 4 players passing the device round; nobody sees the others' cards.
+Score the most points over seven contracts, chosen by each player in turn.
 # The cards
-All 52 cards, 13 each. The ace is the highest card, then king, queen, jack, 10 down to 2.
+All 52 cards, 13 each. The ace is high, then king, queen, jack, 10 down to 2.
 # The contracts
-The declarer chooses one contract for each deal and must choose each of the seven once:
-- No tricks: minus 2 for each trick taken.
-- No hearts: minus 2 for each heart taken, minus 6 for the ace of hearts. Nobody may lead a heart while holding another suit. The deal stops once every heart is taken.
-- No queens: minus 6 for each queen taken. The deal stops once the four are taken.
-- No king of hearts (the barbu): minus 20 for whoever takes him. Nobody may lead a heart while holding another suit, and the king's holder must throw him as soon as they cannot follow suit. The deal stops when he is taken.
-- No last two tricks: minus 10 for the next-to-last trick, minus 20 for the last.
-- Trumps: the declarer names the trump suit; plus 5 for each trick. When trumps are led you must beat the best trump if you can; if you cannot follow suit you must trump, over the best trump if you can.
-- Dominoes: the declarer names a starting rank. In turn each player lays one card: a card of that rank starts its suit's row, and a card one rank above or below the end of a row lengthens it (the ace is high, rows do not wrap round). If you can lay a card you must; otherwise you pass. The first player out scores 45, the second 20, the third 5, the last minus 5.
+The declarer chooses one contract per deal, each of the seven once:
+- No tricks: minus 2 per trick.
+- No hearts: minus 2 per heart, minus 6 for the ace. No heart lead while holding another suit. Ends once all hearts are taken.
+- No queens: minus 6 per queen. Ends once the four are taken.
+- No king of hearts (the barbu): minus 20. No heart lead while holding another suit; his holder must throw him as soon as they cannot follow suit. Ends when he is taken.
+- No last two tricks: minus 10 for the next-to-last, minus 20 for the last.
+- Trumps: the declarer names trumps; plus 5 per trick. On a trump lead, beat the best trump if you can; if you cannot follow suit, trump, over the best trump if you can.
+- Dominoes: the declarer names a starting rank. In turn lay one card: that rank starts its suit's row; one rank above or below a row's end lengthens it (ace high, no wrap round). Lay if you can, otherwise pass. First out 45, second 20, third 5, last minus 5.
 # Playing
-The declarer leads the first trick. Follow suit if you can; otherwise play any card (except as the contract requires). The highest card of the suit led wins the trick, or the highest trump; its winner leads the next.
+The declarer leads first. Follow suit if you can, otherwise play any card (unless the contract says otherwise). The highest card of the suit led, or the highest trump, wins; the winner leads next.
 # Doubling
-In the variants with doubling, once the contract is named each other player in turn may double any of the others (in trumps and dominoes only the declarer). Then every player who was doubled, the declarer last, may redouble those who doubled them. After the deal each doubled pair compares their scores for that deal: the difference goes from the lower to the higher, twice over if redoubled. The French duty to double the declarer twice per game is left out.
+With doubling, once the contract is named each other player in turn may double any of the others (in trumps and dominoes only the declarer). Then each doubled player, the declarer last, may redouble. After the deal each doubled pair compares scores: the difference goes from the lower to the higher, twice if redoubled.
 # The end of the game
-The full game has 28 deals: each player is the declarer for seven deals in a row. The short game has 7 deals: the declarer changes every deal and each contract is played once (the first three players choose two, the fourth one). All the scores of a game add up to zero. The highest total wins; tied players share the win.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom. To choose a contract, tap its picture (a red cross: a contract of penalties; the four suits: trumps; the row of dominoes: dominoes), then a suit or a starting rank if asked, then the tick. Faded pictures are already chosen. To double, tap the tokens ringed in gold (a gold cross and 2 appear; 4 to redouble), then the tick; the tick alone doubles nobody. The doubles are listed in the top left corner; the contract and its declarer in the top right (tap it to see the score table). To play, tap a glowing card so it rises, then tap it again or its place; or drag it. In dominoes, when no card fits, tap the pass button in your bar. Beside each token: the points of the deal so far (dominoes: the order out). After each deal the score table shows each player's points in each contract (gold cells: the contracts they chose), the deal and the total, with a dot for every deal; tap it for the next deal.
+Full game: 28 deals, each player declaring seven in a row. Short game: 7 deals, the declarer changes every deal and each contract is played once (the first three players choose two, the fourth one). Scores add up to zero. The highest total wins; ties share the win.

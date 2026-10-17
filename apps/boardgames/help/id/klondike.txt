@@ -1,22 +1,19 @@
 Solitaire
 # Tujuan
-Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain, juga disebut Klondike.
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja.
 # Susunan
 - Tujuh kolom berisi 1 sampai 7 kartu; hanya kartu teratas tiap kolom yang terbuka.
-- Sisa 24 kartu adalah tumpukan, tertutup, di kiri atas; di sebelahnya ada tumpukan buangan.
-- Empat fondasi ada di kanan atas, kosong di awal.
+- Sisa 24 kartu adalah tumpukan.
 # Memindahkan kartu
-- Di atas kolom diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain, merah di atas hitam atau hitam di atas merah: 6 merah di atas 7 hitam.
+- Di atas kolom diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain: 6 merah di atas 7 hitam.
 - Kartu terbuka yang berurutan dipindahkan bersama.
 - Hanya raja, atau deret yang dimulai dengan raja, yang boleh mengisi kolom kosong.
 - Kartu tertutup yang tertinggal di puncak kolom akan terbuka sendiri.
 - Kartu di fondasi boleh turun lagi ke kolom.
 # Tumpukan
 - Ambil satu: ketuk tumpukan untuk membalik satu kartu ke tumpukan buangan. Ambil tiga: tiga kartu sekaligus, dan hanya yang teratas yang bisa dimainkan.
-- Jika tumpukan habis, ketuk tempatnya untuk membalik tumpukan buangan kembali, sesering yang kamu mau.
+- Balik tumpukan buangan kembali sesering yang kamu mau.
 # Akhir permainan
-Kamu menang bila semua kartu sudah di fondasi. Begitu tumpukan dan tumpukan buangan kosong dan semua kartu terbuka, kartu naik sendiri. Kalau buntu, mulai bagian baru.
+Kamu menang bila semua kartu sudah di fondasi.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Di bab 1 sampai 4 kartu diambil satu per satu, di bab 5 dan 6 tiga sekaligus. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi jika bisa, kalau tidak ke kolom. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu atau deret dan melepasnya di mana saja. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+3 bintang: tanpa petunjuk dan tanpa urungkan.

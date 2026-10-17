@@ -1,19 +1,17 @@
 Solitario Golf
 # El objetivo
-Vaciar las siete columnas jugando sus cartas sobre el descarte, un rango arriba o abajo. Un juego para un jugador, que no hay que confundir con el juego de cartas Golf.
+Vaciar las siete columnas jugando sus cartas sobre el descarte, un rango arriba o abajo.
 # La disposición
 - Siete columnas de cinco cartas, todas boca arriba.
-- Una carta boca arriba en el descarte; las otras 16 cartas forman el mazo, boca abajo, a su lado.
+- Una carta boca arriba en el descarte; las otras 16 cartas forman el mazo.
 # Mover cartas
-- Solo se mueve la carta de arriba de una columna. Va al descarte si tiene un rango más o uno menos que la carta de arriba del descarte, sea cual sea su palo: un 7 o un 9 sobre un 8.
-- La regla clásica: el as y el rey no se siguen, así que sobre un rey solo va una reina y sobre un as solo un 2. La otra opción, en círculo: el as y el rey también se siguen.
+- Solo se mueve la carta de arriba de una columna. Va al descarte si tiene un rango más o uno menos que la carta de arriba del descarte, sea cual sea su palo.
+- La regla clásica: el as y el rey no se siguen. La otra opción, en círculo: el as y el rey también se siguen.
 # El mazo
 Cuando ninguna carta puede ir, toca el mazo para poner su carta de arriba en el descarte. El mazo se recorre una sola vez.
 # La puntuación
 Como en el golf, cuanto menos, mejor. El número junto al descarte cuenta las cartas que quedan en las columnas. Cuando todas las columnas están vacías, la puntuación baja de cero: menos las cartas que quedan en el mazo.
 # El final de la partida
-Ganas cuando las columnas quedan vacías. La partida se pierde cuando el mazo está vacío y ninguna carta puede ir. No todos los repartos se pueden ganar.
+Ganas cuando las columnas quedan vacías. La partida se pierde cuando el mazo está vacío y ninguna carta puede ir.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. En los capítulos 1 a 3 el as y el rey se siguen, en los capítulos 4 a 6 no. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar, con la elección descrita arriba. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-Toca una carta de arriba para jugarla en el descarte, o arrástrala hasta allí. La lámpara muestra un buen movimiento: la carta que empieza la racha más larga que ve. El número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+En los capítulos 1 a 3 el as y el rey se siguen, en los capítulos 4 a 6 no. Sin pistas ni movimientos deshechos: 3 estrellas.

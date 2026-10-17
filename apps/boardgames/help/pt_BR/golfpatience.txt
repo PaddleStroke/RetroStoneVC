@@ -1,19 +1,17 @@
 Paciência Golfe
 # O objetivo
-Esvaziar as sete colunas jogando as cartas delas no descarte, um valor acima ou abaixo. Um jogo para um jogador, que não deve ser confundido com o jogo de cartas Golfe.
+Esvaziar as sete colunas jogando as cartas delas no descarte, um valor acima ou abaixo.
 # A arrumação
 - Sete colunas de cinco cartas, todas viradas para cima.
-- Uma carta virada para cima no descarte; as outras 16 cartas formam o monte, viradas para baixo, ao lado.
+- Uma carta virada para cima no descarte; as outras 16 cartas formam o monte.
 # Mover as cartas
-- Só a carta de cima de uma coluna se move. Ela vai para o descarte se tiver um valor acima ou abaixo da carta de cima do descarte, seja qual for o naipe: um 7 ou um 9 sobre um 8.
-- A regra clássica: o ás e o rei não se seguem, então só uma dama vai sobre um rei e só um 2 sobre um ás. A outra opção, dando a volta: o ás e o rei também se seguem.
+- Só a carta de cima de uma coluna se move. Ela vai para o descarte se tiver um valor acima ou abaixo da carta de cima do descarte, seja qual for o naipe.
+- A regra clássica: o ás e o rei não se seguem. A outra opção, dando a volta: o ás e o rei também se seguem.
 # O monte
 Quando nenhuma carta pode ir, toque no monte para virar a carta de cima dele no descarte. O monte é percorrido uma só vez.
 # A pontuação
 Como no golfe, quanto menos, melhor. O número ao lado do descarte conta as cartas que restam nas colunas. Quando todas as colunas estão vazias, a pontuação é o número de cartas que restam no monte, abaixo de zero.
 # O fim da partida
-Você vence quando as colunas estão vazias. A partida termina quando o monte acaba e nenhuma carta pode ir. Nem toda distribuição pode ser vencida.
+Você vence quando as colunas estão vazias. A partida termina quando o monte acaba e nenhuma carta pode ir.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolha um na tela de níveis. Nos capítulos 1 a 3 o ás e o rei se seguem, nos capítulos 4 a 6, não. A aba do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem dicas nem jogadas desfeitas: 3 estrelas; até duas dicas e jogadas desfeitas no total: 2 estrelas; senão, 1.
-# Jogando no aparelho
-Toque numa carta de cima para jogá-la no descarte, ou arraste-a até lá. A lâmpada mostra uma boa jogada: a carta que começa a sequência mais longa que ela consegue ver. O número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Nos capítulos 1 a 3 o ás e o rei se seguem, nos capítulos 4 a 6, não. Sem dicas nem jogadas desfeitas: 3 estrelas.

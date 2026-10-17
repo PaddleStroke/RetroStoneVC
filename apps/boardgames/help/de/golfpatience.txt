@@ -1,19 +1,17 @@
 Golf-Patience
 # Das Ziel
-Räume die sieben Spalten ab, indem du ihre Karten auf die Ablage legst, einen Rang höher oder tiefer. Ein Spiel für einen Spieler, nicht zu verwechseln mit dem Kartenspiel Golf.
+Räume die sieben Spalten ab, indem du ihre Karten auf die Ablage legst, einen Rang höher oder tiefer.
 # Der Aufbau
 - Sieben Spalten mit je fünf Karten, alle offen.
-- Eine offene Karte auf der Ablage; die übrigen 16 Karten sind der Stapel, verdeckt daneben.
+- Eine offene Karte auf der Ablage; die übrigen 16 Karten sind der Stapel.
 # Karten bewegen
-- Nur die oberste Karte einer Spalte darf ziehen. Sie kommt auf die Ablage, wenn sie einen Rang höher oder tiefer ist als deren oberste Karte, egal in welcher Farbe: eine 7 oder eine 9 auf eine 8.
-- Die klassische Regel: Ass und König folgen nicht aufeinander, also kommt auf einen König nur eine Dame und auf ein Ass nur eine 2. Die andere Wahl, im Kreis: Ass und König folgen auch aufeinander.
+- Nur die oberste Karte einer Spalte darf ziehen. Sie kommt auf die Ablage, wenn sie einen Rang höher oder tiefer ist als deren oberste Karte, egal in welcher Farbe.
+- Die klassische Regel: Ass und König folgen nicht aufeinander. Die andere Wahl, im Kreis: Ass und König folgen auch aufeinander.
 # Der Stapel
 Wenn keine Karte passt, tippe auf den Stapel, um seine oberste Karte auf die Ablage zu legen. Der Stapel wird nur einmal durchgespielt.
 # Die Wertung
 Wie beim Golf gilt: je weniger, desto besser. Die Zahl neben der Ablage zählt die Karten, die noch in den Spalten liegen. Sind alle Spalten abgeräumt, geht die Wertung unter null: minus die Zahl der Karten, die noch im Stapel liegen.
 # Das Ende der Partie
-Du gewinnst, wenn die Spalten abgeräumt sind. Die Partie ist verloren, wenn der Stapel leer ist und keine Karte passt. Nicht jedes Spiel ist zu gewinnen.
+Du gewinnst, wenn die Spalten abgeräumt sind. Die Partie ist verloren, wenn der Stapel leer ist und keine Karte passt.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. In den Kapiteln 1 bis 3 folgen Ass und König aufeinander, in den Kapiteln 4 bis 6 nicht. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Tippe auf eine oberste Karte, um sie auf die Ablage zu spielen, oder ziehe sie dorthin. Die Lampe zeigt einen guten Zug: die Karte, mit der die längste Serie beginnt, die sie sieht. Die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+In den Kapiteln 1 bis 3 folgen Ass und König aufeinander, in den Kapiteln 4 bis 6 nicht. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne.

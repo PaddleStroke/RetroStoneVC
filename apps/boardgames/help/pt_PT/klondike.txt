@@ -1,22 +1,19 @@
 Solitário
 # O objetivo
-Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um jogo para um jogador, também chamado Klondike.
+Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei.
 # A disposição
 - Sete colunas de 1 a 7 cartas; só a carta de cima de cada coluna está voltada para cima.
-- As outras 24 cartas formam o baralho, voltadas para baixo, em cima à esquerda; ao lado, o descarte.
-- As quatro fundações ficam em cima à direita, vazias no início.
+- As outras 24 cartas formam o baralho.
 # Mover as cartas
-- Numa coluna, põe uma carta de um valor abaixo e da outra cor, vermelha sobre preta ou preta sobre vermelha: um 6 vermelho sobre um 7 preto.
+- Numa coluna, põe uma carta de um valor abaixo e da outra cor: um 6 vermelho sobre um 7 preto.
 - As cartas voltadas para cima que se seguem movem-se juntas.
 - Só um rei, ou uma sequência que comece por um rei, pode ocupar uma coluna vazia.
 - Quando uma carta voltada para baixo fica no topo de uma coluna, vira-se.
 - Uma carta de uma fundação pode voltar para uma coluna.
 # O baralho
 - Tirar uma: toca no baralho para virar uma carta para o descarte. Tirar três: três de cada vez, e só a de cima se pode jogar.
-- Quando o baralho acaba, toca no seu lugar para voltar a virar o descarte, as vezes que quiseres.
+- Volta a virar o descarte as vezes que quiseres.
 # O fim do jogo
-Ganhas quando todas as cartas estão nas fundações. Assim que o baralho e o descarte estão vazios e todas as cartas estão voltadas para cima, as cartas sobem sozinhas. Se ficares bloqueado, começa uma nova distribuição.
+Ganhas quando todas as cartas estão nas fundações.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, da distribuição mais fácil à mais difícil, e cada um pode ser ganho; escolhe um no ecrã de níveis. Nos capítulos 1 a 4 tira-se uma carta de cada vez, nos capítulos 5 e 6, três. O separador do dado, depois dos capítulos, dá uma nova distribuição ao acaso, com a escolha descrita acima. Sem pistas nem jogadas anuladas: 3 estrelas; até duas pistas e jogadas anuladas no total: 2 estrelas; senão, 1.
-# Jogar no dispositivo
-Toca numa carta para a mandar para o melhor lugar: uma fundação, se puder lá ir, senão uma coluna. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta ou uma sequência e largá-la onde quiseres. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+3 estrelas: sem pistas nem jogadas anuladas.

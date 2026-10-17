@@ -1,19 +1,17 @@
 Solitér Golf
 # Cíl hry
-Vyprázdnit sedm sloupců tím, že jejich karty zahraješ na odhazovací hromádku, o jednu výš nebo níž. Hra pro jednoho hráče, kterou si nespleť s karetní hrou Golf.
+Vyprázdnit sedm sloupců tím, že jejich karty zahraješ na odhazovací hromádku, o jednu výš nebo níž.
 # Rozložení
 - Sedm sloupců po pěti kartách, všechny lícem nahoru.
-- Jedna karta lícem nahoru na odhazovací hromádce; zbylých 16 karet tvoří balíček, rubem nahoru, vedle ní.
+- Jedna karta lícem nahoru na odhazovací hromádce; zbylých 16 karet tvoří balíček.
 # Přesouvání karet
-- Přesunout lze jen horní kartu sloupce. Jde na odhazovací hromádku, když je o jednu vyšší nebo nižší než její horní karta, bez ohledu na barvu: 7 nebo 9 na 8.
-- Klasické pravidlo: eso a král na sebe nenavazují, takže na krále jde jen dáma a na eso jen 2. Druhá možnost, dokola: eso a král na sebe navazují také.
+- Přesunout lze jen horní kartu sloupce. Jde na odhazovací hromádku, když je o jednu vyšší nebo nižší než její horní karta, bez ohledu na barvu.
+- Klasické pravidlo: eso a král na sebe nenavazují. Druhá možnost, dokola: eso a král na sebe navazují také.
 # Balíček
 Když nejde žádná karta, klepni na balíček a otočíš jeho horní kartu na odhazovací hromádku. Balíčkem se projde jen jednou.
 # Skóre
 Jako v golfu: čím méně, tím lépe. Číslo vedle odhazovací hromádky počítá karty, které zůstaly ve sloupcích. Když jsou všechny sloupce prázdné, skóre tvoří karty, které zbyly v balíčku, pod nulou.
 # Konec hry
-Vyhraješ, když jsou sloupce prázdné. Hra končí, když je balíček prázdný a žádná karta nejde. Ne každé rozdání se dá vyhrát.
+Vyhraješ, když jsou sloupce prázdné. Hra končí, když je balíček prázdný a žádná karta nejde.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. V kapitolách 1 až 3 na sebe eso a král navazují, v kapitolách 4 až 6 ne. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
-# Hra na zařízení
-Klepni na horní kartu a zahraješ ji na odhazovací hromádku, nebo ji tam přetáhni. Lampa ukáže dobrý tah: kartu, kterou začíná nejdelší řada, jakou vidí. Číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+V kapitolách 1 až 3 na sebe eso a král navazují, v kapitolách 4 až 6 ne. Bez nápovědy a bez vráceného tahu: 3 hvězdy.

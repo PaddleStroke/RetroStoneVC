@@ -1,22 +1,19 @@
 Klondike
 # Cíl hry
-Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále. Hra pro jednoho hráče, známá také jako solitér.
+Přesunout všech 52 karet na čtyři cílové hromádky, jednu pro každou barvu, od esa po krále.
 # Rozložení
 - Sedm sloupců s 1 až 7 kartami; lícem nahoru leží jen horní karta každého sloupce.
-- Zbylých 24 karet tvoří balíček, rubem nahoru, vlevo nahoře; vedle něj leží odhazovací hromádka.
-- Čtyři cílové hromádky jsou vpravo nahoře, na začátku prázdné.
+- Zbylých 24 karet tvoří balíček.
 # Přesouvání karet
-- Na sloupec patří karta o jednu nižší a druhé barvy, červená na černou nebo černá na červenou: červená 6 na černou 7.
+- Na sloupec patří karta o jednu nižší a druhé barvy: červená 6 na černou 7.
 - Otočené karty, které jdou po sobě, se přesouvají spolu.
 - Prázdný sloupec smí obsadit jen král nebo řada, která začíná králem.
 - Když na vrchu sloupce zůstane karta rubem nahoru, otočí se.
 - Kartu z cílové hromádky můžeš vrátit zpět na sloupec.
 # Balíček
 - Po jedné: klepni na balíček a otočíš jednu kartu na odhazovací hromádku. Po třech: tři najednou a hrát lze jen tu horní.
-- Když je balíček prázdný, klepni na jeho místo a odhazovací hromádka se znovu otočí, kolikrát chceš.
+- Odhazovací hromádku můžeš otáčet znovu, kolikrát chceš.
 # Konec hry
-Vyhráváš, když jsou všechny karty na cílových hromádkách. Jakmile je balíček i odhazovací hromádka prázdná a všechny karty jsou otočené, karty se přesunou samy. Když se zasekneš, začni nové rozdání.
+Vyhráváš, když jsou všechny karty na cílových hromádkách.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od nejsnazšího rozdání po nejtěžší, každá se dá vyhrát; vyber si úroveň v přehledu úrovní. V kapitolách 1 až 4 se otáčí po jedné kartě, v kapitolách 5 a 6 po třech. Záložka s kostkou za kapitolami rozdá novou hru náhodně, s volbou popsanou výše. Bez nápovědy a bez vráceného tahu: 3 hvězdy; nejvýš dvě nápovědy a vrácené tahy dohromady: 2 hvězdy; jinak 1.
-# Hra na zařízení
-Klepni na kartu a pošleš ji na nejlepší místo: na cílovou hromádku, pokud tam patří, jinak na sloupec. Rychlé druhé klepnutí pošle kartu jen na cílovou hromádku. Kartu nebo řadu můžeš také přetáhnout a pustit, kam chceš. Lampa ukáže užitečný tah; číslo vedle tvých karet počítá tvoje tahy. Vrátit bere tahy zpět, až k rozdání.
+3 hvězdy: bez nápovědy a bez vráceného tahu.

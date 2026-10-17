@@ -1,19 +1,17 @@
 Solitaire Golf
 # Tujuan
-Kosongkan ketujuh kolom dengan memainkan kartunya ke tumpukan buangan, satu tingkat lebih tinggi atau lebih rendah. Permainan untuk satu pemain, jangan tertukar dengan permainan kartu Golf.
+Kosongkan ketujuh kolom dengan memainkan kartunya ke tumpukan buangan, satu tingkat lebih tinggi atau lebih rendah.
 # Susunan
 - Tujuh kolom berisi lima kartu, semuanya terbuka.
-- Satu kartu terbuka di tumpukan buangan; sisa 16 kartu adalah tumpukan, tertutup, di sebelahnya.
+- Satu kartu terbuka di tumpukan buangan; sisa 16 kartu adalah tumpukan.
 # Memindahkan kartu
-- Hanya kartu teratas sebuah kolom yang bisa dipindahkan. Kartu itu masuk ke tumpukan buangan jika satu tingkat lebih tinggi atau lebih rendah daripada kartu teratasnya, apa pun jenisnya: 7 atau 9 di atas 8.
-- Aturan klasik: as dan raja tidak berurutan, jadi di atas raja hanya boleh ratu dan di atas as hanya 2. Pilihan lainnya, memutar: as dan raja juga berurutan.
+- Hanya kartu teratas sebuah kolom yang bisa dipindahkan. Kartu itu masuk ke tumpukan buangan jika satu tingkat lebih tinggi atau lebih rendah daripada kartu teratasnya, apa pun jenisnya.
+- Aturan klasik: as dan raja tidak berurutan. Pilihan lainnya, memutar: as dan raja juga berurutan.
 # Tumpukan
 Jika tidak ada kartu yang bisa masuk, ketuk tumpukan untuk membalik kartu teratasnya ke tumpukan buangan. Tumpukan hanya dilalui sekali.
 # Skor
 Seperti golf, makin sedikit makin baik. Angka di samping tumpukan buangan menghitung kartu yang tersisa di kolom. Jika semua kolom sudah kosong, skornya adalah kartu yang tersisa di tumpukan, di bawah nol.
 # Akhir permainan
-Kamu menang saat kolom-kolom kosong. Permainan selesai saat tumpukan habis dan tidak ada kartu yang bisa masuk. Tidak semua pembagian bisa dimenangkan.
+Kamu menang saat kolom-kolom kosong. Permainan selesai saat tumpukan habis dan tidak ada kartu yang bisa masuk.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Di bab 1 sampai 3 as dan raja berurutan, di bab 4 sampai 6 tidak. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu teratas untuk memainkannya ke tumpukan buangan, atau seret ke sana. Lampu menunjukkan langkah yang bagus: kartu yang memulai deret terpanjang yang bisa dilihatnya. Angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Di bab 1 sampai 3 as dan raja berurutan, di bab 4 sampai 6 tidak. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang.

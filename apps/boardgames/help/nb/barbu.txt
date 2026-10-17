@@ -1,22 +1,20 @@
 Barbu
 # Målet
-Få flest poeng over en rekke på sju kontrakter, som hver spiller velger etter tur. For 4 spillere som sender enheten rundt; ingen ser kortene til de andre.
+Få flest poeng over sju kontrakter, som hver spiller velger etter tur.
 # Kortene
-Alle 52 kortene, 13 til hver. Esset er det høyeste kortet, så konge, dame, knekt, 10 og så videre ned til 2.
+Alle 52 kortene, 13 til hver. Esset er høyest, så konge, dame, knekt, 10 og så videre ned til 2.
 # Kontraktene
-Spilleføreren velger én kontrakt for hvert giv og må velge hver av de sju én gang:
-- Ingen stikk: minus 2 for hvert stikk man tar.
-- Ingen hjerter: minus 2 for hvert hjerter man tar, minus 6 for hjerter ess. Ingen kan spille ut hjerter så lenge han har en annen farge. Givet stopper når alle hjerterne er tatt.
-- Ingen damer: minus 6 for hver dame man tar. Givet stopper når alle fire er tatt.
-- Ingen hjerter konge (barbuen): minus 20 til den som tar ham. Ingen kan spille ut hjerter så lenge han har en annen farge, og den som har kongen, må kaste ham så snart han ikke kan følge farge. Givet stopper når han er tatt.
-- Ingen av de to siste stikkene: minus 10 for nest siste stikk, minus 20 for det siste.
-- Trumf: spilleføreren velger trumffargen; pluss 5 for hvert stikk. Når det spilles ut trumf, må du gå over den høyeste trumfen hvis du kan; kan du ikke følge farge, må du trumfe, over den høyeste trumfen hvis du kan.
-- Domino: spilleføreren velger en startverdi. Etter tur legger hver spiller ett kort: et kort med den verdien starter rekken i sin farge, og et kort én over eller under enden av en rekke forlenger den (esset er høyt, rekkene går ikke rundt). Kan du legge et kort, må du; ellers står du over. Den første som går ut, får 45, den andre 20, den tredje 5, den siste minus 5.
+Spilleføreren velger én kontrakt per giv, hver av de sju én gang:
+- Ingen stikk: minus 2 per stikk.
+- Ingen hjerter: minus 2 per hjerter, minus 6 for esset. Ingen kan spille ut hjerter så lenge han har en annen farge. Givet stopper når alle hjerterne er tatt.
+- Ingen damer: minus 6 per dame. Givet stopper når alle fire er tatt.
+- Ingen hjerter konge (barbuen): minus 20. Ingen kan spille ut hjerter så lenge han har en annen farge; den som har kongen, må kaste ham så snart han ikke kan følge farge. Givet stopper når han er tatt.
+- Ingen av de to siste stikkene: minus 10 for nest siste, minus 20 for det siste.
+- Trumf: spilleføreren velger trumf; pluss 5 per stikk. Når det spilles ut trumf, gå over den høyeste trumfen hvis du kan; kan du ikke følge farge, trumf, over den høyeste trumfen hvis du kan.
+- Domino: spilleføreren velger en startverdi. Etter tur legger hver spiller ett kort: den verdien starter rekken i sin farge; én over eller under enden av en rekke forlenger den (esset er høyt, rekkene går ikke rundt). Kan du legge, må du; ellers står du over. Første ute 45, andre 20, tredje 5, siste minus 5.
 # Spillet
-Spilleføreren spiller ut til første stikk. Følg farge hvis du kan; ellers spill hvilket som helst kort (med mindre kontrakten krever noe annet). Det høyeste kortet i utspilt farge vinner stikket, eller den høyeste trumfen; vinneren spiller ut til det neste.
+Spilleføreren spiller ut først. Følg farge hvis du kan, ellers spill hvilket som helst kort (med mindre kontrakten krever noe annet). Det høyeste kortet i utspilt farge, eller den høyeste trumfen, vinner; vinneren spiller ut til det neste.
 # Doble
-I variantene med dobling kan hver av de andre spillerne etter tur, når kontrakten er valgt, doble hvem han vil av de andre (i trumf og domino bare spilleføreren). Så kan hver spiller som er doblet, spilleføreren sist, redoble dem som doblet ham. Etter givet sammenligner hvert doblet par poengene sine i givet: differansen går fra den laveste til den høyeste, to ganger hvis det er redoblet. Den franske plikten til å doble spilleføreren to ganger per spill er utelatt.
+Med dobling kan hver av de andre spillerne etter tur, når kontrakten er valgt, doble hvem han vil av de andre (i trumf og domino bare spilleføreren). Så kan hver doblet spiller, spilleføreren sist, redoble. Etter givet sammenligner hvert doblet par poengene sine: differansen går fra den laveste til den høyeste, to ganger hvis det er redoblet.
 # Slutten på spillet
-Hele spillet har 28 giv: hver spiller er spillefører i sju giv på rad. Det korte spillet har 7 giv: spilleføreren skifter for hvert giv, og hver kontrakt spilles én gang (de tre første spillerne velger to, den fjerde én). Alle poengene i et spill blir til sammen null. Den høyeste summen vinner; spillere som står likt, deler seieren.
-# Spill på enheten
-Gi enheten til spilleren som har brikken sin på skjermen; han trykker på start og ser hånden sin, viftet ut nederst. For å velge en kontrakt trykker du på bildet dens (et rødt kryss: en straffekontrakt; de fire fargene: trumf; rekken av dominobrikker: domino), så på en farge eller en startverdi hvis du blir spurt, og så på haken. Bleke bilder er allerede valgt. For å doble trykker du på brikkene med gullring (et gullkryss og et 2-tall dukker opp; 4 for å redoble), og så på haken; haken alene dobler ingen. Doblingene står i hjørnet oppe til venstre; kontrakten og spilleføreren oppe til høyre (trykk på dem for å se poengtavlen). For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets; eller dra det. I domino, når ingen kort passer, trykker du på stå over-knappen i linjen din. Ved hver brikke: poengene i givet så langt (i domino: rekkefølgen de gikk ut i). Etter hvert giv viser poengtavlen poengene til hver spiller i hver kontrakt (gullfelter: kontraktene han valgte), givet og summen, med en prikk for hvert giv; trykk på den for neste giv.
+Hele spillet: 28 giv, hver spiller er spillefører i sju giv på rad. Det korte spillet: 7 giv, spilleføreren skifter for hvert giv, og hver kontrakt spilles én gang (de tre første spillerne velger to, den fjerde én). Alle poengene blir til sammen null. Den høyeste summen vinner; spillere som står likt, deler seieren.

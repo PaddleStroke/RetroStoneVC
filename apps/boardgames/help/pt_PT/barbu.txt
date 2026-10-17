@@ -1,22 +1,20 @@
 Barbu
 # O objetivo
-Fazer o máximo de pontos ao longo de sete contratos, que cada jogador escolhe à vez. Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+Fazer o máximo de pontos ao longo de sete contratos, que cada jogador escolhe à vez.
 # As cartas
-As 52 cartas todas, 13 a cada um. O ás é a carta mais alta, depois o rei, a dama, o valete, o 10 e assim por diante até ao 2.
+As 52 cartas todas, 13 a cada um. O ás é a mais alta, depois o rei, a dama, o valete, o 10 e assim por diante até ao 2.
 # Os contratos
-O declarante escolhe um contrato em cada ronda e tem de escolher cada um dos sete uma vez:
-- Sem vazas: menos 2 por cada vaza apanhada.
-- Sem copas: menos 2 por cada copa apanhada, menos 6 pelo ás de copas. Ninguém pode sair a copas enquanto tiver outro naipe. A ronda acaba logo que todas as copas forem apanhadas.
-- Sem damas: menos 6 por cada dama apanhada. A ronda acaba logo que as quatro forem apanhadas.
-- Sem rei de copas (o barbu): menos 20 para quem o apanhar. Ninguém pode sair a copas enquanto tiver outro naipe, e quem tem o rei tem de o jogar logo que não possa assistir. A ronda acaba quando ele for apanhado.
-- Sem as duas últimas vazas: menos 10 pela penúltima vaza, menos 20 pela última.
-- Trunfo: o declarante escolhe o naipe de trunfo; mais 5 por cada vaza. Quando se sai a trunfo, tens de subir acima do trunfo mais alto se puderes; se não puderes assistir, tens de cortar, acima do trunfo mais alto se puderes.
-- Dominó: o declarante escolhe um valor inicial. À vez, cada jogador pousa uma carta: uma carta desse valor abre a fila do seu naipe, e uma carta um valor acima ou abaixo da ponta de uma fila prolonga-a (o ás é alto, as filas não dão a volta). Se puderes pousar uma carta, tens de o fazer; senão, passas. O primeiro a ficar sem cartas marca 45, o segundo 20, o terceiro 5, o último menos 5.
+O declarante escolhe um contrato por ronda, cada um dos sete uma vez:
+- Sem vazas: menos 2 por vaza.
+- Sem copas: menos 2 por copa, menos 6 pelo ás. Ninguém pode sair a copas enquanto tiver outro naipe. A ronda acaba logo que todas as copas forem apanhadas.
+- Sem damas: menos 6 por dama. A ronda acaba logo que as quatro forem apanhadas.
+- Sem rei de copas (o barbu): menos 20. Ninguém pode sair a copas enquanto tiver outro naipe; quem tem o rei tem de o jogar logo que não possa assistir. A ronda acaba quando ele for apanhado.
+- Sem as duas últimas vazas: menos 10 pela penúltima, menos 20 pela última.
+- Trunfo: o declarante escolhe o trunfo; mais 5 por vaza. Quando se sai a trunfo, sobe acima do trunfo mais alto se puderes; se não puderes assistir, corta, acima do trunfo mais alto se puderes.
+- Dominó: o declarante escolhe um valor inicial. À vez, cada jogador pousa uma carta: esse valor abre a fila do seu naipe; um valor acima ou abaixo da ponta de uma fila prolonga-a (o ás é alto, as filas não dão a volta). Se puderes pousar, tens de o fazer; senão, passas. O primeiro a acabar 45, o segundo 20, o terceiro 5, o último menos 5.
 # O jogo
-O declarante sai na primeira vaza. Assiste ao naipe de saída se puderes; senão, joga qualquer carta (exceto o que o contrato impuser). A carta mais alta do naipe de saída ganha a vaza, ou o trunfo mais alto; quem a ganha sai na seguinte.
+O declarante sai primeiro. Assiste ao naipe se puderes; senão, joga qualquer carta (exceto o que o contrato impuser). A carta mais alta do naipe de saída, ou o trunfo mais alto, ganha a vaza; quem a ganha sai na seguinte.
 # O contra
-Nas variantes com contra, depois de anunciado o contrato, cada um dos outros jogadores, à vez, pode dar contra a qualquer um dos outros (no trunfo e no dominó, só ao declarante). Depois, cada jogador que levou contra, o declarante em último, pode dar sobrecontra a quem lhe deu contra. Depois da ronda, cada par de jogadores ligados por um contra compara os pontos dessa ronda: a diferença passa do mais baixo para o mais alto, duas vezes se houve sobrecontra. A obrigação francesa de dar contra ao declarante duas vezes por jogo fica de fora.
+Com contra, depois de anunciado o contrato, cada um dos outros jogadores, à vez, pode dar contra a qualquer um dos outros (no trunfo e no dominó, só ao declarante). Depois, cada jogador que levou contra, o declarante em último, pode dar sobrecontra. Depois da ronda, cada par ligado por um contra compara os pontos: a diferença passa do mais baixo para o mais alto, duas vezes se houve sobrecontra.
 # O fim do jogo
-O jogo completo tem 28 rondas: cada jogador é o declarante durante sete rondas seguidas. O jogo curto tem 7 rondas: o declarante muda em cada ronda e cada contrato é jogado uma vez (os três primeiros jogadores escolhem dois, o quarto um). Todos os pontos de um jogo somam zero. Ganha o total mais alto; os empatados partilham a vitória.
-# Jogar no dispositivo
-Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão, em leque em baixo. Para escolher um contrato, toca na sua imagem (uma cruz vermelha: um contrato de penalização; os quatro naipes: trunfo; a fila de peças de dominó: dominó), depois num naipe ou num valor inicial se for pedido, e depois no sinal de confirmação. As imagens esbatidas já foram escolhidas. Para dar contra, toca nas peças com um aro dourado (aparecem uma cruz dourada e um 2; um 4 para sobrecontra) e depois no sinal de confirmação; o sinal sozinho não dá contra a ninguém. Os contras aparecem no canto superior esquerdo; o contrato e o seu declarante no canto superior direito (toca nele para ver a tabela de pontos). Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar; ou arrasta-a. No dominó, quando nenhuma carta serve, toca no botão de passar na tua barra. Ao lado de cada peça: os pontos da ronda até agora (no dominó: a ordem de saída). Depois de cada ronda, a tabela de pontos mostra os pontos de cada jogador em cada contrato (casas douradas: os contratos que escolheu), a ronda e o total, com um ponto por cada ronda; toca nela para a ronda seguinte.
+Jogo completo: 28 rondas, cada jogador é o declarante durante sete rondas seguidas. Jogo curto: 7 rondas, o declarante muda em cada ronda e cada contrato é jogado uma vez (os três primeiros jogadores escolhem dois, o quarto um). Os pontos somam zero. Ganha o total mais alto; os empatados partilham a vitória.

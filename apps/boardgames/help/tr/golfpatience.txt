@@ -1,19 +1,17 @@
 Golf Solitaire
 # Amaç
-Yedi sütunu, kartlarını açılanların üstüne bir yukarı ya da bir aşağı oynayarak boşaltmak. Tek kişilik bir oyun; Golf kart oyunuyla karıştırma.
+Yedi sütunu, kartlarını açılanların üstüne bir yukarı ya da bir aşağı oynayarak boşaltmak.
 # Diziliş
 - Beşer kartlık yedi sütun, hepsi açık.
-- Açılanlarda bir açık kart; kalan 16 kart kapalı olarak yanındaki destedir.
+- Açılanlarda bir açık kart; kalan 16 kart destedir.
 # Kartları taşımak
-- Bir sütunun yalnızca en üstteki kartı taşınabilir. Açılanların en üstteki kartından bir yüksek ya da bir düşükse, takımı ne olursa olsun, açılanlara gider: bir 8'in üstüne 7 ya da 9.
-- Klasik kural: as ile papaz birbirini izlemez, bu yüzden papazın üstüne yalnızca kız, asın üstüne yalnızca 2 gelir. Öbür seçenek, köşeden dönerek: as ile papaz da birbirini izler.
+- Bir sütunun yalnızca en üstteki kartı taşınabilir. Açılanların en üstteki kartından bir yüksek ya da bir düşükse, takımı ne olursa olsun, açılanlara gider.
+- Klasik kural: as ile papaz birbirini izlemez. Öbür seçenek, köşeden dönerek: as ile papaz da birbirini izler.
 # Deste
 Hiçbir kart gidemiyorsa desteye dokunarak en üstteki kartını açılanlara çevir. Desteden yalnızca bir kez geçilir.
 # Puan
 Golfteki gibi, ne kadar az o kadar iyi. Açılanların yanındaki sayı sütunlarda kalan kartları sayar. Bütün sütunlar boşalınca puan, destede kalan kartların sıfırın altındaki sayısıdır.
 # Oyunun sonu
-Sütunlar boşalınca kazanırsın. Deste bitip hiçbir kart gidemeyince oyun biter. Her dağıtım kazanılamaz.
+Sütunlar boşalınca kazanırsın. Deste bitip hiçbir kart gidemeyince oyun biter.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. 1'den 3'e kadar olan bölümlerde as ile papaz birbirini izler, 4'ten 6'ya kadar olan bölümlerde izlemez. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-En üstteki bir kartı açılanlara oynamak için ona dokun ya da onu oraya sürükle. Lamba iyi bir hamle gösterir: görebildiği en uzun diziyi başlatan kart. Kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+1'den 3'e kadar olan bölümlerde as ile papaz birbirini izler, 4'ten 6'ya kadar olan bölümlerde izlemez. İpucu da geri alma da yoksa 3 yıldız.

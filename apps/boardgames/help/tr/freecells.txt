@@ -1,20 +1,16 @@
 Boş Hücreler
 # Amaç
-52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek. Bütün kartların baştan göründüğü tek kişilik bir oyun: neredeyse her dağıtım kazanılabilir.
+52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek.
 # Diziliş
-- 52 kart sekiz sütunda açık durur.
-- Sol üstte dört boş hücre, sağ üstte dört temel yığın vardır.
+- 52 kart, dört boş hücre ve dört temel yığının altında, sekiz sütunda açık durur.
 # Kartları taşımak
-- Bir sütunun en üstteki kartı taşınır: en üstteki kartı bir yüksek değerde ve öbür renkte olan bir sütuna (siyahın üstüne kırmızı, kırmızının üstüne siyah), boş bir hücreye ya da kendi temel yığınına.
+- Bir sütunun en üstteki kartı taşınır: bir yüksek değerde ve öbür renkte bir kartın üstüne, boş bir hücreye ya da kendi temel yığınına.
 - Her hücreye bir kart sığar. Boş bir sütuna herhangi bir kart konabilir.
-- Sıralı bir dizi, kart kart taşınacak yer varsa tek seferde taşınır: boş hücre sayısının bir fazlası kadar kart, her boş sütun için iki katı (gittiği sütun sayılmaz). İki boş hücre ve bir boş sütunla: altı kart.
+- Sıralı bir dizi, kart kart taşınacak yer varsa tek seferde taşınır: boş hücre sayısının bir fazlası kadar kart, her boş sütun için iki katı (gittiği sütun sayılmaz).
 - Temel yığına çıkan kart orada kalır.
-- Masada artık gerekmeyen kartlar temel yığınlara kendiliğinden çıkar.
 # Dağıtımlar
-Her dağıtımın 1 ile 32000 arasında bir numarası vardır; şeridindeki küçük kartın yanında görünür. Buradaki 1 numaralı dağıtım, oyunun başka sürümlerinde de 1 numaralı dağıtımdır. 11982 dışındaki bütün dağıtımlar kazanılabilir.
+Dağıtımlar, oyunun başka sürümlerinde olduğu gibi 1 ile 32000 arasında numaralıdır; 11982 dışındaki bütün dağıtımlar kazanılabilir.
 # Oyunun sonu
-Bütün kartlar temel yığınlara çıkınca kazanırsın. Takılırsan hamleleri geri al ya da yeni bir dağıtım başlat.
+Bütün kartlar temel yığınlara çıkınca kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Bir kartı en iyi yerine göndermek için ona dokun: temel yığına, bir sütuna, boş bir sütuna ya da boş bir hücreye. Bir dizinin ortasındaki karta dokunarak diziyi o karttan itibaren taşı. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Bir kartı ya da diziyi sürükleyip istediğin yere de bırakabilirsin. Lamba işe yarar bir hamle gösterir; dağıtım numarasından sonraki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+İpucu da geri alma da yoksa 3 yıldız.

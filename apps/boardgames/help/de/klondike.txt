@@ -1,22 +1,19 @@
 Klondike-Solitär
 # Das Ziel
-Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, auch Klondike oder Patience genannt.
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König.
 # Der Aufbau
 - Sieben Spalten mit 1 bis 7 Karten; nur die oberste Karte jeder Spalte liegt offen.
-- Die übrigen 24 Karten sind der Stapel, verdeckt oben links; daneben liegen die gezogenen Karten.
-- Die vier Ablagestapel liegen oben rechts, am Anfang leer.
+- Die übrigen 24 Karten sind der Stapel.
 # Karten bewegen
-- Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist und die andere Farbe hat, Rot auf Schwarz oder Schwarz auf Rot: eine rote 6 auf eine schwarze 7.
+- Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist und die andere Farbe hat: eine rote 6 auf eine schwarze 7.
 - Offene Karten, die aufeinander folgen, ziehen zusammen.
 - Nur ein König oder eine Reihe, die mit einem König beginnt, darf eine leere Spalte füllen.
 - Liegt oben auf einer Spalte eine verdeckte Karte, wird sie aufgedeckt.
 - Eine Karte von einem Ablagestapel darf zurück auf eine Spalte.
 # Der Stapel
 - Eine Karte ziehen: Tippe auf den Stapel, um eine Karte aufzudecken. Drei Karten ziehen: drei auf einmal, und nur die oberste ist spielbar.
-- Ist der Stapel leer, tippe auf seinen Platz, um die gezogenen Karten wieder umzudrehen, so oft du willst.
+- Drehe die gezogenen Karten so oft um, wie du willst.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sind Stapel und gezogene Karten leer und alle Karten offen, wandern die Karten von selbst nach oben. Kommst du nicht weiter, beginne ein neues Spiel.
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. In den Kapiteln 1 bis 4 ziehst du je eine Karte, in den Kapiteln 5 und 6 drei auf einmal. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Tippe auf eine Karte, um sie an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst eine Karte oder eine Reihe auch ziehen und ablegen, wo du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+3 Sterne: ohne Tipp und ohne Rücknahme.

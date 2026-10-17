@@ -1,22 +1,19 @@
 Pasianssi
 # Tavoite
-Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, myös nimeltä Klondike.
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen.
 # Asetelma
 - Seitsemän saraketta, joissa on 1–7 korttia; vain kunkin sarakkeen päällimmäinen kortti on kuvapuoli ylöspäin.
-- Loput 24 korttia ovat pakka, kuvapuoli alaspäin, vasemmalla ylhäällä; sen vieressä on poistopino.
-- Neljä peruspinoa ovat oikealla ylhäällä, aluksi tyhjinä.
+- Loput 24 korttia ovat pakka.
 # Korttien siirtäminen
-- Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi ja eriväristä, punainen mustalle tai musta punaiselle: punainen 6 mustalle 7:lle.
+- Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi ja eriväristä: punainen 6 mustalle 7:lle.
 - Näkyvät kortit, jotka seuraavat toisiaan, siirtyvät yhdessä.
 - Vain kuningas, tai kuninkaasta alkava jono, saa täyttää tyhjän sarakkeen.
 - Kun piilossa oleva kortti jää sarakkeen päällimmäiseksi, se kääntyy.
 - Peruspinon kortin voi siirtää takaisin sarakkeeseen.
 # Pakka
 - Nosta yksi: napauta pakkaa kääntääksesi yhden kortin poistopinoon. Nosta kolme: kolme kerrallaan, ja vain päällimmäistä voi pelata.
-- Kun pakka on tyhjä, napauta sen paikkaa kääntääksesi poistopinon takaisin pakaksi, niin monta kertaa kuin haluat.
+- Käännä poistopino takaisin pakaksi niin monta kertaa kuin haluat.
 # Pelin loppu
-Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka ja poistopino ovat tyhjiä ja kaikki kortit näkyvissä, kortit nousevat itsestään. Jos jäät jumiin, aloita uusi jako.
+Voitat, kun kaikki kortit ovat peruspinoissa.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–4 nostetaan yksi kortti kerrallaan, luvuissa 5 ja 6 kolme. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, jos se sopii sinne, muuten sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin tai jonon minne haluat. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+3 tähteä: ei vihjeitä eikä kumottuja siirtoja.

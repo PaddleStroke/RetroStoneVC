@@ -1,18 +1,15 @@
 Quaranta ladroni
 # Lo scopo
-Portare tutte le 104 carte di due mazzi sulle otto basi, due per seme, dall'asso al re. Un gioco per un giocatore, e non dei più facili.
+Portare tutte le 104 carte di due mazzi sulle otto basi, due per seme, dall'asso al re.
 # La disposizione
 - Dieci colonne di quattro carte, tutte scoperte.
-- Le altre 64 carte formano il mazzo, coperto, in alto a sinistra; accanto, gli scarti.
-- Le otto basi sono in alto, vuote all'inizio.
+- Le altre 64 carte formano il mazzo.
 # Muovere le carte
 - Su una colonna si mette una carta di un valore in meno e dello stesso seme: il 6 di fiori sul 7 di fiori.
 - Si muove una carta alla volta, mai una scala.
 - Qualsiasi carta può occupare una colonna vuota.
 - Una carta su una base resta lì.
 # Il mazzo
-Tocca il mazzo per girare una carta sugli scarti; la carta in cima agli scarti si può giocare. Il mazzo si scorre una volta sola: gli scarti non si rigirano.
+Tocca il mazzo per girare una carta sugli scarti; la carta in cima agli scarti si può giocare. Il mazzo si scorre una volta sola.
 # La fine della partita
-Vinci quando tutte le carte sono sulle basi. Appena il mazzo e gli scarti sono vuoti e le carte rimaste possono salire tutte una dopo l'altra, salgono da sole. Poche smazzate si possono vincere: pensa in anticipo e tieniti care le colonne vuote.
-# Giocare sul dispositivo
-Tocca una carta in cima per mandarla al posto migliore: una base, la carta del suo seme con un valore in più o una colonna vuota. Un secondo tocco rapido manda una carta solo su una base. Puoi anche trascinare una carta dove vuoi. La lampada mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.
+Vinci quando tutte le carte sono sulle basi. Poche smazzate si possono vincere.

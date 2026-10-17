@@ -1,18 +1,15 @@
 Førti røvere
 # Målet
-Få alle de 104 kortene fra to kortstokker opp på de åtte grunnbunkene, to for hver farge, fra ess til konge. Et spill for én spiller, og et vanskelig et.
+Få alle de 104 kortene fra to kortstokker opp på de åtte grunnbunkene, to for hver farge, fra ess til konge.
 # Oppstillingen
 - Ti rekker med fire kort, alle med bildesiden opp.
-- De andre 64 kortene er bunken, med baksiden opp, øverst til venstre; ved siden av ligger kastebunken.
-- De åtte grunnbunkene ligger øverst, tomme ved start.
+- De andre 64 kortene er bunken.
 # Flytte kort
 - På en rekke legges et kort som er én lavere og i samme farge: kløver 6 på kløver 7.
 - Bare ett kort flyttes om gangen, aldri en rekke av kort.
 - Ethvert kort kan fylle en tom plass.
 - Et kort på en grunnbunke blir liggende.
 # Bunken
-Trykk på bunken for å snu ett kort over på kastebunken; det øverste kortet på kastebunken kan spilles. Bunken gås gjennom bare én gang: det deles ikke ut på nytt.
+Trykk på bunken for å snu ett kort over på kastebunken; det øverste kortet på kastebunken kan spilles. Bunken gås gjennom bare én gang.
 # Slutten på spillet
-Du vinner når alle kortene ligger på grunnbunkene. Så snart bunken og kastebunken er tomme og resten av kortene kan gå opp etter hverandre, går de opp av seg selv. Få kabaler går opp: tenk fremover og ta vare på de tomme plassene.
-# Spill på enheten
-Trykk på et øverste kort for å sende det til den beste plassen: en grunnbunke, neste kort i samme farge eller en tom plass. Et raskt trykk nummer to sender et kort bare til en grunnbunke. Du kan også dra et kort dit du vil. Lampen viser et nyttig trekk; tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Du vinner når alle kortene ligger på grunnbunkene. Få kabaler går opp.

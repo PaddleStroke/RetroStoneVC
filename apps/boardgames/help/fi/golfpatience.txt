@@ -1,19 +1,17 @@
 Golf-pasianssi
 # Tavoite
-Tyhjennä seitsemän saraketta pelaamalla niiden kortit poistopinoon, yksi ylös tai alas. Peli yhdelle pelaajalle; älä sekoita sitä Golf-korttipeliin.
+Tyhjennä seitsemän saraketta pelaamalla niiden kortit poistopinoon, yksi ylös tai alas.
 # Asetelma
 - Seitsemän saraketta, joissa on viisi korttia, kaikki kuvapuoli ylöspäin.
-- Yksi kortti kuvapuoli ylöspäin poistopinossa; loput 16 korttia ovat pakka, kuvapuoli alaspäin, sen vieressä.
+- Yksi kortti kuvapuoli ylöspäin poistopinossa; loput 16 korttia ovat pakka.
 # Korttien siirtäminen
-- Vain sarakkeen päällimmäistä korttia voi siirtää. Se menee poistopinoon, jos se on yhtä suurempi tai pienempi kuin poistopinon päällimmäinen kortti, maasta riippumatta: 7 tai 9 kahdeksikon päälle.
-- Klassinen sääntö: ässä ja kuningas eivät seuraa toisiaan, joten kuninkaan päälle käy vain kuningatar ja ässän päälle vain 2. Toinen vaihtoehto, kulman ympäri: myös ässä ja kuningas seuraavat toisiaan.
+- Vain sarakkeen päällimmäistä korttia voi siirtää. Se menee poistopinoon, jos se on yhtä suurempi tai pienempi kuin poistopinon päällimmäinen kortti, maasta riippumatta.
+- Klassinen sääntö: ässä ja kuningas eivät seuraa toisiaan. Toinen vaihtoehto, kulman ympäri: myös ässä ja kuningas seuraavat toisiaan.
 # Pakka
 Kun mikään kortti ei käy, napauta pakkaa kääntääksesi sen päällimmäisen kortin poistopinoon. Pakka käydään läpi vain kerran.
 # Pisteet
 Kuten golfissa: mitä vähemmän, sitä parempi. Poistopinon vieressä oleva luku laskee sarakkeisiin jääneet kortit. Kun kaikki sarakkeet on tyhjennetty, pisteet ovat pakkaan jääneet kortit nollan alapuolella.
 # Pelin loppu
-Voitat, kun sarakkeet on tyhjennetty. Peli päättyy, kun pakka on tyhjä eikä mikään kortti käy. Kaikkia jakoja ei voi voittaa.
+Voitat, kun sarakkeet on tyhjennetty. Peli päättyy, kun pakka on tyhjä eikä mikään kortti käy.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–3 ässä ja kuningas seuraavat toisiaan, luvuissa 4–6 eivät. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta päällimmäistä korttia pelataksesi sen poistopinoon, tai vedä se sinne. Lamppu näyttää hyvän siirron: kortin, josta alkaa pisin sen näkemä sarja. Korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Luvuissa 1–3 ässä ja kuningas seuraavat toisiaan, luvuissa 4–6 eivät. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä.

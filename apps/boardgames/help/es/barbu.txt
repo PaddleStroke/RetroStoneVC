@@ -1,22 +1,20 @@
 Barbu
 # El objetivo
-Sumar el máximo de puntos a lo largo de siete contratos que cada jugador elige por turnos. Para 4 jugadores que se pasan el dispositivo; nadie ve las cartas de los demás.
+Sumar el máximo de puntos a lo largo de siete contratos que cada jugador elige por turnos.
 # Las cartas
-Las 52 cartas, 13 a cada uno. El as es la carta más alta, luego el rey, la reina, la jota, el 10 y así hasta el 2.
+Las 52 cartas, 13 a cada uno. El as es la más alta, luego el rey, la reina, la jota, el 10 y así hasta el 2.
 # Los contratos
-El declarante elige un contrato en cada mano y debe elegir cada uno de los siete una vez:
-- Sin bazas: menos 2 por cada baza ganada.
-- Sin corazones: menos 2 por cada corazón ganado, menos 6 por el as de corazones. Nadie puede salir con un corazón si tiene otro palo. La mano termina en cuanto se han ganado todos los corazones.
-- Sin reinas: menos 6 por cada reina ganada. La mano termina en cuanto se han ganado las cuatro.
-- Sin rey de corazones (el barbu): menos 20 para quien lo gane. Nadie puede salir con un corazón si tiene otro palo, y quien tiene el rey debe echarlo en cuanto no pueda servir el palo. La mano termina cuando alguien lo gana.
-- Sin las dos últimas bazas: menos 10 por la penúltima baza, menos 20 por la última.
-- Triunfos: el declarante nombra el palo de triunfo; más 5 por cada baza. Cuando se sale con triunfo, debes superar el triunfo más alto si puedes; si no puedes servir el palo, debes jugar triunfo, por encima del triunfo más alto si puedes.
-- Dominó: el declarante nombra un valor inicial. Por turnos, cada jugador coloca una carta: una carta de ese valor abre la fila de su palo, y una carta un valor por encima o por debajo del extremo de una fila la alarga (el as es alto, las filas no dan la vuelta). Si puedes colocar una carta, debes hacerlo; si no, pasas. El primero en quedarse sin cartas se anota 45, el segundo 20, el tercero 5, el último menos 5.
+El declarante elige un contrato por mano, cada uno de los siete una vez:
+- Sin bazas: menos 2 por baza.
+- Sin corazones: menos 2 por corazón, menos 6 por el as. Nadie puede salir con un corazón si tiene otro palo. La mano termina en cuanto se han ganado todos los corazones.
+- Sin reinas: menos 6 por reina. La mano termina en cuanto se han ganado las cuatro.
+- Sin rey de corazones (el barbu): menos 20. Nadie puede salir con un corazón si tiene otro palo; quien tiene el rey debe echarlo en cuanto no pueda servir el palo. La mano termina cuando alguien lo gana.
+- Sin las dos últimas bazas: menos 10 por la penúltima, menos 20 por la última.
+- Triunfos: el declarante nombra el triunfo; más 5 por baza. Cuando se sale con triunfo, supera el triunfo más alto si puedes; si no puedes servir el palo, juega triunfo, por encima del más alto si puedes.
+- Dominó: el declarante nombra un valor inicial. Por turnos, cada jugador coloca una carta: ese valor abre la fila de su palo; un valor por encima o por debajo del extremo de una fila la alarga (el as es alto, las filas no dan la vuelta). Si puedes colocar, debes; si no, pasas. El primero en acabar 45, el segundo 20, el tercero 5, el último menos 5.
 # El juego
-El declarante sale en la primera baza. Sirve el palo de salida si puedes; si no, juega cualquier carta (salvo lo que exija el contrato). La carta más alta del palo de salida gana la baza, o el triunfo más alto; quien la gana sale en la siguiente.
+El declarante sale primero. Sirve el palo si puedes; si no, juega cualquier carta (salvo lo que exija el contrato). La carta más alta del palo de salida, o el triunfo más alto, gana la baza; quien la gana sale en la siguiente.
 # Doblar
-En las variantes con doblo, una vez nombrado el contrato, cada uno de los demás jugadores, por turnos, puede doblar a cualquiera de los otros (en triunfos y en dominó, solo al declarante). Después, cada jugador doblado, el declarante el último, puede redoblar a quienes lo doblaron. Tras la mano, cada pareja de jugadores con doblo compara sus puntos de esa mano: la diferencia pasa del más bajo al más alto, dos veces si hubo redoblo. Se omite la obligación francesa de doblar al declarante dos veces por partida.
+Con doblo, una vez nombrado el contrato, cada uno de los demás jugadores, por turnos, puede doblar a cualquiera de los otros (en triunfos y en dominó, solo al declarante). Después, cada jugador doblado, el declarante el último, puede redoblar. Tras la mano, cada pareja con doblo compara sus puntos: la diferencia pasa del más bajo al más alto, dos veces si hubo redoblo.
 # El final de la partida
-La partida completa tiene 28 manos: cada jugador es el declarante durante siete manos seguidas. La partida corta tiene 7 manos: el declarante cambia en cada mano y cada contrato se juega una vez (los tres primeros jugadores eligen dos, el cuarto uno). Todos los puntos de una partida suman cero. Gana el total más alto; los empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasa el dispositivo al jugador cuya ficha aparece; toca el botón de inicio y ve su mano, en abanico abajo. Para elegir un contrato, toca su dibujo (una cruz roja: un contrato de penalización; los cuatro palos: triunfos; la fila de fichas de dominó: dominó), luego un palo o un valor inicial si se te pide, y luego la marca de visto. Los dibujos atenuados ya se han elegido. Para doblar, toca las fichas rodeadas de oro (aparecen una cruz dorada y un 2; un 4 para redoblar) y luego la marca de visto; la marca sola no dobla a nadie. Los doblos aparecen arriba a la izquierda; el contrato y su declarante, arriba a la derecha (tócalo para ver la tabla de puntos). Para jugar, toca una carta que brille para levantarla y vuelve a tocarla o toca su sitio; o arrástrala. En dominó, si no te cabe ninguna carta, toca el botón Paso de tu barra. Junto a cada ficha: los puntos de la mano hasta ahora (en dominó: el orden de llegada). Tras cada mano, la tabla de puntos muestra los puntos de cada jugador en cada contrato (casillas doradas: los contratos que eligió), la mano y el total, con un punto por cada mano; tócala para la mano siguiente.
+Partida completa: 28 manos, cada jugador es el declarante siete manos seguidas. Partida corta: 7 manos, el declarante cambia en cada mano y cada contrato se juega una vez (los tres primeros jugadores eligen dos, el cuarto uno). Los puntos suman cero. Gana el total más alto; los empatados comparten la victoria.

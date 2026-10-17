@@ -1,18 +1,15 @@
 Neljäkymmentä rosvoa
 # Tavoite
-Siirrä kahden pakan kaikki 104 korttia kahdeksaan peruspinoon, kaksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, ja vaikea sellainen.
+Siirrä kahden pakan kaikki 104 korttia kahdeksaan peruspinoon, kaksi kullekin maalle, ässästä kuninkaaseen.
 # Asetelma
 - Kymmenen saraketta, joissa on neljä korttia, kaikki kuvapuoli ylöspäin.
-- Loput 64 korttia ovat pakka, kuvapuoli alaspäin, vasemmalla ylhäällä; sen vieressä on poistopino.
-- Kahdeksan peruspinoa ovat ylhäällä, aluksi tyhjinä.
+- Loput 64 korttia ovat pakka.
 # Korttien siirtäminen
 - Sarakkeeseen voi laittaa kortin, joka on yhtä pienempi ja samaa maata: risti 6 risti 7:n päälle.
 - Kortteja siirretään vain yksi kerrallaan, ei koskaan jonoa.
 - Mikä tahansa kortti saa täyttää tyhjän sarakkeen.
 - Peruspinossa oleva kortti jää sinne.
 # Pakka
-Napauta pakkaa kääntääksesi yhden kortin poistopinoon; poistopinon päällimmäistä korttia voi pelata. Pakka käydään läpi vain kerran: uutta jakoa ei ole.
+Napauta pakkaa kääntääksesi yhden kortin poistopinoon; poistopinon päällimmäistä korttia voi pelata. Pakka käydään läpi vain kerran.
 # Pelin loppu
-Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun pakka ja poistopino ovat tyhjät ja loput kortit pääsevät nousemaan vuorotellen, ne nousevat itsestään. Vain harva jako menee läpi: suunnittele etukäteen ja säästä tyhjät sarakkeesi.
-# Pelaaminen laitteella
-Napauta päällimmäistä korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, oman maansa seuraavan kortin päälle tai tyhjään sarakkeeseen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin minne haluat. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Voitat, kun kaikki kortit ovat peruspinoissa. Vain harva jako menee läpi.

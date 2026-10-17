@@ -1,20 +1,16 @@
 Free Cells
 # The aim
-Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. A game for one player with every card in view from the start: almost every deal can be won.
+Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king.
 # The layout
-- The 52 cards lie face up in eight columns.
-- At the top left, four free cells; at the top right, the four foundations.
+- The 52 cards lie face up in eight columns, below four free cells and the four foundations.
 # Moving cards
-- Move the top card of a column: onto a column whose top card is one rank higher and of the other colour (red on black, black on red), into an empty free cell, or onto its foundation.
+- Move the top card of a column: onto a card one rank higher and of the other colour, into an empty free cell, or onto its foundation.
 - Each free cell holds one card. Any card may go to an empty column.
-- A run of cards in order moves together if there is room to move it one card at a time: as many cards as the empty free cells plus one, doubled for each empty column (not counting the column it goes to). With two free cells and one empty column: six cards.
+- A run of cards in order moves together if there is room to move it one card at a time: as many cards as the empty free cells plus one, doubled for each empty column (not counting the column it goes to).
 - A card on a foundation stays there.
-- Cards the table no longer needs go up to the foundations by themselves.
 # The deals
-Each deal has a number from 1 to 32000, shown next to the small card in your bar. Deal 1 here is deal 1 in other versions of the game too. Every deal can be won except deal 11982.
+Deals are numbered 1 to 32000, as in other versions of the game; all can be won except deal 11982.
 # The end of the game
-You win when all the cards are on the foundations. If you are stuck, undo or start a new deal.
+You win when all the cards are on the foundations.
 # Levels and stars
-There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. The die tab after the chapters deals a new game at random. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
-# Playing on the device
-Tap a card to send it to its best place: a foundation, a column, an empty column or a free cell. Tap a card inside a run to move the run from that card. A quick second tap sends a card only to a foundation. You can also drag a card or a run and drop it where you want. The lamp shows a useful move; the number after the deal's number counts your moves. Undo takes back moves, all the way to the deal.
+3 stars: no hint and no undo.

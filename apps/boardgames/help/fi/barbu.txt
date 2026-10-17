@@ -1,22 +1,20 @@
 Barbu
 # Tavoite
-Kerää eniten pisteitä seitsemän sopimuksen sarjoissa, jotka jokainen valitsee vuorollaan. Neljälle pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Kerää eniten pisteitä seitsemän sopimuksen aikana; jokainen valitsee niitä vuorollaan.
 # Kortit
 Kaikki 52 korttia, 13 kullekin. Ässä on suurin, sitten kuningas, rouva, sotilas, 10 ja alaspäin 2:een.
 # Sopimukset
-Julistaja valitsee jokaiseen jakoon sopimuksen, ja jokainen seitsemästä on valittava kerran:
-- Ei tikkejä: miinus 2 jokaisesta tikistä.
-- Ei herttoja: miinus 2 jokaisesta hertasta, miinus 6 hertta-ässästä. Herttaa ei saa avata, jos kädessä on muuta maata. Jako päättyy, kun kaikki hertat on otettu.
-- Ei rouvia: miinus 6 jokaisesta rouvasta. Jako päättyy, kun kaikki neljä on otettu.
-- Ei herttakuningasta (barbu): miinus 20 sille, joka sen ottaa. Herttaa ei saa avata, jos kädessä on muuta maata, ja kuninkaan haltijan on heitettävä se heti, kun hän ei voi tunnustaa maata. Jako päättyy, kun kuningas otetaan.
-- Ei kahta viimeistä tikkiä: toiseksi viimeinen tikki miinus 10, viimeinen miinus 20.
-- Valtti: julistaja nimeää valttimaan; plus 5 jokaisesta tikistä. Kun valttia avataan, sinun on ylitettävä paras valtti jos voit; jos et voi tunnustaa maata, sinun on valtattava, paras valtti ylittäen jos voit.
-- Domino: julistaja nimeää aloitusarvon. Vuorollaan jokainen laittaa yhden kortin: sen arvoinen kortti aloittaa maansa rivin, ja rivin päätä yhtä suurempi tai pienempi kortti jatkaa sitä (ässä on suurin, rivit eivät kierrä). Jos voit laittaa kortin, sinun on laitettava; muuten passaat. Ensimmäisenä korttinsa pelannut saa 45, toinen 20, kolmas 5, viimeinen miinus 5.
+Julistaja valitsee sopimuksen joka jakoon, jokaisen seitsemästä kerran:
+- Ei tikkejä: miinus 2 tikiltä.
+- Ei herttoja: miinus 2 hertalta, miinus 6 ässästä. Herttaa ei saa avata, jos kädessä on muuta maata. Jako päättyy, kun kaikki hertat on otettu.
+- Ei rouvia: miinus 6 rouvalta. Jako päättyy, kun kaikki neljä on otettu.
+- Ei herttakuningasta (barbu): miinus 20. Herttaa ei saa avata, jos kädessä on muuta maata; kuninkaan haltijan on heitettävä se heti, kun hän ei voi tunnustaa maata. Jako päättyy, kun kuningas otetaan.
+- Ei kahta viimeistä tikkiä: toiseksi viimeinen miinus 10, viimeinen miinus 20.
+- Valtti: julistaja nimeää valtin; plus 5 tikiltä. Kun valttia avataan, ylitä paras valtti jos voit; jos et voi tunnustaa maata, valttaa, paras valtti ylittäen jos voit.
+- Domino: julistaja nimeää aloitusarvon. Vuorollaan jokainen laittaa yhden kortin: sen arvoinen kortti aloittaa maansa rivin; rivin päätä yhtä suurempi tai pienempi jatkaa sitä (ässä on suurin, rivit eivät kierrä). Jos voit laittaa, sinun on laitettava; muuten passaat. Ensimmäinen 45, toinen 20, kolmas 5, viimeinen miinus 5.
 # Pelaaminen
-Julistaja avaa ensimmäisen tikin. Tunnusta maata jos voit; muuten pelaa mikä tahansa kortti (paitsi mitä sopimus vaatii). Avatun maan suurin kortti voittaa tikin, tai suurin valtti; voittaja avaa seuraavan.
+Julistaja avaa ensin. Tunnusta maata jos voit, muuten pelaa mikä tahansa kortti (paitsi mitä sopimus vaatii). Avatun maan suurin kortti, tai suurin valtti, voittaa; voittaja avaa seuraavan.
 # Kahdennus
-Kahdennusmuunnelmissa, kun sopimus on nimetty, muut pelaajat voivat vuorollaan kahdentaa kenet tahansa muista (valtissa ja dominossa vain julistajan). Sitten jokainen kahdennettu, julistaja viimeisenä, voi vastakahdentaa ne, jotka kahdensivat hänet. Jaon jälkeen jokainen kahdennettu pari vertaa jaon pisteitään: erotus siirtyy pienemmältä suuremmalle, vastakahdennuksessa kaksinkertaisena. Ranskalaista velvollisuutta kahdentaa julistaja kahdesti pelissä ei käytetä.
+Kahdennuksella, kun sopimus on nimetty, muut pelaajat voivat vuorollaan kahdentaa kenet tahansa muista (valtissa ja dominossa vain julistajan). Sitten jokainen kahdennettu, julistaja viimeisenä, voi vastakahdentaa. Jaon jälkeen jokainen kahdennettu pari vertaa pisteitään: erotus siirtyy pienemmältä suuremmalle, vastakahdennuksessa kaksinkertaisena.
 # Pelin loppu
-Koko pelissä on 28 jakoa: jokainen on julistaja seitsemässä peräkkäisessä jaossa. Lyhyessä pelissä on 7 jakoa: julistaja vaihtuu joka jaossa ja jokainen sopimus pelataan kerran (kolme ensimmäistä valitsevat kaksi, neljäs yhden). Pelin pisteet ovat yhteensä nolla. Suurin yhteissumma voittaa; tasapisteissä olevat jakavat voiton.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä viuhkana alhaalla. Valitse sopimus napauttamalla sen kuvaa (punainen risti: sakkosopimus; neljä maata: valtti; dominorivi: domino), tarvittaessa maata tai aloitusarvoa, sitten valintamerkkiä. Himmeät kuvat on jo valittu. Kahdenna napauttamalla kullalla rengastettuja nappuloita (kultainen risti ja 2 ilmestyvät; vastakahdennuksessa 4), sitten valintamerkkiä; pelkkä valintamerkki ei kahdenna ketään. Kahdennukset ovat vasemmassa yläkulmassa, sopimus ja julistaja oikeassa (napauta niitä nähdäksesi pistetaulukon). Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa; tai vedä se. Dominossa, jos mikään kortti ei sovi, napauta palkkisi passausnappia. Jokaisen nappulan vieressä: jaon pisteet (dominossa: valmistumisjärjestys). Jokaisen jaon jälkeen pistetaulukko näyttää kunkin pisteet jokaisessa sopimuksessa (kultaiset ruudut: hänen valitsemansa sopimukset), jaon ja yhteissumman sekä pisteen jokaisesta jaosta; napauta sitä seuraavaa jakoa varten.
+Koko peli: 28 jakoa, jokainen on julistaja seitsemässä peräkkäisessä jaossa. Lyhyt peli: 7 jakoa, julistaja vaihtuu joka jaossa ja jokainen sopimus pelataan kerran (kolme ensimmäistä valitsevat kaksi, neljäs yhden). Pisteet ovat yhteensä nolla. Suurin yhteissumma voittaa; tasapisteissä olevat jakavat voiton.

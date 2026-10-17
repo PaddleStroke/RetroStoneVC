@@ -1,19 +1,17 @@
 Pasjans Golf
 # Cel gry
-Opróżnić siedem kolumn, zagrywając ich karty na stos odrzuconych, o jeden wyżej lub niżej. Gra dla jednej osoby, której nie należy mylić z grą karcianą Golf.
+Opróżnić siedem kolumn, zagrywając ich karty na stos odrzuconych, o jeden wyżej lub niżej.
 # Rozłożenie
 - Siedem kolumn po pięć kart, wszystkie odkryte.
-- Jedna odkryta karta na stosie odrzuconych; pozostałe 16 kart to talia, zakryta, obok niego.
+- Jedna odkryta karta na stosie odrzuconych; pozostałe 16 kart to talia.
 # Przekładanie kart
-- Przełożyć można tylko wierzchnią kartę kolumny. Trafia na stos odrzuconych, jeśli jest o jeden wyższa lub niższa od jego wierzchniej karty, w dowolnym kolorze: 7 albo 9 na 8.
-- Zasada klasyczna: as i król nie następują po sobie, więc na króla można położyć tylko damę, a na asa tylko 2. Druga możliwość, dookoła: as i król też następują po sobie.
+- Przełożyć można tylko wierzchnią kartę kolumny. Trafia na stos odrzuconych, jeśli jest o jeden wyższa lub niższa od jego wierzchniej karty, w dowolnym kolorze.
+- Zasada klasyczna: as i król nie następują po sobie. Druga możliwość, dookoła: as i król też następują po sobie.
 # Talia
 Gdy żadna karta nie pasuje, dotknij talii, by odkryć jej wierzchnią kartę na stos odrzuconych. Talię przechodzi się tylko raz.
 # Wynik
 Jak w golfie: im mniej, tym lepiej. Liczba obok stosu odrzuconych liczy karty, które zostały w kolumnach. Gdy wszystkie kolumny są puste, wynikiem są karty, które zostały w talii, poniżej zera.
 # Koniec gry
-Wygrywasz, gdy kolumny są puste. Gra kończy się, gdy talia jest pusta i żadna karta nie pasuje. Nie każde rozdanie da się wygrać.
+Wygrywasz, gdy kolumny są puste. Gra kończy się, gdy talia jest pusta i żadna karta nie pasuje.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 3 as i król następują po sobie, w rozdziałach od 4 do 6 nie. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Dotknij wierzchniej karty, by zagrać ją na stos odrzuconych, lub przeciągnij ją tam. Lampa pokazuje dobry ruch: kartę, od której zaczyna się najdłuższy ciąg, jaki widzi. Liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+W rozdziałach od 1 do 3 as i król następują po sobie, w rozdziałach od 4 do 6 nie. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki.

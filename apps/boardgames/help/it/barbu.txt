@@ -1,22 +1,20 @@
 Barbu
 # Lo scopo
-Fare più punti possibile nel corso di sette contratti, che ogni giocatore sceglie a turno. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Fare più punti possibile nel corso di sette contratti, che ogni giocatore sceglie a turno.
 # Le carte
-Tutte le 52 carte, 13 a testa. L'asso è la carta più alta, poi il re, la donna, il fante, il 10 e così via fino al 2.
+Tutte le 52 carte, 13 a testa. L'asso è la più alta, poi il re, la donna, il fante, il 10 e così via fino al 2.
 # I contratti
-Il dichiarante sceglie un contratto per ogni smazzata e deve scegliere ciascuno dei sette una volta:
-- Niente prese: meno 2 per ogni presa fatta.
-- Niente cuori: meno 2 per ogni cuori preso, meno 6 per l'asso di cuori. Nessuno può uscire a cuori se ha un altro seme. La smazzata finisce appena sono stati presi tutti i cuori.
-- Niente donne: meno 6 per ogni donna presa. La smazzata finisce appena sono state prese tutte e quattro.
-- Niente re di cuori (il barbu): meno 20 per chi lo prende. Nessuno può uscire a cuori se ha un altro seme, e chi ha il re deve scartarlo appena non può rispondere al seme. La smazzata finisce quando viene preso.
-- Niente ultime due prese: meno 10 per la penultima presa, meno 20 per l'ultima.
-- Briscola: il dichiarante nomina il seme di briscola; più 5 per ogni presa. Quando si esce a briscola devi superare la briscola più alta se puoi; se non puoi rispondere al seme devi giocare briscola, più alta della briscola migliore se puoi.
-- Domino: il dichiarante nomina un valore di partenza. A turno ognuno posa una carta: una carta di quel valore apre la fila del suo seme, e una carta di un valore sopra o sotto l'estremità di una fila la allunga (l'asso è alto, le file non ricominciano da capo). Se puoi posare una carta devi farlo; altrimenti passi. Il primo a finire le carte segna 45, il secondo 20, il terzo 5, l'ultimo meno 5.
+Il dichiarante sceglie un contratto per smazzata, ciascuno dei sette una volta:
+- Niente prese: meno 2 per presa.
+- Niente cuori: meno 2 per cuori, meno 6 per l'asso. Nessuno può uscire a cuori se ha un altro seme. La smazzata finisce appena sono stati presi tutti i cuori.
+- Niente donne: meno 6 per donna. La smazzata finisce appena sono state prese tutte e quattro.
+- Niente re di cuori (il barbu): meno 20. Nessuno può uscire a cuori se ha un altro seme; chi ha il re deve scartarlo appena non può rispondere al seme. La smazzata finisce quando viene preso.
+- Niente ultime due prese: meno 10 per la penultima, meno 20 per l'ultima.
+- Briscola: il dichiarante nomina la briscola; più 5 per presa. Quando si esce a briscola, supera la briscola più alta se puoi; se non puoi rispondere al seme, gioca briscola, più alta della migliore se puoi.
+- Domino: il dichiarante nomina un valore di partenza. A turno ognuno posa una carta: quel valore apre la fila del suo seme; un valore sopra o sotto l'estremità di una fila la allunga (l'asso è alto, le file non ricominciano da capo). Se puoi posare devi farlo, altrimenti passi. Il primo a finire 45, il secondo 20, il terzo 5, l'ultimo meno 5.
 # Il gioco
-Il dichiarante esce nella prima presa. Rispondi al seme di uscita se puoi; altrimenti gioca una carta qualsiasi (salvo quanto impone il contratto). La carta più alta del seme di uscita vince la presa, oppure la briscola più alta; chi la vince esce nella successiva.
+Il dichiarante esce per primo. Rispondi al seme se puoi, altrimenti gioca una carta qualsiasi (salvo quanto impone il contratto). La carta più alta del seme di uscita, o la briscola più alta, vince la presa; chi la vince esce nella successiva.
 # Il contro
-Nelle varianti con il contro, una volta nominato il contratto, ognuno degli altri giocatori a turno può contrare chiunque degli altri (a briscola e a domino solo il dichiarante). Poi ogni giocatore contrato, il dichiarante per ultimo, può surcontrare chi lo ha contrato. Dopo la smazzata ogni coppia di giocatori legata da un contro confronta i punti di quella smazzata: la differenza passa dal più basso al più alto, due volte se c'è stato surcontro. L'obbligo francese di contrare il dichiarante due volte per partita non è previsto.
+Con il contro, una volta nominato il contratto, ognuno degli altri giocatori a turno può contrare chiunque degli altri (a briscola e a domino solo il dichiarante). Poi ogni giocatore contrato, il dichiarante per ultimo, può surcontrare. Dopo la smazzata ogni coppia legata da un contro confronta i punti: la differenza passa dal più basso al più alto, due volte se c'è stato surcontro.
 # La fine della partita
-La partita completa ha 28 smazzate: ogni giocatore è dichiarante per sette smazzate di fila. La partita breve ha 7 smazzate: il dichiarante cambia a ogni smazzata e ogni contratto si gioca una volta (i primi tre giocatori ne scelgono due, il quarto uno). Tutti i punti di una partita sommano a zero. Vince il totale più alto; i giocatori a pari merito condividono la vittoria.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso. Per scegliere un contratto, tocca la sua immagine (una croce rossa: un contratto di penalità; i quattro semi: briscola; la fila di tessere del domino: domino), poi un seme o un valore di partenza se richiesto, poi il segno di spunta. Le immagini sbiadite sono già state scelte. Per contrare, tocca le pedine cerchiate d'oro (compaiono una croce dorata e un 2; un 4 per surcontrare), poi il segno di spunta; il segno di spunta da solo non contra nessuno. I contro sono elencati in alto a sinistra; il contratto e il suo dichiarante in alto a destra (toccalo per vedere la tabella dei punteggi). Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto; oppure trascinala. A domino, se nessuna carta va bene, tocca il pulsante passo nella tua barra. Accanto a ogni pedina: i punti della smazzata finora (a domino: l'ordine di arrivo). Dopo ogni smazzata la tabella dei punteggi mostra i punti di ciascuno in ogni contratto (caselle dorate: i contratti che ha scelto), la smazzata e il totale, con un punto per ogni smazzata; toccala per la smazzata successiva.
+Partita completa: 28 smazzate, ogni giocatore è dichiarante per sette di fila. Partita breve: 7 smazzate, il dichiarante cambia a ogni smazzata e ogni contratto si gioca una volta (i primi tre giocatori ne scelgono due, il quarto uno). I punti sommano a zero. Vince il totale più alto; i giocatori a pari merito condividono la vittoria.

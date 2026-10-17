@@ -1,22 +1,19 @@
 Solitaire
 # The aim
-Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. A game for one player, also called Klondike.
+Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king.
 # The layout
 - Seven columns of 1 to 7 cards; only the top card of each column is face up.
-- The other 24 cards are the stock, face down, at the top left; next to it, the waste.
-- The four foundations are at the top right, empty at the start.
+- The other 24 cards are the stock.
 # Moving cards
-- On a column, put a card one rank lower and of the other colour, red on black or black on red: a red 6 on a black 7.
+- On a column, put a card one rank lower and of the other colour: a red 6 on a black 7.
 - Face-up cards that follow each other move together.
 - Only a king, or a run starting with a king, may fill an empty column.
-- When a face-down card is left on top of a column, it turns face up.
+- A face-down card left on top of a column turns face up.
 - A card on a foundation may come back down onto a column.
 # The stock
-- Draw one: tap the stock to turn one card onto the waste. Draw three: three cards at a time, and only the top one can be played.
-- When the stock is empty, tap its place to turn the waste back over, as many times as you like.
+- Draw one: tap the stock to turn one card onto the waste. Draw three: three at a time; only the top one can be played.
+- Turn the waste back over as many times as you like.
 # The end of the game
-You win when all the cards are on the foundations. Once the stock and the waste are empty and every card is face up, the cards go up by themselves. If you are stuck, start a new deal.
+You win when all the cards are on the foundations.
 # Levels and stars
-There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. Chapters 1 to 4 draw one card at a time, chapters 5 and 6 draw three. The die tab after the chapters deals a new game at random, with the choice described above. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
-# Playing on the device
-Tap a card to send it to its best place: a foundation if it can go there, otherwise a column. A quick second tap sends a card only to a foundation. You can also drag a card or a run and drop it where you want. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+3 stars: no hint and no undo.

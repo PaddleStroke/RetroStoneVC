@@ -1,20 +1,16 @@
 Vapaat solut
 # Tavoite
-Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, jossa kaikki kortit näkyvät alusta asti: lähes jokaisen jaon voi voittaa.
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen.
 # Asetelma
-- 52 korttia on kuvapuoli ylöspäin kahdeksassa sarakkeessa.
-- Vasemmalla ylhäällä neljä vapaata solua, oikealla ylhäällä neljä peruspinoa.
+- 52 korttia on kuvapuoli ylöspäin kahdeksassa sarakkeessa, neljän vapaan solun ja neljän peruspinon alla.
 # Korttien siirtäminen
-- Sarakkeen päällimmäisen kortin voi siirtää: sarakkeeseen, jonka päällimmäinen kortti on yhtä suurempi ja eriväristä (punainen mustalle, musta punaiselle), tyhjään vapaaseen soluun tai omaan peruspinoonsa.
+- Sarakkeen päällimmäisen kortin voi siirtää: yhtä suuremman ja erivärisen kortin päälle, tyhjään vapaaseen soluun tai omaan peruspinoonsa.
 - Kuhunkin vapaaseen soluun mahtuu yksi kortti. Mikä tahansa kortti saa mennä tyhjään sarakkeeseen.
-- Järjestetty jono siirtyy kerralla, jos tilaa on siirtää se kortti kerrallaan: yhtä monta korttia kuin tyhjiä vapaita soluja plus yksi, kaksinkertaisena jokaista tyhjää saraketta kohti (kohdesaraketta ei lasketa). Kahdella vapaalla solulla ja yhdellä tyhjällä sarakkeella: kuusi korttia.
+- Järjestetty jono siirtyy kerralla, jos tilaa on siirtää se kortti kerrallaan: yhtä monta korttia kuin tyhjiä vapaita soluja plus yksi, kaksinkertaisena jokaista tyhjää saraketta kohti (kohdesaraketta ei lasketa).
 - Peruspinossa oleva kortti pysyy siellä.
-- Kortit, joita pöydällä ei enää tarvita, nousevat itsestään peruspinoihin.
 # Jaot
-Jokaisella jaolla on numero 1–32000, palkkisi pienen kortin vieressä. Jako 1 on jako 1 myös pelin muissa versioissa. Kaikki jaot voi voittaa paitsi jaon 11982.
+Jaot on numeroitu 1–32000 kuten pelin muissa versioissa; kaikki voi voittaa paitsi jaon 11982.
 # Pelin loppu
-Voitat, kun kaikki kortit ovat peruspinoissa. Jos jäät jumiin, kumoa siirtoja tai aloita uusi jako.
+Voitat, kun kaikki kortit ovat peruspinoissa.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta korttia lähettääksesi sen parhaaseen paikkaansa: peruspinoon, sarakkeeseen, tyhjään sarakkeeseen tai vapaaseen soluun. Napauta korttia jonon keskeltä siirtääksesi jonon siitä kortista alkaen. Nopea toinen napautus lähettää kortin vain peruspinoon. Voit myös vetää kortin tai jonon minne haluat. Lamppu näyttää hyödyllisen siirron; jaon numeron jälkeinen luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+3 tähteä: ei vihjeitä eikä kumottuja siirtoja.

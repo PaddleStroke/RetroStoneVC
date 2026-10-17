@@ -1,22 +1,19 @@
 Kabale
 # Målet
-Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge. Et spil for én spiller, også kaldet Klondike.
+Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge.
 # Opstillingen
 - Syv rækker med 1 til 7 kort; kun det øverste kort i hver række ligger med billedsiden op.
-- De andre 24 kort er bunken, med bagsiden op, øverst til venstre; ved siden af ligger kastebunken.
-- De fire grundbunker ligger øverst til højre, tomme fra start.
+- De andre 24 kort er bunken.
 # Flyt kort
-- På en række lægges et kort, der er én lavere og har den anden farve, rød på sort eller sort på rød: en rød 6 på en sort 7.
+- På en række lægges et kort, der er én lavere og har den anden farve: en rød 6 på en sort 7.
 - Synlige kort, der følger hinanden, flytter sammen.
 - Kun en konge, eller en række der begynder med en konge, må fylde en tom plads.
 - Når et skjult kort ligger øverst i en række, vendes det.
 - Et kort fra en grundbunke må komme ned på en række igen.
 # Bunken
 - Træk ét: tryk på bunken for at vende et kort over på kastebunken. Træk tre: tre ad gangen, og kun det øverste kan spilles.
-- Når bunken er tom, så tryk på dens plads for at vende kastebunken om igen, så tit du vil.
+- Vend kastebunken om igen, så tit du vil.
 # Spillets afslutning
-Du vinder, når alle kort ligger på grundbunkerne. Så snart bunken og kastebunken er tomme og alle kort er synlige, går kortene op af sig selv. Sidder du fast, så start en ny kabale.
+Du vinder, når alle kort ligger på grundbunkerne.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra det letteste spil til det sværeste, og hver af dem kan vindes; vælg en i baneoversigten. I kapitel 1 til 4 trækkes ét kort ad gangen, i kapitel 5 og 6 tre. Fanen med terningen efter kapitlerne giver et nyt spil tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fortrudte træk: 3 stjerner; op til to tip og fortrudte træk i alt: 2 stjerner; ellers 1.
-# Spil på enheden
-Tryk på et kort for at sende det til dets bedste plads: en grundbunke, hvis det kan, ellers en række. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Du kan også trække et kort eller en række hen, hvor du vil. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+3 stjerner: uden tip og uden fortrudte træk.

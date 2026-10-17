@@ -1,22 +1,20 @@
 Barbu
 # O objetivo
-Fazer o máximo de pontos ao longo de sete contratos, que cada jogador escolhe na sua vez. Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+Fazer o máximo de pontos ao longo de sete contratos, que cada jogador escolhe na sua vez.
 # As cartas
-Todas as 52 cartas, 13 para cada um. O ás é a carta mais alta, depois rei, dama, valete, 10 e assim por diante até o 2.
+Todas as 52 cartas, 13 para cada um. O ás é a mais alta, depois rei, dama, valete, 10 e assim por diante até o 2.
 # Os contratos
-O declarante escolhe um contrato em cada rodada e tem de escolher cada um dos sete uma vez:
-- Sem vazas: menos 2 por vaza ganha.
-- Sem copas: menos 2 por carta de copas ganha, menos 6 pelo ás de copas. Ninguém pode abrir com copas enquanto tiver outro naipe. A rodada termina assim que todas as copas forem ganhas.
-- Sem damas: menos 6 por dama ganha. A rodada termina assim que as quatro forem ganhas.
-- Sem rei de copas (o barbu): menos 20 para quem o ganhar. Ninguém pode abrir com copas enquanto tiver outro naipe, e quem tem o rei tem de descartá-lo assim que não puder seguir o naipe. A rodada termina quando ele é ganho.
-- Sem as duas últimas vazas: menos 10 pela penúltima vaza, menos 20 pela última.
-- Trunfo: o declarante escolhe o naipe de trunfo; mais 5 por vaza. Quando a saída é de trunfo, você tem de superar o trunfo mais alto se puder; se não puder seguir o naipe, tem de jogar um trunfo, acima do trunfo mais alto se puder.
-- Dominó: o declarante escolhe um valor inicial. Na sua vez, cada jogador coloca uma carta: uma carta desse valor abre a fileira do seu naipe, e uma carta um valor acima ou abaixo da ponta de uma fileira a prolonga (o ás é alto, as fileiras não dão a volta). Se você puder colocar uma carta, tem de colocar; senão, passa. O primeiro a ficar sem cartas marca 45, o segundo 20, o terceiro 5, o último menos 5.
+O declarante escolhe um contrato por rodada, cada um dos sete uma vez:
+- Sem vazas: menos 2 por vaza.
+- Sem copas: menos 2 por copas, menos 6 pelo ás. Ninguém pode abrir com copas enquanto tiver outro naipe. A rodada termina assim que todas as copas forem ganhas.
+- Sem damas: menos 6 por dama. A rodada termina assim que as quatro forem ganhas.
+- Sem rei de copas (o barbu): menos 20. Ninguém pode abrir com copas enquanto tiver outro naipe; quem tem o rei tem de descartá-lo assim que não puder seguir o naipe. A rodada termina quando ele é ganho.
+- Sem as duas últimas vazas: menos 10 pela penúltima, menos 20 pela última.
+- Trunfo: o declarante escolhe o trunfo; mais 5 por vaza. Quando a saída é de trunfo, supere o trunfo mais alto se puder; se não puder seguir o naipe, jogue um trunfo, acima do mais alto se puder.
+- Dominó: o declarante escolhe um valor inicial. Na sua vez, cada jogador coloca uma carta: esse valor abre a fileira do seu naipe; um valor acima ou abaixo da ponta de uma fileira a prolonga (o ás é alto, as fileiras não dão a volta). Se puder colocar, tem de colocar; senão, passa. O primeiro a acabar 45, o segundo 20, o terceiro 5, o último menos 5.
 # O jogo
-O declarante abre a primeira vaza. Siga o naipe de saída se puder; senão, jogue qualquer carta (salvo o que o contrato exigir). A carta mais alta do naipe de saída ganha a vaza, ou o trunfo mais alto; quem ganha abre a próxima.
+O declarante abre primeiro. Siga o naipe se puder; senão, jogue qualquer carta (salvo o que o contrato exigir). A carta mais alta do naipe de saída, ou o trunfo mais alto, ganha a vaza; quem ganha abre a próxima.
 # Dobrar
-Nas variantes com dobra, depois que o contrato é escolhido, cada um dos outros jogadores, na sua vez, pode dobrar qualquer um dos demais (no trunfo e no dominó, só o declarante). Depois, cada jogador dobrado, o declarante por último, pode redobrar quem o dobrou. Depois da rodada, cada par de jogadores ligados por uma dobra compara os pontos daquela rodada: a diferença passa do menor para o maior, duas vezes se houve redobra. A obrigação francesa de dobrar o declarante duas vezes por partida fica de fora.
+Com dobra, depois que o contrato é escolhido, cada um dos outros jogadores, na sua vez, pode dobrar qualquer um dos demais (no trunfo e no dominó, só o declarante). Depois, cada jogador dobrado, o declarante por último, pode redobrar. Depois da rodada, cada par ligado por uma dobra compara os pontos: a diferença passa do menor para o maior, duas vezes se houve redobra.
 # O fim da partida
-A partida completa tem 28 rodadas: cada jogador é o declarante por sete rodadas seguidas. A partida curta tem 7 rodadas: o declarante muda a cada rodada e cada contrato é jogado uma vez (os três primeiros jogadores escolhem dois, o quarto um). Todos os pontos de uma partida somam zero. Vence o maior total; os empatados dividem a vitória.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo. Para escolher um contrato, toque na figura dele (uma cruz vermelha: um contrato de penalidade; os quatro naipes: trunfo; a fileira de dominós: dominó), depois num naipe ou num valor inicial se for pedido, e depois no sinal de confirmação. As figuras apagadas já foram escolhidas. Para dobrar, toque nas fichas com aro dourado (aparecem uma cruz dourada e um 2; um 4 para redobrar) e depois no sinal de confirmação; o sinal sozinho não dobra ninguém. As dobras aparecem no canto superior esquerdo; o contrato e o seu declarante no canto superior direito (toque nele para ver a tabela de pontos). Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela; ou arraste-a. No dominó, quando nenhuma carta encaixa, toque no botão de passar na sua barra. Ao lado de cada ficha: os pontos da rodada até agora (no dominó: a ordem de saída). Depois de cada rodada, a tabela de pontos mostra os pontos de cada jogador em cada contrato (casas douradas: os contratos que ele escolheu), a rodada e o total, com um ponto para cada rodada; toque nela para a próxima rodada.
+Partida completa: 28 rodadas, cada jogador é o declarante por sete rodadas seguidas. Partida curta: 7 rodadas, o declarante muda a cada rodada e cada contrato é jogado uma vez (os três primeiros jogadores escolhem dois, o quarto um). Os pontos somam zero. Vence o maior total; os empatados dividem a vitória.

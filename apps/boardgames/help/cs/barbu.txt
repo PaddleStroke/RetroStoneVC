@@ -1,22 +1,20 @@
 Barbu
 # Cíl hry
-Nasbírat co nejvíc bodů v řadě sedmi závazků, které si hráči postupně volí. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+Nasbírat co nejvíc bodů v sedmi závazcích, které si hráči postupně volí.
 # Karty
-Všech 52 karet, každý po 13. Eso je nejvyšší karta, pak král, dáma, kluk, 10 a tak dále až po 2.
+Všech 52 karet, každý po 13. Eso je nejvyšší, pak král, dáma, kluk, 10 a tak dále až po 2.
 # Závazky
-Hlásící zvolí na každé rozdání jeden závazek a každý ze sedmi musí zvolit jednou:
-- Nebrat štychy: minus 2 za každý vzatý štych.
-- Nebrat srdce: minus 2 za každé vzaté srdce, minus 6 za srdcové eso. Nikdo nesmí vynést srdce, dokud má jinou barvu. Rozdání končí, jakmile jsou vzata všechna srdce.
-- Nebrat dámy: minus 6 za každou vzatou dámu. Rozdání končí, jakmile jsou vzaty všechny čtyři.
-- Nebrat srdcového krále (barbu): minus 20 pro toho, kdo ho vezme. Nikdo nesmí vynést srdce, dokud má jinou barvu, a kdo krále drží, musí ho odhodit, jakmile nemůže přiznat barvu. Rozdání končí, když je král vzat.
-- Nebrat poslední dva štychy: minus 10 za předposlední štych, minus 20 za poslední.
-- Trumfy: hlásící určí trumfovou barvu; plus 5 za každý štych. Když se vynesou trumfy, musíš přebít nejvyšší trumf, pokud můžeš; pokud nemůžeš přiznat barvu, musíš zahrát trumf, a to vyšší než nejvyšší trumf, pokud můžeš.
-- Domino: hlásící určí výchozí hodnotu. Postupně každý hráč přiloží jednu kartu: karta této hodnoty zahájí řadu své barvy a karta o jednu hodnotu vyšší nebo nižší než konec řady ji prodlouží (eso je nejvyšší, řady nepokračují dokola). Pokud můžeš kartu přiložit, musíš; jinak pasuješ. Kdo se první zbaví karet, získá 45, druhý 20, třetí 5, poslední minus 5.
+Hlásící zvolí jeden závazek na rozdání, každý ze sedmi jednou:
+- Nebrat štychy: minus 2 za štych.
+- Nebrat srdce: minus 2 za srdce, minus 6 za eso. Nikdo nesmí vynést srdce, dokud má jinou barvu. Rozdání končí, jakmile jsou vzata všechna srdce.
+- Nebrat dámy: minus 6 za dámu. Rozdání končí, jakmile jsou vzaty všechny čtyři.
+- Nebrat srdcového krále (barbu): minus 20. Nikdo nesmí vynést srdce, dokud má jinou barvu; kdo krále drží, musí ho odhodit, jakmile nemůže přiznat barvu. Rozdání končí, když je král vzat.
+- Nebrat poslední dva štychy: minus 10 za předposlední, minus 20 za poslední.
+- Trumfy: hlásící určí trumfy; plus 5 za štych. Když se vynesou trumfy, přebij nejvyšší trumf, pokud můžeš; nemůžeš-li přiznat barvu, zahraj trumf, a to vyšší než nejvyšší trumf, pokud můžeš.
+- Domino: hlásící určí výchozí hodnotu. Postupně každý přiloží jednu kartu: tato hodnota zahájí řadu své barvy; o jednu vyšší nebo nižší než konec řady ji prodlouží (eso je nejvyšší, řady nejdou dokola). Můžeš-li přiložit, musíš; jinak pasuješ. První 45, druhý 20, třetí 5, poslední minus 5.
 # Hra
-Hlásící vynáší do prvního štychu. Přiznej barvu, pokud můžeš; jinak zahraj libovolnou kartu (pokud závazek nežádá jinak). Štych bere nejvyšší karta vynesené barvy, nebo nejvyšší trumf; jeho vítěz vynáší do dalšího.
+Hlásící vynáší první. Přiznej barvu, pokud můžeš, jinak zahraj libovolnou kartu (pokud závazek nežádá jinak). Štych bere nejvyšší karta vynesené barvy, nebo nejvyšší trumf; vítěz vynáší do dalšího.
 # Kontra
-Ve variantách s kontrou může po vyhlášení závazku každý další hráč postupně dát kontru komukoli z ostatních (v trumfech a dominu jen hlásícímu). Pak každý hráč, který dostal kontru, hlásící poslední, může dát rekontru těm, kdo mu kontru dali. Po rozdání každá dvojice spojená kontrou porovná své body z tohoto rozdání: rozdíl přejde od nižšího k vyššímu, při rekontře dvakrát. Francouzská povinnost dát hlásícímu kontru dvakrát za hru je vynechána.
+S kontrou může po vyhlášení závazku každý další hráč postupně dát kontru komukoli z ostatních (v trumfech a dominu jen hlásícímu). Pak každý hráč s kontrou, hlásící poslední, může dát rekontru. Po rozdání každá dvojice spojená kontrou porovná své body: rozdíl přejde od nižšího k vyššímu, při rekontře dvakrát.
 # Konec hry
-Celá hra má 28 rozdání: každý hráč je hlásícím sedm rozdání za sebou. Krátká hra má 7 rozdání: hlásící se mění každé rozdání a každý závazek se hraje jednou (první tři hráči volí dva, čtvrtý jeden). Všechny body jedné hry dávají dohromady nulu. Vyhrává nejvyšší součet; hráči se stejným součtem se o vítězství dělí.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole. Pro volbu závazku klepni na jeho obrázek (červený křížek: trestný závazek; čtyři barvy: trumfy; řada kostek domina: domino), pak na barvu nebo výchozí hodnotu, pokud se na ni hra zeptá, a pak na fajfku. Vybledlé obrázky jsou už zvolené. Pro kontru klepni na kameny se zlatým kroužkem (objeví se zlatý křížek a 2; 4 pro rekontru) a pak na fajfku; samotná fajfka nedává kontru nikomu. Kontry jsou vypsané v levém horním rohu; závazek a jeho hlásící v pravém horním rohu (klepnutím na ně uvidíš tabulku bodů). Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo; nebo ji přetáhni. V dominu, když žádná karta nepasuje, klepni na tlačítko pasu ve své liště. Vedle každého kamene: dosavadní body z rozdání (v dominu: pořadí, v jakém se hráči zbavili karet). Po každém rozdání ukáže tabulka bodů body každého hráče v každém závazku (zlatá políčka: závazky, které zvolil), rozdání a součet, s tečkou za každé rozdání; klepnutím na ni začne další rozdání.
+Celá hra: 28 rozdání, každý hráč je hlásícím sedm rozdání za sebou. Krátká hra: 7 rozdání, hlásící se mění každé rozdání a každý závazek se hraje jednou (první tři hráči volí dva, čtvrtý jeden). Body dávají dohromady nulu. Vyhrává nejvyšší součet; při rovnosti se hráči o vítězství dělí.

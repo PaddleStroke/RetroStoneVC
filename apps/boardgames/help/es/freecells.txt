@@ -1,20 +1,16 @@
 Celdas libres
 # El objetivo
-Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego para un jugador con todas las cartas a la vista desde el principio: casi todos los repartos se pueden ganar.
+Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey.
 # La disposición
-- Las 52 cartas están boca arriba en ocho columnas.
-- Arriba a la izquierda, cuatro celdas libres; arriba a la derecha, las cuatro bases.
+- Las 52 cartas están boca arriba en ocho columnas, bajo cuatro celdas libres y las cuatro bases.
 # Mover cartas
-- Se mueve la carta de arriba de una columna: a una columna cuya carta de arriba sea de un valor más y del otro color (roja sobre negra, negra sobre roja), a una celda libre vacía o a su base.
+- Se mueve la carta de arriba de una columna: sobre una carta de un valor más y del otro color, a una celda libre vacía o a su base.
 - Cada celda libre guarda una carta. Cualquier carta puede ir a una columna vacía.
-- Una escalera se mueve entera si hay sitio para moverla carta a carta: tantas cartas como celdas libres vacías más una, el doble por cada columna vacía (sin contar la columna de destino). Con dos celdas libres y una columna vacía: seis cartas.
+- Una escalera se mueve entera si hay sitio para moverla carta a carta: tantas cartas como celdas libres vacías más una, el doble por cada columna vacía (sin contar la columna de destino).
 - Una carta en una base se queda allí.
-- Las cartas que la mesa ya no necesita suben solas a las bases.
 # Los repartos
-Cada reparto tiene un número del 1 al 32000, junto a la cartita de tu barra. El reparto 1 es también el reparto 1 de otras versiones del juego. Todos se pueden ganar salvo el 11982.
+Los repartos van numerados del 1 al 32000, como en otras versiones del juego; todos se pueden ganar salvo el 11982.
 # El final de la partida
-Ganas cuando todas las cartas están en las bases. Si te atascas, deshaz o empieza un reparto nuevo.
+Ganas cuando todas las cartas están en las bases.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-Toca una carta para mandarla a su mejor sitio: una base, una columna, una columna vacía o una celda libre. Toca una carta en medio de una escalera para mover la escalera desde esa carta. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar una carta o una escalera y soltarla donde quieras. La lámpara muestra un movimiento útil; el número tras el del reparto cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+3 estrellas: sin pistas ni movimientos deshechos.

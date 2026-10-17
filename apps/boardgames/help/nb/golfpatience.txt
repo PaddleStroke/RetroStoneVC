@@ -1,19 +1,17 @@
 Golfkabal
 # Målet
-Tøm de sju rekkene ved å spille kortene deres over på kastebunken, én opp eller én ned. Et spill for én spiller, ikke å forveksle med kortspillet Golf.
+Tøm de sju rekkene ved å spille kortene deres over på kastebunken, én opp eller én ned.
 # Oppstillingen
 - Sju rekker med fem kort, alle med bildesiden opp.
-- Ett synlig kort på kastebunken; de andre 16 kortene er bunken, med baksiden opp, ved siden av.
+- Ett synlig kort på kastebunken; de andre 16 kortene er bunken.
 # Flytte kort
-- Bare det øverste kortet i en rekke kan flyttes. Det går over på kastebunken hvis det er én høyere eller lavere enn kastebunkens øverste kort, uansett farge: en 7 eller en 9 på en 8.
-- Den klassiske regelen: ess og konge følger ikke hverandre, så bare en dame kan gå på en konge og bare en 2 på et ess. Det andre valget, rundt hjørnet: ess og konge følger også hverandre.
+- Bare det øverste kortet i en rekke kan flyttes. Det går over på kastebunken hvis det er én høyere eller lavere enn kastebunkens øverste kort, uansett farge.
+- Den klassiske regelen: ess og konge følger ikke hverandre. Det andre valget, rundt hjørnet: ess og konge følger også hverandre.
 # Bunken
 Når ingen kort kan gå, trykker du på bunken for å snu det øverste kortet over på kastebunken. Bunken gås gjennom bare én gang.
 # Poengene
 Som i golf: jo færre, jo bedre. Tallet ved siden av kastebunken teller kortene som er igjen i rekkene. Når alle rekkene er tømt, er poengene kortene som er igjen i bunken, under null.
 # Slutten på spillet
-Du vinner når rekkene er tømt. Spillet er slutt når bunken er tom og ingen kort kan gå. Ikke alle kabaler går opp.
+Du vinner når rekkene er tømt. Spillet er slutt når bunken er tom og ingen kort kan gå.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. I kapittel 1 til 3 følger ess og konge hverandre, i kapittel 4 til 6 gjør de ikke det. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
-# Spill på enheten
-Trykk på et øverste kort for å spille det over på kastebunken, eller dra det dit. Lampen viser et godt trekk: kortet som starter den lengste rekken den kan se. Tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+I kapittel 1 til 3 følger ess og konge hverandre, i kapittel 4 til 6 gjør de ikke det. Uten hint og uten angrede trekk: 3 stjerner.

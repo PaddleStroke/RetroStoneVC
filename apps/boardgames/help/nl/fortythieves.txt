@@ -1,18 +1,15 @@
 Veertig rovers
 # Het doel
-Alle 104 kaarten van twee spellen naar de acht aflegstapels brengen, twee per kleur, oplopend van aas tot heer. Een spel voor één speler, en een moeilijk.
+Alle 104 kaarten van twee spellen naar de acht aflegstapels brengen, twee per kleur, oplopend van aas tot heer.
 # De opstelling
 - Tien kolommen van vier kaarten, allemaal open.
-- De andere 64 kaarten vormen de stapel, gedekt, linksboven; ernaast liggen de getrokken kaarten.
-- De acht aflegstapels liggen bovenaan, leeg bij het begin.
+- De andere 64 kaarten vormen de stapel.
 # Kaarten verplaatsen
 - Op een kolom leg je een kaart die één lager is en van dezelfde kleur: klaveren 6 op klaveren 7.
 - Er gaat maar één kaart tegelijk, nooit een reeks.
 - Elke kaart mag een lege kolom vullen.
 - Een kaart op een aflegstapel blijft daar.
 # De stapel
-Tik op de stapel om één kaart open te leggen; de bovenste getrokken kaart is speelbaar. De stapel gaat maar één keer rond: er wordt niet opnieuw gedeeld.
+Tik op de stapel om één kaart open te leggen; de bovenste getrokken kaart is speelbaar. De stapel gaat maar één keer rond.
 # Het einde van de partij
-Je wint als alle kaarten op de aflegstapels liggen. Zodra de stapel en de getrokken kaarten op zijn en de overige kaarten er een voor een heen kunnen, gaan ze vanzelf omhoog. Weinig spellen zijn te winnen: denk vooruit en houd je lege kolommen vrij.
-# Spelen op het apparaat
-Tik op een bovenste kaart om hem naar zijn beste plek te sturen: een aflegstapel, de volgende kaart van zijn kleur of een lege kolom. Een snelle tweede tik stuurt een kaart alleen naar een aflegstapel. Je kunt een kaart ook slepen waar je wilt. De lamp toont een nuttige zet; het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+Je wint als alle kaarten op de aflegstapels liggen. Weinig spellen zijn te winnen.

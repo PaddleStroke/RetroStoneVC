@@ -1,18 +1,15 @@
 Empat Puluh Pencuri
 # Tujuan
-Pindahkan ke-104 kartu dari dua pak ke delapan fondasi, dua untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain, dan yang sulit.
+Pindahkan ke-104 kartu dari dua pak ke delapan fondasi, dua untuk tiap jenis, dari as sampai raja.
 # Susunan
 - Sepuluh kolom berisi empat kartu, semuanya terbuka.
-- Sisa 64 kartu adalah tumpukan, tertutup, di kiri atas; di sebelahnya ada tumpukan buangan.
-- Delapan fondasi ada di atas, kosong di awal.
+- Sisa 64 kartu adalah tumpukan.
 # Memindahkan kartu
 - Di atas kolom diletakkan kartu yang satu tingkat lebih rendah dan sejenis: 6 keriting di atas 7 keriting.
 - Hanya satu kartu yang dipindahkan setiap kali, tidak pernah satu deret.
 - Kartu apa pun boleh mengisi kolom kosong.
 - Kartu di fondasi tetap di sana.
 # Tumpukan
-Ketuk tumpukan untuk membalik satu kartu ke tumpukan buangan; kartu teratas tumpukan buangan bisa dimainkan. Tumpukan hanya dilalui sekali: tidak ada pembagian ulang.
+Ketuk tumpukan untuk membalik satu kartu ke tumpukan buangan; kartu teratas tumpukan buangan bisa dimainkan. Tumpukan hanya dilalui sekali.
 # Akhir permainan
-Kamu menang saat semua kartu ada di fondasi. Begitu tumpukan dan tumpukan buangan kosong dan sisa kartu bisa naik satu per satu, kartu-kartu itu naik sendiri. Hanya sedikit pembagian yang bisa dimenangkan: rencanakan ke depan dan jaga kolom kosongmu.
-# Bermain di perangkat
-Ketuk kartu teratas untuk mengirimnya ke tempat terbaiknya: fondasi, kartu berikutnya dari jenisnya, atau kolom kosong. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Kamu menang saat semua kartu ada di fondasi. Hanya sedikit pembagian yang bisa dimenangkan.

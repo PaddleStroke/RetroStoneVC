@@ -1,19 +1,17 @@
 Golfpatience
 # Het doel
-De zeven kolommen leegmaken door hun kaarten op de getrokken kaarten te spelen, één hoger of lager. Een spel voor één speler, niet te verwarren met het kaartspel Golf.
+De zeven kolommen leegmaken door hun kaarten op de getrokken kaarten te spelen, één hoger of lager.
 # De opstelling
 - Zeven kolommen van vijf kaarten, allemaal open.
-- Eén open kaart als eerste getrokken kaart; de andere 16 kaarten vormen de stapel, gedekt, ernaast.
+- Eén open kaart als eerste getrokken kaart; de andere 16 kaarten vormen de stapel.
 # Kaarten verplaatsen
-- Alleen de bovenste kaart van een kolom mag weg. Hij gaat op de getrokken kaarten als hij één hoger of lager is dan de bovenste, welke kleur ook: een 7 of een 9 op een 8.
-- De klassieke regel: aas en heer volgen niet op elkaar, dus op een heer kan alleen een vrouw en op een aas alleen een 2. De andere keuze, de hoek om: aas en heer volgen ook op elkaar.
+- Alleen de bovenste kaart van een kolom mag weg. Hij gaat op de getrokken kaarten als hij één hoger of lager is dan de bovenste, welke kleur ook.
+- De klassieke regel: aas en heer volgen niet op elkaar. De andere keuze, de hoek om: aas en heer volgen ook op elkaar.
 # De stapel
 Kan er geen kaart meer, tik dan op de stapel om de bovenste kaart open te leggen. De stapel gaat maar één keer rond.
 # De score
 Net als bij golf: hoe minder, hoe beter. Het getal naast de getrokken kaarten telt de kaarten die nog in de kolommen liggen. Zijn alle kolommen leeg, dan is de score het aantal kaarten dat nog in de stapel zit, onder nul.
 # Het einde van de partij
-Je wint als de kolommen leeg zijn. De partij is voorbij als de stapel op is en er geen kaart meer kan. Niet elk spel is te winnen.
+Je wint als de kolommen leeg zijn. De partij is voorbij als de stapel op is en er geen kaart meer kan.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van het makkelijkste spel tot het moeilijkste, en elk is te winnen; kies er een in het levelrooster. In de hoofdstukken 1 tot 3 volgen aas en heer op elkaar, in de hoofdstukken 4 tot 6 niet. Het tabblad met de dobbelsteen, na de hoofdstukken, deelt een willekeurig nieuw spel, met de keuze die hierboven staat. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee hints en ongedaan gemaakte zetten samen: 2 sterren; anders 1.
-# Spelen op het apparaat
-Tik op een bovenste kaart om hem te spelen, of sleep hem erheen. De lamp toont een goede zet: de kaart waarmee de langste reeks begint die hij kan zien. Het getal naast je kaarten telt je zetten. Ongedaan maken neemt zetten terug, tot aan het delen.
+In de hoofdstukken 1 tot 3 volgen aas en heer op elkaar, in de hoofdstukken 4 tot 6 niet. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren.

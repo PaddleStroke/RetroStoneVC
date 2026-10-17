@@ -1,18 +1,15 @@
 Quarenta Ladrões
 # O objetivo
-Levar as 104 cartas de dois baralhos para as oito fundações, duas por naipe, do ás ao rei. Um jogo para um jogador, e dos difíceis.
+Levar as 104 cartas de dois baralhos para as oito fundações, duas por naipe, do ás ao rei.
 # A disposição
 - Dez colunas de quatro cartas, todas voltadas para cima.
-- As outras 64 cartas formam o baralho, voltadas para baixo, em cima à esquerda; ao lado, o descarte.
-- As oito fundações ficam em cima, vazias no início.
+- As outras 64 cartas formam o baralho.
 # Mover as cartas
 - Numa coluna, põe uma carta de um valor abaixo e do mesmo naipe: o 6 de paus sobre o 7 de paus.
 - Só se move uma carta de cada vez, nunca uma sequência.
 - Qualquer carta pode ocupar uma coluna vazia.
 - Uma carta numa fundação fica lá.
 # O baralho
-Toca no baralho para virar uma carta para o descarte; a carta de cima do descarte pode ser jogada. O baralho só se percorre uma vez: não há redistribuição.
+Toca no baralho para virar uma carta para o descarte; a carta de cima do descarte pode ser jogada. O baralho só se percorre uma vez.
 # O fim do jogo
-Ganhas quando todas as cartas estão nas fundações. Assim que o baralho e o descarte estão vazios e as cartas que restam podem subir uma a uma, sobem sozinhas. Poucas distribuições se podem ganhar: pensa com antecedência e guarda as colunas vazias.
-# Jogar no dispositivo
-Toca numa carta de cima para a mandar para o melhor lugar: uma fundação, a carta seguinte do seu naipe ou uma coluna vazia. Um segundo toque rápido manda a carta só para uma fundação. Também podes arrastar uma carta para onde quiseres. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Ganhas quando todas as cartas estão nas fundações. Poucas distribuições se podem ganhar.

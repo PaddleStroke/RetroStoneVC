@@ -1,22 +1,19 @@
 Pasjans
 # Cel gry
-Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla. Gra dla jednej osoby, zwana też Klondike.
+Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla.
 # Rozłożenie
 - Siedem kolumn po 1 do 7 kart; odkryta jest tylko wierzchnia karta każdej kolumny.
-- Pozostałe 24 karty to talia, zakryta, w lewym górnym rogu; obok leży stos odrzuconych.
-- Cztery stosy docelowe są w prawym górnym rogu, na początku puste.
+- Pozostałe 24 karty to talia.
 # Przekładanie kart
-- Na kolumnę kładzie się kartę o jeden niższą i w drugim kolorze, czerwoną na czarną albo czarną na czerwoną: czerwoną 6 na czarną 7.
+- Na kolumnę kładzie się kartę o jeden niższą i w drugim kolorze: czerwoną 6 na czarną 7.
 - Odkryte karty, które następują po sobie, przesuwają się razem.
 - Tylko król albo ciąg zaczynający się od króla może zająć pustą kolumnę.
 - Gdy na wierzchu kolumny zostaje zakryta karta, odwraca się.
 - Kartę ze stosu docelowego można przełożyć z powrotem na kolumnę.
 # Talia
 - Dobieranie po jednej: dotknij talii, by odkryć kartę na stos odrzuconych. Dobieranie po trzy: trzy naraz, a zagrać można tylko wierzchnią.
-- Gdy talia się skończy, dotknij jej miejsca, by odwrócić stos odrzuconych, tyle razy, ile chcesz.
+- Odwracaj stos odrzuconych tyle razy, ile chcesz.
 # Koniec gry
-Wygrywasz, gdy wszystkie karty leżą na stosach docelowych. Gdy talia i stos odrzuconych są puste, a wszystkie karty odkryte, karty same wędrują na stosy. Jeśli utkniesz, zacznij nowe rozdanie.
+Wygrywasz, gdy wszystkie karty leżą na stosach docelowych.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od najłatwiejszego rozdania do najtrudniejszego, każdy możliwy do wygrania; wybierz poziom na siatce poziomów. W rozdziałach od 1 do 4 dobiera się po jednej karcie, w rozdziałach 5 i 6 po trzy. Zakładka z kostką za rozdziałami rozdaje nową grę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie podpowiedzi i cofnięte ruchy razem: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Dotknij karty, by wysłać ją na najlepsze miejsce: na stos docelowy, jeśli tam pasuje, a jeśli nie, na kolumnę. Szybkie drugie dotknięcie wysyła kartę tylko na stos docelowy. Kartę lub ciąg możesz też przeciągnąć i upuścić, gdzie chcesz. Lampa pokazuje przydatny ruch; liczba obok twoich kart liczy twoje ruchy. Cofnij cofa ruchy, aż do rozdania.
+3 gwiazdki: bez podpowiedzi i bez cofniętego ruchu.
