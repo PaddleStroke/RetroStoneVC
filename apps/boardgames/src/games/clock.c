@@ -15,6 +15,7 @@
 #include "cards_table.h"
 #include "games/clock.h"
 #include "games/solitaire_ui.h"
+#include "pages.h"
 #include "shell.h"
 
 #define HAND_MS 420
@@ -137,7 +138,7 @@ static void draw(void)
         float t = fminf(fabsf(ux) > 0.01f ? 0.5f * w / fabsf(ux) : 1e9f,
                         fabsf(uy) > 0.01f ? 0.5f * h / fabsf(uy) : 1e9f);
         t += 0.32f * w + (k >= 10 ? 0.12f * w * fabsf(ux) : 0);
-        ui_number(s->x + t * ux, s->y + t * uy, 0.4f * w, k, 1);
+        ui_number(s->x + t * ux, s->y + t * uy, 0.4f * w, k, TH.dark);   /* cream; ink on the light table */
     }
     if (!U.won) draw_hand();
     if (!over && !U.won && !solui_busy(&U)) ui_mark_gold(U.at[CK_DOWN + r - 1].x, U.at[CK_DOWN + r - 1].y, 1.5f * w);
