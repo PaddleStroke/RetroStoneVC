@@ -1,12 +1,15 @@
 /*
- * Bridges' levels, made by chance and chosen: src/games/hashi_levels.h. Our own puzzles, from the game's own maker
- * (islands set down one from another along the grid's lines, joined as they come, then bridges changed where the
+ * Bridges' levels, made by chance and chosen for their look: src/games/hashi_levels.h. Our own puzzles, from the
+ * game's own maker (islands set down one from another along the grid's lines, joined as they come, then bridges changed where the
  * reasoning is stuck until the solver finishes it at its level and not below). Each candidate:
  *   - its grade (bench.h: counting; keeping the islands in one group; a bridge tried and followed to a
  *     contradiction), the solver's passes (its work), its islands and bridges;
+ *   - its look (taste): islands spread over the four quarters, the board used to its outer lines, none cramped side
+ *     by side, islands answering each other across the centre (the half turn hand-set puzzles like);
  *   - near-duplicates dropped (the same islands turned or mirrored).
  * Each chapter has its makes (5 x 5 counting up to 16 x 16 needing trials); a make's candidates are ranked by
- * difficulty and picked evenly over them. Then each chapter goes from its easiest to its hardest.
+ * difficulty and cut in as many slices as picks; each pick takes the best-looking of its slice.
+ * Then each chapter goes from its easiest to its hardest.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/hshgen apps/boardgames/tools/hashi_gen.c \
  *       apps/boardgames/src/games/hashi_rules.c && /tmp/hshgen > apps/boardgames/src/games/hashi_levels.h
@@ -18,14 +21,14 @@
 
 #include "games/hashi.h"
 
-#define CANDS 40                                /* candidates made for each make */
+#define CANDS 300                               /* candidates made for each make */
 #define KEY (HSH_CELLS + 8)
 
 typedef struct {
     hsh_puzzle p;
     int grade, bridges;
     long passes;
-    double score;
+    double score, taste;
     char key[KEY], code[KEY];
 } cand;
 
@@ -69,6 +72,31 @@ static cand pool[CANDS];
 static cand chosen[HSH_NLEVELS];
 static int nchosen;
 
+/* the look of the islands, lower the better: spread over the four quarters, the board used to its edges (no empty
+ * outer line), not cramped (islands side by side), and islands answering each other across the centre (the half
+ * turn hand-set puzzles like) */
+static double taste(const hsh_puzzle *p)
+{
+    int n = p->n, sym = 0, tight = 0, rows[HSH_MAX] = {0}, cols[HSH_MAX] = {0};
+    double q[4] = {0, 0, 0, 0};
+    for (int i = 0; i < p->nisl; i++) {
+        int x = p->ix[i], y = p->iy[i];
+        rows[y]++, cols[x]++;
+        for (int k = 0; k < 4; k++) {
+            double wx = n % 2 && x == n / 2 ? 0.5 : (k & 1) == (x >= n / 2);
+            double wy = n % 2 && y == n / 2 ? 0.5 : (k >> 1) == (y >= n / 2);
+            q[k] += wx * wy;
+        }
+        sym += p->at[(n - 1 - y) * n + n - 1 - x] >= 0;
+        tight += x + 1 < n && p->at[y * n + x + 1] >= 0;
+        tight += y + 1 < n && p->at[(y + 1) * n + x] >= 0;
+    }
+    double t = p->nisl, bal = 0;
+    for (int k = 0; k < 4; k++) bal += q[k] > t / 4 ? q[k] - t / 4 : t / 4 - q[k];
+    int bare = !rows[0] + !rows[n - 1] + !cols[0] + !cols[n - 1];
+    return t ? 3.0 * bal / t + 0.7 * bare + 0.4 * tight - 1.2 * sym / t : 99;
+}
+
 static int seen(const char *key)
 {
     for (int i = 0; i < nchosen; i++)
@@ -99,6 +127,7 @@ int main(void)
                 if (!hsh_decode(&g, c.code) || memcmp(g.p.sol, c.p.sol, (size_t)c.p.nlink)) continue;
                 for (int l = 0; l < c.p.nlink; l++) c.bridges += c.p.sol[l];
                 c.score = c.grade * 1000.0 + c.passes * 4.0 + c.p.nisl;
+                c.taste = taste(&c.p);
                 pool[np++] = c;
             }
             if (np < mk->count) {
@@ -106,7 +135,12 @@ int main(void)
                 return 1;
             }
             qsort(pool, (size_t)np, sizeof pool[0], by_score);
-            for (int i = 0; i < mk->count; i++) chosen[nchosen++] = pool[i * (np - 1) / (mk->count - 1)];
+            for (int i = 0; i < mk->count; i++) {   /* the best-looking of the pick's own slice of the work */
+                int a = i * np / mk->count, b = (i + 1) * np / mk->count, at = a;
+                for (int j = a + 1; j < b; j++)
+                    if (pool[j].taste < pool[at].taste) at = j;
+                chosen[nchosen++] = pool[at];
+            }
         }
         for (int i = first; i < nchosen; i++)  /* the chapter from its easiest: grade, work, size */
             chosen[i].score = chosen[i].grade * 1000.0 + chosen[i].passes * 4.0 + chosen[i].p.n * 10.0;
