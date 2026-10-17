@@ -11,3 +11,5 @@ draw.pool_px        scratch of the course's tiles: the pixels of the last rebuil
 draw.pool_hash      scratch: their hash table
 draw.pool_n         scratch: their count
 draw.deep_tiles     the deep soil's tiles: made once by draw_init (deep_make), the same in every run
+draw.hud_lines      a tall screen's HUD band (rs_bg_pin): set again by draw_frame before each picture (a setting)
+draw.sky_top        the sky gradient's top colour: a cache made with line_col by sky_gradient (made again after a load)

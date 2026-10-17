@@ -131,15 +131,31 @@ so a run is the same run. A state saved at one width loads at another (draw_stat
 draws the course's tiles again). `make geckogolf-check` runs the tests at 320, 427 and 520.
 
 ## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
-display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
-(`rs_screen_origin_v`: two thirds of the extra lines above it). Above (draw.c `raster_out`): the sky carried on from
-its top colour, deeper toward the screen's top; the course, the hills and the UI are hidden there (window 1), and a
-ball keeps flying into it (the sprites are culled at the screen's top, the "above" arrow at its first lines). Below:
-the course's deep soil, its map 64 rows tall on a tall screen (`map_h`, `map_rows`: the rows past the stage's 30 drawn
-by `course_build` like the others, a stratum every 7 rows), the hills and the UI hidden. Line 0 puts the stage's masks
-back, so a 240-line screen is unchanged; a state of another height sets the maps up again (`draw_state_loaded`). The
-slingshot's ring is drawn at the finger's stage y (touches are screen pixels).
+A phone held upright: the zoomed screen, `rs_screen_zoom(ZOOM_H)` first in `game_init` (game.h: 480 lines), filling
+the display's height with the sides cropped: 222 columns shown at 1080x2340, 205 at 1080x2520, 240 at 720x1440 (the
+course 4.9x on a 1080x2340 phone). The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: TALL_BELOW = 80 lines of deep soil under it, 160 of sky above it).
+- **The camera** (draw.c `cam_update`): a hole spans the stage's 320 columns, so while the course is played the display
+  pans along it (`rs_screen_focus_x`, gliding, saved in states: `cam_q`). Aiming: the ball with its gecko and the flag
+  when both fit, else the ball and its gecko at the display's edge on the flag's side, the flag shown by a marker (half
+  a flag, bobbing, at the display's edge at the cup's height: `flag_marker`). At each new hole the camera looks at the
+  new flag (the pan between holes, a player's first frames at the tee) and glides back to the ball, so the distance is
+  seen. A ball in flight is followed (a little ahead of it, never closer than 24 px to the display's edges); the
+  hills (1/4) and the clouds (1/8) pan with parallax, the sun, the moon and the stars stay put on the display.
+- **The HUD at the screen's top** (one row of chips for 1-2 players, two rows for 3-4, in the columns shown: the
+  score, the P1..P4 tag on its outer side, the pips under it; `tall_chip`), and BG1's top 128 lines pinned there
+  (`rs_bg_pin`: HOLE N, the messages; a big message too wide for the columns is cut in two lines, `split_mid`, as is
+  the first hole's hint), BG1 scrolled so its texts centre on the display.
+- **The title and the game-over panels** show every column (`rs_screen_fill(0)`): the sun up in the sky there.
+- **Above the stage** (draw.c `raster_out`): the sky carried on from its top colour, deeper toward the screen's top
+  (an ordered dither between the RGB555 steps: no stripes), two rows of clouds every 32 lines up to the HUD (stars at
+  night); the course, the hills and the UI (but the pinned HUD) hidden there (window 1), and a ball keeps flying into
+  it (the sprites are culled at the screen's top, the "above" arrow at its first lines). **Below**: the course's deep
+  soil, its map 64 rows tall on a tall screen (`map_h`, `map_rows`: the rows past the stage's 30 drawn by
+  `course_build` like the others, strata 5 to 8 rows apart, their waves shifted), the hills and the UI hidden.
+- Line 0 puts the stage's masks back, so a 240-line screen is unchanged (landscape and 4:3: the same pixels); a state
+  of another height sets the maps up again (`draw_state_loaded`). The slingshot's ring is drawn at the finger's stage
+  y (touches are screen pixels; the pull's length is in screen pixels, as before).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the gecko bobbing, the first hole behind, the player slots, PRESS A TO SWING with the A glyph, BEST,

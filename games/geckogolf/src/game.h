@@ -105,6 +105,11 @@
 #define BOT_START       20      /* frames on the title before the bot starts the run */
 #define BOT_THINK       24      /* frames the bot "looks" before it aims */
 
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom) filling the display's
+ * height, its sides cropped; the stage low, TALL_BELOW lines of soil under it; the camera pans along the hole (draw.c) */
+#define ZOOM_H          480
+#define TALL_BELOW      80
+
 /* touch (player 1): the slingshot */
 #define TOUCH_DEAD      10      /* px: a shorter pull is no shot (let go: nothing happens) */
 #define TOUCH_FULL      110     /* px: this long a pull is full power */

@@ -84,6 +84,7 @@ static uint32_t drawn_rev;
 static int drawn_width;
 static int fx_t = 99, fx_x, fx_y;           /* the sand puff */
 static int sky_key = -1;
+static int sky_top[3];                      /* the gradient's top colour (RGB8): a cache made with line_col (sky_gradient) */
 /* scratch (state_audit.txt): the tiles of the last rebuild, to share the same ones */
 static uint8_t pool_px[POOL_MAX][64];
 static int16_t pool_hash[HASH_N];
@@ -91,22 +92,40 @@ static int pool_n;
 
 static rs_color hexc(uint32_t h) { return RS_HEX(h); }
 
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen's camera, the display's centre column (1/16 px),
+ * gliding along the hole (cam_update); the HUD's band of BG1 at the screen's top while the course is played (rs_bg_pin:
+ * HUD_LINES, 0 otherwise; set again before each picture, not saved) */
+#define HUD_LINES 128
+static int cam_q = (RS_SCREEN_W / 2) << 4;
+static int hud_lines;
+
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+
 /* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: the sky carried on, deeper toward
  * the screen's top (the course, the hills and the UI hidden there: window 1 over the whole width; a ball flies on into
- * it); below: the course's deep soil, its map rows past the stage's 30 (maps_setup, course_build), the hills and the
- * UI hidden. Line 0 puts the stage's masks back, so a 240-line screen is unchanged. */
+ * it), the HUD's band of BG1 at the screen's top (rs_bg_pin); below: the course's deep soil, its map rows past the
+ * stage's 30 (maps_setup, course_build), the hills and the UI hidden. Line 0 puts the stage's masks back, so a 240-line
+ * screen is unchanged. */
 static void raster_out(int line)
 {
     int top = rs_screen_top();
     if (line == top || line == RS_SCREEN_H) {
         rs_window(0, rs_screen_left(), rs_screen_right());
-        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_bg_window(RS_BG1, line == top && hud_lines ? 0 : RS_WIN1);
         rs_bg_window(RS_BG2, line < 0 ? RS_WIN1 : 0);
         rs_bg_window(RS_BG3, RS_WIN1);
     }
+    if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);     /* past the HUD's band */
     if (line < 0) {
         int k = top < 0 ? -line * 72 / -top : 0;            /* 0 at the stage's top .. 72 at the screen's */
-        rs_pal_set(0, hu_scale_color(line_col[(line & 4) ? 4 : 0], 256 - k));
+        /* (the top colour darkened, an ordered dither between the RGB555 steps: no stripes) */
+        static const uint8_t DITH[4] = {0, 4, 2, 6};
+        int c[3];
+        for (int i = 0; i < 3; i++) {
+            c[i] = sky_top[i] * (256 - k) / 256 + DITH[line & 3];
+            if (c[i] > 255) c[i] = 255;
+        }
+        rs_pal_set(0, RS_RGB8(c[0], c[1], c[2]));
     }
 }
 
@@ -126,6 +145,7 @@ static void sky_gradient(uint32_t top, uint32_t hor)
 {
     int a[3] = {(int)(top >> 16) & 255, (int)(top >> 8) & 255, (int)top & 255};
     int b[3] = {(int)(hor >> 16) & 255, (int)(hor >> 8) & 255, (int)hor & 255};
+    for (int i = 0; i < 3; i++) sky_top[i] = a[i];
     for (int y = 0; y < RS_SCREEN_H; y++) {
         int k = y < 200 ? y * 256 / 200 : 256, c[3];
         for (int i = 0; i < 3; i++) {
@@ -205,7 +225,9 @@ static void deep_make(void)
 /* the deep tile at tile column tx, row ty: a stratum on rows 16 and 23 (clear of the title's and the hint's text rows), else specks with now and then a pebble */
 static int deep_tile(int32_t tx, int ty)
 {
-    if (ty == 16 || ty == 23 || (ty >= 30 && ty % 7 == 2)) return N_PLAIN + N_PEBBLE + (int)(tx & 3);   /* (30+: tall) */
+    if (ty == 16 || ty == 23) return N_PLAIN + N_PEBBLE + (int)(tx & 3);
+    /* (a tall screen's rows past the stage: strata 5 to 8 rows apart, each wave shifted: no regular stripes) */
+    if (ty == 31 || ty == 37 || ty == 45 || ty == 50 || ty == 58) return N_PLAIN + N_PEBBLE + (int)((tx + ty) & 3);
     uint32_t h = (uint32_t)tx * 0x9e3779b1u + (uint32_t)ty * 0x85ebca77u;
     h ^= h >> 15;
     h *= 0x2c1b3c6du;
@@ -426,9 +448,11 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more course on both sides */
-    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (more sky for the flights), a
-     * third below (the deep soil) */
-    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
+    /* a tall screen (portrait): the stage low, TALL_BELOW lines of deep soil under it, the sky above (the flights) */
+    {
+        int above = rs_screen_height() - RS_SCREEN_H - TALL_BELOW;
+        rs_screen_origin_v(above < 0 ? 0 : above);
+    }
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -515,23 +539,104 @@ static void sky_sprites(const world *w, const blend *bl)
 {
     int bio = bl->k < 128 ? bl->a : bl->b;
     int L = rs_screen_left(), span = rs_screen_width() + 96;
+    /* a zoomed screen (DESIGN.md "Tall screen"): the camera's pan from the middle; the sun, the moon and the stars stay
+     * put on the display (far away), the clouds drift by at 1/8; the sky above the stage gets its own clouds and stars */
+    int pan = (cam_q >> 4) - RS_SCREEN_W / 2, top = rs_screen_top();
+    int zoom = tall() && rs_screen_visible_x1() - rs_screen_visible_x0() < rs_screen_width();
+    int sun_y = w->players >= 3 ? 150 : 118;                    /* (zoomed: under the HUD and the messages) */
     if (bio == BI_NIGHT) {
         for (int i = 0; i < 18; i++) {
             uint32_t h = (uint32_t)i * 2654435761u;
             int x = L + (int)(h % (uint32_t)rs_screen_width()), y = 6 + (int)((h >> 12) % 92u);
-            spr(SPR_STAR + (((w->t >> 4) + i * 3) % 7 == 0), x, y, 0, -1);
+            spr(SPR_STAR + (((w->t >> 4) + i * 3) % 7 == 0), x + pan, y, 0, -1);
         }
-        spr(SPR_MOON, 236, 18, 0, -1);
+        for (int i = 0; tall() && i < 16; i++) {                /* (a tall screen: the stars above the stage) */
+            uint32_t h = (uint32_t)(i + 40) * 2654435761u;
+            int x = L + (int)(h % (uint32_t)rs_screen_width()), y = top + 8 + (int)((h >> 12) % (uint32_t)(-top));
+            spr(SPR_STAR + (((w->t >> 4) + i * 5) % 7 == 0), x + pan, y, 0, -1);
+        }
+        if (zoom) spr(SPR_MOON, rs_screen_visible_x1() - 48, top + sun_y, 0, -1);
+        else spr(SPR_MOON, 236, 18, 0, -1);
+    } else if (zoom) {
+        spr(SPR_SUN, rs_screen_visible_x1() - 52, top + sun_y + (bio == BI_DUNES ? 14 : 0), 0, -1);
     } else {
-        spr(SPR_SUN, bio == BI_DUNES ? 222 : 240, bio == BI_DUNES ? 30 : 16, 0, -1);
+        if (tall()) spr(SPR_SUN, 244, top + 48, 0, -1);  /* (a tall screen, every column: up in the sky) */
+        else spr(SPR_SUN, bio == BI_DUNES ? 222 : 240, bio == BI_DUNES ? 30 : 16, 0, -1);
     }
     static const int16_t CX[6] = {0, 150, 290, 420, 560, 700}, CY[6] = {20, 46, 14, 58, 30, 40};
     int n = bio == BI_DUNES ? 3 : 6;
     for (int i = 0; i < n; i++) {
         int x = (int)((CX[i] - w->view_cam / 8 - w->t / 24) % span);
         if (x < 0) x += span;
-        spr(i % 2 ? SPR_CLOUD_SMALL : SPR_CLOUD_BIG, L - 48 + x, CY[i], 0, -1);
+        spr(i % 2 ? SPR_CLOUD_SMALL : SPR_CLOUD_BIG, L - 48 + x + pan * 7 / 8, CY[i], 0, -1);
     }
+    /* (a tall screen: more clouds up to the screen's top (zoomed: up to the HUD), slower, two to a row of 32 lines) */
+    static const int16_t TX[6] = {70, 230, 380, 520, 640, 300}, TY[6] = {-26, -58, -90, -122, -154, -186};
+    for (int i = 0; tall() && i < 12; i++) {
+        int r = i % 6;
+        if (TY[r] < top + (zoom ? 76 : 8) || (bio == BI_DUNES && i >= 6)) continue;
+        int x = (int)((TX[r] + (i >= 6 ? span / 2 + 37 * r : 0) - w->view_cam / 12 - w->t / 32) % span);
+        if (x < 0) x += span;
+        spr((i + r) % 2 ? SPR_CLOUD_BIG : SPR_CLOUD_SMALL, L - 48 + x + pan * 11 / 12, TY[r] + (i >= 6 ? 6 : 0), 0, -1);
+    }
+}
+
+/* ---- a zoomed screen's camera (DESIGN.md "Tall screen") ---------------------------------------------------------------- */
+/* the display's centre that shows the ball with its gecko and the flag (bx, cx: their stage x) in vis columns, or, when
+ * they do not fit, the ball with its gecko at the edge on the flag's side (the flag then shown by a marker) */
+static int cam_frame(int bx, int cx, int vis)
+{
+    int lo = bx - 34, hi = bx + 34;
+    if (cx - 8 < lo) lo = cx - 8;
+    if (cx + 20 > hi) hi = cx + 20;
+    if (hi - lo <= vis) return (lo + hi) / 2;
+    return cx > bx ? bx - 34 + vis / 2 : bx + 34 - vis / 2;
+}
+
+/* each picture while the course is played on a zoomed screen: aim the camera, glide to it, set the display's focus. At a
+ * new hole the camera looks at the flag first (the pan between holes, a player's first frames at the tee) and glides
+ * back to the ball; the ball in flight is followed (a little ahead of it). Off: the middle. */
+static void cam_update(const world *w, int zoom)
+{
+    int vis = rs_screen_visible_x1() - rs_screen_visible_x0();
+    if (!zoom) {
+        cam_q = (RS_SCREEN_W / 2) << 4;
+        return;
+    }
+    const hole_rec *h = world_hole(w, w->hole);
+    const golfer *g = &w->g[w->turn];
+    int ox = (int)(w->hole_cam - w->view_cam), cx = (int)(h->cup_x - w->view_cam), cup_end = (int)(h->cup_x - w->hole_cam);
+    int at_spot = w->phase == PH_SPLASH || (w->phase == PH_FLIGHT && g->b.state == BS_OFF);
+    int bx = (int)((at_spot ? g->b.lx : g->b.x) >> 16) + ox, tx = cam_frame(bx, cx, vis);
+    if (w->phase == PH_PAN || (w->phase == PH_AIM && !g->hole_strokes && w->phase_t < 30))
+        tx = cup_end + 32 - vis / 2;                    /* the new hole's flag, near the display's right edge */
+    else if (w->phase == PH_FLIGHT && g->b.state == BS_FLY) {
+        int lo = bx - 34 < cx - 8 ? bx - 34 : cx - 8, hi = bx + 34 > cx + 20 ? bx + 34 : cx + 20;
+        if (hi - lo > vis) tx = bx + (int)((g->b.vx * 10) >> 16);     /* the flag far: the ball, a little ahead */
+    }
+    if (tx < vis / 2) tx = vis / 2;
+    if (tx > rs_screen_width() - vis / 2) tx = rs_screen_width() - vis / 2;
+    int d = (tx << 4) - cam_q, step = d / 8;
+    if (!step && d) step = d > 0 ? 1 : -1;
+    cam_q += step;
+    /* the ball never leaves the display: kept 24 px inside its edges */
+    if (w->phase == PH_FLIGHT || w->phase == PH_SETTLE) {
+        int lim = (vis / 2 - 24) << 4, b = bx << 4;
+        if (b - cam_q > lim) cam_q = b - lim;
+        if (cam_q - b > lim) cam_q = b + lim;
+    }
+    rs_screen_focus_x(cam_q >> 4);
+}
+
+/* the flag off the display (a zoomed screen): its marker at the display's edge, at the cup's height, half shown */
+static void flag_marker(const world *w)
+{
+    const hole_rec *h = world_hole(w, w->hole);
+    int cx = (int)(h->cup_x - w->view_cam), x0 = rs_screen_visible_x0(), x1 = rs_screen_visible_x1(), y = h->cup_y - 31;
+    if (w->phase == PH_PAN || (cx + 14 > x0 && cx < x1)) return;
+    int bob = hu_bob(w->t, 48, 2), f = SPR_FLAG + ((w->t / 16) & 1);
+    if (cx >= x1) spr(f, x1 - 9 + bob, y, 2, -1);
+    else spr_f(f, x0 - 10 - bob, y, 2, -1, RS_SPR_HFLIP);
 }
 
 /* ---- the course's things ---------------------------------------------------------------------------------------------- */
@@ -675,9 +780,22 @@ static void standing(const world *w, hu_standing *s)
 /* the pips' row: player p's strokes left, under (or over) its score */
 static int pips_cap(const world *w) { return w->players == 1 ? 20 : 10; }
 
-static void pips(const world *w, int p)
+/* a zoomed screen (DESIGN.md "Tall screen"): the HUD at the screen's top, in the columns shown (vc their middle, vis
+ * their count): 1 player centred; 2 side by side; 3-4 two rows of two; each chip its digits, the P1..P4 tag on their
+ * left (2-4 players), the pips under them */
+static hu_chip tall_chip(int players, int p, int vc, int vis)
 {
-    hu_chip c = hu_score_chip(w->players, p, 0);
+    hu_chip c = {vc, rs_screen_top() + 10, 0, 0, -1};
+    if (players >= 2) {
+        c.x = vc + ((p & 1) ? vis / 4 : -vis / 4);
+        c.y += (p / 2) * 32;
+    }
+    return c;
+}
+
+static void pips(const world *w, int p, const hu_chip *tc)
+{
+    hu_chip c = tc ? *tc : hu_score_chip(w->players, p, 0);
     int n = w->g[p].strokes, cap = pips_cap(w), per = 10;
     if (n > cap) n = cap;
     int y = c.y >= 200 ? c.y - 12 : c.y + 18;
@@ -713,9 +831,27 @@ static int msg_on(const world *w)
     return w->msg_t < (w->msg == MSG_BIOME ? BIOME_FRAMES : MSG_FRAMES);
 }
 
-/* the BG screens; PLAY and DEAD are the same screen; in play, the texts are drawn again when one changes */
+/* a text cut in two lines at the space nearest its middle, one after a comma or a semicolon preferred (a zoomed screen's
+ * narrow columns): 1 if cut */
+static int split_mid(const char *s, char *a, char *b, int size)
+{
+    int n = (int)strlen(s), best = -1, best_d = 0;
+    for (int i = 1; i < n - 1; i++) {
+        if (s[i] != ' ') continue;
+        int d = (i > n / 2 ? i - n / 2 : n / 2 - i) - ((s[i - 1] == ',' || s[i - 1] == ';') ? n / 4 : 0);
+        if (best < 0 || d < best_d) best = i, best_d = d;
+    }
+    if (best < 0 || best >= size || n - best >= size) return 0;
+    memcpy(a, s, (size_t)best);
+    a[best] = 0;
+    memcpy(b, s + best + 1, (size_t)(n - best));
+    return 1;
+}
+
+/* the BG screens; PLAY and DEAD are the same screen; in play, the texts are drawn again when one changes; cols: the
+ * columns of text shown (40; fewer on a zoomed screen) */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs,
-                        const touch_view *tv)
+                        const touch_view *tv, int cols)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state;
     int ui = 0;
@@ -723,29 +859,42 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         int hint = w->players == 1 && w->shots == 0 && w->hole == 0;
         ui = 1 + (msg_on(w) ? w->msg * 64 + w->msg_n * 2 + 1024 * (w->msg_p + 1) : 0) + hint * 8192 * (1 + (tv && tv->seen))
              + (w->hole & 0x7fff) * 65536;      /* 15 bits: no int overflow from hole 32768 */
+        if (cols < 40) ui ^= 1 << 30;           /* (a zoomed screen's layout: another screen) */
     }
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || ui != shown_ui) {
         hu_clear();
         if (state == ST_TITLE) hu_logo("GECKO GOLF", title_ramps, 2, 2, 0);
         if (screen == ST_PLAY) {
             char s[64];
-            if (w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
+            if (w->players >= 3 && cols >= 40) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
             if (w->players >= 2) {
                 rs_strf(s, sizeof s, TR(HOLE_N), w->hole + 1);
                 hu_text(hu_center(s, 0), 1, s);
             }
+            /* (a zoomed screen: the texts fit the columns shown, cols; the message under the 3-4 players' HUD) */
+            int mr = cols < 40 && w->players >= 3 ? 10 : 6, sub = mr + 3;
             if (msg_on(w)) {
                 const char *m = msg_text(w->msg, w->msg_n);
-                if (hu_width(m, 1) <= 38) hu_big(hu_center(m, 1), 6, m, HU_BIG_FREE);
-                else hu_text(hu_center(m, 0), 7, m);
+                char a[64], b[64];
+                if (hu_width(m, 1) <= (cols < 40 ? cols - 2 : 38)) hu_big(hu_center(m, 1), mr, m, HU_BIG_FREE);
+                else if (cols < 40 && split_mid(m, a, b, sizeof a) && hu_width(a, 1) <= cols - 2 &&
+                         hu_width(b, 1) <= cols - 2) {
+                    hu_big(hu_center(a, 1), mr, a, HU_BIG_FREE);
+                    hu_big(hu_center(b, 1), mr + 3, b, HU_BIG_FREE);
+                    sub = mr + 6;
+                } else hu_text(hu_center(m, 0), mr + 1, m);
                 s[0] = 0;
                 if ((w->msg == MSG_ACE || w->msg == MSG_TWO) && w->msg_n) rs_strf(s, sizeof s, TRN(STROKES_BACK, w->msg_n), w->msg_n);
                 if (w->msg == MSG_WATER || w->msg == MSG_OB) rs_strf(s, sizeof s, "%s", TR(PENALTY));
-                if (s[0]) hu_text(hu_center(s, 0), 9, s);
+                if (s[0]) hu_text(hu_center(s, 0), sub, s);
             }
             if (w->players == 1 && w->shots == 0 && w->hole == 0) {
                 const char *h = tv && tv->seen ? TR(HINT_TOUCH) : TR(HINT);
-                hu_text(hu_center(h, 0), 28, h);
+                char a[64], b[64];
+                if (cols < 40 && hu_width(h, 0) > cols - 2 && split_mid(h, a, b, sizeof a)) {
+                    hu_text(hu_center(a, 0), 27, a);
+                    hu_text(hu_center(b, 0), 28, b);
+                } else hu_text(hu_center(h, 0), 28, h);
             }
         }
         if (state == ST_OVER) {
@@ -780,12 +929,21 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     biome_blend(w, &bl);
     palettes(w, &bl);
     if (w->view_cam != drawn_cam || w->tr.rev != drawn_rev || rs_screen_width() != drawn_width) course_build(w);
-    int pm = map_w() * 8 - 1;
+    /* a tall screen (DESIGN.md "Tall screen"): the course played zoomed, the camera panning along the hole, the HUD at
+     * the screen's top in the columns shown; the title and the game-over panels show every column */
+    int zoom = tall() && (state == ST_PLAY || state == ST_DEAD);
+    if (tall()) rs_screen_fill(zoom);
+    cam_update(w, zoom);
+    int vx0 = rs_screen_visible_x0(), vis = rs_screen_visible_x1() - vx0, vc = vx0 + vis / 2;
+    zoom = zoom && vis < rs_screen_width();     /* (a display that shows every column: the stage's layout) */
+    hud_lines = zoom ? HUD_LINES : 0;
+    if (tall()) rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    int pm = map_w() * 8 - 1, pan = (cam_q >> 4) - RS_SCREEN_W / 2;
     rs_bg_scroll(RS_BG2, (int)(w->view_cam & pm), 0);
-    rs_bg_scroll(RS_BG3, (int)((w->view_cam / 4) & pm), 0);
-    screen_text(w, state, st_t, best, new_best, &rs, tv);
+    rs_bg_scroll(RS_BG3, (int)((w->view_cam / 4 - pan * 3 / 4) & pm), 0);     /* (the pan: the hills at 1/4) */
+    screen_text(w, state, st_t, best, new_best, &rs, tv, zoom ? vis / 8 : 40);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    rs_bg_scroll(RS_BG1, 0, -slide);
+    rs_bg_scroll(RS_BG1, zoom ? (RS_SCREEN_W / 2 - vc) & pm : 0, -slide);     /* (zoomed: centred on the display) */
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -794,8 +952,17 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (state == ST_PLAY || state == ST_DEAD) {
         int score[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) score[p] = w->g[p].holes;
-        hu_score_chips(w->players, score, 0);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
-        for (int p = 0; p < w->players; p++) if (!w->g[p].out) pips(w, p);
+        if (zoom) {
+            for (int p = 0; p < w->players; p++) {
+                hu_chip c = tall_chip(w->players, p, vc, vis);
+                hu_number_at(score[p], c.x, c.y, 0, 3);
+                if (w->players >= 2) spr(SPR_TAG + p, (p & 1) ? c.x + 15 : c.x - 31, c.y + 4, 3, player_pal(p));
+                if (!w->g[p].out) pips(w, p, &c);
+            }
+        } else {
+            hu_score_chips(w->players, score, 0);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
+            for (int p = 0; p < w->players; p++) if (!w->g[p].out) pips(w, p, NULL);
+        }
         if (w->msg == MSG_ACE && msg_on(w))
             for (int i = 0; i < 4; i++) {
                 int a = (w->msg_t * 6 + i * 180) % 720;
@@ -852,6 +1019,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         spr(SPR_FLAG + ((w->t / 16) & 1), cx - 1, h->cup_y - 31, 2, -1);
         spr(SPR_STAKE, ox - 4 + OB_LEFT - 2, terrain_y(&w->tr, w->hole_cam) - 15, 2, -1);
         spr(SPR_STAKE, ox + OB_RIGHT - 4 + 2, terrain_y(&w->tr, w->hole_cam + RS_SCREEN_W - 1) - 15, 2, -1);
+        if (zoom) flag_marker(w);                       /* (a zoomed screen: the flag off the display) */
     }
     decor(w);
     sky_sprites(w, &bl);
@@ -871,7 +1039,7 @@ void draw_state_loaded(void)
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(line_col); S(shown_state); S(shown_best); S(shown_ui); S(fx_t); S(fx_x); S(fx_y);
+    S(line_col); S(shown_state); S(shown_best); S(shown_ui); S(fx_t); S(fx_x); S(fx_y); S(cam_q);
     RS_STATE_RASTER(raster);
 }
 #undef S
