@@ -16,6 +16,7 @@
 #include "cards_table.h"
 #include "games/hearts.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 #define LIFT 0.16f                              /* the cards just received stand this much higher (card widths) */
@@ -272,7 +273,7 @@ static void draw(void)
         if (!p->taken[q] || ph == HP_ROUND || ph == HP_OVER) continue;
         float x, y;
         ct_seat_spot(&T, q, 0, &x, &y);
-        ui_number(x, y, 0.5f * T.tok, p->taken[q], 1);
+        ui_number(x, y, 0.5f * T.tok, p->taken[q], TH.dark);   /* ink on the light table */
     }
     ct_draw_pile(&T, p->tricks);
     if (ph == HP_PASS && p->turn == T.me && !hide) draw_pass(live);
