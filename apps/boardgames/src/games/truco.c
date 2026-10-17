@@ -210,8 +210,9 @@ static void envido_sign(int kind, float cx, float cy, float d, int button)
     if (kind == TE_FALTA) { ct_bolt(cx, cy, d); return; }
     if (button) ct_button(cx, cy, d, kind == TE_REAL, -1, 0);
     else ct_pic(CT_DISC_DARK, cx, cy, d, 0, 255, 255, 255, 255);
-    ct_pic(CT_PAIR, cx, cy - 0.17f * d, 0.5f * d, 0, 246, 238, 220, 255);
-    ui_number(cx, cy + 0.2f * d, 0.3f * d, kind == TE_REAL ? 3 : 2, 1);
+    const uint8_t *k = button ? ct_ink() : CT_CREAM;   /* (a button: ink on the light theme's) */
+    ct_pic(CT_PAIR, cx, cy - 0.17f * d, 0.5f * d, 0, k[0], k[1], k[2], 255);
+    ui_number(cx, cy + 0.2f * d, 0.3f * d, kind == TE_REAL ? 3 : 2, !button || !ct_light());
 }
 
 /* the mazo: a card's back on a button */
@@ -303,12 +304,10 @@ static void draw_pad(int live)
             break;
         case TB_MAZO: mazo_sign(b->x, b->y, b->d, 1); break;
         case TB_QUIERO:
-            ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_TICK, b->x, b->y, 0.66f * b->d, 0, 160, 236, 170, 255);
+            ct_button_yes(b->x, b->y, b->d);
             break;
         case TB_NOQUIERO:
-            ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_CROSS, b->x, b->y, 0.7f * b->d, 0, 240, 120, 100, 255);
+            ct_button_no(b->x, b->y, b->d);
             break;
         }
     }

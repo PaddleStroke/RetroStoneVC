@@ -173,7 +173,7 @@ static void draw_announce(int live)
     if (live) ui_mark_gold(K.ann.x, K.ann.y, 1.8f * d);
     ct_button(K.ann.x, K.ann.y, d, 1, -1, 0);
     if (L == DKL_PARTY) party(k, K.ann.x, K.ann.y, 0.7f * d, 0);
-    else ui_number(K.ann.x, K.ann.y, 0.42f * d, LEVEL_NUM[L], 1);
+    else ui_number(K.ann.x, K.ann.y, 0.42f * d, LEVEL_NUM[L], !ct_light());
 }
 
 /* beside each seat: its word; then what the table knows of its party (the viewer's own), the solo, the marriage, the

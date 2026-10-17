@@ -80,12 +80,22 @@ void ct_paint_ivory(uint8_t *rgba, int s);
  * flor), a card's outline */
 enum { CT_ARROW, CT_TICK, CT_SLASH, CT_MOON, CT_DISC_OFF, CT_DISC_ON, CT_DISC_DARK, CT_CROSS, CT_BOLT, CT_CYCLE,
        CT_HIGH, CT_LOW, CT_PAIR, CT_FLOWER, CT_CARD };
-static const uint8_t CT_GOLD[3] = {250, 214, 90}, CT_CREAM[3] = {246, 238, 220}, CT_RED[3] = {176, 50, 40};
+static const uint8_t CT_GOLD[3] = {250, 214, 90}, CT_CREAM[3] = {246, 238, 220}, CT_RED[3] = {176, 50, 40},
+                     CT_INK[3] = {46, 40, 30};
+/* the theme: 1 the light one (an ivory table, the shell's white round buttons); the ink on the bare table and on a
+ * round button (CT_CREAM, or CT_INK in the light theme); the table dimmed under a panel (black; a soft warm shade on
+ * the light theme's ivory) */
+int ct_light(void);
+const uint8_t *ct_ink(void);
+void ct_veil(box b, Uint8 alpha);
 /* a picture centred, d wide, turned deg, tinted (r, g, b, a); _paint: painted white into size x size */
 void ct_pic(int kind, float cx, float cy, float d, double deg, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void ct_pic_paint(int kind, int size, uint8_t *rgba);
 /* a round button (the shell's colours): `on` gold, its picture (CT_ARROW, CT_TICK; -1: none) turned deg, faint off */
 void ct_button(float cx, float cy, float d, int on, int pic, double deg);
+void ct_pic_on_button(int kind, float cx, float cy, float d, Uint8 a);   /* a picture on ct_button: white, or ink */
+void ct_button_yes(float cx, float cy, float d);   /* yes (quiero): a green tick on a round button */
+void ct_button_no(float cx, float cy, float d);    /* no (no quiero): a red cross on a round button */
 int  ct_on(float cx, float cy, float d, float x, float y);   /* (x, y) on a round button d wide */
 /* a row of round buttons: each its place, size, the game's id and whether it is lit */
 typedef struct { float x, y, d; int id, on; } ct_btn;
@@ -94,7 +104,8 @@ int  ct_btn_hit(const ct_btn *b, int n, float x, float y);   /* the id under (x,
 void ct_step(float cx, float cy, float d, int plus, int enabled);   /* a stepper's minus or plus on a round button */
 /* an amount on a gold button (plus: a plus before it, a raise), in gold light when it may be tapped (live) */
 void ct_amount(float cx, float cy, float d, int n, int plus, int live);
-void ct_number(float cx, float cy, float h, int v, int nil);   /* a number in cream, h high; nil: the 0 struck out */
+/* a number on a round button, h high (cream; the light theme's ink); nil: the 0 struck out */
+void ct_number(float cx, float cy, float h, int v, int nil);
 void ct_badge(float cx, float cy, float d, int v);   /* a number in a dark disc (a bid) */
 void ct_badge_plus(float cx, float cy, float d, int v);   /* a plus and the number in a dark disc (a raise) */
 /* a kit picture k * d wide in a dark disc, tinted (yes: CT_TICK; no: CT_CROSS; a word said) */

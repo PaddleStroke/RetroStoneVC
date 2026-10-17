@@ -318,6 +318,10 @@ static void draw_flag(int i, float x, float y, float d, int on, int enabled)
     ct_button(x, y, d, on, -1, 0);
     Uint8 a = enabled ? 255 : 90;
     if (FLAG_OF[i] == SF_OUVERT) { put_pic(PIC_OUVERT, x, y, 0.82f * d, a); return; }
+    if (ct_light()) {                           /* ink on the light theme's white button, faint when not now */
+        ui_number_ex(x, y, (i == 0 ? 0.42f : 0.34f) * d, i == 0 ? 90 : 120, CT_INK, enabled ? 255 : 110, 0);
+        return;
+    }
     ui_number(x, y, (i == 0 ? 0.42f : 0.34f) * d, i == 0 ? 90 : 120, 1);
     if (!enabled) ct_pic(CT_DISC_OFF, x, y, d, 0, 255, 255, 255, 150);
 }
@@ -329,7 +333,7 @@ static void draw_bid(int live)
         for (int i = 0; i < K.npad; i++) {
             int v = BIDS[K.first + i];
             ct_button(K.pad[i].x, K.pad[i].y, K.d, v == pick, -1, 0);
-            ui_number(K.pad[i].x, K.pad[i].y, (v >= 100 ? 0.36f : 0.44f) * K.d, v, 1);
+            ui_number(K.pad[i].x, K.pad[i].y, (v >= 100 ? 0.36f : 0.44f) * K.d, v, !ct_light());
         }
         if (page > 0) ct_button(K.prev.x, K.prev.y, 0.8f * K.d, 0, CT_ARROW, 180);
         if (K.first + PAD < nbids) ct_button(K.next.x, K.next.y, 0.8f * K.d, 0, CT_ARROW, 0);

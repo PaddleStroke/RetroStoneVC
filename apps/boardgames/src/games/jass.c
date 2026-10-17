@@ -188,7 +188,7 @@ static void draw_weis_button(int live)
     int pts = jas_melds(p->t.hand[U.T.me], p->t.n[U.T.me], p->mode, NULL, NULL, NULL);
     if (live) ui_mark_gold(K.weis.x, K.weis.y, 1.8f * d);
     ct_button(K.weis.x, K.weis.y, d, 1, -1, 0);
-    ui_number(K.weis.x, K.weis.y, (pts >= 100 ? 0.34f : 0.42f) * d, pts, 1);
+    ui_number(K.weis.x, K.weis.y, (pts >= 100 ? 0.34f : 0.42f) * d, pts, !ct_light());
 }
 
 /* the deal's table: a row a team; the way to the target */

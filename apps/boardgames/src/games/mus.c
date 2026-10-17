@@ -331,11 +331,11 @@ static void draw_pad(int live)
         switch (b->id) {
         case B_MUS:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_CYCLE, b->x, b->y, 0.7f * b->d, 0, 255, 255, 255, 255);
+            ct_pic_on_button(CT_CYCLE, b->x, b->y, 0.7f * b->d, 255);
             break;
         case B_CUT:
             ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_CYCLE, b->x, b->y, 0.7f * b->d, 0, 255, 255, 255, 140);
+            ct_pic_on_button(CT_CYCLE, b->x, b->y, 0.7f * b->d, 140);
             ct_pic(CT_SLASH, b->x, b->y, 0.85f * b->d, 0, 236, 110, 90, 255);
             break;
         case B_OK:
@@ -348,12 +348,10 @@ static void draw_pad(int live)
         case B_BET: ct_amount(b->x, b->y, b->d, amount, facing(), live); break;
         case B_ORDAGO: ct_bolt(b->x, b->y, b->d); break;
         case B_QUIERO:
-            ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_TICK, b->x, b->y, 0.66f * b->d, 0, 160, 236, 170, 255);
+            ct_button_yes(b->x, b->y, b->d);
             break;
         case B_NOQUIERO:
-            ct_button(b->x, b->y, b->d, 0, -1, 0);
-            ct_pic(CT_CROSS, b->x, b->y, 0.7f * b->d, 0, 240, 120, 100, 255);
+            ct_button_no(b->x, b->y, b->d);
             break;
         }
     }

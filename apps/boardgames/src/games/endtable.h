@@ -22,7 +22,7 @@ static inline void endt_begin(box b, float pw, float ph, Uint8 veil, float *x0, 
     if (!ui_over()) {
         *x0 = b.x + (b.w - pw) / 2;
         *y0 = b.y + (b.h - ph) / 2;
-        ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, veil);
+        ct_veil(b, veil);
         ct_panel(*x0, *y0, pw, ph, 255);
         return;
     }

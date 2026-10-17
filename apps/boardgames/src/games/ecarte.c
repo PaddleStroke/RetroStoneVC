@@ -252,7 +252,7 @@ static void draw_answer(int live)
     ct_button(yx, y, d, 1, CT_TICK, 0);
     ct_button(nx, y, d, 0, -1, 0);
     int s = (int)(0.6f * d);
-    ui_put_c(ct_icon(ICON_CLOSE, s, 255, 255, 255), nx, y, (float)s, (float)s);
+    ui_put_c(ct_light() ? ct_icon(ICON_CLOSE, s, CT_INK[0], CT_INK[1], CT_INK[2]) : ct_icon(ICON_CLOSE, s, 255, 255, 255), nx, y, (float)s, (float)s);
 }
 
 static void draw_throw(int live)

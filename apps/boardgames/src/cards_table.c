@@ -7,8 +7,20 @@
 #include <string.h>
 
 #include "cards_table.h"
+#include "pages.h"
 
 #define PI_F 3.14159265f
+
+/* ---- the theme: the light one's ivory table and white buttons take dark ink ------------------------------------- */
+int ct_light(void) { return !TH.dark; }
+
+const uint8_t *ct_ink(void) { return TH.dark ? CT_CREAM : CT_INK; }
+
+void ct_veil(box b, Uint8 alpha)
+{
+    if (TH.dark) ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, alpha);
+    else ui_fill(b.x, b.y, b.w, b.h, 120, 92, 56, (Uint8)(alpha / 2));   /* a soft warm shade on the ivory */
+}
 
 /* ---- moving cards ------------------------------------------------------------------------------------------------ */
 void ct_calm(ct_moves *mv)
@@ -401,18 +413,49 @@ void ct_pic(int kind, float cx, float cy, float d, double deg, Uint8 r, Uint8 g,
     ui_put_rot(t, cx, cy, d, d, deg);
 }
 
+static void plus_at(float cx, float cy, float h, int value, int light);
+
+/* a round button's disc: the kit's dark green or gold; the light theme's, the shell's (white, gold when on) */
+static void button_disc(float cx, float cy, float d, int on)
+{
+    if (TH.dark) ct_pic(on ? CT_DISC_ON : CT_DISC_OFF, cx, cy, d, 0, 255, 255, 255, 255);
+    else ui_button_paint(cx, cy, d, NULL, 0, 0, on ? UI_ON : 0);
+}
+
 void ct_button(float cx, float cy, float d, int on, int p, double deg)
 {
-    ct_pic(on ? CT_DISC_ON : CT_DISC_OFF, cx, cy, d, 0, 255, 255, 255, 255);
-    if (p >= 0) ct_pic(p, cx, cy, 0.66f * d, deg, 255, 255, 255, on ? 255 : 110);
+    button_disc(cx, cy, d, on);
+    const uint8_t *k = TH.dark ? (const uint8_t[3]){255, 255, 255} : CT_INK;
+    if (p >= 0) ct_pic(p, cx, cy, 0.66f * d, deg, k[0], k[1], k[2], on ? 255 : 110);
+}
+
+void ct_pic_on_button(int kind, float cx, float cy, float d, Uint8 a)
+{
+    if (TH.dark) ct_pic(kind, cx, cy, d, 0, 255, 255, 255, a);
+    else ct_pic(kind, cx, cy, d, 0, CT_INK[0], CT_INK[1], CT_INK[2], a);
+}
+
+void ct_button_yes(float cx, float cy, float d)
+{
+    ct_button(cx, cy, d, 0, -1, 0);
+    if (TH.dark) ct_pic(CT_TICK, cx, cy, 0.66f * d, 0, 160, 236, 170, 255);
+    else ct_pic(CT_TICK, cx, cy, 0.66f * d, 0, 56, 146, 76, 255);   /* (deeper on the white) */
+}
+
+void ct_button_no(float cx, float cy, float d)
+{
+    ct_button(cx, cy, d, 0, -1, 0);
+    if (TH.dark) ct_pic(CT_CROSS, cx, cy, 0.7f * d, 0, 240, 120, 100, 255);
+    else ct_pic(CT_CROSS, cx, cy, 0.7f * d, 0, 200, 74, 52, 255);
 }
 
 int ct_on(float cx, float cy, float d, float x, float y) { return hypotf(x - cx, y - cy) <= 0.56f * d; }
 
 void ct_number(float cx, float cy, float h, int v, int nil)
 {
-    ui_number(cx, cy, h, v, 1);
-    if (nil) ct_pic(CT_SLASH, cx, cy, 1.15f * h, 0, 250, 214, 90, 255);
+    ui_number(cx, cy, h, v, TH.dark);
+    if (nil && TH.dark) ct_pic(CT_SLASH, cx, cy, 1.15f * h, 0, 250, 214, 90, 255);
+    else if (nil) ct_pic(CT_SLASH, cx, cy, 1.15f * h, 0, 196, 140, 40, 255);   /* (a deeper gold on the white) */
 }
 
 void ct_badge(float cx, float cy, float d, int v)
@@ -424,9 +467,10 @@ void ct_badge(float cx, float cy, float d, int v)
 void ct_pass(float cx, float cy, float d, int glow)
 {
     if (glow) ui_mark_gold(cx, cy, 1.8f * d);
-    ct_pic(CT_DISC_OFF, cx, cy, d, 0, 255, 255, 255, 255);
+    button_disc(cx, cy, d, 0);
     int s = (int)(0.62f * d);
-    ui_put_c(ct_icon(ICON_PASS, s, 255, 255, 255), cx, cy, (float)s, (float)s);
+    if (TH.dark) ui_put_c(ct_icon(ICON_PASS, s, 255, 255, 255), cx, cy, (float)s, (float)s);
+    else ui_put_c(ct_icon(ICON_PASS, s, CT_INK[0], CT_INK[1], CT_INK[2]), cx, cy, (float)s, (float)s);
 }
 
 void ct_pass_badge(float cx, float cy, float d)
@@ -460,7 +504,8 @@ void ct_step(float cx, float cy, float d, int plus, int enabled)
     ct_button(cx, cy, d, 0, -1, 0);
     Uint8 a = enabled ? 255 : 90;
     float w = 0.46f * d, t = fmaxf(2, roundf(0.11f * d));
-    SDL_Texture *bar = ct_round((int)w, (int)t, t / 2, (const uint8_t[4]){255, 255, 255, 255});
+    SDL_Texture *bar = TH.dark ? ct_round((int)w, (int)t, t / 2, (const uint8_t[4]){255, 255, 255, 255})
+                               : ct_round((int)w, (int)t, t / 2, (const uint8_t[4]){CT_INK[0], CT_INK[1], CT_INK[2], 255});
     SDL_SetTextureAlphaMod(bar, a);
     ui_put_c(bar, cx, cy, w, t);
     if (plus) ui_put_rot(bar, cx, cy, w, t, 90);
@@ -471,8 +516,8 @@ void ct_amount(float cx, float cy, float d, int n, int plus, int live)
 {
     if (live) ui_mark_gold(cx, cy, 1.8f * d);
     ct_button(cx, cy, d, 1, -1, 0);
-    if (plus) ct_plus(cx, cy, (n >= 10 ? 0.32f : 0.4f) * d, n);
-    else ui_number(cx, cy, (n >= 10 ? 0.38f : 0.46f) * d, n, 1);
+    if (plus) plus_at(cx, cy, (n >= 10 ? 0.32f : 0.4f) * d, n, TH.dark);   /* (ink on the light theme's gold) */
+    else ui_number(cx, cy, (n >= 10 ? 0.38f : 0.46f) * d, n, TH.dark);
 }
 
 void ct_badge_plus(float cx, float cy, float d, int v)
@@ -531,17 +576,20 @@ void ct_panel(float x, float y, float w, float h, int alpha)
 
 /* the plus snapped to whole pixels (ui_number_signed's plus can break into three pieces at some heights, 30 px: its
  * bars are rounded apart) */
-void ct_plus(float cx, float cy, float h, int value)
+static void plus_at(float cx, float cy, float h, int value, int light)   /* light: cream, else the dark digits' ink */
 {
     int ih = (int)(h + 0.5f), n = value >= 100 ? 3 : value >= 10 ? 2 : 1, t = (int)fmaxf(2, roundf(0.13f * ih));
     int sw = (int)roundf(0.46f * ih);
     if ((sw - t) & 1) sw++;
     float digits = 0.74f * ih * (n - 1) + 0.62f * ih, gap = roundf(0.1f * ih);
     int x = (int)floorf(cx - (sw + gap + digits) / 2), y = (int)floorf(cy);
-    ui_fill((float)x, (float)(y - t / 2), (float)sw, (float)t, 246, 238, 220, 255);
-    ui_fill((float)(x + (sw - t) / 2), (float)(y - sw / 2), (float)t, (float)sw, 246, 238, 220, 255);
-    ui_number(x + sw + gap + digits / 2, cy, (float)ih, value, 1);
+    Uint8 r = light ? 246 : 40, g = light ? 238 : 34, b = light ? 220 : 30;
+    ui_fill((float)x, (float)(y - t / 2), (float)sw, (float)t, r, g, b, 255);
+    ui_fill((float)(x + (sw - t) / 2), (float)(y - sw / 2), (float)t, (float)sw, r, g, b, 255);
+    ui_number(x + sw + gap + digits / 2, cy, (float)ih, value, light);
 }
+
+void ct_plus(float cx, float cy, float h, int value) { plus_at(cx, cy, h, value, 1); }
 
 /* ---- points rising ----------------------------------------------------------------------------------------------- */
 void ct_float(ct_floats *fl, ct_moves *mv, float x, float y, int value, int badge, Uint32 t0)
@@ -729,7 +777,7 @@ void ct_summary_in(box b, int rows, float *x0, float *pw, float *y_row, float *r
         return;
     }
     *x0 = b.x + (b.w - *pw) / 2;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 80);
+    ct_veil(b, 80);
     ct_panel(*x0, y0, *pw, ph, 255);
     *y_row = y0 + 0.25f * u + *rh / 2;
 }
@@ -1209,7 +1257,7 @@ void ct_label(SDL_Texture *token, float cx, float cy, float h, int n)
 {
     float digits = n >= 10 ? 2 : 1, w = 1.15f * h + 0.62f * h * digits;
     ui_put_c(token, cx - w / 2 + h / 2, cy, h, h);
-    ui_number(cx + w / 2 - 0.31f * h * digits, cy, 0.85f * h, n, 1);
+    ui_number(cx + w / 2 - 0.31f * h * digits, cy, 0.85f * h, n, TH.dark);   /* (ink on the light table) */
 }
 
 void ct_others_layout(ct_others *O, box b, int deck, int players, int me, float hs)

@@ -165,7 +165,9 @@ int spades_show(const char *move)
 static void badge(float x, float y, float d, int v, int nil)
 {
     ct_pic(CT_DISC_DARK, x, y, d, 0, 255, 255, 255, 255);
-    ct_number(x, y, 0.5f * d, v, nil);
+    float h = 0.5f * d;
+    ui_number(x, y, h, v, 1);                   /* cream in the dark disc, either theme (ct_number: a button's) */
+    if (nil) ct_pic(CT_SLASH, x, y, 1.15f * h, 0, 250, 214, 90, 255);
 }
 
 static void draw_pad(int live)
