@@ -191,13 +191,13 @@ static void draw(void)
     for (int v = 0; v <= n + 1; v++) at[v] = -1;
     for (int c = 0; c < n; c++)
         if (T.val[c]) at[T.val[c]] = c;
-    pzk_rgba line = {BENCH_BLUE[0], BENCH_BLUE[1], BENCH_BLUE[2], 110};
+    pzk_rgba line = {BENCH_BLUE[0], BENCH_BLUE[1], BENCH_BLUE[2], 165};
     for (int v = 1; v < n; v++) {               /* the path: a short link across each meeting of a number and the next */
         if (at[v] < 0 || at[v + 1] < 0 || !nph_touch(&T.p, at[v], at[v + 1])) continue;
         float ax = bench_mid_x(&geo, at[v]), ay = bench_mid_y(&geo, at[v]);
         float bx = bench_mid_x(&geo, at[v + 1]), by = bench_mid_y(&geo, at[v + 1]);
         float dx = bx - ax, dy = by - ay, l = hypotf(dx, dy), k = 0.36f * q / l;
-        pzk_line(ax + dx * k, ay + dy * k, bx - dx * k, by - dy * k, 0.09f * q, 0.03f * q, line, 0);
+        pzk_line(ax + dx * k, ay + dy * k, bx - dx * k, by - dy * k, 0.1f * q, 0.035f * q, line, 0);
     }
     int dir = 0, head = -1;
     if (!solved && !erasing) {                  /* the run's end picked, where its next number can go */
