@@ -20,6 +20,7 @@
 #include "cards_table.h"
 #include "games/tilerummy.h"
 #include "games/endtable.h"
+#include "pages.h"
 #include "shell.h"
 
 #define SLIDE_MS 260
@@ -392,6 +393,10 @@ static void button(int i, int state)            /* state: 0 off (dim), 1 on, 2 l
 {
     float x = T.bx[i], y = T.by[i], r = T.br;
     if (state == 2) ui_mark_gold(x, y, 3.0f * r);
+    if (!TH.dark) {                             /* the light theme: the shell's light buttons (white, the ink) */
+        ui_button_paint(x, y, 2 * r, icon, i, 0.62f, UI_TINT | (state == 2 ? UI_ON : state ? 0 : UI_DIM));
+        return;
+    }
     ui_put_c(state == 2 ? t_disc_on : t_disc, x, y, 2 * r, 2 * r);
     SDL_SetTextureAlphaMod(t_icon[i], state ? 255 : 90);
     ui_put_c(t_icon[i], x, y, 1.24f * r, 1.24f * r);
@@ -508,7 +513,7 @@ static void draw(void)
     /* the strip: the pool, the first meld's worth, the buttons */
     int can_draw = mine && !b && !changed;
     cards_pile(DECK_TILES, T.px, T.py, T.pw, p->npool, CARD_NONE, can_draw ? CD_GLOW : 0);
-    ui_number(T.px + T.pw * 0.5f + 0.42f * ui.unit, T.py + 0.2f * ui.unit, 0.36f * ui.unit, p->npool, 1);
+    ui_number(T.px + T.pw * 0.5f + 0.42f * ui.unit, T.py + 0.2f * ui.unit, 0.36f * ui.unit, p->npool, TH.dark);
     if (p->phase == TP_PLAY && !p->out[T.me]) {
         int v = tr_meld(&G), ok = v >= TR_FIRST;
         if (ok) ui_mark_gold(T.mx, T.my, 2.6f * T.mr);
