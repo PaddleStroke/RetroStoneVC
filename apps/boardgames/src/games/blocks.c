@@ -515,16 +515,22 @@ static void block_at(int hue, float cx, float cy, float d, Uint8 light, Uint8 al
     SDL_SetTextureAlphaMod(t, 255);
 }
 
-/* a whole piece, its cells c wide, its top left at (x, y); lifted: its shadow below it */
+/* a whole piece, its cells c wide, its top left at (x, y); its shadow below it, soft-cornered (the blocks' own
+ * shape in black): lifted high (1), or resting on the felt (0) */
 static void piece_at(int shape, float x, float y, float c, Uint8 light, Uint8 alpha, int lifted)
 {
     const bk_shape *s = &bk_shapes[shape];
-    float d = c * (1 - 0.06f);
-    if (lifted)
+    float d = c * (1 - 0.06f), sx = lifted ? 0.16f * c : 0.05f * c, sy = lifted ? 0.24f * c : 0.08f * c;
+    SDL_Texture *t = t_block[bk_colour(shape)];
+    if (t) {
+        SDL_SetTextureColorMod(t, 0, 0, 0);
+        SDL_SetTextureAlphaMod(t, (Uint8)(alpha * (lifted ? 0.3f : 0.35f)));
         for (int r = 0; r < s->h; r++)
             for (int k = 0; k < s->w; k++)
-                if (s->row[r] >> k & 1)
-                    ui_fill(x + k * c + 0.16f * c, y + r * c + 0.24f * c, d, d, 0, 0, 0, (Uint8)(alpha * 0.28f));
+                if (s->row[r] >> k & 1) ui_put_c(t, x + (k + 0.5f) * c + sx, y + (r + 0.5f) * c + sy, d, d);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t, 255);
+    }
     for (int r = 0; r < s->h; r++)
         for (int k = 0; k < s->w; k++)
             if (s->row[r] >> k & 1) block_at(bk_colour(shape), x + (k + 0.5f) * c, y + (r + 0.5f) * c, d, light, alpha);
