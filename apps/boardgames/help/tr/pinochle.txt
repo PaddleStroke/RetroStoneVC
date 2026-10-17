@@ -1,6 +1,6 @@
 Pinochle
 # Amaç
-Puanlı kartlar içeren elleri almak ve dizi açmak. 2 oyuncu için ya da karşılıklı oturan ikişer kişilik iki takım halinde 4 oyuncu için.
+Puanlı kartlar içeren elleri al ve dizi aç. 2 oyuncu için ya da iki takım halinde 4 oyuncu için.
 # Kartlar
 48 kart: dört renkte ikişer as, 10, papaz, kız, vale ve 9, bu sırayla. Bir elde iki aynı karttan önce oynanan kazanır.
 # Diziler
@@ -9,9 +9,9 @@ Puanlı kartlar içeren elleri almak ve dizi açmak. 2 oyuncu için ya da karş�
 - Farklı renklerden dört as 10, papazlar 8, kızlar 6, valeler 4. Dört kişide bir değerin sekiz kartı 100, 80, 60 ya da 40, iki seri 150 sayar.
 # Oyun
 - Eli en büyük koz alır, koz yoksa açılan rengin en büyük kartı.
-- Alınan her as, 10 ve papaz 1 puandır; son el 1 puan daha.
+- Puanlı kartlar: alınan her as, 10 ve papaz 1 puandır; son el 1 puan daha.
 - Sıkı oyun: rengi izle ve geçebiliyorsan geç; o renk yoksa koz çak (kozu da geç) yapabiliyorsan.
 # İki oyuncu
-Herkese 12 kart; sıradaki kart koz olarak destenin altına açık konur (9 ise dağıtana 1). Deste bitene kadar istenen kart oynanabilir. Eli alan bir diziyi açık koyabilir, sonra ilk o çeker; açılan kartlar masadan oynanır. Bir dizi elden bir kart ister; açılmış bir kart yalnızca başka türden bir dizide yeniden sayılır (evlilikler ve seriler, dörtlüler, pinochle'lar). Diksi açmak onu koz kartıyla değiştirir. Deste bitince diziler ele döner ve son 12 el sıkı oynanır. Bir dağıtımdan sonra 100'e ilk ulaşan kazanır.
+Herkese 12 kart; sıradaki kart koz olarak açılır (9 ise dağıtana 1). Deste bitene kadar istenen kart oynanabilir. Eli alan bir diziyi açık koyabilir, sonra ilk o çeker. Bir dizi elden bir kart ister; açılmış bir kart yalnızca başka türden bir dizide yeniden sayılır (evlilikler ve seriler, dörtlüler, pinochle'lar). Diksi açmak onu açılan kartla değiştirir. Deste bitince diziler ele döner ve son 12 el sıkı oynanır. Bir dağıtımdan sonra 100'e ilk ulaşan kazanır.
 # Dört oyuncu
-Herkese 12 kart. Sırayla herkes en az 20 ve öncekinden fazla teklif verir ya da o dağıtım için pas der; diğer herkes pas derse dağıtan teklif vermek zorundadır. En yüksek teklifi veren kozu seçer, herkesin dizileri sayılır ve ilk o oynar. Bütün eller sıkıdır. Bir takımın dizileri ancak bir el alırsa sayılır. Teklif verenlerin dizileri ve puanları teklife ulaşırsa bunları yazarlar; yoksa teklif kadar kaybederler. Öbür takım dizilerini ve puanlarını yazar. 150'ye ilk ulaşan takım kazanır; ikisi de ulaşırsa önce teklif verenler.
+Herkese 12 kart. Sırayla son tekliften fazla (en az 20) teklif ver ya da pas de; diğer herkes pas derse dağıtan teklif vermek zorundadır. En yüksek teklifi veren kozu seçer, bütün diziler sayılır ve ilk o oynar; bütün eller sıkıdır. Bir takımın dizileri ancak bir el alırsa sayılır. Teklif verenlerin dizileri ve puanları teklife ulaşırsa bunları yazarlar; yoksa teklif kadar kaybederler. Öbür takım dizilerini ve puanlarını yazar. 150'ye ilk ulaşan takım kazanır; ikisi de ulaşırsa önce teklif verenler.

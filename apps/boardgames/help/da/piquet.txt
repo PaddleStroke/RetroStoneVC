@@ -1,23 +1,20 @@
 Piquet
 # Målet
-Det klassiske franske spil for to (rubicon-piquet): få flere point end din modstander i et parti på seks giv, og mindst 100. Send enheden over mellem turene; ingen af jer ser den andens kort.
+Rubicon-piquet, det klassiske franske spil for to: få flere point end din modstander på seks giv, og mindst 100.
 # Kortene
-32 kort: es (højest), konge, dame, knægt, 10, 9, 8, 7. Man giver skiftevis; den, der ikke giver, er forhånd. Hver spiller får 12 kort; de sidste 8 er talonen.
+32 kort, fra es (højest) ned til 7. Man giver skiftevis; den, der ikke giver, er forhånd. 12 kort til hver; de andre 8 er talonen.
 # Kortbyttet
-Forhånden lægger 1 til 5 kort fra sig og tager lige så mange fra toppen af talonen. Så må baghånden lægge op til så mange kort fra sig, som der er tilbage (som regel 3), og tage dem. Kort, der bliver tilbage, bliver liggende med bagsiden opad, usete.
+Forhånden lægger 1 til 5 kort fra sig og tager lige så mange fra toppen af talonen. Så må baghånden lægge op til så mange kort fra sig, som der er tilbage, og tage dem.
 # Meldingerne
-Hver slags tæller kun for den spiller, der har den bedste; lige gode tæller intet:
+Hver slags tæller kun for den spiller, der har den bedste; lige gode tæller intet. Hver spiller melder det bedste, hånden har, før første udspil.
 - Carte blanche: tolv kort uden konge, dame eller knægt: 10.
 - Pointet: flest kort i én kulør (står det lige, den højeste værdi: es 11, konge, dame og knægt 10, de andre deres tal): 1 point pr. kort.
-- Sekvenser: tre eller flere kort i træk i én kulør. Den længste vinder (står det lige, den med det højeste topkort), og dens ejer tæller alle sine sekvenser: 3 kort 3, 4 kort 4, 5 kort 15, 6 kort 16, 7 kort 17, 8 kort 18.
-- Sæt: tre eller fire kort af samme rang, 10 eller højere. Fire slår tre, derefter vinder den højeste rang; vinderen tæller alle sine: fire 14, tre 3.
-Forhånden melder, baghånden svarer: »godt« (forhåndens er bedre), »ikke godt« (baghåndens er bedre) eller »lige«. Her er hver melding det bedste, hånden har, begge meldes før første udspil, og de bedste kombinationer vises for begge spillere.
+- Sekvenser: tre eller flere kort i træk i én kulør. Den længste vinder (står det lige, den med det højeste topkort), og dens ejer tæller alle sine sekvenser: 3 kort 3, 4 kort 4, 5 til 8 kort 15 til 18.
+- Sæt: tre eller fire kort af samme rang, 10 eller højere. Fire slår tre, derefter vinder den højeste rang; vinderen tæller alle sine sæt: fire 14, tre 3.
 # Spillet
-Forhånden spiller ud. Bekend kulør, hvis du kan, ellers spil et hvilket som helst kort; der er ingen trumf. Det højeste kort i den udspillede kulør vinder og spiller ud til det næste. At spille en 10'er eller højere ud giver 1; at vinde modstanderens udspil med en 10'er eller højere giver 1; sidste stik giver 1 ekstra. Flest stik (7 eller flere) giver 10; alle 12 stik (capot) giver i stedet 40.
+Forhånden spiller ud. Bekend kulør, hvis du kan; der er ingen trumf. Det højeste kort i den udspillede kulør vinder og spiller ud til det næste. At spille en 10'er eller højere ud giver 1; at vinde modstanderens udspil med en 10'er eller højere giver 1; sidste stik 1 ekstra. Flest stik (7 eller flere) giver 10; alle 12 (capot) i stedet 40.
 # Pique og repique
-- Repique: 30 point alene fra meldingerne (talt i rækkefølgen carte blanche, pointet, sekvenser, sæt), før modstanderen tæller noget: 60 mere.
-- Pique: forhånden når 30 med meldinger og point i spillet (ikke de 10 for flest stik og ikke capot), før baghånden tæller noget: 30 mere. Kun forhånden kan lave pique.
+- Repique: 30 point alene fra meldingerne (i rækkefølgen carte blanche, pointet, sekvenser, sæt), før modstanderen tæller noget: 60 mere.
+- Pique: forhånden når 30 med meldinger og spil (ikke flest stik og ikke capot), før baghånden tæller noget: 30 mere.
 # Spillets afslutning
-Efter seks giv vinder den højeste sum. En taber under 100 bliver under rubicon: vinderen får begge summer plus 100. Ellers får vinderen forskellen plus 100. Lige summer: uafgjort.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd, viftet ud forneden. For at bytte trykker du på de kort, du lægger fra dig (de løfter sig), og så på fluebenet ved talonen; de nye kort står lidt højere. Tallet ved en brik: de kort, spilleren byttede. Meldingerne vises på en tavle: en kolonne for pointet (tre kort i én kulør), sekvenser (en trappe af kort), sæt (tre esser) og carte blanche (et blankt kort); en række for hver spiller, din modstander øverst. Pointet viser sit antal kort og sin værdi, en sekvens sin længde og sit topkort, et sæt sin størrelse og rang. Forhånden ser sin egen række og trykker på fluebenet. Så ser baghånden begge rækker: et guldflueben og pointene ved den bedste (»godt« eller »ikke godt«), et lighedstegn for »lige«; hans flueben viser begge spillere kortene i de bedste kombinationer. Tavlen bliver stående, til forhånden spiller ud. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tallet ved en brik: spillerens point i dette giv. Efter hvert giv viser en tavle meldingerne, pointene i spillet (en krone: capot), pique eller repique (spar-tegnet), givet og summen, og de seks giv som prikker; efter det sjette vinderens score for partiet (et overstreget 100: taberen blev under rubicon).
+Efter seks giv vinder den højeste sum. En taber under 100 bliver under rubicon: vinderen får begge summer plus 100; ellers forskellen plus 100. Lige summer: uafgjort.

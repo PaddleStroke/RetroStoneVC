@@ -1,22 +1,17 @@
 El Enano Amarillo
 # El objetivo
-Tener más fichas que nadie al final de la partida. Juega tus cartas en secuencias, llévate las fichas de las cinco casillas del tablero jugando sus cartas y sé el primero en quedarte sin cartas. De 3 a 6 jugadores, con una baraja de 52 cartas. En francés, el juego se llama Nain jaune.
+Juega tus cartas en secuencias, llévate las fichas de las cinco casillas del tablero y sé el primero en quedarte sin cartas. Gana quien tenga más fichas al final.
 # El tablero
-Cinco casillas, cada una con su carta: el diez de diamantes, la jota de tréboles, la reina de picas y el rey de corazones en las esquinas, y en el centro el siete de diamantes, el enano amarillo. Todos empiezan con 100 fichas. Antes de cada mano, cada jugador apuesta 1 ficha en el diez, 2 en la jota, 3 en la reina, 4 en el rey y 5 en el enano amarillo.
-# El reparto
-Las cartas se reparten de una en una: 15 a cada uno con 3 jugadores, 12 con 4, 9 con 5, 8 con 6. Las cartas sobrantes forman el talón; se quedan boca abajo y no se juegan. El que reparte avanza un puesto alrededor de la mesa en cada mano.
+Cinco casillas: el diez de diamantes, la jota de tréboles, la reina de picas, el rey de corazones y el siete de diamantes, el enano amarillo. Todos empiezan con 100 fichas. Antes de cada mano, cada jugador apuesta 1 ficha en el diez, 2 en la jota, 3 en la reina, 4 en el rey y 5 en el enano amarillo.
 # Cómo se juega
-Las cartas van del as (1) al rey; los palos no cuentan.
-- El jugador a la izquierda del que reparte juega la carta que quiera y sigue con la carta inmediatamente superior, de cualquier palo, mientras pueda: un 4, un 5, un 6...
-- Cuando no tiene la carta siguiente, continúa el siguiente jugador de la mesa que la tenga, y así sucesivamente. A los jugadores que no la tienen se los salta.
-- Si tienes la carta siguiente, debes jugarla; si tienes varias, eliges cuál.
-- Un rey cierra la secuencia: quien lo jugó empieza una nueva con la carta que quiera. Si nadie tiene la carta siguiente, el último jugador que jugó empieza una nueva secuencia.
-- Quien juega una de las cinco cartas del tablero se lleva todas las fichas de su casilla.
+Las cartas van del as (1) al rey; los palos no cuentan. Las cartas sobrantes del reparto no se juegan.
+- El jugador a la izquierda del que reparte juega la carta que quiera y sigue con la carta inmediatamente superior, de cualquier palo, mientras pueda.
+- Luego continúa el siguiente jugador de la mesa que tenga la carta siguiente. Si la tienes, debes jugarla.
+- Un rey cierra la secuencia y quien lo jugó empieza una nueva. Si nadie tiene la carta siguiente, el último jugador que jugó empieza una nueva.
+- Quien juega una de las cartas del tablero se lleva todas las fichas de su casilla.
 # El final de una mano
-El primer jugador que se queda sin cartas gana la mano. Cada uno de los demás le paga 1 ficha por cada carta que le queda en la mano. Un jugador que aún tiene una de las cinco cartas del tablero paga además otra vez su apuesta en su casilla (1 por el diez, 2 por la jota, 3 por la reina, 4 por el rey, 5 por el enano amarillo). Las fichas que nadie se ha llevado se quedan en las casillas para la mano siguiente. Un jugador que no puede pagar paga lo que tiene.
+El primer jugador que se queda sin cartas gana la mano: cada uno de los demás le paga 1 ficha por cada carta que le queda en la mano. Un jugador que aún tiene una carta del tablero paga además otra vez su apuesta. Las fichas que nadie se ha llevado se quedan para la mano siguiente. Un jugador que no puede pagar paga lo que tiene.
 # Grand opéra
-En el juego clásico, un jugador que se deshace de todas sus cartas antes de que ningún otro jugador haya jugado una sola carta hace grand opéra: se lleva además las fichas de las cinco casillas. La otra opción de la lista de juegos se juega sin grand opéra; su imagen muestra el enano amarillo sin fichas.
+En el juego clásico, un jugador que se queda sin cartas antes de que ningún otro haya jugado una carta se lleva además las fichas de las cinco casillas.
 # El final de la partida
-La partida termina cuando cada jugador ha repartido dos veces, o antes, en cuanto un jugador no puede pagar las 15 fichas de las apuestas de una nueva mano. Gana el jugador con más fichas; los jugadores empatados comparten la victoria.
-# Jugar en el dispositivo
-Pasaos el dispositivo: cada jugador solo ve su propia mano, ordenada, abajo. Las manos de los demás aparecen arriba como abanicos de cartas, con el número de cartas de cada uno. El tablero y sus fichas están en el centro; al lado, la secuencia en juego y el talón. Toca una carta que brilla para jugarla. Cuando le toca a otro, una pantalla oculta tus cartas hasta que el siguiente jugador la toca. Tras cada mano, una tabla muestra para cada jugador las fichas pagadas o recibidas por las cartas, las fichas ganadas en las casillas (menos las apuestas pagadas de nuevo) y las fichas que tiene ahora; tócala para la mano siguiente. Cada barra muestra las fichas de ese jugador. Deshacer retira tus propias jugadas, hasta el momento en que se pasó el dispositivo.
+La partida termina cuando cada jugador ha repartido dos veces, o en cuanto un jugador no puede pagar las 15 fichas de las apuestas. Los jugadores empatados comparten la victoria.

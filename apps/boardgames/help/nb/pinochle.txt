@@ -1,17 +1,17 @@
 Pinochle
 # Målet
-Vinn stikk med tellekort og meld kombinasjoner. For 2 spillere, eller 4 i to lag med makkerne overfor hverandre.
+Vinn stikk med tellekort og meld kombinasjoner. For 2 spillere, eller 4 i to lag.
 # Kortene
 48 kort: to av hvert ess, 10, konge, dame, knekt og 9 i de fire fargene, i den rekkefølgen. Av to like kort i et stikk vinner det som ble spilt først.
 # Meldinger
 - Rekke (ess, 10, konge, dame, knekt i trumf) 15; kongelig ekteskap (konge og dame i trumf) 4; ekteskap (konge og dame i en annen farge) 2; dix (trumfnier) 1.
 - Pinochle (spardame og ruterknekt) 4; dobbel pinochle 30.
-- Fire ess i forskjellige farger 10, konger 8, damer 6, knekter 4. Med fire spillere teller alle åtte kort av en valør 100, 80, 60 eller 40, og to rekker 150.
+- Fire ess i forskjellige farger 10, konger 8, damer 6, knekter 4. Med fire spillere alle åtte kort av en valør 100, 80, 60 eller 40, og to rekker 150.
 # Spillet
 - Høyeste trumf vinner stikket, ellers høyeste kort i utspilt farge.
-- Hvert vunnet ess, 10 og konge gir 1 poeng; siste stikk 1 til.
+- Tellekort: hvert vunnet ess, 10 og konge gir 1 poeng; siste stikk 1 til.
 - Strengt spill: følg farge og stikk over om du kan; uten fargen, trumf (og overtrumf) om du kan.
 # To spillere
-12 kort hver; neste kort snus som trumf under bunken (en 9 gir giveren 1). Så lenge det er en bunke, kan alle kort spilles. Vinneren av et stikk kan melde én kombinasjon med forsiden opp og trekker så først; meldte kort spilles fra bordet. En melding krever et kort fra hånden; et meldt kort teller bare igjen i en annen slags melding (ekteskap og rekker, firlinger, pinochler). Å melde dix bytter den mot trumfkortet. Når bunken er tom, går meldingene tilbake på hånden, og de siste 12 stikkene er strenge. Den første til 100 etter en runde vinner.
+12 kort hver; neste kort snus som trumf (en 9 gir giveren 1). Så lenge det er en bunke, kan alle kort spilles. Vinneren av et stikk kan melde én kombinasjon med forsiden opp og trekker så først. En melding krever et kort fra hånden; et meldt kort teller bare igjen i en annen slags melding (ekteskap og rekker, firlinger, pinochler). Å melde dix bytter den mot trumfkortet. Når bunken er tom, går meldingene tilbake på hånden, og de siste 12 stikkene er strenge. Den første til 100 etter en runde vinner.
 # Fire spillere
-12 kort hver. Etter tur byr hver minst 20 og mer enn forrige bud, eller passer for runden; passer alle andre, må giveren by. Høystbydende velger trumf, alles meldinger telles, og han spiller ut. Alle stikk er strenge. Et lags meldinger teller bare hvis det tar et stikk. Når budlagets meldinger og poeng når budet, skriver de dem; ellers taper de budet. Det andre laget skriver sine meldinger og poeng. Første lag til 150 vinner; budlaget først om begge når det.
+12 kort hver. By etter tur over forrige bud (minst 20), eller pass; passer alle andre, må giveren by. Høystbydende velger trumf, alle meldinger telles, og han spiller ut; alle stikk er strenge. Et lags meldinger teller bare hvis det tar et stikk. Når budlagets meldinger og poeng når budet, skriver de dem; ellers taper de budet. Det andre laget skriver sine meldinger og poeng. Første lag til 150 vinner; budlaget først om begge når det.

@@ -1,14 +1,12 @@
 Musta Pekka
 # Tavoite
-Älä jää viimeiseksi patajätkän kanssa. Tämä on ranskalainen versio, le pouilleux: ristijätkä poistetaan pakasta, joten patajätkällä ei ole paria. (Englantilaisessa Old Maid -pelissä poistetaan sen sijaan kuningatar.) 2–6 pelaajalle.
+Älä jää viimeiseksi patajätkän kanssa. Ristijätkä poistetaan pakasta, joten patajätkällä ei ole paria.
 # Parit
 - Pari on kaksi samanarvoista ja samanväristä korttia: kaksi punaista seiskaa, kaksi mustaa kuningasta.
 - Kaikki 51 korttia jaetaan. Jokainen pari pannaan heti pois, sekä jaossa että pelin aikana.
 # Vuoro
-- Nosta yksi kortti kuvapuoli alaspäin edelläsi olevan pelaajan kädestä. Hänen kätensä sekoitetaan ensin.
+- Nosta yksi kortti kuvapuoli alaspäin edelläsi olevan pelaajan kädestä.
 - Jos se muodostaa parin jonkin korttisi kanssa, pari pannaan pois.
 - Pelaaja, jolta kortit loppuvat, on ulkona: hän on voittanut.
 # Pelin loppu
 Viimeinen, jolla on vielä kortti, patajätkä, häviää. Kaikki muut voittavat.
-# Pelaaminen laitteella
-Anna laite kiertää: jokainen näkee oman kätensä alhaalla järjestettynä. Käsi, josta nostat, on kuvapuoli alaspäin keskellä, ja sen pelaajan paikka ylhäällä hehkuu. Napauta yhtä sen korteista: se lentää käteesi, ja sen muodostama pari menee vasemmalla olevaan pinoon. Jokainen palkki näyttää kädessä olevien korttien määrän. Kumoa ei peru nostettua korttia.

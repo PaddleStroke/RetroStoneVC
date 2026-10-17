@@ -1,23 +1,20 @@
 Piquet
 # Amaç
-İki kişilik klasik Fransız oyunu (Rubicon piquet): altı dağıtımlık bir partide rakibinden çok puan topla, en az da 100. Her sırada cihazı birbirinize verin; kimse ötekinin kartlarını görmez.
+İki kişilik klasik Fransız oyunu Rubicon piquet: altı dağıtımda rakibinden çok puan topla, en az da 100.
 # Kartlar
-32 kart: as (en büyük), papaz, kız, vale, 10, 9, 8, 7. Dağıtım sırayla değişir; dağıtmayan oyuncu birinci eldir. Herkes 12 kart alır; kalan 8 kart talonu oluşturur.
+32 kart, en büyük astan 7'ye. Dağıtım sırayla değişir; dağıtmayan oyuncu birinci eldir. Herkes 12 kart alır; kalan 8 kart talondur.
 # Kart değiştirme
-Birinci el 1 ila 5 kart atar ve talonun üstünden o kadar kart alır. Sonra ikinci el, kalan kart sayısına kadar (genellikle 3) kart atıp alabilir. Artan kartlar kapalı kalır, kimse görmez.
+Birinci el 1 ila 5 kart atar ve talonun üstünden o kadar kart alır. Sonra ikinci el, kalan kart sayısına kadar kart atıp alabilir.
 # Söylemeler
-Her tür yalnızca daha iyisine sahip oyuncu için sayılır; eşitlikte kimse puan almaz:
+Her tür yalnızca daha iyisine sahip oyuncu için sayılır; eşitlikte kimse puan almaz. Her oyuncu, ilk karttan önce, elindeki en iyisini söyler.
 - Carte blanche: papazsız, kızsız ve valesiz dağıtılmış on iki kart: 10.
 - Puan: bir renkteki en çok kart (eşitlikte daha yüksek değer: as 11, papaz, kız ve vale 10, diğerleri kendi sayısı): kart başına 1.
-- Sıralar: bir renkte art arda üç ya da daha çok kart. En uzunu kazanır (eşitlikte en büyük kart) ve sahibi bütün sıralarını sayar: 3 kart 3, 4 kart 4, 5 kart 15, 6 kart 16, 7 kart 17, 8 kart 18.
+- Sıralar: bir renkte art arda üç ya da daha çok kart. En uzunu kazanır (eşitlikte en büyük kart) ve sahibi bütün sıralarını sayar: 3 kart 3, 4 kart 4, 5 ila 8 kart 15 ila 18.
 - Takımlar: aynı değerden üç ya da dört kart, 10 ve üstü. Dörtlü üçlüyü yener, sonra büyük değer kazanır; kazanan bütün takımlarını sayar: dörtlü 14, üçlü 3.
-Birinci el söyler, ikinci el cevap verir: "iyi" (birincininki daha iyi), "iyi değil" (ikincininki daha iyi) ya da "eşit". Burada her söyleme elin en iyisidir, ikisi de ilk karttan önce yapılır ve daha iyi kombinasyonlar iki oyuncuya da gösterilir.
 # Oyun
-Birinci el açar. Yapabiliyorsan renge uy, yoksa istediğin kartı oyna; koz yoktur. Açılan rengin büyük kartı eli alır ve sonrakini açar. 10 ya da daha büyük bir kartla açmak 1 puan; rakibin açtığı eli 10 ya da daha büyük bir kartla almak 1 puan; son el 1 puan daha. En çok el (7 ya da daha fazla) 10 puan; 12 elin hepsi (kapo) bunun yerine 40.
+Birinci el açar. Yapabiliyorsan renge uy; koz yoktur. Açılan rengin büyük kartı eli alır ve sonrakini açar. 10 ya da daha büyük bir kartla açmak 1 puan; rakibin açtığı eli 10 ya da daha büyük bir kartla almak 1 puan; son el 1 puan daha. En çok el (7 ya da daha fazla) 10 puan; 12 elin hepsi (kapo) bunun yerine 40.
 # Pik ve repik
-- Repik: rakip hiçbir şey almadan yalnızca söylemelerle (sırayla sayılır: carte blanche, puan, sıralar, takımlar) 30'a ulaşmak: 60 daha.
-- Pik: ikinci el hiçbir şey almadan birinci elin söylemeler ve oyun puanlarıyla (en çok el için 10 ve kapo hariç) 30'a ulaşması: 30 daha. Yalnızca birinci el pik yapabilir.
+- Repik: rakip hiçbir şey almadan yalnızca söylemelerle (sırayla: carte blanche, puan, sıralar, takımlar) 30'a ulaşmak: 60 daha.
+- Pik: ikinci el hiçbir şey almadan birinci elin söylemeler ve oyunla (en çok el ve kapo hariç) 30'a ulaşması: 30 daha.
 # Oyunun sonu
-Altı dağıtımdan sonra yüksek toplam kazanır. 100'ün altında kalan kaybeden "rubicon" olur: kazanan iki toplamı artı 100 alır. Yoksa kazanan farkı artı 100 alır. Eşit toplamlar: berabere.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini altta yelpaze gibi açılmış görür. Kart değiştirmek için atacağın kartlara dokun (kalkarlar), sonra talonun yanındaki onay işaretine; yeni kartlar biraz daha yukarıda durur. Bir pulun yanındaki sayı: o oyuncunun değiştirdiği kartlar. Söylemeler bir tabloda görünür: puan (bir renkten üç kart), sıralar (basamak gibi kartlar), takımlar (üç as) ve carte blanche (boş bir kart) için birer sütun; her oyuncu için bir satır, rakip üstte. Puan kart sayısını ve değerini, sıra uzunluğunu ve en büyük kartını, takım büyüklüğünü ve değerini gösterir. Birinci el kendi satırını görür ve onay işaretine dokunur. Sonra ikinci el iki satırı da görür: daha iyisinin yanında altın bir onay ve puanlar ("iyi" ya da "iyi değil"), "eşit" için eşittir işareti; onun onayı daha iyi kombinasyonların kartlarını ikisine de gösterir. Tablo birinci el açana kadar kalır. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da sürükle. Bir pulun yanındaki sayı: o dağıtımdaki puanları. Her dağıtımdan sonra bir tablo söylemeleri, oyun puanlarını (taç: kapo), pik ya da repiki (maça), dağıtımı ve toplamı, altı dağıtımı da noktalarla gösterir; altıncıdan sonra kazananın parti puanını (çizili bir 100: kaybeden rubicon oldu).
+Altı dağıtımdan sonra yüksek toplam kazanır. 100'ün altında kalan kaybeden "rubicon" olur: kazanan iki toplamı artı 100 alır; yoksa farkı artı 100. Eşit toplamlar: berabere.

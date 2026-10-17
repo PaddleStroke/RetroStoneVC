@@ -1,14 +1,12 @@
 Mico
 # O objetivo
-Não ficar com o valete de espadas. Esta é a versão francesa, le pouilleux: o valete de paus sai do baralho, e assim o valete de espadas fica sem par. (No inglês Old Maid, sai uma dama.) De 2 a 6 jogadores.
+Não ficar com o valete de espadas. O valete de paus sai do baralho, e assim o valete de espadas fica sem par.
 # Os pares
 - Um par são duas cartas do mesmo valor e da mesma cor: os dois setes vermelhos, os dois reis pretos.
 - Todas as 51 cartas são distribuídas. Todo par é descartado na hora, na distribuição e durante o jogo.
 # Uma jogada
-- Tire uma carta virada para baixo da mão do jogador anterior. A mão dele é embaralhada antes.
+- Tire uma carta virada para baixo da mão do jogador anterior.
 - Se ela formar par com uma das suas cartas, o par é descartado.
 - Quem fica sem cartas sai do jogo: ganhou.
 # O fim da partida
 O último jogador que ficar com uma carta, o valete de espadas, perde. Todos os outros ganham.
-# Jogando no aparelho
-Passe o aparelho: cada jogador vê a própria mão embaixo, organizada. A mão da qual você tira está virada para baixo no meio, e o lugar do jogador dela brilha em cima. Toque numa das cartas: ela voa para a sua mão, e o par que formar vai para o monte à esquerda. Cada barra mostra as cartas na mão. Desfazer não desfaz uma carta tirada.

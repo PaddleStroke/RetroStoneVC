@@ -1,14 +1,12 @@
 Schwarzer Peter
 # Das Ziel
-Nicht als Letzter den Pik-Buben behalten. Dies ist die französische Fassung, le pouilleux: Der Kreuz-Bube wird aus dem Blatt genommen, darum hat der Pik-Bube keinen Partner. (Im englischen Old Maid wird stattdessen eine Dame herausgenommen.) Für 2 bis 6 Spieler.
+Nicht als Letzter den Pik-Buben behalten. Der Kreuz-Bube wird aus dem Blatt genommen, darum hat der Pik-Bube keinen Partner.
 # Paare
 - Ein Paar sind zwei Karten gleichen Werts und gleicher Farbe: die zwei roten Siebenen, die zwei schwarzen Könige.
 - Alle 51 Karten werden verteilt. Jedes Paar wird sofort abgelegt, beim Geben wie im Spiel.
 # Ein Zug
-- Ziehe eine verdeckte Karte aus der Hand des Spielers vor dir. Seine Hand wird vorher gemischt.
+- Ziehe eine verdeckte Karte aus der Hand des Spielers vor dir.
 - Bildet sie mit einer deiner Karten ein Paar, wird das Paar abgelegt.
 - Wer keine Karten mehr hat, ist draußen: Er hat gewonnen.
 # Das Ende der Partie
 Wer zuletzt noch eine Karte hält, den Pik-Buben, verliert. Alle anderen gewinnen.
-# Spielen auf dem Gerät
-Das Gerät geht reihum: Jeder sieht unten seine eigene Hand, sortiert. Die Hand, aus der du ziehst, liegt verdeckt in der Mitte, und der Platz ihres Spielers oben leuchtet. Tippe auf eine ihrer Karten: Sie fliegt in deine Hand, und ein Paar, das sie bildet, kommt auf den Stapel links. Jede Leiste zeigt die Karten auf der Hand. Rückgängig nimmt keine gezogene Karte zurück.

@@ -1,29 +1,24 @@
 Mus
 # Målet
-Det baskiske kortspil for to hold med to makkere, der sidder over for hinanden: elfenben og rød mod ibenholt og jade. Hvert giv har fire lances; i hver vinder de bedste kort, medmindre et bud skræmmer det andet hold væk: buddene er spillets hjerte. Det første hold, der når 40 point (tantos), vinder. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+Det baskiske kortspil for to hold med to makkere, der sidder over for hinanden. Hvert giv har fire lances: i hver vinder de bedste kort, medmindre et bud skræmmer det andet hold væk. Det første hold, der når 40 point (tantos), vinder, straks, også midt i optællingen.
 # Kortene
-Det spanske spil med 40 kort i fire kulører: oros (mønter), copas (bægre), espadas (sværd) og bastos (køller), nummereret 1 til 7, derefter sota (10, her en bonde), caballo (11, en springer) og rey (12, en konge). Afbrydelserne i stregen rundt om hvert kort, pinta, viser kuløren: ingen for oros, én for copas, to for espadas, tre for bastos. Der spilles efter den almindelige regel med otte konger (ocho reyes): hver 3 tæller som rey og hver 2 som as (es), i alle lances.
+Det spanske spil med 40 kort: 1 til 7, derefter sota (10), caballo (11) og rey (12). Med otte konger (ocho reyes): hver 3 tæller som rey og hver 2 som as (es).
 # Mus
-Hver spiller får 4 kort. Mano, der taler først og vinder enhver lighed, er spilleren efter giveren; begge rykker én plads frem hvert giv. På skift fra mano siger hver mus (for at bytte kort) eller skærer af (no hay mus, "ingen mus"). Siger alle fire mus, lægger hver på skift 1 til 4 kort fra sig og trækker lige så mange, og der spørges igen om mus. Så snart én skærer af, begynder lances.
+4 kort hver. Mano, spilleren efter giveren, taler først og vinder enhver lighed. På skift siger hver mus (for at bytte kort) eller skærer af. Siger alle fire mus, lægger hver 1 til 4 kort fra sig og trækker lige så mange, og der spørges igen om mus. Så snart én skærer af, begynder lances.
 # De fire lances
 - Grande: de højeste kort vinder, sammenlignet ét for ét: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: de laveste kort vinder.
-- Pares: ens kort. Et par (par) er 1 værd, tre ens (medias) 2, to par eller fire ens (duples) 3. Duples slår medias, og medias slår et par; ved lige vinder de højeste kort. Kun de spillere, der har pares, er med.
-- Juego: kortene tælles, billedkort 10 og de andre deres tal. Fra 31 har man juego: 31 er bedst, derefter 32, 40, 37, 36, 35, 34 og 33. Kun de spillere, der har juego, er med. Har ingen juego, bliver lancen Punto: den højeste sum vinder.
-I Pares og Juego bydes der ikke, hvis kun ét hold har dem, og lancen springes over, hvis ingen har dem. En lighed går altid til spilleren nærmest mano.
+- Pares: et par (par) er 1 værd, tre ens (medias) 2, to par eller fire ens (duples) 3. Duples slår medias, medias slår et par; ved lige vinder de højeste kort.
+- Juego: billedkort tæller 10, de andre deres tal. 31 eller mere er juego: 31 er bedst, derefter 32, 40, 37, 36, 35, 34, 33. Har ingen juego, bliver lancen Punto: den højeste sum vinder.
+Kun de spillere, der har pares eller juego, er med i de lances; har kun ét hold dem, bydes der ikke.
 # Buddene (envites)
 - I hver lance taler spillerne på skift fra mano: passe (paso) eller byde (envido: 2 point eller mere).
-- Over for et bud svarer den næste modstander, om nødvendigt derefter hans makker: tage imod (quiero), hæve med nogle point, byde hele spillet (órdago) eller afslå (no quiero). Buddet er først afslået, når begge modstandere afslår.
-- Afslået: holdet, der bød, får straks 1 point, eller buddet fra før den sidste forhøjelse, og vinder lancen.
-- Passer alle, spilles lancen "en paso".
-- En modtaget órdago: hænderne vises straks, og vinderen af den lance vinder spillet.
+- Over for et bud svarer modstanderne: tage imod (quiero), hæve, byde hele spillet (órdago) eller afslå (no quiero). Buddet er først afslået, når begge afslår.
+- Afslået: holdet, der bød, får 1 point, eller buddet fra før den sidste forhøjelse, og vinder lancen.
+- En modtaget órdago: hænderne vises, og vinderen af den lance vinder spillet.
 # Optællingen
-Når givet er slut, vises alle hænder, og lances tælles i rækkefølge:
-- Grande og Chica: det modtagne bud, eller 1 point en paso.
+Når givet er slut, tælles lances i rækkefølge:
+- Grande og Chica: det modtagne bud, eller 1, hvis ingen bød.
 - Pares: det modtagne bud plus værdien af pares hos begge vindende makkere.
-- Juego: det modtagne bud plus 3 for hver 31 og 2 for hvert andet juego på det vindende hold. Punto: det modtagne bud plus 1, eller 1 en paso.
+- Juego: det modtagne bud plus 3 for hver 31 og 2 for hvert andet juego på det vindende hold. Punto: det modtagne bud plus 1, eller 1.
 - Vinderne af en afslået lance, eller af en, som kun deres hold havde, tæller alligevel deres pares eller juego.
-# Spillets afslutning
-Det første hold, der når 40 point, vinder, også midt i optællingen, eller straks med pointene fra et afslået bud. Ved bordet tæller man med sten, fem til en amarraco; her er det tal. Makkernes hemmelige tegn (señas) er en bordskik, ikke en regel: de er udeladt.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. Hver plads viser sit sidste ord: mus (to pile, én hver vej), afskæringen (de samme overstreget), pas, et bud, en forhøjelse (et plus), órdago (et gyldent lyn på rødt), quiero (et flueben), no quiero (et kryds). I Pares og Juego viser hver plads, om den har dem. De fire lances står på række øverst: Grande (en pil op), Chica (en pil ned), Pares (to kort), Juego (31) eller Punto (30); den, der bydes på, lyser, og de spillede viser deres udfald nedenunder. For at bytte kort trykker du på de kort, der skal lægges fra, og så på fluebenet. For at byde indstiller du beløbet med minus og plus og trykker på den gyldne knap; over for et bud trykker du på fluebenet, krydset, forhøjelsen eller lynet. Efter hvert giv viser en tavle alle hænder, vinderne og pointene for hver lance og stillingen; tryk på den for næste giv. Hver bjælke viser holdets point. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.

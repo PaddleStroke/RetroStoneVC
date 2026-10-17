@@ -1,6 +1,6 @@
 Pinochle
 # Målet
-Vinn stick med räknekort och lägg ut kombinationer. För 2 spelare, eller 4 i två lag med partnerna mitt emot varandra.
+Vinn stick med räknekort och lägg ut kombinationer. För 2 spelare, eller 4 i två lag.
 # Korten
 48 kort: två av varje ess, tia, kung, dam, knekt och nia i de fyra färgerna, i den ordningen. Av två lika kort i ett stick vinner det som spelades först.
 # Kombinationerna
@@ -9,9 +9,9 @@ Vinn stick med räknekort och lägg ut kombinationer. För 2 spelare, eller 4 i 
 - Fyra ess i olika färger 10, kungar 8, damer 6, knektar 4. Med fyra spelare räknas alla åtta kort av en valör 100, 80, 60 eller 40, och två sviter 150.
 # Spelet
 - Högsta trumf vinner sticket, annars högsta kortet i utspelad färg.
-- Varje vunnet ess, tia och kung ger 1 poäng; sista sticket 1 till.
+- Räknekort: varje vunnet ess, tia och kung ger 1 poäng; sista sticket 1 till.
 - Strikt spel: bekänn färg och stick över om du kan; utan färgen, trumfa (och övertrumfa) om du kan.
 # Två spelare
-12 kort var; nästa kort vänds som trumf under högen (en nia ger given 1). Så länge högen räcker får vilket kort som helst spelas. Den som vinner ett stick får lägga ut en kombination med framsidan upp och drar sedan först; utlagda kort spelas från bordet. En kombination kräver ett kort från handen; ett utlagt kort räknas bara igen i en annan sorts kombination (äktenskap och sviter, fyrtal, pinochler). Att lägga ut dix byter den mot trumfkortet. När högen är slut går kombinationerna tillbaka till handen och de sista 12 sticken är strikta. Den som först når 100 efter en giv vinner.
+12 kort var; nästa kort vänds som trumf (en nia ger givaren 1). Så länge högen räcker får vilket kort som helst spelas. Den som vinner ett stick får lägga ut en kombination med framsidan upp och drar sedan först. En kombination kräver ett kort från handen; ett utlagt kort räknas bara igen i en annan sorts kombination (äktenskap och sviter, fyrtal, pinochler). Att lägga ut dix byter den mot trumfkortet. När högen är slut går kombinationerna tillbaka till handen och de sista 12 sticken är strikta. Den som först når 100 efter en giv vinner.
 # Fyra spelare
-12 kort var. I tur och ordning bjuder var och en minst 20 och mer än förra budet, eller passar för given; passar alla andra måste givaren bjuda. Högstbjudande väljer trumf, allas kombinationer räknas och han spelar ut. Alla stick är strikta. Ett lags kombinationer räknas bara om det tar ett stick. Når budlagets kombinationer och poäng budet får de dem; annars förlorar de budet. Det andra laget får sina kombinationer och poäng. Första lag till 150 vinner; budlaget först om båda når dit.
+12 kort var. I tur och ordning bjuder var och en över förra budet (minst 20) eller passar; passar alla andra måste givaren bjuda. Högstbjudande väljer trumf, allas kombinationer räknas och han spelar ut; alla stick är strikta. Ett lags kombinationer räknas bara om det tar ett stick. Når budlagets kombinationer och poäng budet får de dem; annars förlorar de budet. Det andra laget får sina kombinationer och poäng. Första lag till 150 vinner; budlaget först om båda når dit.

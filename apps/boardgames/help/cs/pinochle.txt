@@ -1,6 +1,6 @@
 Pinochle
 # Cíl hry
-Brát štychy s bodovanými kartami a vykládat hlášky. Pro 2 hráče nebo 4 ve dvou dvojicích, spoluhráči naproti sobě.
+Brát štychy s bodovanými kartami a vykládat hlášky. Pro 2 hráče nebo 4 ve dvou dvojicích.
 # Karty
 48 karet: po dvou esech, desítkách, králích, dámách, klucích a devítkách ve čtyřech barvách, v tomto pořadí. Ze dvou stejných karet ve štychu vyhrává ta zahraná dřív.
 # Hlášky
@@ -9,9 +9,9 @@ Brát štychy s bodovanými kartami a vykládat hlášky. Pro 2 hráče nebo 4 v
 - Čtyři esa různých barev 10, králové 8, dámy 6, kluci 4. Ve čtyřech platí všech osm karet jedné hodnoty 100, 80, 60 nebo 40 a dvě postupky 150.
 # Hra
 - Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy.
-- Každé získané eso, desítka a král má 1 bod; poslední štych 1 navíc.
+- Body: každé získané eso, desítka a král má 1; poslední štych 1 navíc.
 - Přísná hra: přiznat barvu a přebít, pokud to jde; bez barvy trumfovat (a přetrumfnout), pokud to jde.
 # Dva hráči
-Každý 12 karet; další karta se otočí jako trumf pod talon (devítka dá rozdávajícímu 1). Dokud je talon, smí se hrát jakákoli karta. Vítěz štychu smí vyložit jednu hlášku lícem nahoru a pak si bere první; vyložené karty se hrají ze stolu. Hláška potřebuje kartu z ruky; vyložená karta platí znovu jen v jiném druhu hlášky (páry a postupky, čtveřice, pinochle). Vyložením dixu se vymění za trumfovou kartu. Po vyčerpání talonu se hlášky vrátí do ruky a posledních 12 štychů je přísných. Vyhrává, kdo po rozdání první dosáhne 100.
+Každý 12 karet; další karta se otočí jako trumf (devítka dá rozdávajícímu 1). Dokud je talon, smí se hrát jakákoli karta. Vítěz štychu smí vyložit jednu hlášku lícem nahoru a pak si bere první. Hláška potřebuje kartu z ruky; vyložená karta platí znovu jen v jiném druhu hlášky (páry a postupky, čtveřice, pinochle). Vyložením dixu se vymění za otočenou kartu. Po vyčerpání talonu se hlášky vrátí do ruky a posledních 12 štychů je přísných. Vyhrává, kdo po rozdání první dosáhne 100.
 # Čtyři hráči
-Každý 12 karet. Postupně každý nabídne aspoň 20 a víc než předchozí nabídka, nebo pro toto rozdání pasuje; když ostatní pasují, rozdávající musí nabídnout. Nejvyšší nabídka určí trumfy, hlášky všech se spočítají a vynáší on. Všechny štychy jsou přísné. Hlášky dvojice platí, jen když vezme štych. Pokud hlášky a body nabízejících dosáhnou nabídky, započtou si je; jinak nabídku ztratí. Druhá dvojice si započte své hlášky a body. Vyhrává dvojice, která první dosáhne 150; dosáhnou-li jí obě, nabízející.
+Každý 12 karet. Postupně každý nabídne víc než předchozí nabídka (aspoň 20), nebo pasuje; když ostatní pasují, rozdávající musí nabídnout. Nejvyšší nabídka určí trumfy, hlášky všech se spočítají a vynáší on; všechny štychy jsou přísné. Hlášky dvojice platí, jen když vezme štych. Pokud hlášky a body nabízejících dosáhnou nabídky, započtou si je; jinak nabídku ztratí. Druhá dvojice si započte své hlášky a body. Vyhrává dvojice, která první dosáhne 150; dosáhnou-li jí obě, nabízející.

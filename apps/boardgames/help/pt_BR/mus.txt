@@ -1,29 +1,24 @@
 Mus
 # O objetivo
-O jogo de cartas basco, para duas duplas de parceiros sentados frente a frente: marfim e vermelho contra ébano e jade. Cada rodada tem quatro lances; em cada um vencem as melhores cartas, a menos que uma aposta faça a outra dupla desistir: apostar é o coração do jogo. Vence a primeira dupla a chegar a 40 pontos (tantos). Para 4 jogadores passando o aparelho; ninguém vê as cartas dos outros.
+O jogo basco para duas duplas de parceiros sentados frente a frente. Cada rodada tem quatro lances: em cada um vencem as melhores cartas, a menos que uma aposta faça a outra dupla desistir. Vence a primeira dupla a chegar a 40 pontos (tantos), na hora, mesmo no meio da contagem.
 # As cartas
-O baralho espanhol de 40 cartas em quatro naipes: oros (ouros), copas, espadas e bastos (paus), numeradas de 1 a 7, depois a sota (10, aqui um peão), o caballo (11, um cavalo) e o rey (12, um rei). As falhas na linha em volta de cada carta, a pinta, mostram o naipe: nenhuma em oros, uma em copas, duas em espadas, três em bastos. Joga-se a regra comum de oito reis (ocho reyes): todo 3 vale como rey e todo 2 como as (ás), em todos os lances.
+O baralho espanhol de 40 cartas: 1 a 7, depois a sota (10), o caballo (11) e o rey (12). Com oito reis (ocho reyes): todo 3 vale como rey e todo 2 como as (ás).
 # O mus
-Cada jogador recebe 4 cartas. A mano, que fala primeiro e ganha todos os empates, é o jogador depois de quem dá as cartas; os dois avançam um lugar a cada rodada. Na vez de cada um a partir da mano, cada jogador diz mus (para trocar cartas) ou corta (no hay mus, "não há mus"). Se os quatro disserem mus, cada um na sua vez descarta de 1 a 4 cartas e compra outras tantas, e o mus é pedido de novo. Assim que alguém corta, começam os lances.
+4 cartas para cada um. A mano, o jogador depois de quem dá as cartas, fala primeiro e ganha todos os empates. Na sua vez, cada um diz mus (para trocar cartas) ou corta. Se os quatro disserem mus, cada um descarta de 1 a 4 cartas e compra outras tantas, e o mus é pedido de novo. Assim que alguém corta, começam os lances.
 # Os quatro lances
 - Grande: vencem as cartas mais altas, comparadas uma a uma: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: vencem as cartas mais baixas.
-- Pares: cartas iguais. Um par vale 1, três iguais (medias) 2, dois pares ou quatro iguais (duples) 3. Duples vencem medias e medias vencem um par; entre iguais vencem as cartas mais altas. Só participa quem tem pares.
-- Juego: contam-se as cartas, figuras 10 e as outras o seu número. A partir de 31 há juego: 31 é o melhor, depois 32, 40, 37, 36, 35, 34 e 33. Só participa quem tem juego. Se ninguém tem juego, o lance vira Punto: vence a maior soma.
-Em Pares e Juego não há aposta se só uma dupla os tem, e o lance é pulado se ninguém os tem. Um empate vai sempre para o jogador mais perto da mano.
+- Pares: um par vale 1, três iguais (medias) 2, dois pares ou quatro iguais (duples) 3. Duples vencem medias, medias vencem um par; entre iguais vencem as cartas mais altas.
+- Juego: figuras valem 10, as outras o seu número. A partir de 31 há juego: 31 é o melhor, depois 32, 40, 37, 36, 35, 34, 33. Se ninguém tem juego, o lance vira Punto: vence a maior soma.
+Só participa desses lances quem tem pares ou juego; se só uma dupla os tem, não há aposta.
 # As apostas (envites)
-- Em cada lance os jogadores falam na sua vez a partir da mano: passar (paso) ou apostar (envido: 2 pontos, ou mais).
-- Diante de uma aposta, responde o próximo adversário e, se preciso, o parceiro dele: aceitar (quiero), aumentar alguns pontos, apostar a partida inteira (órdago) ou recusar (no quiero). A aposta só é recusada se os dois adversários recusarem.
-- Recusada: a dupla que apostou marca na hora 1 ponto, ou a aposta que valia antes do último aumento, e ganha o lance.
-- Se todos passam, o lance fica "en paso".
-- Um órdago aceito: as mãos são mostradas na hora, e quem vence esse lance vence a partida.
+- Em cada lance os jogadores falam na sua vez a partir da mano: passar (paso) ou apostar (envido: 2 pontos ou mais).
+- Diante de uma aposta, os adversários aceitam (quiero), aumentam, apostam a partida inteira (órdago) ou recusam (no quiero). A aposta só é recusada se os dois recusarem.
+- Recusada: a dupla que apostou marca 1 ponto, ou a aposta de antes do último aumento, e ganha o lance.
+- Um órdago aceito: as mãos são mostradas, e quem vence esse lance vence a partida.
 # A contagem
-No fim da rodada todas as mãos são mostradas e os lances são contados em ordem:
-- Grande e Chica: a aposta aceita, ou 1 ponto en paso.
-- Pares: a aposta aceita, mais o valor dos pares dos dois parceiros vencedores.
-- Juego: a aposta aceita, mais 3 por cada 31 e 2 por qualquer outro juego da dupla vencedora. Punto: a aposta aceita mais 1, ou 1 en paso.
+No fim da rodada os lances são contados em ordem:
+- Grande e Chica: a aposta aceita, ou 1 se ninguém apostou.
+- Pares: a aposta aceita, mais os pares dos dois parceiros vencedores.
+- Juego: a aposta aceita, mais 3 por cada 31 e 2 por qualquer outro juego da dupla vencedora. Punto: a aposta aceita mais 1, ou 1.
 - Quem vence um lance recusado, ou um que só a sua dupla tinha, ainda conta seus pares ou seu juego.
-# O fim da partida
-Vence a primeira dupla a chegar a 40 pontos, mesmo no meio da contagem, ou na hora com os pontos de uma aposta recusada. Na mesa a contagem é feita com pedrinhas, cinco por amarraco; aqui são números. Os sinais secretos entre parceiros (señas) são um costume de mesa, não uma regra: ficam de fora.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. Cada lugar mostra a sua última palavra: mus (duas setas, uma para cada lado), o corte (as mesmas riscadas), passar, uma aposta, um aumento (um mais), o órdago (um raio dourado sobre vermelho), quiero (um sinal de confirmação), no quiero (uma cruz). Em Pares e Juego cada lugar mostra se os tem. Os quatro lances ficam em fila no alto: Grande (uma seta para cima), Chica (uma seta para baixo), Pares (duas cartas), Juego (31) ou Punto (30); o que está em jogo brilha, e os já jogados mostram embaixo como terminaram. Para trocar cartas, toque nas cartas a descartar e depois no sinal de confirmação. Para apostar, ajuste o valor com menos e mais e toque no botão dourado; diante de uma aposta, toque no sinal de confirmação, na cruz, no aumento ou no raio. Depois de cada rodada, uma tabela mostra todas as mãos, os vencedores e os pontos de cada lance, e os placares; toque nela para a próxima rodada. Cada barra mostra a pontuação da sua dupla. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.

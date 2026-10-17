@@ -1,23 +1,20 @@
 Piketa
 # Cíl hry
-Klasická francouzská hra pro dva (piketa rubikon): získat víc bodů než soupeř v partii o šesti rozdáních, a aspoň 100 bodů. Mezi tahy si podávejte zařízení; žádný hráč nevidí karty druhého.
+Piketa rubikon, klasická francouzská hra pro dva: za šest rozdání získat víc bodů než soupeř, a aspoň 100 bodů.
 # Karty
-32 karet: eso (nejvyšší), král, dáma, kluk, 10, 9, 8, 7. Hráči rozdávají střídavě; ten, kdo nerozdává, je forhont. Každý hráč dostane 12 karet; zbylých 8 tvoří talon.
+32 karet, od esa (nejvyššího) po sedmu. Hráči rozdávají střídavě; ten, kdo nerozdává, je forhont. Každý dostane 12 karet; zbylých 8 tvoří talon.
 # Výměna
-Forhont odhodí 1 až 5 karet a vezme stejný počet z vrchu talonu. Pak může rozdávající odhodit nejvýš tolik karet, kolik jich zbývá (obvykle 3), a vzít si je. Zbylé karty zůstanou ležet rubem nahoru, nikdo je nevidí.
+Forhont odhodí 1 až 5 karet a vezme stejný počet z vrchu talonu. Pak může rozdávající odhodit nejvýš tolik karet, kolik jich zbývá, a vzít si je.
 # Hlášky
-Každý druh se počítá jen hráči, který má lepší; stejné nezískají nic:
+Každý druh se počítá jen hráči, který má lepší; stejné nezískají nic. Každý hráč hlásí to nejlepší, co má v ruce, před prvním výnosem.
 - Carte blanche: dvanáct rozdaných karet bez krále, dámy i kluka: 10.
 - Point: nejvíc karet v jedné barvě (při rovnosti vyšší hodnota: eso 11, král, dáma a kluk 10, ostatní podle čísla): 1 bod za kartu.
-- Postupky: tři nebo více karet jdoucích po sobě v jedné barvě. Vyhrává nejdelší (při rovnosti ta s vyšší horní kartou) a její držitel započítá všechny své postupky: 3 karty (tercie) 3, 4 karty (kvarta) 4, 5 karet (kvinta) 15, 6 karet 16, 7 karet 17, 8 karet 18.
+- Postupky: tři nebo více karet jdoucích po sobě v jedné barvě. Vyhrává nejdelší (při rovnosti ta s vyšší horní kartou) a její držitel započítá všechny své postupky: 3 karty 3, 4 karty 4, 5 až 8 karet 15 až 18.
 - Trojice a čtveřice: tři nebo čtyři karty stejné hodnoty, od desítky výš. Čtveřice přebíjí trojici, pak vyhrává vyšší hodnota; vítěz započítá všechny své: čtveřice 14, trojice 3.
-Forhont hlásí, rozdávající odpovídá: „dobré“ (forhontova hláška je lepší), „nedobré“ (jeho vlastní je lepší) nebo „stejné“. Zde je každá hláška to nejlepší, co ruka má, obě se dělají před prvním výnosem a lepší kombinace se ukážou oběma hráčům.
 # Hra
-Forhont vynáší. Přiznej barvu, pokud můžeš, jinak zahraj libovolnou kartu; trumfy nejsou. Vyšší karta vynesené barvy bere štych a vynáší do dalšího. Výnos desítkou nebo vyšší kartou dává 1; přebití soupeřova výnosu desítkou nebo vyšší kartou dává 1; poslední štych dává 1 navíc. Většina štychů (7 a víc) dává 10; všech 12 štychů (capot) dává místo toho 40.
+Forhont vynáší. Přiznej barvu, pokud můžeš; trumfy nejsou. Vyšší karta vynesené barvy bere štych a vynáší do dalšího. Výnos desítkou nebo vyšší kartou dává 1; přebití soupeřova výnosu desítkou nebo vyšší kartou dává 1; poslední štych 1 navíc. Většina štychů (7 a víc) dává 10; všech 12 (capot) místo toho 40.
 # Pik a repik
-- Repik: 30 bodů jen z hlášek (počítaných v pořadí carte blanche, point, postupky, trojice a čtveřice), než soupeř cokoli získá: 60 navíc.
-- Pik: forhont dosáhne 30 z hlášek a bodů ze hry (bez 10 za většinu štychů i bez capotu), než rozdávající cokoli získá: 30 navíc. Pik může udělat jen forhont.
+- Repik: 30 bodů jen z hlášek (v pořadí carte blanche, point, postupky, trojice a čtveřice), než soupeř cokoli získá: 60 navíc.
+- Pik: forhont dosáhne 30 z hlášek a hry (bez většiny štychů i bez capotu), než rozdávající cokoli získá: 30 navíc.
 # Konec hry
-Po šesti rozdáních vyhrává vyšší součet. Poražený s méně než 100 body nepřekročil Rubikon: vítěz získá oba součty plus 100. Jinak vítěz získá rozdíl plus 100. Stejné součty: remíza.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí svou ruku rozloženou do vějíře dole. Pro výměnu klepni na karty, které odhazuješ (zvednou se), a pak na fajfku vedle talonu; nové karty stojí o něco výš. Číslo vedle kamene: kolik karet ten hráč vyměnil. Hlášky se objeví na tabuli: sloupec pro point (tři karty jedné barvy), postupky (schůdky z karet), trojice a čtveřice (tři esa) a carte blanche (prázdná karta); řádek pro každého hráče, soupeř nahoře. Point ukazuje počet karet a hodnotu, postupka svou délku a horní kartu, trojice či čtveřice svou velikost a hodnotu. Forhont vidí svůj řádek a klepne na fajfku. Rozdávající pak vidí oba řádky: zlatou fajfku a body vedle lepší hlášky („dobré“ nebo „nedobré“), rovnítko pro „stejné“; jeho fajfka ukáže karty lepších kombinací oběma hráčům. Tabule zůstane, dokud forhont nevynese. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji přetáhni. Číslo vedle kamene: body toho hráče v tomto rozdání. Po každém rozdání ukáže tabulka hlášky, body ze hry (koruna: capot), pik nebo repik (pikový symbol), rozdání a součet a šest rozdání jako tečky; po šestém vítězovo skóre za partii (přeškrtnutá 100: poražený nepřekročil Rubikon).
+Po šesti rozdáních vyhrává vyšší součet. Poražený s méně než 100 body nepřekročil Rubikon: vítěz získá oba součty plus 100; jinak rozdíl plus 100. Stejné součty: remíza.

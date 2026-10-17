@@ -1,29 +1,24 @@
 Mus
 # Lo scopo
-Il gioco di carte basco, per due squadre di due compagni seduti uno di fronte all'altro: avorio e rosso contro ebano e giada. Ogni mano si gioca in quattro lances; in ognuno vincono le carte migliori, a meno che una puntata non faccia ritirare l'altra squadra: le puntate sono il cuore del gioco. Vince la prima squadra che arriva a 40 punti (tantos). Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Il gioco di carte basco, per due squadre di due compagni seduti uno di fronte all'altro. Ogni mano si gioca in quattro lances: in ognuno vincono le carte migliori, a meno che una puntata non faccia ritirare l'altra squadra. Vince la prima squadra che arriva a 40 punti (tantos), subito, anche a metà del conteggio.
 # Le carte
-Il mazzo spagnolo di 40 carte in quattro semi: oros (denari), copas (coppe), espadas (spade) e bastos (bastoni), numerate da 1 a 7, poi la sota (10, qui un pedone), il caballo (11, un cavallo degli scacchi) e il rey (12, un re). Le interruzioni della linea intorno a ogni carta, la pinta, dicono il seme: nessuna per gli oros, una per le copas, due per le espadas, tre per i bastos. Si gioca la regola comune con otto re (ocho reyes): ogni 3 conta come rey e ogni 2 come as (asso), in tutti i lances.
+Il mazzo spagnolo di 40 carte: da 1 a 7, poi la sota (10), il caballo (11) e il rey (12). Con otto re (ocho reyes): ogni 3 conta come rey e ogni 2 come as (asso).
 # Il mus
-Ogni giocatore riceve 4 carte. La mano, che parla per prima e vince ogni parità, è il giocatore dopo il mazziere; entrambi avanzano di un posto a ogni mano. A turno dalla mano, ognuno dice mus (per cambiare carte) o taglia (no hay mus, «niente mus»). Se tutti e quattro dicono mus, ognuno a turno scarta da 1 a 4 carte e ne pesca altrettante, poi si chiede di nuovo il mus. Appena qualcuno taglia, cominciano i lances.
+4 carte a testa. La mano, il giocatore dopo il mazziere, parla per prima e vince ogni parità. A turno, ognuno dice mus (per cambiare carte) o taglia. Se tutti e quattro dicono mus, ognuno scarta da 1 a 4 carte e ne pesca altrettante, poi si chiede di nuovo il mus. Appena qualcuno taglia, cominciano i lances.
 # I quattro lances
 - Grande: vincono le carte più alte, confrontate una a una: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: vincono le carte più basse.
-- Pares: carte uguali. Una coppia (par) vale 1, tre uguali (medias) 2, due coppie o quattro uguali (duples) 3. I duples battono le medias e le medias una coppia; a parità vincono le carte più alte. Partecipa solo chi ha pares.
-- Juego: si contano le carte, le figure 10 e le altre il loro numero. Da 31 in su si ha juego: 31 è il migliore, poi 32, 40, 37, 36, 35, 34 e 33. Partecipa solo chi ha juego. Se nessuno ha juego, il lance diventa Punto: vince il totale più alto.
-In Pares e Juego non si punta se solo una squadra li ha, e il lance si salta se nessuno li ha. Una parità va sempre al giocatore più vicino alla mano.
+- Pares: una coppia (par) vale 1, tre uguali (medias) 2, due coppie o quattro uguali (duples) 3. I duples battono le medias e le medias una coppia; a parità vincono le carte più alte.
+- Juego: le figure contano 10, le altre il loro numero. Da 31 in su si ha juego: 31 è il migliore, poi 32, 40, 37, 36, 35, 34 e 33. Se nessuno ha juego, il lance diventa Punto: vince il totale più alto.
+A questi lances partecipa solo chi ha pares o juego; se li ha solo una squadra, non si punta.
 # Le puntate (envites)
 - In ogni lance si parla a turno dalla mano: passare (paso) o puntare (envido: 2 punti, o più).
-- Davanti a una puntata risponde l'avversario successivo, poi se serve il suo compagno: accettare (quiero), rilanciare di qualche punto, puntare tutta la partita (órdago) o rifiutare (no quiero). La puntata è rifiutata solo se rifiutano entrambi gli avversari.
-- Rifiutata: la squadra che ha puntato segna subito 1 punto, o la puntata che c'era prima dell'ultimo rilancio, e vince il lance.
-- Se tutti passano, il lance si gioca «en paso».
-- Un órdago accettato: le mani si scoprono subito, e chi vince quel lance vince la partita.
+- Davanti a una puntata, gli avversari accettano (quiero), rilanciano, puntano tutta la partita (órdago) o rifiutano (no quiero). La puntata è rifiutata solo se rifiutano entrambi.
+- Rifiutata: la squadra che ha puntato segna 1 punto, o la puntata che c'era prima dell'ultimo rilancio, e vince il lance.
+- Un órdago accettato: le mani si scoprono, e chi vince quel lance vince la partita.
 # Il conteggio
-Alla fine della mano tutte le mani si scoprono e i lances si contano in ordine:
-- Grande e Chica: la puntata accettata, o 1 punto en paso.
+Alla fine della mano i lances si contano in ordine:
+- Grande e Chica: la puntata accettata, o 1 punto se nessuno ha puntato.
 - Pares: la puntata accettata, più il valore dei pares dei due compagni vincenti.
-- Juego: la puntata accettata, più 3 per ogni 31 e 2 per ogni altro juego della squadra vincente. Punto: la puntata accettata più 1, o 1 en paso.
+- Juego: la puntata accettata, più 3 per ogni 31 e 2 per ogni altro juego della squadra vincente. Punto: la puntata accettata più 1, o 1.
 - Chi vince un lance rifiutato, o uno che aveva solo la sua squadra, conta comunque i suoi pares o il suo juego.
-# La fine della partita
-Vince la prima squadra che arriva a 40 punti, anche a metà del conteggio, o subito con i punti di una puntata rifiutata. Al tavolo si contano con dei sassolini, cinque per un amarraco; qui sono cifre. I segnali segreti tra compagni (señas) sono un'usanza da tavolo, non una regola: qui sono esclusi.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Ogni posto mostra la sua ultima parola: mus (due frecce, una per verso), il taglio (le stesse barrate), passo, una puntata, un rilancio (un più), l'órdago (un fulmine dorato sul rosso), quiero (un segno di spunta), no quiero (una croce). In Pares e Juego ogni posto mostra se li ha. I quattro lances sono in fila in alto: Grande (una freccia in su), Chica (una freccia in giù), Pares (due carte), Juego (31) o Punto (30); quello in corso brilla, quelli giocati mostrano sotto come sono finiti. Per cambiare carte, tocca le carte da scartare, poi il segno di spunta. Per puntare, regola la cifra con meno e più e tocca il pulsante dorato; davanti a una puntata, tocca la spunta, la croce, il rilancio o il fulmine. Dopo ogni mano una tabella mostra tutte le mani, i vincitori e i punti di ogni lance, e i punteggi; toccala per la mano successiva. Ogni barra mostra il punteggio della sua squadra. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.

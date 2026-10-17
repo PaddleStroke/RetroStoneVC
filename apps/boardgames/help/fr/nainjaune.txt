@@ -1,22 +1,17 @@
 Nain jaune
 # Le but
-Avoir le plus de jetons à la fin de la partie. Pose tes cartes en séquences, ramasse les jetons des cinq cases du tableau en jouant leurs cartes, et sois le premier à vider ta main. De 3 à 6 joueurs, avec un jeu de 52 cartes.
+Pose tes cartes en séquences, ramasse les jetons des cinq cases du tableau, et sois le premier à vider ta main. Le joueur qui a le plus de jetons à la fin gagne.
 # Le tableau
-Cinq cases, chacune avec sa carte : le dix de carreau, le valet de trèfle, la dame de pique et le roi de cœur dans les coins, et au milieu le sept de carreau, le nain jaune. Chacun commence avec 100 jetons. Avant chaque donne, chaque joueur mise 1 jeton sur le dix, 2 sur le valet, 3 sur la dame, 4 sur le roi et 5 sur le nain jaune.
-# La donne
-Les cartes sont distribuées une par une : 15 chacun à 3 joueurs, 12 à 4, 9 à 5, 8 à 6. Les cartes qui restent forment le talon ; elles restent faces cachées et ne sont pas jouées. Le donneur change à chaque donne, d'une place autour de la table.
+Cinq cases : le dix de carreau, le valet de trèfle, la dame de pique, le roi de cœur, et le sept de carreau, le nain jaune. Chacun commence avec 100 jetons. Avant chaque donne, chaque joueur mise 1 jeton sur le dix, 2 sur le valet, 3 sur la dame, 4 sur le roi et 5 sur le nain jaune.
 # Le jeu
-Les cartes vont de l'as (1) au roi ; les couleurs ne comptent pas.
-- Le joueur à gauche du donneur pose la carte de son choix, puis continue avec la carte suivante, de n'importe quelle couleur, aussi longtemps qu'il le peut : un 4, un 5, un 6…
-- Quand il n'a pas la carte suivante (« sans sept »), le joueur suivant autour de la table qui l'a continue, et ainsi de suite. Les joueurs qui ne l'ont pas sont passés.
-- Si tu as la carte suivante, tu dois la jouer ; si tu en as plusieurs, tu choisis laquelle.
-- Un roi termine la séquence : celui qui l'a joué en commence une nouvelle avec la carte de son choix. Si personne n'a la carte suivante, le dernier à avoir joué recommence une séquence.
-- Celui qui joue l'une des cinq cartes du tableau ramasse tous les jetons de sa case.
+Les cartes vont de l'as (1) au roi ; les couleurs ne comptent pas. Les cartes qui restent à la donne ne sont pas jouées.
+- Le joueur à gauche du donneur pose la carte de son choix, puis la carte suivante, de n'importe quelle couleur, aussi longtemps qu'il le peut.
+- Puis le joueur suivant autour de la table qui a la carte suivante continue. Si tu l'as, tu dois la jouer.
+- Un roi termine la séquence : celui qui l'a joué en commence une nouvelle. Si personne n'a la carte suivante, le dernier à avoir joué en commence une nouvelle.
+- Celui qui joue l'une des cartes du tableau ramasse tous les jetons de sa case.
 # La fin d'une donne
-Le premier joueur qui n'a plus de cartes gagne la donne. Chacun des autres lui donne 1 jeton par carte qui lui reste en main. Un joueur qui a encore l'une des cinq cartes du tableau paie en plus sa mise une nouvelle fois dans sa case (1 pour le dix, 2 pour le valet, 3 pour la dame, 4 pour le roi, 5 pour le nain jaune). Les jetons que personne n'a ramassés restent dans les cases pour la donne suivante. Un joueur qui ne peut pas payer donne ce qu'il a.
+Le premier joueur qui n'a plus de cartes gagne la donne : chacun des autres lui donne 1 jeton par carte qui lui reste en main. Un joueur qui a encore une carte du tableau paie en plus sa mise une nouvelle fois. Les jetons que personne n'a ramassés restent pour la donne suivante. Un joueur qui ne peut pas payer donne ce qu'il a.
 # Le grand opéra
-Dans le jeu classique, un joueur qui pose toutes ses cartes avant qu'aucun autre joueur n'ait joué une seule carte fait grand opéra : il ramasse en plus les jetons des cinq cases. L'autre choix de la liste des parties se joue sans grand opéra ; son image montre le nain jaune sans jetons.
+Dans le jeu classique, un joueur qui pose toutes ses cartes avant qu'aucun autre joueur n'ait joué une carte ramasse en plus les jetons des cinq cases.
 # La fin de la partie
-La partie se termine quand chaque joueur a donné deux fois, ou plus tôt dès qu'un joueur ne peut plus payer les 15 jetons de mise d'une nouvelle donne. Le joueur qui a le plus de jetons gagne ; les ex æquo se partagent la victoire.
-# Jouer sur l'appareil
-Passez-vous l'appareil : chaque joueur ne voit que sa propre main, triée, en bas. Les mains des autres joueurs apparaissent en éventails en haut, avec le nombre de cartes de chacun. Le tableau et ses jetons sont au milieu ; à côté, la séquence en cours et le talon. Touche une carte qui brille pour la jouer. Quand c'est au tour de quelqu'un d'autre, un écran cache tes cartes jusqu'à ce que le joueur suivant le touche. Après chaque donne, un tableau indique pour chaque joueur les jetons payés ou reçus pour les cartes, les jetons gagnés dans les cases (moins les mises payées à nouveau) et les jetons qu'il a maintenant ; touche-le pour la donne suivante. Chaque barre indique les jetons de ce joueur. Annuler reprend tes propres coups, jusqu'au moment où l'appareil a été passé.
+La partie se termine quand chaque joueur a donné deux fois, ou dès qu'un joueur ne peut plus payer les 15 jetons de mise. Les ex æquo se partagent la victoire.

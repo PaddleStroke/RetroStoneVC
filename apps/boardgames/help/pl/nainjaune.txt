@@ -1,22 +1,17 @@
 Żółty karzeł
 # Cel gry
-Mieć najwięcej żetonów na koniec gry. Wykładaj karty w sekwencjach, zbieraj żetony z pięciu przegródek planszy, zagrywając ich karty, i jako pierwszy opróżnij rękę. Dla 3–6 graczy, z talią 52 kart. Po francusku gra nazywa się Nain jaune.
+Wykładaj karty w sekwencjach, zbieraj żetony z pięciu przegródek planszy i jako pierwszy opróżnij rękę. Wygrywa ten, kto ma na koniec najwięcej żetonów.
 # Plansza
-Pięć przegródek, każda ze swoją kartą: dziesiątka karo, walet trefl, dama pik i król kier w rogach, a pośrodku siódemka karo, żółty karzeł. Każdy zaczyna ze 100 żetonami. Przed każdym rozdaniem każdy gracz stawia 1 żeton na dziesiątkę, 2 na waleta, 3 na damę, 4 na króla i 5 na żółtego karła.
-# Rozdanie
-Karty rozdaje się po jednej: po 15 przy 3 graczach, po 12 przy 4, po 9 przy 5, po 8 przy 6. Pozostałe karty tworzą talon; leżą zakryte i nie biorą udziału w grze. Rozdający przesuwa się o jedno miejsce wokół stołu w każdym rozdaniu.
+Pięć przegródek: dziesiątka karo, walet trefl, dama pik, król kier i siódemka karo, żółty karzeł. Każdy zaczyna ze 100 żetonami. Przed każdym rozdaniem każdy gracz stawia 1 żeton na dziesiątkę, 2 na waleta, 3 na damę, 4 na króla i 5 na żółtego karła.
 # Rozgrywka
-Starszeństwo kart idzie od asa (1) do króla; kolory się nie liczą.
-- Gracz po lewej stronie rozdającego zagrywa dowolną kartę, a potem dokłada następną kartę w górę, w dowolnym kolorze, dopóki może: 4, 5, 6...
-- Gdy nie ma następnej karty, kontynuuje kolejny gracz wokół stołu, który ją ma, i tak dalej. Gracze, którzy jej nie mają, są pomijani.
-- Jeśli masz następną kartę, musisz ją zagrać; jeśli masz kilka, wybierasz, którą.
-- Król kończy sekwencję: gracz, który go zagrał, zaczyna nową dowolną kartą. Jeśli nikt nie ma następnej karty, nową sekwencję zaczyna ostatni gracz, który zagrał.
-- Kto zagra jedną z pięciu kart planszy, bierze wszystkie żetony z jej przegródki.
+Starszeństwo kart idzie od asa (1) do króla; kolory się nie liczą. Karty, które zostają przy rozdaniu, nie biorą udziału w grze.
+- Gracz po lewej stronie rozdającego zagrywa dowolną kartę, a potem następną kartę w górę, w dowolnym kolorze, dopóki może.
+- Potem kontynuuje kolejny gracz wokół stołu, który ma następną kartę. Jeśli ją masz, musisz ją zagrać.
+- Król kończy sekwencję, a gracz, który go zagrał, zaczyna nową. Jeśli nikt nie ma następnej karty, nową zaczyna ostatni gracz, który zagrał.
+- Kto zagra jedną z kart planszy, bierze wszystkie żetony z jej przegródki.
 # Koniec rozdania
-Pierwszy gracz, któremu skończą się karty, wygrywa rozdanie. Każdy z pozostałych płaci mu 1 żeton za każdą kartę, która została mu w ręce. Gracz, który wciąż trzyma jedną z pięciu kart planszy, płaci też ponownie jej stawkę do jej przegródki (1 za dziesiątkę, 2 za waleta, 3 za damę, 4 za króla, 5 za żółtego karła). Żetony, których nikt nie zebrał, zostają w przegródkach na następne rozdanie. Gracz, który nie może zapłacić, płaci tyle, ile ma.
+Pierwszy gracz, któremu skończą się karty, wygrywa rozdanie: każdy z pozostałych płaci mu 1 żeton za każdą kartę, która została mu w ręce. Gracz, który wciąż trzyma kartę planszy, płaci też ponownie jej stawkę. Żetony, których nikt nie zebrał, zostają na następne rozdanie. Gracz, który nie może zapłacić, płaci tyle, ile ma.
 # Grand opéra
-W klasycznej grze gracz, który pozbędzie się wszystkich kart, zanim którykolwiek inny gracz zagra choćby jedną kartę, robi grand opéra: bierze też żetony ze wszystkich pięciu przegródek. Drugi wariant na liście gier to gra bez grand opéra; na jego obrazku żółty karzeł nie ma żetonów.
+W klasycznej grze gracz, który pozbędzie się kart, zanim ktokolwiek inny zagra kartę, bierze też żetony ze wszystkich pięciu przegródek.
 # Koniec gry
-Gra kończy się, gdy każdy gracz rozdał dwa razy, albo wcześniej, gdy tylko któryś gracz nie może zapłacić 15 żetonów stawek za nowe rozdanie. Wygrywa gracz z największą liczbą żetonów; przy remisie zwycięstwo jest wspólne.
-# Gra na urządzeniu
-Podawajcie sobie urządzenie: każdy gracz widzi tylko swoją rękę, posortowaną, na dole. Ręce pozostałych graczy widać jako wachlarze kart na górze, z liczbą kart każdego. Plansza z żetonami jest pośrodku; obok niej zagrywana sekwencja i talon. Dotknij świecącej karty, aby ją zagrać. Gdy kolej ma ktoś inny, ekran zasłania twoje karty, dopóki następny gracz go nie dotknie. Po każdym rozdaniu tabela pokazuje dla każdego gracza żetony zapłacone lub otrzymane za karty, żetony wygrane z przegródek (minus ponownie zapłacone stawki) i żetony, które ma teraz; dotknij jej, aby zacząć następne rozdanie. Każdy pasek pokazuje żetony danego gracza. Cofnij cofa twoje własne zagrania, ale tylko do chwili, gdy urządzenie zostało przekazane.
+Gra kończy się, gdy każdy rozdał dwa razy, albo gdy tylko któryś gracz nie może zapłacić 15 żetonów stawek. Przy remisie zwycięstwo jest wspólne.

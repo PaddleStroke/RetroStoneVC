@@ -1,14 +1,12 @@
 Černý Petr
 # Cíl hry
-Nezůstat s pikovým klukem. Toto je francouzská verze, le pouilleux: z balíčku se vyjme křížový kluk, takže pikový kluk nemá pár. (V anglické hře Old Maid se místo toho vyjme dáma.) Pro 2 až 6 hráčů.
+Nezůstat s pikovým klukem. Z balíčku se vyjme křížový kluk, takže pikový kluk nemá pár.
 # Páry
 - Pár jsou dvě karty stejné hodnoty a stejné barvy: dvě červené sedmičky, dva černí králové.
 - Rozdá se všech 51 karet. Každý pár se hned odloží, při rozdávání i během hry.
 # Tah
-- Vytáhni si jednu kartu lícem dolů z ruky hráče před tebou. Jeho ruka se nejdřív zamíchá.
+- Vytáhni si jednu kartu lícem dolů z ruky hráče před tebou.
 - Když vytvoří pár s některou tvou kartou, pár se odloží.
 - Hráč bez karet je venku: vyhrál.
 # Konec hry
 Poslední hráč, kterému zůstane karta, pikový kluk, prohrává. Všichni ostatní vyhrávají.
-# Hra na zařízení
-Posílejte zařízení dokola: každý vidí dole svou vlastní ruku, seřazenou. Ruka, ze které táhneš, leží lícem dolů uprostřed a místo jejího hráče nahoře svítí. Klepni na jednu z jejích karet: přiletí ti do ruky a pár, který vytvoří, jde na hromádku vlevo. Každá lišta ukazuje počet karet v ruce. Vrátit nevezme zpět vytaženou kartu.

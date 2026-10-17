@@ -1,22 +1,17 @@
 Den gule dvergen
 # Målet
-Å ha flest sjetonger når spillet er slutt. Legg ut kortene dine i rekkefølger, samle sjetongene i brettets fem rom ved å spille kortene deres, og bli den første som tømmer hånden. For 3 til 6 spillere, med en kortstokk på 52 kort. På fransk heter spillet Nain jaune.
+Legg ut kortene dine i rekkefølger, samle sjetongene i brettets fem rom, og bli den første som tømmer hånden. Flest sjetonger når spillet er slutt, vinner.
 # Brettet
-Fem rom, hvert med sitt kort: ruter ti, kløver knekt, spar dame og hjerter konge i hjørnene, og i midten ruter sju, den gule dvergen. Alle starter med 100 sjetonger. Før hvert giv setter hver spiller 1 sjetong på tieren, 2 på knekten, 3 på damen, 4 på kongen og 5 på den gule dvergen.
-# Utdelingen
-Kortene deles ut ett og ett: 15 hver med 3 spillere, 12 med 4, 9 med 5, 8 med 6. Kortene som blir igjen, er talongen; de ligger med baksiden opp og spilles ikke. Giveren flytter én plass rundt bordet for hvert giv.
+Fem rom: ruter ti, kløver knekt, spar dame, hjerter konge og ruter sju, den gule dvergen. Alle starter med 100 sjetonger. Før hvert giv setter hver spiller 1 sjetong på tieren, 2 på knekten, 3 på damen, 4 på kongen og 5 på den gule dvergen.
 # Spillet
-Kortene går fra ess (1) opp til konge; sortene teller ikke.
-- Spilleren til venstre for giveren spiller et hvilket som helst kort og fortsetter med det neste kortet oppover, i hvilken som helst sort, så lenge han kan: en firer, en femmer, en sekser ...
-- Når han ikke har det neste kortet, fortsetter den neste spilleren rundt bordet som har det, og så videre. Spillere som ikke har det, hoppes over.
-- Har du det neste kortet, må du spille det; har du flere, velger du hvilket.
-- En konge avslutter rekkefølgen: spilleren som spilte den, starter en ny med et hvilket som helst kort. Har ingen det neste kortet, starter den som spilte sist, en ny rekkefølge.
-- Den som spiller ett av brettets fem kort, tar alle sjetongene i rommet til det kortet.
+Kortene går fra ess (1) opp til konge; sortene teller ikke. Kortene som blir igjen ved utdelingen, spilles ikke.
+- Spilleren til venstre for giveren spiller et hvilket som helst kort og så det neste kortet oppover, i hvilken som helst sort, så lenge han kan.
+- Så fortsetter den neste spilleren rundt bordet som har det neste kortet. Har du det, må du spille det.
+- En konge avslutter rekkefølgen, og spilleren som spilte den, starter en ny. Har ingen det neste kortet, starter den som spilte sist, en ny.
+- Den som spiller ett av brettets kort, tar alle sjetongene i rommet til det kortet.
 # Slutten på et giv
-Den første spilleren uten kort igjen vinner givet. Hver av de andre betaler ham 1 sjetong for hvert kort de fortsatt har på hånden. En spiller som fortsatt har ett av brettets fem kort, betaler i tillegg innsatsen for det på nytt i rommet (1 for tieren, 2 for knekten, 3 for damen, 4 for kongen, 5 for den gule dvergen). Sjetongene ingen har tatt, blir liggende i rommene til neste giv. En spiller som ikke kan betale, betaler det han har.
+Den første spilleren uten kort vinner givet: hver av de andre betaler ham 1 sjetong for hvert kort de fortsatt har på hånden. En spiller som fortsatt har ett av brettets kort, betaler i tillegg innsatsen for det på nytt. Sjetongene ingen har tatt, blir liggende til neste giv. En spiller som ikke kan betale, betaler det han har.
 # Grand opéra
-I det klassiske spillet gjør en spiller som blir kvitt alle kortene sine før noen annen spiller har spilt et eneste kort, grand opéra: han tar også sjetongene i alle fem rommene. Det andre valget i spillisten spilles uten grand opéra; bildet viser den gule dvergen uten sjetonger.
+I det klassiske spillet tar en spiller som blir kvitt alle kortene sine før noen annen har spilt et kort, også sjetongene i alle fem rommene.
 # Slutten på spillet
-Spillet slutter når hver spiller har gitt to ganger, eller tidligere, så snart en spiller ikke kan betale de 15 sjetongene i innsats for et nytt giv. Spilleren med flest sjetonger vinner; spillere med like mange deler seieren.
-# Spill på enheten
-Send enheten rundt: hver spiller ser bare sin egen hånd, sortert, nederst. De andres hender vises som vifter av kort øverst, med hvor mange kort hver har. Brettet og sjetongene er i midten; ved siden av ligger rekkefølgen som spilles, og talongen. Trykk på et kort som lyser, for å spille det. Når det er en annens tur, skjuler en skjerm kortene dine til neste spiller trykker på den. Etter hvert giv viser en tabell for hver spiller sjetongene som er betalt eller mottatt for kortene, sjetongene vunnet fra rommene (minus innsatsene som er betalt på nytt), og sjetongene spilleren har nå; trykk på den for neste giv. Hvert panel viser sjetongene til den spilleren. Angre tar tilbake dine egne trekk, men ikke lenger tilbake enn til enheten ble sendt videre.
+Spillet slutter når hver spiller har gitt to ganger, eller så snart en spiller ikke kan betale de 15 sjetongene i innsats. Spillere med like mange deler seieren.

@@ -1,29 +1,24 @@
 Mus
 # The aim
-The Basque card game for two sides of two partners sitting face to face: ivory and red against ebony and jade. Four lances are played each hand, and in each the best cards win, unless a bet scares the other side away: betting is the heart of the game. The first side to reach 40 points (tantos) wins. For 4 players passing the device round; nobody sees the others' cards.
+The Basque game for two sides of two partners sitting face to face. Four lances are played each hand: in each the best cards win, unless a bet scares the other side away. The first side to reach 40 points (tantos) wins, at once, even in the middle of the count.
 # The cards
-The Spanish pack of 40 cards in four suits: oros (coins), copas (cups), espadas (swords) and bastos (clubs), numbered 1 to 7, then the sota (10, here a pawn), the caballo (11, a knight) and the rey (12, a king). The gaps in the line round each card, the pinta, tell the suit: none for oros, one for copas, two for espadas, three for bastos. These are the common rules with eight kings (ocho reyes): every 3 counts as a rey and every 2 as an as (an ace), in every lance.
+The Spanish pack of 40: 1 to 7, then the sota (10), the caballo (11) and the rey (12). With eight kings (ocho reyes): every 3 counts as a rey and every 2 as an as (an ace).
 # Mus
-Each player gets 4 cards. The mano, who speaks first and wins every tie, is the player after the dealer; both move on one seat each hand. In turn from the mano, each player says mus (to change cards) or cuts (no hay mus). If all four say mus, each in turn lays away 1 to 4 cards and draws as many, then mus is asked again. As soon as one player cuts, the lances begin.
+4 cards each. The mano, the player after the dealer, speaks first and wins every tie. In turn, each says mus (to change cards) or cuts. If all four say mus, each lays away 1 to 4 cards and draws as many, and mus is asked again. As soon as one player cuts, the lances begin.
 # The four lances
 - Grande: the highest cards win, compared one by one: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: the lowest cards win.
-- Pares: matching cards. A pair (par) is worth 1, three alike (medias) 2, two pairs or four alike (duples) 3. Duples beat medias and medias beat a pair; between equals the higher cards win. Only the players who have pares take part.
-- Juego: the cards are counted, figures 10 and the others their number. 31 or more is juego: 31 is the best, then 32, 40, 37, 36, 35, 34 and 33. Only the players who have juego take part. If nobody has juego, the lance is Punto: the highest count wins.
-In Pares and Juego there is no betting when only one side has them, and the lance is skipped when nobody has them. A tie always goes to the player nearest the mano.
-# Betting (envites)
-- In each lance the players speak in turn from the mano: pass (paso), or bet (envido: 2 points, or more).
-- Facing a bet, the next opponent answers, then his partner if needed: accept (quiero), raise it by some points, bet the whole game (órdago), or refuse (no quiero). The bet is refused only when both opponents refuse.
-- Refused: the betting side scores 1 point at once, or the bet that stood before the last raise, and wins the lance.
-- If everyone passes, the lance is played "en paso".
-- An accepted órdago: the hands are shown at once, and the winner of that lance wins the game.
+- Pares: a pair (par) is worth 1, three alike (medias) 2, two pairs or four alike (duples) 3. Duples beat medias, medias beat a pair; between equals the higher cards win.
+- Juego: figures count 10, the others their number. 31 or more is juego: 31 is best, then 32, 40, 37, 36, 35, 34, 33. If nobody has juego, the lance is Punto: the highest count wins.
+Only the players with pares or juego take part in those lances; if only one side has them, there is no betting.
+# Betting
+- In each lance the players speak in turn from the mano: pass (paso) or bet (envido: 2 points or more).
+- Facing a bet, the opponents accept (quiero), raise, bet the whole game (órdago) or refuse (no quiero). It is refused only when both refuse.
+- Refused: the betting side scores 1 point, or the bet before the last raise, and wins the lance.
+- An accepted órdago: the hands are shown, and the winner of that lance wins the game.
 # The count
-At the end of the hand all the hands are shown and the lances are counted in order:
-- Grande and Chica: the accepted bet, or 1 point en paso.
-- Pares: the accepted bet, plus the value of the pares of both winning partners.
-- Juego: the accepted bet, plus 3 for each 31 and 2 for any other juego on the winning side. Punto: the accepted bet plus 1, or 1 en paso.
-- The winners of a refused lance, or of one that only their side had, still count their pares or juego.
-# The end of the game
-The first side to reach 40 points wins, even in the middle of the count, or at once with the points of a refused bet. At the table the points are kept with stones, five to an amarraco; here they are digits. The partners' secret signs (señas) are a table custom, not a rule: they are left out.
-# Playing on the device
-Pass the device to the player whose token glows; they tap start and see their own hand. Each seat shows its last word: mus (two arrows, one each way), the cut (the same struck through), a pass, a bet, a raise (a plus), the órdago (a gold bolt on red), quiero (a tick), no quiero (a cross). In Pares and Juego each seat shows whether it has them. The four lances lie in a row across the top: Grande (an arrow up), Chica (an arrow down), Pares (two cards), Juego (31) or Punto (30); the one being bet glows, and the ones played show their outcome below. To change cards, tap the cards to lay away, then the tick. To bet, set the amount with minus and plus and tap the gold button; facing a bet, tap the tick, the cross, the raise or the bolt. After each hand a table shows every hand, each lance's winners and points, and the scores; tap it for the next hand. Each bar shows its side's score. Undo takes back a choice not yet made, never one once the device has passed.
+At the end of the hand the lances count in order:
+- Grande and Chica: the accepted bet, or 1 if nobody bet.
+- Pares: the accepted bet, plus the pares of both winning partners.
+- Juego: the accepted bet, plus 3 for each 31 and 2 for any other juego on the winning side. Punto: the accepted bet plus 1, or 1.
+- The winners of a refused lance, or of one only their side had, still count their pares or juego.

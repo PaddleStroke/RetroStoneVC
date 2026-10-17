@@ -1,17 +1,17 @@
 Pinochle
 # Målet
-Vind stik med tællekort og meld kombinationer. For 2 spillere, eller 4 i to hold, makkerne over for hinanden.
+Vind stik med tællekort og meld kombinationer. For 2 spillere, eller 4 i to hold.
 # Kortene
 48 kort: to af hvert es, 10, konge, dame, knægt og 9 i de fire kulører, i den rækkefølge. Af to ens kort i et stik vinder det først spillede.
 # Meldinger
 - Sekvens (es, 10, konge, dame, knægt i trumf) 15; kongeligt ægteskab (konge og dame i trumf) 4; ægteskab (konge og dame i en anden kulør) 2; dix (trumf 9) 1.
 - Pinochle (spar dame og ruder knægt) 4; dobbelt pinochle 30.
-- Fire esser i forskellige kulører 10, konger 8, damer 6, knægte 4. Med fire spillere tæller alle otte kort af en rang 100, 80, 60 eller 40, og to sekvenser 150.
+- Fire esser i forskellige kulører 10, konger 8, damer 6, knægte 4. Med fire spillere alle otte kort af en rang 100, 80, 60 eller 40, og to sekvenser 150.
 # Spillet
 - Den højeste trumf vinder stikket, ellers det højeste kort i udspillet kulør.
-- Hvert vundet es, 10 og konge giver 1 point; sidste stik 1 mere.
+- Tællekort: hvert vundet es, 10 og konge giver 1 point; sidste stik 1 mere.
 - Strengt spil: bekend og stik over, hvis du kan; uden kuløren, trumf (og overtrumf), hvis du kan.
 # To spillere
-12 kort til hver; næste kort vendes som trumf under bunken (en 9 giver kortgiveren 1). Så længe der er en bunke, må ethvert kort spilles. Vinderen af et stik må melde én kombination med billedsiden op og trækker så først; meldte kort spilles fra bordet. En melding kræver et kort fra hånden; et meldt kort tæller kun igen i en anden slags melding (ægteskaber og sekvenser, firlinger, pinochler). At melde dix bytter den for trumfkortet. Når bunken er tom, går meldingerne tilbage på hånden, og de sidste 12 stik er strenge. Den første med 100 point efter en runde vinder.
+12 kort til hver; næste kort vendes som trumf (en 9 giver kortgiveren 1). Så længe der er en bunke, må ethvert kort spilles. Vinderen af et stik må melde én kombination med billedsiden op og trækker så først. En melding kræver et kort fra hånden; et meldt kort tæller kun igen i en anden slags melding (ægteskaber og sekvenser, firlinger, pinochler). At melde dix bytter den for trumfkortet. Når bunken er tom, går meldingerne tilbage på hånden, og de sidste 12 stik er strenge. Den første med 100 point efter en runde vinder.
 # Fire spillere
-12 kort til hver. På skift byder hver mindst 20 og mere end sidste bud, eller melder pas for runden; melder alle andre pas, skal kortgiveren byde. Den højestbydende vælger trumf, alles meldinger tælles, og han spiller ud. Alle stik er strenge. Et holds meldinger tæller kun, hvis det tager et stik. Når budholdets meldinger og point når buddet, skriver de dem; ellers mister de buddet. Det andet hold skriver sine meldinger og point. Det første hold med 150 vinder; budholdet først, hvis begge når det.
+12 kort til hver. Byd på skift over sidste bud (mindst 20), eller meld pas; melder alle andre pas, skal kortgiveren byde. Den højestbydende vælger trumf, alle meldinger tælles, og han spiller ud; alle stik er strenge. Et holds meldinger tæller kun, hvis det tager et stik. Når budholdets meldinger og point når buddet, skriver de dem; ellers mister de buddet. Det andet hold skriver sine meldinger og point. Det første hold med 150 vinder; budholdet først, hvis begge når det.

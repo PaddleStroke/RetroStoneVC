@@ -1,22 +1,17 @@
 O Anão Amarelo
 # O objetivo
-Ter mais fichas do que todos no fim do jogo. Pousa as tuas cartas em sequências, recolhe as fichas das cinco casas do tabuleiro jogando as cartas delas, e sê o primeiro a esvaziar a mão. De 3 a 6 jogadores, com um baralho de 52 cartas. Em francês, o jogo chama-se Nain jaune.
+Pousa as tuas cartas em sequências, recolhe as fichas das cinco casas do tabuleiro e sê o primeiro a esvaziar a mão. Ganha quem tiver mais fichas no fim.
 # O tabuleiro
-Cinco casas, cada uma com a sua carta: o dez de ouros, o valete de paus, a dama de espadas e o rei de copas nos cantos, e no meio o sete de ouros, o anão amarelo. Todos começam com 100 fichas. Antes de cada ronda, cada jogador aposta 1 ficha no dez, 2 no valete, 3 na dama, 4 no rei e 5 no anão amarelo.
-# A distribuição
-As cartas são dadas uma a uma: 15 a cada um com 3 jogadores, 12 com 4, 9 com 5, 8 com 6. As cartas que sobram formam o monte; ficam voltadas para baixo e não são jogadas. Quem dá as cartas avança um lugar à volta da mesa em cada ronda.
+Cinco casas: o dez de ouros, o valete de paus, a dama de espadas, o rei de copas e o sete de ouros, o anão amarelo. Todos começam com 100 fichas. Antes de cada ronda, cada jogador aposta 1 ficha no dez, 2 no valete, 3 na dama, 4 no rei e 5 no anão amarelo.
 # Jogar as cartas
-As cartas vão do ás (1) ao rei; os naipes não contam.
-- O jogador à esquerda de quem deu as cartas joga uma carta à escolha e continua com a carta seguinte, de qualquer naipe, enquanto puder: um 4, um 5, um 6...
-- Quando não tem a carta seguinte, continua o jogador seguinte à volta da mesa que a tiver, e assim por diante. Os jogadores que não a têm são saltados.
-- Se tiveres a carta seguinte, tens de a jogar; se tiveres várias, escolhes qual.
-- Um rei fecha a sequência: quem o jogou começa uma nova com uma carta à escolha. Se ninguém tiver a carta seguinte, o último jogador que jogou começa uma nova sequência.
-- Quem joga uma das cinco cartas do tabuleiro recolhe todas as fichas da sua casa.
+As cartas vão do ás (1) ao rei; os naipes não contam. As cartas que sobram da distribuição não são jogadas.
+- O jogador à esquerda de quem deu as cartas joga uma carta à escolha e continua com a carta seguinte, de qualquer naipe, enquanto puder.
+- Depois continua o jogador seguinte à volta da mesa que tiver a carta seguinte. Se a tiveres, tens de a jogar.
+- Um rei fecha a sequência e quem o jogou começa uma nova. Se ninguém tiver a carta seguinte, o último jogador que jogou começa uma nova.
+- Quem joga uma das cartas do tabuleiro recolhe todas as fichas da sua casa.
 # O fim de uma ronda
-O primeiro jogador a ficar sem cartas ganha a ronda. Cada um dos outros paga-lhe 1 ficha por cada carta que ainda tem na mão. Um jogador que ainda tenha uma das cinco cartas do tabuleiro paga também outra vez a aposta dela na sua casa (1 pelo dez, 2 pelo valete, 3 pela dama, 4 pelo rei, 5 pelo anão amarelo). As fichas que ninguém recolheu ficam nas casas para a ronda seguinte. Um jogador que não possa pagar paga o que tem.
+O primeiro jogador a ficar sem cartas ganha a ronda: cada um dos outros paga-lhe 1 ficha por cada carta que ainda tem na mão. Um jogador que ainda tenha uma carta do tabuleiro paga também outra vez a aposta dela. As fichas que ninguém recolheu ficam para a ronda seguinte. Um jogador que não possa pagar paga o que tem.
 # Grand opéra
-No jogo clássico, um jogador que se livra de todas as cartas antes de qualquer outro jogador ter jogado uma única carta faz grand opéra: recolhe também as fichas das cinco casas. A outra opção da lista de jogos joga-se sem grand opéra; a sua imagem mostra o anão amarelo sem fichas.
+No jogo clássico, um jogador que fica sem cartas antes de qualquer outro ter jogado uma carta recolhe também as fichas das cinco casas.
 # O fim do jogo
-O jogo acaba quando cada jogador tiver dado as cartas duas vezes, ou antes, logo que um jogador não consiga pagar as 15 fichas das apostas de uma nova ronda. Ganha o jogador com mais fichas; os jogadores empatados partilham a vitória.
-# Jogar no dispositivo
-Passem o dispositivo: cada jogador só vê a sua própria mão, ordenada, em baixo. As mãos dos outros jogadores aparecem em cima como leques de cartas, com o número de cartas de cada um. O tabuleiro e as suas fichas estão no meio; ao lado, a sequência em curso e o monte. Toca numa carta que brilha para a jogar. Quando é a vez de outro jogador, um ecrã esconde as tuas cartas até o jogador seguinte tocar nele. Depois de cada ronda, uma tabela mostra para cada jogador as fichas pagas ou recebidas pelas cartas, as fichas ganhas nas casas (menos as apostas pagas de novo) e as fichas que tem agora; toca nela para a ronda seguinte. Cada barra mostra as fichas desse jogador. Anular desfaz as tuas próprias jogadas, até ao momento em que o dispositivo foi passado.
+O jogo acaba quando cada jogador tiver dado as cartas duas vezes, ou logo que um jogador não consiga pagar as 15 fichas das apostas. Os jogadores empatados partilham a vitória.

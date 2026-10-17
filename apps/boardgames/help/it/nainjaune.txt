@@ -1,22 +1,17 @@
 Il Nano Giallo
 # Lo scopo
-Avere più gettoni di tutti alla fine della partita. Cala le tue carte in sequenze, prendi i gettoni dei cinque scomparti del tabellone giocando le loro carte, e sii il primo a svuotare la tua mano. Da 3 a 6 giocatori, con un mazzo di 52 carte. In francese il gioco si chiama Nain jaune.
+Cala le tue carte in sequenze, prendi i gettoni dei cinque scomparti del tabellone, e sii il primo a svuotare la tua mano. Vince chi ha più gettoni alla fine.
 # Il tabellone
-Cinque scomparti, ognuno con la sua carta: il dieci di quadri, il fante di fiori, la donna di picche e il re di cuori negli angoli, e al centro il sette di quadri, il nano giallo. Ognuno comincia con 100 gettoni. Prima di ogni mano, ogni giocatore punta 1 gettone sul dieci, 2 sul fante, 3 sulla donna, 4 sul re e 5 sul nano giallo.
-# La distribuzione
-Le carte si distribuiscono una alla volta: 15 a testa in 3 giocatori, 12 in 4, 9 in 5, 8 in 6. Le carte avanzate formano il tallone; restano coperte e non si giocano. Il mazziere avanza di un posto intorno al tavolo a ogni mano.
+Cinque scomparti: il dieci di quadri, il fante di fiori, la donna di picche, il re di cuori, e il sette di quadri, il nano giallo. Ognuno comincia con 100 gettoni. Prima di ogni mano, ogni giocatore punta 1 gettone sul dieci, 2 sul fante, 3 sulla donna, 4 sul re e 5 sul nano giallo.
 # Il gioco
-Le carte vanno dall'asso (1) al re; i semi non contano.
-- Il giocatore alla sinistra del mazziere gioca una carta qualsiasi, poi continua con la carta successiva, di qualsiasi seme, finché può: un 4, un 5, un 6...
-- Quando non ha la carta successiva, continua il prossimo giocatore intorno al tavolo che ce l'ha, e così via. I giocatori che non ce l'hanno vengono saltati.
-- Se hai la carta successiva, devi giocarla; se ne hai più d'una, scegli quale.
-- Un re chiude la sequenza: chi l'ha giocato ne comincia una nuova con una carta qualsiasi. Se nessuno ha la carta successiva, l'ultimo giocatore che ha giocato comincia una nuova sequenza.
-- Chi gioca una delle cinque carte del tabellone prende tutti i gettoni del suo scomparto.
+Le carte vanno dall'asso (1) al re; i semi non contano. Le carte avanzate alla distribuzione non si giocano.
+- Il giocatore alla sinistra del mazziere gioca una carta qualsiasi, poi la carta successiva, di qualsiasi seme, finché può.
+- Poi continua il prossimo giocatore intorno al tavolo che ha la carta successiva. Se ce l'hai, devi giocarla.
+- Un re chiude la sequenza: chi l'ha giocato ne comincia una nuova. Se nessuno ha la carta successiva, l'ultimo giocatore che ha giocato ne comincia una nuova.
+- Chi gioca una delle carte del tabellone prende tutti i gettoni del suo scomparto.
 # La fine di una mano
-Il primo giocatore che resta senza carte vince la mano. Ognuno degli altri gli paga 1 gettone per ogni carta che ha ancora in mano. Chi tiene ancora una delle cinque carte del tabellone paga inoltre di nuovo la sua puntata nel suo scomparto (1 per il dieci, 2 per il fante, 3 per la donna, 4 per il re, 5 per il nano giallo). I gettoni che nessuno ha preso restano negli scomparti per la mano successiva. Chi non può pagare paga quello che ha.
+Il primo giocatore che resta senza carte vince la mano: ognuno degli altri gli paga 1 gettone per ogni carta che ha ancora in mano. Chi tiene ancora una carta del tabellone paga inoltre di nuovo la sua puntata. I gettoni che nessuno ha preso restano per la mano successiva. Chi non può pagare paga quello che ha.
 # Grand opéra
-Nel gioco classico, un giocatore che si libera di tutte le sue carte prima che qualsiasi altro giocatore abbia giocato una sola carta fa grand opéra: prende in più i gettoni di tutti e cinque gli scomparti. L'altra scelta dell'elenco dei giochi si gioca senza grand opéra; la sua immagine mostra il nano giallo senza gettoni.
+Nel gioco classico, un giocatore che si libera di tutte le sue carte prima che qualsiasi altro giocatore abbia giocato una carta prende in più i gettoni di tutti e cinque gli scomparti.
 # La fine della partita
-La partita finisce quando ogni giocatore ha fatto il mazziere due volte, oppure prima, appena un giocatore non può pagare i 15 gettoni delle puntate per una nuova mano. Vince il giocatore con più gettoni; i giocatori a pari merito si dividono la vittoria.
-# Giocare sul dispositivo
-Passatevi il dispositivo: ognuno vede solo la propria mano, ordinata, in basso. Le mani degli altri giocatori compaiono in alto come ventagli di carte, con il numero di carte di ciascuno. Il tabellone e i suoi gettoni sono al centro; accanto, la sequenza in corso e il tallone. Tocca una carta che brilla per giocarla. Quando è il turno di un altro, una schermata nasconde le tue carte finché il giocatore successivo non la tocca. Dopo ogni mano una tabella mostra per ogni giocatore i gettoni pagati o ricevuti per le carte, i gettoni vinti dagli scomparti (meno le puntate pagate di nuovo) e i gettoni che ha ora; toccala per la mano successiva. Ogni barra mostra i gettoni di quel giocatore. Annulla ritira le tue giocate, fino al momento in cui il dispositivo è stato passato.
+La partita finisce quando ogni giocatore ha fatto il mazziere due volte, oppure appena un giocatore non può pagare i 15 gettoni delle puntate. I giocatori a pari merito si dividono la vittoria.

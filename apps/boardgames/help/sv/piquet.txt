@@ -1,23 +1,20 @@
 Piquet
 # Målet
-Det klassiska franska spelet för två (rubicon-piquet): ta fler poäng än din motståndare under ett parti på sex givar, och minst 100. Skicka enheten mellan dragen; ingen av er ser den andres kort.
+Rubicon-piquet, det klassiska franska spelet för två: ta fler poäng än din motståndare under sex givar, och minst 100.
 # Korten
-32 kort: ess (högst), kung, dam, knekt, 10, 9, 8, 7. Man ger varannan gång; den som inte ger är förhand. Varje spelare får 12 kort; de övriga 8 är talongen.
+32 kort, från ess (högst) ner till 7. Man ger varannan gång; den som inte ger är förhand. 12 kort var; de övriga 8 är talongen.
 # Kortbytet
-Förhand kastar 1 till 5 kort och tar lika många från toppen av talongen. Sedan får efterhand kasta upp till så många kort som finns kvar (oftast 3) och ta dem. Kort som blir över ligger kvar med baksidan upp, osedda.
+Förhand kastar 1 till 5 kort och tar lika många från toppen av talongen. Sedan får efterhand kasta upp till så många som finns kvar och ta dem.
 # Utropen
-Varje sort räknas bara för den spelare som har den bästa; lika bra räknas inte:
+Varje sort räknas bara för den spelare som har den bästa; lika bra räknas inte. Var och en ropar ut det bästa handen har, före första utspelet.
 - Carte blanche: tolv kort utan kung, dam eller knekt: 10.
 - Pointen: flest kort i en färg (vid lika det högre värdet: ess 11, kung, dam och knekt 10, de andra sitt tal): 1 poäng per kort.
-- Sekvenser: tre eller fler kort i följd i en färg. Den längsta vinner (vid lika den med högst toppkort), och dess ägare räknar alla sina sekvenser: 3 kort 3, 4 kort 4, 5 kort 15, 6 kort 16, 7 kort 17, 8 kort 18.
+- Sekvenser: tre eller fler kort i följd i en färg. Den längsta vinner (vid lika den med högst toppkort), och dess ägare räknar alla sina sekvenser: 3 kort 3, 4 kort 4, 5 till 8 kort 15 till 18.
 - Tretal och fyrtal: tre eller fyra kort av samma valör, 10 eller högre. Fyra slår tre, sedan vinner högre valör; vinnaren räknar alla sina: fyrtal 14, tretal 3.
-Förhand ropar ut, efterhand svarar: ”bra” (förhands är bättre), ”inte bra” (efterhands är bättre) eller ”lika”. Här är varje utrop det bästa handen har, båda görs före första utspelet, och de bättre kombinationerna visas för båda spelarna.
 # Spelet
-Förhand spelar ut. Bekänn färg om du kan, annars spela valfritt kort; det finns ingen trumf. Det högre kortet i utspelad färg vinner och spelar ut till nästa. Att spela ut en 10 eller högre ger 1; att ta motståndarens utspel med en 10 eller högre ger 1; sista sticket ger 1 extra. Flest stick (7 eller fler) ger 10; alla 12 stick (capot) ger i stället 40.
+Förhand spelar ut. Bekänn färg om du kan; det finns ingen trumf. Det högre kortet i utspelad färg vinner och spelar ut till nästa. Att spela ut en 10 eller högre ger 1; att ta motståndarens utspel med en 10 eller högre ger 1; sista sticket 1 extra. Flest stick (7 eller fler) ger 10; alla 12 (capot) i stället 40.
 # Pique och repique
-- Repique: 30 poäng enbart från utropen (räknade i ordningen carte blanche, pointen, sekvenser, tretal och fyrtal) innan motståndaren fått något: 60 extra.
-- Pique: förhand når 30 med utrop och poäng i spelet (inte de 10 för flest stick och inte capot) innan efterhand fått något: 30 extra. Bara förhand kan göra pique.
+- Repique: 30 poäng enbart från utropen (i ordningen carte blanche, pointen, sekvenser, tretal och fyrtal) innan motståndaren fått något: 60 extra.
+- Pique: förhand når 30 med utrop och spel (inte flest stick och inte capot) innan efterhand fått något: 30 extra.
 # Partiets slut
-Efter sex givar vinner den högre summan. En förlorare under 100 stannar under rubicon: vinnaren får båda summorna plus 100. Annars får vinnaren skillnaden plus 100. Lika summor: oavgjort.
-# Spela på enheten
-Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand, solfjädrad längst ner. För att byta trycker du på korten du kastar (de lyfts), och sedan på bocken vid talongen; de nya korten står lite högre. Talet vid en bricka: korten den spelaren bytte. Utropen visas på en tavla: en kolumn för pointen (tre kort i en färg), sekvenser (en trappa av kort), tretal och fyrtal (tre ess) och carte blanche (ett tomt kort); en rad för varje spelare, din motståndare överst. Pointen visar sitt antal kort och sitt värde, en sekvens sin längd och sitt toppkort, ett tretal eller fyrtal sin storlek och valör. Förhand ser sin egen rad och trycker på bocken. Sedan ser efterhand båda raderna: en guldbock och poängen vid den bättre (”bra” eller ”inte bra”), ett likhetstecken för ”lika”; hans bock visar korten i de bättre kombinationerna för båda spelarna. Tavlan står kvar tills förhand spelar ut. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats i mitten; eller dra dit det. Talet vid en bricka: den spelarens poäng i given. Efter varje giv visar en tavla utropen, poängen i spelet (en krona: capot), pique eller repique (spadertecknet), given och summan, och de sex givarna som prickar; efter den sjätte vinnarens poäng för partiet (en överstruken 100: förloraren stannade under rubicon).
+Efter sex givar vinner den högre summan. En förlorare under 100 stannar under rubicon: vinnaren får båda summorna plus 100; annars skillnaden plus 100. Lika summor: oavgjort.

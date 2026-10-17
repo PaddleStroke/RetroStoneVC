@@ -1,29 +1,24 @@
 Mus
 # Cel gry
-Baskijska gra karciana dla dwóch par partnerów siedzących naprzeciw siebie: kość słoniowa i czerwony przeciw hebanowi i nefrytowi. W każdym rozdaniu gra się cztery lances; w każdym wygrywają najlepsze karty, chyba że zakład odstraszy drugą parę: zakłady są sercem gry. Wygrywa para, która pierwsza dojdzie do 40 punktów (tantos). Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+Baskijska gra dla dwóch par partnerów siedzących naprzeciw siebie. W każdym rozdaniu gra się cztery lances: w każdym wygrywają najlepsze karty, chyba że zakład odstraszy drugą parę. Wygrywa para, która pierwsza dojdzie do 40 punktów (tantos), od razu, nawet w środku liczenia.
 # Karty
-Hiszpańska talia 40 kart w czterech kolorach: oros (monety), copas (puchary), espadas (miecze) i bastos (pałki), z numerami od 1 do 7, potem sota (10, tu pionek), caballo (11, skoczek) i rey (12, król). Przerwy w linii wokół każdej karty, pinta, pokazują kolor: oros żadnej, copas jedną, espadas dwie, bastos trzy. Gra się według zwykłej reguły ośmiu królów (ocho reyes): każda 3 liczy się jako rey, a każda 2 jako as, we wszystkich lances.
+Hiszpańska talia 40 kart: od 1 do 7, potem sota (10), caballo (11) i rey (12). Z ośmioma królami (ocho reyes): każda 3 liczy się jako rey, a każda 2 jako as.
 # Mus
-Każdy gracz dostaje 4 karty. Mano, który mówi pierwszy i wygrywa każdy remis, to gracz po rozdającym; obaj przesuwają się o jedno miejsce co rozdanie. Kolejno od mana każdy mówi mus (by wymienić karty) albo tnie (no hay mus, „nie ma musa”). Jeśli wszyscy czterej powiedzą mus, każdy po kolei odkłada od 1 do 4 kart i dobiera tyle samo, po czym znów pyta się o mus. Gdy tylko ktoś przetnie, zaczynają się lances.
+Każdy dostaje 4 karty. Mano, gracz po rozdającym, mówi pierwszy i wygrywa każdy remis. Kolejno każdy mówi mus (by wymienić karty) albo tnie. Jeśli wszyscy czterej powiedzą mus, każdy odkłada od 1 do 4 kart i dobiera tyle samo, po czym znów pyta się o mus. Gdy tylko ktoś przetnie, zaczynają się lances.
 # Cztery lances
 - Grande: wygrywają najwyższe karty, porównywane po kolei: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: wygrywają najniższe karty.
-- Pares: jednakowe karty. Para (par) jest warta 1, trzy jednakowe (medias) 2, dwie pary lub cztery jednakowe (duples) 3. Duples biją medias, a medias parę; przy równych wygrywają wyższe karty. Grają tylko ci, którzy mają pares.
-- Juego: karty się sumuje, figury po 10, pozostałe według numeru. Od 31 jest juego: najlepsze 31, potem 32, 40, 37, 36, 35, 34 i 33. Grają tylko ci, którzy mają juego. Jeśli nikt nie ma juego, lance staje się Punto: wygrywa najwyższa suma.
-W Pares i Juego nie ma zakładów, gdy ma je tylko jedna para, a lance się pomija, gdy nikt ich nie ma. Remis wygrywa zawsze gracz najbliżej mana.
-# Zakłady (envites)
+- Pares: para (par) jest warta 1, trzy jednakowe (medias) 2, dwie pary lub cztery jednakowe (duples) 3. Duples biją medias, a medias parę; przy równych wygrywają wyższe karty.
+- Juego: figury liczą się po 10, pozostałe według numeru. Od 31 jest juego: najlepsze 31, potem 32, 40, 37, 36, 35, 34, 33. Jeśli nikt nie ma juego, lance staje się Punto: wygrywa najwyższa suma.
+W tych lances grają tylko gracze, którzy mają pares lub juego; jeśli ma je tylko jedna para, nie ma zakładów.
+# Zakłady
 - W każdym lance gracze mówią kolejno od mana: pas (paso) albo zakład (envido: 2 punkty lub więcej).
-- Na zakład odpowiada następny przeciwnik, a w razie potrzeby jego partner: przyjąć (quiero), podbić o kilka punktów, postawić całą grę (órdago) albo odmówić (no quiero). Zakład jest odrzucony dopiero, gdy odmówią obaj przeciwnicy.
-- Odrzucony: para, która postawiła, od razu dostaje 1 punkt albo zakład sprzed ostatniego podbicia i wygrywa lance.
-- Jeśli wszyscy pasują, lance gra się „en paso”.
-- Przyjęte órdago: karty od razu się odkrywa, a zwycięzca tego lance wygrywa grę.
+- Na zakład przeciwnicy mogą przyjąć (quiero), podbić, postawić całą grę (órdago) albo odmówić (no quiero). Zakład jest odrzucony dopiero, gdy odmówią obaj.
+- Odrzucony: para, która postawiła, dostaje 1 punkt albo zakład sprzed ostatniego podbicia i wygrywa lance.
+- Przyjęte órdago: ręce się odkrywa, a zwycięzca tego lance wygrywa grę.
 # Liczenie
-Na końcu rozdania odkrywa się wszystkie karty i liczy lances po kolei:
-- Grande i Chica: przyjęty zakład albo 1 punkt en paso.
-- Pares: przyjęty zakład plus wartość pares obu zwycięskich partnerów.
-- Juego: przyjęty zakład plus 3 za każde 31 i 2 za każde inne juego zwycięskiej pary. Punto: przyjęty zakład plus 1 albo 1 en paso.
+Na końcu rozdania liczy się lances po kolei:
+- Grande i Chica: przyjęty zakład albo 1, jeśli nikt nie postawił.
+- Pares: przyjęty zakład plus pares obu zwycięskich partnerów.
+- Juego: przyjęty zakład plus 3 za każde 31 i 2 za każde inne juego zwycięskiej pary. Punto: przyjęty zakład plus 1 albo 1.
 - Zwycięzcy odrzuconego lance, albo takiego, który miała tylko ich para, i tak liczą swoje pares lub juego.
-# Koniec gry
-Wygrywa para, która pierwsza dojdzie do 40 punktów, nawet w środku liczenia, albo od razu punktami z odrzuconego zakładu. Przy stole liczy się kamykami, pięć na jeden amarraco; tu są to cyfry. Tajne znaki partnerów (señas) to zwyczaj stołu, nie reguła: tu ich nie ma.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Każde miejsce pokazuje swoje ostatnie słowo: mus (dwie strzałki, po jednej w każdą stronę), cięcie (te same przekreślone), pas, zakład, podbicie (plus), órdago (złota błyskawica na czerwonym), quiero (znaczek zatwierdzenia), no quiero (krzyżyk). W Pares i Juego każde miejsce pokazuje, czy je ma. Cztery lances stoją w rzędzie u góry: Grande (strzałka w górę), Chica (strzałka w dół), Pares (dwie karty), Juego (31) lub Punto (30); obecny świeci, a rozegrane pokazują pod spodem wynik. Aby wymienić karty, dotknij kart do odłożenia, a potem znaczka zatwierdzenia. Aby postawić, ustaw kwotę minusem i plusem i dotknij złotego przycisku; na zakład dotknij znaczka zatwierdzenia, krzyżyka, podbicia albo błyskawicy. Po każdym rozdaniu tabela pokazuje wszystkie ręce, zwycięzców i punkty każdego lance oraz wynik; dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje wynik swojej pary. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.

@@ -1,23 +1,20 @@
 Picchetto
 # Lo scopo
-Il classico gioco francese a due (il picchetto Rubicone): fare più punti dell'avversario nel corso di una partita di sei smazzate, e almeno 100 punti. Passatevi il dispositivo a ogni turno; nessuno dei due vede le carte dell'altro.
+Il picchetto Rubicone, il classico gioco francese a due: fare più punti dell'avversario in sei smazzate, e almeno 100 punti.
 # Le carte
-32 carte: asso (la più alta), re, donna, fante, 10, 9, 8, 7. La distribuzione si alterna; chi non distribuisce è il primo di mano, l'altro il secondo. Ognuno riceve 12 carte; le altre 8 formano il tallone.
+32 carte, dall'asso (la più alta) al 7. La distribuzione si alterna; chi non distribuisce è il primo di mano. Ognuno riceve 12 carte; le altre 8 formano il tallone.
 # Lo scarto
-Il primo scarta da 1 a 5 carte e ne prende altrettante dalla cima del tallone. Poi il secondo può scartare fino a tante carte quante ne restano (di solito 3) e prenderle. Le carte avanzate restano coperte, senza che nessuno le veda.
+Il primo scarta da 1 a 5 carte e ne prende altrettante dalla cima del tallone. Poi il secondo può scartare fino a tante carte quante ne restano e prenderle.
 # Le dichiarazioni
-Ogni tipo conta solo per il giocatore che ha il migliore; a parità nessuno segna:
+Ogni tipo conta solo per il giocatore che ha il migliore; a parità nessuno segna. Ognuno dichiara il meglio che ha in mano, prima dell'uscita.
 - Carta bianca: dodici carte ricevute senza re, donna né fante: 10.
 - Il punto: il maggior numero di carte in un seme (a parità, il valore più alto: asso 11, re, donna e fante 10, le altre il loro numero): 1 punto per carta.
-- Le sequenze: tre o più carte consecutive dello stesso seme. Vince la più lunga (a parità, quella con la carta più alta) e chi la ha segna tutte le sue sequenze: 3 carte 3, 4 carte 4, 5 carte 15, 6 carte 16, 7 carte 17, 8 carte 18.
+- Le sequenze: tre o più carte consecutive dello stesso seme. Vince la più lunga (a parità, quella con la carta più alta) e chi la ha segna tutte le sue sequenze: 3 carte 3, 4 carte 4, da 5 a 8 carte da 15 a 18.
 - I tris e i quattordici: tre o quattro carte dello stesso valore, dal 10 in su. Quattro battono tre, poi vince il valore più alto; il vincitore li segna tutti: quattro 14, tre 3.
-Il primo dichiara, il secondo risponde: «buono» (quella del primo è migliore), «non buono» (la sua è migliore) o «uguale». Qui ogni dichiarazione è la migliore che la mano contiene, entrambe si fanno prima dell'uscita e le combinazioni migliori vengono mostrate a entrambi i giocatori.
 # Il gioco
-Il primo esce. Rispondi al seme di uscita se puoi, altrimenti gioca una carta qualsiasi; non ci sono briscole. La carta più alta del seme di uscita vince ed esce nella presa successiva. Uscire con un 10 o più vale 1; prendere l'uscita dell'avversario con un 10 o più vale 1; l'ultima presa vale 1 in più. La maggior parte delle prese (7 o più) vale 10; tutte le 12 prese (cappotto) valgono invece 40.
+Il primo esce. Rispondi al seme di uscita se puoi; non ci sono briscole. La carta più alta del seme di uscita vince ed esce nella presa successiva. Uscire con un 10 o più vale 1; prendere l'uscita dell'avversario con un 10 o più vale 1; l'ultima presa vale 1 in più. La maggior parte delle prese (7 o più) vale 10; tutte le 12 prese (cappotto) valgono invece 40.
 # Picco e ripicco
-- Ripicco: 30 punti con le sole dichiarazioni (contate in ordine: carta bianca, punto, sequenze, tris e quattordici) prima che l'avversario segni qualcosa: 60 in più.
-- Picco: il primo arriva a 30 con dichiarazioni e punti del gioco (non i 10 per la maggior parte delle prese né il cappotto) prima che il secondo segni qualcosa: 30 in più. Solo il primo può fare picco.
+- Ripicco: 30 punti con le sole dichiarazioni (in ordine: carta bianca, punto, sequenze, tris e quattordici) prima che l'avversario segni qualcosa: 60 in più.
+- Picco: il primo arriva a 30 con dichiarazioni e gioco (non la maggior parte delle prese né il cappotto) prima che il secondo segni qualcosa: 30 in più.
 # La fine della partita
-Dopo sei smazzate vince il totale più alto. Un perdente sotto i 100 è rubiconato: il vincitore segna entrambi i totali più 100. Altrimenti il vincitore segna la differenza più 100. Totali uguali: pareggio.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui appare la pedina; tocca il pulsante di avvio e vede la sua mano, a ventaglio in basso. Per scartare, tocca le carte da scartare (si sollevano), poi il segno di spunta accanto al tallone; le carte nuove restano un po' più in alto. Il numero accanto a una pedina: le carte che quel giocatore ha cambiato. Le dichiarazioni compaiono su un tabellone: una colonna per il punto (tre carte di un seme), le sequenze (una scala di carte), i tris e i quattordici (tre assi) e la carta bianca (una carta vuota); una riga per giocatore, l'avversario in alto. Il punto mostra le sue carte e il valore, una sequenza la lunghezza e la carta più alta, un tris o un quattordici il numero di carte e il valore. Il primo vede la propria riga e tocca il segno di spunta. Poi il secondo vede entrambe le righe: un segno di spunta dorato e i punti accanto alla migliore («buono» o «non buono»), un segno di uguale per «uguale»; il suo segno di spunta mostra a entrambi i giocatori le carte delle combinazioni migliori. Il tabellone resta finché il primo non esce. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala. Il numero accanto a una pedina: i suoi punti in questa smazzata. Dopo ogni smazzata una tabella mostra le dichiarazioni, i punti del gioco (una corona: cappotto), picco o ripicco (il simbolo di picche), la smazzata e il totale, e le sei smazzate come punti; dopo la sesta, il punteggio del vincitore per la partita (un 100 barrato: il perdente è stato rubiconato).
+Dopo sei smazzate vince il totale più alto. Un perdente sotto i 100 è rubiconato: il vincitore segna entrambi i totali più 100; altrimenti la differenza più 100. Totali uguali: pareggio.

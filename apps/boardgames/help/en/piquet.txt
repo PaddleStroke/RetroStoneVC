@@ -1,23 +1,20 @@
 Piquet
 # The aim
-The classic French game for two (Rubicon piquet): score more than your opponent over a partie of six deals, and at least 100 points. Pass the device between turns; neither player sees the other's cards.
+Rubicon piquet, the classic French game for two: over six deals, score more than your opponent, and at least 100 points.
 # The cards
-32 cards: ace (highest), king, queen, jack, 10, 9, 8, 7. The deal alternates; the player who does not deal is the elder hand. Each player gets 12 cards; the other 8 are the talon.
+32 cards, ace high down to 7. The deal alternates; the player who does not deal is the elder hand. 12 cards each; the other 8 are the talon.
 # The exchange
-The elder throws 1 to 5 cards and takes as many from the top of the talon. Then the younger may throw up to as many cards as are left (usually 3) and take them. Cards left over stay face down, unseen.
+The elder throws 1 to 5 cards and takes as many from the top of the talon. Then the younger may throw up to as many as are left and take them.
 # The declarations
-Each kind counts only for the player who holds the better one; equal ones score nothing:
+Each kind scores only for the player who holds the better one; equal ones score nothing. Each player declares the best their hand holds, before the first lead.
 - Carte blanche: twelve cards dealt without a king, queen or jack: 10.
 - The point: the most cards in one suit (if equal, the higher value: ace 11, king, queen and jack 10, the others their number): 1 point per card.
-- Sequences: three or more cards following in one suit. The longest wins (if equal, the higher top card) and its holder scores all their sequences: 3 cards 3, 4 cards 4, 5 cards 15, 6 cards 16, 7 cards 17, 8 cards 18.
+- Sequences: three or more cards following in one suit. The longest wins (if equal, the higher top card) and its holder scores all their sequences: 3 cards 3, 4 cards 4, 5 to 8 cards 15 to 18.
 - Sets: three or four cards of one rank, 10 or higher. Four beat three, then the higher rank wins; the winner scores all their sets: four 14, three 3.
-The elder declares, the younger answers: "good" (the elder's is better), "not good" (the younger's is better) or "equal". Here every declaration is the best the hand holds, both are made before the first lead, and the better combinations are shown to both players.
 # Playing
-The elder leads. Follow suit if you can, otherwise play any card; there are no trumps. The higher card of the suit led wins and leads next. Leading a 10 or higher scores 1; winning your opponent's lead with a 10 or higher scores 1; the last trick scores 1 more. Most tricks (7 or more) score 10; all 12 tricks (capot) score 40 instead.
+The elder leads. Follow suit if you can; there are no trumps. The higher card of the suit led wins and leads next. Leading a 10 or higher scores 1; winning your opponent's lead with a 10 or higher scores 1; the last trick 1 more. Most tricks (7 or more) score 10; all 12 (capot) 40 instead.
 # Pique and repique
-- Repique: 30 points from the declarations alone (counted in order: carte blanche, point, sequences, sets) before the opponent scores anything: 60 more.
-- Pique: the elder reaching 30 with declarations and points in play (not the 10 for most tricks nor capot) before the younger scores anything: 30 more. Only the elder can pique.
+- Repique: 30 points from the declarations alone (in order: carte blanche, point, sequences, sets) before the opponent scores anything: 60 more.
+- Pique: the elder reaching 30 with declarations and play (not most tricks nor capot) before the younger scores anything: 30 more.
 # The end of the game
-After six deals the higher total wins. A loser under 100 is rubiconed: the winner scores both totals plus 100. Otherwise the winner scores the difference plus 100. Equal totals: a draw.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their own hand, fanned at the bottom. To exchange, tap the cards you throw (they rise), then the tick beside the talon; the new cards stand a little higher. The number beside a token: the cards that player changed. The declarations appear on a board: a column for the point (three cards of one suit), sequences (a stair of cards), sets (three aces) and carte blanche (a blank card); a row for each player, your opponent at the top. The point shows its cards and value, a sequence its length and top card, a set its size and rank. The elder sees their own row and taps the tick. The younger then sees both rows: a gold tick and the points beside the better one ("good" or "not good"), an equals sign for "equal"; their tick shows the better combinations' cards to both players. The board stays until the elder leads. To play, tap a glowing card so it rises, then tap it again or its place in the middle; or drag it. The number beside a token: their points in this deal. After each deal a table shows the declarations, the points in play (a crown: capot), pique or repique (the spade), the deal and the total, and the six deals as dots; after the sixth, the winner's score for the partie (a struck-out 100: the loser was rubiconed).
+After six deals the higher total wins. A loser under 100 is rubiconed: the winner scores both totals plus 100; otherwise the difference plus 100. Equal totals: a draw.

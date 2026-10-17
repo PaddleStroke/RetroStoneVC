@@ -1,22 +1,17 @@
 Den gule dværg
 # Målet
-At have flest jetoner ved spillets afslutning. Læg dine kort i rækkefølger, saml jetonerne i brættets fem rum ved at spille deres kort, og bliv den første, der tømmer sin hånd. For 3 til 6 spillere med et spil på 52 kort. På fransk hedder spillet Nain jaune.
+Læg dine kort i rækkefølger, saml jetonerne i brættets fem rum, og bliv den første, der tømmer sin hånd. Flest jetoner ved spillets afslutning vinder.
 # Brættet
-Fem rum, hver med sit kort: ruder ti, klør knægt, spar dame og hjerter konge i hjørnerne, og i midten ruder syv, den gule dværg. Alle starter med 100 jetoner. Før hvert giv sætter hver spiller 1 jeton på tieren, 2 på knægten, 3 på damen, 4 på kongen og 5 på den gule dværg.
-# Uddelingen
-Kortene gives ét ad gangen: 15 hver ved 3 spillere, 12 ved 4, 9 ved 5, 8 ved 6. De resterende kort udgør talonen; de bliver liggende med bagsiden opad og spilles ikke. Giveren rykker én plads rundt om bordet for hvert giv.
+Fem rum: ruder ti, klør knægt, spar dame, hjerter konge og ruder syv, den gule dværg. Alle starter med 100 jetoner. Før hvert giv sætter hver spiller 1 jeton på tieren, 2 på knægten, 3 på damen, 4 på kongen og 5 på den gule dværg.
 # Spillet
-Kortene går fra es (1) op til konge; kulørerne tæller ikke.
-- Spilleren til venstre for giveren spiller et vilkårligt kort og fortsætter med det næste kort opad, i en vilkårlig kulør, så længe han kan: en 4'er, en 5'er, en 6'er ...
-- Når han ikke har det næste kort, fortsætter den næste spiller rundt om bordet, der har det, og så videre. Spillere, der ikke har det, springes over.
-- Har du det næste kort, skal du spille det; har du flere, vælger du hvilket.
-- En konge afslutter rækkefølgen: spilleren, der spillede den, starter en ny med et vilkårligt kort. Har ingen det næste kort, starter den, der spillede sidst, en ny rækkefølge.
-- Den, der spiller et af brættets fem kort, tager alle jetonerne i dets rum.
+Kortene går fra es (1) op til konge; kulørerne tæller ikke. De kort, der er tilbage ved uddelingen, spilles ikke.
+- Spilleren til venstre for giveren spiller et vilkårligt kort og så det næste kort opad, i en vilkårlig kulør, så længe han kan.
+- Så fortsætter den næste spiller rundt om bordet, der har det næste kort. Har du det, skal du spille det.
+- En konge afslutter rækkefølgen, og spilleren, der spillede den, starter en ny. Har ingen det næste kort, starter den, der spillede sidst, en ny.
+- Den, der spiller et af brættets kort, tager alle jetonerne i dets rum.
 # Slutningen af et giv
-Den første spiller uden kort tilbage vinder givet. Hver af de andre betaler ham 1 jeton for hvert kort, der stadig er på hånden. En spiller, der stadig har et af brættets fem kort, betaler desuden dets indsats igen i dets rum (1 for tieren, 2 for knægten, 3 for damen, 4 for kongen, 5 for den gule dværg). De jetoner, ingen har taget, bliver i rummene til næste giv. En spiller, der ikke kan betale, betaler det, han har.
+Den første spiller uden kort vinder givet: hver af de andre betaler ham 1 jeton for hvert kort, der stadig er på hånden. En spiller, der stadig har et af brættets kort, betaler desuden dets indsats igen. De jetoner, ingen har taget, bliver til næste giv. En spiller, der ikke kan betale, betaler det, han har.
 # Grand opéra
-I det klassiske spil laver en spiller, der kommer af med alle sine kort, før nogen anden spiller har spillet et eneste kort, grand opéra: han tager også jetonerne i alle fem rum. Det andet valg i spillisten spiller uden grand opéra; dets billede viser den gule dværg uden jetoner.
+I det klassiske spil tager en spiller, der kommer af med alle sine kort, før nogen anden har spillet et kort, også jetonerne i alle fem rum.
 # Spillets afslutning
-Spillet slutter, når hver spiller har givet to gange, eller tidligere, så snart en spiller ikke kan betale de 15 jetoner i indsats til et nyt giv. Spilleren med flest jetoner vinder; spillere med lige mange deler sejren.
-# Spil på enheden
-Send enheden rundt: hver spiller ser kun sin egen hånd, sorteret, nederst. De andres hænder vises som vifter af kort øverst, med hvor mange kort hver har. Brættet og dets jetoner er i midten; ved siden af ligger den rækkefølge, der spilles, og talonen. Tryk på et kort, der lyser, for at spille det. Når det er en andens tur, skjuler en skærm dine kort, til den næste spiller trykker på den. Efter hvert giv viser en tabel for hver spiller de jetoner, der er betalt eller modtaget for kortene, de jetoner, der er vundet fra rummene (minus de indsatser, der er betalt igen), og de jetoner, spilleren nu har; tryk på den for næste giv. Hvert panel viser spillerens jetoner. Fortryd tager dine egne træk tilbage, dog ikke længere tilbage end til det øjeblik, enheden blev sendt videre.
+Spillet slutter, når hver spiller har givet to gange, eller så snart en spiller ikke kan betale de 15 jetoner i indsats. Spillere med lige mange deler sejren.

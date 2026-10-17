@@ -1,22 +1,17 @@
 O Anão Amarelo
 # O objetivo
-Ter mais fichas que todos no fim da partida. Baixe as suas cartas em sequências, recolha as fichas das cinco casas do tabuleiro jogando as cartas delas, e seja o primeiro a esvaziar a mão. De 3 a 6 jogadores, com um baralho de 52 cartas. Em francês, o jogo se chama Nain jaune.
+Baixe as suas cartas em sequências, recolha as fichas das cinco casas do tabuleiro, e seja o primeiro a esvaziar a mão. Vence quem tiver mais fichas no fim.
 # O tabuleiro
-Cinco casas, cada uma com a sua carta: o dez de ouros, o valete de paus, a dama de espadas e o rei de copas nos cantos, e no meio o sete de ouros, o anão amarelo. Todos começam com 100 fichas. Antes de cada rodada, cada jogador aposta 1 ficha no dez, 2 no valete, 3 na dama, 4 no rei e 5 no anão amarelo.
-# A distribuição
-As cartas são dadas uma a uma: 15 para cada um com 3 jogadores, 12 com 4, 9 com 5, 8 com 6. As cartas que sobram formam o monte; elas ficam viradas para baixo e não são jogadas. Quem dá as cartas avança um lugar em volta da mesa a cada rodada.
+Cinco casas: o dez de ouros, o valete de paus, a dama de espadas, o rei de copas, e o sete de ouros, o anão amarelo. Todos começam com 100 fichas. Antes de cada rodada, cada jogador aposta 1 ficha no dez, 2 no valete, 3 na dama, 4 no rei e 5 no anão amarelo.
 # Jogando as cartas
-As cartas vão do ás (1) até o rei; os naipes não contam.
-- O jogador à esquerda de quem deu as cartas joga qualquer carta e segue com a carta seguinte, de qualquer naipe, enquanto puder: um 4, um 5, um 6...
-- Quando ele não tem a carta seguinte, continua o próximo jogador em volta da mesa que a tiver, e assim por diante. Os jogadores que não a têm são pulados.
-- Se você tem a carta seguinte, é obrigado a jogá-la; se tiver várias, escolhe qual.
-- Um rei encerra a sequência: quem o jogou começa uma nova com qualquer carta. Se ninguém tiver a carta seguinte, o último jogador que jogou começa uma nova sequência.
-- Quem joga uma das cinco cartas do tabuleiro recolhe todas as fichas da casa dela.
+As cartas vão do ás (1) até o rei; os naipes não contam. As cartas que sobram na distribuição não são jogadas.
+- O jogador à esquerda de quem deu as cartas joga qualquer carta e segue com a carta seguinte, de qualquer naipe, enquanto puder.
+- Depois continua o próximo jogador em volta da mesa que tiver a carta seguinte. Se você a tem, é obrigado a jogá-la.
+- Um rei encerra a sequência e quem o jogou começa uma nova. Se ninguém tiver a carta seguinte, o último jogador que jogou começa uma nova.
+- Quem joga uma das cartas do tabuleiro recolhe todas as fichas da casa dela.
 # O fim de uma rodada
-O primeiro jogador que fica sem cartas vence a rodada. Cada um dos outros paga a ele 1 ficha por carta que ainda tem na mão. Um jogador que ainda tem uma das cinco cartas do tabuleiro também paga de novo a aposta dela na casa dela (1 pelo dez, 2 pelo valete, 3 pela dama, 4 pelo rei, 5 pelo anão amarelo). As fichas que ninguém recolheu ficam nas casas para a próxima rodada. Um jogador que não pode pagar paga o que tem.
+O primeiro jogador que fica sem cartas vence a rodada: cada um dos outros paga a ele 1 ficha por carta que ainda tem na mão. Um jogador que ainda tem uma carta do tabuleiro também paga de novo a aposta dela. As fichas que ninguém recolheu ficam para a próxima rodada. Um jogador que não pode pagar paga o que tem.
 # Grand opéra
-No jogo clássico, um jogador que se livra de todas as cartas antes que qualquer outro jogador tenha jogado uma única carta faz grand opéra: recolhe também as fichas das cinco casas. A outra opção da lista de jogos é jogada sem grand opéra; a imagem dela mostra o anão amarelo sem fichas.
+No jogo clássico, um jogador que se livra de todas as cartas antes que qualquer outro tenha jogado uma carta recolhe também as fichas das cinco casas.
 # O fim da partida
-A partida termina quando cada jogador tiver dado as cartas duas vezes, ou antes, assim que um jogador não puder pagar as 15 fichas das apostas de uma nova rodada. Vence o jogador com mais fichas; jogadores empatados dividem a vitória.
-# Jogando no aparelho
-Passem o aparelho: cada jogador vê só a própria mão, organizada, embaixo. As mãos dos outros jogadores aparecem em cima como leques de cartas, com o número de cartas de cada um. O tabuleiro e as fichas ficam no meio; ao lado, a sequência em andamento e o monte. Toque numa carta que brilha para jogá-la. Quando é a vez de outra pessoa, uma tela esconde as suas cartas até o próximo jogador tocar nela. Depois de cada rodada, uma tabela mostra para cada jogador as fichas pagas ou recebidas pelas cartas, as fichas ganhas nas casas (menos as apostas pagas de novo) e as fichas que ele tem agora; toque nela para a próxima rodada. Cada barra mostra as fichas daquele jogador. Desfazer desfaz as suas próprias jogadas, até o momento em que o aparelho foi passado.
+A partida termina quando cada jogador tiver dado as cartas duas vezes, ou assim que um jogador não puder pagar as 15 fichas das apostas. Jogadores empatados dividem a vitória.

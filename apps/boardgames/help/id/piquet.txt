@@ -1,23 +1,20 @@
 Piquet
 # Tujuan
-Permainan klasik Prancis untuk dua orang (piquet Rubicon): kumpulkan poin lebih banyak dari lawan dalam satu permainan berisi enam ronde, dan paling sedikit 100 poin. Oper perangkat setiap ganti giliran; tak seorang pun melihat kartu lawannya.
+Piquet Rubicon, permainan klasik Prancis untuk dua orang: dalam enam ronde, kumpulkan poin lebih banyak dari lawan, dan paling sedikit 100 poin.
 # Kartu
-32 kartu: as (tertinggi), raja, ratu, jack, 10, 9, 8, 7. Pembagi bergantian; pemain yang tidak membagi adalah pemain pertama, yang lain pemain kedua. Setiap pemain mendapat 12 kartu; 8 sisanya menjadi tumpukan.
+32 kartu, dari as (tertinggi) sampai 7. Pembagi bergantian; pemain yang tidak membagi adalah pemain pertama. Masing-masing 12 kartu; 8 sisanya menjadi tumpukan.
 # Penukaran kartu
-Pemain pertama membuang 1 sampai 5 kartu dan mengambil sebanyak itu dari atas tumpukan. Lalu pemain kedua boleh membuang paling banyak sejumlah kartu yang tersisa (biasanya 3) dan mengambilnya. Kartu yang tersisa tetap tertutup, tanpa dilihat.
+Pemain pertama membuang 1 sampai 5 kartu dan mengambil sebanyak itu dari atas tumpukan. Lalu pemain kedua boleh membuang paling banyak sejumlah kartu yang tersisa dan mengambilnya.
 # Deklarasi
-Setiap macam deklarasi hanya dihitung untuk pemain yang memiliki yang lebih baik; jika sama, tidak ada yang mendapat poin:
+Setiap macam deklarasi hanya dihitung untuk pemain yang memiliki yang lebih baik; jika sama, tidak ada yang mendapat poin. Setiap pemain mendeklarasikan yang terbaik dari kartu di tangannya, sebelum kartu pertama dimainkan.
 - Kartu putih (carte blanche): dua belas kartu yang dibagikan tanpa raja, ratu, atau jack: 10.
 - Jenis terpanjang (point): kartu terbanyak dalam satu jenis (jika sama, nilai yang lebih tinggi: as 11, raja, ratu, dan jack 10, lainnya sesuai angkanya): 1 poin per kartu.
-- Urutan: tiga kartu atau lebih yang berurutan dalam satu jenis. Yang terpanjang menang (jika sama, yang kartu teratasnya lebih tinggi) dan pemiliknya mencatat semua urutannya: 3 kartu 3, 4 kartu 4, 5 kartu 15, 6 kartu 16, 7 kartu 17, 8 kartu 18.
+- Urutan: tiga kartu atau lebih yang berurutan dalam satu jenis. Yang terpanjang menang (jika sama, yang kartu teratasnya lebih tinggi) dan pemiliknya mencatat semua urutannya: 3 kartu 3, 4 kartu 4, 5 sampai 8 kartu 15 sampai 18.
 - Set: tiga atau empat kartu bernilai sama, 10 atau lebih tinggi. Empat mengalahkan tiga, lalu nilai yang lebih tinggi menang; pemenangnya mencatat semua setnya: empat 14, tiga 3.
-Pemain pertama mendeklarasikan, pemain kedua menjawab: "bagus" (milik pemain pertama lebih baik), "tidak bagus" (miliknya sendiri lebih baik) atau "sama". Di sini setiap deklarasi adalah yang terbaik dari kartu di tangan, keduanya dibuat sebelum kartu pertama dimainkan, dan kombinasi yang lebih baik ditunjukkan kepada kedua pemain.
 # Permainan
-Pemain pertama membuka. Ikuti jenis kartu yang dibuka jika bisa, jika tidak mainkan kartu apa saja; tidak ada truf. Kartu yang lebih tinggi dari jenis yang dibuka menang dan membuka trik berikutnya. Membuka dengan 10 atau lebih tinggi bernilai 1; memenangkan bukaan lawan dengan 10 atau lebih tinggi bernilai 1; trik terakhir bernilai 1 lagi. Trik terbanyak (7 atau lebih) bernilai 10; ke-12 trik (capot) bernilai 40 sebagai gantinya.
+Pemain pertama membuka. Ikuti jenis jika bisa; tidak ada truf. Kartu yang lebih tinggi dari jenis yang dibuka menang dan membuka trik berikutnya. Membuka dengan 10 atau lebih tinggi bernilai 1; memenangkan bukaan lawan dengan 10 atau lebih tinggi bernilai 1; trik terakhir bernilai 1 lagi. Trik terbanyak (7 atau lebih) bernilai 10; ke-12 trik (capot) bernilai 40 sebagai gantinya.
 # Pique dan repique
-- Repique: 30 poin dari deklarasi saja (dihitung berurutan: kartu putih, jenis terpanjang, urutan, set) sebelum lawan mencatat apa pun: tambahan 60.
-- Pique: pemain pertama mencapai 30 dari deklarasi dan poin permainan (tidak termasuk 10 untuk trik terbanyak maupun capot) sebelum pemain kedua mencatat apa pun: tambahan 30. Hanya pemain pertama yang bisa membuat pique.
+- Repique: 30 poin dari deklarasi saja (berurutan: kartu putih, jenis terpanjang, urutan, set) sebelum lawan mencatat apa pun: tambahan 60.
+- Pique: pemain pertama mencapai 30 dari deklarasi dan permainan (tanpa trik terbanyak maupun capot) sebelum pemain kedua mencatat apa pun: tambahan 30.
 # Akhir permainan
-Setelah enam ronde, total yang lebih tinggi menang. Pihak kalah dengan kurang dari 100 poin terkena rubicon: pemenang mencatat kedua total ditambah 100. Jika tidak, pemenang mencatat selisihnya ditambah 100. Total sama: seri.
-# Bermain di perangkat
-Oper perangkat ke pemain yang bidaknya tampil; ia mengetuk tombol mulai dan melihat kartunya sendiri, terkipas di bawah. Untuk menukar, ketuk kartu yang ingin dibuang (kartu terangkat), lalu tanda centang di samping tumpukan; kartu baru berdiri sedikit lebih tinggi. Angka di samping bidak: jumlah kartu yang ditukar pemain itu. Deklarasi tampil di sebuah papan: satu kolom untuk jenis terpanjang (tiga kartu satu jenis), urutan (tangga kartu), set (tiga as), dan kartu putih (kartu kosong); satu baris untuk setiap pemain, lawanmu di atas. Jenis terpanjang menunjukkan jumlah kartunya dan nilainya, urutan panjangnya dan kartu teratasnya, set ukurannya dan nilainya. Pemain pertama melihat barisnya sendiri dan mengetuk tanda centang. Lalu pemain kedua melihat kedua baris: tanda centang emas dan poin di samping yang lebih baik ("bagus" atau "tidak bagus"), tanda sama dengan untuk "sama"; tanda centangnya menunjukkan kartu kombinasi yang lebih baik kepada kedua pemain. Papan tetap tampil sampai pemain pertama membuka. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret. Angka di samping bidak: poin pemain itu di ronde ini. Setelah setiap ronde, sebuah tabel menunjukkan deklarasi, poin permainan (mahkota: capot), pique atau repique (sekop), ronde itu dan total, serta keenam ronde sebagai titik; setelah ronde keenam, skor pemenang untuk permainan itu (100 yang dicoret: pihak kalah terkena rubicon).
+Setelah enam ronde, total yang lebih tinggi menang. Pihak kalah dengan kurang dari 100 terkena rubicon: pemenang mencatat kedua total ditambah 100; jika tidak, selisihnya ditambah 100. Total sama: seri.

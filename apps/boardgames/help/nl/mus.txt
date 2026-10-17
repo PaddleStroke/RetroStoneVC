@@ -1,29 +1,24 @@
 Mus
 # Het doel
-Het Baskische kaartspel voor twee teams van twee partners die tegenover elkaar zitten: ivoor en rood tegen ebben en jade. Elk spel heeft vier lances; in elk winnen de beste kaarten, tenzij een inzet het andere team doet afhaken: het bieden is het hart van het spel. Het eerste team met 40 punten (tantos) wint. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+Het Baskische spel voor twee teams van twee partners die tegenover elkaar zitten. Elk spel heeft vier lances: in elk winnen de beste kaarten, tenzij een inzet het andere team doet afhaken. Het eerste team met 40 punten (tantos) wint, meteen, ook midden in de telling.
 # De kaarten
-Het Spaanse spel van 40 kaarten in vier kleuren: oros (munten), copas (bekers), espadas (zwaarden) en bastos (knotsen), genummerd 1 tot 7, dan de sota (10, hier een pion), de caballo (11, een paard) en de rey (12, een koning). De onderbrekingen in de lijn rond elke kaart, de pinta, tonen de kleur: geen bij oros, één bij copas, twee bij espadas, drie bij bastos. Gespeeld wordt met de gangbare regel van acht koningen (ocho reyes): elke 3 telt als rey en elke 2 als as, in alle lances.
+Het Spaanse spel van 40 kaarten: 1 tot 7, dan de sota (10), de caballo (11) en de rey (12). Met acht koningen (ocho reyes): elke 3 telt als rey en elke 2 als as.
 # Mus
-Elke speler krijgt 4 kaarten. De mano, die als eerste spreekt en elke gelijke stand wint, is de speler na de gever; beiden schuiven elk spel een plaats door. Om de beurt vanaf de mano zegt iedereen mus (om kaarten te ruilen) of snijdt af (no hay mus, "geen mus"). Zeggen alle vier mus, dan legt ieder om de beurt 1 tot 4 kaarten weg en trekt er evenveel bij, en wordt opnieuw naar mus gevraagd. Zodra iemand afsnijdt, beginnen de lances.
+Elk 4 kaarten. De mano, de speler na de gever, spreekt als eerste en wint elke gelijke stand. Om de beurt zegt iedereen mus (om kaarten te ruilen) of snijdt af. Zeggen alle vier mus, dan legt ieder 1 tot 4 kaarten weg en trekt er evenveel bij, en wordt opnieuw naar mus gevraagd. Zodra iemand afsnijdt, beginnen de lances.
 # De vier lances
 - Grande: de hoogste kaarten winnen, kaart voor kaart vergeleken: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: de laagste kaarten winnen.
-- Pares: gelijke kaarten. Een paar (par) is 1 waard, drie gelijke (medias) 2, twee paren of vier gelijke (duples) 3. Duples winnen van medias en medias van een paar; bij gelijken winnen de hoogste kaarten. Alleen wie pares heeft, doet mee.
-- Juego: de kaarten worden geteld, plaatjes 10 en de andere hun getal. Vanaf 31 heb je juego: 31 is het beste, dan 32, 40, 37, 36, 35, 34 en 33. Alleen wie juego heeft, doet mee. Heeft niemand juego, dan wordt de lance Punto: het hoogste totaal wint.
-Bij Pares en Juego wordt niet geboden als maar één team ze heeft, en de lance vervalt als niemand ze heeft. Een gelijke stand gaat altijd naar de speler die het dichtst bij de mano zit.
+- Pares: een paar (par) is 1 waard, drie gelijke (medias) 2, twee paren of vier gelijke (duples) 3. Duples winnen van medias en medias van een paar; bij gelijken winnen de hoogste kaarten.
+- Juego: plaatjes tellen 10, de andere hun getal. Vanaf 31 heb je juego: 31 is het beste, dan 32, 40, 37, 36, 35, 34, 33. Heeft niemand juego, dan wordt de lance Punto: het hoogste totaal wint.
+Alleen de spelers met pares of juego doen mee aan die lances; heeft maar één team ze, dan wordt er niet geboden.
 # Bieden (envites)
 - In elke lance spreken de spelers om de beurt vanaf de mano: passen (paso) of inzetten (envido: 2 punten of meer).
-- Op een inzet antwoordt de volgende tegenstander, zo nodig daarna zijn partner: aannemen (quiero), met een paar punten verhogen, het hele spel inzetten (órdago) of weigeren (no quiero). De inzet is pas geweigerd als beide tegenstanders weigeren.
-- Geweigerd: het team dat inzette krijgt meteen 1 punt, of de inzet van vóór de laatste verhoging, en wint de lance.
-- Past iedereen, dan wordt de lance "en paso" gespeeld.
-- Een aangenomen órdago: de handen gaan meteen open, en wie die lance wint, wint de partij.
+- Op een inzet antwoorden de tegenstanders: aannemen (quiero), verhogen, het hele spel inzetten (órdago) of weigeren (no quiero). Hij is pas geweigerd als beiden weigeren.
+- Geweigerd: het team dat inzette krijgt 1 punt, of de inzet van vóór de laatste verhoging, en wint de lance.
+- Een aangenomen órdago: de handen gaan open, en wie die lance wint, wint de partij.
 # De telling
-Aan het eind van het spel gaan alle handen open en worden de lances op volgorde geteld:
-- Grande en Chica: de aangenomen inzet, of 1 punt en paso.
-- Pares: de aangenomen inzet, plus de waarde van de pares van beide winnende partners.
-- Juego: de aangenomen inzet, plus 3 voor elke 31 en 2 voor elk ander juego van het winnende team. Punto: de aangenomen inzet plus 1, of 1 en paso.
+Aan het eind van het spel worden de lances op volgorde geteld:
+- Grande en Chica: de aangenomen inzet, of 1 als niemand inzette.
+- Pares: de aangenomen inzet, plus de pares van beide winnende partners.
+- Juego: de aangenomen inzet, plus 3 voor elke 31 en 2 voor elk ander juego van het winnende team. Punto: de aangenomen inzet plus 1, of 1.
 - Wie een geweigerde lance wint, of een die alleen het eigen team had, telt toch zijn pares of zijn juego.
-# Het einde van de partij
-Het eerste team met 40 punten wint, ook midden in de telling, of meteen met de punten van een geweigerde inzet. Aan tafel telt men met steentjes, vijf per amarraco; hier zijn het cijfers. De geheime tekens tussen partners (señas) zijn een tafelgebruik, geen regel: ze vallen hier weg.
-# Spelen op het apparaat
-Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Elke plaats toont zijn laatste woord: mus (twee pijlen, één in elke richting), het afsnijden (dezelfde doorgestreept), pas, een inzet, een verhoging (een plus), de órdago (een gouden bliksem op rood), quiero (een vinkje), no quiero (een kruis). Bij Pares en Juego toont elke plaats of hij ze heeft. De vier lances staan bovenaan op een rij: Grande (een pijl omhoog), Chica (een pijl omlaag), Pares (twee kaarten), Juego (31) of Punto (30); de lopende licht op, en de gespeelde tonen eronder hoe ze afliepen. Om te ruilen tik je de kaarten aan die je weglegt, en dan het vinkje. Om in te zetten stel je het bedrag in met min en plus en tik je op de gouden knop; op een inzet tik je het vinkje, het kruis, de verhoging of de bliksem. Na elk spel toont een tabel alle handen, de winnaars en punten van elke lance, en de stand; tik erop voor het volgende spel. Elke balk toont de stand van zijn team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.

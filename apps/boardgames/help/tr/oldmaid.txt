@@ -1,14 +1,12 @@
 Maça Valesi
 # Amaç
-Maça valesiyle kalan sen olma. Bu, Fransız sürümüdür, le pouilleux: sinek valesi desteden çıkarılır, böylece maça valesinin eşi olmaz. (İngiliz Old Maid oyununda bunun yerine bir kız çıkarılır.) 2 ile 6 oyuncu için.
+Maça valesiyle kalan sen olma. Sinek valesi desteden çıkarılır, böylece maça valesinin eşi olmaz.
 # Çiftler
 - Çift, aynı değerde ve aynı renkte iki karttır: iki kırmızı yedi, iki siyah papaz.
 - 51 kartın hepsi dağıtılır. Her çift hemen atılır, hem dağıtımda hem oyun sırasında.
 # Bir sıra
-- Senden önceki oyuncunun elinden kapalı bir kart çek. Onun eli önce karıştırılır.
+- Senden önceki oyuncunun elinden kapalı bir kart çek.
 - Kartlarından biriyle çift oluşturursa çift atılır.
 - Kartı kalmayan oyuncu oyundan çıkar: kazanmıştır.
 # Oyunun sonu
 Elinde kart, yani maça valesi kalan son oyuncu kaybeder. Diğer herkes kazanır.
-# Cihazda oynamak
-Cihazı elden ele ver: her oyuncu kendi elini altta, sıralanmış olarak görür. Kart çektiğin el ortada kapalı durur ve sahibinin üstteki yeri parlar. Kartlarından birine dokun: eline uçar ve oluşturduğu çift soldaki yığına gider. Her şerit eldeki kart sayısını gösterir. Geri al çekilen bir kartı geri almaz.

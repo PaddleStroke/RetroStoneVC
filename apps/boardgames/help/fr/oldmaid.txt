@@ -1,14 +1,12 @@
 Pouilleux
 # Le but
-Ne pas rester avec le valet de pique. C'est la version française : on retire le valet de trèfle du jeu, si bien que le valet de pique, le pouilleux, n'a pas de partenaire. (En anglais, Old Maid : on retire une dame.) De 2 à 6 joueurs.
+Ne pas rester avec le valet de pique. On retire le valet de trèfle du jeu, si bien que le valet de pique, le pouilleux, n'a pas de partenaire.
 # Les paires
-- Une paire, ce sont deux cartes de même valeur et de même couleur : les deux sept rouges, les deux rois noirs.
+- Une paire, ce sont deux cartes de même valeur et de même couleur : les deux sept rouges, les deux rois noirs.
 - On distribue les 51 cartes. Toute paire est posée aussitôt, à la donne comme pendant la partie.
 # Un tour
-- Tire une carte, face cachée, dans la main du joueur qui te précède. Sa main est d'abord mélangée.
+- Tire une carte, face cachée, dans la main du joueur qui te précède.
 - Si elle fait une paire avec une de tes cartes, la paire est posée.
-- Un joueur qui n'a plus de cartes est sorti : il a gagné.
+- Un joueur qui n'a plus de cartes est sorti : il a gagné.
 # La fin de la partie
 Le dernier joueur à garder une carte, le valet de pique, a perdu. Tous les autres gagnent.
-# Jouer sur l'appareil
-L'appareil passe de main en main : chacun voit sa main en bas, triée. La main dans laquelle tu tires est posée face cachée au milieu, et la place de son joueur brille en haut. Touche une de ses cartes : elle vole dans ta main, et la paire qu'elle forme va sur le tas à gauche. Chaque barre montre le nombre de cartes en main. Annuler ne reprend pas une carte tirée.

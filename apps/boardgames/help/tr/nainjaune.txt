@@ -1,22 +1,17 @@
 Sarı Cüce
 # Amaç
-Oyunun sonunda en çok jetona sahip olmak. Kartlarını art arda seriler halinde oyna, tahtanın beş bölmesindeki jetonları o bölmelerin kartlarını oynayarak topla ve elindeki kartları ilk bitiren ol. Oyunun Fransızca adı Nain jaune'dur. 3 ila 6 oyuncu için, 52 kartlık desteyle.
+Kartlarını seriler halinde oyna, tahtanın beş bölmesindeki jetonları topla ve elindeki kartları ilk bitiren ol. Sonunda en çok jetonu olan kazanır.
 # Tahta
-Her biri kendi kartına ait beş bölme: köşelerde karo onlusu, sinek valesi, maça kızı ve kupa papazı, ortada da sarı cüce olan karo yedilisi. Herkes 100 jetonla başlar. Her dağıtımdan önce her oyuncu onluya 1, valeye 2, kıza 3, papaza 4 ve sarı cüceye 5 jeton koyar.
-# Dağıtım
-Kartlar birer birer dağıtılır: 3 oyuncuyla herkese 15, 4 oyuncuyla 12, 5 oyuncuyla 9, 6 oyuncuyla 8. Artan kartlar kenarda bir deste oluşturur; kapalı kalırlar ve oynanmazlar. Kartları dağıtan her dağıtımda masanın çevresinde bir yer kayar.
+Beş bölme: karo onlusu, sinek valesi, maça kızı, kupa papazı ve sarı cüce olan karo yedilisi. Herkes 100 jetonla başlar. Her dağıtımdan önce her oyuncu onluya 1, valeye 2, kıza 3, papaza 4 ve sarı cüceye 5 jeton koyar.
 # Oyun
-Kartlar astan (1) papaza kadar sıralanır; türler önemli değildir.
-- Dağıtanın solundaki oyuncu herhangi bir kart oynar, sonra yapabildiği sürece, türü ne olursa olsun, bir üstteki kartla devam eder: bir 4, bir 5, bir 6...
-- Bir üstteki kart onda yoksa, masanın çevresinde o karta sahip sıradaki oyuncu devam eder ve böyle sürer. O kartı olmayan oyuncular atlanır.
-- Bir üstteki kart sende varsa onu oynamak zorundasın; birden fazlaysa hangisini oynayacağını sen seçersin.
-- Papaz seriyi bitirir: onu oynayan, herhangi bir kartla yeni bir seri başlatır. Bir üstteki kart kimsede yoksa son oynayan oyuncu yeni bir seri başlatır.
-- Tahtanın beş kartından birini oynayan, o bölmedeki bütün jetonları alır.
+Kartlar astan (1) papaza kadar sıralanır; türler önemli değildir. Dağıtımda artan kartlar oynanmaz.
+- Dağıtanın solundaki oyuncu herhangi bir kart oynar, sonra yapabildiği sürece, türü ne olursa olsun, bir üstteki kartla devam eder.
+- Sonra masanın çevresinde bir üstteki karta sahip sıradaki oyuncu devam eder. O kart sende varsa onu oynamak zorundasın.
+- Papaz seriyi bitirir ve onu oynayan yeni bir seri başlatır. Bir üstteki kart kimsede yoksa son oynayan oyuncu yeni bir seri başlatır.
+- Tahtanın kartlarından birini oynayan, o bölmedeki bütün jetonları alır.
 # Bir dağıtımın sonu
-Kartı ilk biten oyuncu dağıtımı kazanır. Diğer her oyuncu ona elinde kalan her kart için 1 jeton öder. Tahtanın beş kartından birini hâlâ elinde tutan oyuncu ayrıca o kartın bölmesine konan jetonları bir kez daha oraya koyar (onlu için 1, vale için 2, kız için 3, papaz için 4, sarı cüce için 5). Kimsenin almadığı jetonlar sonraki dağıtım için bölmelerde kalır. Ödeyemeyen oyuncu elinde ne varsa onu öder.
+Kartı ilk biten oyuncu dağıtımı kazanır: diğer her oyuncu ona elinde kalan her kart için 1 jeton öder. Tahtanın bir kartını hâlâ elinde tutan oyuncu ayrıca o kartın jetonlarını bir kez daha koyar. Kimsenin almadığı jetonlar sonraki dağıtım için kalır. Ödeyemeyen oyuncu elinde ne varsa onu öder.
 # Grand opéra
-Klasik oyunda, başka hiçbir oyuncu tek bir kart bile oynamadan bütün kartlarından kurtulan oyuncu grand opéra yapar: ayrıca beş bölmenin hepsindeki jetonları da alır. Oyun listesindeki diğer seçenek grand opéra olmadan oynanır; resminde sarı cüce jetonsuz görünür.
+Klasik oyunda, başka hiçbir oyuncu bir kart oynamadan kartlarını bitiren oyuncu ayrıca beş bölmenin hepsindeki jetonları da alır.
 # Oyunun sonu
-Oyun, her oyuncu iki kez kart dağıttığında ya da daha önce, bir oyuncu yeni bir dağıtım için konması gereken 15 jetonu ödeyemediği anda biter. En çok jetonu olan oyuncu kazanır; eşit olanlar zaferi paylaşır.
-# Cihazda oynamak
-Cihazı elden ele verin: her oyuncu yalnızca kendi elini, sıralanmış olarak, altta görür. Diğer oyuncuların elleri üst kenar boyunca kart yelpazeleri olarak, her birinin kaç kartı olduğuyla birlikte görünür. Tahta ve jetonları ortadadır; yanında oynanmakta olan seri ve kenardaki deste durur. Oynamak için parlayan bir karta dokun. Sıra başka birine geçtiğinde bir ekran, sıradaki oyuncu ona dokunana kadar kartlarını gizler. Her dağıtımdan sonra bir tablo her oyuncu için kartlar yüzünden ödenen ya da alınan jetonları, bölmelerden kazanılan jetonları (yeniden konan jetonlar düşülerek) ve şimdi elinde olan jetonları gösterir; sonraki dağıtım için ona dokun. Her şerit o oyuncunun jetonlarını gösterir. Geri al cihazın el değiştirdiği ana kadar kendi hamlelerini geri alır.
+Oyun, herkes iki kez kart dağıttığında ya da bir oyuncu 15 jetonluk payı ödeyemediği anda biter. Eşit olanlar zaferi paylaşır.

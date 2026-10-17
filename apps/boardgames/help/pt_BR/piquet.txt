@@ -1,23 +1,20 @@
 Piquet
 # O objetivo
-O clássico jogo francês para dois (o piquet Rubicão): fazer mais pontos que o adversário numa partida de seis rodadas, e pelo menos 100 pontos. Passem o aparelho a cada vez; nenhum dos dois vê as cartas do outro.
+O piquet Rubicão, o clássico jogo francês para dois: em seis rodadas, fazer mais pontos que o adversário, e pelo menos 100 pontos.
 # As cartas
-32 cartas: ás (a mais alta), rei, dama, valete, 10, 9, 8, 7. Quem dá as cartas se alterna; quem não dá é o primeiro (a mão), o outro é o segundo. Cada jogador recebe 12 cartas; as outras 8 formam o monte.
+32 cartas, do ás (a mais alta) ao 7. Quem dá as cartas se alterna; quem não dá é o primeiro (a mão). 12 cartas para cada um; as outras 8 formam o monte.
 # O descarte
-O primeiro descarta de 1 a 5 cartas e pega o mesmo número de cima do monte. Depois o segundo pode descartar até tantas cartas quantas sobraram (normalmente 3) e pegá-las. As cartas que sobram ficam viradas para baixo, sem ninguém ver.
+O primeiro descarta de 1 a 5 cartas e pega o mesmo número de cima do monte. Depois o segundo pode descartar até tantas cartas quantas sobraram e pegá-las.
 # As declarações
-Cada tipo só conta para o jogador que tem o melhor; se forem iguais, ninguém marca:
+Cada tipo só conta para o jogador que tem o melhor; se forem iguais, ninguém marca. Cada jogador declara o melhor que a sua mão tem, antes da primeira saída.
 - Carta branca: doze cartas recebidas sem rei, dama nem valete: 10.
 - O ponto: o maior número de cartas num naipe (se empatar, o maior valor: ás 11, rei, dama e valete 10, as outras o seu número): 1 ponto por carta.
-- As sequências: três ou mais cartas seguidas do mesmo naipe. Vence a mais longa (se empatar, a da carta mais alta) e o seu dono marca todas as suas sequências: 3 cartas 3, 4 cartas 4, 5 cartas 15, 6 cartas 16, 7 cartas 17, 8 cartas 18.
+- As sequências: três ou mais cartas seguidas do mesmo naipe. Vence a mais longa (se empatar, a da carta mais alta) e o seu dono marca todas as suas sequências: 3 cartas 3, 4 cartas 4, 5 a 8 cartas 15 a 18.
 - As trincas e quadras: três ou quatro cartas do mesmo valor, do 10 para cima. Quadra vence trinca, depois vence o valor mais alto; o vencedor marca todas as suas: quadra 14, trinca 3.
-O primeiro declara, o segundo responde: "boa" (a do primeiro é melhor), "não é boa" (a dele é melhor) ou "igual". Aqui cada declaração é a melhor que a mão tem, as duas são feitas antes da primeira saída, e as melhores combinações são mostradas aos dois jogadores.
 # O jogo
-O primeiro abre. Siga o naipe de saída se puder; senão, jogue qualquer carta; não há trunfo. A carta mais alta do naipe de saída ganha e abre a próxima. Abrir com um 10 ou mais vale 1; ganhar a saída do adversário com um 10 ou mais vale 1; a última vaza vale mais 1. Fazer mais vazas (7 ou mais) vale 10; todas as 12 vazas (capote) valem 40 em vez disso.
+O primeiro abre. Siga o naipe se puder; não há trunfo. A carta mais alta do naipe de saída ganha e abre a próxima. Abrir com um 10 ou mais vale 1; ganhar a saída do adversário com um 10 ou mais vale 1; a última vaza vale mais 1. Fazer mais vazas (7 ou mais) vale 10; todas as 12 (capote) valem 40 em vez disso.
 # Pique e repique
-- Repique: 30 pontos só com as declarações (contadas em ordem: carta branca, ponto, sequências, trincas e quadras) antes que o adversário marque qualquer coisa: mais 60.
-- Pique: o primeiro chega a 30 com as declarações e os pontos do jogo (sem os 10 de mais vazas nem o capote) antes que o segundo marque qualquer coisa: mais 30. Só o primeiro pode fazer pique.
+- Repique: 30 pontos só com as declarações (em ordem: carta branca, ponto, sequências, trincas e quadras) antes que o adversário marque qualquer coisa: mais 60.
+- Pique: o primeiro chega a 30 com as declarações e o jogo (sem as mais vazas nem o capote) antes que o segundo marque qualquer coisa: mais 30.
 # O fim da partida
-Depois de seis rodadas, vence o maior total. Um perdedor com menos de 100 é rubiconado: o vencedor marca os dois totais mais 100. Senão, o vencedor marca a diferença mais 100. Totais iguais: empate.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão, em leque embaixo. Para descartar, toque nas cartas que você joga fora (elas sobem) e depois no sinal de confirmação ao lado do monte; as cartas novas ficam um pouco mais altas. O número ao lado de uma ficha: as cartas que esse jogador trocou. As declarações aparecem num quadro: uma coluna para o ponto (três cartas de um naipe), as sequências (uma escada de cartas), as trincas e quadras (três ases) e a carta branca (uma carta em branco); uma linha para cada jogador, o adversário em cima. O ponto mostra as suas cartas e o seu valor, uma sequência o comprimento e a carta mais alta, uma trinca ou quadra o tamanho e o valor. O primeiro vê a própria linha e toca no sinal de confirmação. Depois o segundo vê as duas linhas: um sinal dourado e os pontos ao lado da melhor ("boa" ou "não é boa"), um sinal de igual para "igual"; o sinal de confirmação dele mostra aos dois jogadores as cartas das melhores combinações. O quadro fica até o primeiro abrir. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a. O número ao lado de uma ficha: os pontos desse jogador nesta rodada. Depois de cada rodada, uma tabela mostra as declarações, os pontos do jogo (uma coroa: capote), o pique ou o repique (a espada), a rodada e o total, e as seis rodadas como pontos; depois da sexta, a pontuação do vencedor na partida (um 100 riscado: o perdedor foi rubiconado).
+Depois de seis rodadas, vence o maior total. Um perdedor com menos de 100 é rubiconado: o vencedor marca os dois totais mais 100; senão, a diferença mais 100. Totais iguais: empate.

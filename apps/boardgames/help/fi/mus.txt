@@ -1,29 +1,24 @@
 Mus
 # Tavoite
-Baskilainen korttipeli kahdelle kahden hengen parille, parit vastakkain: norsunluu ja punainen vastaan eebenpuu ja jade. Joka jaossa pelataan neljä lancea; kussakin parhaat kortit voittavat, ellei panos saa toista paria luopumaan: panostaminen on pelin sydän. Ensimmäisenä 40 pisteeseen (tantos) ehtivä pari voittaa. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Baskilainen peli kahdelle kahden hengen parille, parit vastakkain. Joka jaossa pelataan neljä lancea: kussakin parhaat kortit voittavat, ellei panos saa toista paria luopumaan. Ensimmäisenä 40 pisteeseen (tantos) ehtivä pari voittaa, heti, myös kesken laskennan.
 # Kortit
-Espanjalainen 40 kortin pakka, neljä maata: oros (kolikot), copas (maljat), espadas (miekat) ja bastos (nuijat), numerot 1–7, sitten sota (10, tässä sotilas), caballo (11, ratsu) ja rey (12, kuningas). Kunkin kortin reunaviivan katkokset, pinta, kertovat maan: oros ei yhtään, copas yksi, espadas kaksi, bastos kolme. Pelataan tavallisilla kahdeksan kuninkaan säännöillä (ocho reyes): jokainen 3 lasketaan reyksi ja jokainen 2 assaksi (as), kaikissa lanceissa.
+Espanjalainen 40 kortin pakka: 1–7, sitten sota (10), caballo (11) ja rey (12). Kahdeksalla kuninkaalla (ocho reyes): jokainen 3 lasketaan reyksi ja jokainen 2 assaksi (as).
 # Mus
-Jokainen saa 4 korttia. Mano, joka puhuu ensin ja voittaa jokaisen tasatilanteen, on jakajan jälkeinen pelaaja; molemmat siirtyvät paikan eteenpäin joka jaossa. Vuorollaan manosta alkaen kukin sanoo mus (vaihtaakseen kortteja) tai katkaisee (no hay mus, ”ei musia”). Jos kaikki neljä sanovat mus, kukin vuorollaan panee sivuun 1–4 korttia ja nostaa yhtä monta, ja musia kysytään uudelleen. Heti kun joku katkaisee, lancet alkavat.
+Jokainen saa 4 korttia. Mano, jakajan jälkeinen pelaaja, puhuu ensin ja voittaa jokaisen tasatilanteen. Vuorollaan kukin sanoo mus (vaihtaakseen kortteja) tai katkaisee. Jos kaikki neljä sanovat mus, kukin panee sivuun 1–4 korttia ja nostaa yhtä monta, ja musia kysytään uudelleen. Heti kun joku katkaisee, lancet alkavat.
 # Neljä lancea
 - Grande: korkeimmat kortit voittavat, verrattuina yksi kerrallaan: rey, caballo, sota, 7, 6, 5, 4, as.
 - Chica: matalimmat kortit voittavat.
-- Pares: samanarvoiset kortit. Pari (par) on 1, kolme samaa (medias) 2, kaksi paria tai neljä samaa (duples) 3. Duples voittaa medias, medias voittaa parin; tasoissa korkeammat kortit voittavat. Mukana ovat vain ne, joilla on pares.
-- Juego: kortit lasketaan, kuvakortit 10 ja muut numeronsa. Juego on 31 tai enemmän: 31 on paras, sitten 32, 40, 37, 36, 35, 34 ja 33. Mukana ovat vain ne, joilla on juego. Jos kellään ei ole juegoa, lance on Punto: suurin summa voittaa.
-Paresissa ja Juegossa ei panosteta, jos vain toisella parilla niitä on, ja lance ohitetaan, jos kellään ei ole. Tasatilanne menee aina manoa lähimmälle pelaajalle.
+- Pares: pari (par) on 1, kolme samaa (medias) 2, kaksi paria tai neljä samaa (duples) 3. Duples voittaa medias, medias voittaa parin; tasoissa korkeammat kortit voittavat.
+- Juego: kuvakortit lasketaan 10, muut numeronsa. 31 tai enemmän on juego: 31 on paras, sitten 32, 40, 37, 36, 35, 34, 33. Jos kellään ei ole juegoa, lance on Punto: suurin summa voittaa.
+Näihin lanceihin osallistuvat vain ne, joilla on pares tai juego; jos niitä on vain toisella parilla, ei panosteta.
 # Panostus (envites)
 - Joka lancessa pelaajat puhuvat vuorollaan manosta alkaen: passi (paso) tai panos (envido: 2 pistettä tai enemmän).
-- Panokseen vastaa seuraava vastustaja, tarvittaessa sitten hänen parinsa: hyväksyy (quiero), korottaa muutamalla pisteellä, panee koko pelin (órdago) tai kieltäytyy (no quiero). Panos hylätään vasta, kun molemmat vastustajat kieltäytyvät.
-- Hylätty: panostanut pari saa heti 1 pisteen, tai viimeistä korotusta edeltäneen panoksen, ja voittaa lancen.
-- Jos kaikki passaavat, lance pelataan ”en paso”.
-- Hyväksytty órdago: kädet näytetään heti, ja sen lancen voittaja voittaa pelin.
+- Panokseen vastustajat hyväksyvät (quiero), korottavat, panevat koko pelin (órdago) tai kieltäytyvät (no quiero). Panos hylätään vasta, kun molemmat kieltäytyvät.
+- Hylätty: panostanut pari saa 1 pisteen, tai viimeistä korotusta edeltäneen panoksen, ja voittaa lancen.
+- Hyväksytty órdago: kädet näytetään, ja sen lancen voittaja voittaa pelin.
 # Laskenta
-Jaon lopussa kaikki kädet näytetään ja lancet lasketaan järjestyksessä:
-- Grande ja Chica: hyväksytty panos, tai 1 piste en paso.
+Jaon lopussa lancet lasketaan järjestyksessä:
+- Grande ja Chica: hyväksytty panos, tai 1, jos kukaan ei panostanut.
 - Pares: hyväksytty panos sekä molempien voittaneiden pelaajien paresien arvo.
-- Juego: hyväksytty panos sekä 3 jokaisesta 31:stä ja 2 jokaisesta muusta voittaneen parin juegosta. Punto: hyväksytty panos ja 1, tai 1 en paso.
+- Juego: hyväksytty panos sekä 3 jokaisesta 31:stä ja 2 jokaisesta muusta voittaneen parin juegosta. Punto: hyväksytty panos ja 1, tai 1.
 - Hylätyn lancen, tai vain heidän parillaan olleen lancen, voittajat laskevat silti paresinsa tai juegonsa.
-# Pelin loppu
-Ensimmäisenä 40 pisteeseen ehtivä pari voittaa, myös kesken laskennan, tai heti hylätyn panoksen pisteillä. Pöydässä pisteet lasketaan kivillä, viisi kutakin amarracoa kohden; tässä ne ovat numeroita. Parien salaiset merkit (señas) ovat pöytätapa, eivät sääntö: ne on jätetty pois.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Jokainen paikka näyttää viimeisen sanansa: mus (kaksi nuolta, yksi kumpaankin suuntaan), katkaisu (samat yliviivattuina), passi, panos, korotus (plus), órdago (kultainen salama punaisella), quiero (rasti), no quiero (risti). Paresissa ja Juegossa jokainen paikka näyttää, onko sillä niitä. Neljä lancea on rivissä ylhäällä: Grande (nuoli ylös), Chica (nuoli alas), Pares (kaksi korttia), Juego (31) tai Punto (30); käynnissä oleva hehkuu, ja pelattujen alla näkyy niiden tulos. Vaihtaaksesi kortteja napauta sivuun pantavia kortteja ja sitten rastia. Panostaaksesi säädä summa miinuksella ja plussalla ja napauta kultaista painiketta; panokseen vastatessa napauta rastia, ristiä, korotusta tai salamaa. Jokaisen jaon jälkeen taulukko näyttää kaikki kädet, kunkin lancen voittajat ja pisteet sekä tilanteen; napauta sitä seuraavaa jakoa varten. Jokainen palkki näyttää parinsa pisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.

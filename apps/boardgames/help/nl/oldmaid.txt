@@ -1,14 +1,12 @@
 Oude vrijster
 # Het doel
-Niet als laatste de schoppenboer overhouden. Dit is de Franse versie, le pouilleux: de klaverboer gaat uit het spel, zodat de schoppenboer geen partner heeft. (In het Engelse Old Maid gaat er een vrouw uit.) Voor 2 tot 6 spelers.
+Niet als laatste de schoppenboer overhouden. De klaverboer gaat uit het spel, zodat de schoppenboer geen partner heeft.
 # Paren
 - Een paar zijn twee kaarten van dezelfde waarde en dezelfde kleur: de twee rode zevens, de twee zwarte heren.
 - Alle 51 kaarten worden gedeeld. Elk paar gaat meteen weg, bij het delen en tijdens het spel.
 # Een beurt
-- Trek een gesloten kaart uit de hand van de speler vóór je. Zijn hand wordt eerst geschud.
+- Trek een gesloten kaart uit de hand van de speler vóór je.
 - Vormt die een paar met een van je kaarten, dan gaat het paar weg.
 - Wie geen kaarten meer heeft, is uit: die heeft gewonnen.
 # Het einde van de partij
 Wie als laatste nog een kaart heeft, de schoppenboer, verliest. Alle anderen winnen.
-# Spelen op het apparaat
-Geef het apparaat door: iedereen ziet onderaan de eigen hand, gesorteerd. De hand waaruit je trekt ligt gesloten in het midden, en de plaats van die speler bovenaan licht op. Tik op een van de kaarten: hij vliegt in je hand, en een paar dat hij vormt gaat naar de stapel links. Elke balk toont de kaarten in de hand. Ongedaan maken neemt geen getrokken kaart terug.
