@@ -195,7 +195,7 @@ static void fx(world *w, int kind, int x, int y, int value)
     w->fxs_next = (w->fxs_next + 1) % FX_MAX;
     e->x = (int16_t)x;
     e->y = (int16_t)y;
-    e->value = (int16_t)value;
+    e->value = (int16_t)clampi(value, 0, 32767);      /* (shown as digits: a boss's bonus grows 1000 a loop) */
     e->kind = (uint8_t)kind;
     e->t = 0;
     e->on = 1;
@@ -355,16 +355,13 @@ static void spawn_turret(world *w, int ceil, int group)
 
 static void send_wave(world *w, const wave_def *d)
 {
-    int group = 0;
-    if (d->flags & WF_GROUP) {
-        int g = w->group_n++ % 8;
-        w->group_left[g] = d->n;
-        group = g + 1;
-    }
+    int group = 0, made = 0;
+    if (d->flags & WF_GROUP) group = w->group_n++ % 8 + 1;
     for (int i = 0; i < d->n; i++) {
         if (d->pat == PAT_TURRET) spawn_turret(w, (d->flags & WF_CEIL) != 0, group);
-        else spawn_robot(w, d->kind, d->pat, d->y, d->p, i * d->gap, group);
+        else made += spawn_robot(w, d->kind, d->pat, d->y, d->p, i * d->gap, group) != NULL;
     }
+    if (group) w->group_left[group - 1] = made;       /* (the robots the full pool had room for: all popped, the gold) */
 }
 
 static void capsule_drop(world *w, int32_t x, int32_t y)
@@ -901,7 +898,10 @@ static void boss_spawn(world *w)
     memset(b, 0, sizeof *b);
     b->on = 1;
     b->kind = world_theme(w->sec);
-    b->hp0 = hp[b->kind] * (100 + BOSS_HP_PLAYER * (w->players - 1)) / 100 * (100 + BOSS_HP_LOOP * w->loop) / 100;
+    int flying = 0;                                   /* its strength is for the corgis still flying (not those out) */
+    for (int p = 0; p < w->players; p++) flying += w->h[p].state == SH_PLAY || w->h[p].state == SH_READY;
+    if (flying < 1) flying = 1;
+    b->hp0 = hp[b->kind] * (100 + BOSS_HP_PLAYER * (flying - 1)) / 100 * (100 + BOSS_HP_LOOP * w->loop) / 100;
     b->hp = b->hp0;
     b->phase = BP_ENTER;
     b->x = q16(SPAWN_R - 40);
@@ -1036,7 +1036,8 @@ static void boss_step(world *w)
             eb_fire(w, EB_ICICLE, b->x - q16(26), b->y + q16(6), -(spd + Q16_ONE * 3 / 4), 0);
             w->wevents |= WEV_BOSS_FIRE;
         }
-        if (t % reload(w, 160) == 80) eb_fan(w, EB_BIG, b->x - q16(20), b->y - q16(8), 1, 0, Q16_ONE);
+        int ball = reload(w, 160);                    /* the snowball's period: 80 or less from loop 3 */
+        if (t % ball == 80 % ball) eb_fan(w, EB_BIG, b->x - q16(20), b->y - q16(8), 1, 0, Q16_ONE);
         break;
     }
     }
@@ -1050,8 +1051,28 @@ static int robots_left(const world *w)
     return n;
 }
 
+/* the scroll is Q16 in an int32: it would overflow after 32768 px (8 minutes of play), so as a section begins (no walls
+ * on the screen: the last ones faded out before the boss) SCROLL_REBASE px are taken off it, off the walls' columns and
+ * off the turrets' world x. A multiple of the ring (TER_RING columns) and of the parallax's periods (draw.c: BG4 at 1/16
+ * of the scroll on a map of up to 1024 px): nothing on the screen moves. At most 16384 + a section's scroll (2 px a
+ * frame, the boss's 90 s: about 15000 px) */
+#define SCROLL_REBASE 16384
+_Static_assert(SCROLL_REBASE % (TER_RING * 8) == 0 && SCROLL_REBASE % (16 * 1024) == 0, "a seamless rebase");
+static void scroll_rebase(world *w)
+{
+    if (px(w->scroll) < SCROLL_REBASE) return;
+    int cols = SCROLL_REBASE / 8;
+    w->scroll -= q16(SCROLL_REBASE);
+    w->ter_col -= cols;
+    w->ter_col0 -= cols;
+    if (w->ter_next_col0 >= 0) w->ter_next_col0 -= cols;
+    for (int i = 0; i < MAX_ENEMIES; i++)
+        if (w->en[i].on && w->en[i].pat == PAT_TURRET) w->en[i].wx -= q16(SCROLL_REBASE);
+}
+
 static void section_begin(world *w, int sec, int loop)
 {
+    scroll_rebase(w);
     w->sec = sec % SECTIONS;
     w->loop = loop;
     w->scroll_v = SCROLL_SPEED + SCROLL_LOOP * loop;

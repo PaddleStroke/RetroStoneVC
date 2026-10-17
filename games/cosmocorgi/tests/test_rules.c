@@ -567,6 +567,115 @@ static void test_ramp(void)
           per_min[7], per_min[3]);
 }
 
+/* regressions found by the bug hunt */
+static int pop_group(world *w, int g)     /* shoot each robot of gold group g with a shot put on it: robots popped */
+{
+    int n = 0;
+    for (int k = 0; k < MAX_ENEMIES; k++) {
+        enemy *e = &w->en[k];
+        if (!e->on || e->group != g) continue;
+        e->t = 1;
+        e->pat = PAT_LINE;
+        e->hp = 1;
+        e->x = (200 + 2 * k) << 16;
+        e->y = (40 + 30 * (k % 6)) << 16;
+        shot *s = &w->shots[k % SHOTS_PER_PLAYER];
+        memset(s, 0, sizeof *s);
+        s->on = 1;
+        s->kind = SK_BARK;
+        s->damage = 1;
+        s->x = e->x;
+        s->y = e->y;
+        world_step(w, in);
+        n += !e->on;
+    }
+    return n;
+}
+
+static void test_regressions(void)
+{
+    /* the scroll (Q16 in an int32) overflowed after 32768 px, in the third loop: the walls were gone for good */
+    world_init(&W, 1, 2024);
+    idle();
+    in[0].any = 1;
+    int max_scroll = 0, walled[12] = {0}, turret_ok = 1, turrets = 0;
+    while (W.loop < 3 && W.t < 60000) {
+        W.h[0].invul = 1 << 20;
+        if (W.b.on && W.b.phase == BP_FIGHT) W.b.t = BOSS_TIME;
+        world_step(&W, in);
+        int s = PX(W.scroll);
+        if (s > max_scroll) max_scroll = s;
+        if (W.phase == PH_WAVES && W.loop < 3) {
+            int c0 = s >> 3;
+            for (int c = c0; c < c0 + 40; c++) walled[W.loop * 4 + W.sec] |= ter_ceil_at(&W, c) + ter_floor_at(&W, c) > 0;
+        }
+        for (int k = 0; k < MAX_ENEMIES; k++) {
+            const enemy *e = &W.en[k];
+            if (!e->on || e->pat != PAT_TURRET || PX(e->x) < 0 || PX(e->x) >= STAGE_W) continue;
+            turrets++;
+            int c = (int)((W.scroll + e->x) >> 19), h = e->side ? ter_ceil_at(&W, c) : ter_floor_at(&W, c);
+            if (h == 0 || PX(e->y) != (e->side ? h * 8 + 7 : STAGE_H - h * 8 - 7)) turret_ok = 0;
+        }
+    }
+    CHECK(W.loop == 3 && max_scroll < 32767 - 2 * SPAWN_R, "three loops: the scroll stays far from the int32 limit "
+          "(at most %d px)", max_scroll);
+    CHECK(walled[9] && walled[10] && walled[11], "the walls are still there in loop 3 (%d %d %d)", walled[9], walled[10],
+          walled[11]);
+    CHECK(turrets && turret_ok, "and the turrets sit on them (%d)", turrets);
+    /* the walrus's snowball: its period was 80 or less from loop 3, and t % period never equalled 80 */
+    for (int loop = 0; loop < 4; loop++) {
+        playing(&W, 1);
+        world_start_section(&W, 3, loop);
+        clear_robots(&W);
+        world_to_boss(&W);
+        int big = 0;
+        for (int i = 0; i < BOSS_ENTER + 330; i++) {
+            W.h[0].invul = 1 << 20;
+            world_step(&W, in);
+            for (int k = 0; k < MAX_EBULLETS; k++) big += W.eb[k].on && W.eb[k].kind == EB_BIG;
+        }
+        CHECK(big, "loop %d: the walrus throws its big snowball", loop + 1);
+    }
+    /* the boss's strength is for the corgis still flying: one survivor of four does not face four corgis' boss */
+    {
+        static const int hp[4] = BOSS_HP;
+        playing(&W, 4);
+        clear_robots(&W);
+        world_to_boss(&W);
+        CHECK(W.b.hp0 == hp[0] * (100 + BOSS_HP_PLAYER * 3) / 100, "4 corgis flying: +%d%% each (%d)", BOSS_HP_PLAYER,
+              W.b.hp0);
+        playing(&W, 4);
+        clear_robots(&W);
+        W.h[1].state = W.h[2].state = W.h[3].state = SH_OUT;
+        world_to_boss(&W);
+        CHECK(W.b.hp0 == hp[0], "1 of 4 still flying: the 1-corgi strength (%d)", W.b.hp0);
+    }
+    /* a gold group sent when the robots' pool is nearly full: the robots that came, all popped, give the bonus */
+    playing(&W, 1);
+    clear_robots(&W);
+    W.waves_done = 0xffffffffu & ~(1u << 2);   /* the nebula's first gold group (5 drones looping) */
+    W.sec_dist = (600 << 16) - 1;
+    for (int k = 0; k < MAX_ENEMIES - 2; k++) {
+        enemy *e = &W.en[k];
+        e->on = 1;
+        e->kind = EK_BUG;
+        e->pat = PAT_LINE;
+        e->t = -30000;                        /* (parked far away, gliding: out of play) */
+        e->x = 600 << 16;
+    }
+    world_step(&W, in);
+    int g = W.en[MAX_ENEMIES - 1].on ? W.en[MAX_ENEMIES - 1].group : 0;
+    CHECK(g && W.group_left[g - 1] == 2, "a full pool: the group counts the 2 robots that came (%d)",
+          g ? W.group_left[g - 1] : -9);
+    int s0 = W.h[0].score, caps0 = 0, caps = 0;
+    for (int i = 0; i < MAX_CAPS; i++) caps0 += W.caps[i].on;
+    int popped = g ? pop_group(&W, g) : 0;
+    for (int i = 0; i < MAX_CAPS; i++) caps += W.caps[i].on;
+    CHECK(popped == 2 && caps == caps0 + 1 && W.h[0].score >= s0 + 2 * 10 + GROUP_BONUS,
+          "both popped: the gold bonus and its capsule (popped %d caps %d score +%d)", popped, caps - caps0,
+          W.h[0].score - s0);
+}
+
 static void bot_run(world *w, int players, uint32_t seed, int frames, int skill)
 {
     world_init(w, players, seed);
@@ -602,6 +711,7 @@ int main(void)
     test_boss();
     test_widescreen_spawns();
     test_ramp();
+    test_regressions();
     test_determinism_and_bot();
     if (fails) printf("  %d of %d checks FAILED\n", fails, checks);
     else printf("  ok   %d checks: auto-fire, moves and the touch drag, hits and the shield, power-up levels, the "
