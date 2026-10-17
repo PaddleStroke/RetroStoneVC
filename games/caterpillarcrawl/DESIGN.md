@@ -139,7 +139,13 @@ width (identical play). A state saved at one width loads at another (`draw_state
 `game_init`, so the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are
 the same pixels, centred; the raster (draw.c) draws the lines past it: more lawn above and below the bed (the lawn of
 the stage's top 32 lines, repeated every 32 lines and shifted sideways band by band), the other layers and the
-sprites hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged.
+sprites hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. During a
+run the HUD (the score, the leaves to go, the berry; the arena's heads and stars) is drawn at the screen's top, not
+over the bed's frame mid-screen (sprites at `rs_screen_top()`; the raster shows the sprites in those 32 lines).
+Why not the zoomed screen (v2): the bed is 18 x 12 cells of 16 px, 304 px with its fence, and every cell is play;
+a zoom crops the sides to 188-236 columns on today's phones, so it would hide a third of the bed (a leaf, a wall, the
+other caterpillars) or need a camera that changes what the player sees. Turning the bed upright (12 x 18) would fit,
+but needs its own art (the frame's and the soil's tiles are not symmetric) and turned controls: a project of its own.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, a caterpillar inching along with a leaf ahead, the player slots, PRESS A TO CRAWL with the A glyph,

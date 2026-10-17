@@ -29,6 +29,10 @@ static int shown_key = -1, shown_best = -1;
 /* a tall screen (rs_screen_tall: a phone held upright): the garden's scroll this frame, for the lawn the raster draws
  * past the stage's 240 lines (not saved: set by draw_frame before every picture) */
 static int lawn_sx, lawn_sy;
+/* a tall screen: during a run the HUD (the score, the leaves, the berry; the arena's heads and stars) is drawn in the
+ * top HUD_LINES lines of the screen, not of the stage (1: set by draw_frame before every picture, not saved) */
+#define HUD_LINES 32
+static int hud_top;
 
 /* A tall screen's lines past the stage (DESIGN.md "Tall screen"): more lawn above and below the bed. BG4 shows the
  * lawn of the stage's top 32 lines (above the bed's frame) again, every 32 lines, shifted sideways band by band so
@@ -47,8 +51,9 @@ static void raster(int line, void *user)
     if (line == rs_screen_top() || line == RS_SCREEN_H) {
         rs_window(0, rs_screen_left(), rs_screen_right());
         for (int l = RS_BG1; l <= RS_BG3; l++) rs_bg_window(l, RS_WIN1);
-        rs_obj_window(RS_WIN1);
+        rs_obj_window(line < 0 && hud_top ? 0 : RS_WIN1);   /* the HUD's sprites at the screen's top (hud) */
     }
+    if (hud_top && line == rs_screen_top() + HUD_LINES) rs_obj_window(RS_WIN1);
     int band = line >= 0 ? line / 32 : -((31 - line) / 32);     /* floor(line / 32) */
     rs_bg_scroll(RS_BG4, (lawn_sx + band * 168) & (rs_bg_map_w(RS_BG4) * 8 - 1), (lawn_sy - band * 32) & 255);
 }
@@ -108,7 +113,9 @@ void draw_init(void)
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -289,14 +296,15 @@ static void draw_world(const world *w, int sx, int sy)
 /* ---- the HUD ---------------------------------------------------------------------------------------------------- */
 static void hud(const world *w)
 {
+    int hy = hud_top ? rs_screen_top() : 0;    /* a tall screen: the screen's top lines, not the stage's */
     if (w->mode == MODE_SOLO) {
-        int score = w->c[0].score;
-        hu_score_chips(1, &score, 0);
+        hu_chip c = hu_score_chip(1, 0, 0);     /* (hu_score_chips' place) */
+        hu_number_at(w->c[0].score, c.x, c.y + hy, c.align, 3);
         /* the garden's leaves: eaten, to go (top right) */
         for (int i = 0; i < LEAVES_PER_GARDEN; i++)
-            spr(SPR_LEAFPIP + (i >= w->garden_leaves), 212 + i * 8, 14, 3, -1, 0);
+            spr(SPR_LEAFPIP + (i >= w->garden_leaves), 212 + i * 8, 14 + hy, 3, -1, 0);
         if (w->slow_t > 0 && (w->slow_t > 60 || (w->slow_t / 5) % 2))   /* the berry's slow time */
-            spr(SPR_BERRY, 18, 8, 3, -1, 0);
+            spr(SPR_BERRY, 18, 8 + hy, 3, -1, 0);
         return;
     }
     /* the arena: each player's head and its round wins (stars) */
@@ -305,11 +313,11 @@ static void hud(const world *w)
         const cat *c = &w->c[p];
         int out = c->state == CS_HIT || c->state == CS_MELT || c->state == CS_DOWN;
         if (!out || (w->t / 8) % 2 || c->state == CS_DOWN)
-            spr(SPR_ICON, x, 10, 3, player_pal(p), 0);
+            spr(SPR_ICON, x, 10 + hy, 3, player_pal(p), 0);
         for (int k = 0; k < ARENA_WINS; k++) {
             int won = k < c->wins, pop = won && k == c->wins - 1 && w->round_winner == p &&
                       (w->phase == PH_ROUND_END || w->phase == PH_OVER) && w->phase_t < 16;
-            spr(SPR_STARPIP + !won, x + 18 + k * 9, 14 - (pop ? hu_ease_back(16 - w->phase_t, 16, 4) : 0), 3, -1, 0);
+            spr(SPR_STARPIP + !won, x + 18 + k * 9, 14 + hy - (pop ? hu_ease_back(16 - w->phase_t, 16, 4) : 0), 3, -1, 0);
         }
     }
 }
@@ -440,6 +448,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     hu_pause(paused, 13);
 
     rs_oam_clear();
+    /* a tall screen (DESIGN.md "Tall screen"): during a run the HUD at the screen's top */
+    hud_top = rs_screen_height() > RS_SCREEN_H && (state == ST_PLAY || state == ST_DEAD);
     /* front to back: the UI, the play */
     if (state == ST_PLAY || state == ST_DEAD) hud(w);
     if (state == ST_OVER) {
