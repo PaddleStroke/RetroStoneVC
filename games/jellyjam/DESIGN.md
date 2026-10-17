@@ -214,3 +214,13 @@ warning, save RAM, the bot beating chef 1 with chains, determinism), the touch t
 (tests/ui_test.sh), the save states (the title's lobby, a duel, a banner, the game over, a run played by touch, 4
 players, paused, the results) and their audit, at 320, 427 and 520 columns, states across widths, and the 22 languages
 (tests/i18n_runs.txt).
+
+## Tall screen (docs/spec.md "Tall screen")
+
+The game opts in (`rs_screen_tall(RS_SCREEN_H_MAX)` in game_init): a phone held upright gives 320 x up to 720
+lines; the 240-line stage stays centred, the same pixels, and a 240-line screen (landscape, 4:3, wide) is unchanged.
+- **More kitchen**: the tiled wall goes on above and below the stage, with two shelves of jam jars in each margin.
+  BG3's map is 64 rows there (rows 32-63: the wall, the shelves at rows 42 and 56); the lines past the stage show
+  them by themselves (above: rows 63 upward, below: rows 30 on), and the wall's pattern runs on without a seam.
+- **The raster** (always installed; nothing on a 240-line screen) hides the UI, the fields and the sprites past the
+  stage (window 1) and puts them back at line 0. A state of another height sets the maps up again.

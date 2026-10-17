@@ -52,13 +52,38 @@ static int text_paused;
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's 240 lines in the middle,
+ * the kitchen wall going on above and below it, with two shelves of jam jars. BG3's map is 64 rows (512 px) there: the
+ * stage's rows 0-31 as before, rows 32-63 the wall and the shelves (TALL_SHELF_A, _B), which the lines past the stage
+ * show by themselves (above: 512 + y, rows 63 upward; below: rows 30 on), the wall's pattern seamless. The raster hides
+ * the UI, the fields and the sprites there (window 1 over the whole width); line 0 puts them back. */
+#define TALL_SHELF_A 42         /* its lip's row: 96 px below the stage, 176 above it */
+#define TALL_SHELF_B 56         /* 64 px above the stage, 208 below it */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int bg3_rows(void) { return tall() ? 64 : 32; }
+
+static void raster(int line, void *user)
+{
+    (void)user;
+    if ((line < 0 && line == rs_screen_top()) || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_bg_window(RS_BG2, RS_WIN1);
+        rs_obj_window(RS_WIN1);
+    } else if (line == 0) {     /* always: a state saved on a tall screen may hold the margins' windows */
+        rs_bg_window(RS_BG1, 0);
+        rs_bg_window(RS_BG2, 0);
+        rs_obj_window(0);
+    }
+}
+
 /* ---- set-up ------------------------------------------------------------------------------------------------------------ */
 static void maps_setup(void)
 {
     int mw = map_w();
     rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
-    rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
+    rs_bg_setup(RS_BG3, mw, bg3_rows(), VR_BG3);
     memset(fslot, 0, sizeof fslot);
     memset(slot_used, 0, sizeof slot_used);
     memset(cache_ok, 0, sizeof cache_ok);
@@ -90,12 +115,13 @@ void draw_init(void)
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);          /* P1, P2 (OBJ 2 unused; the kit loaded OBJ 3) */
     rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 48);     /* P3, P4, the jellies */
     rs_backdrop(RS_HEX(BACKDROP_RGB));
+    rs_raster(raster, NULL);                /* (a tall screen's lines past the stage; nothing on a 240-line one) */
 }
 
 /* ---- the kitchen (BG3) ---------------------------------------------------------------------------------------------- */
 static void kput(int tx, int ty, int kt)
 {
-    if (ty < 0 || ty >= 32 || kt <= 0 || kt >= KT_COUNT) return;
+    if (ty < 0 || ty >= rs_bg_map_h(RS_BG3) || kt <= 0 || kt >= KT_COUNT) return;
     int mw = rs_bg_map_w(RS_BG3);
     rs_bg_put(RS_BG3, tx & (mw - 1), ty, (uint16_t)RS_MAP(kt, gm_kitchen_pal_of[kt], 0, 0, 0));
 }
@@ -151,6 +177,11 @@ static void kitchen(int nf, int title)
     int left = fdiv8(rs_screen_left()), right = fdiv8(rs_screen_right() + 7);
     rs_bg_fill(RS_BG3, 0);
     wall(left - 1, right + 1, 0, 32);              /* a tile more all round: a shake shows no backdrop at the edges */
+    if (tall()) {                                  /* a tall screen: the wall past the stage, two shelves of jars */
+        wall(left - 1, right + 1, 32, 64);
+        shelf(left - 1, right + 1, TALL_SHELF_A, 1);
+        shelf(left - 1, right + 1, TALL_SHELF_B, 1);
+    }
     if (title) {                                   /* a counter at the bottom, jars on it at both ends (mirrored) */
         for (int tx = left - 1; tx <= right; tx++) {
             kput(tx, 27, KT_WOOD_LIP);
@@ -734,7 +765,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 void draw_state_loaded(void)
 {
     memset(cache_ok, 0, sizeof cache_ok);       /* (the registered objects stay as loaded: a save gives the same bytes) */
-    if (rs_bg_map_w(RS_BG1) != map_w()) {
+    if (rs_bg_map_w(RS_BG1) != map_w() || rs_bg_map_h(RS_BG3) != bg3_rows()) {   /* (a state of another height too) */
         maps_setup();
         shown_key = -1;
         chef_loaded = -1;
@@ -745,5 +776,6 @@ void draw_state_loaded(void)
 void draw_state(void)
 {
     S(fslot); S(slot_used); S(laid_key); S(chef_loaded); S(shown_key); S(shown_best); S(shown_text); S(text_paused);
+    RS_STATE_RASTER(raster);
 }
 #undef S
