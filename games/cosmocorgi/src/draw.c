@@ -33,14 +33,58 @@ static int shown_key = -1, shown_best = -1, sky_key = -1, star_key = -1;
 static int boss_loaded = -1;                   /* the boss whose tiles are in the slot */
 static int drawn_width;                        /* the width the maps and the UI were set up for */
 
-static void raster(int line, void *user)
-{
-    (void)user;
-    rs_pal_set(0, line_col[line]);
-}
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's scroll of BG2, BG3 and BG4
+ * this frame, for the raster's lines past the stage (set by draw_frame before every picture: not saved) */
+static int tall_x[RS_BG_COUNT], tall_y;
+#define TALL_ABOVE 256          /* past the stage, the clouds and stars from other parts of their panoramas: above, */
+#define TALL_BELOW 384          /* ... and below */
 
 static int view_left(void) { return (rs_screen_width() - RS_SCREEN_W) * WIDE_LEFT_NUM / WIDE_LEFT_DEN; }
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
+
+static rs_color tall_scale(rs_color c, int k)   /* darker by k / 256, rounded (soft steps in the dark colours) */
+{
+    return RS_RGB(((c & 31) * k + 128) / 256, (((c >> 5) & 31) * k + 128) / 256, (((c >> 10) & 31) * k + 128) / 256);
+}
+
+/* The lines past the stage (a tall screen): space goes on. The backdrop's gradient carried on (darker toward the
+ * screen's edges), the clouds and the stars from other parts of their panoramas (no copy of what the stage shows),
+ * the walls' fill rows repeated (BG2's row 31: the ceiling's rock above, row 30: the floor's below, where the section
+ * has them); the UI hidden there. Line 0 puts the stage's settings back (a 240-line screen: the same values, so the
+ * same pixels). */
+static void raster_out(int line)
+{
+    int pm = map_w() * 8 - 1;
+    if (line == rs_screen_top() || line == RS_SCREEN_H) {
+        int far = line < 0 ? TALL_ABOVE : TALL_BELOW;
+        rs_bg_enable(RS_BG1, 0);
+        rs_bg_scroll(RS_BG3, (tall_x[RS_BG3] + far) & pm, tall_y);
+        rs_bg_scroll(RS_BG4, (tall_x[RS_BG4] + far) & pm, tall_y);
+    }
+    if (line < 0) {
+        int top = rs_screen_top(), k = top < 0 ? -line * 96 / -top : 0;
+        rs_pal_set(0, tall_scale(line_col[(line & 4) ? 4 : 0], 256 - k));
+        rs_bg_scroll(RS_BG2, tall_x[RS_BG2], (31 * 8 + (line & 7) - line) & 255);
+    } else {
+        int n = rs_screen_bottom() - RS_SCREEN_H, k = n > 0 ? (line - RS_SCREEN_H) * 64 / n : 0;
+        rs_pal_set(0, tall_scale(line_col[(line & 4) ? RS_SCREEN_H - 1 : RS_SCREEN_H - 5], 256 - k));
+        rs_bg_scroll(RS_BG2, tall_x[RS_BG2], (30 * 8 + (line & 7) - line) & 255);
+    }
+}
+
+static void raster(int line, void *user)
+{
+    (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0) {
+        rs_bg_enable(RS_BG1, 1);
+        for (int l = RS_BG2; l <= RS_BG4; l++) rs_bg_scroll(l, tall_x[l], tall_y);
+    }
+    rs_pal_set(0, line_col[line]);
+}
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
 /* the gradient of theme a blended into theme b by k (0..256) */
@@ -158,7 +202,9 @@ static void walls_draw(const world *w, int scroll)
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -494,9 +540,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         star_key = near;
         for (int y = 0; y < RS_SCREEN_H; y++) star_dx[y] = (int16_t)((y / 24) % 2 ? near : 0);
     }
-    rs_bg_scroll(RS_BG4, (scroll / 16 - sx) & pm, (-sy) & 255);
-    rs_bg_scroll(RS_BG3, (scroll / 4 - sx) & pm, (-sy) & 255);
-    rs_bg_scroll(RS_BG2, (scroll - sx) & pm, (-sy) & 255);
+    tall_x[RS_BG4] = (scroll / 16 - sx) & pm;   /* (kept for the raster's line 0 on a tall screen) */
+    tall_x[RS_BG3] = (scroll / 4 - sx) & pm;
+    tall_x[RS_BG2] = (scroll - sx) & pm;
+    tall_y = (-sy) & 255;
+    for (int l = RS_BG2; l <= RS_BG4; l++) rs_bg_scroll(l, tall_x[l], tall_y);
     if (state == ST_TITLE) {
         for (int c = 0; c < map_w(); c++)
             for (int r = 0; r < 32; r++) rs_bg_put(RS_BG2, c, r, 0);

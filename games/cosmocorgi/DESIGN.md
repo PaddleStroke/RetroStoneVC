@@ -176,6 +176,14 @@ The extra width shows more of the stars, clouds, planets and walls. A state save
 Tests: the rules test checks the spawns, the reach and the fire over a whole loop; the touch test plays the same drag
 and the same bot run at 320, 427, 520 and 560 and compares them.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`; the 240 lines of the stage are the same pixels, centred, and the gameplay is the same (the rockets fly on
+the stage). The raster draws the lines past the stage (draw.c `raster_out`): space goes on, the backdrop's gradient
+carried on and darker toward the screen's edges, the clouds and the stars from half a panorama away (no copy of what
+the stage shows), the walls' fill repeated (BG2's row 31, the ceiling's rock, above; row 30, the floor's, below, where
+the section has them); the UI is hidden there, and line 0 puts the stage's settings back (a 240-line screen is
+unchanged). Sprites are drawn wherever the screen shows them. The touch drag is relative: nothing changes.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the corgi's rocket bobbing with a puppy pod and a bark flying ahead, a ladybug, the player slots,
 PRESS A TO FLY with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, X, Y, Start, the
