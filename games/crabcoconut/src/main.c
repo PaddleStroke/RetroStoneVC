@@ -229,7 +229,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more sky and sand (draw.c, DESIGN.md "Tall screen") */
+    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: the court (all 320 columns), the sky, the beach (draw.c) */
     save_load();
     run_best = (int)SV.best; /* Keep the title's displayed record stable when a saved title starts again. */
     opt_music = rs_option_int("music", 1);

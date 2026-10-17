@@ -89,10 +89,22 @@ The game opts in (`max_width` = 560, `WIDESCREEN_crabcoconut = 1`): 320 x 240 is
 
 ## Tall screen (docs/spec.md "Tall screen")
 
-The game opts in (`rs_screen_tall(RS_SCREEN_H_MAX)` in game_init): a phone held upright gives 320 x up to 720
-lines; the 240-line court stays centred, the same pixels, and a 240-line screen (landscape, 4:3, wide) is unchanged.
-- **More beach**: above the court, the sky carried on, deeper toward the top; below it, the sand with its grains and
-  the court's side walls (BG2's last 16 lines repeated). The raster draws these lines (raster_out); the UI, the far
-  beach and the sprites are hidden there (window 1), line 0 puts the court's settings back.
+A phone held upright. **Why not the zoom (v2)**: the court is the whole 320 columns (its walls at the screen's edges,
+the coconuts bouncing from x 8 to 312, the shells raining anywhere across it), and a zoomed screen crops the sides (240
+of them at most at a usable height): it would hide play. So the game keeps `rs_screen_tall(RS_SCREEN_H_MAX)` (every
+column shown, 320 x up to 720 lines) and composes the portrait around the court instead. The court's 240 lines are the
+same pixels; a 240-line screen (landscape, 4:3, wide) is unchanged.
+- **The court sits 2/5 down** (`rs_screen_origin_v`: 180 lines above it, 272 below on a 1080x2340 phone).
+- **The HUD at the screen's top**: one crab, the score's digits (sprites at `rs_screen_top()`); several, the scores'
+  row (BG1's row 1 pinned there: `rs_bg_pin`, one column in from the corner buttons).
+- **Above: the sky** carried on from the court's top colour, deeper toward the top, with the sun, clouds and gulls.
+  The shells still come in at the court's top edge (the sprites show above the court only in the HUD's band).
+- **Below: the beach**: the court's sand carried on (flat: no colour band), with the umbrella and its striped towel,
+  the sandcastle with its flag, the bucket and the spade, starfish, footprints toward the sea and a beach ball.
+- **How**: the raster draws the margins (the backdrop: the sky, the sand); the sky's and the beach's things are BG4,
+  drawn once for the screen's height (draw.c `tall_decor`: a canvas cut into at most 896 tiles, the same tile once,
+  after the beach's tiles; its 64 x 64 map holds the sky's things just above line 256 and the sand's from 256). BG1-3
+  and the sprites are hidden past the court (window 1) but in the HUD's band; line 0 puts the court's settings back
+  on every screen. A state of another height draws BG4 again (`laid_h`, saved).
 - **One view**: the view of rs_viewport_layout is the court's 240 lines, and a tall screen draws it without a
   viewport even with several players (at 320 columns the view is the whole court at x 0, the same scrolls).

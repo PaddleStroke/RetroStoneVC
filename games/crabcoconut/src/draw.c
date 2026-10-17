@@ -34,32 +34,94 @@ static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewp
  for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*PIX_W+x]=(uint8_t)color;
 }
 #include "theme.inc"
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the court's 240 lines in the middle,
- * drawn on the whole screen (no viewport); the lines past them are the raster's. Above: the sky carried on, deeper
- * toward the top; below: the sand, BG2's last 16 lines (the grains and the side walls) repeated. The UI, the beach and
- * the sprites are hidden there (window 1 over the whole width); line 0 puts the stage's settings back. */
+/* A tall screen (a phone held upright; DESIGN.md "Tall screen"). The court is the whole 320 columns (its walls at
+ * the screen's edges, the coconuts bouncing from x 8 to 312), so the game keeps rs_screen_tall (every column shown)
+ * rather than the zoom, and composes the portrait around it: the court's 240 lines drawn on the whole screen (no
+ * viewport), TALL_ABOVE_NUM / 5 of the extra lines above it, the rest below; the lines past it are the raster's.
+ * - Above: the sky carried on from the court's top colour, deeper toward the top, the HUD at the top (the score's
+ *   digits; several players: the scores' row of BG1, pinned there: rs_bg_pin), the sun, clouds and gulls (BG4).
+ * - Below: the court's sand carried on (the backdrop, flat: no band), and the beach life drawn once into BG4
+ *   (tall_decor): the umbrella and the towel, the sandcastle and the bucket, starfish, footprints, a beach ball.
+ * BG1-3 and the sprites are hidden there (window 1 over the whole width; shown in the HUD's band: no shell above);
+ * BG4 shows only there (its map: the sky's things at lines 256 - above .. 255, the sand's from 256). Line 0 puts the
+ * court's settings back on every screen (a state saved on a tall screen may hold the margins' windows). */
+#define TALL_ABOVE_NUM 2        /* 2/5 of the extra lines above the court (180 of 452 on a 1080x2340 phone) */
+#define HUD_Y 10                /* the HUD's band: this many lines below the screen's top (clear of the corner buttons) */
+#define HUD_LINES 24            /* the band where the sprites show above the court (the score's digits; no shell) */
+#define VR_BG4 (VR_BG3+128)     /* the tall screen's decor tiles, after the beach's (at most 896) */
+#define BG4_MAX 896
+static int hud_lines;           /* the HUD's band of BG1 at the top (several players), set by draw_frame each picture */
+static int laid_h;              /* the height BG4's decor was drawn for (a state of another height: drawn again) */
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
 static int bg2_sx(void){return (V[0].mx*8-VP[0].x)&(rs_bg_map_w(RS_BG2)*8-1);}
 static void raster_out(int line){
- int top=rs_screen_top(),bot=rs_screen_bottom();
+ int top=rs_screen_top();
  if(line==top || line==RS_SCREEN_H){
   rs_window(0,rs_screen_left(),rs_screen_right());
-  for(int l=0;l<3;l++)rs_bg_window(l,l==RS_BG2 && line>0?0:RS_WIN1);
+  for(int l=0;l<3;l++)rs_bg_window(l,RS_WIN1);
+  rs_bg_window(RS_BG4,0);rs_bg_scroll(RS_BG4,0,line==top?256:256-RS_SCREEN_H);
   rs_obj_window(RS_WIN1);
  }
+ if(line==top+HUD_Y){rs_obj_window(0);if(hud_lines)rs_bg_window(RS_BG1,0);}   /* the HUD's band: its digits, the scores' row */
+ if(hud_lines && line==top+HUD_Y+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);
+ if(line==top+HUD_Y+HUD_LINES)rs_obj_window(RS_WIN1);
  if(line<0){int k=top<0?-line*256/-top:0;rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(104,170,214),k));return;}
- int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H;
- rs_pal_set(0,hu_lerp_color(theme_pal[2],theme_pal[3],n>0?d*96/n:0));
- rs_bg_scroll(RS_BG2,bg2_sx(),RS_SCREEN_H-16+(d&15)-line);
+ rs_pal_set(0,theme_pal[2]);   /* the court's sand, flat (a gradient would band) */
 }
 static void raster(int line,void *user){(void)user;
  if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
  if(line==0){   /* always: a state saved on a tall screen may hold the margins' windows */
   for(int l=0;l<3;l++)rs_bg_window(l,0);
+  rs_bg_window(RS_BG4,RS_WIN1);
   rs_obj_window(0);
-  if(tall())rs_bg_scroll(RS_BG2,bg2_sx(),0);
  }
  int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);}
+/* the tall screen's decor (BG4, raster_out), drawn once for this height: a canvas of BG4's 512 map lines (stage y
+ * above the court: line 256 + y; below it: line 256 + y - 240), cut into tiles (the same tile once) */
+static uint8_t *tcv;
+static void tpx(int x,int y,int c){int m=(y<0?256+y:16+y)&511;if(x>=0 && x<RS_SCREEN_W)tcv[m*RS_SCREEN_W+x]=(uint8_t)c;}
+static void tdisc(int cx,int cy,int rx,int ry,int c){
+ for(int y=-ry;y<=ry;y++)for(int x=-rx;x<=rx;x++)if(x*x*ry*ry+y*y*rx*rx<=rx*rx*ry*ry)tpx(cx+x,cy+y,c);}
+static void tcloud(int x,int y,int w){   /* puffs, a flat shaded base */
+ for(int i=0;i<w;i++){int r=5+((i*7+x)%4);tdisc(x+i*9,y-(i%2)*3,r+2,r,1);}
+ for(int xx=x-4;xx<=x+(w-1)*9+4;xx++){tpx(xx,y+5,5);tpx(xx,y+4,5);}}
+static void tgull(int x,int y){for(int k=0;k<4;k++){tpx(x-k,y-(k<2?k:3-k+1),7);tpx(x+k,y-(k<2?k:3-k+1),7);}tpx(x,y+1,7);}
+static void tall_decor(void){
+ laid_h=rs_screen_height();
+ if(!tall())return;
+ int above=-rs_screen_top(),below=rs_screen_bottom()-RS_SCREEN_H,ty=-above;
+ tcv=calloc(RS_SCREEN_W*512,1);if(!tcv)return;
+ /* the sky: the sun, clouds, gulls (between the HUD and the court) */
+ tdisc(256,ty+54,17,17,8);tdisc(256,ty+54,13,13,1);
+ tcloud(40,ty+76,5);tcloud(170,ty+108,4);tcloud(236,ty+150>-24?-24:ty+150,3);tcloud(86,-30,3);
+ tgull(132,ty+46);tgull(150,ty+54);tgull(60,ty+120);tgull(206,-52);
+ /* the sand: the grains (a pattern of 32 x 32: a few tiles), then the beach's things */
+ for(int y=0;y<below;y++)for(int x=0;x<RS_SCREEN_W;x++){int a=x&31,b=y&31;if((a*5+b*11)%37==0 && ((a^b)&1))tpx(x,240+y,3);}
+ rs_viewport vp={0};vp.w=RS_SCREEN_W;vp.h=240;memset(pixels,0,sizeof pixels);
+ theme_decor(pixels,110,&vp);theme_decor(pixels,-130,&vp);   /* the umbrella, towel and starfish; the castle and bucket */
+ int y0=below>200?40:16;                                       /* where the umbrella's top goes below the court */
+ for(int y=130;y<236 && y0+y-130<below;y++)for(int x=0;x<RS_SCREEN_W;x++)if(pixels[y*PIX_W+x])tpx(x,240+y0+y-130,pixels[y*PIX_W+x]);
+ for(int i=0;i<9;i++){int fx=48+i*24,fy=240+below-28-i*9+(i&1)*5;     /* footprints toward the sea */
+  if(fy<240+y0+110)break;
+  tdisc(fx,fy,2,3,4);tdisc(fx+4,fy-5,2,3,4);}
+ if(below>200){int bx=228,by=240+below-50;tdisc(bx,by,11,11,1);       /* a beach ball */
+  for(int y=-11;y<=11;y++)for(int x=-11;x<=11;x++)if(x*x+y*y<=121){int s=(x*3+y*2+60)/9%3;if(s)tpx(bx+x,by+y,s==1?9:10);}
+  tdisc(bx-4,by-4,2,2,1);for(int x=-9;x<=9;x++)tpx(bx+x,by+12,4);}
+ for(int k=-3;k<=3;k++){tpx(150+k,240+below-20,9);tpx(150,240+below-20+k,9);}   /* a second starfish */
+ /* the tiles: tile 0 blank; each other the same tile once */
+ rs_bg_setup(RS_BG4,64,64,VR_BG4);
+ static const uint8_t blank[64];rs_tiles_load8(VR_BG4,blank,1);
+ uint8_t *seen=malloc(BG4_MAX*64);int n=1;
+ if(seen)memset(seen,0,64);
+ for(int r=0;r<64 && seen;r++)for(int c=0;c<64;c++){
+  uint8_t t[64];int ink=0;
+  for(int y=0;y<8;y++)for(int x=0;x<8;x++){int xx=c*8+x;t[y*8+x]=xx<RS_SCREEN_W?tcv[(r*8+y)*RS_SCREEN_W+xx]:0;ink|=t[y*8+x];}
+  int id=0;
+  if(ink){for(id=1;id<n && memcmp(seen+id*64,t,64);id++);if(id==n){if(n==BG4_MAX)id=0;else{memcpy(seen+n*64,t,64);rs_tiles_load8(VR_BG4+n,t,1);n++;}}}
+  rs_bg_put(RS_BG4,c,r,RS_MAP(id,PAL_GROUND,0,0,0));
+ }
+ free(seen);free(tcv);tcv=NULL;
+}
 /* the maps of this width: 64 tiles at 320; 128 wider (the UI's corner tags, the sand as wide as the screen, the wide
  * beach and its own tiles, the blank tile after them) */
 static void maps_setup(void){
@@ -74,12 +136,15 @@ void draw_init(void){
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
  maps_setup();rs_pal_load(RS_PAL_BG(PAL_GROUND),theme_pal,16);
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
+ /* a tall screen: the court TALL_ABOVE_NUM / 5 of the extra lines down, the sky and the beach's decor (BG4) */
+ rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)*TALL_ABOVE_NUM/5);tall_decor();
  for(int l=0;l<3;l++)rs_bg_enable(l,1);
+ rs_bg_enable(RS_BG4,tall());
  memset(V,0,sizeof V);memset(VP,0,sizeof VP);nviews=0;rs_raster(raster,NULL);
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
  * width's up (each frame draws the whole screen again). Same width: nothing. */
-void draw_relayout(void){if(laid_w!=rs_screen_width())maps_setup();}
+void draw_relayout(void){if(laid_w!=rs_screen_width())maps_setup();if(laid_h!=rs_screen_height())tall_decor();}
 static void background(const world *w,const view *v,rs_viewport *vp){
  if(wide()){   /* the whole wide beach, in stage coordinates (stage x = picture x & 1023): the view shows its part */
   for(int r=0;r<32;r++)for(int c=0;c<128;c++)
@@ -107,6 +172,8 @@ static void icon(int p,int cx,int cy,int t,void *user){(void)user;rs_viewport vp
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);nviews=rs_viewport_layout(1,0,VP);
  if(tall()){VP[0].y=0;VP[0].h=RS_SCREEN_H;}   /* a tall screen: the view is the court's 240 lines (raster_out) */
+ /* a tall screen: the beach's decor in the margins (BG4), the scores' row of several players at the top (BG1 row 1) */
+ rs_bg_enable(RS_BG4,tall());hud_lines=tall() && multi?8:0;rs_bg_pin(RS_BG1,8,hud_lines,HUD_Y);
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++){
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
@@ -119,8 +186,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   spr_dx=multi?-vp->x:0;
   if(state==ST_PLAY || state==ST_DEAD){
    theme_scene(w,p,st_t,v,vp);char text[128];theme_hud(h,text,multi?(size_t)(vp->w/8-1):sizeof text);
-   if(multi){for(int player=0;player<w->players;player++){char score[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(score,sizeof score,"%s %d",tag,w->h[player].score);hu_text(player*10,1,score);}}
-   else{hu_number(h->score,vp->x+vp->w/2,8,3);}
+   if(multi){for(int player=0;player<w->players;player++){char score[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),player+1);snprintf(score,sizeof score,"%s %d",tag,w->h[player].score);hu_text(player*10+(tall()?1:0),1,score);}}   /* (a tall screen: clear of the corner buttons) */
+   else{hu_number(h->score,vp->x+vp->w/2,tall()?rs_screen_top()+HUD_Y+6:8,3);}   /* (a tall screen: at its top) */
    if(paused)hu_big(v->mx+((2*vp->x+vp->w)/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
   }else if(state==ST_OVER)theme_shells(w,vp);
   hu_view_oam_end(vp);
@@ -144,5 +211,5 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
-void draw_state(void){S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);S(spr_dx);RS_STATE_RASTER(raster);}
+void draw_state(void){S(V);S(VP);S(nviews);S(shown_state);S(shown_best);S(laid_w);S(laid_h);S(spr_dx);RS_STATE_RASTER(raster);}
 #undef S
