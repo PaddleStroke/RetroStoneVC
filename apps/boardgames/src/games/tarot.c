@@ -23,6 +23,7 @@
 #include "cards_table.h"
 #include "games/tarot.h"
 #include "games/endtable.h"
+#include "pages.h"
 #include "shell.h"
 #include "text.h"
 
@@ -63,10 +64,16 @@ static void word(int bid, int shrt, char *buf, int size)
 static struct { SDL_Texture *t; int key, w, h; unsigned used; } lab[LABELS];   /* the words made, by size */
 static unsigned lab_tick;
 
-/* a bid's word as a picture, px pixels, no wider than maxw (shrunk to fit): its texture, its size */
+/* a bid's word as a picture, px pixels, no wider than maxw (shrunk to fit): its texture, its size. gold: 1 gold, else
+ * cream; plus W_TABLE: on the table (a bar), where the light theme's ink is dark (its gold deeper) */
+enum { W_TABLE = 2 };
 static SDL_Texture *word_tex(int bid, int shrt, float px, float maxw, int gold, int *w, int *h)
 {
-    int key = ((((int)(px * 4) * 8192 + (int)maxw) * 5 + bid) * 2 + shrt) * 2 + gold, k = 0;
+    static const uint8_t INK[3] = {46, 40, 30}, INK_GOLD[3] = {150, 118, 46};
+    int light = (gold & W_TABLE) && !TH.dark;
+    const uint8_t *rgb = gold & 1 ? (light ? INK_GOLD : GOLD) : light ? INK : CREAM;
+    gold &= 1;
+    int key = (((((int)(px * 4) * 8192 + (int)maxw) * 5 + bid) * 2 + shrt) * 2 + gold) * 2 + light, k = 0;
     for (int i = 0; i < LABELS; i++)
         if (lab[i].t && lab[i].key == key) {
             lab[i].used = ++lab_tick;
@@ -86,7 +93,7 @@ static SDL_Texture *word_tex(int bid, int shrt, float px, float maxw, int gold, 
     int W = tw + 4, H = (int)ceilf(px * 1.55f);
     uint8_t *b = calloc((size_t)W * H, 4);
     if (!b) return NULL;
-    text_line(s, px, 1, gold ? GOLD : CREAM, b, W, H, 2, (int)((H - 1.25f * px) / 2));
+    text_line(s, px, 1, rgb, b, W, H, 2, (int)((H - 1.25f * px) / 2));
     ui_free(&lab[k].t);
     lab[k].t = ui_tex(W, H, b);
     lab[k].key = key;
@@ -695,7 +702,7 @@ static void draw_band(void)
     if (ph == TP_SCORE || ph == TP_OVER) nl = p->tricks - 1;
     if (ph < TP_PLAY || ph == TP_VOID) nl = 0;
     cards_pile(DK, T.lx, T.ly, T.ws, nl > 0 ? nl * 2 : 0, CARD_NONE, 0);
-    if (nl > 0) ui_number(T.lx + 0.5f * T.ws + 0.3f * T.u, T.ly, 0.34f * T.u, nl, 1);
+    if (nl > 0) ui_number(T.lx + 0.5f * T.ws + 0.3f * T.u, T.ly, 0.34f * T.u, nl, TH.dark);
     int na = (ph == TP_PLAY || ph == TP_SCORE || ph == TP_OVER) ? p->necart - hides(H_ASIDE, -1) : 0;
     cards_pile(DK, T.ex, T.ey, T.ws, na, CARD_NONE, 0);
     if (na > 0) {
@@ -792,11 +799,18 @@ static void draw_middle(void)
     }
 }
 
+/* a veil over the table's band: black on the dark table, a warm brown, fainter, on the light one (no grey band) */
+static void veil(int a)
+{
+    if (TH.dark) ui_fill(T.b.x, T.zy0, T.b.w, T.zy1 - T.zy0, 0, 0, 0, (Uint8)a);
+    else ui_fill(T.b.x, T.zy0, T.b.w, T.zy1 - T.zy0, 110, 84, 50, (Uint8)(a / 2));
+}
+
 /* the last trick again: over a veil, each card at its player's seat, the winner's in gold light */
 static void draw_last(void)
 {
     const tpos *p = &G.pos;
-    ui_fill(T.b.x, T.zy0, T.b.w, T.zy1 - T.zy0, 0, 0, 0, 120);
+    veil(120);
     draw_trick(p->last, p->players, p->lastlead, p->lastwin, 1);
 }
 
@@ -900,7 +914,7 @@ static void draw_void(void)
         cards_spot s[TAROT_HAND];
         float w = fminf(T.wt * 0.85f, T.b.w * 0.95f / (1 + 0.42f * (n - 1)));
         cards_fan(T.tx, T.ty - 0.2f * u, T.b.w * 0.95f, w, AS, n, 6, s);
-        ui_fill(T.b.x, T.zy0, T.b.w, T.zy1 - T.zy0, 0, 0, 0, 60);
+        veil(60);
         put_tok(q, T.tx, T.ty - 0.2f * u - 0.5f * AS * w - 0.45f * u, 0.7f * u);
         for (int i = 0; i < n; i++)
             cards_draw(DK, p->hand[q][i], s[i].x, s[i].y, w, s[i].deg, p->hand[q][i] == TAROT_PETIT ? CD_GLOW : 0);
@@ -911,7 +925,7 @@ static void draw_void(void)
             int q = (p->dealer + 1 + k) % p->players;
             float x = T.tx + (k - (p->players - 1) / 2.0f) * gap;
             put_tok(q, x, T.ty - 0.5f * u, d);
-            put_word(TB_PASS, 1, x, T.ty + 0.15f * u, 0.32f * u, gap * 0.95f, 0, 220);
+            put_word(TB_PASS, 1, x, T.ty + 0.15f * u, 0.32f * u, gap * 0.95f, W_TABLE, 220);
         }
         round_button(T.tx, T.ty + 1.1f * u, 0.5f * u, 1);
     }
@@ -1033,7 +1047,7 @@ static void bar(int pl, box b)
         }
         if (bid >= 0 && b.x + b.w - x > 0.5f * u) {
             float mw = b.x + b.w - x, ww = word_width(bid, 1, 0.36f * u, mw);
-            put_word(bid, 1, x + ww / 2, cy, 0.36f * u, mw, gold, bid == TB_PASS ? 170 : 255);
+            put_word(bid, 1, x + ww / 2, cy, 0.36f * u, mw, gold | W_TABLE, bid == TB_PASS ? 170 : 255);
         }
         return;
     }
@@ -1053,7 +1067,7 @@ static void bar(int pl, box b)
     }
     if (bid >= 0) {
         float mw = b.x + b.w - x, ww = word_width(bid, 1, 0.26f * u, mw);
-        put_word(bid, 1, x + ww / 2, y2, 0.26f * u, mw, gold, bid == TB_PASS ? 170 : 255);
+        put_word(bid, 1, x + ww / 2, y2, 0.26f * u, mw, gold | W_TABLE, bid == TB_PASS ? 170 : 255);
     }
 }
 
