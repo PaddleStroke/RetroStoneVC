@@ -145,11 +145,14 @@ static int xy_sq(float x, float y)
 }
 
 /* a player's disc lying on the wood, size x size from (x, y) (a disc has no top: never turned round face to face) */
-static void disc_at(int player, float x, float y, float size)
+static void disc_up(int player, float x, float y, float size, float up)   /* lifted up pixels: bigger, its shadow lower */
 {
-    ui_shadow_flat(x + size / 2, y + size / 2, size, size, 1);
-    ui_put(t_disc[colour(player)], x, y, size, size);
+    float s = size * (1 + 0.6f * up / size);
+    ui_shadow_flat(x + size / 2 + 0.4f * up, y + size / 2 + 0.6f * up, s, s, 1 - 2 * up / size);
+    ui_put(t_disc[colour(player)], x + (size - s) / 2, y + (size - s) / 2 - up, s, s);
 }
+
+static void disc_at(int player, float x, float y, float size) { disc_up(player, x, y, size, 0); }
 
 /* the winner's group in gold: a light on every piece and between every two that touch */
 static void gold(const lpos *p, int who)
@@ -197,6 +200,8 @@ static void draw(void)
     }
     if (!anim.on && (p->result == LOA_WIN0 || p->result == LOA_WIN1)) gold(p, p->result - LOA_WIN0);
     int skip = anim.on ? anim.m.from : drag.on && drag.moved ? drag.from : -1;
+    int lifted = skip < 0 && sel >= 0 && shown->at[sel];   /* the selected disc: lifted, drawn last */
+    if (lifted) skip = sel;
     for (int s = 0; s < LOA_SQUARES; s++) {    /* the shadows first: they fall on the wood only */
         if (!shown->at[s] || s == skip) continue;
         sq_xy(s, &x, &y);
@@ -214,11 +219,16 @@ static void draw(void)
             if (legal[i].capture) ui_mark_ring(x + h, y + h, 1.12f * sq);   /* round the disc it takes */
             else ui_mark_dot(x + h, y + h, 0.32f * sq);
         }
+    if (lifted) {
+        sq_xy(sel, &x, &y);
+        disc_up(shown->at[sel] - 1, x, y, (float)sq, 0.1f * sq);
+    }
     if (anim.on) {
         float x0, y0, x1, y1;
         sq_xy(anim.m.from, &x0, &y0);
         sq_xy(anim.m.to, &x1, &y1);
-        disc_at(p->at[anim.m.to] - 1, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq);
+        disc_up(p->at[anim.m.to] - 1, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq,
+                0.16f * sq * sinf(3.14159265f * t));   /* a hop over the line: up, then down */
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
         float s = 1.18f * sq, off = ui_upside(p->side) ? -0.25f : 0.75f;
