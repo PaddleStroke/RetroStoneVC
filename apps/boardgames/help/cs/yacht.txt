@@ -1,34 +1,25 @@
 Yacht
 # Cíl hry
-Získej nejvíc bodů tím, že hody pěti kostkami vyplníš všechny řádky bodovací tabulky. Hraje jeden až šest hráčů, každý má v tabulce svůj sloupec. Před hrou zvol pravidla:
-- Klasická: třináct řádků, moderní pravidla.
-- Severská: skandinávská Yatzy, patnáct řádků.
-- Generala: latinskoamerická hra, jedenáct řádků.
-Sám se snažíš dosáhnout 200 bodů (Generala: 150).
+Získej nejvíc bodů tím, že hody pěti kostkami vyplníš všechny řádky svého sloupce. Hraje jeden až šest hráčů; sám se snažíš dosáhnout 200 bodů (Generala: 150).
 # Tah
-- Hoď pěti kostkami, nejvýš třikrát. Před druhým a třetím hodem si nech, které kostky chceš, a ostatními hoď znovu. Ponechanou kostkou můžeš později hodit znovu.
-- Pak zapiš kostky do jednoho prázdného řádku svého sloupce. Když se nehodí do žádného řádku, musíš si stejně jeden vybrat: dostane 0.
+- Hoď pěti kostkami nejvýš třikrát a mezi hody si nech, které kostky chceš.
+- Pak je zapiš do jednoho prázdného řádku. Když se nehodí do žádného řádku, musíš si stejně jeden vybrat: dostane 0.
 # Bodovací tabulka
-V tabulce nejsou žádná slova: každý řádek je obrázek kostek.
+Každý řádek je obrázek kostek.
 - Jedna kostka (jedničky až šestky): součet kostek s tímto číslem.
-- Hvězda: prémie, když tvé jedničky až šestky dají 63 nebo víc: 35 (klasická), 50 (severská). Do té doby ukazuje malým písmem tvůj dosavadní součet.
-- Dvě kostky přes sebe (severská): jeden pár, součet páru.
-- Dva páry kostek (severská): dva různé páry, součet čtyř kostek.
-- Tři kostky přes sebe: trojice. Klasická: součet všech pěti kostek. Severská: součet těch tří.
-- Čtyři kostky přes sebe: čtveřice. Klasická: součet všech pěti. Severská: součet těch čtyř. Generala (poker): 40.
-- Tři kostky a dvě kostky: full house, tři kostky s jedním číslem a dvě s jiným. Klasická: 25. Severská: součet kostek. Generala: 30.
-- Čtyři malé kostky v řadě (klasická): malá postupka, čtyři čísla za sebou: 30.
-- Pět malých kostek v řadě: postupka. Klasická: pět čísel za sebou, 40. Severská: 1-2-3-4-5 je malá, 15, a 2-3-4-5-6 velká, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 nebo 3-4-5-6-1: 20.
+- Hvězda: prémie za 63 nebo víc v jedničkách až šestkách: 35 (klasická), 50 (severská).
+- Dvě kostky přes sebe (severská): pár, jeho součet. Dva páry (severská): jejich součet.
+- Tři kostky přes sebe: trojice. Klasická: všech pět kostek. Severská: ty tři.
+- Čtyři kostky přes sebe: čtveřice. Klasická: všech pět. Severská: ty čtyři. Generala (poker): 40.
+- Tři kostky a dvě kostky: full house. Klasická: 25. Severská: součet kostek. Generala: 30.
+- Čtyři malé kostky v řadě (klasická): čtyři čísla za sebou, 30.
+- Pět malých kostek v řadě: postupka. Klasická: 40. Severská: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 nebo 3-4-5-6-1: 20.
 - Kostky rozházené na všechny strany: šance, součet kostek.
-- Pět stejných kostek: pětice (yacht, yatzy, generala): 50.
-- Pět stejných a hvězda (klasická): 100 za každou další pětici.
+- Pět stejných kostek: pětice, 50. S hvězdou (klasická): každá další pětice, 100.
 - Dva řádky pěti stejných (Generala): dvojitá generala, 100.
-- Rovnítko: tvůj součet.
 # Klasická: další pětice
-Jakmile máš v řádku pětice 50, každá další pětice dá navíc 100, ať ji zapíšeš kamkoli. Jakmile je tento řádek vyplněný (50 nebo 0), je pětice žolík: musí jít do řádku svého čísla mezi jedničkami až šestkami, je-li prázdný; jinak do libovolného prázdného řádku pod hvězdou, kde full house a postupky platí v plné výši; jinak do libovolného prázdného řádku mezi jedničkami až šestkami, za 0.
+Jakmile je v řádku pětice 50, každá další pětice dá navíc 100. Jakmile je tento řádek vyplněný, je pětice žolík: jde do řádku svého čísla, je-li prázdný; jinak do libovolného prázdného řádku pod hvězdou, kde full house a postupky platí v plné výši; jinak do řádku mezi jedničkami až šestkami, za 0.
 # Generala
-Postupka, full house nebo poker hozené hned prvním hodem tahu („z ruky“) dají o 5 víc. Generala z ruky hned vyhrává hru. Dvojitá generala dá 100, jen když máš v řádku generaly 50; jinak ji lze jen škrtnout, za 0. Za jedničky až šestky se prémie nedává.
+Postupka, full house nebo poker hned prvním hodem („z ruky“) dají o 5 víc. Generala z ruky hned vyhrává. Dvojitá generala dá 100, jen když je v řádku generaly už 50; jinak dá 0. Za jedničky až šestky se prémie nedává.
 # Konec hry
-Hráči se střídají kolem stolu, slonovinový začíná. Když všichni vyplní všechny řádky, vyhrává nejvyšší součet; při shodě nejvyšších součtů se hráči o výhru dělí. Sám vyhráváš s 200 body nebo víc (Generala: 150, nebo generala z ruky).
-# Hra na zařízení
-Ťukni na plsť a hodíš. Ťuknutím na kostku si ji necháš: sjede do tmavé dráhy po straně plsti; dalším ťuknutím s ní hodíš znovu. Malé kostky pod plstí ukazují zbývající hody. Tvůj sloupec svítí. Ťukni na řádek tabulky a uvidíš, kolik by tam kostky daly; dalším ťuknutím je zapíšeš. Když řádek zvolit nesmíš, ozve se zamítavý zvuk. Každá lišta ukazuje součet toho hráče. Vrátit vezme zpět poslední zápis; kostky se nikdy nehází znovu: padnou stejná čísla.
+Když jsou vyplněny všechny řádky, vyhrává nejvyšší součet; při shodě součtů se hráči o výhru dělí.

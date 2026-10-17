@@ -1,16 +1,10 @@
 Serpenti e scale
 # Lo scopo
-Essere il primo a portare la tua pedina sulla casella 100.
-Si può giocare in due, tre o quattro: scegli quanti prima della partita. In tre o in quattro le regole sono le stesse per tutti: tutte le pedine partono fuori dal tabellone e possono stare sulla stessa casella, e il dado passa a turno: chiaro, scuro, rosso e poi verde. Chiaro e rosso siedono in basso, scuro e verde in alto.
-# Il tavoliere
-Le caselle sono numerate da 1 a 100 partendo dal basso a sinistra: lungo la riga in basso verso destra, poi indietro verso sinistra lungo la riga successiva, e così via fino in cima al tavoliere, dove c'è il 100. Le scale portano in su, dal loro piede alla loro cima; i serpenti portano in giù, dalla loro testa alla loro coda.
+Essere il primo a portare la tua pedina sulla casella 100. Da 2 a 4 giocatori.
 # Un turno
-Entrambe le pedine partono fuori dal tavoliere, prima della casella 1. Tira per primo il chiaro. Tira il dado e fai avanzare la tua pedina del numero uscito, una casella alla volta. Le due pedine possono stare sulla stessa casella.
-- Se la tua pedina finisce la mossa ai piedi di una scala, sale fino in cima alla scala.
-- Se finisce la mossa sulla testa di un serpente, scivola giù fino alla coda del serpente.
-- Un 6 ti dà un altro tiro, dopo la tua mossa.
-- Altrimenti il dado passa all'altro giocatore.
+Tira il dado e fai avanzare la tua pedina del numero uscito. Le pedine possono stare sulla stessa casella.
+- Se finisci ai piedi di una scala, sali fino in cima.
+- Se finisci sulla testa di un serpente, scivola giù fino alla coda.
+- Un 6 ti dà un altro tiro.
 # La fine della partita
-Devi raggiungere la casella 100 con il numero esatto. Se tiri più del necessario, la tua pedina sale fino al 100 e torna indietro delle caselle in più: dal 96, un tiro di 6 finisce sul 98. Una scala o un serpente dove si ferma vale comunque. Vince il primo giocatore che arriva sulla casella 100.
-# Giocare sul dispositivo
-Il dado aspetta, in una luce dorata, in fondo alla barra del giocatore che deve tirare: tocca lo schermo per tirarlo. Poi la tua pedina si muove da sola. Ogni barra mostra la casella su cui si trova la pedina di quel giocatore e il suo ultimo tiro. Annulla ritira i tiri uno alla volta; un tiro ritirato esce di nuovo uguale quando tiri ancora.
+La casella 100 va raggiunta con il numero esatto: se tiri di più, sali fino al 100 e torni indietro delle caselle in più. Vince il primo giocatore che arriva sulla casella 100.

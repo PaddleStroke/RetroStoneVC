@@ -1,20 +1,18 @@
 Königliches Spiel von Ur
 # Das Ziel
-Bringe deine sieben Steine vor dem anderen Spieler über deinen Weg und vom Brett. Das Spiel wurde vor mehr als 4.500 Jahren in Mesopotamien gespielt; diese Regeln hat Irving Finkel vom British Museum aus einer babylonischen Tontafel erschlossen. Elfenbein würfelt zuerst, danach sind die Spieler abwechselnd am Zug.
+Bringe deine sieben Steine vor dem anderen Spieler über deinen Weg und vom Brett. Elfenbein würfelt zuerst.
 # Das Brett
-Das Brett hat zwanzig Felder in drei Reihen. Die Reihe, die dir am nächsten ist, gehört dir allein: vier Felder an einem Ende, zwei am anderen, mit einer Lücke dazwischen. Die mittlere Reihe aus acht Feldern ist gemeinsam. Dein Weg führt über deine vier Felder zum Ende des Bretts, dann die ganze mittlere Reihe entlang in die andere Richtung, dann zurück auf deine eigene Reihe zu ihren letzten zwei Feldern und vom Brett. Fünf Felder tragen eine Rosette: das Eckfeld der vier Felder jedes Spielers, das Eckfeld seiner zwei Felder und das vierte Feld der mittleren Reihe.
+Dein Weg führt über deine eigenen vier Felder, dann die ganze gemeinsame mittlere Reihe entlang, dann über deine eigenen letzten zwei Felder und vom Brett.
 # Würfeln und Ziehen
-- Wirf die vier Würfel. Jeder ist eine Pyramide, bei der zwei ihrer vier Spitzen markiert sind: Zähle die Würfel, deren markierte Spitze nach oben zeigt. Der Wurf ist 0 bis 4; die 2 fällt am häufigsten.
-- Ziehe einen deiner Steine um so viele Felder auf deinem Weg weiter. Ein Stein, der neben dem Brett wartet, kommt ins Spiel: Ein Wurf von 3 setzt ihn auf dein drittes Feld.
-- Du kannst nicht auf einem Feld landen, auf dem einer deiner eigenen Steine steht.
-- Eine 0 oder ein Wurf, den kein Stein nutzen kann, verfällt, und der andere Spieler ist am Zug.
+- Wirf die vier Würfel und zähle die markierten Spitzen, die nach oben zeigen: 0 bis 4.
+- Ziehe einen Stein um so viele Felder weiter; ein Wurf von 3 setzt einen neuen Stein auf dein drittes Feld.
+- Du kannst nicht auf einem eigenen Stein landen.
+- Eine 0 oder ein Wurf, den kein Stein nutzen kann, verfällt.
 # Rosetten
-Landest du auf einer Rosette, bekommst du einen weiteren Wurf. Die Rosette in der Mitte der gemeinsamen Reihe ist außerdem ein sicheres Feld: Ein Stein, der dort steht, kann nicht zurückgeschickt werden, also kann der andere Spieler dort nicht landen.
+Landest du auf einer Rosette, bekommst du einen weiteren Wurf. Die mittlere Rosette ist außerdem sicher: Niemand darf dort auf einem Stein landen.
 # Schlagen
-Landest du in der gemeinsamen Reihe auf einem Stein des anderen Spielers, muss er zurück vom Brett: Er muss seine Reise von vorn beginnen. Deine eigenen Felder an den Enden sind für den anderen Spieler unerreichbar.
+Landest du in der gemeinsamen Reihe auf einem gegnerischen Stein, muss er zurück vom Brett.
 # Auswürfeln
-Ein Stein verlässt das Brett nur mit der genauen Zahl: Von deinem letzten Feld brauchst du eine 1, vom Feld davor eine 2 und so weiter. Mit einem höheren Wurf kann dieser Stein nicht ziehen.
+Ein Stein verlässt das Brett nur mit der genauen Zahl: eine 1 von deinem letzten Feld, eine 2 vom Feld davor und so weiter.
 # Das Ende der Partie
 Wer zuerst alle sieben Steine ausgewürfelt hat, gewinnt.
-# Spielen auf dem Gerät
-Deine wartenden Steine liegen neben dem Anfang deines Wegs, die ausgewürfelten neben seinem Ende und dahinter deine Würfel, mit der Zahl des letzten Wurfs. Bist du mit Würfeln dran, leuchten deine Würfel golden: Tippe auf das Brett, um zu würfeln. Punkte zeigen, wohin deine Steine ziehen können, Ringe einen Stein, den du zurückschicken würdest: Tippe auf einen Stein oder schieb ihn auf sein Feld. Kann nur ein Stein ziehen, ist er schon hervorgehoben. Ein verfallener Wurf bleibt abgedunkelt in rotem Schein, während der andere Spieler würfelt. Rückgängig nimmt Züge und Würfe zurück, aber ein zurückgenommener Wurf fällt danach genauso wieder. Deine Leiste zeigt die Steine, die du ausgewürfelt hast.

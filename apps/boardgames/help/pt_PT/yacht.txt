@@ -1,34 +1,25 @@
 Yacht
 # O objetivo
-Faz o máximo de pontos preenchendo todas as linhas da folha de pontuação com lançamentos de cinco dados. De um a seis jogadores, cada um com uma coluna da folha. Escolhe as regras antes do jogo:
-- Clássico: treze linhas, as regras modernas.
-- Nórdico: o Yatzy escandinavo, quinze linhas.
-- Generala: o jogo da América Latina, onze linhas.
-Sozinho, tenta chegar aos 200 pontos (Generala: 150).
+Faz o máximo de pontos preenchendo todas as linhas da tua coluna com lançamentos de cinco dados. De um a seis jogadores; sozinho, tenta chegar aos 200 pontos (Generala: 150).
 # A tua vez
-- Lança os cinco dados, até três vezes. Antes do segundo e do terceiro lançamento, guarda os dados que quiseres e volta a lançar os outros. Um dado guardado pode voltar a ser lançado mais tarde.
-- Depois regista os dados numa linha vazia da tua coluna. Se não servirem para nenhuma linha, tens mesmo assim de escolher uma: vale 0.
+- Lança os cinco dados até três vezes, guardando os dados que quiseres entre lançamentos.
+- Depois regista-os numa linha vazia. Se não servirem para nenhuma linha, tens mesmo assim de escolher uma: vale 0.
 # A folha de pontuação
-Não há palavras na folha: cada linha é um desenho de dados.
+Cada linha é um desenho de dados.
 - Um dado (de um a seis): a soma dos dados que mostram essa face.
-- A estrela: o bónus quando as tuas linhas de um a seis somam 63 ou mais: 35 (Clássico), 50 (Nórdico). Até lá mostra, em pequeno, o teu total até ao momento.
-- Dois dados sobrepostos (Nórdico): um par, a soma do par.
-- Dois pares de dados (Nórdico): dois pares diferentes, a soma dos quatro dados.
+- A estrela: um bónus por 63 ou mais nas linhas de um a seis: 35 (Clássico), 50 (Nórdico).
+- Dois dados sobrepostos (Nórdico): um par, a soma do par. Dois pares (Nórdico): a soma dos dois.
 - Três dados sobrepostos: três iguais. Clássico: a soma dos cinco dados. Nórdico: a soma dos três.
 - Quatro dados sobrepostos: quatro iguais. Clássico: a soma dos cinco. Nórdico: a soma dos quatro. Generala (póquer): 40.
-- Três dados e dois dados: um full house, três de uma face e dois de outra. Clássico: 25. Nórdico: a soma dos dados. Generala: 30.
-- Quatro dados pequenos em fila (Clássico): uma sequência pequena, quatro seguidos: 30.
-- Cinco dados pequenos em fila: uma sequência. Clássico: cinco seguidos, 40. Nórdico: 1-2-3-4-5 é a pequena, 15, e 2-3-4-5-6 a grande, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 ou 3-4-5-6-1: 20.
+- Três dados e dois dados: um full house. Clássico: 25. Nórdico: a soma dos dados. Generala: 30.
+- Quatro dados pequenos em fila (Clássico): quatro seguidos, 30.
+- Cinco dados pequenos em fila: uma sequência. Clássico: 40. Nórdico: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 ou 3-4-5-6-1: 20.
 - Dados lançados para todos os lados: a sorte, a soma dos dados.
-- Cinco dados iguais: cinco iguais (yacht, yatzy, generala): 50.
-- Cinco iguais e uma estrela (Clássico): 100 por cada cinco iguais a mais.
+- Cinco dados iguais: cinco iguais, 50. Com uma estrela (Clássico): os cinco iguais a mais, 100 cada um.
 - Duas linhas de cinco iguais (Generala): a generala dupla, 100.
-- O sinal de igual: o teu total.
 # Clássico: outros cinco iguais
-Quando a tua linha de cinco iguais tem 50, cada novo cinco iguais vale mais 100, seja qual for a linha onde o registes. Depois de essa linha estar preenchida (50 ou 0), um cinco iguais é um joker: tem de ir para a linha da sua face, de um a seis, se estiver vazia; senão, para qualquer linha vazia abaixo da estrela, onde o full house e as sequências valem por inteiro; senão, para qualquer linha vazia de um a seis, por 0.
+Quando a linha de cinco iguais tem 50, cada novo cinco iguais vale mais 100. Depois de essa linha estar preenchida, um cinco iguais é um joker: vai para a linha da sua face, se estiver vazia; senão, para qualquer linha vazia abaixo da estrela, onde o full house e as sequências valem por inteiro; senão, para uma linha de um a seis, por 0.
 # Generala
-Uma sequência, um full house ou um póquer feitos no primeiro lançamento da vez («servidos») valem mais 5. Uma generala servida ganha logo o jogo. A generala dupla só vale 100 se a tua linha de generala tiver 50; caso contrário, só pode ser riscada, por 0. Não há bónus para as linhas de um a seis.
+Uma sequência, um full house ou um póquer no primeiro lançamento («servidos») valem mais 5. Uma generala servida ganha logo. A generala dupla só vale 100 se a linha de generala tiver 50; caso contrário, vale 0. Não há bónus para as linhas de um a seis.
 # O fim do jogo
-Os jogadores jogam à vez à volta da mesa, a começar pelo marfim. Quando todos tiverem preenchido todas as linhas, ganha o total mais alto; se os mais altos forem iguais, partilham a vitória. Sozinho, ganhas com 200 pontos ou mais (Generala: 150, ou uma generala servida).
-# Jogar no dispositivo
-Toca no feltro para lançar. Toca num dado para o guardar: desliza para a faixa escura ao lado do feltro; toca-lhe outra vez para o voltar a lançar. Os dados pequenos por baixo do feltro mostram os lançamentos que restam. A tua coluna está acesa. Toca numa linha da folha para ver quanto os dados valeriam aí; toca outra vez para os registar. Uma linha que não podes escolher faz um som de recusa. Cada barra mostra o total desse jogador. Anular desfaz o último registo; os dados nunca são lançados de novo: voltam os mesmos números.
+Quando todas as linhas estiverem preenchidas, ganha o total mais alto; os totais iguais partilham a vitória.

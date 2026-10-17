@@ -1,16 +1,10 @@
 Cobras e Escadas
 # O objetivo
-Ser o primeiro a levar o teu peão até à casa 100.
-Podem jogar dois, três ou quatro jogadores: escolhe quantos antes da partida. A três ou a quatro, as regras são as mesmas para todos: todos os peões começam fora do tabuleiro e podem partilhar uma casa, e o dado passa à vez: claro, escuro, vermelho e depois verde. O claro e o vermelho sentam-se em baixo; o escuro e o verde, em cima.
-# O tabuleiro
-As casas estão numeradas de 1 a 100, a partir do canto inferior esquerdo: ao longo da fila de baixo para a direita, depois de volta ao longo da fila seguinte para a esquerda, e assim sucessivamente, a subir pelo tabuleiro, com o 100 no topo. As escadas sobem pelo tabuleiro, do pé até ao topo; as cobras descem, da cabeça até à cauda.
+Ser o primeiro a levar o teu peão até à casa 100. De 2 a 4 jogadores.
 # A tua vez
-Os dois peões começam fora do tabuleiro, antes da casa 1. O lado claro lança primeiro. Lança o dado e avança o teu peão tantas casas quanto o número que saiu, uma casa de cada vez. Os dois peões podem estar na mesma casa.
-- Se o teu peão terminar o movimento no pé de uma escada, sobe até ao topo da escada.
-- Se terminar o movimento na cabeça de uma cobra, escorrega até à cauda da cobra.
-- Um 6 dá-te mais um lançamento, depois do teu movimento.
-- Caso contrário, o dado passa para o outro jogador.
+Lança o dado e avança o teu peão tantas casas quanto o número que saiu. Os peões podem estar na mesma casa.
+- Se terminares no pé de uma escada, sobe até ao topo da escada.
+- Se terminares na cabeça de uma cobra, escorrega até à cauda da cobra.
+- Um 6 dá-te mais um lançamento.
 # O fim do jogo
-Tens de chegar à casa 100 com o número exato. Se te sair mais do que precisas, o teu peão sobe até ao 100 e recua as casas a mais: da casa 96, um 6 termina na 98. Uma escada ou uma cobra onde ele pare continua a contar. Ganha o primeiro jogador a chegar à casa 100.
-# Jogar no dispositivo
-O dado espera, com uma luz dourada, na ponta da barra do jogador que vai lançar: toca no ecrã para o lançar. Depois, o teu peão avança sozinho. Cada barra mostra a casa onde está o peão desse jogador e o seu último lançamento. Anular desfaz os lançamentos um a um; um lançamento desfeito volta a sair igual quando lanças outra vez.
+Tens de chegar à casa 100 com o número exato: com mais, sobe até ao 100 e recua as casas a mais. Ganha o primeiro jogador a chegar à casa 100.

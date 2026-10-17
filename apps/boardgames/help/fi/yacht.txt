@@ -1,34 +1,25 @@
 Yatzy
 # Tavoite
-Kerää eniten pisteitä täyttämällä pöytäkirjan jokainen rivi viiden nopan heitoilla. Pelaajia on yhdestä kuuteen, ja jokaisella on pöytäkirjassa oma sarakkeensa. Valitse säännöt ennen peliä:
-- Klassinen: kolmetoista riviä, nykyaikaiset säännöt.
-- Pohjoismainen: skandinaavinen Yatzy, viisitoista riviä.
-- Generala: latinalaisamerikkalainen peli, yksitoista riviä.
-Yksin yritä päästä 200 pisteeseen (Generala: 150).
+Kerää eniten pisteitä täyttämällä sarakkeesi jokainen rivi viiden nopan heitoilla. 1–6 pelaajalle; yksin tavoittele 200 pistettä (Generala: 150).
 # Vuoro
-- Heitä viittä noppaa enintään kolme kertaa. Ennen toista ja kolmatta heittoa pidä haluamasi nopat ja heitä muut uudelleen. Pidetyn nopan voi myöhemmin heittää uudelleen.
-- Merkitse sitten nopat yhdelle sarakkeesi tyhjälle riville. Jos ne eivät sovi millekään riville, sinun on silti valittava yksi: se saa 0.
+- Heitä viittä noppaa enintään kolme kertaa ja pidä haluamasi nopat heittojen välillä.
+- Merkitse ne sitten yhdelle tyhjälle riville. Jos ne eivät sovi millekään riville, sinun on silti valittava yksi: se saa 0.
 # Pöytäkirja
-Pöytäkirjassa ei ole sanoja: jokainen rivi on kuva nopista.
-- Yksi noppa (ykköset–kuutoset): sitä silmälukua näyttävien noppien summa.
-- Tähti: bonus, kun ykkösistä kuutosiin kertyy 63 tai enemmän: 35 (klassinen), 50 (pohjoismainen). Siihen asti se näyttää pienellä tähänastisen summasi.
-- Kaksi päällekkäistä noppaa (pohjoismainen): pari, parin summa.
-- Kaksi noppaparia (pohjoismainen): kaksi eri paria, neljän nopan summa.
-- Kolme päällekkäistä noppaa: kolme samaa. Klassinen: kaikkien viiden nopan summa. Pohjoismainen: kolmen summa.
-- Neljä päällekkäistä noppaa: neljä samaa. Klassinen: kaikkien viiden summa. Pohjoismainen: neljän summa. Generala (pokeri): 40.
-- Kolme noppaa ja kaksi noppaa: täyskäsi, kolme yhtä silmälukua ja kaksi toista. Klassinen: 25. Pohjoismainen: noppien summa. Generala: 30.
-- Neljä pientä noppaa rivissä (klassinen): pieni suora, neljä peräkkäistä: 30.
-- Viisi pientä noppaa rivissä: suora. Klassinen: viisi peräkkäistä, 40. Pohjoismainen: 1-2-3-4-5 on pieni suora, 15, ja 2-3-4-5-6 suuri suora, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 tai 3-4-5-6-1: 20.
-- Joka suuntaan heitetyt nopat: sattuma, noppien summa.
-- Viisi samanlaista noppaa: viisi samaa (yacht, yatzy, generala): 50.
-- Viisi samanlaista ja tähti (klassinen): 100 jokaisesta ylimääräisestä viidestä samasta.
+Jokainen rivi on kuva nopista.
+- Yksi noppa (ykköset–kuutoset): sen silmäluvun summa.
+- Tähti: bonus, kun ykkösistä kuutosiin kertyy 63 tai enemmän: 35 (klassinen), 50 (pohjoismainen).
+- Kaksi päällekkäistä noppaa (pohjoismainen): pari, sen summa. Kaksi paria (pohjoismainen): niiden summa.
+- Kolme päällekkäistä noppaa: kolme samaa. Klassinen: kaikki viisi noppaa. Pohjoismainen: ne kolme.
+- Neljä päällekkäistä noppaa: neljä samaa. Klassinen: kaikki viisi. Pohjoismainen: ne neljä. Generala (pokeri): 40.
+- Kolme noppaa ja kaksi noppaa: täyskäsi. Klassinen: 25. Pohjoismainen: nopat. Generala: 30.
+- Neljä pientä noppaa rivissä (klassinen): neljä peräkkäistä, 30.
+- Viisi pientä noppaa rivissä: suora. Klassinen: 40. Pohjoismainen: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 tai 3-4-5-6-1: 20.
+- Joka suuntaan heitetyt nopat: sattuma, summa.
+- Viisi samanlaista noppaa: viisi samaa, 50. Tähden kanssa (klassinen): ylimääräiset viisi samaa, kukin 100.
 - Kaksi riviä viittä samanlaista (Generala): tuplagenerala, 100.
-- Yhtäsuuruusmerkki: kokonaissummasi.
 # Klassinen: ylimääräiset viisi samaa
-Kun viiden saman rivilläsi on 50, jokainen seuraava viisi samaa tuo 100 lisää, minne tahansa sen merkitsetkin. Kun rivi on täytetty (50 tai 0), viisi samaa on jokeri: sen on mentävä oman silmälukunsa riville ykkösistä kuutosiin, jos se on tyhjä; muuten mille tahansa tyhjälle riville tähden alapuolella, jossa täyskäsi ja suorat saavat täydet pisteet; muuten mille tahansa tyhjälle riville ykkösistä kuutosiin, 0 pisteellä.
+Kun viiden saman rivillä on 50, jokainen seuraava tuo 100 lisää. Kun rivi on täytetty, viisi samaa on jokeri: se menee oman silmälukunsa riville, jos se on tyhjä; muuten mille tahansa tyhjälle riville tähden alapuolella, jossa täyskäsi ja suorat saavat täydet pisteet; muuten riville ykkösistä kuutosiin, 0 pisteellä.
 # Generala
-Vuoron ensimmäisellä heitolla saatu suora, täyskäsi tai pokeri ("ensiheitolla") saa 5 pistettä enemmän. Ensiheitolla saatu generala voittaa pelin heti. Tuplagenerala saa 100 vain, jos generala-rivilläsi on 50; muuten sen voi vain yliviivata, 0 pisteellä. Ykkösistä kuutosiin ei ole bonusta.
+Ensimmäisellä heitolla saatu suora, täyskäsi tai pokeri ("ensiheitolla") saa 5 pistettä enemmän. Ensiheitolla saatu generala voittaa heti. Tuplagenerala saa 100 vain, jos generala-rivillä on 50; muuten se saa 0. Ykkösistä kuutosiin ei ole bonusta.
 # Pelin loppu
-Pelaajat pelaavat vuorotellen pöydän ympäri, norsunluu ensin. Kun kaikki ovat täyttäneet jokaisen rivin, suurin kokonaissumma voittaa; jos suurimmat summat ovat tasan, voitto jaetaan. Yksin voitat 200 pisteellä tai enemmällä (Generala: 150 tai ensiheitolla saatu generala).
-# Pelaaminen laitteella
-Napauta huopaa heittääksesi. Napauta noppaa pitääksesi sen: se liukuu huovan sivussa olevalle tummalle kaistalle; napauta sitä uudelleen heittääksesi sen taas. Huovan alla olevat pienet nopat näyttävät jäljellä olevat heitot. Sarakkeesi on valaistu. Napauta pöytäkirjan riviä nähdäksesi, mitä nopat saisivat siinä; napauta uudelleen merkitäksesi ne. Rivi, jota et saa valita, antaa kieltoäänen. Jokainen palkki näyttää sen pelaajan kokonaissumman. Kumoa peruu viimeisen merkinnän; noppia ei koskaan heitetä uudelleen: samat numerot tulevat takaisin.
+Kun jokainen rivi on täytetty, suurin kokonaissumma voittaa; jos summat ovat tasan, voitto jaetaan.

@@ -1,34 +1,25 @@
 Yacht
 # Das Ziel
-Erziele die meisten Punkte, indem du jede Zeile des Spielblocks mit Würfen aus fünf Würfeln füllst. Ein bis sechs Spieler, jeder mit einer Spalte des Blocks. Wähle die Regeln vor der Partie:
-- Klassisch: dreizehn Zeilen, die modernen Regeln.
-- Nordisch: das skandinavische Yatzy, fünfzehn Zeilen.
-- Generala: das lateinamerikanische Spiel, elf Zeilen.
-Allein versuchst du, 200 Punkte zu erreichen (Generala: 150).
+Erziele die meisten Punkte, indem du jede Zeile deiner Spalte mit Würfen aus fünf Würfeln füllst. Für 1 bis 6 Spieler; allein versuchst du, 200 Punkte zu erreichen (Generala: 150).
 # Ein Zug
-- Wirf die fünf Würfel, bis zu dreimal. Vor dem zweiten und dem dritten Wurf behältst du beliebige Würfel und wirfst die anderen erneut. Ein behaltener Würfel darf später wieder geworfen werden.
-- Trage die Würfel dann in eine leere Zeile deiner Spalte ein. Passen sie in keine Zeile, musst du trotzdem eine wählen: Sie zählt 0.
+- Wirf die fünf Würfel bis zu dreimal und behalte zwischen den Würfen beliebige Würfel.
+- Trage sie dann in eine leere Zeile ein. Passen sie in keine Zeile, musst du trotzdem eine wählen: Sie zählt 0.
 # Der Spielblock
-Auf dem Block stehen keine Wörter: Jede Zeile ist ein Bild aus Würfeln.
-- Ein Würfel (Einser bis Sechser): die Summe der Würfel mit dieser Augenzahl.
-- Der Stern: der Bonus, wenn deine Einser bis Sechser 63 oder mehr ergeben: 35 (Klassisch), 50 (Nordisch). Bis dahin zeigt er klein deine bisherige Summe.
-- Zwei überlappende Würfel (Nordisch): ein Paar, die Summe des Paars.
-- Zwei Würfelpaare (Nordisch): zwei verschiedene Paare, die Summe der vier Würfel.
-- Drei überlappende Würfel: ein Dreierpasch. Klassisch: die Summe aller fünf Würfel. Nordisch: die Summe der drei.
-- Vier überlappende Würfel: ein Viererpasch. Klassisch: die Summe aller fünf. Nordisch: die Summe der vier. Generala (Poker): 40.
-- Drei Würfel und zwei Würfel: ein Full House, dreimal eine Augenzahl und zweimal eine andere. Klassisch: 25. Nordisch: die Summe der Würfel. Generala: 30.
-- Vier kleine Würfel in einer Reihe (Klassisch): eine kleine Straße, vier in Folge: 30.
-- Fünf kleine Würfel in einer Reihe: eine Straße. Klassisch: fünf in Folge, 40. Nordisch: 1-2-3-4-5 ist die kleine, 15, und 2-3-4-5-6 die große, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 oder 3-4-5-6-1: 20.
-- Kreuz und quer geworfene Würfel: Chance, die Summe der Würfel.
-- Fünf gleiche Würfel: ein Fünferpasch (Yacht, Yatzy, Generala): 50.
-- Fünf gleiche und ein Stern (Klassisch): 100 für jeden weiteren Fünferpasch.
+Jede Zeile ist ein Bild aus Würfeln.
+- Ein Würfel (Einser bis Sechser): die Summe dieser Augenzahl.
+- Der Stern: ein Bonus für 63 oder mehr bei den Einsern bis Sechsern: 35 (Klassisch), 50 (Nordisch).
+- Zwei überlappende Würfel (Nordisch): ein Paar, seine Summe. Zwei Würfelpaare (Nordisch): ihre Summe.
+- Drei überlappende Würfel: ein Dreierpasch. Klassisch: alle fünf Würfel. Nordisch: die drei.
+- Vier überlappende Würfel: ein Viererpasch. Klassisch: alle fünf. Nordisch: die vier. Generala (Poker): 40.
+- Drei Würfel und zwei Würfel: ein Full House. Klassisch: 25. Nordisch: die Würfel. Generala: 30.
+- Vier kleine Würfel in einer Reihe (Klassisch): vier in Folge, 30.
+- Fünf kleine Würfel in einer Reihe: eine Straße. Klassisch: 40. Nordisch: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 oder 3-4-5-6-1: 20.
+- Kreuz und quer geworfene Würfel: Chance, die Summe.
+- Fünf gleiche Würfel: ein Fünferpasch, 50. Mit einem Stern (Klassisch): die weiteren Fünferpasche, je 100.
 - Zwei Reihen mit fünf gleichen (Generala): die doppelte Generala, 100.
-- Das Gleichheitszeichen: deine Summe.
 # Klassisch: weitere Fünferpasche
-Sobald deine Fünferpasch-Zeile 50 enthält, bringt jeder weitere Fünferpasch 100 mehr, egal wo du ihn einträgst. Ist diese Zeile gefüllt (50 oder 0), ist ein Fünferpasch ein Joker: Er muss in die Zeile seiner Augenzahl bei den Einsern bis Sechsern, wenn sie leer ist; sonst in eine beliebige leere Zeile unterhalb des Sterns, wo Full House und Straßen voll zählen; sonst in eine beliebige leere Zeile bei den Einsern bis Sechsern, für 0.
+Sobald die Fünferpasch-Zeile 50 enthält, bringt jeder weitere 100 mehr. Ist diese Zeile gefüllt, ist ein Fünferpasch ein Joker: Er kommt in die Zeile seiner Augenzahl, wenn sie leer ist; sonst in eine beliebige leere Zeile unterhalb des Sterns, wo Full House und Straßen voll zählen; sonst in eine Zeile bei den Einsern bis Sechsern, für 0.
 # Generala
-Eine Straße, ein Full House oder ein Poker im ersten Wurf des Zugs („serviert“) zählt 5 mehr. Eine servierte Generala gewinnt die Partie sofort. Die doppelte Generala zählt 100 nur, wenn deine Generala-Zeile schon 50 enthält; sonst kann sie nur gestrichen werden, für 0. Für Einser bis Sechser gibt es keinen Bonus.
+Eine Straße, ein Full House oder ein Poker im ersten Wurf („serviert“) zählt 5 mehr. Eine servierte Generala gewinnt sofort. Die doppelte Generala zählt 100 nur, wenn die Generala-Zeile schon 50 enthält; sonst zählt sie 0. Kein Bonus für Einser bis Sechser.
 # Das Ende der Partie
-Die Spieler sind reihum am Zug, Elfenbein beginnt. Haben alle jede Zeile gefüllt, gewinnt die höchste Summe; bei gleicher höchster Summe teilen sich diese Spieler den Sieg. Allein gewinnst du mit 200 Punkten oder mehr (Generala: 150 oder eine servierte Generala).
-# Spielen auf dem Gerät
-Tippe auf den Filz, um zu würfeln. Tippe einen Würfel an, um ihn zu behalten: Er gleitet in die dunkle Spur am Rand des Filzes; tippe ihn nochmals an, um ihn wieder zu werfen. Die kleinen Würfel unter dem Filz zeigen die verbleibenden Würfe. Deine Spalte ist beleuchtet. Tippe auf eine Zeile des Blocks, um zu sehen, was die Würfel dort zählen würden; tippe nochmals, um sie einzutragen. Eine Zeile, die du nicht wählen darfst, gibt einen Fehlerton von sich. Jede Leiste zeigt die Summe dieses Spielers. Rückgängig nimmt den letzten Eintrag zurück; die Würfel werden nie neu geworfen: Dieselben Zahlen kommen wieder.
+Sind alle Zeilen gefüllt, gewinnt die höchste Summe; bei gleicher Summe wird der Sieg geteilt.

@@ -1,20 +1,18 @@
 Det kongelige spillet fra Ur
 # Målet
-Før de sju brikkene dine langs banen din og ut av brettet før motstanderen. Spillet ble spilt i Mesopotamia for mer enn 4 500 år siden; dette er reglene som Irving Finkel ved British Museum har rekonstruert fra en babylonsk leirtavle. Elfenben kaster først, deretter bytter spillerne på.
+Før de sju brikkene dine langs banen din og ut av brettet før motstanderen. Elfenben kaster først.
 # Brettet
-Brettet har tjue ruter i tre rader. Raden nærmest deg er bare din: fire ruter i den ene enden, to i den andre, med et mellomrom mellom dem. Midtraden med åtte ruter er felles. Banen din går langs de fire rutene dine mot enden av brettet, så langs hele midtraden den andre veien, så tilbake inn på din egen rad for de to siste rutene der, og ut av brettet. Fem ruter har en rosett: hjørneruten blant hver spillers fire, hjørneruten blant hver spillers to og den fjerde ruten i midtraden.
+Banen din går langs dine egne fire ruter, så langs hele den felles midtraden, så dine egne to siste ruter og ut av brettet.
 # Kast og trekk
-- Kast de fire terningene. Hver av dem er en pyramide der to av de fire spissene er merket: tell terningene som har den merkede spissen opp. Kastet blir 0 til 4; 2 kommer oftest.
-- Flytt en av brikkene dine like mange ruter langs banen din. En brikke som venter utenfor brettet, kommer inn: et kast på 3 setter den på den tredje ruten din.
-- Du kan ikke lande på en rute der en av dine egne brikker står.
-- Et kast på 0, eller et kast som ingen brikke kan bruke, går tapt, og turen går videre.
+- Kast de fire terningene og tell de merkede spissene som peker opp: 0 til 4.
+- Flytt én brikke like mange ruter; et kast på 3 setter en ny brikke på den tredje ruten din.
+- Du kan ikke lande på din egen brikke.
+- Et kast på 0, eller et kast som ingen brikke kan bruke, går tapt.
 # Rosetter
-Den som lander på en rosett, får et nytt kast. Rosetten midt i fellesraden er også en trygg rute: en brikke som står der, kan ikke sendes tilbake, så motstanderen kan ikke lande der.
+Den som lander på en rosett, får et nytt kast. Rosetten i midten er også trygg: ingen kan lande på en brikke som står der.
 # Slå ut
-Den som lander på motstanderens brikke i fellesraden, sender den tilbake ut av brettet: den må begynne reisen på nytt. Dine egne ruter i endene er utenfor motstanderens rekkevidde.
+Den som lander på motstanderens brikke i fellesraden, sender den tilbake ut av brettet.
 # Ta ut
-En brikke forlater brettet bare med nøyaktig riktig tall: fra den siste ruten din trenger du en ener, fra ruten før den en toer, og så videre. Et større kast kan ikke flytte den brikken.
+En brikke forlater brettet bare med nøyaktig riktig tall: en ener fra den siste ruten din, en toer fra ruten før den, og så videre.
 # Slutten på spillet
 Den første spilleren som har tatt ut alle sju brikkene, vinner.
-# Spill på enheten
-Brikkene dine som venter, ligger ved starten av banen din, de som er tatt ut, ved enden av den, og terningene dine bortenfor dem, med tallet fra det siste kastet. Når det er din tur til å kaste, lyser terningene dine i gull: trykk på brettet for å kaste. Prikker viser hvor brikkene dine kan gå, ringer en brikke du ville sendt tilbake: trykk på en brikke, eller dra den til ruten sin. Når bare én brikke kan flytte, lyser den allerede. Et kast som gikk tapt, forblir dempet i et rødt skjær mens motstanderen kaster. Angre tar tilbake trekk og kast, men et kast som tas tilbake, blir det samme igjen. Panelet ditt viser brikkene du har tatt ut.

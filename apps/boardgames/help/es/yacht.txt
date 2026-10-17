@@ -1,34 +1,25 @@
 Generala
 # El objetivo
-Consigue más puntos que nadie llenando todas las filas de la planilla con tiradas de cinco dados. Juegan de uno a seis, cada uno con su columna en la planilla. Elige las reglas antes de la partida:
-- Clásico: trece filas, las reglas modernas.
-- Nórdico: el Yatzy escandinavo, quince filas.
-- Generala: la generala de América Latina, once filas.
-Solo, intenta llegar a 200 puntos (Generala: 150).
+Consigue más puntos que nadie llenando todas las filas de tu columna con tiradas de cinco dados. De 1 a 6 jugadores; solo, intenta llegar a 200 puntos (Generala: 150).
 # Un turno
-- Tira los cinco dados, hasta tres veces. Antes de la segunda y la tercera tirada, guarda los dados que quieras y vuelve a tirar los demás. Un dado guardado puede volver a tirarse más tarde.
-- Después anota los dados en una fila vacía de tu columna. Si no encajan en ninguna, igualmente debes elegir una: vale 0.
+- Tira los cinco dados hasta tres veces, guardando los dados que quieras entre tirada y tirada.
+- Después anótalos en una fila vacía. Si no encajan en ninguna, igualmente debes elegir una: vale 0.
 # La planilla
-En la planilla no hay palabras: cada fila es un dibujo de dados.
-- Un dado (del uno al seis): la suma de los dados que muestran esa cara.
-- La estrella: el premio cuando tus filas del uno al seis suman 63 o más: 35 (Clásico), 50 (Nórdico). Hasta entonces muestra, en pequeño, tu total por el momento.
-- Dos dados superpuestos (Nórdico): una pareja, la suma de la pareja.
-- Dos parejas de dados (Nórdico): dos parejas distintas, la suma de los cuatro dados.
-- Tres dados superpuestos: tres iguales. Clásico: la suma de los cinco dados. Nórdico: la suma de los tres.
-- Cuatro dados superpuestos: cuatro iguales. Clásico: la suma de los cinco. Nórdico: la suma de los cuatro. Generala (póker): 40.
-- Tres dados y dos dados: un full, tres de una cara y dos de otra. Clásico: 25. Nórdico: la suma de los dados. Generala: 30.
-- Cuatro dados pequeños en fila (Clásico): una escalera corta, cuatro seguidos: 30.
-- Cinco dados pequeños en fila: una escalera. Clásico: cinco seguidos, 40. Nórdico: 1-2-3-4-5 es la pequeña, 15, y 2-3-4-5-6 la grande, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 o 3-4-5-6-1: 20.
-- Dados tirados en todas direcciones: la suerte, la suma de los dados.
-- Cinco dados iguales: cinco iguales (yacht, yatzy, generala): 50.
-- Cinco iguales y una estrella (Clásico): 100 por cada cinco iguales de más.
+Cada fila es un dibujo de dados.
+- Un dado (del uno al seis): la suma de esa cara.
+- La estrella: un premio por 63 o más del uno al seis: 35 (Clásico), 50 (Nórdico).
+- Dos dados superpuestos (Nórdico): una pareja, su suma. Dos parejas (Nórdico): su suma.
+- Tres dados superpuestos: tres iguales. Clásico: los cinco dados. Nórdico: los tres.
+- Cuatro dados superpuestos: cuatro iguales. Clásico: los cinco. Nórdico: los cuatro. Generala (póker): 40.
+- Tres dados y dos dados: un full. Clásico: 25. Nórdico: los dados. Generala: 30.
+- Cuatro dados pequeños en fila (Clásico): cuatro seguidos, 30.
+- Cinco dados pequeños en fila: una escalera. Clásico: 40. Nórdico: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 o 3-4-5-6-1: 20.
+- Dados tirados en todas direcciones: la suerte, la suma.
+- Cinco dados iguales: cinco iguales, 50. Con una estrella (Clásico): los cinco iguales de más, 100 cada uno.
 - Dos filas de cinco iguales (Generala): la doble generala, 100.
-- El signo igual: tu total.
 # Clásico: otros cinco iguales
-Cuando tu fila de cinco iguales tiene 50, cada nuevo cinco iguales suma 100 más, lo anotes donde lo anotes. Una vez llena esa fila (50 o 0), un cinco iguales es un comodín: debe ir en la fila de su cara, del uno al seis, si está vacía; si no, en cualquier fila vacía bajo la estrella, donde el full y las escaleras valen completos; si no, en cualquier fila vacía del uno al seis, por 0.
+Cuando la fila de cinco iguales tiene 50, cada nuevo cinco iguales suma 100 más. Una vez llena esa fila, un cinco iguales es un comodín: va en la fila de su cara si está vacía; si no, en cualquier fila vacía bajo la estrella, donde el full y las escaleras valen completos; si no, en una fila del uno al seis, por 0.
 # Generala
-Una escalera, un full o un póker hechos en la primera tirada del turno («servidos») valen 5 más. Una generala servida gana la partida al instante. La doble generala solo vale 100 cuando tu fila de generala tiene 50; si no, solo puede tacharse, por 0. No hay premio por las filas del uno al seis.
+Una escalera, un full o un póker en la primera tirada («servidos») valen 5 más. Una generala servida gana al instante. La doble generala solo vale 100 cuando la fila de generala tiene 50; si no, vale 0. No hay premio por las filas del uno al seis.
 # El final de la partida
-Los jugadores se turnan alrededor de la mesa, empezando por marfil. Cuando todos han llenado todas sus filas, gana el total más alto; si los más altos son iguales, comparten la victoria. Solo, ganas con 200 puntos o más (Generala: 150, o una generala servida).
-# Jugar en el dispositivo
-Toca el tapete para tirar. Toca un dado para guardarlo: se desliza al carril oscuro del lado del tapete; tócalo otra vez para volver a tirarlo. Los dados pequeños bajo el tapete muestran las tiradas que quedan. Tu columna está iluminada. Toca una fila de la planilla para ver cuánto valdrían allí los dados; tócala otra vez para anotarlos. Una fila que no puedes elegir emite un sonido de rechazo. Cada barra muestra el total de ese jugador. Deshacer retira la última anotación; los dados nunca se vuelven a tirar: salen los mismos números.
+Cuando todas las filas están llenas, gana el total más alto; si los más altos son iguales, comparten la victoria.

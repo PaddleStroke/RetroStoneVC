@@ -1,20 +1,18 @@
 Królewska gra z Ur
 # Cel gry
-Przeprowadź swoje siedem pionków wzdłuż swojej trasy i wyprowadź je z planszy przed przeciwnikiem. W tę grę grano w Mezopotamii ponad 4500 lat temu; to zasady, które Irving Finkel z British Museum odtworzył z babilońskiej glinianej tabliczki. Pierwszy rzuca gracz w kolorze kości słoniowej, potem gracze grają na zmianę.
+Przeprowadź swoje siedem pionków wzdłuż swojej trasy i wyprowadź je z planszy przed przeciwnikiem. Pierwszy rzuca gracz w kolorze kości słoniowej.
 # Plansza
-Plansza ma dwadzieścia pól w trzech rzędach. Rząd najbliżej ciebie należy tylko do ciebie: cztery pola na jednym końcu, dwa na drugim, z przerwą między nimi. Środkowy rząd ośmiu pól jest wspólny. Twoja trasa biegnie wzdłuż twoich czterech pól w stronę końca planszy, potem przez cały środkowy rząd w przeciwną stronę, potem z powrotem na twój własny rząd, na jego dwa ostatnie pola, i poza planszę. Na pięciu polach jest rozeta: na narożnym polu czwórki pól każdego gracza, na narożnym polu dwójki pól każdego gracza i na czwartym polu środkowego rzędu.
+Twoja trasa biegnie wzdłuż twoich czterech pól, potem przez cały wspólny środkowy rząd, potem przez twoje dwa ostatnie pola i poza planszę.
 # Rzuty i ruchy
-- Rzuć czterema kostkami. Każda to piramida, której dwa z czterech wierzchołków są oznaczone: policz kostki, których oznaczony wierzchołek jest skierowany w górę. Rzut daje od 0 do 4; najczęściej wypada 2.
-- Przesuń jeden ze swoich pionków o tyle pól wzdłuż swojej trasy. Pionek czekający poza planszą wchodzi na nią: rzut 3 stawia go na twoim trzecim polu.
-- Nie możesz stanąć na polu, na którym stoi twój własny pionek.
-- Rzut 0 albo rzut, którego nie może wykorzystać żaden pionek, przepada i tura przechodzi na przeciwnika.
+- Rzuć czterema kostkami i policz oznaczone wierzchołki skierowane w górę: od 0 do 4.
+- Przesuń jeden pionek o tyle pól; rzut 3 stawia nowy pionek na twoim trzecim polu.
+- Nie możesz stanąć na własnym pionku.
+- Rzut 0 albo rzut, którego nie może wykorzystać żaden pionek, przepada.
 # Rozety
-Jeśli staniesz na rozecie, dostajesz kolejny rzut. Rozeta pośrodku wspólnego rzędu jest też bezpiecznym polem: pionka, który na niej stoi, nie można odesłać, więc przeciwnik nie może na nią wejść.
+Jeśli staniesz na rozecie, dostajesz kolejny rzut. Rozeta pośrodku jest też bezpieczna: nikt nie może stanąć na pionku, który na niej stoi.
 # Zbijanie
-Jeśli staniesz na pionku przeciwnika we wspólnym rzędzie, odsyłasz go poza planszę: musi zacząć swoją drogę od nowa. Twoje własne pola na końcach są poza zasięgiem przeciwnika.
+Jeśli staniesz na pionku przeciwnika we wspólnym rzędzie, odsyłasz go z powrotem poza planszę.
 # Wyprowadzanie
-Pionek schodzi z planszy tylko dokładną liczbą oczek: z ostatniego pola potrzebujesz 1, z pola przed nim 2 i tak dalej. Większy rzut nie może ruszyć tego pionka.
+Pionek schodzi z planszy tylko dokładną liczbą oczek: 1 z ostatniego pola, 2 z pola przed nim i tak dalej.
 # Koniec gry
 Wygrywa pierwszy gracz, który wyprowadzi wszystkie siedem pionków.
-# Gra na urządzeniu
-Twoje czekające pionki leżą przy początku twojej trasy, wyprowadzone przy jej końcu, a za nimi twoje kostki z wynikiem ostatniego rzutu. Gdy przychodzi twoja kolej na rzut, twoje kostki świecą na złoto: dotknij planszy, aby rzucić. Kropki pokazują, dokąd mogą pójść twoje pionki, a kółka pionek, który odesłałbyś z powrotem: dotknij pionka albo przeciągnij go na jego pole. Gdy ruszyć może się tylko jeden pionek, jest już podświetlony. Rzut, który przepadł, pozostaje przyciemniony w czerwonej poświacie, gdy przeciwnik rzuca. Cofnij cofa ruchy i rzuty, ale cofnięty rzut wypada potem tak samo. Twój pasek pokazuje pionki, które już wyprowadziłeś.

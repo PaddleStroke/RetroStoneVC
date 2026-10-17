@@ -1,34 +1,25 @@
 Yacht
 # Cel gry
-Zdobądź najwięcej punktów, wypełniając rzutami pięciu kostek wszystkie wiersze tabeli wyników. Gra od jednej do sześciu osób, każda ma w tabeli swoją kolumnę. Przed grą wybierz zasady:
-- Klasyczne: trzynaście wierszy, współczesne zasady.
-- Nordyckie: skandynawskie Yatzy, piętnaście wierszy.
-- Generala: gra z Ameryki Łacińskiej, jedenaście wierszy.
-Grając sam, spróbuj zdobyć 200 punktów (Generala: 150).
+Zdobądź najwięcej punktów, wypełniając rzutami pięciu kostek wszystkie wiersze swojej kolumny. Gra od jednej do sześciu osób; grając sam, spróbuj zdobyć 200 punktów (Generala: 150).
 # Tura
-- Rzucaj pięcioma kostkami, najwyżej trzy razy. Przed drugim i trzecim rzutem zatrzymaj dowolne kostki, a pozostałymi rzuć ponownie. Zatrzymaną kostką można później znów rzucić.
-- Potem wpisz kostki do jednego pustego wiersza w swojej kolumnie. Jeśli nie pasują do żadnego wiersza, i tak musisz jakiś wybrać: dostaje 0.
+- Rzucaj pięcioma kostkami najwyżej trzy razy, zatrzymując między rzutami dowolne kostki.
+- Potem wpisz je do jednego pustego wiersza. Jeśli nie pasują do żadnego wiersza, i tak musisz jakiś wybrać: dostaje 0.
 # Tabela wyników
-W tabeli nie ma słów: każdy wiersz to obrazek kostek.
+Każdy wiersz to obrazek kostek.
 - Jedna kostka (jedynki do szóstek): suma kostek z tą liczbą oczek.
-- Gwiazdka: premia, gdy twoje jedynki do szóstek dają 63 lub więcej: 35 (klasyczne), 50 (nordyckie). Do tego czasu pokazuje małymi cyframi twoją dotychczasową sumę.
-- Dwie nachodzące na siebie kostki (nordyckie): para, suma pary.
-- Dwie pary kostek (nordyckie): dwie różne pary, suma czterech kostek.
-- Trzy nachodzące na siebie kostki: trójka. Klasyczne: suma wszystkich pięciu kostek. Nordyckie: suma tych trzech.
-- Cztery nachodzące na siebie kostki: kareta. Klasyczne: suma wszystkich pięciu. Nordyckie: suma tych czterech. Generala (poker): 40.
-- Trzy kostki i dwie kostki: full, trzy jednakowe i dwie inne jednakowe. Klasyczne: 25. Nordyckie: suma kostek. Generala: 30.
-- Cztery małe kostki w rzędzie (klasyczne): mały strit, cztery kolejne liczby: 30.
-- Pięć małych kostek w rzędzie: strit. Klasyczne: pięć kolejnych liczb, 40. Nordyckie: 1-2-3-4-5 to mały, 15, a 2-3-4-5-6 duży, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 lub 3-4-5-6-1: 20.
+- Gwiazdka: premia za 63 lub więcej w jedynkach do szóstek: 35 (klasyczne), 50 (nordyckie).
+- Dwie nachodzące na siebie kostki (nordyckie): para, jej suma. Dwie pary (nordyckie): ich suma.
+- Trzy nachodzące na siebie kostki: trójka. Klasyczne: wszystkie pięć kostek. Nordyckie: te trzy.
+- Cztery nachodzące na siebie kostki: kareta. Klasyczne: wszystkie pięć. Nordyckie: te cztery. Generala (poker): 40.
+- Trzy kostki i dwie kostki: full. Klasyczne: 25. Nordyckie: suma kostek. Generala: 30.
+- Cztery małe kostki w rzędzie (klasyczne): cztery kolejne liczby, 30.
+- Pięć małych kostek w rzędzie: strit. Klasyczne: 40. Nordyckie: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 lub 3-4-5-6-1: 20.
 - Kostki rzucone na wszystkie strony: szansa, suma kostek.
-- Pięć jednakowych kostek: pięć jednakowych (yacht, yatzy, generala): 50.
-- Pięć jednakowych i gwiazdka (klasyczne): 100 za każde kolejne pięć jednakowych.
+- Pięć jednakowych kostek: pięć jednakowych, 50. Z gwiazdką (klasyczne): każde kolejne pięć jednakowych, po 100.
 - Dwa wiersze pięciu jednakowych (Generala): podwójna generala, 100.
-- Znak równości: twoja suma.
 # Klasyczne: więcej razy pięć jednakowych
-Gdy w twoim wierszu pięciu jednakowych jest 50, każde kolejne pięć jednakowych daje dodatkowo 100, gdziekolwiek je wpiszesz. Gdy ten wiersz jest już wypełniony (50 lub 0), pięć jednakowych to joker: musi trafić do wiersza swojej liczby wśród jedynek do szóstek, jeśli jest pusty; w przeciwnym razie do dowolnego pustego wiersza pod gwiazdką, gdzie full i strity liczą się w pełni; a jeśli i to niemożliwe, do dowolnego pustego wiersza wśród jedynek do szóstek, za 0.
+Gdy w wierszu pięciu jednakowych jest 50, każde kolejne pięć jednakowych daje dodatkowo 100. Gdy ten wiersz jest wypełniony, pięć jednakowych to joker: trafia do wiersza swojej liczby, jeśli jest pusty; w przeciwnym razie do dowolnego pustego wiersza pod gwiazdką, gdzie full i strity liczą się w pełni; a jeśli i to niemożliwe, do wiersza wśród jedynek do szóstek, za 0.
 # Generala
-Strit, full lub poker uzyskane w pierwszym rzucie tury („z ręki”) dają 5 więcej. Generala z ręki od razu wygrywa grę. Podwójna generala daje 100 tylko wtedy, gdy w twoim wierszu generali jest już 50; inaczej można ją tylko skreślić, za 0. Nie ma premii za jedynki do szóstek.
+Strit, full lub poker w pierwszym rzucie („z ręki”) dają 5 więcej. Generala z ręki od razu wygrywa. Podwójna generala daje 100 tylko wtedy, gdy w wierszu generali jest już 50; inaczej daje 0. Nie ma premii za jedynki do szóstek.
 # Koniec gry
-Gracze grają po kolei wokół stołu, zaczyna kość słoniowa. Gdy wszyscy wypełnią wszystkie wiersze, wygrywa najwyższa suma; gracze z równą najwyższą sumą dzielą się wygraną. Grając sam, wygrywasz, mając 200 punktów lub więcej (Generala: 150 albo generala z ręki).
-# Gra na urządzeniu
-Dotknij sukna, aby rzucić. Dotknij kostki, aby ją zatrzymać: zjeżdża na ciemny tor z boku sukna; dotknij jej ponownie, aby znów nią rzucić. Małe kostki pod suknem pokazują pozostałe rzuty. Twoja kolumna jest podświetlona. Dotknij wiersza tabeli, aby zobaczyć, ile dałyby tam kostki; dotknij go ponownie, aby je wpisać. Wiersz, którego nie możesz wybrać, odpowiada dźwiękiem odmowy. Każdy pasek pokazuje sumę tego gracza. Cofnij usuwa ostatni wpis; kostki nigdy nie są rzucane ponownie: wracają te same liczby.
+Gdy wszystkie wiersze są wypełnione, wygrywa najwyższa suma; gracze z równą sumą dzielą się wygraną.

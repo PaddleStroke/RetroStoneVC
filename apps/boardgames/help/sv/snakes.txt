@@ -1,16 +1,10 @@
 Ormar och stegar
 # Målet
-Bli först med att föra din pjäs till ruta 100.
-Två, tre eller fyra kan spela: välj hur många före spelet. Med tre eller fyra gäller samma regler för alla: alla pjäser börjar utanför brädet och får stå på samma ruta, och tärningen går runt i tur och ordning: ljus, mörk, röd och sedan grön. Ljus och röd sitter nederst, mörk och grön överst.
-# Brädet
-Rutorna är numrerade från 1 till 100, med början nere till vänster: längs nedersta raden åt höger, sedan tillbaka längs nästa rad åt vänster, och så vidare uppåt, med 100 högst upp. Stegarna leder uppåt, från foten till toppen; ormarna leder nedåt, från huvudet till svansen.
+Bli först med att föra din pjäs till ruta 100. För 2 till 4 spelare.
 # En tur
-Båda pjäserna börjar utanför brädet, före ruta 1. Den ljusa sidan kastar först. Kasta tärningen och flytta din pjäs framåt lika många rutor som tärningen visar, en ruta i taget. Båda pjäserna får stå på samma ruta.
-- Om din pjäs avslutar sitt drag vid foten av en stege klättrar den upp till stegens topp.
-- Om den avslutar sitt drag på ett ormhuvud glider den ner till ormens svans.
-- En sexa ger ett nytt kast, efter ditt drag.
-- Annars går tärningen över till den andra spelaren.
+Kasta tärningen och flytta din pjäs framåt lika många rutor som tärningen visar. Pjäser får stå på samma ruta.
+- Slutar du vid foten av en stege klättrar du upp till dess topp.
+- Slutar du på ett ormhuvud glider du ner till ormens svans.
+- En sexa ger ett nytt kast.
 # Partiets slut
-Du måste nå ruta 100 med exakt rätt tal. Om du slår mer än du behöver går pjäsen upp till 100 och tillbaka ner lika många rutor som det blir över: från 96 hamnar ett kast på 6 på 98. En stege eller en orm där den stannar gäller ändå. Den som först står på ruta 100 vinner.
-# Spela på enheten
-Tärningen väntar, i ett gyllene sken, vid slutet av fältet för den spelare som ska kasta: tryck på skärmen för att kasta den. Din pjäs flyttar sedan av sig själv. Varje fält visar vilken ruta den spelarens pjäs står på och hens senaste kast. Ångra tar tillbaka kasten ett i taget; ett kast som tas tillbaka blir likadant när du kastar igen.
+Ruta 100 måste nås med exakt rätt tal: slår du mer går pjäsen upp till 100 och tillbaka lika många rutor som det blir över. Den som först står på ruta 100 vinner.

@@ -1,20 +1,18 @@
 Jogo Real de Ur
 # O objetivo
-Levar as suas sete pedras pelo seu percurso e tirá-las do tabuleiro antes do outro jogador. O jogo era jogado na Mesopotâmia há mais de 4.500 anos; estas são as regras que Irving Finkel, do Museu Britânico, reconstituiu a partir de uma tábua de argila babilônica. O marfim lança primeiro; depois os jogadores se alternam.
+Levar as suas sete pedras pelo seu percurso e tirá-las do tabuleiro antes do outro jogador. O marfim lança primeiro.
 # O tabuleiro
-O tabuleiro tem vinte casas em três fileiras. A fileira mais próxima de você é só sua: quatro casas em uma ponta, duas na outra, com um vão entre elas. A fileira do meio, de oito casas, é compartilhada. O seu percurso passa pelas suas quatro casas em direção à ponta do tabuleiro, depois percorre toda a fileira do meio no sentido contrário, volta então para a sua própria fileira pelas duas últimas casas dela e sai do tabuleiro. Cinco casas têm uma roseta: a casa do canto das quatro de cada jogador, a casa do canto das duas de cada jogador e a quarta casa da fileira do meio.
+O seu percurso passa pelas suas quatro casas, depois por toda a fileira do meio compartilhada, depois pelas suas duas últimas casas, e sai do tabuleiro.
 # Lançar e mover
-- Lance os quatro dados. Cada um é uma pirâmide com duas das suas quatro pontas marcadas: conte os dados com a ponta marcada virada para cima. O lance vai de 0 a 4; o 2 é o que mais sai.
-- Ande com uma das suas pedras esse número de casas pelo seu percurso. Uma pedra que espera fora do tabuleiro entra: um lance de 3 a coloca na sua terceira casa.
-- Você não pode parar em uma casa onde já está uma das suas pedras.
-- Um lance de 0, ou um lance que nenhuma pedra pode usar, é perdido e a vez passa.
+- Lance os quatro dados e conte as pontas marcadas viradas para cima: de 0 a 4.
+- Ande com uma pedra esse número de casas; um lance de 3 coloca uma pedra nova na sua terceira casa.
+- Você não pode parar em cima de uma pedra sua.
+- Um 0, ou um lance que nenhuma pedra pode usar, é perdido.
 # As rosetas
-Parar em uma roseta dá direito a lançar de novo. A roseta no meio da fileira compartilhada é também uma casa segura: uma pedra que está nela não pode ser mandada de volta, então o outro jogador não pode parar ali.
+Parar em uma roseta dá direito a lançar de novo. A roseta do meio é também uma casa segura: ninguém pode parar sobre uma pedra que está nela.
 # Capturar
-Parar em cima de uma pedra do outro jogador na fileira compartilhada manda-a de volta para fora do tabuleiro: ela precisa recomeçar a viagem. As suas próprias casas nas pontas ficam fora do alcance do outro jogador.
+Parar em cima de uma pedra adversária na fileira compartilhada a manda de volta para fora do tabuleiro.
 # Retirar as pedras
-Uma pedra só sai do tabuleiro com o número exato: da sua última casa você precisa de um 1, da casa anterior de um 2, e assim por diante. Um lance maior não pode mover essa pedra.
+Uma pedra só sai do tabuleiro com o número exato: um 1 da sua última casa, um 2 da anterior, e assim por diante.
 # O fim da partida
 Vence o primeiro jogador que retirar as sete pedras.
-# Jogando no aparelho
-As suas pedras que esperam ficam ao lado do começo do seu percurso, as pedras retiradas ao lado do fim dele, e os seus dados mais adiante, com o valor do último lance. Quando é a sua vez de lançar, os seus dados brilham em dourado: toque no tabuleiro para lançar. Os pontos mostram para onde as suas pedras podem ir, e os anéis uma pedra que você mandaria de volta: toque em uma pedra, ou arraste-a até a casa dela. Quando só uma pedra pode andar, ela já está acesa. Um lance perdido fica apagado, com um brilho vermelho, enquanto o outro jogador lança. Desfazer volta jogadas e lances, mas um lance desfeito sai igual de novo. A sua barra mostra as pedras que você já retirou.

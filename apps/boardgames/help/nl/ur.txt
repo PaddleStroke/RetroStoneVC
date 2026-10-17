@@ -1,20 +1,18 @@
 Koninklijk spel van Ur
 # Het doel
-Breng je zeven schijven langs je pad en van het bord af, eerder dan de andere speler. Het spel werd meer dan 4.500 jaar geleden in Mesopotamië gespeeld; dit zijn de regels die Irving Finkel van het British Museum afleidde uit een Babylonisch kleitablet. Ivoor gooit eerst, daarna spelen de spelers om de beurt.
+Breng je zeven schijven langs je pad en van het bord af, eerder dan de andere speler. Ivoor gooit eerst.
 # Het bord
-Het bord heeft twintig vakjes in drie rijen. De rij het dichtst bij jou is alleen van jou: vier vakjes aan het ene eind, twee aan het andere, met een gat ertussen. De middelste rij van acht vakjes is gedeeld. Je pad loopt over je vier vakjes naar het eind van het bord, dan over de hele middelste rij de andere kant op, dan terug naar je eigen rij voor de laatste twee vakjes, en van het bord af. Vijf vakjes dragen een rozet: het hoekvakje van de vier van elke speler, het hoekvakje van de twee van elke speler, en het vierde vakje van de middelste rij.
+Je pad loopt over je eigen vier vakjes, dan over de hele gedeelde middelste rij, dan over je eigen laatste twee vakjes, en van het bord af.
 # Gooien en zetten
-- Gooi de vier dobbelstenen. Elke dobbelsteen is een piramide waarvan twee van de vier punten gemarkeerd zijn: tel de dobbelstenen waarvan de gemarkeerde punt naar boven wijst. De worp is 0 tot 4; 2 valt het vaakst.
-- Zet een van je schijven evenveel vakjes vooruit over je pad. Een schijf die naast het bord wacht, komt in het spel: een worp van 3 zet hem op je derde vakje.
-- Je kunt niet landen op een vakje waar een van je eigen schijven staat.
-- Een worp van 0, of een worp die geen enkele schijf kan gebruiken, vervalt en de beurt gaat over.
+- Gooi de vier dobbelstenen en tel de gemarkeerde punten die naar boven wijzen: 0 tot 4.
+- Zet één schijf evenveel vakjes vooruit; een worp van 3 zet een nieuwe schijf op je derde vakje.
+- Je kunt niet op een eigen schijf landen.
+- Een 0, of een worp die geen enkele schijf kan gebruiken, vervalt.
 # Rozetten
-Wie op een rozet landt, krijgt nog een worp. De rozet in het midden van de gedeelde rij is ook een veilig vakje: een schijf die daar staat, kan niet worden teruggestuurd, dus de andere speler kan daar niet landen.
+Wie op een rozet landt, krijgt nog een worp. De middelste rozet is ook veilig: niemand mag daar op een schijf landen.
 # Slaan
-Wie in de gedeelde rij op een schijf van de andere speler landt, stuurt die terug naast het bord: hij moet zijn tocht opnieuw beginnen. Je eigen vakjes aan de uiteinden zijn buiten het bereik van de andere speler.
+Wie in de gedeelde rij op een schijf van de andere speler landt, stuurt die terug naast het bord.
 # Uitspelen
-Een schijf verlaat het bord alleen met het precieze getal: vanaf je laatste vakje heb je een 1 nodig, vanaf het vakje daarvoor een 2, enzovoort. Met een hogere worp kan die schijf niet zetten.
+Een schijf verlaat het bord alleen met het precieze getal: een 1 vanaf je laatste vakje, een 2 vanaf het vakje daarvoor, enzovoort.
 # Het einde van de partij
 De eerste speler die alle zeven schijven heeft uitgespeeld, wint.
-# Spelen op het apparaat
-Je wachtende schijven liggen naast het begin van je pad, de uitgespeelde naast het eind, en je dobbelstenen daarachter, met de uitkomst van de laatste worp. Als jij moet gooien, lichten je dobbelstenen goud op: tik op het bord om te gooien. Stippen tonen waar je schijven heen kunnen, ringen een schijf die je zou terugsturen: tik op een schijf of sleep hem naar zijn vakje. Als maar één schijf kan zetten, is die al opgelicht. Een verloren worp blijft gedimd in een rode gloed terwijl de andere speler gooit. Ongedaan maken neemt zetten en worpen terug, maar een teruggenomen worp valt daarna weer hetzelfde. Je balk toont de schijven die je hebt uitgespeeld.

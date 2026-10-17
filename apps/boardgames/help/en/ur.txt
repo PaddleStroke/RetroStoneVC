@@ -1,20 +1,18 @@
 Royal Game of Ur
 # The aim
-Race your seven pieces along your path and off the board before the other player. The game was played in Mesopotamia more than 4,500 years ago; these are the rules Irving Finkel of the British Museum worked out from a Babylonian clay tablet. Ivory throws first, then the players take turns.
+Race your seven pieces along your path and off the board before the other player. Ivory throws first.
 # The board
-The board has twenty squares in three rows. The row nearest you is yours alone: four squares at one end, two at the other, with a gap between them. The middle row of eight squares is shared. Your path runs along your four squares towards the end of the board, then along the whole middle row the other way, then back onto your own row for its last two squares, and off the board. Five squares carry a rosette: the corner square of each player's four, the corner square of each player's two, and the fourth square of the middle row.
+Your path runs along your own four squares, then the whole shared middle row, then your own last two squares, and off the board.
 # Throwing and moving
-- Throw the four dice. Each is a pyramid with two of its four tips marked: count the dice whose marked tip points up. The throw is 0 to 4; 2 comes up most often.
-- Move one of your pieces that many squares along your path. A piece waiting off the board enters: a throw of 3 puts it on your third square.
-- You cannot land on a square where one of your own pieces stands.
-- A throw of 0, or a throw that no piece can use, is lost and the turn passes.
+- Throw the four dice and count the marked tips pointing up: 0 to 4.
+- Move one piece that many squares; a throw of 3 puts a new piece on your third square.
+- You cannot land on your own piece.
+- A 0, or a throw no piece can use, is lost.
 # Rosettes
-Landing on a rosette gives you another throw. The rosette in the middle of the shared row is also a safe square: a piece standing on it cannot be sent back, so the other player cannot land there.
+Landing on a rosette gives another throw. The middle rosette is also safe: nobody may land on a piece there.
 # Capturing
-Landing on the other player's piece in the shared row sends it back off the board: it must start its journey again. Your own squares at the ends are out of the other player's reach.
+Landing on an enemy piece in the shared row sends it back off the board.
 # Bearing off
-A piece leaves the board with the exact number only: from your last square you need a 1, from the square before it a 2, and so on. A bigger throw cannot move that piece.
+A piece leaves the board with the exact number only: a 1 from your last square, a 2 from the one before, and so on.
 # The end of the game
 The first player to bear off all seven pieces wins.
-# Playing on the device
-Your pieces waiting lie beside the start of your path, the pieces borne off beside its end, and your dice beyond them, with the count of the last throw. When it is your turn to throw, your dice glow gold: tap the board to throw. Dots show where your pieces can go, rings a piece you would send back: tap a piece, or drag it to its square. When only one piece can move, it is already lit. A throw that was lost stays dimmed in a red glow while the other player throws. Undo takes back moves and throws, but a throw taken back comes out the same again. Your bar shows the pieces you have borne off.

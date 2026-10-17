@@ -1,20 +1,18 @@
 Jogo Real de Ur
 # O objetivo
-Levar as tuas sete pedras ao longo do teu percurso e tirá-las do tabuleiro antes do outro jogador. O jogo era jogado na Mesopotâmia há mais de 4500 anos; estas são as regras que Irving Finkel, do Museu Britânico, reconstituiu a partir de uma placa de argila babilónica. O marfim lança primeiro; depois os jogadores jogam à vez.
+Levar as tuas sete pedras ao longo do teu percurso e tirá-las do tabuleiro antes do outro jogador. O marfim lança primeiro.
 # O tabuleiro
-O tabuleiro tem vinte casas em três filas. A fila mais perto de ti é só tua: quatro casas numa ponta, duas na outra, com um intervalo entre elas. A fila do meio, de oito casas, é partilhada. O teu percurso segue pelas tuas quatro casas em direção à ponta do tabuleiro, depois percorre toda a fila do meio no sentido contrário, volta então à tua própria fila para as duas últimas casas e sai do tabuleiro. Cinco casas têm uma roseta: a casa do canto das quatro de cada jogador, a casa do canto das duas de cada jogador e a quarta casa da fila do meio.
+O teu percurso segue pelas tuas quatro casas, depois por toda a fila partilhada do meio, depois pelas tuas duas últimas casas, e sai do tabuleiro.
 # Lançar e mover
-- Lança os quatro dados. Cada um é uma pirâmide com duas das suas quatro pontas marcadas: conta os dados com a ponta marcada virada para cima. O lançamento vai de 0 a 4; o 2 é o que sai mais vezes.
-- Avança uma das tuas pedras esse número de casas ao longo do teu percurso. Uma pedra que espera fora do tabuleiro entra: um lançamento de 3 põe-na na tua terceira casa.
+- Lança os quatro dados e conta as pontas marcadas viradas para cima: de 0 a 4.
+- Avança uma pedra esse número de casas; um lançamento de 3 põe uma pedra nova na tua terceira casa.
 - Não podes parar numa casa onde já esteja uma das tuas pedras.
-- Um lançamento de 0, ou um lançamento que nenhuma pedra possa usar, perde-se e a vez passa.
+- Um 0, ou um lançamento que nenhuma pedra possa usar, perde-se.
 # As rosetas
-Parar numa roseta dá-te mais um lançamento. A roseta no meio da fila partilhada é também uma casa segura: uma pedra que lá esteja não pode ser mandada de volta, por isso o outro jogador não pode parar aí.
+Parar numa roseta dá-te mais um lançamento. A roseta do meio é também segura: ninguém pode parar numa pedra que lá esteja.
 # Capturar
-Parar numa pedra do outro jogador na fila partilhada manda-a de volta para fora do tabuleiro: tem de recomeçar a viagem. As tuas próprias casas nas pontas ficam fora do alcance do outro jogador.
+Parar numa pedra do outro jogador na fila partilhada manda-a de volta para fora do tabuleiro.
 # Retirar as pedras
-Uma pedra só sai do tabuleiro com o número exato: da tua última casa precisas de um 1, da casa anterior de um 2, e assim sucessivamente. Um lançamento maior não pode mover essa pedra.
+Uma pedra só sai do tabuleiro com o número exato: um 1 da tua última casa, um 2 da anterior, e assim sucessivamente.
 # O fim do jogo
 Ganha o primeiro jogador a retirar as sete pedras.
-# Jogar no dispositivo
-As tuas pedras em espera ficam junto ao início do teu percurso, as pedras retiradas junto ao fim, e os teus dados mais além, com o valor do último lançamento. Quando é a tua vez de lançar, os teus dados brilham a dourado: toca no tabuleiro para lançar. Os pontos mostram para onde as tuas pedras podem ir, e os anéis uma pedra que mandarias de volta: toca numa pedra, ou arrasta-a para a sua casa. Quando só uma pedra se pode mover, já está acesa. Um lançamento perdido fica esbatido, com um brilho vermelho, enquanto o outro jogador lança. Anular desfaz jogadas e lançamentos, mas um lançamento desfeito volta a sair igual. A tua barra mostra as pedras que já retiraste.

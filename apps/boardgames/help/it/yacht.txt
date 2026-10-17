@@ -1,34 +1,25 @@
 Yacht
 # Lo scopo
-Fai più punti di tutti riempiendo ogni riga del segnapunti con lanci di cinque dadi. Da uno a sei giocatori, ognuno con una colonna del segnapunti. Scegli le regole prima della partita:
-- Classico: tredici righe, le regole moderne.
-- Nordico: lo Yatzy scandinavo, quindici righe.
-- Generala: il gioco dell'America Latina, undici righe.
-Da solo, prova ad arrivare a 200 punti (Generala: 150).
+Fai più punti di tutti riempiendo ogni riga della tua colonna con lanci di cinque dadi. Da 1 a 6 giocatori; da solo, punta a 200 punti (Generala: 150).
 # Un turno
-- Tira i cinque dadi, fino a tre volte. Prima del secondo e del terzo lancio, tieni i dadi che vuoi e tira di nuovo gli altri. Un dado tenuto può essere tirato di nuovo più tardi.
-- Poi scrivi i dadi in una riga vuota della tua colonna. Se non vanno bene per nessuna riga, devi comunque sceglierne una: vale 0.
+- Tira i cinque dadi fino a tre volte, tenendo i dadi che vuoi tra un lancio e l'altro.
+- Poi scrivili in una riga vuota. Se non vanno bene per nessuna riga, devi comunque sceglierne una: vale 0.
 # Il segnapunti
-Sul segnapunti non ci sono parole: ogni riga è un disegno di dadi.
-- Un dado (dall'uno al sei): la somma dei dadi che mostrano quella faccia.
-- La stella: il bonus quando le tue righe dall'uno al sei fanno 63 o più: 35 (Classico), 50 (Nordico). Fino ad allora mostra, in piccolo, il tuo totale fin qui.
-- Due dadi sovrapposti (Nordico): una coppia, la somma della coppia.
-- Due coppie di dadi (Nordico): due coppie diverse, la somma dei quattro dadi.
-- Tre dadi sovrapposti: un tris. Classico: la somma di tutti e cinque i dadi. Nordico: la somma dei tre.
-- Quattro dadi sovrapposti: un poker. Classico: la somma di tutti e cinque. Nordico: la somma dei quattro. Generala (poker): 40.
-- Tre dadi e due dadi: un full, tre di una faccia e due di un'altra. Classico: 25. Nordico: la somma dei dadi. Generala: 30.
-- Quattro dadini in fila (Classico): una scala piccola, quattro in fila: 30.
-- Cinque dadini in fila: una scala. Classico: cinque in fila, 40. Nordico: 1-2-3-4-5 è la piccola, 15, e 2-3-4-5-6 la grande, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 o 3-4-5-6-1: 20.
-- Dadi lanciati in tutte le direzioni: la chance, la somma dei dadi.
-- Cinque dadi uguali: cinque uguali (yacht, yatzy, generala): 50.
-- Cinque uguali e una stella (Classico): 100 per ogni cinque uguali in più.
+Ogni riga è un disegno di dadi.
+- Un dado (dall'uno al sei): la somma di quella faccia.
+- La stella: un bonus per 63 o più dall'uno al sei: 35 (Classico), 50 (Nordico).
+- Due dadi sovrapposti (Nordico): una coppia, la sua somma. Due coppie (Nordico): la loro somma.
+- Tre dadi sovrapposti: un tris. Classico: la somma di tutti e cinque i dadi. Nordico: quella dei tre.
+- Quattro dadi sovrapposti: un poker. Classico: la somma di tutti e cinque. Nordico: quella dei quattro. Generala (poker): 40.
+- Tre dadi e due dadi: un full. Classico: 25. Nordico: la somma dei dadi. Generala: 30.
+- Quattro dadini in fila (Classico): quattro in fila, 30.
+- Cinque dadini in fila: una scala. Classico: 40. Nordico: 1-2-3-4-5, 15; 2-3-4-5-6, 20. Generala: 1-2-3-4-5, 2-3-4-5-6 o 3-4-5-6-1: 20.
+- Dadi lanciati in tutte le direzioni: la chance, la somma.
+- Cinque dadi uguali: cinque uguali, 50. Con una stella (Classico): i cinque uguali in più, 100 ciascuno.
 - Due righe di cinque uguali (Generala): la doppia generala, 100.
-- Il segno uguale: il tuo totale.
 # Classico: altri cinque uguali
-Quando la tua riga dei cinque uguali contiene 50, ogni altro cinque uguali vale 100 in più, ovunque tu lo scriva. Una volta riempita quella riga (50 o 0), un cinque uguali è un jolly: va nella riga della sua faccia, dall'uno al sei, se è vuota; altrimenti in una qualsiasi riga vuota sotto la stella, dove il full e le scale valgono per intero; altrimenti in una qualsiasi riga vuota dall'uno al sei, per 0.
+Quando la tua riga dei cinque uguali contiene 50, ogni altro cinque uguali vale 100 in più. Una volta riempita quella riga, un cinque uguali è un jolly: va nella riga della sua faccia, se è vuota; altrimenti in una qualsiasi riga vuota sotto la stella, dove il full e le scale valgono per intero; altrimenti in una riga dall'uno al sei, per 0.
 # Generala
-Una scala, un full o un poker fatti al primo lancio del turno («serviti») valgono 5 in più. Una generala servita vince subito la partita. La doppia generala vale 100 solo se la tua riga della generala contiene 50; altrimenti si può solo cancellare, per 0. Non c'è bonus per le righe dall'uno al sei.
+Una scala, un full o un poker fatti al primo lancio («serviti») valgono 5 in più. Una generala servita vince subito. La doppia generala vale 100 solo se la tua riga della generala contiene 50; altrimenti vale 0. Nessun bonus per le righe dall'uno al sei.
 # La fine della partita
-I giocatori si alternano intorno al tavolo, iniziando dall'avorio. Quando tutti hanno riempito tutte le righe, vince il totale più alto; a pari merito, la vittoria è condivisa. Da solo, vinci con 200 punti o più (Generala: 150, o una generala servita).
-# Giocare sul dispositivo
-Tocca il panno per tirare. Tocca un dado per tenerlo: scivola nella corsia scura a lato del panno; toccalo di nuovo per tirarlo ancora. I dadini sotto il panno mostrano i lanci rimasti. La tua colonna è illuminata. Tocca una riga del segnapunti per vedere quanto varrebbero lì i dadi; toccala di nuovo per scriverli. Una riga che non puoi scegliere fa un suono di rifiuto. Ogni barra mostra il totale di quel giocatore. Annulla cancella l'ultimo punteggio scritto; i dadi non vengono mai ritirati: tornano gli stessi numeri.
+Quando tutte le righe sono piene, vince il totale più alto; a pari merito, la vittoria è condivisa.

@@ -1,16 +1,10 @@
 Leiterspiel
 # Das Ziel
-Bringe als Erster deine Spielfigur auf Feld 100.
-Zwei, drei oder vier können spielen: Wähle vor der Partie, wie viele. Zu dritt oder zu viert gelten für alle dieselben Regeln: Alle Figuren beginnen neben dem Brett und dürfen auf demselben Feld stehen, und der Würfel geht reihum: Hell, Dunkel, Rot, dann Grün. Hell und Rot sitzen unten, Dunkel und Grün oben.
-# Das Brett
-Die Felder sind von 1 bis 100 nummeriert, von unten links aus: entlang der untersten Reihe nach rechts, dann die nächste Reihe zurück nach links, und so weiter das Brett hinauf, mit 100 ganz oben. Leitern führen nach oben, von ihrem Fuß zu ihrer Spitze; Schlangen führen nach unten, von ihrem Kopf zu ihrem Schwanz.
+Bringe als Erster deine Spielfigur auf Feld 100. Für 2 bis 4 Spieler.
 # Ein Zug
-Beide Figuren beginnen außerhalb des Bretts, vor Feld 1. Hell würfelt zuerst. Würfle und ziehe deine Figur um die gewürfelte Zahl vorwärts, Feld für Feld. Beide Figuren dürfen auf demselben Feld stehen.
-- Endet der Zug deiner Figur am Fuß einer Leiter, klettert sie bis zur Spitze der Leiter hinauf.
-- Endet ihr Zug auf dem Kopf einer Schlange, rutscht sie hinunter bis zum Schwanz der Schlange.
-- Eine 6 gibt dir nach deinem Zug einen weiteren Wurf.
-- Sonst geht der Würfel an den anderen Spieler.
+Würfle und ziehe deine Figur um die gewürfelte Zahl vorwärts. Figuren dürfen auf demselben Feld stehen.
+- Endet dein Zug am Fuß einer Leiter, klettere bis zu ihrer Spitze hinauf.
+- Endet er auf dem Kopf einer Schlange, rutsche hinunter bis zu ihrem Schwanz.
+- Eine 6 gibt einen weiteren Wurf.
 # Das Ende der Partie
-Du musst Feld 100 mit der genauen Zahl erreichen. Würfelst du mehr als nötig, zieht deine Figur bis 100 hinauf und um die überzähligen Felder wieder zurück: Von 96 aus endet ein Wurf von 6 auf 98. Eine Leiter oder eine Schlange, wo sie stehen bleibt, zählt trotzdem. Wer zuerst auf Feld 100 steht, gewinnt.
-# Spielen auf dem Gerät
-Der Würfel wartet golden leuchtend am Ende der Leiste des Spielers, der würfeln muss: Tippe auf den Bildschirm, um zu würfeln. Deine Figur zieht dann von selbst. Jede Leiste zeigt das Feld, auf dem die Figur des Spielers steht, und seinen letzten Wurf. Rückgängig nimmt Würfe einzeln zurück; ein zurückgenommener Wurf fällt genauso, wenn du erneut würfelst.
+Feld 100 muss genau erreicht werden: Bei mehr Augen ziehst du bis 100 und um die überzähligen Felder wieder zurück. Wer zuerst auf Feld 100 steht, gewinnt.

@@ -1,20 +1,18 @@
 Kungliga spelet från Ur
 # Målet
-För dina sju pjäser längs din bana och ut från brädet före motståndaren. Spelet spelades i Mesopotamien för mer än 4 500 år sedan; det här är reglerna som Irving Finkel vid British Museum har rekonstruerat ur en babylonisk lertavla. Elfenben kastar först, sedan turas spelarna om.
+För dina sju pjäser längs din bana och ut från brädet före motståndaren. Elfenben kastar först.
 # Brädet
-Brädet har tjugo rutor i tre rader. Raden närmast dig är bara din: fyra rutor i ena änden, två i den andra, med ett glapp emellan. Mittraden med åtta rutor är gemensam. Din bana går längs dina fyra rutor mot brädets ände, sedan längs hela mittraden åt andra hållet, sedan tillbaka in på din egen rad för dess två sista rutor, och ut från brädet. Fem rutor har en rosett: hörnrutan bland varje spelares fyra, hörnrutan bland varje spelares två och den fjärde rutan i mittraden.
+Din bana går längs dina egna fyra rutor, sedan längs hela den gemensamma mittraden, sedan längs dina egna två sista rutor, och ut från brädet.
 # Kast och drag
-- Kasta de fyra tärningarna. Var och en är en pyramid där två av de fyra spetsarna är märkta: räkna de tärningar vars märkta spets pekar uppåt. Kastet blir 0 till 4; 2 kommer oftast.
-- Flytta en av dina pjäser lika många rutor längs din bana. En pjäs som väntar utanför brädet går in: ett kast på 3 sätter den på din tredje ruta.
-- Du får inte landa på en ruta där en av dina egna pjäser står.
-- Ett kast på 0, eller ett kast som ingen pjäs kan använda, går förlorat och turen går över.
+- Kasta de fyra tärningarna och räkna de märkta spetsar som pekar uppåt: 0 till 4.
+- Flytta en pjäs lika många rutor; ett kast på 3 sätter en ny pjäs på din tredje ruta.
+- Du får inte landa på en egen pjäs.
+- Ett kast på 0, eller ett kast som ingen pjäs kan använda, går förlorat.
 # Rosetter
-Den som landar på en rosett får ett nytt kast. Rosetten mitt i den gemensamma raden är också en säker ruta: en pjäs som står där kan inte skickas tillbaka, så motståndaren kan inte landa där.
+Den som landar på en rosett får ett nytt kast. Rosetten i mitten är också säker: ingen får landa på en pjäs där.
 # Slå ut
-Den som landar på motståndarens pjäs i den gemensamma raden skickar tillbaka den utanför brädet: den måste börja om sin färd från början. Dina egna rutor i ändarna är utom räckhåll för motståndaren.
+Den som landar på motståndarens pjäs i den gemensamma raden skickar tillbaka den utanför brädet.
 # Ta ut
-En pjäs lämnar brädet bara med exakt rätt tal: från din sista ruta behöver du en etta, från rutan före den en tvåa, och så vidare. Ett större kast kan inte flytta den pjäsen.
+En pjäs lämnar brädet bara med exakt rätt tal: en etta från din sista ruta, en tvåa från rutan före den, och så vidare.
 # Partiets slut
 Den som först har tagit ut alla sju pjäser vinner.
-# Spela på enheten
-Dina väntande pjäser ligger bredvid början av din bana, de uttagna bredvid dess slut, och dina tärningar bortom dem, med talet från det senaste kastet. När det är din tur att kasta lyser dina tärningar i guld: tryck på brädet för att kasta. Prickar visar vart dina pjäser kan gå, ringar en pjäs som du skulle skicka tillbaka: tryck på en pjäs, eller dra den till sin ruta. När bara en pjäs kan flytta lyser den redan. Ett kast som gick förlorat förblir nedtonat i ett rött sken medan motståndaren kastar. Ångra tar tillbaka drag och kast, men ett kast som tas tillbaka blir likadant igen. Ditt fält visar de pjäser du har tagit ut.

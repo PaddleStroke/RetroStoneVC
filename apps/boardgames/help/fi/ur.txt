@@ -1,20 +1,18 @@
 Urin kuninkaallinen peli
 # Tavoite
-Kuljeta seitsemän nappulaasi reittiäsi pitkin pois laudalta ennen vastustajaa. Peliä pelattiin Mesopotamiassa yli 4 500 vuotta sitten; nämä ovat säännöt, jotka British Museumin Irving Finkel selvitti babylonialaisesta savitaulusta. Norsunluu heittää ensin, minkä jälkeen pelaajat heittävät vuorotellen.
+Kuljeta seitsemän nappulaasi reittiäsi pitkin pois laudalta ennen vastustajaa. Norsunluu heittää ensin.
 # Lauta
-Laudalla on kaksikymmentä ruutua kolmessa rivissä. Sinua lähinnä oleva rivi on vain sinun: neljä ruutua toisessa päässä, kaksi toisessa ja niiden välissä aukko. Kahdeksan ruudun keskirivi on yhteinen. Reittisi kulkee neljää ruutuasi pitkin laudan päätyä kohti, sitten koko keskiriviä pitkin toiseen suuntaan, sitten takaisin omalle rivillesi sen kahteen viimeiseen ruutuun ja pois laudalta. Viidessä ruudussa on ruusuke: kummankin pelaajan neljän ruudun kulmaruutu, kummankin pelaajan kahden ruudun kulmaruutu ja keskirivin neljäs ruutu.
+Reittisi kulkee omia neljää ruutuasi pitkin, sitten koko yhteistä keskiriviä pitkin, sitten omien kahden viimeisen ruutusi kautta ja pois laudalta.
 # Heittäminen ja siirtäminen
-- Heitä neljää noppaa. Kukin on pyramidi, jonka neljästä kärjestä kaksi on merkitty: laske nopat, joiden merkitty kärki osoittaa ylöspäin. Heitto on 0–4; 2 tulee useimmin.
-- Siirrä yhtä nappulaasi niin monta ruutua reittiäsi pitkin. Laudan ulkopuolella odottava nappula tulee laudalle: heitto 3 vie sen kolmanteen ruutuusi.
-- Et voi päätyä ruutuun, jossa on jo oma nappulasi.
-- Heitto 0 tai heitto, jota mikään nappula ei voi käyttää, menetetään, ja vuoro siirtyy.
+- Heitä neljää noppaa ja laske ylöspäin osoittavat merkityt kärjet: 0–4.
+- Siirrä yhtä nappulaa niin monta ruutua; heitto 3 tuo uuden nappulan kolmanteen ruutuusi.
+- Et voi päätyä oman nappulasi päälle.
+- Heitto 0 tai heitto, jota mikään nappula ei voi käyttää, menetetään.
 # Ruusukkeet
-Ruusukkeeseen päätyminen antaa uuden heiton. Yhteisen rivin keskellä oleva ruusuke on myös turvaruutu: siinä olevaa nappulaa ei voi lähettää takaisin, joten vastustaja ei voi päätyä siihen.
+Ruusukkeeseen päätyminen antaa uuden heiton. Keskimmäinen ruusuke on myös turvaruutu: kukaan ei saa päätyä siinä olevan nappulan päälle.
 # Lyöminen
-Kun päädyt vastustajan nappulan päälle yhteisellä rivillä, se palaa laudan ulkopuolelle: sen on aloitettava matkansa alusta. Omat ruutusi päädyissä ovat vastustajan ulottumattomissa.
+Kun päädyt vastustajan nappulan päälle yhteisellä rivillä, se palaa laudan ulkopuolelle.
 # Pois pelaaminen
-Nappula lähtee laudalta vain tarkalleen oikealla luvulla: viimeisestä ruudustasi tarvitset ykkösen, sitä edeltävästä kakkosen ja niin edelleen. Suuremmalla heitolla sitä nappulaa ei voi siirtää.
+Nappula lähtee laudalta vain tarkalleen oikealla luvulla: ykkösellä viimeisestä ruudustasi, kakkosella sitä edeltävästä ja niin edelleen.
 # Pelin loppu
 Pelaaja, joka pelaa ensimmäisenä pois kaikki seitsemän nappulaansa, voittaa.
-# Pelaaminen laitteella
-Odottavat nappulasi ovat reittisi alun vieressä, pois pelatut sen lopun vieressä ja noppasi niiden takana viimeisimmän heiton tuloksen kera. Kun on vuorosi heittää, noppasi hehkuvat kultaisina: napauta lautaa heittääksesi. Pisteet näyttävät, minne nappulasi voivat mennä, renkaat nappulan, jonka lähettäisit takaisin: napauta nappulaa tai vedä se ruutuunsa. Kun vain yksi nappula voi liikkua, se hehkuu jo valmiiksi. Menetetty heitto jää himmeäksi punaiseen hehkuun, kun vastustaja heittää. Kumoa peruu siirtoja ja heittoja, mutta peruttu heitto tulee uudelleen samana. Palkkisi näyttää nappulat, jotka olet pelannut pois.

@@ -1,34 +1,25 @@
 Yams
 # Le but
-Marquer le plus de points en remplissant toutes les lignes de la feuille de marque avec des lancers de cinq dés. On joue de un à six, chacun avec sa colonne sur la feuille. Choisis les règles avant la partie :
-- Classique : treize lignes, les règles modernes.
-- Nordique : le Yatzy scandinave, quinze lignes.
-- Generala : le jeu d'Amérique latine, onze lignes.
-Seul, essaie d'atteindre 200 points (Generala : 150).
+Marquer le plus de points en remplissant toutes les lignes de ta colonne avec des lancers de cinq dés. De 1 à 6 joueurs ; seul, vise 200 points (Generala : 150).
 # Un tour
-- Lance les cinq dés, jusqu'à trois fois. Avant le deuxième et le troisième lancer, garde les dés que tu veux et relance les autres. Un dé gardé peut être relancé plus tard.
-- Inscris ensuite les dés dans une ligne vide de ta colonne. S'ils ne vont dans aucune, tu dois quand même en choisir une : elle vaut 0.
+- Lance les cinq dés jusqu'à trois fois, en gardant les dés que tu veux entre deux lancers.
+- Inscris-les ensuite dans une ligne vide. S'ils ne vont dans aucune, tu dois quand même en choisir une : elle vaut 0.
 # La feuille de marque
-La feuille n'a pas de mots : chaque ligne est un dessin de dés.
-- Un dé (des as aux six) : la somme des dés qui montrent cette face.
-- L'étoile : la prime quand tes as à six font 63 ou plus : 35 (Classique), 50 (Nordique). En attendant, elle montre en petit ton total jusque-là.
-- Deux dés l'un sur l'autre (Nordique) : une paire, la somme de la paire.
-- Deux paires de dés (Nordique) : deux paires différentes, la somme des quatre dés.
-- Trois dés l'un sur l'autre : le brelan. Classique : la somme des cinq dés. Nordique : la somme des trois.
-- Quatre dés l'un sur l'autre : le carré. Classique : la somme des cinq. Nordique : la somme des quatre. Generala (le poker) : 40.
-- Trois dés et deux dés : le full, trois d'une face et deux d'une autre. Classique : 25. Nordique : la somme des dés. Generala : 30.
-- Quatre petits dés à la suite (Classique) : la petite suite, quatre qui se suivent : 30.
-- Cinq petits dés à la suite : une suite. Classique : cinq qui se suivent, 40. Nordique : 1-2-3-4-5 est la petite, 15, et 2-3-4-5-6 la grande, 20. Generala : 1-2-3-4-5, 2-3-4-5-6 ou 3-4-5-6-1 : 20.
-- Des dés lancés en tous sens : la chance, la somme des dés.
-- Cinq dés pareils : le yams (yatzy, generala) : 50.
-- Cinq pareils et une étoile (Classique) : 100 pour chaque yams en plus.
+Chaque ligne est un dessin de dés.
+- Un dé (des as aux six) : la somme de cette face.
+- L'étoile : une prime pour 63 ou plus des as aux six : 35 (Classique), 50 (Nordique).
+- Deux dés l'un sur l'autre (Nordique) : une paire, sa somme. Deux paires (Nordique) : leur somme.
+- Trois dés l'un sur l'autre : le brelan. Classique : la somme des cinq dés. Nordique : celle des trois.
+- Quatre dés l'un sur l'autre : le carré. Classique : la somme des cinq. Nordique : celle des quatre. Generala (le poker) : 40.
+- Trois dés et deux dés : le full. Classique : 25. Nordique : la somme des dés. Generala : 30.
+- Quatre petits dés à la suite (Classique) : quatre qui se suivent, 30.
+- Cinq petits dés à la suite : une suite. Classique : 40. Nordique : 1-2-3-4-5, 15 ; 2-3-4-5-6, 20. Generala : 1-2-3-4-5, 2-3-4-5-6 ou 3-4-5-6-1 : 20.
+- Des dés lancés en tous sens : la chance, la somme.
+- Cinq dés pareils : le yams, 50. Avec une étoile (Classique) : les yams en plus, 100 chacun.
 - Deux rangées de cinq pareils (Generala) : la generala double, 100.
-- Le signe égal : ton total.
 # Classique : les yams en plus
-Une fois ta ligne du yams à 50, chaque nouveau yams rapporte 100 de plus, où que tu l'inscrives. Une fois cette ligne remplie (50 ou 0), un yams devient joker : il doit aller dans la ligne de sa face parmi les as à six si elle est vide ; sinon dans n'importe quelle ligne vide sous l'étoile, où le full et les suites comptent en entier ; sinon dans n'importe quelle ligne vide des as aux six, pour 0.
+Une fois ta ligne du yams à 50, chaque nouveau yams rapporte 100 de plus. Une fois cette ligne remplie, un yams devient joker : il va dans la ligne de sa face si elle est vide ; sinon dans n'importe quelle ligne vide sous l'étoile, où le full et les suites comptent en entier ; sinon dans une ligne des as aux six, pour 0.
 # Generala
-Une suite, un full ou un poker faits au premier lancer du tour (« servis ») rapportent 5 de plus. Une generala servie gagne aussitôt la partie. La generala double ne vaut 100 que si ta ligne generala est à 50 ; sinon on ne peut que la barrer, pour 0. Il n'y a pas de prime pour les as à six.
+Une suite, un full ou un poker faits au premier lancer (« servis ») rapportent 5 de plus. Une generala servie gagne aussitôt. La generala double ne vaut 100 que si ta ligne generala est à 50 ; sinon elle vaut 0. Pas de prime pour les as à six.
 # La fin de la partie
-On joue à tour de rôle autour de la table, l'ivoire en premier. Quand tout le monde a rempli toutes ses lignes, le plus gros total gagne ; à égalité, les meilleurs se partagent la victoire. Seul, tu gagnes avec 200 points ou plus (Generala : 150, ou une generala servie).
-# Jouer sur l'appareil
-Touche le tapis pour lancer. Touche un dé pour le garder : il glisse dans l'allée sombre au bord du tapis ; touche-le de nouveau pour le relancer. Les petits dés sous le tapis montrent les lancers qui restent. Ta colonne est éclairée. Touche une ligne de la feuille pour voir ce que les dés y marqueraient ; touche-la de nouveau pour l'inscrire. Une ligne interdite fait un son de refus. Chaque barre montre le total de ce joueur. Annuler reprend la dernière inscription ; les dés ne sont jamais relancés : les mêmes nombres reviennent.
+Quand toutes les lignes sont remplies, le plus gros total gagne ; à égalité, les meilleurs se partagent la victoire.

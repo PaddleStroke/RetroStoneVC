@@ -1,16 +1,10 @@
 Snakes and Ladders
 # The aim
-Be the first to bring your pawn to square 100.
-Two, three or four can play: choose how many before the game. With three or four, the rules are the same for everyone: all the pawns start off the board and may share a square, and the die goes round in turn: Light, Dark, Red, then Green. Light and Red sit at the bottom, Dark and Green at the top.
-# The board
-The squares are numbered from 1 to 100, from the bottom left: along the bottom row to the right, then back along the next row to the left, and so on up the board, with 100 at the top. Ladders lead up the board, from their foot to their top; snakes lead down, from their head to their tail.
+Be the first to bring your pawn to square 100. For 2 to 4 players.
 # A turn
-Both pawns start off the board, before square 1. Light throws first. Throw the die and move your pawn forward by the number thrown, one square at a time. Both pawns may stand on the same square.
-- If your pawn ends its move at the foot of a ladder, it climbs to the top of the ladder.
-- If it ends its move on a snake's head, it slides down to the snake's tail.
-- A 6 gives you another throw, after your move.
-- Otherwise the die passes to the other player.
+Throw the die and move your pawn forward by the number. Pawns may share a square.
+- Ending at the foot of a ladder, climb to its top.
+- Ending on a snake's head, slide down to its tail.
+- A 6 gives another throw.
 # The end of the game
-You must reach square 100 by the exact number. If you throw more than you need, your pawn goes up to 100 and back down by the extra squares: from 96, a throw of 6 ends on 98. A ladder or a snake where it stops still counts. The first player on square 100 wins.
-# Playing on the device
-The die waits, in a gold light, at the end of the bar of the player to throw: tap the screen to throw it. Your pawn then moves on its own. Each bar shows the square that player's pawn is on and their last throw. Undo takes back throws one by one; a throw taken back comes up the same when you throw again.
+Square 100 needs the exact number: with more, go up to 100 and back by the extra squares. The first player on square 100 wins.
