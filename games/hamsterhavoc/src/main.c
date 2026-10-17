@@ -192,6 +192,7 @@ static pin player_input(int p)
         const rs_touch_point *t = rs_touch_first();
         if (t && t->down) {
             in.target = t->x - rs_screen_origin_x();
+            if (in.target < 0) in.target = 0;  /* widescreen: a finger in the left margin (stage x < 0) */
             in.fire = 1;
         }
     }

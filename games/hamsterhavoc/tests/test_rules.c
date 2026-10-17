@@ -279,6 +279,16 @@ static void test_hits(void)
     w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
     for (int i = 0; i < 5; i++) world_step(&w, in);
     CHECK(w.phase == PH_OVER && !world_running(&w), "the run ends when the last hamster is out");
+    /* the shot that pops a ship is spent: two ships one over the other (they pass through each other), one crumb
+     * puts one of them out, not both */
+    playing(&w, 2, 1);
+    w.h[1].x = w.h[0].x;
+    w.bombs[0] = (bomb){w.h[0].x, (SHIP_Y + 4) << 16, 0, Q16_ONE, 1, BK_CRUMB};
+    world_step(&w, in);
+    CHECK((w.events[0] & EV_HIT) && !w.bombs[0].on, "a crumb pops a ship and is gone");
+    for (int i = 0; i < 30; i++) world_step(&w, in);
+    CHECK(w.h[0].state == SH_POP && w.h[1].state == SH_PLAY && world_running(&w),
+          "one crumb, one ship: the other plays on");
 }
 
 
@@ -355,6 +365,25 @@ static void test_boss(void)
             right += w.bombs[i].vx > 0;
         }
     CHECK(n == 3 && left == 1 && right == 1, "a spread of three peas");
+    /* below half its hits, every other spread: a crumb aimed at a ship, left or right of it (a negative drift is
+     * computed without shifting a negative value: make SAN=1 runs this) */
+    for (int side = -1; side <= 1; side += 2) {
+        playing(&w, 1, 4);
+        w.boss_hp = 1;
+        w.boss_volley = 1;
+        w.boss_fire_t = 1;
+        w.h[0].x = ((w.boss_x >> 16) + side * 50) << 16;
+        world_step(&w, in);
+        int32_t vx = 0;
+        n = 0;
+        for (int i = 0; i < BOMB_MAX; i++)
+            if (w.bombs[i].on && w.bombs[i].kind == BK_CRUMB) {
+                n++;
+                vx = w.bombs[i].vx;
+            }
+        CHECK(n == 1 && vx * side > 0 && vx * side < 49152, "the angry mothership aims a crumb %s (vx %d)",
+              side < 0 ? "left" : "right", (int)vx);
+    }
 }
 
 static void test_touch(void)

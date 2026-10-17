@@ -501,6 +501,7 @@ static void step_bombs(world *w)
                 add_fx(w, FX_BUBBLE, hx, SHIP_Y + 12, 0);
             } else {
                 hit(w, p);
+                b->on = 0;                                      /* spent: one shot pops one ship */
             }
             break;
         }
@@ -625,7 +626,7 @@ static void step_saucer(world *w)
         w->saucer_on = 1;
         w->saucer_dir = (w->saucer_n & 1) ? -1 : 1;
         w->saucer_n++;
-        w->saucer_x = (int32_t)(w->saucer_dir > 0 ? -24 : 344) << 16;
+        w->saucer_x = (int32_t)(w->saucer_dir > 0 ? -24 : 344) * Q16_ONE;   /* not << (negative: undefined) */
         w->wevents |= WEV_SAUCER;
         return;
     }
@@ -671,7 +672,7 @@ static void step_boss(world *w)
         int p = aim_player(w, w->boss_volley / 2);
         if (p >= 0) {
             int32_t vy = bomb_speed(w, BK_CRUMB), frames = (SHIP_Y + 12 - y) * Q16_ONE / vy;
-            int32_t vx = (int32_t)(((int64_t)((w->h[p].x >> 16) - x) << 16) / (frames > 0 ? frames : 1));
+            int32_t vx = (int32_t)((int64_t)((w->h[p].x >> 16) - x) * Q16_ONE / (frames > 0 ? frames : 1));
             if (vx > 49152) vx = 49152;
             if (vx < -49152) vx = -49152;
             spawn_bomb(w, BK_CRUMB, x, y, vx, vy);

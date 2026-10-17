@@ -77,6 +77,15 @@ s=$(run held $((over + 60)) "${START}$((over - 30)) touch 50%% 50%%\n$((over + 4
 s=$(run again $((over + 80)) "${START}$((over + 40)) tap-at 50%% 50%%\n$((over + 60)) tap-at 50%% 50%%\n")
 [ "$(field "$s" st)" = 1 ] && ok "and another tap starts another run" || ko "again: $s"
 
+# widescreen: a finger in the left margin (left of the stage, stage x < 0) slides the ship to the left edge, as
+# Left held (the margin's x is not "no finger")
+for w in $WS 560; do
+    a=$(run "margin$w" 330 "${START}130 touch 2 120\n" "$w")
+    b=$(run "margin-pad$w" 330 "${PAD}130 LEFT+A\n" "$w")
+    if [ "$(field "$a" x)" = 20 ] && same "$a" "$b"; then ok "width $w: a finger in the left margin slides the ship left"
+    else ko "width $w, a finger in the left margin: $a / pad $b"; fi
+done
+
 # every width: the same game (the finger at the same stage x)
 ref=$(run w320 400 "${START}130 touch @80 120\n250 move @260 100\n" 320)
 for w in $WS 560; do
