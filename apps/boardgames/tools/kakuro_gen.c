@@ -6,8 +6,10 @@
  *     worked out whole) and the solver's passes over the runs (its effort);
  *   - near-duplicates dropped (the same puzzle mirrored on its diagonal, across and down swapped).
  * Each chapter has two makes (a size and a level); a make's candidates are ranked by effort and picked evenly over
- * them. Then each chapter goes from its smallest and easiest to its biggest and hardest: 5 x 5 easy first, 12 x 12
- * hard last.
+ * them, the nearest whose pattern of dark squares is not worn out yet (a pattern used once from 7 x 7, a few times on
+ * the small grids, which have few), so the grids vary. Then each chapter goes from its smallest and easiest to its
+ * biggest and hardest: 5 x 5 easy first, 12 x 12 hard last; its last level is a showpiece, the hardest of its last
+ * make whose pattern is also its own mirror on the diagonal.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/kkrgen apps/boardgames/tools/kakuro_gen.c \
  *       apps/boardgames/src/games/kakuro_rules.c && /tmp/kkrgen > apps/boardgames/src/games/kakuro_levels.h
@@ -19,7 +21,7 @@
 
 #include "games/kakuro.h"
 
-#define CANDS 60                                /* candidates made for each make */
+#define CANDS 100                               /* candidates made for each make */
 
 typedef struct {
     kkr_puzzle p;
@@ -27,6 +29,8 @@ typedef struct {
     long passes;
     double score;
     char key[KKR_CELLS + 8];
+    char pattern[KKR_CELLS + 1];                /* its dark squares, whichever way it lies */
+    int diagonal;                               /* 1: the pattern is its own mirror on the diagonal too */
 } cand;
 
 typedef struct { int n, level, count; } make;
@@ -52,6 +56,21 @@ static void canon(const kkr_puzzle *p, char *key)
     strcpy(key, strcmp(a, b) <= 0 ? a : b);
 }
 
+/* the dark squares' pattern, the smaller of it and of it mirrored on its diagonal; 1 when both are the same */
+static int pattern_of(const kkr_puzzle *p, char *key)
+{
+    int n = p->n;
+    char a[KKR_CELLS + 1], b[KKR_CELLS + 1];
+    for (int y = 0; y < n; y++)
+        for (int x = 0; x < n; x++) {
+            a[y * n + x] = p->white[y * n + x] ? '.' : '#';
+            b[x * n + y] = a[y * n + x];
+        }
+    a[n * n] = b[n * n] = 0;
+    strcpy(key, strcmp(a, b) <= 0 ? a : b);
+    return !strcmp(a, b);
+}
+
 static int by_score(const void *a, const void *b)
 {
     const cand *x = a, *y = b;
@@ -69,6 +88,21 @@ static int seen(const char *key)
     return 0;
 }
 
+/* how often the levels chosen use a pattern of dark squares */
+static int uses(const char *pattern)
+{
+    int k = 0;
+    for (int i = 0; i < nchosen; i++) k += !strcmp(chosen[i].pattern, pattern);
+    return k;
+}
+
+/* a candidate for a pick: not chosen yet, its pattern not worn out (the small grids have few patterns; at last any) */
+static int fresh(const cand *c, int slack)
+{
+    int n = c->p.n, most = (n <= 5 ? 3 : n <= 6 ? 2 : 1) + slack;
+    return !seen(c->key) && (slack >= 3 || uses(c->pattern) < most);
+}
+
 static int make_pool(const make *m, uint32_t seed0)
 {
     int k = 0;
@@ -78,6 +112,7 @@ static int make_pool(const make *m, uint32_t seed0)
         c->grade = kkr_effort(&c->p, &c->passes);
         if (c->grade != m->level || kkr_count(&c->p, 2) != 1) continue;
         canon(&c->p, c->key);
+        c->diagonal = pattern_of(&c->p, c->pattern);
         int dup = 0;
         for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
         if (dup) continue;
@@ -91,21 +126,36 @@ static int make_pool(const make *m, uint32_t seed0)
 int main(void)
 {
     for (int ch = 0; ch < KKR_CHAPTERS; ch++) {
-        int first = nchosen;
+        int first = nchosen, k = 0;
         for (int mi = 0; mi < 2; mi++) {
             const make *m = &CHAPTER[ch][mi];
-            int k = make_pool(m, 1000u * (uint32_t)(ch * 2 + mi + 1));
+            k = make_pool(m, 1000u * (uint32_t)(ch * 2 + mi + 1));
             fprintf(stderr, "chapter %d, make %d (%dx%d level %d): %d candidates, effort %ld..%ld\n", ch + 1, mi + 1,
                     m->n, m->n, m->level, k, k ? pool[0].passes : 0, k ? pool[k - 1].passes : 0);
             for (int i = 0; i < m->count; i++) {
-                int at = (int)((i + 0.5f) / m->count * (k - 1));
-                while (at < k && seen(pool[at].key)) at++;
+                int at0 = (int)((i + 0.5f) / m->count * (k - 1)), at = k;
+                for (int slack = 0; slack < 4 && at >= k; slack++)   /* the nearest fresh one, after it or before */
+                    for (int d = 0; d < k && at >= k; d++) {
+                        if (at0 + d < k && fresh(&pool[at0 + d], slack)) at = at0 + d;
+                        else if (at0 - d >= 0 && d && fresh(&pool[at0 - d], slack)) at = at0 - d;
+                    }
                 if (at >= k) {
                     fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, mi + 1);
                     return 1;
                 }
                 chosen[nchosen++] = pool[at];
             }
+        }
+        /* the chapter's showpiece, its last level: the hardest of its last make whose pattern is also its own mirror
+         * on the diagonal, in place of that make's hardest pick */
+        int last = -1;
+        for (int i = k - 1; i >= k / 2 && last < 0; i--)
+            if (pool[i].diagonal && !seen(pool[i].key) && !uses(pool[i].pattern)) last = i;
+        if (last >= 0) {
+            int worst = -1;
+            for (int i = first; i < nchosen; i++)
+                if (chosen[i].p.n == pool[last].p.n && (worst < 0 || chosen[i].score >= chosen[worst].score)) worst = i;
+            chosen[worst] = pool[last];
         }
         for (int i = first + 1; i < nchosen; i++)   /* the chapter from its easiest to its hardest */
             for (int j = i; j > first; j--) {
@@ -115,6 +165,13 @@ int main(void)
                 cand t = *a;
                 *a = *b;
                 *b = t;
+            }
+        for (int i = first; last >= 0 && i < nchosen - 1; i++)   /* the showpiece last */
+            if (!strcmp(chosen[i].key, pool[last].key)) {
+                cand t = chosen[i];
+                memmove(&chosen[i], &chosen[i + 1], (size_t)(nchosen - 1 - i) * sizeof t);
+                chosen[nchosen - 1] = t;
+                break;
             }
     }
     printf("/*\n * Kakuro's levels: our own, made by tools/kakuro_gen.c (the game's maker, the reasoning solver's grade and\n"
