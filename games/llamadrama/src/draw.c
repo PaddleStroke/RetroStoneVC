@@ -142,11 +142,29 @@ static void spr(int id, int x, int y, int prio, int pal, int flags)
 static int player_pal(int p) { return p ? hu_player_pal(p) : 0; }
 static int px(int32_t q) { return (int)(q >> 16); }
 
-static void small_number(int n, int cx, int y, int play_prio)
+/* The sprite budget (docs/spec.md: 128 in OAM): the effects (points, bonked hornets and their stars, splats) give way
+ * first. room: the OAM slot they stop at, what is left once the spit, the hornets (a dart's "!" too), the herd and the
+ * sky drawn after them are counted (draw_play). */
+static void fx_spr(int room, int id, int x, int y, int prio, int flags)
+{
+    if (rs_oam_next() < room) spr(id, x, y, prio, -1, flags);
+}
+
+/* the most sprites draw_herd() and draw_sky() use: per llama a head, a body, its neck's pieces, 3 aim dots (or 3 stars);
+ * 3 clouds, the sun and the moon */
+static int herd_sky_sprites(const world *w)
+{
+    static const int neck[MAX_PLAYERS] = SLOT_NECK;
+    int n = 5;
+    for (int p = 0; p < w->players; p++) n += 2 + (neck[p] / NECK_GAP + 1 > 2 ? neck[p] / NECK_GAP + 1 : 2) + 3;
+    return n;
+}
+
+static void small_number(int n, int cx, int y, int play_prio, int room)
 {
     char s[8];
     int len = snprintf(s, sizeof s, "%d", n);
-    for (int i = 0; i < len; i++) spr(SPR_DIGIT + (s[i] - '0'), cx - len * 3 + i * 6 - 1, y, play_prio, -1, 0);
+    for (int i = 0; i < len; i++) fx_spr(room, SPR_DIGIT + (s[i] - '0'), cx - len * 3 + i * 6 - 1, y, play_prio, 0);
 }
 
 /* one llama: the head (its face), the neck's pieces, the body; aim: the aim drawn (the title's idle look, a droop) */
@@ -274,10 +292,14 @@ static void draw_hornet(const world *w, const hornet *h, int sx, int sy, int pla
 
 static void draw_play(const world *w, int sx, int sy, int play_prio)
 {
+    int after = herd_sky_sprites(w);                    /* the sprite budget: what comes after the effects */
+    for (int i = 0; i < MAX_PLAYERS * GOBS_MAX; i++) after += w->gobs[i].on;
+    for (int i = 0; i < MAX_HORNETS; i++) after += w->hn[i].on ? 1 + (w->hn[i].pat == PAT_DART) : 0;
+    int room = RS_OAM_GUIDE - after;
     /* front to back: the points, the bonked hornets, the splats, the spit, the hornets */
     for (int i = 0; i < FX_MAX; i++) {
         const effect *e = &w->fx[i];
-        if (e->on && e->kind == FX_POINTS) small_number(e->value, px(e->x) + sx, px(e->y) - e->t / 2 + sy, play_prio);
+        if (e->on && e->kind == FX_POINTS) small_number(e->value, px(e->x) + sx, px(e->y) - e->t / 2 + sy, play_prio, room);
     }
     for (int i = 0; i < FX_MAX; i++) {
         const effect *e = &w->fx[i];
@@ -289,18 +311,18 @@ static void draw_play(const world *w, int sx, int sy, int play_prio)
             int big = e->sub == HK_BIG;
             int id = big ? SPR_BIG_BONK : e->sub == HK_DART ? SPR_DART_BONK : SPR_HORNET_BONK;
             int hw = big ? 16 : 8;
-            spr(id, x - hw, y - hw, play_prio, -1, RS_SPR_VFLIP);
+            fx_spr(room, id, x - hw, y - hw, play_prio, RS_SPR_VFLIP);
             if (e->t < 90)                              /* bonk: stars circle over it */
                 for (int k = 0; k < 2; k++) {
                     int a = e->t * 12 + k * 512;
-                    spr(SPR_STAR + (e->t / 6 + k) % 2, x - 4 + isin1024(a) * (hw + 2) / 16384,
-                        y - hw - 6 + isin1024(a + 256) * 3 / 16384, play_prio, -1, 0);
+                    fx_spr(room, SPR_STAR + (e->t / 6 + k) % 2, x - 4 + isin1024(a) * (hw + 2) / 16384,
+                           y - hw - 6 + isin1024(a + 256) * 3 / 16384, play_prio, 0);
                 }
             break;
         }
         case FX_SPLAT:
         case FX_FIZZLE:
-            spr(SPR_SPLAT + (e->t / 4 > 2 ? 2 : e->t / 4), x - 4, y - 4, play_prio, -1, 0);
+            fx_spr(room, SPR_SPLAT + (e->t / 4 > 2 ? 2 : e->t / 4), x - 4, y - 4, play_prio, 0);
             break;
         }
     }

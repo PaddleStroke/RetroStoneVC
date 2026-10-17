@@ -83,6 +83,9 @@ nostrict "4 bots" "$out"
 out=$(run --frames 1500 --opt bot=4 --opt ready=1 --opt score=900 --opt strict=1)
 check "a busy night sky: 4 llamas, the ramp at its height" "state: st=[12] players=4 .*sky=[1-9]" "$out"
 nostrict "the busy night with 4 llamas" "$out"
+# later still, the sky full of bonked hornets: the effects give way, the sprites stay within 128 in OAM (draw_play)
+out=$(run --frames 2500 --opt bot=4 --opt ready=1 --opt score=3000 --opt strict=1)
+nostrict "a long busy night with 4 llamas (the sprite budget)" "$out"
 
 [ -n "$Q" ] && exit $fail
 
