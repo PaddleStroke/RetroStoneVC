@@ -1,6 +1,7 @@
 /*
  * Logic Gates in RetroStone Board, for one player (the rules: logicgates_rules.c, logicgates.h): a circuit board of
- * dark green in a walnut frame, brass traces on it (the light theme: ivory paper, dark ink traces, lit ones amber),
+ * dark green in a walnut frame, brass traces on it (the light theme: ivory paper, slate ink traces, lit ones amber,
+ * the parts in grey-blue enamel and steel),
  * the gates as brass shapes inlaid in walnut plaques (the classic shapes, each with its name engraved: NOT, AND, OR, XOR, NAND, NOR, in English as on any circuit drawing; the owner
  * asked for them), each switch right under the gate it feeds, the lamps at the top; the parts as big as the room
  * allows. A wire carrying 1 glows gold; after each move the change runs up the wires, gate after gate. A cuttable wire
@@ -87,20 +88,24 @@ static float PY(float y) { return oy - stretched(y) * ch; }
 static const uint8_t GOLD[3] = {255, 206, 84}, BRASS[3] = {128, 102, 56}, WALNUT[3] = {92, 60, 40},
                      PCB[3] = {22, 60, 42}, INK[3] = {40, 26, 14};
 
-/* the light theme (pages.h: TH): the board an ivory drawing paper, its traces in dark ink, a lit one deep amber in a
- * dark edge (pale gold is lost on ivory); the plaques, gates, lamps and switches as in the dark theme. The dark theme's
- * look is the one above, untouched. The pictures that know the theme are made again when it changes (draw). */
-static const uint8_t PAPER[3] = {234, 226, 204}, TRACE_L[3] = {88, 66, 44}, EDGE_L[3] = {44, 31, 20},
-                     GOLD_L[3] = {240, 168, 34}, SHINE_L[3] = {255, 214, 120};
+/* the light theme (pages.h: TH): the board an ivory drawing paper, its traces in a cool slate ink with a darker edge,
+ * a lit one deep amber (pale gold is lost on ivory; lit is the brighter one, on or off told apart by light alone); the
+ * plaques and switch plates a pale grey-blue enamel, the gates and the route switches' ways soft steel (gold when
+ * lit), the lamps' sockets and the cables' posts steel, every outline and mark in slate ink. The dark theme's look is
+ * the one above, untouched. The pictures that know the theme are made again when it changes (draw). */
+static const uint8_t PAPER[3] = {234, 226, 204}, TRACE_L[3] = {104, 116, 132}, EDGE_L[3] = {40, 48, 60},
+                     GOLD_L[3] = {240, 168, 34}, SHINE_L[3] = {255, 214, 120}, ENAMEL[3] = {192, 205, 218},
+                     STEEL[3] = {142, 156, 172}, INK_L[3] = {36, 44, 56};
 static int light(void) { return !TH.dark; }
 static const uint8_t *lit_gold(void) { return light() ? GOLD_L : GOLD; }   /* a lit trace's colour on the board */
+static int lt;                                  /* the parts being painted in the light theme's look */
 
 static art_style style(const uint8_t fill[3], float light, float line)
 {
     art_style s;
     for (int i = 0; i < 3; i++) {
         s.fill[i] = fill[i];
-        s.outer[i] = s.inner[i] = s.mark[i] = INK[i];
+        s.outer[i] = s.inner[i] = s.mark[i] = (lt ? INK_L : INK)[i];
     }
     s.light = light;
     s.line = line;
@@ -263,7 +268,12 @@ static void paint_plate(uint8_t *o, int w, int h, const uint8_t rgb[3], float k,
     puz_bevel(o, w, h, 0.16f * m, fmaxf(1.5f, 0.07f * m), 0.4f);
 }
 
-static void paint_walnut(uint8_t *o, int w, int h, float k) { paint_plate(o, w, h, WALNUT, k, 0.12f); }
+/* a part's plaque: walnut (the light theme: grey-blue enamel, a faint grain) */
+static void paint_walnut(uint8_t *o, int w, int h, float k)
+{
+    if (lt) paint_plate(o, w, h, ENAMEL, k, 0.03f);
+    else paint_plate(o, w, h, WALNUT, k, 0.12f);
+}
 
 /* a place along a side of n pixels on a small square board's side of s: the ends as they are, the middle folded back
  * and forth over a stretch of the small board's side (whole folds: it ends where the end begins) */
@@ -365,7 +375,11 @@ static void gate_word(uint8_t *o, int w, int h, int kind, float cx, float cy, fl
         if (total <= maxw || pass) break;
         em *= maxw / total;
     }
-    const uint8_t edge[3] = {255, 238, 176}, cut[3] = {lit ? 92 : 46, lit ? 52 : 30, lit ? 8 : 12};
+    uint8_t edge[3] = {255, 238, 176}, cut[3] = {lit ? 92 : 46, lit ? 52 : 30, lit ? 8 : 12};
+    if (lt && !lit) {                           /* (the light theme: cut in slate ink in the steel) */
+        memcpy(cut, (uint8_t[3]){28, 36, 48}, 3);
+        memcpy(edge, (uint8_t[3]){236, 242, 250}, 3);
+    }
     for (int layer = 0; layer < 2; layer++) {   /* the light edge a pixel low, then the cut */
         float x = cx - total / 2;
         int dy = layer ? 0 : (int)fmaxf(1, 0.06f * em);
@@ -480,7 +494,7 @@ static void gate_name(uint8_t *o, int w, int h, int turn, int kind, int lit)
 static void paint_gate(int kind, int lit, int w, int h, float lw, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
-    art_style st = style(lit ? GOLD : BRASS, 0.4f, fmaxf(1.0f, 0.03f * fminf(w, h)));
+    art_style st = style(lit ? GOLD : lt ? STEEL : BRASS, 0.4f, fmaxf(1.0f, 0.03f * fminf(w, h)));
     fig *f = fig_new();
     float xl = 0.1f * w, xr = 0.9f * w, xc = 0.5f * w, yb = 0.94f * h, yt = 0.07f * h;
     int bubble = kind == LG_NOT || kind == LG_NAND || kind == LG_NOR;
@@ -532,8 +546,9 @@ static void paint_route(int way, int lit, int w, int h, float off, float lw, uin
     memset(o, 0, (size_t)w * h * 4);
     float xc = w / 2.0f, yj = 0.62f * h, ya = 0.3f * h;
     for (int pass = 0; pass < 2; pass++) {
-        const uint8_t groove[3] = {30, 20, 12};
-        art_style st = style(pass ? (lit ? GOLD : BRASS) : groove, pass ? 0.4f : 0, pass ? fmaxf(1, 0.025f * w) : 0);
+        static const uint8_t groove_d[3] = {30, 20, 12}, groove_l[3] = {64, 76, 92};
+        const uint8_t *groove = lt ? groove_l : groove_d;
+        art_style st = style(pass ? (lit ? GOLD : lt ? STEEL : BRASS) : groove, pass ? 0.4f : 0, pass ? fmaxf(1, 0.025f * w) : 0);
         fig *f = fig_new();
         float t = pass ? lw * 0.75f : lw * 0.45f;
         for (int side = -1; side <= 1; side += 2) {
@@ -567,8 +582,8 @@ static void paint_switch(int on, int w, int h, uint8_t *o)
             if (cxd * cxd + cyd * cyd > r * r) continue;
             uint8_t *p = o + 4 * (y * w + x);
             float depth = clampf((y - y0) / (y1 - y0), 0, 1);
-            const uint8_t *c = on ? GOLD : INK;
-            float k = on ? 0.65f + 0.35f * depth : 0.7f;
+            const uint8_t *c = on ? GOLD : lt ? INK_L : INK;
+            float k = on ? 0.65f + 0.35f * depth : lt ? 1.0f : 0.7f;
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)(c[i] * k);
         }
 }
@@ -603,7 +618,9 @@ static void paint_lock(int w, int h, uint8_t *o)
 static void paint_lamp(int alarm, int lit, int w, int h, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
-    const uint8_t brass[3] = {176, 140, 70}, glass[3] = {150, 166, 156}, warm[3] = {255, 238, 150},
+    static const uint8_t brass_d[3] = {176, 140, 70}, glass_d[3] = {150, 166, 156}, steel[3] = {168, 180, 194},
+                         glass_l[3] = {156, 172, 184};   /* (the light theme: a steel socket, a cool glass) */
+    const uint8_t *brass = lt ? steel : brass_d, *glass = lt ? glass_l : glass_d, warm[3] = {255, 238, 150},
                   red_off[3] = {112, 34, 28}, red_on[3] = {244, 70, 46};
     float xc = w / 2.0f, sb = 0.3f * h, r = fminf(0.48f * w, 0.36f * h);
     art_style sk = style(brass, 0.5f, fmaxf(1, 0.025f * w));
@@ -660,7 +677,9 @@ static void paint_lamp(int alarm, int lit, int w, int h, uint8_t *o)
 static void paint_post(int lit, int d, uint8_t *o)
 {
     memset(o, 0, (size_t)d * d * 4);
-    const uint8_t brass[3] = {196, 156, 76}, head[3] = {170, 132, 62}, gold[3] = {255, 214, 110},
+    static const uint8_t brass_d[3] = {196, 156, 76}, head_d[3] = {170, 132, 62}, steel[3] = {178, 190, 204},
+                         head_l[3] = {146, 160, 176};   /* (the light theme: steel, gold when lit) */
+    const uint8_t *brass = lt ? steel : brass_d, *head = lt ? head_l : head_d, gold[3] = {255, 214, 110},
                   gold2[3] = {236, 184, 70};
     float c = d / 2.0f, m = fmaxf(1, 0.05f * d);
     for (int part = 0; part < 2; part++) {
@@ -917,7 +936,7 @@ static void draw_board(void)
 /* the parts' sizes for the columns and rows; the pictures made at that size dropped (painted again when drawn) */
 static void part_textures(void)
 {
-    int key = ((int)(cw * 8) * 8192 + (int)(ch * 8)) * 2 + turned;
+    int key = (((int)(cw * 8) * 8192 + (int)(ch * 8)) * 2 + turned) * 2 + TH.dark;   /* (the theme: their look) */
     if (made_parts == key) return;
     made_parts = key;
     float m = fminf(cw, ch);
@@ -953,7 +972,12 @@ static SDL_Texture *plaque_tex(void)
 {
     int w = (int)pw, h = (int)ph;
     uint8_t *b;
-    if (!t_plaque && (b = calloc((size_t)w * h, 4))) { paint_walnut(b, w, h, 1.0f); t_plaque = tex_up(w, h, b); }
+    if (!t_plaque && (b = calloc((size_t)w * h, 4))) {
+        lt = light();
+        paint_walnut(b, w, h, 1.0f);
+        lt = 0;
+        t_plaque = tex_up(w, h, b);
+    }
     return t_plaque;
 }
 
@@ -965,6 +989,7 @@ static SDL_Texture *gate_tex(int k, int lit, int wide3)
     if (*t || !(b = calloc((size_t)gw * gh, 4))) return *t;
     name_size = name_em;
     plain = turned;                             /* turned: the name painted level, after the turn */
+    lt = light();
     paint_gate(k, lit, gw, gh, tw, b);
     plain = 0;
     if (turned) {
@@ -974,6 +999,7 @@ static SDL_Texture *gate_tex(int k, int lit, int wide3)
     } else {
         *t = tex_buf(gw, gh, b);
     }
+    lt = 0;
     name_size = 0;
     return *t;
 }
@@ -984,7 +1010,9 @@ static SDL_Texture *route_tex(int way, int lit)
     int w = (int)pw, h = (int)ph;
     uint8_t *b;
     if (!*t && (b = calloc((size_t)w * h, 4))) {
+        lt = light();
         paint_route(way, lit, w, h, 0.18f * cw, tw, b);
+        lt = 0;
         *t = tex_up(w, h, b);
     }
     return *t;
@@ -994,7 +1022,9 @@ static SDL_Texture *switch_tex(int on)
 {
     uint8_t *b;
     if (!t_switch[on] && (b = calloc((size_t)sw_w * sw_h, 4))) {
+        lt = light();
         paint_switch(on, (int)sw_w, (int)sw_h, b);
+        lt = 0;
         t_switch[on] = tex_up((int)sw_w, (int)sw_h, b);
     }
     return t_switch[on];
@@ -1004,7 +1034,12 @@ static SDL_Texture *lock_tex(void)
 {
     int w = (int)(sw_w * 1.12f), h = (int)(sw_w * 0.42f);
     uint8_t *b;
-    if (!t_lock && (b = calloc((size_t)w * h, 4))) { paint_lock(w, h, b); t_lock = tex_up(w, h, b); }
+    if (!t_lock && (b = calloc((size_t)w * h, 4))) {
+        lt = light();
+        paint_lock(w, h, b);
+        lt = 0;
+        t_lock = tex_up(w, h, b);
+    }
     return t_lock;
 }
 
@@ -1013,7 +1048,9 @@ static SDL_Texture *lamp_tex(int alarm, int lit)
     SDL_Texture **t = &t_lamp[alarm][lit];
     uint8_t *b;
     if (!*t && (b = calloc((size_t)lamp_w * lamp_h, 4))) {
+        lt = light();
         paint_lamp(alarm, lit, (int)lamp_w, (int)lamp_h, b);
+        lt = 0;
         *t = tex_up((int)lamp_w, (int)lamp_h, b);
     }
     return *t;
@@ -1023,7 +1060,12 @@ static SDL_Texture *post_tex(int lit)
 {
     int d = (int)post_d;
     uint8_t *b;
-    if (!t_post[lit] && (b = calloc((size_t)d * d, 4))) { paint_post(lit, d, b); t_post[lit] = tex_buf(d, d, b); }
+    if (!t_post[lit] && (b = calloc((size_t)d * d, 4))) {
+        lt = light();
+        paint_post(lit, d, b);
+        lt = 0;
+        t_post[lit] = tex_buf(d, d, b);
+    }
     return t_post[lit];
 }
 
@@ -2046,8 +2088,9 @@ static void bar(int player, box b)
     if (setup) return;                          /* nothing to count yet */
     float u = ui.unit, cy = b.y + b.h / 2;
     int sz = (int)(0.6f * u);
-    if (made_bar != sz) {                       /* the pictures, square */
-        made_bar = sz;
+    if (made_bar != sz * 2 + TH.dark) {         /* the pictures, square (the theme: their look) */
+        made_bar = sz * 2 + TH.dark;
+        lt = light();
         static const uint8_t gold[3] = {255, 200, 80};
         int w = (int)(0.5f * sz), kd = (int)(0.66f * w);
         uint8_t *bf = calloc((size_t)sz * sz, 4), *k = calloc((size_t)kd * kd, 4), *p = calloc((size_t)sz * sz, 4);
@@ -2061,10 +2104,12 @@ static void bar(int player, box b)
             paint_cable_pic(sz, sz, bf);        /* a cable */
             ui_free(&t_bar_fuse);
             t_bar_fuse = ui_tex(sz, sz, bf);
+            lt = 0;
             paint_star(sz, gold, bf);           /* a star */
             ui_free(&t_bar_star);
             t_bar_star = ui_tex(sz, sz, bf);
         }
+        lt = 0;
         free(bf);
         free(k);
         free(p);
@@ -2099,6 +2144,7 @@ static void bar(int player, box b)
 static void circuit_thumb(int variant, int size, int pale, uint8_t *rgba)
 {
     int nsw = 4 + 2 * variant;
+    lt = pale;                                  /* (the parts: the light theme's look on the ivory) */
     paint_board(size, size, (int)(0.045f * size), pale, rgba);
     const uint8_t *gold = pale ? GOLD_L : GOLD;   /* (the lit traces: deep amber on the ivory) */
     float S = (float)size, in = 0.1f * S, t = fmaxf(2, 0.022f * S);
@@ -2113,7 +2159,7 @@ static void circuit_thumb(int variant, int size, int pale, uint8_t *rgba)
     float gap = (ys - yl) / rows, pw = fminf(0.8f * (S - 2 * in) / nsw * 2, 0.2f * S), ph = 0.45f * gap;
     float sw = fminf(0.6f * (S - 2 * in) / nsw, 0.13f * S), sh = 1.5f * sw;
     uint8_t *b = calloc((size_t)size * size, 4);
-    if (!b) return;
+    if (!b) { lt = 0; return; }
     /* the traces: each part's output up to the gap, across, up into its gate */
     for (int r = 0; r < rows; r++) {
         float ybot = r ? ys - r * gap : ys, ytop = ys - (r + 1) * gap + ph, ym = (ybot + ytop) / 2;
@@ -2167,6 +2213,7 @@ static void circuit_thumb(int variant, int size, int pale, uint8_t *rgba)
     }
     free(k);
     free(b);
+    lt = 0;
 }
 
 /* ---- random play's setup screen -----------------------------------------------------------------------------------
@@ -2192,7 +2239,7 @@ static void paint_part_tile(int k, int on, int w, int h, uint8_t *o)
     uint8_t *b = calloc((size_t)w * h, 4), *k2 = calloc((size_t)w * h, 4);
     if (!b || !k2) { free(b); free(k2); return; }
     float lw = fmaxf(2, roundf(0.045f * w));
-    const uint8_t *lead = on ? GOLD : TRACE;
+    const uint8_t *lead = on ? GOLD : lt ? TRACE_L : TRACE;
     if (k < LG_C_GATES) {                       /* a gate, its inputs' leads rising into it */
         static const int KIND[LG_C_GATES] = {LG_AND, LG_OR, LG_NOT, LG_XOR, LG_NAND, LG_NOR};
         int gw = (int)(0.8f * w), gh = (int)(0.78f * h), gx = (w - gw) / 2, gy = (int)(0.07f * h);
@@ -2274,7 +2321,9 @@ static void setup_textures(void)
         for (int on = 0; on < 2; on++) {
             ui_free(&t_part[k][on]);
             uint8_t *b = calloc((size_t)w * h, 4);
+            lt = light();
             if (b) { paint_part_tile(k, on, w, h, b); t_part[k][on] = tex_buf(w, h, b); }
+            lt = 0;
         }
     for (int v = 0; v < LG_RANDOM; v++) {
         ui_free(&t_size[v]);
@@ -2379,9 +2428,9 @@ static void setup_draw(void)
         ui_shadow_flat(cx + 0.03f * b.w, cy + 0.04f * b.w, b.w, b.h, on ? 0.6f : 0.35f);
         SDL_Texture *t = t_part[k][on];
         if (!t) continue;
-        Uint8 m = on ? 255 : 120;
+        Uint8 m = on ? 255 : light() ? 196 : 120;   /* (the light theme: left out greyed, not dark on the ivory) */
         SDL_SetTextureColorMod(t, m, m, m);
-        SDL_SetTextureAlphaMod(t, on ? 255 : 215);
+        SDL_SetTextureAlphaMod(t, on ? 255 : light() ? 190 : 215);
         ui_put(t, b.x, b.y, b.w, b.h);
         SDL_SetTextureColorMod(t, 255, 255, 255);
         SDL_SetTextureAlphaMod(t, 255);
