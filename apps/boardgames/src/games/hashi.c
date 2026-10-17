@@ -290,13 +290,15 @@ static void planks(int l, int count, float alpha, int gold)
     float mx = (ax + cx) / 2, my = (ay + cy) / 2;
     if (gold) SDL_SetTextureColorMod(t_plank, 255, 226, 150);
     SDL_SetTextureAlphaMod(t_plank, (Uint8)(255 * alpha));
+    float u = alpha < 1 ? 0 : bench_pop(&pop, l, 1) - 1;   /* a plank just laid: it stretches out, settling */
     for (int k = 0; k < count; k++) {
         float o = count == 2 ? (k ? gap : -gap) : 0;
         float px = across ? mx : mx + o, py = across ? my + o : my;
-        float sw = across ? len : th, sh = across ? th : len;
+        float ln = k == count - 1 ? len * (1 - 0.55f * u) : len, tk = k == count - 1 ? th * (1 + 0.35f * u) : th;
+        float sw = across ? ln : tk, sh = across ? tk : ln;
         ui_fill(px - sw / 2 + 0.05f * q, py - sh / 2 + 0.06f * q, sw, sh, 20, 12, 6, (Uint8)(70 * alpha));
-        if (across) ui_put_c(t_plank, px, py, len, th);
-        else ui_put_rot(t_plank, px, py, len, th, 90);
+        if (across) ui_put_c(t_plank, px, py, ln, tk);
+        else ui_put_rot(t_plank, px, py, ln, tk, 90);
     }
     SDL_SetTextureAlphaMod(t_plank, 255);
     SDL_SetTextureColorMod(t_plank, 255, 255, 255);
