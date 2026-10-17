@@ -26,6 +26,32 @@ static const rs_color title_ramps[2][3] = {
 
 static const int DX[4] = {1, 0, -1, 0}, DY[4] = {0, 1, 0, -1};
 static int shown_key = -1, shown_best = -1;
+/* a tall screen (rs_screen_tall: a phone held upright): the garden's scroll this frame, for the lawn the raster draws
+ * past the stage's 240 lines (not saved: set by draw_frame before every picture) */
+static int lawn_sx, lawn_sy;
+
+/* A tall screen's lines past the stage (DESIGN.md "Tall screen"): more lawn above and below the bed. BG4 shows the
+ * lawn of the stage's top 32 lines (above the bed's frame) again, every 32 lines, shifted sideways band by band so
+ * its flowers and stones never line up; the other layers and the sprites are hidden there (window 1 over the whole
+ * width). Line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+static void raster(int line, void *user)
+{
+    (void)user;
+    if (line == 0) {
+        for (int l = RS_BG1; l <= RS_BG3; l++) rs_bg_window(l, 0);
+        rs_obj_window(0);
+        rs_bg_scroll(RS_BG4, lawn_sx, lawn_sy);
+        return;
+    }
+    if (line > 0 && line < RS_SCREEN_H) return;
+    if (line == rs_screen_top() || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        for (int l = RS_BG1; l <= RS_BG3; l++) rs_bg_window(l, RS_WIN1);
+        rs_obj_window(RS_WIN1);
+    }
+    int band = line >= 0 ? line / 32 : -((31 - line) / 32);     /* floor(line / 32) */
+    rs_bg_scroll(RS_BG4, (lawn_sx + band * 168) & (rs_bg_map_w(RS_BG4) * 8 - 1), (lawn_sy - band * 32) & 255);
+}
 
 /* ---- the maps -------------------------------------------------------------------------------------------------------
  * The garden is a "stage panorama": PANO_W tiles from stage x PANO_X0 (-128) to 447, so every width up to 560 shows it
@@ -75,6 +101,7 @@ void draw_init(void)
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);          /* the caterpillar, P2, the props (the kit loaded OBJ 3) */
     rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 48);     /* P3, P4, the small things */
+    rs_raster(raster, NULL);                                /* a tall screen: the lawn past the stage */
 }
 
 /* ---- sprites -------------------------------------------------------------------------------------------------------- */
@@ -399,7 +426,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     hu_standing rs;
     standing(w, &rs);
     int pm = map_w() * 8 - 1;
-    rs_bg_scroll(RS_BG4, (-sx) & pm, (-sy) & 255);
+    lawn_sx = (-sx) & pm;
+    lawn_sy = (-sy) & 255;
+    rs_bg_scroll(RS_BG4, lawn_sx, lawn_sy);
     rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & 255);
     rs_bg_scroll(RS_BG2, (-sx) & pm, (-sy) & 255);
     obstacles(w, play);
@@ -446,5 +475,6 @@ void draw_state_loaded(void)
 void draw_state(void)
 {
     S(shown_key); S(shown_best);
+    RS_STATE_RASTER(raster);
 }
 #undef S

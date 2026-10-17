@@ -135,6 +135,12 @@ an out player's head blinks).
 screen (427 for 16:9, 520 for phones) shows more of the lawn on both sides; the bed and its grid are the same at every
 width (identical play). A state saved at one width loads at another (`draw_state_loaded` sets the maps up again).
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`, so the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are
+the same pixels, centred; the raster (draw.c) draws the lines past it: more lawn above and below the bed (the lawn of
+the stage's top 32 lines, repeated every 32 lines and shifted sideways band by band), the other layers and the
+sprites hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, a caterpillar inching along with a leaf ahead, the player slots, PRESS A TO CRAWL with the A glyph,
 BEST, the join line, the copyright line) -> P1 presses A (or the d-pad, or taps) -> play (1 player: it crawls at once;

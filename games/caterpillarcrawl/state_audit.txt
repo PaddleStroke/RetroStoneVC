@@ -3,3 +3,5 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.lawn_sx        a tall screen: the garden's scroll for the lawn past the stage, set by draw_frame before every picture
+draw.lawn_sy        ... the same
