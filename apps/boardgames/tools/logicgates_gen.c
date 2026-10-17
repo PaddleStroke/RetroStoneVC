@@ -1,12 +1,16 @@
 /*
  * Logic Gates' levels, made by chance and chosen: src/games/logicgates_levels.h. Our own levels: no published set is
- * used. The levels that bring a new gate or part are drawn by hand (one gentle idea each); the others come from the
- * rules' generator (lg_make, logicgates.h), band by band, in the order of the plan below:
+ * used. The levels that bring a new gate or part are drawn by hand (one gentle idea each), and so are a few with a
+ * known idea, the chapters' showpieces among them: the majority vote, an XOR made of AND, OR and NOT, exactly one
+ * switch of three, a full adder, numbers added or multiplied, four NANDs (or NORs) making an XOR (an equals sign).
+ * The others come from the rules' generator (lg_make, logicgates.h), band by band, in the order of the plan below:
  *   - each band asks for circuits of its size: switches, the gates it may use, route switches, cuttable wires, lamps,
  *     alarm lamps, its par;
  *   - lg_make keeps a circuit when it is a puzzle: few settings solve it (counting the route switches and the cuts),
  *     no gate's output the same in every setting, every gate matters, no switch that never matters (one at most in
  *     the last chapter), a start at the par asked for with not every lamp lit, a clear drawing with few crossings;
+ *   - the tool keeps only ONE circuit (one_circuit): no two or three small ones side by side, and from five switches
+ *     on, a signal shared by two gates (the bands ask for many branchings);
  *   - its par is exact (every setting of the switches, route switches and cuts tried), its difficulty rated
  *     (lg_rate: the par, the parts that matter, the gates, the depth, XORs, branchings, route switches, cables, alarms,
  *     lamps; fewer for many solutions);
@@ -48,96 +52,124 @@ static const step PLAN[] = {
     /* 1 (40 levels, the free edition's): AND and OR up to 8 switches, alarm lamps; then NOT */
     {0, "s@a1 s@c1 AND@b2(a1,c1) L@b3(b2)", 0, {0}},                                   /* AND: both on */
     {0, "s@a1 s@b1 s@c1 OR@a2(a1,b1) AND@b3(a2,c1) L@b4(b3)", 0, {0}},                  /* OR: either */
-    {0, NULL, 2, {.sw_lo = 3, .sw_hi = 3, .gates_lo = 2, .gates_hi = 3, .kinds = AO, .lamps = 1, .fan = 10,
+    {0, NULL, 2, {.sw_lo = 3, .sw_hi = 3, .gates_lo = 2, .gates_hi = 3, .kinds = AO, .lamps = 1, .fan = 30,
                   .depth_lo = 2, .depth_hi = 2, .par_lo = 2, .par_hi = 3, .sols = 2}},
     {0, "s@a1 S@c1 S@e1 OR@b2(a1,c1) AND@d2(c1,e1) L@b3(b2) A@d3(d2)", 0, {0}},         /* an alarm: keep it dark */
     {0, NULL, 4, {.sw_lo = 4, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = AO, .lamps = 1, .alarms = 1,
-                  .alarm_need = 1, .fan = 20, .depth_lo = 2, .depth_hi = 3, .par_lo = 2, .par_hi = 3, .sols = 2,
+                  .alarm_need = 1, .fan = 40, .depth_lo = 2, .depth_hi = 3, .par_lo = 2, .par_hi = 3, .sols = 2,
                   .cross = 1}},
+    /* the majority vote, but not all three: three ANDs share the switches, the third switch closes the alarm */
+    {0, "s@a1 s@b1 s@c1 AND@a2(a1,b1) AND@b2(b1,c1) AND@c2(a1,c1) OR@a3(a2,b2) OR@a4(a3,c2) AND@c3(a2,c1) L@a5(a4) "
+        "A@c5(c3)", 0, {0}},
     {0, NULL, 5, {.sw_lo = 6, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = AO, .lamps = 2, .alarms = 1,
-                  .alarm_need = 1, .fan = 20, .depth_lo = 2, .depth_hi = 4, .par_lo = 2, .par_hi = 4, .sols = 2,
+                  .alarm_need = 1, .fan = 40, .depth_lo = 2, .depth_hi = 4, .par_lo = 2, .par_hi = 4, .sols = 2,
                   .cross = 1, .wide = 5.0f}},
-    {0, NULL, 6, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 5, .gates_hi = 9, .kinds = AO, .lamps = 2, .alarms = 1,
-                  .alarm_need = 1, .fan = 20, .depth_lo = 3, .depth_hi = 4, .par_lo = 3, .par_hi = 5, .sols = 3,
+    {0, NULL, 5, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 5, .gates_hi = 9, .kinds = AO, .lamps = 2, .alarms = 1,
+                  .alarm_need = 1, .fan = 40, .depth_lo = 3, .depth_hi = 4, .par_lo = 3, .par_hi = 5, .sols = 3,
                   .cross = 1, .wide = 5.5f}},
     {0, "S@a1 s@c1 NOT@a2(a1) AND@b3(a2,c1) L@b4(b3)", 0, {0}},                         /* NOT */
     {0, NULL, 5, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 4, .kinds = C1, .need = K(LG_NOT),
-                  .lamps = 1, .alarms = 1, .fan = 15, .nots = 30, .depth_lo = 2, .depth_hi = 3, .par_lo = 2,
+                  .lamps = 1, .alarms = 1, .fan = 35, .nots = 30, .depth_lo = 2, .depth_hi = 3, .par_lo = 2,
                   .par_hi = 3, .sols = 2, .cross = 1}},
-    {0, NULL, 6, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = C1, .need = K(LG_NOT),
-                  .lamps = 2, .alarms = 1, .fan = 20, .nots = 25, .depth_lo = 3, .depth_hi = 4, .par_lo = 3,
+    /* one or the other, not both, made of OR, AND and NOT; the third switch lets it through */
+    {0, "S@a1 S@b1 s@c1 OR@a2(a1,b1) AND@b2(a1,b1) NOT@b3(b2) AND@a4(a2,b3) AND@b5(a4,c1) L@b6(b5)", 0, {0}},
+    {0, NULL, 5, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = C1, .need = K(LG_NOT),
+                  .lamps = 2, .alarms = 1, .fan = 40, .nots = 25, .depth_lo = 3, .depth_hi = 4, .par_lo = 3,
                   .par_hi = 4, .sols = 2, .cross = 1, .wide = 5.0f}},
-    {0, NULL, 8, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 6, .gates_hi = 9, .kinds = C1, .need = K(LG_NOT),
-                  .lamps = 2, .alarms = 1, .fan = 20, .nots = 20, .depth_lo = 3, .depth_hi = 5, .par_lo = 3,
+    {0, NULL, 7, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 6, .gates_hi = 9, .kinds = C1, .need = K(LG_NOT),
+                  .lamps = 2, .alarms = 1, .fan = 40, .nots = 20, .depth_lo = 3, .depth_hi = 5, .par_lo = 3,
                   .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f}},
+    /* the chapter's showpiece: the lamp lights when exactly one switch of three is on (any, but no pair) */
+    {0, "S@a1 S@b1 S@c1 OR@a2(a1,b1) AND@b2(a1,b1) AND@c2(b1,c1) AND@d2(a1,c1) OR@a3(a2,c1) OR@b3(b2,c2) "
+        "OR@c4(b3,d2) NOT@c5(c4) AND@b6(a3,c5) L@b7(b6)", 0, {0}},
     /* 2: XOR, locked switches */
     {1, "S@a1 S@b1 s@c1 XOR@a2(a1,b1) AND@b3(a2,c1) L@b4(b3)", 0, {0}},                 /* XOR: one, not both */
     {1, "K@a1 S@b1 s@c1 XOR@a2(a1,b1) AND@b3(a2,c1) L@b4(b3)", 0, {0}},                 /* a locked switch */
-    {1, NULL, 7, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = C2, .need = K(LG_XOR),
-                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 15, .nots = 15, .depth_lo = 2, .depth_hi = 3,
+    {1, NULL, 6, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = C2, .need = K(LG_XOR),
+                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 35, .nots = 15, .depth_lo = 2, .depth_hi = 3,
                   .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1}},
-    {1, NULL, 8, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = C2, .need = K(LG_XOR),
-                  .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 15, .depth_lo = 3, .depth_hi = 4,
+    /* exactly one switch on: two XORs light at one or three, the ANDs beside them watch for three */
+    {1, "S@a1 S@b1 S@c1 XOR@a2(a1,b1) AND@b2(a1,b1) XOR@a3(a2,c1) AND@b3(b2,c1) L@a4(a3) A@b4(b3)", 0, {0}},
+    {1, NULL, 7, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = C2, .need = K(LG_XOR),
+                  .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 15, .depth_lo = 3, .depth_hi = 4,
                   .par_lo = 3, .par_hi = 4, .sols = 2, .cross = 1, .wide = 5.0f}},
-    {1, NULL, 8, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 6, .gates_hi = 10, .kinds = C2, .need = K(LG_XOR),
-                  .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 15, .depth_lo = 3, .depth_hi = 5,
+    /* a full adder: the carry lamp lit, the sum's dark (two switches of three) */
+    {1, "s@a1 s@b1 s@c1 XOR@a2(a1,b1) AND@b2(a1,b1) XOR@a3(a2,c1) AND@c3(a2,c1) OR@b4(b2,c3) A@a5(a3) L@b5(b4)", 0,
+     {0}},
+    {1, NULL, 7, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 6, .gates_hi = 10, .kinds = C2, .need = K(LG_XOR),
+                  .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 15, .depth_lo = 3, .depth_hi = 5,
                   .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f}},
+    /* the showpiece: two numbers of two bits added; the lamps read 5 (1 0 1) */
+    {1, "s@a1 s@b1 s@c1 s@d1 XOR@a2(a1,b1) AND@b2(a1,b1) XOR@c2(c1,d1) AND@d2(c1,d1) XOR@a3(a2,d2) AND@b3(a2,d2) "
+        "OR@b4(b2,b3) A@a5(a3) L@b5(b4) L@c5(c2)", 0, {0}},
     /* 3: NAND, route switches */
     {2, "S@a1 S@c1 s@e1 NAND@b2(a1,c1) AND@c3(b2,e1) L@c4(c3)", 0, {0}},               /* NAND */
-    {2, NULL, 6, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = C3, .need = K(LG_NAND),
-                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 15, .nots = 15, .depth_lo = 2, .depth_hi = 3,
+    {2, NULL, 5, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = C3, .need = K(LG_NAND),
+                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 35, .nots = 15, .depth_lo = 2, .depth_hi = 3,
                   .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1}},
+    /* four NANDs make an XOR (one of the two, not both), the third switch lets it through */
+    {2, "S@a1 S@b1 s@c1 NAND@b2(a1,b1) NAND@a3(a1,b2) NAND@c3(b1,b2) NAND@b4(a3,c3) AND@b5(b4,c1) L@b6(b5)", 0, {0}},
     {2, "S@b1 y@b2(b1) A@a3(b2<) L@c3(b2>)", 0, {0}},                                  /* a route switch */
     {2, "S@a1 S@c1 Y@c2(c1) AND@b3(a1,c2<) L@b4(b3) A@d3(c2>)", 0, {0}},
     {2, NULL, 6, {.sw_lo = 4, .sw_hi = 6, .gates_lo = 3, .gates_hi = 6, .kinds = C3, .routes_lo = 1,
-                  .routes_hi = 1, .lamps = 1, .alarms = 1, .fan = 15, .nots = 15, .depth_lo = 2, .depth_hi = 4,
+                  .routes_hi = 1, .lamps = 1, .alarms = 1, .fan = 35, .nots = 15, .depth_lo = 2, .depth_hi = 4,
                   .par_lo = 2, .par_hi = 4, .sols = 2, .need_route = 1, .cross = 1, .wide = 5.0f}},
     {2, NULL, 5, {.sw_lo = 6, .sw_hi = 7, .gates_lo = 5, .gates_hi = 8, .kinds = C3, .need = K(LG_NAND),
-                  .routes_hi = 1, .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 15, .depth_lo = 3,
+                  .routes_hi = 1, .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 15, .depth_lo = 3,
                   .depth_hi = 4, .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f}},
     {2, NULL, 5, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 7, .gates_hi = 10, .kinds = C3, .need = K(LG_NAND),
-                  .routes_hi = 1, .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 15, .depth_lo = 3,
+                  .routes_hi = 1, .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 15, .depth_lo = 3,
                   .depth_hi = 5, .par_lo = 4, .par_hi = 6, .sols = 3, .cross = 2, .wide = 5.5f}},
     /* 4: NOR, cuttable wires */
     {3, "S@a1 S@c1 NOR@b2(a1,c1) L@b3(b2)", 0, {0}},                                   /* NOR */
-    {3, NULL, 6, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = ALL, .need = K(LG_NOR),
-                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 15, .nots = 15, .depth_lo = 2, .depth_hi = 3,
+    {3, NULL, 5, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = ALL, .need = K(LG_NOR),
+                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 35, .nots = 15, .depth_lo = 2, .depth_hi = 3,
                   .par_lo = 2, .par_hi = 3, .sols = 2, .cross = 1}},
+    /* four NORs make an equals sign (the two left switches alike), a fifth wants the two right ones off */
+    {3, "S@a1 s@b1 S@c1 s@d1 NOR@b2(a1,b1) NOR@a3(a1,b2) NOR@b3(b1,b2) NOR@a4(a3,b3) NOR@c2(c1,d1) AND@b5(a4,c2) "
+        "L@b6(b5)", 0, {0}},
     {3, "K@a1 NOT@a2(a1x) L@a3(a2)", 0, {0}},                                          /* a cable to cut */
     {3, "%1 K@a1 S@c1 NOR@b2(a1x,c1x) L@b3(b2)", 0, {0}},                              /* one cut for two */
     {3, NULL, 6, {.sw_lo = 4, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = ALL, .fuses_lo = 1, .fuses_hi = 2,
-                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 20, .nots = 10, .depth_lo = 2, .depth_hi = 4,
+                  .lamps = 1, .alarms = 1, .locked = 1, .fan = 40, .nots = 10, .depth_lo = 2, .depth_hi = 4,
                   .par_lo = 2, .par_hi = 4, .sols = 2, .need_cut = 1, .cross = 1, .wide = 5.0f}},
     {3, NULL, 5, {.sw_lo = 6, .sw_hi = 7, .gates_lo = 5, .gates_hi = 8, .kinds = ALL, .need = K(LG_NOR),
-                  .routes_hi = 1, .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 10,
+                  .routes_hi = 1, .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 10,
                   .depth_lo = 3, .depth_hi = 5, .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f}},
     {3, NULL, 5, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 7, .gates_hi = 10, .kinds = ALL, .need = K(LG_NOR),
-                  .routes_hi = 1, .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .fan = 20, .nots = 10,
+                  .routes_hi = 1, .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .fan = 40, .nots = 10,
                   .depth_lo = 3, .depth_hi = 5, .par_lo = 4, .par_hi = 6, .sols = 3, .cross = 2, .wide = 5.5f}},
     /* 5: three inputs, harder mixes, branchings, two lamps */
     {4, "s@a1 s@b1 s@c1 AND@b2(a1,b1,c1) L@b3(b2)", 0, {0}},                           /* three inputs */
     {4, "s@a1 s@b1 s@c1 s@d1 XOR@b2(a1,b1,c1) AND@c3(b2,d1) L@c4(c3)", 0, {0}},
-    {4, NULL, 7, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = ALL, .fuses_hi = 1, .lamps = 1,
-                  .alarms = 1, .locked = 1, .three = 40, .fan = 25, .nots = 10, .depth_lo = 2, .depth_hi = 4,
+    {4, NULL, 6, {.sw_lo = 5, .sw_hi = 6, .gates_lo = 4, .gates_hi = 7, .kinds = ALL, .fuses_hi = 1, .lamps = 1,
+                  .alarms = 1, .locked = 1, .three = 40, .fan = 40, .nots = 10, .depth_lo = 2, .depth_hi = 4,
                   .par_lo = 3, .par_hi = 4, .sols = 2, .cross = 1, .wide = 5.0f}},
+    /* two numbers of two bits multiplied: the lamps read 6 (1 1 0) */
+    {4, "s@a1 s@b1 s@c1 s@d1 AND@a2(a1,d1) AND@b2(b1,c1) AND@c2(a1,c1) AND@d2(b1,d1) XOR@a3(a2,b2) AND@b3(a2,b2) "
+        "XOR@c4(c2,b3) L@a5(a3) L@c5(c4) A@d5(d2)", 0, {0}},
     {4, NULL, 8, {.sw_lo = 6, .sw_hi = 7, .gates_lo = 6, .gates_hi = 9, .kinds = ALL, .routes_hi = 1, .fuses_hi = 2,
-                  .lamps = 2, .alarms = 1, .locked = 1, .three = 35, .fan = 30, .nots = 10, .depth_lo = 3,
+                  .lamps = 2, .alarms = 1, .locked = 1, .three = 35, .fan = 45, .nots = 10, .depth_lo = 3,
                   .depth_hi = 5, .par_lo = 3, .par_hi = 5, .sols = 3, .cross = 2, .wide = 5.5f}},
-    {4, NULL, 8, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 8, .gates_hi = 12, .kinds = ALL, .routes_hi = 1,
-                  .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .three = 30, .fan = 30, .nots = 10,
+    {4, NULL, 7, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 8, .gates_hi = 12, .kinds = ALL, .routes_hi = 1,
+                  .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .three = 30, .fan = 45, .nots = 10,
                   .depth_lo = 4, .depth_hi = 5, .par_lo = 5, .par_hi = 7, .sols = 4, .cross = 3, .wide = 6.0f}},
+    /* the showpiece: two full adders in a row, two numbers of two bits and a carry in added, the carry rippling
+     * through; the lamps read 6 (1 1 0) */
+    {4, "s@a1 s@b1 s@c1 s@d1 s@e1 XOR@b2(b1,c1) AND@c2(b1,c1) XOR@a3(a1,b2) AND@b3(a1,b2) OR@b4(c2,b3) "
+        "XOR@d2(d1,e1) AND@e2(d1,e1) XOR@c5(b4,d2) AND@d5(b4,d2) OR@e6(e2,d5) A@a7(a3) L@c7(c5) L@e7(e6)", 0, {0}},
     /* 6: everything, 7 and 8 switches */
     {5, NULL, 8, {.sw_lo = 7, .sw_hi = 8, .gates_lo = 8, .gates_hi = 11, .kinds = ALL, .routes_lo = 1,
                   .routes_hi = 2, .fuses_lo = 1, .fuses_hi = 2, .lamps = 2, .alarms = 1, .locked = 1, .three = 15,
-                  .fan = 25, .nots = 10, .depth_lo = 3, .depth_hi = 5, .par_lo = 4, .par_hi = 6, .sols = 4,
+                  .fan = 40, .nots = 10, .depth_lo = 3, .depth_hi = 5, .par_lo = 4, .par_hi = 6, .sols = 4,
                   .herrings = 1, .cross = 3, .wide = 6.0f}},
     {5, NULL, 9, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 9, .gates_hi = 12, .kinds = ALL, .routes_lo = 1,
                   .routes_hi = 2, .fuses_lo = 1, .fuses_hi = 3, .lamps = 2, .alarms = 1, .locked = 1, .three = 15,
-                  .fan = 25, .nots = 10, .depth_lo = 4, .depth_hi = 6, .par_lo = 5, .par_hi = 7, .sols = 4,
+                  .fan = 40, .nots = 10, .depth_lo = 4, .depth_hi = 6, .par_lo = 5, .par_hi = 7, .sols = 4,
                   .herrings = 1, .cross = 4, .wide = 6.0f}},
     {5, NULL, 8, {.sw_lo = 8, .sw_hi = 8, .gates_lo = 10, .gates_hi = 14, .kinds = ALL, .routes_lo = 2,
                   .routes_hi = 2, .fuses_lo = 2, .fuses_hi = 3, .lamps = 2, .alarms = 1, .locked = 1, .three = 15,
-                  .fan = 25, .nots = 10, .depth_lo = 4, .depth_hi = 6, .par_lo = 6, .par_hi = 8, .sols = 4,
+                  .fan = 40, .nots = 10, .depth_lo = 4, .depth_hi = 6, .par_lo = 6, .par_hi = 8, .sols = 4,
                   .herrings = 1, .cross = 4, .wide = 6.5f}},
 };
 #define NPLAN (int)(sizeof PLAN / sizeof PLAN[0])
@@ -185,7 +217,23 @@ static int by_score_only(const void *a, const void *b)
     return x < y ? -1 : x > y;
 }
 
+/* one circuit, not two or three side by side: every part joined to every other by the wires; and from five
+ * switches on, a signal shared (a switch or a gate feeding two gates), so that the parts work together */
+static int one_circuit(const lg_level *L, const lg_rating *r)
+{
+    int root[LG_NODES], parts = L->nn;
+    for (int i = 0; i < L->nn; i++) root[i] = i;
+    for (int w = 0; w < L->nw; w++) {
+        int a = L->w[w].from, b = L->w[w].to;
+        while (root[a] != a) a = root[a];
+        while (root[b] != b) b = root[b];
+        if (a != b) { root[a] = b; parts--; }
+    }
+    return parts == 1 && (r->sw < 5 || r->fans > 0);
+}
+
 #define POOL 400
+#define SEEDS 30000                             /* the seeds tried a band */
 
 int main(void)
 {
@@ -209,7 +257,8 @@ int main(void)
         }
         /* the candidates: unlike any kept and any other candidate */
         int np = 0, want = 12 * P->count;
-        for (uint32_t seed = 1000u * (uint32_t)(b + 1); seed < 1000u * (uint32_t)(b + 1) + 6000 && np < want; seed++) {
+        for (uint32_t seed = 100000u * (uint32_t)(b + 1); seed < 100000u * (uint32_t)(b + 1) + SEEDS && np < want;
+             seed++) {
             level *p = &pool[np];
             if (!lg_make(seed, &P->sp, 300, p->text, sizeof p->text, &p->r) || repeat(&p->r, c)) continue;
             int dup = 0;
@@ -217,7 +266,7 @@ int main(void)
                 const lg_rating *k = &pool[i].r;
                 dup = k->structure == p->r.structure || (k->shape == p->r.shape && k->func == p->r.func);
             }
-            if (dup || !lg_parse(p->text, &L, NULL, 0)) continue;
+            if (dup || !lg_parse(p->text, &L, NULL, 0) || !one_circuit(&L, &p->r)) continue;
             p->width = L.width;
             p->chapter = 0;
             np++;
@@ -271,10 +320,13 @@ int main(void)
         kept[i].r.crossings = L.crossings;
     }
     printf("/*\n");
-    printf(" * Logic Gates: the 150 levels (the format: logicgates.h), 25 a chapter, and their pars (the fewest\n");
-    printf(" * moves; the tests check them). Made by tools/logicgates_gen.c (do not edit by hand): the levels\n");
-    printf(" * bringing a new gate or part drawn by hand, the others by the generator (lg_make), chosen evenly\n");
-    printf(" * over their difficulty and laid out from the easiest; no two the same circuit. After each circuit,\n");
+    printf(" * Logic Gates: the %d levels (the format: logicgates.h), %d in chapter 1 and %d in each other, and\n",
+           LG_LEVELS, LG_FIRST_CHAPTER, LG_PER_CHAPTER);
+    printf(" * their pars (the fewest moves; the tests check them). Made by tools/logicgates_gen.c (do not edit\n");
+    printf(" * by hand): the levels bringing a new gate or part and the chapters' showpieces (adders, majority\n");
+    printf(" * vote, exactly one of three...) drawn by hand, the others by the generator (lg_make), each one\n");
+    printf(" * circuit with shared signals, chosen evenly over their difficulty and laid out from the easiest;\n");
+    printf(" * no two the same circuit. After each circuit,\n");
     printf(" * its drawing (\" |\": each part's row, each row's order), searched by the tool.\n");
     static const char *const GATES[LG_CHAPTERS] = {
         "AND, OR, then NOT", "+ XOR", "+ NAND", "+ NOR", "+ three inputs", "everything"};
