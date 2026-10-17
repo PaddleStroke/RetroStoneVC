@@ -10,7 +10,45 @@ static rs_color line_col[240];
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffd2df),RS_HEX(0xee88bb),RS_HEX(0xab4b80)},
  {RS_HEX(0xddf4a4),RS_HEX(0xa9cf64),RS_HEX(0x5f954b)}};
-static void raster(int y,void*u){(void)u;rs_pal_set(0,line_col[y]);}
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's 240 lines in the middle;
+ * the lines past them are the raster's. Above: the canopy goes on (BG3's lines TALL_CANOPY_Y .. + TALL_CANOPY,
+ * mirrored up from the stage's edge, then down, up...: no seam), darker toward the top (TALL_CANOPY_DARK); below: a
+ * forest pool, the forest mirrored in it (BG3 read upward from the stage's last line, the hills' palette and the mist
+ * tinted toward TALL_WATER, a ripple shifting every 4 lines of 8).
+ * The UI, the vine and the sprites are hidden there (window 1 over the whole width). Line 0 puts the stage's settings
+ * back: the windows and the hills' palette always (a state saved on a tall screen may hold the margins' settings),
+ * BG3's scroll on a tall screen. tall_sx: BG3's scroll x of this frame, set by draw_frame before every picture. */
+#define TALL_CANOPY_Y 0
+#define TALL_CANOPY 64
+#define TALL_WATER RS_HEX(0x34575a)
+#define TALL_CANOPY_DARK RS_HEX(0x2e4a3c)
+#define TALL_SHADE 120          /* the canopy's shade at the screen's top (of 256) */
+static int tall_sx;
+static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
+static void raster_out(int y){
+ if(y==rs_screen_top()||y==RS_SCREEN_H){
+  rs_window(0,rs_screen_left(),rs_screen_right());
+  rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);rs_obj_window(RS_WIN1);
+ }
+ if(y<0){   /* the canopy: the band read down, up, down... (no seam), darker toward the screen's top every 8 lines */
+  int top=rs_screen_top(),d=-1-y,ph=d%(2*TALL_CANOPY),k=top<0?d*TALL_SHADE/-top:0;
+  rs_bg_scroll(RS_BG3,tall_sx,TALL_CANOPY_Y+(ph<TALL_CANOPY?ph:2*TALL_CANOPY-1-ph)-y);
+  if(y==top||(d&7)==7)for(int i=1;i<16;i++)rs_pal_set(RS_PAL_BG(PAL_HILLS)+i,hu_lerp_color(gm_hills_pal[i],TALL_CANOPY_DARK,k));
+  rs_pal_set(0,hu_lerp_color(line_col[0],TALL_CANOPY_DARK,k));
+  return;
+ }
+ if(y==RS_SCREEN_H)for(int i=1;i<16;i++)rs_pal_set(RS_PAL_BG(PAL_HILLS)+i,hu_lerp_color(gm_hills_pal[i],TALL_WATER,112));
+ int m=2*RS_SCREEN_H-1-y;if(m<0)m=0;
+ int ripple=((y+(int)(rs_frame_count()>>3))&7)<4?0:1;
+ rs_bg_scroll(RS_BG3,tall_sx+ripple,m-y);rs_pal_set(0,hu_lerp_color(line_col[m],TALL_WATER,112));
+}
+static void raster(int y,void*u){(void)u;
+ if(y<0||y>=RS_SCREEN_H){raster_out(y);return;}
+ if(y==0){
+  rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_obj_window(0);rs_pal_load(RS_PAL_BG(PAL_HILLS),gm_hills_pal,16);
+  if(tall())rs_bg_scroll(RS_BG3,tall_sx,0);
+ }
+ rs_pal_set(0,line_col[y]);}
 /* Widescreen (DESIGN.md "Widescreen"): the maps are 64 tiles (512 px) wide up to 512 columns, 128 beyond. The misty
  * forest (BG3) is a 512-px panorama: on a 128-tile map its second half is the first one mirrored (the same tiles
  * h-flipped: no VRAM, seamless at both joins), so a screen wider than 512 never shows a stretch twice. The foreground
@@ -210,11 +248,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     }
 }
 
-
 void draw_frame(const world*w,int state,int st_t,int best,int new_best,int paused){
  static const int medals[4]=MEDAL_SCORES;
  int sx=hu_shake_x(),sy=hu_shake_y();hu_standing rank;standing(w,&rank);
- foreground(w);rs_bg_scroll(RS_BG2,rs_screen_origin_x()-sx,-sy);   /* the canvas from the screen's left edge */rs_bg_scroll(RS_BG3,w->scroll/4,0);
+ foreground(w);rs_bg_scroll(RS_BG2,rs_screen_origin_x()-sx,-sy);   /* the canvas from the screen's left edge */rs_bg_scroll(RS_BG3,w->scroll/4,0);tall_sx=w->scroll/4;
  screen_text(w,state,st_t,best,new_best,&rank);
  int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
  rs_bg_scroll(RS_BG1,-hu_ui_x(),-slide);       /* the UI centred on the screen (widescreen) */
@@ -253,7 +290,4 @@ void draw_state_loaded(void){
  shown_state=-1;                          /* screen_text clears the UI layer and draws it again */
  redraw_pause=1;                          /* ... and PAUSED, if it shows */
 }
-
-
-
 
