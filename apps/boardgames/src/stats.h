@@ -34,6 +34,7 @@ typedef struct {
     int streak, best;                           /* the days in a row up to today (or yesterday), the longest */
     unsigned week;                              /* this week's days played: bit 0 Monday .. bit 6 Sunday */
     int weekday;                                /* today: 0 Monday .. 6 Sunday */
+    unsigned last7;                             /* the last seven days played: bit k, k days ago (bit 0 today) */
     unsigned flags;                             /* STATS_BEAT_HARD... */
     uint32_t sec_xp[STATS_SECTIONS], sec_n[STATS_SECTIONS];   /* by section: XP, games finished */
 } stats_t;

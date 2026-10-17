@@ -180,6 +180,7 @@ void stats_get(stats_t *s)
     s->weekday = weekday(day);
     for (int k = 0; k <= s->weekday; k++)       /* Monday .. today */
         if (d >> k & 1) s->week |= 1u << (s->weekday - k);
+    s->last7 = (unsigned)(d & 0x7f);
     s->flags = S.flags;
     memcpy(s->sec_xp, S.sec_xp, sizeof S.sec_xp);
     memcpy(s->sec_n, S.sec_n, sizeof S.sec_n);

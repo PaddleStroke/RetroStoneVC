@@ -130,6 +130,8 @@ typedef struct game {
      * (the cover at each hand-off, as VIEW_HIDDEN), 0 open (the view just turns, as VIEW_OPEN); asked instead of
      * .view == VIEW_HIDDEN at each hand-off. Set .view to either VIEW_OPEN or VIEW_HIDDEN as well. */
     int  (*hidden)(void);
+    /* optional: the variant offered before one is chosen (0: the first); a game of levels: its random play's */
+    int variant_first;
 } game;
 
 enum { VIEW_BOARD, VIEW_OPEN, VIEW_HIDDEN };
@@ -363,6 +365,8 @@ int  ui_handing(void);                          /* 1 while a hand-off waits or t
  * for people only, and undoes back to the last person's move. bot_seats() (bots.h) is the same mask, for a bot's
  * actor(). */
 unsigned ui_bot_seats(void);
+int  ui_bot_moving(void);                      /* in a game's play() of a bot's move: that bot's seat (its card slides from
+                                                 * there, not from the viewer's hand); -1 a person's move */
 
 /* the end card. ui_over(): 1 while it shows (this frame: the game is over, its last move landed, the final position
  * shown a moment, the card not tapped away). A game with a final table (its rounds' scores) draws that table inside

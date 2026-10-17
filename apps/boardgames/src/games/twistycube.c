@@ -860,7 +860,7 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)   /* a 3 x 3 more
 }
 
 static const game twistycube_game = {
-    .id = "twistycube", .order = 470, .variants = TCB_VARIANTS,
+    .id = "twistycube", .order = 470, .variants = TCB_VARIANTS, .variant_first = 1,   /* (random play: 3 x 3) */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn_of, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key,

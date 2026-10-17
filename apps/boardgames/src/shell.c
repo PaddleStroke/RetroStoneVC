@@ -1123,6 +1123,17 @@ static void remember_mute(void)
     ui_save_set("shell/mute", &b, 1);
 }
 
+/* each game's variant before one is chosen (game.variant_first) */
+static void variants_first(void)
+{
+    for (int g = 0; g < ngames; g++) {
+        int v = games[g]->variant_first;
+        if (v <= 0 || v >= games[g]->variants) continue;
+        if (games[g]->levels) rvariant[g] = v;
+        else variant[g] = v;
+    }
+}
+
 /* the kept settings, each checked (a game gone, fewer variants: left as new) */
 static void settings_load(void)
 {
@@ -1899,7 +1910,7 @@ static int axes_on(int g)
 static int picked(int g)
 {
     if (games[g]->levels) return in_random(g) ? rvariant[g] : -1;
-    return chosen[g] ? variant[g] : -1;
+    return chosen[g] || games[g]->variant_first ? variant[g] : -1;   /* (a game's first choice: as if chosen) */
 }
 
 /* the picker opens on the size chosen last (else the first) */
@@ -2344,7 +2355,9 @@ int shell_search_hits(void) { return search_hits; }
 static void layout_cards(int n)
 {
     float m = fminf(ui.w, ui.h) * 0.05f, g = fminf(ui.w, ui.h) * 0.04f, head = fminf(ui.w, ui.h) * 0.16f;
-    if (screen == SCR_PICK) head = head_row(head, 0);   /* (a game in progress: its resume button) */
+    if (screen == SCR_PICK)                     /* (a game in progress: its resume button; random play: the stars) */
+        head = head_row(head, games[cur]->levels > 0 && games[cur]->level_stars != NULL);
+    float hd = fminf(ui.w, ui.h) * 0.16f;         /* the header alone (its buttons), the row apart */
     float top = head;                           /* the buttons' row (the tabs, the pills go below it) */
     L.ntabs = 0;
     box room = {0, 0, (float)ui.w, (float)ui.h};   /* the menu: the Games page's room (the ribbon apart) */
@@ -2384,7 +2397,8 @@ static void layout_cards(int n)
         float ph = fminf(ui.w, ui.h) * 0.12f, pw = ph * (0.5f + most * 0.44f), pg = ph * 0.3f;
         float fit = (ui.w - 2 * m) / (L.npills * pw + (L.npills - 1) * pg);
         int per = L.npills;
-        if (fit < 0.75f && L.npills > 2) {      /* too small in one row (a phone upright, five counts): two rows */
+        if (fit < (ui.w > ui.h ? 0.5f : 0.75f) && L.npills > 2) {   /* too small in one row (a phone upright, five
+                                                                 * counts): two rows; landscape: rather one */
             per = (L.npills + 1) / 2;
             fit = (ui.w - 2 * m) / (per * pw + (per - 1) * pg);
         }
@@ -2530,9 +2544,9 @@ static void layout_cards(int n)
     }
     L.card = (int)c;
     if (screen != SCR_MENU) {                   /* the picker's row: home at the left */
-        L.snd_r = top * 0.28f;
+        L.snd_r = hd * 0.28f;
         L.snd_x = ui.w - m - L.snd_r;
-        L.snd_y = top * 0.55f;
+        L.snd_y = hd * 0.55f;
     }
     ui.unit = fminf(ui.w, ui.h) / 12.0f;
     L.br = L.snd_r;
@@ -2651,6 +2665,8 @@ static void bots_update(void)
 }
 
 unsigned ui_bot_seats(void) { return botmask; }
+static int bot_moving = -1;
+int ui_bot_moving(void) { return bot_moving; }
 
 /* the first person's seat from p on, in turn order (p itself when no person plays: the bots alone) */
 static int human_from(int p)
@@ -2693,6 +2709,7 @@ static int needs_picker(int g)
 static void show_picker(int g)
 {
     worker_park();                              /* game code from here on: the menu's helper waits */
+    SDL_StopTextInput();                        /* a search's keyboard put away (its letters: shortcuts here) */
     if (in_random(g) && (games[g]->variants > 1 || many_counts(g))) {   /* random play's picker, under the tabs */
         chapters_make(g);
         screen = SCR_PICK;
@@ -2852,7 +2869,9 @@ static void bot_step(void)
             bot_gives_up(seat, "no move");
             return;
         }
+        bot_moving = seat;
         int ok = cbot->play ? cbot->play(BT.move) : g->script ? g->script(BT.move) : 0;
+        bot_moving = -1;
         if (!ok) {
             bot_gives_up(seat, "move refused");
             return;
@@ -2929,6 +2948,13 @@ static void game_finished(void)
     stats_finish(sec, g->id, xp, won, won && lv == 1 + AI_HARD ? STATS_BEAT_HARD : 0);
 }
 
+/* left (back, home) or opened again with its end not shown yet (it came during the last move's animation): counted all
+ * the same */
+static void finished_unseen(void)
+{
+    if (cur >= 0 && started[cur] && games[cur]->status() != GS_PLAY) game_finished();
+}
+
 /* a new game of the open one: start(v), given a fresh random state (kept), or the one it was given last (same: a
  * replay, the same deal or puzzle) */
 static void start_game(int v, int same)
@@ -2950,6 +2976,7 @@ static void start_game(int v, int same)
 static void open_game(int i, int fresh_variant)
 {
     worker_park();
+    SDL_StopTextInput();                        /* (a search's keyboard) */
     if (cur != i) bot_stop();
     cur = i;
     ui.players = players_of(i);
@@ -2978,6 +3005,7 @@ static void open_game(int i, int fresh_variant)
     layout();
     last_status = games[cur]->status();
     end_seen = last_status != GS_PLAY;          /* a game that had ended: its card at once, no tune again */
+    finished_unseen();
 }
 
 /* back from a game: its new game screen (the picker, the level screen), the game in progress kept (the picker's gold
@@ -2985,6 +3013,7 @@ static void open_game(int i, int fresh_variant)
 static void game_back(void)
 {
     bot_stop();
+    finished_unseen();
     if (is_view() && hand.pending >= 0) view_of[cur] = hand.pending;   /* the next player's, when it comes back */
     hand.pending = -1;
     show_picker(cur);
@@ -2996,6 +3025,7 @@ static int resumable(void) { return cur >= 0 && started[cur] && games[cur]->stat
 static void go_home(void)
 {
     bot_stop();                                 /* a bot thinking: it starts again when the game is opened again */
+    finished_unseen();
     if (is_view() && hand.pending >= 0) view_of[cur] = hand.pending;   /* the next player's, when it comes back */
     hand.pending = -1;
     screen = SCR_MENU;
@@ -4006,8 +4036,10 @@ static void draw_seats(void)
     if (key != k0) {                            /* the seats' tokens, at their size (their own buffer) */
         key = k0;
         uint8_t *b = calloc((size_t)ts * ts, 4);
+        int most = 31 - __builtin_clz(player_counts(cur));   /* (a game's tokens: its players' only) */
         for (int p = 0; p < MAX_PLAYERS && b; p++) {
             ui_free(&tok[p]);
+            if (p >= most) continue;
             memset(b, 0, (size_t)ts * ts * 4);
             games[cur]->token(p, ts, b);
             tok[p] = ui_tex(ts, ts, b);
@@ -4059,7 +4091,8 @@ static void draw_pick_head(void)
     if (!L.row) return;
     float m = fminf(ui.w, ui.h) * 0.05f, r = L.row_r;
     if (resumable()) ui_button(ui.w - m - r, L.row_y, 2 * r, ICON_PLAY, UI_ON | UI_LIT);
-    if (screen == SCR_LEVELS && games[cur]->level_stars) {   /* the stars won */
+    if (games[cur]->levels > 0 && games[cur]->level_stars) {   /* the stars won (the level screen, random play's) */
+        progress_load(cur);
         int total = 0;
         for (int l = 0; l < nlevels(cur); l++) total += LV.best[l] ? LV.best[l] - 1 : 0;
         float nh = floorf(r * 1.05f), sd = 1.6f * nh, nw = ui_number_w(total, nh);
@@ -4139,8 +4172,7 @@ static void draw_cards(void)
         int gi = screen == SCR_MENU ? i : cur, v = screen == SCR_MENU ? -1 : i;
         if (screen == SCR_MENU) vis[nvis++] = i;
         if ((screen == SCR_MENU && started[i] && games[i]->status() == GS_PLAY) ||   /* a game in progress */
-            (screen == SCR_PICK && (games[cur]->levels ? in_random(cur) && rvariant[cur] == i
-                                    : chosen[cur] && variant[cur] == i)))   /* the variant chosen last */
+            (screen == SCR_PICK && picked(cur) == i))   /* the variant chosen last */
             ui_put_c(t_gold, c.x + c.w / 2, c.y + c.h / 2, c.w * 1.25f, c.h * 1.25f);
         /* a variant the bot cannot play, the device given a seat: dimmed (it starts with people in every seat) */
         Uint8 a = screen == SCR_PICK && L.nseats && any_bot_seat(cur) && !bot_plays(cur, i) ? 110 : 255;
@@ -4826,7 +4858,9 @@ static void release(float x, float y)
             if (x >= c.x && x < c.x + c.w && y >= c.y && y < c.y + c.h) {
                 snd_play(SND_TAP);
                 if (locked(i)) full_open();     /* the free edition: the full version's */
-                else if (arcade_of(games[i]) >= 0) arcade_play(arcade_cards[arcade_of(games[i])].id, ui.r);
+                else if (arcade_of(games[i]) >= 0) {   /* (not in the picture mode: its own loop would never end) */
+                    if (!instant) arcade_play(arcade_cards[arcade_of(games[i])].id, ui.r);
+                }
                 else open_game(i, -1);
                 return;
             }
@@ -5068,7 +5102,7 @@ static void shot_settle(int reveal, int advance)
 static void shot_wait(void)
 {
     const game *g = games[cur];
-    for (int k = 0; k < 8 && ((g->busy && g->busy()) || ui_dice_busy()); k++) {
+    for (int k = 0; k < 64 && ((g->busy && g->busy()) || ui_dice_busy()); k++) {   /* (a long chain: many moves) */
         ms_ahead += 600000;
         draw();
     }
@@ -5331,6 +5365,7 @@ static int shot(int argc, char **argv)
     if (!ui.r) { fprintf(stderr, "%s\n", SDL_GetError()); return 1; }
     SDL_SetRenderDrawBlendMode(ui.r, SDL_BLENDMODE_BLEND);
     screen = SCR_MENU;
+    variants_first();
     if (save_dir) {                             /* else nothing kept from a past run: the same picture every time */
         save_open(save_dir);
         settings_load();
@@ -5782,6 +5817,7 @@ static void to_pixels(int x, int y, float *fx, float *fy)
 static void key(SDL_Keycode k, int repeat)
 {
     if (screen == SCR_MENU && !FV.open && !help.open && pages_key(k)) return;   /* the pages' (the search's keys) */
+    if (screen != SCR_MENU && pages_panel_key(k)) return;   /* the tip panel over a solved puzzle's card */
     if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) {
         if (FV.open) FV.open = 0;
         else if (help.open) help.open = 0;
@@ -5846,6 +5882,7 @@ int main(int argc, char **argv)
         if (!strcmp(argv[i], "--lang")) lang = argv[i + 1];
     text_init(lang);
     unlock_start();
+    variants_first();
     settings_load();
     seed_random((uint32_t)SDL_GetPerformanceCounter());
 #ifdef __IPHONEOS__

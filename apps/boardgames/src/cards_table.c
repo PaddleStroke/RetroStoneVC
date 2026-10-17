@@ -950,6 +950,12 @@ int ct_on_target(const ct_table *T, float x, float y)
 
 void ct_play(ct_moves *mv, const ct_table *T, const ct_touch *f, const uint8_t *h, int n, int card)
 {
+    int pl = ui_bot_moving();                   /* a bot's card (not the viewer's): from its seat to its place */
+    if (pl >= 0 && pl != T->me && pl < T->players) {
+        ct_rest(mv, ct_slide(mv, T->deck, card, T->sx[pl], T->sy[pl], 0.45f * T->wt, T->tdeg[pl], 0, T->tx[pl], T->ty[pl],
+                             T->wt, T->tdeg[pl], 1, CT_SLIDE_MS, 0, CT_TRICK, pl, -1, SND_PLACE), 200);
+        return;
+    }
     cards_spot s[CT_HAND];
     if (n > CT_HAND) n = CT_HAND;
     ct_fan(T, n, s);

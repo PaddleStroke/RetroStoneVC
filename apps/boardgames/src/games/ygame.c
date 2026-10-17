@@ -513,7 +513,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static int busy(void) { return anim.on; }     /* the end waits for the winning stone to land */
 
 static const game ygame_game = {
-    .id = "ygame", .order = 101, .variants = 3,
+    .id = "ygame", .order = 101, .variants = 3, .variant_first = 1,   /* (13 first) */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .script = script, .busy = busy, .fill = 1,

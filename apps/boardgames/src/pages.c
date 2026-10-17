@@ -475,6 +475,11 @@ const char *pages_search(void) { return SR.open && SR.fold[0] ? SR.fold : NULL; 
 static void search_changed(void)
 {
     text_fold(SR.q, SR.fold, sizeof SR.fold);
+    char *f = SR.fold;                          /* trimmed (a phone keyboard's space after a word) */
+    size_t n = strlen(f), a = strspn(f, " ");
+    while (n > a && f[n - 1] == ' ') n--;
+    memmove(f, f + a, n - a);
+    f[n - a] = 0;
     shell_page_changed();
 }
 
@@ -807,6 +812,13 @@ int pages_panel_press(float x, float y)
     return 1;
 }
 
+int pages_panel_key(SDL_Keycode k)
+{
+    if (!TIP.open) return 0;
+    if (k == SDLK_ESCAPE || k == SDLK_AC_BACK) TIP.open = TIP.thanks = 0;
+    return 1;
+}
+
 /* ---- the Stats page ----------------------------------------------------------------------------------------------- */
 static int prog_n, prog_sec[STATS_SECTIONS], prog_done[STATS_SECTIONS], prog_total[STATS_SECTIONS], three;
 
@@ -859,10 +871,11 @@ static float stats_walk(int draw)
         rr(x, y, w, wh, rad, TH.card, 255);
         float ty = y + pad + 0.03f * S;
         put(ui_str(U_WEEK, b, sizeof b), floorf(0.042f * S), T_TITLE, TH.dim, w * 0.5f, x + pad, ty, AL_LEFT);
-        fmt(b2, sizeof b2, ui_str(U_STREAK, b, sizeof b), st.streak, 0, NULL);
-        float sw = put(b2, floorf(0.042f * S), T_TITLE, st.streak ? TH.accent : TH.dim, w * 0.4f, x + w - pad, ty,
-                       AL_RIGHT);
-        ico(ICON_FLAME, x + w - pad - sw - 0.04f * S, ty, 0.055f * S, st.streak ? TH.accent : TH.dim, 255);
+        if (st.streak) {                        /* (none: no "0-day streak") */
+            fmt(b2, sizeof b2, ui_str(U_STREAK, b, sizeof b), st.streak, 0, NULL);
+            float sw = put(b2, floorf(0.042f * S), T_TITLE, TH.accent, w * 0.4f, x + w - pad, ty, AL_RIGHT);
+            ico(ICON_FLAME, x + w - pad - sw - 0.04f * S, ty, 0.055f * S, TH.accent, 255);
+        }
         char days[96];
         ui_str(U_DAYS, days, sizeof days);
         const char *lab[7];
@@ -873,11 +886,12 @@ static float stats_walk(int draw)
             p += strcspn(p, " ");
             if (*p) *p++ = 0;
         }
-        int sunday = ui_str(U_WEEK_START, b, sizeof b)[0] == '0';
+        int first = ui_str(U_WEEK_START, b, sizeof b)[0] == '0' ? 6 : 0;   /* the week's first day: 0 Monday, 6 Sunday */
+        int at = (st.weekday - first + 7) % 7;   /* today's place in the strip (after it: days to come) */
         float cg = floorf(0.018f * S), cs = floorf(fminf((w - 2 * pad - 6 * cg) / 7, 0.13f * S));
         float cx0 = x + (w - (7 * cs + 6 * cg)) / 2, cy = y + wh - pad - cs;
         for (int i = 0; i < 7; i++) {
-            int wd = sunday ? (i + 6) % 7 : i, played = st.week >> wd & 1, today = wd == st.weekday;
+            int wd = (first + i) % 7, played = i <= at && (st.last7 >> (at - i) & 1), today = i == at;
             float cx = cx0 + i * (cs + cg);
             rr(cx, cy, cs, cs, cs * 0.28f, played ? TH.gold : TH.line, 255);
             if (played) ico(ICON_TICK, cx + cs / 2, cy + cs / 2, cs * 0.56f, TH.on_gold, 255);
