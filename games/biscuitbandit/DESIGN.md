@@ -97,4 +97,12 @@ TALL_BELOW, 40 lines of floor under it).
   backdrop's top colour, shaded under the ceiling), the raised rail and the tall windows; below, the floor's bricks
   repeated (BG2's last two rows, 16 px), darker with depth. The UI and the floor layers are hidden above; line 0 puts
   the layers, BG2's scroll and the floor's palette back, line WIN_TOP_Y the room's scroll and window.
+- **The wall's furnishings** (BG4, drawn at start-up: draw.c `decor_init`, its tiles shared; shown from the screen's
+  top down to WIN_TOP_Y, shaking with the room): a wooden cornice where the shaded ceiling meets the wall (the HUD on
+  the ceiling above it), three teal pendant lamps hanging from it, a long shelf on two brackets above the belt with
+  two glass jars of cookies, a stack of plates and two cups; between the tall windows a chalk menu board hung on a
+  nail (a wavy heading, a cookie and a cup doodle, squiggled lines with dotted leaders and boxed prices: no words)
+  and a round wall clock. The wall between the windows above their transom is the wall's own flat colour (the
+  stage's gradient and its 2-line dither steps showed as faint stripes and a darker band there); the wall above the
+  stage has no dither step either.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).

@@ -10,6 +10,7 @@
 #include "house_ui.h"
 #include "game_text.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* the title logo: one 3-shade ramp per word (light, mid, dark), house_style.py ACCENTS */
@@ -64,6 +65,157 @@ static void tall_room(int line)
         rs_bg_scroll(RS_BG3, sx, sy);
     }
 }
+/* A tall screen's furnishings (BG4, drawn at start-up by decor_init, its tiles shared): the cafe's wall above the
+ * belt and between the tall windows, in front of the backdrop and behind the room. A wooden cornice under the ceiling (the HUD above it),
+ * three pendant lamps hanging from it, a long shelf with cookie jars, plates and cups above the belt; between the
+ * windows a chalk menu board hung on a nail (doodles, no words) and a round wall clock. BG4 shows from the screen's
+ * top to WIN_TOP_Y (raster), its map line 0 at stage line -DEC_OFF. */
+#define VR_BG4    (VR_BG3 + 384)        /* past the room's tiles, even the widescreen ones (373) */
+#define PAL_DECOR 7
+#define DEC_OFF   320
+static const rs_color decor_pal[16] = {
+    0, RS_HEX(0x4a3434), RS_HEX(0x7a5236), RS_HEX(0x9c6a44), RS_HEX(0xbf8a5a), RS_HEX(0x2f4a44), RS_HEX(0x3b5953),
+    RS_HEX(0xe8eee6), RS_HEX(0x9fb5ac), RS_HEX(0x3e6f73), RS_HEX(0x5f9696), RS_HEX(0x8fbfba), RS_HEX(0xfff2b8),
+    RS_HEX(0xc89a6a), RS_HEX(0x5a4848), RS_HEX(0xf4ecdc)};
+enum { D_OUT = 1, D_WOOD_D, D_WOOD, D_WOOD_L, D_BOARD, D_BOARD_L, D_CHALK, D_CHALK_D, D_TEAL_D, D_TEAL, D_TEAL_L,
+       D_BULB, D_COOKIE, D_CORD, D_CREAM };
+static int in_disc(int x, int y, int cx, int cy, int r) { return (x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r; }
+/* a 1-px line from (ax, ay) to (bx, by) */
+static int on_seg(int x, int y, int ax, int ay, int bx, int by)
+{
+    int lo = ax < bx ? ax : bx, hi = ax < bx ? bx : ax, l2 = ay < by ? ay : by, h2 = ay < by ? by : ay;
+    if (x < lo || x > hi || y < l2 || y > h2) return 0;
+    int dx = bx - ax, dy = by - ay, n = (x - ax) * dy - (y - ay) * dx, len = dx * dx + dy * dy;
+    return n * n * 4 <= len;
+}
+static int jar(int x, int y, int x0, int y1, int w, int h)     /* a glass jar of cookies standing on line y1 */
+{
+    int y0 = y1 - h, x1 = x0 + w;
+    if (y >= y0 - 6 && y < y0 - 2 && x >= x0 + 2 && x < x1 - 2) return y == y0 - 6 ? D_WOOD_L : D_WOOD;   /* the lid */
+    if (y >= y0 - 9 && y < y0 - 6 && x >= x0 + w / 2 - 2 && x < x0 + w / 2 + 2) return D_WOOD_D;          /* its knob */
+    if (y < y0 - 2 || y > y1 || x < x0 || x >= x1) return 0;
+    if (x == x0 || x == x1 - 1 || y == y1 || y == y0 - 2) return D_TEAL_D;
+    if (x == x0 + 2 && y < y1 - 3) return D_CREAM;                                      /* the glint */
+    for (int k = 0; k < 4; k++) {                                                        /* the cookies inside */
+        int cy = y1 - 4 - k * 4, cx = x0 + w / 2 + ((k & 1) ? 2 : -2);
+        if (cy > y0 + 2 && (x - cx) * (x - cx) * 4 + (y - cy) * (y - cy) * 16 <= w * w / 2)
+            return (x * 3 + y * 5 + k) % 7 == 0 ? D_WOOD_D : D_COOKIE;
+    }
+    return D_TEAL_L;
+}
+/* a chalk line's wobble: 0, -1, 0, 1 lines over 8 columns */
+static int chalk_wave(int i)
+{
+    static const int8_t w[8] = {0, 0, -1, -1, 0, 0, 1, 1};
+    return w[i & 7];
+}
+static int decor_pix(int x, int y, int top)
+{
+    /* the cornice where the ceiling (its shade, the HUD over it) meets the wall */
+    int cy0 = top + 42;
+    if (y >= cy0 && y < cy0 + 6) return y < cy0 + 2 ? D_WOOD_L : y < cy0 + 5 ? D_WOOD : D_WOOD_D;
+    if (y == cy0 + 6) return D_OUT;
+    /* the pendant lamps: a cord, a teal dome, a warm bulb under it */
+    static const int lamps[3] = {64, 160, 256};
+    int ly = top + 62;
+    for (int i = 0; i < 3; i++) {
+        int dx = x - lamps[i], dy = y - ly;
+        if (dx == 0 && y > cy0 + 6 && dy < 0) return D_CORD;
+        if (dy >= 0 && dy < 12) {
+            int hw = 3 + dy * 10 / 11;
+            if (dx < -hw || dx > hw) continue;
+            if (dy == 0 || dx == -hw || dx == hw || dy == 11) return D_TEAL_D;
+            return dx < -hw + 3 ? D_TEAL_L : D_TEAL;
+        }
+        if (dy >= 12 && dy < 16 && dx >= -3 + (dy - 12) && dx <= 3 - (dy - 12)) return D_BULB;
+    }
+    /* the shelf above the belt, on two brackets, with jars, plates and cups */
+    int sy = -200;
+    if (x >= 36 && x < 284 && y >= sy && y < sy + 4) return y == sy ? D_WOOD_L : y < sy + 3 ? D_WOOD : D_WOOD_D;
+    for (int b = 0; b < 2; b++) {
+        int bx = b ? 262 : 52, k = y - (sy + 4);
+        if (k >= 0 && k < 10 && x >= bx && x < bx + 10 - k) return k == 9 || x == bx + 9 - k ? D_WOOD_D : D_WOOD;
+    }
+    int v;
+    if ((v = jar(x, y, 92, sy - 1, 22, 24))) return v;
+    if ((v = jar(x, y, 226, sy - 1, 18, 18))) return v;
+    for (int k = 0; k < 4; k++) {                                                        /* a stack of plates */
+        int py = sy - 2 - k * 3, rx = 11 - (k == 3);
+        if (y >= py - 1 && y <= py && x >= 138 - rx && x <= 138 + rx) return y == py ? D_CHALK_D : D_CREAM;
+    }
+    for (int c = 0; c < 2; c++) {                                                        /* two cups */
+        int cx = c ? 196 : 176, cy = sy - 1;
+        if (y >= cy - 8 && y <= cy && x >= cx - 5 && x <= cx + 5)
+            return x == cx - 5 || x == cx + 5 || y == cy || y == cy - 8 ? D_TEAL_D : x < cx - 2 ? D_TEAL_L : D_TEAL;
+        if (x >= cx + 6 && x <= cx + 8 && y >= cy - 6 && y <= cy - 2 && !(x == cx + 7 && y > cy - 6 && y < cy - 2))
+            return D_TEAL_D;
+    }
+    /* the chalk menu board between the windows, hung on a nail */
+    int bx0 = 106, bx1 = 214, by0 = -116, by1 = -38;
+    if (in_disc(x, y, 160, -128, 1)) return D_OUT;
+    if (y < by0 && y > -128 && (on_seg(x, y, 160, -127, bx0 + 8, by0) || on_seg(x, y, 160, -127, bx1 - 8, by0)))
+        return D_CORD;
+    if (x >= bx0 && x < bx1 && y >= by0 && y < by1) {
+        if (x == bx0 || x == bx1 - 1 || y == by0 || y == by1 - 1) return D_OUT;
+        if (x < bx0 + 4 || x >= bx1 - 4 || y < by0 + 4 || y >= by1 - 4)
+            return x < bx0 + 2 || y < by0 + 2 ? D_WOOD_L : x >= bx1 - 2 || y >= by1 - 2 ? D_WOOD_D : D_WOOD;
+        int ix = x - bx0, iy = y - by0;
+        /* a wavy chalk heading */
+        if (ix >= 28 && ix < 80 && iy == 10 + chalk_wave(ix)) return D_CHALK;
+        /* a cookie doodle and a cup doodle, each before two lines of squiggles, dotted leaders and a boxed price */
+        int kx = bx0 + 16, ky = by0 + 28;
+        if (in_disc(x, y, kx, ky, 6) && !in_disc(x, y, kx, ky, 5)) return D_CHALK;
+        if (in_disc(x, y, kx, ky, 4) && (x * 7 + y * 3) % 6 == 0) return D_CHALK_D;
+        int cx = bx0 + 16, cy = by0 + 54;
+        if ((y == cy + 4 && x >= cx - 5 && x <= cx + 4) || ((x == cx - 5 || x == cx + 4) && y >= cy - 3 && y <= cy + 4) ||
+            (x == cx + 6 && y >= cy - 2 && y <= cy + 1) || (x == cx + 5 && (y == cy - 2 || y == cy + 1)) ||
+            (y == cy - 3 && x >= cx - 5 && x <= cx + 4))
+            return D_CHALK;
+        if ((x == cx - 2 || x == cx + 1) && y >= cy - 9 && y <= cy - 5 && ((y + x) & 1)) return D_CHALK_D;   /* steam */
+        for (int r = 0; r < 4; r++) {
+            int ry = by0 + (r < 2 ? 24 : 50) + (r & 1) * 8, len = 26 + (r * 13) % 17;
+            if (y == ry + chalk_wave(ix * 2) && ix >= 30 && ix < 30 + len) return D_CHALK;
+            if (y == ry + 1 && ix >= 32 + len && ix < 84 && (ix & 3) == 0) return D_CHALK_D;
+            if (y >= ry - 2 && y <= ry + 2 && ix >= 87 && ix < 97 && (ix == 87 || ix == 96 || y == ry - 2 || y == ry + 2))
+                return D_CHALK_D;                                                        /* a price, boxed */
+            if (y == ry && ix >= 89 && ix < 95 && (ix & 1)) return D_CHALK;
+        }
+        return (ix * 13 + iy * 7) % 41 == 0 ? D_BOARD_L : D_BOARD;
+    }
+    /* the wall clock under the board */
+    if (in_disc(x, y, 160, 12, 12)) {
+        if (!in_disc(x, y, 160, 12, 10)) return in_disc(x - 1, y - 1, 160, 12, 10) ? D_WOOD_D : D_WOOD;
+        if (on_seg(x, y, 160, 12, 155, 7) || on_seg(x, y, 160, 12, 167, 8)) return D_OUT;
+        if ((x == 160 && (y == 4 || y == 20)) || (y == 12 && (x == 152 || x == 168))) return D_OUT;
+        return D_CREAM;
+    }
+    return 0;
+}
+static void decor_init(void)
+{
+    enum { MAXT = VR_OBJ - VR_BG4 };
+    uint8_t(*uniq)[64] = malloc((size_t)MAXT * 64);
+    if (!uniq) return;
+    int n = 1, top = rs_screen_top();
+    memset(uniq[0], 0, 64);
+    rs_bg_setup(RS_BG4, 64, 64, VR_BG4);
+    for (int r = 0; r < 64; r++)
+        for (int c = 0; c < 40; c++) {
+            uint8_t t[64];
+            int id = 0;
+            for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++) t[y * 8 + x] = (uint8_t)decor_pix(c * 8 + x, r * 8 + y - DEC_OFF, top);
+            while (id < n && memcmp(uniq[id], t, 64)) id++;
+            if (id == n) {
+                if (n < MAXT) memcpy(uniq[n++], t, 64);
+                else id = 0;
+            }
+            rs_bg_put(RS_BG4, c, r, RS_MAP(id, PAL_DECOR, 0, 0, 0));
+        }
+    rs_tiles_load8(VR_BG4, uniq[0], n);
+    free(uniq);
+    rs_pal_load(RS_PAL_BG(PAL_DECOR), decor_pal, 16);
+}
 static void raster_out(int line)
 {
     int top = rs_screen_top(), bot = rs_screen_bottom();
@@ -71,12 +223,12 @@ static void raster_out(int line)
         rs_bg_enable(RS_BG1, 0);
         rs_bg_enable(RS_BG3, 0);
         rs_bg_enable(RS_BG2, line == RS_SCREEN_H);
+        rs_bg_enable(RS_BG4, line == top);
     }
     if (line < 0) tall_room(line);
     if (line < 0) {
         int k = line - top < 48 ? (48 - (line - top)) * 32 / 48 : 0;   /* the ceiling's shade: the top 48 lines */
-        int d = (line & 4) ? 0 : 4;                         /* the house dither step, as on the stage */
-        rs_color c = RS_RGB8(((SKY_TOP >> 16) & 255) + d, ((SKY_TOP >> 8) & 255) + d / 2, (SKY_TOP & 255) + d);
+        rs_color c = RS_HEX(SKY_TOP);                       /* (no dither step: smooth, as the stage on a tall screen) */
         rs_pal_set(0, hu_scale_color(c, 256 - k));
     } else {
         int d = line - RS_SCREEN_H, n = bot - RS_SCREEN_H, k = n > 0 ? d * 120 / n : 0;
@@ -99,6 +251,7 @@ static void raster(int line, void *user)
         rs_pal_load(RS_PAL_BG(PAL_GROUND), gm_ground_pal, 16);
     }
     if (tall() && line <= WIN_TOP_Y) tall_room(line);
+    if (tall() && line == WIN_TOP_Y) rs_bg_enable(RS_BG4, 0);   /* the furnishings end above the room's windows */
     rs_pal_set(0, line_col[line]);
 }
 
@@ -111,6 +264,9 @@ static void sky_gradient(void)
         for (int i = 0; i < 3; i++) c[i] = (a[i] * (256 - k) + b[i] * k) / 256;
         /* house rule: a 2-line dither step every 8 lines keeps the RGB555 bands soft */
         line_col[y] = RS_RGB8(c[0] + ((y & 4) ? 4 : 0), c[1] + ((y & 4) ? 2 : 0), c[2] + ((y & 4) ? 4 : 0));
+        /* a tall screen: no stripes; above the windows' transom (seen between the tall windows), the wall's own colour,
+         * as above the stage and in the room's picture (no band) */
+        if (tall()) line_col[y] = y < WIN_TOP_Y ? RS_HEX(SKY_TOP) : RS_RGB8(c[0], c[1], c[2]);
     }
 }
 
@@ -159,6 +315,7 @@ void draw_init(void)
     rs_tiles_load(VR_OBJ, gm_obj_tiles, gm_obj_tile_count);
     rs_pal_load(RS_PAL_OBJ(0), gm_obj_pals, 48);          /* hero, hero 2, props (the kit loaded OBJ 3) */
     rs_pal_load(RS_PAL_OBJ(4), gm_obj_pals + 64, 48);     /* heroes 3 and 4, the oven (widescreen) */
+    if (tall()) decor_init();           /* the wall's furnishings (BG4) */
     sky_gradient();
     rs_raster(raster, NULL);
 }
@@ -279,6 +436,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     standing(w, &rs);
     rs_bg_scroll(RS_BG2, -sx, -sy);
     rs_bg_scroll(RS_BG3, -sx, -sy);
+    if (tall()) rs_bg_scroll(RS_BG4, -sx, DEC_OFF - sy);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
