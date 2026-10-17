@@ -2,14 +2,8 @@ Pchacz skrzyń
 # Cel gry
 Jesteś magazynierem. Wepchnij każdą skrzynię na jeden z mosiężnych pierścieni wpuszczonych w podłogę: pierścieni jest tyle, ile skrzyń.
 # Ruch
-Magazynier chodzi po jednym polu: w górę, w dół, w lewo lub w prawo, nigdy przez ściany ani skrzynie. Gdy wejdzie w skrzynię, pcha ją o jedno pole dalej, jeśli pole za nią jest wolne. Skrzyń nigdy się nie ciągnie, a dwie skrzynie w rzędzie są za ciężkie, by je pchnąć. Myśl naprzód: skrzynia wepchnięta w kąt nigdy już z niego nie wyjdzie.
+Magazynier chodzi po jednym polu: w górę, w dół, w lewo lub w prawo, nigdy przez ściany ani skrzynie. Gdy wejdzie w skrzynię, pcha ją o jedno pole dalej, jeśli pole za nią jest wolne. Skrzyń nigdy się nie ciągnie, a dwie skrzynie w rzędzie są za ciężkie, by je pchnąć. Skrzynia wepchnięta w kąt nigdy już z niego nie wyjdzie.
 # Koniec gry
-Poziom jest rozwiązany, gdy każda skrzynia stoi na pierścieniu: skrzynie rozbłyskują złotem.
+Poziom jest rozwiązany, gdy każda skrzynia stoi na pierścieniu.
 # Poziomy i gwiazdki
-Jest 60 poziomów w trzech rozdziałach, od najłatwiejszego. Poziomy powstały dla tej gry: komputer sprawdził, że każdy da się rozwiązać. Każdy poziom ma par: najmniejszą liczbę pchnięć, która go rozwiązuje. Rozwiązany w par: 3 gwiazdki; najwyżej o połowę więcej pchnięć: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Wybierz poziom na ekranie poziomów; rozwiązane pokazują swoje gwiazdki.
-- Przesuń palcem: magazynier idzie w tę stronę o tyle pól, jak długi jest ruch palca, i pcha to, co ma przed sobą.
-- Dotknij wolnego pola: magazynier idzie tam, omijając skrzynie.
-- Dotknij skrzyni obok magazyniera: zostaje pchnięta o jedno pole od niego. Dotknij innej skrzyni: kropki pokazują, gdzie można ją pchnąć w linii prostej; dotknij kropki, a magazynier ją obejdzie i tam dopchnie.
-Lampa daje podpowiedź: magazynier wykonuje następne pchnięcie najkrótszej drogi, w złotym świetle. Jeśli skrzynia utknęła, podpowiedź najpierw wraca do miejsca, z którego jeszcze jest droga. Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje kroki magazyniera, a na prawym końcu pchnięcia.
+Rozwiązany w par, czyli najmniejszą liczbą pchnięć, która go rozwiązuje: 3 gwiazdki; najwyżej o połowę więcej pchnięć: 2 gwiazdki; inaczej 1.

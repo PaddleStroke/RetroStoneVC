@@ -1,18 +1,10 @@
 Binairo
 # O objetivo
 Preencha a grade com peças de marfim e de ébano. Três peças da mesma cor nunca podem ficar lado a lado numa linha ou coluna. Cada linha e cada coluna tem tantas peças de marfim quanto de ébano. Não pode haver duas linhas iguais, nem duas colunas.
-Algumas peças já vêm dadas, em casas mais escuras. Cada tabuleiro tem uma única solução, encontrada só pelo raciocínio. Escolha o tamanho (de 6 × 6 a 12 × 12) e o nível (as peças sob cada imagem):
-- Fácil: duas iguais lado a lado, ou duas iguais com uma casa entre elas, dão a cor das casas vizinhas; uma linha que já tem todas as peças de uma cor recebe a outra cor no resto.
-- Médio: você também vai precisar olhar uma linha inteira: todas as maneiras de preenchê-la concordam em algumas casas.
-- Difícil: cadeias de raciocínio mais longas, nunca no chute.
+Algumas peças já vêm dadas no início. Cada tabuleiro tem uma única solução, encontrada só pelo raciocínio.
 # Uma jogada
 Ponha uma peça numa casa vazia, troque a cor ou tire-a. As peças dadas ficam.
 # O fim da partida
-O tabuleiro está resolvido quando a grade está cheia e segue todas as regras: uma onda de luz dourada percorre o tabuleiro.
+O tabuleiro está resolvido quando a grade está cheia e segue todas as regras.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 6 × 6 ao 12 × 12, cada um com uma única solução; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça da cor errada que você tira com Desfazer.
-# Jogando no aparelho
-- Toque numa casa vazia para uma peça de marfim, de novo para uma de ébano, mais uma vez para esvaziá-la.
-- Segure uma casa por um instante para girar ao contrário: ébano primeiro.
-- Arraste ao longo de uma linha ou coluna para fazer o mesmo num trecho inteiro. Só mudam as casas que estavam como a primeira.
-Três iguais seguidas brilham em vermelho; uma linha ou coluna com peças demais de uma cor, ou cheia e igual a outra, fica vermelha. O botão da lâmpada acesa, ao lado do tabuleiro, é uma dica. Corrige uma peça errada ou, se não houver, mostra a próxima casa que o raciocínio encontra, com luz dourada. Desfazer volta uma ação de cada vez, até o começo. A barra mostra as suas jogadas.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça da cor errada que você tira com Desfazer.

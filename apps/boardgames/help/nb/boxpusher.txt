@@ -2,14 +2,8 @@ Kasseskyver
 # Målet
 Du er vokteren av et lagerhus. Skyv hver kasse inn på en av messingringene i gulvet: det er like mange ringer som kasser.
 # Et trekk
-Vokteren går én rute om gangen: opp, ned, til venstre eller til høyre, aldri gjennom vegger eller kasser. Går vokteren inn i en kasse, skyves den én rute videre, hvis ruten bak er ledig. Kasser trekkes aldri, og to kasser på rad er for tunge å skyve. Tenk fremover: en kasse som er skjøvet inn i et hjørne, kommer aldri ut igjen.
+Vokteren går én rute om gangen: opp, ned, til venstre eller til høyre, aldri gjennom vegger eller kasser. Går vokteren inn i en kasse, skyves den én rute videre, hvis ruten bak er ledig. Kasser trekkes aldri, og to kasser på rad er for tunge å skyve. En kasse som er skjøvet inn i et hjørne, kommer aldri ut igjen.
 # Slutten på spillet
-Nivået er løst når hver kasse står på en ring: kassene lyser opp i gull.
+Nivået er løst når hver kasse står på en ring.
 # Nivåer og stjerner
-Det er 60 nivåer i tre kapitler, fra det letteste. Nivåene er laget for dette spillet: hvert av dem er sjekket av en datamaskin for å være løsbart. Hvert nivå har en par: færrest skyv som løser det. Løst på par: 3 stjerner; med opptil halvparten så mange skyv til: 2 stjerner; ellers 1.
-# Spill på enheten
-Velg et nivå på nivåskjermen; de løste viser stjernene sine.
-- Sveip: vokteren går den veien, så mange ruter som sveipet ditt er langt, og skyver det som står foran.
-- Trykk på en ledig rute: vokteren går dit, rundt kassene.
-- Trykk på en kasse ved siden av vokteren: den skyves én rute bort fra vokteren. Trykk på en annen kasse: prikker viser hvor den kan skyves i rett linje; trykk på en prikk, så går vokteren rundt og skyver den dit.
-Lampen gir et hint: vokteren gjør neste skyv på en korteste vei, i gyllent lys. Sitter en kasse fast, går hintet først tilbake til der det fortsatt finnes en vei. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser vokterens skritt og, ytterst til høyre, skyvene.
+Løst på par, færrest skyv som løser det: 3 stjerner; med opptil halvparten så mange skyv til: 2 stjerner; ellers 1.

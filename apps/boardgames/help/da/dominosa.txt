@@ -1,14 +1,9 @@
 Dominosa
 # Målet
-Et helt sæt dominobrikker blev lagt ud på gitteret, og derefter blev stregerne mellem dem visket ud: kun tallene er tilbage. Find ud af, hvor hver brik ligger. Hver brik i sættet, fra 0-0 til den højeste dobbelte (4-4, 6-6 eller 8-8), ligger i gitteret præcis én gang. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft. Vælg sæt og niveau (stenene under hvert billede):
-- Let: et felt, der kun har én nabo tilbage at danne par med, og en brik, der kun har én plads tilbage, er altid nok.
-- Mellem: du får også brug for felter, hvis mulige par alle danner den samme brik, og par, der ville efterlade et nabofelt alene.
-- Svær: at følge en brik til ende for at se, hvor den fører hen.
+Et helt sæt dominobrikker blev lagt ud på gitteret, og derefter blev stregerne mellem dem visket ud: kun tallene er tilbage. Find ud af, hvor hver brik ligger. Hver brik i sættet, fra 0-0 til den højeste dobbelte, ligger i gitteret præcis én gang. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft.
 # Et træk
 Saml to nabofelter til en brik, eller fjern en brik. En ny brik erstatter dem, der lå på dens felter.
 # Spillets afslutning
-Opgaven er løst, når brikkerne dækker gitteret, hver brik i sættet én gang: en bølge af gyldent lys løber over brættet.
+Opgaven er løst, når brikkerne dækker gitteret, hver brik i sættet én gang.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra sættet med 3-3 som højeste dobbelte op til sættet med 8-8, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert brik, som du tager tilbage med Fortryd.
-# Spil på enheden
-Træk fra et felt til dets nabo, eller tryk på det ene og så på det andet: en brik af elfenben lægges på dem, med øjne, der viser de to tal. Tryk på en brik for at fjerne den. En brik, der ligger to gange, bliver rød. Lampeknappen giver et tip: den fjerner en forkert brik eller lægger ellers den letteste rigtige, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert brik, som du tager tilbage med Fortryd.

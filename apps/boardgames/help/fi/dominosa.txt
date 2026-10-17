@@ -1,14 +1,9 @@
 Dominosa
 # Tavoite
-Täydellinen dominosarja levitettiin ruudukolle, ja sitten palojen väliset viivat pyyhittiin pois: jäljellä ovat vain luvut. Selvitä, missä kukin pala on. Jokainen sarjan pala, 0-0:sta suurimpaan tuplaan (4-4, 6-6 tai 8-8), on ruudukossa täsmälleen kerran. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse sarja ja taso (kivet kunkin kuvan alla):
-- Helppo: aina riittää ruutu, jolla on enää yksi naapuri pariksi, ja pala, jolla on enää yksi paikka.
-- Keskitaso: tarvitset myös ruutuja, joiden kaikki mahdolliset parit muodostavat saman palan, ja pareja, jotka jättäisivät naapuriruudun yksin.
-- Vaikea: palan seuraamista loppuun asti nähdäksesi, mihin se johtaa.
+Täydellinen dominosarja levitettiin ruudukolle, ja sitten palojen väliset viivat pyyhittiin pois: jäljellä ovat vain luvut. Selvitä, missä kukin pala on. Jokainen sarjan pala, 0-0:sta suurimpaan tuplaan, on ruudukossa täsmälleen kerran. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä.
 # Siirto
 Yhdistä kaksi vierekkäistä ruutua palaksi tai poista pala. Uusi pala korvaa ne, jotka olivat sen ruuduilla.
 # Pelin loppu
-Tehtävä on ratkaistu, kun palat peittävät ruudukon ja jokainen sarjan pala on mukana kerran: kultainen valoaalto kulkee laudan yli.
+Tehtävä on ratkaistu, kun palat peittävät ruudukon ja jokainen sarjan pala on mukana kerran.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, tuplakolmosen sarjasta tuplakahdeksikon sarjaan, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä pala, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-Vedä ruudusta sen naapuriin tai napauta ensin yhtä ja sitten toista: niiden päälle asettuu norsunluinen pala, jonka silmät näyttävät kaksi lukua. Napauta palaa poistaaksesi sen. Kahdesti asetettu pala muuttuu punaiseksi. Lamppupainike antaa vihjeen: se poistaa väärän palan tai muuten asettaa helpoimman oikean, kultaisessa valossa. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä pala, jonka perut Kumoa-painikkeella.

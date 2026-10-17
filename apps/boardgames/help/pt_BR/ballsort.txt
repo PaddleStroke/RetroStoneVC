@@ -1,14 +1,11 @@
 Ordenar as bolas
 # O objetivo
-Tubos de vidro guardam bolas coloridas, todas misturadas, e dois tubos estão vazios. Mova as bolas até que cada cor encha um tubo só dela. Escolha primeiro o tamanho: 4 cores em 6 tubos, 7 em 9, 10 em 12 ou 12 em 14. Um tubo comporta quatro bolas.
-Todo quebra-cabeça tem solução: o computador resolve cada um antes de você vê-lo, e ficam os que pedem mais jogadas.
+Tubos de vidro guardam bolas coloridas, todas misturadas, e dois tubos estão vazios. Mova as bolas até que cada cor encha um tubo só dela. Um tubo comporta quatro bolas. Todo quebra-cabeça tem solução.
 # Uma jogada
 Ponha a bola de cima de um tubo sobre uma bola da mesma cor, ou num tubo vazio, se houver espaço nele. Só uma bola se move de cada vez.
 # O tubo extra
-Uma vez por quebra-cabeça, você pode pôr um tubo vazio a mais na prateleira. Ele guarda um anel de latão no pé, para mostrar que foi usado.
+Uma vez por quebra-cabeça, você pode pôr um tubo vazio a mais na prateleira: toque no tubo apagado com um sinal de mais no fim da última prateleira.
 # O fim da partida
-O quebra-cabeça está resolvido quando cada cor enche um tubo só dela e os outros tubos estão vazios. Cada tubo cheio ganha uma rolha, e então todos os tubos se acendem em dourado.
+O quebra-cabeça está resolvido quando cada cor enche um tubo só dela e os outros tubos estão vazios.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de 3 cores até 12; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Cada quebra-cabeça tem um par: o mínimo de jogadas que o resolvem, encontrado pelo computador. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. O tubo extra limita o quebra-cabeça a 2 estrelas. Desfazer volta uma jogada, que deixa de contar.
-# Jogando no aparelho
-Toque num tubo: a bola de cima sobe. Toque em outro tubo: a bola desliza até ele e cai dentro. Se a jogada não for permitida, a bola treme; toque de novo no tubo dela para devolvê-la. Você também pode arrastar uma bola até outro tubo. Cada bola traz um pequeno sinal além da cor. Para usar o tubo extra, toque no lugar dele no fim da última prateleira (um tubo apagado com um sinal de mais). A lâmpada dá uma dica: ela levanta a bola a mover e acende o tubo para onde levá-la, ou o lugar do tubo extra. Se a lâmpada brilhar em vermelho, não há mais saída a partir daqui: desfaça algumas jogadas. Desfazer volta uma jogada de cada vez, até o começo, inclusive o tubo extra. A barra conta as suas jogadas.
+Resolvido no par, o mínimo de jogadas que o resolvem: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. O tubo extra limita o quebra-cabeça a 2 estrelas.

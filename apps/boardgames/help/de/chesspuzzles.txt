@@ -4,8 +4,6 @@ Finde die Gewinnzüge in Stellungen aus echten Partien. Jede Aufgabe hat genau e
 # Ein Zug
 Die Figuren ziehen wie im Schach. Der Gegner macht den ersten Zug von selbst; dann bist du dran: Finde den besten Zug. Nach jedem deiner richtigen Züge antwortet der Gegner von selbst, bis die Zugfolge endet. Deine Bauern werden immer in eine Dame umgewandelt.
 # Das Ende der Partie
-Die Aufgabe ist gelöst, wenn die ganze Zugfolge gespielt ist. Ein Zug, der mattsetzt, ist immer richtig, auch wenn er nicht der erwartete ist. Ein falscher Zug verliert nie: Er färbt sich rot, wird zurückgenommen und zählt als Fehler.
+Die Aufgabe ist gelöst, wenn die ganze Zugfolge gespielt ist. Ein Zug, der mattsetzt, ist immer richtig, auch wenn er nicht der erwartete ist. Ein falscher Zug verliert nie: Er wird zurückgenommen und zählt als Fehler.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von einem zum nächsten schwerer: Matt in einem Zug, Materialgewinn, Matt in zwei Zügen, Kombinationen, Endspiele und die schwersten von allen; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln gibt dir eine zufällige Aufgabe aus einer Serie: Anfänger (Wertung unter 1000), leicht (1000 bis 1400), mittel (1400 bis 1800), schwer (1800 bis 2200), Experte (ab 2200) oder Matt in einem, zwei oder drei Zügen aus allen Wertungen. Ohne Tipp und ohne Fehler: 3 Sterne; ein Tipp oder ein Fehler: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Das Brett dreht sich so, dass deine Figuren unten stehen. Tippe auf eine Figur und dann auf ein Feld, oder ziehe die Figur dorthin. Die Lampe: Ein erster Druck lässt die zu ziehende Figur aufleuchten, ein zweiter auch ihr Feld. Rückgängig nimmt deinen letzten Zug und die Antwort zurück, bis zum Anfang. Die Leiste zeigt die Wertung der Aufgabe, deine Serie (Aufgaben in Folge ohne Fehler und ohne Tipp gelöst) und die in dieser Sitzung gelösten Aufgaben.
+Ohne Tipp und ohne Fehler: 3 Sterne; ein Tipp oder ein Fehler: 2 Sterne; sonst 1.

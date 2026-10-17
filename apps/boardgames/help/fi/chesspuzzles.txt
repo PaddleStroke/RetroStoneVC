@@ -4,8 +4,6 @@ Etsi voittavat siirrot asemista, jotka on otettu oikeista peleistä. Jokaisessa 
 # Siirto
 Nappulat liikkuvat kuten shakissa. Vastustaja tekee ensimmäisen siirron itse; sitten on sinun vuorosi: etsi paras siirto. Jokaisen oikean siirtosi jälkeen vastustaja vastaa itse, kunnes siirtosarja päättyy. Sotilaasi korottuvat aina kuningattareksi.
 # Pelin loppu
-Tehtävä on ratkaistu, kun koko siirtosarja on pelattu. Matittava siirto on aina oikein, vaikka se ei olisi odotettu. Väärä siirto ei koskaan hävitä: se muuttuu punaiseksi, perutaan ja lasketaan virheeksi.
+Tehtävä on ratkaistu, kun koko siirtosarja on pelattu. Matittava siirto on aina oikein, vaikka se ei olisi odotettu. Väärä siirto ei koskaan hävitä: se perutaan ja lasketaan virheeksi.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, ja jokainen luku on edellistä vaikeampi: matit yhdellä siirrolla, materiaalivoitot, matit kahdella siirrolla, kombinaatiot, loppupelit ja kaikkein vaikeimmat; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen antaa satunnaisen tehtävän sarjasta: aloittelija (vahvuusluku alle 1000), helppo (1000–1400), keskitaso (1400–1800), vaikea (1800–2200), asiantuntija (2200 ja yli) tai matit yhdellä, kahdella tai kolmella siirrolla kaikilta vahvuustasoilta. Ei vihjeitä eikä virheitä: 3 tähteä; yksi vihje tai yksi virhe: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Lauta kääntyy niin, että omat nappulasi ovat alhaalla. Napauta nappulaa ja sitten ruutua, tai vedä nappula paikalleen. Lamppu: ensimmäinen painallus valaisee siirrettävän nappulan, toinen myös sen ruudun. Kumoa peruu viimeisen siirtosi ja vastauksen, aina alkuun asti. Palkki näyttää tehtävän vahvuusluvun, putkesi (peräkkäin ilman virheitä ja vihjeitä ratkaistut tehtävät) ja tällä kerralla ratkaistut tehtävät.
+Ei vihjeitä eikä virheitä: 3 tähteä; yksi vihje tai yksi virhe: 2 tähteä; muuten 1.

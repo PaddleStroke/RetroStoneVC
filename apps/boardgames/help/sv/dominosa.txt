@@ -1,14 +1,9 @@
 Dominosa
 # Målet
-En hel uppsättning dominobrickor lades ut på rutnätet, och sedan suddades linjerna mellan dem ut: bara talen är kvar. Ta reda på var varje bricka ligger. Varje bricka i uppsättningen, från 0-0 till den högsta dubbeln (4-4, 6-6 eller 8-8), finns i rutnätet exakt en gång. Varje pussel har exakt en lösning, som går att hitta enbart genom att tänka. Välj uppsättning och nivå (stenarna under varje bild):
-- Lätt: en ruta som bara har en granne kvar att bilda par med, och en bricka som bara har en plats kvar, räcker alltid.
-- Medel: du behöver också rutor vars möjliga par alla bildar samma bricka, och par som skulle lämna en grannruta ensam.
-- Svår: att följa en bricka till slutet för att se vart den leder.
+En hel uppsättning dominobrickor lades ut på rutnätet, och sedan suddades linjerna mellan dem ut: bara talen är kvar. Ta reda på var varje bricka ligger. Varje bricka i uppsättningen, från 0-0 till den högsta dubbeln, finns i rutnätet exakt en gång. Varje pussel har exakt en lösning, som går att hitta enbart genom att tänka.
 # Ett drag
 Gör en bricka av två grannrutor, eller ta bort en bricka. En ny bricka ersätter dem som låg på dess rutor.
 # Partiets slut
-Pusslet är löst när brickorna täcker rutnätet, varje bricka i uppsättningen en gång: en våg av gyllene ljus sveper över brädet.
+Pusslet är löst när brickorna täcker rutnätet, varje bricka i uppsättningen en gång.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från uppsättningen med 3-3 som högsta dubbel upp till den med 8-8, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig bricka som du tar tillbaka med Ångra.
-# Spela på enheten
-Dra från en ruta till dess granne, eller tryck på den ena och sedan på den andra: en bricka av elfenben läggs på dem, med prickar som visar de två talen. Tryck på en bricka för att ta bort den. En bricka som ligger två gånger blir röd. Lampknappen ger en ledtråd: den tar bort en felaktig bricka, eller lägger annars den lättaste rätta, i gyllene ljus. Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig bricka som du tar tillbaka med Ångra.

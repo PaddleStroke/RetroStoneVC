@@ -2,14 +2,8 @@ Empujacajas
 # El objetivo
 Eres el encargado de un almacén. Empuja cada caja hasta uno de los aros de latón incrustados en el suelo: hay tantos aros como cajas.
 # Una jugada
-El encargado anda una casilla cada vez: arriba, abajo, a la izquierda o a la derecha, nunca a través de muros ni cajas. Si camina contra una caja, la empuja una casilla más allá, si la casilla de detrás está libre. Las cajas nunca se arrastran, y dos cajas seguidas pesan demasiado para empujarlas. Piensa con antelación: una caja empujada a una esquina ya no puede salir de ella.
+El encargado anda una casilla cada vez: arriba, abajo, a la izquierda o a la derecha, nunca a través de muros ni cajas. Si camina contra una caja, la empuja una casilla más allá, si la casilla de detrás está libre. Las cajas nunca se arrastran, y dos cajas seguidas pesan demasiado para empujarlas. Una caja empujada a una esquina ya no puede salir de ella.
 # El final de la partida
-El nivel está resuelto cuando todas las cajas están sobre un aro: las cajas se iluminan en dorado.
+El nivel está resuelto cuando todas las cajas están sobre un aro.
 # Niveles y estrellas
-Hay 60 niveles en tres capítulos, del más fácil en adelante. Los niveles están hechos para este juego: un ordenador comprobó que cada uno tiene solución. Cada nivel tiene un par: el mínimo de empujones que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de empujones: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-Elige un nivel en la pantalla de niveles; los resueltos muestran sus estrellas.
-- Desliza el dedo: el encargado avanza en esa dirección, tantas casillas como largo sea tu deslizamiento, empujando lo que tenga delante.
-- Toca una casilla libre: el encargado va allí, rodeando las cajas.
-- Toca una caja junto al encargado: se empuja una casilla, alejándose de él. Toca cualquier otra caja: unos puntos muestran adónde puede empujarse en línea recta; toca un punto y el encargado da la vuelta y la empuja hasta allí.
-La lámpara da una pista: el encargado hace el siguiente empujón de un camino más corto, con luz dorada. Si una caja está atascada, la pista vuelve primero a donde aún queda un camino. Deshacer anula una acción cada vez, hasta el principio. La barra muestra los pasos del encargado y, en su extremo derecho, los empujones.
+Resuelto en el par, el mínimo de empujones que lo resuelven: 3 estrellas; con hasta la mitad más de empujones: 2 estrellas; si no, 1.

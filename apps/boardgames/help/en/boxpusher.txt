@@ -2,14 +2,8 @@ Box Pusher
 # The aim
 You are the keeper of a storehouse. Push every crate onto one of the brass rings set in the floor: there are as many rings as crates.
 # A move
-The keeper walks one cell at a time: up, down, left or right, never through walls or crates. Walking into a crate pushes it one cell further, if the cell beyond is free. Crates are never pulled, and two crates in a row are too heavy to push. Think ahead: a crate pushed into a corner can never come out.
+The keeper walks one cell at a time: up, down, left or right, never through walls or crates. Walking into a crate pushes it one cell further, if the cell beyond is free. Crates are never pulled, and two crates in a row are too heavy to push. A crate pushed into a corner can never come out.
 # The end of the game
-The level is solved when every crate stands on a ring: the crates light up in gold.
+The level is solved when every crate stands on a ring.
 # Levels and stars
-There are 60 levels in three chapters, from the easiest. The levels are made for this game: every one was checked by a computer to be solvable. Each level has a par: the fewest pushes that solve it. Solved at par: 3 stars; with up to half as many pushes again: 2 stars; otherwise 1.
-# Playing on the device
-Choose a level on the level screen; the solved ones show their stars.
-- Swipe: the keeper steps that way, as many cells as your swipe is long, pushing what is in front.
-- Tap a free cell: the keeper walks there, round the crates.
-- Tap a crate next to the keeper: it is pushed one cell away from the keeper. Tap any other crate: dots show where it can be pushed in a straight line; tap a dot, and the keeper goes round and pushes it there.
-The lamp gives a hint: the keeper makes the next push of a shortest way, in gold light. If a crate is stuck, the hint first goes back to where a way remains. Undo takes back one action at a time, all the way to the start. The bar shows the keeper's steps and, at its right end, the pushes.
+Solved at par, the fewest pushes that solve it: 3 stars; with up to half as many pushes again: 2 stars; otherwise 1.

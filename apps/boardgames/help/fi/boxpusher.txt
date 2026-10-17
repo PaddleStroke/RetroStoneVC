@@ -2,14 +2,8 @@ Laatikontyöntäjä
 # Tavoite
 Olet varaston vartija. Työnnä jokainen laatikko johonkin lattiaan upotetuista messinkirenkaista: renkaita on yhtä monta kuin laatikoita.
 # Siirto
-Vartija kävelee ruudun kerrallaan: ylös, alas, vasemmalle tai oikealle, ei koskaan seinien tai laatikoiden läpi. Kun vartija kävelee laatikkoa päin, laatikko siirtyy ruudun eteenpäin, jos sen takana oleva ruutu on vapaa. Laatikoita ei koskaan vedetä, ja kaksi peräkkäistä laatikkoa on liian painava työnnettäväksi. Ajattele etukäteen: nurkkaan työnnetty laatikko ei pääse sieltä koskaan pois.
+Vartija kävelee ruudun kerrallaan: ylös, alas, vasemmalle tai oikealle, ei koskaan seinien tai laatikoiden läpi. Kun vartija kävelee laatikkoa päin, laatikko siirtyy ruudun eteenpäin, jos sen takana oleva ruutu on vapaa. Laatikoita ei koskaan vedetä, ja kaksi peräkkäistä laatikkoa on liian painava työnnettäväksi. Nurkkaan työnnetty laatikko ei pääse sieltä koskaan pois.
 # Pelin loppu
-Taso on ratkaistu, kun jokainen laatikko on renkaan päällä: laatikot syttyvät kultaisiksi.
+Taso on ratkaistu, kun jokainen laatikko on renkaan päällä.
 # Tasot ja tähdet
-Tasoja on 60 kolmessa luvussa, helpoimmasta alkaen. Tasot on tehty tätä peliä varten: tietokone on tarkistanut, että jokainen on ratkaistavissa. Jokaisella tasolla on par eli pienin määrä työntöjä, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän työntöjä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Valitse taso tasonäkymästä; ratkaistut näyttävät tähtensä.
-- Pyyhkäise: vartija astelee siihen suuntaan niin monta ruutua kuin pyyhkäisysi on pitkä ja työntää edessään olevaa.
-- Napauta vapaata ruutua: vartija kävelee sinne laatikoiden ympäri.
-- Napauta vartijan vieressä olevaa laatikkoa: se työntyy ruudun poispäin vartijasta. Napauta mitä tahansa muuta laatikkoa: pisteet näyttävät, minne sen voi työntää suoraan; napauta pistettä, niin vartija kiertää ja työntää sen sinne.
-Lamppu antaa vihjeen: vartija tekee lyhimmän reitin seuraavan työnnön kultaisessa valossa. Jos laatikko on jumissa, vihje palaa ensin kohtaan, josta reitti vielä löytyy. Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää vartijan askeleet ja oikeassa päässä työnnöt.
+Ratkaistu parilla eli pienimmällä määrällä työntöjä, joilla sen ratkaisee: 3 tähteä; enintään puolet enemmän työntöjä: 2 tähteä; muuten 1.

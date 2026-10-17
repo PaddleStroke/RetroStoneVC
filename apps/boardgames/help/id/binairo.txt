@@ -1,18 +1,10 @@
 Binairo
 # Tujuan
 Isi kisi dengan keping gading dan eboni. Tiga keping berwarna sama tidak boleh berdampingan dalam satu baris atau kolom. Setiap baris dan setiap kolom berisi keping terang dan gelap sama banyak. Tidak boleh ada dua baris yang sama, begitu pula dua kolom.
-Beberapa keping sudah diberikan sejak awal, di kotak yang lebih gelap. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih ukurannya (dari 6 × 6 sampai 12 × 12) dan tingkatnya (batu di bawah setiap gambar):
-- Mudah: dua yang sama berdampingan, atau dua yang sama dengan satu celah di antaranya, menentukan warna kotak di sebelahnya; garis yang sudah punya semua keping satu warna mendapat warna lain di sisanya.
-- Sedang: kamu juga perlu melihat satu garis utuh: semua cara mengisinya sepakat pada beberapa kotak.
-- Sulit: rantai penalaran yang lebih panjang, tanpa pernah menebak.
+Beberapa keping sudah diberikan sejak awal. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
 # Satu langkah
 Taruh keping di kotak kosong, ganti warnanya, atau ambil lagi. Keping yang diberikan tetap di tempatnya.
 # Akhir permainan
-Teka-teki selesai saat kisi penuh dan menaati semua aturan: gelombang cahaya emas menyapu papan.
+Teka-teki selesai saat kisi penuh dan menaati semua aturan.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 6 × 6 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah keping berwarna salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-- Ketuk kotak kosong untuk keping terang, ketuk lagi untuk keping gelap, sekali lagi untuk mengosongkannya.
-- Tahan jari sebentar di sebuah kotak untuk berputar ke arah sebaliknya: gelap dulu.
-- Seret di sepanjang baris atau kolom untuk melakukan hal yang sama pada satu deretan. Hanya kotak yang sama seperti kotak pertama yang berubah.
-Tiga yang sama berderet bersinar merah; baris atau kolom yang kelebihan keping satu warna, atau penuh dan sama dengan yang lain, menjadi merah. Tombol bola lampu di samping papan adalah petunjuk. Memperbaiki keping yang salah, atau menunjukkan kotak berikutnya yang ditemukan penalaran, dengan cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah keping berwarna salah yang kamu batalkan dengan Urungkan.

@@ -1,14 +1,11 @@
 Třídění kuliček
 # Cíl hry
-Skleněné zkumavky obsahují barevné kuličky, úplně promíchané, a dvě zkumavky jsou prázdné. Přesouvej kuličky, dokud každá barva nezaplní vlastní zkumavku. Nejprve zvol velikost: 4 barvy v 6 zkumavkách, 7 v 9, 10 ve 12 nebo 12 ve 14. Do zkumavky se vejdou čtyři kuličky.
-Každý hlavolam jde vyřešit: počítač každý vyřeší dřív, než ho uvidíš, a ponechá ty, které potřebují nejvíc tahů.
+Skleněné zkumavky obsahují barevné kuličky, úplně promíchané, a dvě zkumavky jsou prázdné. Přesouvej kuličky, dokud každá barva nezaplní vlastní zkumavku. Do zkumavky se vejdou čtyři kuličky. Každý hlavolam jde vyřešit.
 # Tah
 Přesuň horní kuličku ze zkumavky na kuličku stejné barvy, nebo do prázdné zkumavky, pokud je v ní místo. Najednou se hýbe jen jedna kulička.
 # Zkumavka navíc
-Jednou za hlavolam smíš postavit na polici prázdnou zkumavku navíc. U paty jí zůstane mosazný kroužek, aby bylo vidět, že byla použita.
+Jednou za hlavolam smíš postavit na polici prázdnou zkumavku navíc: klepni na bledou zkumavku s plusem na konci poslední police.
 # Konec hry
-Hlavolam je vyřešený, když každá barva zaplní vlastní zkumavku a ostatní zkumavky jsou prázdné. Každá plná zkumavka dostane zátku a pak se všechny zkumavky rozzáří zlatem.
+Hlavolam je vyřešený, když každá barva zaplní vlastní zkumavku a ostatní zkumavky jsou prázdné.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 3 barev po 12; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet tahů, který ho vyřeší, jak ho našel počítač. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Použití zkumavky navíc omezí hlavolam na 2 hvězdy. Vrátit vezme tah zpět a ten se už nepočítá.
-# Hra na zařízení
-Klepni na zkumavku: její horní kulička se zvedne. Klepni na jinou zkumavku: kulička se k ní přesune a spadne dovnitř. Když tah není dovolený, kulička se zachvěje; dalším klepnutím na její zkumavku ji vrátíš zpět. Kuličku můžeš také přetáhnout do jiné zkumavky. Každá kulička má kromě barvy i malou značku. Chceš-li použít zkumavku navíc, klepni na její místo na konci poslední police (bledá zkumavka s plusem). Lampa dá nápovědu: zvedne kuličku, kterou přesunout, a rozsvítí zkumavku, kam ji dát, nebo místo zkumavky navíc. Když lampa svítí červeně, odsud už nevede žádná cesta ven: vezmi pár tahů zpět. Vrátit bere zpět jeden tah po druhém, až na začátek, i zkumavku navíc. Lišta počítá tvé tahy.
+Vyřešeno na par, tedy nejmenším počtem tahů, který hlavolam vyřeší: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Použití zkumavky navíc omezí hlavolam na 2 hvězdy.

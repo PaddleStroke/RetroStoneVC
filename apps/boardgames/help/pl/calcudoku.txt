@@ -1,15 +1,7 @@
 Calcudoku
 # Cel gry
-Wypełnij diagram tak, aby każdy wiersz i każda kolumna zawierały raz każdą cyfrę od 1 do rozmiaru diagramu. Grube linie dzielą diagram na klatki; każda klatka pokazuje wynik i znak. Jej cyfry dodane (+) albo pomnożone (×) dają wynik; w klatce z dwóch pól daje go większa minus mniejsza (−) albo większa podzielona przez mniejszą (÷). Klatka z jednego pola zawiera swój wynik. Cyfra może się powtórzyć w klatce, ale nigdy w wierszu ani w kolumnie. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem. Najpierw wybierz rozmiar i poziom (kamienie pod każdym obrazkiem):
-- Łatwy: zawsze wystarczą sposoby uzyskania wyniku każdej klatki i cyfra, która ma w swoim wierszu lub kolumnie już tylko jedno miejsce.
-- Średni: będą też potrzebne cyfry, które klatka musi umieścić w jednym wierszu lub kolumnie, oraz pary.
-- Trudny: dłuższe rozumowanie: wypróbuj cyfrę i śledź ją, aż coś się nie zgodzi.
+Wypełnij diagram tak, aby każdy wiersz i każda kolumna zawierały raz każdą cyfrę od 1 do rozmiaru diagramu. Grube linie dzielą diagram na klatki; każda klatka pokazuje wynik i znak. Jej cyfry dodane (+) albo pomnożone (×) dają wynik; w klatce z dwóch pól daje go większa minus mniejsza (−) albo większa podzielona przez mniejszą (÷). Klatka z jednego pola zawiera swój wynik. Cyfra może się powtórzyć w klatce, ale nigdy w wierszu ani w kolumnie. Każda łamigłówka ma dokładnie jedno rozwiązanie, które można znaleźć samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy diagram jest pełny i poprawny.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 9 × 9, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-Dotknij pola, a potem klawisza obok planszy: jego cyfra wpisuje się niebieskim atramentem. Dotknij tego samego klawisza jeszcze raz, by ją usunąć, albo przeciągnij klawisz na pole. Wiersz i kolumna pola lekko się podświetlają, jego klatka nieco mocniej, a pola z tą samą cyfrą ciepłym światłem. Gdy żadne pole nie jest wybrane, klawisz podświetla pola ze swoją cyfrą. Przyciski obok planszy:
-- Ołówek: notatki. Klawisze wpisują wtedy do pola małe cyfry albo je usuwają.
-- Gumka: usuwa cyfrę z pola albo jego notatki.
-- Lampa: podpowiedź. Poprawia błędną cyfrę, a jeśli takiej nie ma, wypełnia pole znalezione rozumowaniem, w złotym świetle.
-- Oko: pokazuje błędy na czerwono (cyfra dwa razy w linii, pełna klatka, która nie daje wyniku). Na początku jest włączone.
-Cofnij cofa po jednej akcji, aż do początku. Pasek pokazuje twoje ruchy. Gdy diagram jest pełny i poprawny, po planszy przebiega fala złotego światła.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to błędna cyfra; liczy się w chwili cofnięcia przyciskiem Cofnij.

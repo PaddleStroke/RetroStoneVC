@@ -1,14 +1,9 @@
 Dominosa
 # Tujuan
-Satu set domino lengkap pernah diletakkan di kisi, lalu garis di antara kartu-kartunya dihapus: yang tersisa hanya bilangan. Temukan letak setiap kartu domino. Setiap kartu dalam set, dari 0-0 sampai balak tertinggi (4-4, 6-6, atau 8-8), ada di kisi tepat satu kali. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih set dan tingkat (batu di bawah setiap gambar):
-- Mudah: selalu cukup dengan kotak yang tinggal punya satu tetangga untuk dipasangkan, dan kartu yang tinggal punya satu tempat.
-- Sedang: kamu juga perlu kotak yang semua pasangan mungkinnya membentuk kartu yang sama, dan pasangan yang akan membuat kotak tetangga sendirian.
-- Sulit: menelusuri sebuah kartu sampai akhir untuk melihat ke mana arahnya.
+Satu set domino lengkap pernah diletakkan di kisi, lalu garis di antara kartu-kartunya dihapus: yang tersisa hanya bilangan. Temukan letak setiap kartu domino. Setiap kartu dalam set, dari 0-0 sampai balak tertinggi, ada di kisi tepat satu kali. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
 # Satu langkah
 Gabungkan dua kotak bertetangga menjadi satu kartu, atau ambil sebuah kartu. Kartu baru menggantikan kartu yang ada di kotak-kotaknya.
 # Akhir permainan
-Teka-teki selesai saat kartu-kartu menutupi kisi, setiap kartu dalam set satu kali: gelombang cahaya emas menyapu papan.
+Teka-teki selesai saat kartu-kartu menutupi kisi, setiap kartu dalam set satu kali.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari set balak 3 sampai set balak 8, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kartu salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Seret dari sebuah kotak ke tetangganya, atau ketuk satu lalu yang lain: sebuah kartu domino gading diletakkan di atasnya, dengan bintik-bintik yang menunjukkan kedua bilangan. Ketuk sebuah kartu untuk mengambilnya. Kartu yang diletakkan dua kali menjadi merah. Tombol lampu memberi petunjuk: mengambil kartu yang salah, atau kalau tidak ada, meletakkan kartu benar yang termudah, dalam cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kartu salah yang kamu batalkan dengan Urungkan.

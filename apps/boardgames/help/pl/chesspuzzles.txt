@@ -4,8 +4,6 @@ Znajdź zwycięskie posunięcia w pozycjach z prawdziwych partii. Każde zadanie
 # Ruch
 Bierki poruszają się jak w szachach. Przeciwnik sam wykonuje pierwsze posunięcie; potem twoja kolej: znajdź najlepszy ruch. Po każdym twoim dobrym ruchu przeciwnik sam odpowiada, aż linia się skończy. Twoje piony zawsze promują na hetmana.
 # Koniec gry
-Zadanie jest rozwiązane, gdy cała linia zostanie rozegrana. Ruch dający mata jest zawsze dobry, nawet jeśli nie jest tym oczekiwanym. Zły ruch nigdy nie przegrywa: robi się czerwony, zostaje cofnięty i liczy się jako błąd.
+Zadanie jest rozwiązane, gdy cała linia zostanie rozegrana. Ruch dający mata jest zawsze dobry, nawet jeśli nie jest tym oczekiwanym. Zły ruch nigdy nie przegrywa: zostaje cofnięty i liczy się jako błąd.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, coraz trudniejszych: maty w jednym posunięciu, zdobycie materiału, maty w dwóch posunięciach, kombinacje, końcówki i najtrudniejsze ze wszystkich; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami daje losowe zadanie z pakietu: początkujący (ranking poniżej 1000), łatwe (1000–1400), średnie (1400–1800), trudne (1800–2200), ekspert (2200 i więcej) albo maty w jednym, dwóch lub trzech posunięciach ze wszystkich rankingów. Bez podpowiedzi i bez błędu: 3 gwiazdki; jedna podpowiedź albo jeden błąd: 2 gwiazdki; inaczej 1.
-# Gra na urządzeniu
-Szachownica obraca się tak, by twoje bierki były na dole. Dotknij bierki, a potem pola, albo przeciągnij tam bierkę. Lampa: pierwsze naciśnięcie podświetla bierkę do ruchu, drugie także jej pole. Cofnij cofa twój ostatni ruch i odpowiedź, aż do początku. Pasek pokazuje ranking zadania, twoją serię (zadania rozwiązane z rzędu bez błędu i bez podpowiedzi) i zadania rozwiązane w tej sesji.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; jedna podpowiedź albo jeden błąd: 2 gwiazdki; inaczej 1.

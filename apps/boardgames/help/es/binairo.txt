@@ -1,18 +1,10 @@
 Binairo
 # El objetivo
 Llena la cuadrícula de fichas de marfil y de ébano. Nunca puede haber tres fichas del mismo color seguidas en una fila o una columna. Cada fila y cada columna tiene tantas fichas de marfil como de ébano. No puede haber dos filas iguales, ni dos columnas.
-Algunas fichas vienen dadas, en casillas más oscuras. Cada tablero tiene una sola solución, que se encuentra solo razonando. Elige el tamaño (de 6 × 6 a 12 × 12) y el nivel (las fichas bajo cada imagen):
-- Fácil: dos iguales juntas, o dos iguales con un hueco entre ellas, dan el color de las casillas de al lado; una línea que ya tiene todas las fichas de un color lleva el otro color en el resto.
-- Medio: también tendrás que mirar una línea entera: todas las maneras de llenarla coinciden en algunas casillas.
-- Difícil: cadenas de razonamiento más largas, nunca al azar.
+Algunas fichas vienen dadas al principio. Cada tablero tiene una sola solución, que se encuentra solo razonando.
 # Una jugada
 Pon una ficha en una casilla vacía, cambia su color o quítala. Las fichas dadas se quedan.
 # El final de la partida
-El tablero está resuelto cuando la cuadrícula está llena y cumple todas las reglas: una ola de luz dorada recorre el tablero.
+El tablero está resuelto cuando la cuadrícula está llena y cumple todas las reglas.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 6 × 6 al 12 × 12, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una ficha del color equivocado que quitas con Deshacer.
-# Jugar en el dispositivo
-- Toca una casilla vacía para una ficha de marfil, otra vez para una de ébano, una vez más para vaciarla.
-- Mantén pulsada una casilla un momento para ir al revés: primero ébano.
-- Arrastra a lo largo de una fila o una columna para hacer lo mismo en todo un tramo. Solo cambian las casillas que estaban como la primera.
-Tres iguales seguidas brillan en rojo; una fila o una columna con demasiadas fichas de un color, o llena e igual a otra, se vuelve roja. El botón de la bombilla, junto al tablero, es una pista. Corrige una ficha equivocada o, si no hay ninguna, muestra la siguiente casilla que encuentra el razonamiento, con luz dorada. Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una ficha del color equivocado que quitas con Deshacer.

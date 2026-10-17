@@ -1,14 +1,11 @@
 Sorter kulene
 # Målet
-Glassrør inneholder fargede kuler, helt blandet sammen, og to rør er tomme. Flytt kulene til hver farge fyller sitt eget rør. Velg først størrelse: 4 farger i 6 rør, 7 i 9, 10 i 12 eller 12 i 14. Et rør rommer fire kuler.
-Alle oppgavene kan løses: datamaskinen løser hver oppgave før du får se den, og de som krever flest trekk, blir beholdt.
+Glassrør inneholder fargede kuler, helt blandet sammen, og to rør er tomme. Flytt kulene til hver farge fyller sitt eget rør. Et rør rommer fire kuler. Alle oppgavene kan løses.
 # Et trekk
 Flytt den øverste kula i et rør over på en kule i samme farge eller ned i et tomt rør, hvis det er plass i røret. Bare én kule flyttes om gangen.
 # Det ekstra røret
-Én gang per oppgave kan du sette et ekstra tomt rør på hylla. Det beholder en messingring rundt foten, så man ser at det er brukt.
+Én gang per oppgave kan du sette et ekstra tomt rør på hylla: trykk på det bleke røret med et pluss ytterst på den siste hylla.
 # Slutten på spillet
-Oppgaven er løst når hver farge fyller sitt eget rør og de andre rørene er tomme. Hvert fullt rør får en kork, og så lyser alle rørene opp i gull.
+Oppgaven er løst når hver farge fyller sitt eget rør og de andre rørene er tomme.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 3 farger opp til 12; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest trekk som løser den, funnet av datamaskinen. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Det ekstra røret gir høyst 2 stjerner. Angre tar tilbake et trekk, og det teller ikke lenger.
-# Spill på enheten
-Trykk på et rør: den øverste kula stiger opp. Trykk på et annet rør: kula glir bort dit og faller ned i det. Er trekket ikke lov, rister kula; trykk på røret dens igjen for å legge den tilbake. Du kan også dra en kule over til et annet rør. Hver kule har et lite tegn i tillegg til fargen. For å bruke det ekstra røret, trykk på plassen til røret ytterst på den siste hylla (et blekt rør med et pluss). Lampen gir et hint: den løfter kula du skal flytte, og lyser opp røret den skal til, eller plassen til det ekstra røret. Lyser lampen rødt, finnes det ingen vei ut herfra: angre noen trekk. Angre tar tilbake ett trekk om gangen, helt til starten, også det ekstra røret. Linjen teller trekkene dine.
+Løst på par, færrest trekk som løser den: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Det ekstra røret gir høyst 2 stjerner.

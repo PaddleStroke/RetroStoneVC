@@ -4,8 +4,6 @@ Encuentra las jugadas ganadoras en posiciones de partidas reales. Cada problema 
 # Una jugada
 Las piezas se mueven como en el ajedrez. El rival hace solo la primera jugada; luego te toca a ti: encuentra la mejor jugada. Tras cada una de tus jugadas correctas, el rival responde solo, hasta que termina la línea. Tus peones coronan siempre en dama.
 # El final de la partida
-El problema está resuelto cuando se ha jugado toda la línea. Una jugada que da jaque mate siempre es correcta, aunque no sea la esperada. Una jugada equivocada nunca hace perder: se pone roja, se deshace y cuenta como un error.
+El problema está resuelto cuando se ha jugado toda la línea. Una jugada que da jaque mate siempre es correcta, aunque no sea la esperada. Una jugada equivocada nunca hace perder: se deshace y cuenta como un error.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, cada uno más difícil que el anterior: mates en una jugada, ganancia de material, mates en dos jugadas, combinaciones, finales y los más difíciles de todos; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, te da un problema al azar de una serie: principiante (puntuación menor de 1000), fácil (1000 a 1400), media (1400 a 1800), difícil (1800 a 2200), experto (2200 o más), o los mates en una, dos o tres jugadas, de todas las puntuaciones. Sin pistas ni errores: 3 estrellas; una pista o un error: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-El tablero gira para que tus piezas queden abajo. Toca una pieza y luego una casilla, o arrastra la pieza. La lámpara: una primera pulsación ilumina la pieza que hay que mover; una segunda, también su casilla. Deshacer anula tu última jugada y la respuesta, hasta el principio. La barra muestra la puntuación del problema, tu racha (problemas resueltos seguidos sin errores ni pistas) y los problemas resueltos en esta sesión.
+Sin pistas ni errores: 3 estrellas; una pista o un error: 2 estrellas; si no, 1.

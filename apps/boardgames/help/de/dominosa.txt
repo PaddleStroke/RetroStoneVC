@@ -1,14 +1,9 @@
 Dominosa
 # Das Ziel
-Ein vollständiges Dominospiel wurde auf das Gitter gelegt, dann wurden die Linien zwischen den Steinen weggewischt: Nur die Zahlen sind geblieben. Finde heraus, wo jeder Stein liegt. Jeder Stein des Spiels, von 0-0 bis zum höchsten Pasch (4-4, 6-6 oder 8-8), liegt genau einmal im Gitter. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle die Größe des Spiels und die Stufe (die schwarzen Steinchen unter jedem Bild):
-- Leicht: Ein Feld, das nur noch einen Nachbarn als Partner hat, und ein Stein, der nur noch einen Platz hat, reichen immer.
-- Mittel: Du brauchst auch Felder, deren mögliche Paare alle denselben Stein ergeben, und Paare, die ein Nachbarfeld allein ließen.
-- Schwer: einen Stein bis zum Ende verfolgen, um zu sehen, wohin er führt.
+Ein vollständiges Dominospiel wurde auf das Gitter gelegt, dann wurden die Linien zwischen den Steinen weggewischt: Nur die Zahlen sind geblieben. Finde heraus, wo jeder Stein liegt. Jeder Stein des Spiels, von 0-0 bis zum höchsten Pasch, liegt genau einmal im Gitter. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
 # Ein Zug
 Verbinde zwei benachbarte Felder zu einem Stein oder nimm einen Stein weg. Ein neuer Stein ersetzt die, die auf seinen Feldern lagen.
 # Das Ende der Partie
-Das Rätsel ist gelöst, wenn die Steine das Gitter bedecken, jeder Stein des Spiels einmal: Eine Welle goldenen Lichts läuft über das Brett.
+Das Rätsel ist gelöst, wenn die Steine das Gitter bedecken, jeder Stein des Spiels einmal.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom Spiel mit höchstem Pasch 3-3 bis zu dem mit Pasch 8-8, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falscher Stein, den du mit Rückgängig zurücknimmst.
-# Spielen auf dem Gerät
-Ziehe von einem Feld zu seinem Nachbarn oder tippe erst das eine, dann das andere an: Ein Stein aus Elfenbein wird daraufgelegt, seine Augen zeigen die beiden Zahlen. Tippe einen Stein an, um ihn wegzunehmen. Ein Stein, der zweimal liegt, wird rot. Der Lampenknopf gibt einen Tipp: Er nimmt einen falschen Stein weg oder legt sonst den leichtesten richtigen, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falscher Stein, den du mit Rückgängig zurücknimmst.

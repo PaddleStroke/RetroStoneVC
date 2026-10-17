@@ -1,14 +1,9 @@
 Dominosa
 # Het doel
-Een volledig dominospel is op het rooster gelegd, en daarna zijn de lijnen tussen de stenen uitgeveegd: alleen de getallen zijn over. Zoek uit waar elke steen ligt. Elke steen van het spel, van 0-0 tot de hoogste dubbele (4-4, 6-6 of 8-8), ligt precies één keer in het rooster. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies het spel en het niveau (de zwarte bolletjes onder elk plaatje):
-- Makkelijk: een vakje met nog maar één buur om een paar mee te vormen, en een steen met nog maar één plek, zijn altijd genoeg.
-- Gemiddeld: je hebt ook vakjes nodig waarvan alle mogelijke paren dezelfde steen vormen, en paren die een buurvakje alleen zouden laten.
-- Moeilijk: een steen tot het eind volgen om te zien waar hij heen leidt.
+Een volledig dominospel is op het rooster gelegd, en daarna zijn de lijnen tussen de stenen uitgeveegd: alleen de getallen zijn over. Zoek uit waar elke steen ligt. Elke steen van het spel, van 0-0 tot de hoogste dubbele, ligt precies één keer in het rooster. Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt.
 # Een zet
 Maak van twee buurvakjes een steen, of haal een steen weg. Een nieuwe steen vervangt de stenen die op zijn vakjes lagen.
 # Het einde van het spel
-De puzzel is opgelost als de stenen het rooster bedekken, elke steen van het spel één keer: een golf van gouden licht loopt over het bord.
+De puzzel is opgelost als de stenen het rooster bedekken, elke steen van het spel één keer.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van het dubbel-3-spel tot het dubbel-8-spel, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde steen die je met Ongedaan maken terugneemt.
-# Spelen op het apparaat
-Sleep van een vakje naar zijn buur, of tik op het ene en dan op het andere: er wordt een ivoren steen op gelegd, waarvan de ogen de twee getallen tonen. Tik op een steen om hem weg te halen. Een steen die twee keer ligt, wordt rood. De lampknop geeft een hint: hij haalt een foute steen weg, of legt anders de makkelijkste goede, in gouden licht. Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde steen die je met Ongedaan maken terugneemt.

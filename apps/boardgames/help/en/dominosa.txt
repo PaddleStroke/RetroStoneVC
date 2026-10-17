@@ -1,14 +1,9 @@
 Dominosa
 # The aim
-A full set of dominoes was laid on the grid, then the lines between them were wiped away: only the numbers are left. Find where each domino lies. Every domino of the set, from 0-0 to the highest double (4-4, 6-6 or 8-8), is in the grid exactly once. Every puzzle has exactly one solution, found by reasoning alone. Choose the set and the level (the stones under each picture):
-- Easy: a cell with only one neighbour left to pair with, and a domino with only one place left, are always enough.
-- Medium: you will also need cells whose possible pairs are all the same domino, and pairs that would leave a neighbouring cell alone.
-- Hard: following a domino through to see where it leads.
+A full set of dominoes was laid on the grid, then the lines between them were wiped away: only the numbers are left. Find where each domino lies. Every domino of the set, from 0-0 to the highest double, is in the grid exactly once. Every puzzle has exactly one solution, found by reasoning alone.
 # A move
 Join two neighbouring cells into a domino, or take a domino away. A new domino replaces the ones on its cells.
 # The end of the game
-The puzzle is solved when the dominoes cover the grid, each domino of the set once: a wave of gold light runs over the board.
+The puzzle is solved when the dominoes cover the grid, each domino of the set once.
 # Levels and stars
-There are 150 levels in six chapters, from the double-3 set up to the double-8, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong domino that you take back with undo.
-# Playing on the device
-Drag from a cell to its neighbour, or tap one and then the other: an ivory domino is laid on them, its pips showing the two numbers. Tap a domino to take it away. A domino laid twice turns red. The lamp button gives a hint: it takes a wrong domino away, or else lays the easiest right one, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong domino that you take back with undo.

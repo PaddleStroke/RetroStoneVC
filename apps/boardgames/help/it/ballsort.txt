@@ -1,14 +1,11 @@
 Ordina le palline
 # Lo scopo
-Delle provette di vetro contengono palline colorate, tutte mescolate, e due provette sono vuote. Sposta le palline finché ogni colore non riempie una provetta tutta sua. Scegli prima la grandezza: 4 colori in 6 provette, 7 in 9, 10 in 12 o 12 in 14. Una provetta contiene quattro palline.
-Ogni rompicapo si può risolvere: il computer li risolve tutti prima che tu li veda, e tiene quelli che richiedono più mosse.
+Delle provette di vetro contengono palline colorate, tutte mescolate, e due provette sono vuote. Sposta le palline finché ogni colore non riempie una provetta tutta sua. Una provetta contiene quattro palline. Ogni rompicapo si può risolvere.
 # Una mossa
 Metti la pallina in cima a una provetta su una pallina dello stesso colore, o in una provetta vuota, se lì c'è posto. Si sposta una sola pallina alla volta.
 # La provetta in più
-Una volta per rompicapo puoi mettere sulla mensola una provetta vuota in più. Tiene un anello d'ottone alla base, così si vede che è stata usata.
+Una volta per rompicapo puoi mettere sulla mensola una provetta vuota in più: tocca la provetta sbiadita con un più, in fondo all'ultima mensola.
 # La fine della partita
-Il rompicapo è risolto quando ogni colore riempie una provetta tutta sua e le altre provette sono vuote. Ogni provetta piena riceve un tappo di sughero, poi tutte le provette si illuminano d'oro.
+Il rompicapo è risolto quando ogni colore riempie una provetta tutta sua e le altre provette sono vuote.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da 3 colori fino a 12; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di mosse che lo risolvono, trovato dal computer. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. La provetta in più limita il rompicapo a 2 stelle. Annulla toglie una mossa, che non conta più.
-# Giocare sul dispositivo
-Tocca una provetta: la sua pallina in cima sale. Tocca un'altra provetta: la pallina scivola fin lì e ci cade dentro. Se la mossa non è permessa, la pallina trema; tocca di nuovo la sua provetta per rimetterla a posto. Puoi anche trascinare una pallina su un'altra provetta. Ogni pallina porta un piccolo segno oltre al suo colore. Per usare la provetta in più, tocca il suo posto in fondo all'ultima mensola (una provetta sbiadita con un più). La lampada dà un suggerimento: solleva la pallina da spostare e illumina la provetta dove metterla, oppure il posto della provetta in più. Se la lampada si accende di rosso, da qui non c'è più via d'uscita: annulla qualche mossa. Annulla toglie una mossa alla volta, fino all'inizio, compresa la provetta in più. La barra conta le tue mosse.
+Risolto al par, il minimo di mosse che lo risolvono: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. La provetta in più limita il rompicapo a 2 stelle.

@@ -1,14 +1,11 @@
 Kugeln sortieren
 # Das Ziel
-Glasröhrchen enthalten farbige Kugeln, bunt gemischt, und zwei Röhrchen sind leer. Versetze die Kugeln, bis jede Farbe ein eigenes Röhrchen füllt. Wähle zuerst die Größe: 4 Farben in 6 Röhrchen, 7 in 9, 10 in 12 oder 12 in 14. In ein Röhrchen passen vier Kugeln.
-Jedes Rätsel ist lösbar: Der Computer löst jedes, bevor du es siehst, und behalten werden die, die die meisten Züge verlangen.
+Glasröhrchen enthalten farbige Kugeln, bunt gemischt, und zwei Röhrchen sind leer. Versetze die Kugeln, bis jede Farbe ein eigenes Röhrchen füllt. In ein Röhrchen passen vier Kugeln. Jedes Rätsel ist lösbar.
 # Ein Zug
 Setze die oberste Kugel eines Röhrchens auf eine Kugel derselben Farbe oder in ein leeres Röhrchen, sofern dort Platz ist. Es bewegt sich immer nur eine Kugel.
 # Das zusätzliche Röhrchen
-Einmal pro Rätsel darfst du ein zusätzliches leeres Röhrchen ins Regal stellen. Es behält einen Messingring am Fuß, damit man sieht, dass es benutzt wurde.
+Einmal pro Rätsel darfst du ein zusätzliches leeres Röhrchen ins Regal stellen: Tippe das blasse Röhrchen mit dem Plus am Ende des letzten Regals an.
 # Das Ende der Partie
-Das Rätsel ist gelöst, wenn jede Farbe ein eigenes Röhrchen füllt und die übrigen Röhrchen leer sind. Jedes volle Röhrchen bekommt einen Korken, dann leuchten alle Röhrchen golden auf.
+Das Rätsel ist gelöst, wenn jede Farbe ein eigenes Röhrchen füllt und die übrigen Röhrchen leer sind.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 3 Farben bis 12; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Züge, mit denen der Computer es lösen kann. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Das zusätzliche Röhrchen begrenzt das Rätsel auf 2 Sterne. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-Tippe ein Röhrchen an: Seine oberste Kugel steigt hoch. Tippe ein anderes an: Die Kugel gleitet hinüber und fällt hinein. Ist der Zug nicht erlaubt, wackelt die Kugel; tippe ihr Röhrchen noch einmal an, um sie zurückzulegen. Du kannst eine Kugel auch auf ein anderes Röhrchen ziehen. Jede Kugel trägt außer ihrer Farbe ein kleines Zeichen. Für das zusätzliche Röhrchen tippe seinen Platz am Ende des letzten Regals an (ein blasses Röhrchen mit einem Plus). Die Lampe gibt einen Tipp: Sie hebt die Kugel, die du versetzen sollst, und lässt ihr Ziel aufleuchten, oder den Platz des zusätzlichen Röhrchens. Leuchtet die Lampe rot, gibt es von hier aus keinen Ausweg mehr: Nimm ein paar Züge zurück. Rückgängig nimmt einen Zug nach dem anderen zurück, bis zum Anfang, auch das zusätzliche Röhrchen. Die Leiste zählt deine Züge.
+Gelöst mit Par, also mit den wenigsten Zügen, die es lösen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Das zusätzliche Röhrchen begrenzt das Rätsel auf 2 Sterne.

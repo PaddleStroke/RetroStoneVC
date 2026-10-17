@@ -1,11 +1,9 @@
 Problèmes d'échecs
 # Le but
-Trouve les coups gagnants dans des positions tirées de vraies parties. Chaque problème a une seule suite qui gagne : un mat, une pièce gagnée, un pion qui va à dame.
+Trouve les coups gagnants dans des positions tirées de vraies parties. Chaque problème a une seule suite qui gagne : un mat, une pièce gagnée, un pion qui va à dame.
 # Un coup
-Les pièces se déplacent comme aux échecs. L'adversaire joue le premier coup tout seul ; ensuite c'est à toi : trouve le meilleur coup. Après chacun de tes bons coups, l'adversaire répond tout seul, jusqu'à la fin de la suite. Tes pions sont toujours promus en dame.
+Les pièces se déplacent comme aux échecs. L'adversaire joue le premier coup tout seul ; ensuite c'est à toi : trouve le meilleur coup. Après chacun de tes bons coups, l'adversaire répond tout seul, jusqu'à la fin de la suite. Tes pions sont toujours promus en dame.
 # La fin de la partie
-Le problème est résolu quand toute la suite a été jouée. Un coup qui fait mat est toujours bon, même si ce n'est pas celui attendu. Un mauvais coup ne fait jamais perdre : il devient rouge, il est repris, et il compte comme une erreur.
+Le problème est résolu quand toute la suite a été jouée. Un coup qui fait mat est toujours bon, même si ce n'est pas celui attendu. Un mauvais coup ne fait jamais perdre : il est repris, et il compte comme une erreur.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de plus en plus difficiles : mats en un coup, gain de matériel, mats en deux coups, combinaisons, finales, et les plus difficiles de tous ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, donne un problème au hasard tiré d'une série : débutant (classement sous 1000), facile (1000 à 1400), moyen (1400 à 1800), difficile (1800 à 2200), expert (2200 et plus), ou les mats en un, deux ou trois coups, de tous classements. Sans indice ni erreur : 3 étoiles ; un indice ou une erreur : 2 étoiles ; sinon 1.
-# Jouer sur l'appareil
-L'échiquier se tourne pour que tes pièces soient en bas. Touche une pièce puis une case, ou fais glisser la pièce. La lampe : un premier appui éclaire la pièce à jouer, un second aussi sa case. Annuler reprend ton dernier coup et la réponse, jusqu'au début. La barre montre le classement du problème, ta série (problèmes résolus d'affilée sans erreur ni indice) et les problèmes résolus pendant la séance.
+Sans indice ni erreur : 3 étoiles ; un indice ou une erreur : 2 étoiles ; sinon 1.

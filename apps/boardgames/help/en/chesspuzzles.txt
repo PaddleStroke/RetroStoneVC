@@ -4,8 +4,6 @@ Find the winning moves in positions taken from real games. Each puzzle has one l
 # A move
 The pieces move as in chess. Your opponent plays the first move by itself; then it is your turn: find the best move. After each of your right moves the opponent replies by itself, until the line ends. Your pawns always promote to a queen.
 # The end of the game
-The puzzle is solved when the whole line has been played. A move that gives checkmate is always right, even when it is not the one expected. A wrong move never loses: it turns red, is taken back, and counts as a mistake.
+The puzzle is solved when the whole line has been played. A move that gives checkmate is always right, even when it is not the one expected. A wrong move never loses: it is taken back and counts as a mistake.
 # Levels and stars
-There are 150 levels in six chapters, harder from one to the next: mates in one move, material won, mates in two moves, combinations, endgames, and the hardest of all; choose one on the level screen. The die tab after the chapters deals a random puzzle from a pack: beginner (rated under 1000), easy (1000 to 1400), medium (1400 to 1800), hard (1800 to 2200), expert (2200 and up), or the mates in one, two or three moves, of every rating. No hint and no mistake: 3 stars; one hint or one mistake: 2 stars; otherwise 1.
-# Playing on the device
-The board turns so that your pieces are at the bottom. Tap a piece and then a square, or drag the piece there. The lamp: a first press lights up the piece to move, a second its square too. Undo takes back your last move and the reply, all the way to the start. The bar shows the puzzle's rating, your streak (puzzles solved in a row with no mistake and no hint) and the puzzles solved this session.
+No hint and no mistake: 3 stars; one hint or one mistake: 2 stars; otherwise 1.

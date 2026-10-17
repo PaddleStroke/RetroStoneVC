@@ -1,14 +1,11 @@
 Urutkan Bola
 # Tujuan
-Tabung-tabung kaca berisi bola berwarna yang tercampur aduk, dengan dua tabung kosong. Pindahkan bola-bola sampai setiap warna mengisi tabungnya sendiri. Pilih dulu ukurannya: 4 warna dalam 6 tabung, 7 dalam 9, 10 dalam 12, atau 12 dalam 14. Satu tabung memuat empat bola.
-Setiap teka-teki bisa dipecahkan: komputer memecahkan masing-masing sebelum kamu melihatnya, dan yang disimpan adalah yang butuh langkah paling banyak.
+Tabung-tabung kaca berisi bola berwarna yang tercampur aduk, dengan dua tabung kosong. Pindahkan bola-bola sampai setiap warna mengisi tabungnya sendiri. Satu tabung memuat empat bola. Setiap teka-teki bisa dipecahkan.
 # Satu langkah
 Pindahkan bola teratas sebuah tabung ke atas bola berwarna sama, atau ke tabung kosong, jika tabung itu masih muat. Hanya satu bola yang berpindah setiap kali.
 # Tabung tambahan
-Sekali dalam setiap teka-teki, kamu boleh menaruh satu tabung kosong tambahan di rak. Di kakinya tetap terpasang cincin kuningan, supaya terlihat bahwa tabung itu sudah dipakai.
+Sekali dalam setiap teka-teki, kamu boleh menaruh satu tabung kosong tambahan di rak: ketuk tabung samar bertanda plus di ujung rak terakhir.
 # Akhir permainan
-Teka-teki terpecahkan saat setiap warna mengisi tabungnya sendiri dan tabung lainnya kosong. Setiap tabung yang penuh diberi gabus, lalu semua tabung bersinar keemasan.
+Teka-teki terpecahkan saat setiap warna mengisi tabungnya sendiri dan tabung lainnya kosong.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 3 warna sampai 12; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah langkah paling sedikit untuk menyelesaikannya, yang ditemukan komputer. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Tabung tambahan membatasi teka-teki paling banyak 2 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi.
-# Bermain di perangkat
-Ketuk sebuah tabung: bola teratasnya naik. Ketuk tabung lain: bola meluncur ke sana dan jatuh ke dalamnya. Jika langkah itu tidak boleh, bolanya bergetar; ketuk lagi tabungnya untuk mengembalikannya. Kamu juga bisa menyeret bola ke tabung lain. Setiap bola punya tanda kecil selain warnanya. Untuk memakai tabung tambahan, ketuk tempatnya di ujung rak terakhir (tabung samar bertanda plus). Lampu memberi petunjuk: lampu mengangkat bola yang harus dipindah dan menyalakan tabung tujuannya, atau tempat tabung tambahan. Jika lampu menyala merah, tidak ada jalan keluar lagi dari sini: urungkan beberapa langkah. Urungkan membatalkan satu langkah setiap kali, sampai ke awal, termasuk tabung tambahan. Bilah menghitung langkahmu.
+Selesai tepat par, jumlah langkah paling sedikit untuk menyelesaikannya: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Tabung tambahan membatasi teka-teki paling banyak 2 bintang.

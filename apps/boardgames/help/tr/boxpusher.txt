@@ -2,14 +2,8 @@ Kasaları İt
 # Amaç
 Bir deponun bekçisisin. Her kasayı yere gömülü pirinç halkalardan birinin üstüne it: kasa sayısı kadar halka vardır.
 # Bir hamle
-Bekçi her seferinde bir kare yürür: yukarı, aşağı, sola ya da sağa; asla duvarların ya da kasaların içinden geçmez. Bir kasaya doğru yürümek, ötesindeki kare boşsa onu bir kare ileri iter. Kasalar asla çekilmez ve arka arkaya iki kasa itilemeyecek kadar ağırdır. İleriyi düşün: köşeye itilen bir kasa bir daha oradan çıkamaz.
+Bekçi her seferinde bir kare yürür: yukarı, aşağı, sola ya da sağa; asla duvarların ya da kasaların içinden geçmez. Bir kasaya doğru yürümek, ötesindeki kare boşsa onu bir kare ileri iter. Kasalar asla çekilmez ve arka arkaya iki kasa itilemeyecek kadar ağırdır. Köşeye itilen bir kasa bir daha oradan çıkamaz.
 # Oyunun sonu
-Her kasa bir halkanın üstünde durduğunda seviye çözülür: kasalar altın ışıkla parlar.
+Her kasa bir halkanın üstünde durduğunda seviye çözülür.
 # Seviyeler ve yıldızlar
-En kolayından başlayarak üç bölümde 60 seviye vardır. Seviyeler bu oyun için yapıldı: her birinin çözülebildiği bir bilgisayarla denetlendi. Her seviyenin bir par değeri vardır: onu çözen en az itiş sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla itişle 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Seviye ekranında bir seviye seç; çözülenler yıldızlarını gösterir.
-- Kaydır: bekçi o yöne, kaydırman ne kadar uzunsa o kadar kare adım atar ve önündekini iter.
-- Boş bir kareye dokun: bekçi kasaların çevresinden dolaşarak oraya yürür.
-- Bekçinin yanındaki bir kasaya dokun: kasa bekçiden bir kare uzağa itilir. Başka herhangi bir kasaya dokun: noktalar onun düz bir çizgide nereye itilebileceğini gösterir; bir noktaya dokun, bekçi dolaşıp onu oraya iter.
-Lamba bir ipucu verir: bekçi en kısa yollardan birinin sonraki itişini altın ışıkla yapar. Bir kasa sıkışmışsa ipucu önce hâlâ bir yolun kaldığı yere geri döner. Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit bekçinin adımlarını ve sağ ucunda itişleri gösterir.
+Par ile, yani seviyeyi çözen en az itişle çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla itişle 2 yıldız; yoksa 1.

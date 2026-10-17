@@ -1,14 +1,11 @@
 Tri des billes
 # Le but
-Des tubes de verre contiennent des billes de couleur, toutes mélangées, et deux tubes sont vides. Déplace les billes jusqu'à ce que chaque couleur remplisse un tube à elle seule. Choisis d'abord la taille : 4 couleurs dans 6 tubes, 7 dans 9, 10 dans 12 ou 12 dans 14. Un tube contient quatre billes.
-Chaque casse-tête a une solution : l'ordinateur le résout avant de te le montrer, et seuls ceux qui demandent le plus de coups sont gardés.
+Des tubes de verre contiennent des billes de couleur, toutes mélangées, et deux tubes sont vides. Déplace les billes jusqu'à ce que chaque couleur remplisse un tube à elle seule. Un tube contient quatre billes. Chaque casse-tête a une solution.
 # Un coup
 Pose la bille du dessus d'un tube sur une bille de la même couleur, ou dans un tube vide, s'il reste de la place dans ce tube. Une seule bille bouge à la fois.
 # Le tube en plus
-Une fois par casse-tête, tu peux poser un tube vide de plus sur l'étagère. Il garde une bague de laiton à son pied, pour qu'on voie qu'il a servi.
+Une fois par casse-tête, tu peux poser un tube vide de plus sur l'étagère : touche le tube pâle avec un plus, au bout de la dernière étagère.
 # La fin de la partie
-Le casse-tête est résolu quand chaque couleur remplit un tube à elle seule et que les autres tubes sont vides. Chaque tube plein reçoit un bouchon, puis tous les tubes s'illuminent d'or.
+Le casse-tête est résolu quand chaque couleur remplit un tube à elle seule et que les autres tubes sont vides.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de 3 couleurs jusqu'à 12 ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins de coups qui le résolvent, trouvé par l'ordinateur. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Le tube en plus limite le casse-tête à 2 étoiles. Annuler reprend un coup, qui ne compte plus.
-# Jouer sur l'appareil
-Touche un tube : sa bille du dessus monte. Touche un autre tube : la bille glisse jusqu'à lui et tombe dedans. Un coup interdit fait trembler la bille ; touche encore son tube pour la remettre en place. Tu peux aussi faire glisser une bille sur un autre tube. Chaque bille porte un petit signe en plus de sa couleur. Pour prendre le tube en plus, touche sa place au bout de la dernière étagère (un tube pâle avec un plus). La lampe donne un indice : elle soulève la bille à déplacer et éclaire le tube où la mettre, ou la place du tube en plus. Si la lampe brille en rouge, il n'y a plus d'issue à partir d'ici : annule quelques coups. Annuler reprend un coup à la fois, jusqu'au début, le tube en plus compris. La barre compte tes coups.
+Résolu au par, le moins de coups qui le résolvent : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Le tube en plus limite le casse-tête à 2 étoiles.

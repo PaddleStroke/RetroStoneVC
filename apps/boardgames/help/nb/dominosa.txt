@@ -1,14 +1,9 @@
 Dominosa
 # Målet
-Et helt sett dominobrikker ble lagt ut på rutenettet, og så ble strekene mellom dem visket ut: bare tallene er igjen. Finn ut hvor hver brikke ligger. Hver brikke i settet, fra 0-0 til den høyeste dobbelen (4-4, 6-6 eller 8-8), ligger i rutenettet nøyaktig én gang. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke. Velg sett og nivå (steinene under hvert bilde):
-- Lett: en rute som bare har én nabo igjen å danne par med, og en brikke som bare har én plass igjen, er alltid nok.
-- Middels: du trenger også ruter der alle mulige par danner den samme brikken, og par som ville la en naborute stå alene.
-- Vanskelig: å følge en brikke til endes for å se hvor den fører.
+Et helt sett dominobrikker ble lagt ut på rutenettet, og så ble strekene mellom dem visket ut: bare tallene er igjen. Finn ut hvor hver brikke ligger. Hver brikke i settet, fra 0-0 til den høyeste dobbelen, ligger i rutenettet nøyaktig én gang. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke.
 # Et trekk
 Sett sammen to naboruter til en brikke, eller ta bort en brikke. En ny brikke erstatter dem som lå på rutene dens.
 # Slutten på spillet
-Oppgaven er løst når brikkene dekker rutenettet, hver brikke i settet én gang: en bølge av gyllent lys går over brettet.
+Oppgaven er løst når brikkene dekker rutenettet, hver brikke i settet én gang.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra settet med 3-3 som høyeste dobbel opp til settet med 8-8, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.
-# Spill på enheten
-Dra fra en rute til naboen, eller trykk på den ene og så på den andre: en brikke av elfenben legges på dem, med øyne som viser de to tallene. Trykk på en brikke for å ta den bort. En brikke som ligger to ganger, blir rød. Lampeknappen gir et hint: den tar bort en feil brikke, eller legger ellers den letteste riktige, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.

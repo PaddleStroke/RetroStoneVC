@@ -1,15 +1,7 @@
 Calcudoku
 # The aim
-Fill the grid so that every row and every column holds each digit from 1 to the grid's size once. Thick lines cut the grid into cages; each cage shows a target and a sign. Its digits added (+) or multiplied (×) make the target; in a cage of two cells, the larger less the smaller (−) or the larger divided by the smaller (÷) makes it. A cage of one cell holds its target. A digit may appear twice in a cage, but never twice in a row or column. Every puzzle has exactly one solution, found by reasoning alone. Choose the size and the level first (the stones under each picture):
-- Easy: the ways of making each cage's target, and a digit with only one place left in its row or column, are always enough.
-- Medium: you will also need the digits a cage must put in one row or column, and pairs.
-- Hard: longer reasoning: try a digit and follow it until something breaks.
+Fill the grid so that every row and every column holds each digit from 1 to the grid's size once. Thick lines cut the grid into cages; each cage shows a target and a sign. Its digits added (+) or multiplied (×) make the target; in a cage of two cells, the larger less the smaller (−) or the larger divided by the smaller (÷) makes it. A cage of one cell holds its target. A digit may appear twice in a cage, but never twice in a row or column. Every puzzle has exactly one solution, found by reasoning alone.
+# The end of the game
+The puzzle is solved when the grid is full and right.
 # Levels and stars
-There are 150 levels in six chapters, from 4 × 4 up to 9 × 9, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.
-# Playing on the device
-Tap a cell, then a key beside the board: its digit goes in, in blue ink. Tap the same key again to take it out, or drag a key onto a cell. The cell's row and column are lit faintly and its cage a little more; every cell holding its digit is lit warmly. With no cell picked, a key lights the cells of its digit. The buttons beside the board:
-- Pencil: notes. The keys then put small digits in the cell, or take them out.
-- Eraser: takes out the cell's digit, or its notes.
-- Lamp: a hint. It puts a wrong digit right, or else fills a cell that reasoning finds, in gold light.
-- Eye: shows clashes in red (a digit twice in a line, a full cage that misses its target). It is on at first.
-Undo takes back one action at a time, all the way to the start. The bar shows your moves. When the grid is full and right, a wave of gold light runs over the board.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong digit that you take back with undo.

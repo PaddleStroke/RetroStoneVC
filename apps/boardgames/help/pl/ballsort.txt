@@ -1,14 +1,11 @@
 Sortowanie kulek
 # Cel gry
-Szklane probówki mieszczą kolorowe kulki, zupełnie pomieszane, a dwie probówki są puste. Przekładaj kulki, aż każdy kolor wypełni własną probówkę. Najpierw wybierz wielkość: 4 kolory w 6 probówkach, 7 w 9, 10 w 12 albo 12 w 14. Probówka mieści cztery kulki.
-Każdą łamigłówkę da się rozwiązać: komputer rozwiązuje każdą, zanim ją zobaczysz, i zostawia te, które wymagają najwięcej ruchów.
+Szklane probówki mieszczą kolorowe kulki, zupełnie pomieszane, a dwie probówki są puste. Przekładaj kulki, aż każdy kolor wypełni własną probówkę. Probówka mieści cztery kulki. Każdą łamigłówkę da się rozwiązać.
 # Ruch
 Przełóż górną kulkę z probówki na kulkę tego samego koloru albo do pustej probówki, jeśli jest w niej miejsce. Naraz rusza się tylko jedna kulka.
 # Dodatkowa probówka
-Raz na łamigłówkę możesz postawić na półce dodatkową pustą probówkę. U jej podstawy zostaje mosiężna opaska, żeby było widać, że jej użyto.
+Raz na łamigłówkę możesz postawić na półce dodatkową pustą probówkę: dotknij bladej probówki z plusem na końcu ostatniej półki.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy każdy kolor wypełnia własną probówkę, a pozostałe probówki są puste. Każda pełna probówka dostaje korek, a potem wszystkie probówki rozbłyskują złotem.
+Łamigłówka jest rozwiązana, gdy każdy kolor wypełnia własną probówkę, a pozostałe probówki są puste.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 3 kolorów do 12; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: najmniejszą liczbę ruchów, która ją rozwiązuje, znalezioną przez komputer. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Użycie dodatkowej probówki ogranicza łamigłówkę do 2 gwiazdek. Cofnij cofa ruch, który przestaje się liczyć.
-# Gra na urządzeniu
-Dotknij probówki: jej górna kulka się unosi. Dotknij innej probówki: kulka sunie do niej i wpada do środka. Jeśli ruch jest niedozwolony, kulka drży; dotknij jeszcze raz jej probówki, aby ją odłożyć. Możesz też przeciągnąć kulkę do innej probówki. Każda kulka ma oprócz koloru mały znak. Aby użyć dodatkowej probówki, dotknij jej miejsca na końcu ostatniej półki (blada probówka z plusem). Lampa daje podpowiedź: unosi kulkę do przełożenia i podświetla probówkę, do której ją przełożyć, albo miejsce dodatkowej probówki. Jeśli lampa świeci na czerwono, stąd nie ma już wyjścia: cofnij kilka ruchów. Cofnij cofa po jednym ruchu, aż do początku, także dodatkową probówkę. Pasek liczy twoje ruchy.
+Rozwiązana w par, czyli najmniejszą liczbą ruchów, która ją rozwiązuje: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Użycie dodatkowej probówki ogranicza łamigłówkę do 2 gwiazdek.
