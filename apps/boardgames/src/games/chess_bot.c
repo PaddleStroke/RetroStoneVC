@@ -430,22 +430,7 @@ int chb_choose(const void *root, int level, uint64_t seed, char *out, ai_stats *
     if (level >= AI_HARD) o.budget.nodes = o.budget.nodes * PCT[s->p.rules & 7] / 100;
     int mv = ai_ab(level <= AI_EASY ? &ADAPTER_EASY : &ADAPTER, s, &o, stats);
     if (mv < 0 || mv == CB_END) return 0;
-    cmove m = dec(mv);
-    if (m.flags & MV_DROP) {
-        out[0] = "?PNBRQ"[m.drop];
-        out[1] = '@';
-        out[2] = (char)('a' + FILE_OF(m.to));
-        out[3] = (char)('1' + RANK_OF(m.to));
-        out[4] = 0;
-        return 1;
-    }
-    out[0] = (char)('a' + FILE_OF(m.from));
-    out[1] = (char)('1' + RANK_OF(m.from));
-    out[2] = (char)('a' + FILE_OF(m.to));
-    out[3] = (char)('1' + RANK_OF(m.to));
-    out[4] = m.promo ? "??nbrqk"[m.promo] : 0;
-    out[5] = 0;
-    return 1;
+    return chess_move_text(dec(mv), out, 8);
 }
 
 static int think(int seat, int level, char *move, int cap)

@@ -191,6 +191,13 @@ static int script(const char *s)
     return ok;
 }
 
+/* the actions since the start, in that notation (the shell's game.history) */
+static int history(int i, char *move, int cap)
+{
+    if (move && i >= 0 && i < G.n) hearts_act_text(G.act[i], move, cap);
+    return G.n;
+}
+
 static int busy(void) { return ct_busy(&A); }
 
 /* ---- the bot's side (hearts_bot.c): the game read-only, and one action of the notation played as a tap ---------- */
@@ -367,7 +374,7 @@ static const game hearts_game = {
     .id = "hearts", .order = 285, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .winners = winners,
+    .bar = bar, .script = script, .busy = busy, .winners = winners, .history = history,
     .players = 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .players_usual = 4, .view = VIEW_HIDDEN,
 };
 REGISTER_GAME(hearts_game)

@@ -5,6 +5,7 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -243,6 +244,7 @@ static bpos *push(bgame *g, int kind, int player, bmove m)
         memmove(g->pos, g->pos + drop, (size_t)(BG_MAX + 1 - drop) * sizeof g->pos[0]);
         memmove(g->ev, g->ev + drop, (size_t)(BG_MAX - drop) * sizeof g->ev[0]);
         g->n -= drop;
+        g->forgot += drop;
     }
     g->ev[g->n] = (bevent){(signed char)kind, (signed char)player, m};
     g->pos[g->n + 1] = g->pos[g->n];
@@ -410,5 +412,29 @@ int bg_moves(bgame *g, const char *s)
             for (int i = 1; i < n; i++)
                 if (!path(g, hop[i - 1], hop[i])) return 0;
     }
+    return 1;
+}
+
+static void place_text(int point, char *out)
+{
+    if (point == BG_BAR) strcpy(out, "bar");
+    else if (point == BG_OFF) strcpy(out, "off");
+    else snprintf(out, 4, "%d", point < 0 ? 0 : point > 24 ? 24 : point);
+}
+
+int bg_event_text(const bgame *g, int i, char *out, int cap)
+{
+    int k = i - g->forgot;
+    if (!out || cap < 12 || k < 0 || k >= g->n) return 0;
+    const bevent *e = &g->ev[k];
+    if (e->kind == BG_EV_THROW) {
+        const bpos *p = &g->pos[k + 1];
+        snprintf(out, (size_t)cap, "%d%d:", p->die[0], p->die[1]);
+        return 1;
+    }
+    char a[4], b[4];
+    place_text(e->m.from, a);
+    place_text(e->m.to, b);
+    snprintf(out, (size_t)cap, "%s/%s", a, b);
     return 1;
 }

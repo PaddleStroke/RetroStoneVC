@@ -605,3 +605,25 @@ cstatus game_status(const cgame *g)
         if (same(&g->pos[i], p) && ++seen >= 3) return ST_REPETITION;
     return ST_PLAY;
 }
+
+int chess_move_text(cmove m, char *out, int cap)
+{
+    char s[8];
+    if (m.flags & MV_DROP) {
+        s[0] = "?PNBRQ"[m.drop];
+        s[1] = '@';
+        s[2] = (char)('a' + FILE_OF(m.to));
+        s[3] = (char)('1' + RANK_OF(m.to));
+        s[4] = 0;
+    } else {
+        s[0] = (char)('a' + FILE_OF(m.from));
+        s[1] = (char)('1' + RANK_OF(m.from));
+        s[2] = (char)('a' + FILE_OF(m.to));
+        s[3] = (char)('1' + RANK_OF(m.to));
+        s[4] = m.promo ? "??nbrqk"[m.promo] : 0;
+        s[5] = 0;
+    }
+    if (!out || cap < (int)strlen(s) + 1) return 0;
+    memcpy(out, s, strlen(s) + 1);
+    return 1;
+}

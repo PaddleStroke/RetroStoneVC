@@ -72,6 +72,8 @@ int  hearts_can_play(const hpos *p, int card);  /* the player to move may play i
 int  hearts_winner(const hpos *p);              /* HP_OVER: the lowest total (-1: a tie for it, or not over) */
 uint32_t hearts_auto(const hpos *p);            /* a plain action (the "." of the notation) */
 int  hearts_script(hgame *g, const char *moves);   /* 0: an action is bad */
+/* an action in that notation ("pQsAh2c" a pass, "Th" a card, "n" the next round), in cap bytes (8 at least); 0: none */
+int  hearts_act_text(uint32_t act, char *out, int cap);
 
 /* the bot (hearts_bot.c, bots.h), and what the screen (hearts.c) gives it; a headless test defines those two */
 const hgame *hearts_live(void);                 /* the game on the screen, read-only: the bot copies it at entry */

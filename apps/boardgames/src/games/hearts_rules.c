@@ -2,6 +2,7 @@
  * Hearts: the rules (hearts.h). No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
+#include <stdio.h>
 #include <string.h>
 
 #include "games/hearts.h"
@@ -264,4 +265,22 @@ int hearts_script(hgame *g, const char *s)
         if (!hearts_play(g, act)) return 0;
     }
     return 1;
+}
+
+int hearts_act_text(uint32_t act, char *out, int cap)
+{
+    char c[3][3];
+    if (!out || cap < 8) return 0;
+    switch (HA_KIND(act)) {
+    case HA_PASS:
+        for (int i = 0; i < 3; i++) trick_name(HA_CARD(act, i), c[i]);
+        snprintf(out, (size_t)cap, "p%s%s%s", c[0], c[1], c[2]);
+        return 1;
+    case HA_PLAY:
+        trick_name(HA_CARD(act, 2), c[0]);
+        snprintf(out, (size_t)cap, "%s", c[0]);
+        return 1;
+    case HA_NEXT: snprintf(out, (size_t)cap, "n"); return 1;
+    default: return 0;
+    }
 }

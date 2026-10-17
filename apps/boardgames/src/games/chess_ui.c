@@ -181,6 +181,13 @@ static int run(const char *s, int animate)
 
 static int script(const char *s) { return run(s, 0); }
 
+/* the moves since the start, in that notation (the shell's game.history) */
+static int history(int i, char *move, int cap)
+{
+    if (move && i >= 0 && i < G.ply) chess_move_text(G.move[i], move, cap);
+    return G.ply;
+}
+
 /* ---- the bot (chess_bot.c) --------------------------------------------------------------------------------------- */
 const cgame *chess_live(void) { return &G; }
 
@@ -774,6 +781,6 @@ static const game chess_game = {
                                                          * losing, atomic, racing kings, horde */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press,
+    .bar = bar, .script = script, .busy = busy, .bar_press = bar_press, .history = history,
 };
 REGISTER_GAME(chess_game)

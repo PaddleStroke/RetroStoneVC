@@ -53,6 +53,9 @@ int  hn_hint(const hn_game *g, int *from, int *to);   /* the next move of the sh
 /* the k-th move (0..) of the shortest way to move n discs from peg a to peg b: its pegs */
 void hn_way(int n, int a, int b, int k, int *from, int *to);
 int  hn_script(hn_game *g, const char *moves);
+/* move i since the start (g->moves of them) in that notation ("ac": from the first peg to the third), in cap bytes
+ * (3 at least); 0: forgotten (a long game), or no room */
+int  hn_move_text(const hn_game *g, int i, char *out, int cap);
 /* the designed levels: "c:aab", the goal peg, then each disc's peg from the largest; their fewest moves */
 int  hn_parse(hn_game *g, const char *level);
 extern const char *const hn_levels[HN_LEVELS];

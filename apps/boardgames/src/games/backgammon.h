@@ -75,6 +75,7 @@ typedef struct {
     bpos pos[BG_MAX + 1];                       /* pos[i]: before event i; pos[n] now */
     bevent ev[BG_MAX];
     int n;
+    int forgot;                                 /* the events forgotten before ev[0] (a long game) */
 } bgame;
 
 int bg_opp(int variant, int point);             /* the other player's number for one of the player's points 1..24 */
@@ -89,6 +90,9 @@ int bg_play(bgame *g, bmove m);                 /* 0: not a legal move */
 int bg_undo(bgame *g);                          /* back before the last checker move (0: none); its throw comes back */
 int bg_status(const bgame *g);                  /* BG_PLAY, BG_WIN*, BG_DRAW */
 int bg_moves(bgame *g, const char *s);          /* plays the notation; 0: something not legal */
+/* event i since the start (counting those forgotten: g->forgot + g->n of them) in that notation ("31:" a throw,
+ * "13/10" a checker, "bar/22" from the bar, "3/off" borne off), in cap bytes (12 are enough); 0: forgotten or no room */
+int bg_event_text(const bgame *g, int i, char *out, int cap);
 static inline const bpos *bg_pos(const bgame *g) { return &g->pos[g->n]; }
 
 /* the bot (backgammon_bot.c, bots.h) */

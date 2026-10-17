@@ -205,3 +205,13 @@ int hn_level(hn_game *g, int level)
     return level >= 0 && level < HN_LEVELS && hn_parse(g, hn_levels[level]);
 }
 #endif
+
+int hn_move_text(const hn_game *g, int i, char *out, int cap)
+{
+    int k = i - (g->moves - g->nh);             /* (the oldest forgotten) */
+    if (!out || cap < 3 || k < 0 || k >= g->nh) return 0;
+    out[0] = (char)('a' + g->hist[k] / 3);
+    out[1] = (char)('a' + g->hist[k] % 3);
+    out[2] = 0;
+    return 1;
+}

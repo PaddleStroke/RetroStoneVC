@@ -160,6 +160,13 @@ static int script(const char *s)
     return ok;
 }
 
+/* the throws and checker moves since the start, in that notation (the shell's game.history) */
+static int history(int i, char *move, int cap)
+{
+    if (move) bg_event_text(&G, i, move, cap);
+    return G.forgot + G.n;
+}
+
 /* ---- the bot (backgammon_bot.c) ---------------------------------------------------------------------------------- */
 static int busy(void);
 
@@ -752,6 +759,6 @@ static const game backgammon_game = {
     .id = "backgammon", .order = 130, .variants = BG_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy, .fill = 1,
+    .bar = bar, .script = script, .busy = busy, .fill = 1, .history = history,
 };
 REGISTER_GAME(backgammon_game)

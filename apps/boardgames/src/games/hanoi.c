@@ -258,6 +258,13 @@ static int script(const char *moves)
     return ok;
 }
 
+/* the moves since the start, in that notation (the shell's game.history) */
+static int history(int i, char *move, int cap)
+{
+    if (move) hn_move_text(&G, i, move, cap);
+    return G.moves;
+}
+
 /* the disc of `from` (lifted, or carried from x0, y0) goes to `to` */
 static void drop(int from, int to, float x0, float y0)
 {
@@ -525,5 +532,6 @@ static const game hanoi_game = {
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
     .levels = HN_LEVELS, .chapter_of = hn_chapter_of, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par, .fill = 1,
+    .history = history,
 };
 REGISTER_GAME(hanoi_game)

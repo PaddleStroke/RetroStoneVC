@@ -109,6 +109,17 @@ static int script(const char *s)
     return 1;
 }
 
+/* the moves since the start, in that notation (the shell's game.history) */
+static int history(int i, char *move, int cap)
+{
+    if (move && cap >= 3 && i >= 0 && i < G.ply) {
+        move[0] = (char)('a' + G.move[i] % 8);
+        move[1] = (char)('1' + G.move[i] / 8);
+        move[2] = 0;
+    }
+    return G.ply;
+}
+
 /* the bot's side (reversi_bot.c): the rules' state to copy, and its move played as a tap plays it */
 const rgame *reversi_live(void) { return &G; }
 
@@ -324,6 +335,6 @@ static const game reversi_game = {
     .id = "reversi", .order = 30, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
-    .bar = bar, .script = script, .busy = busy,
+    .bar = bar, .script = script, .busy = busy, .history = history,
 };
 REGISTER_GAME(reversi_game)

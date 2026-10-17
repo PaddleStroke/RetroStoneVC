@@ -190,19 +190,7 @@ static int think(int seat, int level, char *move, int cap)
     uint32_t a = hb_choose(g, seat, level, ai_session_seed(), NULL);
     free(g);
     if (!a || ai_cancelled() || cap < 8) return 0;
-    char c[3][3];
-    switch (HA_KIND(a)) {
-    case HA_PASS:
-        for (int i = 0; i < 3; i++) trick_name(HA_CARD(a, i), c[i]);
-        snprintf(move, (size_t)cap, "p%s%s%s", c[0], c[1], c[2]);
-        return 1;
-    case HA_PLAY:
-        trick_name(HA_CARD(a, 2), c[0]);
-        snprintf(move, (size_t)cap, "%s", c[0]);
-        return 1;
-    case HA_NEXT: snprintf(move, (size_t)cap, "n"); return 1;
-    default: return 0;
-    }
+    return hearts_act_text(a, move, cap);
 }
 
 static int actor(void)

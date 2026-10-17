@@ -106,6 +106,9 @@ int  chess_over(const cpos *p);                    /* over by the variant's rule
 int  game_play(cgame *g, cmove m);                 /* 0: the game is too long */
 int  game_undo(cgame *g);                          /* 0: nothing to undo */
 cstatus game_status(const cgame *g);               /* checkmate: the side to move lost */
+/* a move in the notation of script() and the bot ("e2e4", "e7e8q", "N@f3"; castling: the king onto its rook), in
+ * cap bytes (8 are enough); 0: no room */
+int  chess_move_text(cmove m, char *out, int cap);
 #define game_pos(g) (&(g)->pos[(g)->ply])
 
 /* the bot (chess_bot.c, bots.h): the game on the screen, read-only, and one move in the notation played as if tapped
