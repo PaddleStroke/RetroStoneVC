@@ -15,6 +15,13 @@
 #define WIDE_LEFT_NUM 1
 #define WIDE_LEFT_DEN 3
 #define WIDE_LEFT(extra) (((extra)*WIDE_LEFT_NUM*2+WIDE_LEFT_DEN)/(2*WIDE_LEFT_DEN))
+/* A phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (246 columns shown on a 9:21 phone, 265 on a 9:19.5 one: the frog 20 px from the left
+ * edge and a next pad up to 224 px ahead in them); the stage low, TALL_BELOW lines of pond under it; the HUD, BG1's
+ * top HUD_LINES lines, pinned at the screen's top. */
+#define ZOOM_H 576
+#define TALL_BELOW 64
+#define HUD_LINES 72
 enum hero_state { HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF };
 enum { MODE_WAIT,MODE_CHARGE,MODE_LEAP };
 enum { EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16,EV_APPLE=32 };

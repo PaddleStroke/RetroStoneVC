@@ -79,12 +79,25 @@ water and the reeds, and before the start (the title too) the pond behind the fi
   test at 320, 427 and 520; `make frogreach-screenshots` adds title/play/gameover-427/520.png and
   play-4-players-520.png (tools/wide_shots.sh).
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
-columns). The 240 lines of the stage are the same pixels, centred; the views keep the stage's layout (the standard
-layouts span the whole tall screen: draw_frame puts them back on the 240 lines). The raster draws the lines past the
-stage (draw.c `raster_out`): above, the sky carried on, deeper toward the screen's top; below, the pond: one view
-repeats the open water under the pads (BG2's lines 216..239 and their ripples), its blues darker with depth, the
-other layers hidden there; the split screen adds two viewports over the margins (the backdrop only: the same sky,
-the water's colour). Line 0 puts the layers, BG2's scroll and the pond's palette back, so a 240-line screen is
-unchanged.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (576 lines, game.h) first in `game_init`. The app scales the 576 lines
+to the display's height and crops the sides: 246 columns on a 1080x2520 phone, 265 on a 1080x2340 one, so the frog
+is 1.3x the size of the old 320-column strip. The columns shown are centred (no pan): the frog (stage x 56) sits 20 px
+from their left edge on a 9:21 phone and the next pad, up to 224 px ahead, stays in them. The 240 lines of the stage
+are the same pixels; the stage sits low (`rs_screen_origin_v`: 272 lines of sky above it, 64 of pond below).
+- **The HUD at the screen's top**: the score (kit sprites at `rs_screen_top()` + 8) and the hint and the flies/pad
+  line (BG1's top 72 lines, `rs_bg_pin`) while one frog plays; a hint wider than the columns shown goes on two rows.
+- **Fill or fit**: one frog playing fills the display's height; the title, the panels and the split screens show every
+  column (`rs_screen_fill(0)`: the whole 320 x 576 picture across the width), the split screens' views keeping the
+  stage's 240 lines with two more viewports over the margins (the sky with its clouds and birds above, the water's
+  colour below).
+- **The sky's decor** (BG4, made at start-up: draw.c `decor_init`, its tiles shared: no VRAM past the guideline): a
+  far range of snowy mountains rising behind the hills, lit from the left, its rock and snow hazier toward its foot
+  (the raster sets their four colours line by line from the sky's, dithered over two lines), scrolling at an eighth
+  of the camera; clouds above it in a band of their own scroll, drifting; two flocks of birds (16x8 sprites, flapping
+  and gliding) crossing the columns shown, already on screen at the start. The sky's gradient goes on above the
+  stage, dithered (no bands).
+- **The pond below**: one view draws the pond's canvas down to the screen's bottom (BG2's map 64 rows tall there): the
+  ripples go on, no repeat; the raster darkens its blues with depth from the stage's own (no seam at line 240).
+- Rules, timings, the course and the camera are unchanged. Landscape and 4:3 are the same pixels as before (checked
+  at 2340x1080 and 320x240).
