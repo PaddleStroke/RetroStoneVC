@@ -1,0 +1,11 @@
+Carrom
+# O objetivo
+Encaçape suas nove peças, com a rainha vermelha encaçapada e coberta. As brancas começam. Com quatro jogadores, os parceiros sentam frente a frente e dividem uma cor.
+# Uma tacada
+- Ponha o atirador na sua linha de base e lance-o: puxe para trás a partir dele e solte, ou mire e toque no medidor de força.
+- Encaçapar uma peça da sua cor dá outra tacada.
+- Encaçapar o atirador é falta: suas peças encaçapadas nessa tacada voltam, e mais uma das suas. Se ainda não tiver nenhuma, fica devendo.
+# A rainha
+Qualquer um pode encaçapar a rainha. Cubra-a encaçapando uma peça sua na mesma tacada ou na seguinte; senão ela volta ao centro.
+# O fim da partida
+Sua última peça encaçapada antes de a rainha ser coberta volta. Vence o primeiro lado que encaçapar as nove peças, com a rainha coberta. Encaçapar a última peça do adversário dá a vitória a ele.

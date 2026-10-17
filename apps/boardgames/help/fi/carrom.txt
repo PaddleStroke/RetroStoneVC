@@ -1,0 +1,11 @@
+Carrom
+# Tavoite
+Pussita yhdeksän nappulaasi, kun punainen kuningatar on pussitettu ja peitetty. Valkoinen aloittaa. Neljällä pelaajalla parit istuvat vastakkain ja jakavat värin.
+# Lyönti
+- Aseta lyöjäkiekko lähtöviivallesi ja näpsäytä: vedä siitä taaksepäin ja päästä irti, tai tähtää ja napauta voimamittaria.
+- Kun pussitat oman värisi nappulan, saat uuden lyönnin.
+- Lyöjäkiekon pussittaminen on virhe: siinä lyönnissä pussittamasi omat nappulat palaavat, ja yksi lisää omistasi. Jos sinulla ei vielä ole yhtään, olet sen velkaa.
+# Kuningatar
+Kuka tahansa saa pussittaa kuningattaren. Peitä se pussittamalla oma nappula samalla tai seuraavalla lyönnillä; muuten se palaa keskelle.
+# Pelin loppu
+Viimeinen nappulasi palaa, jos pussitat sen ennen kuin kuningatar on peitetty. Voittaja on se puoli, joka pussittaa ensin kaikki yhdeksän nappulaansa kuningattaren ollessa peitetty. Jos pussitat vastustajan viimeisen nappulan, vastustaja voittaa.

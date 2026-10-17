@@ -1,0 +1,11 @@
+Carrom
+# Cíl hry
+Dostaň do děr svých devět kamenů, až bude červená královna v díře a krytá. Začíná bílý. Ve čtyřech sedí spoluhráči naproti sobě a mají stejnou barvu.
+# Úder
+- Polož střelce na svou základní čáru a cvrnkni: táhni od něj dozadu a pusť, nebo zamiř a ťukni na ukazatel síly.
+- Když potopíš kámen své barvy, hraješ znovu.
+- Potopit střelce je faul: tvoje kameny potopené tímto úderem se vracejí a k nim ještě jeden tvůj. Pokud zatím žádný nemáš, dlužíš ho.
+# Královna
+Královnu smí potopit kdokoli. Kryješ ji tím, že potopíš svůj kámen ve stejném nebo příštím úderu; jinak se vrátí doprostřed.
+# Konec hry
+Tvůj poslední kámen potopený dřív, než je královna krytá, se vrací. Vyhrává strana, která první potopí všech devět kamenů, když je královna krytá. Kdo potopí soupeřův poslední kámen, daruje mu vítězství.

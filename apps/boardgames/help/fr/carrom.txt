@@ -1,0 +1,11 @@
+Carrom
+# Le but
+Empoche tes neuf pions, une fois la reine rouge empochée et couverte. Les blancs jouent en premier. À quatre, les partenaires sont face à face et partagent une couleur.
+# Un coup
+- Place le palet sur ta ligne de base et lance-le : tire-le en arrière puis lâche, ou vise et touche la jauge de puissance.
+- Empocher un pion de ta couleur te donne un coup de plus.
+- Empocher le palet est une faute : tes pions empochés pendant ce coup reviennent, plus un autre des tiens. Si tu n'en as pas encore, tu le dois.
+# La reine
+Tout le monde peut empocher la reine. Couvre-la en empochant un de tes pions dans le même coup ou le suivant ; sinon elle revient au centre.
+# La fin de la partie
+Ton dernier pion empoché avant que la reine soit couverte revient. Le premier camp qui empoche ses neuf pions, la reine couverte, gagne. Empocher le dernier pion adverse donne la victoire à l'adversaire.

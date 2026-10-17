@@ -1,0 +1,11 @@
+Carrom
+# The aim
+Pocket your nine coins, with the red queen pocketed and covered. White shoots first. With four players, partners sit opposite each other and share a colour.
+# A shot
+- Set the striker on your baseline and flick it: pull back from it and let go, or aim and tap the power gauge.
+- Pocketing a coin of your colour gives you another shot.
+- Pocketing the striker is a foul: the coins of yours pocketed in that shot come back, and one more of yours. If you have none yet, you owe one.
+# The queen
+Anyone may pocket the queen. Cover her by pocketing one of your coins in the same shot or the next; otherwise she goes back to the centre.
+# The end of the game
+Your last coin pocketed while the queen is not yet covered comes back. The first side to pocket all nine coins, once the queen is covered, wins. Pocketing your opponent's last coin gives them the game.

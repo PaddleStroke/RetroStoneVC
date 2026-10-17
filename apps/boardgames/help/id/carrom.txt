@@ -1,0 +1,11 @@
+Karambol
+# Tujuan
+Masukkan sembilan kepingmu ke lubang, setelah ratu merah masuk dan ditutup. Putih mulai lebih dulu. Berempat, pasangan duduk berhadapan dan memakai satu warna.
+# Satu sentilan
+- Taruh striker di garis dasarmu lalu sentil: tarik mundur dari striker lalu lepas, atau bidik lalu ketuk pengukur tenaga.
+- Memasukkan keping warnamu memberimu satu sentilan lagi.
+- Memasukkan striker adalah pelanggaran: kepingmu yang masuk pada sentilan itu kembali, ditambah satu lagi milikmu. Jika belum punya, kamu berutang satu.
+# Ratu
+Siapa pun boleh memasukkan ratu. Tutup ratu dengan memasukkan kepingmu pada sentilan yang sama atau berikutnya; jika tidak, ratu kembali ke tengah.
+# Akhir permainan
+Keping terakhirmu yang masuk sebelum ratu ditutup akan kembali. Pihak pertama yang memasukkan kesembilan kepingnya, dengan ratu sudah ditutup, menang. Memasukkan keping terakhir lawan membuat lawan menang.

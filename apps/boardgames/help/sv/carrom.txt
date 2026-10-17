@@ -1,0 +1,11 @@
+Carrom
+# Målet
+Sänk dina nio brickor, när den röda drottningen är sänkt och täckt. Vit börjar. Med fyra spelare sitter partnerna mitt emot varandra och delar en färg.
+# Ett skott
+- Sätt strikern på din baslinje och skjut den: dra bakåt från den och släpp, eller sikta och tryck på kraftmätaren.
+- Sänker du en bricka i din färg får du ett skott till.
+- Att sänka strikern är ett regelbrott: dina brickor från det skottet kommer tillbaka, plus en till av dina. Har du ingen än är du skyldig en.
+# Drottningen
+Alla får sänka drottningen. Täck henne genom att sänka en av dina brickor i samma skott eller nästa; annars går hon tillbaka till mitten.
+# Partiets slut
+Din sista bricka som sänks innan drottningen är täckt kommer tillbaka. Den första sidan som har sänkt alla nio brickor, när drottningen är täckt, vinner. Sänker du motståndarens sista bricka vinner motståndaren.

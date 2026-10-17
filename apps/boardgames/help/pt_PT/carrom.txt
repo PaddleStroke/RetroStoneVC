@@ -1,0 +1,11 @@
+Carrom
+# O objetivo
+Mete as tuas nove peças nos buracos, com a rainha vermelha metida e coberta. As brancas começam. A quatro, os parceiros sentam-se frente a frente e partilham uma cor.
+# Uma jogada
+- Põe o disco atirador na tua linha de base e lança-o: puxa para trás a partir dele e larga, ou aponta e toca no medidor de força.
+- Meter uma peça da tua cor dá-te outra jogada.
+- Meter o disco atirador é falta: as tuas peças metidas nessa jogada voltam, e mais uma das tuas. Se ainda não tiveres nenhuma, ficas a dever.
+# A rainha
+Qualquer um pode meter a rainha. Cobre-a metendo uma peça tua na mesma jogada ou na seguinte; senão volta ao centro.
+# O fim do jogo
+A tua última peça metida antes de a rainha estar coberta volta. Ganha o primeiro lado que meter as nove peças, com a rainha coberta. Meter a última peça do adversário dá-lhe a vitória.

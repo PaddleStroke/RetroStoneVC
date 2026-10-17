@@ -1,0 +1,11 @@
+Carrom
+# Amaç
+Kırmızı kraliçe deliğe girip örtüldükten sonra dokuz taşını deliklere sok. Beyaz başlar. Dört kişide ortaklar karşılıklı oturur ve aynı rengi paylaşır.
+# Atış
+- Vurucuyu taban çizgine koy ve fiske at: ondan geriye çekip bırak ya da nişan alıp güç göstergesine dokun.
+- Kendi renginden bir taşı sokarsan bir atış daha yaparsın.
+- Vurucuyu deliğe sokmak fauldür: o atışta soktuğun taşların geri gelir, bir tane daha da senden. Henüz hiç taşın yoksa onu borçlu kalırsın.
+# Kraliçe
+Kraliçeyi herkes sokabilir. Aynı atışta ya da bir sonrakinde kendi taşlarından birini sokarak onu ört; yoksa ortaya geri döner.
+# Oyunun sonu
+Kraliçe örtülmeden soktuğun son taşın geri gelir. Kraliçe örtülmüşken dokuz taşını ilk sokan taraf kazanır. Rakibin son taşını sokarsan oyunu rakip kazanır.

@@ -1,0 +1,11 @@
+Carrom
+# Lo scopo
+Imbuca le tue nove pedine, dopo che la regina rossa è stata imbucata e coperta. Inizia il bianco. In quattro, i compagni siedono uno di fronte all'altro e hanno lo stesso colore.
+# Un tiro
+- Metti il battente sulla tua linea di base e lancialo: tira indietro da esso e lascia, oppure mira e tocca l'indicatore di forza.
+- Imbucare una pedina del tuo colore ti dà un altro tiro.
+- Imbucare il battente è fallo: le tue pedine imbucate in quel tiro tornano, più un'altra delle tue. Se non ne hai ancora, la devi.
+# La regina
+Chiunque può imbucare la regina. Coprila imbucando una tua pedina nello stesso tiro o nel successivo; altrimenti torna al centro.
+# La fine della partita
+La tua ultima pedina imbucata prima che la regina sia coperta torna in gioco. Vince la prima squadra che imbuca tutte le nove pedine, con la regina coperta. Chi imbuca l'ultima pedina dell'avversario gli regala la partita.

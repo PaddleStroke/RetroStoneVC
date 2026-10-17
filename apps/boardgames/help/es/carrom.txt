@@ -1,0 +1,11 @@
+Carrom
+# El objetivo
+Mete tus nueve fichas en las troneras, una vez metida y cubierta la reina roja. Empiezan las blancas. Con cuatro jugadores, los compañeros se sientan frente a frente y comparten color.
+# Un tiro
+- Pon el disco lanzador en tu línea de base y lánzalo: tira hacia atrás desde él y suelta, o apunta y toca el indicador de fuerza.
+- Meter una ficha de tu color te da otro tiro.
+- Meter el disco lanzador es falta: tus fichas metidas en ese tiro vuelven, y una más de las tuyas. Si aún no tienes ninguna, la debes.
+# La reina
+Cualquiera puede meter la reina. Cúbrela metiendo una de tus fichas en el mismo tiro o en el siguiente; si no, vuelve al centro.
+# El final de la partida
+Tu última ficha metida antes de cubrir la reina vuelve. Gana el primer bando que mete sus nueve fichas con la reina ya cubierta. Meter la última ficha del rival le da la partida.

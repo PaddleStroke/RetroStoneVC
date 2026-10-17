@@ -1,0 +1,11 @@
+Carrom
+# Das Ziel
+Versenke deine neun Steine, nachdem die rote Königin versenkt und gedeckt ist. Weiß stößt zuerst. Zu viert sitzen sich die Partner gegenüber und teilen eine Farbe.
+# Ein Stoß
+- Setze den Striker auf deine Grundlinie und schnippe ihn: zieh von ihm zurück und lass los, oder ziele und tippe auf die Kraftanzeige.
+- Versenkst du einen Stein deiner Farbe, darfst du noch einmal.
+- Den Striker zu versenken ist ein Foul: Deine in diesem Stoß versenkten Steine kommen zurück, dazu noch einer von dir. Hast du noch keinen, schuldest du ihn.
+# Die Königin
+Jeder darf die Königin versenken. Decke sie, indem du im selben oder im nächsten Stoß einen deiner Steine versenkst; sonst kommt sie zurück in die Mitte.
+# Das Ende der Partie
+Dein letzter Stein, versenkt bevor die Königin gedeckt ist, kommt zurück. Die erste Seite, die alle neun Steine versenkt hat, wenn die Königin gedeckt ist, gewinnt. Wer den letzten Stein des Gegners versenkt, schenkt ihm den Sieg.

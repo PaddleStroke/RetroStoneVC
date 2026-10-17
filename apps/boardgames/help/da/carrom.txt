@@ -1,0 +1,11 @@
+Carrom
+# Målet
+Få dine ni brikker i hul, når den røde dronning er i hul og dækket. Hvid starter. Med fire spillere sidder makkerne over for hinanden og deler en farve.
+# Et skud
+- Sæt strikeren på din baselinje og skyd den: træk tilbage fra den og slip, eller sigt og tryk på kraftmåleren.
+- Får du en brik i din farve i hul, får du et skud mere.
+- At få strikeren i hul er en fejl: dine brikker fra det skud kommer tilbage, plus én mere af dine. Har du ingen endnu, skylder du én.
+# Dronningen
+Alle må få dronningen i hul. Dæk hende ved at få en af dine brikker i hul i samme skud eller det næste; ellers kommer hun tilbage til midten.
+# Spillets afslutning
+Din sidste brik, der kommer i hul før dronningen er dækket, kommer tilbage. Den første side med alle ni brikker i hul, når dronningen er dækket, vinder. Får du modstanderens sidste brik i hul, vinder modstanderen.

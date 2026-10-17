@@ -1,0 +1,11 @@
+Carrom
+# Het doel
+Pot je negen schijven, nadat de rode koningin gepot en gedekt is. Wit begint. Met z'n vieren zitten partners tegenover elkaar en delen een kleur.
+# Een stoot
+- Zet de striker op je basislijn en schiet hem weg: trek terug vanaf de striker en laat los, of richt en tik op de krachtmeter.
+- Pot je een schijf van je kleur, dan mag je nog een keer.
+- De striker potten is een fout: je schijven die je in die stoot potte komen terug, plus nog een van jou. Heb je er nog geen, dan ben je er een schuldig.
+# De koningin
+Iedereen mag de koningin potten. Dek haar door in dezelfde of de volgende stoot een schijf van jou te potten; anders gaat ze terug naar het midden.
+# Het einde van het spel
+Je laatste schijf die je pot voordat de koningin gedekt is, komt terug. De eerste kant die alle negen schijven heeft gepot, met de koningin gedekt, wint. Wie de laatste schijf van de tegenstander pot, geeft hem de winst.

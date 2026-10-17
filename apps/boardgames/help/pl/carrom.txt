@@ -1,0 +1,11 @@
+Carrom
+# Cel gry
+Wbij swoje dziewięć krążków do łuz, gdy czerwona królowa jest wbita i pokryta. Zaczynają białe. W czwórkę partnerzy siedzą naprzeciw siebie i mają wspólny kolor.
+# Uderzenie
+- Postaw strikera na swojej linii bazowej i pstryknij: pociągnij od niego do tyłu i puść albo wyceluj i dotknij wskaźnika siły.
+- Wbicie krążka twojego koloru daje ci kolejne uderzenie.
+- Wbicie strikera to faul: twoje krążki wbite w tym uderzeniu wracają, i jeszcze jeden twój. Jeśli jeszcze żadnego nie masz, jesteś go winien.
+# Królowa
+Każdy może wbić królową. Pokryj ją, wbijając swój krążek w tym samym lub następnym uderzeniu; inaczej wraca na środek.
+# Koniec gry
+Twój ostatni krążek wbity, zanim królowa zostanie pokryta, wraca. Wygrywa pierwsza strona, która wbije wszystkie dziewięć krążków przy pokrytej królowej. Wbicie ostatniego krążka przeciwnika daje mu zwycięstwo.
