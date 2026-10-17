@@ -1,41 +1,34 @@
 Tarot Prancis
 # Tujuan
-Permainan kartu tarot dari Prancis, dengan 78 kartu: empat jenis berisi 14 kartu (jack, kesatria (cavalier), queen, dan king di atas 10), 21 truf, dan Excuse. Di setiap ronde, satu pemain, sang pengambil, melawan semua pemain lain, yaitu pihak bertahan. Permainan berlangsung sebanyak ronde yang sama dengan jumlah pemain, dan total tertinggi menang. Untuk 3 sampai 5 pemain.
+78 kartu: empat jenis berisi 14 kartu (jack, kesatria, queen, dan king di atas 10), 21 truf, dan Excuse. Di setiap ronde sang pengambil melawan semua pemain lain, yaitu pihak bertahan. Setelah ronde sebanyak jumlah pemain (ronde yang dibatalkan tidak dihitung), total tertinggi menang.
 # Kartu
-- Tiga oudler (bouts) adalah 21, Petit (truf nomor 1), dan Excuse. Makin banyak yang dimenangkan pengambil, makin sedikit poin yang ia butuhkan.
-- Poin: oudler atau king 4,5, queen 3,5, kesatria 2,5, jack 1,5, kartu lainnya 0,5. Totalnya ada 91 poin.
-- Di meja, kartu dihitung berpasangan: king atau oudler dengan kartu kecil bernilai 5, queen dengan kartu kecil 4, kesatria 3, jack 2, dua kartu kecil 1. Hasilnya sama saja.
+- Tiga oudler adalah 21, Petit (truf nomor 1), dan Excuse. Makin banyak yang dimenangkan pengambil, makin sedikit poin yang ia butuhkan.
+- Poin: oudler atau king 4,5, queen 3,5, kesatria 2,5, jack 1,5, kartu lainnya 0,5: total 91.
 # Pembagian kartu
-- Kartu tidak dikocok di antara pembagian: trik-trik dikumpulkan, dipotong, lalu dibagikan tiga-tiga, seperti di meja sungguhan.
-- Kartu dibagikan tiga-tiga, berkeliling meja, mulai dari pemain sesudah pembagi. Anjing (le chien) mendapat 6 kartu (3 jika berlima), satu per satu, tidak pernah kartu-kartu pertama atau terakhir.
-- Setiap pemain mendapat 24 kartu jika bertiga, 18 jika berempat, 15 jika berlima.
-- Pemain yang truf satu-satunya adalah Petit, tanpa Excuse (Petit sec), memperlihatkannya dan ronde dibatalkan. Pemain berikutnya membagi.
+- Anjing (le chien) mendapat 6 kartu (3 jika berlima); setiap pemain mendapat 24 kartu jika bertiga, 18 jika berempat, 15 jika berlima.
+- Pemain yang truf satu-satunya adalah Petit, tanpa Excuse (Petit sec), memperlihatkannya dan ronde dibatalkan.
 # Penawaran
-Mulai dari pemain sesudah pembagi, setiap pemain bicara sekali: ia pas, atau menawar lebih tinggi dari semua tawaran sebelumnya.
-- Petite: pengambil mendapat anjing. Ronde dihitung satu kali.
+Mulai dari pemain sesudah pembagi, setiap pemain bicara sekali: pas, atau menawar lebih tinggi dari semua tawaran sebelumnya.
+- Petite: pengambil mendapat anjing. Dihitung satu kali.
 - Garde: sama, dihitung dua kali.
-- Garde sans: tak ada yang melihat anjing; kartunya dihitung untuk pengambil. Dihitung empat kali.
-- Garde contre: tak ada yang melihat anjing; kartunya dihitung untuk pihak bertahan. Dihitung enam kali.
-Jika semua pemain pas, ronde dibatalkan dan pemain berikutnya membagi.
+- Garde sans: anjing, tanpa dilihat, dihitung untuk pengambil. Empat kali.
+- Garde contre: anjing, tanpa dilihat, dihitung untuk pihak bertahan. Enam kali.
+Jika semua pemain pas, pemain berikutnya membagi.
 # Lima pemain: king yang dipanggil
-Sebelum anjing, pengambil memanggil sebuah king (queen jika ia memegang keempat king). Pemegangnya menjadi rekan pengambil, tetapi merahasiakannya sampai king itu dimainkan. Jika pengambil sendiri yang memegangnya, atau king itu ada di anjing, pengambil bermain sendirian melawan empat.
+Sebelum anjing, pengambil memanggil sebuah king (queen jika ia memegang keempat king). Pemegangnya menjadi rekan rahasia pengambil sampai king itu dimainkan. Jika pengambil sendiri yang memegangnya, atau king itu ada di anjing, pengambil bermain sendirian.
 # Anjing
-Pada Petite dan Garde, anjing dibuka agar semua bisa melihatnya. Lalu pengambil menambahkannya ke tangannya dan diam-diam menyisihkan kartu sebanyak itu: tidak pernah king atau oudler, dan truf hanya jika tak ada pilihan lain. Truf yang disisihkan diperlihatkan. Kartu yang disisihkan dihitung untuk pengambil.
+Pada Petite dan Garde, anjing diperlihatkan kepada semua. Pengambil menambahkannya ke tangannya dan menyisihkan kartu sebanyak itu: tidak pernah king atau oudler, dan truf hanya jika tak ada pilihan lain (truf itu lalu diperlihatkan). Kartu yang disisihkan dihitung untuk pengambil.
 # Satu trik
 - Pemain sesudah pembagi membuka trik pertama; pemenang sebuah trik membuka trik berikutnya.
-- Ikuti jenis yang dibuka. Jika tak punya, kamu harus memainkan truf; jika truf pun tak ada, mainkan kartu apa saja.
-- Jika ada truf dalam trik, kamu harus memainkan truf yang lebih tinggi jika bisa; jika tidak bisa, mainkan yang lebih rendah.
-- Truf tertinggi memenangkan trik; tanpa truf, kartu tertinggi dari jenis yang dibuka.
-- Excuse bisa dimainkan kapan saja sebagai ganti kartu lain dan tak pernah menang: pemiliknya menyimpannya dan sebagai gantinya memberi pemenang trik sebuah kartu bernilai setengah poin. Jika trik dibuka dengan Excuse, kartu berikutnya menentukan jenis. Jika dimainkan di trik terakhir, Excuse jatuh ke pemenang trik, kecuali pihaknya telah memenangkan semua trik sebelumnya: maka Excuse memenangkan trik terakhir itu.
+- Ikuti jenis yang dibuka. Jika tak punya, mainkan truf; jika truf pun tak ada, kartu apa saja.
+- Jika ada truf dalam trik, mainkan truf yang lebih tinggi jika bisa; jika tidak, yang lebih rendah.
+- Truf tertinggi menang; tanpa truf, kartu tertinggi dari jenis yang dibuka.
+- Excuse bisa dimainkan kapan saja dan tak pernah menang: pemiliknya menyimpannya dan sebagai gantinya memberi pemenang trik sebuah kartu bernilai setengah poin. Jika trik dibuka dengan Excuse, kartu berikutnya menentukan jenis. Di trik terakhir, Excuse jatuh ke pemenang trik, kecuali pihaknya telah memenangkan semua trik sebelumnya: maka Excuse memenangkan trik itu.
 # Poignée
-Pemain dengan banyak truf boleh memperlihatkannya tepat sebelum memainkan kartu pertamanya: poignée tunggal 10 truf (13 jika bertiga, 8 jika berlima), ganda 13 (15, 10), atau tripel 15 (18, 13). Excuse boleh melengkapinya. Nilainya 20, 30, atau 40 poin bagi pihak yang memenangkan ronde.
+Tepat sebelum memainkan kartu pertamanya, pemain boleh memperlihatkan poignée tunggal 10 truf (13 jika bertiga, 8 jika berlima), ganda 13 (15, 10), atau tripel 15 (18, 13); Excuse boleh melengkapinya. Nilainya 20, 30, atau 40 poin bagi pihak yang memenangkan ronde.
 # Skor
-- Pihak pengambil butuh 56 poin tanpa oudler, 51 dengan satu, 41 dengan dua, 36 dengan ketiganya. Dengan poin itu ia memenangkan ronde, tanpanya ia kalah.
-- Ronde bernilai 25 poin ditambah selisih antara poin yang didapat dan poin yang dibutuhkan (setengah poin dihitung satu poin penuh), dikali 1, 2, 4, atau 6 sesuai tawaran.
+- Pihak pengambil butuh 56 poin tanpa oudler, 51 dengan satu, 41 dengan dua, 36 dengan ketiganya.
+- Ronde bernilai 25 poin ditambah selisih antara poin yang didapat dan yang dibutuhkan (setengah poin dihitung satu poin penuh), dikali 1, 2, 4, atau 6 sesuai tawaran.
 - Petit au bout: Petit di trik terakhir bernilai 10 poin, dikali angka tawaran, bagi pihak yang memenangkan trik itu.
 - Pihak yang memenangkan semua trik (chelem; di sini tak pernah diumumkan) mendapat 200 poin lagi.
-- Setiap pemain bertahan membayar nilai ronde kepada pengambil, atau menerimanya darinya. Jika berlima dan ada rekan, pengambil mendapat dua bagian dan rekannya satu. Jumlah semua skor selalu nol.
-# Akhir permainan
-Setelah ronde sebanyak jumlah pemain (ronde yang dibatalkan tidak dihitung), pemain dengan total tertinggi menang.
-# Bermain di perangkat
-Gilirkan perangkat: pemain yang mendapat giliran melihat kartunya di bawah, dalam satu atau dua baris. Bilah setiap pemain menunjukkan totalnya, jumlah kartunya, dan tawarannya. Untuk menawar, ketuk sebuah tombol. Trik ada di tengah, setiap kartu di sisi pemainnya, bersama tokennya; trik yang baru dimenangkan tetap di sana, dengan kartu pemenangnya bersinar, sampai kartu berikutnya dibuka. Ketuk tumpukan di kiri atas untuk melihat trik terakhir lagi. Saat anjing dibuka, semua orang melihatnya sementara kartu pengambil tetap tertutup: perlihatkan perangkat berkeliling, lalu pengambil mengetuk anjing untuk mengambilnya, mengetuk kartu yang akan disisihkan (ketuk lagi untuk mengambilnya kembali), lalu tombol bundar. Saat kamu boleh memperlihatkan poignée, tombol dengan jumlah trufnya muncul di atas. Setelah setiap ronde, sebuah tabel menunjukkan tawaran dengan pengalinya, oudler yang dimenangkan pihak pengambil, poinnya, poin yang dibutuhkan dan selisihnya, bonus, lalu poin dan total setiap pemain; ketuk untuk ronde berikutnya. Urungkan hanya membatalkan langkahmu sendiri pada giliran ini.
+- Setiap pemain bertahan membayar nilai ronde kepada pengambil, atau menerimanya darinya. Jika berlima dan ada rekan, pengambil mendapat dua bagian dan rekannya satu.

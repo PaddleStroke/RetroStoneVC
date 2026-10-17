@@ -1,41 +1,34 @@
 French Tarot
 # The aim
-The French card game of tarot, with 78 cards: four suits of 14 cards (jack, knight, queen and king above the 10), 21 trumps and the Excuse. In each deal one player, the taker, plays against all the others, the defence. A game lasts as many deals as there are players, and the highest total wins. For 3, 4 or 5 players.
+78 cards: four suits of 14 (jack, knight, queen and king above the 10), 21 trumps and the Excuse. In each deal the taker plays against all the others, the defence. After as many deals as there are players (a cancelled deal does not count), the highest total wins.
 # The cards
 - The three oudlers are the 21, the Petit (the 1 of trumps) and the Excuse. The more of them the taker wins, the fewer points they need.
-- Points: an oudler or a king 4.5, a queen 3.5, a knight 2.5, a jack 1.5, any other card 0.5. There are 91 points in all.
-- At the table the cards are counted in pairs: a king or an oudler with a small card makes 5, a queen with a small card 4, a knight 3, a jack 2, two small cards 1. It comes to the same.
+- Points: an oudler or a king 4.5, a queen 3.5, a knight 2.5, a jack 1.5, any other card 0.5: 91 in all.
 # The deal
-- The cards are not shuffled between deals: the tricks are gathered, cut and dealt three at a time, as at a real table.
-- The cards are dealt three at a time, round the table, starting with the player after the dealer. The dog gets 6 cards (3 with five players), one at a time, never the first or the last cards.
-- Each player gets 24 cards with three players, 18 with four, 15 with five.
-- A player whose only trump is the Petit, without the Excuse (the Petit sec), shows it and the deal is cancelled. The next player deals.
+- The dog gets 6 cards (3 with five players); each player gets 24 with three players, 18 with four, 15 with five.
+- A player whose only trump is the Petit, without the Excuse (the Petit sec), shows it and the deal is cancelled.
 # The bidding
-Starting with the player after the dealer, each player speaks once: they pass, or bid higher than every bid before.
-- Take (Petite): the taker gets the dog. The deal counts once.
+From the player after the dealer, each player speaks once: pass, or bid higher than every bid before.
+- Take (Petite): the taker gets the dog. Counted once.
 - Guard (Garde): the same, counted twice.
-- Guard without (Garde sans): nobody sees the dog; its cards count for the taker. Counted four times.
-- Guard against (Garde contre): nobody sees the dog; its cards count for the defence. Counted six times.
-If everyone passes, the deal is cancelled and the next player deals.
+- Guard without (Garde sans): the dog, unseen, counts for the taker. Four times.
+- Guard against (Garde contre): the dog, unseen, counts for the defence. Six times.
+If everyone passes, the next player deals.
 # Five players: the called king
-Before the dog, the taker calls a king (a queen if they hold all four kings). Whoever holds it becomes the taker's partner, but keeps it secret until the king is played. If the taker holds it, or if it lies in the dog, the taker plays alone against four.
+Before the dog, the taker calls a king (a queen if they hold all four kings). Its holder is the taker's secret partner until the king is played. If the taker holds it, or it lies in the dog, the taker plays alone.
 # The dog
-With Take and Guard the dog is turned face up for everyone to see. Then the taker adds it to their hand and secretly puts the same number of cards aside: never a king or an oudler, and a trump only if there is no other way. Trumps put aside are shown. The cards put aside count for the taker.
+With Take and Guard the dog is shown to everyone. The taker adds it to their hand and puts as many cards aside: never a king or an oudler, and a trump only if there is no other way (it is then shown). The cards put aside count for the taker.
 # A trick
-- The player after the dealer leads the first trick; whoever wins a trick leads the next.
-- Follow the suit that was led. If you have none of it, you must play a trump; with no trump either, play any card.
-- When a trump is in the trick, you must play a higher trump if you can; if you cannot, play a lower one.
-- The highest trump wins the trick; with no trump, the highest card of the suit led.
-- The Excuse can be played at any time instead and never wins: its owner keeps it and gives the trick's winner a card worth half a point in exchange. If it was led, the next card sets the suit. Played in the last trick, it goes to the trick's winner, unless its side has won every trick before: then it wins that last trick.
+- The player after the dealer leads first; the winner of a trick leads the next.
+- Follow suit. If you cannot, play a trump; with no trump either, any card.
+- When a trump is in the trick, play a higher trump if you can, otherwise a lower one.
+- The highest trump wins; with no trump, the highest card of the suit led.
+- The Excuse can be played at any time and never wins: its owner keeps it and gives the trick's winner a half-point card instead. If it was led, the next card sets the suit. In the last trick it goes to the trick's winner, unless its side won every trick before: then it wins that trick.
 # Poignée
-A player with many trumps may show them just before playing their first card: a single poignée of 10 trumps (13 with three players, 8 with five), a double of 13 (15, 10) or a triple of 15 (18, 13). The Excuse may complete it. It is worth 20, 30 or 40 points to the side that wins the deal.
+Just before playing their first card, a player may show a single poignée of 10 trumps (13 with three players, 8 with five), a double of 13 (15, 10) or a triple of 15 (18, 13); the Excuse may complete it. It is worth 20, 30 or 40 points to the side that wins the deal.
 # The score
-- The taker's side needs 56 points with no oudler, 51 with one, 41 with two, 36 with all three. With those points it wins the deal, without them it loses it.
-- The deal is worth 25 points plus the difference between the points won and the points needed (a half point counts as a whole one), times 1, 2, 4 or 6 for the bid.
+- The taker's side needs 56 points with no oudler, 51 with one, 41 with two, 36 with three.
+- The deal is worth 25 points plus the difference between the points won and needed (a half point counts as a whole), times 1, 2, 4 or 6 for the bid.
 - Petit au bout: the Petit in the last trick is worth 10 points, times the bid's number, to the side that wins that trick.
-- A side that wins every trick (a chelem; it is never announced here) scores 200 more.
-- Each defender pays the deal's value to the taker, or receives it from them. With five players and a partner, the taker takes two shares and the partner one. The scores always add up to zero.
-# The end of the game
-After as many deals as there are players (a cancelled deal does not count), the player with the highest total wins.
-# Playing on the device
-Pass the device round: the player whose turn it is sees their hand at the bottom, in one or two rows. Each player's bar shows their total, how many cards they hold and their bid. To bid, tap a button. The trick lies in the middle, each card on its player's side, with their token; the trick just won stays there, the winner's card glowing, until the next card is led. Tap the pile at the top left to see the last trick again. When the dog is turned up, everyone sees it while the taker's hand stays face down: show the device round, then the taker taps the dog to take it, taps the cards to put aside (tap one again to take it back) and the round button. When you may show a poignée, a button with its number of trumps appears at the top. After each deal a table shows the bid with its number, the oudlers the taker's side won, its points, the points it needed and the difference, the bonuses, then each player's points and total; tap it for the next deal. Undo takes back only your own moves of this turn.
+- A side that wins every trick (a chelem, never announced here) scores 200 more.
+- Each defender pays the deal's value to the taker, or receives it. With five players and a partner, the taker takes two shares and the partner one.

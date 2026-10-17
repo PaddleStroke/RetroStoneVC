@@ -1,19 +1,13 @@
 Tiga Puncak
 # Tujuan
-Kosongkan tiga puncak dengan memainkan kartunya ke tumpukan buangan, satu nilai lebih tinggi atau lebih rendah. Permainan untuk satu pemain.
-# Susunan
-- 28 kartu dalam tiga puncak berdampingan, dalam baris berisi 3, 6, 9, dan 10 kartu; tiap baris menutupi separuh baris di atasnya. Hanya baris paling bawah yang terbuka.
-- Satu kartu terbuka di tumpukan buangan; sisa 23 kartu adalah tumpukan, tertutup, di sebelahnya.
+Kosongkan tiga puncak dengan memainkan kartunya ke tumpukan buangan, satu nilai lebih tinggi atau lebih rendah.
 # Memindahkan kartu
 - Kartu bebas jika tidak ada lagi kartu yang menutupinya. Kartu bebas boleh ke tumpukan buangan jika nilainya satu lebih tinggi atau lebih rendah dari kartu teratas di sana, apa pun jenisnya: 7 atau 9 di atas 8.
 - Berputar (aturan klasik): as dan king juga saling menyambung. Pilihan lain: tidak menyambung.
 - Kartu tertutup terbuka begitu ia bebas.
-- Rentetan: angka di samping tumpukan buangan menghitung kartu yang kamu mainkan berturut-turut dari puncak. Hitungannya mulai lagi saat kamu membalik kartu dari tumpukan.
 # Tumpukan
 Jika tidak ada kartu yang bisa dimainkan, ketuk tumpukan untuk membalik kartu teratasnya ke tumpukan buangan. Tumpukan hanya dilalui sekali.
 # Akhir permainan
-Kamu menang jika ketiga puncak kosong. Permainan kalah jika tumpukan habis dan tidak ada kartu yang bisa dimainkan. Kartu dikocok secara acak, jadi tidak semua pembagian bisa dimenangkan.
+Kamu menang jika ketiga puncak kosong. Permainan kalah jika tumpukan habis dan tidak ada kartu yang bisa dimainkan.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Di bab 1 sampai 4 as dan king saling menyambung, di bab 5 dan 6 tidak. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu bebas untuk memainkannya ke tumpukan buangan, atau seret ke sana. Lampu menunjukkan langkah yang bagus: kartu yang memulai rentetan terpanjang yang bisa dilihatnya. Angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang.

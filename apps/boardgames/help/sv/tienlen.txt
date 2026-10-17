@@ -1,26 +1,22 @@
 Tiến lên
 # Målet
-Att bli först av med alla sina kort; de andra spelar vidare om placeringarna. Ett vietnamesiskt spel (namnet betyder ”framåt”) för 2 till 4 spelare, med en lek på 52 kort: 13 var (med färre än fyra spelare är resten utanför spelet).
+Att bli först av med alla sina kort; de andra spelar vidare om placeringarna. 13 kort var; med färre än fyra spelare är resten utanför spelet.
 # Korten
-- Från lägst till högst: 3, 4, 5, 6, 7, 8, 9, 10, knekt, dam, kung, ess, och 2:an, den högsta av alla.
-- Färgerna, från lägst till högst: spader, klöver, ruter, hjärter. Av två kort med samma valör avgör färgen: hjärter 2 är det högsta kortet.
+- Från lägst till högst: 3 till 10, knekt, dam, kung, ess, och 2:an, den högsta av alla.
+- Lika valörer avgörs av färgen, från lägst till högst: spader, klöver, ruter, hjärter. Hjärter 2 är det högsta kortet.
 # Kombinationerna
 - Ett enskilt kort, ett par, ett tretal eller ett fyrtal.
-- En stege: tre eller fler kort med valörer i följd, i valfria färger. 2:an ingår aldrig i en stege.
-- En dubbelstege: tre eller fler par med valörer i följd, som 3-3-4-4-5-5, utan 2:or.
-- En kombination slås av en av samma slag med lika många kort och ett högre högsta kort.
+- En stege: tre eller fler valörer i följd, i valfria färger, aldrig med en 2:a.
+- En dubbelstege: tre eller fler par i följd, som 3-3-4-4-5-5, utan 2:or.
+- En kombination slås av en av samma slag och storlek med ett högre högsta kort.
 # Ett stick
-- Den som har fått det lägsta kortet (spader 3 med fyra spelare) spelar ut till första sticket, med en kombination som innehåller det.
+- Den som har fått det lägsta kortet (spader 3 med fyra spelare) spelar ut till första sticket med en kombination som innehåller det.
 - I tur och ordning slår var och en den senaste kombinationen eller passar. Den som passar är utanför sticket tills ett nytt börjar.
 - När alla de andra har passat börjar den som spelade sist ett nytt stick med valfri kombination.
 # Bomber
-Vissa kombinationer slår 2:or och spelas i tur och ordning som alla andra:
+Vissa kombinationer slår 2:or:
 - tre par i följd slår en ensam 2:a;
 - ett fyrtal slår en ensam 2:a eller tre par i följd;
 - fyra par i följd slår en ensam 2:a, ett par 2:or, ett fyrtal eller tre par i följd;
 - fem par i följd slår dessutom tre 2:or.
 En bomb slår också en lägre bomb av samma slag.
-# Partiets slut
-Den som först blir av med sina kort vinner. De andra spelar vidare: ordningen de går ut i ger deras placeringar, och den sista som fortfarande har kort kommer sist.
-# Spela på enheten
-Skicka runt enheten: varje spelare ser bara sina egna kort, längst ned, från lägst till högst. Längst upp sitter de andra: deras kort med baksidan upp, hur många de har, och ett passtecken så länge de är utanför sticket; när de har gått ut, deras placering. Det senaste draget ligger stort i mitten med spelarens markör, de tidigare dragen mindre bakom. Tryck på kort för att välja dem, och tryck sedan på mitten eller dra dit dem: mitten lyser upp när ditt val kan spelas. Det lägsta kortet lyser för den spelare som måste spela ut det. Passknappen finns i ditt fält. I slutet visar en tavla placeringarna.

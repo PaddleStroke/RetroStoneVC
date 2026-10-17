@@ -1,26 +1,22 @@
 Tiến lên
 # Het doel
-Als eerste al je kaarten spelen; de anderen spelen door om de plaatsen. Een Vietnamees spel (de naam betekent ‘vooruit’) voor 2 tot 4 spelers, met een spel van 52 kaarten: 13 per speler (met minder dan vier spelers doet de rest niet mee).
+Als eerste al je kaarten spelen; de anderen spelen door om de plaatsen. Elk 13 kaarten; met minder dan vier spelers doet de rest niet mee.
 # De kaarten
-- Van laag naar hoog: 3, 4, 5, 6, 7, 8, 9, 10, boer, vrouw, heer, aas, en de 2, de hoogste van allemaal.
-- De kleuren, van laag naar hoog: schoppen, klaveren, ruiten, harten. Bij twee kaarten van dezelfde rang beslist de kleur: harten 2 is de hoogste kaart.
+- Van laag naar hoog: 3 tot 10, boer, vrouw, heer, aas, en de 2, de hoogste van allemaal.
+- Bij gelijke rang beslist de kleur, van laag naar hoog: schoppen, klaveren, ruiten, harten. Harten 2 is de hoogste kaart.
 # De combinaties
 - Een losse kaart, een paar, drie gelijke of vier gelijke.
-- Een reeks: drie of meer kaarten met opeenvolgende rangen, in willekeurige kleuren. De 2 hoort er nooit bij.
-- Een dubbele reeks: drie of meer paren met opeenvolgende rangen, zoals 3-3-4-4-5-5, zonder 2'en.
+- Een reeks: drie of meer opeenvolgende rangen, in willekeurige kleuren, nooit met een 2.
+- Een dubbele reeks: drie of meer opeenvolgende paren, zoals 3-3-4-4-5-5, zonder 2'en.
 - Een combinatie wordt geslagen door een van dezelfde soort met evenveel kaarten en een hogere hoogste kaart.
 # Een slag
 - Wie de laagste kaart heeft gekregen (schoppen 3 met vier spelers), komt uit in de eerste slag, met een combinatie waar die kaart in zit.
 - Om de beurt slaat elke speler de laatste combinatie of past. Wie past, doet niet meer mee aan de slag tot er een nieuwe begint.
 - Als alle anderen gepast hebben, begint wie het laatst speelde een nieuwe slag met een willekeurige combinatie.
 # Bommen
-Sommige combinaties slaan 2'en; ze worden gewoon om de beurt gespeeld, net als alle andere:
+Sommige combinaties slaan 2'en:
 - drie opeenvolgende paren slaan een losse 2;
 - vier gelijke slaan een losse 2, of drie opeenvolgende paren;
 - vier opeenvolgende paren slaan een losse 2, een paar 2'en, vier gelijke, of drie opeenvolgende paren;
 - vijf opeenvolgende paren slaan ook drie 2'en.
 Een bom slaat ook een lagere bom van dezelfde soort.
-# Het einde van de partij
-Wie als eerste geen kaarten meer heeft, wint. De anderen spelen door: de volgorde waarin ze uitgaan bepaalt hun plaatsen, en wie als laatste nog kaarten heeft, wordt laatste.
-# Spelen op het apparaat
-Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan, van laag naar hoog. Bovenaan zitten de anderen: hun kaarten gedekt, hoeveel het er zijn, en een pasteken zolang ze buiten de slag zijn; zonder kaarten, hun plaats. De laatste zet ligt groot in het midden met het stuk van wie hem speelde, de zetten ervoor kleiner erachter. Tik op kaarten om ze te kiezen, en tik dan op het midden of sleep ze erheen: het midden licht op als je keuze gespeeld kan worden. De laagste kaart licht op bij de speler die ermee moet uitkomen. De pasknop staat in je balk. Aan het eind toont een tabel de plaatsen.

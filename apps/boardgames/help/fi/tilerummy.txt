@@ -1,22 +1,20 @@
 Laattarommi
 # Tavoite
-Pane ensimmäisenä kaikki telineesi laatat pöytään suorina ja ryhminä. 2–4 pelaajalle. Jokainen teline on salainen: anna laite seuraavalle jokaisen vuoron jälkeen. Kaksi peliä valittavana: yksi kierros, tai ottelu, jossa on yhtä monta kierrosta kuin pelaajia.
+Pane ensimmäisenä kaikki telineesi laatat pöytään suorina ja ryhminä.
 # Laatat
-106 laattaa: luvut 1–13 neljässä värissä, kukin kahdesti, ja kaksi jokeria. Jokainen pelaaja nostaa 14 laattaa; loput jäävät kuvapuoli alaspäin pakkaan.
+106 laattaa: luvut 1–13 neljässä värissä, kukin kahdesti, ja kaksi jokeria. Jokainen saa 14 laattaa; loput jäävät kuvapuoli alaspäin pakkaan.
 # Yhdistelmät
 - Suora: vähintään kolme peräkkäistä lukua, kaikki samaa väriä. 1 ei tule 13:n jälkeen.
 - Ryhmä: kolme tai neljä saman luvun laattaa, kaikki eri värejä.
 - Jokeri käy minkä tahansa laatan paikalle.
 # Vuoro
 - Pane laattoja telineestäsi: uusia yhdistelmiä, tai laattoja pöydän yhdistelmien jatkoksi.
-- Järjestä pöytää vapaasti: jaa yhdistelmiä, yhdistä niitä, siirrä laattoja yhdestä toiseen. Kun vuorosi päättyy, jokaisen pöydän yhdistelmän on oltava kelvollinen, eikä yksikään pöydän laatta saa palata telineeseen.
-- Voit voittaa jokerin takaisin panemalla sen tilalle laatan, jota se esittää; käytä jokeri sitten toisessa yhdistelmässä samalla vuorolla.
-- Jos et voi tai halua panna mitään, nosta sen sijaan yksi laatta pakasta. Kun pakka on tyhjä, jätä vuoro väliin.
+- Järjestä pöytää vapaasti (kaksi nopeaa napautusta laattaan ottaa koko sen yhdistelmän). Kun vuorosi päättyy, jokaisen yhdistelmän on oltava kelvollinen, eikä yksikään pöydän laatta saa palata telineeseen.
+- Voita jokeri takaisin panemalla sen tilalle laatta, jota se esittää, ja käytä jokeri sitten toisessa yhdistelmässä samalla vuorolla.
+- Jos et voi tai halua panna mitään, nosta laatta pakasta; kun pakka on tyhjä, jätä vuoro väliin.
 # Ensimmäinen avaus
-Ensimmäisen avauksesi on oltava vähintään 30 pisteen arvoinen, tehty pelkästään omista laatoistasi ja yhdellä vuorolla. Jokeri on sen laatan arvoinen, jota se esittää. Siihen asti et saa koskea pöydän yhdistelmiin.
+Ensimmäisen avauksesi on oltava vähintään 30 pisteen arvoinen, tehty pelkästään omista laatoistasi yhdellä vuorolla; jokeri on sen laatan arvoinen, jota se esittää. Siihen asti et saa koskea pöydän yhdistelmiin.
 # Kierroksen loppu
-Ensimmäinen telineensä tyhjentänyt pelaaja voittaa kierroksen ja saa muiden telineisiin jääneet laatat: jokainen luku arvonsa, jokeri 30. Muut pelaajat menettävät sen, mitä heidän omaan telineeseensä jäi. Jos pakka on tyhjä ja kaikki jättävät vuoronsa väliin vuorotellen, pienin teline voittaa: jokainen muu menettää erotuksen, ja voittaja saa sen.
+Ensimmäinen telineensä tyhjentänyt pelaaja saa muiden telineisiin jääneet laatat: jokainen luku arvonsa, jokeri 30. Muut menettävät sen, mitä heidän omaan telineeseensä jäi. Jos pakka on tyhjä ja kaikki jättävät vuoronsa väliin vuorotellen, pienin teline voittaa: jokainen muu menettää erotuksen, ja voittaja saa sen.
 # Pelin loppu
-Yksi kierros: sen voittaja voittaa pelin. Ottelu: yhtä monta kierrosta kuin pelaajia, ja jokainen aloittaa yhden. Suurin yhteispistemäärä voittaa.
-# Pelaaminen laitteella
-Telineesi on alhaalla; lajittelupainike järjestää sen värin tai luvun mukaan. Napauta laattoja ottaaksesi ne, ja napauta sitten yhdistelmää pannaksesi ne siihen, tyhjää pöytää uutta yhdistelmää varten, tai telinettäsi ottaaksesi omat laattasi takaisin. Kaksi nopeaa napautusta pöydän laattaan ottaa koko sen yhdistelmän. Voit myös vetää laattoja. Virheelliset yhdistelmät hehkuvat punaisina. Ensimmäiseen avaukseesi asti pakan vieressä oleva laskuri näyttää, paljonko se on tähän mennessä arvoinen; 30:stä alkaen se on kultainen. Kumoa peruu viimeisen siirtosi; alkuun palaava painike peruu koko vuoron. Rasti päättää vuorosi: se syttyy, kun pöytä on kunnossa. Napauta pakkaa nostaaksesi. Jokaisen pelaajan palkissa näkyy, montako laattaa hänellä on (ja ottelussa hänen yhteispisteensä).
+Yksi kierros: sen voittaja voittaa. Ottelu: yhtä monta kierrosta kuin pelaajia, ja jokainen aloittaa yhden; suurin yhteispistemäärä voittaa.

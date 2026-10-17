@@ -1,22 +1,20 @@
 Rummy med brickor
 # Målet
-Bli först med att lägga ut alla brickor från ditt ställ på bordet, i serier och grupper. För 2 till 4 spelare. Varje ställ är hemligt: lämna över enheten efter varje tur. Två spel att välja mellan: en omgång, eller en match med lika många omgångar som spelare.
+Bli först med att lägga ut alla brickor från ditt ställ på bordet, i serier och grupper.
 # Brickorna
-106 brickor: talen 1 till 13 i fyra färger, vart och ett två gånger, och två jokrar. Varje spelare drar 14 brickor; resten ligger med baksidan upp i potten.
+106 brickor: talen 1 till 13 i fyra färger, vart och ett två gånger, och två jokrar. 14 brickor var; resten ligger med baksidan upp i potten.
 # Kombinationer
 - En serie: tre eller fler tal i följd, alla i samma färg. 1 kommer inte efter 13.
 - En grupp: tre eller fyra brickor med samma tal, alla i olika färger.
 - En joker kan ersätta vilken bricka som helst.
 # En tur
 - Lägg ut brickor från ditt ställ: nya kombinationer, eller brickor som läggs till kombinationerna på bordet.
-- Ordna om bordet som du vill: dela kombinationer, slå ihop dem, flytta brickor från en till en annan. När din tur slutar måste varje kombination på bordet vara giltig, och ingen bricka från bordet får gå tillbaka till ett ställ.
-- Vinn tillbaka en joker genom att lägga brickan den ersätter på dess plats; använd sedan jokern i en annan kombination under samma tur.
-- Kan eller vill du inte lägga något drar du i stället en bricka ur potten. Är potten tom står du över.
+- Ordna om bordet som du vill (två snabba tryck på en bricka tar upp hela kombinationen). När din tur slutar måste varje kombination vara giltig, och ingen bricka från bordet får gå tillbaka till ett ställ.
+- Vinn tillbaka en joker genom att lägga brickan den ersätter på dess plats, och använd sedan jokern i en annan kombination under samma tur.
+- Kan eller vill du inte lägga något drar du en bricka ur potten; är den tom står du över.
 # Första utlägget
-Ditt första utlägg måste vara värt minst 30 poäng, bara med dina egna brickor och under en tur. En joker är värd brickan den ersätter. Fram till dess får du inte röra kombinationerna på bordet.
+Ditt första utlägg måste vara värt minst 30 poäng, bara med dina egna brickor och under en tur; en joker är värd brickan den ersätter. Fram till dess får du inte röra kombinationerna på bordet.
 # Slutet på en omgång
-Den första spelaren som tömmer sitt ställ vinner omgången och får brickorna som finns kvar i de andras ställ: varje tal sitt värde, en joker 30. De andra spelarna förlorar det som finns kvar i deras eget ställ. Är potten tom och alla står över i tur och ordning vinner det lägsta stället: var och en av de andra förlorar skillnaden, och vinnaren får den.
+Den första spelaren som tömmer sitt ställ får brickorna som finns kvar i de andras ställ: varje tal sitt värde, en joker 30. De andra förlorar det som finns kvar i deras eget ställ. Är potten tom och alla står över i tur och ordning vinner det lägsta stället: var och en av de andra förlorar skillnaden, och vinnaren får den.
 # Partiets slut
-En omgång: dess vinnare vinner partiet. En match: lika många omgångar som spelare, och varje spelare börjar en omgång. Högsta summan vinner.
-# Spela på enheten
-Ditt ställ är längst ned; sorteringsknappen sorterar det efter färg eller efter tal. Tryck på brickor för att ta upp dem, och tryck sedan på en kombination för att lägga dem där, på det tomma bordet för en ny kombination, eller på ditt ställ för att ta tillbaka dina egna brickor. Två snabba tryck på en bricka på bordet tar upp hela kombinationen. Du kan också dra brickorna. Ogiltiga kombinationer lyser rött. Fram till ditt första utlägg visar räknaren bredvid potten vad det är värt hittills; den blir guldfärgad vid 30. Ångra tar tillbaka ditt senaste drag; tillbaka-till-början-knappen tar tillbaka hela turen. Bocken avslutar din tur: den tänds så fort bordet stämmer. Tryck på potten för att dra. Varje spelares fält visar hur många brickor spelaren har (och i en match spelarens summa).
+En omgång: dess vinnare vinner. En match: lika många omgångar som spelare, och varje spelare börjar en omgång; högsta summan vinner.

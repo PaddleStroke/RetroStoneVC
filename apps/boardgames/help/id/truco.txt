@@ -1,26 +1,22 @@
 Truco
 # Tujuan
-Truco Argentina, untuk 2 pemain, atau 4 dalam dua tim berisi rekan yang duduk berhadapan (gading dan merah melawan eboni dan giok). Menangkan putaran tiga kartu dan bertaruhlah di atasnya: truco untuk kartu, envido untuk dua kartu sejenis. Tim pertama yang mencapai 15 atau 30 poin, dipilih sebelum permainan, menang. Tak seorang pun melihat kartu pemain lain.
+Truco Argentina, untuk 2 pemain, atau 4 dalam dua tim berisi rekan yang duduk berhadapan. Menangkan putaran tiga kartu dan bertaruhlah di atasnya: truco untuk kartu, envido untuk dua kartu sejenis. Tim pertama yang mencapai 15 atau 30 poin, sesuai pilihan, langsung menang, bahkan di tengah putaran.
 # Kartu
-Kartu Spanyol berisi 40 kartu, tanpa 8 dan 9: oros (koin), copas (piala), espadas (pedang), dan bastos (gada); sota (10), caballo (11), dan rey (12) digambarkan sebagai pion, kuda, dan raja. Celah pada garis bingkai tiap kartu, pinta, menunjukkan jenisnya: tidak ada untuk oros, satu untuk copas, dua untuk espadas, tiga untuk bastos. Dari tertinggi ke terendah: 1 espadas (ancho de espadas), 1 bastos (ancho de bastos), 7 espadas, 7 oros, semua 3, semua 2, 1 copas dan 1 oros, semua 12, 11, 10, 7 copas dan 7 bastos, semua 6, 5, dan 4. Kartu yang sama kuat dianggap seri.
+Kartu Spanyol berisi 40 kartu, tanpa 8 dan 9: oros (koin), copas (piala), espadas (pedang), dan bastos (gada); sota (10), caballo (11), dan rey (12) berupa pion, kuda, dan raja. Dari tertinggi ke terendah: 1 espadas, 1 bastos, 7 espadas, 7 oros, semua 3, semua 2, 1 copas dan 1 oros, semua 12, 11, dan 10, 7 copas dan 7 bastos, semua 6, 5, dan 4. Kartu yang sama kuat dianggap seri.
 # Memainkan satu putaran
-- Setiap pemain mendapat 3 kartu. Mano, pemain sesudah pembagi, memulai babak pertama; pembagi dan mano bergeser satu kursi setiap putaran.
-- Setiap pemain memainkan satu kartu per babak dan meletakkannya di depannya. Kartu tertinggi memenangkan babak, dan pemainnya memulai babak berikutnya.
+- Masing-masing 3 kartu. Mano, pemain sesudah pembagi, memulai babak pertama.
+- Setiap pemain memainkan satu kartu per babak; kartu tertinggi memenangkan babak, dan pemainnya memulai babak berikutnya.
 - Seri antara kedua tim disebut parda, dan pemain yang sama memulai lagi; rekan yang seri memenangkan babak bersama.
-- Tim yang memenangkan dua babak mengambil putaran itu. Setelah parda di babak pertama, babak berikutnya menentukan; parda setelah babak yang dimenangkan jatuh ke pemenang babak pertama; tiga parda: tim mano.
+- Dua babak mengambil putaran itu. Setelah parda di babak pertama, babak berikutnya menentukan; parda setelah babak yang dimenangkan jatuh ke pemenang babak pertama; tiga parda: tim mano.
 - Satu putaran bernilai 1 poin.
 # Truco
-- Pada giliranmu, sebelum bermain, kamu boleh menyerukan truco: putaran itu lalu bernilai 2. Tim lawan menjawab quiero (menerima), no quiero (menolak: kamu mengambil putaran dengan nilai sebelum seruan), atau menaikkan: retruco (3), lalu vale cuatro (4).
+- Pada giliranmu, sebelum bermain, kamu boleh menyerukan truco: putaran itu bernilai 2. Tim lawan menjawab quiero (menerima), no quiero (menolak: kamu mengambil putaran dengan nilai sebelum seruan), atau menaikkan: retruco (3), lalu vale cuatro (4).
 - Hanya tim yang menerima seruan terakhir yang boleh menaikkannya, nanti, pada salah satu gilirannya.
-- Me voy al mazo ("aku kembali ke tumpukan"): alih-alih bermain, seorang pemain menyerahkan putaran, dan lawan mengambilnya dengan nilai saat itu.
+- Me voy al mazo: alih-alih bermain, seorang pemain menyerahkan putaran; lawan mengambilnya dengan nilai saat itu.
 # Envido
-- Hanya di babak pertama, sebelum memainkan kartu pertamamu, kamu boleh menyerukan envido (2), real envido (3), atau falta envido. Saat menjawab truco di babak pertama, kamu boleh menyerukan envido lebih dulu: el envido está primero ("envido didahulukan"). Begitu truco diterima, tidak ada lagi envido.
-- Jawabannya: quiero, no quiero, atau seruan lebih tinggi: envido sekali lagi, lalu real envido, lalu falta envido. Jika diterima, tim dengan envido terbaik mendapat jumlah seruan; jika ditolak, yang menyerukan mendapat apa yang sudah diterima sebelum seruan terakhir, atau 1.
-- Falta envido bernilai kekurangan tim terdepan untuk menang; dalam permainan sampai 30, selama kedua tim masih di bawah 15 (las malas, "yang buruk"), nilainya seluruh permainan.
-- Envido seorang pemain: dua kartu sejenis bernilai 20 ditambah angkanya (kartu bergambar bernilai 0); jika tidak ada, angka tertingginya. Envido terbaik menang; seri jatuh ke pemain yang paling dekat dengan mano.
+- Hanya di babak pertama, sebelum kartu pertamamu, kamu boleh menyerukan envido (2), real envido (3), atau falta envido. Saat menjawab truco di babak pertama, kamu boleh menyerukan envido lebih dulu (el envido está primero). Begitu truco diterima, tidak ada lagi envido.
+- Jawabannya: quiero, no quiero, atau seruan lebih tinggi: envido sekali lagi, lalu real envido, lalu falta envido. Jika diterima, envido terbaik mendapat jumlah seruan; jika ditolak, yang menyerukan mendapat apa yang sudah diterima sebelum seruan terakhir, atau 1.
+- Falta envido bernilai kekurangan tim terdepan untuk menang; dalam permainan sampai 30, selama kedua tim masih di bawah 15 (las malas), seluruh permainan.
+- Envido seorang pemain: dua kartu sejenis bernilai 20 ditambah angkanya (kartu bergambar 0); jika tidak ada, angka tertinggi. Seri jatuh ke pemain yang paling dekat dengan mano.
 # Flor
-Sebuah varian, dipilih sebelum permainan (gambar bunga). Tiga kartu sejenis disebut flor: ditunjukkan saat pembagian dan bernilai 3 poin bagi timnya, dan putaran itu tidak memakai envido. Jika kedua tim punya flor, flor terbaik (20 ditambah ketiga angkanya) mengambil 3 poin untuk setiap flor. Contraflor tidak dipakai.
-# Akhir permainan
-Tim pertama yang mencapai skor yang dipilih, 15 atau 30, langsung menang, bahkan di tengah putaran.
-# Bermain di perangkat
-Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya; atau seret ke sana. Kartu setiap pemain berjajar di depan kepingnya; yang kalah di setiap babak diredupkan. Seruanmu muncul di sudut bawah: di kiri envido (dua kartu dan 2), real envido (dua kartu dan 3), dan falta envido (petir emas di atas merah, dengan nilainya); di kanan truco (nilai barunya di atas merah) dan mazo (punggung kartu). Untuk menjawab seruan: tanda silang untuk no quiero, tanda centang untuk quiero, atau sebuah kenaikan. Setiap kursi menunjukkan kata terakhirnya, flor-nya (bunga), dan setelah dimainkan, envido terbaik. Setelah truco diterima, nilai putaran tampil di kiri atas bersama tim yang boleh menaikkannya. Setelah setiap putaran, sebuah tabel menunjukkan poin setiap tim untuk envido, flor, dan putaran itu, serta skornya; ketuk untuk putaran berikutnya. Setiap bilah menunjukkan skor timnya. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.
+Sebuah varian yang dipilih sebelum permainan. Tiga kartu sejenis disebut flor: ditunjukkan saat pembagian, bernilai 3 poin bagi timnya, dan putaran itu tidak memakai envido. Jika kedua tim punya, flor terbaik (20 ditambah ketiga angkanya) mengambil 3 poin untuk setiap flor. Tanpa contraflor.

@@ -1,26 +1,22 @@
 Truco
 # O objetivo
-O Truco argentino, para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente (marfim e vermelho contra ébano e jade). Ganhe mãos de três cartas e aposte nelas: o truco nas cartas, o envido em duas cartas do mesmo naipe. Vence a primeira dupla a chegar a 15 ou 30 pontos, escolhidos antes da partida. Ninguém vê as cartas dos outros.
+O Truco argentino, para 2 jogadores, ou 4 em duas duplas de parceiros sentados frente a frente. Ganhe mãos de três cartas e aposte nelas: o truco nas cartas, o envido em duas cartas do mesmo naipe. Vence na hora a primeira dupla a chegar a 15 ou 30 pontos, à escolha, mesmo no meio de uma mão.
 # As cartas
-O baralho espanhol de 40 cartas, sem 8 nem 9: oros (ouros), copas, espadas e bastos (paus); a sota (10), o caballo (11) e o rey (12) aparecem como um peão, um cavalo e um rei. As falhas na linha do quadro de cada carta, a pinta, mostram o naipe: nenhuma em oros, uma em copas, duas em espadas, três em bastos. Da mais forte à mais fraca: o 1 de espadas (ancho de espadas), o 1 de bastos (ancho de bastos), o 7 de espadas, o 7 de oros, os 3, os 2, os 1 de copas e de oros, os 12, os 11, os 10, os 7 de copas e de bastos, os 6, os 5 e os 4. Cartas da mesma força empatam.
+O baralho espanhol de 40 cartas, sem 8 nem 9: oros (ouros), copas, espadas e bastos (paus); a sota (10), o caballo (11) e o rey (12) são um peão, um cavalo e um rei. Da mais forte à mais fraca: o 1 de espadas, o 1 de bastos, o 7 de espadas, o 7 de oros, os 3, os 2, os 1 de copas e de oros, os 12, os 11 e os 10, os 7 de copas e de bastos, os 6, os 5 e os 4. Cartas da mesma força empatam.
 # Jogando uma mão
-- Cada jogador recebe 3 cartas. A mano, o jogador depois de quem dá as cartas, abre a primeira rodada; quem dá e a mano avançam um lugar a cada mão.
-- Cada um joga uma carta por rodada e a deixa à sua frente. A carta mais alta vence a rodada, e o seu jogador abre a seguinte.
+- 3 cartas para cada um. A mano, o jogador depois de quem dá as cartas, abre a primeira rodada.
+- Cada um joga uma carta por rodada; a mais alta vence a rodada, e o seu jogador abre a seguinte.
 - Um empate entre as duplas é uma parda, e o mesmo jogador abre de novo; parceiros empatados vencem a rodada juntos.
-- A dupla que vence duas rodadas leva a mão. Depois de uma parda na primeira rodada, a seguinte decide; uma parda depois de uma rodada ganha vai para quem venceu a primeira; três pardas: a dupla da mano.
+- Duas rodadas levam a mão. Depois de uma parda na primeira rodada, a seguinte decide; uma parda depois de uma rodada ganha vai para quem venceu a primeira; três pardas: a dupla da mano.
 - Uma mão vale 1 ponto.
 # O truco
-- Na sua vez, antes de jogar, você pode pedir truco: a mão passa a valer 2. A outra dupla responde quiero (aceito), no quiero (recuso: você leva a mão pelo valor de antes do pedido) ou aumenta: retruco (3), depois vale cuatro (4).
+- Na sua vez, antes de jogar, você pode pedir truco: a mão vale 2. A outra dupla responde quiero (aceito), no quiero (recuso: você leva a mão pelo valor de antes do pedido) ou aumenta: retruco (3), depois vale cuatro (4).
 - Só a dupla que aceitou o último pedido pode aumentá-lo, mais tarde, numa das suas vezes.
-- Me voy al mazo ("vou para o monte"): em vez de jogar, um jogador desiste da mão, e os adversários a levam pelo valor do momento.
+- Me voy al mazo: em vez de jogar, um jogador desiste da mão; os adversários a levam pelo valor do momento.
 # O envido
-- Só na primeira rodada, antes de jogar a sua primeira carta, você pode pedir envido (2), real envido (3) ou falta envido. Respondendo a um truco na primeira rodada, você pode pedir envido antes: el envido está primero ("o envido vem primeiro"). Depois que um truco é aceito, não há mais envido.
-- A resposta: quiero, no quiero ou um pedido maior: mais um envido, depois real envido, depois falta envido. Aceito, a dupla com o melhor envido marca a soma dos pedidos; recusado, quem pediu marca o que tinha sido aceito antes do último pedido, ou 1.
-- A falta envido vale o que falta à dupla que lidera para vencer; numa partida de 30, enquanto as duas duplas estão abaixo de 15 (las malas, "as más"), vale a partida inteira.
-- O envido de um jogador: duas cartas do mesmo naipe valem 20 mais os seus números (as figuras valem 0); sem elas, o seu número mais alto. O melhor envido vence; um empate vai para o jogador mais perto da mano.
+- Só na primeira rodada, antes da sua primeira carta, você pode pedir envido (2), real envido (3) ou falta envido. Respondendo a um truco na primeira rodada, você pode pedir envido antes (el envido está primero). Depois que um truco é aceito, não há mais envido.
+- A resposta: quiero, no quiero ou um pedido maior: mais um envido, depois real envido, depois falta envido. Aceito, o melhor envido marca a soma dos pedidos; recusado, quem pediu marca o que tinha sido aceito antes do último pedido, ou 1.
+- A falta envido vale o que falta à dupla que lidera para vencer; numa partida de 30, enquanto as duas duplas estão abaixo de 15 (las malas), a partida inteira.
+- O envido de um jogador: duas cartas do mesmo naipe valem 20 mais os seus números (as figuras 0); sem elas, o número mais alto. Um empate vai para o jogador mais perto da mano.
 # A flor
-Uma variante, escolhida antes da partida (a flor no desenho). Três cartas do mesmo naipe são uma flor: ela é mostrada na distribuição e vale 3 pontos para a sua dupla, e essa mão não tem envido. Se as duas duplas têm flor, a melhor (20 mais os três números) leva 3 pontos por cada flor. A contraflor fica de fora.
-# O fim da partida
-Vence na hora a primeira dupla que chega ao placar escolhido, 15 ou 30, mesmo no meio de uma mão.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha brilha; ele toca no botão de início e vê a sua mão. Para jogar, toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela, ou arraste-a até lá. As cartas de cada jogador ficam em fila diante da sua ficha; as que perdem cada rodada ficam escurecidas. Seus pedidos aparecem nos cantos de baixo: à esquerda envido (duas cartas e 2), real envido (duas cartas e 3) e falta envido (um raio dourado sobre vermelho, com o seu valor); à direita o truco (o novo valor sobre vermelho) e o mazo (o verso de uma carta). Para responder a um pedido: a cruz para no quiero, o sinal de confirmação para quiero, ou um aumento. Cada lugar mostra a sua última palavra, a sua flor (uma flor) e, depois de jogado, o melhor envido. Quando um truco é aceito, o valor da mão aparece no alto à esquerda com a dupla que pode aumentá-lo. Depois de cada mão, uma tabela mostra os pontos de cada dupla pelo envido, pela flor e pela mão, e os placares; toque nela para a próxima mão. Cada barra mostra a pontuação da sua dupla. Desfazer cancela uma escolha ainda não confirmada, nunca depois que o aparelho passou.
+Uma variante escolhida antes da partida. Três cartas do mesmo naipe são uma flor: mostrada na distribuição, vale 3 pontos para a sua dupla, e essa mão não tem envido. Se as duas duplas têm uma, a melhor (20 mais os três números) leva 3 pontos por cada flor. Sem contraflor.

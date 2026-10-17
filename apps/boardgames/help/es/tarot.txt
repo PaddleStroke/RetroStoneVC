@@ -1,41 +1,34 @@
 Tarot francés
 # El objetivo
-El juego de cartas francés del tarot, con 78 cartas: cuatro palos de 14 cartas (sota, caballo, reina y rey por encima del 10), 21 triunfos y la Excusa (Excuse). En cada mano un jugador, el atacante, juega contra todos los demás, la defensa. La partida dura tantas manos como jugadores haya, y gana el total más alto. Para 3, 4 o 5 jugadores.
+78 cartas: cuatro palos de 14 (sota, caballo, reina y rey por encima del 10), 21 triunfos y la Excusa. En cada mano el atacante juega contra todos los demás, la defensa. Tras tantas manos como jugadores haya (una mano anulada no cuenta), gana el total más alto.
 # Las cartas
-- Los tres oudlers (bouts) son el 21, el Petit (el triunfo 1) y la Excusa. Cuantos más gane el atacante, menos puntos necesita.
-- Puntos: un oudler o un rey 4,5, una reina 3,5, un caballo 2,5, una sota 1,5, cualquier otra carta 0,5. Hay 91 puntos en total.
-- En la mesa las cartas se cuentan por parejas: un rey o un oudler con una carta pequeña suman 5, una reina con una carta pequeña 4, un caballo 3, una sota 2, dos cartas pequeñas 1. El resultado es el mismo.
+- Los tres oudlers son el 21, el Petit (el triunfo 1) y la Excusa. Cuantos más gane el atacante, menos puntos necesita.
+- Puntos: un oudler o un rey 4,5, una reina 3,5, un caballo 2,5, una sota 1,5, cualquier otra carta 0,5: 91 en total.
 # El reparto
-- Las cartas no se barajan entre una mano y otra: se recogen las bazas, se corta y se reparte de tres en tres, como en una mesa de verdad.
-- Las cartas se reparten de tres en tres, alrededor de la mesa, empezando por el jugador que sigue al que reparte. El perro (chien) recibe 6 cartas (3 con cinco jugadores), de una en una, nunca las primeras ni las últimas.
-- Cada jugador recibe 24 cartas con tres jugadores, 18 con cuatro, 15 con cinco.
-- Un jugador cuyo único triunfo es el Petit, sin la Excusa (Petit sec), lo muestra y la mano se anula. Reparte el jugador siguiente.
+- El perro recibe 6 cartas (3 con cinco jugadores); cada jugador recibe 24 con tres jugadores, 18 con cuatro, 15 con cinco.
+- Un jugador cuyo único triunfo es el Petit, sin la Excusa (Petit sec), lo muestra y la mano se anula.
 # Las apuestas
-Empezando por el jugador que sigue al que reparte, cada uno habla una sola vez: dice Paso o apuesta más alto que todas las apuestas anteriores.
-- Pequeña (Petite): el atacante se queda el perro. La mano cuenta una vez.
+Empezando por el jugador que sigue al que reparte, cada uno habla una sola vez: paso, o una apuesta más alta que todas las anteriores.
+- Pequeña (Petite): el atacante se queda el perro. Cuenta una vez.
 - Guardia (Garde): lo mismo, cuenta doble.
-- Guardia sin (Garde sans): nadie ve el perro; sus cartas cuentan para el atacante. Cuenta cuatro veces.
-- Guardia contra (Garde contre): nadie ve el perro; sus cartas cuentan para la defensa. Cuenta seis veces.
-Si todos pasan, la mano se anula y reparte el jugador siguiente.
+- Guardia sin (Garde sans): el perro, sin verse, cuenta para el atacante. Cuatro veces.
+- Guardia contra (Garde contre): el perro, sin verse, cuenta para la defensa. Seis veces.
+Si todos pasan, reparte el jugador siguiente.
 # Cinco jugadores: el rey llamado
-Antes del perro, el atacante llama a un rey (una reina si tiene los cuatro reyes). Quien lo tenga pasa a ser su compañero, pero lo mantiene en secreto hasta que se juegue el rey. Si lo tiene el propio atacante, o si está en el perro, el atacante juega solo contra cuatro.
+Antes del perro, el atacante llama a un rey (una reina si tiene los cuatro reyes). Quien lo tiene es el compañero secreto del atacante hasta que se juega el rey. Si lo tiene el propio atacante, o si está en el perro, el atacante juega solo.
 # El perro
-Con Pequeña y Guardia el perro se pone boca arriba para que todos lo vean. Después el atacante lo añade a su mano y aparta en secreto el mismo número de cartas: nunca un rey ni un oudler, y un triunfo solo si no hay otro remedio. Los triunfos apartados se enseñan. Las cartas apartadas cuentan para el atacante.
+Con Pequeña y Guardia el perro se enseña a todos. El atacante lo añade a su mano y aparta el mismo número de cartas: nunca un rey ni un oudler, y un triunfo solo si no hay otro remedio (entonces se enseña). Las cartas apartadas cuentan para el atacante.
 # Una baza
 - El jugador que sigue al que reparte sale en la primera baza; quien gana una baza sale en la siguiente.
-- Sirve al palo de salida. Si no tienes, debes jugar triunfo; si tampoco tienes triunfo, juega cualquier carta.
-- Cuando hay un triunfo en la baza, debes jugar un triunfo más alto si puedes; si no puedes, juega uno más bajo.
-- Gana la baza el triunfo más alto; sin triunfo, la carta más alta del palo de salida.
-- La Excusa puede jugarse en cualquier momento en lugar de otra carta y nunca gana: su dueño se la queda y a cambio da al ganador de la baza una carta de medio punto. Si se jugó de salida, la carta siguiente fija el palo. Jugada en la última baza, va al ganador de la baza, salvo que su bando haya ganado todas las bazas anteriores: entonces gana esa última baza.
+- Sirve al palo de salida. Si no puedes, juega triunfo; si tampoco tienes triunfo, cualquier carta.
+- Cuando hay un triunfo en la baza, juega un triunfo más alto si puedes; si no, uno más bajo.
+- Gana el triunfo más alto; sin triunfo, la carta más alta del palo de salida.
+- La Excusa puede jugarse en cualquier momento y nunca gana: su dueño se la queda y a cambio da al ganador de la baza una carta de medio punto. Si se jugó de salida, la carta siguiente fija el palo. En la última baza va al ganador de la baza, salvo que su bando haya ganado todas las bazas anteriores: entonces gana esa baza.
 # Puñado (poignée)
-Un jugador con muchos triunfos puede mostrarlos justo antes de jugar su primera carta: un puñado simple de 10 triunfos (13 con tres jugadores, 8 con cinco), doble de 13 (15, 10) o triple de 15 (18, 13). La Excusa puede completarlo. Vale 20, 30 o 40 puntos para el bando que gana la mano.
+Justo antes de jugar su primera carta, un jugador puede mostrar un solo puñado: simple de 10 triunfos (13 con tres jugadores, 8 con cinco), doble de 13 (15, 10) o triple de 15 (18, 13); la Excusa puede completarlo. Vale 20, 30 o 40 puntos para el bando que gana la mano.
 # La puntuación
-- El bando del atacante necesita 56 puntos sin oudler, 51 con uno, 41 con dos, 36 con los tres. Con esos puntos gana la mano; sin ellos, la pierde.
+- El bando del atacante necesita 56 puntos sin oudler, 51 con uno, 41 con dos, 36 con los tres.
 - La mano vale 25 puntos más la diferencia entre los puntos ganados y los necesarios (medio punto cuenta como uno entero), por 1, 2, 4 o 6 según la apuesta.
 - Petit au bout: el Petit en la última baza vale 10 puntos, multiplicados por el número de la apuesta, para el bando que gana esa baza.
-- Un bando que gana todas las bazas (capote, chelem; aquí nunca se anuncia) suma 200 más.
-- Cada defensor paga el valor de la mano al atacante, o lo recibe de él. Con cinco jugadores y compañero, el atacante se lleva dos partes y el compañero una. Las puntuaciones siempre suman cero.
-# El final de la partida
-Tras tantas manos como jugadores haya (una mano anulada no cuenta), gana el jugador con el total más alto.
-# Jugar en el dispositivo
-Pasaos el dispositivo: el jugador al que le toca ve su mano abajo, en una o dos filas. La barra de cada jugador muestra su total, cuántas cartas tiene y su apuesta. Para apostar, toca un botón. La baza está en el centro, cada carta del lado de su jugador, con su ficha; la baza recién ganada se queda ahí, con la carta ganadora brillando, hasta que sale la carta siguiente. Toca el montón de arriba a la izquierda para volver a ver la última baza. Cuando el perro se destapa, todos lo ven mientras la mano del atacante sigue boca abajo: enseñad el dispositivo a todos y luego el atacante toca el perro para quedárselo, toca las cartas que aparta (otro toque devuelve una carta) y el botón redondo. Cuando puedes mostrar un puñado, aparece arriba un botón con su número de triunfos. Tras cada mano, una tabla muestra la apuesta con su número, los oudlers que ganó el bando del atacante, sus puntos, los puntos necesarios y la diferencia, las primas y después los puntos y el total de cada jugador; tócala para la siguiente mano. Deshacer solo retira tus propias jugadas de este turno.
+- Un bando que gana todas las bazas (un chelem, aquí nunca se anuncia) suma 200 más.
+- Cada defensor paga el valor de la mano al atacante, o lo recibe de él. Con cinco jugadores y compañero, el atacante se lleva dos partes y el compañero una.

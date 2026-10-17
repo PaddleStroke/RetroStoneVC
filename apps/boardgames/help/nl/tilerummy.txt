@@ -1,22 +1,20 @@
 Rummy met stenen
 # Het doel
-Leg als eerste alle stenen van je plankje op tafel, in rijen en groepen. Voor 2 tot 4 spelers. Elk plankje is geheim: geef het apparaat na elke beurt door. Twee spellen om uit te kiezen: één ronde, of een reeks van evenveel rondes als er spelers zijn.
+Leg als eerste alle stenen van je plankje op tafel, in rijen en groepen.
 # De stenen
-106 stenen: de getallen 1 tot en met 13 in vier kleuren, elk twee keer, en twee jokers. Elke speler pakt 14 stenen; de rest blijft dicht in de pot.
+106 stenen: de getallen 1 tot en met 13 in vier kleuren, elk twee keer, en twee jokers. Elk 14 stenen; de rest blijft dicht in de pot.
 # Combinaties
 - Een rij: drie of meer opeenvolgende getallen van één kleur. Na 13 komt geen 1.
 - Een groep: drie of vier stenen met hetzelfde getal, allemaal in een andere kleur.
 - Een joker telt als elke steen.
 # Een beurt
 - Leg stenen van je plankje: nieuwe combinaties, of stenen erbij aan combinaties op tafel.
-- Herschik de tafel zoals je wilt: splits combinaties, voeg ze samen, verplaats stenen van de ene naar de andere. Aan het eind van je beurt moet elke combinatie op tafel geldig zijn, en geen steen van tafel mag terug naar een plankje.
+- Herschik de tafel zoals je wilt (twee keer snel op een steen tikken pakt de hele combinatie op). Aan het eind van je beurt moet elke combinatie geldig zijn, en geen steen van tafel mag terug naar een plankje.
 - Win een joker terug door de steen waarvoor hij staat op zijn plaats te leggen; gebruik de joker dan in dezelfde beurt in een andere combinatie.
-- Kun of wil je niets leggen, pak dan een steen uit de pot. Is de pot leeg, dan pas je.
+- Kun of wil je niets leggen, pak dan een steen uit de pot; is die leeg, dan pas je.
 # De eerste uitleg
-Je eerste uitleg moet 30 punten of meer waard zijn, alleen met je eigen stenen en in één beurt. Een joker telt als de steen waarvoor hij staat. Tot die tijd mag je de combinaties op tafel niet aanraken.
+Je eerste uitleg moet 30 punten of meer waard zijn, alleen met je eigen stenen en in één beurt; een joker telt als de steen waarvoor hij staat. Tot die tijd mag je de combinaties op tafel niet aanraken.
 # Het einde van een ronde
-Wie als eerste zijn plankje leeg heeft, wint de ronde en krijgt de stenen die op de andere plankjes over zijn: elk getal zijn waarde, een joker 30. De anderen verliezen wat er op hun eigen plankje over is. Is de pot leeg en past iedereen om de beurt, dan wint het laagste plankje: elke andere speler verliest het verschil, en de winnaar krijgt het.
+Wie als eerste zijn plankje leeg heeft, krijgt de stenen die op de andere plankjes over zijn: elk getal zijn waarde, een joker 30. De anderen verliezen wat er op hun eigen plankje over is. Is de pot leeg en past iedereen om de beurt, dan wint het laagste plankje: elke andere speler verliest het verschil, en de winnaar krijgt het.
 # Het einde van de partij
-Eén ronde: de winnaar ervan wint de partij. Een reeks: evenveel rondes als spelers, en elke speler begint er één. Het hoogste totaal wint.
-# Spelen op het apparaat
-Je plankje staat onderaan; de sorteerknop ordent het op kleur of op getal. Tik stenen aan om ze op te pakken en tik dan een combinatie aan om ze daar neer te leggen, de lege tafel voor een nieuwe combinatie, of je plankje om je eigen stenen terug te nemen. Twee keer snel op een steen op tafel tikken pakt de hele combinatie op. Je kunt stenen ook slepen. Ongeldige combinaties gloeien rood. Tot je eerste uitleg toont de teller naast de pot hoeveel die al waard is; vanaf 30 wordt hij goud. Ongedaan maken neemt je laatste zet terug; de terug-naar-het-begin-knop neemt de hele beurt terug. Het vinkje beëindigt je beurt: het licht op zodra de tafel klopt. Tik op de pot om een steen te pakken. De balk van elke speler toont hoeveel stenen hij heeft (en, in een reeks, zijn totaal).
+Eén ronde: de winnaar ervan wint. Een reeks: evenveel rondes als spelers, en elke speler begint er één; het hoogste totaal wint.

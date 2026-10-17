@@ -1,26 +1,22 @@
 Tiến lên
 # O objetivo
-Seja o primeiro a jogar todas as suas cartas; os outros continuam jogando pelas colocações. Um jogo vietnamita (o nome quer dizer “avante”) de 2 a 4 jogadores, com um baralho de 52 cartas: 13 para cada um (com menos de quatro jogadores, as que sobram ficam fora do jogo).
+Seja o primeiro a jogar todas as suas cartas; os outros continuam jogando pelas colocações. 13 cartas para cada um; com menos de quatro jogadores, as que sobram ficam fora do jogo.
 # As cartas
-- Da mais baixa para a mais alta: 3, 4, 5, 6, 7, 8, 9, 10, valete, dama, rei, ás, e o 2, a mais alta de todas.
-- Os naipes, do mais baixo para o mais alto: espadas, paus, ouros, copas. Entre duas cartas do mesmo valor, vale o naipe: o 2 de copas é a carta mais alta.
+- Da mais baixa para a mais alta: 3 a 10, valete, dama, rei, ás, e o 2, a mais alta de todas.
+- Entre valores iguais vale o naipe, do mais baixo para o mais alto: espadas, paus, ouros, copas. O 2 de copas é a carta mais alta.
 # As jogadas
 - Uma carta sozinha, um par, uma trinca ou uma quadra.
-- Uma sequência: três ou mais cartas de valores seguidos, de qualquer naipe. O 2 nunca faz parte de uma.
-- Uma sequência dupla: três ou mais pares de valores seguidos, como 3-3-4-4-5-5, sem 2.
-- Uma jogada é batida por outra do mesmo tipo, com o mesmo número de cartas e uma carta mais alta maior.
+- Uma sequência: três ou mais valores seguidos, de qualquer naipe, nunca com um 2.
+- Uma sequência dupla: três ou mais pares seguidos, como 3-3-4-4-5-5, sem 2.
+- Uma jogada é batida por outra do mesmo tipo e tamanho, com uma carta mais alta maior.
 # Uma vaza
 - Quem recebeu a carta mais baixa (o 3 de espadas com quatro jogadores) abre a primeira vaza, com uma jogada que a inclua.
-- Na sua vez, cada jogador bate a última jogada ou passa. Quem passa fica fora da vaza até começar uma nova.
+- Na sua vez, bata a última jogada ou passe. Quem passa fica fora da vaza até começar uma nova.
 - Quando todos os outros passaram, o último que jogou começa uma nova vaza com qualquer jogada.
 # As bombas
-Algumas jogadas batem os 2, e são feitas na sua vez como qualquer outra:
+Algumas jogadas batem os 2:
 - três pares seguidos batem um 2 sozinho;
 - uma quadra bate um 2 sozinho, ou três pares seguidos;
 - quatro pares seguidos batem um 2 sozinho, um par de 2, uma quadra, ou três pares seguidos;
 - cinco pares seguidos batem também uma trinca de 2.
 Uma bomba também bate outra mais baixa do mesmo tipo.
-# O fim da partida
-Vence o primeiro jogador que ficar sem cartas. Os outros continuam: a ordem em que saem dá as colocações, e o último que ainda tem cartas fica em último.
-# Jogando no aparelho
-Passem o aparelho: cada jogador só vê as próprias cartas, embaixo, da mais baixa para a mais alta. Na parte de cima ficam os outros: as cartas deles viradas para baixo, quantas são, e um sinal de passe enquanto estão fora da vaza; depois que ficam sem cartas, a colocação. A última jogada fica grande no meio com a peça de quem a fez, e as anteriores, menores, atrás dela. Toque nas cartas para escolhê-las, depois toque no meio ou arraste-as até lá: o meio se acende quando sua escolha pode ser jogada. A carta mais baixa brilha para o jogador que deve abrir com ela. O botão de passar fica na sua barra. No fim, uma tabela mostra as colocações.

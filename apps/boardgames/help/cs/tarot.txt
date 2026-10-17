@@ -1,41 +1,34 @@
 Francouzský tarot
 # Cíl hry
-Francouzská karetní hra tarot se 78 kartami: čtyři barvy po 14 kartách (kluk, jezdec, dáma a král nad desítkou), 21 trumfů a Excuse. V každém rozdání hraje jeden hráč, aktér, proti všem ostatním, obraně. Hra má tolik rozdání, kolik je hráčů, a vyhrává nejvyšší součet. Pro 3, 4 nebo 5 hráčů.
+78 karet: čtyři barvy po 14 kartách (kluk, jezdec, dáma a král nad desítkou), 21 trumfů a Excuse. V každém rozdání hraje aktér proti všem ostatním, obraně. Po tolika rozdáních, kolik je hráčů (zrušené rozdání se nepočítá), vyhrává nejvyšší součet.
 # Karty
-- Tři oudleři (bouts) jsou 21, Petit (trumf 1) a Excuse. Čím víc jich aktér získá, tím méně bodů potřebuje.
-- Body: oudler nebo král 4,5, dáma 3,5, jezdec 2,5, kluk 1,5, každá jiná karta 0,5. Celkem je ve hře 91 bodů.
-- U stolu se karty počítají po dvojicích: král nebo oudler s malou kartou dává 5, dáma s malou kartou 4, jezdec 3, kluk 2, dvě malé karty 1. Vyjde to nastejno.
+- Tři oudleři jsou 21, Petit (trumf 1) a Excuse. Čím víc jich aktér získá, tím méně bodů potřebuje.
+- Body: oudler nebo král 4,5, dáma 3,5, jezdec 2,5, kluk 1,5, každá jiná karta 0,5: celkem 91.
 # Rozdávání
-- Mezi rozdáními se karty nemíchají: štychy se seberou, sejme se a rozdává se po třech, jako u skutečného stolu.
-- Karty se rozdávají po třech, dokola, počínaje hráčem po rozdávajícím. Talon (chien) dostane 6 karet (3 při pěti hráčích), po jedné, nikdy ne první ani poslední karty.
-- Každý hráč dostane 24 karet při třech hráčích, 18 při čtyřech, 15 při pěti.
-- Hráč, jehož jediným trumfem je Petit a nemá ani Excuse (holý Petit, Petit sec), ho ukáže a rozdání se ruší. Rozdává další hráč.
+- Talon dostane 6 karet (3 při pěti hráčích); každý hráč dostane 24 karet při třech hráčích, 18 při čtyřech, 15 při pěti.
+- Hráč, jehož jediným trumfem je Petit a nemá ani Excuse (holý Petit, Petit sec), ho ukáže a rozdání se ruší.
 # Licitace
-Počínaje hráčem po rozdávajícím promluví každý jednou: řekne Pas, nebo nabídne víc než všechny hlášky před ním.
-- Malá (Petite): aktér dostane talon. Rozdání se počítá jednou.
+Počínaje hráčem po rozdávajícím promluví každý jednou: pas, nebo hláška vyšší než všechny před ní.
+- Malá (Petite): aktér dostane talon. Počítá se jednou.
 - Garda (Garde): totéž, počítá se dvakrát.
-- Garda bez (Garde sans): talon nikdo nevidí; jeho karty se počítají aktérovi. Počítá se čtyřikrát.
-- Garda proti (Garde contre): talon nikdo nevidí; jeho karty se počítají obraně. Počítá se šestkrát.
-Když všichni pasují, rozdání se ruší a rozdává další hráč.
+- Garda bez (Garde sans): neviděný talon se počítá aktérovi. Čtyřikrát.
+- Garda proti (Garde contre): neviděný talon se počítá obraně. Šestkrát.
+Když všichni pasují, rozdává další hráč.
 # Pět hráčů: volaný král
-Před talonem aktér zavolá krále (dámu, pokud má všechny čtyři krále). Kdo ho drží, stává se aktérovým spoluhráčem, ale tají to, dokud není král zahrán. Pokud ho drží sám aktér nebo leží v talonu, hraje aktér sám proti čtyřem.
+Před talonem aktér zavolá krále (dámu, pokud má všechny čtyři krále). Kdo ho drží, je aktérovým tajným spoluhráčem, dokud není král zahrán. Pokud ho drží sám aktér nebo leží v talonu, hraje aktér sám.
 # Talon
-U Malé a Gardy se talon otočí lícem nahoru, aby ho viděli všichni. Pak si ho aktér vezme do ruky a tajně odloží stejný počet karet: nikdy krále ani oudlera a trumf jen tehdy, když to jinak nejde. Odložené trumfy se ukážou. Odložené karty se počítají aktérovi.
+U Malé a Gardy se talon ukáže všem. Aktér si ho vezme do ruky a odloží stejný počet karet: nikdy krále ani oudlera a trumf jen tehdy, když to jinak nejde (pak se ukáže). Odložené karty se počítají aktérovi.
 # Štych
 - První štych vynáší hráč po rozdávajícím; kdo štych vezme, vynáší další.
-- Přiznej vynesenou barvu. Pokud ji nemáš, musíš hrát trumf; když nemáš ani trumf, hraj libovolnou kartu.
-- Když je ve štychu trumf, musíš zahrát vyšší trumf, pokud můžeš; pokud ne, zahraj nižší.
+- Přiznej barvu. Pokud nemůžeš, hraj trumf; když nemáš ani trumf, libovolnou kartu.
+- Když je ve štychu trumf, zahraj vyšší trumf, pokud můžeš, jinak nižší.
 - Štych bere nejvyšší trumf; bez trumfu nejvyšší karta vynesené barvy.
-- Excuse lze kdykoli zahrát místo jiné karty a nikdy nebere: majitel si ji ponechá a vítězi štychu za ni dá kartu za půl bodu. Pokud byla vynesena, barvu určí další karta. Zahraná v posledním štychu připadne vítězi štychu, ledaže její strana vzala všechny předchozí štychy: pak tento poslední štych vezme.
+- Excuse lze zahrát kdykoli a nikdy nebere: majitel si ji ponechá a vítězi štychu za ni dá kartu za půl bodu. Pokud byla vynesena, barvu určí další karta. V posledním štychu připadne vítězi štychu, ledaže její strana vzala všechny předchozí štychy: pak tento štych vezme.
 # Poignée
-Hráč s mnoha trumfy je smí ukázat těsně před zahráním své první karty: jednoduchá poignée z 10 trumfů (13 při třech hráčích, 8 při pěti), dvojitá z 13 (15, 10) nebo trojitá z 15 (18, 13). Doplnit ji může Excuse. Má hodnotu 20, 30 nebo 40 bodů pro stranu, která rozdání vyhraje.
+Těsně před zahráním své první karty smí hráč ukázat jednoduchou poignée z 10 trumfů (13 při třech hráčích, 8 při pěti), dvojitou z 13 (15, 10) nebo trojitou z 15 (18, 13); doplnit ji může Excuse. Má hodnotu 20, 30 nebo 40 bodů pro stranu, která rozdání vyhraje.
 # Skóre
-- Aktérova strana potřebuje 56 bodů bez oudlera, 51 s jedním, 41 se dvěma, 36 se všemi třemi. S těmito body rozdání vyhraje, bez nich ho prohraje.
+- Aktérova strana potřebuje 56 bodů bez oudlera, 51 s jedním, 41 se dvěma, 36 se třemi.
 - Rozdání má hodnotu 25 bodů plus rozdíl mezi získanými a potřebnými body (půl bodu se počítá jako celý), krát 1, 2, 4 nebo 6 podle hlášky.
 - Petit au bout: Petit v posledním štychu má hodnotu 10 bodů, krát číslo hlášky, pro stranu, která tento štych vezme.
-- Strana, která vezme všechny štychy (valát, chelem; tady se nikdy nehlásí), získá navíc 200.
-- Každý obránce zaplatí hodnotu rozdání aktérovi, nebo ji od něj dostane. Při pěti hráčích se spoluhráčem bere aktér dva podíly a spoluhráč jeden. Součet všech skóre je vždy nula.
-# Konec hry
-Po tolika rozdáních, kolik je hráčů (zrušené rozdání se nepočítá), vyhrává hráč s nejvyšším součtem.
-# Hra na zařízení
-Posílejte si zařízení: hráč na tahu vidí své karty dole, v jedné nebo dvou řadách. Lišta každého hráče ukazuje jeho součet, počet jeho karet a jeho hlášku. Hlásíš klepnutím na tlačítko. Štych leží uprostřed, každá karta na straně svého hráče, s jeho žetonem; právě vzatý štych tam zůstane, s rozsvícenou vítěznou kartou, dokud se nevynese další karta. Klepnutím na hromádku vlevo nahoře si znovu prohlédneš poslední štych. Když se talon otočí, vidí ho všichni, zatímco aktérovy karty zůstanou skryté: ukažte zařízení dokola, pak aktér klepne na talon, aby si ho vzal, klepne na karty k odložení (dalším klepnutím kartu vezme zpět) a na kulaté tlačítko. Když můžeš ukázat poignée, objeví se nahoře tlačítko s jejím počtem trumfů. Po každém rozdání ukáže tabulka hlášku s jejím číslem, oudlery aktérovy strany, její body, potřebné body a rozdíl, prémie a pak body a součet každého hráče; klepni na ni a začne další rozdání. Vrátit vezme zpět jen tvé vlastní akce v tomto tahu.
+- Strana, která vezme všechny štychy (valát, chelem, tady se nikdy nehlásí), získá navíc 200.
+- Každý obránce zaplatí hodnotu rozdání aktérovi, nebo ji od něj dostane. Při pěti hráčích se spoluhráčem bere aktér dva podíly a spoluhráč jeden.

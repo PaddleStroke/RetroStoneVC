@@ -1,26 +1,22 @@
 Tiến lên
 # Målet
-Vær den første, der får spillet alle sine kort; de andre spiller videre om placeringerne. Et vietnamesisk spil (navnet betyder »fremad«) for 2 til 4 spillere, med et spil på 52 kort: 13 til hver (med færre end fire spillere er resten ude af spillet).
+Vær den første, der får spillet alle sine kort; de andre spiller videre om placeringerne. 13 kort til hver; med færre end fire spillere er resten ude af spillet.
 # Kortene
-- Fra lav til høj: 3, 4, 5, 6, 7, 8, 9, 10, knægt, dame, konge, es og 2'eren, den højeste af alle.
-- Kulørerne, fra lav til høj: spar, klør, ruder, hjerter. Mellem to kort af samme rang afgør kuløren: hjerter 2 er det højeste kort.
+- Fra lav til høj: 3 til 10, knægt, dame, konge, es og 2'eren, den højeste af alle.
+- Mellem to kort af samme rang afgør kuløren, fra lav til høj: spar, klør, ruder, hjerter. Hjerter 2 er det højeste kort.
 # Kombinationerne
 - Et enkelt kort, et par, tre ens eller fire ens.
-- En række: tre eller flere kort med rang i træk, i vilkårlige kulører. 2'eren indgår aldrig i en række.
-- En dobbeltrække: tre eller flere par med rang i træk, som 3-3-4-4-5-5, uden 2'ere.
-- En kombination slås af en af samme slags med lige så mange kort og et højere højeste kort.
+- En række: tre eller flere rang i træk, i vilkårlige kulører, aldrig med en 2'er.
+- En dobbeltrække: tre eller flere par i træk, som 3-3-4-4-5-5, uden 2'ere.
+- En kombination slås af en af samme slags og størrelse med et højere højeste kort.
 # Et stik
-- Spilleren med det laveste kort på hånden (spar 3 med fire spillere) spiller ud til første stik med en kombination, der indeholder det.
-- På skift slår hver spiller den sidste kombination eller melder pas. En spiller, der melder pas, er ude af stikket, indtil et nyt begynder.
+- Spilleren med det laveste kort, der blev givet (spar 3 med fire spillere), spiller ud til første stik med en kombination, der indeholder det.
+- På skift slår du den sidste kombination eller melder pas. En spiller, der melder pas, er ude af stikket, indtil et nyt begynder.
 - Når alle de andre har meldt pas, starter den, der spillede sidst, et nyt stik med en vilkårlig kombination.
 # Bomber
-Nogle kombinationer slår 2'ere og spilles på skift som alle andre:
+Nogle kombinationer slår 2'ere:
 - tre par i træk slår en enkelt 2'er;
 - fire ens slår en enkelt 2'er eller tre par i træk;
 - fire par i træk slår en enkelt 2'er, et par 2'ere, fire ens eller tre par i træk;
 - fem par i træk slår desuden tre 2'ere.
 En bombe slår også en lavere bombe af samme slags.
-# Spillets afslutning
-Den første, der løber tør for kort, vinder. De andre spiller videre: rækkefølgen, de går ud i, giver deres placeringer, og den sidste, der stadig har kort, bliver sidst.
-# Spil på enheden
-Send enheden rundt: hver spiller ser kun sine egne kort, nederst, fra lav til høj. Øverst sidder de andre: deres kort med bagsiden op, hvor mange de har, og et pas-tegn, så længe de er ude af stikket; når de er gået ud, deres placering. Det sidste træk ligger stort i midten med spillerens markør, de tidligere træk mindre bagved. Tryk på kort for at vælge dem, og tryk så på midten eller træk dem derhen: midten lyser op, når dit valg kan spilles. Det laveste kort lyser for den spiller, der skal spille det ud. Knappen Pas er i dit panel. Til sidst viser en tavle placeringerne.

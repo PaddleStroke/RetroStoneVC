@@ -1,19 +1,13 @@
 Tre topper
 # Målet
-Rydd de tre toppene ved å spille kortene deres over på kastebunken, én verdi høyere eller lavere. Et spill for én spiller.
-# Oppstillingen
-- 28 kort i tre topper side om side, i rekker av 3, 6, 9 og 10 kort; hver rekke dekker halvparten av rekken over. Bare den nederste rekken ligger med bildesiden opp.
-- Ett kort med bildesiden opp i kastebunken; de andre 23 kortene er bunken, med baksiden opp, ved siden av.
+Rydd de tre toppene ved å spille kortene deres over på kastebunken, én verdi høyere eller lavere.
 # Flytte kort
 - Et kort er fritt når ingen kort ligger over det lenger. Et fritt kort går over på kastebunken hvis det er én verdi høyere eller lavere enn det øverste kortet der, uansett farge: en 7-er eller en 9-er på en 8-er.
 - Rundt hjørnet (den klassiske regelen): ess og konge følger også hverandre. Det andre valget: de følger ikke hverandre.
 - Et kort med baksiden opp snus så snart det er fritt.
-- Serien: tallet ved siden av kastebunken teller kortene du har spilt fra toppene på rad. Den starter på nytt når du snur et kort fra bunken.
 # Bunken
 Når ingen kort kan spilles, trykker du på bunken for å snu det øverste kortet over på kastebunken. Bunken gås gjennom bare én gang.
 # Slutten på spillet
-Du vinner når de tre toppene er ryddet. Spillet er tapt når bunken er tom og ingen kort kan spilles. Kortene stokkes tilfeldig, så ikke alle spill kan vinnes.
+Du vinner når de tre toppene er ryddet. Spillet er tapt når bunken er tom og ingen kort kan spilles.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra det letteste spillet til det vanskeligste, og hvert av dem kan vinnes; velg et på nivåskjermen. I kapittel 1 til 4 følger ess og konge hverandre, i kapittel 5 og 6 gjør de ikke det. Fanen med terningen etter kapitlene deler ut et nytt spill tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten angrede trekk: 3 stjerner; opptil to hint og angrede trekk til sammen: 2 stjerner; ellers 1.
-# Spill på enheten
-Trykk på et fritt kort for å spille det over på kastebunken, eller dra det dit. Lampen viser et godt trekk: kortet som starter den lengste serien den kan se. Tallet ved siden av kortene dine teller trekkene dine. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Uten hint og uten angrede trekk: 3 stjerner.

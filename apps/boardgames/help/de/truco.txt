@@ -1,26 +1,22 @@
 Truco
 # Das Ziel
-Argentinisches Truco, für 2 Spieler oder 4 in zwei Teams aus Partnern, die einander gegenübersitzen (Elfenbein und Rot gegen Ebenholz und Jade). Gewinnt Runden mit drei Karten und setzt darauf: den truco auf die Karten, den envido auf zwei Karten einer Farbe. Das erste Team mit 15 oder 30 Punkten, vor der Partie gewählt, gewinnt. Niemand sieht die Karten der anderen.
+Argentinisches Truco, für 2 Spieler oder 4 in zwei Teams aus Partnern, die einander gegenübersitzen. Gewinnt Runden mit drei Karten und setzt darauf: den truco auf die Karten, den envido auf zwei Karten einer Farbe. Das erste Team mit 15 oder 30 Punkten, nach Wahl, gewinnt sofort, auch mitten in einer Runde.
 # Die Karten
-Das spanische Blatt mit 40 Karten, ohne 8 und 9: oros (Münzen), copas (Kelche), espadas (Schwerter) und bastos (Keulen); sota (10), caballo (11) und rey (12) sind ein Bauer, ein Springer und ein König. Die Lücken in der Rahmenlinie jeder Karte, die pinta, zeigen die Farbe: keine bei oros, eine bei copas, zwei bei espadas, drei bei bastos. Von hoch nach niedrig: die 1 der espadas (ancho de espadas), die 1 der bastos (ancho de bastos), die 7 der espadas, die 7 der oros, die 3er, die 2er, die 1er der copas und oros, die 12er, 11er und 10er, die 7er der copas und bastos, die 6er, 5er und 4er. Gleich starke Karten sind gleichauf.
+Das spanische Blatt mit 40 Karten, ohne 8 und 9: oros (Münzen), copas (Kelche), espadas (Schwerter), bastos (Keulen); sota (10), caballo (11) und rey (12) sind ein Bauer, ein Springer und ein König. Von hoch nach niedrig: die 1 der espadas, die 1 der bastos, die 7 der espadas, die 7 der oros, die 3er, die 2er, die 1er der copas und oros, die 12er, 11er und 10er, die 7er der copas und bastos, die 6er, 5er und 4er. Gleich starke Karten sind gleichauf.
 # Eine Runde spielen
-- Jeder Spieler bekommt 3 Karten. Die mano, der Spieler nach dem Geber, spielt im ersten Durchgang aus; Geber und mano rücken jede Runde einen Platz weiter.
-- Jeder spielt pro Durchgang eine Karte und legt sie vor sich ab. Die höchste Karte gewinnt den Durchgang, ihr Spieler spielt im nächsten aus.
+- Jeder bekommt 3 Karten. Die mano, der Spieler nach dem Geber, spielt im ersten Durchgang aus.
+- Jeder spielt pro Durchgang eine Karte; die höchste gewinnt den Durchgang, und ihr Spieler spielt im nächsten aus.
 - Gleichstand zwischen den Teams ist eine parda, und derselbe Spieler spielt wieder aus; gleichstehende Partner gewinnen den Durchgang zusammen.
-- Wer zwei Durchgänge gewinnt, holt die Runde. Nach einer parda im ersten Durchgang entscheidet der nächste; eine parda nach einem gewonnenen Durchgang geht an den Gewinner des ersten; drei pardas: an das Team der mano.
+- Zwei Durchgänge holen die Runde. Nach einer parda im ersten Durchgang entscheidet der nächste; eine parda nach einem gewonnenen Durchgang geht an den Gewinner des ersten; drei pardas: an das Team der mano.
 - Eine Runde zählt 1 Punkt.
 # Truco
-- Wenn du dran bist, kannst du vor dem Ausspielen truco ansagen: die Runde zählt dann 2. Das andere Team antwortet quiero (annehmen), no quiero (ablehnen: du holst die Runde zu ihrem Wert vor der Ansage) oder erhöht: retruco (3), dann vale cuatro (4).
-- Nur das Team, das die letzte Ansage angenommen hat, darf später, wenn es dran ist, erhöhen.
-- Me voy al mazo („ich gehe zum Stapel“): statt zu spielen gibt ein Spieler die Runde auf, und die Gegner holen sie zu ihrem aktuellen Wert.
+- Wenn du dran bist, kannst du vor dem Ausspielen truco ansagen: Die Runde zählt dann 2. Das andere Team antwortet quiero (annehmen), no quiero (ablehnen: du holst die Runde zu ihrem Wert vor der Ansage) oder erhöht: retruco (3), dann vale cuatro (4).
+- Nur das Team, das die letzte Ansage angenommen hat, darf sie später erhöhen, wenn es dran ist.
+- Me voy al mazo: Statt zu spielen gibt ein Spieler die Runde auf, und die Gegner holen sie zu ihrem aktuellen Wert.
 # Envido
-- Nur im ersten Durchgang, bevor du deine erste Karte spielst, kannst du envido (2), real envido (3) oder falta envido ansagen. Wer im ersten Durchgang auf einen truco antwortet, darf zuerst envido ansagen: el envido está primero („der envido geht vor“). Ist ein truco angenommen, gibt es keinen envido mehr.
-- Die Antwort: quiero, no quiero oder eine höhere Ansage: noch ein envido, dann real envido, dann falta envido. Angenommen, bekommt das Team mit dem besten envido die Summe der Ansagen; abgelehnt, bekommen die Ansager, was vor der letzten Ansage angenommen war, oder 1.
-- Der falta envido zählt, was dem führenden Team zum Sieg fehlt; in einer Partie bis 30, solange beide Teams unter 15 sind (las malas, „die schlechten“), zählt er die ganze Partie.
-- Der envido eines Spielers: zwei Karten einer Farbe zählen 20 plus ihre Werte (Bilder zählen 0); sonst sein höchster Wert. Der beste envido gewinnt; ein Gleichstand geht an den Spieler, der der mano näher sitzt.
+- Nur im ersten Durchgang, vor deiner ersten Karte, kannst du envido (2), real envido (3) oder falta envido ansagen. Wer im ersten Durchgang auf einen truco antwortet, darf zuerst envido ansagen (el envido está primero). Ist ein truco angenommen, gibt es keinen envido mehr.
+- Die Antwort: quiero, no quiero oder eine höhere Ansage: noch ein envido, dann real envido, dann falta envido. Angenommen, bekommt der beste envido die Summe der Ansagen; abgelehnt, bekommen die Ansager, was vor der letzten Ansage angenommen war, oder 1.
+- Der falta envido zählt, was dem führenden Team zum Sieg fehlt; in einer Partie bis 30, solange beide Teams unter 15 sind (las malas), die ganze Partie.
+- Der envido eines Spielers: zwei Karten einer Farbe zählen 20 plus ihre Werte (Bilder 0); sonst sein höchster Wert. Ein Gleichstand geht an den Spieler, der der mano näher sitzt.
 # Flor
-Eine Variante, vor der Partie gewählt (die Blume). Drei Karten einer Farbe sind eine flor: sie wird beim Geben gezeigt und bringt ihrem Team 3 Punkte, und in dieser Runde gibt es keinen envido. Haben beide Teams eine flor, holt die beste (20 plus die drei Werte) 3 Punkte für jede flor. Die contraflor entfällt.
-# Das Ende der Partie
-Das erste Team, das die gewählte Punktzahl erreicht, 15 oder 30, gewinnt sofort, auch mitten in einer Runde.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz an, oder ziehe sie dorthin. Die Karten jedes Spielers liegen in einer Reihe vor seinem Stein; die Verlierer jedes Durchgangs sind abgedunkelt. Deine Ansagen erscheinen in den unteren Ecken: links envido (zwei Karten und 2), real envido (zwei Karten und 3) und falta envido (ein goldener Blitz auf Rot, mit seinem Wert); rechts der truco (der neue Wert auf Rot) und der mazo (eine Kartenrückseite). Auf eine Ansage antworten: das Kreuz für no quiero, der Haken für quiero, oder eine Erhöhung. Jeder Platz zeigt sein letztes Wort, seine flor (eine Blume) und, sobald gespielt, den besten envido. Ist ein truco angenommen, steht der Wert der Runde oben links beim Team, das erhöhen darf. Nach jeder Runde zeigt eine Tafel die Punkte jedes Teams für envido, flor und Runde und den Stand; tippe darauf für die nächste Runde. Jede Leiste zeigt den Stand ihres Teams. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.
+Eine Variante, vor der Partie gewählt. Drei Karten einer Farbe sind eine flor: Sie wird beim Geben gezeigt und bringt ihrem Team 3 Punkte, und in dieser Runde gibt es keinen envido. Haben beide Teams eine, holt die beste (20 plus die drei Werte) 3 Punkte für jede flor. Keine contraflor.

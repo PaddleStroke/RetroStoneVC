@@ -1,26 +1,22 @@
 Tiến lên
 # Das Ziel
-Spiele als Erster alle deine Karten aus; die anderen spielen um die Plätze weiter. Ein vietnamesisches Spiel (der Name bedeutet „vorwärts“) für 2 bis 4 Spieler, mit 52 Karten: 13 für jeden (bei weniger als vier Spielern bleiben die übrigen aus dem Spiel).
+Spiele als Erster alle deine Karten aus; die anderen spielen um die Plätze weiter. Jeder bekommt 13 Karten; bei weniger als vier Spielern bleiben die übrigen aus dem Spiel.
 # Die Karten
-- Von niedrig bis hoch: 3, 4, 5, 6, 7, 8, 9, 10, Bube, Dame, König, Ass und die 2, die höchste von allen.
-- Die Farben, von niedrig bis hoch: Pik, Kreuz, Karo, Herz. Bei zwei Karten desselben Rangs entscheidet die Farbe: Die Herz-2 ist die höchste Karte.
+- Von niedrig bis hoch: 3 bis 10, Bube, Dame, König, Ass und die 2, die höchste von allen.
+- Bei gleichem Rang entscheidet die Farbe, von niedrig bis hoch: Pik, Kreuz, Karo, Herz. Die Herz-2 ist die höchste Karte.
 # Die Kombinationen
 - Eine Einzelkarte, ein Paar, ein Drilling oder ein Vierling.
-- Eine Straße: drei oder mehr Karten mit aufeinanderfolgenden Rängen, in beliebigen Farben. Die 2 gehört nie dazu.
-- Eine Doppelstraße: drei oder mehr Paare mit aufeinanderfolgenden Rängen, etwa 3-3-4-4-5-5, ohne 2er.
+- Eine Straße: drei oder mehr Ränge in Folge, in beliebigen Farben, nie mit einer 2.
+- Eine Doppelstraße: drei oder mehr Paare in Folge, etwa 3-3-4-4-5-5, ohne 2er.
 - Eine Kombination wird von einer gleichartigen mit ebenso vielen Karten und einer höheren höchsten Karte geschlagen.
 # Ein Stich
 - Wer die niedrigste ausgeteilte Karte hat (bei vier Spielern die Pik-3), spielt zum ersten Stich aus, mit einer Kombination, die sie enthält.
 - Reihum schlägt jeder die letzte Kombination oder passt. Wer passt, bleibt aus dem Stich, bis ein neuer beginnt.
 - Haben alle anderen gepasst, beginnt der Spieler, der zuletzt gespielt hat, einen neuen Stich mit einer beliebigen Kombination.
 # Bomben
-Manche Kombinationen schlagen 2er; sie werden ganz normal reihum gespielt:
+Manche Kombinationen schlagen 2er:
 - drei Paare in Folge schlagen eine einzelne 2;
 - ein Vierling schlägt eine einzelne 2 oder drei Paare in Folge;
 - vier Paare in Folge schlagen eine einzelne 2, ein Paar 2er, einen Vierling oder drei Paare in Folge;
 - fünf Paare in Folge schlagen zusätzlich drei 2er.
 Eine Bombe schlägt auch eine niedrigere Bombe derselben Art.
-# Das Ende der Partie
-Wer zuerst keine Karten mehr hat, gewinnt. Die anderen spielen weiter: Die Reihenfolge, in der sie rausgehen, ergibt ihre Plätze, und wer zuletzt noch Karten hat, wird Letzter.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten, von niedrig bis hoch. Oben sitzen die anderen: ihre Karten verdeckt, wie viele es sind, und ein Passe-Zeichen, solange sie aus dem Stich sind; haben sie keine Karten mehr, ihr Platz. Der letzte Zug liegt groß in der Mitte mit dem Stein seines Spielers, die Züge davor kleiner dahinter. Tippe Karten an, um sie zu wählen, dann tippe auf die Mitte oder schieb sie dorthin: Die Mitte wird hell, wenn deine Wahl gespielt werden kann. Die niedrigste Karte leuchtet für den Spieler, der mit ihr ausspielen muss. Der Knopf Passe ist in deiner Leiste. Am Ende zeigt eine Tafel die Plätze.

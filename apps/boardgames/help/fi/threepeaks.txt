@@ -1,19 +1,13 @@
 Kolme huippua
 # Tavoite
-Tyhjennä kolme huippua pelaamalla niiden kortit poistopinoon, yhtä arvoa suurempina tai pienempinä. Peli yhdelle pelaajalle.
-# Asetelma
-- 28 korttia kolmessa vierekkäisessä huipussa, riveissä 3, 6, 9 ja 10 korttia; jokainen rivi peittää puolet yläpuolisesta rivistä. Vain alin rivi on kuvapuoli ylöspäin.
-- Yksi kortti kuvapuoli ylöspäin poistopinossa; loput 23 korttia ovat pakka, kuvapuoli alaspäin, sen vieressä.
+Tyhjennä kolme huippua pelaamalla niiden kortit poistopinoon, yhtä arvoa suurempina tai pienempinä.
 # Korttien siirtäminen
 - Kortti on vapaa, kun mikään kortti ei enää ole sen päällä. Vapaa kortti menee poistopinoon, jos se on yhtä arvoa suurempi tai pienempi kuin poistopinon päällimmäinen kortti, maasta riippumatta: seiska tai ysi kasin päälle.
-- Ympäri (klassinen sääntö): ässä ja kuningas seuraavat myös toisiaan. Toinen vaihtoehto: ne eivät seuraa toisiaan.
+- Ympäri (klassinen sääntö): ässä ja kuningas seuraavat myös toisiaan. Toinen vaihtoehto: eivät seuraa.
 - Kuvapuoli alaspäin oleva kortti kääntyy heti, kun se on vapaa.
-- Putki: poistopinon vieressä oleva luku laskee kortit, jotka olet pelannut huipuilta peräkkäin. Se alkaa alusta, kun käännät kortin pakasta.
 # Pakka
 Kun mikään kortti ei sovi, napauta pakkaa kääntääksesi sen päällimmäisen kortin poistopinoon. Pakka käydään läpi vain kerran.
 # Pelin loppu
-Voitat, kun kolme huippua on tyhjennetty. Peli on hävitty, kun pakka on tyhjä eikä mikään kortti sovi. Kortit sekoitetaan sattumanvaraisesti, joten kaikkia jakoja ei voi voittaa.
+Voitat, kun kolme huippua on tyhjennetty. Peli on hävitty, kun pakka on tyhjä eikä mikään kortti sovi.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, helpoimmasta jaosta vaikeimpaan, ja jokainen niistä voidaan voittaa; valitse taso tasoruudukosta. Luvuissa 1–4 ässä ja kuningas seuraavat toisiaan, luvuissa 5 ja 6 eivät. Noppavälilehti lukujen jälkeen tekee uuden jaon sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi vihjettä ja kumottua siirtoa yhteensä: 2 tähteä; muuten 1.
-# Pelaaminen laitteella
-Napauta vapaata korttia pelataksesi sen poistopinoon, tai vedä se sinne. Lamppu näyttää hyvän siirron: kortin, josta alkaa pisin putki, jonka se näkee. Korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä.

@@ -1,26 +1,22 @@
 Tiến lên
 # Tavoite
-Pelaa ensimmäisenä kaikki korttisi; muut jatkavat peliä sijoista. Vietnamilainen peli (nimi tarkoittaa ”eteenpäin”) 2–4 pelaajalle, 52 kortin pakalla: 13 kullekin (alle neljällä pelaajalla loput kortit jäävät pelin ulkopuolelle).
+Pelaa ensimmäisenä kaikki korttisi; muut jatkavat peliä sijoista. 13 korttia kullekin; alle neljällä pelaajalla loput jäävät pelin ulkopuolelle.
 # Kortit
-- Pienimmästä suurimpaan: 3, 4, 5, 6, 7, 8, 9, 10, jätkä, kuningatar, kuningas, ässä ja 2, kaikista suurin.
-- Maat pienimmästä suurimpaan: pata, risti, ruutu, hertta. Kahdesta samanarvoisesta kortista maa ratkaisee: herttakakkonen on suurin kortti.
+- Pienimmästä suurimpaan: 3–10, jätkä, kuningatar, kuningas, ässä ja 2, kaikista suurin.
+- Samanarvoiset ratkaisee maa, pienimmästä suurimpaan: pata, risti, ruutu, hertta. Herttakakkonen on suurin kortti.
 # Yhdistelmät
 - Yksittäinen kortti, pari, kolmoset tai neloset.
-- Suora: vähintään kolme arvoltaan peräkkäistä korttia, mitä tahansa maata. Kakkonen ei ole koskaan suorassa.
-- Tuplasuora: vähintään kolme arvoltaan peräkkäistä paria, kuten 3-3-4-4-5-5, ilman kakkosia.
-- Yhdistelmän voittaa samanlainen yhdistelmä, jossa on yhtä monta korttia ja suurempi suurin kortti.
+- Suora: vähintään kolme peräkkäistä arvoa, mitä tahansa maata, ei koskaan kakkosta.
+- Tuplasuora: vähintään kolme peräkkäistä paria, kuten 3-3-4-4-5-5, ilman kakkosia.
+- Yhdistelmän voittaa samanlainen ja samankokoinen yhdistelmä, jonka suurin kortti on suurempi.
 # Tikki
 - Pelaaja, jolle jaettiin pienin kortti (neljällä pelaajalla patakolmonen), aloittaa ensimmäisen tikin yhdistelmällä, jossa se on mukana.
 - Vuorollaan kukin voittaa viimeisimmän yhdistelmän tai passaa. Passannut pelaaja on pois tikistä, kunnes uusi alkaa.
 - Kun kaikki muut ovat passanneet, viimeksi pelannut aloittaa uuden tikin millä tahansa yhdistelmällä.
 # Pommit
-Jotkin yhdistelmät voittavat kakkosia, ja ne pelataan vuorollaan kuten muutkin:
+Jotkin yhdistelmät voittavat kakkosia:
 - kolme peräkkäistä paria voittaa yksittäisen kakkosen;
 - neloset voittavat yksittäisen kakkosen tai kolme peräkkäistä paria;
 - neljä peräkkäistä paria voittaa yksittäisen kakkosen, kakkosparin, neloset tai kolme peräkkäistä paria;
 - viisi peräkkäistä paria voittaa lisäksi kolme kakkosta.
 Pommi voittaa myös pienemmän samanlaisen pommin.
-# Pelin loppu
-Ensimmäisenä korteistaan päässyt voittaa. Muut jatkavat: järjestys, jossa he pääsevät ulos, ratkaisee heidän sijansa, ja viimeinen, jolla on vielä kortteja, jää viimeiseksi.
-# Pelaaminen laitteella
-Antakaa laite kiertää: jokainen näkee vain omat korttinsa alhaalla, pienimmästä suurimpaan. Ylhäällä istuvat muut: heidän korttinsa kuvapuoli alaspäin, kuinka monta niitä on, ja passimerkki niin kauan kuin he ovat pois tikistä; korttien loputtua heidän sijansa. Viimeksi pelatut kortit ovat isoina keskellä pelaajansa merkin kanssa, aiemmat pienempinä niiden takana. Valitse kortit napauttamalla, napauta sitten keskustaa tai vedä ne sinne: keskusta syttyy, kun valintasi voi pelata. Pienin kortti hehkuu sille pelaajalle, jonka täytyy aloittaa sillä. Passaa-painike on palkissasi. Lopuksi taulukko näyttää sijat.

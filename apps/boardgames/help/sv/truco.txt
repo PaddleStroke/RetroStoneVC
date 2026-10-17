@@ -1,26 +1,22 @@
 Truco
 # Målet
-Argentinsk Truco, för 2 spelare eller 4 i två lag med partner som sitter mittemot varandra (elfenben och rött mot ebenholts och jade). Vinn givar med tre kort och bjud på dem: truco på korten, envido på två kort i samma färg. Första laget som når 15 eller 30 poäng, valt före partiet, vinner. Ingen ser de andras kort.
+Argentinsk Truco, för 2 spelare eller 4 i två lag med partner som sitter mittemot varandra. Vinn givar med tre kort och bjud på dem: truco på korten, envido på två kort i samma färg. Första laget som når 15 eller 30 poäng, efter val, vinner genast, även mitt i en giv.
 # Korten
-Den spanska kortleken med 40 kort, utan 8:or och 9:or: oros (mynt), copas (bägare), espadas (svärd) och bastos (klubbor); sota (10), caballo (11) och rey (12) är en bonde, en springare och en kung. Avbrotten i ramlinjen på varje kort, pinta, visar färgen: inget för oros, ett för copas, två för espadas, tre för bastos. Från högst till lägst: ettan i espadas (ancho de espadas), ettan i bastos (ancho de bastos), sjuan i espadas, sjuan i oros, treorna, tvåorna, ettorna i copas och oros, 12:orna, 11:orna, 10:orna, sjuorna i copas och bastos, sexorna, femmorna och fyrorna. Lika starka kort är lika.
+Den spanska kortleken med 40 kort, utan 8:or och 9:or: oros (mynt), copas (bägare), espadas (svärd), bastos (klubbor); sota (10), caballo (11) och rey (12) är en bonde, en springare och en kung. Från högst till lägst: ettan i espadas, ettan i bastos, sjuan i espadas, sjuan i oros, treorna, tvåorna, ettorna i copas och oros, 12:orna, 11:orna och 10:orna, sjuorna i copas och bastos, sexorna, femmorna och fyrorna. Lika starka kort är lika.
 # Att spela en giv
-- Varje spelare får 3 kort. Mano, spelaren efter givaren, spelar ut i första rundan; givare och mano flyttar en plats framåt varje giv.
-- Var och en spelar ett kort per runda och lägger det framför sig. Det högsta kortet vinner rundan, och dess spelare spelar ut i nästa.
+- 3 kort var. Mano, spelaren efter givaren, spelar ut i första rundan.
+- Var och en spelar ett kort per runda; det högsta vinner rundan, och dess spelare spelar ut i nästa.
 - Lika mellan lagen är en parda, och samma spelare spelar ut igen; partner som står lika vinner rundan tillsammans.
-- Laget som vinner två rundor tar given. Efter en parda i första rundan avgör nästa; en parda efter en vunnen runda går till vinnaren av den första; tre pardas: manos lag.
+- Två rundor tar given. Efter en parda i första rundan avgör nästa; en parda efter en vunnen runda går till vinnaren av den första; tre pardas: manos lag.
 - En giv är värd 1 poäng.
 # Truco
-- När det är din tur kan du innan du spelar säga truco: given blir då värd 2. Det andra laget svarar quiero (antar), no quiero (avböjer: du tar given till värdet från före utropet) eller höjer: retruco (3), sedan vale cuatro (4).
+- När det är din tur kan du innan du spelar säga truco: given blir värd 2. Det andra laget svarar quiero (antar), no quiero (avböjer: du tar given till värdet från före utropet) eller höjer: retruco (3), sedan vale cuatro (4).
 - Bara laget som antog det senaste utropet får höja det, senare, under en av sina turer.
-- Me voy al mazo (”jag går till högen”): i stället för att spela ger en spelare upp given, och motståndarna tar den till dess nuvarande värde.
+- Me voy al mazo: i stället för att spela ger en spelare upp given, och motståndarna tar den till dess nuvarande värde.
 # Envido
-- Bara i första rundan, innan du spelar ditt första kort, kan du säga envido (2), real envido (3) eller falta envido. När du svarar på en truco i första rundan får du först säga envido: el envido está primero (”envido går först”). När en truco är antagen kan ingen envido sägas.
-- Svaret: quiero, no quiero eller ett högre utrop: envido en gång till, sedan real envido, sedan falta envido. Antaget får laget med bästa envido summan av utropen; avböjt får de som ropade det som var antaget före det senaste utropet, eller 1.
-- Falta envido är värd det som det ledande laget saknar för att vinna; i ett parti till 30, så länge båda lagen är under 15 (las malas, ”de dåliga”), är den värd hela partiet.
-- En spelares envido: två kort i samma färg räknas som 20 plus sina tal (klädda kort räknas 0); annars hans högsta tal. Bästa envido vinner; lika går till spelaren närmast mano.
+- Bara i första rundan, innan ditt första kort, kan du säga envido (2), real envido (3) eller falta envido. När du svarar på en truco i första rundan får du först säga envido (el envido está primero). När en truco är antagen kan ingen envido sägas.
+- Svaret: quiero, no quiero eller ett högre utrop: envido en gång till, sedan real envido, sedan falta envido. Antaget får bästa envido summan av utropen; avböjt får de som ropade det som var antaget före det senaste utropet, eller 1.
+- Falta envido är värd det som det ledande laget saknar för att vinna; i ett parti till 30 medan båda lagen är under 15 (las malas), hela partiet.
+- En spelares envido: två kort i samma färg räknas som 20 plus sina tal (klädda kort 0); annars hans högsta tal. Lika går till spelaren närmast mano.
 # Flor
-En variant, vald före partiet (blomman). Tre kort i samma färg är en flor: den visas vid given och är värd 3 poäng för laget, och den given har ingen envido. Har båda lagen en flor tar den bästa (20 plus de tre talen) 3 poäng för varje flor. Contraflor är utelämnad.
-# Partiets slut
-Första laget som når den valda poängen, 15 eller 30, vinner genast, även mitt i en giv.
-# Spela på enheten
-Ge enheten till spelaren vars bricka lyser; han trycker på start och ser sin hand. För att spela trycker du på ett kort som lyser så att det lyfts, och trycker på det igen eller på dess plats; eller dra dit det. Varje spelares kort ligger i en rad framför hans bricka; förlorarna i varje runda är nedtonade. Dina utrop syns i de nedre hörnen: till vänster envido (två kort och 2), real envido (två kort och 3) och falta envido (en gyllene blixt på rött, med sitt värde); till höger truco (det nya värdet på rött) och mazo (en kortbaksida). För att svara på ett utrop: krysset för no quiero, bocken för quiero, eller en höjning. Varje plats visar sitt senaste ord, sin flor (en blomma) och, när den spelats, bästa envido. När en truco är antagen står givens värde uppe till vänster vid laget som får höja den. Efter varje giv visar en tavla varje lags poäng för envido, flor och given, och ställningen; tryck på den för nästa giv. Varje list visar lagets poäng. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett när enheten har skickats vidare.
+En variant, vald före partiet. Tre kort i samma färg är en flor: den visas vid given, är värd 3 poäng för laget, och den given har ingen envido. Har båda lagen en tar den bästa (20 plus de tre talen) 3 poäng för varje flor. Ingen contraflor.

@@ -1,26 +1,22 @@
 Truco
 # Amaç
-Arjantin Truco'su; 2 oyuncu için, ya da karşılıklı oturan ortaklardan oluşan iki takımda 4 oyuncu için (fildişi ve kırmızı, abanoz ve yeşime karşı). Üç kartlık elleri kazanın ve onlara bahis yapın: kartlara truco, aynı renkten iki karta envido. Oyundan önce seçilen 15 ya da 30 puana ilk ulaşan takım kazanır. Kimse başkalarının kartlarını görmez.
+Arjantin Truco'su; 2 oyuncu için, ya da karşılıklı oturan ortaklardan oluşan iki takımda 4 oyuncu için. Üç kartlık elleri kazanın ve onlara bahis yapın: kartlara truco, aynı renkten iki karta envido. Seçime göre 15 ya da 30 puana ilk ulaşan takım, bir elin ortasında da olsa hemen kazanır.
 # Kartlar
-8'ler ve 9'lar olmadan 40 kartlık İspanyol destesi: oros (sikkeler), copas (kupalar), espadas (kılıçlar) ve bastos (sopalar); sota (10), caballo (11) ve rey (12) piyon, at ve şah olarak gösterilir. Her kartın çerçeve çizgisindeki boşluklar, pinta, rengi gösterir: oros'ta hiç, copas'ta bir, espadas'ta iki, bastos'ta üç. Büyükten küçüğe: espadas'ın 1'i (ancho de espadas), bastos'un 1'i (ancho de bastos), espadas'ın 7'si, oros'un 7'si, 3'ler, 2'ler, copas ve oros'un 1'leri, 12'ler, 11'ler, 10'lar, copas ve bastos'un 7'leri, 6'lar, 5'ler ve 4'ler. Aynı güçteki kartlar berabere kalır.
+8'ler ve 9'lar olmadan 40 kartlık İspanyol destesi: oros (sikkeler), copas (kupalar), espadas (kılıçlar), bastos (sopalar); sota (10), caballo (11) ve rey (12) piyon, at ve şahtır. Büyükten küçüğe: espadas'ın 1'i, bastos'un 1'i, espadas'ın 7'si, oros'un 7'si, 3'ler, 2'ler, copas ve oros'un 1'leri, 12'ler, 11'ler ve 10'lar, copas ve bastos'un 7'leri, 6'lar, 5'ler ve 4'ler. Aynı güçteki kartlar berabere kalır.
 # Bir el oynamak
-- Her oyuncu 3 kart alır. Dağıtandan sonraki oyuncu olan mano ilk turu açar; dağıtan ve mano her elde bir yer ilerler.
-- Herkes her turda bir kart oynar ve önüne koyar. En yüksek kart turu kazanır ve oyuncusu sonraki turu açar.
+- Herkese 3 kart. Dağıtandan sonraki oyuncu olan mano ilk turu açar.
+- Herkes her turda bir kart oynar; en yüksek kart turu kazanır ve oyuncusu sonraki turu açar.
 - İki takım arasındaki beraberlik parda'dır ve aynı oyuncu yeniden açar; berabere kalan ortaklar turu birlikte kazanır.
-- İki tur kazanan takım eli alır. İlk turda parda olursa sonraki tur belirler; kazanılmış bir turdan sonraki parda ilk turu kazanana gider; üç parda: mano'nun takımı.
+- İki tur eli alır. İlk turda parda olursa sonraki tur belirler; kazanılmış bir turdan sonraki parda ilk turu kazanana gider; üç parda: mano'nun takımı.
 - Bir el 1 puan değerindedir.
 # Truco
-- Sıran geldiğinde, oynamadan önce truco diyebilirsin: el artık 2 değerindedir. Öbür takım quiero (kabul), no quiero (ret: eli çağrıdan önceki değeriyle sen alırsın) diye cevap verir ya da artırır: retruco (3), sonra vale cuatro (4).
-- Son çağrıyı kabul eden takım onu ancak sonra, kendi sırasında artırabilir.
-- Me voy al mazo ("desteye dönüyorum"): oynamak yerine bir oyuncu elden çekilir ve rakipler eli o anki değeriyle alır.
+- Sıran geldiğinde, oynamadan önce truco diyebilirsin: el 2 değerindedir. Öbür takım quiero (kabul), no quiero (ret: eli çağrıdan önceki değeriyle sen alırsın) diye cevap verir ya da artırır: retruco (3), sonra vale cuatro (4).
+- Son çağrıyı yalnızca onu kabul eden takım, sonra, kendi sırasında artırabilir.
+- Me voy al mazo: oynamak yerine bir oyuncu elden çekilir; rakipler eli o anki değeriyle alır.
 # Envido
-- Yalnızca ilk turda, ilk kartını oynamadan önce envido (2), real envido (3) ya da falta envido diyebilirsin. İlk turda bir truco'ya cevap verirken önce envido diyebilirsin: el envido está primero ("önce envido gelir"). Bir truco kabul edildikten sonra envido denemez.
-- Cevap: quiero, no quiero ya da daha yüksek bir çağrı: bir envido daha, sonra real envido, sonra falta envido. Kabul edilirse en iyi envido'ya sahip takım çağrıların toplamını alır; reddedilirse çağıranlar son çağrıdan önce kabul edilmiş olanı, ya da 1 alır.
-- Falta envido, öndeki takımın kazanmak için eksik olan puanı kadardır; 30'luk oyunda iki takım da 15'in altındayken (las malas, "kötüler"), bütün oyun değerindedir.
-- Bir oyuncunun envido'su: aynı renkten iki kart 20 artı sayıları eder (resimli kartlar 0); yoksa en yüksek sayısı. En iyi envido kazanır; eşitlik mano'ya en yakın oyuncuya gider.
+- Yalnızca ilk turda, ilk kartından önce envido (2), real envido (3) ya da falta envido diyebilirsin. İlk turda bir truco'ya cevap verirken önce envido diyebilirsin (el envido está primero). Bir truco kabul edildikten sonra envido denemez.
+- Cevap: quiero, no quiero ya da daha yüksek bir çağrı: bir envido daha, sonra real envido, sonra falta envido. Kabul edilirse en iyi envido çağrıların toplamını alır; reddedilirse çağıranlar son çağrıdan önce kabul edilmiş olanı, ya da 1 alır.
+- Falta envido, öndeki takımın kazanmak için eksik olan puanı kadardır; 30'luk oyunda iki takım da 15'in altındayken (las malas), bütün oyun değerindedir.
+- Bir oyuncunun envido'su: aynı renkten iki kart 20 artı sayıları eder (resimli kartlar 0); yoksa en yüksek sayısı. Eşitlik mano'ya en yakın oyuncuya gider.
 # Flor
-Oyundan önce seçilen bir türev (çiçek). Aynı renkten üç kart bir flor'dur: dağıtımda gösterilir, takımına 3 puan kazandırır ve o elde envido olmaz. İki takımda da flor varsa en iyisi (20 artı üç sayı) her flor için 3 puan alır. Contraflor oynanmaz.
-# Oyunun sonu
-Seçilen puana, 15 ya da 30'a, ilk ulaşan takım bir elin ortasında da olsa hemen kazanır.
-# Cihazda oynamak
-Cihazı, pulu parlayan oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. Oynamak için parlayan bir karta dokun, kalksın; sonra ona ya da yerine yeniden dokun; ya da onu oraya sürükle. Her oyuncunun kartları pulunun önünde sıralanır; her turun kaybedenleri soluk görünür. Çağrıların alt köşelerde çıkar: solda envido (iki kart ve 2), real envido (iki kart ve 3) ve falta envido (kırmızı üstünde altın şimşek, değeriyle); sağda truco (kırmızı üstünde yeni değer) ve mazo (bir kart sırtı). Bir çağrıya cevap: no quiero için çarpı, quiero için onay işareti, ya da bir artırma. Her yer son sözünü, flor'unu (bir çiçek) ve oynandıktan sonra en iyi envido'yu gösterir. Bir truco kabul edilince elin değeri sol üstte, onu artırabilecek takımın yanında görünür. Her elden sonra bir tablo her takımın envido, flor ve el puanlarını ve skorları gösterir; sonraki el için ona dokun. Her şerit takımının puanını gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla geri almaz.
+Oyundan önce seçilen bir türev. Aynı renkten üç kart bir flor'dur: dağıtımda gösterilir, takımına 3 puan kazandırır ve o elde envido olmaz. İki takımda da flor varsa en iyisi (20 artı üç sayı) her flor için 3 puan alır. Contraflor yoktur.

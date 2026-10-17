@@ -1,41 +1,34 @@
 Frans tarot
 # Het doel
-Het Franse kaartspel tarot, met 78 kaarten: vier kleuren van 14 kaarten (boer, ruiter, vrouw en heer boven de 10), 21 troeven en de Excuse. In elke ronde speelt één speler, de nemer, tegen alle anderen, de verdediging. Een partij duurt evenveel rondes als er spelers zijn, en het hoogste totaal wint. Voor 3, 4 of 5 spelers.
+78 kaarten: vier kleuren van 14 (boer, ruiter, vrouw en heer boven de 10), 21 troeven en de Excuse. In elke ronde speelt de nemer tegen alle anderen, de verdediging. Na evenveel rondes als er spelers zijn (een vervallen ronde telt niet) wint het hoogste totaal.
 # De kaarten
-- De drie oudlers (bouts) zijn de 21, de Petit (troef 1) en de Excuse. Hoe meer de nemer er wint, hoe minder punten hij nodig heeft.
-- Punten: een oudler of een heer 4,5, een vrouw 3,5, een ruiter (cavalier) 2,5, een boer 1,5, elke andere kaart 0,5. Er zijn in totaal 91 punten.
-- Aan tafel tel je de kaarten per twee: een heer of een oudler met een kleine kaart is 5, een vrouw met een kleine kaart 4, een ruiter 3, een boer 2, twee kleine kaarten 1. Dat komt op hetzelfde neer.
+- De drie oudlers zijn de 21, de Petit (troef 1) en de Excuse. Hoe meer de nemer er wint, hoe minder punten hij nodig heeft.
+- Punten: een oudler of een heer 4,5, een vrouw 3,5, een ruiter 2,5, een boer 1,5, elke andere kaart 0,5: in totaal 91.
 # Het delen
-- Tussen de spellen worden de kaarten niet geschud: de slagen worden verzameld, er wordt afgenomen en per drie gedeeld, zoals aan een echte tafel.
-- De kaarten worden per drie gedeeld, de tafel rond, te beginnen bij de speler na de gever. De hond (le chien) krijgt 6 kaarten (3 met vijf spelers), één tegelijk, nooit de eerste of de laatste kaarten.
-- Elke speler krijgt 24 kaarten met drie spelers, 18 met vier, 15 met vijf.
-- Een speler wiens enige troef de Petit is, zonder de Excuse (de Petit sec), laat die zien en de ronde vervalt. De volgende speler deelt.
+- De hond krijgt 6 kaarten (3 met vijf spelers); elke speler krijgt 24 kaarten met drie spelers, 18 met vier, 15 met vijf.
+- Een speler wiens enige troef de Petit is, zonder de Excuse (de Petit sec), laat die zien en de ronde vervalt.
 # Het bieden
-Te beginnen bij de speler na de gever spreekt iedereen één keer: hij zegt Pas, of biedt hoger dan alle biedingen voor hem.
-- Petite: de nemer krijgt de hond. De ronde telt één keer.
-- Garde: hetzelfde, maar telt twee keer.
-- Garde sans: niemand ziet de hond; zijn kaarten tellen voor de nemer. Telt vier keer.
-- Garde contre: niemand ziet de hond; zijn kaarten tellen voor de verdediging. Telt zes keer.
-Als iedereen past, vervalt de ronde en deelt de volgende speler.
+Te beginnen bij de speler na de gever spreekt iedereen één keer: pas, of hoger dan alle biedingen voor hem.
+- Petite: de nemer krijgt de hond. Telt één keer.
+- Garde: hetzelfde, telt twee keer.
+- Garde sans: de hond telt ongezien voor de nemer. Vier keer.
+- Garde contre: de hond telt ongezien voor de verdediging. Zes keer.
+Als iedereen past, deelt de volgende speler.
 # Vijf spelers: de geroepen heer
-Voor de hond roept de nemer een heer (een vrouw als hij alle vier de heren heeft). Wie die heeft, wordt de partner van de nemer, maar houdt dat geheim tot de heer gespeeld wordt. Heeft de nemer hem zelf, of ligt hij in de hond, dan speelt de nemer alleen tegen vier.
+Voor de hond roept de nemer een heer (een vrouw als hij alle vier de heren heeft). Wie die heeft, is de geheime partner van de nemer tot de heer gespeeld wordt. Heeft de nemer hem zelf, of ligt hij in de hond, dan speelt de nemer alleen.
 # De hond
-Bij Petite en Garde wordt de hond opengelegd zodat iedereen hem ziet. Daarna neemt de nemer hem bij zijn hand en legt in het geheim evenveel kaarten weg: nooit een heer of een oudler, en een troef alleen als het niet anders kan. Weggelegde troeven worden getoond. De weggelegde kaarten tellen voor de nemer.
+Bij Petite en Garde wordt de hond aan iedereen getoond. De nemer neemt hem bij zijn hand en legt evenveel kaarten weg: nooit een heer of een oudler, en een troef alleen als het niet anders kan (die wordt dan getoond). De weggelegde kaarten tellen voor de nemer.
 # Een slag
 - De speler na de gever komt uit in de eerste slag; wie een slag wint, komt uit in de volgende.
-- Beken de gevraagde kleur. Heb je die niet, dan moet je troeven; heb je ook geen troef, speel dan een willekeurige kaart.
-- Ligt er een troef in de slag, dan moet je hoger troeven als je kunt; kun je dat niet, speel dan een lagere troef.
-- De hoogste troef wint de slag; zonder troef de hoogste kaart van de gevraagde kleur.
-- De Excuse mag je altijd in plaats daarvan spelen en wint nooit: de eigenaar houdt hem en geeft de winnaar van de slag in ruil een kaart van een half punt. Komt iemand ermee uit, dan bepaalt de volgende kaart de kleur. Gespeeld in de laatste slag gaat hij naar de winnaar van de slag, tenzij het kamp van de eigenaar alle slagen daarvoor heeft gewonnen: dan wint hij die laatste slag.
+- Beken kleur. Kun je dat niet, troef dan; heb je ook geen troef, speel dan een willekeurige kaart.
+- Ligt er een troef in de slag, troef dan hoger als je kunt, anders lager.
+- De hoogste troef wint; zonder troef de hoogste kaart van de gevraagde kleur.
+- De Excuse mag je altijd spelen en wint nooit: de eigenaar houdt hem en geeft de winnaar van de slag in ruil een kaart van een half punt. Komt iemand ermee uit, dan bepaalt de volgende kaart de kleur. In de laatste slag gaat hij naar de winnaar van de slag, tenzij zijn kamp alle slagen daarvoor heeft gewonnen: dan wint hij die slag.
 # Poignée
-Een speler met veel troeven mag ze tonen vlak voordat hij zijn eerste kaart speelt: een enkele poignée van 10 troeven (13 met drie spelers, 8 met vijf), een dubbele van 13 (15, 10) of een driedubbele van 15 (18, 13). De Excuse mag hem aanvullen. Hij is 20, 30 of 40 punten waard voor het kamp dat de ronde wint.
+Vlak voor zijn eerste kaart mag een speler een enkele poignée van 10 troeven tonen (13 met drie spelers, 8 met vijf), een dubbele van 13 (15, 10) of een driedubbele van 15 (18, 13); de Excuse mag hem aanvullen. Hij is 20, 30 of 40 punten waard voor het kamp dat de ronde wint.
 # De telling
-- Het kamp van de nemer heeft 56 punten nodig zonder oudler, 51 met één, 41 met twee, 36 met alle drie. Met die punten wint het de ronde, zonder verliest het hem.
+- Het kamp van de nemer heeft 56 punten nodig zonder oudler, 51 met één, 41 met twee, 36 met drie.
 - De ronde is 25 punten waard plus het verschil tussen de behaalde en de benodigde punten (een half punt telt als een heel), maal 1, 2, 4 of 6 naargelang het bod.
 - Petit au bout: de Petit in de laatste slag is 10 punten waard, maal het getal van het bod, voor het kamp dat die slag wint.
-- Een kamp dat alle slagen wint (een slem, chelem; die wordt hier nooit aangekondigd) krijgt 200 punten extra.
-- Elke verdediger betaalt de waarde van de ronde aan de nemer, of krijgt die van hem. Met vijf spelers en een partner krijgt de nemer twee delen en de partner één. De scores tellen altijd op tot nul.
-# Het einde van de partij
-Na evenveel rondes als er spelers zijn (een vervallen ronde telt niet) wint de speler met het hoogste totaal.
-# Spelen op het apparaat
-Geef het apparaat door: wie aan de beurt is, ziet zijn hand onderaan, in een of twee rijen. De balk van elke speler toont zijn totaal, hoeveel kaarten hij heeft en zijn bod. Om te bieden tik je op een knop. De slag ligt in het midden, elke kaart aan de kant van zijn speler, met diens fiche; de net gewonnen slag blijft daar liggen, met de winnende kaart oplichtend, tot er weer wordt uitgekomen. Tik op het stapeltje linksboven om de laatste slag nog eens te zien. Als de hond open ligt, ziet iedereen hem terwijl de hand van de nemer gedekt blijft: laat het apparaat rondgaan, waarna de nemer op de hond tikt om hem te nemen, op de kaarten tikt die hij weglegt (tik nog eens op een kaart om hem terug te nemen) en op de ronde knop. Als je een poignée mag tonen, verschijnt bovenaan een knop met het aantal troeven. Na elke ronde toont een tabel het bod met zijn factor, de oudlers die het kamp van de nemer won, zijn punten, de benodigde punten en het verschil, de premies, en dan de punten en het totaal van elke speler; tik erop voor de volgende ronde. Ongedaan maken neemt alleen je eigen zetten van deze beurt terug.
+- Een kamp dat alle slagen wint (een chelem, hier nooit aangekondigd) krijgt 200 punten extra.
+- Elke verdediger betaalt de waarde van de ronde aan de nemer, of krijgt die. Met vijf spelers en een partner krijgt de nemer twee delen en de partner één.

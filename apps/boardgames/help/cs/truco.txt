@@ -1,26 +1,22 @@
 Truco
 # Cíl hry
-Argentinské Truco pro 2 hráče nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě (slonovinový a červený proti ebenovému a nefritovému). Vyhrávejte rozdání po třech kartách a sázejte na ně: truco na karty, envido na dvě karty jedné barvy. Vyhrává dvojice, která první dosáhne 15 nebo 30 bodů podle volby před hrou. Nikdo nevidí karty ostatních.
+Argentinské Truco pro 2 hráče nebo pro 4 ve dvou dvojicích spoluhráčů, kteří sedí naproti sobě. Vyhrávejte rozdání po třech kartách a sázejte na ně: truco na karty, envido na dvě karty jedné barvy. Vyhrává dvojice, která první dosáhne 15 nebo 30 bodů podle volby, a to hned, i uprostřed rozdání.
 # Karty
-Španělské karty, 40 listů bez osmiček a devítek: oros (mince), copas (poháry), espadas (meče) a bastos (kyje); sota (10), caballo (11) a rey (12) jsou pěšec, jezdec a král. Přerušení rámečku každé karty, pinta, ukazují barvu: oros žádné, copas jedno, espadas dvě, bastos tři. Od nejvyšší po nejnižší: 1 espadas (ancho de espadas), 1 bastos (ancho de bastos), 7 espadas, 7 oros, trojky, dvojky, jedničky copas a oros, dvanáctky, jedenáctky, desítky, sedmičky copas a bastos, šestky, pětky a čtyřky. Stejně silné karty jsou si rovny.
+Španělské karty, 40 listů bez osmiček a devítek: oros (mince), copas (poháry), espadas (meče), bastos (kyje); sota (10), caballo (11) a rey (12) jsou pěšec, jezdec a král. Od nejvyšší po nejnižší: 1 espadas, 1 bastos, 7 espadas, 7 oros, trojky, dvojky, jedničky copas a oros, dvanáctky, jedenáctky a desítky, sedmičky copas a bastos, šestky, pětky a čtyřky. Stejně silné karty jsou si rovny.
 # Hraní rozdání
-- Každý hráč dostane 3 karty. Mano, hráč po rozdávajícím, vynáší v prvním kole; rozdávající i mano se každé rozdání posunou o místo.
-- Každý hraje v kole jednu kartu a položí ji před sebe. Nejvyšší karta vyhrává kolo a její hráč vynáší v dalším.
+- Každý dostane 3 karty. Mano, hráč po rozdávajícím, vynáší v prvním kole.
+- Každý hraje v kole jednu kartu; nejvyšší vyhrává kolo a její hráč vynáší v dalším.
 - Shoda mezi dvojicemi je parda a vynáší znovu tentýž hráč; spoluhráči se shodou vyhrávají kolo spolu.
-- Dvojice, která vyhraje dvě kola, bere rozdání. Po pardě v prvním kole rozhoduje další kolo; parda po vyhraném kole patří vítězi prvního kola; tři pardy: dvojice mana.
+- Dvě kola berou rozdání. Po pardě v prvním kole rozhoduje další kolo; parda po vyhraném kole patří vítězi prvního kola; tři pardy: dvojice mana.
 - Rozdání má hodnotu 1 bodu.
 # Truco
 - Na tahu můžeš před zahráním ohlásit truco: rozdání pak má hodnotu 2. Druhá dvojice odpoví quiero (přijímá), no quiero (odmítá: bereš rozdání za hodnotu před ohlášením), nebo zvýší: retruco (3), pak vale cuatro (4).
 - Zvýšit smí jen dvojice, která přijala poslední ohlášení, později, na svém tahu.
-- Me voy al mazo („jdu k balíčku“): místo hraní se hráč vzdá rozdání a soupeři ho berou za jeho současnou hodnotu.
+- Me voy al mazo: místo hraní se hráč vzdá rozdání a soupeři ho berou za jeho současnou hodnotu.
 # Envido
-- Jen v prvním kole, než zahraješ svou první kartu, můžeš ohlásit envido (2), real envido (3) nebo falta envido. Když v prvním kole odpovídáš na truco, smíš nejdřív ohlásit envido: el envido está primero („envido má přednost“). Jakmile je truco přijato, envido už ohlásit nelze.
-- Odpověď: quiero, no quiero, nebo vyšší ohlášení: ještě jedno envido, pak real envido, pak falta envido. Přijato: dvojice s nejlepším envido získá součet ohlášení; odmítnuto: ohlašující získají, co bylo přijato před posledním ohlášením, nebo 1.
-- Falta envido má hodnotu toho, co vedoucí dvojici chybí k vítězství; ve hře do 30, dokud jsou obě dvojice pod 15 (las malas, „ty špatné“), má hodnotu celé hry.
-- Envido hráče: dvě karty jedné barvy dávají 20 plus svá čísla (figury 0); jinak jeho nejvyšší číslo. Vyhrává nejlepší envido; shodu vyhrává hráč nejblíž manovi.
+- Jen v prvním kole, před svou první kartou, můžeš ohlásit envido (2), real envido (3) nebo falta envido. Když v prvním kole odpovídáš na truco, smíš nejdřív ohlásit envido (el envido está primero). Jakmile je truco přijato, envido už ohlásit nelze.
+- Odpověď: quiero, no quiero, nebo vyšší ohlášení: ještě jedno envido, pak real envido, pak falta envido. Přijato: nejlepší envido získá součet ohlášení; odmítnuto: ohlašující získají, co bylo přijato před posledním ohlášením, nebo 1.
+- Falta envido má hodnotu toho, co vedoucí dvojici chybí k vítězství; ve hře do 30, dokud jsou obě dvojice pod 15 (las malas), celé hry.
+- Envido hráče: dvě karty jedné barvy dávají 20 plus svá čísla (figury 0); bez nich jeho nejvyšší číslo. Shodu vyhrává hráč nejblíž manovi.
 # Flor
-Varianta volená před hrou (květina). Tři karty jedné barvy jsou flor: ukáže se při rozdávání a dává své dvojici 3 body, a v tom rozdání není envido. Mají-li flor obě dvojice, ta nejlepší (20 plus tři čísla) bere 3 body za každou flor. Contraflor se nehraje.
-# Konec hry
-Dvojice, která první dosáhne zvoleného počtu bodů, 15 nebo 30, vyhrává hned, i uprostřed rozdání.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo; nebo ji tam přetáhni. Karty každého hráče leží v řadě před jeho kamenem; poražené karty každého kola jsou ztlumené. Tvá ohlášení se objevují v dolních rozích: vlevo envido (dvě karty a 2), real envido (dvě karty a 3) a falta envido (zlatý blesk na červené s hodnotou); vpravo truco (nová hodnota na červené) a mazo (rub karty). Odpověď na ohlášení: křížek pro no quiero, fajfka pro quiero, nebo zvýšení. Každé místo ukazuje své poslední slovo, svou flor (květina) a po odehrání nejlepší envido. Po přijetí truca je hodnota rozdání vlevo nahoře u dvojice, která smí zvýšit. Po každém rozdání ukáže tabulka body každé dvojice za envido, flor a rozdání a stav; klepnutím na ni začne další rozdání. Každá lišta ukazuje body své dvojice. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.
+Varianta volená před hrou. Tři karty jedné barvy jsou flor: ukáže se při rozdávání, dává své dvojici 3 body a v tom rozdání není envido. Mají-li flor obě dvojice, ta nejlepší (20 plus tři čísla) bere 3 body za každou flor. Contraflor se nehraje.

@@ -1,41 +1,34 @@
 Fransız tarotu
 # Amaç
-78 kartla oynanan Fransız kart oyunu tarot: 14'er kartlık dört renk (10'un üstünde vale, şövalye, kız ve papaz), 21 koz ve Excuse. Her elde bir oyuncu, ihaleci, diğer herkese, yani savunmaya karşı oynar. Oyun, oyuncu sayısı kadar el sürer ve en yüksek toplam kazanır. 3, 4 ya da 5 oyuncu için.
+78 kart: 14'er kartlık dört renk (10'un üstünde vale, şövalye, kız ve papaz), 21 koz ve Excuse. Her elde ihaleci diğer herkese, yani savunmaya karşı oynar. Oyuncu sayısı kadar elden sonra (iptal olan el sayılmaz) en yüksek toplam kazanır.
 # Kartlar
-- Üç oudler (bouts) şunlardır: 21, Petit (kozların 1'i) ve Excuse. İhaleci bunlardan ne kadar çok alırsa o kadar az puana ihtiyaç duyar.
-- Puanlar: oudler ya da papaz 4,5, kız 3,5, şövalye 2,5, vale 1,5, diğer her kart 0,5. Toplam 91 puan vardır.
-- Masada kartlar ikişer ikişer sayılır: bir papaz ya da oudler ile küçük bir kart 5, bir kız ile küçük bir kart 4, şövalye 3, vale 2, iki küçük kart 1 eder. Sonuç aynıdır.
+- Üç oudler şunlardır: 21, Petit (kozların 1'i) ve Excuse. İhaleci bunlardan ne kadar çok alırsa o kadar az puana ihtiyaç duyar.
+- Puanlar: oudler ya da papaz 4,5, kız 3,5, şövalye 2,5, vale 1,5, diğer her kart 0,5: toplam 91.
 # Dağıtım
-- Dağıtımlar arasında kartlar karılmaz: alınan löveler toplanır, kesilir ve gerçek bir masadaki gibi üçer üçer dağıtılır.
-- Kartlar, dağıtıcıdan sonraki oyuncudan başlayarak masanın etrafında üçer üçer dağıtılır. Gömüye (le chien) 6 kart (beş oyuncuyla 3) birer birer konur, ama asla ilk ya da son kartlar değil.
-- Üç oyuncuyla herkes 24 kart alır, dört oyuncuyla 18, beş oyuncuyla 15.
-- Tek kozu Petit olan ve Excuse da elinde olmayan oyuncu (yalnız Petit, Petit sec) onu gösterir ve el iptal olur. Sıradaki oyuncu dağıtır.
+- Gömüye 6 kart (beş oyuncuyla 3) konur; üç oyuncuyla herkes 24 kart alır, dört oyuncuyla 18, beş oyuncuyla 15.
+- Tek kozu Petit olan ve Excuse da elinde olmayan oyuncu (Petit sec) onu gösterir ve el iptal olur.
 # İhale
-Dağıtıcıdan sonraki oyuncudan başlayarak herkes bir kez konuşur: Pas der ya da önceki bütün ihalelerden yüksek bir ihale verir.
-- Petite: ihaleci gömüyü alır. El bir kez sayılır.
+Dağıtıcıdan sonraki oyuncudan başlayarak herkes bir kez konuşur: pas der ya da önceki bütün ihalelerden yüksek bir ihale verir.
+- Petite: ihaleci gömüyü alır. Bir kez sayılır.
 - Garde: aynısı, iki kez sayılır.
-- Garde sans: gömüyü kimse görmez; kartları ihaleciye sayılır. Dört kez sayılır.
-- Garde contre: gömüyü kimse görmez; kartları savunmaya sayılır. Altı kez sayılır.
-Herkes pas derse el iptal olur ve sıradaki oyuncu dağıtır.
+- Garde sans: gömü görülmeden ihaleciye sayılır. Dört kez.
+- Garde contre: gömü görülmeden savunmaya sayılır. Altı kez.
+Herkes pas derse sıradaki oyuncu dağıtır.
 # Beş oyuncu: çağrılan papaz
-Gömüden önce ihaleci bir papaz çağırır (dört papaz da kendisindeyse bir kız). O kart kimdeyse ihalecinin ortağı olur, ama papaz oynanana kadar bunu gizli tutar. Kart ihalecinin kendisindeyse ya da gömüdeyse, ihaleci dörde karşı tek başına oynar.
+Gömüden önce ihaleci bir papaz çağırır (dört papaz da kendisindeyse bir kız). O kart kimdeyse, papaz oynanana kadar ihalecinin gizli ortağıdır. Kart ihalecinin kendisindeyse ya da gömüdeyse, ihaleci tek başına oynar.
 # Gömü
-Petite ve Garde'da gömü herkesin görmesi için açılır. Sonra ihaleci onu eline katar ve gizlice aynı sayıda kart gömer: asla papaz ya da oudler değil, koz ise ancak başka çare yoksa. Gömülen kozlar gösterilir. Gömülen kartlar ihaleciye sayılır.
+Petite ve Garde'da gömü herkese gösterilir. İhaleci onu eline katar ve aynı sayıda kart gömer: asla papaz ya da oudler değil, koz ise ancak başka çare yoksa (o zaman gösterilir). Gömülen kartlar ihaleciye sayılır.
 # Bir löve
 - İlk löveyi dağıtıcıdan sonraki oyuncu açar; bir löveyi kim alırsa sonrakini o açar.
-- Açılan renge uy. O renkten kartın yoksa koz oynamalısın; kozun da yoksa herhangi bir kart oyna.
-- Lövede koz varsa, oynayabiliyorsan daha yüksek bir koz oynamalısın; oynayamıyorsan daha düşük bir koz oyna.
+- Açılan renge uy. Uyamıyorsan koz oyna; kozun da yoksa herhangi bir kart oyna.
+- Lövede koz varsa, oynayabiliyorsan daha yüksek bir koz oyna; oynayamıyorsan daha düşük bir koz.
 - Löveyi en yüksek koz alır; koz yoksa açılan rengin en yüksek kartı.
-- Excuse bunun yerine her an oynanabilir ve hiçbir zaman kazanmaz: sahibi onu kendinde tutar ve karşılığında löveyi alana yarım puanlık bir kart verir. Löve onunla açıldıysa rengi sonraki kart belirler. Son lövede oynanırsa löveyi alana gider; ancak tarafı önceki bütün löveleri almışsa bu son löveyi kendisi alır.
+- Excuse her an oynanabilir ve hiçbir zaman kazanmaz: sahibi onu kendinde tutar ve karşılığında löveyi alana yarım puanlık bir kart verir. Löve onunla açıldıysa rengi sonraki kart belirler. Son lövede löveyi alana gider; ancak tarafı önceki bütün löveleri almışsa o löveyi kendisi alır.
 # Poignée
-Çok kozu olan bir oyuncu, ilk kartını oynamadan hemen önce kozlarını gösterebilir: 10 kozla tek poignée (bir avuç koz; üç oyuncuyla 13, beş oyuncuyla 8), 13 kozla çift (15, 10) ya da 15 kozla üçlü (18, 13). Excuse eksiği tamamlayabilir. Poignée, eli kazanan tarafa 20, 30 ya da 40 puan değerindedir.
+İlk kartını oynamadan hemen önce bir oyuncu 10 kozla tek poignée (üç oyuncuyla 13, beş oyuncuyla 8), 13 kozla çift (15, 10) ya da 15 kozla üçlü (18, 13) gösterebilir; Excuse eksiği tamamlayabilir. Eli kazanan tarafa 20, 30 ya da 40 puan değerindedir.
 # Puanlama
-- İhalecinin tarafına oudler olmadan 56 puan, bir oudlerle 51, ikisiyle 41, üçüyle 36 puan gerekir. Bu puanları yaparsa eli kazanır, yapamazsa kaybeder.
+- İhalecinin tarafına oudler olmadan 56 puan, bir oudlerle 51, ikisiyle 41, üçüyle 36 puan gerekir.
 - El, 25 puan artı alınan puanlarla gereken puanlar arasındaki fark değerindedir (yarım puan tam puan sayılır); ihaleye göre 1, 2, 4 ya da 6 ile çarpılır.
 - Petit au bout: son lövedeki Petit, o löveyi alan tarafa ihalenin çarpanıyla çarpılan 10 puan kazandırır.
 - Bütün löveleri alan taraf (chelem; burada hiç önceden söylenmez) 200 puan daha alır.
-- Her savunmacı elin değerini ihaleciye öder ya da ondan alır. Beş oyuncuyla ve bir ortakla ihaleci iki pay, ortağı bir pay alır. Puanların toplamı her zaman sıfırdır.
-# Oyunun sonu
-Oyuncu sayısı kadar elden sonra (iptal olan el sayılmaz) toplamı en yüksek olan oyuncu kazanır.
-# Cihazda oynamak
-Cihazı elden ele verin: sırası gelen oyuncu elini altta, bir ya da iki sıra halinde görür. Her oyuncunun şeridi toplamını, kaç kartı olduğunu ve ihalesini gösterir. İhale vermek için bir düğmeye dokun. Löve ortadadır, her kart kendi oyuncusunun tarafında, onun puluyla birlikte; az önce alınan löve, kazanan kart parlayarak, sonraki kart açılana kadar orada kalır. Son löveyi yeniden görmek için sol üstteki yığına dokun. Gömü açıldığında ihalecinin eli kapalı kalırken herkes gömüyü görür: cihazı herkese gösterin, sonra ihaleci gömüyü almak için ona, gömeceği kartlara (birini geri almak için ona yeniden dokunur) ve yuvarlak düğmeye dokunur. Poignée gösterebileceğin zaman üstte koz sayısını gösteren bir düğme çıkar. Her elden sonra bir tablo ihaleyi ve çarpanını, ihalecinin tarafının aldığı oudler'ları, puanlarını, gereken puanları ve farkı, primleri, sonra her oyuncunun puanlarını ve toplamını gösterir; sonraki el için ona dokun. Geri al yalnızca bu sıradaki kendi hamlelerini geri alır.
+- Her savunmacı elin değerini ihaleciye öder ya da ondan alır. Beş oyuncuyla ve bir ortakla ihaleci iki pay, ortağı bir pay alır.

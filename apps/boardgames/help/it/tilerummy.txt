@@ -1,22 +1,20 @@
 Ramino con tessere
 # Lo scopo
-Essere il primo a calare sul tavolo tutte le tessere del proprio leggio, in scale e gruppi. Da 2 a 4 giocatori. Ogni leggio è segreto: passa il dispositivo dopo ogni turno. Due giochi a scelta: una mano sola, o una serie di tante mani quanti sono i giocatori.
+Essere il primo a calare sul tavolo tutte le tessere del proprio leggio, in scale e gruppi.
 # Le tessere
-106 tessere: i numeri da 1 a 13 in quattro colori, ciascuno due volte, e due jolly. Ogni giocatore pesca 14 tessere; le altre restano coperte nel mazzo.
+106 tessere: i numeri da 1 a 13 in quattro colori, ciascuno due volte, e due jolly. 14 tessere a testa; le altre restano coperte nel mazzo.
 # Le combinazioni
 - Una scala: tre o più numeri consecutivi, tutti dello stesso colore. L'1 non segue il 13.
 - Un gruppo: tre o quattro tessere dello stesso numero, tutte di colori diversi.
 - Un jolly sostituisce qualsiasi tessera.
 # Un turno
 - Cala tessere dal tuo leggio: nuove combinazioni, o tessere aggiunte alle combinazioni sul tavolo.
-- Riordina il tavolo come vuoi: dividi combinazioni, uniscile, sposta tessere dall'una all'altra. Alla fine del tuo turno ogni combinazione sul tavolo deve essere valida, e nessuna tessera del tavolo può tornare in un leggio.
+- Riordina il tavolo come vuoi (due tocchi rapidi su una tessera prendono tutta la sua combinazione). Alla fine del tuo turno ogni combinazione deve essere valida, e nessuna tessera del tavolo può tornare in un leggio.
 - Riprendi un jolly mettendo al suo posto la tessera che sostituisce, poi usalo in un'altra combinazione nello stesso turno.
-- Se non puoi o non vuoi calare nulla, pesca invece una tessera dal mazzo. Quando il mazzo è vuoto, passa.
+- Se non puoi o non vuoi calare nulla, pesca una tessera dal mazzo; quando il mazzo è vuoto, passa.
 # La prima calata
-La tua prima calata deve valere almeno 30 punti, con le sole tue tessere e in un solo turno. Un jolly vale la tessera che sostituisce. Finché non l'hai fatta, non puoi toccare le combinazioni sul tavolo.
+La tua prima calata deve valere almeno 30 punti, con le sole tue tessere e in un solo turno; un jolly vale la tessera che sostituisce. Finché non l'hai fatta, non puoi toccare le combinazioni sul tavolo.
 # La fine di una mano
-Il primo giocatore che svuota il leggio vince la mano e segna le tessere rimaste negli altri leggii: ogni numero il suo valore, un jolly 30. Gli altri giocatori perdono quanto resta nel proprio leggio. Se il mazzo è vuoto e tutti passano a turno, vince il leggio più basso: ognuno degli altri perde la differenza, che il vincitore guadagna.
+Il primo giocatore che svuota il leggio segna le tessere rimaste negli altri leggii: ogni numero il suo valore, un jolly 30. Gli altri perdono quanto resta nel proprio leggio. Se il mazzo è vuoto e tutti passano a turno, vince il leggio più basso: ognuno degli altri perde la differenza, che il vincitore guadagna.
 # La fine della partita
-Una mano: il suo vincitore vince la partita. Una serie: tante mani quanti i giocatori, e ognuno ne comincia una. Vince il totale più alto.
-# Giocare sul dispositivo
-Il tuo leggio è in basso; il pulsante di ordinamento lo ordina per colore o per numero. Tocca le tessere per prenderle, poi tocca una combinazione per metterle lì, il tavolo libero per una nuova combinazione, o il tuo leggio per riprendere le tue tessere. Due tocchi rapidi su una tessera del tavolo prendono tutta la sua combinazione. Puoi anche trascinare le tessere. Le combinazioni non valide si illuminano di rosso. Fino alla tua prima calata, il contatore accanto al mazzo mostra quanto vale finora; diventa dorato a 30. Annulla ritira la tua ultima mossa; il pulsante per tornare all'inizio ritira tutto il turno. La spunta termina il turno: si accende appena il tavolo è a posto. Tocca il mazzo per pescare. La barra di ogni giocatore mostra quante tessere ha (e, in una serie, il suo totale).
+Una mano: il suo vincitore vince. Una serie: tante mani quanti i giocatori, e ognuno ne comincia una; vince il totale più alto.

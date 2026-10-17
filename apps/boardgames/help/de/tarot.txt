@@ -1,41 +1,34 @@
 Französisches Tarot
 # Das Ziel
-Das französische Kartenspiel Tarot mit 78 Karten: vier Farben zu je 14 Karten (Bube, Reiter, Dame und König über der 10), 21 Trümpfe und die Excuse. In jeder Runde spielt ein Spieler, der Angreifer, gegen alle anderen, die Verteidigung. Eine Partie dauert so viele Runden, wie es Spieler gibt, und die höchste Summe gewinnt. Für 3, 4 oder 5 Spieler.
+78 Karten: vier Farben zu je 14 (Bube, Reiter, Dame und König über der 10), 21 Trümpfe und die Excuse. In jeder Runde spielt der Angreifer gegen alle anderen, die Verteidigung. Nach so vielen Runden, wie es Spieler gibt (eine annullierte Runde zählt nicht), gewinnt die höchste Summe.
 # Die Karten
-- Die drei Oudler (bouts) sind die 21, der Petit (die Trumpf-1) und die Excuse (Sküs). Je mehr davon der Angreifer gewinnt, desto weniger Punkte braucht er.
-- Punkte: ein Oudler oder ein König 4,5, eine Dame 3,5, ein Reiter 2,5, ein Bube 1,5, jede andere Karte 0,5. Insgesamt gibt es 91 Punkte.
-- Am Tisch zählt man die Karten paarweise: ein König oder ein Oudler mit einer kleinen Karte ergibt 5, eine Dame mit einer kleinen Karte 4, ein Reiter 3, ein Bube 2, zwei kleine Karten 1. Das Ergebnis ist dasselbe.
+- Die drei Oudler sind die 21, der Petit (die Trumpf-1) und die Excuse. Je mehr davon der Angreifer gewinnt, desto weniger Punkte braucht er.
+- Punkte: ein Oudler oder ein König 4,5, eine Dame 3,5, ein Reiter 2,5, ein Bube 1,5, jede andere Karte 0,5: zusammen 91.
 # Das Geben
-- Zwischen den Spielen wird nicht gemischt: Die Stiche werden eingesammelt, abgehoben und zu je dreien gegeben, wie an einem echten Tisch.
-- Die Karten werden zu je dreien reihum ausgeteilt, beginnend beim Spieler nach dem Geber. Der Hund (chien) bekommt 6 Karten (3 bei fünf Spielern), einzeln, nie die ersten oder letzten Karten.
-- Jeder Spieler bekommt 24 Karten bei drei Spielern, 18 bei vier, 15 bei fünf.
-- Wer als einzigen Trumpf den Petit hat, ohne die Excuse (Petit sec), zeigt ihn, und die Runde wird annulliert. Der nächste Spieler gibt.
+- Der Hund bekommt 6 Karten (3 bei fünf Spielern); jeder Spieler bekommt 24 Karten bei drei Spielern, 18 bei vier, 15 bei fünf.
+- Wer als einzigen Trumpf den Petit hat, ohne die Excuse (Petit sec), zeigt ihn, und die Runde wird annulliert.
 # Das Reizen
-Beginnend beim Spieler nach dem Geber spricht jeder genau einmal: Er sagt Passe oder bietet höher als alle Gebote vor ihm.
-- Petite: Der Angreifer bekommt den Hund. Die Runde zählt einfach.
+Beginnend beim Spieler nach dem Geber spricht jeder einmal: Passe, oder höher als alle Gebote vor ihm.
+- Petite: Der Angreifer bekommt den Hund. Einfach gezählt.
 - Garde: dasselbe, doppelt gezählt.
-- Garde sans: Niemand sieht den Hund; seine Karten zählen für den Angreifer. Vierfach gezählt.
-- Garde contre: Niemand sieht den Hund; seine Karten zählen für die Verteidigung. Sechsfach gezählt.
-Passen alle, wird die Runde annulliert und der nächste Spieler gibt.
+- Garde sans: Der Hund zählt ungesehen für den Angreifer. Vierfach.
+- Garde contre: Der Hund zählt ungesehen für die Verteidigung. Sechsfach.
+Passen alle, gibt der nächste Spieler.
 # Fünf Spieler: der gerufene König
-Vor dem Hund ruft der Angreifer einen König (eine Dame, wenn er alle vier Könige hat). Wer ihn hält, wird Partner des Angreifers, hält das aber geheim, bis der König gespielt wird. Hält der Angreifer ihn selbst oder liegt er im Hund, spielt der Angreifer allein gegen vier.
+Vor dem Hund ruft der Angreifer einen König (eine Dame, wenn er alle vier Könige hat). Wer ihn hält, ist der geheime Partner des Angreifers, bis der König gespielt wird. Hält der Angreifer ihn selbst oder liegt er im Hund, spielt der Angreifer allein.
 # Der Hund
-Bei Petite und Garde wird der Hund für alle sichtbar aufgedeckt. Dann nimmt der Angreifer ihn auf die Hand und legt verdeckt ebenso viele Karten ab: nie einen König oder einen Oudler, und einen Trumpf nur, wenn es nicht anders geht. Abgelegte Trümpfe werden gezeigt. Die abgelegten Karten zählen für den Angreifer.
+Bei Petite und Garde wird der Hund allen gezeigt. Der Angreifer nimmt ihn auf die Hand und legt ebenso viele Karten ab: nie einen König oder einen Oudler, und einen Trumpf nur, wenn es nicht anders geht (er wird dann gezeigt). Die abgelegten Karten zählen für den Angreifer.
 # Ein Stich
 - Der Spieler nach dem Geber spielt zum ersten Stich aus; wer einen Stich gewinnt, spielt zum nächsten aus.
-- Bediene die ausgespielte Farbe. Hast du keine, musst du Trumpf spielen; hast du auch keinen Trumpf, spiel eine beliebige Karte.
-- Liegt ein Trumpf im Stich, musst du einen höheren Trumpf spielen, wenn du kannst; sonst spiel einen niedrigeren.
-- Der höchste Trumpf gewinnt den Stich; ohne Trumpf die höchste Karte der ausgespielten Farbe.
-- Die Excuse kann jederzeit stattdessen gespielt werden und gewinnt nie: Ihr Besitzer behält sie und gibt dem Gewinner des Stichs dafür eine Karte im Wert von einem halben Punkt. Wurde sie ausgespielt, bestimmt die nächste Karte die Farbe. Im letzten Stich gespielt, geht sie an den Gewinner des Stichs, außer ihre Seite hat alle Stiche davor gewonnen: Dann gewinnt sie diesen letzten Stich.
+- Bediene. Kannst du nicht, spiel Trumpf; hast du auch keinen Trumpf, eine beliebige Karte.
+- Liegt ein Trumpf im Stich, spiel einen höheren Trumpf, wenn du kannst, sonst einen niedrigeren.
+- Der höchste Trumpf gewinnt; ohne Trumpf die höchste Karte der ausgespielten Farbe.
+- Die Excuse kann jederzeit gespielt werden und gewinnt nie: Ihr Besitzer behält sie und gibt dem Gewinner des Stichs dafür eine Karte von einem halben Punkt. Wurde sie ausgespielt, bestimmt die nächste Karte die Farbe. Im letzten Stich geht sie an den Gewinner des Stichs, außer ihre Seite hat alle Stiche davor gewonnen: Dann gewinnt sie diesen Stich.
 # Poignée
-Ein Spieler mit vielen Trümpfen darf sie kurz vor seiner ersten Karte zeigen: eine einfache Poignée aus 10 Trümpfen (13 bei drei Spielern, 8 bei fünf), eine doppelte aus 13 (15, 10) oder eine dreifache aus 15 (18, 13). Die Excuse darf sie vervollständigen. Sie bringt der Seite, die die Runde gewinnt, 20, 30 oder 40 Punkte.
+Kurz vor seiner ersten Karte darf ein Spieler eine einfache Poignée aus 10 Trümpfen zeigen (13 bei drei Spielern, 8 bei fünf), eine doppelte aus 13 (15, 10) oder eine dreifache aus 15 (18, 13); die Excuse darf sie vervollständigen. Sie bringt der Seite, die die Runde gewinnt, 20, 30 oder 40 Punkte.
 # Die Wertung
-- Die Seite des Angreifers braucht 56 Punkte ohne Oudler, 51 mit einem, 41 mit zwei, 36 mit allen dreien. Mit diesen Punkten gewinnt sie die Runde, ohne sie verliert sie sie.
+- Die Seite des Angreifers braucht 56 Punkte ohne Oudler, 51 mit einem, 41 mit zwei, 36 mit dreien.
 - Die Runde ist 25 Punkte wert plus den Unterschied zwischen erzielten und benötigten Punkten (ein halber Punkt zählt als ganzer), mal 1, 2, 4 oder 6 je nach Gebot.
 - Petit au bout: Der Petit im letzten Stich ist 10 Punkte wert, mal der Zahl des Gebots, für die Seite, die diesen Stich gewinnt.
-- Eine Seite, die alle Stiche gewinnt (ein Schlemm, chelem; er wird hier nie angesagt), bekommt 200 dazu.
-- Jeder Verteidiger zahlt den Wert der Runde an den Angreifer oder bekommt ihn von ihm. Bei fünf Spielern mit Partner bekommt der Angreifer zwei Anteile und der Partner einen. Die Punktestände ergeben zusammen immer null.
-# Das Ende der Partie
-Nach so vielen Runden, wie es Spieler gibt (eine annullierte Runde zählt nicht), gewinnt der Spieler mit der höchsten Summe.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Wer am Zug ist, sieht seine Hand unten, in einer oder zwei Reihen. Die Leiste jedes Spielers zeigt seine Summe, wie viele Karten er hält, und sein Gebot. Zum Bieten tippe auf einen Knopf. Der Stich liegt in der Mitte, jede Karte auf der Seite ihres Spielers, mit seinem Stein; der gerade gewonnene Stich bleibt dort liegen, die Gewinnerkarte leuchtend, bis die nächste Karte ausgespielt wird. Tippe auf den Stapel oben links, um den letzten Stich noch einmal zu sehen. Wird der Hund aufgedeckt, sehen ihn alle, während die Hand des Angreifers verdeckt bleibt: Zeigt das Gerät herum, dann tippt der Angreifer auf den Hund, um ihn zu nehmen, tippt die abzulegenden Karten an (nochmaliges Antippen nimmt eine zurück) und dann den runden Knopf. Wenn du eine Poignée zeigen darfst, erscheint oben ein Knopf mit ihrer Anzahl Trümpfe. Nach jeder Runde zeigt eine Tafel das Gebot mit seiner Zahl, die Oudler der Seite des Angreifers, ihre Punkte, die benötigten Punkte und den Unterschied, die Prämien, dann die Punkte und die Summe jedes Spielers; tippe darauf für die nächste Runde. Rückgängig nimmt nur deine eigenen Aktionen in diesem Zug zurück.
+- Eine Seite, die alle Stiche gewinnt (ein Chelem, hier nie angesagt), bekommt 200 dazu.
+- Jeder Verteidiger zahlt den Wert der Runde an den Angreifer oder bekommt ihn. Bei fünf Spielern mit Partner bekommt der Angreifer zwei Anteile und der Partner einen.

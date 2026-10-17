@@ -1,41 +1,34 @@
 Tarot francese
 # Lo scopo
-Il gioco di carte del tarot francese, con 78 carte: quattro semi di 14 carte (fante, cavallo (cavalier), donna e re sopra il 10), 21 atout e l'Excuse. In ogni mano un giocatore, l'attaccante, gioca contro tutti gli altri, la difesa. La partita dura tante mani quanti sono i giocatori, e vince il totale più alto. Da 3 a 5 giocatori.
+78 carte: quattro semi di 14 carte (fante, cavallo, donna e re sopra il 10), 21 atout e l'Excuse. In ogni mano l'attaccante gioca contro tutti gli altri, la difesa. Dopo tante mani quanti sono i giocatori (una mano annullata non conta), vince il totale più alto.
 # Le carte
 - I tre oudler (bouts) sono il 21, il Petit (l'1 di atout) e l'Excuse. Più ne vince l'attaccante, meno punti gli servono.
-- Punti: un oudler o un re 4,5, una donna 3,5, un cavallo 2,5, un fante 1,5, ogni altra carta 0,5. In tutto ci sono 91 punti.
-- Al tavolo le carte si contano a coppie: un re o un oudler con una carta bassa fanno 5, una donna con una carta bassa 4, un cavallo 3, un fante 2, due carte basse 1. Il risultato è lo stesso.
+- Punti: un oudler o un re 4,5, una donna 3,5, un cavallo 2,5, un fante 1,5, ogni altra carta 0,5: 91 in tutto.
 # La distribuzione
-- Tra una smazzata e l'altra le carte non si mescolano: si raccolgono le prese, si alza e si dà tre alla volta, come a un vero tavolo.
-- Le carte si danno tre alla volta, girando intorno al tavolo, a partire dal giocatore dopo il mazziere. Il cane (le chien) riceve 6 carte (3 in cinque), una alla volta, mai le prime né le ultime.
-- Ognuno riceve 24 carte in tre, 18 in quattro, 15 in cinque.
-- Un giocatore il cui unico atout è il Petit, senza l'Excuse (il Petit sec), lo mostra e la mano è annullata. Distribuisce il giocatore successivo.
+- Il cane (le chien) riceve 6 carte (3 in cinque); ognuno riceve 24 carte in tre, 18 in quattro, 15 in cinque.
+- Un giocatore il cui unico atout è il Petit, senza l'Excuse (il Petit sec), lo mostra e la mano è annullata.
 # Le dichiarazioni
 A partire dal giocatore dopo il mazziere, ognuno parla una volta sola: passa, oppure dichiara più in alto di tutte le dichiarazioni precedenti.
-- Petite: l'attaccante prende il cane. La mano conta una volta.
+- Petite: l'attaccante prende il cane. Conta una volta.
 - Garde: lo stesso, ma conta due volte.
-- Garde sans: nessuno vede il cane; le sue carte contano per l'attaccante. Conta quattro volte.
-- Garde contre: nessuno vede il cane; le sue carte contano per la difesa. Conta sei volte.
-Se tutti passano, la mano è annullata e distribuisce il giocatore successivo.
+- Garde sans: il cane, che nessuno vede, conta per l'attaccante. Quattro volte.
+- Garde contre: il cane, che nessuno vede, conta per la difesa. Sei volte.
+Se tutti passano, distribuisce il giocatore successivo.
 # In cinque: il re chiamato
-Prima del cane, l'attaccante chiama un re (una donna se ha tutti e quattro i re). Chi lo ha diventa il suo compagno, ma lo tiene segreto finché il re non viene giocato. Se il re è in mano all'attaccante, o nel cane, l'attaccante gioca da solo contro quattro.
+Prima del cane, l'attaccante chiama un re (una donna se ha tutti e quattro i re). Chi lo ha è il suo compagno segreto finché il re non viene giocato. Se il re è in mano all'attaccante, o nel cane, l'attaccante gioca da solo.
 # Il cane
-Con Petite e Garde il cane viene scoperto perché tutti lo vedano. Poi l'attaccante lo aggiunge alle sue carte e mette da parte in segreto lo stesso numero di carte: mai un re o un oudler, e un atout solo se non c'è altro modo. Gli atout messi da parte si mostrano. Le carte messe da parte contano per l'attaccante.
+Con Petite e Garde il cane viene mostrato a tutti. L'attaccante lo aggiunge alle sue carte e mette da parte lo stesso numero di carte: mai un re o un oudler, e un atout solo se non c'è altro modo (allora si mostra). Le carte messe da parte contano per l'attaccante.
 # Una presa
 - Il giocatore dopo il mazziere esce nella prima presa; chi vince una presa esce nella successiva.
-- Rispondi al seme di uscita. Se non ne hai, devi giocare un atout; se non hai nemmeno un atout, gioca una carta qualsiasi.
-- Quando nella presa c'è un atout, devi giocarne uno più alto se puoi; se non puoi, giocane uno più basso.
+- Rispondi al seme di uscita. Se non ne hai, gioca un atout; se non hai nemmeno un atout, gioca una carta qualsiasi.
+- Quando nella presa c'è un atout, giocane uno più alto se puoi, altrimenti uno più basso.
 - L'atout più alto vince la presa; senza atout, la carta più alta del seme di uscita.
-- L'Excuse si può giocare in qualsiasi momento al posto di un'altra carta e non vince mai: il suo proprietario la tiene e in cambio dà al vincitore della presa una carta da mezzo punto. Se si esce con l'Excuse, il seme lo stabilisce la carta successiva. Giocata nell'ultima presa, va al vincitore della presa, a meno che la sua parte non abbia vinto tutte le prese precedenti: allora vince quell'ultima presa.
+- L'Excuse si può giocare in qualsiasi momento e non vince mai: il suo proprietario la tiene e in cambio dà al vincitore della presa una carta da mezzo punto. Se si esce con l'Excuse, il seme lo stabilisce la carta successiva. Nell'ultima presa va al vincitore della presa, a meno che la sua parte non abbia vinto tutte le prese precedenti: allora vince quella presa.
 # Poignée
-Un giocatore con molti atout può mostrarli appena prima di giocare la sua prima carta: poignée semplice di 10 atout (13 in tre, 8 in cinque), doppia di 13 (15, 10) o tripla di 15 (18, 13). L'Excuse può completarla. Vale 20, 30 o 40 punti per la parte che vince la mano.
+Appena prima di giocare la sua prima carta, un giocatore può mostrare una sola poignée: semplice di 10 atout (13 in tre, 8 in cinque), doppia di 13 (15, 10) o tripla di 15 (18, 13); l'Excuse può completarla. Vale 20, 30 o 40 punti per la parte che vince la mano.
 # Il punteggio
-- La parte dell'attaccante ha bisogno di 56 punti senza oudler, 51 con uno, 41 con due, 36 con tutti e tre. Con quei punti vince la mano, senza la perde.
+- La parte dell'attaccante ha bisogno di 56 punti senza oudler, 51 con uno, 41 con due, 36 con tutti e tre.
 - La mano vale 25 punti più la differenza tra i punti fatti e quelli necessari (mezzo punto conta come uno intero), moltiplicati per 1, 2, 4 o 6 secondo la dichiarazione.
 - Petit au bout: il Petit nell'ultima presa vale 10 punti, moltiplicati per il numero della dichiarazione, per la parte che vince quella presa.
 - La parte che vince tutte le prese (un chelem; qui non si annuncia mai) segna 200 punti in più.
-- Ogni difensore paga il valore della mano all'attaccante, o lo riceve da lui. In cinque con un compagno, l'attaccante prende due quote e il compagno una. La somma dei punteggi è sempre zero.
-# La fine della partita
-Dopo tante mani quanti sono i giocatori (una mano annullata non conta), vince il giocatore con il totale più alto.
-# Giocare sul dispositivo
-Passatevi il dispositivo: chi è di turno vede le sue carte in basso, su una o due file. La barra di ogni giocatore mostra il suo totale, quante carte ha e la sua dichiarazione. Per dichiarare, tocca un pulsante. La presa sta al centro, ogni carta dal lato del suo giocatore, con la sua pedina; la presa appena vinta resta lì, con la carta vincente illuminata, finché non si esce con la carta successiva. Tocca il mazzetto in alto a sinistra per rivedere l'ultima presa. Quando il cane è scoperto, tutti lo vedono mentre le carte dell'attaccante restano coperte: fate girare il dispositivo, poi l'attaccante tocca il cane per prenderlo, tocca le carte da mettere da parte (toccane una di nuovo per riprenderla) e il pulsante rotondo. Quando puoi mostrare una poignée, in alto compare un pulsante con il suo numero di atout. Dopo ogni mano una tabella mostra la dichiarazione con il suo moltiplicatore, gli oudler vinti dalla parte dell'attaccante, i suoi punti, quelli necessari e la differenza, i premi, poi i punti e il totale di ogni giocatore; toccala per la mano successiva. Annulla ritira solo le tue mosse di questo turno.
+- Ogni difensore paga il valore della mano all'attaccante, o lo riceve da lui. In cinque con un compagno, l'attaccante prende due quote e il compagno una.

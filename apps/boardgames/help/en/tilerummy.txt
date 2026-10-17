@@ -1,22 +1,20 @@
 Tile Rummy
 # The aim
-Be the first to lay all the tiles of your rack on the table, in runs and groups. For 2 to 4 players. Each rack is secret: pass the device after every turn. Two games to choose from: one round, or a match of as many rounds as there are players.
+Be the first to lay all the tiles of your rack on the table, in runs and groups.
 # The tiles
-106 tiles: the numbers 1 to 13 in four colours, each twice, and two jokers. Each player draws 14 tiles; the others stay face down in the pool.
+106 tiles: the numbers 1 to 13 in four colours, each twice, and two jokers. 14 tiles each; the others stay face down in the pool.
 # Sets
 - A run: three or more numbers in a row, all of one colour. 1 does not follow 13.
 - A group: three or four tiles of the same number, all of different colours.
 - A joker stands for any tile.
 # A turn
 - Lay tiles from your rack: new sets, or tiles added to the sets on the table.
-- Rearrange the table as you like: split sets, join them, move tiles from one set to another. When your turn ends, every set on the table must be valid, and no tile from the table may go back to a rack.
+- Rearrange the table as you like (two quick taps on a tile pick up its whole set). When your turn ends, every set must be valid, and no table tile may go back to a rack.
 - Win a joker back by putting the tile it stands for in its place, then use the joker in another set in the same turn.
-- If you cannot or will not lay anything, draw one tile from the pool instead. Once the pool is empty, pass.
+- If you cannot or will not lay anything, draw a tile from the pool; once it is empty, pass.
 # The first meld
-Your first meld must be worth 30 points or more, laid from your own tiles alone in one turn. A joker is worth the tile it stands for. Until you have made it, you may not touch the sets on the table.
+Your first meld must be worth 30 points or more, from your own tiles alone in one turn; a joker is worth the tile it stands for. Until then, you may not touch the sets on the table.
 # The end of a round
-The first player to empty their rack wins the round and scores the tiles left in the other racks: each number its value, a joker 30. The other players lose what is left in their own racks. If the pool is empty and everyone passes in turn, the lowest rack wins: each other player loses the difference, and the winner gains it.
+The first player to empty their rack scores the tiles left in the other racks: each number its value, a joker 30. The others lose what is left in their own racks. If the pool is empty and everyone passes in turn, the lowest rack wins: each other player loses the difference, and the winner gains it.
 # The end of the game
-One round: its winner wins the game. A match: as many rounds as players, each player starting one round. The highest total wins.
-# Playing on the device
-Your rack is at the bottom; the sort button sorts it by colour or by number. Tap tiles to pick them up, then tap a set to put them there, the empty table for a new set, or your rack to take your own tiles back. Two quick taps on a tile on the table pick up its whole set. You can also drag tiles. Sets that are not valid glow red. Until your first meld, the counter next to the pool shows what it is worth so far; it turns gold at 30. Undo takes back your last move; the rewind button takes back the whole turn. The tick ends your turn: it lights up once the table is right. Tap the pool to draw. Each player's bar shows how many tiles they hold (and, in a match, their total).
+One round: its winner wins. A match: as many rounds as players, each starting one round; the highest total wins.

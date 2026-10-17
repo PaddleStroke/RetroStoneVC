@@ -1,22 +1,20 @@
 Rummy s kameny
 # Cíl hry
-Vylož jako první na stůl všechny kameny ze svého stojánku, v postupkách a skupinách. Pro 2 až 4 hráče. Každý stojánek je tajný: po každém tahu předej zařízení dál. Dvě hry na výběr: jedno kolo, nebo zápas s tolika koly, kolik je hráčů.
+Vylož jako první na stůl všechny kameny ze svého stojánku, v postupkách a skupinách.
 # Kameny
-106 kamenů: čísla 1 až 13 ve čtyřech barvách, každé dvakrát, a dva žolíci. Každý hráč si vezme 14 kamenů; ostatní zůstanou lícem dolů v zásobě.
+106 kamenů: čísla 1 až 13 ve čtyřech barvách, každé dvakrát, a dva žolíci. Každý dostane 14 kamenů; ostatní zůstanou lícem dolů v zásobě.
 # Sestavy
 - Postupka: aspoň tři čísla jdoucí po sobě, všechna jedné barvy. Po 13 nenásleduje 1.
 - Skupina: tři nebo čtyři kameny se stejným číslem, každý jiné barvy.
 - Žolík zastoupí jakýkoli kámen.
 # Tah
 - Vykládej kameny ze stojánku: nové sestavy, nebo kameny přiložené k sestavám na stole.
-- Přeskládej stůl, jak chceš: rozděluj sestavy, spojuj je, přesouvej kameny z jedné do druhé. Na konci tahu musí být každá sestava na stole platná a žádný kámen ze stolu se nesmí vrátit na stojánek.
+- Přeskládej stůl, jak chceš (dvě rychlá klepnutí na kámen vezmou celou jeho sestavu). Na konci tahu musí být každá sestava platná a žádný kámen ze stolu se nesmí vrátit na stojánek.
 - Žolíka získáš zpět tak, že na jeho místo položíš kámen, který zastupuje; pak ho ve stejném tahu použij v jiné sestavě.
-- Když nemůžeš nebo nechceš nic vyložit, vezmi si místo toho jeden kámen ze zásoby. Když je zásoba prázdná, vynech.
+- Když nemůžeš nebo nechceš nic vyložit, vezmi si kámen ze zásoby; když je zásoba prázdná, vynech.
 # První vyložení
-První vyložení musí mít hodnotu aspoň 30 bodů, jen z tvých vlastních kamenů a v jednom tahu. Žolík má hodnotu kamene, který zastupuje. Do té doby se nesmíš dotknout sestav na stole.
+První vyložení musí mít hodnotu aspoň 30 bodů, jen z tvých vlastních kamenů a v jednom tahu; žolík má hodnotu kamene, který zastupuje. Do té doby se nesmíš dotknout sestav na stole.
 # Konec kola
-Hráč, který první vyprázdní stojánek, vyhrává kolo a získá kameny, které zůstaly na ostatních stojáncích: každé číslo svou hodnotu, žolík 30. Ostatní hráči ztrácejí to, co zůstalo na jejich stojánku. Je-li zásoba prázdná a všichni postupně vynechají, vyhrává nejnižší stojánek: každý další hráč ztrácí rozdíl a vítěz ho získá.
+Hráč, který první vyprázdní stojánek, získá kameny, které zůstaly na ostatních stojáncích: každé číslo svou hodnotu, žolík 30. Ostatní ztrácejí to, co zůstalo na jejich stojánku. Je-li zásoba prázdná a všichni postupně vynechají, vyhrává nejnižší stojánek: každý další hráč ztrácí rozdíl a vítěz ho získá.
 # Konec hry
-Jedno kolo: jeho vítěz vyhrává hru. Zápas: tolik kol, kolik je hráčů, a každý jedno začíná. Vyhrává nejvyšší součet.
-# Hra na zařízení
-Tvůj stojánek je dole; tlačítko řazení ho seřadí podle barvy nebo podle čísla. Klepáním na kameny je vezmeš, pak klepni na sestavu, abys je tam položil, na prázdný stůl pro novou sestavu, nebo na svůj stojánek, abys vzal zpět své vlastní kameny. Dvě rychlá klepnutí na kámen na stole vezmou celou jeho sestavu. Kameny můžeš také přetahovat. Neplatné sestavy svítí červeně. Až do prvního vyložení ukazuje počítadlo vedle zásoby, jakou má zatím hodnotu; od 30 zezlátne. Vrátit vezme zpět tvůj poslední krok; tlačítko návratu na začátek vezme zpět celý tah. Fajfka ukončí tah: rozsvítí se, jakmile je stůl v pořádku. Klepnutím na zásobu si vezmeš kámen. Lišta každého hráče ukazuje, kolik má kamenů (a v zápase jeho součet).
+Jedno kolo: jeho vítěz vyhrává. Zápas: tolik kol, kolik je hráčů, a každý jedno začíná; vyhrává nejvyšší součet.

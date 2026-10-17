@@ -1,26 +1,22 @@
 Tiến lên
 # The aim
-Be the first to play all your cards; the others play on for the places. A Vietnamese game (its name means "go forward") for 2 to 4 players, with a pack of 52 cards: 13 each (with fewer than four players, the rest stay out of play).
+Be the first to play all your cards; the others play on for the places. 13 cards each; with fewer than four players, the rest stay out of play.
 # The cards
-- From low to high: 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace, and the 2, the highest of all.
-- The suits, from low to high: spades, clubs, diamonds, hearts. Two cards of the same rank go by their suit: the 2 of hearts is the highest card.
+- From low to high: 3 to 10, jack, queen, king, ace, and the 2, the highest of all.
+- Equal ranks go by suit, low to high: spades, clubs, diamonds, hearts. The 2 of hearts is the highest card.
 # The plays
 - A single card, a pair, three or four of a kind.
-- A sequence: three or more cards of ranks in a row, of any suits. The 2 is never part of one.
-- A double sequence: three or more pairs of ranks in a row, such as 3-3-4-4-5-5, without 2s.
-- A play is beaten by a play of the same kind with as many cards and a higher highest card.
+- A sequence: three or more ranks in a row, of any suits, never with a 2.
+- A double sequence: three or more pairs in a row, such as 3-3-4-4-5-5, without 2s.
+- A play is beaten by one of the same kind and size with a higher highest card.
 # A trick
-- The player with the lowest card dealt (the 3 of spades with four players) leads the first trick, with a play that includes it.
-- In turn, each player beats the last play or passes. A player who passes stays out of the trick until a new one starts.
+- The holder of the lowest card dealt (the 3 of spades with four players) leads the first trick with a play that includes it.
+- In turn, beat the last play or pass. A player who passes is out of the trick until a new one starts.
 - When all the others have passed, the last player who played starts a new trick with any play.
 # Bombs
-Some plays beat 2s, played in turn like any other:
+Some plays beat 2s:
 - three pairs in a row beat a single 2;
 - four of a kind beats a single 2, or three pairs in a row;
 - four pairs in a row beat a single 2, a pair of 2s, four of a kind, or three pairs in a row;
 - five pairs in a row also beat three 2s.
 A bomb also beats a lower one of its own kind.
-# The end
-The first player out of cards wins. The others play on: the order in which they go out gives their places, and the last one still holding cards comes last.
-# Playing on the device
-Pass the device round: each player sees only their own cards, at the bottom, from low to high. Along the top sit the others: their cards face down, how many, and a pass sign while they are out of the trick; once out of cards, their place. The last play lies big in the middle with its player's chip, the plays before it smaller behind. Tap cards to choose them, then tap the middle or drag them there: the middle lights up when your choice can be played. The lowest card glows for the player who must lead it. The pass button is in your bar. At the end, a table shows the places.

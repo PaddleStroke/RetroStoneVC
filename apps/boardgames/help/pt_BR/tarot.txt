@@ -1,41 +1,34 @@
 Tarô francês
 # O objetivo
-O jogo de cartas francês tarô, com 78 cartas: quatro naipes de 14 cartas (valete, cavaleiro, dama e rei acima do 10), 21 trunfos e a Desculpa (Excuse). Em cada rodada um jogador, o atacante, joga contra todos os outros, a defesa. A partida dura tantas rodadas quantos forem os jogadores, e vence o maior total. De 3 a 5 jogadores.
+78 cartas: quatro naipes de 14 (valete, cavaleiro, dama e rei acima do 10), 21 trunfos e a Desculpa (Excuse). Em cada rodada o atacante joga contra todos os outros, a defesa. Depois de tantas rodadas quantos forem os jogadores (uma rodada anulada não conta), vence o maior total.
 # As cartas
 - As três cartas-chave (oudlers) são o 21, o Petit (o 1 de trunfo) e a Desculpa. Quanto mais delas o atacante ganhar, menos pontos ele precisa fazer.
-- Pontos: uma carta-chave ou um rei 4,5, uma dama 3,5, um cavaleiro (cavalier) 2,5, um valete 1,5, qualquer outra carta 0,5. São 91 pontos ao todo.
-- Na mesa as cartas são contadas aos pares: um rei ou uma carta-chave com uma carta pequena dá 5, uma dama com uma carta pequena 4, um cavaleiro 3, um valete 2, duas cartas pequenas 1. Dá no mesmo.
+- Pontos: uma carta-chave ou um rei 4,5, uma dama 3,5, um cavaleiro 2,5, um valete 1,5, qualquer outra carta 0,5: 91 ao todo.
 # A distribuição
-- As cartas não são embaralhadas entre as mãos: as vazas são recolhidas, corta-se e distribui-se de três em três, como numa mesa de verdade.
-- As cartas são distribuídas de três em três, em volta da mesa, começando pelo jogador depois de quem dá as cartas. O cachorro (le chien) recebe 6 cartas (3 com cinco jogadores), uma de cada vez, nunca as primeiras nem as últimas cartas.
-- Cada jogador recebe 24 cartas com três jogadores, 18 com quatro, 15 com cinco.
-- Um jogador cujo único trunfo é o Petit, sem a Desculpa (o Petit sec), mostra a carta e a rodada é anulada. O próximo jogador dá as cartas.
+- O cachorro (le chien) recebe 6 cartas (3 com cinco jogadores); cada jogador recebe 24 com três jogadores, 18 com quatro, 15 com cinco.
+- Um jogador cujo único trunfo é o Petit, sem a Desculpa (o Petit sec), mostra a carta e a rodada é anulada.
 # Os lances
-Começando pelo jogador depois de quem dá as cartas, cada um fala uma única vez: diz Passo ou dá um lance maior que todos os anteriores.
-- Pequena (Petite): o atacante pega o cachorro. A rodada conta uma vez.
-- Guarda (Garde): o mesmo, mas conta em dobro.
-- Guarda sem (Garde sans): ninguém vê o cachorro; as cartas dele contam para o atacante. Conta quatro vezes.
-- Guarda contra (Garde contre): ninguém vê o cachorro; as cartas dele contam para a defesa. Conta seis vezes.
-Se todos passarem, a rodada é anulada e o próximo jogador dá as cartas.
+Começando pelo jogador depois de quem dá as cartas, cada um fala uma única vez: passa, ou dá um lance maior que todos os anteriores.
+- Pequena (Petite): o atacante pega o cachorro. Conta uma vez.
+- Guarda (Garde): o mesmo, conta em dobro.
+- Guarda sem (Garde sans): o cachorro, sem ser visto, conta para o atacante. Quatro vezes.
+- Guarda contra (Garde contre): o cachorro, sem ser visto, conta para a defesa. Seis vezes.
+Se todos passarem, o próximo jogador dá as cartas.
 # Cinco jogadores: o rei chamado
-Antes do cachorro, o atacante chama um rei (uma dama se tiver os quatro reis). Quem tiver esse rei vira parceiro do atacante, mas guarda segredo até o rei ser jogado. Se o próprio atacante tiver o rei, ou se ele estiver no cachorro, o atacante joga sozinho contra quatro.
+Antes do cachorro, o atacante chama um rei (uma dama se tiver os quatro reis). Quem tiver esse rei é o parceiro secreto do atacante até o rei ser jogado. Se o próprio atacante tiver o rei, ou se ele estiver no cachorro, o atacante joga sozinho.
 # O cachorro
-Na Pequena e na Guarda, o cachorro é virado para cima para todos verem. Depois o atacante junta as cartas dele à sua mão e separa em segredo o mesmo número de cartas: nunca um rei ou uma carta-chave, e um trunfo só se não houver outro jeito. Os trunfos separados são mostrados. As cartas separadas contam para o atacante.
+Na Pequena e na Guarda, o cachorro é mostrado a todos. O atacante junta as cartas dele à sua mão e separa o mesmo número de cartas: nunca um rei ou uma carta-chave, e um trunfo só se não houver outro jeito (ele é então mostrado). As cartas separadas contam para o atacante.
 # Uma vaza
 - O jogador depois de quem dá as cartas abre a primeira vaza; quem ganha uma vaza abre a seguinte.
-- Jogue do naipe de saída. Se não tiver, você tem de jogar um trunfo; sem trunfo também, jogue qualquer carta.
-- Quando há um trunfo na vaza, você tem de jogar um trunfo mais alto se puder; se não puder, jogue um mais baixo.
-- O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída.
-- A Desculpa pode ser jogada a qualquer momento no lugar de outra carta e nunca ganha: o dono fica com ela e dá em troca ao ganhador da vaza uma carta de meio ponto. Se ela abrir a vaza, a carta seguinte define o naipe. Jogada na última vaza, ela vai para o ganhador da vaza, a menos que o lado do dono tenha ganhado todas as vazas anteriores: então ela ganha essa última vaza.
+- Jogue do naipe de saída. Se não tiver, jogue um trunfo; sem trunfo também, qualquer carta.
+- Quando há um trunfo na vaza, jogue um trunfo mais alto se puder; senão, um mais baixo.
+- O trunfo mais alto ganha; sem trunfo, a carta mais alta do naipe de saída.
+- A Desculpa pode ser jogada a qualquer momento e nunca ganha: o dono fica com ela e dá em troca ao ganhador da vaza uma carta de meio ponto. Se ela abrir a vaza, a carta seguinte define o naipe. Na última vaza, ela vai para o ganhador da vaza, a menos que o lado do dono tenha ganhado todas as vazas anteriores: então ela ganha essa vaza.
 # Poignée
-Um jogador com muitos trunfos pode mostrá-los logo antes de jogar a primeira carta: uma poignée simples de 10 trunfos (13 com três jogadores, 8 com cinco), dupla de 13 (15, 10) ou tripla de 15 (18, 13). A Desculpa pode completá-la. Ela vale 20, 30 ou 40 pontos para o lado que ganhar a rodada.
+Logo antes de jogar a primeira carta, um jogador pode mostrar uma poignée simples de 10 trunfos (13 com três jogadores, 8 com cinco), dupla de 13 (15, 10) ou tripla de 15 (18, 13); a Desculpa pode completá-la. Ela vale 20, 30 ou 40 pontos para o lado que ganhar a rodada.
 # A pontuação
-- O lado do atacante precisa de 56 pontos sem carta-chave, 51 com uma, 41 com duas, 36 com as três. Com esses pontos ganha a rodada; sem eles, perde.
-- A rodada vale 25 pontos mais a diferença entre os pontos feitos e os pontos necessários (meio ponto conta como um ponto inteiro), vezes 1, 2, 4 ou 6 conforme o lance.
+- O lado do atacante precisa de 56 pontos sem carta-chave, 51 com uma, 41 com duas, 36 com as três.
+- A rodada vale 25 pontos mais a diferença entre os pontos feitos e os necessários (meio ponto conta como um ponto inteiro), vezes 1, 2, 4 ou 6 conforme o lance.
 - Petit au bout: o Petit na última vaza vale 10 pontos, vezes o número do lance, para o lado que ganhar essa vaza.
 - Um lado que ganha todas as vazas (um chelem, que aqui nunca é anunciado) marca 200 pontos a mais.
-- Cada defensor paga o valor da rodada ao atacante, ou o recebe dele. Com cinco jogadores e um parceiro, o atacante fica com duas partes e o parceiro com uma. A soma das pontuações é sempre zero.
-# O fim da partida
-Depois de tantas rodadas quantos forem os jogadores (uma rodada anulada não conta), vence o jogador com o maior total.
-# Jogando no aparelho
-Passem o aparelho: o jogador da vez vê a sua mão embaixo, em uma ou duas fileiras. A barra de cada jogador mostra o total, quantas cartas ele tem e o lance dele. Para dar um lance, toque num botão. A vaza fica no centro, cada carta do lado do seu jogador, com a ficha dele; a vaza que acabou de ser ganha continua ali, com a carta vencedora brilhando, até a próxima saída. Toque no monte em cima à esquerda para ver de novo a última vaza. Quando o cachorro é virado, todos o veem enquanto a mão do atacante fica virada para baixo: mostre o aparelho a todos, depois o atacante toca no cachorro para pegá-lo, toca nas cartas a separar (toque de novo numa delas para pegá-la de volta) e no botão redondo. Quando você puder mostrar uma poignée, aparece em cima um botão com o número de trunfos. Depois de cada rodada, uma tabela mostra o lance com o seu multiplicador, as cartas-chave ganhas pelo lado do atacante, os pontos dele, os pontos necessários e a diferença, os bônus, depois os pontos e o total de cada jogador; toque nela para a próxima rodada. Desfazer só desfaz as suas próprias jogadas desta vez.
+- Cada defensor paga o valor da rodada ao atacante, ou o recebe dele. Com cinco jogadores e um parceiro, o atacante fica com duas partes e o parceiro com uma.

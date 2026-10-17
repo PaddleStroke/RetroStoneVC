@@ -1,41 +1,34 @@
 Fransk tarot
 # Målet
-Det franske kortspillet tarot, med 78 kort: fire farger på 14 kort (knekt, ridder, dame og konge over 10-eren), 21 trumfer og Excuse. I hver runde spiller én spiller, budvinneren, mot alle de andre, forsvaret. Spillet varer like mange runder som det er spillere, og høyest sum vinner. For 3, 4 eller 5 spillere.
+78 kort: fire farger på 14 (knekt, ridder, dame og konge over 10-eren), 21 trumfer og Excuse. I hver runde spiller budvinneren mot alle de andre, forsvaret. Etter like mange runder som det er spillere (en annullert runde teller ikke), vinner høyest sum.
 # Kortene
 - De tre nøkkelkortene (oudlers) er 21, Petit (trumf 1) og Excuse. Jo flere av dem budvinneren vinner, jo færre poeng trengs.
-- Poeng: et nøkkelkort eller en konge 4,5, en dame 3,5, en ridder (cavalier) 2,5, en knekt 1,5, alle andre kort 0,5. Det er 91 poeng i alt.
-- Ved bordet telles kortene parvis: en konge eller et nøkkelkort med et lite kort gir 5, en dame med et lite kort 4, en ridder 3, en knekt 2, to små kort 1. Det blir det samme.
+- Poeng: et nøkkelkort eller en konge 4,5, en dame 3,5, en ridder 2,5, en knekt 1,5, alle andre kort 0,5: 91 i alt.
 # Utdelingen
-- Kortene stokkes ikke mellom givene: stikkene samles, det tas av, og det gis tre om gangen, som ved et ekte bord.
-- Kortene deles ut tre om gangen, rundt bordet, fra spilleren etter kortgiveren. Hunden (le chien) får 6 kort (3 med fem spillere), ett om gangen, aldri de første eller de siste kortene.
-- Hver spiller får 24 kort med tre spillere, 18 med fire, 15 med fem.
-- En spiller som har Petit som eneste trumf, uten Excuse (Petit sec), viser den, og runden annulleres. Neste spiller gir.
+- Hunden får 6 kort (3 med fem spillere); hver spiller får 24 med tre spillere, 18 med fire, 15 med fem.
+- En spiller som har Petit som eneste trumf, uten Excuse (Petit sec), viser den, og runden annulleres.
 # Budgivningen
-Fra spilleren etter kortgiveren melder hver spiller én gang: Pass, eller et bud høyere enn alle budene før.
-- Liten (Petite): budvinneren får hunden. Runden teller én gang.
-- Garde: det samme, men teller dobbelt.
-- Garde uten (Garde sans): ingen ser hunden; kortene i den teller for budvinneren. Teller fire ganger.
-- Garde mot (Garde contre): ingen ser hunden; kortene i den teller for forsvaret. Teller seks ganger.
-Hvis alle melder pass, annulleres runden og neste spiller gir.
+Fra spilleren etter kortgiveren melder hver spiller én gang: pass, eller et bud høyere enn alle budene før.
+- Liten (Petite): budvinneren får hunden. Teller én gang.
+- Garde: det samme, teller dobbelt.
+- Garde uten (Garde sans): hunden, usett, teller for budvinneren. Fire ganger.
+- Garde mot (Garde contre): hunden, usett, teller for forsvaret. Seks ganger.
+Hvis alle melder pass, gir neste spiller.
 # Fem spillere: den kalte kongen
-Før hunden kaller budvinneren opp en konge (en dame hvis budvinneren har alle fire kongene). Den som har den, blir budvinnerens makker, men holder det hemmelig til kongen spilles. Hvis budvinneren har den selv, eller den ligger i hunden, spiller budvinneren alene mot fire.
+Før hunden kaller budvinneren opp en konge (en dame hvis budvinneren har alle fire kongene). Den som har den, er budvinnerens hemmelige makker til kongen spilles. Hvis budvinneren har den selv, eller den ligger i hunden, spiller budvinneren alene.
 # Hunden
-Ved Liten og Garde snus hunden med forsiden opp så alle ser den. Så tar budvinneren den inn på hånden og legger i hemmelighet bort like mange kort: aldri en konge eller et nøkkelkort, og en trumf bare hvis det ikke finnes annen utvei. Trumfer som legges bort, vises. Kortene som er lagt bort, teller for budvinneren.
+Ved Liten og Garde vises hunden til alle. Budvinneren tar den inn på hånden og legger bort like mange kort: aldri en konge eller et nøkkelkort, og en trumf bare hvis det ikke finnes annen utvei (den vises da). Kortene som er lagt bort, teller for budvinneren.
 # Et stikk
 - Spilleren etter kortgiveren spiller ut til første stikk; den som vinner et stikk, spiller ut til det neste.
-- Følg fargen som ble spilt ut. Har du ingen av den, må du spille en trumf; har du heller ingen trumf, spiller du hvilket som helst kort.
-- Når det ligger en trumf i stikket, må du spille en høyere trumf hvis du kan; kan du ikke, spiller du en lavere.
-- Høyeste trumf vinner stikket; uten trumf vinner høyeste kort i fargen som ble spilt ut.
-- Excuse kan spilles når som helst i stedet, og vinner aldri: eieren beholder den og gir vinneren av stikket et kort verdt et halvt poeng i bytte. Spilles den ut, bestemmer neste kort fargen. Spilles den i siste stikk, går den til vinneren av stikket, med mindre eierens lag har vunnet alle stikkene før: da vinner den det siste stikket.
+- Følg farge. Kan du ikke, spill en trumf; har du heller ingen trumf, hvilket som helst kort.
+- Når det ligger en trumf i stikket, spill en høyere trumf hvis du kan, ellers en lavere.
+- Høyeste trumf vinner; uten trumf høyeste kort i fargen som ble spilt ut.
+- Excuse kan spilles når som helst og vinner aldri: eieren beholder den og gir vinneren av stikket et kort verdt et halvt poeng i stedet. Spilles den ut, bestemmer neste kort fargen. I siste stikk går den til vinneren av stikket, med mindre eierens lag har vunnet alle stikkene før: da vinner den det stikket.
 # Poignée
-En spiller med mange trumfer kan vise dem rett før det første kortet sitt: en enkel poignée på 10 trumfer (13 med tre spillere, 8 med fem), en dobbel på 13 (15, 10) eller en trippel på 15 (18, 13). Excuse kan fylle den ut. Den er verdt 20, 30 eller 40 poeng for laget som vinner runden.
+Rett før sitt første kort kan en spiller vise en enkel poignée på 10 trumfer (13 med tre spillere, 8 med fem), en dobbel på 13 (15, 10) eller en trippel på 15 (18, 13); Excuse kan fylle den ut. Den er verdt 20, 30 eller 40 poeng for laget som vinner runden.
 # Tellingen
-- Budvinnerens lag trenger 56 poeng uten nøkkelkort, 51 med ett, 41 med to, 36 med alle tre. Med de poengene vinner laget runden, uten dem taper det den.
+- Budvinnerens lag trenger 56 poeng uten nøkkelkort, 51 med ett, 41 med to, 36 med tre.
 - Runden er verdt 25 poeng pluss differansen mellom vunne og nødvendige poeng (et halvt poeng teller som et helt), ganget med 1, 2, 4 eller 6 etter budet.
 - Petit au bout: Petit i siste stikk er verdt 10 poeng, ganget med budets tall, for laget som vinner det stikket.
-- Et lag som vinner alle stikkene (slem, på fransk chelem; den meldes aldri her), får 200 poeng ekstra.
-- Hver forsvarer betaler rundens verdi til budvinneren, eller får den av budvinneren. Med fem spillere og en makker tar budvinneren to andeler og makkeren én. Summen av poengene er alltid null.
-# Slutten på spillet
-Etter like mange runder som det er spillere (en annullert runde teller ikke), vinner spilleren med høyest sum.
-# Spill på enheten
-Send enheten rundt: den som har tur, ser hånden sin nederst, i én eller to rader. Panelet til hver spiller viser summen, hvor mange kort spilleren har og budet. For å by, trykk på en knapp. Stikket ligger i midten, hvert kort på sin spillers side, med markøren; stikket som nettopp ble vunnet, blir liggende med vinnerkortet lysende til neste kort spilles ut. Trykk på bunken øverst til venstre for å se siste stikk igjen. Når hunden er snudd, ser alle den mens budvinnerens hånd ligger med baksiden opp: vis enheten rundt, så trykker budvinneren på hunden for å ta den, trykker på kortene som skal legges bort (trykk på et igjen for å ta det tilbake) og på den runde knappen. Når du kan vise en poignée, dukker en knapp med antall trumfer opp øverst. Etter hver runde viser en tavle budet med faktoren sin, nøkkelkortene budvinnerens lag vant, lagets poeng, poengene det trengte og differansen, bonusene, og så poengene og summen til hver spiller; trykk på den for neste runde. Angre tar bare tilbake dine egne trekk i denne turen.
+- Et lag som vinner alle stikkene (en chelem, som aldri meldes her), får 200 poeng ekstra.
+- Hver forsvarer betaler rundens verdi til budvinneren, eller får den. Med fem spillere og en makker tar budvinneren to andeler og makkeren én.

@@ -1,22 +1,20 @@
 Rummy med brikker
 # Målet
-Bli den første til å legge alle brikkene fra stativet ditt på bordet, i rekker og grupper. For 2 til 4 spillere. Hvert stativ er hemmelig: gi enheten videre etter hver tur. To spill å velge mellom: én runde, eller en kamp med like mange runder som det er spillere.
+Bli den første til å legge alle brikkene fra stativet ditt på bordet, i rekker og grupper.
 # Brikkene
-106 brikker: tallene 1 til 13 i fire farger, hvert to ganger, og to jokere. Hver spiller trekker 14 brikker; resten ligger med baksiden opp i potten.
+106 brikker: tallene 1 til 13 i fire farger, hvert to ganger, og to jokere. 14 brikker hver; resten ligger med baksiden opp i potten.
 # Kombinasjoner
 - En rekke: tre eller flere tall etter hverandre, alle i samme farge. 1 kommer ikke etter 13.
 - En gruppe: tre eller fire brikker med samme tall, alle i forskjellige farger.
 - En joker kan være hvilken som helst brikke.
 # En tur
 - Legg brikker fra stativet ditt: nye kombinasjoner, eller brikker lagt til kombinasjonene på bordet.
-- Omorganiser bordet som du vil: del kombinasjoner, slå dem sammen, flytt brikker fra én til en annen. Når turen din slutter, må hver kombinasjon på bordet være gyldig, og ingen brikke fra bordet kan gå tilbake til et stativ.
+- Omorganiser bordet som du vil (to raske trykk på en brikke tar opp hele kombinasjonen). Når turen din slutter, må hver kombinasjon være gyldig, og ingen brikke fra bordet kan gå tilbake til et stativ.
 - Vinn en joker tilbake ved å legge brikken den står for på plassen dens; bruk så jokeren i en annen kombinasjon i samme tur.
-- Kan eller vil du ikke legge noe, trekker du i stedet én brikke fra potten. Er potten tom, står du over.
+- Kan eller vil du ikke legge noe, trekker du én brikke fra potten; er den tom, står du over.
 # Den første utleggingen
-Den første utleggingen din må være verdt minst 30 poeng, bare med dine egne brikker og i én tur. En joker er verdt brikken den står for. Til da kan du ikke røre kombinasjonene på bordet.
+Den første utleggingen din må være verdt minst 30 poeng, bare med dine egne brikker og i én tur; en joker er verdt brikken den står for. Til da kan du ikke røre kombinasjonene på bordet.
 # Slutten på en runde
-Den første spilleren som tømmer stativet sitt, vinner runden og får brikkene som er igjen på de andre stativene: hvert tall sin verdi, en joker 30. De andre spillerne mister det som er igjen på sitt eget stativ. Er potten tom og alle står over etter tur, vinner det laveste stativet: hver av de andre mister differansen, og vinneren får den.
+Den første spilleren som tømmer stativet sitt, får brikkene som er igjen på de andre stativene: hvert tall sin verdi, en joker 30. De andre mister det som er igjen på sitt eget stativ. Er potten tom og alle står over etter tur, vinner det laveste stativet: hver av de andre mister differansen, og vinneren får den.
 # Slutten på spillet
-Én runde: vinneren av den vinner spillet. En kamp: like mange runder som spillere, og hver spiller begynner én. Høyeste sum vinner.
-# Spill på enheten
-Stativet ditt er nederst; sorteringsknappen sorterer det etter farge eller etter tall. Trykk på brikker for å ta dem opp, og trykk så på en kombinasjon for å legge dem der, på det tomme bordet for en ny kombinasjon, eller på stativet ditt for å ta tilbake dine egne brikker. To raske trykk på en brikke på bordet tar opp hele kombinasjonen. Du kan også dra brikkene. Ugyldige kombinasjoner lyser rødt. Fram til den første utleggingen viser telleren ved potten hva den er verdt så langt; den blir gullfarget ved 30. Angre tar tilbake det siste trekket ditt; tilbake-til-start-knappen tar tilbake hele turen. Haken avslutter turen din: den lyser opp så snart bordet er riktig. Trykk på potten for å trekke. Panelet til hver spiller viser hvor mange brikker de har (og i en kamp summen deres).
+Én runde: vinneren av den vinner. En kamp: like mange runder som spillere, og hver spiller begynner én; høyeste sum vinner.
