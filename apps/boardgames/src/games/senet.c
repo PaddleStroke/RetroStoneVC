@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "games/senet.h"
+#include "pages.h"
 #include "shell.h"
 
 #define COLS 10
@@ -387,7 +388,7 @@ static void draw_sticks(int q)
     if (rolling) ui_animate();
     else if (e >= 0) {
         stick_px(q, 4, &x, &y);
-        ui_number_rot(x, y, 0.62f * cs, G.ev[e], 1, rot);
+        ui_number_rot(x, y, 0.62f * cs, G.ev[e], TH.dark, rot);   /* (on the table: dark on the light one) */
     }
 }
 
