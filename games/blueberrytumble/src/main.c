@@ -290,6 +290,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more sky above the slope (draw.c, DESIGN.md) */
     save_load();
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);

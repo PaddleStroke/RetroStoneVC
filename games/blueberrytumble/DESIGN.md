@@ -248,6 +248,15 @@ on the right (origin 0), the berry sat too close to the left edge and the right 
   was (the course and its clock are in the state, the same at every width).
   tests/wide_test.sh checks live changes of width in a run and on the title, and states across widths.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
+display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits at the bottom of the
+screen (`rs_screen_origin_v`): the slope's soil already fills its foot, and the sheared playfield's 64 wrapping map
+rows hold no deeper soil to show below it. All the extra lines are above it (draw.c `raster_out`): the sky carried on
+from its top colour (the beat's pulse included), deeper toward the screen's top; the playfield, the far bands and the
+UI are hidden there (window 1: they would wrap round to their other rows), and line 0 puts the stage's masks back, so
+a 240-line screen is unchanged. Touch is the whole screen (games.cfg `touch=all:A`), so nothing else moves.
+
 ## Art and sound
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. Effects synthesised
 at start-up with the house synthesiser: squelch (splat), boing (pad), chime (dew drop), whoosh (glide), crunch

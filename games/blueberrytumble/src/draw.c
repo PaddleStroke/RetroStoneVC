@@ -158,9 +158,31 @@ static void sky_and_far(int32_t cam_x, int pulse)
     }
 }
 
+/* A tall screen (DESIGN.md "Tall screen"): the stage at the bottom of the screen (the slope's soil already fills its
+ * foot, and the sheared playfield's 64 wrapping map rows hold no deeper soil to show below it), all the extra lines
+ * above it: the sky carried on, deeper toward the screen's top, the layers hidden there (window 1 over the whole
+ * width; the playfield and the far bands would wrap round to their other rows). Line 0 puts the stage's masks back,
+ * so a 240-line screen is unchanged. */
+static void raster_out(int line)
+{
+    int top = rs_screen_top();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, RS_WIN1);
+    }
+    int k = line < 0 && top < 0 ? -line * 88 / -top : 0;    /* 0 at the stage's top .. 88 at the screen's */
+    rs_pal_set(0, hu_scale_color(line_col[line < 0 ? ((line & 4) ? 4 : 0) : RS_SCREEN_H - 1], 256 - k));
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H)     /* back from raster_out: the stage's own masks */
+        for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, 0);
     rs_pal_set(0, line_col[line]);
 }
 
@@ -200,6 +222,7 @@ void draw_init(void)
     hc.obj_pal = 3;
     hc.box_glyphs = " SCOREBESTNWMDALPYIG0123456789!:-+";   /* only the glyphs the panel uses (VRAM) */
     rs_screen_origin(wide_left());              /* widescreen: the left share of the extra columns (0 at 320) */
+    rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H);  /* a tall screen: the stage at the bottom, the sky above */
     hu_init(&hc);
     maps_setup();
     rs_tiles_load(VR_BG2, gm_pf_tiles, gm_pf_tile_count);
