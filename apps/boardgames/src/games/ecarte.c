@@ -21,6 +21,7 @@
 #include "cards_table.h"
 #include "games/ecarte.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 #define LIFT 0.16f                              /* the cards just drawn stand this much higher (card widths) */
@@ -233,7 +234,7 @@ static void draw_seats(void)
         float x, y;
         ct_seat_spot(&T, q, 0, &x, &y);
         if (q == o) x = T.sx[o] - (x - T.sx[o]);   /* the other side of the chip: the backs are on its right */
-        if (p->phase == EC_PLAY) ui_number(x, y, 0.5f * T.tok, p->won[q], 1);
+        if (p->phase == EC_PLAY) ui_number(x, y, 0.5f * T.tok, p->won[q], TH.dark);   /* ink on the light table */
         else if (p->phase <= EC_DISCARD && p->drew[q]) ct_badge(x, y, 0.95f * T.tok, p->drew[q]);
         if (p->king[q] && CARD_RANK(p->turned) != RANK_KING && p->phase == EC_PLAY) {
             ct_seat_spot(&T, q, 1, &x, &y);
