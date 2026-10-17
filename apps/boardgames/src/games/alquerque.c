@@ -203,12 +203,18 @@ static void draw(void)
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
     if (G.ply) {                                /* the last turn: a step, or every jump of its chain */
         int side = G.pos[G.ply - 1].side;
-        for (int k = G.ply - 1; k >= 0 && G.pos[k].side == side; k--) {
-            lines_mark_last(&L, aq_x(G.move[k].from), aq_y(G.move[k].from));
-            lines_mark_last(&L, aq_x(G.move[k].to), aq_y(G.move[k].to));
+        int k = G.ply - 1;                      /* round tints, like the discs; each point once */
+        for (; k >= 0 && G.pos[k].side == side; k--) {
+            pt_xy(G.move[k].to, &x, &y);
+            ui_mark_last_round(x, y, 0.96f * L.sq);
         }
+        pt_xy(G.move[k + 1].from, &x, &y);
+        ui_mark_last_round(x, y, 0.96f * L.sq);
     }
-    if (sel >= 0) lines_mark_select(&L, aq_x(sel), aq_y(sel));
+    if (sel >= 0) {
+        pt_xy(sel, &x, &y);
+        ui_mark_select_round(x, y, 0.96f * L.sq);
+    }
     float t = 1;
     if (anim.on) {
         t = (ui_ms() - anim.t0) / (float)(anim.m.over >= 0 ? JUMP_MS : STEP_MS);
