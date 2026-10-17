@@ -190,7 +190,8 @@ static void touch_read(pin *in)
         if (t->pressed || (!touch_btn_slot[i] && touch_stick_slot != i)) {
             int x0 = t->x0 - ox, y0 = t->y0;
             if (touch_on_button(&b, x0, y0)) {
-                if (!touch_btn_slot[i]) in->dash = 1;
+                /* only a finger going down slides (as A): not one held through a pause or a load */
+                if (!touch_btn_slot[i] && t->pressed) in->dash = 1;
                 touch_btn_slot[i] = 1;
             } else if (touch_stick_slot < 0 && touch_stick_zone(rs_screen_left(), rs_screen_width(), x0, y0)) {
                 touch_stick_slot = i;

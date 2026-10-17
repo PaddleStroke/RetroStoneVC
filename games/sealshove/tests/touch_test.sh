@@ -59,6 +59,10 @@ s=$(run both 150 "${START}125 touch 60 120\n126 move 86 120\n130 T2 tap-at 284 2
 a=$(run paused 220 "${START}120 tap SELECT\n130 touch 60 120\n131 move 86 120\n150 tap-at 284 202\n")
 p=$(run paused-still 220 "${START}120 tap SELECT\n")
 [ "$(field "$a" hash)" = "$(field "$p" hash)" ] && [ "$(field "$a" dashcd)" = 0 ] && ok "paused: the stick and the button do nothing" || ko "paused: $a"
+# ... nor a finger put on the DASH button while paused and still down after: only a finger going down slides (as A)
+a=$(run paused-held 220 "${START}120 tap SELECT\n130 touch 284 202\n150 tap SELECT\n")
+p=$(run paused-held-pad 220 "${START}120 tap SELECT\n130 A\n150 tap SELECT\n")
+[ "$(field "$a" hash)" = "$(field "$p" hash)" ] && [ "$(field "$a" dashcd)" = 0 ] && ok "a finger held on DASH through the pause does not slide after it (as A held)" || ko "held through the pause: $a"
 
 # the game over (player 1 walks off every round): a tap goes back to the title
 s=$(run over 20000 "" 320 "--opt bot=1 --opt botquit=1")
