@@ -234,10 +234,17 @@ static void draw(void)
     draw_trays();
     if (G.ply) {
         darmove m = G.move[G.ply - 1];
-        if (m.kind == DAR_MOVE) lines_mark_last(&L, m.from % DAR_W, m.from / DAR_W);
-        lines_mark_last(&L, m.to % DAR_W, m.to / DAR_W);
+        if (m.kind == DAR_MOVE) {               /* round marks round the holes */
+            hole_xy(m.from, &x, &y);
+            ui_mark_last_round(x, y, 0.98f * s);
+        }
+        hole_xy(m.to, &x, &y);
+        ui_mark_last_round(x, y, 0.98f * s);
     }
-    if (sel >= 0) lines_mark_select(&L, sel % DAR_W, sel / DAR_W);
+    if (sel >= 0) {
+        hole_xy(sel, &x, &y);
+        ui_mark_select_round(x, y, 0.98f * s);
+    }
     float t = 1;
     int ms = via_tray(anim.m) ? HAND_MS : anim.m.kind == DAR_TAKE ? TAKE_MS : anim.m.kind == DAR_PLACE ? DROP_MS
                                                                                                       : MOVE_MS;
@@ -255,7 +262,7 @@ static void draw(void)
     for (int h = 0; h < DAR_N; h++) {
         if (!p->c[h] || (drag.on && drag.moved && h == drag.from) || (anim.on && h == anim.m.to)) continue;
         hole_xy(h, &x, &y);
-        disc_at(p->c[h] - 1, x, y, 1, 1);
+        disc_at(p->c[h] - 1, x, y, h == sel && !(drag.on && drag.moved) ? 1.07f : 1, 1);   /* the selected: lifted */
     }
     if (anim.on) {
         darmove m = anim.m;
