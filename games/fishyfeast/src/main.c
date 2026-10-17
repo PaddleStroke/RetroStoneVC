@@ -198,11 +198,12 @@ static void touch_read(pin *in)
         TV.seen = 1;
         if (t->pressed || (!touch_btn_slot[i] && touch_stick_slot != i)) {
             int x0 = t->x0 - ox, y0 = t->y0;
+            /* a button presses as the finger goes down (not again for one still down after a pause or a load) */
             if (touch_on_button(&bs, x0, y0)) {
-                if (!touch_btn_slot[i]) in->split = 1;
+                if (t->pressed) in->split = 1;
                 touch_btn_slot[i] = 1;
             } else if (touch_on_button(&be, x0, y0)) {
-                if (!touch_btn_slot[i]) in->eject = 1;
+                if (t->pressed) in->eject = 1;
                 touch_btn_slot[i] = 2;
             } else if (touch_stick_slot < 0 && touch_stick_zone(&v, x0, y0)) {
                 touch_stick_slot = i;

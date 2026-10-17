@@ -398,7 +398,9 @@ static void burst(world *w, int i, int u)
 {
     cell *c = &w->c[i];
     owner *ow = &w->own[c->owner];
-    int free = SPLIT_MAX - ow->ncells, n = free + 1 < BURST_PIECES ? free + 1 : BURST_PIECES;
+    int free = SPLIT_MAX - ow->ncells, n = free + 1 < BURST_PIECES ? free + 1 : BURST_PIECES, pool = 0;
+    for (int j = 0; j < MAX_CELLS; j++) pool += !w->c[j].on;
+    if (n > pool + 1) n = pool + 1;             /* the cell pool is (almost) full: fewer pieces, no mass lost */
     int32_t ux = c->x - w->u[u].x * FX, uy = c->y - w->u[u].y * FX;
     w->u[u].shake = 30;
     fx_add(w, c->x, c->y, c->r, FX_BURST);
@@ -566,6 +568,8 @@ static void touch_cells(world *w)
                 a->y -= (int32_t)((int64_t)uy * pa / 256);
                 b->x += (int32_t)((int64_t)ux * pb / 256);
                 b->y += (int32_t)((int64_t)uy * pb / 256);
+                pond_clamp(&a->x, &a->y, a->r / 2);     /* not pushed out of the pond */
+                pond_clamp(&b->x, &b->y, b->r / 2);
                 continue;
             }
             if (can_eat(a->mass, b->mass) && d <= a->r - b->r * EAT_COVER / 100) eat(w, i, j);
@@ -649,6 +653,7 @@ static void totals(world *w)
             }
         } else if (ow->kind == OW_BOT && ow->respawn_t > 0 && !--ow->respawn_t) {
             spawn(w, o, START_MASS + rnd(w, BOT_RESPAWN_MASS));
+            if (!ow->alive) ow->respawn_t = 1;  /* the cell pool was full: again next frame */
         }
     }
     if (leader != w->leader && leader >= 0 && leader < MAX_PLAYERS && w->own[leader].mass >= TOP_MIN_MASS * MQ) {

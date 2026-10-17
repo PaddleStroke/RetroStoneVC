@@ -60,6 +60,11 @@ s=$(run both 100 "${START}50 touch 60 120\n51 move 88 120\n60 T2 tap-at 290 206\
 # pause: the fingers do nothing
 a=$(run paused 200 "${START}50 tap SELECT\n60 touch 60 120\n61 move 88 120\n90 tap-at 290 206\n")
 [ "$(field "$a" x)" = "$x0" ] && [ "$(field "$a" cells)" = 1 ] && ok "paused: the stick and the buttons do nothing" || ko "paused: $a"
+# a finger left down on a button through a pause does not press it again as the game goes on
+a=$(run unpause 200 "${START}40 touch 290 206\n50 tap SELECT\n100 tap SELECT\n180 up\n" 320 "--opt mass=100")
+b=$(run unpause2 200 "${START}50 tap SELECT\n60 touch 290 206\n100 tap SELECT\n180 up\n" 320 "--opt mass=100")
+[ "$(field "$a" cells)" = 2 ] && [ "$(field "$b" cells)" = 1 ] && ok "a finger held on SPLIT through a pause: no new split" ||
+    ko "held through a pause: $a / $b"
 
 # the game over (the bot gives up from mass 20): a tap goes back to the title
 s=$(run over 12000 "" 320 "--opt bot=1 --opt botstop=20")

@@ -410,6 +410,74 @@ static void test_bots(void)
     CHECK(best >= 60, "the player bot grows: best %d", best);
 }
 
+/* regressions found by the bug hunt */
+static int in_pond(const cell *c)
+{
+    int32_t x = c->x, y = c->y;
+    int px = PX(x), py = PX(y), x0, x1;
+    return pond_span(py, &x0, &x1) && px >= x0 && px <= x1;
+}
+
+/* fill the free cells of the pool with tiny frozen bot pieces far from (x, y) px, leaving `left` free */
+static void fill_pool(world *w, int x, int y, int left)
+{
+    int free = 0;
+    for (int i = 0; i < MAX_CELLS; i++) free += !w->c[i].on;
+    for (int k = 0; free > left; k++) {
+        int fx = 100 + (k % 40) * 40, fy = 100 + (k / 40) * 40;
+        if (fy > POND_H - 100 || (fx - x) * (fx - x) + (fy - y) * (fy - y) < 200 * 200) {
+            if (fy > POND_H - 100) break;
+            continue;
+        }
+        int o = MAX_PLAYERS + k % BOTS;
+        put(w, o, fx, fy, 2);
+        w->own[o].think_t = 30000;
+        free--;
+    }
+}
+
+static void test_regressions(void)
+{
+    /* the pond's edge: pieces of one fish pushing apart never leave the pond (they were pushed past the rim) */
+    lone(&W, 1);
+    int a = put(&W, 0, POND_W - 20, 700, 300), b = put(&W, 0, POND_W - 30, 703, 300);
+    W.c[a].merge_t = W.c[b].merge_t = 500;
+    idle();
+    int out = 0;
+    for (int k = 0; k < 30; k++) {
+        world_step(&W, in);
+        out += !in_pond(&W.c[a]) || !in_pond(&W.c[b]) || W.c[a].x > (POND_W * FX - W.c[a].r / 2) ||
+               W.c[b].x > (POND_W * FX - W.c[b].r / 2);
+    }
+    CHECK(!out, "pieces pushing apart at the pond's edge stay in the pond (%d frames out)", out);
+    /* a burst with the cell pool almost full: no mass lost (the pieces the pool cannot hold stay in the fish) */
+    lone(&W, 1);
+    int ux = W.u[0].x, uy = W.u[0].y;
+    put(&W, 0, ux + 30, uy, 400);
+    fill_pool(&W, ux, uy, 3);
+    int free = 0;
+    for (int i = 0; i < MAX_CELLS; i++) free += !W.c[i].on;
+    steps(&W, 1);
+    CHECK(free == 3 && W.bursts == 1 && pieces(&W, 0) == 4, "a burst in a full pool: 4 pieces (%d free, %d pieces)", free,
+          pieces(&W, 0));
+    CHECK(total(&W, 0) >= 398, "...and no mass lost (%d)", total(&W, 0));
+    /* an eaten bot comes back even when the pool was full at its respawn time */
+    lone(&W, 1);
+    put(&W, 0, 900, 700, 20);
+    fill_pool(&W, 900, 700, 0);
+    W.own[6].alive = 0;
+    W.own[6].ncells = 0;
+    W.own[6].respawn_t = 1;
+    for (int i = 0; i < MAX_CELLS; i++)                 /* bot 6's filler pieces go to bot 5 */
+        if (W.c[i].on && W.c[i].owner == 6) W.c[i].owner = 5;
+    steps(&W, 2);
+    CHECK(!W.own[6].alive, "a full pool: the bot cannot come back yet");
+    for (int i = 0, n = 0; i < MAX_CELLS && n < 4; i++)
+        if (W.c[i].on && W.c[i].owner == 5) { W.c[i].on = 0; n++; }
+    steps(&W, 2);
+    CHECK(W.own[6].alive && pieces(&W, 6) == 1, "...it comes back once there is room (alive %d)", W.own[6].alive);
+}
+
 static void test_views_touch(void)
 {
     vrect v[4];
@@ -453,6 +521,7 @@ int main(void)
     test_urchin();
     test_decay();
     test_bots();
+    test_regressions();
     test_views_touch();
     printf("fishyfeast rules: %d checks, %d failed\n", checks, fails);
     if (!fails) printf("  ok   the rules\n");
