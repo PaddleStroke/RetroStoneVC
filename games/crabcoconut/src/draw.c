@@ -34,7 +34,28 @@ static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewp
  for(int y=y0;y<=y1;y++)for(int x=x0;x<=x1;x++)p[y*PIX_W+x]=(uint8_t)color;
 }
 #include "theme.inc"
-static void raster(int line,void *user){(void)user;int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);}
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the court's 240 lines in the middle,
+ * drawn on the whole screen (no viewport); the lines past them are the raster's. Above: the sky carried on, deeper
+ * toward the top; below: the sand, BG2's last 16 lines (the grains and the side walls) repeated. The UI, the beach and
+ * the sprites are hidden there (window 1 over the whole width); line 0 puts the stage's settings back. */
+static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
+static int bg2_sx(void){return (V[0].mx*8-VP[0].x)&(rs_bg_map_w(RS_BG2)*8-1);}
+static void raster_out(int line){
+ int top=rs_screen_top(),bot=rs_screen_bottom();
+ if(line==top || line==RS_SCREEN_H){
+  rs_window(0,rs_screen_left(),rs_screen_right());
+  for(int l=0;l<3;l++)rs_bg_window(l,l==RS_BG2 && line>0?0:RS_WIN1);
+  rs_obj_window(RS_WIN1);
+ }
+ if(line<0){int k=top<0?-line*256/-top:0;rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(104,170,214),k));return;}
+ int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H;
+ rs_pal_set(0,hu_lerp_color(theme_pal[2],theme_pal[3],n>0?d*96/n:0));
+ rs_bg_scroll(RS_BG2,bg2_sx(),RS_SCREEN_H-16+(d&15)-line);
+}
+static void raster(int line,void *user){(void)user;
+ if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
+ if(line==0 && tall()){for(int l=0;l<3;l++)rs_bg_window(l,0);rs_obj_window(0);rs_bg_scroll(RS_BG2,bg2_sx(),0);}
+ int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);}
 /* the maps of this width: 64 tiles at 320; 128 wider (the UI's corner tags, the sand as wide as the screen, the wide
  * beach and its own tiles, the blank tile after them) */
 static void maps_setup(void){
@@ -81,6 +102,7 @@ static void foreground(const world *w,int p,const view *v,const rs_viewport *vp,
 static void icon(int p,int cx,int cy,int t,void *user){(void)user;rs_viewport vp={0};vp.w=320;vp.h=240;spr(SPR_HERO_ICON,cx-8,cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);nviews=rs_viewport_layout(1,0,VP);
+ if(tall()){VP[0].y=0;VP[0].h=RS_SCREEN_H;}   /* a tall screen: the view is the court's 240 lines (raster_out) */
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++){
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
@@ -111,6 +133,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   /* the global scrolls: the sand layer's view column 0 at the view's left edge, the beach in stage coordinates */
   rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,(V[0].mx*8-vp->x)&(rs_bg_map_w(RS_BG2)*8-1),0);
   rs_bg_scroll(RS_BG3,(vp->sx[2]-vp->x)&(rs_bg_map_w(RS_BG3)*8-1),vp->sy[2]);rs_viewports(0,NULL,0);
+ }else if(tall()){   /* a tall screen (320 wide: the view at x 0, the same scrolls): drawn whole, for raster_out */
+  rs_bg_scroll(RS_BG1,0,0);rs_bg_scroll(RS_BG2,bg2_sx(),0);
+  rs_bg_scroll(RS_BG3,(VP[0].sx[2]-VP[0].x)&(rs_bg_map_w(RS_BG3)*8-1),VP[0].sy[2]);rs_viewports(0,NULL,0);
  }else rs_viewports(nviews,VP,RS_HEX(0x29364a));
  shown_state=state;shown_best=best;
 }

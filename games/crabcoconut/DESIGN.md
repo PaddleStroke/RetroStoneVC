@@ -86,3 +86,13 @@ The game opts in (`max_width` = 560, `WIDESCREEN_crabcoconut = 1`): 320 x 240 is
   strict mode included: VRAM, sprites per line), then tests/wide_test.sh and the language test at 320, 427 and 520;
   `make crabcoconut-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
   (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+
+The game opts in (`rs_screen_tall(RS_SCREEN_H_MAX)` in game_init): a phone held upright gives 320 x up to 720
+lines; the 240-line court stays centred, the same pixels, and a 240-line screen (landscape, 4:3, wide) is unchanged.
+- **More beach**: above the court, the sky carried on, deeper toward the top; below it, the sand with its grains and
+  the court's side walls (BG2's last 16 lines repeated). The raster draws these lines (raster_out); the UI, the far
+  beach and the sprites are hidden there (window 1), line 0 puts the court's settings back.
+- **One view**: the view of rs_viewport_layout is the court's 240 lines, and a tall screen draws it without a
+  viewport even with several players (at 320 columns the view is the whole court at x 0, the same scrolls).
