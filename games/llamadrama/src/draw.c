@@ -33,9 +33,46 @@ static rs_color line_col[RS_SCREEN_H], star_col[RS_SCREEN_H];
 static int shown_key = -1, shown_best = -1, sky_key = -1;
 static int drawn_width;                        /* the width the maps and the UI were set up for */
 
+/* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: the sky carried on, deeper toward
+ * the screen's top, with the stars of the scenery's top rows (BG2's map y 0..23 repeated, each band shifted); below:
+ * the meadow's flowers (its last 32 lines repeated, each band shifted). The UI and the sprites are hidden there
+ * (window 1 over the whole width: a panel sliding in shows only on the stage); line 0 puts the stage's windows and
+ * BG2 scroll back, so a 240-line screen is unchanged. */
+#define TALL_SKY_BAND 24
+#define TALL_GRASS_Y 208
+static void raster_out(int line)
+{
+    int top = rs_screen_top(), pm = rs_bg_map_w(RS_BG2) * 8 - 1, sx = hu_shake_x();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_obj_window(RS_WIN1);
+    }
+    if (line < 0) {
+        int k = top < 0 ? -line * 80 / -top : 0;            /* 0 at the stage's top .. 80 at the screen's */
+        rs_color c = hu_scale_color(line_col[(line & 4) ? 4 : 0], 256 - k);
+        rs_pal_set(0, c);
+        rs_pal_set(RS_PAL_BG(PAL_MTN) + IDX_STAR, star_col[0] == line_col[0] ? c : star_col[0]);
+        int band = (-line - 1) / TALL_SKY_BAND, m = TALL_SKY_BAND - 1 - (-line - 1) % TALL_SKY_BAND;
+        rs_bg_scroll(RS_BG2, (band * 197 - sx) & pm, (m - line) & 255);
+    } else {
+        int d = line - RS_SCREEN_H, band = d / 32;
+        rs_bg_scroll(RS_BG2, ((band + 1) * 139 - sx) & pm, (TALL_GRASS_Y + d % 32 - line) & 255);
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
+        rs_bg_window(RS_BG1, 0);
+        rs_obj_window(0);
+        rs_bg_scroll(RS_BG2, (-hu_shake_x()) & (rs_bg_map_w(RS_BG2) * 8 - 1), (-hu_shake_y()) & 255);
+    }
     rs_pal_set(0, line_col[line]);
     rs_pal_set(RS_PAL_BG(PAL_MTN) + IDX_STAR, star_col[line]);
 }
@@ -108,6 +145,9 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(view_left());      /* widescreen: a third of the extra width behind, two thirds ahead */
+    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (more sky), a third below (the
+     * meadow) */
+    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;

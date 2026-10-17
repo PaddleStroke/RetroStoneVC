@@ -122,6 +122,16 @@ Tests: the rules test checks every hornet of a long two-bot run appears beyond t
 x 336; the touch test plays the same taps and the same bot run at 320, 427, 520 and 560 and compares them; a state saved
 at one width loads at another.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
+display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: two thirds of the extra lines above it). Above (draw.c `raster_out`): the sky carried on from
+its top colour, deeper toward the screen's top, with the stars of the scenery's top rows (BG2's map y 0..23 repeated,
+each band shifted sideways); below: the meadow's flowers (its last 32 lines repeated, each band shifted). The UI and
+the sprites are hidden there (window 1: a panel sliding in shows only on the stage), and line 0 puts the stage's
+windows and BG2 scroll back, so a 240-line screen is unchanged. A touch's aim point is taken in stage coordinates
+(`t->y - rs_screen_origin_y()`), so a tap in the sky above the stage aims there.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the meadow, the herd waiting on the left and looking around, a hornet buzzing on the right, the player
 slots under the logo, PRESS A TO SPIT with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (the
