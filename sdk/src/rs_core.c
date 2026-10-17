@@ -20,8 +20,13 @@
 
 static const rs_game *g_game;
 static uint32_t g_frame;
-static uint16_t g_fb[RS_SCREEN_W_MAX * RS_SCREEN_H];
+/* the widest screen, or the tallest (a tall screen is RS_SCREEN_W wide) */
+#define FB_PIXELS (RS_SCREEN_W_MAX * RS_SCREEN_H > RS_SCREEN_W * RS_SCREEN_H_MAX ? RS_SCREEN_W_MAX * RS_SCREEN_H \
+                                                                             : RS_SCREEN_W * RS_SCREEN_H_MAX)
+static uint16_t g_fb[FB_PIXELS];
 static int      g_req_width = RS_SCREEN_W;      /* the width the frontend asked for (rs_host_set_width) */
+static int      g_req_height = RS_SCREEN_H;     /* the height it asked for (rs_host_set_height) */
+static int      g_tall_max;                     /* the running game's rs_screen_tall() (0: none) */
 static int16_t  g_audio[(RS_AUDIO_RATE / RS_FPS + 2) * 2];
 static int      g_audio_frames;
 static uint16_t g_pad[RS_PAD_MAX], g_pad_prev[RS_PAD_MAX];
@@ -244,7 +249,7 @@ static int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v;
 
 static void touch_step(void)
 {
-    int w = rs_screen_width();
+    int w = rs_screen_width(), h = rs_screen_height();
     uint8_t seen[RS_TOUCH_MAX] = {0};
     for (int s = 0; s < RS_TOUCH_MAX; s++) {
         rs_touch_point *p = &g_touch[s];
@@ -262,7 +267,7 @@ static void touch_step(void)
         }
         seen[f] = 1;
         p->x = (int16_t)clampi(g_tin[f].x, 0, w - 1);
-        p->y = (int16_t)clampi(g_tin[f].y, 0, RS_SCREEN_H - 1);
+        p->y = (int16_t)clampi(g_tin[f].y, 0, h - 1);
         if (p->frames < 0xffff) p->frames++;
         int dx = p->x - p->x0, dy = p->y - p->y0;
         if (dx * dx + dy * dy > RS_TOUCH_SLOP * RS_TOUCH_SLOP) p->moved = 1;
@@ -290,7 +295,7 @@ static void touch_step(void)
         g_touch_busy[s] = 1;
         g_touch_id[s] = g_tin[i].id;
         p->x = p->x0 = (int16_t)clampi(g_tin[i].x, 0, w - 1);
-        p->y = p->y0 = (int16_t)clampi(g_tin[i].y, 0, RS_SCREEN_H - 1);
+        p->y = p->y0 = (int16_t)clampi(g_tin[i].y, 0, h - 1);
         p->down = p->pressed = 1;
         g_hist[s][0][0] = p->x;
         g_hist[s][0][1] = p->y;
@@ -395,9 +400,30 @@ int rs_host_width_for_aspect(int num, int den)
     return clamp_width((int)(((long)RS_SCREEN_H * num * 2 + den) / (2L * den)));
 }
 
+/* ---- tall screen --------------------------------------------------------------------------------------------- */
+static int clamp_height(int h) { return h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h; }
+void rs_host_set_height(int h) { g_req_height = clamp_height(h); }
+int rs_host_height_for(const rs_game *g, int w, int h)
+{
+    if (rs_host_width_for(g, w) != RS_SCREEN_W) return RS_SCREEN_H;   /* tall at 320 columns only */
+    int mx = !g ? RS_SCREEN_H_MAX : g == g_game && g_tall_max ? g_tall_max : RS_SCREEN_H;
+    h = clamp_height(h);
+    return h < mx ? h : mx;
+}
+/* the game's opt-in, from its init(): the height now, the stage centred (ppu_reset's origin for this height) */
+int rs_screen_tall(int max_height)
+{
+    g_tall_max = clamp_height(max_height);
+    ppu_set_height(rs_host_height_for(g_game, g_req_width, g_req_height));
+    rs_screen_origin_v(rs_screen_vmargin());
+    return rs_screen_height();
+}
+
 void rs_host_reset(void)
 {
     ppu_set_width(rs_host_width_for(g_game, g_req_width));
+    g_tall_max = 0;                             /* 240 lines until the game opts in (rs_screen_tall) */
+    ppu_set_height(RS_SCREEN_H);
     ppu_reset();
     apu_reset();
     text_reset();
@@ -422,6 +448,7 @@ int rs_host_init(const rs_game *game)
                g_strict ? " (strict)" : "");
     assets_check();
     if (game->init) game->init();
+    if (rs_screen_height() != RS_SCREEN_H) rs_log("tall screen: %dx%d", rs_screen_width(), rs_screen_height());
     return 0;
 }
 
@@ -436,28 +463,36 @@ void rs_host_shutdown(void)
 
 void rs_host_render(void) { ppu_render(g_fb); }
 
-int rs_host_change_width(int width)
+int rs_host_change_width(int width) { return rs_host_change_size(width, g_req_height); }
+
+int rs_host_change_size(int width, int height)
 {
     const rs_game *g = g_game;
-    int cur = rs_screen_width();
-    if (!g) { rs_host_set_width(width); return cur; }
-    int want = rs_host_width_for(g, width);
-    if (want == cur) { g_req_width = clamp_width(width); return cur; }
+    int cur = rs_screen_width(), cur_h = rs_screen_height();
+    if (!g) { rs_host_set_width(width); rs_host_set_height(height); return cur; }
+    int want = rs_host_width_for(g, width), want_h = rs_host_height_for(g, width, height);
+    if (want == cur && want_h == cur_h) {
+        g_req_width = clamp_width(width);
+        g_req_height = clamp_height(height);
+        return cur;
+    }
     size_t size = rs_host_state_size(g);
     void *buf = size ? malloc(size) : NULL;
     if (!buf || !rs_host_state_save(buf, size)) {
-        rs_log("the width stays %d: the game has no save state to restart from", cur);
+        rs_log("the size stays %dx%d: the game has no save state to restart from", cur, cur_h);
         free(buf);
         return cur;
     }
-    int old_req = g_req_width;
+    int old_req = g_req_width, old_req_h = g_req_height;
     rs_host_shutdown();
     g_req_width = clamp_width(width);
+    g_req_height = clamp_height(height);
     rs_host_init(g);
-    if (rs_host_state_load(buf, size)) {           /* refused at the new width: back to the old one */
-        rs_log("the state did not load at width %d: back to %d", rs_screen_width(), cur);
+    if (rs_host_state_load(buf, size)) {           /* refused at the new size: back to the old one */
+        rs_log("the state did not load at %dx%d: back to %dx%d", rs_screen_width(), rs_screen_height(), cur, cur_h);
         rs_host_shutdown();
         g_req_width = old_req;
+        g_req_height = old_req_h;
         rs_host_init(g);
         rs_host_state_load(buf, size);
     }

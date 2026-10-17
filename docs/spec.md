@@ -64,6 +64,31 @@ columns, chosen by the frontend at start-up**: 320 = 4:3 (the default: the Retro
 
 **SNES mapping.** None: the SNES is 4:3. A port runs a widescreen game at 320 (256) columns, its 4:3 stage.
 
+### Tall screen
+The same idea for a phone held upright (portrait). **The width stays 320; the height is flexible, from 240 to 720
+lines (`RS_SCREEN_H_MAX`), chosen by the frontend**: 693 on a 9:19.5 phone. A game that does not opt in always runs
+at 240: a tall frontend shows its 4:3 picture across the width, centred, the lines above and below filled with a dim
+blurred copy of its edges, and the touch buttons in the space below it (apps/launcher/src/rsb_sdl.c).
+
+- **Opting in.** A game calls `rs_screen_tall(RS_SCREEN_H_MAX)` first in its `init()` (a call, not a descriptor
+  field: the games' descriptors stay as they are) and draws whatever `rs_screen_height()` says. Only at 320 columns:
+  a screen is wide or tall, never both. Before its call (and in a game that never calls it) the screen is 240.
+- **The API.** `rs_screen_height()` (fixed for a run), `rs_screen_vmargin()` = (height - 240) / 2.
+  `rs_screen_origin_v(y)` sets the stage's vertical origin, the screen line of stage y 0; **by default the stage is
+  centred** (origin = vmargin), where a 4:3 game would be, so the frontend's touch buttons sit below it. The screen
+  shows stage y `rs_screen_top()` .. `rs_screen_bottom()` - 1. Sprites, viewports (and the standard layouts) and the
+  BG scroll are in stage coordinates, and so are the raster callback's lines: they run from `rs_screen_top()`
+  (negative) to `rs_screen_bottom()` - 1, so a raster that indexes a 240-entry table must clamp the line. The
+  line-scroll tables keep 240 entries (stage lines): the lines past the stage get no line scroll. Touches are in
+  screen pixels (y 0 .. height - 1; the stage y is y - `rs_screen_origin_y()`).
+- **What a game draws there.** More of its decor: more sky above, more ground or water below (the raster's first
+  and last colours carried on, a BG layer's map taller than 240 lines, or rows filled for the extra lines). The
+  gameplay and the 240 lines of the stage stay the same pixels. Games/beaverrush is the example.
+- **Frontends.** The RetroStone app's Arcade tab and the Arcade app (rsb_sdl.c) ask for the height of the display at
+  320 columns (`rs_host_set_height()` before `rs_host_init()`, `rs_host_change_size()` when the phone turns: the game
+  restarts from a save state, like a width change). The other frontends never ask: 240.
+- **Save states load at any height**, as at any width (the height is not part of a state).
+
 **SNES mapping.** The SNES shows 256x224 (NTSC). A port keeps 60 Hz but loses 64 columns and 16 lines: a
 Bomber Mole playfield of 20x14 cells becomes 16x14 visible cells with horizontal scrolling, and the 16-px HUD
 fits in the 224 lines.

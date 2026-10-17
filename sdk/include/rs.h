@@ -29,6 +29,10 @@ extern "C" {
 #define RS_SCREEN_H   240
 #define RS_SCREEN_W_MIN 320
 #define RS_SCREEN_W_MAX 560
+/* Tall screen (docs/spec.md "Tall screen": a phone held upright): the width stays 320, the height is chosen by the
+ * frontend, RS_SCREEN_H..RS_SCREEN_H_MAX (240 = 4:3, 693 = 9:19.5), for the games that opt in (rs_screen_tall()
+ * in init()); the others always run at 240 (tall frontends letterbox them). */
+#define RS_SCREEN_H_MAX 720
 #define RS_FPS        60
 #define RS_AUDIO_RATE 32000
 
@@ -68,7 +72,7 @@ const rs_game *rs_game_main(void);
 /* ---- Widescreen ------------------------------------------------------- */
 /* The screen's width in pixels: RS_SCREEN_W, or wider for a game that opts in (rs_game.max_width) on a wide
  * frontend. Fixed for a run: set before init() (a frontend that changes it restarts the game from a save state).
- * The height is always RS_SCREEN_H. */
+ * The height is RS_SCREEN_H (a tall screen: rs_screen_height()). */
 int  rs_screen_width(void);
 /* (width - RS_SCREEN_W) / 2: the columns on each side of a centred 320-px stage (0 at 320). */
 int  rs_screen_margin(void);
@@ -81,6 +85,30 @@ void rs_screen_origin(int x);
 int  rs_screen_origin_x(void);
 int  rs_screen_left(void);      /* the stage x of the screen's first column (-origin) */
 int  rs_screen_right(void);     /* the stage x just past its last column (width - origin) */
+
+/* ---- Tall screen ------------------------------------------------------ */
+/* Opting in (docs/spec.md "Tall screen"): the game draws a screen up to max_height lines tall (RS_SCREEN_H..
+ * RS_SCREEN_H_MAX, usually RS_SCREEN_H_MAX) when the frontend has one (portrait). Call it FIRST in init(), before
+ * anything that reads the screen's size; it returns rs_screen_height(). A game that opts in draws whatever
+ * rs_screen_height() says (its 240-line stage centred: rs_screen_origin_y()), and its save states load at any height.
+ * Without the call, a game always runs at 240 lines (the frontend letterboxes it). */
+int  rs_screen_tall(int max_height);
+/* The screen's height in lines: RS_SCREEN_H, or taller for a game that opts in (rs_screen_tall) on a tall frontend
+ * (portrait; the width is then RS_SCREEN_W). Fixed for a run, like the width. */
+int  rs_screen_height(void);
+/* (height - RS_SCREEN_H) / 2: the lines above and below a centred 240-line stage (0 at 240). */
+int  rs_screen_vmargin(void);
+/* The stage's vertical origin: the screen line of stage y 0, rs_screen_vmargin() by default (the stage centred:
+ * where the frontend shows a 4:3 game, the touch buttons below it). Sprites, viewports and the BG layers' scroll
+ * are in stage coordinates (screen y = stage y + origin_y); so are the raster callback's lines (from
+ * rs_screen_top(), negative above the stage, to rs_screen_bottom() - 1) and the line-scroll tables (240 entries:
+ * the lines above and below the stage get no line scroll). Touches stay in screen pixels. A setting like the
+ * width, not saved in states: set it in init(). A game that opts in fills the lines past the stage with more of
+ * its decor (more sky above, more ground below). */
+void rs_screen_origin_v(int y);
+int  rs_screen_origin_y(void);
+int  rs_screen_top(void);       /* the stage y of the screen's first line (-origin_y) */
+int  rs_screen_bottom(void);    /* the stage y just past its last line (height - origin_y) */
 
 /* ---- Runtime ---------------------------------------------------------- */
 void        rs_log(const char *fmt, ...);
@@ -176,7 +204,8 @@ void      rs_bg_fill(int layer, uint16_t entry);
 void      rs_bg_meta(int layer, int mx, int my, const uint16_t meta[4]);
 void      rs_bg_scroll(int layer, int x, int y);
 /* HDMA-like per-scanline scroll offsets (added to the layer scroll), 240
- * entries each, or NULL. The tables are read during rendering. */
+ * entries each (stage lines: a tall screen's lines past the stage get none),
+ * or NULL. The tables are read during rendering. */
 void      rs_bg_line_scroll(int layer, const int16_t *dx, const int16_t *dy);
 
 /* Affine (Mode-7-like) mode for one layer at a time. Matrix in 8.8 fixed
@@ -260,7 +289,7 @@ int        rs_spr(int x, int y, int tile, int w, int h, int pal, int prio, int f
  * the rectangle. Later viewports are drawn over earlier ones (an overlay box is a viewport); screen pixels
  * that no viewport covers show the divider colour. The raster callback runs for each line AND each viewport
  * crossing it (rs_viewport_current() tells which); windows stay in screen columns. Line-scroll tables still
- * apply (by screen line); an affine layer ignores the viewports' scroll. Rectangles are in stage coordinates
+ * apply (by stage line); an affine layer ignores the viewports' scroll. Rectangles are in stage coordinates
  * (widescreen: screen x - origin). n = 0 (the default) = one full screen
  * with the layers' global scroll and every sprite. Cost: about the same pixels as one screen, plus one 8-px
  * tile per layer and viewport on each line (docs/spec.md, "Viewports"). */
@@ -313,7 +342,8 @@ int      rs_pad_device(int port);
 
 /* ---- Touch (a pointer: phones, the desktop's mouse) ------------------------------------------------------------
  * Up to RS_TOUCH_MAX fingers, for PLAYER 1 (players 2-4 are pads), docs/spec.md "Touch". Positions are SCREEN pixels
- * of the current width: x 0..rs_screen_width()-1, y 0..239 (the stage x is x - rs_screen_origin_x()); the frontend
+ * of the current size: x 0..rs_screen_width()-1, y 0..rs_screen_height()-1 (239; the stage x is x -
+ * rs_screen_origin_x(), the stage y y - rs_screen_origin_y()); the frontend
  * maps the display through its scaling and borders. Each finger keeps its slot while it is down. Frontends: SDL2 (the
  * touch screen, and the mouse's left button as one finger), the Android app (the touches, for a game that declares
  * rs_game.touch_native), the headless runner (scripted), libretro (RETRO_DEVICE_POINTER on port 1, when the frontend

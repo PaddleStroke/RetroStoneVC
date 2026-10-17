@@ -36,6 +36,15 @@ int  rs_host_width_for(const rs_game *game, int width);
 int  rs_host_change_width(int width);
 /* The desktop and frontend helper: the width for a picture of aspect num:den at 240 lines (16:9 -> 427). */
 int  rs_host_width_for_aspect(int num, int den);
+/* Tall screen (docs/spec.md "Tall screen"), the same way: the frontend asks for a height (clamped to
+ * RS_SCREEN_H..RS_SCREEN_H_MAX; 240 by default) before rs_host_init(); a game that opts in (rs_screen_tall(max) in
+ * its init()) gets the smaller of it and max, and only at the width RS_SCREEN_W; the others 240.
+ * rs_host_height_for() tells the height a game would get: the running game's (its call), 240 for another one, any
+ * for NULL (no game). rs_host_change_size() changes both live (as rs_host_change_width; it returns the width in use,
+ * rs_screen_height() tells the height). */
+void rs_host_set_height(int height);
+int  rs_host_height_for(const rs_game *game, int width, int height);
+int  rs_host_change_size(int width, int height);
 
 /* Starts the runtime and calls the game's init(). */
 int  rs_host_init(const rs_game *game);
@@ -48,7 +57,7 @@ void rs_host_set_pad(int port, uint16_t buttons, int connected);
 void rs_host_set_pad_device(int port, int device);
 /* Development function key for the next frame (1..10 = F1..F10, 0 = none): rs_dev_key(). */
 void rs_host_set_dev_key(int key);
-/* Touch (docs/spec.md "Touch"): the fingers down now, player 1, in SCREEN pixels of rs_screen_width() x 240 (the
+/* Touch (docs/spec.md "Touch"): the fingers down now, player 1, in SCREEN pixels of rs_screen_width() x rs_screen_height() (the
  * frontend maps its display through its scaling and borders; values outside are clamped). id: any number that stays
  * the same while the finger is down. Kept until the next call (like the pads): call it before each rs_host_frame();
  * n = 0 lifts them all. The runtime gives the fingers their slots and works out the edges, taps, swipes and holds at
@@ -61,7 +70,8 @@ void rs_host_frame(void);
 /* Renders the current PPU state only (tests). */
 void rs_host_render(void);
 
-const uint16_t *rs_host_framebuffer(void);  /* RGB565, rs_screen_width() x 240, pitch = the width (320 by default) */
+/* RGB565, rs_screen_width() x rs_screen_height() (240 by default), pitch = the width (320 by default) */
+const uint16_t *rs_host_framebuffer(void);
 /* Audio produced by the last frame (533 or 534 stereo frames). */
 const int16_t  *rs_host_audio(int *frames);
 

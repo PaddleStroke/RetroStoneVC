@@ -15,9 +15,11 @@
 #endif
 
 /* PPU */
-void ppu_reset(void);                   /* the registers; the width stays (ppu_set_width), the origin goes back to 0 */
+void ppu_reset(void);                   /* the registers; the size stays (ppu_set_width, _height), the origin goes back to
+                                         * 0, the vertical one to the stage centred (rs_screen_vmargin) */
 void ppu_set_width(int w);              /* RS_SCREEN_W_MIN..RS_SCREEN_W_MAX */
-void ppu_render(uint16_t *fb);          /* rs_screen_width() x 240 RGB565, pitch = the width */
+void ppu_set_height(int h);             /* RS_SCREEN_H..RS_SCREEN_H_MAX */
+void ppu_render(uint16_t *fb);          /* rs_screen_width() x rs_screen_height() RGB565, pitch = the width */
 int  ppu_last_sprites(void);
 int  ppu_last_max_line(void);
 

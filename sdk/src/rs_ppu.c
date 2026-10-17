@@ -19,8 +19,10 @@
 #include <string.h>
 
 /* Widescreen: the width is a setting (RS_SCREEN_W_MIN..RS_SCREEN_W_MAX, set before the game starts), and the
- * stage origin shifts what the game draws (sprites, viewports, windows, BG scroll) to the right on the screen. */
+ * stage origin shifts what the game draws (sprites, viewports, windows, BG scroll) to the right on the screen.
+ * Tall screen: the same for the height (g_h lines, the stage's 240 lines from line g_oy; H stays the stage's). */
 static int g_w = RS_SCREEN_W, g_origin;
+static int g_h = RS_SCREEN_H, g_oy;
 #define W g_w
 #define H RS_SCREEN_H
 #define WMAX RS_SCREEN_W_MAX
@@ -93,6 +95,7 @@ void ppu_reset(void)
     g_nviews = 0;
     g_cur_view = -1;
     g_origin = 0;
+    g_oy = (g_h - RS_SCREEN_H) / 2;
 }
 
 /* ---- widescreen -------------------------------------------------------------------------------------- */
@@ -103,6 +106,15 @@ void rs_screen_origin(int x) { g_origin = x < -WMAX ? -WMAX : x > WMAX ? WMAX : 
 int rs_screen_origin_x(void) { return g_origin; }
 int rs_screen_left(void) { return -g_origin; }
 int rs_screen_right(void) { return g_w - g_origin; }
+
+/* ---- tall screen ----------------------------------------------------------------------------------------- */
+void ppu_set_height(int h) { g_h = h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h; }
+int rs_screen_height(void) { return g_h; }
+int rs_screen_vmargin(void) { return (g_h - RS_SCREEN_H) / 2; }
+void rs_screen_origin_v(int y) { g_oy = y < -RS_SCREEN_H_MAX ? -RS_SCREEN_H_MAX : y > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : y; }
+int rs_screen_origin_y(void) { return g_oy; }
+int rs_screen_top(void) { return -g_oy; }
+int rs_screen_bottom(void) { return g_h - g_oy; }
 
 /* ---- palettes ---------------------------------------------------------- */
 void rs_pal_set(int i, rs_color c)
@@ -301,16 +313,18 @@ static void view_rect(rs_viewport *v, int x, int y, int w, int h)
 
 int rs_viewport_layout(int players, int flags, rs_viewport *out)
 {
-    /* the whole screen, in stage coordinates (widescreen: from rs_screen_left(), the actual width) */
-    const int D = RS_VIEW_DIVIDER, X = -g_origin, hw = (W - D) / 2, hh = (H - D) / 2, x2 = X + W - hw, y2 = H - hh;
+    /* the whole screen, in stage coordinates (widescreen: from rs_screen_left(), the actual width; a tall screen:
+     * from rs_screen_top(), the actual height) */
+    const int D = RS_VIEW_DIVIDER, X = -g_origin, hw = (W - D) / 2, x2 = X + W - hw;
+    const int Y = -g_oy, VH = g_h, hh = (VH - D) / 2, y2 = Y + VH - hh;
     switch (players) {
     case 2:
-        if (flags & RS_LAYOUT_HSPLIT) { view_rect(&out[0], X, 0, W, hh); view_rect(&out[1], X, y2, W, hh); }
-        else { view_rect(&out[0], X, 0, hw, H); view_rect(&out[1], x2, 0, hw, H); }
+        if (flags & RS_LAYOUT_HSPLIT) { view_rect(&out[0], X, Y, W, hh); view_rect(&out[1], X, y2, W, hh); }
+        else { view_rect(&out[0], X, Y, hw, VH); view_rect(&out[1], x2, Y, hw, VH); }
         return 2;
     case 3:
         if (!(flags & RS_LAYOUT_MAP)) {
-            view_rect(&out[0], X, 0, W, hh);
+            view_rect(&out[0], X, Y, W, hh);
             view_rect(&out[1], X, y2, hw, hh);
             view_rect(&out[2], x2, y2, hw, hh);
             return 3;
@@ -318,13 +332,13 @@ int rs_viewport_layout(int players, int flags, rs_viewport *out)
         /* 4 quadrants, the 4th for a map */
         /* fall through */
     case 4:
-        view_rect(&out[0], X, 0, hw, hh);
-        view_rect(&out[1], x2, 0, hw, hh);
+        view_rect(&out[0], X, Y, hw, hh);
+        view_rect(&out[1], x2, Y, hw, hh);
         view_rect(&out[2], X, y2, hw, hh);
         view_rect(&out[3], x2, y2, hw, hh);
         return 4;
     default:
-        view_rect(&out[0], X, 0, W, H);
+        view_rect(&out[0], X, Y, W, VH);
         return 1;
     }
 }
@@ -384,9 +398,11 @@ static int decode_bg(const bg_state *b, int lx, int ly, int x0, int n, uint8_t *
 static int decode_affine(const bg_state *b, int y, uint8_t *buf)
 {
     const rs_affine *m = &b->aff;
-    int hofs = b->sx + (b->ldx ? b->ldx[y] : 0);
-    int vofs = b->sy + (b->ldy ? b->ldy[y] : 0);
+    int in = (unsigned)y < (unsigned)H;
+    int hofs = b->sx + (b->ldx && in ? b->ldx[y] : 0);
+    int vofs = b->sy + (b->ldy && in ? b->ldy[y] : 0);
     int32_t dx = hofs - m->cx - g_origin, dy = y + vofs - m->cy;     /* screen column 0 = stage x -origin */
+    /* (y: the stage line; the line-scroll tables cover the stage's 240 lines: render_span) */
     int32_t X = m->a * dx + m->b * dy + (m->cx << 8);
     int32_t Y = m->c * dx + m->d * dy + (m->cy << 8);
     int pw = b->mw * 8, ph = b->mh * 8;
@@ -546,16 +562,17 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
     const uint8_t *src[RS_BG_COUNT] = {0};
     int has[RS_BG_COUNT] = {0};
     int vx = v ? v->x + g_origin : 0;                   /* the viewport's left edge, screen column */
+    int ys = y - g_oy, in = (unsigned)ys < (unsigned)H; /* the stage line (a tall screen's: maybe outside 0..239) */
     for (int l = 0; l < RS_BG_COUNT; l++) {
         const bg_state *b = &g_bg[l];
         if (!b->enabled || (v && !((v->layers >> l) & 1))) continue;
         uint8_t *line = LINE(l);
         if (b->affine) {
-            has[l] = decode_affine(b, y, line);
+            has[l] = decode_affine(b, ys, line);
         } else {
-            int dx = b->ldx ? b->ldx[y] : 0, dy = b->ldy ? b->ldy[y] : 0;
+            int dx = b->ldx && in ? b->ldx[ys] : 0, dy = b->ldy && in ? b->ldy[ys] : 0;
             int lx = v ? v->sx[l] + (x0 - vx) + dx : b->sx + dx + x0 - g_origin;
-            int ly = v ? v->sy[l] + (y - v->y) + dy : b->sy + y + dy;
+            int ly = v ? v->sy[l] + (ys - v->y) + dy : b->sy + ys + dy;
             has[l] = decode_bg(b, lx, ly, x0, x1 - x0, line);
         }
         src[l] = line;
@@ -566,7 +583,7 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
         memset(g_sline + x0, 0, (size_t)(x1 - x0));
         int first = v ? v->oam_first : 0, end = v ? v->oam_first + v->oam_count : RS_OAM_MAX;
         if (end > RS_OAM_MAX) end = RS_OAM_MAX;
-        n = decode_sprites(y, first, end, v ? vx : g_origin, v ? v->y : 0, x0, x1, &sx0, &sx1);
+        n = decode_sprites(y, first, end, v ? vx : g_origin, (v ? v->y : 0) + g_oy, x0, x1, &sx0, &sx1);
     }
 
     int anywin = g_obj_win | g_clip_win | g_fog_win;
@@ -633,12 +650,12 @@ void ppu_render(uint16_t *fb)
             rs_warn(RS_WARN_VRAM, "VRAM use %ld bytes (tiles + maps; guideline 65536)", vram);
     }
 
-    for (int y = 0; y < H; y++) {
+    for (int y = 0; y < g_h; y++) {
         uint16_t *o = fb + y * W;
-        int n = 0;
+        int n = 0, ys = y - g_oy;                       /* the stage line (the raster's; y on a 240-line screen) */
         if (!g_nviews) {
             g_cur_view = -1;
-            if (g_raster) g_raster(y, g_raster_user);
+            if (g_raster) g_raster(ys, g_raster_user);
             n = render_span(o, y, 0, W, NULL);
         } else {
             /* the divider shows where no viewport is; later viewports are drawn over earlier ones. 16 bits at a
@@ -646,12 +663,12 @@ void ppu_render(uint16_t *fb)
             for (int x = 0; x < W; x++) o[x] = g_div565;
             for (int i = 0; i < g_nviews; i++) {
                 const rs_viewport *v = &g_views[i];
-                if (y < v->y || y >= v->y + v->h) continue;
+                if (ys < v->y || ys >= v->y + v->h) continue;
                 int vx = v->x + g_origin;
                 int x0 = vx < 0 ? 0 : vx, x1 = vx + v->w > W ? W : vx + v->w;
                 if (x0 >= x1) continue;
                 g_cur_view = i;
-                if (g_raster) g_raster(y, g_raster_user);
+                if (g_raster) g_raster(ys, g_raster_user);
                 n += render_span(o, y, x0, x1, v);
             }
             g_cur_view = -1;
