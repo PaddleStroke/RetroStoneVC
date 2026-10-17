@@ -28,34 +28,65 @@ uint16_t draw_hills_entry(int row,int col) {
     col&=draw_wide()?127:63;
     return col<64?gm_hills_map[row*64+col]:(uint16_t)(gm_hills_map[row*64+127-col]^RS_MAP_HFLIP);
 }
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): BG2's scroll this frame, for the
- * raster's lines past the stage (set by draw_frame before every picture: not saved) */
-static int tall_sx,tall_sy;
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): BG2's scroll this frame, for the
+ * raster's lines past the stage, and the HUD's lines pinned at the screen's top (set by draw_frame before every
+ * picture: not saved) */
+static int tall_sx,tall_sy,hud_pinned,tall_cam,tall_b3x,tall_b3y,tall_split;
+static rs_color tall_earth[2];
+/* the clouds above the stage (a tall screen): bands of BG3's cloud strip, {stage line, x offset, parallax shift} */
+#define CLOUD_BANDS 2
+static const int cloud_band[CLOUD_BANDS][3]={{-86,150,4},{-42,350,3}};
+/* the zoomed screen (ZOOM_H lines, game.h): the stage TALL_UP lines down (the sky above it, where the hedgehog flies:
+ * the camera rises only past it), the earth below; the HUD (BG1's top HUD_LINES) at the screen's top; the columns
+ * shown start TALL_BEHIND px behind the hedgehog (the most of the hills ahead) */
+#define TALL_UP 150
+#define HUD_LINES 56
+#define TALL_BEHIND 40
+static int tall(void) { return rs_screen_height()>RS_SCREEN_H; }
+static int bg2_rows(void) { return tall()?64:32; }   /* a tall screen: the earth below the stage, rows 30..63 */
 static rs_color tall_scale(rs_color c,int k) {   /* darker by k/256, rounded (soft steps) */
     return RS_RGB(((c&31)*k+128)/256,(((c>>5)&31)*k+128)/256,(((c>>10)&31)*k+128)/256);
 }
 /* The lines past the stage (a tall screen, the single view): above, the sky carried on (its top colour, deeper toward
- * the screen's top), the layers hidden; below, the earth: BG2's rows 30 and 31 (the terrain's soil, frost included,
- * terrain() fills them on a tall screen) repeated, the UI hidden. Line 0 puts the stage's settings back (a 240-line
- * screen: the same values, so the same pixels). */
+ * the screen's top), the layers hidden but the HUD's band; below, the earth: BG2's rows 30..63 (the terrain's soil,
+ * frost included: terrain() fills them on a tall screen), the UI hidden. Line 0 puts the stage's settings back (a
+ * 240-line screen: the same values, so the same pixels). */
 static void raster_out(int line) {
     int top=rs_screen_top();
-    if(line==top) for(int l=0;l<3;l++) rs_bg_enable(l,0);
+    if(line==top) { for(int l=0;l<3;l++) rs_bg_enable(l,0); rs_bg_enable(RS_BG1,hud_pinned); }
+    if(line==top+HUD_LINES && line<0) rs_bg_enable(RS_BG1,0);
     if(line==RS_SCREEN_H) { rs_bg_enable(RS_BG1,0); rs_bg_enable(RS_BG2,1); rs_bg_enable(RS_BG3,1); }
     if(line<0) {
         int k=top<0?-line*64/-top:0;
         rs_pal_set(0,tall_scale(line_col[(line&4)?4:0],256-k));
+        /* the clouds drifting in the sky above the stage: BG3's cloud strip (rows 32..34), two bands, slower than the
+         * forest (farther), each its own part of the strip */
+        if(rs_bg_map_h(RS_BG3)>32 && line>=top+HUD_LINES) {
+            int on=0;
+            for(int b=0;b<CLOUD_BANDS;b++) {
+                int y0=cloud_band[b][0],d=line-y0;
+                if(d<0 || d>=24) continue;
+                rs_bg_scroll(RS_BG3,((tall_cam>>cloud_band[b][2])+cloud_band[b][1])&(rs_bg_map_w(RS_BG3)*8-1),32*8-y0);
+                on=1;
+            }
+            rs_bg_enable(RS_BG3,on);
+        }
     } else {
-        rs_pal_set(0,line_col[(line&4)?RS_SCREEN_H-1:RS_SCREEN_H-5]);
-        rs_bg_scroll(RS_BG2,tall_sx,(RS_SCREEN_H+((line-RS_SCREEN_H)&15)-line)&255);
+        if(tall_split) {                /* a tall split screen: the earth under the views (a layer-less band) */
+            int n=rs_screen_bottom()-RS_SCREEN_H;
+            rs_pal_set(0,tall_scale(tall_earth[(line&4)?1:0],256-(n>0?(line-RS_SCREEN_H)*96/n:0)));
+        } else rs_pal_set(0,line_col[(line&4)?RS_SCREEN_H-1:RS_SCREEN_H-5]);
+        if(rs_bg_map_h(RS_BG2)>32) rs_bg_scroll(RS_BG2,tall_sx,tall_sy);
+        else rs_bg_scroll(RS_BG2,tall_sx,(RS_SCREEN_H+((line-RS_SCREEN_H)&15)-line)&255);
     }
 }
 static void raster(int line,void *user) {
     (void)user;
     if(line<0||line>=RS_SCREEN_H) { raster_out(line); return; }
+    if(line==0) for(int l=0;l<3;l++) rs_bg_enable(l,1);   /* (a tall split screen too: the views' own masks) */
     if(line==0 && rs_viewport_current()<0) {
-        for(int l=0;l<3;l++) rs_bg_enable(l,1);
         rs_bg_scroll(RS_BG2,tall_sx,tall_sy);
+        if(rs_bg_map_h(RS_BG3)>32) rs_bg_scroll(RS_BG3,tall_b3x,tall_b3y);   /* (after the clouds) */
     }
     if(!draw_split_raster(line)) rs_pal_set(0,line_col[line]);
 }
@@ -99,23 +130,29 @@ static void distant_hills(const world *w) {
         rs_bg_put(RS_BG3,x,y,tile);
     }
     rs_bg_scroll(RS_BG3,(cam_x>>2)&(mw*8-1),offset-first*8);   /* >>2: floor (cam_x < 0 behind the start) */
+    /* a tall screen: the cloud strip in rows 32..34 (the panorama's top 3 rows, but the columns of the cloud on the
+     * forest's crest), for the sky above the stage (raster_out); BG3's scroll kept for the raster's line 0 */
+    tall_cam=cam_x; tall_b3x=(cam_x>>2)&(mw*8-1); tall_b3y=offset-first*8;
+    if(rs_bg_map_h(RS_BG3)>32) for(int y=0;y<3;y++) for(int x=0;x<mw;x++)
+        rs_bg_put(RS_BG3,x,32+y,(x&63)>=27 && (x&63)<=39?RS_MAP(gm_bg3_tile_count,PAL_HILLS,0,0,0):draw_hills_entry(y,x));
 }
 /* the maps of this width: 64 tiles at 320, 128 wider */
 static void maps_setup(void) {
     int mw=draw_wide()?128:64;
-    rs_bg_setup(RS_BG1,mw,32,VR_BG1); rs_bg_setup(RS_BG2,mw,32,VR_BG2);
-    rs_bg_setup(RS_BG3,mw,32,VR_BG3);
+    rs_bg_setup(RS_BG1,mw,32,VR_BG1); rs_bg_setup(RS_BG2,mw,bg2_rows(),VR_BG2);
+    rs_bg_setup(RS_BG3,mw,bg2_rows(),VR_BG3);
     laid_w=rs_screen_width();
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
  * width's up, the UI drawn again on the next frame (PAUSED too). Same width: nothing. */
 void draw_relayout(void) {
-    if(laid_w==rs_screen_width()) return;
+    if(laid_w==rs_screen_width()) return;   /* (a tall screen's BG2 height: draw_frame sets it each frame) */
     maps_setup();
     shown_state=-1;
     hu_pause(0,13);
 }
 void draw_init(void) {
+    if(tall()) rs_screen_origin_v((rs_screen_height()-RS_SCREEN_H)*TALL_UP/(ZOOM_H-RS_SCREEN_H));   /* the stage low */
     hu_config hc=hu_defaults(); hc.obj_tile=KIT_OBJ_TILE; hc.obj_vram=VR_OBJ; hc.obj_pal=3;
     hu_init(&hc);
     maps_setup();
@@ -154,7 +191,7 @@ int draw_iced(int color) {
  * Widescreen: as many columns as the screen has (70 at 560); the frost's tiles after the last column's. */
 static void terrain(const world *w) {
     int cols=(rs_screen_width()+7)/8,frost_base=16+8*(cols+1>42?cols+1:42);
-    int rows=rs_screen_height()>RS_SCREEN_H?32:30;   /* a tall screen: rows 30 and 31 too (the earth below the stage) */
+    int rows=tall()?64:30;   /* a tall screen: rows 30..63 too (the earth below the stage) */
     int frost_tile=0,front=(int)(w->frost/Q16_ONE);
     for(int c=0;c<cols;c++) {
         int floors[8],lo=1000,hi=-1000;
@@ -242,21 +279,43 @@ static void screen_text(const world *w,int state,int st_t,int best,int new_best,
             if(w->h[p].state==HS_RUN && (w->h[focus].state!=HS_RUN || w->h[p].wx>w->h[focus].wx)) focus=p;
         char txt[160]; int margin=(int)((w->h[focus].wx-w->frost)/Q16_ONE)/16;
         if(margin<0) margin=0;
+        int hc=hud_pinned?((rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x()-160)/8:0;   /* (tall: centred in the columns shown) */
         hu_clear_rows(4,3);
         if(w->players>1) rs_strf(txt,sizeof txt,TR(HUD_FROST_PLAYER),focus+1,margin);
         else rs_strf(txt,sizeof txt,TR(HUD_FROST),margin);
-        hu_text(hu_center(txt,0),4,txt);
+        hu_text(hu_center(txt,0)+hc,4,txt);
         const hero *h=&w->h[focus];
         if(h->smooth_t>0) rs_strf(txt,sizeof txt,TR(MSG_SMOOTH),h->combo);
         else if(h->smooth_t<0 && h->land_t<55) rs_strf(txt,sizeof txt,"%s",TR(MSG_OUCH));
         else if(w->t<360) rs_strf(txt,sizeof txt,"%s",h->held?TR(HINT_RELEASE):TR(HINT_HOLD));
         else rs_strf(txt,sizeof txt,TR(HUD_APPLES),h->apples);
-        hu_text(hu_center(txt,0),6,txt);
+        hu_text(hu_center(txt,0)+hc,6,txt);
     }
 }
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused) {
     static const int medals[4]=MEDAL_SCORES;
     for(int l=0;l<3;l++) rs_bg_enable(l,1);   /* (a tall screen: the raster hid them past the stage) */
+    /* a tall screen: one hedgehog running fills the display's height, the columns shown from TALL_BEHIND px behind it,
+     * the HUD (BG1's top HUD_LINES) pinned at the screen's top; the title, the panels and the split screens show every
+     * column */
+    int run=state==ST_PLAY || state==ST_DEAD,hud=tall() && run && w->players==1;
+    rs_screen_fill(hud || !tall());
+    if(hud) rs_screen_focus_x(HERO_X-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
+    else rs_screen_focus_x(-1);
+    rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);
+    hud_pinned=hud;
+    /* BG2: 64 rows for one hedgehog on a tall screen (the earth below the stage), the split screens' 32 */
+    int rows=tall() && !(run && w->players>1)?64:32;
+    if(rs_bg_map_h(RS_BG2)!=rows) {
+        rs_bg_setup(RS_BG2,draw_wide()?128:64,rows,VR_BG2);
+        rs_bg_setup(RS_BG3,draw_wide()?128:64,rows,VR_BG3);   /* (BG3: the clouds above the stage, rows 32..34) */
+    }
+    tall_split=tall() && w->players>1 && run;
+    if(tall_split) {                    /* the sky above the views and the earth below them: the run's colours */
+        rs_color soil[16],hl[16];
+        draw_scenery_colors(w->scroll,RS_SCREEN_H,line_col,soil,hl);
+        tall_earth[0]=soil[6]; tall_earth[1]=hu_lerp_color(soil[6],soil[7],48);   /* (a soft dither) */
+    }
     if(w->players>1 && (state==ST_PLAY || state==ST_DEAD)) {
         draw_split_frame(w,st_t,paused);
         shown_state=shown_best=-1;
@@ -265,7 +324,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     draw_split_off();
     int target=0;
     if(state!=ST_TITLE) for(int p=0;p<w->players;p++) if(w->h[p].state==HS_RUN) {
-        int yy=(w->h[p].y>>16)-76;
+        int yy=(w->h[p].y>>16)-76+(hud?rs_screen_origin_y()-HUD_LINES:0);   /* (tall: the sky above shows the flight) */
         if(yy<target) target=yy;
     }
     if(!paused) cam_y+=(target-cam_y)/8;
@@ -281,7 +340,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     rs_oam_clear();
     if(state==ST_PLAY||state==ST_DEAD) {
         int scores[4]; for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
-        hu_score_chips(w->players,scores,0);
+        if(hud) hu_number(scores[0],(rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x(),
+                          rs_screen_top()+10,3);   /* (a tall screen: at its top, centred in the columns shown) */
+        else hu_score_chips(w->players,scores,0);
     }
     if(state==ST_OVER) {
         if(w->players==1) hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
@@ -323,12 +384,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
         }
         /* Wind-blown flakes and long wisps echo the feathered terrain edge. */
         int front=(int)(w->frost/Q16_ONE)-cam_x;
-        if(front>-100) for(int i=0;i<18;i++) {
-            int x=front+38-((w->t*2+i*31)%155),y=(w->t+i*37)%220;
+        /* (a tall screen: over its whole height, from its top) */
+        int fy0=rs_screen_top(),fh=rs_screen_bottom()-rs_screen_top()-20;
+        if(front>-100) for(int i=0;i<(hud?40:18);i++) {
+            int x=front+38-((w->t*2+i*31)%155),y=hud?fy0+(w->t+i*37)%fh:(w->t+i*37)%220;
             spr(SPR_SNOW,x,y,2,-1);
         }
         if(front>-100) for(int i=0;i<5;i++) {
-            int x=front+22-((w->t*3+i*39)%148),y=(w->t/3+i*47)%230;
+            int x=front+22-((w->t*3+i*39)%148),y=hud?fy0+(w->t/3+i*47)%fh:(w->t/3+i*47)%230;
             spr(SPR_FROST_WISP+(w->t/12+i)%2,x,y,1,-1);
         }
     }

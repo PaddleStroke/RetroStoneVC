@@ -101,13 +101,23 @@ too) the ground behind the starting line.
   `make hedgehoghills-screenshots` adds title/play/gameover-427/520.png and play-4-players-520.png
   (tools/wide_shots.sh).
 
-## Tall screen (docs/spec.md "Tall screen")
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
 
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`; the 240 lines of the stage are the same
-pixels, centred, and the run is the same. The raster draws the lines past the stage (draw.c `raster_out`): above, the
-sky carried on (its top colour, deeper toward the screen's top), every layer hidden there; below, the earth: on a tall
-screen terrain() fills BG2's rows 30 and 31 too (the soil's texture and the frost, as below any hill), and those 16
-lines repeat down to the screen's bottom, the UI hidden there. Line 0 puts the stage's layers and BG2's scroll back
-(draw_frame turns the layers on again each frame, for the split screens), so a 240-line screen is unchanged. Sprites
-are drawn wherever the screen shows them. Multiplayer (split.c): the views stay on the stage (the divider's
-dark green past it).
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (520 lines, game.h) first in `game_init`. The app scales the 520 lines to
+the display's height and crops the sides: 222 columns on a 1080x2520 phone, 240 on a 1080x2340 one; the hedgehog is 4.8x
+on a 1080x2520 phone (3.4x before). The run is the same; the camera pans (`rs_screen_focus_x`) so the columns shown start
+40 px behind the hedgehog (182 px of the hills ahead on a 1080x2520 phone, 200 on a 1080x2340 one; 224 at 4:3).
+- **The stage 150 lines down** (in proportion on a shorter screen): the sky above it is where the hedgehog flies, so the
+  camera rises only when it flies past that sky (the stage's camera rule, moved up by the lines shown above).
+- **The HUD at the screen's top**: BG1's top 56 lines pinned there (`rs_bg_pin`), the score sprites at `rs_screen_top()`,
+  centred in the columns shown.
+- **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above, the sky carried on (deeper toward
+  the top) with clouds drifting in two bands, slower than the forest (BG3's cloud strip, rows 32..34 on a tall screen:
+  the panorama's top rows without the cloud on the crest); below, the earth: BG2's map is 64 rows tall there and
+  terrain() fills rows 30..63 with the soil (frost included). The frost's flakes and wisps fall over the whole height.
+  Line 0 puts the stage's layers and scrolls back, so a 240-line screen is unchanged.
+- **Fill or fit**: the title, the panels and the split screens show every column (`rs_screen_fill(0)`). The split
+  screen (split.c) keeps the stage's 240 lines (the layout of the whole height scaled to them; BG2 and BG3 are 32 rows
+  then), the sky above its views and the earth below them (two layer-less views: the raster's colours). (It crashed on
+  a tall screen before: the views spanned the whole height.)
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).

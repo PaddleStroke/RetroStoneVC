@@ -17,6 +17,7 @@ typedef struct split_view {
 } split_view;
 static split_view V[MAX_PLAYERS];
 static rs_viewport views[MAX_PLAYERS];
+static rs_viewport views_all[MAX_PLAYERS+2];   /* per frame: the views and a tall screen's two bands (not saved) */
 static int nviews;
 
 void draw_split_init(void) {
@@ -147,6 +148,14 @@ static void label(int x,int y,const char *s) {
 void draw_split_frame(const world *w,int st_t,int paused) {
     int fresh=nviews!=w->players;
     nviews=rs_viewport_layout(w->players,RS_LAYOUT_HSPLIT,views);
+    /* a tall screen (DESIGN.md "Tall screen"): the views split the stage's 240 lines (the layout splits the screen's
+     * whole height), the lines above and below them the raster's sky and earth (draw.c raster_out) */
+    if(rs_screen_height()>RS_SCREEN_H)
+        for(int p=0;p<nviews;p++) {
+            int y0=views[p].y-rs_screen_top(),y1=y0+views[p].h,hh=rs_screen_height();
+            views[p].y=(int16_t)(y0*RS_SCREEN_H/hh);
+            views[p].h=(int16_t)(y1*RS_SCREEN_H/hh-views[p].y);
+        }
     hu_clear(); rs_oam_clear();
     int next_tile=16;
     for(int p=0;p<nviews;p++) {
@@ -195,7 +204,18 @@ void draw_split_frame(const world *w,int st_t,int paused) {
         }
         hu_view_oam_begin(vp); objects(w,p,st_t,v,vp); hu_view_oam_end(vp);
     }
-    rs_viewports(nviews,views,RS_HEX(0x294c30));
+    /* a tall screen: two more views with no layer, the sky above the stage and the earth below it (raster_out's colours) */
+    int n=nviews;
+    memcpy(views_all,views,sizeof views);
+    if(rs_screen_height()>RS_SCREEN_H && n<=MAX_PLAYERS) {
+        rs_viewport *a=&views_all[n],*b=&views_all[n+1];
+        memset(a,0,2*sizeof *a);
+        a->x=b->x=(int16_t)rs_screen_left(); a->w=b->w=(int16_t)rs_screen_width();
+        a->y=(int16_t)rs_screen_top(); a->h=(int16_t)-rs_screen_top();
+        b->y=RS_SCREEN_H; b->h=(int16_t)(rs_screen_bottom()-RS_SCREEN_H);
+        n+=2;
+    }
+    rs_viewports(n,views_all,RS_HEX(0x294c30));
 }
 /* tests (draw_view_log): P1's view, if the split screen shows (its stage x, else -9999), its width, its scroll */
 int draw_split_view_x(int p) { return p<nviews?views[p].x:-9999; }

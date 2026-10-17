@@ -7,6 +7,8 @@
 #define Q16_ONE 65536
 #define HILL_SPAN 384
 #define HERO_X 96
+/* a phone held upright (DESIGN.md "Tall screen"): the zoomed screen's height (rs_screen_zoom; draw.c) */
+#define ZOOM_H 520
 #define GROUND_Y 192
 #define PANEL_DELAY 40
 #define RETRY_LOCK 36
