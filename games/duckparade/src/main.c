@@ -171,16 +171,16 @@ static void touch_input(void)
         const rs_touch_point *t = rs_touch(i);
         if (!t || !t->pressed) continue;
         touch_slot = i;
-        if (touch_on_mother(t->x, t->y)) {
+        if (touch_on_mother(t->x, t->y - rs_screen_origin_y())) {
             if (touch_on) rs_log("touch stop at frame %u (Mother at col %d)", rs_frame_count(), (int)W.d[0].at.col);
             touch_on = 0;
         } else {
-            touch_set(t->x, t->y);
+            touch_set(t->x, t->y - rs_screen_origin_y());
         }
     }
     if (touch_slot < 0) return;
     const rs_touch_point *t = rs_touch(touch_slot);
-    if (t && t->moved && !t->pressed) touch_set(t->x, t->y);
+    if (t && t->moved && !t->pressed) touch_set(t->x, t->y - rs_screen_origin_y());   /* (stage y: a tall screen) */
     if (!t || !t->down) touch_slot = -1;
 }
 
@@ -448,6 +448,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);   /* a phone held upright: more sky and meadow (draw.c, DESIGN.md "Tall screen") */
     /* widescreen: a third of the extra width behind the duck, the 320-column stage after it (DESIGN.md "Widescreen";
      * the kit's UI stays centred on the screen: hu_ui_x()) */
     rs_screen_origin(wide_left());

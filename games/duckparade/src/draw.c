@@ -41,10 +41,59 @@ static int scroll_reg;           /* the BG3 scroll register as written (the bot 
 
 int draw_scroll_x(void) { return scroll_reg; }
 
+/* ---- a tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen") --------------------------------
+ * The lines past the stage's 240: above, the sky carried on over the band, deeper toward the screen's top; below, the
+ * meadow and its lanes carried on (the field's 14 rows repeated by BG3's scroll), darker with depth: no traffic, no
+ * duckling there (the play stays on the stage). BG1 (the UI) and BG2 (the band, the cloud shadows) are hidden there
+ * (window 2), BG3 too above; line 0 puts the stage's windows, BG3 scroll and backdrop back. A 240-line screen never
+ * gets these lines: the same pixels. */
+#define SKY_DEEP 0x2e6cc8        /* the sky at the screen's top */
+static int tall_sy;              /* BG3's vertical scroll as written (the screen shake), restored at line 0 */
+static rs_color tall_back;       /* the stage's backdrop, restored at line 0 */
+
+static void raster_out(int line)
+{
+    int top = rs_screen_top();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(1, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN2);
+        rs_bg_window(RS_BG2, RS_WIN2);
+        rs_bg_window(RS_BG3, line < 0 ? RS_WIN2 : 0);
+        if (line == top) {
+            tall_back = rs_pal_get(0);
+            rs_math(RS_MATH_OFF, 0, 0);
+        }
+    }
+    if (line < 0) {
+        int k = top < 0 ? line * 256 / top : 0;           /* 0 at the stage's top .. 256 at the screen's */
+        int a[3] = {(SKY_TOP >> 16) & 255, (SKY_TOP >> 8) & 255, SKY_TOP & 255};
+        int b[3] = {(SKY_DEEP >> 16) & 255, (SKY_DEEP >> 8) & 255, SKY_DEEP & 255}, c[3];
+        for (int i = 0; i < 3; i++) c[i] = (a[i] * (256 - k) + b[i] * k) / 256;
+        rs_pal_set(0, RS_RGB8(c[0] + ((line & 4) ? 4 : 0), c[1] + ((line & 4) ? 2 : 0), c[2] + ((line & 4) ? 4 : 0)));
+    } else {
+        int d = line - RS_SCREEN_H, n = rs_screen_bottom() - RS_SCREEN_H;
+        int ly = FIELD_Y + (line - FIELD_Y) % (ROWS * CELL);   /* the field's rows again, from row 0 */
+        rs_bg_scroll(RS_BG3, scroll_reg, ly - line);
+        int k = 3 + (n > 0 ? d * 13 / n : 0);
+        rs_math(RS_MATH_SUB | RS_MATH_FIXED, RS_MATH_BG3 | RS_MATH_BACK, RS_RGB(k, k, k));
+    }
+}
+
 /* ---- the raster: the sky gradient, the band's clouds, the math per region ------------------------------------ */
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
+        rs_bg_window(RS_BG1, 0);
+        rs_bg_window(RS_BG2, 0);
+        rs_bg_window(RS_BG3, 0);
+        rs_bg_scroll(RS_BG3, scroll_reg, -tall_sy);
+        rs_pal_set(0, tall_back);
+    }
     if (line < FIELD_Y) {
         rs_pal_set(RS_PAL_BG(PAL_CLOUD) + SKY_IDX, line_col[line]);
         if (line == 0) rs_math(RS_MATH_OFF, 0, 0);
@@ -801,6 +850,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int pm = map_w() * 8 - 1;                     /* the maps' period - 1: 511, or 1023 on a wide screen */
     scroll_reg = (cam - sx) & pm;
     rs_bg_scroll(RS_BG3, scroll_reg, -sy);
+    tall_sy = sy;                                 /* (a tall screen: line 0 writes it again) */
     /* BG2: the band's clouds drift slowly (1/4 of the camera), the shadows with the camera and the wind */
     int band_dx = (cam / 4 + t / 16) & pm, shade_dx = (cam - sx + t / 4) & pm;
     for (int y = 0; y < RS_SCREEN_H; y++) bg2_dx[y] = (int16_t)(y < FIELD_Y ? band_dx : shade_dx);

@@ -79,6 +79,15 @@ world stays in view; `WIDE_LEFT_NUM / WIDE_LEFT_DEN` in tuning.h): 35 px behind 
   tests/wide_test.sh and the language test at 320, 427 and 520. Screenshots: `title-`, `play-`, `gameover-427.png`
   and `-520.png`, `coop-4-players-520.png`.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
+the display's height at 320 columns. The 240 lines of the stage are the same pixels, centred (the default origin).
+The raster draws the lines past the stage (draw.c `raster_out`): above, the sky carried on over the band, deeper
+toward the screen's top; below, the meadow and its lanes carried on (the field's 14 rows repeated by BG3's scroll,
+the camera's column), darker with depth. The play stays on the stage: no traffic, raft or duckling is drawn past it.
+BG1 and BG2 are hidden there (window 2; BG3 too above), line 0 puts the stage's windows, BG3 scroll and backdrop
+back. Touches are read in stage y (`- rs_screen_origin_y()`).
+
 ## Controls
 | Button | Action |
 |---|---|

@@ -21,3 +21,5 @@ draw.order          ... the sprites sorted by rank
 draw.nq0            ... the 4:3 screen's sprites in it (0 between two frames; widescreen)
 draw.spr_ui_dx      set and reset within one spr_ui() call: always 0 between two frames
 draw.redraw_ui      transient: set by draw_state_loaded() after a state of another width, consumed by the next draw
+draw.tall_sy        a tall screen: BG3's vertical scroll, set by draw_frame before every picture (restored at line 0)
+draw.tall_back      ... the stage's backdrop, read by the raster at the screen's first line of every picture
