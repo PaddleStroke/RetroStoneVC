@@ -18,6 +18,7 @@
 #include "cards_table.h"
 #include "games/euchre.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 static egame G;
@@ -262,7 +263,7 @@ static void draw_seats_info(void)
             ui_put_c(ct_suit(DECK_FRENCH, p->trump, (int)(d + 0.5f)), x, y, d, d);
             x = x1, y = y1;
         }
-        if (p->took[q]) ui_number(x, y, 0.5f * T.tok, p->took[q], 1);
+        if (p->took[q]) ui_number(x, y, 0.5f * T.tok, p->took[q], TH.dark);   /* ink on the light table */
     }
 }
 
