@@ -23,8 +23,11 @@ int   rsd_width_env(void);
  * --lang fr on the desktop runners (the tests run a game in every language this way). Returns the RS_LANG_* or -1. */
 int   rsd_lang_env(void);
 int   rsd_lang_arg(const char *code);     /* --lang CODE: sets it; -1 (and a message) when it is not one of ours */
-/* Writes the current framebuffer (RGB565, rs_screen_width() x 240) as PNG, scaled by an integer. */
+/* Writes the current framebuffer (RGB565, rs_screen_width() x rs_screen_height(): 240, or a tall screen's height) as
+ * PNG, scaled by an integer. */
 int   rsd_write_png(const char *path, const uint16_t *fb, int scale);
+/* The same, only the screen columns x0 .. x1 - 1 (a zoomed screen's visible ones: rs_screen_visible_x0(), x1()). */
+int   rsd_write_png_cols(const char *path, const uint16_t *fb, int scale, int x0, int x1);
 /* Parses "key=value" and sets it as a runtime option. */
 void  rsd_option(const char *kv);
 /* Button name ("B", "START", "UP"...) or '+'-joined list to a bit mask. */

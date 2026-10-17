@@ -11,8 +11,15 @@
  *     --scale N           PNG scale factor (default 1)
  *     --width N           widescreen: the screen width (320..560; the game may keep 320: rs_game.max_width);
  *                         default: the environment variable RS_WIDTH, else 320
+ *     --height N          tall screen (docs/spec.md "Tall screen"): the display's height at 320 columns (a phone held
+ *                         upright: 692 for 1080x2340; only a game that opts in gets it: rs_screen_tall, _zoom);
+ *                         default: the environment variable RS_HEIGHT, else 240
+ *     --display WxH       a display of W x H pixels, as the Arcade apps size the screen for it (apps/launcher/src/
+ *                         rsb_sdl.c): portrait 1080x2340 = --height 692, landscape 2340x1080 = --width 520
+ *     --visible           the PNGs hold only the columns the display shows (a zoomed screen: rs_screen_visible_x0..x1)
  *     --resize F:N        change the width live after frame F (rs_host_change_width: a save state, a restart at
  *                         the new width, the state loaded; what the desktop runner does when its window is resized)
+ *     --resize F:WxH      the same for a display of W x H pixels (as --display: a phone turned)
  *     --opt KEY=VALUE     game option (repeatable)
  *     --lang CODE         the language (en, fr, pt_BR, zh_CN...; docs/i18n.md); default: the environment variable
  *                         RS_LANG, else English (never the system's: the runs stay the same everywhere)
@@ -33,8 +40,9 @@
  *     <frame> [T1..T4] up                it is lifted
  *     <frame> [T1..T4] tap-at <x> <y>    down for 3 frames, then up (a tap)
  *     <frame> [T1..T4] swipe <x> <y> <dx> <dy>   down at x, y, moved by dx, dy (pixels) over 4 frames, up 2 frames later
- *   x and y: screen pixels (0..width-1, 0..239); N% = percent of the screen's width / height; @N = the STAGE
- *   coordinate N (x: N + rs_screen_origin_x(): the same spot of a centred game at any width).
+ *   x and y: screen pixels (0..width-1, 0..height-1); N% = percent of the screen's width / height; @N = the STAGE
+ *   coordinate N (x: N + rs_screen_origin_x(): the same spot of a centred game at any width; y: N +
+ *   rs_screen_origin_y()).
  */
 #include "rs_desktop.h"
 #include <stdio.h>
@@ -51,7 +59,7 @@ static event_t ev[MAX_EVENTS];
 static int nev;
 static struct { int frame; char path[512]; } shots[MAX_SHOTS];
 static int nshots;
-static struct { int frame, width; } resizes[8];
+static struct { int frame, width, dw, dh; } resizes[8];
 static int nresizes;
 
 static void add(event_t e)
@@ -86,9 +94,9 @@ static rs_host_touch fingers[RS_TOUCH_MAX];
 static int nfingers;
 static int resolve(coord_t c, int horizontal)
 {
-    int size = horizontal ? rs_screen_width() : RS_SCREEN_H;
+    int size = horizontal ? rs_screen_width() : rs_screen_height();
     if (c.mode == '%') return (int)(c.v * size / 100.0f);
-    if (c.mode == '@') return (int)c.v + (horizontal ? rs_screen_origin_x() : 0);
+    if (c.mode == '@') return (int)c.v + (horizontal ? rs_screen_origin_x() : rs_screen_origin_y());
     return (int)c.v;
 }
 static void touch_event(const event_t *e)
@@ -181,6 +189,26 @@ static void wav_header(FILE *f, uint32_t frames)
     fwrite("data", 1, 4, f); fwrite(&data, 4, 1, f);
 }
 
+/* a display of ww x wh pixels, as the Arcade apps (apps/launcher/src/rsb_sdl.c width_for, height_for): the width at 240
+ * lines (320..560), the height at 320 columns */
+static int display_width(int ww, int wh)
+{
+    int w = wh > 0 ? (int)((long long)RS_SCREEN_H * ww / wh) : RS_SCREEN_W;
+    return w < RS_SCREEN_W ? RS_SCREEN_W : w > RS_SCREEN_W_MAX ? RS_SCREEN_W_MAX : w & ~1;
+}
+static int display_height(int ww, int wh)
+{
+    int h = ww > 0 ? (int)((long long)RS_SCREEN_W * wh / ww) : RS_SCREEN_H;
+    return h < RS_SCREEN_H ? RS_SCREEN_H : h & ~1;
+}
+
+static int visible_only;
+static int write_png(const char *path, int scale)
+{
+    if (!visible_only) return rsd_write_png(path, rs_host_framebuffer(), scale);
+    return rsd_write_png_cols(path, rs_host_framebuffer(), scale, rs_screen_visible_x0(), rs_screen_visible_x1());
+}
+
 int main(int argc, char **argv)
 {
     int frames = 60, scale = 1, bench = 0, bench_from = 0;
@@ -188,6 +216,8 @@ int main(int argc, char **argv)
     int device[RS_PAD_MAX] = {RS_DEVICE_KEYBOARD, RS_DEVICE_KEYBOARD2, RS_DEVICE_PAD, RS_DEVICE_PAD};
     rsd_width_env();
     rsd_lang_env();
+    const char *env_h = getenv("RS_HEIGHT");
+    if (env_h && *env_h) rs_host_set_height(atoi(env_h));
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i], *v = i + 1 < argc ? argv[i + 1] : NULL;
         if (!strcmp(a, "--frames") && v) frames = atoi(argv[++i]);
@@ -202,10 +232,23 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--png") && v) png = argv[++i];
         else if (!strcmp(a, "--scale") && v) scale = atoi(argv[++i]);
         else if (!strcmp(a, "--width") && v) rs_host_set_width(atoi(argv[++i]));
+        else if (!strcmp(a, "--height") && v) rs_host_set_height(atoi(argv[++i]));
+        else if (!strcmp(a, "--display") && v) {
+            int dw = 0, dh = 0;
+            if (sscanf(argv[++i], "%dx%d", &dw, &dh) != 2 || dw <= 0 || dh <= 0) {
+                fprintf(stderr, "--display needs WxH\n");
+                return 1;
+            }
+            rs_host_set_width(display_width(dw, dh));
+            rs_host_set_height(display_height(dw, dh));
+        }
+        else if (!strcmp(a, "--visible")) visible_only = 1;
         else if (!strcmp(a, "--resize") && v && nresizes < 8) {
             const char *colon = strchr(argv[++i], ':');
             if (!colon) { fprintf(stderr, "--resize needs FRAME:WIDTH\n"); return 1; }
             resizes[nresizes].frame = atoi(argv[i]);
+            resizes[nresizes].dw = resizes[nresizes].dh = 0;
+            sscanf(colon + 1, "%dx%d", &resizes[nresizes].dw, &resizes[nresizes].dh);
             resizes[nresizes++].width = atoi(colon + 1);
         }
         else if (!strcmp(a, "--opt") && v) rsd_option(argv[++i]);
@@ -269,19 +312,25 @@ int main(int argc, char **argv)
         }
         for (int s = 0; s < nshots; s++)
             if (shots[s].frame == f) {
-                if (rsd_write_png(shots[s].path, rs_host_framebuffer(), scale))
+                if (write_png(shots[s].path, scale))
                     fprintf(stderr, "cannot write %s\n", shots[s].path);
                 else
                     printf("frame %d -> %s\n", f, shots[s].path);
             }
         for (int r = 0; r < nresizes; r++)
             if (resizes[r].frame == f) {
-                int w = rs_host_change_width(resizes[r].width);
-                printf("frame %d: width %d\n", f, w);
+                if (resizes[r].dh > 0) {        /* F:WxH, a display */
+                    int w = rs_host_change_size(display_width(resizes[r].dw, resizes[r].dh),
+                                                display_height(resizes[r].dw, resizes[r].dh));
+                    printf("frame %d: %dx%d\n", f, w, rs_screen_height());
+                } else {
+                    int w = rs_host_change_width(resizes[r].width);
+                    printf("frame %d: width %d\n", f, w);
+                }
             }
     }
     if (png) {
-        if (rsd_write_png(png, rs_host_framebuffer(), scale)) fprintf(stderr, "cannot write %s\n", png);
+        if (write_png(png, scale)) fprintf(stderr, "cannot write %s\n", png);
         else printf("frame %d -> %s\n", frames - 1, png);
     }
     if (wf) {

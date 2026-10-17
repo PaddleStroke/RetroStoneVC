@@ -83,13 +83,22 @@ int rsd_sram_save(const char *path) { return rsd_save_file(path, rs_host_sram(),
 
 int rsd_write_png(const char *path, const uint16_t *fb, int scale)
 {
+    return rsd_write_png_cols(path, fb, scale, 0, rs_screen_width());
+}
+
+int rsd_write_png_cols(const char *path, const uint16_t *fb, int scale, int x0, int x1)
+{
     if (scale < 1) scale = 1;
-    int sw = rs_screen_width(), w = sw * scale, h = RS_SCREEN_H * scale;
+    int sw = rs_screen_width();
+    if (x0 < 0) x0 = 0;
+    if (x1 > sw) x1 = sw;
+    if (x1 <= x0) return -1;
+    int w = (x1 - x0) * scale, h = rs_screen_height() * scale;
     uint8_t *rgb = malloc((size_t)w * h * 3);
     if (!rgb) return -1;
     for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++) {
-            uint16_t c = fb[(y / scale) * sw + x / scale];
+            uint16_t c = fb[(y / scale) * sw + x0 + x / scale];
             uint8_t *p = rgb + ((size_t)y * w + x) * 3;
             unsigned r = c >> 11, g = (c >> 5) & 63, b = c & 31;
             p[0] = (uint8_t)((r << 3) | (r >> 2));
