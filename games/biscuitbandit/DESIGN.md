@@ -77,3 +77,12 @@ The game opts in (`max_width` = 560, `WIDESCREEN_biscuitbandit = 1`): 320 x 240 
 - `make biscuitbandit-check` runs the libretro, smoke, UI and state tests again at 427 and 520, then
   tests/wide_test.sh and the language test at 320, 427 and 520; `make biscuitbandit-screenshots` adds
   title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
+
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
+the display's height at 320 columns (692 lines on a 9:19.5 phone). The 240 lines of the stage are the same pixels,
+centred (the default origin: the touch halves in the band below it). The raster draws the lines past the stage
+(draw.c `raster_out`): above, the cafe's plain wall carried on up (the backdrop's top colour, shaded under the
+ceiling); below, the floor's bricks repeated (BG2's last two rows, 16 px), darker with depth. The UI and the room
+layers are hidden there (their maps would wrap); line 0 puts the layers, BG2's scroll and the floor's palette back,
+so a 240-line screen is unchanged (the same pixels in landscape).
