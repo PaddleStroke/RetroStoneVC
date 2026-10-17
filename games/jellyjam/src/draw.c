@@ -108,6 +108,15 @@ static void wall(int tx0, int tx1, int ty0, int ty1)
         for (int tx = tx0; tx < tx1; tx++) kput(tx, ty, wt[((tx >> 1) + (ty >> 1)) & 1][ty & 1][tx & 1]);
 }
 
+/* a jam jar (kind j) at columns tx, tx + 1 standing on the wood whose lip is row ty */
+static void jar_at(int tx, int ty, int j)
+{
+    static const int jt[3][6] = {{KT_JAR0_00, KT_JAR0_01, KT_JAR0_10, KT_JAR0_11, KT_JAR0_20, KT_JAR0_21},
+                                 {KT_JAR1_00, KT_JAR1_01, KT_JAR1_10, KT_JAR1_11, KT_JAR1_20, KT_JAR1_21},
+                                 {KT_JAR2_00, KT_JAR2_01, KT_JAR2_10, KT_JAR2_11, KT_JAR2_20, KT_JAR2_21}};
+    for (int k = 0; k < 6; k++) kput(tx + (k & 1), ty - 3 + k / 2, jt[j][k]);
+}
+
 /* a wooden shelf (its lip at row ty) from column tx0 to tx1, with jars standing on it every 3 columns */
 static void shelf(int tx0, int tx1, int ty, int jars)
 {
@@ -116,12 +125,7 @@ static void shelf(int tx0, int tx1, int ty, int jars)
         kput(tx, ty + 1, KT_WOOD_UNDER);
     }
     if (!jars) return;
-    for (int tx = tx0 + 1, j = ((tx0 * 7 + ty) % 3 + 3) % 3; tx + 2 <= tx1; tx += 3, j = (j + 1) % 3) {
-        static const int jt[3][6] = {{KT_JAR0_00, KT_JAR0_01, KT_JAR0_10, KT_JAR0_11, KT_JAR0_20, KT_JAR0_21},
-                                     {KT_JAR1_00, KT_JAR1_01, KT_JAR1_10, KT_JAR1_11, KT_JAR1_20, KT_JAR1_21},
-                                     {KT_JAR2_00, KT_JAR2_01, KT_JAR2_10, KT_JAR2_11, KT_JAR2_20, KT_JAR2_21}};
-        for (int k = 0; k < 6; k++) kput(tx + (k & 1), ty - 3 + k / 2, jt[j][k]);
-    }
+    for (int tx = tx0 + 1, j = ((tx0 * 7 + ty) % 3 + 3) % 3; tx + 2 <= tx1; tx += 3, j = (j + 1) % 3) jar_at(tx, ty, j);
 }
 
 /* the shelves in the screen's margins (wider than 320) */
@@ -129,8 +133,16 @@ static void side_shelves(const int rows[], int n, int bare)   /* bare: the shelf
 {
     int left = fdiv8(rs_screen_left()), right = fdiv8(rs_screen_right() + 7);
     for (int i = 0; i < n; i++) {
-        if (left < 0) shelf(left, 0, rows[i], i != bare);
-        if (right > 40) shelf(40, right, rows[i], i != bare);
+        if (left < 0) {
+            shelf(left, 0, rows[i], i != bare);
+            kput(left - 1, rows[i], KT_WOOD_LIP);   /* on past the edge (a shake) */
+            kput(left - 1, rows[i] + 1, KT_WOOD_UNDER);
+        }
+        if (right > 40) {
+            shelf(40, right, rows[i], i != bare);
+            kput(right, rows[i], KT_WOOD_LIP);
+            kput(right, rows[i] + 1, KT_WOOD_UNDER);
+        }
     }
 }
 
@@ -138,15 +150,17 @@ static void kitchen(int nf, int title)
 {
     int left = fdiv8(rs_screen_left()), right = fdiv8(rs_screen_right() + 7);
     rs_bg_fill(RS_BG3, 0);
-    wall(left, right, 0, 30);
-    if (title) {                                   /* a counter at the bottom, jars on it at both ends */
-        for (int tx = left; tx < right; tx++) {
+    wall(left - 1, right + 1, 0, 32);              /* a tile more all round: a shake shows no backdrop at the edges */
+    if (title) {                                   /* a counter at the bottom, jars on it at both ends (mirrored) */
+        for (int tx = left - 1; tx <= right; tx++) {
             kput(tx, 27, KT_WOOD_LIP);
             kput(tx, 28, (tx & 3) ? KT_WOOD_BOARD : KT_WOOD_BOARD2);
             kput(tx, 29, KT_WOOD_BOARD);
         }
-        shelf(left, left + 4 > 3 ? 3 : left + 4, 27, 1);
-        shelf(37, right, 27, 1);
+        for (int k = 0; 1 - 3 * k >= left; k++) {
+            jar_at(1 - 3 * k, 27, k % 3);
+            jar_at(37 + 3 * k, 27, (k + 1) % 3);
+        }
         static const int rows[2] = {12, 20};
         side_shelves(rows, 2, -1);
         return;
@@ -251,6 +265,7 @@ static void paint_field(const world *w, int fi, const region *R)
             int k = f->g[r][c];
             if (!k) continue;
             int x = R->ix + c * S, y = R->iy + (VROWS - 1 - r) * S - f->off[r][c] * S / CQ + lost_dy;
+            if (y < 0) continue;            /* rain falling from above the picture: it comes in whole, not sliced */
             int mask = 0;
             if (k <= COLOURS && f->off[r][c] == 0 && r < VROWS) {
                 static const int8_t dr[4] = {1, 0, -1, 0}, dc[4] = {0, 1, 0, -1};
@@ -443,6 +458,7 @@ static void droplets(const field *f, const region *R)
             int vx = ((i * 7 + j * 5) % 9) - 4 + (j ? 2 : -2), vy = -6 - (i + j * 3) % 4;     /* px per 4 frames */
             int x = cx + vx * age / 4, y = cy + vy * age / 4 + age * age / 24;
             if (y > R->y0 + R->iy + R->h) continue;
+            if (x < R->x0 - 2 || x > R->x0 + R->tw * 8 - 6) continue;      /* not over a neighbour's jar */
             spr((age < 18 ? SPR_DROP_0 : SPR_DROPSM_0) + p->colour - 1, x, y, 2, -1);
             drops_left--;
         }
@@ -522,11 +538,12 @@ static void play_texts(const world *w, const flayout *L, int side)
             else add_centred(&u, bx, bw, 19, name);
             rs_strf(s, sizeof s, TR(LEVEL_N), w->level);
             add_centred(&u, bx, bw, side ? 15 : 21, s);
-        } else {
-            rs_strf(s, sizeof s, HTR(PLAYER_TAG), 1);
-            add_text(&u, fdiv8(bx) + 1, 20, s);
-            rs_strf(s, sizeof s, HTR(PLAYER_TAG), 2);
-            add_text(&u, fdiv8(bx + bw) - 1 - hu_width(s, 0), 20, s);
+        } else {                                            /* the tags centred over each player's stars */
+            int mid = bx + bw / 2;
+            for (int p = 0; p < 2; p++) {
+                rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
+                add_text(&u, fdiv8((p ? mid + 18 : mid - 18) - hu_width(s, 0) * 4 + 4), 20, s);
+            }
         }
     }
     uint32_t h = hash_plan(&u, text_paused);
@@ -673,7 +690,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hu_pause(paused, 13);
+    /* PAUSED: under the previews, above the chef and the heroes (in play); below a banner (the intro, a round won) */
+    hu_pause(paused, !title && (w->phase == PH_INTRO || w->phase == PH_END) ? 13 : 11);
 
     rs_oam_clear();
     if (state == ST_TITLE) {

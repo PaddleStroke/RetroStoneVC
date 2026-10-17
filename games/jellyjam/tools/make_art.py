@@ -51,7 +51,7 @@ RAMPS = [
     [(156, 204, 255), (72, 122, 236), (40, 52, 150)],        # 3 blueberry
     [(255, 244, 156), (250, 202, 52), (196, 126, 22)],       # 4 lemon
 ]
-GREY = (184, 184, 204)
+GREY = (170, 170, 196)
 JELLY_PAL = [OUTLINE, WHITE] + [c for r in RAMPS for c in r] + [GREY]
 NAMES = ["strawberry", "lime", "blueberry", "lemon", "rain"]
 SIZES = (16, 12)
@@ -94,7 +94,10 @@ def body(S, k, mask):
             dx, dy = (x - c) / R, (y - c) / R
             dx, dy = max(-1.0, min(1.0, dx)), max(-1.0, min(1.0, dy))
             nd = dx * LX + dy * LY - 0.28 * (dx * dx + dy * dy) + 0.12
-            cv.set(x, y, lt if nd > 0.42 else md if nd > -0.42 else dk)
+            if k < 4:
+                cv.set(x, y, lt if nd > 0.42 else md if nd > -0.42 else dk)
+            else:                                             # the rain: mostly grey, its navy shade a thin rim
+                cv.set(x, y, lt if nd > 0.42 else md if nd > -0.70 else dk)
     # the outline: outside pixels touching the body, but not on a joined edge of the cell
     add = []
     for y in range(S):
@@ -437,30 +440,34 @@ def chef(i, mood):
         for ex in (-8.5, 8.5):
             hs.ellipse(cv, cx + ex, cy - 7, 5.2, 5.0, fr)
             hs.ellipse(cv, cx + ex, cy - 7, 3.0, 2.8, None, flat=ear)
-    elif animal in ("cat", "fox"):
+    elif animal in ("cat", "fox"):                            # pointed ears, up and out beside the toque
+        tall = animal == "fox"
         for s in (-1, 1):
-            ex = cx + s * 7.5
-            for y in range(int(cy - 12), int(cy - 4)):
-                t = (y - (cy - 12)) / 8.0
-                half = 0.5 + t * 3.0
-                for x in range(int(round(ex - half)), int(round(ex + half)) + 1):
-                    cv.set(x, y, fur[1] if t < 0.8 else fur[2])
-                    if abs(x - ex) < half - 1.2 and t > 0.35:
-                        cv.set(x, y, ear)
-            if animal == "fox":
-                cv.set(int(ex), int(cy - 12), extra), cv.set(int(ex), int(cy - 11), extra)
+            tipx, tipy = cx + s * (10.5 if tall else 9.5), cy - (17 if tall else 15)
+            ins, outs, by = cx + s * 2.5, cx + s * 10.0, cy - 5      # the base: from the brow out to the head's side
+            for y in range(int(tipy), int(by) + 1):
+                t = (y - tipy) / float(by - tipy)
+                a, b = tipx + (ins - tipx) * t, tipx + (outs - tipx) * t
+                lo, hi = (a, b) if a < b else (b, a)
+                for x in range(int(round(lo)), int(round(hi)) + 1):
+                    edge = abs(x - (tipx + (outs - tipx) * t)) < 1.0  # the outer edge, in shade
+                    cv.set(x, y, extra if tall and t < 0.3 else fur[2] if edge else fur[1])
+                    if t > 0.3 and lo + 1.5 < x < hi - 1.5:
+                        cv.set(x, y, ear if not tall else muz[0])
     elif animal in ("bear", "panda"):
         for ex in (-7.5, 7.5):
             hs.ellipse(cv, cx + ex, cy - 7.5, 3.8, 3.6, None, flat=(extra if animal == "panda" else fur[1]))
             if animal == "bear":
                 hs.ellipse(cv, cx + ex, cy - 7.5, 1.8, 1.7, None, flat=ear)
-    elif animal == "pig":
-        for s in (-1, 1):
-            for k in range(5):
-                cv.rect(int(cx + s * (6 + k * 0.6)) - 1, int(cy - 8 + k), int(cx + s * (6 + k * 0.6)) + 1,
-                        int(cy - 8 + k), fur[2] if k > 2 else fur[1])
     # the head
     hs.ellipse(cv, cx, cy, R + (0.8 if animal in ("bear", "pig") else 0), R - 0.5, fr)
+    if animal == "pig":                                       # ears folded forward over the head's top corners
+        for s in (-1, 1):
+            for k in range(5):
+                x0, x1 = cx + s * (5.5 + k * 0.5), cx + s * (5.5 + 1.0 + k * 1.1)
+                lo, hi = (x0, x1) if x0 < x1 else (x1, x0)
+                for x in range(int(round(lo)), int(round(hi)) + 1):
+                    cv.set(x, int(cy - 11 + k), fur[2] if k == 4 or abs(x - x1) < 0.8 else fur[0] if k < 2 else ear)
     if animal == "panda":                                     # eye patches
         for s in (-1, 1):
             hs.ellipse(cv, cx + s * 4.0, cy - 0.5, 2.6, 3.0, None, flat=extra)
