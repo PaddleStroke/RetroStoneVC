@@ -64,6 +64,45 @@ static void solo(world *w, uint32_t seed)
     world_step(w, go);
 }
 
+/* the arena, crawling, the plot emptied (the bodies are laid out by lay()) */
+static void arena(world *w, int players)
+{
+    int go[MAX_PLAYERS] = {PRESS_GO};
+    world_init(w, players, 9);
+    world_step(w, go);
+    while (w->phase != PH_PLAY) world_step(w, NONE);
+    memset(w->occ, 0, sizeof w->occ);
+}
+
+/* player p's body: n cells (x, y pairs), head first, heading dir, not growing */
+static void lay(world *w, int p, const int *xy, int n, int dir)
+{
+    cat *c = &w->c[p];
+    c->len = n;
+    c->head = 0;
+    c->grow = 0;
+    c->nq = 0;
+    c->crawled = 0;                                 /* the next step: no growth (ARENA_GROW_EVERY 2) */
+    c->dir = c->mdir = dir;
+    for (int i = 0; i < n; i++) {
+        c->body[i] = (uint8_t)CELLOF(xy[2 * i], xy[2 * i + 1]);
+        w->occ[c->body[i]] = (uint8_t)(p + 1);
+    }
+}
+
+/* every body in the occupancy map, cell by cell, and nothing else of it */
+static int occ_ok(const world *w)
+{
+    for (int p = 0; p < w->players; p++) {
+        int n = 0;
+        for (int i = 0; i < CELLS; i++) n += w->occ[i] == p + 1;
+        if (n != w->c[p].len) return 0;
+        for (int i = 0; i < w->c[p].len; i++)
+            if (w->occ[cat_cell(&w->c[p], i)] != p + 1) return 0;
+    }
+    return 1;
+}
+
 int main(void)
 {
     world w, a, b;
@@ -179,6 +218,14 @@ int main(void)
         to_step(&w, NULL);
     }
     CHECK(w.c[0].state == CS_CRAWL && w.c[0].len == START_LEN, "and round and round (12 more steps)");
+    {   /* a bulge on the tail's cell: gone as the tail leaves, even with its own head crawling in on that step */
+        int tail = cat_cell(&w.c[0], w.c[0].len - 1);
+        w.fat[tail] = 1;
+        press1(&w, DIR_RIGHT);
+        to_step(&w, NULL);
+        CHECK(w.c[0].state == CS_CRAWL && cat_cell(&w.c[0], 0) == tail && !w.fat[tail],
+              "a bulge goes with the tail, even as the head crawls into its cell at once");
+    }
 
     /* the treats */
     solo(&w, 3);
@@ -319,6 +366,59 @@ int main(void)
     CHECK(w.c[0].state == CS_HIT && w.c[1].state == CS_HIT && w.phase == PH_ROUND_END && w.round_winner < 0,
           "two heads into the same cell: both out, nobody wins the round");
 
+    /* heads swapping cells (face to face, side by side): both out, a draw */
+    arena(&w, 2);
+    {
+        static const int b0[] = {8, 5, 7, 5, 6, 5}, b1[] = {9, 5, 10, 5, 11, 5};
+        lay(&w, 0, b0, 3, DIR_RIGHT);
+        lay(&w, 1, b1, 3, DIR_LEFT);
+    }
+    to_step(&w, NULL);
+    CHECK(w.c[0].state == CS_HIT && w.c[1].state == CS_HIT && w.round_winner < 0 && occ_ok(&w) &&
+          hx(&w, 0) == 8 && hx(&w, 1) == 9, "heads swapping cells: both out where they were, a draw");
+
+    /* a head into the cell a tail leaves, as that tail's caterpillar is out on the same step: it goes in, the other
+     * loses its tail cell (it did not move, its tail would have stayed: it drops) */
+    arena(&w, 2);
+    w.occ[CELLOF(9, 2)] = CELL_ROCK;
+    {
+        static const int b0[] = {8, 5, 7, 5, 6, 5}, b1[] = {9, 3, 9, 4, 9, 5};
+        lay(&w, 0, b0, 3, DIR_RIGHT);
+        lay(&w, 1, b1, 3, DIR_UP);
+    }
+    to_step(&w, NULL);
+    CHECK(w.c[1].state == CS_HIT && w.c[1].why == HIT_ROCK && cat_cell(&w.c[0], 0) == CELLOF(9, 5) &&
+          w.c[1].len == 2 && w.round_winner == 0 && occ_ok(&w),
+          "a head into a leaving tail whose caterpillar is out at once: in, the other's tail drops");
+    for (int i = 0; i < HIT_FRAMES + 3 * MELT_EVERY + 2; i++) world_step(&w, NONE);
+    CHECK(w.c[1].state == CS_DOWN && w.c[1].len == 0 && w.occ[CELLOF(9, 5)] == 1 && occ_ok(&w),
+          "its body melts away, the winner's cell untouched");
+
+    /* two heads into the cell a third's tail leaves: both out, the third crawls on */
+    arena(&w, 3);
+    {
+        static const int b0[] = {8, 5, 7, 5, 6, 5}, b1[] = {10, 5, 11, 5, 12, 5}, b2[] = {9, 3, 9, 4, 9, 5};
+        lay(&w, 0, b0, 3, DIR_RIGHT);
+        lay(&w, 1, b1, 3, DIR_LEFT);
+        lay(&w, 2, b2, 3, DIR_UP);
+    }
+    to_step(&w, NULL);
+    CHECK(w.c[0].state == CS_HIT && w.c[1].state == CS_HIT && w.round_winner == 2 && !w.occ[CELLOF(9, 5)] &&
+          occ_ok(&w), "two heads into a leaving tail: both out, its caterpillar wins the round");
+
+    /* the 9th round ends in a draw: the match is over, nobody's wins change */
+    arena(&w, 2);
+    w.round = ARENA_MAX_ROUNDS;
+    w.c[0].wins = w.c[1].wins = ARENA_WINS - 1;
+    {
+        static const int b0[] = {8, 5, 7, 5, 6, 5}, b1[] = {10, 5, 11, 5, 12, 5};
+        lay(&w, 0, b0, 3, DIR_RIGHT);
+        lay(&w, 1, b1, 3, DIR_LEFT);
+    }
+    to_step(&w, NULL);
+    CHECK(w.phase == PH_OVER && w.round_winner < 0 && w.c[0].wins == ARENA_WINS - 1 &&
+          w.c[1].wins == ARENA_WINS - 1, "round %d a draw: the match ends there, tied", ARENA_MAX_ROUNDS);
+
     /* the match: first to ARENA_WINS */
     world_init(&w, 2, 9);
     w.c[1].wins = ARENA_WINS - 1;
@@ -363,6 +463,24 @@ int main(void)
     }
     CHECK(!world_running(&w) && w.c[0].score >= 3 && w.c[0].score <= 4, "the bot's botstop: out at score %d",
           w.c[0].score);
+
+    /* the bot in a long run (its world's clock past 53,000 frames, 15 minutes): no int overflow in its hash
+     * (undefined behaviour: make SAN=1 caterpillarcrawl-check traps it), the same decisions every time */
+    world_init(&w, 4, 9);
+    {
+        int go[MAX_PLAYERS] = {PRESS_GO};
+        world_step(&w, go);
+    }
+    while (w.phase != PH_PLAY) world_step(&w, NONE);
+    w.acc = Q16_ONE - 1;                            /* a step next frame: the bots decide now */
+    w.t = 0x7ffffff0;
+    {
+        int d0 = bot_decide(&w, 0, 5, 0), d1 = bot_decide(&w, 1, 5, 0), again = bot_decide(&w, 0, 5, 0);
+        w.t = 60000;
+        int d2 = bot_decide(&w, 2, 5, 0);
+        CHECK(d0 >= 0 && d0 <= 4 && d1 >= 0 && d1 <= 4 && d2 >= 0 && d2 <= 4 && again == d0,
+              "the bot in a run hours long: its hash never overflows (%d %d %d)", d0, d1, d2);
+    }
 
     printf(fails ? "%d FAILED\n" : "all passed\n", fails);
     return fails != 0;

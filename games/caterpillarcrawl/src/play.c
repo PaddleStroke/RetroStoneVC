@@ -375,8 +375,8 @@ static void step_all(world *w)
             c->grow--;
             c->len++;
             w->events[p] |= EV_GROW;
-        } else if (freed[p] >= 0 && w->occ[freed[p]] == CELL_FREE) {
-            w->fat[freed[p]] = 0;
+        } else if (freed[p] >= 0 && (w->occ[freed[p]] == CELL_FREE || freed[p] == cell)) {
+            w->fat[freed[p]] = 0;                       /* the tail passed (its own head may come in at once) */
         }
         c->mdir = c->dir;
         c->crawled++;
@@ -581,7 +581,7 @@ static int flood(const uint8_t *occ, int from, int cap, int *dist, int target)
 
 static uint32_t bot_hash(const world *w, int p, int salt)
 {
-    uint32_t h = w->seed * 2654435761u ^ (uint32_t)(w->t * 40503 + p * 7919 + salt * 104729);
+    uint32_t h = w->seed * 2654435761u ^ ((uint32_t)w->t * 40503u + (uint32_t)p * 7919u + (uint32_t)salt * 104729u);
     h ^= h >> 15;
     h *= 2246822519u;
     h ^= h >> 13;
