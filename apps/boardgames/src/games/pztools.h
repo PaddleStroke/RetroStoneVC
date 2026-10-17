@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "games/puzzles.h"
+#include "pages.h"
 #include "shell.h"
 
 static const uint8_t PZT_WALNUT[3] = {102, 68, 45}, PZT_DARK[3] = {50, 33, 22}, PZT_CREAM[3] = {246, 238, 220},
@@ -172,6 +173,15 @@ static inline void pzt_bar_two(box b, SDL_Texture *left_pic, int left, SDL_Textu
         ui_put(right_pic, x - gap - sz, cy - sz / 2, sz, sz);
     }
     ui_number(x + rw / 2, cy, dh, right, 1);
+}
+
+/* the same, the right picture a cream one (the par's flag): dark ink on the light theme's ivory table */
+static inline void pzt_bar_two_cream(box b, SDL_Texture *left_pic, int left, SDL_Texture *right_pic, int right,
+                                     int glow)
+{
+    if (right_pic && !TH.dark) SDL_SetTextureColorMod(right_pic, 48, 43, 35);   /* cream x this: the ink */
+    pzt_bar_two(b, left_pic, left, right_pic, right, glow);
+    if (right_pic) SDL_SetTextureColorMod(right_pic, 255, 255, 255);
 }
 
 #endif

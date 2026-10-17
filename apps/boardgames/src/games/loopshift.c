@@ -510,7 +510,7 @@ static void bar(int player, box b)
 {
     (void)player;
     int m = lsh_moves(&G);
-    pzt_bar_two(b, NULL, m, t_par, G.par, lsh_solved(&G) && m <= G.par);
+    pzt_bar_two_cream(b, NULL, m, t_par, G.par, lsh_solved(&G) && m <= G.par);
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */

@@ -20,6 +20,7 @@
 
 #include "games/chess.h"
 #include "games/puzzles.h"
+#include "pages.h"
 #include "shell.h"
 
 #define BPZ_FRAME 0.32f                         /* the frame, in squares */
@@ -304,7 +305,11 @@ static inline float bpz_bar_number(float x, float cy, int value)
 static inline float bpz_bar_pic(bpz_pics *p, int which, float x, float cy, float k)
 {
     float s = 0.6f * ui.unit * k;
-    ui_put(bpz_pic(p, which, (int)(0.6f * ui.unit)), x, cy - s / 2, s, s);
+    SDL_Texture *t = bpz_pic(p, which, (int)(0.6f * ui.unit));
+    int ink = !TH.dark && (which == BPZ_TICK || which == BPZ_SLASH);   /* the cream ones: ink on the light table */
+    if (ink) SDL_SetTextureColorMod(t, 48, 43, 35);
+    ui_put(t, x, cy - s / 2, s, s);
+    if (ink) SDL_SetTextureColorMod(t, 255, 255, 255);
     return x + s + 0.1f * ui.unit;
 }
 
