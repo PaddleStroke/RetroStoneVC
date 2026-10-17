@@ -5,7 +5,9 @@
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution;
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
  *     too), and how often the medium ways were needed;
- *   - near-duplicates dropped (the same numbers turned or mirrored).
+ *   - near-duplicates dropped (the same numbers turned or mirrored);
+ *   - how set by hand its shading looks: symmetric (turned half round or mirrored), the board's quarters shaded
+ *     alike, a fifth to a third of it shaded; the better looking two in five of the candidates are kept.
  * Each chapter has its makes (a size, a level, how many, and the part of the make's candidates, ranked by that work,
  * they are picked from evenly): 5 x 5 at the easy level first, up to 12 x 12 at the hard level. Then each chapter
  * goes from its smallest and easiest to its biggest and hardest.
@@ -21,14 +23,14 @@
 
 #include "games/hitori.h"
 
-#define CANDS 90                                /* candidates made for each make */
+#define CANDS 360                               /* candidates made for each make */
 #define BUDGET 200000L                          /* the solver's passes a candidate may cost */
 
 typedef struct {
     hto_puzzle p;
     int grade, numbers;                         /* numbers: the cells left to decide at the start */
     long passes, mediums;
-    double score;
+    double score, taste;
     char key[HTO_CELLS + 8];
 } cand;
 
@@ -78,6 +80,36 @@ static int seen(const char *key)
     return 0;
 }
 
+/* how set by hand its shading looks (the solution's shaded cells), higher better: as symmetric as can be (turned half
+ * round, or mirrored either way: the part of the shaded cells whose partner is shaded too), the four quarters of the
+ * board shaded about alike, and about a fifth to a third of the cells shaded */
+static double taste(const uint8_t *sol, int n)
+{
+    int all = 0, q[4] = {0, 0, 0, 0}, pair[3] = {0, 0, 0}, most = 0;
+    for (int c = 0; c < n * n; c++) {
+        if (!sol[c]) continue;
+        int x = c % n, y = c / n;
+        all++;
+        q[(x >= (n + 1) / 2) + 2 * (y >= (n + 1) / 2)] += !(n % 2 && (x == n / 2 || y == n / 2));
+        pair[0] += sol[(n - 1 - y) * n + n - 1 - x] != 0;
+        pair[1] += sol[y * n + n - 1 - x] != 0;
+        pair[2] += sol[(n - 1 - y) * n + x] != 0;
+    }
+    if (!all) return -9;
+    int best = pair[0] > pair[1] ? pair[0] : pair[1];
+    best = best > pair[2] ? best : pair[2];
+    int inq = q[0] + q[1] + q[2] + q[3];
+    for (int i = 0; i < 4; i++) most = q[i] > most ? q[i] : most;
+    double share = (double)all / (n * n), off = share < 0.2 ? 0.2 - share : share > 0.34 ? share - 0.34 : 0;
+    return (double)best / all - (inq ? (most - inq / 4.0) / (inq * 0.75) : 1) - 4 * off;
+}
+
+static int by_taste(const void *a, const void *b)
+{
+    const cand *x = a, *y = b;
+    return x->taste > y->taste ? -1 : x->taste < y->taste;
+}
+
 /* one candidate from a seed; 1 when it is of the size and the level and has one solution */
 static int candidate(cand *c, int n, int level, uint32_t seed)
 {
@@ -86,6 +118,7 @@ static int candidate(cand *c, int n, int level, uint32_t seed)
     if (c->p.n != n) return 0;
     c->grade = hto_effort(&c->p, &c->passes, &c->mediums);
     if (c->grade != level || hto_count(&c->p, 2) != 1) return 0;
+    c->taste = taste(sol, n);
     c->numbers = 0;
     for (int i = 0; i < n * n; i++)
         for (int j = 0; j < n; j++) {
@@ -111,6 +144,8 @@ static int make_pool(const make *m, uint32_t seed0)
         for (int i = 0; i < k && !dup; i++) dup = !strcmp(pool[i].key, c->key);
         if (!dup) k++;
     }
+    qsort(pool, (size_t)k, sizeof pool[0], by_taste);   /* the better looking two in five, then by their work */
+    if (k > 60) k = k * 2 / 5;
     qsort(pool, (size_t)k, sizeof pool[0], by_score);
     return k;
 }
