@@ -1016,7 +1016,10 @@ void hu_pause(int paused, int y)
 static void kit_spr(int rel, int x, int y, int w, int h, int prio)
 {
     x += hu_ui_x();                                     /* UI coordinates -> stage */
-    if (cfg.obj_tile < 0 || x <= rs_screen_left() - w || x >= rs_screen_right() || y <= -h || y >= RS_SCREEN_H) return;
+    /* (a tall screen: its lines above and below the stage too, rs_screen_top() .. bottom(): a HUD at the top) */
+    if (cfg.obj_tile < 0 || x <= rs_screen_left() - w || x >= rs_screen_right() || y <= rs_screen_top() - h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, cfg.obj_tile + rel, w, h, cfg.obj_pal, prio, 0);
 }
 
