@@ -2,14 +2,12 @@ Varkentje
 # Het doel
 Als eerste 100 punten halen. Gooi zolang je durft, maar een 1 maakt je beurt ongedaan. Voor 2 tot 6 spelers.
 # Een beurt
-- Gooi de steen zo vaak als je wilt. Elke worp telt zijn ogen op bij het totaal van je beurt.
-- Gooi je een 1, dan verlies je het totaal van de beurt en is de volgende aan de beurt.
-- Of stop: het totaal van de beurt komt bij je score en de steen gaat door. Je moet wel eerst minstens één keer gooien.
+- Gooi zo vaak als je wilt; elke worp telt op bij het totaal van je beurt.
+- Een 1 kost het totaal van de beurt en beëindigt je beurt.
+- Of stop: het totaal van de beurt komt bij je score. Je moet wel eerst minstens één keer gooien.
 # Varkentje met twee stenen
-Te kiezen voor de partij: hetzelfde met twee stenen, waarvan de som bij elke worp telt.
+Hetzelfde met twee stenen, waarvan de som telt.
 - Eén 1 kost het totaal van de beurt en beëindigt de beurt.
-- Twee 1'en tegelijk kosten ook je hele score: je valt terug naar 0.
+- Twee 1'en kosten ook je hele score: je valt terug naar 0.
 # Het einde van de partij
-De beurt gaat rond de tafel, ivoor begint. Wie als eerste stopt met 100 punten of meer, wint meteen.
-# Spelen op het apparaat
-Het beeld draait naar de speler die gooit. Tik op het vilt of op de knop met de steen om te gooien: het totaal van de beurt staat onder de stenen, en de worpen van de beurt komen op een rij in het rek. De knop met de munten stopt. Bovenaan loopt de steen van elke speler door een groef van 0 tot de gouden paal bij 100; die van de speler aan de beurt licht op, en het totaal van zijn beurt loopt in goud voor zijn steen uit. Een 1 verschijnt in een rode gloed met de verloren punten. Elke balk toont de score van die speler. Ongedaan maken neemt een stop terug, nooit een worp.
+Wie als eerste stopt met 100 punten of meer, wint meteen.

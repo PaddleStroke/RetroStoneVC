@@ -1,14 +1,9 @@
 Pairs
 # The aim
-Find the pairs of pictures. For 1 to 4 players. Alone, it is a puzzle: find them all in as few moves as you can.
-# The cards
-- 12, 24 or 36 cards lie face down in a grid. Each picture is on two cards.
-- The pictures: the animals of the families' deck and chess pieces in the players' colours.
+Find the pairs of pictures. For 1 to 4 players; alone, find them all in as few moves as you can.
 # A turn
 - Turn two cards face up.
-- A pair: you keep it, and you play again.
-- Not a pair: both cards are turned face down again, and the next player plays. Try to remember where they were!
+- A pair: you keep it and play again.
+- Not a pair: they turn face down again, and the next player plays.
 # The end of the game
-When all the pairs are found, the player with the most pairs wins; players with as many share the win. Playing alone, your score is the number of moves: each two cards turned are one move.
-# Playing on the device
-Tap a card to turn it over. A pair glows gold, then stays face up, dimmed, with the chip of the player who found it. Two different cards turn back by themselves after a moment, or at a tap. Each bar shows the pairs that player has found; playing alone, it shows your moves. Undo takes back the last card turned.
+When all the pairs are found, the most pairs wins; equal players share the win. Alone, your score is your moves: each two cards turned are one move.

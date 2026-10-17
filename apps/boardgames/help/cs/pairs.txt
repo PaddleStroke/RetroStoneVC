@@ -1,14 +1,9 @@
 Dvojice
 # Cíl hry
-Najdi dvojice obrázků. Pro 1 až 4 hráče. Sám je to hlavolam: najdi všechny na co nejméně tahů.
-# Karty
-- 12, 24 nebo 36 karet leží rubem nahoru v mřížce. Každý obrázek je na dvou kartách.
-- Obrázky: zvířata z rodinné hry a šachové figurky v barvách hráčů.
+Najdi dvojice obrázků. Pro 1 až 4 hráče; když hraješ sám, najdi všechny na co nejméně tahů.
 # Tah
 - Otoč dvě karty.
 - Dvojice: necháš si ji a hraješ znovu.
-- Není to dvojice: obě karty se otočí zpět a hraje další hráč. Snaž se zapamatovat, kde ležely!
+- Není to dvojice: karty se otočí zpět a hraje další hráč.
 # Konec hry
 Když jsou nalezeny všechny dvojice, vyhrává ten, kdo jich má nejvíc; při rovnosti se vítězství dělí. Sám je tvým výsledkem počet tahů: dvě otočené karty jsou jeden tah.
-# Hra na zařízení
-Klepnutím kartu otočíš. Dvojice zazáří zlatě a pak zůstane lícem nahoru, ztmavená, se žetonem hráče, který ji našel. Dvě různé karty se po chvíli otočí zpět samy, nebo po klepnutí. Každá lišta ukazuje dvojice daného hráče; když hraješ sám, ukazuje tvé tahy. Vrátit vezme zpět naposledy otočenou kartu.

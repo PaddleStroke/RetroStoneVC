@@ -2,14 +2,12 @@ El cerdo
 # El objetivo
 Ser el primero en llegar a 100 puntos. Tira mientras te atrevas, pero un 1 borra tu turno. De 2 a 6 jugadores.
 # Un turno
-- Tira el dado tantas veces como quieras. Cada tirada suma sus puntos al total del turno.
-- Si sacas un 1, pierdes el total del turno y el turno pasa.
-- O bien plántate: el total del turno se suma a tu puntuación y el dado pasa al siguiente. Antes tienes que tirar al menos una vez.
+- Tira tantas veces como quieras; cada tirada se suma al total del turno.
+- Un 1 te hace perder el total del turno y termina tu turno.
+- O bien plántate: el total del turno se suma a tu puntuación. Antes tienes que tirar al menos una vez.
 # El cerdo con dos dados
-Se elige antes de la partida: lo mismo con dos dados, cuya suma se añade en cada tirada.
+Lo mismo con dos dados, sumando los dos.
 - Un solo 1 hace perder el total del turno y lo termina.
-- Dos 1 a la vez hacen perder también toda tu puntuación: vuelves a 0.
+- Dos 1 hacen perder también toda tu puntuación: vuelves a 0.
 # El final de la partida
-Los jugadores se turnan alrededor de la mesa, empezando por marfil. El primero que se planta con 100 puntos o más gana en el acto.
-# Jugar en el dispositivo
-La vista gira hacia el jugador que tira. Toca el tapete o el botón del dado para tirar: el total del turno aparece bajo los dados, y las tiradas del turno se alinean en el estante. El botón de las monedas te planta. Arriba, el dado de cada jugador avanza por una ranura desde 0 hasta el poste dorado de 100; el del jugador que tira brilla, y el total de su turno corre en oro por delante de su dado. Un 1 aparece con un brillo rojo y los puntos perdidos. Cada barra muestra la puntuación de ese jugador. Deshacer anula una plantada, nunca una tirada.
+El primero que se planta con 100 puntos o más gana en el acto.

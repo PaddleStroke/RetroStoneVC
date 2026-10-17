@@ -2,14 +2,12 @@ Possu
 # Tavoite
 Ehtiä ensimmäisenä 100 pisteeseen. Heitä niin kauan kuin uskallat, mutta ykkönen pyyhkii vuorosi. 2–6 pelaajaa.
 # Vuoro
-- Heitä noppaa niin monta kertaa kuin haluat. Jokainen heitto lisää pisteensä vuoron summaan.
-- Jos heität ykkösen, menetät vuoron summan ja vuoro siirtyy.
-- Tai pysähdy: vuoron summa lisätään pisteisiisi ja noppa siirtyy seuraavalle. Sinun on heitettävä ensin ainakin kerran.
+- Heitä niin monta kertaa kuin haluat; jokainen heitto lisätään vuoron summaan.
+- Ykkönen vie vuoron summan ja päättää vuorosi.
+- Tai pysähdy: vuoron summa lisätään pisteisiisi. Heitä ensin ainakin kerran.
 # Possu kahdella nopalla
-Valitaan ennen peliä: sama kahdella nopalla, joiden summa lisätään joka heitolla.
+Sama kahdella nopalla, joiden summa lisätään.
 - Yksi ykkönen vie vuoron summan ja päättää vuoron.
-- Kaksi ykköstä kerralla vie myös kaikki pisteesi: palaat nollaan.
+- Kaksi ykköstä vie myös kaikki pisteesi: takaisin nollaan.
 # Pelin loppu
-Pelaajat pelaavat vuorotellen pöydän ympäri, norsunluu ensin. Ensimmäinen, joka pysähtyy 100 pisteessä tai enemmässä, voittaa heti.
-# Pelaaminen laitteella
-Näkymä kääntyy heittävän pelaajan puoleen. Heitä napauttamalla huopaa tai noppapainiketta: vuoron summa näkyy noppien alla, ja vuoron heitot asettuvat riviin telineeseen. Kolikkopainike pysäyttää. Ylhäällä jokaisen pelaajan noppa kulkee urassa nollasta kultaiseen 100 pisteen tolppaan; heittäjän noppa hehkuu, ja hänen vuoronsa summa juoksee kultaisena nopan edellä. Ykkönen näkyy punaisessa hehkussa menetettyjen pisteiden kanssa. Kukin palkki näyttää pelaajan pisteet. Kumoa peruu pysähdyksen, ei koskaan heittoa.
+Ensimmäinen, joka pysähtyy 100 pisteessä tai enemmässä, voittaa heti.

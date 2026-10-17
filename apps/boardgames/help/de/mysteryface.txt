@@ -1,40 +1,11 @@
 Geheimes Gesicht
 # Das Ziel
-Beide Spieler haben dieselben 24 Gesichter. Jeder wählt heimlich eines davon. Stelle Fragen, die mit Ja oder Nein beantwortet werden, und finde das Gesicht des anderen Spielers, bevor er deines findet. Für 2 Spieler.
+Beide Spieler haben dieselben 24 Gesichter, und jeder wählt heimlich eines. Stelle Fragen, die mit Ja oder Nein beantwortet werden, und finde das Gesicht des anderen Spielers, bevor er deines findet. Für 2 Spieler.
 # Der Beginn
-Elfenbein wählt zuerst, dann Ebenholz: Der Reihe nach nimmt jeder das Gerät, tippt auf ein Gesicht und dann auf das Häkchen. Dein Gesicht bleibt klein in der Ecke deines Bildschirms. Danach stellt Elfenbein die erste Frage.
+Elfenbein wählt zuerst, dann Ebenholz: Tippe auf ein Gesicht und dann auf das Häkchen. Danach stellt Elfenbein die erste Frage.
 # Ein Zug
-- Stelle eine Frage: Tippe auf ein Bild. Ein Hut, eine Brille, ein Bart, ein Schnurrbart, Ohrringe, Glatze, lange Haare, Locken; eine Haarfarbe (schwarz, braun, blond, rot, weiß oder grau); eine Augenfarbe (braun, blau, grün).
+- Stelle eine Frage, indem du auf ein Bild tippst: ein Hut, eine Brille, ein Bart, Ohrringe, eine Haar- oder Augenfarbe …
 - Das Gerät antwortet für den anderen Spieler: ein grünes Häkchen für Ja, ein rotes Kreuz für Nein.
-- Lege dann die Gesichter um, die die Antwort ausschließt, indem du sie antippst. Das ist deine Sache: Das Gerät antwortet nur. Tippe ein Gesicht noch einmal an, um es wieder aufzustellen.
-- Tippe auf die Weitergabe-Taste (ein Gerät zwischen zwei Pfeilen), um deinen Zug zu beenden.
+- Lege die Gesichter um, die die Antwort ausschließt, indem du sie antippst; das Gerät antwortet nur. Tippe dann auf die Weitergabe-Taste.
 # Raten
-Statt einer Frage darfst du raten: Tippe auf die Lupe und dann auf ein Gesicht, das noch steht. Ist es das Gesicht des anderen Spielers, gewinnst du; wenn nicht, verlierst du sofort.
-# Die 24 Gesichter
-Jede Frage teilt die Gesichter: 5 tragen eine Brille, 5 einen Hut, 5 Ohrringe; 5 haben einen Bart, 5 einen Schnurrbart; 4 haben eine Glatze, 7 lange Haare, 5 Locken. Haare: 6 schwarz, 5 braun, 5 blond, 3 rot, 5 weiß. Augen: 12 braun, 7 blau, 5 grün. Keine zwei Gesichter geben dieselben Antworten. In Leserichtung von links oben (Reihen zu 6, wenn das Gerät aufrecht steht, zu 8, wenn es quer liegt):
-- 1: Lange schwarze Haare, braune Augen, Ohrringe.
-- 2: Kurze blonde Haare, blaue Augen, Brille.
-- 3: Lockige rote Haare, grüne Augen.
-- 4: Glatze, weiße Haare, blaue Augen, Brille, Bart, Schnurrbart.
-- 5: Kurze braune Haare, braune Augen, Hut, Schnurrbart.
-- 6: Lockige schwarze Haare, braune Augen, Ohrringe.
-- 7: Lange blonde Haare, grüne Augen, Hut.
-- 8: Kurze weiße Haare, braune Augen, Schnurrbart.
-- 9: Lange braune Haare, blaue Augen, Brille, Ohrringe.
-- 10: Kurze schwarze Haare, braune Augen, Bart.
-- 11: Kurze rote Haare, blaue Augen, Bart, Schnurrbart.
-- 12: Lange weiße Haare, grüne Augen, Hut, Ohrringe.
-- 13: Glatze, schwarze Haare, braune Augen.
-- 14: Lockige braune Haare, grüne Augen, Brille.
-- 15: Kurze blonde Haare, braune Augen, Hut, Bart, Schnurrbart.
-- 16: Lockige weiße Haare, blaue Augen.
-- 17: Glatze, braune Haare, braune Augen, Bart.
-- 18: Lange schwarze Haare, blaue Augen, Hut.
-- 19: Lange rote Haare, braune Augen, Ohrringe.
-- 20: Lockige blonde Haare, braune Augen.
-- 21: Glatze, weiße Haare, braune Augen.
-- 22: Kurze braune Haare, grüne Augen.
-- 23: Kurze schwarze Haare, blaue Augen, Brille.
-- 24: Lange blonde Haare, braune Augen.
-# Spielen auf dem Gerät
-Nach jedem Zug wird das Gerät weitergereicht: Eine Abdeckung verbirgt den Bildschirm, bis der nächste Spieler auf Start tippt. Nur du siehst dein Brett und dein Gesicht. Die Leiste jedes Spielers zeigt, wie viele Gesichter auf seinem Brett noch stehen. Rückgängig nimmt das Umlegen und Aufstellen in diesem Zug zurück; eine gestellte Frage bleibt gestellt.
+Statt einer Frage tippe auf die Lupe und dann auf ein Gesicht, das noch steht. Ist es das Gesicht des anderen Spielers, gewinnst du; wenn nicht, verlierst du sofort.

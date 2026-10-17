@@ -1,14 +1,9 @@
 Paires
 # Le but
-Retrouver les paires d'images. De 1 à 4 joueurs. Seul, c'est un casse-tête : trouve-les toutes en aussi peu de coups que possible.
-# Les cartes
-- 12, 24 ou 36 cartes sont posées face cachée en grille. Chaque image est sur deux cartes.
-- Les images : les animaux du jeu des familles et des pièces d'échecs aux couleurs des joueurs.
+Retrouver les paires d'images. De 1 à 4 joueurs ; seul, trouve-les toutes en aussi peu de coups que possible.
 # Un tour
 - Retourne deux cartes.
 - Une paire : tu la gardes, et tu rejoues.
-- Pas une paire : les deux cartes sont retournées face cachée, et c'est au joueur suivant. Essaie de te souvenir de leur place !
+- Pas une paire : elles sont retournées face cachée, et c'est au joueur suivant.
 # La fin de la partie
-Quand toutes les paires sont trouvées, le joueur qui en a le plus gagne ; les joueurs à égalité partagent la victoire. Seul, ton score est le nombre de coups : deux cartes retournées font un coup.
-# Jouer sur l'appareil
-Touche une carte pour la retourner. Une paire brille d'or, puis reste face visible, assombrie, avec le jeton du joueur qui l'a trouvée. Deux cartes différentes se retournent d'elles-mêmes après un instant, ou dès qu'on touche l'écran. Chaque barre montre les paires trouvées par ce joueur ; seul, elle montre tes coups. Annuler reprend la dernière carte retournée.
+Quand toutes les paires sont trouvées, celui qui en a le plus gagne ; les joueurs à égalité partagent la victoire. Seul, ton score est le nombre de coups : deux cartes retournées font un coup.

@@ -2,14 +2,12 @@ Domuz
 # Amaç
 100 puana ilk ulaşan olmak. Cesaretin yettikçe at, ama bir 1 sıranı siler. 2 ile 6 oyuncu için.
 # Bir hamle
-- Zarı istediğin kadar at. Her atış puanlarını sıranın toplamına ekler.
-- 1 atarsan sıranın toplamını kaybedersin ve sıra geçer.
-- Ya da dur: sıranın toplamı puanına eklenir ve zar sıradakine geçer. Önce en az bir kez atmalısın.
+- İstediğin kadar at; her atış sıranın toplamına eklenir.
+- Bir 1, sıranın toplamını kaybettirir ve sıranı bitirir.
+- Ya da dur: sıranın toplamı puanına eklenir. Önce en az bir kez at.
 # İki zarlı domuz
-Oyundan önce seçilir: aynısı iki zarla, toplamları her atışta eklenir.
+Aynısı iki zarla, toplamları eklenir.
 - Tek bir 1, sıranın toplamını kaybettirir ve sırayı bitirir.
-- Aynı anda iki 1 bütün puanını da kaybettirir: 0'a dönersin.
+- İki 1 bütün puanını da kaybettirir: 0'a dönersin.
 # Oyunun sonu
-Oyuncular masanın çevresinde sırayla oynar, önce fildişi başlar. 100 ya da daha fazla puanla ilk duran oyuncu hemen kazanır.
-# Cihazda oynamak
-Görünüm, zar atacak oyuncuya döner. Atmak için çuhaya ya da zarlı düğmeye dokun: sıranın toplamı zarların altında görünür ve sıranın atışları rafta sıralanır. Madeni paralı düğme durdurur. Üstte, her oyuncunun zarı bir oluk boyunca 0'dan 100'deki altın direğe ilerler; zar atanınki parlar ve sırasının toplamı zarının önünde altın renginde koşar. Bir 1, kaybedilen puanlarla birlikte kırmızı bir parıltıda görünür. Her şerit o oyuncunun puanını gösterir. Geri al bir durmayı geri alır, bir atışı asla.
+100 ya da daha fazla puanla ilk duran oyuncu hemen kazanır.

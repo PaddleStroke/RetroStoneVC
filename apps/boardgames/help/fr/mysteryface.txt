@@ -1,40 +1,11 @@
 Visage mystère
 # Le but
-Les deux joueurs ont les mêmes 24 visages. Chacun en choisit un en secret. Pose des questions auxquelles on répond par oui ou par non, et trouve le visage de l'autre joueur avant qu'il ne trouve le tien. Pour 2 joueurs.
+Les deux joueurs ont les mêmes 24 visages et chacun en choisit un en secret. Pose des questions auxquelles on répond par oui ou par non, et trouve le visage de l'autre joueur avant qu'il ne trouve le tien. Pour 2 joueurs.
 # Le début
-L'ivoire choisit d'abord, puis l'ébène : chacun à son tour prend l'appareil, touche un visage, puis la coche. Ton visage reste en petit dans le coin de ton écran. Ensuite, l'ivoire pose la première question.
+L'ivoire choisit d'abord, puis l'ébène : touche un visage, puis la coche. Ensuite, l'ivoire pose la première question.
 # Un tour
-- Pose une question : touche une image. Un chapeau, des lunettes, une barbe, une moustache, des boucles d'oreilles, chauve, cheveux longs, cheveux bouclés ; une couleur de cheveux (noirs, châtains, blonds, roux, blancs ou gris) ; une couleur d'yeux (marron, bleus, verts).
+- Pose une question en touchant une image : un chapeau, des lunettes, une barbe, des boucles d'oreilles, une couleur de cheveux ou d'yeux…
 - L'appareil répond à la place de l'autre joueur : une coche verte pour oui, une croix rouge pour non.
-- Puis abaisse les visages que la réponse écarte, en les touchant. C'est à toi de le faire : l'appareil ne fait que répondre. Touche de nouveau un visage pour le relever.
-- Touche le bouton de passage (un appareil entre deux flèches) pour finir ton tour.
+- Abaisse les visages que la réponse écarte en les touchant ; l'appareil ne fait que répondre. Puis touche le bouton de passage.
 # Deviner
-Au lieu de poser une question, tu peux deviner : touche la loupe, puis un visage encore debout. Si c'est celui de l'autre joueur, tu gagnes ; sinon, tu perds aussitôt.
-# Les 24 visages
-Chaque question partage les visages : 5 portent des lunettes, 5 un chapeau, 5 des boucles d'oreilles ; 5 ont une barbe, 5 une moustache ; 4 sont chauves, 7 ont les cheveux longs, 5 les cheveux bouclés. Cheveux : 6 noirs, 5 châtains, 5 blonds, 3 roux, 5 blancs. Yeux : 12 marron, 7 bleus, 5 verts. Deux visages ne donnent jamais les mêmes réponses. Dans l'ordre de lecture depuis le coin en haut à gauche (rangées de 6 avec l'appareil debout, de 8 quand il est couché) :
-- 1 : Cheveux longs noirs, yeux marron, boucles d'oreilles.
-- 2 : Cheveux courts blonds, yeux bleus, lunettes.
-- 3 : Cheveux bouclés roux, yeux verts.
-- 4 : Chauve, cheveux blancs, yeux bleus, lunettes, barbe, moustache.
-- 5 : Cheveux courts châtains, yeux marron, chapeau, moustache.
-- 6 : Cheveux bouclés noirs, yeux marron, boucles d'oreilles.
-- 7 : Cheveux longs blonds, yeux verts, chapeau.
-- 8 : Cheveux courts blancs, yeux marron, moustache.
-- 9 : Cheveux longs châtains, yeux bleus, lunettes, boucles d'oreilles.
-- 10 : Cheveux courts noirs, yeux marron, barbe.
-- 11 : Cheveux courts roux, yeux bleus, barbe, moustache.
-- 12 : Cheveux longs blancs, yeux verts, chapeau, boucles d'oreilles.
-- 13 : Chauve, cheveux noirs, yeux marron.
-- 14 : Cheveux bouclés châtains, yeux verts, lunettes.
-- 15 : Cheveux courts blonds, yeux marron, chapeau, barbe, moustache.
-- 16 : Cheveux bouclés blancs, yeux bleus.
-- 17 : Chauve, cheveux châtains, yeux marron, barbe.
-- 18 : Cheveux longs noirs, yeux bleus, chapeau.
-- 19 : Cheveux longs roux, yeux marron, boucles d'oreilles.
-- 20 : Cheveux bouclés blonds, yeux marron.
-- 21 : Chauve, cheveux blancs, yeux marron.
-- 22 : Cheveux courts châtains, yeux verts.
-- 23 : Cheveux courts noirs, yeux bleus, lunettes.
-- 24 : Cheveux longs blonds, yeux marron.
-# Jouer sur l'appareil
-L'appareil passe de main en main après chaque tour : un écran couvre tout jusqu'à ce que le joueur suivant touche le bouton de départ. Toi seul vois ton plateau et ton visage. La barre de chaque joueur indique combien de visages sont encore debout sur son plateau. Annuler reprend les visages abaissés ou relevés pendant ce tour ; une question posée reste posée.
+Au lieu de poser une question, touche la loupe, puis un visage encore debout. Si c'est celui de l'autre joueur, tu gagnes ; sinon, tu perds aussitôt.

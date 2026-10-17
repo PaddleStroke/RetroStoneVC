@@ -1,19 +1,17 @@
 México
 # O objetivo
-Ser o último jogador com vidas. Lançam-se dois dados debaixo de um copo para onde só quem lança olha, e o valor que anuncia pode ser verdade ou bluff. De 2 a 6 jogadores, com 3 ou 6 vidas cada um (escolhe-se antes do jogo).
+Ser o último jogador com vidas. Lançam-se dois dados debaixo de um copo para onde só quem lança olha, e o valor que anuncia pode ser bluff. De 2 a 6 jogadores.
 # Os valores
-Um lançamento de dois dados lê-se com o dado mais alto primeiro: um 3 e um 5 fazem 53. Do mais baixo ao mais alto:
-- os valores simples: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+O dado mais alto vem primeiro: um 3 e um 5 fazem 53. Do mais baixo:
+- 31, 32, 41, 42, 43, 51 … 65;
 - depois os pares, de 11 a 66;
-- depois o 21, o México, o mais alto de todos.
+- depois o 21, o México, o mais alto.
 # Uma ronda
-- O primeiro jogador lança os dois dados debaixo do copo, olha para eles sozinho e anuncia um valor: a verdade ou um bluff.
-- O copo passa ao jogador seguinte, que acredita no valor ou o desafia.
-- Para acreditar, volta a lançar os dados debaixo do copo sem olhar para o que lá estava, olha para o teu novo lançamento e anuncia um valor pelo menos igual ao anterior. Se o teu lançamento for mais baixo, tens de fazer bluff.
-- O copo dá assim a volta à mesa até alguém desafiar.
+- O primeiro jogador lança, olha sozinho e anuncia um valor: a verdade ou um bluff.
+- O jogador seguinte acredita no valor ou desafia-o.
+- Para acreditar, volta a lançar sem olhar para o que lá estava e anuncia um valor pelo menos igual. Se o teu lançamento for mais baixo, tens de fazer bluff.
+- O copo dá a volta à mesa até alguém desafiar.
 # O desafio
-Levanta-se o copo. Se os dados mostram pelo menos o valor anunciado, quem desafiou enganou-se e perde uma vida. Se mostram menos, era bluff, e o jogador que o anunciou perde uma vida. Quem perdeu uma vida começa a ronda seguinte.
+Levanta-se o copo. Se os dados mostram pelo menos o valor anunciado, quem desafiou perde uma vida; se não, perde quem o anunciou. Quem perdeu começa a ronda seguinte, ou o jogador seguinte, se quem perdeu tiver sido eliminado.
 # O fim do jogo
-Um jogador sem vidas fica eliminado (se perdeu a última ronda, começa o jogador seguinte ainda em jogo). Ganha o último jogador que restar.
-# Jogar no dispositivo
-Passem o dispositivo: uma tampa esconde o ecrã a cada vez. No topo está o valor a bater, com a ficha de quem o anunciou, e por baixo os valores anteriores da ronda. Toca no botão do dado para lançar: o copo inclina-se para o lado e só tu vês os teus dados (toca no copo para os voltar a tapar). Depois toca num valor do painel e no visto para o anunciar. O painel mostra cada valor com os seus dois dados, do mais baixo em cima à esquerda ao México em baixo à direita; os valores abaixo do valor a bater ficam esbatidos, e o valor que lançaste brilha. Para desafiar, toca no botão do copo levantado: todos veem os dados, dourados se o valor se confirmava, vermelhos se era bluff, e a vida perdida desaparece. Cada barra mostra as vidas que restam a um jogador. Toca na seta para começar a ronda seguinte.
+Um jogador sem vidas fica eliminado. Ganha o último jogador que restar.

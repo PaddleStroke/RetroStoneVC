@@ -2,14 +2,12 @@ Schweinchen
 # Das Ziel
 Als Erster 100 Punkte erreichen. Würfle, solange du dich traust, aber eine 1 macht deinen Zug zunichte. Für 2 bis 6 Spieler.
 # Ein Zug
-- Würfle so oft du willst. Jeder Wurf zählt seine Augen zur Summe deines Zugs.
-- Würfelst du eine 1, verlierst du die Summe des Zugs, und der Nächste ist dran.
-- Oder hör auf: Die Summe des Zugs kommt zu deinem Punktestand, und der Würfel geht weiter. Vorher musst du mindestens einmal würfeln.
+- Würfle so oft du willst; jeder Wurf kommt zur Summe deines Zugs hinzu.
+- Eine 1 kostet die Summe des Zugs und beendet deinen Zug.
+- Oder hör auf: Die Summe des Zugs kommt zu deinem Punktestand. Vorher musst du mindestens einmal würfeln.
 # Schweinchen mit zwei Würfeln
-Vor der Partie gewählt: dasselbe mit zwei Würfeln, deren Summe bei jedem Wurf hinzukommt.
+Dasselbe mit zwei Würfeln, deren Summe hinzukommt.
 - Eine einzelne 1 kostet die Summe des Zugs und beendet ihn.
-- Zwei Einsen auf einmal kosten auch deinen ganzen Punktestand: Du fällst auf 0 zurück.
+- Zwei Einsen kosten auch deinen ganzen Punktestand: Du fällst auf 0 zurück.
 # Das Ende der Partie
-Die Spieler sind reihum am Zug, Elfenbein beginnt. Wer als Erster mit 100 Punkten oder mehr aufhört, gewinnt sofort.
-# Spielen auf dem Gerät
-Die Ansicht dreht sich zum Spieler, der würfelt. Tippe auf den Filz oder die Taste mit dem Würfel, um zu würfeln: Die Summe des Zugs steht unter den Würfeln, und die Würfe des Zugs reihen sich in der Ablage auf. Die Taste mit den Münzen hört auf. Oben läuft der Würfel jedes Spielers in einer Rille von 0 bis zum goldenen Pfosten bei 100; der des Spielers am Zug leuchtet, und die Summe seines Zugs läuft golden vor seinem Würfel her. Eine 1 erscheint in rotem Schein mit den verlorenen Punkten. Jede Leiste zeigt den Punktestand dieses Spielers. Rückgängig nimmt ein Aufhören zurück, nie einen Wurf.
+Wer als Erster mit 100 Punkten oder mehr aufhört, gewinnt sofort.

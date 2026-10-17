@@ -1,14 +1,9 @@
 Paren zoeken
 # Het doel
-Vind de paren plaatjes. Voor 1 tot 4 spelers. Alleen is het een puzzel: vind ze allemaal in zo weinig zetten als je kunt.
-# De kaarten
-- 12, 24 of 36 kaarten liggen dicht in een raster. Elk plaatje staat op twee kaarten.
-- De plaatjes: de dieren van het familiespel en schaakstukken in de kleuren van de spelers.
+Vind de paren plaatjes. Voor 1 tot 4 spelers; alleen vind je ze allemaal in zo weinig zetten als je kunt.
 # Een beurt
 - Draai twee kaarten om.
 - Een paar: je houdt het en je bent nog eens aan de beurt.
-- Geen paar: beide kaarten gaan weer dicht en de volgende speler is aan de beurt. Probeer te onthouden waar ze lagen!
+- Geen paar: ze gaan weer dicht en de volgende speler is aan de beurt.
 # Het einde van de partij
 Als alle paren gevonden zijn, wint wie de meeste heeft; bij gelijke stand wordt de winst gedeeld. Alleen is je score het aantal zetten: twee omgedraaide kaarten zijn één zet.
-# Spelen op het apparaat
-Tik op een kaart om hem om te draaien. Een paar licht goud op en blijft dan open liggen, verduisterd, met het fiche van de speler die het vond. Twee verschillende kaarten draaien na een ogenblik vanzelf terug, of bij een tik. Elke balk toont de paren van die speler; alleen toont hij je zetten. Ongedaan maken neemt de laatst omgedraaide kaart terug.

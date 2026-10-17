@@ -1,27 +1,21 @@
 Pachisi
 # Tujuan
-Pachisi adalah permainan lama dari India yang menjadi asal Ludo. Setiap pemain memimpin dua pasukan berisi empat bidak, di lengan silang yang berseberangan: gading dan ambar melawan eboni dan sonokeling. Bawa kedelapan bidakmu mengelilingi papan dan pulang ke tengah sebelum lawan. Gading melempar lebih dulu.
+Kamu memimpin dua pasukan berisi empat bidak, di lengan silang yang berseberangan. Bawa kedelapan bidakmu mengelilingi papan dan pulang ke tengah, yaitu charkoni, lebih dulu dari lawan.
 # Papan
-Papan ini berbentuk silang dengan empat lengan, masing-masing terdiri dari tiga kolom berisi delapan petak, mengelilingi petak tengah yang besar, yaitu charkoni. Setiap pasukan mulai di charkoni, di samping lengannya sendiri, yang kolom tengahnya bertatahkan warna pasukan itu. Bidak berjalan turun di tengah lengannya sendiri, mengelilingi seluruh papan berlawanan arah jarum jam di sepanjang kolom luar, lalu naik lagi di tengah lengannya menuju charkoni. Dua belas petak bertanda silang adalah benteng: ujung setiap lengan dan, di setiap kolom luar, petak keempat dari ujung.
+Bidak berjalan turun di tengah lengannya sendiri, mengelilingi seluruh papan berlawanan arah jarum jam di sepanjang kolom luar, lalu naik lagi di lengannya menuju charkoni. Dua belas petak bertanda silang adalah benteng.
 # Melempar kauri
-Lempar keenam kerang kauri dan hitung yang celahnya menghadap ke atas:
-- tidak ada: 25
-- satu: 10
-- dua sampai enam: angka itu sendiri (2, 3, 4, 5, atau 6)
-Angka 6, 10, atau 25 adalah lemparan untung: setelahnya kamu melempar lagi.
+Hitung kauri yang celahnya menghadap ke atas: tidak ada bernilai 25, satu bernilai 10, dua sampai enam bernilai angka itu sendiri. Angka 6, 10, atau 25 adalah lemparan untung: lempar lagi.
 # Melangkah
-- Jalankan satu bidak dari salah satu pasukanmu sebanyak angka yang keluar. Kamu juga boleh tidak melangkah.
-- Bidak pertama setiap pasukan boleh keluar dari charkoni dengan lemparan apa pun. Setiap bidak lain, juga bidak yang pernah dipulangkan, perlu lemparan untung untuk keluar.
-- Bidak dari kedua pasukanmu boleh berbagi satu petak, dan tidak ada yang menghalangi: bidak boleh melewati bidak lain mana pun.
-- Jika tidak ada bidak yang bisa bergerak, lemparan itu hangus (setelah lemparan untung kamu tetap melempar lagi).
+- Jalankan satu bidak dari salah satu pasukanmu sebanyak angka yang keluar, atau tidak melangkah.
+- Bidak pertama setiap pasukan boleh keluar dari charkoni dengan lemparan apa pun; setiap bidak lain, juga bidak yang dipulangkan, perlu lemparan untung.
+- Bidakmu boleh berbagi satu petak, dan tidak ada yang menghalangi jalan.
+- Jika tidak ada bidak yang bisa bergerak, lemparan itu hangus.
 # Bertemu bidak lain
-- Berhenti di petak yang ditempati bidak lawan memulangkan semuanya ke charkoni, dan kamu melempar lagi.
-- Bidak di benteng aman: tidak ada yang boleh berhenti di benteng yang ditempati bidak lawan.
+- Berhenti di bidak lawan memulangkan semuanya ke charkoni, dan kamu melempar lagi.
+- Tidak ada yang boleh berhenti di bidak lawan yang ada di benteng.
 # Pulang
-Bidak masuk ke charkoni hanya dengan angka yang pas. Tidak ada lemparan bernilai 1, jadi bidak tidak boleh berhenti di petak terakhir sebelum charkoni: dari sana bidak itu tidak akan pernah bisa pulang.
+Bidak masuk ke charkoni hanya dengan angka yang pas. Tidak ada lemparan bernilai 1, jadi jangan pernah berhenti di petak terakhir sebelum charkoni.
 # Akhir permainan
-Pemain pertama yang membawa pulang kedelapan bidaknya, dari kedua pasukan, menang.
+Pemain pertama yang membawa pulang kedelapan bidaknya menang.
 # Empat pemain
-Dengan empat pemain, setiap pemain memainkan satu pasukan dan rekan duduk berseberangan: gading dan ambar melawan eboni dan sonokeling. Giliran berputar mengelilingi meja berlawanan arah jarum jam, searah jalannya bidak. Kaurimu dan bidakmu yang sudah pulang berbagi baki di sudut sebelah kananmu, saat kamu menghadap ke tengah dari lenganmu. Setelah semua bidakmu pulang, lemparanmu menjalankan bidak rekanmu. Kedua rekan menang bersama saat kedelapan bidak mereka sudah pulang: bilah mereka berdua menyala keemasan.
-# Bermain di perangkat
-Kaurimu ada di baki di sebelah kananmu, bidakmu yang sudah pulang di baki di sebelah kirimu. Saat giliranmu, kauri menyala keemasan: ketuk papan untuk melemparnya. Nilai lemparan tampil di sampingnya, keemasan untuk lemparan untung. Titik menunjukkan ke mana bidakmu bisa bergerak, lingkaran menunjukkan bidak yang akan kamu pulangkan: ketuk sebuah bidak, atau seret ke petaknya. Jika bidak dari kedua pasukanmu berbagi satu petak dengan arah yang berbeda, ketuk petak itu, lalu ketuk titik yang kamu inginkan. Tombol pas di bilahmu melewatkan lemparan itu. Urungkan membatalkan langkah dan lemparan, tetapi lemparan yang dibatalkan akan keluar sama lagi. Bilahmu menunjukkan bidakmu yang sudah pulang.
+Setiap pemain memainkan satu pasukan, dan rekan duduk berseberangan. Setelah semua bidakmu pulang, lemparanmu menjalankan bidak rekanmu. Kedua rekan menang bersama.

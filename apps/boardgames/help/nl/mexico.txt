@@ -1,19 +1,17 @@
 Mexen
 # Het doel
-Als laatste speler nog levens over hebben. Er worden twee dobbelstenen gegooid onder een beker waar alleen de gooier in kijkt, en de waarde die hij noemt kan waar zijn of bluf. Voor 2 tot 6 spelers, met elk 3 of 6 levens (te kiezen voor de partij).
+Als laatste speler nog levens over hebben. Er worden twee dobbelstenen gegooid onder een beker waar alleen de gooier in kijkt, en de genoemde waarde kan bluf zijn. Voor 2 tot 6 spelers.
 # De waarden
-Een worp met twee stenen lees je met de hoogste steen eerst: een 3 en een 5 maken 53. Van laag naar hoog:
-- de gewone waarden: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+De hoogste steen komt eerst: een 3 en een 5 maken 53. Van laag naar hoog:
+- 31, 32, 41, 42, 43, 51 … 65;
 - dan de dubbele, van 11 tot 66;
-- dan 21, Mexico, de hoogste van allemaal.
+- dan 21, Mexico, de hoogste.
 # Een ronde
-- De eerste speler gooit de twee stenen onder de beker, bekijkt ze alleen en noemt een waarde: de waarheid of bluf.
-- De beker gaat naar de volgende speler, die de waarde gelooft of uitdaagt.
-- Geloof je haar, gooi dan de stenen opnieuw onder de beker zonder te kijken wat er lag, bekijk je nieuwe worp en noem een waarde die minstens zo hoog is als de vorige. Is je worp lager, dan moet je bluffen.
-- Zo gaat de beker rond de tafel tot iemand uitdaagt.
+- De eerste speler gooit, kijkt alleen en noemt een waarde: waar of bluf.
+- De volgende speler gelooft de waarde of daagt haar uit.
+- Geloof je haar, gooi dan opnieuw zonder te kijken wat er lag, en noem een waarde die minstens zo hoog is. Is je worp lager, dan moet je bluffen.
+- De beker gaat rond tot iemand uitdaagt.
 # De uitdaging
-De beker gaat omhoog. Tonen de stenen minstens de genoemde waarde, dan had de uitdager het mis en verliest hij een leven. Tonen ze minder, dan was het bluf en verliest de speler die de waarde noemde een leven. Wie een leven verloor, begint de volgende ronde.
+De beker gaat omhoog. Tonen de stenen minstens de genoemde waarde, dan verliest de uitdager een leven; zo niet, dan verliest degene die de waarde noemde. De verliezer begint de volgende ronde, of de volgende speler als de verliezer eruit ligt.
 # Het einde van de partij
-Een speler zonder levens ligt eruit (verloor hij de laatste ronde, dan begint de volgende speler die nog meedoet). De laatste speler die overblijft, wint.
-# Spelen op het apparaat
-Geef het apparaat rond: bij elke beurt bedekt een scherm het beeld. Bovenaan staat de waarde om te overtreffen, met de fiche van wie haar noemde, en daaronder de eerdere waarden van de ronde. Tik op de knop met de steen om te gooien: de beker kantelt opzij en alleen jij ziet je stenen (tik op de beker om hem er weer over te zetten). Tik daarna op een waarde op het paneel en op het vinkje om haar te noemen. Het paneel toont elke waarde als haar twee stenen, van de laagste linksboven tot Mexico rechtsonder; waarden onder de te overtreffen waarde zijn vervaagd, en de waarde die je gooide licht op. Wil je uitdagen, tik dan op de knop met de opgetilde beker: iedereen ziet de stenen, in goud als de waarde klopte, in rood als het bluf was, en het verloren leven vervaagt. Elke balk toont de levens die een speler nog heeft. Tik op de pijl om de volgende ronde te beginnen.
+Een speler zonder levens ligt eruit. De laatste speler die overblijft, wint.

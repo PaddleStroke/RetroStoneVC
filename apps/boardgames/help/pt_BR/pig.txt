@@ -2,14 +2,12 @@ Porquinho
 # O objetivo
 Ser o primeiro a chegar a 100 pontos. Role enquanto tiver coragem, mas um 1 apaga a sua vez. De 2 a 6 jogadores.
 # A sua vez
-- Role o dado quantas vezes quiser. Cada jogada soma os seus pontos ao total da vez.
-- Se tirar um 1, você perde o total da vez e a vez passa.
-- Ou então pare: o total da vez vai para a sua pontuação e o dado passa ao próximo. Antes, você precisa rolar pelo menos uma vez.
+- Role quantas vezes quiser; cada jogada soma ao total da vez.
+- Um 1 faz perder o total da vez e encerra a sua vez.
+- Ou então pare: o total da vez vai para a sua pontuação. Antes, você precisa rolar pelo menos uma vez.
 # Porquinho com dois dados
-Escolha antes da partida: o mesmo jogo com dois dados, cuja soma entra a cada jogada.
+O mesmo com dois dados, somando os dois.
 - Um único 1 faz perder o total da vez e termina a vez.
-- Dois 1 de uma vez fazem perder também toda a sua pontuação: você volta a 0.
+- Dois 1 fazem perder também toda a sua pontuação: você volta a 0.
 # O fim da partida
-Os jogadores se revezam em volta da mesa, começando pelo marfim. O primeiro jogador a parar com 100 pontos ou mais vence na hora.
-# Jogando no aparelho
-A vista gira para o jogador da vez. Toque no feltro ou no botão do dado para rolar: o total da vez aparece sob os dados, e as jogadas da vez se alinham no suporte. O botão das moedas para. No alto, o dado de cada jogador corre por uma canaleta do 0 até o poste dourado do 100; o do jogador da vez brilha, e o total da vez dele corre em dourado à frente do dado. Um 1 aparece num brilho vermelho com os pontos perdidos. Cada barra mostra a pontuação desse jogador. Desfazer volta uma parada, nunca uma jogada.
+O primeiro jogador a parar com 100 pontos ou mais vence na hora.

@@ -1,40 +1,11 @@
 Tajemná tvář
 # Cíl hry
-Oba hráči mají stejných 24 tváří. Každý si jednu z nich tajně vybere. Klaď otázky, na které se odpovídá ano, nebo ne, a najdi tvář soupeře dřív, než on najde tvou. Pro 2 hráče.
+Oba hráči mají stejných 24 tváří a každý si jednu tajně vybere. Klaď otázky, na které se odpovídá ano, nebo ne, a najdi tvář soupeře dřív, než on najde tvou. Pro 2 hráče.
 # Začátek
-Nejprve vybírá slonovinový hráč, potom ebenový: každý po řadě vezme zařízení, klepne na tvář a potom na fajfku. Tvoje tvář zůstává malá v rohu tvé obrazovky. Potom první otázku položí slonovinový hráč.
+Nejprve vybírá slonovinový hráč, potom ebenový: klepni na tvář a potom na fajfku. Potom první otázku položí slonovinový hráč.
 # Tah
-- Polož jednu otázku: klepni na obrázek. Klobouk, brýle, plnovous, knír, náušnice, pleš, dlouhé vlasy, kudrnaté vlasy; barva vlasů (černé, hnědé, blond, zrzavé, bílé nebo šedé); barva očí (hnědé, modré, zelené).
+- Polož jednu otázku klepnutím na obrázek: klobouk, brýle, plnovous, náušnice, barva vlasů nebo očí…
 - Zařízení odpoví za soupeře: zelená fajfka znamená ano, červený křížek ne.
-- Potom sklop tváře, které odpověď vylučuje, klepnutím na ně. To je tvoje práce: zařízení jen odpovídá. Dalším klepnutím tvář zase postavíš.
-- Klepni na tlačítko předání (zařízení mezi dvěma šipkami) a ukonči tah.
+- Sklop tváře, které odpověď vylučuje, klepnutím na ně; zařízení jen odpovídá. Pak klepni na tlačítko předání.
 # Hádání
-Místo otázky můžeš hádat: klepni na lupu a potom na tvář, která ještě stojí. Je-li to tvář soupeře, vyhráváš; pokud ne, hned prohráváš.
-# 24 tváří
-Každá otázka tváře rozdělí: 5 nosí brýle, 5 klobouk, 5 náušnice; 5 má plnovous, 5 knír; 4 mají pleš, 7 dlouhé vlasy, 5 kudrnaté. Vlasy: 6 černé, 5 hnědé, 5 blond, 3 zrzavé, 5 bílé. Oči: 12 hnědé, 7 modré, 5 zelené. Žádné dvě tváře nedávají stejné odpovědi. V pořadí čtení od levého horního rohu (řady po 6, když zařízení stojí, po 8, když leží na boku):
-- 1: Dlouhé černé vlasy, hnědé oči, náušnice.
-- 2: Krátké blond vlasy, modré oči, brýle.
-- 3: Kudrnaté zrzavé vlasy, zelené oči.
-- 4: Pleš, bílé vlasy, modré oči, brýle, plnovous, knír.
-- 5: Krátké hnědé vlasy, hnědé oči, klobouk, knír.
-- 6: Kudrnaté černé vlasy, hnědé oči, náušnice.
-- 7: Dlouhé blond vlasy, zelené oči, klobouk.
-- 8: Krátké bílé vlasy, hnědé oči, knír.
-- 9: Dlouhé hnědé vlasy, modré oči, brýle, náušnice.
-- 10: Krátké černé vlasy, hnědé oči, plnovous.
-- 11: Krátké zrzavé vlasy, modré oči, plnovous, knír.
-- 12: Dlouhé bílé vlasy, zelené oči, klobouk, náušnice.
-- 13: Pleš, černé vlasy, hnědé oči.
-- 14: Kudrnaté hnědé vlasy, zelené oči, brýle.
-- 15: Krátké blond vlasy, hnědé oči, klobouk, plnovous, knír.
-- 16: Kudrnaté bílé vlasy, modré oči.
-- 17: Pleš, hnědé vlasy, hnědé oči, plnovous.
-- 18: Dlouhé černé vlasy, modré oči, klobouk.
-- 19: Dlouhé zrzavé vlasy, hnědé oči, náušnice.
-- 20: Kudrnaté blond vlasy, hnědé oči.
-- 21: Pleš, bílé vlasy, hnědé oči.
-- 22: Krátké hnědé vlasy, zelené oči.
-- 23: Krátké černé vlasy, modré oči, brýle.
-- 24: Dlouhé blond vlasy, hnědé oči.
-# Hra na zařízení
-Po každém tahu se zařízení předá: kryt skryje obrazovku, dokud další hráč neklepne na start. Svou desku a svou tvář vidíš jen ty. Lišta každého hráče ukazuje, kolik tváří na jeho desce ještě stojí. Vrátit vezme zpět sklopení a postavení tváří v tomto tahu; položená otázka platí.
+Místo otázky klepni na lupu a potom na tvář, která ještě stojí. Je-li to tvář soupeře, vyhráváš; pokud ne, hned prohráváš.

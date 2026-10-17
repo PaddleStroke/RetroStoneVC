@@ -1,40 +1,11 @@
 Geheim gezicht
 # Het doel
-Beide spelers hebben dezelfde 24 gezichten. Ieder kiest er in het geheim een. Stel vragen die met ja of nee beantwoord worden, en vind het gezicht van de ander voordat die het jouwe vindt. Voor 2 spelers.
+Beide spelers hebben dezelfde 24 gezichten en ieder kiest er in het geheim een. Stel vragen die met ja of nee beantwoord worden, en vind het gezicht van de ander voordat die het jouwe vindt. Voor 2 spelers.
 # Het begin
-Ivoor kiest eerst, dan ebbenhout: om de beurt neemt ieder het apparaat, tikt op een gezicht en dan op het vinkje. Jouw gezicht blijft klein in de hoek van je scherm. Daarna stelt ivoor de eerste vraag.
+Ivoor kiest eerst, dan ebbenhout: tik op een gezicht en dan op het vinkje. Daarna stelt ivoor de eerste vraag.
 # Een beurt
-- Stel één vraag: tik op een plaatje. Een hoed, een bril, een baard, een snor, oorbellen, kaal, lang haar, krullen; een haarkleur (zwart, bruin, blond, rood, wit of grijs); een oogkleur (bruin, blauw, groen).
+- Stel één vraag door op een plaatje te tikken: een hoed, een bril, een baard, oorbellen, een haar- of oogkleur…
 - Het apparaat antwoordt voor de ander: een groen vinkje voor ja, een rood kruis voor nee.
-- Klap dan de gezichten om die het antwoord uitsluit, door erop te tikken. Dat doe je zelf: het apparaat antwoordt alleen. Tik nog eens op een gezicht om het weer rechtop te zetten.
-- Tik op de doorgeefknop (een apparaat tussen twee pijlen) om je beurt te beëindigen.
+- Klap de gezichten om die het antwoord uitsluit, door erop te tikken; het apparaat antwoordt alleen. Tik daarna op de doorgeefknop.
 # Raden
-In plaats van een vraag mag je raden: tik op het vergrootglas en dan op een gezicht dat nog rechtop staat. Is het het gezicht van de ander, dan win je; zo niet, dan verlies je meteen.
-# De 24 gezichten
-Elke vraag verdeelt de gezichten: 5 dragen een bril, 5 een hoed, 5 oorbellen; 5 hebben een baard, 5 een snor; 4 zijn kaal, 7 hebben lang haar, 5 krullen. Haar: 6 zwart, 5 bruin, 5 blond, 3 rood, 5 wit. Ogen: 12 bruin, 7 blauw, 5 groen. Geen twee gezichten geven dezelfde antwoorden. In leesvolgorde vanaf linksboven (rijen van 6 als het apparaat rechtop staat, van 8 als het dwars ligt):
-- 1: Lang zwart haar, bruine ogen, oorbellen.
-- 2: Kort blond haar, blauwe ogen, bril.
-- 3: Krullend rood haar, groene ogen.
-- 4: Kaal, wit haar, blauwe ogen, bril, baard, snor.
-- 5: Kort bruin haar, bruine ogen, hoed, snor.
-- 6: Krullend zwart haar, bruine ogen, oorbellen.
-- 7: Lang blond haar, groene ogen, hoed.
-- 8: Kort wit haar, bruine ogen, snor.
-- 9: Lang bruin haar, blauwe ogen, bril, oorbellen.
-- 10: Kort zwart haar, bruine ogen, baard.
-- 11: Kort rood haar, blauwe ogen, baard, snor.
-- 12: Lang wit haar, groene ogen, hoed, oorbellen.
-- 13: Kaal, zwart haar, bruine ogen.
-- 14: Krullend bruin haar, groene ogen, bril.
-- 15: Kort blond haar, bruine ogen, hoed, baard, snor.
-- 16: Krullend wit haar, blauwe ogen.
-- 17: Kaal, bruin haar, bruine ogen, baard.
-- 18: Lang zwart haar, blauwe ogen, hoed.
-- 19: Lang rood haar, bruine ogen, oorbellen.
-- 20: Krullend blond haar, bruine ogen.
-- 21: Kaal, wit haar, bruine ogen.
-- 22: Kort bruin haar, groene ogen.
-- 23: Kort zwart haar, blauwe ogen, bril.
-- 24: Lang blond haar, bruine ogen.
-# Spelen op het apparaat
-Na elke beurt gaat het apparaat naar de ander: een afdekking verbergt het scherm tot de volgende speler op start tikt. Alleen jij ziet je bord en je gezicht. De balk van elke speler toont hoeveel gezichten er op zijn bord nog rechtop staan. Ongedaan maken draait het omklappen en rechtop zetten in deze beurt terug; een gestelde vraag blijft gesteld.
+In plaats van een vraag tik je op het vergrootglas en dan op een gezicht dat nog rechtop staat. Is het het gezicht van de ander, dan win je; zo niet, dan verlies je meteen.

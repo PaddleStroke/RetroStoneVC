@@ -1,27 +1,21 @@
 Pachisi
 # Målet
-Pachisi er det gamle indiske spil, som Ludo er udviklet fra. Hver spiller fører to hære med fire brikker, på modsatte arme af korset: elfenben og rav mod ibenholt og palisander. Før alle dine otte brikker rundt om brættet og hjem til midten før modstanderen. Elfenben kaster først.
+Du fører to hære med fire brikker, på modsatte arme af korset. Før alle otte brikker rundt om brættet og hjem til midten, charkoni, først.
 # Brættet
-Brættet er et kors med fire arme, hver af tre kolonner med otte felter, omkring et stort midterfelt, charkoni. Hver hær starter i charkoni ved siden af sin egen arm, hvis midterste kolonne er indlagt i hærens farve. En brik går ned ad midten af sin egen arm, hele vejen rundt om brættet mod uret ad de yderste kolonner og så op ad midten af sin arm igen og ind i charkoni. De tolv felter, der er mærket med et kryds, er borge: enden af hver arm og, i hver yderste kolonne, det fjerde felt fra enden.
+En brik går ned ad midten af sin egen arm, hele vejen rundt om brættet mod uret ad de yderste kolonner og så op ad sin arm igen og ind i charkoni. De tolv felter, der er mærket med et kryds, er borge.
 # Kast med kaurisneglene
-Kast de seks kaurisnegle, og tæl de åbninger, der vender opad:
-- ingen: 25
-- én: 10
-- to til seks: det tal (2, 3, 4, 5 eller 6)
-En 6'er, 10'er eller 25'er er et lykkekast: efter det kaster du igen.
+Tæl de åbninger, der vender opad: ingen er 25, én er 10, to til seks tæller det tal. En 6'er, 10'er eller 25'er er et lykkekast: kast igen.
 # Flytning
-- Flyt én brik fra en af dine to hære det kastede tal frem. Du må også lade være med at flytte.
-- Hver hærs første brik må forlade charkoni med et hvilket som helst kast. Alle andre brikker, også en brik, der er sendt tilbage, skal bruge et lykkekast for at komme ud.
-- Brikker fra begge dine hære må stå på samme felt, og intet spærrer vejen: en brik må passere over alle andre.
-- Hvis ingen brik kan flytte, er kastet tabt (efter et lykkekast kaster du stadig igen).
+- Flyt én brik fra en af dine hære det kastede tal frem, eller lad være med at flytte.
+- Hver hærs første brik må forlade charkoni med et hvilket som helst kast; alle andre brikker, også en brik, der er sendt tilbage, skal bruge et lykkekast.
+- Dine brikker må stå på samme felt, og intet spærrer vejen.
+- Hvis ingen brik kan flytte, er kastet tabt.
 # Møde med andre brikker
-- Lander du på et felt, hvor modstanderens brikker står, sendes de alle tilbage til charkoni, og du kaster igen.
-- En brik på en borg er sikker: ingen må lande på en borg, hvor modstanderens brikker står.
+- Lander du på modstanderens brikker, sendes de alle tilbage til charkoni, og du kaster igen.
+- Ingen må lande på modstanderens brikker på en borg.
 # Mod mål
-En brik kommer kun ind i charkoni med det præcise tal. Intet kast giver 1, så en brik må ikke stoppe på det sidste felt før charkoni: den ville aldrig nå i mål.
+En brik kommer kun ind i charkoni med det præcise tal. Intet kast giver 1, så stop aldrig på det sidste felt før charkoni.
 # Spillets afslutning
-Den første spiller, der får alle otte brikker i mål, fra begge hære, vinder.
+Den første spiller, der får alle otte brikker hjem, vinder.
 # Fire spillere
-Med fire spillere fører hver spiller én hær, og makkerne sidder over for hinanden: elfenben og rav mod ibenholt og palisander. Turen går rundt om bordet mod uret, samme vej som brikkerne. Dine kaurisnegle og dine brikker i mål deler bakken i hjørnet til højre for dig, når du ser mod midten fra din arm. Når alle dine brikker er i mål, flytter du din makkers brikker med dine kast. Makkerne vinder sammen, når alle otte af deres brikker er i mål: begge deres paneler lyser guld.
-# Spil på enheden
-Dine kaurisnegle ligger i bakken til højre for dig, dine brikker i mål i bakken til venstre. Når det er din tur, lyser kaurisneglene guld: tryk på brættet for at kaste dem. Den kastede værdi vises ved siden af dem, i guld ved et lykkekast. Prikker viser, hvor dine brikker kan gå hen, ringe de brikker, du ville sende tilbage: tryk på en brik, eller træk den til dens felt. Hvor brikker fra begge dine hære står på samme felt og skal i forskellige retninger, trykker du på feltet og derefter på den prik, du vil have. Pas-knappen i dit panel afslår kastet. Fortryd tager træk og kast tilbage, men et kast, der er taget tilbage, falder ud på samme måde igen. Dit panel viser dine brikker i mål.
+Hver spiller fører én hær, og makkerne sidder over for hinanden. Når alle dine brikker er hjemme, flytter du din makkers brikker med dine kast. Makkerne vinder sammen.

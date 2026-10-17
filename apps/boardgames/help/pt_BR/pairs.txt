@@ -1,14 +1,9 @@
 Pares
 # O objetivo
-Encontre os pares de figuras. Para 1 a 4 jogadores. Sozinho, é um quebra-cabeça: encontre todos com o menor número de jogadas.
-# As cartas
-- 12, 24 ou 36 cartas ficam viradas para baixo numa grade. Cada figura está em duas cartas.
-- As figuras: os animais do jogo das famílias e peças de xadrez nas cores dos jogadores.
+Encontre os pares de figuras. Para 1 a 4 jogadores; sozinho, encontre todos com o menor número de jogadas.
 # Uma jogada
 - Vire duas cartas.
 - Um par: você fica com ele e joga de novo.
-- Não é par: as duas cartas são viradas para baixo de novo e o próximo jogador joga. Tente lembrar onde elas estavam!
+- Não é par: elas são viradas para baixo de novo e o próximo jogador joga.
 # O fim da partida
 Quando todos os pares forem encontrados, ganha quem tiver mais pares; empatados dividem a vitória. Sozinho, seu resultado é o número de jogadas: duas cartas viradas são uma jogada.
-# Jogando no aparelho
-Toque numa carta para virá-la. Um par brilha dourado e depois fica virado para cima, escurecido, com a ficha do jogador que o encontrou. Duas cartas diferentes se viram sozinhas depois de um instante, ou com um toque. Cada barra mostra os pares daquele jogador; sozinho, mostra suas jogadas. Desfazer volta a última carta virada.

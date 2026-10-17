@@ -1,14 +1,9 @@
 Paare finden
 # Das Ziel
-Finde die Bilderpaare. Für 1 bis 4 Spieler. Allein ist es ein Rätsel: finde alle mit so wenigen Zügen wie möglich.
-# Die Karten
-- 12, 24 oder 36 Karten liegen verdeckt in einem Raster. Jedes Bild ist auf zwei Karten.
-- Die Bilder: die Tiere aus dem Familienspiel und Schachfiguren in den Farben der Spieler.
+Finde die Bilderpaare. Für 1 bis 4 Spieler; allein findest du alle mit so wenigen Zügen wie möglich.
 # Ein Zug
 - Decke zwei Karten auf.
 - Ein Paar: du behältst es und bist noch einmal dran.
-- Kein Paar: beide Karten werden wieder umgedreht, und der nächste Spieler ist dran. Merke dir, wo sie lagen!
+- Kein Paar: sie werden wieder umgedreht, und der nächste Spieler ist dran.
 # Das Ende der Partie
 Wenn alle Paare gefunden sind, gewinnt, wer die meisten hat; bei Gleichstand wird der Sieg geteilt. Allein ist dein Ergebnis die Zahl der Züge: zwei aufgedeckte Karten sind ein Zug.
-# Spielen auf dem Gerät
-Tippe eine Karte an, um sie umzudrehen. Ein Paar leuchtet golden und bleibt dann offen liegen, abgedunkelt, mit dem Spielstein dessen, der es gefunden hat. Zwei verschiedene Karten drehen sich nach einem Moment von selbst wieder um, oder bei einem Tippen. Jede Leiste zeigt die Paare des Spielers; allein zeigt sie deine Züge. Rückgängig nimmt die zuletzt umgedrehte Karte zurück.

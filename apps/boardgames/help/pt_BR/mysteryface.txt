@@ -1,40 +1,11 @@
 Rosto misterioso
 # O objetivo
-Os dois jogadores têm os mesmos 24 rostos. Cada um escolhe um deles em segredo. Faça perguntas respondidas com sim ou não e descubra o rosto do outro jogador antes que ele descubra o seu. Para 2 jogadores.
+Os dois jogadores têm os mesmos 24 rostos e cada um escolhe um em segredo. Faça perguntas respondidas com sim ou não e descubra o rosto do outro jogador antes que ele descubra o seu. Para 2 jogadores.
 # O começo
-O marfim escolhe primeiro, depois o ébano: cada um, na sua vez, pega o aparelho, toca um rosto e depois o sinal de confirmação. O seu rosto fica pequeno no canto da sua tela. Depois o marfim faz a primeira pergunta.
+O marfim escolhe primeiro, depois o ébano: toque um rosto e depois o sinal de confirmação. Depois o marfim faz a primeira pergunta.
 # Uma jogada
-- Faça uma pergunta: toque uma figura. Um chapéu, óculos, barba, bigode, brincos, careca, cabelo comprido, cabelo cacheado; uma cor de cabelo (preto, castanho, loiro, ruivo, branco ou grisalho); uma cor de olhos (castanhos, azuis, verdes).
+- Faça uma pergunta tocando uma figura: um chapéu, óculos, barba, brincos, uma cor de cabelo ou de olhos…
 - O aparelho responde pelo outro jogador: um sinal verde para sim, um X vermelho para não.
-- Depois abaixe os rostos que a resposta descarta, tocando neles. Isso é com você: o aparelho só responde. Toque de novo num rosto para levantá-lo.
-- Toque o botão de passar (um aparelho entre duas setas) para terminar a sua vez.
+- Abaixe os rostos que a resposta descarta, tocando neles; o aparelho só responde. Depois toque o botão de passar.
 # Adivinhar
-Em vez de fazer uma pergunta, você pode adivinhar: toque a lupa e depois um rosto ainda em pé. Se for o rosto do outro jogador, você ganha; se não, perde na hora.
-# Os 24 rostos
-Cada pergunta divide os rostos: 5 usam óculos, 5 chapéu, 5 brincos; 5 têm barba, 5 bigode; 4 são carecas, 7 têm cabelo comprido, 5 cacheado. Cabelo: 6 preto, 5 castanho, 5 loiro, 3 ruivo, 5 branco. Olhos: 12 castanhos, 7 azuis, 5 verdes. Nunca dois rostos dão as mesmas respostas. Na ordem de leitura a partir do canto superior esquerdo (fileiras de 6 com o aparelho em pé, de 8 quando ele está deitado):
-- 1: Cabelo preto comprido, olhos castanhos, brincos.
-- 2: Cabelo loiro curto, olhos azuis, óculos.
-- 3: Cabelo ruivo cacheado, olhos verdes.
-- 4: Careca, cabelo branco, olhos azuis, óculos, barba, bigode.
-- 5: Cabelo castanho curto, olhos castanhos, chapéu, bigode.
-- 6: Cabelo preto cacheado, olhos castanhos, brincos.
-- 7: Cabelo loiro comprido, olhos verdes, chapéu.
-- 8: Cabelo branco curto, olhos castanhos, bigode.
-- 9: Cabelo castanho comprido, olhos azuis, óculos, brincos.
-- 10: Cabelo preto curto, olhos castanhos, barba.
-- 11: Cabelo ruivo curto, olhos azuis, barba, bigode.
-- 12: Cabelo branco comprido, olhos verdes, chapéu, brincos.
-- 13: Careca, cabelo preto, olhos castanhos.
-- 14: Cabelo castanho cacheado, olhos verdes, óculos.
-- 15: Cabelo loiro curto, olhos castanhos, chapéu, barba, bigode.
-- 16: Cabelo branco cacheado, olhos azuis.
-- 17: Careca, cabelo castanho, olhos castanhos, barba.
-- 18: Cabelo preto comprido, olhos azuis, chapéu.
-- 19: Cabelo ruivo comprido, olhos castanhos, brincos.
-- 20: Cabelo loiro cacheado, olhos castanhos.
-- 21: Careca, cabelo branco, olhos castanhos.
-- 22: Cabelo castanho curto, olhos verdes.
-- 23: Cabelo preto curto, olhos azuis, óculos.
-- 24: Cabelo loiro comprido, olhos castanhos.
-# Jogando no aparelho
-O aparelho passa de mão em mão depois de cada vez: uma capa esconde a tela até o próximo jogador tocar em começar. Só você vê o seu tabuleiro e o seu rosto. A barra de cada jogador mostra quantos rostos ainda estão em pé no tabuleiro dele. Desfazer volta os rostos abaixados ou levantados nesta vez; uma pergunta feita continua feita.
+Em vez de fazer uma pergunta, toque a lupa e depois um rosto ainda em pé. Se for o rosto do outro jogador, você ganha; se não, perde na hora.

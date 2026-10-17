@@ -1,14 +1,9 @@
 Pary
 # Cel gry
-Znajdź pary obrazków. Dla 1–4 graczy. W pojedynkę to łamigłówka: znajdź wszystkie w jak najmniejszej liczbie ruchów.
-# Karty
-- 12, 24 albo 36 kart leży zakrytych w siatce. Każdy obrazek jest na dwóch kartach.
-- Obrazki: zwierzęta z gry w rodziny i figury szachowe w kolorach graczy.
+Znajdź pary obrazków. Dla 1–4 graczy; w pojedynkę znajdź wszystkie w jak najmniejszej liczbie ruchów.
 # Tura
 - Odkryj dwie karty.
 - Para: zatrzymujesz ją i grasz dalej.
-- Nie para: obie karty zostają z powrotem zakryte i gra następny gracz. Postaraj się zapamiętać, gdzie leżały!
+- Nie para: karty zostają z powrotem zakryte i gra następny gracz.
 # Koniec gry
 Gdy wszystkie pary zostaną znalezione, wygrywa ten, kto ma ich najwięcej; przy remisie zwycięstwo jest wspólne. W pojedynkę twoim wynikiem jest liczba ruchów: dwie odkryte karty to jeden ruch.
-# Gra na urządzeniu
-Dotknij karty, żeby ją odwrócić. Para świeci złotem, a potem zostaje odkryta, przyciemniona, z żetonem gracza, który ją znalazł. Dwie różne karty same odwracają się po chwili albo po dotknięciu. Każdy pasek pokazuje pary danego gracza; w pojedynkę pokazuje twoje ruchy. Cofnij wycofuje ostatnio odkrytą kartę.

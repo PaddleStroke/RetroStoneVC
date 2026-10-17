@@ -1,27 +1,21 @@
 Pachisi
 # El objetivo
-El pachisi es el antiguo juego de la India del que nació el ludo. Cada jugador dirige dos ejércitos de cuatro fichas, en brazos opuestos de la cruz: marfil y ámbar contra ébano y palisandro. Lleva tus ocho fichas alrededor del tablero y de vuelta al centro antes que el otro jugador. Tira primero el marfil.
+Diriges dos ejércitos de cuatro fichas, en brazos opuestos de la cruz. Lleva tus ocho fichas alrededor del tablero y de vuelta al centro, el charkoni, antes que el otro jugador.
 # El tablero
-El tablero es una cruz de cuatro brazos, cada uno de tres columnas de ocho casillas, alrededor de una gran casilla central, el charkoni. Cada ejército empieza en el charkoni, junto a su propio brazo, cuya columna central está taraceada en su color. Una ficha baja por el centro de su propio brazo, da la vuelta a todo el tablero en sentido contrario a las agujas del reloj por las columnas exteriores y luego vuelve a subir por el centro de su brazo hasta el charkoni. Las doce casillas marcadas con una cruz son castillos: el extremo de cada brazo y, en cada columna exterior, la cuarta casilla desde el extremo.
+Una ficha baja por el centro de su propio brazo, da la vuelta a todo el tablero en sentido contrario a las agujas del reloj por las columnas exteriores y luego vuelve a subir por su brazo hasta el charkoni. Las doce casillas marcadas con una cruz son castillos.
 # Tirar los cauris
-Tira los seis cauris y cuenta las bocas que quedan hacia arriba:
-- ninguna: 25
-- una: 10
-- de dos a seis: ese número (2, 3, 4, 5 o 6)
-Un 6, un 10 o un 25 es una gracia: después vuelves a tirar.
+Cuenta las bocas que quedan hacia arriba: ninguna vale 25, una vale 10, de dos a seis valen ese número. Un 6, un 10 o un 25 es una gracia: vuelves a tirar.
 # Mover
-- Mueve una ficha de cualquiera de tus dos ejércitos tantas casillas como marque la tirada. También puedes renunciar a mover.
-- La primera ficha de cada ejército puede salir del charkoni con cualquier tirada. Cualquier otra ficha, y una ficha que ha sido devuelta, necesita una gracia para salir.
-- Las fichas de tus dos ejércitos pueden compartir casilla, y nada corta el paso: una ficha puede pasar por encima de cualquier otra.
-- Si ninguna ficha puede moverse, la tirada se pierde (después de una gracia, vuelves a tirar igualmente).
+- Mueve una ficha de cualquiera de tus dos ejércitos tantas casillas como marque la tirada, o renuncia a mover.
+- La primera ficha de cada ejército puede salir del charkoni con cualquier tirada; cualquier otra ficha, y una ficha devuelta, necesita una gracia.
+- Tus fichas pueden compartir casilla, y nada corta el paso.
+- Si ninguna ficha puede moverse, la tirada se pierde.
 # Encuentros con otras fichas
-- Caer en una casilla donde hay fichas del otro jugador las devuelve todas al charkoni, y vuelves a tirar.
-- Una ficha en un castillo está a salvo: nadie puede caer en un castillo donde hay fichas del otro jugador.
+- Caer en las fichas del otro jugador las devuelve todas al charkoni, y vuelves a tirar.
+- Nadie puede caer en fichas contrarias que están en un castillo.
 # Llegar a la meta
-Una ficha entra en el charkoni solo con el número exacto. Ninguna tirada vale 1, así que una ficha no puede detenerse en la última casilla antes del charkoni: nunca podría llegar a la meta.
+Una ficha entra en el charkoni solo con el número exacto. Ninguna tirada vale 1, así que nunca te detengas en la última casilla antes del charkoni.
 # El final de la partida
-Gana el primer jugador que lleva a la meta sus ocho fichas, las de sus dos ejércitos.
+Gana el primer jugador que lleva a la meta sus ocho fichas.
 # Con cuatro jugadores
-Con cuatro jugadores, cada uno juega un ejército y los compañeros se sientan frente a frente: marfil y ámbar contra ébano y palisandro. El turno da la vuelta a la mesa en sentido contrario a las agujas del reloj, como las fichas. Tus cauris y tus fichas que han llegado a la meta comparten la bandeja de la esquina de tu derecha, mirando al centro desde tu brazo. Cuando todas tus fichas han llegado a la meta, tus tiradas mueven las fichas de tu compañero. Los compañeros ganan juntos cuando sus ocho fichas han llegado a la meta: sus dos barras brillan en dorado.
-# Jugar en el dispositivo
-Tus cauris están en la bandeja de tu derecha, y tus fichas que han llegado a la meta, en la bandeja de tu izquierda. Cuando te toca, los cauris brillan en dorado: toca el tablero para tirarlos. El valor sacado aparece junto a ellos, en dorado si es una gracia. Los puntos muestran adónde pueden ir tus fichas, y los anillos las fichas que devolverías: toca una ficha, o arrástrala hasta su casilla. Donde fichas de tus dos ejércitos comparten una casilla y van en direcciones distintas, tócala y luego toca el punto que quieras. El botón de pasar de tu barra renuncia a la tirada. Deshacer retira movimientos y tiradas, pero una tirada deshecha vuelve a salir igual. Tu barra muestra las fichas que has llevado a la meta.
+Cada uno juega un ejército, y los compañeros se sientan frente a frente. Cuando todas tus fichas han llegado a la meta, tus tiradas mueven las de tu compañero. Los compañeros ganan juntos.

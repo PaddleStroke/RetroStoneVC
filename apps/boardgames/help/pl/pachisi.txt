@@ -1,27 +1,21 @@
 Pachisi
 # Cel gry
-Pachisi to dawna gra z Indii, z której powstał chińczyk. Każdy gracz dowodzi dwiema armiami po cztery pionki, na przeciwległych ramionach krzyża: kość słoniowa i bursztyn przeciw hebanowi i palisandrowi. Przeprowadź wszystkie osiem swoich pionków dookoła planszy do domu w środku przed przeciwnikiem. Pierwszy rzuca gracz w kolorze kości słoniowej.
+Dowodzisz dwiema armiami po cztery pionki, na przeciwległych ramionach krzyża. Jako pierwszy przeprowadź wszystkie osiem pionków dookoła planszy do domu w środku, charkoni.
 # Plansza
-Plansza to krzyż z czterech ramion, każde z trzech kolumn po osiem pól, wokół dużego pola środkowego, charkoni. Każda armia zaczyna w charkoni obok swojego ramienia, którego środkowa kolumna jest inkrustowana w jej kolorze. Pionek idzie w dół środkiem swojego ramienia, dookoła całej planszy przeciwnie do ruchu wskazówek zegara zewnętrznymi kolumnami, a potem z powrotem w górę środkiem swojego ramienia do charkoni. Dwanaście pól oznaczonych krzyżykiem to zamki: koniec każdego ramienia oraz, w każdej zewnętrznej kolumnie, czwarte pole od końca.
+Pionek idzie w dół środkiem swojego ramienia, dookoła całej planszy przeciwnie do ruchu wskazówek zegara zewnętrznymi kolumnami, a potem z powrotem w górę swojego ramienia do charkoni. Dwanaście pól oznaczonych krzyżykiem to zamki.
 # Rzut muszlami kauri
-Rzuć sześcioma muszlami kauri i policz otwory zwrócone ku górze:
-- żaden: 25
-- jeden: 10
-- od dwóch do sześciu: ta liczba (2, 3, 4, 5 lub 6)
-6, 10 lub 25 to szczęśliwy rzut: po nim rzucasz ponownie.
+Policz otwory zwrócone ku górze: żaden to 25, jeden to 10, od dwóch do sześciu to ta liczba. 6, 10 lub 25 to szczęśliwy rzut: rzucasz ponownie.
 # Ruchy
-- Przesuń jeden pionek z dowolnej ze swoich armii o wyrzuconą liczbę. Możesz też zrezygnować z ruchu.
-- Pierwszy pionek każdej armii może opuścić charkoni przy dowolnym rzucie. Każdy inny pionek, a także pionek odesłany z powrotem, potrzebuje szczęśliwego rzutu, aby wyjść.
-- Pionki obu twoich armii mogą stać na jednym polu i nic nie blokuje drogi: pionek może przejść nad dowolnymi innymi.
-- Jeśli żaden pionek nie może się ruszyć, rzut przepada (po szczęśliwym rzucie nadal rzucasz ponownie).
+- Przesuń jeden pionek dowolnej ze swoich armii o wyrzuconą liczbę albo zrezygnuj z ruchu.
+- Pierwszy pionek każdej armii może opuścić charkoni przy dowolnym rzucie; każdy inny pionek, a także pionek odesłany z powrotem, potrzebuje szczęśliwego rzutu.
+- Twoje pionki mogą stać na jednym polu i nic nie blokuje drogi.
+- Jeśli żaden pionek nie może się ruszyć, rzut przepada.
 # Spotkania z innymi pionkami
-- Jeśli staniesz na polu, na którym stoją pionki przeciwnika, odsyłasz je wszystkie z powrotem do charkoni i rzucasz ponownie.
-- Pionek na zamku jest bezpieczny: nikt nie może stanąć na zamku, na którym stoją pionki przeciwnika.
+- Jeśli staniesz na pionkach przeciwnika, odsyłasz je wszystkie z powrotem do charkoni i rzucasz ponownie.
+- Nikt nie może stanąć na pionkach przeciwnika stojących na zamku.
 # Droga do domu
-Pionek wchodzi do charkoni tylko dokładnym wynikiem rzutu. Żaden rzut nie daje 1, więc pionek nie może zatrzymać się na ostatnim polu przed charkoni: nigdy nie dotarłby do domu.
+Pionek wchodzi do charkoni tylko dokładnym wynikiem rzutu. Żaden rzut nie daje 1, więc nigdy nie zatrzymuj się na ostatnim polu przed charkoni.
 # Koniec gry
-Wygrywa pierwszy gracz, który doprowadzi do domu wszystkie osiem pionków z obu armii.
+Wygrywa pierwszy gracz, który doprowadzi do domu wszystkie osiem pionków.
 # Czterech graczy
-W cztery osoby każdy gra jedną armią, a partnerzy siedzą naprzeciw siebie: kość słoniowa i bursztyn przeciw hebanowi i palisandrowi. Kolej przechodzi wokół stołu przeciwnie do ruchu wskazówek zegara, tak jak idą pionki. Twoje muszle kauri i pionki, które dotarły do domu, leżą razem w tacce w rogu po twojej prawej, gdy patrzysz na środek ze swojego ramienia. Gdy wszystkie twoje pionki są w domu, twoje rzuty przesuwają pionki partnera. Partnerzy wygrywają razem, gdy wszystkie ich osiem pionków dotrze do domu: oba ich paski świecą na złoto.
-# Gra na urządzeniu
-Twoje muszle kauri leżą w tacce po twojej prawej, a pionki, które dotarły do domu, w tacce po lewej. Gdy przychodzi twoja kolej, muszle świecą na złoto: dotknij planszy, aby nimi rzucić. Wyrzucona wartość pojawia się obok nich, na złoto przy szczęśliwym rzucie. Kropki pokazują, dokąd mogą pójść twoje pionki, a kółka pionki, które odesłałbyś z powrotem: dotknij pionka albo przeciągnij go na jego pole. Gdy pionki obu twoich armii stoją na jednym polu, ale idą w różne strony, dotknij tego pola, a potem wybranej kropki. Przycisk pasowania na twoim pasku odrzuca rzut. Cofnij cofa ruchy i rzuty, ale cofnięty rzut wypada potem tak samo. Twój pasek pokazuje twoje pionki w domu.
+Każdy gra jedną armią, a partnerzy siedzą naprzeciw siebie. Gdy wszystkie twoje pionki są w domu, twoje rzuty przesuwają pionki partnera. Partnerzy wygrywają razem.

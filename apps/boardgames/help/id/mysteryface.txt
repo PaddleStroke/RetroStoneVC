@@ -1,40 +1,11 @@
 Wajah Misterius
 # Tujuan
-Kedua pemain punya 24 wajah yang sama. Masing-masing diam-diam memilih satu. Ajukan pertanyaan yang dijawab ya atau tidak, dan temukan wajah lawan sebelum lawan menemukan wajahmu. Untuk 2 pemain.
+Kedua pemain punya 24 wajah yang sama dan masing-masing diam-diam memilih satu. Ajukan pertanyaan yang dijawab ya atau tidak, dan temukan wajah lawan sebelum lawan menemukan wajahmu. Untuk 2 pemain.
 # Awal permainan
-Gading memilih lebih dulu, lalu eboni: bergiliran, masing-masing memegang perangkat, mengetuk sebuah wajah, lalu mengetuk tanda centang. Wajahmu tetap tampil kecil di sudut layarmu. Setelah itu gading mengajukan pertanyaan pertama.
+Gading memilih lebih dulu, lalu eboni: ketuk sebuah wajah, lalu tanda centang. Setelah itu gading mengajukan pertanyaan pertama.
 # Satu giliran
-- Ajukan satu pertanyaan: ketuk sebuah gambar. Topi, kacamata, janggut, kumis, anting, botak, rambut panjang, rambut keriting; satu warna rambut (hitam, cokelat, pirang, merah, putih atau abu-abu); satu warna mata (cokelat, biru, hijau).
+- Ajukan satu pertanyaan dengan mengetuk sebuah gambar: topi, kacamata, janggut, anting, warna rambut atau warna mata…
 - Perangkat menjawab untuk lawan: centang hijau untuk ya, silang merah untuk tidak.
-- Lalu rebahkan wajah-wajah yang tersingkir oleh jawaban itu dengan mengetuknya. Itu tugasmu: perangkat hanya menjawab. Ketuk lagi sebuah wajah untuk menegakkannya kembali.
-- Ketuk tombol oper (sebuah perangkat di antara dua panah) untuk mengakhiri giliranmu.
+- Rebahkan wajah-wajah yang tersingkir oleh jawaban itu dengan mengetuknya; perangkat hanya menjawab. Lalu ketuk tombol oper.
 # Menebak
-Sebagai ganti pertanyaan, kamu boleh menebak: ketuk kaca pembesar, lalu sebuah wajah yang masih berdiri. Jika itu wajah lawan, kamu menang; jika bukan, kamu langsung kalah.
-# 24 wajah
-Setiap pertanyaan membagi wajah-wajah itu: 5 berkacamata, 5 bertopi, 5 beranting; 5 berjanggut, 5 berkumis; 4 botak, 7 berambut panjang, 5 berambut keriting. Rambut: 6 hitam, 5 cokelat, 5 pirang, 3 merah, 5 putih. Mata: 12 cokelat, 7 biru, 5 hijau. Tidak ada dua wajah yang memberi jawaban sama. Menurut urutan membaca dari kiri atas (baris berisi 6 saat perangkat tegak, 8 saat perangkat miring):
-- 1: Rambut hitam panjang, mata cokelat, anting.
-- 2: Rambut pirang pendek, mata biru, kacamata.
-- 3: Rambut merah keriting, mata hijau.
-- 4: Botak, rambut putih, mata biru, kacamata, janggut, kumis.
-- 5: Rambut cokelat pendek, mata cokelat, topi, kumis.
-- 6: Rambut hitam keriting, mata cokelat, anting.
-- 7: Rambut pirang panjang, mata hijau, topi.
-- 8: Rambut putih pendek, mata cokelat, kumis.
-- 9: Rambut cokelat panjang, mata biru, kacamata, anting.
-- 10: Rambut hitam pendek, mata cokelat, janggut.
-- 11: Rambut merah pendek, mata biru, janggut, kumis.
-- 12: Rambut putih panjang, mata hijau, topi, anting.
-- 13: Botak, rambut hitam, mata cokelat.
-- 14: Rambut cokelat keriting, mata hijau, kacamata.
-- 15: Rambut pirang pendek, mata cokelat, topi, janggut, kumis.
-- 16: Rambut putih keriting, mata biru.
-- 17: Botak, rambut cokelat, mata cokelat, janggut.
-- 18: Rambut hitam panjang, mata biru, topi.
-- 19: Rambut merah panjang, mata cokelat, anting.
-- 20: Rambut pirang keriting, mata cokelat.
-- 21: Botak, rambut putih, mata cokelat.
-- 22: Rambut cokelat pendek, mata hijau.
-- 23: Rambut hitam pendek, mata biru, kacamata.
-- 24: Rambut pirang panjang, mata cokelat.
-# Bermain di perangkat
-Setelah setiap giliran, perangkat berpindah tangan: sebuah penutup menyembunyikan layar sampai pemain berikutnya mengetuk mulai. Hanya kamu yang melihat papan dan wajahmu. Bilah setiap pemain menunjukkan berapa wajah yang masih berdiri di papannya. Urungkan mengembalikan wajah yang kamu rebahkan atau tegakkan di giliran ini; pertanyaan yang sudah diajukan tetap berlaku.
+Sebagai ganti pertanyaan, ketuk kaca pembesar, lalu sebuah wajah yang masih berdiri. Jika itu wajah lawan, kamu menang; jika bukan, kamu langsung kalah.

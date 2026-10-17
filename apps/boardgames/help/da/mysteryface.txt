@@ -1,40 +1,11 @@
 Det hemmelige ansigt
 # Målet
-Begge spillere har de samme 24 ansigter. Hver vælger et af dem i hemmelighed. Stil spørgsmål, der besvares med ja eller nej, og find den andens ansigt, før den anden finder dit. For 2 spillere.
+Begge spillere har de samme 24 ansigter, og hver vælger et af dem i hemmelighed. Stil spørgsmål, der besvares med ja eller nej, og find den andens ansigt, før den anden finder dit. For 2 spillere.
 # Starten
-Elfenben vælger først, så ibenholt: på skift tager hver enheden, trykker på et ansigt og så på fluebenet. Dit ansigt bliver lille i hjørnet af din skærm. Derefter stiller elfenben det første spørgsmål.
+Elfenben vælger først, så ibenholt: tryk på et ansigt og så på fluebenet. Derefter stiller elfenben det første spørgsmål.
 # En tur
-- Stil ét spørgsmål: tryk på et billede. En hat, briller, skæg, overskæg, øreringe, skaldet, langt hår, krøllet hår; en hårfarve (sort, brun, lys, rød, hvid eller grå); en øjenfarve (brun, blå, grøn).
+- Stil ét spørgsmål ved at trykke på et billede: en hat, briller, skæg, øreringe, en hår- eller øjenfarve…
 - Enheden svarer for den anden spiller: et grønt flueben for ja, et rødt kryds for nej.
-- Vælt derefter de ansigter, som svaret udelukker, ved at trykke på dem. Det er din opgave: enheden svarer kun. Tryk på et ansigt igen for at rejse det op.
-- Tryk på videregivningsknappen (en enhed mellem to pile) for at slutte din tur.
+- Vælt de ansigter, som svaret udelukker, ved at trykke på dem; enheden svarer kun. Tryk så på videregivningsknappen.
 # At gætte
-I stedet for et spørgsmål kan du gætte: tryk på luppen og så på et ansigt, der stadig står. Er det den andens ansigt, vinder du; ellers taber du med det samme.
-# De 24 ansigter
-Hvert spørgsmål deler ansigterne: 5 har briller, 5 hat, 5 øreringe; 5 har skæg, 5 overskæg; 4 er skaldede, 7 har langt hår, 5 krøllet hår. Hår: 6 sort, 5 brunt, 5 lyst, 3 rødt, 5 hvidt. Øjne: 12 brune, 7 blå, 5 grønne. To ansigter giver aldrig de samme svar. I læseretning fra øverst til venstre (rækker á 6, når enheden står op, á 8, når den ligger ned):
-- 1: Langt sort hår, brune øjne, øreringe.
-- 2: Kort lyst hår, blå øjne, briller.
-- 3: Krøllet rødt hår, grønne øjne.
-- 4: Skaldet, hvidt hår, blå øjne, briller, skæg, overskæg.
-- 5: Kort brunt hår, brune øjne, hat, overskæg.
-- 6: Krøllet sort hår, brune øjne, øreringe.
-- 7: Langt lyst hår, grønne øjne, hat.
-- 8: Kort hvidt hår, brune øjne, overskæg.
-- 9: Langt brunt hår, blå øjne, briller, øreringe.
-- 10: Kort sort hår, brune øjne, skæg.
-- 11: Kort rødt hår, blå øjne, skæg, overskæg.
-- 12: Langt hvidt hår, grønne øjne, hat, øreringe.
-- 13: Skaldet, sort hår, brune øjne.
-- 14: Krøllet brunt hår, grønne øjne, briller.
-- 15: Kort lyst hår, brune øjne, hat, skæg, overskæg.
-- 16: Krøllet hvidt hår, blå øjne.
-- 17: Skaldet, brunt hår, brune øjne, skæg.
-- 18: Langt sort hår, blå øjne, hat.
-- 19: Langt rødt hår, brune øjne, øreringe.
-- 20: Krøllet lyst hår, brune øjne.
-- 21: Skaldet, hvidt hår, brune øjne.
-- 22: Kort brunt hår, grønne øjne.
-- 23: Kort sort hår, blå øjne, briller.
-- 24: Langt lyst hår, brune øjne.
-# Spil på enheden
-Efter hver tur går enheden videre: et dække skjuler skærmen, indtil næste spiller trykker på start. Kun du ser din plade og dit ansigt. Hver spillers panel viser, hvor mange ansigter der stadig står på spillerens plade. Fortryd tager det tilbage, du har væltet eller rejst i denne tur; et stillet spørgsmål forbliver stillet.
+I stedet for et spørgsmål kan du trykke på luppen og så på et ansigt, der stadig står. Er det den andens ansigt, vinder du; ellers taber du med det samme.

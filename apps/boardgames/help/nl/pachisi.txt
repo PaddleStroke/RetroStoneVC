@@ -1,27 +1,21 @@
 Pachisi
 # Het doel
-Pachisi is het oude spel uit India waaruit Ludo is ontstaan. Elke speler voert twee legers van vier pionnen aan, op tegenoverliggende armen van het kruis: ivoor en amber tegen ebbenhout en palissander. Breng al je acht pionnen het bord rond en naar huis in het midden, eerder dan de andere speler. Ivoor gooit eerst.
+Je voert twee legers van vier pionnen aan, op tegenoverliggende armen van het kruis. Breng als eerste al je acht pionnen het bord rond en naar huis in het midden, de charkoni.
 # Het bord
-Het bord is een kruis van vier armen, elk van drie kolommen van acht vakjes, rond een groot middenvak, de charkoni. Elk leger begint in de charkoni naast zijn eigen arm, waarvan de middelste kolom in zijn kleur is ingelegd. Een pion gaat door het midden van zijn eigen arm omlaag, tegen de klok in langs de buitenste kolommen het hele bord rond, en dan door het midden van zijn arm weer omhoog de charkoni in. De twaalf vakjes met een kruis zijn burchten: het eind van elke arm en, in elke buitenste kolom, het vierde vakje vanaf het eind.
+Een pion gaat door het midden van zijn eigen arm omlaag, tegen de klok in langs de buitenste kolommen het hele bord rond, en dan zijn arm weer omhoog de charkoni in. De twaalf vakjes met een kruis zijn burchten.
 # De kauri's gooien
-Gooi de zes kauri's en tel de openingen die naar boven liggen:
-- geen: 25
-- één: 10
-- twee tot zes: dat getal (2, 3, 4, 5 of 6)
-Een 6, 10 of 25 is een geluksworp: daarna gooi je nog een keer.
+Tel de openingen die naar boven liggen: geen is 25, één is 10, twee tot zes tellen als dat getal. Een 6, 10 of 25 is een geluksworp: gooi nog een keer.
 # Bewegen
-- Zet een pion van een van je twee legers vooruit met het gegooide getal. Je mag ook afzien van een zet.
-- De eerste pion van elk leger mag de charkoni met elke worp verlaten. Elke andere pion, ook een pion die is teruggestuurd, heeft daarvoor een geluksworp nodig.
-- Pionnen van je beide legers mogen samen op een vakje staan, en niets blokkeert de weg: een pion mag over alle andere heen gaan.
-- Als geen enkele pion kan zetten, vervalt de worp (na een geluksworp gooi je toch nog een keer).
+- Zet een pion van een van je twee legers vooruit met de worp, of zie af van een zet.
+- De eerste pion van elk leger mag de charkoni met elke worp verlaten; elke andere pion, ook een teruggestuurde, heeft een geluksworp nodig.
+- Je pionnen mogen samen op een vakje staan, en niets blokkeert de weg.
+- Als geen enkele pion kan zetten, vervalt de worp.
 # Andere pionnen tegenkomen
-- Wie landt op een vakje waar pionnen van de andere speler staan, stuurt ze allemaal terug naar de charkoni en gooit nog een keer.
-- Een pion op een burcht is veilig: niemand mag landen op een burcht waar pionnen van de andere speler staan.
+- Wie op pionnen van de andere speler landt, stuurt ze allemaal terug naar de charkoni en gooit nog een keer.
+- Niemand mag landen op pionnen van de tegenstander die op een burcht staan.
 # Naar huis
-Een pion komt alleen met het precieze getal de charkoni in. Geen enkele worp is een 1, dus een pion mag niet stoppen op het laatste vakje voor de charkoni: hij zou nooit thuiskomen.
+Een pion komt alleen met het precieze getal de charkoni in. Geen enkele worp is een 1, dus stop nooit op het laatste vakje ervoor.
 # Het einde van de partij
-De eerste speler die alle acht pionnen thuis heeft, van beide legers, wint.
+De eerste speler die alle acht pionnen thuis heeft, wint.
 # Met z'n vieren
-Met z'n vieren speelt iedereen één leger en zitten partners tegenover elkaar: ivoor en amber tegen ebbenhout en palissander. De beurt gaat tegen de klok in rond de tafel, dezelfde kant op als de pionnen. Je kauri's en je pionnen die thuis zijn delen de bak in de hoek rechts van je, als je vanaf je arm naar het midden kijkt. Zodra al je pionnen thuis zijn, zet je met je worpen de pionnen van je partner. De partners winnen samen als al hun acht pionnen thuis zijn: hun beide balken lichten goud op.
-# Spelen op het apparaat
-Je kauri's liggen in de bak rechts van je, je pionnen die thuis zijn in de bak links. Als je aan de beurt bent, lichten de kauri's goud op: tik op het bord om ze te gooien. De gegooide waarde staat ernaast, in goud bij een geluksworp. Stippen tonen waar je pionnen heen kunnen, ringen de pionnen die je zou terugsturen: tik op een pion of sleep hem naar zijn vakje. Waar pionnen van je beide legers samen op een vakje staan en verschillende kanten op gaan, tik je op dat vakje en dan op de stip die je wilt. Met de pasknop in je balk zie je af van de worp. Ongedaan maken neemt zetten en worpen terug, maar een teruggenomen worp valt daarna weer hetzelfde. Je balk toont je pionnen die thuis zijn.
+Iedereen speelt één leger, en partners zitten tegenover elkaar. Zodra je pionnen thuis zijn, zet je met je worpen die van je partner. De partners winnen samen.

@@ -1,14 +1,9 @@
 Pares
 # O objetivo
-Encontra os pares de imagens. Para 1 a 4 jogadores. Sozinho, é um quebra-cabeças: encontra-os todos no menor número de jogadas.
-# As cartas
-- 12, 24 ou 36 cartas estão viradas para baixo numa grelha. Cada imagem está em duas cartas.
-- As imagens: os animais do jogo das famílias e peças de xadrez nas cores dos jogadores.
+Encontra os pares de imagens. Para 1 a 4 jogadores; sozinho, encontra-os todos no menor número de jogadas.
 # Uma vez
 - Vira duas cartas.
 - Um par: ficas com ele e jogas outra vez.
-- Não é par: as duas cartas voltam a ficar viradas para baixo e joga o seguinte. Tenta lembrar-te de onde estavam!
+- Não é par: as duas cartas voltam a ficar viradas para baixo e joga o seguinte.
 # O fim do jogo
 Quando todos os pares forem encontrados, ganha quem tiver mais; os empatados partilham a vitória. Sozinho, o teu resultado é o número de jogadas: duas cartas viradas são uma jogada.
-# Jogar no dispositivo
-Toca numa carta para a virar. Um par brilha a dourado e depois fica virado para cima, escurecido, com a ficha do jogador que o encontrou. Duas cartas diferentes voltam a virar-se sozinhas passado um momento, ou com um toque. Cada barra mostra os pares desse jogador; sozinho, mostra as tuas jogadas. Anular desfaz a última carta virada.

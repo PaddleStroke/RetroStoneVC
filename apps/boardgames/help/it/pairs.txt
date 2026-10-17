@@ -1,14 +1,9 @@
 Coppie
 # Lo scopo
-Trova le coppie di figure. Da 1 a 4 giocatori. Da soli è un rompicapo: trovale tutte con meno mosse possibili.
-# Le carte
-- 12, 24 o 36 carte sono coperte in una griglia. Ogni figura è su due carte.
-- Le figure: gli animali del gioco delle famiglie e pezzi degli scacchi nei colori dei giocatori.
+Trova le coppie di figure. Da 1 a 4 giocatori; da soli, trovale tutte con meno mosse possibili.
 # Un turno
 - Scopri due carte.
 - Una coppia: la tieni e giochi ancora.
-- Non è una coppia: le due carte vengono ricoperte e tocca al giocatore successivo. Cerca di ricordare dov'erano!
+- Non è una coppia: vengono ricoperte e tocca al giocatore successivo.
 # La fine della partita
 Quando tutte le coppie sono trovate, vince chi ne ha di più; chi è a pari merito condivide la vittoria. Da soli, il risultato è il numero di mosse: due carte scoperte sono una mossa.
-# Giocare sul dispositivo
-Tocca una carta per girarla. Una coppia brilla d'oro, poi resta scoperta, più scura, con la pedina del giocatore che l'ha trovata. Due carte diverse si rigirano da sole dopo un momento, o con un tocco. Ogni barra mostra le coppie di quel giocatore; da soli, mostra le tue mosse. Annulla riprende l'ultima carta girata.

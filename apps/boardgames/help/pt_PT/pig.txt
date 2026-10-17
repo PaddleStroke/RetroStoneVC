@@ -2,14 +2,12 @@ Porco
 # O objetivo
 Ser o primeiro a chegar aos 100 pontos. Lança enquanto tiveres coragem, mas um 1 apaga a tua vez. De 2 a 6 jogadores.
 # A tua vez
-- Lança o dado as vezes que quiseres. Cada lançamento junta os seus pontos ao total da vez.
-- Se tirares um 1, perdes o total da vez e a vez passa.
-- Ou então para: o total da vez junta-se à tua pontuação e o dado passa ao seguinte. Antes tens de lançar pelo menos uma vez.
+- Lança as vezes que quiseres; cada lançamento junta-se ao total da vez.
+- Um 1 faz perder o total da vez e termina a tua vez.
+- Ou então para: o total da vez junta-se à tua pontuação. Antes tens de lançar pelo menos uma vez.
 # Porco com dois dados
-Escolhe-se antes do jogo: o mesmo com dois dados, cuja soma se junta a cada lançamento.
+O mesmo com dois dados, cuja soma se junta a cada lançamento.
 - Um só 1 faz perder o total da vez e termina-a.
-- Dois 1 de uma vez fazem perder também toda a tua pontuação: voltas a 0.
+- Dois 1 fazem perder também toda a tua pontuação: voltas a 0.
 # O fim do jogo
-Os jogadores jogam à vez à volta da mesa, a começar pelo marfim. O primeiro jogador que parar com 100 pontos ou mais ganha logo.
-# Jogar no dispositivo
-A vista vira-se para o jogador que lança. Toca no feltro ou no botão do dado para lançar: o total da vez aparece debaixo dos dados, e os lançamentos da vez alinham-se no suporte. O botão das moedas para. No topo, o dado de cada jogador avança numa ranhura do 0 até ao poste dourado dos 100; o de quem lança brilha, e o total da vez corre a dourado à frente do dado. Um 1 aparece num brilho vermelho com os pontos perdidos. Cada barra mostra a pontuação desse jogador. Anular desfaz uma paragem, nunca um lançamento.
+O primeiro jogador que parar com 100 pontos ou mais ganha logo.

@@ -1,40 +1,11 @@
 Rosto misterioso
 # O objetivo
-Os dois jogadores têm os mesmos 24 rostos. Cada um escolhe um deles em segredo. Faz perguntas a que se responde sim ou não e descobre o rosto do outro jogador antes que ele descubra o teu. Para 2 jogadores.
+Os dois jogadores têm os mesmos 24 rostos e cada um escolhe um deles em segredo. Faz perguntas de sim ou não e descobre o rosto do outro jogador antes que ele descubra o teu. Para 2 jogadores.
 # O início
-O marfim escolhe primeiro, depois o ébano: cada um, na sua vez, pega no dispositivo, toca num rosto e depois no visto. O teu rosto fica pequeno no canto do teu ecrã. Depois o marfim faz a primeira pergunta.
+O marfim escolhe primeiro, depois o ébano: toca num rosto e depois no visto. Depois o marfim faz a primeira pergunta.
 # Uma vez
-- Faz uma pergunta: toca numa imagem. Um chapéu, óculos, barba, bigode, brincos, careca, cabelo comprido, cabelo encaracolado; uma cor de cabelo (preto, castanho, louro, ruivo, branco ou grisalho); uma cor de olhos (castanhos, azuis, verdes).
+- Faz uma pergunta tocando numa imagem: um chapéu, óculos, barba, brincos, uma cor de cabelo ou de olhos…
 - O dispositivo responde pelo outro jogador: um visto verde para sim, uma cruz vermelha para não.
-- Depois baixa os rostos que a resposta afasta, tocando neles. Isso cabe-te a ti: o dispositivo só responde. Toca outra vez num rosto para o levantar.
-- Toca no botão de passar (um dispositivo entre duas setas) para acabar a tua vez.
+- Baixa os rostos que a resposta afasta, tocando neles; o dispositivo só responde. Depois toca no botão de passar.
 # Adivinhar
-Em vez de fazer uma pergunta, podes adivinhar: toca na lupa e depois num rosto ainda de pé. Se for o rosto do outro jogador, ganhas; se não, perdes logo.
-# Os 24 rostos
-Cada pergunta divide os rostos: 5 usam óculos, 5 chapéu, 5 brincos; 5 têm barba, 5 bigode; 4 são carecas, 7 têm cabelo comprido, 5 encaracolado. Cabelo: 6 preto, 5 castanho, 5 louro, 3 ruivo, 5 branco. Olhos: 12 castanhos, 7 azuis, 5 verdes. Nunca dois rostos dão as mesmas respostas. Pela ordem de leitura a partir do canto superior esquerdo (filas de 6 com o dispositivo ao alto, de 8 quando está deitado):
-- 1: Cabelo preto comprido, olhos castanhos, brincos.
-- 2: Cabelo louro curto, olhos azuis, óculos.
-- 3: Cabelo ruivo encaracolado, olhos verdes.
-- 4: Careca, cabelo branco, olhos azuis, óculos, barba, bigode.
-- 5: Cabelo castanho curto, olhos castanhos, chapéu, bigode.
-- 6: Cabelo preto encaracolado, olhos castanhos, brincos.
-- 7: Cabelo louro comprido, olhos verdes, chapéu.
-- 8: Cabelo branco curto, olhos castanhos, bigode.
-- 9: Cabelo castanho comprido, olhos azuis, óculos, brincos.
-- 10: Cabelo preto curto, olhos castanhos, barba.
-- 11: Cabelo ruivo curto, olhos azuis, barba, bigode.
-- 12: Cabelo branco comprido, olhos verdes, chapéu, brincos.
-- 13: Careca, cabelo preto, olhos castanhos.
-- 14: Cabelo castanho encaracolado, olhos verdes, óculos.
-- 15: Cabelo louro curto, olhos castanhos, chapéu, barba, bigode.
-- 16: Cabelo branco encaracolado, olhos azuis.
-- 17: Careca, cabelo castanho, olhos castanhos, barba.
-- 18: Cabelo preto comprido, olhos azuis, chapéu.
-- 19: Cabelo ruivo comprido, olhos castanhos, brincos.
-- 20: Cabelo louro encaracolado, olhos castanhos.
-- 21: Careca, cabelo branco, olhos castanhos.
-- 22: Cabelo castanho curto, olhos verdes.
-- 23: Cabelo preto curto, olhos azuis, óculos.
-- 24: Cabelo louro comprido, olhos castanhos.
-# Jogar no dispositivo
-Depois de cada vez, o dispositivo passa de mão: uma capa esconde o ecrã até o jogador seguinte tocar em começar. Só tu vês o teu tabuleiro e o teu rosto. A barra de cada jogador mostra quantos rostos ainda estão de pé no tabuleiro dele. Anular desfaz os rostos baixados ou levantados nesta vez; uma pergunta feita fica feita.
+Em vez de uma pergunta, toca na lupa e depois num rosto ainda de pé. Se for o rosto do outro jogador, ganhas; se não, perdes logo.

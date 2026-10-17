@@ -1,19 +1,17 @@
 Mexiko
 # Cíl hry
-Být posledním hráčem, kterému zbývají životy. Pod kelímkem se hází dvěma kostkami, pod které se dívá jen ten, kdo házel, a hodnota, kterou ohlásí, může být pravda, nebo blaf. Pro 2 až 6 hráčů, každý se 3 nebo 6 životy (vybírá se před hrou).
+Být posledním hráčem, kterému zbývají životy. Pod kelímkem se hází dvěma kostkami, které vidí jen ten, kdo házel, a ohlášená hodnota může být blaf. Pro 2 až 6 hráčů.
 # Hodnoty
-Hod dvěma kostkami se čte vyšší kostkou napřed: trojka a pětka dávají 53. Od nejnižší po nejvyšší:
-- obyčejné hodnoty: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+Vyšší kostka jde napřed: trojka a pětka dávají 53. Od nejnižší:
+- 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
 - pak dvojice, od 11 do 66;
-- pak 21, Mexiko, nejvyšší ze všech.
+- pak 21, Mexiko, nejvyšší.
 # Kolo
-- První hráč hodí pod kelímkem oběma kostkami, podívá se na ně sám a ohlásí hodnotu: pravdu, nebo blaf.
-- Kelímek jde k dalšímu hráči, který hodnotě buď uvěří, nebo ji zpochybní.
-- Když jí věříš, hoď kostkami pod kelímkem znovu, aniž by ses díval, co tam bylo, podívej se na nový hod a ohlas hodnotu aspoň tak vysokou jako ta předchozí. Je-li tvůj hod nižší, musíš blafovat.
-- Tak jde kelímek kolem stolu, dokud někdo nezpochybní.
+- První hráč hodí, podívá se sám a ohlásí hodnotu: pravdu, nebo blaf.
+- Další hráč jí uvěří, nebo ji zpochybní.
+- Když jí věříš, hoď znovu, aniž by ses díval, co tam bylo, a ohlas hodnotu aspoň tak vysokou. Je-li tvůj hod nižší, musíš blafovat.
+- Kelímek jde dokola, dokud někdo nezpochybní.
 # Odhalení
-Kelímek se zvedne. Ukazují-li kostky aspoň ohlášenou hodnotu, ten, kdo zpochybnil, se mýlil a ztrácí život. Ukazují-li méně, byl to blaf a život ztrácí hráč, který hodnotu ohlásil. Kdo ztratil život, začíná další kolo.
+Kelímek se zvedne. Ukazují-li kostky aspoň ohlášenou hodnotu, ztrácí život ten, kdo zpochybnil; jinak ten, kdo hodnotu ohlásil. Kdo ztratil život, začíná další kolo, a pokud vypadl, další hráč.
 # Konec hry
-Hráč bez životů vypadává (prohrál-li poslední kolo, začíná další hráč, který je ještě ve hře). Vyhrává poslední hráč, který zbude.
-# Hra na zařízení
-Posílejte si zařízení: při každém tahu skryje obrazovku clona. Nahoře je hodnota, kterou je třeba překonat, s žetonem hráče, který ji ohlásil, a pod ní dřívější hodnoty kola. Hodíš klepnutím na tlačítko s kostkou: kelímek se nakloní stranou a své kostky vidíš jen ty (klepnutím na kelímek je zase přikryješ). Pak klepni na hodnotu na tabulce a na fajfku, a ohlásíš ji. Tabulka ukazuje každou hodnotu jako její dvě kostky, od nejnižší vlevo nahoře po Mexiko vpravo dole; hodnoty nižší než ta k překonání jsou bledé a hodnota, kterou jsi hodil, svítí. Chceš-li zpochybnit, klepni na tlačítko se zvednutým kelímkem: všichni uvidí kostky, zlatě, když hodnota platila, červeně, když to byl blaf, a ztracený život zmizí. Každá lišta ukazuje, kolik životů hráči zbývá. Klepnutím na šipku začneš další kolo.
+Hráč bez životů vypadává. Vyhrává poslední hráč, který zbude.

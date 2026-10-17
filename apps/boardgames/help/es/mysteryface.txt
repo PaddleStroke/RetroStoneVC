@@ -1,40 +1,11 @@
 Cara misteriosa
 # El objetivo
-Los dos jugadores tienen las mismas 24 caras. Cada uno elige una en secreto. Haz preguntas que se responden con sí o no y descubre la cara del otro jugador antes de que él descubra la tuya. Para 2 jugadores.
+Los dos jugadores tienen las mismas 24 caras y cada uno elige una en secreto. Haz preguntas que se responden con sí o no y descubre la cara del otro jugador antes de que él descubra la tuya. Para 2 jugadores.
 # El comienzo
-Elige primero el marfil y luego el ébano: cada uno, por turno, toma el dispositivo, toca una cara y después la marca de confirmar. Tu cara se queda pequeña en la esquina de tu pantalla. Después, el marfil hace la primera pregunta.
+Elige primero el marfil y luego el ébano: toca una cara y después la marca de confirmar. Después, el marfil hace la primera pregunta.
 # Un turno
-- Haz una pregunta: toca un dibujo. Un sombrero, gafas, barba, bigote, pendientes, calvo, pelo largo, pelo rizado; un color de pelo (negro, castaño, rubio, pelirrojo, blanco o gris); un color de ojos (marrones, azules, verdes).
+- Haz una pregunta tocando un dibujo: un sombrero, gafas, barba, pendientes, un color de pelo o de ojos…
 - El dispositivo responde por el otro jugador: una marca verde para sí, una cruz roja para no.
-- Luego tumba las caras que la respuesta descarta, tocándolas. Eso te toca a ti: el dispositivo solo responde. Toca otra vez una cara para levantarla.
-- Toca el botón de pasar (un dispositivo entre dos flechas) para terminar tu turno.
+- Tumba las caras que la respuesta descarta, tocándolas; el dispositivo solo responde. Luego toca el botón de pasar.
 # Adivinar
-En lugar de hacer una pregunta, puedes adivinar: toca la lupa y luego una cara que siga en pie. Si es la cara del otro jugador, ganas; si no, pierdes en el acto.
-# Las 24 caras
-Cada pregunta divide las caras: 5 llevan gafas, 5 sombrero, 5 pendientes; 5 tienen barba, 5 bigote; 4 son calvos, 7 tienen el pelo largo, 5 rizado. Pelo: 6 negro, 5 castaño, 5 rubio, 3 pelirrojo, 5 blanco. Ojos: 12 marrones, 7 azules, 5 verdes. Nunca dos caras dan las mismas respuestas. En orden de lectura desde arriba a la izquierda (filas de 6 con el dispositivo en vertical, de 8 cuando está en horizontal):
-- 1: Pelo negro largo, ojos marrones, pendientes.
-- 2: Pelo rubio corto, ojos azules, gafas.
-- 3: Pelo pelirrojo rizado, ojos verdes.
-- 4: Calvo, pelo blanco, ojos azules, gafas, barba, bigote.
-- 5: Pelo castaño corto, ojos marrones, sombrero, bigote.
-- 6: Pelo negro rizado, ojos marrones, pendientes.
-- 7: Pelo rubio largo, ojos verdes, sombrero.
-- 8: Pelo blanco corto, ojos marrones, bigote.
-- 9: Pelo castaño largo, ojos azules, gafas, pendientes.
-- 10: Pelo negro corto, ojos marrones, barba.
-- 11: Pelo pelirrojo corto, ojos azules, barba, bigote.
-- 12: Pelo blanco largo, ojos verdes, sombrero, pendientes.
-- 13: Calvo, pelo negro, ojos marrones.
-- 14: Pelo castaño rizado, ojos verdes, gafas.
-- 15: Pelo rubio corto, ojos marrones, sombrero, barba, bigote.
-- 16: Pelo blanco rizado, ojos azules.
-- 17: Calvo, pelo castaño, ojos marrones, barba.
-- 18: Pelo negro largo, ojos azules, sombrero.
-- 19: Pelo pelirrojo largo, ojos marrones, pendientes.
-- 20: Pelo rubio rizado, ojos marrones.
-- 21: Calvo, pelo blanco, ojos marrones.
-- 22: Pelo castaño corto, ojos verdes.
-- 23: Pelo negro corto, ojos azules, gafas.
-- 24: Pelo rubio largo, ojos marrones.
-# Jugar en el dispositivo
-El dispositivo cambia de manos tras cada turno: una tapa oculta la pantalla hasta que el siguiente jugador toca el botón de empezar. Solo tú ves tu tablero y tu cara. La barra de cada jugador muestra cuántas caras siguen en pie en su tablero. Deshacer retira lo que tumbaste o levantaste en este turno; una pregunta hecha queda hecha.
+En lugar de hacer una pregunta, toca la lupa y luego una cara que siga en pie. Si es la cara del otro jugador, ganas; si no, pierdes en el acto.

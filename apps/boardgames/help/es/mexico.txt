@@ -1,19 +1,17 @@
 México
 # El objetivo
-Ser el último jugador al que le queden vidas. Se lanzan dos dados bajo un cubilete en el que solo mira quien lanza, y el valor que anuncia puede ser verdad o un farol. De 2 a 6 jugadores, con 3 o 6 vidas cada uno (se elige antes de la partida).
+Ser el último jugador al que le queden vidas. Se lanzan dos dados bajo un cubilete en el que solo mira quien lanza, y el valor que anuncia puede ser un farol. De 2 a 6 jugadores.
 # Los valores
-Una tirada de dos dados se lee con el dado más alto primero: un 3 y un 5 hacen 53. Del más bajo al más alto:
-- los valores simples: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+El dado más alto va primero: un 3 y un 5 hacen 53. Del más bajo al más alto:
+- 31, 32, 41, 42, 43, 51 y así hasta 65;
 - después los dobles, del 11 al 66;
-- después el 21, el México, el más alto de todos.
+- después el 21, el México, el más alto.
 # Una ronda
-- El primer jugador lanza los dos dados bajo el cubilete, los mira solo y anuncia un valor: la verdad o un farol.
-- El cubilete pasa al jugador siguiente, que se cree el valor o lo desafía.
-- Para creerlo, vuelve a lanzar los dados bajo el cubilete sin mirar lo que había, mira tu nueva tirada y anuncia un valor al menos tan alto como el anterior. Si tu tirada es más baja, tienes que tirarte un farol.
-- Así va el cubilete alrededor de la mesa hasta que alguien desafía.
+- El primer jugador lanza, mira solo y anuncia un valor: la verdad o un farol.
+- El jugador siguiente se lo cree o lo desafía.
+- Para creerlo, vuelve a lanzar sin mirar lo que había y anuncia un valor al menos tan alto. Si tu tirada es más baja, tienes que tirarte un farol.
+- El cubilete da la vuelta a la mesa hasta que alguien desafía.
 # El desafío
-Se levanta el cubilete. Si los dados muestran al menos el valor anunciado, quien desafió se equivocó y pierde una vida. Si muestran menos, era un farol, y el jugador que lo anunció pierde una vida. Quien perdió una vida empieza la ronda siguiente.
+Se levanta el cubilete. Si los dados muestran al menos el valor anunciado, quien desafió pierde una vida; si no, la pierde quien lo anunció. Quien perdió empieza la ronda siguiente, o el siguiente jugador si quien perdió queda eliminado.
 # El final de la partida
-Un jugador sin vidas queda eliminado (si perdió la última ronda, empieza el siguiente jugador que siga en juego). Gana el último jugador que queda.
-# Jugar en el dispositivo
-Pasaos el dispositivo: una tapa oculta la pantalla en cada turno. Arriba está el valor que hay que superar, con la ficha de quien lo anunció, y debajo los valores anteriores de la ronda. Toca el botón del dado para lanzar: el cubilete se inclina a un lado y solo tú ves tus dados (toca el cubilete para volver a taparlos). Luego toca un valor en el panel y la marca para anunciarlo. El panel muestra cada valor con sus dos dados, del más bajo arriba a la izquierda al México abajo a la derecha; los valores más bajos que el que hay que superar aparecen apagados, y el valor que has sacado brilla. Para desafiar, toca el botón del cubilete levantado: todos ven los dados, en oro si el valor se cumplía, en rojo si era un farol, y la vida perdida se desvanece. Cada barra muestra las vidas que le quedan a un jugador. Toca la flecha para empezar la ronda siguiente.
+Un jugador sin vidas queda eliminado. Gana el último jugador que queda.

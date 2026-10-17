@@ -1,19 +1,17 @@
 Mexico
 # Målet
-Være den sidste spiller med liv tilbage. To terninger kastes under et bæger, som kun kasteren kigger ind under, og den værdi, der meldes, kan være sand eller bluf. For 2 til 6 spillere med 3 eller 6 liv hver (vælges før spillet).
+Vær den sidste spiller med liv tilbage. To terninger kastes under et bæger, som kun kasteren kigger ind under, og den værdi, der meldes, kan være bluf. For 2 til 6 spillere.
 # Værdierne
-Et kast med to terninger læses med den højeste terning først: en 3'er og en 5'er giver 53. Fra den laveste til den højeste:
-- de almindelige værdier: 31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65;
+Den højeste terning kommer først: en 3'er og en 5'er giver 53. Fra den laveste:
+- 31, 32, 41, 42, 43, 51 … 65;
 - så parrene, fra 11 til 66;
-- så 21, Mexico, den højeste af alle.
+- så 21, Mexico, den højeste.
 # En runde
-- Den første spiller kaster de to terninger under bægeret, ser på dem alene og melder en værdi: sandheden eller bluf.
-- Bægeret går videre til næste spiller, som enten tror på værdien eller udfordrer den.
-- Tror du på den, så kast terningerne igen under bægeret uden at se, hvad der lå, se på dit nye kast og meld en værdi, der er mindst lige så høj som den forrige. Er dit kast lavere, må du bluffe.
-- Sådan går bægeret rundt om bordet, til nogen udfordrer.
+- Den første spiller kaster, ser alene på terningerne og melder en værdi: sandheden eller bluf.
+- Næste spiller tror på den eller udfordrer den.
+- Tror du på den, så kast igen uden at se, hvad der lå, og meld en værdi, der er mindst lige så høj. Er dit kast lavere, må du bluffe.
+- Bægeret går rundt, til nogen udfordrer.
 # Udfordringen
-Bægeret løftes. Viser terningerne mindst den meldte værdi, tog udfordreren fejl og mister et liv. Viser de mindre, var det bluf, og spilleren, der meldte den, mister et liv. Den, der mistede et liv, starter næste runde.
+Bægeret løftes. Viser terningerne mindst den meldte værdi, mister udfordreren et liv; ellers mister den, der meldte den, et liv. Taberen starter næste runde, eller den næste spiller, hvis taberen er ude.
 # Spillets afslutning
-En spiller uden liv er ude (har spilleren tabt den sidste runde, starter den næste spiller, der stadig er med). Den sidste spiller tilbage vinder.
-# Spil på enheden
-Send enheden rundt: et dække skjuler skærmen ved hver tur. Øverst står værdien, der skal overgås, med jetonen fra den spiller, der meldte den, og rundens tidligere værdier under den. Tryk på knappen med terningen for at kaste: bægeret vipper til siden, og kun du ser dine terninger (tryk på bægeret for at sætte det over dem igen). Tryk så på en værdi på tavlen og på fluebenet for at melde den. Tavlen viser hver værdi som dens to terninger, fra den laveste øverst til venstre til Mexico nederst til højre; værdier under den, der skal overgås, er blege, og den værdi, du kastede, lyser. Vil du udfordre, så tryk på knappen med det løftede bæger: alle ser terningerne, i guld hvis værdien holdt, i rødt hvis det var bluf, og det tabte liv blegner. Hver bjælke viser, hvor mange liv en spiller har tilbage. Tryk på pilen for at starte næste runde.
+En spiller uden liv er ude. Den sidste spiller tilbage vinder.
