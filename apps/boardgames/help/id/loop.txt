@@ -1,10 +1,8 @@
 Lingkaran
 # Tujuan
-Gambar satu lingkaran tertutup di sepanjang sisi-sisi kotak, dari titik ke titik. Lingkaran itu tidak pernah memotong atau menyentuh dirinya sendiri dan tidak punya ujung lepas. Angka di dalam kotak menunjukkan berapa dari empat sisinya yang dipakai lingkaran; kotak tanpa angka boleh berapa saja. Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar. Pilih dulu ukuran dan tingkatnya (batu di bawah setiap gambar):
-- Mudah: sisi-sisi sebuah angka, titik dengan dua garis atau tanpa garis, dan tidak pernah menutup lingkaran kecil selama masih ada garis lain, selalu cukup.
-- Sedang: kamu juga perlu melihat sebuah angka bersama titik-titik di sudutnya (angka 3 di sudut, angka 1 di tepi).
-- Sulit: penalaran lebih panjang: coba satu sisi dan ikuti sampai ada yang tidak cocok.
+Gambar satu lingkaran tertutup di sepanjang sisi-sisi kotak, dari titik ke titik. Lingkaran itu tidak pernah memotong atau menyentuh dirinya sendiri dan tidak punya ujung lepas. Angka di dalam kotak menunjukkan berapa dari empat sisinya yang dipakai lingkaran; kotak tanpa angka boleh berapa saja.
+Setiap teka-teki punya tepat satu jawaban yang bisa ditemukan hanya dengan bernalar. Ketuk sebuah sisi dua kali untuk memberi tanda silang: catatan bahwa lingkaran tidak lewat di situ.
+# Akhir permainan
+Teka-teki terpecahkan saat lingkaran tertutup dan menaati semua aturan.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 sampai 15 × 15, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah garis di sisi yang tidak dilalui lingkaran, atau tanda silang di sisi yang dilaluinya, yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Ketuk sebuah sisi untuk menggambar garis; ketuk lagi untuk tanda silang (sisi yang kamu yakin tetap kosong), dan sekali lagi untuk mengosongkannya. Atau seret jari di sepanjang titik-titik untuk menggambar beberapa garis sekaligus; seretan yang dimulai di atas garis menghapus garis. Angka yang semua garisnya sudah tergambar memudar (angka 0 setelah dikelilingi tanda silang); angka yang kelebihan garis menjadi merah. Lampu di samping papan memberi petunjuk: membetulkan tanda yang salah, atau menandai sisi yang ditemukan penalaran, dalam cahaya emas. Urungkan membatalkan satu tindakan setiap kali (satu seretan utuh sekaligus), sampai awal. Bilah menunjukkan langkahmu. Bila lingkaran sudah lengkap, kawatnya berubah menjadi emas.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah garis di sisi yang tidak dilalui lingkaran, atau tanda silang di sisi yang dilaluinya, yang kamu batalkan dengan Urungkan.

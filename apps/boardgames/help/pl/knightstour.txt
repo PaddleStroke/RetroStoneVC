@@ -4,8 +4,6 @@ Prowadź skoczka tak, by odwiedził każde pole szachownicy dokładnie raz. Niek
 # Ruch
 Skoczek skacze jak w szachach: dwa pola w jednym kierunku i jedno w bok. Nigdy nie może stanąć na polu, które już odwiedził.
 # Koniec gry
-Trasa jest pełna, gdy wszystkie pola zostały odwiedzone. Jeśli ostatnie pole jest o skok skoczka od pierwszego, trasa jest zamknięta: złota linia łączy jej końce, a na pasku pojawia się złoty pierścień. Jeśli skoczek nie ma już ruchu przed końcem, świeci na czerwono: to ślepy zaułek. Cofnij i spróbuj innej drogi.
+Trasa jest pełna, gdy wszystkie pola zostały odwiedzone. Jeśli ostatnie pole jest o skok skoczka od pierwszego, trasa jest zamknięta. Jeśli skoczek nie ma już ruchu przed końcem, to ślepy zaułek: cofnij i spróbuj innej drogi.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od szachownic z 8 polami do 100 pól: prostokąty, krzyże, ramki, romby i szachownice z dziurami; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami zaczyna losową trasę na szachownicy 5 × 5, 6 × 6 lub 8 × 8, z pola wybranego dla ciebie. Bez podpowiedzi i bez ślepego zaułka: 3 gwiazdki; najwyżej dwie podpowiedzi i ślepe zaułki razem: 2 gwiazdki; inaczej 1. Ślepy zaułek to skok, po którym skoczek nie ma już żadnego ruchu; liczy się od razu i Cofnij go nie usuwa.
-# Gra na urządzeniu
-Dotknij pola oznaczonego kropką albo przeciągnij tam skoczka. Odwiedzone pola zachowują swój numer. Lampa stosuje regułę Warnsdorffa: każde osiągalne pole pokazuje, ile skoków zostałoby z niego, a najlepsze świeci na złoto, wybrane tak, by pełna trasa wciąż była możliwa. Gdy stąd nie da się już dokończyć żadnej trasy, skoczek świeci na czerwono. Cofnij cofa po jednym skoku, aż do początku. Pasek pokazuje odwiedzone pola spośród wszystkich.
+Bez podpowiedzi i bez ślepego zaułka: 3 gwiazdki; najwyżej dwie podpowiedzi i ślepe zaułki razem: 2 gwiazdki; inaczej 1. Cofnij nie usuwa ślepego zaułka.

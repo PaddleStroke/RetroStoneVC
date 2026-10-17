@@ -4,8 +4,6 @@ Gerakkan kuda sehingga ia mengunjungi setiap petak papan tepat satu kali. Bebera
 # Satu langkah
 Kuda melompat seperti dalam catur: dua petak ke satu arah, lalu satu ke samping. Ia tidak boleh mendarat di petak yang sudah dikunjungi.
 # Akhir permainan
-Perjalanan selesai bila semua petak sudah dikunjungi. Jika petak terakhir berjarak satu lompatan kuda dari petak pertama, perjalanannya tertutup: garis emas menghubungkan kedua ujungnya dan cincin emas muncul di bilah. Jika kuda kehabisan langkah sebelum selesai, ia menyala merah: jalan buntu. Urungkan dan coba rute lain.
+Perjalanan selesai bila semua petak sudah dikunjungi. Jika petak terakhir berjarak satu lompatan kuda dari petak pertama, perjalanannya tertutup. Jika kuda kehabisan langkah sebelum selesai, itu jalan buntu: urungkan dan coba rute lain.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari papan 8 petak sampai 100 petak: persegi panjang, salib, bingkai, belah ketupat, dan papan berlubang; pilih satu di kisi level. Tab dadu setelah bab-bab itu memulai perjalanan acak di papan 5 × 5, 6 × 6, atau 8 × 8, dari petak yang dipilihkan untukmu. Tanpa petunjuk dan tanpa jalan buntu: 3 bintang; paling banyak dua petunjuk dan jalan buntu seluruhnya: 2 bintang; selain itu 1. Jalan buntu adalah lompatan yang membuat kuda tidak punya langkah lagi; Urungkan tidak menghapusnya.
-# Bermain di perangkat
-Ketuk petak yang bertanda titik, atau seret kuda ke sana. Petak yang sudah dikunjungi menyimpan nomornya. Lampu mengikuti aturan Warnsdorff: tiap petak yang terjangkau menunjukkan berapa lompatan yang tersisa dari sana, dan yang terbaik menyala emas, dipilih agar perjalanan lengkap tetap mungkin. Jika tidak ada lagi perjalanan yang bisa diselesaikan, kuda menyala merah. Urungkan membatalkan satu lompatan setiap kali, sampai ke awal. Bilah menunjukkan petak yang dikunjungi dari seluruhnya.
+Tanpa petunjuk dan tanpa jalan buntu: 3 bintang; paling banyak dua petunjuk dan jalan buntu seluruhnya: 2 bintang; selain itu 1. Urungkan tidak menghapus jalan buntu.

@@ -1,12 +1,9 @@
 Lamper
 # Målet
-Nogle messinglamper på brættet er tændt. Sluk alle lamperne. Vælg først brættet: 3 × 3, 5 × 5 eller 7 × 7; jo større bræt, jo flere tryk skal der til.
-Hvert bræt laves ved at trykke tilfældigt på lamper på et slukket bræt, så det kan altid slukkes.
+Nogle messinglamper på brættet er tændt. Sluk alle lamperne. Hvert bræt kan slukkes.
 # Et træk
 Tryk på en lampe: den skifter (fra tændt til slukket eller fra slukket til tændt), og det gør dens naboer over, under, til venstre og til højre også. Rækkefølgen af dine tryk er ligegyldig, og at trykke to gange på en lampe er det samme som aldrig at trykke på den.
 # Spillets afslutning
-Opgaven er løst, når hver lampe er slukket: en bølge af gyldent lys løber over brættet. Det mindste mulige antal tryk er regnet ud for hvert bræt; nå det, hvis du kan.
+Opgaven er løst, når hver lampe er slukket.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 3 × 3 lamper op til 7 × 7, mange af dem i mønstre; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal tryk, der løser den. Løst på par: 3 stjerner; med op til halvt så mange tryk mere: 2 stjerner; ellers 1. Fortryd tager et tryk tilbage, og det tæller ikke længere.
-# Spil på enheden
-Tryk på en lampe for at trykke den ned. Lampen ved siden af brættet giver et tip: den trykker på én lampe på den korteste vej, i gyldent lys. Fortryd tager ét tryk tilbage ad gangen, helt til starten. Bjælken viser dine tryk og, yderst til højre, det mindste mulige antal fra starten; den gløder gyldent, når du når det.
+Løst på par, det mindste antal tryk, der løser den: 3 stjerner; med op til halvt så mange tryk mere: 2 stjerner; ellers 1.

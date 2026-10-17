@@ -1,21 +1,8 @@
 Tänd ljuset
 # Målet
 Sätt lampor i de vita rutorna så att varje vit ruta blir upplyst. En lampa lyser upp sin egen ruta och hela sin rad och kolumn åt båda hållen, ända fram till en mörk mur eller kanten. Ingen lampa får lysa upp en annan lampa. En mur med ett tal har exakt så många lampor bredvid sig (ovanför, under, till vänster och till höger); en mur utan tal får ha hur många som helst.
-Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera. Välj storlek (7 × 7, 10 × 10 eller 14 × 14) och nivå (stenarna under varje bild):
-- Lätt: en blick räcker alltid: ett tal som behöver alla sina fria rutor, ett tal som redan har alla sina lampor, en mörk ruta som bara en ruta fortfarande kan lysa upp.
-- Medel: du måste också tänka en lampa framåt: en lampa här skulle lämna ett tal, eller en mörk ruta, utan tillräckligt med plats.
-- Svår: längre kedjor av slutsatser, aldrig gissningar.
-# Ett drag
-Sätt en lampa i en vit ruta, eller ta bort den. Du kan också sätta en prick i en ruta för att komma ihåg att ingen lampa ska stå där; prickarna är bara anteckningar för dig.
+Varje pussel har exakt en lösning, som går att hitta enbart genom att resonera. Håll kvar fingret på en ruta för att sätta en prick i den: en anteckning om att ingen lampa ska stå där.
 # Partiets slut
-Pusslet är löst när varje vit ruta är upplyst, ingen lampa lyser upp en annan och varje tal har sina lampor: en våg av gyllene ljus sveper över brädet.
+Pusslet är löst när varje vit ruta är upplyst, ingen lampa lyser upp en annan och varje tal har sina lampor.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 6 × 6 upp till 14 × 14, var och en med bara en lösning; välj en i banöversikten. Fliken med tärningen efter kapitlen gör ett nytt pussel på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig lampa eller prick som du tar tillbaka med Ångra.
-# Spela på enheten
-- Tryck på en vit ruta för att sätta en lampa; tryck igen för att ta bort den.
-- Håll kvar fingret en stund på en ruta för att sätta en prick, eller ta bort den.
-- Dra längs en rad eller kolumn för att sätta prickar i en hel sträcka (eller ta bort dem från en sträcka med prickar).
-De upplysta rutorna glöder varmt. Två lampor som lyser upp varandra glöder rött; ett tal blir rött när det har för många lampor, och bleknar när det har alla. Knapparna bredvid brädet:
-- Lampa eller prick: vad ett tryck sätter. Tryck på den för att byta plats på tryck och håll.
-- Glödlampa: en ledtråd. Den rättar en felaktig ruta eller visar annars nästa ruta som resonemanget hittar, i gyllene ljus.
-Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina drag.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig lampa eller prick som du tar tillbaka med Ångra.

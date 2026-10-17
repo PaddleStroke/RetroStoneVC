@@ -1,21 +1,8 @@
 Işıkları Yak
 # Amaç
 Beyaz karelere lambalar koy, öyle ki her beyaz kare aydınlansın. Bir lamba kendi karesini ve bütün satırını ve sütununu iki yöne doğru, karanlık bir duvara ya da kenara kadar aydınlatır. Hiçbir lamba başka bir lambayı aydınlatamaz. Sayılı bir duvarın yanında (üstünde, altında, solunda ve sağında) tam o kadar lamba vardır; sayısız bir duvarın yanında istediğin kadar olabilir.
-Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Boyutu (7 × 7, 10 × 10 ya da 14 × 14) ve seviyeyi seç (her resmin altındaki taşlar):
-- Kolay: bir bakış her zaman yeter: bütün boş karelerine ihtiyacı olan bir sayı, bütün lambaları zaten yerinde olan bir sayı, artık yalnızca bir karenin aydınlatabileceği karanlık bir kare.
-- Orta: bir lamba ilerisini de düşünmen gerekir: buraya bir lamba, bir sayıyı ya da karanlık bir kareyi yeterince yersiz bırakırdı.
-- Zor: daha uzun akıl yürütme zincirleri, asla tahmin yok.
-# Bir hamle
-Beyaz bir kareye lamba koy ya da onu kaldır. Oraya lamba gelmeyeceğini hatırlamak için bir kareye nokta da koyabilirsin; noktalar yalnızca senin notlarındır.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kareye nokta koymak için parmağını üzerinde tut: oraya lamba gelmeyeceğini gösteren bir not.
 # Oyunun sonu
-Her beyaz kare aydınlandığında, hiçbir lamba başka birini aydınlatmadığında ve her sayının lambaları tamam olduğunda bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer.
+Her beyaz kare aydınlandığında, hiçbir lamba başka birini aydınlatmadığında ve her sayının lambaları tamam olduğunda bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 6 × 6'dan 14 × 14'e kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir lamba ya da noktadır.
-# Cihazda oynamak
-- Lamba koymak için beyaz bir kareye dokun; kaldırmak için yeniden dokun.
-- Nokta koymak ya da kaldırmak için parmağını bir karenin üzerinde bir an tut.
-- Bütün bir parçaya nokta koymak (ya da noktalı bir parçadan kaldırmak) için bir satır ya da sütun boyunca sürükle.
-Aydınlanan kareler sıcak bir ışıkla parlar. Birbirini aydınlatan iki lamba kırmızı parlar; bir sayı fazla lambası olunca kırmızıya döner, hepsi tamam olunca solar. Tahtanın yanındaki düğmeler:
-- Lamba ya da nokta: bir dokunuşun ne koyduğu. Dokunma ile basılı tutmanın yerini değiştirmek için ona dokun.
-- Ampul: bir ipucu. Yanlış bir kareyi düzeltir ya da akıl yürütmenin bulduğu bir sonraki kareyi altın ışıkla gösterir.
-Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit hamlelerini gösterir.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir lamba ya da noktadır.

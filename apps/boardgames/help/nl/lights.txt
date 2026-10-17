@@ -1,12 +1,9 @@
 Lampen
 # Het doel
-Een paar messing lampen op het bord branden. Doe elke lamp uit. Kies eerst het bord: 3 × 3, 5 × 5 of 7 × 7; hoe groter het bord, hoe vaker je moet drukken.
-Elk bord wordt gemaakt door willekeurig op lampen van een donker bord te drukken, dus het kan altijd helemaal uit.
+Een paar messing lampen op het bord branden. Doe elke lamp uit. Elk bord kan helemaal uit.
 # Een zet
 Druk op een lamp: hij springt om (van brandend naar donker, of van donker naar brandend), en zijn buren boven, onder, links en rechts ook. De volgorde waarin je drukt doet er niet toe, en twee keer op een lamp drukken is hetzelfde als er nooit op drukken.
 # Het einde van het spel
-De puzzel is opgelost als elke lamp donker is: een golf van gouden licht gaat over het bord. Voor elk bord is uitgerekend hoe vaak je minstens moet drukken; evenaar dat als het lukt.
+De puzzel is opgelost als elke lamp donker is.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 3 × 3 lampen tot 7 × 7, veel ervan in patronen; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Elke puzzel heeft een par: het kleinste aantal keren drukken waarmee hij op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer keren drukken: 2 sterren; anders 1. Ongedaan maken neemt een druk terug, die dan niet meer telt.
-# Spelen op het apparaat
-Tik op een lamp om erop te drukken. De lamp naast het bord geeft een hint: hij drukt op één lamp van de kortste weg, in gouden licht. Ongedaan maken neemt één druk tegelijk terug, helemaal tot het begin. De balk toont hoe vaak je hebt gedrukt en, aan het rechtereinde, het kleinste mogelijke aantal vanaf het begin; hij gloeit goud als je dat evenaart.
+Opgelost op par, het kleinste aantal keren drukken waarmee hij op te lossen is: 3 sterren; met tot de helft meer keren drukken: 2 sterren; anders 1.

@@ -1,12 +1,9 @@
 Lambalar
 # Amaç
-Tahtadaki pirinç lambaların bazıları yanıyor. Bütün lambaları söndür. Önce tahtayı seç: 3 × 3, 5 × 5 ya da 7 × 7; tahta ne kadar büyükse o kadar çok basış gerekir.
-Her tahta, karanlık bir tahtanın lambalarına rastgele basılarak yapılır; bu yüzden her zaman söndürülebilir.
+Tahtadaki pirinç lambaların bazıları yanıyor. Bütün lambaları söndür. Her tahta söndürülebilir.
 # Bir hamle
 Bir lambaya bas: durumu değişir (yanıyorsa söner, sönükse yanar), üstündeki, altındaki, solundaki ve sağındaki komşuları da öyle. Basışlarının sırası önemli değildir ve bir lambaya iki kez basmak hiç basmamakla aynıdır.
 # Oyunun sonu
-Bütün lambalar söndüğünde bulmaca çözülür: tahtanın üzerinden altın bir ışık dalgası geçer. Her tahta için mümkün olan en az basış hesaplanmıştır; yapabilirsen ona ulaş.
+Bütün lambalar söndüğünde bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 3 × 3 lambadan 7 × 7 lambaya kadar uzanıyorlar ve çoğu desen oluşturuyor. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az basış sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla basışla 2 yıldız; yoksa 1. Geri al bir basışı geri alır, o basış artık sayılmaz.
-# Cihazda oynamak
-Basmak için bir lambaya dokun. Tahtanın yanındaki lamba bir ipucu verir: en kısa yolun lambalarından birine altın ışıkla basar. Geri al her seferinde bir basışı geri alır, en başa kadar. Şerit basışlarını ve sağ ucunda baştan itibaren mümkün olan en azı gösterir; ona ulaştığında altın gibi parlar.
+Par ile, yani bulmacayı çözen en az basışla çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla basışla 2 yıldız; yoksa 1.

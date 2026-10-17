@@ -1,12 +1,9 @@
 Luzes
 # O objetivo
-Algumas lâmpadas de latão do tabuleiro estão acesas. Apague todas as lâmpadas. Escolha primeiro o tabuleiro: 3 × 3, 5 × 5 ou 7 × 7; quanto maior o tabuleiro, mais jogadas são necessárias.
-Todo tabuleiro é feito apertando ao acaso lâmpadas de um tabuleiro apagado, então sempre dá para apagá-lo.
+Algumas lâmpadas de latão do tabuleiro estão acesas. Apague todas as lâmpadas. Todo tabuleiro pode ser apagado.
 # Uma jogada
 Aperte uma lâmpada: ela se inverte (de acesa para apagada, ou de apagada para acesa), e as vizinhas de cima, de baixo, da esquerda e da direita também. A ordem das jogadas não importa, e apertar uma lâmpada duas vezes é o mesmo que nunca apertá-la.
 # O fim da partida
-O quebra-cabeça está resolvido quando todas as lâmpadas estão apagadas: uma onda de luz dourada percorre o tabuleiro. O mínimo de jogadas possível é calculado para cada tabuleiro; tente igualá-lo.
+O quebra-cabeça está resolvido quando todas as lâmpadas estão apagadas.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de 3 × 3 lâmpadas até 7 × 7, muitos deles em desenhos; escolha um na tela de níveis. A aba do dado, depois dos capítulos, cria um novo quebra-cabeça ao acaso, com a escolha descrita acima. Cada quebra-cabeça tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Desfazer volta uma jogada, que deixa de contar.
-# Jogando no aparelho
-Toque numa lâmpada para apertá-la. A lâmpada ao lado do tabuleiro dá uma dica: aperta uma lâmpada do caminho mais curto, em luz dourada. Desfazer volta uma jogada de cada vez, até o começo. A barra mostra as suas jogadas e, na ponta direita, o mínimo possível desde o começo; ela brilha dourada quando você o iguala.
+Resolvido no par, o mínimo de jogadas que o resolvem: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

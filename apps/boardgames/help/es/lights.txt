@@ -1,12 +1,9 @@
 Luces
 # El objetivo
-Algunas lámparas de latón del tablero están encendidas. Apágalas todas. Elige primero el tablero: 3 × 3, 5 × 5 o 7 × 7; cuanto más grande es el tablero, más pulsaciones hacen falta.
-Cada tablero se crea pulsando al azar lámparas de un tablero apagado, así que siempre se puede apagar.
+Algunas lámparas de latón del tablero están encendidas. Apágalas todas. Todos los tableros se pueden apagar.
 # Una jugada
 Pulsa una lámpara: cambia (de encendida a apagada o de apagada a encendida), y lo mismo hacen sus vecinas de arriba, abajo, la izquierda y la derecha. El orden de tus pulsaciones no importa, y pulsar una lámpara dos veces es lo mismo que no pulsarla nunca.
 # El final de la partida
-El rompecabezas está resuelto cuando todas las lámparas están apagadas: una ola de luz dorada recorre el tablero. Para cada tablero se ha calculado el mínimo de pulsaciones posible; iguálalo si puedes.
+El rompecabezas está resuelto cuando todas las lámparas están apagadas.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, de 3 × 3 lámparas hasta 7 × 7, muchos con dibujos; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada rompecabezas tiene un par: el mínimo de pulsaciones que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de pulsaciones: 2 estrellas; si no, 1. Deshacer anula una pulsación, que ya no cuenta.
-# Jugar en el dispositivo
-Toca una lámpara para pulsarla. La lámpara junto al tablero da una pista: pulsa una lámpara del camino más corto, con luz dorada. Deshacer anula una pulsación cada vez, hasta el principio. La barra muestra tus pulsaciones y, en su extremo derecho, el mínimo posible desde el principio; brilla en dorado cuando lo igualas.
+Resuelto en el par, el mínimo de pulsaciones que lo resuelven: 3 estrellas; con hasta la mitad más de pulsaciones: 2 estrellas; si no, 1.

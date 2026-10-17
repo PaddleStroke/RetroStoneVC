@@ -1,12 +1,9 @@
 Světla
 # Cíl hry
-Některé mosazné lampy na desce svítí. Zhasni všechny lampy. Nejprve zvol desku: 3 × 3, 5 × 5 nebo 7 × 7; čím větší deska, tím víc stisknutí je potřeba.
-Každá deska vzniká náhodným stisknutím lamp na zhasnuté desce, takže se dá vždy celá zhasnout.
+Některé mosazné lampy na desce svítí. Zhasni všechny lampy. Každá deska se dá celá zhasnout.
 # Tah
 Stiskni lampu: přepne se (rozsvícená zhasne, zhasnutá se rozsvítí) a s ní i sousední lampy nad ní, pod ní, vlevo a vpravo. Na pořadí stisknutí nezáleží a stisknout lampu dvakrát je totéž jako ji nestisknout vůbec.
 # Konec hry
-Hlavolam je vyřešený, když jsou všechny lampy zhasnuté: po desce přeběhne vlna zlatého světla. Pro každou desku je spočítaný nejmenší možný počet stisknutí; zkus ho dosáhnout.
+Hlavolam je vyřešený, když jsou všechny lampy zhasnuté.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 3 × 3 lamp po 7 × 7, mnohé z nich ve vzorech; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet stisknutí, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc stisknutí: 2 hvězdy; jinak 1. Vrátit vezme stisknutí zpět a to se už nepočítá.
-# Hra na zařízení
-Klepnutím na lampu ji stiskneš. Lampa vedle desky dá nápovědu: stiskne jednu lampu nejkratší cesty, ve zlatém světle. Vrátit bere zpět jedno stisknutí po druhém, až na začátek. Lišta ukazuje tvá stisknutí a na pravém konci nejmenší možný počet od začátku; když ho dosáhneš, rozzáří se zlatem.
+Vyřešeno na par, tedy nejmenším počtem stisknutí, který hlavolam vyřeší: 3 hvězdy; nejvýš o polovinu víc stisknutí: 2 hvězdy; jinak 1.

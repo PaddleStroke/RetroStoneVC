@@ -1,28 +1,19 @@
 Logikgatter
 # Das Ziel
-Eine Schaltplatine: Schalter, darüber Logikgatter, oben Lampen; jeder Schalter sitzt direkt unter dem Gatter, das er speist. Jeder Draht führt ein Signal nach oben, 0 (dunkel) oder 1 (golden leuchtend). Stelle die Schalter so, dass alle Lampen leuchten, während die roten Alarmlampen dunkel bleiben. 165 Level in 6 Kapiteln. Für eine Schaltung nach Zufall wählst du die Größe, klein (3 oder 4 Schalter), mittel (5 oder 6) oder groß (7 oder 8), und tippst die Teile an, die sie verwenden darf, um sie aufleuchten zu lassen oder abzudunkeln: jedes Gatter, die rote Alarmlampe, zwei Lampen, die Weiche, den gesperrten Schalter und das Kabel; dann tippst du auf Spielen.
+Jeder Draht führt ein Signal von den Schaltern zu den Lampen: 0 (dunkel) oder 1 (golden leuchtend). Stelle die Schalter so, dass alle Lampen leuchten, während die roten Alarmlampen dunkel bleiben.
 # Die Gatter
-Jedes Gatter ist eine Messingform auf einer Nussbaumplakette: Seine Eingänge kommen unten herein, sein Ausgang geht oben hinaus. Ein kleiner Kreis oben an einem Gatter kehrt seine Antwort um. Unten die Eingänge und der Ausgang für jeden Fall: 01 → 1 heißt erster Eingang 0, zweiter Eingang 1, Ausgang 1. Sein Name ist auf Englisch eingraviert, wie in Schaltplänen: NOT, AND, OR, XOR, NAND oder NOR.
-- NICHT (NOT), ein Dreieck mit einem Kreis an der Spitze: das Gegenteil seines Eingangs. 0 → 1, 1 → 0.
-- UND (AND), eine Kuppel, unten flach und oben rund: nur 1, wenn alle Eingänge 1 sind. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- ODER (OR), ein spitzer Schild, unten ausgehöhlt: 1, wenn mindestens ein Eingang 1 ist. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- Exklusives ODER (XOR), die ODER-Form mit einer zweiten gebogenen Linie darunter: 1, wenn die Eingänge verschieden sind. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, die UND-Kuppel mit Kreis: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, der ODER-Schild mit Kreis: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Später haben manche Gatter drei Eingänge: UND, ODER, NAND und NOR arbeiten genauso, und XOR gibt 1, wenn eine ungerade Zahl seiner Eingänge 1 ist.
+Jedes Gatter macht aus seinen Eingängen einen einzigen Ausgang; sein Name ist darauf eingraviert. Ein kleiner Kreis an einem Gatter kehrt seine Antwort um.
+- NICHT (NOT): das Gegenteil seines Eingangs.
+- UND (AND): nur 1, wenn alle Eingänge 1 sind.
+- ODER (OR): 1, wenn mindestens ein Eingang 1 ist.
+- Exklusives ODER (XOR): 1, wenn seine zwei Eingänge verschieden sind; bei drei Eingängen, wenn eine ungerade Zahl von ihnen 1 ist.
+- NAND: das Gegenteil von UND.
+- NOR: das Gegenteil von ODER.
 # Weichen
-Eine Plakette, an der sich der Draht nach links und rechts teilt. Das Signal läuft in die Richtung weiter, in die die Messingbahn zeigt; die andere Richtung führt 0. Tippe die Weiche an, um das Signal in die andere Richtung zu schicken.
+Wo sich der Draht teilt, läuft das Signal in die Richtung weiter, in die die Messingbahn zeigt; die andere Richtung führt 0. Tippe die Weiche an, um das Signal in die andere Richtung zu schicken.
 # Drähte zum Durchtrennen
-Manche Drähte sind Brückenkabel: farbige Kabel, die sich im Bogen zwischen zwei Messingklemmen spannen. Tippe ein Kabel an, um es zu durchtrennen: Es reißt entzwei, und hinter dem Schnitt führt der Draht 0, als wäre er abgeklemmt. Ein Schnitt lässt sich nicht flicken, außer mit Rückgängig (das Kabel fügt sich wieder zusammen) oder einem Neustart des Levels. Manche Level erlauben weniger Schnitte, als sie Kabel haben: Die Leiste zeigt, wie viele dir bleiben.
+Tippe ein Brückenkabel an, um es zu durchtrennen: Hinter dem Schnitt führt der Draht 0. Nur Rückgängig oder ein Neustart des Levels flickt es wieder. Manche Level erlauben weniger Schnitte, als sie Kabel haben.
 # Gesperrte Schalter
 Ein Schalter mit einer aufgeschraubten Messingleiste bleibt, wie er ist.
 # Level und Sterne
-Die Kapitel bringen die Gatter eines nach dem anderen, und jedes wächst von wenigen Schaltern bis auf 8: 1 UND und ODER, mit Alarmlampen, ab der Mitte auch NICHT (40 Level); 2 Exklusives ODER und gesperrte Schalter; 3 NAND und Weichen; 4 NOR und Drähte zum Durchtrennen; 5 Gatter mit drei Eingängen, ein Schalter für mehrere Gatter, zwei Lampen; 6 große Schaltungen mit allem. Der Reiter mit dem Würfel nach den Kapiteln macht eine neue Schaltung nach Zufall, mit der oben beschriebenen Wahl.
-Ein Zug ist ein Umschalten oder ein Schnitt. Jedes Level hat ein Par: die wenigsten Züge, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; bis zu zwei Züge mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Level auf 2 Sterne. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr. Gelöste Level bleiben offen, ebenso die ersten drei ungelösten.
-# Spielen auf dem Gerät
-- Die Levelübersicht: ein Reiter je Kapitel, darunter dessen Level: gelöste in Gold mit ihren Sternen, offene in Holz, gesperrte in dunklem Holz. Tippe ein Level an, um es zu spielen. Deine Sterne bleiben auf dem Gerät gespeichert.
-- Tippe einen Schalter an, um ihn umzulegen, eine Weiche, um sie umzustellen, ein Kabel, um es zu durchtrennen. Die Änderung läuft die Drähte hinauf, Gatter für Gatter.
-- Neben der Platine: Kapitel und Nummer des Levels; der runde Pfeil startet das Level neu; die Lampe gibt einen Tipp: Das nächste zu ändernde Teil blinkt. Blinkt stattdessen der Neustart-Knopf, sind deine Schnitte falsch: Nimm sie zurück.
-- In einer Zufallsschaltung holt der Gatterknopf neben dem Tipp Größe und Teile wieder hervor; der Knopf Weiter baut eine neue Schaltung mit derselben Wahl. Bleibt der Spielknopf dunkel, lass eines der sanft glühenden Gatter aufleuchten: Ein Rätsel braucht ein UND, oder ein NICHT mit ODER, NAND oder NOR.
-- Leuchten alle Lampen, flammen sie golden auf; dann erscheinen deine Sterne mit dem Knopf zum nächsten Level. Neues Spiel (der Gitterknopf) führt zurück zur Levelübersicht.
-- Die Leiste zeigt deine Züge neben einem Schalter, die übrigen Schnitte neben einem Kabel und das Par neben einem Stern. Auf einem breiten Bildschirm liegt eine tiefe Schaltung manchmal auf der Seite: die Schalter links, die Lampen rechts.
+Ein Zug ist ein Umschalten oder ein Schnitt. Gelöst mit Par, also mit den wenigsten Zügen, die es lösen: 3 Sterne; bis zu zwei Züge mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Level auf 2 Sterne.

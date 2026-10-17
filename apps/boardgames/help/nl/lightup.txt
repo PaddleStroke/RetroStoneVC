@@ -1,21 +1,8 @@
 Licht aan
 # Het doel
 Zet lampen in de witte vakjes zodat elk wit vakje verlicht is. Een lamp verlicht zijn eigen vakje en zijn hele rij en kolom, beide kanten op, tot aan een donkere muur of de rand. Geen lamp mag een andere lamp verlichten. Een muur met een getal heeft precies zoveel lampen naast zich (boven, onder, links en rechts); een muur zonder getal mag er elk aantal hebben.
-Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Kies de grootte (7 × 7, 10 × 10 of 14 × 14) en het niveau (de stenen onder elk plaatje):
-- Makkelijk: één blik is altijd genoeg: een getal dat al zijn vrije vakjes nodig heeft, een getal dat al zijn lampen heeft, een donker vakje dat nog maar door één vakje verlicht kan worden.
-- Gemiddeld: je moet ook één lamp vooruit denken: een lamp hier zou een getal, of een donker vakje, te weinig ruimte laten.
-- Moeilijk: langere redeneringen achter elkaar, nooit gokken.
-# Een zet
-Zet een lamp in een wit vakje of haal hem weg. Je kunt ook een stip in een vakje zetten om te onthouden dat daar geen lamp komt; de stippen zijn alleen notities voor jou.
+Elke puzzel heeft precies één oplossing, die je alleen door redeneren vindt. Houd een vakje vast om er een stip in te zetten: een notitie dat daar geen lamp komt.
 # Het einde van het spel
-De puzzel is opgelost als elk wit vakje verlicht is, geen lamp een andere verlicht en elk getal zijn lampen heeft: een golf van gouden licht gaat over het bord.
+De puzzel is opgelost als elk wit vakje verlicht is, geen lamp een andere verlicht en elk getal zijn lampen heeft.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 6 × 6 tot 14 × 14, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde lamp of stip die je met Ongedaan maken terugneemt.
-# Spelen op het apparaat
-- Tik op een wit vakje om er een lamp in te zetten; tik nog eens om hem weg te halen.
-- Houd een vakje even vast om er een stip in te zetten, of hem weg te halen.
-- Sleep langs een rij of kolom om stippen in een heel stuk te zetten (of ze uit een stuk vol stippen te halen).
-Verlichte vakjes gloeien warm. Twee lampen die elkaar verlichten, gloeien rood; een getal wordt rood als het te veel lampen heeft, en vervaagt zodra het ze allemaal heeft. De knoppen naast het bord:
-- Lamp of stip: wat een tik zet. Tik erop om tikken en vasthouden te verwisselen.
-- Gloeilamp: een hint. Hij verbetert een fout vakje, of toont anders het volgende vakje dat redeneren oplevert, in gouden licht.
-Ongedaan maken neemt één actie tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde lamp of stip die je met Ongedaan maken terugneemt.

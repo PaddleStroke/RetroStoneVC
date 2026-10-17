@@ -1,28 +1,19 @@
 Logiske porter
 # Målet
-Et kretskort: brytere, logiske porter over dem, lamper øverst; hver bryter sitter rett under porten den forsyner. Hver ledning fører et signal oppover, 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket. Det er 165 nivåer i 6 kapitler. For en krets laget tilfeldig velger du størrelsen, liten (3 eller 4 brytere), middels (5 eller 6) eller stor (7 eller 8), og trykker på delene den kan bruke for å tenne eller dempe dem: hver port, den røde alarmlampen, to lamper, sporvekselen, den låste bryteren og kabelen; trykk så på spill.
+Hver ledning fører et signal fra bryterne til lampene: 0 (mørk) eller 1 (gylden og lysende). Still bryterne slik at alle lampene lyser, mens de røde alarmlampene forblir slukket.
 # Portene
-Hver port er en messingfigur på en plate av valnøtt: inngangene kommer inn nederst, utgangen går ut øverst. En liten ring øverst på en port snur svaret dens. Nedenfor inngangene og utgangen i hvert tilfelle: 01 → 1 betyr første inngang 0, andre inngang 1, utgang 1. Navnet er gravert inn på engelsk, som på koblingsskjemaer: NOT, AND, OR, XOR, NAND eller NOR.
-- NOT (IKKE), en trekant med en ring i spissen: det motsatte av inngangen. 0 → 1, 1 → 0.
-- AND (OG), en kuppel, flat nederst og rund øverst: bare 1 når alle inngangene er 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OR (ELLER), et spisst skjold, hult nederst: 1 når minst én inngang er 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- XOR (eksklusiv ELLER), OR-formen med enda en buet strek under: 1 når inngangene er ulike. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, AND-kuppelen med en ring: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, OR-skjoldet med en ring: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Senere har noen porter tre innganger: AND, OR, NAND og NOR virker på samme måte, og XOR gir 1 når et oddetall av inngangene er 1.
+Hver port gjør inngangene sine om til én utgang; navnet er gravert inn på den. En liten ring på en port snur svaret dens.
+- NOT (IKKE): det motsatte av inngangen.
+- AND (OG): bare 1 når alle inngangene er 1.
+- OR (ELLER): 1 når minst én inngang er 1.
+- XOR (eksklusiv ELLER): 1 når de to inngangene er ulike; med tre innganger, når et oddetall av dem er 1.
+- NAND: det motsatte av AND.
+- NOR: det motsatte av OR.
 # Sporvekslere
-En plate der ledningen deler seg, til venstre og til høyre. Signalet fortsetter den veien messingsporet peker; den andre veien fører 0. Trykk på den for å sende signalet den andre veien.
+Der ledningen deler seg, fortsetter signalet den veien messingsporet peker; den andre veien fører 0. Trykk på sporvekselen for å sende signalet den andre veien.
 # Ledninger som kan kuttes
-Noen ledninger er koblingskabler: fargede kabler som går i en bue mellom to messingklemmer. Trykk på en kabel for å kutte den: den knekker i to, og etter kuttet fører ledningen 0, som om den var koblet fra. Et kutt kan ikke repareres, bortsett fra med Angre (kabelen kobles sammen igjen) eller ved å starte nivået på nytt. Noen nivåer tillater færre kutt enn de har kabler: linjen viser hvor mange du har igjen.
+Trykk på en koblingskabel for å kutte den: etter kuttet fører ledningen 0. Bare Angre eller å starte nivået på nytt reparerer den. Noen nivåer tillater færre kutt enn de har kabler.
 # Låste brytere
 En bryter med en fastskrudd messingstang over seg blir som den er.
 # Nivåer og stjerner
-Kapitlene innfører portene én om gangen, og hvert kapittel vokser fra noen få brytere opp til 8: 1 AND og OR, med alarmlamper, og fra midten også NOT (40 nivåer); 2 XOR og låste brytere; 3 NAND og sporvekslere; 4 NOR og ledninger som kan kuttes; 5 porter med tre innganger, én bryter til flere porter, to lamper; 6 store kretser med alt om hverandre. Fanen med terningen etter kapitlene lager en ny krets tilfeldig, med valget som er beskrevet ovenfor.
-Et trekk er ett skifte eller ett kutt. Hvert nivå har en par: færrest trekk som løser det. Løst på par: 3 stjerner; opptil to trekk mer: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner. Angre tar tilbake et trekk, og det teller ikke lenger. Løste nivåer forblir åpne, og det gjør også de tre første uløste.
-# Spill på enheten
-- Nivåskjermen: en fane for hvert kapittel, deretter nivåene i det: løste i gull med stjernene sine, åpne i tre, låste i mørkt tre. Trykk på et nivå for å spille det. Stjernene dine lagres på enheten.
-- Trykk på en bryter for å slå den om, på en sporveksler for å snu den, på en kabel for å kutte den. Endringen løper opp ledningene, port for port.
-- Ved siden av kortet: kapitlet og nivåets nummer; den runde pilen starter nivået på nytt; lampen gir et hint: den neste delen som skal endres, blinker. Blinker omstartknappen i stedet, er kuttene dine feil: angre dem.
-- I en tilfeldig krets henter portknappen ved siden av hintet fram størrelsen og delene igjen; knappen neste lager en ny krets med det samme valget. Er spillknappen fortsatt dempet, tenn en av portene som gløder svakt: en oppgave trenger en AND, eller en NOT sammen med en OR, NAND eller NOR.
-- Når alle lampene lyser, blusser de opp i gull; så vises stjernene dine med knappen til neste nivå. Nytt spill (rutenettknappen) går tilbake til nivåskjermen.
-- Linjen viser trekkene dine ved en bryter, kuttene som er igjen ved en kabel, og par ved en stjerne. På en bred skjerm kan en dyp krets ligge på siden: bryterne til venstre, lampene til høyre.
+Et trekk er ett skifte eller ett kutt. Løst på par, færrest trekk som løser det: 3 stjerner; opptil to trekk mer: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner.

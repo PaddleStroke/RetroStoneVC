@@ -1,10 +1,8 @@
 Sløyfe
 # Målet
-Tegn én lukket sløyfe langs rutenes sider, fra prikk til prikk. Sløyfen krysser eller berører aldri seg selv og har ingen løse ender. Et tall i en rute forteller hvor mange av rutens fire sider sløyfen bruker; en rute uten tall kan ha hvor mange som helst. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved resonnering. Velg først størrelse og nivå (steinene under hvert bilde):
-- Lett: sidene til et tall, en prikk med to streker eller ingen, og aldri å lukke en liten sløyfe mens det er andre streker igjen, er alltid nok.
-- Middels: du må også se på et tall sammen med prikkene i hjørnene (en 3 i et hjørne, en 1 inntil kanten).
-- Vanskelig: lengre resonnementer: prøv en side og følg den til noe går galt.
+Tegn én lukket sløyfe langs rutenes sider, fra prikk til prikk. Sløyfen krysser eller berører aldri seg selv og har ingen løse ender. Et tall i en rute forteller hvor mange av rutens fire sider sløyfen bruker; en rute uten tall kan ha hvor mange som helst.
+Hver oppgave har nøyaktig én løsning, som kan finnes bare ved resonnering. Trykk to ganger på en side for å sette et kryss: et notat om at sløyfen ikke går der.
+# Slutten på spillet
+Oppgaven er løst når sløyfen er lukket og følger alle reglene.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 15 × 15, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en strek der sløyfen ikke går, eller et kryss der den går, som du tar tilbake med Angre.
-# Spill på enheten
-Trykk på en side for å tegne en strek; trykk igjen for et kryss (en side du vet blir tom), og én gang til for å tømme den. Eller dra fingeren langs prikkene for å tegne flere streker på én gang; et drag som begynner på en strek, fjerner streker. Et tall med alle strekene sine tegnet blekner (en 0 når den har kryss rundt hele seg); et med for mange blir rødt. Lampen ved siden av brettet gir et hint: den retter en feil markering, eller markerer ellers en side som resonneringen finner, i gyllent lys. Angre tar tilbake én handling om gangen (et helt drag på én gang), helt til starten. Linjen viser trekkene dine. Når sløyfen er ferdig, blir tråden gyllen.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en strek der sløyfen ikke går, eller et kryss der den går, som du tar tilbake med Angre.

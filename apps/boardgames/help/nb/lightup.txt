@@ -1,21 +1,8 @@
 Tenn lyset
 # Målet
 Sett lamper i de hvite rutene slik at hver hvit rute blir opplyst. En lampe lyser opp sin egen rute og hele raden og kolonnen sin i begge retninger, helt fram til en mørk mur eller kanten. Ingen lampe får lyse opp en annen lampe. En mur med et tall har nøyaktig så mange lamper ved siden av seg (over, under, til venstre og til høyre); en mur uten tall kan ha hvor mange som helst.
-Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. Velg størrelse (7 × 7, 10 × 10 eller 14 × 14) og nivå (steinene under hvert bilde):
-- Lett: Ett blikk er alltid nok: et tall som trenger alle de frie rutene sine, et tall som allerede har alle lampene sine, en mørk rute som bare én rute fortsatt kan lyse opp.
-- Middels: Du må også tenke én lampe fram: En lampe her ville gitt et tall, eller en mørk rute, for lite plass.
-- Vanskelig: lengre kjeder av slutninger, aldri gjetting.
-# Et trekk
-Sett en lampe i en hvit rute, eller ta den bort. Du kan også sette en prikk i en rute for å huske at det ikke skal stå en lampe der; prikkene er bare notater til deg selv.
+Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å resonnere. Hold fingeren på en rute for å sette en prikk i den: et notat om at det ikke skal stå en lampe der.
 # Slutten på spillet
-Oppgaven er løst når hver hvit rute er opplyst, ingen lampe lyser opp en annen og hvert tall har lampene sine: En bølge av gyllent lys går over brettet.
+Oppgaven er løst når hver hvit rute er opplyst, ingen lampe lyser opp en annen og hvert tall har lampene sine.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 6 × 6 opp til 14 × 14, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil lampe eller prikk som du tar tilbake med Angre.
-# Spill på enheten
-- Trykk på en hvit rute for å sette en lampe; trykk igjen for å ta den bort.
-- Hold fingeren et øyeblikk på en rute for å sette en prikk, eller ta den bort.
-- Dra langs en rad eller kolonne for å sette prikker i et helt stykke (eller ta dem bort fra et stykke med prikker).
-De opplyste rutene gløder varmt. To lamper som lyser opp hverandre, gløder rødt; et tall blir rødt når det har for mange lamper, og blekner når det har alle. Knappene ved siden av brettet:
-- Lampe eller prikk: hva et trykk setter. Trykk på den for å bytte om trykk og hold.
-- Lyspære: et hint. Den retter en feil rute eller viser ellers neste rute resonneringen finner, i gyllent lys.
-Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil lampe eller prikk som du tar tilbake med Angre.

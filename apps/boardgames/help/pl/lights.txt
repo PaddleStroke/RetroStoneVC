@@ -1,12 +1,9 @@
 Lampy
 # Cel gry
-Niektóre mosiężne lampy na planszy świecą. Zgaś wszystkie lampy. Najpierw wybierz planszę: 3 × 3, 5 × 5 albo 7 × 7; im większa plansza, tym więcej naciśnięć trzeba.
-Każda plansza powstaje przez losowe naciskanie lamp na ciemnej planszy, więc zawsze da się ją zgasić.
+Niektóre mosiężne lampy na planszy świecą. Zgaś wszystkie lampy. Każdą planszę da się zgasić.
 # Ruch
 Naciśnij lampę: zmienia stan (zapalona gaśnie, zgaszona się zapala), a razem z nią sąsiednie lampy powyżej, poniżej, z lewej i z prawej. Kolejność naciśnięć nie ma znaczenia, a dwukrotne naciśnięcie lampy to to samo, co nienaciśnięcie jej wcale.
 # Koniec gry
-Łamigłówka jest rozwiązana, gdy każda lampa jest ciemna: fala złotego światła przebiega po planszy. Dla każdej planszy obliczono najmniejszą możliwą liczbę naciśnięć; dorównaj jej, jeśli potrafisz.
+Łamigłówka jest rozwiązana, gdy każda lampa jest ciemna.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 3 × 3 lamp do 7 × 7, wiele z nich we wzory; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: najmniejszą liczbę naciśnięć, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej naciśnięć: 2 gwiazdki; inaczej 1. Cofnij cofa naciśnięcie, które przestaje się liczyć.
-# Gra na urządzeniu
-Dotknij lampy, aby ją nacisnąć. Lampa obok planszy daje podpowiedź: naciska jedną lampę najkrótszej drogi, w złotym świetle. Cofnij cofa po jednym naciśnięciu, aż do początku. Pasek pokazuje twoje naciśnięcia, a na prawym końcu najmniejszą możliwą liczbę od początku; świeci złotem, gdy jej dorównasz.
+Rozwiązana w par, czyli najmniejszą liczbą naciśnięć, która ją rozwiązuje: 3 gwiazdki; najwyżej o połowę więcej naciśnięć: 2 gwiazdki; inaczej 1.

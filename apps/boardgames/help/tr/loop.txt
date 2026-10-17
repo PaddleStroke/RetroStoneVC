@@ -1,10 +1,8 @@
 Döngü
 # Amaç
-Karelerin kenarları boyunca, noktadan noktaya tek bir kapalı döngü çiz. Döngü hiçbir yerde kendini kesmez, kendine değmez ve açık ucu yoktur. Bir karedeki sayı, döngünün o karenin dört kenarından kaçını kullandığını söyler; sayısı olmayan karede istediği kadar olabilir. Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Önce boyutu ve seviyeyi seç (her resmin altındaki taşlar):
-- Kolay: bir sayının kenarları, iki çizgisi olan ya da hiç olmayan nokta ve başka çizgiler kaldıkça küçük bir döngüyü asla kapatmamak her zaman yeter.
-- Orta: bir sayıya köşelerindeki noktalarla birlikte de bakman gerekecek (köşedeki bir 3, kenara dayalı bir 1).
-- Zor: daha uzun akıl yürütmeler: bir kenarı dene ve bir şey bozulana kadar izle.
+Karelerin kenarları boyunca, noktadan noktaya tek bir kapalı döngü çiz. Döngü hiçbir yerde kendini kesmez, kendine değmez ve açık ucu yoktur. Bir karedeki sayı, döngünün o karenin dört kenarından kaçını kullandığını söyler; sayısı olmayan karede istediği kadar olabilir.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kenara çarpı koymak için ona iki kez dokun: döngünün oradan geçmediğini gösteren bir not.
+# Oyunun sonu
+Döngü kapalı olduğunda ve bütün kurallara uyduğunda bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 5 × 5'ten 15 × 15'e kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın, döngünün geçmediği bir kenardaki çizgi ya da geçtiği bir kenardaki çarpıdır.
-# Cihazda oynamak
-Çizgi çizmek için bir kenara dokun; çarpı için yeniden dokun (boş kalacağından emin olduğun kenar), temizlemek için bir kez daha. Ya da birkaç çizgiyi birden çizmek için parmağını noktalar boyunca sürükle; bir çizginin üzerinde başlayan sürükleme çizgileri siler. Bütün çizgileri çizilmiş sayı solar (bir 0, çevresi çarpılarla dolunca); fazlası olan kırmızıya döner. Tahtanın yanındaki lamba ipucu verir: yanlış bir işareti düzeltir, yoksa akıl yürütmenin bulduğu bir kenarı altın ışıkta işaretler. Geri al her seferinde bir işlemi (bütün bir sürüklemeyi bir kerede), en başa kadar geri alır. Şerit hamlelerini gösterir. Döngü tamamlanınca tel altın rengine döner.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın, döngünün geçmediği bir kenardaki çizgi ya da geçtiği bir kenardaki çarpıdır.

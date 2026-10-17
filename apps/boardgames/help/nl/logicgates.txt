@@ -1,28 +1,19 @@
 Logische poorten
 # Het doel
-Een printplaat: schakelaars, daarboven logische poorten, bovenaan lampen; elke schakelaar zit vlak onder de poort die hij voedt. Elke draad voert een signaal omhoog, 0 (donker) of 1 (goud oplichtend). Zet de schakelaars zo dat alle lampen branden, terwijl de rode alarmlampen uit blijven. Er zijn 165 levels in 6 hoofdstukken. Voor een willekeurige schakeling kies je de grootte, klein (3 of 4 schakelaars), middel (5 of 6) of groot (7 of 8), en tik je de onderdelen aan die ze mag gebruiken om ze aan of uit te zetten: elke poort, de rode alarmlamp, twee lampen, de wissel, de vergrendelde schakelaar en de kabel; tik dan op spelen.
+Elke draad voert een signaal van de schakelaars naar de lampen: 0 (donker) of 1 (goud oplichtend). Zet de schakelaars zo dat alle lampen branden, terwijl de rode alarmlampen uit blijven.
 # De poorten
-Elke poort is een koperen vorm op een plaatje notenhout: de ingangen komen er onderaan in, de uitgang gaat er bovenaan uit. Een rondje bovenop een poort draait het antwoord om. Hieronder de ingangen en de uitgang voor elk geval: 01 → 1 betekent eerste ingang 0, tweede ingang 1, uitgang 1. De naam staat er in het Engels in gegraveerd, zoals op schema's: NOT, AND, OR, XOR, NAND of NOR.
-- NOT (NIET), een driehoek met een rondje aan de punt: het omgekeerde van de ingang. 0 → 1, 1 → 0.
-- AND (EN), een koepel, onderaan plat en bovenaan rond: alleen 1 als alle ingangen 1 zijn. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OR (OF), een spits schild, onderaan uitgehold: 1 als minstens één ingang 1 is. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- XOR (exclusieve OF), de OR-vorm met een tweede gebogen lijn eronder: 1 als de ingangen verschillen. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, de AND-koepel met een rondje: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, het OR-schild met een rondje: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Verderop hebben sommige poorten drie ingangen: AND, OR, NAND en NOR werken op dezelfde manier, en XOR geeft 1 als een oneven aantal ingangen 1 is.
+Elke poort maakt van zijn ingangen één uitgang; de naam staat erin gegraveerd. Een rondje op een poort draait het antwoord om.
+- NOT (NIET): het omgekeerde van de ingang.
+- AND (EN): alleen 1 als alle ingangen 1 zijn.
+- OR (OF): 1 als minstens één ingang 1 is.
+- XOR (exclusieve OF): 1 als de twee ingangen verschillen; met drie ingangen, als een oneven aantal ervan 1 is.
+- NAND: het omgekeerde van AND.
+- NOR: het omgekeerde van OR.
 # Wissels
-Een plaatje waar de draad zich splitst, naar links en naar rechts. Het signaal gaat verder naar de kant waar het koperen spoor naar wijst; de andere kant voert 0. Tik erop om het signaal de andere kant op te sturen.
+Waar de draad zich splitst, gaat het signaal verder naar de kant waar het koperen spoor naar wijst; de andere kant voert 0. Tik erop om het signaal de andere kant op te sturen.
 # Draden om door te knippen
-Sommige draden zijn verbindingskabels: gekleurde kabels die in een boog tussen twee klemmen van messing lopen. Tik op een kabel om hem door te knippen: hij knapt in tweeën en voorbij de knip voert de draad 0, alsof hij los is. Een knip is niet te herstellen, behalve met Ongedaan maken (de kabel komt weer heel) of door het level opnieuw te beginnen. Sommige levels staan minder knippen toe dan ze kabels hebben: de balk toont hoeveel je er nog hebt.
+Tik op een verbindingskabel om hem door te knippen: voorbij de knip voert de draad 0. Alleen Ongedaan maken of het level opnieuw beginnen maakt hem weer heel. Sommige levels staan minder knippen toe dan ze kabels hebben.
 # Vergrendelde schakelaars
 Een schakelaar met een vastgeschroefde koperen strip erover blijft zoals hij is.
 # Levels en sterren
-De hoofdstukken brengen de poorten één voor één, en elk groeit van een paar schakelaars tot 8: 1 AND en OR, met alarmlampen, en vanaf het midden ook NOT (40 levels); 2 XOR en vergrendelde schakelaars; 3 NAND en wissels; 4 NOR en draden om door te knippen; 5 poorten met drie ingangen, één schakelaar voor meerdere poorten, twee lampen; 6 grote schakelingen met alles door elkaar. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe schakeling, met de keuze die hierboven staat.
-Een zet is één keer omzetten of één knip. Elk level heeft een par: het kleinste aantal zetten waarmee het op te lossen is. Opgelost op par: 3 sterren; tot twee zetten meer: 2 sterren; anders 1. Een hint beperkt het level tot 2 sterren. Ongedaan maken neemt een zet terug, die dan niet meer telt. Opgeloste levels blijven open, net als de eerste drie onopgeloste.
-# Spelen op het apparaat
-- Het levelrooster: een tab per hoofdstuk, daarna de levels ervan: opgeloste in goud met hun sterren, open in hout, gesloten in donker hout. Tik op een level om het te spelen. Je sterren blijven bewaard op het apparaat.
-- Tik op een schakelaar om hem om te zetten, op een wissel om hem te draaien, op een kabel om hem door te knippen. De verandering loopt de draden omhoog, poort na poort.
-- Naast de printplaat: het hoofdstuk en het nummer van het level; de ronde pijl begint het level opnieuw; de lamp geeft een hint: het volgende onderdeel om te veranderen knippert. Knippert in plaats daarvan de herstartknop, dan zijn je knippen fout: maak ze ongedaan.
-- In een willekeurige schakeling brengt de poortknop naast de hint de grootte en de onderdelen terug; de knop volgende maakt een nieuwe schakeling met dezelfde keuze. Blijft de speelknop gedimd, zet dan een van de zacht gloeiende poorten aan: een puzzel heeft een AND nodig, of een NOT samen met een OR, NAND of NOR.
-- Branden alle lampen, dan lichten ze goud op; daarna verschijnen je sterren met de knop naar het volgende level. Nieuw spel (de roosterknop) gaat terug naar het levelrooster.
-- De balk toont je zetten naast een schakelaar, de knippen die over zijn naast een kabel en de par naast een ster. Op een breed scherm kan een diepe schakeling op zijn kant liggen: de schakelaars links, de lampen rechts.
+Een zet is één keer omzetten of één knip. Opgelost op par, het kleinste aantal zetten waarmee het op te lossen is: 3 sterren; tot twee zetten meer: 2 sterren; anders 1. Een hint beperkt het level tot 2 sterren.

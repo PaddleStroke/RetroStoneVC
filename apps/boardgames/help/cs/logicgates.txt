@@ -1,28 +1,19 @@
 Logická hradla
 # Cíl hry
-Deska plošného spoje: vypínače, nad nimi logická hradla, nahoře žárovky; každý vypínač je hned pod hradlem, které napájí. Každý drát vede signál nahoru, 0 (tmavý) nebo 1 (zlatě zářící). Nastav vypínače tak, aby se rozsvítily všechny žárovky a červené poplašné žárovky zůstaly zhasnuté. Hra má 165 úrovní v 6 kapitolách. Pro obvod vytvořený náhodně vyber velikost, malý (3 nebo 4 vypínače), střední (5 nebo 6) nebo velký (7 nebo 8), a ťuknutím rozsviť nebo ztlum součástky, které smí použít: každé hradlo, červenou poplašnou lampu, dvě lampy, výhybku, zamčený vypínač a kabel; pak ťukni na hrát.
+Každý drát vede signál od vypínačů k žárovkám: 0 (tmavý) nebo 1 (zlatě zářící). Nastav vypínače tak, aby se rozsvítily všechny žárovky a červené poplašné žárovky zůstaly zhasnuté.
 # Hradla
-Každé hradlo je mosazný tvar na ořechové destičce: vstupy do něj vcházejí zdola, výstup vychází nahoře. Malé kolečko nahoře na hradle obrací jeho odpověď. Níže vstupy a výstup pro každý případ: 01 → 1 znamená první vstup 0, druhý vstup 1, výstup 1. Je na něm vyryté jeho anglické jméno, jako ve schématech: NOT, AND, OR, XOR, NAND nebo NOR.
-- NOT (negace), trojúhelník s kolečkem na špičce: opak svého vstupu. 0 → 1, 1 → 0.
-- AND (logický součin), kopule, dole rovná a nahoře kulatá: 1 jen tehdy, když jsou všechny vstupy 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OR (logický součet), špičatý štít, dole vydutý: 1, když je aspoň jeden vstup 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- XOR (výlučné OR), tvar OR s druhou zahnutou čarou pod ním: 1, když se vstupy liší. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, kopule AND s kolečkem: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, štít OR s kolečkem: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Později mají některá hradla tři vstupy: AND, OR, NAND a NOR fungují stejně a XOR dává 1, když je lichý počet vstupů 1.
+Každé hradlo mění své vstupy v jeden výstup; je na něm vyryté jeho jméno. Malé kolečko na hradle obrací jeho odpověď.
+- NOT (negace): opak svého vstupu.
+- AND (logický součin): 1 jen tehdy, když jsou všechny vstupy 1.
+- OR (logický součet): 1, když je aspoň jeden vstup 1.
+- XOR (výlučné OR): 1, když se jeho dva vstupy liší; se třemi vstupy, když je lichý počet z nich 1.
+- NAND: opak AND.
+- NOR: opak OR.
 # Výhybky
-Destička, kde se drát dělí doleva a doprava. Signál pokračuje tam, kam ukazuje mosazná dráha; druhá strana vede 0. Klepnutím pošleš signál na druhou stranu.
+Kde se drát dělí, signál pokračuje tam, kam ukazuje mosazná dráha; druhá strana vede 0. Klepnutím pošleš signál na druhou stranu.
 # Dráty k přestřižení
-Některé dráty jsou propojovací kabely: barevné kabely v oblouku mezi dvěma mosaznými svorkami. Klepni na kabel a přestřihneš ho: praskne vedví a za střihem vede drát 0, jako by byl odpojený. Přestřižení nejde opravit, jen tlačítkem Vrátit (kabel se zase spojí) nebo novým začátkem úrovně. Některé úrovně dovolí méně střihů, než mají kabelů: lišta ukazuje, kolik ti jich zbývá.
+Klepni na propojovací kabel a přestřihneš ho: za střihem vede drát 0. Opravit ho jde jen tlačítkem Vrátit nebo novým začátkem úrovně. Některé úrovně dovolí méně střihů, než mají kabelů.
 # Zamčené vypínače
 Vypínač s přišroubovanou mosaznou lištou přes sebe zůstane, jak je.
 # Úrovně a hvězdy
-Kapitoly přinášejí hradla jedno po druhém a každá roste od pár vypínačů až k 8: 1 AND a OR, s poplašnými žárovkami, od poloviny i NOT (40 úrovní); 2 XOR a zamčené vypínače; 3 NAND a výhybky; 4 NOR a dráty k přestřižení; 5 hradla se třemi vstupy, jeden vypínač pro několik hradel, dvě žárovky; 6 velké obvody, kde je všechno. Záložka s kostkou za kapitolami vytvoří nový obvod náhodně, s volbou popsanou výše.
-Tah je jedno přepnutí nebo jeden střih. Každá úroveň má par: nejmenší počet tahů, který ji vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o dva tahy víc: 2 hvězdy; jinak 1. Nápověda omezí úroveň na 2 hvězdy. Vrátit vezme tah zpět a ten se už nepočítá. Vyřešené úrovně zůstávají otevřené, stejně jako první tři nevyřešené.
-# Hra na zařízení
-- Přehled úrovní: záložka pro každou kapitolu a pod ní její úrovně: vyřešené zlaté s hvězdami, otevřené dřevěné, zamčené z tmavého dřeva. Klepnutím na úroveň ji začneš hrát. Tvoje hvězdy zůstávají uložené v zařízení.
-- Klepnutím na vypínač ho přepneš, na výhybku ji otočíš, na kabel ho přestřihneš. Změna běží po drátech nahoru, hradlo za hradlem.
-- Vedle desky: kapitola a číslo úrovně; kulatá šipka začne úroveň znovu; žárovka dá nápovědu: bliká další díl, který je třeba změnit. Bliká-li místo toho tlačítko nového začátku, máš špatné střihy: vrať je.
-- V náhodném obvodu vrátí tlačítko s hradlem vedle nápovědy volbu velikosti a součástek; tlačítko další vytvoří nový obvod se stejnou volbou. Když tlačítko hrát zůstane tlumené, rozsviť některé z jemně zářících hradel: hádanka potřebuje AND, nebo NOT spolu s OR, NAND či NOR.
-- Když svítí všechny žárovky, vzplanou zlatem; pak se objeví tvé hvězdy a tlačítko další úrovně. Nová hra (tlačítko s mřížkou) vede zpět na přehled úrovní.
-- Lišta ukazuje tvé tahy vedle vypínače, zbývající střihy vedle kabelu a par vedle hvězdy. Na širokém displeji může hluboký obvod ležet na boku: vypínače vlevo, žárovky vpravo.
+Tah je jedno přepnutí nebo jeden střih. Vyřešeno na par, tedy nejmenším počtem tahů, který úroveň vyřeší: 3 hvězdy; nejvýš o dva tahy víc: 2 hvězdy; jinak 1. Nápověda omezí úroveň na 2 hvězdy.

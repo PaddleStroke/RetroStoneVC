@@ -4,8 +4,6 @@ Flyt en springer, så den besøger hvert felt på brættet nøjagtig én gang. N
 # Et træk
 Springeren springer som i skak: to felter i én retning og så ét til siden. Den må aldrig lande på et felt, den allerede har besøgt.
 # Spillets afslutning
-Turen er færdig, når alle felter er besøgt. Ligger det sidste felt et springerspring fra det første, er turen lukket: en guldlinje forbinder enderne, og en guldring vises i bjælken. Har springeren ingen træk tilbage før enden, lyser den rødt: en blindgyde. Fortryd og prøv en anden vej.
+Turen er færdig, når alle felter er besøgt. Ligger det sidste felt et springerspring fra det første, er turen lukket. Har springeren ingen træk tilbage før enden, er det en blindgyde: fortryd og prøv en anden vej.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra brætter med 8 felter op til 100: rektangler, kors, rammer, romber og brætter med huller; vælg en i baneoversigten. Fanen med terningen efter kapitlerne starter en tilfældig tur på et bræt på 5 × 5, 6 × 6 eller 8 × 8, fra et felt, der er valgt til dig. Uden tip og uden blindgyde: 3 stjerner; op til to tip og blindgyder i alt: 2 stjerner; ellers 1. En blindgyde er et spring, hvorefter springeren ikke har flere træk; Fortryd sletter den ikke.
-# Spil på enheden
-Tryk på et felt med en prik, eller træk springeren derhen. Besøgte felter beholder deres nummer. Lampen følger Warnsdorffs regel: hvert felt inden for rækkevidde viser, hvor mange spring der ville være tilbage derfra, og det bedste lyser i guld, valgt så en hel tur stadig er mulig. Kan ingen tur længere gøres færdig, lyser springeren rødt. Fortryd tager ét spring tilbage ad gangen, helt til starten. Bjælken viser de besøgte felter ud af alle.
+Uden tip og uden blindgyde: 3 stjerner; op til to tip og blindgyder i alt: 2 stjerner; ellers 1. Fortryd sletter ikke en blindgyde.

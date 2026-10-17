@@ -1,28 +1,19 @@
 Logiikkaportit
 # Tavoite
-Piirilevy: kytkimet, niiden yllä logiikkaportit, ylhäällä lamput; jokainen kytkin on heti sen portin alla, jota se syöttää. Jokainen johto vie signaalia ylöspäin, 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä. Tasoja on 165 kuudessa luvussa. Sattumanvaraiselle piirille valitset koon, pieni (3 tai 4 kytkintä), keskikokoinen (5 tai 6) tai suuri (7 tai 8), ja napautat sytyttäen tai himmentäen osat, joita se saa käyttää: jokaisen portin, punaisen hälytyslampun, kaksi lamppua, vaihteen, lukitun kytkimen ja kaapelin; napauta sitten pelaa.
+Jokainen johto vie signaalia kytkimiltä lampuille: 0 (tumma) tai 1 (hehkuu kultaisena). Aseta kytkimet niin, että kaikki lamput syttyvät ja punaiset hälytyslamput pysyvät pimeinä.
 # Portit
-Jokainen portti on messinkinen kuvio pähkinäpuisessa laatassa: tulot tulevat sisään alhaalta, lähtö lähtee ylhäältä. Pieni rengas portin yläpäässä kääntää sen vastauksen. Alla tulot ja lähtö joka tapauksessa: 01 → 1 tarkoittaa, että ensimmäinen tulo on 0, toinen tulo 1 ja lähtö 1. Sen nimi on kaiverrettu siihen englanniksi kuten piirikaavioissa: NOT, AND, OR, XOR, NAND tai NOR.
-- NOT (EI), kolmio, jonka kärjessä on rengas: tulonsa vastakohta. 0 → 1, 1 → 0.
-- AND (JA), kupoli, alta suora ja päältä pyöreä: 1 vain, kun kaikki tulot ovat 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OR (TAI), suippeneva kilpi, alta kovera: 1, kun ainakin yksi tulo on 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- XOR (poissulkeva TAI), OR-kuvio, jonka alla on toinen kaareva viiva: 1, kun tulot ovat erilaiset. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, AND-kupoli renkaalla: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, OR-kilpi renkaalla: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Myöhemmin joillakin porteilla on kolme tuloa: AND, OR, NAND ja NOR toimivat samoin, ja XOR antaa 1, kun parittoman moni tulo on 1.
+Jokainen portti muuttaa tulonsa yhdeksi lähdöksi; sen nimi on kaiverrettu siihen. Pieni rengas portissa kääntää sen vastauksen.
+- NOT (EI): tulonsa vastakohta.
+- AND (JA): 1 vain, kun kaikki tulot ovat 1.
+- OR (TAI): 1, kun ainakin yksi tulo on 1.
+- XOR (poissulkeva TAI): 1, kun sen kaksi tuloa ovat erilaiset; kolmella tulolla, kun parittoman moni niistä on 1.
+- NAND: AND-portin vastakohta.
+- NOR: OR-portin vastakohta.
 # Vaihteet
-Laatta, jossa johto haarautuu vasemmalle ja oikealle. Signaali jatkaa sinne, minne messinkiura osoittaa; toisessa haarassa kulkee 0. Napauta vaihdetta lähettääksesi signaalin toiseen suuntaan.
+Johdon haarautumakohdassa signaali jatkaa sinne, minne messinkiura osoittaa; toisessa haarassa kulkee 0. Napauta vaihdetta lähettääksesi signaalin toiseen suuntaan.
 # Katkaistavat johdot
-Jotkin johdot ovat hyppylankoja: värikkäitä kaapeleita, jotka kaartuvat kahden messinkiliittimen välillä. Napauta kaapelia katkaistaksesi sen: se napsahtaa kahtia, ja katkaisukohdan jälkeen johdossa kulkee 0 kuin irrotetussa. Katkaisua ei voi korjata muuten kuin Kumoa-painikkeella (kaapeli liittyy taas yhteen) tai aloittamalla tason alusta. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on kaapeleita: palkki näyttää, montako sinulla on jäljellä.
+Napauta hyppylankaa katkaistaksesi sen: katkaisukohdan jälkeen johdossa kulkee 0. Vain Kumoa-painike tai tason aloittaminen alusta korjaa sen. Jotkin tasot sallivat vähemmän katkaisuja kuin niissä on kaapeleita.
 # Lukitut kytkimet
 Kytkin, jonka päälle on ruuvattu messinkilista, pysyy sellaisenaan.
 # Tasot ja tähdet
-Luvut tuovat portit yksi kerrallaan, ja kukin kasvaa muutamasta kytkimestä 8:aan: 1 AND ja OR sekä hälytyslamput, puolivälistä alkaen myös NOT (40 tasoa); 2 XOR ja lukitut kytkimet; 3 NAND ja vaihteet; 4 NOR ja katkaistavat johdot; 5 kolmen tulon portit, yksi kytkin usealle portille, kaksi lamppua; 6 suuret piirit, joissa on kaikkea. Noppavälilehti lukujen jälkeen tekee uuden piirin sattumanvaraisesti, yllä kuvatulla valinnalla.
-Siirto on yksi kääntö tai yksi katkaisu. Jokaisella tasolla on par eli pienin määrä siirtoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihje rajaa tason 2 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa. Ratkaistut tasot pysyvät auki, samoin kolme ensimmäistä ratkaisematonta.
-# Pelaaminen laitteella
-- Tasoruudukko: välilehti jokaiselle luvulle ja sen jälkeen luvun tasot: ratkaistut kultaisina tähtineen, avoimet puisina, lukitut tummina. Napauta tasoa pelataksesi sitä. Tähtesi säilyvät laitteella.
-- Napauta kytkintä kääntääksesi sen, vaihdetta kääntääksesi sen, kaapelia katkaistaksesi sen. Muutos kulkee johtoja ylös portti portilta.
-- Levyn vieressä: luku ja tason numero; pyöreä nuoli aloittaa tason alusta; lamppu antaa vihjeen: seuraava muutettava osa vilkkuu. Jos sen sijaan aloitusnappi vilkkuu, katkaisusi ovat menneet väärin: kumoa ne.
-- Sattumanvaraisessa piirissä vihjeen vieressä oleva porttipainike tuo koon ja osat takaisin; seuraava-painike tekee uuden piirin samalla valinnalla. Jos pelaa-painike pysyy himmeänä, sytytä jokin pehmeästi hehkuvista porteista: pulma tarvitsee AND-portin tai NOT-portin yhdessä OR-, NAND- tai NOR-portin kanssa.
-- Kun kaikki lamput palavat, ne leimahtavat kultaisina; sitten näkyvät tähtesi ja seuraavan tason painike. Uusi peli (ruudukkopainike) vie takaisin tasoruudukkoon.
-- Palkki näyttää siirtosi kytkimen vieressä, jäljellä olevat katkaisut kaapelin vieressä ja parin tähden vieressä. Leveällä näytöllä syvä piiri voi olla kyljellään: kytkimet vasemmalla, lamput oikealla.
+Siirto on yksi kääntö tai yksi katkaisu. Ratkaistu parilla eli pienimmällä määrällä siirtoja, joilla sen ratkaisee: 3 tähteä; enintään kaksi siirtoa enemmän: 2 tähteä; muuten 1. Vihje rajaa tason 2 tähteen.

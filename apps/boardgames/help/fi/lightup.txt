@@ -1,21 +1,8 @@
 Valot päälle
 # Tavoite
 Aseta lamppuja valkoisiin ruutuihin niin, että jokainen valkoinen ruutu on valaistu. Lamppu valaisee oman ruutunsa sekä koko rivinsä ja sarakkeensa molempiin suuntiin tummaan muuriin tai reunaan asti. Mikään lamppu ei saa valaista toista lamppua. Numerolla merkityn muurin vieressä (ylhäällä, alhaalla, vasemmalla ja oikealla) on täsmälleen niin monta lamppua; numerottoman muurin vieressä niitä voi olla kuinka monta tahansa.
-Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Valitse koko (7 × 7, 10 × 10 tai 14 × 14) ja taso (kivet kunkin kuvan alla):
-- Helppo: yksi silmäys riittää aina: numero, joka tarvitsee kaikki vapaat ruutunsa, numero, jolla on jo kaikki lamppunsa, tumma ruutu, jonka enää yksi ruutu voi valaista.
-- Keskitaso: sinun on myös ajateltava yksi lamppu eteenpäin: lamppu tässä jättäisi numerolle tai tummalle ruudulle liian vähän tilaa.
-- Vaikea: pidempiä päättelyketjuja, ei koskaan arvaamista.
-# Siirto
-Aseta lamppu valkoiseen ruutuun tai poista se. Voit myös laittaa ruutuun pisteen muistaaksesi, ettei siihen tule lamppua; pisteet ovat vain omia muistiinpanojasi.
+Jokaisella tehtävällä on täsmälleen yksi ratkaisu, jonka löytää pelkällä päättelyllä. Pidä sormea ruudulla laittaaksesi siihen pisteen: muistiinpano siitä, ettei siihen tule lamppua.
 # Pelin loppu
-Tehtävä on ratkaistu, kun jokainen valkoinen ruutu on valaistu, mikään lamppu ei valaise toista ja jokaisella numerolla on lamppunsa: kultaisen valon aalto kulkee laudan yli.
+Tehtävä on ratkaistu, kun jokainen valkoinen ruutu on valaistu, mikään lamppu ei valaise toista ja jokaisella numerolla on lamppunsa.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 6 × 6 kokoon 14 × 14, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä lamppu tai piste, jonka perut Kumoa-painikkeella.
-# Pelaaminen laitteella
-- Napauta valkoista ruutua laittaaksesi siihen lampun; napauta uudelleen poistaaksesi sen.
-- Pidä sormea hetki ruudulla laittaaksesi siihen pisteen tai poistaaksesi sen.
-- Vedä pitkin riviä tai saraketta laittaaksesi pisteitä koko jaksolle (tai poistaaksesi ne pistejaksolta).
-Valaistut ruudut hehkuvat lämpimästi. Kaksi toisiaan valaisevaa lamppua hehkuu punaisena; numero muuttuu punaiseksi, kun sillä on liikaa lamppuja, ja haalistuu, kun sillä on ne kaikki. Laudan vieressä olevat painikkeet:
-- Lamppu tai piste: mitä napautus laittaa. Napauta sitä vaihtaaksesi napautuksen ja painalluksen paikkaa.
-- Hehkulamppu: vihje. Se korjaa väärän ruudun tai muuten näyttää seuraavan ruudun, jonka päättely löytää, kultaisessa valossa.
-Kumoa peruu yhden toiminnon kerrallaan, aina alkuun asti. Palkki näyttää siirtosi.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä lamppu tai piste, jonka perut Kumoa-painikkeella.

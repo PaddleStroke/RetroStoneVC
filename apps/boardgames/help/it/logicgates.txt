@@ -1,28 +1,19 @@
 Porte logiche
 # Lo scopo
-Un circuito stampato: interruttori, porte logiche sopra di essi, lampade in alto; ogni interruttore sta proprio sotto la porta che alimenta. Ogni filo porta un segnale verso l'alto, 0 (spento) o 1 (dorato e luminoso). Imposta gli interruttori in modo che tutte le lampade si accendano, mentre le lampade d'allarme rosse restano spente. Ci sono 165 livelli in 6 capitoli. Per un circuito fatto a caso, scegli la grandezza, piccolo (3 o 4 interruttori), medio (5 o 6) o grande (7 o 8), e tocca i pezzi che può usare per accenderli o spegnerli: ogni porta, la lampada d'allarme rossa, due lampade, il deviatore, l'interruttore bloccato e il cavo; poi tocca gioca.
+Ogni filo porta un segnale dagli interruttori alle lampade: 0 (spento) o 1 (dorato e luminoso). Imposta gli interruttori in modo che tutte le lampade si accendano, mentre le lampade d'allarme rosse restano spente.
 # Le porte
-Ogni porta è una forma d'ottone su una targa di noce: gli ingressi arrivano dal basso, l'uscita parte dall'alto. Un piccolo cerchio in cima a una porta ne inverte la risposta. Qui sotto, gli ingressi e l'uscita per ogni caso: 01 → 1 significa primo ingresso 0, secondo ingresso 1, uscita 1. Il suo nome vi è inciso in inglese, come negli schemi: NOT, AND, OR, XOR, NAND o NOR.
-- NOT, un triangolo con un cerchio in punta: il contrario del suo ingresso. 0 → 1, 1 → 0.
-- AND, una cupola, piatta in basso e tonda in alto: 1 solo se tutti gli ingressi sono 1. 00 → 0, 01 → 0, 10 → 0, 11 → 1.
-- OR, uno scudo appuntito, incavato in basso: 1 se almeno un ingresso è 1. 00 → 0, 01 → 1, 10 → 1, 11 → 1.
-- XOR (OR esclusivo), la forma dell'OR con una seconda linea curva sotto: 1 se gli ingressi sono diversi. 00 → 0, 01 → 1, 10 → 1, 11 → 0.
-- NAND, la cupola dell'AND con un cerchio: 00 → 1, 01 → 1, 10 → 1, 11 → 0.
-- NOR, lo scudo dell'OR con un cerchio: 00 → 1, 01 → 0, 10 → 0, 11 → 0.
-Più avanti alcune porte hanno tre ingressi: AND, OR, NAND e NOR funzionano allo stesso modo, e XOR dà 1 quando un numero dispari di ingressi vale 1.
+Ogni porta trasforma i suoi ingressi in un'unica uscita; il suo nome vi è inciso. Un piccolo cerchio su una porta ne inverte la risposta.
+- NOT: il contrario del suo ingresso.
+- AND: 1 solo se tutti gli ingressi sono 1.
+- OR: 1 se almeno un ingresso è 1.
+- XOR (OR esclusivo): 1 se i due ingressi sono diversi; con tre ingressi, quando un numero dispari di essi vale 1.
+- NAND: il contrario dell'AND.
+- NOR: il contrario dell'OR.
 # I deviatori
-Una targa dove il filo si divide, a sinistra e a destra. Il segnale prosegue dal lato indicato dalla pista d'ottone; l'altro lato porta 0. Toccalo per mandare il segnale dall'altra parte.
+Dove il filo si divide, il segnale prosegue dal lato indicato dalla pista d'ottone; l'altro lato porta 0. Toccalo per mandare il segnale dall'altra parte.
 # I fili da tagliare
-Alcuni fili sono cavi ponte: cavi colorati ad arco tra due morsetti d'ottone. Tocca un cavo per tagliarlo: si spezza in due e, oltre il taglio, il filo porta 0, come scollegato. Un taglio non si ripara, se non con Annulla (il cavo si ricongiunge) o ricominciando il livello. Alcuni livelli permettono meno tagli dei cavi che hanno: la barra mostra i tagli che ti restano.
+Tocca un cavo ponte per tagliarlo: oltre il taglio il filo porta 0. Solo Annulla o ricominciare il livello lo riparano. Alcuni livelli permettono meno tagli dei cavi che hanno.
 # Gli interruttori bloccati
 Un interruttore con una barra d'ottone avvitata sopra resta com'è.
 # Livelli e stelle
-I capitoli introducono le porte una alla volta, e ognuno cresce da pochi interruttori fino a 8: 1 AND e OR, con le lampade d'allarme, poi NOT da metà capitolo (40 livelli); 2 XOR e interruttori bloccati; 3 NAND e deviatori; 4 NOR e fili da tagliare; 5 porte a tre ingressi, un interruttore che alimenta più porte, due lampade; 6 grandi circuiti che mescolano tutto. La scheda del dado, dopo i capitoli, crea un nuovo circuito a caso, con la scelta descritta sopra.
-Una mossa è uno scatto o un taglio. Ogni livello ha un par: il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il livello a 2 stelle. Annulla toglie una mossa, che non conta più. I livelli risolti restano aperti, e così i primi tre non risolti.
-# Giocare sul dispositivo
-- La griglia dei livelli: una scheda per capitolo, poi i suoi livelli: risolti in oro con le loro stelle, aperti in legno, chiusi in legno scuro. Tocca un livello per giocarlo. Le tue stelle restano salvate sul dispositivo.
-- Tocca un interruttore per farlo scattare, un deviatore per girarlo, un cavo per tagliarlo. Il cambiamento sale lungo i fili, porta dopo porta.
-- Accanto alla scheda: il capitolo e il numero del livello; la freccia tonda ricomincia il livello; la lampada dà un suggerimento: lampeggia il prossimo pezzo da cambiare. Se lampeggia invece il pulsante per ricominciare, i tuoi tagli sono sbagliati: annullali.
-- In un circuito fatto a caso, il pulsante con la porta accanto all'aiuto riporta la grandezza e i pezzi; il pulsante successivo crea un altro circuito con la stessa scelta. Se il pulsante gioca resta spento, accendi una delle porte che brillano piano: un enigma ha bisogno di un AND, o di un NOT insieme a un OR, NAND o NOR.
-- Quando tutte le lampade sono accese, divampano d'oro; poi compaiono le tue stelle con il pulsante del livello successivo. Nuova partita (il pulsante a griglia) torna alla griglia dei livelli.
-- La barra mostra le tue mosse accanto a un interruttore, i tagli rimasti accanto a un cavo e il par accanto a una stella. Su uno schermo largo un circuito profondo può stendersi di lato: gli interruttori a sinistra, le lampade a destra.
+Una mossa è uno scatto o un taglio. Risolto al par, il minimo di mosse che lo risolvono: 3 stelle; fino a due mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il livello a 2 stelle.

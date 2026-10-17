@@ -1,12 +1,9 @@
 Lampade
 # Lo scopo
-Alcune lampade d'ottone sul tavoliere sono accese. Spegni tutte le lampade. Scegli prima il tavoliere: 3 × 3, 5 × 5 o 7 × 7; più è grande il tavoliere, più pressioni servono.
-Ogni tavoliere è creato premendo a caso delle lampade di un tavoliere spento, quindi si può sempre spegnere.
+Alcune lampade d'ottone sul tavoliere sono accese. Spegni tutte le lampade. Ogni tavoliere si può sempre spegnere.
 # Una mossa
 Premi una lampada: si inverte (da accesa a spenta, o da spenta ad accesa), e così le sue vicine sopra, sotto, a sinistra e a destra. L'ordine delle pressioni non conta, e premere due volte una lampada è come non premerla mai.
 # La fine della partita
-Il rompicapo è risolto quando tutte le lampade sono spente: un'onda di luce dorata attraversa il tavoliere. Per ogni tavoliere è calcolato il minimo di pressioni possibile; eguaglialo, se ci riesci.
+Il rompicapo è risolto quando tutte le lampade sono spente.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da 3 × 3 lampade fino a 7 × 7, molti disegnati a motivi; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di pressioni che lo risolvono. Risolto al par: 3 stelle; con fino a metà pressioni in più: 2 stelle; altrimenti 1. Annulla toglie una pressione, che non conta più.
-# Giocare sul dispositivo
-Tocca una lampada per premerla. La lampada accanto al tavoliere dà un suggerimento: preme una lampada del percorso più corto, in luce dorata. Annulla toglie una pressione alla volta, fino all'inizio. La barra mostra le tue pressioni e, all'estremità destra, il minimo possibile dall'inizio; si illumina d'oro quando lo eguagli.
+Risolto al par, il minimo di pressioni che lo risolvono: 3 stelle; con fino a metà pressioni in più: 2 stelle; altrimenti 1.
