@@ -66,28 +66,72 @@ columns, chosen by the frontend at start-up**: 320 = 4:3 (the default: the Retro
 
 ### Tall screen
 The same idea for a phone held upright (portrait). **The width stays 320; the height is flexible, from 240 to 720
-lines (`RS_SCREEN_H_MAX`), chosen by the frontend**: 693 on a 9:19.5 phone. A game that does not opt in always runs
-at 240: a tall frontend shows its 4:3 picture across the width, centred, the lines above and below filled with a dim
-blurred copy of its edges, and the touch buttons in the space below it (apps/launcher/src/rsb_sdl.c).
+lines (`RS_SCREEN_H_MAX`), chosen by the frontend**: 692 on a 1080x2340 phone. A game that does not opt in always
+runs at 240: a tall frontend shows its 4:3 picture across the width, centred, the lines above and below filled with a
+dim blurred copy of its edges, and the touch buttons in the space below it (apps/launcher/src/rsb_sdl.c).
 
-- **Opting in.** A game calls `rs_screen_tall(RS_SCREEN_H_MAX)` first in its `init()` (a call, not a descriptor
-  field: the games' descriptors stay as they are) and draws whatever `rs_screen_height()` says. Only at 320 columns:
-  a screen is wide or tall, never both. Before its call (and in a game that never calls it) the screen is 240.
-- **The API.** `rs_screen_height()` (fixed for a run), `rs_screen_vmargin()` = (height - 240) / 2.
+There are two ways to opt in. **The zoomed screen (v2, the one to use)**: a screen of a moderate height that fills the
+display's height, its sides cropped, so the game is big. **The plain tall screen (v1)**: the display's whole height at
+320 columns (a 320 x 700 strip: small, and the stage's 240 lines float in the middle); it still works, unchanged.
+
+- **The zoomed screen.** A game calls `rs_screen_zoom(H)` first in its `init()` (a call, not a descriptor field: the
+  games' descriptors stay as they are), H of about 400..520 lines. On a phone held upright it gets H lines at 320
+  columns, and the frontend scales them to FILL the display's height: the sides are cropped equally (fill, not fit).
+  `rs_screen_visible_x0()` .. `rs_screen_visible_x1()` - 1 are the screen columns shown (an even count, rounded down:
+  the frontend may show a column more on each side): 202 at H 440 on a 1080x2340 phone (9:19.5), 188 on a 1080x2520
+  one (9:21), 246 on a 16:9 one, every column on a display less tall than 320 x H (it then gets a shorter screen, as
+  with `rs_screen_tall`). The taller H, the more lines and the fewer columns. Landscape, 4:3 and the frontends without
+  a tall screen: 240 lines and every column, the same pixels as before.
+  - **Pan**: `rs_screen_focus_x(x)` centres the display on screen column x (clamped so that the columns shown stay
+    inside the screen; -1: the middle, the default). **Fill or fit**: `rs_screen_fill(0)` shows every column for a
+    while (the frontend fits the width, the blurred bands above and below), `rs_screen_fill(1)` zooms again: for a
+    title, a panel or a split screen that needs the whole width. Both are settings, not saved in states: set them
+    each frame from the game's state; the frontend follows at once (the picture, the touches, the buttons).
+  - **The HUD at the screen's top**: `rs_bg_pin(layer, y, lines, screen_y)` draws the layer's stage lines y .. y +
+    lines - 1 at screen line screen_y (0: the display's top), and nothing in their old place: e.g. `rs_bg_pin(UI, 0,
+    48, 0)` puts the UI layer's top 6 rows (the score, the timer bar) at the top of the screen while the stage sits
+    lower. One full screen only (not in viewports); no effect on a 240-line screen; a setting like the origin, not
+    saved in states. HUD sprites go at stage y `rs_screen_top()` + their y. Keep the HUD inside the visible columns,
+    centred, clear of the frontend's back and pause buttons in the top corners (about 30 px of the screen each).
+- **The plain tall screen.** `rs_screen_tall(RS_SCREEN_H_MAX)` first in `init()`: the display's height at 320 columns,
+  every column shown (the frontend fits the width).
+- **The API, both ways.** `rs_screen_height()` (fixed for a run), `rs_screen_vmargin()` = (height - 240) / 2.
   `rs_screen_origin_v(y)` sets the stage's vertical origin, the screen line of stage y 0; **by default the stage is
-  centred** (origin = vmargin), where a 4:3 game would be, so the frontend's touch buttons sit below it. The screen
-  shows stage y `rs_screen_top()` .. `rs_screen_bottom()` - 1. Sprites, viewports (and the standard layouts) and the
-  BG scroll are in stage coordinates, and so are the raster callback's lines: they run from `rs_screen_top()`
-  (negative) to `rs_screen_bottom()` - 1, so a raster that indexes a 240-entry table must clamp the line. The
-  line-scroll tables keep 240 entries (stage lines): the lines past the stage get no line scroll. Touches are in
-  screen pixels (y 0 .. height - 1; the stage y is y - `rs_screen_origin_y()`).
-- **What a game draws there.** More of its decor: more sky above, more ground or water below (the raster's first
-  and last colours carried on, a BG layer's map taller than 240 lines, or rows filled for the extra lines). The
-  gameplay and the 240 lines of the stage stay the same pixels. Games/beaverrush is the example.
+  centred** (origin = vmargin). The screen shows stage y `rs_screen_top()` .. `rs_screen_bottom()` - 1. Sprites,
+  viewports (and the standard layouts) and the BG scroll are in stage coordinates, and so are the raster callback's
+  lines: they run from `rs_screen_top()` (negative) to `rs_screen_bottom()` - 1, so a raster that indexes a 240-entry
+  table must clamp the line. The line-scroll tables keep 240 entries (stage lines): the lines past the stage get no
+  line scroll. Touches are in screen pixels (y 0 .. height - 1; the stage y is y - `rs_screen_origin_y()`), wherever
+  the frontend puts the picture.
 - **Frontends.** The RetroStone app's Arcade tab and the Arcade app (rsb_sdl.c) ask for the height of the display at
-  320 columns (`rs_host_set_height()` before `rs_host_init()`, `rs_host_change_size()` when the phone turns: the game
-  restarts from a save state, like a width change). The other frontends never ask: 240.
+  320 columns, uncapped (`rs_host_set_height()` before `rs_host_init()`: 746 on a 9:21 phone, the zoomed screen's
+  columns come from it; `rs_host_change_size()` when the phone turns: the game restarts from a save state, like a
+  width change, and also when a zoomed game's visible columns change). A zoomed picture: the display's height, centred
+  on the visible columns; the touch buttons (games.cfg button=) in the band below the stage, or over the bottom of the
+  picture (at least 45% of the display's width tall); back and pause in the top corners, as always. The other
+  frontends never ask: 240. The headless runner: `--display 1080x2340` (as the apps size the screen; `--height N`,
+  `RS_HEIGHT`), `--visible` (the PNG holds the visible columns only), PNGs of the whole height.
 - **Save states load at any height**, as at any width (the height is not part of a state).
+
+**The zoomed recipe** (games/beaverrush is the example: DESIGN.md "Tall screen").
+1. **Choose H** so the play is big and fits the columns shown: H 440 shows 188 to 202 columns on today's phones;
+   check what the play needs (Beaver Rush: the trunk, its branches and the beaver, 140 columns).
+2. **Keep the play and the HUD inside the visible columns** (read `rs_screen_visible_x0()` / `x1()` each frame); what
+   is outside is decor that may or may not be seen. A title or a panel wider than that: `rs_screen_fill(0)` while it
+   shows. Split screens: `rs_screen_fill(0)`, or lay the views out in the visible columns.
+3. **The HUD at the screen's top**: `rs_bg_pin` for a BG layer's HUD rows, `rs_screen_top()` for HUD sprites (the
+   house kit's sprites are drawn anywhere on the screen).
+4. **Place the stage**: `rs_screen_origin_v()`, usually low (the ground near the bottom, a little of it below the
+   stage), the extra lines above it showing more of the play when the play can grow there (Beaver Rush: the whole
+   trunk kept, its branches up to the screen's top from the start), else more decor.
+5. **Decor fills the whole visible area, without colour seams**: the raster's colours carried on from the stage's
+   first and last lines (sky, earth), a BG layer's map taller than 240 lines; layers that would repeat or wrap there
+   hidden (windows), put back at line 0.
+6. **Things that come and go appear at the visible edges, not the stage's**: weather falls from `rs_screen_top()`
+   across the visible columns, the sun and moon inside them, a sprite culled at `rs_screen_top()` / `bottom()`, not
+   at 0 / 240.
+7. **Check at 1080x2340 and 1080x2520** (`<game>_headless --display 1080x2340 --visible --png out.png`), the title,
+   play and the panels; and landscape (2340x1080, `--width 520`) and 4:3 stay the same pixels.
 
 **SNES mapping.** The SNES shows 256x224 (NTSC). A port keeps 60 Hz but loses 64 columns and 16 lines: a
 Bomber Mole playfield of 20x14 cells becomes 16x14 visible cells with horizontal scrolling, and the 16-px HUD
