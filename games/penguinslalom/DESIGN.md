@@ -165,3 +165,10 @@ race is the same**.
 Build: make penguinslalom-check / penguinslalom-windows / penguinslalom-screenshots.
 Windows output: dist/windows/PenguinSlalom.exe, statically linked SDL2.
 Code MIT; art, music, sound and design CC BY-NC-SA 4.0, as stated in LICENSE.
+
+## Tall screen (docs/spec.md "Tall screen"): not used
+The game does not call `rs_screen_tall`: upright, the app shows its 4:3 picture across the width (blurred edges above
+and below, the touch halves under it). A top-down slope has no decor to add above or below the course: the lines
+past the stage would have to show more of the course itself, ahead of the penguins (more warning of the gates,
+rocks and bears: an easier game) or behind them, and the ground is a picture redrawn by the CPU every frame (the
+canvas, 240 lines), which would grow to three times its size on the RetroStone2's Cortex-A7.
