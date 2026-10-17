@@ -6,4 +6,4 @@ Kör ett fordon framåt eller bakåt längs sin egen rad eller kolumn, så lång
 # Partiets slut
 När den röda bilen når öppningen kör den ut: löst.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel; fliken med tärningen gör en ny parkering slumpvis: lätt, medel eller svår. Varje parkering har ett par: det minsta antal drag som löser den. Löst på par: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.
+Varje parkering har ett par: det minsta antal drag som löser den. Löst på par: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

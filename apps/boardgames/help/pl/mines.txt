@@ -1,18 +1,11 @@
 Miny
 # Cel gry
-Pod niektórymi drewnianymi płytkami pola ukryte są miny. Podnieś każdą płytkę, pod którą nie ma miny. Najpierw wybierz pole: 9 × 9 z 10 minami, 8 × 12 z 15 (zrobione na telefon trzymany pionowo), 16 × 16 z 40 albo 16 × 30 z 99.
-Pierwsze cztery obrazki to pola bez zgadywania: każde da się oczyścić od pierwszej płytki samym rozumowaniem, nigdy szczęściem. Obrazki z kostką są losowane zupełnie przypadkowo, jak w klasycznej grze: od czasu do czasu pomoże tylko zgadywanie.
+Pod niektórymi drewnianymi płytkami pola ukryte są miny. Podnieś każdą płytkę, pod którą nie ma miny.
+Poziomy i pola bez kostki da się oczyścić samym rozumowaniem. Pole z kostką jest losowane zupełnie przypadkowo: od czasu do czasu pomoże tylko zgadywanie.
 # Ruch
-Podnieś płytkę. Pod nią znajdziesz minę albo liczbę: ile z ośmiu sąsiednich płytek kryje minę. Płytka bez żadnej miny dookoła sama podnosi sąsiednie płytki, więc całe obszary otwierają się naraz. Twoja pierwsza płytka nigdy nie jest miną i zawsze otwiera obszar.
-Postaw flagę na płytce, pod którą na pewno jest mina. Flagi to notatki dla ciebie; chronią też płytkę przed podniesieniem przez pomyłkę. Gdy liczba ma wokół siebie wszystkie swoje flagi, dotknij jej, aby podnieść naraz pozostałe sąsiednie płytki.
+Podnieś płytkę. Pod nią znajdziesz minę albo liczbę: ile z ośmiu sąsiednich płytek kryje minę. Płytka bez żadnej miny dookoła sama podnosi sąsiednie płytki. Twoja pierwsza płytka nigdy nie jest miną.
+Przytrzymaj płytkę, aby postawić na niej flagę: notatkę dla ciebie, która chroni też płytkę przed podniesieniem. Gdy liczba ma wokół siebie wszystkie swoje flagi, dotknij jej, aby podnieść naraz pozostałe sąsiednie płytki.
 # Koniec gry
-Pole jest oczyszczone, gdy każda płytka bez miny jest podniesiona: miny ukazują się pod flagami, a fala złotego światła przebiega po polu.
-Podniesiona mina świeci na czerwono. Nic nie jest stracone: Cofnij ją cofa, a ty grasz dalej.
+Pole jest oczyszczone, gdy każda płytka bez miny jest podniesiona. Podniesiona mina świeci na czerwono: Cofnij ją cofa, a ty grasz dalej.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 z 3 minami do 16 × 30 z 99; wybierz poziom na siatce poziomów. Poziom zaczyna się z pierwszym obszarem już podniesionym, od płytki w złotym świetle, i stamtąd da się go oczyścić samym rozumowaniem. Zakładka z kostką za rozdziałami tworzy nowe pole losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to podniesiona mina (Cofnij ją cofa, ale i tak się liczy) albo błędna flaga, którą lampa musi zdjąć.
-# Gra na urządzeniu
-- Dotknij płytki, aby ją podnieść.
-- Przytrzymaj płytkę przez chwilę, aby postawić lub zdjąć flagę. Przycisk flagi obok pola sprawia, że dotknięcia stawiają flagi (wtedy przytrzymanie podnosi).
-- Na większych polach lupa przybliża pole: przesuwaj je palcem. Cienkie paski wzdłuż ramki pokazują, gdzie jesteś. Dotknij lupy ponownie, aby zobaczyć całe pole.
-- Lampa daje podpowiedź: podnosi bezpieczną płytkę, stawia flagę na pewnej minie albo zdejmuje błędną flagę, w złotym świetle. Po minie lampa świeci i cofa ją.
-Cofnij cofa po jednej czynności, aż do początku. Pasek pokazuje twoje czynności, a na prawym końcu pozostałe miny: miny minus twoje flagi.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to podniesiona mina (nawet cofnięta) albo błędna flaga, którą lampa musi zdjąć.

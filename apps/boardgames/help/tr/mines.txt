@@ -1,18 +1,11 @@
 Mayınlar
 # Amaç
-Alandaki tahta karoların bazılarının altında mayınlar gizlidir. Altında mayın olmayan bütün karoları kaldır. Önce alanı seç: 10 mayınlı 9 × 9, 15 mayınlı 8 × 12 (dik tutulan bir telefon için yapıldı), 40 mayınlı 16 × 16 ya da 99 mayınlı 16 × 30.
-İlk dört resim tahmin gerektirmeyen alanlardır: her biri ilk karodan başlayarak yalnızca akıl yürüterek, asla şansa kalmadan temizlenebilir. Zarlı resimler, klasik oyundaki gibi tamamen rastgele çizilir: arada bir yalnızca tahmin işe yarar.
+Alandaki tahta karoların bazılarının altında mayınlar gizlidir. Altında mayın olmayan bütün karoları kaldır.
+Seviyeler ve zarsız alanlar yalnızca akıl yürüterek temizlenebilir. Zarlı bir alan tamamen rastgele çizilir: arada bir yalnızca tahmin işe yarar.
 # Bir hamle
-Bir karo kaldır. Altında ya bir mayın ya da bir sayı bulursun: sekiz komşusundan kaçının altında mayın olduğu. Çevresinde hiç mayın olmayan bir karo komşularını kendiliğinden kaldırır, böylece bütün bölgeler bir anda açılır. İlk karon asla mayın olmaz ve her zaman bir bölge açar.
-Altında mayın olduğundan emin olduğun bir karoya bayrak dik. Bayraklar senin için notlardır; ayrıca bir karonun yanlışlıkla kaldırılmasını önlerler. Bir sayının çevresindeki bütün bayraklar tamamsa, öteki komşularını bir anda kaldırmak için ona dokun.
+Bir karo kaldır. Altında ya bir mayın ya da bir sayı bulursun: sekiz komşusundan kaçının altında mayın olduğu. Çevresinde hiç mayın olmayan bir karo komşularını kendiliğinden kaldırır. İlk karon asla mayın olmaz.
+Bir karoya bayrak dikmek için parmağını üzerinde tut: bayrak senin için bir nottur ve karonun kaldırılmasını da önler. Bir sayının çevresindeki bütün bayraklar tamamsa, öteki komşularını bir anda kaldırmak için ona dokun.
 # Oyunun sonu
-Mayınsız her karo kaldırıldığında alan temizlenmiş olur: mayınlar bayraklarının altında görünür ve alanın üzerinden altın bir ışık dalgası geçer.
-Kaldırılan bir mayın kırmızı parlar. Hiçbir şey kaybolmaz: Geri al onu geri alır ve oyuna devam edersin.
+Mayınsız her karo kaldırıldığında alan temizlenmiş olur. Kaldırılan bir mayın kırmızı parlar: Geri al onu geri alır ve oyuna devam edersin.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 3 mayınlı 5 × 5'ten 99 mayınlı 16 × 30'a kadar uzanıyorlar. Seviye tablosundan birini seç. Her seviye, altın ışıkla parlayan bir karodan başlayarak ilk alanı zaten kaldırılmış olarak açılır ve oradan yalnızca akıl yürüterek temizlenebilir. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir alan yapar. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, kaldırılan bir mayın (Geri al onu geri alır ama yine de sayılır) ya da lambanın sökmek zorunda kaldığı yanlış bir bayraktır.
-# Cihazda oynamak
-- Kaldırmak için bir karoya dokun.
-- Bayrak dikmek ya da sökmek için parmağını bir karonun üzerinde bir an tut. Alanın yanındaki bayrak düğmesi, dokunuşların bunun yerine bayrak dikmesini sağlar (o zaman basılı tutmak kaldırır).
-- Büyük alanlarda büyüteç alanı yaklaştırır: onu parmağınla sürükleyerek gezdir. Çerçeve boyunca uzanan ince şeritler nerede olduğunu gösterir. Bütün alanı görmek için büyütece yeniden dokun.
-- Lamba bir ipucu verir: altın ışıkla güvenli bir karoyu kaldırır, kesin bir mayına bayrak diker ya da yanlış bir bayrağı söker. Bir mayından sonra lamba yanar ve onu geri alır.
-Geri al her seferinde bir işlemi geri alır, en başa kadar. Şerit işlemlerini ve sağ ucunda kalan mayınları gösterir: mayınlar eksi bayrakların.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, kaldırılan bir mayın (geri alınsa bile) ya da lambanın sökmek zorunda kaldığı yanlış bir bayraktır.

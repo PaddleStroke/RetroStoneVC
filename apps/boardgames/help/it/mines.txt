@@ -1,18 +1,11 @@
 Mine
 # Lo scopo
-Sotto alcune tessere di legno del campo sono nascoste delle mine. Solleva tutte le tessere che non hanno una mina sotto. Scegli prima il campo: 9 × 9 con 10 mine, 8 × 12 con 15 (fatto per un telefono tenuto in verticale), 16 × 16 con 40, o 16 × 30 con 99.
-Le prime quattro immagini sono campi senza tirare a indovinare: ognuno si libera dalla prima tessera solo ragionando, mai per fortuna. Le immagini con un dado sono estratte a puro caso, come nel gioco classico: ogni tanto non resta che tirare a indovinare.
+Sotto alcune tessere di legno del campo sono nascoste delle mine. Solleva tutte le tessere che non hanno una mina sotto.
+I livelli e i campi senza dado si liberano solo ragionando. Un campo con un dado è estratto a puro caso: ogni tanto non resta che tirare a indovinare.
 # Una mossa
-Solleva una tessera. Sotto trovi una mina, o un numero: quante delle sue otto vicine nascondono una mina. Una tessera senza mine intorno solleva da sola le sue vicine, così intere zone si aprono in un colpo. La tua prima tessera non è mai una mina, e apre sempre una zona.
-Pianta una bandierina su una tessera che sei sicuro nasconda una mina. Le bandierine sono promemoria per te; impediscono anche di sollevare una tessera per sbaglio. Quando un numero ha tutte le sue bandierine intorno, toccalo per sollevare in un colpo le sue altre vicine.
+Solleva una tessera. Sotto trovi una mina, o un numero: quante delle sue otto vicine nascondono una mina. Una tessera senza mine intorno solleva da sola le sue vicine. La tua prima tessera non è mai una mina.
+Tieni premuta una tessera per piantarci una bandierina, un promemoria per te che impedisce anche di sollevarla. Tocca un numero con tutte le sue bandierine intorno per sollevare in un colpo le sue altre vicine.
 # La fine della partita
-Il campo è sgombro quando ogni tessera senza mina è sollevata: le mine compaiono sotto le loro bandierine, e un'onda di luce dorata attraversa il campo.
-Una mina sollevata si illumina di rosso. Niente è perduto: Annulla la toglie, e vai avanti.
+Il campo è sgombro quando ogni tessera senza mina è sollevata. Una mina sollevata si illumina di rosso: Annulla la toglie, e vai avanti.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dal 5 × 5 con 3 mine al 16 × 30 con 99; scegline uno nella schermata dei livelli. Ogni livello si apre con la prima zona già sollevata, a partire da una tessera illuminata d'oro, e da lì si risolve con il solo ragionamento. La scheda del dado, dopo i capitoli, crea un nuovo campo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una mina sollevata (Annulla la toglie, ma conta lo stesso) o una bandierina sbagliata che la lampada deve togliere.
-# Giocare sul dispositivo
-- Tocca una tessera per sollevarla.
-- Tieni premuta un attimo una tessera per piantare o togliere una bandierina. Il pulsante bandierina accanto al campo fa sì che i tocchi piantino bandierine (e allora tenere premuto solleva).
-- Sui campi più grandi, la lente avvicina il campo: spostalo col dito. Sottili strisce lungo la cornice mostrano dove sei. Tocca di nuovo la lente per vedere tutto il campo.
-- La lampada dà un suggerimento: una tessera sicura sollevata, una mina certa segnata con una bandierina, o una bandierina sbagliata tolta, in luce dorata. Dopo una mina, la lampada è accesa e la toglie.
-Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue azioni e, all'estremità destra, le mine rimaste: le mine meno le tue bandierine.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una mina sollevata (anche se poi tolta) o una bandierina sbagliata che la lampada deve togliere.

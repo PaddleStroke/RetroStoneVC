@@ -1,18 +1,14 @@
 Zrcadla
 # Cíl hry
-Mosazná lampa vysílá paprsek světla přes desku. Otáčej a stav zrcadla tak, aby paprsek osvítil všechny drahokamy a nedotkl se žádné bomby. Nejdřív si zvol úroveň (kameny pod každým obrázkem): lehká, střední, těžká nebo expert.
-- Zrcadlo odrazí paprsek do pravého úhlu. Zrcadla na ořechovém čepu zůstávají ve svém poli: jen je otáčíš na jednu stranu (/) nebo na druhou (\).
-- Volná zrcadla čekají v přihrádce u okraje desky: stav je na prázdná pole.
+Mosazná lampa vysílá paprsek světla přes desku. Otáčej a stav zrcadla tak, aby paprsek osvítil všechny drahokamy a nedotkl se žádné bomby.
+- Zrcadlo odrazí paprsek do pravého úhlu. Zrcadlo na ořechovém čepu zůstává ve svém poli: jen ho otáčíš.
+- Volná zrcadla čekají v přihrádce: stav je na prázdná pole.
 - Paprsek jde rovně přes drahokamy a prázdná pole. Zastaví ho dřevěný kvádr a také okraj desky.
-- Od těžké úrovně propustí skleněná destička polovinu světla a druhou polovinu odrazí.
-Každý hlavolam má právě jedno řešení, které najdeš sledováním paprsku a úvahou.
+- Skleněná destička propustí polovinu světla a druhou polovinu odrazí.
+Každý hlavolam má právě jedno řešení, které se najde pouhou úvahou.
 # Tah
-Otoč zrcadlo na čepu, nebo postav volné zrcadlo na prázdné pole, otoč ho, přesuň ho nebo ho vezmi zpět.
+Klepni na zrcadlo na čepu a otočíš ho. Klepni na prázdné pole a postavíš na něj volné zrcadlo, znovu a otočíš ho, potřetí ho vrátíš do přihrádky; nebo ho přetáhni.
 # Konec hry
-Když svítí všechny drahokamy a žádná bomba není zasažena, je hlavolam vyřešen: zlaté světlo proběhne po paprsku od lampy a drahokamy zajiskří.
+Když svítí všechny drahokamy a žádná bomba není zasažena, je hlavolam vyřešen.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od desek 5 × 5 jen se zrcadly na čepu po desky 8 × 8 s volnými zrcadly, bombami a sklem, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet akcí, který ho vyřeší (volné zrcadlo, které má stát obráceně, stojí o klepnutí víc). Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1. Vrátit vezme tah zpět a ten se už nepočítá.
-# Hra na zařízení
-- Klepni na zrcadlo na čepu a otočíš ho.
-- Klepni na prázdné pole a postavíš na něj volné zrcadlo; klepni znovu a otočíš ho, potřetí ho vrátíš do přihrádky. Zrcadlo můžeš také přetáhnout z přihrádky na pole, z pole na jiné pole nebo mimo desku.
-Paprsek hned sleduje každou změnu. Osvícený drahokam září; bomba zasažená paprskem se rozsvítí červeně. Lampa je nápověda: nastaví jedno zrcadlo správně a rozzáří ho zlatě. Vrátit bere zpět jednu akci po druhé až na začátek. Lišta ukazuje tvoje tahy.
+Každý hlavolam má par: nejmenší počet akcí, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1.

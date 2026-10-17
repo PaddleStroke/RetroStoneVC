@@ -1,14 +1,9 @@
 De ouvido
 # O objetivo
-Uma melodia curta toca no piano, e cada tecla acende em dourado quando sua nota soa. Toque as notas de novo na mesma ordem. Só conta a ordem das notas, não o ritmo. Cada melodia é de verdade: canções folclóricas, cantigas de roda, canções de Natal e peças clássicas famosas, todas em domínio público.
+Uma melodia curta toca no piano, e cada tecla acende em dourado quando sua nota soa. Toque as notas de novo na mesma ordem. Só conta a ordem das notas, não o ritmo.
 # Uma jogada
-Toque uma tecla. A tecla certa soa e brilha em dourado, e a pauta acima do teclado escreve a nota na sua altura; um ponto marca cada nota que ainda falta. Uma tecla errada soa abafada e pisca em vermelho: conta como erro, e você continua do mesmo ponto.
+Toque uma tecla. A tecla certa brilha em dourado e a pauta escreve a nota. Uma tecla errada pisca em vermelho: conta como erro, e você continua do mesmo ponto.
 # O fim da partida
-Quando a última nota é tocada, uma onda dourada percorre as teclas e aparece o título da melodia, com seu compositor.
+Quando a última nota é tocada, aparece o título da melodia, com seu compositor.
 # Níveis e estrelas
-São 150 níveis em seis capítulos, de três notas em teclas brancas até frases longas e famosas com teclas pretas, saltos e andamento rápido. A aba do dado, depois dos capítulos, toca ao acaso uma frase da coleção, curta, média ou longa, muitas vezes em outro tom. Sem erro, sem dica e no máximo uma escuta a mais: 3 estrelas; até duas no total: 2 estrelas; senão, 1.
-# Jogando no aparelho
-- O botão do alto-falante toca a melodia de novo.
-- A lâmpada acende a próxima tecla.
-- Sem som, as teclas continuam acendendo: um pequeno alto-falante riscado na pauta mostra isso.
-Desfazer tira a última nota certa, até o começo. A barra mostra as notas que faltam.
+Sem erro, sem dica e no máximo uma escuta a mais: 3 estrelas; até duas no total: 2 estrelas; senão, 1.

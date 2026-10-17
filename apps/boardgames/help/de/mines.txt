@@ -1,18 +1,11 @@
 Minen
 # Das Ziel
-Unter einigen der Holzplättchen des Felds sind Minen versteckt. Hebe jedes Plättchen an, unter dem keine Mine liegt. Wähle zuerst das Feld: 9 × 9 mit 10 Minen, 8 × 12 mit 15 (gemacht für ein hochkant gehaltenes Handy), 16 × 16 mit 40 oder 16 × 30 mit 99.
-Die ersten vier Bilder sind Felder ohne Raten: Jedes lässt sich vom ersten Plättchen an allein durch Nachdenken räumen, nie durch Glück. Die Bilder mit einem Würfel werden rein zufällig erzeugt, wie im klassischen Spiel: Ab und zu hilft nur Raten.
+Unter einigen der Holzplättchen des Felds sind Minen versteckt. Hebe jedes Plättchen an, unter dem keine Mine liegt.
+Die Level und die Felder ohne Würfel lassen sich allein durch Nachdenken räumen. Ein Feld mit Würfel wird rein zufällig erzeugt: Ab und zu hilft nur Raten.
 # Ein Zug
-Hebe ein Plättchen an. Darunter findest du eine Mine oder eine Zahl: wie viele seiner acht Nachbarn eine Mine verbergen. Ein Plättchen ohne Mine ringsum hebt seine Nachbarn von selbst an, sodass sich ganze Bereiche auf einmal öffnen. Dein erstes Plättchen ist nie eine Mine und öffnet immer einen Bereich.
-Stecke eine Fahne auf ein Plättchen, unter dem sicher eine Mine liegt. Fahnen sind Notizen für dich; sie schützen ein Plättchen auch davor, versehentlich angehoben zu werden. Hat eine Zahl alle ihre Fahnen um sich, tippe sie an, um ihre übrigen Nachbarn auf einmal anzuheben.
+Hebe ein Plättchen an. Darunter findest du eine Mine oder eine Zahl: wie viele seiner acht Nachbarn eine Mine verbergen. Ein Plättchen ohne Mine ringsum hebt seine Nachbarn von selbst an. Dein erstes Plättchen ist nie eine Mine.
+Halte ein Plättchen, um eine Fahne darauf zu stecken: eine Notiz für dich, die es auch davor schützt, angehoben zu werden. Tippe eine Zahl mit allen ihren Fahnen ringsum an, um ihre übrigen Nachbarn auf einmal anzuheben.
 # Das Ende der Partie
-Das Feld ist geräumt, wenn jedes Plättchen ohne Mine angehoben ist: Die Minen zeigen sich unter ihren Fahnen, und eine Welle goldenen Lichts läuft über das Feld.
-Eine angehobene Mine glüht rot. Nichts ist verloren: Rückgängig nimmt sie zurück, und du spielst weiter.
+Das Feld ist geräumt, wenn jedes Plättchen ohne Mine angehoben ist. Eine angehobene Mine glüht rot: Rückgängig nimmt sie zurück, und du spielst weiter.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 mit 3 Minen bis 16 × 30 mit 99; wähle eines in der Levelübersicht. Ein Level beginnt mit seinem ersten Bereich schon angehoben, von einem golden leuchtenden Plättchen aus, und lässt sich von dort allein durch Nachdenken räumen. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Feld nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine angehobene Mine (Rückgängig nimmt sie zurück, sie zählt aber trotzdem) oder eine falsche Fahne, die die Lampe ziehen muss.
-# Spielen auf dem Gerät
-- Tippe ein Plättchen an, um es anzuheben.
-- Halte ein Plättchen einen Moment, um eine Fahne zu stecken oder zu ziehen. Der Fahnenknopf neben dem Feld lässt Tippen stattdessen Fahnen stecken (Halten hebt dann an).
-- Auf den größeren Feldern holt die Lupe das Feld heran: Verschiebe es mit dem Finger. Dünne Balken am Rahmen zeigen, wo du bist. Tippe noch einmal auf die Lupe, um das ganze Feld zu sehen.
-- Die Lampe gibt einen Tipp: ein sicheres Plättchen angehoben, eine sichere Mine mit einer Fahne markiert oder eine falsche Fahne gezogen, in goldenem Licht. Nach einer Mine leuchtet die Lampe und nimmt sie zurück.
-Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Aktionen und am rechten Ende die übrigen Minen: die Minen abzüglich deiner Fahnen.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine angehobene Mine (auch wenn sie zurückgenommen wird) oder eine falsche Fahne, die die Lampe ziehen muss.

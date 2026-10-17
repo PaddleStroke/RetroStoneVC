@@ -1,18 +1,11 @@
 Miner
 # Målet
-Miner ligger skjult under noen av treflisene på feltet. Løft hver flis som ikke har en mine under seg. Velg først felt: 9 × 9 med 10 miner, 8 × 12 med 15 (laget for en telefon holdt på høykant), 16 × 16 med 40 eller 16 × 30 med 99.
-De fire første bildene er felt uten gjetting: hvert av dem kan ryddes fra første flis med ren logikk, aldri med flaks. Bildene med en terning er trukket helt tilfeldig, som i det klassiske spillet: av og til hjelper bare gjetting.
+Miner ligger skjult under noen av treflisene på feltet. Løft hver flis som ikke har en mine under seg.
+Nivåene og feltene uten terning kan ryddes med ren logikk. Et felt med terning er trukket helt tilfeldig: av og til hjelper bare gjetting.
 # Et trekk
-Løft en flis. Under den finner du en mine eller et tall: hvor mange av de åtte naboene som skjuler en mine. En flis uten miner rundt seg løfter naboene sine av seg selv, så hele områder åpnes på én gang. Den første flisen din er aldri en mine, og åpner alltid et område.
-Sett et flagg på en flis du er sikker på skjuler en mine. Flagg er notater for deg selv; de hindrer også at en flis blir løftet ved et uhell. Når et tall har alle flaggene sine rundt seg, trykker du på det for å løfte de andre naboene på én gang.
+Løft en flis. Under den finner du en mine eller et tall: hvor mange av de åtte naboene som skjuler en mine. En flis uten miner rundt seg løfter naboene sine av seg selv. Den første flisen din er aldri en mine.
+Hold på en flis for å sette et flagg på den: et notat for deg selv som også hindrer at den blir løftet. Trykk på et tall med alle flaggene sine rundt seg for å løfte de andre naboene på én gang.
 # Slutten på spillet
-Feltet er ryddet når hver flis uten mine er løftet: minene kommer til syne under flaggene, og en bølge av gyllent lys går over feltet.
-En løftet mine gløder rødt. Ingenting er tapt: angre tar den tilbake, og du fortsetter.
+Feltet er ryddet når hver flis uten mine er løftet. En løftet mine gløder rødt: angre tar den tilbake, og du fortsetter.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 med 3 miner opp til 16 × 30 med 99; velg et på nivåskjermen. Et nivå begynner med det første området allerede løftet, fra en flis i gyllent lys, og kan derfra ryddes med ren logikk. Fanen med terningen etter kapitlene lager et nytt felt tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en løftet mine (Angre tar den tilbake, men den teller likevel) eller et feil flagg som lampen må ta opp.
-# Spill på enheten
-- Trykk på en flis for å løfte den.
-- Hold på en flis et øyeblikk for å sette eller ta opp et flagg. Flaggknappen ved siden av feltet gjør at trykk setter flagg i stedet (da løfter et langt trykk).
-- På de større feltene henter forstørrelsesglasset feltet nærmere: dra det rundt med en finger. Tynne streker langs rammen viser hvor du er. Trykk på glasset igjen for å se hele feltet.
-- Lampen gir et hint: den løfter en trygg flis, flagger en sikker mine eller tar opp et feil flagg, i gyllent lys. Etter en mine lyser lampen og tar minen tilbake.
-Angre tar tilbake én handling om gangen, helt til starten. Linjen viser handlingene dine og, ytterst til høyre, minene som er igjen: minene minus flaggene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en løftet mine (også om den tas tilbake) eller et feil flagg som lampen må ta opp.

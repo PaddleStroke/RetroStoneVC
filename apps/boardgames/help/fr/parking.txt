@@ -6,4 +6,4 @@ Avance ou recule un véhicule le long de sa rangée ou de sa colonne, aussi loin
 # La fin de la partie
 Quand la voiture rouge atteint l'ouverture, elle sort : résolu.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres ; l'onglet du dé crée un nouveau parking au hasard : facile, moyen ou difficile. Chaque parking a un par : le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.
+Chaque parking a un par : le moins de coups qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

@@ -1,16 +1,10 @@
 Malované křížovky
 # Cíl hry
-V mřížce je ukrytý obrázek. Čísla vlevo od každého řádku a nad každým sloupcem jsou jeho nápovědy: délky úseků vybarvených políček v tom řádku či sloupci, popořadě, a mezi dvěma úseky je aspoň jedno prázdné políčko (0: řada je prázdná). Vybarvuj políčka, až se obrázek objeví. Nejprve zvol velikost: 5 × 5, 10 × 10 nebo 15 × 15.
+V mřížce je ukrytý obrázek. Čísla vlevo od každého řádku a nad každým sloupcem jsou jeho nápovědy: délky úseků vybarvených políček v tom řádku či sloupci, popořadě, a mezi dvěma úseky je aspoň jedno prázdné políčko (0: řada je prázdná). Vybarvuj políčka, až se obrázek objeví.
 Každý obrázek se dá najít úvahou řadu po řadě, bez hádání.
 # Tah
-Vybarvi políčko, nebo označ křížkem políčko, o kterém víš, že je prázdné. Křížky jsou jen tvoje poznámky.
+Klepnutím políčko vybarvíš. Podržením ho označíš křížkem jako prázdné, to je poznámka pro tebe. Táhni po řadě a uděláš totéž s celým úsekem.
 # Konec hry
-Když každý řádek a každý sloupec odpovídá svým nápovědám, křížovka je vyřešená: křížky zmizí, obrázek se ukáže ve svých barvách a přeběhne po něm zlaté světlo.
+Když každý řádek a každý sloupec odpovídá svým nápovědám, křížovka je vyřešená a obrázek se ukáže ve svých barvách.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách: malé obrázky nakreslené pro hru, od 5 × 5 po 15 × 15, každý se dá najít řadu po řadě; vyber si úroveň v přehledu úrovní. Vyřešená úroveň ukazuje v přehledu svůj obrázek. Záložka s kostkou za kapitolami nakreslí náhodný obrázek ve velikosti, kterou zvolíš. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je políčko vybarvené mimo obrázek nebo křížek v obrázku; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
-# Hra na zařízení
-- Klepnutím políčko vybarvíš; dalším klepnutím ho vyprázdníš.
-- Když na políčku chvíli podržíš prst, označíš ho místo toho křížkem. Tlačítko s křížkem vedle desky přepíná klepnutí na křížky (a zpět na vybarvování); ukazuje, co klepnutí udělá.
-- Lampa dá nápovědu: opraví špatné políčko, jinak vybarví políčko, o kterém už rozhodují nápovědy jedné řady (nebo jedno označí křížkem, když rozhodují jen o prázdných políčkách), ve zlatém světle.
-- Táhni prstem po řádku nebo sloupci a uděláš totéž s celým úsekem. Mění se jen políčka, která byla jako první, takže při vybarvování tvé křížky zůstanou.
-Nápovědy řad, kterých se dotýkáš, se rozsvítí, a čísla řady, jejíž vybarvená políčka odpovídají nápovědě, vyblednou. Vrátit bere zpět jedno klepnutí nebo úsek po druhém, až na začátek. Lišta ukazuje tvé tahy.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je políčko vybarvené mimo obrázek nebo křížek v obrázku; takovou chybu vezmeš zpět tlačítkem Vrátit.

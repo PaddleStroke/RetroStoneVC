@@ -1,18 +1,11 @@
 Minor
 # Målet
-Under några av fältets träbrickor ligger minor gömda. Lyft varje bricka som inte har någon mina under sig. Välj först fält: 9 × 9 med 10 minor, 8 × 12 med 15 (gjort för en telefon som hålls upprätt), 16 × 16 med 40 eller 16 × 30 med 99.
-De fyra första bilderna är fält utan gissningar: vart och ett går att röja från den första brickan enbart genom att resonera, aldrig med tur. Bilderna med en tärning skapas av ren slump, som i det klassiska spelet: ibland går det bara att gissa.
+Under några av fältets träbrickor ligger minor gömda. Lyft varje bricka som inte har någon mina under sig.
+Banorna och fälten utan tärning går att röja enbart genom att resonera. Ett fält med tärning skapas av ren slump: ibland går det bara att gissa.
 # Ett drag
-Lyft en bricka. Under den hittar du en mina eller ett tal: hur många av dess åtta grannar som döljer en mina. En bricka utan minor runt sig lyfter sina grannar av sig själv, så att hela områden öppnas på en gång. Din första bricka är aldrig en mina och öppnar alltid ett område.
-Sätt en flagga på en bricka som du är säker på döljer en mina. Flaggorna är anteckningar för dig; de hindrar också att en bricka lyfts av misstag. När ett tal har alla sina flaggor runt sig, tryck på det för att lyfta dess övriga grannar på en gång.
+Lyft en bricka. Under den hittar du en mina eller ett tal: hur många av dess åtta grannar som döljer en mina. En bricka utan minor runt sig lyfter sina grannar av sig själv. Din första bricka är aldrig en mina.
+Håll kvar fingret på en bricka för att sätta en flagga på den: en anteckning för dig som också hindrar att den lyfts. Tryck på ett tal med alla sina flaggor runt sig för att lyfta dess övriga grannar på en gång.
 # Partiets slut
-Fältet är röjt när varje bricka utan mina är lyft: minorna syns under sina flaggor, och en våg av gyllene ljus sveper över fältet.
-En lyft mina glöder rött. Inget är förlorat: Ångra tar tillbaka den, och du spelar vidare.
+Fältet är röjt när varje bricka utan mina är lyft. En lyft mina glöder rött: Ångra tar tillbaka den, och du spelar vidare.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 5 × 5 med 3 minor upp till 16 × 30 med 99; välj en i banöversikten. En bana börjar med sitt första område redan lyft, från en bricka i gyllene ljus, och kan därifrån röjas med ren logik. Fliken med tärningen efter kapitlen gör ett nytt fält på slump, med det val som beskrivs ovan. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en lyft mina (Ångra tar tillbaka den, men den räknas ändå) eller en felaktig flagga som lampan måste ta bort.
-# Spela på enheten
-- Tryck på en bricka för att lyfta den.
-- Håll kvar fingret en stund på en bricka för att sätta ut eller ta bort en flagga. Flaggknappen bredvid fältet gör att tryck sätter flaggor i stället (att hålla lyfter då).
-- På de större fälten för förstoringsglaset fältet närmare: dra runt det med ett finger. Tunna streck längs ramen visar var du är. Tryck på förstoringsglaset igen för att se hela fältet.
-- Lampan ger en ledtråd: en säker bricka lyfts, en säker mina flaggas eller en felaktig flagga tas bort, i gyllene ljus. Efter en mina lyser lampan och tar tillbaka den.
-Ångra tar tillbaka en handling i taget, ända till början. Listen visar dina handlingar och, längst till höger, minorna som återstår: minorna minus dina flaggor.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en lyft mina (även om den tas tillbaka) eller en felaktig flagga som lampan måste ta bort.

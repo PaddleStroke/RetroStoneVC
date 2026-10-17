@@ -1,16 +1,10 @@
 Nonogrammen
 # Het doel
-In het rooster zit een plaatje verborgen. De getallen links van elke rij en boven elke kolom zijn de aanwijzingen: de lengtes van de reeksen gevulde vakjes in die lijn, op volgorde, met minstens één leeg vakje tussen twee reeksen (0: de lijn is leeg). Vul de vakjes om het plaatje tevoorschijn te halen. Kies eerst de grootte: 5 × 5, 10 × 10 of 15 × 15.
+In het rooster zit een plaatje verborgen. De getallen links van elke rij en boven elke kolom zijn de aanwijzingen: de lengtes van de reeksen gevulde vakjes in die lijn, op volgorde, met minstens één leeg vakje tussen twee reeksen (0: de lijn is leeg). Vul de vakjes om het plaatje tevoorschijn te halen.
 Elk plaatje vind je door lijn voor lijn te redeneren, zonder te gokken.
 # Een zet
-Vul een vakje, of zet een kruis in een vakje waarvan je weet dat het leeg is. De kruisjes zijn alleen notities voor jezelf.
+Tik op een vakje om het te vullen. Houd het vast om het met een kruisje als leeg te markeren, een notitie voor jezelf. Sleep langs een lijn om hetzelfde met een hele reeks te doen.
 # Het einde van het spel
-Klopt elke rij en elke kolom met de aanwijzingen, dan is de puzzel opgelost: de kruisjes verdwijnen, het plaatje verschijnt in kleur en er gaat een gouden licht overheen.
+Klopt elke rij en elke kolom met de aanwijzingen, dan is de puzzel opgelost en verschijnt het plaatje in kleur.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken: kleine plaatjes, voor het spel getekend, van 5 × 5 tot 15 × 15, elk lijn voor lijn te vinden; kies er een in het levelrooster. Een opgelost level toont zijn plaatje op zijn tegel. Het tabblad met de dobbelsteen, na de hoofdstukken, tekent een willekeurig plaatje, in de grootte die je kiest. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een gevuld vakje buiten het plaatje, of een kruisje erop, dat je met Ongedaan maken terugneemt.
-# Spelen op het apparaat
-- Tik op een vakje om het te vullen; tik er nog eens op om het leeg te maken.
-- Houd een vakje even vast om het in plaats daarvan aan te kruisen. De kruisknop naast het bord laat tikken kruisjes zetten (of weer vullen); hij toont wat een tik doet.
-- De lamp geeft een hint: hij verbetert een fout vakje, of vult anders een vakje dat de aanwijzingen van één lijn al bepalen (of zet een kruisje in een vakje als ze alleen lege vakjes bepalen), in gouden licht.
-- Sleep langs een rij of kolom om hetzelfde met een hele reeks te doen. Alleen de vakjes die waren zoals het eerste veranderen, dus bij het vullen ga je over je kruisjes heen.
-De aanwijzingen van de lijnen die je aanraakt lichten op, en bij een lijn waarvan de gevulde vakjes kloppen vervagen de getallen. Ongedaan maken neemt één tik of reeks tegelijk terug, helemaal tot het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een gevuld vakje buiten het plaatje, of een kruisje erop, dat je met Ongedaan maken terugneemt.

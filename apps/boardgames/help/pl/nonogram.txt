@@ -1,16 +1,10 @@
 Obrazki logiczne
 # Cel gry
-W diagramie ukryty jest obrazek. Liczby z lewej strony każdego wiersza i nad każdą kolumną to wskazówki: długości ciągów zamalowanych pól w tej linii, po kolei, z co najmniej jednym pustym polem między dwoma ciągami (0: linia jest pusta). Zamaluj pola, aby odsłonić obrazek. Najpierw wybierz rozmiar: 5 × 5, 10 × 10 albo 15 × 15.
+W diagramie ukryty jest obrazek. Liczby z lewej strony każdego wiersza i nad każdą kolumną to wskazówki: długości ciągów zamalowanych pól w tej linii, po kolei, z co najmniej jednym pustym polem między dwoma ciągami (0: linia jest pusta). Zamaluj pola, aby odsłonić obrazek.
 Każdy obrazek da się znaleźć, rozumując linia po linii, bez zgadywania.
 # Ruch
-Zamaluj pole albo oznacz krzyżykiem pole, o którym wiesz, że jest puste. Krzyżyki to tylko twoje notatki.
+Dotknij pola, aby je zamalować. Przytrzymaj je, aby oznaczyć je krzyżykiem jako puste: to twoja notatka. Przeciągnij wzdłuż linii, aby zrobić to samo z całym ciągiem.
 # Koniec gry
-Gdy każdy wiersz i każda kolumna zgadza się ze wskazówkami, łamigłówka jest rozwiązana: krzyżyki znikają, obrazek pojawia się w swoich kolorach i przebiega po nim złote światło.
+Gdy każdy wiersz i każda kolumna zgadza się ze wskazówkami, łamigłówka jest rozwiązana, a obrazek pojawia się w swoich kolorach.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach: małe obrazki narysowane dla gry, od 5 × 5 do 15 × 15, każdy do znalezienia linia po linii; wybierz poziom na siatce poziomów. Rozwiązany poziom pokazuje na siatce swój obrazek. Zakładka z kostką za rozdziałami losuje obrazek w wybranym przez ciebie rozmiarze. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to pole zamalowane poza obrazkiem albo krzyżyk na obrazku; liczy się w chwili cofnięcia przyciskiem Cofnij.
-# Gra na urządzeniu
-- Dotknij pola, aby je zamalować; dotknij jeszcze raz, aby je opróżnić.
-- Przytrzymaj chwilę palec na polu, aby zamiast tego postawić krzyżyk. Przycisk z krzyżykiem obok planszy sprawia, że dotknięcia stawiają krzyżyki (albo znów malują); pokazuje, co robi dotknięcie.
-- Lampa daje podpowiedź: poprawia błędne pole, a jeśli takiego nie ma, zamalowuje pole, które rozstrzygają już wskazówki jednej linii (albo stawia krzyżyk, gdy rozstrzygają one tylko puste pola), w złotym świetle.
-- Przeciągnij palcem wzdłuż wiersza lub kolumny, aby zrobić to samo z całym ciągiem. Zmieniają się tylko pola, które były takie jak pierwsze, więc malując, omijasz swoje krzyżyki.
-Wskazówki linii, których dotykasz, podświetlają się, a liczby linii, której zamalowane pola zgadzają się ze wskazówką, bledną. Cofnij cofa po jednym dotknięciu lub ciągu, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to pole zamalowane poza obrazkiem albo krzyżyk na obrazku, które cofasz przyciskiem Cofnij.

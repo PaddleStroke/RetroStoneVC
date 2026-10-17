@@ -1,14 +1,9 @@
 Efter gehør
 # Målet
-En kort melodi spilles på klaveret, og hver tangent lyser guld, når dens tone klinger. Spil tonerne i samme rækkefølge. Kun tonernes rækkefølge tæller, ikke rytmen. Hver melodi er ægte: folkesange, børnesange, julesange og berømte klassiske stykker, alle frit tilgængelige.
+En kort melodi spilles på klaveret, og hver tangent lyser guld, når dens tone klinger. Spil tonerne i samme rækkefølge. Kun tonernes rækkefølge tæller, ikke rytmen.
 # Et træk
-Tryk på en tangent. Den rigtige tangent klinger og gløder i guld, og nodesystemet over klaviaturet skriver tonen i dens højde; en prik står for hver tone, der mangler. En forkert tangent lyder dump og blinker rødt: det tæller som en fejl, og du fortsætter fra samme sted.
+Tryk på en tangent. Den rigtige tangent gløder i guld, og nodesystemet skriver dens tone. En forkert tangent blinker rødt: det tæller som en fejl, og du fortsætter fra samme sted.
 # Spillets afslutning
-Når den sidste tone er spillet, løber en gylden bølge over tangenterne, og melodiens titel vises med komponisten.
+Når den sidste tone er spillet, vises melodiens titel med komponisten.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra tre toner på hvide tangenter til lange, berømte fraser med sorte tangenter, spring og hurtigt tempo. Terningfanen efter kapitlerne spiller en tilfældig frase fra samlingen, kort, mellemlang eller lang, ofte i en anden toneart. Ingen fejl, intet tip og højst én ekstra lytning: 3 stjerner; op til to i alt: 2 stjerner; ellers 1.
-# Spil på enheden
-- Højttalerknappen spiller melodien igen.
-- Lampen tænder den næste tangent.
-- Uden lyd lyser tangenterne alligevel: en lille overstreget højttaler på nodesystemet viser det.
-Fortryd tager den sidste rigtige tone tilbage, helt til starten. Bjælken viser de toner, der mangler.
+Ingen fejl, intet tip og højst én ekstra lytning: 3 stjerner; op til to i alt: 2 stjerner; ellers 1.

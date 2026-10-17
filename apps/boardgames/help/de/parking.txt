@@ -6,4 +6,4 @@ Fahre ein Fahrzeug in seiner Reihe oder Spalte vor oder zurück, so weit du will
 # Das Ende der Partie
 Erreicht das rote Auto die Lücke, fährt es hinaus: gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln; der Reiter mit dem Würfel macht einen neuen Parkplatz nach Zufall: leicht, mittel oder schwer. Jeder Parkplatz hat ein Par: die wenigsten Züge, mit denen er sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.
+Jeder Parkplatz hat ein Par: die wenigsten Züge, mit denen er sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

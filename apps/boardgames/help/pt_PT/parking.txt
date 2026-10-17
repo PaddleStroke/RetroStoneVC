@@ -6,4 +6,4 @@ Move um veículo para a frente ou para trás ao longo da sua fila ou coluna, at�
 # O fim do jogo
 Quando o carro vermelho chega à abertura, sai: resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos; o separador do dado cria um novo parque ao acaso: fácil, médio ou difícil. Cada parque tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.
+Cada parque tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

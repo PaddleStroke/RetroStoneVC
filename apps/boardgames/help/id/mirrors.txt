@@ -1,18 +1,14 @@
 Cermin
 # Tujuan
-Sebuah lampu kuningan memancarkan seberkas cahaya melintasi papan. Putar dan pasang cermin-cermin agar berkas itu menerangi semua permata tanpa menyentuh satu bom pun. Pilih tingkatnya dulu (batu di bawah setiap gambar): mudah, sedang, sulit, atau ahli.
-- Cermin membelokkan berkas dengan sudut siku-siku. Cermin di atas poros kayu kenari tetap di kotaknya: kamu hanya memutarnya ke satu arah (/) atau ke arah lain (\).
-- Cermin lepas menunggu di baki di tepi papan: berdirikan di kotak kosong.
+Sebuah lampu kuningan memancarkan seberkas cahaya melintasi papan. Putar dan pasang cermin-cermin agar berkas itu menerangi semua permata tanpa menyentuh satu bom pun.
+- Cermin membelokkan berkas dengan sudut siku-siku. Cermin di atas poros kayu kenari tetap di kotaknya: kamu hanya memutarnya.
+- Cermin lepas menunggu di baki: berdirikan di kotak kosong.
 - Berkas lurus menembus permata dan kotak kosong. Balok kayu menghentikannya, begitu pula tepi papan.
-- Mulai tingkat sulit, sebuah kaca meneruskan separuh cahaya dan membelokkan separuh lainnya.
-Setiap teka-teki punya tepat satu jawaban, yang ditemukan dengan mengikuti berkas dan bernalar.
+- Sebuah kaca meneruskan separuh cahaya dan membelokkan separuh lainnya.
+Setiap teka-teki punya tepat satu jawaban, yang ditemukan hanya dengan bernalar.
 # Satu langkah
-Putar cermin di porosnya, atau berdirikan cermin lepas di kotak kosong, putar, pindahkan, atau ambil kembali.
+Ketuk cermin berporos untuk memutarnya. Ketuk kotak kosong untuk mendirikan cermin lepas di sana, lagi untuk memutarnya, ketiga kalinya untuk mengembalikannya ke baki; atau seret cermin itu.
 # Akhir permainan
-Saat semua permata menyala dan tidak ada bom yang tersentuh, teka-teki selesai: cahaya emas berlari di sepanjang berkas dari lampu dan permata-permata berkilau.
+Saat semua permata menyala dan tidak ada bom yang tersentuh, teka-teki selesai.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari papan 5 × 5 yang hanya berisi cermin berporos sampai papan 8 × 8 dengan cermin lepas, bom, dan kaca, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah tindakan paling sedikit untuk menyelesaikannya (cermin lepas yang harus menghadap ke arah lain perlu satu ketukan lagi). Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi.
-# Bermain di perangkat
-- Ketuk cermin berporos untuk memutarnya.
-- Ketuk kotak kosong untuk mendirikan cermin lepas di sana; ketuk lagi untuk memutarnya, dan ketiga kalinya untuk mengembalikannya ke baki. Kamu juga bisa menyeret cermin dari baki ke kotak, dari satu kotak ke kotak lain, atau keluar dari papan.
-Berkas langsung mengikuti setiap perubahan. Permata yang menyala berpendar; bom yang tersentuh berkas menyala merah. Lampu adalah petunjuk: ia membetulkan satu cermin dan menyinarinya dengan emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Setiap teka-teki punya par, jumlah tindakan paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang.

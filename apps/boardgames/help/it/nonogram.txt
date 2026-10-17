@@ -1,16 +1,10 @@
 Nonogrammi
 # Lo scopo
-Nella griglia è nascosto un disegno. I numeri a sinistra di ogni riga e sopra ogni colonna sono i suoi indizi: le lunghezze dei tratti di caselle piene in quella linea, in ordine, con almeno una casella vuota fra due tratti (0: la linea è vuota). Riempi le caselle per far apparire il disegno. Scegli prima la misura: 5 × 5, 10 × 10 o 15 × 15.
+Nella griglia è nascosto un disegno. I numeri a sinistra di ogni riga e sopra ogni colonna sono i suoi indizi: le lunghezze dei tratti di caselle piene in quella linea, in ordine, con almeno una casella vuota fra due tratti (0: la linea è vuota). Riempi le caselle per far apparire il disegno.
 Ogni disegno si trova ragionando una linea alla volta, senza tirare a indovinare.
 # Una mossa
-Riempi una casella, oppure segna con una croce una casella che sai vuota. Le croci sono solo note per te.
+Tocca una casella per riempirla. Tienila premuta per segnarla vuota con una croce, una nota per te. Trascina lungo una linea per fare lo stesso su tutto un tratto.
 # La fine della partita
-Quando ogni riga e ogni colonna corrisponde ai suoi indizi, lo schema è risolto: le croci spariscono, il disegno appare nei suoi colori e una luce dorata lo attraversa.
+Quando ogni riga e ogni colonna corrisponde ai suoi indizi, lo schema è risolto e il disegno appare nei suoi colori.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli: piccoli disegni fatti per il gioco, dal 5 × 5 al 15 × 15, ognuno da trovare una linea alla volta; scegline uno nella schermata dei livelli. Un livello risolto mostra il suo disegno nella sua miniatura. La scheda del dado, dopo i capitoli, crea un disegno a caso, della misura che scegli. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una casella riempita fuori dal disegno, o una croce sopra di esso, che togli con Annulla.
-# Giocare sul dispositivo
-- Tocca una casella per riempirla; toccala di nuovo per svuotarla.
-- Tieni il dito un momento su una casella per segnarla invece con una croce. Il pulsante con la croce accanto al tavoliere fa mettere croci a ogni tocco (o di nuovo riempire); mostra che cosa fa un tocco.
-- La lampada dà un suggerimento: corregge una casella sbagliata, altrimenti riempie una casella che gli indizi di una sola linea decidono già (o ne segna una con una croce quando decidono solo caselle vuote), in luce dorata.
-- Trascina lungo una riga o una colonna per fare lo stesso su tutto un tratto. Cambiano solo le caselle che erano come la prima: riempiendo passi sopra le tue croci.
-Gli indizi delle linee che tocchi si illuminano, e i numeri di una linea le cui caselle piene corrispondono all'indizio sbiadiscono. Annulla toglie un tocco o un tratto alla volta, fino all'inizio. La barra mostra le tue mosse.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una casella riempita fuori dal disegno, o una croce sopra di esso, che togli con Annulla.

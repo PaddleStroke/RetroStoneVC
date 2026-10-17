@@ -1,9 +1,7 @@
 Gabung
 # Tujuan
-Ubin-ubin bernomor ada di sebuah petak. Dorong semuanya ke satu arah: dua ubin sama yang bertemu bergabung menjadi satu ubin dengan angka dua kali lipat. Buat ubin sasaran, hasil gabungan dua ubin 1024 (dua ubin 128 di petak 3 × 3), lalu lanjutkan bermain untuk skor lebih tinggi jika mau. Pilih dulu petaknya: 4 × 4, 5 × 5 (lebih lapang, lebih mudah), atau 3 × 3 (sulit).
+Ubin-ubin bernomor ada di sebuah petak persegi. Dorong semuanya ke satu arah: dua ubin sama yang bertemu bergabung menjadi satu ubin dengan angka dua kali lipat. Buat ubin sasaran, hasil gabungan dua ubin 1024 (dua ubin 128 di petak kecil), lalu lanjutkan bermain untuk skor lebih tinggi jika mau.
 # Satu langkah
-Dorong ke atas, ke bawah, ke kiri, atau ke kanan: setiap ubin meluncur sejauh mungkin. Dua ubin sama yang bertemu menjadi satu, dan angkanya ditambahkan ke skormu. Satu ubin hanya bergabung sekali dalam satu dorongan. Setelah setiap dorongan yang menggerakkan sesuatu, ubin baru, angka 2 atau kadang 4, muncul di kotak kosong. Dorongan yang tidak menggerakkan apa pun tidak diperbolehkan.
+Usap ke atas, ke bawah, ke kiri, atau ke kanan: setiap ubin meluncur sejauh mungkin ke arah itu. Dua ubin berangka sama yang bertemu menjadi satu, dan angkanya ditambahkan ke skormu. Satu ubin hanya bergabung sekali dalam satu dorongan. Setelah setiap dorongan, ubin baru, angka 2 atau kadang 4, muncul di kotak kosong. Dorongan yang tidak menggerakkan apa pun tidak diperbolehkan.
 # Akhir permainan
-Membuat ubin sasaran membuatnya bersinar keemasan, dan kamu terus bermain. Permainan berakhir saat tidak ada dorongan yang bisa menggerakkan apa pun: skormu dibakar pada sebuah papan kecil di bawah petak, dan kamu mendapat bintang: 3 untuk ubin sasaran atau lebih, 2 untuk ubin separuh sasaran, selain itu 1. Tidak ada level: ubin baru datang secara acak, jadi ketiga petak itulah yang menentukan tingkat kesulitan.
-# Bermain di perangkat
-Usap petak atau ketuk salah satu dari empat panah di sampingnya (di komputer, tombol panah juga bisa). Panah meredup jika dorongan itu tidak akan menggerakkan apa pun. Lampu memberi petunjuk: dorongan yang baik, panahnya bercahaya emas. Urungkan membatalkan satu dorongan setiap kali, sampai ke awal; ubin baru juga ikut dibatalkan, jadi dorongan yang sama membawa ubin yang sama. Bilah menunjukkan skormu dan, di ujung kanannya, skor terbaik sesi ini untuk petak ini.
+Permainan berakhir saat tidak ada dorongan yang bisa menggerakkan apa pun. Bintang: 3 untuk ubin sasaran atau lebih, 2 untuk ubin separuh sasaran, selain itu 1.

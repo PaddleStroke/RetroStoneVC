@@ -1,18 +1,14 @@
 Espelhos
 # O objetivo
-Uma lâmpada de latão lança um raio de luz pelo tabuleiro. Roda e coloca os espelhos para que o raio ilumine todas as gemas sem tocar em nenhuma bomba. Escolhe primeiro o nível (as pedras debaixo de cada imagem): fácil, médio, difícil ou perito.
-- Um espelho desvia o raio em ângulo reto. Os espelhos num pivô de nogueira ficam na sua casa: só os rodas para um lado (/) ou para o outro (\).
-- Os espelhos soltos esperam na arrumação, à beira do tabuleiro: coloca-os em casas vazias.
+Uma lâmpada de latão lança um raio de luz pelo tabuleiro. Roda e coloca os espelhos para que o raio ilumine todas as gemas sem tocar em nenhuma bomba.
+- Um espelho desvia o raio em ângulo reto. Um espelho num pivô de nogueira fica na sua casa: só o rodas.
+- Os espelhos soltos esperam na arrumação: coloca-os em casas vazias.
 - O raio segue a direito através das gemas e das casas vazias. Um bloco de madeira trava-o, tal como a borda do tabuleiro.
-- A partir do nível difícil, uma placa de vidro deixa passar metade da luz e desvia a outra metade.
-Cada problema tem uma única solução, que se encontra seguindo o raio e raciocinando.
+- Uma placa de vidro deixa passar metade da luz e desvia a outra metade.
+Cada problema tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Roda um espelho no seu pivô, ou coloca um espelho solto numa casa vazia, roda-o, muda-o de sítio ou retira-o.
+Toca num espelho com pivô para o rodar. Toca numa casa vazia para lá pôr um espelho solto, outra vez para o rodar, uma terceira vez para o devolver à arrumação; ou arrasta-o.
 # O fim do jogo
-Quando todas as gemas estão iluminadas e nenhuma bomba é tocada, o problema está resolvido: uma luz dourada percorre o raio a partir da lâmpada e as gemas cintilam.
+Quando todas as gemas estão iluminadas e nenhuma bomba é tocada, o problema está resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, de tabuleiros 5 × 5 só com espelhos de pivô até tabuleiros 8 × 8 com espelhos soltos, bombas e vidro, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: o mínimo de ações que o resolvem (um espelho solto que deve ficar para o outro lado custa um toque a mais). Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1. Anular desfaz uma jogada, que deixa de contar.
-# Jogar no dispositivo
-- Toca num espelho com pivô para o rodar.
-- Toca numa casa vazia para lá pôr um espelho solto; toca outra vez para o rodar e uma terceira vez para o devolver à arrumação. Também podes arrastar um espelho da arrumação para uma casa, de uma casa para outra ou para fora do tabuleiro.
-O raio acompanha cada mudança de imediato. Uma gema iluminada brilha; uma bomba tocada pelo raio acende-se a vermelho. A lâmpada é uma pista: acerta um espelho e ilumina-o a dourado. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Cada quebra-cabeças tem um par: o mínimo de ações que o resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1.

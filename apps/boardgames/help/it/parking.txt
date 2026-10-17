@@ -6,4 +6,4 @@ Sposta un veicolo avanti o indietro lungo la sua fila o colonna, quanto vuoi, ne
 # La fine della partita
 Quando l'auto rossa raggiunge il varco, esce: risolto.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli; la scheda del dado crea un nuovo parcheggio a caso: facile, medio o difficile. Ogni parcheggio ha un par: il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.
+Ogni parcheggio ha un par: il minimo di mosse che lo risolvono. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

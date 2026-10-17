@@ -1,14 +1,9 @@
 Nach Gehör
 # Das Ziel
-Eine kurze Melodie erklingt auf dem Klavier, und jede Taste leuchtet golden auf, wenn ihr Ton erklingt. Spiele die Töne in derselben Reihenfolge nach. Nur die Reihenfolge der Töne zählt, nicht ihr Rhythmus. Jede Melodie ist echt: Volkslieder, Kinderlieder, Weihnachtslieder und berühmte klassische Stücke, alle gemeinfrei.
+Eine kurze Melodie erklingt auf dem Klavier, und jede Taste leuchtet golden auf, wenn ihr Ton erklingt. Spiele die Töne in derselben Reihenfolge nach. Nur die Reihenfolge der Töne zählt, nicht ihr Rhythmus.
 # Ein Zug
-Tippe auf eine Taste. Die richtige Taste klingt und leuchtet golden, und das Notensystem über der Tastatur schreibt den Ton in seiner Höhe auf; ein Punkt steht für jeden Ton, der noch fehlt. Eine falsche Taste klingt dumpf und blinkt rot: Sie zählt als Fehler, und du machst an derselben Stelle weiter.
+Tippe auf eine Taste. Die richtige Taste leuchtet golden, und das Notensystem schreibt ihren Ton auf. Eine falsche Taste blinkt rot: Sie zählt als Fehler, und du machst an derselben Stelle weiter.
 # Das Ende der Partie
-Wenn der letzte Ton gespielt ist, läuft eine goldene Welle über die Tasten, und der Titel der Melodie erscheint, mit ihrem Komponisten.
+Wenn der letzte Ton gespielt ist, erscheint der Titel der Melodie, mit ihrem Komponisten.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von drei Tönen auf weißen Tasten bis zu langen, berühmten Phrasen mit schwarzen Tasten, Sprüngen und schnellem Tempo. Der Würfel-Reiter nach den Kapiteln spielt eine zufällige Phrase aus der Sammlung, kurz, mittel oder lang, oft in einer anderen Tonart. Kein Fehler, kein Tipp und höchstens einmal noch einmal hören: 3 Sterne; bis zu zwei davon zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-- Der Lautsprecher-Knopf spielt die Melodie noch einmal.
-- Die Lampe lässt die nächste Taste aufleuchten.
-- Ohne Ton leuchten die Tasten trotzdem: Ein kleiner durchgestrichener Lautsprecher auf dem Notensystem zeigt es an.
-Rückgängig nimmt den letzten richtigen Ton zurück, bis zum Anfang. Die Leiste zeigt die Töne, die noch fehlen.
+Kein Fehler, kein Tipp und höchstens einmal noch einmal hören: 3 Sterne; bis zu zwei davon zusammen: 2 Sterne; sonst 1.

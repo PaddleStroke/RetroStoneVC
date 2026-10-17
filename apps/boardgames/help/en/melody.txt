@@ -1,14 +1,9 @@
 Play by Ear
 # The aim
-A short tune plays on the piano, and each key lights up in gold as its note sounds. Play the notes back in the same order. Only the order of the notes counts, not their rhythm. Every tune is a real melody: folk songs, nursery rhymes, carols and famous classical pieces, all in the public domain.
+A short tune plays on the piano, and each key lights up in gold as its note sounds. Play the notes back in the same order. Only the order of the notes counts, not their rhythm.
 # A move
-Tap a key. The right key sounds and glows in gold, and the staff above the keyboard writes the note at its pitch; a dot stands for each note still to find. A wrong key sounds dull and flashes red: it counts as a mistake, and you go on from the same place.
+Tap a key. The right key glows in gold and the staff writes its note. A wrong key flashes red: it counts as a mistake, and you go on from the same place.
 # The end of the game
-When the last note is played, a wave of gold runs over the keys and the tune's title shows, with its composer.
+When the last note is played, the tune's title shows, with its composer.
 # Levels and stars
-There are 150 levels in six chapters, from three notes on white keys to long famous phrases with black keys, leaps and a quick tempo. The die tab after the chapters plays a phrase of the library at random, short, medium or long, often in another key. No mistake, no hint and at most one listen again: 3 stars; up to two of them together: 2 stars; otherwise 1.
-# Playing on the device
-- The speaker button plays the tune again.
-- The lamp lights the next key.
-- With the sound off, the keys still light up: a small crossed-out speaker on the staff says so.
-Undo takes back the last right note, all the way to the start. The bar shows the notes still to find.
+No mistake, no hint and at most one listen again: 3 stars; up to two of them together: 2 stars; otherwise 1.

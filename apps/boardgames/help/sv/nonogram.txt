@@ -1,16 +1,10 @@
 Nonogram
 # Målet
-En bild är gömd i rutnätet. Talen till vänster om varje rad och ovanför varje kolumn är ledtrådarna: längderna på serierna av fyllda rutor i den linjen, i ordning, med minst en tom ruta mellan två serier (0: linjen är tom). Fyll rutorna så att bilden träder fram. Välj först storlek: 5 × 5, 10 × 10 eller 15 × 15.
+En bild är gömd i rutnätet. Talen till vänster om varje rad och ovanför varje kolumn är ledtrådarna: längderna på serierna av fyllda rutor i den linjen, i ordning, med minst en tom ruta mellan två serier (0: linjen är tom). Fyll rutorna så att bilden träder fram.
 Varje bild går att hitta genom att resonera en linje i taget, utan att gissa.
 # Ett drag
-Fyll en ruta, eller markera en ruta som du vet är tom med ett kryss. Kryssen är bara anteckningar för dig.
+Tryck på en ruta för att fylla den. Håll kvar fingret för att markera den som tom med ett kryss, en anteckning för dig. Dra längs en linje för att göra samma sak med en hel serie.
 # Partiets slut
-När varje rad och varje kolumn stämmer med sina ledtrådar är pusslet löst: kryssen försvinner, bilden träder fram i sina färger och ett guldljus sveper över den.
+När varje rad och varje kolumn stämmer med sina ledtrådar är pusslet löst och bilden träder fram i sina färger.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel: små bilder ritade för spelet, från 5 × 5 upp till 15 × 15, som alla går att hitta linje för linje; välj en i banöversikten. En bana som du har löst visar sin bild i översikten. Fliken med tärningen efter kapitlen slumpar fram en bild, i den storlek du väljer. Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en ruta fylld utanför bilden, eller ett kryss på den, som du tar tillbaka med Ångra.
-# Spela på enheten
-- Tryck på en ruta för att fylla den; tryck igen för att tömma den.
-- Håll kvar fingret på en ruta en stund för att kryssa den i stället. Kryssknappen bredvid brädet får tryck att kryssa (eller fylla igen); den visar vad ett tryck gör.
-- Lampan ger en ledtråd: den rättar en felaktig ruta, eller fyller annars en ruta som ledtrådarna för en enda linje redan avgör (eller kryssar en när de bara avgör tomma rutor), i guldljus.
-- Dra längs en rad eller kolumn för att göra samma sak med en hel serie. Bara rutor som var som den första ändras, så när du fyller går du förbi dina kryss.
-Ledtrådarna för linjerna du rör lyser, och talen bleknar för en linje vars fyllda rutor stämmer med ledtråden. Ångra tar tillbaka ett tryck eller en serie i taget, ända till början. Listen visar dina drag.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en ruta fylld utanför bilden, eller ett kryss på den, som du tar tillbaka med Ångra.

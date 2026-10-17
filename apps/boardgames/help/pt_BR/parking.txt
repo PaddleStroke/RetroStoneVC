@@ -6,4 +6,4 @@ Mova um veículo para a frente ou para trás ao longo da sua fileira ou coluna, 
 # O fim da partida
 Quando o carro vermelho chega à abertura, ele sai: resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos; a aba do dado cria um novo estacionamento ao acaso: fácil, médio ou difícil. Cada estacionamento tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.
+Cada estacionamento tem um par: o mínimo de jogadas que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

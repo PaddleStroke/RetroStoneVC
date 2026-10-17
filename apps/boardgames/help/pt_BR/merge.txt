@@ -1,9 +1,7 @@
 Fusão
 # O objetivo
-Peças numeradas ficam sobre uma grade. Empurre todas para um lado: duas peças iguais que se encontram se fundem numa peça com o dobro do número. Faça a peça-alvo, a que nasce da fusão de duas peças 1024 (de duas peças 128 na grade 3 × 3) e depois continue jogando para aumentar a pontuação, se quiser. Escolha primeiro a grade: 4 × 4, 5 × 5 (mais espaço, mais fácil) ou 3 × 3 (difícil).
+Peças numeradas ficam sobre uma grade quadrada. Empurre todas para um lado: duas peças iguais que se encontram se fundem numa peça com o dobro do número. Faça a peça-alvo, a que nasce da fusão de duas peças 1024 (de duas peças 128 na grade pequena) e depois continue jogando para aumentar a pontuação, se quiser.
 # Uma jogada
-Empurre para cima, para baixo, para a esquerda ou para a direita: cada peça desliza o mais longe que puder. Duas peças iguais que se encontram viram uma só, e o número dela é somado à sua pontuação. Uma peça só se funde uma vez por empurrão. Depois de cada empurrão que moveu algo, uma peça nova, um 2 ou às vezes um 4, aparece numa casa vazia. Um empurrão que não move nada não é permitido.
+Deslize o dedo para cima, para baixo, para a esquerda ou para a direita: cada peça vai o mais longe que puder nessa direção. Duas peças do mesmo número que se encontram viram uma só, e o número dela é somado à sua pontuação. Uma peça só se funde uma vez por empurrão. Depois de cada empurrão, uma peça nova, um 2 ou às vezes um 4, aparece numa casa vazia. Um empurrão que não move nada não é permitido.
 # O fim da partida
-Fazer a peça-alvo a acende em dourado, e você continua jogando. A partida acaba quando nenhum empurrão move mais nada: a sua pontuação fica gravada numa placa abaixo da grade, e você recebe as suas estrelas: 3 pela peça-alvo ou maior, 2 por uma peça da metade do alvo, 1 nos outros casos. Não há níveis: as peças novas vêm ao acaso, então são as três grades que dão a dificuldade.
-# Jogando no aparelho
-Deslize o dedo sobre a grade ou toque numa das quatro setas ao lado dela (no computador, as teclas de seta também funcionam). Uma seta fica apagada quando aquele empurrão não moveria nada. A lâmpada dá uma dica: um bom empurrão, com a seta dourada. Desfazer volta um empurrão de cada vez, até o começo; as peças novas também, então o mesmo empurrão traz a mesma peça. A barra mostra a sua pontuação e, na ponta direita, a melhor desta sessão para esta grade.
+A partida acaba quando nenhum empurrão move mais nada. Estrelas: 3 pela peça-alvo ou maior, 2 por uma peça da metade do alvo, 1 nos outros casos.

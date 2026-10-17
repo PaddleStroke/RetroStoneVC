@@ -1,18 +1,11 @@
 Minas
 # El objetivo
-Bajo algunas de las fichas de madera del campo hay minas escondidas. Levanta todas las fichas que no tienen una mina debajo. Elige primero el campo: 9 × 9 con 10 minas, 8 × 12 con 15 (pensado para un móvil en vertical), 16 × 16 con 40 o 16 × 30 con 99.
-Las cuatro primeras imágenes son campos sin adivinar: cada uno puede despejarse desde la primera ficha solo razonando, nunca por suerte. Las imágenes con un dado se generan al puro azar, como en el juego clásico: de vez en cuando solo queda adivinar.
+Bajo algunas de las fichas de madera del campo hay minas escondidas. Levanta todas las fichas que no tienen una mina debajo.
+Los niveles y los campos sin dado pueden despejarse solo razonando. Un campo con dado se genera al puro azar: de vez en cuando solo queda adivinar.
 # Una jugada
-Levanta una ficha. Debajo encuentras una mina o un número: cuántas de sus ocho vecinas esconden una mina. Una ficha sin ninguna mina alrededor levanta sola a sus vecinas, así que se abren zonas enteras de golpe. Tu primera ficha nunca es una mina y siempre abre una zona.
-Pon una bandera en una ficha que sepas con seguridad que esconde una mina. Las banderas son notas para ti; también impiden levantar una ficha por error. Cuando un número tiene todas sus banderas alrededor, tócalo para levantar de golpe sus demás vecinas.
+Levanta una ficha. Debajo encuentras una mina o un número: cuántas de sus ocho vecinas esconden una mina. Una ficha sin ninguna mina alrededor levanta sola a sus vecinas. Tu primera ficha nunca es una mina.
+Mantén pulsada una ficha para ponerle una bandera, una nota para ti que también impide levantarla. Toca un número con todas sus banderas alrededor para levantar de golpe sus demás vecinas.
 # El final de la partida
-El campo está despejado cuando todas las fichas sin mina están levantadas: las minas aparecen bajo sus banderas y una ola de luz dorada recorre el campo.
-Una mina levantada brilla en rojo. No se pierde nada: Deshacer la anula y sigues jugando.
+El campo está despejado cuando todas las fichas sin mina están levantadas. Una mina levantada brilla en rojo: Deshacer la anula y sigues jugando.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 5 × 5 con 3 minas al 16 × 30 con 99; elige uno en la pantalla de niveles. Cada nivel empieza con su primera zona ya levantada, desde una ficha iluminada en oro, y desde ahí se despeja solo razonando. La pestaña del dado, tras los capítulos, crea un campo nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una mina levantada (Deshacer la anula, pero cuenta igual) o una bandera equivocada que la lámpara tiene que quitar.
-# Jugar en el dispositivo
-- Toca una ficha para levantarla.
-- Mantén pulsada una ficha un momento para poner o quitar una bandera. El botón de la bandera junto al campo hace que los toques pongan banderas (y entonces mantener pulsado levanta).
-- En los campos más grandes, la lupa acerca el campo: muévelo con un dedo. Unas líneas finas a lo largo del marco muestran dónde estás. Vuelve a tocar la lupa para ver todo el campo.
-- La lámpara da una pista: una ficha segura levantada, una mina segura marcada con bandera o una bandera equivocada quitada, con luz dorada. Después de una mina, la lámpara está encendida y la anula.
-Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus acciones y, en su extremo derecho, las minas que quedan: las minas menos tus banderas.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una mina levantada (aunque se anule) o una bandera equivocada que la lámpara tiene que quitar.

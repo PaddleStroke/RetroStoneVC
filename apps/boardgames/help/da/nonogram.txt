@@ -1,16 +1,10 @@
 Nonogrammer
 # Målet
-Der er gemt et billede i gitteret. Tallene til venstre for hver række og over hver kolonne er ledetrådene: længderne af stykkerne af udfyldte felter i den linje, i rækkefølge, med mindst ét tomt felt mellem to stykker (0: linjen er tom). Udfyld felterne, så billedet kommer frem. Vælg først størrelsen: 5 × 5, 10 × 10 eller 15 × 15.
+Der er gemt et billede i gitteret. Tallene til venstre for hver række og over hver kolonne er ledetrådene: længderne af stykkerne af udfyldte felter i den linje, i rækkefølge, med mindst ét tomt felt mellem to stykker (0: linjen er tom). Udfyld felterne, så billedet kommer frem.
 Hvert billede kan findes ved at ræsonnere én linje ad gangen, uden at gætte.
 # Et træk
-Udfyld et felt, eller sæt et kryds i et felt, du ved er tomt. Krydsene er kun noter til dig selv.
+Tryk på et felt for at udfylde det. Hold på det for at markere det som tomt med et kryds, en note til dig selv. Træk langs en linje for at gøre det samme ved et helt stykke.
 # Spillets afslutning
-Når hver række og hver kolonne passer med sine ledetråde, er opgaven løst: krydsene forsvinder, billedet kommer frem i sine farver, og et gyldent lys går hen over det.
+Når hver række og hver kolonne passer med sine ledetråde, er opgaven løst, og billedet kommer frem i sine farver.
 # Baner og stjerner
-Der er 150 baner i seks kapitler: små billeder tegnet til spillet, fra 5 × 5 op til 15 × 15, som hvert kan findes linje for linje; vælg en i baneoversigten. En bane, du har løst, viser sit billede i oversigten. Fanen med terningen efter kapitlerne tegner et billede tilfældigt, i den størrelse, du vælger. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et felt udfyldt uden for billedet, eller et kryds på det, som du tager tilbage med Fortryd.
-# Spil på enheden
-- Tryk på et felt for at udfylde det; tryk igen for at tømme det.
-- Hold fingeren et øjeblik på et felt for i stedet at sætte et kryds. Krydsknappen ved siden af brættet får tryk til at sætte kryds (eller udfylde igen); den viser, hvad et tryk gør.
-- Lampen giver et tip: den retter et forkert felt eller udfylder ellers et felt, som ledetrådene for én linje allerede afgør (eller sætter kryds i et, når de kun afgør tomme felter), i gyldent lys.
-- Træk langs en række eller kolonne for at gøre det samme ved et helt stykke. Kun felter, der var som det første, ændres, så når du udfylder, springer du dine kryds over.
-Ledetrådene for de linjer, du rører, lyser op, og tallene blegner for en linje, hvis udfyldte felter passer med ledetråden. Fortryd tager ét tryk eller stykke tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et felt udfyldt uden for billedet, eller et kryds på det, som du tager tilbage med Fortryd.

@@ -1,18 +1,14 @@
 Peilit
 # Tavoite
-Messinkilamppu lähettää valonsäteen laudan yli. Käännä ja aseta peilit niin, että säde valaisee kaikki jalokivet koskematta yhteenkään pommiin. Valitse ensin taso (kivet kunkin kuvan alla): helppo, keskitaso, vaikea tai mestari.
-- Peili kääntää säteen suorassa kulmassa. Pähkinäpuisella tapilla olevat peilit pysyvät ruudussaan: käännät niitä vain toiseen (/) tai toiseen (\) asentoon.
-- Irtopeilit odottavat laudan reunalla olevassa lokerossa: aseta ne tyhjiin ruutuihin.
+Messinkilamppu lähettää valonsäteen laudan yli. Käännä ja aseta peilit niin, että säde valaisee kaikki jalokivet koskematta yhteenkään pommiin.
+- Peili kääntää säteen suorassa kulmassa. Pähkinäpuisella tapilla oleva peili pysyy ruudussaan: käännät sitä vain.
+- Irtopeilit odottavat lokerossa: aseta ne tyhjiin ruutuihin.
 - Säde kulkee suoraan jalokivien ja tyhjien ruutujen läpi. Puupalikka pysäyttää sen, samoin laudan reuna.
-- Vaikeasta tasosta alkaen lasilevy päästää puolet valosta läpi ja kääntää toisen puolen.
-Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy sädettä seuraamalla ja päättelemällä.
+- Lasilevy päästää puolet valosta läpi ja kääntää toisen puolen.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
 # Siirto
-Käännä peiliä sen tapilla, tai aseta irtopeili tyhjään ruutuun, käännä sitä, siirrä sitä tai ota se pois.
+Napauta tapilla olevaa peiliä kääntääksesi sitä. Napauta tyhjää ruutua asettaaksesi siihen irtopeilin, uudelleen kääntääksesi sitä ja kolmannen kerran palauttaaksesi sen lokeroon; tai vedä sitä.
 # Pelin loppu
-Kun kaikki jalokivet loistavat eikä yhteenkään pommiin osu, tehtävä on ratkaistu: kultainen valo kulkee lampusta säteen mukana ja jalokivet välkkyvät.
+Kun kaikki jalokivet loistavat eikä yhteenkään pommiin osu, tehtävä on ratkaistu.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, 5 × 5 -laudoista, joilla on vain tapillisia peilejä, 8 × 8 -lautoihin, joilla on irtopeilejä, pommeja ja lasia, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä toimintoja, joilla sen ratkaisee (irtopeili, jonka pitää olla toisin päin, vaatii yhden napautuksen lisää). Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa.
-# Pelaaminen laitteella
-- Napauta tapilla olevaa peiliä kääntääksesi sitä.
-- Napauta tyhjää ruutua asettaaksesi siihen irtopeilin; napauta uudelleen kääntääksesi sitä ja kolmannen kerran palauttaaksesi sen lokeroon. Voit myös vetää peilin lokerosta ruutuun, ruudusta toiseen tai pois laudalta.
-Säde seuraa jokaista muutosta heti. Valaistu jalokivi hehkuu; pommi, johon säde osuu, hehkuu punaisena. Lamppu on vihje: se asettaa yhden peilin oikein ja valaisee sen kultaisena. Kumoa peruu yhden toiminnon kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
+Jokaisella tehtävällä on par eli pienin määrä toimintoja, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen.

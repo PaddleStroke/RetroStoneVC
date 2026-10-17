@@ -1,18 +1,14 @@
 Aynalar
 # Amaç
-Pirinç bir lamba tahtanın üzerinden bir ışık ışını gönderir. Aynaları döndür ve yerleştir; ışın hiçbir bombaya dokunmadan bütün mücevherleri aydınlatsın. Önce seviyeyi seç (her resmin altındaki taşlar): kolay, orta, zor ya da uzman.
-- Bir ayna ışını dik açıyla çevirir. Ceviz bir mil üzerindeki aynalar karelerinde kalır: onları yalnızca bir yöne (/) ya da öbür yöne (\) döndürürsün.
-- Serbest aynalar tahtanın kenarındaki kutuda bekler: onları boş karelere koy.
+Pirinç bir lamba tahtanın üzerinden bir ışık ışını gönderir. Aynaları döndür ve yerleştir; ışın hiçbir bombaya dokunmadan bütün mücevherleri aydınlatsın.
+- Bir ayna ışını dik açıyla çevirir. Ceviz bir mil üzerindeki ayna karesinde kalır: onu yalnızca döndürürsün.
+- Serbest aynalar kutuda bekler: onları boş karelere koy.
 - Işın mücevherlerin ve boş karelerin içinden dümdüz geçer. Tahta bir blok onu durdurur, tahtanın kenarı da.
-- Zor seviyeden itibaren bir cam levha ışığın yarısını geçirir, öbür yarısını çevirir.
-Her bulmacanın tam olarak bir çözümü vardır; ışını izleyip akıl yürüterek bulunur.
+- Bir cam levha ışığın yarısını geçirir, öbür yarısını çevirir.
+Her bulmacanın tam olarak bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
 # Bir hamle
-Bir aynayı milinde döndür ya da serbest bir aynayı boş bir kareye koy, döndür, taşı veya geri al.
+Mil üzerindeki bir aynaya dokunarak onu döndür. Boş bir kareye dokunarak oraya serbest bir ayna koy, yeniden dokunarak döndür, üçüncü kez dokunarak kutuya geri gönder; ya da onu sürükle.
 # Oyunun sonu
-Bütün mücevherler aydınlandığında ve hiçbir bombaya dokunulmadığında bulmaca çözülmüştür: altın bir ışık lambadan başlayarak ışın boyunca koşar ve mücevherler parlar.
+Bütün mücevherler aydınlandığında ve hiçbir bombaya dokunulmadığında bulmaca çözülmüştür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; yalnızca milli aynaların olduğu 5 × 5 tahtalardan serbest aynaların, bombaların ve camın olduğu 8 × 8 tahtalara kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az eylem sayısı (öbür yöne durması gereken serbest bir ayna bir dokunuş daha ister). Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
-# Cihazda oynamak
-- Mil üzerindeki bir aynaya dokunarak onu döndür.
-- Boş bir kareye dokunarak oraya serbest bir ayna koy; yeniden dokunarak döndür, üçüncü kez dokunarak kutuya geri gönder. Bir aynayı kutudan bir kareye, bir kareden ötekine ya da tahtanın dışına da sürükleyebilirsin.
-Işın her değişikliği hemen izler. Aydınlanan mücevher parıldar; ışının dokunduğu bomba kırmızı yanar. Lamba bir ipucudur: bir aynayı doğru yerleştirir ve altın renkle aydınlatır. Geri al her seferinde bir işlemi en başa kadar geri alır. Şerit hamlelerini gösterir.
+Her bulmacanın bir par değeri vardır: onu çözen en az eylem sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar.

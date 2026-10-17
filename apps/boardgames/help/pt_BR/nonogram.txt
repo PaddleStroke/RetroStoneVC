@@ -1,16 +1,10 @@
 Nonogramas
 # O objetivo
-Há um desenho escondido na grade. Os números à esquerda de cada linha e acima de cada coluna são as suas pistas: os comprimentos dos trechos de casas pintadas daquela linha, em ordem, com pelo menos uma casa vazia entre dois trechos (0: a linha está vazia). Pinte as casas para revelar o desenho. Escolha primeiro o tamanho: 5 × 5, 10 × 10 ou 15 × 15.
+Há um desenho escondido na grade. Os números à esquerda de cada linha e acima de cada coluna são as suas pistas: os comprimentos dos trechos de casas pintadas daquela linha, em ordem, com pelo menos uma casa vazia entre dois trechos (0: a linha está vazia). Pinte as casas para revelar o desenho.
 Todo desenho pode ser encontrado raciocinando uma linha de cada vez, sem chutar.
 # Uma jogada
-Pinte uma casa, ou marque com um X uma casa que você sabe que está vazia. Os X são só anotações para você.
+Toque numa casa para pintá-la. Segure-a para marcá-la como vazia com um X, uma anotação sua. Arraste ao longo de uma linha para fazer o mesmo num trecho inteiro.
 # O fim da partida
-Quando cada linha e cada coluna batem com as suas pistas, o desafio está resolvido: os X somem, o desenho aparece nas suas cores e uma luz dourada passa por ele.
+Quando cada linha e cada coluna batem com as suas pistas, o desafio está resolvido e o desenho aparece nas suas cores.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos: pequenos desenhos feitos para o jogo, do 5 × 5 ao 15 × 15, cada um encontrado linha a linha; escolha um na tela de níveis. Um nível resolvido mostra o seu desenho na miniatura. A aba do dado, depois dos capítulos, faz um desenho ao acaso, no tamanho que você escolher. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa pintada fora do desenho, ou um X sobre ele, que você tira com Desfazer.
-# Jogando no aparelho
-- Toque numa casa para pintá-la; toque de novo para esvaziá-la.
-- Segure o dedo um instante numa casa para marcar um X. O botão do X ao lado do tabuleiro faz cada toque marcar X (ou voltar a pintar); ele mostra o que um toque faz.
-- A lâmpada dá uma dica: corrige uma casa errada ou, senão, pinta uma casa que as pistas de uma só linha já decidem (ou marca um X quando elas só decidem casas vazias), com luz dourada.
-- Arraste ao longo de uma linha ou coluna para fazer o mesmo num trecho inteiro. Só mudam as casas que estavam como a primeira, então ao pintar você passa por cima dos seus X.
-As pistas das linhas que você toca se acendem, e os números de uma linha cujas casas pintadas batem com a pista ficam apagados. Desfazer volta um toque ou um trecho de cada vez, até o começo. A barra mostra as suas jogadas.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa pintada fora do desenho, ou um X sobre ele, que você tira com Desfazer.

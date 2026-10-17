@@ -1,18 +1,11 @@
 Ranjau
 # Tujuan
-Ranjau tersembunyi di bawah sebagian ubin kayu di medan. Angkat setiap ubin yang tidak menyembunyikan ranjau. Pilih dulu medannya: 9 × 9 dengan 10 ranjau, 8 × 12 dengan 15 (dibuat untuk ponsel yang dipegang tegak), 16 × 16 dengan 40, atau 16 × 30 dengan 99.
-Empat gambar pertama adalah medan tanpa tebakan: masing-masing bisa dibersihkan dari ubin pertama hanya dengan bernalar, tidak pernah dengan untung-untungan. Gambar yang bertanda dadu dibuat secara acak murni, seperti pada permainan klasik: sesekali hanya tebakan yang bisa menolong.
+Ranjau tersembunyi di bawah sebagian ubin kayu di medan. Angkat setiap ubin yang tidak menyembunyikan ranjau.
+Level-level dan medan tanpa dadu bisa dibersihkan hanya dengan bernalar. Medan bertanda dadu dibuat secara acak murni: sesekali hanya tebakan yang bisa menolong.
 # Satu langkah
-Angkat sebuah ubin. Di bawahnya ada ranjau, atau angka: berapa dari delapan tetangganya yang menyembunyikan ranjau. Ubin tanpa ranjau di sekitarnya mengangkat tetangganya sendiri, sehingga seluruh area terbuka sekaligus. Ubin pertamamu tidak pernah berisi ranjau, dan selalu membuka sebuah area.
-Tancapkan bendera di ubin yang kamu yakin menyembunyikan ranjau. Bendera adalah catatan untukmu; bendera juga mencegah ubin terangkat karena salah ketuk. Saat sebuah angka sudah dikelilingi semua benderanya, ketuk angka itu untuk mengangkat tetangga lainnya sekaligus.
+Angkat sebuah ubin. Di bawahnya ada ranjau, atau angka: berapa dari delapan tetangganya yang menyembunyikan ranjau. Ubin tanpa ranjau di sekitarnya mengangkat tetangganya sendiri. Ubin pertamamu tidak pernah berisi ranjau.
+Tahan sebuah ubin untuk menancapkan bendera di situ, catatan untukmu yang juga mencegah ubin itu terangkat. Ketuk angka yang sudah dikelilingi semua benderanya untuk mengangkat tetangga lainnya sekaligus.
 # Akhir permainan
-Medan bersih saat setiap ubin tanpa ranjau sudah terangkat: ranjau-ranjau terlihat di bawah benderanya, dan gelombang cahaya emas menyapu medan.
-Ranjau yang terangkat menyala merah. Tidak ada yang hilang: Urungkan membatalkannya, dan kamu bisa lanjut.
+Medan bersih saat setiap ubin tanpa ranjau sudah terangkat. Ranjau yang terangkat menyala merah: Urungkan membatalkannya, dan kamu bisa lanjut.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 dengan 3 ranjau sampai 16 × 30 dengan 99; pilih satu di kisi level. Setiap level dimulai dengan area pertamanya sudah terangkat, dari ubin yang bercahaya emas, dan dari situ bisa diselesaikan hanya dengan bernalar. Tab dadu setelah bab-bab itu membuat ladang baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ranjau yang terangkat (Urungkan membatalkannya, tetapi tetap dihitung) atau bendera salah yang harus dicabut lampu.
-# Bermain di perangkat
-- Ketuk ubin untuk mengangkatnya.
-- Tahan ubin sejenak untuk menancapkan atau mencabut bendera. Tombol bendera di samping medan membuat ketukan menancapkan bendera (saat itu, menahan ubin akan mengangkatnya).
-- Di medan yang lebih besar, kaca pembesar mendekatkan medan: geser dengan jari. Garis tipis di sepanjang bingkai menunjukkan posisimu. Ketuk kaca pembesar lagi untuk melihat seluruh medan.
-- Lampu memberi petunjuk: ubin aman diangkat, ranjau pasti diberi bendera, atau bendera yang salah dicabut, dengan cahaya emas. Setelah ranjau terangkat, lampu menyala dan membatalkannya.
-Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan tindakanmu dan, di ujung kanannya, sisa ranjau: jumlah ranjau dikurangi benderamu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ranjau yang terangkat (meski dibatalkan) atau bendera salah yang harus dicabut lampu.

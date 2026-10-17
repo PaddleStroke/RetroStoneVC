@@ -1,9 +1,7 @@
 Slå sammen
 # Målet
-Nummererede brikker ligger på et gitter. Skub dem alle én vej: to ens brikker, der mødes, smelter sammen til én med det dobbelte tal. Lav målbrikken, den to brikker på 1024 smelter sammen til (to på 128 på gitteret 3 × 3), og spil gerne videre for flere point bagefter. Vælg først gitter: 4 × 4, 5 × 5 (mere plads, lettere) eller 3 × 3 (svært).
+Nummererede brikker ligger på et gitter. Skub dem alle én vej: to ens brikker, der mødes, smelter sammen til én med det dobbelte tal. Lav målbrikken, den to brikker på 1024 smelter sammen til (to på 128 på gitteret 3 × 3), og spil gerne videre for flere point bagefter.
 # Et træk
-Skub op, ned, til venstre eller til højre: hver brik glider så langt, den kan. To ens brikker, der mødes, bliver til én, og dens tal lægges til dine point. En brik smelter kun sammen én gang pr. skub. Efter hvert skub, der flyttede noget, dukker en ny brik op på et tomt felt, en 2'er eller af og til en 4'er. Et skub, der ikke flytter noget, er ikke tilladt.
+Stryg op, ned, til venstre eller til højre: hver brik glider så langt, den kan. To ens brikker, der mødes, bliver til én, og dens tal lægges til dine point. En brik smelter kun sammen én gang pr. skub. Efter hvert skub dukker en ny brik op på et tomt felt, en 2'er eller af og til en 4'er. Et skub, der ikke flytter noget, er ikke tilladt.
 # Spillets afslutning
-Laver du målbrikken, lyser den op i guld, og du spiller videre. Spillet er slut, når intet skub flytter noget længere: dine point brændes ind i en plade under gitteret, og du får dine stjerner: 3 for målbrikken eller mere, 2 for en brik på det halve af målet, ellers 1. Der er ingen baner: de nye brikker kommer tilfældigt, så det er de tre gitre, der giver sværhedsgraden.
-# Spil på enheden
-Stryg hen over gitteret, eller tryk på en af de fire pile ved siden af det (på en computer virker piletasterne også). En pil er dæmpet, når det skub ikke ville flytte noget. Lampen giver et tip: et godt skub, med pilen i guld. Fortryd tager ét skub tilbage ad gangen, helt til starten; også de nye brikker, så samme skub giver samme brik igen. Bjælken viser dine point og, yderst til højre, den bedste score i denne session for dette gitter.
+Spillet er slut, når intet skub flytter noget længere. Stjerner: 3 for målbrikken eller mere, 2 for en brik på det halve af målet, ellers 1.

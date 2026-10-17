@@ -1,9 +1,7 @@
 Samenvoegen
 # Het doel
-Genummerde tegels liggen op een raster. Duw ze allemaal één kant op: twee gelijke tegels die elkaar raken, smelten samen tot één tegel met het dubbele getal. Maak de doeltegel, die ontstaat als twee tegels van 1024 samensmelten (twee van 128 op het 3 × 3-raster) en speel daarna door voor een hogere score als je wilt. Kies eerst het raster: 4 × 4, 5 × 5 (meer ruimte, makkelijker) of 3 × 3 (moeilijk).
+Genummerde tegels liggen op een raster. Duw ze allemaal één kant op: twee gelijke tegels die elkaar raken, smelten samen tot één tegel met het dubbele getal. Maak de doeltegel, die ontstaat als twee tegels van 1024 samensmelten (twee van 128 op het 3 × 3-raster) en speel daarna door voor een hogere score als je wilt.
 # Een zet
-Duw omhoog, omlaag, naar links of naar rechts: elke tegel schuift zo ver als hij kan. Twee gelijke tegels die elkaar raken worden één, en het getal ervan komt bij je score. Een tegel smelt maar één keer per duw samen. Na elke duw die iets heeft verschoven, verschijnt er op een leeg vakje een nieuwe tegel, een 2 of soms een 4. Een duw die niets verschuift, mag niet.
+Veeg omhoog, omlaag, naar links of naar rechts: elke tegel schuift zo ver als hij kan. Twee gelijke tegels die elkaar raken worden één, en het getal ervan komt bij je score. Een tegel smelt maar één keer per duw samen. Na elke duw verschijnt er op een leeg vakje een nieuwe tegel, een 2 of soms een 4. Een duw die niets verschuift, mag niet.
 # Het einde van het spel
-Maak je de doeltegel, dan licht hij goud op en speel je door. Het spel is afgelopen als geen enkele duw nog iets verschuift: je score staat dan ingebrand in een plankje onder het raster, en je krijgt je sterren: 3 voor de doeltegel of meer, 2 voor een tegel van de helft van het doel, anders 1. Levels zijn er niet: de nieuwe tegels komen willekeurig, dus de drie rasters bepalen de moeilijkheid.
-# Spelen op het apparaat
-Veeg over het raster of tik op een van de vier pijlen ernaast (op een computer werken ook de pijltjestoetsen). Een pijl is gedimd als die duw niets zou verschuiven. De lamp geeft een hint: een goede duw, zijn pijl goud. Ongedaan maken neemt één duw tegelijk terug, helemaal tot het begin; ook de nieuwe tegels, dus dezelfde duw brengt weer dezelfde tegel. De balk toont je score en, aan het rechtereinde, de beste van deze sessie voor dit raster.
+Het spel is afgelopen als geen enkele duw nog iets verschuift. Sterren: 3 voor de doeltegel of meer, 2 voor een tegel van de helft van het doel, anders 1.

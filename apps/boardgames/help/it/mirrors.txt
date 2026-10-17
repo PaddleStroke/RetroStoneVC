@@ -1,18 +1,14 @@
 Specchi
 # Lo scopo
-Una lampada d'ottone manda un raggio di luce sul tavoliere. Gira e sistema gli specchi perché il raggio illumini tutte le gemme senza toccare nessuna bomba. Scegli prima il livello (le pietre sotto ogni immagine): facile, medio, difficile o esperto.
-- Uno specchio devia il raggio ad angolo retto. Gli specchi su un perno di noce restano nella loro casella: li giri soltanto in un verso (/) o nell'altro (\).
-- Gli specchi liberi aspettano nel vassoio sul bordo del tavoliere: posali sulle caselle vuote.
+Una lampada d'ottone manda un raggio di luce sul tavoliere. Gira e sistema gli specchi perché il raggio illumini tutte le gemme senza toccare nessuna bomba.
+- Uno specchio devia il raggio ad angolo retto. Uno specchio su un perno di noce resta nella sua casella: lo giri soltanto.
+- Gli specchi liberi aspettano nel vassoio: posali sulle caselle vuote.
 - Il raggio prosegue dritto attraverso le gemme e le caselle vuote. Un blocco di legno lo ferma, e così il bordo del tavoliere.
-- Dal livello difficile in poi, una lastra di vetro lascia passare metà della luce e devia l'altra metà.
-Ogni rompicapo ha una sola soluzione, che si trova seguendo il raggio e ragionando.
+- Una lastra di vetro lascia passare metà della luce e devia l'altra metà.
+Ogni rompicapo ha una sola soluzione, che si trova solo ragionando.
 # Una mossa
-Gira uno specchio sul suo perno, oppure posa uno specchio libero su una casella vuota, giralo, spostalo o riprendilo.
+Tocca uno specchio sul perno per girarlo. Tocca una casella vuota per posarvi uno specchio libero, di nuovo per girarlo, una terza volta per rimandarlo nel vassoio; oppure trascinalo.
 # La fine della partita
-Quando tutte le gemme sono illuminate e nessuna bomba è toccata, il rompicapo è risolto: una luce dorata percorre il raggio dalla lampada e le gemme scintillano.
+Quando tutte le gemme sono illuminate e nessuna bomba è toccata, il rompicapo è risolto.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dai tavolieri 5 × 5 con soli specchi su perno fino ai tavolieri 8 × 8 con specchi liberi, bombe e vetro, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Ogni rompicapo ha un par: il minimo di azioni che lo risolvono (uno specchio libero da mettere nell'altro verso costa un tocco in più). Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il rompicapo a 2 stelle, più di due suggerimenti a 1. Annulla toglie una mossa, che non conta più.
-# Giocare sul dispositivo
-- Tocca uno specchio sul perno per girarlo.
-- Tocca una casella vuota per posarvi uno specchio libero; toccala di nuovo per girarlo, una terza volta per rimandarlo nel vassoio. Puoi anche trascinare uno specchio dal vassoio a una casella, da una casella all'altra o fuori dal tavoliere.
-Il raggio segue subito ogni cambiamento. Una gemma illuminata risplende; una bomba toccata dal raggio si accende di rosso. La lampada è un suggerimento: sistema uno specchio e lo illumina d'oro. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
+Ogni rompicapo ha un par: il minimo di azioni che lo risolvono. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il rompicapo a 2 stelle, più di due suggerimenti a 1.

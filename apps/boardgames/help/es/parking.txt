@@ -6,4 +6,4 @@ Mueve un vehículo hacia delante o hacia atrás por su propia fila o columna, ta
 # El final de la partida
 Cuando el coche rojo llega al hueco, sale: resuelto.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos; la pestaña del dado crea un aparcamiento nuevo al azar: fácil, medio o difícil. Cada aparcamiento tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.
+Cada aparcamiento tiene un par: el mínimo de jugadas que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

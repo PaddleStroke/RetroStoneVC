@@ -1,18 +1,14 @@
 Spiegel
 # Das Ziel
-Eine Messinglampe schickt einen Lichtstrahl über das Brett. Drehe und stelle die Spiegel so, dass der Strahl alle Edelsteine beleuchtet, ohne eine Bombe zu berühren. Wähle zuerst die Stufe (die Steine unter jedem Bild): leicht, mittel, schwer oder Experte.
-- Ein Spiegel lenkt den Strahl im rechten Winkel ab. Die Spiegel auf einem Nussbaumdrehteller bleiben in ihrem Feld: Du drehst sie nur in die eine Richtung (/) oder die andere (\).
-- Die losen Spiegel warten in der Ablage am Rand des Bretts: Stelle sie auf leere Felder.
+Eine Messinglampe schickt einen Lichtstrahl über das Brett. Drehe und stelle die Spiegel so, dass der Strahl alle Edelsteine beleuchtet, ohne eine Bombe zu berühren.
+- Ein Spiegel lenkt den Strahl im rechten Winkel ab. Ein Spiegel auf einem Nussbaumdrehteller bleibt in seinem Feld: Du drehst ihn nur.
+- Die losen Spiegel warten in der Ablage: Stelle sie auf leere Felder.
 - Der Strahl geht geradeaus durch Edelsteine und leere Felder. Ein Holzblock hält ihn auf, ebenso der Rand des Bretts.
-- Ab der schweren Stufe lässt eine Glasplatte die Hälfte des Lichts durch und lenkt die andere Hälfte ab.
-Jedes Rätsel hat genau eine Lösung, die man findet, indem man dem Strahl folgt und überlegt.
+- Eine Glasplatte lässt die Hälfte des Lichts durch und lenkt die andere Hälfte ab.
+Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
 # Ein Zug
-Drehe einen Spiegel auf seinem Drehteller, oder stelle einen losen Spiegel auf ein leeres Feld, drehe ihn, versetze ihn oder nimm ihn zurück.
+Tippe auf einen Spiegel auf einem Drehteller, um ihn zu drehen. Tippe auf ein leeres Feld, um dort einen losen Spiegel aufzustellen, erneut, um ihn zu drehen, ein drittes Mal, um ihn in die Ablage zurückzulegen; oder ziehe ihn.
 # Das Ende der Partie
-Wenn alle Edelsteine leuchten und keine Bombe berührt wird, ist das Rätsel gelöst: Ein goldenes Licht läuft von der Lampe den Strahl entlang, und die Edelsteine funkeln.
+Wenn alle Edelsteine leuchten und keine Bombe berührt wird, ist das Rätsel gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 nur mit drehbaren Spiegeln bis 8 × 8 mit losen Spiegeln, Bomben und Glas, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Jedes Rätsel hat ein Par: die wenigsten Aktionen, mit denen es sich lösen lässt (ein loser Spiegel, der andersherum stehen muss, kostet ein Tippen mehr). Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1. Rückgängig nimmt einen Zug zurück, und er zählt nicht mehr.
-# Spielen auf dem Gerät
-- Tippe auf einen Spiegel auf einem Drehteller, um ihn zu drehen.
-- Tippe auf ein leeres Feld, um dort einen losen Spiegel aufzustellen; tippe erneut, um ihn zu drehen, ein drittes Mal, um ihn in die Ablage zurückzulegen. Du kannst einen Spiegel auch aus der Ablage auf ein Feld ziehen, von einem Feld auf ein anderes oder vom Brett herunter.
-Der Strahl folgt jeder Änderung sofort. Ein beleuchteter Edelstein glüht; eine vom Strahl berührte Bombe leuchtet rot. Die Lampe ist ein Tipp: Sie stellt einen Spiegel richtig und lässt ihn golden aufleuchten. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Jedes Rätsel hat ein Par: die wenigsten Aktionen, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1.

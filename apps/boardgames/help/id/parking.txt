@@ -6,4 +6,4 @@ Gerakkan satu kendaraan maju atau mundur di sepanjang baris atau kolomnya sendir
 # Akhir permainan
 Saat mobil merah mencapai celah, mobil itu keluar: terpecahkan.
 # Level dan bintang
-Ada 150 level dalam enam bab; tab dadu membuat lapangan parkir baru secara acak: mudah, sedang, atau sulit. Setiap lapangan punya par: jumlah langkah paling sedikit untuk memecahkannya. Selesai sesuai par: 3 bintang; dengan langkah paling banyak satu setengah kali par: 2 bintang; selain itu 1.
+Setiap lapangan punya par: jumlah langkah paling sedikit untuk memecahkannya. Selesai sesuai par: 3 bintang; dengan langkah paling banyak satu setengah kali par: 2 bintang; selain itu 1.

@@ -6,4 +6,4 @@ Bir aracı kendi sırası ya da sütunu boyunca, istediğin kadar ileri ya da ge
 # Oyunun sonu
 Kırmızı araba boşluğa ulaşınca dışarı çıkar: bulmaca çözüldü.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; zar sekmesi rastgele yeni bir otopark yapar: kolay, orta ya da zor. Her otoparkın bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.
+Her otoparkın bir par değeri vardır: onu çözen en az hamle sayısı. Par ile çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

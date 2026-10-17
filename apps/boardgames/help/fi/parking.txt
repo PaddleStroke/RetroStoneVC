@@ -6,4 +6,4 @@ Aja yhtä ajoneuvoa eteen- tai taaksepäin omaa riviään tai saraketta pitkin n
 # Pelin loppu
 Kun punainen auto pääsee aukolle, se ajaa ulos: ratkaistu.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa; noppavälilehti tekee uuden pysäköintialueen satunnaisesti: helppo, keskitaso tai vaikea. Jokaisella alueella on par: vähin määrä siirtoja, joilla sen voi ratkaista. Ratkaistu parilla: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.
+Jokaisella alueella on par: vähin määrä siirtoja, joilla sen voi ratkaista. Ratkaistu parilla: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.

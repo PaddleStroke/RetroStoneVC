@@ -6,4 +6,4 @@ Kør ét køretøj frem eller tilbage langs dets egen række eller søjle, så l
 # Spillets afslutning
 Når den røde bil når åbningen, kører den ud: løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler; fanen med terningen laver en ny parkeringsplads tilfældigt: let, mellem eller svær. Hver plads har et par: det færreste antal træk, der løser den. Løst i par: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.
+Hver plads har et par: det færreste antal træk, der løser den. Løst i par: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

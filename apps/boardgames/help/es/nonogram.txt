@@ -1,16 +1,10 @@
 Nonogramas
 # El objetivo
-En la cuadrícula se esconde un dibujo. Los números a la izquierda de cada fila y encima de cada columna son sus pistas: las longitudes de los tramos de casillas rellenas de esa línea, en orden, con al menos una casilla vacía entre dos tramos (0: la línea está vacía). Rellena las casillas para descubrir el dibujo. Elige primero el tamaño: 5 × 5, 10 × 10 o 15 × 15.
+En la cuadrícula se esconde un dibujo. Los números a la izquierda de cada fila y encima de cada columna son sus pistas: las longitudes de los tramos de casillas rellenas de esa línea, en orden, con al menos una casilla vacía entre dos tramos (0: la línea está vacía). Rellena las casillas para descubrir el dibujo.
 Cada dibujo se encuentra razonando línea a línea, sin adivinar.
 # Una jugada
-Rellena una casilla, o marca con una cruz una casilla que sabes vacía. Las cruces son solo notas para ti.
+Toca una casilla para rellenarla. Mantén el dedo sobre ella para marcarla vacía con una cruz, una nota para ti. Arrastra a lo largo de una línea para hacer lo mismo en todo un tramo.
 # El final de la partida
-Cuando cada fila y cada columna cumple sus pistas, el nonograma está resuelto: las cruces se van, el dibujo aparece con sus colores y una luz dorada lo recorre.
+Cuando cada fila y cada columna cumple sus pistas, el nonograma está resuelto y el dibujo aparece con sus colores.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos: pequeños dibujos hechos para el juego, del 5 × 5 al 15 × 15, que se encuentran línea a línea; elige uno en la pantalla de niveles. Un nivel resuelto muestra su dibujo en su miniatura. La pestaña del dado, tras los capítulos, saca un dibujo al azar, del tamaño que elijas. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla rellena fuera del dibujo, o una cruz sobre él, que quitas con Deshacer.
-# Jugar en el dispositivo
-- Toca una casilla para rellenarla; tócala otra vez para vaciarla.
-- Mantén el dedo un momento sobre una casilla para marcarla con una cruz. El botón de la cruz junto al tablero hace que cada toque ponga cruces (o vuelva a rellenar); muestra lo que hace un toque.
-- La lámpara da una pista: corrige una casilla equivocada o, si no, rellena una casilla que los números de una sola línea ya deciden (o pone una cruz si solo deciden casillas vacías), con luz dorada.
-- Arrastra a lo largo de una fila o columna para hacer lo mismo en todo un tramo. Solo cambian las casillas que estaban como la primera, así que al rellenar pasas por encima de tus cruces.
-Las pistas de las líneas que tocas se iluminan, y los números de una línea cuyas casillas rellenas cumplen su pista se apagan. Deshacer anula un toque o un tramo cada vez, hasta el principio. La barra muestra tus jugadas.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla rellena fuera del dibujo, o una cruz sobre él, que quitas con Deshacer.

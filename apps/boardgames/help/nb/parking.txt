@@ -6,4 +6,4 @@ Kjør ett kjøretøy fram eller tilbake langs sin egen rad eller kolonne, så la
 # Slutten på spillet
 Når den røde bilen når åpningen, kjører den ut: løst.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler; fanen med terningen lager en ny parkeringsplass tilfeldig: lett, middels eller vanskelig. Hver plass har et par: det minste antallet trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.
+Hver plass har et par: det minste antallet trekk som løser den. Løst på par: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.

@@ -1,14 +1,9 @@
 A orecchio
 # Lo scopo
-Una breve melodia suona al pianoforte, e ogni tasto si illumina d'oro quando suona la sua nota. Ripeti le note nello stesso ordine. Conta solo l'ordine delle note, non il ritmo. Ogni melodia è vera: canzoni popolari, filastrocche, canti di Natale e celebri brani classici, tutti di pubblico dominio.
+Una breve melodia suona al pianoforte, e ogni tasto si illumina d'oro quando suona la sua nota. Ripeti le note nello stesso ordine. Conta solo l'ordine delle note, non il ritmo.
 # Una mossa
-Tocca un tasto. Il tasto giusto suona e brilla d'oro, e il pentagramma sopra la tastiera scrive la nota alla sua altezza; un punto indica ogni nota ancora da trovare. Un tasto sbagliato suona sordo e lampeggia di rosso: conta come errore, e riprendi dallo stesso punto.
+Tocca un tasto. Il tasto giusto brilla d'oro e il pentagramma scrive la sua nota. Un tasto sbagliato lampeggia di rosso: conta come errore, e riprendi dallo stesso punto.
 # La fine della partita
-Quando suona l'ultima nota, un'onda d'oro scorre sui tasti e compare il titolo della melodia, con il suo compositore.
+Quando suona l'ultima nota, compare il titolo della melodia, con il suo compositore.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da tre note sui tasti bianchi fino a lunghe frasi celebri con tasti neri, salti e un tempo rapido. La scheda del dado, dopo i capitoli, suona a caso una frase della raccolta, breve, media o lunga, spesso in un'altra tonalità. Nessun errore, nessun aiuto e al massimo un riascolto: 3 stelle; fino a due in tutto: 2 stelle; altrimenti 1.
-# Giocare sul dispositivo
-- Il pulsante dell'altoparlante suona di nuovo la melodia.
-- La lampada illumina il tasto successivo.
-- Senza suono i tasti si illuminano lo stesso: lo segnala un piccolo altoparlante barrato sul pentagramma.
-Annulla toglie l'ultima nota giusta, fino all'inizio. La barra mostra le note ancora da trovare.
+Nessun errore, nessun aiuto e al massimo un riascolto: 3 stelle; fino a due in tutto: 2 stelle; altrimenti 1.

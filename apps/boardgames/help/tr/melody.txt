@@ -1,14 +1,9 @@
 Kulaktan Çal
 # Amaç
-Piyanoda kısa bir ezgi çalar ve her tuş, notası duyulduğunda altın rengiyle yanar. Notaları aynı sırayla tekrar çal. Yalnızca notaların sırası önemlidir, ritmi değil. Her ezgi gerçektir: halk şarkıları, çocuk şarkıları, Noel ilahileri ve ünlü klasik eserler, hepsi kamu malı.
+Piyanoda kısa bir ezgi çalar ve her tuş, notası duyulduğunda altın rengiyle yanar. Notaları aynı sırayla tekrar çal. Yalnızca notaların sırası önemlidir, ritmi değil.
 # Bir hamle
-Bir tuşa dokun. Doğru tuş çalar ve altın rengiyle parlar, klavyenin üstündeki dizek de notayı kendi yüksekliğine yazar; bir nokta, bulunacak her notayı gösterir. Yanlış tuş boğuk çalar ve kırmızı yanıp söner: bu bir hatadır ve aynı yerden devam edersin.
+Bir tuşa dokun. Doğru tuş altın rengiyle parlar ve dizek notasını yazar. Yanlış tuş kırmızı yanıp söner: bu bir hatadır ve aynı yerden devam edersin.
 # Oyunun sonu
-Son nota çalınınca tuşların üzerinden altın bir dalga geçer ve ezginin adı, bestecisiyle birlikte görünür.
+Son nota çalınınca ezginin adı, bestecisiyle birlikte görünür.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var: beyaz tuşlarda üç notadan, siyah tuşlar, atlamalar ve hızlı tempo içeren uzun, ünlü cümlelere kadar. Bölümlerden sonraki zar sekmesi, koleksiyondan rastgele kısa, orta ya da uzun bir cümle çalar, çoğu zaman başka bir tonda. Hatasız, ipucusuz ve en fazla bir kez yeniden dinleyerek: 3 yıldız; toplam en fazla iki: 2 yıldız; aksi hâlde 1.
-# Cihazda oynamak
-- Hoparlör düğmesi ezgiyi yeniden çalar.
-- Lamba sıradaki tuşu yakar.
-- Ses kapalıyken de tuşlar yanar: dizekteki küçük, üstü çizili hoparlör bunu gösterir.
-Geri al, son doğru notayı geri alır, en başa kadar. Çubuk, kalan notaları gösterir.
+Hatasız, ipucusuz ve en fazla bir kez yeniden dinleyerek: 3 yıldız; toplam en fazla iki: 2 yıldız; aksi hâlde 1.

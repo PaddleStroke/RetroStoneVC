@@ -1,16 +1,10 @@
 Nonogram
 # Tujuan
-Sebuah gambar tersembunyi di kisi. Angka di kiri setiap baris dan di atas setiap kolom adalah petunjuknya: panjang deretan kotak terisi di garis itu, berurutan, dengan paling sedikit satu kotak kosong di antara dua deretan (0: garis itu kosong). Isi kotak-kotaknya untuk memunculkan gambar. Pilih dulu ukurannya: 5 × 5, 10 × 10, atau 15 × 15.
+Sebuah gambar tersembunyi di kisi. Angka di kiri setiap baris dan di atas setiap kolom adalah petunjuknya: panjang deretan kotak terisi di garis itu, berurutan, dengan paling sedikit satu kotak kosong di antara dua deretan (0: garis itu kosong). Isi kotak-kotaknya untuk memunculkan gambar.
 Setiap gambar bisa ditemukan dengan bernalar satu garis demi satu garis, tanpa menebak.
 # Satu langkah
-Isi sebuah kotak, atau tandai dengan silang kotak yang kamu tahu kosong. Tanda silang hanya catatan untukmu.
+Ketuk kotak untuk mengisinya. Tahan untuk menandainya kosong dengan silang, catatan untukmu. Seret di sepanjang garis untuk melakukan hal yang sama pada satu deretan.
 # Akhir permainan
-Saat setiap baris dan setiap kolom cocok dengan petunjuknya, teka-teki terpecahkan: tanda silang hilang, gambar muncul dengan warnanya, dan cahaya emas menyapunya.
+Saat setiap baris dan setiap kolom cocok dengan petunjuknya, teka-teki terpecahkan dan gambar muncul dengan warnanya.
 # Level dan bintang
-Ada 150 level dalam enam bab: gambar-gambar kecil yang dibuat untuk permainan ini, dari 5 × 5 sampai 15 × 15, masing-masing bisa ditemukan garis demi garis; pilih satu di kisi level. Level yang sudah kamu pecahkan menunjukkan gambarnya di petaknya. Tab dadu setelah bab-bab itu membuat gambar secara acak, dalam ukuran yang kamu pilih. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak yang diisi di luar gambar, atau tanda silang di atas gambar, yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-- Ketuk kotak untuk mengisinya; ketuk lagi untuk mengosongkannya.
-- Tahan jari sebentar di sebuah kotak untuk memberinya tanda silang. Tombol silang di samping papan membuat ketukan memberi silang (atau mengisi lagi); tombol itu menunjukkan apa yang dilakukan ketukan.
-- Lampu memberi petunjuk: membetulkan kotak yang salah, atau mengisi kotak yang sudah dipastikan oleh petunjuk satu garis (atau menyilang satu kotak bila petunjuk itu hanya memastikan kotak kosong), dalam cahaya emas.
-- Seret di sepanjang baris atau kolom untuk melakukan hal yang sama pada satu deretan. Hanya kotak yang sama seperti kotak pertama yang berubah, jadi saat mengisi, tanda silangmu dilewati.
-Petunjuk garis yang kamu sentuh menyala, dan angka garis yang kotak terisinya cocok dengan petunjuk memudar. Urungkan membatalkan satu ketukan atau deretan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak yang diisi di luar gambar, atau tanda silang di atas gambar, yang kamu batalkan dengan Urungkan.

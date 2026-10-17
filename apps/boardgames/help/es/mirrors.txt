@@ -1,18 +1,14 @@
 Espejos
 # El objetivo
-Una lámpara de latón lanza un rayo de luz por el tablero. Gira y coloca los espejos para que el rayo ilumine todas las gemas sin tocar ninguna bomba. Elige primero el nivel (las piedras bajo cada imagen): fácil, medio, difícil o experto.
-- Un espejo desvía el rayo en ángulo recto. Los espejos sobre un pivote de nogal se quedan en su casilla: solo los giras hacia un lado (/) o hacia el otro (\).
-- Los espejos sueltos esperan en la bandeja del borde del tablero: colócalos en casillas vacías.
+Una lámpara de latón lanza un rayo de luz por el tablero. Gira y coloca los espejos para que el rayo ilumine todas las gemas sin tocar ninguna bomba.
+- Un espejo desvía el rayo en ángulo recto. Un espejo sobre un pivote de nogal se queda en su casilla: solo lo giras.
+- Los espejos sueltos esperan en la bandeja: colócalos en casillas vacías.
 - El rayo sigue recto a través de las gemas y las casillas vacías. Un bloque de madera lo detiene, y también el borde del tablero.
-- Desde el nivel difícil, una lámina de vidrio deja pasar la mitad de la luz y desvía la otra mitad.
-Cada problema tiene una sola solución, que se encuentra siguiendo el rayo y razonando.
+- Una lámina de vidrio deja pasar la mitad de la luz y desvía la otra mitad.
+Cada problema tiene una sola solución, que se encuentra solo razonando.
 # Una jugada
-Gira un espejo sobre su pivote, o coloca un espejo suelto en una casilla vacía, gíralo, muévelo o recógelo.
+Toca un espejo con pivote para girarlo. Toca una casilla vacía para colocar allí un espejo suelto, otra vez para girarlo y una tercera vez para devolverlo a la bandeja; o arrástralo.
 # El final de la partida
-Cuando todas las gemas están iluminadas y ninguna bomba es tocada, el problema está resuelto: una luz dorada recorre el rayo desde la lámpara y las gemas destellan.
+Cuando todas las gemas están iluminadas y ninguna bomba es tocada, el problema está resuelto.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, desde tableros de 5 × 5 solo con espejos de pivote hasta tableros de 8 × 8 con espejos sueltos, bombas y cristal, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Cada rompecabezas tiene un par: el mínimo de acciones que lo resuelven (un espejo suelto que debe ir hacia el otro lado cuesta un toque más). Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el rompecabezas en 2 estrellas como máximo, y más de dos pistas en 1. Deshacer anula una jugada, que ya no cuenta.
-# Jugar en el dispositivo
-- Toca un espejo con pivote para girarlo.
-- Toca una casilla vacía para colocar allí un espejo suelto; tócala otra vez para girarlo y una tercera vez para devolverlo a la bandeja. También puedes arrastrar un espejo de la bandeja a una casilla, de una casilla a otra o fuera del tablero.
-El rayo sigue cada cambio al instante. Una gema iluminada brilla; una bomba tocada por el rayo se ilumina en rojo. La lámpara es una pista: coloca bien un espejo y lo ilumina en dorado. Deshacer anula una acción cada vez, hasta el principio. La barra muestra tus jugadas.
+Cada rompecabezas tiene un par: el mínimo de acciones que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el rompecabezas en 2 estrellas como máximo, y más de dos pistas en 1.

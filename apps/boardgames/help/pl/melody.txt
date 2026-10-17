@@ -1,14 +1,9 @@
 Ze słuchu
 # Cel gry
-Na fortepianie rozbrzmiewa krótka melodia, a każdy klawisz rozświetla się złotem, gdy brzmi jego dźwięk. Zagraj dźwięki w tej samej kolejności. Liczy się tylko kolejność dźwięków, nie rytm. Każda melodia jest prawdziwa: pieśni ludowe, piosenki dla dzieci, kolędy i słynne utwory klasyczne, wszystkie w domenie publicznej.
+Na fortepianie rozbrzmiewa krótka melodia, a każdy klawisz rozświetla się złotem, gdy brzmi jego dźwięk. Zagraj dźwięki w tej samej kolejności. Liczy się tylko kolejność dźwięków, nie rytm.
 # Ruch
-Dotknij klawisza. Dobry klawisz brzmi i świeci złotem, a pięciolinia nad klawiaturą zapisuje dźwięk na jego wysokości; kropka oznacza każdy dźwięk, który jeszcze został. Zły klawisz brzmi głucho i błyska na czerwono: to błąd, a ty grasz dalej od tego samego miejsca.
+Dotknij klawisza. Dobry klawisz świeci złotem, a pięciolinia zapisuje jego dźwięk. Zły klawisz błyska na czerwono: to błąd, a ty grasz dalej od tego samego miejsca.
 # Koniec gry
-Gdy zabrzmi ostatni dźwięk, po klawiszach przebiega złota fala i pojawia się tytuł melodii wraz z kompozytorem.
+Gdy zabrzmi ostatni dźwięk, pojawia się tytuł melodii wraz z kompozytorem.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od trzech dźwięków na białych klawiszach po długie, słynne frazy z czarnymi klawiszami, skokami i szybkim tempem. Zakładka z kostką po rozdziałach gra losową frazę z kolekcji, krótką, średnią lub długą, często w innej tonacji. Bez błędu, bez podpowiedzi i najwyżej jedno ponowne słuchanie: 3 gwiazdki; do dwóch łącznie: 2 gwiazdki; w innym razie 1.
-# Gra na urządzeniu
-- Przycisk z głośnikiem gra melodię jeszcze raz.
-- Lampka rozświetla następny klawisz.
-- Bez dźwięku klawisze i tak się świecą: mały przekreślony głośnik na pięciolinii o tym mówi.
-Cofnij zabiera ostatni dobry dźwięk, aż do początku. Pasek pokazuje dźwięki, które jeszcze zostały.
+Bez błędu, bez podpowiedzi i najwyżej jedno ponowne słuchanie: 3 gwiazdki; do dwóch łącznie: 2 gwiazdki; w innym razie 1.

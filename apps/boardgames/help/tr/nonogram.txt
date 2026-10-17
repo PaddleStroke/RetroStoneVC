@@ -1,16 +1,10 @@
 Nonogram
 # Amaç
-Izgarada bir resim saklıdır. Her satırın solundaki ve her sütunun üstündeki sayılar onun ipuçlarıdır: o çizgideki dolu kare dizilerinin uzunlukları, sırasıyla; iki dizi arasında en az bir boş kare vardır (0: çizgi boştur). Resmi ortaya çıkarmak için kareleri doldur. Önce boyutu seç: 5 × 5, 10 × 10 ya da 15 × 15.
+Izgarada bir resim saklıdır. Her satırın solundaki ve her sütunun üstündeki sayılar onun ipuçlarıdır: o çizgideki dolu kare dizilerinin uzunlukları, sırasıyla; iki dizi arasında en az bir boş kare vardır (0: çizgi boştur). Resmi ortaya çıkarmak için kareleri doldur.
 Her resim, tahmin yürütmeden, çizgi çizgi akıl yürüterek bulunabilir.
 # Bir hamle
-Bir kareyi doldur ya da boş olduğunu bildiğin bir kareyi çarpıyla işaretle. Çarpılar yalnızca senin notlarındır.
+Bir kareyi doldurmak için ona dokun. Boş olarak çarpıyla işaretlemek için parmağını üzerinde tut; bu senin için bir nottur. Bütün bir dizide aynısını yapmak için bir çizgi boyunca sürükle.
 # Oyunun sonu
-Her satır ve her sütun ipuçlarına uyduğunda bulmaca çözülür: çarpılar kaybolur, resim renkleriyle ortaya çıkar ve üzerinden altın renkli bir ışık geçer.
+Her satır ve her sütun ipuçlarına uyduğunda bulmaca çözülür ve resim renkleriyle ortaya çıkar.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var: oyun için çizilmiş küçük resimler; 5 × 5'ten 15 × 15'e kadar uzanıyorlar ve her biri çizgi çizgi bulunur. Seviye tablosundan birini seç. Çözdüğün bir seviye, tabloda kendi resmini gösterir. Bölümlerden sonraki zar sekmesi, seçtiğin boyutta rastgele bir resim çizer. İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın, resmin dışında doldurulmuş bir kare ya da resmin üzerine konmuş bir çarpıdır.
-# Cihazda oynamak
-- Bir kareyi doldurmak için ona dokun; boşaltmak için yeniden dokun.
-- Bunun yerine çarpı koymak için parmağını bir karenin üzerinde bir an tut. Tahtanın yanındaki çarpı düğmesi dokunuşların çarpı koymasını (ya da yeniden doldurmasını) sağlar; bir dokunuşun ne yapacağını gösterir.
-- Lamba bir ipucu verir: altın ışıkta yanlış bir kareyi düzeltir, yoksa tek bir çizginin ipuçlarının zaten belirlediği bir kareyi doldurur (ipuçları yalnızca boş kareleri belirliyorsa birine çarpı koyar).
-- Bütün bir dizide aynısını yapmak için bir satır ya da sütun boyunca sürükle. Yalnızca ilk kare gibi olan kareler değişir; böylece doldururken çarpılarının üzerinden geçersin.
-Dokunduğun çizgilerin ipuçları aydınlanır; dolu kareleri ipucuna uyan bir çizginin sayıları solar. Geri al her seferinde bir dokunuşu ya da bir diziyi geri alır, en başa kadar. Şerit hamlelerini gösterir.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın, resmin dışında doldurulmuş bir kare ya da resmin üzerine konmuş bir çarpıdır.
