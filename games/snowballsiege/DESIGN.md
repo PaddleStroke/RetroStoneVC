@@ -105,20 +105,21 @@ down, use the wind it misreads at low levels, keep your critters apart against i
 | BG3 | the far mountains and a row of far pines: 256 px that repeat, 3-5 pale tones, no outline | 1/2 of the camera |
 | BG2 | **the snowy field, drawn at run time from the terrain bitmap** (below) | the camera |
 | BG1 | the house UI kit: the logo, texts, panels; the field's map at the bottom (24 x 3 tiles) | fixed |
-| OBJ | the critters and their hearts, the aim line, the gauge, the throws, splats, chunks and puffs, splashes, falling snow, pine trees (behind the snow), the HUD (the team icon, the timer, the throwable, the windsock), the map's dots and view, the touch button, the kit's digits and medals | |
+| OBJ | the critters and their hearts (two rows that would overlap are pushed apart), the aim line, the gauge, the throws and their trail of powder puffs, splats, chunks and puffs, splashes, falling snow, pine trees (behind the snow), the HUD (two round navy badges at the top left: the team's icon with the timer beside it, the throwable with its stock; the windsock), the map's dots and view, the touch button, the kit's digits and medals | |
 
 **The field on a tile console.** The terrain is a 1-bit bitmap (768 x 240, 23 KB, saved in states); each 8x8 cell of
 BG2 shows it: empty cells a blank tile, cells deep in the snow (or the frozen ground) one of 4 shared tiles each (a
 sprinkle of specks with a 16-px period), and the cells at an edge are drawn pixel by pixel (the house's dark top
 line, the light top rows, a lit left edge, a shaded right one, the overhangs' dark undersides, the forts' snow
-blocks and their mortar, the pond's thin ice with cracks and its water) into a **pool of 400 tiles, deduplicated by
+blocks (a deep-blue outline where open, lit from the left, staggered bricks of mortar), the pond's thin ice with cracks and its water) into a **pool of 400 tiles, deduplicated by
 content** (identical cells share a tile; a cell that changes frees its tile). A splat redraws only the cells it
 touched (play.c tells draw.c the carved rectangles), and the map's columns under it. VRAM stays within the 64 KiB
 guideline (strict mode is silent in the tests): the kit and the logo, the map 72 tiles, the field 408, the far
-layer 177, the sprites 265 and the kit's 118, and the maps.
+layer 177, the sprites 277 and the kit's 118, and the maps.
 
 **The camera** (play.c camera_step; presentation only) follows the active critter while it aims, the throw in
-flight (looking 18 frames ahead), a critter knocked through the air, then the splat; it never shows past the field's
+flight (framing the ball and where it is heading, up to 150 frames of its flight ahead, the ball kept about 44 px
+inside the screen: the target comes into view as early as the width allows), a critter knocked through the air, then the splat; it never shows past the field's
 edges. L/R (or a finger dragged on the field) looks along the field during your turn; aiming or walking brings it
 back. A throw above the screen shows as an arrow at the top. The **map** at the bottom shows the whole field (4 px a
 column, 6 px a row from y 96), the critters as dots in their team's colour, the throw, and the screen's view as two
@@ -131,8 +132,8 @@ bottom-right corner. A state saved at one width loads at another. The touch test
 520 and 560 and compares the runs.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
-title (the logo, the four teams under it throwing in turn, the field dimmed behind with the camera drifting along it,
-the player slots, PRESS A TO THROW, BEST, the join line, the copyright line) -> P1 presses A (or Start, or a tap)
+title (the logo, the four teams under it throwing in turn, the field dimmed behind with the camera drifting along it
+and no critters on it, the player slots, PRESS A TO THROW, BEST, the join line, the copyright line) -> P1 presses A (or Start, or a tap)
 -> match 1: MATCH 1 and YOUR TURN!, a hint panel during your first turn (^~: AIM - {}: WALK, HOLD A: THROW - B: SWITCH)
 -> turns (CPU'S TURN, or "P2: YOUR TURN!" in hot seat; SPLASH!, SNOWED UNDER!, DOUBLE HIT!, LONG SHOT!, TIME UP!,
 BRRR! FROST! as they happen; Select or Start pauses) -> MATCH WON! and the next match (1 player), or the end ->
@@ -184,8 +185,9 @@ Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no i
 bead eyes with a glint, a pink cheek), a navy-violet outline; poses: idle (breathing), walk, throw (a paw up with a
 snowball), hurt (squeezed eyes, a snow clump on the head), air (stretched, the scarf flying), the snow mound, the
 icon. Props: snowballs (4 snow shades), the ice cube, snow chunks and powder rings (the house checker to fade),
-water splashes, hearts (red, a frosty blue when empty), the gauge, the aim dots, the windsock and chevrons, pine
-trees with snow on each tier. The field's palette is make_art.py TERRAIN. The title logo: SNOWBALL icy blue, SIEGE
+water splashes, hearts (red, a frosty blue when empty), the gauge, the aim dots, the windsock and chevrons, the
+throw's trail (white puffs with a pale blue rim, no outline), the HUD badge (24x24: the house panel's navy, a rim lit
+at the top left, a navy outline), pine trees with snow on each tier. The field's palette is make_art.py TERRAIN. The title logo: SNOWBALL icy blue, SIEGE
 scarf red.
 
 ## Sound and music

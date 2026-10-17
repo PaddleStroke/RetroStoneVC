@@ -227,9 +227,9 @@ def critter(sp, pose):
 
 # ---- props (OBJ 2) ------------------------------------------------------------------------------------------------
 PROPS_PAL = [(28, 30, 66), (255, 255, 255), (222, 236, 250), (178, 202, 236), (124, 152, 204), (196, 240, 255),
-             (110, 196, 236), (236, 70, 84), (255, 168, 176), (128, 36, 64), (255, 222, 92), (248, 140, 48),
+             (110, 196, 236), (236, 70, 84), (255, 168, 176), (42, 68, 118), (255, 222, 92), (248, 140, 48),
              (255, 246, 220), (96, 120, 184), (150, 172, 226)]
-NAVY, SW, SL, SM, SS, IL, IM, RED, PINK, DRED, YEL, ORA, CREAM, BB, BL = PROPS_PAL
+NAVY, SW, SL, SM, SS, IL, IM, RED, PINK, PNL, YEL, ORA, CREAM, BB, BL = PROPS_PAL     # PNL: the house panel fill
 SNOW4 = [SW, SL, SM, SS]
 
 
@@ -277,23 +277,58 @@ def puff(frame):
 
 
 def splash(frame):
-    """Water thrown up by the pond (a plop or a critter falling in)."""
+    """Water thrown up by the pond (a plop or a critter falling in): a crown of water (higher at its rim than in its middle, white tips), then it falls back: frame 2 only drops and
+    a low ripple, faded with the house checker. Loose drops have no outline."""
     cv = Canvas(16, 16)
     rng = random.Random(7 + frame)
-    h = [6, 11, 7][frame]
-    for i in range(7):
-        x = 2 + i * 2
-        top = 15 - int(h * (1 - abs(i - 3) / 4.5))
+    h = [6, 11, 4][frame]
+    half = [4.5, 6.5, 7.5][frame]
+    for x in range(16):
+        d = abs(x + 0.5 - 8) / half
+        if d > 1:
+            continue
+        prof = 0.3 + 0.7 * math.sin(math.pi * min(1.0, d * 0.95)) if frame < 2 else 1 - d * 0.6   # two arms
+        top = 16 - max(1, int(round(h * prof)) + (rng.randint(0, 1) if frame == 1 else 0))
         for y in range(top, 16):
-            cv.set(x, y, IL if y < top + 2 else IM)
-    for _ in range(5 + frame * 2):
-        cv.set(rng.randint(1, 14), rng.randint(15 - h - 3, 14 - h // 2), SW)
+            cv.set(x, y, SW if y == top else IL if y < top + 3 else IM)
+    if frame < 2:
+        cv.outline(NAVY)
+    drops = []
+    for _ in range(3 + frame * 2):
+        drops.append((rng.randint(2, 13), rng.randint(max(0, 13 - h - 3), 13 - h // 2)))
+    for x, y in drops:
+        if cv.get(x, y) is None:
+            cv.set(x, y, SW if frame < 2 else IL)
     if frame == 2:
         for y in range(16):
             for x in range(16):
                 if cv.get(x, y) and not hs.checker(x, y):
                     cv.set(x, y, None)
-    cv.outline(NAVY) if frame < 2 else None
+    return cv
+
+
+def trail(k):
+    """A throw's trail: white puffs of powder left behind (k 0..2: 3, 2 and 1 px across), a pale blue rim, no outline
+    (they never look like a second ball)."""
+    cv = Canvas(8, 8)
+    n = 3 - k
+    cv.rect(3, 3, 3 + n - 1, 3 + n - 1, SW)
+    cv.outline(SM)
+    return cv
+
+
+def badge():
+    """The HUD's round badge (24x24, a disc of 22) behind the team's icon and the throwable: the house panel's navy
+    fill, a 1-px rim (light at the top left, darker at the bottom right) and a navy outline, like the touch button."""
+    cv = Canvas(24, 24)
+    def inside(x, y):
+        return math.hypot(x + 0.5 - 12, y + 0.5 - 12) <= 10.2
+    for y in range(24):
+        for x in range(24):
+            if inside(x, y):
+                rim = not all(inside(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                cv.set(x, y, (BL if x + y < 23 else BB) if rim else PNL)
+    cv.outline(NAVY)
     return cv
 
 
@@ -426,7 +461,7 @@ def disc_quarter(R, pressed):
 
 
 def props():
-    out = {"ball": snowball(2.6, 8), "bigball": snowball(4.2, 16), "ice": ice_cube(), "dot": dot(),
+    out = {"ball": snowball(3.0, 8), "bigball": snowball(4.2, 16), "ice": ice_cube(), "dot": dot(), "badge": badge(),
            "marker": marker(), "sock": sock(False), "sock_calm": sock(True), "chevron": chevron(),
            "uparrow": up_arrow(), "btn_q": disc_quarter(15, False), "btn_qp": disc_quarter(15, True)}
     for i in range(3):
@@ -434,6 +469,7 @@ def props():
         out["puff%d" % i] = puff(i)
         out["splash%d" % i] = splash(i)
         out["wpn%d" % i] = weapon_icon(i)
+        out["trail%d" % i] = trail(i)
     for k in range(9):
         out["gauge%d" % k] = gauge(k)
     for n in range(7):

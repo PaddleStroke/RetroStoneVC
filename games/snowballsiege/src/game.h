@@ -125,7 +125,8 @@ enum { PK_SNOW, PK_BIG, PK_ICE, PK_COUNT };
 #define CAM_LERP      8         /* moves 1/8 of the way a frame ... */
 #define CAM_VMAX      8         /* ... at most 8 px */
 #define CAM_PAN       4         /* L/R (or a finger dragged on the field) pans 4 px a frame */
-#define CAM_LEAD      18        /* frames of a throw's flight the camera looks ahead */
+#define CAM_AHEAD     150       /* a throw: the camera frames the ball and where it will be 150 frames on (or lands) */
+#define CAM_EDGE      44        /* ... the ball kept about 44 px inside the screen */
 
 /* touch (player 1; DESIGN.md "Touch") */
 #define SLING_GRAB    22        /* a finger down this near the active critter pulls the slingshot */

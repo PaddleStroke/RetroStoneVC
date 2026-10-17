@@ -1157,7 +1157,17 @@ static int cam_clamp(int x, int sw)
 static int cam_target(const world *w, int sw, int t)
 {
     if (w->phase == PH_DEMO) return WORLD_W / 2 + (int)(((int64_t)isin(t / 3) * (WORLD_W / 2 - sw / 2 + 8)) >> 16);
-    if (w->p.on) return (w->p.x + w->p.vx * CAM_LEAD) >> 16;
+    if (w->p.on) {
+        /* a throw: between the ball and where it is heading (its flight, up to CAM_AHEAD frames on), the ball kept
+         * about CAM_EDGE px inside the screen */
+        proj q = w->p;
+        int crit, b, ball = w->p.x >> 16, lim = sw / 2 - CAM_EDGE;
+        int lead = (w->p.x + w->p.vx * CAM_LERP) >> 16;    /* the camera trails its target by about CAM_LERP frames */
+        int32_t acc = wind_accel(w->wind, q.kind);
+        for (int i = 0; i < CAM_AHEAD && proj_frame(w, &q, acc, &crit, &b) == PE_NONE; i++) {}
+        int mid = (ball + clampi(q.x >> 16, 0, WORLD_W)) / 2;
+        return clampi(mid, lead - lim, lead + lim);
+    }
     if (w->phase == PH_SETTLE || w->phase == PH_END) {
         for (int i = 0; i < w->ncrit; i++)
             if (!crit_out(&w->c[i]) && w->c[i].state == CS_AIR) return w->c[i].x >> 16;

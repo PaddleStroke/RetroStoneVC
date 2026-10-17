@@ -36,6 +36,11 @@ static const rs_color title_ramps[2][3] = {
 #define MM_COL 8                        /* its UI tile column and row */
 #define MM_ROW 27
 #define FLAKES 22
+#define HUD_X 2                         /* the HUD's badges (24x24): the team's at (HUD_X, HUD_Y), the throwable's */
+#define HUD_Y 1                         /* HUD_DY under it, the stock's "X2" at tile (HUD_TX, HUD_TY) beside it */
+#define HUD_DY 24
+#define HUD_TX 4
+#define HUD_TY 4
 
 static rs_color line_col[RS_SCREEN_H];
 static uint16_t cell_map[FROWS][FCOLS];       /* the BG2 entry of each field cell */
@@ -83,6 +88,15 @@ static void field_palettes(int dim)
 /* ---- the snowy field (BG2), from the terrain bitmap ------------------------------------------------------------- */
 static int speck(int x, int y) { return speck_tab[(y & 15) * 16 + (x & 15)]; }
 
+static const rect16 *fort_rect(const world *w, int x, int y)
+{
+    for (int i = 0; i < w->nfort; i++) {
+        const rect16 *f = &w->fort[i];
+        if (x >= f->x0 && x <= f->x1 && y >= f->y0 && y <= f->y1) return f;
+    }
+    return NULL;
+}
+
 static int ter_pixel(const world *w, int x, int y)
 {
     if (!terrain_solid(w, x, y)) {
@@ -96,10 +110,13 @@ static int ter_pixel(const world *w, int x, int y)
     if (y >= BEDROCK_Y) return !terrain_solid(w, x, y - 1) || speck(x, y) ? 9 : 10;
     int up1 = terrain_solid(w, x, y - 1), down = terrain_solid(w, x, y + 1);
     int left = terrain_solid(w, x - 1, y), right = terrain_solid(w, x + 1, y);
-    if (fort_at(w, x, y)) {                                 /* packed snow blocks */
-        if (!up1 || !left) return 6;
-        if (!down || !right) return 8;
-        if (y % 6 == 0 || (x + ((y / 6) & 1) * 4) % 8 == 0) return 8;
+    const rect16 *f = fort_rect(w, x, y);
+    if (f) {                /* packed snow blocks: a darker rim where open, lit from the left, rows of bricks */
+        if (!up1 || !left || !right || !down) return 14;    /* the house outline (the pond's deep blue) */
+        if (!terrain_solid(w, x, y - 2) || !terrain_solid(w, x - 2, y)) return 6;
+        if (!terrain_solid(w, x + 2, y)) return 3;
+        int row = (f->y1 - y) / 6, ry = (f->y1 - y) % 6;
+        if (ry == 5 || x - f->x0 == ((row & 1) ? 5 : 2)) return 4;   /* the mortar: staggered bricks */
         return 7;
     }
     if (!up1) return 4;                                     /* the house's dark top line */
@@ -332,8 +349,39 @@ static void slot_icon(int p, int cx, int cy, int t, void *user)
     spr(crit_spr(species_of_player(p), P_ICON), cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 3, 0);
 }
 
+/* the hearts over the critters (24 px wide; two team mates stand 16 px apart): two rows that would overlap are pushed
+ * apart sideways (up to 6 px each), or the later one goes up a row */
+static void draw_hearts(const world *w, int vx0, int sx, int sy)
+{
+    int hx[MAX_CRITTERS], hy[MAX_CRITTERS], hn[MAX_CRITTERS], n = 0;
+    for (int i = 0; i < w->ncrit; i++) {
+        const critter *c = &w->c[i];
+        if (c->state == CS_SPLASHED || c->state == CS_SNOWED || (c->hurt_t < 24 && (c->hurt_t & 4))) continue;
+        hx[n] = (c->x >> 16) - vx0 + sx - 12;
+        hy[n] = (c->y >> 16) + sy - 26;
+        hn[n++] = c->hp < 0 ? 0 : c->hp > HP_MAX ? HP_MAX : c->hp;
+    }
+    for (int i = 1; i < n; i++)
+        for (int j = 0; j < i; j++) {
+            int dx = hx[i] - hx[j], ady = hy[i] - hy[j];
+            if (ady < 0) ady = -ady;
+            if (ady >= 8 || dx >= 24 || dx <= -24) continue;
+            int need = 24 - (dx < 0 ? -dx : dx);
+            if (need <= 12) {
+                int a = need / 2, b = need - a;
+                if (dx >= 0) { hx[j] -= a; hx[i] += b; }
+                else { hx[j] += a; hx[i] -= b; }
+            } else {
+                hy[i] = hy[j] - 8;
+                j = -1;                                     /* check the new row against all again */
+            }
+        }
+    for (int i = 0; i < n; i++) spr(SPR_HEARTS0 + hn[i], hx[i], hy[i], 2, 0);
+}
+
 static void draw_critters(const world *w, int vx0, int sx, int sy, int t, int play)
 {
+    if (play) draw_hearts(w, vx0, sx, sy);
     for (int i = 0; i < w->ncrit; i++) {
         const critter *c = &w->c[i];
         if (c->state == CS_SPLASHED) continue;
@@ -347,8 +395,6 @@ static void draw_critters(const world *w, int vx0, int sx, int sy, int t, int pl
         else pose = P_IDLE0 + ((t / 32 + i) & 1);
         if (c->hurt_t < 24 && (c->hurt_t & 4)) continue;    /* a hit blinks */
         spr(crit_spr(sp, pose), x - 8, y - 16, 2, c->facing < 0 ? RS_SPR_HFLIP : 0);
-        if (pose != P_MOUND && play) spr(SPR_HEARTS0 + (c->hp < 0 ? 0 : c->hp > HP_MAX ? HP_MAX : c->hp), x - 12,
-                                         y - 26, 2, 0);
     }
 }
 
@@ -404,6 +450,19 @@ static void draw_proj(const world *w, int vx0, int sx, int sy)
     }
     if (w->p.kind == PK_BIG) spr(SPR_BIGBALL, x - 8, y - 8, 2, 0);
     else spr(w->p.kind == PK_ICE ? SPR_ICE : SPR_BALL, x - 4, y - 4, 2, 0);
+    /* its trail: where it flew tk frames ago (back along its parabola: p - v k + a k^2 / 2), not before the throw
+     * nor across a bounce */
+    if (w->p.bounces) return;
+    static const int8_t tk[4] = {3, 5, 8, 11}, ts[2][4] = {{1, 1, 2, 2}, {0, 0, 1, 2}};   /* a big one: bigger puffs */
+    int32_t ax = wind_accel(w->wind, w->p.kind);
+    int big = w->p.kind == PK_BIG;
+    for (int i = 0; i < 4; i++) {
+        int k = tk[i] + big;
+        if (k >= w->p.t) break;
+        int64_t tx = w->p.x - (int64_t)w->p.vx * k + (int64_t)ax * k * k / 2;
+        int64_t ty = w->p.y - (int64_t)w->p.vy * k + (int64_t)G_PROJ * k * k / 2;
+        spr(SPR_TRAIL0 + ts[big][i], (int)(tx >> 16) - vx0 + sx - 4, (int)(ty >> 16) + sy - 4, 2, 0);
+    }
 }
 
 static void draw_trees(const world *w, int vx0, int sx, int sy)
@@ -432,12 +491,15 @@ static void draw_hud(const world *w, int t)
 {
     const side *sd = &w->s[w->cur_side];
     if (w->phase == PH_AIM || w->phase == PH_FLIGHT || w->phase == PH_TIMEUP) {
-        spr(crit_spr(sd->species, P_ICON), 4, 4, 3, 0);
+        /* two round badges (in front of them: the team's icon, the throwable; the stock's "X2" beside: screen_text) */
+        spr(crit_spr(sd->species, P_ICON), HUD_X + 4, HUD_Y + 3, 3, 0);
+        spr(SPR_BADGE, HUD_X, HUD_Y, 3, 0);
         if (w->phase == PH_AIM) {
             int secs = (w->timer + 59) / 60;
-            if (secs > 5 || hu_blink(t * 2)) hu_number(secs, 36, 4, 3);
+            if (secs > 5 || hu_blink(t * 2)) hu_number(secs, HUD_X + 40, HUD_Y + 4, 3);
         }
-        spr(SPR_WPN0 + w->weapon, 4, 22, 3, 0);
+        spr(SPR_WPN0 + w->weapon, HUD_X + 4, HUD_Y + HUD_DY + 4, 3, 0);
+        spr(SPR_BADGE, HUD_X, HUD_Y + HUD_DY, 3, 0);
     }
     /* the wind: the sock (drooping when calm) and a chevron per 2 levels (rounded up), the way it blows */
     int wd = w->wind, n = ((wd < 0 ? -wd : wd) + 1) / 2;
@@ -542,7 +604,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 int n = sd->stock[w->weapon];
                 if (n >= 0) {
                     snprintf(s, sizeof s, "X%d", n);
-                    hu_text(3, 4, s);
+                    hu_text(HUD_TX, HUD_TY, s);
                 }
             }
             if (w->banner_t > 0 && w->phase != PH_END) {
@@ -564,10 +626,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             if (show_hint(w)) {
                 const char *h1 = TR(HINT_AIM), *h2 = TR(HINT_THROW);
                 int wd = hu_width(h1, 0) > hu_width(h2, 0) ? hu_width(h1, 0) : hu_width(h2, 0);
-                int x0 = 20 - (wd + 3) / 2;
-                hu_panel(x0, 20, wd + 3, 6);
+                int x0 = 20 - (wd + 3) / 2, tall = hu_tall(h2);     /* a tall second line: a row between the two */
+                hu_panel(x0, 20, wd + 3, 6 + tall);
                 hu_box_text(hu_center(h1, 0), 22, h1);
-                hu_box_text(hu_center(h2, 0), 24, h2);
+                hu_box_text(hu_center(h2, 0), 24 + tall, h2);
             }
         }
         if (state == ST_OVER) {
@@ -639,7 +701,9 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
         if (w->phase == PH_AIM) draw_aim(w, vx0, sx, sy, t, tv);
         draw_proj(w, vx0, sx, sy);
     }
-    draw_critters(w, vx0, sx, sy, t, play);
+    /* the title: the four teams under the logo and the players' icons, no critters on the drifting field (they would
+     * stand among the player slots) */
+    if (state != ST_TITLE) draw_critters(w, vx0, sx, sy, t, play);
     draw_fx(w, vx0, sx, sy);
     draw_flakes(cam->x, t);
     draw_trees(w, vx0, sx, sy);
