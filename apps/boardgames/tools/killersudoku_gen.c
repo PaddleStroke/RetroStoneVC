@@ -7,9 +7,11 @@
  * 3 medium (pairs, locked digits, the rule of 45 on a unit); 4 hard with cages up to four; 5 hard with cages up to
  * five, the harder half; 6 expert (a digit tried and followed). Within a chapter the candidates are ranked by their
  * work and picked evenly, then go from the easiest to the hardest. Duplicates dropped.
+ * The taste (sudoku_gen_craft.h): the cages are merged together with their mirror images, so the cages' pattern keeps a
+ * setter's symmetry, mixed along a chapter (half and quarter turns, mirrors, the diagonal).
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/ksugen apps/boardgames/tools/killersudoku_gen.c \
- *       apps/boardgames/src/games/killersudoku_rules.c && /tmp/ksugen > apps/boardgames/src/games/killersudoku_levels.h
+ *       apps/boardgames/src/games/killersudoku_rules.c -lm && /tmp/ksugen > apps/boardgames/src/games/killersudoku_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -17,6 +19,7 @@
 #include <string.h>
 
 #include "games/killersudoku.h"
+#include "sudoku_gen_craft.h"
 
 typedef struct {
     char code[KSU_CODE];
@@ -46,15 +49,22 @@ static int by_score(const void *a, const void *b)
     return x->score < y->score ? -1 : x->score > y->score;
 }
 
-/* the pool: `want` puzzles of the level, cages at most `most` cells, few cages of one cell */
-static void fill_pool(int level, int most, int want, uint32_t seed0)
+/* the pool: `want` puzzles of the level, cages at most `most` cells, few cages of one cell; the cages' pattern keeps a
+ * setter's symmetry (cr_mode_for: half and quarter turns, mirrors, the diagonal, mixed along the pool) */
+static void fill_pool(int level, int most, int want, uint32_t seed0, int chapter)
 {
     static sv_shape s;
     uint8_t sol[SV_CELLS];
     npool = 0;
-    for (uint32_t k = 0; npool < want && npool < POOL && k < 4000; k++) {
+    for (uint32_t k = 0; npool < want && npool < POOL && k < 6000; k++) {
         cand c;
-        if (ksu_make_at(level, most, seed0 + k * 7919u, &s, sol, 1) != level) continue;
+        uint32_t rng = pr_seed(seed0 + k * 7919u);
+        int mode = cr_mode_for(npool + (int)k % 3, chapter, 0x1f);
+        memset(&s, 0, sizeof s);
+        sv_boxes(&s);
+        sv_shape_init(&s);
+        if (!sv_fill(&s, &rng, sol, 0)) continue;
+        if (cr_cages(&s, level, most, mode, &rng, sol, 2000, level == SV_EXPERT ? 4000 : 0) != level) continue;
         c.level = level;
         c.most = most;
         c.cages = s.ncages;
@@ -87,24 +97,24 @@ static void sort_chapter(int first)
 
 int main(void)
 {
-    fill_pool(SV_EASY, 3, 50, 101);
+    fill_pool(SV_EASY, 3, 50, 101, 0);
     pick(25, 0, 70);
     sort_chapter(0);
-    fill_pool(SV_EASY, 4, 30, 5001);
+    fill_pool(SV_EASY, 4, 30, 5001, 1);
     pick(12, 0, 100);
-    fill_pool(SV_MEDIUM, 4, 50, 9001);
+    fill_pool(SV_MEDIUM, 4, 50, 9001, 1);
     pick(13, 0, 40);
     sort_chapter(25);
-    fill_pool(SV_MEDIUM, 5, 50, 13001);
+    fill_pool(SV_MEDIUM, 5, 50, 13001, 2);
     pick(25, 20, 80);
     sort_chapter(50);
-    fill_pool(SV_HARD, 4, 50, 20001);
+    fill_pool(SV_HARD, 4, 50, 20001, 3);
     pick(25, 0, 100);
     sort_chapter(75);
-    fill_pool(SV_HARD, 5, 60, 40001);
+    fill_pool(SV_HARD, 5, 60, 40001, 4);
     pick(25, 40, 60);
     sort_chapter(100);
-    fill_pool(SV_EXPERT, 5, 50, 60001);
+    fill_pool(SV_EXPERT, 5, 50, 60001, 5);
     pick(25, 0, 100);
     sort_chapter(125);
     if (nchosen != KSU_LEVELS) {

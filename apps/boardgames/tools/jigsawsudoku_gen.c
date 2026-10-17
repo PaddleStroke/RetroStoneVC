@@ -7,9 +7,11 @@
  * gentlest pairs; 3 pairs and locked digits; 4 and 5 triples, fish and the XY-wing (the easier half, the harder
  * half); 6 a digit tried and followed. Within a chapter the candidates are ranked by work and picked evenly, then go
  * from the easiest to the hardest. Duplicates dropped.
+ * The taste (sudoku_gen_craft.h): the regions chosen among several for few one-cell spurs, no long snakes and few plain
+ * boxes, gently bent or wild; the clues spread evenly (no bare row, column or region, none crowded).
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/jsugen apps/boardgames/tools/jigsawsudoku_gen.c \
- *       apps/boardgames/src/games/jigsawsudoku_rules.c && /tmp/jsugen > apps/boardgames/src/games/jigsawsudoku_levels.h
+ *       apps/boardgames/src/games/jigsawsudoku_rules.c -lm && /tmp/jsugen > apps/boardgames/src/games/jigsawsudoku_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -17,6 +19,7 @@
 #include <string.h>
 
 #include "games/jigsawsudoku.h"
+#include "sudoku_gen_craft.h"
 
 typedef struct {
     char code[JSU_CODE];
@@ -55,36 +58,49 @@ static void grade(cand *c, const sv_shape *s, const uint8_t *p)
     jsu_encode(s, p, c->code);
 }
 
-/* the pool: `want` puzzles of the level; extra: clues put back (pairs round the centre) up to 46 - extra[i] */
+/* regions with taste: the least ugly of several (cr_regions_ugly: spurs, snakes, boxes left plain), their swaps varied
+ * so some are gently bent and some wild; a grid fitted to them. 0: none */
+static int nice_regions(sv_shape *s, uint32_t *rng, uint8_t *full)
+{
+    sv_shape best;
+    int best_u = 1 << 30;
+    for (int t = 0; t < 12; t++) {
+        memset(s, 0, sizeof *s);
+        jsu_regions(rng, s, 24 + pr_below(rng, 40));
+        int u = cr_regions_ugly(s->region);
+        if (u < best_u) best_u = u, best = *s;
+    }
+    if (best_u > 30) return 0;    /* most come at 40-50; the best of twelve near 30 */
+    *s = best;
+    sv_shape_init(s);
+    return sv_fill(s, rng, full, 20000);
+}
+
+/* the pool: `want` puzzles of the level on nice regions, the clues opposite each other round the centre as the
+ * regions are, balanced (no bare row, column or region, none crowded); extra: clues put back up to 46 down to 38 */
 static void fill_pool(int level, int want, uint32_t seed0, int extra)
 {
     static sv_shape s;
-    uint8_t p[SV_CELLS], sol[SV_CELLS];
+    uint8_t p[SV_CELLS], full[SV_CELLS];
+    int lop = 0, floor = level == SV_MEDIUM ? 24 : sv_clues_floor(level);
     npool = 0;
-    for (uint32_t k = 0; npool < want && npool < POOL && k < 6000; k++) {
+    for (uint32_t k = 0; npool < want && npool < POOL && k < 9000; k++) {
         cand c;
-        if (jsu_make_at(level, -1, seed0 + k * 7919u, &s, p, sol, 1) != level) continue;
-        if (extra) {                            /* clues put back: 46 down to 38 along the chapter */
-            uint32_t rng = pr_seed(seed0 + k);
-            int order[41], n = 0, target = 46 - npool * 8 / (want > 1 ? want - 1 : 1);
-            for (int i = 0; i < 41; i++) order[i] = i;
-            pr_shuffle(&rng, order, 41);
-            for (int i = 0; i < SV_CELLS; i++) n += p[i] != 0;
-            for (int i = 0; i < 41 && n < target; i++) {
-                int a = order[i], b = SV_CELLS - 1 - a;
-                if (p[a]) continue;
-                p[a] = sol[a], p[b] = sol[b];
-                n += a == b ? 1 : 2;
-            }
-        }
+        uint32_t rng = pr_seed(seed0 + k * 7919u);
+        if (!nice_regions(&s, &rng, full)) continue;
+        if (cr_givens(&s, level, floor, CR_ROT2, &rng, full, p, 3000, level == SV_EXPERT ? 8000 : 0) != level)
+            continue;
+        if (extra) cr_more_clues(CR_ROT2, p, full, 46 - npool * 8 / (want > 1 ? want - 1 : 1), &rng);
         grade(&c, &s, p);
         if (c.level != level || seen(c.code)) continue;
+        int bare;
+        double bal = cr_balance(s.region, p, &bare);
+        if (bare < (level == SV_EASY ? 2 : 1) || bal > 1.45) { lop++; continue; }
         if (extra) c.score = 1000 - c.clues * 10 + c.passes / 50.0;
         pool[npool++] = c;
     }
-    fprintf(stderr, "pool level %d: %d\n", level, npool);
+    fprintf(stderr, "pool level %d: %d (%d lopsided dropped)\n", level, npool, lop);
 }
-
 /* k picked evenly over the pool ranked by score, from from% to (from + span)% */
 static void pick(int k, int from, int span)
 {

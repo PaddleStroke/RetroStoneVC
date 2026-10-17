@@ -7,9 +7,11 @@
  * gentlest pairs; 3 pairs and locked digits; 4 and 5 triples, fish and the XY-wing (the easier half, the harder
  * half); 6 a digit tried and followed. Within a chapter the candidates are ranked by work and picked evenly, then go
  * from the easiest to the hardest. Duplicates dropped.
+ * The taste (sudoku_gen_craft.h): the clues keep a setter's symmetry, mixed along a chapter (half and quarter turns,
+ * mirrors, the diagonal), spread evenly (no bare row, column or box, none crowded).
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/dsugen apps/boardgames/tools/diagonalsudoku_gen.c \
- *       apps/boardgames/src/games/diagonalsudoku_rules.c && /tmp/dsugen > apps/boardgames/src/games/diagonalsudoku_levels.h
+ *       apps/boardgames/src/games/diagonalsudoku_rules.c -lm && /tmp/dsugen > apps/boardgames/src/games/diagonalsudoku_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -17,6 +19,7 @@
 #include <string.h>
 
 #include "games/diagonalsudoku.h"
+#include "sudoku_gen_craft.h"
 
 typedef struct {
     char code[SV_CELLS + 1];
@@ -55,37 +58,33 @@ static void grade(cand *c, const sv_shape *s, const uint8_t *p)
     sv_clues_encode(p, c->code);
 }
 
-/* the pool: `want` puzzles of the level; extra: clues put back (pairs round the centre) up to 46 - extra[i] */
-static void fill_pool(int level, int want, uint32_t seed0, int extra)
+/* the pool: `want` puzzles of the level, each keeping its symmetry (cr_mode_for: mixed along the pool), balanced (no
+ * bare row, column or box, no box crowded); extra: clues put back (whole orbits) up to 46 down to 38 */
+static void fill_pool(int level, int want, uint32_t seed0, int extra, int chapter)
 {
     static sv_shape s;
-    uint8_t p[SV_CELLS], sol[SV_CELLS];
+    uint8_t p[SV_CELLS], full[SV_CELLS];
+    int lop = 0;
     dsu_shape(&s);
     npool = 0;
-    for (uint32_t k = 0; npool < want && npool < POOL && k < 6000; k++) {
+    for (uint32_t k = 0; npool < want && npool < POOL && k < 9000; k++) {
         cand c;
-        if (dsu_make_at(level, seed0 + k * 7919u, p, sol, 1) != level) continue;
-        if (extra) {                            /* clues put back: 46 down to 38 along the chapter */
-            uint32_t rng = pr_seed(seed0 + k);
-            int order[41], n = 0, target = 46 - npool * 8 / (want > 1 ? want - 1 : 1);
-            for (int i = 0; i < 41; i++) order[i] = i;
-            pr_shuffle(&rng, order, 41);
-            for (int i = 0; i < SV_CELLS; i++) n += p[i] != 0;
-            for (int i = 0; i < 41 && n < target; i++) {
-                int a = order[i], b = SV_CELLS - 1 - a;
-                if (p[a]) continue;
-                p[a] = sol[a], p[b] = sol[b];
-                n += a == b ? 1 : 2;
-            }
-        }
+        uint32_t rng = pr_seed(seed0 + k * 7919u);
+        int mode = cr_mode_for(npool + (int)k % 3, chapter, 0x1f);
+        if (!sv_fill(&s, &rng, full, 0)) continue;
+        if (cr_givens(&s, level, dsu_floor(level), mode, &rng, full, p, 3000, level == SV_EXPERT ? 8000 : 0) != level)
+            continue;
+        if (extra) cr_more_clues(mode, p, full, 46 - npool * 8 / (want > 1 ? want - 1 : 1), &rng);
         grade(&c, &s, p);
         if (c.level != level || seen(c.code)) continue;
+        int bare;
+        double bal = cr_balance(s.region, p, &bare);
+        if (bare < (level == SV_EASY ? 2 : 1) || bal > 1.45) { lop++; continue; }
         if (extra) c.score = 1000 - c.clues * 10 + c.passes / 50.0;
         pool[npool++] = c;
     }
-    fprintf(stderr, "pool level %d: %d\n", level, npool);
+    fprintf(stderr, "pool level %d: %d (%d lopsided dropped)\n", level, npool, lop);
 }
-
 /* k picked evenly over the pool ranked by score, from from% to (from + span)% */
 static void pick(int k, int from, int span)
 {
@@ -105,22 +104,22 @@ static void sort_chapter(int first)
 
 int main(void)
 {
-    fill_pool(SV_EASY, 25, 101, 1);
+    fill_pool(SV_EASY, 25, 101, 1, 0);
     pick(25, 0, 100);
     sort_chapter(0);
-    fill_pool(SV_EASY, 40, 5001, 0);
+    fill_pool(SV_EASY, 40, 5001, 0, 1);
     pick(10, 0, 100);
-    fill_pool(SV_MEDIUM, 120, 9001, 0);
+    fill_pool(SV_MEDIUM, 120, 9001, 0, 2);
     pick(15, 0, 40);
     sort_chapter(25);
     pick(25, 42, 58);
     sort_chapter(50);
-    fill_pool(SV_HARD, 100, 20001, 0);
+    fill_pool(SV_HARD, 100, 20001, 0, 3);
     pick(25, 0, 50);
     sort_chapter(75);
     pick(25, 50, 50);
     sort_chapter(100);
-    fill_pool(SV_EXPERT, 60, 60001, 0);
+    fill_pool(SV_EXPERT, 60, 60001, 0, 5);
     pick(25, 0, 100);
     sort_chapter(125);
     if (nchosen != DSU_LEVELS) {
