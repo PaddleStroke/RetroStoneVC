@@ -429,6 +429,18 @@ static void pawn_at(int player, float x, float y, float scale)
     ui_stand_at(t_pawn[player], x - s / 2, up ? 2 * y - top - s : top, s, up);
 }
 
+/* a pawn in the air, lift pixels above (x, y): its shadow left on the board, smaller the higher it goes */
+static void pawn_lifted(int player, float x, float y, float scale, float lift)
+{
+    if (lift <= 0.5f) { pawn_at(player, x, y, scale); return; }
+    float s = ps * scale, top = y + 0.36f * cs * scale - 0.86f * s, k = clampf(1 - 0.6f * lift / s, 0.55f, 1);
+    int up = ui_upside(player);
+    float py = up ? 2 * y - top - s : top, sy = up ? py - 0.79f * s : py;   /* the pawn's box, its shadow's */
+    ui_shadow(x - k * s / 2, sy + (1 - k) * 0.895f * s, k * s);   /* (its centre kept on the ground) */
+    if (up) ui_put_rot(t_pawn[player], x, py - lift + s / 2, s, s, 180);
+    else ui_put(t_pawn[player], x - s / 2, py - lift, s, s);
+}
+
 /* where a player throws: two players, the centre of the empty yard on its right; more, the middle of its own */
 static void tray(int player, float *x, float *y)
 {
@@ -468,7 +480,7 @@ static void draw_dice(void)
 }
 
 /* where the moving token is, t hops after it set off: square by square, a little leap each */
-static void hop_at(float t, float *u, float *v)
+static void hop_at(float t, float *u, float *v, float *lift)   /* lift: the arc, cells */
 {
     int h = (int)t;
     float f = t - h;
@@ -478,7 +490,8 @@ static void hop_at(float t, float *u, float *v)
     place(anim.player, anim.token, a0, ui_bottom(), G.pos.variant, &u0, &v0);
     place(anim.player, anim.token, a1, ui_bottom(), G.pos.variant, &u1, &v1);
     *u = u0 + (u1 - u0) * f;
-    *v = v0 + (v1 - v0) * f - 0.4f * sinf(f * PI_F);
+    *v = v0 + (v1 - v0) * f;
+    *lift = 0.4f * sinf(f * PI_F);
 }
 
 /* where the tokens that can move go: dots (under the pawns), or rings round a token sent home (over them) */
@@ -532,9 +545,10 @@ static void draw(void)
     for (int i = 0; i < n_tok; i++) pawn_at(all[i].player, px_x(all[i].u), px_y(all[i].v), all[i].scale);
     draw_targets(1);
     if (anim.on) {
-        hop_at(t, &u, &v);
+        float lift;
+        hop_at(t, &u, &v, &lift);
         int home = anim.from + anim.hops >= ludo_goal(G.pos.variant) && t >= anim.hops - 1;
-        pawn_at(anim.player, px_x(u), px_y(v), home ? 0.62f + 0.38f * (anim.hops - t) : 1);
+        pawn_lifted(anim.player, px_x(u), px_y(v), home ? 0.62f + 0.38f * (anim.hops - t) : 1, lift * cs);
     }
     if (drag.on && drag.moved) {                /* the dragged token, a little bigger, above the finger */
         float off = ui_upside(p->turn) ? -0.5f : 0.5f;
