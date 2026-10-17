@@ -1,29 +1,24 @@
 Hnefatafl
 # El objetivo
-El hnefatafl, el juego de tablero de los vikingos, es una batalla entre dos bandos desiguales. Los defensores, en el centro, deben ayudar a escapar a su rey. Los atacantes, el doble de numerosos, los rodean y deben capturar al rey. Empiezan los atacantes (oscuros); después los jugadores se turnan, una jugada cada uno. Elige el tablero antes de la partida: hnefatafl en 11 por 11 casillas, tablut en 9 por 9 o brandubh en 7 por 7.
+Los defensores deben ayudar a escapar a su rey. Los atacantes, el doble de numerosos, deben capturarlo. Empiezan los atacantes (oscuros).
 # Cómo se mueven las piezas
-- Todas las piezas, también el rey, se mueven como una torre en el ajedrez: cualquier número de casillas vacías por una fila o una columna. Las piezas nunca saltan.
-- La casilla central es el trono. Solo el rey puede detenerse en él. Cuando está vacío, cualquier pieza puede pasar por encima.
-- En el hnefatafl, solo el rey puede detenerse en las cuatro casillas de las esquinas.
+- Todas las piezas, también el rey, se mueven como una torre en el ajedrez: cualquier número de casillas vacías por una fila o una columna.
+- Solo el rey puede detenerse en la casilla central, el trono. Cualquier pieza puede pasar por encima cuando está vacío.
+- En el hnefatafl, solo el rey puede detenerse en las cuatro esquinas.
 # Capturas
-- Una pieza queda capturada cuando una pieza contraria se mueve de modo que la deja atrapada entre dos enemigas a lo largo de una fila o una columna. Sale del tablero. Una sola jugada puede capturar hasta tres piezas.
-- Las esquinas y el trono vacío actúan como enemigos de todas las piezas: una pieza junto a uno de ellos queda capturada con una sola enemiga en su otro lado.
-- El rey ayuda a los defensores a capturar.
-- Una pieza puede meterse sin peligro en el hueco entre dos piezas contrarias.
+- Una pieza queda capturada cuando una pieza contraria se mueve de modo que la deja atrapada entre dos enemigas a lo largo de una fila o una columna. Una sola jugada puede capturar hasta tres piezas.
+- Las esquinas y el trono vacío actúan como enemigos de todas las piezas. El rey ayuda a los defensores a capturar.
+- Una pieza puede meterse sin peligro en el hueco entre dos enemigas.
 # El rey
-- El rey queda capturado cuando los atacantes lo rodean por sus cuatro lados, o por tres lados con el trono vacío en el cuarto. No puede ser capturado en el borde del tablero.
-- Los defensores ganan cuando el rey llega a una casilla de esquina. Los atacantes ganan cuando capturan al rey.
+- El rey queda capturado cuando los atacantes lo rodean por sus cuatro lados, o por tres con el trono vacío en el cuarto. No puede ser capturado en el borde.
+- Los defensores ganan cuando el rey llega a una esquina.
 # Tablut (9 por 9)
-- 16 atacantes contra 8 defensores y el rey. Las esquinas son casillas normales.
-- Los defensores ganan cuando el rey llega a cualquier casilla del borde del tablero.
-- En el trono o junto a él, el rey se captura como en el hnefatafl. En cualquier otro sitio, lo capturan dos atacantes en lados opuestos, como a cualquier otra pieza.
+- Las esquinas son casillas normales. El rey gana en cualquier casilla del borde.
+- Lejos del trono y de sus casillas vecinas, dos atacantes en lados opuestos capturan al rey.
 # Brandubh (7 por 7)
-- El juego irlandés: 8 atacantes contra 4 defensores y el rey, en cruz.
-- Las esquinas y el trono son como en el hnefatafl: solo el rey puede detenerse en ellos, y los defensores ganan cuando el rey llega a una esquina.
-- En el trono o junto a él, el rey se captura como en el hnefatafl. En cualquier otro sitio se captura como cualquier otra pieza: con dos atacantes en lados opuestos, o con un atacante y una esquina al otro lado.
+- Las esquinas y el trono son como en el hnefatafl.
+- Lejos del trono y de sus casillas vecinas, el rey se captura como cualquier otra pieza: con dos atacantes en lados opuestos, o con un atacante y una esquina al otro lado.
 # El final de la partida
 - Pierde el jugador que no puede mover.
-- Cuando la misma posición se repite por tercera vez con el mismo jugador al turno, la partida es un empate. Una partida de 1000 jugadas de cada uno también es un empate.
-- Estas son las reglas de Copenhague, sin las reglas opcionales del muro de escudos, el fuerte en el borde y el cerco.
-# Jugar en el dispositivo
-Toca una pieza para ver adónde puede ir y luego toca una casilla, o arrastra la pieza. Los puntos muestran las jugadas. Las piezas capturadas se desvanecen. Un rey que los atacantes podrían capturar en la jugada siguiente brilla en rojo, y unas luces doradas muestran a los atacantes por dónde podría escapar el rey en la jugada siguiente.
+- La misma posición por tercera vez con el mismo jugador al turno, o 1000 jugadas de cada uno, es un empate.
+- Reglas de Copenhague, sin el muro de escudos, el fuerte en el borde ni el cerco.

@@ -1,17 +1,13 @@
 Surakarta
 # O objetivo
-Capturar todas as peças do outro jogador. Cada jogador tem doze peças. As peças claras começam. O jogo vem de Java, na Indonésia, e leva o nome da cidade de Surakarta.
-# O tabuleiro
-Trinta e seis pontos numa grade de seis linhas por seis. Dois circuitos passam por ela: o interno (vermelho), pela segunda e pela quinta linha, na horizontal e na vertical, e o externo (verde), pela terceira e pela quarta. Em cada canto, um laço liga as pontas de duas linhas: os laços pequenos pertencem ao circuito interno, os grandes ao circuito externo. As peças de cada jogador ocupam as duas fileiras mais próximas dele.
+Capturar todas as peças do outro jogador. As peças claras começam.
 # Movimento
-Na sua vez, mova uma das suas peças um passo para qualquer um dos oito pontos vizinhos, reto ou na diagonal, se ele estiver vazio. Os laços não são usados nesses passos.
+Mova uma das suas peças um passo para qualquer um dos oito pontos vizinhos, se ele estiver vazio. Os laços não são usados nesses passos.
 # Captura
-Uma peça captura percorrendo um circuito, até onde quiser por pontos vazios e dando a volta em pelo menos um laço, até encontrar uma peça. Se for uma peça adversária, ela é tirada do tabuleiro e a peça que capturou fica no lugar dela.
-- O caminho tem que estar livre: uma peça não pode pular por cima de outras peças. O ponto de onde a peça que captura saiu conta como vazio se o caminho dela passar por ele de novo.
-- Uma captura pode dar a volta em vários laços. Ela segue o seu circuito, vai reto onde as linhas se cruzam e só faz curva nos laços.
+Uma peça captura percorrendo um circuito (as linhas vermelhas ou as verdes), por pontos vazios e dando a volta em pelo menos um laço, até encontrar uma peça. Se for uma peça adversária, ela é tirada do tabuleiro e a peça que capturou fica no lugar dela.
+- O caminho tem que estar livre. O ponto de onde a peça saiu conta como vazio se o caminho dela passar por ele de novo.
+- Ela vai reto onde as linhas se cruzam e só faz curva nos laços, dando a volta em quantos quiser.
 - A captura nunca é obrigatória.
 # O fim da partida
 - Perde o jogador que fica sem peças ou que não consegue se mover.
-- A partida também termina quando a mesma posição se repete pela terceira vez, ou depois de quarenta jogadas de cada lado sem captura. Aí ganha o jogador que tiver mais peças sobrando; com o mesmo número de peças, dá empate.
-# Jogando no aparelho
-Toque na sua peça e depois no novo ponto dela, ou arraste-a. Com a sua peça selecionada, os pontos para onde ela pode ir ficam com um pontinho e as peças que ela pode capturar ficam com um anel: toque em uma delas para mandar sua peça pelos laços.
+- Quando a mesma posição se repete pela terceira vez, ou depois de quarenta jogadas de cada lado sem captura, ganha o jogador que tiver mais peças; com o mesmo número de peças, dá empate.

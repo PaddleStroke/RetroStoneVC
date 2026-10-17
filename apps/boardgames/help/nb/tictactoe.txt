@@ -1,15 +1,9 @@
 Tripp-trapp-tresko
 # Klassisk
-Brettet har tre rader med tre ruter. Den lyse siden spiller kryss og begynner, den mørke spiller ringer. Når det er din tur, setter du merket ditt i en tom rute.
-- Tre av merkene dine på rad vinner: vannrett, loddrett eller diagonalt.
-- Hvis alle ni rutene fylles uten noen tre på rad, blir det uavgjort.
+Den lyse siden spiller kryss og begynner. Tre av merkene dine på rad vinner: vannrett, loddrett eller diagonalt. Hvis alle ni rutene fylles uten noen tre på rad, blir det uavgjort.
 # Ultimate
-Det store brettet rommer ni små brett med 3×3 ruter. Du spiller fortsatt ett merke i en tom rute, men hvor du kan spille, avhenger av det forrige trekket.
-- Ruten motstanderen nettopp spilte i, innenfor sitt lille brett, sender deg til det lille brettet på samme plass på det store brettet. Den som spiller i ruten øverst til høyre på et hvilket som helst lite brett, sender den andre spilleren til det lille brettet øverst til høyre.
-- Hvis brettet du sendes til, allerede er avgjort (vunnet eller fullt), kan du spille i et hvilket som helst åpent lite brett.
-- Spillets første trekk kan gjøres hvor som helst.
-- Tre på rad på et lite brett vinner det brettet: det blir ditt og stenges. Et lite brett som fylles uten noen tre på rad, tilhører ingen.
-- Vinn tre små brett på rad på det store brettet, vannrett, loddrett eller diagonalt, så vinner du spillet.
+Ni små brett utgjør det store brettet.
+- Ruten motstanderen nettopp spilte i, innenfor sitt lille brett, sender deg til det lille brettet på samme plass på det store brettet. Det første trekket kan gjøres hvor som helst.
+- Hvis det brettet allerede er vunnet eller fullt, kan du spille i et hvilket som helst åpent lite brett.
+- Tre på rad vinner et lite brett. Tre små brett på rad vinner spillet.
 - Når ingen lenger kan vinne noen rad med tre små brett, blir det uavgjort.
-# Spill på enheten
-Trykk på en tom rute for å spille der. I Ultimate lyser de små brettene der du kan spille, og et vunnet lite brett viser vinnerens store merke. Hvert panel viser hvor mange små brett den spilleren har vunnet.

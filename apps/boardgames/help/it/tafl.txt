@@ -1,29 +1,24 @@
 Hnefatafl
 # Lo scopo
-L'hnefatafl, il gioco da tavoliere dei vichinghi, è una battaglia tra due schieramenti disuguali. I difensori, al centro, devono aiutare il loro re a fuggire. Gli attaccanti, il doppio di numero, li circondano e devono catturare il re. Gli attaccanti (scuri) muovono per primi, poi i giocatori si alternano, una mossa ciascuno. Scegli il tavoliere prima della partita: hnefatafl su 11 per 11 caselle, tablut su 9 per 9 o brandubh su 7 per 7.
+I difensori devono aiutare il loro re a fuggire. Gli attaccanti, il doppio di numero, devono catturarlo. Gli attaccanti (scuri) muovono per primi.
 # Come si muovono i pezzi
-- Ogni pezzo, anche il re, si muove come una torre negli scacchi: di quante caselle vuote vuoi lungo una riga o una colonna. I pezzi non saltano mai.
-- La casella centrale è il trono. Solo il re può fermarcisi. Quando è vuoto, qualsiasi pezzo può passarci sopra.
-- Nell'hnefatafl, solo il re può fermarsi sulle quattro caselle d'angolo.
+- Ogni pezzo, anche il re, si muove come una torre negli scacchi: di quante caselle vuote vuoi lungo una riga o una colonna.
+- Solo il re può fermarsi sulla casella centrale, il trono. Quando è vuoto, qualsiasi pezzo può passarci sopra.
+- Nell'hnefatafl, solo il re può fermarsi sui quattro angoli.
 # Catture
-- Un pezzo è catturato quando un pezzo avversario si muove in modo da chiuderlo tra due nemici lungo una riga o una colonna. Esce dal tavoliere. Una sola mossa può catturare fino a tre pezzi.
-- Gli angoli e il trono vuoto valgono come nemici per tutti i pezzi: un pezzo accanto a uno di essi è catturato da un solo nemico dall'altro lato.
-- Il re aiuta i difensori a catturare.
+- Un pezzo è catturato quando un pezzo avversario si muove in modo da chiuderlo tra due nemici lungo una riga o una colonna. Una sola mossa può catturare fino a tre pezzi.
+- Gli angoli e il trono vuoto valgono come nemici per tutti i pezzi. Il re aiuta i difensori a catturare.
 - Un pezzo può entrare senza pericolo nello spazio tra due pezzi avversari.
 # Il re
-- Il re è catturato quando gli attaccanti lo chiudono su tutti e quattro i lati, o su tre lati con il trono vuoto sul quarto. Non può essere catturato sul bordo del tavoliere.
-- I difensori vincono quando il re raggiunge una casella d'angolo. Gli attaccanti vincono quando catturano il re.
+- Il re è catturato quando gli attaccanti lo chiudono su tutti e quattro i lati, o su tre lati con il trono vuoto sul quarto. Non può essere catturato sul bordo.
+- I difensori vincono quando il re raggiunge un angolo.
 # Tablut (9 per 9)
-- 16 attaccanti contro 8 difensori e il re. Gli angoli sono caselle normali.
-- I difensori vincono quando il re raggiunge una qualsiasi casella del bordo del tavoliere.
-- Sul trono o accanto a esso, il re è catturato come nell'hnefatafl. Altrove lo catturano due attaccanti su lati opposti, come qualsiasi altro pezzo.
+- Gli angoli sono caselle normali. Il re vince su una qualsiasi casella del bordo.
+- Lontano dal trono e dalle caselle accanto, due attaccanti su lati opposti catturano il re.
 # Brandubh (7 per 7)
-- Il gioco irlandese: 8 attaccanti contro 4 difensori e il re, a croce.
-- Gli angoli e il trono sono come nell'hnefatafl: solo il re può fermarcisi, e i difensori vincono quando il re raggiunge un angolo.
-- Sul trono o accanto a esso, il re è catturato come nell'hnefatafl. Altrove è catturato come qualsiasi altro pezzo: da due attaccanti su lati opposti, o da un attaccante con un angolo dall'altro lato.
+- Gli angoli e il trono sono come nell'hnefatafl.
+- Lontano dal trono e dalle caselle accanto, il re è catturato come qualsiasi pezzo: da due attaccanti su lati opposti, o da un attaccante con un angolo dall'altro lato.
 # La fine della partita
 - Perde il giocatore che non può muovere.
-- Quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno, la partita è patta. Anche una partita di 1000 mosse ciascuno è patta.
-- Queste sono le regole di Copenaghen, senza le regole facoltative del muro di scudi, del forte sul bordo e dell'accerchiamento.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse. I pezzi catturati svaniscono. Un re che gli attaccanti potrebbero catturare alla mossa successiva si illumina di rosso, e delle luci dorate mostrano agli attaccanti dove il re potrebbe fuggire alla mossa successiva.
+- La stessa posizione per la terza volta con lo stesso giocatore di turno, o 1000 mosse ciascuno, è patta.
+- Regole di Copenaghen, senza muro di scudi, forte sul bordo e accerchiamento.

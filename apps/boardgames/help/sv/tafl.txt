@@ -1,29 +1,24 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingarnas brädspel, är en strid mellan två ojämna sidor. Försvararna, i mitten, måste hjälpa sin kung att fly. Angriparna, dubbelt så många, omringar dem och måste fånga kungen. Angriparna (mörka) börjar, sedan turas spelarna om, ett drag var. Välj bräde före partiet: Hnefatafl på 11×11 rutor, Tablut på 9×9 eller Brandubh på 7×7.
+Försvararna måste hjälpa sin kung att fly. Angriparna, dubbelt så många, måste fånga honom. Angriparna (mörka) börjar.
 # Hur pjäserna går
-- Varje pjäs, även kungen, går som ett torn i schack: hur många tomma rutor som helst längs en rad eller en kolumn. Pjäser hoppar aldrig.
-- Mittrutan är tronen. Bara kungen får stanna på den. När den är tom får vilken pjäs som helst passera över den.
+- Varje pjäs, även kungen, går som ett torn i schack: hur många tomma rutor som helst längs en rad eller en kolumn.
+- Bara kungen får stanna på mittrutan, tronen. Vilken pjäs som helst får passera över den när den är tom.
 - I Hnefatafl får bara kungen stanna på de fyra hörnrutorna.
 # Fånga
-- En pjäs fångas när en motståndarpjäs flyttar så att den blir instängd mellan två motståndare längs en rad eller en kolumn. Den lämnar brädet. Ett drag kan fånga upp till tre pjäser.
-- Hörnen och den tomma tronen räknas som fiender till alla pjäser: en pjäs bredvid en av dem fångas av en enda motståndare på sin andra sida.
-- Kungen hjälper försvararna att fånga.
+- En pjäs fångas när en motståndarpjäs flyttar så att den blir instängd mellan två motståndare längs en rad eller en kolumn. Ett drag kan fånga upp till tre pjäser.
+- Hörnen och den tomma tronen räknas som fiender till alla pjäser. Kungen hjälper försvararna att fånga.
 - En pjäs kan utan risk flytta in i luckan mellan två motståndarpjäser.
 # Kungen
-- Kungen fångas när angripare stänger in honom på alla fyra sidor, eller på tre sidor med den tomma tronen på den fjärde. Han kan inte fångas vid brädets kant.
-- Försvararna vinner när kungen når en hörnruta. Angriparna vinner när de fångar kungen.
+- Kungen fångas av angripare på alla fyra sidor, eller på tre sidor med den tomma tronen på den fjärde. Han kan inte fångas vid brädets kant.
+- Försvararna vinner när kungen når en hörnruta.
 # Tablut (9×9)
-- 16 angripare mot 8 försvarare och kungen. Hörnen är vanliga rutor.
-- Försvararna vinner när kungen når vilken ruta som helst vid brädets kant.
-- På tronen eller bredvid den fångas kungen som i Hnefatafl. Var som helst annars fångar två angripare på motsatta sidor honom, som vilken annan pjäs som helst.
+- Hörnen är vanliga rutor. Kungen vinner på vilken ruta som helst vid brädets kant.
+- Utanför tronen och rutorna bredvid den fångar två angripare på motsatta sidor kungen.
 # Brandubh (7×7)
-- Det irländska spelet: 8 angripare mot 4 försvarare och kungen, i ett kors.
-- Hörnen och tronen är som i Hnefatafl: bara kungen får stanna på dem, och försvararna vinner när kungen når ett hörn.
-- På tronen eller bredvid den fångas kungen som i Hnefatafl. Överallt annars fångas han som vilken annan pjäs som helst: av två angripare på motsatta sidor, eller av en angripare med ett hörn på andra sidan.
+- Hörnen och tronen är som i Hnefatafl.
+- Utanför tronen och rutorna bredvid den fångas kungen som vilken annan pjäs som helst: av två angripare på motsatta sidor, eller av en angripare med ett hörn på andra sidan.
 # Partiets slut
 - En spelare som inte kan flytta förlorar.
-- När samma ställning återkommer för tredje gången med samma spelare vid draget blir partiet oavgjort. Ett parti på 1000 drag var blir också oavgjort.
-- Detta är Köpenhamnsreglerna, utan de valfria reglerna om sköldmur, kantfort och inringning.
-# Spela på enheten
-Tryck på en pjäs för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen. De fångade pjäserna bleknar bort. En kung som angriparna skulle kunna fånga i nästa drag lyser rött, och gyllene ljus visar angriparna var kungen skulle kunna fly i nästa drag.
+- Samma ställning för tredje gången med samma spelare vid draget, eller 1000 drag var, är oavgjort.
+- Köpenhamnsreglerna, utan sköldmur, kantfort och inringning.

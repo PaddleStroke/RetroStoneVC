@@ -1,15 +1,9 @@
 Morpion
 # Classique
-Le plateau a trois rangées de trois cases. Le joueur clair joue les croix et commence, le joueur foncé joue les ronds. À ton tour, place ta marque dans une case vide.
-- Trois de tes marques alignées gagnent : horizontalement, verticalement ou en diagonale.
-- Si les neuf cases sont remplies sans alignement de trois, la partie est nulle.
+Le joueur clair joue les croix et commence. Trois de tes marques alignées gagnent : horizontalement, verticalement ou en diagonale. Si les neuf cases sont remplies sans alignement de trois, la partie est nulle.
 # Ultime
-Le grand plateau contient neuf petits plateaux de trois sur trois. Tu joues toujours une marque dans une case vide, mais l'endroit où tu peux jouer dépend du dernier coup.
-- La case que ton adversaire vient de jouer, dans son petit plateau, t'envoie vers le petit plateau situé au même endroit sur le grand plateau. Jouer dans la case en haut à droite de n'importe quel petit plateau envoie l'autre joueur vers le petit plateau en haut à droite.
-- Si le plateau où tu es envoyé est déjà tranché (gagné ou plein), tu peux jouer dans n'importe quel petit plateau encore ouvert.
-- Le premier coup de la partie peut se jouer n'importe où.
-- Trois marques alignées dans un petit plateau le gagnent : il devient à toi et il est fermé. Un petit plateau rempli sans alignement de trois n'appartient à personne.
-- Gagne trois petits plateaux alignés sur le grand plateau, horizontalement, verticalement ou en diagonale, et tu gagnes la partie.
+Neuf petits plateaux forment le grand plateau.
+- La case que ton adversaire vient de jouer, dans son petit plateau, t'envoie vers le petit plateau situé au même endroit sur le grand plateau. Le premier coup peut se jouer n'importe où.
+- Si ce plateau est déjà gagné ou plein, tu peux jouer dans n'importe quel petit plateau encore ouvert.
+- Trois marques alignées gagnent un petit plateau. Trois petits plateaux alignés gagnent la partie.
 - Quand plus personne ne peut aligner trois petits plateaux, la partie est nulle.
-# Jouer sur l'appareil
-Touche une case vide pour y jouer. En Ultime, les petits plateaux où tu peux jouer sont éclairés, et un petit plateau gagné affiche la grande marque du gagnant. Chaque barre indique combien de petits plateaux ce joueur a gagnés.

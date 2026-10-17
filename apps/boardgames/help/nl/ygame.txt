@@ -1,11 +1,9 @@
 Y
 # Het doel
-Verbind alle drie de zijden van de driehoek met één groep van je stenen. Een hoekvakje hoort bij beide zijden die daar samenkomen. Wit (licht) begint.
+Verbind alle drie de zijden van de driehoek met één groep van je stenen. Een hoekvakje hoort bij beide zijden die daar samenkomen. Wit begint.
 # Zo speel je
 - Om de beurt legt elke speler één steen op een leeg vakje naar keuze. Stenen bewegen nooit en worden nooit geslagen.
-- Twee van je stenen zijn verbonden als hun vakjes elkaar langs een rand raken: elk vakje heeft zes buren.
-- Er is nooit gelijkspel: zodra het bord vol is, heeft altijd een van de spelers alle drie de zijden verbonden.
+- Twee van je stenen zijn verbonden als hun vakjes elkaar langs een rand raken.
+- Er is nooit gelijkspel.
 # De ruil
-Als eerste spelen is een groot voordeel. Alleen bij de tweede zet mag zwart de eerste steen van wit overnemen in plaats van zelf een steen te leggen: de steen wordt zwart op zijn plek. Daarna speelt wit opnieuw.
-# Het einde van de partij
-Wie als eerste alle drie de zijden verbindt, wint.
+Alleen bij de tweede zet mag zwart de eerste steen van wit overnemen in plaats van zelf een steen te leggen: de steen wordt zwart op zijn plek. Daarna speelt wit opnieuw.

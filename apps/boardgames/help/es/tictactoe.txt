@@ -1,15 +1,9 @@
 Tres en raya
 # Clásico
-El tablero tiene tres filas de tres casillas. Las claras juegan con cruces y empiezan; las oscuras juegan con círculos. En tu turno, pon tu marca en una casilla vacía.
-- Tres de tus marcas en línea ganan: en horizontal, en vertical o en diagonal.
-- Si se llenan las nueve casillas sin ninguna línea de tres, la partida es un empate.
+Las claras juegan con cruces y empiezan. Tres de tus marcas en línea ganan: en horizontal, en vertical o en diagonal. Si se llenan las nueve casillas sin ninguna línea de tres, es un empate.
 # Ultimate
-El tablero grande contiene nueve tableros pequeños de tres por tres. Sigues poniendo una marca en una casilla vacía, pero dónde puedes jugar depende de la última jugada.
-- La casilla que tu rival acaba de jugar, dentro de su tablero pequeño, te envía al tablero pequeño que ocupa el mismo lugar en el tablero grande. Jugar en la casilla de arriba a la derecha de cualquier tablero pequeño envía al otro jugador al tablero pequeño de arriba a la derecha.
-- Si el tablero al que te envían ya está decidido (ganado o lleno), puedes jugar en cualquier tablero pequeño que siga abierto.
-- La primera jugada de la partida puede hacerse en cualquier sitio.
-- Tres en línea en un tablero pequeño ganan ese tablero: pasa a ser tuyo y queda cerrado. Un tablero pequeño lleno sin ninguna línea de tres no es de nadie.
-- Gana tres tableros pequeños en línea en el tablero grande, en horizontal, en vertical o en diagonal, y ganas la partida.
+Nueve tableros pequeños forman el tablero grande.
+- La casilla que tu rival acaba de jugar, dentro de su tablero pequeño, te envía al tablero pequeño que ocupa el mismo lugar en el tablero grande. La primera jugada puede hacerse en cualquier sitio.
+- Si ese tablero ya está ganado o lleno, puedes jugar en cualquier tablero pequeño que siga abierto.
+- Tres en línea ganan un tablero pequeño. Tres tableros pequeños en línea ganan la partida.
 - Cuando ya nadie puede ganar una línea de tres tableros pequeños, la partida es un empate.
-# Jugar en el dispositivo
-Toca una casilla vacía para jugar ahí. En Ultimate, los tableros pequeños donde puedes jugar están iluminados, y un tablero pequeño ganado muestra la marca grande del ganador. Cada barra muestra cuántos tableros pequeños ha ganado ese jugador.

@@ -1,11 +1,9 @@
 Y
 # The aim
-Join all three sides of the triangle with one group of your stones. A corner cell belongs to both sides that meet there. White (light) plays first.
+Join all three sides of the triangle with one group of your stones. A corner cell belongs to both sides that meet there. White plays first.
 # Playing
 - In turn, each player places one stone on any empty cell. Stones never move and are never captured.
-- Two of your stones are joined when their cells touch along an edge: each cell has six neighbours.
-- There is never a draw: once the board is full, one of the players has always joined the three sides.
+- Two of your stones are joined when their cells touch along an edge.
+- There is never a draw.
 # The swap
-Playing first is a large advantage. On the second move only, Black may take White's first stone instead of placing one: the stone turns black where it stands. Then White plays again.
-# The end of the game
-The first player to join the three sides wins.
+On the second move only, Black may take White's first stone instead of placing one: the stone turns black where it stands. Then White plays again.

@@ -1,15 +1,9 @@
 Tris
 # Classico
-Il tavoliere ha tre righe di tre caselle. Il chiaro gioca con le croci e inizia, lo scuro gioca con i cerchi. Al tuo turno, metti il tuo segno in una casella vuota.
-- Tre tuoi segni in fila vincono: in orizzontale, in verticale o in diagonale.
-- Se tutte e nove le caselle sono piene senza nessun tris, la partita è patta.
+Il chiaro gioca con le croci e inizia. Tre tuoi segni in fila vincono: in orizzontale, in verticale o in diagonale. Se tutte e nove le caselle sono piene senza nessun tris, la partita è patta.
 # Super tris
-Il tavoliere grande contiene nove tavolieri piccoli di tre per tre. Giochi sempre un segno in una casella vuota, ma dove puoi giocare dipende dall'ultima mossa.
-- La casella appena giocata dal tuo avversario, nel suo tavoliere piccolo, ti manda al tavoliere piccolo che si trova nello stesso posto sul tavoliere grande. Giocare nella casella in alto a destra di un qualsiasi tavoliere piccolo manda l'altro giocatore al tavoliere piccolo in alto a destra.
-- Se il tavoliere a cui sei mandato è già deciso (vinto o pieno), puoi giocare in qualsiasi tavoliere piccolo ancora aperto.
-- La prima mossa della partita può essere fatta ovunque.
-- Tre in fila in un tavoliere piccolo vincono quel tavoliere: diventa tuo e viene chiuso. Un tavoliere piccolo pieno senza nessun tris non è di nessuno.
-- Vinci tre tavolieri piccoli in fila sul tavoliere grande, in orizzontale, in verticale o in diagonale, e vinci la partita.
+Nove tavolieri piccoli formano il tavoliere grande.
+- La casella appena giocata dal tuo avversario, nel suo tavoliere piccolo, ti manda al tavoliere piccolo che si trova nello stesso posto sul tavoliere grande. La prima mossa può essere fatta ovunque.
+- Se quel tavoliere è già vinto o pieno, puoi giocare in qualsiasi tavoliere piccolo ancora aperto.
+- Tre in fila vincono un tavoliere piccolo. Tre tavolieri piccoli in fila vincono la partita.
 - Quando nessuno può più vincere una fila di tre tavolieri piccoli, la partita è patta.
-# Giocare sul dispositivo
-Tocca una casella vuota per giocarci. Nel Super tris i tavolieri piccoli dove puoi giocare sono illuminati, e un tavoliere piccolo vinto mostra il segno grande del vincitore. Ogni barra mostra quanti tavolieri piccoli ha vinto quel giocatore.

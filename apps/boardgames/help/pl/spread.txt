@@ -1,17 +1,13 @@
 Ekspansja
 # Cel gry
-Mieć na końcu najwięcej pionków na planszy. Plansza ma 7 na 7 pól; każdy gracz zaczyna z dwoma pionkami w przeciwległych rogach. Zaczyna jasny.
+Mieć na końcu najwięcej pionków na planszy. Zaczyna jasny.
 # Ruch
 Przesuń jeden ze swoich pionków na puste pole, na jeden z dwóch sposobów:
 - Klon: na pole obok, także po skosie. Pojawia się tam nowy pionek, a stary zostaje na miejscu.
-- Skok: na pole oddalone o dwa pola, w dowolnym kierunku. Pionek opuszcza swoje pole.
+- Skok: na pole oddalone o dwa pola, w dowolnym kierunku, nawet nad zablokowanym polem. Pionek opuszcza swoje pole.
 Potem każdy pionek przeciwnika obok pola, na które dotarłeś, także po skosie, staje się twój.
-# Plansze
-Przed grą wybierz planszę: zwykłą albo z kilkoma zablokowanymi polami (cztery bloki, krzyż albo cztery bramy). Na zablokowanym polu nic nie może stanąć, ale pionki mogą je przeskakiwać.
 # Koniec gry
 - Gdy plansza jest pełna, wygrywa gracz z większą liczbą pionków.
-- Gdy gracz, którego jest kolej, nie ma ruchu (nie ma pionków albo wszystkie są otoczone), gra się kończy, a drugi gracz bierze wszystkie puste pola. Potem liczy się pionki.
+- Gdy gracz, którego jest kolej, nie ma ruchu, gra się kończy, a drugi gracz bierze wszystkie puste pola.
 - Po 50 ruchach z rzędu, które nie dodają pionka (same skoki), liczy się pionki tak, jak stoją.
 Ta sama liczba pionków oznacza remis.
-# Gra na urządzeniu
-Dotknij swojego pionka, a potem pola, albo przeciągnij pionek. Duża kropka to klon, mała kropka to skok. Pionki przeciwnika wokół pola odwracają się potem jeden po drugim. Gdy gra kończy się, bo któryś gracz nie miał ruchu, puste pola lekko barwią się na kolor gracza, który je dostaje. Każdy pasek pokazuje, ile pionków ma dany gracz. Gdy do liczenia zostaje niewiele ruchów, ich liczba pojawia się na końcu paska gracza, którego jest kolej.

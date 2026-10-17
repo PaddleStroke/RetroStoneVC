@@ -1,29 +1,24 @@
 Hnefatafl
 # O objetivo
-O hnefatafl, o jogo de tabuleiro dos vikings, é uma batalha entre dois lados desiguais. Os defensores, no meio, têm de ajudar o seu rei a fugir. Os atacantes, que são o dobro, cercam-nos e têm de capturar o rei. Os atacantes (escuros) começam; depois os jogadores jogam à vez, um lance cada um. Escolhe o tabuleiro antes da partida: Hnefatafl em 11 por 11 casas, Tablut em 9 por 9 ou Brandubh em 7 por 7.
+Os defensores têm de ajudar o seu rei a fugir. Os atacantes, que são o dobro, têm de o capturar. Os atacantes (escuros) começam.
 # Como se movem as peças
-- Todas as peças, incluindo o rei, movem-se como a torre no xadrez: quantas casas livres quiserem ao longo de uma fila ou de uma coluna. As peças nunca saltam.
-- A casa do meio é o trono. Só o rei pode parar nele. Quando está vazio, qualquer peça pode passar por cima dele.
-- No Hnefatafl, só o rei pode parar nas quatro casas dos cantos.
+- Todas as peças, incluindo o rei, movem-se como a torre no xadrez: quantas casas livres quiserem ao longo de uma fila ou de uma coluna.
+- Só o rei pode parar na casa do meio, o trono. Qualquer peça pode passar por cima dele quando está vazio.
+- No Hnefatafl, só o rei pode parar nos quatro cantos.
 # Capturas
-- Uma peça é capturada quando uma peça adversária se move de forma a deixá-la entalada entre dois inimigos, ao longo de uma fila ou de uma coluna. Sai do tabuleiro. Um lance pode capturar até três peças.
-- Os cantos e o trono vazio contam como inimigos de todas as peças: uma peça junto a um deles é capturada por um único inimigo do outro lado.
-- O rei ajuda os defensores a capturar.
-- Uma peça pode entrar em segurança no espaço entre duas peças adversárias.
+- Uma peça é capturada quando uma peça adversária se move de forma a deixá-la entalada entre dois inimigos, ao longo de uma fila ou de uma coluna. Um lance pode capturar até três peças.
+- Os cantos e o trono vazio contam como inimigos de todas as peças. O rei ajuda os defensores a capturar.
+- Uma peça pode entrar em segurança no espaço entre dois inimigos.
 # O rei
-- O rei é capturado quando os atacantes o cercam pelos quatro lados, ou por três lados com o trono vazio no quarto. Não pode ser capturado na borda do tabuleiro.
-- Os defensores ganham quando o rei chega a uma casa de canto. Os atacantes ganham quando capturam o rei.
+- O rei é capturado por atacantes nos seus quatro lados, ou em três lados com o trono vazio no quarto. Não pode ser capturado na borda.
+- Os defensores ganham quando o rei chega a um canto.
 # Tablut (9 por 9)
-- 16 atacantes contra 8 defensores e o rei. Os cantos são casas normais.
-- Os defensores ganham quando o rei chega a qualquer casa da borda do tabuleiro.
-- No trono ou junto a ele, o rei é capturado como no Hnefatafl. Em qualquer outro sítio, dois atacantes em lados opostos capturam-no, como a qualquer outra peça.
+- Os cantos são casas normais. O rei ganha em qualquer casa da borda.
+- Longe do trono e das casas junto a ele, dois atacantes em lados opostos capturam o rei.
 # Brandubh (7 por 7)
-- O jogo irlandês: 8 atacantes contra 4 defensores e o rei, em cruz.
-- Os cantos e o trono são como no Hnefatafl: só o rei pode parar neles, e os defensores ganham quando o rei chega a um canto.
-- No trono ou junto a ele, o rei é capturado como no Hnefatafl. Em qualquer outro sítio, é capturado como qualquer outra peça: por dois atacantes em lados opostos, ou por um atacante com um canto do outro lado.
+- Os cantos e o trono são como no Hnefatafl.
+- Longe do trono e das casas junto a ele, o rei é capturado como qualquer peça: por dois atacantes em lados opostos, ou por um com um canto do outro lado.
 # O fim da partida
 - Perde o jogador que não se consiga mover.
-- Quando a mesma posição se repete pela terceira vez com o mesmo jogador a jogar, a partida termina empatada. Uma partida de 1000 lances de cada lado também termina empatada.
-- Estas são as regras de Copenhaga, sem as regras opcionais da parede de escudos, do forte na borda e do cerco.
-# Jogar no dispositivo
-Toca numa peça para ver para onde pode ir, depois toca numa casa, ou arrasta a peça. Os pontos mostram os lances. As peças capturadas desvanecem-se. Um rei que os atacantes poderiam capturar no lance seguinte brilha a vermelho, e luzes douradas mostram aos atacantes por onde o rei poderia fugir no lance seguinte.
+- A mesma posição pela terceira vez com o mesmo jogador a jogar, ou 1000 lances de cada lado, é empate.
+- Regras de Copenhaga, sem a parede de escudos, o forte na borda e o cerco.

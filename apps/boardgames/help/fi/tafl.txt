@@ -1,29 +1,24 @@
 Hnefatafl
 # Tavoite
-Hnefatafl, viikinkien lautapeli, on taistelu kahden epätasaisen puolen välillä. Keskellä olevien puolustajien on autettava kuninkaansa pakoon. Hyökkääjät, joita on kaksi kertaa enemmän, piirittävät heidät, ja heidän on vangittava kuningas. Hyökkääjät (tummat) aloittavat, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan. Valitse lauta ennen peliä: Hnefatafl 11×11-laudalla, Tablut 9×9-laudalla tai Brandubh 7×7-laudalla.
+Puolustajien on autettava kuninkaansa pakoon. Hyökkääjien, joita on kaksi kertaa enemmän, on vangittava se. Hyökkääjät (tummat) aloittavat.
 # Miten nappulat liikkuvat
-- Jokainen nappula, myös kuningas, liikkuu kuten torni shakissa: kuinka monta tyhjää ruutua tahansa riviä tai saraketta pitkin. Nappulat eivät koskaan hyppää.
-- Keskimmäinen ruutu on valtaistuin. Vain kuningas saa pysähtyä siihen. Kun se on tyhjä, mikä tahansa nappula saa kulkea sen yli.
+- Jokainen nappula, myös kuningas, liikkuu kuten torni shakissa: kuinka monta tyhjää ruutua tahansa riviä tai saraketta pitkin.
+- Vain kuningas saa pysähtyä keskimmäiseen ruutuun, valtaistuimelle. Kun se on tyhjä, mikä tahansa nappula saa kulkea sen yli.
 - Hnefataflissa vain kuningas saa pysähtyä neljään kulmaruutuun.
 # Vangitseminen
-- Nappula vangitaan, kun vastustajan nappula siirtyy niin, että se jää kahden vastustajan väliin riviä tai saraketta pitkin. Se poistuu laudalta. Yksi siirto voi vangita jopa kolme nappulaa.
-- Kulmat ja tyhjä valtaistuin toimivat kaikkien nappuloiden vihollisina: niiden vieressä olevan nappulan vangitsee yksi ainoa vastustaja sen toisella puolella.
-- Kuningas auttaa puolustajia vangitsemaan.
+- Nappula vangitaan, kun vastustajan nappula siirtyy niin, että se jää kahden vastustajan väliin riviä tai saraketta pitkin. Yksi siirto voi vangita jopa kolme nappulaa.
+- Kulmat ja tyhjä valtaistuin toimivat kaikkien nappuloiden vihollisina. Kuningas auttaa puolustajia vangitsemaan.
 - Nappula saa turvallisesti siirtyä kahden vastustajan nappulan väliseen rakoon.
 # Kuningas
-- Kuningas vangitaan, kun hyökkääjät saartavat sen kaikilta neljältä sivulta, tai kolmelta sivulta, kun tyhjä valtaistuin on neljännellä. Sitä ei voi vangita laudan reunalla.
-- Puolustajat voittavat, kun kuningas pääsee kulmaruutuun. Hyökkääjät voittavat, kun he vangitsevat kuninkaan.
+- Kuningas vangitaan, kun hyökkääjät ovat sen kaikilla neljällä sivulla, tai kolmella, kun tyhjä valtaistuin on neljännellä. Sitä ei voi vangita laudan reunalla.
+- Puolustajat voittavat, kun kuningas pääsee kulmaruutuun.
 # Tablut (9×9)
-- 16 hyökkääjää 8 puolustajaa ja kuningasta vastaan. Kulmat ovat tavallisia ruutuja.
-- Puolustajat voittavat, kun kuningas pääsee mihin tahansa laudan reunan ruutuun.
-- Valtaistuimella tai sen vieressä kuningas vangitaan kuten Hnefataflissa. Muualla kaksi hyökkääjää vastakkaisilla puolilla vangitsee sen kuten minkä tahansa muun nappulan.
+- Kulmat ovat tavallisia ruutuja. Kuningas voittaa missä tahansa laudan reunan ruudussa.
+- Valtaistuimen ja sen viereisten ruutujen ulkopuolella kaksi hyökkääjää vastakkaisilla puolilla vangitsee kuninkaan.
 # Brandubh (7×7)
-- Irlantilainen peli: 8 hyökkääjää 4 puolustajaa ja kuningasta vastaan ristin muodossa.
-- Kulmat ja valtaistuin ovat kuten Hnefataflissa: vain kuningas saa pysähtyä niille, ja puolustajat voittavat, kun kuningas pääsee kulmaan.
-- Valtaistuimella tai sen vieressä kuningas vangitaan kuten Hnefataflissa. Muualla se vangitaan kuten mikä tahansa muu nappula: kahdella hyökkääjällä vastakkaisilla puolilla tai yhdellä hyökkääjällä, jonka toisella puolella on kulma.
+- Kulmat ja valtaistuin ovat kuten Hnefataflissa.
+- Valtaistuimen ja sen viereisten ruutujen ulkopuolella kuningas vangitaan kuten mikä tahansa muu nappula: kahdella hyökkääjällä vastakkaisilla puolilla tai yhdellä hyökkääjällä, jonka toisella puolella on kulma.
 # Pelin loppu
 - Pelaaja, joka ei voi siirtää, häviää.
-- Kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa, peli päättyy tasapeliin. Peli päättyy tasapeliin myös, kun kumpikin on tehnyt 1000 siirtoa.
-- Nämä ovat Kööpenhaminan säännöt ilman valinnaisia kilpimuuri-, reunalinnake- ja saartosääntöjä.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot. Vangitut nappulat himmenevät pois. Kuningas, jonka hyökkääjät voisivat vangita seuraavalla siirrolla, hehkuu punaisena, ja kultaiset valot näyttävät hyökkääjille, minne kuningas voisi paeta seuraavalla siirrolla.
+- Sama asema kolmannen kerran saman pelaajan ollessa siirtovuorossa, tai 1000 siirtoa kummaltakin, on tasapeli.
+- Kööpenhaminan säännöt ilman kilpimuuri-, reunalinnake- ja saartosääntöjä.

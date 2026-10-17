@@ -1,11 +1,9 @@
 Y
 # Amaç
-Üçgenin üç kenarını da tek bir taş grubunla birleştir. Bir köşe hücresi, orada buluşan iki kenara da aittir. Önce beyaz (açık) oynar.
+Üçgenin üç kenarını da tek bir taş grubunla birleştir. Bir köşe hücresi, orada buluşan iki kenara da aittir. Önce beyaz oynar.
 # Oynanış
 - Oyuncular sırayla herhangi bir boş hücreye birer taş koyar. Taşlar asla yer değiştirmez ve asla alınmaz.
-- İki taşının hücreleri bir kenarla birbirine değiyorsa bu taşlar birleşiktir: her hücrenin altı komşusu vardır.
-- Asla beraberlik olmaz: tahta dolduğunda oyunculardan biri her zaman üç kenarı da birleştirmiş olur.
+- İki taşının hücreleri bir kenarla birbirine değiyorsa bu taşlar birleşiktir.
+- Asla beraberlik olmaz.
 # Takas
-İlk oynamak büyük bir avantajdır. Yalnızca ikinci hamlede siyah, taş koymak yerine beyazın ilk taşını alabilir: taş olduğu yerde siyaha döner. Sonra beyaz yeniden oynar.
-# Oyunun sonu
-Üç kenarı ilk birleştiren oyuncu kazanır.
+Yalnızca ikinci hamlede siyah, taş koymak yerine beyazın ilk taşını alabilir: taş olduğu yerde siyaha döner. Sonra beyaz yeniden oynar.

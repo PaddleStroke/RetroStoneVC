@@ -1,17 +1,13 @@
 Expansão
 # O objetivo
-Ter mais peças no tabuleiro no final. O tabuleiro tem 7 por 7 casas; cada jogador começa com duas peças em cantos opostos. As claras jogam primeiro.
+Ter mais peças no tabuleiro no final. As claras jogam primeiro.
 # Um lance
 Mova uma das suas peças para uma casa vazia, de um destes dois jeitos:
 - Clone: para uma casa vizinha, diagonais incluídas. Uma peça nova aparece ali e a antiga fica onde está.
-- Salto: para uma casa a duas casas de distância, em qualquer direção. A peça sai da sua casa.
+- Salto: para uma casa a duas casas de distância, em qualquer direção, mesmo por cima de uma casa bloqueada. A peça sai da sua casa.
 Depois, toda peça inimiga vizinha da casa alcançada, diagonais incluídas, passa a ser sua.
-# Os tabuleiros
-Escolha o tabuleiro antes da partida: o simples, ou um com algumas casas bloqueadas (quatro blocos, uma cruz ou quatro portões). Nada pode ir para uma casa bloqueada, mas as peças podem saltar por cima dela.
 # O fim da partida
 - Quando o tabuleiro fica cheio, vence quem tem mais peças.
-- Quando o jogador da vez não tem lance (nenhuma peça, ou todas cercadas), a partida acaba e o outro jogador fica com todas as casas vazias. Então as peças são contadas.
+- Quando o jogador da vez não tem lance, a partida acaba e o outro jogador fica com todas as casas vazias.
 - Depois de 50 lances seguidos que não acrescentam peça (só saltos), as peças são contadas como estão.
 O mesmo número de peças é empate.
-# Jogando no aparelho
-Toque em uma das suas peças e depois em uma casa, ou arraste a peça. Um ponto grande é um clone, um ponto pequeno um salto. As peças inimigas em volta da casa viram então uma depois da outra. Quando a partida acaba porque um jogador não tinha lance, as casas vazias aparecem de leve na cor de quem fica com elas. Cada barra mostra quantas peças aquele jogador tem. Quando faltam poucos lances para a contagem, o número deles aparece no fim da barra do jogador da vez.

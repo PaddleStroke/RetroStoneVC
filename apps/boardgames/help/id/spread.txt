@@ -1,17 +1,13 @@
 Sebaran
 # Tujuan
-Punya keping paling banyak di papan pada akhir permainan. Papannya 7 kali 7 petak; setiap pemain mulai dengan dua keping di sudut yang berseberangan. Terang jalan lebih dulu.
+Punya keping paling banyak di papan pada akhir permainan. Terang jalan lebih dulu.
 # Satu langkah
 Pindahkan salah satu kepingmu ke petak kosong, dengan salah satu dari dua cara:
 - Klon: ke petak di sebelahnya, termasuk diagonal. Keping baru muncul di sana dan keping lama tetap di tempatnya.
-- Lompat: ke petak yang berjarak dua petak, ke arah mana pun. Keping meninggalkan petaknya.
+- Lompat: ke petak yang berjarak dua petak, ke arah mana pun, bahkan melewati petak tertutup. Keping meninggalkan petaknya.
 Lalu setiap keping lawan di sebelah petak yang dicapai, termasuk diagonal, menjadi milikmu.
-# Papan
-Pilih papan sebelum bermain: papan biasa, atau papan dengan beberapa petak tertutup (empat blok, sebuah salib, atau empat gerbang). Tidak ada yang bisa menempati petak tertutup, tetapi keping boleh melompatinya.
 # Akhir permainan
 - Saat papan penuh, pemain dengan keping lebih banyak menang.
-- Saat pemain yang mendapat giliran tidak punya langkah (tidak punya keping lagi, atau semua kepingnya terkurung), permainan berakhir dan pemain lain mengambil semua petak kosong. Lalu keping dihitung.
+- Saat pemain yang mendapat giliran tidak punya langkah, permainan berakhir dan pemain lain mengambil semua petak kosong.
 - Setelah 50 langkah berturut-turut yang tidak menambah keping (hanya lompatan), keping dihitung apa adanya.
 Jumlah keping yang sama berarti seri.
-# Bermain di perangkat
-Ketuk salah satu kepingmu, lalu sebuah petak, atau seret kepingnya. Titik besar adalah klon, titik kecil adalah lompatan. Keping lawan di sekitar petak itu lalu terbalik satu per satu. Jika permainan berakhir karena seorang pemain tidak punya langkah, petak kosong tampak samar dalam warna pemain yang mengambilnya. Setiap bilah menunjukkan jumlah keping milik pemain itu. Jika tinggal sedikit langkah sebelum penghitungan, jumlahnya muncul di ujung bilah pemain yang mendapat giliran.

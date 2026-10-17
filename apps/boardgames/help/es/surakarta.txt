@@ -1,17 +1,13 @@
 Surakarta
 # El objetivo
-Capturar todas las fichas del otro jugador. Cada jugador tiene doce fichas. Empiezan las claras. El juego viene de Java, en Indonesia, y debe su nombre a la ciudad de Surakarta.
-# El tablero
-Treinta y seis puntos en una cuadrícula de seis líneas por seis. La recorren dos circuitos: el interior (rojo), por la segunda y la quinta línea, tanto horizontales como verticales, y el exterior (verde), por la tercera y la cuarta. En cada esquina, un bucle une los extremos de dos líneas: los bucles pequeños pertenecen al circuito interior y los grandes, al exterior. Las fichas de cada jugador llenan las dos filas más cercanas a él.
+Capturar todas las fichas del otro jugador. Empiezan las claras.
 # Movimiento
-En tu turno, mueve una de tus fichas un paso a cualquiera de los ocho puntos vecinos, recto o en diagonal, si está vacío. Los bucles no se usan para estos pasos.
+Mueve una de tus fichas un paso a cualquiera de los ocho puntos vecinos, si está vacío. Los bucles no se usan para estos pasos.
 # Capturas
-Una ficha captura recorriendo un circuito, tan lejos como quiera por puntos vacíos y pasando por al menos un bucle, hasta que se encuentra con una ficha. Si es una ficha contraria, se quita del tablero y la ficha que captura ocupa su lugar.
-- El camino debe estar libre: una ficha no puede saltar por encima de otras fichas. El punto del que salió la ficha que captura cuenta como vacío si su camino vuelve a pasar por él.
-- Una captura puede pasar por varios bucles. Sigue su circuito, recto donde se cruzan las líneas, y solo gira en los bucles.
+Una ficha captura recorriendo un circuito (las líneas rojas o las verdes), por puntos vacíos y pasando por al menos un bucle, hasta que se encuentra con una ficha. Si es una ficha contraria, se quita del tablero y la ficha que captura ocupa su lugar.
+- El camino debe estar libre. El punto del que salió la ficha cuenta como vacío si su camino vuelve a pasar por él.
+- Sigue recto donde se cruzan las líneas y solo gira en los bucles, por tantos como quiera.
 - Capturar nunca es obligatorio.
 # El final de la partida
 - Pierde el jugador que se queda sin fichas o que no puede mover.
-- La partida también termina cuando la misma posición se repite por tercera vez, o tras cuarenta jugadas de cada uno sin ninguna captura. Entonces gana el jugador al que le quedan más fichas; con las mismas fichas, la partida es un empate.
-# Jugar en el dispositivo
-Toca tu ficha y luego su nuevo punto, o arrástrala. Con tu ficha seleccionada, los puntos a los que puede ir tienen un puntito y las fichas que puede capturar tienen un anillo: toca una para mandar tu ficha por los bucles.
+- Cuando la misma posición se repite por tercera vez, o tras cuarenta jugadas de cada uno sin ninguna captura, gana el jugador al que le quedan más fichas; con las mismas fichas, la partida es un empate.

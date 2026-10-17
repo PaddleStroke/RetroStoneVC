@@ -1,17 +1,13 @@
 Expanze
 # Cíl hry
-Mít na konci na desce nejvíc kamenů. Deska má 7×7 polí; každý hráč začíná se dvěma kameny v protilehlých rozích. Začíná světlý hráč.
+Mít na konci na desce nejvíc kamenů. Začíná světlý hráč.
 # Tah
 Posuň jeden ze svých kamenů na prázdné pole, jedním ze dvou způsobů:
 - Klon: na sousední pole, včetně úhlopříček. Objeví se tam nový kámen a starý zůstane na místě.
-- Skok: na pole vzdálené o dvě pole, libovolným směrem. Kámen opustí své pole.
+- Skok: na pole vzdálené o dvě pole, libovolným směrem, i přes zablokované pole. Kámen opustí své pole.
 Potom se každý soupeřův kámen, který sousedí s cílovým polem tahu, včetně úhlopříček, stane tvým.
-# Desky
-Před hrou zvol desku: prázdnou desku, nebo desku s několika zablokovanými poli (čtyři bloky, kříž nebo čtyři brány). Na zablokované pole nesmí nic, ale kameny ho smějí přeskočit.
 # Konec hry
 - Když je deska plná, vyhrává hráč s více kameny.
-- Když hráč na tahu nemá žádný tah (nezbyl mu žádný kámen, nebo jsou všechny jeho kameny obklíčené), hra končí a soupeř dostane všechna prázdná pole. Potom se kameny spočítají.
+- Když hráč na tahu nemá žádný tah, hra končí a soupeř dostane všechna prázdná pole.
 - Po 50 tazích v řadě, které nepřidají žádný kámen (jen skoky), se kameny spočítají tak, jak stojí.
 Stejný počet kamenů je remíza.
-# Hra na zařízení
-Klepni na svůj kámen a potom na pole, nebo kámen přetáhni. Velká tečka je klon, malá tečka skok. Soupeřovy kameny kolem pole se pak otočí jeden po druhém. Když hra skončí, protože hráč neměl žádný tah, prázdná pole slabě prosvítají barvou hráče, který je dostane. Každá lišta ukazuje, kolik kamenů daný hráč má. Když do sčítání zbývá jen pár tahů, jejich počet se ukáže na konci lišty hráče na tahu.

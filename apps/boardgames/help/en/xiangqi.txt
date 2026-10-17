@@ -1,21 +1,17 @@
 Xiangqi
 # The aim
-Checkmate the other general: attack it so that it cannot escape. Red moves first, then the players take turns, one move each.
-# The board
-The pieces stand on the points where the lines cross, not in the squares. The river across the middle divides the two sides. Each side has a palace: the three by three points marked with a cross, where the general and its advisors live.
+Checkmate the other general. Red moves first.
 # How the pieces move
-- General: one point along a line, inside its palace. The two generals may never face each other on the same file with nothing between them.
+The pieces stand on the points, not in the squares.
+- General: one point along a line, inside its palace.
 - Advisor: one point diagonally, inside its palace.
 - Elephant: exactly two points diagonally. It cannot cross the river, and it is blocked if the point it passes over is taken.
 - Horse: one point along a line, then one point diagonally outward. It is blocked if the first point is taken.
-- Chariot: any number of points along a line, like a rook in chess.
-- Cannon: moves like the chariot, but captures only by jumping over exactly one piece (of either side) on the way to the piece it takes.
-- Soldier: one point forward. Once it has crossed the river it may also move one point sideways. It never moves back.
-A piece captures by moving onto a point held by an enemy piece, which leaves the board.
+- Chariot: any number of points along a line.
+- Cannon: moves like the chariot, but captures only by jumping over exactly one piece on the way.
+- Soldier: one point forward. Once across the river it may also move sideways. It never moves back.
 # Check and the end of the game
-A general that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own general in check, or facing the other general.
+You may never leave your own general in check, or facing the other general on a file with nothing between them.
 - Checkmate: the general is in check and no move can save it. That player loses.
-- A player who has no legal move but is not in check also loses (unlike chess).
-- Draws: when the same position comes back for the third time with the same player to move, the game is a draw. This simple rule stands in for the tournament rules against perpetual check and perpetual chasing. The game is also a draw after sixty moves each without a capture.
-# Playing on the device
-Tap a piece to see where it can go, then tap a point, or drag the piece. Dots show the moves, rings the captures. A general in check glows red. Each bar shows the pieces that player has captured.
+- A player who has no legal move also loses, even when not in check.
+- Draw: the same position for the third time with the same player to move, or sixty moves each without a capture.

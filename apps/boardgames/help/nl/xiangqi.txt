@@ -1,21 +1,17 @@
 Xiangqi
 # Het doel
-Zet de andere generaal schaakmat: val hem zo aan dat hij niet kan ontsnappen. Rood begint, daarna spelen de spelers om de beurt, elk één zet.
-# Het bord
-De stukken staan op de punten waar de lijnen elkaar kruisen, niet op de velden. De rivier door het midden scheidt de twee kanten. Elke kant heeft een paleis: de drie bij drie punten met een kruis erin, waar de generaal en zijn raadgevers wonen.
+Zet de andere generaal schaakmat. Rood begint.
 # Hoe de stukken bewegen
-- Generaal: één punt langs een lijn, binnen zijn paleis. De twee generaals mogen nooit tegenover elkaar staan op dezelfde lijn zonder iets ertussen.
+De stukken staan op de punten, niet op de velden.
+- Generaal: één punt langs een lijn, binnen zijn paleis.
 - Raadgever: één punt diagonaal, binnen zijn paleis.
 - Olifant: precies twee punten diagonaal. Hij kan de rivier niet oversteken, en wordt geblokkeerd als het punt dat hij passeert bezet is.
 - Paard: één punt langs een lijn, dan één punt diagonaal naar buiten. Het wordt geblokkeerd als het eerste punt bezet is.
-- Wagen: zoveel punten als je wilt langs een lijn, zoals een toren bij schaken.
-- Kanon: beweegt zoals de wagen, maar slaat alleen door over precies één stuk (van welke kant ook) te springen op weg naar het stuk dat het slaat.
-- Soldaat: één punt vooruit. Zodra hij de rivier is overgestoken, mag hij ook één punt opzij. Hij gaat nooit achteruit.
-Een stuk slaat door naar een punt te gaan waar een stuk van de tegenstander staat; dat stuk verlaat het bord.
+- Wagen: zoveel punten als je wilt langs een lijn.
+- Kanon: beweegt zoals de wagen, maar slaat alleen door onderweg over precies één stuk te springen.
+- Soldaat: één punt vooruit. Zodra hij de rivier is overgestoken, mag hij ook opzij. Hij gaat nooit achteruit.
 # Schaak en het einde van de partij
-Een generaal die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen generaal schaak staat, of tegenover de andere generaal staat.
+Je mag je eigen generaal nooit schaak laten staan, of tegenover de andere generaal op dezelfde lijn zonder iets ertussen.
 - Schaakmat: de generaal staat schaak en geen enkele zet kan hem redden. Die speler verliest.
-- Een speler die geen geldige zet heeft maar niet schaak staat, verliest ook (anders dan bij schaken).
-- Remise: als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, eindigt de partij in remise. Deze eenvoudige regel vervangt de toernooiregels tegen eeuwig schaak en eeuwig jagen. De partij is ook remise na zestig zetten van elke speler zonder slag.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een punt, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een generaal die schaak staat, licht rood op. Elke balk toont de stukken die die speler heeft geslagen.
+- Een speler die geen geldige zet heeft, verliest ook, zelfs als hij niet schaak staat.
+- Remise: dezelfde stelling voor de derde keer met dezelfde speler aan zet, of zestig zetten van elke speler zonder slag.

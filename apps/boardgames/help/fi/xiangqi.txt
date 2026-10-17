@@ -1,21 +1,17 @@
 Xiangqi
 # Tavoite
-Tee vastustajan kenraalille matti: uhkaa sitä niin, ettei se pääse pakoon. Punainen aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan.
-# Lauta
-Nappulat ovat pisteissä, joissa viivat risteävät, eivät ruuduissa. Laudan keskellä poikittain virtaava joki erottaa puolet toisistaan. Kummallakin puolella on palatsi: ristillä merkityt 3×3 pistettä, joissa kenraali ja sen neuvonantajat asuvat.
+Tee vastustajan kenraalille matti. Punainen aloittaa.
 # Miten nappulat liikkuvat
-- Kenraali: yhden pisteen viivaa pitkin, palatsinsa sisällä. Kenraalit eivät saa koskaan olla vastakkain samalla linjalla ilman mitään välissä.
+Nappulat ovat pisteissä, eivät ruuduissa.
+- Kenraali: yhden pisteen viivaa pitkin, palatsinsa sisällä.
 - Neuvonantaja: yhden pisteen viistosti, palatsinsa sisällä.
 - Norsu: tasan kaksi pistettä viistosti. Se ei voi ylittää jokea, ja se on estetty, jos piste, jonka yli se kulkee, on varattu.
 - Hevonen: yhden pisteen viivaa pitkin, sitten yhden pisteen viistosti ulospäin. Se on estetty, jos ensimmäinen piste on varattu.
-- Vaunu: kuinka monta pistettä tahansa viivaa pitkin, kuten torni shakissa.
-- Tykki: liikkuu kuten vaunu, mutta lyö vain hyppäämällä tasan yhden nappulan (kumman tahansa puolen) yli matkalla lyömäänsä nappulaan.
-- Sotilas: yhden pisteen eteenpäin. Kun se on ylittänyt joen, se saa liikkua myös yhden pisteen sivulle. Se ei koskaan liiku taaksepäin.
-Nappula lyö siirtymällä pisteeseen, jossa on vastustajan nappula, ja lyöty nappula poistuu laudalta.
+- Vaunu: kuinka monta pistettä tahansa viivaa pitkin.
+- Tykki: liikkuu kuten vaunu, mutta lyö vain hyppäämällä tasan yhden nappulan yli matkalla.
+- Sotilas: yhden pisteen eteenpäin. Kun se on ylittänyt joen, se saa liikkua myös sivulle. Se ei koskaan liiku taaksepäin.
 # Shakki ja pelin loppu
-Uhattu kenraali on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman kenraalisi shakkiin tai vastakkain toisen kenraalin kanssa.
+Et saa koskaan jättää omaa kenraaliasi shakkiin tai vastakkain toisen kenraalin kanssa samalle linjalle ilman mitään välissä.
 - Matti: kenraali on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää.
-- Pelaaja, jolla ei ole yhtään sallittua siirtoa mutta joka ei ole shakissa, häviää myös (toisin kuin shakissa).
-- Tasapelit: kun sama asema toistuu kolmannen kerran saman pelaajan ollessa siirtovuorossa, peli päättyy tasapeliin. Tämä yksinkertainen sääntö korvaa turnaussäännöt ikuista shakkia ja ikuista jahtaamista vastaan. Peli päättyy tasapeliin myös, kun kumpikin on tehnyt kuusikymmentä siirtoa ilman lyöntiä.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten pistettä, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kenraali hehkuu punaisena. Kukin palkki näyttää nappulat, jotka kyseinen pelaaja on lyönyt.
+- Pelaaja, jolla ei ole yhtään sallittua siirtoa, häviää myös, vaikka ei olisi shakissa.
+- Tasapeli: sama asema kolmannen kerran saman pelaajan ollessa siirtovuorossa, tai kuusikymmentä siirtoa kummaltakin ilman lyöntiä.

@@ -1,15 +1,9 @@
 XOX
 # Klasik
-Tahtada üçer kareden oluşan üç sıra vardır. Açık renk X ile oynar ve oyuna başlar, koyu renk O ile oynar. Sıran geldiğinde işaretini boş bir kareye koy.
-- Bir sırada üç işaretin olursa kazanırsın: yatay, dikey ya da çapraz.
-- Dokuz karenin hepsi dolar ve üçlü bir sıra oluşmazsa oyun berabere biter.
+Açık renk X ile oynar ve oyuna başlar. Bir sırada üç işaretin olursa kazanırsın: yatay, dikey ya da çapraz. Dokuz karenin hepsi dolar ve üçlü bir sıra oluşmazsa oyun berabere biter.
 # Ultimate
-Büyük tahta, 3×3'lük dokuz küçük tahtadan oluşur. Yine boş bir kareye bir işaret koyarsın, ama nereye oynayabileceğin son hamleye bağlıdır.
-- Rakibinin az önce oynadığı karenin kendi küçük tahtasındaki yeri, seni büyük tahtada aynı yerdeki küçük tahtaya gönderir. Herhangi bir küçük tahtanın sağ üst karesine oynamak, rakibi sağ üstteki küçük tahtaya gönderir.
-- Gönderildiğin tahta zaten belli olmuşsa (kazanılmış ya da dolmuşsa), açık olan herhangi bir küçük tahtaya oynayabilirsin.
-- Oyunun ilk hamlesi herhangi bir yere yapılabilir.
-- Bir küçük tahtada üçlü sıra yapan, o tahtayı kazanır: tahta onun olur ve kapanır. Üçlü sıra oluşmadan dolan küçük tahta kimseye ait değildir.
-- Büyük tahtada yatay, dikey ya da çapraz bir sırada üç küçük tahta kazanırsan oyunu kazanırsın.
+Büyük tahta dokuz küçük tahtadan oluşur.
+- Rakibinin az önce oynadığı karenin kendi küçük tahtasındaki yeri, seni büyük tahtada aynı yerdeki küçük tahtaya gönderir. İlk hamle herhangi bir yere yapılabilir.
+- O tahta zaten kazanılmış ya da dolmuşsa, açık olan herhangi bir küçük tahtaya oynayabilirsin.
+- Üçlü sıra bir küçük tahtayı kazandırır. Sırada üç küçük tahta oyunu kazandırır.
 - Artık kimse üç küçük tahtalık bir sıra kazanamayacaksa oyun berabere biter.
-# Cihazda oynamak
-Oynamak için boş bir kareye dokun. Ultimate'te oynayabileceğin küçük tahtalar aydınlanır, kazanılmış bir küçük tahta da kazananın büyük işaretini gösterir. Her şerit, o oyuncunun kaç küçük tahta kazandığını gösterir.

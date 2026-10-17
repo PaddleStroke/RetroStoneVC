@@ -1,11 +1,9 @@
 Y
 # O objetivo
-Ligar os três lados do triângulo com um único grupo das suas pedras. Uma casa de canto pertence aos dois lados que se encontram nela. As brancas (claras) começam.
+Ligar os três lados do triângulo com um único grupo das suas pedras. Uma casa de canto pertence aos dois lados que se encontram nela. As brancas começam.
 # Como jogar
 - Alternadamente, cada jogador coloca uma pedra em qualquer casa vazia. As pedras nunca se movem e nunca são capturadas.
-- Duas pedras suas estão ligadas quando as casas delas se tocam por um lado: cada casa tem seis vizinhas.
-- Nunca há empate: quando o tabuleiro está cheio, um dos jogadores sempre já ligou os três lados.
+- Duas pedras suas estão ligadas quando as casas delas se tocam por um lado.
+- Nunca há empate.
 # A troca
-Jogar primeiro é uma grande vantagem. Só no segundo lance, as pretas podem ficar com a primeira pedra das brancas em vez de colocar uma: a pedra fica preta no mesmo lugar. Depois as brancas jogam de novo.
-# O fim da partida
-Vence o primeiro jogador que ligar os três lados.
+Só no segundo lance, as pretas podem ficar com a primeira pedra das brancas em vez de colocar uma: a pedra fica preta no mesmo lugar. Depois as brancas jogam de novo.

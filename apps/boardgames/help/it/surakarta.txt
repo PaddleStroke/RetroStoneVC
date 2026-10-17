@@ -1,17 +1,13 @@
 Surakarta
 # Lo scopo
-Catturare tutte le pedine dell'altro giocatore. Ogni giocatore ha dodici pedine. Iniziano le pedine chiare. Il gioco viene da Giava, in Indonesia, e prende il nome dalla città di Surakarta.
-# Il tavoliere
-Trentasei punti su una griglia di sei linee per sei. La percorrono due circuiti: quello interno (rosso) lungo la seconda e la quinta linea, in orizzontale e in verticale, quello esterno (verde) lungo la terza e la quarta. A ogni angolo un arco unisce le estremità di due linee: gli archi piccoli appartengono al circuito interno, quelli grandi al circuito esterno. Le pedine di ciascun giocatore occupano le due righe più vicine a lui.
+Catturare tutte le pedine dell'altro giocatore. Iniziano le pedine chiare.
 # Movimento
-Al tuo turno, sposta una delle tue pedine di un passo su uno degli otto punti vicini, dritto o in diagonale, se è libero. Gli archi non si usano per questi passi.
+Sposta una delle tue pedine di un passo su uno degli otto punti vicini, se è libero. Gli archi non si usano per questi passi.
 # Catture
-Una pedina cattura percorrendo un circuito, fin dove vuole sui punti liberi e girando intorno ad almeno un arco, finché non incontra una pedina. Se è una pedina avversaria, viene tolta dal tavoliere e la pedina che cattura prende il suo posto.
-- La strada deve essere libera: una pedina non può saltare altre pedine. Il punto da cui è partita la pedina che cattura conta come libero se il suo percorso ci ripassa.
-- Una cattura può girare intorno a più archi. Segue il suo circuito, va dritta dove le linee si incrociano e gira solo negli archi.
+Una pedina cattura percorrendo un circuito (le linee rosse o verdi), sui punti liberi e girando intorno ad almeno un arco, finché non incontra una pedina. Se è una pedina avversaria, viene catturata e la pedina che cattura prende il suo posto.
+- La strada deve essere libera. Il punto da cui è partita la pedina conta come libero se il suo percorso ci ripassa.
+- Va dritta dove le linee si incrociano e gira solo negli archi, intorno a quanti archi vuole.
 - La presa non è mai obbligatoria.
 # La fine della partita
 - Perde il giocatore che non ha più pedine o che non può muovere.
-- La partita finisce anche quando la stessa posizione si ripete per la terza volta, o dopo quaranta mosse ciascuno senza prese. Allora vince il giocatore a cui restano più pedine; a parità di pedine, la partita è patta.
-# Giocare sul dispositivo
-Tocca la tua pedina e poi il suo nuovo punto, oppure trascinala. Con la tua pedina selezionata, i punti in cui può spostarsi hanno un puntino e le pedine che può prendere hanno un anello: toccane una per mandare la tua pedina lungo gli archi.
+- Quando la stessa posizione si ripete per la terza volta, o dopo quaranta mosse ciascuno senza prese, vince il giocatore a cui restano più pedine; a parità di pedine, la partita è patta.

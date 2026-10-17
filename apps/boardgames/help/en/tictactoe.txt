@@ -1,15 +1,9 @@
 Tic-Tac-Toe
 # Classic
-The board has three rows of three squares. Light plays crosses and goes first, dark plays rings. On your turn, put your mark in an empty square.
-- Three of your marks in a row wins: across, up and down, or diagonally.
-- If all nine squares are filled with no row of three, the game is a draw.
+Light plays crosses and goes first. Three of your marks in a row wins: across, up and down, or diagonally. All nine squares filled with no row of three is a draw.
 # Ultimate
-The big board holds nine small boards of three by three. You still play one mark in an empty square, but where you may play depends on the last move.
-- The square your opponent just played, within its small board, sends you to the small board in the same place on the big board. Playing in the top right square of any small board sends the other player to the top right small board.
-- If the board you are sent to is already decided (won or full), you may play in any open small board.
-- The first move of the game may be anywhere.
-- Three in a row in a small board wins that board: it becomes yours and is closed. A small board filled with no row of three belongs to nobody.
-- Win three small boards in a row on the big board, across, up and down, or diagonally, and you win the game.
-- When no row of three small boards can be won by anyone any more, the game is a draw.
-# Playing on the device
-Tap an empty square to play there. In Ultimate the small boards where you may play are lit, and a won small board shows the winner's big mark. Each bar shows how many small boards that player has won.
+Nine small boards make up the big board.
+- The square your opponent just played, within its small board, sends you to the small board in the same place on the big board. The first move may be anywhere.
+- If that board is already won or full, you may play in any open small board.
+- Three in a row wins a small board. Three small boards in a row win the game.
+- When nobody can win a row of three small boards any more, the game is a draw.

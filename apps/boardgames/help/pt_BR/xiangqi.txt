@@ -1,21 +1,17 @@
 Xiangqi
 # O objetivo
-Dar xeque-mate no general adversário: atacá-lo de modo que ele não possa escapar. As vermelhas jogam primeiro; depois os jogadores se alternam, um lance cada um.
-# O tabuleiro
-As peças ficam nos pontos onde as linhas se cruzam, e não dentro das casas. O rio que atravessa o meio separa os dois lados. Cada lado tem um palácio: os três por três pontos marcados com um X, onde vivem o general e os seus conselheiros.
+Dar xeque-mate no general adversário. As vermelhas jogam primeiro.
 # Como as peças se movem
-- General: um ponto ao longo de uma linha, dentro do seu palácio. Os dois generais nunca podem ficar frente a frente na mesma coluna sem nada entre eles.
+As peças ficam nos pontos, e não dentro das casas.
+- General: um ponto ao longo de uma linha, dentro do seu palácio.
 - Conselheiro: um ponto na diagonal, dentro do seu palácio.
 - Elefante: exatamente dois pontos na diagonal. Não pode atravessar o rio e fica bloqueado se o ponto por onde passa estiver ocupado.
 - Cavalo: um ponto ao longo de uma linha e depois um ponto na diagonal, para fora. Fica bloqueado se o primeiro ponto estiver ocupado.
-- Carruagem: quantos pontos quiser ao longo de uma linha, como a torre no xadrez.
-- Canhão: anda como a carruagem, mas só captura pulando por cima de exatamente uma peça (de qualquer lado) no caminho até a peça que captura.
-- Soldado: um ponto para a frente. Depois de atravessar o rio, também pode andar um ponto para o lado. Nunca anda para trás.
-Uma peça captura indo para um ponto ocupado por uma peça adversária, que sai do tabuleiro.
+- Carruagem: quantos pontos quiser ao longo de uma linha.
+- Canhão: anda como a carruagem, mas só captura pulando por cima de exatamente uma peça no caminho.
+- Soldado: um ponto para a frente. Depois de atravessar o rio, também pode andar para o lado. Nunca anda para trás.
 # O xeque e o fim da partida
-Um general atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio general em xeque, ou de frente para o outro general.
+Você nunca pode deixar o seu próprio general em xeque, ou de frente para o outro general na mesma coluna sem nada entre eles.
 - Xeque-mate: o general está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
-- Um jogador que não tem nenhum lance legal, mas não está em xeque, também perde (ao contrário do xadrez).
-- Empates: quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, a partida termina empatada. Essa regra simples substitui as regras de torneio contra o xeque perpétuo e a perseguição perpétua. A partida também termina empatada depois de sessenta lances de cada lado sem captura.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em um ponto, ou arraste a peça. Os pontinhos mostram os lances, os anéis as capturas. Um general em xeque brilha em vermelho. Cada barra mostra as peças que aquele jogador capturou.
+- Um jogador que não tem nenhum lance legal também perde, mesmo sem estar em xeque.
+- Empate: a mesma posição pela terceira vez com o mesmo jogador da vez, ou sessenta lances de cada lado sem captura.

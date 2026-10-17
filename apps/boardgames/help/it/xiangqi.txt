@@ -1,21 +1,17 @@
 Xiangqi
 # Lo scopo
-Dare scacco matto al generale avversario: attaccarlo in modo che non possa sfuggire. Il Rosso muove per primo, poi i giocatori si alternano, una mossa ciascuno.
-# Il tavoliere
-I pezzi stanno sui punti dove le linee si incrociano, non nelle caselle. Il fiume che attraversa il centro divide i due schieramenti. Ogni schieramento ha un palazzo: i tre per tre punti segnati con una croce, dove vivono il generale e i suoi consiglieri.
+Dare scacco matto al generale avversario. Il Rosso muove per primo.
 # Come si muovono i pezzi
-- Generale: un punto lungo una linea, dentro il suo palazzo. I due generali non possono mai stare uno di fronte all'altro sulla stessa colonna senza niente in mezzo.
+I pezzi stanno sui punti, non nelle caselle.
+- Generale: un punto lungo una linea, dentro il suo palazzo.
 - Consigliere: un punto in diagonale, dentro il suo palazzo.
 - Elefante: esattamente due punti in diagonale. Non può attraversare il fiume, ed è bloccato se il punto che scavalca è occupato.
 - Cavallo: un punto lungo una linea, poi un punto in diagonale verso l'esterno. È bloccato se il primo punto è occupato.
-- Carro: di quanti punti vuoi lungo una linea, come una torre negli scacchi.
-- Cannone: si muove come il carro, ma cattura solo saltando esattamente un pezzo (di qualsiasi schieramento) lungo la strada verso il pezzo che prende.
-- Soldato: un punto in avanti. Dopo aver attraversato il fiume può muoversi anche di un punto di lato. Non torna mai indietro.
-Un pezzo cattura spostandosi su un punto occupato da un pezzo avversario, che esce dal tavoliere.
+- Carro: di quanti punti vuoi lungo una linea.
+- Cannone: si muove come il carro, ma cattura solo saltando esattamente un pezzo lungo la strada.
+- Soldato: un punto in avanti. Dopo aver attraversato il fiume può muoversi anche di lato. Non torna mai indietro.
 # Lo scacco e la fine della partita
-Un generale attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo generale sotto scacco, o di fronte al generale avversario.
+Non puoi mai lasciare il tuo generale sotto scacco, o di fronte al generale avversario su una colonna senza niente in mezzo.
 - Scacco matto: il generale è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
-- Anche un giocatore che non ha mosse legali ma non è sotto scacco perde (a differenza degli scacchi).
-- Patta: quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno, la partita è patta. Questa regola semplice sostituisce le regole di torneo contro lo scacco perpetuo e l'inseguimento perpetuo. La partita è patta anche dopo sessanta mosse ciascuno senza catture.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca un punto, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un generale sotto scacco si illumina di rosso. Ogni barra mostra i pezzi catturati da quel giocatore.
+- Perde anche un giocatore che non ha mosse legali, anche se non è sotto scacco.
+- Patta: la stessa posizione per la terza volta con lo stesso giocatore di turno, o sessanta mosse ciascuno senza catture.

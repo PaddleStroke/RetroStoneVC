@@ -1,17 +1,13 @@
 Uitbreiding
 # Het doel
-Aan het eind de meeste stukken op het bord hebben. Het bord heeft 7 bij 7 vakjes; elke speler begint met twee stukken in tegenover elkaar liggende hoeken. Licht begint.
+Aan het eind de meeste stukken op het bord hebben. Licht begint.
 # Een zet
 Zet een van je stukken op een leeg vakje, op een van twee manieren:
 - Klonen: naar een vakje ernaast, diagonaal meegerekend. Daar verschijnt een nieuw stuk en het oude blijft staan.
-- Springen: naar een vakje twee vakjes verder, in elke richting. Het stuk verlaat zijn vakje.
+- Springen: naar een vakje twee vakjes verder, in elke richting, zelfs over een geblokkeerd vakje. Het stuk verlaat zijn vakje.
 Daarna wordt elk vijandelijk stuk naast het bereikte vakje, diagonaal meegerekend, van jou.
-# Borden
-Kies het bord voor de partij: het gewone bord, of een met een paar geblokkeerde vakjes (vier blokken, een kruis of vier poorten). Op een geblokkeerd vakje kan niets staan, maar stukken mogen eroverheen springen.
 # Het einde van de partij
 - Als het bord vol is, wint wie de meeste stukken heeft.
-- Als wie aan de beurt is geen zet heeft (geen stuk meer, of alle stukken ingesloten), is de partij uit en krijgt de andere speler alle lege vakjes. Daarna worden de stukken geteld.
+- Als wie aan de beurt is geen zet heeft, is de partij uit en krijgt de andere speler alle lege vakjes.
 - Na 50 zetten op rij die geen stuk toevoegen (alleen sprongen), worden de stukken geteld zoals ze staan.
 Evenveel stukken is remise.
-# Spelen op het apparaat
-Tik op een van je stukken en dan op een vakje, of sleep het stuk. Een grote stip is klonen, een kleine stip springen. De vijandelijke stukken rond het vakje draaien daarna een voor een om. Als de partij eindigt omdat een speler geen zet had, kleuren de lege vakjes zacht in de kleur van wie ze krijgt. Elke balk toont hoeveel stukken die speler heeft. Als er nog maar weinig zetten zijn tot de telling, staat hun aantal aan het eind van de balk van wie aan de beurt is.

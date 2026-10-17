@@ -1,17 +1,13 @@
 Surakarta
 # Målet
-Ta alla motståndarens pjäser. Varje spelare har tolv pjäser. Den ljusa sidan börjar. Spelet kommer från Java i Indonesien och har fått sitt namn efter staden Surakarta.
-# Brädet
-Trettiosex punkter på ett rutnät av sex gånger sex linjer. Två banor löper genom det: den inre (röd) längs andra och femte linjen åt båda hållen, den yttre (grön) längs tredje och fjärde. I varje hörn förenar en ögla ändarna på två linjer: de små öglorna hör till den inre banan, de stora till den yttre. Varje spelares pjäser fyller de två rader som ligger närmast spelaren.
+Ta alla motståndarens pjäser. Den ljusa sidan börjar.
 # Förflyttning
-När det är din tur flyttar du en av dina pjäser ett steg till någon av de åtta grannpunkterna, rakt eller snett, om den är tom. Öglorna används inte för dessa steg.
+Flytta en av dina pjäser ett steg till någon av de åtta grannpunkterna, om den är tom. Öglorna används inte för dessa steg.
 # Slag
-En pjäs slår genom att färdas längs en bana, så långt den vill över tomma punkter och genom minst en ögla, tills den möter en pjäs. Om det är en motståndarpjäs tas den bort från brädet, och den slående pjäsen tar dess plats.
-- Vägen måste vara fri: en pjäs kan inte hoppa över andra pjäser. Punkten som den slående pjäsen startade från räknas som tom om vägen korsar den igen.
-- Ett slag kan gå genom flera öglor. Det följer sin bana, fortsätter rakt fram där linjer korsas och svänger bara genom öglorna.
+En pjäs slår genom att färdas längs en bana (de röda eller de gröna linjerna), över tomma punkter och genom minst en ögla, tills den möter en pjäs. Om det är en motståndarpjäs tas den, och den slående pjäsen tar dess plats.
+- Vägen måste vara fri. Punkten som pjäsen startade från räknas som tom om vägen korsar den igen.
+- Den fortsätter rakt fram där linjer korsas och svänger bara genom öglorna, genom så många den vill.
 - Slag är aldrig tvingande.
 # Partiets slut
 - En spelare som inte har några pjäser kvar, eller inte kan flytta, förlorar.
-- Partiet slutar också när samma ställning återkommer för tredje gången, eller efter fyrtio drag var utan slag. Då vinner den spelare som har flest pjäser kvar; har båda lika många blir det oavgjort.
-# Spela på enheten
-Tryck på din pjäs och sedan på dess nya punkt, eller dra den. När din pjäs är vald har punkterna den kan flytta till en prick och pjäserna den kan ta en ring: tryck på en av dem för att skicka din pjäs runt genom öglorna.
+- När samma ställning återkommer för tredje gången, eller efter fyrtio drag var utan slag, vinner den spelare som har flest pjäser; har båda lika många blir det oavgjort.

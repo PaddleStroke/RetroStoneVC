@@ -1,11 +1,9 @@
 Y
 # Målet
-Forbind alle tre sider af trekanten med én gruppe af dine sten. Et hjørnefelt hører til begge de sider, der mødes der. Hvid (lys) starter.
+Forbind alle tre sider af trekanten med én gruppe af dine sten. Et hjørnefelt hører til begge de sider, der mødes der. Hvid starter.
 # Sådan spiller du
 - Skiftevis lægger hver spiller én sten på et vilkårligt tomt felt. Sten flytter aldrig og bliver aldrig fanget.
-- To af dine sten er forbundet, når deres felter rører hinanden langs en kant: hvert felt har seks naboer.
-- Spillet bliver aldrig uafgjort: når brættet er fuldt, har en af spillerne altid forbundet alle tre sider.
+- To af dine sten er forbundet, når deres felter rører hinanden langs en kant.
+- Spillet bliver aldrig uafgjort.
 # Byttet
-At spille først er en stor fordel. Kun i det andet træk må sort overtage hvids første sten i stedet for at lægge en: stenen bliver sort, hvor den ligger. Derefter spiller hvid igen.
-# Spillets afslutning
-Den spiller, der først forbinder alle tre sider, vinder.
+Kun i det andet træk må sort overtage hvids første sten i stedet for at lægge en: stenen bliver sort, hvor den ligger. Derefter spiller hvid igen.

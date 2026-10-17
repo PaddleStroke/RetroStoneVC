@@ -1,29 +1,24 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingenes brettspill, er en kamp mellom to ujevne sider. Forsvarerne, i midten, må hjelpe kongen sin å rømme. Angriperne, dobbelt så mange, omringer dem og må fange kongen. Angriperne (mørke) trekker først, deretter bytter spillerne på, ett trekk hver. Velg brett før spillet: Hnefatafl på 11×11 ruter, Tablut på 9×9 eller Brandubh på 7×7.
+Forsvarerne må hjelpe kongen sin å rømme. Angriperne, dobbelt så mange, må fange ham. Angriperne (mørke) trekker først.
 # Slik går brikkene
-- Hver brikke, også kongen, går som et tårn i sjakk: så mange tomme ruter den vil langs en rad eller en kolonne. Brikkene hopper aldri.
-- Midtruten er tronen. Bare kongen kan stoppe på den. Når den er tom, kan alle brikker passere over den.
+- Hver brikke, også kongen, går som et tårn i sjakk: så mange tomme ruter den vil langs en rad eller en kolonne.
+- Bare kongen kan stoppe på midtruten, tronen. Når den er tom, kan alle brikker passere over den.
 - I Hnefatafl kan bare kongen stoppe på de fire hjørnerutene.
 # Fangst
-- En brikke fanges når en motstanderbrikke flytter slik at den blir klemt mellom to motstandere langs en rad eller en kolonne. Den forlater brettet. Ett trekk kan fange opptil tre brikker.
-- Hjørnene og den tomme tronen virker som fiender for alle brikker: en brikke ved siden av en av dem fanges av én enkelt motstander på den andre siden.
-- Kongen hjelper forsvarerne med å fange.
+- En brikke fanges når en motstanderbrikke flytter slik at den blir klemt mellom to motstandere langs en rad eller en kolonne. Ett trekk kan fange opptil tre brikker.
+- Hjørnene og den tomme tronen virker som fiender for alle brikker. Kongen hjelper forsvarerne med å fange.
 - En brikke kan trygt flytte inn i åpningen mellom to motstanderbrikker.
 # Kongen
-- Kongen fanges når angripere stenger ham inne på alle fire sider, eller på tre sider med den tomme tronen på den fjerde. Han kan ikke fanges ved kanten av brettet.
-- Forsvarerne vinner når kongen når en hjørnerute. Angriperne vinner når de fanger kongen.
+- Kongen fanges når angripere står på alle fire sidene hans, eller på tre sider med den tomme tronen på den fjerde. Han kan ikke fanges ved kanten av brettet.
+- Forsvarerne vinner når kongen når en hjørnerute.
 # Tablut (9×9)
-- 16 angripere mot 8 forsvarere og kongen. Hjørnene er vanlige ruter.
-- Forsvarerne vinner når kongen når en hvilken som helst rute ved kanten av brettet.
-- På tronen eller ved siden av den fanges kongen som i Hnefatafl. Overalt ellers fanger to angripere på hver sin side ham, som enhver annen brikke.
+- Hjørnene er vanlige ruter. Kongen vinner på en hvilken som helst rute ved kanten av brettet.
+- Borte fra tronen og rutene ved siden av den fanger to angripere på hver sin side kongen.
 # Brandubh (7×7)
-- Det irske spillet: 8 angripere mot 4 forsvarere og kongen, i et kors.
-- Hjørnene og tronen er som i Hnefatafl: bare kongen kan stoppe på dem, og forsvarerne vinner når kongen når et hjørne.
-- På tronen eller ved siden av den fanges kongen som i Hnefatafl. Overalt ellers fanges han som enhver annen brikke: av to angripere på hver sin side, eller av én angriper med et hjørne på den andre siden.
+- Hjørnene og tronen er som i Hnefatafl.
+- Borte fra tronen og rutene ved siden av den fanges kongen som enhver annen brikke: av to angripere på hver sin side, eller av én angriper med et hjørne på den andre siden.
 # Slutten på spillet
 - En spiller som ikke kan flytte, taper.
-- Når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, er spillet uavgjort. Et spill på 1000 trekk hver er også uavgjort.
-- Dette er København-reglene, uten de valgfrie reglene om skjoldmur, kantfort og omringing.
-# Spill på enheten
-Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene. De fangede brikkene blekner bort. En konge som angriperne kan fange i neste trekk, lyser rødt, og gylne lys viser angriperne hvor kongen kan rømme i neste trekk.
+- Den samme stillingen for tredje gang med samme spiller i trekket, eller 1000 trekk hver, er uavgjort.
+- København-reglene, uten skjoldmur, kantfort og omringing.

@@ -1,29 +1,24 @@
 Hnefatafl
 # Le but
-Le hnefatafl, le jeu de plateau des Vikings, est une bataille entre deux camps inégaux. Les défenseurs, au centre, doivent aider leur roi à s'échapper. Les attaquants, deux fois plus nombreux, les encerclent et doivent capturer le roi. Les attaquants (foncés) commencent, puis les joueurs jouent à tour de rôle, un coup chacun. Choisis le plateau avant la partie : le hnefatafl sur 11 sur 11 cases, le tablut sur 9 sur 9, ou le brandubh sur 7 sur 7.
+Les défenseurs doivent aider leur roi à s'échapper. Les attaquants, deux fois plus nombreux, doivent capturer le roi. Les attaquants (foncés) commencent.
 # Le déplacement des pièces
-- Chaque pièce, le roi compris, se déplace comme une tour aux échecs : d'autant de cases vides que tu veux le long d'une rangée ou d'une colonne. Les pièces ne sautent jamais.
-- La case centrale est le trône. Seul le roi peut s'y arrêter. Quand le trône est vide, n'importe quelle pièce peut passer par-dessus.
-- Au hnefatafl, seul le roi peut s'arrêter sur les quatre cases d'angle.
+- Chaque pièce, le roi compris, se déplace comme une tour aux échecs : d'autant de cases vides que tu veux le long d'une rangée ou d'une colonne.
+- Seul le roi peut s'arrêter sur la case centrale, le trône. Quand il est vide, n'importe quelle pièce peut passer par-dessus.
+- Au hnefatafl, seul le roi peut s'arrêter sur les quatre coins.
 # Les prises
-- Une pièce est prise quand une pièce adverse se déplace de sorte qu'elle se retrouve coincée entre deux ennemis le long d'une rangée ou d'une colonne. Elle quitte le plateau. Un seul coup peut prendre jusqu'à trois pièces.
-- Les coins et le trône vide comptent comme des ennemis pour toutes les pièces : une pièce à côté de l'un d'eux est prise par un seul ennemi de l'autre côté.
-- Le roi aide les défenseurs à prendre.
+- Une pièce est prise quand une pièce adverse se déplace de sorte qu'elle se retrouve coincée entre deux ennemis le long d'une rangée ou d'une colonne. Un seul coup peut prendre jusqu'à trois pièces.
+- Les coins et le trône vide comptent comme des ennemis pour toutes les pièces. Le roi aide les défenseurs à prendre.
 - Une pièce peut entrer sans danger dans l'espace entre deux pièces adverses.
 # Le roi
-- Le roi est capturé quand des attaquants l'entourent sur ses quatre côtés, ou sur trois côtés avec le trône vide sur le quatrième. Il ne peut pas être capturé sur le bord du plateau.
-- Les défenseurs gagnent quand le roi atteint une case d'angle. Les attaquants gagnent quand ils capturent le roi.
+- Le roi est capturé quand des attaquants l'entourent sur ses quatre côtés, ou sur trois côtés avec le trône vide sur le quatrième. Il ne peut pas être capturé sur le bord.
+- Les défenseurs gagnent quand le roi atteint un coin.
 # Tablut (9 sur 9)
-- 16 attaquants contre 8 défenseurs et le roi. Les coins sont des cases ordinaires.
-- Les défenseurs gagnent quand le roi atteint n'importe quelle case du bord du plateau.
-- Sur le trône ou à côté, le roi est capturé comme au hnefatafl. Partout ailleurs, deux attaquants de part et d'autre le capturent, comme n'importe quelle autre pièce.
+- Les coins sont des cases ordinaires. Le roi gagne sur n'importe quelle case du bord.
+- Loin du trône et de ses voisines, deux attaquants de part et d'autre capturent le roi.
 # Brandubh (7 sur 7)
-- Le jeu irlandais : 8 attaquants contre 4 défenseurs et le roi, en croix.
-- Les coins et le trône sont comme au hnefatafl : seul le roi peut s'y arrêter, et les défenseurs gagnent quand le roi atteint un coin.
-- Sur le trône ou à côté, le roi est capturé comme au hnefatafl. Partout ailleurs, il est capturé comme n'importe quelle autre pièce : par deux attaquants de part et d'autre, ou par un attaquant avec un coin de l'autre côté.
+- Les coins et le trône sont comme au hnefatafl.
+- Loin du trône et de ses voisines, le roi est capturé comme n'importe quelle pièce : par deux attaquants de part et d'autre, ou par un attaquant avec un coin de l'autre côté.
 # La fin de la partie
 - Un joueur qui ne peut pas bouger a perdu.
-- Quand la même position revient pour la troisième fois avec le même joueur au trait, la partie est nulle. Une partie de 1000 coups de chaque côté est aussi nulle.
-- Ce sont les règles de Copenhague, sans les règles facultatives du mur de boucliers, du fort sur le bord et de l'encerclement.
-# Jouer sur l'appareil
-Touche une pièce pour voir où elle peut aller, puis touche une case, ou fais glisser la pièce. Les points montrent les coups possibles. Les pièces prises s'estompent. Un roi que les attaquants pourraient capturer au coup suivant brille en rouge, et des lumières dorées montrent aux attaquants où le roi pourrait s'échapper au coup suivant.
+- La même position pour la troisième fois avec le même joueur au trait, ou 1000 coups de chaque côté : la partie est nulle.
+- Les règles de Copenhague, sans mur de boucliers, fort sur le bord ni encerclement.

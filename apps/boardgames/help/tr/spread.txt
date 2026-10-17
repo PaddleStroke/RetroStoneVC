@@ -1,17 +1,13 @@
 Yayılma
 # Amaç
-Oyunun sonunda tahtada en çok pula sahip olmak. Tahta 7'ye 7 karedir; her oyuncu karşılıklı köşelerde iki pulla başlar. İlk hamleyi açık renk yapar.
+Oyunun sonunda tahtada en çok pula sahip olmak. İlk hamleyi açık renk yapar.
 # Bir hamle
 Pullarından birini boş bir kareye iki yoldan biriyle götür:
 - Kopya: yanındaki bir kareye, çaprazlar dahil. Orada yeni bir pul belirir, eskisi yerinde kalır.
-- Sıçrama: iki kare uzaktaki bir kareye, herhangi bir yönde. Pul kendi karesinden ayrılır.
+- Sıçrama: iki kare uzaktaki bir kareye, herhangi bir yönde, kapalı bir karenin üzerinden bile. Pul kendi karesinden ayrılır.
 Sonra, vardığın karenin yanındaki her rakip pul, çaprazlar dahil, senin olur.
-# Tahtalar
-Oyundan önce tahtayı seç: düz tahta ya da birkaç kapalı karesi olan bir tahta (dört blok, bir haç ya da dört kapı). Kapalı bir kareye hiçbir şey konamaz, ama pullar üzerinden sıçrayabilir.
 # Oyunun sonu
 - Tahta dolduğunda en çok pulu olan kazanır.
-- Sırası gelen oyuncunun hiç hamlesi yoksa (pulu kalmamışsa ya da bütün pulları sıkışmışsa) oyun biter ve diğer oyuncu bütün boş kareleri alır. Sonra pullar sayılır.
+- Sırası gelen oyuncunun hiç hamlesi yoksa oyun biter ve diğer oyuncu bütün boş kareleri alır.
 - Arka arkaya 50 hamle hiç yeni pul eklemezse (yalnızca sıçramalar), pullar olduğu gibi sayılır.
 Pul sayıları eşitse oyun berabere biter.
-# Cihazda oynamak
-Pullarından birine, sonra bir kareye dokun ya da pulu sürükle. Büyük nokta kopya, küçük nokta sıçramadır. Karenin çevresindeki rakip pullar sonra birbiri ardına döner. Oyun bir oyuncunun hamlesi kalmadığı için bittiğinde, boş kareler onları alan oyuncunun renginde soluk görünür. Her şerit, o oyuncunun kaç pulu olduğunu gösterir. Sayıma az hamle kaldığında, kalan sayı sırası gelenin şeridinin sonunda görünür.

@@ -1,21 +1,17 @@
 Xiangqi
 # Målet
-Sett motstanderens general sjakkmatt: angrip den slik at den ikke kan unnslippe. Rød trekker først, deretter bytter spillerne på, ett trekk hver.
-# Brettet
-Brikkene står på punktene der linjene krysser hverandre, ikke i rutene. Elven tvers over midten skiller de to sidene. Hver side har et palass: de 3×3 punktene som er merket med et kryss, der generalen og rådgiverne bor.
+Sett motstanderens general sjakkmatt. Rød trekker først.
 # Slik går brikkene
-- General: ett punkt langs en linje, innenfor palasset sitt. De to generalene kan aldri stå rett overfor hverandre på samme linje uten noe imellom.
+Brikkene står på punktene, ikke i rutene.
+- General: ett punkt langs en linje, innenfor palasset sitt.
 - Rådgiver: ett punkt diagonalt, innenfor palasset sitt.
 - Elefant: nøyaktig to punkter diagonalt. Den kan ikke krysse elven, og den sperres hvis punktet den passerer, er opptatt.
 - Hest: ett punkt langs en linje, så ett punkt diagonalt utover. Den sperres hvis det første punktet er opptatt.
-- Vogn: så mange punkter den vil langs en linje, som et tårn i sjakk.
-- Kanon: går som vognen, men slår bare ved å hoppe over nøyaktig én brikke (fra hvilken som helst side) på vei til brikken den slår.
-- Soldat: ett punkt fram. Når den har krysset elven, kan den også gå ett punkt til siden. Den går aldri bakover.
-En brikke slår ved å flytte til et punkt der en motstanderbrikke står, og den slåtte brikken forlater brettet.
+- Vogn: så mange punkter den vil langs en linje.
+- Kanon: går som vognen, men slår bare ved å hoppe over nøyaktig én brikke på veien.
+- Soldat: ett punkt fram. Når den har krysset elven, kan den også gå til siden. Den går aldri bakover.
 # Sjakk og slutten på partiet
-En general som er angrepet, står i sjakk: neste trekk må få den ut av sjakk. Du kan aldri gjøre et trekk som lar din egen general stå i sjakk, eller rett overfor den andre generalen.
+Du kan aldri la din egen general stå i sjakk, eller rett overfor den andre generalen på samme linje uten noe imellom.
 - Sjakkmatt: generalen står i sjakk, og ingen trekk kan redde den. Den spilleren taper.
-- En spiller som ikke har noe lovlig trekk, men ikke står i sjakk, taper også (i motsetning til i sjakk).
-- Remis: når den samme stillingen kommer igjen for tredje gang med samme spiller i trekket, er partiet remis. Denne enkle regelen erstatter turneringsreglene mot evig sjakk og evig jakt. Partiet er også remis etter seksti trekk hver uten slag.
-# Spill på enheten
-Trykk på en brikke for å se hvor den kan gå, og trykk så på et punkt, eller dra brikken. Prikker viser trekkene, ringer slagene. En general i sjakk lyser rødt. Hvert panel viser brikkene den spilleren har slått.
+- En spiller som ikke har noe lovlig trekk, taper også, selv uten å stå i sjakk.
+- Remis: den samme stillingen for tredje gang med samme spiller i trekket, eller seksti trekk hver uten slag.

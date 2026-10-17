@@ -1,17 +1,13 @@
 Expansión
 # El objetivo
-Tener más fichas en el tablero al final. El tablero tiene 7 por 7 casillas; cada jugador empieza con dos fichas en esquinas opuestas. Empiezan las claras.
+Tener más fichas en el tablero al final. Empiezan las claras.
 # Una jugada
 Mueve una de tus fichas a una casilla vacía, de una de estas dos maneras:
 - Clonar: a una casilla vecina, diagonales incluidas. Allí aparece una ficha nueva y la antigua se queda donde estaba.
-- Saltar: a una casilla a dos casillas de distancia, en cualquier dirección. La ficha deja su casilla.
+- Saltar: a una casilla a dos casillas de distancia, en cualquier dirección, incluso por encima de una casilla bloqueada. La ficha deja su casilla.
 Después, cada ficha contraria vecina de la casilla a la que has llegado, diagonales incluidas, pasa a ser tuya.
-# Los tableros
-Elige el tablero antes de la partida: el tablero liso o uno con algunas casillas bloqueadas (cuatro bloques, una cruz o cuatro puertas). Nada puede ir a una casilla bloqueada, pero las fichas pueden saltar por encima.
 # El final de la partida
 - Cuando el tablero está lleno, gana el jugador con más fichas.
-- Cuando el jugador al que le toca no tiene ninguna jugada (no le quedan fichas o todas están encerradas), la partida termina y el otro jugador se queda con todas las casillas vacías. Luego se cuentan las fichas.
+- Cuando el jugador al que le toca no tiene ninguna jugada, la partida termina y el otro jugador se queda con todas las casillas vacías.
 - Tras 50 jugadas seguidas que no añaden ninguna ficha (solo saltos), se cuentan las fichas tal como están.
 Con el mismo número de fichas, la partida termina en empate.
-# Jugar en el dispositivo
-Toca una de tus fichas y luego una casilla, o arrastra la ficha. Un punto grande es un clon; un punto pequeño, un salto. Después, las fichas contrarias alrededor de la casilla se dan la vuelta una tras otra. Cuando la partida termina porque un jugador no tenía jugada, las casillas vacías se tiñen levemente del color del jugador que se las queda. Cada barra muestra cuántas fichas tiene ese jugador. Cuando quedan pocas jugadas para el recuento, su número aparece al final de la barra del jugador al que le toca.

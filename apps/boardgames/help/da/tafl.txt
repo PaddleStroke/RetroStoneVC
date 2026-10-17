@@ -1,29 +1,24 @@
 Hnefatafl
 # Målet
-Hnefatafl, vikingernes brætspil, er et slag mellem to ulige sider. Forsvarerne i midten skal hjælpe deres konge med at flygte. Angriberne, dobbelt så mange, omringer dem og skal fange kongen. Angriberne (mørke) trækker først, derefter skiftes spillerne, ét træk ad gangen. Vælg bræt før spillet: Hnefatafl på 11×11 felter, Tablut på 9×9 eller Brandubh på 7×7.
+Forsvarerne skal hjælpe deres konge med at flygte. Angriberne, dobbelt så mange, skal fange kongen. Angriberne (mørke) trækker først.
 # Sådan trækker brikkerne
-- Hver brik, også kongen, flytter som et tårn i skak: et vilkårligt antal tomme felter langs en række eller en kolonne. Brikker springer aldrig.
-- Det midterste felt er tronen. Kun kongen må standse på den. Når den er tom, må enhver brik passere hen over den.
+- Hver brik, også kongen, flytter som et tårn i skak: et vilkårligt antal tomme felter langs en række eller en kolonne.
+- Kun kongen må standse på det midterste felt, tronen. Når den er tom, må enhver brik passere hen over den.
 - I Hnefatafl må kun kongen standse på de fire hjørnefelter.
 # Slag
-- En brik bliver slået, når en modstanderbrik flytter, så brikken er fanget mellem to fjender langs en række eller en kolonne. Den forlader brættet. Ét træk kan slå op til tre brikker.
-- Hjørnerne og den tomme trone fungerer som fjender af alle brikker: en brik ved siden af en af dem bliver slået af en enkelt fjende på sin anden side.
-- Kongen hjælper forsvarerne med at slå.
+- En brik bliver slået, når en modstanderbrik flytter, så brikken er fanget mellem to fjender langs en række eller en kolonne. Ét træk kan slå op til tre brikker.
+- Hjørnerne og den tomme trone fungerer som fjender af alle brikker. Kongen hjælper forsvarerne med at slå.
 - En brik kan trygt flytte ind i hullet mellem to modstanderbrikker.
 # Kongen
-- Kongen er fanget, når angribere omringer den på alle fire sider, eller på tre sider med den tomme trone på den fjerde. Den kan ikke fanges på brættets kant.
-- Forsvarerne vinder, når kongen når et hjørnefelt. Angriberne vinder, når de fanger kongen.
+- Kongen er fanget, når angribere står på alle fire sider af den, eller på tre sider med den tomme trone på den fjerde. Den kan ikke fanges på brættets kant.
+- Forsvarerne vinder, når kongen når et hjørnefelt.
 # Tablut (9×9)
-- 16 angribere mod 8 forsvarere og kongen. Hjørnerne er almindelige felter.
-- Forsvarerne vinder, når kongen når et hvilket som helst felt på brættets kant.
-- På tronen eller ved siden af den fanges kongen som i Hnefatafl. Alle andre steder fanger to angribere på hver sin side den, ligesom enhver anden brik.
+- Hjørnerne er almindelige felter. Kongen vinder på et hvilket som helst felt på brættets kant.
+- Væk fra tronen og felterne ved siden af den fanger to angribere på hver sin side kongen.
 # Brandubh (7×7)
-- Det irske spil: 8 angribere mod 4 forsvarere og kongen, i et kors.
-- Hjørnerne og tronen er som i Hnefatafl: kun kongen må stoppe på dem, og forsvarerne vinder, når kongen når et hjørne.
-- På tronen eller ved siden af den fanges kongen som i Hnefatafl. Alle andre steder fanges den som enhver anden brik: af to angribere på hver sin side eller af én angriber med et hjørne på den anden side.
+- Hjørnerne og tronen er som i Hnefatafl.
+- Væk fra tronen og felterne ved siden af den fanges kongen som enhver anden brik: af to angribere på hver sin side eller af én angriber med et hjørne på den anden side.
 # Spillets afslutning
 - En spiller, der ikke kan flytte, taber.
-- Når den samme stilling opstår for tredje gang med den samme spiller i trækket, er spillet uafgjort. Et spil på 1000 træk hver er også uafgjort.
-- Dette er Københavnerreglerne, uden de valgfrie regler om skjoldmur, kantfort og omringning.
-# Spil på enheden
-Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene. De slåede brikker toner ud. En konge, som angriberne kunne fange i næste træk, lyser rødt, og gyldne lys viser angriberne, hvor kongen kunne flygte hen i næste træk.
+- Den samme stilling for tredje gang med den samme spiller i trækket, eller 1000 træk hver, er uafgjort.
+- Københavnerreglerne, uden skjoldmur, kantfort og omringning.

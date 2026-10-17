@@ -1,11 +1,9 @@
 Y
 # Das Ziel
-Verbinde alle drei Seiten des Dreiecks mit einer einzigen Gruppe deiner Steine. Ein Eckfeld gehört zu beiden Seiten, die dort zusammentreffen. Weiß (hell) beginnt.
+Verbinde alle drei Seiten des Dreiecks mit einer einzigen Gruppe deiner Steine. Ein Eckfeld gehört zu beiden Seiten, die dort zusammentreffen. Weiß beginnt.
 # So wird gespielt
 - Abwechselnd setzt jeder Spieler einen Stein auf ein beliebiges leeres Feld. Steine bewegen sich nie und werden nie geschlagen.
-- Zwei deiner Steine sind verbunden, wenn sich ihre Felder an einer Kante berühren: Jedes Feld hat sechs Nachbarn.
-- Es gibt nie ein Unentschieden: Ist das Brett voll, hat immer einer der Spieler alle drei Seiten verbunden.
+- Zwei deiner Steine sind verbunden, wenn sich ihre Felder an einer Kante berühren.
+- Es gibt nie ein Unentschieden.
 # Der Tausch
-Als Erster zu spielen ist ein großer Vorteil. Nur im zweiten Zug darf Schwarz den ersten Stein von Weiß übernehmen, statt einen eigenen zu setzen: Der Stein wird an seinem Platz schwarz. Dann spielt Weiß erneut.
-# Das Ende der Partie
-Wer zuerst alle drei Seiten verbindet, gewinnt.
+Nur im zweiten Zug darf Schwarz den ersten Stein von Weiß übernehmen, statt einen eigenen zu setzen: Der Stein wird an seinem Platz schwarz. Dann spielt Weiß erneut.

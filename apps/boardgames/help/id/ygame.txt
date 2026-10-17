@@ -1,11 +1,9 @@
 Y
 # Tujuan
-Hubungkan ketiga sisi segitiga dengan satu kelompok batumu. Petak sudut termasuk kedua sisi yang bertemu di sana. Putih (terang) jalan lebih dulu.
+Hubungkan ketiga sisi segitiga dengan satu kelompok batumu. Petak sudut termasuk kedua sisi yang bertemu di sana. Putih jalan lebih dulu.
 # Cara bermain
 - Secara bergiliran, setiap pemain meletakkan satu batu di petak kosong mana pun. Batu tidak pernah dipindahkan dan tidak pernah ditangkap.
-- Dua batumu terhubung jika petaknya bersentuhan pada satu sisi: setiap petak punya enam tetangga.
-- Tidak pernah ada seri: begitu papan penuh, salah satu pemain pasti sudah menghubungkan ketiga sisi.
+- Dua batumu terhubung jika petaknya bersentuhan pada satu sisi.
+- Tidak pernah ada seri.
 # Tukar
-Jalan lebih dulu adalah keuntungan besar. Hanya pada langkah kedua, Hitam boleh mengambil batu pertama Putih alih-alih meletakkan batu: batu itu menjadi hitam di tempatnya. Lalu Putih bermain lagi.
-# Akhir permainan
-Pemain pertama yang menghubungkan ketiga sisi menang.
+Hanya pada langkah kedua, Hitam boleh mengambil batu pertama Putih alih-alih meletakkan batu: batu itu menjadi hitam di tempatnya. Lalu Putih bermain lagi.

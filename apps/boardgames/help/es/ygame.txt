@@ -1,11 +1,9 @@
 Y
 # El objetivo
-Unir los tres lados del triángulo con un solo grupo de tus piedras. Una casilla de esquina pertenece a los dos lados que se juntan en ella. Empiezan las blancas (claras).
+Unir los tres lados del triángulo con un solo grupo de tus piedras. Una casilla de esquina pertenece a los dos lados que se juntan en ella. Empiezan las blancas.
 # El juego
 - Por turnos, cada jugador coloca una piedra en cualquier casilla vacía. Las piedras no se mueven nunca y nunca se capturan.
-- Dos de tus piedras están unidas cuando sus casillas comparten un lado: cada casilla tiene seis vecinas.
-- Nunca hay empate: cuando el tablero está lleno, uno de los jugadores siempre ha unido los tres lados.
+- Dos de tus piedras están unidas cuando sus casillas comparten un lado.
+- Nunca hay empate.
 # El cambio
-Jugar primero es una gran ventaja. Solo en la segunda jugada, las negras pueden quedarse con la primera piedra de las blancas en lugar de colocar una: la piedra se vuelve negra en su sitio. Después las blancas vuelven a jugar.
-# El final de la partida
-Gana el primer jugador que une los tres lados.
+Solo en la segunda jugada, las negras pueden quedarse con la primera piedra de las blancas en lugar de colocar una: la piedra se vuelve negra en su sitio. Después las blancas vuelven a jugar.

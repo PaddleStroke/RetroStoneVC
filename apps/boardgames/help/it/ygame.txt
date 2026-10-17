@@ -1,11 +1,9 @@
 Y
 # Lo scopo
-Collegare tutti e tre i lati del triangolo con un solo gruppo di tue pietre. Una casella d'angolo appartiene a entrambi i lati che vi si incontrano. Il Bianco (chiaro) gioca per primo.
+Collegare tutti e tre i lati del triangolo con un solo gruppo di tue pietre. Una casella d'angolo appartiene a entrambi i lati che vi si incontrano. Il Bianco gioca per primo.
 # Il gioco
 - A turno, ogni giocatore posa una pietra su una casella vuota qualsiasi. Le pietre non si muovono mai e non vengono mai catturate.
-- Due tue pietre sono collegate quando le loro caselle hanno un lato in comune: ogni casella ha sei vicine.
-- Non c'è mai patta: quando il tavoliere è pieno, uno dei giocatori ha sempre collegato tutti e tre i lati.
+- Due tue pietre sono collegate quando le loro caselle hanno un lato in comune.
+- Non c'è mai patta.
 # Lo scambio
-Giocare per primo è un grande vantaggio. Solo alla seconda mossa, il Nero può prendersi la prima pietra del Bianco invece di posarne una: la pietra diventa nera dove si trova. Poi il Bianco gioca di nuovo.
-# La fine della partita
-Vince il primo giocatore che collega tutti e tre i lati.
+Solo alla seconda mossa, il Nero può prendersi la prima pietra del Bianco invece di posarne una: la pietra diventa nera dove si trova. Poi il Bianco gioca di nuovo.

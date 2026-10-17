@@ -1,17 +1,13 @@
 Surakarta
 # The aim
-Take all the other player's pieces. Each player has twelve pieces. Light plays first. The game comes from Java, in Indonesia, and is named after the city of Surakarta.
-# The board
-Thirty-six points on a grid of six lines by six. Two circuits run through it: the inner one (red) along the second and the fifth line each way, the outer one (green) along the third and the fourth. At each corner a loop joins the ends of two lines: the small loops belong to the inner circuit, the big ones to the outer circuit. Each player's pieces fill the two rows nearest to them.
+Take all the other player's pieces. Light plays first.
 # Moving
-On your turn, move one of your pieces one step to any of the eight neighbouring points, straight or slanting, if it is empty. The loops are not used for these steps.
+Move one of your pieces one step to any of the eight neighbouring points, if it is empty. The loops are not used for these steps.
 # Capturing
-A piece captures by travelling along a circuit, as far as it likes over empty points and round at least one loop, until it meets a piece. If that piece is an enemy one, it is taken off the board and the capturing piece takes its place.
-- The way must be clear: a piece cannot jump over other pieces. The point the capturing piece started from counts as empty if its way crosses it again.
-- A capture may go round several loops. It follows its circuit, going straight on where lines cross and turning only by the loops.
+A piece captures by travelling along a circuit (the red or the green lines), over empty points and round at least one loop, until it meets a piece. If that piece is an enemy one, it is taken and the capturing piece takes its place.
+- The way must be clear. The point the piece started from counts as empty if its way crosses it again.
+- It goes straight on where lines cross and turns only by the loops, round as many as it likes.
 - Capturing is never compulsory.
 # The end of the game
 - A player who has no pieces left, or cannot move, loses.
-- The game also ends when the same position comes back for the third time, or after forty moves each without a capture. Then the player with more pieces left wins; with as many pieces, it is a draw.
-# Playing on the device
-Tap your piece and then its new point, or drag it. When your piece is selected, the points it can step to have a dot and the pieces it can take have a ring: tap one to send your piece round the loops.
+- When the same position comes back for the third time, or after forty moves each without a capture, the player with more pieces wins; with as many pieces, it is a draw.
