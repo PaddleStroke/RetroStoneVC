@@ -21,6 +21,7 @@
 #include "cards_table.h"
 #include "games/pinochle.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 #define DRAW_MS 320
@@ -410,7 +411,7 @@ static void seats_draw(const pino_pos *p)
             continue;
         }
         if (p->phase == PP_PLAY || p->phase == PP_MELD) {
-            if (p->won[q]) ui_number(x, y, 0.5f * T.tok, p->won[q], 1);
+            if (p->won[q]) ui_number(x, y, 0.5f * T.tok, p->won[q], TH.dark);   /* (the table's ink) */
         }
     }
 }
