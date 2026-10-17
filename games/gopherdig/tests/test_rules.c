@@ -222,6 +222,38 @@ static void test_climb(void)
     in[0].dir = 1;
     step(3);
     CHECK(w->go.col == 4 && w->go.face == 1, "a tap toward a block only turns (no climb)");
+    /* a block falling down the gopher's own column while it climbs out of it: the climb goes up that column first, so
+     * the block comes down on it (it used to pass through the gopher: only the cells it left and went to counted) */
+    w = box(4, 3);
+    well_set(w, 5, 3, K_GREEN);
+    well_set(w, 4, 1, K_RED);
+    step(1);
+    gcell *x = (gcell *)well_cell(w, 4, 1);
+    x->st = C_FALL;                              /* falling, the next tick in 2 frames: into (4, 2) */
+    x->timer = 0;
+    w->dirty = 0;
+    w->fall_t = stratum_param(0, P_FALL) - 2;
+    w->go.hold_t = CLIMB_HOLD - 1;
+    in[0].dir = 1;
+    step(1);
+    CHECK(w->go.act == ACT_CLIMB && w->go.col == 5 && w->go.row == 2, "the climb starts (%d %d)", w->go.col, w->go.row);
+    step(CLIMB_FRAMES + 2);
+    CHECK(!w->go.alive && w->go.out == OUT_CRUSH, "a block falling into the column it climbs up crushes the gopher");
+    /* the same block a moment later, the gopher over the edge already (past half the climb): it lives */
+    w = box(4, 3);
+    well_set(w, 5, 3, K_GREEN);
+    well_set(w, 4, 1, K_RED);
+    step(1);
+    x = (gcell *)well_cell(w, 4, 1);
+    x->st = C_FALL;
+    x->timer = 0;
+    w->dirty = 0;
+    w->fall_t = stratum_param(0, P_FALL) - 1 - CLIMB_FRAMES / 2;   /* the tick at half the climb */
+    w->go.hold_t = CLIMB_HOLD - 1;
+    in[0].dir = 1;
+    step(1);
+    step(CLIMB_FRAMES + 2);
+    CHECK(w->go.alive && w->go.col == 5 && w->go.row == 2, "...but not once it is past half the climb");
 }
 
 static void test_strata(void)
@@ -261,6 +293,34 @@ static void test_touch(void)
     step(1);
     step(CLIMB_FRAMES + 20);
     CHECK(w->go.col == 8 && (evs & EV_CLIMB), "touch: walking to a column climbs a step on the way (%d)", w->go.col);
+}
+
+/* very deep (3 km: past 32767 well pixels): the effects keep their place (an fx's y was an int16 and wrapped) */
+static void test_deep(void)
+{
+    world_init(&W, 1, 99);
+    well *w = &W.w[0];
+    well_clear(w);
+    int row = 3019;
+    w->top = row - ROWS_ABOVE;
+    for (int r = row + 1; r < w->top + ROWS; r++)
+        for (int c = 0; c < COLS; c++) well_set(w, c, r, K_HARD);
+    gopher *g = &w->go;
+    g->col = g->from_col = 4;
+    g->row = g->from_row = row;
+    g->x = 4 * CELL;
+    g->y = row * CELL;
+    g->depth = row + 1;
+    g->stratum = g->depth / STRATUM_M;
+    well_set(w, 5, row, K_RED);
+    idle();
+    step(2);
+    in[0].dir = 1;
+    in[0].drill = 1;
+    world_step(&W, in);
+    CHECK(kind(w, 5, row) == K_EMPTY && W.nfx >= 1 && W.fx[0].kind == FX_POP && W.fx[0].y == row * CELL &&
+          W.fx[0].x == 5 * CELL, "3 km down: the pop's effect at its block (y %d, not %d)", (int)W.fx[0].y, row * CELL);
+    idle();
 }
 
 static void test_wells(void)
@@ -303,6 +363,7 @@ int main(void)
     test_climb();
     test_strata();
     test_touch();
+    test_deep();
     test_wells();
     test_bot();
     printf("gopherdig rules: %d checks, %d failed\n", checks, fails);

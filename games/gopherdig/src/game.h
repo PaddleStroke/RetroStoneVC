@@ -135,7 +135,7 @@ typedef struct pin {            /* a player's input this frame */
 
 enum { FX_POP, FX_CHAIN, FX_HARD, FX_CRACK, FX_AIR, FX_DUST, FX_CRUSH };
 typedef struct fx {             /* an effect of the last step, for draw.c (well pixels of a cell's top-left) */
-    int16_t x, y;
+    int32_t x, y;               /* int32: a well deeper than 2047 m is past 32767 px */
     uint8_t kind, colour, player, n;
 } fx;
 #define FX_MAX 64

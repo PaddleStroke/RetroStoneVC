@@ -57,7 +57,8 @@ int view_well_x(const vrect *v) { return v->x + (v->w - WELL_PX) / 2; }
 int view_gopher_y(const vrect *v) { return v->h >= 200 ? 76 : 34; }
 
 /* ---- state ----------------------------------------------------------------------------------------------------------------- */
-typedef struct vline { int16_t cam_y, y0, theme, pad_; } vline;   /* the raster's view of each viewport */
+typedef struct vline { int32_t cam_y; int16_t y0, theme; } vline;   /* the raster's view of each viewport (cam_y: a
+                                                                     * well deeper than 2047 m is past 32767 px) */
 static vline VL[RS_VIEW_MAX];
 static rs_viewport VP[RS_VIEW_MAX];
 static int views_on;
@@ -70,7 +71,8 @@ static uint32_t shown_text;
 static int drawn_width;                      /* the width the maps were set up for (state_audit.txt) */
 
 /* the effects: from the world's fx list, animated here (well pixels, by player) */
-typedef struct part { int16_t x, y, vx, vy, t, kind, colour, player; } part;
+/* x, y in 1/16 px of the well: int32 (in int16 they wrapped from 128 m down, and the effects were lost) */
+typedef struct part { int32_t x, y; int16_t vx, vy, t, kind, colour, player; } part;
 #define PARTS 64
 static part parts[PARTS];
 static int last_fx_t = -1;
@@ -361,8 +363,8 @@ static void add_part(int kind, int x, int y, int vx, int vy, int t, int colour, 
     for (int i = 0; i < PARTS; i++)
         if (parts[i].t < parts[slot].t) slot = i;
     part *q = &parts[slot];
-    q->x = (int16_t)(x * 16);
-    q->y = (int16_t)(y * 16);
+    q->x = x * 16;
+    q->y = y * 16;
     q->vx = (int16_t)vx;
     q->vy = (int16_t)vy;
     q->t = (int16_t)t;
@@ -377,8 +379,8 @@ static void parts_step(const world *w)
         part *q = &parts[i];
         if (q->t <= 0) continue;
         q->t--;
-        q->x = (int16_t)(q->x + q->vx);
-        q->y = (int16_t)(q->y + q->vy);
+        q->x += q->vx;
+        q->y += q->vy;
         if (q->kind == PT_CRUMB) q->vy = (int16_t)(q->vy + 3);
     }
     if (w->t == last_fx_t) return;
@@ -753,7 +755,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         int cy = state == ST_TITLE ? TITLE_CAM : draw_cam_y(0);
         const well *w = &W->w[0];
         write_view(w, 0, cy - sy, RS_SCREEN_H);
-        VL[0].cam_y = (int16_t)(cy - sy);
+        VL[0].cam_y = cy - sy;
         VL[0].y0 = 0;
         VL[0].theme = -1;
         int x = well_tile_x(0) * 8 - (view_well_x(&v[0]) - rs_screen_left()) - rs_screen_left() - sx;
@@ -809,7 +811,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         write_view(w, p, cy - sy, v[i].h);
         view_set(q, &v[i], 0x0f, p, cy, t, sx, sy);
         q->sy[RS_BG2] = (int16_t)((cy - sy + CELL - well_fall_px(w)) & 255);
-        VL[i].cam_y = (int16_t)(cy - sy);
+        VL[i].cam_y = cy - sy;
         VL[i].y0 = (int16_t)v[i].y;
         VL[i].theme = -1;
         hu_view_oam_begin(q);

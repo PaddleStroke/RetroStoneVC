@@ -244,8 +244,8 @@ static void add_fx(world *W, int p, int kind, int col, int row, int colour, int 
 {
     if (W->nfx >= FX_MAX) return;
     fx *f = &W->fx[W->nfx++];
-    f->x = (int16_t)(col * CELL);
-    f->y = (int16_t)(row * CELL);
+    f->x = col * CELL;
+    f->y = row * CELL;
     f->kind = (uint8_t)kind;
     f->colour = (uint8_t)colour;
     f->player = (uint8_t)p;
@@ -322,6 +322,8 @@ static int gopher_cell(const gopher *g, int col, int row)
     /* walking or climbing out of a cell: still there for the first half */
     if ((g->act == ACT_WALK || g->act == ACT_CLIMB) && g->act_t * 2 < g->act_n && col == g->from_col && row == g->from_row)
         return 1;
+    /* climbing: it goes up its own column first (act_pos), so for that half the cell above where it stood is its too */
+    if (g->act == ACT_CLIMB && g->act_t * 2 < g->act_n && col == g->from_col && row == g->row) return 1;
     return 0;
 }
 

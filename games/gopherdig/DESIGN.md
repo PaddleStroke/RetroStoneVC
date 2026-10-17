@@ -45,8 +45,9 @@ and the row above it as it was made, so every player of a race digs the very sam
   down at once; A held drills again every 12 frames). A drilled colour block pops **its whole group**; a hard rock
   takes **5** drills and breaks with a crack, costing **20%** air; a bubble gives its air. Nothing under its feet, it
   drops (4 px a frame).
-- **Crushed**: a block (not a bubble) that moves into the gopher's cell (also the cell it is walking out of, for half
-  the step) **crushes** it: one hit, out. A bubble falling on it is breathed in instead.
+- **Crushed**: a block (not a bubble) that moves into the gopher's cell (also the cell it is walking or climbing out
+  of, for half the step, and for half a climb the cell above it, which it climbs through) **crushes** it: one hit,
+  out. A bubble falling on it is breathed in instead.
 - **The air**: 100% at the start; it drains every frame (a full tank lasts 60 s in the garden, 39 s in the gem core,
   less still deeper); a bubble gives **+25%**; under 30% the gauge blinks red with a beep every second and the gopher
   puffs little bubbles; at 0 the gopher faints: out.
