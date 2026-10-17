@@ -641,10 +641,9 @@ void ppu_render(uint16_t *fb)
             if (g_raster) g_raster(y, g_raster_user);
             n = render_span(o, y, 0, W, NULL);
         } else {
-            /* the divider shows where no viewport is; later viewports are drawn over earlier ones */
-            uint32_t dd = g_div565 | ((uint32_t)g_div565 << 16), *o32 = (uint32_t *)o;
-            for (int x = 0; x < W / 2; x++) o32[x] = dd;
-            if (W & 1) o[W - 1] = g_div565;
+            /* the divider shows where no viewport is; later viewports are drawn over earlier ones. 16 bits at a
+             * time: with an odd width (427) every other line starts 2-byte aligned only, so no 32-bit stores */
+            for (int x = 0; x < W; x++) o[x] = g_div565;
             for (int i = 0; i < g_nviews; i++) {
                 const rs_viewport *v = &g_views[i];
                 if (y < v->y || y >= v->y + v->h) continue;
