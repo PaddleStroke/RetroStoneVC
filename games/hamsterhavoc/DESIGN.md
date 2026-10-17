@@ -103,6 +103,14 @@ purple planet on the left, a comet and a moonlet further out. The moon and the d
 from stage x -128) so no width shows them twice; the stars repeat every 512 px. The saucer comes in from the margins.
 A state saved at one width loads at another.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`, so the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are
+the same pixels; the stage sits low (`rs_screen_origin_v`: two thirds of the extra lines above it). The raster
+(draw.c `raster_out`) draws the lines past it: above, more space (the sky deeper toward the top, the stars again, the
+ringed planet of the wide screen's margin); below, the moon's deep cheese going down, darker with depth. The UI, the
+moon's rows, the shelters and the sprites are hidden there (window 1); line 0 puts the stage's settings back, so a
+240-line screen is unchanged.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the hamster's ship bobbing between two marching mice, a seed flying up, the player slots, PRESS A TO
 PLAY with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or B, X, Y, Start, Left, Right; a tap)

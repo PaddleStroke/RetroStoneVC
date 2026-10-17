@@ -3,3 +3,7 @@
 # the house kit's hu_state() and ha_state()).
 main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
+draw.star_sx        a tall screen: the stars' scroll for the lines past the stage, set by draw_frame before every picture
+draw.star_sy        ... the same
+draw.deco_sx        ... the decor's scroll, the same
+draw.deco_sy        ... the same

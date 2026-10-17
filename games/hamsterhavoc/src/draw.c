@@ -31,9 +31,60 @@ static const int SHELTER_X[SHELTERS] = SHELTER_XS;
 static rs_color line_col[RS_SCREEN_H];
 static int shown_key = -1, shown_best = -1;
 
+/* a tall screen (rs_screen_tall: a phone held upright): this frame's scrolls of the stars and the decor, for the
+ * raster's lines past the stage (not saved: set by draw_frame before every picture) */
+static int star_sx, star_sy, deco_sx, deco_sy;
+#define PLANET_X   72           /* the ringed planet above the stage: its centre, stage x ... */
+#define PLANET_PX  360          /* ... the decor's (stage x of the margin's planet, on a wide screen) */
+#define PLANET_Y0  44           /* the decor's lines shown for it (the planet and its ring) */
+#define PLANET_H   64
+
+/* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: more space, the sky deeper toward
+ * the screen's top, the stars again (BG4, its 240 lines repeated, shifted sideways) and the decor's ringed planet
+ * (BG3, only its columns: window 2); below: the moon's deep cheese going down, darker with depth. The UI, the moon,
+ * the decor's other rows and the sprites are hidden there (window 1); line 0 puts the stage's settings back, so a
+ * 240-line screen is unchanged. */
+static void raster_out(int line)
+{
+    int top = rs_screen_top(), bot = rs_screen_bottom(), pm = rs_bg_map_w(RS_BG4) * 8 - 1;
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        rs_window(1, PLANET_X - 40, PLANET_X + 40);
+        for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, RS_WIN1);
+        if (line < 0) rs_bg_window(RS_BG4, 0);
+        rs_obj_window(RS_WIN1);
+    }
+    if (line < 0) {
+        int k = -line * 120 / -top;                         /* 0 at the stage's top .. 120 at the screen's */
+        rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));
+        int band = -((239 - line) / 240);                   /* floor(line / 240) */
+        rs_bg_scroll(RS_BG4, (star_sx + band * 200) & pm, (star_sy - band * 240) & 255);
+        int p0 = top * 11 / 20 - PLANET_H / 2, d = line - p0;   /* the planet a little above the margin's middle */
+        if (d == 0 && top <= -PLANET_H - 16) {
+            rs_bg_window(RS_BG3, RS_WIN2_OUT);
+            rs_bg_scroll(RS_BG3, (deco_sx + PLANET_PX - PLANET_X) & pm, (PLANET_Y0 - line) & 255);
+        }
+        if (d == PLANET_H) rs_bg_window(RS_BG3, RS_WIN1);
+    } else {
+        int d = line - RS_SCREEN_H, n = bot - RS_SCREEN_H;
+        int k = n > 0 ? d * 150 / n : 0;
+        rs_pal_set(0, hu_scale_color(RS_RGB8(136, 88, 38), 256 - k - ((line & 4) ? 8 : 0)));
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0) {                            /* back from raster_out (a tall screen): the stage's own settings */
+        for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, 0);
+        rs_obj_window(0);
+        rs_bg_scroll(RS_BG4, star_sx, star_sy);
+        rs_bg_scroll(RS_BG3, deco_sx, deco_sy);
+    }
     rs_pal_set(0, line_col[line]);
 }
 
@@ -96,6 +147,9 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more space on both sides */
+    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (space), a third below (the
+     * moon) */
+    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -370,8 +424,12 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_pal_set(RS_PAL_BG(PAL_STARS) + IDX_STAR_A, hu_lerp_color(RS_RGB8(60, 64, 120), RS_RGB8(255, 252, 220), ka));
     rs_pal_set(RS_PAL_BG(PAL_STARS) + IDX_STAR_B, hu_lerp_color(RS_RGB8(60, 64, 120), RS_RGB8(210, 226, 255), kb));
     int pm = map_w() * 8 - 1;
-    rs_bg_scroll(RS_BG4, (t / 24 - sx) & pm, (-sy) & 255);
-    rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & 255);
+    star_sx = (t / 24 - sx) & pm;
+    star_sy = (-sy) & 255;
+    deco_sx = (-sx) & pm;
+    deco_sy = (-sy) & 255;
+    rs_bg_scroll(RS_BG4, star_sx, star_sy);
+    rs_bg_scroll(RS_BG3, deco_sx, deco_sy);
     rs_bg_scroll(RS_BG2, (-sx) & pm, (-sy) & 255);
     shelters_upload(w, state == ST_PLAY || state == ST_DEAD);    /* not behind the game-over panels (cut by them) */
     boss_palette(w);
