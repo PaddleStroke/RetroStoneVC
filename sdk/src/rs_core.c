@@ -25,8 +25,12 @@ static uint32_t g_frame;
                                                                              : RS_SCREEN_W * RS_SCREEN_H_MAX)
 static uint16_t g_fb[FB_PIXELS];
 static int      g_req_width = RS_SCREEN_W;      /* the width the frontend asked for (rs_host_set_width) */
-static int      g_req_height = RS_SCREEN_H;     /* the height it asked for (rs_host_set_height) */
+static int      g_req_height = RS_SCREEN_H;     /* the height it asked for (rs_host_set_height; past RS_SCREEN_H_MAX
+                                                 * too: the display's shape, for a zoomed screen's columns) */
 static int      g_tall_max;                     /* the running game's rs_screen_tall() (0: none) */
+static int      g_zoom;                         /* ... it was rs_screen_zoom(): the sides cropped */
+static int      g_fill = 1;                     /* rs_screen_fill (0: every column, fitted to the width) */
+static int      g_focus = -1;                   /* rs_screen_focus_x (-1: the middle) */
 static int16_t  g_audio[(RS_AUDIO_RATE / RS_FPS + 2) * 2];
 static int      g_audio_frames;
 static uint16_t g_pad[RS_PAD_MAX], g_pad_prev[RS_PAD_MAX];
@@ -402,7 +406,10 @@ int rs_host_width_for_aspect(int num, int den)
 
 /* ---- tall screen --------------------------------------------------------------------------------------------- */
 static int clamp_height(int h) { return h < RS_SCREEN_H ? RS_SCREEN_H : h > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : h; }
-void rs_host_set_height(int h) { g_req_height = clamp_height(h); }
+/* the request keeps the display's shape past RS_SCREEN_H_MAX (a 9:21 phone: 746), for a zoomed screen's columns */
+#define REQ_H_MAX (RS_SCREEN_W * 4)
+static int clamp_req_height(int h) { return h < RS_SCREEN_H ? RS_SCREEN_H : h > REQ_H_MAX ? REQ_H_MAX : h; }
+void rs_host_set_height(int h) { g_req_height = clamp_req_height(h); }
 int rs_host_height_for(const rs_game *g, int w, int h)
 {
     if (rs_host_width_for(g, w) != RS_SCREEN_W) return RS_SCREEN_H;   /* tall at 320 columns only */
@@ -418,11 +425,40 @@ int rs_screen_tall(int max_height)
     rs_screen_origin_v(rs_screen_vmargin());
     return rs_screen_height();
 }
+int rs_screen_zoom(int height)
+{
+    g_zoom = 1;
+    return rs_screen_tall(height);
+}
+
+/* the columns a zoomed screen shows: its height filling the display's (req_h lines at 320 columns), even, rounded
+ * down; every column when it is not zoomed, not tall, or the display not taller than the screen */
+static int visible_w(int w, int h, int req_h)
+{
+    if (!g_zoom || !g_fill || w != RS_SCREEN_W || h <= RS_SCREEN_H || req_h <= h) return w;
+    int v = (int)((long)RS_SCREEN_W * h / req_h) & ~1;
+    return v < RS_SCREEN_W / 2 ? RS_SCREEN_W / 2 : v;
+}
+int rs_screen_visible_x0(void)
+{
+    int w = rs_screen_width(), v = visible_w(w, rs_screen_height(), g_req_height);
+    int x = g_focus < 0 ? (w - v) / 2 : g_focus - v / 2;
+    return x < 0 ? 0 : x > w - v ? w - v : x;
+}
+int rs_screen_visible_x1(void)
+{
+    return rs_screen_visible_x0() + visible_w(rs_screen_width(), rs_screen_height(), g_req_height);
+}
+void rs_screen_focus_x(int x) { g_focus = x < 0 ? -1 : x; }
+void rs_screen_fill(int on) { g_fill = !!on; }
 
 void rs_host_reset(void)
 {
     ppu_set_width(rs_host_width_for(g_game, g_req_width));
     g_tall_max = 0;                             /* 240 lines until the game opts in (rs_screen_tall) */
+    g_zoom = 0;
+    g_fill = 1;
+    g_focus = -1;
     ppu_set_height(RS_SCREEN_H);
     ppu_reset();
     apu_reset();
@@ -471,9 +507,11 @@ int rs_host_change_size(int width, int height)
     int cur = rs_screen_width(), cur_h = rs_screen_height();
     if (!g) { rs_host_set_width(width); rs_host_set_height(height); return cur; }
     int want = rs_host_width_for(g, width), want_h = rs_host_height_for(g, width, height);
-    if (want == cur && want_h == cur_h) {
+    /* (a zoomed screen: the same size may show other columns on a phone of another shape: a restart too) */
+    int same_cols = visible_w(cur, cur_h, g_req_height) == visible_w(want, want_h, clamp_req_height(height));
+    if (want == cur && want_h == cur_h && same_cols) {
         g_req_width = clamp_width(width);
-        g_req_height = clamp_height(height);
+        g_req_height = clamp_req_height(height);
         return cur;
     }
     size_t size = rs_host_state_size(g);
@@ -486,7 +524,7 @@ int rs_host_change_size(int width, int height)
     int old_req = g_req_width, old_req_h = g_req_height;
     rs_host_shutdown();
     g_req_width = clamp_width(width);
-    g_req_height = clamp_height(height);
+    g_req_height = clamp_req_height(height);
     rs_host_init(g);
     if (rs_host_state_load(buf, size)) {           /* refused at the new size: back to the old one */
         rs_log("the state did not load at %dx%d: back to %dx%d", rs_screen_width(), rs_screen_height(), cur, cur_h);

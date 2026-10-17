@@ -36,12 +36,15 @@ int  rs_host_width_for(const rs_game *game, int width);
 int  rs_host_change_width(int width);
 /* The desktop and frontend helper: the width for a picture of aspect num:den at 240 lines (16:9 -> 427). */
 int  rs_host_width_for_aspect(int num, int den);
-/* Tall screen (docs/spec.md "Tall screen"), the same way: the frontend asks for a height (clamped to
- * RS_SCREEN_H..RS_SCREEN_H_MAX; 240 by default) before rs_host_init(); a game that opts in (rs_screen_tall(max) in
- * its init()) gets the smaller of it and max, and only at the width RS_SCREEN_W; the others 240.
+/* Tall screen (docs/spec.md "Tall screen"), the same way: the frontend asks for a height before rs_host_init(): the
+ * display's height at 320 columns (240 by default; the screen is RS_SCREEN_H..RS_SCREEN_H_MAX, but ask for the
+ * display's whole height, e.g. 746 on a 9:21 phone: a zoomed game's columns come from it); a game that opts in
+ * (rs_screen_tall(max) or rs_screen_zoom(max) in its init()) gets the smaller of it and max, and only at the width
+ * RS_SCREEN_W; the others 240. A zoomed game (rs_screen_visible_x0() .. x1() narrower than the screen) is shown
+ * filling the display's height, centred on its visible columns.
  * rs_host_height_for() tells the height a game would get: the running game's (its call), 240 for another one, any
  * for NULL (no game). rs_host_change_size() changes both live (as rs_host_change_width; it returns the width in use,
- * rs_screen_height() tells the height). */
+ * rs_screen_height() tells the height); a zoomed game restarts also when only its visible columns change. */
 void rs_host_set_height(int height);
 int  rs_host_height_for(const rs_game *game, int width, int height);
 int  rs_host_change_size(int width, int height);

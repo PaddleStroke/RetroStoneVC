@@ -93,6 +93,7 @@ int  rs_screen_right(void);     /* the stage x just past its last column (width 
  * rs_screen_height() says (its 240-line stage centred: rs_screen_origin_y()), and its save states load at any height.
  * Without the call, a game always runs at 240 lines (the frontend letterboxes it). */
 int  rs_screen_tall(int max_height);
+/* (rs_screen_zoom, below: the same opt-in, the picture zoomed to fill the display's height, its sides cropped) */
 /* The screen's height in lines: RS_SCREEN_H, or taller for a game that opts in (rs_screen_tall) on a tall frontend
  * (portrait; the width is then RS_SCREEN_W). Fixed for a run, like the width. */
 int  rs_screen_height(void);
@@ -109,6 +110,29 @@ void rs_screen_origin_v(int y);
 int  rs_screen_origin_y(void);
 int  rs_screen_top(void);       /* the stage y of the screen's first line (-origin_y) */
 int  rs_screen_bottom(void);    /* the stage y just past its last line (height - origin_y) */
+
+/* Zoom (docs/spec.md "Tall screen", the zoomed recipe): instead of rs_screen_tall(), FIRST in init(). The game draws a
+ * screen of a moderate height (RS_SCREEN_H..RS_SCREEN_H_MAX, e.g. 400..520 lines) at 320 columns, and a tall frontend
+ * scales it to FILL the display's height, cropping its sides equally (fill, not fit): the taller the screen asked
+ * for, the more lines and the fewer columns shown. A display less tall than that gives a shorter screen and every
+ * column (as rs_screen_tall does). Returns rs_screen_height(); the stage (240 lines) is centred, as with
+ * rs_screen_tall (rs_screen_origin_v moves it). Landscape, 4:3 and the frontends without a tall screen: 240 lines,
+ * every column, unchanged. */
+int  rs_screen_zoom(int height);
+/* The screen columns the display shows: x0 .. x1 - 1 (0 .. rs_screen_width() without a zoom, or when the display
+ * shows every column). Keep the HUD and the essential play inside; draw the whole width anyway (the frontend may show
+ * a column more on each side). They change with rs_screen_focus_x, and when the phone's shape changes (the game
+ * restarts from a save state, as for a new size): read them each frame. The stage x is the screen x -
+ * rs_screen_origin_x() (0 on a tall screen). */
+int  rs_screen_visible_x0(void);
+int  rs_screen_visible_x1(void);
+/* Pan: the screen column the display centres on (a zoomed screen; clamped so that the columns shown stay inside the
+ * screen); -1, the default: the middle. A setting, not saved in states: set it each frame from the game's state. */
+void rs_screen_focus_x(int x);
+/* A zoomed screen, while it runs: 1 (the default) fills the display's height, the sides cropped; 0 shows every
+ * column (the display fits the width, as for rs_screen_tall: e.g. a title or a split screen that needs the whole
+ * width). The visible columns follow at once. A setting, not saved in states: set it each frame. */
+void rs_screen_fill(int on);
 
 /* ---- Runtime ---------------------------------------------------------- */
 void        rs_log(const char *fmt, ...);
@@ -207,6 +231,12 @@ void      rs_bg_scroll(int layer, int x, int y);
  * entries each (stage lines: a tall screen's lines past the stage get none),
  * or NULL. The tables are read during rendering. */
 void      rs_bg_line_scroll(int layer, const int16_t *dx, const int16_t *dy);
+/* A tall screen's HUD (docs/spec.md "Tall screen"): the layer's stage lines y .. y + lines - 1 (its HUD rows, e.g. the
+ * top 16 lines of the UI layer) are drawn at screen lines screen_y .. instead (rs_screen_top()'s line is screen line
+ * 0: the top of the display), with the layer's scroll as usual; where they were, the layer shows nothing. lines 0:
+ * off (the default). One full screen only (no viewports). No effect on a 240-line screen (landscape, 4:3): the same
+ * pixels there. A setting like rs_screen_origin_v, not saved in states. */
+void      rs_bg_pin(int layer, int y, int lines, int screen_y);
 
 /* Affine (Mode-7-like) mode for one layer at a time. Matrix in 8.8 fixed
  * point; (cx, cy) is the centre in map pixels. SNES formula:

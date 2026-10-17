@@ -23,6 +23,8 @@
  * Tall screen: the same for the height (g_h lines, the stage's 240 lines from line g_oy; H stays the stage's). */
 static int g_w = RS_SCREEN_W, g_origin;
 static int g_h = RS_SCREEN_H, g_oy;
+/* rs_bg_pin: per layer, its stage lines pin_y .. + pin_n drawn from screen line pin_sy (a tall screen's HUD) */
+static int g_pin_y[RS_BG_COUNT], g_pin_n[RS_BG_COUNT], g_pin_sy[RS_BG_COUNT];
 #define W g_w
 #define H RS_SCREEN_H
 #define WMAX RS_SCREEN_W_MAX
@@ -96,6 +98,7 @@ void ppu_reset(void)
     g_cur_view = -1;
     g_origin = 0;
     g_oy = (g_h - RS_SCREEN_H) / 2;
+    memset(g_pin_n, 0, sizeof g_pin_n);
 }
 
 /* ---- widescreen -------------------------------------------------------------------------------------- */
@@ -219,6 +222,13 @@ void rs_bg_line_scroll(int l, const int16_t *dx, const int16_t *dy)
     if ((unsigned)l >= RS_BG_COUNT) return;
     g_bg[l].ldx = dx;
     g_bg[l].ldy = dy;
+}
+void rs_bg_pin(int l, int y, int lines, int screen_y)
+{
+    if ((unsigned)l >= RS_BG_COUNT) return;
+    g_pin_y[l] = y;
+    g_pin_n[l] = lines < 0 ? 0 : lines > RS_SCREEN_H_MAX ? RS_SCREEN_H_MAX : lines;
+    g_pin_sy[l] = screen_y;
 }
 void rs_bg_affine(int l, const rs_affine *m)
 {
@@ -570,9 +580,15 @@ static int render_span(uint16_t *o, int y, int x0, int x1, const rs_viewport *v)
         if (b->affine) {
             has[l] = decode_affine(b, ys, line);
         } else {
-            int dx = b->ldx && in ? b->ldx[ys] : 0, dy = b->ldy && in ? b->ldy[ys] : 0;
+            int yl = ys, inl = in;
+            if (g_pin_n[l] && !v && g_h > H) {         /* rs_bg_pin: the HUD band elsewhere, nothing in its place */
+                if (y >= g_pin_sy[l] && y < g_pin_sy[l] + g_pin_n[l]) yl = g_pin_y[l] + y - g_pin_sy[l];
+                else if (ys >= g_pin_y[l] && ys < g_pin_y[l] + g_pin_n[l]) continue;
+                inl = (unsigned)yl < (unsigned)H;
+            }
+            int dx = b->ldx && inl ? b->ldx[yl] : 0, dy = b->ldy && inl ? b->ldy[yl] : 0;
             int lx = v ? v->sx[l] + (x0 - vx) + dx : b->sx + dx + x0 - g_origin;
-            int ly = v ? v->sy[l] + (ys - v->y) + dy : b->sy + ys + dy;
+            int ly = v ? v->sy[l] + (ys - v->y) + dy : b->sy + yl + dy;
             has[l] = decode_bg(b, lx, ly, x0, x1 - x0, line);
         }
         src[l] = line;
