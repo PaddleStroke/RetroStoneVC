@@ -44,10 +44,14 @@ int view_layout(int players, vrect out[MAX_PLAYERS])
     rs_viewport v[4];
     int n = players < 1 ? 1 : players > MAX_PLAYERS ? MAX_PLAYERS : players;
     int k = rs_viewport_layout(n >= 3 ? 4 : n, 0, v);
+    /* a view no wider than its well's region of the map (maps_setup), else it would show a strip of the next player's
+     * earth at its edge (quarters at 520: 259 px for 256): the view narrows round the well, the divider fills the rest */
+    int nreg = n >= 3 ? 4 : n, rpx = ((nreg >= 4 || rs_screen_width() > 512) ? 128 : 64) * 8 / nreg;
     for (int i = 0; i < k; i++) {
-        out[i].x = v[i].x;
+        int cut = v[i].w > rpx ? v[i].w - rpx : 0;
+        out[i].x = v[i].x + cut / 2;                /* the well stays where it was (view_well_x) */
         out[i].y = v[i].y;
-        out[i].w = v[i].w;
+        out[i].w = v[i].w - cut;
         out[i].h = v[i].h;
     }
     return k;
@@ -701,6 +705,10 @@ static int race_line(const world *W, const hu_standing *rs, const vrect *v4, int
     return p;
 }
 
+/* split screen: the unit's column, the first one 2 px or more right of digits starting 6 px into the view (the digits
+ * then end 2 px before it, whatever the view's x: at 427 and 520 it is not a multiple of 8) */
+static int split_unit_col(const vrect *v, int depth) { return fdiv(v->x + 6 + digits(depth) * 12 + 2 + 7, 8); }
+
 /* the play texts (drawn again only when they change) */
 static void play_texts(const world *W, int state, const vrect *v, int nv, int multi)
 {
@@ -730,8 +738,7 @@ static void play_texts(const world *W, int state, const vrect *v, int nv, int mu
             int row = fdiv(v[p].y + v[p].h - 16, 8);
             rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
             add_text(t, &n, fdiv(v[p].x, 8) + 1, fdiv(v[p].y, 8) + 1, 0, s);
-            /* the unit 1-2 px right of the digits (rounded up: at any width the view's x is not a multiple of 8) */
-            add_text(t, &n, fdiv(v[p].x + 6 + digits(g->depth) * 12 + 1 + 7, 8), row + 1, 0, TR(UNIT_M));
+            add_text(t, &n, split_unit_col(&v[p], g->depth), row + 1, 0, TR(UNIT_M));
         }
         if (nv == 4 && W->players == 3) {                       /* the race, in the 4th quarter */
             hu_standing rs;
@@ -960,7 +967,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         VL[i].theme = -1;
         hu_view_oam_begin(q);
         const gopher *g = &w->go;
-        hu_number(g->depth, 6 + digits(g->depth) * 6, v[i].h - 18, 3);
+        hu_number(g->depth, split_unit_col(&v[i], g->depth) * 8 - 2 - digits(g->depth) * 6 - v[i].x, v[i].h - 18, 3);
         air_gauge(fdiv(v[i].x + v[i].w - 4, 8) - 8, fdiv(v[i].y + v[i].h - 12, 8), 6, g, t, 0);
         sview s = {0, 0, v[i].w, v[i].h, view_well_x(&v[i]) - v[i].x, cy, budget - (rs_oam_next() - q->oam_first), 1};
         draw_well_sprites(&s, W, p, t, sx, sy, 1);

@@ -109,7 +109,7 @@ quarter of the screen) and follows smoothly (1/4 of the way a frame).
 | BG4 | the well: the standing blocks, the dug-out back wall (shadowed under a block), the earth around it with its stone lining, roots, pebbles, burrows, side tunnels and the buried things of the stratum, the grass, flowers and clouds on top | the camera |
 | BG3 | the shaking blocks: the whole layer jiggles a pixel left and right | the camera, +-1 |
 | BG2 | the falling blocks: the whole layer slides down with the well's fall clock (all of a well's falling blocks move a row on the same tick) | the camera + the fall's progress |
-| BG1 | the house UI kit (priority 1); the air gauge's tiles (a bubble, a bar filled 0..8 px blue or red) after the kit's glyph pool | fixed |
+| BG1 | the house UI kit (priority 1); the air gauge's tiles (a bubble, a bar filled 0..8 px blue or red; again on the panel's fill, the empty part a dark groove) after the kit's glyph pool | fixed |
 | OBJ | the gophers (OBJ 0; P2-P4 OBJ 1, 4, 5: the hard hat recoloured, the fur stays), the drill bits, the air bubbles, sparkles, dust, stars (OBJ 2), the blocks' crumbs (OBJ 6), the kit's digits (OBJ 3) | |
 
 - **The blocks** are drawn by quarter tiles: each 8x8 quarter by whether the block sticks to its side neighbour, its
@@ -121,10 +121,15 @@ quarter of the screen) and follows smoothly (1/4 of the way a frame).
 - **The map** is a ring of 16 block rows per layer (32 tile rows); each player's well has a region of the map's width
   (1 player: all of it, 2: half, 3-4: a quarter; 64 tiles wide, 128 for 3-4 players or a screen wider than 512), the
   well centred in it with the earth around; the rows coming into view are written (the earth once, the well every
-  frame).
-- **The HUD**, 1 player: the depth in big digits in the left panel beside the well (DEPTH, M), the air gauge in the
-  right one (AIR): the well's top stays clear, the blocks come from there. Split screen: the depth and the gauge at the
-  bottom of each view, the player's tag at its top left.
+  frame). A view is never wider than its region (quarters at 520 px: 256 of 259 px, the divider takes the rest), so
+  no strip of the next player's earth shows at its edge.
+- **The HUD**, 1 player: two navy panels on the earth beside the well's top (a longer word widens them towards the
+  screen's edge): the depth in big digits (DEPTH, the unit right of the digits) and the air gauge (AIR); the buried
+  things and side tunnels scrolling past stay behind them, the well's top stays clear. The controls hint (the first 6 s)
+  on a panel over the well's bottom. Split screen: the depth and the gauge at the bottom of each view, the player's tag
+  at its top left; 3 players: the race on a panel in the 4th quarter, with each player's icon.
+- **A checkpoint** shows "200 M" in gold and the stratum's name on a panel under the gopher, in every view (over the
+  scene when the name is too long for a quarter).
 
 **Up to four players** (the house lobby: pads 2-4 join with A on the title, B leaves): everyone races down the same
 well at once, each in their own: 2 players side by side, 3-4 in quarters (3: the 4th quarter shows the race, ranked by
