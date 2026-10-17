@@ -386,6 +386,84 @@ static void test_left_behind(void)
     CHECK(W.c[1].state == CS_RACE, "no left-behind in the first %d frames", DROP_GRACE);
 }
 
+/* a ladybug at (x, y) px overlapping a solid object */
+static int overlaps_solid(const world *w, int x, int y)
+{
+    const track_def *t = &tracks[w->track];
+    for (int i = 0; i < t->nobj; i++) {
+        const tobj *o = &t->obj[i];
+        const obj_kind *k = &obj_kinds[o->kind];
+        if (k->effect != OE_SOLID) continue;
+        int dx = x - o->x, dy = y - o->y;
+        if (k->shape == SH_CIRCLE ? dx * dx + dy * dy < (k->w + CAR_R) * (k->w + CAR_R)
+                                  : iabs_v(dx) < k->w / 2 + CAR_R && iabs_v(dy) < k->h / 2 + CAR_R) return 1;
+    }
+    return 0;
+}
+
+/* bugs found: the spots where a racer is put back (a sugar cube and the snail sit on the band: a lane through them
+ * put the ladybug inside the object); a leader far off the track (its waypoint left behind) pulled the race zone
+ * away from the spot behind it: the racers put back there were left behind again at once, every 31 frames, a point
+ * to the leader each time (points without end, and the others never raced again) */
+static void test_respawns(void)
+{
+    int inside = 0, off = 0, tried = 0;
+    for (int t = 0; t < TRACKS; t++)
+        for (int rev = 0; rev < 2; rev++) {
+            world_init(&W, t, rev, 5, 0, 7);
+            for (int k = 0; k < W.wp.n; k++)
+                for (int i = 0; i < RACERS; i++) {
+                    for (int j = 0; j < RACERS; j++) {
+                        W.c[j].state = CS_OUT;
+                        W.c[j].timer = 30000;
+                    }
+                    W.phase = PH_RACE;
+                    W.phase_t = 0;
+                    W.c[i].state = CS_FALL;     /* off the table: put back at its own waypoint, in its lane */
+                    W.c[i].timer = 1;
+                    W.c[i].wp = (int16_t)k;
+                    world_step(&W, NULL);
+                    int x = PX(W.c[i].x), y = PX(W.c[i].y), s = surface_at(&W, x, y);
+                    tried++;
+                    if (W.c[i].state != CS_RACE || overlaps_solid(&W, x, y)) inside++;
+                    if (s == SF_ROUGH || s == SF_FALL || s == SF_WALL) off++;
+                }
+        }
+    CHECK(inside == 0 && off == 0 && tried > 2000, "put back: never inside an object, always on the band (%d inside, %d off, "
+          "of %d)", inside, off, tried);
+    /* the leader (car 0, Tea Time's top straight) drives far off the track and stops on the table */
+    solo(&W, 0, 2);
+    W.c[0].wp = 43;
+    W.c[0].lap = 0;
+    put(&W, 0, W.wp.x[43], W.wp.y[43] + 200, 256);
+    W.camx = W.c[0].x;
+    W.camy = W.c[0].y;
+    put(&W, 1, W.wp.x[20], W.wp.y[20], 0);
+    W.c[1].wp = 20;
+    W.c[1].lap = 0;
+    W.c[1].state = CS_OUT;                      /* left behind a moment ago */
+    W.c[1].timer = 1;
+    W.c[1].points = 3;
+    W.c[0].points = 0;
+    int back = 0;
+    for (int k = 0; k < 300; k++) {
+        world_step(&W, in);
+        back |= W.events[1] & EV_BACK;
+    }
+    CHECK(W.leader == 0 && W.c[0].wp == 43, "off the track: still the leader, its waypoint left behind (%d)", W.c[0].wp);
+    CHECK(W.c[0].points == 0 && W.c[1].points == 3 && W.c[1].drops == 0, "no point for the racers it cannot have behind it "
+          "(%d points, %d drops)", W.c[0].points, W.c[1].drops);
+    CHECK(W.c[1].state == CS_OUT && !back, "... they wait to be put back (state %d)", W.c[1].state);
+    for (int k = 0; k < 120; k++) {            /* back on the track: they come back behind it, and stay */
+        put(&W, 0, W.wp.x[43], W.wp.y[43], 0);
+        world_step(&W, in);
+        back |= W.events[1] & EV_BACK;
+    }
+    CHECK(back && W.c[1].state == CS_RACE && W.c[1].drops == 0 && W.c[0].points == 0,
+          "the leader back on the track: it is put back behind it, in the zone (state %d, %d drops)", W.c[1].state,
+          W.c[1].drops);
+}
+
 /* a whole race of bots on every track, both ways: they finish, within reason */
 static void test_bots(void)
 {
@@ -501,6 +579,7 @@ int main(void)
     test_bumps();
     test_laps();
     test_left_behind();
+    test_respawns();
     test_points();
     test_touch();
     test_bots();

@@ -368,14 +368,51 @@ static void update_wp(world *w, car *c)
     c->prog = progress_of(w, c);
 }
 
-/* put car c on the centre line at waypoint i, lane px to the right, heading along it, at speed f */
+/* waypoint i (in range), lane px to the right of the centre line: the spot (Q8) */
+static void lane_spot(const waypoints *p, int i, int lane, int32_t *x, int32_t *y)
+{
+    int a = p->dir[i];
+    *x = (p->x[i] * FX) + (int32_t)(((int64_t)-isin(a) * lane * FX) >> 14);
+    *y = (p->y[i] * FX) + (int32_t)(((int64_t)icos(a) * lane * FX) >> 14);
+}
+
+/* a ladybug there (Q8) would be inside a solid object (a sugar cube or a snail on the band) */
+static int in_solid(const world *w, int32_t x, int32_t y)
+{
+    const track_def *t = &tracks[w->track];
+    for (int i = 0; i < t->nobj; i++) {
+        const tobj *o = &t->obj[i];
+        const obj_kind *k = &obj_kinds[o->kind];
+        if (k->effect != OE_SOLID) continue;
+        int32_t dx = x - o->x * FX, dy = y - o->y * FX;
+        if (k->shape == SH_CIRCLE) {
+            int64_t r = (int64_t)(k->w + CAR_R + 1) * FX;
+            if ((int64_t)dx * dx + (int64_t)dy * dy < r * r) return 1;
+        } else if (iabs(dx) < (k->w / 2 + CAR_R + 1) * FX && iabs(dy) < (k->h / 2 + CAR_R + 1) * FX) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/* put car c on the centre line at waypoint i, lane px to the right, heading along it, at speed f; a lane blocked by
+ * an object: the nearest free one of the four racers' lanes */
 static void place_at(world *w, car *c, int i, int lane, int32_t f)
 {
+    static const int lanes[RACERS] = {-13, -4, 5, 14};     /* colour x 9 - 13 */
     const waypoints *p = &w->wp;
     i = (i % p->n + p->n) % p->n;
     int a = p->dir[i];
-    c->x = (p->x[i] * FX) + (int32_t)(((int64_t)-isin(a) * lane * FX) >> 14);
-    c->y = (p->y[i] * FX) + (int32_t)(((int64_t)icos(a) * lane * FX) >> 14);
+    lane_spot(p, i, lane, &c->x, &c->y);
+    if (in_solid(w, c->x, c->y)) {
+        int best = -1;
+        int32_t x, y;
+        for (int k = 0; k < RACERS; k++) {
+            lane_spot(p, i, lanes[k], &x, &y);
+            if (!in_solid(w, x, y) && (best < 0 || iabs(lanes[k] - lane) < iabs(lanes[best] - lane))) best = k;
+        }
+        if (best >= 0) lane_spot(p, i, lanes[best], &c->x, &c->y);
+    }
     c->ang = (int16_t)a;
     c->z = c->vz = 0;
     c->wp = (int16_t)i;
@@ -629,15 +666,22 @@ static void respawn_here(world *w, car *c)
     c->surf = SF_TRACK;
 }
 
-/* back on the track after being left behind: behind the leader, in its own lane */
-static void respawn_behind(world *w, car *c)
+/* back on the track after being left behind: behind the leader, in its own lane. 0: not yet (the leader is off the
+ * track, far from its waypoint: that spot is out of the race zone, the racer would be left behind again at once, a
+ * point to the leader each time; it waits until the leader is back near the track) */
+static int respawn_behind(world *w, car *c)
 {
     const car *L = &w->c[w->leader];
     const waypoints *p = &w->wp;
     int k = L->wp - DROP_BACK_WP - (c->colour & 1);
     int lap = L->lap;
-    if (k < 0) { k += p->n; lap--; }
-    int32_t f = car_speed(L) * DROP_SPEED / 100;
+    if (k < 0) { k = (k % p->n + p->n) % p->n; lap--; }
+    int32_t f = car_speed(L) * DROP_SPEED / 100, x, y;
+    lane_spot(p, k, (c->colour * 9) - 13, &x, &y);
+    if (racer_out_of_zone(w, x, y)) {
+        c->timer = 1;
+        return 0;
+    }
     place_at(w, c, k, (c->colour * 9) - 13, f > 0 ? f : 0);
     c->lap = (int16_t)lap;
     c->prog = progress_of(w, c);
@@ -645,6 +689,7 @@ static void respawn_behind(world *w, car *c)
     c->state = CS_RACE;
     c->ghost = GHOST_FRAMES;
     c->surf = SF_TRACK;
+    return 1;
 }
 
 int racer_out_of_zone(const world *w, int32_t x, int32_t y)
@@ -741,7 +786,7 @@ void world_step(world *w, const pin in[RACERS])
             drive(w, i, &cmd[i]);
         } else if (--c->timer <= 0) {
             if (c->state == CS_FALL) respawn_here(w, c);
-            else respawn_behind(w, c);
+            else if (!respawn_behind(w, c)) continue;
             w->events[i] |= EV_BACK;
         }
     }

@@ -86,6 +86,8 @@ nostrict "4 players" "$out"
 out=$(run --frames 1500 --opt bot=1 --opt ready=1 --opt track=4 --opt strict=1)
 check "track=4: the Rainy Patio" "state: st=1 .*track=4 " "$out"
 nostrict "the Rainy Patio" "$out"
+out=$(run --frames 200 --opt ready=1 --opt race=-1)   # bug found: race=-1 started on tracks[-1] (a crash)
+check "race=-1: the championship from its first race" "state: st=1 .*race=0 track=0 " "$out"
 
 [ -n "$Q" ] && exit $fail
 

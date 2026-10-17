@@ -186,7 +186,7 @@ static void new_run(void)
     RI.races = hu_players() == 1 ? CHAMP_RACES : CUP_RACES;
     cup_first = (int)(new_seed(0) % TRACKS);
     new_best = 0;
-    start_race(opt_race < RI.races ? opt_race : 0);
+    start_race(opt_race >= 0 && opt_race < RI.races ? opt_race : 0);   /* race=-1: not tracks[-1] */
 }
 
 static int is_bot(int p) { return p < opt_bot; }
