@@ -66,23 +66,27 @@ static int prepare(SDL_Renderer *r, int ww, int wh)
     return 0;
 }
 
-/* Android: landscape while a game runs (the sensor's way round), then as the app was (fullUser: apps/android
- * app-retrostone.conf's ORIENTATION), through the activity's setRequestedOrientation (SDL's own way, from this thread) */
-static void orientation(int landscape)
+/* Truly full screen while a game runs, in whatever way the device is held (the app's own orientation, fullUser:
+ * apps/android/app-retrostone.conf's ORIENTATION; a game plays upright too, rsb_sdl.c's portrait picture).
+ * Android: the system bars hidden, immersive sticky (a swipe from the edge shows them a moment), through SDL's
+ * fullscreen window (SDLActivity.setWindowStyle), then as the app was. iOS: the status bar is hidden already (the
+ * borderless window, apps/ios/<app>/project.yml UIStatusBarHidden); the home indicator fades out, and a swipe up
+ * the edge reaches the game first (SDL_HINT_IOS_HIDE_HOME_INDICATOR, as the Arcade app does). */
+static void full_screen(int on)
 {
 #ifdef __ANDROID__
-    JNIEnv *env = (JNIEnv *)SDL_AndroidGetJNIEnv();
-    jobject act = (jobject)SDL_AndroidGetActivity();
-    if (!env || !act) return;
-    jclass cls = (*env)->GetObjectClass(env, act);
-    jmethodID m = (*env)->GetMethodID(env, cls, "setRequestedOrientation", "(I)V");
-    /* ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE 6, SCREEN_ORIENTATION_FULL_USER 13 */
-    if (m) (*env)->CallVoidMethod(env, act, m, landscape ? 6 : 13);
-    if ((*env)->ExceptionCheck(env)) (*env)->ExceptionClear(env);
-    (*env)->DeleteLocalRef(env, cls);
-    (*env)->DeleteLocalRef(env, act);
+    static Uint32 was;
+    if (on) was = SDL_GetWindowFlags(win) & SDL_WINDOW_FULLSCREEN_DESKTOP;
+    SDL_SetWindowFullscreen(win, on ? SDL_WINDOW_FULLSCREEN_DESKTOP : was);
+#elif defined(__IPHONEOS__)
+    static char was[8];
+    if (on) {
+        const char *h = SDL_GetHint(SDL_HINT_IOS_HIDE_HOME_INDICATOR);
+        snprintf(was, sizeof was, "%s", h ? h : "0");
+    }
+    SDL_SetHint(SDL_HINT_IOS_HIDE_HOME_INDICATOR, on ? "2" : was);
 #else
-    (void)landscape;
+    (void)on;
 #endif
 }
 
@@ -115,7 +119,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
     if (prepare(r, ww, wh)) return 0;
     if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
     if (!SDL_WasInit(SDL_INIT_AUDIO)) SDL_InitSubSystem(SDL_INIT_AUDIO);
-    orientation(1);
+    full_screen(1);
     SDL_AudioSpec want, have;
     SDL_zero(want);
     want.freq = RS_AUDIO_RATE;
@@ -129,8 +133,10 @@ int arcade_play(const char *id, SDL_Renderer *r)
     nfingers = mouse_down = 0;
 
     int best0 = rsb_best(g);
+    output_size(&ww, &wh);                      /* (iOS: the safe area) */
     rsb_set_width(width_for(ww, wh));
-    rsb_start(g, 0);                            /* its state, if any: it resumes, held under the play sign */
+    rsb_set_height(height_for(ww, wh));         /* portrait: a tall game's height (rs_screen_tall) */
+    rsb_start(g, 0);                           /* its state, if any: it resumes, held under the play sign */
     const uint64_t freq = SDL_GetPerformanceFrequency(), frame_ticks = freq / RS_FPS;
     uint64_t next = SDL_GetPerformanceCounter();
     int quit = 0, background = 0, frames = 0;
@@ -172,7 +178,13 @@ int arcade_play(const char *id, SDL_Renderer *r)
             case SDL_FINGERDOWN:
             case SDL_FINGERMOTION:
             case SDL_FINGERUP:
-                finger_set((long)e.tfinger.fingerId, e.tfinger.x, e.tfinger.y, e.type == SDL_FINGERUP);
+            {
+                float fx = e.tfinger.x, fy = e.tfinger.y;
+#ifdef __IPHONEOS__
+                to_safe(&fx, &fy);              /* (the picture and the buttons are in the safe area) */
+#endif
+                finger_set((long)e.tfinger.fingerId, fx, fy, e.type == SDL_FINGERUP);
+            }
                 break;
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
@@ -191,8 +203,9 @@ int arcade_play(const char *id, SDL_Renderer *r)
                 if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) mouse_down = 0;
                 break;
             case SDL_WINDOWEVENT:
-                if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {   /* turned to landscape, a window resized */
-                    SDL_GetRendererOutputSize(ren, &ww, &wh);
+                if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {   /* turned, the bars hidden, a window resized */
+                    output_size(&ww, &wh);
+                    rsb_set_height(height_for(ww, wh));
                     rsb_resize(width_for(ww, wh));
                 }
                 break;
@@ -248,7 +261,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
     textures_free();
     SDL_SetRenderTarget(ren, NULL);
     SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
-    orientation(0);
+    full_screen(0);
     if (quit) {                                 /* the shell's own loop ends too */
         SDL_Event q;
         SDL_zero(q);
@@ -270,7 +283,8 @@ int arcade_shot(const char *id, SDL_Renderer *r, SDL_Surface *surf, const char *
     SDL_GetRendererOutputSize(r, &ww, &wh);
     if (prepare(r, ww, wh)) return 1;
     rsb_set_width(width_for(ww, wh));
-    rsb_start(g, 1);                            /* afresh: no saved state */
+    rsb_set_height(height_for(ww, wh));
+    rsb_start(g, 1);                          /* afresh: no saved state */
     memset(&in, 0, sizeof in);
     int frames = ms * RS_FPS / 1000;
     for (int f = 0; f < frames; f++) {
