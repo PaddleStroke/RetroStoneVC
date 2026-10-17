@@ -1,169 +1,169 @@
 /*
- * Ball Sort's levels: our own, made by tools/ballsort_gen.c (colours shuffled into the tubes by chance, the
- * shortest way found by the rules' search, six chapters of 25 from the easiest). Each: the tubes from the
- * left ('|' between them), each one's colours from the bottom (1..9 a b c); in the comment the colours, the
- * shortest way and the positions the search made; the shortest ways again in bs_level_par (the tests
- * check them).
+ * Ball Sort's levels: our own, made by tools/ballsort_gen.c (each from a theme: a shuffle, rows of every
+ * colour, rainbow tubes, a mirrored rack, a Latin rack to end each chapter; the shortest way found by the
+ * rules' search; six chapters of 25 from the easiest). Each: the tubes from the left ('|' between them), each
+ * one's colours from the bottom (1..9 a b c); in the comment the colours, the theme, the shortest way and the
+ * positions the search made; the shortest ways again in bs_level_par (the tests check them).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 const char *const bs_levels[BS_LEVELS] = {
-    "3121|3312|2123||", /* 1: 3 colours, 10 moves, 75 looked at */
-    "2132|3112|3231||", /* 2: 3 colours, 11 moves, 67 looked at */
-    "2312|2133|2131||", /* 3: 3 colours, 11 moves, 73 looked at */
-    "1231|3213|3122||", /* 4: 3 colours, 11 moves, 79 looked at */
-    "2123|2131|3132||", /* 5: 3 colours, 11 moves, 87 looked at */
-    "2311|2321|3213||", /* 6: 3 colours, 11 moves, 101 looked at */
-    "1323|3121|2132||", /* 7: 3 colours, 11 moves, 112 looked at */
-    "2312|3231|3121||", /* 8: 3 colours, 11 moves, 121 looked at */
-    "3221|3131|2321||", /* 9: 3 colours, 11 moves, 138 looked at */
-    "1313|2121|3232||", /* 10: 3 colours, 12 moves, 153 looked at */
-    "3131|2122|3213||", /* 11: 3 colours, 12 moves, 177 looked at */
-    "2141|4123|4321|3342||", /* 12: 4 colours, 13 moves, 122 looked at */
-    "4323|2114|3214|4123||", /* 13: 4 colours, 14 moves, 93 looked at */
-    "4241|3412|4231|3321||", /* 14: 4 colours, 13 moves, 169 looked at */
-    "3212|2343|1241|1344||", /* 15: 4 colours, 14 moves, 126 looked at */
-    "2314|1243|2324|4131||", /* 16: 4 colours, 14 moves, 145 looked at */
-    "4121|1423|3442|2313||", /* 17: 4 colours, 14 moves, 178 looked at */
-    "1413|2442|1321|2343||", /* 18: 4 colours, 15 moves, 137 looked at */
-    "2331|4314|4124|1232||", /* 19: 4 colours, 15 moves, 156 looked at */
-    "3121|1232|3414|4234||", /* 20: 4 colours, 15 moves, 178 looked at */
-    "2341|1331|1424|2324||", /* 21: 4 colours, 15 moves, 230 looked at */
-    "2134|1321|2441|3234||", /* 22: 4 colours, 15 moves, 267 looked at */
-    "4143|2133|2431|2412||", /* 23: 4 colours, 15 moves, 286 looked at */
-    "2344|1413|4213|2321||", /* 24: 4 colours, 15 moves, 312 looked at */
-    "4314|2142|3423|1231||", /* 25: 4 colours, 16 moves, 290 looked at */
-    "5124|5453|2431|2152|4313||", /* 26: 5 colours, 17 moves, 154 looked at */
-    "4513|3215|5321|4152|3424||", /* 27: 5 colours, 18 moves, 189 looked at */
-    "5315|1425|4521|1323|3424||", /* 28: 5 colours, 18 moves, 239 looked at */
-    "5434|1221|3451|5232|4135||", /* 29: 5 colours, 18 moves, 266 looked at */
-    "1435|2515|1254|3434|1232||", /* 30: 5 colours, 18 moves, 283 looked at */
-    "5134|5422|4325|3131|2451||", /* 31: 5 colours, 18 moves, 307 looked at */
-    "2656|1245|6334|1246|4353|1125||", /* 32: 6 colours, 19 moves, 219 looked at */
-    "4155|5345|3214|3231|2124||", /* 33: 5 colours, 18 moves, 430 looked at */
-    "3434|1522|1351|5235|4214||", /* 34: 5 colours, 19 moves, 324 looked at */
-    "3415|3542|5214|3221|1543||", /* 35: 5 colours, 19 moves, 345 looked at */
-    "5312|2342|2541|3515|3144||", /* 36: 5 colours, 19 moves, 416 looked at */
-    "5135|3451|5421|4234|2321||", /* 37: 5 colours, 19 moves, 486 looked at */
-    "1554|3232|5143|3124|4512||", /* 38: 5 colours, 19 moves, 562 looked at */
-    "3154|1321|5343|2542|5214||", /* 39: 5 colours, 19 moves, 618 looked at */
-    "6545|4613|1252|4613|5332|6124||", /* 40: 6 colours, 21 moves, 293 looked at */
-    "6665|3212|6424|4151|1543|2353||", /* 41: 6 colours, 20 moves, 554 looked at */
-    "6251|2354|1456|3465|1123|2463||", /* 42: 6 colours, 21 moves, 385 looked at */
-    "3141|5625|2542|6241|6645|3133||", /* 43: 6 colours, 21 moves, 526 looked at */
-    "6416|4535|6433|2621|5352|1142||", /* 44: 6 colours, 21 moves, 616 looked at */
-    "4144|3231|2315|2425|5351||", /* 45: 5 colours, 20 moves, 1218 looked at */
-    "4613|5151|5221|3432|6356|4426||", /* 46: 6 colours, 21 moves, 902 looked at */
-    "1432|4213|5525|3241|6456|3616||", /* 47: 6 colours, 22 moves, 633 looked at */
-    "6164|4152|4245|3562|1331|5326||", /* 48: 6 colours, 22 moves, 891 looked at */
-    "2345|5355|6146|1413|2261|4623||", /* 49: 6 colours, 22 moves, 1185 looked at */
-    "4625|4135|6343|1256|6125|4123||", /* 50: 6 colours, 23 moves, 1123 looked at */
-    "6211|7132|4743|4521|5372|6574|3665||", /* 51: 7 colours, 24 moves, 457 looked at */
-    "4122|1372|1757|2341|3356|4645|6765||", /* 52: 7 colours, 24 moves, 600 looked at */
-    "5757|5473|2164|6112|4626|3357|4231||", /* 53: 7 colours, 24 moves, 694 looked at */
-    "6217|6437|2215|6315|4134|4372|7556||", /* 54: 7 colours, 25 moves, 528 looked at */
-    "6236|5211|7714|3246|1547|6532|7354||", /* 55: 7 colours, 25 moves, 625 looked at */
-    "7312|7461|6554|6127|4575|4233|1236||", /* 56: 7 colours, 26 moves, 441 looked at */
-    "7651|7413|5524|6251|6731|2674|2433||", /* 57: 7 colours, 24 moves, 1233 looked at */
-    "1256|4716|2145|3737|2361|3445|7652||", /* 58: 7 colours, 25 moves, 961 looked at */
-    "1537|3651|2342|6215|6457|4613|2477||", /* 59: 7 colours, 25 moves, 1106 looked at */
-    "7164|5354|6771|4136|7532|1225|4263||", /* 60: 7 colours, 26 moves, 837 looked at */
-    "5233|1542|4317|1541|3676|6746|2257||", /* 61: 7 colours, 25 moves, 1432 looked at */
-    "4566|3354|4761|6371|1274|5212|3725||", /* 62: 7 colours, 26 moves, 1065 looked at */
-    "5213|4334|7613|6727|6476|4251|2551||", /* 63: 7 colours, 26 moves, 1185 looked at */
-    "5362|3536|2144|1677|6425|3751|2714||", /* 64: 7 colours, 26 moves, 1272 looked at */
-    "3716|2453|2476|6724|4125|5157|3361||", /* 65: 7 colours, 26 moves, 1340 looked at */
-    "1671|4135|2253|7617|5263|2356|4474||", /* 66: 7 colours, 25 moves, 2234 looked at */
-    "6337|5416|2525|1627|6743|3451|7412||", /* 67: 7 colours, 27 moves, 971 looked at */
-    "2476|3752|6114|3527|4274|6513|6135||", /* 68: 7 colours, 28 moves, 774 looked at */
-    "7557|4412|7671|3231|2465|6341|3652||", /* 69: 7 colours, 26 moves, 2084 looked at */
-    "7317|4375|1513|4314|4662|5275|2662||", /* 70: 7 colours, 27 moves, 1351 looked at */
-    "4523|2676|2637|6754|5434|1213|1751||", /* 71: 7 colours, 27 moves, 1473 looked at */
-    "1357|7617|2445|3265|4636|5427|3112||", /* 72: 7 colours, 27 moves, 1662 looked at */
-    "1352|1374|7623|5752|4616|7164|3425||", /* 73: 7 colours, 27 moves, 2229 looked at */
-    "2513|7442|1626|4734|3176|5155|3672||", /* 74: 7 colours, 27 moves, 2706 looked at */
-    "1357|2146|7256|5427|3152|6463|1374||", /* 75: 7 colours, 28 moves, 2363 looked at */
-    "4765|7412|1272|1485|8317|2348|8356|3566||", /* 76: 8 colours, 28 moves, 1185 looked at */
-    "5225|2845|1648|3187|8234|1677|5361|6374||", /* 77: 8 colours, 29 moves, 1502 looked at */
-    "6267|3441|2857|1358|3862|7131|5642|8547||", /* 78: 8 colours, 30 moves, 1274 looked at */
-    "2538|6814|5678|5728|4116|6573|2324|4173||", /* 79: 8 colours, 31 moves, 958 looked at */
-    "8616|4524|6518|6527|4143|7731|3587|3282||", /* 80: 8 colours, 30 moves, 1906 looked at */
-    "6731|3365|2482|1578|5732|1648|2186|7445||", /* 81: 8 colours, 31 moves, 1321 looked at */
-    "7214|8837|2258|1959|2435|3656|4667|8914|3179||", /* 82: 9 colours, 31 moves, 1541 looked at */
-    "5268|7236|1756|2874|6548|4281|3741|3315||", /* 83: 8 colours, 30 moves, 2714 looked at */
-    "5371|2884|8361|2477|5463|2156|4132|6587||", /* 84: 8 colours, 32 moves, 1294 looked at */
-    "8482|9557|6218|9967|4637|4613|4938|2213|7515||", /* 85: 9 colours, 31 moves, 2866 looked at */
-    "8317|5724|5768|1264|4641|5233|2356|1788||", /* 86: 8 colours, 32 moves, 2010 looked at */
-    "6471|7715|4866|3198|7981|9835|6235|2529|4342||", /* 87: 9 colours, 32 moves, 2449 looked at */
-    "4835|4513|4156|7228|2653|7866|4178|3217||", /* 88: 8 colours, 32 moves, 2786 looked at */
-    "5727|2847|6454|4663|9393|8812|1592|1951|6378||", /* 89: 9 colours, 33 moves, 2339 looked at */
-    "1317|7687|5246|3573|1488|5264|3468|2125||", /* 90: 8 colours, 32 moves, 4003 looked at */
-    "1331|5876|9744|2495|1786|3966|7239|1524|8258||", /* 91: 9 colours, 33 moves, 2901 looked at */
-    "8719|3294|9249|1538|7735|2628|5318|6164|5647||", /* 92: 9 colours, 33 moves, 3304 looked at */
-    "1759|2917|6834|7664|5274|1835|1268|3829|9543||", /* 93: 9 colours, 34 moves, 2519 looked at */
-    "1279|3988|8255|3477|1726|4191|8369|6254|4536||", /* 94: 9 colours, 35 moves, 1837 looked at */
-    "5381|3471|6925|8577|6496|2675|1938|1442|8293||", /* 95: 9 colours, 35 moves, 2208 looked at */
-    "3768|4239|6429|1925|5735|3856|7114|7891|6248||", /* 96: 9 colours, 35 moves, 2754 looked at */
-    "6298|7922|1474|5176|8395|5438|8312|6754|9316||", /* 97: 9 colours, 37 moves, 1885 looked at */
-    "4221|2538|8169|6847|4253|4575|9367|1689|3179||", /* 98: 9 colours, 35 moves, 6344 looked at */
-    "9621|6348|3523|8957|9472|7414|8582|6516|7913||", /* 99: 9 colours, 36 moves, 4831 looked at */
-    "7285|1348|2811|2763|9566|6475|3235|9789|4194||", /* 100: 9 colours, 36 moves, 7085 looked at */
-    "45a1|a928|4696|1533|2196|8858|7737|45a7|3a92|6124||", /* 101: 10 colours, 37 moves, 1923 looked at */
-    "1818|42a7|9886|6596|5352|7794|635a|9317|22a4|a143||", /* 102: 10 colours, 38 moves, 1563 looked at */
-    "3782|2437|a7a5|897a|6565|1469|2524|3388|916a|1419||", /* 103: 10 colours, 37 moves, 3220 looked at */
-    "579a|1574|6123|4193|889a|4865|a236|7475|1369|a228||", /* 104: 10 colours, 37 moves, 3556 looked at */
-    "62a5|59a1|1189|a266|2397|4735|3918|8287|4574|a463||", /* 105: 10 colours, 38 moves, 2873 looked at */
-    "a144|6727|3785|3881|13a9|1294|52a5|8356|2a79|9664||", /* 106: 10 colours, 37 moves, 4920 looked at */
-    "3298|6741|5674|41a2|186a|7551|8795|2a9a|8239|3436||", /* 107: 10 colours, 38 moves, 3796 looked at */
-    "6945|7176|9498|6318|a552|2185|81a2|4aa4|7332|3796||", /* 108: 10 colours, 38 moves, 4499 looked at */
-    "1974|7439|9494|7518|286a|2861|75a1|3aa8|2355|6362||", /* 109: 10 colours, 39 moves, 3335 looked at */
-    "6a62|8474|7915|8a73|1837|9543|4359|2625|6912|18aa||", /* 110: 10 colours, 38 moves, 5603 looked at */
-    "5371|6797|1419|6124|8243|3a2a|963a|a487|5595|8862||", /* 111: 10 colours, 38 moves, 6304 looked at */
-    "a731|9642|5a63|6458|a264|4781|a739|5285|9987|3112||", /* 112: 10 colours, 38 moves, 6905 looked at */
-    "812a|2978|6799|353a|6147|7123|3259|6484|14a5|5a86||", /* 113: 10 colours, 39 moves, 4955 looked at */
-    "2387|1933|451a|a647|6132|8792|872a|4691|5658|a459||", /* 114: 10 colours, 40 moves, 3611 looked at */
-    "8174|4146|28a7|3695|a216|8194|7289|5576|a233|5a93||", /* 115: 10 colours, 39 moves, 6272 looked at */
-    "4947|1272|65a5|6696|2849|1a43|3181|3a57|5972|8a83||", /* 116: 10 colours, 39 moves, 6732 looked at */
-    "8419|86a7|7594|519a|a235|3414|3281|26a9|6727|6835||", /* 117: 10 colours, 38 moves, 11883 looked at */
-    "3a38|6224|2331|a178|2479|9168|95a6|6a55|9784|5147||", /* 118: 10 colours, 40 moves, 5952 looked at */
-    "9229|a584|4953|5876|1856|37a6|3218|7427|43a1|a196||", /* 119: 10 colours, 40 moves, 6473 looked at */
-    "9744|398a|6133|a723|989a|5725|1261|1528|486a|5746||", /* 120: 10 colours, 40 moves, 6690 looked at */
-    "8369|2635|76a1|2124|47a5|74a8|8591|7a13|5428|6399||", /* 121: 10 colours, 40 moves, 7381 looked at */
-    "17a3|5236|6182|2571|4a73|652a|9689|a987|1449|5438||", /* 122: 10 colours, 40 moves, 9394 looked at */
-    "65a7|4515|8281|a379|6369|4814|a236|a417|2937|2958||", /* 123: 10 colours, 40 moves, 11384 looked at */
-    "3952|264a|3a91|2772|154a|5989|8716|84a8|6371|6435||", /* 124: 10 colours, 43 moves, 3981 looked at */
-    "3675|6916|284a|3a13|8731|1655|a474|9422|8978|952a||", /* 125: 10 colours, 42 moves, 7173 looked at */
-    "a794|6496|3a86|4371|11a1|9367|22b5|4537|852b|892b|b8a5||", /* 126: 11 colours, 40 moves, 5790 looked at */
-    "9586|7184|43b4|4355|292b|773b|83a8|a196|172b|25a9|661a||", /* 127: 11 colours, 41 moves, 5528 looked at */
-    "15b8|9ab8|7a84|6625|2333|824a|95b9|7572|9671|a4b4|1613||", /* 128: 11 colours, 41 moves, 7645 looked at */
-    "8728|5a44|1697|b379|16a6|b6b2|7313|2998|13b5|a425|45a8||", /* 129: 11 colours, 42 moves, 6562 looked at */
-    "692b|5684|14a7|b485|ba6b|287a|a783|7563|9134|5131|9229||", /* 130: 11 colours, 43 moves, 6376 looked at */
-    "7b76|542a|7a1a|5441|582a|3297|9363|1123|b9b6|86b4|9858||", /* 131: 11 colours, 42 moves, 12461 looked at */
-    "17a6|7616|9438|6a83|5345|8271|24b9|b5a8|745a|1229|3b9b||", /* 132: 11 colours, 43 moves, 11878 looked at */
-    "1b89|324a|a31a|1667|b286|6737|ab3b|4842|9589|2754|1559||", /* 133: 11 colours, 45 moves, 5681 looked at */
-    "7297|6636|1ba2|178c|b851|28c9|7a95|b2cb|536a|4831|459a|443c||", /* 134: 12 colours, 45 moves, 6285 looked at */
-    "725b|25a4|6181|a479|5c58|8366|b682|7c99|2331|a41a|ccb4|793b||", /* 135: 12 colours, 45 moves, 6875 looked at */
-    "9486|1579|4985|b367|684a|a743|21b3|ab55|2a21|2938|617b||", /* 136: 11 colours, 45 moves, 8456 looked at */
-    "549a|12a9|1673|b265|4473|a169|2879|3b3b|8b56|2184|a785||", /* 137: 11 colours, 43 moves, 25797 looked at */
-    "6891|6718|a1a4|5b52|a523|373b|7149|5248|b36a|4b97|9286||", /* 138: 11 colours, 45 moves, 13317 looked at */
-    "5317|81aa|5248|cc1a|464b|a93b|6921|4525|3878|cc67|9369|b2b7||", /* 139: 12 colours, 45 moves, 15670 looked at */
-    "7a18|2961|4489|abb8|337b|2732|ca29|6cc5|4381|4956|5165|ba7c||", /* 140: 12 colours, 44 moves, 29288 looked at */
-    "a258|6abc|9993|187b|138b|a767|8cac|9c44|3523|5b56|2672|1414||", /* 141: 12 colours, 46 moves, 13789 looked at */
-    "1a1b|7451|739b|2346|b5a6|2739|68a9|5782|3485|2b48|a196||", /* 142: 11 colours, 46 moves, 19186 looked at */
-    "a559|2348|9b28|c691|7876|c53c|7a67|b6aa|1483|9435|c211|4bb2||", /* 143: 12 colours, 47 moves, 14965 looked at */
-    "9621|1332|b78a|9582|5847|7cb1|c166|4a59|432a|bc69|a8c5|b734||", /* 144: 12 colours, 49 moves, 6970 looked at */
-    "6589|6548|a56a|7a72|b161|38ca|b41c|53c2|1939|3b8c|477b|2492||", /* 145: 12 colours, 49 moves, 8856 looked at */
-    "4c9a|39a5|2281|5421|366a|c6a6|7857|74cb|3217|9489|8c3b|1b5b||", /* 146: 12 colours, 48 moves, 19951 looked at */
-    "21b7|218a|8b39|c422|814b|b9c7|5996|3a64|43c6|73c6|81a7|55a5||", /* 147: 12 colours, 48 moves, 29408 looked at */
-    "c642|96a8|1c48|a25c|b332|9b28|7569|1547|b931|631b|787c|4a5a||", /* 148: 12 colours, 50 moves, 15476 looked at */
-    "6427|4776|3ac8|654b|2321|5c25|781b|38ab|951a|6ab4|9cc9|9138||", /* 149: 12 colours, 50 moves, 20163 looked at */
-    "c4a6|8511|67ab|842c|2623|7483|9162|5a91|c7b9|497b|835c|53ba||", /* 150: 12 colours, 51 moves, 18999 looked at */
+    "1212|1212||", /* 1: 2 colours, shuffle, 8 moves, 34 looked at */
+    "1132|2312|2313||", /* 2: 3 colours, shuffle, 10 moves, 73 looked at */
+    "1132|3213|2321||", /* 3: 3 colours, rows, 10 moves, 80 looked at */
+    "2131|2323|2131||", /* 4: 3 colours, mirror, 11 moves, 67 looked at */
+    "1323|2132|1123||", /* 5: 3 colours, shuffle, 10 moves, 112 looked at */
+    "1212|1323|1233||", /* 6: 3 colours, shuffle, 11 moves, 74 looked at */
+    "2313|1212|2313||", /* 7: 3 colours, mirror, 11 moves, 77 looked at */
+    "3121|1213|2332||", /* 8: 3 colours, rows, 11 moves, 100 looked at */
+    "3123|2331|1212||", /* 9: 3 colours, rows, 11 moves, 106 looked at */
+    "3132|1323|1212||", /* 10: 3 colours, shuffle, 11 moves, 107 looked at */
+    "3123|2121|3123||", /* 11: 3 colours, mirror, 12 moves, 77 looked at */
+    "3212|2133|1321||", /* 12: 3 colours, rows, 11 moves, 134 looked at */
+    "1321|3232|1321||", /* 13: 3 colours, mirror, 12 moves, 93 looked at */
+    "2421|1443|2143|3123||", /* 14: 4 colours, shuffle, 14 moves, 125 looked at */
+    "4121|2334|1243|3412||", /* 15: 4 colours, rows, 14 moves, 141 looked at */
+    "2421|1343|1343|2421||", /* 16: 4 colours, mirror, 15 moves, 98 looked at */
+    "3241|2134|1432|1432||", /* 17: 4 colours, rainbow, 15 moves, 127 looked at */
+    "1231|3124|4124|3324||", /* 18: 4 colours, shuffle, 14 moves, 219 looked at */
+    "4321|3241|3241|4321||", /* 19: 4 colours, mirror, 15 moves, 152 looked at */
+    "2114|2424|2313|3431||", /* 20: 4 colours, shuffle, 15 moves, 164 looked at */
+    "4323|3141|1414|2232||", /* 21: 4 colours, rows, 14 moves, 294 looked at */
+    "3134|2412|2412|3134||", /* 22: 4 colours, mirror, 16 moves, 135 looked at */
+    "2413|3412|1234|4321||", /* 23: 4 colours, rainbow, 15 moves, 246 looked at */
+    "3211|2134|1423|4243||", /* 24: 4 colours, shuffle, 15 moves, 314 looked at */
+    "2423|3231|4142|1314||", /* 25: 4 colours, rows, 17 moves, 780 looked at */
+    "3535|4321|1132|4214|4525||", /* 26: 5 colours, shuffle, 17 moves, 251 looked at */
+    "2353|3212|5124|1541|4435||", /* 27: 5 colours, rows, 17 moves, 285 looked at */
+    "3123|2541|4545|2541|3123||", /* 28: 5 colours, mirror, 19 moves, 149 looked at */
+    "2154|4531|3512|2341|4325||", /* 29: 5 colours, rainbow, 18 moves, 276 looked at */
+    "3125|1525|5443|3434|1212||", /* 30: 5 colours, shuffle, 18 moves, 301 looked at */
+    "2353|5421|1414|5421|2353||", /* 31: 5 colours, mirror, 19 moves, 232 looked at */
+    "4541|2431|4153|1323|5252||", /* 32: 5 colours, shuffle, 18 moves, 378 looked at */
+    "2451|5112|4323|1545|3234||", /* 33: 5 colours, rows, 18 moves, 417 looked at */
+    "1352|5143|4242|5143|1352||", /* 34: 5 colours, mirror, 19 moves, 324 looked at */
+    "3145|4312|1235|3245|2145||", /* 35: 5 colours, rainbow, 18 moves, 587 looked at */
+    "3214|4541|2153|5352|4231||", /* 36: 5 colours, shuffle, 19 moves, 528 looked at */
+    "4531|2512|3434|2512|4531||", /* 37: 5 colours, mirror, 20 moves, 355 looked at */
+    "5161|2235|2436|3413|5414|6256||", /* 38: 6 colours, shuffle, 21 moves, 649 looked at */
+    "1142|2465|6524|3256|4631|5313||", /* 39: 6 colours, rows, 21 moves, 663 looked at */
+    "2261|3513|4654|4654|3513|2261||", /* 40: 6 colours, mirror, 23 moves, 363 looked at */
+    "1365|5213|6452|1324|1645|3624||", /* 41: 6 colours, rainbow, 22 moves, 599 looked at */
+    "4316|3534|2516|2154|1322|4566||", /* 42: 6 colours, shuffle, 22 moves, 703 looked at */
+    "3161|4336|6253|1615|2542|5424||", /* 43: 6 colours, rows, 22 moves, 829 looked at */
+    "3531|5126|4642|4642|5126|3531||", /* 44: 6 colours, mirror, 23 moves, 552 looked at */
+    "1312|6524|5312|3454|5361|6264||", /* 45: 6 colours, shuffle, 22 moves, 1035 looked at */
+    "2354|1654|2613|2613|1654|2354||", /* 46: 6 colours, mirror, 24 moves, 535 looked at */
+    "4316|5223|2423|1543|1651|5466||", /* 47: 6 colours, shuffle, 23 moves, 868 looked at */
+    "3415|5613|4125|5261|4263|6342||", /* 48: 6 colours, rainbow, 24 moves, 720 looked at */
+    "1463|5624|1352|1352|5624|1463||", /* 49: 6 colours, mirror, 26 moves, 693 looked at */
+    "3561|6253|1345|5124|2436|4612||", /* 50: 6 colours, showpiece, 22 moves, 436 looked at */
+    "7565|6342|4247|1175|3131|6643|7252||", /* 51: 7 colours, shuffle, 23 moves, 864 looked at */
+    "1527|2643|6256|7314|5771|4435|3162||", /* 52: 7 colours, rows, 24 moves, 658 looked at */
+    "2563|4617|5714|2323|5714|4617|2563||", /* 53: 7 colours, mirror, 26 moves, 280 looked at */
+    "2431|6271|3164|7425|6753|2753|5164||", /* 54: 7 colours, rainbow, 25 moves, 568 looked at */
+    "3667|5741|2351|4242|2351|5741|3667||", /* 55: 7 colours, mirror, 26 moves, 486 looked at */
+    "2764|4557|1343|1656|5276|1227|3134||", /* 56: 7 colours, shuffle, 25 moves, 936 looked at */
+    "4536|5325|2114|6747|3651|7272|1463||", /* 57: 7 colours, rows, 25 moves, 965 looked at */
+    "4552|1616|3747|2323|3747|1616|4552||", /* 58: 7 colours, mirror, 26 moves, 612 looked at */
+    "3747|3131|6214|4726|5461|6255|3527||", /* 59: 7 colours, shuffle, 26 moves, 625 looked at */
+    "3413|2257|5467|6161|5467|2257|3413||", /* 60: 7 colours, mirror, 26 moves, 901 looked at */
+    "7242|3264|7153|4521|6646|3573|1571||", /* 61: 7 colours, shuffle, 26 moves, 921 looked at */
+    "2714|3272|1657|6435|7161|4543|5326||", /* 62: 7 colours, rows, 26 moves, 1079 looked at */
+    "5351|4276|6357|4644|1213|3126|5772||", /* 63: 7 colours, shuffle, 26 moves, 1135 looked at */
+    "1753|4625|2435|4217|2461|3761|7635||", /* 64: 7 colours, rainbow, 26 moves, 1205 looked at */
+    "4763|6724|7461|7215|3145|5213|2356||", /* 65: 7 colours, rainbow, 26 moves, 1320 looked at */
+    "6227|1745|5431|6363|5431|1745|6227||", /* 66: 7 colours, mirror, 28 moves, 569 looked at */
+    "4376|6523|4142|1625|7537|1731|4256||", /* 67: 7 colours, shuffle, 27 moves, 1023 looked at */
+    "2465|7337|4251|1616|4251|7337|2465||", /* 68: 7 colours, mirror, 27 moves, 1082 looked at */
+    "4721|6243|4517|1337|6156|6355|2472||", /* 69: 7 colours, shuffle, 27 moves, 1237 looked at */
+    "2516|6474|7135|3232|7135|6474|2516||", /* 70: 7 colours, mirror, 28 moves, 866 looked at */
+    "7267|6575|3322|4131|2746|5613|1454||", /* 71: 7 colours, rows, 26 moves, 2213 looked at */
+    "6432|5352|2514|2467|7646|1733|1175||", /* 72: 7 colours, shuffle, 27 moves, 1591 looked at */
+    "7621|7134|2514|6543|4267|7135|2536||", /* 73: 7 colours, rainbow, 28 moves, 1057 looked at */
+    "1367|1545|3724|6262|3724|1545|1367||", /* 74: 7 colours, mirror, 28 moves, 1089 looked at */
+    "3152|2376|6741|5617|4263|1534|7425||", /* 75: 7 colours, showpiece, 27 moves, 1918 looked at */
+    "2778|3384|1425|1463|6254|5716|3528|8761||", /* 76: 8 colours, shuffle, 28 moves, 806 looked at */
+    "3434|2147|5515|6623|4351|1768|8286|7872||", /* 77: 8 colours, rows, 27 moves, 2461 looked at */
+    "8712|2735|6863|1544|1544|6863|2735|8712||", /* 78: 8 colours, mirror, 30 moves, 762 looked at */
+    "3127|2128|6645|4836|5187|1683|2774|5345||", /* 79: 8 colours, shuffle, 29 moves, 2106 looked at */
+    "5124|8376|5213|6123|4873|2816|7584|6475||", /* 80: 8 colours, rainbow, 31 moves, 946 looked at */
+    "8876|2615|2435|1473|1473|2435|2615|8876||", /* 81: 8 colours, mirror, 31 moves, 1250 looked at */
+    "6812|7248|1746|8654|3375|1515|7428|3236||", /* 82: 8 colours, shuffle, 30 moves, 2508 looked at */
+    "3287|1541|6165|8714|4336|2653|7428|5872||", /* 83: 8 colours, rows, 30 moves, 2849 looked at */
+    "2426|8564|7813|7351|7351|7813|8564|2426||", /* 84: 8 colours, mirror, 32 moves, 1378 looked at */
+    "2685|2371|6743|5273|3816|4865|5412|4187||", /* 85: 8 colours, rainbow, 32 moves, 1626 looked at */
+    "5126|2654|4643|8138|7525|1617|3247|8387||", /* 86: 8 colours, shuffle, 31 moves, 3027 looked at */
+    "5612|7173|5426|8438|8438|5426|7173|5612||", /* 87: 8 colours, mirror, 33 moves, 1275 looked at */
+    "6285|3968|4576|4423|1597|8737|8614|3929|2115||", /* 88: 9 colours, shuffle, 34 moves, 2750 looked at */
+    "6234|7451|5789|4566|8147|3692|2373|1925|9818||", /* 89: 9 colours, rows, 34 moves, 3485 looked at */
+    "2376|6941|8215|7451|3962|7891|8237|4635|8495||", /* 90: 9 colours, rainbow, 34 moves, 4311 looked at */
+    "7881|3562|5492|7964|3131|7964|5492|3562|7881||", /* 91: 9 colours, mirror, 36 moves, 1740 looked at */
+    "7989|3265|3469|9255|4681|4775|3416|8317|1228||", /* 92: 9 colours, shuffle, 34 moves, 5527 looked at */
+    "5613|2865|2147|7489|3939|7489|2147|2865|5613||", /* 93: 9 colours, mirror, 37 moves, 1776 looked at */
+    "2449|6859|1316|9645|8374|2171|5328|7265|8973||", /* 94: 9 colours, shuffle, 36 moves, 3244 looked at */
+    "2715|9557|5431|6946|4124|1872|7298|8389|3663||", /* 95: 9 colours, rows, 35 moves, 6574 looked at */
+    "9514|3987|7256|8463|1212|8463|7256|3987|9514||", /* 96: 9 colours, mirror, 39 moves, 1242 looked at */
+    "2641|5632|9186|9426|8745|8427|3157|5913|8379||", /* 97: 9 colours, rainbow, 37 moves, 3308 looked at */
+    "8529|4346|7912|7386|5151|7386|7912|4346|8529||", /* 98: 9 colours, mirror, 37 moves, 3566 looked at */
+    "5638|9232|5863|1341|9781|6844|7595|1762|9724||", /* 99: 9 colours, shuffle, 36 moves, 6544 looked at */
+    "7248|3769|4396|5913|9824|8135|6571|1652|2487||", /* 100: 9 colours, showpiece, 34 moves, 3900 looked at */
+    "8267|42a3|9433|9451|5165|126a|a324|7699|5718|88a7||", /* 101: 10 colours, shuffle, 36 moves, 1194 looked at */
+    "7251|5123|3a84|9866|a974|a974|9866|3a84|5123|7251||", /* 102: 10 colours, mirror, 38 moves, 1358 looked at */
+    "4618|38aa|6929|8272|5533|a157|9395|7464|1a81|2746||", /* 103: 10 colours, rows, 35 moves, 5644 looked at */
+    "4539|1597|4128|1833|6a8a|98a5|6494|767a|5223|7261||", /* 104: 10 colours, shuffle, 38 moves, 2985 looked at */
+    "12a4|3983|6552|a781|9647|9647|a781|6552|3983|12a4||", /* 105: 10 colours, mirror, 40 moves, 1312 looked at */
+    "5a37|a261|6217|a984|7913|7592|4319|4358|4658|86a2||", /* 106: 10 colours, rainbow, 39 moves, 2253 looked at */
+    "2116|844a|4675|5a93|3881|4a52|6279|5379|a287|1936||", /* 107: 10 colours, shuffle, 38 moves, 3722 looked at */
+    "515a|7235|4819|9376|2561|1622|8448|3aa3|a984|6797||", /* 108: 10 colours, rows, 37 moves, 6267 looked at */
+    "9121|7839|7655|a4a4|8236|8236|a4a4|7655|7839|9121||", /* 109: 10 colours, mirror, 39 moves, 2708 looked at */
+    "7167|6a94|5925|4533|2632|8497|1aa3|8a91|8872|6154||", /* 110: 10 colours, shuffle, 38 moves, 5704 looked at */
+    "a575|4493|3a9a|822a|6758|7874|9296|1516|2831|1364||", /* 111: 10 colours, shuffle, 38 moves, 6672 looked at */
+    "1473|6a42|2685|1795|3a89|3a89|1795|2685|6a42|1473||", /* 112: 10 colours, mirror, 41 moves, 1712 looked at */
+    "621a|7396|a632|5a41|17a3|8587|2855|9968|4124|3479||", /* 113: 10 colours, rows, 38 moves, 7225 looked at */
+    "1652|743a|18a4|9563|2987|2987|9563|18a4|743a|1652||", /* 114: 10 colours, mirror, 41 moves, 1995 looked at */
+    "a892|7964|6942|645a|2317|53a8|2185|731a|4581|7936||", /* 115: 10 colours, rainbow, 40 moves, 3420 looked at */
+    "6453|1a78|6785|2a93|4912|4912|2a93|6785|1a78|6453||", /* 116: 10 colours, mirror, 41 moves, 2444 looked at */
+    "474a|1331|5479|a658|9986|5252|96a1|7387|8214|a632||", /* 117: 10 colours, shuffle, 39 moves, 6168 looked at */
+    "8a15|6798|328a|2a19|3198|1476|3654|4756|5742|93a2||", /* 118: 10 colours, rainbow, 39 moves, 6226 looked at */
+    "4583|6166|5253|a214|491a|5743|3a87|1a98|6279|2987||", /* 119: 10 colours, shuffle, 39 moves, 7395 looked at */
+    "93a8|5749|7a42|6251|8361|8361|6251|7a42|5749|93a8||", /* 120: 10 colours, mirror, 42 moves, 2422 looked at */
+    "43a2|8776|291a|1547|7281|6a69|5833|9424|a655|3198||", /* 121: 10 colours, rows, 39 moves, 9775 looked at */
+    "7495|18a6|4531|4829|391a|4972|3567|5768|a321|68a2||", /* 122: 10 colours, rainbow, 39 moves, 11518 looked at */
+    "8578|99a6|5325|4524|3a71|a328|367a|9781|6269|1441||", /* 123: 10 colours, shuffle, 39 moves, 13283 looked at */
+    "23a6|1897|a753|4185|2946|2946|4185|a753|1897|23a6||", /* 124: 10 colours, mirror, 43 moves, 2725 looked at */
+    "1728|9645|3287|7a39|6451|519a|2513|a862|4376|89a4||", /* 125: 10 colours, showpiece, 39 moves, 7007 looked at */
+    "4979|b945|6a31|7736|782a|9154|4bab|311b|3a28|2652|8865||", /* 126: 11 colours, shuffle, 39 moves, 5643 looked at */
+    "6492|1b6b|aa25|b957|2189|8834|93a8|567a|4746|3513|72b1||", /* 127: 11 colours, rows, 40 moves, 6450 looked at */
+    "7a41|95b4|b339|8a57|2168|2626|2168|8a57|b339|95b4|7a41||", /* 128: 11 colours, mirror, 44 moves, 1759 looked at */
+    "b721|2497|5ba3|3a64|8351|7ba2|4952|6b15|86a1|9738|4689||", /* 129: 11 colours, rainbow, 42 moves, 6483 looked at */
+    "a233|b7a2|a118|79a9|7492|6b65|8695|5627|5434|834b|18b1||", /* 130: 11 colours, shuffle, 43 moves, 4418 looked at */
+    "9832|4621|b5a7|835a|14b7|9696|14b7|835a|b5a7|4621|9832||", /* 131: 11 colours, mirror, 44 moves, 3598 looked at */
+    "7352|6621|7278|9a4a|a1b1|b91a|5256|943b|7946|b858|4383||", /* 132: 11 colours, shuffle, 43 moves, 7318 looked at */
+    "a7ba|2a83|bba1|9869|7496|4377|1225|5148|8952|3614|653b||", /* 133: 11 colours, rows, 42 moves, 18516 looked at */
+    "486b|7641|a198|b352|3a75|2929|3a75|b352|a198|7641|486b||", /* 134: 11 colours, mirror, 46 moves, 3280 looked at */
+    "951a|a268|a278|29a5|1b46|b547|2397|8634|134b|7165|38b9||", /* 135: 11 colours, rainbow, 44 moves, 9406 looked at */
+    "8758|138a|6654|1941|184b|b952|b956|b67a|74aa|3272|9332||", /* 136: 11 colours, shuffle, 44 moves, 12483 looked at */
+    "b489|3215|621a|9a85|637b|4747|637b|9a85|621a|3215|b489||", /* 137: 11 colours, mirror, 46 moves, 5930 looked at */
+    "8445|c737|3a15|7b81|c95a|c746|bb29|242a|6858|c69b|1a29|1633||", /* 138: 12 colours, shuffle, 46 moves, 15208 looked at */
+    "8552|a638|5165|3897|7c71|1ab4|491c|b2cb|2b29|c48a|97a6|6343||", /* 139: 12 colours, rows, 47 moves, 15285 looked at */
+    "3b47|2152|1c76|4989|ac3b|a856|a856|ac3b|4989|1c76|2152|3b47||", /* 140: 12 colours, mirror, 49 moves, 7390 looked at */
+    "8729|a432|1853|c9ba|68b3|7926|c536|b578|614c|ac71|b594|41a2||", /* 141: 12 colours, rainbow, 50 moves, 6031 looked at */
+    "a8c3|2739|7bc6|25ab|6194|8451|8451|6194|25ab|7bc6|2739|a8c3||", /* 142: 12 colours, mirror, 50 moves, 6632 looked at */
+    "3a97|cbc6|c593|2436|a2c6|b781|8493|2789|82a4|617b|455a|511b||", /* 143: 12 colours, shuffle, 48 moves, 18152 looked at */
+    "7859|4648|9a12|7b2c|35c3|a61b|a61b|35c3|7b2c|9a12|4648|7859||", /* 144: 12 colours, mirror, 52 moves, 3799 looked at */
+    "b439|2b81|6c14|771a|2a69|385b|c4c5|58a8|3a1b|c542|3967|7629||", /* 145: 12 colours, shuffle, 50 moves, 11810 looked at */
+    "bc3b|5866|841c|1577|c7a9|398a|a695|7b58|92b4|43c1|6143|2a22||", /* 146: 12 colours, rows, 48 moves, 40249 looked at */
+    "c3b4|8125|569b|c129|9a65|7b2a|186c|839c|36a7|1742|3748|b5a4||", /* 147: 12 colours, rainbow, 51 moves, 13315 looked at */
+    "93a6|2c48|27a5|b6c5|1431|b798|b798|1431|b6c5|27a5|2c48|93a6||", /* 148: 12 colours, mirror, 53 moves, 8991 looked at */
+    "3a75|c86c|2c49|2119|9654|85b8|a68b|93ba|7376|1352|a441|c7b2||", /* 149: 12 colours, shuffle, 54 moves, 5757 looked at */
+    "a982|6149|5413|42ca|3cb5|7628|285b|ba36|c567|179c|8371|9ba4||", /* 150: 12 colours, showpiece, 49 moves, 37531 looked at */
 };
 
 const uint8_t bs_level_par[BS_LEVELS] = {
-    10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 13, 14, 13, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 16,
-    17, 18, 18, 18, 18, 18, 19, 18, 19, 19, 19, 19, 19, 19, 21, 20, 21, 21, 21, 20, 21, 22, 22, 22, 23,
-    24, 24, 24, 25, 25, 26, 24, 25, 25, 26, 25, 26, 26, 26, 26, 25, 27, 28, 26, 27, 27, 27, 27, 27, 28,
-    28, 29, 30, 31, 30, 31, 31, 30, 32, 31, 32, 32, 32, 33, 32, 33, 33, 34, 35, 35, 35, 37, 35, 36, 36,
-    37, 38, 37, 37, 38, 37, 38, 38, 39, 38, 38, 38, 39, 40, 39, 39, 38, 40, 40, 40, 40, 40, 40, 43, 42,
-    40, 41, 41, 42, 43, 42, 43, 45, 45, 45, 45, 43, 45, 45, 44, 46, 46, 47, 49, 49, 48, 48, 50, 50, 51,
+    8, 10, 10, 11, 10, 11, 11, 11, 11, 11, 12, 11, 12, 14, 14, 15, 15, 14, 15, 15, 14, 16, 15, 15, 17,
+    17, 17, 19, 18, 18, 19, 18, 18, 19, 18, 19, 20, 21, 21, 23, 22, 22, 22, 23, 22, 24, 23, 24, 26, 22,
+    23, 24, 26, 25, 26, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 28, 27, 27, 27, 28, 26, 27, 28, 28, 27,
+    28, 27, 30, 29, 31, 31, 30, 30, 32, 32, 31, 33, 34, 34, 34, 36, 34, 37, 36, 35, 39, 37, 37, 36, 34,
+    36, 38, 35, 38, 40, 39, 38, 37, 39, 38, 38, 41, 38, 41, 40, 41, 39, 39, 39, 42, 39, 39, 39, 43, 39,
+    39, 40, 44, 42, 43, 44, 43, 42, 46, 44, 44, 46, 46, 47, 49, 50, 50, 48, 52, 50, 48, 51, 53, 54, 49,
 };
