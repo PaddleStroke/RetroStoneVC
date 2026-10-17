@@ -183,7 +183,8 @@ pixels, at the bottom of the screen (`rs_screen_origin_v`: 272 lines above it, n
   8-px columns around them): 224 x 512 = 115k pixels on a 9:21 phone against 320 x 240 = 77k in 4:3 and 576 x 240 =
   138k at 560 columns, so it stays within the widescreen budget (the host's frame time: 4:3 1.0x, the tall screen
   1.6x, 560 columns 1.65x). Its tiles are shared as in widescreen (one per distinct picture), BG2's map 64 rows tall.
-  The drifts and the bank's pines go on over the whole height (the slope before the start too, behind the title).
+  The drifts and the bank's pines go on over the whole height; uphill of the start (the title shows it), pines
+  scattered on both sides and a striped start arch (canvas pixels, gone once the race has moved on).
 - **The HUD at the screen's top**: the score (kit sprites at `rs_screen_top()` + 8) and the gates/fish line (BG1's top
   48 lines, `rs_bg_pin`) centred on the columns shown; 2-4 players their tags (16 lines). BG1 is hidden past the stage
   elsewhere (its map would wrap). The snow's colour carries on above the stage (the raster).

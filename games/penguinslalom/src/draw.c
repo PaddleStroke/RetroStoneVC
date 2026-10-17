@@ -265,6 +265,20 @@ static void foreground(const world *w){
  for(int id=tree_first;id<tree_first+8+(more?more*70/135+1:0);id++){
   int y=course_y(id*135),x=(id&1)?315:5;pine(pixels,x,y,10+id%3);
  }
+ if(up){   /* a tall screen: the slope uphill of the start (the title shows it): pines and a striped start arch */
+  for(int j=1;j<=12;j++){
+   uint32_t hh=woods(j,3,5);int y=course_y(-60-j*64),x=(j&1)?24+(int)(hh%64):232+(int)(hh%64);
+   if(y>CY0-10 && y<CY0+CH+60)pine(pixels,x,y,9+(int)(hh>>8)%4);
+  }
+  int ay=course_y(-330);
+  if(ay>CY0-10 && ay-40<CY0+CH){
+   for(int s=0;s<2;s++){int px=s?202:116;oval(pixels,px+4,ay+2,7,3,3);rect(pixels,px,ay-38,px+3,ay,5);rect(pixels,px+1,ay-38,px+2,ay-1,15);}
+   for(int x=120;x<202;x++){
+    int sag=(x-161)*(x-161)/400,top=ay-36+4-sag;
+    rect(pixels,x,top,x,top+9,((x-120)/9)&1?12:9);pixel(pixels,x,top,((x-120)/9)&1?13:10);pixel(pixels,x,top+9,5);pixel(pixels,x,top-1,5);
+   }
+  }
+ }
  for(int p=0;p<w->players;p++){
   const hero *h=&w->h[p];
   for(int i=1;i<h->trail_count;i++){
