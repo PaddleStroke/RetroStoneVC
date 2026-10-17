@@ -269,7 +269,12 @@ static void draw(void)
             float t = G.colour[s] ? colour : 0;
             uint8_t r = (uint8_t)(EBONY[0] + (c[0] - EBONY[0]) * t), g = (uint8_t)(EBONY[1] + (c[1] - EBONY[1]) * t),
                     bb = (uint8_t)(EBONY[2] + (c[2] - EBONY[2]) * t);
-            ui_fill(x + cs / 2.0f - d / 2, y + cs / 2.0f - d / 2, d, d, r, g, bb, 255);
+            float x0 = x + cs / 2.0f - d / 2, y0 = y + cs / 2.0f - d / 2, e = fmaxf(1, 0.09f * d);
+            ui_fill(x0, y0, d, d, r, g, bb, 255);
+            ui_fill(x0, y0, d, e, 255, 248, 230, 46);              /* a soft bevel: lit along the top and left, */
+            ui_fill(x0, y0 + e, e, d - e, 255, 248, 230, 30);
+            ui_fill(x0, y0 + d - e, d, e, 0, 0, 0, 70);            /* in shade along the foot and right */
+            ui_fill(x0 + d - e, y0, e, d - e, 0, 0, 0, 50);
         } else if (st == NG_CROSS && colour < 1) {
             SDL_SetTextureAlphaMod(t_cross, (Uint8)(200 * (1 - colour)));
             ui_put_c(t_cross, x + cs / 2.0f, y + cs / 2.0f, cs * k, cs * k);
