@@ -4,8 +4,11 @@
  * order, then the gap walked at random (never straight back), as many steps as drawn; its exact par found by the
  * rules' search (tq_search, IDA*: Manhattan distances plus linear conflicts); kept when the par lies in the chapter's
  * range, the search stayed quick (the tests solve every level again on every run), and no level kept is the same.
- * The difficulty: the par, more when it lies far above the search's bound (the detours a player must see). Each chapter
- * keeps 25 candidates spread evenly over its difficulties, from the easiest. Deterministic (fixed seeds).
+ * The difficulty: the par, more when it lies far above the search's bound (the detours a player must see). The looks
+ * (taste_of): the tiles out of place spread over the whole tray, not one corner stirred. Each chapter
+ * keeps 25 candidates spread evenly over its difficulties, from the easiest: at each step the best looking of a few
+ * close in difficulty, the gap starting elsewhere than in the level before; the last, its showpiece, the best looking
+ * among its hardest tenth. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/tqgen apps/boardgames/tools/taquin_gen.c && \
  *       /tmp/tqgen > apps/boardgames/src/games/taquin_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -28,7 +31,8 @@ static const struct { int n, picture, lo, hi; } CH[TQ_CHAPTERS] = {
 };
 
 typedef struct {
-    int n, par, bound;
+    int n, par, bound, gap;
+    double taste;
     long looked;
     double diff;
     char text[TQ_PLACES + TQ_MAX + 4];
@@ -37,6 +41,26 @@ typedef struct {
 static cand pool[POOL];
 static int npool;
 static uint32_t rng;
+
+/* how well a tray looks set out by hand (higher: better): the tiles out of place spread over the whole tray (every
+ * row and column has some; their middle near the tray's), not one corner stirred and the rest left in order */
+static double taste_of(const int8_t *at, int n)
+{
+    int row[TQ_MAX] = {0}, col[TQ_MAX] = {0}, off = 0, lines = 0;
+    double cx = 0, cy = 0;
+    for (int p = 0; p < n * n; p++) {
+        if (!at[p] || at[p] == p + 1) continue;
+        row[p / n] = col[p % n] = 1;
+        cx += p % n;
+        cy += p / n;
+        off++;
+    }
+    if (!off) return 0;
+    for (int i = 0; i < n; i++) lines += row[i] + col[i];
+    cx = cx / off - (n - 1) / 2.0;
+    cy = cy / off - (n - 1) / 2.0;
+    return 2.0 * lines / (2 * n) - 0.8 * (cx * cx + cy * cy) / ((n - 1) * (n - 1) / 4.0);
+}
 
 static int by_diff(const void *a, const void *b)
 {
@@ -98,18 +122,30 @@ int main(void)
             c.n = n;
             c.bound = bound;
             c.diff = c.par + 0.5 * (c.par - bound);
+            c.taste = taste_of(at, n);
+            c.gap = gap;
             pool[npool++] = c;
         }
         qsort(pool, (size_t)npool, sizeof *pool, by_diff);
         fprintf(stderr, "chapter %d (%d x %d): %d candidates, par %d .. %d\n", ch + 1, n, n, npool, pool[0].par,
                 pool[npool - 1].par);
-        for (int i = 0, last = -1; i < PER; i++) {
+        for (int i = 0, last = -1, gap = -1; i < PER; i++) {
             double q = ch == 0 && i == 0 ? 0 : 0.03 + 0.94 * i / (PER - 1);
-            int at = (int)(q * (npool - 1) + 0.5);
+            int at = (int)(q * (npool - 1) + 0.5), to, best = -1;
             if (at <= last) at = last + 1;
             if (at >= npool) at = npool - 1;
-            last = at;
-            out[nout] = pool[at];
+            to = ch == 0 && i == 0 ? at : at + npool / (3 * PER);
+            if (i == PER - 1 && at < npool * 9 / 10) at = npool * 9 / 10;   /* the showpiece: among the hardest */
+            if (i == PER - 1) to = npool - 1;
+            if (to >= npool) to = npool - 1;
+            double best_score = -1e9;
+            for (int k = at; k <= to; k++) {    /* the best looking of a few close in difficulty */
+                double score = pool[k].taste - (pool[k].gap == gap ? 0.6 : 0);
+                if (score > best_score) { best_score = score; best = k; }
+            }
+            last = best;
+            gap = pool[best].gap;
+            out[nout] = pool[best];
             out[nout].text[0] = CH[ch].picture == 1 || (CH[ch].picture == 2 && i % 2) ? 'p' : 'n';
             nout++;
         }
