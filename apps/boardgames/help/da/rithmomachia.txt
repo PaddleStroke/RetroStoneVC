@@ -1,12 +1,6 @@
 Rithmomachia
 # Målet
-Rithmomachia, »talkampen«, var de lærdes spil i middelalderens Europa. To hære af tal står over for hinanden på et bræt med 8 gange 16 felter: de lige (lyse) og de ulige (mørke). Hver hær har 24 brikker: 8 cirkler, 8 trekanter, 7 firkanter og en pyramide, som hver bærer et tal. Man vinder ved at slå modstanderens brikker (den almindelige sejr) eller ved at stille tre af sine brikker i harmoni i modstanderens halvdel (den egentlige sejr). De lige trækker først.
-# Hærene
-Brikkerne stilles op, som Claude de Boissière (1556) og Lever og Fulke (1563) beskriver det. Deres tal vokser ud af fire små tal: 2, 4, 6, 8 for de lige, 3, 5, 7, 9 for de ulige.
-- Cirkler: de små tal og deres kvadrater (lige: 2 4 6 8 og 4 16 36 64).
-- Trekanter: hvert lille tal plus dets kvadrat, og kvadratet på det næste tal (lige: 6 20 42 72 og 9 25 49 81).
-- Firkanter: de to trekanter lagt sammen, og kvadratet på det dobbelte af det lille tal plus én (lige: 15 45 153 og 25 81 169 289).
-- Pyramiden er en stak kvadrater: 91 = 1 + 4 + 9 + 16 + 25 + 36 for de lige, 190 = 16 + 25 + 36 + 49 + 64 for de ulige.
+To hære af tal, de lige (lyse) og de ulige (mørke). Man vinder ved at slå modstanderens brikker eller ved at stille tre af sine brikker i harmoni i modstanderens halvdel. De lige trækker først.
 # Flytning
 En brik flytter til et tomt felt og springer aldrig over en anden brik.
 - Cirkel: ét felt diagonalt.
@@ -14,18 +8,14 @@ En brik flytter til et tomt felt og springer aldrig over en anden brik.
 - Firkant: præcis tre felter langs en række eller en søjle.
 - Pyramide: som en hvilken som helst af de tre.
 # Slag
-Efter dit træk tager du hver modstanderbrik, der er fanget på en af disse fire måder. Dine egne brikker bliver stående.
+Efter dit træk tager du hver modstanderbrik, der er fanget på en af disse fire måder:
 - Møde: en af dine brikker med samme tal kunne flytte hen på den.
 - Stormløb: en mindre brik af dine står på en af de linjer, den flytter langs, med kun tomme felter imellem: dens tal gange antallet af tomme felter er lig med modstanderbrikkens tal.
 - Baghold: to af dine brikker, der begge kunne flytte hen på den, giver tilsammen dens tal.
 - Belejring: dine brikker står på alle fire sider af den, vandret og lodret; brættets kant lukker også en side.
-Pyramiden tæller som én brik med hele sit tal, både når den angriber, og når den bliver angrebet.
+Pyramiden tæller som én brik med hele sit tal.
 # Sejre
-Vælg før spillet:
-- Tag 8 brikker: den første spiller, der tager 8 modstanderbrikker, vinder.
-- Tag 12 brikker: det samme, et længere spil.
-- Egentlig sejr: den første spiller, der stiller tre af sine brikker i harmoni, vinder. De tre står i modstanderens halvdel (på den anden side af linjen tværs over midten), på samme række, søjle eller diagonal, med lige stor afstand, og deres tal danner en talfølge i deres rækkefølge langs linjen: aritmetisk (4 6 8: samme forskel), geometrisk (4 16 64: samme forhold) eller harmonisk (3 4 6: det midterste tal er det dobbelte af produktet af de to andre divideret med deres sum).
+- Tag 8 eller Tag 12 brikker: den første spiller, der tager så mange modstanderbrikker, vinder.
+- Egentlig sejr: tre af dine brikker i modstanderens halvdel, på samme række, søjle eller diagonal, med lige stor afstand, hvis tal danner en talfølge i deres rækkefølge langs linjen: aritmetisk (4 6 8), geometrisk (4 16 64) eller harmonisk (3 4 6).
 # Spillets afslutning
 En spiller, der ikke kan flytte, taber. Efter 100 træk i streg (begge spilleres træk tæller med) uden slag er spillet uafgjort.
-# Spil på enheden
-Send enheden rundt: brættet drejer, så hæren hos den spiller, der har tur, står nederst (til venstre i liggende format), sammen med spillerens panel. Tryk på en af dine brikker for at se, hvor den kan gå hen, og tryk derefter på et felt, eller træk brikken. Prikker viser trækkene; en ring om en prik betyder, at trækket slår noget. Efter et træk lyser dine slående brikker i guld, og de slåede brikker lyser rødt, mens de forsvinder. Hvert panel viser, hvor mange brikker den spiller har slået. Når der er få træk tilbage før uafgjort, står antallet for enden af panelet hos den spiller, der har tur.

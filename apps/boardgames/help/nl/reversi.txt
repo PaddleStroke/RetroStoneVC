@@ -1,11 +1,9 @@
 Reversi
 # Het doel
-Aan het einde van het spel meer schijven van jouw kleur op het bord hebben dan de andere speler. Elke schijf is aan de ene kant donker en aan de andere kant licht. Donker begint.
+Aan het einde van het spel meer schijven van jouw kleur op het bord hebben dan de andere speler. Donker begint.
 # Een zet
-- Leg een schijf van jouw kleur zo neer dat hij een of meer rijen schijven van de andere speler insluit tussen zichzelf en een andere schijf van jou, in een rechte lijn: horizontaal, verticaal of diagonaal.
-- Elke ingesloten schijf wordt omgedraaid naar jouw kleur. Eén zet kan schijven in meerdere richtingen tegelijk insluiten.
-- Een zet moet minstens één schijf omdraaien. Heb je zo'n zet niet, dan pas je en speelt de andere speler nog een keer. Het apparaat past voor je.
+- Leg een schijf van jouw kleur zo neer dat hij een of meer rijen schijven van de andere speler insluit tussen zichzelf en een andere schijf van jou: horizontaal, verticaal of diagonaal.
+- Elke ingesloten schijf wordt omgedraaid naar jouw kleur.
+- Een zet moet minstens één schijf omdraaien. Heb je zo'n zet niet, dan pas je.
 # Het einde van het spel
-Het spel eindigt als geen van beide spelers nog kan zetten, meestal als het bord vol is. De speler met de meeste schijven wint. Bij een gelijk aantal schijven is het gelijkspel.
-# Spelen op het apparaat
-Stippen laten zien waar je kunt spelen: tik er een aan. De schijven draaien een voor een om. Elke balk toont hoeveel schijven die speler heeft.
+Het spel eindigt als geen van beide spelers nog kan zetten. De speler met de meeste schijven wint. Bij een gelijk aantal schijven is het gelijkspel.

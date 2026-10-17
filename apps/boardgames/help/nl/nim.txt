@@ -1,14 +1,5 @@
 Het Marienbad-spel
 # Het doel
-Er liggen lucifers in rijen op tafel. Twee spelers nemen om beurten lucifers weg; in het klassieke spel verliest wie de laatste lucifer moet nemen.
-# De opstellingen
-- Marienbad: vier rijen van 1, 3, 5 en 7 lucifers.
-- Willekeurig: 3 tot 5 rijen van elk 1 tot 8 lucifers, elke partij een nieuwe opstelling, met de kortste rij bovenaan.
+Er liggen lucifers in rijen. Bij misère (de klassieke regel) verliest wie de laatste lucifer neemt. Bij normaal spel wint wie hem neemt. Licht begint.
 # Een beurt
-Neem één lucifer of meer, zoveel als je wilt, maar allemaal uit dezelfde rij. Je moet er minstens één nemen. Licht begint.
-# Het einde van de partij
-- Misère (de klassieke regel): wie de laatste lucifer neemt, verliest.
-- Normaal spel: wie de laatste lucifer neemt, wint.
-De spellenlijst biedt vier keuzes: Marienbad of een willekeurige opstelling, elk als misère of als normaal spel. Op hun plaatjes gloeit de laatste lucifer rood als je verliest door hem te nemen, en goud als je er juist mee wint; een dobbelsteen markeert de willekeurige opstellingen.
-# Spelen op het apparaat
-Tik op de lucifers die je wilt nemen: ze komen omhoog. Tik op een opgetilde lucifer om hem terug te leggen, of schuif met je vinger langs een rij om er meerdere tegelijk op te tillen. Alle opgetilde lucifers moeten in één rij liggen. Tik dan op de ronde knop met het vinkje onder de rijen: de lucifers glijden naar jouw kant. Elke balk toont hoeveel lucifers die speler heeft genomen. Ongedaan maken neemt de laatste beurt terug.
+Neem één lucifer of meer, zoveel als je wilt, maar allemaal uit dezelfde rij. Tik op de lucifers en dan op de ronde knop met het vinkje.

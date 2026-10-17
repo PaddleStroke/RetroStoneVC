@@ -1,22 +1,15 @@
 Pousse-billes
 # Le but
-Pousser hors du plateau six billes de l'autre joueur. Le plateau est un hexagone de 61 trous, cinq sur chaque côté, et chaque joueur a quatorze billes. Les billes foncées commencent.
-# Le plateau
-Choisis la position de départ avant la partie :
-- Classique : chaque joueur remplit les deux rangées les plus proches de lui et les trois trous du milieu de la rangée suivante.
-- Marguerite belge : chaque joueur a deux fleurs de sept billes (une bille et ses six voisines), l'une de son côté et l'autre du côté adverse, dans des coins opposés. Les fleurs des deux couleurs se touchent.
-- Marguerite allemande : les mêmes fleurs, une rangée plus loin du bord et plus près des coins, avec un espace entre les deux couleurs.
+Pousser hors du plateau six billes de l'autre joueur. Les billes foncées commencent.
 # Les déplacements
-À ton tour, déplace une, deux ou trois de tes billes d'un trou dans l'une des six directions. Deux ou trois billes doivent se toucher en ligne droite, et elles bougent ensemble :
-- En ligne : le long de leur propre rangée, en avant ou en arrière. La bille de tête entre dans le trou devant elle et les autres la suivent.
-- De côté : en travers de leur rangée, chaque bille dans le trou voisin. Tous ces trous doivent être libres.
-- Une bille seule va dans n'importe quel trou libre voisin. Tu ne peux jamais sortir ta propre bille du plateau.
+Déplace une, deux ou trois de tes billes d'un trou dans l'une des six directions. Deux ou trois billes doivent se toucher en ligne droite, et bougent ensemble (touche chacune d'elles, ou fais glisser ton doigt dessus) :
+- En ligne : le long de leur propre rangée. La bille de tête entre dans le trou devant elle et les autres la suivent.
+- De côté : chaque bille dans le trou voisin. Tous ces trous doivent être libres.
+- Tu ne peux jamais sortir ta propre bille du plateau.
 # Les poussées
-Quand tu déplaces une rangée en ligne, tu peux pousser les billes adverses qui se trouvent juste devant elle, si les tiennes sont plus nombreuses : deux billes en poussent une, trois en poussent une ou deux. Les billes poussées avancent d'un trou.
-- Le trou juste derrière les billes poussées doit être libre, ou être le bord du plateau : la dernière bille poussée tombe alors du plateau et va dans ton bac.
-- Il n'y a pas de poussée si une de tes billes se trouve parmi les billes à pousser ou juste derrière elles, ou si elles sont aussi nombreuses que les tiennes. Une bille seule ne pousse jamais, et aucune bille n'est jamais poussée de côté.
+Quand tu déplaces une rangée en ligne, tu peux pousser les billes adverses qui se trouvent juste devant elle, si les tiennes sont plus nombreuses : deux billes en poussent une, trois en poussent une ou deux.
+- Le trou juste derrière les billes poussées doit être libre, ou être le bord : la dernière bille poussée tombe alors du plateau.
+- Il n'y a pas de poussée si une de tes billes se trouve parmi elles ou juste derrière elles. Aucune bille n'est jamais poussée de côté.
 # La fin de la partie
-- Le premier joueur qui pousse hors du plateau six billes de l'autre joueur gagne.
+- Le premier joueur qui pousse six billes hors du plateau gagne.
 - La partie est nulle quand la même position revient pour la troisième fois avec le même joueur au trait, ou après cinquante coups de chaque côté sans qu'aucune bille ne sorte.
-# Jouer sur l'appareil
-Touche une de tes billes pour la prendre. Pour déplacer une rangée, touche aussi la deuxième et la troisième bille de la rangée, ou fais glisser ton doigt dessus. Des points montrent où les billes peuvent aller, et un anneau montre une bille que tu peux pousser : touches-en un, et les billes glissent. Tant que ton doigt est posé, des billes pâles montrent le coup. Touche une bille prise pour la reposer. Le bac de chaque coin, à la droite de son joueur, reçoit les billes que ce joueur a poussées dehors, et les barres les comptent.

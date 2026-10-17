@@ -1,12 +1,6 @@
 Rithmomachia
 # Målet
-Rithmomachia, «tallenes slag», var de lærdes spill i middelalderens Europa. To hærer av tall står mot hverandre på et brett med 8 ganger 16 ruter: partallene (lyse) og oddetallene (mørke). Hver hær har 24 brikker: 8 runde, 8 trekanter, 7 kvadrater og en pyramide, hver med et tall. Du vinner ved å slå fiendtlige brikker (den vanlige seieren) eller ved å stille tre av brikkene dine i harmoni på fiendens halvdel (den egentlige seieren). Partallene begynner.
-# Hærene
-Brikkene stilles opp slik Claude de Boissière (1556) og Lever og Fulke (1563) beskriver dem. Tallene deres vokser ut av fire små tall: 2, 4, 6, 8 for partallene, 3, 5, 7, 9 for oddetallene.
-- Runde: de små tallene og kvadratene deres (partall: 2 4 6 8 og 4 16 36 64).
-- Trekanter: hvert lite tall pluss kvadratet sitt, og kvadratet av det neste tallet (partall: 6 20 42 72 og 9 25 49 81).
-- Kvadrater: de to trekantene lagt sammen, og kvadratet av det dobbelte av det lille tallet pluss én (partall: 15 45 153 og 25 81 169 289).
-- Pyramiden er en stabel kvadrater: 91 = 1 + 4 + 9 + 16 + 25 + 36 for partallene, 190 = 16 + 25 + 36 + 49 + 64 for oddetallene.
+To hærer av tall, partallene (lyse) og oddetallene (mørke). Du vinner ved å slå fiendtlige brikker, eller ved å stille tre av brikkene dine i harmoni på fiendens halvdel. Partallene begynner.
 # Flytting
 En brikke flytter til en tom rute og hopper aldri over en annen brikke.
 - Rund: én rute diagonalt.
@@ -14,18 +8,14 @@ En brikke flytter til en tom rute og hopper aldri over en annen brikke.
 - Kvadrat: nøyaktig tre ruter langs en rad eller kolonne.
 - Pyramide: som hvilken som helst av de tre.
 # Slag
-Etter trekket ditt slår du hver fiendtlig brikke som er fanget på en av disse fire måtene. Dine egne brikker blir stående.
+Etter trekket ditt slår du hver fiendtlig brikke som er fanget på en av disse fire måtene:
 - Møte: en av brikkene dine med samme tall kunne flyttet til ruten dens.
 - Storm: en mindre brikke av dine på en av linjene den flytter langs, med bare tomme ruter imellom: tallet dens ganger antallet tomme ruter er fiendens tall.
 - Bakhold: to av brikkene dine som begge kunne flyttet til ruten dens, blir til sammen tallet dens.
 - Beleiring: brikkene dine står på alle fire sidene av den, vannrett og loddrett; brettkanten stenger også en side.
-Pyramiden teller som én brikke med hele tallet sitt, både når den angriper og når den blir angrepet.
+Pyramiden teller som én brikke med hele tallet sitt.
 # Seire
-Velg før spillet:
-- Slå 8 brikker: den som først slår 8 fiendtlige brikker, vinner.
-- Slå 12 brikker: det samme, et lengre spill.
-- Egentlig seier: den som først stiller tre av brikkene sine i harmoni, vinner. De tre står på fiendens halvdel (forbi linjen over midten), på samme rad, kolonne eller diagonal, med like stor avstand, og tallene deres danner i rekkefølge langs linjen en tallfølge: aritmetisk (4 6 8: samme differanse), geometrisk (4 16 64: samme forhold) eller harmonisk (3 4 6: det midterste tallet er to ganger produktet av de to andre delt på summen deres).
+- Slå 8 eller Slå 12 brikker: den som først slår så mange fiendtlige brikker, vinner.
+- Egentlig seier: tre av brikkene dine på fiendens halvdel, på samme rad, kolonne eller diagonal, med like stor avstand, der tallene i rekkefølge langs linjen danner en tallfølge: aritmetisk (4 6 8), geometrisk (4 16 64) eller harmonisk (3 4 6).
 # Slutten på spillet
 En spiller som ikke kan flytte, taper. Etter 100 trekk på rad (begge spilleres trekk telt med) uten slag, blir det remis.
-# Spill på enheten
-Send enheten rundt: brettet snur seg slik at hæren til den som har tur, står nederst (til venstre når skjermen ligger), med panelet sitt. Trykk på en av brikkene dine for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene; en ring rundt en prikk betyr at trekket slår noe. Etter et trekk lyser brikkene dine som slår gull, og de slåtte brikkene lyser rødt mens de forsvinner. Hvert panel viser hvor mange brikker den spilleren har slått. Når det er få trekk igjen før remis, vises antallet på slutten av panelet til den som har tur.

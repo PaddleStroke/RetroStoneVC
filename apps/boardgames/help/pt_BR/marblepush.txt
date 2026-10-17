@@ -1,22 +1,15 @@
 Empurra-bolinhas
 # O objetivo
-Empurrar para fora do tabuleiro seis bolinhas do outro jogador. O tabuleiro é um hexágono de 61 furos, cinco em cada lado, e cada jogador tem catorze bolinhas. As bolinhas escuras começam.
-# O tabuleiro
-Escolha a arrumação inicial antes da partida:
-- Padrão: cada jogador preenche as duas fileiras mais próximas dele e os três furos do meio da fileira seguinte.
-- Margarida belga: cada jogador tem duas flores de sete bolinhas (uma bolinha com suas seis vizinhas), uma do seu próprio lado e outra do lado do outro jogador, em cantos opostos. As flores das duas cores se tocam.
-- Margarida alemã: as mesmas flores, uma fileira mais longe da borda e mais perto dos cantos, com um espaço entre as duas cores.
+Empurrar para fora do tabuleiro seis bolinhas do outro jogador. As bolinhas escuras começam.
 # Movimento
-Na sua vez, mova uma, duas ou três das suas bolinhas um furo em qualquer uma das seis direções. Duas ou três bolinhas precisam estar lado a lado numa fileira reta, e se movem juntas:
-- Em linha: ao longo da própria fileira, para a frente ou para trás. A bolinha da frente entra no furo à sua frente e as outras a seguem.
-- De lado: atravessando a fileira, cada bolinha para o furo ao lado. Todos esses furos precisam estar vazios.
-- Uma bolinha sozinha vai para qualquer furo vazio vizinho. Você nunca pode tirar uma bolinha sua do tabuleiro.
+Mova uma, duas ou três das suas bolinhas um furo em qualquer uma das seis direções. Duas ou três bolinhas precisam estar lado a lado numa fileira reta, e se movem juntas (toque em cada uma, ou passe o dedo sobre elas):
+- Em linha: ao longo da própria fileira. A bolinha da frente entra no furo à sua frente e as outras a seguem.
+- De lado: cada bolinha para o furo ao lado. Todos esses furos precisam estar vazios.
+- Você nunca pode tirar uma bolinha sua do tabuleiro.
 # Empurrar
-Quando você move uma fileira em linha, pode empurrar as bolinhas do outro jogador que estão bem na frente dela, se as suas forem mais numerosas: duas bolinhas empurram uma, três empurram uma ou duas. As bolinhas empurradas avançam um furo.
-- O furo logo depois das bolinhas empurradas precisa estar vazio ou ser a borda do tabuleiro: então a última bolinha empurrada cai do tabuleiro e vai para a sua bandeja.
-- Não há empurrão se uma bolinha sua estiver no meio das bolinhas a empurrar ou logo depois delas, ou se elas forem tantas quanto as suas. Uma bolinha sozinha nunca empurra, e nenhuma bolinha é empurrada de lado.
+Quando você move uma fileira em linha, pode empurrar as bolinhas do outro jogador que estão bem na frente dela, se as suas forem mais numerosas: duas bolinhas empurram uma, três empurram uma ou duas.
+- O furo logo depois das bolinhas empurradas precisa estar vazio ou ser a borda: então a última bolinha empurrada cai do tabuleiro.
+- Não há empurrão se uma bolinha sua estiver no meio delas ou logo depois delas. Nenhuma bolinha é empurrada de lado.
 # O fim da partida
-- Vence o primeiro jogador que empurrar para fora do tabuleiro seis bolinhas do outro jogador.
+- Vence o primeiro jogador que empurrar seis bolinhas para fora.
 - A partida termina empatada quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, ou depois de cinquenta jogadas de cada lado sem nenhuma bolinha empurrada para fora.
-# Jogando no aparelho
-Toque em uma das suas bolinhas para pegá-la. Para mover uma fileira, toque também na segunda e na terceira bolinha da fileira, ou passe o dedo sobre elas. Pontos mostram para onde as bolinhas podem ir, e um anel marca uma bolinha que você pode empurrar: toque em um deles e as bolinhas deslizam. Enquanto o seu dedo estiver na tela, bolinhas esmaecidas mostram a jogada. Toque numa bolinha pegada para soltá-la. A bandeja de cada canto, à direita do seu jogador, guarda as bolinhas que esse jogador empurrou para fora, e as barras as contam.

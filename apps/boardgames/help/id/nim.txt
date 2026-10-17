@@ -1,14 +1,5 @@
 Permainan Marienbad
 # Tujuan
-Batang-batang korek api tersusun dalam beberapa baris di atas meja. Dua pemain bergiliran mengambil korek api; dalam permainan klasik, pemain yang terpaksa mengambil korek api terakhir kalah.
-# Susunan
-- Marienbad: empat baris berisi 1, 3, 5, dan 7 korek api.
-- Acak: 3 sampai 5 baris, masing-masing berisi 1 sampai 8 korek api, susunan baru setiap permainan, dengan baris terpendek di atas.
+Korek api tersusun dalam beberapa baris. Dengan aturan "yang terakhir kalah" (aturan klasik), pemain yang mengambil korek api terakhir kalah. Dalam permainan biasa, pemain yang mengambilnya menang. Pihak terang jalan lebih dulu.
 # Satu giliran
-Ambil satu korek api atau lebih, sebanyak yang kamu mau, tetapi semuanya dari baris yang sama. Kamu harus mengambil paling sedikit satu. Pihak terang jalan lebih dulu.
-# Akhir permainan
-- Yang terakhir kalah (aturan klasik): pemain yang mengambil korek api terakhir kalah.
-- Permainan biasa: pemain yang mengambil korek api terakhir menang.
-Daftar permainan menawarkan empat pilihan: Marienbad atau susunan acak, masing-masing dengan aturan "yang terakhir kalah" atau permainan biasa. Pada gambarnya, korek api terakhir menyala merah jika mengambilnya berarti kalah, dan keemasan jika mengambilnya berarti menang; sebuah dadu menandai susunan acak.
-# Bermain di perangkat
-Ketuk korek api yang ingin kamu ambil: korek api itu terangkat. Ketuk korek api yang terangkat untuk mengembalikannya, atau geser jarimu menyusuri satu baris untuk mengangkat beberapa sekaligus. Semua korek api yang terangkat harus berada di satu baris. Lalu ketuk tombol bundar bertanda centang di bawah baris-baris itu: korek api meluncur ke sisimu. Setiap bilah menunjukkan berapa korek api yang sudah diambil pemain itu. Urungkan membatalkan giliran terakhir.
+Ambil satu korek api atau lebih, sebanyak yang kamu mau, tetapi semuanya dari baris yang sama. Ketuk korek apinya, lalu tombol bundar bertanda centang.

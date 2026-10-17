@@ -1,14 +1,5 @@
 Marienbad Oyunu
 # Amaç
-Masada satırlar halinde kibritler durur. İki oyuncu sırayla kibrit alır; klasik oyunda son kibriti almak zorunda kalan kaybeder.
-# Dizilişler
-- Marienbad: 1, 3, 5 ve 7 kibritlik dört satır.
-- Rastgele: her biri 1 ila 8 kibritlik 3 ila 5 satır; her oyunda yeni bir diziliş, en kısa satır en üstte.
+Kibritler satırlar halinde durur. "Sonuncu kaybeder" kuralında (klasik kural) son kibriti alan oyuncu kaybeder. Normal oyunda son kibriti alan kazanır. Önce açık renk oynar.
 # Bir sıra
-Bir ya da daha fazla kibrit al, istediğin kadar, ama hepsi aynı satırdan olsun. En az bir kibrit almalısın. Önce açık renk oynar.
-# Oyunun sonu
-- Sonuncu kaybeder (klasik kural): son kibriti alan oyuncu kaybeder.
-- Normal oyun: son kibriti alan oyuncu kazanır.
-Oyun listesi dört seçenek sunar: Marienbad ya da rastgele diziliş, her biri "sonuncu kaybeder" kuralıyla ya da normal oyunla. Resimlerinde son kibrit, onu almak kaybettirdiğinde kırmızı, kazandırdığında altın renginde parlar; rastgele dizilişleri bir zar gösterir.
-# Cihazda oynamak
-Almak istediğin kibritlere dokun: yukarı kalkarlar. Kalkmış bir kibriti geri koymak için ona dokun ya da birkaçını birden kaldırmak için parmağını bir satır boyunca kaydır. Kalkan kibritlerin hepsi aynı satırda olmalıdır. Sonra satırların altındaki onay işaretli yuvarlak düğmeye dokun: kibritler senin tarafına kayar. Her şerit o oyuncunun kaç kibrit aldığını gösterir. Geri al son sırayı geri alır.
+Bir ya da daha fazla kibrit al, istediğin kadar, ama hepsi aynı satırdan olsun. Kibritlere, sonra onay işaretli yuvarlak düğmeye dokun.

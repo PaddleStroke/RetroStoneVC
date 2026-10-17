@@ -1,11 +1,9 @@
 Reversi
 # El objetivo
-Tener más fichas de tu color en el tablero que el otro jugador al terminar la partida. Cada ficha es oscura por un lado y clara por el otro. Empiezan las oscuras.
+Tener más fichas de tu color en el tablero que el otro jugador al terminar la partida. Empiezan las oscuras.
 # Una jugada
-- Coloca una ficha de tu color de modo que encierre una o varias líneas de fichas del otro jugador entre ella y otra de tus fichas, en línea recta: en horizontal, en vertical o en diagonal.
-- Cada ficha encerrada se da la vuelta y pasa a tu color. Una sola jugada puede encerrar fichas en varias direcciones a la vez.
-- Una jugada debe dar la vuelta al menos a una ficha. Si no tienes ninguna jugada así, pasas y el otro jugador vuelve a jugar. El dispositivo pasa por ti.
+- Coloca una ficha de tu color de modo que encierre una o varias líneas de fichas del otro jugador entre ella y otra de tus fichas: en horizontal, en vertical o en diagonal.
+- Cada ficha encerrada se da la vuelta y pasa a tu color.
+- Una jugada debe dar la vuelta al menos a una ficha. Si no tienes ninguna jugada así, pasas.
 # El final de la partida
-La partida termina cuando ningún jugador puede mover, normalmente cuando el tablero está lleno. Gana el jugador con más fichas. Con el mismo número de fichas, la partida es un empate.
-# Jugar en el dispositivo
-Los puntos muestran dónde puedes jugar: toca uno. Las fichas se dan la vuelta una tras otra. Cada barra muestra cuántas fichas tiene ese jugador.
+La partida termina cuando ningún jugador puede mover. Gana el jugador con más fichas. Con el mismo número de fichas, la partida es un empate.

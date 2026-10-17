@@ -1,36 +1,24 @@
 Shogi
 # Tavoite
-Shogi on japanilainen shakki. Tee vastustajan kuninkaalle matti: uhkaa sitä niin, ettei se pääse pakoon. Musta (sente) aloittaa, minkä jälkeen pelaajat siirtävät vuorotellen, yksi siirto kerrallaan. Kaikki nappulat ovat samanvärisiä: nappulan kärki osoittaa vastustajaa kohti, joten näet, kenen se on. Valitse lauta ennen peliä: shogi 9 × 9 ruudun laudalla (nappuloita täynnä oleva kortti) tai minishogi 5 × 5 ruudun laudalla (pieni lauta).
+Japanilainen shakki: tee vastustajan kuninkaalle matti. Nappulan kärki osoittaa vastustajaa kohti. Musta (sente) aloittaa.
 # Miten nappulat liikkuvat
 - Kuningas (玉, 王): yhden ruudun mihin suuntaan tahansa.
-- Torni (飛): kuinka monta ruutua tahansa riviä tai linjaa pitkin.
-- Lähetti (角): kuinka monta ruutua tahansa viistoa pitkin.
+- Torni (飛): kuinka monta ruutua tahansa riviä tai linjaa pitkin. Lähetti (角): viistoa pitkin.
 - Kultakenraali (金): yhden ruudun mihin suuntaan tahansa paitsi viistosti taaksepäin.
 - Hopeakenraali (銀): yhden ruudun viistosti tai suoraan eteenpäin.
-- Ratsu (桂): kaksi ruutua eteenpäin ja yhden sivulle, hypäten välissä olevien nappuloiden yli. Se liikkuu vain eteenpäin.
+- Ratsu (桂): kaksi ruutua eteenpäin ja yhden sivulle, hypäten välissä olevien nappuloiden yli.
 - Keihäs (香): kuinka monta ruutua tahansa suoraan eteenpäin.
 - Sotilas (歩): yhden ruudun suoraan eteenpäin. Se myös lyö samaan suuntaan.
-Nappulat eivät voi kulkea muiden nappuloiden läpi (paitsi ratsu). Nappula lyö siirtymällä ruutuun, jossa on vastustajan nappula.
 # Korotus
-Kolme sinusta kauimmaista riviä ovat korotusvyöhyke. Nappula, joka siirtyy vyöhykkeelle, sen sisällä tai sieltä pois, saa korottua: se käännetään ympäri ja sen merkki muuttuu punaiseksi.
-- Tornista tulee lohikäärme (龍): torni, joka voi liikkua myös yhden ruudun viistosti.
-- Lähetistä tulee hevonen (馬): lähetti, joka voi liikkua myös yhden ruudun riviä tai linjaa pitkin.
-- Hopeasta, ratsusta, keihäästä ja sotilaasta tulee kultakenraaleja (全, 圭, 杏, と).
-- Kuningas ja kultakenraali eivät korotu.
-Korotus ei ole pakollinen, paitsi jos nappula ei muuten voisi enää koskaan liikkua: sotilas tai keihäs viimeisellä rivillä, ratsu kahdella viimeisellä rivillä.
+Kolme sinusta kauimmaista riviä ovat korotusvyöhyke. Nappula, joka siirtyy vyöhykkeelle, sen sisällä tai sieltä pois, saa korottua: sen merkki muuttuu punaiseksi.
+- Tornista tulee lohikäärme (龍), joka voi liikkua myös yhden ruudun viistosti. Lähetistä tulee hevonen (馬), joka voi liikkua myös yhden ruudun suoraan.
+- Hopeasta, ratsusta, keihäästä ja sotilaasta tulee kultakenraaleja (全, 圭, 杏, と). Kuningas ja kultakenraali eivät korotu.
+- Korotus on pakollinen vain, jos nappula ei muuten voisi enää koskaan liikkua.
 # Lyödyt nappulat
-Lyöty nappula siirtyy lyöjän puolelle ja odottaa kädessä. Siirron sijaan voit pudottaa nappulan kädestäsi mihin tahansa tyhjään ruutuun korottamattomana. Pudotus saa antaa shakin. Kolme rajoitusta:
-- Ei sotilasta linjalle, jolla on jo yksi korottamaton sotilaasi.
-- Ei nappulaa paikkaan, jossa se ei voisi koskaan liikkua (sotilas tai keihäs viimeiselle riville, ratsu kahdelle viimeiselle riville).
-- Sotilaan pudotus ei saa antaa välitöntä mattia (laudalla siirretty sotilas saa).
+Lyöty nappula siirtyy käteesi. Siirron sijaan voit pudottaa sen korottamattomana mihin tahansa tyhjään ruutuun. Ei sallittu: sotilas linjalle, jolla on jo yksi korottamaton sotilaasi; nappula paikkaan, jossa se ei voisi koskaan liikkua; sotilaan pudotus, joka antaa välittömän matin.
 # Pelin loppu
-Uhattu kuningas on shakissa: seuraavan siirron on päästettävä se pois shakista. Et saa koskaan tehdä siirtoa, joka jättää oman kuninkaasi shakkiin.
-- Matti: kuningas on shakissa, eikä mikään siirto voi pelastaa sitä. Se pelaaja häviää. Pelaaja, jolla ei ole yhtään sallittua siirtoa, häviää myös.
-- Toisto: kun sama asema (nappulat laudalla ja kädessä, sama pelaaja siirtovuorossa) toistuu neljännen kerran, peli päättyy tasapeliin. Mutta jos jompikumpi pelaaja on shakannut jokaisella siirrollaan siitä lähtien, kun asema ensimmäisen kerran syntyi, se pelaaja häviää.
-- Kahdelle kuninkaalle, jotka ovat molemmat tunkeutuneet vastustajan leiriin, ei ole sääntöä: pelatkaa eteenpäin.
+Et saa koskaan jättää omaa kuningastasi shakkiin.
+- Matti voittaa. Pelaaja, jolla ei ole yhtään sallittua siirtoa, häviää myös.
+- Kun sama asema (lauta, kädet ja siirtovuorossa oleva pelaaja) toistuu neljännen kerran, peli päättyy tasapeliin. Mutta pelaaja, joka on antanut shakin jokaisella siirrollaan siitä lähtien, häviää.
 # Minishogi
-Pieni shogi 5 × 5 ruudun laudalla. Kumpikin pelaaja aloittaa kuninkaalla, kultakenraalilla, hopeakenraalilla, lähetillä ja tornilla omalla ensimmäisellä rivillään, tässä järjestyksessä vasemmalta, ja sotilaalla kuninkaan edessä. Ratsuja ja keihäitä ei ole. Nappulat liikkuvat, lyövät ja pudotetaan kuten shogissa, samoin kolmin pudotusrajoituksin. Kaksi eroa:
-- Korotusvyöhyke on vain kaukaisin rivi. Sotilaan, joka saavuttaa sen, on korotuttava.
-- Toisto: kun sama asema syntyy neljännen kerran, musta (sente), joka aloitti, häviää. Pelaaja, joka on antanut shakin joka siirrollaan siitä asti, kun asema syntyi ensimmäisen kerran, häviää kuitenkin sen sijaan.
-# Pelaaminen laitteella
-Napauta nappulaa nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot, renkaat lyönnit. Shakissa oleva kuningas hehkuu punaisena. Kädessä olevat nappulasi ovat palkissasi lukumäärineen: napauta yhtä ja sitten ruutua, tai vedä se laudalle. Kun nappula saa korottua, valitse sen korotettu puoli (punainen) tai pidä se ennallaan.
+5 × 5 ruudun laudalla, ilman ratsuja ja keihäitä. Korotusvyöhyke on vain kaukaisin rivi, ja sotilaan, joka saavuttaa sen, on korotuttava. Neljännellä toistolla musta (sente) häviää, ellei vastustaja ole antanut shakkia jokaisella siirrollaan siitä lähtien: silloin vastustaja häviää sen sijaan.

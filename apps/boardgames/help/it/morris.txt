@@ -1,19 +1,16 @@
 Mulino
 # Lo scopo
-Lasciare all'altro giocatore solo due pedine, o nessuna mossa. Ogni giocatore ha nove pedine. Iniziano le pedine chiare. Scegli il tavoliere prima della partita: mulino a nove pedine (la carta con tre quadrati), mulino a dodici pedine (tre quadrati uniti da diagonali agli angoli) o mulino a sei pedine (due quadrati). Le regole qui sotto sono quelle del mulino a nove pedine; gli altri due le modificano come descritto più avanti.
+Lasciare all'altro giocatore solo due pedine, o nessuna mossa. Iniziano le pedine chiare.
 # Piazzamento
-All'inizio, i giocatori piazzano a turno una pedina su un punto libero qualsiasi, finché tutte e diciotto le pedine sono sul tavoliere.
+All'inizio, i giocatori piazzano a turno una pedina su un punto libero qualsiasi, finché tutte le loro pedine sono sul tavoliere.
 # Movimento
-Poi, al tuo turno, sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero. Un giocatore a cui restano solo tre pedine può volare: spostare una pedina su un punto libero qualsiasi.
+Poi sposta una delle tue pedine lungo una linea fino al punto vicino, se è libero. Un giocatore a cui restano solo tre pedine può volare: spostare una pedina su un punto libero qualsiasi.
 # Mulini
-Tre tue pedine in fila sulla stessa linea formano un mulino. Ogni volta che formi un mulino, durante il piazzamento o il movimento, togli dal tavoliere una pedina dell'altro giocatore. Non puoi prendere una pedina che fa parte di un mulino, a meno che tutte le pedine dell'altro giocatore siano in mulini. Aprire un mulino e richiuderlo forma un nuovo mulino.
+Tre tue pedine in fila sulla stessa linea formano un mulino. Ogni volta che ne formi uno, durante il piazzamento o il movimento, togli una pedina dell'altro giocatore. Non puoi prendere una pedina che fa parte di un mulino, a meno che tutte le sue pedine siano in mulini. Aprire un mulino e richiuderlo forma un nuovo mulino.
 # Mulino a dodici pedine
-Il tavoliere del mulino a nove pedine, con una linea diagonale in ogni angolo che unisce i tre quadrati. Ogni giocatore ha dodici pedine. Le pedine si muovono anche lungo le diagonali, e tre pedine su una diagonale formano un mulino. Se la fase di piazzamento riempie tutti i 24 punti, la partita è patta.
+Dodici pedine a testa. Le pedine si muovono anche lungo le diagonali degli angoli, e tre pedine su una diagonale formano un mulino. Se il piazzamento riempie tutti i 24 punti, la partita è patta.
 # Mulino a sei pedine
-Un tavoliere più piccolo: due quadrati, uniti da brevi linee a metà dei lati. Ogni giocatore ha sei pedine. I tre punti di ogni lato di un quadrato formano un mulino; le brevi linee tra i quadrati servono solo per muovere. Non si vola: un giocatore a cui restano due pedine perde.
+Sei pedine a testa. I tre punti di ogni lato di un quadrato formano un mulino; le brevi linee tra i quadrati servono solo per muovere. Non si vola.
 # La fine della partita
-- Perde il giocatore a cui restano due pedine.
-- Perde il giocatore che non può muovere nessuna pedina.
+- Perde il giocatore a cui restano due pedine, o che non può muovere.
 - La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza mulini.
-# Giocare sul dispositivo
-Tocca un punto libero per piazzare una pedina. Per muovere, tocca la tua pedina e poi il suo nuovo punto, oppure trascinala. Dopo un mulino, le pedine che puoi prendere si illuminano: toccane una.

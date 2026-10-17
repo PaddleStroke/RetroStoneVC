@@ -1,22 +1,15 @@
 Spychanie kulek
 # Cel gry
-Zepchnij z planszy sześć kulek przeciwnika. Plansza to sześciokąt z 61 dołkami, po pięć na każdym boku, a każdy gracz ma czternaście kulek. Ciemne zaczynają.
-# Plansza
-Przed grą wybierz ustawienie początkowe:
-- Standardowe: każdy gracz wypełnia dwa najbliższe sobie rzędy i trzy środkowe dołki następnego rzędu.
-- Belgijska stokrotka: każdy gracz ma dwa kwiaty z siedmiu kulek (kulka i jej sześć sąsiadek), jeden po swojej stronie i jeden po stronie przeciwnika, w przeciwległych rogach. Kwiaty obu kolorów stykają się.
-- Niemiecka stokrotka: te same kwiaty, o rząd dalej od brzegu i bliżej rogów, z odstępem między dwoma kolorami.
+Zepchnij z planszy sześć kulek przeciwnika. Ciemne zaczynają.
 # Przesuwanie
-W swoim ruchu przesuń jedną, dwie lub trzy swoje kulki o jeden dołek w jednym z sześciu kierunków. Dwie lub trzy kulki muszą leżeć obok siebie w prostym rzędzie i poruszają się razem:
-- Wzdłuż: po linii własnego rzędu, do przodu lub do tyłu. Przednia kulka wchodzi do dołka przed sobą, a pozostałe idą za nią.
-- Na bok: w poprzek swojego rzędu, każda kulka do dołka obok. Wszystkie te dołki muszą być puste.
-- Pojedyncza kulka idzie do dowolnego pustego sąsiedniego dołka. Nigdy nie wolno ci wysunąć własnej kulki poza planszę.
+Przesuń jedną, dwie lub trzy swoje kulki o jeden dołek w jednym z sześciu kierunków. Dwie lub trzy kulki muszą leżeć obok siebie w prostym rzędzie i poruszają się razem (dotknij każdej z nich albo przeciągnij po nich palcem):
+- Wzdłuż: po linii własnego rzędu. Przednia kulka wchodzi do dołka przed sobą, a pozostałe idą za nią.
+- Na bok: każda kulka do dołka obok. Wszystkie te dołki muszą być puste.
+- Nigdy nie wolno ci wysunąć własnej kulki poza planszę.
 # Spychanie
-Gdy przesuwasz rząd wzdłuż, możesz pchać kulki przeciwnika leżące tuż przed nim, jeśli twoich jest więcej: dwie kulki pchają jedną, trzy pchają jedną lub dwie. Pchane kulki przesuwają się o jeden dołek dalej.
-- Dołek tuż za pchanymi kulkami musi być pusty albo być brzegiem planszy: wtedy ostatnia pchana kulka spada z planszy i trafia do twojej tacki.
-- Nie można pchać, jeśli twoja własna kulka leży wśród kulek do pchnięcia albo tuż za nimi, ani jeśli jest ich tyle samo co twoich. Pojedyncza kulka nigdy nie pcha i żadnej kulki nie pcha się na bok.
+Gdy przesuwasz rząd wzdłuż, możesz pchać kulki przeciwnika leżące tuż przed nim, jeśli twoich jest więcej: dwie kulki pchają jedną, trzy pchają jedną lub dwie.
+- Dołek tuż za pchanymi kulkami musi być pusty albo być brzegiem planszy: wtedy ostatnia pchana kulka spada z planszy.
+- Nie można pchać, jeśli twoja własna kulka leży wśród kulek do pchnięcia albo tuż za nimi. Żadnej kulki nie pcha się na bok.
 # Koniec gry
-- Wygrywa ten, kto pierwszy zepchnie z planszy sześć kulek przeciwnika.
+- Wygrywa ten, kto pierwszy zepchnie z planszy sześć kulek.
 - Gra kończy się remisem, gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, lub po pięćdziesięciu ruchach każdej ze stron bez zepchnięcia żadnej kulki.
-# Gra na urządzeniu
-Dotknij jednej ze swoich kulek, aby ją podnieść. Aby przesunąć rząd, dotknij też drugiej i trzeciej kulki rzędu albo przeciągnij po nich palcem. Kropki pokazują, dokąd mogą pójść kulki, a pierścień wskazuje kulkę, którą możesz pchnąć: dotknij jednego z tych znaków, a kulki się przesuną. Dopóki trzymasz palec na ekranie, blade kulki pokazują ruch. Dotknij podniesionej kulki, aby ją odłożyć. Tacka w każdym rogu, po prawej ręce swojego gracza, zbiera kulki zepchnięte przez tego gracza, a paski je liczą.

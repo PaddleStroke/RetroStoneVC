@@ -1,19 +1,16 @@
 Kvarn
 # Målet
-Lämna motståndaren med bara två pjäser, eller utan drag. Varje spelare har nio pjäser. Den ljusa sidan börjar. Välj bräde före partiet: kvarn med nio pjäser (kortet med tre kvadrater), kvarn med tolv pjäser (tre kvadrater förbundna med diagonaler i hörnen) eller kvarn med sex pjäser (två kvadrater). Reglerna nedan gäller kvarn med nio pjäser; de två andra ändrar dem så som beskrivs längre ned.
+Lämna motståndaren med bara två pjäser, eller utan drag. Den ljusa sidan börjar.
 # Utsättning
-Först turas spelarna om att sätta ut en pjäs på valfri tom punkt, tills alla arton pjäser står på brädet.
+Först turas spelarna om att sätta ut en pjäs på valfri tom punkt, tills alla deras pjäser står på brädet.
 # Förflyttning
-Sedan flyttar du, när det är din tur, en av dina pjäser längs en linje till nästa punkt, om den är tom. En spelare med bara tre pjäser kvar får flyga: flytta en pjäs till valfri tom punkt.
+Sedan flyttar du en av dina pjäser längs en linje till nästa punkt, om den är tom. En spelare med bara tre pjäser kvar får flyga: flytta en pjäs till valfri tom punkt.
 # Kvarnar
-Tre av dina pjäser i rad längs en linje bildar en kvarn. Varje gång du bildar en kvarn, under utsättningen eller förflyttningen, tar du bort en av motståndarens pjäser från brädet. Du får inte ta en pjäs som ingår i en kvarn, om inte alla motståndarens pjäser ingår i kvarnar. Att öppna en kvarn och stänga den igen bildar en ny kvarn.
+Tre av dina pjäser i rad längs en linje bildar en kvarn. Varje gång du bildar en, under utsättningen eller förflyttningen, tar du bort en av motståndarens pjäser. Du får inte ta en pjäs som ingår i en kvarn, om inte alla motståndarens pjäser ingår i kvarnar. Att öppna en kvarn och stänga den igen bildar en ny kvarn.
 # Kvarn med tolv pjäser
-Brädet från kvarn med nio pjäser, med en diagonal linje i varje hörn som förbinder de tre kvadraterna. Varje spelare har tolv pjäser. Pjäserna flyttar också längs diagonalerna, och tre pjäser på en diagonal bildar en kvarn. Om utsättningen fyller alla 24 punkter blir det remi.
+Tolv pjäser var. Pjäserna flyttar också längs hörnens diagonaler, och tre på en diagonal bildar en kvarn. Om utsättningen fyller alla 24 punkter blir det remi.
 # Kvarn med sex pjäser
-Ett mindre bräde: två kvadrater, förbundna med korta linjer mitt på sidorna. Varje spelare har sex pjäser. De tre punkterna längs varje sida av en kvadrat bildar en kvarn; de korta linjerna mellan kvadraterna används bara för att flytta. Det går inte att flyga: en spelare med bara två pjäser kvar förlorar.
+Sex pjäser var. De tre punkterna längs varje sida av en kvadrat bildar en kvarn; de korta linjerna mellan kvadraterna används bara för att flytta. Det går inte att flyga.
 # Partiets slut
-- En spelare som har två pjäser kvar förlorar.
-- En spelare som inte kan flytta någon pjäs förlorar.
+- En spelare som har två pjäser kvar, eller inte kan flytta, förlorar.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången, eller efter femtio drag var utan kvarn.
-# Spela på enheten
-Tryck på en tom punkt för att sätta ut en pjäs. För att flytta, tryck på din pjäs och sedan på dess nya punkt, eller dra den. Efter en kvarn lyser de pjäser du får ta: tryck på en.

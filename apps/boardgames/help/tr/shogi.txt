@@ -1,36 +1,24 @@
 Shogi
 # Amaç
-Shogi, Japon satrancıdır. Rakibin şahını mat et: ona kaçamayacağı şekilde saldır. Önce siyah (sente) oynar, sonra oyuncular sırayla birer hamle yapar. Bütün taşlar aynı renktedir: her taşın sivri ucu rakibe bakar, böylece taşın kime ait olduğunu anlayabilirsin. Oyundan önce tahtayı seç: 9'a 9 karelik shogi (taşlarla dolu kart) ya da 5'e 5 karelik mini shogi (küçük tahta).
+Japon satrancı: rakibin şahını mat et. Her taşın ucu rakibine bakar. Önce siyah (sente) oynar.
 # Taşlar nasıl hareket eder
 - Şah (玉, 王): herhangi bir yöne bir kare.
-- Kale (飛): yatay ya da dikey olarak istediği kadar kare.
-- Fil (角): çapraz olarak istediği kadar kare.
+- Kale (飛): yatay ya da dikey olarak istediği kadar kare. Fil (角): çapraz olarak.
 - Altın general (金): çapraz geri dışında herhangi bir yöne bir kare.
 - Gümüş general (銀): çapraz olarak bir kare ya da dümdüz ileri bir kare.
-- At (桂): iki kare ileri ve bir kare yana; aradaki taşların üzerinden atlar. Yalnızca ileri gider.
+- At (桂): iki kare ileri ve bir kare yana; aradaki taşların üzerinden atlar.
 - Mızrak (香): dümdüz ileri istediği kadar kare.
 - Piyon (歩): dümdüz ileri bir kare. Taşı da aynı yönde alır.
-Taşlar diğer taşların içinden geçemez (at hariç). Bir taş, rakip taşın bulunduğu kareye giderek onu alır.
 # Terfi
-Senden en uzak üç sıra terfi bölgesidir. Bu bölgeye giren, bölge içinde hareket eden ya da bölgeden çıkan bir taş terfi edebilir: ters çevrilir ve üzerindeki yazı kırmızı olur.
-- Kale, ejder krala (龍) dönüşür: çapraz olarak bir kare de gidebilen bir kale.
-- Fil, ejder ata (馬) dönüşür: yatay ya da dikey olarak bir kare de gidebilen bir fil.
-- Gümüş general, at, mızrak ve piyon altın generale dönüşür (全, 圭, 杏, と).
-- Şah ve altın general terfi etmez.
-Terfi zorunlu değildir; ancak taş bir daha asla hareket edemeyecekse zorunludur: son sıradaki piyon ya da mızrak, son iki sıradaki at.
+Senden en uzak üç sıra terfi bölgesidir. Bu bölgeye giren, bölge içinde hareket eden ya da bölgeden çıkan bir taş terfi edebilir: üzerindeki yazı kırmızı olur.
+- Kale, çapraz olarak bir kare de gidebilen ejder krala (龍) dönüşür. Fil, yatay ya da dikey olarak bir kare de gidebilen ejder ata (馬) dönüşür.
+- Gümüş general, at, mızrak ve piyon altın generale dönüşür (全, 圭, 杏, と). Şah ve altın general terfi etmez.
+- Terfi yalnızca taş bir daha asla hareket edemeyecekse zorunludur.
 # Alınan taşlar
-Alınan taş, onu alan oyuncunun tarafına geçer ve elde bekler. Hamle yapmak yerine elindeki bir taşı terfisiz olarak herhangi bir boş kareye bırakabilirsin. Bırakılan taş şah çekebilir. Üç sınır vardır:
-- Terfi etmemiş bir piyonunun zaten bulunduğu sütuna piyon bırakılamaz.
-- Bir taş, bir daha asla hareket edemeyeceği yere bırakılamaz (son sıraya piyon ya da mızrak, son iki sıraya at).
-- Piyon bırakarak doğrudan mat edilemez (tahtada oynatılan piyonla edilebilir).
+Alınan taş eline geçer. Hamle yapmak yerine onu terfisiz olarak herhangi bir boş kareye bırakabilirsin. Yasak olanlar: terfi etmemiş bir piyonunun zaten bulunduğu sütuna piyon; bir daha asla hareket edemeyeceği yere taş; doğrudan mat eden piyon bırakma.
 # Oyunun sonu
-Saldırı altındaki şaha şah çekilmiş olur: bir sonraki hamle onu şahtan kurtarmalıdır. Kendi şahını şah altında bırakan bir hamleyi asla yapamazsın.
-- Mat: şaha şah çekilmiştir ve hiçbir hamle onu kurtaramaz. O oyuncu kaybeder. Hiç geçerli hamlesi olmayan oyuncu da kaybeder.
-- Tekrar: aynı pozisyon (tahtadaki ve eldeki taşlar, sıra aynı oyuncuda) dördüncü kez geldiğinde oyun berabere biter. Ama oyunculardan biri bu pozisyon ilk ortaya çıktığından beri her hamlesinde şah çektiyse, o oyuncu kaybeder.
-- İkisi de rakip kampa girmiş iki şah için bir kural yoktur: oynamaya devam edin.
+Kendi şahını asla şah altında bırakamazsın.
+- Mat kazandırır. Hiç geçerli hamlesi olmayan oyuncu da kaybeder.
+- Aynı pozisyon (tahta, eller ve sıranın kimde olduğu) dördüncü kez geldiğinde oyun berabere biter. Ama o zamandan beri her hamlesinde şah çeken oyuncu kaybeder.
 # Mini shogi
-5'e 5 karelik küçük bir shogi. Her oyuncu ilk sırasında soldan sırayla şah, altın general, gümüş general, fil ve kale ile, şahın önünde de bir piyonla başlar. At ve mızrak yoktur. Taşlar shogideki gibi hareket eder, taş alır ve bırakılır; bırakmanın üç sınırı da aynıdır. İki fark var:
-- Terfi bölgesi yalnızca en uzak sıradır. Oraya ulaşan piyon terfi etmek zorundadır.
-- Tekrar: aynı konum dördüncü kez oluşunca önce oynayan siyah (sente) kaybeder. Ancak o konum ilk oluştuğundan beri her hamlesinde şah çeken oyuncu varsa, onun yerine o kaybeder.
-# Cihazda oynamak
-Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir kareye dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş şah kırmızı parlar. Elindeki taşlar, sayılarıyla birlikte şeridindedir: birine, sonra bir kareye dokun ya da onu tahtaya sürükle. Bir taş terfi edebildiğinde terfili yüzünü (kırmızı) seç ya da olduğu gibi bırak.
+5'e 5 tahtada, atsız ve mızraksız. Terfi bölgesi yalnızca en uzak sıradır ve oraya ulaşan piyon terfi etmek zorundadır. Dördüncü tekrarda siyah (sente) kaybeder; ancak diğer oyuncu o zamandan beri her hamlesinde şah çektiyse, onun yerine o kaybeder.

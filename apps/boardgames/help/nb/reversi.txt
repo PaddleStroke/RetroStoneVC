@@ -1,11 +1,9 @@
 Reversi
 # Målet
-Ha flere brikker i din farge på brettet enn motstanderen når spillet slutter. Hver brikke er mørk på den ene siden og lys på den andre. Den mørke siden begynner.
+Ha flere brikker i din farge på brettet enn motstanderen når spillet slutter. Den mørke siden begynner.
 # Et trekk
-- Legg en brikke i din farge slik at den stenger inne én eller flere rekker av motstanderens brikker mellom seg selv og en annen av brikkene dine, i rett linje: vannrett, loddrett eller diagonalt.
-- Hver innestengt brikke snus til din farge. Ett enkelt trekk kan stenge inne brikker i flere retninger samtidig.
-- Et trekk må snu minst én brikke. Hvis du ikke har noe slikt trekk, må du stå over, og motstanderen spiller igjen. Enheten står over for deg.
+- Legg en brikke i din farge slik at den stenger inne én eller flere rekker av motstanderens brikker mellom seg selv og en annen av brikkene dine: vannrett, loddrett eller diagonalt.
+- Hver innestengt brikke snus til din farge.
+- Et trekk må snu minst én brikke. Hvis du ikke har noe slikt trekk, står du over.
 # Slutten på spillet
-Spillet slutter når ingen av spillerne kan trekke, som regel når brettet er fullt. Spilleren med flest brikker vinner. Like mange brikker er uavgjort.
-# Spill på enheten
-Prikker viser hvor du kan spille: trykk på én. Brikkene snus én etter én. Hvert panel viser hvor mange brikker den spilleren har.
+Spillet slutter når ingen av spillerne kan trekke. Spilleren med flest brikker vinner. Like mange brikker er uavgjort.

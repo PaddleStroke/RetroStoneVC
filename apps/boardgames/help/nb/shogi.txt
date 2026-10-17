@@ -1,36 +1,24 @@
 Shogi
 # Målet
-Shogi er japansk sjakk. Sett motstanderens konge sjakkmatt: angrip den slik at den ikke kan unnslippe. Svart (sente) trekker først, deretter bytter spillerne på, ett trekk hver. Alle brikkene har samme farge: en brikke peker mot motstanderen, så du kan se hvem den tilhører. Velg brett før spillet: shogi på 9 ganger 9 ruter (kortet fullt av brikker) eller minishogi på 5 ganger 5 (det lille brettet).
+Japansk sjakk: sett motstanderens konge sjakkmatt. En brikke peker mot motstanderen sin. Svart (sente) trekker først.
 # Slik går brikkene
 - Konge (玉, 王): én rute i hvilken som helst retning.
-- Tårn (飛): så mange ruter det vil langs en rad eller en linje.
-- Løper (角): så mange ruter den vil langs en diagonal.
+- Tårn (飛): så mange ruter det vil langs en rad eller en linje. Løper (角): langs en diagonal.
 - Gullgeneral (金): én rute i hvilken som helst retning unntatt skrått bakover.
 - Sølvgeneral (銀): én rute diagonalt, eller rett fram.
-- Springer (桂): to ruter fram og én til siden, og den hopper over brikker som står imellom. Den går bare framover.
+- Springer (桂): to ruter fram og én til siden, og den hopper over brikker som står imellom.
 - Lanse (香): så mange ruter den vil rett fram.
 - Bonde (歩): én rute rett fram. Den slår også slik.
-Brikkene kan ikke passere andre brikker (unntatt springeren). En brikke slår ved å flytte til en rute der en motstanderbrikke står.
 # Forfremmelse
-De tre radene lengst unna deg er forfremmelsessonen. En brikke som flytter inn i, innenfor eller ut av den, kan forfremmes: den snus, og tegnet blir rødt.
-- Tårnet blir en drage (龍): et tårn som også kan gå én rute diagonalt.
-- Løperen blir en hest (馬): en løper som også kan gå én rute langs en rad eller en linje.
-- Sølvet, springeren, lansen og bonden blir gull (全, 圭, 杏, と).
-- Kongen og gullet forfremmes ikke.
-Forfremmelse er ikke tvunget, unntatt når brikken ellers aldri kunne flyttet igjen: en bonde eller en lanse på siste rad, en springer på de to siste radene.
+De tre radene lengst unna deg er forfremmelsessonen. En brikke som flytter inn i, innenfor eller ut av den, kan forfremmes: tegnet blir rødt.
+- Tårnet blir en drage (龍), som også kan gå én rute diagonalt. Løperen blir en hest (馬), som også kan gå én rute rett.
+- Sølvet, springeren, lansen og bonden blir gull (全, 圭, 杏, と). Kongen og gullet forfremmes ikke.
+- Forfremmelse er bare tvunget når brikken ellers aldri kunne flyttet igjen.
 # Slåtte brikker
-En slått brikke går over til den som slo den, og venter i hånden. I stedet for å flytte kan du sette inn en brikke fra hånden på en hvilken som helst tom rute, uforfremmet. En slik innsetting kan gi sjakk. Tre begrensninger:
-- Ingen bonde på en linje som allerede har en av dine uforfremmede bønder.
-- Ingen brikke der den aldri kunne flyttet (en bonde eller en lanse på siste rad, en springer på de to siste radene).
-- En bonde som settes inn, kan ikke gi sjakkmatt med en gang (en bonde som flyttes på brettet, kan det).
+En slått brikke havner i hånden din. I stedet for å flytte kan du sette den inn, uforfremmet, på en hvilken som helst tom rute. Ikke lov: en bonde på en linje som allerede har en av dine uforfremmede bønder; en brikke der den aldri kunne flyttet; en bonde som settes inn og gir sjakkmatt med en gang.
 # Slutten på partiet
-En konge som er angrepet, står i sjakk: neste trekk må få den ut av sjakk. Du kan aldri gjøre et trekk som lar din egen konge stå i sjakk.
-- Sjakkmatt: kongen står i sjakk, og ingen trekk kan redde den. Den spilleren taper. En spiller som ikke har noe lovlig trekk i det hele tatt, taper også.
-- Gjentakelse: når den samme stillingen (brikkene på brettet og i hånden, samme spiller i trekket) kommer for fjerde gang, er partiet remis. Men hvis én spiller har gitt sjakk i hvert trekk siden stillingen først oppsto, taper den spilleren.
-- Det finnes ingen regel for to konger som begge har kommet inn i motstanderens leir: spill videre.
+Du kan aldri la din egen konge stå i sjakk.
+- Sjakkmatt vinner. En spiller som ikke har noe lovlig trekk, taper også.
+- Når den samme stillingen (brettet, hendene og spilleren i trekket) kommer for fjerde gang, er partiet remis. Men en spiller som har gitt sjakk i hvert trekk siden da, taper.
 # Minishogi
-En liten shogi på 5 ganger 5 ruter. Hver spiller begynner med konge, gullgeneral, sølvgeneral, løper og tårn på sin første rad, i den rekkefølgen fra venstre, og en bonde foran kongen. Det finnes ingen springere og ingen lanser. Brikkene flytter, slår og settes inn som i shogi, med de samme tre begrensningene for innsetting. To forskjeller:
-- Forfremmelsessonen er bare den ytterste raden. En bonde som når den, må forfremmes.
-- Gjentakelse: når den samme stillingen oppstår for fjerde gang, taper Svart (sente), som trakk først. Men en spiller som har gitt sjakk med hvert trekk siden stillingen oppsto første gang, taper i stedet.
-# Spill på enheten
-Trykk på en brikke for å se hvor den kan gå, og trykk så på en rute, eller dra brikken. Prikker viser trekkene, ringer slagene. En konge i sjakk lyser rødt. Brikkene dine i hånden ligger i panelet ditt, med antallet sitt: trykk på én og så på en rute, eller dra den inn på brettet. Når en brikke kan forfremmes, velger du den forfremmede siden (rød) eller beholder den som den er.
+På 5 ganger 5, uten springere og lanser. Forfremmelsessonen er bare den ytterste raden, og en bonde som når den, må forfremmes. Ved den fjerde gjentakelsen taper Svart (sente), med mindre motstanderen har gitt sjakk i hvert trekk siden da: da taper motstanderen i stedet.

@@ -1,11 +1,9 @@
 Reversi
 # The aim
-Have more discs of your colour on the board than the other player when the game ends. Each disc is dark on one side and light on the other. Dark moves first.
+Have more discs of your colour on the board than the other player when the game ends. Dark moves first.
 # A move
-- Place a disc of your colour so that it traps one or more lines of the other player's discs between itself and another of your discs, in a straight line: across, up and down, or diagonally.
-- Every trapped disc is turned over to your colour. A single move can trap discs in several directions at once.
-- A move must turn at least one disc. If you have no such move, you pass and the other player plays again. The device passes for you.
+- Place a disc of your colour so that it traps one or more lines of the other player's discs between itself and another of your discs: across, up and down, or diagonally.
+- Every trapped disc is turned over to your colour.
+- A move must turn at least one disc. If you have no such move, you pass.
 # The end of the game
-The game ends when neither player can move, usually when the board is full. The player with more discs wins. The same number of discs is a draw.
-# Playing on the device
-Dots show where you can play: tap one. The discs turn over one after another. Each bar shows how many discs that player has.
+The game ends when neither player can move. The player with more discs wins. The same number of discs is a draw.

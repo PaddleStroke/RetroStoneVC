@@ -1,14 +1,5 @@
 Jeu de Marienbad
 # Le but
-Des allumettes sont posées en rangées sur la table. Deux joueurs en retirent à tour de rôle ; dans le jeu classique, celui qui doit prendre la dernière allumette perd.
-# Les dispositions
-- Marienbad : quatre rangées de 1, 3, 5 et 7 allumettes.
-- Au hasard : de 3 à 5 rangées de 1 à 8 allumettes chacune, une nouvelle disposition à chaque partie, la rangée la plus courte en haut.
+Des allumettes sont posées en rangées. En « qui perd gagne » (la règle classique), le joueur qui prend la dernière allumette perd. En jeu normal, le joueur qui la prend gagne. Le joueur clair commence.
 # Un tour
-Prends une allumette ou plus, autant que tu veux, mais toutes dans la même rangée. Il faut en prendre au moins une. Le joueur clair commence.
-# La fin de la partie
-- Qui perd gagne (la règle classique) : le joueur qui prend la dernière allumette perd.
-- Jeu normal : le joueur qui prend la dernière allumette gagne.
-La liste des parties propose quatre choix : Marienbad ou une disposition au hasard, chacune en « qui perd gagne » ou en jeu normal. Sur leurs images, la dernière allumette brille en rouge quand la prendre fait perdre, et en or quand la prendre fait gagner ; un dé marque les dispositions au hasard.
-# Jouer sur l'appareil
-Touche les allumettes que tu veux prendre : elles se soulèvent. Touche une allumette soulevée pour la reposer, ou fais glisser ton doigt le long d'une rangée pour en soulever plusieurs d'un coup. Toutes les allumettes soulevées doivent être dans la même rangée. Touche ensuite le bouton rond marqué d'une coche, sous les rangées : les allumettes glissent de ton côté. Chaque barre indique combien d'allumettes ce joueur a prises. Annuler reprend le dernier tour.
+Prends une allumette ou plus, autant que tu veux, mais toutes dans la même rangée. Touche les allumettes, puis le bouton rond marqué d'une coche.

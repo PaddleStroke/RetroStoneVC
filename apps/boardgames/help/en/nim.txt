@@ -1,14 +1,5 @@
 The Marienbad Game
 # The aim
-Matches lie in rows on the table. Two players take turns taking matches away; in the classic game, whoever has to take the last match loses.
-# The layouts
-- Marienbad: four rows of 1, 3, 5 and 7 matches.
-- Random: 3 to 5 rows of 1 to 8 matches each, a new layout every game, the shortest row at the top.
+Matches lie in rows. In misère (the classic rule), the player who takes the last match loses. In normal play, the player who takes it wins. Light plays first.
 # A turn
-Take one match or more, as many as you like, but all from the same row. You must take at least one. Light plays first.
-# The end of the game
-- Misère (the classic rule): the player who takes the last match loses.
-- Normal play: the player who takes the last match wins.
-The game list offers four choices: Marienbad or a random layout, each in misère or normal play. In their pictures, the last match glows red when taking it loses, and gold when taking it wins; a die marks the random layouts.
-# Playing on the device
-Tap the matches you want to take: they lift. Tap a lifted match to put it back, or slide your finger along a row to lift several at once. All the lifted matches must be in one row. Then tap the round button with the check mark under the rows: the matches slide off to your side. Each bar shows how many matches that player has taken. Undo takes back the last turn.
+Take one match or more, as many as you like, but all from the same row. Tap the matches, then the round button with the check mark.

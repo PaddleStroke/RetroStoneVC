@@ -1,36 +1,24 @@
 Shogi
 # Lo scopo
-Lo shogi è la versione giapponese degli scacchi. Dare scacco matto al re avversario: attaccarlo in modo che non possa sfuggire. Il Nero (sente) muove per primo, poi i giocatori si alternano, una mossa ciascuno. Tutti i pezzi sono dello stesso colore: un pezzo punta verso l'avversario, così si capisce di chi è. Scegli la scacchiera prima della partita: shogi su 9 per 9 caselle (la carta piena di pezzi) o minishogi su 5 per 5 (la scacchiera piccola).
+Gli scacchi giapponesi: dare scacco matto al re avversario. Un pezzo punta verso il suo avversario. Il Nero (sente) muove per primo.
 # Come si muovono i pezzi
 - Re (玉, 王): una casella in qualsiasi direzione.
-- Torre (飛): di quante caselle vuoi lungo una riga o una colonna.
-- Alfiere (角): di quante caselle vuoi lungo una diagonale.
+- Torre (飛): di quante caselle vuoi lungo una riga o una colonna. Alfiere (角): lungo una diagonale.
 - Generale d'oro (金): una casella in qualsiasi direzione, tranne in diagonale all'indietro.
 - Generale d'argento (銀): una casella in diagonale, o dritto in avanti.
-- Cavallo (桂): due caselle in avanti e una di lato, saltando qualsiasi pezzo in mezzo. Si muove solo in avanti.
+- Cavallo (桂): due caselle in avanti e una di lato, saltando qualsiasi pezzo in mezzo.
 - Lancia (香): di quante caselle vuoi dritto in avanti.
 - Pedone (歩): una casella dritto in avanti. Cattura anche così.
-I pezzi non possono attraversare altri pezzi (tranne il cavallo). Un pezzo cattura spostandosi su una casella occupata da un pezzo avversario.
 # La promozione
-Le tre righe più lontane da te sono la zona di promozione. Un pezzo che entra nella zona, si muove al suo interno o ne esce può essere promosso: si gira e il suo carattere diventa rosso.
-- La torre diventa un drago (龍): una torre che può anche muoversi di una casella in diagonale.
-- L'alfiere diventa un cavallo drago (馬): un alfiere che può anche muoversi di una casella lungo una riga o una colonna.
-- L'argento, il cavallo, la lancia e il pedone diventano ori (全, 圭, 杏, と).
-- Il re e l'oro non vengono promossi.
-La promozione non è obbligatoria, tranne quando il pezzo non potrebbe più muoversi: un pedone o una lancia sull'ultima riga, un cavallo sulle ultime due righe.
+Le tre righe più lontane da te sono la zona di promozione. Un pezzo che entra nella zona, si muove al suo interno o ne esce può essere promosso: il suo carattere diventa rosso.
+- La torre diventa un drago (龍), che può anche muoversi di una casella in diagonale. L'alfiere diventa un cavallo drago (馬), che può anche muoversi di una casella dritto.
+- L'argento, il cavallo, la lancia e il pedone diventano ori (全, 圭, 杏, と). Il re e l'oro non vengono promossi.
+- La promozione è obbligatoria solo quando il pezzo non potrebbe più muoversi.
 # I pezzi catturati
-Un pezzo catturato passa dalla parte di chi l'ha catturato e aspetta in mano. Invece di muovere, puoi paracadutare un pezzo dalla tua mano su qualsiasi casella vuota, non promosso. Un paracadutaggio può dare scacco. Tre limiti:
-- Nessun pedone su una colonna che ha già un tuo pedone non promosso.
-- Nessun pezzo dove non potrebbe più muoversi (un pedone o una lancia sull'ultima riga, un cavallo sulle ultime due righe).
-- Un pedone paracadutato non può dare subito scacco matto (un pedone mosso sul tavoliere sì).
+Un pezzo catturato va nella tua mano. Invece di muovere, puoi paracadutarlo, non promosso, su qualsiasi casella vuota. Non è permesso: un pedone su una colonna che ha già un tuo pedone non promosso; un pezzo dove non potrebbe più muoversi; un pedone paracadutato che dà subito scacco matto.
 # La fine della partita
-Un re attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo re sotto scacco.
-- Scacco matto: il re è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde. Perde anche un giocatore che non ha nessuna mossa legale.
-- Ripetizione: quando la stessa posizione (i pezzi sul tavoliere e in mano, lo stesso giocatore di turno) si presenta per la quarta volta, la partita è patta. Ma se un giocatore ha dato scacco a ogni mossa da quando quella posizione è apparsa la prima volta, quel giocatore perde.
-- Non c'è nessuna regola per due re entrati entrambi nel campo avversario: si continua a giocare.
+Non puoi mai lasciare il tuo re sotto scacco.
+- Lo scacco matto vince. Perde anche un giocatore che non ha nessuna mossa legale.
+- Quando la stessa posizione (tavoliere, mani e giocatore di turno) si presenta per la quarta volta, la partita è patta. Ma un giocatore che da allora ha dato scacco a ogni mossa perde.
 # Minishogi
-Uno shogi piccolo su 5 per 5 caselle. Ogni giocatore comincia con re, generale d'oro, generale d'argento, alfiere e torre sulla sua prima riga, in quest'ordine dalla sua sinistra, e un pedone davanti al re. Non ci sono cavalli né lance. I pezzi muovono, catturano e vengono paracadutati come nello shogi, con gli stessi tre limiti ai paracadutaggi. Due differenze:
-- La zona di promozione è solo la riga più lontana. Un pedone che la raggiunge deve essere promosso.
-- Ripetizione: quando la stessa posizione si presenta per la quarta volta, perde il Nero (sente), che ha mosso per primo. Ma un giocatore che ha dato scacco a ogni mossa da quando la posizione è apparsa la prima volta perde al suo posto.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un re sotto scacco si illumina di rosso. I tuoi pezzi in mano sono nella tua barra, con il loro numero: toccane uno, poi tocca una casella, oppure trascinalo sul tavoliere. Quando un pezzo può essere promosso, scegli il suo lato promosso (rosso) o lascialo com'è.
+Su 5 per 5, senza cavalli né lance. La zona di promozione è solo la riga più lontana, e un pedone che la raggiunge deve essere promosso. Alla quarta ripetizione perde il Nero (sente), a meno che l'altro giocatore abbia dato scacco a ogni mossa da allora: in quel caso perde lui.

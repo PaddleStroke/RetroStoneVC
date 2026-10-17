@@ -1,36 +1,24 @@
 Shogi
 # Het doel
-Shogi is Japans schaken. Zet de andere koning schaakmat: val hem zo aan dat hij niet kan ontsnappen. Zwart (sente) begint, daarna spelen de spelers om de beurt, elk één zet. Alle stukken hebben dezelfde kleur: een stuk wijst naar de tegenstander, zo zie je van wie het is. Kies het bord voor de partij: shogi op 9 bij 9 velden (de kaart vol stukken) of minishogi op 5 bij 5 (het kleine bord).
+Japans schaken: zet de andere koning schaakmat. Een stuk wijst naar zijn tegenstander. Zwart (sente) begint.
 # Hoe de stukken bewegen
 - Koning (玉, 王): één veld in elke richting.
-- Toren (飛): zoveel velden als je wilt over een rij of een kolom.
-- Loper (角): zoveel velden als je wilt over een diagonaal.
+- Toren (飛): zoveel velden als je wilt over een rij of een kolom. Loper (角): over een diagonaal.
 - Gouden generaal (金): één veld in elke richting behalve schuin achteruit.
 - Zilveren generaal (銀): één veld schuin, of recht vooruit.
-- Paard (桂): twee velden vooruit en één opzij, waarbij het over elk stuk ertussen heen springt. Het gaat alleen vooruit.
+- Paard (桂): twee velden vooruit en één opzij, waarbij het over elk stuk ertussen heen springt.
 - Lans (香): zoveel velden als je wilt recht vooruit.
 - Pion (歩): één veld recht vooruit. Hij slaat ook zo.
-Stukken kunnen niet door andere stukken heen (behalve het paard). Een stuk slaat door naar een veld te gaan waar een stuk van de tegenstander staat.
 # Promotie
-De drie rijen die het verst van je af liggen, zijn de promotiezone. Een stuk dat erin, erbinnen of eruit beweegt, mag promoveren: het wordt omgedraaid en zijn teken wordt rood.
-- De toren wordt een draak (龍): een toren die ook één veld schuin mag gaan.
-- De loper wordt een drakenpaard (馬): een loper die ook één veld over een rij of een kolom mag gaan.
-- Het zilver, het paard, de lans en de pion worden goud (全, 圭, 杏, と).
-- De koning en het goud promoveren niet.
-Promotie is niet verplicht, behalve als het stuk anders nooit meer zou kunnen bewegen: een pion of een lans op de laatste rij, een paard op de laatste twee rijen.
+De drie rijen die het verst van je af liggen, zijn de promotiezone. Een stuk dat erin, erbinnen of eruit beweegt, mag promoveren: zijn teken wordt rood.
+- De toren wordt een draak (龍), die ook één veld schuin mag gaan. De loper wordt een drakenpaard (馬), dat ook één veld recht mag gaan.
+- Het zilver, het paard, de lans en de pion worden goud (全, 圭, 杏, と). De koning en het goud promoveren niet.
+- Promotie is alleen verplicht als het stuk anders nooit meer zou kunnen bewegen.
 # Geslagen stukken
-Een geslagen stuk gaat over naar de kant van wie het sloeg, en wacht in de hand. In plaats van een zet mag je een stuk uit je hand op een leeg veld naar keuze inzetten, ongepromoveerd. Een ingezet stuk mag schaak geven. Drie beperkingen:
-- Geen pion in een kolom waar al een van je ongepromoveerde pionnen staat.
-- Geen stuk waar het nooit meer zou kunnen bewegen (een pion of een lans op de laatste rij, een paard op de laatste twee rijen).
-- Een ingezette pion mag niet meteen schaakmat geven (een pion die op het bord wordt verzet, mag dat wel).
+Een geslagen stuk gaat naar je hand. In plaats van een zet mag je het, ongepromoveerd, op een leeg veld naar keuze inzetten. Niet toegestaan: een pion in een kolom waar al een van je ongepromoveerde pionnen staat; een stuk waar het nooit meer zou kunnen bewegen; een ingezette pion die meteen schaakmat geeft.
 # Het einde van de partij
-Een koning die wordt aangevallen staat schaak: de volgende zet moet het schaak opheffen. Je mag nooit een zet doen waarna je eigen koning schaak staat.
-- Schaakmat: de koning staat schaak en geen enkele zet kan hem redden. Die speler verliest. Een speler die helemaal geen geldige zet heeft, verliest ook.
-- Herhaling: als dezelfde stelling (de stukken op het bord en in de hand, dezelfde speler aan zet) voor de vierde keer voorkomt, eindigt de partij in remise. Maar als een speler sinds het eerste voorkomen van die stelling met elke zet schaak gaf, verliest die speler.
-- Er is geen regel voor twee koningen die allebei het kamp van de tegenstander zijn binnengedrongen: speel gewoon door.
+Je mag je eigen koning nooit schaak laten staan.
+- Schaakmat wint. Een speler die geen geldige zet heeft, verliest ook.
+- Als dezelfde stelling (bord, handen en speler aan zet) voor de vierde keer voorkomt, eindigt de partij in remise. Maar een speler die sindsdien met elke zet schaak gaf, verliest.
 # Minishogi
-Een kleine shogi op 5 bij 5 velden. Elke speler begint met een koning, een gouden generaal, een zilveren generaal, een loper en een toren op zijn eerste rij, in die volgorde van links, en een pion voor de koning. Er zijn geen paarden en geen lansen. De stukken bewegen, slaan en worden ingezet zoals in shogi, met dezelfde drie beperkingen bij het inzetten. Twee verschillen:
-- De promotiezone is alleen de verste rij. Een pion die haar bereikt, moet promoveren.
-- Herhaling: als dezelfde stelling voor de vierde keer ontstaat, verliest Zwart (sente), die begon. Maar een speler die sinds de stelling voor het eerst ontstond met elke zet schaak gaf, verliest in plaats daarvan.
-# Spelen op het apparaat
-Tik op een stuk om te zien waar het heen kan en tik dan op een veld, of sleep het stuk. Stippen tonen de zetten, ringen het slaan. Een koning die schaak staat, licht rood op. Je stukken in de hand staan in je balk, met hun aantal: tik op een stuk en dan op een veld, of sleep het naar het bord. Als een stuk mag promoveren, kies dan de gepromoveerde kant (rood) of laat het zoals het is.
+Op 5 bij 5, zonder paarden en lansen. De promotiezone is alleen de verste rij, en een pion die haar bereikt, moet promoveren. Bij de vierde herhaling verliest Zwart (sente), tenzij de andere speler sindsdien met elke zet schaak gaf: dan verliest die in plaats daarvan.

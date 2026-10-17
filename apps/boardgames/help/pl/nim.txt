@@ -1,14 +1,5 @@
 Gra Marienbad
 # Cel gry
-Na stole leżą zapałki ułożone w rzędach. Dwóch graczy na zmianę zabiera zapałki; w klasycznej grze przegrywa ten, kto musi wziąć ostatnią zapałkę.
-# Układy
-- Marienbad: cztery rzędy po 1, 3, 5 i 7 zapałek.
-- Losowy: od 3 do 5 rzędów po 1 do 8 zapałek, w każdej partii nowy układ, najkrótszy rząd na górze.
+Zapałki leżą w rzędach. Według klasycznej zasady (ostatnia przegrywa) przegrywa ten, kto weźmie ostatnią zapałkę. W grze zwykłej ten, kto ją weźmie, wygrywa. Jasne zaczynają.
 # Tura
-Weź jedną zapałkę lub więcej, ile chcesz, ale wszystkie z tego samego rzędu. Musisz wziąć co najmniej jedną. Jasne zaczynają.
-# Koniec gry
-- Ostatnia przegrywa (klasyczna zasada): kto weźmie ostatnią zapałkę, przegrywa.
-- Gra zwykła: kto weźmie ostatnią zapałkę, wygrywa.
-Lista gier oferuje cztery warianty: Marienbad lub układ losowy, każdy z zasadą, że ostatnia przegrywa, albo jako gra zwykła. Na ich obrazkach ostatnia zapałka świeci na czerwono, gdy jej wzięcie oznacza przegraną, a na złoto, gdy oznacza wygraną; kostka oznacza układy losowe.
-# Gra na urządzeniu
-Dotknij zapałek, które chcesz wziąć: unoszą się. Dotknij uniesionej zapałki, aby ją odłożyć, albo przesuń palcem wzdłuż rzędu, aby unieść kilka naraz. Wszystkie uniesione zapałki muszą być w jednym rzędzie. Potem dotknij okrągłego przycisku z ptaszkiem pod rzędami: zapałki odjeżdżają na twoją stronę. Każdy pasek pokazuje, ile zapałek wziął dany gracz. Cofnij cofa ostatnią turę.
+Weź jedną zapałkę lub więcej, ile chcesz, ale wszystkie z tego samego rzędu. Dotknij zapałek, a potem okrągłego przycisku z ptaszkiem.

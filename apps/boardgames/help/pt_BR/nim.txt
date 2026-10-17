@@ -1,14 +1,5 @@
 O jogo de Marienbad
 # O objetivo
-Palitos de fósforo ficam em fileiras na mesa. Dois jogadores se revezam tirando palitos; no jogo clássico, perde quem tiver de pegar o último palito.
-# As disposições
-- Marienbad: quatro fileiras de 1, 3, 5 e 7 palitos.
-- Aleatória: de 3 a 5 fileiras de 1 a 8 palitos cada, uma disposição nova a cada partida, com a fileira mais curta em cima.
+Palitos de fósforo ficam em fileiras. No misère (a regra clássica), quem pega o último palito perde. No jogo normal, quem pega o último palito vence. O lado claro começa.
 # Uma jogada
-Pegue um palito ou mais, quantos quiser, mas todos da mesma fileira. Você precisa pegar pelo menos um. O lado claro começa.
-# O fim da partida
-- Misère (a regra clássica): quem pega o último palito perde.
-- Jogo normal: quem pega o último palito vence.
-A lista de jogos oferece quatro opções: Marienbad ou uma disposição aleatória, cada uma em misère ou em jogo normal. Nas imagens delas, o último palito brilha em vermelho quando pegá-lo faz perder, e em dourado quando faz vencer; um dado marca as disposições aleatórias.
-# Jogando no aparelho
-Toque nos palitos que você quer pegar: eles se levantam. Toque num palito levantado para colocá-lo de volta, ou deslize o dedo ao longo de uma fileira para levantar vários de uma vez. Todos os palitos levantados precisam estar numa só fileira. Depois toque no botão redondo com o sinal de certo, embaixo das fileiras: os palitos deslizam para o seu lado. Cada barra mostra quantos palitos aquele jogador pegou. Desfazer desfaz a última jogada.
+Pegue um palito ou mais, quantos quiser, mas todos da mesma fileira. Toque nos palitos e depois no botão redondo com o sinal de certo.

@@ -1,19 +1,16 @@
 Mühle
 # Das Ziel
-Lass dem anderen Spieler nur noch zwei Steine oder keinen Zug mehr. Jeder Spieler hat neun Steine. Hell beginnt. Wähle das Brett vor der Partie: Mühle mit neun Steinen (die Karte mit drei Quadraten), Mühle mit zwölf Steinen (drei Quadrate, an den Ecken durch Diagonalen verbunden) oder Mühle mit sechs Steinen (zwei Quadrate). Die Regeln unten gelten für die Mühle mit neun Steinen; die beiden anderen ändern sie, wie weiter unten beschrieben.
+Lass dem anderen Spieler nur noch zwei Steine oder keinen Zug mehr. Hell beginnt.
 # Setzen
-Zuerst setzen die Spieler abwechselnd je einen Stein auf einen beliebigen freien Punkt, bis alle achtzehn Steine auf dem Brett sind.
+Zuerst setzen die Spieler abwechselnd je einen Stein auf einen beliebigen freien Punkt, bis alle ihre Steine auf dem Brett sind.
 # Ziehen
-Danach ziehst du, wenn du dran bist, einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist. Wer nur noch drei Steine hat, darf springen: einen Stein auf einen beliebigen freien Punkt setzen.
+Danach ziehst du einen deiner Steine entlang einer Linie auf den nächsten Punkt, falls er frei ist. Wer nur noch drei Steine hat, darf springen: einen Stein auf einen beliebigen freien Punkt setzen.
 # Mühlen
-Drei deiner Steine in einer Reihe auf einer Linie bilden eine Mühle. Jedes Mal, wenn du eine Mühle schließt, beim Setzen oder beim Ziehen, nimmst du einen Stein des anderen Spielers vom Brett. Du darfst keinen Stein nehmen, der in einer Mühle steht, außer wenn alle Steine des anderen Spielers in Mühlen stehen. Eine Mühle öffnen und wieder schließen ergibt eine neue Mühle.
+Drei deiner Steine in einer Reihe auf einer Linie bilden eine Mühle. Jedes Mal, wenn du eine Mühle schließt, beim Setzen oder beim Ziehen, nimmst du einen Stein des anderen Spielers vom Brett. Du darfst keinen Stein nehmen, der in einer Mühle steht, außer wenn alle seine Steine in Mühlen stehen. Eine Mühle öffnen und wieder schließen ergibt eine neue Mühle.
 # Mühle mit zwölf Steinen
-Das Brett der Mühle mit neun Steinen, dazu in jeder Ecke eine diagonale Linie, die die drei Quadrate verbindet. Jeder Spieler hat zwölf Steine. Die Steine ziehen auch entlang der Diagonalen, und drei Steine auf einer Diagonale bilden eine Mühle. Füllt das Setzen alle 24 Punkte, endet die Partie unentschieden.
+Jeder Spieler hat zwölf Steine. Die Steine ziehen auch entlang der Diagonalen in den Ecken, und drei Steine auf einer Diagonale bilden eine Mühle. Füllt das Setzen alle 24 Punkte, endet die Partie unentschieden.
 # Mühle mit sechs Steinen
-Ein kleineres Brett: zwei Quadrate, verbunden durch kurze Linien in der Mitte ihrer Seiten. Jeder Spieler hat sechs Steine. Die drei Punkte an jeder Seite eines Quadrats bilden eine Mühle; die kurzen Linien zwischen den Quadraten dienen nur zum Ziehen. Springen gibt es nicht: Wer nur noch zwei Steine hat, verliert.
+Jeder Spieler hat sechs Steine. Die drei Punkte an jeder Seite eines Quadrats bilden eine Mühle; die kurzen Linien zwischen den Quadraten dienen nur zum Ziehen. Springen gibt es nicht.
 # Das Ende der Partie
-- Wer nur noch zwei Steine hat, verliert.
-- Wer keinen Stein mehr ziehen kann, verliert.
+- Wer nur noch zwei Steine hat oder nicht ziehen kann, verliert.
 - Die Partie endet unentschieden, wenn dieselbe Stellung zum dritten Mal entsteht, oder nach fünfzig Zügen jeder Seite ohne Mühle.
-# Spielen auf dem Gerät
-Tippe auf einen freien Punkt, um einen Stein zu setzen. Zum Ziehen tippe auf deinen Stein und dann auf seinen neuen Punkt, oder schieb ihn mit dem Finger. Nach einer Mühle leuchten die Steine, die du nehmen darfst: Tippe auf einen.

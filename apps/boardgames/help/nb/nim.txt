@@ -1,14 +1,5 @@
 Marienbad-spillet
 # Målet
-Fyrstikker ligger i rader på bordet. To spillere bytter på å ta bort fyrstikker; i det klassiske spillet taper den som må ta den siste fyrstikken.
-# Oppstillingene
-- Marienbad: fire rader med 1, 3, 5 og 7 fyrstikker.
-- Tilfeldig: 3 til 5 rader med 1 til 8 fyrstikker hver, en ny oppstilling hvert spill, med den korteste raden øverst.
+Fyrstikker ligger i rader. Med siste fyrstikk taper (den klassiske regelen) taper den som tar den siste fyrstikken. I vanlig spill vinner den som tar den. Den lyse siden begynner.
 # En tur
-Ta én fyrstikk eller flere, så mange du vil, men alle fra samme rad. Du må ta minst én. Den lyse siden begynner.
-# Slutten på spillet
-- Siste fyrstikk taper (den klassiske regelen): den som tar den siste fyrstikken, taper.
-- Vanlig spill: den som tar den siste fyrstikken, vinner.
-Spillisten gir fire valg: Marienbad eller en tilfeldig oppstilling, hver med regelen om at siste fyrstikk taper, eller med vanlig spill. På bildene deres lyser den siste fyrstikken rødt når man taper på å ta den, og gull når man vinner; en terning markerer de tilfeldige oppstillingene.
-# Spill på enheten
-Trykk på fyrstikkene du vil ta: de løftes opp. Trykk på en løftet fyrstikk for å legge den tilbake, eller dra fingeren langs en rad for å løfte flere på én gang. Alle de løftede fyrstikkene må være i samme rad. Trykk så på den runde knappen med haken under radene: fyrstikkene glir over til din side. Hvert panel viser hvor mange fyrstikker den spilleren har tatt. Angre tar tilbake den siste turen.
+Ta én fyrstikk eller flere, så mange du vil, men alle fra samme rad. Trykk på fyrstikkene og så på den runde knappen med haken.

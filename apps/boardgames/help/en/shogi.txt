@@ -1,36 +1,24 @@
 Shogi
 # The aim
-Shogi is Japanese chess. Checkmate the other king: attack it so that it cannot escape. Black (sente) moves first, then the players take turns, one move each. All the pieces are the same colour: a piece points towards the opponent, so you can tell whose it is. Choose the board before the game: shogi on 9 by 9 squares (the card full of pieces) or mini shogi on 5 by 5 (the small board).
+Japanese chess: checkmate the other king. A piece points towards its opponent. Black (sente) moves first.
 # How the pieces move
 - King (玉, 王): one square in any direction.
-- Rook (飛): any number of squares along a row or a column.
-- Bishop (角): any number of squares along a diagonal.
-- Gold general (金): one square in any direction except diagonally backwards.
-- Silver general (銀): one square diagonally, or straight forwards.
-- Knight (桂): two squares forwards and one to the side, jumping over any piece in between. It only moves forwards.
+- Rook (飛): any number of squares along a row or a column. Bishop (角): along a diagonal.
+- Gold (金): one square in any direction except diagonally backwards.
+- Silver (銀): one square diagonally, or straight forwards.
+- Knight (桂): two squares forwards and one to the side, jumping over any piece in between.
 - Lance (香): any number of squares straight forwards.
 - Pawn (歩): one square straight forwards. It also captures that way.
-Pieces cannot pass through other pieces (except the knight). A piece captures by moving onto a square held by an enemy piece.
 # Promotion
-The three rows farthest from you are the promotion zone. A piece that moves into, within or out of it may promote: it turns over and its character becomes red.
-- The rook becomes a dragon (龍): a rook that may also move one square diagonally.
-- The bishop becomes a horse (馬): a bishop that may also move one square along a row or a column.
-- The silver, the knight, the lance and the pawn become golds (全, 圭, 杏, と).
-- The king and the gold do not promote.
-Promotion is not compulsory, except when the piece could never move again: a pawn or a lance on the last row, a knight on the last two rows.
+The three rows farthest from you are the promotion zone. A piece that moves into, within or out of it may promote: its character turns red.
+- The rook becomes a dragon (龍), which may also move one square diagonally. The bishop becomes a horse (馬), which may also move one square straight.
+- The silver, the knight, the lance and the pawn become golds (全, 圭, 杏, と). The king and the gold do not promote.
+- Promotion is compulsory only when the piece could never move again.
 # Captured pieces
-A captured piece joins the captor's side and waits in hand. Instead of moving, you may drop a piece from your hand on any empty square, unpromoted. A drop may give check. Three limits:
-- No pawn on a column that already has one of your unpromoted pawns.
-- No piece where it could never move (a pawn or a lance on the last row, a knight on the last two rows).
-- A pawn drop may not give immediate checkmate (a pawn moved on the board may).
+A captured piece joins your hand. Instead of moving, you may drop it, unpromoted, on any empty square. Not allowed: a pawn on a column that already has one of your unpromoted pawns; a piece where it could never move; a pawn drop that gives immediate checkmate.
 # The end of the game
-A king that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own king in check.
-- Checkmate: the king is in check and no move can save it. That player loses. A player who has no legal move at all also loses.
-- Repetition: when the same position (the pieces on the board and in hand, the same player to move) comes for the fourth time, the game is a draw. But if one player gave check with every move since that position first appeared, that player loses.
-- There is no rule for two kings that have both entered the other camp: play on.
+You may never leave your own king in check.
+- Checkmate wins. A player who has no legal move also loses.
+- When the same position (board, hands and player to move) comes for the fourth time, the game is a draw. But a player who gave check with every move since then loses.
 # Mini shogi
-A small shogi on 5 by 5 squares. Each player starts with a king, a gold, a silver, a bishop and a rook on their first row, in that order from their left, and a pawn in front of the king. There are no knights and no lances. The pieces move, capture and are dropped as in shogi, with the same three limits on drops. Two differences:
-- The promotion zone is only the farthest row. A pawn that reaches it must promote.
-- Repetition: when the same position comes for the fourth time, Black (sente), who moved first, loses. But a player who gave check with every move since that position first appeared loses instead.
-# Playing on the device
-Tap a piece to see where it can go, then tap a square, or drag the piece. Dots show the moves, rings the captures. A king in check glows red. Your pieces in hand are in your bar, with their number: tap one, then tap a square, or drag it onto the board. When a piece may promote, choose its promoted side (red) or keep it as it is.
+On 5 by 5, without knights and lances. The promotion zone is only the farthest row, and a pawn that reaches it must promote. On the fourth repetition, Black (sente) loses, unless the other player gave check with every move since then: then they lose instead.

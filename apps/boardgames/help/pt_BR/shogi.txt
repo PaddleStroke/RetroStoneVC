@@ -1,36 +1,24 @@
 Shogi
 # O objetivo
-O shogi é o xadrez japonês. Dar xeque-mate no rei adversário: atacá-lo de modo que ele não possa escapar. As pretas (sente) jogam primeiro; depois os jogadores se alternam, um lance cada um. Todas as peças têm a mesma cor: cada peça aponta para o adversário, e assim se sabe de quem ela é. Escolha o tabuleiro antes da partida: shogi em 9 por 9 casas (o cartão cheio de peças) ou minishogi em 5 por 5 (o tabuleiro pequeno).
+O xadrez japonês: dar xeque-mate no rei adversário. Cada peça aponta para o adversário. As pretas (sente) jogam primeiro.
 # Como as peças se movem
 - Rei (玉, 王): uma casa em qualquer direção.
-- Torre (飛): quantas casas quiser por uma fileira ou uma coluna.
-- Bispo (角): quantas casas quiser por uma diagonal.
+- Torre (飛): quantas casas quiser por uma fileira ou uma coluna. Bispo (角): por uma diagonal.
 - General de ouro (金): uma casa em qualquer direção, exceto na diagonal para trás.
-- General de prata (銀): uma casa na diagonal, ou uma casa reto para a frente.
-- Cavalo (桂): duas casas para a frente e uma para o lado, pulando por cima de qualquer peça no caminho. Só anda para a frente.
+- General de prata (銀): uma casa na diagonal, ou reto para a frente.
+- Cavalo (桂): duas casas para a frente e uma para o lado, pulando por cima de qualquer peça no caminho.
 - Lança (香): quantas casas quiser reto para a frente.
 - Peão (歩): uma casa reto para a frente. Também captura assim.
-As peças não podem passar através de outras peças (exceto o cavalo). Uma peça captura indo para uma casa ocupada por uma peça adversária.
 # Promoção
-As três fileiras mais distantes de você são a zona de promoção. Uma peça que entra nela, anda dentro dela ou sai dela pode ser promovida: ela é virada e o seu caractere fica vermelho.
-- A torre vira um dragão (龍): uma torre que também pode andar uma casa na diagonal.
-- O bispo vira um cavalo-dragão (馬): um bispo que também pode andar uma casa por uma fileira ou uma coluna.
-- O general de prata, o cavalo, a lança e o peão viram generais de ouro (全, 圭, 杏, と).
-- O rei e o general de ouro não são promovidos.
-A promoção não é obrigatória, exceto quando a peça nunca mais poderia se mover: um peão ou uma lança na última fileira, um cavalo nas duas últimas fileiras.
+As três fileiras mais distantes de você são a zona de promoção. Uma peça que entra nela, anda dentro dela ou sai dela pode ser promovida: o seu caractere fica vermelho.
+- A torre vira um dragão (龍), que também pode andar uma casa na diagonal. O bispo vira um cavalo-dragão (馬), que também pode andar uma casa em linha reta.
+- O general de prata, o cavalo, a lança e o peão viram generais de ouro (全, 圭, 杏, と). O rei e o general de ouro não são promovidos.
+- A promoção só é obrigatória quando a peça nunca mais poderia se mover.
 # As peças capturadas
-Uma peça capturada passa para o lado de quem a capturou e fica esperando na mão. Em vez de mover, você pode colocar uma peça da sua mão em qualquer casa vazia, sem promoção. Uma peça colocada assim pode dar xeque. Há três limites:
-- Nenhum peão em uma coluna que já tem um peão seu não promovido.
-- Nenhuma peça onde ela nunca poderia se mover (um peão ou uma lança na última fileira, um cavalo nas duas últimas fileiras).
-- Um peão colocado não pode dar xeque-mate imediato (um peão movido no tabuleiro pode).
+Uma peça capturada vai para a sua mão. Em vez de mover, você pode colocá-la, sem promoção, em qualquer casa vazia. Não é permitido: um peão em uma coluna que já tem um peão seu não promovido; uma peça onde ela nunca poderia se mover; um peão colocado que dá xeque-mate imediato.
 # O fim da partida
-Um rei atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio rei em xeque.
-- Xeque-mate: o rei está em xeque e nenhum lance pode salvá-lo. Esse jogador perde. Um jogador que não tem nenhum lance legal também perde.
-- Repetição: quando a mesma posição (as peças no tabuleiro e na mão, o mesmo jogador da vez) aparece pela quarta vez, a partida termina empatada. Mas, se um jogador deu xeque em todos os lances desde que essa posição apareceu pela primeira vez, esse jogador perde.
-- Não há regra para dois reis que entraram ambos no campo adversário: continuem jogando.
+Você nunca pode deixar o seu próprio rei em xeque.
+- O xeque-mate vence. Um jogador que não tem nenhum lance legal também perde.
+- Quando a mesma posição (tabuleiro, mãos e jogador da vez) aparece pela quarta vez, a partida termina empatada. Mas um jogador que deu xeque em todos os lances desde então perde.
 # Minishogi
-Um shogi pequeno, em 5 por 5 casas. Cada jogador começa com rei, general de ouro, general de prata, bispo e torre na sua primeira fileira, nessa ordem a partir da esquerda, e um peão na frente do rei. Não há cavalos nem lanças. As peças se movem, capturam e são colocadas como no shogi, com os mesmos três limites para colocar peças. Duas diferenças:
-- A zona de promoção é só a fileira mais distante. Um peão que chega a ela é obrigado a promover.
-- Repetição: quando a mesma posição aparece pela quarta vez, perdem as pretas (sente), que jogaram primeiro. Mas o jogador que deu xeque a cada lance desde que a posição apareceu pela primeira vez perde no lugar delas.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em uma casa, ou arraste a peça. Os pontos mostram os lances, os anéis as capturas. Um rei em xeque brilha em vermelho. As suas peças na mão ficam na sua barra, com o número delas: toque em uma e depois em uma casa, ou arraste-a para o tabuleiro. Quando uma peça pode ser promovida, escolha o lado promovido (vermelho) ou deixe-a como está.
+Em 5 por 5, sem cavalos nem lanças. A zona de promoção é só a fileira mais distante, e um peão que chega a ela é obrigado a promover. Na quarta repetição, perdem as pretas (sente), a não ser que o outro jogador tenha dado xeque em todos os lances desde então: aí é ele que perde.

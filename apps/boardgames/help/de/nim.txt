@@ -1,14 +1,5 @@
 Das Marienbad-Spiel
 # Das Ziel
-Streichhölzer liegen in Reihen auf dem Tisch. Zwei Spieler nehmen abwechselnd Streichhölzer weg; im klassischen Spiel verliert, wer das letzte Streichholz nehmen muss.
-# Die Aufstellungen
-- Marienbad: vier Reihen mit 1, 3, 5 und 7 Streichhölzern.
-- Zufällig: 3 bis 5 Reihen mit je 1 bis 8 Streichhölzern, in jeder Partie neu, die kürzeste Reihe oben.
+Streichhölzer liegen in Reihen. In der Misère-Variante (der klassischen Regel) verliert, wer das letzte Streichholz nimmt. Im normalen Spiel gewinnt, wer es nimmt. Hell beginnt.
 # Ein Zug
-Nimm ein Streichholz oder mehr, so viele du willst, aber alle aus derselben Reihe. Mindestens eines musst du nehmen. Hell beginnt.
-# Das Ende der Partie
-- Misère-Variante (die klassische Regel): Wer das letzte Streichholz nimmt, verliert.
-- Normales Spiel: Wer das letzte Streichholz nimmt, gewinnt.
-Die Spieleliste bietet vier Möglichkeiten: Marienbad oder eine zufällige Aufstellung, jeweils als Misère-Variante oder normales Spiel. In ihren Bildern leuchtet das letzte Streichholz rot, wenn es dem, der es nimmt, die Niederlage bringt, und golden, wenn es ihm den Sieg bringt; ein Würfel kennzeichnet die zufälligen Aufstellungen.
-# Spielen auf dem Gerät
-Tippe auf die Streichhölzer, die du nehmen willst: Sie heben sich. Tippe auf ein angehobenes Streichholz, um es zurückzulegen, oder streiche mit dem Finger an einer Reihe entlang, um mehrere auf einmal anzuheben. Alle angehobenen Streichhölzer müssen in einer Reihe liegen. Tippe dann auf den runden Knopf mit dem Häkchen unter den Reihen: Die Streichhölzer gleiten auf deine Seite. Jede Leiste zeigt, wie viele Streichhölzer der Spieler genommen hat. Rückgängig nimmt den letzten Zug zurück.
+Nimm ein Streichholz oder mehr, so viele du willst, aber alle aus derselben Reihe. Tippe auf die Streichhölzer und dann auf den runden Knopf mit dem Häkchen.

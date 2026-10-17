@@ -1,11 +1,9 @@
 Reversi
 # Das Ziel
-Am Ende der Partie mehr Steine deiner Farbe auf dem Brett haben als der andere Spieler. Jeder Stein ist auf einer Seite dunkel und auf der anderen hell. Dunkel beginnt.
+Am Ende der Partie mehr Steine deiner Farbe auf dem Brett haben als der andere Spieler. Dunkel beginnt.
 # Ein Zug
-- Setze einen Stein deiner Farbe so, dass er eine oder mehrere Reihen gegnerischer Steine zwischen sich und einem anderen deiner Steine einschließt, in gerader Linie: waagerecht, senkrecht oder diagonal.
-- Jeder eingeschlossene Stein wird auf deine Farbe umgedreht. Ein einziger Zug kann Steine in mehreren Richtungen zugleich einschließen.
-- Ein Zug muss mindestens einen Stein umdrehen. Hast du keinen solchen Zug, musst du passen, und der andere Spieler ist noch einmal dran. Das Gerät passt für dich.
+- Setze einen Stein deiner Farbe so, dass er eine oder mehrere Reihen gegnerischer Steine zwischen sich und einem anderen deiner Steine einschließt: waagerecht, senkrecht oder diagonal.
+- Jeder eingeschlossene Stein wird auf deine Farbe umgedreht.
+- Ein Zug muss mindestens einen Stein umdrehen. Hast du keinen solchen Zug, passt du.
 # Das Ende der Partie
-Die Partie endet, wenn keiner der beiden mehr ziehen kann, meist wenn das Brett voll ist. Wer mehr Steine hat, gewinnt. Bei gleich vielen Steinen endet die Partie unentschieden.
-# Spielen auf dem Gerät
-Punkte zeigen, wo du setzen kannst: Tippe auf einen. Die Steine drehen sich nacheinander um. Jede Leiste zeigt, wie viele Steine der Spieler hat.
+Die Partie endet, wenn keiner der beiden mehr ziehen kann. Wer mehr Steine hat, gewinnt. Bei gleich vielen Steinen endet die Partie unentschieden.

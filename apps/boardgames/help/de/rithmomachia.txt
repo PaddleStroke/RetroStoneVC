@@ -1,12 +1,6 @@
 Rithmomachie
 # Das Ziel
-Die Rithmomachie, die „Zahlenschlacht“, war das Spiel der Gelehrten im mittelalterlichen Europa. Zwei Heere aus Zahlen stehen sich auf einem Brett mit 8 mal 16 Feldern gegenüber: die Geraden (hell) und die Ungeraden (dunkel). Jedes Heer hat 24 Figuren: 8 Kreise, 8 Dreiecke, 7 Quadrate und eine Pyramide, jede mit einer Zahl. Gewonnen wird durch das Schlagen gegnerischer Figuren (der gewöhnliche Sieg) oder indem man drei eigene Figuren in der gegnerischen Hälfte in Harmonie aufstellt (der eigentliche Sieg). Die Geraden beginnen.
-# Die Heere
-Die Figuren stehen so, wie Claude de Boissière (1556) und Lever und Fulke (1563) sie beschreiben. Ihre Zahlen entstehen aus vier kleinen Zahlen: 2, 4, 6, 8 bei den Geraden, 3, 5, 7, 9 bei den Ungeraden.
-- Kreise: die kleinen Zahlen und ihre Quadrate (Gerade: 2 4 6 8 und 4 16 36 64).
-- Dreiecke: jede kleine Zahl plus ihr Quadrat, und das Quadrat der nächsten Zahl (Gerade: 6 20 42 72 und 9 25 49 81).
-- Quadrate: die beiden Dreiecke addiert, und das Quadrat der doppelten kleinen Zahl plus eins (Gerade: 15 45 153 und 25 81 169 289).
-- Die Pyramide ist ein Stapel von Quadraten: 91 = 1 + 4 + 9 + 16 + 25 + 36 bei den Geraden, 190 = 16 + 25 + 36 + 49 + 64 bei den Ungeraden.
+Zwei Heere aus Zahlen, die Geraden (hell) und die Ungeraden (dunkel). Gewonnen wird durch das Schlagen gegnerischer Figuren oder indem man drei eigene Figuren in der gegnerischen Hälfte in Harmonie aufstellt. Die Geraden beginnen.
 # Ziehen
 Eine Figur zieht auf ein leeres Feld und springt nie über eine andere Figur.
 - Kreis: ein Feld diagonal.
@@ -14,18 +8,14 @@ Eine Figur zieht auf ein leeres Feld und springt nie über eine andere Figur.
 - Quadrat: genau drei Felder entlang einer Reihe oder Spalte.
 - Pyramide: wie jede der drei.
 # Schlagen
-Nach deinem Zug nimmst du jede gegnerische Figur, die auf eine dieser vier Arten gefangen ist. Deine eigenen Figuren bleiben, wo sie sind.
+Nach deinem Zug nimmst du jede gegnerische Figur, die auf eine dieser vier Arten gefangen ist:
 - Begegnung: Eine deiner Figuren mit derselben Zahl könnte auf ihr Feld ziehen.
 - Angriff: Eine kleinere Figur von dir steht auf einer der Linien, entlang derer sie zieht, mit nur leeren Feldern dazwischen: Ihre Zahl mal die Zahl der leeren Felder ergibt die Zahl der gegnerischen Figur.
 - Hinterhalt: Zwei deiner Figuren, die beide auf ihr Feld ziehen könnten, ergeben zusammen ihre Zahl.
 - Belagerung: Deine Figuren umgeben sie an allen vier Seiten, waagerecht und senkrecht; der Brettrand schließt ebenfalls eine Seite.
-Die Pyramide zählt als eine einzige Figur mit ihrer ganzen Zahl, wenn sie angreift und wenn sie angegriffen wird.
+Die Pyramide zählt als eine einzige Figur mit ihrer ganzen Zahl.
 # Siege
-Wähle vor der Partie:
-- 8 Figuren schlagen: Wer zuerst 8 gegnerische Figuren nimmt, gewinnt.
-- 12 Figuren schlagen: dasselbe, eine längere Partie.
-- Eigentlicher Sieg: Wer zuerst drei seiner Figuren in Harmonie aufstellt, gewinnt. Die drei stehen in der gegnerischen Hälfte (jenseits der Linie quer durch die Mitte), auf einer Reihe, Spalte oder Diagonale, in gleichen Abständen, und ihre Zahlen bilden in ihrer Reihenfolge entlang der Linie eine Folge: arithmetisch (4 6 8: dieselbe Differenz), geometrisch (4 16 64: dasselbe Verhältnis) oder harmonisch (3 4 6: Die mittlere Zahl ist das Doppelte des Produkts der beiden anderen, geteilt durch ihre Summe).
+- 8 oder 12 Figuren schlagen: Wer zuerst so viele gegnerische Figuren nimmt, gewinnt.
+- Eigentlicher Sieg: drei deiner Figuren in der gegnerischen Hälfte, auf einer Reihe, Spalte oder Diagonale, in gleichen Abständen, deren Zahlen in ihrer Reihenfolge entlang der Linie eine Folge bilden: arithmetisch (4 6 8), geometrisch (4 16 64) oder harmonisch (3 4 6).
 # Das Ende der Partie
 Wer nicht ziehen kann, verliert. Nach 100 Zügen in Folge (die Züge beider Spieler mitgezählt) ohne Schlagen endet die Partie unentschieden.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Das Brett dreht sich so, dass das Heer des Spielers am Zug unten steht (im Querformat links), mit seiner Leiste. Tippe auf eine deiner Figuren, um zu sehen, wohin sie ziehen kann, und dann auf ein Feld, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge; ein Ring um einen Punkt bedeutet, dass der Zug etwas schlägt. Nach einem Zug leuchten deine schlagenden Figuren golden, und die geschlagenen Figuren leuchten rot, während sie verschwinden. Jede Leiste zeigt, wie viele Figuren der Spieler geschlagen hat. Wenn nur noch wenige Züge bis zum Unentschieden bleiben, steht ihre Zahl am Ende der Leiste des Spielers am Zug.

@@ -1,12 +1,6 @@
 Ritmomachia
 # Lo scopo
-La ritmomachia, la "battaglia dei numeri", era il gioco dei dotti nell'Europa medievale. Due eserciti di numeri si fronteggiano su una scacchiera di 8 per 16 caselle: i pari (chiari) e i dispari (scuri). Ogni esercito ha 24 pezzi: 8 tondi, 8 triangoli, 7 quadrati e una piramide, ciascuno con un numero. Si vince catturando pezzi nemici (la vittoria comune) o disponendo tre dei propri pezzi in armonia nella metà nemica (la vittoria propria). Muovono per primi i pari.
-# Gli eserciti
-I pezzi sono disposti come li descrivono Claude de Boissière (1556) e Lever e Fulke (1563). I loro numeri nascono da quattro numeri piccoli: 2, 4, 6, 8 per i pari, 3, 5, 7, 9 per i dispari.
-- Tondi: i numeri piccoli e i loro quadrati (pari: 2 4 6 8 e 4 16 36 64).
-- Triangoli: ogni numero piccolo più il suo quadrato, e il quadrato del numero seguente (pari: 6 20 42 72 e 9 25 49 81).
-- Quadrati: la somma dei due triangoli, e il quadrato del doppio del numero piccolo più uno (pari: 15 45 153 e 25 81 169 289).
-- La piramide è una pila di quadrati: 91 = 1 + 4 + 9 + 16 + 25 + 36 per i pari, 190 = 16 + 25 + 36 + 49 + 64 per i dispari.
+Due eserciti di numeri, i pari (chiari) e i dispari (scuri). Si vince catturando pezzi nemici, o disponendo tre dei propri pezzi in armonia nella metà nemica. Muovono per primi i pari.
 # Movimento
 Un pezzo si muove su una casella vuota e non salta mai un altro pezzo.
 - Tondo: una casella in diagonale.
@@ -14,18 +8,14 @@ Un pezzo si muove su una casella vuota e non salta mai un altro pezzo.
 - Quadrato: esattamente tre caselle lungo una riga o una colonna.
 - Piramide: come uno qualsiasi dei tre.
 # Le catture
-Dopo la tua mossa catturi ogni pezzo nemico preso in uno di questi quattro modi. I tuoi pezzi restano dove sono.
+Dopo la tua mossa catturi ogni pezzo nemico preso in uno di questi quattro modi:
 - Incontro: uno dei tuoi pezzi con lo stesso numero potrebbe muoversi sulla sua casella.
 - Assalto: un tuo pezzo più piccolo, su una delle linee lungo cui si muove, con solo caselle vuote in mezzo: il suo numero per il numero di caselle vuote è uguale al numero del nemico.
 - Agguato: due tuoi pezzi che potrebbero entrambi muoversi sulla sua casella hanno come somma il suo numero.
 - Assedio: i tuoi pezzi stanno su tutti e quattro i suoi lati, in orizzontale e in verticale; anche il bordo della scacchiera chiude un lato.
-La piramide conta come un unico pezzo con il suo numero intero, quando attacca e quando è attaccata.
+La piramide conta come un unico pezzo con il suo numero intero.
 # Le vittorie
-Scegli prima della partita:
-- Cattura 8 pezzi: vince chi cattura per primo 8 pezzi nemici.
-- Cattura 12 pezzi: lo stesso, una partita più lunga.
-- Vittoria propria: vince chi per primo dispone tre dei suoi pezzi in armonia. I tre stanno nella metà nemica (oltre la linea che attraversa il centro), su una stessa riga, colonna o diagonale, a distanze uguali, e i loro numeri, nell'ordine lungo la linea, formano una progressione: aritmetica (4 6 8: la stessa differenza), geometrica (4 16 64: lo stesso rapporto) o armonica (3 4 6: il numero di mezzo è il doppio del prodotto degli altri due diviso per la loro somma).
+- Cattura 8 o Cattura 12: vince chi cattura per primo quel numero di pezzi nemici.
+- Vittoria propria: tre tuoi pezzi nella metà nemica, su una stessa riga, colonna o diagonale, a distanze uguali, i cui numeri, nell'ordine lungo la linea, formano una progressione: aritmetica (4 6 8), geometrica (4 16 64) o armonica (3 4 6).
 # La fine della partita
 Perde chi non può muovere. Dopo 100 mosse di fila (contando quelle di entrambi i giocatori) senza catture, la partita è patta.
-# Giocare sul dispositivo
-Passatevi il dispositivo: la scacchiera si gira in modo che l'esercito di chi è di turno sia in basso (a sinistra in orizzontale), con la sua barra. Tocca uno dei tuoi pezzi per vedere dove può andare, poi tocca una casella, oppure trascina il pezzo. I punti mostrano le mosse; un anello intorno a un punto vuol dire che la mossa catturerà qualcosa. Dopo una mossa i tuoi pezzi che catturano si illuminano d'oro, e i pezzi catturati si illuminano di rosso mentre se ne vanno. Ogni barra mostra quanti pezzi ha catturato quel giocatore. Quando restano poche mosse prima della patta, il loro numero compare in fondo alla barra di chi è di turno.

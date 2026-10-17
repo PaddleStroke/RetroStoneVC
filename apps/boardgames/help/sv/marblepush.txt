@@ -1,22 +1,15 @@
 Kulknuff
 # Målet
-Knuffa ut sex av motståndarens kulor från brädet. Brädet är en sexhörning med 61 hål, fem på varje sida, och varje spelare har fjorton kulor. Den mörka sidan börjar.
-# Brädet
-Välj startuppställning före partiet:
-- Standard: varje spelare fyller de två rader som ligger närmast och de tre mittersta hålen i raden framför.
-- Belgisk prästkrage: varje spelare har två blommor av sju kulor (en kula med sina sex grannar), en på den egna sidan och en på motståndarens sida, i motsatta hörn. De två färgernas blommor rör vid varandra.
-- Tysk prästkrage: samma blommor, en rad längre från kanten och närmare hörnen, med ett mellanrum mellan de två färgerna.
+Knuffa ut sex av motståndarens kulor från brädet. Den mörka sidan börjar.
 # Förflyttning
-När det är din tur flyttar du en, två eller tre av dina kulor ett hål i någon av de sex riktningarna. Två eller tre kulor måste ligga intill varandra i en rak rad, och de flyttas tillsammans:
-- I linje: längs sin egen rad, framåt eller bakåt. Den främsta kulan rullar in i hålet framför och de andra följer efter.
-- I sidled: tvärs över sin rad, varje kula in i hålet bredvid. Alla dessa hål måste vara tomma.
-- En ensam kula flyttas till valfritt tomt grannhål. Du får aldrig flytta din egen kula ut från brädet.
+Flytta en, två eller tre av dina kulor ett hål i någon av de sex riktningarna. Två eller tre kulor måste ligga intill varandra i en rak rad, och de flyttas tillsammans (tryck på var och en av dem, eller dra fingret över dem):
+- I linje: längs sin egen rad. Den främsta kulan rullar in i hålet framför och de andra följer efter.
+- I sidled: varje kula in i hålet bredvid. Alla dessa hål måste vara tomma.
+- Du får aldrig flytta din egen kula ut från brädet.
 # Knuffar
-När du flyttar en rad i linje får du knuffa motståndarens kulor som ligger rakt framför den, om dina är fler: två kulor knuffar en, tre knuffar en eller två. De knuffade kulorna flyttas ett hål vidare.
-- Hålet strax bakom de knuffade kulorna måste vara tomt eller vara brädets kant: då faller den sista knuffade kulan av brädet och hamnar i din skål.
-- Det blir ingen knuff om en av dina egna kulor ligger bland eller strax bakom kulorna som ska knuffas, eller om de är lika många som dina. En ensam kula knuffar aldrig, och ingen kula knuffas någonsin i sidled.
+När du flyttar en rad i linje får du knuffa motståndarens kulor som ligger rakt framför den, om dina är fler: två kulor knuffar en, tre knuffar en eller två.
+- Hålet strax bakom de knuffade kulorna måste vara tomt eller vara brädets kant: då faller den sista knuffade kulan av brädet.
+- Det blir ingen knuff om en av dina egna kulor ligger bland eller strax bakom dem. Ingen kula knuffas någonsin i sidled.
 # Partiets slut
-- Den som först knuffar ut sex av motståndarens kulor från brädet vinner.
+- Den som först knuffar ut sex kulor vinner.
 - Partiet blir oavgjort när samma ställning återkommer för tredje gången med samma spelare vid draget, eller efter femtio drag var utan att någon kula har knuffats ut.
-# Spela på enheten
-Tryck på en av dina kulor för att ta upp den. För att flytta en rad trycker du också på radens andra och tredje kula, eller drar fingret över dem. Prickar visar vart kulorna kan gå, och en ring visar en kula som du kan knuffa: tryck på en av dem så rullar kulorna. Medan fingret ligger kvar visar bleka kulor draget. Tryck på en vald kula för att lägga tillbaka den. Skålen i varje hörn, till höger om sin spelare, samlar de kulor som den spelaren har knuffat ut, och fälten räknar dem.

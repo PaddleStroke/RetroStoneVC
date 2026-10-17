@@ -1,19 +1,16 @@
 Juego del molino
 # El objetivo
-Dejar al otro jugador con solo dos fichas o sin movimientos. Cada jugador tiene nueve fichas. Empiezan las claras. Elige el tablero antes de la partida: molino de nueve fichas (la carta con tres cuadrados), molino de doce fichas (tres cuadrados unidos por diagonales en las esquinas) o molino de seis fichas (dos cuadrados). Las reglas de abajo son las del molino de nueve fichas; los otros dos las cambian como se explica más adelante.
+Dejar al otro jugador con solo dos fichas o sin movimientos. Empiezan las claras.
 # Colocación
-Al principio, los jugadores colocan por turnos una ficha en cualquier punto vacío, hasta que las dieciocho fichas están en el tablero.
+Al principio, los jugadores colocan por turnos una ficha en cualquier punto vacío, hasta que todas sus fichas están en el tablero.
 # Movimiento
-Después, en tu turno, mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Un jugador al que solo le quedan tres fichas puede volar: mover una ficha a cualquier punto vacío.
+Después, mueve una de tus fichas a lo largo de una línea hasta el punto siguiente, si está vacío. Un jugador al que solo le quedan tres fichas puede volar: mover una ficha a cualquier punto vacío.
 # Molinos
-Tres de tus fichas en fila sobre una misma línea forman un molino. Cada vez que formas un molino, al colocar o al mover, quita del tablero una ficha del otro jugador. No puedes quitar una ficha que forme parte de un molino, salvo que todas las fichas del otro jugador estén en molinos. Abrir un molino y volver a cerrarlo forma un molino nuevo.
+Tres de tus fichas en fila sobre una misma línea forman un molino. Cada vez que formas uno, al colocar o al mover, quita una ficha del otro jugador. No puedes quitar una ficha de un molino, salvo que todas sus fichas estén en molinos. Abrir un molino y volver a cerrarlo forma un molino nuevo.
 # Molino de doce fichas
-El tablero del molino de nueve fichas con una línea diagonal en cada esquina, que une los tres cuadrados. Cada jugador tiene doce fichas. Las fichas también se mueven por las diagonales, y tres fichas en una diagonal forman un molino. Si la colocación llena los 24 puntos, la partida termina en tablas.
+Doce fichas cada uno. Las fichas también se mueven por las diagonales de las esquinas, y tres en una diagonal forman un molino. Si la colocación llena los 24 puntos, la partida termina en tablas.
 # Molino de seis fichas
-Un tablero más pequeño: dos cuadrados, unidos por líneas cortas en el centro de sus lados. Cada jugador tiene seis fichas. Los tres puntos de cada lado de un cuadrado forman un molino; las líneas cortas entre los cuadrados solo sirven para moverse. No se puede volar: el jugador que se queda con dos fichas pierde.
+Seis fichas cada uno. Los tres puntos de cada lado de un cuadrado forman un molino; las líneas cortas entre los cuadrados solo sirven para moverse. No se puede volar.
 # El final de la partida
-- Pierde el jugador al que solo le quedan dos fichas.
-- Pierde el jugador que no puede mover ninguna ficha.
+- Pierde el jugador al que solo le quedan dos fichas o que no puede mover.
 - La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin ningún molino.
-# Jugar en el dispositivo
-Toca un punto vacío para colocar una ficha. Para mover, toca tu ficha y luego su nuevo punto, o arrástrala. Tras un molino, las fichas que puedes quitar brillan: toca una.

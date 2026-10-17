@@ -1,12 +1,6 @@
 Rithmomachia
 # Tavoite
-Rithmomachia, ”lukujen taistelu”, oli keskiajan Euroopan oppineiden peli. Kaksi lukujen armeijaa kohtaa toisensa 8×16 ruudun laudalla: parilliset (vaaleat) ja parittomat (tummat). Kummallakin armeijalla on 24 nappulaa: 8 ympyrää, 8 kolmiota, 7 neliötä ja pyramidi, ja jokaisessa on luku. Voiton saa lyömällä vastustajan nappuloita (tavallinen voitto) tai asettamalla kolme omaa nappulaa harmoniaan vastustajan puoliskolla (varsinainen voitto). Parilliset aloittavat.
-# Armeijat
-Nappulat asetetaan niin kuin Claude de Boissière (1556) sekä Lever ja Fulke (1563) ne kuvaavat. Niiden luvut kasvavat neljästä pienestä luvusta: 2, 4, 6, 8 parillisilla, 3, 5, 7, 9 parittomilla.
-- Ympyrät: pienet luvut ja niiden neliöt (parilliset: 2 4 6 8 ja 4 16 36 64).
-- Kolmiot: kukin pieni luku plus sen neliö sekä seuraavan luvun neliö (parilliset: 6 20 42 72 ja 9 25 49 81).
-- Neliöt: kahden kolmion summa sekä pienen luvun kaksinkertaisen plus yhden neliö (parilliset: 15 45 153 ja 25 81 169 289).
-- Pyramidi on neliöiden pino: 91 = 1 + 4 + 9 + 16 + 25 + 36 parillisilla, 190 = 16 + 25 + 36 + 49 + 64 parittomilla.
+Kaksi lukujen armeijaa, parilliset (vaaleat) ja parittomat (tummat). Voiton saa lyömällä vastustajan nappuloita tai asettamalla kolme omaa nappulaa harmoniaan vastustajan puoliskolla. Parilliset aloittavat.
 # Siirtäminen
 Nappula siirtyy tyhjään ruutuun eikä koskaan hyppää toisen nappulan yli.
 - Ympyrä: yhden ruudun viistosti.
@@ -14,18 +8,14 @@ Nappula siirtyy tyhjään ruutuun eikä koskaan hyppää toisen nappulan yli.
 - Neliö: tasan kolme ruutua rivillä tai sarakkeella.
 - Pyramidi: kuten mikä tahansa näistä kolmesta.
 # Lyönnit
-Siirtosi jälkeen lyöt jokaisen vastustajan nappulan, joka jää kiinni jollakin näistä neljästä tavasta. Omat nappulasi pysyvät paikoillaan.
+Siirtosi jälkeen lyöt jokaisen vastustajan nappulan, joka jää kiinni jollakin näistä neljästä tavasta:
 - Kohtaaminen: jokin nappulasi, jolla on sama luku, voisi siirtyä sen päälle.
 - Rynnäkkö: pienempi nappulasi on jollakin niistä linjoista, joita pitkin se liikkuu, ja välissä on vain tyhjiä ruutuja: sen luku kertaa tyhjien ruutujen määrä on vastustajan nappulan luku.
 - Väijytys: kaksi nappulaasi, jotka molemmat voisivat siirtyä sen päälle, ovat yhteensä sen luku.
 - Piiritys: nappulasi ovat sen kaikilla neljällä sivulla, vaaka- ja pystysuunnassa; laudan reuna sulkee myös sivun.
-Pyramidi lasketaan yhdeksi nappulaksi, jolla on koko lukunsa, sekä hyökätessään että hyökkäyksen kohteena.
+Pyramidi lasketaan yhdeksi nappulaksi, jolla on koko lukunsa.
 # Voitot
-Valitse ennen peliä:
-- Lyö 8 nappulaa: ensimmäinen pelaaja, joka lyö 8 vastustajan nappulaa, voittaa.
-- Lyö 12 nappulaa: sama, pidempi peli.
-- Varsinainen voitto: ensimmäinen pelaaja, joka asettaa kolme nappulaansa harmoniaan, voittaa. Kolme nappulaa ovat vastustajan puoliskolla (keskeltä poikittain kulkevan viivan takana), samalla rivillä, sarakkeella tai lävistäjällä, tasavälein, ja niiden luvut muodostavat järjestyksessään linjaa pitkin jonon: aritmeettisen (4 6 8: sama erotus), geometrisen (4 16 64: sama suhde) tai harmonisen (3 4 6: keskimmäinen luku on kaksi kertaa kahden muun tulo jaettuna niiden summalla).
+- Lyö 8 nappulaa tai Lyö 12 nappulaa: ensimmäinen pelaaja, joka lyö niin monta vastustajan nappulaa, voittaa.
+- Varsinainen voitto: kolme nappulaasi vastustajan puoliskolla, samalla rivillä, sarakkeella tai lävistäjällä, tasavälein, ja niiden luvut muodostavat järjestyksessään linjaa pitkin jonon: aritmeettisen (4 6 8), geometrisen (4 16 64) tai harmonisen (3 4 6).
 # Pelin loppu
 Pelaaja, joka ei voi siirtää, häviää. Kun 100 siirtoa peräkkäin (kummankin pelaajan siirrot lasketaan) on tehty ilman lyöntiä, peli päättyy tasapeliin.
-# Pelaaminen laitteella
-Antakaa laite kiertää: lauta kääntyy niin, että vuorossa olevan pelaajan armeija on alhaalla (vaakasuunnassa vasemmalla) palkkinsa kanssa. Napauta nappulaasi nähdäksesi, minne se voi liikkua, ja napauta sitten ruutua, tai vedä nappulaa. Pisteet näyttävät siirrot; rengas pisteen ympärillä tarkoittaa, että siirto lyö jotakin. Siirron jälkeen lyövät nappulasi hehkuvat kultaisina, ja lyödyt nappulat hehkuvat punaisina poistuessaan. Kukin palkki näyttää, montako nappulaa kyseinen pelaaja on lyönyt. Kun tasapeliin on jäljellä vain muutama siirto, niiden määrä näkyy vuorossa olevan pelaajan palkin lopussa.

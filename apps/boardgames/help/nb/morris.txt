@@ -1,19 +1,16 @@
 Mølle
 # Målet
-La motstanderen sitte igjen med bare to brikker, eller uten trekk. Hver spiller har ni brikker. Den lyse siden begynner. Velg brett før spillet: mølle med ni brikker (kortet med tre kvadrater), mølle med tolv brikker (tre kvadrater bundet sammen av diagonaler i hjørnene) eller mølle med seks brikker (to kvadrater). Reglene nedenfor gjelder mølle med ni brikker; de to andre endrer dem slik det står lenger ned.
+La motstanderen sitte igjen med bare to brikker, eller uten trekk. Den lyse siden begynner.
 # Utsetting
-Først bytter spillerne på å sette én brikke på et hvilket som helst tomt punkt, til alle atten brikkene står på brettet.
+Først bytter spillerne på å sette én brikke på et hvilket som helst tomt punkt, til alle brikkene deres står på brettet.
 # Flytting
-Deretter flytter du, når det er din tur, én av brikkene dine langs en linje til neste punkt, hvis det er tomt. En spiller med bare tre brikker igjen kan fly: flytte en brikke til et hvilket som helst tomt punkt.
+Deretter flytter du én av brikkene dine langs en linje til neste punkt, hvis det er tomt. En spiller med bare tre brikker igjen kan fly: flytte en brikke til et hvilket som helst tomt punkt.
 # Møller
-Tre av brikkene dine på rad langs en linje danner en mølle. Hver gang du danner en mølle, under utsettingen eller flyttingen, fjerner du én av motstanderens brikker fra brettet. Du kan ikke ta en brikke som står i en mølle, med mindre alle motstanderens brikker står i møller. Å åpne en mølle og lukke den igjen danner en ny mølle.
+Tre av brikkene dine på rad langs en linje danner en mølle. Hver gang du danner en, under utsettingen eller flyttingen, fjerner du én av motstanderens brikker. Du kan ikke ta en brikke som står i en mølle, med mindre alle motstanderens brikker står i møller. Å åpne en mølle og lukke den igjen danner en ny mølle.
 # Mølle med tolv brikker
-Brettet fra mølle med ni brikker, med en diagonal linje i hvert hjørne som binder sammen de tre kvadratene. Hver spiller har tolv brikker. Brikkene flytter også langs diagonalene, og tre brikker på en diagonal danner en mølle. Hvis utsettingen fyller alle de 24 punktene, blir spillet uavgjort.
+Tolv brikker hver. Brikkene flytter også langs diagonalene i hjørnene, og tre på en diagonal danner en mølle. Hvis utsettingen fyller alle de 24 punktene, blir spillet uavgjort.
 # Mølle med seks brikker
-Et mindre brett: to kvadrater, bundet sammen av korte linjer midt på sidene. Hver spiller har seks brikker. De tre punktene langs hver side av et kvadrat danner en mølle; de korte linjene mellom kvadratene er bare til å flytte langs. Det er ikke lov å fly: en spiller med bare to brikker igjen taper.
+Seks brikker hver. De tre punktene langs hver side av et kvadrat danner en mølle; de korte linjene mellom kvadratene er bare til å flytte langs. Det er ikke lov å fly.
 # Slutten på spillet
-- En spiller som sitter igjen med to brikker, taper.
-- En spiller som ikke kan flytte noen brikke, taper.
+- En spiller som sitter igjen med to brikker, eller ikke kan flytte, taper.
 - Spillet er uavgjort når den samme stillingen kommer igjen for tredje gang, eller etter femti trekk hver uten mølle.
-# Spill på enheten
-Trykk på et tomt punkt for å sette ut en brikke. For å flytte trykker du på brikken din og så på det nye punktet, eller drar den. Etter en mølle lyser brikkene du kan ta: trykk på én.

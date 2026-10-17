@@ -1,19 +1,16 @@
 Nine Men's Morris
 # The aim
-Leave the other player with only two pieces, or with no move. Each player has nine pieces. Light plays first. Choose the board before the game: nine men's morris (the card with three squares), twelve men's morris (three squares joined by diagonals at the corners) or six men's morris (two squares). The rules below are those of nine men's morris; the other two change them as described further on.
+Leave the other player with only two pieces, or with no move. Light plays first.
 # Placing
-At first, the players take turns placing one piece on any empty point, until all eighteen pieces are on the board.
+At first, the players take turns placing one piece on any empty point, until all their pieces are on the board.
 # Moving
-Then, on your turn, move one of your pieces along a line to the next point, if it is empty. A player with only three pieces left may fly: move a piece to any empty point.
+Then move one of your pieces along a line to the next point, if it is empty. A player with only three pieces left may fly: move a piece to any empty point.
 # Mills
-Three of your pieces in a row along one line make a mill. Each time you make a mill, while placing or while moving, remove one of the other player's pieces from the board. You may not take a piece that is in a mill, unless all their pieces are in mills. Opening a mill and closing it again makes a new mill.
+Three of your pieces in a row along one line make a mill. Each time you make one, while placing or moving, remove one of the other player's pieces. You may not take a piece in a mill, unless all their pieces are in mills. Opening a mill and closing it again makes a new mill.
 # Twelve men's morris
-The board of nine men's morris with a diagonal line across each corner, joining the three squares. Each player has twelve pieces. Pieces also move along the diagonals, and three pieces along a diagonal make a mill. If placing fills all 24 points, the game is a draw.
+Twelve pieces each. Pieces also move along the corner diagonals, and three along a diagonal make a mill. If placing fills all 24 points, the game is a draw.
 # Six men's morris
-A smaller board: two squares, joined by short lines at the middle of their sides. Each player has six pieces. The three points along each side of a square make a mill; the short lines between the squares are only for moving. There is no flying: a player left with two pieces loses.
+Six pieces each. The three points along each side of a square make a mill; the short lines between the squares are only for moving. There is no flying.
 # The end of the game
-- A player left with two pieces loses.
-- A player who cannot move any piece loses.
+- A player left with two pieces, or who cannot move, loses.
 - The game is a draw when the same position comes back for the third time, or after fifty moves each without a mill.
-# Playing on the device
-Tap an empty point to place a piece. To move, tap your piece and then its new point, or drag it. After a mill, the pieces you may take glow: tap one.

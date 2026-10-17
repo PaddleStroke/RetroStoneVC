@@ -1,22 +1,15 @@
 Bilye İtme
 # Amaç
-Rakibin altı bilyesini tahtanın dışına it. Tahta, her kenarında beş delik bulunan 61 delikli bir altıgendir ve her oyuncunun on dört bilyesi vardır. Önce koyu oynar.
-# Tahta
-Oyundan önce başlangıç dizilişini seç:
-- Standart: her oyuncu kendine en yakın iki sırayı ve bir sonraki sıranın ortadaki üç deliğini doldurur.
-- Belçika papatyası: her oyuncunun yedişer bilyeden (bir bilye ve onun altı komşusu) oluşan iki çiçeği vardır; biri kendi tarafında, diğeri rakibin tarafında, karşılıklı köşelerdedir. İki rengin çiçekleri birbirine değer.
-- Alman papatyası: aynı çiçekler, kenardan bir sıra daha içeride ve köşelere daha yakındır; iki rengin arasında bir boşluk vardır.
+Rakibin altı bilyesini tahtanın dışına it. Önce koyu oynar.
 # Hareket
-Sıran geldiğinde, bilyelerinden bir, iki ya da üç tanesini altı yönden birine doğru bir delik ilerlet. İki ya da üç bilye düz bir sırada yan yana olmalıdır ve birlikte hareket eder:
-- Sıra boyunca: kendi sıralarının doğrultusunda, ileri ya da geri. Öndeki bilye önündeki deliğe girer, diğerleri onu izler.
-- Yana doğru: sıralarına dik yönde, her bilye yanındaki deliğe. Bu deliklerin hepsi boş olmalıdır.
-- Tek bir bilye yanındaki herhangi bir boş deliğe gider. Kendi bilyeni asla tahtanın dışına çıkaramazsın.
+Bilyelerinden bir, iki ya da üç tanesini altı yönden birine doğru bir delik ilerlet. İki ya da üç bilye düz bir sırada yan yana olmalıdır ve birlikte hareket eder (her birine dokun ya da parmağını üzerlerinden kaydır):
+- Sıra boyunca: kendi sıralarının doğrultusunda. Öndeki bilye önündeki deliğe girer, diğerleri onu izler.
+- Yana doğru: her bilye yanındaki deliğe. Bu deliklerin hepsi boş olmalıdır.
+- Kendi bilyeni asla tahtanın dışına çıkaramazsın.
 # İtme
-Bir sırayı kendi doğrultusunda ilerlettiğinde, tam önünde duran rakip bilyeleri, seninkiler daha çoksa itebilirsin: iki bilye bir bilyeyi, üç bilye bir ya da iki bilyeyi iter. İtilen bilyeler bir delik ilerler.
-- İtilen bilyelerin hemen ötesindeki delik boş olmalı ya da tahtanın kenarı olmalıdır: o zaman itilen son bilye tahtadan düşer ve tepsine gider.
-- İtilecek bilyelerin arasında ya da hemen ötesinde kendi bilyelerinden biri varsa ya da onların sayısı seninkilere eşitse itme olmaz. Tek bir bilye asla itmez ve hiçbir bilye yana doğru itilmez.
+Bir sırayı kendi doğrultusunda ilerlettiğinde, tam önünde duran rakip bilyeleri, seninkiler daha çoksa itebilirsin: iki bilye bir bilyeyi, üç bilye bir ya da iki bilyeyi iter.
+- İtilen bilyelerin hemen ötesindeki delik boş olmalı ya da kenar olmalıdır: o zaman itilen son bilye tahtadan düşer.
+- Aralarında ya da hemen ötelerinde kendi bilyelerinden biri varsa itme olmaz. Hiçbir bilye asla yana doğru itilmez.
 # Oyunun sonu
-- Rakibin altı bilyesini tahtanın dışına ilk iten oyuncu kazanır.
+- Altı bilyeyi tahtanın dışına ilk iten oyuncu kazanır.
 - Aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında ya da iki taraf da hiçbir bilye dışarı itilmeden ellişer hamle yaptığında oyun berabere biter.
-# Cihazda oynamak
-Bilyelerinden birini almak için ona dokun. Bir sırayı hareket ettirmek için sıranın ikinci ve üçüncü bilyesine de dokun ya da parmağını üzerlerinden kaydır. Noktalar bilyelerin gidebileceği yerleri, halka da itebileceğin bir bilyeyi gösterir: bunlardan birine dokun, bilyeler kayar. Parmağın ekrandayken soluk bilyeler hamleyi gösterir. Aldığın bir bilyeyi geri bırakmak için ona yeniden dokun. Her köşedeki tepsi, sahibinin sağ tarafında, o oyuncunun dışarı ittiği bilyeleri toplar ve şeritler onları sayar.

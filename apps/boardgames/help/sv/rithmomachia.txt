@@ -1,12 +1,6 @@
 Rithmomachia
 # Målet
-Rithmomachia, ”talens strid”, var de lärdas spel i medeltidens Europa. Två arméer av tal står mot varandra på ett bräde med 8 gånger 16 rutor: de jämna talen (ljusa) och de udda (mörka). Varje armé har 24 pjäser: 8 runda, 8 trianglar, 7 kvadrater och en pyramid, var och en med ett tal. Man vinner genom att slå fientliga pjäser (den vanliga segern) eller genom att ställa tre av sina pjäser i harmoni på fiendens halva (den egentliga segern). De jämna börjar.
-# Arméerna
-Pjäserna ställs upp så som Claude de Boissière (1556) och Lever och Fulke (1563) beskriver dem. Deras tal växer fram ur fyra små tal: 2, 4, 6, 8 för de jämna, 3, 5, 7, 9 för de udda.
-- Runda: de små talen och deras kvadrater (jämna: 2 4 6 8 och 4 16 36 64).
-- Trianglar: varje litet tal plus sin kvadrat, och kvadraten på nästa tal (jämna: 6 20 42 72 och 9 25 49 81).
-- Kvadrater: de två trianglarna adderade, och kvadraten på dubbla det lilla talet plus ett (jämna: 15 45 153 och 25 81 169 289).
-- Pyramiden är en stapel kvadrater: 91 = 1 + 4 + 9 + 16 + 25 + 36 för de jämna, 190 = 16 + 25 + 36 + 49 + 64 för de udda.
+Två arméer av tal, de jämna (ljusa) och de udda (mörka). Man vinner genom att slå fientliga pjäser, eller genom att ställa tre av sina pjäser i harmoni på fiendens halva. De jämna börjar.
 # Förflyttning
 En pjäs flyttar till en tom ruta och hoppar aldrig över en annan pjäs.
 - Rund: en ruta diagonalt.
@@ -14,18 +8,14 @@ En pjäs flyttar till en tom ruta och hoppar aldrig över en annan pjäs.
 - Kvadrat: exakt tre rutor längs en rad eller kolumn.
 - Pyramid: som vilken som helst av de tre.
 # Slag
-Efter ditt drag slår du varje fientlig pjäs som är fångad på något av dessa fyra sätt. Dina egna pjäser står kvar.
+Efter ditt drag slår du varje fientlig pjäs som är fångad på något av dessa fyra sätt:
 - Möte: en av dina pjäser med samma tal skulle kunna flytta till dess ruta.
 - Anfall: en mindre pjäs av dina på en av de linjer den flyttar längs, med bara tomma rutor emellan: dess tal gånger antalet tomma rutor är fiendens tal.
 - Bakhåll: två av dina pjäser som båda skulle kunna flytta till dess ruta blir tillsammans dess tal.
 - Belägring: dina pjäser står på alla fyra sidor om den, vågrätt och lodrätt; brädets kant stänger också en sida.
-Pyramiden räknas som en enda pjäs med hela sitt tal, både när den anfaller och när den anfalls.
+Pyramiden räknas som en enda pjäs med hela sitt tal.
 # Segrar
-Välj före partiet:
-- Slå 8 pjäser: den som först slår 8 fientliga pjäser vinner.
-- Slå 12 pjäser: samma sak, ett längre parti.
-- Egentlig seger: den som först ställer tre av sina pjäser i harmoni vinner. De tre står på fiendens halva (bortom linjen tvärs över mitten), på samma rad, kolumn eller diagonal, med lika stort avstånd, och deras tal bildar i ordning längs linjen en talföljd: aritmetisk (4 6 8: samma skillnad), geometrisk (4 16 64: samma kvot) eller harmonisk (3 4 6: det mittersta talet är två gånger produkten av de andra två delat med deras summa).
+- Slå 8 pjäser eller Slå 12 pjäser: den som först slår så många fientliga pjäser vinner.
+- Egentlig seger: tre av dina pjäser på fiendens halva, på samma rad, kolumn eller diagonal, med lika stort avstånd, vars tal i ordning längs linjen bildar en talföljd: aritmetisk (4 6 8), geometrisk (4 16 64) eller harmonisk (3 4 6).
 # Partiets slut
 En spelare som inte kan flytta förlorar. Efter 100 drag i rad (båda spelarnas räknade) utan slag blir partiet remi.
-# Spela på enheten
-Skicka runt enheten: brädet vänds så att armén för den som har tur står längst ned (till vänster i liggande läge), med sitt fält. Tryck på en av dina pjäser för att se vart den kan gå, tryck sedan på en ruta, eller dra pjäsen. Prickar visar dragen; en ring runt en prick betyder att draget slår något. Efter ett drag lyser dina slående pjäser guld, och de slagna pjäserna lyser rött medan de försvinner. Varje fält visar hur många pjäser den spelaren har slagit. När det är få drag kvar till remi syns antalet i slutet av fältet för den som har tur.

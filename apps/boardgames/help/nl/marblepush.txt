@@ -1,22 +1,15 @@
 Knikkerduwen
 # Het doel
-Duw zes knikkers van de andere speler van het bord. Het bord is een zeshoek met 61 gaatjes, vijf aan elke kant, en elke speler heeft veertien knikkers. Donker begint.
-# Het bord
-Kies voor het spel de beginopstelling:
-- Standaard: elke speler vult de twee rijen die het dichtst bij hem liggen en de drie middelste gaatjes van de rij daarna.
-- Belgisch madeliefje: elke speler heeft twee bloemen van zeven knikkers (een knikker met zijn zes buren), een aan de eigen kant en een aan de kant van de andere speler, in tegenoverliggende hoeken. De bloemen van de twee kleuren raken elkaar.
-- Duits madeliefje: dezelfde bloemen, een rij verder van de rand en dichter bij de hoeken, met een opening tussen de twee kleuren.
+Duw zes knikkers van de andere speler van het bord. Donker begint.
 # Schuiven
-Als je aan de beurt bent, verplaats je een, twee of drie van je knikkers één gaatje in een van de zes richtingen. Twee of drie knikkers moeten naast elkaar in een rechte rij liggen en bewegen samen:
-- In lijn: langs hun eigen rij, vooruit of achteruit. De voorste knikker rolt in het gaatje voor hem en de andere volgen.
-- Zijwaarts: dwars op hun rij, elke knikker naar het gaatje ernaast. Al die gaatjes moeten leeg zijn.
-- Een losse knikker gaat naar een willekeurig leeg gaatje ernaast. Je mag je eigen knikker nooit van het bord halen.
+Verplaats een, twee of drie van je knikkers één gaatje in een van de zes richtingen. Twee of drie knikkers moeten naast elkaar in een rechte rij liggen en bewegen samen (tik op elk van hen, of veeg er met je vinger overheen):
+- In lijn: langs hun eigen rij. De voorste knikker rolt in het gaatje voor hem en de andere volgen.
+- Zijwaarts: elke knikker naar het gaatje ernaast. Al die gaatjes moeten leeg zijn.
+- Je mag je eigen knikker nooit van het bord halen.
 # Duwen
-Als je een rij in lijn verplaatst, mag je de knikkers van de andere speler duwen die recht voor de rij liggen, als jij er meer hebt: twee knikkers duwen er één, drie duwen er één of twee. De geduwde knikkers schuiven één gaatje op.
-- Het gaatje vlak achter de geduwde knikkers moet leeg zijn, of de rand van het bord zijn: dan valt de laatste geduwde knikker van het bord en gaat hij naar jouw bakje.
-- Er wordt niet geduwd als een van je eigen knikkers tussen of vlak achter de te duwen knikkers ligt, of als het er evenveel zijn als die van jou. Een losse knikker duwt nooit, en een knikker wordt nooit zijwaarts geduwd.
+Als je een rij in lijn verplaatst, mag je de knikkers van de andere speler duwen die recht voor de rij liggen, als jij er meer hebt: twee knikkers duwen er één, drie duwen er één of twee.
+- Het gaatje vlak achter de geduwde knikkers moet leeg zijn, of de rand van het bord zijn: dan valt de laatste geduwde knikker van het bord.
+- Er wordt niet geduwd als een van je eigen knikkers ertussen of er vlak achter ligt. Een knikker wordt nooit zijwaarts geduwd.
 # Het einde van het spel
-- Wie als eerste zes knikkers van de andere speler van het bord duwt, wint.
+- Wie als eerste zes knikkers van het bord duwt, wint.
 - Het spel eindigt in gelijkspel als dezelfde stelling voor de derde keer terugkomt met dezelfde speler aan zet, of na vijftig zetten van elke speler zonder dat er een knikker van het bord gaat.
-# Spelen op het apparaat
-Tik op een van je knikkers om hem te pakken. Om een rij te verplaatsen, tik je ook op de tweede en derde knikker van de rij, of veeg je met je vinger over ze heen. Stippen tonen waar de knikkers heen kunnen, en een ring toont een knikker die je kunt duwen: tik op een ervan en de knikkers rollen. Zolang je vinger op het scherm ligt, tonen bleke knikkers de zet. Tik op een gepakte knikker om hem terug te leggen. Het bakje in elke hoek, rechts van zijn speler, bewaart de knikkers die die speler van het bord heeft geduwd, en de balken tellen ze.
