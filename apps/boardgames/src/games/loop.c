@@ -70,17 +70,33 @@ static void paint_cross(uint8_t *o, int d)
     art_fig_paint(o, d, f, PUZ_INK, NULL, 0, 0);
 }
 
-/* the board: the plank in its walnut frame (fw wide), the dots f from its edges, a small dark pin hole at each */
+/* a round, soft-edged spot of rgb (alpha a at its centre, a * edge at its rim) burned into the w x w plank */
+static void ink_disc(uint8_t *o, int w, float cx, float cy, float r, const uint8_t rgb[3], float a, float edge)
+{
+    for (int y = (int)floorf(cy - r - 1); y <= (int)ceilf(cy + r + 1); y++)
+        for (int x = (int)floorf(cx - r - 1); x <= (int)ceilf(cx + r + 1); x++) {
+            if (x < 0 || y < 0 || x >= w || y >= w) continue;
+            float d = hypotf(x + 0.5f - cx, y + 0.5f - cy), cov = clampf(r + 0.5f - d, 0, 1);
+            if (cov <= 0) continue;
+            float k = a * cov * (1 - (1 - edge) * clampf(d / r, 0, 1));
+            uint8_t *p = o + 4 * (y * w + x);
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] + (rgb[i] - p[i]) * k);
+        }
+}
+
+/* the board: the plank in its walnut frame (fw wide), the dots f from its edges, a small round pin hole at each
+ * (its lit lower lip, then its dark well) */
 static void paint_board(uint8_t *o, int n, int c, int f, int fw, int pins)
 {
     int w = n * c + 2 * f;
     art_board_n(1, 1, w - 2 * fw, fw, 0, o);
     if (!pins) return;
-    float r = fmaxf(1.2f, 0.06f * c);
+    float r = fmaxf(1.5f, 0.07f * c), lip = fmaxf(0.6f, 0.012f * c);
     for (int y = 0; y <= n; y++)
         for (int x = 0; x <= n; x++) {
             float cx = f + x * c, cy = f + y * c;
-            puz_ink_rect(o, w, w, cx - r, cy - r, cx + r, cy + r, PUZ_INK, 0.55f);
+            ink_disc(o, w, cx + lip, cy + lip, r, PUZ_CREAM, 0.35f, 0.6f);
+            ink_disc(o, w, cx, cy, r, PUZ_INK, 0.7f, 0.35f);
         }
 }
 
@@ -256,9 +272,15 @@ static void wire(int s, Uint8 alpha, int gold)
     dot_xy(x1, y1, &cx, &cy);
     float mx = (ax + cx) / 2, my = (ay + cy) / 2, len = (float)q;
     if (gold) SDL_SetTextureColorMod(t_wire, 255, 236, 140);
+    /* its shadow: the wire itself in dark brown, soft-edged, a little down and right */
+    SDL_SetTextureColorMod(t_wire, 20, 12, 6);
+    SDL_SetTextureAlphaMod(t_wire, (Uint8)(alpha * 0.3f));
+    float sh = 0.045f * q;
+    if (y0 == y1) ui_put_c(t_wire, mx + 0.5f * sh, my + sh, len, 1.15f * wire_th);
+    else ui_put_rot(t_wire, mx + sh, my + 0.5f * sh, len, 1.15f * wire_th, 90);
+    if (gold) SDL_SetTextureColorMod(t_wire, 255, 236, 140);
+    else SDL_SetTextureColorMod(t_wire, 255, 255, 255);
     SDL_SetTextureAlphaMod(t_wire, alpha);
-    ui_fill(y0 == y1 ? ax : ax - wire_th / 2.0f + 0.04f * q, y0 == y1 ? ay - wire_th / 2.0f + 0.05f * q : ay,
-            y0 == y1 ? len : (float)wire_th, y0 == y1 ? (float)wire_th : len, 20, 12, 6, (Uint8)(alpha * 0.25f));
     if (y0 == y1) ui_put_c(t_wire, mx, my, len, (float)wire_th);
     else ui_put_rot(t_wire, mx, my, len, (float)wire_th, 90);
     SDL_SetTextureAlphaMod(t_wire, 255);
