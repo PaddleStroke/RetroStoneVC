@@ -143,6 +143,14 @@ on the left and a fishing boat on the right, at 520 more icebergs, penguins and 
 top corners, the DASH button its bottom-right corner, the UI kit centres itself. A state saved at one width loads at
 another. Checks at 320, 427 and 520; the touch test plays the same drag at 320, 427, 520 and 560 and compares.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`; the 240 lines of the stage are the same pixels, centred. The raster draws the lines past the stage: the
+sea goes on (its gradient carried on at a third of its slope), BG3 always holds the whole 1024-px panorama there and
+shows its far columns past the stage (above: the boat and an iceberg; below: two icebergs; none of them on the 320-px
+stage); the UI and the floe are hidden there, and line 0 puts the stage's settings back (a 240-line screen is
+unchanged). The touches are read in stage coordinates (y less `rs_screen_origin_y()`); the DASH button sits in the
+screen's bottom-right corner, under the thumb (stage y past 240), the stick anywhere as before.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the sea and the penguins, a seal in its cap bobbing, the player slots, PRESS A TO SHOVE with the A
 glyph, BEST, the join line, the copyright line) -> P1 presses A (or Start, the d-pad; a tap) -> ROUND 1 (A: BELLY

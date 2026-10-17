@@ -34,6 +34,9 @@ static const rs_color title_ramps[2][3] = {
 #define DRIFT_WET   70              /* ... wet from here (sinking) ... */
 #define DRIFT_FADE  110             /* ... see-through from here */
 #define CHEER_FRAMES 50             /* the penguins cheer after a splash */
+/* a tall screen: the sea's columns past the stage, from the stage's (the 1024-px panorama's far parts) */
+#define TALL_SEA_ABOVE 258
+#define TALL_SEA_BELOW (-320)
 
 static rs_color line_col[RS_SCREEN_H];
 static int shown_key = -1, shown_best = -1, text_paused;
@@ -47,9 +50,46 @@ static int cheer_t = 99;
 static int panel_low;                           /* the winner's panel under the winner (play_texts) */
 static uint8_t tile_buf[64];                    /* scratch: one tile being painted (state_audit.txt) */
 
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): what the stage shows this frame, for
+ * the raster's lines past the stage (set by draw_frame before every picture: not saved) */
+static int tall_floe, tall_sea_x, tall_sea_y;
+static int sea_w(void);
+
+/* the sea's colour on a line past the stage: the gradient carried on, gentler (a third of its slope) */
+static rs_color sea_color_out(int y)
+{
+    int a[3] = {(SEA_TOP >> 16) & 255, (SEA_TOP >> 8) & 255, SEA_TOP & 255};
+    int b[3] = {(SEA_BOTTOM >> 16) & 255, (SEA_BOTTOM >> 8) & 255, SEA_BOTTOM & 255};
+    int k = y < 0 ? y * 256 / (RS_SCREEN_H - 1) / 3 : 256 + (y - (RS_SCREEN_H - 1)) * 256 / (RS_SCREEN_H - 1) / 3, c[3];
+    for (int i = 0; i < 3; i++) {
+        c[i] = (a[i] * (256 - k) + b[i] * k) / 256;
+        c[i] = c[i] < 0 ? 0 : c[i] > 248 ? 248 : c[i];
+    }
+    int d = (y & 4) ? 1 : 0;                    /* the house's 2-line dither step every 8 lines */
+    return RS_RGB8(c[0] + 4 * d, c[1] + 2 * d, c[2] + 4 * d);
+}
+
+/* The lines past the stage (a tall screen): the sea goes on, its gradient carried on, the panorama's columns that the
+ * 320-px stage never shows (above: the boat and an iceberg; below: two icebergs); the UI and the floe hidden there.
+ * Line 0 puts the stage's settings back (a 240-line screen: the same values, so the same pixels). */
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        if (line == rs_screen_top() || line == RS_SCREEN_H) {
+            rs_bg_enable(RS_BG1, 0);
+            rs_bg_enable(RS_BG2, 0);
+        }
+        int band = line < 0 ? TALL_SEA_ABOVE : line >= 256 ? TALL_SEA_BELOW : 0;
+        rs_bg_scroll(RS_BG3, (tall_sea_x + band) & (sea_w() * 8 - 1), tall_sea_y);
+        rs_pal_set(0, sea_color_out(line));
+        return;
+    }
+    if (line == 0) {
+        rs_bg_enable(RS_BG1, 1);
+        rs_bg_enable(RS_BG2, tall_floe);
+        rs_bg_scroll(RS_BG3, tall_sea_x, tall_sea_y);
+    }
     rs_pal_set(0, line_col[line]);
 }
 
@@ -68,12 +108,14 @@ static void sea_gradient(void)
 /* Widescreen: the UI and sea maps are 64 tiles (512 px) wide, 128 on a screen wider than 512 columns. The map size is
  * saved in states: draw_state_loaded() sets the maps up again after a state of another width. */
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
-static int sea_scroll(void) { return map_w() > 64 ? SEA_X0 : 96; }    /* the sea's x at stage x 0 */
+/* the sea's map: the whole 1024-px panorama on a tall screen too (the lines past the stage show its far columns) */
+static int sea_w(void) { return map_w() > 64 || rs_screen_height() > RS_SCREEN_H ? 128 : 64; }
+static int sea_scroll(void) { return sea_w() > 64 ? SEA_X0 : 96; }    /* the sea's x at stage x 0 */
 
 static void maps_setup(void)
 {
-    int mw = map_w();
-    rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
+    int mw = sea_w();
+    rs_bg_setup(RS_BG1, map_w(), 32, VR_BG1);
     rs_bg_setup(RS_BG2, 32, 32, VR_BG2);
     rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
     for (int ty = 0; ty < CANVAS_W; ty++)
@@ -312,7 +354,7 @@ static void palettes(const world *w, int t)
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h || y >= rs_screen_bottom()) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -441,8 +483,9 @@ static void draw_touch(const world *w, const touch_view *tv)
 {
     tbutton b;
     touch_button(rs_screen_right(), &b);
+    b.y += rs_screen_bottom() - RS_SCREEN_H;    /* a tall screen: in the screen's bottom-right corner (main.c) */
     if (tv->stick_on) {
-        int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0;
+        int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0 - rs_screen_origin_y();
         int kx = tv->sx - tv->sx0, ky = tv->sy - tv->sy0, d = isqrt64((int64_t)kx * kx + (int64_t)ky * ky);
         if (d > STICK_R) { kx = kx * STICK_R / d; ky = ky * STICK_R / d; }
         spr(SPR_KNOB, ox + kx - 8, oy + ky - 8, 3, -1, 0);
@@ -632,7 +675,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     rs_bg_scroll(RS_BG2, (-GRID_X0 - sx) & 255, (-GRID_Y0 - sy) & 255);
     rs_window(0, GRID_X0 + sx, GRID_X0 + CANVAS_W * 8 + sx);
-    rs_bg_scroll(RS_BG3, (sea_scroll() - sx) & (map_w() * 8 - 1), -sy);
+    tall_floe = show_floe;                      /* (for the raster's line 0 after the lines above the stage) */
+    tall_sea_x = (sea_scroll() - sx) & (sea_w() * 8 - 1);
+    tall_sea_y = -sy;
+    rs_bg_scroll(RS_BG3, tall_sea_x, tall_sea_y);
     hu_pause(paused, 13);
 
     rs_oam_clear();
@@ -669,7 +715,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG1) == map_w()) return;
+    if (rs_bg_map_w(RS_BG1) == map_w() && rs_bg_map_w(RS_BG3) == sea_w()) return;
     maps_setup();
     shown_key = -1;
 }
