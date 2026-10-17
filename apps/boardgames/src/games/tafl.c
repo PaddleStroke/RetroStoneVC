@@ -285,8 +285,15 @@ static void draw(void)
     }
     for (int s = 0; s < n * n; s++) {
         if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
+        if (s == sel && !anim.on) continue;     /* drawn next, lifted */
         sq_xy(s, &x, &y);
         piece_at(p->sq[s], x, y, (float)sq, 1);
+    }
+    if (sel >= 0 && !anim.on && p->sq[sel] && !(drag.on && drag.moved)) {
+        float s1 = 1.08f * sq;                  /* the piece picked up: off the board, its shadow left below */
+        sq_xy(sel, &x, &y);
+        ui_shadow_flat(x + h, y + h + 0.05f * sq, (float)sq, (float)sq, 0.7f);
+        piece_at(p->sq[sel], x + h - s1 / 2, y + h - s1 / 2 - 0.1f * sq, s1, 1);
     }
     for (int s = 0; s < n * n; s++)             /* where the king could escape: the attackers' warning */
         if (escape[s]) {
