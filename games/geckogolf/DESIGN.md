@@ -130,6 +130,17 @@ hole starts). The course, the physics and the out-of-bounds stakes are the same 
 so a run is the same run. A state saved at one width loads at another (draw_state_loaded sets the maps up again and
 draws the course's tiles again). `make geckogolf-check` runs the tests at 320, 427 and 520.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
+display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: two thirds of the extra lines above it). Above (draw.c `raster_out`): the sky carried on from
+its top colour, deeper toward the screen's top; the course, the hills and the UI are hidden there (window 1), and a
+ball keeps flying into it (the sprites are culled at the screen's top, the "above" arrow at its first lines). Below:
+the course's deep soil, its map 64 rows tall on a tall screen (`map_h`, `map_rows`: the rows past the stage's 30 drawn
+by `course_build` like the others, a stratum every 7 rows), the hills and the UI hidden. Line 0 puts the stage's masks
+back, so a 240-line screen is unchanged; a state of another height sets the maps up again (`draw_state_loaded`). The
+slingshot's ring is drawn at the finger's stage y (touches are screen pixels).
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the gecko bobbing, the first hole behind, the player slots, PRESS A TO SWING with the A glyph, BEST,
 the join line, the copyright line) -> P1 presses A (or the d-pad, Start; that press only starts) -> play (the hint on

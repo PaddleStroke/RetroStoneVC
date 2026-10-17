@@ -91,9 +91,34 @@ static int pool_n;
 
 static rs_color hexc(uint32_t h) { return RS_HEX(h); }
 
+/* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: the sky carried on, deeper toward
+ * the screen's top (the course, the hills and the UI hidden there: window 1 over the whole width; a ball flies on into
+ * it); below: the course's deep soil, its map rows past the stage's 30 (maps_setup, course_build), the hills and the
+ * UI hidden. Line 0 puts the stage's masks back, so a 240-line screen is unchanged. */
+static void raster_out(int line)
+{
+    int top = rs_screen_top();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_bg_window(RS_BG2, line < 0 ? RS_WIN1 : 0);
+        rs_bg_window(RS_BG3, RS_WIN1);
+    }
+    if (line < 0) {
+        int k = top < 0 ? -line * 72 / -top : 0;            /* 0 at the stage's top .. 72 at the screen's */
+        rs_pal_set(0, hu_scale_color(line_col[(line & 4) ? 4 : 0], 256 - k));
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H)     /* back from raster_out: the stage's own masks */
+        for (int l = RS_BG1; l <= RS_BG3; l++) rs_bg_window(l, 0);
     rs_pal_set(0, line_col[line]);
 }
 
@@ -125,6 +150,14 @@ static uint32_t lerp_hex(uint32_t a, uint32_t b, int k)
 /* Widescreen: the maps are 64 tiles (512 px) wide, 128 on a screen wider than 496 columns (the course needs one
  * column more than the screen). The map size is saved in states: draw_state_loaded() sets the maps up again. */
 static int map_w(void) { return rs_screen_width() > 496 ? 128 : 64; }
+/* A tall screen: the course's map 64 rows tall, its rows past the stage's 30 the deep soil shown below the stage (as
+ * many as the screen shows, map_rows()); 32 rows otherwise. The map size is saved in states: draw_state_loaded(). */
+static int map_h(void) { return rs_screen_bottom() > RS_SCREEN_H ? 64 : 32; }
+static int map_rows(void)
+{
+    int r = (rs_screen_bottom() + 7) / 8;
+    return r < 30 ? 30 : r > 64 ? 64 : r;
+}
 
 /* ---- the course's tiles ------------------------------------------------------------------------------------------------ */
 /* the deep soil (colours 4-6 only, so its tiles can take a biome blend's palette): dark soil with specks, pebbles lit
@@ -172,7 +205,7 @@ static void deep_make(void)
 /* the deep tile at tile column tx, row ty: a stratum on rows 16 and 23 (clear of the title's and the hint's text rows), else specks with now and then a pebble */
 static int deep_tile(int32_t tx, int ty)
 {
-    if (ty == 16 || ty == 23) return N_PLAIN + N_PEBBLE + (int)(tx & 3);
+    if (ty == 16 || ty == 23 || (ty >= 30 && ty % 7 == 2)) return N_PLAIN + N_PEBBLE + (int)(tx & 3);   /* (30+: tall) */
     uint32_t h = (uint32_t)tx * 0x9e3779b1u + (uint32_t)ty * 0x85ebca77u;
     h ^= h >> 15;
     h *= 0x2c1b3c6du;
@@ -311,7 +344,7 @@ static int blend_tile(uint8_t *px, int32_t x0, int r)
 static void course_build(const world *w)
 {
     const terrain *t = &w->tr;
-    int mw = map_w();
+    int mw = map_w(), rows = map_rows();
     int32_t wx0 = w->view_cam + rs_screen_left();
     int32_t wt0 = wx0 >= 0 ? wx0 / 8 : -((-wx0 + 7) / 8);
     int cols = (rs_screen_width() + 7) / 8 + 1;
@@ -342,7 +375,7 @@ static void course_build(const world *w)
         else near = 0;
         int pal_l = (sl & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A, pal_r = (sr & 1) ? PAL_TERRAIN_B : PAL_TERRAIN_A;
         int mx = (int)(((wt % mw) + mw) % mw);
-        for (int r = 0; r < 30; r++) {
+        for (int r = 0; r < rows; r++) {
             int tile = -1, soil = 1, p = pal;
             if (r * 8 + 7 < lo) tile = 0, soil = 0;
             else if (r * 8 >= hi) {
@@ -376,7 +409,7 @@ static void maps_setup(void)
 {
     int mw = map_w();
     rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
-    rs_bg_setup(RS_BG2, mw, 32, VR_BG2);
+    rs_bg_setup(RS_BG2, mw, map_h(), VR_BG2);
     rs_bg_setup(RS_BG3, mw, 32, VR_BG3);
     rs_bg_fill(RS_BG2, 0);
     rs_bg_fill(RS_BG3, 0);
@@ -393,6 +426,9 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, more course on both sides */
+    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (more sky for the flights), a
+     * third below (the deep soil) */
+    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -416,7 +452,9 @@ void draw_init(void)
 static void spr_f(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -530,8 +568,8 @@ static void ball_spr(const world *w, int p, int ox)
     if (b->state == BS_OFF || b->state == BS_SPLASH) return;
     int x = (int)(b->x >> 16) + ox, y = (int)(b->y >> 16);
     if (b->state == BS_OB && (x < -4 || x > 324)) return;
-    if (y < 2 && (b->state == BS_FLY)) {
-        spr(SPR_ARROW, x - 4, 2, 2, -1);                /* above the screen: an arrow at the top */
+    if (y < rs_screen_top() + 2 && (b->state == BS_FLY)) {
+        spr(SPR_ARROW, x - 4, rs_screen_top() + 2, 2, -1);  /* above the screen: an arrow at the top */
         return;
     }
     spr(SPR_BALL, x - 4, y - 7, 2, player_pal(p));
@@ -609,7 +647,8 @@ static void touch_spr(const touch_view *tv)
 {
     if (!tv || !tv->on) return;
     int ox = rs_screen_origin_x();
-    int ax = tv->x0 - ox, ay = tv->y0, fx = tv->x - ox, fy = tv->y;
+    int oy = rs_screen_origin_y();                      /* (a tall screen: the stage's y) */
+    int ax = tv->x0 - ox, ay = tv->y0 - oy, fx = tv->x - ox, fy = tv->y - oy;
     spr(SPR_RING, ax - 8, ay - 8, 3, -1);
     for (int i = 1; i <= 4; i++) spr(SPR_DOT + 1, ax + (fx - ax) * i / 5 - 4, ay + (fy - ay) * i / 5 - 4, 3, -1);
 }
@@ -823,7 +862,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
  * tiles are drawn again at the next frame (the same as they were) */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG2) != map_w()) maps_setup();     /* (it draws the UI again: shown_state) */
+    if (rs_bg_map_w(RS_BG2) != map_w() || rs_bg_map_h(RS_BG2) != map_h())
+        maps_setup();                                      /* (it draws the UI again: shown_state) */
     drawn_cam = 0x7fffffff;                                /* the course's tiles: drawn again, the same */
     sky_key = -1;
 }
