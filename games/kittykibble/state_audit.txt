@@ -12,3 +12,6 @@ play.bot_tmp        the bot's scratch (a vacuum's distances): filled anew at eac
 play.bot_safe       the bot's scratch (the safe cells): filled anew at each decision
 play.bot_reach      the bot's scratch (how deep the safe corridors go): filled anew at each decision
 play.bot_sim        the bot's look-ahead: a copy of the world played on, made anew at each decision
+draw.bg3_sx         a tall screen: BG3's scroll, set by draw_frame before every picture (restored at line 0)
+draw.bg3_sy         ... the same
+draw.stage_back     ... the stage's backdrop, read by the raster at the screen's first line of every picture

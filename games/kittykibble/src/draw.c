@@ -31,11 +31,56 @@ static const rs_color title_ramps[2][3] = {
 static int shown_key = -1, shown_best = -1, shown_room = -1;
 static int win_on;              /* the sprite window (in play) */
 
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240 show
+ * more of the room: above, the back wall carried up plain (the backdrop: its colour, darker toward the ceiling; the
+ * kitchen's tiles keep their grout lines; the garden's sky deepens); below, the floor carried on (BG3's scroll set per
+ * line: a band of its bottom lines repeated, a whole period of its pattern, below the furniture). BG1 and BG2 are
+ * hidden there (window 2), BG3 too above; line 0 puts the stage's BG3 scroll, windows and backdrop back. A 240-line
+ * screen never gets these lines: the same pixels. */
+static const uint32_t wall_col[ROOMS][2] = {   /* each room's back wall at the stage's top, and toward the ceiling */
+    {0xecf2ee, 0xb4c2c0}, {0xecdec4, 0xb4a282}, {0x404a84, 0x1e2656}, {0x96cef0, 0x5c96d4}, {0x966e4e, 0x563c2c}};
+static const uint8_t floor_band[ROOMS] = {32, 32, 32, 16, 16};  /* each room's bottom lines repeated below the stage */
+static int bg3_sx, bg3_sy;      /* BG3's scroll as written (the screen shake), restored at line 0 */
+static rs_color stage_back;     /* the stage's backdrop, restored at line 0 */
+
+static void raster_out(int line)
+{
+    int top = rs_screen_top(), room = shown_room < 0 ? 0 : shown_room;
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(1, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN2);
+        rs_bg_window(RS_BG2, RS_WIN2);
+        rs_bg_window(RS_BG3, line < 0 ? RS_WIN2 : 0);
+        if (line == top) stage_back = rs_pal_get(0);
+    }
+    if (line < 0) {
+        int k = top < 0 ? line * 256 / top : 0;           /* 0 at the stage's top .. 256 at the screen's */
+        rs_color c = hu_lerp_color(RS_HEX(wall_col[room][0]), RS_HEX(wall_col[room][1]), k);
+        if (room == 0 && (line & 7) == 7) c = hu_lerp_color(c, RS_HEX(0x9aaaa8), 120);   /* the tiles' grout */
+        rs_pal_set(0, c);
+    } else {
+        int ly = RS_SCREEN_H - floor_band[room] + (line - RS_SCREEN_H) % floor_band[room];
+        rs_bg_scroll(RS_BG3, bg3_sx, (ly - line) & 255);
+    }
+    rs_window(0, rs_screen_left(), rs_screen_right());
+}
+
 /* the raster callback: window 1 = the maze's columns on its lines (sprites outside it are hidden: the tunnels), the
  * whole screen elsewhere (the score chips) */
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
+        rs_bg_window(RS_BG1, 0);
+        rs_bg_window(RS_BG2, 0);
+        rs_bg_window(RS_BG3, 0);
+        rs_bg_scroll(RS_BG3, bg3_sx, bg3_sy);
+        rs_pal_set(0, stage_back);
+    }
     if (win_on && line >= MAZE_Y && line < MAZE_Y + MAZE_H * CELL) rs_window(0, MAZE_X, MAZE_X + MAZE_W * CELL);
     else rs_window(0, rs_screen_left(), rs_screen_right());
 }
@@ -388,7 +433,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     standing(w, &rs);
     if (w->maze != shown_room) load_room(w->maze);
     int pm = map_w() * 8 - 1;
-    rs_bg_scroll(RS_BG3, (-sx) & pm, (-sy) & 255);
+    bg3_sx = (-sx) & pm;
+    bg3_sy = (-sy) & 255;
+    rs_bg_scroll(RS_BG3, bg3_sx, bg3_sy);
     rs_bg_scroll(RS_BG2, (-(MAZE_X - MAZE_COL0 * 8) - sx) & pm, (-(MAZE_Y - MAZE_ROW0 * 8) - sy) & 255);
     maze_put(w, state != ST_TITLE);
     wall_palette(w);

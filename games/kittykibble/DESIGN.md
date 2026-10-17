@@ -126,6 +126,14 @@ the widest the room's side walls. The rooms are "stage panoramas" (576 px from s
 twice; each prop lies wholly inside or wholly outside each width's view (stage x 0..319, -53..373, -100..419, its
 shadow included), so no screen edge cuts a piece of furniture. A state saved at one width loads at another.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`; the 240 lines of the stage are the same pixels, centred. The raster shows more of the room on the lines
+past the stage (draw.c `raster_out`): above, the back wall carried up plain (the backdrop in its colour, darker
+toward the ceiling, `wall_col` per room; the kitchen's tiles keep their grout lines, the garden's sky deepens);
+below, the floor carried on (BG3's scroll set per line: its bottom lines repeated, a whole period of its pattern,
+below the furniture: `floor_band`). BG1 and BG2 are hidden there (window 2), BG3 too above; line 0 puts the stage's
+BG3 scroll, windows and backdrop back. The play and the swipes are unchanged.
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the kitchen, the logo, the kitten bobbing with its ball of yarn, the four vacuums gliding by, the player slots,
 PRESS A TO PLAY with the A glyph, BEST, the join line, the copyright line) -> P1 presses A (or Start, the d-pad; a tap)
