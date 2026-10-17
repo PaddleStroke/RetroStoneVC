@@ -25,6 +25,7 @@
 #include "games/bridge.h"
 #include "games/endtable.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 #define PLAY_MS 300
@@ -46,6 +47,10 @@ static box tb;                                  /* the table */
 
 static const uint8_t BTN[4] = {54, 80, 68, 240}, BTN_ON[4] = {214, 168, 66, 255}, BTN_PASS[4] = {44, 118, 70, 255},
                      BTN_X[4] = {172, 48, 40, 255}, BTN_XX[4] = {46, 86, 164, 255};
+/* the light theme: what lies straight on its ivory table (the auction, the bidding box, the contract) in soft beige
+ * and ink, not the dark table's green and cream; the panels (ct_panel) stay dark in both */
+static const uint8_t LT_BTN[4] = {228, 216, 192, 255}, INK[3] = {46, 40, 30};
+static const uint8_t *btn(void) { return TH.dark ? BTN : LT_BTN; }
 
 /* ---- the geometry (it follows the viewer: seat 0 the viewer, 1 left, 2 across, 3 right) ---------------------------- */
 static struct {
@@ -386,12 +391,13 @@ static void doubles(int dbl, float x, float cy, float h)
                  x + (0.45f + 0.7f * k) * h, cy, (float)s, (float)s);
 }
 
-/* a call, centred on (cx, cy), h high (pass: the pass sign, faint) */
-static void draw_call(int call, float cx, float cy, float h)
+/* a call, centred on (cx, cy), h high (pass: the pass sign, faint); ink: on the light theme's table (else cream, the
+ * dark table or a panel) */
+static void draw_call(int call, float cx, float cy, float h, int ink)
 {
     if (call == BRG_PASS) {
         int s = (int)(0.78f * h);
-        SDL_Texture *t = ct_icon(ICON_PASS, s, 246, 238, 220);
+        SDL_Texture *t = ink ? ct_icon(ICON_PASS, s, INK[0], INK[1], INK[2]) : ct_icon(ICON_PASS, s, 246, 238, 220);
         SDL_SetTextureAlphaMod(t, 150);
         ui_put_c(t, cx, cy, (float)s, (float)s);
         SDL_SetTextureAlphaMod(t, 255);
@@ -399,12 +405,13 @@ static void draw_call(int call, float cx, float cy, float h)
         int d = call == BRG_DOUBLE ? 1 : 2;
         doubles(d, cx - doubles_w(d, h) / 2, cy, h);
     } else {
-        ui_number(cx - 0.36f * h, cy, 0.72f * h, BRG_LEVEL(call), 1);
+        ui_number(cx - 0.36f * h, cy, 0.72f * h, BRG_LEVEL(call), !ink);
         strain_icon(BRG_STRAIN(call), cx + 0.36f * h, cy, 0.86f * h);
     }
 }
 
-/* a contract: the declarer's chip, the level, the strain, the doubles, from x; its width (draw 0: measured only) */
+/* a contract: the declarer's chip, the level, the strain, the doubles, from x; its width (draw 0: measured only;
+ * 2: drawn in ink, on the light theme's pill) */
 static float contract_at(int decl, int level, int strain, int dbl, float x, float cy, float h, int draw)
 {
     float w = h + 0.15f * h + 0.55f * h + 0.95f * h + (dbl ? 0.1f * h + doubles_w(dbl, 0.7f * h) : 0);
@@ -412,7 +419,7 @@ static float contract_at(int decl, int level, int strain, int dbl, float x, floa
     int s = (int)h;
     ui_put_c(ct_token(decl, s), x + h / 2, cy, (float)s, (float)s);
     x += 1.15f * h;
-    ui_number(x + 0.27f * h, cy, 0.72f * h, level, 1);
+    ui_number(x + 0.27f * h, cy, 0.72f * h, level, draw != 2);
     strain_icon(strain, x + 0.55f * h + 0.47f * h, cy, 0.86f * h);
     x += 1.5f * h;
     if (dbl) doubles(dbl, x + 0.1f * h, cy, 0.7f * h);
@@ -421,8 +428,8 @@ static float contract_at(int decl, int level, int strain, int dbl, float x, floa
 
 /* ---- the auction ----------------------------------------------------------------------------------------------------- */
 /* the table of calls in box H: the chips at the head of the columns (left, across, right, the viewer); the rows that
- * fit, the last ones; the next call's cell lit while the auction goes on */
-static void draw_history(box H, float rh_max)
+ * fit, the last ones; the next call's cell lit while the auction goes on; ink: on the light theme's table */
+static void draw_history(box H, float rh_max, int ink)
 {
     const brg_pos *p = &G.pos;
     float u = L.u, cw = floorf(fminf(1.7f * u, H.w / 4)), x0 = H.x + (H.w - 4 * cw) / 2;
@@ -437,16 +444,19 @@ static void draw_history(box H, float rh_max)
         int q = (L.me + 1 + col) % BRG_P;
         chip(q, x0 + (col + 0.5f) * cw, H.y + head / 2, tok, live && q == p->turn);
     }
-    ct_rule(x0 + 0.1f * cw, H.y + head - 0.05f * u, 4 * cw - 0.2f * cw);
+    if (ink) ui_fill(x0 + 0.1f * cw, H.y + head - 0.05f * u, 4 * cw - 0.2f * cw, fmaxf(1, 0.02f * ui.unit), INK[0],
+                     INK[1], INK[2], 50);
+    else ct_rule(x0 + 0.1f * cw, H.y + head - 0.05f * u, 4 * cw - 0.2f * cw);
     for (int i = 0; i < p->ncalls + live; i++) {
         int pos = first + i, r = pos / 4 - skip, col = pos % 4;
         if (r < 0) continue;
         float x = x0 + (col + 0.5f) * cw, y = H.y + head + (r + 0.5f) * rh;
         if (i == p->ncalls) {                   /* the call to come */
-            ui_put_c(ct_round((int)(0.9f * cw), (int)(0.86f * rh), 0.3f * rh, BTN), x, y, 0.9f * cw, 0.86f * rh);
+            ui_put_c(ct_round((int)(0.9f * cw), (int)(0.86f * rh), 0.3f * rh, ink ? LT_BTN : BTN), x, y, 0.9f * cw,
+                     0.86f * rh);
             continue;
         }
-        draw_call(p->call[i], x, y, 0.7f * rh);
+        draw_call(p->call[i], x, y, 0.7f * rh, ink);
     }
 }
 
@@ -479,13 +489,14 @@ static void draw_box(void)
         cell_at(call, &x, &y, &w);
         int ok = brg_can_call(p, call), on = call == pick;
         const uint8_t *col = on ? BTN_ON : call == BRG_PASS ? BTN_PASS : call == BRG_DOUBLE ? BTN_X
-                             : call == BRG_REDOUBLE ? BTN_XX : BTN;
+                             : call == BRG_REDOUBLE ? BTN_XX : btn();
         SDL_Texture *t = ct_round((int)w, (int)L.gh, 0.22f * L.gh, col);
         SDL_SetTextureAlphaMod(t, ok ? 255 : 70);
         ui_put_c(t, x, y, w, L.gh);
         SDL_SetTextureAlphaMod(t, 255);
         if (!ok && call >= 1 && call <= 35) {  /* a bid below the last: faint */
-            ui_number(x - 0.29f * L.gh, y, 0.58f * L.gh, BRG_LEVEL(call), 0);
+            if (TH.dark) ui_number(x - 0.29f * L.gh, y, 0.58f * L.gh, BRG_LEVEL(call), 0);
+            else ui_number_ex(x - 0.29f * L.gh, y, 0.58f * L.gh, BRG_LEVEL(call), INK, 90, 0);
             int s = (int)(0.62f * L.gh);
             SDL_Texture *ic = BRG_STRAIN(call) == BRG_NT ? ct_picture(paint, PIC_NT, s)
                                                         : ct_suit(DECK_FRENCH, brg_suit(BRG_STRAIN(call)), s);
@@ -506,7 +517,7 @@ static void draw_box(void)
                 SDL_SetTextureAlphaMod(ic, 255);
             }
         } else {
-            ui_number(x - 0.29f * L.gh, y, 0.58f * L.gh, BRG_LEVEL(call), !on);
+            ui_number(x - 0.29f * L.gh, y, 0.58f * L.gh, BRG_LEVEL(call), !on && TH.dark);
             strain_icon(BRG_STRAIN(call), x + 0.33f * L.gh, y, 0.66f * L.gh);
         }
     }
@@ -533,8 +544,8 @@ static void draw_contract(void)
     float h = 0.62f * L.kh, cy = L.ky + L.kh / 2;
     float w = contract_at(p->declarer, p->level, p->strain, p->contract_dbl, 0, 0, h, 0);
     const uint8_t panel[4] = {22, 30, 27, 200};
-    ui_put(ct_round((int)L.kw, (int)L.kh, 0.3f * L.kh, panel), L.kx, L.ky, L.kw, L.kh);
-    contract_at(p->declarer, p->level, p->strain, p->contract_dbl, L.kx + (L.kw - w) / 2, cy, h, 1);
+    ui_put(ct_round((int)L.kw, (int)L.kh, 0.3f * L.kh, TH.dark ? panel : LT_BTN), L.kx, L.ky, L.kw, L.kh);
+    contract_at(p->declarer, p->level, p->strain, p->contract_dbl, L.kx + (L.kw - w) / 2, cy, h, TH.dark ? 1 : 2);
 }
 
 static int on_contract(float x, float y)
@@ -621,7 +632,7 @@ static void draw_info(void)
     float tw = floorf(fminf(0.7f * L.tw, ph * 0.4f / (2.1f * L.asp))), th = tw * L.asp;
     float trick_h = p->last_winner != BRG_NONE ? 2.2f * th : 0;
     box H = {x0 + 0.2f * u, y0 + 0.2f * u, pw - 0.4f * u, ph - 0.4f * u - trick_h};
-    draw_history(H, 0.62f * u);
+    draw_history(H, 0.62f * u, 0);
     if (p->last_winner == BRG_NONE) return;
     float cx = x0 + pw / 2, cy = y0 + ph - 0.2f * u - trick_h / 2;
     for (int i = 0; i < BRG_P; i++) {
@@ -769,7 +780,7 @@ static void draw(void)
         deal_in();
     }
     if (ph == BRG_AUCTION) {
-        draw_history(L.H, 0.62f * L.u);
+        draw_history(L.H, 0.62f * L.u, !TH.dark);
         if (!hide && p->turn == L.me && !ui_handing() && !ct_hides(&M, TAG_HAND, -1, -1)) draw_box();   /* once dealt */
     } else draw_play(live);
     /* the viewer's hand (under the hand-off cover: face down) */
