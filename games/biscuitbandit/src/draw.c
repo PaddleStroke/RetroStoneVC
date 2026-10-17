@@ -23,11 +23,47 @@ static const rs_color title_ramps[2][3] = {
 static rs_color line_col[RS_SCREEN_H];
 static int shown_state = -1, shown_best = -1;
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240.
- * Above: the cafe's plain wall carried on up, shaded under the ceiling (the backdrop only: the UI, the room and
- * the floor layers hidden there, their maps would wrap). Below: the floor's bricks repeated (BG2's last two rows,
- * 16 px), darker with depth. Line 0 puts the layers, BG2's scroll and the floor's palette back. */
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen", game.h ZOOM_H): the lines past the
+ * stage's 240. Above: the cafe's wall carried on up, shaded under the ceiling (the backdrop; the UI and the floor
+ * layers hidden there, their maps would wrap). Below: the floor's bricks repeated (BG2's last two rows, 16 px),
+ * darker with depth. Line 0 puts the layers, BG2's scroll and the floor's palette back. The room (BG3) is laid out
+ * again for the height (tall_room): the belt's rail raised with the belt, the windows tall up to under it. */
 #define FLOOR_REPEAT_Y 224
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int belt_rise(void) { return tall() ? BELT_RISE : 0; }
+/* the room picture's rows (art/tiles/hills.png): the belt's rail, the windows' top frame, a band of their plain glass */
+#define RAIL_Y      36
+#define RAIL_H      16
+#define WIN_TOP_Y   60
+#define GLASS_Y     68
+#define WIN_GAP     12          /* lines of wall between the raised rail and the tall windows' top */
+/* A tall screen's room, line by line (raster, every line): the rail's band RAIL_Y.. drawn BELT_RISE lines higher (the
+ * stage's own rail hidden: glass there), then the windows' top frame, their glass repeated down to the stage's window
+ * frame (a transom bar), only in the windows' columns (window 1 hides the shelf's columns in between). */
+static void tall_room(int line)
+{
+    int r = BELT_RISE, sx = -hu_shake_x(), sy = -hu_shake_y();
+    int rail0 = RAIL_Y - r, w0 = rail0 + RAIL_H + WIN_GAP;
+    if (line == rs_screen_top() || line == rail0 + RAIL_H) rs_bg_enable(RS_BG3, 0);
+    if (line == rail0) {
+        rs_bg_enable(RS_BG3, 1);
+        rs_bg_scroll(RS_BG3, sx, r + sy);
+    }
+    if (line >= w0 && line < WIN_TOP_Y) {
+        if (line == w0) {
+            rs_bg_enable(RS_BG3, 1);
+            rs_window(0, 82, 238);              /* the shelf's columns, between the two windows */
+            rs_bg_window(RS_BG3, RS_WIN1);
+        }
+        int y = line < w0 + 4 ? WIN_TOP_Y + line - w0 : GLASS_Y + (line - w0 - 4) % 16;
+        rs_bg_enable(RS_BG3, 1);
+        rs_bg_scroll(RS_BG3, sx, y - line + sy);
+    }
+    if (line == WIN_TOP_Y) {
+        rs_bg_window(RS_BG3, 0);
+        rs_bg_scroll(RS_BG3, sx, sy);
+    }
+}
 static void raster_out(int line)
 {
     int top = rs_screen_top(), bot = rs_screen_bottom();
@@ -36,6 +72,7 @@ static void raster_out(int line)
         rs_bg_enable(RS_BG3, 0);
         rs_bg_enable(RS_BG2, line == RS_SCREEN_H);
     }
+    if (line < 0) tall_room(line);
     if (line < 0) {
         int k = line - top < 48 ? (48 - (line - top)) * 32 / 48 : 0;   /* the ceiling's shade: the top 48 lines */
         int d = (line & 4) ? 0 : 4;                         /* the house dither step, as on the stage */
@@ -61,6 +98,7 @@ static void raster(int line, void *user)
         rs_bg_scroll(RS_BG2, -hu_shake_x(), -hu_shake_y());
         rs_pal_load(RS_PAL_BG(PAL_GROUND), gm_ground_pal, 16);
     }
+    if (tall() && line <= WIN_TOP_Y) tall_room(line);
     rs_pal_set(0, line_col[line]);
 }
 
@@ -105,6 +143,9 @@ static void maps_setup(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, the cafe wider */
+    /* a tall screen (portrait, game.h ZOOM_H): the stage low, TALL_BELOW lines of floor under it */
+    int below = rs_screen_height() - RS_SCREEN_H < TALL_BELOW ? 0 : TALL_BELOW;
+    rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H - below);
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;         /* the kit sprites after the game's */
     hc.obj_vram = VR_OBJ;
@@ -135,7 +176,9 @@ void draw_relayout(void)
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -198,7 +241,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
             hu_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
             for (int i = 0; i < 3; i++) hu_text(hu_center(hint[i], 0), hint_row(i), hint[i]);
         }
-        if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
+        if (screen == ST_PLAY && w->players >= 3 && !tall())
+            hu_score_tags(w->players, 0);       /* P1..P4 by the corner chips (a tall screen: icons, draw_frame) */
         if (state == ST_OVER) {
             if (w->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
@@ -240,9 +284,22 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
 
+    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): the play fills the display's height, the sides cropped
+     * (every landing point stays in the columns shown); the title and the panels show every column */
+    rs_screen_fill(state == ST_PLAY || state == ST_DEAD);
+    int rise = belt_rise();
+
     rs_oam_clear();
     /* front to back: the UI, the heroes, the props */
-    if (state == ST_PLAY || state == ST_DEAD) {
+    if ((state == ST_PLAY || state == ST_DEAD) && tall()) {
+        /* the scores at the screen's top, in the columns shown: 1 player centred; 2-4 a row, each after its icon */
+        int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vw = rs_screen_visible_x1() - rs_screen_visible_x0();
+        for (int p = 0; p < w->players; p++) {
+            int cx = vx0 + (2 * p + 1) * vw / (2 * w->players), y = rs_screen_top() + 12;
+            if (w->players > 1) spr(SPR_HERO_ICON, cx - 26, y, 3, player_pal(p));
+            hu_number_at(w->h[p].score, w->players > 1 ? cx - 6 : cx, y, w->players > 1 ? -1 : 0, 3);
+        }
+    } else if (state == ST_PLAY || state == ST_DEAD) {
         int score[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) score[p] = w->h[p].score;
         hu_score_chips(w->players, score, 0);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
@@ -265,16 +322,17 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (wide()) spr(SPR_OVEN, 320 + (sx < 0 ? sx : 0), sy, 2, -1);
     /* Leftward slats move only with world time, freezing on the title and pause (widescreen: from the screen's left
      * edge, on the same 32-px rhythm) */
-    for(int x=-(rs_screen_margin()+31)/32*32;x<320;x+=32)spr(SPR_BELT+(w->t/3)%4,x+sx,44+sy,1,-1);
+    for(int x=-(rs_screen_margin()+31)/32*32;x<320;x+=32)spr(SPR_BELT+(w->t/3)%4,x+sx,44-rise+sy,1,-1);
     draw_heroes(w,st_t,sx,sy);
     for(int i=0;i<ITEM_MAX;i++){
       const drop*d=&w->items[i];if(!d->active)continue;
       int ix=d->x,iy=d->y>>16;
 
       if(d->age<=72){
-        ix=328+(d->x-328)*d->age/72;iy=40+(d->age>56?(d->age-56)*12/16:0);
-
-
+        ix=328+(d->x-328)*d->age/72;iy=40+(d->age>56?(d->age-56)*12/16:0)-rise;
+      }else if(rise&&iy<TRAY_Y){
+        /* a tall screen: the belt is higher, the fall drawn longer over the same frames (the rules unchanged) */
+        iy-=iy<=52?rise:rise*(TRAY_Y-iy)/(TRAY_Y-52);
       }
       spr(d->bad?SPR_CUP:SPR_BISCUIT+d->id%3,ix-8,iy-4,2,-1);
     }

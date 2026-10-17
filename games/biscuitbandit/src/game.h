@@ -12,6 +12,12 @@
 #define RETRY_LOCK 36
 #define BOT_START 20
 #define MEDAL_SCORES {40,100,200,400}
+/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (257 columns shown on a 9:21 phone: every landing point, x 36..284, stays in them); the
+ * stage low, TALL_BELOW lines of floor under it; the belt drawn BELT_RISE lines higher (the fall drawn longer) */
+#define ZOOM_H 600
+#define TALL_BELOW 40
+#define BELT_RISE 200
 enum hero_state {HS_READY,HS_RUN,HS_HIT,HS_DOWN,HS_OFF};
 enum { IN_LEFT=1,IN_RIGHT=2,IN_START=8 };
 enum {EV_JUMP=1,EV_SCORE=2,EV_HIT=4,EV_LAND=8,EV_START=16};

@@ -78,11 +78,23 @@ The game opts in (`max_width` = 560, `WIDESCREEN_biscuitbandit = 1`): 320 x 240 
   tests/wide_test.sh and the language test at 320, 427 and 520; `make biscuitbandit-screenshots` adds
   title/play/gameover-427/520.png and play-4-players-520.png (tools/wide_shots.sh).
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
-the display's height at 320 columns (692 lines on a 9:19.5 phone). The 240 lines of the stage are the same pixels,
-centred (the default origin: the touch halves in the band below it). The raster draws the lines past the stage
-(draw.c `raster_out`): above, the cafe's plain wall carried on up (the backdrop's top colour, shaded under the
-ceiling); below, the floor's bricks repeated (BG2's last two rows, 16 px), darker with depth. The UI and the room
-layers are hidden there (their maps would wrap); line 0 puts the layers, BG2's scroll and the floor's palette back,
-so a 240-line screen is unchanged (the same pixels in landscape).
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (600 lines, game.h) first in `game_init`. The RetroStone app scales the
+600 lines to the display's height and crops the sides: 257 columns on a 9:21 phone, 277 on a 9:19.5 one (1.25x the
+size of the plain tall screen). The cookies land between x 36 and 284 (play.c: 44..276, the cookie 16 px wide): every
+landing point stays in the columns shown on a 9:21 phone, the camera fixed (a pan would hide where a cookie lands). A
+taller zoom would crop them. The 240 lines of the stage are the same pixels; the stage sits low (`rs_screen_origin_v`:
+TALL_BELOW, 40 lines of floor under it).
+- **Re-composed for the height** (draw.c `tall_room`, cosmetic only): the belt and its rail are drawn BELT_RISE (200)
+  lines higher, so the cookies fall from high up; a falling cookie is drawn on a longer path over the same frames (the
+  rules, the timing and the landing are unchanged). The windows go up tall to just under the rail (their plain glass
+  repeated, the stage's window frame left as a transom bar; window 1 keeps the shelf's columns out).
+- **The HUD at the screen's top**: the score (sprites at `rs_screen_top()`); 2-4 players: a row of each player's icon
+  and score in the columns shown (no corner tags there).
+- **Fill or fit**: the play fills the display's height at every player count; the title and the panels show every
+  column (`rs_screen_fill(0)`).
+- **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above, the cafe's wall carried on up (the
+  backdrop's top colour, shaded under the ceiling), the raised rail and the tall windows; below, the floor's bricks
+  repeated (BG2's last two rows, 16 px), darker with depth. The UI and the floor layers are hidden above; line 0 puts
+  the layers, BG2's scroll and the floor's palette back, line WIN_TOP_Y the room's scroll and window.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
