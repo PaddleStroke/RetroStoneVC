@@ -30,6 +30,8 @@ enum { T_LISTEN, T_HINT, TOOLS };
 #define HINT_MS 1500
 #define WAVE_STEP 45
 #define WAVE_LEN 520
+#define PRESS_IN 45                             /* a key played: it goes down this fast, */
+#define PRESS_OUT 150                           /* and comes back up after its note this slowly */
 
 static mel_game G;
 
@@ -171,6 +173,7 @@ static int nflash;
 static struct { int pitch; Uint32 t0; } hint = {-1, 0};
 static struct { int on; Uint32 t0; } win;
 static struct { int on, pitch, tool; } ptr;
+static int play_ms, play_lit;                   /* the tune's note sounding: how long since it began, its light's length */
 
 static void calm(void)
 {
@@ -202,6 +205,8 @@ static int playing(Uint32 now, float *glow)
         if (t < s) continue;
         int lit = (int)clampf(0.85f * mel_len_ms(&G, i), 110, 650);
         if (t >= s + lit) return -1;
+        play_ms = t - s;
+        play_lit = lit;
         *glow = 1 - 0.35f * (t - s) / (float)lit;
         return i;
     }
@@ -667,6 +672,42 @@ static float key_light(int pitch, Uint32 now, int sounding, float glow, int *wro
     return a;
 }
 
+/* how far down a key is (0 up, 1 down): held under the finger; played (by the player, or the tune), a short push */
+static float key_depth(int pitch, Uint32 now, int sounding)
+{
+    if (ptr.on && ptr.pitch == pitch) return 1;
+    float d = 0;
+    if (sounding >= 0 && G.p[sounding] == pitch) {
+        float out = fminf(PRESS_OUT, 0.5f * play_lit);
+        d = clampf(fminf(play_ms / (float)PRESS_IN, (play_lit - play_ms) / out), 0, 1);
+    }
+    for (int i = 0; i < nflash; i++)
+        if (flash[i].pitch == pitch) {
+            float dt = (float)(now - flash[i].t0), end = PRESS_IN + 90 + PRESS_OUT;
+            if (dt < end) d = fmaxf(d, clampf(fminf(dt / PRESS_IN, (end - dt) / PRESS_OUT), 0, 1));
+        }
+    return d;
+}
+
+/* a key's picture, dp of the way down: the down picture over the up one, a little lower and darker */
+static void put_key(SDL_Texture *up, SDL_Texture *dn, float x, float y, float w, float h, float dp)
+{
+    float sink = floorf(dp * fmaxf(1, 0.014f * kh) + 0.5f);   /* its back sinks under the case: the key shorter */
+    y += sink;
+    h -= sink;
+    Uint8 c = (Uint8)(255 - 26 * dp);
+    SDL_SetTextureColorMod(up, c, c, c);
+    ui_put(up, x, y, w, h);
+    SDL_SetTextureColorMod(up, 255, 255, 255);
+    if (dp > 0) {
+        SDL_SetTextureColorMod(dn, c, c, c);
+        SDL_SetTextureAlphaMod(dn, (Uint8)(255 * dp));
+        ui_put(dn, x, y, w, h);
+        SDL_SetTextureAlphaMod(dn, 255);
+        SDL_SetTextureColorMod(dn, 255, 255, 255);
+    }
+}
+
 static void draw_keys(Uint32 now, int sounding, float glow)
 {
     ui_put(t_case, kx - fr, ky - lip - fr, W * kw + 2 * fr, lip + kh + 2 * fr);
@@ -675,18 +716,20 @@ static void draw_keys(Uint32 now, int sounding, float glow)
         for (int p = MEL_LOW; p <= top; p++) {
             if (mel_black(p) != pass) continue;
             float x, y, w, h;
-            int wrong, down = ptr.on && ptr.pitch == p;
+            int wrong;
             key_rect(p, &x, &y, &w, &h);
-            float a = key_light(p, now, sounding, glow, &wrong);
-            if (a > 0 || wrong) ui_animate();
-            int s = (down ? 1 : 0) | (a > 0.15f ? 2 : 0);
-            if (pass) {
-                ui_fill(x + 0.12f * w, y, w, h + 0.015f * kh, 0, 0, 0, 38);   /* its shadow on the ivory */
-                ui_fill(x + 0.06f * w, y, w, h + 0.008f * kh, 0, 0, 0, 38);
-                ui_put(t_black[s], x, y, w, h);
+            float a = key_light(p, now, sounding, glow, &wrong), dp = key_depth(p, now, sounding);
+            if (a > 0 || wrong || (dp > 0 && dp < 1)) ui_animate();
+            int s = a > 0.15f ? 2 : 0;
+            if (pass) {                          /* its shadow on the ivory, shorter as it goes down */
+                float k = 1 - 0.7f * dp;
+                ui_fill(x + 0.12f * k * w, y, w, h + 0.015f * k * kh, 0, 0, 0, (Uint8)(38 - 14 * dp));
+                ui_fill(x + 0.06f * k * w, y, w, h + 0.008f * k * kh, 0, 0, 0, (Uint8)(38 - 14 * dp));
+                put_key(t_black[s], t_black[s | 1], x, y, w, h, dp);
             } else {
-                ui_put(t_white[s], x, y, w - 1, h);
+                put_key(t_white[s], t_white[s | 1], x, y, w - 1, h, dp);
             }
+            y += floorf(dp * fmaxf(1, 0.014f * kh) + 0.5f);
             if (wrong) {
                 ui_fill(x + 1, y, w - 2, h * (pass ? 0.92f : 0.95f), 210, 52, 40, (Uint8)(0.55f * wrong));
                 ui_mark_glow(x + w / 2, y + 0.82f * h, 1.4f * w);
