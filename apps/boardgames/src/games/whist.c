@@ -16,6 +16,7 @@
 #include "cards_table.h"
 #include "games/tricks.h"
 #include "games/whist.h"
+#include "pages.h"
 #include "shell.h"
 
 #define DRAW_MS 320
@@ -243,7 +244,7 @@ static void draw(void)
             float x, y;
             ct_seat_spot(&T, q, 0, &x, &y);
             int k = p->players == 2 && !p->nstock ? p->late[q] : p->won[q];
-            if (k) ui_number(x, y, 0.5f * T.tok, k, 1);
+            if (k) ui_number(x, y, 0.5f * T.tok, k, TH.dark);   /* on the table: the light one's ink */
         }
     ct_draw_pile(&T, p->tricks);
     corner_draw(p);
