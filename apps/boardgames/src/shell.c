@@ -129,6 +129,15 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"bellelucie", SEC_CARDS}, {"yukon", SEC_CARDS}, {"fortythieves", SEC_CARDS}, {"golfpatience", SEC_CARDS},
     {"canfield", SEC_CARDS}, {"montana", SEC_CARDS}, {"clock", SEC_CARDS},
     {"banqi", SEC_CHESS}, {"mexico", SEC_RACE}, {"pig", SEC_RACE}, {"shipcaptain", SEC_RACE},
+    {"senet", SEC_RACE},
+    {"scorpion", SEC_CARDS}, {"bakersdozen", SEC_CARDS}, {"accordion", SEC_CARDS}, {"whist", SEC_CARDS},
+    {"pinochle", SEC_CARDS},
+    {"blocks", SEC_PUZZLE}, {"jigsaw", SEC_PUZZLE}, {"tileconnect", SEC_PUZZLE}, {"mathpz", SEC_PUZZLE},
+    {"spotdiff", SEC_PUZZLE}, {"twistycube", SEC_PUZZLE}, {"killersudoku", SEC_PUZZLE},
+    {"jigsawsudoku", SEC_PUZZLE}, {"diagonalsudoku", SEC_PUZZLE}, {"flood", SEC_PUZZLE}, {"numberpath", SEC_PUZZLE},
+    {"nurikabe", SEC_PUZZLE}, {"hitori", SEC_PUZZLE}, {"thermometers", SEC_PUZZLE}, {"parking", SEC_PUZZLE},
+    {"rollblock", SEC_PUZZLE}, {"loopshift", SEC_PUZZLE}, {"goproblems", SEC_PUZZLE}, {"shogimate", SEC_PUZZLE},
+    {"masyu", SEC_PUZZLE}, {"fillomino", SEC_PUZZLE}, {"heyawake", SEC_PUZZLE},
 };
 
 static int section_of(const game *g)
@@ -297,7 +306,9 @@ static int by_order(const void *a, const void *b)
     if (sa != sb) return sa - sb;
     int la = locked_game(*(const game *const *)a), lb = locked_game(*(const game *const *)b);
     if (la != lb) return la - lb;               /* the free edition: the playable games first */
-    return (*(const game *const *)a)->order - (*(const game *const *)b)->order;
+    int oa = (*(const game *const *)a)->order, ob = (*(const game *const *)b)->order;
+    if (oa != ob) return oa - ob;
+    return strcmp((*(const game *const *)a)->id, (*(const game *const *)b)->id);   /* the same order: by id */
 }
 
 /* ---- helpers for the games --------------------------------------------------------------------------------------- */
