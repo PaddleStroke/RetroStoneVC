@@ -1056,11 +1056,12 @@ box ui_bar_countdown(box b, int left)
     float u = ui.unit, dh = 0.42f * u, id = 0.5f * u, cy = b.y + b.h / 2;
     left = left < 0 ? 0 : left;
     float nw = ui_number_w(left, dh), x = b.x + b.w - nw;
-    ui_number_ex(x + nw / 2, cy, dh, left, NUM_LIGHT, 220, UI_NUM_REGULAR);
+    const uint8_t *ink = table_ink() ? INK : NUM_LIGHT;   /* (dark on the light table) */
+    ui_number_ex(x + nw / 2, cy, dh, left, ink, 220, UI_NUM_REGULAR);
     SDL_Texture *t = btn_tex(paint_btn_icon, ICON_HOURGLASS, (int)(id + 0.5f));
     x -= 0.06f * u + id;
     if (t) {
-        SDL_SetTextureColorMod(t, NUM_LIGHT[0], NUM_LIGHT[1], NUM_LIGHT[2]);
+        SDL_SetTextureColorMod(t, ink[0], ink[1], ink[2]);
         SDL_SetTextureAlphaMod(t, 200);
         ui_put(t, x, cy - id / 2, id, id);
         SDL_SetTextureAlphaMod(t, 255);
@@ -3670,6 +3671,14 @@ static int endcard_w, endcard_h;
 
 int ui_over(void) { return screen == SCR_GAME && cur >= 0 && E.due; }
 
+/* the table veiled under the end card: the board's box in black (the dark theme, as it always was); on the light
+ * theme's ivory a grey box looked like a hole: the whole screen in a soft warm shade */
+static void end_veil(box b, Uint8 a)
+{
+    if (TH.dark) ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, a);
+    else ui_fill(0, 0, (float)ui.w, (float)ui.h, 120, 92, 56, (Uint8)(a / 2));
+}
+
 /* the game's table in the card: below the result (portrait, a tall table), or beside it on its right (a wide table
  * with room to spare: landscape) */
 box ui_end_room(float w, float h)
@@ -3703,7 +3712,7 @@ box ui_end_room(float w, float h)
     }
     E.k = k;
     E.room = 1;
-    ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 120);  /* the table veiled, the card opaque */
+    end_veil(b, 120);                           /* the table veiled, the card opaque */
     if (endcard_w != (int)cw || endcard_h != (int)ch || !t_endcard) {
         static const uint8_t c[4] = {28, 34, 32, 255};
         endcard_w = (int)cw;
@@ -3822,8 +3831,12 @@ static void draw_over(void)
         draw_links(cx, cy - h / 2 + 0.5f * LINK_ROW * q, cy + h / 2 - 0.5f * LINK_ROW * q, w, q);
         return;
     }
-    if (end_veil_whole()) ui_fill(b.x, b.y, b.w, b.h, 14, 20, 18, 250);
-    else ui_fill(b.x, b.y, b.w, b.h, 0, 0, 0, 90);
+    if (end_veil_whole() && TH.dark) ui_fill(b.x, b.y, b.w, b.h, 14, 20, 18, 250);
+    else if (end_veil_whole()) {                /* the light theme: the hands hidden under the ivory table itself */
+        SDL_Rect src = {0, (int)(b.y * 256 / ui.h), 2, (int)fmaxf(1, b.h * 256 / ui.h)};
+        SDL_FRect d = {b.x, b.y, b.w, b.h};
+        SDL_RenderCopyF(ui.r, t_bg, &src, &d);
+    } else end_veil(b, 90);
     ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
     draw_result(cx, cy, u);
 }
@@ -4013,6 +4026,29 @@ static struct {
     Uint32 event;                               /* a picture is ready: the main loop wakes */
 } WK = {.doing = -1};
 
+/* the cards' pictures follow the theme (a game paints its light or dark look): all made again when it changes */
+static void thumbs_theme(void)
+{
+    static int dark = -1;
+    if (dark == TH.dark) return;
+    if (dark >= 0) {
+        for (int i = 0; i < MAX_GAMES; i++)
+            for (int k = 0; k <= MAX_VARIANTS; k++) {
+                ui_free(&t_thumb[i][k]);
+                t_thumb_sz[i][k] = 0;
+            }
+        if (WK.on) {                            /* the helper's, painted in the other theme */
+            SDL_LockMutex(WK.m);
+            for (int i = 0; i < MAX_GAMES; i++) {
+                free(WK.ready[i]);
+                WK.ready[i] = NULL;
+            }
+            SDL_UnlockMutex(WK.m);
+        }
+    }
+    dark = TH.dark;
+}
+
 static int worker_main(void *arg)
 {
     (void)arg;
@@ -4027,8 +4063,13 @@ static int worker_main(void *arg)
         uint8_t *b = calloc((size_t)s * s, 4);
         if (b) {
             SDL_LockMutex(WK.paint);            /* not while the main thread runs game code */
+            int dark = TH.dark;
             games[i]->thumb(-1, s, b);
             SDL_UnlockMutex(WK.paint);
+            if (dark != TH.dark) {              /* the theme changed meanwhile: painted again when wanted */
+                free(b);
+                b = NULL;
+            }
         }
         SDL_LockMutex(WK.m);
         WK.doing = -1;
@@ -4083,6 +4124,7 @@ static void worker_unpark(void)                 /* back on the menu */
 /* the menu's pictures missing at size s, in order: the cards on the screen (vis), then the tab's, then the others' */
 static void worker_want(const int *vis, int nvis, int s)
 {
+    thumbs_theme();
     if (!WK.on || WK.parked) return;
     int list[MAX_GAMES], n = 0;
     static unsigned char in[MAX_GAMES];
@@ -4132,6 +4174,7 @@ static SDL_Texture *thumb_ex(int i, int v, int ahead)
 {
     int k = v + 1, s = (int)(L.card * 0.86f);   /* -1: the game's card */
     if (k < 0 || k > MAX_VARIANTS || s < 4) return NULL;
+    thumbs_theme();
     if (t_thumb[i][k] && t_thumb_sz[i][k] == s) return t_thumb[i][k];
     if (!k && screen == SCR_MENU && WK.on && !WK.parked) {   /* the helper's */
         if (worker_take(i, s)) return t_thumb[i][k];
