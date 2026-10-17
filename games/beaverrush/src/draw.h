@@ -39,6 +39,9 @@ void scene_relayout(void);                   /* after a save state of another wi
 void scene_restart(int stage);
 void scene_frame(int stage, int dam_logs, int lean_side, int players, int t);
 void scene_bg_scroll(int view_sx);
+/* a tall screen (rs_screen_tall): the trunk's left edge (stage x; -1: none) and BG2's scroll, for the bark that
+ * rises above the stage (the raster repeats two plain segments' rows there, the branches' columns hidden) */
+void scene_trunk(int x, int sx, int sy);
 int  scene_stage_shown(void);
 int  scene_tod(void);
 int  scene_season(void);

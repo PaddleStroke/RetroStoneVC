@@ -189,6 +189,16 @@ The game opts in (`max_width` = 560, `WIDESCREEN_beaverrush = 1`): 320 x 240 is 
   widths, and changes the width three times during 1-player, versus and 4-player runs (`--resize`: a save state, a
   restart, the state loaded): they go on exactly as the runs that never changed.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game
+the display's height at 320 columns (693 lines on a 9:19.5 phone). The 240 lines of the stage are the same pixels;
+the stage sits low (`rs_screen_origin_v`: two thirds of the extra lines above it). The raster draws the lines past
+the stage (scene.c `raster_out`): above, the sky carried on (its top colour, deeper toward the screen's top) and the
+trunk rising into it (BG2's rows of two plain segments repeated, window 2 keeping only the trunk's columns: no
+branch is ever shown there); below, the earth, darker with depth. The other layers are hidden there (window 1), and
+line 0 puts the stage's windows, masks and scroll back, so a 240-line screen is unchanged. Versus: the sky only
+above the stage (no trunk). The touch halves span the whole display, so nothing else moves.
+
 ## The beaver
 About 24x24 on screen (32x32 cells), code-drawn with the house helpers (ellipses and capsules shaded from the
 top-left, the house eye, a 1-px dark brown outline): brown fur, a lighter belly and muzzle, **big orange

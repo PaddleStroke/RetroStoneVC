@@ -193,6 +193,9 @@ static void bar_geom(const world *w, int p, int *col, int *inner)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());       /* widescreen: the 320-px stage centred, the scenery wider */
+    /* a tall screen (portrait): the stage low, two thirds of the extra lines above it (the trunk rises into the sky),
+     * a third below (the ground; the touch halves span the whole screen) */
+    rs_screen_origin_v((rs_screen_height() - RS_SCREEN_H) * 2 / 3);
     hu_config hc = hu_defaults();   /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = 0;                /* the kit sprites first (HU_OBJ_TILES), ours from OBJ_FIRST */
     hc.obj_vram = VR_OBJ;
@@ -750,8 +753,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     int sx = hu_shake_x(), sy = hu_shake_y(), cx = tree_cx(w), vw = view_w(w);
     if (!multi) {
-        rs_bg_scroll(RS_BG2, (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (rs_bg_map_w(RS_BG2) * 8 - 1),
-                     (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255);
+        int tx = (TRUNK_MAP_X - (160 - TRUNK_W / 2) - sx) & (rs_bg_map_w(RS_BG2) * 8 - 1);
+        int ty = (TRUNK_SCROLL_Y + drop_px(PV[0].drop_t) - sy) & 255;
+        rs_bg_scroll(RS_BG2, tx, ty);
+        scene_trunk(160 - TRUNK_W / 2 + sx, tx, ty);    /* a tall screen: the bark above the stage */
         scene_bg_scroll(PANO_X);
     }
     screen_text(w, state, st_t, best, new_best, &rs);
@@ -799,6 +804,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (views_on) { rs_viewports(0, NULL, 0); views_on = 0; }
         return;
     }
+    scene_trunk(-1, 0, 0);                      /* (a tall split screen: sky only above the stage) */
     /* the split screen: each view its tree, the middle of the valley, its sprites, its beaver's colours */
     for (int p = 0; p < nv; p++) {
         rs_viewport *q = &v[p];

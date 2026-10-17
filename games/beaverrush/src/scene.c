@@ -35,6 +35,9 @@ static rs_color fur_tint[MAX_PLAYERS][16];
 static int title_pals;
 static int8_t view_fur[RS_VIEW_MAX];            /* the player whose colours OBJ 0 shows in each viewport */
 static int8_t line_fur[RS_SCREEN_H];            /* ... for a viewport of FUR_BY_LINE: by screen line */
+/* a tall screen (rs_screen_tall: a phone held upright): the trunk above the stage, set by draw.c each frame (not
+ * saved: drawn again before each picture) */
+static int trunk_x = -1, trunk_sx, trunk_sy;
 
 int scene_stage_shown(void) { return scene_to; }
 int scene_tod(void) { return (fade_t < SCENE_FADE / 2 ? scene_from : scene_to) % TIMES_OF_DAY; }
@@ -145,9 +148,58 @@ static void sky_lines(int t)
     }
 }
 
+void scene_trunk(int x, int sx, int sy)
+{
+    trunk_x = x;
+    trunk_sx = sx;
+    trunk_sy = sy;
+}
+
+/* A tall screen's lines past the 240 of the stage (DESIGN.md "Tall screen"). Above: the sky carried on, deeper toward
+ * the top, and the trunk rising into it (BG2's rows of two plain segments, repeated; only the trunk's columns, window
+ * 2); below: the earth, darker with depth. The other layers are hidden there (window 1 over the whole width); line 0
+ * puts the stage's windows, masks and BG2 scroll back. */
+static void raster_out(int line)
+{
+    int top = rs_screen_top(), bot = rs_screen_bottom();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(0, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN1);
+        rs_bg_window(RS_BG3, RS_WIN1);
+        if (line == top && trunk_x >= 0) {
+            rs_window(1, trunk_x, trunk_x + TRUNK_W);
+            rs_bg_window(RS_BG2, RS_WIN2_OUT);
+        } else {
+            rs_bg_window(RS_BG2, RS_WIN1);
+        }
+    }
+    if (line < 0) {
+        int k = top < 0 ? -line * 96 / -top : 0;            /* 0 at the stage's top .. 96 at the screen's */
+        rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));
+        if (trunk_x >= 0) {                                 /* map y 48..95: two segments below the screen's top */
+            int m = ((line % 48) + 48) % 48;
+            rs_bg_scroll(RS_BG2, trunk_sx, TRUNK_SCROLL_Y + m - line);
+        }
+    } else {
+        int d = line - RS_SCREEN_H, n = bot - RS_SCREEN_H;
+        int k = n > 0 ? d * 112 / n : 0;
+        rs_pal_set(0, hu_scale_color(scene_color(RS_RGB8(104, 66, 42), scene_to, 0), 230 - k - ((line & 4) ? 6 : 0)));
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0) {                            /* back from raster_out (a tall screen): the stage's own settings */
+        rs_bg_window(RS_BG1, 0);
+        rs_bg_window(RS_BG3, 0);
+        rs_bg_window(RS_BG2, RS_WIN2);
+        if (trunk_x >= 0) rs_bg_scroll(RS_BG2, trunk_sx, trunk_sy);
+    }
     rs_pal_set(0, line_col[line]);
     /* the pond covers the foot of the far layer (widescreen: the whole width, rs_screen_left() .. right()) */
     if (line == pond_line) rs_window(0, rs_screen_left(), rs_screen_right());
