@@ -1,6 +1,6 @@
 Senet
 # Cíl hry
-Jako první dostaň z desky všechny své kameny. Cesta se vine třiceti poli: horní řadou, zpět prostřední a ven spodní. Kameny začínají střídavě na prvních polích; světlý hází první.
+Jako první dostaň z desky všechny své kameny. Cesta se vine třiceti poli: horní řadou, zpět prostřední a ven spodní. Světlý hází první.
 # Házení a tahy
 - Hoď čtyřmi hůlkami: spočítej světlé strany nahoře, 1 až 4; žádná se počítá jako 5. Hod 1, 4 nebo 5 dává další hod.
 - Posuň jeden kámen dopředu o hod, nikdy na vlastní kámen.
@@ -8,7 +8,7 @@ Jako první dostaň z desky všechny své kameny. Cesta se vine třiceti poli: h
 - Nemůže-li žádný kámen dopředu, jeden musí couvnout. Nemůže-li se pohnout žádný, hod propadá.
 # Domy
 - Pole 26: každý kámen se na něm musí přesně zastavit.
-- Pole 27, voda: kámen, který na něj dopadne, se vrací na pole 15, nebo na první volné pole před ním.
-- Z polí 26 až 30 se odchází jen přesným hodem: 5 z 26, 3 z 28, 2 z 29, 1 z 30.
+- Pole 27, voda: zpět na pole 15, nebo na první volné pole před ním.
+- Z polí 26 až 30 se odchází přesným hodem: 5 z 26, 3 z 28, 2 z 29, 1 z 30.
 # Konec hry
 Vyhrává ten, kdo první vyvede všechny své kameny.

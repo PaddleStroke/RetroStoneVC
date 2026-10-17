@@ -1,21 +1,12 @@
 Battaglia navale
 # Lo scopo
-Ogni giocatore nasconde una flotta in un mare di 10 per 10 caselle. Sparate a turno sul mare dell'altro: vince il primo che affonda tutta la flotta nemica. Per 2 giocatori. Scegli prima la partita:
-- Classica: cinque navi da 5, 4, 3, 3 e 2 caselle (la solita flotta moderna), un colpo per turno.
-- Salva: la stessa flotta; a ogni turno spari tanti colpi quante navi ti restano a galla.
-- Flotta di carta: dieci navi, una da 4 caselle, due da 3, tre da 2 e quattro da 1, la flotta che si gioca su carta a quadretti. Le navi non possono toccarsi, nemmeno con un angolo. Un colpo per turno.
-- Flotta di carta a salve: le dieci navi, e una salva a ogni turno.
+Ogni giocatore nasconde una flotta in un mare di 10 per 10 caselle. Sparate a turno sul mare dell'altro: vince il primo che affonda tutta la flotta nemica. Per 2 giocatori.
+- Classica e salva: cinque navi da 5, 4, 3, 3 e 2 caselle.
+- Flotta di carta: dieci navi, una da 4 caselle, due da 3, tre da 2 e quattro da 1, che non possono toccarsi, nemmeno con un angolo.
+- A salve, a ogni turno spari tanti colpi quante navi ti restano a galla; altrimenti uno solo.
 # Schierare la flotta
-Schiera per primo l'avorio, poi l'ebano, ciascuno in segreto. Una nave sta dritta, in orizzontale o in verticale, dentro il mare; due navi non occupano mai la stessa casella. La tua flotta parte da una disposizione casuale:
-- Trascina una nave per spostarla, oppure toccala e poi tocca la casella della sua estremità in alto o a sinistra.
-- Tocca di nuovo la nave sollevata per ruotarla attorno alla casella toccata.
-- Il dado dà un'altra flotta a caso. La spunta dice che la tua flotta è pronta, e il dispositivo passa di mano.
+Schiera per primo l'avorio, poi l'ebano, in segreto. Le navi stanno dritte, in orizzontale o in verticale, e non occupano mai la stessa casella. Trascina una nave per spostarla; toccala due volte per ruotarla. La spunta dice che la tua flotta è pronta.
 # Un turno
-Spara per primo l'avorio. Tocca una casella del mare dell'altro giocatore per mirarla, poi tocca il pulsante di fuoco; con un solo colpo, toccare di nuovo la casella mirata spara anche. Una salva si mira tutta prima: il numero accanto al pulsante di fuoco dice quanti colpi restano da mirare, e toccare una casella mirata la annulla. Colpito o mancato, poi il turno finisce.
+Tocca le caselle da mirare, poi il pulsante di fuoco. Colpito o mancato, poi il turno finisce.
 - Un piolo bianco: acqua. Un piolo rosso: colpito.
-- Quando tutte le caselle di una nave sono colpite, è affondata e compare sul mare.
-Il risultato resta un momento sullo schermo, poi il dispositivo passa di mano.
-# La fine della partita
-Vince il primo giocatore che affonda tutta la flotta nemica.
-# Giocare sul dispositivo
-Vedi in grande il mare dell'altro giocatore, con i tuoi colpi, e il tuo mare in piccolo accanto, con la tua flotta e i colpi dell'altro; i suoi ultimi colpi sono segnati. Una copertura nasconde lo schermo ogni volta che il dispositivo passa di mano, finché il giocatore successivo non tocca il pulsante di avvio. La barra di ogni giocatore mostra quante sue navi sono ancora a galla. Annulla riprende una nave spostata durante lo schieramento, o una casella mirata; un colpo sparato resta.
+- Una nave colpita in tutte le sue caselle è affondata e compare sul mare.

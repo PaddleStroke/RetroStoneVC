@@ -1,16 +1,10 @@
 Shut the Box
 # Målet
-Luk så mange af dine nummererede klapper som muligt: din score er summen af de klapper, der stadig står, og lavere er bedre. Luk dem alle, og du lukker kassen: du vinder med det samme. En til fire spillere: vælg hvor mange før spillet, og klapperne:
-- 1 til 9: den klassiske kasse.
-- 1 til 10: som de store kasser til fire spillere.
-- 1 til 12: det længste spil.
-Hver spiller har sin egen række klapper på sin side af kassen. Alene spiller du mod din egen score.
+Luk så mange af dine nummererede klapper som muligt: din score er summen af de klapper, der stadig står, og lavere er bedre. Luk dem alle, og du vinder med det samme. En til fire spillere.
 # En tur
-- Kast de to terninger, og luk så stående klapper, hvis tal tilsammen giver kastet: én eller flere. Et kast på 8 kan lukke 8, eller 7 og 1, eller 5 og 3, eller 5, 2 og 1…
+- Kast de to terninger, og luk så stående klapper, hvis tal tilsammen giver kastet: én eller flere.
 - Kast igen og luk igen, så længe du kan.
-- Når dine 7, 8 og 9 er lukket (med 10 eller 12 klapper: alle fra 7 og op), må du kaste med kun én terning, hvis du vil.
-- Når ingen gruppe af dine stående klapper giver kastet, er din tur slut. Din score er summen af de klapper, der stadig står.
+- Når alle dine klapper fra 7 og op er lukket, må du kaste med kun én terning.
+- Når ingen klapper giver kastet, er din tur slut.
 # Spillets afslutning
-Hver spiller spiller én hel tur; turen går med uret rundt om kassen, elfenben først. Derefter vinder den laveste score; er de laveste scorer lige, ender spillet uafgjort. En spiller, der lukker kassen, vinder med det samme, og spillet slutter der. Alene er spillet løst, når kassen er lukket; ellers står din score.
-# Spil på enheden
-Tryk på filten for at kaste terningerne. Når du må kaste med én terning, venter en enkelt terning ved siden af parret: tryk på den for at kaste den alene. Tryk på dine klapper for at vælge dem: de løfter sig, og den valgte sum vises over kastet ved siden af terningerne. Klapper, der ikke kan hjælpe med at give kastet, er nedtonede. Når summen er lig med kastet, vipper klapperne ned. Tryk igen på en valgt klap for at sætte den tilbage. Når ingen gruppe giver kastet, gløder terningerne rødt, og din score vises et øjeblik; så kaster den næste spiller. Hver bjælke viser den spillers score. Fortryd rejser klapperne fra det sidste kast igen; terningerne kastes aldrig om: de samme tal kommer igen.
+Hver spiller spiller én hel tur; derefter vinder den laveste score. Er de laveste scorer lige, ender spillet uafgjort. Alene prøver du at lukke kassen.

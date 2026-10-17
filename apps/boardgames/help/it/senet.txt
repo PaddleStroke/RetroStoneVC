@@ -1,6 +1,6 @@
 Senet
 # Lo scopo
-Essere i primi a portare fuori dal tavoliere tutte le proprie pedine. Il percorso serpeggia per le trenta caselle: lungo la fila in alto, indietro lungo quella centrale, fuori lungo quella in basso. Le pedine partono alternate sulle prime caselle; il chiaro tira per primo.
+Essere i primi a portare fuori dal tavoliere tutte le proprie pedine. Il percorso serpeggia per le trenta caselle: lungo la fila in alto, indietro lungo quella centrale, fuori lungo quella in basso. Il chiaro tira per primo.
 # Tirare e muovere
 - Lancia i quattro bastoncini: conta i lati chiari in alto, da 1 a 4; nessuno vale 5. Un 1, un 4 o un 5 dà un altro tiro.
 - Muovi in avanti una pedina del valore del tiro, mai su una tua pedina.
@@ -8,7 +8,7 @@ Essere i primi a portare fuori dal tavoliere tutte le proprie pedine. Il percors
 - Se nessuna pedina può avanzare, una deve tornare indietro. Se nessuna può muovere, il tiro è perso.
 # Le case
 - Casella 26: ogni pedina deve fermarsi esattamente lì.
-- Casella 27, l'acqua: una pedina che vi arriva torna alla casella 15, o alla prima casella libera prima di essa.
+- Casella 27, l'acqua: si torna alla casella 15, o alla prima casella libera prima di essa.
 - Dalle caselle 26-30 si esce solo col tiro esatto: 5 dalla 26, 3 dalla 28, 2 dalla 29, 1 dalla 30.
 # La fine della partita
 Vince chi porta fuori per primo tutte le sue pedine.

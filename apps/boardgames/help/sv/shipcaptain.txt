@@ -3,13 +3,10 @@ Skepp, kapten och besättning
 Vinn 5 marker genom att lasta den bästa lasten. Du behöver ett skepp, en kapten och en besättning innan du kan frakta något. För 2 till 6 spelare.
 # En tur
 - Du har upp till tre slag med fem tärningar.
-- Du behöver en sexa (skeppet), sedan en femma (kaptenen), sedan en fyra (besättningen), i den ordningen: en femma räknas först när du har skeppet, och en fyra först när du har kaptenen. Ett slag kan ge två av dem, eller alla tre.
-- De läggs undan allteftersom de kommer, och du slår om de andra tärningarna.
-- Med skepp, kapten och besättning ombord är de två tärningar som är kvar din last: deras summa är dina poäng för turen. Har du ett slag kvar får du stanna eller slå om båda lasttärningarna: det sista slaget räknas.
+- Du behöver en sexa (skeppet), sedan en femma (kaptenen), sedan en fyra (besättningen), i den ordningen; ett slag kan ge flera av dem. De läggs undan allteftersom de kommer.
+- Med alla tre ombord är de två tärningar som är kvar din last: deras summa är dina poäng. Har du ett slag kvar får du stanna eller slå om båda lasttärningarna: det sista slaget räknas.
 - Utan skepp, kapten och besättning efter tre slag har du ingen last.
 # En omgång
-Varje spelare gör en tur. Den högsta lasten vinner en marker; vid lika höga laster vinner var och en av dem en; har ingen någon last vinner ingen. Nästa omgång börjar med nästa spelare.
+Varje spelare gör en tur. Den högsta lasten vinner en marker; vid lika höga laster vinner var och en av dem en.
 # Partiets slut
-Den första spelaren som har 5 marker i slutet av en omgång vinner. Spelare som når 5 i samma omgång delar segern.
-# Spela på enheten
-Vyn vänds mot spelaren som ska slå. Tryck på filten eller på knappen med en tärning för att slå. Skeppet, kaptenen och besättningen glider ner i ställets tre gropar, som visar en blek sexa, femma och fyra så länge de är tomma. Din last visas då i guld under tärningarna: tryck på bocken för att stanna, eller slå igen. De tre små tärningarna under filten är slagen som är kvar. Överst står varje spelares last i omgången; när en omgång är slut lyser dess bästa last tills nästa börjar. Varje list visar spelarens marker. Ångra tar tillbaka ett stopp, aldrig ett slag.
+Den första spelaren som har 5 marker i slutet av en omgång vinner; spelare som når 5 samtidigt delar segern.

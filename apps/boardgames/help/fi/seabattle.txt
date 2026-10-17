@@ -1,21 +1,12 @@
 Laivanupotus
 # Tavoite
-Kumpikin pelaaja piilottaa laivaston 10 kertaa 10 ruudun mereen. Ampukaa vuorotellen toisen merelle: se, joka ensin upottaa koko vihollisen laivaston, voittaa. Kahdelle pelaajalle. Valitse ensin peli:
-- Klassinen: viisi laivaa, 5, 4, 3, 3 ja 2 ruutua (tavallinen nykyaikainen laivasto), yksi laukaus vuorossa.
-- Yhteislaukaus: sama laivasto; joka vuorolla ammut yhtä monta laukausta kuin sinulla on laivoja vielä pinnalla.
-- Paperilaivasto: kymmenen laivaa, yksi 4 ruudun, kaksi 3 ruudun, kolme 2 ruudun ja neljä 1 ruudun, ruutupaperilta tuttu laivasto. Laivat eivät saa koskea toisiaan, eivät edes kulmasta. Yksi laukaus vuorossa.
-- Paperilaivasto yhteislaukauksin: kymmenen laivaa ja yhteislaukaus joka vuorolla.
+Kumpikin pelaaja piilottaa laivaston 10 kertaa 10 ruudun mereen. Ampukaa vuorotellen toisen merelle: se, joka ensin upottaa koko vihollisen laivaston, voittaa. Kahdelle pelaajalle.
+- Klassinen ja yhteislaukaus: viisi laivaa, 5, 4, 3, 3 ja 2 ruutua.
+- Paperilaivasto: kymmenen laivaa, yksi 4 ruudun, kaksi 3 ruudun, kolme 2 ruudun ja neljä 1 ruudun, jotka eivät saa koskea toisiaan, eivät edes kulmasta.
+- Yhteislaukauksin ammut joka vuorolla yhtä monta laukausta kuin sinulla on laivoja pinnalla; muuten yhden.
 # Laivaston sijoittaminen
-Ensin sijoittaa norsunluu, sitten eebenpuu, kumpikin salaa. Laiva on suorassa, vaaka- tai pystysuunnassa, meren sisällä; kaksi laivaa ei koskaan jaa ruutua. Laivastosi aloittaa satunnaisista paikoista:
-- Siirrä laivaa vetämällä, tai napauta sitä ja sitten ruutua sen ylä- tai vasemmalle päälle.
-- Napauta nostettua laivaa uudelleen, niin se kääntyy napauttamasi ruudun ympäri.
-- Noppa antaa uuden satunnaisen laivaston. Valintamerkki kertoo laivastosi olevan valmis, ja laite ojennetaan toiselle.
+Ensin sijoittaa norsunluu, sitten eebenpuu, salaa. Laivat ovat suorassa, vaaka- tai pystysuunnassa, eivätkä koskaan jaa ruutua. Siirrä laivaa vetämällä; napauta sitä kahdesti kääntääksesi sen. Valintamerkki kertoo laivastosi olevan valmis.
 # Vuoro
-Ensin ampuu norsunluu. Napauta ruutua toisen merellä tähdätäksesi ja sitten ampumispainiketta; yhdellä laukauksella myös tähdätyn ruudun uusi napautus ampuu. Yhteislaukaus tähdätään ensin kokonaan: ampumispainikkeen vieressä oleva luku kertoo, montako laukausta on vielä tähtäämättä, ja tähdätyn ruudun napautus peruu sen. Osui tai ei, vuoro päättyy sen jälkeen.
+Napauta ruutuja, joihin tähtäät, ja sitten ampumispainiketta. Osui tai ei, vuoro päättyy sen jälkeen.
 - Valkoinen tappi: ohi. Punainen tappi: osuma.
-- Kun laivan kaikkiin ruutuihin on osuttu, se on upotettu ja tulee näkyviin merelle.
-Tulos näkyy hetken näytöllä, sitten laite ojennetaan toiselle.
-# Pelin loppu
-Se, joka ensin upottaa koko vihollisen laivaston, voittaa.
-# Pelaaminen laitteella
-Näet toisen pelaajan meren isona omine laukauksinesi ja oman meresi pienenä sen vieressä laivastoinesi ja toisen pelaajan laukauksineen; hänen viimeiset laukauksensa on merkitty. Aina kun laite ojennetaan toiselle, peite kätkee näytön, kunnes seuraava pelaaja napauttaa aloitusta. Jokaisen pelaajan palkki näyttää, montako hänen laivoistaan on vielä pinnalla. Kumoa peruu sijoittamisen aikana siirretyn laivan tai tähdätyn ruudun; ammuttu laukaus pysyy.
+- Laiva, jonka kaikkiin ruutuihin on osuttu, on upotettu ja tulee näkyviin merelle.

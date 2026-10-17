@@ -1,21 +1,12 @@
 Amiral Battı
 # Amaç
-Her oyuncu 10'a 10 karelik bir denize bir filo saklar. Sırayla rakibin denizine ateş edin: düşman filosunun tamamını ilk batıran kazanır. 2 oyuncu için. Önce oyunu seç:
-- Klasik: 5, 4, 3, 3 ve 2 karelik beş gemi (alışılmış modern filo), her sırada bir atış.
-- Yaylım: aynı filo; her sırada, hâlâ yüzen gemin kadar atış yaparsın.
-- Kâğıt filosu: on gemi; 4 karelik bir, 3 karelik iki, 2 karelik üç ve 1 karelik dört gemi, kareli kâğıtta oynanan filo. Gemiler birbirine değemez, köşeden bile. Her sırada bir atış.
-- Yaylımlı kâğıt filosu: on gemi ve her sırada bir yaylım.
+Her oyuncu 10'a 10 karelik bir denize bir filo saklar. Sırayla rakibin denizine ateş edin: düşman filosunun tamamını ilk batıran kazanır. 2 oyuncu için.
+- Klasik ve yaylım: 5, 4, 3, 3 ve 2 karelik beş gemi.
+- Kâğıt filosu: on gemi; 4 karelik bir, 3 karelik iki, 2 karelik üç ve 1 karelik dört gemi. Gemiler birbirine değemez, köşeden bile.
+- Yaylımla her sırada hâlâ yüzen gemin kadar atış yaparsın; yoksa bir atış.
 # Filoyu yerleştirmek
-Önce fildişi, sonra abanoz yerleştirir, her biri gizlice. Bir gemi denizin içinde yatay ya da dikey olarak düz durur; iki gemi asla aynı kareyi paylaşmaz. Filon rastgele yerlerde başlar:
-- Bir gemiyi taşımak için sürükle ya da ona dokunup üst veya sol ucunun gideceği kareye dokun.
-- Kaldırılan gemiye yeniden dokunursan, dokunduğun karenin çevresinde döner.
-- Zar başka bir rastgele filo verir. Onay işareti filonun hazır olduğunu söyler ve cihaz el değiştirir.
+Önce fildişi, sonra abanoz gizlice yerleştirir. Gemiler yatay ya da dikey olarak düz durur ve asla aynı kareyi paylaşmaz. Bir gemiyi taşımak için sürükle; döndürmek için ona iki kez dokun. Onay işareti filonun hazır olduğunu söyler.
 # Bir sıra
-Önce fildişi ateş eder. Nişan almak için rakibin denizinden bir kareye, sonra ateş düğmesine dokun; tek atışta nişan alınan kareye yeniden dokunmak da ateş eder. Yaylım önce bütünüyle nişanlanır: ateş düğmesinin yanındaki sayı kaç atışın daha nişanlanacağını gösterir, nişanlı bir kareye dokunmak onu geri alır. İsabet de olsa ıska da, sıra sonra biter.
+Nişan alacağın karelere, sonra ateş düğmesine dokun. İsabet de olsa ıska da, sıra sonra biter.
 - Beyaz çivi: ıska. Kırmızı çivi: isabet.
-- Bir geminin bütün kareleri vurulunca gemi batar ve denizde görünür.
-Sonuç bir süre ekranda kalır, sonra cihaz el değiştirir.
-# Oyunun sonu
-Düşman filosunun tamamını ilk batıran kazanır.
-# Cihazda oynamak
-Rakibin denizini senin atışlarınla büyük, kendi denizini ise filon ve rakibin atışlarıyla yanında küçük görürsün; rakibin son atışları işaretlidir. Cihaz her el değiştirdiğinde, sıradaki oyuncu başlata dokunana kadar bir örtü ekranı gizler. Her oyuncunun şeridi, hâlâ yüzen gemi sayısını gösterir. Geri al yerleştirirken taşınan bir gemiyi ya da nişanlanan bir kareyi geri alır; yapılan atış kalır.
+- Bütün kareleri vurulan gemi batar ve denizde görünür.

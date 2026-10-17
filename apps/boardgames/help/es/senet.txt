@@ -1,6 +1,6 @@
 Senet
 # El objetivo
-Ser el primero en sacar todas tus fichas del tablero. El camino serpentea por las treinta casillas: por la fila de arriba, de vuelta por la del medio y hacia fuera por la de abajo. Las fichas empiezan alternadas en las primeras casillas; las claras tiran primero.
+Ser el primero en sacar todas tus fichas del tablero. El camino serpentea por las treinta casillas: por la fila de arriba, de vuelta por la del medio y hacia fuera por la de abajo. Las claras tiran primero.
 # Tirar y mover
 - Tira los cuatro palillos: cuenta las caras claras hacia arriba, de 1 a 4; ninguna cuenta 5. Un 1, un 4 o un 5 da otra tirada.
 - Avanza una ficha lo que marque la tirada, nunca sobre una ficha tuya.
@@ -8,7 +8,7 @@ Ser el primero en sacar todas tus fichas del tablero. El camino serpentea por la
 - Si ninguna ficha puede avanzar, una debe retroceder. Si ninguna puede moverse, la tirada se pierde.
 # Las casas
 - Casilla 26: toda ficha debe detenerse justo en ella.
-- Casilla 27, el agua: una ficha que cae en ella vuelve a la casilla 15, o a la primera casilla libre antes de ella.
+- Casilla 27, el agua: vuelve a la casilla 15, o a la primera casilla libre antes de ella.
 - De las casillas 26 a 30 se sale con la tirada exacta: 5 desde la 26, 3 desde la 28, 2 desde la 29, 1 desde la 30.
 # El final de la partida
 Gana el primero que saca todas sus fichas.

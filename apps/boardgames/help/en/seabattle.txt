@@ -1,21 +1,12 @@
 Sea Battle
 # The aim
-Each player hides a fleet on a sea of 10 by 10 squares. Take turns firing at the other player's sea: the first to sink the whole enemy fleet wins. For 2 players. Choose the game first:
-- Classic: five ships of 5, 4, 3, 3 and 2 squares (the usual modern fleet), one shot a turn.
-- Salvo: the same fleet; each turn you fire as many shots as you have ships still afloat.
-- Paper fleet: ten ships, one of 4 squares, two of 3, three of 2 and four of 1, the fleet played on squared paper. The ships may not touch, not even at a corner. One shot a turn.
-- Paper fleet with salvos: the ten ships, and a salvo each turn.
+Each player hides a fleet on a sea of 10 by 10 squares. Take turns firing at the other player's sea: the first to sink the whole enemy fleet wins. For 2 players.
+- Classic and salvo: five ships of 5, 4, 3, 3 and 2 squares.
+- Paper fleet: ten ships, one of 4 squares, two of 3, three of 2 and four of 1, which may not touch, not even at a corner.
+- With salvos, each turn you fire as many shots as you have ships afloat; otherwise one.
 # Placing the fleet
-Ivory places first, then Ebony, each in secret. A ship lies straight, across or down, inside the sea; two ships never share a square. Your fleet starts in a random place:
-- Drag a ship to move it, or tap it and then tap the square for its top or left end.
-- Tap the lifted ship again to turn it round the square you tapped.
-- The die gives another random fleet. The tick says your fleet is ready, and the device passes.
+Ivory places first, then Ebony, in secret. Ships lie straight, across or down, and never share a square. Drag a ship to move it; tap it twice to turn it. The tick says your fleet is ready.
 # A turn
-Ivory fires first. Tap a square of the other player's sea to aim at it, then tap the fire button; with a single shot, tapping the aimed square again fires too. A salvo is aimed all at once: the number beside the fire button tells how many shots are left to aim, and tapping an aimed square takes it back. Hit or miss, the turn then ends.
+Tap the squares to aim at, then the fire button. Hit or miss, the turn then ends.
 - A white peg: a miss. A red peg: a hit.
-- When every square of a ship is hit, it is sunk, and it appears on the sea.
-The result stays on the screen for a moment, then the device passes.
-# The end of the game
-The first player to sink the whole enemy fleet wins.
-# Playing on the device
-You see the other player's sea big, with your shots on it, and your own sea small beside it, with your fleet and the other player's shots; their last shots are marked. A cover hides the screen whenever the device passes, until the next player taps start. Each player's bar shows how many of their ships are still afloat. Undo takes back a ship moved while placing, or a square aimed at; a shot fired stays.
+- A ship hit on every square is sunk and appears on the sea.

@@ -1,16 +1,10 @@
 Shut the Box
 # Tavoite
-Käännä alas niin monta numeroiduista laatoistasi kuin voit: pisteesi ovat pystyyn jääneiden laattojen summa, ja pienempi on parempi. Käännä kaikki alas, niin suljet laatikon ja voitat heti. Pelaajia on yhdestä neljään: valitse ennen peliä, montako pelaa, ja laatat:
-- 1–9: klassinen laatikko.
-- 1–10: kuten isot neljän pelaajan laatikot.
-- 1–12: pisin peli.
-Jokaisella pelaajalla on oma laattarivinsä omalla puolellaan laatikkoa. Yksin pelaat omia pisteitäsi vastaan.
+Käännä alas niin monta numeroiduista laatoistasi kuin voit: pisteesi ovat pystyyn jääneiden laattojen summa, ja pienempi on parempi. Käännä kaikki alas, niin voitat heti. 1–4 pelaajalle.
 # Vuoro
-- Heitä kahta noppaa ja käännä sitten alas pystyssä olevia laattoja, joiden numerot ovat yhteensä heiton verran: yksi tai useampi. Heitto 8 voi kääntää 8:n, tai 7 ja 1, tai 5 ja 3, tai 5, 2 ja 1…
+- Heitä kahta noppaa ja käännä sitten alas pystyssä olevia laattoja, joiden numerot ovat yhteensä heiton verran: yksi tai useampi.
 - Heitä uudelleen ja käännä taas, niin kauan kuin voit.
-- Kun 7, 8 ja 9 ovat alhaalla (10 tai 12 laatalla: kaikki 7:stä ylöspäin), saat halutessasi heittää vain yhtä noppaa.
-- Kun mikään pystyssä olevien laattojesi ryhmä ei anna heittoa, vuorosi päättyy. Pisteesi ovat vielä pystyssä olevien laattojen summa.
+- Kun kaikki laattasi 7:stä ylöspäin ovat alhaalla, saat heittää vain yhtä noppaa.
+- Kun mitkään laatat eivät anna heittoa, vuorosi päättyy.
 # Pelin loppu
-Jokainen pelaaja pelaa yhden kokonaisen vuoron; vuoro kiertää myötäpäivään laatikon ympäri, norsunluu ensin. Sen jälkeen pienimmät pisteet voittavat; jos pienimmät ovat tasan, peli päättyy tasapeliin. Laatikon sulkeva pelaaja voittaa heti, ja peli loppuu siihen. Yksin peli on ratkaistu, kun laatikko on suljettu; muuten pisteesi jäävät voimaan.
-# Pelaaminen laitteella
-Napauta huopaa heittääksesi nopat. Kun saat heittää yhtä noppaa, yksittäinen noppa odottaa parin vieressä: napauta sitä heittääksesi sen yksin. Napauta laattojasi valitaksesi ne: ne nousevat, ja valittu summa näkyy heiton yläpuolella noppien vieressä. Laatat, jotka eivät voi auttaa heiton tekemisessä, ovat himmennettyjä. Kun summa on sama kuin heitto, laatat kaatuvat. Napauta valittua laattaa uudelleen palauttaaksesi sen. Kun mikään ryhmä ei anna heittoa, nopat hehkuvat punaisina ja pisteesi näkyvät hetken; sitten seuraava pelaaja heittää. Jokainen palkki näyttää sen pelaajan pisteet. Kumoa nostaa viimeisen heiton laatat taas pystyyn; noppia ei koskaan heitetä uudelleen: samat numerot tulevat takaisin.
+Jokainen pelaaja pelaa yhden kokonaisen vuoron; sen jälkeen pienimmät pisteet voittavat. Jos pienimmät ovat tasan, peli päättyy tasapeliin. Yksin yritä sulkea laatikko.

@@ -1,14 +1,14 @@
 Senet
 # Le but
-Être le premier à sortir tous ses pions du plateau. Le chemin serpente sur les trente cases : la rangée du haut, retour par celle du milieu, sortie par celle du bas. Les pions commencent en alternance sur les premières cases ; le clair lance en premier.
+Être le premier à sortir tous ses pions du plateau. Le chemin serpente sur les trente cases : la rangée du haut, retour par celle du milieu, sortie par celle du bas. Le clair lance en premier.
 # Lancer et avancer
-- Lancez les quatre bâtonnets : comptez les faces claires en haut, de 1 à 4 ; aucune compte 5. Un 1, un 4 ou un 5 donne un nouveau lancer.
+- Lancez les quatre bâtonnets : comptez les faces claires en haut, de 1 à 4 ; aucune compte 5. Un 1, un 4 ou un 5 donne un nouveau lancer.
 - Avancez un pion du nombre lancé, jamais sur un de vos pions.
-- Arriver sur un pion adverse isolé échange les deux pions. Deux pions côte à côte sont protégés ; trois à la suite ne peuvent pas être franchis.
+- Arriver sur un pion adverse isolé échange les deux pions. Deux pions côte à côte sont protégés ; trois à la suite ne peuvent pas être franchis.
 - Si aucun pion ne peut avancer, l'un d'eux doit reculer. Si aucun ne peut bouger, le lancer est perdu.
 # Les maisons
-- Case 26 : tout pion doit s'y arrêter exactement.
-- Case 27, l'eau : un pion qui s'y arrête retourne à la case 15, ou à la première case libre avant elle.
-- Des cases 26 à 30, un pion sort avec le lancer exact : 5 depuis 26, 3 depuis 28, 2 depuis 29, 1 depuis 30.
+- Case 26 : tout pion doit s'y arrêter exactement.
+- Case 27, l'eau : retour à la case 15, ou à la première case libre avant elle.
+- Des cases 26 à 30, on sort avec le lancer exact : 5 depuis 26, 3 depuis 28, 2 depuis 29, 1 depuis 30.
 # La fin de la partie
 Le premier qui a sorti tous ses pions gagne.

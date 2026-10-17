@@ -1,6 +1,6 @@
 Senet
 # Tujuan
-Jadilah yang pertama mengeluarkan semua bidakmu dari papan. Jalurnya berliku melewati tiga puluh petak: menyusuri baris atas, kembali lewat baris tengah, lalu keluar lewat baris bawah. Bidak mulai berselang-seling di petak-petak pertama; terang melempar lebih dulu.
+Jadilah yang pertama mengeluarkan semua bidakmu dari papan. Jalurnya berliku melewati tiga puluh petak: menyusuri baris atas, kembali lewat baris tengah, lalu keluar lewat baris bawah. Terang melempar lebih dulu.
 # Melempar dan melangkah
 - Lempar keempat tongkat: hitung sisi terang yang menghadap ke atas, 1 sampai 4; jika tidak ada, nilainya 5. Angka 1, 4, atau 5 memberi lemparan lagi.
 - Majukan satu bidak sebanyak lemparan, tidak boleh ke bidakmu sendiri.
@@ -8,7 +8,7 @@ Jadilah yang pertama mengeluarkan semua bidakmu dari papan. Jalurnya berliku mel
 - Jika tidak ada bidak yang bisa maju, satu harus mundur. Jika tidak ada yang bisa bergerak, lemparan hangus.
 # Rumah-rumah
 - Petak 26: setiap bidak harus berhenti tepat di sana.
-- Petak 27, air: bidak yang mendarat di sana kembali ke petak 15, atau ke petak kosong pertama sebelumnya.
+- Petak 27, air: kembali ke petak 15, atau ke petak kosong pertama sebelumnya.
 - Dari petak 26 sampai 30, bidak keluar hanya dengan lemparan tepat: 5 dari 26, 3 dari 28, 2 dari 29, 1 dari 30.
 # Akhir permainan
 Yang pertama mengeluarkan semua bidaknya menang.

@@ -1,16 +1,10 @@
 Cierra la caja
 # El objetivo
-Baja tantas fichas numeradas como puedas: tu puntuación es la suma de las fichas que quedan en pie, y cuanto menor, mejor. Bájalas todas y cierras la caja: ganas al instante. Juegan de uno a cuatro: elige cuántos antes de la partida, y las fichas:
-- 1 a 9: la caja clásica.
-- 1 a 10: como las cajas grandes de cuatro jugadores.
-- 1 a 12: la partida más larga.
-Cada jugador tiene su propia fila de fichas en su lado de la caja. Solo, juegas contra tu propia puntuación.
+Baja tantas fichas numeradas como puedas: tu puntuación es la suma de las fichas que quedan en pie, y cuanto menor, mejor. Bájalas todas y ganas al instante. De 1 a 4 jugadores.
 # Un turno
-- Tira los dos dados y baja fichas en pie cuyos números sumen la tirada: una o varias. Un 8 puede bajar el 8, o 7 y 1, o 5 y 3, o 5, 2 y 1…
+- Tira los dos dados y baja fichas en pie cuyos números sumen la tirada: una o varias.
 - Vuelve a tirar y a bajar mientras puedas.
-- Cuando tu 7, 8 y 9 estén bajados (con 10 o 12 fichas: todas desde el 7), puedes tirar un solo dado si quieres.
-- Cuando ningún grupo de tus fichas en pie suma la tirada, tu turno termina. Tu puntuación es la suma de las fichas que siguen en pie.
+- Cuando todas tus fichas desde el 7 estén bajadas, puedes tirar un solo dado.
+- Cuando ninguna ficha suma la tirada, tu turno termina.
 # El final de la partida
-Cada jugador juega un turno completo; el turno gira en el sentido de las agujas del reloj alrededor de la caja, empezando por marfil. Después gana la puntuación más baja; si las más bajas son iguales, la partida es tablas. Quien cierra la caja gana al instante y la partida termina ahí. Solo, cerrar la caja resuelve la partida; si no, queda tu puntuación.
-# Jugar en el dispositivo
-Toca el tapete para tirar los dados. Cuando puedes tirar un solo dado, un dado suelto espera junto al par: tócalo para tirarlo solo. Toca tus fichas para elegirlas: se levantan, y la suma elegida aparece sobre la tirada, junto a los dados. Las fichas que no pueden ayudar a sumar la tirada se oscurecen. Cuando la suma iguala la tirada, las fichas se abaten. Toca de nuevo una ficha elegida para devolverla. Cuando ningún grupo suma la tirada, los dados brillan en rojo y tu puntuación aparece un momento; luego tira el siguiente jugador. Cada barra muestra la puntuación de ese jugador. Deshacer levanta las fichas de la última tirada; los dados nunca se vuelven a tirar: salen los mismos números.
+Cada jugador juega un turno completo; después gana la puntuación más baja. Si las más bajas son iguales, la partida es tablas. Solo, intenta cerrar la caja.

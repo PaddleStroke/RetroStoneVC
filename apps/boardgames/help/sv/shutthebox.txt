@@ -1,16 +1,10 @@
 Shut the Box
 # Målet
-Stäng så många av dina numrerade brickor som du kan: din poäng är summan av brickorna som står kvar, och lägre är bättre. Stäng alla så stänger du lådan: du vinner direkt. En till fyra spelare: välj hur många före partiet, och brickorna:
-- 1 till 9: den klassiska lådan.
-- 1 till 10: som de stora lådorna för fyra spelare.
-- 1 till 12: det längsta partiet.
-Varje spelare har sin egen rad brickor på sin sida av lådan. Ensam spelar du mot din egen poäng.
+Stäng så många av dina numrerade brickor som du kan: din poäng är summan av brickorna som står kvar, och lägre är bättre. Stäng alla så vinner du direkt. För 1 till 4 spelare.
 # En tur
-- Kasta de två tärningarna och stäng sedan stående brickor vars tal tillsammans blir kastet: en eller flera. Ett kast på 8 kan stänga 8, eller 7 och 1, eller 5 och 3, eller 5, 2 och 1…
+- Kasta de två tärningarna och stäng sedan stående brickor vars tal tillsammans blir kastet: en eller flera.
 - Kasta igen och stäng igen, så länge du kan.
-- När dina 7, 8 och 9 är stängda (med 10 eller 12 brickor: alla från 7 och uppåt) får du kasta med bara en tärning om du vill.
-- När ingen grupp av dina stående brickor blir kastet är din tur slut. Din poäng är summan av brickorna som fortfarande står.
+- När alla dina brickor från 7 och uppåt är stängda får du kasta med bara en tärning.
+- När inga brickor blir kastet är din tur slut.
 # Partiets slut
-Varje spelare spelar en hel tur; turen går medurs runt lådan, elfenben först. Sedan vinner den lägsta poängen; är de lägsta lika blir det oavgjort. En spelare som stänger lådan vinner direkt, och partiet slutar där. Ensam är partiet löst när lådan är stängd; annars står din poäng.
-# Spela på enheten
-Tryck på filten för att kasta tärningarna. När du får kasta med en tärning väntar en ensam tärning bredvid paret: tryck på den för att kasta den ensam. Tryck på dina brickor för att välja dem: de lyfts, och den valda summan visas ovanför kastet, bredvid tärningarna. Brickor som inte kan hjälpa till att bli kastet är nedtonade. När summan är lika med kastet fälls brickorna. Tryck igen på en vald bricka för att ställa tillbaka den. När ingen grupp blir kastet glöder tärningarna rött och din poäng visas en stund; sedan kastar nästa spelare. Varje list visar den spelarens poäng. Ångra reser brickorna från det senaste kastet igen; tärningarna kastas aldrig om: samma tal kommer tillbaka.
+Varje spelare spelar en hel tur; sedan vinner den lägsta poängen. Är de lägsta lika blir det oavgjort. Ensam försöker du stänga lådan.

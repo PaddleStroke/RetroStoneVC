@@ -1,14 +1,14 @@
 Senet
 # The aim
-Be the first to take all your pieces off the board. The path snakes through the thirty squares: along the top row, back along the middle one, out along the bottom one. The pieces start in turn on the first squares; light throws first.
+Be the first to take all your pieces off the board. The path snakes through the thirty squares: along the top row, back along the middle one, out along the bottom one. Light throws first.
 # Throwing and moving
 - Throw the four sticks: count the pale sides up, 1 to 4; none up counts 5. A 1, 4 or 5 gives another throw.
 - Move one piece forwards by the throw, never onto your own piece.
-- Landing on a lone piece of the other player swaps the two. Two pieces side by side are safe; three in a row cannot be passed.
+- Landing on a lone enemy piece swaps the two. Two pieces side by side are safe; three in a row cannot be passed.
 - If no piece can go forwards, one must go back. If none can move, the throw is lost.
 # The houses
 - Square 26: every piece must stop on it exactly.
-- Square 27, the water: a piece landing there goes back to square 15, or the first free square before it.
-- Squares 26 to 30 leave the board with the exact throw: 5 from 26, 3 from 28, 2 from 29, 1 from 30.
+- Square 27, the water: back to square 15, or the first free square before it.
+- From 26 to 30, leave with the exact throw: 5 from 26, 3 from 28, 2 from 29, 1 from 30.
 # The end of the game
 The first to bear off all their pieces wins.

@@ -1,16 +1,10 @@
 Fecha a caixa
 # O objetivo
-Fecha o máximo que puderes das tuas peças numeradas: a tua pontuação é a soma das peças que ficam de pé, e quanto menor, melhor. Fecha-as todas e fechas a caixa: ganhas logo. De um a quatro jogadores: escolhe quantos antes do jogo, e as peças:
-- 1 a 9: a caixa clássica.
-- 1 a 10: como as caixas grandes para quatro jogadores.
-- 1 a 12: o jogo mais longo.
-Cada jogador tem a sua própria fila de peças do seu lado da caixa. Sozinho, jogas contra a tua própria pontuação.
+Fecha o máximo que puderes das tuas peças numeradas: a tua pontuação é a soma das peças que ficam de pé, e quanto menor, melhor. Fecha-as todas e ganhas logo. De um a quatro jogadores.
 # A tua vez
-- Lança os dois dados e fecha peças de pé cujos números somados dão o lançamento: uma ou várias. Um 8 pode fechar o 8, ou 7 e 1, ou 5 e 3, ou 5, 2 e 1…
+- Lança os dois dados e fecha peças de pé cujos números somados dão o lançamento: uma ou várias.
 - Lança outra vez e fecha outra vez, enquanto puderes.
-- Quando o teu 7, 8 e 9 estiverem fechados (com 10 ou 12 peças: todas a partir do 7), podes lançar um só dado, se quiseres.
-- Quando nenhum grupo das tuas peças de pé dá o lançamento, a tua vez acaba. A tua pontuação é a soma das peças ainda de pé.
+- Quando todas as tuas peças a partir do 7 estiverem fechadas, podes lançar um só dado.
+- Quando nenhuma das tuas peças de pé dá o lançamento, a tua vez acaba.
 # O fim do jogo
-Cada jogador joga uma vez completa; a vez passa no sentido dos ponteiros do relógio à volta da caixa, a começar pelo marfim. Depois ganha a pontuação mais baixa; se as mais baixas forem iguais, o jogo fica empatado. Quem fecha a caixa ganha logo, e o jogo acaba aí. Sozinho, fechar a caixa resolve o jogo; caso contrário, fica a tua pontuação.
-# Jogar no dispositivo
-Toca no feltro para lançar os dados. Quando podes lançar um só dado, um dado sozinho espera ao lado do par: toca-lhe para o lançar sozinho. Toca nas tuas peças para as escolher: levantam-se, e a soma escolhida aparece sobre o lançamento, ao lado dos dados. As peças que não podem ajudar a fazer o lançamento ficam escurecidas. Quando a soma é igual ao lançamento, as peças tombam. Toca outra vez numa peça escolhida para a repor. Quando nenhum grupo dá o lançamento, os dados brilham a vermelho e a tua pontuação aparece por um momento; depois lança o jogador seguinte. Cada barra mostra a pontuação desse jogador. Anular levanta as peças do último lançamento; os dados nunca são lançados de novo: voltam os mesmos números.
+Cada jogador joga uma vez completa; depois ganha a pontuação mais baixa. Se as mais baixas forem iguais, o jogo fica empatado. Sozinho, tenta fechar a caixa.

@@ -1,6 +1,6 @@
 Senet
 # Målet
-Vær den første til at få alle dine brikker af brættet. Vejen snor sig gennem de tredive felter: hen ad den øverste række, tilbage ad den midterste og ud ad den nederste. Brikkerne starter skiftevis på de første felter; lys kaster først.
+Vær den første til at få alle dine brikker af brættet. Vejen snor sig gennem de tredive felter: hen ad den øverste række, tilbage ad den midterste og ud ad den nederste. Lys kaster først.
 # Kast og træk
 - Kast de fire pinde: tæl de lyse sider opad, 1 til 4; ingen tæller 5. Et kast på 1, 4 eller 5 giver et kast mere.
 - Flyt én brik frem med kastet, aldrig hen på din egen brik.
@@ -8,7 +8,7 @@ Vær den første til at få alle dine brikker af brættet. Vejen snor sig gennem
 - Kan ingen brik gå frem, skal en gå tilbage. Kan ingen flytte, er kastet tabt.
 # Husene
 - Felt 26: hver brik skal standse præcis på det.
-- Felt 27, vandet: en brik, der lander der, går tilbage til felt 15 eller til det første ledige felt før det.
+- Felt 27, vandet: tilbage til felt 15 eller til det første ledige felt før det.
 - Fra felt 26 til 30 kommer en brik kun ud med det præcise kast: 5 fra 26, 3 fra 28, 2 fra 29, 1 fra 30.
 # Spillets afslutning
 Den første, der har fået alle sine brikker ud, vinder.

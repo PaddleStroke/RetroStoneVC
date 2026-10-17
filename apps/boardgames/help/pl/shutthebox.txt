@@ -1,16 +1,10 @@
 Zamknij pudełko
 # Cel gry
-Zamknij jak najwięcej swoich numerowanych klapek: twój wynik to suma klapek, które zostały w górze, a im mniej, tym lepiej. Zamknij wszystkie, a zamkniesz pudełko: wygrywasz od razu. Gra od jednej do czterech osób: przed grą wybierz, ile osób gra, i klapki:
-- od 1 do 9: klasyczne pudełko.
-- od 1 do 10: jak duże pudełka dla czterech graczy.
-- od 1 do 12: najdłuższa gra.
-Każdy gracz ma własny rząd klapek po swojej stronie pudełka. Grając sam, grasz przeciw własnemu wynikowi.
+Zamknij jak najwięcej swoich numerowanych klapek: twój wynik to suma klapek, które zostały w górze, a im mniej, tym lepiej. Zamknij wszystkie, a wygrywasz od razu. Gra od jednej do czterech osób.
 # Tura
-- Rzuć dwiema kostkami, a potem zamknij stojące klapki, których liczby razem dają wynik rzutu: jedną lub kilka. Rzut 8 może zamknąć 8, albo 7 i 1, albo 5 i 3, albo 5, 2 i 1…
+- Rzuć dwiema kostkami, a potem zamknij stojące klapki, których liczby razem dają wynik rzutu: jedną lub kilka.
 - Rzucaj i zamykaj dalej, dopóki możesz.
-- Gdy twoje 7, 8 i 9 są zamknięte (przy 10 lub 12 klapkach: wszystkie od 7 w górę), możesz, jeśli chcesz, rzucać tylko jedną kostką.
-- Gdy żadna grupa twoich stojących klapek nie daje wyniku rzutu, twoja tura się kończy. Twój wynik to suma klapek, które jeszcze stoją.
+- Gdy wszystkie twoje klapki od 7 w górę są zamknięte, możesz rzucać tylko jedną kostką.
+- Gdy żadne klapki nie dają wyniku rzutu, twoja tura się kończy.
 # Koniec gry
-Każdy gracz rozgrywa jedną pełną turę; kolejka idzie zgodnie z ruchem wskazówek zegara wokół pudełka, zaczyna kość słoniowa. Potem wygrywa najniższy wynik; jeśli najniższe wyniki są równe, gra kończy się remisem. Gracz, który zamknie pudełko, wygrywa od razu i gra się kończy. Grając sam, rozwiązujesz grę, zamykając pudełko; inaczej zostaje twój wynik.
-# Gra na urządzeniu
-Dotknij sukna, aby rzucić kostkami. Gdy możesz rzucić jedną kostką, obok pary czeka pojedyncza kostka: dotknij jej, aby rzucić tylko nią. Dotykaj swoich klapek, aby je wybrać: unoszą się, a wybrana suma pokazuje się nad rzutem, obok kostek. Klapki, które nie mogą pomóc w uzyskaniu rzutu, są przyciemnione. Gdy suma równa się rzutowi, klapki się przewracają. Dotknij wybranej klapki jeszcze raz, aby ją odłożyć. Gdy żadna grupa nie daje rzutu, kostki świecą na czerwono, a twój wynik pokazuje się na chwilę; potem rzuca następny gracz. Każdy pasek pokazuje wynik tego gracza. Cofnij podnosi z powrotem klapki z ostatniego rzutu; kostki nigdy nie są rzucane ponownie: wracają te same liczby.
+Każdy gracz rozgrywa jedną pełną turę; potem wygrywa najniższy wynik. Równe najniższe wyniki to remis. Grając sam, spróbuj zamknąć pudełko.

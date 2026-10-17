@@ -3,13 +3,10 @@ Barco, capitán y tripulación
 Ganar 5 fichas cargando la mejor carga. Necesitas un barco, un capitán y una tripulación antes de poder llevar nada. De 2 a 6 jugadores.
 # Un turno
 - Tienes hasta tres tiradas de cinco dados.
-- Necesitas un 6 (el barco), luego un 5 (el capitán), luego un 4 (la tripulación), en ese orden: un 5 solo cuenta cuando ya tienes el barco, y un 4 solo cuando ya tienes el capitán. Una misma tirada puede traer dos de ellos, o los tres.
-- Se apartan a medida que salen, y vuelves a tirar los demás dados.
-- Con barco, capitán y tripulación a bordo, los dos dados restantes son tu carga: su suma es tu puntuación del turno. Si te queda una tirada, puedes plantarte o volver a tirar los dos dados de la carga: cuenta la última tirada.
+- Necesitas un 6 (el barco), luego un 5 (el capitán), luego un 4 (la tripulación), en ese orden; una misma tirada puede traer varios. Se apartan a medida que salen.
+- Con los tres a bordo, los dos dados restantes son tu carga: su suma es tu puntuación. Si te queda una tirada, plántate o vuelve a tirar los dos dados de la carga: cuenta la última tirada.
 - Sin barco, capitán y tripulación tras tres tiradas, no tienes carga.
 # Una ronda
-Cada jugador juega un turno. La carga más alta gana una ficha; si hay empate en la más alta, cada uno de ellos gana una; si nadie tiene carga, nadie gana. La ronda siguiente la empieza el jugador siguiente.
+Cada jugador juega un turno. La carga más alta gana una ficha; si hay empate en la más alta, cada uno de ellos gana una.
 # El final de la partida
-Gana el primer jugador que tenga 5 fichas al final de una ronda. Los que lleguen a 5 en la misma ronda comparten la victoria.
-# Jugar en el dispositivo
-La vista gira hacia el jugador que tira. Toca el tapete o el botón del dado para tirar. El barco, el capitán y la tripulación se deslizan a los tres huecos del estante, que muestran un 6, un 5 y un 4 tenues mientras están vacíos. Tu carga aparece entonces en oro bajo los dados: toca la marca para plantarte o vuelve a tirar. Los tres dados pequeños bajo el tapete son las tiradas que quedan. Arriba, la carga de cada jugador en la ronda; al acabar una ronda, su mejor carga brilla hasta que empieza la siguiente. Cada barra muestra las fichas de ese jugador. Deshacer anula una plantada, nunca una tirada.
+Gana el primer jugador que tenga 5 fichas al final de una ronda; los que lleguen a 5 a la vez comparten la victoria.

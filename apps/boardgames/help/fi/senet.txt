@@ -1,6 +1,6 @@
 Senet
 # Tavoite
-Ole ensimmäinen, joka saa kaikki nappulansa pois laudalta. Reitti mutkittelee kolmenkymmenen ruudun läpi: ylärivi eteenpäin, keskirivi takaisin ja alarivi ulos. Nappulat aloittavat vuorotellen ensimmäisillä ruuduilla; vaalea heittää ensin.
+Ole ensimmäinen, joka saa kaikki nappulansa pois laudalta. Reitti mutkittelee kolmenkymmenen ruudun läpi: ylärivi eteenpäin, keskirivi takaisin ja alarivi ulos. Vaalea heittää ensin.
 # Heittäminen ja siirtäminen
 - Heitä neljä keppiä: laske ylöspäin olevat vaaleat puolet, 1–4; jos yhtään ei ole, tulos on 5. Ykkönen, nelonen tai vitonen antaa uuden heiton.
 - Siirrä yhtä nappulaa eteenpäin heiton verran, ei koskaan omalle nappulalle.
@@ -8,7 +8,7 @@ Ole ensimmäinen, joka saa kaikki nappulansa pois laudalta. Reitti mutkittelee k
 - Jos mikään nappula ei voi edetä, yhden on peräännyttävä. Jos mikään ei voi liikkua, heitto menetetään.
 # Talot
 - Ruutu 26: jokaisen nappulan on pysähdyttävä täsmälleen siihen.
-- Ruutu 27, vesi: siihen pysähtyvä nappula palaa ruutuun 15 tai sitä edeltävään ensimmäiseen vapaaseen ruutuun.
+- Ruutu 27, vesi: takaisin ruutuun 15 tai sitä edeltävään ensimmäiseen vapaaseen ruutuun.
 - Ruuduista 26–30 pääsee pois vain tarkalla heitolla: 5 ruudusta 26, 3 ruudusta 28, 2 ruudusta 29, 1 ruudusta 30.
 # Pelin loppu
 Se, joka saa ensimmäisenä kaikki nappulansa pois, voittaa.

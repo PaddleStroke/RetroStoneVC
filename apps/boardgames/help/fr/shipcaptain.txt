@@ -3,13 +3,10 @@ Bateau, capitaine et équipage
 Gagner 5 jetons en chargeant la meilleure cargaison. Il te faut un bateau, un capitaine et un équipage avant de pouvoir transporter quoi que ce soit. De 2 à 6 joueurs.
 # Un tour
 - Tu as jusqu'à trois lancers de cinq dés.
-- Il te faut un 6 (le bateau), puis un 5 (le capitaine), puis un 4 (l'équipage), dans cet ordre : un 5 ne compte qu'une fois le bateau obtenu, et un 4 qu'une fois le capitaine obtenu. Un même lancer peut en apporter deux, ou les trois.
-- Ils sont mis de côté au fur et à mesure, et tu relances les autres dés.
-- Avec le bateau, le capitaine et l'équipage à bord, les deux dés restants sont ta cargaison : leur somme est ton score du tour. S'il te reste un lancer, tu peux t'arrêter là ou relancer les deux dés de la cargaison : le dernier lancer compte.
+- Il te faut un 6 (le bateau), puis un 5 (le capitaine), puis un 4 (l'équipage), dans cet ordre ; un même lancer peut en apporter plusieurs. Ils sont mis de côté au fur et à mesure.
+- Avec les trois à bord, les deux dés restants sont ta cargaison : leur somme est ton score. S'il te reste un lancer, arrête-toi ou relance les deux dés de la cargaison : le dernier lancer compte.
 - Sans bateau, capitaine et équipage après trois lancers, tu n'as pas de cargaison.
 # Une manche
-Chaque joueur joue un tour. La plus grosse cargaison gagne un jeton ; à égalité, chacun des meilleurs en gagne un ; si personne n'a de cargaison, personne n'en gagne. La manche suivante commence par le joueur suivant.
+Chaque joueur joue un tour. La plus grosse cargaison gagne un jeton ; à égalité, chacun des meilleurs en gagne un.
 # La fin de la partie
-Le premier joueur qui a 5 jetons à la fin d'une manche gagne. Les joueurs qui atteignent 5 dans la même manche se partagent la victoire.
-# Jouer sur l'appareil
-La vue se tourne vers le joueur qui lance. Touche le tapis ou le bouton au dé pour lancer. Le bateau, le capitaine et l'équipage glissent dans les trois creux du râtelier, qui montrent un 6, un 5 et un 4 pâles tant qu'ils sont vides. Ta cargaison s'affiche alors en or sous les dés : touche la coche pour t'arrêter, ou relance. Les trois petits dés sous le tapis sont les lancers qui restent. En haut, la cargaison de chaque joueur dans la manche ; une manche finie, sa meilleure cargaison brille jusqu'au début de la suivante. Chaque barre montre les jetons du joueur. Annuler reprend un arrêt, jamais un lancer.
+Le premier joueur qui a 5 jetons à la fin d'une manche gagne ; les joueurs qui atteignent 5 ensemble se partagent la victoire.

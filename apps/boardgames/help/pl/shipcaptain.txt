@@ -3,13 +3,10 @@ Statek, kapitan i załoga
 Zdobyć 5 żetonów, ładując najlepszy ładunek. Zanim cokolwiek przewieziesz, potrzebujesz statku, kapitana i załogi. Dla 2 do 6 graczy.
 # Tura
 - Masz najwyżej trzy rzuty pięcioma kostkami.
-- Potrzebujesz szóstki (statek), potem piątki (kapitan), potem czwórki (załoga), w tej kolejności: piątka liczy się dopiero, gdy masz statek, a czwórka dopiero, gdy masz kapitana. Jeden rzut może dać dwie z nich albo wszystkie trzy.
-- Odkłada się je, gdy tylko wypadną, a pozostałymi kostkami rzucasz znowu.
-- Ze statkiem, kapitanem i załogą na pokładzie dwie pozostałe kostki są twoim ładunkiem: ich suma to twój wynik w turze. Jeśli został ci jeszcze rzut, możesz się zatrzymać albo rzucić znowu obiema kostkami ładunku: liczy się ostatni rzut.
+- Potrzebujesz szóstki (statek), potem piątki (kapitan), potem czwórki (załoga), w tej kolejności; jeden rzut może dać kilka z nich. Odkłada się je, gdy tylko wypadną.
+- Ze statkiem, kapitanem i załogą na pokładzie dwie pozostałe kostki są twoim ładunkiem: ich suma to twój wynik. Jeśli został ci rzut, zatrzymaj się albo rzuć znowu obiema kostkami ładunku: liczy się ostatni rzut.
 - Bez statku, kapitana i załogi po trzech rzutach nie masz ładunku.
 # Runda
-Każdy gracz rozgrywa jedną turę. Najwyższy ładunek zdobywa żeton; przy równych najwyższych ładunkach każdy z nich zdobywa jeden; jeśli nikt nie ma ładunku, nikt nic nie zdobywa. Następną rundę zaczyna następny gracz.
+Każdy gracz rozgrywa jedną turę. Najwyższy ładunek zdobywa żeton; przy równych najwyższych ładunkach każdy z nich zdobywa jeden.
 # Koniec gry
-Wygrywa pierwszy gracz, który ma 5 żetonów na końcu rundy. Gracze, którzy dojdą do 5 w tej samej rundzie, dzielą się zwycięstwem.
-# Gra na urządzeniu
-Widok obraca się do gracza, który rzuca. Dotknij sukna albo przycisku z kostką, aby rzucić. Statek, kapitan i załoga wsuwają się w trzy wgłębienia stojaka, które pokazują blade 6, 5 i 4, dopóki są puste. Twój ładunek pojawia się wtedy złotem pod kostkami: dotknij ptaszka, aby się zatrzymać, albo rzuć znowu. Trzy małe kostki pod suknem to pozostałe rzuty. Na górze ładunek każdego gracza w tej rundzie; po skończonej rundzie jej najlepszy ładunek świeci, aż zacznie się następna. Każdy pasek pokazuje żetony tego gracza. Cofnij cofa zatrzymanie, nigdy rzut.
+Wygrywa pierwszy gracz, który ma 5 żetonów na końcu rundy; gracze, którzy dojdą do 5 razem, dzielą się zwycięstwem.

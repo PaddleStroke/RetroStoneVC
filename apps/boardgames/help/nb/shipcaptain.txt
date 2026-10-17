@@ -3,13 +3,10 @@ Skip, kaptein og mannskap
 Vinn 5 brikker ved å laste den beste lasten. Du trenger et skip, en kaptein og et mannskap før du kan frakte noe. For 2 til 6 spillere.
 # En tur
 - Du har opptil tre kast med fem terninger.
-- Du trenger en 6 (skipet), så en 5 (kapteinen), så en 4 (mannskapet), i den rekkefølgen: en 5 teller først når du har skipet, og en 4 først når du har kapteinen. Ett kast kan gi to av dem, eller alle tre.
-- De legges til side etter hvert som de kommer, og du kaster de andre terningene på nytt.
-- Med skip, kaptein og mannskap om bord er de to terningene som er igjen, lasten din: summen deres er poengene dine for turen. Har du et kast igjen, kan du stoppe eller kaste begge lastterningene på nytt: det siste kastet teller.
+- Du trenger en 6 (skipet), så en 5 (kapteinen), så en 4 (mannskapet), i den rekkefølgen; ett kast kan gi flere av dem. De legges til side etter hvert som de kommer.
+- Med alle tre om bord er de to terningene som er igjen, lasten din: summen deres er poengene dine. Har du et kast igjen, kan du stoppe eller kaste begge lastterningene på nytt: det siste kastet teller.
 - Uten skip, kaptein og mannskap etter tre kast har du ingen last.
 # En runde
-Hver spiller tar én tur. Den høyeste lasten vinner en brikke; ved like høye laster vinner hver av dem en; har ingen last, vinner ingen. Neste runde starter med neste spiller.
+Hver spiller tar én tur. Den høyeste lasten vinner en brikke; ved like høye laster vinner hver av dem en.
 # Slutten på spillet
-Den første spilleren med 5 brikker ved slutten av en runde vinner. Spillere som når 5 i samme runde, deler seieren.
-# Spill på enheten
-Visningen snur seg mot spilleren som skal kaste. Trykk på filten eller på knappen med en terning for å kaste. Skipet, kapteinen og mannskapet glir ned i de tre fordypningene i stativet, som viser en blek 6, 5 og 4 så lenge de er tomme. Lasten din vises så i gull under terningene: trykk på haken for å stoppe, eller kast igjen. De tre små terningene under filten er kastene som er igjen. Øverst står hver spillers last i denne runden; når en runde er over, lyser den beste lasten til neste runde begynner. Hver linje viser brikkene til den spilleren. Angre tar tilbake et stopp, aldri et kast.
+Den første spilleren med 5 brikker ved slutten av en runde vinner; spillere som når 5 samtidig, deler seieren.

@@ -1,6 +1,6 @@
 Senet
 # Amaç
-Bütün pullarını tahtadan ilk çıkaran ol. Yol otuz kare boyunca kıvrılır: üst sıra boyunca gider, ortadakinden geri döner, alttakinden çıkar. Pullar ilk karelere sırayla dizilir; açık renk önce atar.
+Bütün pullarını tahtadan ilk çıkaran ol. Yol otuz kare boyunca kıvrılır: üst sıra boyunca gider, ortadakinden geri döner, alttakinden çıkar. Açık renk önce atar.
 # Zar atma ve hamle
 - Dört çubuğu at: yukarı bakan açık yüzleri say, 1 ile 4 arası; hiç yoksa 5 sayılır. 1, 4 ya da 5 bir atış daha kazandırır.
 - Bir pulu atış kadar ileri götür, asla kendi pulunun üstüne değil.
@@ -8,7 +8,7 @@ Bütün pullarını tahtadan ilk çıkaran ol. Yol otuz kare boyunca kıvrılır
 - Hiçbir pul ileri gidemiyorsa biri geri gitmelidir. Hiçbiri hareket edemiyorsa atış yanar.
 # Evler
 - Kare 26: her pul tam olarak burada durmalıdır.
-- Kare 27, su: buraya gelen pul 15. kareye, o doluysa ondan önceki ilk boş kareye döner.
+- Kare 27, su: 15. kareye, o doluysa ondan önceki ilk boş kareye geri dön.
 - 26–30 arası karelerden ancak tam atışla çıkılır: 26'dan 5, 28'den 3, 29'dan 2, 30'dan 1.
 # Oyunun sonu
 Bütün pullarını ilk çıkaran kazanır.

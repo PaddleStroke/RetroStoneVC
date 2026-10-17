@@ -1,16 +1,10 @@
 Shut the Box
 # Målet
-Lukk så mange av de nummererte klaffene dine som mulig: poengsummen din er summen av klaffene som fortsatt står, og lavere er bedre. Lukk alle, og du lukker boksen: du vinner med en gang. En til fire spillere: velg hvor mange før spillet, og klaffene:
-- 1 til 9: den klassiske boksen.
-- 1 til 10: som de store boksene for fire spillere.
-- 1 til 12: det lengste spillet.
-Hver spiller har sin egen rad med klaffer på sin side av boksen. Alene spiller du mot din egen poengsum.
+Lukk så mange av de nummererte klaffene dine som mulig: poengsummen din er summen av klaffene som fortsatt står, og lavere er bedre. Lukk alle, og du vinner med en gang. En til fire spillere.
 # En tur
-- Kast de to terningene, og lukk så stående klaffer der tallene til sammen blir kastet: én eller flere. Et kast på 8 kan lukke 8, eller 7 og 1, eller 5 og 3, eller 5, 2 og 1…
+- Kast de to terningene, og lukk så stående klaffer der tallene til sammen blir kastet: én eller flere.
 - Kast igjen og lukk igjen, så lenge du kan.
-- Når 7, 8 og 9 er lukket (med 10 eller 12 klaffer: alle fra 7 og oppover), kan du kaste med bare én terning om du vil.
-- Når ingen gruppe av de stående klaffene dine blir kastet, er turen din over. Poengsummen din er summen av klaffene som fortsatt står.
+- Når alle klaffene dine fra 7 og oppover er lukket, kan du kaste med bare én terning.
+- Når ingen klaffer blir kastet, er turen din over.
 # Slutten på spillet
-Hver spiller spiller én hel tur; turen går med klokka rundt boksen, elfenben først. Deretter vinner den laveste poengsummen; er de laveste like, blir det uavgjort. En spiller som lukker boksen, vinner med en gang, og spillet slutter der. Alene er spillet løst når boksen er lukket; ellers står poengsummen din.
-# Spill på enheten
-Trykk på filten for å kaste terningene. Når du kan kaste med én terning, venter en enkelt terning ved siden av paret: trykk på den for å kaste den alene. Trykk på klaffene dine for å velge dem: de løfter seg, og summen du har valgt, vises over kastet ved siden av terningene. Klaffer som ikke kan hjelpe til med kastet, er nedtonet. Når summen er lik kastet, vipper klaffene ned. Trykk igjen på en valgt klaff for å sette den tilbake. Når ingen gruppe blir kastet, gløder terningene rødt og poengsummen din vises et øyeblikk; så kaster neste spiller. Hver linje viser poengsummen til den spilleren. Angre reiser klaffene fra siste kast opp igjen; terningene kastes aldri på nytt: de samme tallene kommer tilbake.
+Hver spiller spiller én hel tur; deretter vinner den laveste poengsummen. Er de laveste like, blir det uavgjort. Alene prøver du å lukke boksen.

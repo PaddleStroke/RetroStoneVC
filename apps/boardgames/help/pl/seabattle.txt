@@ -1,21 +1,12 @@
 Statki
 # Cel gry
-Każdy gracz ukrywa flotę na morzu z 10 na 10 pól. Strzelajcie na zmianę w morze przeciwnika: wygrywa ten, kto pierwszy zatopi całą wrogą flotę. Dla 2 graczy. Najpierw wybierz grę:
-- Klasyczna: pięć statków z 5, 4, 3, 3 i 2 pól (zwykła nowoczesna flota), jeden strzał na turę.
-- Salwa: ta sama flota; w każdej turze oddajesz tyle strzałów, ile masz jeszcze statków na wodzie.
-- Flota z kartki: dziesięć statków, jeden z 4 pól, dwa z 3, trzy z 2 i cztery z 1, jak w grze na papierze w kratkę. Statki nie mogą się stykać, nawet rogiem. Jeden strzał na turę.
-- Flota z kartki z salwami: dziesięć statków i salwa w każdej turze.
+Każdy gracz ukrywa flotę na morzu z 10 na 10 pól. Strzelajcie na zmianę w morze przeciwnika: wygrywa ten, kto pierwszy zatopi całą wrogą flotę. Dla 2 graczy.
+- Klasyczna i salwa: pięć statków z 5, 4, 3, 3 i 2 pól.
+- Flota z kartki: dziesięć statków, jeden z 4 pól, dwa z 3, trzy z 2 i cztery z 1, które nie mogą się stykać, nawet rogiem.
+- Z salwami w każdej turze oddajesz tyle strzałów, ile masz jeszcze statków na wodzie; bez nich jeden.
 # Rozstawianie floty
-Najpierw rozstawia kość słoniowa, potem heban, każdy w tajemnicy. Statek leży prosto, poziomo lub pionowo, w obrębie morza; dwa statki nigdy nie zajmują tego samego pola. Twoja flota zaczyna w losowych miejscach:
-- Przeciągnij statek, aby go przesunąć, albo dotknij go, a potem pola dla jego górnego lub lewego końca.
-- Dotknij podniesionego statku jeszcze raz, aby obrócić go wokół dotkniętego pola.
-- Kostka daje nową losową flotę. Znaczek zatwierdzenia oznacza, że flota jest gotowa, i urządzenie przechodzi do drugiego gracza.
+Najpierw rozstawia kość słoniowa, potem heban, każdy w tajemnicy. Statki leżą prosto, poziomo lub pionowo, i nigdy nie zajmują tego samego pola. Przeciągnij statek, aby go przesunąć; dotknij go dwa razy, aby go obrócić. Znaczek zatwierdzenia oznacza, że flota jest gotowa.
 # Tura
-Pierwsza strzela kość słoniowa. Dotknij pola na morzu przeciwnika, aby wycelować, a potem przycisku strzału; przy jednym strzale ponowne dotknięcie wycelowanego pola też strzela. Salwę celuje się najpierw w całości: liczba obok przycisku strzału pokazuje, ile strzałów zostało do wycelowania, a dotknięcie wycelowanego pola je cofa. Trafienie czy pudło, potem tura się kończy.
+Dotknij pól, w które celujesz, a potem przycisku strzału. Trafienie czy pudło, potem tura się kończy.
 - Biały kołek: pudło. Czerwony kołek: trafienie.
-- Gdy wszystkie pola statku są trafione, statek jest zatopiony i pojawia się na morzu.
-Wynik zostaje chwilę na ekranie, potem urządzenie przechodzi do drugiego gracza.
-# Koniec gry
-Wygrywa ten, kto pierwszy zatopi całą wrogą flotę.
-# Gra na urządzeniu
-Widzisz duże morze przeciwnika z twoimi strzałami, a obok małe własne morze z twoją flotą i strzałami przeciwnika; jego ostatnie strzały są zaznaczone. Za każdym przekazaniem urządzenia zasłona kryje ekran, aż następny gracz dotknie przycisku startu. Pasek każdego gracza pokazuje, ile jego statków jeszcze pływa. Cofnij cofa statek przesunięty przy rozstawianiu albo wycelowane pole; oddany strzał zostaje.
+- Statek trafiony na każdym polu jest zatopiony i pojawia się na morzu.

@@ -1,21 +1,12 @@
 Lodě
 # Cíl hry
-Každý hráč ukryje loďstvo v moři o 10 × 10 polích. Střílejte střídavě do moře soupeře: vyhrává ten, kdo první potopí celé nepřátelské loďstvo. Pro 2 hráče. Nejprve si vyber hru:
-- Klasická: pět lodí o 5, 4, 3, 3 a 2 polích (obvyklé moderní loďstvo), jeden výstřel za tah.
-- Salva: stejné loďstvo; každý tah vystřelíš tolikrát, kolik lodí ti ještě pluje.
-- Papírové loďstvo: deset lodí, jedna o 4 polích, dvě o 3, tři o 2 a čtyři o 1, loďstvo ze čtverečkovaného papíru. Lodě se nesmějí dotýkat, ani rohem. Jeden výstřel za tah.
-- Papírové loďstvo se salvami: deset lodí a salva každý tah.
+Každý hráč ukryje loďstvo v moři o 10 × 10 polích. Střílejte střídavě do moře soupeře: vyhrává ten, kdo první potopí celé nepřátelské loďstvo. Pro 2 hráče.
+- Klasická a salva: pět lodí o 5, 4, 3, 3 a 2 polích.
+- Papírové loďstvo: deset lodí, jedna o 4 polích, dvě o 3, tři o 2 a čtyři o 1, které se nesmějí dotýkat, ani rohem.
+- Se salvami každý tah vystřelíš tolikrát, kolik lodí ti ještě pluje; jinak jednou.
 # Rozmístění loďstva
-Nejprve rozmisťuje slonovinový hráč, potom ebenový, každý tajně. Loď leží rovně, vodorovně nebo svisle, uvnitř moře; dvě lodě nikdy nesdílejí pole. Tvé loďstvo začíná na náhodných místech:
-- Přetáhni loď, abys ji posunul, nebo na ni klepni a potom klepni na pole pro její horní nebo levý konec.
-- Dalším klepnutím na zvednutou loď ji otočíš kolem pole, na které jsi klepl.
-- Kostka dá nové náhodné loďstvo. Fajfka ohlásí, že je loďstvo připravené, a zařízení se předá.
+Nejprve rozmisťuje slonovinový hráč, potom ebenový, každý tajně. Lodě leží rovně, vodorovně nebo svisle, a nikdy nesdílejí pole. Přetáhni loď, abys ji posunul; dvojím klepnutím ji otočíš. Fajfka ohlásí, že je loďstvo připravené.
 # Tah
-Nejprve střílí slonovinový hráč. Klepni na pole v moři soupeře a zamiř, potom klepni na tlačítko palby; při jednom výstřelu vystřelí i další klepnutí na zamířené pole. Salva se nejprve zamíří celá: číslo vedle tlačítka palby ukazuje, kolik výstřelů zbývá zamířit, a klepnutí na zamířené pole ho zruší. Zásah nebo vedle, potom tah končí.
+Klepni na pole, na která míříš, potom na tlačítko palby. Zásah nebo vedle, potom tah končí.
 - Bílý kolík: vedle. Červený kolík: zásah.
-- Když jsou zasažena všechna pole lodi, loď je potopená a objeví se na moři.
-Výsledek chvíli zůstane na obrazovce, potom se zařízení předá.
-# Konec hry
-Vyhrává ten, kdo první potopí celé nepřátelské loďstvo.
-# Hra na zařízení
-Moře soupeře vidíš velké s tvými výstřely a vlastní moře malé vedle s tvým loďstvem a výstřely soupeře; jeho poslední výstřely jsou označené. Při každém předání zařízení kryt skryje obrazovku, dokud další hráč neklepne na start. Lišta každého hráče ukazuje, kolik jeho lodí ještě pluje. Vrátit vezme zpět loď posunutou při rozmisťování nebo zamířené pole; vypálený výstřel zůstává.
+- Loď zasažená na všech polích je potopená a objeví se na moři.

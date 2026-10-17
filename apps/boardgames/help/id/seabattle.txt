@@ -1,21 +1,12 @@
 Perang Laut
 # Tujuan
-Setiap pemain menyembunyikan armada di laut berukuran 10 kali 10 petak. Bergantian tembaki laut lawan: yang pertama menenggelamkan seluruh armada musuh menang. Untuk 2 pemain. Pilih permainannya dulu:
-- Klasik: lima kapal berukuran 5, 4, 3, 3, dan 2 petak (armada modern yang biasa), satu tembakan per giliran.
-- Salvo: armada yang sama; setiap giliran kamu menembak sebanyak kapalmu yang masih mengapung.
-- Armada kertas: sepuluh kapal, satu kapal 4 petak, dua kapal 3 petak, tiga kapal 2 petak, dan empat kapal 1 petak, armada yang dimainkan di kertas berpetak. Kapal tidak boleh bersentuhan, bahkan di sudut. Satu tembakan per giliran.
-- Armada kertas dengan salvo: sepuluh kapal, dan satu salvo setiap giliran.
+Setiap pemain menyembunyikan armada di laut berukuran 10 kali 10 petak. Bergantian tembaki laut lawan: yang pertama menenggelamkan seluruh armada musuh menang. Untuk 2 pemain.
+- Klasik dan salvo: lima kapal berukuran 5, 4, 3, 3, dan 2 petak.
+- Armada kertas: sepuluh kapal, satu kapal 4 petak, dua kapal 3 petak, tiga kapal 2 petak, dan empat kapal 1 petak, yang tidak boleh bersentuhan, bahkan di sudut.
+- Dengan salvo, setiap giliran kamu menembak sebanyak kapalmu yang masih mengapung; jika tidak, satu tembakan.
 # Menyusun armada
-Gading menyusun lebih dulu, lalu eboni, masing-masing secara rahasia. Kapal terletak lurus, mendatar atau tegak, di dalam laut; dua kapal tidak pernah berbagi satu petak. Armadamu mulai di tempat acak:
-- Seret kapal untuk memindahkannya, atau ketuk kapal lalu ketuk petak untuk ujung atas atau ujung kirinya.
-- Ketuk lagi kapal yang terangkat untuk memutarnya di sekitar petak yang kamu ketuk.
-- Dadu memberi armada acak yang lain. Tanda centang berarti armadamu siap, dan perangkat berpindah tangan.
+Gading menyusun lebih dulu, lalu eboni, secara rahasia. Kapal terletak lurus, mendatar atau tegak, dan tidak pernah berbagi satu petak. Seret kapal untuk memindahkannya; ketuk kapal itu dua kali untuk memutarnya. Tanda centang berarti armadamu siap.
 # Satu giliran
-Gading menembak lebih dulu. Ketuk satu petak di laut lawan untuk membidik, lalu ketuk tombol tembak; untuk satu tembakan, mengetuk lagi petak yang dibidik juga menembak. Salvo dibidik seluruhnya dulu: angka di samping tombol tembak menunjukkan berapa tembakan lagi yang harus dibidik, dan mengetuk petak yang sudah dibidik membatalkannya. Kena atau meleset, giliran lalu berakhir.
+Ketuk petak-petak yang ingin dibidik, lalu ketuk tombol tembak. Kena atau meleset, giliran lalu berakhir.
 - Pasak putih: meleset. Pasak merah: kena.
-- Bila semua petak sebuah kapal kena, kapal itu tenggelam dan muncul di laut.
-Hasilnya tetap di layar sebentar, lalu perangkat berpindah tangan.
-# Akhir permainan
-Yang pertama menenggelamkan seluruh armada musuh menang.
-# Bermain di perangkat
-Kamu melihat laut lawan besar dengan tembakanmu, dan lautmu sendiri kecil di sampingnya dengan armadamu dan tembakan lawan; tembakan terakhir lawan ditandai. Setiap kali perangkat berpindah tangan, penutup menyembunyikan layar sampai pemain berikutnya mengetuk mulai. Bilah setiap pemain menunjukkan berapa kapalnya yang masih mengapung. Urungkan mengembalikan kapal yang dipindahkan saat menyusun, atau petak yang dibidik; tembakan yang sudah dilepas tetap.
+- Kapal yang kena di semua petaknya tenggelam dan muncul di laut.

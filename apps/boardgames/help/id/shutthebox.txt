@@ -1,16 +1,10 @@
 Shut the Box
 # Tujuan
-Tutup sebanyak mungkin ubin bernomormu: skormu adalah jumlah ubin yang masih berdiri, dan makin kecil makin baik. Tutup semuanya dan kamu menutup kotak: kamu langsung menang. Satu sampai empat pemain: pilih berapa yang bermain sebelum permainan, dan ubinnya:
-- 1 sampai 9: kotak klasik.
-- 1 sampai 10: seperti kotak besar untuk empat pemain.
-- 1 sampai 12: permainan terpanjang.
-Setiap pemain punya deretan ubinnya sendiri di sisinya pada kotak. Sendirian, kamu bermain melawan skormu sendiri.
+Tutup sebanyak mungkin ubin bernomormu: skormu adalah jumlah ubin yang masih berdiri, dan makin kecil makin baik. Tutup semuanya dan kamu langsung menang. Satu sampai empat pemain.
 # Satu giliran
-- Lempar kedua dadu, lalu tutup ubin yang berdiri yang angkanya berjumlah sama dengan lemparan: satu atau beberapa. Lemparan 8 dapat menutup 8, atau 7 dan 1, atau 5 dan 3, atau 5, 2 dan 1…
+- Lempar kedua dadu, lalu tutup ubin yang berdiri yang angkanya berjumlah sama dengan lemparan: satu atau beberapa.
 - Lempar lagi dan tutup lagi, selama kamu bisa.
-- Setelah 7, 8 dan 9 milikmu tertutup (dengan 10 atau 12 ubin: semua dari 7 ke atas), kamu boleh melempar satu dadu saja jika mau.
-- Jika tidak ada kelompok ubinmu yang berdiri yang menghasilkan lemparan, giliranmu selesai. Skormu adalah jumlah ubin yang masih berdiri.
+- Setelah semua ubin 7 ke atas milikmu tertutup, kamu boleh melempar satu dadu saja.
+- Jika tidak ada ubin yang berdiri yang menghasilkan lemparan, giliranmu selesai.
 # Akhir permainan
-Setiap pemain memainkan satu giliran penuh; giliran berjalan searah jarum jam mengelilingi kotak, gading lebih dulu. Lalu skor terendah menang; jika skor terendah sama, permainan seri. Pemain yang menutup kotak langsung menang, dan permainan berakhir di situ. Sendirian, kotak yang tertutup menyelesaikan permainan; jika tidak, skormu yang tercatat.
-# Bermain di perangkat
-Ketuk kain hijau untuk melempar dadu. Jika kamu boleh melempar satu dadu, sebuah dadu tunggal menunggu di samping pasangannya: ketuk untuk melemparnya sendiri. Ketuk ubinmu untuk memilihnya: ubin terangkat, dan jumlah yang dipilih tampil di atas lemparan, di samping dadu. Ubin yang tidak bisa membantu membentuk lemparan diredupkan. Jika jumlahnya sama dengan lemparan, ubin-ubin itu rebah. Ketuk lagi ubin yang dipilih untuk mengembalikannya. Jika tidak ada kelompok yang menghasilkan lemparan, dadu menyala merah dan skormu tampil sejenak, lalu pemain berikutnya melempar. Setiap bilah menunjukkan skor pemainnya. Urungkan menegakkan lagi ubin dari lemparan terakhir; dadu tidak pernah dilempar ulang: angka yang sama muncul kembali.
+Setiap pemain memainkan satu giliran penuh; lalu skor terendah menang. Jika skor terendah sama, permainan seri. Sendirian, cobalah menutup kotak.

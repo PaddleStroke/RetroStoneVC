@@ -3,13 +3,10 @@ Laiva, kapteeni ja miehistö
 Voita 5 pelimerkkiä lastaamalla paras lasti. Tarvitset laivan, kapteenin ja miehistön, ennen kuin voit kuljettaa mitään. 2–6 pelaajaa.
 # Vuoro
 - Sinulla on enintään kolme heittoa viidellä nopalla.
-- Tarvitset kuutosen (laiva), sitten viitosen (kapteeni), sitten nelosen (miehistö), tässä järjestyksessä: viitonen lasketaan vasta, kun sinulla on laiva, ja nelonen vasta, kun sinulla on kapteeni. Yksi heitto voi tuoda niistä kaksi tai kaikki kolme.
-- Ne pannaan sivuun sitä mukaa kuin niitä tulee, ja heität muut nopat uudelleen.
-- Kun laiva, kapteeni ja miehistö ovat kyydissä, kaksi jäljellä olevaa noppaa ovat lastisi: niiden summa on vuorosi pisteet. Jos sinulla on heitto jäljellä, voit pysähtyä tai heittää molemmat lastinopat uudelleen: viimeinen heitto ratkaisee.
+- Tarvitset kuutosen (laiva), sitten viitosen (kapteeni), sitten nelosen (miehistö), tässä järjestyksessä; yksi heitto voi tuoda niistä useamman. Ne pannaan sivuun sitä mukaa kuin niitä tulee.
+- Kun kaikki kolme ovat kyydissä, kaksi jäljellä olevaa noppaa ovat lastisi: niiden summa on pisteesi. Jos sinulla on heitto jäljellä, pysähdy tai heitä molemmat lastinopat uudelleen: viimeinen heitto ratkaisee.
 - Jos laivaa, kapteenia ja miehistöä ei ole kolmen heiton jälkeen, sinulla ei ole lastia.
 # Kierros
-Jokainen pelaaja pelaa yhden vuoron. Suurin lasti voittaa pelimerkin; tasatilanteessa jokainen suurimman lastin saanut voittaa yhden; jos kenelläkään ei ole lastia, kukaan ei voita. Seuraavan kierroksen aloittaa seuraava pelaaja.
+Jokainen pelaaja pelaa yhden vuoron. Suurin lasti voittaa pelimerkin; tasatilanteessa jokainen suurimman lastin saanut voittaa yhden.
 # Pelin loppu
-Ensimmäinen pelaaja, jolla on 5 pelimerkkiä kierroksen lopussa, voittaa. Samalla kierroksella viiteen yltäneet jakavat voiton.
-# Pelaaminen laitteella
-Näkymä kääntyy heittävän pelaajan puoleen. Heitä napauttamalla huopaa tai noppapainiketta. Laiva, kapteeni ja miehistö liukuvat telineen kolmeen koloon, joissa näkyy haalea 6, 5 ja 4, kunnes ne täyttyvät. Lastisi näkyy sitten kultaisena noppien alla: pysähdy napauttamalla rastia tai heitä uudelleen. Kolme pientä noppaa huovan alla ovat jäljellä olevat heitot. Ylhäällä on jokaisen pelaajan lasti tällä kierroksella; kierroksen päätyttyä sen paras lasti hehkuu, kunnes seuraava alkaa. Kukin palkki näyttää pelaajan pelimerkit. Kumoa peruu pysähdyksen, ei koskaan heittoa.
+Ensimmäinen pelaaja, jolla on 5 pelimerkkiä kierroksen lopussa, voittaa; yhtä aikaa viiteen yltäneet jakavat voiton.
