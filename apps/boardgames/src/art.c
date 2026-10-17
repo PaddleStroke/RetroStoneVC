@@ -1068,7 +1068,7 @@ void art_die_blend(uint8_t *o, int w, int h, float cx, float cy, int size, int p
 /* ---- the board --------------------------------------------------------------------------------------------------- */
 static float hash(int a, int b)
 {
-    unsigned h = (unsigned)(a * 73856093) ^ (unsigned)(b * 19349663);
+    unsigned h = (unsigned)a * 73856093u ^ (unsigned)b * 19349663u;   /* (unsigned: no overflow) */
     h ^= h >> 13;
     h *= 0x5bd1e995u;
     return (h & 0xffff) / 65535.0f;
