@@ -212,6 +212,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: the sky above the sea, more seabed below (draw.c, DESIGN.md) */
     save_load();
     audio_set(rs_option_int("music", 1), rs_option_int("sound", 1));
     sfx_init();

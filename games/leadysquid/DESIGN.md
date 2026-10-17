@@ -155,6 +155,15 @@ thirds ahead**.
   left, P1's screen x (that of 320 plus the third) and the next gate's distance on the screen (that of 320: the first
   one 224 px ahead at the start), on the title, at the start, in a run and in a 4-player race.
 
+## Tall screen (docs/spec.md "Tall screen")
+A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
+columns). The 240 lines of the stage are the same pixels, centred (the tap zone in the band below it). The raster
+draws the lines past the stage (draw.c `raster_out`): above the water's surface (stage line 0), the sky, pale at the
+horizon and bluer toward the screen's top, a crest of foam on the surface (the top columns end at the surface, as
+before); below the seabed, its sand carried on (BG2's last two rows repeated, each copy shifted sideways, darker with
+depth). The other layers are hidden there; line 0 puts the layers, BG2's scroll (`seabed_x`, set each frame, not
+saved: state_audit.txt) and the sand's palette back, so a 240-line screen is unchanged.
+
 ## Audio
 - Sound effects synthesised in code at start-up (sfx.c): **bloop** (a short rising sine with a bubbly
   burble), **ding** (a soft two-partial bell), **thud** (a low falling sine and a little noise), **clank**

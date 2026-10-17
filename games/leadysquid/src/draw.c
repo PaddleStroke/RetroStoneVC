@@ -32,9 +32,49 @@ static int cap_theme[2] = {-1, -1};
 int depth_level(void) { return depth; }
 
 /* ---- raster: the water gradient, the additive rays band, the pause dim ----------------------------- */
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240.
+ * Above the water's surface (stage line 0): the sky, pale at the horizon, bluer toward the screen's top, a bright
+ * crest of foam on the surface. Below the seabed: its sand carried on (BG2's last two rows, 16 px, repeated, each
+ * copy shifted sideways so that no pebble or starfish lines up), darker with depth. The other layers are hidden there
+ * (their maps would wrap); line 0 puts the layers, BG2's scroll and the sand's palette back. */
+static int seabed_x;                      /* BG2's scroll x this frame (draw_frame; state_audit.txt) */
+static int scenery_w(void);
+#define SAND_REPEAT_Y 224
+static void raster_out(int line)
+{
+    int top = rs_screen_top(), bot = rs_screen_bottom();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_bg_enable(RS_BG1, 0);
+        rs_bg_enable(RS_BG3, 0);
+        rs_bg_enable(RS_BG4, 0);
+        rs_bg_enable(RS_BG2, line == RS_SCREEN_H);
+    }
+    if (line < 0) {
+        int k = top < 0 ? -line * 256 / -top : 0, d = (line & 4) ? 4 : 0;
+        rs_color c = hu_lerp_color(RS_RGB8(214 + d, 238, 246), RS_RGB8(110 + d, 178, 226), k);
+        if (line >= -2) c = RS_RGB8(236, 250, 255);         /* the foam on the surface */
+        else if (line >= -4) c = RS_RGB8(178, 226, 238);
+        rs_pal_set(0, c);
+    } else {
+        int d = line - RS_SCREEN_H, n = bot - RS_SCREEN_H, k = n > 0 ? d * 120 / n : 0;
+        rs_bg_scroll(RS_BG2, (seabed_x + d / 16 * 184) & (scenery_w() * 8 - 1), SAND_REPEAT_Y + d % 16 - line);
+        if ((d & 3) == 0)
+            for (int i = 1; i < 16; i++) rs_pal_set(RS_PAL_BG(PAL_SEABED) + i, hu_scale_color(ls_seabed_pal[i], 236 - k));
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {  /* back from raster_out: the stage's own settings */
+        for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
+        rs_bg_scroll(RS_BG2, seabed_x, 0);
+        rs_pal_load(RS_PAL_BG(PAL_SEABED), ls_seabed_pal, 16);
+    }
     rs_pal_set(0, line_col[line]);
     if (line == 0) rs_math(RS_MATH_ADD, RS_MATH_BG4, 0);
     else if (line == RAYS_END) rs_math(RS_MATH_OFF, 0, 0);
@@ -450,7 +490,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     gradient_update(world_theme_at(w), score < DEPTH_MAX ? score : DEPTH_MAX);
     course_tiles(w);
     int pm = scenery_w() * 8 - 1;                   /* the panoramas' period - 1: 511, or 1023 on a wide screen */
-    rs_bg_scroll(RS_BG2, sx & pm, 0);
+    seabed_x = sx & pm;
+    rs_bg_scroll(RS_BG2, seabed_x, 0);
     rs_bg_scroll(RS_BG3, (sx / 2) & pm, 0);
     rs_bg_scroll(RS_BG4, 0, 0);
     int t = (int)rs_frame_count();
