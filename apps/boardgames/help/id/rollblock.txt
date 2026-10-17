@@ -9,4 +9,4 @@ Balok terguling melewati salah satu rusuknya, ke atas, ke bawah, ke kiri, atau k
 # Akhir permainan
 Saat berdiri di atas lubang, balok tenggelam ke dalamnya: terpecahkan.
 # Level dan bintang
-Ada 150 level dalam enam bab; tab dadu membuat peta baru secara acak: mudah, sedang, atau sulit. Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1.
+Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

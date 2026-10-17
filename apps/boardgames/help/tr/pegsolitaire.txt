@@ -1,16 +1,9 @@
 Tek Taş
 # Amaç
-Bilyeler bir tahtanın deliklerinde durur. Onları birbirinin üzerinden atlatarak tek bir bilye kalana kadar devam et; o son bilye hedef delikte, yani pirinç halkalı delikte kalmalı. Tahtalar:
-- İngiliz: 33 delikli haç.
-- Fransız: 37 delik, haç ve dört delik daha.
-- Eşkenar dörtgen: 41 delik.
-- Wiegleb tahtası: 45 delikli geniş haç.
-- Üçgenler: 15 delik ve 21 delikli büyük üçgen.
+Bilyeler bir tahtanın deliklerinde durur. Onları birbirinin üzerinden atlatarak tek bir bilye kalana kadar devam et; o son bilye hedef delikte, yani pirinç halkalı delikte kalmalı.
 # Bir hamle
 Bir bilye düz bir çizgide komşu bir bilyenin üzerinden, hemen arkasındaki boş deliğe atlar. Üzerinden atlanan bilye tahtadan alınır. Haçlarda ve eşkenar dörtgende yatay ve dikey atlanır, asla çapraz değil; üçgenlerde ise üç yönleri boyunca.
 # Oyunun sonu
-Tek bilye kaldıysa: çözüldü; hedef delikteyse altın ışıkta. Hiç atlama kalmadığında birkaç bilye hâlâ duruyorsa kırmızı parlarlar: geri al ve başka bir yol dene.
+Tek bilye kaldıysa: çözüldü. Hiç atlama kalmadığında birkaç bilye hâlâ duruyorsa kırmızı parlarlar: geri al ve başka bir yol dene.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 3 bilyeden, bölümlerini kapatan tam klasik tahtalara (bir delik hariç bütün delikler dolu) kadar uzanıyorlar; her seviye kendi hedef deliğinde tek bilyeyle bitebilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, seçtiğin tahtaya, kendi hedef deliğinde bitebilecek rastgele bir konum dizer. Hedef delikte tek bilye ve ipucu yoksa 3 yıldız; son bilye başka bir yerde kalırsa bir yıldız eksik, ipucu kullanırsan bir yıldız daha eksik (her zaman en az 1). Her atlama bir bilyeyi aldığından, tek bilyeye kadar giden her oyun aynı sayıda atlama sürer: önemli olan sonuncunun nerede kaldığıdır.
-# Cihazda oynamak
-Bir bilyeye dokun: noktalar nereye atlayabileceğini gösterir. Bir noktaya dokun ya da bilyeyi oraya sürükle. Yalnızca tek bir bilyenin ulaşabildiği boş bir deliğe de dokunabilirsin. Alınan bilyeler tahtanın çevresindeki oluğa yuvarlanır. Lamba bir ipucu verir: yapılacak atlama aydınlanır, hedef delikte tek bilyeye götürdüğü sürece altın renginde; tek bilyeye giden bir yol kalmadığında bilyeler kırmızı parlar. Geri al bir atlamayı geri alır, en başa kadar. Şerit kalan bilyeleri gösterir.
+Hedef delikte tek bilye ve ipucu yoksa 3 yıldız; son bilye başka bir yerde kalırsa bir yıldız eksik, ipucu kullanırsan bir yıldız daha eksik (her zaman en az 1).

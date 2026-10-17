@@ -1,15 +1,11 @@
 Borular
 # Amaç
-Her karede bir parça pirinç boru var: bir uç, düz bir parça, bir dirsek ya da bir T. Kareleri döndürerek bütün boruları ortadaki deponun beslediği tek bir ağda birleştir; açık boru kalmasın: hiçbir boru onu karşılamayan bir kareye ya da tahtanın kenarına bakmasın. O zaman su her kareyi doldurur. Önce boyutu seç: 5 × 5, 7 × 7, 9 × 9, 11 × 11 ya da kenarsız 9 × 9 (çerçevenin çevresinde pirinç lombozlar): orada bir kenardan çıkan boru karşı kenardan geri girer.
+Her karede bir parça pirinç boru var: bir uç, düz bir parça, bir dirsek ya da bir T. Kareleri döndürerek bütün boruları ortadaki deponun beslediği tek bir ağda birleştir; açık boru kalmasın: hiçbir boru onu karşılamayan bir kareye ya da tahtanın kenarına bakmasın.
+Kenarsız bir tahtada (çerçevenin çevresinde pirinç lombozlar) bir kenardan çıkan boru karşı kenardan geri girer.
 Her bulmaca yalnızca akıl yürüterek çözülür ve tek bir çözümü vardır.
 # Bir hamle
-Bir kareyi saat yönünde çeyrek tur döndürmek.
+Bir kareye dokunarak onu saat yönünde çeyrek tur döndür.
 # Oyunun sonu
-Bütün kareler birleşip hiçbir boru açık kalmayınca su her kareye ulaşır ve depodan altın bir ışık yayılır.
+Bütün kareler birleşip hiçbir boru açık kalmayınca su her kareye ulaşır.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; 4 × 4'ten 11 × 11'e ve kenarsız tahtalara kadar uzanıyorlar ve her birinin tek bir çözümü var. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi, yukarıda anlatılan seçimle rastgele yeni bir bulmaca yapar. Her bulmacanın bir par değeri vardır: onu çözen en az çeyrek dönüş sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar. Geri al bir hamleyi geri alır, o hamle artık sayılmaz.
-# Cihazda oynamak
-- Bir kareye dokunarak onu çeyrek tur döndür.
-- Su, depodan ona bağlı her boruya akar. Açık bir boruya ulaştığı yerde taşar: damlalara bak.
-- Lamba ipucu verir: yanlış bir kareyi (mümkünse suyun yanındakini) altın ışık içinde doğru yöne çevirir.
-Geri al her seferinde bir dönüşü ya da ipucunu başa kadar geri alır. Şerit hamlelerini gösterir.
+Her bulmacanın bir par değeri vardır: onu çözen en az çeyrek dönüş sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar.

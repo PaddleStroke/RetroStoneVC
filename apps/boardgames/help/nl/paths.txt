@@ -1,17 +1,10 @@
 Paden
 # Het doel
-Op het rooster liggen paren stippen van dezelfde kleur. Verbind de twee stippen van elk paar met een pad dat van vakje naar vakje gaat: omhoog, omlaag, naar links of naar rechts. Paden mogen elkaar niet kruisen en geen vakje delen, en samen moeten ze het hele rooster vullen. Elk paar heeft ook een eigen teken (een stip, een ring, een vierkant, een ster...), zodat je geen kleur alleen op het oog hoeft te herkennen. Kies eerst de grootte: 5 × 5, 7 × 7, 9 × 9 of 12 × 12.
+Op het rooster liggen paren stippen van dezelfde kleur. Verbind de twee stippen van elk paar met een pad dat van vakje naar vakje gaat: omhoog, omlaag, naar links of naar rechts. Paden mogen elkaar niet kruisen en geen vakje delen, en samen moeten ze het hele rooster vullen.
 Elke puzzel heeft precies één oplossing, te vinden met redeneren alleen.
 # Een zet
-Een pad trekken of veranderen.
+Sleep vanaf een stip om zijn pad te trekken, of vanaf een vakje van een pad om daar verder te gaan. Over een ander pad gaan knipt het door.
 # Het einde van het spel
-Als alle paren verbonden zijn en er geen vakje leeg is, is de puzzel opgelost: er loopt een gouden licht langs elk pad.
+Als alle paren verbonden zijn en er geen vakje leeg is, is de puzzel opgelost.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken, van 5 × 5 tot 12 × 12, elk met één oplossing; kies er een in het levelrooster. Het tabblad met de dobbelsteen, na de hoofdstukken, maakt een willekeurige nieuwe puzzel, met de keuze die hierboven staat. Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een streek die een pad legt op een vak dat in de oplossing bij een andere kleur hoort; Ongedaan maken neemt hem niet terug.
-# Spelen op het apparaat
-- Sleep vanaf een stip: het pad begint daar opnieuw en volgt je vinger. Sleep vanaf een vakje van een pad om daar verder te gaan (de rest van dat pad verdwijnt).
-- Terug langs het pad gaan maakt het korter. Over een ander pad gaan knipt het door; het komt terug als je teruggaat voor je je vinger optilt. Een pad gaat nooit over een stip van een andere kleur.
-- Als een pad zijn andere stip bereikt, is het paar verbonden en klinken de stippen.
-- Alleen met tikken: tik op een stip of een vakje van een pad (het uiteinde wordt gemarkeerd) en dan op een vakje in dezelfde rij of kolom: het pad loopt er recht naartoe. Tik nog eens op het gemarkeerde uiteinde om het los te laten.
-- De lamp geeft een hint: hij legt het pad van een paar zoals in de oplossing, in gouden licht.
-De vakjes van een pad kleuren mee. Ongedaan maken neemt telkens één streek of hint terug, tot aan het begin. De balk toont je zetten.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een streek die een pad legt op een vak dat in de oplossing bij een andere kleur hoort; Ongedaan maken neemt hem niet terug.

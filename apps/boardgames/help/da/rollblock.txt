@@ -9,4 +9,4 @@ Klodsen vælter over en af sine kanter, op, ned, til venstre eller til højre: s
 # Spillets afslutning
 Står klodsen på hullet, synker den ned: løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler; fanen med terningen laver et nyt kort tilfældigt: let, mellem eller svær. Løst med færrest mulige træk: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.
+Løst med færrest mulige træk: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

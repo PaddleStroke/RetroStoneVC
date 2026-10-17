@@ -1,11 +1,10 @@
 Åtte dronninger
 # Målet
 Sett dronninger på et brett slik at ingen angriper en annen: aldri to på samme rad, linje eller diagonal. Hver rad får én dronning. De svarte dronningene står allerede fast og kan ikke flyttes. Noen brett har hull: utskårne ruter der ingen dronning kan stå; dronningenes linjer fortsetter tvers over dem.
+Hvert nivå har bare én løsning, som finnes ved å resonnere. De tilfeldige brettene har mange (92 på 8 × 8).
 # Et trekk
-Sett en dronning på en tom rute, eller ta bort en av dronningene dine.
+Trykk på en rute for å sette en dronning der, og trykk igjen for å ta den bort.
 # Slutten på spillet
 Oppgaven er løst når hver rad har sin dronning og ingen angriper en annen.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 10 × 10, hvert med bare én løsning, som finnes ved å resonnere; velg et på nivåskjermen. Fanen med terningen etter kapitlene starter et tilfeldig spill på et brett på 5 × 5, 6 × 6, 8 × 8 (den klassiske oppgaven) eller 10 × 10 med én svart dronning: disse brettene har mange løsninger (92 på 8 × 8); linjen teller de ulike løsningene du har funnet i denne økten, og et nytt spill starter med en dronning fra en løsning du ennå ikke har funnet. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en dronning som settes på en rute en annen dronning angriper; Angre sletter den ikke.
-# Spill på enheten
-Trykk på en rute for å sette en dronning der, og trykk igjen for å ta den bort. Rutene dronningene angriper, er skyggelagt; knappen med strålene slår skyggen av og på. Dronninger som angriper hverandre, lyser rødt. Lampen lyser opp en rute i gull der en dronning hører hjemme, eller ringer inn, når dronningene på brettet ikke lenger kan føre til en løsning, den som må bort. Angre tar tilbake ett trykk om gangen. Linjen viser trykkene dine og, i et tilfeldig spill, de funne løsningene av brettets alle.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en dronning som settes på en rute en annen dronning angriper; Angre sletter den ikke.

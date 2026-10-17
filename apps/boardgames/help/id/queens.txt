@@ -1,11 +1,10 @@
 Delapan ratu
 # Tujuan
 Letakkan ratu-ratu di papan sehingga tak satu pun menyerang yang lain: tidak pernah dua di baris, kolom, atau diagonal yang sama. Setiap baris mendapat satu ratu. Ratu-ratu hitam sudah terpasang dan tidak bisa dipindahkan. Beberapa papan punya lubang: petak yang dihilangkan, tempat ratu tidak boleh berdiri; garis serang para ratu tetap berlanjut melewatinya.
+Setiap level punya satu solusi saja, yang ditemukan hanya dengan bernalar. Papan acak punya banyak solusi (92 pada 8 × 8).
 # Satu langkah
-Taruh ratu di petak kosong, atau angkat salah satu ratumu.
+Ketuk petak untuk menaruh ratu, ketuk lagi untuk mengangkatnya.
 # Akhir permainan
 Teka-teki terpecahkan bila setiap baris punya ratunya dan tak satu pun menyerang yang lain.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 4 × 4 sampai 10 × 10, masing-masing dengan satu solusi saja, yang ditemukan hanya dengan bernalar; pilih satu di kisi level. Tab dadu setelah bab-bab itu memulai permainan acak di papan 5 × 5, 6 × 6, 8 × 8 (teka-teki klasik), atau 10 × 10 dengan satu ratu hitam: papan-papan ini punya banyak solusi (92 pada 8 × 8); bilah menghitung solusi berbeda yang kamu temukan di sesi ini, dan permainan baru dimulai dengan ratu dari solusi yang belum kamu temukan. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ratu yang ditaruh di petak yang diserang ratu lain; Urungkan tidak menghapusnya.
-# Bermain di perangkat
-Ketuk petak untuk menaruh ratu, ketuk lagi untuk mengangkatnya. Petak yang diserang para ratu diberi bayangan; tombol bergambar sinar mematikan dan menyalakan bayangan itu. Ratu yang saling menyerang menyala merah. Lampu menyalakan emas petak tempat seorang ratu seharusnya berada, atau, bila ratu di papan tidak bisa lagi menuju solusi, melingkari ratu yang harus diangkat. Urungkan membatalkan satu ketukan setiap kali. Bilah menunjukkan ketukanmu dan, dalam permainan acak, solusi yang ditemukan dari seluruh solusi papan.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ratu yang ditaruh di petak yang diserang ratu lain; Urungkan tidak menghapusnya.

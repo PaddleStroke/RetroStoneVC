@@ -1,11 +1,10 @@
 Otte dronninger
 # Målet
 Stil dronninger på et bræt, så ingen angriber en anden: aldrig to på samme række, linje eller diagonal. Hver række får én dronning. De sorte dronninger står allerede fast og kan ikke flyttes. Nogle brætter har huller: udskårne felter, hvor ingen dronning må stå; dronningernes linjer fortsætter hen over dem.
+Hver bane har kun én løsning, som findes ved at ræsonnere. De tilfældige brætter har mange (92 på 8 × 8).
 # Et træk
-Stil en dronning på et tomt felt, eller fjern en af dine dronninger.
+Tryk på et felt for at stille en dronning der, og tryk igen for at fjerne den.
 # Spillets afslutning
 Opgaven er løst, når hver række har sin dronning, og ingen angriber en anden.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 4 × 4 op til 10 × 10, hver med kun én løsning, som findes ved at ræsonnere; vælg en i baneoversigten. Fanen med terningen efter kapitlerne starter et tilfældigt spil på et bræt på 5 × 5, 6 × 6, 8 × 8 (den klassiske opgave) eller 10 × 10 med én sort dronning: disse brætter har mange løsninger (92 på 8 × 8); bjælken tæller de forskellige løsninger, du har fundet i denne session, og et nyt spil starter med en dronning fra en løsning, du endnu ikke har fundet. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en dronning, der stilles på et felt, som en anden dronning angriber; Fortryd sletter den ikke.
-# Spil på enheden
-Tryk på et felt for at stille en dronning der, og tryk igen for at fjerne den. De felter, dronningerne angriber, er skyggede; knappen med strålerne slår skyggen fra og til. Dronninger, der angriber hinanden, lyser rødt. Lampen lyser et felt op i guld, hvor en dronning hører hjemme, eller ringer, når dronningerne på brættet ikke længere kan føre til en løsning, den dronning ind, der skal væk. Fortryd tager ét tryk tilbage ad gangen. Bjælken viser dine tryk og, i et tilfældigt spil, de fundne løsninger ud af brættets alle.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en dronning, der stilles på et felt, som en anden dronning angriber; Fortryd sletter den ikke.

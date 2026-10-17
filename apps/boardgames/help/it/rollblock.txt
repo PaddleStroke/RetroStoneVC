@@ -9,4 +9,4 @@ Il blocco si ribalta su uno dei suoi spigoli, in su, in giù, a sinistra o a des
 # La fine della partita
 In piedi sul buco, il blocco sprofonda: risolto.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli; la scheda del dado crea una nuova mappa a caso: facile, medio o difficile. Risolto con il minimo di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.
+Risolto con il minimo di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

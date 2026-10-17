@@ -1,17 +1,10 @@
 Ścieżki
 # Cel gry
-Na siatce leżą pary kropek w tym samym kolorze. Połącz dwie kropki każdej pary ścieżką biegnącą od pola do pola: w górę, w dół, w lewo lub w prawo. Ścieżki nie mogą się krzyżować ani dzielić pól, a razem muszą wypełnić całą siatkę. Każda para ma też własny znak (kropkę, pierścień, kwadrat, gwiazdę...), więc żadnego koloru nie trzeba rozpoznawać samym okiem. Najpierw wybierz rozmiar: 5 × 5, 7 × 7, 9 × 9 lub 12 × 12.
+Na siatce leżą pary kropek w tym samym kolorze. Połącz dwie kropki każdej pary ścieżką biegnącą od pola do pola: w górę, w dół, w lewo lub w prawo. Ścieżki nie mogą się krzyżować ani dzielić pól, a razem muszą wypełnić całą siatkę.
 Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem.
 # Ruch
-Narysowanie lub zmiana jednej ścieżki.
+Przeciągnij od kropki, aby narysować jej ścieżkę, albo od pola ścieżki, aby ciągnąć ją dalej stamtąd. Przejście przez inną ścieżkę przecina ją.
 # Koniec gry
-Gdy wszystkie pary są połączone i żadne pole nie zostaje puste, łamigłówka jest rozwiązana: wzdłuż każdej ścieżki biegnie złote światło.
+Gdy wszystkie pary są połączone i żadne pole nie zostaje puste, łamigłówka jest rozwiązana.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 5 × 5 do 12 × 12, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to pociągnięcie, które kładzie ścieżkę na polu należącym w rozwiązaniu do innego koloru; liczy się od razu i Cofnij go nie usuwa.
-# Gra na urządzeniu
-- Przeciągnij od kropki: jej ścieżka zaczyna się od niej od nowa i podąża za palcem. Przeciągnij od pola ścieżki, aby ciągnąć ją dalej stamtąd (reszta tej ścieżki znika).
-- Cofanie się po ścieżce ją skraca. Przejście przez inną ścieżkę przecina ją; wraca, jeśli się wycofasz przed podniesieniem palca. Ścieżka nigdy nie przechodzi przez kropkę innego koloru.
-- Gdy ścieżka dotrze do swojej drugiej kropki, para jest połączona, a jej kropki dźwięczą.
-- Samymi dotknięciami: dotknij kropki lub pola ścieżki (jej koniec zostaje zaznaczony), a potem pola w tym samym wierszu lub kolumnie: ścieżka biegnie tam prosto. Dotknij zaznaczonego końca jeszcze raz, by go puścić.
-- Lampa daje podpowiedź: układa ścieżkę jednej pary jak w rozwiązaniu, w złotym świetle.
-Pola ścieżki barwią się jej kolorem. Cofnij cofa jedno pociągnięcie lub podpowiedź naraz, aż do początku. Pasek pokazuje twoje ruchy.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to pociągnięcie, które kładzie ścieżkę na polu należącym w rozwiązaniu do innego koloru; Cofnij go nie usuwa.

@@ -1,14 +1,9 @@
 Persegi Panjang
 # Tujuan
-Bagi kisi menjadi persegi panjang (persegi juga boleh) sehingga setiap kotak termasuk satu persegi panjang dan setiap persegi panjang berisi tepat satu bilangan: banyaknya kotak yang ditutupinya. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar. Pilih ukuran (7 × 7 sampai 16 × 16) dan tingkat (batu di bawah setiap gambar):
-- Mudah: kotak yang ditutupi oleh semua persegi panjang yang mungkin untuk sebuah bilangan pasti milik bilangan itu.
-- Sedang: kamu juga perlu kotak yang hanya bisa dijangkau satu bilangan, dan persegi panjang yang tidak akan menyisakan tempat bagi bilangan lain.
-- Sulit: persegi panjang yang akan membuat sebuah kotak tidak bisa ditutupi lagi, dan menelusuri sebuah persegi panjang sampai akhir untuk melihat ke mana arahnya.
+Bagi kisi menjadi persegi panjang (persegi juga boleh) sehingga setiap kotak termasuk satu persegi panjang dan setiap persegi panjang berisi tepat satu bilangan: banyaknya kotak yang ditutupinya. Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan bernalar.
 # Satu langkah
-Gambar sebuah persegi panjang, atau ambil satu. Persegi panjang baru menggantikan yang ditutupinya.
+Seret dari satu sudut ke sudut lainnya untuk meletakkan persegi panjang, atau ketuk kedua sudutnya. Persegi panjang baru menggantikan yang ditutupinya. Ketuk sebuah persegi panjang untuk mengambilnya.
 # Akhir permainan
-Teka-teki selesai saat persegi panjang menutupi kisi, masing-masing dengan satu bilangan yang sama dengan luasnya: gelombang cahaya emas menyapu papan.
+Teka-teki selesai saat persegi panjang menutupi kisi, masing-masing dengan satu bilangan yang sama dengan luasnya.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 sampai 14 × 14, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ubin salah yang kamu batalkan dengan Urungkan.
-# Bermain di perangkat
-Seret dari satu kotak ke kotak lain: persegi panjang dengan dua sudut itu ikut membesar, banyak kotaknya tampil di atas jarimu, dan diletakkan sebagai ubin kayu saat jari diangkat. Kamu juga bisa mengetuk satu kotak, lalu kotak lain (kotak yang sama dua kali: satu kotak saja). Ketuk sebuah ubin untuk mengambilnya. Ubin tanpa bilangan, dengan dua bilangan, atau dengan bilangan yang bukan luasnya tampak pucat. Tombol lampu memberi petunjuk: mengambil ubin yang salah, atau kalau tidak ada, meletakkan ubin benar yang termudah, dalam cahaya emas. Urungkan membatalkan satu tindakan setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah ubin salah yang kamu batalkan dengan Urungkan.

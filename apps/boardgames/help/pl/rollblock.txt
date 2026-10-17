@@ -9,4 +9,4 @@ Klocek przewraca się przez jedną ze swoich krawędzi, w górę, w dół, w lew
 # Koniec gry
 Gdy klocek stanie na dziurze, zapada się: rozwiązane.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach; zakładka z kostką tworzy nową mapę losowo: łatwą, średnią lub trudną. Rozwiązane najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.
+Rozwiązane najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

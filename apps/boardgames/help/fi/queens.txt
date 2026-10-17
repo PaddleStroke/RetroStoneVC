@@ -1,11 +1,10 @@
 Kahdeksan kuningatarta
 # Tavoite
 Aseta kuningattaria laudalle niin, ettei mikään uhkaa toista: ei koskaan kahta samalla rivillä, linjalla tai viistolla. Jokaiselle riville tulee yksi kuningatar. Mustat kuningattaret ovat jo paikallaan, eikä niitä voi siirtää. Joillakin laudoilla on reikiä: pois leikattuja ruutuja, joihin kuningatarta ei saa asettaa; kuningattarien linjat jatkuvat niiden yli.
+Jokaisessa tasossa on vain yksi ratkaisu, joka löytyy pelkällä päättelyllä. Satunnaisilla laudoilla niitä on monta (8 × 8 -laudalla 92).
 # Siirto
-Aseta kuningatar tyhjään ruutuun tai poista yksi kuningattaristasi.
+Napauta ruutua asettaaksesi siihen kuningattaren ja napauta uudestaan poistaaksesi sen.
 # Pelin loppu
 Pulma on ratkaistu, kun jokaisella rivillä on kuningattarensa eikä mikään uhkaa toista.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 10 × 10, ja jokaisessa on vain yksi ratkaisu, joka löytyy pelkällä päättelyllä; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen aloittaa satunnaisen pelin laudalla, jonka koko on 5 × 5, 6 × 6, 8 × 8 (klassinen pulma) tai 10 × 10 ja jolla on yksi musta kuningatar: näillä laudoilla on monta ratkaisua (8 × 8 -laudalla 92); palkki laskee eri ratkaisut, jotka olet löytänyt tällä kerralla, ja uusi peli alkaa kuningattaresta ratkaisussa, jota et ole vielä löytänyt. Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kuningatar, joka asetetaan toisen kuningattaren uhkaamaan ruutuun; Kumoa ei poista sitä.
-# Pelaaminen laitteella
-Napauta ruutua asettaaksesi siihen kuningattaren ja napauta uudestaan poistaaksesi sen. Kuningattarien uhkaamat ruudut on varjostettu; säteilevä painike kytkee varjon pois ja päälle. Toisiaan uhkaavat kuningattaret hehkuvat punaisina. Lamppu valaisee kultaisena ruudun, johon kuningatar kuuluu, tai, kun laudan kuningattaret eivät enää voi johtaa ratkaisuun, ympyröi poistettavan. Kumoa peruu yhden napautuksen kerrallaan. Palkki näyttää napautuksesi ja satunnaisessa pelissä löydetyt ratkaisut laudan kaikista.
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on kuningatar, joka asetetaan toisen kuningattaren uhkaamaan ruutuun; Kumoa ei poista sitä.

@@ -1,14 +1,9 @@
 Retângulos
 # O objetivo
-Divide a grelha em retângulos (os quadrados também contam) de modo que cada casa pertença a um retângulo e cada retângulo tenha um único número: o número de casas que cobre. Cada grelha tem uma única solução, que se encontra só a raciocinar. Escolhe o tamanho (de 7 × 7 a 16 × 16) e o nível (as peças sob cada imagem):
-- Fácil: as casas cobertas por todos os retângulos possíveis de um número são de certeza dele.
-- Médio: vais precisar também das casas que só um número alcança, e dos retângulos que não deixariam espaço a outro número.
-- Difícil: os retângulos que deixariam alguma casa sem maneira de ser coberta, e seguir um retângulo até ao fim para ver onde leva.
+Divide a grelha em retângulos (os quadrados também contam) de modo que cada casa pertença a um retângulo e cada retângulo tenha um único número: o número de casas que cobre. Cada grelha tem uma única solução, que se encontra só a raciocinar.
 # Uma jogada
-Desenha um retângulo ou tira um. Um retângulo novo substitui os que cobre.
+Arrasta de um canto até ao outro para pousar um retângulo, ou toca nos seus dois cantos. Um retângulo novo substitui os que cobre. Toca num retângulo para o tirar.
 # O fim do jogo
-A grelha está resolvida quando os retângulos a cobrem, cada um com um número igual à sua área: uma onda de luz dourada percorre o tabuleiro.
+A grelha está resolvida quando os retângulos a cobrem, cada um com um número igual à sua área.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 5 × 5 ao 14 × 14, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça errada que tiras com Anular.
-# Jogar no dispositivo
-Arrasta o dedo de uma casa até outra: o retângulo com esses dois cantos cresce contigo, com o número de casas por cima do dedo, e é pousado como uma peça de madeira quando levantas o dedo. Também podes tocar numa casa e depois noutra (duas vezes a mesma: uma só casa). Toca numa peça para a tirar. Uma peça sem número, com dois números ou com um número que não é a sua área fica pálida. O botão da lâmpada dá uma pista: tira uma peça errada ou, se não houver, pousa a certa mais fácil, numa luz dourada. Anular desfaz uma ação de cada vez, até ao início. A barra mostra as tuas jogadas.
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma peça errada que tiras com Anular.

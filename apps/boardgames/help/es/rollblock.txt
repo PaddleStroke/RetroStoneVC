@@ -9,4 +9,4 @@ El bloque vuelca sobre una de sus aristas, arriba, abajo, a la izquierda o a la 
 # El final de la partida
 De pie sobre el agujero, el bloque se hunde: resuelto.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos; la pestaña del dado crea un mapa nuevo al azar: fácil, medio o difícil. Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.
+Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

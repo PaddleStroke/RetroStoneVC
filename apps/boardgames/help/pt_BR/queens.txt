@@ -1,11 +1,10 @@
 Oito rainhas
 # O objetivo
 Coloque rainhas num tabuleiro sem que nenhuma ataque outra: nunca duas na mesma fileira, coluna ou diagonal. Cada fileira recebe uma rainha. As rainhas pretas já estão no lugar e não podem ser movidas. Alguns tabuleiros têm buracos: casas recortadas onde nenhuma rainha pode ficar; as linhas das rainhas continuam através delas.
+Cada nível tem uma única solução, encontrada só com raciocínio. Os tabuleiros ao acaso têm muitas (92 no 8 × 8).
 # Uma jogada
-Ponha uma rainha numa casa vazia, ou tire uma das suas rainhas.
+Toque numa casa para pôr uma rainha e toque de novo para tirá-la.
 # O fim da partida
 O problema está resolvido quando cada fileira tem sua rainha e nenhuma ataca outra.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 4 × 4 ao 10 × 10, cada um com uma única solução, encontrada só com raciocínio; escolha um na tela de níveis. A aba do dado, depois dos capítulos, começa uma partida ao acaso num tabuleiro de 5 × 5, 6 × 6, 8 × 8 (o problema clássico) ou 10 × 10 com uma rainha preta: esses tabuleiros têm muitas soluções (92 no 8 × 8); a barra conta as soluções diferentes que você encontrou nesta sessão, e uma nova partida começa com uma rainha de uma solução ainda não encontrada. Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma rainha posta numa casa atacada por outra rainha; Desfazer não o apaga.
-# Jogando no aparelho
-Toque numa casa para pôr uma rainha e toque de novo para tirá-la. As casas atacadas pelas rainhas ficam sombreadas; o botão com os raios tira ou põe a sombra. As rainhas que se atacam brilham em vermelho. A lâmpada acende em dourado uma casa onde cabe uma rainha ou, quando as rainhas no tabuleiro já não podem levar a uma solução, circula a que deve sair. Desfazer volta um toque de cada vez. A barra mostra seus toques e, numa partida ao acaso, as soluções encontradas do total do tabuleiro.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma rainha posta numa casa atacada por outra rainha; Desfazer não o apaga.

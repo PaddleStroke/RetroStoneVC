@@ -1,15 +1,11 @@
 Putket
 # Tavoite
-Jokaisessa laatassa on pala messinkiputkea: pääte, suora, mutka tai T-haara. Käännä laattoja niin, että kaikki putket muodostavat yhden verkon, jota keskellä oleva säiliö syöttää, eikä yksikään putki jää auki: mikään putki ei osoita laattaan, joka ei kohtaa sitä, eikä mikään vie laudan reunaan. Silloin vesi täyttää jokaisen laatan. Valitse ensin koko: 5 × 5, 7 × 7, 9 × 9, 11 × 11 tai reunaton 9 × 9 (messinkiset ikkunat kehyksen ympärillä): siinä toisesta reunasta lähtevä putki tulee takaisin vastakkaisesta.
+Jokaisessa laatassa on pala messinkiputkea: pääte, suora, mutka tai T-haara. Käännä laattoja niin, että kaikki putket muodostavat yhden verkon, jota keskellä oleva säiliö syöttää, eikä yksikään putki jää auki: mikään putki ei osoita laattaan, joka ei kohtaa sitä, eikä mikään vie laudan reunaan.
+Reunattomalla laudalla (messinkiset ikkunat kehyksen ympärillä) toisesta reunasta lähtevä putki tulee takaisin vastakkaisesta.
 Jokainen tehtävä ratkeaa pelkällä päättelyllä, ja siinä on vain yksi ratkaisu.
 # Siirto
-Laatan kääntäminen neljänneskierros myötäpäivään.
+Napauta laattaa kääntääksesi sitä neljänneskierroksen myötäpäivään.
 # Pelin loppu
-Kun kaikki laatat ovat yhteydessä eikä mikään putki ole auki, vesi ulottuu jokaiseen laattaan ja kultainen valo lähtee säiliöstä.
+Kun kaikki laatat ovat yhteydessä eikä mikään putki ole auki, vesi ulottuu jokaiseen laattaan.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa, koosta 4 × 4 kokoon 11 × 11 ja reunattomiin lautoihin, ja jokaisessa on vain yksi ratkaisu; valitse taso tasoruudukosta. Noppavälilehti lukujen jälkeen tekee uuden tehtävän sattumanvaraisesti, yllä kuvatulla valinnalla. Jokaisella tehtävällä on par eli pienin määrä neljänneskierroksia, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen. Kumoa peruu siirron, eikä sitä enää lasketa.
-# Pelaaminen laitteella
-- Napauta laattaa kääntääksesi sitä neljänneskierroksen.
-- Vesi virtaa säiliöstä jokaiseen siihen liittyvään putkeen. Kun se saavuttaa avoimen putken, se valuu yli: katso pisaroita.
-- Lamppu antaa vihjeen: se kääntää yhden väärän laatan oikein (veden vierestä, jos voi) kultaisessa valossa.
-Kumoa peruu yhden käännön tai vihjeen kerrallaan aina alkuun asti. Palkki näyttää siirtosi.
+Jokaisella tehtävällä on par eli pienin määrä neljänneskierroksia, joilla sen ratkaisee. Ratkaistu parilla: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1. Vihje rajaa tehtävän 2 tähteen ja useampi kuin kaksi vihjettä 1 tähteen.

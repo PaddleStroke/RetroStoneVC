@@ -1,15 +1,11 @@
 Canos
 # O objetivo
-Cada peça tem um pedaço de cano de latão: uma ponta, um troço reto, uma curva ou um T. Roda as peças para que todos os canos formem uma só rede alimentada pelo depósito do meio, sem nenhum cano aberto: nenhum virado para uma peça que não o recebe, nenhum contra a borda do tabuleiro. A água enche então todas as peças. Escolhe primeiro o tamanho: 5 × 5, 7 × 7, 9 × 9, 11 × 11 ou 9 × 9 sem bordas (vigias de latão na moldura): aí um cano que sai por um lado volta a entrar pelo lado oposto.
+Cada peça tem um pedaço de cano de latão: uma ponta, um troço reto, uma curva ou um T. Roda as peças para que todos os canos formem uma só rede alimentada pelo depósito do meio, sem nenhum cano aberto: nenhum virado para uma peça que não o recebe, nenhum contra a borda do tabuleiro.
+Num tabuleiro sem bordas (vigias de latão à volta da moldura), um cano que sai por um lado volta a entrar pelo lado oposto.
 Cada quebra-cabeças resolve-se só pelo raciocínio e tem uma única solução.
 # Uma jogada
-Rodar uma peça um quarto de volta no sentido dos ponteiros do relógio.
+Toca numa peça para a rodar um quarto de volta no sentido dos ponteiros do relógio.
 # O fim do jogo
-Quando todas as peças estão ligadas e nenhum cano está aberto, a água chega a cada peça e uma luz dourada parte do depósito.
+Quando todas as peças estão ligadas e nenhum cano está aberto, a água chega a cada peça.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos, do 4 × 4 ao 11 × 11 e aos tabuleiros sem bordas, cada um com uma única solução; escolhe um no ecrã de níveis. O separador do dado, depois dos capítulos, cria um novo quebra-cabeças ao acaso, com a escolha descrita acima. Cada quebra-cabeças tem um par: o mínimo de quartos de volta que o resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1. Anular desfaz uma jogada, que deixa de contar.
-# Jogar no dispositivo
-- Toca numa peça para a rodar um quarto de volta.
-- A água corre do depósito por todos os canos ligados a ele. Onde chega a um cano aberto, transborda: procura as gotas.
-- A lâmpada dá uma pista: roda bem uma peça errada (junto à água quando pode), com luz dourada.
-Anular desfaz uma rotação ou uma pista de cada vez, até ao início. A barra mostra as tuas jogadas.
+Cada quebra-cabeças tem um par: o mínimo de quartos de volta que o resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1.

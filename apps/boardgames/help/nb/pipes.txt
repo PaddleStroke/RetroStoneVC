@@ -1,15 +1,11 @@
 Rør
 # Målet
-Hver brikke har et stykke messingrør: en ende, et rett stykke, en bøy eller et T-stykke. Drei brikkene slik at alle rørene danner ett nett som mates av tanken i midten, uten åpne rør: ingen rør vender mot en brikke som ikke møter det, ingen går ut mot kanten. Da fyller vannet hver brikke. Velg først størrelsen: 5 × 5, 7 × 7, 9 × 9, 11 × 11 eller 9 × 9 uten kanter (kuøyer av messing rundt rammen): der kommer et rør som går ut på én side, inn igjen på motsatt side.
+Hver brikke har et stykke messingrør: en ende, et rett stykke, en bøy eller et T-stykke. Drei brikkene slik at alle rørene danner ett nett som mates av tanken i midten, uten åpne rør: ingen rør vender mot en brikke som ikke møter det, ingen går ut mot kanten.
+På et brett uten kanter (kuøyer av messing rundt rammen) kommer et rør som går ut på én side, inn igjen på motsatt side.
 Hver oppgave kan løses med ren tankekraft og har bare én løsning.
 # Et trekk
-Drei en brikke en kvart omdreining med klokken.
+Trykk på en brikke for å dreie den en kvart omdreining med klokken.
 # Slutten på spillet
-Når alle brikkene henger sammen og ingen rør er åpne, når vannet hver brikke, og et gyllent lys går ut fra tanken.
+Når alle brikkene henger sammen og ingen rør er åpne, når vannet hver brikke.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 4 × 4 opp til 11 × 11 og brett uten kanter, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Hver oppgave har en par: færrest kvarte omdreininger som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1. Angre tar tilbake et trekk, og det teller ikke lenger.
-# Spill på enheten
-- Trykk på en brikke for å dreie den en kvart omdreining.
-- Vannet renner fra tanken gjennom alle rør som er koblet til den. Der det når et åpent rør, renner det over: se etter dråpene.
-- Lampen gir et hint: den dreier en feil brikke riktig (ved siden av vannet når den kan), i gyllent lys.
-Angre tar tilbake én dreiing eller ett hint om gangen, helt til starten. Linjen viser trekkene dine.
+Hver oppgave har en par: færrest kvarte omdreininger som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1.

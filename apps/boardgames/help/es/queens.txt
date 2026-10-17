@@ -1,11 +1,10 @@
 Ocho reinas
 # El objetivo
 Coloca reinas en un tablero sin que ninguna ataque a otra: nunca dos en la misma fila, columna o diagonal. Cada fila lleva una reina. Las reinas negras ya están colocadas y no se pueden mover. Algunos tableros tienen huecos: casillas recortadas donde no puede ir ninguna reina; las líneas de las reinas siguen a través de ellas.
+Cada nivel tiene una sola solución, que se encuentra razonando. Los tableros al azar tienen muchas (92 en el 8 × 8).
 # Una jugada
-Pon una reina en una casilla vacía, o quita una de tus reinas.
+Toca una casilla para poner una reina y tócala otra vez para quitarla.
 # El final de la partida
 El problema está resuelto cuando cada fila tiene su reina y ninguna ataca a otra.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 4 × 4 al 10 × 10, cada uno con una sola solución, que se encuentra razonando; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, empieza una partida al azar en un tablero de 5 × 5, 6 × 6, 8 × 8 (el problema clásico) o 10 × 10 con una reina negra: estos tableros tienen muchas soluciones (92 en el 8 × 8); la barra cuenta las distintas soluciones que has encontrado en esta sesión, y una partida nueva empieza con una reina de una solución que aún no has encontrado. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una reina puesta en una casilla atacada por otra reina; Deshacer no lo quita.
-# Jugar en el dispositivo
-Toca una casilla para poner una reina y tócala otra vez para quitarla. Las casillas que atacan las reinas aparecen sombreadas; el botón de los rayos quita o pone la sombra. Las reinas que se atacan brillan en rojo. La lámpara ilumina en dorado una casilla donde va una reina o, cuando las reinas del tablero ya no pueden llevar a una solución, rodea la que hay que quitar. Deshacer anula un toque cada vez. La barra muestra tus toques y, en una partida al azar, las soluciones encontradas del total del tablero.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una reina puesta en una casilla atacada por otra reina; Deshacer no lo quita.

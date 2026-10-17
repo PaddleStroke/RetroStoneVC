@@ -1,16 +1,9 @@
 Solitär
 # Målet
-Kulor står i hålen på ett bräde. Låt dem hoppa över varandra tills bara en är kvar, i målhålet: hålet med en mässingsring. Brädena:
-- Engelskt: korset med 33 hål.
-- Franskt: 37 hål, korset och fyra till.
-- Romb: 41 hål.
-- Wieglebs: det breda korset med 45 hål.
-- Trianglar: 15 hål, och den stora med 21.
+Kulor står i hålen på ett bräde. Låt dem hoppa över varandra tills bara en är kvar, i målhålet: hålet med en mässingsring.
 # Ett drag
 En kula hoppar i rak linje över en grannkula ner i det tomma hålet precis bakom. Kulan som hoppades över tas bort från brädet. På korsen och romben hoppar man vågrätt och lodrätt, aldrig snett; på trianglarna längs deras tre riktningar.
 # Partiets slut
-Bara en kula kvar: löst, och i gyllene ljus om den ligger i målhålet. När inga hopp finns kvar och flera kulor återstår lyser de röda: ångra och pröva en annan väg.
+Bara en kula kvar: löst. När inga hopp finns kvar och flera kulor återstår lyser de röda: ångra och pröva en annan väg.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel, från 3 kulor upp till de fulla klassiska brädena (alla hål fyllda utom ett), som avslutar sina kapitel; varje bana kan sluta med en kula i sitt målhål. Välj en i banöversikten. Fliken med tärningen efter kapitlen lägger upp en ställning på slump på det bräde du väljer, en som kan sluta i målhålet. En kula i målhålet och ingen ledtråd: 3 stjärnor; en stjärna mindre om den sista kulan hamnar någon annanstans, och en stjärna mindre om du använder ledtråden (alltid minst 1). Varje hopp tar bort en kula, så varje parti ner till en kula kräver lika många hopp: det som räknas är var den sista hamnar.
-# Spela på enheten
-Tryck på en kula: prickar visar vart den kan hoppa. Tryck på en prick eller dra kulan dit. Du kan också trycka på ett tomt hål som bara en kula kan nå. Kulorna som tas bort rullar ner i rännan runt brädet. Lampan ger en ledtråd: hoppet du ska göra lyser upp, i guld så länge det leder till en kula i målhålet; när ingen väg till en kula finns kvar lyser kulorna röda. Ångra tar tillbaka ett hopp, ända till början. Listen visar kulorna som är kvar.
+En kula i målhålet och ingen ledtråd: 3 stjärnor; en stjärna mindre om den sista kulan hamnar någon annanstans, och en stjärna mindre om du använder ledtråden (alltid minst 1).

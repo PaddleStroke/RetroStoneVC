@@ -1,15 +1,11 @@
 Trubky
 # Cíl hry
-Na každé destičce je kus mosazné trubky: konec, rovný kus, koleno nebo odbočka T. Otáčej destičkami tak, aby všechny trubky tvořily jedinou síť napájenou nádrží uprostřed a žádná trubka nezůstala otevřená: žádná nesmí mířit na destičku, která na ni nenavazuje, ani na okraj desky. Pak voda naplní každou destičku. Nejdřív si vyber velikost: 5 × 5, 7 × 7, 9 × 9, 11 × 11 nebo 9 × 9 bez okrajů (mosazná okénka kolem rámu): tam se trubka, která vyjde jedním okrajem, vrátí protějším.
+Na každé destičce je kus mosazné trubky: konec, rovný kus, koleno nebo odbočka T. Otáčej destičkami tak, aby všechny trubky tvořily jedinou síť napájenou nádrží uprostřed a žádná trubka nezůstala otevřená: žádná nesmí mířit na destičku, která na ni nenavazuje, ani na okraj desky.
+Na desce bez okrajů (mosazná okénka kolem rámu) se trubka, která vyjde jedním okrajem, vrátí protějším.
 Každý hlavolam jde vyřešit pouhou úvahou a má jediné řešení.
 # Tah
-Otočit jednu destičku o čtvrt otáčky po směru hodinových ručiček.
+Klepnutím otočíš destičku o čtvrt otáčky po směru hodinových ručiček.
 # Konec hry
-Když jsou všechny destičky spojené a žádná trubka není otevřená, voda doteče do každé destičky a od nádrže se rozběhne zlaté světlo.
+Když jsou všechny destičky spojené a žádná trubka není otevřená, voda doteče do každé destičky.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 4 × 4 po 11 × 11 a desky bez okrajů, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Každý hlavolam má par: nejmenší počet čtvrtotáček, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1. Vrátit vezme tah zpět a ten se už nepočítá.
-# Hra na zařízení
-- Klepnutím otočíš destičku o čtvrt otáčky.
-- Voda teče z nádrže do všech trubek, které na ni navazují. Kde dorazí k otevřené trubce, přetéká: hledej kapky.
-- Lampa dává nápovědu: otočí jednu špatnou destičku správně (vedle vody, když to jde), ve zlatém světle.
-Vrátit bere zpět jedno otočení nebo nápovědu najednou, až na začátek. Lišta ukazuje tvé tahy.
+Každý hlavolam má par: nejmenší počet čtvrtotáček, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1.

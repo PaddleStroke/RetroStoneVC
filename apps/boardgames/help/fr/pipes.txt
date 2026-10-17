@@ -1,15 +1,11 @@
 Tuyaux
 # Le but
-Chaque tuile porte un bout de tuyau en laiton : un bout fermé, un droit, un coude ou un té. Tourne les tuiles pour que tous les tuyaux forment un seul réseau alimenté par le réservoir du milieu, sans aucun tuyau ouvert : aucun tuyau face à une tuile qui ne le rejoint pas, aucun contre le bord du plateau. L'eau remplit alors toutes les tuiles. Choisis d'abord la taille : 5 × 5, 7 × 7, 9 × 9, 11 × 11, ou 9 × 9 sans bords (des hublots de laiton autour du cadre) : un tuyau qui sort d'un côté revient par le côté opposé.
+Chaque tuile porte un bout de tuyau en laiton : un bout fermé, un droit, un coude ou un té. Tourne les tuiles pour que tous les tuyaux forment un seul réseau alimenté par le réservoir du milieu, sans aucun tuyau ouvert : aucun tuyau face à une tuile qui ne le rejoint pas, aucun contre le bord du plateau.
+Sur un plateau sans bords (des hublots de laiton autour du cadre), un tuyau qui sort d'un côté revient par le côté opposé.
 Chaque grille se résout par le raisonnement seul et n'a qu'une solution.
 # Un coup
-Tourner une tuile d'un quart de tour dans le sens des aiguilles d'une montre.
+Touche une tuile pour la tourner d'un quart de tour dans le sens des aiguilles d'une montre.
 # La fin de la partie
-Quand toutes les tuiles sont reliées et qu'aucun tuyau n'est ouvert, l'eau atteint chaque tuile et une lumière dorée part du réservoir.
+Quand toutes les tuiles sont reliées et qu'aucun tuyau n'est ouvert, l'eau atteint chaque tuile.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 11 × 11 et aux plateaux sans bords, chacun avec une seule solution ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, crée un nouveau casse-tête au hasard, avec le choix décrit plus haut. Chaque casse-tête a un par : le moins de quarts de tour qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un indice limite le casse-tête à 2 étoiles, plus de deux indices à 1. Annuler reprend un coup, qui ne compte plus.
-# Jouer sur l'appareil
-- Touche une tuile pour la tourner d'un quart de tour.
-- L'eau coule du réservoir dans tous les tuyaux qui y sont reliés. Là où elle atteint un tuyau ouvert, elle déborde : cherche les gouttes.
-- La lampe donne un indice : elle remet une tuile fausse dans le bon sens (à côté de l'eau si possible), dans une lumière dorée.
-Annuler reprend un quart de tour ou un indice à la fois, jusqu'au début. La barre montre tes coups.
+Chaque casse-tête a un par : le moins de quarts de tour qui le résolvent. Résolu au par : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1. Un indice limite le casse-tête à 2 étoiles, plus de deux indices à 1.

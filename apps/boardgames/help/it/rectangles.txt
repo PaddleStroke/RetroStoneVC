@@ -1,14 +1,9 @@
 Rettangoli
 # Lo scopo
-Dividi la griglia in rettangoli (valgono anche i quadrati) in modo che ogni casella appartenga a un rettangolo e ogni rettangolo contenga un solo numero: il numero di caselle che copre. Ogni schema ha una sola soluzione, che si trova solo ragionando. Scegli la misura (da 7 × 7 a 16 × 16) e il livello (le pedine sotto ogni immagine):
-- Facile: le caselle coperte da tutti i rettangoli possibili di un numero sono di sicuro sue.
-- Medio: serviranno anche le caselle che un solo numero può raggiungere, e i rettangoli che non lascerebbero spazio a un altro numero.
-- Difficile: i rettangoli che lascerebbero una casella impossibile da coprire, e seguire un rettangolo fino in fondo per vedere dove porta.
+Dividi la griglia in rettangoli (valgono anche i quadrati) in modo che ogni casella appartenga a un rettangolo e ogni rettangolo contenga un solo numero: il numero di caselle che copre. Ogni schema ha una sola soluzione, che si trova solo ragionando.
 # Una mossa
-Disegna un rettangolo o togline uno. Un rettangolo nuovo sostituisce quelli che copre.
+Trascina il dito da un angolo all'altro per posare un rettangolo, oppure tocca i suoi due angoli. Un rettangolo nuovo sostituisce quelli che copre. Tocca un rettangolo per toglierlo.
 # La fine della partita
-Lo schema è risolto quando i rettangoli coprono la griglia, ciascuno con un numero uguale alla sua area: un'onda di luce dorata attraversa il tavoliere.
+Lo schema è risolto quando i rettangoli coprono la griglia, ciascuno con un numero uguale alla sua area.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dal 5 × 5 al 14 × 14, ognuno con una sola soluzione; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, crea un nuovo rompicapo a caso, con la scelta descritta sopra. Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una tessera sbagliata che togli con Annulla.
-# Giocare sul dispositivo
-Trascina il dito da una casella a un'altra: il rettangolo con questi due angoli cresce mentre ti muovi, con il numero delle sue caselle sopra il dito, e viene posato come una tessera di legno quando sollevi il dito. Puoi anche toccare una casella, poi un'altra (due volte la stessa: una casella sola). Tocca una tessera per toglierla. Una tessera senza numero, con due numeri, o con un numero che non è la sua area, è pallida. Il pulsante della lampada dà un suggerimento: toglie una tessera sbagliata, altrimenti posa la più facile di quelle giuste, in una luce dorata. Annulla toglie un'azione alla volta, fino all'inizio. La barra mostra le tue mosse.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è una tessera sbagliata che togli con Annulla.

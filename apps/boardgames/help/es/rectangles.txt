@@ -1,14 +1,9 @@
 Rectángulos
 # El objetivo
-Divide la cuadrícula en rectángulos (los cuadrados también valen) para que cada casilla pertenezca a un rectángulo y cada rectángulo tenga un solo número: el número de casillas que cubre. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando. Elige el tamaño (de 7 × 7 a 16 × 16) y el nivel (las fichas bajo cada imagen):
-- Fácil: las casillas que cubren todos los rectángulos posibles de un número son seguro suyas.
-- Medio: también necesitarás las casillas a las que solo llega un número, y los rectángulos que dejarían sin sitio a otro número.
-- Difícil: los rectángulos que dejarían alguna casilla sin forma de cubrirse, y seguir un rectángulo hasta el final para ver adónde lleva.
+Divide la cuadrícula en rectángulos (los cuadrados también valen) para que cada casilla pertenezca a un rectángulo y cada rectángulo tenga un solo número: el número de casillas que cubre. Cada cuadrícula tiene una sola solución, que se encuentra solo razonando.
 # Una jugada
-Dibuja un rectángulo o quita uno. Un rectángulo nuevo sustituye a los que cubre.
+Arrastra de una esquina a la otra para colocar un rectángulo, o toca sus dos esquinas. Un rectángulo nuevo sustituye a los que cubre. Toca un rectángulo para quitarlo.
 # El final de la partida
-La cuadrícula está resuelta cuando los rectángulos la cubren, cada uno con un número igual a su área: una ola de luz dorada recorre el tablero.
+La cuadrícula está resuelta cuando los rectángulos la cubren, cada uno con un número igual a su área.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del 5 × 5 al 14 × 14, cada uno con una sola solución; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, crea un rompecabezas nuevo al azar, con la elección descrita arriba. Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una pieza equivocada que quitas con Deshacer.
-# Jugar en el dispositivo
-Arrastra de una casilla a otra: el rectángulo con esas dos esquinas crece contigo, con su número de casillas encima del dedo, y se coloca como una pieza de madera al levantar el dedo. También puedes tocar una casilla y luego otra (dos veces la misma: una sola casilla). Toca una pieza para quitarla. Una pieza sin número, con dos números o con un número que no es su área se ve pálida. El botón de la lámpara da una pista: quita una pieza equivocada o, si no, coloca la correcta más fácil, con luz dorada. Deshacer quita una acción cada vez, hasta el principio. La barra muestra tus jugadas.
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una pieza equivocada que quitas con Deshacer.

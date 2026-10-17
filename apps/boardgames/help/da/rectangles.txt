@@ -1,14 +1,9 @@
 Rektangler
 # Målet
-Del gitteret op i rektangler (kvadrater tæller også), så hvert felt hører til ét rektangel og hvert rektangel indeholder præcis ét tal: antallet af felter, det dækker. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft. Vælg størrelse (7 × 7 til 16 × 16) og niveau (stenene under hvert billede):
-- Let: de felter, som alle mulige rektangler for et tal dækker, hører helt sikkert til det tal.
-- Mellem: du får også brug for felter, som kun ét tal kan nå, og rektangler, der ikke ville give plads til et andet tal.
-- Svær: rektangler, der ville efterlade et felt uden mulighed for at blive dækket, og at følge et rektangel til ende for at se, hvor det fører hen.
+Del gitteret op i rektangler (kvadrater tæller også), så hvert felt hører til ét rektangel og hvert rektangel indeholder præcis ét tal: antallet af felter, det dækker. Hver opgave har præcis én løsning, som kan findes ved ren tankekraft.
 # Et træk
-Tegn et rektangel, eller fjern et. Et nyt rektangel erstatter dem, det dækker.
+Træk fra det ene hjørne til det andet for at lægge et rektangel, eller tryk på dets to hjørner. Et nyt rektangel erstatter dem, det dækker. Tryk på et rektangel for at fjerne det.
 # Spillets afslutning
-Opgaven er løst, når rektanglerne dækker gitteret, hvert med ét tal lig med dets areal: en bølge af gyldent lys løber over brættet.
+Opgaven er løst, når rektanglerne dækker gitteret, hvert med ét tal lig med dets areal.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 5 × 5 op til 14 × 14, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert brik, som du tager tilbage med Fortryd.
-# Spil på enheden
-Træk fra et felt til et andet: rektanglet med de to hjørner vokser med, med antallet af felter over fingeren, og lægges som en træbrik, når du løfter fingeren. Du kan også trykke på et felt og så på et andet (det samme felt to gange: et enkelt felt). Tryk på en brik for at fjerne den. En brik uden tal, med to tal eller med et tal, der ikke er dens areal, er bleg. Lampeknappen giver et tip: den fjerner en forkert brik eller lægger ellers den letteste rigtige, i gyldent lys. Fortryd tager én handling tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert brik, som du tager tilbage med Fortryd.

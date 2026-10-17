@@ -1,16 +1,9 @@
 Solitär
 # Das Ziel
-Murmeln stecken in den Löchern eines Bretts. Lass sie übereinander springen, bis nur noch eine übrig ist, im Zielloch: dem mit dem Messingring. Die Bretter:
-- Englisch: das Kreuz aus 33 Löchern.
-- Französisch: 37 Löcher, das Kreuz und vier mehr.
-- Raute: 41 Löcher.
-- Wiegleb: das breite Kreuz aus 45 Löchern.
-- Dreiecke: 15 Löcher, und das große mit 21.
+Murmeln stecken in den Löchern eines Bretts. Lass sie übereinander springen, bis nur noch eine übrig ist, im Zielloch: dem mit dem Messingring.
 # Ein Zug
 Eine Murmel springt in gerader Linie über eine benachbarte Murmel in das leere Loch direkt dahinter. Die übersprungene Murmel wird vom Brett genommen. Auf den Kreuzen und der Raute springt man waagerecht und senkrecht, nie schräg; auf den Dreiecken entlang ihrer drei Richtungen.
 # Das Ende der Partie
-Eine einzige Murmel übrig: gelöst, in goldenem Licht, wenn sie im Zielloch liegt. Ist kein Sprung mehr möglich und bleiben mehrere Murmeln übrig, leuchten sie rot: Nimm Züge zurück und versuche einen anderen Weg.
+Eine einzige Murmel übrig: gelöst. Ist kein Sprung mehr möglich und bleiben mehrere Murmeln übrig, leuchten sie rot: Nimm Züge zurück und versuche einen anderen Weg.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 3 Murmeln bis zu den vollen klassischen Brettern (alle Löcher besetzt bis auf eines), die ihre Kapitel abschließen; jedes Level kann mit einer Murmel in seinem Ziel enden. Wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln legt eine zufällige Stellung auf dem Brett aus, das du wählst, eine, die in ihrem Ziel enden kann. Eine Murmel im Ziel und kein Tipp: 3 Sterne; einen Stern weniger, wenn die letzte Murmel woanders liegt, und einen Stern weniger, wenn du den Tipp benutzt (immer mindestens 1). Jeder Sprung nimmt eine Murmel weg, also braucht jede Partie bis zu einer Murmel gleich viele Sprünge: Es zählt, wo die letzte landet.
-# Spielen auf dem Gerät
-Tippe eine Murmel an: Punkte zeigen, wohin sie springen kann. Tippe einen Punkt an oder ziehe die Murmel dorthin. Du kannst auch ein leeres Loch antippen, das nur eine einzige Murmel erreichen kann. Die genommenen Murmeln rollen in die Rinne rund um das Brett. Die Lampe gibt einen Tipp: Der Sprung, den du machen solltest, leuchtet auf, golden, solange er zu einer Murmel im Ziel führt; gibt es keinen Weg mehr zu einer einzigen Murmel, leuchten die Murmeln rot. Rückgängig nimmt einen Sprung zurück, bis zum Anfang. Die Leiste zeigt die übrigen Murmeln.
+Eine Murmel im Ziel und kein Tipp: 3 Sterne; einen Stern weniger, wenn die letzte Murmel woanders liegt, und einen Stern weniger, wenn du den Tipp benutzt (immer mindestens 1).

@@ -1,16 +1,9 @@
 Solitaire
 # Målet
-Kugler står i et bræts huller. Lad dem springe over hinanden, til der kun er én tilbage, i målhullet: hullet med en messingring. Brætterne:
-- Engelsk: korset med 33 huller.
-- Fransk: 37 huller, korset og fire mere.
-- Rombe: 41 huller.
-- Wieglebs: det brede kors med 45 huller.
-- Trekanter: 15 huller, og den store med 21.
+Kugler står i et bræts huller. Lad dem springe over hinanden, til der kun er én tilbage, i målhullet: hullet med en messingring.
 # Et træk
 En kugle springer i lige linje over en nabokugle og ned i det tomme hul lige bagved. Kuglen, der blev sprunget over, tages af brættet. På korsene og romben springer man vandret og lodret, aldrig på skrå; på trekanterne langs deres tre retninger.
 # Spillets afslutning
-Én kugle tilbage: løst, og i gyldent lys, hvis den ligger i målhullet. Er der ingen spring tilbage, mens der stadig er flere kugler, lyser de rødt: fortryd og prøv en anden vej.
+Én kugle tilbage: løst. Er der ingen spring tilbage, mens der stadig er flere kugler, lyser de rødt: fortryd og prøv en anden vej.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 3 kugler op til de fulde klassiske brætter (alle huller fyldt undtagen ét), som afslutter deres kapitler; hver bane kan ende med én kugle i sit målhul. Vælg en i baneoversigten. Fanen med terningen efter kapitlerne stiller en tilfældig stilling op på det bræt, du vælger, en der kan ende i målhullet. Én kugle i målhullet og intet tip: 3 stjerner; én stjerne mindre, hvis den sidste kugle ender et andet sted, og én stjerne mindre for at bruge tippet (altid mindst 1). Hvert spring fjerner én kugle, så ethvert spil ned til én kugle tager lige mange spring: det, der tæller, er, hvor den sidste ender.
-# Spil på enheden
-Tryk på en kugle: prikker viser, hvor den kan springe hen. Tryk på en prik, eller træk kuglen derhen. Du kan også trykke på et tomt hul, som kun én kugle kan nå. De fjernede kugler triller ned i rillen rundt om brættet. Lampen giver et tip: det spring, der skal laves, lyser op, i guld så længe det fører til én kugle i målhullet; er der ingen vej til én kugle tilbage, lyser kuglerne rødt. Fortryd tager ét spring tilbage, helt til starten. Bjælken viser de resterende kugler.
+Én kugle i målhullet og intet tip: 3 stjerner; én stjerne mindre, hvis den sidste kugle ender et andet sted, og én stjerne mindre for at bruge tippet (altid mindst 1).

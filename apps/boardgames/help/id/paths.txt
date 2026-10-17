@@ -1,17 +1,10 @@
 Jalur
 # Tujuan
-Di kisi ada pasangan titik yang berwarna sama. Hubungkan kedua titik setiap pasangan dengan jalur yang berpindah dari kotak ke kotak: ke atas, ke bawah, ke kiri, atau ke kanan. Jalur tidak boleh bersilangan atau berbagi kotak, dan bersama-sama harus memenuhi seluruh kisi. Setiap pasangan juga punya tanda sendiri (titik, cincin, persegi, bintang...), jadi tak ada warna yang harus dikenali dengan mata saja. Pilih dulu ukurannya: 5 × 5, 7 × 7, 9 × 9, atau 12 × 12.
+Di kisi ada pasangan titik yang berwarna sama. Hubungkan kedua titik setiap pasangan dengan jalur yang berpindah dari kotak ke kotak: ke atas, ke bawah, ke kiri, atau ke kanan. Jalur tidak boleh bersilangan atau berbagi kotak, dan bersama-sama harus memenuhi seluruh kisi.
 Setiap teka-teki punya tepat satu jawaban, yang bisa ditemukan hanya dengan penalaran.
 # Satu langkah
-Menggambar atau mengubah satu jalur.
+Seret dari sebuah titik untuk menggambar jalurnya, atau dari kotak sebuah jalur untuk melanjutkan dari sana. Melewati jalur lain akan memotongnya.
 # Akhir permainan
-Saat semua pasangan terhubung dan tak ada kotak yang kosong, teka-teki selesai: cahaya emas berlari di sepanjang setiap jalur.
+Saat semua pasangan terhubung dan tak ada kotak yang kosong, teka-teki selesai.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 5 × 5 sampai 12 × 12, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah goresan yang meletakkan jalur di kotak yang dalam jawaban milik warna lain; Urungkan tidak menghapusnya.
-# Bermain di perangkat
-- Seret dari sebuah titik: jalurnya dimulai lagi dari situ dan mengikuti jarimu. Seret dari kotak sebuah jalur untuk melanjutkan dari sana (sisa jalur itu hilang).
-- Kembali menyusuri jalur akan memendekkannya. Melewati jalur lain akan memotongnya; jalur itu kembali bila kamu mundur sebelum mengangkat jari. Jalur tidak pernah melewati titik warna lain.
-- Saat sebuah jalur mencapai titik pasangannya, pasangan itu terhubung dan titik-titiknya berdenting.
-- Hanya dengan ketukan: ketuk sebuah titik atau kotak sebuah jalur (ujungnya ditandai), lalu kotak di baris atau kolom yang sama: jalur melaju lurus ke sana. Ketuk lagi ujung yang ditandai untuk melepaskannya.
-- Lampu memberi petunjuk: meletakkan jalur satu pasangan seperti dalam jawaban, dalam cahaya emas.
-Kotak-kotak sebuah jalur diwarnai samar dengan warnanya. Urungkan membatalkan satu goresan atau petunjuk setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah goresan yang meletakkan jalur di kotak yang dalam jawaban milik warna lain; Urungkan tidak menghapusnya.

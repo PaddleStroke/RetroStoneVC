@@ -1,17 +1,10 @@
 Stier
 # Målet
-På gitteret ligger par af prikker i samme farve. Forbind de to prikker i hvert par med en sti, der går fra felt til felt: op, ned, til venstre eller til højre. Stierne må ikke krydse hinanden eller dele felter, og tilsammen skal de fylde hele gitteret. Hvert par har også sit eget tegn (en prik, en ring, et kvadrat, en stjerne...), så ingen farve skal kendes på øjet alene. Vælg først størrelsen: 5 × 5, 7 × 7, 9 × 9 eller 12 × 12.
+På gitteret ligger par af prikker i samme farve. Forbind de to prikker i hvert par med en sti, der går fra felt til felt: op, ned, til venstre eller til højre. Stierne må ikke krydse hinanden eller dele felter, og tilsammen skal de fylde hele gitteret.
 Hver opgave har præcis én løsning, som findes ved ren tankegang.
 # Et træk
-Tegne eller ændre en sti.
+Træk fra en prik for at tegne dens sti, eller fra et felt på en sti for at fortsætte derfra. At krydse en anden sti klipper den over.
 # Spillets afslutning
-Når alle par er forbundet, og intet felt står tomt, er opgaven løst: et gyldent lys løber langs hver sti.
+Når alle par er forbundet, og intet felt står tomt, er opgaven løst.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 5 × 5 op til 12 × 12, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et strøg, der lægger en sti hen over et felt, som i løsningen hører til en anden farve; Fortryd sletter den ikke.
-# Spil på enheden
-- Træk fra en prik: dens sti begynder forfra derfra og følger din finger. Træk fra et felt på en sti for at fortsætte derfra (resten af stien forsvinder).
-- At gå tilbage ad stien gør den kortere. At krydse en anden sti klipper den over; den kommer igen, hvis du går tilbage, før du løfter fingeren. En sti går aldrig over en prik i en anden farve.
-- Når en sti når sin anden prik, er parret forbundet, og dets prikker klinger.
-- Kun med tryk: tryk på en prik eller et felt på en sti (dens ende bliver markeret), og så på et felt i samme række eller søjle: stien løber lige derhen. Tryk på den markerede ende igen for at slippe den.
-- Lampen giver et tip: den lægger et pars sti som i løsningen, i gyldent lys.
-Felterne på en sti tones i dens farve. Fortryd tager ét strøg eller ét tip tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et strøg, der lægger en sti hen over et felt, som i løsningen hører til en anden farve; Fortryd sletter den ikke.

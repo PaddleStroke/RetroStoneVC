@@ -9,4 +9,4 @@ Kvádr se překlopí přes jednu ze svých hran, nahoru, dolů, doleva nebo dopr
 # Konec hry
 Když kvádr stojí na díře, propadne se: vyřešeno.
 # Úrovně a hvězdy
-Je tu 150 úrovní v šesti kapitolách; záložka s kostkou vytvoří novou mapu náhodně: lehkou, střední nebo těžkou. Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1.
+Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1.

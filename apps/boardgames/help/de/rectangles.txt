@@ -1,14 +1,9 @@
 Rechtecke
 # Das Ziel
-Teile das Gitter in Rechtecke (Quadrate zählen auch), sodass jedes Feld zu einem Rechteck gehört und jedes Rechteck genau eine Zahl enthält: die Zahl der Felder, die es bedeckt. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Wähle die Größe (7 × 7 bis 16 × 16) und die Stufe (die Steine unter jedem Bild):
-- Leicht: Die Felder, die jedes mögliche Rechteck einer Zahl bedeckt, gehören sicher zu ihr.
-- Mittel: Du brauchst auch Felder, die nur eine Zahl erreichen kann, und Rechtecke, die einer anderen Zahl keinen Platz ließen.
-- Schwer: Rechtecke, nach denen ein Feld nicht mehr bedeckt werden könnte, und ein Rechteck bis zum Ende verfolgen, um zu sehen, wohin es führt.
+Teile das Gitter in Rechtecke (Quadrate zählen auch), sodass jedes Feld zu einem Rechteck gehört und jedes Rechteck genau eine Zahl enthält: die Zahl der Felder, die es bedeckt. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
 # Ein Zug
-Zeichne ein Rechteck oder nimm eines weg. Ein neues Rechteck ersetzt die, die es überdeckt.
+Ziehe von einer Ecke zur anderen, um ein Rechteck zu legen, oder tippe seine beiden Ecken an. Ein neues Rechteck ersetzt die, die es überdeckt. Tippe ein Rechteck an, um es wegzunehmen.
 # Das Ende der Partie
-Das Rätsel ist gelöst, wenn die Rechtecke das Gitter bedecken, jedes mit einer Zahl gleich seiner Fläche: Eine Welle goldenen Lichts läuft über das Brett.
+Das Rätsel ist gelöst, wenn die Rechtecke das Gitter bedecken, jedes mit einer Zahl gleich seiner Fläche.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, von 5 × 5 bis 14 × 14, jedes mit nur einer Lösung; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln macht ein neues Rätsel nach Zufall, mit der oben beschriebenen Wahl. Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Plättchen, das du mit Rückgängig zurücknimmst.
-# Spielen auf dem Gerät
-Ziehe von einem Feld zu einem anderen: Das Rechteck mit diesen beiden Ecken wächst mit, seine Felderzahl steht über deinem Finger, und es wird als Holzplättchen gelegt, wenn du den Finger hebst. Du kannst auch ein Feld antippen und dann ein anderes (zweimal dasselbe: ein einzelnes Feld). Tippe ein Plättchen an, um es wegzunehmen. Ein Plättchen ohne Zahl, mit zwei Zahlen oder mit einer Zahl, die nicht seine Fläche ist, ist blass. Der Lampenknopf gibt einen Tipp: Er nimmt ein falsches Plättchen weg oder legt sonst das leichteste richtige, in goldenem Licht. Rückgängig nimmt eine Aktion nach der anderen zurück, bis zum Anfang. Die Leiste zeigt deine Züge.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Plättchen, das du mit Rückgängig zurücknimmst.

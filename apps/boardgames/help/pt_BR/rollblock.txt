@@ -9,4 +9,4 @@ O bloco tomba sobre uma de suas arestas, para cima, para baixo, para a esquerda 
 # O fim da partida
 Em pé sobre o buraco, o bloco afunda: resolvido.
 # Níveis e estrelas
-Há 150 níveis em seis capítulos; a aba do dado cria um novo mapa ao acaso: fácil, médio ou difícil. Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

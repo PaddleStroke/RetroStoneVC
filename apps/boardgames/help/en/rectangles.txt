@@ -1,14 +1,9 @@
 Rectangles
 # The aim
-Divide the grid into rectangles (squares count too) so that every cell belongs to one rectangle and each rectangle holds exactly one number: the number of cells it covers. Every puzzle has exactly one solution, found by reasoning alone. Choose the size (7 × 7 to 16 × 16) and the level (the stones under each picture):
-- Easy: the cells that every possible rectangle of a number covers are surely its own.
-- Medium: you will also need cells that only one number can reach, and rectangles that would leave another number no room.
-- Hard: rectangles that would leave some cell with no way to be covered, and following a rectangle through to see where it leads.
+Divide the grid into rectangles (squares count too) so that every cell belongs to one rectangle and each rectangle holds exactly one number: the number of cells it covers. Every puzzle has exactly one solution, found by reasoning alone.
 # A move
-Draw a rectangle, or take one away. A new rectangle replaces the ones it covers.
+Drag from one corner to the other to lay a rectangle, or tap its two corners. A new rectangle replaces the ones it covers. Tap a rectangle to take it away.
 # The end of the game
-The puzzle is solved when the rectangles cover the grid, each holding one number equal to its area: a wave of gold light runs over the board.
+The puzzle is solved when the rectangles cover the grid, each holding one number equal to its area.
 # Levels and stars
-There are 150 levels in six chapters, from 5 × 5 up to 14 × 14, each with one solution; choose one on the level screen. The die tab after the chapters makes a new puzzle at random, with the choice described above. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong tile that you take back with undo.
-# Playing on the device
-Drag from one cell to another: the rectangle with these two corners grows as you go, its cell count shown above your finger, and is laid as a wooden tile when you lift your finger. You can also tap a cell, then another (the same cell twice: a single cell). Tap a tile to take it away. A tile holding no number, two numbers, or a number that is not its area is pale. The lamp button gives a hint: it takes a wrong tile away, or else lays the easiest right one, in gold light. Undo takes back one action at a time, all the way to the start. The bar shows your moves.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong tile that you take back with undo.

@@ -1,16 +1,9 @@
 Samotnik
 # Cel gry
-Kulki stoją w dołkach planszy. Przeskakuj nimi jedna przez drugą, aż zostanie tylko jedna, w docelowym dołku: tym z mosiężnym pierścieniem. Plansze:
-- Angielska: krzyż z 33 dołków.
-- Francuska: 37 dołków, krzyż i cztery więcej.
-- Romb: 41 dołków.
-- Wiegleba: szeroki krzyż z 45 dołków.
-- Trójkąty: 15 dołków i duży z 21.
+Kulki stoją w dołkach planszy. Przeskakuj nimi jedna przez drugą, aż zostanie tylko jedna, w docelowym dołku: tym z mosiężnym pierścieniem.
 # Ruch
 Kulka przeskakuje w linii prostej przez sąsiednią kulkę do pustego dołka tuż za nią. Przeskoczona kulka zostaje zdjęta z planszy. Na krzyżach i rombie skacze się poziomo i pionowo, nigdy na ukos; na trójkątach wzdłuż ich trzech kierunków.
 # Koniec gry
-Została jedna kulka: rozwiązane, w złotym świetle, jeśli leży w docelowym dołku. Gdy nie ma już żadnego skoku, a zostało kilka kulek, świecą one na czerwono: cofnij i spróbuj innej drogi.
+Została jedna kulka: rozwiązane. Gdy nie ma już żadnego skoku, a zostało kilka kulek, świecą one na czerwono: cofnij i spróbuj innej drogi.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 3 kulek do pełnych klasycznych plansz (wszystkie dołki zajęte oprócz jednego), które zamykają swoje rozdziały; każdy poziom może skończyć się jedną kulką w swoim docelowym dołku. Wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami układa losową pozycję na wybranej przez ciebie planszy, taką, która może skończyć się w swoim docelowym dołku. Jedna kulka w docelowym dołku i bez podpowiedzi: 3 gwiazdki; o gwiazdkę mniej, jeśli ostatnia kulka leży gdzie indziej, i o gwiazdkę mniej za użycie podpowiedzi (zawsze co najmniej 1). Każdy skok zdejmuje jedną kulkę, więc każda gra do jednej kulki wymaga tej samej liczby skoków: liczy się to, gdzie kończy ostatnia.
-# Gra na urządzeniu
-Dotknij kulki: kropki pokażą, dokąd może skoczyć. Dotknij kropki albo przeciągnij tam kulkę. Możesz też dotknąć pustego dołka, do którego może dojść tylko jedna kulka. Zdjęte kulki toczą się do rowka wokół planszy. Lampa daje podpowiedź: podświetla się skok, który trzeba wykonać, na złoto, dopóki prowadzi do jednej kulki w docelowym dołku; gdy nie ma już drogi do jednej kulki, kulki świecą na czerwono. Cofnij cofa jeden skok, aż do początku. Pasek pokazuje pozostałe kulki.
+Jedna kulka w docelowym dołku i bez podpowiedzi: 3 gwiazdki; o gwiazdkę mniej, jeśli ostatnia kulka leży gdzie indziej, i o gwiazdkę mniej za użycie podpowiedzi (zawsze co najmniej 1).

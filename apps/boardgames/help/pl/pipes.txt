@@ -1,15 +1,11 @@
 Rury
 # Cel gry
-Na każdym kafelku leży kawałek mosiężnej rury: zakończenie, odcinek prosty, kolanko lub trójnik. Obracaj kafelki tak, by wszystkie rury utworzyły jedną sieć zasilaną przez zbiornik pośrodku, bez żadnej otwartej rury: żadna nie może celować w kafelek, który jej nie przyjmuje, ani w krawędź planszy. Wtedy woda wypełnia każdy kafelek. Najpierw wybierz rozmiar: 5 × 5, 7 × 7, 9 × 9, 11 × 11 lub 9 × 9 bez brzegów (mosiężne bulaje wokół ramy): tam rura wychodząca jedną krawędzią wraca przeciwległą.
+Na każdym kafelku leży kawałek mosiężnej rury: zakończenie, odcinek prosty, kolanko lub trójnik. Obracaj kafelki tak, by wszystkie rury utworzyły jedną sieć zasilaną przez zbiornik pośrodku, bez żadnej otwartej rury: żadna nie może celować w kafelek, który jej nie przyjmuje, ani w krawędź planszy.
+Na planszy bez brzegów (mosiężne bulaje wokół ramy) rura wychodząca jedną krawędzią wraca przeciwległą.
 Każdą łamigłówkę da się rozwiązać samym rozumowaniem i ma ona tylko jedno rozwiązanie.
 # Ruch
-Obrót jednego kafelka o ćwierć obrotu zgodnie z ruchem wskazówek zegara.
+Dotknij kafelka, aby obrócić go o ćwierć obrotu zgodnie z ruchem wskazówek zegara.
 # Koniec gry
-Gdy wszystkie kafelki są połączone i żadna rura nie jest otwarta, woda dociera do każdego kafelka, a od zbiornika rozchodzi się złote światło.
+Gdy wszystkie kafelki są połączone i żadna rura nie jest otwarta, woda dociera do każdego kafelka.
 # Poziomy i gwiazdki
-Jest 150 poziomów w sześciu rozdziałach, od 4 × 4 do 11 × 11 i plansz bez brzegów, każdy z jednym rozwiązaniem; wybierz poziom na siatce poziomów. Zakładka z kostką za rozdziałami tworzy nową łamigłówkę losowo, z wyborem opisanym wyżej. Każda łamigłówka ma par: najmniejszą liczbę ćwierćobrotów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza łamigłówkę do 2 gwiazdek, więcej niż dwie podpowiedzi do 1. Cofnij cofa ruch, który przestaje się liczyć.
-# Gra na urządzeniu
-- Dotknij kafelka, aby obrócić go o ćwierć obrotu.
-- Woda płynie ze zbiornika do każdej połączonej z nim rury. Gdzie dociera do otwartej rury, wylewa się: szukaj kropel.
-- Lampa daje podpowiedź: obraca jeden zły kafelek dobrze (obok wody, gdy się da), w złotym świetle.
-Cofnij cofa jeden obrót lub podpowiedź naraz, aż do początku. Pasek pokazuje twoje ruchy.
+Każda łamigłówka ma par: najmniejszą liczbę ćwierćobrotów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza łamigłówkę do 2 gwiazdek, więcej niż dwie podpowiedzi do 1.

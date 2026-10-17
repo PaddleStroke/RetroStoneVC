@@ -1,15 +1,11 @@
 Rør
 # Målet
-Hver brik har et stykke messingrør: en ende, et lige stykke, en bøjning eller et T-stykke. Drej brikkerne, så alle rørene danner ét net, der fødes af tanken i midten, uden åbne rør: intet rør vender mod en brik, der ikke møder det, og intet løber ud mod kanten. Så fylder vandet hver brik. Vælg først størrelsen: 5 × 5, 7 × 7, 9 × 9, 11 × 11 eller 9 × 9 uden kanter (koøjer af messing rundt om rammen): der kommer et rør, der forlader én side, ind igen fra den modsatte.
+Hver brik har et stykke messingrør: en ende, et lige stykke, en bøjning eller et T-stykke. Drej brikkerne, så alle rørene danner ét net, der fødes af tanken i midten, uden åbne rør: intet rør vender mod en brik, der ikke møder det, og intet løber ud mod kanten.
+På et bræt uden kanter (koøjer af messing rundt om rammen) kommer et rør, der forlader én side, ind igen fra den modsatte.
 Hver opgave kan løses ved ren tankegang og har kun én løsning.
 # Et træk
-Drej en brik en kvart omgang med uret.
+Tryk på en brik for at dreje den en kvart omgang med uret.
 # Spillets afslutning
-Når alle brikker hænger sammen og intet rør er åbent, når vandet hver brik, og et gyldent lys løber ud fra tanken.
+Når alle brikker hænger sammen og intet rør er åbent, når vandet hver brik.
 # Baner og stjerner
-Der er 150 baner i seks kapitler, fra 4 × 4 op til 11 × 11 og brætter uden kanter, hver med kun én løsning; vælg en i baneoversigten. Fanen med terningen efter kapitlerne laver en ny opgave tilfældigt, med det valg, der er beskrevet ovenfor. Hver opgave har et par: det mindste antal kvarte omdrejninger, der løser den. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1. Fortryd tager et træk tilbage, og det tæller ikke længere.
-# Spil på enheden
-- Tryk på en brik for at dreje den en kvart omgang.
-- Vandet løber fra tanken gennem alle rør, der er forbundet med den. Hvor det når et åbent rør, løber det over: kig efter dråberne.
-- Lampen giver et tip: den drejer en forkert brik rigtigt (ved siden af vandet, når den kan), i gyldent lys.
-Fortryd tager én drejning eller ét tip tilbage ad gangen, helt til starten. Bjælken viser dine træk.
+Hver opgave har et par: det mindste antal kvarte omdrejninger, der løser den. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1.

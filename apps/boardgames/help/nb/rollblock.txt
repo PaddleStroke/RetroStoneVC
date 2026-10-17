@@ -9,4 +9,4 @@ Klossen velter over en av kantene sine, opp, ned, til venstre eller til høyre: 
 # Slutten på spillet
 Står klossen på hullet, synker den ned: løst.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler; fanen med terningen lager et nytt kart tilfeldig: lett, middels eller vanskelig. Løst med færrest mulige trekk: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.
+Løst med færrest mulige trekk: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.

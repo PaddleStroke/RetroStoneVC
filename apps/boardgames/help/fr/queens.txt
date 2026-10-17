@@ -1,11 +1,10 @@
 Huit dames
 # Le but
-Place des dames sur un échiquier sans qu'aucune n'en attaque une autre : jamais deux sur la même rangée, la même colonne ou la même diagonale. Chaque rangée reçoit une dame. Les dames noires sont déjà posées et ne peuvent pas bouger. Certains échiquiers ont des trous : des cases découpées où aucune dame ne peut se poser ; les lignes des dames continuent à travers.
+Place des dames sur un échiquier sans qu'aucune n'en attaque une autre : jamais deux sur la même rangée, la même colonne ou la même diagonale. Chaque rangée reçoit une dame. Les dames noires sont déjà posées et ne peuvent pas bouger. Certains échiquiers ont des trous : des cases découpées où aucune dame ne peut se poser ; les lignes des dames continuent à travers.
+Chaque niveau a une seule solution, que l'on trouve en raisonnant. Les échiquiers au hasard en ont beaucoup (92 sur 8 × 8).
 # Un coup
-Pose une dame sur une case vide, ou retire une de tes dames.
+Touche une case pour y poser une dame, touche-la encore pour la retirer.
 # La fin de la partie
 Le problème est résolu quand chaque rangée a sa dame et qu'aucune n'en attaque une autre.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, du 4 × 4 jusqu'au 10 × 10, chacun avec une seule solution, que l'on trouve en raisonnant ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, lance une partie au hasard sur un échiquier de 5 × 5, 6 × 6, 8 × 8 (le problème classique) ou 10 × 10 avec une dame noire : ces échiquiers ont de nombreuses solutions (92 sur 8 × 8) ; la barre compte les solutions différentes trouvées pendant la séance, et une nouvelle partie part d'une dame d'une solution pas encore trouvée. Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une dame posée sur une case qu'une autre dame attaque ; Annuler ne l'efface pas.
-# Jouer sur l'appareil
-Touche une case pour y poser une dame, touche-la encore pour la retirer. Les cases attaquées par les dames sont assombries ; le bouton aux rayons enlève ou remet l'ombre. Les dames qui s'attaquent s'éclairent en rouge. La lampe éclaire en or une case où une dame a sa place, ou, quand les dames posées ne peuvent plus mener à une solution, entoure celle à retirer. Annuler reprend une touche à la fois. La barre montre tes touches et, dans une partie au hasard, les solutions trouvées sur le total de l'échiquier.
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une dame posée sur une case qu'une autre dame attaque ; Annuler ne l'efface pas.

@@ -9,4 +9,4 @@ Klossen tippar över en av sina kanter, uppåt, nedåt, åt vänster eller åt h
 # Partiets slut
 Står klossen på hålet sjunker den ner: löst.
 # Banor och stjärnor
-Det finns 150 banor i sex kapitel; fliken med tärningen gör en ny karta slumpvis: lätt, medel eller svår. Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.
+Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

@@ -1,14 +1,9 @@
 Rektangler
 # Målet
-Del rutenettet opp i rektangler (kvadrater teller også) slik at hver rute hører til ett rektangel og hvert rektangel inneholder nøyaktig ett tall: antallet ruter det dekker. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke. Velg størrelse (7 × 7 til 16 × 16) og nivå (steinene under hvert bilde):
-- Lett: rutene som alle mulige rektangler for et tall dekker, hører helt sikkert til det tallet.
-- Middels: du trenger også ruter som bare ett tall kan nå, og rektangler som ikke ville gi plass til et annet tall.
-- Vanskelig: rektangler som ville etterlate en rute uten mulighet til å bli dekket, og å følge et rektangel til endes for å se hvor det fører.
+Del rutenettet opp i rektangler (kvadrater teller også) slik at hver rute hører til ett rektangel og hvert rektangel inneholder nøyaktig ett tall: antallet ruter det dekker. Hver oppgave har nøyaktig én løsning, som kan finnes bare ved å tenke.
 # Et trekk
-Tegn et rektangel, eller ta bort ett. Et nytt rektangel erstatter dem det dekker.
+Dra fra det ene hjørnet til det andre for å legge et rektangel, eller trykk på de to hjørnene. Et nytt rektangel erstatter dem det dekker. Trykk på et rektangel for å ta det bort.
 # Slutten på spillet
-Oppgaven er løst når rektanglene dekker rutenettet, hvert med ett tall lik arealet sitt: en bølge av gyllent lys går over brettet.
+Oppgaven er løst når rektanglene dekker rutenettet, hvert med ett tall lik arealet sitt.
 # Nivåer og stjerner
-Det er 150 nivåer i seks kapitler, fra 5 × 5 opp til 14 × 14, hvert med bare én løsning; velg et på nivåskjermen. Fanen med terningen etter kapitlene lager en ny oppgave tilfeldig, med valget som er beskrevet ovenfor. Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.
-# Spill på enheten
-Dra fra en rute til en annen: rektangelet med de to hjørnene vokser mens du drar, med antallet ruter over fingeren, og legges som en trebrikke når du løfter fingeren. Du kan også trykke på en rute og så på en annen (samme rute to ganger: én enkelt rute). Trykk på en brikke for å ta den bort. En brikke uten tall, med to tall eller med et tall som ikke er arealet dens, er blek. Lampeknappen gir et hint: den tar bort en feil brikke, eller legger ellers den letteste riktige, i gyllent lys. Angre tar tilbake én handling om gangen, helt til starten. Linjen viser trekkene dine.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en brikke lagt galt, som du tar tilbake med Angre.

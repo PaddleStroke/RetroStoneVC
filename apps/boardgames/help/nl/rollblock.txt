@@ -9,4 +9,4 @@ Het blok kantelt over een van zijn ribben, omhoog, omlaag, naar links of naar re
 # Het einde van het spel
 Staat het blok op het gat, dan zakt het erin: opgelost.
 # Levels en sterren
-Er zijn 150 levels in zes hoofdstukken; het tabblad met de dobbelsteen maakt een willekeurige nieuwe kaart: makkelijk, gemiddeld of moeilijk. Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.
+Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

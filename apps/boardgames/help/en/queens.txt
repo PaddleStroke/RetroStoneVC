@@ -1,11 +1,10 @@
 Eight Queens
 # The aim
 Place queens on a board so that no queen attacks another: never two on the same row, column or diagonal. Every row gets one queen. The black queens are already placed and cannot be moved. Some boards have holes: squares cut out where no queen may stand; the queens' lines run on across them.
+Each level has one solution, found by reasoning alone. The random boards have many (92 on 8 × 8).
 # A move
-Put a queen on an empty square, or take one of your queens off.
+Tap a square to put a queen on it, tap it again to take the queen off.
 # The end of the game
 The puzzle is solved when every row has its queen and none attacks another.
 # Levels and stars
-There are 150 levels in six chapters, from 4 × 4 up to 10 × 10, each with one solution, found by reasoning alone; choose one on the level screen. The die tab after the chapters starts a random game on a board of 5 × 5, 6 × 6, 8 × 8 (the classic puzzle) or 10 × 10 with one black queen: these boards have many solutions (92 on 8 × 8); the bar counts the different ones you have found this session, and a new game starts from a queen of one you have not found yet. No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a queen put on a square another queen attacks; undo does not take it back.
-# Playing on the device
-Tap a square to put a queen on it, tap it again to take the queen off. The squares the queens attack are shaded; the button with the rays turns the shade off and on. Queens that attack each other glow red. The lamp lights up in gold a square where a queen belongs, or, when the queens on the board can no longer lead to a solution, rings the one to take off. Undo takes back one tap at a time. The bar shows your taps and, in a random game, the solutions found out of the board's total.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a queen put on a square another queen attacks; undo does not take it back.

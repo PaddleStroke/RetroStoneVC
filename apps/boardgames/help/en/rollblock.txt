@@ -9,4 +9,4 @@ The block rolls over one of its edges, up, down, left or right: standing, it fal
 # The end of the game
 Standing on the hole, the block sinks in: solved.
 # Levels and stars
-There are 150 levels in six chapters; the die tab makes a new map at random: easy, medium or hard. Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.
+Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

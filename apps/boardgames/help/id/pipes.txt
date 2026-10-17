@@ -1,15 +1,11 @@
 Pipa
 # Tujuan
-Setiap ubin memuat sepotong pipa kuningan: ujung, lurus, belokan, atau cabang T. Putar ubin-ubin agar semua pipa menyatu menjadi satu jaringan yang dialiri tangki di tengah, tanpa pipa yang terbuka: tidak ada pipa yang menghadap ubin yang tidak menyambutnya, tidak ada yang menabrak tepi papan. Lalu air mengisi setiap ubin. Pilih dulu ukurannya: 5 × 5, 7 × 7, 9 × 9, 11 × 11, atau 9 × 9 tanpa tepi (jendela bulat kuningan di sekeliling bingkai): di sana pipa yang keluar dari satu tepi masuk lagi dari tepi seberangnya.
+Setiap ubin memuat sepotong pipa kuningan: ujung, lurus, belokan, atau cabang T. Putar ubin-ubin agar semua pipa menyatu menjadi satu jaringan yang dialiri tangki di tengah, tanpa pipa yang terbuka: tidak ada pipa yang menghadap ubin yang tidak menyambutnya, tidak ada yang menabrak tepi papan.
+Di papan tanpa tepi (jendela bulat kuningan di sekeliling bingkai), pipa yang keluar dari satu tepi masuk lagi dari tepi seberangnya.
 Setiap teka-teki bisa diselesaikan hanya dengan penalaran dan punya satu jawaban saja.
 # Satu langkah
-Memutar satu ubin seperempat putaran searah jarum jam.
+Ketuk ubin untuk memutarnya seperempat putaran searah jarum jam.
 # Akhir permainan
-Saat semua ubin tersambung dan tidak ada pipa yang terbuka, air mencapai setiap ubin dan cahaya emas mengalir dari tangki.
+Saat semua ubin tersambung dan tidak ada pipa yang terbuka, air mencapai setiap ubin.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari 4 × 4 sampai 11 × 11 dan papan tanpa tepi, masing-masing dengan satu jawaban saja; pilih satu di kisi level. Tab dadu setelah bab-bab itu membuat teka-teki baru secara acak, dengan pilihan yang dijelaskan di atas. Setiap teka-teki punya par, jumlah putaran seperempat paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang. Urungkan membatalkan satu langkah, dan langkah itu tidak dihitung lagi.
-# Bermain di perangkat
-- Ketuk ubin untuk memutarnya seperempat putaran.
-- Air mengalir dari tangki ke setiap pipa yang tersambung dengannya. Di tempat air mencapai pipa terbuka, air tumpah: cari tetesannya.
-- Lampu memberi petunjuk: memutar benar satu ubin yang salah (di samping air bila bisa), dalam cahaya emas.
-Urungkan membatalkan satu putaran atau petunjuk setiap kali, sampai ke awal. Bilah menunjukkan langkahmu.
+Setiap teka-teki punya par, jumlah putaran seperempat paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang.

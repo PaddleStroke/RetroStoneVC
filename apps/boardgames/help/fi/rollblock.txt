@@ -9,4 +9,4 @@ Palikka kaatuu jonkin särmänsä yli ylös, alas, vasemmalle tai oikealle: pyst
 # Pelin loppu
 Kun palikka seisoo reiän päällä, se uppoaa: ratkaistu.
 # Tasot ja tähdet
-Tasoja on 150 kuudessa luvussa; noppavälilehti tekee uuden kartan satunnaisesti: helppo, keskitaso tai vaikea. Ratkaistu vähimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.
+Ratkaistu vähimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.

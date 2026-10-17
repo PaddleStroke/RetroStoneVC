@@ -9,4 +9,4 @@ Der Block kippt über eine seiner Kanten, nach oben, unten, links oder rechts: S
 # Das Ende der Partie
 Steht der Block auf dem Loch, versinkt er: gelöst.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln; der Reiter mit dem Würfel macht eine neue Karte nach Zufall: leicht, mittel oder schwer. Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.
+Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

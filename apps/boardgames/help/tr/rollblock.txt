@@ -9,4 +9,4 @@ Blok kenarlarından birinin üstünden yukarı, aşağı, sola ya da sağa devri
 # Oyunun sonu
 Deliğin üstünde dik duran blok içine batar: bulmaca çözüldü.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; zar sekmesi rastgele yeni bir harita yapar: kolay, orta ya da zor. Mümkün olan en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.
+Mümkün olan en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

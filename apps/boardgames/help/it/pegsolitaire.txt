@@ -1,16 +1,9 @@
 Solitario
 # Lo scopo
-Delle biglie stanno nei fori di un tavoliere. Falle saltare l'una sopra l'altra finché ne resta una sola, nel foro d'arrivo: quello con un anello d'ottone. I tavolieri:
-- Inglese: la croce di 33 fori.
-- Francese: 37 fori, la croce e altri quattro.
-- Rombo: 41 fori.
-- Wiegleb: la croce larga di 45 fori.
-- Triangoli: 15 fori, e quello grande di 21.
+Delle biglie stanno nei fori di un tavoliere. Falle saltare l'una sopra l'altra finché ne resta una sola, nel foro d'arrivo: quello con un anello d'ottone.
 # Una mossa
 Una biglia salta sopra una biglia vicina, in linea retta, nel foro vuoto subito dietro. La biglia scavalcata viene tolta dal tavoliere. Sulle croci e sul rombo si salta in orizzontale e in verticale, mai in diagonale; sui triangoli, lungo le loro tre direzioni.
 # La fine della partita
-Una sola biglia: risolto, con una luce dorata se si trova nel foro d'arrivo. Quando non resta nessun salto e rimangono più biglie, si illuminano di rosso: annulla e prova un'altra strada.
+Una sola biglia: risolto. Quando non resta nessun salto e rimangono più biglie, si illuminano di rosso: annulla e prova un'altra strada.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, da 3 biglie fino ai tavolieri classici pieni (tutti i fori occupati tranne uno), che chiudono i loro capitoli; ogni livello può finire con una biglia nel suo foro d'arrivo. Scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, dispone una posizione a caso sul tavoliere che scegli, una che può finire nel suo foro d'arrivo. Una biglia nel foro d'arrivo e nessun suggerimento: 3 stelle; una stella in meno se l'ultima biglia finisce altrove, e una stella in meno se usi il suggerimento (sempre almeno 1). Ogni salto toglie una biglia, quindi ogni partita fino a una sola biglia richiede lo stesso numero di salti: quel che conta è dove finisce l'ultima.
-# Giocare sul dispositivo
-Tocca una biglia: dei puntini mostrano dove può saltare. Tocca un puntino, oppure trascina lì la biglia. Puoi anche toccare un foro vuoto che una sola biglia può raggiungere. Le biglie tolte rotolano nella scanalatura intorno al tavoliere. La lampada dà un suggerimento: il salto da fare si illumina, d'oro finché porta a una sola biglia nel foro d'arrivo; quando non resta nessuna strada verso una sola biglia, le biglie si illuminano di rosso. Annulla toglie un salto, fino all'inizio. La barra mostra le biglie rimaste.
+Una biglia nel foro d'arrivo e nessun suggerimento: 3 stelle; una stella in meno se l'ultima biglia finisce altrove, e una stella in meno se usi il suggerimento (sempre almeno 1).

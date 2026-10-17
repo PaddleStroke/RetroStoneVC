@@ -1,14 +1,9 @@
 Obdélníky
 # Cíl hry
-Rozděl mřížku na obdélníky (čtverce se počítají také) tak, aby každé políčko patřilo k jednomu obdélníku a každý obdélník obsahoval právě jedno číslo: počet políček, která zakrývá. Každá úloha má právě jedno řešení, které najdeš jen úvahou. Vyber velikost (7 × 7 až 16 × 16) a obtížnost (kameny pod každým obrázkem):
-- Lehká: políčka, která zakrývají všechny možné obdélníky nějakého čísla, mu určitě patří.
-- Střední: budeš potřebovat i políčka, na která dosáhne jen jedno číslo, a obdélníky, které by jinému číslu nenechaly místo.
-- Těžká: obdélníky, po kterých by nějaké políčko nešlo zakrýt, a sledování obdélníku až do konce, abys viděl, kam vede.
+Rozděl mřížku na obdélníky (čtverce se počítají také) tak, aby každé políčko patřilo k jednomu obdélníku a každý obdélník obsahoval právě jedno číslo: počet políček, která zakrývá. Každá úloha má právě jedno řešení, které najdeš jen úvahou.
 # Tah
-Nakresli obdélník, nebo jeden odeber. Nový obdélník nahradí ty, které zakryje.
+Táhni z jednoho rohu do druhého a položíš obdélník, nebo klepni na jeho dva rohy. Nový obdélník nahradí ty, které zakryje. Klepnutím na obdélník ho odebereš.
 # Konec hry
-Úloha je vyřešena, když obdélníky zakrývají celou mřížku a každý má jedno číslo rovné své ploše: deskou proběhne vlna zlatého světla.
+Úloha je vyřešena, když obdélníky zakrývají celou mřížku a každý má jedno číslo rovné své ploše.
 # Úrovně a hvězdy
-Úrovní je 150 v šesti kapitolách, od 5 × 5 po 14 × 14, každá s jediným řešením; vyber si úroveň v přehledu úrovní. Záložka s kostkou za kapitolami vytvoří nový hlavolam náhodně, s volbou popsanou výše. Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná destička; počítá se, když ji vezmeš zpět tlačítkem Vrátit.
-# Hra na zařízení
-Táhni prstem z jednoho políčka na jiné: obdélník s těmito dvěma rohy roste s tebou, nad prstem je vidět počet jeho políček, a když prst zvedneš, položí se jako dřevěná destička. Můžeš také klepnout na políčko a pak na jiné (dvakrát na totéž: jediné políčko). Klepnutím na destičku ji odebereš. Destička bez čísla, se dvěma čísly nebo s číslem, které není její plochou, je bledá. Tlačítko s lampou dává nápovědu: odebere špatnou destičku, jinak položí nejsnazší správnou, ve zlatém světle. Vrátit bere zpět jednu akci po druhé, až na začátek. Lišta ukazuje tvé tahy.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatná destička, kterou vezmeš zpět tlačítkem Vrátit.
