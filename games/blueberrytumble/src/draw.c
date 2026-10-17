@@ -45,6 +45,10 @@ static int right_cols(void) { return (rs_screen_right() - RS_SCREEN_W + CELL - 1
 #define GROUND_PY (GROUND_TROW * 8)
 #define MID_TROW 34                         /* the mid-ground band's first tile row on BG3 (64 rows: no wrap) */
 #define FAR_TROW 12                         /* the far band's first tile row on BG4 */
+/* a tall screen (DESIGN.md "Tall screen"): the far mountains and the mid-ground drawn this much higher (the far
+ * band's map has its empty rows above it, its last row repeated below it down to the mid-ground's band) */
+#define TALL_FAR_UP 16
+#define TALL_MID_UP 16
 
 static const int slope256[NBIOMES] = BIOME_SLOPE;
 /* the sky per biome and time of day (top, horizon), then the night */
@@ -81,6 +85,8 @@ static int view_hofs, view_vofs, view_c, view_camx;    /* the registers written 
 static int dew_t[MAX_PLAYERS] = {99, 99, 99, 99};       /* frames since each player's last dew-drop jump (the ring) */
 static int32_t dew_id[MAX_PLAYERS];
 static int cam_d16;                         /* the camera follows the profile under player 1 (px x 16) */
+static int hud_lines;                       /* a tall screen: BG1's top lines pinned at the screen's top (not saved) */
+static rs_color soil_col;                   /* a tall screen: the backdrop below the stage (not saved: set each frame) */
 static const bt_course *view_course;        /* the course drawn this frame (the sprites' profile) */
 static int relayout, relayout_pause;        /* transient: a state of another width was loaded (state_audit.txt) */
 
@@ -158,20 +164,27 @@ static void sky_and_far(int32_t cam_x, int pulse)
     }
 }
 
-/* A tall screen (DESIGN.md "Tall screen"): the stage at the bottom of the screen (the slope's soil already fills its
- * foot, and the sheared playfield's 64 wrapping map rows hold no deeper soil to show below it), all the extra lines
- * above it: the sky carried on, deeper toward the screen's top, the layers hidden there (window 1 over the whole
- * width; the playfield and the far bands would wrap round to their other rows). Line 0 puts the stage's masks back,
- * so a 240-line screen is unchanged. */
+/* A tall screen (DESIGN.md "Tall screen"): the zoomed screen (ZOOM_H lines), the stage TALL_BELOW lines above its
+ * bottom. Above the stage: the sky carried on, deeper toward the screen's top, the playfield going on into it (its
+ * map's sky and cell rows reach far higher than the screen's top), the far bands and the UI hidden (window 1 over the
+ * whole width: they would wrap round to their other rows), but the HUD's band of the UI (rs_bg_pin, hud_lines) at the
+ * screen's top. Below it: the slope's soil going on (the playfield's 18 soil rows reach deeper than the screen's
+ * bottom; where a cliff lifts it, the backdrop there is the deep soil's colour: soil_col), the other layers hidden.
+ * Line 0 puts the stage's masks back, so a 240-line screen is unchanged. */
 static void raster_out(int line)
 {
     int top = rs_screen_top();
     if (line == top || line == RS_SCREEN_H) {
         rs_window(0, rs_screen_left(), rs_screen_right());
-        for (int l = RS_BG1; l <= RS_BG4; l++) rs_bg_window(l, RS_WIN1);
+        rs_bg_window(RS_BG1, line == top && hud_lines ? 0 : RS_WIN1);
+        rs_bg_window(RS_BG2, 0);
+        rs_bg_window(RS_BG3, RS_WIN1);
+        rs_bg_window(RS_BG4, RS_WIN1);
     }
+    if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);   /* past the HUD's band */
     int k = line < 0 && top < 0 ? -line * 88 / -top : 0;    /* 0 at the stage's top .. 88 at the screen's */
-    rs_pal_set(0, hu_scale_color(line_col[line < 0 ? ((line & 4) ? 4 : 0) : RS_SCREEN_H - 1], 256 - k));
+    if (line >= RS_SCREEN_H) rs_pal_set(0, soil_col);
+    else rs_pal_set(0, hu_scale_color(line_col[(line & 4) ? 4 : 0], 256 - k));
 }
 
 static void raster(int line, void *user)
@@ -222,7 +235,9 @@ void draw_init(void)
     hc.obj_pal = 3;
     hc.box_glyphs = " SCOREBESTNWMDALPYIG0123456789!:-+";   /* only the glyphs the panel uses (VRAM) */
     rs_screen_origin(wide_left());              /* widescreen: the left share of the extra columns (0 at 320) */
-    rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H);  /* a tall screen: the stage at the bottom, the sky above */
+    /* a tall screen (rs_screen_zoom): the stage TALL_BELOW lines above the screen's bottom, the sky above it */
+    int below = rs_screen_height() - RS_SCREEN_H < TALL_BELOW ? rs_screen_height() - RS_SCREEN_H : TALL_BELOW;
+    rs_screen_origin_v(rs_screen_height() - RS_SCREEN_H - below);
     hu_init(&hc);
     maps_setup();
     rs_tiles_load(VR_BG2, gm_pf_tiles, gm_pf_tile_count);
@@ -286,6 +301,22 @@ static void put_quarter(int32_t col, int half, int ty, int biome, int mt, int q)
 }
 
 static int floor8(int v) { return v >= 0 ? v / 8 : -((-v + 7) / 8); }
+
+/* a tall screen: the deep soil's main colour in biome b (the commonest of its metatile's top-left tile, in the palette
+ * slot loaded for it): the backdrop below the stage (raster_out) */
+static rs_color deep_color(int b)
+{
+    uint16_t e = gm_pf_meta[(b * MT_COUNT + MT_DEEP) * 4];
+    int tile = RS_MAP_TILE(e), n[16] = {0}, best = 1;
+    if (tile >= gm_pf_tile_count) return 0;
+    for (int i = 0; i < 64; i++) {
+        uint8_t v = gm_pf_tiles[tile * 32 + i / 2];
+        n[(i & 1) ? v & 15 : v >> 4]++;
+    }
+    for (int i = 2; i < 16; i++)
+        if (n[i] > n[best]) best = i;
+    return rs_pal_get(RS_PAL_BG((e >> 10) & 7) + best);
+}
 
 /* Widescreen: the deep soil of a column right of the 320 first columns. The playfield is sheared: a column's 240 rows on
  * screen sit higher in its 64-row (wrapping) map column the further right it is, so on a wider screen the top right
@@ -436,7 +467,9 @@ static void stream_mid(int32_t cam_x)
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -500,7 +533,7 @@ static void fx_update(int dx)
         f->y = (int16_t)(f->y + f->vy);
         f->vy = (int16_t)(f->vy + 3);
         f->t++;
-        if (f->t < 40 && f->y < RS_SCREEN_H * 16) fxs[n++] = *f;
+        if (f->t < 40 && f->y < rs_screen_bottom() * 16) fxs[n++] = *f;
     }
     fx_n = n;
 }
@@ -753,6 +786,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     stream_playfield(c, camx < 0 ? -((-camx + CELL - 1) / CELL) : camx / CELL, !w->started);
     stream_mid(camx);
     load_slot_palettes(camx);
+    soil_col = deep_color(b);
     /* the beat pulse: player 1's x counts the beats (64 px each), the bar's downbeat is stronger */
     int32_t xpx = (int32_t)(xref >> 16);
     int since = (int)(((int64_t)(xpx & 63) * Q16_ONE) / (course_speed(c, w->f) + 1));
@@ -763,8 +797,12 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG2, view_hofs, view_vofs);
     rs_bg_affine(RS_BG2, &m);
     /* the far layers go down with the profile too, less (parallax): the drop of a cliff reads in depth */
-    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & (rs_bg_map_w(RS_BG3) * 8 - 1), MID_TROW * 8 - 132 - cam_up / 4 + cd / 2);
-    rs_bg_scroll(RS_BG4, (camx / 4) & (rs_bg_map_w(RS_BG4) * 8 - 1), FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4);
+    /* (a tall screen: the far bands higher, spaced out over the taller sky: TALL_FAR_UP, TALL_MID_UP) */
+    int up = rs_screen_height() > RS_SCREEN_H;
+    rs_bg_scroll(RS_BG3, (camx / 2 - sxk) & (rs_bg_map_w(RS_BG3) * 8 - 1),
+                 MID_TROW * 8 - 132 - cam_up / 4 + cd / 2 + (up ? TALL_MID_UP : 0));
+    rs_bg_scroll(RS_BG4, (camx / 4) & (rs_bg_map_w(RS_BG4) * 8 - 1),
+                 FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4 + (up ? TALL_FAR_UP : 0));
 
     screen_text(w, state, st_t, best, new_best, attempt, &rs);
     if (state == ST_OVER && st_t == RETRY_LOCK) shown_state = -1;      /* redraw once: the retry line appears */
@@ -779,19 +817,35 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             if (dew_t[p] < 99) dew_t[p]++;
     }
 
+    /* a tall screen (DESIGN.md "Tall screen"): one berry rolling fills the display's height, the sides cropped, the
+     * columns shown from ZOOM_BEHIND px behind it; the title, the panels and 2-4 berries show every column; the HUD
+     * (the metres, the golden blueberries, the chips and their tags) at the screen's top */
+    int tall = rs_screen_height() > RS_SCREEN_H, play = state == ST_PLAY || state == ST_DEAD;
+    rs_screen_fill(w->players == 1 && (play || state == ST_READY));
+    int vx0 = rs_screen_visible_x0(), vw = rs_screen_visible_x1() - vx0;
+    rs_screen_focus_x(vw < rs_screen_width() ? rs_screen_origin_x() + PIVOT_X - ZOOM_BEHIND + vw / 2 : -1);
+    vx0 = rs_screen_visible_x0() - rs_screen_origin_x();     /* the stage x of the first column shown */
+    int hy = tall && play ? rs_screen_top() : 0;
+    hud_lines = tall && play && w->players >= 3 ? 16 : 0;      /* the chips' tags (BG1's top rows) */
+    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+
     rs_oam_clear();
     /* front to back: the UI, the berries, the effects, the props */
-    if (state == ST_PLAY || state == ST_DEAD) {
+    if (play) {
         if (w->players == 1) {
-            hu_number(w->metres[0], RS_SCREEN_W / 2, 10, 3);
+            int zr = vw < rs_screen_width() ? RS_SCREEN_W - (vx0 + vw) + 8 : 0;    /* zoomed: in the columns shown */
+            hu_number(w->metres[0], zr ? vx0 + vw / 2 : RS_SCREEN_W / 2, 10 + hy, 3);
             if (w->coins[0]) {
-                spr(SPR_GOLDEN, 266 + hu_ui_x(), 10, 3, -1);     /* the kit's UI x -> stage (its digits add it) */
-                hu_number(w->coins[0], 296, 10, 3);
+                spr(SPR_GOLDEN, 266 + hu_ui_x() - zr, 10 + hy, 3, -1);    /* the kit's UI x -> stage (its digits add it) */
+                hu_number(w->coins[0], 296 - zr, 10 + hy, 3);
             }
         } else {
             int score[MAX_PLAYERS];
-            for (int p = 0; p < w->players; p++) score[p] = world_score(w, p);
-            hu_score_chips(w->players, score, 0);   /* 2: x 80 / 240; 3-4: the corners, tagged P1..P4 */
+            for (int p = 0; p < w->players; p++) {
+                score[p] = world_score(w, p);
+                hu_chip c = hu_score_chip(w->players, p, 0);   /* 2: x 80 / 240; 3-4: the corners, tagged P1..P4 */
+                hu_number_at(score[p], c.x, c.y + (c.y < RS_SCREEN_H / 2 ? hy : 0), c.align, 3);
+            }
         }
     }
     if (state == ST_OVER) {

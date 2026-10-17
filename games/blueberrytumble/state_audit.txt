@@ -19,3 +19,5 @@ draw.ground_of     draw_ground_y(): which playfield tiles show the ground line, 
 draw.ground_ready  its flag (the cache is the same whenever it is made)
 draw.relayout      transient: set by draw_state_loaded() after a state of another width, consumed by the next draw
 draw.relayout_pause  the same (PAUSED drawn again on the UI layer that was set up again)
+draw.hud_lines     a tall screen: BG1's top lines pinned at the screen's top (rs_bg_pin, a setting not saved), set by draw_frame before each picture
+draw.soil_col      a tall screen: the backdrop below the stage (raster_out), set by draw_frame from the palette before each picture

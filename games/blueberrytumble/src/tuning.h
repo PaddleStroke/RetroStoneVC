@@ -105,6 +105,13 @@
  * rest is ahead, on the right): the stage origin, rounded (1/3: 36 px at 427, 67 at 520, 80 at 560; 0 at 320) */
 #define WIDE_LEFT_SHARE_NUM 1
 #define WIDE_LEFT_SHARE_DEN 3
+/* a phone held upright (DESIGN.md "Tall screen"; drawing only): a screen of ZOOM_H lines (rs_screen_zoom) filling the
+ * display's height, its sides cropped; the stage TALL_BELOW lines above the screen's bottom (the slope's soil under
+ * it), the rest of the lines above it; one berry: the columns shown start ZOOM_BEHIND px behind the berry's centre
+ * (everything else of them ahead of it) */
+#define ZOOM_H       400
+#define TALL_BELOW   80
+#define ZOOM_BEHIND  22
 
 /* ---- flow ---------------------------------------------------------------------------------------------------------- */
 #define START_CELLS  24         /* flat ground before the first pattern (the run starts at x = 0, bar 0) */

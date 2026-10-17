@@ -249,13 +249,25 @@ on the right (origin 0), the berry sat too close to the left edge and the right 
   tests/wide_test.sh checks live changes of width in a run and on the title, and states across widths.
 
 ## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
-display's height at 320 columns. The 240 lines of the stage are the same pixels; the stage sits at the bottom of the
-screen (`rs_screen_origin_v`): the slope's soil already fills its foot, and the sheared playfield's 64 wrapping map
-rows hold no deeper soil to show below it. All the extra lines are above it (draw.c `raster_out`): the sky carried on
-from its top colour (the beat's pulse included), deeper toward the screen's top; the playfield, the far bands and the
-UI are hidden there (window 1: they would wrap round to their other rows), and line 0 puts the stage's masks back, so
-a 240-line screen is unchanged. Touch is the whole screen (games.cfg `touch=all:A`), so nothing else moves.
+A phone held upright: the zoomed screen (v2), `rs_screen_zoom(ZOOM_H)` first in `game_init` (tuning.h: 400 lines).
+The app scales the 400 lines to the display's height and crops the sides: 184 columns at 1080x2340, 170 at 1080x2520,
+200 at 720x1440, the berry and the slope 5.85x on a 1080x2340 phone (3.4x before). Drawing only: the rules, the
+camera's rise and the bot are unchanged; landscape and 4:3 are the same pixels.
+- **One berry rolling** (ready, play, the splat): the columns shown start `ZOOM_BEHIND` (22) px behind the berry's
+  centre (`rs_screen_focus_x`), all the rest of them ahead of it: 148 to 178 px of the course ahead (224 at 4:3).
+- **The stage** sits `TALL_BELOW` (80) lines above the screen's bottom, 80 lines above it. Below it the slope's soil
+  goes on (the playfield's 18 soil rows reach deeper than the screen's bottom; where a cliff lifts the ground, the
+  backdrop there is the deep soil's own colour, `deep_color`); above it the playfield goes on into the sky (its map's
+  cell and sky rows reach far higher than the screen's top), the sky carried on from its top colour, deeper toward the
+  screen's top (draw.c `raster_out`). The far mountains and the mid-ground are drawn 16 px higher (`TALL_FAR_UP`,
+  `TALL_MID_UP`) to spread the decor over the taller sky; they and the UI are hidden past the stage (window 1: they
+  would wrap round to their other rows); line 0 puts the stage's masks back, so a 240-line screen is unchanged.
+- **The HUD at the screen's top**: the metres centred on the columns shown, the golden blueberries at their right
+  (sprites at `rs_screen_top()`); 2-4 berries: the top chips there too, their P1..P4 tags (BG1's top 16 lines) pinned
+  there (`rs_bg_pin`). Sprites are culled at the screen's edges (`rs_screen_top()` / `bottom()`), not the stage's.
+- **The title, the game-over panels and 2-4 berries** (the trailing berries roll up to 84 px behind the first) show
+  every column (`rs_screen_fill(0)`), the 400 lines fitted to the width.
+Touch is the whole screen (games.cfg `touch=all:A`), so nothing else moves.
 
 ## Art and sound
 Code-drawn only (tools/make_art.py with games/common/tools/house_style.py): no image generation. Effects synthesised
