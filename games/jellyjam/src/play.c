@@ -190,7 +190,9 @@ int pair_floor(const field *f, const pair_t *p)
     int y = gheight(f->g, p->col) * CQ;
     if (p->rot == 2) y += CQ;                       /* the child is below the pivot */
     else if (p->rot & 1) {
-        int y2 = gheight(f->g, p->col + CDX[p->rot]) * CQ;
+        int cc = p->col + CDX[p->rot];
+        int y2 = cc >= 0 && cc < COLS ? gheight(f->g, cc) * CQ : 0;    /* a child off the field (the quick flip at a
+                                                                          wall asks): pair_fits refuses it */
         if (y2 > y) y = y2;
     }
     return y;
@@ -229,6 +231,10 @@ int pair_turn(field *f, int dir)
 {
     pair_t p = f->pr;
     int from = p.rot, ok = 1;
+    /* a climb (the floor kick, the flip) lifts the pair off the ground and so restarts its landing wait: it counts as
+     * one of the LOCK_RESETS restarts, and none is left once they are used up (turning round and round on the floor
+     * would hold the pair up for ever) */
+    int climb = f->pr.resets < LOCK_RESETS;
     p.rot = (int8_t)((p.rot + dir) & 3);
     if (!pair_fits(f, &p)) {
         ok = 0;
@@ -239,14 +245,14 @@ int pair_turn(field *f, int dir)
         } else if (p.rot == 2) {                    /* the child turns into the floor or the stack: the pair climbs */
             pair_t q = p;
             q.y = pair_floor(f, &q);
-            if (q.y - f->pr.y <= CQ && pair_fits(f, &q)) { p = q; ok = 1; }
+            if (climb && q.y - f->pr.y <= CQ && pair_fits(f, &q)) { p = q; ok = 1; }
         }
         if (!ok && f->pr.qturn) {                   /* blocked on both sides, pressed again quickly: the pair flips */
             pair_t q = f->pr;
             q.rot = (int8_t)((q.rot + 2) & 3);
             int fl = pair_floor(f, &q);
             if (q.y < fl) q.y = fl;
-            if (pair_fits(f, &q)) { p = q; ok = 1; }
+            if ((climb || q.y == f->pr.y) && pair_fits(f, &q)) { p = q; ok = 1; }
         }
         if (!ok) {
             f->pr.qturn = QUICK_TURN;
@@ -256,6 +262,12 @@ int pair_turn(field *f, int dir)
     p.rot_from = (int8_t)from;
     p.rot_t = 0;
     p.qturn = 0;
+    if (p.y > f->pr.y) {                            /* it climbed */
+        p.lock_t = 0;
+        p.resets++;
+        f->pr = p;
+        return 1;
+    }
     f->pr = p;
     ground_reset(f);
     return 1;
@@ -419,8 +431,10 @@ static void remove_melted(field *f)
 static void lose(world *w, int i)
 {
     field *f = &w->f[i];
-    int alive = 0;
-    for (int k = 0; k < w->nf; k++) alive += w->f[k].alive;
+    int alive = 0;                                  /* the fields in at the start of this frame: the ones out at the same
+                                                       moment share the place (lost_t counts from the next frame) */
+    for (int k = 0; k < w->nf; k++)
+        alive += w->f[k].alive || (w->f[k].state == FS_LOST && w->f[k].lost_t == 0);
     f->alive = 0;
     f->state = FS_LOST;
     f->lost_t = 0;

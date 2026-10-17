@@ -34,7 +34,7 @@ never melt there; a jelly landing above it is lost). Four colours: strawberry, l
   pair a column away; a child turned into the floor or the stack lifts the pair a row; blocked on both sides (a well one
   column wide), a second press within 20 frames **flips** the pair. It falls at 10/256 of a cell a frame at the start
   (a cell in 26 frames), 3/256 faster per duel level and 5/256 faster every 20 s of a duel or a round (at most a cell in
-  4 frames); down drops it at 112/256 (a point a row). Landed, it waits 28 frames (moves and turns on the ground
+  4 frames); down drops it at 112/256 (a point a row). Landed, it waits 28 frames (moves and turns on the ground, a floor kick or a flip lifting it too,
   restart the wait, 8 times at most; down lands it at once). Then each jelly falls on its own (a horizontal pair over
   uneven ground **splits**).
 - **Melting**: **4 or more jellies of a colour touching** (up, down, left, right, on screen) flash for 26 frames and

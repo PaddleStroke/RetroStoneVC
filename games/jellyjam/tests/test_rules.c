@@ -108,6 +108,34 @@ static void test_moves(void)
     pair_turn(f, 1);
     f->pr.qturn = 0;                                /* the second press too late */
     CHECK(!pair_turn(f, 1) && f->pr.rot == 0, "...not when the second press is too late");
+    /* the quick flip at a wall asks for the floor of a child off the field: no column 6 (or -1) is read */
+    f = with_pair(5, 1, 0);
+    for (int r = 0; r < 11; r++) f->g[r][0] = 2;
+    CHECK(pair_floor(f, &f->pr) == 0, "a child off the field: only the pivot's column counts (%d)", pair_floor(f, &f->pr));
+    f = with_pair(0, 1, 12);
+    f->pr.y = 13 * CQ - 20;
+    for (int r = 0; r < 12; r++) f->g[r][0] = f->g[r][1] = (uint8_t)(1 + r % 2);
+    CHECK(!pair_turn(f, -1) && !pair_turn(f, -1) && f->pr.rot == 1 && f->pr.col == 0,
+          "at the top by the left wall: no turn up, no flip off the field (rot %d col %d)", f->pr.rot, f->pr.col);
+    /* turning round and round on the floor (each floor kick lifts the pair a row) cannot hold the pair up for ever */
+    world_init(&W, 2, 5);
+    world_start(&W, 1);
+    W.phase = PH_PLAY;
+    W.f[1].state = FS_IDLE;
+    f = &W.f[0];
+    f->state = FS_PAIR;
+    f->pr.col = 2;
+    f->pr.rot = 1;
+    f->pr.c0 = 1;
+    f->pr.c1 = 2;
+    int k = 0;
+    for (; k < 5000 && f->state == FS_PAIR; k++) {
+        idle();
+        in[0].cw = k % 2 == 0;
+        world_step(&W, in);
+    }
+    CHECK(f->state != FS_PAIR && k < (LOCK_RESETS + 2) * (CQ / FALL_START + LOCK_FRAMES + 4),
+          "spinning on the floor: the pair lands all the same (%d frames)", k);
 }
 
 static void test_landing(void)
@@ -306,6 +334,26 @@ static void test_losing(void)
     for (int k = 0; k < 40; k++) world_step(&W, in);
     CHECK(W.f[3].place == 4 && W.f[2].place == 3 && W.f[1].place == 2 && W.f[0].place == 1 && W.f[0].wins == 1,
           "4 players: places by elimination (%d %d %d %d)", W.f[0].place, W.f[1].place, W.f[2].place, W.f[3].place);
+    /* fields out at the same moment share their place; all out at once: a draw, nobody 1st */
+    vs(&W, 3);
+    for (int i = 1; i < 3; i++) {
+        for (int r = 0; r <= SPAWN_ROW; r++) W.f[i].g[r][SPAWN_COL] = 1 + (r % 2);
+        W.f[i].state = FS_SPAWN;
+        W.f[i].t = SPAWN_DELAY;
+    }
+    W.f[0].state = FS_IDLE;
+    world_step(&W, in);
+    CHECK(W.f[1].place == 3 && W.f[2].place == 3 && W.f[0].place == 1 && W.winner == 0,
+          "3 players, two out at once: both 3rd (%d %d %d)", W.f[0].place, W.f[1].place, W.f[2].place);
+    vs(&W, 2);
+    for (int i = 0; i < 2; i++) {
+        for (int r = 0; r <= SPAWN_ROW; r++) W.f[i].g[r][SPAWN_COL] = 1 + (r % 2);
+        W.f[i].state = FS_SPAWN;
+        W.f[i].t = SPAWN_DELAY;
+    }
+    world_step(&W, in);
+    CHECK(W.phase == PH_END && W.winner == -1 && W.f[0].place == 2 && W.f[1].place == 2 && !W.f[0].wins && !W.f[1].wins,
+          "2 players out at once: a draw (places %d %d)", W.f[0].place, W.f[1].place);
     /* a duel: the chef's field lost: the next chef, a level up, the bonus; the player's: game over */
     world_init(&W, 1, 9);
     world_start(&W, 1);
