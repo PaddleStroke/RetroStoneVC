@@ -159,6 +159,8 @@ static void wall_palette(const world *w)
 static void spr(int id, int x, int y, int prio, int pal, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
+    x += hu_shake_x();                  /* a catch's shake moves the actors with the maze and the room (BG2, BG3) */
+    y += hu_shake_y();
     if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
@@ -283,11 +285,15 @@ static const char *room_name(int maze)
     }
 }
 
-static void text_centered(int row, const char *s, int big)
+/* P2 CAUGHT! on a little panel in the band above the maze (the back wall: readable over any room's windows and
+ * pictures, between the 2 players' scores and the 3-4 players' corner chips); a text with accents or CJK glyphs
+ * takes one more row (its marks need the panel's fill above them) */
+static void caught_panel(const char *s)
 {
-    if (big && hu_width(s, 1) > 38) big = 0;           /* a long translation: the small letters */
-    if (big) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
-    else hu_text(hu_center(s, 0), row, s);
+    int tall = hu_tall(s), w = hu_width(s, 0) + 4;
+    if (w > 38) w = 38;
+    hu_panel((40 - w) / 2, 0, w, 3 + tall);
+    hu_box_text(hu_center(s, 0), 1 + tall, s);
 }
 
 /* the room's name (and number) or ROOM CLEAR! on a little panel over the dock: gold 2x letters, small ones if long */
@@ -336,7 +342,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 char tag[16];
                 rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), w->msg_player + 1);
                 rs_strf(s, sizeof s, TR(CAUGHT), tag);
-                text_centered(w->players >= 3 ? 1 : 3, s, 0);
+                caught_panel(s);
             }
         }
         if (state == ST_OVER) {

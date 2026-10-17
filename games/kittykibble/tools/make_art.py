@@ -765,34 +765,39 @@ def room_kitchen():
             cv.set(8, 8 - i, out)
         for i in range(3):
             cv.set(8 + i, 8, cur[1])
-    rm.paste(stamp(clock, 17, 17, out), 98, 3)
+    rm.paste(stamp(clock, 17, 17, out), 112, 3)                # clear of the score, under the P2 CAUGHT! panel
+
+    jars = [cur, glass, [(246, 214, 120), (214, 168, 70)]]
 
     def shelf(cv):
-        rect(cv, 0, 14, 63, 16, wood[1])
-        rect(cv, 0, 17, 63, 17, wood[2])
-        for i, c in enumerate([cur, glass, [(246, 214, 120), (214, 168, 70)], cur]):
+        rect(cv, 0, 14, 47, 16, wood[1])
+        rect(cv, 0, 17, 47, 17, wood[2])
+        for i, c in enumerate(jars):
             x = 4 + i * 15
             rect(cv, x, 4, x + 9, 13, c[1])
             rect(cv, x + 1, 5, x + 4, 12, c[0])
             rect(cv, x + 1, 2, x + 8, 3, wood[0])
-    rm.paste(stamp(shelf, 64, 19, out), -100, 2)
-    rm.paste(stamp(shelf, 64, 19, out), 340, 2)
-    # floor: the kitten's bowls (food and water), a chair, a table, a plant, a rug
+    # every prop lies wholly inside or wholly outside each width's view (stage x 0..319 at 320, -53..373 at 427,
+    # -100..419 at 520, its shadow included): nothing cut by a screen's edge
+    rm.paste(stamp(shelf, 48, 19, out), -51, 2)
+    rm.paste(stamp(shelf, 48, 19, out), 324, 2)
+    # floor: the kitten's bowls (food and water), chairs, a table, plants, a rug
     sh = {fl[0]: fl[2], fl[1]: (176, 186, 198)}
     rm.sh = sh
     rm.paste(stamp(lambda cv: bowl(cv, 14, 11, 12, [(120, 160, 226), (78, 108, 178)],
-                                   [KIB[0], KIB[1], KIB[1], KIB[2]]), 30, 24, out), -1, 150)
+                                   [KIB[0], KIB[1], KIB[1], KIB[2]]), 30, 24, out), 3, 150)
     rm.paste(stamp(lambda cv: bowl(cv, 13, 10, 11, [(250, 250, 250), (196, 200, 210)],
-                                   [glass[0], glass[0], glass[1], glass[1]]), 28, 22, out), 2, 184)
-    for cx, cy in ((290, 70), (290, 128)):
+                                   [glass[0], glass[0], glass[1], glass[1]]), 28, 22, out), 4, 184)
+    for cx, cy in ((290, 70), (290, 128), (-78, 92), (-78, 140)):
         rm.paste(stamp(lambda cv: chair(cv, 1, 5, wood, cur), 18, 22, out), cx - 1, cy - 5)
-    rm.paste(stamp(lambda cv: table(cv, 1, 1, 60, 100, wood,
-                                    lambda c: (bowl(c, 18, 24, 7, [(250, 250, 250), (196, 200, 210)], None),
-                                               bowl(c, 40, 70, 7, [(250, 250, 250), (196, 200, 210)], None))),
-                   62, 102, out), -95, 68)
-    rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
-                                    [(126, 192, 92), (70, 132, 62)]), 32, 32, out), 338, 160)
-    rm.paste(stamp(lambda cv: rug(cv, 30, 16, 29, 15, (232, 150, 120), (196, 96, 86)), 62, 34, out), 330, 74, flat=True)
+    rm.paste(stamp(lambda cv: table(cv, 1, 1, 42, 100, wood,
+                                    lambda c: (bowl(c, 14, 24, 7, [(250, 250, 250), (196, 200, 210)], None),
+                                               bowl(c, 28, 70, 7, [(250, 250, 250), (196, 200, 210)], None))),
+                   44, 102, out), -51, 68)
+    for x, y in ((338, 160), (382, 100)):
+        rm.paste(stamp(lambda cv: plant(cv, 15, 15, 12, [(214, 122, 80), (162, 84, 56)],
+                                        [(126, 192, 92), (70, 132, 62)]), 32, 32, out), x, y)
+    rm.paste(stamp(lambda cv: rug(cv, 23, 15, 22, 14, (232, 150, 120), (196, 96, 86)), 46, 31, out), 325, 74, flat=True)
     return rm
 
 
@@ -815,15 +820,15 @@ def room_living():
     glass = [(178, 220, 244), (140, 194, 232)]
     cur = [(108, 158, 136), (72, 116, 100)]
     rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 2, 0)
-    rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 230, 0)
+    rm.paste(stamp(lambda cv: window(cv, 52, 22, [paper[0], wood[2]], glass, cur), 54, 24, out), 236, 0)
 
     def picture(cv):
         rect(cv, 0, 0, 23, 17, (216, 172, 82))
         rect(cv, 2, 2, 21, 15, (150, 200, 230))
         rect(cv, 2, 11, 21, 15, (110, 170, 96))
         disc(cv, 15, 6, 2.2, (250, 230, 140))
-    rm.paste(stamp(picture, 25, 19, out), 122, 2)
-    rm.paste(stamp(picture, 25, 19, out), 176, 2)
+    rm.paste(stamp(picture, 25, 19, out), 96, 2)                # either side of the score (x 128..192)
+    rm.paste(stamp(picture, 25, 19, out), 199, 2)
     # an armchair, a round rug with a basket of yarn, a floor lamp, a plant, a coffee table
     sh = {fl[0]: (170, 122, 80), fl[1]: (154, 108, 72)}
     rm.sh = sh
@@ -835,15 +840,15 @@ def room_living():
         hs.ellipse(cv, 16, 16, 9, 8, [(216, 132, 178), (216, 132, 178), sofa[0], sofa[0]])
         rect(cv, 0, 0, 31, 4, (216, 132, 178))
     rm.paste(stamp(armchair, 32, 30, out), -92, 60)
-    rm.paste(stamp(armchair, 32, 30, out), 290, 60)
-    rm.paste(stamp(lambda cv: rug(cv, 26, 22, 25, 21, (120, 168, 200), (232, 214, 150)), 54, 46, out), -80, 128, flat=True)
+    rm.paste(stamp(armchair, 32, 30, out), 284, 60)
+    rm.paste(stamp(lambda cv: rug(cv, 24, 21, 23, 20, (120, 168, 200), (232, 214, 150)), 50, 44, out), -51, 128, flat=True)
 
     def basket(cv):
         hs.ellipse(cv, 10, 9, 9, 7, [wood[0], wood[0], wood[1], wood[1]])
         oval(cv, 10, 9, 7, 5, wood[2])
         for cx, c in ((7, YARN), (13, [(150, 200, 240), (90, 140, 210), (60, 96, 170)])):
             hs.ellipse(cv, cx, 8.5, 3.2, 3.2, [c[0], c[1], c[1], c[2]])
-    rm.paste(stamp(basket, 22, 20, out), -66, 140)
+    rm.paste(stamp(basket, 22, 20, out), -38, 140)
     rm.paste(stamp(basket, 22, 20, out), 6, 196)
 
     def lamp(cv):
@@ -878,18 +883,19 @@ def room_bedroom():
     quilt = [(162, 178, 238), (98, 110, 184)]
 
     def bed(cv):
-        rect(cv, 0, 0, 51, 85, wood[2])
-        rect(cv, 2, 2, 49, 83, wood[1])
-        rect(cv, 3, 3, 48, 20, (250, 250, 250))
-        hs.ellipse(cv, 15, 11, 10, 6, [(250, 250, 250), (250, 250, 250), (220, 224, 240), (220, 224, 240)])
-        hs.ellipse(cv, 37, 11, 10, 6, [(250, 250, 250), (250, 250, 250), (220, 224, 240), (220, 224, 240)])
-        rect(cv, 3, 24, 48, 82, quilt[0])
+        rect(cv, 0, 0, 47, 85, wood[2])
+        rect(cv, 2, 2, 45, 83, wood[1])
+        rect(cv, 3, 3, 44, 20, (250, 250, 250))
+        hs.ellipse(cv, 13, 11, 9, 6, [(250, 250, 250), (250, 250, 250), (220, 224, 240), (220, 224, 240)])
+        hs.ellipse(cv, 34, 11, 9, 6, [(250, 250, 250), (250, 250, 250), (220, 224, 240), (220, 224, 240)])
+        rect(cv, 3, 24, 44, 82, quilt[0])
         for y in range(24, 83):
-            for x in range(3, 49):
+            for x in range(3, 45):
                 if (x + y) % 10 == 0 or (x - y) % 10 == 0:
                     cv.set(x, y, quilt[1])
-        rect(cv, 3, 24, 48, 26, (250, 206, 226))
-    rm.paste(stamp(bed, 52, 86, out), -100, 36)
+        rect(cv, 3, 24, 44, 26, (250, 206, 226))
+    # every prop wholly inside or outside each width's view (as in the kitchen)
+    rm.paste(stamp(bed, 48, 86, out), -52, 36)
 
     def toybox(cv):
         rect(cv, 0, 0, 27, 21, (232, 120, 110))
@@ -911,14 +917,22 @@ def room_bedroom():
         hs.ellipse(cv, 9, 17, 7, 6, [(210, 156, 106), (210, 156, 106), (176, 120, 80), (176, 120, 80)])
         cv.set(7, 7, out), cv.set(11, 7, out), cv.set(9, 9, out)
     rm.paste(stamp(teddy, 19, 24, out), 10, 60)
-    rm.paste(stamp(lambda cv: rug(cv, 26, 18, 25, 17, (250, 220, 240), (200, 170, 230)), 54, 38, out), 330, 150, flat=True)
+    rm.paste(stamp(lambda cv: rug(cv, 23, 16, 22, 15, (250, 220, 240), (200, 170, 230)), 46, 33, out), 325, 150, flat=True)
 
     def wardrobe(cv):
         rect(cv, 0, 0, 39, 25, wood[2])
         rect(cv, 1, 1, 38, 21, wood[1])
         rect(cv, 2, 2, 37, 4, wood[0])
         cv.set(19, 12, wood[2]), cv.set(20, 12, wood[2])
-    rm.paste(stamp(wardrobe, 40, 26, out), 360, 34)
+    rm.paste(stamp(wardrobe, 40, 26, out), -97, 34)
+
+    def nightstand(cv):                                         # a bedside table with its lamp, seen from above
+        rect(cv, 0, 0, 23, 19, wood[2])
+        rect(cv, 1, 1, 22, 15, wood[1])
+        rect(cv, 2, 2, 21, 3, wood[0])
+        disc(cv, 12, 9, 5.5, (250, 228, 150))
+        disc(cv, 12, 9, 3.5, (252, 244, 210))
+    rm.paste(stamp(nightstand, 24, 20, out), 386, 44)
     return rm
 
 
@@ -961,7 +975,7 @@ def room_garden():
         hs.ellipse(cv, 22, 22, 13, 13, [leaf[0], leaf[0], leaf[1], leaf[1]])
         for k in range(6):
             disc(cv, 12 + k * 4, 14 + (k % 3) * 6, 1.2, (230, 90, 80))
-    rm.paste(stamp(tree, 46, 46, out), -94, 78)
+    rm.paste(stamp(tree, 46, 46, out), -51, 78)            # every prop wholly inside or outside each view
 
     def flowers(cv):
         rect(cv, 0, 0, 29, 13, (140, 96, 64))
@@ -972,7 +986,9 @@ def room_garden():
             cv.set(3 + k * 4, 4 + (k % 2) * 4, (250, 250, 250))
     rm.paste(stamp(flowers, 30, 14, out), 10, 60)
     rm.paste(stamp(flowers, 30, 14, out), 280, 190)
-    rm.paste(stamp(flowers, 30, 14, out), 360, 60)
+    rm.paste(stamp(flowers, 30, 14, out), 334, 60)
+    rm.paste(stamp(flowers, 30, 14, out), -92, 60)
+    rm.paste(stamp(flowers, 30, 14, out), 382, 124)
 
     def pond(cv):
         hs.ellipse(cv, 22, 14, 21, 13, [(150, 200, 236), (120, 180, 226), (96, 156, 210), (80, 136, 196)])
@@ -980,7 +996,7 @@ def room_garden():
             disc(cv, cx, cy, 3, (110, 176, 80))
             cv.set(cx, cy - 3, (150, 200, 236))
         disc(cv, 30, 8, 1.5, (250, 150, 170))
-    rm.paste(stamp(pond, 46, 30, out), 330, 108)
+    rm.paste(stamp(pond, 46, 30, out), 324, 108)
 
     def stones(cv):
         for k in range(3):
@@ -988,6 +1004,8 @@ def room_garden():
                                                            (170, 170, 176)])
     rm.paste(stamp(stones, 18, 30, out), 286, 70)
     rm.paste(stamp(stones, 18, 30, out), 18, 130)
+    rm.paste(stamp(stones, 18, 30, out), -80, 160)
+    rm.paste(stamp(stones, 18, 30, out), 392, 60)
 
     def birdbath(cv):
         disc(cv, 9, 9, 8.5, (196, 196, 206))
@@ -995,6 +1013,7 @@ def room_garden():
         hs.ellipse(cv, 7, 8, 2.4, 1.8, [(250, 120, 100), (250, 120, 100), (200, 80, 70), (200, 80, 70)])
     rm.paste(stamp(birdbath, 19, 19, out), 290, 150)
     rm.paste(stamp(birdbath, 19, 19, out), -40, 190)
+    rm.paste(stamp(birdbath, 19, 19, out), 390, 176)
     return rm
 
 
@@ -1034,8 +1053,9 @@ def room_attic():
     tape = (236, 220, 176)
     sh = {fl[0]: (104, 106, 122), fl[1]: (94, 96, 112)}
     rm.sh = sh
-    for x, y, w, h in ((-96, 60, 36, 28), (-70, 92, 30, 24), (-100, 120, 28, 26), (300, 60, 30, 26),
-                       (290, 150, 26, 22), (360, 196, 34, 26), (6, 196, 30, 22)):
+    # every prop wholly inside or outside each width's view (as in the kitchen)
+    for x, y, w, h in ((-96, 60, 36, 28), (-48, 92, 30, 24), (-98, 124, 28, 26), (-44, 170, 28, 24), (286, 60, 30, 26),
+                       (290, 150, 26, 22), (330, 190, 34, 26), (6, 196, 30, 22), (382, 60, 30, 26), (384, 160, 28, 24)):
         rm.paste(stamp(lambda cv, w=w, h=h: box(cv, 0, 0, w, h, card, tape), w + 1, h + 1, out), x, y)
 
     def trunk(cv):
@@ -1044,7 +1064,7 @@ def room_attic():
         for x in (6, 37):
             rect(cv, x, 0, x + 1, 23, (214, 184, 96))
         rect(cv, 20, 9, 23, 13, (214, 184, 96))
-    rm.paste(stamp(trunk, 44, 26, out), 348, 104)
+    rm.paste(stamp(trunk, 44, 26, out), 326, 104)
 
     def web(cv):
         for k in range(5):
@@ -1055,7 +1075,7 @@ def room_attic():
             for k in range(13):
                 a = k * math.pi / 26
                 cv.set(int(r * math.cos(a)), int(r * math.sin(a)), (210, 214, 226))
-    rm.paste(stamp(web, 15, 15, (210, 214, 226)), -108, 28, flat=True)
+    rm.paste(stamp(web, 15, 15, (210, 214, 226)), -100, 28, flat=True)
 
     def lamp(cv):
         disc(cv, 8, 8, 7.5, (250, 228, 150))

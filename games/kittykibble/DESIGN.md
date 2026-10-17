@@ -109,21 +109,22 @@ reaches S (the tests' game over).
 | Layer | Contents | Scroll |
 |---|---|---|
 | backdrop | (hidden by the room) | - |
-| BG3 | the room around the maze, one picture per room: the floor (kitchen checks, honey planks, a peach carpet, gravel paths in a lawn, dusty blue boards), the back wall at the top (windows, a clock, pictures, shelves; the garden's fence and sky, the attic's roof and round windows), furniture seen from above with soft shadows in the margins (the kitten's bowls, chairs, a table, armchairs, a bed, toy boxes, a tree, a pond, flower beds, cardboard boxes, a trunk), the pet doors | fixed (shakes on a catch) |
+| BG3 | the room around the maze, one picture per room: the floor (kitchen checks, honey planks, a peach carpet, gravel paths in a lawn, dusty blue boards), the back wall at the top (windows, a clock, pictures, shelves; the garden's fence and sky, the attic's roof and round windows), furniture seen from above with soft shadows in the margins (the kitten's bowls, chairs, a table, armchairs, a bed, a bedside lamp, toy boxes, a tree, a pond, flower beds, cardboard boxes, a trunk), the pet doors | fixed (shakes on a catch, the sprites with it) |
 | BG2 | the maze: the walls (each room's furniture: tiled kitchen counters, tufted plum sofas, quilted pillows, hedges, taped cardboard boxes; 47 rounded shapes chosen by a cell's 8 neighbours, lit from the top-left with a dark front face), the kibble, the gate and the dock's charging floor; rebuilt from the world each frame | the maze's 4-px offset (shakes) |
-| BG1 | the house UI kit: the logo, the title's lines, the room's name, ROOM CLEAR!, P2 CAUGHT!, the panels, PAUSED | fixed |
+| BG1 | the house UI kit: the logo, the title's lines, the room's name, ROOM CLEAR!, P2 CAUGHT! (a little panel in the back wall's band), the panels, PAUSED | fixed |
 | OBJ | the kittens (P1 OBJ 0; P2-P4 OBJ 1, 4, 5: fur and collar recoloured), the yarn, the fish, points, dust, the eyes zipping home (OBJ 2), the kit's digits, glyphs and medals (OBJ 3), the vacuums (OBJ 6; scared and flashing: OBJ 7) | |
 
 Window 1 hides the sprites outside the maze's columns on its lines (the raster callback sets it per line): the actors
 go out through the pet doors and come back on the other side. VRAM: the UI and its glyph pool 0..767, the maze at 1024
-(47 wall shapes + 4), the room at 1280 (up to 720 tiles: 174-401 by room, loaded with its palettes when a room
+(47 wall shapes + 4), the room at 1280 (up to 720 tiles: 180-457 by room, loaded with its palettes when a room
 begins), the sprites at 2048 (202 tiles, then the kit's).
 
 **Widescreen** (docs/spec.md "Widescreen"): the game opts in (`max_width`, `WIDESCREEN_kittykibble = 1`). The maze and
 the play are the same at every width (the stage's 320 columns are centred); a wider screen (427 for 16:9, 520 for
 phones) shows more of the room around it: more floor and furniture (a table, armchairs, a bed, a tree, boxes), and on
 the widest the room's side walls. The rooms are "stage panoramas" (576 px from stage x -128) so no width shows them
-twice. A state saved at one width loads at another.
+twice; each prop lies wholly inside or wholly outside each width's view (stage x 0..319, -53..373, -100..419, its
+shadow included), so no screen edge cuts a piece of furniture. A state saved at one width loads at another.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the kitchen, the logo, the kitten bobbing with its ball of yarn, the four vacuums gliding by, the player slots,
