@@ -54,7 +54,11 @@ static void raster_out(int line){
 }
 static void raster(int line,void *user){(void)user;
  if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
- if(line==0 && tall()){for(int l=0;l<3;l++)rs_bg_window(l,0);rs_obj_window(0);rs_bg_scroll(RS_BG2,bg2_sx(),0);}
+ if(line==0){   /* always: a state saved on a tall screen may hold the margins' windows */
+  for(int l=0;l<3;l++)rs_bg_window(l,0);
+  rs_obj_window(0);
+  if(tall())rs_bg_scroll(RS_BG2,bg2_sx(),0);
+ }
  int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);}
 /* the maps of this width: 64 tiles at 320; 128 wider (the UI's corner tags, the sand as wide as the screen, the wide
  * beach and its own tiles, the blank tile after them) */
