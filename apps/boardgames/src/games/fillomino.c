@@ -183,14 +183,19 @@ static void draw(void)
     if (made_key < 0) layout(last_box);
     int n = G.p.n, q = geo.cs;
     ui_put(t_board, geo.bx, geo.by, (float)geo.w, (float)geo.h);
+    float t = fmaxf(2, 0.09f * q), x, y;        /* the regions as big as their number: a warm wash */
+    for (int c = 0; c < n * n; c++)
+        if (G.val[c] && flm_region(&G, c) == G.val[c]) {
+            bench_cell_xy(&geo, c, &x, &y);
+            ui_fill(x, y, (float)q, (float)q, 255, 226, 140, 46);
+        }
     bench_dg_marks(&dg);
-    float t = fmaxf(2, 0.09f * q), x, y;        /* the walls between different numbers */
-    for (int c = 0; c < n * n; c++) {
+    for (int c = 0; c < n * n; c++) {           /* the walls between different numbers, meeting at their corners */
         bench_cell_xy(&geo, c, &x, &y);
         if (c % n < n - 1 && G.val[c] && G.val[c + 1] && G.val[c] != G.val[c + 1])
-            ui_fill(x + q - t / 2, y, t, (float)q, 40, 30, 22, 220);
+            ui_fill(x + q - t / 2, y - t / 2, t, q + t, 62, 47, 34, 255);
         if (c / n < n - 1 && G.val[c] && G.val[c + n] && G.val[c] != G.val[c + n])
-            ui_fill(x, y + q - t / 2, (float)q, t, 40, 30, 22, 220);
+            ui_fill(x - t / 2, y + q - t / 2, q + t, t, 62, 47, 34, 255);
     }
     bench_dg_cells(&dg);
     bench_dg_pad(&dg);
