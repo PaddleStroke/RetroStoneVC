@@ -1,0 +1,12 @@
+Çiz ve Bil
+# Amaç
+Diğerleri kelimeni bilsin diye çiz, onlarınkini de bil. 2 ila 8 oyuncu için.
+# Bir sıra
+- Çizen kişi kelimeye tek başına bakar, sonra diğerleri yüksek sesle tahmin ederken onu 60 saniye çizer.
+- Yalnızca çizim: harf, rakam, kelime ya da el hareketi yok.
+- Biri kelimeyi söyleyince çizen o oyuncuya dokunur.
+# Puanlama
+- İlk doğru tahmin: bilen kişiye 2 puan, çizene 1 puan.
+- Süre bitmeden kimse bilemezse: puan yok.
+# Oyunun sonu
+Her oyuncu 3 kez çizer (4 oyuncudan itibaren 2 kez). En çok puanı olan kazanır.

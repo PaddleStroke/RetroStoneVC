@@ -1,0 +1,301 @@
+en	cs	da	de	el	es	fi	fr	id	it	ja	ko	nb	nl	pl	pt_BR	pt_PT	ru	sv	tr	uk	zh_CN
+cat	kočka	kat	Katze	γάτα	gato	kissa	chat	kucing	gatto	ねこ	고양이	katt	kat	kot	gato	gato	кошка	katt	kedi	кіт	猫
+dog	pes	hund	Hund	σκύλος	perro	koira	chien	anjing	cane	いぬ	개	hund	hond	pies	cachorro	cão	собака	hund	köpek	собака	狗
+horse	kůň	hest	Pferd	άλογο	caballo	hevonen	cheval	kuda	cavallo	うま	말	hest	paard	koń	cavalo	cavalo	лошадь	häst	at	кінь	马
+cow	kráva	ko	Kuh	αγελάδα	vaca	lehmä	vache	sapi	mucca	うし	소	ku	koe	krowa	vaca	vaca	корова	ko	inek	корова	奶牛
+pig	prase	gris	Schwein	γουρούνι	cerdo	sika	cochon	babi	maiale	ぶた	돼지	gris	varken	świnia	porco	porco	свинья	gris	domuz	свиня	猪
+sheep	ovce	får	Schaf	πρόβατο	oveja	lammas	mouton	domba	pecora	ひつじ	양	sau	schaap	owca	ovelha	ovelha	овца	får	koyun	вівця	绵羊
+hen	slepice	høne	Huhn	κότα	gallina	kana	poule	ayam	gallina	にわとり	닭	høne	kip	kura	galinha	galinha	курица	höna	tavuk	курка	母鸡
+duck	kachna	and	Ente	πάπια	pato	ankka	canard	bebek	anatra	あひる	오리	and	eend	kaczka	pato	pato	утка	anka	ördek	качка	鸭子
+rabbit	králík	kanin	Kaninchen	κουνέλι	conejo	kani	lapin	kelinci	coniglio	うさぎ	토끼	kanin	konijn	królik	coelho	coelho	кролик	kanin	tavşan	кролик	兔子
+mouse	myš	mus	Maus	ποντίκι	ratón	hiiri	souris	tikus	topo	ねずみ	쥐	mus	muis	mysz	rato	rato	мышь	mus	fare	миша	老鼠
+elephant	slon	elefant	Elefant	ελέφαντας	elefante	norsu	éléphant	gajah	elefante	ぞう	코끼리	elefant	olifant	słoń	elefante	elefante	слон	elefant	fil	слон	大象
+giraffe	žirafa	giraf	Giraffe	καμηλοπάρδαλη	jirafa	kirahvi	girafe	jerapah	giraffa	きりん	기린	sjiraff	giraf	żyrafa	girafa	girafa	жираф	giraff	zürafa	жираф	长颈鹿
+lion	lev	løve	Löwe	λιοντάρι	león	leijona	lion	singa	leone	ライオン	사자	løve	leeuw	lew	leão	leão	лев	lejon	aslan	лев	狮子
+tiger	tygr	tiger	Tiger	τίγρη	tigre	tiikeri	tigre	harimau	tigre	とら	호랑이	tiger	tijger	tygrys	tigre	tigre	тигр	tiger	kaplan	тигр	老虎
+bear	medvěd	bjørn	Bär	αρκούδα	oso	karhu	ours	beruang	orso	くま	곰	bjørn	beer	niedźwiedź	urso	urso	медведь	björn	ayı	ведмідь	熊
+monkey	opice	abe	Affe	μαϊμού	mono	apina	singe	monyet	scimmia	さる	원숭이	ape	aap	małpa	macaco	macaco	обезьяна	apa	maymun	мавпа	猴子
+zebra	zebra	zebra	Zebra	ζέβρα	cebra	seepra	zèbre	zebra	zebra	しまうま	얼룩말	sebra	zebra	zebra	zebra	zebra	зебра	zebra	zebra	зебра	斑马
+camel	velbloud	kamel	Kamel	καμήλα	camello	kameli	chameau	unta	cammello	らくだ	낙타	kamel	kameel	wielbłąd	camelo	camelo	верблюд	kamel	deve	верблюд	骆驼
+kangaroo	klokan	kænguru	Känguru	καγκουρό	canguro	kenguru	kangourou	kanguru	canguro	カンガルー	캥거루	kenguru	kangoeroe	kangur	canguru	canguru	кенгуру	känguru	kanguru	кенгуру	袋鼠
+crocodile	krokodýl	krokodille	Krokodil	κροκόδειλος	cocodrilo	krokotiili	crocodile	buaya	coccodrillo	ワニ	악어	krokodille	krokodil	krokodyl	crocodilo	crocodilo	крокодил	krokodil	timsah	крокодил	鳄鱼
+snake	had	slange	Schlange	φίδι	serpiente	käärme	serpent	ular	serpente	へび	뱀	slange	slang	wąż	cobra	cobra	змея	orm	yılan	змія	蛇
+frog	žába	frø	Frosch	βάτραχος	rana	sammakko	grenouille	katak	rana	カエル	개구리	frosk	kikker	żaba	sapo	rã	лягушка	groda	kurbağa	жаба	青蛙
+tortoise	želva	skildpadde	Schildkröte	χελώνα	tortuga	kilpikonna	tortue	kura-kura	tartaruga	カメ	거북	skilpadde	schildpad	żółw	tartaruga	tartaruga	черепаха	sköldpadda	kaplumbağa	черепаха	乌龟
+fish	ryba	fisk	Fisch	ψάρι	pez	kala	poisson	ikan	pesce	さかな	물고기	fisk	vis	ryba	peixe	peixe	рыба	fisk	balık	риба	鱼
+shark	žralok	haj	Hai	καρχαρίας	tiburón	hai	requin	hiu	squalo	サメ	상어	hai	haai	rekin	tubarão	tubarão	акула	haj	köpekbalığı	акула	鲨鱼
+whale	velryba	hval	Wal	φάλαινα	ballena	valas	baleine	paus	balena	クジラ	고래	hval	walvis	wieloryb	baleia	baleia	кит	val	balina	кит	鲸鱼
+dolphin	delfín	delfin	Delfin	δελφίνι	delfín	delfiini	dauphin	lumba-lumba	delfino	イルカ	돌고래	delfin	dolfijn	delfin	golfinho	golfinho	дельфин	delfin	yunus	дельфін	海豚
+octopus	chobotnice	blæksprutte	Krake	χταπόδι	pulpo	mustekala	pieuvre	gurita	polpo	タコ	문어	blekksprut	octopus	ośmiornica	polvo	polvo	осьминог	bläckfisk	ahtapot	восьминіг	章鱼
+crab	krab	krabbe	Krabbe	κάβουρας	cangrejo	rapu	crabe	kepiting	granchio	カニ	게	krabbe	krab	krab	caranguejo	caranguejo	краб	krabba	yengeç	краб	螃蟹
+snail	šnek	snegl	Schnecke	σαλιγκάρι	caracol	etana	escargot	siput	lumaca	カタツムリ	달팽이	snegle	slak	ślimak	caracol	caracol	улитка	snigel	salyangoz	равлик	蜗牛
+butterfly	motýl	sommerfugl	Schmetterling	πεταλούδα	mariposa	perhonen	papillon	kupu-kupu	farfalla	ちょう	나비	sommerfugl	vlinder	motyl	borboleta	borboleta	бабочка	fjäril	kelebek	метелик	蝴蝶
+bee	včela	bi	Biene	μέλισσα	abeja	mehiläinen	abeille	lebah	ape	ハチ	벌	bie	bij	pszczoła	abelha	abelha	пчела	bi	arı	бджола	蜜蜂
+spider	pavouk	edderkop	Spinne	αράχνη	araña	hämähäkki	araignée	laba-laba	ragno	クモ	거미	edderkopp	spin	pająk	aranha	aranha	паук	spindel	örümcek	павук	蜘蛛
+ant	mravenec	myre	Ameise	μυρμήγκι	hormiga	muurahainen	fourmi	semut	formica	アリ	개미	maur	mier	mrówka	formiga	formiga	муравей	myra	karınca	мураха	蚂蚁
+ladybird	beruška	mariehøne	Marienkäfer	πασχαλίτσα	mariquita	leppäkerttu	coccinelle	kepik	coccinella	テントウムシ	무당벌레	marihøne	lieveheersbeestje	biedronka	joaninha	joaninha	божья коровка	nyckelpiga	uğur böceği	сонечко	瓢虫
+owl	sova	ugle	Eule	κουκουβάγια	búho	pöllö	chouette	burung hantu	gufo	フクロウ	부엉이	ugle	uil	sowa	coruja	coruja	сова	uggla	baykuş	сова	猫头鹰
+eagle	orel	ørn	Adler	αετός	águila	kotka	aigle	elang	aquila	ワシ	독수리	ørn	adelaar	orzeł	águia	águia	орёл	örn	kartal	орел	老鹰
+parrot	papoušek	papegøje	Papagei	παπαγάλος	loro	papukaija	perroquet	burung beo	pappagallo	オウム	앵무새	papegøye	papegaai	papuga	papagaio	papagaio	попугай	papegoja	papağan	папуга	鹦鹉
+penguin	tučňák	pingvin	Pinguin	πιγκουίνος	pingüino	pingviini	pingouin	penguin	pinguino	ペンギン	펭귄	pingvin	pinguïn	pingwin	pinguim	pinguim	пингвин	pingvin	penguen	пінгвін	企鹅
+swan	labuť	svane	Schwan	κύκνος	cisne	joutsen	cygne	angsa	cigno	白鳥	백조	svane	zwaan	łabędź	cisne	cisne	лебедь	svan	kuğu	лебідь	天鹅
+flamingo	plameňák	flamingo	Flamingo	φλαμίνγκο	flamenco	flamingo	flamant rose	flamingo	fenicottero	フラミンゴ	홍학	flamingo	flamingo	flaming	flamingo	flamingo	фламинго	flamingo	flamingo	фламінго	火烈鸟
+bat	netopýr	flagermus	Fledermaus	νυχτερίδα	murciélago	lepakko	chauve-souris	kelelawar	pipistrello	コウモリ	박쥐	flaggermus	vleermuis	nietoperz	morcego	morcego	летучая мышь	fladdermus	yarasa	кажан	蝙蝠
+fox	liška	ræv	Fuchs	αλεπού	zorro	kettu	renard	rubah	volpe	キツネ	여우	rev	vos	lis	raposa	raposa	лиса	räv	tilki	лисиця	狐狸
+deer	jelen	hjort	Hirsch	ελάφι	ciervo	hirvi	cerf	rusa	cervo	シカ	사슴	hjort	hert	jeleń	cervo	veado	олень	hjort	geyik	олень	鹿
+squirrel	veverka	egern	Eichhörnchen	σκίουρος	ardilla	orava	écureuil	tupai	scoiattolo	リス	다람쥐	ekorn	eekhoorn	wiewiórka	esquilo	esquilo	белка	ekorre	sincap	білка	松鼠
+hedgehog	ježek	pindsvin	Igel	σκαντζόχοιρος	erizo	siili	hérisson	landak	riccio	ハリネズミ	고슴도치	pinnsvin	egel	jeż	ouriço	ouriço	ёж	igelkott	kirpi	їжак	刺猬
+goat	koza	ged	Ziege	κατσίκα	cabra	vuohi	chèvre	kambing	capra	ヤギ	염소	geit	geit	koza	cabra	cabra	коза	get	keçi	коза	山羊
+donkey	osel	æsel	Esel	γάιδαρος	burro	aasi	âne	keledai	asino	ロバ	당나귀	esel	ezel	osioł	burro	burro	осёл	åsna	eşek	віслюк	驴
+rhinoceros	nosorožec	næsehorn	Nashorn	ρινόκερος	rinoceronte	sarvikuono	rhinocéros	badak	rinoceronte	サイ	코뿔소	neshorn	neushoorn	nosorożec	rinoceronte	rinoceronte	носорог	noshörning	gergedan	носоріг	犀牛
+hippopotamus	hroch	flodhest	Nilpferd	ιπποπόταμος	hipopótamo	virtahepo	hippopotame	kuda nil	ippopotamo	カバ	하마	flodhest	nijlpaard	hipopotam	hipopótamo	hipopótamo	бегемот	flodhäst	su aygırı	бегемот	河马
+seal	tuleň	sæl	Robbe	φώκια	foca	hylje	phoque	anjing laut	foca	アザラシ	물개	sel	zeehond	foka	foca	foca	тюлень	säl	fok	тюлень	海豹
+worm	žížala	regnorm	Regenwurm	σκουλήκι	gusano	mato	ver de terre	cacing	verme	ミミズ	지렁이	meitemark	worm	dżdżownica	minhoca	minhoca	червяк	daggmask	solucan	хробак	蚯蚓
+dinosaur	dinosaurus	dinosaur	Dinosaurier	δεινόσαυρος	dinosaurio	dinosaurus	dinosaure	dinosaurus	dinosauro	恐竜	공룡	dinosaur	dinosaurus	dinozaur	dinossauro	dinossauro	динозавр	dinosaurie	dinozor	динозавр	恐龙
+dragon	drak	drage	Drache	δράκος	dragón	lohikäärme	dragon	naga	drago	ドラゴン	용	drage	draak	smok	dragão	dragão	дракон	drake	ejderha	дракон	龙
+unicorn	jednorožec	enhjørning	Einhorn	μονόκερος	unicornio	yksisarvinen	licorne	unicorn	unicorno	ユニコーン	유니콘	enhjørning	eenhoorn	jednorożec	unicórnio	unicórnio	единорог	enhörning	tek boynuzlu at	єдиноріг	独角兽
+apple	jablko	æble	Apfel	μήλο	manzana	omena	pomme	apel	mela	りんご	사과	eple	appel	jabłko	maçã	maçã	яблоко	äpple	elma	яблуко	苹果
+banana	banán	banan	Banane	μπανάνα	plátano	banaani	banane	pisang	banana	バナナ	바나나	banan	banaan	banan	banana	banana	банан	banan	muz	банан	香蕉
+pear	hruška	pære	Birne	αχλάδι	pera	päärynä	poire	pir	pera	洋なし	서양배	pære	peer	gruszka	pera	pera	груша	päron	armut	груша	梨
+cherry	třešeň	kirsebær	Kirsche	κεράσι	cereza	kirsikka	cerise	ceri	ciliegia	さくらんぼ	체리	kirsebær	kers	wiśnia	cereja	cereja	вишня	körsbär	kiraz	вишня	樱桃
+strawberry	jahoda	jordbær	Erdbeere	φράουλα	fresa	mansikka	fraise	stroberi	fragola	いちご	딸기	jordbær	aardbei	truskawka	morango	morango	клубника	jordgubbe	çilek	полуниця	草莓
+grapes	hrozny	vindruer	Weintrauben	σταφύλια	uvas	viinirypäleet	raisin	anggur	uva	ぶどう	포도	druer	druiven	winogrona	uvas	uvas	виноград	vindruvor	üzüm	виноград	葡萄
+lemon	citron	citron	Zitrone	λεμόνι	limón	sitruuna	citron	lemon	limone	レモン	레몬	sitron	citroen	cytryna	limão	limão	лимон	citron	limon	лимон	柠檬
+orange	pomeranč	appelsin	Orange	πορτοκάλι	naranja	appelsiini	orange	jeruk	arancia	オレンジ	오렌지	appelsin	sinaasappel	pomarańcza	laranja	laranja	апельсин	apelsin	portakal	апельсин	橙子
+pineapple	ananas	ananas	Ananas	ανανάς	piña	ananas	ananas	nanas	ananas	パイナップル	파인애플	ananas	ananas	ananas	abacaxi	ananás	ананас	ananas	ananas	ананас	菠萝
+watermelon	meloun	vandmelon	Wassermelone	καρπούζι	sandía	vesimeloni	pastèque	semangka	anguria	スイカ	수박	vannmelon	watermeloen	arbuz	melancia	melancia	арбуз	vattenmelon	karpuz	кавун	西瓜
+carrot	mrkev	gulerod	Karotte	καρότο	zanahoria	porkkana	carotte	wortel	carota	にんじん	당근	gulrot	wortel	marchewka	cenoura	cenoura	морковь	morot	havuç	морква	胡萝卜
+potato	brambora	kartoffel	Kartoffel	πατάτα	patata	peruna	pomme de terre	kentang	patata	じゃがいも	감자	potet	aardappel	ziemniak	batata	batata	картошка	potatis	patates	картопля	土豆
+tomato	rajče	tomat	Tomate	ντομάτα	tomate	tomaatti	tomate	tomat	pomodoro	トマト	토마토	tomat	tomaat	pomidor	tomate	tomate	помидор	tomat	domates	помідор	西红柿
+mushroom	houba	svamp	Pilz	μανιτάρι	seta	sieni	champignon	jamur	fungo	きのこ	버섯	sopp	paddenstoel	grzyb	cogumelo	cogumelo	гриб	svamp	mantar	гриб	蘑菇
+corn	kukuřice	majs	Maiskolben	καλαμπόκι	mazorca	maissi	maïs	jagung	pannocchia	とうもろこし	옥수수	mais	maïskolf	kukurydza	milho	milho	кукуруза	majskolv	mısır	кукурудза	玉米
+bread	chleba	brød	Brot	ψωμί	pan	leipä	pain	roti	pane	パン	빵	brød	brood	chleb	pão	pão	хлеб	bröd	ekmek	хліб	面包
+cheese	sýr	ost	Käse	τυρί	queso	juusto	fromage	keju	formaggio	チーズ	치즈	ost	kaas	ser	queijo	queijo	сыр	ost	peynir	сир	奶酪
+egg	vejce	æg	Ei	αυγό	huevo	muna	œuf	telur	uovo	たまご	달걀	egg	ei	jajko	ovo	ovo	яйцо	ägg	yumurta	яйце	鸡蛋
+cake	dort	kage	Torte	τούρτα	tarta	kakku	gâteau	kue	torta	ケーキ	케이크	kake	taart	tort	bolo	bolo	торт	tårta	pasta	торт	蛋糕
+pizza	pizza	pizza	Pizza	πίτσα	pizza	pizza	pizza	piza	pizza	ピザ	피자	pizza	pizza	pizza	pizza	piza	пицца	pizza	pizza	піца	披萨
+sandwich	sendvič	sandwich	Sandwich	σάντουιτς	sándwich	voileipä	sandwich	roti lapis	panino	サンドイッチ	샌드위치	smørbrød	boterham	kanapka	sanduíche	sanduíche	бутерброд	smörgås	sandviç	бутерброд	三明治
+ice cream	zmrzlina	is	Eis	παγωτό	helado	jäätelö	glace	es krim	gelato	アイスクリーム	아이스크림	is	ijsje	lody	sorvete	gelado	мороженое	glass	dondurma	морозиво	冰淇淋
+sweet	bonbon	slik	Bonbon	καραμέλα	caramelo	karkki	bonbon	permen	caramella	あめ	사탕	sukkertøy	snoepje	cukierek	bala	rebuçado	конфета	godis	şeker	цукерка	糖果
+biscuit	sušenka	småkage	Keks	μπισκότο	galleta	keksi	biscuit	biskuit	biscotto	クッキー	쿠키	kjeks	koekje	ciastko	biscoito	bolacha	печенье	kaka	bisküvi	печиво	饼干
+chocolate	čokoláda	chokolade	Schokolade	σοκολάτα	chocolate	suklaa	chocolat	cokelat	cioccolato	チョコレート	초콜릿	sjokolade	chocolade	czekolada	chocolate	chocolate	шоколад	choklad	çikolata	шоколад	巧克力
+milk	mléko	mælk	Milch	γάλα	leche	maito	lait	susu	latte	牛乳	우유	melk	melk	mleko	leite	leite	молоко	mjölk	süt	молоко	牛奶
+honey	med	honning	Honig	μέλι	miel	hunaja	miel	madu	miele	はちみつ	꿀	honning	honing	miód	mel	mel	мёд	honung	bal	мед	蜂蜜
+sausage	klobása	pølse	Wurst	λουκάνικο	salchicha	makkara	saucisse	sosis	salsiccia	ソーセージ	소시지	pølse	worst	kiełbasa	salsicha	salsicha	колбаса	korv	sosis	ковбаса	香肠
+hamburger	hamburger	burger	Hamburger	χάμπουργκερ	hamburguesa	hampurilainen	hamburger	hamburger	hamburger	ハンバーガー	햄버거	hamburger	hamburger	hamburger	hambúrguer	hambúrguer	гамбургер	hamburgare	hamburger	гамбургер	汉堡包
+soup	polévka	suppe	Suppe	σούπα	sopa	keitto	soupe	sup	zuppa	スープ	수프	suppe	soep	zupa	sopa	sopa	суп	soppa	çorba	суп	汤
+pumpkin	dýně	græskar	Kürbis	κολοκύθα	calabaza	kurpitsa	citrouille	labu	zucca	かぼちゃ	호박	gresskar	pompoen	dynia	abóbora	abóbora	тыква	pumpa	balkabağı	гарбуз	南瓜
+onion	cibule	løg	Zwiebel	κρεμμύδι	cebolla	sipuli	oignon	bawang bombay	cipolla	たまねぎ	양파	løk	ui	cebula	cebola	cebola	лук	lök	soğan	цибуля	洋葱
+coconut	kokos	kokosnød	Kokosnuss	καρύδα	coco	kookospähkinä	noix de coco	kelapa	noce di cocco	ココナッツ	코코넛	kokosnøtt	kokosnoot	kokos	coco	coco	кокос	kokosnöt	hindistan cevizi	кокос	椰子
+peach	broskev	fersken	Pfirsich	ροδάκινο	melocotón	persikka	pêche	persik	pesca	もも	복숭아	fersken	perzik	brzoskwinia	pêssego	pêssego	персик	persika	şeftali	персик	桃子
+lollipop	lízátko	slikkepind	Lutscher	γλειφιτζούρι	piruleta	tikkari	sucette	lolipop	lecca-lecca	ペロペロキャンディー	막대사탕	kjærlighet på pinne	lolly	lizak	pirulito	chupa-chupa	леденец	klubba	lolipop	льодяник	棒棒糖
+popcorn	popcorn	popcorn	Popcorn	ποπκόρν	palomitas	popcorn	pop-corn	popcorn	popcorn	ポップコーン	팝콘	popkorn	popcorn	popcorn	pipoca	pipocas	попкорн	popcorn	patlamış mısır	попкорн	爆米花
+doughnut	kobliha	donut	Donut	ντόνατ	dónut	munkki	beignet	donat	ciambella	ドーナツ	도넛	smultring	donut	pączek	rosquinha	donut	пончик	munk	donut	пончик	甜甜圈
+pancake	palačinka	pandekage	Pfannkuchen	τηγανίτα	tortita	pannukakku	crêpe	panekuk	pancake	ホットケーキ	팬케이크	pannekake	pannenkoek	naleśnik	panqueca	panqueca	блин	pannkaka	krep	млинець	煎饼
+noodles	nudle	nudler	Nudeln	νουντλς	fideos	nuudelit	nouilles	mi	spaghetti	めん	국수	nudler	noedels	makaron	macarrão	massa	лапша	nudlar	erişte	локшина	面条
+rice	rýže	ris	Reis	ρύζι	arroz	riisi	riz	nasi	riso	ごはん	밥	ris	rijst	ryż	arroz	arroz	рис	ris	pirinç	рис	米饭
+broccoli	brokolice	broccoli	Brokkoli	μπρόκολο	brócoli	parsakaali	brocoli	brokoli	broccoli	ブロッコリー	브로콜리	brokkoli	broccoli	brokuł	brócolis	brócolos	брокколи	broccoli	brokoli	броколі	西兰花
+garlic	česnek	hvidløg	Knoblauch	σκόρδο	ajo	valkosipuli	ail	bawang putih	aglio	にんにく	마늘	hvitløk	knoflook	czosnek	alho	alho	чеснок	vitlök	sarımsak	часник	大蒜
+cucumber	okurka	agurk	Gurke	αγγούρι	pepino	kurkku	concombre	mentimun	cetriolo	きゅうり	오이	agurk	komkommer	ogórek	pepino	pepino	огурец	gurka	salatalık	огірок	黄瓜
+avocado	avokádo	avocado	Avocado	αβοκάντο	aguacate	avokado	avocat	alpukat	avocado	アボカド	아보카도	avokado	avocado	awokado	abacate	abacate	авокадо	avokado	avokado	авокадо	牛油果
+sushi	suši	sushi	Sushi	σούσι	sushi	sushi	sushi	sushi	sushi	すし	초밥	sushi	sushi	sushi	sushi	sushi	суши	sushi	suşi	суші	寿司
+chair	židle	stol	Stuhl	καρέκλα	silla	tuoli	chaise	kursi	sedia	いす	의자	stol	stoel	krzesło	cadeira	cadeira	стул	stol	sandalye	стілець	椅子
+table	stůl	bord	Tisch	τραπέζι	mesa	pöytä	table	meja	tavolo	テーブル	식탁	bord	tafel	stół	mesa	mesa	стол	bord	masa	стіл	桌子
+bed	postel	seng	Bett	κρεβάτι	cama	sänky	lit	tempat tidur	letto	ベッド	침대	seng	bed	łóżko	cama	cama	кровать	säng	yatak	ліжко	床
+sofa	pohovka	sofa	Sofa	καναπές	sofá	sohva	canapé	sofa	divano	ソファー	소파	sofa	bank	kanapa	sofá	sofá	диван	soffa	kanepe	диван	沙发
+lamp	lampa	lampe	Lampe	λάμπα	lámpara	lamppu	lampe	lampu	lampada	ランプ	램프	lampe	lamp	lampa	abajur	candeeiro	лампа	lampa	lamba	лампа	台灯
+clock	hodiny	ur	Uhr	ρολόι τοίχου	reloj	kello	horloge	jam dinding	orologio	時計	시계	klokke	klok	zegar	relógio	relógio	часы	klocka	saat	годинник	钟
+door	dveře	dør	Tür	πόρτα	puerta	ovi	porte	pintu	porta	ドア	문	dør	deur	drzwi	porta	porta	дверь	dörr	kapı	двері	门
+window	okno	vindue	Fenster	παράθυρο	ventana	ikkuna	fenêtre	jendela	finestra	まど	창문	vindu	raam	okno	janela	janela	окно	fönster	pencere	вікно	窗户
+key	klíč	nøgle	Schlüssel	κλειδί	llave	avain	clé	kunci	chiave	かぎ	열쇠	nøkkel	sleutel	klucz	chave	chave	ключ	nyckel	anahtar	ключ	钥匙
+padlock	visací zámek	hængelås	Vorhängeschloss	λουκέτο	candado	riippulukko	cadenas	gembok	lucchetto	南京錠	자물쇠	hengelås	hangslot	kłódka	cadeado	cadeado	висячий замок	hänglås	asma kilit	навісний замок	挂锁
+bath	vana	badekar	Badewanne	μπανιέρα	bañera	kylpyamme	baignoire	bak mandi	vasca da bagno	浴槽	욕조	badekar	bad	wanna	banheira	banheira	ванна	badkar	küvet	ванна	浴缸
+shower	sprcha	bruser	Dusche	ντους	ducha	suihku	douche	pancuran	doccia	シャワー	샤워기	dusj	douche	prysznic	chuveiro	chuveiro	душ	dusch	duş	душ	淋浴
+toilet	záchod	toilet	Toilette	τουαλέτα	váter	vessanpönttö	toilettes	toilet	water	トイレ	변기	toalett	wc	sedes	vaso sanitário	sanita	унитаз	toalett	tuvalet	унітаз	马桶
+mirror	zrcadlo	spejl	Spiegel	καθρέφτης	espejo	peili	miroir	cermin	specchio	かがみ	거울	speil	spiegel	lustro	espelho	espelho	зеркало	spegel	ayna	дзеркало	镜子
+comb	hřeben	kam	Kamm	χτένα	peine	kampa	peigne	sisir	pettine	くし	빗	kam	kam	grzebień	pente	pente	расчёска	kam	tarak	гребінець	梳子
+toothbrush	zubní kartáček	tandbørste	Zahnbürste	οδοντόβουρτσα	cepillo de dientes	hammasharja	brosse à dents	sikat gigi	spazzolino	歯ブラシ	칫솔	tannbørste	tandenborstel	szczoteczka do zębów	escova de dentes	escova de dentes	зубная щётка	tandborste	diş fırçası	зубна щітка	牙刷
+soap	mýdlo	sæbe	Seife	σαπούνι	jabón	saippua	savon	sabun	sapone	せっけん	비누	såpe	zeep	mydło	sabonete	sabonete	мыло	tvål	sabun	мило	肥皂
+towel	ručník	håndklæde	Handtuch	πετσέτα	toalla	pyyhe	serviette	handuk	asciugamano	タオル	수건	håndkle	handdoek	ręcznik	toalha	toalha	полотенце	handduk	havlu	рушник	毛巾
+cup	hrnek	kop	Tasse	φλιτζάνι	taza	kuppi	tasse	cangkir	tazza	ティーカップ	컵	kopp	kopje	kubek	xícara	chávena	чашка	kopp	fincan	чашка	茶杯
+plate	talíř	tallerken	Teller	πιάτο	plato	lautanen	assiette	piring	piatto	さら	접시	tallerken	bord	talerz	prato	prato	тарелка	tallrik	tabak	тарілка	盘子
+fork	vidlička	gaffel	Gabel	πιρούνι	tenedor	haarukka	fourchette	garpu	forchetta	フォーク	포크	gaffel	vork	widelec	garfo	garfo	вилка	gaffel	çatal	виделка	叉子
+knife	nůž	kniv	Messer	μαχαίρι	cuchillo	veitsi	couteau	pisau	coltello	ナイフ	칼	kniv	mes	nóż	faca	faca	нож	kniv	bıçak	ніж	刀
+spoon	lžíce	ske	Löffel	κουτάλι	cuchara	lusikka	cuillère	sendok	cucchiaio	スプーン	숟가락	skje	lepel	łyżka	colher	colher	ложка	sked	kaşık	ложка	勺子
+bottle	láhev	flaske	Flasche	μπουκάλι	botella	pullo	bouteille	botol	bottiglia	びん	병	flaske	fles	butelka	garrafa	garrafa	бутылка	flaska	şişe	пляшка	瓶子
+glass	sklenice	glas	Glas	ποτήρι	vaso	lasi	verre	gelas	bicchiere	グラス	유리잔	glass	glas	szklanka	copo	copo	стакан	glas	bardak	склянка	玻璃杯
+teapot	konvice na čaj	tekande	Teekanne	τσαγιέρα	tetera	teekannu	théière	teko	teiera	きゅうす	찻주전자	tekanne	theepot	czajniczek	bule	bule	заварочный чайник	tekanna	demlik	заварник	茶壶
+saucepan	hrnec	gryde	Kochtopf	κατσαρόλα	olla	kattila	casserole	panci	pentola	なべ	냄비	gryte	pan	garnek	panela	tacho	кастрюля	kastrull	tencere	каструля	锅
+kettle	rychlovarná konvice	elkedel	Wasserkocher	βραστήρας	hervidor	vedenkeitin	bouilloire	ketel	bollitore	やかん	주전자	vannkoker	waterkoker	czajnik	chaleira	chaleira	чайник	vattenkokare	çaydanlık	чайник	水壶
+fridge	lednička	køleskab	Kühlschrank	ψυγείο	nevera	jääkaappi	frigo	kulkas	frigorifero	冷蔵庫	냉장고	kjøleskap	koelkast	lodówka	geladeira	frigorífico	холодильник	kylskåp	buzdolabı	холодильник	冰箱
+washing machine	pračka	vaskemaskine	Waschmaschine	πλυντήριο	lavadora	pesukone	machine à laver	mesin cuci	lavatrice	洗濯機	세탁기	vaskemaskin	wasmachine	pralka	máquina de lavar	máquina de lavar	стиральная машина	tvättmaskin	çamaşır makinesi	пральна машина	洗衣机
+television	televize	fjernsyn	Fernseher	τηλεόραση	televisor	televisio	télévision	televisi	televisore	テレビ	텔레비전	TV	televisie	telewizor	televisão	televisão	телевизор	tv	televizyon	телевізор	电视
+telephone	telefon	telefon	Telefon	τηλέφωνο	teléfono	puhelin	téléphone	telepon	telefono	電話	전화기	telefon	telefoon	telefon	telefone	telefone	телефон	telefon	telefon	телефон	电话
+computer	počítač	computer	Computer	υπολογιστής	ordenador	tietokone	ordinateur	komputer	computer	パソコン	컴퓨터	datamaskin	computer	komputer	computador	computador	компьютер	dator	bilgisayar	комп'ютер	电脑
+camera	fotoaparát	kamera	Fotoapparat	φωτογραφική μηχανή	cámara	kamera	appareil photo	kamera	macchina fotografica	カメラ	카메라	kamera	fototoestel	aparat fotograficzny	câmera	máquina fotográfica	фотоаппарат	kamera	fotoğraf makinesi	фотоапарат	照相机
+radio	rádio	radio	Radio	ραδιόφωνο	radio	radio	radio	radio	radio	ラジオ	라디오	radio	radio	radio	rádio	rádio	радио	radio	radyo	радіо	收音机
+book	kniha	bog	Buch	βιβλίο	libro	kirja	livre	buku	libro	本	책	bok	boek	książka	livro	livro	книга	bok	kitap	книга	书
+pencil	tužka	blyant	Bleistift	μολύβι	lápiz	lyijykynä	crayon	pensil	matita	えんぴつ	연필	blyant	potlood	ołówek	lápis	lápis	карандаш	blyertspenna	kalem	олівець	铅笔
+scissors	nůžky	saks	Schere	ψαλίδι	tijeras	sakset	ciseaux	gunting	forbici	はさみ	가위	saks	schaar	nożyczki	tesoura	tesoura	ножницы	sax	makas	ножиці	剪刀
+ruler	pravítko	lineal	Lineal	χάρακας	regla	viivoitin	règle	penggaris	righello	定規	자	linjal	liniaal	linijka	régua	régua	линейка	linjal	cetvel	лінійка	尺子
+envelope	obálka	kuvert	Briefumschlag	φάκελος	sobre	kirjekuori	enveloppe	amplop	busta	ふうとう	봉투	konvolutt	envelop	koperta	envelope	envelope	конверт	kuvert	zarf	конверт	信封
+candle	svíčka	lys	Kerze	κερί	vela	kynttilä	bougie	lilin	candela	ろうそく	양초	stearinlys	kaars	świeca	vela	vela	свеча	ljus	mum	свічка	蜡烛
+umbrella	deštník	paraply	Regenschirm	ομπρέλα	paraguas	sateenvarjo	parapluie	payung	ombrello	かさ	우산	paraply	paraplu	parasol	guarda-chuva	guarda-chuva	зонт	paraply	şemsiye	парасолька	雨伞
+basket	košík	kurv	Korb	καλάθι	cesta	kori	panier	keranjang	cestino	かご	바구니	kurv	mand	koszyk	cesta	cesto	корзина	korg	sepet	кошик	篮子
+box	krabice	kasse	Kiste	κουτί	caja	laatikko	boîte	kotak	scatola	はこ	상자	eske	doos	pudełko	caixa	caixa	коробка	låda	kutu	коробка	盒子
+bucket	kbelík	spand	Eimer	κουβάς	cubo	ämpäri	seau	ember	secchio	バケツ	양동이	bøtte	emmer	wiadro	balde	balde	ведро	hink	kova	відро	水桶
+broom	koště	kost	Besen	σκούπα	escoba	luuta	balai	sapu	scopa	ほうき	빗자루	kost	bezem	miotła	vassoura	vassoura	метла	kvast	süpürge	мітла	扫帚
+hammer	kladivo	hammer	Hammer	σφυρί	martillo	vasara	marteau	palu	martello	かなづち	망치	hammer	hamer	młotek	martelo	martelo	молоток	hammare	çekiç	молоток	锤子
+saw	pila	sav	Säge	πριόνι	sierra	saha	scie	gergaji	sega	のこぎり	톱	sag	zaag	piła	serrote	serrote	пила	såg	testere	пилка	锯子
+ladder	žebřík	stige	Leiter	σκάλα	escalera	tikkaat	échelle	tangga	scala	はしご	사다리	stige	ladder	drabina	escada	escada	лестница	stege	merdiven	драбина	梯子
+rope	lano	reb	Seil	σχοινί	cuerda	köysi	corde	tali	corda	ロープ	밧줄	tau	touw	lina	corda	corda	верёвка	rep	ip	мотузка	绳子
+bell	zvon	klokke	Glocke	καμπάνα	campana	kirkonkello	cloche	lonceng	campana	鐘	종	bjelle	bel	dzwon	sino	sino	колокол	bjällra	çan	дзвін	铃铛
+vase	váza	vase	Vase	βάζο	jarrón	maljakko	vase	vas bunga	vaso	花びん	꽃병	vase	vaas	wazon	vaso	jarra	ваза	vas	vazo	ваза	花瓶
+pillow	polštář	pude	Kissen	μαξιλάρι	almohada	tyyny	oreiller	bantal	cuscino	まくら	베개	pute	kussen	poduszka	travesseiro	almofada	подушка	kudde	yastık	подушка	枕头
+blanket	deka	tæppe	Decke	κουβέρτα	manta	peitto	couverture	selimut	coperta	毛布	담요	teppe	deken	koc	cobertor	cobertor	одеяло	filt	battaniye	ковдра	毯子
+suitcase	kufr	kuffert	Koffer	βαλίτσα	maleta	matkalaukku	valise	koper	valigia	スーツケース	여행 가방	koffert	koffer	walizka	mala	mala de viagem	чемодан	resväska	bavul	валіза	行李箱
+backpack	batoh	rygsæk	Rucksack	σακίδιο	mochila	reppu	sac à dos	ransel	zaino	リュック	배낭	ryggsekk	rugzak	plecak	mochila	mochila	рюкзак	ryggsäck	sırt çantası	рюкзак	背包
+watch	hodinky	armbåndsur	Armbanduhr	ρολόι χειρός	reloj de pulsera	rannekello	montre	jam tangan	orologio da polso	腕時計	손목시계	armbåndsur	horloge	zegarek	relógio de pulso	relógio de pulso	наручные часы	armbandsur	kol saati	наручний годинник	手表
+glasses	brýle	briller	Brille	γυαλιά	gafas	silmälasit	lunettes	kacamata	occhiali	メガネ	안경	briller	bril	okulary	óculos	óculos	очки	glasögon	gözlük	окуляри	眼镜
+ring	prsten	ring	Ring	δαχτυλίδι	anillo	sormus	bague	cincin	anello	指輪	반지	ring	ring	pierścionek	anel	anel	кольцо	ring	yüzük	каблучка	戒指
+crown	koruna	krone	Krone	στέμμα	corona	kruunu	couronne	mahkota	corona	王冠	왕관	krone	kroon	korona	coroa	coroa	корона	krona	taç	корона	王冠
+hat	klobouk	hat	Hut	καπέλο	sombrero	hattu	chapeau	topi	cappello	ぼうし	모자	hatt	hoed	kapelusz	chapéu	chapéu	шляпа	hatt	şapka	капелюх	帽子
+shoe	bota	sko	Schuh	παπούτσι	zapato	kenkä	chaussure	sepatu	scarpa	くつ	신발	sko	schoen	but	sapato	sapato	ботинок	sko	ayakkabı	черевик	鞋
+boot	holínka	støvle	Stiefel	μπότα	bota	saapas	botte	sepatu bot	stivale	ブーツ	장화	støvel	laars	kozak	bota	bota	сапог	stövel	çizme	чобіт	靴子
+sock	ponožka	sok	Socke	κάλτσα	calcetín	sukka	chaussette	kaus kaki	calzino	くつした	양말	sokk	sok	skarpetka	meia	peúga	носок	strumpa	çorap	шкарпетка	袜子
+glove	rukavice	handske	Handschuh	γάντι	guante	hansikas	gant	sarung tangan	guanto	てぶくろ	장갑	hanske	handschoen	rękawiczka	luva	luva	перчатка	handske	eldiven	рукавичка	手套
+scarf	šála	halstørklæde	Schal	κασκόλ	bufanda	kaulaliina	écharpe	syal	sciarpa	マフラー	목도리	skjerf	sjaal	szalik	cachecol	cachecol	шарф	halsduk	atkı	шарф	围巾
+shirt	košile	skjorte	Hemd	πουκάμισο	camisa	paita	chemise	kemeja	camicia	シャツ	셔츠	skjorte	overhemd	koszula	camisa	camisa	рубашка	skjorta	gömlek	сорочка	衬衫
+trousers	kalhoty	bukser	Hose	παντελόνι	pantalones	housut	pantalon	celana	pantaloni	ズボン	바지	bukse	broek	spodnie	calça	calças	брюки	byxor	pantolon	штани	裤子
+dress	šaty	kjole	Kleid	φόρεμα	vestido	mekko	robe	gaun	vestito	ワンピース	원피스	kjole	jurk	sukienka	vestido	vestido	платье	klänning	elbise	сукня	连衣裙
+skirt	sukně	nederdel	Rock	φούστα	falda	hame	jupe	rok	gonna	スカート	치마	skjørt	rok	spódnica	saia	saia	юбка	kjol	etek	спідниця	裙子
+coat	kabát	frakke	Mantel	παλτό	abrigo	takki	manteau	mantel	cappotto	コート	코트	kåpe	jas	płaszcz	casaco	casaco	пальто	kappa	palto	пальто	大衣
+tie	kravata	slips	Krawatte	γραβάτα	corbata	solmio	cravate	dasi	cravatta	ネクタイ	넥타이	slips	stropdas	krawat	gravata	gravata	галстук	slips	kravat	краватка	领带
+belt	pásek	bælte	Gürtel	ζώνη	cinturón	vyö	ceinture	ikat pinggang	cintura	ベルト	허리띠	belte	riem	pasek	cinto	cinto	ремень	bälte	kemer	пасок	腰带
+button	knoflík	knap	Knopf	κουμπί	botón	nappi	bouton	kancing	bottone	ボタン	단추	knapp	knoop	guzik	botão	botão	пуговица	knapp	düğme	ґудзик	纽扣
+sunglasses	sluneční brýle	solbriller	Sonnenbrille	γυαλιά ηλίου	gafas de sol	aurinkolasit	lunettes de soleil	kacamata hitam	occhiali da sole	サングラス	선글라스	solbriller	zonnebril	okulary przeciwsłoneczne	óculos de sol	óculos de sol	солнечные очки	solglasögon	güneş gözlüğü	сонцезахисні окуляри	太阳镜
+pyjamas	pyžamo	pyjamas	Schlafanzug	πιτζάμες	pijama	pyjama	pyjama	piyama	pigiama	パジャマ	잠옷	pyjamas	pyjama	piżama	pijama	pijama	пижама	pyjamas	pijama	піжама	睡衣
+swimsuit	plavky	badedragt	Badeanzug	μαγιό	bañador	uimapuku	maillot de bain	baju renang	costume da bagno	水着	수영복	badedrakt	badpak	strój kąpielowy	maiô	fato de banho	купальник	baddräkt	mayo	купальник	泳衣
+apron	zástěra	forklæde	Schürze	ποδιά	delantal	esiliina	tablier	celemek	grembiule	エプロン	앞치마	forkle	schort	fartuch	avental	avental	фартук	förkläde	önlük	фартух	围裙
+handbag	kabelka	håndtaske	Handtasche	τσάντα	bolso	käsilaukku	sac à main	tas tangan	borsetta	ハンドバッグ	핸드백	håndveske	handtas	torebka	bolsa	mala de mão	сумочка	handväska	el çantası	сумочка	手提包
+mask	maska	maske	Maske	μάσκα	máscara	naamio	masque	topeng	maschera	お面	가면	maske	masker	maska	máscara	máscara	маска	mask	maske	маска	面具
+car	auto	bil	Auto	αυτοκίνητο	coche	auto	voiture	mobil	macchina	くるま	자동차	bil	auto	samochód	carro	carro	машина	bil	araba	автомобіль	汽车
+bus	autobus	bus	Bus	λεωφορείο	autobús	bussi	bus	bus	autobus	バス	버스	buss	bus	autobus	ônibus	autocarro	автобус	buss	otobüs	автобус	公共汽车
+lorry	nákladní auto	lastbil	Lastwagen	φορτηγό	camión	kuorma-auto	camion	truk	camion	トラック	트럭	lastebil	vrachtwagen	ciężarówka	caminhão	camião	грузовик	lastbil	kamyon	вантажівка	卡车
+bicycle	kolo	cykel	Fahrrad	ποδήλατο	bicicleta	polkupyörä	vélo	sepeda	bicicletta	じてんしゃ	자전거	sykkel	fiets	rower	bicicleta	bicicleta	велосипед	cykel	bisiklet	велосипед	自行车
+motorbike	motorka	motorcykel	Motorrad	μηχανή	moto	moottoripyörä	moto	sepeda motor	moto	オートバイ	오토바이	motorsykkel	motor	motocykl	moto	mota	мотоцикл	motorcykel	motosiklet	мотоцикл	摩托车
+train	vlak	tog	Zug	τρένο	tren	juna	train	kereta api	treno	でんしゃ	기차	tog	trein	pociąg	trem	comboio	поезд	tåg	tren	потяг	火车
+aeroplane	letadlo	fly	Flugzeug	αεροπλάνο	avión	lentokone	avion	pesawat terbang	aereo	ひこうき	비행기	fly	vliegtuig	samolot	avião	avião	самолёт	flygplan	uçak	літак	飞机
+helicopter	vrtulník	helikopter	Hubschrauber	ελικόπτερο	helicóptero	helikopteri	hélicoptère	helikopter	elicottero	ヘリコプター	헬리콥터	helikopter	helikopter	helikopter	helicóptero	helicóptero	вертолёт	helikopter	helikopter	гелікоптер	直升机
+boat	loďka	båd	Boot	βάρκα	barca	vene	barque	perahu	barca	ボート	보트	båt	boot	łódka	barco	barco	лодка	båt	sandal	човен	小船
+ship	loď	skib	Schiff	πλοίο	barco	laiva	navire	kapal	nave	ふね	배	skip	schip	statek	navio	navio	корабль	fartyg	gemi	корабель	轮船
+submarine	ponorka	ubåd	U-Boot	υποβρύχιο	submarino	sukellusvene	sous-marin	kapal selam	sottomarino	潜水艦	잠수함	ubåt	duikboot	łódź podwodna	submarino	submarino	подводная лодка	ubåt	denizaltı	підводний човен	潜水艇
+rocket	raketa	raket	Rakete	πύραυλος	cohete	raketti	fusée	roket	razzo	ロケット	로켓	rakett	raket	rakieta	foguete	foguetão	ракета	raket	roket	ракета	火箭
+tractor	traktor	traktor	Traktor	τρακτέρ	tractor	traktori	tracteur	traktor	trattore	トラクター	트랙터	traktor	tractor	traktor	trator	trator	трактор	traktor	traktör	трактор	拖拉机
+ambulance	sanitka	ambulance	Krankenwagen	ασθενοφόρο	ambulancia	ambulanssi	ambulance	ambulans	ambulanza	救急車	구급차	ambulanse	ambulance	karetka	ambulância	ambulância	скорая помощь	ambulans	ambulans	швидка допомога	救护车
+fire engine	hasičské auto	brandbil	Feuerwehrauto	πυροσβεστικό όχημα	camión de bomberos	paloauto	camion de pompiers	mobil pemadam	camion dei pompieri	消防車	소방차	brannbil	brandweerauto	wóz strażacki	caminhão de bombeiros	carro dos bombeiros	пожарная машина	brandbil	itfaiye aracı	пожежна машина	消防车
+taxi	taxi	taxa	Taxi	ταξί	taxi	taksi	taxi	taksi	taxi	タクシー	택시	drosje	taxi	taksówka	táxi	táxi	такси	taxi	taksi	таксі	出租车
+scooter	koloběžka	løbehjul	Roller	πατίνι	patinete	potkulauta	trottinette	skuter	monopattino	キックボード	킥보드	sparkesykkel	step	hulajnoga	patinete	trotinete	самокат	sparkcykel	scooter	самокат	滑板车
+skateboard	skateboard	skateboard	Skateboard	τροχοσανίδα	monopatín	rullalauta	planche à roulettes	papan luncur	skateboard	スケートボード	스케이트보드	rullebrett	skateboard	deskorolka	skate	skate	скейтборд	skateboard	kaykay	скейтборд	滑板
+sledge	sáně	kælk	Schlitten	έλκηθρο	trineo	kelkka	luge	kereta luncur	slitta	そり	썰매	kjelke	slee	sanki	trenó	trenó	санки	pulka	kızak	санчата	雪橇
+hot-air balloon	horkovzdušný balón	luftballon	Heißluftballon	αερόστατο	globo aerostático	kuumailmapallo	montgolfière	balon udara	mongolfiera	気球	열기구	luftballong	luchtballon	balon	balão de ar quente	balão de ar quente	воздушный шар	luftballong	sıcak hava balonu	повітряна куля	热气球
+parachute	padák	faldskærm	Fallschirm	αλεξίπτωτο	paracaídas	laskuvarjo	parachute	parasut	paracadute	パラシュート	낙하산	fallskjerm	parachute	spadochron	paraquedas	paraquedas	парашют	fallskärm	paraşüt	парашут	降落伞
+canoe	kánoe	kano	Kanu	κανό	canoa	kanootti	canoë	kano	canoa	カヌー	카누	kano	kano	kajak	canoa	canoa	каноэ	kanot	kano	каное	独木舟
+tram	tramvaj	sporvogn	Straßenbahn	τραμ	tranvía	raitiovaunu	tramway	trem	tram	路面電車	전차	trikk	tram	tramwaj	bonde	elétrico	трамвай	spårvagn	tramvay	трамвай	有轨电车
+wheel	kolo od vozu	hjul	Rad	ρόδα	rueda	pyörä	roue	roda	ruota	車輪	바퀴	hjul	wiel	koło	roda	roda	колесо	hjul	tekerlek	колесо	轮子
+anchor	kotva	anker	Anker	άγκυρα	ancla	ankkuri	ancre	jangkar	ancora	いかり	닻	anker	anker	kotwica	âncora	âncora	якорь	ankare	çapa	якір	锚
+sun	slunce	sol	Sonne	ήλιος	sol	aurinko	soleil	matahari	sole	たいよう	해	sol	zon	słońce	sol	sol	солнце	sol	güneş	сонце	太阳
+moon	měsíc	måne	Mond	φεγγάρι	luna	kuu	lune	bulan	luna	つき	달	måne	maan	księżyc	lua	lua	луна	måne	ay	місяць	月亮
+star	hvězda	stjerne	Stern	αστέρι	estrella	tähti	étoile	bintang	stella	ほし	별	stjerne	ster	gwiazda	estrela	estrela	звезда	stjärna	yıldız	зірка	星星
+cloud	mrak	sky	Wolke	σύννεφο	nube	pilvi	nuage	awan	nuvola	くも	구름	sky	wolk	chmura	nuvem	nuvem	облако	moln	bulut	хмара	云
+rain	déšť	regn	Regen	βροχή	lluvia	sade	pluie	hujan	pioggia	あめふり	비	regn	regen	deszcz	chuva	chuva	дождь	regn	yağmur	дощ	雨
+snowman	sněhulák	snemand	Schneemann	χιονάνθρωπος	muñeco de nieve	lumiukko	bonhomme de neige	manusia salju	pupazzo di neve	雪だるま	눈사람	snømann	sneeuwpop	bałwan	boneco de neve	boneco de neve	снеговик	snögubbe	kardan adam	сніговик	雪人
+rainbow	duha	regnbue	Regenbogen	ουράνιο τόξο	arcoíris	sateenkaari	arc-en-ciel	pelangi	arcobaleno	にじ	무지개	regnbue	regenboog	tęcza	arco-íris	arco-íris	радуга	regnbåge	gökkuşağı	веселка	彩虹
+lightning	blesk	lyn	Blitz	κεραυνός	rayo	salama	éclair	petir	fulmine	かみなり	번개	lyn	bliksem	błyskawica	raio	relâmpago	молния	blixt	şimşek	блискавка	闪电
+tree	strom	træ	Baum	δέντρο	árbol	puu	arbre	pohon	albero	き	나무	tre	boom	drzewo	árvore	árvore	дерево	träd	ağaç	дерево	树
+flower	květina	blomst	Blume	λουλούδι	flor	kukka	fleur	bunga	fiore	はな	꽃	blomst	bloem	kwiat	flor	flor	цветок	blomma	çiçek	квітка	花
+leaf	list	blad	Blatt	φύλλο	hoja	lehti	feuille	daun	foglia	はっぱ	나뭇잎	blad	blad	liść	folha	folha	лист	löv	yaprak	листок	叶子
+cactus	kaktus	kaktus	Kaktus	κάκτος	cactus	kaktus	cactus	kaktus	cactus	サボテン	선인장	kaktus	cactus	kaktus	cacto	cato	кактус	kaktus	kaktüs	кактус	仙人掌
+palm tree	palma	palme	Palme	φοίνικας	palmera	palmu	palmier	pohon kelapa	palma	ヤシの木	야자수	palme	palmboom	palma	palmeira	palmeira	пальма	palm	palmiye	пальма	棕榈树
+mountain	hora	bjerg	Berg	βουνό	montaña	vuori	montagne	gunung	montagna	やま	산	fjell	berg	góra	montanha	montanha	гора	berg	dağ	гора	山
+volcano	sopka	vulkan	Vulkan	ηφαίστειο	volcán	tulivuori	volcan	gunung berapi	vulcano	火山	화산	vulkan	vulkaan	wulkan	vulcão	vulcão	вулкан	vulkan	yanardağ	вулкан	火山
+island	ostrov	ø	Insel	νησί	isla	saari	île	pulau	isola	しま	섬	øy	eiland	wyspa	ilha	ilha	остров	ö	ada	острів	岛
+river	řeka	flod	Fluss	ποτάμι	río	joki	rivière	sungai	fiume	かわ	강	elv	rivier	rzeka	rio	rio	река	flod	nehir	річка	河
+waterfall	vodopád	vandfald	Wasserfall	καταρράκτης	cascada	vesiputous	cascade	air terjun	cascata	たき	폭포	foss	waterval	wodospad	cachoeira	cascata	водопад	vattenfall	şelale	водоспад	瀑布
+wave	vlna	bølge	Welle	κύμα	ola	aalto	vague	ombak	onda	なみ	파도	bølge	golf	fala	onda	onda	волна	våg	dalga	хвиля	海浪
+desert	poušť	ørken	Wüste	έρημος	desierto	aavikko	désert	gurun	deserto	さばく	사막	ørken	woestijn	pustynia	deserto	deserto	пустыня	öken	çöl	пустеля	沙漠
+house	dům	hus	Haus	σπίτι	casa	talo	maison	rumah	casa	いえ	집	hus	huis	dom	casa	casa	дом	hus	ev	будинок	房子
+castle	hrad	borg	Burg	κάστρο	castillo	linna	château	istana	castello	しろ	성	borg	kasteel	zamek	castelo	castelo	замок	slott	kale	замок	城堡
+tent	stan	telt	Zelt	σκηνή	tienda de campaña	teltta	tente	tenda	tenda	テント	텐트	telt	tent	namiot	barraca	tenda	палатка	tält	çadır	намет	帐篷
+bridge	most	bro	Brücke	γέφυρα	puente	silta	pont	jembatan	ponte	はし	돌다리	bru	brug	most	ponte	ponte	мост	bro	köprü	міст	桥
+tower	věž	tårn	Turm	πύργος	torre	torni	tour	menara	torre	とう	탑	tårn	toren	wieża	torre	torre	башня	torn	kule	вежа	塔
+lighthouse	maják	fyrtårn	Leuchtturm	φάρος	faro	majakka	phare	mercusuar	faro	灯台	등대	fyrtårn	vuurtoren	latarnia morska	farol	farol	маяк	fyr	deniz feneri	маяк	灯塔
+windmill	větrný mlýn	vindmølle	Windmühle	ανεμόμυλος	molino de viento	tuulimylly	moulin à vent	kincir angin	mulino a vento	風車	풍차	vindmølle	windmolen	wiatrak	moinho de vento	moinho de vento	мельница	väderkvarn	yel değirmeni	вітряк	风车
+church	kostel	kirke	Kirche	εκκλησία	iglesia	kirkko	église	gereja	chiesa	教会	교회	kirke	kerk	kościół	igreja	igreja	церковь	kyrka	kilise	церква	教堂
+igloo	iglú	iglo	Iglu	ιγκλού	iglú	iglu	igloo	igloo	igloo	イグルー	이글루	iglo	iglo	igloo	iglu	iglu	иглу	igloo	iglo	іглу	冰屋
+pyramid	pyramida	pyramide	Pyramide	πυραμίδα	pirámide	pyramidi	pyramide	piramida	piramide	ピラミッド	피라미드	pyramide	piramide	piramida	pirâmide	pirâmide	пирамида	pyramid	piramit	піраміда	金字塔
+fence	plot	hegn	Zaun	φράχτης	valla	aita	clôture	pagar	recinto	さく	울타리	gjerde	hek	płot	cerca	cerca	забор	staket	çit	паркан	篱笆
+chimney	komín	skorsten	Schornstein	καμινάδα	chimenea	savupiippu	cheminée	cerobong asap	camino	えんとつ	굴뚝	pipe	schoorsteen	komin	chaminé	chaminé	дымовая труба	skorsten	baca	димар	烟囱
+fire	oheň	bål	Feuer	φωτιά	fuego	nuotio	feu	api	fuoco	たき火	모닥불	bål	vuur	ognisko	fogueira	fogueira	костёр	brasa	ateş	вогнище	篝火
+feather	pírko	fjer	Feder	φτερό	pluma	höyhen	plume	bulu	piuma	はね	깃털	fjær	veer	pióro	pena	pena	перо	fjäder	tüy	перо	羽毛
+shell	mušle	muslingeskal	Muschel	κοχύλι	concha	simpukka	coquillage	kerang	conchiglia	貝がら	조개껍데기	skjell	schelp	muszla	concha	concha	ракушка	snäcka	deniz kabuğu	мушля	贝壳
+eye	oko	øje	Auge	μάτι	ojo	silmä	œil	mata	occhio	目	눈	øye	oog	oko	olho	olho	глаз	öga	göz	око	眼睛
+ear	ucho	øre	Ohr	αυτί	oreja	korva	oreille	telinga	orecchio	耳	귀	øre	oor	ucho	orelha	orelha	ухо	öra	kulak	вухо	耳朵
+nose	nos	næse	Nase	μύτη	nariz	nenä	nez	hidung	naso	鼻	코	nese	neus	nos	nariz	nariz	нос	näsa	burun	ніс	鼻子
+mouth	ústa	mund	Mund	στόμα	boca	suu	bouche	mulut	bocca	口	입	munn	mond	usta	boca	boca	рот	mun	ağız	рот	嘴巴
+tooth	zub	tand	Zahn	δόντι	diente	hammas	dent	gigi	dente	歯	이빨	tann	tand	ząb	dente	dente	зуб	tand	diş	зуб	牙齿
+hand	ruka	hånd	Hand	χέρι	mano	käsi	main	tangan	mano	手	손	hånd	hand	dłoń	mão	mão	ладонь	hand	el	долоня	手
+foot	chodidlo	fod	Fuß	πατούσα	pie	jalkaterä	pied	telapak kaki	piede	足	발	fot	voet	stopa	pé	pé	ступня	fot	ayak	стопа	脚
+leg	noha	ben	Bein	πόδι	pierna	jalka	jambe	kaki	gamba	脚	다리	bein	been	noga	perna	perna	нога	ben	bacak	нога	腿
+arm	paže	arm	Arm	μπράτσο	brazo	käsivarsi	bras	lengan	braccio	腕	팔	arm	arm	ręka	braço	braço	рука	arm	kol	рука	手臂
+head	hlava	hoved	Kopf	κεφάλι	cabeza	pää	tête	kepala	testa	頭	머리	hode	hoofd	głowa	cabeça	cabeça	голова	huvud	kafa	голова	头
+hair	vlasy	hår	Haare	μαλλιά	pelo	hiukset	cheveux	rambut	capelli	髪の毛	머리카락	hår	haar	włosy	cabelo	cabelo	волосы	hår	saç	волосся	头发
+heart	srdce	hjerte	Herz	καρδιά	corazón	sydän	cœur	hati	cuore	ハート	하트	hjerte	hart	serce	coração	coração	сердце	hjärta	kalp	серце	爱心
+bone	kost	knogle	Knochen	κόκαλο	hueso	luu	os	tulang	osso	骨	뼈	knokkel	bot	kość	osso	osso	кость	knota	kemik	кістка	骨头
+finger	prst	finger	Finger	δάχτυλο	dedo	sormi	doigt	jari	dito	指	손가락	finger	vinger	palec	dedo	dedo	палец	finger	parmak	палець	手指
+beard	vousy	skæg	Bart	γένια	barba	parta	barbe	janggut	barba	あごひげ	턱수염	skjegg	baard	broda	barba	barba	борода	skägg	sakal	борода	胡子
+moustache	knír	overskæg	Schnurrbart	μουστάκι	bigote	viikset	moustache	kumis	baffi	口ひげ	콧수염	bart	snor	wąsy	bigode	bigode	усы	mustasch	bıyık	вуса	小胡子
+skeleton	kostra	skelet	Skelett	σκελετός	esqueleto	luuranko	squelette	kerangka	scheletro	がいこつ	해골	skjelett	skelet	szkielet	esqueleto	esqueleto	скелет	skelett	iskelet	скелет	骷髅
+brain	mozek	hjerne	Gehirn	εγκέφαλος	cerebro	aivot	cerveau	otak	cervello	脳	뇌	hjerne	hersenen	mózg	cérebro	cérebro	мозг	hjärna	beyin	мозок	大脑
+tongue	jazyk	tunge	Zunge	γλώσσα	lengua	kieli	langue	lidah	lingua	舌	혀	tunge	tong	język	língua	língua	язык	tunga	dil	язик	舌头
+knee	koleno	knæ	Knie	γόνατο	rodilla	polvi	genou	lutut	ginocchio	ひざ	무릎	kne	knie	kolano	joelho	joelho	колено	knä	diz	коліно	膝盖
+ball	míč	bold	Ball	μπάλα	pelota	pallo	ballon	bola	palla	ボール	공	ball	bal	piłka	bola	bola	мяч	boll	top	м'яч	球
+kite	papírový drak	papirdrage	Flugdrachen	χαρταετός	cometa	leija	cerf-volant	layang-layang	aquilone	凧	연	papirdrage	vlieger	latawiec	pipa	papagaio de papel	воздушный змей	pappersdrake	uçurtma	повітряний змій	风筝
+doll	panenka	dukke	Puppe	κούκλα	muñeca	nukke	poupée	boneka	bambola	人形	인형	dukke	pop	lalka	boneca	boneca	кукла	docka	oyuncak bebek	лялька	洋娃娃
+teddy bear	plyšový medvídek	bamse	Teddybär	αρκουδάκι	osito de peluche	nalle	ours en peluche	boneka beruang	orsacchiotto	くまのぬいぐるみ	곰 인형	teddybjørn	teddybeer	miś	ursinho de pelúcia	urso de peluche	плюшевый мишка	nalle	oyuncak ayı	плюшевий ведмедик	泰迪熊
+balloon	balónek	ballon	Luftballon	μπαλόνι	globo	ilmapallo	ballon de baudruche	balon	palloncino	ふうせん	풍선	ballong	ballon	balonik	balão	balão	воздушный шарик	ballong	balon	повітряна кулька	气球
+drum	buben	tromme	Trommel	τύμπανο	tambor	rumpu	tambour	drum	tamburo	たいこ	북	tromme	trommel	bęben	tambor	tambor	барабан	trumma	davul	барабан	鼓
+guitar	kytara	guitar	Gitarre	κιθάρα	guitarra	kitara	guitare	gitar	chitarra	ギター	기타	gitar	gitaar	gitara	violão	guitarra	гитара	gitarr	gitar	гітара	吉他
+piano	klavír	klaver	Klavier	πιάνο	piano	piano	piano	piano	pianoforte	ピアノ	피아노	piano	piano	pianino	piano	piano	пианино	piano	piyano	піаніно	钢琴
+trumpet	trubka	trompet	Trompete	τρομπέτα	trompeta	trumpetti	trompette	trompet	tromba	トランペット	트럼펫	trompet	trompet	trąbka	trompete	trompete	труба	trumpet	trompet	труба	小号
+violin	housle	violin	Geige	βιολί	violín	viulu	violon	biola	violino	バイオリン	바이올린	fiolin	viool	skrzypce	violino	violino	скрипка	fiol	keman	скрипка	小提琴
+goal	branka	mål	Fußballtor	τέρμα	portería	jalkapallomaali	but de football	gawang	porta da calcio	サッカーゴール	골대	fotballmål	doel	bramka	gol	baliza	футбольные ворота	fotbollsmål	futbol kalesi	футбольні ворота	球门
+tennis racket	tenisová raketa	tennisketsjer	Tennisschläger	ρακέτα	raqueta	tennismaila	raquette	raket tenis	racchetta	テニスラケット	테니스 라켓	tennisracket	tennisracket	rakieta tenisowa	raquete	raquete	теннисная ракетка	tennisracket	tenis raketi	тенісна ракетка	网球拍
+dice	kostka	terning	Würfel	ζάρι	dado	noppa	dé	dadu	dado	サイコロ	주사위	terning	dobbelsteen	kostka do gry	dado	dado	игральный кубик	tärning	zar	гральний кубик	骰子
+playing card	hrací karta	spillekort	Spielkarte	τραπουλόχαρτο	carta	pelikortti	carte à jouer	kartu remi	carta da gioco	トランプ	카드	spillkort	speelkaart	karta do gry	carta de baralho	carta de jogar	игральная карта	spelkort	iskambil kâğıdı	гральна карта	扑克牌
+robot	robot	robot	Roboter	ρομπότ	robot	robotti	robot	robot	robot	ロボット	로봇	robot	robot	robot	robô	robô	робот	robot	robot	робот	机器人
+swing	houpačka	gynge	Schaukel	κούνια	columpio	keinu	balançoire	ayunan	altalena	ブランコ	그네	huske	schommel	huśtawka	balanço	baloiço	качели	gunga	salıncak	гойдалка	秋千
+slide	skluzavka	rutsjebane	Rutsche	τσουλήθρα	tobogán	liukumäki	toboggan	perosotan	scivolo	すべり台	미끄럼틀	sklie	glijbaan	zjeżdżalnia	escorregador	escorrega	горка	rutschkana	kaydırak	гірка	滑梯
+trophy	pohár	pokal	Pokal	κύπελλο	trofeo	pokaali	coupe	piala	coppa	トロフィー	트로피	pokal	trofee	puchar	troféu	troféu	кубок	pokal	kupa	кубок	奖杯
+medal	medaile	medalje	Medaille	μετάλλιο	medalla	mitali	médaille	medali	medaglia	メダル	메달	medalje	medaille	medal	medalha	medalha	медаль	medalj	madalya	медаль	奖牌
+flag	vlajka	flag	Fahne	σημαία	bandera	lippu	drapeau	bendera	bandiera	旗	깃발	flagg	vlag	flaga	bandeira	bandeira	флаг	flagga	bayrak	прапор	旗帜
+king	král	konge	König	βασιλιάς	rey	kuningas	roi	raja	re	王さま	왕	konge	koning	król	rei	rei	король	kung	kral	король	国王
+pirate	pirát	pirat	Pirat	πειρατής	pirata	merirosvo	pirate	bajak laut	pirata	かいぞく	해적	pirat	piraat	pirat	pirata	pirata	пират	pirat	korsan	пірат	海盗
+clown	klaun	klovn	Clown	κλόουν	payaso	klovni	clown	badut	pagliaccio	ピエロ	광대	klovn	clown	klaun	palhaço	palhaço	клоун	clown	palyaço	клоун	小丑
+witch	čarodějnice	heks	Hexe	μάγισσα	bruja	noita	sorcière	penyihir	strega	まじょ	마녀	heks	heks	czarownica	bruxa	bruxa	ведьма	häxa	cadı	відьма	女巫
+ghost	duch	spøgelse	Gespenst	φάντασμα	fantasma	kummitus	fantôme	hantu	fantasma	おばけ	유령	spøkelse	spook	duch	fantasma	fantasma	привидение	spöke	hayalet	привид	幽灵
+angel	anděl	engel	Engel	άγγελος	ángel	enkeli	ange	malaikat	angelo	天使	천사	engel	engel	anioł	anjo	anjo	ангел	ängel	melek	ангел	天使
+mermaid	mořská panna	havfrue	Meerjungfrau	γοργόνα	sirena	merenneito	sirène	putri duyung	sirena	人魚	인어	havfrue	zeemeermin	syrena	sereia	sereia	русалка	sjöjungfru	deniz kızı	русалка	美人鱼
+knight	rytíř	ridder	Ritter	ιππότης	caballero	ritari	chevalier	ksatria	cavaliere	騎士	기사	ridder	ridder	rycerz	cavaleiro	cavaleiro	рыцарь	riddare	şövalye	лицар	骑士
+astronaut	astronaut	astronaut	Astronaut	αστροναύτης	astronauta	astronautti	astronaute	astronaut	astronauta	宇宙飛行士	우주비행사	astronaut	astronaut	astronauta	astronauta	astronauta	космонавт	astronaut	astronot	космонавт	宇航员
+cowboy	kovboj	cowboy	Cowboy	καουμπόι	vaquero	cowboy	cow-boy	koboi	cowboy	カウボーイ	카우보이	cowboy	cowboy	kowboj	caubói	cowboy	ковбой	cowboy	kovboy	ковбой	牛仔
+snowflake	sněhová vločka	snefnug	Schneeflocke	νιφάδα χιονιού	copo de nieve	lumihiutale	flocon de neige	kepingan salju	fiocco di neve	雪の結晶	눈송이	snøfnugg	sneeuwvlok	płatek śniegu	floco de neve	floco de neve	снежинка	snöflinga	kar tanesi	сніжинка	雪花
+treasure	poklad	skat	Schatz	θησαυρός	tesoro	aarre	trésor	harta karun	tesoro	宝物	보물	skatt	schat	skarb	tesouro	tesouro	сокровище	skatt	hazine	скарб	宝藏
+map	mapa	landkort	Landkarte	χάρτης	mapa	kartta	carte	peta	mappa	地図	지도	kart	landkaart	mapa	mapa	mapa	карта	karta	harita	мапа	地图
+magnet	magnet	magnet	Magnet	μαγνήτης	imán	magneetti	aimant	magnet	calamita	磁石	자석	magnet	magneet	magnes	ímã	íman	магнит	magnet	mıknatıs	магніт	磁铁
+light bulb	žárovka	elpære	Glühbirne	λαμπτήρας	bombilla	hehkulamppu	ampoule	bola lampu	lampadina	電球	전구	lyspære	gloeilamp	żarówka	lâmpada	lâmpada	лампочка	glödlampa	ampul	лампочка	灯泡
+battery	baterie	batteri	Batterie	μπαταρία	pila	paristo	pile	baterai	pila	電池	건전지	batteri	batterij	bateria	pilha	pilha	батарейка	batteri	pil	батарейка	电池
+sword	meč	sværd	Schwert	σπαθί	espada	miekka	épée	pedang	spada	剣	검	sverd	zwaard	miecz	espada	espada	меч	svärd	kılıç	меч	剑
+arrow	šíp	pil	Pfeil	βέλος	flecha	nuoli	flèche	anak panah	freccia	矢	화살	pil	pijl	strzała	flecha	seta	стрела	pil	ok	стріла	箭
+shield	štít	skjold	Schild	ασπίδα	escudo	kilpi	bouclier	perisai	scudo	盾	방패	skjold	schild	tarcza	escudo	escudo	щит	sköld	kalkan	щит	盾牌
+present	dárek	gave	Geschenk	δώρο	regalo	lahja	cadeau	hadiah	regalo	プレゼント	선물	gave	cadeau	prezent	presente	prenda	подарок	present	hediye	подарунок	礼物

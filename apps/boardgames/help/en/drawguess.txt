@@ -1,0 +1,12 @@
+Draw and Guess
+# The aim
+Draw so that the others guess your word, and guess theirs. For 2 to 8 players.
+# A turn
+- The drawer looks at a word alone, then draws it for 60 seconds while the others call out guesses.
+- Only the drawing: no letters, no numbers, no words, no gestures.
+- When someone says the word, the drawer taps that player.
+# Points
+- The first right guess: 2 points for the guesser, 1 for the drawer.
+- Nobody before the time is up: no points.
+# The end of the game
+Each player draws 3 times (twice from 4 players). The most points win.

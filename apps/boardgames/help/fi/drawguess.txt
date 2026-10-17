@@ -1,0 +1,12 @@
+Piirrä ja arvaa
+# Tavoite
+Piirrä niin, että muut arvaavat sanasi, ja arvaa heidän sanansa. 2–8 pelaajalle.
+# Vuoro
+- Piirtäjä katsoo sanan yksin ja piirtää sitä sitten 60 sekuntia, kun muut huutelevat arvauksiaan.
+- Vain piirros: ei kirjaimia, numeroita, sanoja eikä eleitä.
+- Kun joku sanoo sanan, piirtäjä napauttaa tätä pelaajaa.
+# Pisteet
+- Ensimmäinen oikea arvaus: arvaajalle 2 pistettä, piirtäjälle 1.
+- Kukaan ei arvaa ajoissa: ei pisteitä.
+# Pelin loppu
+Jokainen pelaaja piirtää 3 kertaa (4 pelaajasta alkaen 2 kertaa). Eniten pisteitä voittaa.

@@ -1,0 +1,12 @@
+Gambar dan Tebak
+# Tujuan
+Menggambarlah agar yang lain menebak katamu, dan tebak kata mereka. Untuk 2 sampai 8 pemain.
+# Satu giliran
+- Penggambar melihat sebuah kata sendirian, lalu menggambarnya selama 60 detik sementara yang lain meneriakkan tebakan.
+- Hanya gambar: tanpa huruf, angka, kata, atau gerakan tangan.
+- Saat seseorang menyebut katanya, penggambar mengetuk pemain itu.
+# Skor
+- Tebakan benar pertama: 2 poin untuk penebak, 1 untuk penggambar.
+- Tidak ada yang menebak sebelum waktu habis: tanpa poin.
+# Akhir permainan
+Setiap pemain menggambar 3 kali (2 kali mulai 4 pemain). Poin terbanyak menang.

@@ -1,0 +1,12 @@
+Dessine et devine
+# Le but
+Dessinez pour faire deviner votre mot, et devinez celui des autres. Pour 2 à 8 joueurs.
+# Un tour
+- Le dessinateur regarde seul un mot, puis le dessine pendant 60 secondes pendant que les autres lancent leurs propositions.
+- Seulement le dessin : ni lettres, ni chiffres, ni mots, ni gestes.
+- Quand quelqu'un dit le mot, le dessinateur touche ce joueur.
+# Le score
+- La première bonne réponse : 2 points pour celui qui a deviné, 1 pour le dessinateur.
+- Personne avant la fin du temps : aucun point.
+# La fin de la partie
+Chacun dessine 3 fois (2 fois à partir de 4 joueurs). Le plus de points gagne.

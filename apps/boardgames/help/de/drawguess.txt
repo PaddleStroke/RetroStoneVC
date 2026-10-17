@@ -1,0 +1,12 @@
+Zeichnen und Raten
+# Das Ziel
+Zeichne so, dass die anderen dein Wort erraten, und errate ihre. Für 2 bis 8 Spieler.
+# Ein Zug
+- Der Zeichner sieht sich allein ein Wort an und zeichnet es dann 60 Sekunden lang, während die anderen raten.
+- Nur die Zeichnung: keine Buchstaben, keine Zahlen, keine Wörter, keine Gesten.
+- Sagt jemand das Wort, tippt der Zeichner diesen Spieler an.
+# Die Wertung
+- Der erste richtige Tipp: 2 Punkte für den Ratenden, 1 für den Zeichner.
+- Niemand vor Ablauf der Zeit: keine Punkte.
+# Das Ende der Partie
+Jeder Spieler zeichnet dreimal (ab 4 Spielern zweimal). Die meisten Punkte gewinnen.

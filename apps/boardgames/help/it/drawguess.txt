@@ -1,0 +1,12 @@
+Disegna e indovina
+# Lo scopo
+Disegna in modo che gli altri indovinino la tua parola, e indovina le loro. Da 2 a 8 giocatori.
+# Un turno
+- Chi disegna guarda da solo una parola, poi la disegna per 60 secondi mentre gli altri provano a indovinare ad alta voce.
+- Solo il disegno: niente lettere, numeri, parole o gesti.
+- Quando qualcuno dice la parola, chi disegna tocca quel giocatore.
+# Il punteggio
+- La prima risposta giusta: 2 punti a chi indovina, 1 a chi disegna.
+- Nessuno prima della fine del tempo: nessun punto.
+# La fine della partita
+Ogni giocatore disegna 3 volte (2 volte da 4 giocatori). Vince chi ha più punti.

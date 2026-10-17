@@ -1,0 +1,301 @@
+Draw and Guess: the words (a line each, in tools/drawguess_words.tsv's order)
+kucing
+anjing
+kuda
+sapi
+babi
+domba
+ayam
+bebek
+kelinci
+tikus
+gajah
+jerapah
+singa
+harimau
+beruang
+monyet
+zebra
+unta
+kanguru
+buaya
+ular
+katak
+kura-kura
+ikan
+hiu
+paus
+lumba-lumba
+gurita
+kepiting
+siput
+kupu-kupu
+lebah
+laba-laba
+semut
+kepik
+burung hantu
+elang
+burung beo
+penguin
+angsa
+flamingo
+kelelawar
+rubah
+rusa
+tupai
+landak
+kambing
+keledai
+badak
+kuda nil
+anjing laut
+cacing
+dinosaurus
+naga
+unicorn
+apel
+pisang
+pir
+ceri
+stroberi
+anggur
+lemon
+jeruk
+nanas
+semangka
+wortel
+kentang
+tomat
+jamur
+jagung
+roti
+keju
+telur
+kue
+piza
+roti lapis
+es krim
+permen
+biskuit
+cokelat
+susu
+madu
+sosis
+hamburger
+sup
+labu
+bawang bombay
+kelapa
+persik
+lolipop
+popcorn
+donat
+panekuk
+mi
+nasi
+brokoli
+bawang putih
+mentimun
+alpukat
+sushi
+kursi
+meja
+tempat tidur
+sofa
+lampu
+jam dinding
+pintu
+jendela
+kunci
+gembok
+bak mandi
+pancuran
+toilet
+cermin
+sisir
+sikat gigi
+sabun
+handuk
+cangkir
+piring
+garpu
+pisau
+sendok
+botol
+gelas
+teko
+panci
+ketel
+kulkas
+mesin cuci
+televisi
+telepon
+komputer
+kamera
+radio
+buku
+pensil
+gunting
+penggaris
+amplop
+lilin
+payung
+keranjang
+kotak
+ember
+sapu
+palu
+gergaji
+tangga
+tali
+lonceng
+vas bunga
+bantal
+selimut
+koper
+ransel
+jam tangan
+kacamata
+cincin
+mahkota
+topi
+sepatu
+sepatu bot
+kaus kaki
+sarung tangan
+syal
+kemeja
+celana
+gaun
+rok
+mantel
+dasi
+ikat pinggang
+kancing
+kacamata hitam
+piyama
+baju renang
+celemek
+tas tangan
+topeng
+mobil
+bus
+truk
+sepeda
+sepeda motor
+kereta api
+pesawat terbang
+helikopter
+perahu
+kapal
+kapal selam
+roket
+traktor
+ambulans
+mobil pemadam
+taksi
+skuter
+papan luncur
+kereta luncur
+balon udara
+parasut
+kano
+trem
+roda
+jangkar
+matahari
+bulan
+bintang
+awan
+hujan
+manusia salju
+pelangi
+petir
+pohon
+bunga
+daun
+kaktus
+pohon kelapa
+gunung
+gunung berapi
+pulau
+sungai
+air terjun
+ombak
+gurun
+rumah
+istana
+tenda
+jembatan
+menara
+mercusuar
+kincir angin
+gereja
+igloo
+piramida
+pagar
+cerobong asap
+api
+bulu
+kerang
+mata
+telinga
+hidung
+mulut
+gigi
+tangan
+telapak kaki
+kaki
+lengan
+kepala
+rambut
+hati
+tulang
+jari
+janggut
+kumis
+kerangka
+otak
+lidah
+lutut
+bola
+layang-layang
+boneka
+boneka beruang
+balon
+drum
+gitar
+piano
+trompet
+biola
+gawang
+raket tenis
+dadu
+kartu remi
+robot
+ayunan
+perosotan
+piala
+medali
+bendera
+raja
+bajak laut
+badut
+penyihir
+hantu
+malaikat
+putri duyung
+ksatria
+astronaut
+koboi
+kepingan salju
+harta karun
+peta
+magnet
+bola lampu
+baterai
+pedang
+anak panah
+perisai
+hadiah

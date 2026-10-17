@@ -1,0 +1,12 @@
+Rysuj i zgaduj
+# Cel gry
+Rysuj tak, by inni odgadli twoje słowo, i zgaduj ich słowa. Dla 2 do 8 graczy.
+# Tura
+- Rysujący sam patrzy na słowo, a potem rysuje je przez 60 sekund, podczas gdy inni głośno zgadują.
+- Tylko rysunek: bez liter, cyfr, słów i gestów.
+- Gdy ktoś powie słowo, rysujący dotyka tego gracza.
+# Punktacja
+- Pierwsza dobra odpowiedź: 2 punkty dla zgadującego, 1 dla rysującego.
+- Nikt przed końcem czasu: bez punktów.
+# Koniec gry
+Każdy gracz rysuje 3 razy (od 4 graczy 2 razy). Wygrywa najwięcej punktów.

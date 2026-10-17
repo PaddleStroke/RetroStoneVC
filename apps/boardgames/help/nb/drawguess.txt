@@ -1,0 +1,12 @@
+Tegn og gjett
+# Målet
+Tegn slik at de andre gjetter ordet ditt, og gjett deres. For 2 til 8 spillere.
+# En tur
+- Tegneren ser på et ord alene og tegner det så i 60 sekunder mens de andre roper ut gjetninger.
+- Bare tegningen: ingen bokstaver, tall, ord eller fakter.
+- Når noen sier ordet, trykker tegneren på den spilleren.
+# Poengene
+- Første riktige gjetning: 2 poeng til den som gjettet, 1 til tegneren.
+- Ingen før tiden er ute: ingen poeng.
+# Slutten på spillet
+Hver spiller tegner 3 ganger (2 ganger fra 4 spillere). Flest poeng vinner.

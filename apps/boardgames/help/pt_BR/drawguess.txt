@@ -1,0 +1,12 @@
+Desenhe e adivinhe
+# O objetivo
+Desenhe para que os outros adivinhem a sua palavra, e adivinhe as deles. Para 2 a 8 jogadores.
+# Uma jogada
+- Quem desenha vê uma palavra sozinho e depois a desenha por 60 segundos enquanto os outros dão palpites em voz alta.
+- Só o desenho: nada de letras, números, palavras ou gestos.
+- Quando alguém disser a palavra, quem desenha toca nesse jogador.
+# A pontuação
+- O primeiro palpite certo: 2 pontos para quem adivinhou, 1 para quem desenhou.
+- Ninguém antes de o tempo acabar: nenhum ponto.
+# O fim da partida
+Cada jogador desenha 3 vezes (2 vezes a partir de 4 jogadores). Vence quem tiver mais pontos.

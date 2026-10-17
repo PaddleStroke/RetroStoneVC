@@ -1,0 +1,12 @@
+Dibuja y adivina
+# El objetivo
+Dibuja para que los demás adivinen tu palabra, y adivina las suyas. Para 2 a 8 jugadores.
+# Un turno
+- Quien dibuja mira una palabra a solas y luego la dibuja durante 60 segundos mientras los demás dicen en voz alta lo que creen.
+- Solo el dibujo: ni letras, ni números, ni palabras, ni gestos.
+- Cuando alguien dice la palabra, quien dibuja toca a ese jugador.
+# La puntuación
+- El primer acierto: 2 puntos para quien adivina, 1 para quien dibuja.
+- Nadie antes de que acabe el tiempo: ningún punto.
+# El final de la partida
+Cada jugador dibuja 3 veces (2 veces desde 4 jugadores). Gana quien tenga más puntos.

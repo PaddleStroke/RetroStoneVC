@@ -1,0 +1,12 @@
+Rita och gissa
+# Målet
+Rita så att de andra gissar ditt ord, och gissa deras. För 2 till 8 spelare.
+# En tur
+- Tecknaren tittar ensam på ett ord och ritar det sedan i 60 sekunder medan de andra ropar sina gissningar.
+- Bara teckningen: inga bokstäver, siffror, ord eller gester.
+- När någon säger ordet trycker tecknaren på den spelaren.
+# Poängen
+- Första rätta gissningen: 2 poäng till den som gissade, 1 till tecknaren.
+- Ingen innan tiden är ute: inga poäng.
+# Partiets slut
+Varje spelare ritar 3 gånger (2 gånger från 4 spelare). Flest poäng vinner.

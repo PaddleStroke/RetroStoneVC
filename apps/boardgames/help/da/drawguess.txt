@@ -1,0 +1,12 @@
+Tegn og gæt
+# Målet
+Tegn, så de andre gætter dit ord, og gæt deres. For 2 til 8 spillere.
+# En tur
+- Tegneren ser et ord alene og tegner det så i 60 sekunder, mens de andre råber deres gæt.
+- Kun tegningen: ingen bogstaver, tal, ord eller fagter.
+- Når nogen siger ordet, trykker tegneren på den spiller.
+# Pointene
+- Det første rigtige gæt: 2 point til den, der gættede, 1 til tegneren.
+- Ingen inden tiden er gået: ingen point.
+# Spillets afslutning
+Hver spiller tegner 3 gange (2 gange fra 4 spillere). Flest point vinder.

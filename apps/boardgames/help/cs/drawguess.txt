@@ -1,0 +1,12 @@
+Nakresli a hádej
+# Cíl hry
+Kreslete tak, aby ostatní uhodli vaše slovo, a hádejte to jejich. Pro 2 až 8 hráčů.
+# Tah
+- Kreslíř se sám podívá na slovo a pak ho 60 sekund kreslí, zatímco ostatní nahlas hádají.
+- Jen kresba: žádná písmena, čísla, slova ani gesta.
+- Když někdo řekne slovo, kreslíř na toho hráče ťukne.
+# Počítání bodů
+- První správný tip: 2 body pro hádajícího, 1 pro kreslíře.
+- Nikdo do konce času: žádné body.
+# Konec hry
+Každý hráč kreslí třikrát (od 4 hráčů dvakrát). Vyhrává nejvíc bodů.

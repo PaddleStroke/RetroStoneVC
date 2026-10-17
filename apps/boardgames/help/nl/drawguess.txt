@@ -1,0 +1,12 @@
+Teken en raad
+# Het doel
+Teken zo dat de anderen jouw woord raden, en raad het hunne. Voor 2 tot 8 spelers.
+# Een beurt
+- De tekenaar bekijkt alleen een woord en tekent het dan 60 seconden lang terwijl de anderen hun gok roepen.
+- Alleen de tekening: geen letters, cijfers, woorden of gebaren.
+- Zegt iemand het woord, dan tikt de tekenaar die speler aan.
+# De telling
+- De eerste goede gok: 2 punten voor de rader, 1 voor de tekenaar.
+- Niemand voor de tijd om is: geen punten.
+# Het einde van de partij
+Iedere speler tekent 3 keer (vanaf 4 spelers 2 keer). De meeste punten winnen.
