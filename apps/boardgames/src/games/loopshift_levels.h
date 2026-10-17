@@ -1,159 +1,159 @@
 /*
- * Row Shift's levels: our own, made by tools/loopshift_gen.c (grids scrambled by chance, their fewest moves
+ * Row Shift's levels: our own, made by tools/loopshift_gen.c (grids scrambled by chance or in symmetric pairs, the best-looking kept, their fewest moves
  * found by the rules' search, six chapters of 25 from the easiest). Each: the side, 'n' numbered tiles or
  * 'c' colour bands, 'x' the fewest moves proven or 'b' the best known; the tiles by home place ('a'..);
  * then a shortest way (a line 'a'.. and the steps, a move), its length the par.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 const char *const lsh_levels[LSH_LEVELS] = {
-    "3cx:dbcgefahi:d1", /* 1: par 1, 3 out of place */
+    "3cx:aecdhfgbi:e1", /* 1: par 1, 3 out of place */
     "3cx:bcgaefdhi:a1d2", /* 2: par 2, 3 out of place */
-    "3cx:dhcgbfaei:e2d1", /* 3: par 2, 6 out of place */
+    "3cx:gbfaeidhc:f1d2", /* 3: par 2, 6 out of place */
     "3cx:dbfgeiahc:f1d1", /* 4: par 2, 6 out of place */
-    "3cx:eacdbfghi:d1b2d2", /* 5: par 3, 2 out of place */
-    "3cx:aebdhcigf:f2c2e1", /* 6: par 3, 4 out of place */
-    "3cx:aifegdhcb:e1b1f1", /* 7: par 3, 5 out of place */
-    "3cx:cgeahfdbi:a2e1d2", /* 8: par 3, 6 out of place */
+    "3cx:ecadhfigb:a1c2e1", /* 5: par 3, 3 out of place */
+    "3cx:ahbdgfcei:e1c1e1", /* 6: par 3, 4 out of place */
+    "3cx:fagedhcib:f1b1d1", /* 7: par 3, 5 out of place */
+    "3cx:dagebhcif:b1d1f2", /* 8: par 3, 6 out of place */
     "3cx:defghiabc:f1e1d1", /* 9: par 3, 9 out of place */
-    "3cx:bfceadghi:b1f2a1f1", /* 10: par 4, 2 out of place */
-    "3cx:abfciehdg:a2e2b1e2", /* 11: par 4, 4 out of place */
-    "3cx:fabdihgec:a1e1a1f1", /* 12: par 4, 5 out of place */
-    "3cx:dfaeigbhc:b1d1a1f1", /* 13: par 4, 6 out of place */
-    "3cx:gbfeiacdh:c2b1f1d2", /* 14: par 4, 6 out of place */
-    "3cx:eaihdgfbc:f2c2d1f2", /* 15: par 4, 7 out of place */
+    "3cx:aecfbdigh:a1e2a2e1", /* 10: par 4, 2 out of place */
+    "3cx:fgbaeihcd:a1b2e1f2", /* 11: par 4, 6 out of place */
+    "3cx:bfgaeicdh:a1c2d2f1", /* 12: par 4, 6 out of place */
+    "3cx:ahfdgbcie:a1f2b2d1", /* 13: par 4, 6 out of place */
+    "3cx:gafebhdci:b2d2a2e1", /* 14: par 4, 6 out of place */
+    "3cx:gheabcidf:e2f2c1d2", /* 15: par 4, 8 out of place */
     "3nx:aecdhfbig:c1e1", /* 16: par 2, 5 out of place */
-    "3nx:dhcgbfaei:e2d1", /* 17: par 2, 6 out of place */
+    "3nx:bcadefigh:a1c2", /* 17: par 2, 6 out of place */
     "3nx:cabfdeghi:b2a2", /* 18: par 2, 6 out of place */
-    "3nx:afcdeighb:a1f1a2", /* 19: par 3, 3 out of place */
-    "3nx:aefdgicbh:e1c2f1", /* 20: par 3, 7 out of place */
-    "3nx:bchdeaigf:f2c2a1", /* 21: par 3, 7 out of place */
-    "3nx:abfdceghi:f1b1f2b2", /* 22: par 4, 3 out of place */
-    "3nx:afchdeigb:c2b1e1b1", /* 23: par 4, 7 out of place */
-    "3nx:fhcedbaig:d1c1b2e2", /* 24: par 4, 8 out of place */
+    "3nx:gbeadifhc:f1d2b2", /* 19: par 3, 7 out of place */
+    "3nx:gbfiaedhc:b2d2f1", /* 20: par 3, 7 out of place */
+    "3nx:cabfdehig:a2c1b2", /* 21: par 3, 9 out of place */
+    "3nx:ibcfaeghd:b2c1d2c2", /* 22: par 4, 5 out of place */
+    "3nx:gbediafhc:b1d2f1b2", /* 23: par 4, 6 out of place */
+    "3nx:daghebcif:d1f2a2c1", /* 24: par 4, 8 out of place */
     "3nx:fgbaeihcd:c1a2f1d2", /* 25: par 4, 8 out of place */
-    "3nx:gbciefahd:c1d1c2d1", /* 26: par 4, 4 out of place */
-    "3nx:abchdefgi:b2f1c2f2", /* 27: par 4, 5 out of place */
-    "3nx:hbcefdgia:b1d2c1d1", /* 28: par 4, 6 out of place */
-    "3nx:aefdigbch:c1f1e1c1", /* 29: par 4, 7 out of place */
-    "3nx:dbagecifh:c1f2c1d1", /* 30: par 4, 7 out of place */
-    "3nx:dcaihfegb:d1c2a1e1", /* 31: par 4, 8 out of place */
-    "3nx:aefibdghc:b1f1c2e1c1", /* 32: par 5, 6 out of place */
-    "3nx:bdhgefaci:a1e1a1d1e2", /* 33: par 5, 6 out of place */
-    "3nx:afidbgceh:e2c1f1c1f1", /* 34: par 5, 7 out of place */
-    "3nx:fdceihagb:b2d1c2e1b2", /* 35: par 5, 8 out of place */
-    "3nx:bcagedifh:a1e2b1e1c2", /* 36: par 5, 8 out of place */
-    "3nx:ghfbadiec:b2d2b2e2f1", /* 37: par 5, 9 out of place */
-    "3nx:adifehgbc:e1c1f1c2f1b2", /* 38: par 6, 6 out of place */
-    "3nx:adebhgfci:e1d2b1a1d1b1", /* 39: par 6, 7 out of place */
-    "3nx:gfihecbda:d1c1f1a1f1d1", /* 40: par 6, 8 out of place */
-    "3nx:ehdabficg:d2b2c1f1b1e2", /* 41: par 6, 8 out of place */
-    "3nx:gbiahefdc:c2d2f2a2e1a1", /* 42: par 6, 8 out of place */
-    "3nx:icfehbadg:a1b2d1e2b2c1", /* 43: par 6, 9 out of place */
+    "3nx:ibcadeghf:a2b2f2a1", /* 26: par 4, 5 out of place */
+    "3nx:ahgdbfeci:f2c1e2f1", /* 27: par 4, 5 out of place */
+    "3nx:caefdhbig:a2b2c1e1", /* 28: par 4, 9 out of place */
+    "3nx:heigfcabd:d1f2b1e1", /* 29: par 4, 9 out of place */
+    "3nx:beafdgich:b2e1a1c2", /* 30: par 4, 9 out of place */
+    "3nx:cibeadhfg:e2a2b1c1", /* 31: par 4, 9 out of place */
+    "3nx:abedgfchi:d2f1b2f2d1", /* 32: par 5, 3 out of place */
+    "3nx:dbagicehf:f1d2b1f1d2", /* 33: par 5, 7 out of place */
+    "3nx:adhcfgbei:a2b1d1e2a1", /* 34: par 5, 7 out of place */
+    "3nx:afecbghdi:e2f1b2c1f2", /* 35: par 5, 7 out of place */
+    "3nx:adgciebfh:c1e1b2f2c1", /* 36: par 5, 8 out of place */
+    "3nx:heicgfabd:b2d1f2b1e1", /* 37: par 5, 8 out of place */
+    "3nx:hdcieagfb:d2f1c1a2f2d1", /* 38: par 6, 6 out of place */
+    "3nx:gahdcfeib:a1c2e2a1c2e2", /* 39: par 6, 7 out of place */
+    "3nx:dbacgiehf:b2d2f1b1f1d2", /* 40: par 6, 7 out of place */
+    "3nx:bfcagiedh:e1a1d2c2f1b1", /* 41: par 6, 8 out of place */
+    "3nx:gdahebifc:d1f2c1a2f2d1", /* 42: par 6, 8 out of place */
+    "3nx:hgedfaicb:c2d1a2b1d2e1", /* 43: par 6, 8 out of place */
     "3nx:ahcifgebd:c1d1b1e1c2d1e1", /* 44: par 7, 7 out of place */
-    "3nx:bdcahigef:e1c1a1d2c2f1b2", /* 45: par 7, 7 out of place */
-    "3nx:decgbiahf:a1b1f1b2f1a2d1", /* 46: par 7, 7 out of place */
-    "3nx:eidcfaghb:c1d1c2f2a1f2b1", /* 47: par 7, 7 out of place */
+    "3nx:hgcaeifbd:a2e1f2c2d2b1f2", /* 45: par 7, 7 out of place */
+    "3nx:aichbgfde:a1c2f2a1d2a1e2", /* 46: par 7, 7 out of place */
+    "3nx:cgadbiehf:a1b2e1b1f2c1e2", /* 47: par 7, 7 out of place */
     "3nx:cdegabhfi:a1b2d1a1e2b1d1", /* 48: par 7, 8 out of place */
-    "3nx:cidhegfba:a1c2d1f1c1f1a1", /* 49: par 7, 8 out of place */
-    "3nx:fihbaedcg:a1b1e2b1d2c1f2", /* 50: par 7, 9 out of place */
+    "3nx:gfibchade:a1c2e2d2f1a1c2", /* 49: par 7, 9 out of place */
+    "3nx:fibcagdeh:a2d2e2c1f1a2c1", /* 50: par 7, 9 out of place */
     "4cx:abcdefghjkoilmnp:e3c2e1", /* 51: par 3, 2 out of place */
-    "4cx:ibcdmfghnjkleopa:e1d1e1", /* 52: par 3, 5 out of place */
-    "4cx:abchfgoeijkplmnd:b1h2d3h3", /* 53: par 4, 5 out of place */
-    "4cx:afpdejchnkgibolm:g3d1c1f1", /* 54: par 4, 8 out of place */
-    "4cx:clapedgbijkfmnoh:a2h3a2b2h3", /* 55: par 5, 6 out of place */
+    "4cx:abcdefnhijklgpmo:e2b2e2", /* 52: par 3, 2 out of place */
+    "4cx:ebcpgdifkhmjanol:c2b2h3e1", /* 53: par 4, 8 out of place */
+    "4cx:bchmafglejkpdino:a1d3e3h1", /* 54: par 4, 8 out of place */
+    "4cx:lbcdafhjgikpmnoe:a3h2a1d1e3", /* 55: par 5, 6 out of place */
     "4cx:ebcdifgjmlkhanop:e1c2h1c2h3", /* 56: par 5, 6 out of place */
-    "4cx:jnciagpebkldfohm:e3a3e3c3g2", /* 57: par 5, 9 out of place */
-    "4cx:bckdefahijpmolgn:g2d1h1d1a1h3", /* 58: par 6, 6 out of place */
-    "4cx:dapkejfhogclnbim:h2c1f1h2b1g3", /* 59: par 6, 8 out of place */
-    "4cx:cmgodfkhajblepin:e3d2g2a3g3e3", /* 60: par 6, 9 out of place */
-    "4nx:abcpefgdijknohml:h1d2h2", /* 61: par 3, 7 out of place */
-    "4nx:mpabcfgdejkhinol:e3a2h3", /* 62: par 3, 10 out of place */
-    "4nx:dabhefglijkpcmno:d3h1a3", /* 63: par 3, 10 out of place */
-    "4nx:abcnefgdijkopmhl:h1d1h2d2", /* 64: par 4, 7 out of place */
-    "4nx:bcpdefghklijmnoa:c2h1a1h3", /* 65: par 4, 8 out of place */
-    "4nx:aicngheklbjpmfod:h1b2f2c3", /* 66: par 4, 12 out of place */
-    "4nx:anjdebmhlfckopgi:g2d2f3c3", /* 67: par 4, 12 out of place */
-    "4nx:abcdemghjkliopnf:d3f2d3f2c1", /* 68: par 5, 9 out of place */
-    "4nx:ajcglhnbiekpmfod:b3h1f3b3f3", /* 69: par 5, 10 out of place */
+    "4cx:jckaengplbfdmioh:a1h2f3c3f3", /* 57: par 5, 9 out of place */
+    "4cx:nbjaefdhimklpgoc:f1g3a1d3f3g1", /* 58: par 6, 6 out of place */
+    "4cx:embpnfgihjkcaodl:e2h2a3d1h1e3", /* 59: par 6, 10 out of place */
+    "4cx:ejdpbnfihkcoamgl:e1h1a1b1e2g2", /* 60: par 6, 12 out of place */
+    "4nx:ahkdgjofinclmbep:g2f1b2", /* 61: par 3, 10 out of place */
+    "4nx:ancdfbhejglimkop:f3c1b1", /* 62: par 3, 10 out of place */
+    "4nx:afcdhejglinkmbop:c3b3f1", /* 63: par 3, 10 out of place */
+    "4nx:ibclpmfgjkdaenoh:b3c1e2h2", /* 64: par 4, 12 out of place */
+    "4nx:kdajenohibclgpmf:a2d2f2g2", /* 65: par 4, 12 out of place */
+    "4nx:mbchfglapejkinod:b1c3e3h1", /* 66: par 4, 12 out of place */
+    "4nx:dogceakhifplnjbm:f3g1d1a3", /* 67: par 4, 12 out of place */
+    "4nx:afodekchipglnbjm:f2d3f3d2g3", /* 68: par 5, 10 out of place */
+    "4nx:abolefcnhijdkpmg:h3c3h3d2g3", /* 69: par 5, 12 out of place */
     "4nx:ikcdmnghjelapfbo:f1d3f1c1e2", /* 70: par 5, 12 out of place */
-    "4nx:abcehifgjklnopmd:b2h1d2c1b1", /* 71: par 5, 13 out of place */
-    "4nx:ebchifgmdjkopanl:h3c3h2d3c1e1", /* 72: par 6, 10 out of place */
-    "4nx:aogdjfhelknpbicm:f3c3b1g1d1f1", /* 73: par 6, 13 out of place */
-    "4nx:alconghjkbipemfd:h3d3h2b1f2c2", /* 74: par 6, 14 out of place */
-    "4nx:cdlbaeogkmhjinfp:c1g2c1a2e3b3", /* 75: par 6, 14 out of place */
-    "4nx:ajkdebohnfclmigp:f2c1f1c3g2", /* 76: par 5, 9 out of place */
-    "4nx:abpdfolhjkcemngi:h3b1g2c1h1", /* 77: par 5, 10 out of place */
-    "4nx:apgoebkdifmhljcn:f3g1d3h3d3", /* 78: par 5, 13 out of place */
+    "4nx:abgldefpohikmncj:h3c2b3h3g1", /* 71: par 5, 12 out of place */
+    "4nx:abhndfglejkmciop:a1d3e3h1a3d1", /* 72: par 6, 8 out of place */
+    "4nx:acldhfgobjkimenp:f2g2c1b3f2g2", /* 73: par 6, 8 out of place */
+    "4nx:jbceiafdmkphlnog:h2e2b3c1h1e3", /* 74: par 6, 12 out of place */
+    "4nx:ongfepmhidalkjcb:f2g2a2d2f1g3", /* 75: par 6, 12 out of place */
+    "4nx:afcpgledinkhjmbo:d3h2b2h1f1", /* 76: par 5, 12 out of place */
+    "4nx:ebhdfomiclgjankp:g1c2b1g2e1", /* 77: par 5, 12 out of place */
+    "4nx:ahkdnjefimclopbg:d3f1b2g2d3", /* 78: par 5, 12 out of place */
     "4nx:njdaebohlfckpmig:d3a1g2f3c3", /* 79: par 5, 14 out of place */
     "4nx:anohclebkfgjmpid:b2g3f3c2h1", /* 80: par 5, 14 out of place */
-    "4nx:ciebnfghmjklaodp:a2h3e2d1h1e3", /* 81: par 6, 9 out of place */
-    "4nx:nbmdfgcaejkhiopl:b1a1h3a3e3d1", /* 82: par 6, 12 out of place */
-    "4nx:gnkbdjhelfcomiap:b1g1f3c3a2g1", /* 83: par 6, 14 out of place */
-    "4nx:bodaglemihkcnjpf:f3a2h2d1b2a3", /* 84: par 6, 14 out of place */
-    "4nx:fhlcejapingbdokm:a1g3d1h2f1a2", /* 85: par 6, 14 out of place */
-    "4nx:acpdkfjeighlbnom:g3f3d1b2g1b3f1", /* 86: par 7, 9 out of place */
-    "4nx:dhbcmfgaijklpeno:d3a3h1c1e2c3h3", /* 87: par 7, 10 out of place */
-    "4nx:mbkhelofcpajingd:e1c2g3e2b2h1g3", /* 88: par 7, 13 out of place */
-    "4nx:kdmiapohebjcflng:d1a2f2d2e3c3g2", /* 89: par 7, 15 out of place */
-    "4nx:cokjglhpaeidfbmn:f1e2d2h2c2b1g2", /* 90: par 7, 16 out of place */
-    "4nx:mbclegapjfdkinoh:c1b1g3b1e3b2h2g1", /* 91: par 8, 11 out of place */
-    "4nx:ibcelfgdmojhpkna:d2h3d1e1d2c3e1d2", /* 92: par 8, 12 out of place */
-    "4nx:ahodjcefglinmbkp:b3f1b3f3c2b3g3f1", /* 93: par 8, 12 out of place */
-    "4nx:mbclfgdpaijkheno:e2c3e2d3h3b1h3e2", /* 94: par 8, 14 out of place */
-    "4nx:dgbcfhaelijokmnp:b2a2h1d3b3h3c3a1", /* 95: par 8, 15 out of place */
-    "4nx:ibcdnphjagklmofe:e2b3h2f3b3f1d1h2b2", /* 96: par 9, 10 out of place */
-    "4nx:aiglefhbjkodmnpc:a2h3a2g1h3a1c1h3a3", /* 97: par 9, 11 out of place */
+    "4nx:jbciefpmdaklhnog:b1c3e2h2b3c1", /* 81: par 6, 8 out of place */
+    "4nx:abijefmncdklghop:a2b2e2f2a2b2", /* 82: par 6, 8 out of place */
+    "4nx:icpomfgeljkdbanh:h3e1d3a1e1h3", /* 83: par 6, 12 out of place */
+    "4nx:alidnofgjkbcmhep:b1c3f2g2b2c2", /* 84: par 6, 12 out of place */
+    "4nx:aekdhgocnbjimflp:f1g3b3c1f1g3", /* 85: par 6, 12 out of place */
+    "4nx:aigoeckmdfnlbjhp:e2g2a3b1e2f3g3", /* 86: par 7, 12 out of place */
+    "4nx:gmbciaefklphnodj:a2b2g1h3a1c2d1", /* 87: par 7, 16 out of place */
+    "4nx:nikmagolebjpdfhc:e1g2h1a3b1e2f2", /* 88: par 7, 16 out of place */
+    "4nx:gdknaholebipcfmj:e1g2h1a2b2e2f2", /* 89: par 7, 16 out of place */
+    "4nx:pcdgibefklohjmna:a1c2d1e1f3b2d2", /* 90: par 7, 16 out of place */
+    "4nx:abchflgmdjekinop:e3h1b3c1e1h3b1c3", /* 91: par 8, 8 out of place */
+    "4nx:ahcdgoflekbjmnip:g3f1c1b3g1f3b3c1", /* 92: par 8, 10 out of place */
+    "4nx:abligmnfkcdjheop:d3a1b2c2h2e2a3d1", /* 93: par 8, 12 out of place */
+    "4nx:ahndfljobgekmcip:g1f3b3c1f2g2c2b2", /* 94: par 8, 12 out of place */
+    "4nx:hbcfdepjgalmknoi:e1h3b1c3e2h2b2c2", /* 95: par 8, 12 out of place */
+    "4nx:anidebphlomkgfcj:d2g1c3f1d2f2c2g1c2", /* 96: par 9, 12 out of place */
+    "4nx:apcohnjlibkmefgd:h3f1b2f2d3h2f2b1f1", /* 97: par 9, 12 out of place */
     "4nx:bifcjphmankledog:b2c3h2a3b3c1e2f1a2", /* 98: par 9, 13 out of place */
-    "4nx:bihfmejgcokpnadl:d1a3e2c1g1c3b3a2h1", /* 99: par 9, 15 out of place */
-    "4nx:inkholmbdpfcgaej:b2c2d2e2f2g2h1a1f1", /* 100: par 9, 16 out of place */
-    "5cx:abmdecixfgklwnotpqjsvrhyu:d4h3e1b2h4", /* 101: par 5, 7 out of place */
-    "5cx:mdraqfvyijkbcnopghstwxeul:h1a2h2e2g3", /* 102: par 5, 11 out of place */
-    "5cx:abcsefghxlmdjkoritpvwnquy:j1e2c2j4d2i3", /* 103: par 6, 9 out of place */
-    "5cx:alcdriyfqomntkvsjpbhugwxe:c2j3d3b3j3g2", /* 104: par 6, 12 out of place */
-    "5cx:cderbpghijqnmklstoawfvuxy:a2d2f1d4f2d2f4", /* 105: par 7, 7 out of place */
-    "5cx:lbmdopjfgtvwnruaqcseihxyk:j3f2c1j4e1b3h2", /* 106: par 7, 15 out of place */
-    "5cx:aqbdevhrjftkxmocsnpglwiyu:d2h2b1j4c4j1e1g3", /* 107: par 8, 10 out of place */
-    "5cx:wyagrefmjilhcokqvsxpubndt:a3i1b4g1d1h3c1j4", /* 108: par 8, 14 out of place */
-    "5nx:ibcdefjaghqlmnovrstkuwxyp:f1e1d1b3f4", /* 109: par 5, 15 out of place */
-    "5nx:abmxtfgrdyklsiepqcnjouvwh:e3h2e1j3i4", /* 110: par 5, 17 out of place */
-    "5nx:malhdfqkitnorvypbwseugcxj:a4j2h1c3g2", /* 111: par 5, 19 out of place */
-    "5nx:agcdrflhiokqmnjpvtsyubwxe:j1d2j2d3j3g1", /* 112: par 6, 11 out of place */
-    "5nx:mgabcfkhsjnodlxrvtpquewiy:c4g1d2a3i2c4", /* 113: par 6, 19 out of place */
-    "5nx:desywfgcxbjklhapqmiouvrnt:c4a1j4i3a2h4", /* 114: par 6, 19 out of place */
-    "5nx:rbcxtaghduflmieksnpjqvwyo:j2f3d1i4f1d1j1", /* 115: par 7, 17 out of place */
-    "5nx:ekbtdfrhmjogvsnalixpuqwcy:i3g2d1i3c4g2a4", /* 116: par 7, 19 out of place */
-    "5nx:glcdthiufaqokvenbrsjpwxym:b1f4b1j3e1c3g2", /* 117: par 7, 21 out of place */
-    "5nx:awhjefgdiorntklmscpyuvbxq:c2h2a1j4d2j2h4a4", /* 118: par 8, 17 out of place */
-    "5nx:bmdraeuitfklwnjpqcsoxyhvg:b4a1j2b2j2h3e3h4", /* 119: par 8, 19 out of place */
-    "5nx:oeaihfnmpjuklrgdqwxtsvcby:b2f2c4i4b3i2a3h1", /* 120: par 8, 19 out of place */
-    "5nx:mivabfgrnxtpkleqcswjyuhdo:a2j2c3j1i1d1h2e4", /* 121: par 8, 23 out of place */
-    "5nx:fqcdekwhijgbmnoupxrsyvlat:d3e2f1d1e2g3j1e1j4", /* 122: par 9, 15 out of place */
-    "5nx:bnisavfghmklqroepjxtwdcuy:b3a1h1b1j3e2i1d4j2", /* 123: par 9, 20 out of place */
-    "5nx:ijbchfnagdmqyktpvrslxeouw:e3j4g1c2f1a4j2b3f4", /* 124: par 9, 21 out of place */
-    "5nx:avrljfbwxhgcndptkiysuqmoe:d1j2i3d2j4d1c1h3g4", /* 125: par 9, 22 out of place */
-    "6cx:ybcdefghijIEranopqktuvwxmzABCDsFGHlJ:b1c5g4k2b5k4", /* 126: par 6, 8 out of place */
-    "6cx:sbEdqDijulyJCfAnopatGvIhgzcBermFwHkx:i2c4l4b2k2g3", /* 127: par 6, 22 out of place */
-    "6cx:etcdBfgziHkjmFoaqpsbunwlCDyhArIJEvGx:e4f4h4d4h5a5j4", /* 128: par 7, 13 out of place */
-    "6cx:ajAdIfGnelghmscpkrxBtivqoJwDyzCbEFuH:h1f4e2d5b2k5i4", /* 129: par 7, 18 out of place */
-    "6cx:efmhcdsnijkGopqryHxztuvwaIABCDgblEFJ:c2a4h1d5l4g2f3l2", /* 130: par 8, 13 out of place */
-    "6cx:abudkxghnjqDJmHBpwstcvzfrAiClyFGoIeE:i1c5i2e4k1f1e3l3", /* 131: par 8, 18 out of place */
-    "6cx:gbcdywmhijEzpqxlIostuvDeABCrkJaFGHnf:d5k3d2c3l3e2g1d5l4", /* 132: par 9, 17 out of place */
-    "6cx:zdIfaDgFijepkJmcouvqbshnABwlyrEtGHCx:l1e2d3c4l3a1h4a1k5", /* 133: par 9, 20 out of place */
-    "6nx:aEudefjbAghimkopqGsncvwxytlBCDJzFrHI:h5f5c3i3c3b3", /* 134: par 6, 20 out of place */
-    "6nx:gdefaFpbijklrmhowqynstuvExABCDczGHIJ:c2g1c3a2h5d4", /* 135: par 6, 24 out of place */
-    "6nx:aFwdqfijolgbrmhupCsnBvIxztGeDyEAcHkJ:c5i1b2h5e1k2", /* 136: par 6, 27 out of place */
-    "6nx:abudexghAjkDqfyncJstmvwpCrizGlEFoHIB:l5i5c4i3e4l4i1", /* 137: par 7, 20 out of place */
-    "6nx:abodeflghukCmnApqrGvwxstDyzcBjiHIJEF:e5d2k3b5k3f2i2", /* 138: par 7, 25 out of place */
-    "6nx:gbodexnhujkDsApqrJyvwfatHzcBClGImEFi:g4d2g3f3l3c1i2", /* 139: par 7, 27 out of place */
-    "6nx:gbHdkfqhejplsriuowytnvCxFzmBJDcIAEaG:i4f2g1c5k1i1f1c5", /* 140: par 8, 24 out of place */
-    "6nx:mbcdzlkrgDitynopCxEuvwIsBqJaeAjFGHhf:b1k4e3k4g2d1b3l1", /* 141: par 8, 27 out of place */
-    "6nx:aDxdIpgFyjeuqbGnkzvhcstJABwrifEomHCl:l2e4i3h4e4d3k5c4", /* 142: par 8, 30 out of place */
-    "6nx:jedaFxgbipkcrhnvBJsmuowfyzAHClEDGqIt:l5a3j5e2l4h5e4c5j2", /* 143: par 9, 23 out of place */
-    "6nx:efabslghiHqrmnodtxujwBCDyzApIJckEFGv:f4l4k3d5k4d3l3a4j4", /* 144: par 9, 27 out of place */
-    "6nx:fayudegIAjkvmbGpqCcxwhstrnziBDHlJEFo:d4a5l2h4e5d4l4f3i3", /* 145: par 9, 29 out of place */
-    "6nx:abGAtflgciCkrmnspIvwEBeuyzxFjDHqJhdo:f5j1c5i2f4k3b5i3d3", /* 146: par 9, 30 out of place */
-    "6nb:abcselghiykImnoHqDwxdtJvjzrBCfuEFGpA:l4f5e3l2d1l5j3e3l3d3", /* 147: par 10 (best known), 21 out of place */
-    "6nb:EbAdwfalmhGjqncpIriCgtuexzoBkDyJsFvH:i4d5k4g2f4g3d5k4b4k1", /* 148: par 10 (best known), 27 out of place */
-    "6nb:aickeFjBlphmbtdorxszuDwnAHCgyJIfEqGv:j3f4l1h3c1b2j4e2h4b1", /* 149: par 10 (best known), 30 out of place */
-    "6nb:gzidabBFmxklnrwCopyHshqvEAGfDuctejIJ:g2d2j2i1e1g5d2c4h4a2", /* 150: par 10 (best known), 31 out of place */
+    "4nx:bgnialmfkdephcjo:a1b2d1g1h3c2d2e2h2", /* 99: par 9, 16 out of place */
+    "4nx:hclgabmfkdopjeni:a1c2d1e1f3b2d2e2h2", /* 100: par 9, 16 out of place */
+    "5cx:akcxeflhdjoqgispvrntubwmy:g2i3c4g4i1", /* 101: par 5, 12 out of place */
+    "5cx:kbydthimpgulanesjwqrfvcxo:h1b2d3f2j3", /* 102: par 5, 13 out of place */
+    "5cx:tcdyebghijklmnopqrsxuavwf:f4j1a1e4f1j4", /* 103: par 6, 6 out of place */
+    "5cx:alcvesqfxhkjmporbtigudwny:i1g4b3d2g3i2", /* 104: par 6, 12 out of place */
+    "5cx:cjoubhdtngaimqyslfvrxekpw:g4i1a4b4c2g2h3", /* 105: par 7, 16 out of place */
+    "5cx:pocnmuvhstabkxyfgrdeilwqj:g2i3f3j2c3i4g1", /* 106: par 7, 20 out of place */
+    "5cx:kaqcgrjfvulbmxnedtphswiyo:f2c2j3a1d4e3f2i3", /* 107: par 8, 14 out of place */
+    "5cx:ukbcrsiypfvlmndtjaqghwxoe:j3f2e1a4b2d3f2j3", /* 108: par 8, 14 out of place */
+    "5nx:abwdeijfchklgnormtpquvsxy:b4d1h4b4d1", /* 109: par 5, 13 out of place */
+    "5nx:akcsexjfqhovldnritpbugwmy:b3d2g2i3c4", /* 110: par 5, 19 out of place */
+    "5nx:cdqabghujfklenotpirsxymvw:h3a2b1d4e3", /* 111: par 5, 21 out of place */
+    "5nx:nbadcfghujkimqoperstwvyxl:g2i3a3e2g3i2", /* 112: par 6, 10 out of place */
+    "5nx:qbndefwhsjkamyopgrctuvlxi:a1e4g3i2a4e1", /* 113: par 6, 10 out of place */
+    "5nx:ebvyifghcjklmnopwrstqadxu:g1i4a4e1g4i1", /* 114: par 6, 10 out of place */
+    "5nx:alcqexghtjmdokvpfrsbuiwny:d2b3c2i3g2b2d3", /* 115: par 7, 13 out of place */
+    "5nx:ahmdebglifkpwjotqcsxuvnry:g1i4h2b1d4g4i1", /* 116: par 7, 13 out of place */
+    "5nx:abropvgwitelcnufqhsdjkmxy:e4a1f3j2e1a4h3", /* 117: par 7, 15 out of place */
+    "5nx:fgcxvroalepqmijunykhdbwst:f2j3d2b3i4g1j1f4", /* 118: par 8, 22 out of place */
+    "5nx:crealxfgpikvmdoqjstbnyuhw:e3a2b3d2i3g2d4b1", /* 119: par 8, 22 out of place */
+    "5nx:seylrwxafqkvjdoitcbhmnpug:h4a3b2d3e2g2h3i3", /* 120: par 8, 23 out of place */
+    "5nx:fwhiulanodpgrsjvmxykeqbct:f1g4h1i1j4a4c1e1", /* 121: par 8, 25 out of place */
+    "5nx:kbywtdghilpneujmqrsvfcaxo:a2e3j1f4c2e2a3j3f2", /* 122: par 9, 17 out of place */
+    "5nx:mvcirfyxkjugosepnbathqwdl:b3d2f2j3b2d3g4i1c2", /* 123: par 9, 19 out of place */
+    "5nx:cbmgqrtjlvkyuaodnpfeishxw:i3g2d3b2h2e3a2g3i2", /* 124: par 9, 21 out of place */
+    "5nx:umcvlatjskhbixrqgpfyndwoe:f4g2i3j1b2c1d3g1i4", /* 125: par 9, 23 out of place */
+    "6cx:sbcdexDyhijkpqJEnovwfatuzABClgmFGHIr:a3b2e4f3i3j3", /* 126: par 6, 12 out of place */
+    "6cx:dkfaFcqlgbijhopwrmxsnuvCABIDytHeJEzG:b1c4d2e5h1k5", /* 127: par 6, 12 out of place */
+    "6cx:dCfabcghijIlmnoperuvJxytABkDszFGHqwE:a3k5d2k2f1e2k3", /* 128: par 7, 9 out of place */
+    "6cx:fgzcdwmFijClqbsnHpyhuvexErABkDtGoIJa:f2a5k3f5h4c4g1", /* 129: par 7, 18 out of place */
+    "6cx:abuvefghAqklGirmncHwxsBdyztjCDEFopIJ:c2d4i5j1c1d5i4j2", /* 130: par 8, 14 out of place */
+    "6cx:gbcdeJxEhizAsnopqlytuvwrjkBCfmaFGHID:b1e5g3l3e2b4g4l2", /* 131: par 8, 16 out of place */
+    "6cx:bAdCDaghnjIrGmcxpfstivklyzJBqoHwuEFe:a1l3i1c2l1f3i3c3k4", /* 132: par 9, 19 out of place */
+    "6cx:hudelngbcjkrmaipqxsGovwyJtBCDHIzEFAf:h3a2h1a5l1e1h1f4i5", /* 133: par 9, 19 out of place */
+    "6nx:mbcdeCJsijklDnopqfEtuvwgyzABrahFGHIx:e1b5g2l4e5b1", /* 134: par 6, 12 out of place */
+    "6nx:ancdBfkIghtjmyopersFuvlxAqCDbzEiGHwJ:b3e3h2k4b1e5", /* 135: par 6, 20 out of place */
+    "6nx:abxsefghGvkljqcBnupwiHtAyzodCDEFrmIJ:i3j3c3d3j5i1", /* 136: par 6, 20 out of place */
+    "6nx:gefabtmhijkyunopqJzvwxsclABCDIdEFGHr:g1l1f5l2a3d2e1", /* 137: par 7, 28 out of place */
+    "6nx:eHabudklghADmnGpqJstcvwfryziBjIxEFoC:a4l5f4e5l4b4i3", /* 138: par 7, 28 out of place */
+    "6nx:aEcdiDkIgbqjmhoptfvnlsAuCrywHBJzFGex:k1e4b4h5d3l4f5", /* 139: par 7, 30 out of place */
+    "6nx:efcdApghiJklrmnobqtIvwxsyzaBCDujGHEF:d1c5j4i2a4f2i4j2", /* 140: par 8, 22 out of place */
+    "6nx:fabGgemhijkcnopqlsrytuvwHzABCxFDdIJE:c1d5f4a2g1l5a3f3", /* 141: par 8, 28 out of place */
+    "6nx:bnFHCagtBdvlmzujfrsEApkxyoGiqDJhcewI:h2i5j1k4a1f5i2j4", /* 142: par 8, 28 out of place */
+    "6nx:abcpIjghivdfmnoBkluHGxsrzAwtDyqJEFCe:e2l5d2k3e5k5f4k3j2", /* 143: par 9, 27 out of place */
+    "6nx:GudAfCayjJlghnIpermtcvkxsDizqBbHowEF:g1a1g4b1i3f1k4f1e4", /* 144: par 9, 30 out of place */
+    "6nx:gbGjqAwJmpcduniyCfxvoBslEeIHzraFDhkt:j2b4l4i5g1e3j5d2k2", /* 145: par 9, 33 out of place */
+    "6nx:wqoGelyDktghpzxBnAaHIJuvsbcdCFmjirEf:j2h2c3g3b2i2d4l1f2", /* 146: par 9, 34 out of place */
+    "6nb:DFcdjrxEbhiqayopwkznuvlJtBCIfmsAGHeg:e1b5g1l5k1h5e1b5g3l3", /* 147: par 10 (best known), 28 out of place */
+    "6nb:jbcdeqlghamksEnopiBuvwfrzxJCDytFGHIA:b2e4g4l2d1c5g3l3e3b3", /* 148: par 10 (best known), 28 out of place */
+    "6nb:fnhoJIgruHBlkjmtedGFqxAzyicpsDbavCwE:h1k5a5f1d2c4j4i2k5h1", /* 149: par 10 (best known), 32 out of place */
+    "6nb:BhJgFoHbfmquskAdwlynGjzrptxEIcveDaCi:f3a3h5k1b3e3g1l5i2j4", /* 150: par 10 (best known), 36 out of place */
 };
