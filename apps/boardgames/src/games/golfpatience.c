@@ -98,7 +98,7 @@ static void draw_score(void)
     int v = pg_score(&G.pos);
     float x = t->x + 1.35f * U.w, y = t->y;
     if (v <= 0) ui_mark_gold(x, y, 1.5f * U.w);
-    ui_number_signed(x, y, 0.5f * U.w, v, 1, 0);
+    ui_number_signed(x, y, 0.5f * U.w, v, !ct_light(), 0);   /* (ink on the light table) */
 }
 
 static void draw(void)

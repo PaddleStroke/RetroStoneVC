@@ -107,7 +107,7 @@ static void draw(void)
         solui_deal(&U, U.at[PY_STOCK].x, U.at[PY_STOCK].y, 30);
     }
     if (!p->n[PY_STOCK] && py_rules.stock(p).kind != SM_NONE) solui_again(&U, U.at[PY_STOCK].x, U.at[PY_STOCK].y);
-    if (p->variant == PY_THRICE && !U.won) ui_number(passes_x, passes_y, 0.36f * U.w, py_passes(p), 1);
+    if (p->variant == PY_THRICE && !U.won) ui_number(passes_x, passes_y, 0.36f * U.w, py_passes(p), !ct_light());
     solui_draw(&U);
 }
 

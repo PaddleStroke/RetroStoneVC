@@ -724,7 +724,7 @@ static inline void solui_paint_again(uint8_t *rgba, int size, float cx, float cy
     free(a);
 }
 
-/* the arrow, faint cream, on the empty stock's place (x, y) */
+/* the arrow, faint cream (the light theme: ink), on the empty stock's place (x, y) */
 static inline void solui_again(solui *u, float x, float y)
 {
     int d = (int)(0.8f * u->w);
@@ -733,9 +733,10 @@ static inline void solui_again(solui *u, float x, float y)
         ui_free(&u->t_again);
         solui_again_pic(d, ui_buf(d, d));
         u->t_again = ui_tex(d, d, ui_buf(d, d));
-        SDL_SetTextureColorMod(u->t_again, 246, 238, 220);
         SDL_SetTextureAlphaMod(u->t_again, 120);
     }
+    const uint8_t *k = ct_ink();                /* cream; ink on the light table */
+    SDL_SetTextureColorMod(u->t_again, k[0], k[1], k[2]);
     ui_put_c(u->t_again, x, y, (float)d, (float)d);
 }
 
