@@ -6,6 +6,11 @@
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
  *     too), and how often the medium way was needed;
  *   - near-duplicates dropped (the same walls turned or mirrored).
+ * Taste, so the grids look made rather than drawn: the walls already lie turned half round; the numbers are made to
+ * follow (a numbered wall's twin numbered too: the missing numbers put back, or else the lone ones taken away, when
+ * the grid keeps its one solution and its grade). The look counts too: numbers in twins, no lumps of walls (2 x 2),
+ * the walls spread over the four quarters, and the numbers neither too few nor too many. Each pick takes, among the
+ * few candidates nearest its place in the ranking, the one that looks best.
  * Each chapter has its makes (a size, a level, how many, and the part of the make's candidates, ranked by that work,
  * they are picked from evenly): 6 x 6 and 7 x 7 at the easy level first, up to 14 x 14 at the hard level. Then each
  * chapter goes from its easiest to its hardest.
@@ -25,7 +30,8 @@
 
 typedef struct {
     lu_puzzle p;
-    int grade, numbers;
+    int grade, numbers, twins;
+    double look;
     long passes, mediums;
     double score;
     char key[LU_CELLS + 8];
@@ -78,17 +84,78 @@ static int seen(const char *key)
     return 0;
 }
 
+/* the number a wall has in the solution: the lamps beside it */
+static int lamps_by(int n, const uint8_t *sol, int c)
+{
+    int x = c % n, y = c / n;
+    return (x > 0 && sol[c - 1]) + (x < n - 1 && sol[c + 1]) + (y > 0 && sol[c - n]) + (y < n - 1 && sol[c + n]);
+}
+
+/* the numbered walls whose twin (turned half round) is a wall without a number */
+static int lone(const lu_puzzle *p)
+{
+    int n = p->n, k = 0;
+    for (int c = 0; c < n * n; c++)
+        if (p->wall[c] >= 0 && p->wall[n * n - 1 - c] == LU_WALL) k++;
+    return k;
+}
+
+/* the numbers in twins: put the missing ones back, or else take the lone ones away, when the grid keeps its grade
+ * and its one solution */
+static void twin_numbers(lu_puzzle *p, const uint8_t *sol, int level)
+{
+    int n = p->n, N = n * n;
+    if (!lone(p)) return;
+    lu_puzzle q = *p;
+    long a, b;
+    for (int c = 0; c < N; c++)
+        if (q.wall[c] == LU_WALL && p->wall[N - 1 - c] >= 0) q.wall[c] = (int8_t)lamps_by(n, sol, c);
+    if (lu_effort(&q, &a, &b) == level && lu_count(&q, 2) == 1) {
+        *p = q;
+        return;
+    }
+    q = *p;
+    for (int c = 0; c < N; c++)
+        if (q.wall[c] >= 0 && p->wall[N - 1 - c] == LU_WALL) q.wall[c] = LU_WALL;
+    if (lu_effort(&q, &a, &b) == level && lu_count(&q, 2) == 1) *p = q;
+}
+
+/* how good it looks (more is better): numbers in twins, no 2 x 2 lumps of walls, walls in all four quarters, a
+ * fair share of numbered walls */
+static double looks(const lu_puzzle *p)
+{
+    int n = p->n, walls = 0, nums = 0, lumps = 0, q[4] = {0};
+    for (int y = 0; y < n; y++)
+        for (int x = 0; x < n; x++) {
+            int c = x + y * n;
+            if (p->wall[c] == LU_WHITE) continue;
+            walls++, nums += p->wall[c] >= 0;
+            if (2 * x != n - 1 && 2 * y != n - 1) q[(2 * x > n - 1) + 2 * (2 * y > n - 1)]++;
+            if (x < n - 1 && y < n - 1 && p->wall[c + 1] != LU_WHITE && p->wall[c + n] != LU_WHITE &&
+                p->wall[c + n + 1] != LU_WHITE)
+                lumps++;
+        }
+    int lo = q[0], hi = q[0];
+    for (int i = 1; i < 4; i++) lo = q[i] < lo ? q[i] : lo, hi = q[i] > hi ? q[i] : hi;
+    double share = walls ? (double)nums / walls : 0;
+    return -2.0 * lone(p) - 3.0 * lumps - 1.0 * (hi - lo) - 6.0 * (share < 0.35 ? 0.35 - share : 0) -
+           6.0 * (share > 0.8 ? share - 0.8 : 0);
+}
+
 /* one candidate from a seed; 1 when it is of the level and has one solution */
 static int candidate(cand *c, int n, int level, uint32_t seed)
 {
     uint8_t sol[LU_CELLS];
     lu_make(n, level, seed, &c->p, sol);
+    if (lu_count(&c->p, 2) == 1) twin_numbers(&c->p, sol, level);
     c->grade = lu_effort(&c->p, &c->passes, &c->mediums);
     if (c->grade != level || lu_count(&c->p, 2) != 1) return 0;
     c->numbers = 0;
     for (int i = 0; i < n * n; i++) c->numbers += c->p.wall[i] >= 0;
     /* the work: the passes, the medium finds weigh more; fewer numbers given ask a little more */
     c->score = (double)c->passes + 4.0 * c->mediums - 0.2 * c->numbers;
+    c->twins = !lone(&c->p);
+    c->look = looks(&c->p);
     canon(&c->p, c->key);
     return 1;
 }
@@ -140,7 +207,11 @@ int main(int argc, char **argv)
                     fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, p + 1);
                     return 1;
                 }
-                chosen[nchosen++] = pool[at];
+                /* the best looking of the few nearest that place in the ranking */
+                int span = k / (2 * m->count) > 1 ? k / (2 * m->count) : 1, best = at;
+                for (int j = at - span; j <= at + span; j++)
+                    if (j >= 0 && j < k && !seen(pool[j].key) && pool[j].look > pool[best].look) best = j;
+                chosen[nchosen++] = pool[best];
             }
         }
         for (int i = first + 1; i < nchosen; i++)   /* the chapter from its easiest to its hardest */
@@ -161,8 +232,9 @@ int main(int argc, char **argv)
     for (int i = 0; i < nchosen; i++) {
         char code[LU_CELLS + 8];
         if (!lu_encode(&chosen[i].p, code, sizeof code)) return 1;
-        printf("    \"%s\", /* %d: %dx%d %s, %ld passes, %ld medium */\n", code, i + 1, chosen[i].p.n, chosen[i].p.n,
-               GRADE[chosen[i].grade], chosen[i].passes, chosen[i].mediums);
+        printf("    \"%s\", /* %d: %dx%d %s, %ld passes, %ld medium%s */\n", code, i + 1, chosen[i].p.n,
+               chosen[i].p.n, GRADE[chosen[i].grade], chosen[i].passes, chosen[i].mediums,
+               chosen[i].twins ? "" : ", lone numbers");
     }
     printf("};\n");
     return nchosen == LU_LEVELS ? 0 : 1;
