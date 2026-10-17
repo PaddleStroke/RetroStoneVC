@@ -2,16 +2,21 @@
  * Block Puzzle's levels: src/games/blocks_levels.h. Our own levels: no published set is used. Six chapters of 25;
  * each level a starting grid, a fixed sequence of pieces and a goal (clear N lines, reach a score, clear the gold
  * blocks, cover the pattern), the goals mixed by a schedule per chapter (the pattern from chapter 2).
- * A candidate: a grid made with a symmetry (blocks stamped in mirror pairs, in lacquer colours; gold blocks among
- * them; a pattern grown from a middle cell, mirrored), never a full line at the start; a sequence of 45 pieces drawn
+ * A candidate: a grid drawn from a hand-made picture (MOTIF: a heart, a tree, a ring, a castle...; mirrored across,
+ * maybe upside down and moved a row, its parts in two or three lacquers) near the chapter's density and not one of the
+ * last 8 levels' pictures; gold blocks on it in mirror pairs; the pattern a hand-made shape (PSHAPE) centred across in
+ * the free cells; never a full line at the start; a sequence of 45 pieces drawn
  * from the chapter's families; a goal of the chapter's size. The rules' beam search (bk_search) finds the fewest
  * pieces that reach the goal: that is the par, and the way found is kept (the test replays it). The level gives par
  * plus the chapter's slack pieces (6 in chapter 1 down to 1 in chapter 6). The difficulty: how often a player who sees
  * only the tray (bk_greedy with noise) reaches the goal within them, over 40 games. Each level takes, of a dozen
  * candidates of its goal, the one whose success rate is nearest a curve falling from 0.97 at level 1 to about 0.1 at
  * level 150; repeats (the same grid and pieces) are dropped. Deterministic (fixed seeds).
- *   gcc -O2 -Iapps/boardgames/src -o /tmp/bkgen apps/boardgames/tools/blocks_gen.c && \
+ *   gcc -O2 -Iapps/boardgames/src -o /tmp/bkgen apps/boardgames/tools/blocks_gen.c -lm && \
  *       /tmp/bkgen > apps/boardgames/src/games/blocks_levels.h
+ * or faster, the six chapters side by side (the same file):
+ *   (/tmp/bkgen head; for c in 0 1 2 3 4 5; do /tmp/bkgen $c > /tmp/bk$c & done; wait; cat /tmp/bk[0-5];
+ *       /tmp/bkgen tail) > apps/boardgames/src/games/blocks_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define BK_GEN
@@ -58,7 +63,7 @@ static const uint8_t LACQUER[9] = {1, 2, 3, 4, 7, 8, 9, 10, 11};
 typedef struct {
     char grid[BK_CELLS + 1];
     uint8_t seq[SEQ_LEN];
-    int goal, target, par, pieces, nway;
+    int goal, target, par, pieces, nway, motif;
     uint8_t way[BK_SEQ][2];
     float rate;
 } cand;
@@ -76,40 +81,124 @@ static int full_line(const char *g)
     return 0;
 }
 
-static int blocks_in(const char *g)
-{
-    int n = 0;
-    for (int i = 0; i < BK_CELLS; i++) n += g[i] != '.' && g[i] != 'o';
-    return n;
-}
-
 static int hue_char(int hue) { return hue < 10 ? '0' + hue : 'a' + hue - 10; }
 
 /* a mirror of cell (x, y): across the middle column (sym 0), or the half turn (sym 1) */
 static int mirror(int x, int y, int sym) { return sym ? (BK_N - 1 - y) * BK_N + BK_N - 1 - x : y * BK_N + BK_N - 1 - x; }
 
-/* the grid's blocks: small pieces stamped in mirror pairs, a colour a pair, up to the density */
-static void make_grid(char *g, float dens, int sym, uint32_t *r)
+/* ---- the pictures: hand-drawn grids (the left half mirrored; 'A'..'C' colour roles) and the pattern's shapes ---- */
+typedef struct { const char *name; int flip; const char *row[BK_N]; } motif;   /* flip: may stand upside down */
+static const motif MOTIF[] = {
+    {"smile", 0, {"..........", "..........", "...A..A...", "...A..A...", "..........", ".B......B.", "..B....B..",
+                  "...BBBB...", "..........", ".........."}},
+    {"stars", 1, {".A......A.", "..........", "....BB....", ".A......A.", "..........", "..........", ".A......A.",
+                  "....BB....", "..........", ".A......A."}},
+    {"eyes", 1, {"..........", "..........", "..AA..AA..", "..AA..AA..", "..........", "..........", "..........",
+                 "..........", "....BB....", ".........."}},
+    {"corners", 0, {"AA......AA", "A........A", "..........", "....BB....", "..........", "..........",
+                    "....BB....", "..........", "A........A", "AA......AA"}},
+    {"ticks", 1, {"AA..AA..AA", "..........", "..........", "..........", "..........", "..........", "..........",
+                  "..........", "..........", "BB..BB..BB"}},
+    {"vees", 1, {"A........A", ".A......A.", "..A....A..", "...A..A...", "....AA....", "..........", "B........B",
+                 ".B......B.", "..B....B..", "...B..B..."}},
+    {"heart", 1, {"..........", "..........", "...A..A...", "..AAAAAA..", "..AAAAAA..", "...AAAA...", "....AA....",
+                  "..........", "..........", ".........."}},
+    {"steps", 1, {"..........", "..........", "..........", "..........", "..........", "..........", "....AA....",
+                  "...BBBB...", "..AAAAAA..", ".BBBBBBBB."}},
+    {"kite", 1, {"....AA....", "...A..A...", "..A....A..", ".A......A.", "A........A", "A........A", ".A......A.",
+                 "..A....A..", "...A..A...", "....AA...."}},
+    {"pillars", 1, {"..........", ".A..BB..A.", ".A..BB..A.", ".A......A.", ".A......A.", ".A......A.", ".A......A.",
+                    ".A..BB..A.", ".A..BB..A.", ".........."}},
+    {"ring", 1, {"..........", "...AAAA...", "..A....A..", ".A......A.", ".A..BB..A.", ".A..BB..A.", ".A......A.",
+                 "..A....A..", "...AAAA...", ".........."}},
+    {"arrows", 1, {"....AA....", "...AAAA...", "..AA..AA..", ".AA....AA.", "....BB....", "...BBBB...", "..BB..BB..",
+                   ".BB....BB.", "..........", ".........."}},
+    {"cross", 1, {"..........", "....AA....", "....AA....", "....AA....", ".AAABBAAA.", ".AAABBAAA.", "....AA....",
+                  "....AA....", "....AA....", ".........."}},
+    {"tree", 0, {"....AA....", "...AAAA...", "..AAAAAA..", "...AAAA...", "..AAAAAA..", ".AAAAAAAA.", "....BB....",
+                 "....BB....", "..........", ".........."}},
+    {"mushroom", 0, {"..........", "...AAAA...", "..AABBAA..", ".AAAAAAAA.", ".ABAAAABA.", "....CC....", "....CC....",
+                     "...CCCC...", "..........", ".........."}},
+    {"flower", 1, {"..........", "....AA....", "..A.AA.A..", "...AAAA...", ".AAABBAAA.", ".AAABBAAA.", "...AAAA...",
+                   "..A.AA.A..", "....AA....", ".........."}},
+    {"diamond", 1, {"....AA....", "...A..A...", "..A.BB.A..", ".A.B..B.A.", "A.B....B.A", "A.B....B.A", ".A.B..B.A.",
+                    "..A.BB.A..", "...A..A...", "....AA...."}},
+    {"house", 0, {"..........", "....AA....", "...AAAA...", "..AAAAAA..", ".AAAAAAAA.", "..BB..BB..", "..BB..BB..",
+                  "..BBCCBB..", "..BBCCBB..", ".........."}},
+    {"castle", 0, {"..........", ".A.A..A.A.", ".AAAAAAAA.", ".AA.AA.AA.", ".AAAAAAAA.", ".AAA..AAA.", ".AAA..AAA.",
+                   "..........", "..........", ".........."}},
+    {"butterfly", 1, {"..........", ".A......A.", ".AA....AA.", ".AAA..AAA.", ".AAABBAAA.", ".AAABBAAA.", ".AAA..AAA.",
+                      ".AA....AA.", ".A......A.", ".........."}},
+    {"hourglass", 1, {".AAAAAAAA.", "..AAAAAA..", "...AAAA...", "....AA....", "....BB....", "...BBBB...", "..BBBBBB..",
+                      ".BBBBBBBB.", "..........", ".........."}},
+    {"bigheart", 0, {"..........", "..AA..AA..", ".AAAAAAAA.", ".AAABBAAA.", ".AAAAAAAA.", "..AAAAAA..", "...AAAA...",
+                     "....AA....", "..........", ".........."}},
+    {"frame", 1, {"AAA....AAA", "A........A", "A..B..B..A", "..........", "....CC....", "....CC....", "..........",
+                  "A..B..B..A", "A........A", "AAA....AAA"}},
+    {"bridge", 1, {"..........", "..........", "..........", ".AAAAAAAA.", "A.B....B.A", "A.B....B.A", "A........A",
+                   "..........", "..........", ".........."}},
+};
+#define NMOTIF ((int)(sizeof MOTIF / sizeof MOTIF[0]))
+
+static const char *const PSHAPE[] = {             /* the pattern's shapes, centred across ('o' a cell, '/' a row) */
+    "oo/oo", ".oo./oooo/.oo.", "o..o/oooo/o..o", "oo....oo/oo....oo", "oooo/o..o/o..o/oooo",
+    ".oo./oooo/oooo/.oo.", "..oo../.oooo./oooooo", "oooooo/.oooo./..oo..", "o....o/.o..o./..oo../..oo../.o..o./o....o",
+    "o.oo.o/oooooo/o.oo.o", "oo..oo/oooooo/oo..oo", "oooooo/o....o/o....o/oooooo", "..oo../.oooo./oooooo/oooooo",
+    "..oo../..oo../oooooo/oooooo/..oo../..oo..", "oooooooo/o......o/oooooooo",
+};
+#define NPSHAPE ((int)(sizeof PSHAPE / sizeof PSHAPE[0]))
+
+static int motif_cells(int m)
 {
+    int n = 0;
+    for (int y = 0; y < BK_N; y++)
+        for (int x = 0; x < BK_N / 2; x++) n += 2 * (MOTIF[m].row[y][x] != '.');
+    return n;
+}
+
+static int pshape_cells(int s)
+{
+    int n = 0;
+    for (const char *p = PSHAPE[s]; *p; p++) n += *p == 'o';
+    return n;
+}
+
+static int recent[BK_LEVELS], nrecent;          /* the pictures chosen so far, in order */
+
+/* the grid: a picture near the density, not one of the last levels' (the left half mirrored), maybe upside down and
+ * moved a row; its colour roles in three lacquers of the level. The picture's index, or -1. */
+static int make_grid(char *g, float dens, uint32_t *r)
+{
+    int want = (int)(dens * BK_CELLS + 0.5f), ok[NMOTIF], n = 0;
+    for (int slack = 4; !n && slack < 60; slack += 3)
+        for (int m = 0; m < NMOTIF; m++) {
+            int c = motif_cells(m), rep = 0;
+            for (int i = nrecent - 1; i >= 0 && i >= nrecent - 8; i--) rep |= recent[i] == m;
+            if (!rep && c >= want - slack && c <= want + slack) ok[n++] = m;
+        }
+    if (!n) return -1;
+    int m = ok[pr_below(r, n)], flip = MOTIF[m].flip && pr_below(r, 2), hue[3];
+    hue[0] = LACQUER[pr_below(r, 9)];
+    do hue[1] = LACQUER[pr_below(r, 9)]; while (hue[1] == hue[0]);
+    do hue[2] = LACQUER[pr_below(r, 9)]; while (hue[2] == hue[0] || hue[2] == hue[1]);
+    int top = BK_N, bot = -1;
+    for (int y = 0; y < BK_N; y++)
+        if (strspn(MOTIF[m].row[y], ".") < BK_N) top = top < y ? top : y, bot = y;
+    int lo = flip ? -(BK_N - 1 - bot) : -top, hi = flip ? top : BK_N - 1 - bot, dy = -1 + pr_below(r, 3);
+    if (dy < lo) dy = lo;
+    if (dy > hi) dy = hi;
     memset(g, '.', BK_CELLS);
     g[BK_CELLS] = 0;
-    int want = (int)(dens * BK_CELLS + 0.5f);
-    for (int tries = 0; tries < 400 && blocks_in(g) < want; tries++) {
-        int sh = pr_below(r, 14), hue = LACQUER[pr_below(r, 9)];   /* the small families (0..6) */
-        const bk_shape *s = &bk_shapes[sh];
-        int x = pr_below(r, BK_N - s->w + 1), y = pr_below(r, BK_N - s->h + 1);
-        char t[BK_CELLS + 1];
-        memcpy(t, g, sizeof t);
-        int ok = 1;
-        for (int i = 0; i < s->h && ok; i++)
-            for (int j = 0; j < s->w; j++) {
-                if (!(s->row[i] >> j & 1)) continue;
-                int a = (y + i) * BK_N + x + j, b = mirror(x + j, y + i, sym);
-                if (t[a] != '.') { ok = 0; break; }
-                t[a] = t[b] = (char)hue_char(hue);
-            }
-        if (ok && !full_line(t) && blocks_in(t) <= want + 4) memcpy(g, t, sizeof t);
+    for (int y = 0; y < BK_N; y++) {
+        int sy = flip ? BK_N - 1 - y : y, ty = y + dy;
+        if (ty < 0 || ty >= BK_N) continue;
+        for (int x = 0; x < BK_N / 2; x++) {
+            char c = MOTIF[m].row[sy][x];
+            if (c == '.') continue;
+            g[ty * BK_N + x] = g[ty * BK_N + BK_N - 1 - x] = (char)hue_char(hue[c - 'A']);
+        }
     }
+    return full_line(g) ? -1 : m;
 }
 
 /* n gold blocks among the blocks (in mirror pairs), on the fuller rows and columns first */
@@ -130,29 +219,32 @@ static int add_gold(char *g, int n, int sym, uint32_t *r)
     return got;
 }
 
-/* a pattern of n empty cells grown from the middle, mirrored, joined side by side */
-static int add_pattern(char *g, int n, int sym, uint32_t *r)
+/* the pattern: a shape of n0..n1 cells centred across, at a height where its cells are all empty; its cells, or 0 */
+static int add_pattern(char *g, int n0, int n1, uint32_t *r)
 {
-    int got = 0;
-    for (int tries = 0; tries < 2000 && got < n; tries++) {
-        int x, y;
-        if (!got) {
-            x = 3 + pr_below(r, 4);
-            y = 2 + pr_below(r, 6);
-        } else {                                /* next to a cell of the pattern */
-            int i = pr_below(r, BK_CELLS);
-            if (g[i] != 'o') continue;
-            static const int D[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-            int d = pr_below(r, 4);
-            x = i % BK_N + D[d][0];
-            y = i / BK_N + D[d][1];
-            if (x < 0 || y < 0 || x >= BK_N || y >= BK_N) continue;
+    int ok[NPSHAPE], n = 0;
+    for (int s = 0; s < NPSHAPE; s++)
+        if (pshape_cells(s) >= n0 && pshape_cells(s) <= n1) ok[n++] = s;
+    if (!n) return 0;
+    const char *sh = PSHAPE[ok[pr_below(r, n)]];
+    int w = (int)strcspn(sh, "/"), h = 1;
+    for (const char *p = sh; *p; p++) h += *p == '/';
+    int x0 = (BK_N - w) / 2, ys[BK_N], ny = 0;
+    for (int y0 = 0; y0 + h <= BK_N; y0++) {
+        int fits = 1;
+        for (int i = 0, y = y0, x = x0; sh[i]; i++) {
+            if (sh[i] == '/') { y++, x = x0; continue; }
+            if (sh[i] == 'o' && g[y * BK_N + x] != '.') fits = 0;
+            x++;
         }
-        int i = y * BK_N + x, m = mirror(x, y, sym);
-        if (g[i] != '.') continue;
-        g[i] = 'o';
-        got++;
-        if (m != i && g[m] == '.') g[m] = 'o', got++;
+        if (fits) ys[ny++] = y0;
+    }
+    if (!ny) return 0;
+    int y0 = ys[pr_below(r, ny)], got = 0;
+    for (int i = 0, y = y0, x = x0; sh[i]; i++) {
+        if (sh[i] == '/') { y++, x = x0; continue; }
+        if (sh[i] == 'o') g[y * BK_N + x] = 'o', got++;
+        x++;
     }
     return got;
 }
@@ -207,12 +299,12 @@ static int make(cand *c, int level, int goal, uint32_t seed)
     uint32_t r = pr_seed(seed);
     float t = (level % PER) / (float)(PER - 1);
     float dens = C->dens0 + (C->dens1 - C->dens0) * (0.3f * t + 0.7f * pr_below(&r, 1000) / 1000.0f);
-    int sym = pr_below(&r, 2);
+    int sym = 0;                                /* gold blocks mirrored across, as the pictures */
     memset(c, 0, sizeof *c);
     c->goal = goal;
     if (goal == BK_PATTERN) dens *= 0.7f;
     if (goal == BK_SCORE) dens = fminf(0.5f, dens * 1.35f);   /* more to clear: the points come sooner */
-    make_grid(c->grid, dens, sym, &r);
+    if ((c->motif = make_grid(c->grid, dens, &r)) < 0) return 0;
     switch (goal) {
     case BK_LINES: c->target = C->lines0 + pr_below(&r, C->lines1 - C->lines0 + 1); break;
     case BK_SCORE: c->target = (C->score0 + pr_below(&r, C->score1 - C->score0 + 1)) / 10 * 10; break;
@@ -222,8 +314,7 @@ static int make(cand *c, int level, int goal, uint32_t seed)
         break;
     }
     case BK_PATTERN: {
-        int n = C->pat0 + pr_below(&r, C->pat1 - C->pat0 + 1);
-        if (add_pattern(c->grid, n, sym, &r) < C->pat0) return 0;
+        if (!add_pattern(c->grid, C->pat0, C->pat1, &r)) return 0;
         break;
     }
     }
@@ -280,12 +371,17 @@ static void put_way(const cand *c, char *out)
 
 static const char *const GOAL_NAME[5] = {"", "lines", "score", "gold", "pattern"};
 
-int main(void)
+int main(int argc, char **argv)
 {
     static cand chosen[BK_LEVELS];
     static uint32_t seen[BK_LEVELS];
+    /* an argument: only that chapter (0..5), its levels alone (chapters can be made side by side, then joined: the
+     * same file as all at once); "head" or "tail": the file's start or end alone */
+    int only = argc > 1 ? (argv[1][0] == 'h' ? -2 : argv[1][0] == 't' ? -3 : atoi(argv[1])) : -1;
     for (int lv = 0; lv < BK_LEVELS; lv++) {
         int chap = lv / PER;
+        if (only != -1 && only != chap) continue;
+        if (lv % PER == 0) nrecent = 0;         /* each chapter on its own */
         char gc = PLAN[chap][lv % PER];
         int goal = gc == 'L' ? BK_LINES : gc == 'S' ? BK_SCORE : gc == 'G' ? BK_GOLDS : BK_PATTERN;
         float x = lv / (float)(BK_LEVELS - 1), want = 0.97f - 0.87f * powf(x, 0.85f);
@@ -308,17 +404,20 @@ int main(void)
         }
         chosen[lv] = best;
         seen[lv] = cand_hash(&best);
-        fprintf(stderr, "level %3d %-7s target %3d par %2d pieces %2d rate %.2f (want %.2f)\n", lv + 1,
-                GOAL_NAME[goal], best.target, best.par, best.pieces, best.rate, want);
+        recent[nrecent++] = best.motif;
+        fprintf(stderr, "level %3d %-9s %-7s target %3d par %2d pieces %2d rate %.2f (want %.2f)\n", lv + 1,
+                MOTIF[best.motif].name, GOAL_NAME[goal], best.target, best.par, best.pieces, best.rate, want);
     }
-    printf("/*\n * Block Puzzle's levels: our own, made by tools/blocks_gen.c (grids stamped in mirror pairs, sequences "
-           "drawn by\n * chapter, each goal reached by the rules' beam search in `par` pieces; six chapters of 25). "
-           "Each: the goal, its\n * target, the par, the pieces given, the grid (rows from the top: '.' empty, a "
-           "colour, 'G' gold, 'o' the\n * pattern), the pieces in order, the way found; in the comment the share of "
-           "tray-only games won.\n * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n */\n");
-    printf("const bk_level_def bk_levels[BK_LEVELS] = {\n");
+    if (only == -1 || only == -2)
+        printf("/*\n * Block Puzzle's levels: our own, made by tools/blocks_gen.c (grids drawn from hand-made pictures, "
+               "sequences drawn by\n * chapter, each goal reached by the rules' beam search in `par` pieces; six "
+               "chapters of 25). Each: the goal, its\n * target, the par, the pieces given, the grid (rows from the top: "
+               "'.' empty, a colour, 'G' gold, 'o' the\n * pattern), the pieces in order, the way found; in the comment "
+               "the share of tray-only games won.\n * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).\n */\n"
+               "const bk_level_def bk_levels[BK_LEVELS] = {\n");
     static const char *const GOAL_ID[5] = {"BK_CLASSIC", "BK_LINES", "BK_SCORE", "BK_GOLDS", "BK_PATTERN"};
     for (int lv = 0; lv < BK_LEVELS; lv++) {
+        if (only != -1 && only != lv / PER) continue;
         const cand *c = &chosen[lv];
         char seq[SEQ_LEN + 1], way[BK_SEQ * 4 + 1];
         for (int i = 0; i < c->pieces; i++) seq[i] = bk_shape_char(c->seq[i]);
@@ -327,6 +426,6 @@ int main(void)
         printf("    {%s, %d, %d, %d, /* %d: %.2f */\n     \"%s\",\n     \"%s\", \"%s\"},\n", GOAL_ID[c->goal],
                c->target, c->par, c->pieces, lv + 1, c->rate, c->grid, seq, way);
     }
-    printf("};\n");
+    if (only == -1 || only == -3) printf("};\n");
     return 0;
 }
