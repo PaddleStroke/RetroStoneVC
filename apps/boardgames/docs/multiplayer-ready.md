@@ -90,6 +90,101 @@ By family:
 Bots: they read the whole live state (for example `golf_live()`). In hidden games, a bot that should not see more
 than a person should start from `xx_view(seat)`.
 
+## The shell's part: the record, the moves' notation, the seats (items 1-3)
+
+### The record (item 1)
+
+The save-game work keeps each game in progress (`shell.c`, "the game in progress kept"): the game id, the variant
+(or level), random play or not, the players' count, each seat (person, or a bot and its level), the random state
+`start()` was given, then every event in order. A person's moves reach the shell only as taps, so that record
+replays the raw input. It cannot be sent to another device as it is: the other screen has another size and another
+layout.
+
+So a game may now give its moves in its own notation, whoever made them:
+
+```c
+/* game.history, optional (NULL: none) */
+int (*history)(int i, char *move, int cap);
+```
+
+- `history(-1, NULL, 0)` returns how many moves have been played since `start()`. Undo takes them back. A game that
+  forgets its oldest moves (a very long game) still counts them.
+- `history(i, buf, cap)` writes move `i` in the notation `script()` reads ("" if it was forgotten).
+- **The contract**: `start(variant)` with the same random state, then `script()` of all the moves joined by spaces,
+  plays the same game again. A move is one action: a throw of the dice (`31:`), a card (`Th`), a pass of three cards
+  (`pQsAh2c`), the tap to the next round (`n`), a checker (`13/10`), a disc (`d3`).
+
+What the shell does with it:
+
+- After every recorded event and on every frame of the game, it compares the game's moves with the list it keeps for
+  that game (`NT[g]`). It takes off the moves that were undone and adds the new ones. Only the count is asked while
+  nothing changes; the last move is compared too, which catches an undo and a new move together.
+- It logs each change in the record as `EV_NOTE` (how many moves stay, then each new move's notation; no time of its
+  own). When the record is played again (`--resume`), `EV_NOTE` plays nothing and only rebuilds the list. The record
+  is now version 2; version 1 records still resume.
+- The picture mode prints the list with `--notation`. `--moves` of that list plays the same game:
+
+```
+retrostoneboard --shot a.bmp --game chess --bots all:e --steps 12 --seed 3 --notation
+notation: c2c4 g8f6 b1c3 e7e5 a2a4 f8e7 a4a5 b8a6 g1f3 e8h8 f3e5 e7d6
+retrostoneboard --shot b.bmp --game chess --bots all:e --moves "c2c4 g8f6 ..." --seed 3 --notation
+(the same list, the same picture)
+```
+
+Checked this way for chess, reversi, hearts (4 players) and backgammon: the same list, and the same picture (for
+backgammon the dice's tilt differs: it is drawn at random when they are thrown, not part of the state), and the same
+list after `--resume`.
+
+**Games with `history()` so far** (the proof of the contract):
+
+| game | notation writer (rules side, no SDL) | count |
+|---|---|---|
+| chess | `chess_move_text()` (chess.c), also used by its bot now | `G.ply` |
+| reversi | in reversi.c (a square's name) | `G.ply` |
+| hearts | `hearts_act_text()` (hearts_rules.c), also used by its bot now | `G.n` |
+| backgammon | `bg_event_text()` (backgammon_rules.c): throws and single checker moves | `G.forgot + G.n` |
+| hanoi | `hn_move_text()` (hanoi_rules.c) | `G.moves` |
+
+Backgammon's events are now counted from the start (`bgame.forgot`: the events dropped when the 2048-event history
+is full), so the count never goes back on a long game.
+
+**Adding it to a game** (the main job left for each game, after the formatter part B lists above):
+
+1. In `<id>_rules.c`, a formatter `xx_move_text(move, buf, cap)` that writes what `xx_script()` parses. If the bot
+   writes its move by hand, make it call the formatter (no copied code).
+2. In `<id>.c`, `history()` reads the rules state's move list. Return a count from the start, even if the list is a
+   window (hanoi keeps the last 1024).
+3. Check with `--notation`, then `--moves` of the result: the same picture.
+
+Logic puzzles built on `bench.h` keep a list of *changes* (a cell and what it held), not of moves. They need the new
+value stored too (`bench_change.now`) before they can say a move's notation.
+
+### One path for every move (item 2)
+
+Today a person's move goes: tap, the game's UI, the rules. A bot's move goes: its notation, `play()` (animated, as a
+tap would) or `script()`. Both end in the same rules functions, and `history()` reports both the same way. Online, a
+local person's move is what `history()` adds after their input: the shell sends that string. A remote move arrives as
+a string and is played the way a bot's move is (`bot.play` or `script()`).
+
+### Seats (item 3)
+
+`shell.c` now has a seat type: `SEAT_PERSON`, `SEAT_BOT`, `SEAT_REMOTE`. Nothing makes a remote seat yet
+(`remotemask` is always 0), so nothing has changed in play. The checks that meant "a person here" or "not a person
+here" now go through helpers:
+
+- `seat_is_local_person(p)`: face to face (`ui_upside`), the first person after a seat (`human_from`), the pass
+  button.
+- `seat_waits_for_move(p)`: the input is held while that seat must act (`bot_holds`), the hand-off to it keeps the
+  last person's view (`ui_handoff`), undo goes back over its moves to the last person's (`undo_human`).
+- `elsewhere()`: the seats no one here plays (bots and remotes). `humans()` counts the others, which also decides the
+  cover between hands, the watch mode and the stats.
+- `is_bot(p)` stays only for what belongs to a bot: starting its worker, its thinking badge, its level in the stats.
+
+What is left for online play in the shell: a way to choose a remote seat (the picker), the network itself, and the
+step that plays a received move (a `remote_step()` next to `bot_step()`, playing the move with `bot.play` or
+`script()`). The record already has what a server would keep: the head (id, variant, seats, seed) and the moves'
+notation.
+
 ## Per game
 
 ﻿| id | players | move path OK? | RNG OK? | hidden info | notes |
