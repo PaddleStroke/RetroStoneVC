@@ -40,6 +40,9 @@ static int drawn_width;
 static int msg_final, msg_drop, msg_drop_car;   /* frames left of FINAL LAP! and LEFT BEHIND! (and whose) */
 
 static int map_w(void) { return rs_screen_width() > 504 ? 128 : 64; }
+/* a tall screen (DESIGN.md "Tall screen"): the UI layer and the streamed world hold its whole height (128 rows: the UI's
+ * rows past the stage stay blank) */
+static int map_h(void) { return rs_screen_height() > 256 ? 128 : 32; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
 /* the zone's lines: a dashed column at the right edge of a tile (left side) and at the left edge (right side): cream
@@ -58,6 +61,15 @@ static void zone_tiles(void)
         }
     }
     rs_tiles_load8(VR_BG1 + ZONE_TILE, px[0], 2);
+    /* a tall screen: the zone's top (dashes on a tile's bottom row) and bottom (its top row), outlined outside */
+    uint8_t ph[2][64];
+    memset(ph, 0, sizeof ph);
+    for (int x = 0; x < 8; x++) {
+        int dash = x < 4, cap = x == 4 || x == 7;
+        ph[0][7 * 8 + x] = ph[1][x] = dash ? HU_CREAM : cap ? HU_OUTLINE : 0;
+        if (dash || cap) ph[0][6 * 8 + x] = ph[1][8 + x] = HU_OUTLINE;
+    }
+    rs_tiles_load8(VR_BG1 + ZONE_TILE + 2, ph[0], 2);
 }
 
 static void far_fill(void)
@@ -71,8 +83,8 @@ static void far_fill(void)
 static void maps_setup(void)
 {
     int mw = map_w();
-    rs_bg_setup(RS_BG1, mw, 32, VR_BG1);
-    rs_bg_setup(RS_BG3, mw, 32, VR_TRACK);
+    rs_bg_setup(RS_BG1, mw, map_h(), VR_BG1);
+    rs_bg_setup(RS_BG3, mw, map_h(), VR_TRACK);
     rs_bg_setup(RS_BG4, 32, 32, VR_TRACK);
     far_fill();
     shown_key = -1;
@@ -126,11 +138,12 @@ static void stream_world(const world *w, int sx0, int sy0)
 {
     const gm_track_art *a = &gm_tracks[w->track];
     uint16_t *m = rs_bg_map(RS_BG3);
-    int mw = rs_bg_map_w(RS_BG3);
+    int mw = rs_bg_map_w(RS_BG3), mh = rs_bg_map_h(RS_BG3);
     int tx0 = fdiv8(sx0 + rs_screen_left()), tx1 = fdiv8(sx0 + rs_screen_right() - 1) + 1;
-    int ty0 = fdiv8(sy0), ty1 = ty0 + RS_SCREEN_H / 8 + 1;
+    int ty0 = fdiv8(sy0 + rs_screen_top()), ty1 = ty0 + RS_SCREEN_H / 8 + 1;
+    if (rs_screen_height() > RS_SCREEN_H) ty1 = fdiv8(sy0 + rs_screen_bottom() - 1) + 1;   /* the whole tall screen */
     for (int ty = ty0; ty <= ty1; ty++) {
-        uint16_t *row = m + (ty & 31) * mw;
+        uint16_t *row = m + (ty & (mh - 1)) * mw;
         int in_y = ty >= 0 && ty < a->mh;
         for (int tx = tx0; tx <= tx1; tx++) {
             uint16_t e = (in_y && tx >= 0 && tx < a->mw) ? a->map[ty * a->mw + tx] : 0;
@@ -194,7 +207,8 @@ static void fx_step(const world *w)
 static int spr(int id, int x, int y, int pal, int prio, int flags)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x >= rs_screen_right() || y >= RS_SCREEN_H || x + d->w <= rs_screen_left() || y + d->h <= 0) return -1;
+    if (x >= rs_screen_right() || y >= rs_screen_bottom() || x + d->w <= rs_screen_left() || y + d->h <= rs_screen_top())
+        return -1;
     return rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -311,8 +325,9 @@ static void draw_touch(const touch_view *tv)
 {
     tbutton b;
     touch_brake_button(rs_screen_left(), rs_screen_width(), &b);
+    b.y += rs_screen_bottom() - RS_SCREEN_H;            /* a tall screen: at its bottom (main.c touch_read) */
     if (tv->stick_on) {
-        int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0;
+        int ox = tv->sx0 - rs_screen_origin_x(), oy = tv->sy0 - rs_screen_origin_y();
         int kx = tv->sx - tv->sx0, ky = tv->sy - tv->sy0, d = isqrt64((int64_t)kx * kx + (int64_t)ky * ky);
         if (d > STICK_R) { kx = kx * STICK_R / d; ky = ky * STICK_R / d; }
         spr(SPR_KNOB, ox + kx - 8, oy + ky - 8, 2, 3, 0);
@@ -389,6 +404,13 @@ static int stand_place(int right) { return rs_screen_width() > RS_SCREEN_W && ri
 /* the zone's sides on a wide screen: dashed lines just outside the 320-px stage (2-4 players: 1 player has no zone) */
 static void zone_lines(const world *w)
 {
+    if (rs_screen_height() > RS_SCREEN_H && race_elimination(w)) {    /* a tall screen: its top and bottom */
+        int mh = rs_bg_map_h(RS_BG1);
+        for (int x = 0; x < 40; x++) {
+            rs_bg_put(RS_BG1, x, (-1) & (mh - 1), RS_MAP(ZONE_TILE + 2, 0, 0, 0, 0));
+            rs_bg_put(RS_BG1, x, 30, RS_MAP(ZONE_TILE + 3, 0, 0, 0, 0));
+        }
+    }
     if (rs_screen_width() <= RS_SCREEN_W || !race_elimination(w)) return;
     int mw = rs_bg_map_w(RS_BG1);
     for (int y = 0; y < 30; y++) {
@@ -607,7 +629,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG1) == map_w()) return;
+    if (rs_bg_map_w(RS_BG1) == map_w() && rs_bg_map_h(RS_BG1) == map_h()) return;
     maps_setup();
 }
 

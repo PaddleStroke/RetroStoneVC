@@ -196,6 +196,14 @@ no zone and no lines). The HUD stays in the 320 columns (the standings
 at the screen's right edge); the touch BRAKE button follows the screen's bottom-right corner. A state saved at one
 width loads at another. The touch test drives the same stick at 320, 427, 520 and 560 and compares the races.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`: 320 columns by the display's height (692 on a 9:19.5 phone), the 240-line stage centred: **more of the
+track above and below the camera**. The world's streamed map (BG3) and the UI layer are 128 rows on a tall screen
+(the UI's rows past the stage stay blank: no raster needed); the rows streamed cover the whole height. The race zone
+is still the 320 x 240 stage: with 2-4 players two dashed lines (the same cream and navy) mark its top and bottom. The
+HUD stays at the stage's top; BRAKE sits at the screen's bottom-right; touches are taken to stage coordinates. A
+240-line screen is unchanged (the same pixels in landscape).
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo over the four bots racing, the player slots, PRESS A TO RACE with the A glyph, BEST, the join line,
 the copyright line) -> P1 presses A (or B, Start, the d-pad; a tap) -> the race: the track's name and RACE 1/10 under

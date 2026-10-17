@@ -210,7 +210,8 @@ static void touch_read(pin *in)
 {
     tbutton b;
     touch_brake_button(rs_screen_left(), rs_screen_width(), &b);
-    int ox = rs_screen_origin_x();
+    b.y += rs_screen_bottom() - RS_SCREEN_H;            /* a tall screen: BRAKE at its bottom */
+    int ox = rs_screen_origin_x(), oy = rs_screen_origin_y();   /* screen pixels -> stage coordinates */
     TV.brake_on = 0;
     for (int i = 0; i < RS_TOUCH_MAX; i++) {
         const rs_touch_point *t = rs_touch(i);
@@ -221,7 +222,7 @@ static void touch_read(pin *in)
         }
         TV.seen = 1;
         if (t->pressed || (!touch_btn_slot[i] && touch_stick_slot != i)) {
-            int x0 = t->x0 - ox, y0 = t->y0;
+            int x0 = t->x0 - ox, y0 = t->y0 - oy;
             if (touch_on_button(&b, x0, y0)) touch_btn_slot[i] = 1;
             else if (touch_stick_slot < 0 && touch_stick_zone(rs_screen_left(), rs_screen_width(), x0, y0)) {
                 touch_stick_slot = i;
@@ -431,6 +432,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more of the track above and below (DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
