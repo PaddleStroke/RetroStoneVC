@@ -245,7 +245,7 @@ static void play_update(void)
     if (wev & WEV_LAND) sfx_at(SFX_LAND, 160, 40);
     if (wev & WEV_MSG) ha_play(HA_DING);
     for (int k = 0; k < MAX_HORNETS; k++)
-        if (W.hn[k].on) state_hash = (state_hash ^ (uint32_t)(W.hn[k].x ^ (W.hn[k].y << 3))) * 16777619u;
+        if (W.hn[k].on) state_hash = (state_hash ^ ((uint32_t)W.hn[k].x ^ ((uint32_t)W.hn[k].y << 3))) * 16777619u;
     state_hash = (state_hash ^ (uint32_t)(W.t + W.waves * 977 + W.heat * 31)) * 16777619u;
     if (!W.started) return;                     /* ready=1: the run waits for its first press */
     if (st == ST_PLAY && !world_running(&W)) go(ST_DEAD);
