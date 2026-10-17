@@ -1,20 +1,12 @@
 Gomoku
 # Tujuan
-Jadilah yang pertama menjajarkan lima batu dengan warnamu dalam satu deret tanpa putus: mendatar, tegak, atau diagonal. Batu dimainkan di titik-titik persilangan garis, dan tidak pernah dipindahkan setelah dimainkan. Hitam (gelap) jalan lebih dulu, lalu para pemain bergiliran, masing-masing satu batu.
+Jadilah yang pertama menjajarkan lima batu dengan warnamu dalam satu deret tanpa putus: mendatar, tegak, atau diagonal. Hitam jalan lebih dulu. Jika papan penuh tanpa ada deret pemenang, permainan berakhir seri.
 # Bebas dan standar
-Pilih aturannya sebelum bermain:
-- Bebas (kartu dengan enam batu sederet): lima batu sederet atau lebih menang.
-- Standar (kartu dengan lima batu): hanya tepat lima batu sederet yang menang. Deret enam batu atau lebih tidak dihitung, tetapi permainan berlanjut, dan deret lima yang dibuat di tempat lain tetap menang.
-- Enam berderet (kartu dengan papan besar): lihat di bawah.
-- Renju (kartu dengan silang merah): lihat di bawah.
+- Bebas: lima batu sederet atau lebih menang.
+- Standar: hanya tepat lima batu sederet yang menang. Deret enam batu atau lebih tidak dihitung, tetapi permainan berlanjut.
 # Enam berderet
-Dimainkan di papan yang lebih besar, 19 kali 19. Hitam memulai dengan menaruh satu batu; setelah itu, setiap pemain menaruh dua batu di setiap giliran. Enam batu sederet atau lebih dengan warnamu menang, bahkan jika deretan itu terbentuk oleh batu pertama dalam satu giliran.
+Hitam memulai dengan menaruh satu batu; setelah itu, setiap pemain menaruh dua batu di setiap giliran. Enam batu sederet atau lebih menang, bahkan jika deretan itu terbentuk oleh batu pertama dalam satu giliran.
 # Renju
-Dimainkan di papan 15×15, dengan aturan yang membatasi keuntungan Hitam karena jalan lebih dulu.
-- Pembukaan: batu pertama Hitam diletakkan di titik tengah, batu pertama Putih tepat di sebelahnya, dan batu kedua Hitam paling jauh dua titik dari tengah. Pertukaran dan pilihan langkah kelima Hitam yang dipakai di turnamen tidak disertakan.
-- Hitam tidak boleh membuat tiga ganda (dua deret tiga terbuka sekaligus), empat ganda, atau deret enam batu atau lebih, kecuali batu yang sama membuat lima. Saat giliran Hitam, titik-titik itu diberi silang merah kecil dan tidak bisa dimainkan.
-- Hitam hanya menang dengan tepat lima sederet. Putih tidak punya titik terlarang, dan lima sederet atau lebih menang.
-# Akhir permainan
-Pemain pertama yang membentuk deret pemenang langsung menang. Jika papan penuh tanpa ada deret pemenang, permainan berakhir seri.
-# Bermain di perangkat
-Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Deret pemenang menyala keemasan. Dalam enam berderet, bilahmu menunjukkan batu yang masih harus kamu taruh di giliran ini, dan batu pertama dari pasangan itu tetap disorot sampai kamu menaruh yang kedua. Urungkan mengambil kembali satu batu setiap kali.
+- Pembukaan: batu pertama Hitam di titik tengah, batu pertama Putih tepat di sebelahnya, dan batu kedua Hitam paling jauh dua titik dari tengah.
+- Hitam tidak boleh membuat tiga ganda, empat ganda, atau deret enam batu atau lebih, kecuali batu yang sama membuat lima. Titik-titik itu diberi silang merah kecil.
+- Hitam hanya menang dengan tepat lima sederet. Putih menang dengan lima atau lebih.

@@ -1,20 +1,12 @@
 Gomoku
 # Cel gry
-Jako pierwszy ułóż pięć kamieni w swoim kolorze w nieprzerwanym rzędzie: w poziomie, w pionie lub po przekątnej. Kamienie kładzie się na punktach przecięcia linii i raz położone nigdy się nie przesuwają. Czarne (ciemne) zaczynają, potem gracze grają na zmianę, kładąc po jednym kamieniu.
+Jako pierwszy ułóż pięć kamieni w swoim kolorze w nieprzerwanym rzędzie: w poziomie, w pionie lub po przekątnej. Czarne zaczynają. Jeśli plansza się zapełni, a nikt nie ułożył zwycięskiego rzędu, gra kończy się remisem.
 # Wolny styl i standard
-Przed grą wybierz zasady:
-- Wolny styl (karta z sześcioma kamieniami w rzędzie): wygrywa pięć lub więcej kamieni w rzędzie.
-- Standard (karta z pięcioma): wygrywa dokładnie pięć kamieni w rzędzie. Rząd sześciu lub więcej kamieni się nie liczy, ale gra toczy się dalej, a piątka ułożona gdzie indziej nadal wygrywa.
-- Sześć w rzędzie (karta z dużą planszą): patrz niżej.
-- Renju (karta z czerwonym krzyżykiem): patrz niżej.
+- Wolny styl: wygrywa pięć lub więcej kamieni w rzędzie.
+- Standard: wygrywa dokładnie pięć kamieni w rzędzie. Rząd sześciu lub więcej kamieni się nie liczy, ale gra toczy się dalej.
 # Sześć w rzędzie
-Gra toczy się na większej planszy, 19 na 19. Czarne zaczynają, kładąc jeden kamień; potem każdy gracz w każdej turze kładzie dwa kamienie. Wygrywa sześć lub więcej kamieni w twoim kolorze w rzędzie, nawet jeśli rząd powstaje już po pierwszym kamieniu tury.
+Czarne zaczynają, kładąc jeden kamień; potem każdy gracz w każdej turze kładzie dwa kamienie. Wygrywa sześć lub więcej kamieni w rzędzie, nawet jeśli rząd powstaje już po pierwszym kamieniu tury.
 # Renju
-Gra się na planszy 15×15, z zasadami, które ograniczają przewagę czarnych, zaczynających grę.
-- Otwarcie: pierwszy kamień czarnych idzie na środkowy punkt, pierwszy kamień białych tuż obok, a drugi kamień czarnych najwyżej dwa punkty od środka. Wymiana i wybór piątego ruchu czarnych, stosowane na turniejach, są pominięte.
-- Czarne nie mogą ułożyć podwójnej trójki (dwóch otwartych trójek naraz), podwójnej czwórki ani rzędu sześciu lub więcej kamieni, chyba że ten sam kamień tworzy piątkę. Gdy ruch mają czarne, te punkty mają mały czerwony krzyżyk i nie można na nie zagrać.
-- Czarne wygrywają tylko dokładnie pięcioma kamieniami w rzędzie. Białe nie mają zakazanych punktów, a pięć lub więcej w rzędzie wygrywa.
-# Koniec gry
-Pierwszy gracz, który ułoży zwycięski rząd, od razu wygrywa. Jeśli plansza się zapełni, a nikt nie ułożył zwycięskiego rzędu, gra kończy się remisem.
-# Gra na urządzeniu
-Pierwsze dotknięcie pokazuje blady kamień, drugie dotknięcie tego samego punktu go kładzie. Dzięki temu łatwo trafić w małe punkty. Zwycięski rząd świeci na złoto. W grze sześć w rzędzie twój pasek pokazuje kamienie, które musisz jeszcze położyć w tej turze, a pierwszy kamień z pary pozostaje podświetlony, dopóki nie położysz drugiego. Cofnij cofa po jednym kamieniu.
+- Otwarcie: pierwszy kamień czarnych idzie na środkowy punkt, pierwszy kamień białych tuż obok, a drugi kamień czarnych najwyżej dwa punkty od środka.
+- Czarne nie mogą ułożyć podwójnej trójki, podwójnej czwórki ani rzędu sześciu lub więcej kamieni, chyba że ten sam kamień tworzy piątkę. Te punkty mają mały czerwony krzyżyk.
+- Czarne wygrywają tylko dokładnie pięcioma kamieniami w rzędzie. Białe wygrywają pięcioma lub więcej.

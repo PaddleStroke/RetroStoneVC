@@ -1,17 +1,14 @@
 Go
 # The aim
-Surround more of the board than the other player. Stones are played on the points where the lines cross, and never move once played. Black (dark) plays first. Choose the board before the game: 9 by 9 for a quick game, 13 by 13, or the full 19 by 19.
+Surround more of the board than the other player. Stones are played on the points and never move. Black plays first.
 # Liberties and captures
-- The empty points next to a stone, along the lines, are its liberties. Stones of the same colour that touch along the lines form a group and share their liberties.
+- The empty points next to a stone, along the lines, are its liberties. Stones of one colour that touch along the lines form a group and share their liberties.
 - When you take a group's last liberty, it is captured: its stones leave the board.
 - You may not play a stone that would have no liberty, unless it captures and so gains one.
-- Ko: you may not make a move that brings back a position seen before. When a single stone is captured and could be taken straight back, play elsewhere first.
+- Ko: no move may bring back a position seen before. When a single stone could be taken straight back, play elsewhere first.
 # Passing and counting
-Instead of playing, you may pass. When both players pass one after the other, the game stops and the counting begins.
-- Tap the groups that could not live (dead stones): they count as captured. Tap again to bring a group back.
-- When you agree, tap the pass button: done.
-- Each player scores one point for each of their stones on the board and each empty point they alone surround. White (light) also gets 7.5 points for playing second (the komi), so there is never a draw. The higher score wins.
+Instead of playing, you may pass. When both players pass one after the other, the game stops for counting.
+- Tap the groups that could not live: they count as captured. When you agree, tap the pass button.
+- Each player scores one point for each of their stones on the board and each empty point they alone surround. White also gets 7.5 points for playing second, so there is never a draw.
 # Capture go
-A first game for beginners and children, on the 9 by 9 or the 13 by 13 board (the cards with a stone being captured). The rules of go, but the first player to capture wins at once. There is no passing and no counting. A player with nowhere left to play (every empty point would leave the stone without a liberty) loses.
-# Playing on the device
-The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. Each bar shows the stones that player has captured, and the score when counting.
+A first game for beginners: the first player to capture wins at once. No passing, no counting. A player with nowhere left to play loses.

@@ -1,14 +1,10 @@
 Chińskie warcaby
 # Cel gry
-Przeprowadź wszystkie swoje dziesięć kulek przez gwiazdę do ramienia naprzeciwko twojego. Plansza to sześcioramienna gwiazda ze 121 dołkami. Jasne stoją na początku w dolnym ramieniu, a ciemne w górnym; oba są zabarwione na ich kolory, a pozostałe cztery ramiona zostają puste. Jasne zaczynają.
-Grać mogą dwie, trzy, cztery lub sześć osób: wybierz liczbę przed partią. Jasne zawsze zaczynają w dolnym ramieniu, a pozostali idą za nimi zgodnie z ruchem wskazówek zegara wokół gwiazdy, w kolejności ruchów: we trzech co drugie ramię, tak że każdy zmierza do pustego ramienia; we czterech dwie pary przeciwległych ramion; w sześciu wszystkie ramiona. Gdy gra więcej niż dwie osoby, kulki dowolnego gracza pozostawione w twoim ramieniu docelowym liczą się na twoją korzyść, a gracz, który nie ma żadnego ruchu, traci kolejkę; partia kończy się remisem tylko wtedy, gdy nikt nie może się ruszyć.
+Przeprowadź wszystkie swoje dziesięć kulek przez gwiazdę do ramienia naprzeciwko twojego. Jasne zaczynają, potem pozostali zgodnie z ruchem wskazówek zegara wokół gwiazdy.
 # Ruch
-W swojej kolejce przesuń jedną ze swoich kulek na jeden z dwóch sposobów:
-- Krok: do sąsiedniego pustego dołka. Każdy dołek ma do sześciu sąsiadów wzdłuż linii gwiazdy.
-- Skoki: nad sąsiednią kulką dowolnego koloru do pustego dołka tuż za nią, w linii prostej. Stamtąd ta sama kulka może skakać dalej, ile razy chcesz i w dowolnym kierunku, ale nigdy z powrotem do dołka, w którym już była w tym ruchu.
-- Nic nigdy nie jest zbijane: przeskoczone kulki zostają na swoich miejscach.
-- W jednym ruchu nie można łączyć kroku ze skokami. Kulki mogą przechodzić przez puste ramiona i się w nich zatrzymywać, a także opuszczać ramię, które właśnie wypełniają.
+Przesuń jedną ze swoich kulek na jeden z dwóch sposobów:
+- Krok: do sąsiedniego pustego dołka.
+- Skoki: nad sąsiednią kulką dowolnego koloru do pustego dołka tuż za nią, w linii prostej. Ta sama kulka może skakać dalej, ile razy chcesz i w dowolnym kierunku, ale nigdy z powrotem do dołka, w którym już była w tym ruchu.
+- Nic nie jest zbijane. Nie można łączyć kroku ze skokami. Kulki mogą przechodzić przez puste ramiona i się w nich zatrzymywać, a także opuszczać ramię, które wypełniają.
 # Koniec gry
-Wygrywa gracz, który pierwszy wypełni przeciwległe ramię. Gracz nie może zablokować ramienia, zostawiając kulki w domu: gdy tylko wszystkie dołki twojego ramienia docelowego są zajęte, a w co najmniej jednym z nich jest twoja kulka, wygrywasz, nawet jeśli w niektórych pozostałych dołkach są tam jeszcze kulki przeciwnika. W bardzo rzadkim przypadku, gdy gracz, na którego przypada kolej, nie może wykonać żadnego ruchu, gra kończy się remisem.
-# Gra na urządzeniu
-Dotknij jednej ze swoich kulek: kropki pokażą każdy dołek, do którego może dotrzeć krokiem lub serią skoków. Dotknij jednego z nich, a kulka przeskoczy tam, skok po skoku. Możesz też przeciągnąć kulkę do jej dołka. Dołki ostatniego ruchu pozostają podświetlone. Każdy pasek pokazuje, ile kulek danego gracza dotarło już do przeciwległego ramienia.
+Wygrywa gracz, który pierwszy wypełni przeciwległe ramię: gdy tylko wszystkie dołki są tam zajęte, a w co najmniej jednym jest twoja kulka, wygrywasz, nawet jeśli w pozostałych są kulki przeciwnika. Gdy gra więcej niż dwie osoby, kulki dowolnego gracza pozostawione w twoim ramieniu docelowym liczą się na twoją korzyść, a gracz bez ruchu traci kolejkę. Jeśli gracz, na którego przypada kolej, nie ma ruchu (przy większej liczbie graczy: jeśli nikt nie może się ruszyć), gra kończy się remisem.

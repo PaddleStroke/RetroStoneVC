@@ -1,12 +1,9 @@
 Hex
 # Lo scopo
-Collegare i tuoi due lati del tavoliere con una catena ininterrotta di tue pietre. Il Bianco (chiaro) collega il lato in alto e quello in basso, il Nero (scuro) il lato sinistro e quello destro: ogni lato è dipinto del colore del giocatore che deve collegarlo. Il Bianco gioca per primo. Scegli il tavoliere prima della partita: 7 per 7 per una partita veloce, 9 per 9, o 11 per 11.
+Collegare i tuoi due lati del tavoliere, dipinti del tuo colore, con una catena ininterrotta di tue pietre. Il Bianco gioca per primo.
 # Il gioco
 - A turno, ogni giocatore posa una pietra su una casella vuota qualsiasi. Le pietre non si muovono mai e non vengono mai catturate.
-- Due tue pietre sono collegate quando le loro caselle hanno un lato in comune: ogni casella ha sei vicine.
-- Vince il primo giocatore che collega i suoi due lati. Le caselle d'angolo appartengono a entrambi i lati che vi si incontrano.
-- Non c'è mai patta: quando il tavoliere è pieno, uno dei giocatori ha sempre collegato i suoi lati.
+- Due tue pietre sono collegate quando le loro caselle hanno un lato in comune. Le caselle d'angolo appartengono a entrambi i lati che vi si incontrano.
+- Non c'è mai patta.
 # Lo scambio
-Giocare per primo è un grande vantaggio. Per bilanciarlo, solo alla seconda mossa, il Nero può prendersi la prima pietra del Bianco invece di posarne una. La pietra diventa nera e passa nella sua casella simmetrica rispetto alla diagonale lunga (la linea che va dall'angolo in alto a sinistra all'angolo in basso a destra), così vale per il Nero esattamente come valeva per il Bianco. Poi il Bianco gioca di nuovo. Perciò al Bianco conviene aprire con una mossa né troppo forte né troppo debole.
-# Giocare sul dispositivo
-Tocca una casella vuota per posare la tua pietra. Sul tavoliere 11 per 11, il primo tocco mostra una pietra pallida e un secondo tocco sulla stessa casella la posa: così è facile colpire anche le caselle piccole. Per lo scambio, il Nero tocca la prima pietra del Bianco: una pietra pallida mostra dove andrà, e un secondo tocco fa lo scambio. Quando un giocatore vince, la sua catena si illumina d'oro.
+Solo alla seconda mossa, il Nero può prendersi la prima pietra del Bianco invece di posarne una: diventa nera e passa nella sua casella simmetrica rispetto alla diagonale lunga. Poi il Bianco gioca di nuovo. Per lo scambio, il Nero tocca la prima pietra del Bianco.

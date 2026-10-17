@@ -1,20 +1,13 @@
 La volpe e le oche
 # Lo scopo
-Un giocatore ha tredici oche, l'altro una sola volpe. Le oche vincono se chiudono la volpe in modo che non possa più muoversi. La volpe vince se cattura oche finché ne restano meno di nove.
-# Il tavoliere
-Il tavoliere è una croce di 33 punti uniti da linee: lungo le righe, lungo le colonne e lungo le diagonali disegnate. I pezzi si muovono solo lungo queste linee, da un punto al successivo.
-# La partenza
-Le oche (chiare) occupano il braccio inferiore della croce e tutta la riga subito sopra. La volpe (scura) parte dal centro. Iniziano le oche.
+Tredici oche contro una sola volpe. Le oche vincono se chiudono la volpe in modo che non possa più muoversi. La volpe vince se cattura oche finché ne restano meno di nove. Iniziano le oche.
 # Le oche
-- Un'oca si muove lungo una linea fino al punto successivo, se è libero: in avanti, in diagonale in avanti o di lato, mai all'indietro.
-- Le oche non saltano mai e non catturano mai la volpe.
+Un'oca si muove lungo una linea fino al punto successivo, se è libero: in avanti, in diagonale in avanti o di lato, mai all'indietro. Le oche non saltano mai e non catturano mai la volpe.
 # La volpe
 - La volpe si muove lungo una linea fino al punto successivo, se è libero, in qualsiasi direzione.
-- Oppure salta un'oca vicina, lungo una linea, fino al punto libero subito dietro, e toglie quell'oca dal tavoliere.
-- Saltare non è obbligatorio. Ma una volta che la volpe ha saltato, deve continuare a saltare, un'oca alla volta, finché può.
+- Oppure salta un'oca vicina, lungo una linea, fino al punto libero subito dietro, e cattura quell'oca.
+- Saltare non è obbligatorio. Ma una volta che la volpe ha saltato, deve continuare a saltare finché può.
 # La fine della partita
 - Le oche vincono quando la volpe non può né muoversi né saltare.
 - La volpe vince quando restano meno di nove oche, o quando le oche non possono muoversi.
 - La partita è patta quando la stessa posizione si ripete per la terza volta, o dopo cinquanta mosse ciascuno senza catture e senza che un'oca avanzi.
-# Giocare sul dispositivo
-Tocca un'oca e poi il suo nuovo punto, oppure trascinala. Al turno della volpe, la volpe è già selezionata: tocca il punto dove va, oppure trascinala. Le oche che può catturare hanno un anello: tocca l'anello, o il punto subito dietro, per saltare. In una serie di salti, tocca ogni salto successivo.

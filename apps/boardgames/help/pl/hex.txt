@@ -1,12 +1,9 @@
 Hex
 # Cel gry
-Połącz swoje dwa brzegi planszy nieprzerwanym łańcuchem swoich kamieni. Białe (jasne) łączą górę z dołem, czarne (ciemne) lewą stronę z prawą: każdy brzeg jest pomalowany w kolorze gracza, który musi go połączyć. Białe zaczynają. Przed grą wybierz planszę: 7×7 do szybkiej partii, 9×9 lub 11×11.
+Połącz swoje dwa brzegi planszy, pomalowane w twoim kolorze, nieprzerwanym łańcuchem swoich kamieni. Białe zaczynają.
 # Rozgrywka
 - Gracze na zmianę kładą po jednym kamieniu na dowolnym wolnym polu. Kamienie nigdy się nie przesuwają i nigdy nie są zbijane.
-- Dwa twoje kamienie są połączone, gdy ich pola stykają się bokiem: każde pole ma sześciu sąsiadów.
-- Wygrywa pierwszy gracz, który połączy swoje dwa brzegi. Pola narożne należą do obu brzegów, które się w nich spotykają.
-- Nigdy nie ma remisu: gdy plansza jest pełna, jeden z graczy zawsze ma już połączone swoje brzegi.
+- Dwa twoje kamienie są połączone, gdy ich pola stykają się bokiem. Pola narożne należą do obu brzegów, które się w nich spotykają.
+- Nigdy nie ma remisu.
 # Zamiana
-Pierwszy ruch daje dużą przewagę. Aby ją zrównoważyć, czarne mogą, tylko w drugim ruchu, przejąć pierwszy kamień białych zamiast kłaść własny. Kamień staje się czarny i przenosi się na swoje lustrzane pole względem długiej przekątnej (linii od lewego górnego do prawego dolnego rogu), tak aby dla czarnych znaczył to samo co dla białych. Potem białe grają ponownie. Dlatego białe powinny otworzyć ruchem ani za mocnym, ani za słabym.
-# Gra na urządzeniu
-Dotknij wolnego pola, aby położyć swój kamień. Na planszy 11×11 pierwsze dotknięcie pokazuje blady kamień, a drugie dotknięcie tego samego pola go kładzie: dzięki temu łatwo trafić w małe pola. Aby dokonać zamiany, czarne dotykają pierwszego kamienia białych: blady kamień pokazuje, dokąd trafi, a drugie dotknięcie dokonuje zamiany. Gdy gracz wygrywa, jego łańcuch świeci na złoto.
+Tylko w drugim ruchu czarne mogą przejąć pierwszy kamień białych zamiast kłaść własny: kamień staje się czarny i przenosi się na swoje lustrzane pole względem długiej przekątnej. Potem białe grają ponownie. Aby dokonać zamiany, czarne dotykają pierwszego kamienia białych.

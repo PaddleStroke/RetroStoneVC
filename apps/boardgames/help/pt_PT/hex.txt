@@ -1,12 +1,9 @@
 Hex
 # O objetivo
-Ligar os teus dois lados do tabuleiro com uma cadeia contínua das tuas pedras. As brancas (claras) ligam o lado de cima ao de baixo, as pretas (escuras) ligam a esquerda à direita: cada lado está pintado na cor do jogador que o tem de ligar. As brancas começam. Escolhe o tabuleiro antes da partida: 7 por 7 para uma partida rápida, 9 por 9, ou 11 por 11.
+Ligar os teus dois lados do tabuleiro, pintados na tua cor, com uma cadeia contínua das tuas pedras. As brancas começam.
 # Como se joga
 - À vez, cada jogador coloca uma pedra em qualquer casa livre. As pedras nunca se movem e nunca são capturadas.
-- Duas pedras tuas estão ligadas quando as suas casas se tocam por um lado: cada casa tem seis vizinhas.
-- Ganha o primeiro jogador a ligar os seus dois lados. As casas dos cantos pertencem aos dois lados que aí se encontram.
-- Nunca há empate: quando o tabuleiro está cheio, um dos jogadores já ligou sempre os seus lados.
+- Duas pedras tuas estão ligadas quando as suas casas se tocam por um lado. As casas dos cantos pertencem aos dois lados que aí se encontram.
+- Nunca há empate.
 # A troca
-Jogar primeiro é uma grande vantagem. Para a equilibrar, apenas no segundo lance, as pretas podem ficar com a primeira pedra das brancas em vez de colocarem uma. A pedra passa a preta e muda-se para a casa simétrica do outro lado da diagonal longa (a linha que vai do canto superior esquerdo ao canto inferior direito), de forma a valer para as pretas exatamente o que valia para as brancas. Depois, as brancas voltam a jogar. Por isso, as brancas devem abrir com um lance que não seja nem demasiado forte nem demasiado fraco.
-# Jogar no dispositivo
-Toca numa casa livre para colocar a tua pedra. No tabuleiro de 11 por 11, o primeiro toque mostra uma pedra pálida e um segundo toque na mesma casa coloca-a: assim, as casas pequenas são fáceis de acertar. Para trocar, as pretas tocam na primeira pedra das brancas: uma pedra pálida mostra para onde vai, e um segundo toque faz a troca. Quando um jogador ganha, a sua cadeia acende-se a dourado.
+Apenas no segundo lance, as pretas podem ficar com a primeira pedra das brancas em vez de colocarem uma: a pedra passa a preta e muda-se para a casa simétrica do outro lado da diagonal longa. Depois, as brancas voltam a jogar. Para trocar, as pretas tocam na primeira pedra das brancas.

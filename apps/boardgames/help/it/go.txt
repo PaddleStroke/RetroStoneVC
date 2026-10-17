@@ -1,17 +1,14 @@
 Go
 # Lo scopo
-Circondare una parte del tavoliere più grande di quella dell'altro giocatore. Le pietre si giocano sui punti dove le linee si incrociano e, una volta giocate, non si muovono più. Il Nero (scuro) gioca per primo. Scegli il tavoliere prima della partita: 9 per 9 per una partita veloce, 13 per 13, o quello completo 19 per 19.
+Circondare una parte del tavoliere più grande di quella dell'altro giocatore. Le pietre si giocano sui punti e non si muovono mai. Il Nero gioca per primo.
 # Libertà e catture
 - I punti liberi accanto a una pietra, lungo le linee, sono le sue libertà. Le pietre dello stesso colore che si toccano lungo le linee formano un gruppo e condividono le libertà.
 - Quando togli l'ultima libertà a un gruppo, il gruppo è catturato: le sue pietre escono dal tavoliere.
 - Non puoi giocare una pietra che resterebbe senza libertà, a meno che catturi e così ne guadagni una.
-- Ko: non puoi fare una mossa che riporti una posizione già vista. Quando viene catturata una sola pietra che potrebbe essere ripresa subito, gioca prima altrove.
+- Ko: nessuna mossa può riportare una posizione già vista. Quando una sola pietra potrebbe essere ripresa subito, gioca prima altrove.
 # Passare e contare
-Invece di giocare, puoi passare. Quando entrambi i giocatori passano uno dopo l'altro, la partita si ferma e inizia il conteggio.
-- Tocca i gruppi che non potevano vivere (pietre morte): contano come catturati. Tocca di nuovo per ripristinare un gruppo.
-- Quando siete d'accordo, tocca il pulsante passa: fatto.
-- Ogni giocatore segna un punto per ogni sua pietra sul tavoliere e per ogni punto vuoto circondato solo da lui. Il Bianco (chiaro) riceve anche 7,5 punti perché gioca per secondo (il komi), quindi non c'è mai patta. Vince il punteggio più alto.
+Invece di giocare, puoi passare. Quando entrambi i giocatori passano uno dopo l'altro, la partita si ferma per il conteggio.
+- Tocca i gruppi che non potevano vivere: contano come catturati. Quando siete d'accordo, tocca il pulsante passa.
+- Ogni giocatore segna un punto per ogni sua pietra sul tavoliere e per ogni punto vuoto circondato solo da lui. Il Bianco riceve anche 7,5 punti perché gioca per secondo, quindi non c'è mai patta.
 # Go a cattura
-Un primo gioco per principianti e bambini, sul goban 9 per 9 o 13 per 13 (le carte con una pietra catturata). Le regole del go, ma vince subito il primo giocatore che cattura. Non si passa e non si conta. Chi non ha più punti dove giocare (in ogni punto vuoto la sua pietra resterebbe senza libertà) perde.
-# Giocare sul dispositivo
-Il primo tocco mostra una pietra pallida, un secondo tocco sullo stesso punto la gioca. Così è facile colpire anche i punti piccoli. Ogni barra mostra le pietre catturate da quel giocatore e, durante il conteggio, il punteggio.
+Un primo gioco per principianti: vince subito il primo giocatore che cattura. Non si passa e non si conta. Chi non ha più punti dove giocare perde.

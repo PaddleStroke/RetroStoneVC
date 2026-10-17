@@ -1,20 +1,13 @@
 El zorro y las ocas
 # El objetivo
-Un jugador tiene trece ocas; el otro, un solo zorro. Las ocas ganan si acorralan al zorro de modo que no pueda moverse. El zorro gana si captura ocas hasta que queden menos de nueve.
-# El tablero
-El tablero es una cruz de 33 puntos unidos por líneas: a lo largo de las filas, a lo largo de las columnas y a lo largo de las diagonales dibujadas en él. Las piezas solo se mueven por estas líneas, de un punto al siguiente.
-# La salida
-Las ocas (claras) ocupan el brazo inferior de la cruz y toda la fila que hay encima. El zorro (oscuro) empieza en el centro. Empiezan las ocas.
+Trece ocas contra un solo zorro. Las ocas ganan si acorralan al zorro de modo que no pueda moverse. El zorro gana si captura ocas hasta que queden menos de nueve. Empiezan las ocas.
 # Las ocas
-- Una oca se mueve por una línea hasta el punto siguiente, si está vacío: hacia delante, en diagonal hacia delante o hacia un lado, nunca hacia atrás.
-- Las ocas nunca saltan y nunca capturan al zorro.
+Una oca se mueve por una línea hasta el punto siguiente, si está vacío: hacia delante, en diagonal hacia delante o hacia un lado, nunca hacia atrás. Las ocas nunca saltan y nunca capturan al zorro.
 # El zorro
 - El zorro se mueve por una línea hasta el punto siguiente, si está vacío, en cualquier dirección.
-- O salta por encima de una oca contigua, a lo largo de una línea, hasta el punto vacío justo detrás, y retira esa oca del tablero.
-- Saltar no es obligatorio. Pero una vez que el zorro ha saltado, debe seguir saltando, una oca cada vez, mientras pueda.
+- O salta por encima de una oca contigua, a lo largo de una línea, hasta el punto vacío justo detrás, y captura esa oca.
+- Saltar no es obligatorio. Pero una vez que el zorro ha saltado, debe seguir saltando mientras pueda.
 # El final de la partida
 - Las ocas ganan cuando el zorro no puede moverse ni saltar.
 - El zorro gana cuando quedan menos de nueve ocas, o cuando las ocas no pueden moverse.
 - La partida es un empate cuando la misma posición se repite por tercera vez, o tras cincuenta jugadas de cada uno sin capturas y sin que ninguna oca avance.
-# Jugar en el dispositivo
-Toca una oca y luego su nuevo punto, o arrástrala. En el turno del zorro, el zorro ya está seleccionado: toca el punto al que va, o arrástralo. Las ocas que puede capturar llevan un anillo: toca el anillo, o el punto que hay detrás, para saltar. En una serie de saltos, toca cada salto siguiente.

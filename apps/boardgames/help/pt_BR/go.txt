@@ -1,17 +1,14 @@
 Go
 # O objetivo
-Cercar uma parte maior do tabuleiro do que o outro jogador. As pedras são jogadas nos pontos onde as linhas se cruzam e nunca se movem depois de jogadas. As pretas (escuras) começam. Escolha o tabuleiro antes da partida: 9 por 9 para uma partida rápida, 13 por 13, ou o completo, de 19 por 19.
+Cercar uma parte maior do tabuleiro do que o outro jogador. As pedras são jogadas nos pontos e nunca se movem. As pretas começam.
 # Liberdades e capturas
 - Os pontos vazios ao lado de uma pedra, ao longo das linhas, são as liberdades dela. Pedras da mesma cor que se tocam ao longo das linhas formam um grupo e compartilham as liberdades.
 - Quando você tira a última liberdade de um grupo, ele é capturado: as pedras dele saem do tabuleiro.
 - Você não pode jogar uma pedra que ficaria sem nenhuma liberdade, a não ser que ela capture e assim ganhe uma.
-- Ko: você não pode fazer uma jogada que traga de volta uma posição já vista. Quando uma única pedra é capturada e poderia ser recapturada na hora, jogue primeiro em outro lugar.
+- Ko: nenhuma jogada pode trazer de volta uma posição já vista. Quando uma única pedra poderia ser recapturada na hora, jogue primeiro em outro lugar.
 # Passar e contar
 Em vez de jogar, você pode passar. Quando os dois jogadores passam um depois do outro, a partida para e começa a contagem.
-- Toque nos grupos que não podiam viver (pedras mortas): eles contam como capturados. Toque de novo para trazer um grupo de volta.
-- Quando vocês estiverem de acordo, toque no botão de passar: pronto.
-- Cada jogador ganha um ponto por cada pedra sua no tabuleiro e por cada ponto vazio que só ele cerca. As brancas (claras) também ganham 7,5 pontos por jogar em segundo (o komi), então nunca há empate. Vence a maior pontuação.
+- Toque nos grupos que não podiam viver: eles contam como capturados. Quando vocês estiverem de acordo, toque no botão de passar.
+- Cada jogador ganha um ponto por cada pedra sua no tabuleiro e por cada ponto vazio que só ele cerca. As brancas também ganham 7,5 pontos por jogar em segundo, então nunca há empate.
 # Go de captura
-Um primeiro jogo para iniciantes e crianças, no tabuleiro de 9 por 9 ou de 13 por 13 (os cartões com uma pedra sendo capturada). As regras do go, mas vence na hora o primeiro jogador que capturar. Não há passe nem contagem. Quem não tiver onde jogar (em qualquer ponto vazio a pedra ficaria sem liberdade) perde.
-# Jogando no aparelho
-O primeiro toque mostra uma pedra pálida, e um segundo toque no mesmo ponto a joga. Assim fica fácil acertar os pontos pequenos. Cada barra mostra as pedras que aquele jogador capturou e, durante a contagem, a pontuação.
+Um primeiro jogo para iniciantes: vence na hora o primeiro jogador que capturar. Não há passe nem contagem. Quem não tiver mais onde jogar perde.

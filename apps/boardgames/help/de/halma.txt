@@ -1,14 +1,10 @@
 Sternhalma
 # Das Ziel
-Bring alle zehn Kugeln quer über den Stern in die Spitze, die deiner eigenen gegenüberliegt. Das Brett ist ein sechszackiger Stern mit 121 Löchern. Hell steht anfangs in der unteren Spitze und Dunkel in der oberen, die in ihren Farben getönt sind; die vier anderen Spitzen bleiben leer. Hell beginnt.
-Zwei, drei, vier oder sechs können spielen: Wähle vor der Partie, wie viele. Hell beginnt immer in der unteren Spitze, die anderen folgen in Zugreihenfolge im Uhrzeigersinn um den Stern: zu dritt jede zweite Spitze, sodass jeder auf eine leere Spitze zusteuert; zu viert zwei Paare gegenüberliegender Spitzen; zu sechst alle Spitzen. Bei mehr als zwei zählen die Kugeln jedes Spielers, die in deiner Zielspitze geblieben sind, für dich, und wer keinen Zug hat, setzt aus; unentschieden ist die Partie nur, wenn niemand mehr ziehen kann.
+Bring alle zehn Kugeln quer über den Stern in die Spitze, die deiner eigenen gegenüberliegt. Hell beginnt, danach die anderen im Uhrzeigersinn um den Stern.
 # Ein Zug
-Wenn du dran bist, ziehst du eine deiner Kugeln auf eine von zwei Arten:
-- Ein Schritt: in ein freies Nachbarloch. Jedes Loch hat bis zu sechs Nachbarn, entlang der Linien des Sterns.
-- Sprünge: über eine benachbarte Kugel, gleich welcher Farbe, in das freie Loch direkt dahinter, in gerader Linie. Von dort darf dieselbe Kugel erneut springen, so oft du willst und in jede Richtung, aber nie zurück auf ein Loch, auf dem sie in diesem Zug schon war.
-- Es wird nie etwas geschlagen: Die übersprungenen Kugeln bleiben, wo sie sind.
-- Schritt und Sprünge lassen sich in einem Zug nicht mischen. Kugeln dürfen durch die leeren Spitzen ziehen und dort stehen bleiben, und sie dürfen die Spitze verlassen, die sie gerade füllen.
+Ziehe eine deiner Kugeln auf eine von zwei Arten:
+- Ein Schritt: in ein freies Nachbarloch.
+- Sprünge: über eine benachbarte Kugel, gleich welcher Farbe, in das freie Loch direkt dahinter, in gerader Linie. Dieselbe Kugel darf erneut springen, so oft du willst und in jede Richtung, aber nie zurück auf ein Loch, auf dem sie in diesem Zug schon war.
+- Es wird nichts geschlagen. Schritt und Sprünge lassen sich nicht mischen. Kugeln dürfen durch die leeren Spitzen ziehen und dort stehen bleiben, und sie dürfen die Spitze verlassen, die sie gerade füllen.
 # Das Ende der Partie
-Wer zuerst die gegenüberliegende Spitze füllt, gewinnt. Ein Spieler kann die Spitze nicht blockieren, indem er Kugeln zu Hause stehen lässt: Sobald jedes Loch deiner Zielspitze besetzt ist und mindestens eines davon eine deiner Kugeln enthält, gewinnst du, auch wenn in einigen der anderen Löcher dort noch Kugeln deines Gegners stehen. Im sehr seltenen Fall, dass der Spieler am Zug überhaupt keinen Zug hat, endet die Partie unentschieden.
-# Spielen auf dem Gerät
-Tippe auf eine deiner Kugeln: Punkte zeigen jedes Loch, das sie mit einem Schritt oder einer Sprungkette erreichen kann. Tippe auf eines davon, und die Kugel hüpft dorthin, Sprung für Sprung. Du kannst die Kugel auch mit dem Finger in ihr Loch schieben. Die Löcher des letzten Zuges bleiben beleuchtet. Jede Leiste zeigt, wie viele Kugeln dieses Spielers die gegenüberliegende Spitze schon erreicht haben.
+Wer zuerst die gegenüberliegende Spitze füllt, gewinnt: Sobald jedes Loch dort besetzt ist und mindestens eines eine deiner Kugeln enthält, gewinnst du, auch wenn in anderen noch Kugeln eines Gegners stehen. Bei mehr als zwei Spielern zählen die Kugeln jedes Spielers, die in deiner Zielspitze geblieben sind, für dich, und wer keinen Zug hat, setzt aus. Hat der Spieler am Zug keinen Zug (bei mehr Spielern: kann niemand ziehen), endet die Partie unentschieden.

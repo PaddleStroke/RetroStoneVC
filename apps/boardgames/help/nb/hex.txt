@@ -1,12 +1,9 @@
 Hex
 # Målet
-Forbind dine to sider av brettet med en sammenhengende kjede av steinene dine. Hvit (lys) forbinder toppen og bunnen, Svart (mørk) venstre og høyre side: hver side er malt i fargen til spilleren som skal forbinde den. Hvit begynner. Velg brett før spillet: 7×7 for et raskt spill, 9×9 eller 11×11.
+Forbind dine to sider av brettet, malt i din farge, med en sammenhengende kjede av steinene dine. Hvit begynner.
 # Spillets gang
 - Spillerne bytter på å sette én stein på en hvilken som helst tom celle. Steinene flyttes aldri og fanges aldri.
-- To av steinene dine henger sammen når cellene deres grenser til hverandre langs en kant: hver celle har seks naboer.
-- Den første spilleren som forbinder sine to sider, vinner. Hjørnecellene hører til begge sidene som møtes der.
-- Det blir aldri uavgjort: når brettet er fullt, har alltid en av spillerne forbundet sidene sine.
+- To av steinene dine henger sammen når cellene deres grenser til hverandre langs en kant. Hjørnecellene hører til begge sidene som møtes der.
+- Det blir aldri uavgjort.
 # Byttet
-Å begynne er en stor fordel. For å jevne det ut kan Svart, bare i det andre trekket, ta Hvits første stein i stedet for å sette en egen. Steinen blir svart og flyttes til speilcellen sin på den andre siden av den lange diagonalen (linjen fra øverste venstre hjørne til nederste høyre hjørne), slik at den står for Svart akkurat slik den sto for Hvit. Så spiller Hvit igjen. Hvit bør derfor åpne med et trekk som verken er for sterkt eller for svakt.
-# Spill på enheten
-Trykk på en tom celle for å sette steinen din. På 11×11-brettet viser det første trykket en blek stein, og et nytt trykk på samme celle setter den: slik er små celler lette å treffe. For å bytte trykker Svart på Hvits første stein: en blek stein viser hvor den havner, og et nytt trykk bytter. Når en spiller vinner, lyser kjeden til vedkommende i gull.
+Bare i det andre trekket kan Svart ta Hvits første stein i stedet for å sette en egen: steinen blir svart og flyttes til speilcellen sin på den andre siden av den lange diagonalen. Så spiller Hvit igjen. For å bytte trykker Svart på Hvits første stein.

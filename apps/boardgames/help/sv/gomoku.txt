@@ -1,20 +1,12 @@
 Luffarschack
 # Målet
-Bli först med att få fem stenar i din färg i en obruten rad: vågrätt, lodrätt eller diagonalt. Stenarna spelas på punkterna där linjerna korsas och flyttas aldrig när de väl har spelats. Svart (mörk) börjar, sedan turas spelarna om, en sten var.
+Bli först med att få fem stenar i din färg i en obruten rad: vågrätt, lodrätt eller diagonalt. Svart börjar. Om brädet blir fullt utan någon vinnande rad blir det oavgjort.
 # Fri stil och standard
-Välj regler före partiet:
-- Fri stil (kortet med sex stenar i rad): fem eller fler stenar i rad vinner.
-- Standard (kortet med fem): exakt fem stenar i rad vinner. En rad med sex eller fler räknas inte, men partiet fortsätter, och en femma som görs någon annanstans vinner ändå.
-- Sex i rad (kortet med den stora brädan): se nedan.
-- Renju (kortet med det röda krysset): se nedan.
+- Fri stil: fem eller fler stenar i rad vinner.
+- Standard: exakt fem stenar i rad vinner. En rad med sex eller fler räknas inte, men partiet fortsätter.
 # Sex i rad
-Spelas på en större bräda, 19 gånger 19. Svart börjar med att lägga en sten; därefter lägger varje spelare två stenar i varje drag. Sex eller fler stenar i din färg i rad vinner, även när raden fullbordas av dragets första sten.
+Svart börjar med att lägga en sten; därefter lägger varje spelare två stenar i varje drag. Sex eller fler i rad vinner, även när raden fullbordas av dragets första sten.
 # Renju
-Spelas på brädet med 15×15 punkter, med regler som begränsar fördelen Svart har av att börja.
-- Öppning: Svarts första sten läggs på mittpunkten, Vits första sten precis bredvid och Svarts andra sten högst två punkter från mitten. Bytet och valet av Svarts femte drag från turneringar är utelämnade.
-- Svart får inte göra dubbeltrea (två öppna treor på en gång), dubbelfyra eller en rad med sex eller fler, utom när samma sten ger fem. När det är Svarts tur har de punkterna ett litet rött kryss och kan inte spelas.
-- Svart vinner bara med exakt fem i rad. Vit har inga förbjudna punkter, och fem eller fler i rad vinner.
-# Partiets slut
-Den som först får en vinnande rad vinner direkt. Om brädet blir fullt utan någon vinnande rad blir det oavgjort.
-# Spela på enheten
-Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Den vinnande raden lyser i guld. I sex i rad visar ditt fält stenarna du ännu ska lägga i detta drag, och parets första sten förblir markerad tills du lägger den andra. Ångra tar tillbaka en sten i taget.
+- Öppning: Svarts första sten läggs på mittpunkten, Vits första sten precis bredvid och Svarts andra sten högst två punkter från mitten.
+- Svart får inte göra dubbeltrea, dubbelfyra eller en rad med sex eller fler, utom när samma sten ger fem. De punkterna har ett litet rött kryss.
+- Svart vinner bara med exakt fem i rad. Vit vinner med fem eller fler.

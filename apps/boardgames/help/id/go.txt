@@ -1,17 +1,14 @@
 Go
 # Tujuan
-Kepung bagian papan yang lebih luas daripada lawan. Batu dimainkan di titik-titik persilangan garis, dan tidak pernah dipindahkan setelah dimainkan. Hitam (gelap) jalan lebih dulu. Pilih papan sebelum bermain: 9×9 untuk permainan singkat, 13×13, atau ukuran penuh 19×19.
+Kepung bagian papan yang lebih luas daripada lawan. Batu dimainkan di titik-titik dan tidak pernah dipindahkan. Hitam jalan lebih dulu.
 # Kebebasan dan penangkapan
 - Titik kosong di sebelah sebuah batu, di sepanjang garis, adalah kebebasannya. Batu-batu berwarna sama yang bersentuhan di sepanjang garis membentuk satu kelompok dan berbagi kebebasan.
 - Saat kamu mengambil kebebasan terakhir sebuah kelompok, kelompok itu tertangkap: batu-batunya diangkat dari papan.
-- Kamu tidak boleh memainkan batu yang tidak punya kebebasan, kecuali batu itu menangkap batu lawan dan dengan begitu mendapat kebebasan.
-- Ko: kamu tidak boleh membuat langkah yang mengembalikan posisi yang pernah terjadi. Jika satu batu tertangkap dan bisa langsung ditangkap balik, mainkan di tempat lain dulu.
+- Kamu tidak boleh memainkan batu yang tidak punya kebebasan, kecuali batu itu menangkap dan dengan begitu mendapat kebebasan.
+- Ko: tidak ada langkah yang boleh mengembalikan posisi yang pernah terjadi. Jika satu batu bisa langsung ditangkap balik, mainkan di tempat lain dulu.
 # Pas dan penghitungan
-Alih-alih bermain, kamu boleh pas. Jika kedua pemain pas berturut-turut, permainan berhenti dan penghitungan dimulai.
-- Ketuk kelompok yang tidak bisa hidup (batu mati): kelompok itu dihitung sebagai tertangkap. Ketuk lagi untuk mengembalikannya.
-- Jika kalian sudah sepakat, ketuk tombol pas: selesai.
-- Setiap pemain mendapat satu poin untuk setiap batunya di papan dan setiap titik kosong yang hanya dikepung olehnya. Putih (terang) juga mendapat 7,5 poin karena bermain kedua (komi), sehingga tidak pernah ada seri. Skor tertinggi menang.
+Alih-alih bermain, kamu boleh pas. Jika kedua pemain pas berturut-turut, permainan berhenti untuk penghitungan.
+- Ketuk kelompok yang tidak bisa hidup: kelompok itu dihitung sebagai tertangkap. Jika kalian sudah sepakat, ketuk tombol pas.
+- Setiap pemain mendapat satu poin untuk setiap batunya di papan dan setiap titik kosong yang hanya dikepung olehnya. Putih juga mendapat 7,5 poin karena bermain kedua, sehingga tidak pernah ada seri.
 # Go tangkap
-Permainan pertama untuk pemula dan anak-anak, di papan 9×9 atau 13×13 (kartu dengan batu yang sedang ditangkap). Aturan go, tetapi pemain pertama yang menangkap langsung menang. Tidak ada pas dan tidak ada penghitungan. Pemain yang tidak punya tempat lagi untuk bermain (di setiap titik kosong batunya tidak akan punya kebebasan) kalah.
-# Bermain di perangkat
-Ketukan pertama menampilkan batu pucat, ketukan kedua di titik yang sama memainkannya. Dengan begitu titik kecil tetap mudah disentuh. Setiap bilah menunjukkan batu yang telah ditangkap pemain itu, dan skornya saat penghitungan.
+Permainan pertama untuk pemula: pemain pertama yang menangkap langsung menang. Tidak ada pas dan tidak ada penghitungan. Pemain yang tidak punya tempat lagi untuk bermain kalah.

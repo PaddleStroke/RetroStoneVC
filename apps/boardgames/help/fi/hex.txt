@@ -1,12 +1,9 @@
 Hex
 # Tavoite
-Yhdistä laudan kaksi omaa reunaasi katkeamattomalla ketjulla omia kiviäsi. Valkoinen (vaalea) yhdistää ylä- ja alareunan, Musta (tumma) vasemman ja oikean reunan: kukin reuna on maalattu sen pelaajan väriin, jonka on yhdistettävä se. Valkoinen aloittaa. Valitse lauta ennen peliä: 7×7 nopeaan peliin, 9×9 tai 11×11.
+Yhdistä laudan kaksi omaa reunaasi, jotka on maalattu omalla värilläsi, katkeamattomalla ketjulla omia kiviäsi. Valkoinen aloittaa.
 # Pelin kulku
 - Pelaajat asettavat vuorotellen yhden kiven mihin tahansa tyhjään soluun. Kivet eivät koskaan liiku, eikä niitä koskaan vangita.
-- Kaksi kiveäsi ovat yhteydessä, kun niiden solut koskettavat toisiaan sivulta: jokaisella solulla on kuusi naapuria.
-- Pelaaja, joka ensimmäisenä yhdistää omat reunansa, voittaa. Kulmasolut kuuluvat kumpaankin reunaan, jotka kohtaavat niissä.
-- Tasapeliä ei koskaan tule: kun lauta on täynnä, toinen pelaajista on aina yhdistänyt reunansa.
+- Kaksi kiveäsi ovat yhteydessä, kun niiden solut koskettavat toisiaan sivulta. Kulmasolut kuuluvat kumpaankin reunaan, jotka kohtaavat niissä.
+- Tasapeliä ei koskaan tule.
 # Vaihto
-Aloittaminen on suuri etu. Sen tasaamiseksi Musta saa, vain toisella siirrolla, ottaa Valkoisen ensimmäisen kiven sen sijaan, että asettaisi oman. Kivi muuttuu mustaksi ja siirtyy peilisoluunsa pitkän lävistäjän toiselle puolelle (viiva vasemmasta yläkulmasta oikeaan alakulmaan), niin että se on Mustalle samanlainen kuin se oli Valkoiselle. Sitten Valkoinen pelaa uudelleen. Valkoisen kannattaa siis avata siirrolla, joka ei ole liian vahva eikä liian heikko.
-# Pelaaminen laitteella
-Napauta tyhjää solua asettaaksesi kivesi. 11×11-laudalla ensimmäinen napautus näyttää haalean kiven ja toinen napautus samaan soluun asettaa sen: näin pieniin soluihin on helppo osua. Vaihtaakseen Musta napauttaa Valkoisen ensimmäistä kiveä: haalea kivi näyttää, minne se siirtyy, ja toinen napautus vaihtaa. Kun pelaaja voittaa, hänen ketjunsa hehkuu kultaisena.
+Vain toisella siirrolla Musta saa ottaa Valkoisen ensimmäisen kiven sen sijaan, että asettaisi oman: kivi muuttuu mustaksi ja siirtyy peilisoluunsa pitkän lävistäjän toiselle puolelle. Sitten Valkoinen pelaa uudelleen. Vaihtaakseen Musta napauttaa Valkoisen ensimmäistä kiveä.

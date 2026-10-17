@@ -1,20 +1,12 @@
 Gomoku
 # El objetivo
-Ser el primero en alinear cinco piedras de tu color seguidas, sin huecos: en horizontal, en vertical o en diagonal. Las piedras se juegan en los puntos donde se cruzan las líneas y, una vez jugadas, no se mueven nunca. Empiezan las negras (oscuras); después los jugadores se turnan, una piedra cada uno.
+Ser el primero en alinear cinco piedras de tu color seguidas, sin huecos: en horizontal, en vertical o en diagonal. Empiezan las negras. Si el tablero se llena sin ninguna línea ganadora, la partida es un empate.
 # Libre y estándar
-Elige las reglas antes de la partida:
-- Libre (la carta con seis piedras en línea): cinco o más piedras en línea ganan.
-- Estándar (la carta con cinco): solo ganan exactamente cinco piedras en línea. Una línea de seis o más no cuenta, pero la partida sigue y un cinco hecho en otro sitio sigue ganando.
-- Seis en raya (la carta con el tablero grande): ver más abajo.
-- Renju (la carta con la cruz roja): ver más abajo.
+- Libre: cinco o más piedras en línea ganan.
+- Estándar: solo ganan exactamente cinco piedras en línea. Una línea de seis o más no cuenta, pero la partida sigue.
 # Seis en raya
-Se juega en un tablero más grande, de 19 por 19. Las negras empiezan colocando una piedra; después, cada jugador coloca dos piedras en cada turno. Ganan seis o más piedras de tu color en línea, aunque la línea se complete con la primera piedra de un turno.
+Las negras empiezan colocando una piedra; después, cada jugador coloca dos piedras en cada turno. Ganan seis o más en línea, aunque la línea se complete con la primera piedra de un turno.
 # Renju
-Se juega en el tablero de 15 por 15, con reglas que limitan la ventaja de las negras por empezar.
-- Apertura: la primera piedra negra va en el punto central, la primera blanca junto a ella, y la segunda negra a dos puntos del centro como mucho. Se omiten el intercambio y la elección de la quinta jugada negra de los torneos.
-- Las negras no pueden hacer un doble tres (dos treses abiertos a la vez), un doble cuatro ni una línea de seis o más, salvo que la misma piedra haga cinco. Cuando les toca a las negras, esos puntos llevan una pequeña cruz roja y no se pueden jugar.
-- Las negras solo ganan con exactamente cinco en línea. Las blancas no tienen puntos prohibidos, y cinco o más en línea las hacen ganar.
-# El final de la partida
-El primer jugador que forma una línea ganadora gana en el acto. Si el tablero se llena sin ninguna línea ganadora, la partida es un empate.
-# Jugar en el dispositivo
-El primer toque muestra una piedra pálida; un segundo toque en el mismo punto la juega. Así es fácil acertar en los puntos pequeños. La línea ganadora se ilumina en dorado. En seis en raya, tu barra de jugador muestra las piedras que aún te quedan por colocar en este turno, y la primera piedra de la pareja sigue resaltada hasta que colocas la segunda. Deshacer retira las piedras de una en una.
+- Apertura: la primera piedra negra va en el punto central, la primera blanca junto a ella, y la segunda negra a dos puntos del centro como mucho.
+- Las negras no pueden hacer un doble tres, un doble cuatro ni una línea de seis o más, salvo que la misma piedra haga cinco. Esos puntos llevan una pequeña cruz roja.
+- Las negras solo ganan con exactamente cinco en línea. Las blancas ganan con cinco o más.

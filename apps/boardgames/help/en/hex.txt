@@ -1,12 +1,9 @@
 Hex
 # The aim
-Join your two sides of the board with an unbroken chain of your stones. White (light) joins the top and the bottom, Black (dark) joins the left and the right: each side is painted in the colour of the player who must join it. White plays first. Choose the board before the game: 7 by 7 for a quick game, 9 by 9, or 11 by 11.
+Join your two sides of the board, painted in your colour, with an unbroken chain of your stones. White plays first.
 # Playing
 - In turn, each player places one stone on any empty cell. Stones never move and are never captured.
-- Two of your stones are joined when their cells touch along an edge: each cell has six neighbours.
-- The first player to join their two sides wins. The corner cells belong to both sides that meet there.
-- There is never a draw: once the board is full, one of the players has always joined their sides.
+- Two of your stones are joined when their cells touch along an edge. The corner cells belong to both sides that meet there.
+- There is never a draw.
 # The swap
-Playing first is a large advantage. To balance it, on the second move only, Black may take White's first stone instead of placing one. The stone becomes black and moves to its mirror cell across the long diagonal (the line from the top left corner to the bottom right corner), so that it stands for Black just as it stood for White. Then White plays again. So White should open with a move that is neither too strong nor too weak.
-# Playing on the device
-Tap an empty cell to place your stone. On the 11 by 11 board, the first tap shows a pale stone and a second tap on the same cell places it: this keeps small cells easy to hit. To swap, Black taps White's first stone: a pale stone shows where it goes, and a second tap swaps. When a player wins, their chain lights up in gold.
+On the second move only, Black may take White's first stone instead of placing one: it becomes black and moves to its mirror cell across the long diagonal. Then White plays again. To swap, Black taps White's first stone.

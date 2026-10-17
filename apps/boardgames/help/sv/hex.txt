@@ -1,12 +1,9 @@
 Hex
 # Målet
-Förbind dina två sidor av brädet med en obruten kedja av dina stenar. Vit (ljus) förbinder överkanten och nederkanten, Svart (mörk) vänster och höger kant: varje kant är målad i färgen hos spelaren som ska förbinda den. Vit börjar. Välj bräde före partiet: 7×7 för ett snabbt parti, 9×9 eller 11×11.
+Förbind dina två sidor av brädet, målade i din färg, med en obruten kedja av dina stenar. Vit börjar.
 # Spelets gång
 - Spelarna turas om att lägga en sten på valfri tom cell. Stenarna flyttas aldrig och fångas aldrig.
-- Två av dina stenar hänger ihop när deras celler gränsar till varandra längs en kant: varje cell har sex grannar.
-- Den som först förbinder sina två sidor vinner. Hörncellerna hör till båda sidorna som möts där.
-- Det blir aldrig oavgjort: när brädet är fullt har alltid en av spelarna förbundit sina sidor.
+- Två av dina stenar hänger ihop när deras celler gränsar till varandra längs en kant. Hörncellerna hör till båda sidorna som möts där.
+- Det blir aldrig oavgjort.
 # Bytet
-Att börja är en stor fördel. För att jämna ut den får Svart, bara i andra draget, ta Vits första sten i stället för att lägga en egen. Stenen blir svart och flyttas till sin spegelcell på andra sidan av den långa diagonalen (linjen från övre vänstra hörnet till nedre högra hörnet), så att den står för Svart precis som den stod för Vit. Sedan spelar Vit igen. Vit bör alltså öppna med ett drag som varken är för starkt eller för svagt.
-# Spela på enheten
-Tryck på en tom cell för att lägga din sten. På brädet 11×11 visar första trycket en blek sten och ett andra tryck på samma cell lägger den: det gör små celler lätta att träffa. För att byta trycker Svart på Vits första sten: en blek sten visar vart den hamnar, och ett andra tryck byter. När en spelare vinner lyser hens kedja i guld.
+Bara i andra draget får Svart ta Vits första sten i stället för att lägga en egen: den blir svart och flyttas till sin spegelcell på andra sidan av den långa diagonalen. Sedan spelar Vit igen. För att byta trycker Svart på Vits första sten.

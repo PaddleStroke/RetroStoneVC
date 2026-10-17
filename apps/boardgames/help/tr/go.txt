@@ -1,17 +1,14 @@
 Go
 # Amaç
-Tahtanın rakibinden daha büyük bir bölümünü çevrele. Taşlar çizgilerin kesiştiği noktalara oynanır ve oynandıktan sonra asla yer değiştirmez. Önce siyah (koyu) oynar. Oyundan önce tahtayı seç: hızlı bir oyun için 9×9, 13×13 ya da tam boy 19×19.
+Tahtanın rakibinden daha büyük bir bölümünü çevrele. Taşlar noktalara oynanır ve asla yer değiştirmez. Önce siyah oynar.
 # Özgürlükler ve esir alma
 - Bir taşın çizgiler boyunca yanındaki boş noktalar onun özgürlükleridir. Aynı renkten, çizgiler boyunca birbirine değen taşlar bir grup oluşturur ve özgürlüklerini paylaşır.
 - Bir grubun son özgürlüğünü aldığında grup esir alınır: taşları tahtadan çıkar.
 - Hiç özgürlüğü olmayacak bir taş oynayamazsın; ancak taş esir alıyor ve böylece özgürlük kazanıyorsa oynayabilirsin.
-- Ko: daha önce görülmüş bir pozisyonu geri getiren bir hamle yapamazsın. Tek bir taş esir alındığında ve hemen geri alınabilecekse, önce başka bir yere oyna.
+- Ko: daha önce görülmüş bir pozisyonu geri getiren bir hamle yapamazsın. Tek bir taş hemen geri alınabilecekse, önce başka bir yere oyna.
 # Pas ve sayım
-Oynamak yerine pas geçebilirsin. İki oyuncu art arda pas geçtiğinde oyun durur ve sayım başlar.
-- Yaşayamayan gruplara (ölü taşlar) dokun: esir alınmış sayılırlar. Bir grubu geri getirmek için yeniden dokun.
-- Anlaştığınızda pas düğmesine dokun: bitti.
-- Her oyuncu, tahtadaki her taşı ve yalnızca kendisinin çevrelediği her boş nokta için bir puan alır. Beyaz (açık), ikinci oynadığı için ayrıca 7,5 puan alır (komi), bu yüzden oyun asla berabere bitmez. Yüksek puanı olan kazanır.
+Oynamak yerine pas geçebilirsin. İki oyuncu art arda pas geçtiğinde oyun sayım için durur.
+- Yaşayamayan gruplara dokun: esir alınmış sayılırlar. Anlaştığınızda pas düğmesine dokun.
+- Her oyuncu, tahtadaki her taşı ve yalnızca kendisinin çevrelediği her boş nokta için bir puan alır. Beyaz, ikinci oynadığı için ayrıca 7,5 puan alır, bu yüzden oyun asla berabere bitmez.
 # Esir Go
-Yeni başlayanlar ve çocuklar için ilk oyun, 9×9 ya da 13×13 tahtada (esir alınan bir taşın olduğu kartlar). Go kuralları, ama ilk esir alan oyuncu hemen kazanır. Pas ve sayım yoktur. Oynayacak yeri kalmayan oyuncu (her boş noktada taşının hiç özgürlüğü kalmayacaksa) kaybeder.
-# Cihazda oynamak
-İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Her şerit, o oyuncunun esir aldığı taşları ve sayım sırasında puanı gösterir.
+Yeni başlayanlar için ilk oyun: ilk esir alan oyuncu hemen kazanır. Pas ve sayım yoktur. Oynayacak yeri kalmayan oyuncu kaybeder.

@@ -1,25 +1,18 @@
 Janggi
 # Cíl hry
-Dej soupeřovu generálovi mat: napadni ho tak, aby nemohl uniknout. Cho (modrozelený) táhne první, potom Han (červený); hráči se střídají, každý jedním tahem.
+Dej soupeřovu generálovi mat. Cho (modrozelený) táhne první, potom Han (červený).
 # Deska
-Figury stojí na bodech, kde se kříží čáry, ne v polích. Není tu žádná řeka. Každá strana má palác: 3×3 body označené křížem, kde žije generál a jeho strážci. Diagonály paláců jsou také čáry.
-# Figury
-Každá figura nese svůj čínský znak v barvě inkoustu své strany; generálové nesou jména stran, Cho a Han. Figury jsou osmiúhelníky, jejichž velikost odpovídá hodnosti: generál je největší, strážci a vojáci nejmenší. Každá strana začíná, zleva ze svého pohledu: vůz, kůň, slon, strážce, strážce, slon, kůň, vůz v zadní řadě, generál uprostřed paláce, dvě děla před koňmi a pět vojáků. Tato aplikace vždy používá toto rozestavení (koně vně, slony uvnitř); ostatní tři uspořádání koní a slonů nejsou k dispozici.
+Figury stojí na bodech, ne v polích. Není tu žádná řeka. Diagonály paláců jsou také čáry.
 # Jak se figury pohybují
 - Generál a strážce: o jeden bod po čáře paláce, včetně diagonál, aniž by ho opustili.
 - Kůň: o jeden bod rovně, potom o jeden bod šikmo směrem ven. Je zablokován, pokud je první bod obsazený.
 - Slon: o jeden bod rovně, potom o dva body šikmo směrem ven. Je zablokován, pokud je obsazený kterýkoli bod, přes který přechází.
-- Vůz: o libovolný počet bodů po čáře, jako věž v šachu, a po diagonálách paláce.
-- Dělo: táhne i bere jen tak, že přeskočí přesně jednu figuru (kterékoli strany) na své čáře, včetně diagonál paláce. Nesmí přeskočit dělo a nesmí dělo vzít.
-- Voják: o jeden bod vpřed nebo do strany, nikdy zpět. V soupeřově paláci smí táhnout i vpřed po diagonále.
-Figura bere tak, že vstoupí na bod obsazený soupeřovou figurou, která opouští desku.
+- Vůz: o libovolný počet bodů po čáře a po diagonálách paláce.
+- Dělo: táhne i bere jen tak, že přeskočí přesně jednu figuru na své čáře, včetně diagonál paláce. Nesmí přeskočit dělo a nesmí dělo vzít.
+- Voják: o jeden bod vpřed nebo do strany. V soupeřově paláci smí táhnout i vpřed po diagonále.
 # Pasování
-Místo tahu smí hráč pasovat, pokud není v šachu. Hráč, který nemá žádný povolený tah, ale není v šachu, musí pasovat.
+Místo tahu smíš pasovat, pokud nejsi v šachu. Hráč, který nemá žádný povolený tah, ale není v šachu, musí pasovat.
 # Šach a konec partie
-Napadený generál je v šachu: další tah ho musí ze šachu dostat. Nikdy nesmíš zahrát tah, po kterém by tvůj vlastní generál zůstal v šachu.
+Nikdy nesmíš nechat svého generála v šachu ani nechat oba generály stát proti sobě na stejném sloupci, aniž by mezi nimi něco bylo.
 - Mat: generál je v šachu a žádný tah ho nemůže zachránit. Tento hráč prohrává.
-- Generálové tváří v tvář: tah nesmí nechat oba generály stát proti sobě na stejném sloupci, aniž by mezi nimi něco bylo. (Podle jiných pravidel je to nabídka remízy; zde to prostě není dovoleno.)
-- Remízy: když se stejná pozice zopakuje potřetí se stejným hráčem na tahu, partie končí remízou (stejně tak po čtyřech pasech za sebou). Partie o tisíci tazích každé strany je také remíza.
-- Počítání bodů, které ukončuje některé partie, se nepoužívá: hra pokračuje až do matu nebo remízy.
-# Hra na zařízení
-Klepni na figuru a uvidíš, kam může táhnout, potom klepni na bod, nebo figuru přetáhni. Tečky ukazují tahy, kroužky braní. Generál v šachu svítí červeně. Tlačítko pasu je v liště hráče na tahu. Každá lišta ukazuje figury, které daný hráč vzal.
+- Remíza: stejná pozice potřetí se stejným hráčem na tahu (stejně tak čtyři pasy za sebou), nebo tisíc tahů každé strany. Body se nepočítají.

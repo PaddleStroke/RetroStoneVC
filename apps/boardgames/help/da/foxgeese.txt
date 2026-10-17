@@ -1,20 +1,13 @@
 Ræv og gæs
 # Målet
-Den ene spiller har tretten gæs, den anden en enkelt ræv. Gæssene vinder ved at spærre ræven inde, så den ikke kan flytte. Ræven vinder ved at tage gæs, indtil der er færre end ni tilbage.
-# Brættet
-Brættet er et kors af 33 punkter forbundet med linjer: langs rækkerne, langs kolonnerne og langs de diagonaler, der er tegnet på det. Brikkerne flytter kun langs disse linjer, fra ét punkt til det næste.
-# Starten
-Gæssene (lyse) står på korsets nederste arm og på hele rækken over den. Ræven (mørk) starter i midten. Gæssene trækker først.
+Tretten gæs mod en enkelt ræv. Gæssene vinder ved at spærre ræven inde, så den ikke kan flytte. Ræven vinder ved at tage gæs, indtil der er færre end ni tilbage. Gæssene trækker først.
 # Gæssene
-- En gås flytter langs en linje til det næste punkt, hvis det er tomt: fremad, skråt fremad eller til siden, aldrig bagud.
-- Gæs springer aldrig og tager aldrig ræven.
+En gås flytter langs en linje til det næste punkt, hvis det er tomt: fremad, skråt fremad eller til siden, aldrig bagud. Gæs springer aldrig og tager aldrig ræven.
 # Ræven
 - Ræven flytter langs en linje til det næste punkt, hvis det er tomt, i alle retninger.
-- Eller den springer langs en linje over en gås ved siden af sig, til det tomme punkt lige bagved, og tager den gås af brættet.
-- Det er ikke tvungent at springe. Men når ræven først har sprunget, skal den blive ved med at springe, én gås ad gangen, så længe den kan.
+- Eller den springer langs en linje over en gås ved siden af sig, til det tomme punkt lige bagved, og tager den gås.
+- Det er ikke tvungent at springe. Men når ræven først har sprunget, skal den blive ved med at springe, så længe den kan.
 # Spillets afslutning
 - Gæssene vinder, når ræven hverken kan flytte eller springe.
 - Ræven vinder, når der er færre end ni gæs tilbage, eller når gæssene ikke kan flytte.
 - Spillet er uafgjort, når den samme stilling opstår for tredje gang, eller efter halvtreds træk hver uden slag og uden at en gås flytter fremad.
-# Spil på enheden
-Tryk på en gås og derefter på dens nye punkt, eller træk den. Når det er rævens tur, er ræven allerede taget op: tryk på det punkt, den flytter til, eller træk den. De gæs, den kan tage, har en ring: tryk på ringen, eller på punktet bagved, for at springe. Ved en række spring trykker du på hvert næste spring.

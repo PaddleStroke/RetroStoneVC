@@ -1,12 +1,9 @@
 Hex
 # Målet
-Forbind dine to sider af brættet med en ubrudt kæde af dine sten. Hvid (lys) forbinder top og bund, sort (mørk) forbinder venstre og højre: hver side er malet i farven på den spiller, der skal forbinde den. Hvid starter. Vælg bræt før spillet: 7×7 til et hurtigt spil, 9×9 eller 11×11.
+Forbind dine to sider af brættet, der er malet i din farve, med en ubrudt kæde af dine sten. Hvid starter.
 # Sådan spiller du
 - Skiftevis lægger hver spiller én sten på et vilkårligt tomt felt. Sten flytter aldrig og bliver aldrig fanget.
-- To af dine sten er forbundet, når deres felter rører hinanden langs en kant: hvert felt har seks naboer.
-- Den første spiller, der forbinder sine to sider, vinder. Hjørnefelterne hører til begge de sider, der mødes der.
-- Spillet bliver aldrig uafgjort: når brættet er fuldt, har en af spillerne altid forbundet sine sider.
+- To af dine sten er forbundet, når deres felter rører hinanden langs en kant. Hjørnefelterne hører til begge de sider, der mødes der.
+- Spillet bliver aldrig uafgjort.
 # Byttet
-At spille først er en stor fordel. For at udligne det må sort, kun i det andet træk, overtage hvids første sten i stedet for at lægge en. Stenen bliver sort og flytter til sit spejlfelt på den anden side af den lange diagonal (linjen fra øverste venstre hjørne til nederste højre hjørne), så den står for sort, præcis som den stod for hvid. Derefter spiller hvid igen. Hvid bør derfor åbne med et træk, der hverken er for stærkt eller for svagt.
-# Spil på enheden
-Tryk på et tomt felt for at lægge din sten. På brættet med 11×11 felter viser det første tryk en bleg sten, og et andet tryk på samme felt lægger den: det gør små felter lette at ramme. For at bytte trykker sort på hvids første sten: en bleg sten viser, hvor den kommer hen, og et andet tryk bytter. Når en spiller vinder, lyser vedkommendes kæde op i guld.
+Kun i det andet træk må sort overtage hvids første sten i stedet for at lægge en: stenen bliver sort og flytter til sit spejlfelt på den anden side af den lange diagonal. Derefter spiller hvid igen. For at bytte trykker sort på hvids første sten.

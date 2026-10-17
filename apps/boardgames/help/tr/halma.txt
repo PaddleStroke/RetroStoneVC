@@ -1,14 +1,10 @@
 Çin Daması
 # Amaç
-On bilyenin hepsini yıldızın karşı tarafına, kendi köşenin tam karşısındaki köşeye götür. Tahta, 121 delikli altı köşeli bir yıldızdır. Açık renk başta alttaki köşede, koyu renk üstteki köşededir; bu köşeler onların renklerine boyanmıştır. Diğer dört köşe boş kalır. Önce açık renk oynar.
-İki, üç, dört ya da altı kişi oynayabilir: kaç kişi olacağını oyundan önce seç. Açık renk her zaman alttaki köşeden başlar, diğerleri de oynama sırasına göre yıldızın çevresinde saat yönünde onu izler: üç kişide birer köşe atlanarak, böylece herkes boş bir köşeye gider; dört kişide karşılıklı iki köşe çifti; altı kişide bütün köşeler. İkiden fazla oyuncu varken hedef köşende kalmış herhangi bir oyuncunun bilyeleri senin lehine sayılır, hiç hamlesi olmayan oyuncu da sırasını geçer; oyun ancak kimse hamle yapamazsa berabere biter.
+On bilyenin hepsini yıldızın öbür tarafına, kendi köşenin tam karşısındaki köşeye götür. Önce açık renk oynar, sonra diğerleri yıldızın çevresinde saat yönünde oynar.
 # Bir hamle
-Sıra sende olduğunda, bilyelerinden birini iki yoldan biriyle oynat:
-- Bir adım: yanındaki boş bir deliğe. Her deliğin, yıldızın çizgileri boyunca en fazla altı komşusu vardır.
-- Atlamalar: yanındaki bir bilyenin üzerinden, rengi ne olursa olsun, hemen arkasındaki boş deliğe, düz bir çizgide. Oradan aynı bilye, istediğin kadar ve istediğin yöne yeniden atlayabilir, ama bu hamlede daha önce bulunduğu bir deliğe asla geri dönemez.
-- Hiçbir zaman taş alınmaz: üzerinden atlanan bilyeler yerinde kalır.
-- Bir hamlede adım ve atlamalar karıştırılamaz. Bilyeler boş köşelerden geçebilir ve orada durabilir, ayrıca doldurmakta oldukları köşeden çıkabilir.
+Bilyelerinden birini iki yoldan biriyle oynat:
+- Bir adım: yanındaki boş bir deliğe.
+- Atlamalar: yanındaki bir bilyenin üzerinden, rengi ne olursa olsun, hemen arkasındaki boş deliğe, düz bir çizgide. Aynı bilye, istediğin kadar ve istediğin yöne yeniden atlayabilir, ama bu hamlede daha önce bulunduğu bir deliğe asla geri dönemez.
+- Hiçbir taş alınmaz. Adım ve atlamalar karıştırılamaz. Bilyeler boş köşelerden geçebilir ve orada durabilir, ayrıca doldurmakta oldukları köşeden çıkabilir.
 # Oyunun sonu
-Karşı köşeyi ilk dolduran oyuncu kazanır. Bir oyuncu bilyelerini evinde bırakarak köşeyi kapatamaz: hedef köşendeki bütün delikler dolduğu ve en az birinde senin bilyen olduğu anda, oradaki diğer deliklerin bazılarında hâlâ rakibinin bilyeleri olsa bile kazanırsın. Sırası gelen oyuncunun hiç hamlesi olmadığı çok nadir durumda oyun berabere biter.
-# Cihazda oynamak
-Bilyelerinden birine dokun: noktalar, onun bir adımla ya da bir atlama zinciriyle ulaşabileceği her deliği gösterir. Bunlardan birine dokun, bilye oraya atlaya atlaya gider. Bilyeyi deliğine sürükleyebilirsin de. Son hamlenin delikleri ışıklı kalır. Her şerit, o oyuncunun kaç bilyesinin karşı köşeye ulaştığını gösterir.
+Karşı köşeyi ilk dolduran oyuncu kazanır: oradaki bütün delikler dolduğu ve en az birinde senin bilyen olduğu anda, diğerlerinde rakibinin bilyeleri olsa bile kazanırsın. İkiden fazla oyuncu varken hedef köşende kalmış herhangi bir oyuncunun bilyeleri senin lehine sayılır, hiç hamlesi olmayan oyuncu da sırasını geçer. Sırası gelen oyuncunun hiç hamlesi yoksa (daha çok oyuncuyla: kimse hamle yapamıyorsa) oyun berabere biter.

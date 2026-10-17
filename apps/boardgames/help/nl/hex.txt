@@ -1,12 +1,9 @@
 Hex
 # Het doel
-Verbind je twee zijden van het bord met een ononderbroken keten van je stenen. Wit (licht) verbindt boven en onder, zwart (donker) verbindt links en rechts: elke zijde is geverfd in de kleur van de speler die hem moet verbinden. Wit begint. Kies het bord voor de partij: 7 bij 7 voor een snelle partij, 9 bij 9, of 11 bij 11.
+Verbind je twee zijden van het bord, geverfd in jouw kleur, met een ononderbroken keten van je stenen. Wit begint.
 # Zo speel je
 - Om de beurt legt elke speler één steen op een leeg vakje naar keuze. Stenen bewegen nooit en worden nooit geslagen.
-- Twee van je stenen zijn verbonden als hun vakjes elkaar langs een rand raken: elk vakje heeft zes buren.
-- De eerste speler die zijn twee zijden verbindt, wint. De hoekvakjes horen bij beide zijden die daar samenkomen.
-- Er is nooit gelijkspel: zodra het bord vol is, heeft altijd een van de spelers zijn zijden verbonden.
+- Twee van je stenen zijn verbonden als hun vakjes elkaar langs een rand raken. De hoekvakjes horen bij beide zijden die daar samenkomen.
+- Er is nooit gelijkspel.
 # De ruil
-Als eerste spelen is een groot voordeel. Om dat te compenseren mag zwart, alleen bij de tweede zet, de eerste steen van wit overnemen in plaats van zelf een steen te leggen. De steen wordt zwart en verhuist naar zijn spiegelvakje aan de andere kant van de lange diagonaal (de lijn van de hoek linksboven naar de hoek rechtsonder), zodat hij voor zwart precies zo staat als hij voor wit stond. Daarna speelt wit opnieuw. Wit moet dus openen met een zet die niet te sterk en niet te zwak is.
-# Spelen op het apparaat
-Tik op een leeg vakje om je steen te leggen. Op het bord van 11 bij 11 verschijnt bij de eerste tik een bleke steen, en een tweede tik op hetzelfde vakje legt hem neer: zo zijn ook kleine vakjes makkelijk te raken. Om te ruilen tikt zwart op de eerste steen van wit: een bleke steen toont waar hij heen gaat, en een tweede tik ruilt. Als een speler wint, licht zijn keten goud op.
+Alleen bij de tweede zet mag zwart de eerste steen van wit overnemen in plaats van zelf een steen te leggen: de steen wordt zwart en verhuist naar zijn spiegelvakje aan de andere kant van de lange diagonaal. Daarna speelt wit opnieuw. Om te ruilen tikt zwart op de eerste steen van wit.

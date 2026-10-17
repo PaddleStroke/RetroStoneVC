@@ -1,12 +1,9 @@
 Hex
 # Le but
-Relier tes deux bords du plateau par une chaîne ininterrompue de tes pierres. Blanc (clair) relie le haut et le bas, Noir (foncé) relie la gauche et la droite : chaque bord est peint de la couleur du joueur qui doit le relier. Blanc commence. Choisis le plateau avant la partie : 7 sur 7 pour une partie rapide, 9 sur 9, ou 11 sur 11.
+Relier tes deux bords du plateau, peints de ta couleur, par une chaîne ininterrompue de tes pierres. Blanc commence.
 # Le jeu
 - À tour de rôle, chaque joueur pose une pierre sur n'importe quelle case vide. Les pierres ne bougent jamais et ne sont jamais capturées.
-- Deux de tes pierres sont reliées quand leurs cases se touchent par un côté : chaque case a six voisines.
-- Le premier joueur qui relie ses deux bords gagne. Les cases des coins appartiennent aux deux bords qui s'y rejoignent.
-- Il n'y a jamais de partie nulle : une fois le plateau plein, l'un des joueurs a forcément relié ses bords.
+- Deux de tes pierres sont reliées quand leurs cases se touchent par un côté. Les cases des coins appartiennent aux deux bords qui s'y rejoignent.
+- Il n'y a jamais de partie nulle.
 # L'échange
-Jouer en premier est un gros avantage. Pour l'équilibrer, au deuxième coup seulement, Noir peut prendre la première pierre de Blanc au lieu de poser une pierre. La pierre devient noire et passe sur sa case symétrique par rapport à la grande diagonale (la ligne qui va du coin en haut à gauche au coin en bas à droite), de sorte qu'elle joue pour Noir exactement comme elle jouait pour Blanc. Puis Blanc rejoue. Blanc a donc intérêt à ouvrir par un coup ni trop fort ni trop faible.
-# Jouer sur l'appareil
-Touche une case vide pour y poser ta pierre. Sur le plateau de 11 sur 11, au premier toucher une pierre pâle apparaît, et un second toucher sur la même case la pose : ainsi, même les petites cases sont faciles à viser. Pour l'échange, Noir touche la première pierre de Blanc : une pierre pâle montre où elle va, et un second toucher fait l'échange. Quand un joueur gagne, sa chaîne s'illumine en or.
+Au deuxième coup seulement, Noir peut prendre la première pierre de Blanc au lieu de poser une pierre : elle devient noire et passe sur sa case symétrique par rapport à la grande diagonale. Puis Blanc rejoue. Pour l'échange, Noir touche la première pierre de Blanc.

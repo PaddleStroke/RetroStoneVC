@@ -1,20 +1,13 @@
 Rubah dan Angsa
 # Tujuan
-Satu pemain punya tiga belas angsa, pemain lainnya hanya seekor rubah. Angsa menang jika berhasil mengepung rubah sampai rubah tidak bisa bergerak. Rubah menang jika memakan angsa sampai tersisa kurang dari sembilan.
-# Papan
-Papan berbentuk salib dengan 33 titik yang dihubungkan garis: di sepanjang baris, di sepanjang kolom, dan di sepanjang diagonal yang tergambar di papan. Bidak hanya bergerak di sepanjang garis-garis ini, dari satu titik ke titik berikutnya.
-# Awal permainan
-Angsa (terang) berdiri di lengan bawah salib dan di seluruh baris tepat di atasnya. Rubah (gelap) mulai di tengah. Angsa jalan lebih dulu.
+Tiga belas angsa melawan seekor rubah. Angsa menang jika berhasil mengepung rubah sampai rubah tidak bisa bergerak. Rubah menang jika memakan angsa sampai tersisa kurang dari sembilan. Angsa jalan lebih dulu.
 # Angsa
-- Angsa bergerak di sepanjang garis ke titik berikutnya, jika titik itu kosong: maju, maju secara diagonal, atau ke samping, tidak pernah mundur.
-- Angsa tidak pernah melompat dan tidak pernah memakan rubah.
+Angsa bergerak di sepanjang garis ke titik berikutnya, jika titik itu kosong: maju, maju secara diagonal, atau ke samping, tidak pernah mundur. Angsa tidak pernah melompat dan tidak pernah memakan rubah.
 # Rubah
 - Rubah bergerak di sepanjang garis ke titik berikutnya, jika titik itu kosong, ke arah mana pun.
-- Atau rubah melompati angsa di sebelahnya, di sepanjang garis, ke titik kosong tepat di belakangnya, lalu angsa itu diangkat dari papan.
-- Melompat tidak wajib. Tetapi begitu rubah sudah melompat, rubah harus terus melompat, satu angsa setiap kali, selama masih bisa.
+- Atau rubah melompati angsa di sebelahnya, di sepanjang garis, ke titik kosong tepat di belakangnya, lalu memakan angsa itu.
+- Melompat tidak wajib. Tetapi begitu rubah sudah melompat, rubah harus terus melompat selama masih bisa.
 # Akhir permainan
 - Angsa menang jika rubah tidak bisa bergerak atau melompat.
 - Rubah menang jika angsa tersisa kurang dari sembilan, atau jika angsa tidak bisa bergerak.
 - Permainan berakhir seri jika posisi yang sama muncul untuk ketiga kalinya, atau setelah masing-masing pihak melangkah lima puluh kali tanpa ada yang dimakan dan tanpa ada angsa yang maju.
-# Bermain di perangkat
-Ketuk seekor angsa lalu titik barunya, atau seret angsa itu. Saat giliran rubah, rubah sudah langsung terambil: ketuk titik tujuannya, atau seret rubah itu. Angsa yang bisa dimakannya diberi lingkaran: ketuk lingkaran itu, atau titik di belakangnya, untuk melompat. Dalam lompatan beruntun, ketuk setiap lompatan berikutnya.

@@ -1,20 +1,12 @@
 Gomoku
 # Het doel
-Maak als eerste een ononderbroken rij van vijf stenen van je kleur: horizontaal, verticaal of diagonaal. Stenen worden gespeeld op de punten waar de lijnen elkaar kruisen, en bewegen nooit meer als ze eenmaal liggen. Zwart (donker) begint, daarna spelen de spelers om de beurt, elk één steen.
+Maak als eerste een ononderbroken rij van vijf stenen van je kleur: horizontaal, verticaal of diagonaal. Zwart begint. Als het bord vol raakt zonder winnende rij, eindigt de partij in gelijkspel.
 # Vrije stijl en standaard
-Kies de regels voor de partij:
-- Vrije stijl (de kaart met zes stenen op een rij): vijf of meer stenen op een rij winnen.
-- Standaard (de kaart met vijf): precies vijf stenen op een rij winnen. Een rij van zes of meer telt niet, maar de partij gaat door, en een vijf op een andere plek wint nog steeds.
-- Zes op een rij (de kaart met het grote bord): zie hieronder.
-- Renju (de kaart met het rode kruisje): zie hieronder.
+- Vrije stijl: vijf of meer stenen op een rij winnen.
+- Standaard: precies vijf stenen op een rij winnen. Een rij van zes of meer telt niet, maar de partij gaat door.
 # Zes op een rij
-Wordt gespeeld op een groter bord, 19 bij 19. Zwart begint met één steen; daarna legt elke speler bij elke beurt twee stenen. Zes of meer stenen van je kleur op een rij winnen, ook als de rij al met de eerste steen van een beurt ontstaat.
+Zwart begint met één steen; daarna legt elke speler bij elke beurt twee stenen. Zes of meer op een rij winnen, ook als de rij al met de eerste steen van een beurt ontstaat.
 # Renju
-Gespeeld op het bord van 15 bij 15, met regels die het voordeel van zwart, dat begint, beperken.
-- Opening: de eerste steen van zwart komt op het middelpunt, de eerste steen van wit ernaast en de tweede steen van zwart hoogstens twee punten van het midden. De ruil en de keuze van de vijfde zet van zwart uit toernooien zijn weggelaten.
-- Zwart mag geen dubbele drie (twee open drieën tegelijk), geen dubbele vier en geen rij van zes of meer maken, tenzij dezelfde steen vijf maakt. Als zwart aan zet is, staat op die punten een klein rood kruisje en kunnen ze niet gespeeld worden.
-- Zwart wint alleen met precies vijf op een rij. Wit heeft geen verboden punten, en vijf of meer op een rij winnen.
-# Het einde van de partij
-De eerste speler die een winnende rij maakt, wint meteen. Als het bord vol raakt zonder winnende rij, eindigt de partij in gelijkspel.
-# Spelen op het apparaat
-Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. De winnende rij licht goud op. Bij zes op een rij toont je balk de stenen die je deze beurt nog moet leggen, en de eerste steen van het paar blijft gemarkeerd tot je de tweede legt. Ongedaan maken neemt één steen tegelijk terug.
+- Opening: de eerste steen van zwart komt op het middelpunt, de eerste steen van wit ernaast en de tweede steen van zwart hoogstens twee punten van het midden.
+- Zwart mag geen dubbele drie, geen dubbele vier en geen rij van zes of meer maken, tenzij dezelfde steen vijf maakt. Op die punten staat een klein rood kruisje.
+- Zwart wint alleen met precies vijf op een rij. Wit wint met vijf of meer.

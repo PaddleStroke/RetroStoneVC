@@ -1,17 +1,14 @@
 Go
 # Målet
-Omring en større del av brettet enn motstanderen. Steinene spilles på punktene der linjene krysser hverandre, og flyttes aldri når de først er spilt. Svart (mørk) begynner. Velg brett før spillet: 9×9 for et raskt spill, 13×13 eller hele 19×19.
+Omring en større del av brettet enn motstanderen. Steinene spilles på punktene og flyttes aldri. Svart begynner.
 # Friheter og fangst
 - De tomme punktene ved siden av en stein, langs linjene, er dens friheter. Steiner av samme farge som berører hverandre langs linjene, danner en gruppe og deler frihetene sine.
 - Når du tar en gruppes siste frihet, blir den fanget: steinene dens forlater brettet.
 - Du kan ikke spille en stein som ikke ville hatt noen frihet, med mindre den fanger noe og dermed får en.
-- Ko: du kan ikke gjøre et trekk som gjenskaper en stilling som har vært før. Når én enkelt stein er fanget og kunne blitt tatt rett tilbake, må du først spille et annet sted.
+- Ko: ingen trekk kan gjenskape en stilling som har vært før. Når én enkelt stein kunne blitt tatt rett tilbake, må du først spille et annet sted.
 # Pass og opptelling
-I stedet for å spille kan du passe. Når begge spillerne passer rett etter hverandre, stopper spillet og opptellingen begynner.
-- Trykk på gruppene som ikke kunne leve (døde steiner): de teller som fanget. Trykk igjen for å hente en gruppe tilbake.
-- Når dere er enige, trykk på pass-knappen: ferdig.
-- Hver spiller får ett poeng for hver av sine steiner på brettet og for hvert tomme punkt som bare vedkommende omringer. Hvit (lys) får i tillegg 7,5 poeng for å spille som nummer to (komi), så det blir aldri uavgjort. Høyest poengsum vinner.
+I stedet for å spille kan du passe. Når begge spillerne passer rett etter hverandre, stopper spillet for opptelling.
+- Trykk på gruppene som ikke kunne leve: de teller som fanget. Når dere er enige, trykk på pass-knappen.
+- Hver spiller får ett poeng for hver av sine steiner på brettet og for hvert tomme punkt som bare vedkommende omringer. Hvit får i tillegg 7,5 poeng for å spille som nummer to, så det blir aldri uavgjort.
 # Fange-go
-Et første spill for nybegynnere og barn, på brettet med 9×9 eller 13×13 punkter (kortene med en stein som blir fanget). Reglene for go, men den første som fanger, vinner med en gang. Man kan ikke passe, og det telles ikke opp. Den som ikke har noe sted å spille (på hvert tomt punkt ville steinen være uten frihet), taper.
-# Spill på enheten
-Det første trykket viser en blek stein, et nytt trykk på samme punkt spiller den. Slik er små punkter lette å treffe. Hvert panel viser steinene den spilleren har fanget, og poengsummen under opptellingen.
+Et første spill for nybegynnere: den første som fanger, vinner med en gang. Man kan ikke passe, og det telles ikke opp. Den som ikke har noe sted å spille, taper.

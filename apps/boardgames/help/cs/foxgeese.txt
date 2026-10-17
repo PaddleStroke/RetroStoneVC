@@ -1,20 +1,13 @@
 Liška a husy
 # Cíl hry
-Jeden hráč má třináct hus, druhý jedinou lišku. Husy vyhrají, když lišku obklíčí tak, aby se nemohla pohnout. Liška vyhraje, když bere husy, dokud jich nezbude méně než devět.
-# Deska
-Deska je kříž z 33 bodů spojených čarami: podél řad, podél sloupců a podél diagonál na ní nakreslených. Figurky se pohybují jen po těchto čarách, z jednoho bodu na další.
-# Začátek
-Husy (světlé) stojí na dolním rameni kříže a v celé řadě nad ním. Liška (tmavá) začíná uprostřed. Husy táhnou první.
+Třináct hus proti jediné lišce. Husy vyhrají, když lišku obklíčí tak, aby se nemohla pohnout. Liška vyhraje, když bere husy, dokud jich nezbude méně než devět. Husy táhnou první.
 # Husy
-- Husa se posune po čáře na další bod, pokud je volný: dopředu, šikmo dopředu nebo do strany, nikdy dozadu.
-- Husy nikdy neskáčou a nikdy neberou lišku.
+Husa se posune po čáře na další bod, pokud je volný: dopředu, šikmo dopředu nebo do strany, nikdy dozadu. Husy nikdy neskáčou a nikdy neberou lišku.
 # Liška
 - Liška se posune po čáře na další bod, pokud je volný, libovolným směrem.
-- Nebo po čáře přeskočí sousední husu na volný bod hned za ní a tuto husu odebere z desky.
-- Skákání není povinné. Jakmile ale liška skočila, musí skákat dál, vždy přes jednu husu, dokud může.
+- Nebo po čáře přeskočí sousední husu na volný bod hned za ní a tuto husu vezme.
+- Skákání není povinné. Jakmile ale liška skočila, musí skákat dál, dokud může.
 # Konec hry
 - Husy vyhrají, když se liška nemůže pohnout ani skočit.
 - Liška vyhraje, když zbude méně než devět hus, nebo když se husy nemohou pohnout.
 - Hra končí remízou, když se stejná pozice zopakuje potřetí, nebo po padesáti tazích každé strany bez braní a bez tahu husy dopředu.
-# Hra na zařízení
-Klepni na husu a pak na její nový bod, nebo ji přetáhni. Když je na tahu liška, je už zvednutá: klepni na bod, kam táhne, nebo ji přetáhni. Husy, které může vzít, mají kroužek: klepni na kroužek, nebo na bod za ním, a liška skočí. Při sérii skoků klepni postupně na každý další skok.

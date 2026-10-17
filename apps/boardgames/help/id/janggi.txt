@@ -1,25 +1,18 @@
 Janggi
 # Tujuan
-Skakmat jenderal lawan: serang jenderal itu sehingga tidak bisa lolos. Cho (biru kehijauan) jalan lebih dulu, lalu Han (merah); para pemain bergiliran, masing-masing satu langkah.
+Skakmat jenderal lawan. Cho (biru kehijauan) jalan lebih dulu, lalu Han (merah).
 # Papan
-Bidak berdiri di titik-titik persilangan garis, bukan di dalam kotak. Tidak ada sungai. Setiap pihak punya istana: tiga kali tiga titik yang ditandai silang, tempat tinggal jenderal dan para pengawalnya. Diagonal di dalam istana juga merupakan garis.
-# Bidak
-Setiap bidak memuat huruf Tionghoanya dengan tinta warna pihaknya; para jenderal memuat nama pihaknya, Cho dan Han. Bidak berbentuk segi delapan dengan ukuran sesuai pangkatnya: jenderal paling besar, pengawal dan prajurit paling kecil. Setiap pihak memulai dengan, dari kirinya: kereta, kuda, gajah, pengawal, pengawal, gajah, kuda, kereta di baris belakang, jenderal di tengah istana, kedua meriam di depan kuda, dan lima prajurit. Aplikasi ini selalu memakai susunan ini (kuda di sisi luar, gajah di sisi dalam); tiga susunan kuda dan gajah lainnya tidak tersedia.
+Bidak berdiri di titik-titik, bukan di dalam kotak. Tidak ada sungai. Diagonal di dalam istana juga merupakan garis.
 # Cara bidak bergerak
 - Jenderal dan pengawal: satu titik di sepanjang garis istana, termasuk diagonalnya, tanpa keluar dari istana.
 - Kuda: satu titik lurus, lalu satu titik secara diagonal ke arah luar. Kuda terhalang jika titik pertama terisi.
 - Gajah: satu titik lurus, lalu dua titik secara diagonal ke arah luar. Gajah terhalang jika salah satu titik yang dilewatinya terisi.
-- Kereta: berapa pun titik di sepanjang garis, seperti benteng dalam catur, dan di sepanjang diagonal istana.
-- Meriam: bergerak dan memakan hanya dengan melompati tepat satu bidak (milik pihak mana pun) di garisnya, termasuk diagonal istana. Meriam tidak boleh melompati meriam, dan tidak boleh memakan meriam.
-- Prajurit: satu titik maju atau ke samping, tidak pernah mundur. Di istana lawan, prajurit juga boleh maju di sepanjang diagonal.
-Bidak memakan dengan pindah ke titik yang ditempati bidak lawan, yang kemudian keluar dari papan.
+- Kereta: berapa pun titik di sepanjang garis, dan di sepanjang diagonal istana.
+- Meriam: bergerak dan memakan hanya dengan melompati tepat satu bidak di garisnya, termasuk diagonal istana. Meriam tidak boleh melompati atau memakan meriam.
+- Prajurit: satu titik maju atau ke samping. Di istana lawan, prajurit juga boleh maju di sepanjang diagonal.
 # Pas
-Alih-alih melangkah, pemain boleh pas, kecuali saat sedang diskak. Pemain yang tidak punya langkah sah tetapi tidak sedang diskak harus pas.
+Alih-alih melangkah, kamu boleh pas, kecuali saat sedang diskak. Pemain yang tidak punya langkah sah tetapi tidak sedang diskak harus pas.
 # Skak dan akhir permainan
-Jenderal yang diserang berarti sedang diskak: langkah berikutnya harus membebaskannya dari skak. Kamu tidak boleh membuat langkah yang membiarkan jenderalmu sendiri dalam keadaan skak.
+Kamu tidak boleh membiarkan jenderalmu sendiri dalam keadaan skak, atau membiarkan kedua jenderal saling berhadapan di satu kolom tanpa ada apa pun di antara keduanya.
 - Skakmat: jenderal sedang diskak dan tidak ada langkah yang bisa menyelamatkannya. Pemain itu kalah.
-- Jenderal saling berhadapan: sebuah langkah tidak boleh membuat kedua jenderal saling berhadapan di kolom yang sama tanpa ada apa pun di antara keduanya. (Aturan lain menjadikannya tawaran remis; di sini hal itu sama sekali tidak diizinkan.)
-- Remis: jika posisi yang sama muncul untuk ketiga kalinya dengan pemain yang sama mendapat giliran, permainan berakhir remis (empat kali pas berturut-turut juga). Permainan yang mencapai seribu langkah untuk masing-masing pihak juga berakhir remis.
-- Penghitungan poin yang mengakhiri sebagian permainan tidak dipakai: permainan berlanjut sampai skakmat atau remis.
-# Bermain di perangkat
-Ketuk bidak untuk melihat ke mana bidak itu bisa bergerak, lalu ketuk titik tujuan, atau seret bidaknya. Titik-titik kecil menunjukkan langkah, lingkaran menunjukkan bidak yang bisa dimakan. Jenderal yang diskak menyala merah. Tombol pas ada di bilah pemain yang mendapat giliran. Setiap bilah menunjukkan bidak yang telah dimakan pemain itu.
+- Remis: posisi yang sama untuk ketiga kalinya dengan pemain yang sama mendapat giliran (empat kali pas berturut-turut juga), atau seribu langkah untuk masing-masing pihak. Tidak ada penghitungan poin.

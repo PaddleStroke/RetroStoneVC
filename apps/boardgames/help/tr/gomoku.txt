@@ -1,20 +1,12 @@
 Gomoku
 # Amaç
-Kendi renginden beş taşı kesintisiz bir sıraya ilk dizen sen ol: yatay, dikey ya da çapraz. Taşlar çizgilerin kesiştiği noktalara oynanır ve oynandıktan sonra asla yer değiştirmez. Önce siyah (koyu) oynar, sonra oyuncular sırayla birer taş koyar.
+Kendi renginden beş taşı kesintisiz bir sıraya ilk dizen sen ol: yatay, dikey ya da çapraz. Önce siyah oynar. Tahta, kazandıran bir sıra oluşmadan dolarsa oyun berabere biter.
 # Serbest ve standart
-Oyundan önce kuralları seç:
-- Serbest (sırada altı taş olan kart): sırada beş ya da daha fazla taş kazanır.
-- Standart (beş taşlı kart): sırada tam beş taş kazanır. Altı ya da daha uzun bir sıra sayılmaz, ama oyun devam eder ve başka bir yerde yapılan beşli yine kazanır.
-- Altılı Dizi (büyük tahtalı kart): aşağıya bakın.
-- Renju (kırmızı çarpılı kart): aşağıya bakın.
+- Serbest: sırada beş ya da daha fazla taş kazanır.
+- Standart: sırada tam beş taş kazanır. Altı ya da daha uzun bir sıra sayılmaz, ama oyun devam eder.
 # Altılı Dizi
-Daha büyük, 19'a 19'luk bir tahtada oynanır. Siyah başlarken tek taş koyar; ondan sonra her oyuncu her sırasında iki taş koyar. Kendi renginden altı ya da daha fazla taşı bir sıraya dizen kazanır; sıra, turun ilk taşıyla tamamlansa bile.
+Siyah başlarken tek taş koyar; ondan sonra her oyuncu her sırasında iki taş koyar. Sırada altı ya da daha fazla taş kazanır; sıra, turun ilk taşıyla tamamlansa bile.
 # Renju
-15×15 tahtada, ilk başlayan Siyah'ın avantajını sınırlayan kurallarla oynanır.
-- Açılış: Siyah'ın ilk taşı merkez noktaya, Beyaz'ın ilk taşı onun hemen yanına, Siyah'ın ikinci taşı da merkeze en fazla iki nokta uzağa konur. Turnuvalardaki değiş tokuş ve Siyah'ın beşinci hamlesinin seçimi uygulanmaz.
-- Siyah çift üçlü (aynı anda iki açık üçlü), çift dörtlü ya da altı veya daha uzun bir sıra yapamaz; ancak aynı taş beşli yapıyorsa yapabilir. Sıra Siyah'tayken bu noktalarda küçük kırmızı bir çarpı olur ve buralara oynanamaz.
-- Siyah yalnızca tam beşli sırayla kazanır. Beyaz'ın yasak noktası yoktur ve beş ya da daha fazla taşlık sıra kazanır.
-# Oyunun sonu
-Kazandıran sırayı ilk yapan oyuncu hemen kazanır. Tahta, kazandıran bir sıra oluşmadan dolarsa oyun berabere biter.
-# Cihazda oynamak
-İlk dokunuş soluk bir taş gösterir, aynı noktaya ikinci dokunuş onu oynar. Böylece küçük noktalara dokunmak kolaylaşır. Kazandıran sıra altın renginde parlar. Altılı Dizi'de şeridin bu turda daha koyacağın taşları gösterir ve çiftin ilk taşı, ikincisini koyana dek vurgulu kalır. Geri al taşları birer birer geri alır.
+- Açılış: Siyah'ın ilk taşı merkez noktaya, Beyaz'ın ilk taşı onun hemen yanına, Siyah'ın ikinci taşı da merkeze en fazla iki nokta uzağa konur.
+- Siyah çift üçlü, çift dörtlü ya da altı veya daha uzun bir sıra yapamaz; ancak aynı taş beşli yapıyorsa yapabilir. Bu noktalarda küçük kırmızı bir çarpı olur.
+- Siyah yalnızca tam beşli sırayla kazanır. Beyaz beş ya da daha fazla taşlık sırayla kazanır.

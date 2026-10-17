@@ -1,25 +1,18 @@
 Janggi
 # Das Ziel
-Setze den gegnerischen General matt: Greife ihn so an, dass er nicht entkommen kann. Cho (blaugrün) beginnt, dann Han (rot); die Spieler ziehen abwechselnd, jeder einen Zug.
+Setze den gegnerischen General matt. Cho (blaugrün) beginnt, dann Han (rot).
 # Das Brett
-Die Figuren stehen auf den Schnittpunkten der Linien, nicht in den Feldern. Es gibt keinen Fluss. Jede Seite hat einen Palast: die drei mal drei Punkte, die mit einem Kreuz markiert sind, wo der General und seine Leibwächter wohnen. Die Diagonalen der Paläste sind ebenfalls Linien.
-# Die Figuren
-Jede Figur trägt ihr chinesisches Schriftzeichen in der Tinte ihrer Seite; die Generäle tragen die Namen der Seiten, Cho und Han. Die Figuren sind Achtecke, deren Größe sich nach dem Rang richtet: der General am größten, die Leibwächter und Soldaten am kleinsten. Jede Seite beginnt, von links aus: Wagen, Pferd, Elefant, Leibwächter, Leibwächter, Elefant, Pferd, Wagen auf der Grundreihe, der General in der Mitte des Palasts, die beiden Kanonen vor den Pferden und fünf Soldaten. Diese App verwendet immer diese Aufstellung (die Pferde außen, die Elefanten innen); die drei anderen Anordnungen von Pferden und Elefanten werden nicht angeboten.
+Die Figuren stehen auf den Punkten, nicht in den Feldern. Es gibt keinen Fluss. Die Diagonalen der Paläste sind ebenfalls Linien.
 # So ziehen die Figuren
 - General und Leibwächter: einen Punkt entlang einer Linie des Palasts, die Diagonalen eingeschlossen, ohne ihn zu verlassen.
 - Pferd: einen Punkt geradeaus, dann einen Punkt diagonal nach außen. Es ist blockiert, wenn der erste Punkt besetzt ist.
 - Elefant: einen Punkt geradeaus, dann zwei Punkte diagonal nach außen. Er ist blockiert, wenn einer der Punkte, die er überquert, besetzt ist.
-- Wagen: beliebig viele Punkte entlang einer Linie, wie ein Turm im Schach, und entlang der Diagonalen eines Palasts.
-- Kanone: zieht und schlägt nur, indem sie auf ihrer Linie über genau eine Figur (gleich welcher Seite) springt, die Diagonalen eines Palasts eingeschlossen. Sie darf nicht über eine Kanone springen und keine Kanone schlagen.
-- Soldat: einen Punkt vorwärts oder zur Seite, nie zurück. Im gegnerischen Palast darf er auch entlang einer Diagonale vorwärts ziehen.
-Eine Figur schlägt, indem sie auf einen Punkt zieht, auf dem eine gegnerische Figur steht; diese verlässt das Brett.
+- Wagen: beliebig viele Punkte entlang einer Linie, und entlang der Diagonalen eines Palasts.
+- Kanone: zieht und schlägt nur, indem sie auf ihrer Linie über genau eine Figur springt, die Diagonalen eines Palasts eingeschlossen. Sie darf nicht über eine Kanone springen und keine Kanone schlagen.
+- Soldat: einen Punkt vorwärts oder zur Seite. Im gegnerischen Palast darf er auch entlang einer Diagonale vorwärts ziehen.
 # Passen
-Statt zu ziehen, darf ein Spieler passen, außer wenn er im Schach steht. Ein Spieler, der keinen erlaubten Zug hat, aber nicht im Schach steht, muss passen.
+Statt zu ziehen, darfst du passen, außer wenn du im Schach stehst. Ein Spieler, der keinen erlaubten Zug hat, aber nicht im Schach steht, muss passen.
 # Schach und das Ende der Partie
-Ein angegriffener General steht im Schach: Der nächste Zug muss das Schach aufheben. Du darfst nie einen Zug machen, nach dem dein eigener General im Schach steht.
+Du darfst deinen eigenen General nie im Schach lassen, und die beiden Generäle dürfen sich nie auf einer Linie gegenüberstehen, ohne dass etwas zwischen ihnen steht.
 - Schachmatt: Der General steht im Schach und kein Zug kann ihn retten. Dieser Spieler verliert.
-- Die Generäle stehen sich gegenüber: Nach einem Zug dürfen sich die beiden Generäle nicht auf derselben Linie gegenüberstehen, ohne dass etwas zwischen ihnen steht. (Nach anderen Regeln ist das ein Remisangebot; hier ist es einfach nicht erlaubt.)
-- Remis: Entsteht dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug, endet die Partie remis (vier Pässe hintereinander bewirken das auch). Eine Partie von tausend Zügen jeder Seite ist ebenfalls remis.
-- Die Punktzählung, die manche Partien beendet, wird nicht verwendet: Die Partie geht weiter bis zum Matt oder zum Remis.
-# Spielen auf dem Gerät
-Tippe auf eine Figur, um zu sehen, wohin sie ziehen kann, und dann auf einen Punkt, oder schieb die Figur mit dem Finger dorthin. Punkte zeigen die Züge, Ringe das Schlagen. Ein General im Schach leuchtet rot. Die Passen-Taste ist in der Leiste des Spielers am Zug. Jede Leiste zeigt die Figuren, die der Spieler geschlagen hat.
+- Remis: dieselbe Stellung zum dritten Mal mit demselben Spieler am Zug (vier Pässe hintereinander bewirken das auch), oder tausend Züge jeder Seite. Es gibt keine Punktzählung.

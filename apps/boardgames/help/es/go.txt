@@ -1,17 +1,14 @@
 Go
 # El objetivo
-Rodear más parte del tablero que el otro jugador. Las piedras se juegan en los puntos donde se cruzan las líneas y, una vez jugadas, no se mueven nunca. Empiezan las negras (oscuras). Elige el tablero antes de la partida: 9 por 9 para una partida rápida, 13 por 13, o el completo de 19 por 19.
+Rodear más parte del tablero que el otro jugador. Las piedras se juegan en los puntos y no se mueven nunca. Empiezan las negras.
 # Libertades y capturas
-- Los puntos vacíos junto a una piedra, a lo largo de las líneas, son sus libertades. Las piedras del mismo color que se tocan a lo largo de las líneas forman un grupo y comparten sus libertades.
+- Los puntos vacíos junto a una piedra, a lo largo de las líneas, son sus libertades. Las piedras de un mismo color que se tocan a lo largo de las líneas forman un grupo y comparten sus libertades.
 - Cuando quitas la última libertad de un grupo, queda capturado: sus piedras salen del tablero.
 - No puedes jugar una piedra que se quedaría sin libertades, salvo que capture y así gane una.
-- Ko: no puedes hacer una jugada que repita una posición ya vista. Cuando se captura una sola piedra y podría recapturarse en el acto, juega primero en otro sitio.
+- Ko: ninguna jugada puede repetir una posición ya vista. Cuando una sola piedra podría recapturarse en el acto, juega primero en otro sitio.
 # Pasar y contar
-En lugar de jugar, puedes pasar. Cuando los dos jugadores pasan uno tras otro, la partida se detiene y empieza el recuento.
-- Toca los grupos que no podían vivir (piedras muertas): cuentan como capturados. Toca otra vez para recuperar un grupo.
-- Cuando ambos estén de acuerdo, toca el botón de pasar: listo.
-- Cada jugador suma un punto por cada una de sus piedras en el tablero y por cada punto vacío que solo él rodea. Las blancas (claras) reciben además 7,5 puntos por jugar en segundo lugar (el komi), así que nunca hay empate. Gana la puntuación más alta.
+En lugar de jugar, puedes pasar. Cuando los dos jugadores pasan uno tras otro, la partida se detiene para el recuento.
+- Toca los grupos que no podían vivir: cuentan como capturados. Cuando estéis de acuerdo, toca el botón de pasar.
+- Cada jugador suma un punto por cada una de sus piedras en el tablero y por cada punto vacío que solo él rodea. Las blancas reciben además 7,5 puntos por jugar en segundo lugar, así que nunca hay empate.
 # Go de captura
-Un primer juego para principiantes y niños, en el tablero de 9 por 9 o de 13 por 13 (las cartas con una piedra capturada). Las reglas del go, pero gana al instante el primer jugador que captura. No se pasa ni se cuenta. Quien no tiene dónde jugar (en cualquier punto vacío su piedra quedaría sin libertades) pierde.
-# Jugar en el dispositivo
-El primer toque muestra una piedra pálida; un segundo toque en el mismo punto la juega. Así es fácil acertar en los puntos pequeños. Cada barra muestra las piedras que ha capturado ese jugador y, durante el recuento, la puntuación.
+Un primer juego para principiantes: gana al instante el primer jugador que captura. No se pasa ni se cuenta. Quien no tiene dónde jugar pierde.

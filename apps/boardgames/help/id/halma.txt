@@ -1,14 +1,10 @@
 Dam Cina
 # Tujuan
-Pindahkan kesepuluh kelerengmu melintasi bintang ke ujung yang berseberangan dengan ujungmu sendiri. Papannya berupa bintang berujung enam dengan 121 lubang. Kelereng pihak terang mula-mula berada di ujung bawah dan pihak gelap di ujung atas, yang diwarnai dengan warna mereka; empat ujung lainnya tetap kosong. Pihak terang jalan lebih dulu.
-Dua, tiga, empat, atau enam orang bisa bermain: pilih jumlahnya sebelum permainan. Pihak terang selalu mulai di ujung bawah, dan yang lain menyusul searah jarum jam mengelilingi bintang, sesuai urutan giliran: bertiga, berselang satu ujung, sehingga masing-masing menuju ujung yang kosong; berempat, dua pasang ujung yang berseberangan; berenam, semua ujung. Jika lebih dari dua pemain, kelereng pemain mana pun yang tertinggal di ujung tujuanmu dihitung untukmu, dan pemain yang tidak punya langkah apa pun melewatkan gilirannya; permainan seri hanya jika tidak ada seorang pun yang bisa melangkah.
+Pindahkan kesepuluh kelerengmu melintasi bintang ke ujung yang berseberangan dengan ujungmu sendiri. Pihak terang jalan lebih dulu, lalu yang lain searah jarum jam mengelilingi bintang.
 # Satu langkah
-Saat giliranmu, gerakkan salah satu kelerengmu dengan salah satu dari dua cara:
-- Bergeser: ke lubang kosong di sebelahnya. Setiap lubang punya hingga enam tetangga, di sepanjang garis bintang.
-- Melompat: melewati kelereng di sebelahnya, warna apa pun, ke lubang kosong tepat di belakangnya, dalam garis lurus. Dari sana, kelereng yang sama boleh melompat lagi, sebanyak yang kamu mau dan ke arah mana pun, tetapi tidak pernah kembali ke lubang yang sudah pernah ditempatinya selama langkah ini.
-- Tidak ada yang pernah dimakan: kelereng yang dilompati tetap di tempatnya.
-- Bergeser dan melompat tidak boleh dicampur dalam satu langkah. Kelereng boleh melewati ujung yang kosong dan berhenti di sana, dan boleh meninggalkan ujung yang sedang diisinya.
+Gerakkan salah satu kelerengmu dengan salah satu dari dua cara:
+- Bergeser: ke lubang kosong di sebelahnya.
+- Melompat: melewati kelereng di sebelahnya, warna apa pun, ke lubang kosong tepat di belakangnya, dalam garis lurus. Kelereng yang sama boleh melompat lagi, sebanyak yang kamu mau dan ke arah mana pun, tetapi tidak pernah kembali ke lubang yang sudah pernah ditempatinya selama langkah ini.
+- Tidak ada yang pernah dimakan. Bergeser dan melompat tidak boleh dicampur. Kelereng boleh melewati ujung yang kosong dan berhenti di sana, dan boleh meninggalkan ujung yang sedang diisinya.
 # Akhir permainan
-Pemain pertama yang mengisi ujung seberang menang. Seorang pemain tidak bisa memblokir ujung dengan membiarkan kelerengnya tetap di rumah: begitu semua lubang di ujung tujuanmu terisi dan setidaknya satu di antaranya berisi kelerengmu, kamu menang, meskipun beberapa lubang lain di sana masih berisi kelereng lawan. Dalam kasus yang sangat jarang, yaitu pemain yang mendapat giliran sama sekali tidak bisa melangkah, permainan berakhir seri.
-# Bermain di perangkat
-Ketuk salah satu kelerengmu: titik-titik menunjukkan setiap lubang yang bisa dicapainya, dengan bergeser atau dengan rangkaian lompatan. Ketuk salah satunya dan kelereng itu melompat ke sana, lompatan demi lompatan. Kamu juga bisa menyeret kelereng ke lubangnya. Lubang-lubang dari langkah terakhir tetap menyala. Setiap bilah menunjukkan berapa banyak kelereng pemain itu yang sudah mencapai ujung seberang.
+Pemain pertama yang mengisi ujung seberang menang: begitu semua lubangnya terisi dan setidaknya satu berisi kelerengmu, kamu menang, meskipun lubang lain berisi kelereng lawan. Jika lebih dari dua pemain, kelereng pemain mana pun yang tertinggal di ujung tujuanmu dihitung untukmu, dan pemain yang tidak punya langkah melewatkan gilirannya. Jika pemain yang mendapat giliran tidak bisa melangkah (dengan lebih banyak pemain: jika tidak ada seorang pun yang bisa melangkah), permainan berakhir seri.

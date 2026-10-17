@@ -1,25 +1,18 @@
 Janggi
 # O objetivo
-Dar xeque-mate no general adversário: atacá-lo de modo que ele não possa escapar. O Cho (verde-azulado) joga primeiro, depois o Han (vermelho); os jogadores se alternam, um lance cada um.
+Dar xeque-mate no general adversário. O Cho (verde-azulado) joga primeiro, depois o Han (vermelho).
 # O tabuleiro
-As peças ficam nos pontos onde as linhas se cruzam, e não dentro das casas. Não há rio. Cada lado tem um palácio: os três por três pontos marcados com um X, onde vivem o general e os seus guardas. As diagonais dos palácios também são linhas.
-# As peças
-Cada peça traz o seu caractere chinês na tinta do seu lado; os generais trazem os nomes dos lados, Cho e Han. As peças são octógonos de tamanho conforme a hierarquia: o general é o maior, os guardas e os soldados os menores. Cada lado começa com, a partir da sua esquerda: carruagem, cavalo, elefante, guarda, guarda, elefante, cavalo, carruagem na última fileira, o general no meio do palácio, os dois canhões na frente dos cavalos e cinco soldados. Este app sempre usa essa disposição (os cavalos por fora, os elefantes por dentro); as outras três disposições dos cavalos e elefantes não são oferecidas.
+As peças ficam nos pontos, e não dentro das casas. Não há rio. As diagonais dos palácios também são linhas.
 # Como as peças se movem
 - General e guarda: um ponto ao longo de uma linha do palácio, diagonais incluídas, sem sair dele.
 - Cavalo: um ponto reto e depois um ponto na diagonal, para fora. Fica bloqueado se o primeiro ponto estiver ocupado.
 - Elefante: um ponto reto e depois dois pontos na diagonal, para fora. Fica bloqueado se algum ponto por onde passa estiver ocupado.
-- Carruagem: quantos pontos quiser ao longo de uma linha, como a torre no xadrez, e pelas diagonais de um palácio.
-- Canhão: anda e captura só pulando por cima de exatamente uma peça (de qualquer lado) na sua linha, diagonais de um palácio incluídas. Não pode pular por cima de um canhão nem capturar um canhão.
-- Soldado: um ponto para a frente ou para o lado, nunca para trás. No palácio adversário, também pode avançar por uma diagonal.
-Uma peça captura indo para um ponto ocupado por uma peça adversária, que sai do tabuleiro.
+- Carruagem: quantos pontos quiser ao longo de uma linha, e pelas diagonais de um palácio.
+- Canhão: anda e captura só pulando por cima de exatamente uma peça na sua linha, diagonais de um palácio incluídas. Não pode pular por cima de um canhão nem capturar um canhão.
+- Soldado: um ponto para a frente ou para o lado. No palácio adversário, também pode avançar por uma diagonal.
 # Passar
-Em vez de mover, um jogador pode passar, exceto quando está em xeque. Um jogador que não tem nenhum lance legal, mas não está em xeque, precisa passar.
+Em vez de mover, você pode passar, exceto quando está em xeque. Um jogador que não tem nenhum lance legal, mas não está em xeque, precisa passar.
 # O xeque e o fim da partida
-Um general atacado está em xeque: o lance seguinte precisa tirá-lo do xeque. Você nunca pode fazer um lance que deixe o seu próprio general em xeque.
+Você nunca pode deixar o seu próprio general em xeque, nem deixar os dois generais frente a frente na mesma coluna sem nada entre eles.
 - Xeque-mate: o general está em xeque e nenhum lance pode salvá-lo. Esse jogador perde.
-- Os generais frente a frente: um lance não pode deixar os dois generais frente a frente na mesma coluna sem nada entre eles. (Outras regras fazem disso uma proposta de empate; aqui simplesmente não é permitido.)
-- Empates: quando a mesma posição se repete pela terceira vez com o mesmo jogador da vez, a partida termina empatada (quatro passes seguidos também). Uma partida de mil lances de cada lado também termina empatada.
-- A contagem de pontos que encerra algumas partidas não é usada: a partida continua até o xeque-mate ou o empate.
-# Jogando no aparelho
-Toque em uma peça para ver aonde ela pode ir e depois toque em um ponto, ou arraste a peça. Os pontinhos mostram os lances, os anéis as capturas. Um general em xeque brilha em vermelho. O botão de passar fica na barra do jogador da vez. Cada barra mostra as peças que aquele jogador capturou.
+- Empate: a mesma posição pela terceira vez com o mesmo jogador da vez (quatro passes seguidos também), ou mil lances de cada lado. Não há contagem de pontos.

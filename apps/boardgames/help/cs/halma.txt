@@ -1,14 +1,10 @@
 Čínská dáma
 # Cíl hry
-Převeď všech svých deset kuliček přes hvězdu do cípu naproti tvému vlastnímu. Deska je šesticípá hvězda se 121 jamkami. Světlý hráč má kuličky na začátku v dolním cípu a tmavý v horním; oba cípy jsou zbarvené jejich barvami a čtyři ostatní cípy zůstávají prázdné. Začíná světlý hráč.
-Hrát mohou dva, tři, čtyři nebo šest hráčů: počet zvolíš před začátkem hry. Světlý hráč začíná vždy v dolním cípu a ostatní následují v pořadí tahů po směru hodinových ručiček kolem hvězdy: při třech hráčích každý druhý cíp, takže každý míří do prázdného cípu; při čtyřech dva páry protilehlých cípů; při šesti všechny cípy. Když hraje víc než dva hráči, počítají se ti kuličky kteréhokoli hráče, které zůstaly v tvém cílovém cípu, a hráč, který nemá žádný tah, vynechává; hra končí remízou, jen když nemůže táhnout nikdo.
+Převeď všech svých deset kuliček přes hvězdu do cípu naproti tvému vlastnímu. Začíná světlý hráč, potom ostatní po směru hodinových ručiček kolem hvězdy.
 # Tah
-Ve svém tahu posuň jednu ze svých kuliček jedním ze dvou způsobů:
-- Krok: do sousední prázdné jamky. Každá jamka má až šest sousedů, podél čar hvězdy.
-- Skoky: přes sousední kuličku libovolné barvy do prázdné jamky hned za ní, v přímce. Odtud smí stejná kulička skákat znovu, kolikrát chceš a libovolným směrem, ale nikdy zpět do jamky, ve které už během tohoto tahu byla.
-- Nikdy se nic nebere: přeskočené kuličky zůstávají na místě.
-- Krok a skoky nelze v jednom tahu kombinovat. Kuličky smějí procházet prázdnými cípy a zastavit se v nich a smějí opustit cíp, který právě zaplňují.
+Posuň jednu ze svých kuliček jedním ze dvou způsobů:
+- Krok: do sousední prázdné jamky.
+- Skoky: přes sousední kuličku libovolné barvy do prázdné jamky hned za ní, v přímce. Stejná kulička smí skákat znovu, kolikrát chceš a libovolným směrem, ale nikdy zpět do jamky, ve které už během tohoto tahu byla.
+- Nikdy se nic nebere. Krok a skoky nelze kombinovat. Kuličky smějí procházet prázdnými cípy a zastavit se v nich a smějí opustit cíp, který zaplňují.
 # Konec hry
-Vyhrává hráč, který jako první zaplní protější cíp. Hráč nemůže cíp zablokovat tím, že nechá kuličky doma: jakmile jsou všechny jamky tvého cílového cípu obsazené a aspoň v jedné z nich je tvoje kulička, vyhráváš, i když v některých dalších jamkách tam ještě zůstávají soupeřovy kuličky. Ve velmi vzácném případě, kdy hráč na tahu nemá vůbec žádný tah, končí hra remízou.
-# Hra na zařízení
-Klepni na jednu ze svých kuliček: tečky ukážou každou jamku, kam se může dostat krokem nebo řetězem skoků. Klepni na jednu z nich a kulička tam doskáče, skok po skoku. Kuličku můžeš také přetáhnout do její jamky. Jamky posledního tahu zůstávají rozsvícené. Každá lišta ukazuje, kolik kuliček daného hráče už dorazilo do protějšího cípu.
+Vyhrává hráč, který jako první zaplní protější cíp: jakmile jsou tam všechny jamky obsazené a aspoň v jedné je tvoje kulička, vyhráváš, i když v dalších jsou soupeřovy kuličky. Když hraje víc než dva hráči, počítají se ti kuličky kteréhokoli hráče, které zůstaly v tvém cílovém cípu, a hráč bez tahu vynechává. Když hráč na tahu nemá žádný tah (při více hráčích: když nemůže táhnout nikdo), hra končí remízou.

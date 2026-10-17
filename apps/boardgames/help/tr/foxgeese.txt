@@ -1,20 +1,13 @@
 Tilki ve Kazlar
 # Amaç
-Bir oyuncunun on üç kazı, diğerinin tek bir tilkisi vardır. Kazlar, tilkiyi hareket edemeyeceği şekilde sıkıştırarak kazanır. Tilki, dokuzdan az kaz kalana kadar kaz alarak kazanır.
-# Tahta
-Tahta, çizgilerle birbirine bağlı 33 noktadan oluşan bir artı şeklidir: sıralar boyunca, sütunlar boyunca ve üzerine çizilmiş köşegenler boyunca. Taşlar yalnızca bu çizgiler üzerinde, bir noktadan bir sonrakine gider.
-# Başlangıç
-Kazlar (açık) artının alt kolunda ve onun hemen üstündeki sıranın tamamında durur. Tilki (koyu) ortadan başlar. Önce kazlar oynar.
+Tek bir tilkiye karşı on üç kaz. Kazlar, tilkiyi hareket edemeyeceği şekilde sıkıştırarak kazanır. Tilki, dokuzdan az kaz kalana kadar kaz alarak kazanır. Önce kazlar oynar.
 # Kazlar
-- Bir kaz, boşsa bir çizgi boyunca bir sonraki noktaya gider: ileri, çapraz ileri ya da yana, asla geri.
-- Kazlar asla atlamaz ve tilkiyi asla alamaz.
+Bir kaz, boşsa bir çizgi boyunca bir sonraki noktaya gider: ileri, çapraz ileri ya da yana, asla geri. Kazlar asla atlamaz ve tilkiyi asla alamaz.
 # Tilki
 - Tilki, boşsa bir çizgi boyunca bir sonraki noktaya, herhangi bir yöne gider.
-- Ya da bir çizgi boyunca yanındaki bir kazın üzerinden hemen arkasındaki boş noktaya atlar ve o kazı tahtadan alır.
-- Atlamak zorunlu değildir. Ama tilki bir kez atladıktan sonra, atlayabildiği sürece her seferinde bir kaz olmak üzere atlamaya devam etmelidir.
+- Ya da bir çizgi boyunca yanındaki bir kazın üzerinden hemen arkasındaki boş noktaya atlar ve o kazı alır.
+- Atlamak zorunlu değildir. Ama tilki bir kez atladıktan sonra, atlayabildiği sürece atlamaya devam etmelidir.
 # Oyunun sonu
 - Tilki hareket edemez ve atlayamazsa kazlar kazanır.
 - Dokuzdan az kaz kalırsa ya da kazlar hareket edemezse tilki kazanır.
 - Aynı pozisyon üçüncü kez tekrarlandığında ya da iki taraf da kaz alınmadan ve hiçbir kaz ileri gitmeden ellişer hamle yaptığında oyun berabere biter.
-# Cihazda oynamak
-Bir kaza, sonra yeni noktasına dokun ya da onu sürükle. Tilkinin sırasında tilki zaten seçilmiştir: gideceği noktaya dokun ya da onu sürükle. Alabileceği kazların çevresinde bir halka vardır: atlamak için halkaya ya da arkasındaki noktaya dokun. Art arda atlamalarda sıradaki her atlamaya dokun.

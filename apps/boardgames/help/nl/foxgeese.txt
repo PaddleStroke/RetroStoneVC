@@ -1,20 +1,13 @@
 Vos en ganzen
 # Het doel
-De ene speler heeft dertien ganzen, de andere één vos. De ganzen winnen door de vos zo in te sluiten dat hij niet meer kan bewegen. De vos wint door ganzen te slaan tot er minder dan negen over zijn.
-# Het bord
-Het bord is een kruis van 33 punten die met lijnen verbonden zijn: langs de rijen, langs de kolommen en langs de diagonalen die erop getekend zijn. Stukken bewegen alleen langs deze lijnen, van het ene punt naar het volgende.
-# Het begin
-De ganzen (licht) staan op de onderste arm van het kruis en op de hele rij erboven. De vos (donker) begint in het midden. De ganzen beginnen.
+Dertien ganzen tegen één vos. De ganzen winnen door de vos zo in te sluiten dat hij niet meer kan bewegen. De vos wint door ganzen te slaan tot er minder dan negen over zijn. De ganzen beginnen.
 # De ganzen
-- Een gans gaat langs een lijn naar het volgende punt, als dat leeg is: vooruit, schuin vooruit of opzij, nooit achteruit.
-- Ganzen springen nooit en slaan nooit de vos.
+Een gans gaat langs een lijn naar het volgende punt, als dat leeg is: vooruit, schuin vooruit of opzij, nooit achteruit. Ganzen springen nooit en slaan nooit de vos.
 # De vos
 - De vos gaat langs een lijn naar het volgende punt, als dat leeg is, in elke richting.
 - Of hij springt langs een lijn over een gans naast hem, naar het lege punt er direct achter, en neemt die gans van het bord.
-- Springen is niet verplicht. Maar zodra de vos gesprongen heeft, moet hij doorspringen, één gans tegelijk, zolang hij kan.
+- Springen is niet verplicht. Maar zodra de vos gesprongen heeft, moet hij doorspringen zolang hij kan.
 # Het einde van de partij
 - De ganzen winnen als de vos niet kan bewegen of springen.
 - De vos wint als er minder dan negen ganzen over zijn, of als de ganzen niet kunnen bewegen.
 - De partij eindigt in remise als dezelfde stelling voor de derde keer terugkomt, of na vijftig zetten van elke speler zonder slag en zonder dat een gans vooruitgaat.
-# Spelen op het apparaat
-Tik op een gans en dan op haar nieuwe punt, of sleep haar. Als de vos aan de beurt is, is hij al opgepakt: tik op het punt waar hij heen gaat, of sleep hem. De ganzen die hij kan slaan, dragen een ring: tik op de ring, of op het punt erachter, om te springen. Bij een reeks sprongen tik je elke volgende sprong aan.

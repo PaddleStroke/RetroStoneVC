@@ -1,25 +1,18 @@
 Janggi
 # Amaç
-Rakibin generalini mat et: ona kaçamayacağı şekilde saldır. Önce Cho (mavi-yeşil), sonra Han (kırmızı) oynar; oyuncular sırayla birer hamle yapar.
+Rakibin generalini mat et. Önce Cho (mavi-yeşil), sonra Han (kırmızı) oynar.
 # Tahta
-Taşlar karelerin içinde değil, çizgilerin kesiştiği noktalarda durur. Nehir yoktur. Her tarafın bir sarayı vardır: generalin ve muhafızlarının yaşadığı, çarpı ile işaretlenmiş 3×3 noktalık alan. Sarayların köşegenleri de birer çizgidir.
-# Taşlar
-Her taşın üzerinde, kendi tarafının mürekkebiyle yazılmış Çince karakteri vardır; generallerin üzerinde tarafların adları, Cho ve Han yazar. Taşlar rütbelerine göre boyutlandırılmış sekizgenlerdir: en büyüğü general, en küçükleri muhafızlar ve askerlerdir. Her taraf, kendi solundan başlayarak şöyle dizilir: arka sırada savaş arabası, at, fil, muhafız, muhafız, fil, at, savaş arabası; sarayın ortasında general; atların önünde iki top ve beş asker. Bu uygulama her zaman bu dizilişi kullanır (atlar dışta, filler içte); atlarla fillerin diğer üç dizilişi sunulmaz.
+Taşlar karelerin içinde değil, noktalarda durur. Nehir yoktur. Sarayların köşegenleri de birer çizgidir.
 # Taşlar nasıl hareket eder
 - General ve muhafız: saraydan çıkmadan, köşegenler dahil sarayın bir çizgisi boyunca bir nokta.
 - At: dümdüz bir nokta, sonra dışa doğru çapraz olarak bir nokta. İlk nokta doluysa engellenir.
 - Fil: dümdüz bir nokta, sonra dışa doğru çapraz olarak iki nokta. Geçtiği noktalardan herhangi biri doluysa engellenir.
-- Savaş arabası: satrançtaki kale gibi bir çizgi boyunca istediği kadar nokta, ayrıca sarayın köşegenleri boyunca.
-- Top: sarayın köşegenleri dahil, yalnızca kendi çizgisi üzerinde tam bir taşın (iki taraftan herhangi birinin) üzerinden atlayarak hareket eder ve alır. Bir topun üzerinden atlayamaz ve bir topu alamaz.
-- Asker: bir nokta ileri ya da yana, asla geri. Rakibin sarayında köşegen boyunca ileri de gidebilir.
-Bir taş, rakip taşın bulunduğu noktaya giderek onu alır; alınan taş tahtadan çıkar.
+- Savaş arabası: bir çizgi boyunca istediği kadar nokta, ayrıca sarayın köşegenleri boyunca.
+- Top: sarayın köşegenleri dahil, yalnızca kendi çizgisi üzerinde tam bir taşın üzerinden atlayarak hareket eder ve alır. Bir topun üzerinden atlayamaz ve bir topu alamaz.
+- Asker: bir nokta ileri ya da yana. Rakibin sarayında köşegen boyunca ileri de gidebilir.
 # Pas geçme
-Oyuncu, şah altında değilse hamle yapmak yerine pas geçebilir. Geçerli hamlesi olmayan ama şah altında da olmayan oyuncu pas geçmek zorundadır.
+Şah altında değilsen hamle yapmak yerine pas geçebilirsin. Geçerli hamlesi olmayan ama şah altında da olmayan oyuncu pas geçmek zorundadır.
 # Şah ve oyunun sonu
-Saldırı altındaki generale şah çekilmiş olur: bir sonraki hamle onu şahtan kurtarmalıdır. Kendi generalini şah altında bırakan bir hamleyi asla yapamazsın.
+Kendi generalini asla şah altında bırakamazsın; iki generali de aralarında hiçbir şey olmadan aynı dikey çizgide karşı karşıya bırakamazsın.
 - Mat: generale şah çekilmiştir ve hiçbir hamle onu kurtaramaz. O oyuncu kaybeder.
-- Karşı karşıya generaller: bir hamle, iki generali aralarında hiçbir şey olmadan aynı dikey çizgide karşı karşıya bırakamaz. (Bazı kurallarda bu bir beraberlik teklifidir; burada buna yalnızca izin verilmez.)
-- Beraberlik: aynı pozisyon, sıra aynı oyuncudayken üçüncü kez tekrarlandığında oyun berabere biter (üst üste dört pas da beraberlik getirir). İki tarafın biner hamle yaptığı bir oyun da berabere biter.
-- Bazı oyunları bitiren puan sayımı kullanılmaz: oyun mat ya da beraberliğe kadar sürer.
-# Cihazda oynamak
-Bir taşın nereye gidebileceğini görmek için ona dokun, sonra bir noktaya dokun ya da taşı sürükle. Noktalar hamleleri, halkalar alınabilecek taşları gösterir. Şah çekilmiş general kırmızı parlar. Pas düğmesi, sırası gelen oyuncunun şeridindedir. Her şerit, o oyuncunun aldığı taşları gösterir.
+- Beraberlik: aynı pozisyonun, sıra aynı oyuncudayken üçüncü kez gelmesi (üst üste dört pas da bunu yapar) ya da iki tarafın biner hamle yapması. Puan sayımı yoktur.

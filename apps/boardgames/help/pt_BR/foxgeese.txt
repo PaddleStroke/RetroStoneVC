@@ -1,20 +1,13 @@
 Raposa e gansos
 # O objetivo
-Um jogador tem treze gansos, o outro uma única raposa. Os gansos vencem se encurralarem a raposa de modo que ela não possa se mover. A raposa vence se capturar gansos até restarem menos de nove.
-# O tabuleiro
-O tabuleiro é uma cruz de 33 pontos ligados por linhas: ao longo das fileiras, ao longo das colunas e ao longo das diagonais desenhadas nele. As peças só se movem ao longo dessas linhas, de um ponto ao seguinte.
-# O início
-Os gansos (claros) ficam no braço de baixo da cruz e em toda a fileira logo acima dele. A raposa (escura) começa no meio. Os gansos começam.
+Treze gansos contra uma única raposa. Os gansos vencem se encurralarem a raposa de modo que ela não possa se mover. A raposa vence se capturar gansos até restarem menos de nove. Os gansos começam.
 # Os gansos
-- Um ganso anda ao longo de uma linha até o ponto seguinte, se ele estiver vazio: para a frente, na diagonal para a frente ou para o lado, nunca para trás.
-- Os gansos nunca pulam e nunca capturam a raposa.
+Um ganso anda ao longo de uma linha até o ponto seguinte, se ele estiver vazio: para a frente, na diagonal para a frente ou para o lado, nunca para trás. Os gansos nunca pulam e nunca capturam a raposa.
 # A raposa
 - A raposa anda ao longo de uma linha até o ponto seguinte, se ele estiver vazio, em qualquer direção.
 - Ou então pula por cima de um ganso vizinho, ao longo de uma linha, até o ponto vazio logo depois dele, e tira esse ganso do tabuleiro.
-- Pular não é obrigatório. Mas depois que a raposa pula, ela precisa continuar pulando, um ganso de cada vez, enquanto puder.
+- Pular não é obrigatório. Mas depois que a raposa pula, ela precisa continuar pulando enquanto puder.
 # O fim da partida
 - Os gansos vencem quando a raposa não consegue se mover nem pular.
 - A raposa vence quando restam menos de nove gansos, ou quando os gansos não conseguem se mover.
 - A partida termina empatada quando a mesma posição se repete pela terceira vez, ou depois de cinquenta jogadas de cada lado sem captura e sem nenhum ganso avançar.
-# Jogando no aparelho
-Toque em um ganso e depois no novo ponto dele, ou arraste-o. Na vez da raposa, ela já vem selecionada: toque no ponto para onde ela vai, ou arraste-a. Os gansos que ela pode capturar ficam com um anel: toque no anel, ou no ponto logo depois dele, para pular. Em uma série de pulos, toque em cada pulo seguinte.

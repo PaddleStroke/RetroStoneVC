@@ -1,20 +1,12 @@
 Gomoku
 # Tavoite
-Saa ensimmäisenä viisi oman värisesi kiveä katkeamattomaan riviin: vaakasuoraan, pystysuoraan tai viistosti. Kivet pelataan pisteisiin, joissa viivat risteävät, eivätkä ne enää liiku, kun ne on pelattu. Musta (tumma) aloittaa, minkä jälkeen pelaajat pelaavat vuorotellen, yksi kivi kerrallaan.
+Saa ensimmäisenä viisi oman värisesi kiveä katkeamattomaan riviin: vaakasuoraan, pystysuoraan tai viistosti. Musta aloittaa. Jos lauta täyttyy ilman voittavaa riviä, peli päättyy tasapeliin.
 # Vapaa tyyli ja vakio
-Valitse säännöt ennen peliä:
-- Vapaa tyyli (kortti, jossa on kuusi kiveä rivissä): viisi tai useampi kivi rivissä voittaa.
-- Vakio (kortti, jossa on viisi): täsmälleen viisi kiveä rivissä voittaa. Kuuden tai useamman kiven rivi ei kelpaa, mutta peli jatkuu, ja muualle tehty viiden rivi voittaa silti.
-- Kuusi rivissä (kortti, jossa on iso lauta): katso alta.
-- Renju (kortti, jossa on punainen risti): katso alta.
+- Vapaa tyyli: viisi tai useampi kivi rivissä voittaa.
+- Vakio: täsmälleen viisi kiveä rivissä voittaa. Kuuden tai useamman kiven rivi ei kelpaa, mutta peli jatkuu.
 # Kuusi rivissä
-Pelataan isommalla laudalla, 19 × 19. Musta aloittaa asettamalla yhden kiven; sen jälkeen kumpikin pelaaja asettaa joka vuorollaan kaksi kiveä. Kuusi tai useampi oman värisesi kivi rivissä voittaa, vaikka rivi syntyisi jo vuoron ensimmäisestä kivestä.
+Musta aloittaa asettamalla yhden kiven; sen jälkeen kumpikin pelaaja asettaa joka vuorollaan kaksi kiveä. Kuusi tai useampi rivissä voittaa, vaikka rivi syntyisi jo vuoron ensimmäisestä kivestä.
 # Renju
-Pelataan 15×15-laudalla säännöillä, jotka rajoittavat aloittavan Mustan etua.
-- Avaus: Mustan ensimmäinen kivi pelataan keskipisteeseen, Valkean ensimmäinen kivi sen viereen ja Mustan toinen kivi enintään kahden pisteen päähän keskeltä. Turnauksissa käytetty vaihto ja Mustan viidennen siirron valinta on jätetty pois.
-- Musta ei saa tehdä kaksoiskolmosta (kahta avointa kolmen riviä kerralla), kaksoisnelosta eikä kuuden tai useamman kiven riviä, paitsi jos sama kivi tekee viiden rivin. Kun on Mustan vuoro, näissä pisteissä on pieni punainen risti, eikä niihin voi pelata.
-- Musta voittaa vain täsmälleen viiden kiven rivillä. Valkealla ei ole kiellettyjä pisteitä, ja viisi tai useampi rivissä voittaa.
-# Pelin loppu
-Pelaaja, joka tekee ensimmäisenä voittavan rivin, voittaa heti. Jos lauta täyttyy ilman voittavaa riviä, peli päättyy tasapeliin.
-# Pelaaminen laitteella
-Ensimmäinen napautus näyttää haalean kiven, toinen napautus samaan pisteeseen pelaa sen. Näin pieniin pisteisiin on helppo osua. Voittava rivi hehkuu kultaisena. Kuusi rivissä -pelissä palkkisi näyttää kivet, jotka sinulla on vielä asetettavana tällä vuorolla, ja parin ensimmäinen kivi pysyy korostettuna, kunnes asetat toisen. Kumoa ottaa takaisin yhden kiven kerrallaan.
+- Avaus: Mustan ensimmäinen kivi pelataan keskipisteeseen, Valkean ensimmäinen kivi sen viereen ja Mustan toinen kivi enintään kahden pisteen päähän keskeltä.
+- Musta ei saa tehdä kaksoiskolmosta, kaksoisnelosta eikä kuuden tai useamman kiven riviä, paitsi jos sama kivi tekee viiden rivin. Näissä pisteissä on pieni punainen risti.
+- Musta voittaa vain täsmälleen viiden kiven rivillä. Valkea voittaa viidellä tai useammalla.

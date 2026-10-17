@@ -1,25 +1,18 @@
 Janggi
 # The aim
-Checkmate the other general: attack it so that it cannot escape. Cho (blue-green) moves first, then Han (red); the players take turns, one move each.
+Checkmate the other general. Cho (blue-green) moves first, then Han (red).
 # The board
-The pieces stand on the points where the lines cross, not in the squares. There is no river. Each side has a palace: the three by three points marked with a cross, where the general and its guards live. The diagonals of the palaces are lines too.
-# The pieces
-Each piece carries its Chinese character in its side's ink; the generals carry the names of the sides, Cho and Han. The pieces are octagons sized by rank: the general largest, the guards and soldiers smallest. Each side starts with, from its left: chariot, horse, elephant, guard, guard, elephant, horse, chariot on the back rank, the general in the middle of the palace, the two cannons in front of the horses and five soldiers. This app always uses this setup (the horses outside, the elephants inside); the other three arrangements of the horses and elephants are not offered.
+The pieces stand on the points, not in the squares. There is no river. The diagonals of the palaces are lines too.
 # How the pieces move
 - General and guard: one point along a line of the palace, the diagonals included, without leaving it.
 - Horse: one point straight, then one point diagonally outward. It is blocked if the first point is taken.
 - Elephant: one point straight, then two points diagonally outward. It is blocked if either point it passes is taken.
-- Chariot: any number of points along a line, like a rook in chess, and along the diagonals of a palace.
-- Cannon: moves and captures only by jumping over exactly one piece (of either side) on its line, the diagonals of a palace included. It may not jump over a cannon, and it may not capture a cannon.
-- Soldier: one point forward or sideways, never back. In the other side's palace it may also move forward along a diagonal.
-A piece captures by moving onto a point held by an enemy piece, which leaves the board.
+- Chariot: any number of points along a line, and along the diagonals of a palace.
+- Cannon: moves and captures only by jumping over exactly one piece on its line, the diagonals of a palace included. It may not jump over or capture a cannon.
+- Soldier: one point forward or sideways. In the other side's palace it may also move forward along a diagonal.
 # Passing
-Instead of moving, a player may pass, except when in check. A player who has no legal move but is not in check must pass.
+Instead of moving, you may pass, except when in check. A player who has no legal move but is not in check must pass.
 # Check and the end of the game
-A general that is attacked is in check: the next move must get it out of check. You may never make a move that leaves your own general in check.
+You may never leave your own general in check, nor leave the two generals face to face on a file with nothing between them.
 - Checkmate: the general is in check and no move can save it. That player loses.
-- The generals facing each other: a move may not leave the two generals face to face on the same file with nothing between them. (Other rules make this a draw offer; here it is simply not allowed.)
-- Draws: when the same position comes back for the third time with the same player to move, the game is a draw (four passes in a row do it too). A game of a thousand moves each is a draw as well.
-- The count of points that ends some games is not used: the game goes on until checkmate or a draw.
-# Playing on the device
-Tap a piece to see where it can go, then tap a point, or drag the piece. Dots show the moves, rings the captures. A general in check glows red. The pass button is in the bar of the player to move. Each bar shows the pieces that player has captured.
+- Draw: the same position for the third time with the same player to move (four passes in a row do it too), or a thousand moves each. There is no count of points.

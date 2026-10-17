@@ -1,12 +1,9 @@
 Hex
 # Cíl hry
-Spoj své dvě strany desky nepřerušeným řetězem svých kamenů. Bílý (světlý) spojuje horní a dolní stranu, černý (tmavý) levou a pravou: každá strana je obarvena barvou hráče, který ji musí spojit. Začíná bílý. Před hrou si vyber desku: 7×7 pro rychlou hru, 9×9, nebo 11×11.
+Spoj své dvě strany desky, obarvené tvou barvou, nepřerušeným řetězem svých kamenů. Začíná bílý.
 # Hra
 - Hráči střídavě pokládají po jednom kameni na libovolné volné pole. Kameny se nikdy nepohnou a nikdy nejsou zajaty.
-- Dva tvé kameny jsou spojeny, když se jejich pole dotýkají hranou: každé pole má šest sousedů.
-- Vyhrává první hráč, který spojí své dvě strany. Rohová pole patří k oběma stranám, které se v nich stýkají.
-- Remíza nikdy nenastane: jakmile je deska plná, jeden z hráčů vždy své strany spojil.
+- Dva tvé kameny jsou spojeny, když se jejich pole dotýkají hranou. Rohová pole patří k oběma stranám, které se v nich stýkají.
+- Remíza nikdy nenastane.
 # Výměna
-Hrát první je velká výhoda. Pro vyrovnání smí černý, a to jen ve druhém tahu, místo položení kamene převzít první kámen bílého. Kámen zčerná a přesune se na své zrcadlové pole podle dlouhé diagonály (čáry z levého horního rohu do pravého dolního), takže pro černého znamená totéž co pro bílého. Potom hraje znovu bílý. Bílý by proto měl zahájit tahem, který není ani příliš silný, ani příliš slabý.
-# Hra na zařízení
-Klepnutím na volné pole na něj položíš svůj kámen. Na desce 11×11 první klepnutí ukáže bledý kámen a druhé klepnutí na stejné pole ho položí: díky tomu se snadno trefíš i do malých polí. Při výměně černý klepne na první kámen bílého: bledý kámen ukáže, kam se přesune, a druhé klepnutí výměnu provede. Když hráč vyhraje, jeho řetěz se rozzáří zlatě.
+Jen ve druhém tahu smí černý místo položení kamene převzít první kámen bílého: kámen zčerná a přesune se na své zrcadlové pole podle dlouhé diagonály. Potom hraje znovu bílý. Pro výměnu černý klepne na první kámen bílého.

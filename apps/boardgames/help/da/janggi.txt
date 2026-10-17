@@ -1,25 +1,18 @@
 Janggi
 # Målet
-Sæt modstanderens general skakmat: angrib den, så den ikke kan undslippe. Cho (blågrøn) trækker først, derefter Han (rød); spillerne skiftes, ét træk ad gangen.
+Sæt modstanderens general skakmat. Cho (blågrøn) trækker først, derefter Han (rød).
 # Brættet
-Brikkerne står på punkterne, hvor linjerne krydser hinanden, ikke i felterne. Der er ingen flod. Hver side har et palads: de tre gange tre punkter markeret med et kryds, hvor generalen og dens vagter bor. Paladsernes diagonaler er også linjer.
-# Brikkerne
-Hver brik bærer sit kinesiske tegn i sin sides blæk; generalerne bærer sidernes navne, Cho og Han. Brikkerne er ottekanter, hvis størrelse følger rangen: generalen størst, vagterne og soldaterne mindst. Hver side starter, fra venstre: vogn, hest, elefant, vagt, vagt, elefant, hest, vogn på bageste række, generalen midt i paladset, de to kanoner foran hestene og fem soldater. Denne app bruger altid denne opstilling (hestene yderst, elefanterne inderst); de tre andre placeringer af heste og elefanter tilbydes ikke.
+Brikkerne står på punkterne, ikke i felterne. Der er ingen flod. Paladsernes diagonaler er også linjer.
 # Sådan trækker brikkerne
 - General og vagt: ét punkt langs en af paladsets linjer, diagonalerne medregnet, uden at forlade det.
 - Hest: ét punkt lige ud, derefter ét punkt diagonalt udad. Den er blokeret, hvis det første punkt er optaget.
 - Elefant: ét punkt lige ud, derefter to punkter diagonalt udad. Den er blokeret, hvis et af de punkter, den passerer, er optaget.
-- Vogn: et vilkårligt antal punkter langs en linje, ligesom et tårn i skak, og langs et palads' diagonaler.
-- Kanon: flytter og slår kun ved at springe over præcis én brik (fra en hvilken som helst side) på sin linje, et palads' diagonaler medregnet. Den må ikke springe over en kanon og ikke slå en kanon.
-- Soldat: ét punkt frem eller til siden, aldrig tilbage. I modstanderens palads må den også flytte frem langs en diagonal.
-En brik slår ved at flytte hen på et punkt, hvor en modstanderbrik står, som så forlader brættet.
+- Vogn: et vilkårligt antal punkter langs en linje og langs et palads' diagonaler.
+- Kanon: flytter og slår kun ved at springe over præcis én brik på sin linje, et palads' diagonaler medregnet. Den må ikke springe over en kanon og ikke slå en kanon.
+- Soldat: ét punkt frem eller til siden. I modstanderens palads må den også flytte frem langs en diagonal.
 # Pas
-I stedet for at trække må en spiller melde pas, undtagen når vedkommende står i skak. En spiller, der intet lovligt træk har, men ikke står i skak, skal melde pas.
+I stedet for at trække må du melde pas, undtagen når du står i skak. En spiller, der intet lovligt træk har, men ikke står i skak, skal melde pas.
 # Skak og partiets afslutning
-En general, der er angrebet, står i skak: det næste træk skal bringe den ud af skak. Du må aldrig lave et træk, der efterlader din egen general i skak.
+Du må aldrig efterlade din egen general i skak, og heller ikke efterlade de to generaler ansigt til ansigt på samme linje uden noget imellem.
 - Skakmat: generalen står i skak, og intet træk kan redde den. Den spiller taber.
-- Generalerne over for hinanden: et træk må ikke efterlade de to generaler ansigt til ansigt på samme linje uden noget imellem. (Efter andre regler er det et tilbud om remis; her er det simpelthen ikke tilladt.)
-- Remis: når den samme stilling opstår for tredje gang med den samme spiller i trækket, er partiet remis (fire pas i træk gør det også). Et parti på tusind træk hver er også remis.
-- Den pointoptælling, der afslutter nogle partier, bruges ikke: partiet fortsætter til skakmat eller remis.
-# Spil på enheden
-Tryk på en brik for at se, hvor den kan gå hen, og tryk derefter på et punkt, eller træk brikken. Prikker viser trækkene, ringe slagene. En general i skak lyser rødt. Pas-knappen sidder i panelet hos den spiller, der er i trækket. Hvert panel viser de brikker, den spiller har slået.
+- Remis: den samme stilling for tredje gang med den samme spiller i trækket (fire pas i træk gør det også), eller tusind træk hver. Der bruges ingen pointoptælling.

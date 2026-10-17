@@ -1,17 +1,14 @@
 Go
 # Het doel
-Meer van het bord omsingelen dan de andere speler. Stenen worden gespeeld op de punten waar de lijnen elkaar kruisen, en bewegen nooit meer als ze eenmaal liggen. Zwart (donker) begint. Kies het bord voor de partij: 9 bij 9 voor een snelle partij, 13 bij 13, of het volledige 19 bij 19.
+Meer van het bord omsingelen dan de andere speler. Stenen worden op de punten gespeeld en bewegen nooit. Zwart begint.
 # Vrijheden en slaan
 - De lege punten naast een steen, langs de lijnen, zijn zijn vrijheden. Stenen van dezelfde kleur die elkaar langs de lijnen raken, vormen een groep en delen hun vrijheden.
 - Als je een groep zijn laatste vrijheid afneemt, is hij geslagen: zijn stenen verlaten het bord.
 - Je mag geen steen spelen die geen enkele vrijheid zou hebben, tenzij hij daarmee slaat en zo een vrijheid krijgt.
-- Ko: je mag geen zet doen die een eerder geziene stelling terugbrengt. Als één enkele steen geslagen wordt en meteen teruggeslagen zou kunnen worden, speel dan eerst ergens anders.
+- Ko: geen zet mag een eerder geziene stelling terugbrengen. Als één enkele steen meteen teruggeslagen zou kunnen worden, speel dan eerst ergens anders.
 # Passen en tellen
 In plaats van te spelen mag je passen. Als beide spelers na elkaar passen, stopt de partij en begint het tellen.
-- Tik op de groepen die niet konden leven (dode stenen): ze tellen als geslagen. Tik nog eens om een groep terug te zetten.
-- Als jullie het eens zijn, tik dan op de pasknop: klaar.
-- Elke speler krijgt één punt voor elke eigen steen op het bord en voor elk leeg punt dat alleen hij omsingelt. Wit (licht) krijgt daarnaast 7,5 punt omdat hij als tweede speelt (de komi), dus is het nooit gelijkspel. De hoogste score wint.
+- Tik op de groepen die niet konden leven: ze tellen als geslagen. Als jullie het eens zijn, tik dan op de pasknop.
+- Elke speler krijgt één punt voor elke eigen steen op het bord en voor elk leeg punt dat alleen hij omsingelt. Wit krijgt daarnaast 7,5 punt omdat hij als tweede speelt, dus is het nooit gelijkspel.
 # Vang-go
-Een eerste spel voor beginners en kinderen, op het bord van 9 bij 9 of 13 bij 13 (de kaarten met een steen die geslagen wordt). De regels van go, maar wie als eerste slaat, wint meteen. Er wordt niet gepast en niet geteld. Wie nergens meer kan spelen (op elk leeg punt zou de steen geen vrijheid hebben), verliest.
-# Spelen op het apparaat
-Bij de eerste tik verschijnt een bleke steen, een tweede tik op hetzelfde punt speelt hem. Zo zijn ook kleine punten makkelijk te raken. Elke balk toont de stenen die die speler heeft geslagen, en tijdens het tellen de score.
+Een eerste spel voor beginners: wie als eerste slaat, wint meteen. Niet passen, niet tellen. Wie nergens meer kan spelen, verliest.

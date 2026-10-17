@@ -1,17 +1,14 @@
 Go
 # Målet
-Omringa en större del av brädet än motståndaren. Stenarna spelas på punkterna där linjerna korsas och flyttas aldrig när de väl har spelats. Svart (mörk) börjar. Välj bräde före partiet: 9×9 för ett snabbt parti, 13×13, eller fullstora 19×19.
+Omringa en större del av brädet än motståndaren. Stenarna spelas på punkterna och flyttas aldrig. Svart börjar.
 # Friheter och fångar
 - De tomma punkterna intill en sten, längs linjerna, är dess friheter. Stenar i samma färg som ligger intill varandra längs linjerna bildar en grupp och delar sina friheter.
 - När du tar en grupps sista frihet blir den fångad: dess stenar lämnar brädet.
 - Du får inte spela en sten som skulle sakna friheter, om den inte fångar något och därmed får en frihet.
-- Ko: du får inte göra ett drag som återskapar en tidigare ställning. När en enda sten har fångats och genast skulle kunna tas tillbaka, måste du först spela någon annanstans.
+- Ko: inget drag får återskapa en tidigare ställning. När en enda sten genast skulle kunna tas tillbaka, spela först någon annanstans.
 # Passa och räkna
-I stället för att spela får du passa. När båda spelarna passar efter varandra stannar partiet och räkningen börjar.
-- Tryck på de grupper som inte kunde leva (döda stenar): de räknas som fångade. Tryck igen för att ta tillbaka en grupp.
-- När ni är överens, tryck på passknappen: klart.
-- Varje spelare får en poäng för varje egen sten på brädet och för varje tom punkt som bara hen omringar. Vit (ljus) får dessutom 7,5 poäng för att spela som tvåa (komi), så det blir aldrig oavgjort. Högst poäng vinner.
+I stället för att spela får du passa. När båda spelarna passar efter varandra stannar partiet för räkning.
+- Tryck på de grupper som inte kunde leva: de räknas som fångade. När ni är överens, tryck på passknappen.
+- Varje spelare får en poäng för varje egen sten på brädet och för varje tom punkt som bara hen omringar. Vit får dessutom 7,5 poäng för att spela som tvåa, så det blir aldrig oavgjort.
 # Fånga-go
-Ett första spel för nybörjare och barn, på brädet med 9×9 eller 13×13 punkter (korten med en sten som fångas). Reglerna för go, men den som först fångar vinner direkt. Man passar inte och räknar inte. Den som inte har någonstans att spela (på varje tom punkt skulle stenen sakna frihet) förlorar.
-# Spela på enheten
-Första trycket visar en blek sten, ett andra tryck på samma punkt spelar den. Det gör små punkter lätta att träffa. Varje fält visar de stenar som den spelaren har fångat, och poängen under räkningen.
+Ett första spel för nybörjare: den som först fångar vinner direkt. Man passar inte och räknar inte. Den som inte har någonstans att spela förlorar.

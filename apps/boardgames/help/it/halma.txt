@@ -1,14 +1,10 @@
 Dama cinese
 # Lo scopo
-Portare tutte e dieci le tue biglie attraverso la stella fino alla punta opposta alla tua. Il tavoliere è una stella a sei punte con 121 buche. Le chiare partono dalla punta in basso e le scure dalla punta in alto, tinte dei loro colori; le altre quattro punte restano vuote. Iniziano le biglie chiare.
-Si può giocare in due, tre, quattro o sei: scegli quanti prima della partita. Le chiare partono sempre dalla punta in basso e gli altri seguono in senso orario intorno alla stella, nell'ordine di gioco: in tre, una punta sì e una no, così ognuno si dirige verso una punta vuota; in quattro, due coppie di punte opposte; in sei, tutte le punte. Con più di due giocatori, le biglie di qualsiasi giocatore rimaste nella tua punta d'arrivo contano per te, e chi non ha alcuna mossa salta il turno; la partita è patta solo se nessuno può muovere.
+Portare tutte e dieci le tue biglie attraverso la stella fino alla punta opposta alla tua. Iniziano le biglie chiare, poi gli altri in senso orario intorno alla stella.
 # Una mossa
-Al tuo turno, muovi una delle tue biglie in uno di questi due modi:
-- Un passo: in una buca vuota vicina. Ogni buca ha fino a sei buche vicine, lungo le linee della stella.
-- Salti: sopra una biglia vicina, di qualsiasi colore, fino alla buca vuota subito dietro, in linea retta. Da lì la stessa biglia può saltare ancora, tutte le volte che vuoi e in qualsiasi direzione, ma mai su una buca in cui è già stata durante questa mossa.
-- Non si cattura mai nulla: le biglie saltate restano dove sono.
-- Un passo e dei salti non si possono mescolare nella stessa mossa. Le biglie possono attraversare le punte vuote e fermarsi lì, e possono lasciare la punta che stanno riempiendo.
+Muovi una delle tue biglie in uno di questi due modi:
+- Un passo: in una buca vuota vicina.
+- Salti: sopra una biglia vicina, di qualsiasi colore, fino alla buca vuota subito dietro, in linea retta. La stessa biglia può saltare ancora, tutte le volte che vuoi e in qualsiasi direzione, ma mai su una buca in cui è già stata durante questa mossa.
+- Non si cattura nulla. Un passo e dei salti non si possono mescolare. Le biglie possono attraversare le punte vuote e fermarsi lì, e possono lasciare la punta che stanno riempiendo.
 # La fine della partita
-Vince il primo giocatore che riempie la punta opposta. Un giocatore non può bloccare la punta lasciando biglie a casa: appena tutte le buche della tua punta di arrivo sono occupate e almeno una contiene una tua biglia, vinci, anche se alcune delle altre buche contengono ancora biglie dell'altro giocatore. Nel caso rarissimo in cui il giocatore di turno non abbia nessuna mossa, la partita è patta.
-# Giocare sul dispositivo
-Tocca una delle tue biglie: dei puntini mostrano ogni buca che può raggiungere, con un passo o una catena di salti. Toccane una e la biglia ci saltella, salto dopo salto. Puoi anche trascinare la biglia nella sua buca. Le buche dell'ultima mossa restano illuminate. Ogni barra mostra quante biglie di quel giocatore hanno già raggiunto la punta opposta.
+Vince il primo giocatore che riempie la punta opposta: appena tutte le sue buche sono occupate e almeno una contiene una tua biglia, vinci, anche se altre contengono biglie di un avversario. Con più di due giocatori, le biglie di qualsiasi giocatore rimaste nella tua punta d'arrivo contano per te, e chi non ha alcuna mossa salta il turno. Se il giocatore di turno non ha nessuna mossa (con più giocatori: se nessuno può muovere), la partita è patta.

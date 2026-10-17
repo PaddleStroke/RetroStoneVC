@@ -1,25 +1,18 @@
 Janggi
 # Cel gry
-Zamatuj generała przeciwnika: zaatakuj go tak, aby nie mógł uciec. Cho (niebiesko-zielone) zaczynają, potem Han (czerwone); gracze wykonują ruchy na zmianę, po jednym.
+Zamatuj generała przeciwnika. Cho (niebiesko-zielone) zaczynają, potem Han (czerwone).
 # Plansza
-Bierki stoją na punktach przecięcia linii, a nie na polach. Nie ma rzeki. Każda strona ma pałac: obszar 3×3 punktów oznaczony krzyżem, gdzie mieszkają generał i jego strażnicy. Przekątne pałaców też są liniami.
-# Bierki
-Każda bierka nosi swój chiński znak w kolorze tuszu swojej strony; generałowie noszą nazwy stron, Cho i Han. Bierki są ośmiokątami o wielkości zależnej od rangi: generał jest największy, strażnicy i żołnierze najmniejsi. Każda strona zaczyna, licząc od swojej lewej: rydwan, koń, słoń, strażnik, strażnik, słoń, koń, rydwan w tylnym rzędzie, generał na środku pałacu, dwie armaty przed końmi i pięciu żołnierzy. Ta aplikacja zawsze używa tego ustawienia (konie na zewnątrz, słonie do środka); pozostałe trzy układy koni i słoni nie są dostępne.
+Bierki stoją na punktach, a nie na polach. Nie ma rzeki. Przekątne pałaców też są liniami.
 # Jak poruszają się bierki
 - Generał i strażnik: o jeden punkt wzdłuż linii pałacu, łącznie z przekątnymi, bez opuszczania go.
 - Koń: o jeden punkt prosto, a potem o jeden punkt po przekątnej na zewnątrz. Jest zablokowany, jeśli pierwszy punkt jest zajęty.
 - Słoń: o jeden punkt prosto, a potem o dwa punkty po przekątnej na zewnątrz. Jest zablokowany, jeśli którykolwiek punkt, przez który przechodzi, jest zajęty.
-- Rydwan: o dowolną liczbę punktów wzdłuż linii, jak wieża w szachach, oraz wzdłuż przekątnych pałacu.
-- Armata: porusza się i bije tylko, przeskakując dokładnie jedną bierkę (dowolnej strony) na swojej linii, łącznie z przekątnymi pałacu. Nie może przeskoczyć armaty ani zbić armaty.
-- Żołnierz: o jeden punkt do przodu lub w bok, nigdy do tyłu. W pałacu przeciwnika może też iść do przodu po przekątnej.
-Bierka bije, wchodząc na punkt zajęty przez bierkę przeciwnika, która schodzi z planszy.
+- Rydwan: o dowolną liczbę punktów wzdłuż linii oraz wzdłuż przekątnych pałacu.
+- Armata: porusza się i bije tylko, przeskakując dokładnie jedną bierkę na swojej linii, łącznie z przekątnymi pałacu. Nie może przeskoczyć armaty ani zbić armaty.
+- Żołnierz: o jeden punkt do przodu lub w bok. W pałacu przeciwnika może też iść do przodu po przekątnej.
 # Pasowanie
-Zamiast wykonać ruch, gracz może spasować, chyba że jest szachowany. Gracz, który nie ma żadnego dozwolonego ruchu, ale nie jest szachowany, musi spasować.
+Zamiast wykonać ruch, możesz spasować, chyba że jesteś szachowany. Gracz, który nie ma żadnego dozwolonego ruchu, ale nie jest szachowany, musi spasować.
 # Szach i koniec partii
-Atakowany generał jest szachowany: następny ruch musi usunąć szach. Nigdy nie możesz wykonać ruchu, po którym twój własny generał byłby szachowany.
+Nigdy nie możesz zostawić swojego generała szachowanego ani zostawić dwóch generałów naprzeciw siebie na tej samej kolumnie bez niczego pomiędzy.
 - Mat: generał jest szachowany i żaden ruch nie może go uratować. Ten gracz przegrywa.
-- Generałowie twarzą w twarz: ruch nie może zostawić dwóch generałów naprzeciw siebie na tej samej kolumnie bez niczego pomiędzy. (Według innych zasad oznacza to propozycję remisu; tutaj jest to po prostu niedozwolone.)
-- Remisy: gdy ta sama pozycja powtórzy się po raz trzeci przy ruchu tego samego gracza, partia kończy się remisem (cztery pasy z rzędu też do tego prowadzą). Partia licząca tysiąc ruchów każdej ze stron również kończy się remisem.
-- Liczenie punktów, które kończy niektóre partie, nie jest stosowane: gra toczy się aż do mata lub remisu.
-# Gra na urządzeniu
-Dotknij bierki, aby zobaczyć, gdzie może się ruszyć, a potem dotknij punktu, albo przeciągnij bierkę. Kropki pokazują ruchy, kółka bicia. Szachowany generał świeci na czerwono. Przycisk pasowania jest na pasku gracza, który ma ruch. Każdy pasek pokazuje bierki zbite przez danego gracza.
+- Remis: ta sama pozycja po raz trzeci przy ruchu tego samego gracza (cztery pasy z rzędu też), albo tysiąc ruchów każdej ze stron. Punktów się nie liczy.

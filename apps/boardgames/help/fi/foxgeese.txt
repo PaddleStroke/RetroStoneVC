@@ -1,20 +1,13 @@
 Kettu ja hanhet
 # Tavoite
-Toisella pelaajalla on kolmetoista hanhea, toisella yksi ainoa kettu. Hanhet voittavat saartamalla ketun niin, ettei se pääse liikkumaan. Kettu voittaa syömällä hanhia, kunnes niitä on jäljellä alle yhdeksän.
-# Lauta
-Lauta on 33 pisteen risti, jonka pisteitä yhdistävät viivat: rivejä pitkin, sarakkeita pitkin ja siihen piirrettyjä lävistäjiä pitkin. Nappulat liikkuvat vain näitä viivoja pitkin, pisteestä seuraavaan.
-# Alkuasema
-Hanhet (vaaleat) ovat ristin alavarressa ja koko sen yläpuolisella rivillä. Kettu (tumma) aloittaa keskeltä. Hanhet siirtävät ensin.
+Kolmetoista hanhea yhtä ainoaa kettua vastaan. Hanhet voittavat saartamalla ketun niin, ettei se pääse liikkumaan. Kettu voittaa syömällä hanhia, kunnes niitä on jäljellä alle yhdeksän. Hanhet siirtävät ensin.
 # Hanhet
-- Hanhi siirtyy viivaa pitkin seuraavaan pisteeseen, jos se on tyhjä: eteenpäin, viistosti eteenpäin tai sivulle, ei koskaan taaksepäin.
-- Hanhet eivät koskaan hyppää eivätkä koskaan syö kettua.
+Hanhi siirtyy viivaa pitkin seuraavaan pisteeseen, jos se on tyhjä: eteenpäin, viistosti eteenpäin tai sivulle, ei koskaan taaksepäin. Hanhet eivät koskaan hyppää eivätkä koskaan syö kettua.
 # Kettu
 - Kettu siirtyy viivaa pitkin seuraavaan pisteeseen, jos se on tyhjä, mihin suuntaan tahansa.
-- Tai se hyppää viereisen hanhen yli, viivaa pitkin, heti sen takana olevaan tyhjään pisteeseen ja poistaa hanhen laudalta.
-- Hyppääminen ei ole pakollista. Mutta kun kettu on hypännyt, sen on jatkettava hyppimistä, hanhi kerrallaan, niin kauan kuin se voi.
+- Tai se hyppää viereisen hanhen yli, viivaa pitkin, heti sen takana olevaan tyhjään pisteeseen ja syö hanhen.
+- Hyppääminen ei ole pakollista. Mutta kun kettu on hypännyt, sen on jatkettava hyppimistä niin kauan kuin se voi.
 # Pelin loppu
 - Hanhet voittavat, kun kettu ei voi siirtyä eikä hypätä.
 - Kettu voittaa, kun hanhia on jäljellä alle yhdeksän tai kun hanhet eivät voi siirtyä.
 - Peli päättyy tasapeliin, kun sama asema toistuu kolmannen kerran, tai kun kumpikin on tehnyt viisikymmentä siirtoa ilman, että hanhia syödään tai yksikään hanhi siirtyy eteenpäin.
-# Pelaaminen laitteella
-Napauta hanhea ja sitten sen uutta pistettä, tai vedä sitä. Ketun vuorolla kettu on jo nostettu: napauta pistettä, johon se siirtyy, tai vedä sitä. Hanhien, jotka se voi syödä, ympärillä on rengas: napauta rengasta tai sen takana olevaa pistettä hypätäksesi. Hyppysarjassa napauta jokaista seuraavaa hyppyä.

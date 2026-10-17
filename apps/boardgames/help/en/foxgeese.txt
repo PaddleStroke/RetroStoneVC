@@ -1,20 +1,13 @@
 Fox and Geese
 # The aim
-One player has thirteen geese, the other a single fox. The geese win by hemming the fox in so that it cannot move. The fox wins by taking geese until fewer than nine are left.
-# The board
-The board is a cross of 33 points joined by lines: along the rows, along the columns, and along the diagonals drawn on it. Pieces move only along these lines, from one point to the next.
-# The start
-The geese (light) stand on the bottom arm of the cross and on the whole row above it. The fox (dark) starts in the middle. The geese move first.
+Thirteen geese against a single fox. The geese win by hemming the fox in so that it cannot move. The fox wins by taking geese until fewer than nine are left. The geese move first.
 # The geese
-- A goose moves along a line to the next point, if it is empty: forwards, diagonally forwards or sideways, never backwards.
-- Geese never jump and never take the fox.
+A goose moves along a line to the next point, if it is empty: forwards, diagonally forwards or sideways, never backwards. Geese never jump and never take the fox.
 # The fox
 - The fox moves along a line to the next point, if it is empty, in any direction.
-- Or it jumps over a goose next to it, along a line, to the empty point just beyond, and takes that goose off the board.
-- Jumping is not compulsory. But once the fox has jumped, it must go on jumping, one goose at a time, as long as it can.
+- Or it jumps over a goose next to it, along a line, to the empty point just beyond, and takes that goose.
+- Jumping is not compulsory. But once the fox has jumped, it must go on jumping as long as it can.
 # The end of the game
 - The geese win when the fox cannot move or jump.
 - The fox wins when fewer than nine geese are left, or when the geese cannot move.
 - The game is a draw when the same position comes back for the third time, or after fifty moves each without a capture and without a goose moving forwards.
-# Playing on the device
-Tap a goose and then its new point, or drag it. On the fox's turn the fox is already picked up: tap the point it moves to, or drag it. The geese it can take wear a ring: tap the ring, or the point beyond it, to jump. In a row of jumps, tap each next jump.

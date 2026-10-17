@@ -1,12 +1,9 @@
 Hex
 # Das Ziel
-Verbinde deine beiden Seiten des Bretts mit einer ununterbrochenen Kette deiner Steine. Weiß (hell) verbindet oben und unten, Schwarz (dunkel) links und rechts: Jede Seite ist in der Farbe des Spielers bemalt, der sie verbinden muss. Weiß beginnt. Wähle das Brett vor der Partie: 7 mal 7 für eine schnelle Partie, 9 mal 9 oder 11 mal 11.
+Verbinde deine beiden Seiten des Bretts, die in deiner Farbe bemalt sind, mit einer ununterbrochenen Kette deiner Steine. Weiß beginnt.
 # So wird gespielt
 - Abwechselnd setzt jeder Spieler einen Stein auf ein beliebiges leeres Feld. Steine bewegen sich nie und werden nie geschlagen.
-- Zwei deiner Steine sind verbunden, wenn sich ihre Felder an einer Kante berühren: Jedes Feld hat sechs Nachbarn.
-- Wer zuerst seine beiden Seiten verbindet, gewinnt. Die Eckfelder gehören zu beiden Seiten, die dort zusammentreffen.
-- Es gibt nie ein Unentschieden: Ist das Brett voll, hat immer einer der Spieler seine Seiten verbunden.
+- Zwei deiner Steine sind verbunden, wenn sich ihre Felder an einer Kante berühren. Die Eckfelder gehören zu beiden Seiten, die dort zusammentreffen.
+- Es gibt nie ein Unentschieden.
 # Der Tausch
-Als Erster zu spielen ist ein großer Vorteil. Um ihn auszugleichen, darf Schwarz, nur im zweiten Zug, den ersten Stein von Weiß übernehmen, statt einen eigenen zu setzen. Der Stein wird schwarz und wandert auf sein Spiegelfeld auf der anderen Seite der langen Diagonale (der Linie von der oberen linken zur unteren rechten Ecke), sodass er für Schwarz genauso steht wie zuvor für Weiß. Dann spielt Weiß erneut. Weiß sollte also mit einem Zug eröffnen, der weder zu stark noch zu schwach ist.
-# Spielen auf dem Gerät
-Tippe auf ein leeres Feld, um deinen Stein zu setzen. Auf dem Brett mit 11 mal 11 Feldern zeigt das erste Tippen einen blassen Stein, und ein zweites Tippen auf dasselbe Feld setzt ihn: So lassen sich auch kleine Felder leicht treffen. Zum Tauschen tippt Schwarz auf den ersten Stein von Weiß: Ein blasser Stein zeigt, wohin er kommt, und ein zweites Tippen tauscht. Wenn ein Spieler gewinnt, leuchtet seine Kette golden auf.
+Nur im zweiten Zug darf Schwarz den ersten Stein von Weiß übernehmen, statt einen eigenen zu setzen: Der Stein wird schwarz und wandert auf sein Spiegelfeld auf der anderen Seite der langen Diagonale. Dann spielt Weiß erneut. Zum Tauschen tippt Schwarz auf den ersten Stein von Weiß.

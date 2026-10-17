@@ -1,20 +1,12 @@
 Gomoku
 # Målet
-Vær den første til at få fem sten i din farve på en ubrudt række: vandret, lodret eller diagonalt. Stenene spilles på punkterne, hvor linjerne krydser hinanden, og flyttes aldrig, når de først er spillet. Sort (mørk) starter, derefter skiftes spillerne, én sten ad gangen.
+Vær den første til at få fem sten i din farve på en ubrudt række: vandret, lodret eller diagonalt. Sort starter. Hvis brættet bliver fyldt uden en vinderrække, ender spillet uafgjort.
 # Fristil og standard
-Vælg regler før spillet:
-- Fristil (kortet med seks sten på række): fem eller flere sten på række vinder.
-- Standard (kortet med fem): præcis fem sten på række vinder. En række på seks eller flere tæller ikke, men spillet fortsætter, og fem på række et andet sted vinder stadig.
-- Seks på stribe (kortet med det store bræt): se nedenfor.
-- Renju (kortet med det røde kryds): se nedenfor.
+- Fristil: fem eller flere sten på række vinder.
+- Standard: præcis fem sten på række vinder. En række på seks eller flere tæller ikke, men spillet fortsætter.
 # Seks på stribe
-Spilles på et større bræt, 19 gange 19. Sort lægger én sten for at begynde; derefter lægger hver spiller to sten i hver tur. Seks eller flere sten i din farve på række vinder, også når rækken fuldendes med turens første sten.
+Sort lægger én sten for at begynde; derefter lægger hver spiller to sten i hver tur. Seks eller flere på række vinder, også når rækken fuldendes med turens første sten.
 # Renju
-Spilles på brættet med 15×15 punkter, med regler, der begrænser Sorts fordel ved at starte.
-- Åbning: Sorts første sten placeres på midterpunktet, Hvids første sten lige ved siden af, og Sorts anden sten højst to punkter fra midten. Byttet og valget af Sorts femte træk fra turneringer er udeladt.
-- Sort må ikke lave dobbelt-tre (to åbne trerækker på én gang), dobbelt-fire eller en række på seks eller flere, medmindre den samme sten giver fem. Når det er Sorts tur, har disse punkter et lille rødt kryds og kan ikke spilles.
-- Sort vinder kun med præcis fem på række. Hvid har ingen forbudte punkter, og fem eller flere på række vinder.
-# Spillets afslutning
-Den første spiller, der får en vinderrække, vinder med det samme. Hvis brættet bliver fyldt uden en vinderrække, ender spillet uafgjort.
-# Spil på enheden
-Det første tryk viser en bleg sten, et andet tryk på samme punkt spiller den. Det gør små punkter lette at ramme. Vinderrækken lyser op i guld. I seks på stribe viser dit panel de sten, du stadig skal lægge i denne tur, og parrets første sten forbliver fremhævet, indtil du lægger den anden. Fortryd tager én sten tilbage ad gangen.
+- Åbning: Sorts første sten placeres på midterpunktet, Hvids første sten lige ved siden af, og Sorts anden sten højst to punkter fra midten.
+- Sort må ikke lave dobbelt-tre, dobbelt-fire eller en række på seks eller flere, medmindre den samme sten giver fem. Disse punkter har et lille rødt kryds.
+- Sort vinder kun med præcis fem på række. Hvid vinder med fem eller flere.

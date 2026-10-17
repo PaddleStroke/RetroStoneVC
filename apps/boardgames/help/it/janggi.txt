@@ -1,25 +1,18 @@
 Janggi
 # Lo scopo
-Dare scacco matto al generale avversario: attaccarlo in modo che non possa sfuggire. Muove per primo Cho (blu-verde), poi Han (rosso); i giocatori si alternano, una mossa ciascuno.
+Dare scacco matto al generale avversario. Muove per primo Cho (blu-verde), poi Han (rosso).
 # Il tavoliere
-I pezzi stanno sui punti dove le linee si incrociano, non nelle caselle. Non c'è il fiume. Ogni schieramento ha un palazzo: i tre per tre punti segnati con una croce, dove vivono il generale e le sue guardie. Anche le diagonali dei palazzi sono linee.
-# I pezzi
-Ogni pezzo porta il suo carattere cinese con l'inchiostro del suo schieramento; i generali portano i nomi degli schieramenti, Cho e Han. I pezzi sono ottagoni di grandezza proporzionata al grado: il generale è il più grande, le guardie e i soldati i più piccoli. Ogni schieramento inizia con, da sinistra: carro, cavallo, elefante, guardia, guardia, elefante, cavallo, carro sulla riga di fondo, il generale al centro del palazzo, i due cannoni davanti ai cavalli e cinque soldati. Questa app usa sempre questa disposizione (i cavalli all'esterno, gli elefanti all'interno); le altre tre disposizioni di cavalli ed elefanti non sono disponibili.
+I pezzi stanno sui punti, non nelle caselle. Non c'è il fiume. Anche le diagonali dei palazzi sono linee.
 # Come si muovono i pezzi
 - Generale e guardia: un punto lungo una linea del palazzo, diagonali comprese, senza uscirne.
 - Cavallo: un punto dritto, poi un punto in diagonale verso l'esterno. È bloccato se il primo punto è occupato.
 - Elefante: un punto dritto, poi due punti in diagonale verso l'esterno. È bloccato se uno dei punti che attraversa è occupato.
-- Carro: di quanti punti vuoi lungo una linea, come una torre negli scacchi, e lungo le diagonali di un palazzo.
-- Cannone: si muove e cattura solo saltando esattamente un pezzo (di qualsiasi schieramento) sulla sua linea, diagonali di un palazzo comprese. Non può saltare un cannone e non può catturare un cannone.
-- Soldato: un punto in avanti o di lato, mai all'indietro. Nel palazzo avversario può anche avanzare lungo una diagonale.
-Un pezzo cattura spostandosi su un punto occupato da un pezzo avversario, che esce dal tavoliere.
+- Carro: di quanti punti vuoi lungo una linea, e lungo le diagonali di un palazzo.
+- Cannone: si muove e cattura solo saltando esattamente un pezzo sulla sua linea, diagonali di un palazzo comprese. Non può saltare un cannone e non può catturare un cannone.
+- Soldato: un punto in avanti o di lato. Nel palazzo avversario può anche avanzare lungo una diagonale.
 # Passare
-Invece di muovere, un giocatore può passare, tranne quando è sotto scacco. Un giocatore che non ha mosse legali ma non è sotto scacco deve passare.
+Invece di muovere, puoi passare, tranne quando sei sotto scacco. Un giocatore che non ha mosse legali ma non è sotto scacco deve passare.
 # Lo scacco e la fine della partita
-Un generale attaccato è sotto scacco: la mossa successiva deve toglierlo dallo scacco. Non puoi mai fare una mossa che lasci il tuo generale sotto scacco.
+Non puoi mai lasciare il tuo generale sotto scacco, né lasciare i due generali faccia a faccia su una colonna senza niente in mezzo.
 - Scacco matto: il generale è sotto scacco e nessuna mossa può salvarlo. Quel giocatore perde.
-- I generali faccia a faccia: una mossa non può lasciare i due generali faccia a faccia sulla stessa colonna senza niente in mezzo. (Altre regole ne fanno una proposta di patta; qui semplicemente non è permesso.)
-- Patta: quando la stessa posizione si ripete per la terza volta con lo stesso giocatore di turno, la partita è patta (anche quattro passaggi di fila). Anche una partita di mille mosse ciascuno è patta.
-- Il conteggio dei punti che chiude alcune partite non si usa: la partita continua fino allo scacco matto o alla patta.
-# Giocare sul dispositivo
-Tocca un pezzo per vedere dove può andare, poi tocca un punto, oppure trascina il pezzo. I punti mostrano le mosse, gli anelli le catture. Un generale sotto scacco si illumina di rosso. Il pulsante passa è nella barra del giocatore di turno. Ogni barra mostra i pezzi catturati da quel giocatore.
+- Patta: la stessa posizione per la terza volta con lo stesso giocatore di turno (anche quattro passaggi di fila), o mille mosse ciascuno. Non c'è conteggio dei punti.

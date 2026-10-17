@@ -1,14 +1,10 @@
 Damas chinesas
 # O objetivo
-Levar todas as suas dez bolinhas através da estrela até a ponta oposta à sua. O tabuleiro é uma estrela de seis pontas com 121 furos. As claras partem da ponta de baixo e as escuras da ponta de cima, tingidas com as cores delas; as outras quatro pontas ficam vazias. As bolinhas claras começam.
-Podem jogar duas, três, quatro ou seis pessoas: escolha quantas antes da partida. As claras sempre partem da ponta de baixo e os outros seguem no sentido horário ao redor da estrela, na ordem de jogo: com três, uma ponta sim e outra não, de modo que cada um vai para uma ponta vazia; com quatro, dois pares de pontas opostas; com seis, todas as pontas. Com mais de dois, as bolinhas de qualquer jogador que fiquem na sua ponta de chegada contam para você, e quem não tem nenhum movimento passa a vez; a partida só termina empatada se ninguém puder mover.
+Levar todas as suas dez bolinhas através da estrela até a ponta oposta à sua. As claras começam, depois os outros no sentido horário ao redor da estrela.
 # Uma jogada
-Na sua vez, mova uma das suas bolinhas de um destes dois jeitos:
-- Um passo: para um furo vazio vizinho. Cada furo tem até seis vizinhos, ao longo das linhas da estrela.
-- Pulos: por cima de uma bolinha vizinha, de qualquer cor, até o furo vazio logo depois dela, em linha reta. Dali a mesma bolinha pode pular de novo, quantas vezes você quiser e em qualquer direção, mas nunca de volta para um furo onde ela já esteve nesta jogada.
-- Nada é capturado: as bolinhas puladas ficam onde estão.
-- Não dá para misturar um passo e pulos na mesma jogada. As bolinhas podem passar pelas pontas vazias e parar nelas, e podem sair da ponta que estão preenchendo.
+Mova uma das suas bolinhas de um destes dois jeitos:
+- Um passo: para um furo vazio vizinho.
+- Pulos: por cima de uma bolinha vizinha, de qualquer cor, até o furo vazio logo depois dela, em linha reta. A mesma bolinha pode pular de novo, quantas vezes você quiser e em qualquer direção, mas nunca de volta para um furo onde ela já esteve nesta jogada.
+- Nada é capturado. Não dá para misturar um passo e pulos. As bolinhas podem passar pelas pontas vazias e parar nelas, e podem sair da ponta que estão preenchendo.
 # O fim da partida
-Ganha o primeiro jogador que preencher a ponta oposta. Um jogador não pode bloquear a ponta deixando bolinhas em casa: assim que todos os furos da sua ponta de chegada estiverem ocupados e pelo menos um deles tiver uma bolinha sua, você ganha, mesmo que alguns dos outros furos dela ainda tenham bolinhas do adversário. No caso raríssimo de o jogador da vez não ter nenhuma jogada, a partida termina empatada.
-# Jogando no aparelho
-Toque em uma das suas bolinhas: pontos mostram cada furo que ela pode alcançar, com um passo ou uma sequência de pulos. Toque em um deles e a bolinha pula até lá, pulo a pulo. Você também pode arrastar a bolinha até o furo. Os furos da última jogada ficam acesos. Cada barra mostra quantas bolinhas daquele jogador já chegaram à ponta oposta.
+Ganha o primeiro jogador que preencher a ponta oposta: assim que todos os furos dela estiverem ocupados e pelo menos um deles tiver uma bolinha sua, você ganha, mesmo que outros tenham bolinhas do adversário. Com mais de dois, as bolinhas de qualquer jogador que fiquem na sua ponta de chegada contam para você, e quem não tem nenhum movimento passa a vez. Se o jogador da vez não tiver nenhuma jogada (com mais jogadores: se ninguém puder mover), a partida termina empatada.

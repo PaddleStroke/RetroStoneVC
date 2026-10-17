@@ -1,20 +1,12 @@
 Gomoku
 # The aim
-Be the first to line up five stones of your colour in an unbroken row: across, up and down, or diagonally. Stones are played on the points where the lines cross, and never move once played. Black (dark) plays first, then the players take turns, one stone each.
+Be the first to line up five stones of your colour in an unbroken row: across, up and down, or diagonally. Black plays first. If the board fills up with no winning row, the game is a draw.
 # Freestyle and standard
-Choose the rules before the game:
-- Freestyle (the card with six stones in a row): five or more stones in a row win.
-- Standard (the card with five): exactly five stones in a row win. A row of six or more does not count, but the game goes on and a five made elsewhere still wins.
-- Six in a row (the card with the large board): see below.
-- Renju (the card with the red cross): see below.
+- Freestyle: five or more stones in a row win.
+- Standard: exactly five stones in a row win. A row of six or more does not count, but the game goes on.
 # Six in a row
-Played on a larger board, 19 by 19. Black places one stone to begin; after that, each player places two stones on every turn. Six or more stones of your colour in a row win, even when the row is made by the first stone of a turn.
+Black places one stone to begin; after that, each player places two stones every turn. Six or more in a row win, even when the row is made by the first stone of a turn.
 # Renju
-Played on the 15 by 15 board, with rules that limit Black's advantage of moving first.
-- Opening: Black's first stone goes on the centre point, White's first stone next to it, and Black's second stone within two points of the centre. The swap and the choice of Black's fifth move used in tournaments are left out.
-- Black may not make a double three (two open rows of three at once), a double four, or a row of six or more, unless the same stone makes five. While Black is to move, these points carry a small red cross and cannot be played.
-- Black wins only with exactly five in a row. White has no forbidden points, and five or more in a row wins.
-# The end of the game
-The first player to make a winning row wins at once. If the board fills up with no winning row, the game is a draw.
-# Playing on the device
-The first tap shows a pale stone, a second tap on the same point plays it. This keeps small points easy to hit. The winning row lights up in gold. In six in a row, your bar shows the stones you still have to place this turn, and the first stone of the pair stays highlighted until you place the second. Undo takes back one stone at a time.
+- Opening: Black's first stone goes on the centre point, White's first next to it, and Black's second within two points of the centre.
+- Black may not make a double three, a double four, or a row of six or more, unless the same stone makes five. These points carry a small red cross.
+- Black wins only with exactly five in a row. White wins with five or more.
