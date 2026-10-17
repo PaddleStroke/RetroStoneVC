@@ -1,0 +1,10 @@
+Fillomino
+# Tujuan
+Tulis angka 1 sampai 9 di setiap kotak.
+- Kotak-kotak berangka sama yang bersentuhan sisi membentuk satu wilayah, dan setiap wilayah punya kotak tepat sebanyak angkanya.
+- Jadi dua wilayah yang sama besar tidak pernah bersentuhan sisi.
+Sebagian angka sudah diberikan. Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar.
+# Akhir permainan
+Teka-teki selesai jika setiap wilayah berukuran tepat: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah angka salah yang kamu batalkan dengan Urungkan.

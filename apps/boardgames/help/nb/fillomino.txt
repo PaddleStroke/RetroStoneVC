@@ -1,0 +1,10 @@
+Fillomino
+# Målet
+Skriv et tall fra 1 til 9 i hver rute.
+- Ruter med samme tall som berører hverandre langs en side, danner et område, og hvert område har nøyaktig like mange ruter som tallet sitt.
+- To like store områder berører derfor aldri hverandre langs en side.
+Noen tall er gitt. Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk.
+# Slutten på spillet
+Oppgaven er løst når hvert område har riktig størrelse: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et feil tall som du tar tilbake med Angre.

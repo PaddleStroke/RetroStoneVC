@@ -1,0 +1,10 @@
+Fillomino
+# O objetivo
+Escreva um número de 1 a 9 em cada casa.
+- Casas com o mesmo número que se tocam pelo lado formam uma região, e cada região tem exatamente tantas casas quanto o seu número.
+- Assim, duas regiões do mesmo tamanho nunca se tocam pelo lado.
+Alguns números são dados. Cada grade tem uma única solução, encontrada só pelo raciocínio.
+# O fim da partida
+A grade está resolvida quando cada região tem o tamanho certo: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que você tira com Desfazer.

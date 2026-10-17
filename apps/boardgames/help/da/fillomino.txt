@@ -1,0 +1,10 @@
+Fillomino
+# Målet
+Skriv et tal fra 1 til 9 i hvert felt.
+- Felter med samme tal, der rører hinanden med en side, danner et område, og hvert område har præcis lige så mange felter som sit tal.
+- To lige store områder rører derfor aldrig hinanden med en side.
+Nogle tal er givet. Hver opgave har præcis én løsning, som findes ved ren logik.
+# Spillets afslutning
+Opgaven er løst, når hvert område har den rigtige størrelse: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert tal, som du tager tilbage med Fortryd.

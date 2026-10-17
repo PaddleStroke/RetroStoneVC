@@ -1,0 +1,10 @@
+Fillomino
+# Das Ziel
+Schreibe in jedes Feld eine Zahl von 1 bis 9.
+- Felder mit derselben Zahl, die sich an einer Seite berühren, bilden ein Gebiet, und jedes Gebiet hat genau so viele Felder wie seine Zahl.
+- Zwei gleich große Gebiete berühren sich also nie an einer Seite.
+Einige Zahlen sind vorgegeben. Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jedes Gebiet die richtige Größe hat: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsche Zahl, die du mit Rückgängig zurücknimmst.

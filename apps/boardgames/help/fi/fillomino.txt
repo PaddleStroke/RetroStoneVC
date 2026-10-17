@@ -1,0 +1,10 @@
+Fillomino
+# Tavoite
+Kirjoita jokaiseen ruutuun numero 1–9.
+- Saman numeron ruudut, jotka koskettavat toisiaan sivulla, muodostavat alueen, ja jokaisessa alueessa on täsmälleen niin monta ruutua kuin sen numero.
+- Kaksi samankokoista aluetta ei siis koskaan kosketa toisiaan sivulla.
+Osa numeroista on annettu. Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen alue on oikean kokoinen: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä numero, jonka perut Kumoa-painikkeella.

@@ -1,0 +1,10 @@
+Fillomino
+# O objetivo
+Escreve um número de 1 a 9 em cada casa.
+- As casas com o mesmo número que se tocam pelo lado formam uma região, e cada região tem exatamente tantas casas como o seu número.
+- Assim, duas regiões do mesmo tamanho nunca se tocam pelo lado.
+Alguns números são dados. Cada grelha tem uma única solução, encontrada só pelo raciocínio.
+# O fim do jogo
+A grelha está resolvida quando cada região tem o tamanho certo: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é um número errado que tiras com Anular.

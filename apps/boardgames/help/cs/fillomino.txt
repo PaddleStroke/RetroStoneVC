@@ -1,0 +1,10 @@
+Fillomino
+# Cíl hry
+Do každého políčka napiš číslo od 1 do 9.
+- Políčka se stejným číslem, která se dotýkají stranou, tvoří oblast, a každá oblast má přesně tolik políček, kolik je její číslo.
+- Dvě stejně velké oblasti se tedy nikdy nedotýkají stranou.
+Některá čísla jsou dána. Každý hlavolam má právě jedno řešení, které najdeš jen úvahou.
+# Konec hry
+Hlavolam je vyřešen, když má každá oblast správnou velikost: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné číslo, které vezmeš zpět tlačítkem Vrátit.

@@ -1,0 +1,10 @@
+Fillomino
+# Le but
+Écris un nombre de 1 à 9 dans chaque case.
+- Les cases d'un même nombre qui se touchent par un côté forment une région, et chaque région a exactement autant de cases que son nombre.
+- Deux régions de même taille ne se touchent donc jamais par un côté.
+Certains nombres sont donnés. Chaque grille a une seule solution, qu'on trouve par le seul raisonnement.
+# La fin de la partie
+La grille est résolue quand chaque région a la bonne taille : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est un nombre faux que tu reprends avec Annuler.

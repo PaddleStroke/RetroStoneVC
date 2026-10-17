@@ -1,0 +1,10 @@
+Fillomino
+# Cel gry
+Wpisz do każdego pola liczbę od 1 do 9.
+- Pola z tą samą liczbą, które stykają się bokiem, tworzą obszar, a każdy obszar ma dokładnie tyle pól, ile wynosi jego liczba.
+- Dwa obszary tej samej wielkości nigdy więc nie stykają się bokiem.
+Niektóre liczby są podane. Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każdy obszar ma właściwą wielkość: przez siatkę przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to zła liczba cofnięta przyciskiem Cofnij.

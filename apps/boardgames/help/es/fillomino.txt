@@ -1,0 +1,10 @@
+Fillomino
+# El objetivo
+Escribe un número del 1 al 9 en cada casilla.
+- Las casillas con el mismo número que se tocan por un lado forman una región, y cada región tiene exactamente tantas casillas como su número.
+- Así, dos regiones del mismo tamaño nunca se tocan por un lado.
+Algunos números vienen dados. Cada tablero tiene una sola solución, que se encuentra solo razonando.
+# El final de la partida
+El tablero está resuelto cuando cada región tiene el tamaño correcto: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es un número equivocado que quitas con Deshacer.

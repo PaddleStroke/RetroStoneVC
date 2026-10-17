@@ -1,0 +1,10 @@
+Fillomino
+# Målet
+Skriv ett tal från 1 till 9 i varje ruta.
+- Rutor med samma tal som rör varandra med en sida bildar ett område, och varje område har exakt lika många rutor som sitt tal.
+- Två lika stora områden rör därför aldrig varandra med en sida.
+Några tal är givna. Varje pussel har exakt en lösning, som hittas med enbart logik.
+# Partiets slut
+Pusslet är löst när varje område har rätt storlek: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är ett felaktigt tal som du tar tillbaka med Ångra.
