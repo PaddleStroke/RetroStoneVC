@@ -15,7 +15,8 @@
  *
  * Options (--opt key=value on the desktop runners):
  *   bot=N          the bot plays players 1..N (bot_think); botruns=N runs; botstop=D: from D metres (P2-P4: D+20,
- *                  D+40..) it gives up and stands still (the tests' game over); botskill=S a human-like bot (1..10)
+ *                  D+40..) it gives up and stands still, its air running out 10 times as fast (the tests' game
+ *                  over); botskill=S a human-like bot (1..10)
  *   seed=N         a fixed well (default: from the frame of the start)
  *   players=N      start with N players joined (1..4);  ready=1  skip the title (the run waits for a press)
  *   dump=1         log the final state at exit (tests); music=0, sound=0
@@ -229,7 +230,12 @@ static pin player_input(int p)
     }
     if (is_bot(p)) {
         if (opt_botstop && W.w[p].go.depth >= opt_botstop + 20 * p) {
-            in.any = 1;                         /* it gives up: stands still */
+            /* it gives up: stands still, its air running out ten times as fast (the tests' game over: in seconds,
+             * not a whole tank) */
+            gopher *g = &W.w[p].go;
+            int32_t gasp = 9 * stratum_param(g->stratum, P_DRAIN);
+            g->air = g->air > gasp ? g->air - gasp : 0;
+            in.any = 1;
             return in;
         }
         bot_think(&W, p, opt_botskill, &in);

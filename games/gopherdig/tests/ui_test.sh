@@ -23,7 +23,7 @@ printf "20 P2 tap A\n30 P3 tap A\n112 P4 tap A\n" > "$O/j3.input"
 run --frames 130 --input "$O/j3.input" --shot 120:"$O/title-4-players.png"
 # play: near the grass (the hint), a group falling, the first checkpoint, deeper in the red clay, paused
 run --frames 400 --opt bot=1 --opt seed=7 --opt ready=1 --shot 300:"$O/play.png" --shot 181:"$O/falling.png"
-run --frames 3000 --opt bot=1 --opt seed=7 --opt ready=1
+run --frames 1500 --opt bot=1 --opt seed=7 --opt ready=1
 c=$(frame_of "reached 100 m")
 if [ -n "$c" ]; then
     run --frames $((c + 2000)) --opt bot=1 --opt seed=7 --opt ready=1 --shot $((c + 30)):"$O/checkpoint.png" \
@@ -38,7 +38,7 @@ run --frames 700 --opt bot=2 --opt seed=9 --opt ready=1 --shot 690:"$O/play-2-pl
 run --frames 700 --opt bot=3 --opt seed=9 --opt ready=1 --shot 690:"$O/play-3-players.png"
 run --frames 700 --opt bot=4 --opt seed=9 --opt ready=1 --shot 690:"$O/play-4-players.png"
 # game over with a medal: the bot gives up from 110 m (bronze)
-run --frames 30000 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=110
+run --frames 6000 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=110
 f=$(frame_of "run 1 over")
 if [ -n "$f" ]; then
     run --frames $((f + 60)) --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=110 --shot $((f + 50)):"$O/gameover.png"
@@ -46,7 +46,7 @@ else
     ko "the bot run for the game-over screen did not end"
 fi
 # the 4-player results: the bots give up from 10, 30, 50 and 70 m
-run --frames 30000 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
+run --frames 6000 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
 f=$(frame_of "run 1 over")
 if [ -n "$f" ]; then
     run --frames $((f + 60)) --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10 --shot $((f + 50)):"$O/results-4-players.png"

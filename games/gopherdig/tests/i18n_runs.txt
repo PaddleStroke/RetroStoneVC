@@ -12,6 +12,7 @@ play3     700  690  --opt bot=3 --opt seed=9 --opt ready=1
 play4     700  690  --opt bot=4 --opt seed=9 --opt ready=1
 pause     320  310  --opt bot=1 --opt seed=7 --opt ready=1 ; 300 tap SELECT
 pause4    320  310  --opt bot=4 --opt seed=7 --opt ready=1 ; 300 tap SELECT
-out4      5000 4990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
-over      6000 5990 --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=10
-results   8000 7990 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
+# the bots give up from 10 m (P2-P4: 30, 50, 70) and run out of air (frames 456, 650, 919, 1099; the panel at 1159)
+out4      1010 1000 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10
+over      900  890  --opt bot=1 --opt seed=5 --opt ready=1 --opt botstop=10
+results   1400 1390 --opt bot=4 --opt seed=5 --opt ready=1 --opt botstop=10

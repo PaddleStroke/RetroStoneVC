@@ -43,11 +43,11 @@ out=$(run --frames 110 --input "$T/again.input")
 d=$(field "$out" row)
 [ "${d:-0}" -ge 1 ] && ok "after Down, A alone keeps drilling down (row $d)" || ko "A after Down: $out"
 
-# the game over: the bot stands still from 20 m (botstop) until the air runs out or a block falls on it
-out=$(run --frames 12000 --opt bot=1 --opt botstop=20)
+# the game over: the bot stands still from 20 m (botstop) until its air runs out (fast) or a block falls on it
+out=$(run --frames 3000 --opt bot=1 --opt botstop=20)
 check "game over" "state: st=3 .*runs=1 out=[12] " "$out"
 f=$(over_frame "$out")
-[ -n "$f" ] || { ko "the bot run did not end"; f=6000; }
+[ -n "$f" ] || { ko "the bot run did not end"; f=1500; }
 printf "%d tap A\n" $((f + 50)) > "$T/retry.input"
 out=$(run --frames $((f + 60)) --opt bot=1 --opt botstop=20 --input "$T/retry.input")
 check "game over: one press goes back to the title (the only menu)" "state: st=0 .*runs=1 " "$out"
@@ -81,7 +81,7 @@ nostrict "2 views" "$out"
 [ -n "$Q" ] && exit $fail
 
 rm -f "$T/save.srm"
-out=$(run --frames 12000 --opt bot=1 --opt botstop=20 --sram "$T/save.srm")
+out=$(run --frames 3000 --opt bot=1 --opt botstop=20 --sram "$T/save.srm")
 s=$(field "$out" score)
 out=$(run --frames 10 --sram "$T/save.srm")
 check "save RAM: the best depth ($s) persists" "best=${s:-x} runs=0" "$out"

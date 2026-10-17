@@ -49,10 +49,10 @@ s=$(run paused 200 "${START}50 tap SELECT\n90 tap-at @160 100\n120 tap-at @296 8
 [ "$(field "$s" col)" = 4 ] && [ "$(field "$s" pops)" = 0 ] && ok "paused: the fingers do nothing" || ko "paused: $s"
 
 # the game over (the bot gives up from 20 m): a tap goes back to the title
-s=$(run over 12000 "" 320 "--opt bot=1 --opt botstop=20")
+s=$(run over 3000 "" 320 "--opt bot=1 --opt botstop=20")
 over=$(sed -n 's/.*run 1 over at frame \([0-9]*\).*/\1/p' "$O/over.log")
 if [ "$(field "$s" st)" = 3 ] && [ -n "$over" ]; then ok "a run ends (the panel at frame $over)"
-else ko "no game over: $s"; over=6000; fi
+else ko "no game over: $s"; over=1500; fi
 B="--opt bot=1 --opt botstop=20"
 s=$(run back $((over + 60)) "$((over + 40)) tap-at 50%% 50%%\n" 320 "$B")
 [ "$(field "$s" st)" = 0 ] && ok "a tap on the game-over panel goes back to the title" || ko "back: $s"
