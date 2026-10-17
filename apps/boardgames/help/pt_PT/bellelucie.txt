@@ -1,16 +1,13 @@
 La Belle Lucie
 # O objetivo
-Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um jogo para um jogador, também chamado Leque.
+Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei.
 # A disposição
 - As cartas são distribuídas voltadas para cima em 18 leques de três; o último leque tem uma só carta.
-- Em cima: a mão (para as redistribuições), o lugar da merci e as quatro fundações.
 # Mover as cartas
 - Só a carta de cima de um leque se move: para a sua fundação, ou para cima da carta de cima de outro leque do mesmo naipe e de um valor acima: o 6 de copas sobre o 7 de copas.
 - Um leque que fica vazio continua vazio.
 # As redistribuições
-- Duas vezes no jogo, toca na mão (o lugar com a seta a girar, em cima à esquerda): as cartas que ainda estão nos leques são juntadas, baralhadas e distribuídas outra vez em leques de três. O número na mão mostra as redistribuições que restam.
-- Na última distribuição vem a merci, o presente das regras clássicas: uma única vez, toca numa carta escondida num leque para a tirar. Fica à espera no seu lugar até a jogares numa fundação ou num leque.
+- Duas vezes no jogo, toca na mão (em cima à esquerda): as cartas que ainda estão nos leques são juntadas, baralhadas e distribuídas outra vez em leques de três.
+- Na última distribuição vem a merci: uma única vez, toca numa carta escondida num leque para a tirar. Fica à espera no seu lugar até a jogares numa fundação ou num leque.
 # O fim do jogo
-Ganhas quando todas as cartas estão nas fundações; assim que todas podem subir uma a uma, sobem sozinhas. O jogo acaba quando não resta nenhuma jogada. Nem todas as distribuições se podem ganhar.
-# Jogar no dispositivo
-Toca numa carta de cima para a mandar para a sua fundação ou o seu leque, ou arrasta-a até lá. Um segundo toque rápido manda a carta só para uma fundação. A lâmpada mostra uma jogada útil; o número ao lado das tuas cartas conta as tuas jogadas. Anular desfaz as jogadas, até à distribuição.
+Ganhas quando todas as cartas estão nas fundações. O jogo acaba quando não resta nenhuma jogada. Nem todas as distribuições se podem ganhar.

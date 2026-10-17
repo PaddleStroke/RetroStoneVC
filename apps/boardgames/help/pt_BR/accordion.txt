@@ -1,6 +1,6 @@
 Acordeão
 # O objetivo
-Juntar as 52 cartas num único monte. Um jogo para um jogador, e muito difícil.
+Juntar as 52 cartas num único monte.
 # A arrumação
 Todas as cartas são distribuídas viradas para cima numa longa fileira que quebra como linhas de texto: a primeira carta de uma linha vem logo depois da última carta da linha de cima.
 # Mover as cartas
@@ -10,4 +10,4 @@ Todas as cartas são distribuídas viradas para cima numa longa fileira que queb
 # O fim da partida
 A partida termina quando nenhum monte pode se mover. Um só monte é vitória; mais de seis montes, derrota.
 # Níveis e estrelas
-150 níveis em seis capítulos, cada um uma distribuição que pode chegar a um só monte; a aba do dado distribui ao acaso. Um monte: 3 estrelas; dois ou três: 2 estrelas; de quatro a seis: 1 estrela.
+3 estrelas: um só monte.

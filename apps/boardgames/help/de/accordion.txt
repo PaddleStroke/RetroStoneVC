@@ -1,6 +1,6 @@
 Akkordeon
 # Das Ziel
-Alle 52 Karten zu einem einzigen Stapel vereinen. Ein Spiel für eine Person, und ein sehr schweres.
+Alle 52 Karten zu einem einzigen Stapel vereinen.
 # Der Aufbau
 Alle Karten liegen offen in einer langen Reihe, die wie Textzeilen umbricht: Die erste Karte einer Zeile folgt auf die letzte Karte der Zeile darüber.
 # Karten bewegen
@@ -10,4 +10,4 @@ Alle Karten liegen offen in einer langen Reihe, die wie Textzeilen umbricht: Die
 # Das Ende der Partie
 Die Partie endet, wenn kein Stapel mehr ziehen kann. Ein einziger Stapel ist ein Sieg; mehr als sechs Stapel sind verloren.
 # Level und Sterne
-150 Level in sechs Kapiteln, jedes ein Spiel, das sich auf einen Stapel bringen lässt; der Reiter mit dem Würfel teilt nach Zufall aus. Ein Stapel übrig: 3 Sterne; zwei oder drei: 2 Sterne; vier bis sechs: 1 Stern.
+3 Sterne: ein Stapel übrig.

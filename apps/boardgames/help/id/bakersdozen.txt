@@ -1,8 +1,7 @@
 Lusin Tukang Roti
 # Tujuan
-Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain.
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja.
 # Susunan
-- Tiga belas kolom berisi empat kartu, semuanya terbuka.
 - Saat dibagikan, raja di setiap kolom pindah ke paling bawah.
 # Memindahkan kartu
 - Hanya kartu teratas sebuah kolom yang bergerak, satu kartu setiap kali.
@@ -10,6 +9,6 @@ Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai ra
 - Kolom kosong tetap kosong.
 - Kartu di fondasi tetap di sana.
 # Akhir permainan
-Kamu menang saat semua kartu ada di fondasi. Begitu sisa kartu bisa naik semua satu per satu, kartu-kartu itu naik sendiri.
+Kamu menang saat semua kartu ada di fondasi.
 # Level dan bintang
-150 level dalam enam bab, masing-masing pembagian yang bisa dimenangkan; tab dadu membagikan secara acak. Tanpa petunjuk dan tanpa urungkan: 3 bintang; paling banyak dua seluruhnya: 2 bintang; selain itu 1.
+3 bintang: tanpa petunjuk dan tanpa urungkan.

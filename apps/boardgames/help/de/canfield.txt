@@ -1,23 +1,20 @@
 Canfield
 # Das Ziel
-Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe. Ein Spiel für eine Person.
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe.
 # Der Aufbau
-- Die Reserve, links: 13 Karten, nur die oberste liegt offen.
-- Eine offene Karte auf dem ersten Ablagestapel: Ihr Rang eröffnet jeden Ablagestapel.
-- Vier Spalten mit je einer Karte, unter den Ablagestapeln.
-- Die übrigen 34 Karten sind der Stapel, verdeckt oben links; daneben liegen die gezogenen Karten.
+- Die Reserve: 13 Karten, nur die oberste liegt offen.
+- Die Karte auf dem ersten Ablagestapel: Ihr Rang eröffnet jeden Ablagestapel.
+- Vier Spalten; die übrigen 34 Karten sind der Stapel.
 # Karten bewegen
-- Die Ablagestapel beginnen mit den vier Karten vom Rang der ersten Karte und steigen in ihrer Farbe auf, im Kreis: Nach dem König kommt das Ass.
+- Die Ablagestapel steigen in ihrer Farbe auf, im Kreis: Nach dem König kommt das Ass.
 - Auf eine Spalte kommt eine Karte, die einen Rang niedriger ist und die andere Farbe hat, ebenfalls im Kreis: ein schwarzer König auf ein rotes Ass.
-- Bewege die oberste Karte einer Spalte oder eine ganze Spalte auf einmal, nie nur einen Teil davon.
+- Bewege die oberste Karte einer Spalte oder die ganze Spalte, nie nur einen Teil davon.
 - Die oberste Karte der Reserve darf auf einen Ablagestapel oder auf eine Spalte.
-- Eine leer gewordene Spalte wird sofort mit der obersten Karte der Reserve gefüllt. Ist die Reserve leer, darf jede Karte sie füllen.
+- Eine leere Spalte wird sofort aus der Reserve gefüllt; ist die Reserve leer, mit jeder Karte.
 - Eine Karte auf einem Ablagestapel bleibt dort.
 # Der Stapel
-Tippe auf den Stapel, um drei Karten aufzudecken (am Ende weniger); nur die oberste gezogene Karte ist spielbar. Ist der Stapel leer, tippe auf seinen Platz, um die gezogenen Karten wieder umzudrehen, so oft du willst.
+Tippe auf den Stapel, um drei Karten aufzudecken; nur die oberste ist spielbar. Drehe die gezogenen Karten so oft um, wie du willst.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Sind Stapel, gezogene Karten und Reserve leer und können die übrigen Karten alle der Reihe nach hinauf, wandern sie von selbst nach oben. Leere zuerst die Reserve: Sie ist der Schlüssel zum Spiel.
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen.
 # Level und Sterne
-Es gibt 150 Level in sechs Kapiteln, vom leichtesten Spiel bis zum schwersten, und jedes ist zu gewinnen; wähle eines in der Levelübersicht. Der Reiter mit dem Würfel nach den Kapiteln gibt ein neues Spiel nach Zufall. Ohne Tipp und ohne rückgängig gemachten Zug: 3 Sterne; bis zu zwei Tipps und rückgängig gemachte Züge zusammen: 2 Sterne; sonst 1.
-# Spielen auf dem Gerät
-Tippe auf eine Karte, um sie an ihren besten Platz zu schicken: auf einen Ablagestapel, wenn sie dorthin passt, sonst auf eine Spalte. Tippe auf die erste Karte einer Spalte, um die ganze Spalte zu bewegen. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Du kannst Karten auch ziehen, wohin du willst. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+3 Sterne: ohne Tipp und ohne Rücknahme.

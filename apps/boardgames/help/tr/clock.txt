@@ -1,14 +1,11 @@
 Saat
 # Amaç
-Dördüncü papaz çıkmadan bütün kartları açmak. Tek kişilik, tamamen şansa dayalı küçük bir oyun, çocuklar için çok tatlı: kartlar kendi kendine oynar.
+Dördüncü papaz çıkmadan bütün kartları açmak. Tek kişilik, tamamen şansa dayalı küçük bir oyun: kartlar kendi kendine oynar.
 # Diziliş
 - Kartlar kapalı olarak dörder kartlık 13 yığına dağıtılır: on ikisi bir saat kadranının çevresinde, her saat için bir tane, papazların yığını da ortada.
 - As saat bire, 2 saat ikiye ait ve böyle devam eder: vale on bire, kız on ikiye.
 # Kartları taşımak
 - Ortadaki yığının en üstteki kartını aç ve onu açık olarak kendi saatinin yığınının altına koy; papaz ortadaki yığının altına gider.
 - Sonra az önce altına kart koyduğun yığının en üstteki kartını aç ve böyle devam et.
-- Saatin altın yelkovanı bir sonraki kartın geleceği yığını gösterir.
 # Oyunun sonu
-Dördüncü papaz açıldığında bütün kartlar açıksa kazanırsın. Hâlâ kapalı kartlar varken dördüncü papaz gelirse oyun kaybedilir. Seçecek bir şey yok: saatin dönüşünü izlemenin tadını çıkar.
-# Cihazda oynamak
-Bir sonraki kartı açmak için masada herhangi bir yere dokun: kart kendi saatine uçar. Lamba bir sonraki kartı gösterir; kartlarının yanındaki sayı açılan kartları sayar. Geri al hamleleri dağıtıma kadar geri alır.
+Dördüncü papaz açıldığında bütün kartlar açıksa kazanırsın. Hâlâ kapalı kartlar varken dördüncü papaz gelirse oyun kaybedilir.

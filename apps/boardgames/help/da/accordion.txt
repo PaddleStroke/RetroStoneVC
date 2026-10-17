@@ -1,6 +1,6 @@
 Harmonika
 # Målet
-Saml alle 52 kort i én bunke. Et spil for én spiller, og et meget svært et.
+Saml alle 52 kort i én bunke.
 # Opstillingen
 Alle kort gives synlige i én lang række, der brydes som tekstlinjer: det første kort i en linje kommer lige efter det sidste kort i linjen over.
 # Flyt kort
@@ -10,4 +10,4 @@ Alle kort gives synlige i én lang række, der brydes som tekstlinjer: det førs
 # Spillets afslutning
 Spillet slutter, når ingen bunke kan flyttes. Én bunke tilbage er en sejr; mere end seks bunker er et nederlag.
 # Baner og stjerner
-150 baner i seks kapitler, hver et spil der kan samles til én bunke; fanen med terningen giver tilfældigt. Én bunke: 3 stjerner; to eller tre: 2 stjerner; fire til seks: 1 stjerne.
+3 stjerner: én bunke.

@@ -1,14 +1,11 @@
 Klokken
 # Målet
-Snu alle kortene før den fjerde kongen kommer fram. Et lite spill som bare handler om flaks, for én spiller, og fint for barn: kortene spiller selv.
+Snu alle kortene før den fjerde kongen kommer fram. Et lite spill som bare handler om flaks, for én spiller: kortene spiller selv.
 # Oppstillingen
 - Kortene deles ut med baksiden opp i 13 bunker med fire: tolv rundt en urskive, én for hver time, og kongenes bunke i midten.
 - Esset hører til klokka ett, 2-eren til klokka to og så videre: knekten til elleve, damen til tolv.
 # Flytte kort
 - Snu det øverste kortet i midtbunken og legg det med bildesiden opp under bunken for timen sin; en konge legges under midtbunken.
 - Snu så det øverste kortet i bunken du nettopp la et kort under, og fortsett.
-- Klokkas gylne viser peker på bunken det neste kortet kommer fra.
 # Slutten på spillet
-Du vinner hvis alle kortene er snudd når den fjerde kongen kommer fram. Kommer den fjerde kongen mens det fortsatt er skjulte kort, er spillet tapt. Det er ingenting å velge: bare kos deg med å se klokka gå rundt.
-# Spill på enheten
-Trykk hvor som helst på bordet for å snu neste kort: det flyr til timen sin. Lampen viser neste kort; tallet ved siden av kortene dine teller de snudde kortene. Angre tar tilbake trekk, helt til kortene ble delt ut.
+Du vinner hvis alle kortene er snudd når den fjerde kongen kommer fram. Kommer den fjerde kongen mens det fortsatt er skjulte kort, er spillet tapt.

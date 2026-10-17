@@ -1,16 +1,13 @@
 La Belle Lucie
 # Das Ziel
-Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König. Ein Spiel für eine Person, auch Fächer genannt.
+Alle 52 Karten auf die vier Ablagestapel bringen, einen für jede Farbe, aufsteigend vom Ass bis zum König.
 # Der Aufbau
 - Die Karten liegen offen in 18 Fächern zu je drei Karten; der letzte Fächer hat nur eine Karte.
-- Oben: der Platz zum Neumischen, der Platz für das „Merci“ und die vier Ablagestapel.
 # Karten bewegen
 - Nur die oberste Karte eines Fächers darf ziehen: auf ihren Ablagestapel oder auf die oberste Karte eines anderen Fächers, wenn diese dieselbe Farbe hat und einen Rang höher ist: die Herz 6 auf die Herz 7.
 - Ein leerer Fächer bleibt leer.
 # Das Neumischen
-- Zweimal in einer Partie kannst du auf den Platz mit dem kreisenden Pfeil oben links tippen: Die Karten, die noch in den Fächern liegen, werden eingesammelt, gemischt und wieder in Fächern zu je drei ausgelegt. Die Zahl auf diesem Platz zeigt, wie oft du noch neu mischen kannst.
-- Beim letzten Geben kommt das „Merci“, das Geschenk der klassischen Regeln: Einmal darfst du auf eine Karte tippen, die tief in einem Fächer steckt, und sie herausziehen. Sie wartet auf einem eigenen Platz, bis du sie auf einen Ablagestapel oder einen Fächer spielst.
+- Zweimal in einer Partie kannst du auf den Platz mit dem kreisenden Pfeil oben links tippen: Die Karten, die noch in den Fächern liegen, werden eingesammelt, gemischt und wieder in Fächern zu je drei ausgelegt.
+- Beim letzten Geben kommt das „Merci“: Einmal darfst du auf eine Karte tippen, die tief in einem Fächer steckt, und sie herausziehen. Sie wartet auf einem eigenen Platz, bis du sie auf einen Ablagestapel oder einen Fächer spielst.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen; sobald sie alle der Reihe nach hinaufkönnen, wandern sie von selbst nach oben. Die Partie ist verloren, wenn kein Zug mehr möglich ist. Nicht jedes Spiel ist zu gewinnen.
-# Spielen auf dem Gerät
-Tippe auf eine oberste Karte, um sie auf ihren Ablagestapel oder ihren Fächer zu schicken, oder ziehe sie dorthin. Ein schnelles zweites Tippen schickt eine Karte nur auf einen Ablagestapel. Die Lampe zeigt einen nützlichen Zug; die Zahl neben deinen Karten zählt deine Züge. Rückgängig nimmt Züge zurück, bis zum Geben.
+Du gewinnst, wenn alle Karten auf den Ablagestapeln liegen. Die Partie ist verloren, wenn kein Zug mehr möglich ist. Nicht jedes Spiel ist zu gewinnen.

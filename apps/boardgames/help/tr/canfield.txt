@@ -1,23 +1,20 @@
 Canfield
 # Amaç
-52 kartın hepsini dört temel yığına, her takım için bir yığın, dizmek. Tek kişilik bir oyun.
+52 kartın hepsini dört temel yığına, her takım için bir yığın, dizmek.
 # Diziliş
-- Solda yedek: 13 kart, yalnızca en üstteki açık.
-- İlk temel yığında bir açık kart: onun değeri bütün temel yığınların başlangıcıdır.
-- Temel yığınların altında birer kartlık dört oyun yığını.
-- Kalan 34 kart kapalı olarak sol üstteki destedir; yanında açılan kartlar durur.
+- Yedek: 13 kart, yalnızca en üstteki açık.
+- İlk temel yığındaki kart: onun değeri bütün temel yığınların başlangıcıdır.
+- Dört oyun yığını; kalan 34 kart destedir.
 # Kartları taşımak
-- Temel yığınlar ilk kartın değerindeki dört kartla başlar ve takıma göre yukarı doğru, köşeden dönerek dizilir: papazdan sonra as gelir.
+- Temel yığınlar takıma göre yukarı doğru, köşeden dönerek dizilir: papazdan sonra as gelir.
 - Oyun yığınlarına bir aşağı değerde ve öbür renkte bir kart konur, yine köşeden dönerek: kırmızı bir asın üstüne siyah bir papaz.
-- Bir yığının en üstteki kartını ya da bütün yığını birden taşı, asla bir parçasını.
+- Bir yığının en üstteki kartını ya da bütün yığını taşı, asla bir parçasını.
 - Yedeğin en üstteki kartı bir temel yığına ya da bir oyun yığınına gidebilir.
-- Boşalan bir oyun yığını hemen yedeğin en üstteki kartıyla doldurulur. Yedek bitince oraya herhangi bir kart konabilir.
+- Boşalan bir oyun yığını hemen yedekten doldurulur; yedek bitince herhangi bir kartla.
 - Temel yığındaki bir kart orada kalır.
 # Deste
-Desteye dokunarak üç kartı açılanlara çevir (sona doğru daha az); yalnızca açılanların en üstteki kartı oynanabilir. Deste bitince yerine dokunarak açılan kartları yeniden çevir, istediğin kadar.
+Desteye dokunarak üç kartı açılanlara çevir; yalnızca en üstteki oynanabilir. Açılan kartları istediğin kadar yeniden çevir.
 # Oyunun sonu
-Bütün kartlar temel yığınlardayken kazanırsın. Deste, açılanlar ve yedek bitip kalan kartlar sırayla çıkabilir hâle gelince kendiliğinden çıkarlar. Önce yedeği boşalt: oyunun anahtarı odur.
+Bütün kartlar temel yığınlardayken kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var; en kolay dağıtımdan en zoruna kadar uzanıyorlar ve her biri kazanılabilir. Seviye tablosundan birini seç. Bölümlerden sonraki zar sekmesi rastgele yeni bir oyun dağıtır. İpucu da geri alma da yoksa 3 yıldız; ipucu ve geri alma toplam en fazla ikiyse 2 yıldız; yoksa 1.
-# Cihazda oynamak
-Bir kartı en iyi yerine göndermek için ona dokun: gidebiliyorsa temel yığına, gidemiyorsa bir oyun yığınına. Bütün yığını taşımak için yığının ilk kartına dokun. Hızlı ikinci bir dokunuş kartı yalnızca temel yığına gönderir. Kartları istediğin yere de sürükleyebilirsin. Lamba işe yarar bir hamle gösterir; kartlarının yanındaki sayı hamlelerini sayar. Geri al hamleleri dağıtıma kadar geri alır.
+İpucu da geri alma da yoksa 3 yıldız.

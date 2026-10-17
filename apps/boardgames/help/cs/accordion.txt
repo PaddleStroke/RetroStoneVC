@@ -1,6 +1,6 @@
 Harmonika
 # Cíl hry
-Shromáždit všech 52 karet do jediné hromádky. Hra pro jednoho hráče, a velmi těžká.
+Shromáždit všech 52 karet do jediné hromádky.
 # Rozložení
 Všechny karty se rozdají lícem nahoru do jedné dlouhé řady, která se láme jako řádky textu: první karta řádku následuje po poslední kartě řádku nad ním.
 # Přesouvání karet
@@ -10,4 +10,4 @@ Všechny karty se rozdají lícem nahoru do jedné dlouhé řady, která se lám
 # Konec hry
 Hra končí, když se už žádná hromádka nemůže pohnout. Jediná hromádka je výhra; víc než šest hromádek je prohra.
 # Úrovně a hvězdy
-150 úrovní v šesti kapitolách, každá je rozdání, které jde složit do jedné hromádky; záložka s kostkou rozdává náhodně. Jedna hromádka: 3 hvězdy; dvě nebo tři: 2 hvězdy; čtyři až šest: 1 hvězda.
+3 hvězdy: jedna hromádka.

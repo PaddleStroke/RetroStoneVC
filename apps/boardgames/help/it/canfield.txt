@@ -1,23 +1,20 @@
 Canfield
 # Lo scopo
-Portare tutte le 52 carte sulle quattro basi, una per seme. Un gioco per un giocatore.
+Portare tutte le 52 carte sulle quattro basi, una per seme.
 # La disposizione
-- La riserva, a sinistra: 13 carte, solo quella in cima è scoperta.
-- Una carta scoperta sulla prima base: il suo valore apre tutte le basi.
-- Quattro colonne di una carta ciascuna, sotto le basi.
-- Le altre 34 carte formano il mazzo, coperto, in alto a sinistra; accanto, gli scarti.
+- La riserva: 13 carte, solo quella in cima è scoperta.
+- La carta sulla prima base: il suo valore apre tutte le basi.
+- Quattro colonne; le altre 34 carte formano il mazzo.
 # Muovere le carte
-- Le basi cominciano con le quattro carte del valore della prima carta e salgono per seme, in cerchio: dopo il re viene l'asso.
+- Le basi salgono per seme, in cerchio: dopo il re viene l'asso.
 - Su una colonna si mette una carta di un valore in meno e dell'altro colore, anche qui in cerchio: un re nero su un asso rosso.
-- Muovi la carta in cima a una colonna, o un'intera colonna in una volta, mai solo una parte.
+- Muovi la carta in cima a una colonna o l'intera colonna, mai solo una parte.
 - La carta in cima alla riserva può andare su una base o su una colonna.
-- Una colonna rimasta vuota si riempie subito con la carta in cima alla riserva. Quando la riserva è vuota, qualsiasi carta può occuparla.
+- Una colonna vuota si riempie subito dalla riserva; quando la riserva è vuota, con qualsiasi carta.
 - Una carta su una base resta lì.
 # Il mazzo
-Tocca il mazzo per girare tre carte sugli scarti (meno alla fine); si gioca solo la carta in cima agli scarti. Quando il mazzo è finito, tocca il suo posto per rigirare gli scarti, quante volte vuoi.
+Tocca il mazzo per girare tre carte sugli scarti; si gioca solo quella in cima. Rigira gli scarti quante volte vuoi.
 # La fine della partita
-Vinci quando tutte le carte sono sulle basi. Appena il mazzo, gli scarti e la riserva sono vuoti e le carte rimaste possono salire tutte una dopo l'altra, salgono da sole. Svuota prima la riserva: è la chiave del gioco.
+Vinci quando tutte le carte sono sulle basi.
 # Livelli e stelle
-Ci sono 150 livelli in sei capitoli, dalla smazzata più facile alla più difficile, e ognuno si può vincere; scegline uno nella schermata dei livelli. La scheda del dado, dopo i capitoli, distribuisce una nuova smazzata a caso. Senza suggerimenti né mosse annullate: 3 stelle; fino a due suggerimenti e mosse annullate in tutto: 2 stelle; altrimenti 1.
-# Giocare sul dispositivo
-Tocca una carta per mandarla al posto migliore: una base se può andarci, altrimenti una colonna. Tocca la prima carta di una colonna per muovere tutta la colonna. Un secondo tocco rapido manda una carta solo su una base. Puoi anche trascinare le carte dove vuoi. La lampada mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.
+3 stelle: senza suggerimenti né mosse annullate.

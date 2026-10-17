@@ -1,8 +1,7 @@
 Dúzia do padeiro
 # O objetivo
-Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um jogo para um jogador.
+Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei.
 # A arrumação
-- Treze colunas de quatro cartas, todas viradas para cima.
 - Na distribuição, os reis de cada coluna vão para o fundo.
 # Mover as cartas
 - Só a carta de cima de uma coluna se move, uma de cada vez.
@@ -10,6 +9,6 @@ Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um 
 - Uma coluna vazia fica vazia.
 - Uma carta numa fundação fica lá.
 # O fim da partida
-Você vence quando todas as cartas estão nas fundações. Assim que as cartas que sobram podem subir uma após a outra, elas sobem sozinhas.
+Você vence quando todas as cartas estão nas fundações.
 # Níveis e estrelas
-150 níveis em seis capítulos, cada um uma distribuição que pode ser ganha; a aba do dado distribui ao acaso. Sem dicas nem jogadas desfeitas: 3 estrelas; até duas no total: 2 estrelas; senão, 1.
+3 estrelas: sem dicas nem jogadas desfeitas.

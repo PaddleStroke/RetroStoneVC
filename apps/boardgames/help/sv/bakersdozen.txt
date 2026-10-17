@@ -1,8 +1,7 @@
 Bagardussin
 # Målet
-Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess till kung. Ett spel för en spelare.
+Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess till kung.
 # Uppläggningen
-- Tretton kolumner med fyra kort, alla synliga.
 - När korten läggs ut hamnar kungarna i varje kolumn längst ned.
 # Flytta kort
 - Bara det översta kortet i en kolumn flyttas, ett kort i taget.
@@ -10,6 +9,6 @@ Få upp alla 52 korten på de fyra grundhögarna, en för varje färg, från ess
 - En tom kolumn förblir tom.
 - Ett kort på en grundhög ligger kvar där.
 # Partiets slut
-Du vinner när alla kort ligger på grundhögarna. Så snart de kort som är kvar kan gå upp ett efter ett går de upp av sig själva.
+Du vinner när alla kort ligger på grundhögarna.
 # Banor och stjärnor
-150 banor i sex kapitel, var och en en giv som går att vinna; fliken med tärningen delar ut på slump. Utan ledtråd och utan ångrat drag: 3 stjärnor; upp till två sammanlagt: 2 stjärnor; annars 1.
+3 stjärnor: utan ledtråd och utan ångrat drag.

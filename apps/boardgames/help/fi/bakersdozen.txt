@@ -1,8 +1,7 @@
 Leipurin tusina
 # Tavoite
-Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle.
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen.
 # Asetelma
-- Kolmetoista neljän kortin saraketta, kaikki kuvapuoli ylöspäin.
 - Jaossa kunkin sarakkeen kuninkaat siirtyvät pohjalle.
 # Korttien siirtäminen
 - Vain sarakkeen päällimmäinen kortti liikkuu, yksi kortti kerrallaan.
@@ -10,6 +9,6 @@ Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässäst�
 - Tyhjä sarake pysyy tyhjänä.
 - Peruspinossa oleva kortti pysyy siellä.
 # Pelin loppu
-Voitat, kun kaikki kortit ovat peruspinoissa. Heti kun jäljellä olevat kortit pääsevät kaikki nousemaan vuorotellen, ne nousevat itsestään.
+Voitat, kun kaikki kortit ovat peruspinoissa.
 # Tasot ja tähdet
-150 tasoa kuudessa luvussa, jokainen voitettava jako; noppavälilehti jakaa sattumanvaraisesti. Ei vihjeitä eikä kumottuja siirtoja: 3 tähteä; enintään kaksi yhteensä: 2 tähteä; muuten 1.
+3 tähteä: ei vihjeitä eikä kumottuja siirtoja.

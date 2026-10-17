@@ -1,16 +1,13 @@
 La Belle Lucie
 # O objetivo
-Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei. Um jogo para um jogador, também chamado Leque.
+Levar as 52 cartas para as quatro fundações, uma por naipe, do ás ao rei.
 # A arrumação
 - As cartas são distribuídas viradas para cima em 18 leques de três; o último leque tem uma carta só.
-- No alto: a mão (para as redistribuições), o lugar da merci e as quatro fundações.
 # Mover as cartas
 - Só a carta de cima de um leque se move: para a fundação dela, ou sobre a carta de cima de outro leque do mesmo naipe e um valor acima: o 6 de copas sobre o 7 de copas.
 - Um leque que fica vazio continua vazio.
 # As redistribuições
-- Duas vezes na partida, toque na mão (o lugar com a seta girando, no alto à esquerda): as cartas que ainda estão nos leques são juntadas, embaralhadas e distribuídas de novo em leques de três. O número na mão mostra as redistribuições que restam.
-- Na última distribuição vem a merci, o presente das regras clássicas: uma única vez, toque numa carta escondida num leque para tirá-la. Ela espera no lugar dela até você jogá-la numa fundação ou num leque.
+- Duas vezes na partida, toque na mão (no alto à esquerda): as cartas que ainda estão nos leques são juntadas, embaralhadas e distribuídas de novo em leques de três.
+- Na última distribuição vem a merci: uma única vez, toque numa carta escondida num leque para tirá-la. Ela espera no lugar dela até você jogá-la numa fundação ou num leque.
 # O fim da partida
-Você vence quando todas as cartas estão nas fundações; assim que todas podem subir uma após a outra, elas sobem sozinhas. A partida termina quando não resta nenhuma jogada. Nem toda distribuição pode ser vencida.
-# Jogando no aparelho
-Toque numa carta de cima para mandá-la para a fundação ou o leque dela, ou arraste-a até lá. Um segundo toque rápido manda a carta só para uma fundação. A lâmpada mostra uma jogada útil; o número ao lado das suas cartas conta as suas jogadas. Desfazer volta as jogadas, até a distribuição.
+Você vence quando todas as cartas estão nas fundações. A partida termina quando não resta nenhuma jogada. Nem toda distribuição pode ser vencida.

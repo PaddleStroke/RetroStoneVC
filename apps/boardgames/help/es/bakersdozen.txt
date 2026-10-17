@@ -1,8 +1,7 @@
 Docena del panadero
 # El objetivo
-Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego para un jugador.
+Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey.
 # La disposición
-- Trece columnas de cuatro cartas, todas boca arriba.
 - Al repartir, los reyes de cada columna pasan al fondo.
 # Mover cartas
 - Solo se mueve la carta de arriba de una columna, de una en una.
@@ -10,6 +9,6 @@ Llevar las 52 cartas a las cuatro bases, una por palo, del as al rey. Un juego p
 - Una columna vacía se queda vacía.
 - Una carta que está en una base se queda allí.
 # El final de la partida
-Ganas cuando todas las cartas están en las bases. En cuanto las cartas que quedan pueden subir todas una tras otra, suben solas.
+Ganas cuando todas las cartas están en las bases.
 # Niveles y estrellas
-150 niveles en seis capítulos, cada uno un reparto que se puede ganar; la pestaña del dado reparte al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos en total: 2 estrellas; si no, 1.
+3 estrellas: sin pistas ni movimientos deshechos.

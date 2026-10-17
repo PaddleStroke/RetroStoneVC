@@ -1,8 +1,7 @@
 Dozzina del fornaio
 # Lo scopo
-Portare tutte le 52 carte sulle quattro basi, una per seme, dall'asso al re. Un gioco per un giocatore.
+Portare tutte le 52 carte sulle quattro basi, una per seme, dall'asso al re.
 # La disposizione
-- Tredici colonne di quattro carte, tutte scoperte.
 - Alla distribuzione, i re di ogni colonna vanno in fondo.
 # Muovere le carte
 - Si muove solo la carta in cima a una colonna, una carta alla volta.
@@ -10,6 +9,6 @@ Portare tutte le 52 carte sulle quattro basi, una per seme, dall'asso al re. Un 
 - Una colonna vuota resta vuota.
 - Una carta su una base resta lì.
 # La fine della partita
-Vinci quando tutte le carte sono sulle basi. Appena le carte rimaste possono salire tutte una dopo l'altra, salgono da sole.
+Vinci quando tutte le carte sono sulle basi.
 # Livelli e stelle
-150 livelli in sei capitoli, ognuno una smazzata che si può vincere; la scheda del dado distribuisce a caso. Senza suggerimenti né mosse annullate: 3 stelle; fino a due in tutto: 2 stelle; altrimenti 1.
+3 stelle: senza suggerimenti né mosse annullate.

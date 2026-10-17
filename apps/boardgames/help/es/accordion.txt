@@ -1,6 +1,6 @@
 Acordeón
 # El objetivo
-Reunir las 52 cartas en un solo montón. Un juego para un jugador, y muy difícil.
+Reunir las 52 cartas en un solo montón.
 # La disposición
 Todas las cartas se reparten boca arriba en una larga fila que se lee como líneas de texto: la primera carta de una línea va justo después de la última de la línea de arriba.
 # Mover cartas
@@ -10,4 +10,4 @@ Todas las cartas se reparten boca arriba en una larga fila que se lee como líne
 # El final de la partida
 La partida termina cuando ningún montón puede moverse. Un solo montón es una victoria; más de seis montones, una derrota.
 # Niveles y estrellas
-150 niveles en seis capítulos, cada uno un reparto que se puede reducir a un montón; la pestaña del dado reparte al azar. Un montón: 3 estrellas; dos o tres: 2 estrellas; de cuatro a seis: 1 estrella.
+3 estrellas: un solo montón.

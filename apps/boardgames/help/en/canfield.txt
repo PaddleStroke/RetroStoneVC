@@ -1,23 +1,20 @@
 Canfield
 # The aim
-Move all 52 cards to the four foundations, one for each suit. A game for one player.
+Move all 52 cards to the four foundations, one for each suit.
 # The layout
-- The reserve, at the left: 13 cards, only the top one face up.
-- One card face up on the first foundation: its rank starts every foundation.
-- Four tableau piles of one card each, under the foundations.
-- The other 34 cards are the stock, face down, at the top left; next to it, the waste.
+- The reserve: 13 cards, only the top one face up.
+- The card on the first foundation: its rank starts every foundation.
+- Four tableau piles; the other 34 cards are the stock.
 # Moving cards
-- The foundations start with the four cards of the first card's rank and are built up by suit, round the corner: after the king comes the ace.
-- On the tableau, put a card one rank lower and of the other colour, round the corner too: a black king on a red ace.
-- Move the top card of a pile, or a whole pile at once, never part of one.
-- The top card of the reserve can go to a foundation or onto the tableau.
-- A pile left empty is filled at once with the top card of the reserve. Once the reserve is empty, any card may fill it.
+- Foundations go up by suit, round the corner: after the king, the ace.
+- On the tableau, one rank lower and of the other colour, round the corner too: a black king on a red ace.
+- Move the top card of a pile or the whole pile, never part of one.
+- The top card of the reserve can go to a foundation or the tableau.
+- An empty pile is filled at once from the reserve; once the reserve is empty, by any card.
 - A card on a foundation stays there.
 # The stock
-Tap the stock to turn three cards onto the waste (fewer at its end); only the top card of the waste can be played. When the stock is empty, tap its place to turn the waste back over, as many times as you like.
+Tap the stock to turn three cards onto the waste; only the top one can be played. Turn the waste back over as often as you like.
 # The end of the game
-You win when all the cards are on the foundations. Once the stock, the waste and the reserve are empty and the cards left can all go up in turn, they go up by themselves. Empty the reserve first: it is the key to the game.
+You win when all the cards are on the foundations.
 # Levels and stars
-There are 150 levels in six chapters, from the easiest deal to the hardest, each one a deal that can be won; choose one on the level screen. The die tab after the chapters deals a new game at random. No hint and no undo: 3 stars; up to two hints and undos together: 2 stars; otherwise 1.
-# Playing on the device
-Tap a card to send it to its best place: a foundation if it can go there, otherwise the tableau. Tap the first card of a pile to move the whole pile. A quick second tap sends a card only to a foundation. You can also drag cards where you want. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+3 stars: no hint and no undo.

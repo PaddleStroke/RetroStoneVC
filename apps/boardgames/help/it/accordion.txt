@@ -1,6 +1,6 @@
 Fisarmonica
 # Lo scopo
-Riunire tutte le 52 carte in un solo mazzetto. Un gioco per un giocatore, e molto difficile.
+Riunire tutte le 52 carte in un solo mazzetto.
 # La disposizione
 Tutte le carte sono distribuite scoperte in una lunga fila che va a capo come righe di testo: la prima carta di una riga segue l'ultima carta della riga sopra.
 # Muovere le carte
@@ -10,4 +10,4 @@ Tutte le carte sono distribuite scoperte in una lunga fila che va a capo come ri
 # La fine della partita
 La partita finisce quando nessun mazzetto può muoversi. Un solo mazzetto è una vittoria; più di sei mazzetti, una sconfitta.
 # Livelli e stelle
-150 livelli in sei capitoli, ognuno una smazzata che si può ridurre a un solo mazzetto; la scheda del dado distribuisce a caso. Un mazzetto: 3 stelle; due o tre: 2 stelle; da quattro a sei: 1 stella.
+3 stelle: un solo mazzetto.

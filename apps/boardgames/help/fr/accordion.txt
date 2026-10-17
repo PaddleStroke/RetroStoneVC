@@ -1,6 +1,6 @@
 Accordéon
 # Le but
-Réunir les 52 cartes en un seul tas. Un jeu pour un joueur, et un jeu très difficile.
+Réunir les 52 cartes en un seul tas.
 # La mise en place
 Toutes les cartes sont distribuées face visible en une longue rangée qui se lit comme des lignes de texte : la première carte d'une ligne suit la dernière carte de la ligne du dessus.
 # Déplacer les cartes
@@ -10,4 +10,4 @@ Toutes les cartes sont distribuées face visible en une longue rangée qui se li
 # La fin de la partie
 La partie s'arrête quand aucun tas ne peut bouger. Un seul tas restant, c'est gagné ; plus de six tas, c'est perdu.
 # Niveaux et étoiles
-150 niveaux en six chapitres, chacun une donne qui peut se réduire à un seul tas ; l'onglet du dé distribue au hasard. Un tas restant : 3 étoiles ; deux ou trois : 2 étoiles ; de quatre à six : 1 étoile.
+3 étoiles : un seul tas restant.

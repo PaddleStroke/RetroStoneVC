@@ -1,8 +1,7 @@
 Fırıncı düzinesi
 # Amaç
-52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek. Tek kişilik bir oyun.
+52 kartın hepsini dört temel yığına, her takım için bir yığın, astan papaza doğru dizmek.
 # Diziliş
-- Dörder kartlık on üç sütun, hepsi açık.
 - Dağıtımda her sütunun papazları en alta iner.
 # Kartları taşımak
 - Yalnızca bir sütunun en üstteki kartı, her seferinde bir kart taşınır.
@@ -10,6 +9,6 @@ Fırıncı düzinesi
 - Boş bir sütun boş kalır.
 - Temel yığındaki bir kart orada kalır.
 # Oyunun sonu
-Bütün kartlar temel yığınlardayken kazanırsın. Kalan kartların hepsi sırayla çıkabilir hâle gelince kendiliğinden çıkarlar.
+Bütün kartlar temel yığınlardayken kazanırsın.
 # Seviyeler ve yıldızlar
-Altı bölümde 150 seviye var, her biri kazanılabilen bir dağıtım; zar sekmesi rastgele dağıtır. İpucu da geri alma da yoksa 3 yıldız; toplam en fazla ikiyse 2 yıldız; yoksa 1.
+İpucu da geri alma da yoksa 3 yıldız.

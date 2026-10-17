@@ -1,16 +1,13 @@
 La Belle Lucie
 # Lo scopo
-Portare tutte le 52 carte sulle quattro basi, una per seme, dall'asso al re. Un gioco per un giocatore, detto anche il Ventaglio.
+Portare tutte le 52 carte sulle quattro basi, una per seme, dall'asso al re.
 # La disposizione
 - Le carte sono distribuite scoperte in 18 ventagli da tre; l'ultimo ventaglio ha una carta sola.
-- In alto: il posto delle ridistribuzioni, il posto del «merci» e le quattro basi.
 # Muovere le carte
 - Si muove solo la carta in cima a un ventaglio: sulla sua base, o sulla carta in cima a un altro ventaglio se è dello stesso seme e di un valore in più: il 6 di cuori sul 7 di cuori.
 - Un ventaglio rimasto vuoto resta vuoto.
 # Le ridistribuzioni
-- Due volte per partita, tocca il posto con la freccia che gira, in alto a sinistra: le carte rimaste nei ventagli vengono raccolte, mescolate e ridistribuite in ventagli da tre. Il numero su quel posto indica le ridistribuzioni rimaste.
-- All'ultima smazzata arriva il «merci», il regalo delle regole classiche: una volta sola, tocca una carta sepolta in un ventaglio per tirarla fuori. Aspetta sul suo posto finché non la giochi su una base o su un ventaglio.
+- Due volte per partita, tocca il posto con la freccia che gira, in alto a sinistra: le carte rimaste nei ventagli vengono raccolte, mescolate e ridistribuite in ventagli da tre.
+- All'ultima smazzata arriva il «merci»: una volta sola, tocca una carta sepolta in un ventaglio per tirarla fuori. Aspetta sul suo posto finché non la giochi su una base o su un ventaglio.
 # La fine della partita
-Vinci quando tutte le carte sono sulle basi; appena possono salire tutte una dopo l'altra, salgono da sole. La partita è persa quando non resta nessuna mossa. Non tutte le smazzate si possono vincere.
-# Giocare sul dispositivo
-Tocca una carta in cima per mandarla sulla sua base o sul suo ventaglio, o trascinala lì. Un secondo tocco rapido manda una carta solo su una base. La lampada mostra una mossa utile; il numero accanto alle tue carte conta le tue mosse. Annulla ritira le mosse, fino alla smazzata.
+Vinci quando tutte le carte sono sulle basi. La partita è persa quando non resta nessuna mossa. Non tutte le smazzate si possono vincere.

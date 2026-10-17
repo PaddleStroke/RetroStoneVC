@@ -1,8 +1,7 @@
 Bakkersdozijn
 # Het doel
-Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer. Een spel voor één speler.
+Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van aas tot heer.
 # De opstelling
-- Dertien kolommen van vier kaarten, alle open.
 - Bij het delen gaan de heren van elke kolom naar onderen.
 # Kaarten verplaatsen
 - Alleen de bovenste kaart van een kolom gaat, één kaart tegelijk.
@@ -10,6 +9,6 @@ Alle 52 kaarten naar de vier aflegstapels brengen, één per kleur, oplopend van
 - Een lege kolom blijft leeg.
 - Een kaart op een aflegstapel blijft daar.
 # Het einde van de partij
-Je wint als alle kaarten op de aflegstapels liggen. Zodra de overige kaarten er een voor een heen kunnen, gaan ze vanzelf omhoog.
+Je wint als alle kaarten op de aflegstapels liggen.
 # Levels en sterren
-150 levels in zes hoofdstukken, elk een spel dat te winnen is; het tabblad met de dobbelsteen deelt willekeurig. Zonder hint en zonder ongedaan gemaakte zet: 3 sterren; tot twee samen: 2 sterren; anders 1.
+3 sterren: zonder hint en zonder ongedaan gemaakte zet.

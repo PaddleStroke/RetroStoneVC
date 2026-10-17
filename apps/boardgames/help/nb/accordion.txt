@@ -1,6 +1,6 @@
 Trekkspill
 # Målet
-Samle alle de 52 kortene i én bunke. Et spill for én spiller, og et svært vanskelig et.
+Samle alle de 52 kortene i én bunke.
 # Oppstillingen
 Alle kortene deles ut synlige i én lang rekke som brytes som tekstlinjer: det første kortet i en linje kommer rett etter det siste kortet i linjen over.
 # Flytte kort
@@ -10,4 +10,4 @@ Alle kortene deles ut synlige i én lang rekke som brytes som tekstlinjer: det f
 # Slutten på spillet
 Spillet slutter når ingen bunke kan flyttes. Én bunke igjen er seier; mer enn seks bunker er tap.
 # Nivåer og stjerner
-150 nivåer i seks kapitler, hvert et spill som kan samles til én bunke; fanen med terningen deler ut tilfeldig. Én bunke: 3 stjerner; to eller tre: 2 stjerner; fire til seks: 1 stjerne.
+3 stjerner: én bunke.

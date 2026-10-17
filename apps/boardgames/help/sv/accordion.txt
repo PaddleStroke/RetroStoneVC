@@ -1,6 +1,6 @@
 Dragspel
 # Målet
-Samla alla 52 korten i en enda hög. Ett spel för en spelare, och ett mycket svårt.
+Samla alla 52 korten i en enda hög.
 # Uppläggningen
 Alla kort läggs ut synliga i en lång rad som bryts som textrader: det första kortet på en rad kommer direkt efter det sista kortet på raden ovanför.
 # Flytta kort
@@ -10,4 +10,4 @@ Alla kort läggs ut synliga i en lång rad som bryts som textrader: det första 
 # Partiets slut
 Partiet slutar när ingen hög kan flyttas. En enda hög kvar är en vinst; fler än sex högar är en förlust.
 # Banor och stjärnor
-150 banor i sex kapitel, var och en en giv som går att samla till en hög; fliken med tärningen delar ut på slump. En hög: 3 stjärnor; två eller tre: 2 stjärnor; fyra till sex: 1 stjärna.
+3 stjärnor: en hög.

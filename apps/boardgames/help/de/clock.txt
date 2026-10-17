@@ -1,14 +1,11 @@
 Die Uhr
 # Das Ziel
-Decke alle Karten auf, bevor der vierte König erscheint. Ein kleines Spiel für eine Person, bei dem nur der Zufall entscheidet, wunderbar für Kinder: Die Karten spielen sich von selbst.
+Decke alle Karten auf, bevor der vierte König erscheint. Ein kleines Spiel für eine Person, bei dem nur der Zufall entscheidet: Die Karten spielen sich von selbst.
 # Der Aufbau
 - Die Karten liegen verdeckt in 13 Häufchen zu je vier: zwölf rund um ein Zifferblatt, eines für jede Stunde, und das Häufchen der Könige in der Mitte.
 - Das Ass gehört zu ein Uhr, die 2 zu zwei Uhr und so weiter: der Bube zu elf Uhr, die Dame zu zwölf Uhr.
 # Karten bewegen
 - Decke die oberste Karte des mittleren Häufchens auf und lege sie offen unter das Häufchen ihrer Stunde; ein König kommt unter das mittlere Häufchen.
 - Dann deckst du die oberste Karte des Häufchens auf, unter das du gerade eine Karte gelegt hast, und machst so weiter.
-- Der goldene Uhrzeiger zeigt auf das Häufchen, aus dem die nächste Karte kommt.
 # Das Ende der Partie
-Du gewinnst, wenn alle Karten offen liegen, sobald der vierte König erscheint. Kommt der vierte König, während noch Karten verdeckt sind, ist die Partie verloren. Es gibt nichts zu entscheiden: Schau einfach zu, wie die Uhr ihre Runden dreht.
-# Spielen auf dem Gerät
-Tippe irgendwo auf den Tisch, um die nächste Karte aufzudecken: Sie fliegt zu ihrer Stunde. Die Lampe zeigt die nächste Karte; die Zahl neben deinen Karten zählt die aufgedeckten Karten. Rückgängig nimmt Züge zurück, bis zum Geben.
+Du gewinnst, wenn alle Karten offen liegen, sobald der vierte König erscheint. Kommt der vierte König, während noch Karten verdeckt sind, ist die Partie verloren.

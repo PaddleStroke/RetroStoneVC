@@ -1,16 +1,13 @@
 La Belle Lucie
 # Målet
-Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge. Et spil for én spiller, også kaldet Viften.
+Få alle 52 kort op på de fire grundbunker, én for hver kulør, fra es til konge.
 # Opstillingen
 - Kortene gives med billedsiden op i 18 vifter med tre kort; den sidste vifte har kun ét kort.
-- Øverst: hånden (til de nye uddelinger), merciens plads og de fire grundbunker.
 # Flyt kort
 - Kun det øverste kort i en vifte kan flyttes: op på sin grundbunke eller på det øverste kort i en anden vifte i samme kulør og én højere: hjerter 6 på hjerter 7.
 - En tom vifte forbliver tom.
 # Nye uddelinger
-- To gange i et spil kan du trykke på hånden (pladsen med pilen, der drejer rundt, øverst til venstre): kortene, der stadig ligger i vifterne, samles, blandes og gives igen i vifter med tre. Tallet i hånden viser, hvor mange uddelinger der er tilbage.
-- Ved den sidste uddeling kommer merci, de klassiske reglers gave: én gang må du trykke på et kort, der ligger skjult i en vifte, for at trække det ud. Det venter på sin egen plads, til du spiller det på en grundbunke eller en vifte.
+- To gange i et spil kan du trykke på hånden (øverst til venstre): kortene, der stadig ligger i vifterne, samles, blandes og gives igen i vifter med tre.
+- Ved den sidste uddeling kommer merci: én gang må du trykke på et kort, der ligger skjult i en vifte, for at trække det ud. Det venter på sin egen plads, til du spiller det på en grundbunke eller en vifte.
 # Spillets afslutning
-Du vinder, når alle kort ligger på grundbunkerne; så snart de alle kan gå op efter hinanden, går de op af sig selv. Spillet er slut, når der ikke er flere træk. Ikke alle kabaler kan gå op.
-# Spil på enheden
-Tryk på et øverste kort for at sende det til sin grundbunke eller sin vifte, eller træk det derhen. Et hurtigt tryk nummer to sender et kort kun til en grundbunke. Lampen viser et nyttigt træk; tallet ved siden af dine kort tæller dine træk. Fortryd tager træk tilbage, helt til kortene blev givet.
+Du vinder, når alle kort ligger på grundbunkerne. Spillet er slut, når der ikke er flere træk. Ikke alle kabaler kan gå op.

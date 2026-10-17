@@ -1,14 +1,11 @@
 El reloj
 # El objetivo
-Poner todas las cartas boca arriba antes de que salga el cuarto rey. Un juego pequeño de puro azar para un jugador, ideal para niños: las cartas juegan solas.
+Poner todas las cartas boca arriba antes de que salga el cuarto rey. Un juego pequeño de puro azar para un jugador: las cartas juegan solas.
 # La disposición
 - Las cartas se reparten boca abajo en 13 montones de cuatro: doce alrededor de la esfera de un reloj, uno por cada hora, y el montón de los reyes en el centro.
 - El as va a la una, el 2 a las dos, y así sucesivamente: la jota a las once, la reina a las doce.
 # Mover cartas
 - Da la vuelta a la carta de arriba del montón del centro y ponla boca arriba debajo del montón de su hora; un rey va debajo del montón del centro.
 - Luego da la vuelta a la carta de arriba del montón bajo el que acabas de poner una carta, y sigue así.
-- La aguja dorada del reloj señala el montón del que sale la siguiente carta.
 # El final de la partida
-Ganas si todas las cartas están boca arriba cuando sale el cuarto rey. Si el cuarto rey llega cuando aún quedan cartas boca abajo, la partida se pierde. No hay nada que elegir: disfruta viendo cómo gira el reloj.
-# Jugar en el dispositivo
-Toca cualquier sitio de la mesa para dar la vuelta a la siguiente carta: vuela hasta su hora. La lámpara muestra la siguiente carta; el número junto a tus cartas cuenta las cartas vueltas. Deshacer retira movimientos, hasta el reparto.
+Ganas si todas las cartas están boca arriba cuando sale el cuarto rey. Si el cuarto rey llega cuando aún quedan cartas boca abajo, la partida se pierde.

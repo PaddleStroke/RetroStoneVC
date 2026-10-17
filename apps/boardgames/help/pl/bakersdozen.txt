@@ -1,8 +1,7 @@
 Tuzin piekarza
 # Cel gry
-Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla. Gra dla jednej osoby.
+Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy kolor, od asa do króla.
 # Rozłożenie
-- Trzynaście kolumn po cztery karty, wszystkie odkryte.
 - Przy rozdaniu króle z każdej kolumny trafiają na jej spód.
 # Przekładanie kart
 - Przekłada się tylko wierzchnią kartę kolumny, po jednej.
@@ -10,6 +9,6 @@ Przełożyć wszystkie 52 karty na cztery stosy docelowe, po jednym na każdy ko
 - Pusta kolumna zostaje pusta.
 - Karta ze stosu docelowego tam zostaje.
 # Koniec gry
-Wygrywasz, gdy wszystkie karty są na stosach docelowych. Gdy pozostałe karty mogą po kolei trafić na stosy, przechodzą tam same.
+Wygrywasz, gdy wszystkie karty są na stosach docelowych.
 # Poziomy i gwiazdki
-150 poziomów w sześciu rozdziałach, każdy to rozdanie możliwe do wygrania; zakładka z kostką rozdaje losowo. Bez podpowiedzi i bez cofniętego ruchu: 3 gwiazdki; najwyżej dwie razem: 2 gwiazdki; inaczej 1.
+3 gwiazdki: bez podpowiedzi i bez cofniętego ruchu.

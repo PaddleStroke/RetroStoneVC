@@ -1,23 +1,20 @@
 Canfield
 # Tujuan
-Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis. Permainan untuk satu pemain.
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis.
 # Susunan
-- Cadangan, di kiri: 13 kartu, hanya yang teratas terbuka.
-- Satu kartu terbuka di fondasi pertama: nilainya menjadi awal semua fondasi.
-- Empat tumpukan main berisi satu kartu, di bawah fondasi.
-- Sisa 34 kartu adalah tumpukan, tertutup, di kiri atas; di sebelahnya ada tumpukan buangan.
+- Cadangan: 13 kartu, hanya yang teratas terbuka.
+- Kartu di fondasi pertama: nilainya menjadi awal semua fondasi.
+- Empat tumpukan main; sisa 34 kartu adalah tumpukan.
 # Memindahkan kartu
-- Fondasi dimulai dengan empat kartu bernilai sama dengan kartu pertama dan disusun naik menurut jenis, memutar: sesudah raja datang as.
+- Fondasi disusun naik menurut jenis, memutar: sesudah raja datang as.
 - Di tumpukan main diletakkan kartu yang satu tingkat lebih rendah dan berwarna lain, juga memutar: raja hitam di atas as merah.
-- Pindahkan kartu teratas sebuah tumpukan, atau seluruh tumpukan sekaligus, tidak pernah sebagian.
+- Pindahkan kartu teratas sebuah tumpukan atau seluruh tumpukan, tidak pernah sebagian.
 - Kartu teratas cadangan bisa pindah ke fondasi atau ke tumpukan main.
-- Tumpukan main yang kosong langsung diisi kartu teratas cadangan. Setelah cadangan habis, kartu apa pun boleh mengisinya.
+- Tumpukan main yang kosong langsung diisi dari cadangan; setelah cadangan habis, dengan kartu apa pun.
 - Kartu di fondasi tetap di sana.
 # Tumpukan
-Ketuk tumpukan untuk membalik tiga kartu ke tumpukan buangan (lebih sedikit di akhir); hanya kartu teratas tumpukan buangan yang bisa dimainkan. Jika tumpukan habis, ketuk tempatnya untuk membalik tumpukan buangan kembali, sesering yang kamu mau.
+Ketuk tumpukan untuk membalik tiga kartu ke tumpukan buangan; hanya yang teratas bisa dimainkan. Balik tumpukan buangan kembali sesering yang kamu mau.
 # Akhir permainan
-Kamu menang saat semua kartu ada di fondasi. Begitu tumpukan, tumpukan buangan, dan cadangan kosong dan sisa kartu bisa naik satu per satu, kartu-kartu itu naik sendiri. Kosongkan cadangan lebih dulu: itulah kunci permainannya.
+Kamu menang saat semua kartu ada di fondasi.
 # Level dan bintang
-Ada 150 level dalam enam bab, dari pembagian termudah sampai tersulit, dan masing-masing bisa dimenangkan; pilih satu di kisi level. Tab dadu setelah bab-bab itu membagikan permainan baru secara acak. Tanpa petunjuk dan tanpa langkah yang diurungkan: 3 bintang; paling banyak dua petunjuk dan langkah yang diurungkan seluruhnya: 2 bintang; selain itu 1.
-# Bermain di perangkat
-Ketuk kartu untuk mengirimnya ke tempat terbaiknya: fondasi jika bisa, kalau tidak ke tumpukan main. Ketuk kartu pertama sebuah tumpukan untuk memindahkan seluruh tumpukan. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Kamu juga bisa menyeret kartu ke mana saja. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+3 bintang: tanpa petunjuk dan tanpa urungkan.

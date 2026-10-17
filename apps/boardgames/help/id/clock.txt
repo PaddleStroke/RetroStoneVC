@@ -1,14 +1,11 @@
 Jam
 # Tujuan
-Buka semua kartu sebelum raja keempat muncul. Permainan kecil yang murni untung-untungan untuk satu pemain, cocok sekali untuk anak-anak: kartunya bermain sendiri.
+Buka semua kartu sebelum raja keempat muncul. Permainan kecil yang murni untung-untungan untuk satu pemain: kartunya bermain sendiri.
 # Susunan
 - Kartu dibagikan tertutup dalam 13 tumpukan kecil berisi empat: dua belas di sekeliling muka jam, satu untuk tiap jam, dan tumpukan raja di tengah.
 - As milik jam satu, 2 milik jam dua, dan seterusnya: jack milik jam sebelas, ratu milik jam dua belas.
 # Memindahkan kartu
 - Buka kartu teratas tumpukan tengah dan letakkan terbuka di bawah tumpukan jamnya; raja masuk ke bawah tumpukan tengah.
 - Lalu buka kartu teratas tumpukan yang baru saja kamu selipi kartu, dan lanjutkan.
-- Jarum jam emas menunjuk tumpukan asal kartu berikutnya.
 # Akhir permainan
-Kamu menang jika semua kartu sudah terbuka saat raja keempat muncul. Jika raja keempat datang saat masih ada kartu tertutup, permainan kalah. Tidak ada yang perlu dipilih: nikmati saja jamnya berputar.
-# Bermain di perangkat
-Ketuk di mana saja di meja untuk membuka kartu berikutnya: kartu itu terbang ke jamnya. Lampu menunjukkan kartu berikutnya; angka di samping kartumu menghitung kartu yang sudah dibuka. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Kamu menang jika semua kartu sudah terbuka saat raja keempat muncul. Jika raja keempat datang saat masih ada kartu tertutup, permainan kalah.

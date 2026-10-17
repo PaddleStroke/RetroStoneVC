@@ -1,16 +1,13 @@
 La Belle Lucie
 # Tujuan
-Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja. Permainan untuk satu pemain, juga disebut Kipas.
+Pindahkan ke-52 kartu ke empat fondasi, satu untuk tiap jenis, dari as sampai raja.
 # Susunan
 - Kartu dibagikan terbuka menjadi 18 kipas berisi tiga kartu; kipas terakhir hanya berisi satu kartu.
-- Di atas: tangan (untuk pembagian ulang), tempat merci, dan empat fondasi.
 # Memindahkan kartu
 - Hanya kartu teratas sebuah kipas yang bisa dipindahkan: ke fondasinya, atau ke atas kartu teratas kipas lain yang sejenis dan satu tingkat lebih tinggi: 6 hati di atas 7 hati.
 - Kipas yang kosong tetap kosong.
 # Pembagian ulang
-- Dua kali dalam satu permainan, ketuk tangan (tempat dengan panah yang berputar, di kiri atas): kartu yang masih ada di kipas dikumpulkan, dikocok, dan dibagikan lagi menjadi kipas berisi tiga. Angka di tangan menunjukkan sisa pembagian ulang.
-- Pada pembagian terakhir datang merci, hadiah dari aturan klasik: satu kali, ketuk kartu yang terkubur di sebuah kipas untuk menariknya keluar. Kartu itu menunggu di tempatnya sendiri sampai kamu memainkannya ke fondasi atau ke kipas.
+- Dua kali dalam satu permainan, ketuk tangan (di kiri atas): kartu yang masih ada di kipas dikumpulkan, dikocok, dan dibagikan lagi menjadi kipas berisi tiga.
+- Pada pembagian terakhir datang merci: satu kali, ketuk kartu yang terkubur di sebuah kipas untuk menariknya keluar. Kartu itu menunggu di tempatnya sendiri sampai kamu memainkannya ke fondasi atau ke kipas.
 # Akhir permainan
-Kamu menang saat semua kartu ada di fondasi; begitu semuanya bisa naik satu per satu, kartu-kartu itu naik sendiri. Permainan selesai saat tidak ada langkah lagi. Tidak semua pembagian bisa dimenangkan.
-# Bermain di perangkat
-Ketuk kartu teratas untuk mengirimnya ke fondasinya atau kipasnya, atau seret ke sana. Ketukan kedua yang cepat mengirim kartu hanya ke fondasi. Lampu menunjukkan langkah yang berguna; angka di samping kartumu menghitung langkahmu. Urungkan membatalkan langkah, sampai ke awal pembagian.
+Kamu menang saat semua kartu ada di fondasi. Permainan selesai saat tidak ada langkah lagi. Tidak semua pembagian bisa dimenangkan.

@@ -1,16 +1,13 @@
 La Belle Lucie
 # The aim
-Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king. A game for one player, also called the Fan.
+Move all 52 cards to the four foundations, one for each suit, built up from the ace to the king.
 # The layout
 - The cards are dealt face up in 18 fans of three; the last fan has a single card.
-- At the top: the hand (for the redeals), the place of the merci, and the four foundations.
 # Moving cards
 - Only the top card of a fan can move: onto its foundation, or onto the top card of another fan of the same suit and one rank higher: the 6 of hearts on the 7 of hearts.
 - A fan left empty stays empty.
 # The redeals
-- Twice in a game, tap the hand (the place with the arrow going round, at the top left): the cards still in the fans are gathered, shuffled and dealt again in fans of three. The number in the hand shows the redeals left.
-- On the last deal comes the merci, the gift of the classic rules: once, tap a card buried in a fan to draw it out. It waits on its own place until you play it onto a foundation or a fan.
+- Twice in a game, tap the hand (top left): the cards still in the fans are gathered, shuffled and dealt again in fans of three.
+- On the last deal comes the merci: once, tap a card buried in a fan to draw it out. It waits on its own place until you play it onto a foundation or a fan.
 # The end of the game
-You win when all the cards are on the foundations; once they can all go up in turn, they go up by themselves. The game is over when no move is left. Not every deal can be won.
-# Playing on the device
-Tap a top card to send it to its foundation or its fan, or drag it there. A quick second tap sends a card only to a foundation. The lamp shows a useful move; the number next to your cards counts your moves. Undo takes back moves, all the way to the deal.
+You win when all the cards are on the foundations. The game is over when no move is left. Not every deal can be won.

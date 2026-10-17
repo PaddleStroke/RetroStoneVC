@@ -1,6 +1,6 @@
 Haitari
 # Tavoite
-Kokoa kaikki 52 korttia yhdeksi pinoksi. Peli yhdelle pelaajalle, ja hyvin vaikea.
+Kokoa kaikki 52 korttia yhdeksi pinoksi.
 # Asetelma
 Kaikki kortit jaetaan kuvapuoli ylöspäin yhdeksi pitkäksi riviksi, joka jatkuu kuin tekstirivit: rivin ensimmäinen kortti tulee heti yläpuolisen rivin viimeisen kortin jälkeen.
 # Korttien siirtäminen
@@ -10,4 +10,4 @@ Kaikki kortit jaetaan kuvapuoli ylöspäin yhdeksi pitkäksi riviksi, joka jatku
 # Pelin loppu
 Peli päättyy, kun mikään pino ei voi liikkua. Yksi jäljellä oleva pino on voitto; yli kuusi pinoa on tappio.
 # Tasot ja tähdet
-150 tasoa kuudessa luvussa, jokainen jako, joka voidaan koota yhdeksi pinoksi; noppavälilehti jakaa sattumanvaraisesti. Yksi pino: 3 tähteä; kaksi tai kolme: 2 tähteä; neljästä kuuteen: 1 tähti.
+3 tähteä: yksi pino.

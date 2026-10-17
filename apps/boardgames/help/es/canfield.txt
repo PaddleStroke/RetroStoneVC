@@ -1,23 +1,20 @@
 Canfield
 # El objetivo
-Llevar las 52 cartas a las cuatro bases, una por palo. Un juego para un jugador.
+Llevar las 52 cartas a las cuatro bases, una por palo.
 # La disposición
-- La reserva, a la izquierda: 13 cartas, solo la de arriba boca arriba.
-- Una carta boca arriba en la primera base: su valor abre todas las bases.
-- Cuatro columnas de una carta cada una, bajo las bases.
-- Las otras 34 cartas forman el mazo, boca abajo, arriba a la izquierda; a su lado, el descarte.
+- La reserva: 13 cartas, solo la de arriba boca arriba.
+- La carta de la primera base: su valor abre todas las bases.
+- Cuatro columnas; las otras 34 cartas forman el mazo.
 # Mover cartas
-- Las bases empiezan con las cuatro cartas del valor de la primera carta y suben por palo, en círculo: después del rey viene el as.
+- Las bases suben por palo, en círculo: después del rey viene el as.
 - Sobre una columna se pone una carta de un valor menos y del otro color, también en círculo: un rey negro sobre un as rojo.
-- Mueve la carta de arriba de una columna, o una columna entera de una vez, nunca solo una parte.
+- Mueve la carta de arriba de una columna o la columna entera, nunca solo una parte.
 - La carta de arriba de la reserva puede ir a una base o a una columna.
-- Una columna que queda vacía se llena enseguida con la carta de arriba de la reserva. Cuando la reserva está vacía, cualquier carta puede ocuparla.
+- Una columna vacía se llena enseguida desde la reserva; cuando la reserva está vacía, con cualquier carta.
 - Una carta en una base se queda allí.
 # El mazo
-Toca el mazo para pasar tres cartas al descarte (menos al final); solo se juega la carta de arriba del descarte. Cuando el mazo se acaba, toca su sitio para darle la vuelta al descarte, tantas veces como quieras.
+Toca el mazo para pasar tres cartas al descarte; solo se juega la de arriba. Dale la vuelta al descarte tantas veces como quieras.
 # El final de la partida
-Ganas cuando todas las cartas están en las bases. En cuanto el mazo, el descarte y la reserva están vacíos y las cartas que quedan pueden subir una tras otra, suben solas. Vacía primero la reserva: es la clave del juego.
+Ganas cuando todas las cartas están en las bases.
 # Niveles y estrellas
-Hay 150 niveles en seis capítulos, del reparto más fácil al más difícil, y cada uno se puede ganar; elige uno en la pantalla de niveles. La pestaña del dado, tras los capítulos, reparte una partida nueva al azar. Sin pistas ni movimientos deshechos: 3 estrellas; hasta dos pistas y movimientos deshechos en total: 2 estrellas; si no, 1.
-# Jugar en el dispositivo
-Toca una carta para mandarla a su mejor sitio: una base si puede ir, si no, una columna. Toca la primera carta de una columna para mover la columna entera. Un segundo toque rápido manda una carta solo a una base. También puedes arrastrar cartas donde quieras. La lámpara muestra un movimiento útil; el número junto a tus cartas cuenta tus movimientos. Deshacer retira movimientos, hasta el reparto.
+3 estrellas: sin pistas ni movimientos deshechos.

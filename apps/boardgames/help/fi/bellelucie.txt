@@ -1,16 +1,13 @@
 La Belle Lucie
 # Tavoite
-Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen. Peli yhdelle pelaajalle, myös nimeltä Viuhka.
+Siirrä kaikki 52 korttia neljään peruspinoon, yksi kullekin maalle, ässästä kuninkaaseen.
 # Asetelma
 - Kortit jaetaan kuvapuoli ylöspäin 18 viuhkaan, joissa kussakin on kolme korttia; viimeisessä viuhkassa on vain yksi kortti.
-- Ylhäällä: käsi (uudelleenjakoja varten), mercin paikka ja neljä peruspinoa.
 # Korttien siirtäminen
 - Vain viuhkan päällimmäistä korttia voi siirtää: omaan peruspinoonsa tai toisen viuhkan päällimmäisen kortin päälle, jos se on samaa maata ja yhtä suurempi: hertta 6 hertta 7:n päälle.
 - Tyhjäksi jäänyt viuhka pysyy tyhjänä.
 # Uudelleenjaot
-- Kahdesti pelin aikana voit napauttaa kättä (paikkaa, jossa nuoli kiertää, vasemmalla ylhäällä): viuhkoissa vielä olevat kortit kerätään, sekoitetaan ja jaetaan uudelleen kolmen kortin viuhkoiksi. Kädessä oleva luku näyttää jäljellä olevat uudelleenjaot.
-- Viimeisessä jaossa tulee merci, klassisten sääntöjen lahja: kerran voit napauttaa viuhkaan hautautunutta korttia ja vetää sen esiin. Se odottaa omalla paikallaan, kunnes pelaat sen peruspinoon tai viuhkaan.
+- Kahdesti pelin aikana voit napauttaa kättä (vasemmalla ylhäällä): viuhkoissa vielä olevat kortit kerätään, sekoitetaan ja jaetaan uudelleen kolmen kortin viuhkoiksi.
+- Viimeisessä jaossa tulee merci: kerran voit napauttaa viuhkaan hautautunutta korttia ja vetää sen esiin. Se odottaa omalla paikallaan, kunnes pelaat sen peruspinoon tai viuhkaan.
 # Pelin loppu
-Voitat, kun kaikki kortit ovat peruspinoissa; heti kun ne kaikki pääsevät nousemaan vuorotellen, ne nousevat itsestään. Peli päättyy, kun siirtoja ei ole jäljellä. Kaikkia jakoja ei voi voittaa.
-# Pelaaminen laitteella
-Napauta päällimmäistä korttia lähettääksesi sen peruspinoonsa tai viuhkaansa, tai vedä se sinne. Nopea toinen napautus lähettää kortin vain peruspinoon. Lamppu näyttää hyödyllisen siirron; korttiesi vieressä oleva luku laskee siirtosi. Kumoa peruu siirtoja aina jakoon asti.
+Voitat, kun kaikki kortit ovat peruspinoissa. Peli päättyy, kun siirtoja ei ole jäljellä. Kaikkia jakoja ei voi voittaa.

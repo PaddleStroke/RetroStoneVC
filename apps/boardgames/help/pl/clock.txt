@@ -1,14 +1,11 @@
 Zegar
 # Cel gry
-Odkryć wszystkie karty, zanim pojawi się czwarty król. Mała gra czystego szczęścia dla jednej osoby, świetna dla dzieci: karty grają same.
+Odkryć wszystkie karty, zanim pojawi się czwarty król. Mała gra czystego szczęścia dla jednej osoby: karty grają same.
 # Rozłożenie
 - Karty rozdaje się zakryte w 13 kupek po cztery: dwanaście wokół tarczy zegara, po jednej na każdą godzinę, i kupkę królów pośrodku.
 - As należy do godziny pierwszej, 2 do drugiej i tak dalej: walet do jedenastej, dama do dwunastej.
 # Przekładanie kart
 - Odkryj wierzchnią kartę środkowej kupki i połóż ją odkrytą pod kupką jej godziny; król idzie pod środkową kupkę.
 - Potem odkryj wierzchnią kartę kupki, pod którą właśnie położono kartę, i graj dalej.
-- Złota wskazówka zegara wskazuje kupkę, z której przyjdzie następna karta.
 # Koniec gry
-Wygrywasz, jeśli wszystkie karty są odkryte, gdy pojawia się czwarty król. Jeśli czwarty król przyjdzie, gdy są jeszcze zakryte karty, gra jest przegrana. Nie ma tu nic do wybierania: po prostu patrz, jak zegar się kręci.
-# Gra na urządzeniu
-Dotknij stołu w dowolnym miejscu, by odkryć następną kartę: poleci do swojej godziny. Lampa pokazuje następną kartę; liczba obok twoich kart liczy odkryte karty. Cofnij cofa ruchy, aż do rozdania.
+Wygrywasz, jeśli wszystkie karty są odkryte, gdy pojawia się czwarty król. Jeśli czwarty król przyjdzie, gdy są jeszcze zakryte karty, gra jest przegrana.

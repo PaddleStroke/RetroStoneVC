@@ -1,23 +1,20 @@
 Canfield
 # Le but
-Monter les 52 cartes sur les quatre fondations, une par couleur. Un jeu pour un joueur.
+Monter les 52 cartes sur les quatre fondations, une par couleur.
 # La mise en place
-- La réserve, à gauche : 13 cartes, seule celle du dessus est face visible.
-- Une carte face visible sur la première fondation : son rang ouvre toutes les fondations.
-- Quatre piles du tableau, d'une carte chacune, sous les fondations.
-- Les 34 autres cartes forment la pioche, face cachée, en haut à gauche ; à côté, le talon.
+- La réserve : 13 cartes, seule celle du dessus est face visible.
+- La carte de la première fondation : son rang ouvre toutes les fondations.
+- Quatre piles du tableau ; les 34 autres cartes forment la pioche.
 # Déplacer les cartes
-- Les fondations commencent par les quatre cartes du rang de la première carte et montent par couleur, en boucle : après le roi vient l'as.
-- Sur le tableau, pose une carte d'un rang de moins, rouge sur noir ou noir sur rouge, en boucle aussi : un roi noir sur un as rouge.
-- Déplace la carte du dessus d'une pile, ou une pile entière d'un coup, jamais une partie de pile.
+- Les fondations montent par couleur, en boucle : après le roi vient l'as.
+- Sur le tableau, une carte d'un rang de moins, rouge sur noir ou noir sur rouge, en boucle aussi : un roi noir sur un as rouge.
+- Déplace la carte du dessus d'une pile ou la pile entière, jamais une partie de pile.
 - La carte du dessus de la réserve peut aller sur une fondation ou sur le tableau.
-- Une pile vidée est aussitôt remplie par la carte du dessus de la réserve. Quand la réserve est vide, n'importe quelle carte peut l'occuper.
+- Une pile vidée est aussitôt remplie par la réserve ; quand la réserve est vide, par n'importe quelle carte.
 - Une carte posée sur une fondation y reste.
 # La pioche
-Touche la pioche pour retourner trois cartes sur le talon (moins à la fin) ; seule la carte du dessus du talon se joue. Quand la pioche est vide, touche sa place pour retourner le talon, autant de fois que tu veux.
+Touche la pioche pour retourner trois cartes sur le talon ; seule celle du dessus se joue. Retourne le talon autant de fois que tu veux.
 # La fin de la partie
-Tu gagnes quand toutes les cartes sont sur les fondations. Dès que la pioche, le talon et la réserve sont vides et que les cartes restantes peuvent toutes monter à la suite, elles montent toutes seules. Vide d'abord la réserve : c'est la clé du jeu.
+Tu gagnes quand toutes les cartes sont sur les fondations.
 # Niveaux et étoiles
-Il y a 150 niveaux en six chapitres, de la donne la plus facile à la plus difficile, chacun une donne qui se gagne ; choisis-en un sur l'écran des niveaux. L'onglet du dé, après les chapitres, distribue une nouvelle donne au hasard. Sans indice ni coup annulé : 3 étoiles ; jusqu'à deux indices et coups annulés en tout : 2 étoiles ; sinon 1.
-# Jouer sur l'appareil
-Touche une carte pour l'envoyer à sa meilleure place : une fondation si elle peut y aller, sinon le tableau. Touche la première carte d'une pile pour déplacer toute la pile. Une seconde touche rapide envoie une carte seulement sur une fondation. Tu peux aussi faire glisser des cartes où tu veux. La lampe montre un coup utile ; le nombre à côté de tes cartes compte tes coups. Annuler reprend les coups, jusqu'à la donne.
+3 étoiles : sans indice ni coup annulé.
