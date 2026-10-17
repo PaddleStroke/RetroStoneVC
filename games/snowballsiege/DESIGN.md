@@ -131,6 +131,13 @@ shows more of the same field around the camera. The UI kit centres itself; the t
 bottom-right corner. A state saved at one width loads at another. The touch test throws the same pull at 320, 427,
 520 and 560 and compares the runs.
 
+**Tall screen** (docs/spec.md "Tall screen"): a phone held upright. `rs_screen_tall(RS_SCREEN_H_MAX)` first in
+`game_init`; the 240 lines of the stage are the same pixels, centred. The raster draws the lines past the stage
+(draw.c `raster_out`): above, the winter sky carried on (its top colour, deeper toward the screen's top); below, the
+frozen ground carried on (BG2's bottom 16 lines repeated, the camera's column). The other layers are hidden there
+(window 2: BG1, BG3; BG2 too above); line 0 puts the stage's windows and BG2 scroll back. The field, the camera and
+the rules are unchanged; the touches are read in stage y (`- rs_screen_origin_y()`).
+
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the four teams under it throwing in turn, the field dimmed behind with the camera drifting along it
 and no critters on it, the player slots, PRESS A TO THROW, BEST, the join line, the copyright line) -> P1 presses A (or Start, or a tap)

@@ -207,6 +207,10 @@ static void touch_input(tin *in, int *pan)
             if (btn_slot == i) { btn_slot = -1; TV.btn_on = 0; }
             continue;
         }
+        rs_touch_point tp = *t;                 /* in stage px (a tall screen: below its top margin) */
+        tp.y -= rs_screen_origin_y();
+        tp.y0 -= rs_screen_origin_y();
+        t = &tp;
         TV.seen = 1;
         if (t->pressed) {
             int dbx = t->x0 - bx, dby = t->y0 - by, dcx = t->x0 - cx, dcy = t->y0 - cy;
@@ -402,6 +406,7 @@ static void game_draw(void) { draw_frame(&W, &CAM, st, st_t, run_best, new_best,
 
 static void game_init(void)
 {
+    rs_screen_tall(RS_SCREEN_H_MAX);           /* a phone held upright: more sky and ground (draw.c, DESIGN.md "Tall screen") */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);

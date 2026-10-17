@@ -53,9 +53,44 @@ static uint8_t speck_tab[16 * 16];      /* a fixed sprinkle of darker specks in 
 static uint8_t px_buf[64];              /* scratch: one tile's pixels (state_audit.txt) */
 
 /* ---- the sky --------------------------------------------------------------------------------------------------- */
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240. Above,
+ * the sky carried on (its top colour, deeper toward the screen's top; the snow falls through it); below, the frozen
+ * ground carried on (BG2's bottom 16 lines repeated, the scroll set per line). The other layers are hidden there
+ * (window 2: BG1, BG3; BG2 too above); line 0 puts the stage's windows and BG2 scroll back. A 240-line screen never
+ * gets these lines: the same pixels. */
+static int bg2_sx, bg2_sy;              /* BG2's scroll as written (the camera, the shake), restored at line 0 */
+
+static void raster_out(int line)
+{
+    int top = rs_screen_top();
+    if (line == top || line == RS_SCREEN_H) {
+        rs_window(1, rs_screen_left(), rs_screen_right());
+        rs_bg_window(RS_BG1, RS_WIN2);
+        rs_bg_window(RS_BG3, RS_WIN2);
+        rs_bg_window(RS_BG2, line < 0 ? RS_WIN2 : 0);
+    }
+    if (line < 0) {
+        int k = top < 0 ? line * 80 / top : 0;              /* 0 at the stage's top .. 80 at the screen's */
+        rs_pal_set(0, hu_scale_color(line_col[(-line) & 4], 256 - k));
+    } else {
+        rs_pal_set(0, line_col[RS_SCREEN_H - 1]);
+        rs_bg_scroll(RS_BG2, bg2_sx, RS_SCREEN_H - 16 + (line - RS_SCREEN_H) % 16 + bg2_sy - line);
+    }
+}
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (line < 0 || line >= RS_SCREEN_H) {
+        raster_out(line);
+        return;
+    }
+    if (line == 0 && rs_screen_height() > RS_SCREEN_H) {   /* back from raster_out: the stage's own settings */
+        rs_bg_window(RS_BG1, 0);
+        rs_bg_window(RS_BG2, 0);
+        rs_bg_window(RS_BG3, 0);
+        rs_bg_scroll(RS_BG2, bg2_sx, bg2_sy);
+    }
     rs_pal_set(0, line_col[line]);
 }
 
@@ -662,7 +697,9 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
     standing(w, &rs);
     field_sync(w);
     field_palettes(state == ST_TITLE);
-    rs_bg_scroll(RS_BG2, vx0 - sx, -sy);
+    bg2_sx = vx0 - sx;
+    bg2_sy = -sy;
+    rs_bg_scroll(RS_BG2, bg2_sx, bg2_sy);
     rs_bg_scroll(RS_BG3, (vx0 / 2) & (FAR_W * 8 - 1), 0);
     if (!paused) snow_drift += w->wind * 4 + 6;
     screen_text(w, state, st_t, best, new_best, &rs);
