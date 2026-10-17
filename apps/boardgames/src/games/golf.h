@@ -75,6 +75,7 @@ int  golf_down(const gpos *p, int player);       /* how many of the player's car
 int  golf_winner(const gpos *p);                 /* GP_OVER: the lowest total (-1: a tie for it, or not over) */
 int  golf_auto(const gpos *p);                   /* a plain action (the "#" of the notation) */
 int  golf_script(ggame *g, const char *moves);   /* 0: an action is bad */
+void golf_view(const gpos *p, int seat, gpos *out);   /* what a seat may see: the cards face down hidden, no seed */
 
 /* the bot (golf_bot.c, bots.h) */
 const ggame *golf_live(void);                   /* the game on the screen, read-only: the bot copies it at entry */

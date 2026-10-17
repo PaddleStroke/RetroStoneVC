@@ -228,6 +228,20 @@ static void test_undo(void)
     CHECK(G.n == 0 && !memcmp(&G.pos, &H.pos, sizeof H.pos));
 }
 
+static void test_view(void)                     /* a seat's view: nothing face down shows, no seed */
+{
+    golf_new(&G, GOLF_CLASSIC, 3, 99);
+    CHECK(golf_script(&G, "r0 r1 r0 r1 r0 r1 s"));
+    gpos v;
+    golf_view(&G.pos, 1, &v);
+    CHECK(v.seed == 0 && v.nstock == G.pos.nstock && v.npile == G.pos.npile && v.held == G.pos.held);
+    CHECK(!memcmp(v.pile, G.pos.pile, sizeof v.pile));
+    for (int i = 0; i < v.nstock; i++) CHECK(v.stock[i] == CARD_NONE);
+    for (int pl = 0; pl < 3; pl++)
+        for (int s = 0; s < v.slots; s++)
+            CHECK(s < 2 ? v.card[pl][s] == G.pos.card[pl][s] : v.card[pl][s] == CARD_NONE);
+}
+
 int main(void)
 {
     test_deal();
@@ -239,6 +253,7 @@ int main(void)
     test_first();
     test_game();
     test_undo();
+    test_view();
     printf("golf: %d checks, %d failed\n", checks, failed);
     return failed != 0;
 }

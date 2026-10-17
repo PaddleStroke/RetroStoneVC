@@ -300,3 +300,18 @@ int golf_script(ggame *g, const char *s)
     }
     return 1;
 }
+
+/* what one seat may see (online play later: a server sends each player only this): the position with every card that
+ * is face down (the players' and the stock's) turned to CARD_NONE, and no seed (it would tell the deal). The discard,
+ * the cards face up or gone, the drawn card and the counts stay. Golf hides the same from every seat (seat unused:
+ * the hidden-hand games' views differ by seat). */
+void golf_view(const gpos *p, int seat, gpos *out)
+{
+    (void)seat;
+    *out = *p;
+    for (int pl = 0; pl < out->players; pl++)
+        for (int s = 0; s < out->slots; s++)
+            if (!is_up(out, pl, s) && !(out->gone[pl] >> s & 1)) out->card[pl][s] = CARD_NONE;
+    for (int i = 0; i < out->nstock; i++) out->stock[i] = CARD_NONE;
+    out->seed = 0;
+}
