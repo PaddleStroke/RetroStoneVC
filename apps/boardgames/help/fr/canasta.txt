@@ -1,42 +1,28 @@
 Canasta
 # Le but
-Être le premier camp à atteindre 5000 points. À 4 joueurs en deux équipes (les partenaires sont face à face et partagent leurs combinaisons), ou à 2 joueurs. Pose des cartes de même rang, forme des canastas de sept cartes, et sors.
+Être le premier camp à atteindre 5000 points : à 4 joueurs en deux équipes, ou à 2 joueurs.
 # Les cartes
-- Deux jeux de 52 cartes et quatre jokers : 108 cartes.
-- Les jokers et les 2 sont des cartes libres : dans une combinaison, elles remplacent n'importe quel rang.
-- Valeur des cartes : joker 50, as et 2 20, roi à 8 10, 7 à 4 5, 3 noir 5.
-- Les 3 rouges sont des primes. Un 3 rouge reçu ou pioché est posé aussitôt à côté des combinaisons de ton camp, et tu pioches une autre carte à sa place. Chacun vaut 100, les quatre 800 ; ils comptent contre un camp qui n'a rien posé à la fin de la manche.
-- Les 3 noirs bloquent le talon : personne ne peut le prendre quand un 3 noir est dessus.
+- Deux jeux et quatre jokers. Les jokers et les 2 sont des cartes libres.
+- Valeur des cartes : joker 50, as et 2 20, roi à 8 10, 7 à 4 5, 3 noir 5.
+- Un 3 rouge est posé aussitôt, et tu pioches une autre carte à sa place : chacun vaut 100, les quatre 800, et ils comptent contre un camp qui n'a rien posé.
 # La donne
-- 11 cartes chacun (à 2 joueurs : 15). La carte suivante commence le talon ; le reste forme la pioche. Si cette carte est une carte libre ou un 3 rouge, une autre carte la recouvre et le talon est gelé.
-- La donne passe au joueur suivant à chaque manche.
+- 11 cartes chacun (à 2 joueurs : 15). Si la carte qui commence le talon est une carte libre ou un 3 rouge, une autre carte la recouvre et le talon est gelé.
 # Un tour
-- Pioche la carte du dessus de la pioche (à 2 joueurs : deux cartes), ou prends tout le talon.
-- Pose des combinaisons si tu veux.
-- Jette une carte face visible : ton tour est fini.
+- Pioche une carte (à 2 joueurs : deux cartes) ou prends tout le talon, pose des combinaisons si tu veux, puis jette une carte.
 # Combinaisons et canastas
-- Une combinaison : trois cartes ou plus de même rang (as, 4 à roi), dont au moins deux naturelles et au plus trois libres. Ton camp a une seule combinaison par rang : les autres cartes de ce rang s'y ajoutent.
-- Une canasta : une combinaison de sept cartes ou plus. Pure (sans carte libre) 500 points, impure 300.
-- La première pose : les premières combinaisons de ton camp, posées en un seul tour, doivent valoir au moins 50 (valeur des cartes) tant que son score est sous 1500, 90 dès 1500, 120 dès 3000, et 15 tant qu'il est sous zéro. Tu peux les poser avant de piocher, pour prendre le talon avec.
+- Une combinaison : trois cartes ou plus de même rang, dont au moins deux naturelles et au plus trois libres. Ton camp a une seule combinaison par rang.
+- Une canasta : sept cartes ou plus. Pure 500, impure 300.
+- Les premières combinaisons de ton camp, posées en un seul tour, doivent valoir au moins 50 (90 dès 1500 points, 120 dès 3000, 15 sous zéro). Tu peux les poser avant de piocher, pour prendre le talon avec.
 # Le talon
-- Pour le prendre, sa carte du dessus doit aller aussitôt dans une combinaison : avec des cartes de ta main, ou sur une combinaison de ton camp. Ensuite le reste du talon va dans ta main.
-- Le talon est gelé tant qu'il contient une carte libre (posée en travers), et pour un camp qui n'a encore rien posé. Il ne se prend alors qu'avec une paire naturelle du rang de la carte du dessus, tirée de ta main.
+- Pour le prendre, sa carte du dessus doit aller aussitôt dans une combinaison ; le reste va dans ta main.
+- Il est gelé tant qu'il contient une carte libre, et pour un camp qui n'a encore rien posé : il ne se prend alors qu'avec une paire naturelle du rang de la carte du dessus, tirée de ta main.
 - Jamais quand un 3 noir ou une carte libre est dessus.
 # Sortir
-- Tu sors quand tu te débarrasses de ta dernière carte : en posant tout, ou en posant tout sauf une carte que tu jettes. Seulement quand ton camp a une canasta (à 2 joueurs : deux). Jusque-là, tu ne peux pas descendre sous deux cartes en main en posant.
+- Seulement quand ton camp a une canasta (à 2 joueurs : deux). Jusque-là, tu ne peux pas descendre sous deux cartes en main en posant.
 - Les 3 noirs ne se posent (trois ou quatre, sans carte libre) que pour sortir.
-- Sortir rapporte 100. Sortir d'un coup rapporte 200 : toute la main posée en un seul tour, après avoir pioché dans la pioche, sans avoir rien posé avant dans la manche ; la première pose n'a alors pas de minimum.
-- Quand la pioche est vide, un joueur qui peut mettre la carte du dessus du talon sur une combinaison de son camp doit prendre le talon ; sinon la manche s'arrête.
+- Sortir rapporte 100 ; sortir d'un coup, 200 : toute la main posée en un seul tour après avoir pioché dans la pioche, sans avoir rien posé avant, et la première pose n'a alors pas de minimum.
+- Quand la pioche est vide, tu dois prendre le talon si tu peux mettre sa carte du dessus sur une combinaison de ton camp ; sinon la manche s'arrête.
 # Les points
-À la fin d'une manche, chaque camp marque ses cartes posées, ses canastas, ses 3 rouges et sa sortie, moins les cartes restées dans les mains de ses joueurs.
+Chaque camp marque ses cartes posées, ses canastas, ses 3 rouges et sa sortie, moins les cartes restées dans les mains de ses joueurs.
 # La fin de la partie
-La partie s'arrête après la manche où un camp atteint 5000 points. Le plus haut total gagne ; à égalité, la victoire est partagée.
-# Jouer sur l'appareil
-Les mains sont secrètes : passe l'appareil quand l'écran le demande, et le joueur suivant touche le bouton de départ. Ta main est en bas, triée par rang. Les autres mains sont de petits éventails en haut. Les combinaisons de ton camp sont au-dessus de ta main, celles de l'autre camp sous les éventails, une colonne par rang. Une canasta se referme en un paquet avec son nombre de cartes dessous : dans une lumière dorée si elle est pure, avec une carte libre en travers dessous si elle est impure. Les jetons et les 3 rouges de chaque camp sont à gauche de sa rangée. Tant qu'un camp n'a rien posé, un disque sombre à droite montre le minimum de sa première pose, et à côté ce qui est posé ce tour. Chaque barre montre les cartes en main et le score du camp.
-- Touche la pioche pour piocher.
-- Touche des cartes de ta main pour les choisir ; touche-en une à nouveau pour la remettre.
-- Puis touche une combinaison de ton camp pour les y ajouter, ou la rangée de ton camp pour une nouvelle combinaison. Avant de piocher, touche le talon pour le prendre avec elles. Après avoir pioché, choisis une carte et touche le talon pour la jeter. Tu peux aussi y faire glisser une carte.
-- Ce que les cartes choisies peuvent faire brille : le talon, une combinaison, une place libre.
-- Quand la pioche est vide et que tu ne peux pas prendre le talon, touche la pioche vide pour finir la manche.
-- À la fin d'une manche, un tableau montre pour chaque camp les cartes posées, les canastas, les 3 rouges, la sortie, les cartes restées en main, les points de la manche et les totaux. Touche pour la manche suivante.
-Annuler reprend tes propres actions, jusqu'au moment où l'appareil a été passé.
+La partie s'arrête après la manche où un camp atteint 5000 points. Le plus haut total gagne ; à égalité, la victoire est partagée.

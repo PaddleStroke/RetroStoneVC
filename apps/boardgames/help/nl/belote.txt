@@ -1,39 +1,33 @@
 Belote
 # Het doel
-Het geliefdste kaartspel van Frankrijk, voor vier spelers in twee teams: partners zitten tegenover elkaar. Win slagen vol punten en wees het eerste team dat het doel haalt: 501 punten bij Belote, 1000 bij Coinche. Er wordt gespeeld met 32 kaarten, van 7 tot aas. De beurt gaat van speler tot speler, en de gever schuift elke ronde een plaats op.
-Tussen de rondes worden de kaarten niet geschud: de slagen worden verzameld, er wordt afgenomen en gedeeld, zoals aan een echte tafel.
+Vier spelers in twee teams, partners tegenover elkaar. Wees het eerste team dat 501 punten haalt bij Belote, 1000 bij Coinche. Er wordt gespeeld met 32 kaarten, van 7 tot aas.
 # De kaarten
-- In troef is de volgorde boer, 9, aas, 10, heer, vrouw, 8, 7. Ze zijn 20, 14, 11, 10, 4, 3, 0 en 0 punten waard.
-- In de andere kleuren is de volgorde aas, 10, heer, vrouw, boer, 9, 8, 7. Ze zijn 11, 10, 4, 3, 2, 0, 0 en 0 punten waard.
+- Troef, van hoog naar laag: boer 20, 9 14, aas 11, 10 10, heer 4, vrouw 3, 8 0, 7 0.
+- De andere kleuren: aas 11, 10 10, heer 4, vrouw 3, boer 2, 9 0, 8 0, 7 0.
 - De laatste slag levert 10 punten extra op (dix de der): 162 punten per ronde.
-- Troefheer en troefvrouw in één hand zijn belote en rebelote: 20 punten voor dat team. Je meldt ze terwijl je ze speelt.
+- Troefheer en troefvrouw in één hand zijn belote en rebelote: 20 punten.
 # Troef kiezen (Belote)
-- Elke speler krijgt 3 kaarten, dan 2, en de volgende kaart wordt opengedraaid.
-- Om de beurt neemt elke speler de opengedraaide kaart, waardoor haar kleur troef wordt, of past.
-- Passen alle vier, dan volgt een tweede rondgang: om de beurt noemt elke speler een andere kleur als troef, of past. Passen ze weer, dan geeft de volgende gever nieuwe kaarten.
-- Wie neemt, is de nemer. Iedereen krijgt nog 3 kaarten; de nemer krijgt de opengedraaide kaart en 2.
+- Elke speler krijgt 5 kaarten, en de volgende kaart wordt opengedraaid.
+- Om de beurt neemt elke speler de opengedraaide kaart (haar kleur wordt troef) of past. Passen alle vier, dan noemt om de beurt elke speler een andere kleur of past; passen ze weer, nieuwe kaarten.
+- De nemer krijgt de opengedraaide kaart en 2 erbij, de anderen 3.
 # Het bieden (Coinche)
-- Elke speler krijgt al zijn 8 kaarten: 3, 3 en 2. Er wordt geen kaart opengedraaid.
-- Om de beurt biedt elke speler een contract in een kleur: de punten die zijn team belooft te halen, van 80 tot 160 in stappen van 10, of capot (alle slagen, 250 waard). Elk bod moet hoger zijn dan het vorige. Of hij past.
-- Een speler mag coinche zeggen op het bod van het andere team: dat verdubbelt de inzet. De bieder mag dan surcoinche zeggen, wat opnieuw verdubbelt, of passen; hoe dan ook is het bieden voorbij.
-- Drie keer passen na een bod sluit het bieden af. Vier keer passen zonder bod: nieuwe kaarten.
+- Om de beurt biedt elke speler een contract in een kleur, van 80 tot 160 in stappen van 10, of capot (alle slagen, 250), hoger dan het vorige bod; of hij past.
+- Je mag coinche zeggen op het bod van het andere team, dat verdubbelt de inzet; de bieder mag surcoinche zeggen, wat opnieuw verdubbelt, of passen. Hoe dan ook is het bieden voorbij.
+- Drie keer passen na een bod sluit het bieden af; vier keer passen zonder bod: nieuwe kaarten.
 # Het spelen
-- De speler na de gever komt uit in de eerste slag; wie een slag wint, komt uit in de volgende.
-- Beken kleur als je kunt.
-- Kun je dat niet, dan moet je troeven, hoger dan de troeven die al in de slag liggen als je kunt (kun je niet overtroeven, dan een willekeurige troef). Heb je geen troef, speel dan een willekeurige kaart.
-- Uitzondering: als je partner de slag aan het winnen is, mag je elke kaart spelen.
+- De speler na de gever komt uit; wie een slag wint, komt uit in de volgende.
+- Beken kleur als je kunt. Kun je dat niet, troef dan, hoger dan de troeven in de slag als je kunt; zonder troef een willekeurige kaart.
+- Maar als je partner de slag aan het winnen is, mag je elke kaart spelen.
 - Wordt er troef gevraagd, dan moet je altijd een hogere troef spelen als je kunt, ook over je partner heen.
-- De hoogste troef wint de slag; ligt er geen troef, dan de hoogste kaart van de gevraagde kleur.
+- De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur.
 # De score (Belote)
-- De nemers moeten meer punten halen dan het andere team, belote meegerekend. Dan krijgt elk team de punten die het haalde.
-- Anders zijn ze dedans, oftewel nat: het andere team krijgt 162 en de nemers niets. Belote en rebelote blijven altijd bij het team dat ze had.
-- Een team dat alle slagen haalt, is capot: 250 punten in plaats van 162.
+- De nemers moeten meer punten halen dan het andere team, belote meegerekend: dan krijgt elk team zijn punten.
+- Anders zijn ze dedans: het andere team krijgt 162, de nemers niets. Belote blijft altijd bij het team dat haar had.
+- Een team dat alle slagen haalt, is capot: 250 in plaats van 162.
 # De score (Coinche)
-- Het contract is gehaald als de nemers minstens de punten van hun bod halen (belote meegerekend) en meer dan 81; een capot-contract vraagt alle slagen.
+- Het contract is gehaald als de nemers minstens de punten van hun bod halen (belote meegerekend) en meer dan 81; capot vraagt alle slagen.
 - Gehaald: de nemers krijgen hun contract plus hun punten, de verdedigers hun eigen punten.
 - Mislukt: de verdedigers krijgen 160 plus het contract.
-- Met coinche of surcoinche: de winnende kant krijgt 160 plus het contract, verdubbeld of verviervoudigd; de andere kant krijgt alleen zijn belote.
+- Met coinche of surcoinche: de winnaar krijgt 160 plus het contract, verdubbeld of verviervoudigd; de andere kant alleen zijn belote.
 # Het einde van de partij
 De partij eindigt na de ronde waarin een team het doel haalt. Het team met de meeste punten wint; bij een gelijke stand wordt er nog een ronde gespeeld.
-# Spelen op het apparaat
-Geef het apparaat door: elke speler ziet alleen de eigen kaarten, onderaan. De andere spelers zitten rond de tafel: links, tegenover (je partner) en rechts, in de volgorde van hun balken bovenaan. Om te nemen tik je op de opengedraaide kaart; in de tweede rondgang tik je op de aas van de kleur die je noemt. Bij Coinche tik je op een contract en dan op de aas van die kleur; de ronde fiche met een kruis en een 2 zegt coinche (een kruis en een 4: surcoinche). De pasknop staat in je balk. Om te spelen tik je op een kaart om haar op te tillen en tik je er nog eens op, of op de tafel, of sleep je haar erheen. Kaarten die je niet mag spelen, zijn gedimd. De laatste slag staat klein in de hoek. Elke balk toont het totaal van het team en wat elke speler zei: pas, een contract of de troefaas van de nemer. Na elke ronde toont een tabel de punten van elk team, de score van de ronde en de totalen (een kruis: het contract is mislukt); tik erop voor de volgende ronde.

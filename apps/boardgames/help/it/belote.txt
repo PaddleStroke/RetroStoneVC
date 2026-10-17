@@ -1,39 +1,33 @@
 Belote
 # Lo scopo
-Il gioco di carte preferito dai francesi, per quattro giocatori in due squadre: i compagni siedono uno di fronte all'altro. Vinci prese ricche di punti e sii la prima squadra a raggiungere l'obiettivo: 501 punti nella Belote, 1000 nella Coinche. Il mazzo ha 32 carte, dal 7 all'asso. Il turno passa da un giocatore all'altro, e il mazziere avanza di un posto a ogni smazzata.
-Tra una smazzata e l'altra le carte non si mescolano: si raccolgono le prese, si alza e si dà, come a un vero tavolo.
+Quattro giocatori in due squadre, i compagni uno di fronte all'altro. Sii la prima squadra a raggiungere 501 punti nella Belote, 1000 nella Coinche. Il mazzo ha 32 carte, dal 7 all'asso.
 # Le carte
-- A briscola l'ordine è fante, 9, asso, 10, re, donna, 8, 7. Valgono 20, 14, 11, 10, 4, 3, 0 e 0 punti.
-- Negli altri semi l'ordine è asso, 10, re, donna, fante, 9, 8, 7. Valgono 11, 10, 4, 3, 2, 0, 0 e 0 punti.
+- A briscola, dalla più alta: fante 20, 9 14, asso 11, 10 10, re 4, donna 3, 8 0, 7 0.
+- Negli altri semi: asso 11, 10 10, re 4, donna 3, fante 2, 9 0, 8 0, 7 0.
 - L'ultima presa vale 10 punti in più (dix de der): 162 punti in ogni smazzata.
-- Il re e la donna di briscola nella stessa mano sono belote e rebelote: 20 punti per quella squadra. Si annunciano mentre si giocano.
+- Il re e la donna di briscola nella stessa mano sono belote e rebelote: 20 punti.
 # Scegliere la briscola (Belote)
-- Ogni giocatore riceve 3 carte, poi 2, e la carta successiva viene girata scoperta.
-- A turno, ogni giocatore prende la carta girata, e il suo seme diventa briscola, oppure passa.
-- Se passano tutti e quattro, c'è un secondo giro: a turno ciascuno nomina un altro seme come briscola, oppure passa. Se passano di nuovo, il mazziere successivo distribuisce carte nuove.
-- Chi prende diventa l'attaccante. Tutti ricevono altre 3 carte; l'attaccante riceve la carta girata e 2.
+- Ogni giocatore riceve 5 carte, e la carta successiva viene girata scoperta.
+- A turno, ognuno prende la carta girata (il suo seme diventa briscola) oppure passa. Se passano tutti e quattro, a turno ciascuno nomina un altro seme oppure passa; se passano di nuovo, carte nuove.
+- L'attaccante riceve la carta girata e altre 2, gli altri 3.
 # L'asta (Coinche)
-- Ogni giocatore riceve tutte le sue 8 carte: 3, 3 e 2. Nessuna carta viene girata.
-- A turno, ogni giocatore dichiara un contratto in un seme: i punti che la sua squadra promette di fare, da 80 a 160 di 10 in 10, o capot (tutte le prese, vale 250). Ogni dichiarazione deve superare la precedente. Oppure passa.
-- Un giocatore può fare coinche sulla dichiarazione dell'altra squadra: la posta raddoppia. Il dichiarante può allora fare surcoinche, che raddoppia ancora, oppure passare; in entrambi i casi l'asta è chiusa.
-- Tre passo dopo una dichiarazione chiudono l'asta. Quattro passo senza dichiarazioni: carte nuove.
+- A turno, ognuno dichiara un contratto in un seme, da 80 a 160 di 10 in 10, o capot (tutte le prese, 250), più alto della dichiarazione precedente; oppure passa.
+- Puoi fare coinche sulla dichiarazione dell'altra squadra, e la posta raddoppia; il dichiarante può fare surcoinche, che raddoppia ancora, oppure passare. In entrambi i casi l'asta è chiusa.
+- Tre passo dopo una dichiarazione chiudono l'asta; quattro passo senza dichiarazioni: carte nuove.
 # Il gioco
-- Il giocatore dopo il mazziere apre la prima presa; chi vince una presa apre la successiva.
-- Rispondi al seme d'uscita, se puoi.
-- Se non puoi, devi giocare una briscola, più alta di quelle già nella presa se puoi (se non puoi superarle, una briscola qualsiasi). Se non hai briscole, gioca una carta qualsiasi.
-- Eccezione: quando il tuo compagno sta vincendo la presa, puoi giocare una carta qualsiasi.
+- Il giocatore dopo il mazziere apre; chi vince una presa apre la successiva.
+- Rispondi al seme d'uscita, se puoi. Se no, gioca una briscola, più alta di quelle già nella presa se puoi; senza briscole, una carta qualsiasi.
+- Ma quando il tuo compagno sta vincendo la presa, puoi giocare una carta qualsiasi.
 - Quando si esce a briscola, devi sempre giocare una briscola più alta se puoi, anche sopra il tuo compagno.
-- La briscola più alta vince la presa; se non ce ne sono, la carta più alta del seme d'uscita.
+- La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita.
 # Il punteggio (Belote)
-- Gli attaccanti devono fare più punti dell'altra squadra, belote compresa. Allora ogni squadra segna i punti che ha fatto.
-- Altrimenti sono dedans, cioè vanno sotto: l'altra squadra segna 162 e gli attaccanti niente. Belote e rebelote restano sempre alla squadra che le aveva.
-- Una squadra che fa tutte le prese fa capot: 250 punti invece di 162.
+- Gli attaccanti devono fare più punti dell'altra squadra, belote compresa: allora ogni squadra segna i suoi punti.
+- Altrimenti sono dedans: l'altra squadra segna 162, gli attaccanti niente. La belote resta sempre alla squadra che l'aveva.
+- Una squadra che fa tutte le prese fa capot: 250 invece di 162.
 # Il punteggio (Coinche)
-- Il contratto è riuscito se gli attaccanti fanno almeno i punti dichiarati (belote compresa) e più di 81; un contratto capot richiede tutte le prese.
+- Il contratto è riuscito se gli attaccanti fanno almeno i punti dichiarati (belote compresa) e più di 81; capot richiede tutte le prese.
 - Riuscito: gli attaccanti segnano il contratto più i loro punti, i difensori i propri punti.
 - Fallito: i difensori segnano 160 più il contratto.
-- Con coinche o surcoinche: la parte vincente segna 160 più il contratto, raddoppiato o quadruplicato; l'altra parte segna solo la sua belote.
+- Con coinche o surcoinche: il vincitore segna 160 più il contratto, raddoppiato o quadruplicato; l'altra parte solo la sua belote.
 # La fine della partita
 La partita finisce dopo la smazzata in cui una squadra raggiunge l'obiettivo. Vince la squadra con più punti; in caso di parità si gioca un'altra smazzata.
-# Giocare sul dispositivo
-Passatevi il dispositivo: ognuno vede solo le proprie carte, in basso. Gli altri giocatori siedono intorno al tavolo: a sinistra, di fronte (il tuo compagno) e a destra, nell'ordine delle loro barre in alto. Per prendere, tocca la carta girata; al secondo giro, tocca l'asso del seme che nomini. Nella Coinche, tocca un contratto, poi l'asso del suo seme; il gettone rotondo con una croce e un 2 fa coinche (una croce e un 4: surcoinche). Il pulsante passo è nella tua barra. Per giocare, tocca una carta per alzarla, poi toccala di nuovo, oppure tocca il tavolo, oppure trascinala lì. Le carte che non puoi giocare sono attenuate. L'ultima presa compare in piccolo nell'angolo. Ogni barra mostra il totale della squadra e cosa ha detto ogni giocatore: passo, un contratto o l'asso di briscola dell'attaccante. Dopo ogni smazzata, una tabella mostra i punti di ogni squadra, il punteggio della smazzata e i totali (una croce: contratto fallito); toccala per la smazzata successiva.

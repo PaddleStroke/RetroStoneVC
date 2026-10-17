@@ -1,46 +1,36 @@
 Doppelkopf
 # Tavoite
-Saksan rakastetuin korttipeli neljälle, pelataan kaksinkertaisella pakalla. Joka jaossa ne kaksi pelaajaa, joilla on ristikuningattaret, eli Re-puoli, pelaavat kahta muuta eli Kontra-puolta vastaan; aluksi kukaan ei kuitenkaan tiedä, kuka on kenenkin kanssa. Peli on 12 tai 24 jaon sarja, valinnan mukaan; suurin yhteispistemäärä lopussa voittaa. Säännöt ovat Saksan Doppelkopf-liiton (DDV) turnaussäännöt. Korteissa on ranskalaiset maat, kuten Doppelkopfia usein pelataan; saksalaiset maat (tammenterhot, lehdet, sydämet, kulkuset) voivat tulla myöhemmin. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Korttipeli neljälle kaksinkertaisella pakalla, Saksan Doppelkopf-liiton (DDV) säännöin, ilman pakkosooloja. Ne kaksi pelaajaa, joilla on ristikuningattaret (Re, die Alten, "vanhat"), pelaavat kahta muuta (Kontra) vastaan; aluksi kukaan ei tiedä, kuka on kenenkin kanssa.
 # Jako
-Pakassa on 48 korttia: jokaisesta maasta 9, 10, jätkä, kuningatar, kuningas ja ässä, jokainen kortti kahdesti. Jokainen saa 12 korttia. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja puhuu ensin ja avaa ensimmäisen tikin.
+48 korttia, jokaisesta maasta 9, 10, jätkä, kuningatar, kuningas ja ässä, jokainen kortti kahdesti; kukin saa 12 korttia.
 # Varaukset
-- Ennen ensimmäistä korttia jokainen sanoo vuorollaan terve (gesund) tai että hänellä on varaus (Vorbehalt). Mitä hän haluaa, pysyy salassa: soolon tai häät.
-- Pelaaja, jolla on molemmat ristikuningattaret, voi ilmoittaa häät (Hochzeit). Se on hänen valintansa: hän voi myös olla hiljaa ja pelata hiljaisen soolon kolmea muuta vastaan.
-- Vuorossa ensimmäinen soolo pelataan; muuten häät; muuten tavallinen peli.
+- Ennen ensimmäistä korttia jokainen sanoo terve (gesund) tai että hänellä on varaus (Vorbehalt): soolo tai häät. Vuorossa ensimmäinen soolo pelataan; muuten häät; muuten tavallinen peli.
+- Molemmilla ristikuningattarilla voit ilmoittaa häät (Hochzeit) tai olla hiljaa ja pelata hiljaisen soolon.
 # Valtit
-- Tavallisessa pelissä herttakymppi (Dulle) on korkein valtti. Sitten tulevat kuningattaret ja jätkät, kummatkin järjestyksessä risti, pata, hertta, ruutu, ja sitten ruudun ässä, 10, kuningas ja 9: yhteensä 26 valttia.
-- Muiden maiden järjestys on ässä, 10, kuningas, 9; hertassa on vain ässä, kuningas ja 9.
-- Kahdesta samanlaisesta kortista tikissä ensin pelattu voittaa.
+- Tavallisessa pelissä korkeimmasta alkaen: herttakymppi (Dulle), kuningattaret, jätkät (kummatkin järjestyksessä risti, pata, hertta, ruutu), sitten ruudun ässä, 10, kuningas ja 9.
+- Muiden maiden järjestys on ässä, 10, kuningas, 9 (hertassa ei ole kymppiä). Kahdesta samanlaisesta kortista ensin pelattu voittaa.
 # Osapuolet
-- Ristikuningattarien haltijat (die Alten, "vanhat") ovat Re, muut Kontra. Jokainen tietää oman puolensa, ei muiden. Puoli paljastuu, kun ristikuningatar pelataan tai kun joku ilmoittaa.
-- Häät: kolmesta ensimmäisestä tikistä ensimmäinen, jonka voittaa joku muu, tekee tästä pelaajasta morsiamen parin. Jos morsian ottaa kaikki kolme, hän pelaa yksin, soolona.
+- Häät: ensimmäinen muu pelaaja, joka voittaa yhden kolmesta ensimmäisestä tikistä, on morsiamen pari; jos morsian ottaa kaikki kolme, hän pelaa soolon.
 # Soolot
 Yksi pelaaja, soolopelaaja (Re), pelaa kolmea muuta (Kontra) vastaan.
-- Kuningatarsoolo: valtteja ovat vain kahdeksan kuningatarta.
-- Jätkäsoolo: valtteja ovat vain kahdeksan jätkää.
+- Kuningatar- tai jätkäsoolo: valtteja ovat vain kuningattaret tai vain jätkät.
 - Maasoolo: tavallisen pelin valtit, mutta ruudun tilalla valittu maa.
 - Lihaton (Fleischlos): ei valtteja; joka maan järjestys on ässä, 10, kuningas, kuningatar, jätkä, 9.
 # Pelaaminen
-Tunnusta maata, jos voit (kaikki valtit lasketaan yhdeksi maaksi); muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten avatun maan korkein kortti. Voittaja avaa seuraavan tikin.
+Tunnusta maata, jos voit (kaikki valtit lasketaan yhdeksi maaksi), muuten pelaa mikä tahansa kortti. Korkein valtti voittaa, muuten avatun maan korkein kortti; voittaja avaa seuraavan tikin.
 # Ilmoitukset
-- Ennen kuin pelaa kortin, pelaaja voi ilmoittaa puolensa puolesta: Re tai Kontra, kun hänellä on vähintään 11 korttia, ei 90 (keine 90) vähintään 10, ei 60 (keine 60) vähintään 9, ei 30 (keine 30) vähintään 8, schwarz (ei yhtään tikkiä) vähintään 7. Jokainen ilmoitus sisältää sitä alemmat.
-- Kun toinen puoli on ilmoittanut, Re tai Kontra voidaan vielä sanoa vastaukseksi, yhtä korttia myöhemmin kuin tuon ilmoituksen oma raja sallisi.
+- Ennen kuin pelaat kortin, voit ilmoittaa puolesi puolesta: Re tai Kontra, kun sinulla on vähintään 11 korttia, ei 90 (keine 90) vähintään 10, ei 60 vähintään 9, ei 30 vähintään 8, schwarz (ei yhtään tikkiä) vähintään 7. Jokainen ilmoitus sisältää sitä alemmat.
+- Vastauksena toisen puolen ilmoitukseen Re tai Kontra voidaan sanoa yhtä korttia myöhemmin kuin sen raja.
 - Häissä mitään ei saa ilmoittaa ennen kuin pari on löytynyt; rajat siirtyvät sitten niin monella tikillä kuin sen löytymiseen kului.
-- Tässä pelaaja ilmoittaa omalla vuorollaan, kun laite on hänen käsissään.
 # Voitto
-- Korttipisteet eli silmät: ässä 11, 10 10, kuningas 4, kuningatar 3, jätkä 2: yhteensä 240.
-- Re voittaa 121 silmällä, Kontra 120:llä. Jos vain Kontra ilmoitettiin, Re voittaa 120:llä ja Kontra tarvitsee 121.
-- Puolen, joka ilmoitti ei 90 (ei 60, ei 30, schwarz), on pidettävä toinen puoli alle 90:n (60:n, 30:n, ilman tikkiä), muuten toinen puoli voittaa. Jos kumpikin puoli epäonnistuu tällaisissa ilmoituksissa, kukaan ei voita.
+- Silmät: ässä 11, 10 10, kuningas 4, kuningatar 3, jätkä 2 (yhteensä 240). Re tarvitsee 121, Kontra 120; jos vain Kontra ilmoitettiin, Re tarvitsee 120 ja Kontra 121.
+- Puoli, joka ilmoitti ei 90 (ei 60, ei 30, schwarz), häviää, jos toinen puoli saa 90 (60, 30, tikin). Jos kumpikin puoli epäonnistuu tällaisissa ilmoituksissa, kukaan ei voita.
 # Pelin arvo
-- Voitto: 1. Häviäjät alle 90:n, alle 60:n, alle 30:n ja ilman tikkiä (schwarz): kustakin 1.
-- Re ilmoitettu: 2. Kontra ilmoitettu: 2. Jokainen ilmoitettu ei 90, ei 60, ei 30 ja schwarz: 1.
-- 120 saavutettu toisen puolen ei 90 -ilmoitusta vastaan, 90 ei 60:tä vastaan, 60 ei 30:tä vastaan, 30 schwarzia vastaan: kustakin 1.
-- Erikoispisteet (Sonderpunkte), vain tavallisessa pelissä ja häissä, sille puolelle, joka ne tekee: kettu (Fuchs) kiinni (vastustajan ruutuässä tikissä, jonka otat), Doppelkopf (tikki, jossa on 40 silmää tai enemmän), Karlchen (viimeinen tikki voitettu ristijätkällä) ja gegen die Alten ("vanhoja vastaan": Kontra voittaa): kustakin 1. Kummankin puolen erikoispisteet kumoavat toisensa.
+- Voitto: 1. Häviäjät alle 90:n, alle 60:n, alle 30:n, ilman tikkiä: kustakin 1.
+- Re tai Kontra ilmoitettu: kumpikin 2; jokainen ilmoitettu ei 90, ei 60, ei 30 ja schwarz: 1.
+- 120 ei 90:tä vastaan, 90 ei 60:tä vastaan, 60 ei 30:tä vastaan, 30 schwarzia vastaan: kustakin 1.
+- Erikoispisteet (Sonderpunkte), vain tavallisessa pelissä ja häissä, kustakin 1: kettu (Fuchs) kiinni (vastustajan ruutuässä tikissäsi), Doppelkopf (tikki, jossa on 40 silmää tai enemmän), Karlchen (viimeinen tikki voitettu ristijätkällä), gegen die Alten ("vanhoja vastaan": Kontra voittaa). Kummankin puolen erikoispisteet kumoavat toisensa.
 # Pisteet
-- Tavallinen peli: jokainen Re-pelaaja saa pelin arvon, jos Re voitti (miinukselle, jos Kontra voitti), plus Re:n erikoispisteet, miinus Kontran; jokainen Kontra-pelaaja saa saman päinvastaisena.
-- Soolo: soolopelaaja saa kolminkertaisesti, kukin vastustaja kerran.
-- Pakkosooloja ei tässä ole.
+- Jokainen Re-pelaaja saa pelin arvon, jos Re voitti (miinukselle, jos Kontra voitti), plus Re:n erikoispisteet, miinus Kontran; jokainen Kontra-pelaaja saa saman päinvastaisena. Soolopelaaja saa kolminkertaisesti.
 # Pelin loppu
-Sarjan viimeisen jaon jälkeen suurin yhteispistemäärä voittaa. Tasapisteissä voitto jaetaan.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Sano terve napauttamalla passia. Varausta varten napauta peliä ja sitten rastia (tai samaa peliä uudelleen): maasoolo (maan merkki), kuningatarsoolo (kuningatar), jätkäsoolo (lähetti, jätkän hahmo), lihaton (neljä ässää) tai häät (kaksi ristikuningatarta, vain kun sinulla on molemmat). Jokainen paikka näyttää pelaajansa sanan: passimerkki on terve, lamppu varaus. Pelin aikana jokainen paikka näyttää, mitä pöytä tietää: ristikuningatar on Re, yliviivattuna Kontra, kultaisessa valossa, kun se on ilmoitettu; oma puolesi näkyy aina omalla paikallasi. Soolopelaajan paikka näyttää soolon, morsiamen paikka häät, kunnes pari on löytynyt; ei 90, ei 60, ei 30 ja schwarz näkyvät lukuina 90, 60, 30 ja 0 tummassa kiekossa. Kun saat ilmoittaa, tikkipinoa vastapäätä oleva painike näyttää seuraavan ilmoituksesi: napauta sitä ennen kuin pelaat korttisi. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää kummankin puolen silmät, ilmoitukset, erikoispisteet (ruutuässä: kettu; 40: Doppelkopf; ristijätkä: Karlchen; yliviivattu kuningatar: gegen die Alten) ja kultaisen rastin voittajille; sitten pelin arvon, erikoispisteiden erotuksen ja kunkin Re-pelaajan pisteet (soolopelaajalla kertaa 3); jokaisen pelaajan pisteet ja yhteispisteet; sekä jakojen luettelon, jossa voittajien merkit ovat kultaisessa valossa. Napauta taulukkoa seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja yhteispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.
+Viimeisen jaon jälkeen suurin yhteispistemäärä voittaa; tasapisteissä voitto jaetaan.

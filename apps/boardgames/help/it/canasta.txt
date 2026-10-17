@@ -1,42 +1,28 @@
 Canasta
 # Lo scopo
-Essere la prima squadra a raggiungere 5000 punti. Per 4 giocatori in due coppie (i compagni siedono di fronte e condividono le loro combinazioni), o per 2 giocatori. Cala carte dello stesso valore, forma canaste di sette carte e chiudi.
+Essere la prima squadra a raggiungere 5000 punti: 4 giocatori in due coppie, o 2 giocatori.
 # Le carte
-- Due mazzi da 52 carte e quattro jolly: 108 carte.
-- I jolly e i 2 sono matte: in una combinazione valgono qualsiasi valore.
+- Due mazzi e quattro jolly. I jolly e i 2 sono matte.
 - Valore delle carte: jolly 50, asso e 2 20, dal re all'8 10, dal 7 al 4 5, 3 nero 5.
-- I 3 rossi sono carte premio. Un 3 rosso ricevuto o pescato si mette subito accanto alle combinazioni della tua squadra, e peschi un'altra carta al suo posto. Ognuno vale 100, tutti e quattro 800; contano contro una squadra che a fine mano non ha calato nulla.
-- I 3 neri bloccano il pozzo: nessuno può prenderlo finché c'è un 3 nero in cima.
+- Un 3 rosso si mette subito in tavola e peschi un'altra carta al suo posto: ognuno vale 100, tutti e quattro 800, e contano contro una squadra che non ha calato nulla.
 # La distribuzione
-- 11 carte a testa (2 giocatori: 15). La carta seguente apre il pozzo; il resto è il tallone. Se quella carta è una matta o un 3 rosso, un'altra carta la copre e il pozzo è congelato.
-- La distribuzione passa al giocatore successivo a ogni mano.
+- 11 carte a testa (2 giocatori: 15). Se la carta che apre il pozzo è una matta o un 3 rosso, un'altra carta la copre e il pozzo è congelato.
 # Un turno
-- Pesca la carta in cima al tallone (2 giocatori: due carte) oppure prendi tutto il pozzo.
-- Cala combinazioni se vuoi.
-- Scarta una carta scoperta: il tuo turno finisce.
+- Pesca dal tallone (2 giocatori: due carte) oppure prendi tutto il pozzo, cala combinazioni se vuoi, poi scarta una carta.
 # Combinazioni e canaste
-- Una combinazione: tre o più carte dello stesso valore (assi, dal 4 al re), almeno due naturali e al massimo tre matte. La tua squadra ha una sola combinazione per valore: le altre carte di quel valore vanno lì.
-- Una canasta: una combinazione di sette carte o più. Pulita (senza matte) 500 punti, sporca 300.
-- La prima calata: le prime combinazioni della tua squadra, calate in un solo turno, devono valere almeno 50 (il valore delle carte) finché il suo punteggio è sotto 1500, 90 da 1500, 120 da 3000, e 15 finché è sotto zero. Puoi calarle prima di pescare, per prendere il pozzo con esse.
+- Una combinazione: tre o più carte dello stesso valore, almeno due naturali e al massimo tre matte. La tua squadra ha una sola combinazione per valore.
+- Una canasta: sette carte o più. Pulita 500, sporca 300.
+- Le prime combinazioni della tua squadra, calate in un solo turno, devono valere almeno 50 (90 da 1500 punti, 120 da 3000, 15 sotto zero). Puoi calarle prima di pescare, per prendere il pozzo.
 # Il pozzo
-- Per prenderlo, la sua carta in cima deve andare subito in una combinazione: con carte della tua mano o su una combinazione della tua squadra. Poi il resto del pozzo va nella tua mano.
-- Il pozzo è congelato finché contiene una matta (messa di traverso), e per una squadra che non ha ancora calato. Allora si prende solo con una coppia naturale del valore della carta in cima, dalla tua mano.
+- Per prenderlo, la sua carta in cima deve andare subito in una combinazione; il resto va nella tua mano.
+- Il pozzo è congelato finché contiene una matta, e per una squadra che non ha ancora calato: allora si prende solo con una coppia naturale del valore della carta in cima, dalla tua mano.
 - Mai quando in cima c'è un 3 nero o una matta.
 # Chiudere
-- Chiudi quando ti liberi dell'ultima carta: calandole tutte, o tutte tranne una che scarti. Solo quando la tua squadra ha una canasta (2 giocatori: due). Fino ad allora non puoi calare fino a restare con meno di due carte.
+- Solo quando la tua squadra ha una canasta (2 giocatori: due). Fino ad allora non puoi calare fino a restare con meno di due carte.
 - I 3 neri si calano (tre o quattro, senza matte) solo per chiudere.
-- Chiudere vale 100. Chiudere in mano vale 200: tutta la mano calata in un solo turno, dopo aver pescato dal tallone, senza aver calato nulla prima in questa mano; allora la prima calata non ha minimo.
-- Quando il tallone è finito, un giocatore che può mettere la carta in cima al pozzo su una combinazione della sua squadra deve prendere il pozzo; altrimenti la mano finisce.
+- Chiudere vale 100; chiudere in mano, 200: tutta la mano calata in un solo turno dopo aver pescato dal tallone, senza aver calato nulla prima, e allora la prima calata non ha minimo.
+- Quando il tallone è finito, devi prendere il pozzo se puoi mettere la sua carta in cima su una combinazione della tua squadra; altrimenti la mano finisce.
 # I punti
-A fine mano ogni squadra segna le sue carte calate, le sue canaste, i suoi 3 rossi e la chiusura, meno le carte rimaste in mano ai suoi giocatori.
+Ogni squadra segna le sue carte calate, le sue canaste, i suoi 3 rossi e la chiusura, meno le carte rimaste in mano ai suoi giocatori.
 # La fine della partita
 La partita finisce dopo la mano in cui una squadra raggiunge 5000 punti. Vince il totale più alto; a parità, la vittoria è condivisa.
-# Giocare sul dispositivo
-Le mani sono segrete: passa il dispositivo quando lo schermo lo chiede, e il giocatore successivo tocca il pulsante di avvio. La tua mano è in basso, ordinata per valore. Le altre mani sono piccoli ventagli in alto. Le combinazioni della tua squadra sono sopra la tua mano, quelle dell'altra sotto i ventagli, una colonna per valore. Una canasta si chiude in un mazzetto con il numero di carte sotto: in luce dorata se è pulita, con una matta di traverso sotto se è sporca. Le pedine e i 3 rossi di ogni squadra sono a sinistra della sua fila. Finché una squadra non ha calato, un disco scuro a destra mostra quanto richiede la sua prima calata, e accanto quanto è calato in questo turno. Ogni barra mostra le carte in mano e il punteggio della squadra.
-- Tocca il tallone per pescare.
-- Tocca carte della tua mano per sceglierle; toccane una di nuovo per rimetterla.
-- Poi tocca una combinazione della tua squadra per aggiungerle, o la fila della tua squadra per una combinazione nuova. Prima di pescare, tocca il pozzo per prenderlo con esse. Dopo aver pescato, scegli una carta e tocca il pozzo per scartarla. Puoi anche trascinarci una carta.
-- Ciò che le carte scelte possono fare si illumina: il pozzo, una combinazione, un posto libero.
-- Quando il tallone è vuoto e non puoi prendere il pozzo, tocca il tallone vuoto per chiudere la mano.
-- A fine mano una tabella mostra per ogni squadra le carte calate, le canaste, i 3 rossi, la chiusura, le carte in mano, i punti della mano e i totali. Tocca per la mano successiva.
-Annulla riprende le tue azioni, fino al momento in cui il dispositivo è stato passato.

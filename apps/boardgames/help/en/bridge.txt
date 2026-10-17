@@ -1,25 +1,21 @@
 Bridge
 # The aim
-Contract bridge, for four players in two partnerships sitting face to face: ivory and red against ebony and jade. In each deal the sides bid for the right to name trumps; the winning side then tries to take the tricks it promised. Two ways to play: Chicago, four deals (the default, best for a casual table), or a rubber, the best of three games. Nobody sees the others' cards.
+Contract bridge, for four players in two partnerships sitting face to face: bid for the right to name trumps, then take the tricks you promised.
 # Bidding
-All 52 cards are dealt, 13 each. The dealer calls first, then each player in turn:
-- a bid: a number from 1 to 7 and a suit or no trumps. It promises that many tricks over six (1 means 7 tricks). Each bid must be higher than the last: a higher number, or the same number in a higher suit. From low to high: clubs, diamonds, hearts, spades, no trumps.
+The dealer calls first, then each player in turn:
+- a bid: 1 to 7 and a suit or no trumps, promising that many tricks over six. It must beat the last bid: a higher number, or the same number in a higher suit (clubs, diamonds, hearts, spades, no trumps).
 - pass;
-- double the opponents' last bid, raising the stakes; redouble a bid of your side that was doubled.
-Three passes after a bid end the auction. The last bid is the contract and its suit is trumps. The declarer is the player of that side who first named that suit (or no trumps); their partner is the dummy. Four passes and no bid: the cards are dealt again.
-What a bid tells about a hand is an agreement between partners (a bidding system), not a rule: agree on your own before you start. A full explanation of bidding is beyond this page.
+- double the opponents' last bid; redouble a bid of your side that was doubled.
+Three passes after a bid end the auction. The last bid is the contract and its suit is trumps. The declarer is the player of that side who first named that suit; their partner is the dummy. Four passes: the cards are dealt again.
 # Playing
-- The player on the declarer's left leads. Then the dummy's hand is laid face up for everyone, and the declarer plays it as well as their own.
-- Follow the suit led if you can; otherwise play any card. The highest trump wins the trick, or else the highest card of the suit led (the ace is high). The winner leads the next trick.
-- The declarer needs six tricks plus the number bid.
+- The player on the declarer's left leads. Then the dummy's hand is laid face up, and the declarer plays it too.
+- Follow the suit led if you can; otherwise play any card. The highest trump wins the trick, or else the highest card of the suit led. The winner leads next.
 # Scoring
-- Contract made: each trick bid over six scores 20 in clubs or diamonds, 30 in hearts or spades; at no trumps 40 for the first, then 30. Doubled twice that, redoubled four times. 100 of these points or more make a game.
+- Contract made: each trick bid over six scores 20 in clubs or diamonds, 30 in hearts or spades; at no trumps 40 for the first, then 30. Doubled twice that, redoubled four times. 100 or more make a game.
 - Each overtrick: its trick value; doubled 100 (vulnerable 200), redoubled twice that. A doubled contract made earns 50 more, a redoubled one 100.
 - Slams: 12 tricks bid and made 500 (vulnerable 750), all 13 tricks 1000 (vulnerable 1500).
-- Contract down: the defenders score each missing trick 50 (vulnerable 100). Doubled: 100, then 200 for the 2nd and 3rd, then 300 each; vulnerable 200, then 300 each. Redoubled: twice the doubled amount.
+- Contract down: the defenders score 50 per missing trick (vulnerable 100). Doubled: 100, 200, 200, then 300 each (vulnerable 200, then 300 each); redoubled twice that.
 # The end of the game
-- Chicago: four deals. Nobody is vulnerable on the first, the dealer's side on the second and third, both sides on the fourth. Each deal is scored on its own: a game earns 300 more (vulnerable 500), any smaller contract 50. A deal passed out is dealt again by the same dealer.
-- Rubber: the contract points go below the line and add up towards a game of 100; a game wipes out both sides' part-scores. A side that has won a game is vulnerable. The first side to win two games ends the rubber: 700 more for two games to none, 500 for two to one. Honours count only in the rubber: the five top trumps (ace, king, queen, jack, 10) in one hand 150, four of them 100, the four aces at no trumps 150, to that hand's side whatever the result.
+- Chicago: four deals. Vulnerable: nobody on the first, the dealer's side on the second and third, both sides on the fourth. A game earns 300 more (vulnerable 500), any smaller contract 50.
+- Rubber: a game wipes out both sides' part-scores, and a side that has won one is vulnerable. Two games end the rubber: 700 more for two to none, 500 for two to one. Honours, rubber only: the five top trumps in one hand 150, four of them 100, the four aces at no trumps 150.
 - The side with the higher total wins.
-# Playing on the device
-Pass the device to the player whose token shows; they tap start and see their hand. The auction is a table of calls, a column per player, tokens at the top: left, across, right, you. A red ring round a token: that side is vulnerable. To call, tap a button of the bidding box (no trumps is a disc with the four suits struck through; green passes, the red cross doubles, two blue crosses redouble), then the tick, or the same button again. In the play the declarer holds the device for the dummy too; the dummy's owner just watches. Tap a glowing card so it rises, then tap it again or its place in the middle, or drag it there. The tricks pile up in front of the declarer and of the defender who won their side's first trick, with their count. Tap the contract in the top corner to see the auction and the last trick. After each deal the score sheet shows we (your side) and they in two columns; tap it for the next deal. Each bar shows the side's total, a red ring when vulnerable, and in a rubber the points below the line in a dark disc. Undo takes back a choice not yet made, never a call or a card once the device has passed.

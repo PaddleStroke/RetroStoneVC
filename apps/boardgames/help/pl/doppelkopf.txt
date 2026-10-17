@@ -1,46 +1,36 @@
 Doppelkopf
 # Cel gry
-Ulubiona gra karciana Niemców, dla czterech osób, rozgrywana podwójną talią. W każdym rozdaniu dwaj gracze z damami trefl, strona Re, grają przeciw dwóm pozostałym, stronie Kontra; z początku jednak nikt nie wie, kto jest z kim. Partia to lista 12 albo 24 rozdań, do wyboru; wygrywa najwyższa suma na końcu. Obowiązują zasady turniejowe Niemieckiej Ligi Doppelkopfa (DDV). Karty mają kolory francuskie, jak to często bywa w Doppelkopfie; kolory niemieckie (żołędzie, wino, czerwień, dzwonki) mogą pojawić się później. Dla 4 graczy, którzy podają sobie urządzenie; nikt nie widzi kart pozostałych.
+Gra karciana dla czterech osób, rozgrywana podwójną talią, według zasad Niemieckiej Ligi Doppelkopfa (DDV), bez obowiązkowych sol. Dwaj gracze z damami trefl (Re, die Alten, „starzy”) grają przeciw dwóm pozostałym (Kontra); z początku nikt nie wie, kto jest z kim.
 # Rozdanie
-Talia ma 48 kart: 9, 10, walet, dama, król i as w każdym kolorze, każda karta dwa razy. Każdy gracz dostaje 12 kart. Pierwszy rozdaje nefryt; potem rozdający przesuwa się o jedno miejsce w każdym rozdaniu. Gracz po rozdającym mówi pierwszy i wychodzi do pierwszej lewy.
+48 kart, 9, 10, walet, dama, król i as w każdym kolorze, każda karta dwa razy; każdy dostaje 12 kart.
 # Zastrzeżenia
-- Przed pierwszą kartą każdy gracz po kolei mówi gesund („zdrowy”) albo że ma zastrzeżenie (Vorbehalt). To, czego chce, pozostaje tajemnicą: solo albo wesele.
-- Gracz, który ma obie damy trefl, może zapowiedzieć wesele (Hochzeit). To jego wybór: może też milczeć i zagrać ciche solo przeciw trzem pozostałym.
-- Gra się pierwsze solo w kolejności; jeśli go nie ma, wesele; jeśli i tego nie ma, zwykłą grę.
+- Przed pierwszą kartą każdy gracz mówi gesund („zdrowy”) albo że ma zastrzeżenie (Vorbehalt): solo albo wesele. Gra się pierwsze solo w kolejności; jeśli go nie ma, wesele; jeśli i tego nie ma, zwykłą grę.
+- Z obiema damami trefl możesz zapowiedzieć wesele (Hochzeit) albo milczeć i zagrać ciche solo.
 # Atuty
-- W zwykłej grze najwyższym atutem jest dziesiątka kier (Dulle). Po niej idą damy i walety, każde w kolejności trefl, pik, kier, karo, a potem as, 10, król i 9 karo: 26 atutów.
-- Pozostałe kolory: as, 10, król, 9; w kierach jest tylko as, król i 9.
-- Z dwóch jednakowych kart w lewie wygrywa ta zagrana wcześniej.
+- W zwykłej grze od najwyższego: dziesiątka kier (Dulle), damy, walety (każde w kolejności trefl, pik, kier, karo), a potem as, 10, król i 9 karo.
+- Pozostałe kolory: as, 10, król, 9 (w kierach nie ma dziesiątki). Z dwóch jednakowych kart wygrywa ta zagrana wcześniej.
 # Strony
-- Posiadacze dam trefl (die Alten, „starzy”) to Re, pozostali to Kontra. Każdy zna swoją stronę, ale nie strony innych. Strona się ujawnia, gdy padnie dama trefl albo gdy ktoś coś zapowie.
-- Wesele: pierwsza z trzech pierwszych lew wzięta przez innego gracza czyni go partnerem panny młodej. Jeśli panna młoda weźmie wszystkie trzy, gra sama, jak w solo.
+- Wesele: pierwszy inny gracz, który weźmie jedną z trzech pierwszych lew, zostaje partnerem panny młodej; jeśli panna młoda weźmie wszystkie trzy, gra solo.
 # Sola
 Jeden gracz, solista (Re), gra przeciw trzem pozostałym (Kontra).
-- Solo dam: atutami jest tylko osiem dam.
-- Solo waletów: atutami jest tylko osiem waletów.
+- Solo dam lub waletów: atutami są tylko damy albo tylko walety.
 - Solo kolorowe: atuty zwykłej gry, z wybranym kolorem w miejsce karo.
 - Fleischlos („bez mięsa”): bez atutów; w każdym kolorze: as, 10, król, dama, walet, 9.
 # Rozgrywka
-Dokładaj do koloru wyjścia, jeśli możesz (wszystkie atuty liczą się jako jeden kolor); jeśli nie, zagraj dowolną kartę. Lewę bierze najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia. Zdobywca lewy wychodzi do następnej.
+Dokładaj do koloru wyjścia, jeśli możesz (wszystkie atuty liczą się jako jeden kolor); jeśli nie, zagraj dowolną kartę. Wygrywa najwyższy atut, a bez atutu najwyższa karta w kolorze wyjścia; zdobywca lewy wychodzi do następnej.
 # Zapowiedzi
-- Przed zagraniem karty gracz może zapowiedzieć za swoją stronę: Re albo Kontra, dopóki ma co najmniej 11 kart, keine 90 („bez 90”) co najmniej 10, keine 60 co najmniej 9, keine 30 co najmniej 8, schwarz („czarno”) co najmniej 7. Każda zapowiedź obejmuje te niższe.
-- Gdy druga strona już zapowiedziała, można jeszcze odpowiedzieć Re albo Kontra, o jedną kartę później, niż wynosi granica tamtej zapowiedzi.
+- Przed zagraniem karty możesz zapowiedzieć za swoją stronę: Re albo Kontra, dopóki masz co najmniej 11 kart, keine 90 („bez 90”) co najmniej 10, keine 60 co najmniej 9, keine 30 co najmniej 8, schwarz („czarno”) co najmniej 7. Każda zapowiedź obejmuje te niższe.
+- W odpowiedzi na zapowiedź drugiej strony Re albo Kontra może paść o jedną kartę później, niż wynosi jej granica.
 - Przy weselu nie wolno nic zapowiadać, zanim znajdzie się partner; granice przesuwają się potem o tyle lew, ile to trwało.
-- Tutaj gracz zapowiada we własnej turze, gdy ma urządzenie w rękach.
 # Wygrana
-- Oczka: as 11, 10 10, król 4, dama 3, walet 2: razem 240.
-- Re wygrywa ze 121 oczkami, Kontra ze 120. Jeśli zapowiedziano tylko Kontra, Re wygrywa ze 120, a Kontra potrzebuje 121.
-- Strona, która zapowiedziała keine 90 (keine 60, keine 30, schwarz), musi utrzymać drugą stronę poniżej 90 (60, 30, bez lewy); inaczej wygrywa druga strona. Jeśli obie strony nie spełnią takich zapowiedzi, nie wygrywa nikt.
+- Oczka: as 11, 10 10, król 4, dama 3, walet 2 (razem 240). Re potrzebuje 121, Kontra 120; jeśli zapowiedziano tylko Kontra, Re potrzebuje 120, a Kontra 121.
+- Strona, która zapowiedziała keine 90 (keine 60, keine 30, schwarz), przegrywa, jeśli druga strona osiągnie 90 (60, 30, jedną lewę). Jeśli obie strony nie spełnią takich zapowiedzi, nie wygrywa nikt.
 # Wartość gry
-- Wygrana: 1. Przegrani poniżej 90, poniżej 60, poniżej 30 i bez lewy (schwarz): po 1.
-- Zapowiedziane Re: 2. Zapowiedziane Kontra: 2. Każde zapowiedziane keine 90, keine 60, keine 30 i schwarz: 1.
-- 120 zdobyte wbrew keine 90 drugiej strony, 90 wbrew keine 60, 60 wbrew keine 30, 30 wbrew schwarz: po 1.
-- Punkty specjalne (Sonderpunkte), tylko w zwykłej grze i przy weselu, dla strony, która je zdobędzie: złapany lis (Fuchs: as karo przeciwnika w lewie, którą bierzesz), Doppelkopf (lewa warta 40 oczek lub więcej), Karlchen („Karolek”: ostatnia lewa wzięta waletem trefl) i gegen die Alten („przeciw starym”: wygrywa Kontra): po 1. Punkty specjalne obu stron znoszą się nawzajem.
+- Wygrana: 1. Przegrani poniżej 90, poniżej 60, poniżej 30, bez lewy: po 1.
+- Zapowiedziane Re albo Kontra: po 2; każde zapowiedziane keine 90, keine 60, keine 30 i schwarz: 1.
+- 120 wbrew keine 90, 90 wbrew keine 60, 60 wbrew keine 30, 30 wbrew schwarz: po 1.
+- Punkty specjalne (Sonderpunkte), tylko w zwykłej grze i przy weselu, po 1: złapany lis (Fuchs: as karo przeciwnika w twojej lewie), Doppelkopf (lewa warta 40 oczek lub więcej), Karlchen („Karolek”: ostatnia lewa wzięta waletem trefl), gegen die Alten („przeciw starym”: wygrywa Kontra). Punkty specjalne obu stron znoszą się nawzajem.
 # Punktacja
-- Zwykła gra: każdy gracz Re dostaje wartość gry, jeśli wygrało Re (na minus, jeśli wygrało Kontra), plus punkty specjalne Re, minus punkty specjalne Kontra; każdy gracz Kontra dostaje odwrotność.
-- Solo: solista dostaje trzy razy tyle, każdy przeciwnik raz.
-- Nie ma tu obowiązkowych sol.
+- Każdy gracz Re dostaje wartość gry, jeśli wygrało Re (na minus, jeśli wygrało Kontra), plus punkty specjalne Re, minus punkty specjalne Kontra; każdy gracz Kontra dostaje odwrotność. Solista dostaje trzy razy tyle.
 # Koniec gry
-Po ostatnim rozdaniu z listy wygrywa najwyższa suma. Przy równych sumach zwycięstwo jest wspólne.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek świeci; dotyka on przycisku startu i widzi swoją rękę. Aby powiedzieć gesund, dotknij pasu. Aby zgłosić zastrzeżenie, dotknij gry, a potem znaczka zatwierdzenia (albo jeszcze raz tej samej gry): solo kolorowe (znak koloru), solo dam (dama), solo waletów (goniec, postać waleta), Fleischlos (cztery asy) albo wesele (dwie damy trefl, tylko gdy masz obie). Przy każdym miejscu widać słowo gracza: znak pasu to gesund, lampa to zastrzeżenie. W trakcie rozgrywki każde miejsce pokazuje to, co wie cały stół: damę trefl dla Re, przekreśloną dla Kontra, w złotym świetle po zapowiedzi; twoja własna strona jest zawsze widoczna przy twoim miejscu. Miejsce solisty pokazuje solo, miejsce panny młodej wesele, dopóki nie znajdzie się jej partner; keine 90, keine 60, keine 30 i schwarz widać jako 90, 60, 30 i 0 w ciemnym krążku. Gdy możesz zapowiadać, przycisk naprzeciw stosiku z lewami pokazuje twoją następną zapowiedź: dotknij go przed zagraniem karty. Aby zagrać, dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Dotknij stosiku w prawym dolnym rogu, by zobaczyć ostatnią lewę. Po każdym rozdaniu tabela pokazuje każdą stronę z jej oczkami, zapowiedziami, punktami specjalnymi (as karo: lis; 40: Doppelkopf; walet trefl: Karlchen; przekreślona dama: gegen die Alten) i złotym znaczkiem zatwierdzenia dla zwycięzców; potem wartość gry, bilans punktów specjalnych i punkty każdego gracza Re (razy 3 dla solisty); wynik i sumę każdego gracza; wreszcie listę rozdań, z żetonami zwycięzców w złotym świetle. Dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje karty w ręce i sumę. Cofnij wycofuje niezatwierdzony jeszcze wybór, nigdy wyboru sprzed podania urządzenia.
+Po ostatnim rozdaniu wygrywa najwyższa suma; przy równych sumach zwycięstwo jest wspólne.

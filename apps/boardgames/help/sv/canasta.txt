@@ -1,42 +1,28 @@
 Canasta
 # Målet
-Att vara det första laget som når 5000 poäng. För 4 spelare i två par (partnerna sitter mitt emot varandra och delar sina meldingar) eller för 2 spelare. Lägg ut kort av samma valör, bygg canastor av sju kort och gå ut.
+Att vara det första laget som når 5000 poäng: 4 spelare i två par eller 2 spelare.
 # Korten
-- Två kortlekar med 52 kort och fyra jokrar: 108 kort.
-- Jokrar och tvåor är fria kort: i en melding gäller de för vilken valör som helst.
+- Två kortlekar och fyra jokrar. Jokrar och tvåor är fria kort.
 - Kortens värde: joker 50, ess och 2 20, kung till 8 10, 7 till 4 5, svart 3 5.
-- Röda treor är bonuskort. En röd 3 som du får eller drar läggs genast bredvid ditt lags meldingar, och du drar ett annat kort i stället. Varje röd 3 är värd 100, alla fyra 800; de räknas mot ett lag som inte har lagt ut något när given slutar.
-- Svarta treor spärrar slänghögen: ingen får ta den så länge en svart 3 ligger överst.
+- En röd 3 läggs genast ut, och du drar ett annat kort i stället: varje röd 3 är värd 100, alla fyra 800, och de räknas mot ett lag som inte har lagt ut något.
 # Given
-- 11 kort var (2 spelare: 15). Nästa kort börjar slänghögen; resten är talongen. Är det kortet ett fritt kort eller en röd 3, täcks det av ett annat kort och högen är frusen.
-- Given går vidare till nästa spelare varje giv.
+- 11 kort var (2 spelare: 15). Är kortet som börjar slänghögen ett fritt kort eller en röd 3, täcks det av ett annat kort och högen är frusen.
 # En tur
-- Dra det översta kortet från talongen (2 spelare: två kort), eller ta hela slänghögen.
-- Lägg ut meldingar om du vill.
-- Släng ett kort med framsidan upp: din tur är slut.
+- Dra från talongen (2 spelare: två kort) eller ta hela slänghögen, lägg ut meldingar om du vill, och släng sedan ett kort.
 # Meldingar och canastor
-- En melding: tre eller fler kort av samma valör (ess, fyror till kungar), minst två naturliga och högst tre fria. Ditt lag har en melding av varje valör: fler kort av den valören läggs på den.
-- En canasta: en melding på sju kort eller fler. Ren (utan fritt kort) 500 poäng, blandad 300.
-- Första utläggningen: ditt lags första meldingar, lagda i en tur, måste vara värda minst 50 (kortens värde) så länge lagets poäng är under 1500, 90 från 1500, 120 från 3000, och 15 så länge de är under noll. Du får lägga dem innan du drar, för att ta högen med dem.
+- En melding: tre eller fler kort av samma valör, minst två naturliga och högst tre fria. Ditt lag har en melding av varje valör.
+- En canasta: sju kort eller fler. Ren 500, blandad 300.
+- Ditt lags första meldingar, lagda i en tur, måste vara värda minst 50 (90 från 1500 poäng, 120 från 3000, 15 under noll). Du får lägga dem innan du drar, för att ta högen.
 # Slänghögen
-- För att ta den måste det översta kortet genast in i en melding: med kort från handen eller på en av lagets meldingar. Sedan går resten av högen till din hand.
-- Högen är frusen så länge det finns ett fritt kort i den (lagt på tvären), och för ett lag som ännu inte har lagt ut. Då får du bara ta den med ett naturligt par av översta kortets valör från handen.
+- För att ta den måste det översta kortet genast in i en melding; resten går till din hand.
+- Den är frusen så länge det finns ett fritt kort i den, och för ett lag som ännu inte har lagt ut: då får du bara ta den med ett naturligt par av översta kortets valör från handen.
 - Aldrig när en svart 3 eller ett fritt kort ligger överst.
 # Att gå ut
-- Du går ut när du blir av med ditt sista kort: genom att lägga ut alla, eller alla utom ett som du slänger. Först när ditt lag har en canasta (2 spelare: två). Till dess får du inte lägga ut så att du har färre än två kort kvar.
+- Först när ditt lag har en canasta (2 spelare: två). Till dess får du inte lägga ut så att du har färre än två kort kvar.
 - Svarta treor får bara läggas ut (tre eller fyra, utan fria kort) när du går ut.
-- Att gå ut ger 100. Att gå ut dolt ger 200: hela handen utlagd i en tur, efter att ha dragit från talongen, utan att ha lagt ut något tidigare i given; då krävs inget minimum för första utläggningen.
-- När talongen är slut måste en spelare som kan lägga högens översta kort på en av lagets meldingar ta högen; annars slutar given.
+- Att gå ut ger 100; att gå ut dolt 200: hela handen utlagd i en tur efter att ha dragit från talongen, utan att ha lagt ut något tidigare, och då krävs inget minimum för första utläggningen.
+- När talongen är slut måste du ta högen om du kan lägga dess översta kort på en av lagets meldingar; annars slutar given.
 # Poängen
-När en giv slutar får varje lag sina utlagda kort, sina canastor, sina röda treor och utgången, minus korten som är kvar i spelarnas händer.
+Varje lag får sina utlagda kort, sina canastor, sina röda treor och utgången, minus korten som är kvar i spelarnas händer.
 # Partiets slut
 Partiet slutar efter den giv då ett lag når 5000 poäng. Högsta summan vinner; vid lika summa delas segern.
-# Spela på enheten
-Händerna är hemliga: lämna över enheten när skärmen ber om det, och nästa spelare trycker på startknappen. Din hand ligger längst ner, sorterad efter valör. De andra händerna är små solfjädrar högst upp. Ditt lags meldingar ligger ovanför din hand, det andra lagets under solfjädrarna, en kolumn för varje valör. En canasta stängs till en hög med antalet kort under sig: i gyllene ljus när den är ren, med ett fritt kort på tvären under när den är blandad. Varje lags marker och röda treor ligger till vänster i dess rad. Så länge ett lag inte har lagt ut visar en mörk skiva till höger vad första utläggningen kräver, och bredvid vad som lagts ut denna tur. Varje list visar korten på handen och lagets poäng.
-- Tryck på talongen för att dra.
-- Tryck på kort i handen för att välja dem; tryck på ett igen för att lägga tillbaka det.
-- Tryck sedan på en av lagets meldingar för att lägga dem till den, eller på lagets rad för en ny melding. Innan du drar, tryck på slänghögen för att ta den med dem. När du har dragit, välj ett kort och tryck på slänghögen för att slänga det. Du kan också dra ett kort dit.
-- Det de valda korten kan användas till lyser: högen, en melding, en ledig plats.
-- När talongen är tom och du inte får ta högen, tryck på den tomma talongen för att avsluta given.
-- När en giv slutar visar en tabell för varje lag de utlagda korten, canastorna, de röda treorna, utgången, korten på handen, givens poäng och summorna. Tryck för nästa giv.
-Ångra tar tillbaka dina egna handlingar, ända till ögonblicket då enheten lämnades över.

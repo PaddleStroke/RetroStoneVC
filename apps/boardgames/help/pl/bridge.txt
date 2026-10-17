@@ -1,25 +1,21 @@
 Brydż
 # Cel gry
-Brydż kontraktowy dla czterech graczy w dwóch parach siedzących naprzeciw siebie: kość słoniowa i czerwony przeciw hebanowi i nefrytowi. W każdym rozdaniu pary licytują o prawo wyboru atutu; para, która wygra licytację, próbuje potem wziąć obiecane lewy. Dwie formy gry: Chicago, cztery rozdania (domyślna, idealna na luźne spotkanie), albo robber, do dwóch wygranych partii. Nikt nie widzi kart pozostałych.
+Brydż kontraktowy dla czterech graczy w dwóch parach siedzących naprzeciw siebie: pary licytują o prawo wyboru atutu, a potem próbują wziąć obiecane lewy.
 # Licytacja
-Rozdaje się wszystkie 52 karty, po 13 na gracza. Rozdający mówi pierwszy, potem każdy po kolei:
-- odzywka: liczba od 1 do 7 i kolor albo bez atu. Obiecuje tyle lew ponad sześć (1 znaczy 7 lew). Każda odzywka musi być wyższa od poprzedniej: wyższa liczba albo ta sama liczba w wyższym kolorze. Od najniższego: trefle, kara, kiery, piki, bez atu.
+Rozdający mówi pierwszy, potem każdy po kolei:
+- odzywka: od 1 do 7 i kolor albo bez atu; obiecuje tyle lew ponad sześć. Musi przebić poprzednią: wyższa liczba albo ta sama liczba w wyższym kolorze (trefle, kara, kiery, piki, bez atu).
 - pas;
-- kontra na ostatnią odzywkę przeciwników, która podnosi stawkę; rekontra na skontrowaną odzywkę twojej pary.
-Trzy pasy po odzywce kończą licytację. Ostatnia odzywka to kontrakt, a jej kolor to atut. Rozgrywającym jest ten gracz z tej pary, który pierwszy wymienił ten kolor (albo bez atu); jego partner to dziadek. Cztery pasy bez odzywki: rozdaje się od nowa.
-To, co odzywka mówi o ręce, jest umową partnerów (systemem licytacyjnym), a nie zasadą: ustalcie własny przed grą. Pełne wyjaśnienie licytacji wykracza poza tę stronę.
+- kontra na ostatnią odzywkę przeciwników; rekontra na skontrowaną odzywkę twojej pary.
+Trzy pasy po odzywce kończą licytację. Ostatnia odzywka to kontrakt, a jej kolor to atut. Rozgrywającym jest ten gracz z tej pary, który pierwszy wymienił ten kolor; jego partner to dziadek. Cztery pasy: rozdaje się od nowa.
 # Rozgrywka
-- Gracz po lewej stronie rozgrywającego wistuje. Potem dziadek wykłada karty odkryte dla wszystkich, a rozgrywający gra nimi oprócz swoich.
-- Dodaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Najwyższy atut bierze lewę, a bez atutu najwyższa karta koloru wyjścia (as jest najwyższy). Biorący lewę wychodzi do następnej.
-- Rozgrywający potrzebuje sześciu lew plus zalicytowaną liczbę.
+- Gracz po lewej stronie rozgrywającego wistuje. Potem dziadek wykłada karty odkryte, a rozgrywający gra także nimi.
+- Dodaj do koloru wyjścia, jeśli możesz; jeśli nie, zagraj dowolną kartę. Najwyższy atut bierze lewę, a bez atutu najwyższa karta koloru wyjścia. Biorący lewę wychodzi do następnej.
 # Punktacja
 - Kontrakt ugrany: każda zalicytowana lewa ponad sześć to 20 w treflach lub karach, 30 w kierach lub pikach; w bez atu 40 za pierwszą, potem 30. Z kontrą dwa razy tyle, z rekontrą cztery razy. 100 takich punktów lub więcej to końcówka.
 - Każda nadróbka: jej wartość; z kontrą 100 (po partii 200), z rekontrą dwa razy tyle. Ugrany kontrakt z kontrą daje 50 więcej, z rekontrą 100.
 - Szlemy: 12 zalicytowanych i wziętych lew 500 (po partii 750), wszystkie 13 lew 1000 (po partii 1500).
-- Kontrakt przegrany: obrońcy zapisują każdą wpadkę po 50 (po partii 100). Z kontrą: 100, potem 200 za 2. i 3., potem po 300; po partii 200, potem po 300. Z rekontrą: dwa razy tyle co z kontrą.
+- Kontrakt przegrany: obrońcy zapisują po 50 za każdą wpadkę (po partii 100). Z kontrą: 100, 200, 200, potem po 300 (po partii 200, potem po 300); z rekontrą dwa razy tyle.
 # Koniec gry
-- Chicago: cztery rozdania. W pierwszym nikt nie jest po partii, w drugim i trzecim para rozdającego, w czwartym obie pary. Każde rozdanie liczy się osobno: końcówka daje 300 więcej (po partii 500), każdy mniejszy kontrakt 50. Rozdanie, w którym wszyscy spasują, ten sam rozdający rozdaje od nowa.
-- Robber: punkty za kontrakt zapisuje się pod kreską i sumuje do partii 100; partia kasuje częściówki obu par. Para, która wygrała partię, jest po partii. Pierwsza para z dwiema partiami kończy robbera: 700 więcej za dwa do zera, 500 za dwa do jednego. Honory liczą się tylko w robberze: pięć najwyższych atutów (as, król, dama, walet, 10) w jednej ręce 150, cztery z nich 100, cztery asy w bez atu 150, dla pary tej ręki bez względu na wynik.
+- Chicago: cztery rozdania. Po partii: w pierwszym nikt, w drugim i trzecim para rozdającego, w czwartym obie pary. Końcówka daje 300 więcej (po partii 500), każdy mniejszy kontrakt 50.
+- Robber: partia kasuje częściówki obu par, a para, która wygrała partię, jest po partii. Dwie partie kończą robbera: 700 więcej za dwa do zera, 500 za dwa do jednego. Honory, tylko w robberze: pięć najwyższych atutów w jednej ręce 150, cztery z nich 100, cztery asy w bez atu 150.
 - Wygrywa para z wyższą sumą.
-# Gra na urządzeniu
-Podaj urządzenie graczowi, którego pionek się pokazuje; dotyka on przycisku startu i widzi swoje karty. Licytacja to tabela odzywek, kolumna na gracza, pionki u góry: po lewej, naprzeciw, po prawej, ty. Czerwony pierścień wokół pionka: ta para jest po partii. Aby licytować, dotknij przycisku pudełka licytacyjnego (bez atu to krążek z czterema przekreślonymi kolorami; zielony to pas, czerwony krzyżyk kontra, dwa niebieskie krzyżyki rekontra), a potem znaczka zatwierdzenia albo jeszcze raz tego samego przycisku. W rozgrywce rozgrywający trzyma urządzenie także za dziadka; właściciel dziadka tylko patrzy. Dotknij świecącej karty, żeby się uniosła, i dotknij jej jeszcze raz albo jej miejsca na środku; albo przeciągnij ją tam. Lewy układają się z ich liczbą przed rozgrywającym i przed obrońcą, który wziął pierwszą lewę swojej pary. Dotknij kontraktu w górnym rogu, by zobaczyć licytację i ostatnią lewę. Po każdym rozdaniu karta zapisu pokazuje my (twoja para) i oni w dwóch kolumnach; dotknij jej, by przejść do następnego rozdania. Każdy pasek pokazuje sumę pary, czerwony pierścień, gdy jest po partii, a w robberze punkty pod kreską w ciemnym krążku. Cofnij wycofuje wybór jeszcze niezatwierdzony, nigdy odzywkę ani kartę po podaniu urządzenia.

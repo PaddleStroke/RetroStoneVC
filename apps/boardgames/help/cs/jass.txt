@@ -1,31 +1,29 @@
 Jass
 # Cíl hry
-Schieber, nejoblíbenější způsob, jak se ve Švýcarsku hraje Jass: dvě dvojice spoluhráčů, kteří sedí naproti sobě, slonovinový a červený proti ebenovému a nefritovému. Obě dvojice si počítají body, které uhrají; vyhrává dvojice, která první dosáhne 1000 bodů (nebo 2500 v dlouhé hře). Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+Schieber: dvě dvojice spoluhráčů, kteří sedí naproti sobě. Vyhrává dvojice, která první dosáhne 1000 bodů (2500 v dlouhé hře).
 # Karty
-Balíček má 36 karet, od šestky po eso. V německy mluvícím Švýcarsku se Jass hraje většinou se švýcarskými barvami (kule, štíty, růže, žaludy); zde mají karty francouzské barvy, jako na západě země. Švýcarské barvy mohou přijít později.
+36 karet, od šestky po eso.
 # Rozdání
-Každý hráč dostane 9 karet. První rozdává nefritový hráč; pak se rozdávající každé rozdání posune o jedno místo. Hráč po rozdávajícím volí hru a vynáší do prvního štychu.
+Každý hráč dostane 9 karet; rozdávající se každé rozdání posune o jedno místo. Hráč po rozdávajícím volí hru a vynáší do prvního štychu.
 # Volba hry
-- Volící určí trumfovou barvu, nebo Obenabe („shora dolů“: bez trumfů, nejvyšší je eso), nebo Undeufe („zdola nahoru“: bez trumfů, nejvyšší je šestka).
-- Nebo přistrčí (schieben): volit pak musí jeho spoluhráč. Do prvního štychu ale stejně vynáší ten, kdo přistrčil.
+- Urči trumfovou barvu, nebo Obenabe (bez trumfů, nejvyšší je eso), nebo Undeufe (bez trumfů, nejvyšší je šestka).
+- Nebo přistrč (schieben): volit pak musí tvůj spoluhráč, do prvního štychu ale vynášíš ty.
 # Trumfy
-- Trumfový kluk, Puur, je nejvyšší karta (20 ok), pak devítka, Nell (14), pak eso 11, král 4, dáma 3, 10 10, 8, 7, 6.
-- Ostatní barvy jdou v pořadí eso 11, král 4, dáma 3, kluk 2, 10 10, 9, 8, 7, 6.
-- Obenabe: každá barva jde od esa po šestku a osmičky mají 8 ok. Undeufe: každá barva jde od šestky po eso, šestky mají 11, osmičky 8 a esa nic.
-- Poslední štych má o 5 ok víc: celkem 157 ok. Match (všech devět štychů) má 257.
+- Trumfy: kluk, Puur (20 ok), pak devítka, Nell (14), eso 11, král 4, dáma 3, 10 10, 8, 7, 6.
+- Ostatní barvy: eso 11, král 4, dáma 3, kluk 2, 10 10, 9, 8, 7, 6.
+- Obenabe: od esa po šestku, osmičky mají 8 ok. Undeufe: od šestky po eso, šestky mají 11, osmičky 8, esa nic.
+- Poslední štych má o 5 ok víc. Match (všech devět štychů) má 257.
 # Hra
-- Přiznej barvu, nebo místo toho zahraj trumf. Nemůžeš-li přiznat, zahraj libovolnou kartu.
-- Zákaz podtrumfování: byla-li vynesena jiná barva, nesmíš zahrát trumf nižší, než jaký už ve štychu je, ledaže máš jen trumfy.
-- Když se vynášejí trumfy, musíš přiznat trumfem, ale Puura hrát nikdy nemusíš: nemáš-li jiný trumf, smíš zahrát libovolnou kartu.
+- Přiznej barvu, nebo zahraj trumf. Nemůžeš-li přiznat, zahraj libovolnou kartu.
+- Byla-li vynesena jiná barva, nesmíš zahrát trumf nižší, než jaký už ve štychu je, ledaže máš jen trumfy.
+- Když se vynášejí trumfy, přiznej trumfem; Puura hrát nikdy nemusíš.
 - V Obenabe a Undeufe prostě přiznej barvu, pokud můžeš.
 # Weis a Stöck
-- Weis (hlášky) se hlásí s první kartou: tři karty v postupce v jedné barvě 20, čtyři 50, pět 100, šest 150, sedm 200, osm 250, devět 300; čtyři kluci 200, čtyři devítky 150, čtyři esa, krále, dámy nebo desítky 100. Pořadí v postupce je 6, 7, 8, 9, 10, kluk, dáma, král, eso.
-- Body získá jen dvojice s nejlepší jednotlivou hláškou, a to všechny hlášky obou svých hráčů. Nejlepší je ta s nejvíce body; při rovnosti vyhrává čtveřice nad postupkou, pak vyšší nejvyšší karta, pak postupka v trumfech, pak hráč, který hrál dřív.
-- Stöck: trumfový král a dáma v jedné ruce mají 20, započtou se, když padne druhý z nich.
+- Weis (hlášky) se hlásí s první kartou. Postupka v jedné barvě (od šestky po eso): tři karty 20, čtyři 50, pět 100, šest 150, sedm 200, osm 250, devět 300. Čtyři kluci 200, čtyři devítky 150, čtyři esa, krále, dámy nebo desítky 100.
+- Body získá jen dvojice s nejlepší jednotlivou hláškou, a to všechny své hlášky.
+- Stöck: trumfový král a dáma v jedné ruce, 20, započtou se, když padne druhý z nich.
 # Počítání bodů
-- Každá dvojice si zapíše svá oka, své hlášky a svůj Stöck.
-- Dlouhá hra (do 2500) všechno násobí: káry a srdce jednou, piky a kříže dvakrát, Obenabe a Undeufe třikrát.
+- Každá dvojice si zapíše svá oka, hlášky a Stöck.
+- Dlouhá hra násobí: káry a srdce jednou, piky a kříže dvakrát, Obenabe a Undeufe třikrát.
 # Konec hry
-Vyhrává dvojice, která první dosáhne 1000 (2500) bodů. Stöck se počítá, jakmile je zahrán, pak hlášky po prvním štychu, pak štychy na konci rozdání; rozdání se vždy dohraje. Překročí-li hranici obě dvojice štychy téhož rozdání, vyhrává vyšší součet.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Při volbě hry klepni na znak barvy, na šipku nahoru (Obenabe) nebo na šipku dolů (Undeufe), pak na fajfku (nebo znovu na totéž); chceš-li přistrčit, klepni na tlačítko Pas. Místo volícího ukazuje hru, místo toho, kdo přistrčil, znak pasu. V prvním štychu, máš-li v ruce hlášku, ukazuje tlačítko naproti hromádce štychů její body: klepni na ně dřív, než zahraješ kartu, a hlášku tím ohlásíš. Každé místo ukazuje ohlášené hlášky, pak už jen hlášky dvojice, které se započítají, ve zlatém světle; Stöck se ukazuje jako trumfový král a dáma u místa, které ho získalo. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka hru každé dvojice (v dlouhé hře s násobkem), oka (ve zlatém světle při Matchi), hlášky a Stöck, skóre rozdání a součet; pod ní žetony obou dvojic na cestě k cíli. Klepnutím na ni začne další rozdání. Každá lišta ukazuje karty v ruce a součet dvojice. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.
+Stöck se počítá, jakmile je zahrán, hlášky po prvním štychu, štychy na konci rozdání; rozdání se vždy dohraje. Překročí-li hranici obě dvojice štychy téhož rozdání, vyhrává vyšší součet.

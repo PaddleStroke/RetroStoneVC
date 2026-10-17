@@ -1,31 +1,29 @@
 Jass
 # Het doel
-De Schieber, de geliefdste manier van jassen in Zwitserland: twee teams van twee partners die tegenover elkaar zitten, ivoor en rood tegen ebben en jade. Beide teams tellen de punten die ze halen; het eerste team dat 1000 punten haalt (of 2500 in de lange partij), wint. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+De Schieber: twee teams van twee partners die tegenover elkaar zitten. Het eerste team dat 1000 punten haalt (2500 in de lange partij), wint.
 # De kaarten
-Er wordt gespeeld met 36 kaarten, van 6 tot aas. In Duitstalig Zwitserland wordt Jass meestal met Zwitserse kleuren gespeeld (bellen, schilden, rozen, eikels); hier hebben de kaarten Franse kleuren, zoals in het westen van het land. Zwitserse kleuren komen misschien later.
+36 kaarten, van 6 tot aas.
 # Het delen
-Elke speler krijgt 9 kaarten. Jade geeft eerst; daarna schuift de gever elke ronde een plaats op. De speler na de gever kiest het spel en komt uit in de eerste slag.
+Elke speler krijgt 9 kaarten; de gever schuift elke ronde een plaats op. De speler na de gever kiest het spel en komt uit in de eerste slag.
 # Het spel kiezen
-- Wie kiest, noemt een troefkleur, of Obenabe (van boven af: geen troef, de aas is het hoogst) of Undeufe (van onder af: geen troef, de zes is het hoogst).
-- Of hij schuift (schieben): dan moet zijn partner kiezen. De eerste slag wordt toch uitgespeeld door de speler die schoof.
+- Noem een troefkleur, of Obenabe (geen troef, de aas is het hoogst) of Undeufe (geen troef, de zes is het hoogst).
+- Of schuif (schieben): dan moet je partner kiezen, maar jij komt uit in de eerste slag.
 # Troeven
-- De troefboer, de Puur, is de hoogste kaart (20 punten), dan de troefnegen, de Nell (14), dan aas 11, heer 4, vrouw 3, 10 10, 8, 7, 6.
-- De andere kleuren lopen aas 11, heer 4, vrouw 3, boer 2, 10 10, 9, 8, 7, 6.
-- Obenabe: elke kleur loopt van aas tot zes, en de achten zijn 8 waard. Undeufe: elke kleur loopt van zes tot aas, de zessen zijn 11 waard, de achten 8 en de azen niets.
-- De laatste slag is 5 extra waard: samen 157 punten. Een Match (alle negen slagen) is 257 waard.
+- Troef: de boer, de Puur (20 punten), dan de negen, de Nell (14), aas 11, heer 4, vrouw 3, 10 10, 8, 7, 6.
+- De andere kleuren: aas 11, heer 4, vrouw 3, boer 2, 10 10, 9, 8, 7, 6.
+- Obenabe: van aas tot zes, de achten zijn 8 waard. Undeufe: van zes tot aas, de zessen zijn 11 waard, de achten 8, de azen niets.
+- De laatste slag is 5 extra waard. Een Match (alle negen slagen) is 257 waard.
 # Het spel
-- Beken kleur, of speel in plaats daarvan een troef. Kun je niet bekennen, speel dan een willekeurige kaart.
-- Niet ondertroeven: is er een andere kleur gevraagd, dan mag je geen troef spelen die lager is dan een troef die al in de slag ligt, tenzij je alleen nog troeven hebt.
-- Wordt er troef gevraagd, dan moet je troef bekennen, maar de Puur hoef je nooit te spelen: heb je geen andere troef, dan mag je een willekeurige kaart spelen.
+- Beken kleur of speel een troef. Kun je niet bekennen, speel dan een willekeurige kaart.
+- Is er een andere kleur gevraagd, dan geen troef die lager is dan een troef in de slag, tenzij je alleen nog troeven hebt.
+- Wordt er troef gevraagd, beken dan troef; de Puur hoef je nooit te spelen.
 - Bij Obenabe en Undeufe beken je gewoon kleur als je kunt.
 # Weis en Stöck
-- Weis (meldingen) worden bij je eerste kaart gemeld: drie opeenvolgende kaarten van één kleur 20, vier 50, vijf 100, zes 150, zeven 200, acht 250, negen 300; vier boeren 200, vier negens 150, vier azen, heren, vrouwen of tienen 100. De volgorde van een reeks is 6 7 8 9 10 B V H A.
-- Alleen het team met de beste losse Weis schrijft, en dan alle Weis van zijn beide spelers. De beste heeft de meeste punten; bij gelijkheid gaan vier gelijke kaarten voor een reeks, dan de hoogste bovenste kaart, dan een reeks in troef, dan de speler die het eerst speelde.
-- Stöck: heer en vrouw van troef in één hand zijn 20 waard, geteld zodra de tweede ervan gespeeld wordt.
+- Weis (meldingen) meld je bij je eerste kaart. Een reeks in één kleur (6 tot aas): drie kaarten 20, vier 50, vijf 100, zes 150, zeven 200, acht 250, negen 300. Vier boeren 200, vier negens 150, vier azen, heren, vrouwen of tienen 100.
+- Alleen het team met de beste losse Weis schrijft, en dan al zijn Weis.
+- Stöck: heer en vrouw van troef in één hand, 20, geteld zodra de tweede gespeeld wordt.
 # De telling
-- Elk team schrijft zijn kaartpunten, zijn Weis en zijn Stöck.
-- De lange partij (tot 2500) vermenigvuldigt alles: ruiten en harten één keer, schoppen en klaveren twee keer, Obenabe en Undeufe drie keer.
+- Elk team schrijft zijn kaartpunten, Weis en Stöck.
+- De lange partij vermenigvuldigt: ruiten en harten één keer, schoppen en klaveren twee keer, Obenabe en Undeufe drie keer.
 # Het einde van de partij
-Het eerste team dat 1000 (2500) punten haalt, wint. Stöck telt zodra het gespeeld is, dan de Weis na de eerste slag, dan de slagen aan het eind van de ronde; de ronde wordt altijd uitgespeeld. Gaan beide teams over de grens met de slagen van dezelfde ronde, dan wint het hoogste totaal.
-# Spelen op het apparaat
-Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Om het spel te kiezen tik je op het teken van een kleur, de pijl omhoog (Obenabe) of de pijl omlaag (Undeufe), en dan op het vinkje (of nog eens op hetzelfde); om te schuiven tik je op de pasknop. De plaats van wie koos toont het spel, de plaats van wie schoof het pasteken. Heb je in de eerste slag Weis in je hand, dan toont een knop tegenover het slagenstapeltje de punten ervan: tik erop voordat je je kaart speelt om hem te melden. Elke plaats toont de gemelde Weis, daarna alleen die van het team dat ze schrijft, in goudlicht; Stöck verschijnt als heer en vrouw van troef bij de plaats die het schreef. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elke ronde toont een tabel voor elk team het spel (in de lange partij met zijn vermenigvuldiger), de kaartpunten (in goudlicht bij een Match), Weis en Stöck, de score van de ronde en het totaal; daaronder de fiches van beide teams op weg naar het doel. Tik erop voor de volgende ronde. Elke balk toont de kaarten in de hand en het totaal van het team. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.
+Stöck telt zodra het gespeeld is, de Weis na de eerste slag, de slagen aan het eind van de ronde; de ronde wordt altijd uitgespeeld. Gaan beide teams over de grens met de slagen van dezelfde ronde, dan wint het hoogste totaal.

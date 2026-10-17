@@ -1,25 +1,21 @@
 Bridge
 # Das Ziel
-Kontrakt-Bridge für vier Spieler in zwei Partnerschaften, die Partner sitzen sich gegenüber: Elfenbein und Rot gegen Ebenholz und Jade. In jedem Spiel reizen die Paare um das Recht, Trumpf zu bestimmen; das Paar, das den Kontrakt bekommt, versucht dann, die versprochenen Stiche zu machen. Zwei Formen: Chicago mit vier Spielen (die Voreinstellung, ideal für eine lockere Runde) oder ein Robber, zwei gewonnene Partien. Niemand sieht die Karten der anderen.
+Kontrakt-Bridge für vier Spieler in zwei Partnerschaften, die Partner sitzen sich gegenüber: Man reizt um das Recht, Trumpf zu bestimmen, und versucht dann, die versprochenen Stiche zu machen.
 # Die Ansage
-Alle 52 Karten werden verteilt, 13 für jeden. Der Geber spricht zuerst, dann jeder der Reihe nach:
-- ein Gebot: eine Zahl von 1 bis 7 und eine Farbe oder Sans Atout (ohne Trumpf). Es verspricht so viele Stiche über sechs (1 heißt 7 Stiche). Jedes Gebot muss höher sein als das letzte: eine höhere Zahl oder dieselbe Zahl in einer höheren Farbe. Von niedrig nach hoch: Kreuz, Karo, Herz, Pik, Sans Atout.
+Der Geber spricht zuerst, dann jeder der Reihe nach:
+- ein Gebot: 1 bis 7 und eine Farbe oder Sans Atout (ohne Trumpf); es verspricht so viele Stiche über sechs. Es muss das letzte Gebot übertreffen: eine höhere Zahl oder dieselbe Zahl in einer höheren Farbe (Kreuz, Karo, Herz, Pik, Sans Atout).
 - Passe;
-- Kontra auf das letzte Gebot der Gegner, das den Einsatz erhöht; Rekontra auf ein Gebot der eigenen Seite, das kontriert wurde.
-Drei Passe nach einem Gebot beenden die Reizung. Das letzte Gebot ist der Kontrakt, seine Farbe ist Trumpf. Alleinspieler ist der Spieler dieser Seite, der diese Farbe (oder Sans Atout) zuerst genannt hat; sein Partner ist der Dummy. Vier Passe ohne Gebot: es wird neu gegeben.
-Was ein Gebot über eine Hand aussagt, ist eine Absprache der Partner (ein Reizsystem), keine Regel: einigt euch vor dem Spiel auf eures. Eine vollständige Erklärung der Reizung geht über diese Seite hinaus.
+- Kontra auf das letzte Gebot der Gegner; Rekontra auf ein Gebot der eigenen Seite, das kontriert wurde.
+Drei Passe nach einem Gebot beenden die Reizung. Das letzte Gebot ist der Kontrakt, seine Farbe ist Trumpf. Alleinspieler ist der Spieler dieser Seite, der diese Farbe zuerst genannt hat; sein Partner ist der Dummy. Vier Passe: es wird neu gegeben.
 # Das Spiel
-- Der Spieler links vom Alleinspieler spielt aus. Dann legt der Dummy seine Hand offen für alle auf, und der Alleinspieler spielt sie zusätzlich zu seiner eigenen.
-- Bediene die ausgespielte Farbe, wenn du kannst; sonst spiele eine beliebige Karte. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe (das Ass ist hoch). Wer den Stich gewinnt, spielt zum nächsten aus.
-- Der Alleinspieler braucht sechs Stiche plus die gebotene Zahl.
+- Der Spieler links vom Alleinspieler spielt aus. Dann legt der Dummy seine Hand offen auf, und der Alleinspieler spielt sie mit.
+- Bediene die ausgespielte Farbe, wenn du kannst; sonst spiele eine beliebige Karte. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Wer den Stich gewinnt, spielt zum nächsten aus.
 # Die Wertung
 - Kontrakt erfüllt: jeder gebotene Stich über sechs zählt 20 in Kreuz oder Karo, 30 in Herz oder Pik; in Sans Atout 40 für den ersten, dann 30. Kontriert das Doppelte, rekontriert das Vierfache. 100 dieser Punkte oder mehr ergeben eine Partie.
 - Jeder Überstich: sein Stichwert; kontriert 100 (in Gefahr 200), rekontriert das Doppelte. Ein erfüllter kontrierter Kontrakt bringt 50 mehr, ein rekontrierter 100.
 - Schlemms: 12 gebotene und gemachte Stiche 500 (in Gefahr 750), alle 13 Stiche 1000 (in Gefahr 1500).
-- Kontrakt gefallen: die Gegenspieler schreiben jeden Unterstich mit 50 (in Gefahr 100). Kontriert: 100, dann 200 für den 2. und 3., dann je 300; in Gefahr 200, dann je 300. Rekontriert: das Doppelte von kontriert.
+- Kontrakt gefallen: die Gegenspieler schreiben 50 je Unterstich (in Gefahr 100). Kontriert: 100, 200, 200, dann je 300 (in Gefahr 200, dann je 300); rekontriert das Doppelte.
 # Das Ende der Partie
-- Chicago: vier Spiele. Im ersten ist niemand in Gefahr, im zweiten und dritten die Seite des Gebers, im vierten beide Seiten. Jedes Spiel wird für sich gewertet: eine Partie bringt 300 mehr (in Gefahr 500), jeder kleinere Kontrakt 50. Ein Spiel, in dem alle passen, gibt derselbe Geber neu.
-- Robber: die Kontraktpunkte kommen unter den Strich und summieren sich zu einer Partie von 100; eine Partie löscht die Teilergebnisse beider Seiten. Eine Seite, die eine Partie gewonnen hat, ist in Gefahr. Die erste Seite mit zwei Partien beendet den Robber: 700 mehr für zwei zu null, 500 für zwei zu eins. Honneurs zählen nur im Robber: die fünf höchsten Trümpfe (Ass, König, Dame, Bube, 10) in einer Hand 150, vier davon 100, die vier Asse in Sans Atout 150, für die Seite dieser Hand, gleich wie das Spiel ausgeht.
+- Chicago: vier Spiele. In Gefahr: im ersten niemand, im zweiten und dritten die Seite des Gebers, im vierten beide Seiten. Eine Partie bringt 300 mehr (in Gefahr 500), jeder kleinere Kontrakt 50.
+- Robber: eine Partie löscht die Teilergebnisse beider Seiten, und eine Seite, die eine gewonnen hat, ist in Gefahr. Zwei Partien beenden den Robber: 700 mehr für zwei zu null, 500 für zwei zu eins. Honneurs, nur im Robber: die fünf höchsten Trümpfe in einer Hand 150, vier davon 100, die vier Asse in Sans Atout 150.
 - Die Seite mit der höheren Summe gewinnt.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein erscheint; er tippt auf Start und sieht seine Hand. Die Reizung steht in einer Tabelle, eine Spalte pro Spieler, die Steine oben: links, gegenüber, rechts, du. Ein roter Ring um einen Stein: diese Seite ist in Gefahr. Zum Bieten tippe eine Taste der Bietbox an (Sans Atout ist eine Scheibe mit den vier durchgestrichenen Farben; Grün passt, das rote Kreuz kontriert, zwei blaue Kreuze rekontrieren), dann den Haken oder noch einmal dieselbe Taste. Im Spiel behält der Alleinspieler das Gerät auch für den Dummy; dessen Besitzer schaut nur zu. Tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Die Stiche stapeln sich mit ihrer Zahl vor dem Alleinspieler und vor dem Gegenspieler, der den ersten Stich seiner Seite gemacht hat. Tippe auf den Kontrakt in der oberen Ecke, um die Reizung und den letzten Stich zu sehen. Nach jedem Spiel zeigt der Schreibblock wir (deine Seite) und sie in zwei Spalten; tippe darauf für das nächste Spiel. Jede Leiste zeigt die Summe der Seite, einen roten Ring, wenn sie in Gefahr ist, und im Robber die Punkte unter dem Strich in einer dunklen Scheibe. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine Ansage oder Karte, wenn das Gerät weitergegeben wurde.

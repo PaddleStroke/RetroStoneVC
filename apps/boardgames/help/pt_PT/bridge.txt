@@ -1,25 +1,21 @@
 Bridge
 # O objetivo
-Bridge de contrato para quatro jogadores em duas parelhas sentadas frente a frente: marfim e vermelho contra ébano e jade. Em cada mão as parelhas fazem um leilão pelo direito de escolher o trunfo; a parelha que o ganha tenta depois fazer as vazas prometidas. Duas formas de jogar: Chicago, quatro mãos (a predefinida, ideal para uma mesa descontraída), ou um rubber, ganho por quem vencer primeiro duas partidas. Ninguém vê as cartas dos outros.
+Bridge de contrato para quatro jogadores em duas parelhas sentadas frente a frente: as parelhas fazem um leilão pelo direito de escolher o trunfo, e a parelha que o ganha tenta depois fazer as vazas prometidas.
 # As declarações
-Distribuem-se as 52 cartas, 13 a cada um. O dador fala primeiro e depois cada jogador na sua vez:
-- uma declaração: um número de 1 a 7 e um naipe ou sem trunfo. Promete esse número de vazas acima de seis (1 quer dizer 7 vazas). Cada declaração tem de superar a anterior: um número maior, ou o mesmo número num naipe mais alto. Do mais baixo ao mais alto: paus, ouros, copas, espadas, sem trunfo.
+O dador fala primeiro e depois cada jogador na sua vez:
+- uma declaração: de 1 a 7 e um naipe ou sem trunfo; promete esse número de vazas acima de seis. Tem de superar a anterior: um número maior, ou o mesmo número num naipe mais alto (paus, ouros, copas, espadas, sem trunfo).
 - passo;
-- contra sobre a última declaração adversária, que aumenta o que está em jogo; sobrecontra sobre uma declaração da tua parelha que levou contra.
-Três passos depois de uma declaração fecham o leilão. A última declaração é o contrato e o seu naipe é o trunfo. O declarante é o jogador dessa parelha que nomeou primeiro esse naipe (ou o sem trunfo); o parceiro é o morto. Quatro passos sem declaração: volta-se a distribuir.
-O que uma declaração diz sobre uma mão é um acordo entre parceiros (um sistema de leilão), não uma regra: combinem o vosso antes de começar. Explicar o leilão por inteiro vai além desta página.
+- contra sobre a última declaração adversária; sobrecontra sobre uma declaração da tua parelha que levou contra.
+Três passos depois de uma declaração fecham o leilão. A última declaração é o contrato e o seu naipe é o trunfo. O declarante é o jogador dessa parelha que nomeou primeiro esse naipe; o parceiro é o morto. Quatro passos: volta-se a distribuir.
 # O jogo
-- O jogador à esquerda do declarante faz a saída. Depois o morto estende a mão voltada para cima para todos, e o declarante joga-a além da sua.
-- Assiste ao naipe de saída se puderes; senão joga qualquer carta. O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída (o ás é a mais alta). Quem ganha sai na vaza seguinte.
-- O declarante precisa de seis vazas mais o número declarado.
+- O jogador à esquerda do declarante faz a saída. Depois o morto estende a mão voltada para cima, e o declarante joga-a também.
+- Assiste ao naipe de saída se puderes; senão joga qualquer carta. O trunfo mais alto ganha a vaza; sem trunfo, a carta mais alta do naipe de saída. Quem ganha sai na vaza seguinte.
 # A pontuação
 - Contrato cumprido: cada vaza declarada acima de seis vale 20 em paus ou ouros, 30 em copas ou espadas; em sem trunfo 40 a primeira e depois 30. Com contra, o dobro; com sobrecontra, o quádruplo. 100 destes pontos ou mais fazem uma partida.
 - Cada vaza a mais: o seu valor; com contra 100 (vulnerável 200), com sobrecontra o dobro. Um contrato com contra cumprido dá mais 50, com sobrecontra 100.
 - Slams: 12 vazas declaradas e feitas 500 (vulnerável 750), todas as 13 vazas 1000 (vulnerável 1500).
-- Contrato falhado: os defensores marcam cada vaza em falta 50 (vulnerável 100). Com contra: 100, depois 200 pela 2.ª e pela 3.ª, depois 300 cada; vulnerável 200, depois 300 cada. Com sobrecontra: o dobro do contra.
+- Contrato falhado: os defensores marcam 50 por vaza em falta (vulnerável 100). Com contra: 100, 200, 200, depois 300 cada (vulnerável 200, depois 300 cada); com sobrecontra, o dobro.
 # O fim do jogo
-- Chicago: quatro mãos. Ninguém é vulnerável na primeira, a parelha do dador na segunda e na terceira, as duas parelhas na quarta. Cada mão conta à parte: uma partida dá mais 300 (vulnerável 500), qualquer contrato menor 50. Se todos passarem, o mesmo dador volta a distribuir.
-- Rubber: os pontos de contrato vão para baixo da linha e somam-se até uma partida de 100; uma partida apaga as parciais das duas parelhas. A parelha que já ganhou uma partida é vulnerável. A primeira parelha a ganhar duas partidas fecha o rubber: mais 700 por dois a zero, 500 por dois a um. As honras só contam no rubber: os cinco trunfos mais altos (ás, rei, dama, valete, 10) numa mão 150, quatro deles 100, os quatro ases em sem trunfo 150, para a parelha dessa mão, seja qual for o resultado.
+- Chicago: quatro mãos. Vulneráveis: ninguém na primeira, a parelha do dador na segunda e na terceira, as duas parelhas na quarta. Uma partida dá mais 300 (vulnerável 500), qualquer contrato menor 50.
+- Rubber: uma partida apaga as parciais das duas parelhas, e a parelha que já ganhou uma é vulnerável. Duas partidas fecham o rubber: mais 700 por dois a zero, 500 por dois a um. Honras, só no rubber: os cinco trunfos mais altos numa mão 150, quatro deles 100, os quatro ases em sem trunfo 150.
 - Ganha a parelha com o maior total.
-# Jogar no dispositivo
-Passa o dispositivo ao jogador cuja peça aparece; ele toca no botão de início e vê a sua mão. O leilão é uma tabela de declarações, uma coluna por jogador, com as peças no topo: esquerda, em frente, direita, tu. Um anel vermelho à volta de uma peça: essa parelha é vulnerável. Para declarar, toca num botão da caixa de leilão (o sem trunfo é um disco com os quatro naipes riscados; o verde passa, a cruz vermelha dá contra, duas cruzes azuis dão sobrecontra) e depois no sinal de confirmação, ou outra vez no mesmo botão. No jogo o declarante fica com o dispositivo também para o morto; o dono do morto só assiste. Toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. As vazas empilham-se, com a contagem, diante do declarante e do defensor que fez a primeira vaza da sua parelha. Toca no contrato no canto de cima para ver o leilão e a última vaza. Depois de cada mão a folha de pontos mostra nós (a tua parelha) e eles em duas colunas; toca nela para a mão seguinte. Cada barra mostra o total da parelha, um anel vermelho se for vulnerável e, no rubber, os pontos abaixo da linha num disco escuro. Anular retira uma escolha ainda não confirmada, nunca uma declaração nem uma carta depois de passar o dispositivo.

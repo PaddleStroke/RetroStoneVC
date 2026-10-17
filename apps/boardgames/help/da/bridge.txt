@@ -1,25 +1,21 @@
 Bridge
 # Målet
-Kontraktbridge for fire spillere i to makkerpar, der sidder over for hinanden: elfenben og rød mod ibenholt og jade. I hvert spil melder parrene om retten til at vælge trumf; det par, der vinder meldingen, prøver så at tage de lovede stik. To måder at spille på: Chicago, fire spil (standard, bedst til et hyggeligt bord), eller en robber, først til to udgange. Ingen ser de andres kort.
+Kontraktbridge for fire spillere i to makkerpar, der sidder over for hinanden: parrene melder om retten til at vælge trumf, og det par, der vinder meldingen, prøver så at tage de lovede stik.
 # Meldingen
-Alle 52 kort gives ud, 13 til hver. Giveren melder først, derefter hver spiller på skift:
-- et bud: et tal fra 1 til 7 og en farve eller sans (uden trumf). Det lover så mange stik over seks (1 betyder 7 stik). Hvert bud skal være højere end det forrige: et højere tal eller samme tal i en højere farve. Fra lav til høj: klør, ruder, hjerter, spar, sans.
+Giveren melder først, derefter hver spiller på skift:
+- et bud: 1 til 7 og en farve eller sans (uden trumf); det lover så mange stik over seks. Det skal slå det forrige bud: et højere tal eller samme tal i en højere farve (klør, ruder, hjerter, spar, sans).
 - pas;
-- dobling af modstandernes sidste bud, som hæver indsatsen; redobling af et bud fra din egen side, der er blevet doblet.
-Tre pas efter et bud afslutter meldingen. Det sidste bud er kontrakten, og dets farve er trumf. Spilføreren er den spiller på den side, der først nævnte farven (eller sans); makkeren bliver blindemand. Fire pas uden bud: der gives igen.
-Hvad et bud siger om en hånd, er en aftale mellem makkerne (et meldesystem), ikke en regel: aftal jeres eget, før I begynder. En fuld forklaring af meldingerne går ud over denne side.
+- dobling af modstandernes sidste bud; redobling af et bud fra din egen side, der er blevet doblet.
+Tre pas efter et bud afslutter meldingen. Det sidste bud er kontrakten, og dets farve er trumf. Spilføreren er den spiller på den side, der først nævnte farven; makkeren bliver blindemand. Fire pas: der gives igen.
 # Spillet
-- Spilleren til venstre for spilføreren spiller ud. Så lægger blindemand sine kort åbent for alle, og spilføreren spiller dem ud over sine egne.
-- Bekend kulør, hvis du kan; ellers spiller du et vilkårligt kort. Den højeste trumf tager stikket, ellers det højeste kort i den udspillede farve (esset er højest). Vinderen spiller ud til næste stik.
-- Spilføreren skal have seks stik plus det meldte tal.
+- Spilleren til venstre for spilføreren spiller ud. Så lægger blindemand sine kort åbent, og spilføreren spiller dem også.
+- Bekend kulør, hvis du kan; ellers spiller du et vilkårligt kort. Den højeste trumf tager stikket, ellers det højeste kort i den udspillede farve. Vinderen spiller ud til næste stik.
 # Pointene
 - Kontrakten vundet: hvert meldt stik over seks giver 20 i klør eller ruder, 30 i hjerter eller spar; i sans 40 for det første, derefter 30. Doblet det dobbelte, redoblet det firedobbelte. 100 af disse point eller mere er en udgang.
 - Hvert overstik: dets værdi; doblet 100 (i zonen 200), redoblet det dobbelte. En vundet doblet kontrakt giver 50 ekstra, en redoblet 100.
 - Slemme: 12 meldte og tagne stik 500 (i zonen 750), alle 13 stik 1000 (i zonen 1500).
-- Kontrakten går ned: modspillerne skriver hvert manglende stik 50 (i zonen 100). Doblet: 100, så 200 for 2. og 3., så 300 hver; i zonen 200, så 300 hver. Redoblet: det dobbelte af doblet.
+- Kontrakten går ned: modspillerne skriver 50 for hvert manglende stik (i zonen 100). Doblet: 100, 200, 200, så 300 hver (i zonen 200, så 300 hver); redoblet det dobbelte.
 # Spillets afslutning
-- Chicago: fire spil. I det første er ingen i zonen, i det andet og tredje giverens side, i det fjerde begge sider. Hvert spil tælles for sig: en udgang giver 300 ekstra (i zonen 500), enhver mindre kontrakt 50. Melder alle pas, giver samme giver igen.
-- Robber: kontraktpointene skrives under stregen og lægges sammen mod en udgang på 100; en udgang sletter begge siders delkontrakter. En side, der har vundet en udgang, er i zonen. Den første side med to udgange afslutter robberen: 700 ekstra for to-nul, 500 for to-et. Honnører tæller kun i robberen: de fem højeste trumfer (es, konge, dame, knægt, 10) på én hånd 150, fire af dem 100, de fire esser i sans 150, til den hånds side uanset resultatet.
+- Chicago: fire spil. I zonen: i det første ingen, i det andet og tredje giverens side, i det fjerde begge sider. En udgang giver 300 ekstra (i zonen 500), enhver mindre kontrakt 50.
+- Robber: en udgang sletter begge siders delkontrakter, og en side, der har vundet en udgang, er i zonen. To udgange afslutter robberen: 700 ekstra for to-nul, 500 for to-et. Honnører, kun i robberen: de fem højeste trumfer på én hånd 150, fire af dem 100, de fire esser i sans 150.
 - Siden med den højeste sum vinder.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik vises; han trykker på start og ser sin hånd. Meldingen er en tabel med bud, en kolonne pr. spiller, brikkerne øverst: venstre, overfor, højre, dig. En rød ring om en brik: den side er i zonen. Meld ved at trykke på en knap i meldeboksen (sans er en skive med de fire farver streget over; grøn melder pas, det røde kryds dobler, to blå krydser redobler) og så på fluebenet eller på samme knap igen. I spillet holder spilføreren også enheden for blindemand; blindemands ejer ser bare på. Tryk på et kort, der lyser, så det løfter sig, og tryk på det igen eller på dets plads i midten; eller træk det derhen. Stikkene lægges med deres antal foran spilføreren og foran den modspiller, der tog sin sides første stik. Tryk på kontrakten i det øverste hjørne for at se meldingen og det sidste stik. Efter hvert spil viser regnskabet vi (din side) og de i to kolonner; tryk på det for næste spil. Hver bjælke viser sidens sum, en rød ring i zonen og i en robber pointene under stregen i en mørk skive. Fortryd tager et valg tilbage, der ikke er bekræftet endnu, aldrig et bud eller et kort, når enheden er givet videre.

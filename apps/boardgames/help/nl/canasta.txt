@@ -1,42 +1,28 @@
 Canasta
 # Het doel
-Als eerste partij 5000 punten halen. Voor 4 spelers in twee koppels (partners zitten tegenover elkaar en delen hun combinaties), of voor 2 spelers. Leg kaarten van dezelfde rang uit, maak canasta's van zeven kaarten en ga uit.
+Als eerste partij 5000 punten halen: 4 spelers in twee koppels, of 2 spelers.
 # De kaarten
-- Twee spellen van 52 kaarten en vier jokers: 108 kaarten.
-- Jokers en tweeën zijn wilde kaarten: in een combinatie staan ze voor elke rang.
+- Twee spellen en vier jokers. Jokers en tweeën zijn wilde kaarten.
 - Waarde van de kaarten: joker 50, aas en 2 20, heer tot 8 10, 7 tot 4 5, zwarte 3 5.
-- Rode drieën zijn premiekaarten. Een rode 3 die je krijgt of pakt, leg je meteen naast de combinaties van je partij, en je pakt er een andere kaart voor in de plaats. Elke rode 3 is 100 waard, alle vier samen 800; ze tellen tegen een partij die aan het eind van het spel niets heeft uitgelegd.
-- Zwarte drieën blokkeren de aflegstapel: niemand mag hem pakken zolang er een zwarte 3 bovenop ligt.
+- Een rode 3 leg je meteen uit, en je pakt er een andere kaart voor in de plaats: elke rode 3 is 100 waard, alle vier samen 800, en ze tellen tegen een partij die niets heeft uitgelegd.
 # Het delen
-- Iedereen krijgt 11 kaarten (2 spelers: 15). De volgende kaart begint de aflegstapel; de rest is de stapel. Is die kaart een wilde kaart of een rode 3, dan komt er een andere kaart op en is de aflegstapel bevroren.
-- Elk spel deelt de volgende speler.
+- Iedereen krijgt 11 kaarten (2 spelers: 15). Is de kaart die de aflegstapel begint een wilde kaart of een rode 3, dan komt er een andere kaart op en is de aflegstapel bevroren.
 # Een beurt
-- Pak de bovenste kaart van de stapel (2 spelers: twee kaarten) of neem de hele aflegstapel.
-- Leg combinaties uit als je wilt.
-- Leg één kaart open af: je beurt is voorbij.
+- Pak een kaart van de stapel (2 spelers: twee kaarten) of neem de hele aflegstapel, leg combinaties uit als je wilt, en leg dan één kaart af.
 # Combinaties en canasta's
-- Een combinatie: drie of meer kaarten van dezelfde rang (azen, vieren tot heren), minstens twee natuurlijke en hoogstens drie wilde. Je partij heeft één combinatie per rang: meer kaarten van die rang komen erbij.
-- Een canasta: een combinatie van zeven kaarten of meer. Zuiver (zonder wilde kaart) 500 punten, gemengd 300.
-- De eerste uitleg: de eerste combinaties van je partij, in één beurt gelegd, moeten minstens 50 waard zijn (de waarde van de kaarten) zolang de stand onder 1500 is, 90 vanaf 1500, 120 vanaf 3000, en 15 zolang hij onder nul is. Je mag ze voor het pakken leggen, om er de aflegstapel mee te nemen.
+- Een combinatie: drie of meer kaarten van dezelfde rang, minstens twee natuurlijke en hoogstens drie wilde. Je partij heeft één combinatie per rang.
+- Een canasta: zeven kaarten of meer. Zuiver 500, gemengd 300.
+- De eerste combinaties van je partij, in één beurt gelegd, moeten minstens 50 waard zijn (90 vanaf 1500 punten, 120 vanaf 3000, 15 onder nul). Je mag ze voor het pakken leggen, om de aflegstapel te nemen.
 # De aflegstapel
-- Om hem te nemen moet de bovenste kaart meteen in een combinatie: met kaarten uit je hand of op een combinatie van je partij. Dan gaat de rest van de stapel in je hand.
-- De aflegstapel is bevroren zolang er een wilde kaart in zit (dwars gelegd), en voor een partij die nog niets heeft uitgelegd. Dan neem je hem alleen met een natuurlijk paar van de rang van de bovenste kaart uit je hand.
+- Om hem te nemen moet de bovenste kaart meteen in een combinatie; de rest gaat in je hand.
+- Hij is bevroren zolang er een wilde kaart in zit, en voor een partij die nog niets heeft uitgelegd: dan neem je hem alleen met een natuurlijk paar van de rang van de bovenste kaart uit je hand.
 - Nooit als er een zwarte 3 of een wilde kaart bovenop ligt.
 # Uitgaan
-- Je gaat uit als je je laatste kaart kwijtraakt: door alles uit te leggen, of alles op één na en die af te leggen. Pas als je partij een canasta heeft (2 spelers: twee). Tot dan mag je niet uitleggen tot je minder dan twee kaarten overhoudt.
+- Pas als je partij een canasta heeft (2 spelers: twee). Tot dan mag je niet uitleggen tot je minder dan twee kaarten overhoudt.
 - Zwarte drieën mag je alleen uitleggen om uit te gaan (drie of vier, zonder wilde kaart).
-- Uitgaan levert 100 op. Verborgen uitgaan levert 200 op: de hele hand in één beurt uitgelegd, na een kaart van de stapel, zonder eerder in dit spel iets te hebben uitgelegd; dan geldt er geen minimum voor de eerste uitleg.
-- Is de stapel op, dan moet een speler die de bovenste kaart van de aflegstapel op een combinatie van zijn partij kan leggen, de aflegstapel nemen; anders eindigt het spel.
+- Uitgaan levert 100 op; verborgen uitgaan 200: de hele hand in één beurt uitgelegd, na een kaart van de stapel, zonder eerder iets te hebben uitgelegd, en dan geldt er geen minimum voor de eerste uitleg.
+- Is de stapel op, dan moet je de aflegstapel nemen als je de bovenste kaart op een combinatie van je partij kunt leggen; anders eindigt het spel.
 # De punten
-Aan het eind van een spel telt elke partij haar uitgelegde kaarten, haar canasta's, haar rode drieën en het uitgaan, min de kaarten die haar spelers nog in de hand hebben.
+Elke partij telt haar uitgelegde kaarten, haar canasta's, haar rode drieën en het uitgaan, min de kaarten die haar spelers nog in de hand hebben.
 # Het einde van de partij
 De partij eindigt na het spel waarin een partij 5000 punten haalt. De hoogste stand wint; bij gelijke stand wordt de winst gedeeld.
-# Spelen op het apparaat
-De handen zijn geheim: geef het apparaat door als het scherm erom vraagt, en de volgende speler tikt op de startknop. Je hand ligt onderaan, op rang gesorteerd. De andere handen zijn kleine waaiers bovenaan. De combinaties van je partij liggen boven je hand, die van de andere partij onder de waaiers, een kolom per rang. Een canasta sluit zich tot een stapeltje met het aantal kaarten eronder: in gouden licht als hij zuiver is, met een wilde kaart dwars eronder als hij gemengd is. De fiches en rode drieën van elke partij liggen links in haar rij. Zolang een partij niets heeft uitgelegd, toont een donkere schijf rechts het minimum van haar eerste uitleg, en ernaast wat er deze beurt ligt. Elke balk toont de kaarten in de hand en de stand van de partij.
-- Tik op de stapel om te pakken.
-- Tik kaarten in je hand aan om ze te kiezen; tik er nog eens op om ze terug te leggen.
-- Tik dan op een combinatie van je partij om ze erbij te leggen, of op de rij van je partij voor een nieuwe combinatie. Tik vóór het pakken op de aflegstapel om hem ermee te nemen. Kies na het pakken één kaart en tik op de aflegstapel om hem af te leggen. Je kunt een kaart er ook heen slepen.
-- Wat de gekozen kaarten kunnen doen, licht op: de aflegstapel, een combinatie, een vrije plek.
-- Is de stapel leeg en mag je de aflegstapel niet nemen, tik dan op de lege stapel om het spel te beëindigen.
-- Aan het eind van een spel toont een tabel voor elke partij de uitgelegde kaarten, de canasta's, de rode drieën, het uitgaan, de kaarten in de hand, de punten van het spel en de totalen. Tik voor het volgende spel.
-Ongedaan maken neemt je eigen acties terug, tot het moment dat het apparaat werd doorgegeven.

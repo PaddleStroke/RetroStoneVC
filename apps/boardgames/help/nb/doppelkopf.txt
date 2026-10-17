@@ -1,46 +1,36 @@
 Doppelkopf
 # Målet
-Tysklands mest elskede kortspill for fire, spilt med dobbel kortstokk. I hvert giv spiller de to spillerne med kløver damene, Re-laget, mot de to andre, Kontra-laget; men i starten vet ingen hvem som er sammen med hvem. Et parti er en liste på 12 eller 24 giv, etter valg; høyeste sum til slutt vinner. Reglene er turneringsreglene til det tyske Doppelkopf-forbundet (DDV). Kortene har franske farger, slik Doppelkopf ofte spilles; tyske farger (eikenøtter, blader, hjerter, bjeller) kommer kanskje senere. For 4 spillere som sender enheten rundt; ingen ser kortene til de andre.
+Et kortspill for fire med dobbel kortstokk, etter reglene til det tyske Doppelkopf-forbundet (DDV), uten tvungne soloer. De to spillerne med kløver damene (Re, die Alten, de gamle) spiller mot de to andre (Kontra); i starten vet ingen hvem som er sammen med hvem.
 # Utdelingen
-Kortstokken har 48 kort: 9, 10, knekt, dame, konge og ess i hver farge, hvert kort to ganger. Hver spiller får 12 kort. Jade gir først; deretter flytter giveren én plass videre for hvert giv. Spilleren etter giveren snakker først og spiller ut til første stikk.
+48 kort, 9, 10, knekt, dame, konge og ess i hver farge, hvert kort to ganger; 12 kort til hver.
 # Forbehold
-- Før det første kortet sier hver spiller etter tur frisk (gesund) eller at han har et forbehold (Vorbehalt). Hva han vil spille, forblir hemmelig: en solo eller et bryllup.
-- En spiller med begge kløver damene kan melde bryllup (Hochzeit). Det er hans valg: han kan også tie og spille en stille solo mot de tre andre.
-- Den første soloen i rekkefølgen spilles; ellers bryllupet; ellers det vanlige spillet.
+- Før det første kortet sier hver spiller frisk (gesund) eller at han har et forbehold (Vorbehalt): en solo eller et bryllup. Den første soloen i rekkefølgen spilles; ellers bryllupet; ellers det vanlige spillet.
+- Med begge kløver damene kan du melde bryllup (Hochzeit) eller tie og spille en stille solo.
 # Trumfene
-- I det vanlige spillet er hjerter 10 (Dulle) den høyeste trumfen. Så kommer damene og knektene, hver i rekkefølgen kløver, spar, hjerter, ruter, og så ruter ess, ruter 10, ruter konge og ruter 9: 26 trumfer.
-- De andre fargene går ess, 10, konge, 9; hjerter har bare ess, konge og 9.
-- Av to like kort i et stikk vinner det som ble spilt først.
+- I det vanlige spillet, fra den høyeste: hjerter 10 (Dulle), damene, knektene (hver i rekkefølgen kløver, spar, hjerter, ruter), og så ruter ess, ruter 10, ruter konge og ruter 9.
+- De andre fargene går ess, 10, konge, 9 (hjerter har ingen 10). Av to like kort vinner det som ble spilt først.
 # Lagene
-- De som har kløver dame (die Alten, de gamle), er Re, de andre Kontra. Hver spiller kjenner sitt eget lag, ikke de andres. Et lag avslører seg når en kløver dame spilles, eller når noen melder.
-- Bryllup: den første andre spilleren som vinner et av de tre første stikkene, blir brudens makker. Tar bruden alle tre, spiller hun alene, som solo.
+- Bryllup: den første andre spilleren som vinner et av de tre første stikkene, blir brudens makker; tar bruden alle tre, spiller hun solo.
 # Solospill
 Én spiller, solisten (Re), spiller mot de tre andre (Kontra).
-- Damesolo: bare de åtte damene er trumf.
-- Knektsolo: bare de åtte knektene er trumf.
+- Dame- eller knektsolo: bare damene, eller bare knektene, er trumf.
 - Fargesolo: trumfene fra det vanlige spillet, med den valgte fargen i stedet for ruter.
 - Kjøttløs (Fleischlos): ingen trumf; hver farge går ess, 10, konge, dame, knekt, 9.
 # Spillet
-Følg farge hvis du kan (alle trumfer teller som én farge); ellers spill et hvilket som helst kort. Høyeste trumf vinner stikket, ellers det høyeste kortet i utspilt farge. Vinneren spiller ut til neste stikk.
+Følg farge hvis du kan (alle trumfer teller som én farge), ellers spill et hvilket som helst kort. Høyeste trumf vinner, ellers det høyeste kortet i utspilt farge; vinneren spiller ut til neste stikk.
 # Meldinger
-- Før han spiller et kort, kan en spiller melde for laget sitt: Re eller Kontra så lenge han har minst 11 kort, ingen 90 (keine 90) med minst 10, ingen 60 (keine 60) med minst 9, ingen 30 (keine 30) med minst 8, schwarz (svart: motparten får ingen stikk) med minst 7. Hver melding omfatter dem under seg.
-- Når det andre laget har meldt, kan Re eller Kontra fortsatt sies som svar, ett kort senere enn grensen for den meldingen.
+- Før du spiller et kort, kan du melde for laget ditt: Re eller Kontra så lenge du har minst 11 kort, ingen 90 (keine 90) med minst 10, ingen 60 med minst 9, ingen 30 med minst 8, schwarz (svart: motparten får ingen stikk) med minst 7. Hver melding omfatter dem under seg.
+- Som svar på det andre lagets melding kan Re eller Kontra komme ett kort senere enn grensen for den.
 - Ved bryllup kan ingenting meldes før makkeren er funnet; grensene flytter seg da med det antallet stikk det tok.
-- Her melder en spiller i sin egen tur, mens han har enheten i hendene.
 # Vunnet eller tapt
-- Kortpoeng: ess 11, 10 10, konge 4, dame 3, knekt 2: 240 i alt.
-- Re vinner med 121 poeng, Kontra med 120. Er bare Kontra meldt, vinner Re med 120, og Kontra trenger 121.
-- Et lag som har meldt ingen 90 (ingen 60, ingen 30, schwarz), må holde det andre laget under 90 (60, 30, uten stikk), ellers vinner det andre laget. Klarer ingen av lagene slike meldinger, vinner ingen.
+- Kortpoeng: ess 11, 10 10, konge 4, dame 3, knekt 2 (240 i alt). Re trenger 121, Kontra 120; er bare Kontra meldt, trenger Re 120 og Kontra 121.
+- Et lag som har meldt ingen 90 (ingen 60, ingen 30, schwarz), taper hvis det andre laget når 90 (60, 30, et stikk). Klarer ingen av lagene slike meldinger, vinner ingen.
 # Spillets verdi
-- Vunnet: 1. Taperne under 90, under 60, under 30 og uten stikk (schwarz): 1 hver.
-- Re meldt: 2. Kontra meldt: 2. Hver meldt ingen 90, ingen 60, ingen 30 og schwarz: 1.
-- 120 nådd mot det andre lagets ingen 90, 90 mot ingen 60, 60 mot ingen 30, 30 mot schwarz: 1 hver.
-- Ekstrapoeng (Sonderpunkte), bare i det vanlige spillet og ved bryllup, til laget som tar dem: en fanget rev (Fuchs: motstandernes ruter ess i et stikk du tar), en Doppelkopf (et stikk på 40 poeng eller mer), Karlchen (lille Karl: siste stikk vunnet med kløver knekt) og mot de gamle (gegen die Alten: Kontra vinner): 1 hver. De to lagenes ekstrapoeng går opp mot hverandre.
+- Vunnet: 1. Taperne under 90, under 60, under 30, uten stikk: 1 hver.
+- Re eller Kontra meldt: 2 hver; hver meldt ingen 90, ingen 60, ingen 30 og schwarz: 1.
+- 120 mot ingen 90, 90 mot ingen 60, 60 mot ingen 30, 30 mot schwarz: 1 hver.
+- Ekstrapoeng (Sonderpunkte), bare i det vanlige spillet og ved bryllup, 1 hver: en fanget rev (Fuchs: motstandernes ruter ess i ditt stikk), en Doppelkopf (et stikk på 40 poeng eller mer), Karlchen (lille Karl: siste stikk vunnet med kløver knekt), mot de gamle (gegen die Alten: Kontra vinner). De to lagenes ekstrapoeng går opp mot hverandre.
 # Poengene
-- Vanlig spill: hver Re-spiller får spillets verdi hvis Re vant (i minus hvis Kontra vant), pluss Re-lagets ekstrapoeng, minus Kontra-lagets; hver Kontra-spiller får det motsatte.
-- Solo: solisten får tre ganger så mye, hver motspiller én gang.
-- Her er det ingen tvungne soloer.
+- Hver Re-spiller får spillets verdi hvis Re vant (i minus hvis Kontra vant), pluss Re-lagets ekstrapoeng, minus Kontra-lagets; hver Kontra-spiller får det motsatte. Solisten får tre ganger så mye.
 # Slutten på spillet
-Etter det siste givet i listen vinner høyeste sum. Ved lik sum deles seieren.
-# Spill på enheten
-Gi enheten til spilleren som har brikken som lyser; han trykker på start og ser hånden sin. For å si frisk trykker du på pass. For et forbehold trykker du på et spill og så på haken (eller på det samme spillet igjen): en fargesolo (fargens tegn), damesolo (en dame), knektsolo (en løper, knektens figur), kjøttløs (fire ess) eller bryllup (to kløver damer, bare når du har begge). Hver plass viser spillerens ord: pass-tegnet for frisk, en lampe for et forbehold. Under spillet viser hver plass det bordet vet: kløver dame for Re, overstrekt for Kontra, i gyllent lys når det er meldt; ditt eget lag vises alltid ved plassen din. Plassen til solisten viser soloen, plassen til bruden bryllupet til makkeren hennes er funnet; ingen 90, ingen 60, ingen 30 og schwarz vises som 90, 60, 30 og 0 i en mørk skive. Når du kan melde, viser knappen overfor stikkbunken din neste melding: trykk på den før du spiller kortet ditt. For å spille trykker du på et kort som lyser, så det løfter seg, og trykker på det igjen eller på plassen dets i midten; eller dra det dit. Trykk på bunken nederst til høyre for å se det siste stikket. Etter hvert giv viser en tavle hvert lag med kortpoengene, meldingene og ekstrapoengene sine (ruter ess: en rev; 40: en Doppelkopf; kløver knekt: Karlchen; den overstrekte damen: mot de gamle) og en gullhake for vinnerne; så spillets verdi, saldoen av ekstrapoeng og poengene til hver Re-spiller (ganger 3 for en solist); poengene og summen til hver spiller; og listen over givene, med vinnernes brikker i gyllent lys. Trykk på den for neste giv. Hver linje viser kortene på hånden og summen. Angre tar tilbake et valg som ikke er bekreftet ennå, aldri et når enheten er gitt videre.
+Etter det siste givet vinner høyeste sum; ved lik sum deles seieren.

@@ -1,25 +1,21 @@
 Bridge
 # Lo scopo
-Bridge contratto per quattro giocatori in due coppie sedute una di fronte all'altra: avorio e rosso contro ebano e giada. In ogni smazzata le coppie licitano per il diritto di scegliere l'atout; la coppia che vince la licita cerca poi di fare le prese promesse. Due formule: Chicago, quattro smazzate (quella predefinita, ideale per una partita tra amici), oppure un rubber, al meglio delle tre manche. Nessuno vede le carte degli altri.
+Bridge contratto per quattro giocatori in due coppie sedute una di fronte all'altra: si licita per il diritto di scegliere l'atout, poi si cerca di fare le prese promesse.
 # La dichiarazione
-Si distribuiscono tutte le 52 carte, 13 a testa. Il mazziere parla per primo, poi ogni giocatore a turno:
-- una dichiarazione: un numero da 1 a 7 e un seme o senza atout. Promette quel numero di prese oltre le sei (1 vuol dire 7 prese). Ogni dichiarazione deve superare la precedente: un numero più alto, o lo stesso numero in un seme più alto. Dal più basso al più alto: fiori, quadri, cuori, picche, senza atout.
+Il mazziere parla per primo, poi ogni giocatore a turno:
+- una dichiarazione: da 1 a 7 e un seme o senza atout; promette quel numero di prese oltre le sei. Deve superare la precedente: un numero più alto, o lo stesso numero in un seme più alto (fiori, quadri, cuori, picche, senza atout).
 - passo;
-- contro sull'ultima dichiarazione avversaria, che alza la posta; surcontro su una dichiarazione della tua coppia che è stata contrata.
-Tre passo dopo una dichiarazione chiudono la licita. L'ultima dichiarazione è il contratto e il suo seme è l'atout. Il dichiarante è il giocatore di quella coppia che ha nominato per primo quel seme (o il senza atout); il suo compagno è il morto. Quattro passo senza dichiarazione: si ridistribuisce.
-Ciò che una dichiarazione dice di una mano è un accordo tra compagni (un sistema licitativo), non una regola: mettetevi d'accordo sul vostro prima di iniziare. Spiegare la licita per intero va oltre questa pagina.
+- contro sull'ultima dichiarazione avversaria; surcontro su una dichiarazione della tua coppia che è stata contrata.
+Tre passo dopo una dichiarazione chiudono la licita. L'ultima dichiarazione è il contratto e il suo seme è l'atout. Il dichiarante è il giocatore di quella coppia che ha nominato per primo quel seme; il suo compagno è il morto. Quattro passo: si ridistribuisce.
 # Il gioco
-- Il giocatore alla sinistra del dichiarante attacca. Poi il morto stende la sua mano scoperta per tutti e il dichiarante la gioca insieme alla propria.
-- Rispondi al seme se puoi; altrimenti gioca una carta qualsiasi. L'atout più alto vince la presa, altrimenti la carta più alta del seme di uscita (l'asso è la più alta). Chi vince la presa esce nella successiva.
-- Il dichiarante deve fare sei prese più il numero dichiarato.
+- Il giocatore alla sinistra del dichiarante attacca. Poi il morto stende la sua mano scoperta e il dichiarante gioca anche quella.
+- Rispondi al seme se puoi; altrimenti gioca una carta qualsiasi. L'atout più alto vince la presa, altrimenti la carta più alta del seme di uscita. Chi vince la presa esce nella successiva.
 # Il punteggio
 - Contratto mantenuto: ogni presa dichiarata oltre le sei vale 20 a fiori o quadri, 30 a cuori o picche; a senza atout 40 la prima, poi 30. Contrato il doppio, surcontrato il quadruplo. 100 di questi punti o più fanno una manche.
 - Ogni presa in più: il suo valore; contrata 100 (in zona 200), surcontrata il doppio. Un contratto contrato mantenuto vale 50 in più, surcontrato 100.
 - Slam: 12 prese dichiarate e fatte 500 (in zona 750), tutte le 13 prese 1000 (in zona 1500).
-- Contratto battuto: i difensori segnano ogni presa di sotto 50 (in zona 100). Contrato: 100, poi 200 per la 2ª e la 3ª, poi 300 ciascuna; in zona 200, poi 300 ciascuna. Surcontrato: il doppio del contrato.
+- Contratto battuto: i difensori segnano 50 per ogni presa di sotto (in zona 100). Contrato: 100, 200, 200, poi 300 ciascuna (in zona 200, poi 300 ciascuna); surcontrato il doppio.
 # La fine della partita
-- Chicago: quattro smazzate. Nessuno è in zona nella prima, la coppia del mazziere nella seconda e nella terza, entrambe le coppie nella quarta. Ogni smazzata si segna a sé: una manche vale 300 in più (in zona 500), ogni contratto minore 50. Se tutti passano, lo stesso mazziere ridistribuisce.
-- Rubber: i punti di contratto vanno sotto la riga e si sommano fino a una manche da 100; una manche azzera i parziali di entrambe le coppie. Una coppia che ha vinto una manche è in zona. La prima coppia a vincere due manche chiude il rubber: 700 in più per due a zero, 500 per due a uno. Gli onori contano solo nel rubber: i cinque atout più alti (asso, re, donna, fante, 10) in una mano 150, quattro di essi 100, i quattro assi a senza atout 150, per la coppia di quella mano qualunque sia il risultato.
+- Chicago: quattro smazzate. In zona: nessuno nella prima, la coppia del mazziere nella seconda e nella terza, entrambe le coppie nella quarta. Una manche vale 300 in più (in zona 500), ogni contratto minore 50.
+- Rubber: una manche azzera i parziali di entrambe le coppie, e una coppia che ne ha vinta una è in zona. Due manche chiudono il rubber: 700 in più per due a zero, 500 per due a uno. Onori, solo nel rubber: i cinque atout più alti in una mano 150, quattro di essi 100, i quattro assi a senza atout 150.
 - Vince la coppia con il totale più alto.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore la cui pedina compare; tocca il pulsante di avvio e vede la sua mano. La licita è una tabella di dichiarazioni, una colonna per giocatore, con le pedine in cima: sinistra, di fronte, destra, tu. Un anello rosso attorno a una pedina: quella coppia è in zona. Per dichiarare tocca un pulsante della scatola delle dichiarazioni (il senza atout è un disco con i quattro semi barrati; il verde passa, la croce rossa contra, due croci blu surcontrano), poi la spunta, o di nuovo lo stesso pulsante. Durante il gioco il dichiarante tiene il dispositivo anche per il morto; il suo proprietario guarda soltanto. Tocca una carta che brilla per sollevarla, poi toccala ancora o tocca il suo posto al centro; oppure trascinala lì. Le prese si impilano, con il loro numero, davanti al dichiarante e al difensore che ha vinto la prima presa della sua coppia. Tocca il contratto nell'angolo in alto per rivedere la licita e l'ultima presa. Dopo ogni smazzata il foglio dei punti mostra noi (la tua coppia) e loro in due colonne; toccalo per la smazzata seguente. Ogni barra mostra il totale della coppia, un anello rosso se è in zona e, nel rubber, i punti sotto la riga in un disco scuro. Annulla ritira una scelta non ancora confermata, mai una dichiarazione o una carta dopo aver passato il dispositivo.

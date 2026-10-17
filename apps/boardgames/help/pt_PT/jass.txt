@@ -1,31 +1,29 @@
 Jass
 # O objetivo
-O Schieber, a maneira preferida de jogar Jass na Suíça: duas equipas de dois parceiros sentados frente a frente, marfim e vermelho contra ébano e jade. As duas equipas contam os pontos que fazem; ganha a primeira equipa a chegar aos 1000 pontos (ou aos 2500 no jogo longo). Para 4 jogadores que passam o dispositivo; ninguém vê as cartas dos outros.
+O Schieber: duas equipas de dois parceiros sentados frente a frente. Ganha a primeira equipa a chegar aos 1000 pontos (aos 2500 no jogo longo).
 # As cartas
-O baralho tem 36 cartas, do 6 ao ás. Na Suíça de língua alemã, o Jass joga-se sobretudo com naipes suíços (guizos, escudos, rosas, bolotas); aqui as cartas têm naipes franceses, como no oeste do país. Os naipes suíços poderão chegar mais tarde.
+36 cartas, do 6 ao ás.
 # A distribuição
-Cada jogador recebe 9 cartas. O jade dá as cartas primeiro; depois quem dá as cartas avança um lugar em cada ronda. O jogador a seguir a quem deu as cartas escolhe o jogo e sai na primeira vaza.
+Cada jogador recebe 9 cartas; quem dá as cartas avança um lugar em cada ronda. O jogador a seguir a quem deu as cartas escolhe o jogo e sai na primeira vaza.
 # Escolher o jogo
-- Quem escolhe diz um naipe de trunfo, ou Obenabe (sem trunfo, o ás é a carta mais alta) ou Undeufe (sem trunfo, o seis é a mais alta).
-- Ou passa a escolha (schieben, «empurrar»): o parceiro tem então de escolher. A primeira vaza continua a ser aberta por quem passou a escolha.
+- Diz um naipe de trunfo, ou Obenabe (sem trunfo, o ás é a carta mais alta) ou Undeufe (sem trunfo, o seis é a mais alta).
+- Ou passa a escolha (schieben, «empurrar»): o teu parceiro tem então de escolher, mas a primeira vaza continua a ser aberta por ti.
 # Os trunfos
-- O valete de trunfo, o Puur, é a carta mais alta (20 pontos); depois o 9, o Nell (14); depois ás 11, rei 4, dama 3, 10 10, 8, 7, 6.
-- Os outros naipes seguem a ordem ás 11, rei 4, dama 3, valete 2, 10 10, 9, 8, 7, 6.
-- Obenabe: cada naipe vai do ás ao seis, e os 8 valem 8. Undeufe: cada naipe vai do seis ao ás, os 6 valem 11, os 8 valem 8 e os ases nada.
-- A última vaza vale mais 5: 157 pontos ao todo. Um match (as nove vazas) vale 257.
+- Trunfo: o valete, o Puur (20 pontos); depois o 9, o Nell (14); ás 11, rei 4, dama 3, 10 10, 8, 7, 6.
+- Os outros naipes: ás 11, rei 4, dama 3, valete 2, 10 10, 9, 8, 7, 6.
+- Obenabe: do ás ao seis, os 8 valem 8. Undeufe: do seis ao ás, os 6 valem 11, os 8 valem 8 e os ases nada.
+- A última vaza vale mais 5. Um match (as nove vazas) vale 257.
 # O jogo
-- Assiste ao naipe de saída, ou joga antes um trunfo. Se não puderes assistir, joga qualquer carta.
-- Proibido cortar por baixo: quando se saiu noutro naipe, não podes jogar um trunfo mais baixo do que um que já esteja na vaza, a não ser que só tenhas trunfos.
-- Quando se sai em trunfo, tens de assistir com trunfo, mas nunca és obrigado a jogar o Puur: se não tiveres outro trunfo, podes jogar qualquer carta.
+- Assiste ao naipe de saída ou joga um trunfo. Se não puderes assistir, joga qualquer carta.
+- Quando se saiu noutro naipe, nenhum trunfo mais baixo do que um que já esteja na vaza, a não ser que só tenhas trunfos.
+- Quando se sai em trunfo, assiste com trunfo; nunca és obrigado a jogar o Puur.
 - No Obenabe e no Undeufe, assiste simplesmente ao naipe se puderes.
 # Weis e Stöck
-- Os Weis (combinações) declaram-se com a tua primeira carta: três cartas seguidas do mesmo naipe 20, quatro 50, cinco 100, seis 150, sete 200, oito 250, nove 300; quatro valetes 200, quatro noves 150, quatro ases, reis, damas ou dez 100. A ordem de uma sequência é 6, 7, 8, 9, 10, valete, dama, rei, ás.
-- Só pontua a equipa com o melhor Weis, com todos os Weis dos seus dois jogadores. O melhor é o que vale mais pontos; em caso de empate, um quarteto ganha a uma sequência, depois decide a carta mais alta, depois uma sequência de trunfo, depois o jogador que jogou primeiro.
-- Stöck: o rei e a dama de trunfo na mesma mão valem 20, contados quando a segunda das duas cartas é jogada.
+- Os Weis (combinações) declaram-se com a tua primeira carta. Uma sequência do mesmo naipe (do 6 ao ás): três cartas 20, quatro 50, cinco 100, seis 150, sete 200, oito 250, nove 300. Quatro valetes 200, quatro noves 150, quatro ases, reis, damas ou dez 100.
+- Só pontua a equipa com o melhor Weis, com todos os seus Weis.
+- Stöck: o rei e a dama de trunfo na mesma mão, 20, contados quando a segunda carta é jogada.
 # A pontuação
 - Cada equipa marca os seus pontos de cartas, os seus Weis e o seu Stöck.
-- O jogo longo (até 2500) multiplica tudo: ouros e copas uma vez, espadas e paus duas vezes, Obenabe e Undeufe três vezes.
+- O jogo longo multiplica: ouros e copas uma vez, espadas e paus duas vezes, Obenabe e Undeufe três vezes.
 # O fim do jogo
-Ganha a primeira equipa a chegar aos 1000 (2500) pontos. O Stöck conta logo que é jogado, depois os Weis após a primeira vaza, depois as vazas no fim da ronda; a ronda joga-se sempre até ao fim. Se as duas equipas passarem a meta com as vazas da mesma ronda, ganha o total mais alto.
-# Jogar no dispositivo
-Passa o dispositivo ao jogador cuja peça brilha; ele toca no botão de início e vê a sua mão. Para escolher o jogo, toca no símbolo de um naipe, na seta para cima (Obenabe) ou na seta para baixo (Undeufe) e depois no sinal de confirmação (ou outra vez na mesma escolha); para passar a escolha, toca no botão de passar. O lugar de quem escolhe mostra o jogo; o de quem passou a escolha, o sinal de passar. Na primeira vaza, quando a tua mão tem Weis, um botão do lado oposto ao monte de vazas mostra os seus pontos: toca-lhe antes de jogares a carta para os declarar. Cada lugar mostra os Weis declarados e depois só os da equipa que os marca, em luz dourada; o Stöck aparece como o rei e a dama de trunfo no lugar de quem o marcou. Para jogar, toca numa carta que brilha para a levantar e toca-lhe outra vez ou no seu lugar no centro; ou arrasta-a até lá. Toca no monte em baixo à direita para ver a última vaza. Depois de cada ronda, uma tabela mostra para cada equipa o jogo (com o seu multiplicador no jogo longo), os pontos de cartas (em luz dourada num match), os Weis e o Stöck, a pontuação da ronda e o total; por baixo, as fichas das duas equipas a caminho da meta. Toca nela para a ronda seguinte. Cada barra mostra as cartas na mão e o total da equipa. Anular desfaz uma escolha ainda não confirmada, nunca depois de o dispositivo passar.
+O Stöck conta logo que é jogado, os Weis após a primeira vaza, as vazas no fim da ronda; a ronda joga-se sempre até ao fim. Se as duas equipas passarem a meta com as vazas da mesma ronda, ganha o total mais alto.

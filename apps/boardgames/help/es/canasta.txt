@@ -1,42 +1,28 @@
 Canasta
 # El objetivo
-Ser el primer bando en llegar a 5000 puntos. Para 4 jugadores en dos parejas (los compañeros se sientan enfrente y comparten sus combinaciones), o para 2 jugadores. Baja cartas del mismo valor, forma canastas de siete cartas y cierra.
+Ser el primer bando en llegar a 5000 puntos: 4 jugadores en dos parejas, o 2 jugadores.
 # Las cartas
-- Dos barajas de 52 cartas y cuatro comodines: 108 cartas.
-- Los comodines y los 2 son cartas comodín: en una combinación sustituyen a cualquier valor.
+- Dos barajas y cuatro comodines. Los comodines y los 2 son cartas comodín.
 - Valor de las cartas: comodín 50, as y 2 20, rey a 8 10, 7 a 4 5, 3 negro 5.
-- Los 3 rojos son cartas de premio. Un 3 rojo que recibes o robas se baja enseguida junto a las combinaciones de tu bando, y robas otra carta en su lugar. Cada uno vale 100, los cuatro 800; cuentan en contra de un bando que no ha bajado nada al acabar la mano.
-- Los 3 negros bloquean el pozo: nadie puede tomarlo mientras haya un 3 negro encima.
+- Un 3 rojo se baja enseguida y robas otra carta en su lugar: cada uno vale 100, los cuatro 800, y cuentan en contra de un bando que no ha bajado nada.
 # El reparto
-- 11 cartas a cada uno (2 jugadores: 15). La carta siguiente empieza el pozo; el resto es el mazo. Si esa carta es un comodín o un 3 rojo, otra carta la tapa y el pozo queda congelado.
-- El reparto pasa al siguiente jugador en cada mano.
+- 11 cartas a cada uno (2 jugadores: 15). Si la carta que empieza el pozo es un comodín o un 3 rojo, otra carta la tapa y el pozo queda congelado.
 # Un turno
-- Roba la carta de arriba del mazo (2 jugadores: dos cartas) o toma todo el pozo.
-- Baja combinaciones si quieres.
-- Descarta una carta boca arriba: tu turno termina.
+- Roba del mazo (2 jugadores: dos cartas) o toma todo el pozo, baja combinaciones si quieres y descarta una carta.
 # Combinaciones y canastas
-- Una combinación: tres o más cartas del mismo valor (ases, del 4 al rey), al menos dos naturales y como mucho tres comodines. Tu bando tiene una sola combinación de cada valor: las demás cartas de ese valor van a ella.
-- Una canasta: una combinación de siete cartas o más. Limpia (sin comodín) 500 puntos, sucia 300.
-- La primera bajada: las primeras combinaciones de tu bando, bajadas en un solo turno, deben sumar al menos 50 (el valor de las cartas) mientras su puntuación sea inferior a 1500, 90 desde 1500, 120 desde 3000, y 15 mientras sea negativa. Puedes bajarlas antes de robar, para tomar el pozo con ellas.
+- Una combinación: tres o más cartas del mismo valor, al menos dos naturales y como mucho tres comodines. Tu bando tiene una sola combinación de cada valor.
+- Una canasta: siete cartas o más. Limpia 500, sucia 300.
+- Las primeras combinaciones de tu bando, bajadas en un solo turno, deben sumar al menos 50 (90 desde 1500 puntos, 120 desde 3000, 15 con puntuación negativa). Puedes bajarlas antes de robar, para tomar el pozo.
 # El pozo
-- Para tomarlo, su carta de arriba debe ir enseguida a una combinación: con cartas de tu mano o sobre una combinación de tu bando. Después el resto del pozo pasa a tu mano.
-- El pozo está congelado mientras haya un comodín en él (puesto de través), y para un bando que aún no ha bajado. Entonces solo se toma con una pareja natural del valor de la carta de arriba, de tu mano.
+- Para tomarlo, su carta de arriba debe ir enseguida a una combinación; el resto pasa a tu mano.
+- Está congelado mientras haya un comodín en él, y para un bando que aún no ha bajado: entonces solo se toma con una pareja natural del valor de la carta de arriba, de tu mano.
 - Nunca cuando hay encima un 3 negro o un comodín.
 # Cerrar
-- Cierras cuando te quedas sin cartas: bajándolas todas, o todas menos una que descartas. Solo cuando tu bando tiene una canasta (2 jugadores: dos). Hasta entonces no puedes bajar cartas hasta quedarte con menos de dos.
+- Solo cuando tu bando tiene una canasta (2 jugadores: dos). Hasta entonces no puedes bajar cartas hasta quedarte con menos de dos.
 - Los 3 negros solo se bajan (tres o cuatro, sin comodín) al cerrar.
-- Cerrar vale 100. Cerrar de mano vale 200: toda la mano bajada en un solo turno, tras robar del mazo, sin haber bajado nada antes en la mano; entonces la primera bajada no tiene mínimo.
-- Cuando el mazo se acaba, un jugador que puede poner la carta de arriba del pozo en una combinación de su bando debe tomar el pozo; si no, la mano termina.
+- Cerrar vale 100; cerrar de mano, 200: toda la mano bajada en un solo turno tras robar del mazo, sin haber bajado nada antes, y entonces la primera bajada no tiene mínimo.
+- Cuando el mazo se acaba, debes tomar el pozo si puedes poner su carta de arriba en una combinación de tu bando; si no, la mano termina.
 # Los puntos
-Al final de una mano, cada bando suma sus cartas bajadas, sus canastas, sus 3 rojos y el cierre, menos las cartas que quedan en las manos de sus jugadores.
+Cada bando suma sus cartas bajadas, sus canastas, sus 3 rojos y el cierre, menos las cartas que quedan en las manos de sus jugadores.
 # El final de la partida
 La partida termina tras la mano en la que un bando llega a 5000 puntos. Gana el total más alto; con el mismo total, la victoria se comparte.
-# Jugar en el dispositivo
-Las manos son secretas: pasa el dispositivo cuando la pantalla lo pida, y el siguiente jugador toca el botón de inicio. Tu mano está abajo, ordenada por valor. Las otras manos son pequeños abanicos arriba. Las combinaciones de tu bando están encima de tu mano, las del otro bando bajo los abanicos, una columna por valor. Una canasta se cierra en un montón con su número de cartas debajo: con luz dorada si es limpia, con un comodín de través debajo si es sucia. Las fichas y los 3 rojos de cada bando están a la izquierda de su fila. Mientras un bando no ha bajado, un disco oscuro a la derecha muestra lo que necesita su primera bajada, y a su lado lo bajado en este turno. Cada barra muestra las cartas en la mano y la puntuación del bando.
-- Toca el mazo para robar.
-- Toca cartas de tu mano para elegirlas; toca una otra vez para devolverla.
-- Luego toca una combinación de tu bando para añadirlas, o la fila de tu bando para una combinación nueva. Antes de robar, toca el pozo para tomarlo con ellas. Después de robar, elige una carta y toca el pozo para descartarla. También puedes arrastrar una carta hasta allí.
-- Lo que pueden hacer las cartas elegidas brilla: el pozo, una combinación, un sitio libre.
-- Cuando el mazo está vacío y no puedes tomar el pozo, toca el mazo vacío para terminar la mano.
-- Al final de una mano, una tabla muestra para cada bando las cartas bajadas, las canastas, los 3 rojos, el cierre, las cartas en la mano, los puntos de la mano y los totales. Toca para la mano siguiente.
-Deshacer anula tus propias acciones, hasta el momento en que se pasó el dispositivo.

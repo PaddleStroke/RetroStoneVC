@@ -1,42 +1,28 @@
 Canasta
 # O objetivo
-Ser a primeira equipa a chegar aos 5000 pontos. Para 4 jogadores em duas equipas (os parceiros sentam-se frente a frente e partilham os seus jogos), ou para 2 jogadores. Junta cartas do mesmo valor, forma canastas de sete cartas e fecha.
+Ser a primeira equipa a chegar aos 5000 pontos: 4 jogadores em duas equipas, ou 2 jogadores.
 # As cartas
-- Dois baralhos de 52 cartas e quatro jokers: 108 cartas.
-- Os jokers e os 2 são cartas livres: num jogo, valem por qualquer valor.
+- Dois baralhos e quatro jokers. Os jokers e os 2 são cartas livres.
 - Valor das cartas: joker 50, ás e 2 20, rei a 8 10, 7 a 4 5, 3 preto 5.
-- Os 3 vermelhos são cartas de prémio. Um 3 vermelho que recebes ou compras é posto logo ao lado dos jogos da tua equipa, e compras outra carta no lugar dele. Cada um vale 100, os quatro 800; contam contra uma equipa que não tenha posto nada no fim da mão.
-- Os 3 pretos bloqueiam o monte de descarte: ninguém o pode levar enquanto houver um 3 preto em cima.
+- Um 3 vermelho é posto logo na mesa, e compras outra carta no lugar dele: cada um vale 100, os quatro 800, e contam contra uma equipa que não tenha posto nada.
 # A distribuição
-- 11 cartas a cada um (2 jogadores: 15). A carta seguinte começa o monte de descarte; o resto é o baralho. Se essa carta for uma carta livre ou um 3 vermelho, outra carta tapa-a e o descarte fica congelado.
-- A distribuição passa ao jogador seguinte em cada mão.
+- 11 cartas a cada um (2 jogadores: 15). Se a carta que começa o monte de descarte for uma carta livre ou um 3 vermelho, outra carta tapa-a e o descarte fica congelado.
 # Uma vez
-- Compra a carta de cima do baralho (2 jogadores: duas cartas), ou leva todo o monte de descarte.
-- Põe jogos na mesa, se quiseres.
-- Descarta uma carta virada para cima: a tua vez acaba.
+- Compra do baralho (2 jogadores: duas cartas) ou leva todo o monte de descarte, põe jogos na mesa, se quiseres, e descarta uma carta.
 # Jogos e canastas
-- Um jogo: três ou mais cartas do mesmo valor (ases, do 4 ao rei), pelo menos duas naturais e no máximo três livres. A tua equipa tem um só jogo de cada valor: as outras cartas desse valor juntam-se a ele.
-- Uma canasta: um jogo de sete cartas ou mais. Limpa (sem carta livre) 500 pontos, suja 300.
-- A primeira descida: os primeiros jogos da tua equipa, postos numa só vez, têm de valer pelo menos 50 (o valor das cartas) enquanto a pontuação dela for inferior a 1500, 90 a partir de 1500, 120 a partir de 3000, e 15 enquanto for negativa. Podes pô-los antes de comprar, para levar o descarte com eles.
+- Um jogo: três ou mais cartas do mesmo valor, pelo menos duas naturais e no máximo três livres. A tua equipa tem um só jogo de cada valor.
+- Uma canasta: sete cartas ou mais. Limpa 500, suja 300.
+- Os primeiros jogos da tua equipa, postos numa só vez, têm de valer pelo menos 50 (90 a partir de 1500 pontos, 120 a partir de 3000, 15 com pontuação negativa). Podes pô-los antes de comprar, para levar o descarte.
 # O monte de descarte
-- Para o levar, a carta de cima tem de ir logo para um jogo: com cartas da tua mão ou num jogo da tua equipa. Depois o resto do monte vai para a tua mão.
-- O descarte fica congelado enquanto tiver uma carta livre (atravessada), e para uma equipa que ainda não pôs nada. Então só se leva com um par natural do valor da carta de cima, tirado da tua mão.
+- Para o levar, a carta de cima tem de ir logo para um jogo; o resto vai para a tua mão.
+- Fica congelado enquanto tiver uma carta livre, e para uma equipa que ainda não pôs nada: então só se leva com um par natural do valor da carta de cima, tirado da tua mão.
 - Nunca quando há um 3 preto ou uma carta livre em cima.
 # Fechar
-- Fechas quando te livras da última carta: pondo-as todas na mesa, ou todas menos uma que descartas. Só quando a tua equipa tem uma canasta (2 jogadores: duas). Até lá, não podes pôr cartas na mesa até ficares com menos de duas.
+- Só quando a tua equipa tem uma canasta (2 jogadores: duas). Até lá, não podes pôr cartas na mesa até ficares com menos de duas.
 - Os 3 pretos só se põem (três ou quatro, sem carta livre) para fechar.
-- Fechar vale 100. Fechar de mão vale 200: a mão inteira posta numa só vez, depois de comprar do baralho, sem ter posto nada antes nesta mão; então a primeira descida não tem mínimo.
-- Quando o baralho acaba, um jogador que pode pôr a carta de cima do descarte num jogo da sua equipa tem de levar o monte; senão, a mão acaba.
+- Fechar vale 100; fechar de mão, 200: a mão inteira posta numa só vez depois de comprar do baralho, sem ter posto nada antes, e então a primeira descida não tem mínimo.
+- Quando o baralho acaba, tens de levar o monte se puderes pôr a carta de cima do descarte num jogo da tua equipa; senão, a mão acaba.
 # A pontuação
-No fim de uma mão, cada equipa soma as suas cartas na mesa, as suas canastas, os seus 3 vermelhos e o fecho, menos as cartas que ficaram nas mãos dos seus jogadores.
+Cada equipa soma as suas cartas na mesa, as suas canastas, os seus 3 vermelhos e o fecho, menos as cartas que ficaram nas mãos dos seus jogadores.
 # O fim do jogo
 O jogo acaba depois da mão em que uma equipa chega aos 5000 pontos. Ganha o total mais alto; com o mesmo total, a vitória é partilhada.
-# Jogar no dispositivo
-As mãos são secretas: passa o dispositivo quando o ecrã o pedir, e o jogador seguinte toca no botão de início. A tua mão está em baixo, ordenada por valor. As outras mãos são pequenos leques em cima. Os jogos da tua equipa estão por cima da tua mão, os da outra equipa por baixo dos leques, uma coluna por valor. Uma canasta fecha-se num monte com o número de cartas por baixo: com luz dourada se for limpa, com uma carta livre atravessada por baixo se for suja. As fichas e os 3 vermelhos de cada equipa estão à esquerda da sua fila. Enquanto uma equipa não pôs nada, um disco escuro à direita mostra quanto exige a primeira descida, e ao lado o que já está posto nesta vez. Cada barra mostra as cartas na mão e a pontuação da equipa.
-- Toca no baralho para comprar.
-- Toca em cartas da tua mão para as escolher; toca outra vez numa para a devolver.
-- Depois toca num jogo da tua equipa para as juntar, ou na fila da tua equipa para um jogo novo. Antes de comprar, toca no descarte para o levar com elas. Depois de comprar, escolhe uma carta e toca no descarte para a descartar. Também podes arrastar uma carta até lá.
-- O que as cartas escolhidas podem fazer brilha: o descarte, um jogo, um lugar livre.
-- Quando o baralho está vazio e não podes levar o descarte, toca no baralho vazio para acabar a mão.
-- No fim de uma mão, uma tabela mostra para cada equipa as cartas na mesa, as canastas, os 3 vermelhos, o fecho, as cartas na mão, os pontos da mão e os totais. Toca para a mão seguinte.
-Anular desfaz as tuas próprias ações, até ao momento em que o dispositivo foi passado.

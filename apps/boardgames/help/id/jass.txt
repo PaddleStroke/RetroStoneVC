@@ -1,31 +1,29 @@
 Jass
 # Tujuan
-Schieber ("si pendorong"), cara bermain Jass kesayangan Swiss: dua tim berisi dua rekan yang duduk berhadapan, gading dan merah melawan eboni dan giok. Kedua tim menghitung poin yang mereka ambil; tim pertama yang mencapai 1000 poin (atau 2500 dalam permainan panjang) menang. Untuk 4 pemain yang saling mengoper perangkat; tak seorang pun melihat kartu pemain lain.
+Schieber ("si pendorong"): dua tim berisi dua rekan yang duduk berhadapan. Tim pertama yang mencapai 1000 poin (2500 dalam permainan panjang) menang.
 # Kartu
-Deknya berisi 36 kartu, dari 6 sampai as. Di Swiss berbahasa Jerman, Jass umumnya dimainkan dengan jenis Swiss (lonceng, perisai, mawar, biji ek); di sini kartunya memakai jenis Prancis, seperti di bagian barat negeri itu. Jenis Swiss mungkin menyusul.
+36 kartu, dari 6 sampai as.
 # Pembagian kartu
-Setiap pemain mendapat 9 kartu. Giok membagi lebih dulu; setelah itu pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi memilih permainan dan membuka trik pertama.
+Setiap pemain mendapat 9 kartu; pembagi kartu bergeser satu tempat setiap ronde. Pemain setelah pembagi memilih permainan dan membuka trik pertama.
 # Memilih permainan
-- Pemilih menyebut satu jenis truf, atau Obenabe ("dari atas ke bawah": tanpa truf, as tertinggi) atau Undeufe ("dari bawah ke atas": tanpa truf, enam tertinggi).
-- Atau ia mendorong (schieben): rekannya lalu harus memilih. Trik pertama tetap dibuka oleh pemain yang mendorong.
+- Sebut satu jenis truf, atau Obenabe (tanpa truf, as tertinggi) atau Undeufe (tanpa truf, enam tertinggi).
+- Atau dorong (schieben): rekanmu lalu harus memilih, tetapi kamu tetap membuka trik pertama.
 # Truf
-- Jack truf, Puur, adalah kartu tertinggi (20 poin), lalu 9 truf, Nell (14), lalu as 11, king 4, queen 3, 10 10, 8, 7, 6.
-- Jenis lainnya berurutan as 11, king 4, queen 3, jack 2, 10 10, 9, 8, 7, 6.
-- Obenabe: setiap jenis berurutan dari as sampai enam, dan kartu 8 bernilai 8. Undeufe: setiap jenis berurutan dari enam sampai as, kartu 6 bernilai 11, kartu 8 bernilai 8, dan as tidak bernilai.
-- Trik terakhir bernilai 5 poin tambahan: total 157 poin. Match (kesembilan trik) bernilai 257.
+- Truf: jack, Puur (20 poin), lalu 9, Nell (14), as 11, king 4, queen 3, 10 10, 8, 7, 6.
+- Jenis lainnya: as 11, king 4, queen 3, jack 2, 10 10, 9, 8, 7, 6.
+- Obenabe: dari as sampai enam, kartu 8 bernilai 8. Undeufe: dari enam sampai as, kartu 6 bernilai 11, kartu 8 bernilai 8, as tidak bernilai.
+- Trik terakhir bernilai 5 poin tambahan. Match (kesembilan trik) bernilai 257.
 # Permainan
-- Ikuti jenis yang dibuka, atau mainkan truf sebagai gantinya. Jika tidak bisa mengikuti, mainkan kartu apa saja.
-- Dilarang memotong di bawah: jika jenis lain yang dibuka, kamu tidak boleh memainkan truf yang lebih rendah dari truf yang sudah ada di trik itu, kecuali kamu hanya memegang truf.
-- Saat truf dibuka, kamu harus mengikutinya dengan truf, tetapi kamu tidak pernah wajib memainkan Puur: jika tidak punya truf lain, kamu boleh memainkan kartu apa saja.
+- Ikuti jenis yang dibuka atau mainkan truf. Jika tidak bisa mengikuti, mainkan kartu apa saja.
+- Jika jenis lain yang dibuka, jangan mainkan truf yang lebih rendah dari truf yang sudah ada di trik, kecuali kamu hanya memegang truf.
+- Saat truf dibuka, ikuti dengan truf; kamu tidak pernah wajib memainkan Puur.
 - Dalam Obenabe dan Undeufe, cukup ikuti jenis yang dibuka jika bisa.
 # Weis dan Stöck
-- Weis (kombinasi yang diumumkan) diumumkan bersama kartu pertamamu: tiga kartu berurutan dalam satu jenis 20, empat 50, lima 100, enam 150, tujuh 200, delapan 250, sembilan 300; empat jack 200, empat sembilan 150, empat as, king, queen, atau sepuluh 100. Urutan deret adalah 6 7 8 9 10 J Q K A.
-- Hanya tim dengan satu weis terbaik yang mencatat poin, yaitu semua weis kedua pemainnya. Weis terbaik adalah yang poinnya terbanyak; jika sama, empat kartu senilai mengalahkan deret, lalu kartu teratas yang lebih tinggi, lalu deret dalam truf, lalu pemain yang bermain lebih dulu.
-- Stöck: king dan queen truf di satu tangan bernilai 20, dihitung saat kartu kedua dari keduanya dimainkan.
+- Weis (kombinasi yang diumumkan) diumumkan bersama kartu pertamamu. Deret dalam satu jenis (dari 6 sampai as): tiga kartu 20, empat 50, lima 100, enam 150, tujuh 200, delapan 250, sembilan 300. Empat jack 200, empat sembilan 150, empat as, king, queen, atau sepuluh 100.
+- Hanya tim dengan satu weis terbaik yang mencatat poin, yaitu semua weis-nya.
+- Stöck: king dan queen truf di satu tangan, 20, dihitung saat kartu kedua dimainkan.
 # Skor
 - Setiap tim mencatat poin kartu, weis, dan Stöck-nya.
-- Permainan panjang (sampai 2500) mengalikan semuanya: wajik dan hati sekali, sekop dan keriting dua kali, Obenabe dan Undeufe tiga kali.
+- Permainan panjang mengalikan: wajik dan hati sekali, sekop dan keriting dua kali, Obenabe dan Undeufe tiga kali.
 # Akhir permainan
-Tim pertama yang mencapai 1000 (2500) poin menang. Stöck dihitung begitu dimainkan, lalu weis setelah trik pertama, lalu trik di akhir ronde; ronde selalu dimainkan sampai habis. Jika kedua tim melewati batas dengan trik dari ronde yang sama, total yang lebih tinggi menang.
-# Bermain di perangkat
-Oper perangkat ke pemain yang bidaknya menyala; ia mengetuk tombol mulai dan melihat kartunya sendiri. Untuk memilih permainan, ketuk tanda sebuah jenis, panah atas (Obenabe) atau panah bawah (Undeufe), lalu tanda centang (atau yang sama lagi); untuk mendorong, ketuk tombol pas. Kursi pemilih menunjukkan permainannya, kursi pemain yang mendorong menunjukkan tanda pas. Di trik pertama, jika tanganmu memegang weis, sebuah tombol di seberang tumpukan trik menunjukkan poinnya: ketuk tombol itu sebelum memainkan kartumu untuk mengumumkannya. Setiap kursi menunjukkan weis yang diumumkan, lalu hanya weis milik tim yang mencatatnya, dalam cahaya emas; Stöck tampil sebagai king dan queen truf di kursi pemain yang mencatatnya. Untuk bermain, ketuk kartu yang menyala agar terangkat, lalu ketuk lagi kartu itu atau tempatnya di tengah; atau seret ke sana. Ketuk tumpukan di kanan bawah untuk melihat trik terakhir. Setelah setiap ronde, sebuah tabel menunjukkan permainan setiap tim (dengan pengalinya dalam permainan panjang), poin kartu (dalam cahaya emas untuk match), weis dan Stöck, skor ronde itu, dan totalnya; di bawahnya, keping kedua tim di sepanjang jalan menuju target. Ketuk untuk ronde berikutnya. Setiap bilah menunjukkan kartu di tangan dan total tim. Urungkan membatalkan pilihan yang belum dikonfirmasi, tidak pernah pilihan setelah perangkat dioper.
+Stöck dihitung begitu dimainkan, weis setelah trik pertama, trik di akhir ronde; ronde selalu dimainkan sampai habis. Jika kedua tim melewati batas dengan trik dari ronde yang sama, total yang lebih tinggi menang.

@@ -1,39 +1,33 @@
 Belote
 # Das Ziel
-Das Lieblingskartenspiel der Franzosen, für vier Spieler in zwei Teams: Partner sitzen einander gegenüber. Gewinne Stiche voller Punkte und erreiche mit deinem Team als Erstes das Ziel: 501 Punkte bei Belote, 1000 bei Coinche. Gespielt wird mit 32 Karten, von der 7 bis zum Ass. Es geht reihum von Spieler zu Spieler, und der Geber rückt mit jeder Runde einen Platz weiter.
-Zwischen den Runden wird nicht gemischt: Die Stiche werden eingesammelt, abgehoben und ausgeteilt, wie an einem echten Tisch.
+Vier Spieler in zwei Teams, Partner sitzen einander gegenüber. Erreiche mit deinem Team als Erstes 501 Punkte bei Belote, 1000 bei Coinche. Gespielt wird mit 32 Karten, von der 7 bis zum Ass.
 # Die Karten
-- Trümpfe in der Rangfolge Bube, 9, Ass, 10, König, Dame, 8, 7. Sie zählen 20, 14, 11, 10, 4, 3, 0 und 0 Punkte.
-- Die anderen Farben in der Rangfolge Ass, 10, König, Dame, Bube, 9, 8, 7. Sie zählen 11, 10, 4, 3, 2, 0, 0 und 0 Punkte.
-- Der letzte Stich bringt 10 Punkte extra (dix de der, „zehn für den Letzten“): 162 Punkte in jeder Runde.
-- Trumpfkönig und Trumpfdame in einer Hand sind Belote und Rebelote: 20 Punkte für dieses Team. Sie werden beim Ausspielen angesagt.
+- Trümpfe von oben nach unten: Bube 20, 9 14, Ass 11, 10 10, König 4, Dame 3, 8 0, 7 0.
+- Die anderen Farben: Ass 11, 10 10, König 4, Dame 3, Bube 2, 9 0, 8 0, 7 0.
+- Der letzte Stich bringt 10 Punkte extra (dix de der): 162 Punkte in jeder Runde.
+- Trumpfkönig und Trumpfdame in einer Hand sind Belote und Rebelote: 20 Punkte.
 # Trumpf wählen (Belote)
-- Jeder Spieler bekommt 3 Karten, dann 2, und die nächste Karte wird aufgedeckt.
-- Reihum nimmt jeder Spieler die aufgedeckte Karte, womit ihre Farbe Trumpf wird, oder passt.
-- Passen alle vier, folgt ein zweiter Durchgang: Reihum nennt jeder eine andere Farbe als Trumpf oder passt. Passen wieder alle, gibt der nächste Geber neue Karten.
-- Wer nimmt, ist der Nehmer. Alle bekommen 3 weitere Karten; der Nehmer bekommt die aufgedeckte Karte und 2.
+- Jeder Spieler bekommt 5 Karten, und die nächste Karte wird aufgedeckt.
+- Reihum nimmt jeder die aufgedeckte Karte (ihre Farbe wird Trumpf) oder passt. Passen alle vier, nennt reihum jeder eine andere Farbe oder passt; passen wieder alle, gibt es neue Karten.
+- Der Nehmer bekommt die aufgedeckte Karte und 2 weitere, die anderen 3.
 # Das Reizen (Coinche)
-- Jeder Spieler bekommt alle 8 Karten: 3, 3 und 2. Keine Karte wird aufgedeckt.
-- Reihum bietet jeder Spieler einen Kontrakt in einer Farbe: die Punkte, die sein Team verspricht, von 80 bis 160 in Zehnerschritten, oder Capot (alle Stiche, 250 wert). Jedes Gebot muss höher sein als das vorige. Oder er passt.
-- Ein Spieler kann das Gebot des anderen Teams coinchen: Das verdoppelt den Einsatz. Der Bieter kann dann surcoinchen und nochmals verdoppeln, oder passen; so oder so ist das Reizen vorbei.
-- Drei Pässe nach einem Gebot beenden das Reizen. Vier Pässe ohne Gebot: neue Karten.
+- Reihum bietet jeder einen Kontrakt in einer Farbe, von 80 bis 160 in Zehnerschritten, oder Capot (alle Stiche, 250), höher als das vorige Gebot; oder er passt.
+- Du kannst das Gebot des anderen Teams coinchen, das verdoppelt den Einsatz; der Bieter kann surcoinchen und nochmals verdoppeln, oder passen. So oder so ist das Reizen vorbei.
+- Drei Pässe nach einem Gebot beenden das Reizen; vier Pässe ohne Gebot: neue Karten.
 # Der Spielverlauf
-- Der Spieler nach dem Geber spielt zum ersten Stich aus; wer einen Stich gewinnt, spielt zum nächsten aus.
-- Bediene die ausgespielte Farbe, wenn du kannst.
-- Kannst du nicht, musst du einen Trumpf spielen, und zwar höher als jeder Trumpf, der schon im Stich liegt, wenn du kannst (kannst du nicht überstechen, irgendeinen Trumpf). Hast du keinen Trumpf, spiel eine beliebige Karte.
-- Ausnahme: Wenn dein Partner den Stich gerade gewinnt, darfst du eine beliebige Karte spielen.
+- Der Spieler nach dem Geber spielt aus; wer einen Stich gewinnt, spielt zum nächsten aus.
+- Bediene die ausgespielte Farbe, wenn du kannst. Sonst spiel einen Trumpf, höher als jeder Trumpf im Stich, wenn du kannst; ohne Trumpf eine beliebige Karte.
+- Aber wenn dein Partner den Stich gerade gewinnt, darfst du eine beliebige Karte spielen.
 - Wird Trumpf ausgespielt, musst du immer einen höheren Trumpf spielen, wenn du kannst, auch über deinen Partner.
-- Der höchste Trumpf gewinnt den Stich; gibt es keinen, die höchste Karte der ausgespielten Farbe.
+- Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe.
 # Die Wertung (Belote)
-- Die Nehmer müssen mehr Punkte machen als das andere Team, Belote eingerechnet. Dann schreibt jedes Team die Punkte, die es gemacht hat.
-- Sonst sind sie dedans („drin“, also gescheitert): Das andere Team schreibt 162 und die Nehmer nichts. Belote und Rebelote bleiben immer beim Team, das sie hatte.
-- Ein Team, das alle Stiche macht, ist Capot: 250 Punkte statt 162.
+- Die Nehmer müssen mehr Punkte machen als das andere Team, Belote eingerechnet: Dann schreibt jedes Team seine Punkte.
+- Sonst sind sie dedans: Das andere Team schreibt 162, die Nehmer nichts. Belote bleibt immer beim Team, das sie hatte.
+- Ein Team, das alle Stiche macht, ist Capot: 250 statt 162.
 # Die Wertung (Coinche)
-- Der Kontrakt ist erfüllt, wenn die Nehmer mindestens die gebotenen Punkte machen (Belote eingerechnet) und mehr als 81; ein Capot-Kontrakt verlangt alle Stiche.
+- Der Kontrakt ist erfüllt, wenn die Nehmer mindestens die gebotenen Punkte machen (Belote eingerechnet) und mehr als 81; Capot verlangt alle Stiche.
 - Erfüllt: Die Nehmer schreiben ihren Kontrakt plus ihre Punkte, die Gegenspieler ihre eigenen Punkte.
 - Gescheitert: Die Gegenspieler schreiben 160 plus den Kontrakt.
-- Mit Coinche oder Surcoinche: Die siegreiche Seite schreibt 160 plus den Kontrakt, verdoppelt oder vervierfacht; die andere Seite schreibt nur ihre Belote.
+- Mit Coinche oder Surcoinche: Der Sieger schreibt 160 plus den Kontrakt, verdoppelt oder vervierfacht; die andere Seite nur ihre Belote.
 # Das Ende der Partie
 Die Partie endet nach der Runde, in der ein Team das Ziel erreicht. Das Team mit mehr Punkten gewinnt; bei Gleichstand wird noch eine Runde gespielt.
-# Spielen auf dem Gerät
-Reicht das Gerät herum: Jeder sieht nur seine eigenen Karten, unten. Die anderen Spieler sitzen um den Tisch: links, gegenüber (dein Partner) und rechts, in der Reihenfolge ihrer Leisten oben. Zum Nehmen tippe auf die aufgedeckte Karte; im zweiten Durchgang tippe auf das Ass der Farbe, die du nennst. Bei Coinche tippe auf einen Kontrakt, dann auf das Ass seiner Farbe; der runde Stein mit einem Kreuz und einer 2 coincht (ein Kreuz und eine 4: Surcoinche). Der Knopf Passe ist in deiner Leiste. Zum Spielen tippe auf eine Karte, um sie anzuheben, und tippe dann noch einmal darauf, oder auf den Tisch, oder schieb sie dorthin. Karten, die du nicht spielen darfst, sind abgedunkelt. Der letzte Stich wird klein in der Ecke gezeigt. Jede Leiste zeigt die Summe des Teams und was jeder Spieler gesagt hat: Passe, einen Kontrakt oder das Trumpf-Ass des Nehmers. Nach jeder Runde zeigt eine Tafel die Punkte jedes Teams, die Wertung der Runde und die Summen (ein Kreuz: Kontrakt gescheitert); tippe darauf für die nächste Runde.

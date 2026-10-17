@@ -1,25 +1,21 @@
 Bridž
 # Cíl hry
-Kontraktní bridž pro čtyři hráče ve dvou dvojicích, spoluhráči sedí naproti sobě: slonovinový a červený proti ebenovému a nefritovému. V každé rozdávce se dvojice v dražbě přou o právo určit trumfy; dvojice, která dražbu vyhraje, se pak snaží udělat slíbené zdvihy. Dvě formy hry: Chicago, čtyři rozdávky (výchozí, nejlepší pro přátelský stůl), nebo robr, na dvě vyhrané hry. Nikdo nevidí karty ostatních.
+Kontraktní bridž pro čtyři hráče ve dvou dvojicích, spoluhráči sedí naproti sobě: dvojice se v dražbě přou o právo určit trumfy a pak se snaží udělat slíbené zdvihy.
 # Hlášení
-Rozdá se všech 52 karet, každému 13. Rozdávající mluví první, pak každý hráč v pořadí:
-- hlášení: číslo od 1 do 7 a barva nebo bez trumfů. Slibuje tolik zdvihů nad šest (1 znamená 7 zdvihů). Každé hlášení musí být vyšší než předchozí: vyšší číslo, nebo stejné číslo ve vyšší barvě. Od nejnižší: kříže, kára, srdce, piky, bez trumfů.
+Rozdávající mluví první, pak každý hráč v pořadí:
+- hlášení: 1 až 7 a barva nebo bez trumfů; slibuje tolik zdvihů nad šest. Musí přebít předchozí hlášení: vyšší číslo, nebo stejné číslo ve vyšší barvě (kříže, kára, srdce, piky, bez trumfů).
 - pas;
-- kontra na poslední hlášení soupeřů, která zvyšuje sázku; rekontra na zkontrované hlášení vlastní dvojice.
-Tři pasy po hlášení dražbu ukončí. Poslední hlášení je závazek a jeho barva jsou trumfy. Hlavním hráčem je hráč té dvojice, který tuto barvu (nebo bez trumfů) jmenoval první; jeho spoluhráč je stůl. Čtyři pasy bez hlášení: rozdává se znovu.
-Co hlášení říká o listu, je dohoda spoluhráčů (dražební systém), ne pravidlo: dohodněte se na svém před hrou. Úplný výklad dražby přesahuje tuto stránku.
+- kontra na poslední hlášení soupeřů; rekontra na zkontrované hlášení vlastní dvojice.
+Tři pasy po hlášení dražbu ukončí. Poslední hlášení je závazek a jeho barva jsou trumfy. Hlavním hráčem je hráč té dvojice, který tuto barvu jmenoval první; jeho spoluhráč je stůl. Čtyři pasy: rozdává se znovu.
 # Hra
-- Hráč vlevo od hlavního hráče vynáší. Pak stůl vyloží své karty lícem nahoru pro všechny a hlavní hráč je hraje vedle svých.
-- Přiznej vynesenou barvu, můžeš-li; jinak zahraj jakoukoli kartu. Nejvyšší trumf bere zdvih, jinak nejvyšší karta vynesené barvy (eso je nejvyšší). Kdo zdvih vezme, vynáší do dalšího.
-- Hlavní hráč potřebuje šest zdvihů a k tomu vydražené číslo.
+- Hráč vlevo od hlavního hráče vynáší. Pak stůl vyloží své karty lícem nahoru a hlavní hráč je hraje také.
+- Přiznej vynesenou barvu, můžeš-li; jinak zahraj jakoukoli kartu. Nejvyšší trumf bere zdvih, jinak nejvyšší karta vynesené barvy. Kdo zdvih vezme, vynáší do dalšího.
 # Počítání bodů
 - Splněný závazek: každý vydražený zdvih nad šest má 20 v křížích nebo kárech, 30 v srdcích nebo pikách; bez trumfů 40 za první, pak 30. S kontrou dvojnásobek, s rekontrou čtyřnásobek. 100 takových bodů nebo víc je hra.
 - Každý zdvih navíc: jeho hodnota; s kontrou 100 (v manši 200), s rekontrou dvojnásobek. Splněný závazek s kontrou přidá 50, s rekontrou 100.
 - Slemy: 12 vydražených a uhraných zdvihů 500 (v manši 750), všech 13 zdvihů 1000 (v manši 1500).
-- Nesplněný závazek: obránci si za každý chybějící zdvih zapíšou 50 (v manši 100). S kontrou: 100, pak 200 za 2. a 3., pak po 300; v manši 200, pak po 300. S rekontrou: dvojnásobek kontry.
+- Nesplněný závazek: obránci si zapíšou 50 za každý chybějící zdvih (v manši 100). S kontrou: 100, 200, 200, pak po 300 (v manši 200, pak po 300); s rekontrou dvojnásobek.
 # Konec hry
-- Chicago: čtyři rozdávky. V první není v manši nikdo, ve druhé a třetí dvojice rozdávajícího, ve čtvrté obě dvojice. Každá rozdávka se počítá zvlášť: hra přinese 300 navíc (v manši 500), každý menší závazek 50. Když všichni pasují, rozdává znovu tentýž hráč.
-- Robr: body za závazek se píšou pod čáru a sčítají se ke hře za 100; hra smaže částečné zápisy obou dvojic. Dvojice, která vyhrála hru, je v manši. První dvojice se dvěma hrami ukončí robr: 700 navíc za dvě ku nule, 500 za dvě ku jedné. Honéry se počítají jen v robru: pět nejvyšších trumfů (eso, král, dáma, kluk, 10) v jedné ruce 150, čtyři z nich 100, čtyři esa bez trumfů 150, pro dvojici té ruky bez ohledu na výsledek.
+- Chicago: čtyři rozdávky. V manši: v první nikdo, ve druhé a třetí dvojice rozdávajícího, ve čtvrté obě dvojice. Hra přinese 300 navíc (v manši 500), každý menší závazek 50.
+- Robr: hra smaže částečné zápisy obou dvojic a dvojice, která hru vyhrála, je v manši. Dvě hry ukončí robr: 700 navíc za dvě ku nule, 500 za dvě ku jedné. Honéry, jen v robru: pět nejvyšších trumfů v jedné ruce 150, čtyři z nich 100, čtyři esa bez trumfů 150.
 - Vyhrává dvojice s vyšším součtem.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen se ukáže; ten klepne na start a uvidí své karty. Dražba je tabulka hlášení, sloupec na hráče, kameny nahoře: vlevo, naproti, vpravo, ty. Červený kroužek kolem kamene: ta dvojice je v manši. Hlásíš klepnutím na tlačítko dražební krabičky (bez trumfů je kotouč se čtyřmi přeškrtnutými barvami; zelené je pas, červený křížek kontra, dva modré křížky rekontra) a pak na fajfku, nebo znovu na stejné tlačítko. Ve hře drží hlavní hráč zařízení i za stůl; majitel stolu se jen dívá. Klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Zdvihy se i s počtem skládají před hlavního hráče a před obránce, který vzal první zdvih své dvojice. Klepnutím na závazek v horním rohu uvidíš dražbu a poslední zdvih. Po každé rozdávce ukáže zapisovací list my (tvá dvojice) a oni ve dvou sloupcích; klepnutím na něj přejdeš k další rozdávce. Každá lišta ukazuje součet dvojice, červený kroužek, je-li v manši, a v robru body pod čarou v tmavém kotouči. Vrátit vezme zpět volbu, která ještě nebyla potvrzena, nikdy hlášení ani kartu po předání zařízení.

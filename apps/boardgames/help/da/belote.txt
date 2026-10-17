@@ -1,39 +1,33 @@
 Belote
 # Målet
-Frankrigs yndlingskortspil, for fire spillere i to hold: makkerne sidder over for hinanden. Vind stik fulde af point, og vær det første hold, der når målet: 501 point i Belote, 1000 i Coinche. Spillet har 32 kort, fra 7 til es. Turen går fra spiller til spiller, og giveren rykker én plads videre for hvert giv.
-Kortene blandes ikke mellem givene: stikkene samles sammen, der tages af, og der gives, som ved et rigtigt bord.
+Fire spillere i to hold, makkerne over for hinanden. Vær det første hold, der når 501 point i Belote, 1000 i Coinche. Spillet har 32 kort, fra 7 til es.
 # Kortene
-- Trumf rangerer knægt, 9, es, 10, konge, dame, 8, 7. De er værd 20, 14, 11, 10, 4, 3, 0 og 0 point.
-- De andre kulører rangerer es, 10, konge, dame, knægt, 9, 8, 7. De er værd 11, 10, 4, 3, 2, 0, 0 og 0 point.
-- Sidste stik giver 10 point ekstra (dix de der, »ti for sidste«): 162 point i hvert giv.
-- Trumfkonge og trumfdame på samme hånd er belote og rebelote: 20 point til det hold. De meldes, når de spilles.
+- Trumf fra højest til lavest: knægt 20, 9 14, es 11, 10 10, konge 4, dame 3, 8 0, 7 0.
+- Andre kulører: es 11, 10 10, konge 4, dame 3, knægt 2, 9 0, 8 0, 7 0.
+- Sidste stik giver 10 point ekstra (dix de der): 162 point i hvert giv.
+- Trumfkonge og trumfdame på samme hånd er belote og rebelote: 20 point.
 # Valg af trumf (Belote)
-- Hver spiller får 3 kort, derefter 2, og det næste kort vendes med billedsiden opad.
-- På skift tager hver spiller det vendte kort, så dets kulør bliver trumf, eller melder pas.
-- Hvis alle fire melder pas, kommer en anden runde: på skift nævner hver en anden kulør som trumf eller melder pas. Melder de pas igen, giver den næste giver nye kort.
-- Den spiller, der tager, er melderen. Alle får 3 kort mere; melderen får det vendte kort og 2.
+- Hver spiller får 5 kort, og det næste kort vendes med billedsiden opad.
+- På skift tager hver det vendte kort (dets kulør bliver trumf) eller melder pas. Melder alle fire pas, nævner hver på skift en anden kulør eller melder pas; melder de pas igen, nye kort.
+- Melderen får det vendte kort og 2 mere, de andre 3.
 # Budrunden (Coinche)
-- Hver spiller får alle 8 kort: 3, 3 og 2. Intet kort vendes.
-- På skift byder hver spiller en kontrakt i en kulør: de point, holdet lover at tage, fra 80 til 160 i spring på 10, eller capot (alle stik, værd 250). Hvert bud skal være højere end det forrige. Ellers melder spilleren pas.
-- En spiller kan coinche det andet holds bud: det fordobler indsatsen. Byderen kan så surcoinche og fordoble igen, eller melde pas; under alle omstændigheder er budrunden slut.
-- Tre pas efter et bud afslutter budrunden. Fire pas uden bud: nye kort.
+- På skift byder hver en kontrakt i en kulør, fra 80 til 160 i spring på 10, eller capot (alle stik, 250), højere end det forrige bud; ellers melder spilleren pas.
+- Du kan coinche det andet holds bud (det fordobler indsatsen); byderen kan surcoinche og fordoble igen eller melde pas. Under alle omstændigheder er budrunden slut.
+- Tre pas efter et bud afslutter budrunden; fire pas uden bud: nye kort.
 # Spillet
-- Spilleren efter giveren spiller ud til første stik; den, der vinder et stik, spiller ud til det næste.
-- Bekend kulør, hvis du kan.
-- Hvis du ikke kan, skal du spille en trumf, højere end enhver trumf, der allerede ligger i stikket, hvis du kan (kan du ikke gå over, en hvilken som helst trumf). Har du ingen trumf, så spil et hvilket som helst kort.
-- Undtagelse: når din makker vinder stikket, må du spille et hvilket som helst kort.
+- Spilleren efter giveren spiller ud; den, der vinder et stik, spiller ud til det næste.
+- Bekend kulør, hvis du kan. Hvis ikke, spil en trumf, højere end enhver trumf i stikket, hvis du kan; uden trumf et hvilket som helst kort.
+- Men når din makker vinder stikket, må du spille et hvilket som helst kort.
 - Når der spilles trumf ud, skal du altid spille en højere trumf, hvis du kan, også over din makker.
-- Den højeste trumf vinder stikket; er der ingen, det højeste kort i den udspillede kulør.
+- Den højeste trumf vinder stikket, ellers det højeste kort i den udspillede kulør.
 # Pointtælling (Belote)
-- Melderne skal tage flere point end det andet hold, belote medregnet. Så får hvert hold de point, det tog.
-- Ellers er de dedans (»inde«, dvs. faldet): det andet hold får 162 og melderne intet. Belote og rebelote bliver altid hos det hold, der havde dem.
-- Et hold, der tager alle stik, er capot: 250 point i stedet for 162.
+- Melderne skal tage flere point end det andet hold, belote medregnet: så får hvert hold sine point.
+- Ellers er de dedans: det andet hold får 162, melderne intet. Belote bliver altid hos det hold, der havde den.
+- Et hold, der tager alle stik, er capot: 250 i stedet for 162.
 # Pointtælling (Coinche)
-- Kontrakten er hjemme, hvis melderne tager mindst de budte point (belote medregnet) og mere end 81; en capot-kontrakt kræver alle stik.
+- Kontrakten er hjemme, hvis melderne tager mindst de budte point (belote medregnet) og mere end 81; capot kræver alle stik.
 - Hjemme: melderne får deres kontrakt plus deres point, modspillerne deres egne point.
 - Faldet: modspillerne får 160 plus kontrakten.
-- Coinchet eller surcoinchet: den vindende side får 160 plus kontrakten, fordoblet eller firedoblet; den anden side får intet ud over sin belote.
+- Coinchet eller surcoinchet: vinderen får 160 plus kontrakten, fordoblet eller firedoblet; den anden side kun sin belote.
 # Spillets afslutning
 Spillet slutter efter det giv, hvor et hold når målet. Holdet med flest point vinder; står det lige, spilles der ét giv mere.
-# Spil på enheden
-Send enheden rundt: hver spiller ser kun sine egne kort, nederst. De andre spillere sidder rundt om bordet: til venstre, over for (din makker) og til højre, i samme rækkefølge som deres paneler øverst. For at tage trykker du på det vendte kort; i anden runde trykker du på esset i den kulør, du nævner. I Coinche trykker du på en kontrakt og derefter på esset i dens kulør; den runde markør med et kryds og et 2-tal coincher (et kryds og et 4-tal: surcoinche). Knappen Pas er i dit panel. For at spille trykker du på et kort for at løfte det og trykker så på det igen, eller på bordet, eller trækker det derhen. Kort, du ikke må spille, er nedtonede. Sidste stik vises lille i hjørnet. Hvert panel viser holdets sum og hvad hver spiller sagde: pas, en kontrakt eller melderens trumfes. Efter hvert giv viser en tavle hvert holds point, givets score og summerne (et kryds: kontrakten faldt); tryk på den for næste giv.

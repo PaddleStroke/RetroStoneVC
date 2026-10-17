@@ -1,39 +1,33 @@
 Belote
 # Le but
-Le grand jeu de cartes français, à quatre joueurs en deux équipes : les partenaires sont assis face à face. Remporte des plis riches en points, et sois la première équipe à atteindre l'objectif : 501 points à la Belote, 1000 à la Coinche. Le jeu compte 32 cartes, du 7 à l'as. Le tour passe d'un joueur au suivant, et le donneur avance d'une place à chaque donne.
-Les cartes ne sont pas mélangées entre les donnes : on ramasse les plis, on coupe et on distribue, comme à une vraie table.
+À quatre joueurs en deux équipes, les partenaires face à face. Sois la première équipe à atteindre 501 points à la Belote, 1000 à la Coinche. Le jeu compte 32 cartes, du 7 à l'as.
 # Les cartes
-- À l'atout : valet, 9, as, 10, roi, dame, 8, 7. Ils valent 20, 14, 11, 10, 4, 3, 0 et 0 points.
-- Dans les autres couleurs : as, 10, roi, dame, valet, 9, 8, 7. Ils valent 11, 10, 4, 3, 2, 0, 0 et 0 points.
-- Le dernier pli rapporte 10 points de plus (dix de der) : 162 points à chaque donne.
-- Le roi et la dame d'atout dans une même main, c'est belote et rebelote : 20 points pour cette équipe. On les annonce en les jouant.
+- À l'atout, du plus fort au plus faible : valet 20, 9 14, as 11, 10 10, roi 4, dame 3, 8 0, 7 0.
+- Dans les autres couleurs : as 11, 10 10, roi 4, dame 3, valet 2, 9 0, 8 0, 7 0.
+- Le dernier pli rapporte 10 points de plus (dix de der) : 162 points à chaque donne.
+- Le roi et la dame d'atout dans une même main, c'est belote et rebelote : 20 points.
 # Choisir l'atout (Belote)
-- Chaque joueur reçoit 3 cartes, puis 2, et la carte suivante est retournée.
-- Chacun à son tour prend la carte retournée, dont la couleur devient l'atout, ou passe.
-- Si les quatre passent, second tour : chacun à son tour nomme une autre couleur d'atout, ou passe. S'ils passent encore, le donneur suivant redistribue.
-- Celui qui prend est le preneur. Chacun reçoit 3 cartes de plus ; le preneur reçoit la carte retournée et 2.
+- Chaque joueur reçoit 5 cartes, et la carte suivante est retournée.
+- Chacun à son tour prend la carte retournée (sa couleur devient l'atout) ou passe. Si les quatre passent, chacun à son tour nomme une autre couleur ou passe ; s'ils passent encore, nouvelle donne.
+- Le preneur reçoit la carte retournée et 2 de plus, les autres 3.
 # Les enchères (Coinche)
-- Chaque joueur reçoit ses 8 cartes : 3, 3 et 2. Aucune carte n'est retournée.
-- Chacun à son tour annonce un contrat dans une couleur : les points que son équipe promet de faire, de 80 à 160 de 10 en 10, ou capot (tous les plis, qui vaut 250). Chaque annonce doit dépasser la précédente. Ou il passe.
-- Un joueur peut coincher l'annonce de l'autre équipe : l'enjeu est doublé. L'annonceur peut alors surcoincher, ce qui double encore, ou passer ; dans les deux cas, les enchères sont closes.
-- Trois passes après une annonce terminent les enchères. Quatre passes sans annonce : nouvelle donne.
+- Chacun à son tour annonce un contrat dans une couleur, de 80 à 160 de 10 en 10, ou capot (tous les plis, 250), plus haut que l'annonce précédente ; ou il passe.
+- Tu peux coincher l'annonce de l'autre équipe, ce qui double l'enjeu ; l'annonceur peut surcoincher, ce qui double encore, ou passer. Dans les deux cas, les enchères sont closes.
+- Trois passes après une annonce terminent les enchères ; quatre passes sans annonce : nouvelle donne.
 # Le jeu de la carte
-- Le joueur après le donneur entame le premier pli ; celui qui remporte un pli entame le suivant.
-- Fournis la couleur demandée si tu peux.
-- Sinon, tu dois couper avec un atout, plus fort que les atouts déjà dans le pli si tu peux (si tu ne peux pas monter, n'importe quel atout). Sans atout, joue n'importe quelle carte.
-- Exception : quand ton partenaire est maître du pli, tu peux jouer n'importe quelle carte.
+- Le joueur après le donneur entame ; celui qui remporte un pli entame le suivant.
+- Fournis la couleur demandée si tu peux. Sinon, coupe avec un atout, plus fort que les atouts déjà dans le pli si tu peux ; sans atout, n'importe quelle carte.
+- Mais quand ton partenaire est maître du pli, tu peux jouer n'importe quelle carte.
 - Quand l'atout est demandé, tu dois toujours monter si tu peux, même sur ton partenaire.
-- Le plus fort atout remporte le pli ; s'il n'y en a pas, la plus forte carte de la couleur demandée.
+- Le plus fort atout remporte le pli, sinon la plus forte carte de la couleur demandée.
 # Le score (Belote)
-- Les preneurs doivent faire plus de points que l'autre équipe, belote comprise. Chaque équipe marque alors les points qu'elle a faits.
-- Sinon ils sont dedans : l'autre équipe marque 162 et les preneurs rien. Belote et rebelote restent toujours à l'équipe qui les avait.
-- Une équipe qui fait tous les plis est capot : 250 points au lieu de 162.
+- Les preneurs doivent faire plus de points que l'autre équipe, belote comprise : chaque équipe marque alors ses points.
+- Sinon ils sont dedans : l'autre équipe marque 162, les preneurs rien. La belote reste toujours à l'équipe qui l'avait.
+- Une équipe qui fait tous les plis est capot : 250 au lieu de 162.
 # Le score (Coinche)
-- Le contrat est rempli si les preneurs font au moins les points annoncés (belote comprise) et plus de 81 ; un contrat capot demande tous les plis.
-- Rempli : les preneurs marquent leur contrat plus leurs points, les défenseurs leurs propres points.
-- Chuté : les défenseurs marquent 160 plus le contrat.
-- Coinché ou surcoinché : le camp gagnant marque 160 plus le contrat, doublé ou quadruplé ; l'autre camp ne marque que sa belote.
+- Le contrat est rempli si les preneurs font au moins les points annoncés (belote comprise) et plus de 81 ; capot demande tous les plis.
+- Rempli : les preneurs marquent leur contrat plus leurs points, les défenseurs leurs propres points.
+- Chuté : les défenseurs marquent 160 plus le contrat.
+- Coinché ou surcoinché : le gagnant marque 160 plus le contrat, doublé ou quadruplé ; l'autre camp ne marque que sa belote.
 # La fin de la partie
-La partie s'arrête après la donne où une équipe atteint l'objectif. L'équipe qui a le plus de points gagne ; en cas d'égalité, on joue une donne de plus.
-# Jouer sur l'appareil
-L'appareil passe de main en main : chacun ne voit que ses propres cartes, en bas. Les autres joueurs sont autour de la table : à gauche, en face (ton partenaire) et à droite, dans l'ordre de leurs barres en haut. Pour prendre, touche la carte retournée ; au second tour, touche l'as de la couleur que tu nommes. À la Coinche, touche un contrat, puis l'as de sa couleur ; le jeton rond avec une croix et un 2 coinche (une croix et un 4 : surcoinche). Le bouton passer est dans ta barre. Pour jouer, touche une carte pour la lever, puis touche-la encore, ou touche la table, ou fais-la glisser jusque-là. Les cartes que tu ne peux pas jouer sont grisées. Le dernier pli s'affiche en petit dans le coin. Chaque barre montre le total de l'équipe et ce que chacun a dit : passe, contrat, ou l'as d'atout du preneur. Après chaque donne, un tableau montre les points de chaque équipe, le score de la donne et les totaux (une croix : contrat chuté) ; touche-le pour la donne suivante.
+La partie s'arrête après la donne où une équipe atteint l'objectif. L'équipe qui a le plus de points gagne ; en cas d'égalité, on joue une donne de plus.

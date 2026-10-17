@@ -1,25 +1,21 @@
 Bridge
 # Tavoite
-Sopimusbridge neljälle pelaajalle kahdessa parissa, parit istuvat vastakkain: norsunluu ja punainen vastaan eebenpuu ja jade. Jokaisessa jaossa parit tarjoavat oikeudesta valita valtti; tarjouskilpailun voittanut pari yrittää sitten ottaa luvatut tikit. Kaksi tapaa pelata: Chicago, neljä jakoa (oletus, paras rentoon peliin), tai robberi, kunnes toinen pari on voittanut kaksi täyspeliä. Kukaan ei näe toisten kortteja.
+Sopimusbridge neljälle pelaajalle kahdessa parissa, parit istuvat vastakkain: parit tarjoavat oikeudesta valita valtti, ja tarjouskilpailun voittanut pari yrittää sitten ottaa luvatut tikit.
 # Tarjoukset
-Kaikki 52 korttia jaetaan, 13 kullekin. Jakaja puhuu ensin, sitten jokainen vuorollaan:
-- tarjous: luku 1–7 ja maa tai sangi (ei valttia). Se lupaa niin monta tikkiä yli kuuden (1 tarkoittaa 7 tikkiä). Jokaisen tarjouksen on oltava edellistä korkeampi: suurempi luku tai sama luku korkeammassa maassa. Alimmasta ylimpään: risti, ruutu, hertta, pata, sangi.
+Jakaja puhuu ensin, sitten jokainen vuorollaan:
+- tarjous: luku 1–7 ja maa tai sangi (ei valttia); se lupaa niin monta tikkiä yli kuuden. Sen on oltava edellistä korkeampi: suurempi luku tai sama luku korkeammassa maassa (risti, ruutu, hertta, pata, sangi).
 - passi;
-- kahdennus vastustajien viimeiseen tarjoukseen, joka nostaa panoksia; vastakahdennus oman puolen kahdennettuun tarjoukseen.
-Kolme passia tarjouksen jälkeen päättää tarjouskilpailun. Viimeinen tarjous on sopimus, ja sen maa on valtti. Pelinviejä on se pelaaja, joka tuolta puolelta ensimmäisenä mainitsi maan (tai sangin); hänen parinsa on lepääjä. Neljä passia ilman tarjousta: jaetaan uudelleen.
-Mitä tarjous kertoo kädestä, on parien sopimus (tarjousjärjestelmä), ei sääntö: sopikaa omastanne ennen peliä. Tarjousten täydellinen selitys ei mahdu tälle sivulle.
+- kahdennus vastustajien viimeiseen tarjoukseen; vastakahdennus oman puolen kahdennettuun tarjoukseen.
+Kolme passia tarjouksen jälkeen päättää tarjouskilpailun. Viimeinen tarjous on sopimus, ja sen maa on valtti. Pelinviejä on se pelaaja, joka tuolta puolelta ensimmäisenä mainitsi maan; hänen parinsa on lepääjä. Neljä passia: jaetaan uudelleen.
 # Pelaaminen
-- Pelinviejän vasemmalla puolella istuva pelaaja aloittaa. Sitten lepääjä levittää korttinsa kaikkien nähtäväksi, ja pelinviejä pelaa niitä omiensa lisäksi.
-- Tunnusta maata, jos voit; muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten aloitetun maan korkein kortti (ässä on korkein). Voittaja aloittaa seuraavan tikin.
-- Pelinviejä tarvitsee kuusi tikkiä ja lisäksi tarjotun luvun.
+- Pelinviejän vasemmalla puolella istuva pelaaja aloittaa. Sitten lepääjä levittää korttinsa näkyviin, ja pelinviejä pelaa myös niitä.
+- Tunnusta maata, jos voit; muuten pelaa mikä tahansa kortti. Korkein valtti voittaa tikin, muuten aloitetun maan korkein kortti. Voittaja aloittaa seuraavan tikin.
 # Pisteet
 - Sopimus täyttyy: jokainen tarjottu tikki yli kuuden on 20 ristissä tai ruudussa, 30 hertassa tai padassa; sangissa ensimmäinen 40, sitten 30. Kahdennettuna kaksinkertainen, vastakahdennettuna nelinkertainen. 100 tällaista pistettä tai enemmän on täyspeli.
 - Jokainen ylitikki: sen arvo; kahdennettuna 100 (vaarassa 200), vastakahdennettuna kaksinkertainen. Täytetty kahdennettu sopimus tuo 50 lisää, vastakahdennettu 100.
 - Slammit: 12 tarjottua ja otettua tikkiä 500 (vaarassa 750), kaikki 13 tikkiä 1000 (vaarassa 1500).
-- Sopimus kaatuu: puolustajat kirjaavat jokaisesta puuttuvasta tikistä 50 (vaarassa 100). Kahdennettuna: 100, sitten 200 toisesta ja kolmannesta, sitten 300 kustakin; vaarassa 200, sitten 300 kustakin. Vastakahdennettuna: kaksinkertainen kahdennettuun verrattuna.
+- Sopimus kaatuu: puolustajat kirjaavat 50 jokaisesta puuttuvasta tikistä (vaarassa 100). Kahdennettuna: 100, 200, 200, sitten 300 kustakin (vaarassa 200, sitten 300 kustakin); vastakahdennettuna kaksinkertainen.
 # Pelin loppu
-- Chicago: neljä jakoa. Ensimmäisessä kukaan ei ole vaarassa, toisessa ja kolmannessa jakajan puoli, neljännessä molemmat puolet. Jokainen jako lasketaan erikseen: täyspeli tuo 300 lisää (vaarassa 500), mikä tahansa pienempi sopimus 50. Jos kaikki passaavat, sama jakaja jakaa uudelleen.
-- Robberi: sopimuspisteet kirjataan viivan alle ja kertyvät kohti 100 pisteen täyspeliä; täyspeli pyyhkii molempien puolten osapelit. Täyspelin voittanut puoli on vaarassa. Ensimmäinen kahden täyspelin puoli päättää robberin: 700 lisää lukemin kaksi–nolla, 500 lukemin kaksi–yksi. Honöörit lasketaan vain robberissa: viisi korkeinta valttia (ässä, kuningas, rouva, sotilas, 10) yhdessä kädessä 150, neljä niistä 100, neljä ässää sangissa 150, sen käden puolelle tuloksesta riippumatta.
+- Chicago: neljä jakoa. Vaarassa: ensimmäisessä ei kukaan, toisessa ja kolmannessa jakajan puoli, neljännessä molemmat puolet. Täyspeli tuo 300 lisää (vaarassa 500), mikä tahansa pienempi sopimus 50.
+- Robberi: täyspeli pyyhkii molempien puolten osapelit, ja täyspelin voittanut puoli on vaarassa. Kaksi täyspeliä päättää robberin: 700 lisää lukemin kaksi–nolla, 500 lukemin kaksi–yksi. Honöörit, vain robberissa: viisi korkeinta valttia yhdessä kädessä 150, neljä niistä 100, neljä ässää sangissa 150.
 - Suuremman summan saanut puoli voittaa.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula näkyy; hän napauttaa aloitusta ja näkee oman kätensä. Tarjouskilpailu on tarjousten taulukko, sarake pelaajaa kohti, nappulat ylhäällä: vasemmalla, vastapäätä, oikealla, sinä. Punainen rengas nappulan ympärillä: se puoli on vaarassa. Tarjoa napauttamalla tarjouslaatikon painiketta (sangi on kiekko, jossa neljä maata on yliviivattu; vihreä passaa, punainen risti kahdentaa, kaksi sinistä ristiä vastakahdentaa) ja sitten rastia tai samaa painiketta uudelleen. Pelissä pelinviejä pitää laitetta myös lepääjän puolesta; lepääjän omistaja vain katsoo. Napauta hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Tikit kasautuvat lukumäärineen pelinviejän eteen ja sen puolustajan eteen, joka otti puolensa ensimmäisen tikin. Napauta sopimusta yläkulmassa nähdäksesi tarjoukset ja viimeisen tikin. Jokaisen jaon jälkeen pöytäkirja näyttää me (sinun puolesi) ja he kahdessa sarakkeessa; napauta sitä seuraavaa jakoa varten. Jokainen palkki näyttää puolen summan, punaisen renkaan vaarassa ja robberissa viivan alla olevat pisteet tummassa kiekossa. Kumoa peruu valinnan, jota ei ole vielä vahvistettu, ei koskaan tarjousta tai korttia, kun laite on annettu eteenpäin.

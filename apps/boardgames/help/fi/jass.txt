@@ -1,31 +1,29 @@
 Jass
 # Tavoite
-Schieber ("työntäjä"), Sveitsin rakastetuin tapa pelata Jassia: kaksi kahden hengen paria, parit vastakkain, norsunluu ja punainen vastaan eebenpuu ja jade. Kumpikin pari laskee ottamansa pisteet; ensimmäisenä 1000 pisteeseen (pitkässä pelissä 2500:aan) ehtivä pari voittaa. 4 pelaajalle, jotka antavat laitetta kädestä käteen; kukaan ei näe muiden kortteja.
+Schieber ("työntäjä"): kaksi kahden hengen paria, parit vastakkain. Ensimmäisenä 1000 pisteeseen (pitkässä pelissä 2500:aan) ehtivä pari voittaa.
 # Kortit
-Pakassa on 36 korttia, kuutosesta ässään. Sveitsin saksankielisessä osassa Jassia pelataan enimmäkseen sveitsiläisillä mailla (kulkuset, kilvet, ruusut, tammenterhot); tässä korteissa on ranskalaiset maat, kuten maan länsiosassa. Sveitsiläiset maat voivat tulla myöhemmin.
+36 korttia, kuutosesta ässään.
 # Jako
-Jokainen saa 9 korttia. Jade jakaa ensin; sen jälkeen jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja valitsee pelin ja avaa ensimmäisen tikin.
+Jokainen saa 9 korttia; jakaja siirtyy joka jaossa yhden paikan eteenpäin. Jakajasta seuraava pelaaja valitsee pelin ja avaa ensimmäisen tikin.
 # Pelin valinta
-- Valitsija nimeää valttimaan tai Obenaben ("ylhäältä alas": ei valtteja, ässä on korkein) tai Undeufen ("alhaalta ylös": ei valtteja, kuutonen on korkein).
-- Tai hän työntää (schieben): silloin hänen parinsa on valittava. Ensimmäisen tikin avaa silti työntänyt pelaaja.
+- Nimeä valttimaa tai Obenabe (ei valtteja, ässä on korkein) tai Undeufe (ei valtteja, kuutonen on korkein).
+- Tai työnnä (schieben): silloin parisi on valittava, mutta ensimmäisen tikin avaat silti sinä.
 # Valtit
-- Valttijätkä, Puur, on korkein kortti (20 pistettä), sitten valttiysi, Nell (14), sitten ässä 11, kuningas 4, kuningatar 3, 10 10, 8, 7, 6.
-- Muiden maiden järjestys on ässä 11, kuningas 4, kuningatar 3, jätkä 2, 10 10, 9, 8, 7, 6.
-- Obenabe: joka maan järjestys on ässästä kuutoseen, ja kasit ovat 8 arvoisia. Undeufe: joka maan järjestys on kuutosesta ässään, kuutoset ovat 11 arvoisia, kasit 8 ja ässät eivät mitään.
-- Viimeinen tikki tuo 5 lisäpistettä: yhteensä 157 pistettä. Match (kaikki yhdeksän tikkiä) on 257 arvoinen.
+- Valtit: jätkä, Puur (20 pistettä), sitten ysi, Nell (14), ässä 11, kuningas 4, kuningatar 3, 10 10, 8, 7, 6.
+- Muut maat: ässä 11, kuningas 4, kuningatar 3, jätkä 2, 10 10, 9, 8, 7, 6.
+- Obenabe: ässästä kuutoseen, kasit ovat 8 arvoisia. Undeufe: kuutosesta ässään, kuutoset ovat 11 arvoisia, kasit 8, ässät eivät mitään.
+- Viimeinen tikki tuo 5 lisäpistettä. Match (kaikki yhdeksän tikkiä) on 257 arvoinen.
 # Pelaaminen
-- Tunnusta maata tai pelaa sen sijaan valtti. Jos et voi tunnustaa, pelaa mikä tahansa kortti.
-- Ei alivalttausta: kun avattiin muuta maata, et saa pelata valttia, joka on matalampi kuin tikissä jo oleva valtti, paitsi jos sinulla on pelkkiä valtteja.
-- Kun avataan valtilla, sinun on tunnustettava valtilla, mutta Puuria ei koskaan tarvitse pelata: jos sinulla ei ole muuta valttia, voit pelata minkä tahansa kortin.
+- Tunnusta maata tai pelaa valtti. Jos et voi tunnustaa, pelaa mikä tahansa kortti.
+- Kun avattiin muuta maata, et saa pelata valttia, joka on matalampi kuin tikissä jo oleva, paitsi jos sinulla on pelkkiä valtteja.
+- Kun avataan valtilla, tunnusta valtilla; Puuria ei koskaan tarvitse pelata.
 - Obenabessa ja Undeufessa vain tunnusta maata, jos voit.
 # Weis ja Stöck
-- Weis (ilmoitettavat yhdistelmät) ilmoitetaan ensimmäisen korttisi kanssa: kolme peräkkäistä korttia samaa maata 20, neljä 50, viisi 100, kuusi 150, seitsemän 200, kahdeksan 250, yhdeksän 300; neljä jätkää 200, neljä ysiä 150, neljä ässää, kuningasta, kuningatarta tai kymppiä 100. Sarjan järjestys on 6 7 8 9 10 J Q K A.
-- Pisteet saa vain pari, jolla on paras yksittäinen weis: molempien pelaajiensa kaikki weisit. Paras on se, jossa on eniten pisteitä; tasatilanteessa neljä samanarvoista korttia voittaa sarjan, sitten ratkaisee korkeampi ylin kortti, sitten valttisarja, sitten ensin pelannut pelaaja.
-- Stöck: valttikuningas ja valttikuningatar samassa kädessä ovat 20 arvoisia, ja ne lasketaan, kun niistä jälkimmäinen pelataan.
+- Weis (ilmoitettavat yhdistelmät) ilmoitetaan ensimmäisen korttisi kanssa. Sarja samaa maata (kuutosesta ässään): kolme korttia 20, neljä 50, viisi 100, kuusi 150, seitsemän 200, kahdeksan 250, yhdeksän 300. Neljä jätkää 200, neljä ysiä 150, neljä ässää, kuningasta, kuningatarta tai kymppiä 100.
+- Pisteet saa vain pari, jolla on paras yksittäinen weis: kaikki sen weisit.
+- Stöck: valttikuningas ja valttikuningatar samassa kädessä, 20, lasketaan, kun jälkimmäinen pelataan.
 # Pisteet
 - Kumpikin pari saa korttipisteensä, weisinsä ja Stöckinsä.
-- Pitkä peli (2500:aan) kertoo kaiken: ruutu ja hertta kerran, pata ja risti kahdesti, Obenabe ja Undeufe kolmesti.
+- Pitkä peli kertoo: ruutu ja hertta kerran, pata ja risti kahdesti, Obenabe ja Undeufe kolmesti.
 # Pelin loppu
-Ensimmäisenä 1000 (2500) pisteeseen ehtivä pari voittaa. Stöck lasketaan heti, kun se pelataan, sitten weisit ensimmäisen tikin jälkeen, sitten tikit jaon lopussa; jako pelataan aina loppuun. Jos molemmat parit ylittävät rajan saman jaon tikeillä, suurempi yhteispistemäärä voittaa.
-# Pelaaminen laitteella
-Anna laite pelaajalle, jonka nappula hehkuu; hän napauttaa aloitusta ja näkee oman kätensä. Valitse peli napauttamalla maan merkkiä, ylänuolta (Obenabe) tai alanuolta (Undeufe) ja sitten rastia (tai samaa uudelleen); työnnä napauttamalla passipainiketta. Valitsijan paikka näyttää pelin, työntäjän paikka passimerkin. Ensimmäisessä tikissä, kun kädessäsi on weis, tikkipinoa vastapäätä oleva painike näyttää sen pisteet: ilmoita se napauttamalla painiketta ennen kuin pelaat korttisi. Jokainen paikka näyttää ilmoitetut weisit, sitten vain pisteet saavan parin weisit kultaisessa valossa; Stöck näkyy valttikuninkaana ja -kuningattarena sen saaneen pelaajan paikalla. Pelaa napauttamalla hehkuvaa korttia, jolloin se nousee, ja napauta sitä uudelleen tai sen paikkaa keskellä; tai vedä se sinne. Napauta oikean alakulman pinoa nähdäksesi viimeisen tikin. Jokaisen jaon jälkeen taulukko näyttää kummankin parin pelin (pitkässä pelissä kertoimineen), korttipisteet (matchissa kultaisessa valossa), weisit ja Stöckin, jaon pisteet ja yhteispisteet; sen alla kummankin parin merkit matkalla tavoitteeseen. Napauta taulukkoa seuraavaa jakoa varten. Jokainen palkki näyttää kädessä olevat kortit ja parin yhteispisteet. Kumoa peruu vahvistamattoman valinnan, ei koskaan valintaa sen jälkeen, kun laite on annettu eteenpäin.
+Stöck lasketaan heti, kun se pelataan, weisit ensimmäisen tikin jälkeen, tikit jaon lopussa; jako pelataan aina loppuun. Jos molemmat parit ylittävät rajan saman jaon tikeillä, suurempi yhteispistemäärä voittaa.

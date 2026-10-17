@@ -1,42 +1,28 @@
 Canastra
 # O objetivo
-Ser a primeira dupla a chegar a 5000 pontos. Para 4 jogadores em duas duplas (os parceiros sentam frente a frente e dividem seus jogos baixados), ou para 2 jogadores. Baixe cartas do mesmo valor, forme canastras de sete cartas e bata.
+Ser a primeira dupla a chegar a 5000 pontos: 4 jogadores em duas duplas, ou 2 jogadores.
 # As cartas
-- Dois baralhos de 52 cartas e quatro jokers: 108 cartas.
-- Os jokers e os 2 são curingas: num jogo, valem por qualquer valor.
+- Dois baralhos e quatro jokers. Os jokers e os 2 são curingas.
 - Valor das cartas: joker 50, ás e 2 20, rei a 8 10, 7 a 4 5, 3 preto 5.
-- Os 3 vermelhos são cartas de bônus. Um 3 vermelho recebido ou comprado é baixado na hora ao lado dos jogos da sua dupla, e você compra outra carta no lugar. Cada um vale 100, os quatro 800; contam contra uma dupla que não baixou nada no fim da mão.
-- Os 3 pretos travam o lixo: ninguém pode pegá-lo enquanto houver um 3 preto em cima.
+- Um 3 vermelho é baixado na hora, e você compra outra carta no lugar: cada um vale 100, os quatro 800, e contam contra uma dupla que não baixou nada.
 # A distribuição
-- 11 cartas para cada um (2 jogadores: 15). A carta seguinte começa o lixo; o resto é o monte. Se essa carta for um curinga ou um 3 vermelho, outra carta a cobre e o lixo fica congelado.
-- A distribuição passa ao jogador seguinte a cada mão.
+- 11 cartas para cada um (2 jogadores: 15). Se a carta que começa o lixo for um curinga ou um 3 vermelho, outra carta a cobre e o lixo fica congelado.
 # Uma jogada
-- Compre a carta de cima do monte (2 jogadores: duas cartas) ou pegue o lixo inteiro.
-- Baixe jogos se quiser.
-- Descarte uma carta virada para cima: sua jogada termina.
+- Compre do monte (2 jogadores: duas cartas) ou pegue o lixo inteiro, baixe jogos se quiser e descarte uma carta.
 # Jogos e canastras
-- Um jogo: três ou mais cartas do mesmo valor (ases, do 4 ao rei), pelo menos duas naturais e no máximo três curingas. Sua dupla tem um só jogo de cada valor: as outras cartas desse valor vão nele.
-- Uma canastra: um jogo de sete cartas ou mais. Limpa (sem curinga) 500 pontos, suja 300.
-- A primeira baixada: os primeiros jogos da sua dupla, baixados numa só jogada, devem valer pelo menos 50 (o valor das cartas) enquanto a pontuação dela for menor que 1500, 90 a partir de 1500, 120 a partir de 3000, e 15 enquanto for negativa. Você pode baixá-los antes de comprar, para pegar o lixo com eles.
+- Um jogo: três ou mais cartas do mesmo valor, pelo menos duas naturais e no máximo três curingas. Sua dupla tem um só jogo de cada valor.
+- Uma canastra: sete cartas ou mais. Limpa 500, suja 300.
+- Os primeiros jogos da sua dupla, baixados numa só jogada, devem valer pelo menos 50 (90 a partir de 1500 pontos, 120 a partir de 3000, 15 com pontuação negativa). Você pode baixá-los antes de comprar, para pegar o lixo.
 # O lixo
-- Para pegá-lo, a carta de cima tem de ir na hora para um jogo: com cartas da sua mão ou num jogo da sua dupla. Depois o resto do lixo vai para a sua mão.
-- O lixo fica congelado enquanto houver um curinga nele (atravessado), e para uma dupla que ainda não baixou. Então só se pega com um par natural do valor da carta de cima, tirado da sua mão.
+- Para pegá-lo, a carta de cima tem de ir na hora para um jogo; o resto vai para a sua mão.
+- Ele fica congelado enquanto houver um curinga nele, e para uma dupla que ainda não baixou: então só se pega com um par natural do valor da carta de cima, tirado da sua mão.
 - Nunca quando há um 3 preto ou um curinga em cima.
 # Bater
-- Você bate quando se livra da última carta: baixando todas, ou todas menos uma que você descarta. Só quando sua dupla tem uma canastra (2 jogadores: duas). Até lá, você não pode baixar até ficar com menos de duas cartas.
+- Só quando sua dupla tem uma canastra (2 jogadores: duas). Até lá, você não pode baixar até ficar com menos de duas cartas.
 - Os 3 pretos só podem ser baixados (três ou quatro, sem curinga) ao bater.
-- Bater vale 100. Bater de mão vale 200: a mão inteira baixada numa só jogada, depois de comprar do monte, sem ter baixado nada antes nesta mão; então a primeira baixada não tem mínimo.
-- Quando o monte acaba, um jogador que pode pôr a carta de cima do lixo num jogo da sua dupla tem de pegar o lixo; senão, a mão termina.
+- Bater vale 100; bater de mão, 200: a mão inteira baixada numa só jogada depois de comprar do monte, sem ter baixado nada antes, e então a primeira baixada não tem mínimo.
+- Quando o monte acaba, você tem de pegar o lixo se puder pôr a carta de cima dele num jogo da sua dupla; senão, a mão termina.
 # A pontuação
-No fim de uma mão, cada dupla soma suas cartas baixadas, suas canastras, seus 3 vermelhos e a batida, menos as cartas que ficaram nas mãos dos seus jogadores.
+Cada dupla soma suas cartas baixadas, suas canastras, seus 3 vermelhos e a batida, menos as cartas que ficaram nas mãos dos seus jogadores.
 # O fim da partida
 A partida termina depois da mão em que uma dupla chega a 5000 pontos. Ganha o total mais alto; com o mesmo total, a vitória é dividida.
-# Jogando no aparelho
-As mãos são secretas: passe o aparelho quando a tela pedir, e o próximo jogador toca no botão de início. Sua mão fica embaixo, ordenada por valor. As outras mãos são pequenos leques em cima. Os jogos da sua dupla ficam acima da sua mão, os da outra dupla abaixo dos leques, uma coluna por valor. Uma canastra se fecha num monte com o número de cartas embaixo: com luz dourada se for limpa, com um curinga atravessado embaixo se for suja. As fichas e os 3 vermelhos de cada dupla ficam à esquerda da sua fileira. Enquanto uma dupla não baixou, um disco escuro à direita mostra quanto a primeira baixada exige, e ao lado o que já foi baixado nesta jogada. Cada barra mostra as cartas na mão e a pontuação da dupla.
-- Toque no monte para comprar.
-- Toque em cartas da sua mão para escolhê-las; toque de novo numa para devolvê-la.
-- Depois toque num jogo da sua dupla para juntá-las a ele, ou na fileira da sua dupla para um jogo novo. Antes de comprar, toque no lixo para pegá-lo com elas. Depois de comprar, escolha uma carta e toque no lixo para descartá-la. Você também pode arrastar uma carta até lá.
-- O que as cartas escolhidas podem fazer brilha: o lixo, um jogo, um lugar livre.
-- Quando o monte está vazio e você não pode pegar o lixo, toque no monte vazio para terminar a mão.
-- No fim de uma mão, uma tabela mostra para cada dupla as cartas baixadas, as canastras, os 3 vermelhos, a batida, as cartas na mão, os pontos da mão e os totais. Toque para a próxima mão.
-Desfazer volta as suas próprias ações, até o momento em que o aparelho foi passado.

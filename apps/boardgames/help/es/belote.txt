@@ -1,39 +1,33 @@
 Belote
 # El objetivo
-El juego de cartas favorito de Francia, para cuatro jugadores en dos equipos: los compañeros se sientan uno frente al otro. Gana bazas llenas de puntos y sé el primer equipo en alcanzar la meta: 501 puntos en Belote, 1000 en Coinche. La baraja tiene 32 cartas, del 7 al as. El turno pasa de un jugador al siguiente, y el que reparte avanza un puesto en cada mano.
-Las cartas no se barajan entre una mano y otra: se recogen las bazas, se corta y se reparte, como en una mesa de verdad.
+Cuatro jugadores en dos equipos, los compañeros uno frente al otro. Sé el primer equipo en alcanzar 501 puntos en Belote, 1000 en Coinche. La baraja tiene 32 cartas, del 7 al as.
 # Las cartas
-- Los triunfos se ordenan así: sota, 9, as, 10, rey, reina, 8, 7. Valen 20, 14, 11, 10, 4, 3, 0 y 0 puntos.
-- Los demás palos se ordenan así: as, 10, rey, reina, sota, 9, 8, 7. Valen 11, 10, 4, 3, 2, 0, 0 y 0 puntos.
-- La última baza da 10 puntos más (dix de der, «diez de últimas»): 162 puntos en cada mano.
-- El rey y la reina de triunfo en poder de un mismo jugador son belote y rebelote: 20 puntos para ese equipo. Se anuncian al jugarlos.
+- Triunfos, de mayor a menor: sota 20, 9 14, as 11, 10 10, rey 4, reina 3, 8 0, 7 0.
+- Los demás palos: as 11, 10 10, rey 4, reina 3, sota 2, 9 0, 8 0, 7 0.
+- La última baza da 10 puntos más (dix de der): 162 puntos en cada mano.
+- El rey y la reina de triunfo en poder de un mismo jugador son belote y rebelote: 20 puntos.
 # Elegir el triunfo (Belote)
-- Cada jugador recibe 3 cartas, luego 2, y la carta siguiente se pone boca arriba.
-- Por turno, cada jugador toma la carta vuelta, cuyo palo pasa a ser el triunfo, o pasa.
-- Si pasan los cuatro, hay una segunda vuelta: por turno, cada uno nombra otro palo como triunfo, o pasa. Si vuelven a pasar, el siguiente en repartir da cartas nuevas.
-- El jugador que toma es el tomador. Todos reciben 3 cartas más; el tomador recibe la carta vuelta y 2.
+- Cada jugador recibe 5 cartas, y la carta siguiente se pone boca arriba.
+- Por turno, cada uno toma la carta vuelta (su palo pasa a ser el triunfo) o pasa. Si pasan los cuatro, cada uno por turno nombra otro palo o pasa; si vuelven a pasar, cartas nuevas.
+- El tomador recibe la carta vuelta y 2 más, los demás 3.
 # La subasta (Coinche)
-- Cada jugador recibe sus 8 cartas: 3, 3 y 2. No se vuelve ninguna carta.
-- Por turno, cada jugador apuesta un contrato en un palo: los puntos que su equipo promete hacer, de 80 a 160 de 10 en 10, o capot (todas las bazas, que vale 250). Cada apuesta debe superar a la anterior. O pasa.
-- Un jugador puede hacer coinche a la apuesta del otro equipo: dobla lo que está en juego. El que apostó puede entonces hacer surcoinche, doblando otra vez, o pasar; en ambos casos la subasta termina.
-- Tres pases tras una apuesta cierran la subasta. Cuatro pases sin apuesta: cartas nuevas.
+- Por turno, cada uno apuesta un contrato en un palo, de 80 a 160 de 10 en 10, o capot (todas las bazas, 250), más alto que la apuesta anterior; o pasa.
+- Puedes hacer coinche a la apuesta del otro equipo, lo que dobla lo que está en juego; el que apostó puede hacer surcoinche, doblando otra vez, o pasar. En ambos casos la subasta termina.
+- Tres pases tras una apuesta cierran la subasta; cuatro pases sin apuesta: cartas nuevas.
 # Cómo se juega
-- El jugador que sigue al que reparte sale en la primera baza; el ganador de una baza sale en la siguiente.
-- Asiste al palo de salida si puedes.
-- Si no puedes, debes jugar un triunfo, más alto que cualquier triunfo que ya esté en la baza si puedes (si no puedes montar, cualquier triunfo). Si no tienes triunfo, juega cualquier carta.
-- Excepción: cuando tu compañero va ganando la baza, puedes jugar cualquier carta.
+- El jugador que sigue al que reparte sale; el ganador de una baza sale en la siguiente.
+- Asiste al palo si puedes. Si no, juega un triunfo, más alto que cualquier triunfo de la baza si puedes; sin triunfo, cualquier carta.
+- Pero cuando tu compañero va ganando la baza, puedes jugar cualquier carta.
 - Cuando se sale con triunfo, siempre debes jugar un triunfo más alto si puedes, incluso por encima de tu compañero.
 - El triunfo más alto gana la baza; si no hay ninguno, la carta más alta del palo de salida.
 # La puntuación (Belote)
-- Los tomadores deben hacer más puntos que el otro equipo, belote incluida. Entonces cada equipo se anota los puntos que ha hecho.
-- Si no, quedan dedans («dentro», es decir, fallan): el otro equipo se anota 162 y los tomadores nada. Belote y rebelote siempre se quedan con el equipo que las tenía.
-- Un equipo que gana todas las bazas hace capot: 250 puntos en lugar de 162.
+- Los tomadores deben hacer más puntos que el otro equipo, belote incluida: entonces cada equipo se anota sus puntos.
+- Si no, quedan dedans: el otro equipo se anota 162 y los tomadores nada. La belote siempre se queda con el equipo que la tenía.
+- Un equipo que gana todas las bazas hace capot: 250 en lugar de 162.
 # La puntuación (Coinche)
-- El contrato se cumple si los tomadores hacen al menos los puntos apostados (belote incluida) y más de 81; un contrato capot exige todas las bazas.
+- El contrato se cumple si los tomadores hacen al menos los puntos apostados (belote incluida) y más de 81; capot exige todas las bazas.
 - Cumplido: los tomadores se anotan su contrato más sus puntos; los defensores, sus propios puntos.
 - Fallido: los defensores se anotan 160 más el contrato.
-- Con coinche o surcoinche: el bando ganador se anota 160 más el contrato, doblado o cuadruplicado; el otro bando no se anota nada salvo su belote.
+- Con coinche o surcoinche: el ganador se anota 160 más el contrato, doblado o cuadruplicado; el otro bando, solo su belote.
 # El final de la partida
 La partida termina después de la mano en la que un equipo alcanza la meta. Gana el equipo con más puntos; si los totales empatan, se juega una mano más.
-# Jugar en el dispositivo
-Pasaos el dispositivo: cada jugador solo ve sus propias cartas, abajo. Los demás jugadores se sientan alrededor de la mesa: a la izquierda, enfrente (tu compañero) y a la derecha, en el orden de sus barras de arriba. Para tomar, toca la carta vuelta; en la segunda vuelta, toca el as del palo que nombras. En Coinche, toca un contrato y luego el as de su palo; la ficha redonda con una cruz y un 2 hace coinche (una cruz y un 4: surcoinche). El botón Paso está en tu barra. Para jugar, toca una carta para levantarla y luego tócala otra vez, o toca la mesa, o arrástrala hasta allí. Las cartas que no puedes jugar aparecen atenuadas. La última baza se muestra en pequeño en la esquina. Cada barra muestra el total del equipo y lo que dijo cada jugador: paso, un contrato o el as de triunfo del tomador. Tras cada mano, una tabla muestra los puntos de cada equipo, la puntuación de la mano y los totales (una cruz: contrato fallido); tócala para la siguiente mano.

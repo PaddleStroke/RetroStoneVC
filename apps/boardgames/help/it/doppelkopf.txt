@@ -1,46 +1,36 @@
 Doppelkopf
 # Lo scopo
-Il gioco di carte preferito in Germania, per quattro, con un doppio mazzo. In ogni smazzata i due giocatori che hanno le donne di fiori, la squadra Re, giocano contro gli altri due, la squadra Kontra; ma all'inizio nessuno sa chi sta con chi. Una partita è una serie di 12 o 24 smazzate, a scelta; alla fine vince il totale più alto. Le regole sono quelle dei tornei della Lega tedesca di Doppelkopf (DDV). Le carte hanno semi francesi, come spesso si gioca a Doppelkopf; i semi tedeschi (ghiande, foglie, cuori, sonagli) potrebbero arrivare più avanti. Per 4 giocatori che si passano il dispositivo; nessuno vede le carte degli altri.
+Un gioco di carte per quattro con un doppio mazzo, con le regole della Lega tedesca di Doppelkopf (DDV), senza solo obbligatori. I due giocatori che hanno le donne di fiori (Re, le Alten, «le vecchie») giocano contro gli altri due (Kontra); all'inizio nessuno sa chi sta con chi.
 # La distribuzione
-Il mazzo ha 48 carte: 9, 10, fante, donna, re e asso di ogni seme, ogni carta due volte. Ogni giocatore riceve 12 carte. Il primo mazziere è il giada; poi il mazziere avanza di un posto a ogni smazzata. Il giocatore dopo il mazziere parla per primo ed esce nella prima presa.
+48 carte, 9, 10, fante, donna, re e asso di ogni seme, ogni carta due volte; 12 carte a testa.
 # Le riserve
-- Prima della prima carta, ogni giocatore a turno dice gesund («sano»: nessuna riserva) oppure che ha una riserva (Vorbehalt). Che cosa vuole giocare resta segreto: un solo o un matrimonio.
-- Un giocatore che ha entrambe le donne di fiori può annunciare un matrimonio (Hochzeit). La scelta è sua: può anche tacere e giocare un solo silenzioso contro gli altri tre.
-- Si gioca il primo solo in ordine di turno; altrimenti il matrimonio; altrimenti il gioco normale.
+- Prima della prima carta, ogni giocatore dice gesund («sano»: nessuna riserva) oppure che ha una riserva (Vorbehalt): un solo o un matrimonio. Si gioca il primo solo in ordine di turno; altrimenti il matrimonio; altrimenti il gioco normale.
+- Con entrambe le donne di fiori puoi annunciare un matrimonio (Hochzeit), oppure tacere e giocare un solo silenzioso.
 # Le briscole
-- Nel gioco normale il 10 di cuori (la Dulle) è la briscola più alta. Seguono le donne e poi i fanti, ciascuno nell'ordine fiori, picche, cuori, quadri, poi asso, 10, re e 9 di quadri: 26 briscole.
-- Gli altri semi vanno in quest'ordine: asso, 10, re, 9; cuori ha solo asso, re e 9.
-- Tra due carte uguali nella stessa presa vince la prima giocata.
+- Nel gioco normale, dalla più alta: il 10 di cuori (la Dulle), le donne, i fanti (ciascuno nell'ordine fiori, picche, cuori, quadri), poi asso, 10, re e 9 di quadri.
+- Gli altri semi vanno in quest'ordine: asso, 10, re, 9 (cuori non ha il 10). Tra due carte uguali vince la prima giocata.
 # Le squadre
-- Chi ha le donne di fiori (le Alten, «le vecchie») è Re, gli altri sono Kontra. Ognuno conosce la propria squadra, non quella degli altri. Una squadra si scopre quando viene giocata una donna di fiori o quando qualcuno fa un annuncio.
-- Matrimonio: il primo altro giocatore che vince una delle prime tre prese diventa il compagno della sposa. Se la sposa le vince tutte e tre, gioca da sola, come in un solo.
+- Matrimonio: il primo altro giocatore che vince una delle prime tre prese diventa il compagno della sposa; se la sposa le vince tutte e tre, gioca un solo.
 # I solo
 Un giocatore, il solista (Re), gioca contro gli altri tre (Kontra).
-- Solo di donne: sono briscola solo le otto donne.
-- Solo di fanti: sono briscola solo gli otto fanti.
+- Solo di donne o di fanti: sono briscola solo le donne, o solo i fanti.
 - Solo di seme: le briscole del gioco normale, con il seme scelto al posto dei quadri.
 - Fleischlos («senza carne»): niente briscole; ogni seme va in quest'ordine: asso, 10, re, donna, fante, 9.
 # Il gioco
-Rispondi al seme d'uscita se puoi (tutte le briscole contano come un unico seme); altrimenti gioca una carta qualsiasi. La briscola più alta vince la presa, altrimenti la carta più alta del seme d'uscita. Chi vince esce nella presa successiva.
+Rispondi al seme d'uscita se puoi (tutte le briscole contano come un unico seme), altrimenti gioca una carta qualsiasi. Vince la briscola più alta, altrimenti la carta più alta del seme d'uscita; chi vince esce nella presa successiva.
 # Gli annunci
-- Prima di giocare una carta, un giocatore può annunciare per la sua squadra: Re o Kontra se ha ancora almeno 11 carte, niente 90 (keine 90) almeno 10, niente 60 (keine 60) almeno 9, niente 30 (keine 30) almeno 8, schwarz (nessuna presa) almeno 7. Ogni annuncio comprende quelli precedenti.
-- Dopo che l'altra squadra ha annunciato, si può ancora rispondere Re o Kontra, una carta più tardi del limite proprio di quell'annuncio.
+- Prima di giocare una carta, puoi annunciare per la tua squadra: Re o Kontra se hai ancora almeno 11 carte, niente 90 (keine 90) almeno 10, niente 60 almeno 9, niente 30 almeno 8, schwarz (nessuna presa) almeno 7. Ogni annuncio comprende quelli precedenti.
+- In risposta a un annuncio dell'altra squadra, Re o Kontra può arrivare una carta più tardi del suo limite.
 - In un matrimonio non si può annunciare nulla prima che il compagno sia trovato; i limiti si spostano poi di tante prese quante ne sono servite.
-- Qui un giocatore annuncia al proprio turno, mentre ha il dispositivo in mano.
 # Vincere la smazzata
-- Punti delle carte: asso 11, 10 10, re 4, donna 3, fante 2: 240 in tutto.
-- Re vince con 121 punti, Kontra con 120. Se è stato annunciato solo Kontra, Re vince con 120 e a Kontra servono 121.
-- Una squadra che ha annunciato niente 90 (niente 60, niente 30, schwarz) deve tenere l'altra squadra sotto 90 (60, 30, senza prese), altrimenti vince l'altra squadra. Se entrambe le squadre falliscono annunci del genere, non vince nessuno.
+- Punti delle carte: asso 11, 10 10, re 4, donna 3, fante 2 (240 in tutto). A Re servono 121 punti, a Kontra 120; se è stato annunciato solo Kontra, a Re servono 120 e a Kontra 121.
+- Una squadra che ha annunciato niente 90 (niente 60, niente 30, schwarz) perde se l'altra squadra arriva a 90 (60, 30, una presa). Se entrambe le squadre falliscono annunci del genere, non vince nessuno.
 # Il valore del gioco
-- Vinto: 1. I perdenti sotto 90, sotto 60, sotto 30 e senza prese (schwarz): 1 ciascuno.
-- Re annunciato: 2. Kontra annunciato: 2. Ogni niente 90, niente 60, niente 30 e schwarz annunciato: 1.
-- 120 raggiunti contro il niente 90 dell'altra squadra, 90 contro niente 60, 60 contro niente 30, 30 contro schwarz: 1 ciascuno.
-- Punti extra (Sonderpunkte), solo nel gioco normale e nel matrimonio, per la squadra che li fa: una volpe catturata (Fuchs: un asso di quadri avversario in una presa che vinci tu), un Doppelkopf (una presa da 40 punti o più), Karlchen («Carletto»: l'ultima presa vinta con il fante di fiori) e contro le vecchie (gegen die Alten: vince Kontra): 1 ciascuno. I punti extra delle due squadre si compensano.
+- Vinto: 1. I perdenti sotto 90, sotto 60, sotto 30, senza prese: 1 ciascuno.
+- Re o Kontra annunciato: 2 ciascuno; ogni niente 90, niente 60, niente 30 e schwarz annunciato: 1.
+- 120 contro niente 90, 90 contro niente 60, 60 contro niente 30, 30 contro schwarz: 1 ciascuno.
+- Punti extra (Sonderpunkte), solo nel gioco normale e nel matrimonio, 1 ciascuno: una volpe catturata (Fuchs: un asso di quadri avversario nella tua presa), un Doppelkopf (una presa da 40 punti o più), Karlchen («Carletto»: l'ultima presa vinta con il fante di fiori), contro le vecchie (gegen die Alten: vince Kontra). I punti extra delle due squadre si compensano.
 # Il punteggio
-- Gioco normale: ogni giocatore Re segna il valore del gioco se ha vinto Re (in negativo se ha vinto Kontra), più i punti extra di Re, meno quelli di Kontra; ogni giocatore Kontra segna l'opposto.
-- Solo: il solista segna il triplo, ogni avversario una volta.
-- Qui non ci sono solo obbligatori.
+- Ogni giocatore Re segna il valore del gioco se ha vinto Re (in negativo se ha vinto Kontra), più i punti extra di Re, meno quelli di Kontra; ogni giocatore Kontra segna l'opposto. Il solista segna il triplo.
 # La fine della partita
-Dopo l'ultima smazzata della serie vince il totale più alto. Chi è a pari totale divide la vittoria.
-# Giocare sul dispositivo
-Passa il dispositivo al giocatore di cui brilla la pedina; tocca il pulsante di avvio e vede la sua mano. Per dire gesund, tocca passo. Per una riserva, tocca un gioco, poi il segno di spunta (o di nuovo lo stesso gioco): un solo di seme (il segno del seme), il solo di donne (una donna), il solo di fanti (un alfiere, la figura del fante), Fleischlos (quattro assi) o il matrimonio (due donne di fiori, solo se le hai entrambe). Ogni posto mostra la parola del suo giocatore: il segno di passo per gesund, una lampada per una riserva. Durante il gioco ogni posto mostra ciò che il tavolo sa: la donna di fiori per Re, barrata per Kontra, in luce dorata una volta annunciato; la tua squadra appare sempre al tuo posto. Il posto del solista mostra il solo, quello della sposa il matrimonio finché non si trova il compagno; niente 90, niente 60, niente 30 e schwarz appaiono come 90, 60, 30 e 0 in un disco scuro. Quando puoi annunciare, il pulsante dalla parte opposta al mazzetto delle prese mostra il tuo prossimo annuncio: toccalo prima di giocare la carta. Per giocare, tocca una carta che brilla per sollevarla, poi toccala di nuovo o tocca il suo posto al centro; oppure trascinala lì. Tocca il mazzetto in basso a destra per rivedere l'ultima presa. Dopo ogni smazzata una tabella mostra ogni squadra con i suoi punti carta, i suoi annunci, i suoi punti extra (l'asso di quadri: una volpe; 40: un Doppelkopf; il fante di fiori: Karlchen; la donna barrata: contro le vecchie) e un segno di spunta dorato per i vincitori; poi il valore del gioco, il saldo dei punti extra e i punti di ogni giocatore Re (per 3 per un solista); il punteggio e il totale di ogni giocatore; e la serie delle smazzate, con i gettoni dei vincitori in luce dorata. Toccala per la smazzata successiva. Ogni barra mostra le carte in mano e il totale. Annulla ritira una scelta non ancora confermata, mai una volta passato il dispositivo.
+Dopo l'ultima smazzata vince il totale più alto; chi è a pari totale divide la vittoria.

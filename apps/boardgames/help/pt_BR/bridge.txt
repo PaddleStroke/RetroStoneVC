@@ -1,25 +1,21 @@
 Bridge
 # O objetivo
-Bridge de contrato para quatro jogadores em duas duplas sentadas frente a frente: marfim e vermelho contra ébano e jade. Em cada mão as duplas disputam um leilão pelo direito de escolher o trunfo; a dupla que vence tenta depois fazer as vazas prometidas. Duas formas de jogar: Chicago, quatro mãos (o padrão, ideal para uma mesa descontraída), ou um rubber, quem vencer duas partidas primeiro. Ninguém vê as cartas dos outros.
+Bridge de contrato para quatro jogadores em duas duplas sentadas frente a frente: as duplas disputam um leilão pelo direito de escolher o trunfo, e a dupla que vence tenta depois fazer as vazas prometidas.
 # Os lances
-Todas as 52 cartas são distribuídas, 13 para cada um. O carteador fala primeiro e depois cada jogador na sua vez:
-- um lance: um número de 1 a 7 e um naipe ou sem trunfo. Ele promete esse número de vazas acima de seis (1 quer dizer 7 vazas). Cada lance deve superar o anterior: um número maior, ou o mesmo número num naipe mais alto. Do mais baixo ao mais alto: paus, ouros, copas, espadas, sem trunfo.
+O carteador fala primeiro e depois cada jogador na sua vez:
+- um lance: de 1 a 7 e um naipe ou sem trunfo; ele promete esse número de vazas acima de seis. Deve superar o anterior: um número maior, ou o mesmo número num naipe mais alto (paus, ouros, copas, espadas, sem trunfo).
 - passo;
-- dobre sobre o último lance adversário, que aumenta o que está em jogo; redobre sobre um lance da sua dupla que foi dobrado.
-Três passos depois de um lance encerram o leilão. O último lance é o contrato e o seu naipe é o trunfo. O declarante é o jogador dessa dupla que nomeou primeiro esse naipe (ou o sem trunfo); o parceiro dele é o morto. Quatro passos sem lance: as cartas são distribuídas de novo.
-O que um lance diz sobre uma mão é um acordo entre parceiros (um sistema de lances), não uma regra: combinem o de vocês antes de começar. Explicar os lances por completo vai além desta página.
+- dobre sobre o último lance adversário; redobre sobre um lance da sua dupla que foi dobrado.
+Três passos depois de um lance encerram o leilão. O último lance é o contrato e o seu naipe é o trunfo. O declarante é o jogador dessa dupla que nomeou primeiro esse naipe; o parceiro dele é o morto. Quatro passos: as cartas são distribuídas de novo.
 # O jogo
-- O jogador à esquerda do declarante faz a saída. Depois o morto abre a mão virada para cima para todos, e o declarante joga essa mão além da sua.
-- Siga o naipe de saída se puder; senão jogue qualquer carta. O trunfo mais alto vence a vaza; sem trunfo, a carta mais alta do naipe de saída (o ás é a mais alta). Quem vence sai na vaza seguinte.
-- O declarante precisa de seis vazas mais o número do lance.
+- O jogador à esquerda do declarante faz a saída. Depois o morto abre a mão virada para cima, e o declarante joga essa mão também.
+- Siga o naipe de saída se puder; senão jogue qualquer carta. O trunfo mais alto vence a vaza; sem trunfo, a carta mais alta do naipe de saída. Quem vence sai na vaza seguinte.
 # A pontuação
 - Contrato cumprido: cada vaza do lance acima de seis vale 20 em paus ou ouros, 30 em copas ou espadas; em sem trunfo 40 a primeira e depois 30. Dobrado, o dobro; redobrado, o quádruplo. 100 desses pontos ou mais formam uma partida.
 - Cada vaza a mais: o seu valor; dobrada 100 (vulnerável 200), redobrada o dobro. Um contrato dobrado cumprido rende 50 a mais, um redobrado 100.
 - Slams: 12 vazas no lance e feitas 500 (vulnerável 750), todas as 13 vazas 1000 (vulnerável 1500).
-- Contrato perdido: os defensores marcam cada vaza que faltou 50 (vulnerável 100). Dobrado: 100, depois 200 pela 2.ª e pela 3.ª, depois 300 cada; vulnerável 200, depois 300 cada. Redobrado: o dobro do dobrado.
+- Contrato perdido: os defensores marcam 50 por vaza que faltou (vulnerável 100). Dobrado: 100, 200, 200, depois 300 cada (vulnerável 200, depois 300 cada); redobrado, o dobro.
 # O fim da partida
-- Chicago: quatro mãos. Ninguém é vulnerável na primeira, a dupla do carteador na segunda e na terceira, as duas duplas na quarta. Cada mão é pontuada à parte: uma partida rende 300 a mais (vulnerável 500), qualquer contrato menor 50. Se todos passarem, o mesmo carteador distribui de novo.
-- Rubber: os pontos de contrato vão abaixo da linha e somam até uma partida de 100; uma partida apaga as parciais das duas duplas. A dupla que já venceu uma partida é vulnerável. A primeira dupla a vencer duas partidas fecha o rubber: 700 a mais por dois a zero, 500 por dois a um. As honras só contam no rubber: os cinco trunfos mais altos (ás, rei, dama, valete, 10) numa mão 150, quatro deles 100, os quatro ases em sem trunfo 150, para a dupla dessa mão, seja qual for o resultado.
+- Chicago: quatro mãos. Vulneráveis: ninguém na primeira, a dupla do carteador na segunda e na terceira, as duas duplas na quarta. Uma partida rende 300 a mais (vulnerável 500), qualquer contrato menor 50.
+- Rubber: uma partida apaga as parciais das duas duplas, e a dupla que já venceu uma é vulnerável. Duas partidas fecham o rubber: 700 a mais por dois a zero, 500 por dois a um. Honras, só no rubber: os cinco trunfos mais altos numa mão 150, quatro deles 100, os quatro ases em sem trunfo 150.
 - Vence a dupla com o maior total.
-# Jogando no aparelho
-Passe o aparelho para o jogador cuja ficha aparece; ele toca no botão de início e vê a sua mão. O leilão é uma tabela de lances, uma coluna por jogador, com as fichas no alto: esquerda, frente, direita, você. Um anel vermelho em volta de uma ficha: essa dupla é vulnerável. Para dar um lance, toque num botão da caixa de lances (o sem trunfo é um disco com os quatro naipes riscados; o verde passa, a cruz vermelha dobra, duas cruzes azuis redobram) e depois no sinal de confirmação, ou no mesmo botão de novo. No jogo o declarante fica com o aparelho também para o morto; o dono do morto só assiste. Toque numa carta que brilha para levantá-la e toque nela de novo ou no lugar dela no centro; ou arraste-a até lá. As vazas se empilham, com a contagem, na frente do declarante e do defensor que fez a primeira vaza da sua dupla. Toque no contrato no canto de cima para ver o leilão e a última vaza. Depois de cada mão a folha de pontos mostra nós (a sua dupla) e eles em duas colunas; toque nela para a próxima mão. Cada barra mostra o total da dupla, um anel vermelho se for vulnerável e, no rubber, os pontos abaixo da linha num disco escuro. Desfazer retira uma escolha ainda não confirmada, nunca um lance ou uma carta depois de passar o aparelho.

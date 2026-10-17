@@ -1,39 +1,33 @@
 Belote
 # O objetivo
-O jogo de cartas preferido da França, para quatro jogadores em duas duplas: os parceiros sentam frente a frente. Ganhe vazas cheias de pontos e seja a primeira dupla a chegar à meta: 501 pontos na Belote, 1000 na Coinche. O baralho tem 32 cartas, do 7 ao ás. A vez passa de jogador em jogador, e quem dá as cartas avança um lugar a cada rodada.
-As cartas não são embaralhadas entre as rodadas: as vazas são recolhidas, corta-se e distribui-se, como numa mesa de verdade.
+Quatro jogadores em duas duplas, os parceiros frente a frente. Seja a primeira dupla a chegar a 501 pontos na Belote, 1000 na Coinche. O baralho tem 32 cartas, do 7 ao ás.
 # As cartas
-- Ordem dos trunfos: valete, 9, ás, 10, rei, dama, 8, 7. Valem 20, 14, 11, 10, 4, 3, 0 e 0 pontos.
-- Ordem nos outros naipes: ás, 10, rei, dama, valete, 9, 8, 7. Valem 11, 10, 4, 3, 2, 0, 0 e 0 pontos.
-- A última vaza vale 10 pontos a mais (dix de der, "dez da última"): 162 pontos em cada rodada.
-- O rei e a dama de trunfo na mesma mão são a belote e a rebelote: 20 pontos para essa dupla. O jogador as anuncia ao jogá-las.
+- Trunfos, do mais alto ao mais baixo: valete 20, 9 14, ás 11, 10 10, rei 4, dama 3, 8 0, 7 0.
+- Outros naipes: ás 11, 10 10, rei 4, dama 3, valete 2, 9 0, 8 0, 7 0.
+- A última vaza vale 10 pontos a mais (dix de der): 162 pontos em cada rodada.
+- O rei e a dama de trunfo na mesma mão são a belote e a rebelote: 20 pontos.
 # Escolha do trunfo (Belote)
-- Cada jogador recebe 3 cartas, depois 2, e a carta seguinte é virada para cima.
-- Na sua vez, cada jogador pega a carta virada, cujo naipe se torna trunfo, ou passa.
-- Se os quatro passarem, há uma segunda volta: cada um na sua vez escolhe outro naipe como trunfo, ou passa. Se todos passarem de novo, o próximo a dar as cartas distribui cartas novas.
-- Quem pega é o tomador. Todos recebem mais 3 cartas; o tomador recebe a carta virada e mais 2.
+- Cada jogador recebe 5 cartas, e a carta seguinte é virada para cima.
+- Na sua vez, cada jogador pega a carta virada (o naipe dela se torna trunfo) ou passa. Se os quatro passarem, cada um na sua vez escolhe outro naipe ou passa; se todos passarem de novo, cartas novas.
+- O tomador recebe a carta virada e mais 2, os outros 3.
 # O leilão (Coinche)
-- Cada jogador recebe as 8 cartas de uma vez: 3, 3 e 2. Nenhuma carta é virada.
-- Na sua vez, cada jogador anuncia um contrato num naipe: os pontos que sua dupla promete fazer, de 80 a 160 de 10 em 10, ou capot (todas as vazas, vale 250). Cada lance tem de ser maior que o anterior. Ou passa.
-- Um jogador pode dar coinche no lance da outra dupla: isso dobra o que está em jogo. Quem fez o lance pode então dar surcoinche, dobrando de novo, ou passar; de qualquer forma, o leilão termina.
-- Três passes depois de um lance encerram o leilão. Quatro passes sem nenhum lance: cartas novas.
+- Na sua vez, cada jogador anuncia um contrato num naipe, de 80 a 160 de 10 em 10, ou capot (todas as vazas, 250), maior que o lance anterior; ou passa.
+- Você pode dar coinche no lance da outra dupla, o que dobra o que está em jogo; quem fez o lance pode dar surcoinche, dobrando de novo, ou passar. De qualquer forma, o leilão termina.
+- Três passes depois de um lance encerram o leilão; quatro passes sem nenhum lance: cartas novas.
 # Jogando as cartas
-- O jogador depois de quem deu as cartas abre a primeira vaza; quem ganha uma vaza abre a seguinte.
-- Siga o naipe da saída, se puder.
-- Se não puder, você tem de jogar um trunfo, maior que os trunfos que já estão na vaza se puder (se não puder subir, qualquer trunfo). Se não tiver trunfo, jogue qualquer carta.
-- Exceção: quando seu parceiro está ganhando a vaza, você pode jogar qualquer carta.
+- O jogador depois de quem deu as cartas abre; quem ganha uma vaza abre a seguinte.
+- Siga o naipe da saída, se puder. Se não puder, jogue um trunfo, maior que os trunfos da vaza se puder; sem trunfo, qualquer carta.
+- Mas quando seu parceiro está ganhando a vaza, você pode jogar qualquer carta.
 - Quando a saída é de trunfo, você sempre tem de jogar um trunfo maior se puder, mesmo por cima do parceiro.
 - O trunfo mais alto ganha a vaza; se não houver nenhum, a carta mais alta do naipe da saída.
 # A pontuação (Belote)
-- Os tomadores têm de fazer mais pontos que a outra dupla, contando a belote. Então cada dupla marca os pontos que fez.
-- Senão, eles ficam dedans ("dentro"): a outra dupla marca 162 e os tomadores, nada. A belote e a rebelote ficam sempre com a dupla que as tinha.
-- Uma dupla que faz todas as vazas faz capot: 250 pontos em vez de 162.
+- Os tomadores têm de fazer mais pontos que a outra dupla, contando a belote: então cada dupla marca seus pontos.
+- Senão, eles ficam dedans: a outra dupla marca 162 e os tomadores, nada. A belote fica sempre com a dupla que a tinha.
+- Uma dupla que faz todas as vazas faz capot: 250 em vez de 162.
 # A pontuação (Coinche)
-- O contrato é cumprido se os tomadores fizerem pelo menos os pontos anunciados (contando a belote) e mais de 81; um contrato capot exige todas as vazas.
+- O contrato é cumprido se os tomadores fizerem pelo menos os pontos anunciados (contando a belote) e mais de 81; capot exige todas as vazas.
 - Cumprido: os tomadores marcam o contrato mais os seus pontos, os defensores os próprios pontos.
 - Não cumprido: os defensores marcam 160 mais o contrato.
-- Com coinche ou surcoinche: o lado vencedor marca 160 mais o contrato, multiplicado por 2 ou por 4; o outro lado só marca a sua belote.
+- Com coinche ou surcoinche: o vencedor marca 160 mais o contrato, multiplicado por 2 ou por 4; o outro lado só a sua belote.
 # O fim da partida
 A partida termina depois da rodada em que uma dupla chega à meta. Vence a dupla com mais pontos; se os totais forem iguais, joga-se mais uma rodada.
-# Jogando no aparelho
-Passem o aparelho: cada jogador só vê as próprias cartas, embaixo. Os outros jogadores ficam ao redor da mesa: à esquerda, à frente (seu parceiro) e à direita, na ordem das barras deles em cima. Para pegar, toque na carta virada; na segunda volta, toque no ás do naipe que você escolhe. Na Coinche, toque num contrato e depois no ás do naipe dele; a ficha redonda com uma cruz e um 2 dá coinche (uma cruz e um 4: surcoinche). O botão de passar fica na sua barra. Para jogar, toque numa carta para levantá-la e depois toque nela de novo, ou toque na mesa, ou arraste-a até lá. As cartas que você não pode jogar ficam acinzentadas. A última vaza aparece pequena no canto. Cada barra mostra o total da dupla e o que cada jogador disse: passo, um contrato ou o ás de trunfo do tomador. Depois de cada rodada, uma tabela mostra os pontos de cada dupla, o resultado da rodada e os totais (uma cruz: o contrato não foi cumprido); toque nela para a próxima rodada.

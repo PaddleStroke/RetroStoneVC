@@ -1,46 +1,36 @@
 Doppelkopf
 # Het doel
-Het geliefdste kaartspel van Duitsland, voor vier, gespeeld met een dubbel kaartspel. In elk spel spelen de twee spelers met de klaverenvrouwen, het Re-kamp, tegen de andere twee, het Kontra-kamp; maar in het begin weet niemand wie bij wie hoort. Een partij is een lijst van 12 of 24 spellen, naar keuze; wie aan het eind het hoogste totaal heeft, wint. De regels zijn de toernooiregels van de Duitse Doppelkopfbond (DDV). De kaarten hebben Franse kleuren, zoals Doppelkopf vaak gespeeld wordt; Duitse kleuren (eikels, bladeren, harten, bellen) komen misschien later. Voor 4 spelers die het apparaat doorgeven; niemand ziet de kaarten van de anderen.
+Een kaartspel voor vier met een dubbel kaartspel, volgens de regels van de Duitse Doppelkopfbond (DDV), zonder verplichte solo's. De twee spelers met de klaverenvrouwen (Re, die Alten, de ouden) spelen tegen de andere twee (Kontra); in het begin weet niemand wie bij wie hoort.
 # Het delen
-Er wordt gespeeld met 48 kaarten: 9, 10, boer, vrouw, heer en aas van elke kleur, elke kaart twee keer. Elke speler krijgt 12 kaarten. Jade geeft eerst; daarna schuift de gever elk spel een plaats op. De speler na de gever spreekt als eerste en komt uit in de eerste slag.
+48 kaarten, 9, 10, boer, vrouw, heer en aas van elke kleur, elke kaart twee keer; 12 kaarten per speler.
 # Voorbehouden
-- Voor de eerste kaart zegt elke speler om de beurt gezond (gesund) of dat hij een voorbehoud (Vorbehalt) heeft. Wat hij wil, blijft geheim: een solo of een huwelijk.
-- Wie beide klaverenvrouwen heeft, mag een huwelijk (Hochzeit) aankondigen. Hij mag kiezen: hij mag ook zwijgen en een stille solo tegen de andere drie spelen.
-- De eerste solo in de beurtvolgorde wordt gespeeld; anders het huwelijk; anders het gewone spel.
+- Voor de eerste kaart zegt elke speler gezond (gesund) of dat hij een voorbehoud (Vorbehalt) heeft: een solo of een huwelijk. De eerste solo in de beurtvolgorde wordt gespeeld; anders het huwelijk; anders het gewone spel.
+- Met beide klaverenvrouwen mag je een huwelijk (Hochzeit) aankondigen, of zwijgen en een stille solo spelen.
 # Troeven
-- In het gewone spel is harten 10 (de Dulle) de hoogste troef. Dan komen de vrouwen en de boeren, elk in de volgorde klaveren, schoppen, harten, ruiten, en dan ruitenaas, ruiten 10, ruitenheer en ruiten 9: 26 troeven.
-- De andere kleuren lopen aas, 10, heer, 9; harten heeft alleen aas, heer en 9.
-- Van twee gelijke kaarten in een slag wint de kaart die het eerst gespeeld is.
+- In het gewone spel, van hoog naar laag: harten 10 (de Dulle), de vrouwen, de boeren (elk in de volgorde klaveren, schoppen, harten, ruiten), dan ruitenaas, ruiten 10, ruitenheer en ruiten 9.
+- De andere kleuren lopen aas, 10, heer, 9 (harten heeft geen 10). Van twee gelijke kaarten wint de kaart die het eerst gespeeld is.
 # De kampen
-- Wie een klaverenvrouw heeft (die Alten, de ouden), is Re, de anderen zijn Kontra. Elke speler kent zijn eigen kamp, niet dat van de anderen. Een kamp wordt bekend als er een klaverenvrouw gespeeld wordt of als iemand aankondigt.
-- Huwelijk: wie als eerste een van de eerste drie slagen wint en niet de bruid is, wordt de partner van de bruid. Haalt de bruid alle drie, dan speelt zij alleen, als solo.
+- Huwelijk: wie als eerste een van de eerste drie slagen wint en niet de bruid is, wordt de partner van de bruid; haalt de bruid alle drie, dan speelt zij een solo.
 # Solo's
 Eén speler, de solist (Re), speelt tegen de drie anderen (Kontra).
-- Vrouwensolo: alleen de acht vrouwen zijn troef.
-- Boerensolo: alleen de acht boeren zijn troef.
+- Vrouwen- of boerensolo: alleen de vrouwen, of alleen de boeren, zijn troef.
 - Kleursolo: de troeven van het gewone spel, met de gekozen kleur in plaats van ruiten.
 - Vleesloos (Fleischlos): geen troef; elke kleur loopt aas, 10, heer, vrouw, boer, 9.
 # Het spel
-Beken kleur als je kunt (alle troeven tellen als één kleur); anders speel je een willekeurige kaart. De hoogste troef wint de slag, anders de hoogste kaart van de gevraagde kleur. De winnaar komt uit in de volgende slag.
+Beken kleur als je kunt (alle troeven tellen als één kleur), anders speel je een willekeurige kaart. De hoogste troef wint, anders de hoogste kaart van de gevraagde kleur; de winnaar komt uit in de volgende slag.
 # Aankondigingen
-- Voordat hij een kaart speelt, mag een speler voor zijn kamp aankondigen: Re of Kontra zolang hij nog minstens 11 kaarten heeft, geen 90 (keine 90) met minstens 10, geen 60 (keine 60) met minstens 9, geen 30 (keine 30) met minstens 8, schwarz (zwart: geen enkele slag) met minstens 7. Elke aankondiging omvat de lagere.
-- Heeft het andere kamp aangekondigd, dan mag als antwoord nog Re of Kontra gezegd worden, één kaart later dan de grens van die aankondiging zelf.
+- Voordat je een kaart speelt, mag je voor je kamp aankondigen: Re of Kontra zolang je nog minstens 11 kaarten hebt, geen 90 (keine 90) met minstens 10, geen 60 met minstens 9, geen 30 met minstens 8, schwarz (zwart: geen enkele slag) met minstens 7. Elke aankondiging omvat de lagere.
+- Als antwoord op een aankondiging van het andere kamp mag Re of Kontra één kaart later komen dan de grens daarvan.
 - Bij een huwelijk mag niets aangekondigd worden voordat de partner gevonden is; de grenzen schuiven dan op met het aantal slagen dat dat duurde.
-- Hier kondigt een speler aan in zijn eigen beurt, terwijl hij het apparaat in handen heeft.
 # Winnen of verliezen
-- Kaartpunten: aas 11, 10 10, heer 4, vrouw 3, boer 2: samen 240.
-- Re wint met 121 punten, Kontra met 120. Is alleen Kontra aangekondigd, dan wint Re met 120 en heeft Kontra 121 nodig.
-- Een kamp dat geen 90 (geen 60, geen 30, schwarz) aankondigde, moet het andere kamp onder de 90 (60, 30, zonder slag) houden, anders wint het andere kamp. Halen beide kampen zulke aankondigingen niet, dan wint niemand.
+- Kaartpunten: aas 11, 10 10, heer 4, vrouw 3, boer 2 (samen 240). Re heeft 121 nodig, Kontra 120; is alleen Kontra aangekondigd, dan heeft Re 120 nodig en Kontra 121.
+- Een kamp dat geen 90 (geen 60, geen 30, schwarz) aankondigde, verliest als het andere kamp 90 (60, 30, een slag) haalt. Halen beide kampen zulke aankondigingen niet, dan wint niemand.
 # De spelwaarde
-- Gewonnen: 1. De verliezers onder 90, onder 60, onder 30 en zonder slag (schwarz): elk 1.
-- Re aangekondigd: 2. Kontra aangekondigd: 2. Elke aangekondigde geen 90, geen 60, geen 30 en schwarz: 1.
-- 120 gehaald tegen geen 90 van het andere kamp, 90 tegen geen 60, 60 tegen geen 30, 30 tegen schwarz: elk 1.
-- Extra punten (Sonderpunkte), alleen in het gewone spel en bij een huwelijk, voor het kamp dat ze maakt: een gevangen vos (Fuchs: een ruitenaas van de tegenpartij in een slag die jij haalt), een Doppelkopf (een slag van 40 punten of meer), Karlchen (Kareltje: de laatste slag gewonnen met klaverenboer) en tegen de ouden (gegen die Alten: Kontra wint): elk 1. De extra punten van beide kampen worden tegen elkaar weggestreept.
+- Gewonnen: 1. De verliezers onder 90, onder 60, onder 30, zonder slag: elk 1.
+- Re of Kontra aangekondigd: elk 2; elke aangekondigde geen 90, geen 60, geen 30 en schwarz: 1.
+- 120 tegen geen 90, 90 tegen geen 60, 60 tegen geen 30, 30 tegen schwarz: elk 1.
+- Extra punten (Sonderpunkte), alleen in het gewone spel en bij een huwelijk, elk 1: een gevangen vos (Fuchs: een ruitenaas van de tegenpartij in jouw slag), een Doppelkopf (een slag van 40 punten of meer), Karlchen (Kareltje: de laatste slag gewonnen met klaverenboer), tegen de ouden (gegen die Alten: Kontra wint). De extra punten van beide kampen worden tegen elkaar weggestreept.
 # De telling
-- Gewoon spel: elke Re-speler krijgt de spelwaarde als Re won (onder nul als Kontra won), plus de extra punten van Re, min die van Kontra; elke Kontra-speler krijgt het omgekeerde.
-- Solo: de solist krijgt drie keer zoveel, elke tegenspeler één keer.
-- Verplichte solo's zijn er hier niet.
+- Elke Re-speler krijgt de spelwaarde als Re won (onder nul als Kontra won), plus de extra punten van Re, min die van Kontra; elke Kontra-speler krijgt het omgekeerde. De solist krijgt drie keer zoveel.
 # Het einde van de partij
-Na het laatste spel van de lijst wint het hoogste totaal. Bij een gelijk totaal delen de spelers de winst.
-# Spelen op het apparaat
-Geef het apparaat aan de speler wiens fiche oplicht; die tikt op start en ziet zijn hand. Om gezond te zeggen tik je op pas. Voor een voorbehoud tik je een spel aan en dan het vinkje (of nog eens hetzelfde spel): een kleursolo (het teken van de kleur), de vrouwensolo (een vrouw), de boerensolo (een loper, de figuur van de boer), vleesloos (vier azen) of het huwelijk (twee klaverenvrouwen, alleen als je ze allebei hebt). Elke plaats toont het woord van zijn speler: het pasteken voor gezond, een lamp voor een voorbehoud. Tijdens het spel toont elke plaats wat de tafel weet: de klaverenvrouw voor Re, doorgestreept voor Kontra, in goudlicht zodra het aangekondigd is; je eigen kamp staat altijd bij je eigen plaats. De plaats van de solist toont de solo, die van de bruid het huwelijk tot haar partner gevonden is; geen 90, geen 60, geen 30 en schwarz verschijnen als 90, 60, 30 en 0 in een donkere schijf. Als je mag aankondigen, toont de knop tegenover het slagenstapeltje je volgende aankondiging: tik erop voordat je je kaart speelt. Om te spelen tik je een oplichtende kaart aan zodat hij omhoog komt, en tik je hem nog eens of zijn plek in het midden aan; of sleep hem erheen. Tik op het stapeltje rechtsonder om de laatste slag te zien. Na elk spel toont een tabel elk kamp met zijn kaartpunten, zijn aankondigingen, zijn extra punten (ruitenaas: een vos; 40: een Doppelkopf; klaverenboer: Karlchen; de doorgestreepte vrouw: tegen de ouden) en een gouden vinkje voor de winnaars; dan de spelwaarde, het saldo van de extra punten en de punten van elke Re-speler (maal 3 voor een solist); de score en het totaal van elke speler; en de lijst van de spellen, met de fiches van de winnaars in goudlicht. Tik erop voor het volgende spel. Elke balk toont de kaarten in de hand en het totaal. Ongedaan maken neemt een nog niet bevestigde keuze terug, nooit een keuze als het apparaat al doorgegeven is.
+Na het laatste spel wint het hoogste totaal; bij een gelijk totaal delen de spelers de winst.

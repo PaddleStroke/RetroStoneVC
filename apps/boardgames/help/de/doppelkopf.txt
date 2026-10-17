@@ -1,46 +1,36 @@
 Doppelkopf
 # Das Ziel
-Deutschlands beliebtestes Kartenspiel für vier, gespielt mit doppeltem Blatt. In jedem Spiel spielen die beiden Spieler mit den Kreuz-Damen, die Re-Partei, gegen die beiden anderen, die Kontra-Partei; doch anfangs weiß niemand, wer mit wem spielt. Eine Partie ist eine Liste von 12 oder 24 Spielen, nach Wahl; am Ende gewinnt die höchste Summe. Es gelten die Turnierregeln des Deutschen Doppelkopf-Verbands (DDV). Die Karten haben französisches Blatt, wie beim Doppelkopf üblich; deutsches Blatt (Eichel, Gras, Herz, Schellen) kommt vielleicht später. Für 4 Spieler, die das Gerät herumreichen; niemand sieht die Karten der anderen.
+Ein Kartenspiel für vier mit doppeltem Blatt, nach den Regeln des Deutschen Doppelkopf-Verbands (DDV), ohne Pflichtsoli. Die beiden Spieler mit den Kreuz-Damen (Re, die Alten) spielen gegen die beiden anderen (Kontra); anfangs weiß niemand, wer mit wem spielt.
 # Das Geben
-Gespielt wird mit 48 Karten: 9, 10, Bube, Dame, König und Ass jeder Farbe, jede Karte doppelt. Jeder Spieler bekommt 12 Karten. Jade gibt zuerst; danach rückt der Geber mit jedem Spiel einen Platz weiter. Der Spieler nach dem Geber spricht zuerst und spielt zum ersten Stich aus.
+48 Karten, 9, 10, Bube, Dame, König und Ass jeder Farbe, jede Karte doppelt; 12 Karten für jeden.
 # Vorbehalte
-- Vor der ersten Karte sagt jeder Spieler reihum „gesund“ oder dass er einen Vorbehalt hat. Was er spielen will, bleibt geheim: ein Solo oder eine Hochzeit.
-- Wer beide Kreuz-Damen hat, darf eine Hochzeit ansagen. Er hat die Wahl: Er darf auch schweigen und ein stilles Solo gegen die drei anderen spielen.
-- Gespielt wird das erste Solo in der Sitzreihenfolge; sonst die Hochzeit; sonst das Normalspiel.
+- Vor der ersten Karte sagt jeder Spieler „gesund“ oder dass er einen Vorbehalt hat: ein Solo oder eine Hochzeit. Gespielt wird das erste Solo in der Sitzreihenfolge; sonst die Hochzeit; sonst das Normalspiel.
+- Mit beiden Kreuz-Damen darfst du eine Hochzeit ansagen oder schweigen und ein stilles Solo spielen.
 # Die Trümpfe
-- Im Normalspiel ist die Herz-10 (die Dulle) der höchste Trumpf. Dann folgen die Damen und die Buben, jeweils in der Reihenfolge Kreuz, Pik, Herz, Karo, dann Karo-Ass, Karo-10, Karo-König und Karo-9: 26 Trümpfe.
-- Die anderen Farben: Ass, 10, König, 9; Herz hat nur Ass, König und 9.
-- Von zwei gleichen Karten in einem Stich gewinnt die zuerst gespielte.
+- Im Normalspiel, vom höchsten an: die Herz-10 (die Dulle), die Damen, die Buben (jeweils in der Reihenfolge Kreuz, Pik, Herz, Karo), dann Karo-Ass, Karo-10, Karo-König und Karo-9.
+- Die anderen Farben: Ass, 10, König, 9 (Herz hat keine 10). Von zwei gleichen Karten gewinnt die zuerst gespielte.
 # Die Parteien
-- Wer eine Kreuz-Dame hat (die Alten), ist Re, die anderen sind Kontra. Jeder kennt seine eigene Partei, nicht die der anderen. Eine Partei gibt sich zu erkennen, wenn eine Kreuz-Dame gespielt wird oder jemand ansagt.
-- Hochzeit: Wer als Erster einen der ersten drei Stiche gewinnt, ohne der Hochzeiter zu sein, wird dessen Partner. Gewinnt der Hochzeiter alle drei, spielt er allein, als Solo.
+- Hochzeit: Wer als Erster einen der ersten drei Stiche gewinnt, ohne der Hochzeiter zu sein, wird dessen Partner; gewinnt der Hochzeiter alle drei, spielt er ein Solo.
 # Soli
 Ein Spieler, der Solist (Re), spielt gegen die drei anderen (Kontra).
-- Damensolo: Nur die acht Damen sind Trumpf.
-- Bubensolo: Nur die acht Buben sind Trumpf.
+- Damen- oder Bubensolo: Nur die Damen, oder nur die Buben, sind Trumpf.
 - Farbsolo: die Trümpfe des Normalspiels, mit der gewählten Farbe statt Karo.
 - Fleischlos: kein Trumpf; jede Farbe in der Reihenfolge Ass, 10, König, Dame, Bube, 9.
 # Das Spiel
-Wer kann, muss die ausgespielte Farbe bedienen (alle Trümpfe zählen als eine Farbe); sonst darf er eine beliebige Karte spielen. Der höchste Trumpf gewinnt den Stich, sonst die höchste Karte der ausgespielten Farbe. Der Gewinner spielt zum nächsten Stich aus.
+Wer kann, muss die ausgespielte Farbe bedienen (alle Trümpfe zählen als eine Farbe), sonst darf er eine beliebige Karte spielen. Der höchste Trumpf gewinnt, sonst die höchste Karte der ausgespielten Farbe; der Gewinner spielt zum nächsten Stich aus.
 # Ansagen
-- Bevor er eine Karte spielt, darf ein Spieler für seine Partei ansagen: Re oder Kontra, solange er noch mindestens 11 Karten hat, keine 90 mit mindestens 10, keine 60 mit mindestens 9, keine 30 mit mindestens 8, schwarz mit mindestens 7. Jede Ansage schließt die niedrigeren ein.
-- Hat die andere Partei angesagt, darf als Antwort noch Re oder Kontra gesagt werden: eine Karte später, als es die Grenze jener Ansage erlaubt.
+- Bevor du eine Karte spielst, darfst du für deine Partei ansagen: Re oder Kontra, solange du noch mindestens 11 Karten hast, keine 90 mit mindestens 10, keine 60 mit mindestens 9, keine 30 mit mindestens 8, schwarz mit mindestens 7. Jede Ansage schließt die niedrigeren ein.
+- Als Antwort auf eine Ansage der anderen Partei darf Re oder Kontra eine Karte später kommen, als deren Grenze erlaubt.
 - Bei einer Hochzeit darf nichts angesagt werden, bevor der Partner gefunden ist; die Grenzen verschieben sich dann um so viele Stiche, wie das gedauert hat.
-- Hier sagt ein Spieler in seinem eigenen Zug an, während er das Gerät in der Hand hat.
 # Gewonnen oder verloren
-- Die Augen: Ass 11, Zehn 10, König 4, Dame 3, Bube 2: zusammen 240.
-- Re gewinnt mit 121 Augen, Kontra mit 120. Wurde nur Kontra angesagt, gewinnt Re mit 120, und Kontra braucht 121.
-- Eine Partei, die keine 90 (keine 60, keine 30, schwarz) angesagt hat, muss die andere Partei unter 90 (60, 30, ohne Stich) halten, sonst gewinnt die andere Partei. Erfüllen beide Parteien solche Ansagen nicht, gewinnt niemand.
+- Die Augen: Ass 11, Zehn 10, König 4, Dame 3, Bube 2 (zusammen 240). Re braucht 121, Kontra 120; wurde nur Kontra angesagt, braucht Re 120 und Kontra 121.
+- Eine Partei, die keine 90 (keine 60, keine 30, schwarz) angesagt hat, verliert, wenn die andere Partei 90 (60, 30, einen Stich) erreicht. Erfüllen beide Parteien solche Ansagen nicht, gewinnt niemand.
 # Der Spielwert
-- Gewonnen: 1. Die Verlierer unter 90, unter 60, unter 30 und ohne Stich (schwarz): je 1.
-- Re angesagt: 2. Kontra angesagt: 2. Jede Ansage keine 90, keine 60, keine 30 und schwarz: 1.
-- 120 erreicht gegen keine 90 der anderen Partei, 90 gegen keine 60, 60 gegen keine 30, 30 gegen schwarz: je 1.
-- Sonderpunkte, nur im Normalspiel und bei der Hochzeit, für die Partei, die sie erzielt: ein gefangener Fuchs (ein Karo-Ass der Gegner in einem Stich, den man selbst macht), ein Doppelkopf (ein Stich mit 40 Augen oder mehr), Karlchen (der letzte Stich, gewonnen mit dem Kreuz-Buben) und gegen die Alten (Kontra gewinnt): je 1. Die Sonderpunkte beider Parteien werden gegeneinander aufgerechnet.
+- Gewonnen: 1. Die Verlierer unter 90, unter 60, unter 30, ohne Stich: je 1.
+- Re oder Kontra angesagt: je 2; jede Ansage keine 90, keine 60, keine 30 und schwarz: 1.
+- 120 gegen keine 90, 90 gegen keine 60, 60 gegen keine 30, 30 gegen schwarz: je 1.
+- Sonderpunkte, nur im Normalspiel und bei der Hochzeit, je 1: ein gefangener Fuchs (ein Karo-Ass der Gegner in deinem Stich), ein Doppelkopf (ein Stich mit 40 Augen oder mehr), Karlchen (der letzte Stich, gewonnen mit dem Kreuz-Buben), gegen die Alten (Kontra gewinnt). Die Sonderpunkte beider Parteien werden gegeneinander aufgerechnet.
 # Die Wertung
-- Normalspiel: Jeder Re-Spieler bekommt den Spielwert, wenn Re gewonnen hat (als Minuspunkte, wenn Kontra gewonnen hat), plus die Sonderpunkte von Re, minus die von Kontra; jeder Kontra-Spieler bekommt das Gegenteil.
-- Solo: Der Solist bekommt das Dreifache, jeder Gegenspieler das Einfache.
-- Pflichtsoli gibt es hier nicht.
+- Jeder Re-Spieler bekommt den Spielwert, wenn Re gewonnen hat (als Minuspunkte, wenn Kontra gewonnen hat), plus die Sonderpunkte von Re, minus die von Kontra; jeder Kontra-Spieler das Gegenteil. Der Solist bekommt das Dreifache.
 # Das Ende der Partie
-Nach dem letzten Spiel der Liste gewinnt die höchste Summe. Bei gleicher Summe teilen sich die Spieler den Sieg.
-# Spielen auf dem Gerät
-Gib das Gerät dem Spieler, dessen Stein leuchtet; er tippt auf Start und sieht seine Hand. Für „gesund“ tippe auf Passe. Für einen Vorbehalt tippe ein Spiel an, dann den Haken (oder noch einmal dasselbe Spiel): ein Farbsolo (das Zeichen der Farbe), das Damensolo (eine Dame), das Bubensolo (ein Läufer, die Figur des Buben), Fleischlos (vier Asse) oder die Hochzeit (zwei Kreuz-Damen, nur wenn du beide hast). Jeder Platz zeigt das Wort seines Spielers: das Passe-Zeichen für gesund, eine Lampe für einen Vorbehalt. Während des Spiels zeigt jeder Platz, was der Tisch weiß: die Kreuz-Dame für Re, durchgestrichen für Kontra, in goldenem Licht, sobald angesagt; deine eigene Partei steht immer an deinem Platz. Der Platz des Solisten zeigt das Solo, der des Hochzeiters die Hochzeit, bis sein Partner gefunden ist; keine 90, keine 60, keine 30 und schwarz erscheinen als 90, 60, 30 und 0 in einer dunklen Scheibe. Wenn du ansagen darfst, zeigt der Knopf gegenüber dem Stichstapel deine nächste Ansage: Tippe darauf, bevor du deine Karte spielst. Zum Spielen tippe eine leuchtende Karte an, damit sie sich hebt, dann tippe sie noch einmal oder ihren Platz in der Mitte an; oder ziehe sie dorthin. Tippe auf den Stapel unten rechts, um den letzten Stich zu sehen. Nach jedem Spiel zeigt eine Tafel jede Partei mit ihren Augen, ihren Ansagen, ihren Sonderpunkten (das Karo-Ass: ein Fuchs; 40: ein Doppelkopf; der Kreuz-Bube: Karlchen; die durchgestrichene Dame: gegen die Alten) und einem goldenen Haken für die Gewinner; dann den Spielwert, den Saldo der Sonderpunkte und die Punkte jedes Re-Spielers (mal 3 für einen Solisten); Punkte und Summe jedes Spielers; und die Liste der Spiele, mit den Steinen der Gewinner in goldenem Licht. Tippe darauf für das nächste Spiel. Jede Leiste zeigt die Karten auf der Hand und die Summe. Rückgängig nimmt eine noch nicht bestätigte Wahl zurück, nie eine, wenn das Gerät weitergegeben wurde.
+Nach dem letzten Spiel gewinnt die höchste Summe; bei gleicher Summe teilen sich die Spieler den Sieg.

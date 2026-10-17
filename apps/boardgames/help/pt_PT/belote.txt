@@ -1,39 +1,33 @@
 Belote
 # O objetivo
-O jogo de cartas preferido dos franceses, para quatro jogadores em duas equipas: os parceiros sentam-se frente a frente. Ganha vazas cheias de pontos e sê a primeira equipa a chegar à meta: 501 pontos na Belote, 1000 na Coinche. O baralho tem 32 cartas, do 7 ao ás. A vez passa de jogador em jogador, e quem dá as cartas avança um lugar em cada ronda.
-As cartas não são baralhadas entre as rondas: recolhem-se as vazas, corta-se e dá-se, como numa mesa a sério.
+Quatro jogadores em duas equipas, os parceiros frente a frente. Sê a primeira equipa a chegar aos 501 pontos na Belote, 1000 na Coinche. O baralho tem 32 cartas, do 7 ao ás.
 # As cartas
-- Ordem dos trunfos: valete, 9, ás, 10, rei, dama, 8, 7. Valem 20, 14, 11, 10, 4, 3, 0 e 0 pontos.
-- Ordem nos outros naipes: ás, 10, rei, dama, valete, 9, 8, 7. Valem 11, 10, 4, 3, 2, 0, 0 e 0 pontos.
-- A última vaza vale mais 10 pontos (dix de der, "dez da última"): 162 pontos em cada ronda.
-- O rei e a dama de trunfo na mesma mão são a belote e a rebelote: 20 pontos para essa equipa. Anunciam-se ao serem jogados.
+- Trunfos, do mais alto ao mais baixo: valete 20, 9 14, ás 11, 10 10, rei 4, dama 3, 8 0, 7 0.
+- Outros naipes: ás 11, 10 10, rei 4, dama 3, valete 2, 9 0, 8 0, 7 0.
+- A última vaza vale mais 10 pontos (dix de der): 162 pontos em cada ronda.
+- O rei e a dama de trunfo na mesma mão são a belote e a rebelote: 20 pontos.
 # Escolher o trunfo (Belote)
-- Cada jogador recebe 3 cartas, depois 2, e a carta seguinte é voltada para cima.
-- À vez, cada jogador fica com a carta voltada, cujo naipe passa a ser trunfo, ou passa.
-- Se os quatro passarem, há uma segunda volta: cada um, à vez, escolhe outro naipe para trunfo, ou passa. Se voltarem a passar, o jogador seguinte dá cartas novas.
-- Quem fica com a carta é o tomador. Todos recebem mais 3 cartas; o tomador recebe a carta voltada e mais 2.
+- Cada jogador recebe 5 cartas, e a carta seguinte é voltada para cima.
+- À vez, cada jogador fica com a carta voltada (o seu naipe passa a ser trunfo) ou passa. Se os quatro passarem, cada um, à vez, escolhe outro naipe ou passa; se voltarem a passar, cartas novas.
+- O tomador recebe a carta voltada e mais 2, os outros 3.
 # O leilão (Coinche)
-- Cada jogador recebe as 8 cartas todas: 3, 3 e 2. Nenhuma carta é voltada.
-- À vez, cada jogador anuncia um contrato num naipe: os pontos que a sua equipa promete fazer, de 80 a 160 de 10 em 10, ou capot (todas as vazas, vale 250). Cada lance tem de ser superior ao anterior. Ou passa.
-- Um jogador pode fazer coinche ao lance da outra equipa: a parada dobra. Quem fez o lance pode então fazer surcoinche, que volta a dobrar, ou passar; em ambos os casos, o leilão termina.
-- Três passes depois de um lance encerram o leilão. Quatro passes sem lance: cartas novas.
+- À vez, cada jogador anuncia um contrato num naipe, de 80 a 160 de 10 em 10, ou capot (todas as vazas, 250), superior ao lance anterior; ou passa.
+- Podes fazer coinche ao lance da outra equipa, e a parada dobra; quem fez o lance pode fazer surcoinche, que volta a dobrar, ou passar. Em ambos os casos, o leilão termina.
+- Três passes depois de um lance encerram o leilão; quatro passes sem lance: cartas novas.
 # Jogar as cartas
-- O jogador a seguir a quem deu as cartas abre a primeira vaza; quem ganha uma vaza abre a seguinte.
-- Assiste ao naipe jogado, se puderes.
-- Se não puderes, tens de cortar com um trunfo, mais alto do que os trunfos que já estão na vaza se puderes (se não puderes subir, qualquer trunfo). Sem trunfo, joga qualquer carta.
-- Exceção: quando o teu parceiro está a ganhar a vaza, podes jogar qualquer carta.
+- O jogador a seguir a quem deu as cartas abre; quem ganha uma vaza abre a seguinte.
+- Assiste ao naipe jogado, se puderes. Se não puderes, corta com um trunfo, mais alto do que os trunfos da vaza se puderes; sem trunfo, qualquer carta.
+- Mas quando o teu parceiro está a ganhar a vaza, podes jogar qualquer carta.
 - Quando se joga trunfo, tens sempre de subir se puderes, mesmo sobre o teu parceiro.
 - O trunfo mais alto ganha a vaza; se não houver nenhum, a carta mais alta do naipe jogado.
 # A pontuação (Belote)
-- Os tomadores têm de fazer mais pontos do que a outra equipa, contando a belote. Então cada equipa marca os pontos que fez.
-- Senão, ficam dedans ("dentro"): a outra equipa marca 162 e os tomadores nada. A belote e a rebelote ficam sempre com a equipa que as tinha.
-- Uma equipa que faz todas as vazas faz capot: 250 pontos em vez de 162.
+- Os tomadores têm de fazer mais pontos do que a outra equipa, contando a belote: então cada equipa marca os seus pontos.
+- Senão, ficam dedans: a outra equipa marca 162 e os tomadores nada. A belote fica sempre com a equipa que a tinha.
+- Uma equipa que faz todas as vazas faz capot: 250 em vez de 162.
 # A pontuação (Coinche)
-- O contrato é cumprido se os tomadores fizerem pelo menos os pontos anunciados (contando a belote) e mais de 81; um contrato capot exige todas as vazas.
+- O contrato é cumprido se os tomadores fizerem pelo menos os pontos anunciados (contando a belote) e mais de 81; capot exige todas as vazas.
 - Cumprido: os tomadores marcam o contrato mais os seus pontos, os defensores os seus próprios pontos.
 - Falhado: os defensores marcam 160 mais o contrato.
-- Com coinche ou surcoinche: o lado vencedor marca 160 mais o contrato, multiplicado por 2 ou por 4; o outro lado só marca a sua belote.
+- Com coinche ou surcoinche: o vencedor marca 160 mais o contrato, multiplicado por 2 ou por 4; o outro lado só a sua belote.
 # O fim do jogo
 O jogo acaba depois da ronda em que uma equipa chega à meta. Ganha a equipa com mais pontos; se os totais forem iguais, joga-se mais uma ronda.
-# Jogar no dispositivo
-Passem o dispositivo: cada jogador só vê as suas cartas, em baixo. Os outros jogadores estão à volta da mesa: à esquerda, em frente (o teu parceiro) e à direita, pela ordem das suas barras em cima. Para ficar com a carta, toca na carta voltada; na segunda volta, toca no ás do naipe que escolhes. Na Coinche, toca num contrato e depois no ás do seu naipe; a ficha redonda com uma cruz e um 2 faz coinche (uma cruz e um 4: surcoinche). O botão de passar está na tua barra. Para jogar, toca numa carta para a levantar e depois toca nela outra vez, ou toca na mesa, ou arrasta-a até lá. As cartas que não podes jogar aparecem a cinzento. A última vaza aparece em pequeno no canto. Cada barra mostra o total da equipa e o que cada jogador disse: passo, um contrato ou o ás de trunfo do tomador. Depois de cada ronda, uma tabela mostra os pontos de cada equipa, o resultado da ronda e os totais (uma cruz: o contrato falhou); toca nela para a ronda seguinte.

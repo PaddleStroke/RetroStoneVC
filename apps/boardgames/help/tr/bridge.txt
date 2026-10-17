@@ -1,25 +1,21 @@
 Briç
 # Amaç
-Karşılıklı oturan ortaklardan oluşan iki çift halinde dört oyuncu için kontrat briç: fildişi ve kırmızı, abanoz ve yeşime karşı. Her dağıtımda çiftler kozu seçme hakkı için deklare eder; ihaleyi kazanan çift sonra söz verdiği löveleri almaya çalışır. İki oyun biçimi: Chicago, dört dağıtım (varsayılan, rahat bir masa için en iyisi), ya da robber, iki manşı ilk kazanan alır. Kimse başkalarının kartlarını görmez.
+Karşılıklı oturan ortaklardan oluşan iki çift halinde dört oyuncu için kontrat briç: çiftler kozu seçme hakkı için deklare eder, ihaleyi kazanan çift sonra söz verdiği löveleri almaya çalışır.
 # İhale
-52 kartın hepsi dağıtılır, her oyuncuya 13. Önce dağıtan konuşur, sonra sırayla her oyuncu:
-- bir deklarasyon: 1'den 7'ye bir sayı ve bir renk ya da kozsuz. Altının üstünde o kadar löve sözü verir (1, 7 löve demektir). Her deklarasyon bir öncekinden yüksek olmalıdır: daha büyük bir sayı ya da aynı sayı daha yüksek bir renkte. Düşükten yükseğe: sinek, karo, kupa, maça, kozsuz.
+Önce dağıtan konuşur, sonra sırayla her oyuncu:
+- bir deklarasyon: 1'den 7'ye bir sayı ve bir renk ya da kozsuz; altının üstünde o kadar löve sözü verir. Bir öncekinden yüksek olmalıdır: daha büyük bir sayı ya da aynı sayı daha yüksek bir renkte (sinek, karo, kupa, maça, kozsuz).
 - pas;
-- rakiplerin son deklarasyonuna kontr, bahsi yükseltir; kendi çiftinizin kontr yemiş deklarasyonuna sürkontr.
-Bir deklarasyondan sonra üç pas ihaleyi bitirir. Son deklarasyon kontrattır, rengi kozdur. Deklaran, o çiftin bu rengi (ya da kozsuzu) ilk söyleyen oyuncusudur; ortağı yer olur. Deklarasyon olmadan dört pas: kartlar yeniden dağıtılır.
-Bir deklarasyonun el hakkında ne söylediği ortaklar arasındaki bir anlaşmadır (bir ihale sistemi), kural değildir: başlamadan önce kendi sisteminizde anlaşın. İhalenin tam açıklaması bu sayfayı aşar.
+- rakiplerin son deklarasyonuna kontr; kendi çiftinizin kontr yemiş deklarasyonuna sürkontr.
+Bir deklarasyondan sonra üç pas ihaleyi bitirir. Son deklarasyon kontrattır, rengi kozdur. Deklaran, o çiftin bu rengi ilk söyleyen oyuncusudur; ortağı yer olur. Dört pas: kartlar yeniden dağıtılır.
 # Oyun
-- Deklaranın solundaki oyuncu ilk kartı açar. Sonra yer elini herkesin göreceği şekilde açar ve deklaran onu kendi eliyle birlikte oynar.
-- Açılan renge uyabiliyorsan uy; uyamıyorsan istediğin kartı oyna. En yüksek koz löveyi alır, koz yoksa açılan rengin en yüksek kartı (as en yüksektir). Löveyi alan bir sonrakini açar.
-- Deklaranın altı löveye ek olarak söylenen sayı kadar löve alması gerekir.
+- Deklaranın solundaki oyuncu ilk kartı açar. Sonra yer elini açar ve deklaran onu da oynar.
+- Açılan renge uyabiliyorsan uy; uyamıyorsan istediğin kartı oyna. En yüksek koz löveyi alır, koz yoksa açılan rengin en yüksek kartı. Löveyi alan bir sonrakini açar.
 # Puanlama
 - Kontrat tuttu: altının üstündeki her deklare edilmiş löve sinek ya da karoda 20, kupa ya da maçada 30; kozsuzda ilki 40, sonrakiler 30 eder. Kontrlü iki katı, sürkontrlü dört katı. Bu puanlardan 100 ya da fazlası bir manştır.
 - Her fazla löve: kendi değeri; kontrlü 100 (zonda 200), sürkontrlü iki katı. Tutan kontrlü bir kontrat 50 daha, sürkontrlü 100 daha getirir.
 - Şlemler: deklare edilip alınan 12 löve 500 (zonda 750), 13 lövenin hepsi 1000 (zonda 1500).
-- Kontrat batı: savunma eksik her löve için 50 (zonda 100) yazar. Kontrlü: 100, sonra 2. ve 3. için 200, sonra her biri 300; zonda 200, sonra her biri 300. Sürkontrlü: kontrlünün iki katı.
+- Kontrat batı: savunma eksik her löve için 50 (zonda 100) yazar. Kontrlü: 100, 200, 200, sonra her biri 300 (zonda 200, sonra her biri 300); sürkontrlü iki katı.
 # Oyunun sonu
-- Chicago: dört dağıtım. İlkinde kimse zonda değildir, ikinci ve üçüncüde dağıtanın çifti, dördüncüde iki çift de. Her dağıtım ayrı sayılır: manş 300 daha (zonda 500), daha küçük her kontrat 50 getirir. Herkes pas derse aynı oyuncu yeniden dağıtır.
-- Robber: kontrat puanları çizginin altına yazılır ve 100'lük bir manşa doğru toplanır; manş iki çiftin kısmi skorlarını siler. Manş kazanmış çift zondadır. İki manşa ilk ulaşan çift robberı bitirir: iki-sıfır için 700, iki-bir için 500 daha. Onörler yalnızca robberda sayılır: tek elde en yüksek beş koz (as, papaz, kız, vale, 10) 150, bunlardan dördü 100, kozsuzda dört as 150; sonuç ne olursa olsun o elin çiftine.
+- Chicago: dört dağıtım. Zonda: ilkinde kimse, ikinci ve üçüncüde dağıtanın çifti, dördüncüde iki çift de. Manş 300 daha (zonda 500), daha küçük her kontrat 50 getirir.
+- Robber: manş iki çiftin kısmi skorlarını siler ve manş kazanmış çift zondadır. İki manş robberı bitirir: iki-sıfır için 700, iki-bir için 500 daha. Onörler, yalnızca robberda: tek elde en yüksek beş koz 150, bunlardan dördü 100, kozsuzda dört as 150.
 - Toplamı yüksek olan çift kazanır.
-# Cihazda oynamak
-Cihazı, pulu görünen oyuncuya ver; başlat düğmesine dokunur ve kendi elini görür. İhale bir deklarasyon tablosudur, her oyuncuya bir sütun, pullar üstte: sol, karşı, sağ, sen. Bir pulun çevresinde kırmızı halka: o çift zondadır. Deklare etmek için ihale kutusunun bir düğmesine dokun (kozsuz, dört rengi üstü çizili bir disktir; yeşil pas, kırmızı çarpı kontr, iki mavi çarpı sürkontr), sonra onay işaretine ya da aynı düğmeye yeniden dokun. Oyunda deklaran cihazı yer için de tutar; yerin sahibi yalnızca izler. Parlayan bir karta dokun, kalksın; sonra ona ya da ortadaki yerine yeniden dokun; ya da onu oraya sürükle. Löveler sayılarıyla birlikte deklaranın önünde ve çiftinin ilk lövesini alan savunmacının önünde birikir. İhaleyi ve son löveyi görmek için üst köşedeki kontrata dokun. Her dağıtımdan sonra skor kâğıdı biz (senin çiftin) ve onlar diye iki sütun gösterir; sonraki dağıtım için ona dokun. Her şerit çiftin toplamını, zondaysa kırmızı bir halkayı ve robberda çizgi altındaki puanları koyu bir diskte gösterir. Geri al henüz onaylanmamış bir seçimi geri alır; cihaz el değiştirdikten sonra asla bir deklarasyonu ya da kartı değil.

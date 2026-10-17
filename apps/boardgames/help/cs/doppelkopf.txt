@@ -1,46 +1,36 @@
 Doppelkopf
 # Cíl hry
-Nejoblíbenější karetní hra Německa pro čtyři, hraná se dvojitým balíčkem. V každém rozdání hrají dva hráči, kteří drží křížové dámy, strana Re, proti dvěma ostatním, straně Kontra; zpočátku ale nikdo neví, kdo je s kým. Partie je řada 12 nebo 24 rozdání, podle volby; vyhrává nejvyšší součet na konci. Hraje se podle turnajových pravidel Německé doppelkopfové ligy (DDV). Karty mají francouzské barvy, jak se Doppelkopf často hraje; německé barvy (žaludy, listy, srdce, kule) mohou přijít později. Pro 4 hráče, kteří si podávají zařízení; nikdo nevidí karty ostatních.
+Karetní hra pro čtyři se dvojitým balíčkem, podle pravidel Německé doppelkopfové ligy (DDV), bez povinných sól. Dva hráči, kteří drží křížové dámy (Re, die Alten, „staří“), hrají proti dvěma ostatním (Kontra); zpočátku nikdo neví, kdo je s kým.
 # Rozdání
-Balíček má 48 karet: 9, 10, kluk, dáma, král a eso v každé barvě, každá karta dvakrát. Každý hráč dostane 12 karet. První rozdává nefritový hráč; pak se rozdávající každé rozdání posune o jedno místo. Hráč po rozdávajícím mluví první a vynáší do prvního štychu.
+48 karet, 9, 10, kluk, dáma, král a eso v každé barvě, každá karta dvakrát; každý dostane 12 karet.
 # Výhrady
-- Před první kartou každý hráč postupně řekne gesund („zdravý“), nebo že má výhradu (Vorbehalt). Co chce hrát, zůstává tajné: sólo, nebo svatbu.
-- Hráč, který drží obě křížové dámy, smí ohlásit svatbu (Hochzeit). Je to na něm: může také mlčet a hrát tiché sólo proti ostatním třem.
-- Hraje se první sólo v pořadí; jinak svatba; jinak normální hra.
+- Před první kartou každý hráč řekne gesund („zdravý“), nebo že má výhradu (Vorbehalt): sólo, nebo svatbu. Hraje se první sólo v pořadí; jinak svatba; jinak normální hra.
+- S oběma křížovými dámami smíš ohlásit svatbu (Hochzeit), nebo mlčet a hrát tiché sólo.
 # Trumfy
-- V normální hře je nejvyšším trumfem srdcová desítka (Dulle). Po ní jdou dámy a kluci, vždy v pořadí kříže, piky, srdce, káry, pak kárové eso, 10, král a 9: 26 trumfů.
-- Ostatní barvy jdou v pořadí eso, 10, král, 9; srdce mají jen eso, krále a 9.
-- Ze dvou stejných karet ve štychu vyhrává ta, která byla zahrána dřív.
+- V normální hře od nejvyššího: srdcová desítka (Dulle), dámy, kluci (vždy v pořadí kříže, piky, srdce, káry), pak kárové eso, 10, král a 9.
+- Ostatní barvy jdou v pořadí eso, 10, král, 9 (srdce nemají desítku). Ze dvou stejných karet vyhrává ta, která byla zahrána dřív.
 # Strany
-- Držitelé křížových dam (die Alten, „staří“) jsou Re, ostatní Kontra. Každý hráč zná svou stranu, ne strany ostatních. Strana se prozradí, když padne křížová dáma nebo když někdo ohlásí.
-- Svatba: první z prvních tří štychů, který vyhraje jiný hráč, z něj udělá partnera nevěsty. Vezme-li nevěsta všechny tři, hraje sama, jako sólo.
+- Svatba: první jiný hráč, který vyhraje jeden z prvních tří štychů, se stane partnerem nevěsty; vezme-li nevěsta všechny tři, hraje sólo.
 # Sóla
 Jeden hráč, sólista (Re), hraje proti třem ostatním (Kontra).
-- Dámské sólo: trumfy je jen osm dam.
-- Klukovské sólo: trumfy je jen osm kluků.
+- Dámské nebo klukovské sólo: trumfy jsou jen dámy, nebo jen kluci.
 - Barevné sólo: trumfy normální hry, se zvolenou barvou místo kár.
 - Fleischlos („bez masa“): žádné trumfy; každá barva jde v pořadí eso, 10, král, dáma, kluk, 9.
 # Hra
-Přiznej barvu, pokud můžeš (všechny trumfy se počítají jako jedna barva); jinak zahraj libovolnou kartu. Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy. Vítěz vynáší do dalšího štychu.
+Přiznej barvu, pokud můžeš (všechny trumfy se počítají jako jedna barva), jinak zahraj libovolnou kartu. Štych bere nejvyšší trumf, jinak nejvyšší karta vynesené barvy; vítěz vynáší do dalšího štychu.
 # Ohlášení
-- Než zahraje kartu, smí hráč ohlásit za svou stranu: Re nebo Kontra, dokud drží aspoň 11 karet, keine 90 („ne 90“) aspoň 10, keine 60 aspoň 9, keine 30 aspoň 8, schwarz („černá“) aspoň 7. Každé ohlášení v sobě zahrnuje ta slabší.
-- Jakmile ohlásila druhá strana, lze jí ještě odpovědět Re nebo Kontra, o jednu kartu později, než je hranice jejího ohlášení.
+- Než zahraješ kartu, smíš ohlásit za svou stranu: Re nebo Kontra, dokud držíš aspoň 11 karet, keine 90 („ne 90“) aspoň 10, keine 60 aspoň 9, keine 30 aspoň 8, schwarz („černá“) aspoň 7. Každé ohlášení v sobě zahrnuje ta slabší.
+- Jako odpověď na ohlášení druhé strany lze říct Re nebo Kontra o jednu kartu později, než je jeho hranice.
 - Při svatbě se nesmí nic ohlašovat, dokud se nenajde partner; hranice se pak posunou o tolik štychů, kolik to trvalo.
-- Zde hráč ohlašuje ve svém tahu, když má zařízení v rukou.
 # Výhra
-- Oka: eso 11, 10 10, král 4, dáma 3, kluk 2: celkem 240.
-- Re vyhrává se 121 oky, Kontra se 120. Bylo-li ohlášeno jen Kontra, vyhrává Re se 120 a Kontra potřebuje 121.
-- Strana, která ohlásila keine 90 (keine 60, keine 30, schwarz), musí udržet druhou stranu pod 90 (60, 30, bez štychu), jinak vyhrává druhá strana. Nesplní-li taková ohlášení obě strany, nevyhrává nikdo.
+- Oka: eso 11, 10 10, král 4, dáma 3, kluk 2 (celkem 240). Re potřebuje 121, Kontra 120; bylo-li ohlášeno jen Kontra, potřebuje Re 120 a Kontra 121.
+- Strana, která ohlásila keine 90 (keine 60, keine 30, schwarz), prohrává, když druhá strana dosáhne 90 (60, 30, jednoho štychu). Nesplní-li taková ohlášení obě strany, nevyhrává nikdo.
 # Hodnota hry
-- Výhra: 1. Poražení pod 90, pod 60, pod 30 a bez štychu (schwarz): po 1.
-- Ohlášené Re: 2. Ohlášené Kontra: 2. Každé ohlášené keine 90, keine 60, keine 30 a schwarz: 1.
-- 120 uhraných proti keine 90 druhé strany, 90 proti keine 60, 60 proti keine 30, 30 proti schwarz: po 1.
-- Zvláštní body (Sonderpunkte), jen v normální hře a ve svatbě, pro stranu, která je získá: chycená liška (Fuchs: kárové eso soupeře ve štychu, který vezmeš), Doppelkopf (štych za 40 ok a víc), Karlchen („Karlík“: poslední štych vyhraný křížovým klukem) a gegen die Alten („proti starým“: vyhraje Kontra): po 1. Zvláštní body obou stran se navzájem odečítají.
+- Výhra: 1. Poražení pod 90, pod 60, pod 30, bez štychu: po 1.
+- Ohlášené Re nebo Kontra: po 2; každé ohlášené keine 90, keine 60, keine 30 a schwarz: 1.
+- 120 proti keine 90, 90 proti keine 60, 60 proti keine 30, 30 proti schwarz: po 1.
+- Zvláštní body (Sonderpunkte), jen v normální hře a ve svatbě, po 1: chycená liška (Fuchs: kárové eso soupeře ve tvém štychu), Doppelkopf (štych za 40 ok a víc), Karlchen („Karlík“: poslední štych vyhraný křížovým klukem), gegen die Alten („proti starým“: vyhraje Kontra). Zvláštní body obou stran se navzájem odečítají.
 # Počítání bodů
-- Normální hra: každý hráč Re získá hodnotu hry, pokud vyhrálo Re (do minusu, pokud vyhrálo Kontra), plus zvláštní body Re, minus zvláštní body Kontra; každý hráč Kontra získá opak.
-- Sólo: sólista získá trojnásobek, každý soupeř jednou.
-- Povinná sóla se tu nehrají.
+- Každý hráč Re získá hodnotu hry, pokud vyhrálo Re (do minusu, pokud vyhrálo Kontra), plus zvláštní body Re, minus zvláštní body Kontra; každý hráč Kontra získá opak. Sólista získá trojnásobek.
 # Konec hry
-Po posledním rozdání řady vyhrává nejvyšší součet. Při rovnosti se hráči o vítězství dělí.
-# Hra na zařízení
-Podej zařízení hráči, jehož kámen svítí; ten klepne na start a uvidí svou ruku. Chceš-li říct gesund, klepni na pas. Pro výhradu klepni na hru, pak na fajfku (nebo znovu na tutéž hru): barevné sólo (znak barvy), dámské sólo (dáma), klukovské sólo (střelec, postava kluka), Fleischlos (čtyři esa), nebo svatba (dvě křížové dámy, jen když držíš obě). U každého místa je vidět jeho slovo: znak pasu za gesund, lampa za výhradu. Během hry ukazuje každé místo, co ví celý stůl: křížovou dámu za Re, přeškrtnutou za Kontra, ve zlatém světle, jakmile bylo ohlášeno; tvá vlastní strana je u tvého místa vidět vždy. Místo sólisty ukazuje sólo, místo nevěsty svatbu, dokud se nenajde její partner; keine 90, keine 60, keine 30 a schwarz se ukazují jako 90, 60, 30 a 0 v tmavém kotouči. Smíš-li ohlásit, ukazuje tlačítko naproti hromádce štychů tvé další ohlášení: klepni na ně dřív, než zahraješ kartu. Pro zahrání klepni na svítící kartu, aby se zvedla, a klepni na ni znovu nebo na její místo uprostřed; nebo ji tam přetáhni. Klepnutím na hromádku vpravo dole uvidíš poslední štych. Po každém rozdání ukáže tabulka každou stranu s jejími oky, jejími ohlášeními, jejími zvláštními body (kárové eso: liška; 40: Doppelkopf; křížový kluk: Karlchen; přeškrtnutá dáma: gegen die Alten) a zlatou fajfkou u vítězů; pak hodnotu hry, bilanci zvláštních bodů a body každého hráče Re (krát 3 u sólisty); skóre a součet každého hráče; a řadu rozdání, s žetony vítězů ve zlatém světle. Klepnutím na ni začne další rozdání. Každá lišta ukazuje karty v ruce a součet. Vrátit vezme zpět ještě nepotvrzenou volbu, nikdy volbu učiněnou předtím, než se zařízení předalo.
+Po posledním rozdání vyhrává nejvyšší součet; při rovnosti se hráči o vítězství dělí.

@@ -1,31 +1,29 @@
 Jass
 # Målet
-Schieber, den mest elskede måde at spille Jass på i Schweiz: to hold med to makkere, der sidder over for hinanden, elfenben og rød mod ibenholt og jade. Begge hold tæller de point, de tager; det første hold, der når 1000 point (eller 2500 i det lange parti), vinder. For 4 spillere, der sender enheden rundt; ingen ser de andres kort.
+Schieber: to hold med to makkere, der sidder over for hinanden. Det første hold, der når 1000 point (2500 i det lange parti), vinder.
 # Kortene
-Spillet har 36 kort, 6 til es. I den tysktalende del af Schweiz spilles Jass mest med schweiziske kulører (bjælder, skjolde, roser, agern); her har kortene franske kulører, som i landets vestlige del. Schweiziske kulører kommer måske senere.
+36 kort, 6 til es.
 # Kortgivningen
-Hver spiller får 9 kort. Jade giver først; derefter rykker giveren én plads videre for hvert giv. Spilleren efter giveren vælger spillet og spiller ud til første stik.
+Hver spiller får 9 kort; giveren rykker én plads videre for hvert giv. Spilleren efter giveren vælger spillet og spiller ud til første stik.
 # Valg af spil
-- Den, der vælger, nævner en trumfkulør, eller Obenabe (oppefra: ingen trumf, es er højest) eller Undeufe (nedefra: ingen trumf, seks er højest).
-- Eller han skubber (schieben): så skal hans makker vælge. Første stik spilles alligevel ud af den spiller, der skubbede.
+- Nævn en trumfkulør, eller Obenabe (ingen trumf, es er højest) eller Undeufe (ingen trumf, seks er højest).
+- Eller skub (schieben): så skal din makker vælge, men du spiller stadig ud til første stik.
 # Trumferne
-- Trumfknægten, Puur, er det højeste kort (20 point), derefter trumfnieren, Nell (14), så es 11, konge 4, dame 3, 10 10, 8, 7, 6.
-- De andre kulører rangerer es 11, konge 4, dame 3, knægt 2, 10 10, 9, 8, 7, 6.
-- Obenabe: hver kulør rangerer fra es til seks, og otterne er værd 8. Undeufe: hver kulør rangerer fra seks til es, sekserne er værd 11, otterne 8 og esserne intet.
-- Sidste stik er værd 5 mere: 157 point i alt. Et Match (alle ni stik) er værd 257.
+- Trumf: knægten, Puur (20 point), derefter nieren, Nell (14), es 11, konge 4, dame 3, 10 10, 8, 7, 6.
+- De andre kulører: es 11, konge 4, dame 3, knægt 2, 10 10, 9, 8, 7, 6.
+- Obenabe: fra es til seks, otterne er værd 8. Undeufe: fra seks til es, sekserne er værd 11, otterne 8, esserne intet.
+- Sidste stik er værd 5 mere. Et Match (alle ni stik) er værd 257.
 # Spillet
-- Bekend kulør, eller spil en trumf i stedet. Kan du ikke bekende, så spil et vilkårligt kort.
-- Ingen undertrumf: når en anden kulør er spillet ud, må du ikke spille en trumf, der er lavere end en, der allerede ligger i stikket, medmindre du kun har trumf.
-- Når der spilles trumf ud, skal du bekende med trumf, men du behøver aldrig at spille Puur: har du ingen anden trumf, må du spille et vilkårligt kort.
+- Bekend kulør eller spil en trumf. Kan du ikke bekende, så spil et vilkårligt kort.
+- Når en anden kulør er spillet ud, ingen trumf lavere end en, der allerede ligger i stikket, medmindre du kun har trumf.
+- Når der spilles trumf ud, bekend med trumf; du behøver aldrig at spille Puur.
 - I Obenabe og Undeufe bekender du bare kulør, hvis du kan.
 # Weis og Stöck
-- Weis (meldinger) meldes med dit første kort: tre kort i række i én kulør 20, fire 50, fem 100, seks 150, syv 200, otte 250, ni 300; fire knægte 200, fire niere 150, fire esser, konger, damer eller tiere 100. Rækkefølgen i en række er 6 7 8 9 10 Kn D K E.
-- Kun holdet med den bedste enkelte weis får point for weis, og så for alle weis fra begge dets spillere. Den bedste har flest point; ved lighed slår fire ens en række, så tæller det højeste topkort, så en række i trumf, så den spiller, der spillede først.
-- Stöck: trumfkonge og trumfdame på samme hånd er værd 20, talt når den anden af dem spilles.
+- Weis (meldinger) meldes med dit første kort. En række i én kulør (6 til es): tre kort 20, fire 50, fem 100, seks 150, syv 200, otte 250, ni 300. Fire knægte 200, fire niere 150, fire esser, konger, damer eller tiere 100.
+- Kun holdet med den bedste enkelte weis får point, og så for alle sine weis.
+- Stöck: trumfkonge og trumfdame på samme hånd, 20, talt når den anden spilles.
 # Pointene
-- Hvert hold får sine kortpoint, sine weis og sine Stöck.
-- Det lange parti (til 2500) ganger alt: ruder og hjerter én gang, spar og klør to gange, Obenabe og Undeufe tre gange.
+- Hvert hold får sine kortpoint, weis og Stöck.
+- Det lange parti ganger: ruder og hjerter én gang, spar og klør to gange, Obenabe og Undeufe tre gange.
 # Spillets afslutning
-Det første hold, der når 1000 (2500) point, vinder. Stöck tæller, så snart det er spillet, så weis efter første stik, så stikkene ved givets slutning; givet spilles altid færdigt. Passerer begge hold grænsen med stikkene i samme giv, vinder den højeste sum.
-# Spil på enheden
-Giv enheden til spilleren, hvis brik lyser; han trykker på start og ser sin hånd. For at vælge spillet trykker du på en kulørs tegn, pilen op (Obenabe) eller pilen ned (Undeufe) og så på fluebenet (eller på det samme igen); for at skubbe trykker du på pas-knappen. Pladsen for den, der valgte, viser spillet, pladsen for den, der skubbede, pastegnet. Har din hånd weis i første stik, viser en knap over for stikbunken dens point: tryk på den, før du spiller dit kort, for at melde den. Hver plads viser de meldte weis, derefter kun dem fra holdet, der får point for dem, i gyldent lys; Stöck vises som trumfkonge og trumfdame ved den plads, der fik dem. For at spille trykker du på et kort, der lyser, så det løfter sig, og trykker på det igen eller på dets plads i midten; eller træk det derhen. Tryk på bunken nederst til højre for at se det sidste stik. Efter hvert giv viser en tavle hvert holds spil (i det lange parti med dets faktor), kortpoint (i gyldent lys ved et Match), weis og Stöck, givets point og summen; under den begge holds brikker på vej mod målet. Tryk på den for næste giv. Hver bjælke viser kortene på hånden og holdets sum. Fortryd tager et valg tilbage, der endnu ikke er bekræftet, aldrig et, når enheden er givet videre.
+Stöck tæller, så snart det er spillet, weis efter første stik, stikkene ved givets slutning; givet spilles altid færdigt. Passerer begge hold grænsen med stikkene i samme giv, vinder den højeste sum.

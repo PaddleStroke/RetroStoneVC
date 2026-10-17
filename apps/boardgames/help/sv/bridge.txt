@@ -1,25 +1,21 @@
 Bridge
 # Målet
-Kontraktbridge för fyra spelare i två par som sitter mittemot varandra: elfenben och rött mot ebenholts och jade. I varje giv budar paren om rätten att välja trumf; paret som vinner budgivningen försöker sedan ta de stick det lovat. Två sätt att spela: Chicago, fyra givar (förvalt, bäst för ett avslappnat bord), eller en robber, först till två utgångar. Ingen ser de andras kort.
+Kontraktbridge för fyra spelare i två par som sitter mittemot varandra: paren budar om rätten att välja trumf, och paret som vinner budgivningen försöker sedan ta de stick det lovat.
 # Budgivningen
-Alla 52 kort delas ut, 13 var. Given bjuder först, sedan varje spelare i tur:
-- ett bud: ett tal från 1 till 7 och en färg eller sang (utan trumf). Det lovar så många stick över sex (1 betyder 7 stick). Varje bud måste vara högre än det förra: ett högre tal eller samma tal i en högre färg. Från lägst till högst: klöver, ruter, hjärter, spader, sang.
+Given bjuder först, sedan varje spelare i tur:
+- ett bud: 1 till 7 och en färg eller sang (utan trumf); det lovar så många stick över sex. Det måste slå det förra budet: ett högre tal eller samma tal i en högre färg (klöver, ruter, hjärter, spader, sang).
 - pass;
-- dubbelt på motståndarnas senaste bud, som höjer insatsen; redubbelt på ett bud från din sida som har dubblats.
-Tre pass efter ett bud avslutar budgivningen. Det sista budet är kontraktet och dess färg är trumf. Spelförare är den spelare på den sidan som först nämnde färgen (eller sang); partnern blir träkarl. Fyra pass utan bud: korten ges om.
-Vad ett bud säger om en hand är en överenskommelse mellan partner (ett budsystem), inte en regel: kom överens om ert eget innan ni börjar. En fullständig förklaring av budgivningen ryms inte på den här sidan.
+- dubbelt på motståndarnas senaste bud; redubbelt på ett bud från din sida som har dubblats.
+Tre pass efter ett bud avslutar budgivningen. Det sista budet är kontraktet och dess färg är trumf. Spelförare är den spelare på den sidan som först nämnde färgen; partnern blir träkarl. Fyra pass: korten ges om.
 # Spelet
-- Spelaren till vänster om spelföraren spelar ut. Sedan lägger träkarlen upp sina kort öppet för alla, och spelföraren spelar dem utöver sina egna.
-- Bekänn färg om du kan; annars spelar du vilket kort som helst. Den högsta trumfen tar sticket, annars det högsta kortet i utspelad färg (esset är högst). Vinnaren spelar ut till nästa stick.
-- Spelföraren behöver sex stick plus talet i budet.
+- Spelaren till vänster om spelföraren spelar ut. Sedan lägger träkarlen upp sina kort öppet, och spelföraren spelar även dem.
+- Bekänn färg om du kan; annars spelar du vilket kort som helst. Den högsta trumfen tar sticket, annars det högsta kortet i utspelad färg. Vinnaren spelar ut till nästa stick.
 # Poängen
 - Kontraktet hemma: varje budat stick över sex ger 20 i klöver eller ruter, 30 i hjärter eller spader; i sang 40 för det första, sedan 30. Dubblat det dubbla, redubblat det fyrdubbla. 100 sådana poäng eller mer är en utgång.
 - Varje övertrick: dess värde; dubblat 100 (i zonen 200), redubblat det dubbla. Ett dubblat kontrakt hemma ger 50 extra, ett redubblat 100.
 - Slam: 12 budade och tagna stick 500 (i zonen 750), alla 13 stick 1000 (i zonen 1500).
-- Kontraktet går bet: motspelarna skriver varje saknat stick 50 (i zonen 100). Dubblat: 100, sedan 200 för 2:a och 3:e, sedan 300 vardera; i zonen 200, sedan 300 vardera. Redubblat: det dubbla mot dubblat.
+- Kontraktet går bet: motspelarna skriver 50 för varje saknat stick (i zonen 100). Dubblat: 100, 200, 200, sedan 300 vardera (i zonen 200, sedan 300 vardera); redubblat det dubbla.
 # Partiets slut
-- Chicago: fyra givar. I den första är ingen i zonen, i den andra och tredje givens sida, i den fjärde båda sidor. Varje giv räknas för sig: en utgång ger 300 extra (i zonen 500), varje mindre kontrakt 50. Om alla passar delar samma giv om.
-- Robber: kontraktspoängen skrivs under strecket och läggs ihop mot en utgång på 100; en utgång stryker båda sidornas delkontrakt. En sida som har vunnit en utgång är i zonen. Den första sidan med två utgångar avslutar robbern: 700 extra för två-noll, 500 för två-ett. Honnörer räknas bara i robbern: de fem högsta trumferna (ess, kung, dam, knekt, 10) på en hand 150, fyra av dem 100, de fyra essen i sang 150, till den handens sida oavsett resultat.
+- Chicago: fyra givar. I zonen: i den första ingen, i den andra och tredje givens sida, i den fjärde båda sidor. En utgång ger 300 extra (i zonen 500), varje mindre kontrakt 50.
+- Robber: en utgång stryker båda sidornas delkontrakt, och en sida som har vunnit en utgång är i zonen. Två utgångar avslutar robbern: 700 extra för två-noll, 500 för två-ett. Honnörer, bara i robbern: de fem högsta trumferna på en hand 150, fyra av dem 100, de fyra essen i sang 150.
 - Sidan med högst summa vinner.
-# Spela på enheten
-Ge enheten till spelaren vars bricka visas; han trycker på start och ser sin hand. Budgivningen är en tabell med bud, en kolumn per spelare, brickorna överst: vänster, mittemot, höger, du. En röd ring runt en bricka: den sidan är i zonen. Bjud genom att trycka på en knapp i budlådan (sang är en skiva med de fyra färgerna överstrukna; grönt passar, det röda krysset dubblar, två blå kryss redubblar) och sedan på bocken eller samma knapp igen. Under spelet håller spelföraren enheten även för träkarlen; träkarlens ägare tittar bara på. Tryck på ett kort som lyser så att det lyfts, och tryck på det igen eller på dess plats i mitten; eller dra dit det. Sticken staplas med sitt antal framför spelföraren och framför den motspelare som tog sin sidas första stick. Tryck på kontraktet i övre hörnet för att se budgivningen och det senaste sticket. Efter varje giv visar protokollet vi (din sida) och de i två kolumner; tryck på det för nästa giv. Varje list visar sidans summa, en röd ring i zonen och i en robber poängen under strecket i en mörk skiva. Ångra tar tillbaka ett val som inte är bekräftat än, aldrig ett bud eller ett kort när enheten har lämnats vidare.

@@ -1,42 +1,28 @@
 Canasta
 # The aim
-Be the first side to reach 5000 points. For 4 players in two partnerships (partners sit across and share their melds), or for 2 players. Meld cards of the same rank, build canastas of seven cards, and go out.
+Be the first side to reach 5000 points: 4 players in two partnerships, or 2 players.
 # The cards
-- Two packs of 52 cards and four jokers: 108 cards.
-- Jokers and 2s are wild: in a meld they stand for any rank.
-- Card values: joker 50, ace and 2 20, king to 8 10, 7 to 4 5, black 3 5.
-- Red 3s are bonus cards. A red 3 you are dealt or draw is laid down at once beside your side's melds, and you draw another card in its place. Each is worth 100, all four 800; they count against a side that has melded nothing when the hand ends.
-- Black 3s block the discard pile: nobody may take it while a black 3 is on top.
+- Two packs and four jokers. Jokers and 2s are wild.
+- Values: joker 50, ace and 2 20, king to 8 10, 7 to 4 5, black 3 5.
+- A red 3 is laid down at once and replaced: 100 each, all four 800, counted against a side that has melded nothing.
 # The deal
-- 11 cards each (2 players: 15). The next card starts the discard pile; the rest is the stock. If that card is a wild card or a red 3, another card covers it and the pile is frozen.
-- The deal moves on one seat each hand.
+- 11 cards each (2 players: 15). If the card that starts the discard pile is wild or a red 3, it is covered and the pile is frozen.
 # A turn
-- Draw the top card of the stock (2 players: two cards), or take the whole discard pile.
-- Meld if you like.
-- Discard one card face up: your turn ends.
+- Draw from the stock (2 players: two cards) or take the whole discard pile, meld if you like, then discard one card.
 # Melds and canastas
-- A meld: three or more cards of the same rank (aces, 4s to kings), at least two of them natural and at most three wild. Your side has one meld of each rank: more cards of that rank go on it.
-- A canasta: a meld of seven cards or more. Natural (no wild card) 500 points, mixed 300.
-- The initial meld: your side's first melds, laid in one turn, must be worth at least 50 (the cards' values) while its score is below 1500, 90 from 1500, 120 from 3000, and 15 while it is below zero. You may lay them before drawing, to take the pile with them.
+- A meld: three or more cards of the same rank, at least two natural and at most three wild. Your side has one meld of each rank.
+- A canasta: seven cards or more. Natural 500, mixed 300.
+- Your side's first melds, laid in one turn, must be worth at least 50 (90 from 1500 points, 120 from 3000, 15 below zero). You may lay them before drawing, to take the pile.
 # The discard pile
-- To take it, its top card must go into a meld at once: with cards from your hand, or on a meld of your side. Then the rest of the pile goes into your hand.
-- The pile is frozen while a wild card is in it (it lies crosswise), and for a side that has not melded yet. Then you may take it only with a natural pair of the top card's rank from your hand.
+- To take it, meld its top card at once; the rest goes into your hand.
+- It is frozen while a wild card is in it, and for a side that has not melded: then only a natural pair of the top card's rank from your hand takes it.
 - Never when a black 3 or a wild card is on top.
 # Going out
-- You go out when you get rid of your last card: by melding them all, or by melding all but one and discarding it. Only once your side has a canasta (2 players: two canastas). Until then you may not meld your hand down to fewer than two cards.
+- Only once your side has a canasta (2 players: two). Until then you may not meld your hand down to fewer than two cards.
 - Black 3s may be melded (three or four, no wild card) only when going out.
-- Going out scores 100. Going out concealed scores 200: the whole hand melded in one turn, after drawing from the stock, having melded nothing before in this hand; then no initial count is needed.
-- When the stock is empty, a player who can put the pile's top card on a meld of their side must take the pile; otherwise the hand ends.
+- Going out scores 100; concealed, 200: the whole hand melded in one turn after drawing from the stock, with nothing melded before, and no initial count needed.
+- When the stock is empty, you must take the pile if its top card goes on a meld of your side; otherwise the hand ends.
 # The points
-At the end of a hand each side scores its melded cards, its canastas, its red 3s and going out, minus the cards left in its players' hands.
+Each side scores its melded cards, canastas, red 3s and going out, minus the cards left in its hands.
 # The end of the game
-The game ends after the hand in which a side reaches 5000 points. The highest total wins; with the same total, the win is shared.
-# Playing on the device
-The hands are secret: pass the device when the screen asks, and the next player taps the start button. Your hand is at the bottom, sorted by rank. The other hands are small fans at the top. Your side's melds are above your hand, the other side's below the fans, a column for each rank. A canasta closes into a pile with its number of cards under it: in gold light when natural, with a wild card crosswise under it when mixed. Each side's tokens and red 3s are at the left of its row. While a side has not melded, a dark disc at the right shows the count its initial meld needs, and beside it what is laid this turn. Each bar shows the cards in hand and the side's score.
-- Tap the stock to draw.
-- Tap cards of your hand to choose them; tap one again to put it back.
-- Then tap a meld of your side to add them to it, or your side's row to make a new meld. Before drawing, tap the discard pile to take it with them. After drawing, choose one card and tap the discard pile to discard it. You may also drag a card there.
-- What the chosen cards can do glows: the pile, a meld, a free place.
-- When the stock is empty and you may not take the pile, tap the empty stock to end the hand.
-- At the end of a hand a table shows, for each side, the melded cards, the canastas, the red 3s, going out, the cards left in hand, the points of the hand and the totals. Tap for the next hand.
-Undo takes back your own actions, back to the moment the device was passed.
+The game ends after the hand in which a side reaches 5000 points. The highest total wins; a tie is shared.
