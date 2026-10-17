@@ -16,6 +16,7 @@
 #include "cards_table.h"
 #include "games/rikiki.h"
 #include "games/tricks.h"
+#include "pages.h"
 #include "shell.h"
 
 static rikiki_game G;
@@ -251,7 +252,7 @@ static void draw(void)
         ct_badge(x, y, 0.95f * T.tok, p->bid[q]);
         if (ph != RK_PLAY) continue;
         ct_seat_spot(&T, q, 1, &x, &y);
-        ui_number(x, y, 0.5f * T.tok, p->won[q], 1);
+        ui_number(x, y, 0.5f * T.tok, p->won[q], TH.dark);   /* on the table: the light one's ink */
     }
     ct_draw_pile(&T, p->tricks);
     if (ph == RK_BID || ph == RK_PLAY) draw_turned();
