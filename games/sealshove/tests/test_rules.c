@@ -223,6 +223,24 @@ static void test_bumps(void)
     in[0].dash = 1;
     world_step(&W, in);
     CHECK(W.s[0].state != SS_DASH, "dizzy: no slide");
+    /* seals stacked on the very same spot (no direction to push along): they part, nothing blows up */
+    arena(&W, 4);
+    for (int i = 0; i < SEALS; i++) put(&W, i, FLOE_CX, FLOE_CY);
+    W.s[2].state = SS_DASH;
+    W.s[2].vx = DASH_V;
+    W.s[3].power = PW_HEAVY;
+    W.s[3].power_t = 1000;
+    idle();
+    steps(&W, 40);
+    int parted = 1, calm = 1;
+    for (int a = 0; a < SEALS; a++) {
+        calm &= seal_standing(&W.s[a]) && speed(&W.s[a]) < FX * 6;
+        for (int b = a + 1; b < SEALS; b++) {
+            int dx = PX(W.s[b].x - W.s[a].x), dy = PX(W.s[b].y - W.s[a].y);
+            parted &= dx * dx + dy * dy >= (2 * SEAL_R - 3) * (2 * SEAL_R - 3);
+        }
+    }
+    CHECK(parted && calm, "4 seals stacked on one spot part (and stay on the ice, at sane speeds)");
 }
 
 static void test_dash(void)
