@@ -9,18 +9,75 @@
 static const rs_color ramps[2][3]={{RS_RGB8(255,225,157),RS_RGB8(227,174,85),RS_RGB8(161,101,60)},{RS_RGB8(170,247,221),RS_RGB8(82,210,174),RS_RGB8(42,141,147)}};
 static const rs_color field_pal[16]={0,RS_RGB8(29,29,55),RS_RGB8(255,238,194),RS_RGB8(246,255,248),RS_RGB8(255,181,210),RS_RGB8(222,99,157),RS_RGB8(117,53,119),RS_RGB8(174,246,205),RS_RGB8(74,193,155),RS_RGB8(35,109,121),RS_RGB8(168,220,254),RS_RGB8(91,156,232),RS_RGB8(57,80,154),RS_RGB8(255,226,121),RS_RGB8(199,140,67),RS_RGB8(33,34,57)};
 static rs_color lines[240];
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the cavern goes on above the stage
- * (BG3's band of pillars, map lines 16..47, repeated up to the screen's top) and its stone floor below (the bricks of
- * map lines 224..239 repeated); the UI and the marbles' layers are hidden there (window 1 over the whole width: their
- * 32-row maps would repeat). Line 0 puts the stage's settings back, so a 240-line screen is unchanged. */
+/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the arena needs every column (the
+ * marbles bounce from wall to wall), so the app fits the width and the lines past the stage show the mine in cross
+ * section, on BG4 (tiles drawn in code, tall_init): above, the meadow's sky (the backdrop, bluer toward the top), the
+ * grass, the earth in two strata and the rock roof the cavern's pillars hold up; below, the floor's bricks once more,
+ * then the bedrock with its gems (the app's touch buttons over it). Each cell takes one of a few variants by a hash,
+ * so nothing repeats in stripes. The UI (but for the pinned HUD band), marbles' and cavern layers are hidden there
+ * (window 1 over the whole width: their 32-row maps would repeat); BG4 is hidden on the stage; line 0 puts the
+ * stage's settings back, so a 240-line screen is unchanged (BG4 is only set up on a tall one). */
+#define T4 600                  /* BG4's tiles: VR_BG3 + T4 .. (after the cavern's and the ground's, wide or not) */
+#define PAL_MINE 6
+#define HUD_PIN_Y 4             /* play: BG1's top HUD_LINES (the player tags) at this screen line, the score too */
+#define HUD_LINES 24
+enum{M_BLANK,M_GRASS,M_EARTH_HI,M_EARTH_LO=M_EARTH_HI+4,M_ROCK=M_EARTH_LO+4,M_ROOF=M_ROCK+3,
+     M_BED=M_ROOF+1,M_GEM=M_BED+3,M_TILES=M_GEM+2};
+static int hud_pinned;          /* set by draw_frame before every picture (not saved) */
+static int sky_lines;           /* the lines of sky at the screen's top (tall_init, from the height: a setting) */
+static uint32_t mix(uint32_t a){a^=a>>16;a*=0x7feb352du;a^=a>>15;a*=0x846ca68bu;a^=a>>16;return a;}
+static rs_color sky(int y){
+ int top=rs_screen_top(),k=sky_lines>8?(y-top)*256/sky_lines:256,d=(y&4)?1:0;k=k>256?256:k;   /* the house dither */
+ return RS_RGB8(84+(170-84)*k/256+2*d,140+(214-140)*k/256+2*d,214+(236-214)*k/256+2*d);
+}
+static void mine_tile(int id,uint8_t*t){
+ for(int y=0;y<8;y++)for(int x=0;x<8;x++){
+  uint32_t h=mix((uint32_t)(id*64+y*8+x)*2654435761u+7u);int c=0,n=(int)(h%16);
+  if(id==M_GRASS){int blade=(x*5+3)%7;c=y<3?(y>=blade%3+1&&x%3!=1?2:0):y<5?(n<4?1:2):y<6?3:(n<5?4:5);}
+  else if(id>=M_EARTH_HI&&id<M_EARTH_LO+4){int lo=id>=M_EARTH_LO,v=(id-M_EARTH_HI)%4;c=lo?6:5;
+   if(n==0)c=lo?5:4;else if(n==15)c=lo?11:6;
+   if(v==1&&(x-4)*(x-4)+(y-4)*(y-4)*2<7)c=(x+y<7)?7:8;                       /* a pebble */
+   if(v==2&&(y==((x*3)/4+2)%8||y==(x+5)/2))c=12;                              /* a root */
+   if(v==3&&x>=5&&y<=2)c=lo?6:5;}
+  else if(id>=M_ROCK&&id<M_ROOF+1){c=n<2?9:n<14?10:11;if(id==M_ROCK+1&&(x==y||x==y+1))c=11;
+   if(id==M_ROCK+2&&y==5)c=9;
+   if(id==M_ROOF&&y>=6)c=y==7?15:11;}
+  else if(id>=M_BED&&id<M_GEM+2){c=n<2?10:n<15?11:15;if(id==M_BED+1&&y==3&&x>1)c=10;
+   if(id>=M_GEM){int dx=x-3,dy=y-4,r=dx*dx+dy*dy;if(r<=4)c=id==M_GEM?13:14;if(dx==-1&&dy==-1)c=7;if(r==5)c=15;}}   /* a gem */
+  t[y*8+x]=(uint8_t)c;}
+}
+static void tall_init(void){
+ static const rs_color pal[16]={0,RS_RGB8(150,206,96),RS_RGB8(92,164,70),RS_RGB8(54,112,58),RS_RGB8(164,114,72),
+  RS_RGB8(134,90,58),RS_RGB8(104,68,46),RS_RGB8(178,166,150),RS_RGB8(116,104,98),RS_RGB8(96,92,108),RS_RGB8(70,68,86),
+  RS_RGB8(48,48,66),RS_RGB8(78,52,36),RS_RGB8(255,140,200),RS_RGB8(120,236,226),RS_RGB8(29,29,55)};
+ uint8_t px[M_TILES*64];
+ for(int i=0;i<M_TILES;i++)mine_tile(i,px+i*64);
+ rs_tiles_load8(VR_BG3+T4,px,M_TILES);rs_pal_load(RS_PAL_BG(PAL_MINE),pal,16);
+ rs_bg_setup(RS_BG4,64,64,VR_BG3);
+ /* above: rows 0..29 (row 29 just over the stage; BG4 scrolled so map line = screen line + 240) */
+ int above=-rs_screen_top(),rows=(above+7)/8,earth=rows-rows*3/10;            /* three tenths of sky */
+ sky_lines=above-(earth-1)*8;   /* (down to the grass) */
+ for(int r=0;r<30;r++)for(int x=0;x<64;x++){int k=29-r,e=M_BLANK;uint32_t h=mix((uint32_t)(r*64+x)*31u+1u);
+  if(k<earth-1){e=k==0?M_ROOF:k<3?M_ROCK+(int)(h%3):(k<earth/2+(int)(h>>8&1)?M_EARTH_LO:M_EARTH_HI)+((h%8)<4?0:(int)(h%4));}
+  else if(k==earth-1)e=M_GRASS;
+  rs_bg_put(RS_BG4,x,r,RS_MAP(T4+e,PAL_MINE,0,0,0));}
+ /* below: rows 32..63 (line 240 at row 32): the floor's bricks (the ground map's last two rows), the bedrock */
+ int n=rs_screen_width()>RS_SCREEN_W?gm_hills_wide_tile_count:gm_bg3_tile_count;
+ for(int r=32;r<64;r++)for(int x=0;x<64;x++){uint32_t h=mix((uint32_t)(r*64+x)*17u+5u);
+  uint16_t e=r<34?(uint16_t)(gm_ground_map[(r-30)*64+x]+n):RS_MAP(T4+(h%23==0?M_GEM+(int)(h/23%2):M_BED+(int)(h%3)),PAL_MINE,0,0,0);
+  rs_bg_put(RS_BG4,x,r,e);}
+ rs_bg_enable(RS_BG4,1);
+}
 static void raster_out(int y){
- if(y==rs_screen_top()||y==RS_SCREEN_H){rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);}
- if(y<0){rs_bg_scroll(RS_BG3,0,16+((y%32)+32)%32-y);rs_pal_set(0,lines[0]);}
- else{rs_bg_scroll(RS_BG3,0,224+(y-RS_SCREEN_H)%16-y);rs_pal_set(0,lines[RS_SCREEN_H-1]);}
+ int top=rs_screen_top();
+ if(y==top||y==RS_SCREEN_H){rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG2,RS_WIN1);rs_bg_window(RS_BG3,RS_WIN1);
+  rs_bg_window(RS_BG4,0);rs_bg_scroll(RS_BG4,0,y==top?240:16);}
+ rs_bg_window(RS_BG1,hud_pinned&&y>=top+HUD_PIN_Y&&y<top+HUD_PIN_Y+HUD_LINES?0:RS_WIN1);
+ rs_pal_set(0,y<0?sky(y):lines[RS_SCREEN_H-1]);
 }
 static void raster(int y,void*user){(void)user;
  if(y<0||y>=RS_SCREEN_H){raster_out(y);return;}
- if(y==0&&rs_screen_height()>RS_SCREEN_H){rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_bg_scroll(RS_BG3,0,0);}
+ if(y==0&&rs_screen_height()>RS_SCREEN_H){rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_bg_window(RS_BG3,0);rs_bg_window(RS_BG4,RS_WIN1);rs_bg_scroll(RS_BG3,0,0);}
  rs_pal_set(0,lines[y]);}
 /* the marbles' layer is drawn in pixels (stage coordinates), one screen wide: fb_w columns, stage x -fb_ox .. */
 static int fb_w=320,fb_ox;
@@ -57,6 +114,7 @@ void draw_init(void){
  rs_obj_base(VR_OBJ);rs_tiles_load(VR_OBJ,gm_obj_tiles,gm_obj_tile_count);rs_pal_load(RS_PAL_OBJ(0),gm_obj_pals,48);rs_pal_load(RS_PAL_OBJ(4),gm_obj_pals+64,32);
  if(rs_screen_width()>RS_SCREEN_W)timber_init();
  for(int y=0;y<240;y++)lines[y]=RS_RGB8(26+y/40,30+y/40,50+y/30);
+ if(rs_screen_height()>RS_SCREEN_H)tall_init();
  rs_raster(raster,NULL);
 }
 /* Widescreen: the arena is the whole screen; its walls are two squared mine timbers at the screen's edges (WALL px of
@@ -115,6 +173,9 @@ static void field(const world*w){
 static void icon(int p,int x,int y,int t,void*user){(void)t;(void)user;spr(SPR_HERO_ICON,x-8,y-8,hu_player_pal(p),0);}
 void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);field(w);
+ /* a tall screen: the HUD at the screen's top in play (BG1's top HUD_LINES pinned, the score's digits there too) */
+ hud_pinned=rs_screen_height()>RS_SCREEN_H&&(state==ST_PLAY||state==ST_DEAD);
+ rs_bg_pin(RS_BG1,0,hud_pinned?HUD_LINES:0,HUD_PIN_Y);int hy=hud_pinned?rs_screen_top()+HUD_PIN_Y:0;
  for(int p=0;p<w->players;p++){const hero*h=&w->h[p];if(h->state==HS_DOWN&&h->t>70)continue;int id=h->state==HS_HIT||h->state==HS_DOWN?SPR_HERO_HIT:SPR_HERO_IDLE+(h->state==HS_RUN&&((w->t/8)%2));
   spr(id,h->x-16,GROUND_Y-31,hu_player_pal(p),h->facing<0);
  }
@@ -124,7 +185,7 @@ void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
   hu_logo("MOLE MARBLES",ramps,2,2,0);hu_title_draw(t,best);hu_title_sprites(t,icon,NULL);
   hu_text(hu_center(TR(HINT_CONTROLS),0),16,TR(HINT_CONTROLS));
  }else if(state==ST_PLAY||state==ST_DEAD){
-  if(w->players==1)hu_number(scores[0],160,8,3);
+  if(w->players==1)hu_number(scores[0],160,8+hy,3);
   else for(int p=0;p<w->players;p++){char s[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(s,sizeof s,"%s %d",tag,scores[p]);hu_text(p*10,1,s);}
   if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
  }else{

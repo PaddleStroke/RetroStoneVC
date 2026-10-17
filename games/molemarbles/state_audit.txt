@@ -6,3 +6,5 @@ main.SV             the battery save's copy (best scores, medals): stays in the 
 draw.fbuf           field(): the marbles' layer drawn in pixels, scratch, made again every frame
 draw.fb_w           field(): its width (the screen's), set every frame
 draw.fb_ox          field(): its stage origin (rs_screen_origin_x()), set every frame
+draw.hud_pinned     a tall screen: the HUD band pinned at the screen's top, set by draw_frame before every picture
+draw.sky_lines      a tall screen: the sky's lines at its top, from the height (tall_init: a setting, not a state)

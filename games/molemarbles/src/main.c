@@ -270,7 +270,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, shown_best(), new_best, p
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);          /* a phone held upright: the cavern above, its floor below (DESIGN.md) */
+    rs_screen_tall(RS_SCREEN_H_MAX);          /* a phone held upright: the mine in cross section (DESIGN.md) */
     save_load();
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);

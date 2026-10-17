@@ -113,10 +113,19 @@ game a little easier).
 
 ## Tall screen (docs/spec.md "Tall screen")
 A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init`, so the RetroStone app gives the game the
-display's height at 320 columns. The arena and the 240 lines of the stage are the same pixels, centred (the default
-origin; the frontend's touch buttons sit in the band below). The raster draws the lines past the stage (draw.c
-`raster_out`): above, the cavern rising on (BG3's band of pillars, map lines 16..47, repeated up to the screen's top,
-the backdrop the stage's first colour); below, the stone floor going down (the bricks of map lines 224..239 repeated).
-The UI and marbles' layers are hidden there (window 1 over the whole width: their 32-row maps would repeat); line 0
-puts the stage's windows and BG3's scroll back, so a 240-line screen is unchanged. Nothing of the play changes: the
-ceiling stays at y 24 and the floor at y 208.
+display's height at 320 columns. **Not the zoomed screen** (`rs_screen_zoom`, which crops the sides): the arena is
+the whole screen's width (the marbles bounce from wall to wall, the moles walk it end to end), so every column must
+stay in view and the width sets the scale. The arena and the 240 lines of the stage are the same pixels, centred (the
+default origin; the frontend's touch buttons sit in the band below). The lines past the stage show the mine in cross
+section, on BG4 with tiles drawn in code (draw.c `tall_init`), so the bands read as a designed scene, not a letterbox:
+- **above**: the meadow's sky at the screen's top (the backdrop, bluer toward the top, the house 2-line dither; three
+  tenths of the rows), the grass, the earth in two strata with pebbles and roots, then the grey rock roof that the
+  cavern's pillars hold up (the marbles drop from that ceiling, as on a 240-line screen);
+- **below**: the floor's bricks once more (the ground map's last two rows), then the dark bedrock with pink and cyan
+  gems, where the app draws its touch buttons.
+Each cell takes one of a few variants by a hash, so nothing repeats in stripes. **The HUD at the screen's top** in
+play: the score (sprites at `rs_screen_top()` + 4 + their y) and the 2-4 players' tags (BG1's top 24 lines pinned at
+screen line 4: `rs_bg_pin`). The raster (`raster_out`) hides the UI (but for that band), marbles' and cavern layers
+past the stage (window 1 over the whole width: their 32-row maps would repeat) and BG4 on the stage; line 0 puts the
+stage's settings back, and BG4 is only set up on a tall screen, so landscape and 4:3 are the same pixels as before
+(checked at 2340x1080 and 320x240). Nothing of the play changes: the ceiling stays at y 24 and the floor at y 208.
