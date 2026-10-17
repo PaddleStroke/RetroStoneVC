@@ -2,21 +2,17 @@ Gåsspelet
 # Målet
 Bli först med att föra din pjäs till ruta 63, gåsens trädgård mitt i spiralen. För 2 till 6 spelare.
 # En tur
-Alla pjäser börjar i hörnet nere till vänster, före ruta 1. Spelarna turas om, och den ljusa sidan börjar. Kasta de två tärningarna och flytta din pjäs framåt lika många rutor som deras summa, en ruta i taget, längs spiralen.
-- Slår du 9 från start går du inte till ruta 9: 6 och 3 går direkt till 26, 5 och 4 till 53, rutorna med tärningarna. Det gäller det första kastet, och igen när döden har skickat dig tillbaka till start.
-- Ruta 63 måste nås med exakt rätt tal. Slår du mer går pjäsen upp till 63 och tillbaka lika många rutor som det blir över: från 60 hamnar ett kast på 6 på 60.
+Kasta de två tärningarna och flytta din pjäs framåt lika många rutor som deras summa.
+- Ett första kast på 9 (och igen efter döden): 6 och 3 går direkt till 26, 5 och 4 till 53.
+- Ruta 63 måste nås med exakt rätt tal. Slår du mer går pjäsen upp till 63 och tillbaka lika många rutor som det blir över.
 # Rutorna
-- Gässen (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 och 59): flytta lika långt igen, åt samma håll, från gås till gås. Efter att ha vänt vid 63 skickar en gås dig längre tillbaka.
+- En gås: flytta lika långt igen, åt samma håll.
 - Bron (6): gå vidare till 12.
-- Värdshuset (19): stå över dina två nästa turer.
-- Brunnen (31): stanna där tills en annan pjäs ramlar ner och befriar dig.
-- Labyrinten (42): gå tillbaka till 30.
-- Fängelset (52): stanna där tills en annan pjäs kommer in och befriar dig.
-- Döden (58): gå tillbaka till start.
+- Värdshuset (19): stå över två turer.
+- Brunnen (31) och fängelset (52): vänta tills en annan pjäs kommer in och befriar dig.
+- Labyrinten (42): tillbaka till 30.
+- Döden (58): tillbaka till start.
 # Möta andra pjäser
-Två pjäser står aldrig på samma ruta, utom vid start. Om din pjäs avslutar sitt drag på en ruta där en annan pjäs står, flyttas den pjäsen till rutan du kom från, och den är fri igen om värdshuset, brunnen eller fängelset höll den; rutan den hamnar på har ingen verkan på den. Din pjäs tar dess plats, och dess ruta: i brunnen eller fängelset är det nu du som väntar. Att passera en pjäs gör ingenting.
-Med två spelare, om den ena pjäsen sitter i brunnen och den andra i fängelset, kan ingen komma och befria dem: nästa spelare som ska kasta befrias och spelar vidare.
+Slutar du på en annan pjäs ruta flyttas den till rutan du kom från, fri från värdshuset, brunnen eller fängelset, och du tar dess plats. Med två spelare, om den ena pjäsen sitter i brunnen och den andra i fängelset, befrias nästa spelare som ska kasta.
 # Partiets slut
 Den som först står på ruta 63 vinner.
-# Spela på enheten
-Skicka runt enheten: den spelare som ska kasta har alltid sitt fält längst ned. Hens två tärningar väntar bredvid brädet i ett gyllene sken, och hens pjäs lyser: tryck på skärmen för att kasta. Pjäsen flyttar sedan av sig själv. Varje fält visar vilken ruta den spelarens pjäs står på och vad som håller kvar den: värdshuset (med de turer som återstår att stå över), brunnen eller fängelset. Ångra tar tillbaka kasten ett i taget; ett kast som tas tillbaka blir likadant när du kastar igen.

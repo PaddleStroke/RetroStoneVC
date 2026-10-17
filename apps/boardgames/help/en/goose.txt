@@ -2,21 +2,17 @@ The Game of the Goose
 # The aim
 Be the first to bring your pawn to square 63, the goose's garden in the middle of the spiral. For 2 to 6 players.
 # A turn
-All the pawns start in the corner at the bottom left, before square 1. Players take turns, Light first. Throw the two dice and move your pawn forward by their sum, one square at a time, along the spiral.
-- A 9 thrown from the start does not go to square 9: 6 and 3 go straight to 26, 5 and 4 to 53, the squares with the dice. This counts for the first throw, and again after death has sent you back to the start.
-- Square 63 must be reached by the exact number. With more, your pawn goes to 63 and back by the extra points: from 60, a throw of 6 ends on 60.
+Throw the two dice and move your pawn forward by their sum.
+- A first throw of 9 (and again after death): 6 and 3 go straight to 26, 5 and 4 to 53.
+- Square 63 needs the exact number. With more, go to 63 and back by the extra points.
 # The squares
-- The geese (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 and 59): move again by the same throw, in the same direction, from goose to goose. After bouncing off 63, a goose sends you further back.
+- A goose: move again by the same throw, the same way.
 - The bridge (6): go on to 12.
-- The inn (19): miss your next two turns.
-- The well (31): stay there until another pawn falls in and frees you.
-- The maze (42): go back to 30.
-- The prison (52): stay there until another pawn comes in and frees you.
-- Death (58): go back to the start.
+- The inn (19): miss two turns.
+- The well (31) and the prison (52): wait until another pawn comes in and frees you.
+- The maze (42): back to 30.
+- Death (58): back to the start.
 # Meeting another pawn
-Two pawns never share a square, except at the start. If your pawn ends its move on a square where another pawn stands, that pawn goes to the square you came from, and it is free again if the inn, the well or the prison held it; it takes no effect from the square it lands on. Your pawn takes its place, and its square: in the well or the prison, you are now the one who waits. Passing over a pawn does nothing.
-With two players, if one pawn is in the well and the other in the prison, nobody can come to free them: the next player to throw is freed and plays on.
+If you end on another pawn's square, it goes to the square you came from, freed from the inn, well or prison, and you take its place. With two players, if one pawn is in the well and the other in the prison, the next player to throw is freed.
 # The end of the game
 The first player on square 63 wins.
-# Playing on the device
-Pass the device round: the player to throw always has their bar at the bottom. Their two dice wait beside the board, in a gold light, and their pawn glows: tap the screen to throw. The pawn then moves on its own. Each bar shows the square that player's pawn is on, and what holds it: the inn (with the turns still to miss), the well or the prison. Undo takes back throws one by one; a throw taken back comes up the same when you throw again.

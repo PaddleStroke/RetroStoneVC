@@ -1,20 +1,18 @@
 421
 # Målet
-Bli kvitt sjetongene dine: det franske kafespillet med tre terninger og elleve sjetonger. To til seks spillere. Den som sitter igjen med alle sjetongene, taper; alle andre vinner.
+Bli kvitt sjetongene dine: det franske kafespillet med tre terninger og elleve sjetonger, for to til seks spillere.
 # Kastene
 Fra det beste til det dårligste, og hva hvert kast er verdt i sjetonger:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- De såkalte «fiches», to enere og en annen terning, og tre like, hver verdt sitt tall: 1-1-6 og 6-6-6: 6; 1-1-5 og 5-5-5: 5; ned til 1-1-2 og 2-2-2: 2. En fiche slår tre like med samme verdi.
-- Rekkene 6-5-4, 5-4-3, 4-3-2 og 3-2-1: 2.
-- Alle andre kast: 1, jo høyere terninger, jo bedre (6-6-5, så 6-6-4…).
+- To enere og en annen terning (en «fiche») og tre like, hver verdt sitt tall: 1-1-6 og 6-6-6: 6, ned til 1-1-2 og 2-2-2: 2. En fiche slår tre like med samme verdi.
+- Rekkene 6-5-4 ned til 3-2-1: 2.
+- Alle andre kast: 1, jo høyere terninger, jo bedre.
 - Den såkalte «nénette», 2-2-1: den aller dårligste.
-Er to kast like, er det som ble slått på færrest kast, best; deretter det som ble slått først.
+Er to kast like, vinner det som ble slått på færrest kast, og deretter det som ble slått først.
 # Ladingen
-I ladingen («la charge») ligger de elleve sjetongene først i potten. Hver runde kaster hver spiller én gang. Den med det dårligste kastet tar så mange sjetonger fra potten som det beste kastet er verdt (til slutt: det som er igjen). Elfenben begynner; deretter begynner taperen av hver runde den neste. Når potten er tom, begynner utladingen. En spiller som da ikke har sjetonger, er ute og trygg. Har én spiller tatt alle sjetongene, har han tapt med en gang.
+Sjetongene ligger først i potten. Hver runde kaster alle én gang; den med det dårligste kastet tar så mange sjetonger fra potten som det beste kastet er verdt. Taperen begynner neste runde. Når potten er tom, begynner utladingen: en spiller uten sjetonger er ute og trygg.
 # Utladingen
-I utladingen («la décharge») kaster spillerne opptil tre ganger hver runde og kan beholde terninger mellom kastene. Rundens første spiller kan stoppe etter ett eller to kast: de andre kan da ikke kaste flere ganger enn han gjorde. Den med det beste kastet gir den med det dårligste så mange av sine egne sjetonger som kastet hans er verdt (alle han har, hvis han har færre). En spiller som gir bort sin siste sjetong, er ute og trygg. Taperen av en runde begynner den neste.
+Hver runde kaster man opptil tre ganger og kan beholde terninger mellom kastene. De andre kan ikke kaste flere ganger enn rundens første spiller. Den med det beste kastet gir den med det dårligste så mange av sine egne sjetonger som kastet er verdt. En spiller som gir bort sin siste sjetong, er ute og trygg.
 # Slutten på spillet
 Spillet slutter når én spiller har alle sjetongene: den spilleren har tapt, og alle de andre deler seieren.
-# Spill på enheten
-Trykk på filten for å kaste. Trykk på en terning for å beholde den: den glir ned; trykk på den igjen for å kaste den på nytt. De små terningene under kastet ditt viser hvor mange kast runden tillater, de brukte nedtonet. Knappen med en hake avslutter turen din. Hver spillers kast i runden ligger smått på hans side av filten, og prikkene under teller hvor mange kast det tok; det beste ligger i et gyllent lys og det dårligste i et rødt skjær. Så flyr sjetongene til taperen. Potten ligger i midten under ladingen. Hver linje viser sjetongene til den spilleren. Angre tar tilbake det siste stoppet; terningene kastes aldri på nytt.

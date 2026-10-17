@@ -2,21 +2,17 @@ Gåsespillet
 # Målet
 Vær den første til at få din brik til felt 63, gåsens have midt i spiralen. For 2 til 6 spillere.
 # En tur
-Alle brikkerne starter i hjørnet nederst til venstre, før felt 1. Spillerne skiftes, og den lyse side begynder. Kast de to terninger, og flyt din brik deres sum frem, ét felt ad gangen, langs spiralen.
-- Kaster du 9 fra start, går du ikke til felt 9: 6 og 3 går direkte til 26, 5 og 4 til 53, felterne med terningerne. Det gælder det første kast, og igen når døden har sendt dig tilbage til start.
-- Felt 63 skal nås med det præcise tal. Kaster du mere, går din brik op til 63 og tilbage igen med de overskydende øjne: fra 60 ender et kast på 6 på 60.
+Kast de to terninger, og flyt din brik deres sum frem.
+- Et første kast på 9 (og igen efter døden): 6 og 3 går direkte til 26, 5 og 4 til 53.
+- Felt 63 skal nås med det præcise tal. Kaster du mere, går du op til 63 og tilbage igen med de overskydende øjne.
 # Felterne
-- Gæssene (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 og 59): flyt det samme antal igen, i samme retning, fra gås til gås. Efter at være vendt ved 63 sender en gås dig længere tilbage.
+- En gås: flyt det samme kast igen, i samme retning.
 - Broen (6): fortsæt til 12.
-- Kroen (19): stå over dine næste to ture.
-- Brønden (31): bliv der, til en anden brik falder i og befrier dig.
-- Labyrinten (42): gå tilbage til 30.
-- Fængslet (52): bliv der, til en anden brik kommer ind og befrier dig.
-- Døden (58): gå tilbage til start.
+- Kroen (19): stå over to ture.
+- Brønden (31) og fængslet (52): bliv der, til en anden brik kommer ind og befrier dig.
+- Labyrinten (42): tilbage til 30.
+- Døden (58): tilbage til start.
 # Møde med andre brikker
-To brikker står aldrig på samme felt, undtagen ved start. Slutter din brik sit træk på et felt, hvor en anden brik står, flyttes den brik til det felt, du kom fra, og den er fri igen, hvis kroen, brønden eller fængslet holdt den; feltet, den lander på, har ingen virkning på den. Din brik tager dens plads og dens felt: i brønden eller fængslet er det nu dig, der venter. At passere en brik gør ingenting.
-Med to spillere, hvis den ene brik er i brønden og den anden i fængslet, kan ingen komme og befri dem: den næste spiller, der skal kaste, bliver befriet og spiller videre.
+Slutter du på en anden briks felt, flyttes den til det felt, du kom fra, fri af kroen, brønden eller fængslet, og du tager dens plads. Med to spillere, hvis den ene brik er i brønden og den anden i fængslet, bliver den næste spiller, der skal kaste, befriet.
 # Spillets afslutning
 Den første spiller på felt 63 vinder.
-# Spil på enheden
-Send enheden rundt: den spiller, der skal kaste, har altid sit panel nederst. Spillerens to terninger venter ved siden af brættet i et gyldent lys, og brikken lyser: tryk på skærmen for at kaste. Brikken flytter derefter af sig selv. Hvert panel viser det felt, spillerens brik står på, og hvad der holder den: kroen (med de ture, der endnu skal stås over), brønden eller fængslet. Fortryd tager kast tilbage ét ad gangen; et kast, der er taget tilbage, falder ud på samme måde, når du kaster igen.

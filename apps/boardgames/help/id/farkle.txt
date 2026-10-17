@@ -1,21 +1,18 @@
 Farkle
 # Tujuan
-Jadilah yang pertama mengamankan 10.000 poin dengan melempar enam dadu dan mengadu untung. Dua sampai enam pemain, atau satu pemain sendirian melawan waktu.
+Jadilah yang pertama mengamankan 10.000 poin dengan enam dadu sambil mengadu untung. Dua sampai enam pemain, atau satu pemain sendirian melawan waktu.
 # Satu giliran
 - Lempar keenam dadu. Sisihkan paling sedikit satu dadu yang mencetak poin, lalu amankan poin giliranmu atau lempar sisa dadu untuk menambah poin.
-- Setiap dadu yang kamu sisihkan harus mencetak poin, dan kombinasi hanya dihitung dalam satu lemparan.
-- Lemparan tanpa dadu yang mencetak poin adalah farkle: kamu kehilangan semua poin giliranmu, dan giliran berpindah.
-- Dadu panas: jika keenam dadu sudah mencetak poin, kamu boleh melempar keenamnya lagi dan terus menambah poin.
-- Poin pertama yang kamu amankan harus paling sedikit 500 dalam satu giliran; setelah itu, berapa pun boleh diamankan.
+- Setiap dadu yang disisihkan harus mencetak poin; kombinasi hanya dihitung dalam satu lemparan.
+- Lemparan tanpa dadu yang mencetak poin adalah farkle: kamu kehilangan poin giliranmu.
+- Dadu panas: jika keenam dadu sudah mencetak poin, lempar keenamnya lagi dan lanjutkan.
+- Poin pertama yang kamu amankan harus paling sedikit 500.
 # Penilaian
 - Setiap 1: 100. Setiap 5: 50.
-- Tiga kembar: angka mukanya kali 100 (tiga 2: 200, tiga 6: 600); tiga 1: 1.000.
-- Empat kembar: 1.000. Lima kembar: 2.000. Enam kembar: 3.000.
+- Tiga kembar: angka mukanya kali 100; tiga 1: 1.000.
+- Empat kembar: 1.000. Lima: 2.000. Enam: 3.000.
 - Urutan 1-2-3-4-5-6: 1.500.
 - Tiga pasang: 1.500 (empat kembar dan satu pasang dihitung sebagai tiga pasang).
 - Dua kali tiga kembar: 2.500.
-Dadu yang disisihkan selalu dihitung dengan nilai terbaiknya: empat 1 adalah tiga 1 ditambah satu 1, 1.100.
 # Akhir permainan
-Pemain bergiliran mengelilingi meja, gading lebih dulu. Jika seorang pemain mengamankan 10.000 atau lebih, setiap pemain lain mendapat satu giliran terakhir; lalu skor tertinggi menang, dan skor tertinggi yang sama berbagi kemenangan. Sendirian, capai 10.000 dalam 20 giliran: pasak di bagian atas kain hijau menghitungnya.
-# Bermain di perangkat
-Ketuk kain hijau atau tombol bergambar dadu untuk melempar. Ketuk dadu yang mencetak poin untuk menyisihkannya: dadu itu terangkat dalam cahaya keemasan, dan dadu yang tidak bisa mencetak poin dalam lemparan ini tampak lebih gelap dan mengeluarkan bunyi penolakan. Di bawah dadu, angka keemasan yang kecil adalah nilai dadu yang dipilih, dan angka yang besar adalah total giliranmu bersama dadu itu. Tombol bergambar dadu melempar sisa dadu; tombol bergambar koin mengamankan giliranmu. Tombol menyala jika boleh dipakai. Dadu yang disisihkan menunggu di rakmu. Farkle menampilkan dadu dalam cahaya merah dan poin yang hilang. Dadu milik pemain yang mencapai 10.000 bersinar di kain hijau selama babak terakhir. Setiap bilah menunjukkan skor pemainnya yang sudah diamankan. Urungkan membatalkan pengamanan terakhir; dadu tidak pernah dilempar ulang.
+Jika seorang pemain mengamankan 10.000 atau lebih, setiap pemain lain mendapat satu giliran terakhir; lalu skor tertinggi menang, dan skor tertinggi yang sama berbagi kemenangan. Sendirian, capai 10.000 dalam 20 giliran.

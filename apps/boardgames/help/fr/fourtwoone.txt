@@ -1,20 +1,18 @@
 421
 # Le but
-Se débarrasser de ses jetons : le jeu de comptoir avec trois dés et onze jetons. De deux à six joueurs. Celui qui finit avec tous les jetons a perdu ; tous les autres gagnent.
+Se débarrasser de ses jetons : le jeu de comptoir avec trois dés et onze jetons, de deux à six joueurs.
 # Les combinaisons
 De la meilleure à la pire, et ce que chacune vaut en jetons :
 - 4-2-1 : 10.
 - 1-1-1 : 7.
-- Les « fiches », deux as et un autre dé, et les brelans, chacun vaut sa face : 1-1-6 et 6-6-6 : 6 ; 1-1-5 et 5-5-5 : 5 ; jusqu'à 1-1-2 et 2-2-2 : 2. Une fiche bat le brelan de même valeur.
-- Les suites 6-5-4, 5-4-3, 4-3-2 et 3-2-1 : 2.
-- Tout autre lancer : 1, les dés les plus forts gagnent (6-6-5, puis 6-6-4…).
+- Deux as et un autre dé (une « fiche »), et les brelans, valent leur face : 1-1-6 et 6-6-6 : 6, jusqu'à 1-1-2 et 2-2-2 : 2. Une fiche bat le brelan de même valeur.
+- Les suites de 6-5-4 à 3-2-1 : 2.
+- Tout autre lancer : 1, les dés les plus forts gagnent.
 - La nénette, 2-2-1 : la pire de toutes.
-Entre deux combinaisons égales, celle faite en moins de lancers l'emporte ; puis celle faite la première.
+Entre deux combinaisons égales, celle faite en moins de lancers l'emporte, puis celle faite la première.
 # La charge
-Les onze jetons sont d'abord au pot. À chaque tour, chacun lance une fois. Celui qui a la pire combinaison prend au pot autant de jetons que vaut la meilleure (ce qui reste, à la fin). L'ivoire commence ; ensuite le perdant de chaque tour commence le suivant. Quand le pot est vide, la décharge commence. Un joueur sans jeton à ce moment est sorti, sauvé. Si un joueur a pris tous les jetons, il a perdu aussitôt.
+Les jetons sont d'abord au pot. À chaque tour, chacun lance une fois ; celui qui a la pire combinaison prend au pot autant de jetons que vaut la meilleure. Le perdant commence le tour suivant. Quand le pot est vide, la décharge commence : un joueur sans jeton est sorti, sauvé.
 # La décharge
-À chaque tour, on lance jusqu'à trois fois, en gardant les dés qu'on veut entre deux lancers. Le premier joueur du tour peut s'arrêter après un ou deux lancers : les autres ne peuvent alors pas lancer plus de fois que lui. Celui qui a la meilleure combinaison donne à celui qui a la pire autant de ses jetons que vaut sa combinaison (tous ceux qu'il a, s'il en a moins). Un joueur qui donne son dernier jeton est sorti, sauvé. Le perdant d'un tour commence le suivant.
+À chaque tour, on lance jusqu'à trois fois, en gardant les dés qu'on veut entre deux lancers. Les autres ne peuvent pas lancer plus de fois que le premier joueur du tour. Celui qui a la meilleure combinaison donne à celui qui a la pire autant de ses jetons que vaut sa combinaison. Un joueur qui donne son dernier jeton est sorti, sauvé.
 # La fin de la partie
 La partie s'arrête quand un joueur a tous les jetons : il a perdu, et tous les autres se partagent la victoire.
-# Jouer sur l'appareil
-Touche le tapis pour lancer. Touche un dé pour le garder : il glisse vers le bas ; touche-le de nouveau pour le relancer. Les petits dés sous ton lancer montrent combien de lancers le tour permet, ceux déjà faits grisés. Le bouton à la coche arrête ton tour. Le lancer de chaque joueur pour ce tour reste en petit de son côté du tapis, les points dessous comptant les lancers qu'il a pris ; le meilleur est dans une lumière dorée et le pire dans une lueur rouge. Puis les jetons volent vers le perdant. Le pot est au milieu pendant la charge. Chaque barre montre les jetons de ce joueur. Annuler reprend le dernier arrêt ; les dés ne sont jamais relancés.

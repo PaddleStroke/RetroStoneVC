@@ -2,21 +2,17 @@ Kaz Oyunu
 # Amaç
 Piyonunu sarmalın ortasındaki 63 numaralı kareye, kazın bahçesine ilk getiren sen ol. 2 ila 6 oyuncu için.
 # Bir sıra
-Bütün piyonlar sol alt köşede, 1 numaralı kareden önce başlar. Oyuncular sırayla oynar, önce açık renk. İki zarı at ve piyonunu toplamları kadar, kare kare, sarmal boyunca ilerlet.
-- Başlangıçtan atılan 9, 9 numaralı kareye gitmez: 6 ve 3 doğrudan 26'ya, 5 ve 4 de 53'e, yani zarlı karelere gider. Bu, ilk atış için ve ölüm seni başlangıca geri gönderdikten sonra yeniden geçerlidir.
-- 63 numaralı kareye tam sayıyla ulaşmalısın. Fazla atarsan piyonun 63'e gider ve artan puan kadar geri döner: 60'tan atılan 6, 60'ta biter.
+İki zarı at ve piyonunu toplamları kadar ilerlet.
+- İlk atışta (ve ölümden sonra yeniden) gelen 9: 6 ve 3 doğrudan 26'ya, 5 ve 4 de 53'e gider.
+- 63 numaralı kareye tam sayıyla ulaşmalısın. Fazla atarsan 63'e git ve artan puan kadar geri dön.
 # Kareler
-- Kazlar (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 ve 59): aynı atış kadar, aynı yönde yeniden ilerle, kazdan kaza. 63'ten geri sektikten sonra bir kaz seni daha da geriye gönderir.
+- Bir kaz: aynı atış kadar, aynı yönde yeniden ilerle.
 - Köprü (6): 12'ye geç.
-- Han (19): sonraki iki sıranı kaçırırsın.
-- Kuyu (31): başka bir piyon içine düşüp seni kurtarana kadar orada kalırsın.
+- Han (19): iki sıra kaçırırsın.
+- Kuyu (31) ve hapishane (52): başka bir piyon gelip seni kurtarana kadar beklersin.
 - Labirent (42): 30'a geri dön.
-- Hapishane (52): başka bir piyon gelip seni kurtarana kadar orada kalırsın.
 - Ölüm (58): başlangıca geri dön.
 # Diğer piyonlarla karşılaşma
-Başlangıç dışında iki piyon asla aynı karede durmaz. Piyonun hamlesini başka bir piyonun durduğu karede bitirirse o piyon senin geldiğin kareye gider; han, kuyu ya da hapishane onu tutuyorsa yeniden serbest kalır; vardığı karenin ona hiçbir etkisi olmaz. Senin piyonun onun yerini ve karesinin etkisini alır: kuyuda ya da hapishanede artık bekleyen sensin. Bir piyonun üzerinden geçmenin hiçbir etkisi yoktur.
-İki oyuncuyla, bir piyon kuyuda, diğeri hapishanedeyse kimse onları kurtarmaya gelemez: zar atacak sıradaki oyuncu serbest kalır ve oynamaya devam eder.
+Başka bir piyonun karesinde durursan o piyon senin geldiğin kareye gider ve han, kuyu ya da hapishane onu tutuyorsa serbest kalır; sen de onun yerini alırsın. İki oyuncuyla, bir piyon kuyuda, diğeri hapishanedeyse zar atacak sıradaki oyuncu serbest kalır.
 # Oyunun sonu
 63 numaralı kareye ilk ulaşan oyuncu kazanır.
-# Cihazda oynamak
-Cihazı elden ele verin: zar atacak oyuncunun şeridi her zaman alttadır. Onun iki zarı tahtanın yanında altın renkli bir ışık içinde bekler ve piyonu parlar: atmak için ekrana dokun. Piyon ardından kendi kendine ilerler. Her şerit, o oyuncunun piyonunun bulunduğu kareyi ve onu neyin tuttuğunu gösterir: han (kaçırılacak sıra sayısıyla), kuyu ya da hapishane. Geri al atışları birer birer geri alır; geri alınan bir atış, yeniden attığında aynı gelir.

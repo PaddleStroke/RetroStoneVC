@@ -1,20 +1,18 @@
 421
 # Cel gry
-Pozbądź się swoich żetonów: francuska gra kawiarniana z trzema kostkami i jedenastoma żetonami. Gra od dwóch do sześciu osób. Gracz, któremu na końcu zostaną wszystkie żetony, przegrywa; wszyscy pozostali wygrywają.
+Pozbądź się swoich żetonów: francuska gra kawiarniana z trzema kostkami i jedenastoma żetonami, dla dwóch do sześciu graczy.
 # Rzuty
 Od najlepszego do najgorszego, z wartością każdego w żetonach:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- „Fiches”, czyli dwie 1 i inna kostka, oraz trzy jednakowe są warte tyle, ile ich liczba: 1-1-6 i 6-6-6: 6; 1-1-5 i 5-5-5: 5; i tak dalej aż do 1-1-2 i 2-2-2: 2. Fiche bije trzy jednakowe o tej samej wartości.
-- Strity 6-5-4, 5-4-3, 4-3-2 i 3-2-1: 2.
-- Każdy inny rzut: 1, im wyższe kostki, tym lepiej (6-6-5, potem 6-6-4…).
+- Dwie 1 i inna kostka („fiche”) oraz trzy jednakowe są warte tyle, ile ich liczba: 1-1-6 i 6-6-6: 6, aż do 1-1-2 i 2-2-2: 2. Fiche bije trzy jednakowe o tej samej wartości.
+- Strity od 6-5-4 do 3-2-1: 2.
+- Każdy inny rzut: 1, im wyższe kostki, tym lepiej.
 - „Nénette”, 2-2-1: najgorszy ze wszystkich.
-Gdy dwa rzuty są równe, lepszy jest ten uzyskany w mniejszej liczbie rzutów; potem ten uzyskany wcześniej.
+Gdy rzuty są równe, wygrywa ten uzyskany w mniejszej liczbie rzutów, potem ten uzyskany wcześniej.
 # Ładowanie (la charge)
-Na początku jedenaście żetonów leży w puli. W każdej rundzie każdy gracz rzuca raz. Gracz z najgorszym rzutem bierze z puli tyle żetonów, ile wart jest najlepszy rzut (pod koniec: tyle, ile zostało). Zaczyna kość słoniowa; potem przegrany każdej rundy zaczyna następną. Gdy pula jest pusta, zaczyna się rozładowanie. Gracz, który nie ma wtedy żadnego żetonu, odpada z gry i jest bezpieczny. Jeśli jeden gracz wziął wszystkie żetony, od razu przegrał.
+Na początku żetony leżą w puli. W każdej rundzie każdy gracz rzuca raz; najgorszy rzut bierze z puli tyle żetonów, ile wart jest najlepszy. Przegrany zaczyna następną rundę. Gdy pula jest pusta, zaczyna się rozładowanie: gracz bez żetonów odpada z gry i jest bezpieczny.
 # Rozładowanie (la décharge)
-W każdej rundzie gracze rzucają do trzech razy, zatrzymując między rzutami dowolne kostki. Pierwszy gracz rundy może skończyć po jednym lub dwóch rzutach: pozostali mogą wtedy rzucić najwyżej tyle razy co on. Gracz z najlepszym rzutem daje graczowi z najgorszym tyle swoich żetonów, ile wart jest jego rzut (wszystkie, jeśli ma ich mniej). Gracz, który odda swój ostatni żeton, odpada z gry i jest bezpieczny. Przegrany rundy zaczyna następną.
+W każdej rundzie rzucaj do trzech razy, zatrzymując między rzutami dowolne kostki. Pozostali mogą rzucić najwyżej tyle razy co pierwszy gracz rundy. Najlepszy rzut daje najgorszemu tyle swoich żetonów, ile jest wart. Gracz, który odda swój ostatni żeton, odpada z gry i jest bezpieczny.
 # Koniec gry
 Gra kończy się, gdy jeden gracz ma wszystkie żetony: ten gracz przegrał, a wszyscy pozostali dzielą się wygraną.
-# Gra na urządzeniu
-Dotknij sukna, aby rzucić. Dotknij kostki, aby ją zatrzymać: zjeżdża w dół; dotknij jej ponownie, aby znów nią rzucić. Małe kostki pod twoim rzutem pokazują, ile rzutów pozwala runda, a wykorzystane są przyciemnione. Przycisk z ptaszkiem kończy twoją turę. Rzut każdego gracza w tej rundzie leży pomniejszony po jego stronie sukna, a kropki pod nim liczą, ilu rzutów potrzebował; najlepszy jest w złotym świetle, a najgorszy w czerwonej poświacie. Potem żetony lecą do przegranego. Podczas ładowania pula leży na środku. Każdy pasek pokazuje żetony tego gracza. Cofnij cofa ostatnie zakończenie tury; kostki nigdy nie są rzucane ponownie.

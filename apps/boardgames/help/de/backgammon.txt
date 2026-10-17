@@ -1,38 +1,29 @@
 Backgammon
 # Das Ziel
-Bringe alle fünfzehn deiner Steine um das Brett herum in dein Heimfeld und würfle sie dann aus. Wer zuerst alle fünfzehn ausgewürfelt hat, gewinnt. Die Spieler ziehen in entgegengesetzte Richtungen, Elfenbein in die eine, Ebenholz in die andere. Wähle das Spiel vor der Partie: Backgammon (die Karte mit der üblichen Aufstellung), Plakoto (alle Steine in den beiden rechten Ecken, einer festgesetzt), Fevga (alle Steine in gegenüberliegenden Ecken, von jeder einer vorausgezogen) oder Long Nardy (gegenüberliegende Ecken, von jeder zwei Steine fort und ein Sechserpasch). Die Regeln unten sind die des Backgammon; die drei anderen werden danach beschrieben.
-# Das Brett
-Es gibt 24 schmale Dreiecke, die Zungen, sechs in jedem Viertel des Bretts. Die Bar in der Mitte teilt jede Seite in ein Außenfeld und ein Heimfeld; die beiden Heimfelder liegen einander gegenüber, auf der Seite der Ablage. Jeder Spieler zählt die Zungen von 1, am Ende seines eigenen Heimfelds, ringsherum bis 24, am Ende des Heimfelds des anderen Spielers. Zu Beginn hat jeder Spieler zwei Steine auf seiner 24, fünf auf seiner 13, drei auf seiner 8 und fünf auf seiner 6.
+Bringe deine fünfzehn Steine ringsherum in dein Heimfeld, das Viertel auf deiner Seite bei der Ablage, und würfle sie dann aus. Wer zuerst alle fünfzehn ausgewürfelt hat, gewinnt. Die Regeln unten sind die des Backgammon; Plakoto, Fevga und Long Nardy folgen danach.
 # Würfeln und Ziehen
-Zu Beginn wirft jeder Spieler einen Würfel. Wer die höhere Zahl hat, beginnt und spielt mit beiden gewürfelten Zahlen; sind sie gleich, wird neu gewürfelt. Danach sind die Spieler abwechselnd am Zug: Wirf zwei Würfel und ziehe um jede der beiden Zahlen.
-- Ein Stein zieht um die eine Zahl, dann zieht ein Stein um die andere: derselbe Stein oder ein anderer.
-- Ein Stein darf auf einer leeren Zunge landen, auf einer Zunge mit eigenen Steinen oder auf einer Zunge mit einem einzelnen gegnerischen Stein.
-- Ein Pasch gibt vier Züge um diese Zahl.
-- Du musst beide Zahlen nutzen, wenn du kannst. Kannst du nur eine davon nutzen, musst du nach Möglichkeit die höhere nehmen.
-- Ist kein Zug möglich, verfällt dein Zug.
+Zu Beginn wirft jeder Spieler einen Würfel; wer höher wirft, beginnt mit beiden Zahlen. Danach wirfst du zwei Würfel und ziehst um jede Zahl, mit einem Stein oder mit zweien.
+- Lande auf einer leeren Zunge, auf eigenen Steinen oder auf einem einzelnen gegnerischen Stein.
+- Ein Pasch gibt vier Züge.
+- Nutze beide Zahlen, wenn du kannst, sonst die höhere. Ist kein Zug möglich, verfällt dein Zug.
 # Schlagen und Einsetzen
-Ein einzelner Stein auf einer Zunge ist ein Blot. Wer auf einem gegnerischen Blot landet, schlägt ihn: Er kommt auf die Bar. Ein Spieler mit einem Stein auf der Bar muss ihn zuerst zurückbringen und im Heimfeld des anderen Spielers auf der Zunge einsetzen, die ein Würfel angibt (die 1 ist die Zunge, die am weitesten von der Bar entfernt ist). Eine Zunge mit zwei oder mehr gegnerischen Steinen ist gesperrt. Nichts anderes darf ziehen, bis alle deine Steine von der Bar wieder eingesetzt sind.
+Wer auf einem einzelnen gegnerischen Stein landet, schickt ihn auf die Bar. Ein Stein auf der Bar muss eingesetzt werden, bevor etwas anderes zieht, und zwar im Heimfeld des anderen Spielers auf der Zunge, die ein Würfel angibt (die 1 ist am weitesten von der Bar entfernt). Eine Zunge mit zwei oder mehr gegnerischen Steinen ist gesperrt.
 # Auswürfeln
-Sobald alle fünfzehn deiner Steine in deinem Heimfeld sind, darfst du sie auswürfeln: Eine Zahl nimmt einen Stein von der Zunge mit dieser Zahl heraus. Ist diese Zunge leer, musst du einen Stein von einer höheren Zunge ziehen, wenn du kannst; steht auf keiner höheren Zunge ein Stein, würfelt die Zahl einen Stein von der höchsten Zunge aus, die du besetzt hast. Ein Stein, der geschlagen wird, muss den ganzen Weg zurücklegen, bevor du wieder auswürfeln kannst.
+Sobald alle fünfzehn in deinem Heimfeld sind, ziehe einen Stein in die Ablage: Eine Zahl würfelt einen Stein von ihrer Zunge aus. Ist diese Zunge leer, ziehe von einer höheren; ist keine höhere besetzt, würfle von deiner höchsten aus.
 # Gewinnen
-- Wer zuerst alle fünfzehn Steine ausgewürfelt hat, gewinnt einen Punkt.
-- Gammon: Hat der Verlierer noch keinen einzigen Stein ausgewürfelt, bekommt der Sieger zwei Punkte.
-- Backgammon: Hat der Verlierer noch keinen Stein ausgewürfelt und steht noch einer auf der Bar oder im Heimfeld des Siegers, bekommt der Sieger drei Punkte.
-Dieses Spiel wird ohne Verdopplungswürfel gespielt.
+Ein Punkt; zwei (Gammon), wenn der Verlierer noch keinen Stein ausgewürfelt hat; drei (Backgammon), wenn er außerdem noch einen Stein auf der Bar oder im Heimfeld des Siegers hat. Kein Verdopplungswürfel.
 # Plakoto
-Jeder Spieler beginnt mit allen fünfzehn Steinen auf seiner Zunge 24; die Spieler ziehen in entgegengesetzte Richtungen, wie im Backgammon. Es wird nicht geschlagen, und es gibt keine Bar.
-- Ein Stein, der auf einem einzelnen gegnerischen Stein landet, setzt ihn fest: Der festgesetzte Stein darf nicht ziehen, bis der Stein auf ihm weiterzieht. Die Zunge gehört dann dem Festsetzenden, der weitere Steine dazustellen darf.
-- Die Mutter ist der letzte Stein, der einem Spieler auf seiner Zunge 24 bleibt. Wird sie dort festgesetzt, verliert ihr Spieler sofort zwei Punkte, außer der Festsetzende hat noch Steine auf seiner eigenen Zunge 24: Dann endet die Partie, sobald dort keiner mehr steht. Sind beide Mütter festgesetzt, endet die Partie unentschieden.
-- Wer den Eröffnungswurf gewinnt, würfelt für den ersten Zug noch einmal. Der Sieger bekommt einen Punkt, oder zwei, wenn der Verlierer noch keinen Stein ausgewürfelt hat.
+Alle Steine beginnen auf deiner Zunge 24; die Spieler ziehen in entgegengesetzte Richtungen. Es wird nicht geschlagen.
+- Wer auf einem einzelnen gegnerischen Stein landet, setzt ihn fest, bis der eigene Stein weiterzieht.
+- Dein letzter Stein auf deiner Zunge 24 ist die Mutter. Wird sie dort festgesetzt, verliert ihr Spieler sofort zwei Punkte, außer der Festsetzende hat noch Steine auf seiner eigenen Zunge 24: Dann endet die Partie, sobald dort keiner mehr steht. Beide Mütter festgesetzt: unentschieden.
+- Wer den Eröffnungswurf gewinnt, würfelt zum Beginnen noch einmal. Ein Punkt, oder zwei, wenn der Verlierer noch keinen Stein ausgewürfelt hat.
 # Fevga
-Jeder Spieler beginnt mit allen fünfzehn Steinen auf seiner Zunge 24, in gegenüberliegenden Ecken, und beide ziehen in dieselbe Richtung um das Brett: Der Start des anderen ist deine Zunge 12. Es wird nicht geschlagen: Ein einzelner Stein hält eine Zunge, und der andere darf dort nicht landen.
-- Dein erster Stein muss am Start des anderen vorbei sein, bevor ein zweiter Stein deinen Start verlassen darf.
-- Du darfst nicht alle sechs Zungen deines Startviertels besetzen, und auch keine sechs Zungen in Folge, hinter denen alle fünfzehn Steine des anderen stehen.
-- Wer den Eröffnungswurf gewinnt, würfelt für den ersten Zug noch einmal. Der Sieger bekommt einen Punkt, oder zwei, wenn der Verlierer noch keinen Stein ausgewürfelt hat.
+Alle Steine beginnen auf deiner Zunge 24, in gegenüberliegenden Ecken, und beide Spieler ziehen in dieselbe Richtung. Es wird nicht geschlagen: Ein einzelner Stein hält eine Zunge.
+- Dein erster Stein muss am Start des anderen vorbei sein, bevor ein zweiter deinen Start verlässt.
+- Du darfst nicht alle sechs Zungen deines Startviertels besetzen, und auch keine sechs in Folge, hinter denen alle fünfzehn gegnerischen Steine stehen.
+- Eröffnungswurf und Wertung wie bei Plakoto.
 # Long Nardy
-Start und Richtung wie bei Fevga: alle fünfzehn Steine auf dem Kopf (deiner Zunge 24), in gegenüberliegenden Ecken, beide ziehen in dieselbe Richtung. Es wird nicht geschlagen: Ein einzelner Stein hält eine Zunge.
-- Pro Zug darf nur ein Stein den Kopf verlassen. Nur bei deinem ersten Wurf erlauben 6-6, 4-4 oder 3-3 zwei Steine.
-- Du darfst keine sechs Zungen in Folge besetzen, außer mindestens ein Stein des anderen ist schon an ihnen vorbei.
-- Wer den Eröffnungswurf gewinnt, würfelt für den ersten Zug noch einmal. Der Sieger bekommt einen Punkt (Oyn), oder zwei (Mars), wenn der Verlierer noch keinen Stein ausgewürfelt hat.
-# Spielen auf dem Gerät
-Tippe auf die golden leuchtenden Würfel, um zu würfeln. Tippe auf einen Stein und dann auf einen der Punkte, oder schieb ihn mit dem Finger dorthin; ein Ring zeigt einen Blot, den du schlagen würdest. Jeder Zug verbraucht einen Würfel: Ein benutzter Würfel wird abgedunkelt. Zum Auswürfeln ziehst du den Stein in die Ablage rechts. Steine auf der Bar sind schon ausgewählt. Kann ein Wurf nicht gespielt werden, leuchten seine Würfel rot, und der andere Spieler ist am Zug. Deine Leiste zeigt, wie viele Steine du ausgewürfelt hast, und am Ende die gewonnenen Punkte. Rückgängig nimmt einen Zug nach dem anderen zurück, und die Würfel früherer Züge kommen so zurück, wie sie geworfen wurden. Bei Plakoto zeigt ein Ring auch einen Stein, den du festsetzen würdest, und ein festgesetzter Stein liegt unter dem, der ihn festsetzt.
+Wie bei Fevga, vom Kopf aus (deiner Zunge 24).
+- Pro Zug verlässt ein Stein den Kopf; nur bei deinem ersten Wurf erlauben 6-6, 4-4 oder 3-3 zwei Steine.
+- Keine sechs Zungen in Folge, außer ein gegnerischer Stein ist schon an ihnen vorbei.
+- Eröffnungswurf wie bei Plakoto. Ein Punkt (Oyn), oder zwei (Mars), wenn der Verlierer noch keinen Stein ausgewürfelt hat.

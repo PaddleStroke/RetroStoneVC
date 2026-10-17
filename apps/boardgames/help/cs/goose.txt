@@ -2,21 +2,17 @@ Husí hra
 # Cíl hry
 Buď první, kdo dovede svou figurku na pole 63, husí zahradu uprostřed spirály. Pro 2 až 6 hráčů.
 # Tah
-Všechny figurky začínají v levém dolním rohu, před polem 1. Hráči se střídají, jako první hází světlý hráč. Hoď oběma kostkami a posuň svou figurku dopředu o jejich součet, pole po poli, po spirále.
-- Hodíš-li ze startu 9, nejdeš na pole 9: 6 a 3 vedou rovnou na 26, 5 a 4 na 53, na pole s kostkami. Platí to pro první hod a znovu poté, co tě smrt poslala zpět na start.
-- Na pole 63 musíš dojít přesným číslem. Hodíš-li víc, figurka dojde na 63 a vrátí se o přebývající body zpět: z 60 skončí hod 6 na 60.
+Hoď oběma kostkami a posuň svou figurku dopředu o jejich součet.
+- První hod 9 (a znovu po smrti): 6 a 3 vedou rovnou na 26, 5 a 4 na 53.
+- Na pole 63 musíš dojít přesným číslem. Hodíš-li víc, dojdi na 63 a vrať se o přebývající body zpět.
 # Pole
-- Husy (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 a 59): táhni znovu o stejný hod, stejným směrem, od husy k huse. Po odrazu od 63 tě husa pošle ještě dál zpět.
+- Husa: táhni znovu o stejný hod, stejným směrem.
 - Most (6): pokračuj na 12.
-- Hostinec (19): vynech své dva další tahy.
-- Studna (31): zůstaň tam, dokud do ní nespadne jiná figurka a nevysvobodí tě.
+- Hostinec (19): vynech dva tahy.
+- Studna (31) a vězení (52): čekej, dokud nepřijde jiná figurka a nevysvobodí tě.
 - Bludiště (42): vrať se na 30.
-- Vězení (52): zůstaň tam, dokud do něj nepřijde jiná figurka a nevysvobodí tě.
 - Smrt (58): vrať se na start.
 # Setkání s jinými figurkami
-Dvě figurky nikdy nestojí na stejném poli, kromě startu. Skončí-li tvá figurka tah na poli, kde stojí jiná figurka, ta přejde na pole, ze kterého jsi přišel, a je opět volná, pokud ji držel hostinec, studna nebo vězení; pole, na které se dostane, na ni nepůsobí. Tvá figurka zaujme její místo i její pole: ve studni nebo ve vězení teď čekáš ty. Přejít přes figurku nemá žádný účinek.
-Ve dvou, je-li jedna figurka ve studni a druhá ve vězení, nemůže je nikdo přijít vysvobodit: hráč, který má házet jako další, je vysvobozen a hraje dál.
+Skončíš-li na poli jiné figurky, ta přejde na pole, ze kterého jsi přišel, vysvobozená z hostince, studny nebo vězení, a ty zaujmeš její místo. Ve dvou, je-li jedna figurka ve studni a druhá ve vězení, je hráč, který hází jako další, vysvobozen.
 # Konec hry
 Vyhrává první hráč na poli 63.
-# Hra na zařízení
-Posílejte si zařízení: hráč, který hází, má svou lištu vždy dole. Jeho dvě kostky čekají vedle desky ve zlatém světle a jeho figurka svítí: klepni na obrazovku a hodíš. Figurka se pak posune sama. Každá lišta ukazuje pole, na kterém stojí figurka daného hráče, a co ji drží: hostinec (s počtem tahů, které ještě musí vynechat), studna nebo vězení. Vrátit bere zpět hody jeden po druhém; vrácený hod padne stejně, až hodíš znovu.

@@ -1,20 +1,18 @@
 421
 # Lo scopo
-Liberati dei tuoi gettoni: il gioco da bar francese con tre dadi e undici gettoni. Da due a sei giocatori. Chi resta con tutti i gettoni perde; tutti gli altri vincono.
+Liberati dei tuoi gettoni: il gioco da bar francese con tre dadi e undici gettoni, da due a sei giocatori.
 # I lanci
 Dal migliore al peggiore, e quanti gettoni vale ciascuno:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- Le «fiches», due 1 e un altro dado, e i tris valgono ciascuno la propria faccia: 1-1-6 e 6-6-6: 6; 1-1-5 e 5-5-5: 5; giù fino a 1-1-2 e 2-2-2: 2. Una «fiche» batte il tris dello stesso valore.
-- Le scale 6-5-4, 5-4-3, 4-3-2 e 3-2-1: 2.
-- Qualsiasi altro lancio: 1, meglio quanto più alti sono i dadi (6-6-5, poi 6-6-4…).
+- Due 1 e un altro dado (una «fiche»), e i tris, valgono la propria faccia: 1-1-6 e 6-6-6: 6, giù fino a 1-1-2 e 2-2-2: 2. Una «fiche» batte il tris dello stesso valore.
+- Le scale da 6-5-4 a 3-2-1: 2.
+- Qualsiasi altro lancio: 1, meglio quanto più alti sono i dadi.
 - La «nénette», 2-2-1: il peggiore di tutti.
-Quando due lanci sono uguali, vince quello fatto con meno tiri; poi quello fatto per primo.
+Tra lanci uguali vince quello fatto con meno tiri, poi quello fatto per primo.
 # La carica
-Gli undici gettoni partono nel piatto. A ogni giro, ogni giocatore tira una volta. Il giocatore con il lancio peggiore prende dal piatto tanti gettoni quanti ne vale il lancio migliore (quelli rimasti, alla fine). Comincia l'avorio; poi chi perde un giro comincia il successivo. Quando il piatto è vuoto, comincia la scarica. Un giocatore che a quel punto non ha gettoni è fuori e salvo. Se un giocatore ha preso tutti i gettoni, ha perso subito.
+I gettoni partono nel piatto. A ogni giro, ogni giocatore tira una volta; chi ha il lancio peggiore prende dal piatto tanti gettoni quanti ne vale il lancio migliore. Chi perde comincia il giro successivo. Quando il piatto è vuoto, comincia la scarica: un giocatore senza gettoni è fuori e salvo.
 # La scarica
-A ogni giro, i giocatori tirano fino a tre volte, tenendo i dadi che vogliono tra un tiro e l'altro. Il primo giocatore del giro può fermarsi dopo uno o due tiri: gli altri non possono poi tirare più volte di lui. Il giocatore con il lancio migliore dà a quello con il peggiore tanti dei propri gettoni quanti ne vale il suo lancio (tutti quelli che ha, se sono meno). Un giocatore che cede il suo ultimo gettone è fuori e salvo. Chi perde un giro comincia il successivo.
+A ogni giro si tira fino a tre volte, tenendo i dadi che si vogliono tra un tiro e l'altro. Gli altri non possono tirare più volte del primo giocatore del giro. Chi ha il lancio migliore dà a chi ha il peggiore tanti dei propri gettoni quanti ne vale il suo lancio. Un giocatore che cede il suo ultimo gettone è fuori e salvo.
 # La fine della partita
 La partita finisce quando un giocatore ha tutti i gettoni: quel giocatore ha perso, e tutti gli altri condividono la vittoria.
-# Giocare sul dispositivo
-Tocca il panno per tirare. Tocca un dado per tenerlo: scivola in basso; toccalo di nuovo per tirarlo ancora. I dadini sotto il tuo lancio mostrano quanti tiri concede il giro, con quelli usati attenuati. Il pulsante con il segno di spunta ferma il tuo turno. Il lancio di ogni giocatore nel giro resta in piccolo dal suo lato del panno, con dei puntini sotto che contano i tiri usati; il migliore è in una luce dorata e il peggiore in un bagliore rosso. Poi i gettoni volano verso chi ha perso. Il piatto sta al centro durante la carica. Ogni barra mostra i gettoni di quel giocatore. Annulla cancella l'ultimo stop; i dadi non vengono mai ritirati.

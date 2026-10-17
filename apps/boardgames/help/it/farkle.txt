@@ -1,21 +1,18 @@
 Farkle
 # Lo scopo
-Sii il primo a incassare 10.000 punti tirando sei dadi e sfidando la fortuna. Da due a sei giocatori, o uno da solo contro il tempo.
+Sii il primo a incassare 10.000 punti con sei dadi, sfidando la fortuna. Da due a sei giocatori, o uno da solo contro il tempo.
 # Un turno
 - Tira i sei dadi. Metti da parte almeno un dado che fa punti, poi incassa i punti del turno oppure tira i dadi rimasti per farne altri.
-- Ogni dado messo da parte deve fare punti, e le combinazioni contano solo all'interno di un lancio.
-- Un lancio senza dadi che fanno punti è un farkle: perdi tutti i punti del turno, e il turno passa.
-- Dadi caldi: quando tutti e sei i dadi hanno fatto punti, puoi tirarli di nuovo tutti e sei e continuare a sommare.
-- Il tuo primo incasso deve essere di almeno 500 punti in un turno; dopo, ogni incasso conta.
+- Ogni dado messo da parte deve fare punti; le combinazioni contano solo all'interno di un lancio.
+- Un lancio senza dadi che fanno punti è un farkle: perdi i punti del turno.
+- Dadi caldi: quando tutti e sei hanno fatto punti, tirali di nuovo tutti e sei e continua.
+- Il tuo primo incasso deve essere di almeno 500 punti.
 # Il punteggio
 - Ogni 1: 100. Ogni 5: 50.
-- Tre uguali: la faccia per 100 (tre 2: 200, tre 6: 600); tre 1: 1.000.
-- Quattro uguali: 1.000. Cinque uguali: 2.000. Sei uguali: 3.000.
+- Tre uguali: la faccia per 100; tre 1: 1.000.
+- Quattro uguali: 1.000. Cinque: 2.000. Sei: 3.000.
 - Una scala 1-2-3-4-5-6: 1.500.
 - Tre coppie: 1.500 (quattro uguali e una coppia contano come tre coppie).
 - Due tris: 2.500.
-I dadi messi da parte valgono il massimo possibile: quattro 1 sono tre 1 più un 1, 1.100.
 # La fine della partita
-I giocatori si alternano intorno al tavolo, iniziando dall'avorio. Quando un giocatore incassa 10.000 o più, ognuno degli altri gioca un ultimo turno; poi vince il punteggio più alto, e a pari merito la vittoria è condivisa. Da solo, arriva a 10.000 entro 20 turni: i pioli in cima al panno li contano.
-# Giocare sul dispositivo
-Tocca il panno o il pulsante con un dado per tirare. Tocca i dadi che fanno punti per metterli da parte: si sollevano in una luce dorata, e un dado che non può fare punti in questo lancio è più scuro e fa un suono di rifiuto. Sotto i dadi, il numero dorato piccolo è quanto valgono i dadi scelti, e quello grande il totale del turno con essi. Il pulsante con un dado tira i dadi rimasti; il pulsante con le monete incassa il turno. Un pulsante si accende quando puoi usarlo. I dadi messi da parte aspettano sul tuo supporto. Un farkle mostra i dadi in un bagliore rosso e i punti persi. Il dado del giocatore che ha raggiunto 10.000 brilla sul panno durante l'ultimo giro. Ogni barra mostra il punteggio incassato di quel giocatore. Annulla cancella l'ultimo incasso; i dadi non vengono mai ritirati.
+Quando un giocatore incassa 10.000 o più, ognuno degli altri gioca un ultimo turno; poi vince il punteggio più alto, e a pari merito la vittoria è condivisa. Da solo, arriva a 10.000 entro 20 turni.

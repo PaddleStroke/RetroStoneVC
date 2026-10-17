@@ -1,15 +1,13 @@
 Dados mentirosos
 # El objetivo
-Ser el último jugador con dados. Cada uno tiene cinco dados bajo un cubilete y solo ve los suyos; cada uno apuesta sobre lo que esconden todos los cubiletes juntos, y cualquiera puede ir de farol. De 2 a 6 jugadores.
+Ser el último jugador con dados. Cada uno tiene cinco dados bajo un cubilete y solo ve los suyos. De 2 a 6 jugadores.
 # Una ronda
-- Cada uno lanza sus dados bajo su cubilete y mira los suyos.
-- El primer jugador apuesta: hay al menos tantos dados con tal cara, contando todos los dados de la mesa.
+- Cada uno lanza sus dados bajo su cubilete.
+- El primer jugador apuesta: hay al menos tantos dados con tal cara en toda la mesa.
 - Por turnos, cada jugador sube la apuesta o dice que la última es mentira.
 - Subir es apostar más dados (cualquier cara), o los mismos dados con una cara más alta.
-- Los unos son comodines: cuentan como la cara apostada. Por eso nadie apuesta a unos: solo caras del 2 al 6.
+- Los unos son comodines y cuentan como la cara apostada; por eso solo se apuesta a caras del 2 al 6.
 # El desafío
-Se levantan todos los cubiletes y se cuentan los dados con la cara apostada, más los unos. Si hay al menos tantos como decía la apuesta, se mantiene y quien la desafió pierde un dado. Si no, lo pierde quien apostó. Quien perdió un dado empieza la ronda siguiente.
+Se levantan todos los cubiletes. Si los dados con la cara apostada, más los unos, llegan al menos a la apuesta, quien la desafió pierde un dado; si no, lo pierde quien apostó. Quien perdió el dado empieza la ronda siguiente, o el siguiente jugador si quien perdió queda eliminado.
 # El final de la partida
-Un jugador sin dados queda eliminado (si perdió la última ronda, empieza el siguiente). Gana el último jugador con dados.
-# Jugar en el dispositivo
-Pasa el dispositivo: solo ves tus propios dados, abajo, con tu cubilete levantado al lado. Los cubiletes de los demás están arriba; cada barra muestra cuántos dados le quedan a ese jugador. En el centro: la apuesta que hay que superar con la ficha de quien la hizo, y debajo las apuestas anteriores de la ronda. Para apostar, toca un número (cuántos dados) y una cara, y luego la marca: la elección siempre supera la última apuesta. Para decir que la última apuesta es mentira, toca el botón del cubilete levantado. En un desafío todos los cubiletes se levantan a la vista de todos: los dados que cuentan se iluminan uno a uno mientras sube la cuenta; en oro, la apuesta se mantiene; en rojo, era mentira; el dado perdido se desvanece. Toca la flecha redonda para lanzar la ronda siguiente. Todos acaban de ver la mesa: si vuelve a empezar el mismo jugador, su cubilete sigue bajado; tócalo para mirar.
+Un jugador sin dados queda eliminado. Gana el último jugador con dados.

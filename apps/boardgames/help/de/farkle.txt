@@ -1,21 +1,18 @@
 Zehntausend
 # Das Ziel
-Sichere als Erster 10.000 Punkte, indem du sechs Würfel wirfst und dein Glück herausforderst. Zwei bis sechs Spieler, oder einer allein gegen die Uhr.
+Sichere als Erster 10.000 Punkte mit sechs Würfeln und fordere dein Glück heraus. Zwei bis sechs Spieler, oder einer allein gegen die Uhr.
 # Ein Zug
-- Wirf die sechs Würfel. Lege mindestens einen zählenden Würfel beiseite und sichere dann entweder die Punkte deines Zugs oder wirf die übrigen Würfel, um mehr zu holen.
-- Jeder Würfel, den du beiseitelegst, muss zählen, und Kombinationen gelten nur innerhalb eines Wurfs.
-- Ein Wurf ohne zählende Würfel ist ein Nullwurf: Du verlierst alle Punkte deines Zugs, und der Nächste ist am Zug.
-- Heiße Würfel: Haben alle sechs Würfel gezählt, darfst du wieder alle sechs werfen und weiter sammeln.
-- Beim ersten Mal musst du mindestens 500 Punkte in einem Zug sichern; danach zählt jede Summe.
+- Wirf die sechs Würfel. Lege mindestens einen zählenden Würfel beiseite und sichere dann die Punkte deines Zugs oder wirf die übrigen Würfel für mehr.
+- Jeder beiseitegelegte Würfel muss zählen; Kombinationen gelten nur innerhalb eines Wurfs.
+- Ein Wurf ohne zählende Würfel ist ein Nullwurf: Du verlierst die Punkte deines Zugs.
+- Heiße Würfel: Haben alle sechs gezählt, wirf wieder alle sechs und mach weiter.
+- Beim ersten Sichern brauchst du mindestens 500 Punkte.
 # Die Wertung
 - Jede 1: 100. Jede 5: 50.
-- Drei gleiche: die Augenzahl mal 100 (drei Zweien: 200, drei Sechsen: 600); drei Einsen: 1.000.
-- Vier gleiche: 1.000. Fünf gleiche: 2.000. Sechs gleiche: 3.000.
+- Drei gleiche: die Augenzahl mal 100; drei Einsen: 1.000.
+- Vier gleiche: 1.000. Fünf: 2.000. Sechs: 3.000.
 - Eine Straße 1-2-3-4-5-6: 1.500.
 - Drei Paare: 1.500 (vier gleiche und ein Paar zählen als drei Paare).
 - Zwei Drillinge: 2.500.
-Die beiseitegelegten Würfel zählen so hoch wie möglich: Vier Einsen sind drei Einsen und eine Eins, 1.100.
 # Das Ende der Partie
-Die Spieler sind reihum am Zug, Elfenbein beginnt. Sichert ein Spieler 10.000 oder mehr, hat jeder andere Spieler noch einen letzten Zug; dann gewinnt die höchste Punktzahl, und bei gleicher höchster Punktzahl teilen sich diese Spieler den Sieg. Allein musst du 10.000 in 20 Zügen erreichen: Die Stifte oben auf dem Filz zählen sie.
-# Spielen auf dem Gerät
-Tippe auf den Filz oder auf die Taste mit dem Würfel, um zu würfeln. Tippe die zählenden Würfel an, um sie beiseitezulegen: Sie heben sich in goldenem Licht, und ein Würfel, der in diesem Wurf nicht zählen kann, ist dunkler und gibt einen Fehlerton von sich. Unter den Würfeln zeigt die kleine goldene Zahl, was die gewählten Würfel wert sind, und die große die Summe deines Zugs mit ihnen. Die Taste mit dem Würfel wirft die übrigen Würfel; die Taste mit den Münzen sichert deinen Zug. Eine Taste leuchtet auf, wenn du sie benutzen darfst. Die beiseitegelegten Würfel warten auf deiner Ablage. Ein Nullwurf zeigt die Würfel in rotem Schein und die verlorenen Punkte. Der Würfel des Spielers, der 10.000 erreicht hat, glänzt während der letzten Runde auf dem Filz. Jede Leiste zeigt die gesicherten Punkte dieses Spielers. Rückgängig nimmt das letzte Sichern zurück; die Würfel werden nie neu geworfen.
+Sichert ein Spieler 10.000 oder mehr, hat jeder andere Spieler noch einen letzten Zug; dann gewinnt die höchste Punktzahl, und bei gleicher höchster Punktzahl teilen sich diese Spieler den Sieg. Allein musst du 10.000 in 20 Zügen erreichen.

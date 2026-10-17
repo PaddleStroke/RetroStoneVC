@@ -2,21 +2,17 @@ Gra w gęś
 # Cel gry
 Jako pierwszy doprowadź swój pionek do pola 63, ogrodu gęsi pośrodku spirali. Dla 2–6 graczy.
 # Tura
-Wszystkie pionki zaczynają w lewym dolnym rogu, przed polem 1. Gracze rzucają na zmianę, zaczynają jasne. Rzuć dwiema kostkami i przesuń swój pionek do przodu o sumę oczek, pole po polu, wzdłuż spirali.
-- 9 wyrzucone ze startu nie prowadzi na pole 9: 6 i 3 prowadzą prosto na 26, 5 i 4 na 53, pola z kostkami. Dotyczy to pierwszego rzutu, a także rzutu po tym, jak śmierć odesłała cię na start.
-- Na pole 63 trzeba wejść dokładną liczbą oczek. Jeśli wyrzucisz więcej, pionek dochodzi do 63 i cofa się o nadmiarowe oczka: z 60 rzut 6 kończy się na 60.
+Rzuć dwiema kostkami i przesuń swój pionek do przodu o sumę oczek.
+- Pierwszy rzut 9 (i znów po śmierci): 6 i 3 prowadzą prosto na 26, 5 i 4 na 53.
+- Na pole 63 trzeba wejść dokładną liczbą oczek. Jeśli wyrzucisz więcej, dojdź do 63 i cofnij się o nadmiarowe oczka.
 # Pola
-- Gęsi (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 i 59): przesuń się jeszcze raz o ten sam rzut, w tym samym kierunku, od gęsi do gęsi. Po odbiciu od 63 gęś cofa cię jeszcze dalej.
+- Gęś: przesuń się jeszcze raz o ten sam rzut, w tym samym kierunku.
 - Most (6): idź dalej na 12.
-- Gospoda (19): opuść dwie następne tury.
-- Studnia (31): zostań tam, aż wpadnie do niej inny pionek i cię uwolni.
+- Gospoda (19): opuść dwie tury.
+- Studnia (31) i więzienie (52): czekaj, aż przyjdzie inny pionek i cię uwolni.
 - Labirynt (42): wróć na 30.
-- Więzienie (52): zostań tam, aż trafi do niego inny pionek i cię uwolni.
 - Śmierć (58): wróć na start.
 # Spotkania z innymi pionkami
-Dwa pionki nigdy nie stoją na jednym polu, z wyjątkiem startu. Jeśli twój pionek kończy ruch na polu, na którym stoi inny pionek, tamten przechodzi na pole, z którego przyszedłeś, i jest znów wolny, jeśli trzymała go gospoda, studnia lub więzienie; pole, na które trafia, nie działa na niego. Twój pionek zajmuje jego miejsce i jego pole: w studni lub więzieniu to teraz ty czekasz. Przejście przez pionek nic nie zmienia.
-Przy dwóch graczach, jeśli jeden pionek jest w studni, a drugi w więzieniu, nikt nie może przyjść ich uwolnić: następny gracz, który rzuca, zostaje uwolniony i gra dalej.
+Jeśli kończysz ruch na polu innego pionka, tamten przechodzi na pole, z którego przyszedłeś, uwolniony z gospody, studni lub więzienia, a ty zajmujesz jego miejsce. Przy dwóch graczach, jeśli jeden pionek jest w studni, a drugi w więzieniu, następny gracz, który rzuca, zostaje uwolniony.
 # Koniec gry
 Wygrywa pierwszy gracz na polu 63.
-# Gra na urządzeniu
-Podawajcie sobie urządzenie: gracz, który rzuca, zawsze ma swój pasek na dole. Jego dwie kostki czekają obok planszy w złotym świetle, a jego pionek świeci: dotknij ekranu, aby rzucić. Pionek porusza się wtedy sam. Każdy pasek pokazuje pole, na którym stoi pionek danego gracza, i co go trzyma: gospoda (z liczbą tur, które jeszcze musi opuścić), studnia lub więzienie. Cofnij cofa rzuty jeden po drugim; cofnięty rzut wypada tak samo, gdy rzucisz ponownie.

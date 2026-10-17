@@ -1,38 +1,29 @@
 Backgammon
 # Tavoite
-Kuljeta kaikki viisitoista nappulaasi laudan ympäri kotialueellesi ja pelaa ne sitten pois laudalta. Ensimmäisenä kaikki viisitoista pois pelannut voittaa. Pelaajat liikkuvat vastakkaisiin suuntiin, norsunluu toiseen suuntaan ja eebenpuu toiseen. Valitse peli ennen aloitusta: backgammon (kortti, jossa tavallinen alkuasetelma), plakoto (kaikki nappulat oikeissa kulmissa, yksi pinnattuna), fevga (kaikki nappulat vastakkaisissa kulmissa, kummastakin yksi lähtenyt edelle) tai pitkä nardy (vastakkaiset kulmat, kummastakin lähtenyt kaksi nappulaa, ja kuutospari). Alla olevat säännöt ovat backgammonin; muut kolme kuvataan niiden jälkeen.
-# Lauta
-Laudalla on 24 kapeaa kolmiota, kärkeä, kuusi laudan kussakin neljänneksessä. Keskellä kulkeva keskipalkki jakaa kummankin puolen ulkoalueeseen ja kotialueeseen; kotialueet ovat vastakkain, lokeron puolella. Kumpikin pelaaja numeroi kärjet alkaen 1:stä oman kotialueensa päässä ja kiertäen 24:ään asti vastustajan kotialueen päässä. Alussa kummallakin pelaajalla on kaksi nappulaa kärjessään 24, viisi kärjessään 13, kolme kärjessään 8 ja viisi kärjessään 6.
+Kuljeta viisitoista nappulaasi kotialueellesi, omalla puolellasi lokeron vieressä olevaan neljännekseen, ja pelaa ne sitten pois. Ensimmäisenä kaikki viisitoista pois pelannut voittaa. Alla olevat säännöt ovat backgammonin; plakoto, fevga ja pitkä nardy kuvataan niiden jälkeen.
 # Heittäminen ja siirtäminen
-Aluksi kumpikin pelaaja heittää yhtä noppaa. Suuremman luvun heittänyt aloittaa ja käyttää molempia heitettyjä lukuja; jos ne ovat samat, heitetään uudelleen. Sen jälkeen pelaajat pelaavat vuorotellen: heitä kahta noppaa ja siirrä kummankin luvun verran.
-- Yksi nappula siirtyy yhden luvun verran, sitten nappula siirtyy toisen luvun verran: sama nappula tai jokin toinen.
-- Nappula saa päätyä tyhjään kärkeen, kärkeen, jossa on omia nappuloitasi, tai kärkeen, jossa on yksi ainoa vastustajan nappula.
-- Tuplat antavat neljä siirtoa samalla luvulla.
-- Sinun on käytettävä molemmat luvut, jos voit. Jos voit käyttää vain toisen, sinun on käytettävä suurempi, jos mahdollista.
-- Jos mikään siirto ei ole mahdollinen, menetät vuorosi.
+Aluksi kumpikin pelaaja heittää yhtä noppaa; suuremman heittänyt aloittaa ja käyttää molemmat luvut. Sen jälkeen heitä kahta noppaa ja siirrä kummankin luvun verran, yhdellä tai kahdella nappulalla.
+- Päädy tyhjään kärkeen, omien nappuloidesi päälle tai yksinäisen vastustajan nappulan päälle.
+- Tuplat antavat neljä siirtoa.
+- Käytä molemmat luvut, jos voit, muuten suurempi. Jos siirtoa ei ole, menetät vuorosi.
 # Lyöminen ja palaaminen
-Kärjessä yksinään oleva nappula on blotti. Kun päädyt vastustajan blotin päälle, lyöt sen: se joutuu keskipalkille. Pelaajan, jolla on nappula keskipalkilla, on ensin tuotava se takaisin peliin vastustajan kotialueelle nopan osoittamaan kärkeen (1 on kärki, joka on kauimpana keskipalkista). Kärki, jossa on kaksi tai useampia vastustajan nappuloita, on suljettu. Mitään muuta ei saa siirtää, ennen kuin kaikki keskipalkilla olevat nappulasi ovat palanneet peliin.
+Kun päädyt yksinäisen vastustajan nappulan päälle, se joutuu keskipalkille. Keskipalkilla olevan nappulan on palattava peliin ennen kuin mitään muuta siirretään, vastustajan kotialueelle nopan osoittamaan kärkeen (1 on kauimpana keskipalkista). Kärki, jossa on kaksi tai useampia vastustajan nappuloita, on suljettu.
 # Pois pelaaminen
-Kun kaikki viisitoista nappulaasi ovat kotialueellasi, saat pelata ne pois: luku poistaa nappulan sen numeroisesta kärjestä. Jos kärki on tyhjä, sinun on siirrettävä nappulaa korkeammasta kärjestä, jos voit; jos missään korkeammassa kärjessä ei ole nappulaa, luku poistaa nappulan korkeimmasta kärjestä, jossa sinulla on nappuloita. Lyödyn nappulan on kuljettava koko matka takaisin, ennen kuin voit taas pelata pois.
+Kun kaikki viisitoista ovat kotona, siirrä nappula lokeroon: luku poistaa nappulan sen numeroisesta kärjestä. Jos kärki on tyhjä, siirrä korkeammasta kärjestä; jos korkeampaa ei ole, pelaa pois korkeimmastasi.
 # Voitto
-- Ensimmäisenä kaikki viisitoista nappulaa pois pelannut voittaa yhden pisteen.
-- Gammon: jos häviäjä ei ole pelannut pois yhtään nappulaa, voittaja saa kaksi pistettä.
-- Backgammon: jos häviäjä ei ole pelannut pois yhtään nappulaa ja hänellä on vielä nappula keskipalkilla tai voittajan kotialueella, voittaja saa kolme pistettä.
-Tätä peliä pelataan ilman tuplauskuutiota.
+Yksi piste; kaksi (gammon), jos häviäjä ei ole pelannut pois yhtään nappulaa; kolme (backgammon), jos hänellä on lisäksi nappula keskipalkilla tai voittajan kotialueella. Ei tuplauskuutiota.
 # Plakoto
-Kumpikin pelaaja aloittaa kaikki viisitoista nappulaa omalla kärjellään 24; pelaajat liikkuvat vastakkaisiin suuntiin kuten backgammonissa. Lyömistä eikä palkkia ole.
-- Nappula, joka laskeutuu vastustajan yksinäisen nappulan päälle, pinnaa sen: pinnattu nappula ei saa liikkua, ennen kuin sen päällä oleva lähtee. Kärki kuuluu silloin pinnaajalle, joka saa lisätä sille nappuloita.
-- Äiti on viimeinen nappula, joka pelaajalle jää kärjelle 24. Jos se pinnataan sinne, sen pelaaja häviää heti kaksi pistettä, paitsi jos pinnaajalla on vielä nappuloita omalla kärjellään 24: silloin peli päättyy heti, kun siellä ei ole enää yhtään. Jos molemmat äidit pinnataan, peli päättyy tasan.
-- Aloitusheiton voittaja heittää uudelleen ensimmäistä siirtoa varten. Voittaja saa yhden pisteen, tai kaksi, jos häviäjä ei ole pelannut pois yhtään nappulaa.
+Kaikki nappulat aloittavat kärjeltäsi 24; liikutte vastakkaisiin suuntiin. Lyömistä ei ole.
+- Kun laskeudut vastustajan yksinäisen nappulan päälle, pinnaat sen, kunnes oma nappulasi lähtee.
+- Viimeinen nappulasi kärjelläsi 24 on äiti. Jos se pinnataan sinne, sen pelaaja häviää heti kaksi pistettä, paitsi jos pinnaajalla on vielä nappuloita omalla kärjellään 24: peli päättyy, kun siellä ei ole enää yhtään. Molemmat äidit pinnattuina: tasapeli.
+- Aloitusheiton voittaja heittää uudelleen aloittaakseen. Yksi piste, tai kaksi, jos häviäjä ei ole pelannut pois yhtään nappulaa.
 # Fevga
-Kumpikin pelaaja aloittaa kaikki viisitoista nappulaa omalla kärjellään 24, vastakkaisissa kulmissa, ja molemmat kiertävät lautaa samaan suuntaan: vastustajan lähtökärki on sinun kärkesi 12. Lyömistä ei ole: yksinäinenkin nappula pitää kärjen, eikä vastustaja saa laskeutua sille.
-- Ensimmäisen nappulasi on ohitettava vastustajan lähtökärki, ennen kuin toinen nappula saa lähteä omaltasi.
+Kaikki nappulat aloittavat kärjeltäsi 24, vastakkaisissa kulmissa, ja molemmat liikkuvat samaan suuntaan. Lyömistä ei ole: yksinäinenkin nappula pitää kärjen.
+- Ensimmäisen nappulasi on ohitettava vastustajan lähtökärki, ennen kuin toinen lähtee omaltasi.
 - Et saa pitää kaikkia kuutta kärkeä lähtöneljänneksessäsi etkä kuutta peräkkäistä kärkeä, joiden takana ovat kaikki vastustajan viisitoista nappulaa.
-- Aloitusheiton voittaja heittää uudelleen ensimmäistä siirtoa varten. Voittaja saa yhden pisteen, tai kaksi, jos häviäjä ei ole pelannut pois yhtään nappulaa.
+- Aloitusheitto ja pisteytys kuten plakotossa.
 # Pitkä nardy
-Fevgan alkuasetelma ja kiertosuunta: kaikki viisitoista nappulaa päässä (kärkesi 24), vastakkaisissa kulmissa, molemmat liikkuvat samaan suuntaan. Lyömistä ei ole: yksinäinenkin nappula pitää kärjen.
-- Päästä saa lähteä vain yksi nappula vuorossa. Vain ensimmäisellä heitollasi 6-6, 4-4 tai 3-3 päästää lähtemään kaksi.
-- Et saa tehdä kuutta peräkkäistä kärkeä, ellei vähintään yksi vastustajan nappula ole jo ohittanut niitä.
-- Aloitusheiton voittaja heittää uudelleen ensimmäistä siirtoa varten. Voittaja saa yhden pisteen (oyn), tai kaksi (mars), jos häviäjä ei ole pelannut pois yhtään nappulaa.
-# Pelaaminen laitteella
-Napauta kultaisina hehkuvia noppia heittääksesi ne. Napauta nappulaa ja sitten yhtä pisteistä, tai vedä sitä; rengas näyttää blotin, jonka löisit. Jokainen siirto käyttää yhden nopan: käytetty noppa himmenee. Pelataksesi nappulan pois siirrä se oikealla olevaan lokeroon. Keskipalkilla olevat nappulat on jo nostettu. Kun heittoa ei voi pelata, sen nopat hehkuvat punaisina ja vuoro siirtyy. Palkkisi näyttää, montako nappulaa olet pelannut pois, ja lopuksi voitetut pisteet. Kumoa peruu yhden siirron kerrallaan, ja aiempien vuorojen nopat palaavat sellaisina kuin ne heitettiin. Plakotossa rengas näyttää myös nappulan, jonka pinnaisit, ja pinnattu nappula on sen pinnaajan alla.
+Kuten fevgassa, päästä (kärkesi 24).
+- Päästä lähtee yksi nappula vuorossa; vain ensimmäisellä heitollasi 6-6, 4-4 tai 3-3 päästää lähtemään kaksi.
+- Ei kuutta peräkkäistä kärkeä, ellei jokin vastustajan nappula ole jo ohittanut niitä.
+- Aloitusheitto kuten plakotossa. Yksi piste (oyn), tai kaksi (mars), jos häviäjä ei ole pelannut pois yhtään nappulaa.

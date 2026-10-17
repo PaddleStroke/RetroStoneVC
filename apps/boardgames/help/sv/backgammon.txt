@@ -1,38 +1,29 @@
 Backgammon
 # Målet
-För alla dina femton brickor runt brädet in i ditt innerbord och ta sedan ut dem. Den som först har tagit ut alla femton vinner. Spelarna flyttar åt motsatta håll, elfenben åt ena hållet och ebenholts åt det andra. Välj spel innan ni börjar: backgammon (kortet med den vanliga uppställningen), plakoto (alla brickor i de två högra hörnen, en fasthållen), fevga (alla brickor i motsatta hörn, en iväg från vardera) eller lång nardy (motsatta hörn, två brickor iväg från vardera och dubbelsexor). Reglerna nedan gäller backgammon; de tre andra beskrivs efter dem.
-# Brädet
-Det finns 24 smala trianglar, tungorna, sex i varje fjärdedel av brädet. Baren i mitten delar varje sida i ett ytterbord och ett innerbord; de två innerborden ligger mitt emot varandra, på samma sida som facket. Varje spelare numrerar tungorna från 1, i slutet av det egna innerbordet, runt till 24, i slutet av motståndarens innerbord. I början har varje spelare två brickor på sin tunga 24, fem på sin tunga 13, tre på sin tunga 8 och fem på sin tunga 6.
+För dina femton brickor runt in i ditt innerbord, fjärdedelen på din sida vid facket, och ta sedan ut dem. Den som först har tagit ut alla femton vinner. Reglerna nedan gäller backgammon; plakoto, fevga och lång nardy beskrivs efter dem.
 # Kast och drag
-Till att börja med kastar varje spelare en tärning. Den som får högst börjar och använder båda talen som kastades; om de är lika kastar man om. Därefter turas spelarna om: kasta två tärningar och flytta efter vart och ett av talen.
-- En bricka flyttas efter det ena talet, sedan flyttas en bricka efter det andra: samma bricka eller en annan.
-- En bricka får landa på en tom tunga, på en tunga med dina egna brickor, eller på en tunga med en enda motståndarbricka.
-- En dubbel ger fyra drag med det talet.
-- Du måste använda båda talen om du kan. Om du bara kan använda det ena måste du använda det högsta om det går.
-- Om inget drag är möjligt förlorar du turen.
+Varje spelare kastar en tärning för att börja; den som får högst börjar och använder båda talen. Kasta sedan två tärningar och flytta efter vart och ett av talen, med en eller två brickor.
+- Landa på en tom tunga, på dina egna brickor eller på en ensam motståndarbricka.
+- En dubbel ger fyra drag.
+- Använd båda talen om du kan, annars det högsta. Finns inget drag förlorar du turen.
 # Slå och sätta in
-En ensam bricka på en tunga är en blot. Den som landar på en motståndares blot slår den: den går till baren. En spelare med en bricka på baren måste först föra tillbaka den genom att sätta in den i motståndarens innerbord, på den tunga som en tärning anger (1 är tungan längst från baren). En tunga med två eller fler motståndarbrickor är stängd. Inget annat får flyttas förrän alla dina brickor på baren har satts in.
+Den som landar på en ensam motståndarbricka skickar den till baren. En bricka på baren måste sättas in innan något annat flyttas, i motståndarens innerbord, på den tunga som en tärning anger (1 är tungan längst från baren). En tunga med två eller fler motståndarbrickor är stängd.
 # Ta ut
-När alla femton av dina brickor är i ditt innerbord får du ta ut dem: ett tal tar ut en bricka från tungan med det numret. Om den tungan är tom måste du flytta en bricka från en högre tunga om du kan; finns det ingen bricka på någon högre tunga tar talet ut en bricka från den högsta tunga du har brickor på. En bricka som blir slagen måste gå hela vägen tillbaka innan du får ta ut igen.
+När alla femton är hemma, flytta en bricka till facket: ett tal tar ut en bricka från tungan med det numret. Är den tungan tom, flytta från en högre tunga; finns ingen högre, ta ut från din högsta.
 # Vinst
-- Den som först har tagit ut alla femton brickor vinner en poäng.
-- Gammon: om förloraren inte har tagit ut en enda bricka får vinnaren två poäng.
-- Backgammon: om förloraren inte har tagit ut någon bricka och fortfarande har en på baren eller i vinnarens innerbord får vinnaren tre poäng.
-Det här spelet spelas utan dubblingskub.
+En poäng; två (gammon) om förloraren inte har tagit ut någon bricka; tre (backgammon) om förloraren dessutom har en bricka på baren eller i vinnarens innerbord. Ingen dubblingskub.
 # Plakoto
-Varje spelare börjar med alla femton brickor på sin tunga 24; spelarna flyttar åt motsatta håll, som i backgammon. Man slår inte, och det finns ingen bar.
-- En bricka som landar på en ensam bricka från motståndaren håller fast den: den fasthållna brickan får inte flytta förrän brickan ovanpå går vidare. Tungan tillhör då den som håller fast, och den får lägga fler brickor där.
-- Modern är den sista brickan en spelare har kvar på sin tunga 24. Blir den fasthållen där förlorar dess spelare genast två poäng, utom om den som håller fast fortfarande har brickor på sin egen tunga 24: då slutar spelet så snart den inte har några kvar där. Blir båda mödrarna fasthållna blir det oavgjort.
-- Den som vinner öppningskastet kastar igen till första draget. Vinnaren får en poäng, eller två om förloraren inte har tagit ut någon bricka.
+Alla brickor börjar på din tunga 24; ni flyttar åt motsatta håll. Man slår inte.
+- En bricka som landar på en ensam motståndarbricka håller fast den tills din bricka går vidare.
+- Din sista bricka på din tunga 24 är modern. Blir den fasthållen där förlorar dess spelare genast två poäng, utom om den som håller fast fortfarande har brickor på sin egen tunga 24: spelet slutar så snart den inte har några kvar där. Båda mödrarna fasthållna: oavgjort.
+- Den som vinner öppningskastet kastar igen för att börja. En poäng, eller två om förloraren inte har tagit ut någon bricka.
 # Fevga
-Varje spelare börjar med alla femton brickor på sin tunga 24, i motsatta hörn, och båda flyttar åt samma håll runt brädet: motståndarens start är din tunga 12. Man slår inte: en ensam bricka håller en tunga, och motståndaren får inte landa där.
-- Din första bricka måste ha passerat motståndarens start innan en andra bricka får lämna din.
-- Du får inte hålla alla sex tungor i din startfjärdedel, och inte heller sex tungor i rad med alla motståndarens femton brickor bakom sig.
-- Den som vinner öppningskastet kastar igen till första draget. Vinnaren får en poäng, eller två om förloraren inte har tagit ut någon bricka.
+Alla brickor börjar på din tunga 24, i motsatta hörn, och båda flyttar åt samma håll. Man slår inte: en ensam bricka håller en tunga.
+- Din första bricka måste passera motståndarens start innan en andra lämnar din.
+- Du får inte hålla alla sex tungor i din startfjärdedel, och inte heller sex i rad med alla motståndarens femton brickor bakom sig.
+- Öppningskast och poäng som i plakoto.
 # Lång nardy
-Uppställningen och riktningen från fevga: alla femton brickor på huvudet (din tunga 24), i motsatta hörn, båda spelarna åt samma håll. Man slår inte: en ensam bricka håller en tunga.
-- Bara en bricka får lämna huvudet varje drag. Bara vid ditt första kast låter 6-6, 4-4 eller 3-3 två brickor lämna det.
-- Du får inte hålla sex tungor i rad, utom om minst en av motståndarens brickor redan har passerat dem.
-- Den som vinner öppningskastet kastar igen till första draget. Vinnaren får en poäng (oyn), eller två (mars) om förloraren inte har tagit ut någon bricka.
-# Spela på enheten
-Tryck på tärningarna som lyser i guld för att kasta dem. Tryck på en bricka och sedan på en av prickarna, eller dra den; en ring visar en blot som du skulle slå. Varje drag använder en tärning: en använd tärning tonas ner. För att ta ut, flytta brickan till facket till höger. Brickor på baren är redan upplyfta. När ett kast inte kan spelas lyser dess tärningar rött och turen går över. Ditt fält visar hur många brickor du har tagit ut, och i slutet de vunna poängen. Ångra tar tillbaka ett drag i taget, och tärningarna från tidigare turer kommer tillbaka som de kastades. I plakoto visar en ring också en bricka du skulle hålla fast, och en fasthållen bricka ligger under den som håller fast den.
+Som i fevga, från huvudet (din tunga 24).
+- En bricka lämnar huvudet varje tur; bara vid ditt första kast låter 6-6, 4-4 eller 3-3 två lämna det.
+- Inga sex tungor i rad, utom om en motståndarbricka redan har passerat dem.
+- Öppningskast som i plakoto. En poäng (oyn), eller två (mars) om förloraren inte har tagit ut någon bricka.

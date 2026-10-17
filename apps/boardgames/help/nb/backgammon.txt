@@ -1,38 +1,29 @@
 Backgammon
 # Målet
-Før alle dine femten brikker rundt brettet og inn på hjemmebrettet ditt, og ta dem deretter ut. Den første spilleren som har tatt ut alle femten, vinner. Spillerne flytter i motsatt retning, elfenben den ene veien rundt og ibenholt den andre. Velg spill før du begynner: backgammon (kortet med den vanlige oppstillingen), plakoto (alle brikkene i de to høyre hjørnene, én fastholdt), fevga (alle brikkene i motsatte hjørner, én sendt av gårde fra hvert) eller lang nardy (motsatte hjørner, to brikker av gårde fra hvert og en dobbel sekser). Reglene nedenfor gjelder backgammon; de tre andre beskrives etterpå.
-# Brettet
-Det er 24 smale trekanter, tungene, seks i hver fjerdedel av brettet. Baren midt på deler hver side i et ytterbrett og et hjemmebrett; de to hjemmebrettene ligger rett overfor hverandre, på samme side som skuffen. Hver spiller nummererer tungene fra 1, i enden av sitt eget hjemmebrett, rundt til 24, i enden av motstanderens hjemmebrett. Ved start har hver spiller to brikker på sin tunge 24, fem på sin tunge 13, tre på sin tunge 8 og fem på sin tunge 6.
+Før de femten brikkene dine rundt og inn på hjemmebrettet ditt, fjerdedelen på din side ved skuffen, og ta dem deretter ut. Den første som har tatt ut alle femten, vinner. Reglene nedenfor gjelder backgammon; plakoto, fevga og lang nardy beskrives etterpå.
 # Kast og trekk
-For å begynne kaster hver spiller én terning. Den som får høyest, begynner og bruker begge tallene som ble kastet; er de like, kaster man igjen. Deretter bytter spillerne på: kast to terninger og flytt etter hvert av tallene.
-- Én brikke flyttes etter det ene tallet, så flyttes en brikke etter det andre: den samme brikken eller en annen.
-- En brikke kan lande på en tom tunge, på en tunge med dine egne brikker, eller på en tunge med én enkelt motstanderbrikke.
-- En dobbel gir fire trekk med det tallet.
-- Du må bruke begge tallene hvis du kan. Hvis du bare kan bruke ett av dem, må du bruke det største hvis det er mulig.
-- Hvis ingen trekk er mulige, mister du turen.
+For å begynne kaster hver spiller én terning; den som får høyest, begynner med begge tallene. Deretter kaster du to terninger og flytter etter hvert tall, med én eller to brikker.
+- Land på en tom tunge, på dine egne brikker eller på én enkelt motstanderbrikke.
+- En dobbel gir fire trekk.
+- Bruk begge tallene hvis du kan, ellers det største. Hvis ingen trekk er mulige, mister du turen.
 # Slå og sette inn
-En enslig brikke på en tunge er en blot. Den som lander på en motstanders blot, slår den: den går til baren. En spiller med en brikke på baren må først få den tilbake ved å sette den inn på motstanderens hjemmebrett, på tungen som en terning angir (1 er tungen lengst fra baren). En tunge med to eller flere motstanderbrikker er stengt. Ingenting annet kan flyttes før alle brikkene dine på baren er satt inn.
+Den som lander på én enkelt motstanderbrikke, sender den til baren. En brikke på baren må settes inn før noe annet flyttes, på motstanderens hjemmebrett, på tungen som en terning angir (1 er lengst fra baren). En tunge med to eller flere motstanderbrikker er stengt.
 # Ta ut
-Når alle femten brikkene dine er på hjemmebrettet ditt, kan du ta dem ut: et tall tar ut en brikke fra tungen med det nummeret. Hvis den tungen er tom, må du flytte en brikke fra en høyere tunge hvis du kan; er det ingen brikke på noen høyere tunge, tar tallet ut en brikke fra den høyeste tungen du har brikker på. En brikke som blir slått, må gå hele veien tilbake før du kan ta ut igjen.
+Når alle femten er hjemme, flytter du en brikke til skuffen: et tall tar ut en brikke fra sin tunge. Er den tungen tom, flytt fra en høyere tunge; er det ingen høyere, ta ut fra den høyeste.
 # Seier
-- Den første spilleren som har tatt ut alle femten brikkene, vinner ett poeng.
-- Gammon: hvis taperen ikke har tatt ut en eneste brikke, får vinneren to poeng.
-- Backgammon: hvis taperen ikke har tatt ut noen brikke og fortsatt har en på baren eller på vinnerens hjemmebrett, får vinneren tre poeng.
-Dette spillet spilles uten doblingskube.
+Ett poeng; to (gammon) hvis taperen ikke har tatt ut noen brikke; tre (backgammon) hvis taperen i tillegg har en brikke på baren eller på vinnerens hjemmebrett. Ingen doblingskube.
 # Plakoto
-Hver spiller begynner med alle femten brikkene på sin tunge 24; spillerne flytter i motsatte retninger, som i backgammon. Det slås ikke, og det finnes ingen bar.
-- En brikke som lander på en enkelt motstanderbrikke, fastholder den: den fastholdte brikken kan ikke flytte før brikken oppå den går videre. Tungen tilhører da den som fastholder, og han kan sette flere brikker der.
-- Moren er den siste brikken en spiller har igjen på sin tunge 24. Blir den fastholdt der, taper spilleren straks to poeng, med mindre den som fastholder, fortsatt har brikker på sin egen tunge 24: da slutter spillet så snart han ikke har noen igjen der. Blir begge mødrene fastholdt, blir spillet uavgjort.
-- Den som vinner åpningskastet, kaster igjen til første trekk. Vinneren får ett poeng, eller to hvis taperen ikke har tatt ut noen brikke.
+Alle brikkene begynner på din tunge 24; spillerne flytter i motsatte retninger. Det slås ikke.
+- En brikke som lander på én enkelt motstanderbrikke, fastholder den til brikken din går videre.
+- Den siste brikken din på tunge 24 er moren. Blir den fastholdt der, taper spilleren straks to poeng, med mindre den som fastholder, fortsatt har brikker på sin egen tunge 24: da slutter spillet så snart han ikke har noen igjen der. Blir begge mødrene fastholdt, blir spillet uavgjort.
+- Den som vinner åpningskastet, kaster igjen for å begynne. Ett poeng, eller to hvis taperen ikke har tatt ut noen brikke.
 # Fevga
-Hver spiller begynner med alle femten brikkene på sin tunge 24, i motsatte hjørner, og begge flytter samme vei rundt brettet: motstanderens start er din tunge 12. Det slås ikke: én brikke holder en tunge, og motstanderen kan ikke lande der.
+Alle brikkene begynner på din tunge 24, i motsatte hjørner, og begge flytter samme vei. Det slås ikke: én brikke holder en tunge.
 - Den første brikken din må forbi motstanderens start før en ny brikke får forlate din.
-- Du kan ikke holde alle seks tungene i startfjerdedelen din, og heller ikke seks tunger på rad med alle motstanderens femten brikker bak seg.
-- Den som vinner åpningskastet, kaster igjen til første trekk. Vinneren får ett poeng, eller to hvis taperen ikke har tatt ut noen brikke.
+- Du kan ikke holde alle seks tungene i startfjerdedelen din, og heller ikke seks på rad med alle motstanderens femten brikker bak seg.
+- Åpningskast og poeng som i plakoto.
 # Lang nardy
-Oppstillingen og retningen fra fevga: alle femten brikkene på hodet (din tunge 24), i motsatte hjørner, begge flytter samme vei. Det slås ikke: én brikke holder en tunge.
-- Bare én brikke kan forlate hodet i hver tur. Bare på ditt første kast lar 6-6, 4-4 eller 3-3 to brikker forlate det.
-- Du kan ikke lage seks tunger på rad med mindre minst én av motstanderens brikker allerede er forbi dem.
-- Den som vinner åpningskastet, kaster igjen til første trekk. Vinneren får ett poeng (oyn), eller to (mars) hvis taperen ikke har tatt ut noen brikke.
-# Spill på enheten
-Trykk på terningene som lyser i gull, for å kaste dem. Trykk på en brikke og så på en av prikkene, eller dra den; en ring viser en blot du ville slått. Hvert trekk bruker én terning: en brukt terning dempes. For å ta ut flytter du brikken til skuffen til høyre. Brikker på baren er allerede plukket opp. Når et kast ikke kan spilles, lyser terningene rødt og turen går videre. Panelet ditt viser hvor mange brikker du har tatt ut, og til slutt poengene du har vunnet. Angre tar tilbake ett trekk om gangen, og terningene fra tidligere turer kommer tilbake slik de ble kastet. I plakoto viser en ring også en brikke du ville fastholde, og en fastholdt brikke ligger under den som fastholder den.
+Som i fevga, fra hodet (din tunge 24).
+- Én brikke forlater hodet hver tur; bare på ditt første kast lar 6-6, 4-4 eller 3-3 to brikker forlate det.
+- Ingen seks tunger på rad med mindre en motstanderbrikke allerede er forbi dem.
+- Åpningskast som i plakoto. Ett poeng (oyn), eller to (mars) hvis taperen ikke har tatt ut noen brikke.

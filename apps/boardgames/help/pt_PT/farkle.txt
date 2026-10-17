@@ -1,21 +1,18 @@
 Farkle
 # O objetivo
-Sê o primeiro a garantir 10.000 pontos lançando seis dados e desafiando a sorte. De dois a seis jogadores, ou um sozinho contra o relógio.
+Sê o primeiro a garantir 10.000 pontos com seis dados, desafiando a sorte. De dois a seis jogadores, ou um sozinho contra o relógio.
 # A tua vez
-- Lança os seis dados. Põe de parte pelo menos um dado que pontue e depois, ou garantes os pontos da tua vez, ou lanças os dados que restam para fazer mais.
-- Cada dado que pões de parte tem de pontuar, e as combinações só contam dentro de um mesmo lançamento.
-- Um lançamento sem nenhum dado que pontue é um farkle: perdes todos os pontos da tua vez, e a vez passa.
-- Dados quentes: quando os seis dados tiverem pontuado, podes voltar a lançar os seis e continuar a somar.
-- Da primeira vez que garantes pontos, precisas de pelo menos 500 numa só vez; depois disso, qualquer valor conta.
+- Lança os seis dados. Põe de parte pelo menos um dado que pontue e depois garante os pontos da tua vez ou lança os dados que restam para fazer mais.
+- Cada dado posto de parte tem de pontuar; as combinações só contam dentro de um mesmo lançamento.
+- Um lançamento sem nenhum dado que pontue é um farkle: perdes os pontos da tua vez.
+- Dados quentes: quando os seis dados tiverem pontuado, volta a lançar os seis e continua.
+- Da primeira vez que garantes pontos, precisas de pelo menos 500.
 # A pontuação
 - Cada 1: 100. Cada 5: 50.
-- Três iguais: a face vezes 100 (três 2: 200, três 6: 600); três 1: 1.000.
-- Quatro iguais: 1.000. Cinco iguais: 2.000. Seis iguais: 3.000.
+- Três iguais: a face vezes 100; três 1: 1.000.
+- Quatro iguais: 1.000. Cinco: 2.000. Seis: 3.000.
 - Uma sequência 1-2-3-4-5-6: 1.500.
 - Três pares: 1.500 (quatro iguais e um par contam como três pares).
 - Dois trios: 2.500.
-Os dados postos de parte contam o máximo possível: quatro 1 são três 1 e mais um 1, 1.100.
 # O fim do jogo
-Os jogadores jogam à vez à volta da mesa, a começar pelo marfim. Quando um jogador garante 10.000 ou mais, cada um dos outros joga uma última vez; depois ganha a pontuação mais alta, e se as mais altas forem iguais, partilham a vitória. Sozinho, chega aos 10.000 em 20 vezes: os pinos no topo do feltro contam-nas.
-# Jogar no dispositivo
-Toca no feltro ou no botão com um dado para lançar. Toca nos dados que pontuam para os pôr de parte: levantam-se numa luz dourada, e um dado que não pode pontuar neste lançamento fica mais escuro e faz um som de recusa. Por baixo dos dados, o número dourado pequeno é o valor dos dados escolhidos, e o grande, o total da tua vez com eles. O botão com um dado lança os dados que restam; o botão com as moedas garante a tua vez. Um botão acende-se quando o podes usar. Os dados postos de parte esperam no teu suporte. Um farkle mostra os dados num brilho vermelho e os pontos perdidos. O dado do jogador que chegou aos 10.000 brilha no feltro durante a ronda final. Cada barra mostra a pontuação garantida desse jogador. Anular desfaz os últimos pontos garantidos; os dados nunca são lançados de novo.
+Quando um jogador garante 10.000 ou mais, cada um dos outros joga uma última vez; depois ganha a pontuação mais alta, e se as mais altas forem iguais, partilham a vitória. Sozinho, chega aos 10.000 em 20 vezes.

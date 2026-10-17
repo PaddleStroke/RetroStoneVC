@@ -1,38 +1,29 @@
 Backgammon
 # Målet
-Før alle dine femten brikker rundt om brættet ind i dit hjemmebræt, og spil dem derefter af. Den første spiller, der har spillet alle femten af, vinder. Spillerne flytter i modsatte retninger, elfenben den ene vej rundt og ibenholt den anden. Vælg spillet før start: backgammon (kortet med den sædvanlige opstilling), plakoto (alle brikker i de to højre hjørner, én fastholdt), fevga (alle brikker i modsatte hjørner, én sendt af sted fra hver) eller lang nardy (modsatte hjørner, to brikker af sted fra hver og en dobbelt sekser). Reglerne nedenfor gælder backgammon; de tre andre beskrives efter dem.
-# Brættet
-Der er 24 smalle trekanter, points, seks i hver fjerdedel af brættet. Baren ned gennem midten deler hver side i et ydre bræt og et hjemmebræt; de to hjemmebrætter ligger over for hinanden, på samme side som bakken. Hver spiller nummererer points fra 1, for enden af sit eget hjemmebræt, rundt til 24, for enden af modstanderens hjemmebræt. Ved start har hver spiller to brikker på sit 24-point, fem på sit 13-point, tre på sit 8-point og fem på sit 6-point.
+Før dine femten brikker rundt ind i dit hjemmebræt, fjerdedelen på din side ved bakken, og spil dem derefter af. Den første, der har spillet alle femten af, vinder. Reglerne nedenfor gælder backgammon; plakoto, fevga og lang nardy beskrives efter dem.
 # Kast og træk
-Til at begynde med kaster hver spiller én terning. Den, der kaster det højeste tal, starter og bruger begge de kastede tal; er de ens, kastes der igen. Derefter skiftes spillerne: kast to terninger, og flyt efter hvert tal.
-- Én brik flytter det ene tal, derefter flytter en brik det andet: den samme brik eller en anden.
-- En brik må lande på et tomt point, på et point med dine egne brikker eller på et point med en enkelt modstanderbrik.
-- En dobbelt giver fire træk med det tal.
-- Du skal bruge begge tal, hvis du kan. Kan du kun bruge det ene, skal du så vidt muligt bruge det største.
-- Er intet træk muligt, mister du turen.
+Til at begynde med kaster hver spiller én terning; den højeste starter med begge tal. Kast derefter to terninger, og flyt efter hvert tal, med én brik eller to.
+- Land på et tomt point, på dine egne brikker eller på en enkelt modstanderbrik.
+- En dobbelt giver fire træk.
+- Brug begge tal, hvis du kan, ellers det største. Er intet træk muligt, mister du turen.
 # Slag og indsætning
-En enkelt brik på et point er en blot. Lander du på en modstanders blot, slår du den: den kommer på baren. En spiller med en brik på baren skal først bringe den tilbage ved at sætte den ind i modstanderens hjemmebræt på det point, en terning angiver (1 er det point, der ligger længst fra baren). Et point med to eller flere modstanderbrikker er lukket. Intet andet må flytte, før alle dine brikker på baren er sat ind.
+Lander du på en enkelt modstanderbrik, kommer den på baren. En brik på baren skal sættes ind, før noget andet flytter, i modstanderens hjemmebræt, på det point en terning angiver (1 ligger længst fra baren). Et point med to eller flere modstanderbrikker er lukket.
 # Afspilning
-Når alle femten af dine brikker er i dit hjemmebræt, må du spille dem af: et tal tager en brik af fra pointet med det nummer. Er det point tomt, skal du flytte en brik fra et højere point, hvis du kan; er der ingen brik på noget højere point, spiller tallet en brik af fra det højeste point, du har brikker på. En brik, der bliver slået, skal hele vejen tilbage, før du igen må spille af.
+Når alle femten er hjemme, flytter du en brik til bakken: et tal spiller en brik af fra sit point. Er det point tomt, så flyt fra et højere point; er der intet højere, så spil af fra dit højeste.
 # Sejr
-- Den første spiller, der har spillet alle femten brikker af, vinder ét point.
-- Gammon: hvis taberen ikke har spillet en eneste brik af, får vinderen to point.
-- Backgammon: hvis taberen ikke har spillet nogen brik af og stadig har en på baren eller i vinderens hjemmebræt, får vinderen tre point.
-Dette spil spilles uden doblingsterning.
+Ét point; to (gammon), hvis taberen ikke har spillet nogen brik af; tre (backgammon), hvis taberen desuden har en brik på baren eller i vinderens hjemmebræt. Ingen doblingsterning.
 # Plakoto
-Hver spiller starter med alle femten brikker på sit point 24; spillerne flytter i hver sin retning som i backgammon. Der slås ikke, og der er ingen bar.
-- En brik, der lander på en enkelt modstanderbrik, fastholder den: den fastholdte brik må ikke flytte, før brikken ovenpå går videre. Pointet tilhører så den fastholdende spiller, som må sætte flere brikker på det.
-- Moderen er den sidste brik, en spiller har tilbage på sit point 24. Bliver den fastholdt dér, taber dens spiller straks to point, medmindre den fastholdende spiller stadig har brikker på sit eget point 24: så slutter spillet, så snart der ikke er flere dér. Er begge mødre fastholdt, ender spillet uafgjort.
-- Vinderen af åbningskastet kaster igen til det første træk. Vinderen får ét point, eller to hvis taberen ikke har spillet nogen brik af.
+Alle brikker starter på dit point 24; spillerne flytter i hver sin retning. Der slås ikke.
+- En brik, der lander på en enkelt modstanderbrik, fastholder den, til din brik går videre.
+- Din sidste brik på dit point 24 er moderen. Bliver den fastholdt dér, taber dens spiller straks to point, medmindre den fastholdende spiller stadig har brikker på sit eget point 24: så slutter spillet, så snart der ikke er flere dér. Er begge mødre fastholdt, ender spillet uafgjort.
+- Vinderen af åbningskastet kaster igen til at begynde. Ét point, eller to hvis taberen ikke har spillet nogen brik af.
 # Fevga
-Hver spiller starter med alle femten brikker på sit point 24, i modsatte hjørner, og begge spillere flytter samme vej rundt om brættet: modstanderens start er dit point 12. Der slås ikke: en enkelt brik holder et point, og modstanderen må ikke lande dér.
-- Din første brik skal forbi modstanderens start, før en anden brik må forlade din.
-- Du må ikke besætte alle seks points i din startfjerdedel og heller ikke seks points i træk med alle modstanderens femten brikker bag sig.
-- Vinderen af åbningskastet kaster igen til det første træk. Vinderen får ét point, eller to hvis taberen ikke har spillet nogen brik af.
+Alle brikker starter på dit point 24, i modsatte hjørner, og begge spillere flytter samme vej. Der slås ikke: en enkelt brik holder et point.
+- Din første brik skal forbi modstanderens start, før en anden brik forlader din.
+- Du må ikke besætte alle seks points i din startfjerdedel og heller ikke seks i træk med alle modstanderens femten brikker bag sig.
+- Åbningskast og point som i plakoto.
 # Lang nardy
-Starten og retningen fra fevga: alle femten brikker på hovedet (dit point 24), i modsatte hjørner, begge spillere flytter samme vej. Der slås ikke: en enkelt brik holder et point.
-- Kun én brik må forlade hovedet i hver tur. Kun ved dit første kast lader 6-6, 4-4 eller 3-3 to brikker forlade det.
-- Du må ikke lave seks points i træk, medmindre mindst én af modstanderens brikker allerede er forbi dem.
-- Vinderen af åbningskastet kaster igen til det første træk. Vinderen får ét point (oyn), eller to (mars) hvis taberen ikke har spillet nogen brik af.
-# Spil på enheden
-Tryk på terningerne, der lyser guld, for at kaste dem. Tryk på en brik og derefter på en af prikkerne, eller træk den; en ring viser en blot, du ville slå. Hvert træk bruger én terning: en brugt terning bliver nedtonet. For at spille en brik af flytter du den til bakken til højre. Brikker på baren er allerede taget op. Når et kast ikke kan spilles, lyser terningerne rødt, og turen går videre. Dit panel viser, hvor mange brikker du har spillet af, og til sidst de vundne point. Fortryd tager ét træk tilbage ad gangen, og terningerne fra tidligere ture kommer tilbage, som de blev kastet. I plakoto viser en ring også en brik, du ville fastholde, og en fastholdt brik ligger under den, der fastholder den.
+Som i fevga, fra hovedet (dit point 24).
+- Én brik forlader hovedet i hver tur; kun ved dit første kast lader 6-6, 4-4 eller 3-3 to brikker forlade det.
+- Ingen seks points i træk, medmindre en modstanderbrik allerede er forbi dem.
+- Åbningskast som i plakoto. Ét point (oyn), eller to (mars) hvis taberen ikke har spillet nogen brik af.

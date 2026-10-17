@@ -1,20 +1,18 @@
 421
 # Tujuan
-Habiskan kepingmu: permainan kafe Prancis dengan tiga dadu dan sebelas keping. Dua sampai enam pemain. Pemain yang akhirnya memegang semua keping kalah; semua pemain lain menang.
+Habiskan kepingmu: permainan kafe Prancis dengan tiga dadu dan sebelas keping, untuk dua sampai enam pemain.
 # Lemparan
 Dari yang terbaik sampai yang terburuk, dan nilai masing-masing dalam keping:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- “Fiches”, yaitu dua 1 dan satu dadu lain, serta tiga kembar, masing-masing bernilai angka mukanya: 1-1-6 dan 6-6-6: 6; 1-1-5 dan 5-5-5: 5; terus turun sampai 1-1-2 dan 2-2-2: 2. “Fiche” mengalahkan tiga kembar yang nilainya sama.
-- Urutan 6-5-4, 5-4-3, 4-3-2 dan 3-2-1: 2.
-- Lemparan lain apa pun: 1, makin tinggi dadunya makin baik (6-6-5, lalu 6-6-4…).
+- Dua 1 dan satu dadu lain (“fiche”), serta tiga kembar, masing-masing bernilai angka mukanya: 1-1-6 dan 6-6-6: 6, terus turun sampai 1-1-2 dan 2-2-2: 2. “Fiche” mengalahkan tiga kembar yang nilainya sama.
+- Urutan 6-5-4 sampai 3-2-1: 2.
+- Lemparan lain apa pun: 1, makin tinggi dadunya makin baik.
 - “Nénette”, 2-2-1: yang terburuk dari semuanya.
 Jika dua lemparan sama, yang dibuat dengan lebih sedikit lemparan lebih baik; lalu yang dibuat lebih dulu.
 # Fase pengisian
-Pada fase pengisian (“la charge”), kesebelas keping mulai di pot. Setiap babak, setiap pemain melempar sekali. Pemain dengan lemparan terburuk mengambil dari pot keping sebanyak nilai lemparan terbaik (sisanya, di akhir fase). Gading mulai lebih dulu; lalu yang kalah di setiap babak memulai babak berikutnya. Jika pot sudah kosong, fase pengosongan (“la décharge”) dimulai. Pemain yang saat itu tidak punya keping keluar dan aman. Jika satu pemain mengambil semua keping, ia langsung kalah.
+Keping mulai di pot. Setiap babak, setiap pemain melempar sekali; pemilik lemparan terburuk mengambil dari pot keping sebanyak nilai lemparan terbaik. Yang kalah memulai babak berikutnya. Jika pot sudah kosong, fase pengosongan dimulai: pemain yang tidak punya keping keluar dan aman.
 # Fase pengosongan
-Setiap babak, pemain melempar sampai tiga kali, dan boleh menyimpan dadu mana pun di antara lemparan. Pemain pertama di babak itu boleh berhenti setelah satu atau dua lemparan: pemain lain lalu tidak boleh melempar lebih banyak kali darinya. Pemain dengan lemparan terbaik memberi pemain dengan lemparan terburuk keping miliknya sendiri sebanyak nilai lemparannya (semua yang ia punya, jika kurang). Pemain yang memberikan keping terakhirnya keluar dan aman. Yang kalah dalam satu babak memulai babak berikutnya.
+Setiap babak, lempar sampai tiga kali, dan boleh menyimpan dadu mana pun di antara lemparan. Pemain lain tidak boleh melempar lebih banyak kali dari pemain pertama di babak itu. Pemilik lemparan terbaik memberi pemilik lemparan terburuk keping miliknya sendiri sebanyak nilai lemparannya. Pemain yang memberikan keping terakhirnya keluar dan aman.
 # Akhir permainan
 Permainan berakhir jika satu pemain memegang semua keping: pemain itu kalah, dan semua pemain lain berbagi kemenangan.
-# Bermain di perangkat
-Ketuk kain hijau untuk melempar. Ketuk dadu untuk menyimpannya: dadu itu meluncur ke bawah; ketuk lagi untuk melemparnya lagi. Dadu kecil di bawah lemparanmu menunjukkan berapa lemparan yang diizinkan di babak ini, yang sudah dipakai diredupkan. Tombol bergambar tanda centang menghentikan giliranmu. Lemparan setiap pemain di babak itu tampil kecil di sisinya pada kain hijau, dengan titik di bawahnya yang menghitung jumlah lemparannya; yang terbaik dalam cahaya keemasan dan yang terburuk dalam cahaya merah. Lalu keping-keping terbang ke pemain yang kalah. Pot ada di tengah selama fase pengisian. Setiap bilah menunjukkan keping pemainnya. Urungkan membatalkan penghentian terakhir; dadu tidak pernah dilempar ulang.

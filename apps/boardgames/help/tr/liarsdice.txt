@@ -1,15 +1,13 @@
 Yalancı Zar
 # Amaç
-Zarı kalan son oyuncu olmak. Herkesin bir bardağın altında beş zarı vardır ve herkes yalnızca kendininkileri görür; herkes bütün bardakların birlikte sakladığı şey üzerine teklif verir ve herkes blöf yapabilir. 2 ila 6 oyuncu için.
+Zarı kalan son oyuncu olmak. Herkesin bir bardağın altında beş zarı vardır ve herkes yalnızca kendininkileri görür. 2 ila 6 oyuncu için.
 # Bir el
-- Herkes zarlarını bardağının altında atar ve kendininkilere bakar.
-- İlk oyuncu teklif verir: masadaki bütün zarlar sayılınca en az şu kadar zar şu yüzü gösteriyor.
+- Herkes zarlarını bardağının altında atar.
+- İlk oyuncu teklif verir: bütün masada en az şu kadar zar şu yüzü gösteriyor.
 - Sırayla her oyuncu ya teklifi yükseltir ya da son teklifin yalan olduğunu söyler.
 - Yükseltmek, daha çok zar (herhangi bir yüz) ya da aynı sayıda zarla daha yüksek bir yüz söylemektir.
-- Birler jokerdir: teklifin yüzü sayılırlar. Bu yüzden kimse bire teklif vermez: yalnızca 2'den 6'ya.
+- Birler jokerdir ve teklifin yüzü sayılır; bu yüzden teklifler yalnızca 2'den 6'ya kadar yüzlere verilir.
 # Meydan okuma
-Bütün bardaklar kaldırılır ve teklifin yüzünü gösteren zarlar, birlerle birlikte sayılır. Teklifte söylenen kadar ya da daha fazlaysa teklif tutar ve meydan okuyan bir zar kaybeder. Değilse teklifi veren bir zar kaybeder. Zar kaybeden bir sonraki eli başlatır.
+Bütün bardaklar kaldırılır. Teklifin yüzünü gösteren zarlar, birlerle birlikte, en az teklif kadarsa meydan okuyan bir zar kaybeder; değilse teklifi veren kaybeder. Kaybeden bir sonraki eli başlatır; kaybeden oyundan çıktıysa bir sonraki oyuncu başlatır.
 # Oyunun sonu
-Zarı kalmayan oyuncu oyundan çıkar (son eli o kaybettiyse bir sonraki oyuncu başlar). Zarı kalan son oyuncu kazanır.
-# Cihazda oynamak
-Cihazı elden ele verin: yalnızca kendi zarlarını görürsün, altta, kaldırılmış bardağın yanında. Diğerlerinin bardakları üsttedir; her şerit o oyuncunun kaç zarı kaldığını gösterir. Ortada: geçilmesi gereken teklif, verenin pulu ile; altında elin önceki teklifleri. Teklif vermek için bir sayıya (kaç zar) ve bir yüze, sonra onay işaretine dokun: seçim her zaman son tekliften yüksektir. Son teklifin yalan olduğunu söylemek için kaldırılmış bardaklı düğmeye dokun. Meydan okumada bütün bardaklar herkesin önünde kalkar: sayılan zarlar tek tek yanar, sayı yükselir; altın, teklif tuttu; kırmızı, yalandı; kaybedilen zar silinir. Bir sonraki eli atmak için yuvarlak oka dokun. Herkes masayı az önce gördü: aynı oyuncu yeniden başlarsa bardağı kapalı kalır; bakmak için ona dokun.
+Zarı kalmayan oyuncu oyundan çıkar. Zarı kalan son oyuncu kazanır.

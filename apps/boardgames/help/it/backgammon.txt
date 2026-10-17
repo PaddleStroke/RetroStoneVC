@@ -1,38 +1,29 @@
 Backgammon
 # Lo scopo
-Portare tutte le tue quindici pedine lungo il tavoliere fino alla tua tavola interna, e poi portarle fuori. Vince il primo giocatore che porta fuori tutte e quindici le pedine. I giocatori si muovono in direzioni opposte, l'avorio in un senso e l'ebano nell'altro. Scegli il gioco prima di cominciare: backgammon (la carta con la disposizione solita), plakoto (tutte le pedine nei due angoli a destra, una bloccata), fevga (tutte le pedine in angoli opposti, una partita in avanti da ciascuno) o nardy lungo (angoli opposti, due pedine partite da ciascuno e un doppio sei). Le regole qui sotto sono quelle del backgammon; gli altri tre giochi sono descritti dopo.
-# Il tavoliere
-Ci sono 24 triangoli stretti, le punte, sei in ogni quarto del tavoliere. La barra al centro divide ogni lato in una tavola esterna e una tavola interna; le due tavole interne si trovano una di fronte all'altra, dal lato del vassoio. Ogni giocatore numera le punte da 1, in fondo alla propria tavola interna, fino a 24, in fondo alla tavola interna dell'altro giocatore. All'inizio ogni giocatore ha due pedine sulla sua punta 24, cinque sulla sua punta 13, tre sulla sua punta 8 e cinque sulla sua punta 6.
+Porta le tue quindici pedine fino alla tua tavola interna, il quarto dal tuo lato vicino al vassoio, e poi portale fuori. Vince il primo che porta fuori tutte e quindici le pedine. Le regole qui sotto sono quelle del backgammon; plakoto, fevga e nardy lungo sono descritti dopo.
 # Tirare e muovere
-Per cominciare, ogni giocatore tira un dado. Il numero più alto gioca per primo, usando entrambi i numeri usciti; se sono uguali, si tira di nuovo. Poi i giocatori si alternano: tira due dadi e muovi secondo ciascun numero.
-- Una pedina avanza di un numero, poi una pedina avanza dell'altro: la stessa pedina o un'altra.
-- Una pedina può fermarsi su una punta vuota, su una punta con pedine tue o su una punta con una sola pedina avversaria.
-- Un doppio dà quattro mosse di quel numero.
-- Devi usare entrambi i numeri, se puoi. Se puoi usarne solo uno, devi usare il più alto, se possibile.
-- Se nessuna mossa è possibile, perdi il turno.
+Per cominciare, ogni giocatore tira un dado; il più alto gioca per primo con entrambi i numeri. Poi tira due dadi e muovi secondo ciascun numero, con una pedina o con due.
+- Fermati su una punta vuota, sulle tue pedine o su una sola pedina avversaria.
+- Un doppio dà quattro mosse.
+- Usa entrambi i numeri, se puoi, altrimenti il più alto. Se nessuna mossa è possibile, perdi il turno.
 # Colpire e rientrare
-Una pedina da sola su una punta è scoperta (un blot). Fermarsi su un blot avversario lo colpisce: va sulla barra. Un giocatore con una pedina sulla barra deve prima farla rientrare, nella tavola interna dell'altro giocatore, sulla punta indicata da un dado (la 1 è la punta più lontana dalla barra). Una punta occupata da due o più pedine avversarie è chiusa. Nient'altro può muoversi finché tutte le tue pedine sulla barra non sono rientrate.
+Fermarsi su una sola pedina avversaria la manda sulla barra. Una pedina sulla barra deve rientrare prima che si muova altro, nella tavola interna dell'altro giocatore, sulla punta indicata da un dado (la 1 è la più lontana dalla barra). Una punta occupata da due o più pedine avversarie è chiusa.
 # Portare fuori
-Quando tutte e quindici le tue pedine sono nella tua tavola interna, puoi portarle fuori: un numero porta fuori una pedina dalla punta con quel numero. Se quella punta è vuota, devi muovere una pedina da una punta più alta, se puoi; se non ci sono pedine su nessuna punta più alta, il numero porta fuori una pedina dalla punta più alta che occupi. Una pedina colpita deve rifare tutto il giro prima che tu possa tornare a portare fuori.
+Quando tutte e quindici sono nella tua tavola interna, sposta una pedina nel vassoio: un numero porta fuori una pedina dalla punta con quel numero. Se quella punta è vuota, muovi da una punta più alta; se non ce ne sono, porta fuori dalla punta più alta che occupi.
 # La vittoria
-- Il primo giocatore che porta fuori tutte e quindici le pedine vince un punto.
-- Gammon: se lo sconfitto non ha portato fuori nemmeno una pedina, il vincitore segna due punti.
-- Backgammon: se lo sconfitto non ha portato fuori nessuna pedina e ne ha ancora una sulla barra o nella tavola interna del vincitore, il vincitore segna tre punti.
-Questo gioco si gioca senza il cubo del raddoppio.
+Un punto; due (gammon) se lo sconfitto non ha portato fuori nessuna pedina; tre (backgammon) se ne ha anche una sulla barra o nella tavola interna del vincitore. Senza il cubo del raddoppio.
 # Plakoto
-Ogni giocatore comincia con tutte e quindici le pedine sulla sua punta 24; i giocatori muovono in direzioni opposte, come nel backgammon. Non si colpisce e non c'è la barra.
-- Una pedina che arriva su una pedina avversaria sola la blocca: la pedina bloccata non può muovere finché quella sopra non se ne va. La punta appartiene allora a chi blocca, che può aggiungervi altre pedine.
-- La madre è l'ultima pedina rimasta a un giocatore sulla sua punta 24. Se viene bloccata lì, il suo giocatore perde subito due punti, a meno che chi la blocca abbia ancora pedine sulla propria punta 24: allora la partita finisce non appena non ne ha più lì. Se sono bloccate entrambe le madri, la partita è patta.
-- Chi vince il tiro d'apertura tira di nuovo per la prima mossa. Il vincitore segna un punto, o due se il perdente non ha portato fuori nessuna pedina.
+Tutte le pedine partono dalla tua punta 24; i giocatori muovono in direzioni opposte. Non si colpisce.
+- Fermarsi su una sola pedina avversaria la blocca finché la tua pedina non se ne va.
+- La tua ultima pedina sulla punta 24 è la madre. Se viene bloccata lì, il suo giocatore perde subito due punti, a meno che chi la blocca abbia ancora pedine sulla propria punta 24: la partita finisce non appena non ne ha più lì. Entrambe le madri bloccate: patta.
+- Chi vince il tiro d'apertura tira di nuovo per cominciare. Un punto, o due se il perdente non ha portato fuori nessuna pedina.
 # Fevga
-Ogni giocatore comincia con tutte e quindici le pedine sulla sua punta 24, in angoli opposti, ed entrambi girano intorno al tavoliere nello stesso senso: la partenza dell'altro giocatore è la tua punta 12. Non si colpisce: una pedina sola tiene una punta, e l'altro giocatore non può arrivarci.
-- La tua prima pedina deve superare la partenza dell'altro giocatore prima che una seconda pedina possa lasciare la tua.
-- Non puoi tenere tutte e sei le punte del tuo quarto di partenza, né sei punte di fila con tutte e quindici le pedine dell'altro giocatore dietro.
-- Chi vince il tiro d'apertura tira di nuovo per la prima mossa. Il vincitore segna un punto, o due se il perdente non ha portato fuori nessuna pedina.
+Tutte le pedine partono dalla tua punta 24, in angoli opposti, ed entrambi i giocatori muovono nello stesso senso. Non si colpisce: una pedina sola tiene una punta.
+- La tua prima pedina deve superare la partenza dell'altro giocatore prima che una seconda lasci la tua.
+- Non puoi tenere tutte e sei le punte del tuo quarto di partenza, né sei punte di fila con tutte e quindici le pedine avversarie dietro.
+- Tiro d'apertura e punteggio come nel plakoto.
 # Nardy lungo
-La partenza e il senso della fevga: tutte e quindici le pedine sulla testa (la tua punta 24), in angoli opposti, entrambi i giocatori nello stesso senso. Non si colpisce: una pedina sola tiene una punta.
-- A ogni turno una sola pedina può lasciare la testa. Solo al tuo primo tiro, un 6-6, un 4-4 o un 3-3 permette di farne uscire due.
-- Non puoi tenere sei punte di fila, a meno che almeno una pedina dell'altro giocatore le abbia già superate.
-- Chi vince il tiro d'apertura tira di nuovo per la prima mossa. Il vincitore segna un punto (oyn), o due (mars) se il perdente non ha portato fuori nessuna pedina.
-# Giocare sul dispositivo
-Tocca i dadi che brillano d'oro per tirarli. Tocca una pedina, poi uno dei punti, oppure trascinala; un anello mostra un blot che colpiresti. Ogni mossa usa un dado: un dado già usato si attenua. Per portare fuori una pedina, spostala nel vassoio a destra. Le pedine sulla barra sono già in mano. Quando un tiro non si può giocare, i suoi dadi si illuminano di rosso e il turno passa. La tua barra del giocatore mostra quante pedine hai portato fuori e, alla fine, i punti vinti. Annulla ritira una mossa alla volta, e i dadi dei turni precedenti tornano come erano usciti. Nel plakoto un anello mostra anche la pedina che bloccheresti, e una pedina bloccata sta sotto quella che la blocca.
+Come nella fevga, partendo dalla testa (la tua punta 24).
+- A ogni turno una sola pedina lascia la testa; solo al tuo primo tiro, un 6-6, un 4-4 o un 3-3 permette di farne uscire due.
+- Niente sei punte di fila, a meno che una pedina avversaria le abbia già superate.
+- Tiro d'apertura come nel plakoto. Un punto (oyn), o due (mars) se il perdente non ha portato fuori nessuna pedina.

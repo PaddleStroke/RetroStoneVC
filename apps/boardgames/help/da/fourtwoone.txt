@@ -1,20 +1,18 @@
 421
 # Målet
-Bliv af med dine jetoner: det franske cafespil med tre terninger og elleve jetoner. To til seks spillere. Den, der ender med alle jetonerne, taber; alle andre vinder.
+Bliv af med dine jetoner: det franske cafespil med tre terninger og elleve jetoner, for to til seks spillere.
 # Kastene
 Fra det bedste til det dårligste, og hvad hvert kast er værd i jetoner:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- De såkaldte »fiches«, to 1'ere og en anden terning, og tre ens, hver værd sit tal: 1-1-6 og 6-6-6: 6; 1-1-5 og 5-5-5: 5; ned til 1-1-2 og 2-2-2: 2. En fiche slår tre ens med samme værdi.
-- Rækkerne 6-5-4, 5-4-3, 4-3-2 og 3-2-1: 2.
-- Ethvert andet kast: 1, jo højere terninger, jo bedre (6-6-5, derefter 6-6-4…).
+- To 1'ere og en anden terning (en »fiche«) og tre ens, hver værd sit tal: 1-1-6 og 6-6-6: 6, ned til 1-1-2 og 2-2-2: 2. En fiche slår tre ens med samme værdi.
+- Rækkerne 6-5-4 ned til 3-2-1: 2.
+- Ethvert andet kast: 1, jo højere terninger, jo bedre.
 - Den såkaldte »nénette«, 2-2-1: det allerdårligste.
-Er to kast lige gode, er det, der blev slået med færrest kast, bedst; derefter det, der blev slået først.
+Er to kast lige gode, vinder det, der blev slået med færrest kast, og derefter det, der blev slået først.
 # Ladningen
-I ladningen (»la charge«) ligger de elleve jetoner først i puljen. I hver runde kaster hver spiller én gang. Den med det dårligste kast tager så mange jetoner fra puljen, som det bedste kast er værd (til sidst: det, der er tilbage). Elfenben begynder; derefter begynder taberen af hver runde den næste. Når puljen er tom, begynder afladningen. En spiller uden jetoner er da ude og i sikkerhed. Har én spiller taget alle jetonerne, har han tabt med det samme.
+Jetonerne ligger først i puljen. I hver runde kaster alle én gang; den med det dårligste kast tager så mange jetoner fra puljen, som det bedste kast er værd. Taberen begynder næste runde. Når puljen er tom, begynder afladningen: en spiller uden jetoner er ude og i sikkerhed.
 # Afladningen
-I afladningen (»la décharge«) kaster spillerne i hver runde op til tre gange og må beholde terninger mellem kastene. Rundens første spiller må stoppe efter et eller to kast: de andre må så ikke kaste flere gange end han. Den med det bedste kast giver den med det dårligste så mange af sine egne jetoner, som hans kast er værd (alle han har, hvis han har færre). En spiller, der giver sin sidste jeton væk, er ude og i sikkerhed. Taberen af en runde begynder den næste.
+I hver runde kaster man op til tre gange og må beholde terninger mellem kastene. De andre må ikke kaste flere gange end rundens første spiller. Den med det bedste kast giver den med det dårligste så mange af sine egne jetoner, som kastet er værd. En spiller, der giver sin sidste jeton væk, er ude og i sikkerhed.
 # Spillets afslutning
 Spillet slutter, når én spiller har alle jetonerne: den spiller har tabt, og alle de andre deler sejren.
-# Spil på enheden
-Tryk på filten for at kaste. Tryk på en terning for at beholde den: den glider ned; tryk på den igen for at kaste den igen. De små terninger under dit kast viser, hvor mange kast runden tillader, de brugte nedtonede. Knappen med et flueben afslutter din tur. Hver spillers kast i runden ligger småt på hans side af filten, og prikkerne under det tæller, hvor mange kast det tog; det bedste ligger i et gyldent lys og det dårligste i et rødt skær. Så flyver jetonerne til taberen. Puljen ligger i midten under ladningen. Hver bjælke viser den spillers jetoner. Fortryd tager det sidste stop tilbage; terningerne kastes aldrig om.

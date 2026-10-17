@@ -4,18 +4,15 @@ Jako první si zapiš 10 000 bodů: házíš šesti kostkami a pokoušíš ště
 # Tah
 - Hoď šesti kostkami. Odlož aspoň jednu bodující kostku a pak si buď zapiš body svého tahu, nebo hoď zbylými kostkami a získej víc.
 - Každá odložená kostka musí bodovat a kombinace platí jen v rámci jednoho hodu.
-- Hod bez bodujících kostek je farkle: přijdeš o všechny body svého tahu a tah přechází na dalšího.
-- Horké kostky: když bodovalo všech šest kostek, smíš znovu hodit všemi šesti a dál přičítat.
-- Tvůj první zápis musí mít aspoň 500 bodů z jednoho tahu; potom platí jakýkoli zápis.
+- Hod bez bodujících kostek je farkle: přijdeš o body svého tahu.
+- Horké kostky: když bodovalo všech šest, hoď znovu všemi šesti a pokračuj.
+- Tvůj první zápis musí mít aspoň 500 bodů.
 # Bodování
 - Každá 1: 100. Každá 5: 50.
-- Tři stejné: číslo krát 100 (tři 2: 200, tři 6: 600); tři 1: 1000.
-- Čtyři stejné: 1000. Pět stejných: 2000. Šest stejných: 3000.
+- Tři stejné: číslo krát 100; tři 1: 1000.
+- Čtyři stejné: 1000. Pět: 2000. Šest: 3000.
 - Postupka 1-2-3-4-5-6: 1500.
 - Tři páry: 1500 (čtyři stejné a pár se počítají jako tři páry).
 - Dvě trojice: 2500.
-Odložené kostky se počítají co nejvýhodněji: čtyři 1 jsou tři 1 a jedna 1, 1100.
 # Konec hry
-Hráči se střídají kolem stolu, slonovinový začíná. Když si hráč zapíše 10 000 nebo víc, všichni ostatní hráči mají ještě jeden poslední tah; pak vyhrává nejvyšší skóre a při shodě nejvyšších skóre se hráči o výhru dělí. Sám musíš dosáhnout 10 000 do 20 tahů: počítají je kolíčky nahoře na plsti.
-# Hra na zařízení
-Ťukni na plsť nebo na tlačítko s kostkou a hodíš. Ťuknutím na bodující kostky je odložíš: zvednou se ve zlatém světle; kostka, která v tomto hodu bodovat nemůže, je tmavší a ozve se zamítavý zvuk. Pod kostkami ukazuje malé zlaté číslo, kolik mají vybrané kostky hodnotu, a velké součet tvého tahu i s nimi. Tlačítko s kostkou hodí zbylými kostkami; tlačítko s mincemi zapíše tvůj tah. Tlačítko se rozsvítí, když ho smíš použít. Odložené kostky čekají na tvém stojánku. Farkle ukáže kostky v červené záři a ztracené body. Kostka hráče, který dosáhl 10 000, během posledního kola září na plsti. Každá lišta ukazuje zapsané skóre toho hráče. Vrátit vezme zpět poslední zápis; kostky se nikdy nehází znovu.
+Když si hráč zapíše 10 000 nebo víc, všichni ostatní hráči mají ještě jeden poslední tah; pak vyhrává nejvyšší skóre a při shodě nejvyšších skóre se hráči o výhru dělí. Sám musíš dosáhnout 10 000 do 20 tahů.

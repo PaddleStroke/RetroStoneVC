@@ -1,21 +1,18 @@
 10.000
 # Het doel
-Stel als eerste 10.000 punten veilig door zes dobbelstenen te gooien en je geluk te beproeven. Twee tot zes spelers, of één alleen tegen de klok.
+Stel als eerste 10.000 punten veilig met zes dobbelstenen, en beproef je geluk. Twee tot zes spelers, of één alleen tegen de klok.
 # Een beurt
-- Gooi de zes dobbelstenen. Leg minstens één scorende dobbelsteen apart, en stel daarna de punten van je beurt veilig of gooi de overgebleven dobbelstenen om meer te scoren.
-- Elke dobbelsteen die je apart legt, moet scoren, en combinaties tellen alleen binnen één worp.
-- Een worp zonder scorende dobbelstenen is een nulworp: je verliest alle punten van je beurt, en de beurt gaat over.
-- Hete stenen: als alle zes dobbelstenen hebben gescoord, mag je alle zes opnieuw gooien en verder optellen.
-- De eerste keer dat je punten veiligstelt, moeten het er minstens 500 in één beurt zijn; daarna telt elk bedrag.
+- Gooi de zes dobbelstenen. Leg minstens één scorende dobbelsteen apart, en stel daarna de punten van je beurt veilig of gooi de overgebleven dobbelstenen voor meer.
+- Elke dobbelsteen die je apart legt, moet scoren; combinaties tellen alleen binnen één worp.
+- Een worp zonder scorende dobbelstenen is een nulworp: je verliest de punten van je beurt.
+- Hete stenen: als alle zes hebben gescoord, gooi je alle zes opnieuw en ga je door.
+- De eerste keer dat je veiligstelt, moeten het minstens 500 punten zijn.
 # De puntentelling
 - Elke 1: 100. Elke 5: 50.
-- Drie gelijke: het getal maal 100 (drie 2'en: 200, drie 6'en: 600); drie 1'en: 1.000.
-- Vier gelijke: 1.000. Vijf gelijke: 2.000. Zes gelijke: 3.000.
+- Drie gelijke: het getal maal 100; drie 1'en: 1.000.
+- Vier gelijke: 1.000. Vijf: 2.000. Zes: 3.000.
 - Een straat 1-2-3-4-5-6: 1.500.
 - Drie paren: 1.500 (vier gelijke en een paar tellen als drie paren).
 - Twee keer drie gelijke: 2.500.
-De dobbelstenen die je apart legt, scoren zo hoog mogelijk: vier 1'en zijn drie 1'en en een 1, 1.100.
 # Het einde van de partij
-De beurt gaat rond de tafel, ivoor begint. Stelt een speler 10.000 of meer veilig, dan krijgt elke andere speler nog één laatste beurt; daarna wint de hoogste score, en bij gelijke hoogste scores delen die spelers de winst. Alleen moet je 10.000 halen binnen 20 beurten: de pinnetjes boven op het vilt tellen ze.
-# Spelen op het apparaat
-Tik op het vilt of op de knop met een dobbelsteen om te gooien. Tik op de dobbelstenen die scoren om ze apart te leggen: ze komen omhoog in een gouden licht, en een dobbelsteen die in deze worp niet kan scoren, is donkerder en geeft een weigergeluid. Onder de dobbelstenen is het kleine gouden getal wat de gekozen dobbelstenen waard zijn, en het grote het totaal van je beurt met hen erbij. De knop met een dobbelsteen gooit de overgebleven dobbelstenen; de knop met de munten stelt je beurt veilig. Een knop licht op als je hem mag gebruiken. De apart gelegde dobbelstenen wachten op je rekje. Een nulworp toont de dobbelstenen in een rode gloed en de verloren punten. De dobbelsteen van de speler die 10.000 haalde, glanst op het vilt tijdens de laatste ronde. Elke balk toont de veiliggestelde score van die speler. Ongedaan maken neemt het laatste veiligstellen terug; de dobbelstenen worden nooit opnieuw gegooid.
+Stelt een speler 10.000 of meer veilig, dan krijgt elke andere speler nog één laatste beurt; daarna wint de hoogste score, en bij gelijke hoogste scores delen die spelers de winst. Alleen moet je 10.000 halen binnen 20 beurten.

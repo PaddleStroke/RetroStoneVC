@@ -1,15 +1,13 @@
 Dados mentirosos
 # O objetivo
-Ser o último jogador com dados. Cada um tem cinco dados debaixo de um copo e só vê os seus; cada um aposta no que todos os copos escondem juntos, e qualquer um pode estar a fazer bluff. De 2 a 6 jogadores.
+Ser o último jogador com dados. Cada um tem cinco dados debaixo de um copo e só vê os seus. De 2 a 6 jogadores.
 # Uma ronda
-- Cada um lança os dados debaixo do seu copo e olha para os seus.
-- O primeiro jogador aposta: há pelo menos tantos dados a mostrar tal face, contando todos os dados da mesa.
+- Cada um lança os dados debaixo do seu copo.
+- O primeiro jogador aposta: há pelo menos tantos dados em toda a mesa a mostrar tal face.
 - Na sua vez, cada jogador sobe a aposta ou diz que a última é mentira.
 - Subir é apostar mais dados (qualquer face), ou o mesmo número de dados com uma face mais alta.
-- Os uns são jokers: contam como a face apostada. Por isso ninguém aposta em uns: só faces de 2 a 6.
+- Os uns são jokers e contam como a face apostada; por isso só se aposta em faces de 2 a 6.
 # O desafio
-Todos os copos são levantados e contam-se os dados com a face apostada, mais os uns. Se houver pelo menos tantos como a aposta, ela vale e quem desafiou perde um dado. Se não, quem apostou perde um. Quem perdeu um dado começa a ronda seguinte.
+Todos os copos são levantados. Se os dados com a face apostada, mais os uns, forem pelo menos tantos como a aposta, quem desafiou perde um dado; se não, perde quem apostou. Quem perdeu começa a ronda seguinte, ou o jogador seguinte, se quem perdeu tiver sido eliminado.
 # O fim do jogo
-Quem fica sem dados é eliminado (se perdeu a última ronda, começa o jogador seguinte). Ganha o último jogador com dados.
-# Jogar no dispositivo
-Passem o dispositivo: só vês os teus dados, em baixo, com o teu copo levantado ao lado. Os copos dos outros estão em cima; cada barra mostra quantos dados restam a esse jogador. Ao meio: a aposta a bater com a ficha de quem a fez, e por baixo as apostas anteriores da ronda. Para apostar, toca num número (quantos dados) e numa face, depois no visto: a escolha é sempre mais alta do que a última aposta. Para dizer que a última aposta é mentira, toca no botão do copo levantado. No desafio, todos os copos se levantam à vista de todos: os dados que contam acendem-se um a um enquanto a contagem sobe; dourado, a aposta vale; vermelho, era mentira; o dado perdido desaparece. Toca na seta redonda para lançar a ronda seguinte. Todos acabaram de ver a mesa: se o mesmo jogador começar outra vez, o copo dele fica em baixo; toca-lhe para olhar.
+Quem fica sem dados é eliminado. Ganha o último jogador com dados.

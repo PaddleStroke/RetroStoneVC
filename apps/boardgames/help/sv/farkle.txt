@@ -1,21 +1,18 @@
 Tiotusen
 # Målet
-Bli först med att säkra 10 000 poäng genom att kasta sex tärningar och utmana lyckan. Två till sex spelare, eller en ensam mot klockan.
+Bli först med att säkra 10 000 poäng med sex tärningar genom att utmana lyckan. Två till sex spelare, eller en ensam mot klockan.
 # En tur
-- Kasta de sex tärningarna. Lägg undan minst en tärning som ger poäng, och säkra sedan antingen turens poäng eller kasta de återstående tärningarna för att få fler.
-- Varje tärning du lägger undan måste ge poäng, och kombinationer räknas bara inom ett och samma kast.
-- Ett kast utan tärningar som ger poäng är ett nollkast: du förlorar alla poäng från turen, och turen går över.
-- Heta tärningar: när alla sex tärningarna har gett poäng får du kasta alla sex igen och fortsätta samla.
-- Första gången du säkrar måste det vara minst 500 poäng på en tur; därefter räknas allt.
+- Kasta de sex tärningarna. Lägg undan minst en tärning som ger poäng, och säkra sedan turens poäng eller kasta de återstående tärningarna för att få fler.
+- Varje tärning du lägger undan måste ge poäng; kombinationer räknas bara inom ett och samma kast.
+- Ett kast utan tärningar som ger poäng är ett nollkast: du förlorar turens poäng.
+- Heta tärningar: när alla sex har gett poäng, kasta alla sex igen och fortsätt.
+- Första gången du säkrar måste det vara minst 500 poäng.
 # Poängräkningen
 - Varje etta: 100. Varje femma: 50.
-- Tretal: talet gånger 100 (tre tvåor: 200, tre sexor: 600); tre ettor: 1 000.
+- Tretal: talet gånger 100; tre ettor: 1 000.
 - Fyrtal: 1 000. Femtal: 2 000. Sextal: 3 000.
 - En stege 1-2-3-4-5-6: 1 500.
 - Tre par: 1 500 (ett fyrtal och ett par räknas som tre par).
 - Två tretal: 2 500.
-Tärningarna du lägger undan räknas så högt som möjligt: fyra ettor är tre ettor och en etta, 1 100.
 # Partiets slut
-Turen går runt bordet, elfenben först. När en spelare säkrar 10 000 eller mer får varje annan spelare en sista tur; sedan vinner högsta poängen, och är de högsta lika delar de spelarna på segern. Ensam ska du nå 10 000 inom 20 turer: pinnarna överst på filten räknar dem.
-# Spela på enheten
-Tryck på filten eller på knappen med en tärning för att kasta. Tryck på tärningarna som ger poäng för att lägga undan dem: de lyfts i ett gyllene ljus, och en tärning som inte kan ge poäng i det här kastet är mörkare och ger ett nekande ljud. Under tärningarna visar det lilla gyllene talet vad de valda tärningarna är värda, och det stora turens summa med dem. Knappen med en tärning kastar de återstående tärningarna; knappen med mynten säkrar din tur. En knapp lyser upp när du får använda den. De undanlagda tärningarna väntar på ditt ställ. Ett nollkast visar tärningarna i ett rött sken och poängen som gick förlorade. Tärningen för spelaren som nådde 10 000 glänser på filten under sista rundan. Varje list visar den spelarens säkrade poäng. Ångra tar tillbaka den senaste säkringen; tärningarna kastas aldrig om.
+När en spelare säkrar 10 000 eller mer får varje annan spelare en sista tur; sedan vinner högsta poängen, och är de högsta lika delar de spelarna på segern. Ensam ska du nå 10 000 inom 20 turer.

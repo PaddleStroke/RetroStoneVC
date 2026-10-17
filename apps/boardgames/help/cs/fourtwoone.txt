@@ -1,20 +1,18 @@
 421
 # Cíl hry
-Zbav se svých žetonů: francouzská kavárenská hra se třemi kostkami a jedenácti žetony. Hrají dva až šest hráčů. Hráč, kterému nakonec zůstanou všechny žetony, prohrává; všichni ostatní vyhrávají.
+Zbav se svých žetonů: francouzská kavárenská hra se třemi kostkami a jedenácti žetony pro dva až šest hráčů.
 # Hody
 Od nejlepšího po nejhorší a kolik žetonů který platí:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- „Fiches“, dvě 1 a další kostka, a trojice platí každá své číslo: 1-1-6 a 6-6-6: 6; 1-1-5 a 5-5-5: 5; a tak dál až po 1-1-2 a 2-2-2: 2. Fiche porazí trojici se stejnou hodnotou.
-- Postupky 6-5-4, 5-4-3, 4-3-2 a 3-2-1: 2.
-- Každý jiný hod: 1, čím vyšší kostky, tím lépe (6-6-5, pak 6-6-4…).
+- Dvě 1 a další kostka („fiche“) a trojice platí každá své číslo: 1-1-6 a 6-6-6: 6, až po 1-1-2 a 2-2-2: 2. Fiche porazí trojici se stejnou hodnotou.
+- Postupky 6-5-4 až 3-2-1: 2.
+- Každý jiný hod: 1, čím vyšší kostky, tím lépe.
 - „Nénette“, 2-2-1: nejhorší ze všech.
-Když jsou dva hody stejné, je lepší ten, který padl na méně hodů; pak ten, který padl dřív.
+Při stejných hodech vyhrává ten, který padl na méně hodů, pak ten, který padl dřív.
 # Nabírání (la charge)
-Jedenáct žetonů začíná v banku. V každém kole hodí každý hráč jednou. Hráč s nejhorším hodem si vezme z banku tolik žetonů, kolik platí nejlepší hod (na konci to, co zbylo). Slonovinový začíná; pak každé kolo začíná poražený z předchozího. Když je bank prázdný, začíná vykládání. Hráč, který tehdy nemá žádný žeton, je venku a v bezpečí. Pokud si jeden hráč vzal všechny žetony, prohrál hned.
+Žetony začínají v banku. V každém kole hodí každý hráč jednou; nejhorší hod si vezme z banku tolik žetonů, kolik platí nejlepší hod. Poražený začíná další kolo. Když je bank prázdný, začíná vykládání: hráč bez žetonů je venku a v bezpečí.
 # Vykládání (la décharge)
-V každém kole hází hráči až třikrát a mezi hody si mohou nechat, které kostky chtějí. První hráč kola smí skončit po jednom nebo dvou hodech: ostatní pak smějí házet nanejvýš tolikrát jako on. Hráč s nejlepším hodem dá hráči s nejhorším tolik svých vlastních žetonů, kolik platí jeho hod (všechny, které má, je-li jich méně). Hráč, který odevzdá svůj poslední žeton, je venku a v bezpečí. Poražený kola začíná další kolo.
+V každém kole házej až třikrát a mezi hody si nech, které kostky chceš. Ostatní smějí házet nanejvýš tolikrát jako první hráč kola. Nejlepší hod dá nejhoršímu tolik svých vlastních žetonů, kolik platí. Hráč, který odevzdá svůj poslední žeton, je venku a v bezpečí.
 # Konec hry
 Hra končí, když jeden hráč drží všechny žetony: ten prohrál a všichni ostatní se dělí o výhru.
-# Hra na zařízení
-Ťukni na plsť a hodíš. Ťuknutím na kostku si ji necháš: sjede dolů; dalším ťuknutím s ní hodíš znovu. Malé kostky pod tvým hodem ukazují, kolik hodů kolo dovoluje, použité jsou ztlumené. Tlačítko s fajfkou ukončí tvůj tah. Hod každého hráče v tomto kole leží zmenšený na jeho straně plsti a tečky pod ním počítají, kolik hodů potřeboval; nejlepší je ve zlatém světle a nejhorší v červené záři. Pak žetony odletí k poraženému. Během nabírání je bank uprostřed. Každá lišta ukazuje žetony toho hráče. Vrátit vezme zpět poslední ukončení tahu; kostky se nikdy nehází znovu.

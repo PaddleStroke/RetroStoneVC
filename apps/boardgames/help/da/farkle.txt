@@ -1,21 +1,18 @@
 10.000
 # Målet
-Vær den første til at gemme 10.000 point ved at kaste seks terninger og udfordre heldet. To til seks spillere, eller én alene mod uret.
+Vær den første til at gemme 10.000 point med seks terninger og udfordre heldet. To til seks spillere, eller én alene mod uret.
 # En tur
-- Kast de seks terninger. Læg mindst én terning, der giver point, til side, og gem så enten turens point eller kast de resterende terninger for at få flere.
-- Hver terning, du lægger til side, skal give point, og kombinationer tæller kun inden for ét kast.
-- Et kast uden terninger, der giver point, er et nulkast: du mister alle turens point, og turen går videre.
-- Varme terninger: når alle seks terninger har givet point, må du kaste alle seks igen og fortsætte med at lægge til.
-- Første gang du gemmer, skal det være mindst 500 point i én tur; derefter tæller alt.
+- Kast de seks terninger. Læg mindst én terning, der giver point, til side, og gem så turens point eller kast de resterende terninger for at få flere.
+- Hver terning, du lægger til side, skal give point; kombinationer tæller kun inden for ét kast.
+- Et kast uden terninger, der giver point, er et nulkast: du mister turens point.
+- Varme terninger: når alle seks har givet point, kaster du alle seks igen og fortsætter.
+- Første gang du gemmer, skal det være mindst 500 point.
 # Pointgivningen
 - Hver 1'er: 100. Hver 5'er: 50.
-- Tre ens: øjnene gange 100 (tre 2'ere: 200, tre 6'ere: 600); tre 1'ere: 1.000.
+- Tre ens: øjnene gange 100; tre 1'ere: 1.000.
 - Fire ens: 1.000. Fem ens: 2.000. Seks ens: 3.000.
 - En straight 1-2-3-4-5-6: 1.500.
 - Tre par: 1.500 (fire ens og et par tæller som tre par).
 - To gange tre ens: 2.500.
-Terningerne, du lægger til side, giver deres bedste: fire 1'ere er tre 1'ere og en 1'er, 1.100.
 # Spillets afslutning
-Turen går rundt om bordet, elfenben først. Når en spiller gemmer 10.000 eller mere, får hver af de andre spillere en sidste tur; så vinder den højeste score, og er de højeste lige, deler de spillere sejren. Alene skal du nå 10.000 inden for 20 ture: pindene øverst på filten tæller dem.
-# Spil på enheden
-Tryk på filten eller på knappen med en terning for at kaste. Tryk på de terninger, der giver point, for at lægge dem til side: de løfter sig i et gyldent lys, og en terning, der ikke kan give point i dette kast, er mørkere og giver en afvisningslyd. Under terningerne viser det lille gyldne tal, hvad de valgte terninger er værd, og det store din turs sum med dem. Knappen med en terning kaster de resterende terninger; knappen med mønterne gemmer din tur. En knap lyser op, når du må bruge den. Terningerne, der er lagt til side, venter på dit stativ. Et nulkast viser terningerne i et rødt skær og de tabte point. Terningen hos den spiller, der nåede 10.000, skinner på filten i den sidste runde. Hver bjælke viser den spillers gemte score. Fortryd tager det sidst gemte tilbage; terningerne kastes aldrig om.
+Når en spiller gemmer 10.000 eller mere, får hver af de andre spillere en sidste tur; så vinder den højeste score, og er de højeste lige, deler de spillere sejren. Alene skal du nå 10.000 inden for 20 ture.

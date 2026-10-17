@@ -1,20 +1,18 @@
 421
 # Das Ziel
-Werde deine Jetons los: das französische Kneipenspiel mit drei Würfeln und elf Jetons. Zwei bis sechs Spieler. Wer am Ende alle Jetons hält, verliert; alle anderen gewinnen.
+Werde deine Jetons los: das französische Kneipenspiel mit drei Würfeln und elf Jetons, für zwei bis sechs Spieler.
 # Die Würfe
 Vom besten bis zum schlechtesten, und was jeder in Jetons wert ist:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- Die „fiches“, zwei Einsen und ein anderer Würfel, und die Dreierpasche, jeweils so viel wert wie ihre Augenzahl: 1-1-6 und 6-6-6: 6; 1-1-5 und 5-5-5: 5; bis hinunter zu 1-1-2 und 2-2-2: 2. Eine fiche schlägt den Dreierpasch gleichen Werts.
-- Die Straßen 6-5-4, 5-4-3, 4-3-2 und 3-2-1: 2.
-- Jeder andere Wurf: 1, je höher die Würfel, desto besser (6-6-5, dann 6-6-4 …).
+- Zwei Einsen und ein anderer Würfel (eine „fiche“) sowie die Dreierpasche, jeweils so viel wert wie ihre Augenzahl: 1-1-6 und 6-6-6: 6, bis hinunter zu 1-1-2 und 2-2-2: 2. Eine fiche schlägt den Dreierpasch gleichen Werts.
+- Die Straßen 6-5-4 bis hinunter zu 3-2-1: 2.
+- Jeder andere Wurf: 1, je höher die Würfel, desto besser.
 - Die „nénette“, 2-2-1: der schlechteste von allen.
-Sind zwei Würfe gleich, ist der besser, der mit weniger Würfen erzielt wurde; danach der zuerst erzielte.
+Bei gleichen Würfen gewinnt der, der mit weniger Würfen erzielt wurde, danach der zuerst erzielte.
 # Das Laden
-Beim Laden („la charge“) liegen die elf Jetons zuerst im Topf. In jeder Runde würfelt jeder Spieler einmal. Wer den schlechtesten Wurf hat, nimmt aus dem Topf so viele Jetons, wie der beste Wurf wert ist (am Ende, was übrig ist). Elfenbein beginnt; danach beginnt der Verlierer jeder Runde die nächste. Ist der Topf leer, beginnt das Entladen. Ein Spieler, der dann keine Jetons hat, ist raus und in Sicherheit. Hat ein Spieler alle Jetons genommen, hat er sofort verloren.
+Die Jetons liegen zuerst im Topf. In jeder Runde würfelt jeder einmal; wer den schlechtesten Wurf hat, nimmt aus dem Topf so viele Jetons, wie der beste Wurf wert ist. Der Verlierer beginnt die nächste Runde. Ist der Topf leer, beginnt das Entladen: Ein Spieler ohne Jetons ist raus und in Sicherheit.
 # Das Entladen
-Beim Entladen („la décharge“) würfeln die Spieler in jeder Runde bis zu dreimal und dürfen zwischen den Würfen beliebige Würfel behalten. Der erste Spieler der Runde darf nach einem oder zwei Würfen aufhören: Die anderen dürfen dann nicht öfter würfeln als er. Wer den besten Wurf hat, gibt dem mit dem schlechtesten so viele eigene Jetons, wie sein Wurf wert ist (alle, die er hat, wenn es weniger sind). Wer seinen letzten Jeton abgibt, ist raus und in Sicherheit. Der Verlierer einer Runde beginnt die nächste.
+In jeder Runde würfelst du bis zu dreimal und darfst zwischen den Würfen beliebige Würfel behalten. Die anderen dürfen nicht öfter würfeln als der erste Spieler der Runde. Wer den besten Wurf hat, gibt dem mit dem schlechtesten so viele eigene Jetons, wie sein Wurf wert ist. Wer seinen letzten Jeton abgibt, ist raus und in Sicherheit.
 # Das Ende der Partie
 Die Partie endet, wenn ein Spieler alle Jetons hält: Er hat verloren, und alle anderen teilen sich den Sieg.
-# Spielen auf dem Gerät
-Tippe auf den Filz, um zu würfeln. Tippe einen Würfel an, um ihn zu behalten: Er gleitet nach unten; tippe ihn nochmals an, um ihn wieder zu werfen. Die kleinen Würfel unter deinem Wurf zeigen, wie viele Würfe die Runde erlaubt, die benutzten abgedunkelt. Die Taste mit dem Häkchen beendet deinen Zug. Der Wurf jedes Spielers in dieser Runde liegt klein auf seiner Seite des Filzes, und die Punkte darunter zählen, wie viele Würfe er gebraucht hat; der beste liegt in goldenem Licht, der schlechteste in rotem Schein. Dann fliegen die Jetons zum Verlierer. Während des Ladens liegt der Topf in der Mitte. Jede Leiste zeigt die Jetons dieses Spielers. Rückgängig nimmt das letzte Aufhören zurück; die Würfel werden nie neu geworfen.

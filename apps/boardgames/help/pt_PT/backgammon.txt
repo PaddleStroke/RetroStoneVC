@@ -1,38 +1,29 @@
 Gamão
 # O objetivo
-Levar todas as tuas quinze pedras à volta do tabuleiro até ao teu tabuleiro interior e depois retirá-las. Ganha o primeiro jogador a retirar as quinze. Os jogadores andam em sentidos opostos, o marfim num sentido e o ébano no outro. Escolhe o jogo antes de começar: gamão (o cartão com a disposição habitual), plakoto (todas as pedras nos dois cantos da direita, uma presa), fevga (todas as pedras em cantos opostos, uma adiantada de cada um) ou nardy longo (cantos opostos, duas pedras saídas de cada um e um duplo seis). As regras abaixo são as do gamão; os outros três jogos descrevem-se a seguir.
-# O tabuleiro
-Há 24 triângulos estreitos, as casas, seis em cada quarto do tabuleiro. A barra a meio divide cada lado num tabuleiro exterior e num tabuleiro interior; os dois tabuleiros interiores ficam frente a frente, do lado da bandeja. Cada jogador numera as casas de 1, na ponta do seu próprio tabuleiro interior, até 24, na ponta do tabuleiro interior do outro jogador. No início, cada jogador tem duas pedras na sua casa 24, cinco na casa 13, três na casa 8 e cinco na casa 6.
+Leva as tuas quinze pedras à volta até ao teu tabuleiro interior, o quarto do teu lado junto à bandeja, e depois retira-as. Ganha o primeiro a retirar as quinze. As regras abaixo são as do gamão; o plakoto, a fevga e o nardy longo vêm a seguir.
 # Lançar e mover
-Para começar, cada jogador lança um dado. O número mais alto joga primeiro, usando os dois números lançados; se forem iguais, lançam outra vez. Depois disso, os jogadores jogam à vez: lança os dois dados e avança o valor de cada número.
-- Uma pedra avança o valor de um número, depois uma pedra avança o valor do outro: a mesma pedra ou outra.
-- Uma pedra pode parar numa casa vazia, numa casa com pedras tuas ou numa casa com uma só pedra adversária.
-- Um duplo (dois números iguais) dá quatro movimentos com esse número.
-- Tens de usar os dois números, se puderes. Se só puderes usar um deles, tens de usar o maior, se for possível.
-- Se nenhum movimento for possível, perdes a vez.
+Para começar, cada jogador lança um dado; o mais alto joga primeiro com os dois números. Depois, lança os dois dados e avança o valor de cada número, com uma pedra ou com duas.
+- Para numa casa vazia, numa casa com pedras tuas ou numa casa com uma só pedra adversária.
+- Um duplo dá quatro movimentos.
+- Usa os dois números, se puderes; se não, o maior. Sem nenhum movimento possível, perdes a vez.
 # Bater e reentrar
-Uma pedra sozinha numa casa é uma pedra descoberta. Parar em cima de uma pedra descoberta adversária é bater-lhe: ela vai para a barra. Um jogador com uma pedra na barra tem primeiro de a fazer regressar, reentrando no tabuleiro interior do outro jogador, na casa indicada por um dado (a casa 1 é a mais distante da barra). Uma casa ocupada por duas ou mais pedras adversárias está fechada. Nenhuma outra pedra se pode mover enquanto todas as tuas pedras na barra não tiverem reentrado.
+Parar sobre uma pedra adversária isolada manda-a para a barra. Uma pedra na barra tem de reentrar antes de qualquer outra se mover, no tabuleiro interior do outro jogador, na casa indicada por um dado (a casa 1 é a mais distante da barra). Uma casa ocupada por duas ou mais pedras adversárias está fechada.
 # Retirar as pedras
-Quando as tuas quinze pedras estiverem todas no teu tabuleiro interior, podes retirá-las: um número retira uma pedra da casa com esse número. Se essa casa estiver vazia, tens de mover uma pedra de uma casa mais alta, se puderes; sem pedras em nenhuma casa mais alta, o número retira uma pedra da casa mais alta que ocupas. Uma pedra que leva uma batida tem de fazer o caminho todo de volta antes de poderes voltar a retirar pedras.
+Quando as quinze estiverem no teu tabuleiro interior, leva uma pedra até à bandeja: um número retira uma pedra da casa com esse número. Se essa casa estiver vazia, move uma pedra de uma casa mais alta; sem nenhuma mais alta, retira uma pedra da tua casa mais alta.
 # A vitória
-- O primeiro jogador a retirar as quinze pedras ganha um ponto.
-- Gammon: se o perdedor não tiver retirado nenhuma pedra, o vencedor marca dois pontos.
-- Backgammon: se o perdedor não tiver retirado nenhuma pedra e ainda tiver uma na barra ou no tabuleiro interior do vencedor, o vencedor marca três pontos.
-Este jogo joga-se sem o cubo de dobragem.
+Um ponto; dois (gammon) se o perdedor não tiver retirado nenhuma pedra; três (backgammon) se, além disso, tiver uma pedra na barra ou no tabuleiro interior do vencedor. Sem cubo de dobragem.
 # Plakoto
-Cada jogador começa com as quinze pedras na sua casa 24; os jogadores andam em sentidos opostos, como no gamão. Não se bate e não há barra.
-- Uma pedra que pare sobre uma pedra adversária isolada prende-a: a pedra presa não se pode mover enquanto a de cima não sair. A casa passa a ser de quem prendeu, que lá pode juntar mais pedras.
-- A mãe é a última pedra que resta a um jogador na sua casa 24. Se for presa aí, o seu jogador perde logo dois pontos, a menos que quem a prendeu ainda tenha pedras na sua própria casa 24: então o jogo acaba assim que lá não lhe restar nenhuma. Se as duas mães ficarem presas, o jogo fica empatado.
-- Quem ganha o lançamento inicial volta a lançar para a primeira jogada. O vencedor ganha um ponto, ou dois se o perdedor não tiver retirado nenhuma pedra.
+Todas as pedras começam na tua casa 24; os jogadores andam em sentidos opostos. Não se bate.
+- Parar sobre uma pedra adversária isolada prende-a até a tua pedra sair.
+- A tua última pedra na casa 24 é a mãe. Se for presa aí, o seu jogador perde logo dois pontos, a menos que quem a prendeu ainda tenha pedras na sua própria casa 24: o jogo acaba assim que lá não lhe restar nenhuma. As duas mães presas: empate.
+- Quem ganha o lançamento inicial volta a lançar para começar. Um ponto, ou dois se o perdedor não tiver retirado nenhuma pedra.
 # Fevga
-Cada jogador começa com as quinze pedras na sua casa 24, em cantos opostos, e os dois andam no mesmo sentido à volta do tabuleiro: a partida do outro jogador é a tua casa 12. Não se bate: uma pedra isolada ocupa a casa, e o outro jogador não pode parar lá.
-- A tua primeira pedra tem de passar a partida do outro jogador antes que uma segunda pedra possa deixar a tua.
-- Não podes ocupar as seis casas do teu quarto de partida, nem seis casas seguidas com as quinze pedras do outro jogador atrás delas.
-- Quem ganha o lançamento inicial volta a lançar para a primeira jogada. O vencedor ganha um ponto, ou dois se o perdedor não tiver retirado nenhuma pedra.
+Todas as pedras começam na tua casa 24, em cantos opostos, e os dois jogadores andam no mesmo sentido. Não se bate: uma pedra isolada ocupa a casa.
+- A tua primeira pedra tem de passar a partida do outro jogador antes que uma segunda deixe a tua.
+- Não podes ocupar todas as seis casas do teu quarto de partida, nem seis casas seguidas com as quinze pedras adversárias atrás delas.
+- Lançamento inicial e pontuação como no plakoto.
 # Nardy longo
-A disposição e o sentido da fevga: as quinze pedras na cabeça (a tua casa 24), em cantos opostos, os dois jogadores no mesmo sentido. Não se bate: uma pedra isolada ocupa a casa.
-- Em cada vez só uma pedra pode deixar a cabeça. Só no teu primeiro lançamento, um 6-6, um 4-4 ou um 3-3 deixa sair duas.
-- Não podes ocupar seis casas seguidas, a menos que pelo menos uma pedra do outro jogador já as tenha passado.
-- Quem ganha o lançamento inicial volta a lançar para a primeira jogada. O vencedor ganha um ponto (oyn), ou dois (mars) se o perdedor não tiver retirado nenhuma pedra.
-# Jogar no dispositivo
-Toca nos dados que brilham a dourado para os lançar. Toca numa pedra e depois num dos pontos, ou arrasta-a; um anel mostra uma pedra descoberta em que baterias. Cada movimento usa um dado: um dado já usado fica esbatido. Para retirar uma pedra, leva-a até à bandeja à direita. As pedras na barra já estão selecionadas. Quando um lançamento não pode ser jogado, os seus dados brilham a vermelho e a vez passa. A tua barra mostra quantas pedras já retiraste e, no fim, os pontos ganhos. Anular desfaz um movimento de cada vez, e os dados das vezes anteriores voltam tal como foram lançados. No plakoto, um anel mostra também a pedra que prenderias, e uma pedra presa fica por baixo da que a prende.
+Como na fevga, a partir da cabeça (a tua casa 24).
+- Em cada vez, só uma pedra deixa a cabeça; só no teu primeiro lançamento, um 6-6, um 4-4 ou um 3-3 deixa sair duas.
+- Não podes ocupar seis casas seguidas, a menos que uma pedra adversária já as tenha passado.
+- Lançamento inicial como no plakoto. Um ponto (oyn), ou dois (mars) se o perdedor não tiver retirado nenhuma pedra.

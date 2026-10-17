@@ -1,20 +1,18 @@
 421
 # Tavoite
-Pääse eroon pelimerkeistäsi: ranskalainen kahvilapeli kolmella nopalla ja yhdellätoista pelimerkillä. Pelaajia on kahdesta kuuteen. Pelaaja, jolle kaikki pelimerkit lopulta jäävät, häviää; kaikki muut voittavat.
+Pääse eroon pelimerkeistäsi: ranskalainen kahvilapeli kolmella nopalla ja yhdellätoista pelimerkillä, kahdesta kuuteen pelaajalle.
 # Heitot
 Parhaasta huonoimpaan, ja kunkin arvo pelimerkkeinä:
 - 4-2-1: 10.
 - 1-1-1: 7.
-- "Fiches", kaksi ykköstä ja jokin muu noppa, sekä kolme samaa, kukin silmälukunsa arvoinen: 1-1-6 ja 6-6-6: 6; 1-1-5 ja 5-5-5: 5; ja niin edelleen aina 1-1-2:een ja 2-2-2:een: 2. Fiche voittaa yhtä arvokkaan kolme samaa.
-- Suorat 6-5-4, 5-4-3, 4-3-2 ja 3-2-1: 2.
-- Mikä tahansa muu heitto: 1; mitä suuremmat nopat, sitä parempi (6-6-5, sitten 6-6-4…).
+- Kaksi ykköstä ja jokin muu noppa ("fiche") sekä kolme samaa, kukin silmälukunsa arvoinen: 1-1-6 ja 6-6-6: 6, ja niin edelleen aina 1-1-2:een ja 2-2-2:een: 2. Fiche voittaa yhtä arvokkaan kolme samaa.
+- Suorat 6-5-4:stä 3-2-1:een: 2.
+- Mikä tahansa muu heitto: 1; mitä suuremmat nopat, sitä parempi.
 - "Nénette", 2-2-1: kaikista huonoin.
-Kun kaksi heittoa ovat samat, vähemmillä heitoilla tehty on parempi; sitten ensin tehty.
+Samanarvoisista heitoista voittaa vähemmillä heitoilla tehty, sitten ensin tehty.
 # Lataus (charge)
-Yksitoista pelimerkkiä ovat aluksi potissa. Joka kierroksella jokainen pelaaja heittää kerran. Huonoimman heiton tehnyt ottaa potista niin monta pelimerkkiä kuin paras heitto on arvoinen (lopussa sen, mitä on jäljellä). Norsunluu aloittaa; sen jälkeen kunkin kierroksen häviäjä aloittaa seuraavan. Kun potti on tyhjä, purku alkaa. Pelaaja, jolla ei silloin ole pelimerkkejä, on pois pelistä ja turvassa. Jos yksi pelaaja otti kaikki pelimerkit, hän on hävinnyt heti.
+Pelimerkit ovat aluksi potissa. Joka kierroksella jokainen heittää kerran; huonoimman heiton tehnyt ottaa potista niin monta pelimerkkiä kuin paras heitto on arvoinen. Häviäjä aloittaa seuraavan kierroksen. Kun potti on tyhjä, purku alkaa: pelaaja, jolla ei ole pelimerkkejä, on pois pelistä ja turvassa.
 # Purku (décharge)
-Joka kierroksella pelaajat heittävät enintään kolme kertaa ja saavat pitää mitä tahansa noppia heittojen välillä. Kierroksen ensimmäinen pelaaja voi lopettaa yhden tai kahden heiton jälkeen: muut saavat silloin heittää enintään yhtä monta kertaa. Parhaan heiton tehnyt antaa huonoimman heiton tehneelle omista pelimerkeistään niin monta kuin hänen heittonsa on arvoinen (kaikki, jos niitä on vähemmän). Pelaaja, joka antaa pois viimeisen pelimerkkinsä, on pois pelistä ja turvassa. Kierroksen häviäjä aloittaa seuraavan.
+Joka kierroksella heitetään enintään kolme kertaa, ja heittojen välillä saa pitää mitä tahansa noppia. Muut saavat heittää enintään yhtä monta kertaa kuin kierroksen ensimmäinen pelaaja. Parhaan heiton tehnyt antaa huonoimman heiton tehneelle omista pelimerkeistään niin monta kuin heitto on arvoinen. Pelaaja, joka antaa pois viimeisen pelimerkkinsä, on pois pelistä ja turvassa.
 # Pelin loppu
 Peli päättyy, kun yhdellä pelaajalla on kaikki pelimerkit: hän on hävinnyt, ja kaikki muut jakavat voiton.
-# Pelaaminen laitteella
-Napauta huopaa heittääksesi. Napauta noppaa pitääksesi sen: se liukuu alas; napauta sitä uudelleen heittääksesi sen taas. Heittosi alla olevat pienet nopat näyttävät, montako heittoa kierros sallii, ja käytetyt ovat himmennettyjä. Valintamerkkipainike lopettaa vuorosi. Jokaisen pelaajan kierroksen heitto on pienenä hänen puolellaan huopaa, ja sen alla olevat pisteet laskevat, montako heittoa siihen tarvittiin; paras on kultaisessa valossa ja huonoin punaisessa hehkussa. Sitten pelimerkit lentävät häviäjälle. Potti on keskellä latauksen aikana. Jokainen palkki näyttää sen pelaajan pelimerkit. Kumoa peruu viimeisen lopetuksen; noppia ei koskaan heitetä uudelleen.

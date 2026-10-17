@@ -1,15 +1,13 @@
 Lügenwürfel
 # Das Ziel
-Sei der letzte Spieler mit Würfeln. Jeder hat fünf Würfel unter einem Becher und sieht nur seine eigenen; jeder sagt etwas darüber an, was alle Becher zusammen verbergen, und jeder kann bluffen. Für 2 bis 6 Spieler.
+Sei der letzte Spieler mit Würfeln. Jeder hat fünf Würfel unter einem Becher und sieht nur seine eigenen. Für 2 bis 6 Spieler.
 # Eine Runde
-- Jeder würfelt unter seinem Becher und schaut seine Würfel an.
-- Der erste Spieler sagt an: Es gibt mindestens so viele Würfel mit einer bestimmten Augenzahl, alle Würfel auf dem Tisch gezählt.
-- Reihum sagt jeder entweder höher an oder nennt die letzte Ansage eine Lüge.
+- Jeder würfelt unter seinem Becher.
+- Der erste Spieler sagt an: Mindestens so viele Würfel auf dem ganzen Tisch zeigen eine bestimmte Augenzahl.
+- Reihum sagt jeder höher an oder nennt die letzte Ansage eine Lüge.
 - Höher heißt: mehr Würfel (beliebige Augenzahl) oder gleich viele Würfel mit höherer Augenzahl.
-- Einsen sind Joker: Sie zählen als die angesagte Augenzahl. Deshalb sagt niemand Einsen an: nur 2 bis 6.
+- Einsen sind Joker und zählen als die angesagte Augenzahl; angesagt wird also nur 2 bis 6.
 # Die Anfechtung
-Alle Becher werden gehoben und gezählt werden die Würfel mit der angesagten Augenzahl und die Einsen. Sind es mindestens so viele wie angesagt, gilt die Ansage und wer sie angefochten hat, verliert einen Würfel. Sonst verliert der Ansager einen. Wer einen Würfel verloren hat, beginnt die nächste Runde.
+Alle Becher werden gehoben. Sind die Würfel mit der angesagten Augenzahl plus die Einsen mindestens so viele wie angesagt, verliert der Anfechtende einen Würfel; sonst der Ansager. Der Verlierer beginnt die nächste Runde, oder der nächste Spieler, wenn der Verlierer ausgeschieden ist.
 # Das Ende der Partie
-Wer keine Würfel mehr hat, scheidet aus (hat er die letzte Runde verloren, beginnt der nächste Spieler). Der letzte Spieler mit Würfeln gewinnt.
-# Spielen auf dem Gerät
-Gib das Gerät weiter: Du siehst immer nur deine eigenen Würfel, unten, mit deinem gehobenen Becher daneben. Die Becher der anderen stehen oben; jede Leiste zeigt, wie viele Würfel dieser Spieler noch hat. In der Mitte: die zu überbietende Ansage mit dem Chip ihres Ansagers, darunter die früheren Ansagen der Runde. Zum Ansagen tippe eine Zahl (wie viele Würfel) und eine Augenzahl an, dann den Haken: Die Wahl liegt immer über der letzten Ansage. Um die letzte Ansage eine Lüge zu nennen, tippe den Knopf mit dem gehobenen Becher an. Bei einer Anfechtung heben sich alle Becher für alle sichtbar: Die zählenden Würfel leuchten einer nach dem anderen auf, die Zahl steigt; golden: Die Ansage gilt; rot: Es war gelogen; der verlorene Würfel verblasst. Tippe den runden Pfeil an, um die nächste Runde zu würfeln. Alle haben den Tisch gerade gesehen: Beginnt derselbe Spieler wieder, bleibt sein Becher unten, tippe ihn an, um nachzusehen.
+Wer keine Würfel mehr hat, scheidet aus. Der letzte Spieler mit Würfeln gewinnt.

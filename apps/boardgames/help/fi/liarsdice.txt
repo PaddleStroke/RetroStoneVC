@@ -1,15 +1,13 @@
 Valehtelijan nopat
 # Tavoite
-Ole viimeinen pelaaja, jolla on noppia. Jokaisella on viisi noppaa kupin alla, ja kukin näkee vain omansa; jokainen tekee tarjouksen siitä, mitä kaikki kupit yhdessä kätkevät, ja kuka tahansa voi bluffata. 2–6 pelaajalle.
+Ole viimeinen pelaaja, jolla on noppia. Jokaisella on viisi noppaa kupin alla, ja kukin näkee vain omansa. 2–6 pelaajalle.
 # Kierros
-- Jokainen heittää noppansa kuppinsa alla ja katsoo omiaan.
-- Ensimmäinen pelaaja tarjoaa: pöydällä on vähintään niin ja niin monta noppaa, joissa on tietty silmäluku, kaikki pöydän nopat laskettuina.
+- Jokainen heittää noppansa kuppinsa alla.
+- Ensimmäinen pelaaja tarjoaa: koko pöydällä on vähintään niin ja niin monta noppaa, joissa on tietty silmäluku.
 - Vuorotellen kukin pelaaja korottaa tai sanoo edellistä tarjousta valheeksi.
 - Korottaa voi useammalla nopalla (mikä tahansa silmäluku) tai yhtä monella nopalla ja suuremmalla silmäluvulla.
-- Ykköset ovat jokereita: ne lasketaan tarjouksen silmäluvuksi. Siksi kukaan ei tarjoa ykkösiä: vain 2–6.
+- Ykköset ovat jokereita ja lasketaan tarjouksen silmäluvuksi, joten tarjoukset tehdään silmäluvuista 2–6.
 # Haaste
-Kaikki kupit nostetaan, ja lasketaan nopat, joissa on tarjouksen silmäluku, sekä ykköset. Jos niitä on vähintään tarjouksen verran, tarjous pitää ja haastaja menettää nopan. Muuten tarjoaja menettää yhden. Nopan menettänyt aloittaa seuraavan kierroksen.
+Kaikki kupit nostetaan. Jos nopat, joissa on tarjouksen silmäluku, ja ykköset ovat yhteensä vähintään tarjouksen verran, haastaja menettää nopan; muuten tarjoaja menettää yhden. Häviäjä aloittaa seuraavan kierroksen, tai seuraava pelaaja, jos häviäjä on pudonnut pelistä.
 # Pelin loppu
-Pelaaja, jolla ei ole enää noppia, putoaa pelistä (jos hän hävisi viime kierroksen, seuraava pelaaja aloittaa). Viimeinen pelaaja, jolla on noppia, voittaa.
-# Pelaaminen laitteella
-Antakaa laite kiertää: näet vain omat noppasi, alhaalla, nostettu kuppisi vieressä. Muiden kupit ovat ylhäällä; kukin palkki näyttää, montako noppaa pelaajalla on jäljellä. Keskellä: ylitettävä tarjous tarjoajan pelimerkin kanssa, ja kierroksen aiemmat tarjoukset sen alla. Tarjoa napauttamalla lukua (montako noppaa) ja silmälukua ja sitten rastia: valinta on aina edellistä tarjousta korkeampi. Sano edellistä tarjousta valheeksi napauttamalla nostetun kupin painiketta. Haasteessa kaikki kupit nousevat kaikkien nähden: laskettavat nopat syttyvät yksi kerrallaan luvun kasvaessa; kulta, tarjous piti; punainen, se oli valhe; menetetty noppa häipyy. Napauta pyöreää nuolta heittääksesi seuraavan kierroksen. Kaikki näkivät juuri pöydän: jos sama pelaaja aloittaa taas, hänen kuppinsa jää alas; napauta sitä katsoaksesi.
+Pelaaja, jolla ei ole enää noppia, putoaa pelistä. Viimeinen pelaaja, jolla on noppia, voittaa.

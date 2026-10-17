@@ -2,21 +2,17 @@ Gåsespillet
 # Målet
 Bli den første til å få brikken din til rute 63, gåsens hage midt i spiralen. For 2 til 6 spillere.
 # En tur
-Alle brikkene starter i hjørnet nederst til venstre, før rute 1. Spillerne bytter på, og den lyse siden begynner. Kast de to terningene og flytt brikken din framover like mange ruter som summen, én rute om gangen, langs spiralen.
-- Kaster du 9 fra start, går du ikke til rute 9: 6 og 3 går rett til 26, 5 og 4 til 53, rutene med terningene. Dette gjelder det første kastet, og igjen etter at døden har sendt deg tilbake til start.
-- Rute 63 må nås med nøyaktig riktig tall. Kaster du mer, går brikken opp til 63 og tilbake like mange ruter som det er til overs: fra 60 ender et kast på 6 på 60.
+Kast de to terningene og flytt brikken din framover like mange ruter som summen.
+- Et første kast på 9 (og igjen etter døden): 6 og 3 går rett til 26, 5 og 4 til 53.
+- Rute 63 må nås med nøyaktig riktig tall. Kaster du mer, går du opp til 63 og tilbake like mange ruter som det er til overs.
 # Rutene
-- Gjessene (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 og 59): flytt like langt igjen, i samme retning, fra gås til gås. Etter at du har snudd ved 63, sender en gås deg lenger tilbake.
+- En gås: flytt like langt igjen, i samme retning.
 - Brua (6): gå videre til 12.
-- Vertshuset (19): stå over de to neste turene dine.
-- Brønnen (31): bli der til en annen brikke faller oppi og befrir deg.
-- Labyrinten (42): gå tilbake til 30.
-- Fengselet (52): bli der til en annen brikke kommer inn og befrir deg.
-- Døden (58): gå tilbake til start.
+- Vertshuset (19): stå over to turer.
+- Brønnen (31) og fengselet (52): bli der til en annen brikke kommer inn og befrir deg.
+- Labyrinten (42): tilbake til 30.
+- Døden (58): tilbake til start.
 # Møte andre brikker
-To brikker står aldri på samme rute, unntatt ved start. Avslutter brikken din trekket på en rute der en annen brikke står, går den brikken til ruten du kom fra, og den er fri igjen hvis vertshuset, brønnen eller fengselet holdt den; ruten den havner på, har ingen virkning for den. Brikken din tar plassen dens, og ruten dens: i brønnen eller fengselet er det nå du som venter. Å passere en brikke gjør ingenting.
-Med to spillere, hvis den ene brikken er i brønnen og den andre i fengselet, kan ingen komme og befri dem: den neste spilleren som skal kaste, blir befridd og spiller videre.
+Avslutter du på ruten til en annen brikke, går den brikken til ruten du kom fra, fri fra vertshuset, brønnen eller fengselet, og du tar plassen dens. Med to spillere, hvis den ene brikken er i brønnen og den andre i fengselet, blir den neste spilleren som skal kaste, befridd.
 # Slutten på spillet
 Den første spilleren på rute 63 vinner.
-# Spill på enheten
-Send enheten rundt: spilleren som skal kaste, har alltid panelet sitt nederst. De to terningene til spilleren venter ved siden av brettet i et gyllent lys, og brikken lyser: trykk på skjermen for å kaste. Brikken flytter seg så av seg selv. Hvert panel viser hvilken rute den spillerens brikke står på, og hva som holder den: vertshuset (med turene som fortsatt skal stås over), brønnen eller fengselet. Angre tar tilbake kastene ett og ett; et kast som tas tilbake, blir det samme når du kaster igjen.

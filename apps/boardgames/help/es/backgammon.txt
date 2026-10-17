@@ -1,38 +1,29 @@
 Backgammon
 # El objetivo
-Llevar tus quince fichas alrededor del tablero hasta tu tablero interior y luego sacarlas. Gana el primer jugador que saca sus quince fichas. Los jugadores avanzan en sentidos opuestos: el marfil en un sentido y el ébano en el otro. Elige el juego antes de empezar: backgammon (la carta con la colocación de siempre), plakoto (todas las fichas en las dos esquinas de la derecha, una inmovilizada), fevga (todas las fichas en esquinas opuestas, una adelantada de cada una) o nardy largo (esquinas opuestas, dos fichas salidas de cada una y un doble seis). Las reglas de abajo son las del backgammon; los otros tres juegos se describen después.
-# El tablero
-Hay 24 triángulos estrechos, los puntos, seis en cada cuarto del tablero. La barra del centro divide cada lado en un tablero exterior y un tablero interior; los dos tableros interiores están uno frente al otro, en el lado de la bandeja. Cada jugador numera los puntos desde el 1, al final de su propio tablero interior, hasta el 24, al final del tablero interior del otro jugador. Al empezar, cada jugador tiene dos fichas en su punto 24, cinco en su punto 13, tres en su punto 8 y cinco en su punto 6.
+Llevar tus quince fichas alrededor del tablero hasta tu tablero interior, el cuarto de tu lado junto a la bandeja, y luego sacarlas. Gana el primero que saca sus quince fichas. Las reglas de abajo son las del backgammon; el plakoto, la fevga y el nardy largo vienen después.
 # Tirar y mover
-Para empezar, cada jugador tira un dado. El número más alto juega primero, usando los dos números que han salido; si son iguales, se vuelve a tirar. Después, los jugadores se turnan: tira los dos dados y mueve según cada número.
-- Una ficha avanza lo que marca un número, y luego una ficha avanza lo que marca el otro: la misma ficha u otra.
-- Una ficha puede caer en un punto vacío, en un punto con fichas tuyas o en un punto con una sola ficha contraria.
-- Un doble da cuatro movimientos de ese número.
-- Debes usar los dos números si puedes. Si solo puedes usar uno, debes usar el mayor si es posible.
-- Si no hay ningún movimiento posible, pierdes el turno.
+Para empezar, cada jugador tira un dado; el más alto juega primero con los dos números. Después, tira dos dados y mueve según cada número, con una ficha o con dos.
+- Cae en un punto vacío, en tus propias fichas o en una sola ficha contraria.
+- Un doble da cuatro movimientos.
+- Usa los dos números si puedes; si no, el mayor. Sin ningún movimiento posible, pierdes el turno.
 # Golpear y entrar
-Una ficha sola en un punto es un blot. Caer sobre un blot contrario lo golpea: va a la barra. Un jugador con una ficha en la barra debe volver a meterla primero, entrándola en el tablero interior del otro jugador en el punto que indique un dado (el 1 es el punto más alejado de la barra). Un punto ocupado por dos o más fichas contrarias está cerrado. No puede moverse nada más hasta que hayan entrado todas tus fichas de la barra.
+Caer sobre una sola ficha contraria la manda a la barra. Una ficha en la barra debe entrar antes de que se mueva nada más, en el tablero interior del otro jugador, en el punto de un dado (el 1 es el punto más alejado de la barra). Un punto ocupado por dos o más fichas contrarias está cerrado.
 # Sacar fichas
-Cuando tus quince fichas están en tu tablero interior, puedes sacarlas: un número saca una ficha del punto de ese número. Si ese punto está vacío, debes mover una ficha de un punto más alto si puedes; si no hay fichas en ningún punto más alto, el número saca una ficha del punto más alto que ocupes. Una ficha golpeada debe dar toda la vuelta de nuevo antes de que puedas volver a sacar fichas.
+Cuando tus quince fichas están en tu tablero interior, lleva una ficha a la bandeja: un número saca una ficha del punto de ese número. Si ese punto está vacío, mueve desde un punto más alto; si no hay ninguno más alto, saca del punto más alto que ocupes.
 # La victoria
-- El primer jugador que saca sus quince fichas gana un punto.
-- Gammon: si el perdedor no ha sacado ni una sola ficha, el ganador se anota dos puntos.
-- Backgammon: si el perdedor no ha sacado ninguna ficha y todavía tiene alguna en la barra o en el tablero interior del ganador, el ganador se anota tres puntos.
-Esta versión se juega sin el cubo doblador.
+Un punto; dos (gammon) si el perdedor no ha sacado ninguna ficha; tres (backgammon) si además tiene una ficha en la barra o en el tablero interior del ganador. Sin cubo doblador.
 # Plakoto
-Cada jugador empieza con sus quince fichas en su punto 24; los jugadores avanzan en sentidos opuestos, como en el backgammon. No se golpea y no hay barra.
-- Una ficha que cae sobre una ficha contraria sola la inmoviliza: la ficha inmovilizada no puede moverse hasta que se vaya la que tiene encima. El punto pertenece entonces a quien inmoviliza, que puede añadir más fichas.
-- La madre es la última ficha que le queda a un jugador en su punto 24. Si queda inmovilizada allí, su jugador pierde dos puntos en el acto, salvo que quien la inmoviliza tenga todavía fichas en su propio punto 24: entonces la partida termina en cuanto ya no le quede ninguna allí. Si las dos madres quedan inmovilizadas, la partida termina en tablas.
-- El ganador de la tirada inicial vuelve a tirar para el primer movimiento. El ganador se lleva un punto, o dos si el perdedor no ha sacado ninguna ficha.
+Todas las fichas empiezan en tu punto 24; los jugadores avanzan en sentidos opuestos. No se golpea.
+- Caer sobre una sola ficha contraria la inmoviliza hasta que tu ficha se vaya.
+- Tu última ficha en tu punto 24 es la madre. Si queda inmovilizada allí, su jugador pierde dos puntos en el acto, salvo que quien la inmoviliza tenga todavía fichas en su propio punto 24: la partida termina en cuanto ya no le quede ninguna allí. Las dos madres inmovilizadas: tablas.
+- El ganador de la tirada inicial vuelve a tirar para empezar. Un punto, o dos si el perdedor no ha sacado ninguna ficha.
 # Fevga
-Cada jugador empieza con sus quince fichas en su punto 24, en esquinas opuestas, y los dos avanzan en el mismo sentido alrededor del tablero: la salida del otro jugador es tu punto 12. No se golpea: una ficha sola ocupa un punto y el otro jugador no puede caer allí.
-- Tu primera ficha debe pasar la salida del otro jugador antes de que una segunda ficha pueda dejar la tuya.
-- No puedes ocupar los seis puntos de tu cuarto de salida, ni seis puntos seguidos con las quince fichas del otro jugador detrás.
-- El ganador de la tirada inicial vuelve a tirar para el primer movimiento. El ganador se lleva un punto, o dos si el perdedor no ha sacado ninguna ficha.
+Todas las fichas empiezan en tu punto 24, en esquinas opuestas, y los dos jugadores avanzan en el mismo sentido. No se golpea: una ficha sola ocupa un punto.
+- Tu primera ficha debe pasar la salida del otro jugador antes de que una segunda deje la tuya.
+- No puedes ocupar todos los puntos de tu cuarto de salida, los seis, ni seis puntos seguidos con las quince fichas contrarias detrás.
+- La tirada inicial y la puntuación, como en el plakoto.
 # Nardy largo
-La salida y el sentido de la fevga: las quince fichas en la cabeza (tu punto 24), en esquinas opuestas, los dos jugadores en el mismo sentido. No se golpea: una ficha sola ocupa un punto.
-- En cada turno solo una ficha puede dejar la cabeza. Solo en tu primera tirada, un 6-6, un 4-4 o un 3-3 permite sacar dos.
-- No puedes ocupar seis puntos seguidos salvo que al menos una ficha del otro jugador ya los haya pasado.
-- El ganador de la tirada inicial vuelve a tirar para el primer movimiento. El ganador se lleva un punto (oyn), o dos (mars) si el perdedor no ha sacado ninguna ficha.
-# Jugar en el dispositivo
-Toca los dados que brillan en dorado para tirarlos. Toca una ficha y luego uno de los puntos marcados, o arrástrala; un anillo señala un blot que golpearías. Cada movimiento usa un dado: un dado ya usado se atenúa. Para sacar una ficha, llévala a la bandeja de la derecha. Las fichas de la barra ya están en la mano. Cuando una tirada no se puede jugar, sus dados brillan en rojo y el turno pasa. Tu barra de jugador muestra cuántas fichas has sacado y, al final, los puntos ganados. Deshacer retira un movimiento cada vez, y los dados de los turnos anteriores vuelven tal como salieron. En plakoto, un anillo muestra también la ficha que inmovilizarías, y una ficha inmovilizada queda debajo de la que la inmoviliza.
+Como en la fevga, desde la cabeza (tu punto 24).
+- En cada turno solo una ficha deja la cabeza; solo en tu primera tirada, un 6-6, un 4-4 o un 3-3 permite sacar dos.
+- No puedes ocupar seis puntos seguidos salvo que una ficha contraria ya los haya pasado.
+- La tirada inicial, como en el plakoto. Un punto (oyn), o dos (mars) si el perdedor no ha sacado ninguna ficha.

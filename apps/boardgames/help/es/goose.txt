@@ -2,21 +2,17 @@ Juego de la oca
 # El objetivo
 Ser el primero en llevar tu ficha a la casilla 63, el jardín de la oca, en el centro de la espiral. De 2 a 6 jugadores.
 # Un turno
-Todas las fichas empiezan en la esquina de abajo a la izquierda, antes de la casilla 1. Se juega por turnos; empiezan las claras. Tira los dos dados y avanza tu ficha tantas casillas como sumen, de una en una, a lo largo de la espiral.
-- Un 9 sacado desde la salida no lleva a la casilla 9: 6 y 3 llevan directamente a la 26, y 5 y 4 a la 53, las casillas de los dados. Esto vale para la primera tirada, y otra vez después de que la muerte te haya devuelto a la salida.
-- A la casilla 63 hay que llegar con el número exacto. Si sacas más, tu ficha va hasta la 63 y retrocede los puntos que sobran: desde la 60, una tirada de 6 termina en la 60.
+Tira los dos dados y avanza tu ficha tantas casillas como sumen.
+- Un 9 en la primera tirada (y otra vez después de la muerte): 6 y 3 llevan directamente a la 26, y 5 y 4 a la 53.
+- A la casilla 63 hay que llegar con el número exacto. Si sacas más, ve hasta la 63 y retrocede los puntos que sobran.
 # Las casillas
-- Las ocas (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 y 59): vuelve a mover lo mismo que marca la tirada, en el mismo sentido, de oca en oca. Después de rebotar en la 63, una oca te manda más atrás.
+- Una oca: vuelve a mover lo mismo que marca la tirada, en el mismo sentido.
 - El puente (6): sigue hasta la 12.
-- La posada (19): pierdes tus dos turnos siguientes.
-- El pozo (31): te quedas allí hasta que otra ficha caiga en él y te libere.
+- La posada (19): pierdes dos turnos.
+- El pozo (31) y la cárcel (52): espera hasta que otra ficha entre y te libere.
 - El laberinto (42): vuelve a la 30.
-- La cárcel (52): te quedas allí hasta que otra ficha entre y te libere.
 - La muerte (58): vuelve a la salida.
 # Encuentros con otras fichas
-Dos fichas nunca comparten casilla, salvo en la salida. Si tu ficha termina su movimiento en una casilla donde hay otra ficha, esa ficha va a la casilla de la que vienes, y queda libre si la retenían la posada, el pozo o la cárcel; la casilla donde cae no tiene ningún efecto sobre ella. Tu ficha ocupa su lugar, y también su casilla: en el pozo o en la cárcel, ahora eres tú quien espera. Pasar por encima de una ficha no hace nada.
-Con dos jugadores, si una ficha está en el pozo y la otra en la cárcel, nadie puede ir a liberarlas: el siguiente jugador que tira queda libre y sigue jugando.
+Si terminas en la casilla de otra ficha, esa ficha va a la casilla de la que vienes, libre de la posada, el pozo o la cárcel, y tú ocupas su lugar. Con dos jugadores, si una ficha está en el pozo y la otra en la cárcel, el siguiente jugador que tira queda libre.
 # El final de la partida
 Gana el primer jugador que llega a la casilla 63.
-# Jugar en el dispositivo
-Pasaos el dispositivo: el jugador al que le toca tirar siempre tiene su barra abajo. Sus dos dados esperan junto al tablero, con una luz dorada, y su ficha brilla: toca la pantalla para tirar. Después la ficha se mueve sola. Cada barra muestra la casilla en la que está la ficha de ese jugador y lo que la retiene: la posada (con los turnos que aún tiene que perder), el pozo o la cárcel. Deshacer retira las tiradas una a una; una tirada deshecha vuelve a salir igual cuando tiras de nuevo.

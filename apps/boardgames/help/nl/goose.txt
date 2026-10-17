@@ -2,21 +2,17 @@ Ganzenbord
 # Het doel
 Breng als eerste je pion naar vakje 63, de tuin van de gans, in het midden van de spiraal. Voor 2 tot 6 spelers.
 # Een beurt
-Alle pionnen beginnen in de hoek linksonder, voor vakje 1. De spelers zijn om de beurt aan zet, Licht eerst. Gooi de twee dobbelstenen en zet je pion evenveel vakjes vooruit als hun som, vakje voor vakje, langs de spiraal.
-- Een 9 vanaf de start gaat niet naar vakje 9: 6 en 3 gaan meteen naar 26, 5 en 4 naar 53, de vakjes met de dobbelstenen. Dat geldt voor de eerste worp, en opnieuw nadat de dood je terug naar de start heeft gestuurd.
-- Vakje 63 moet je precies halen. Gooi je meer, dan gaat je pion naar 63 en weer terug met de ogen die over zijn: vanaf 60 eindigt een worp van 6 op 60.
+Gooi de twee dobbelstenen en zet je pion evenveel vakjes vooruit als hun som.
+- Een eerste worp van 9 (en opnieuw na de dood): 6 en 3 gaan meteen naar 26, 5 en 4 naar 53.
+- Vakje 63 moet je precies halen. Gooi je meer, dan ga je naar 63 en weer terug met de ogen die over zijn.
 # De vakjes
-- De ganzen (5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54 en 59): zet nog eens dezelfde worp, in dezelfde richting, van gans naar gans. Na het terugkaatsen op 63 stuurt een gans je verder terug.
+- Een gans: zet nog eens dezelfde worp, in dezelfde richting.
 - De brug (6): ga door naar 12.
-- De herberg (19): je slaat je volgende twee beurten over.
-- De put (31): blijf daar tot een andere pion erin valt en je bevrijdt.
-- Het doolhof (42): ga terug naar 30.
-- De gevangenis (52): blijf daar tot een andere pion binnenkomt en je bevrijdt.
-- De dood (58): ga terug naar de start.
+- De herberg (19): sla twee beurten over.
+- De put (31) en de gevangenis (52): wacht tot een andere pion binnenkomt en je bevrijdt.
+- Het doolhof (42): terug naar 30.
+- De dood (58): terug naar de start.
 # Andere pionnen tegenkomen
-Twee pionnen staan nooit op hetzelfde vakje, behalve op de start. Eindigt je pion zijn zet op een vakje waar een andere pion staat, dan gaat die pion naar het vakje waar jij vandaan kwam, en is hij weer vrij als de herberg, de put of de gevangenis hem vasthield; het vakje waar hij belandt, heeft geen effect op hem. Jouw pion neemt zijn plaats in, en ook zijn vakje: in de put of de gevangenis ben jij nu degene die wacht. Over een pion heen gaan doet niets.
-Met twee spelers, als de ene pion in de put zit en de andere in de gevangenis, kan niemand ze komen bevrijden: de volgende speler die gooit, is vrij en speelt verder.
+Eindig je op het vakje van een andere pion, dan gaat die naar het vakje waar jij vandaan kwam, vrij uit de herberg, de put of de gevangenis, en neem jij zijn plaats in. Met twee spelers, als de ene pion in de put zit en de andere in de gevangenis, is de volgende speler die gooit vrij.
 # Het einde van de partij
 De eerste speler op vakje 63 wint.
-# Spelen op het apparaat
-Geef het apparaat door: wie moet gooien, heeft zijn balk altijd onderaan. Zijn twee dobbelstenen wachten naast het bord, in een gouden licht, en zijn pion gloeit: tik op het scherm om te gooien. De pion zet dan vanzelf. Elke balk toont het vakje waar de pion van die speler staat, en wat hem vasthoudt: de herberg (met de beurten die hij nog moet overslaan), de put of de gevangenis. Ongedaan maken neemt worpen een voor een terug; een teruggenomen worp valt hetzelfde als je opnieuw gooit.
