@@ -288,12 +288,18 @@ static int pick_at(int i, float *x, float *y)
     return down;
 }
 
-static void piece_at(int pc, float x, float y, float size)
+/* a piece in the square at (x, y), lifted up pixels off the board (its shadow left lower, fainter, the piece a little
+ * bigger) */
+static void piece_up(int pc, float x, float y, float size, float up)
 {
     int down = SG_OWNER(pc) != ui_bottom();
-    ui_shadow_flat(x + size / 2, y + size / 2, 0.86f * size * width_of(SG_KIND(pc)), 0.9f * size, 0.75f);
-    ui_put(t_pc[down][tex_of(pc)], x, y, size, size);
+    float k = 1 + 0.6f * up / size, s = size * k;
+    ui_shadow_flat(x + size / 2 + 0.4f * up, y + size / 2 + 0.6f * up, 0.86f * s * width_of(SG_KIND(pc)), 0.9f * s,
+                   0.75f - 1.5f * up / size);
+    ui_put(t_pc[down][tex_of(pc)], x + (size - s) / 2, y + (size - s) / 2 - up, s, s);
 }
+
+static void piece_at(int pc, float x, float y, float size) { piece_up(pc, x, y, size, 0); }
 
 static void draw(void)
 {
@@ -327,7 +333,7 @@ static void draw(void)
     for (int s = 0; s < 81; s++) {
         if (!p->sq[s] || (drag.on && drag.moved && s == drag.from) || (anim.on && s == anim.m.to)) continue;
         sq_xy(s, &x, &y);
-        piece_at(p->sq[s], x, y, (float)sq);
+        piece_up(p->sq[s], x, y, (float)sq, s == sel && !(drag.on && drag.moved) ? 0.1f * sq : 0);   /* the selected: lifted */
     }
     if ((sel >= 0 || hand_sel) && !promo.on) {  /* where the selected piece can go */
         uint8_t done[81] = {0};
@@ -349,7 +355,8 @@ static void draw(void)
         } else {
             float x0, y0;
             sq_xy(anim.m.from, &x0, &y0);
-            piece_at(p->sq[anim.m.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq);
+            piece_up(p->sq[anim.m.to], x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, (float)sq,
+                     0.16f * sq * sinf(3.14159265f * t));   /* a little hop: up, then down */
         }
     }
     if (drag.on && drag.moved) {                /* the dragged piece, a little bigger, beside the finger */
