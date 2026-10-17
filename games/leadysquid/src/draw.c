@@ -32,10 +32,10 @@ static int cap_theme[2] = {-1, -1};
 int depth_level(void) { return depth; }
 
 /* ---- raster: the water gradient, the additive rays band, the pause dim ----------------------------- */
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240.
- * Above the water's surface (stage line 0): the sky, pale at the horizon, bluer toward the screen's top, a bright
- * crest of foam on the surface. Below the seabed: its sand carried on (BG2's last two rows, 16 px, repeated, each
- * copy shifted sideways so that no pebble or starfish lines up), darker with depth. The other layers are hidden there
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): the lines past the stage's 240.
+ * Above the water's surface (stage line 0): the sky (the score in it), pale at the horizon, bluer toward the
+ * screen's top, a bright crest of foam on the surface. Below the seabed: its sand carried on (BG2's last two rows,
+ * 16 px, repeated, each copy shifted sideways so that no pebble or starfish lines up), darker with depth. The other layers are hidden there
  * (their maps would wrap); line 0 puts the layers, BG2's scroll and the sand's palette back. */
 static int seabed_x;                      /* BG2's scroll x this frame (draw_frame; state_audit.txt) */
 static int scenery_w(void);
@@ -174,6 +174,8 @@ void draw_init(void)
     rs_tiles_load(VR_BG4, ls_bg4_tiles, ls_bg4_tile_count);
     /* widescreen: a third of the extra width behind the squids (tuning.h WIDE_LEFT): the stage origin; 0 at 320 */
     rs_screen_origin(WIDE_LEFT(rs_screen_width() - RS_SCREEN_W));
+    /* a tall screen (portrait, ls.h ZOOM_H): the stage low, TALL_ABOVE lines of sky above the surface */
+    rs_screen_origin_v(clampi(rs_screen_height() - RS_SCREEN_H, 0, TALL_ABOVE));
     maps_setup();
     for (int l = 0; l < 4; l++) rs_bg_enable(l, 1);
     rs_obj_base(VR_OBJ);
@@ -337,7 +339,9 @@ void fx_update(const world *w)
 static void spr(int id, int x, int y, int prio, int pal_override)
 {
     const ls_sprite_def *d = &ls_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h ||
+        y >= rs_screen_bottom())
+        return;
     rs_spr(x, y, d->tile, d->w, d->h, pal_override >= 0 ? pal_override : d->pal, prio, 0);
 }
 
@@ -440,7 +444,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         } else {
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_theme_bg_pal[PAL_LOGO - PAL_THEME0], 16);
         }
-        if ((state == DS_PLAY || state == DS_DEAD) && w->players >= 3) hu_score_tags(w->players, 0);
+        if ((state == DS_PLAY || state == DS_DEAD) && w->players >= 3 && rs_screen_height() == RS_SCREEN_H)
+            hu_score_tags(w->players, 0);           /* (a tall screen: the icons, draw_frame) */
         if (state == DS_OVER) {
             if (w->players == 1) {
                 /* the title on its own banner, as wide as the score panel below it: nothing shows through */
@@ -511,12 +516,30 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     redraw_pause = 0;
     hu_pause(paused, 13);
 
+    /* a tall screen (ls.h ZOOM_H, DESIGN.md "Tall screen"): 1-2 squids swimming fill the display's height, the columns
+     * shown from VIEW_BEHIND px behind the hindmost squid; the title, the panels and 3-4 players show every column */
+    int zoom = rs_screen_height() > RS_SCREEN_H && w->players <= 2 && state != DS_TITLE && state != DS_OVER;
+    rs_screen_fill(zoom);
+    int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vw = rs_screen_visible_x1() - rs_screen_visible_x0();
+    if (zoom) {
+        vx0 = squid_start_x(w->players, w->players - 1) - VIEW_BEHIND;
+        rs_screen_focus_x(vx0 + vw / 2 + rs_screen_origin_x());
+    } else {
+        rs_screen_focus_x(-1);
+    }
+
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
     if (state == DS_PLAY || state == DS_DEAD) {
         /* 1 player: centred; 2: x 80 and 240; 3-4: the corners (the kit's chips, our digits) */
         for (int p = 0; p < w->players; p++) {
             hu_chip ch = hu_score_chip(w->players, p, 0);
+            if (rs_screen_height() > RS_SCREEN_H) {  /* a tall screen: in the sky, at the top of the columns shown */
+                int cx = vx0 + vw * (2 * p + 1) / (2 * w->players), y = rs_screen_top() + 14;
+                if (w->players > 1) spr(SPR_SQUID_ICON, cx - 24, y, 3, p ? hu_player_pal(p) : -1);   /* whose */
+                number(w->sq[p].score, w->players > 1 ? cx + 6 : cx, y, 3);
+                continue;
+            }
             number_at(w->sq[p].score, ch.x, ch.y, ch.align, 3);
         }
     }

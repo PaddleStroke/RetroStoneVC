@@ -95,6 +95,13 @@ void audio_set(int music, int sound);
 /* draw.c; the screens (game states). No "get ready": the title is the only menu (players 2-4 join there, P1's flap
  * starts the race); DS_READY is only the --opt ready=1 test hook (a run waiting for its first flap, no text). */
 enum { DS_TITLE, DS_READY, DS_PLAY, DS_DEAD, DS_OVER };
+/* A phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
+ * display's, the sides cropped (154 columns shown on a 9:21 phone, 166 on a 9:19.5 one); the stage low, TALL_ABOVE lines
+ * of sky above the surface (the score there), the seabed below; the columns shown start VIEW_BEHIND px left of the
+ * hindmost squid (1-2 players), the rest ahead: as much as the genre's reference shows ahead of its bird. */
+#define ZOOM_H        360
+#define TALL_ABOVE    56
+#define VIEW_BEHIND   36
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_reset_course(const world *w);

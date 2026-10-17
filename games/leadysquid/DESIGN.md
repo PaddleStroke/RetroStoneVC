@@ -155,14 +155,24 @@ thirds ahead**.
   left, P1's screen x (that of 320 plus the third) and the next gate's distance on the screen (that of 320: the first
   one 224 px ahead at the start), on the title, at the start, in a run and in a 4-player race.
 
-## Tall screen (docs/spec.md "Tall screen")
-A phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in `game_init` (692 lines on a 9:19.5 phone at 320
-columns). The 240 lines of the stage are the same pixels, centred (the tap zone in the band below it). The raster
-draws the lines past the stage (draw.c `raster_out`): above the water's surface (stage line 0), the sky, pale at the
-horizon and bluer toward the screen's top, a crest of foam on the surface (the top columns end at the surface, as
-before); below the seabed, its sand carried on (BG2's last two rows repeated, each copy shifted sideways, darker with
-depth). The other layers are hidden there; line 0 puts the layers, BG2's scroll (`seabed_x`, set each frame, not
-saved: state_audit.txt) and the sand's palette back, so a 240-line screen is unchanged.
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (360 lines, ls.h) first in `game_init`. The RetroStone app scales the
+360 lines to the display's height and crops the sides: 154 columns on a 9:21 phone, 166 on a 9:19.5 one, so the squid
+is twice as big as on the plain tall screen (v1). The 240 lines of the stage are the same pixels; the stage sits low
+(`rs_screen_origin_v`: TALL_ABOVE, 56 lines of sky above the surface, the rest seabed below it).
+- **The columns shown** (1-2 players): from VIEW_BEHIND (36) px behind the hindmost squid (`rs_screen_focus_x`), the
+  rest ahead: 118 px ahead of the squid on a 9:21 phone (130 on a 9:19.5 one), as much as the genre's reference shows
+  ahead of its bird (115 px at our scale: its 288-px screen, the bird at a fifth). The course is unchanged: the
+  obstacles come in at the right edge of the columns shown (they are generated up to the screen's).
+- **The HUD at the screen's top**: the score in the sky (sprites at `rs_screen_top()`); 2-4 players: a row of each
+  player's squid icon and score (no corner tags there).
+- **Fill or fit**: the title, the panels and 3-4 players show every column (`rs_screen_fill(0)`).
+- **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above the water's surface (stage line 0),
+  the sky, pale at the horizon and bluer toward the screen's top, a crest of foam on the surface; below the seabed,
+  its sand carried on (BG2's last two rows repeated, each copy shifted sideways, darker with depth). The other layers
+  are hidden there; line 0 puts the layers, BG2's scroll (`seabed_x`, set each frame, not saved: state_audit.txt) and
+  the sand's palette back.
+- Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## Audio
 - Sound effects synthesised in code at start-up (sfx.c): **bloop** (a short rising sine with a bubbly
