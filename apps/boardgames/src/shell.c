@@ -1084,6 +1084,13 @@ static void number(float cx, float cy, float h, int value, int light, double deg
 
 void ui_number(float cx, float cy, float h, int value, int light) { number(cx, cy, h, value, light, 0); }
 
+/* on the table: the light theme's ivory takes dark ink (the cover, a dark overlay: cream, as the dark theme's) */
+const uint8_t *ui_table_ink(void) { return LIGHT_UI ? INK : NUM_LIGHT; }
+void ui_number_table(float cx, float cy, float h, int value)
+{
+    digits_at(cx, cy, h, value, ui_table_ink(), 255, 0, 0);
+}
+
 void ui_number_rot(float cx, float cy, float h, int value, int light, double deg)
 {
     number(cx, cy, h, value, light, deg);
@@ -5663,6 +5670,7 @@ static void release(float x, float y)
                 snd_play(SND_TAP);
                 if (locked(i)) full_open();     /* the free edition: the full version's */
                 else if (arcade_of(games[i]) >= 0) {   /* (not in the picture mode: its own loop would never end) */
+                    SDL_StopTextInput();        /* (a search's keyboard: put away, as for a board game) */
                     if (!instant) arcade_play(arcade_cards[arcade_of(games[i])].id, ui.r);
                 }
                 else open_game(i, -1);

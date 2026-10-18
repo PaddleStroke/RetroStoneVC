@@ -186,6 +186,10 @@ void ui_flat_at(SDL_Texture *t, float cx, float cy, float d, float alpha, int up
  * upside (ui_upside: the top player face to face), its foot then towards the top of the same square */
 void ui_stand_at(SDL_Texture *t, float x, float y, float size, int upside);
 void ui_number(float cx, float cy, float h, int value, int light);   /* digits centred; light: cream, else dark */
+/* light digits on the table itself (beside the board, not on it, a badge or a panel): cream on the dark theme's green
+ * table, the theme's dark ink on the light theme's ivory. ui_table_ink(): that colour, for a game's own marks there. */
+void ui_number_table(float cx, float cy, float h, int value);
+const uint8_t *ui_table_ink(void);
 /* the same turned round its centre (degrees: 180 for the top player face to face) */
 void ui_number_rot(float cx, float cy, float h, int value, int light, double degrees);
 /* a number that may be below zero (a minus before it), or with a plus when plus is set and it is above zero (points
