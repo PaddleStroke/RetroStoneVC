@@ -657,6 +657,8 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
+    if (t_lamp && ui_ink_dark()) SDL_SetTextureColorMod(t_lamp, 92, 70, 52);   /* the light theme: the lamp in ink */
+    else if (t_lamp) SDL_SetTextureColorMod(t_lamp, 255, 255, 255);
     pzt_bar_two(b, t_small, G.nh, t_lamp, G.hints, 0);
 }
 
