@@ -26,3 +26,5 @@ draw.zoom_shade_dx  ... for the cloud shadows past the stage, the same
 draw.zoom_hud       ... the HUD pinned at the screen's top, the same
 draw.ui_off         the stage x of the UI (hu_ui_x(), or the zoomed view's), set by draw_frame before every picture
 draw.hud_vw         a tall screen: the columns the solo HUD's text was laid out for (-1 after a start: drawn again)
+draw.narrow         a zoomed tall screen narrower than the kit (house_tall.h ht_narrow), set by draw_frame before every use
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites

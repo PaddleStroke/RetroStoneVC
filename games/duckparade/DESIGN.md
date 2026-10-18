@@ -106,9 +106,12 @@ simply shows more of them.
   her in view, so the fox's edge (stage x 0) is on screen whenever she is near it (it warns within 56 px). The solo
   HUD is laid out in the columns shown (`solo_layout`: the icon and count, the score, BEST n, 18 px from their
   edges), and the UI layer and its sprites follow the view (`ui_off`): the family photo and PAUSED stay centred.
-- **Fill or fit**: the title, the game-over panel and co-op (2-4 parents: the camera keeps the leader up to column
-  16 and the fox takes stragglers at column 0, so the whole width matters) show every column (`rs_screen_fill(0)`:
-  the 320 x 496 picture across the width), the HUD still at the top.
+- **Fill or fit**: the title, pause and the game-over panels stay zoomed like play (one look in portrait), the view
+  centred and their text laid out in the columns shown (games/common/src/house_tall.h, the house layout shared by
+  every zoomed game: the logo's words stacked, the title's lines wrapped, each value under its label). Only co-op play
+  (2-4 parents: the camera keeps the leader up to column 16 and the fox takes stragglers at column 0, so the whole
+  width matters) shows every column (`rs_screen_fill(0)`: the 320 x 496 picture across the width), the HUD still at
+  the top.
 - Touches are read in stage y (`- rs_screen_origin_y()`): a finger on the lanes above the field targets row 0 of
   that column, below it row 13.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240: title, play, co-op, the fox and

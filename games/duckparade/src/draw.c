@@ -12,6 +12,7 @@
 #include "dp.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -65,6 +66,9 @@ static int band_y(void) { return tall() && rs_screen_top() <= -FIELD_Y ? rs_scre
 static int zoom_band_dx, zoom_shade_dx;   /* BG2's scroll for the band and the shadows, set by draw_frame (not saved) */
 static int zoom_hud;                      /* the HUD pinned at the screen's top (draw_frame; not saved) */
 static int ui_off;                        /* the stage x of UI x 0: hu_ui_x(), or the zoomed view's (draw_frame) */
+static int narrow;                        /* a zoomed tall screen showing fewer columns than the kit needs (draw_frame) */
+static ht_title_out title_out;            /* the narrow title's glyph and slots, set by screen_text every title frame */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 static void raster_tall(int line)
 {
@@ -867,13 +871,22 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         (state == DS_OVER && st_t == RETRY_LOCK)) {
         hu_clear();
         hud_line = -1;
-        if (state == DS_TITLE) hu_logo("DUCK PARADE", title_ramps, 2, 2, 0);
+        if (state == DS_TITLE) {
+            if (narrow) ht_logo("DUCK PARADE", title_ramps, 2, 2, 0);
+            else hu_logo("DUCK PARADE", title_ramps, 2, 2, 0);
+        }
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, world_score(w, 0), 0);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, NULL, HTR(BACK_MENU));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, world_score(w, 0), 0);
+                }
             } else {                                /* the parents ranked, the family score under them */
-                hu_results_panel(&rs, HTR(GAME_OVER));
+                if (narrow) ht_results_panel(&rs, HTR(GAME_OVER));
+                else hu_results_panel(&rs, HTR(GAME_OVER));
                 family_box b = family_layout(family_row(&rs), world_total(w), best, new_best);
                 hu_panel(b.px, family_row(&rs), b.pw, b.ph);
                 hu_box_text(b.lx, b.row1, TR(FAMILY));
@@ -886,8 +899,17 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_players = w->players;
     }
     /* the title, every frame: the prompt (PRESS ANY ARROW TO HOP), the parents' slots, BEST, the join line, credits */
-    if (state == DS_TITLE) hu_title_draw(st_t, best);
-    if (state == DS_OVER) {
+    if (state == DS_TITLE && narrow) {
+        ht_title c = title_cfg;
+        c.verb = TR(VERB);
+        ht_title_draw(&c, st_t, best, &title_out);
+    } else if (state == DS_TITLE) {
+        hu_title_draw(st_t, best);
+    }
+    if (state == DS_OVER && narrow) {
+        if (w->players == 1) ht_retry_line_at(ht_gameover_retry_row(NULL), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else ht_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+    } else if (state == DS_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
@@ -930,13 +952,13 @@ static void photo(const world *w, int cam, int t)
  * parents spread over the stage's width). Returns the columns shown (RS_SCREEN_W: every one). */
 #define VIEW_BEHIND 72
 #define VIEW_AHEAD  56
-static int zoom_view(const world *w, int cam, int zoom)
+static int zoom_view(const world *w, int cam, int zoom, int follow)
 {
     if (!tall()) return RS_SCREEN_W;
     rs_screen_fill(zoom);
     rs_screen_focus_x(-1);
     int v = rs_screen_visible_x1() - rs_screen_visible_x0();
-    if (!zoom || v >= RS_SCREEN_W) return v;
+    if (!zoom || !follow || v >= RS_SCREEN_W) return v;
     const duck *d = &w->d[0];
     int mx;
     if (d->state == DK_HIT || d->state == DK_SWEPT || d->state == DK_CAUGHT) {
@@ -978,7 +1000,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     else math_mode = state == DS_TITLE ? 2 : 0;
 
     int play = state == DS_PLAY || state == DS_DEAD || state == DS_READY;
-    int vw = zoom_view(w, cam, play && w->players == 1);
+    int vw = zoom_view(w, cam, !play || w->players == 1, play);
+    narrow = ht_narrow();
     ui_off = vw < RS_SCREEN_W ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : hu_ui_x();
     zoom_hud = by < 0;                            /* the HUD's rows at the screen's top (rs_bg_pin) */
     if (tall()) rs_bg_pin(RS_BG1, 0, zoom_hud ? FIELD_Y : 0, 0);
@@ -987,7 +1010,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, -ui_off, -slide);       /* the UI centred on the screen (widescreen) or the view (zoomed) */
     if (redraw_ui && paused) hu_pause(0, 13);     /* the UI layer was set up again (a state of another width) */
-    hu_pause(paused, 13);
+    ht_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: the HUD and the UI, the photo, the band, the fox, the ducks, the lines, the loose ducklings
@@ -998,21 +1021,33 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         int oy = slide;
         if (w->players == 1) {
             int m = hu_medal_of(world_score(w, 0), th);
-            hu_number(world_score(w, 0), 25 * 8, 11 * 8 - 4 + oy, 3);
-            hu_number(best, 25 * 8, 14 * 8 - 4 + oy, 3);
+            /* the kit's places (a narrow view: house_tall.h's, each value under its label); the medal: an egg */
+            int sx0 = 25 * 8, sy0 = 11 * 8 - 4, bx = 25 * 8, by = 14 * 8 - 4, mx = 22 * 8 - 4, my = 16 * 8 - 4;
+            if (narrow) {
+                ht_gameover_pos(0, &sx0, &sy0);
+                ht_gameover_pos(1, &bx, &by);
+                ht_gameover_pos(2, &mx, &my);
+                mx -= 12;
+            }
+            hu_number(world_score(w, 0), sx0, sy0 + oy, 3);
+            hu_number(best, bx, by + oy, 3);
             if (m) {
-                spr_ui(SPR_EGG + m - 1, 22 * 8 - 4, 16 * 8 - 4 + oy, 3, -1, 0);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + oy, (st_t / 10) % 2, 3);
+                spr_ui(SPR_EGG + m - 1, mx, my + oy, 3, -1, 0);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(mx + 16, my + oy, (st_t / 10) % 2, 3);
+            } else if (narrow) {
+                hu_box_text((mx + 8) / 8, my / 8 + 1, "-");
             } else {
                 hu_box_text(22, 17, "-");
             }
         } else {                                    /* the ranking (medals by place), the parents' heads, the family */
             hu_standing rs;
             standing(w, &rs);
-            hu_results_sprites(&rs, st_t, oy);
+            if (narrow) ht_results_sprites(&rs, st_t, oy);
+            else hu_results_sprites(&rs, st_t, oy);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr_ui(SPR_DUCK_HEAD + (rs.rank[i] == 0 && (st_t / 24) % 4 == 0), cx - 8, cy - 8 + oy, 3, pal_of(rs.order[i]), 0);
             }
             family_box b = family_layout(family_row(&rs), world_total(w), best, new_best);
@@ -1020,10 +1055,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             if (new_best && (st_t / 20) % 3 == 0) hu_sparkle(b.dcol * 8 + 28, b.dy + oy, (st_t / 10) % 2, 3);
         }
     }
-    if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the parents popping in */
+    if (state == DS_TITLE && narrow) ht_title_sprites(&title_cfg, &title_out, st_t, slot_icon, NULL);
+    else if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the parents popping in */
     if (state == DS_TITLE) {
         /* Mother and three ducklings march in place under the logo */
-        int x = 128, y = 104;
+        int x = 128, y = narrow ? 124 : 104;     /* a narrow view: under the logo's two lines */
         for (int k = 0; k < 4; k++) {
             int bob = ((t / 8 + k) & 1);
             if (k == 0) spr_ui(SPR_DUCK_RIGHT + (bob ? 1 : 0), x + 40, y - bob * 2, 2, 0, 0);
