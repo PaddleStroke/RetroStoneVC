@@ -62,6 +62,12 @@ int  pages_panel_draw(void);                    /* off the menu: the tip panel w
 int  pages_panel_press(float x, float y);       /* 1: the panel's */
 int  pages_panel_key(SDL_Keycode k);            /* 1: the panel's (Back closes it, other keys wait) */
 
+/* online play is not there yet (docs/multiplayer-ready.md): what it will be is shown greyed (the Stats page's
+ * leaderboards, the Settings row, the picker's online chip), and a tap on it only shows this note for two seconds:
+ * "Online play is coming later", near the bottom (on_menu: over the ribbon, in the page's room) */
+void pages_soon(void);
+void pages_soon_draw(int on_menu);              /* last, over everything (the shell's draw) */
+
 /* ---- the shell's side, called by the pages (shell.c) ------------------------------------------------------------ */
 void shell_page_changed(void);                  /* lay the menu out again (another page, the search's words) */
 void shell_set_mute(int muted);

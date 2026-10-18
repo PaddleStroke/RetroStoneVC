@@ -46,6 +46,9 @@ enum { ACH_FIRST, ACH_XP1, ACH_XP2, ACH_XP3, ACH_STREAK1, ACH_STREAK2, ACH_STREA
 static const int ACH_ICON[ACHS] = {ICON_TICK, ICON_BOLT, ICON_MEDAL, ICON_CUP, ICON_FLAME, ICON_FLAME, ICON_FLAME,
                                    ICON_BOT, ICON_STAR, ICON_TILES, ICON_PAR};
 #define U_HOWTO (U_ACH + 2 * ACHS)              /* the line after the achievements: How to play */
+/* then online play, not there yet (docs/multiplayer-ready.md): the leaderboards' header and tabs, the note, the
+ * Settings row and its badge */
+enum { U_BOARDS = U_HOWTO + 1, U_FRIENDS, U_WORLD, U_SOON, U_ONLINE, U_LATER };
 
 static const char *ui_str(int i, char *buf, int size)
 {
@@ -517,7 +520,7 @@ void pages_text(const char *s)
 
 /* ---- the Settings page --------------------------------------------------------------------------------------------- */
 enum { A_NONE, A_REVIEW, A_TIP, A_SOURCE, A_REPORT, A_THEME, A_LANGS, A_LANG, A_AWAKE, A_SOUND, A_PRIVACY, A_TERMS,
-       A_LICENCES, A_HOWTO };
+       A_LICENCES, A_HOWTO, A_ONLINE };
 typedef struct { float y; int draw; float hx, hy; int act, val; } walk;   /* drawing, or finding a tap's row */
 
 static int tips_sold(void) { return iap_tips_available() > 0 || TIP.demo; }
@@ -534,9 +537,20 @@ static void head(walk *k, int str)              /* a section's header: gold capi
     k->y += h;
 }
 
-enum { R_CHEVRON, R_RADIO, R_TOGGLE, R_DROP, R_OPTION };
+/* what is not there yet: "Coming later" in a quiet pill (h high) ending at rx, centred on cy; returns its width */
+static float later_badge(float rx, float cy, float h, float maxw)
+{
+    char b[96];
+    ui_str(U_LATER, b, sizeof b);
+    float px = floorf(0.44f * h), bw = fminf(maxw, text_w(b, px, T_BOLD, TH.dim) + 1.1f * h);
+    rr(rx - bw, cy - h / 2, bw, h, h / 2, TH.line, 255);
+    put(b, px, T_BOLD, TH.dim, bw - 0.8f * h, rx - bw / 2, cy, AL_CENTRE);
+    return bw;
+}
+
+enum { R_CHEVRON, R_RADIO, R_TOGGLE, R_DROP, R_OPTION, R_LATER };
 /* a row: its icon (in its colour; NULL: the words' colour), its words, its control; on: a radio's choice, a switch's
- * state, the list open */
+ * state, the list open. R_LATER: what is not there yet, greyed, "Coming later" at its right (a tap: the note) */
 static void row(walk *k, int icon, const uint8_t *ic, const char *label, int kind, int on, int act, int val)
 {
     float x = content_x(), w = content_w(), h = floorf((kind == R_OPTION ? 0.105f : 0.13f) * S);
@@ -548,12 +562,14 @@ static void row(walk *k, int icon, const uint8_t *ic, const char *label, int kin
     }
     if (k->y > R.y + R.h || k->y + h < R.y) { k->y += h + gap; return; }
     int lit = on && (kind == R_RADIO || kind == R_OPTION);
-    const uint8_t *fg = lit ? TH.on_gold : TH.text;
+    const uint8_t *fg = lit ? TH.on_gold : kind == R_LATER ? TH.dim : TH.text;
     float cy = k->y + h / 2, ix = x + (kind == R_OPTION ? 0.6f : 0.5f) * h;
     rr(x, k->y, w, h, floorf(0.24f * h), lit ? TH.gold : TH.card, 255);
-    if (icon >= 0) ico(icon, ix, cy, floorf(0.42f * h), lit ? TH.on_gold : ic ? ic : TH.text, 255);
-    float lx = x + (icon >= 0 ? 1.0f : 0.35f) * h, rx = x + w - 0.45f * h;
-    put(label, floorf((kind == R_OPTION ? 0.33f : 0.3f) * h), T_BOLD, fg, rx - lx - 0.6f * h, lx, cy, AL_LEFT);
+    if (icon >= 0) ico(icon, ix, cy, floorf(0.42f * h), lit ? TH.on_gold : kind == R_LATER ? TH.dim : ic ? ic : TH.text,
+                       255);
+    float lx = x + (icon >= 0 ? 1.0f : 0.35f) * h, rx = x + w - 0.45f * h, bw = 0;
+    if (kind == R_LATER) bw = later_badge(x + w - 0.3f * h, cy, floorf(0.4f * h), 0.45f * w) - 0.15f * h;
+    put(label, floorf((kind == R_OPTION ? 0.33f : 0.3f) * h), T_BOLD, fg, rx - lx - 0.6f * h - bw, lx, cy, AL_LEFT);
     float d = floorf(0.34f * h);
     if (kind == R_CHEVRON) ico(ICON_CHEVRON, rx, cy, d, TH.dim, 255);
     else if (kind == R_DROP) ico_rot(ICON_CHEVRON, rx, cy, d, TH.dim, on ? -90 : 90);   /* the list's arrow */
@@ -631,6 +647,7 @@ static float settings_walk(walk *k)
     row(k, ICON_HELP, NULL, ui_str(U_HOWTO, b, sizeof b), R_CHEVRON, 0, A_HOWTO, 0);
     row(k, ICON_AWAKE, NULL, ui_str(U_AWAKE, b, sizeof b), R_TOGGLE, awake, A_AWAKE, 0);
     row(k, snd_muted ? ICON_MUTE : ICON_SOUND, NULL, ui_str(U_SOUND, b, sizeof b), R_TOGGLE, !snd_muted, A_SOUND, 0);
+    row(k, ICON_GLOBE, NULL, ui_str(U_ONLINE, b, sizeof b), R_LATER, 0, A_ONLINE, 0);
     head(k, U_LEGAL);
     row(k, ICON_SHIELD, NULL, ui_str(U_PRIVACY, b, sizeof b), R_CHEVRON, 0, A_PRIVACY, 0);
     row(k, ICON_DOC, NULL, ui_str(U_TERMS, b, sizeof b), R_CHEVRON, 0, A_TERMS, 0);
@@ -688,6 +705,7 @@ static void settings_tap(float x, float y)
     case A_TERMS: shell_open_text("_terms"); break;
     case A_LICENCES: shell_open_text("_licences"); break;
     case A_HOWTO: shell_open_text("_app"); break;
+    case A_ONLINE: pages_soon(); break;
     }
 }
 
@@ -819,6 +837,42 @@ int pages_panel_key(SDL_Keycode k)
     return 1;
 }
 
+/* ---- the note "online play is coming later" ----------------------------------------------------------------------- */
+#define SOON_MS 2200                            /* how long it shows (its last 300 ms fading) */
+static int soon_on;
+static Uint32 soon_at;
+
+void pages_soon(void)
+{
+    soon_on = 1;
+    soon_at = ui_ms();
+}
+
+void pages_soon_draw(int on_menu)
+{
+    if (!soon_on) return;
+    Uint32 t = ui_ms() - soon_at;
+    if (t > SOON_MS) { soon_on = 0; return; }
+    ui_animate();
+    S = fminf(ui.w, ui.h);
+    Uint8 a = (Uint8)(t > SOON_MS - 300 ? 255 * ((SOON_MS - t) * 8 / 300 + 1) / 9 : 255);   /* (in steps: rr's pictures
+                                                                                       * are kept by their alpha) */
+    char b[160];
+    ui_str(U_SOON, b, sizeof b);
+    float h = floorf(0.1f * S), px = floorf(0.034f * S), d = floorf(0.046f * S);
+    float cx = on_menu ? R.x + R.w / 2 : ui.w / 2.0f, by = on_menu && !rail ? NAV.y : (float)ui.h;
+    int tw, th;
+    SDL_Texture *tt = tx(b, px, T_BOLD, TH.bg, 0.86f * ui.w - 1.3f * h, &tw, &th);
+    float w = floorf(tw + d + 1.2f * h), y = floorf(by - 0.06f * S - h), x = floorf(cx - w / 2);
+    rr(x, y, w, h, h / 2, TH.text, (Uint8)(a * 0.94f));
+    ico(ICON_GLOBE, x + 0.5f * h + d / 2, y + h / 2, d, TH.bg, a);
+    if (tt) {
+        SDL_SetTextureAlphaMod(tt, a);
+        ui_put(tt, floorf(x + 0.5f * h + d + 0.25f * h - 2), floorf(y + (h - th) / 2), (float)tw, (float)th);
+        SDL_SetTextureAlphaMod(tt, 255);
+    }
+}
+
 /* ---- the Stats page ----------------------------------------------------------------------------------------------- */
 static int prog_n, prog_sec[STATS_SECTIONS], prog_done[STATS_SECTIONS], prog_total[STATS_SECTIONS], three;
 
@@ -856,6 +910,56 @@ static int ach_done(int a, const stats_t *st)
 }
 
 static const uint8_t FELT[2][3] = {{40, 88, 70}, {46, 100, 78}};   /* the level card: the house's green felt */
+
+/* the leaderboards as online play will have them, greyed: the tabs (friends, the world, this week), a few rows with
+ * no one's name, and the note over them. Nothing is online yet: a tap on the card only says so (BOARD: its box). */
+static box BOARD;
+
+static float boards_walk(int draw, float x, float y, float w, float hh, float pad, float rad)
+{
+    char b[160];
+    if (draw) {
+        put(ui_str(U_BOARDS, b, sizeof b), floorf(0.046f * S), T_TITLE, TH.accent, w * 0.55f, x, y + hh * 0.62f,
+            AL_LEFT);
+        later_badge(x + w, y + hh * 0.62f, floorf(0.055f * S), w * 0.4f);
+    }
+    y += hh;
+    float tabh = floorf(0.085f * S), rh = floorf(0.1f * S), g = floorf(0.025f * S);
+    int nrows = 3;
+    float bh = pad + tabh + g + nrows * rh + pad * 0.6f;
+    BOARD = (box){x, y, w, bh};
+    if (draw && y < R.y + R.h && y + bh > R.y) {
+        rr(x, y, w, bh, rad, TH.card, 255);
+        float tx0 = x + pad, tw = w - 2 * pad, ty = y + pad, sw = floorf(tw / 3);   /* the tabs: the first one chosen */
+        rr(tx0, ty, tw, tabh, tabh / 2, TH.line, 255);
+        rr(tx0 + 3, ty + 3, sw - 6, tabh - 6, (tabh - 6) / 2, TH.bg, 255);
+        static const int TAB[3] = {U_FRIENDS, U_WORLD, U_WEEK};
+        for (int i = 0; i < 3; i++)
+            put(ui_str(TAB[i], b, sizeof b), floorf(0.033f * S), T_BOLD, TH.dim, sw * 0.86f, tx0 + (i + 0.5f) * sw,
+                ty + tabh / 2, AL_CENTRE);
+        static const float NAME_W[3] = {0.42f, 0.3f, 0.36f}, SCORE_W[3] = {0.14f, 0.12f, 0.1f};
+        float ry0 = ty + tabh + g;
+        for (int i = 0; i < nrows; i++) {        /* a row: the rank, a token, the name and the score left blank */
+            float ry = ry0 + i * rh, cy = ry + rh / 2, d = floorf(0.6f * rh), bar = floorf(0.2f * rh);
+            if (i) ui_fill(x + pad, ry, tw, 1, TH.line[0], TH.line[1], TH.line[2], 255);
+            if (i == nrows / 2) continue;       /* (the note's row: the note alone) */
+            rr(x + pad, cy - bar / 2, floorf(0.4f * d), bar, bar / 2, TH.line, 255);   /* the rank */
+            disc(x + pad + 1.2f * d, cy, d, TH.line, 255);
+            rr(x + pad + 2.0f * d, cy - bar / 2, floorf(NAME_W[i] * tw), bar, bar / 2, TH.line, 255);
+            float sw2 = floorf(SCORE_W[i] * tw);
+            rr(x + w - pad - sw2, cy - bar / 2, sw2, bar, bar / 2, TH.line, 255);
+        }
+        ui_str(U_SOON, b, sizeof b);            /* the note, over the rows */
+        float nh = floorf(0.085f * S), px = floorf(0.032f * S), d = floorf(0.042f * S);
+        float nw = fminf(tw, text_w(b, px, T_BOLD, TH.text) + d + 1.1f * nh);
+        float nx = floorf(x + (w - nw) / 2), ny = floorf(ry0 + (nrows * rh - nh) / 2);
+        rr(nx - 1, ny - 1, nw + 2, nh + 2, (nh + 2) / 2, TH.line, 255);
+        rr(nx, ny, nw, nh, nh / 2, TH.card, 255);
+        ico(ICON_GLOBE, nx + 0.45f * nh + d / 2, ny + nh / 2, d, TH.accent, 255);
+        put(b, px, T_BOLD, TH.text, nw - d - 1.1f * nh, nx + 0.45f * nh + d + 0.25f * nh, ny + nh / 2, AL_LEFT);
+    }
+    return y + bh;
+}
 
 static float stats_walk(int draw)
 {
@@ -986,6 +1090,7 @@ static float stats_walk(int draw)
         }
     }
     y += ph;
+    y = boards_walk(draw, x, y, w, hh, pad, rad);
     /* the achievements */
     if (draw) put(ui_str(U_ACHIEVEMENTS, b, sizeof b), floorf(0.046f * S), T_TITLE, TH.accent, w, x, y + hh * 0.62f,
                   AL_LEFT);
@@ -1138,6 +1243,11 @@ int pages_release(float x, float y)
         return 1;
     }
     if (page == PAGE_SETTINGS) settings_tap(x, y);
+    else if (page == PAGE_STATS && in(R, x, y) && (stats_walk(0), in(BOARD, x, y))) {   /* the leaderboards: not
+                                                                                        * there yet */
+        snd_play(SND_TAP);
+        pages_soon();
+    }
     return 1;
 }
 

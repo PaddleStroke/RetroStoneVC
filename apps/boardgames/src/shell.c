@@ -228,6 +228,7 @@ static struct {
     int npills, pill_n[MAX_PLAYERS + 1], pill_rows;
     box seats[MAX_PLAYERS];                     /* the picker of a game with a bot: who plays each seat */
     int nseats;
+    box online;                                 /* after them, the online chip (greyed: coming later; w 0: none) */
     float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
     box tabs[SECTIONS];                         /* the menu's tabs, one a section with games */
     int ntabs, tab_sec[SECTIONS];
@@ -2477,24 +2478,27 @@ static void layout_cards(int n)
         }
     }
     L.nseats = 0;
+    L.online = (box){0, 0, 0, 0};
     if (screen == SCR_PICK && has_bot(cur)) {   /* who plays each seat: a chip each (its token, then a person or the
                                                  * device's robot), under the counts: one row, or two on a narrow
                                                  * screen */
-        int ns = ui.players, per = ns;
-        float sh = fminf(ui.w, ui.h) * 0.12f, sw = sh * 1.95f, sg = sh * 0.3f;
-        float fit = (ui.w - 2 * m) / (ns * sw + (ns - 1) * sg);
+        int ns = ui.players, per = ns, on = ns > 1;   /* on: a round online chip ends the last row (online play: not
+                                                    * there yet, a tap says so; it never changes a seat) */
+        float sh = fminf(ui.w, ui.h) * 0.12f, sw = sh * 1.95f, sg = sh * 0.3f, ow = on ? sh : -sg;
+        float fit = (ui.w - 2 * m) / (ns * sw + ns * sg + ow);
         if (fit < 0.8f && ns > 2) {
             per = (ns + 1) / 2;
-            fit = (ui.w - 2 * m) / (per * sw + (per - 1) * sg);
+            fit = (ui.w - 2 * m) / fmaxf(per * sw + (per - 1) * sg, (ns - per) * (sw + sg) + ow);
         }
-        if (fit < 1) { sh *= fit; sw *= fit; sg *= fit; }
+        if (fit < 1) { sh *= fit; sw *= fit; sg *= fit; ow *= fit; }
         sh = floorf(sh);
         sw = floorf(sw);
         for (int k = 0; k < ns; k++) {
-            int r = k / per, inrow = r ? ns - per : per;
-            float x = (ui.w - (inrow * sw + (inrow - 1) * sg)) / 2;
+            int r = k / per, inrow = r ? ns - per : per, last = r == (ns - 1) / per;
+            float x = (ui.w - (inrow * sw + (inrow - 1) * sg + (last && on ? sg + sh : 0))) / 2;
             L.seats[k] = (box){floorf(x + (k - r * per) * (sw + sg)), floorf(head + r * (sh + sg)), sw, sh};
         }
+        L.online = on ? (box){L.seats[ns - 1].x + sw + floorf(sg), L.seats[ns - 1].y, sh, sh} : (box){0, 0, 0, 0};
         L.nseats = ns;
         int rows = (ns + per - 1) / per;
         head += rows * sh + (rows - 1) * sg + g;
@@ -2570,6 +2574,7 @@ static void layout_cards(int n)
         float start = below + fmaxf(0, (ui.h - below - m - (ph + g + tall)) / 2), dy = floorf(start) - t0;
         for (int k = 0; k < L.npills; k++) L.pills[k].y += dy;
         for (int k = 0; k < L.nseats; k++) L.seats[k].y += dy;
+        L.online.y += dy;
         y0 = start + ph + g;
     }
     for (int i = 0; i < n; i++) L.cards[i].y = floorf(L.cards[i].y + y0);
@@ -4444,6 +4449,25 @@ static void draw_seats(void)
             ui_put_c(rounded((int)pd, (int)pd, pd / 2, gold), fx + (i - (lv - 1) / 2.0f) * 0.19f * h, cy + 0.3f * h,
                      pd, pd);
     }
+    if (L.online.w > 0) {                       /* the online chip: a globe, faded (online play is coming later) */
+        box b = L.online;
+        static const uint8_t lt_rim[4] = {220, 208, 184, 255};   /* (the light seats' rim) */
+        SDL_Texture *c = rounded((int)b.w, (int)b.h, b.h / 2, TH.dark ? person_c : lt_rim);
+        if (c) {
+            SDL_SetTextureAlphaMod(c, TH.dark ? 110 : 150);
+            ui_put(c, b.x, b.y, b.w, b.h);
+            SDL_SetTextureAlphaMod(c, 255);
+        }
+        float id = floorf(0.56f * b.h);
+        SDL_Texture *t = btn_tex(paint_btn_icon, ICON_GLOBE, (int)id);
+        if (t) {
+            ink_mod(t);
+            SDL_SetTextureAlphaMod(t, 120);
+            ui_put_c(t, b.x + b.w / 2, b.y + b.h / 2, id, id);
+            SDL_SetTextureAlphaMod(t, 255);
+            SDL_SetTextureColorMod(t, 255, 255, 255);
+        }
+    }
 }
 
 /* the header of a game's picker or level screen, as a game's: back (to the games) at the left, the game's name in the
@@ -4873,6 +4897,7 @@ static void draw(void)
     if (help.open) draw_help();
     if (FV.open) draw_full();
     if (screen != SCR_MENU) pages_panel_draw();   /* the tip panel, opened off the menu (the stars card) */
+    pages_soon_draw(screen == SCR_MENU);        /* "online play is coming later", after a tap on it */
 }
 
 /* ---- input ------------------------------------------------------------------------------------------------------- */
@@ -5041,6 +5066,11 @@ static void press(float x, float y)
             remember_game(cur);
             bots_update();
             seats_view();
+            return;
+        }
+        if (L.online.w > 0 && in_box(L.online, x, y)) {   /* online play: only the note (no seat changes) */
+            snd_play(SND_TAP);
+            pages_soon();
             return;
         }
         for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {

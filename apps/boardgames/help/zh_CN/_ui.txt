@@ -69,3 +69,9 @@ The app's pages (a line a string, in this order; %d: a number, %s: a word; keep 
 马拉松
 完成 100 局游戏
 玩法说明
+排行榜
+好友
+世界
+在线对战稍后推出
+在线对战
+稍后推出
