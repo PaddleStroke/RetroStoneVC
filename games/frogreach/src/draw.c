@@ -345,17 +345,6 @@ static void icon(int p,int cx,int cy,int t,void *user) {
  (void)user;rs_viewport vp={0};vp.w=(int16_t)rs_screen_width();vp.h=240;
  spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);   /* the kit's UI coordinates -> stage */
 }
-/* ht_gameover_panel (house_tall.h) with the panel wide enough for the retry line too (ht_over_w leaves it out: "A:
- * EKRAN TYTUŁOWY" would run over the panel's sides); returns the retry line's row */
-static int over_panel(int new_best,const char *retry) {
- int w=ht_over_w(new_best,NULL),rw=hu_width(retry,0)+2,cols=ht_ncols(),r=ht_gameover_retry_row(NULL);
- if(rw>w) w=rw>cols?cols:rw;
- int x=ht_center_w(w),bottom=r+ht_text_rows(retry,1)+1;
- hu_panel(x,9,w,bottom-9+1);
- const char *lab[3]={hu_str(HS_SCORE),hu_str(new_best?HS_NEW_BEST:HS_BEST),hu_str(HS_MEDAL)};
- for(int i=0;i<3;i++) hu_box_text(ht_center(lab[i],0),ht_over_label_row(i),lab[i]);
- return r;
-}
 static void ranking(const world *w,hu_standing *rank) {
  int scores[4];for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
  hu_rank(rank,w->players,scores,scores);
@@ -420,7 +409,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     if(hud){hud_message(4,message);hu_text(hu_center(text,0),7,text);}   /* (pinned at the screen's top) */
     else {hu_text(hu_center(message,0),4,message);hu_text(hu_center(text,0),6,text);}
    }
-   if(paused) {
+   if(paused && (multi || !narrow)) {   /* (one zoomed view: ht_pause, below) */
     /* centred on the view's columns; 1x when the 2x word is wider than the view (or than the kit's columns of a
      * right-hand view on a wide screen) */
     const char *s=HTR(PAUSED);int cols=multi?vp->w/8:40,n=hu_width(s,1),big=n<=cols && fit_col(ux,cols,n)==ux+(cols-n)/2;
@@ -433,11 +422,10 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  if(!multi) {
   rs_viewport *vp=&VP[0];hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-  if(state==ST_TITLE && narrow) {   /* zoomed (house_tall.h): the hint wrapped from row 11, the slots, the prompt
-                                     * under them (above the frog, at the left), BEST, the join line, the credits */
+  if(state==ST_TITLE && narrow) {   /* zoomed (house_tall.h, its standard rows): the logo, the slots, the hint above
+                                     * the prompt, BEST, the join line, the credits */
    ht_logo("FROG REACH",title_ramps,2,2,0);
-   int r=ht_text(11,TR(HINT_TITLE),0),top=r+2<16?r+2:16;
-   ht_title tc={TR(VERB),MAX_PLAYERS,top,top+2};ht_title_out to;
+   ht_title tc={TR(VERB),MAX_PLAYERS,15,0,TR(HINT_TITLE)};ht_title_out to;
    ht_title_draw(&tc,st_t,best,&to);ht_title_sprites(&tc,&to,st_t,icon,NULL);
   } else if(state==ST_TITLE) {
    hu_logo("FROG REACH",title_ramps,2,2,0);hu_title_draw(st_t,best);
@@ -448,7 +436,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   if(state==ST_OVER && narrow) {   /* zoomed: the panels narrower, in the columns shown (house_tall.h) */
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
-    ht_banner(4,HTR(GAME_OVER));int r=over_panel(new_best,HTR(BACK_TITLE));
+    ht_banner(4,HTR(GAME_OVER));int r=ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));
     ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
     ht_retry_line_at(r,st_t,RETRY_LOCK,HTR(BACK_TITLE));
    } else {
@@ -468,6 +456,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
+  if(narrow) ht_pause(paused,13);   /* one zoomed view: PAUSED on the standard row (house_tall.h) */
   rs_bg_scroll(RS_BG1,-hu_ui_x()&(rs_bg_map_w(RS_BG1)*8-1),-slide);   /* the UI centred (widescreen) */
   rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);
   if(tall()){   /* the sky's decor: the far range slower than the hills, the clouds drifting; the birds */
