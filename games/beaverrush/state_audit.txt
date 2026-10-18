@@ -7,4 +7,4 @@ scene.trunk_x       a tall screen: the trunk above the stage, set by draw_frame 
 scene.trunk_sx      ... its BG2 scroll, the same
 scene.trunk_sy      ... the same
 scene.hud_lines     a tall screen: the HUD band at the screen's top, set by draw_frame before every picture (scene_hud)
-draw.tu_title_      tall_ui.h: where the title's A glyph goes, set by the title's text every frame before its sprites
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites

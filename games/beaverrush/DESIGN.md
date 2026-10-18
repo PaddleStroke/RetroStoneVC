@@ -202,10 +202,10 @@ same pixels; the stage sits low (`rs_screen_origin_v`: 160 lines above it, 40 of
   lines, `rs_bg_pin`) while one beaver plays; the raster shows BG1 there only.
 - **One view throughout**: the title, one beaver playing (and its bonk) and the game-over panel fill the display's
   height, the same columns shown: the logo on two lines, the title's lines wrapped, the players' slots closer, a
-  banner too wide on two lines (src/tall_ui.h). Only the split screens (2-4 players, a trunk each across the stage)
-  and their ranking over the views show every column (`rs_screen_fill(0)`: the whole 320 x 440 picture across the
-  width). In versus the views keep the stage's 240 lines, with the sky above them and the earth below (two more
-  viewports with no layer: the raster's colours).
+  banner too wide on two lines (games/common/src/house_tall.h). Only the split screens (2-4 players, a trunk each
+  across the stage) and their ranking over the views show every column (`rs_screen_fill(0)`: the whole 320 x 440
+  picture across the width). In versus the views keep the stage's 240 lines, with the sky above them and the earth
+  below (two more viewports with no layer: the raster's colours).
 - **Decor**: the raster draws the lines past the stage (scene.c `raster_out`): above, the sky carried on from its
   top colour, deeper toward the screen's top, more stars at night; below, the earth, darker with depth. BG3 and BG4
   are hidden there (window 1), line 0 puts the stage's windows back. The weather falls from the screen's top across

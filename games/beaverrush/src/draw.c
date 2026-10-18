@@ -15,7 +15,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
-#include "tall_ui.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <string.h>
 
@@ -24,6 +24,7 @@ static const rs_color title_ramps[2][3] = {
     {RS_RGB8(236, 184, 124), RS_RGB8(190, 124, 68), RS_RGB8(128, 76, 40)},
     {RS_RGB8(255, 238, 140), RS_RGB8(252, 204, 64), RS_RGB8(214, 142, 28)}};
 static const int medal_scores[4] = {MEDAL_T1, MEDAL_T2, MEDAL_T3, MEDAL_T4};
+static ht_title_out title_out;            /* where the narrow title put its glyph and slots (drawn every title frame) */
 
 /* the timer bar: BG1 tiles at BAR_TILE (caps, then 0..8 px filled, normal and low), palette 0 entries 11..14 */
 #define BAR_PAL_LIGHT 11
@@ -673,15 +674,21 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (redo) {
         hu_clear();
         banner_on = 0;
-        if (state == DS_TITLE) tu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);   /* (portrait: on two lines) */
+        if (state == DS_TITLE && ht_narrow()) ht_logo("BEAVER RUSH", title_ramps, 2, 2, 0);    /* BEAVER over RUSH */
+        else if (state == DS_TITLE) hu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);
         else hu_logo_hide();
         if (state == DS_OVER) {
             if (w->players == 1) {
-                tu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->bv[0].score, 0);
-                if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
+                if (ht_narrow()) {                     /* a phone held upright: the panel in the columns shown */
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, NULL, HTR(BACK_MENU));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->bv[0].score, 0);
+                    if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
+                }
             } else {
-                tu_results_panel(rs, NULL);            /* "P3 WINS!" (or DRAW!) and the ranking */
+                hu_results_panel(rs, NULL);            /* "P3 WINS!" (or DRAW!) and the ranking */
             }
         }
         shown_state = state;
@@ -690,10 +697,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         for (int p = 0; p < MAX_PLAYERS; p++) PV[p].bar_px = -1;
     }
     /* the title, every frame: PRESS <-/-> TO GNAW, the player slots, BEST, the join line, the credits */
-    if (state == DS_TITLE && tu_on()) tu_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, 0);
+    if (state == DS_TITLE && ht_narrow()) {
+        ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+        ht_title_draw(&tc, st_t, best, &title_out);
+    }
     else if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        if (w->players == 1 && ht_narrow()) ht_retry_line_at(ht_gameover_retry_row(NULL), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
     /* the timer bars, one per view */
@@ -786,14 +797,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         scene_bg_scroll(PANO_X);
     }
     /* a tall screen (DESIGN.md "Tall screen"): one view throughout, the display's height filled (the sides cropped):
-     * the title, play, the panels (laid out in the columns shown: tall_ui.h); only a split screen (2-4 beavers, each
+     * the title, play, the panels (laid out in the columns shown: house_tall.h); only a split screen (2-4 beavers, each
      * its trunk across the stage) and its ranking over the views show every column; the HUD (the score, the bar) at
      * the screen's top */
     rs_screen_fill(!multi || state == DS_TITLE);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    tu_pause(paused, 13);
+    ht_pause(paused, 13);
     int hud = tall() && !multi && (state == DS_PLAY || state == DS_END), hy = hud ? rs_screen_top() : 0;
     rs_bg_pin(RS_BG1, 0, hud ? HUD_LINES : 0, 0);
     scene_hud(hud ? HUD_LINES : 0);
@@ -802,16 +813,31 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int nv = multi ? split(w->players, v) : 0;
     rs_oam_clear();
     /* front to back: the UI, the effects, the beaver, the bird, the sky */
-    if (state == DS_TITLE && tu_on()) tu_title_sprites(st_t, MAX_PLAYERS, 0, slot_icon, NULL);
+    if (state == DS_TITLE && ht_narrow()) {
+        ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+        ht_title_sprites(&tc, &title_out, st_t, slot_icon, NULL);
+    }
     else if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the players popping in */
     if (!multi && state == DS_OVER) {
         /* the house panel's values; the medal is an acorn in the house tiers (bronze, silver, gold, pearl) */
         int m = hu_medal_of(w->bv[0].score, medal_scores);
+        if (ht_narrow()) {                         /* (the panel in the columns shown: each value under its label) */
+            int cx, y;
+            ht_gameover_pos(0, &cx, &y);
+            hu_number(w->bv[0].score, cx, y + slide, 3);
+            ht_gameover_pos(1, &cx, &y);
+            hu_number(best, cx, y + slide, 3);
+            ht_gameover_pos(2, &cx, &y);
+            if (m) spr(SPR_ACORN + m - 1, cx - 12 + hu_ui_x(), y + slide, 3, OPAL_KIT, 0);
+            if (m && (st_t / 20) % 3 == 0) hu_sparkle(cx + 14, y + slide, (st_t / 10) % 2, 3);
+            if (!m) hu_box_text((cx - 4) / 8, y / 8 + 1, "-");
+        } else {
         hu_number(w->bv[0].score, 25 * 8, 11 * 8 - 4 + slide, 3);
         hu_number(best, 25 * 8, 14 * 8 - 4 + slide, 3);
         if (m) {
             spr(SPR_ACORN + m - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, OPAL_KIT, 0);
             if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+        }
         }
     }
     for (int p = 0; p < w->players; p++) {
