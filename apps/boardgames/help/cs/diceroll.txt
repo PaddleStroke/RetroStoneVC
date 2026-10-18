@@ -1,0 +1,12 @@
+Kutálej kostkou
+# Cíl hry
+Kostka ze slonoviny stojí na cestě z kamenných dlaždic. Dokutálej ji na cílovou dlaždici tak, aby dorazila s číslem cíle nahoře.
+# Tah
+Kostka se překlopí přes jednu ze svých spodních hran na další dlaždici, nahoru, dolů, doleva nebo doprava, a nahoru se dostane jiná stěna. Nikdy se nepřekulí mimo dlaždice. Protilehlé stěny dávají dohromady sedm.
+- Modrá dlaždice s tečkami kostku přijme, jen když přitom nahoře skončí právě to číslo.
+- Zelená dlaždice s jedním kroužkem přijme jen liché číslo nahoře; se dvěma kroužky jen sudé.
+- Dlaždice se šipkou se přejíždí jen jedním směrem: kostka na ni najede a sjede z ní jen ve směru šipky.
+# Konec hry
+Kostka na cíli s číslem cíle nahoře: vyřešeno.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem překlopení: 3 hvězdy; nejvýše o polovinu více překlopení: 2 hvězdy; jinak 1.

@@ -1,0 +1,12 @@
+Gulingkan Dadu
+# Tujuan
+Sebuah dadu gading berdiri di jalan setapak dari ubin batu. Gulingkan dadu itu ke ubin sasaran sehingga dadu tiba dengan angka sasaran di sisi atas.
+# Satu langkah
+Dadu terguling melewati salah satu rusuk bawahnya ke ubin berikutnya, ke atas, ke bawah, ke kiri, atau ke kanan, dan sisi lain muncul di atas. Dadu tidak pernah terguling keluar dari ubin. Jumlah dua sisi yang berhadapan selalu tujuh.
+- Ubin biru bertitik hanya menerima dadu jika angka itulah yang muncul di atas.
+- Ubin hijau dengan satu cincin hanya menerima angka ganjil di atas; dengan dua cincin, hanya angka genap.
+- Ubin panah hanya dapat dilewati satu arah: dadu masuk ke ubin itu dan keluar darinya hanya searah panah.
+# Akhir permainan
+Dadu di ubin sasaran dengan angka sasaran di atas: terpecahkan.
+# Level dan bintang
+Selesai dengan guliran sesedikit mungkin: 3 bintang; dengan guliran paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

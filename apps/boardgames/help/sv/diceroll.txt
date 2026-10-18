@@ -1,0 +1,12 @@
+Rulla tärningen
+# Målet
+En tärning av elfenben står på en stig av stenplattor. Rulla den till målplattan så att den kommer fram med målets tal överst.
+# Ett drag
+Tärningen tippar över en av sina nedre kanter till nästa platta, uppåt, nedåt, åt vänster eller åt höger, och en annan sida kommer upp. Den rullar aldrig av plattorna. Motstående sidor blir tillsammans sju.
+- En blå platta med prickar tar bara emot tärningen om just det talet kommer upp överst.
+- En grön platta med en ring tar bara emot ett udda tal överst; med två ringar bara ett jämnt.
+- En pilplatta korsas bara åt ett håll: tärningen rullar upp på den och av den bara i pilens riktning.
+# Partiets slut
+Tärningen på målet med målets tal överst: löst.
+# Banor och stjärnor
+Löst med så få rullningar som möjligt: 3 stjärnor; med upp till hälften fler rullningar: 2 stjärnor; annars 1.

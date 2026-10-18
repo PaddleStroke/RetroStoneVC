@@ -1,0 +1,12 @@
+Rul terningen
+# Målet
+En terning af elfenben står på en sti af stenfliser. Rul den hen til målflisen, så den når frem med målets tal øverst.
+# Et træk
+Terningen vælter over en af sine nederste kanter over på den næste flise, op, ned, til venstre eller til højre, og en anden side kommer op. Den ruller aldrig af fliserne. Modstående sider giver tilsammen syv.
+- En blå flise med øjne tager kun imod terningen, hvis netop det tal kommer op øverst.
+- En grøn flise med én ring tager kun imod et ulige tal øverst; med to ringe kun et lige.
+- En pilflise krydses kun én vej: terningen ruller kun op på den og ned fra den i pilens retning.
+# Spillets afslutning
+Terningen på målet med målets tal øverst: løst.
+# Baner og stjerner
+Løst med færrest mulige rul: 3 stjerner; med op til halvanden gang så mange rul: 2 stjerner; ellers 1.

@@ -1,0 +1,12 @@
+Przetocz kostkę
+# Cel gry
+Kostka z kości słoniowej stoi na ścieżce z kamiennych płytek. Przetocz ją na płytkę mety tak, by dotarła tam z liczbą mety na górze.
+# Ruch
+Kostka przewraca się przez jedną ze swoich dolnych krawędzi na następną płytkę, w górę, w dół, w lewo lub w prawo, i na górę wychodzi inna ścianka. Nigdy nie stacza się z płytek. Przeciwległe ścianki dają razem siedem.
+- Niebieska płytka z oczkami przyjmuje kostkę tylko wtedy, gdy na górę wychodzi właśnie ta liczba.
+- Zielona płytka z jednym pierścieniem przyjmuje tylko nieparzystą liczbę na górze; z dwoma pierścieniami tylko parzystą.
+- Płytkę ze strzałką pokonuje się tylko w jedną stronę: kostka wtacza się na nią i stacza się z niej tylko zgodnie ze strzałką.
+# Koniec gry
+Kostka na mecie z liczbą mety na górze: rozwiązane.
+# Poziomy i gwiazdki
+Rozwiązane najmniejszą możliwą liczbą przewrotów: 3 gwiazdki; najwyżej o połowę więcej przewrotów: 2 gwiazdki; inaczej 1.

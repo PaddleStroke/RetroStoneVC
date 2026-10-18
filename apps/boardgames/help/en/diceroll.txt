@@ -1,0 +1,12 @@
+Dice Roll
+# The aim
+An ivory die stands on a path of stone tiles. Roll it to the goal tile so that it arrives with the goal's number on top.
+# A move
+The die rolls over one of its bottom edges onto the next tile, up, down, left or right, and another face comes up. It never rolls off the tiles. Opposite faces add up to seven.
+- A blue tile with pips takes the die only with that number coming up on top.
+- A green tile with one ring takes only an odd number on top; with two rings, only an even one.
+- An arrow tile is crossed one way: the die rolls onto it and off it along the arrow only.
+# The end of the game
+The die on the goal with the goal's number on top: solved.
+# Levels and stars
+Solved in the fewest rolls possible: 3 stars; with up to half as many rolls again: 2 stars; otherwise 1.

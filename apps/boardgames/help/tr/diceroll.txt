@@ -1,0 +1,12 @@
+Zarı Yuvarla
+# Amaç
+Fildişi bir zar, taş karolardan bir yolun üstünde duruyor. Onu hedef karoya, hedefin sayısı üstte gelecek şekilde yuvarla.
+# Bir hamle
+Zar alt kenarlarından birinin üstünden sonraki karoya, yukarı, aşağı, sola ya da sağa devrilir ve üste başka bir yüz gelir. Karoların dışına asla yuvarlanmaz. Karşılıklı yüzlerin toplamı yedidir.
+- Noktalı mavi bir karo zarı yalnızca üste tam o sayı gelirse kabul eder.
+- Tek halkalı yeşil bir karo yalnızca üstte tek sayı kabul eder; iki halkalı olan yalnızca çift sayı.
+- Oklu bir karo yalnızca tek yönde geçilir: zar ona yalnızca ok yönünde girer ve ondan yalnızca ok yönünde çıkar.
+# Oyunun sonu
+Zar hedefte, hedefin sayısı üstte: bulmaca çözüldü.
+# Seviyeler ve yıldızlar
+Mümkün olan en az yuvarlamayla çözülürse 3 yıldız; en fazla yarısı kadar fazla yuvarlamayla 2 yıldız; yoksa 1.

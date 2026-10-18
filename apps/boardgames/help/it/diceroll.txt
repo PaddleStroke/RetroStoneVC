@@ -1,0 +1,12 @@
+Rotola il dado
+# Lo scopo
+Un dado d'avorio sta su un sentiero di piastrelle di pietra. Fallo rotolare fino alla piastrella d'arrivo, in modo che ci arrivi con il numero dell'arrivo in cima.
+# Una mossa
+Il dado si ribalta su uno degli spigoli della sua base verso la piastrella seguente, in su, in giù, a sinistra o a destra, e in cima compare un'altra faccia. Non esce mai dalle piastrelle. Le facce opposte sommano sette.
+- Una piastrella blu con dei punti accetta il dado solo se in cima compare quel numero.
+- Una piastrella verde con un anello accetta solo un numero dispari in cima; con due anelli, solo uno pari.
+- Una piastrella con freccia si attraversa in un solo senso: il dado ci sale e ne scende solo seguendo la freccia.
+# La fine della partita
+Il dado sull'arrivo, con il numero dell'arrivo in cima: risolto.
+# Livelli e stelle
+Risolto con il minimo di ribaltamenti possibile: 3 stelle; con fino a metà ribaltamenti in più: 2 stelle; altrimenti 1.

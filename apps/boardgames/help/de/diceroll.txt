@@ -1,0 +1,12 @@
+Würfelrollen
+# Das Ziel
+Ein Elfenbeinwürfel steht auf einem Weg aus Steinplatten. Rolle ihn zur Zielplatte, sodass er mit der Zahl des Ziels oben ankommt.
+# Ein Zug
+Der Würfel kippt über eine seiner unteren Kanten auf die nächste Platte, nach oben, unten, links oder rechts, und eine andere Seite kommt nach oben. Er rollt nie von den Platten. Gegenüberliegende Seiten ergeben zusammen sieben.
+- Eine blaue Platte mit Augen nimmt den Würfel nur an, wenn dabei genau diese Zahl nach oben kommt.
+- Eine grüne Platte mit einem Ring nimmt nur eine ungerade Zahl oben an; mit zwei Ringen nur eine gerade.
+- Eine Pfeilplatte wird nur in einer Richtung überquert: Der Würfel rollt nur in Pfeilrichtung auf sie und von ihr herunter.
+# Das Ende der Partie
+Der Würfel auf dem Ziel, mit der Zahl des Ziels oben: gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Kippbewegungen: 3 Sterne; mit bis zu halb so vielen Kippbewegungen mehr: 2 Sterne; sonst 1.

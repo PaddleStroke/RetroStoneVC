@@ -1,0 +1,12 @@
+Rueda el dado
+# El objetivo
+Un dado de marfil está sobre un camino de baldosas de piedra. Hazlo rodar hasta la baldosa de meta para que llegue con el número de la meta en la cara de arriba.
+# Una jugada
+El dado vuelca sobre una de sus aristas de abajo hacia la baldosa siguiente, arriba, abajo, a la izquierda o a la derecha, y otra cara queda arriba. Nunca sale de las baldosas. Las caras opuestas suman siete.
+- Una baldosa azul con puntos solo admite el dado si ese número queda arriba.
+- Una baldosa verde con un anillo solo admite un número impar arriba; con dos anillos, solo uno par.
+- Una baldosa con flecha se cruza en un solo sentido: el dado entra en ella y sale de ella solo siguiendo la flecha.
+# El final de la partida
+El dado en la meta, con el número de la meta arriba: resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de vuelcos posible: 3 estrellas; con hasta la mitad más de vuelcos: 2 estrellas; si no, 1.

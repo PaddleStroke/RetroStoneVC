@@ -1,0 +1,12 @@
+Roule le dé
+# Le but
+Un dé d'ivoire se tient sur un chemin de dalles de pierre. Fais-le rouler jusqu'à la dalle d'arrivée, pour qu'il y arrive avec le nombre de l'arrivée sur le dessus.
+# Un coup
+Le dé bascule sur une de ses arêtes du bas vers la dalle suivante, vers le haut, le bas, la gauche ou la droite, et une autre face passe dessus. Il ne quitte jamais les dalles. Deux faces opposées font toujours sept.
+- Une dalle bleue à points n'accepte le dé que si ce nombre arrive sur le dessus.
+- Une dalle verte à un anneau n'accepte qu'un nombre impair sur le dessus ; à deux anneaux, qu'un nombre pair.
+- Une dalle à flèche se traverse dans un seul sens : le dé n'y monte et n'en descend qu'en suivant la flèche.
+# La fin de la partie
+Le dé sur l'arrivée, avec le nombre de l'arrivée sur le dessus : résolu.
+# Niveaux et étoiles
+Résolu avec le moins de basculements possible : 3 étoiles ; jusqu'à moitié plus de basculements : 2 étoiles ; sinon 1.

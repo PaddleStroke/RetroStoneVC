@@ -1,0 +1,12 @@
+Kierrä noppaa
+# Tavoite
+Norsunluinen noppa seisoo kivilaattojen polulla. Kierrä se maalilaatalle niin, että se saapuu perille maalin luku päällimmäisenä.
+# Siirto
+Noppa kaatuu jonkin alasärmänsä yli seuraavalle laatalle ylös, alas, vasemmalle tai oikealle, ja päällimmäiseksi tulee toinen tahko. Se ei koskaan vieri laatoilta pois. Vastakkaisten tahkojen summa on seitsemän.
+- Sininen laatta, jossa on pisteitä, hyväksyy nopan vain, jos päällimmäiseksi tulee juuri se luku.
+- Vihreä laatta, jossa on yksi rengas, hyväksyy vain parittoman luvun päällimmäiseksi; kahden renkaan laatta vain parillisen.
+- Nuolilaatan yli kuljetaan vain yhteen suuntaan: noppa vierii sille ja siltä pois vain nuolen suuntaan.
+# Pelin loppu
+Noppa maalissa maalin luku päällimmäisenä: ratkaistu.
+# Tasot ja tähdet
+Ratkaistu vähimmällä mahdollisella kieritysmäärällä: 3 tähteä; enintään puolitoista kertaa niin monella kierityksellä: 2 tähteä; muuten 1.

@@ -1,0 +1,12 @@
+Rola o dado
+# O objetivo
+Um dado de marfim está sobre um caminho de ladrilhos de pedra. Rola-o até ao ladrilho de chegada, para que lá chegue com o número da chegada na face de cima.
+# Uma jogada
+O dado tomba sobre uma das suas arestas de baixo para o ladrilho seguinte, para cima, para baixo, para a esquerda ou para a direita, e fica outra face em cima. Nunca sai dos ladrilhos. As faces opostas somam sete.
+- Um ladrilho azul com pintas só aceita o dado se esse número ficar em cima.
+- Um ladrilho verde com um anel só aceita um número ímpar em cima; com dois anéis, só um par.
+- Um ladrilho com seta só se atravessa num sentido: o dado entra nele e sai dele apenas seguindo a seta.
+# O fim do jogo
+O dado na chegada, com o número da chegada em cima: resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de viragens possível: 3 estrelas; com até metade a mais de viragens: 2 estrelas; senão, 1.

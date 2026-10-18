@@ -1,0 +1,12 @@
+Rol de dobbelsteen
+# Het doel
+Een ivoren dobbelsteen staat op een pad van stenen tegels. Rol hem naar de doeltegel, zodat hij daar aankomt met het getal van het doel bovenop.
+# Een zet
+De dobbelsteen kantelt over een van zijn onderste ribben naar de volgende tegel, omhoog, omlaag, naar links of naar rechts, en er komt een ander vlak boven. Hij rolt nooit van de tegels af. Tegenover elkaar liggende vlakken zijn samen zeven.
+- Een blauwe tegel met ogen laat de dobbelsteen alleen toe als juist dat getal dan boven komt.
+- Een groene tegel met één ring laat alleen een oneven getal bovenop toe; met twee ringen alleen een even.
+- Een pijltegel wordt maar in één richting overgestoken: de dobbelsteen rolt er alleen in de richting van de pijl op en af.
+# Het einde van het spel
+De dobbelsteen op het doel, met het getal van het doel bovenop: opgelost.
+# Levels en sterren
+Opgelost met zo weinig mogelijk kantelingen: 3 sterren; met tot de helft meer kantelingen: 2 sterren; anders 1.

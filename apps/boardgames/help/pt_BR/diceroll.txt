@@ -1,0 +1,12 @@
+Role o dado
+# O objetivo
+Um dado de marfim está sobre um caminho de lajotas de pedra. Role-o até a lajota de chegada, para que ele chegue com o número da chegada na face de cima.
+# Uma jogada
+O dado tomba sobre uma das suas arestas de baixo para a lajota seguinte, para cima, para baixo, para a esquerda ou para a direita, e outra face fica em cima. Ele nunca sai das lajotas. As faces opostas somam sete.
+- Uma lajota azul com pontos só aceita o dado se esse número ficar em cima.
+- Uma lajota verde com um anel só aceita um número ímpar em cima; com dois anéis, só um par.
+- Uma lajota com seta só se atravessa num sentido: o dado entra nela e sai dela apenas seguindo a seta.
+# O fim da partida
+O dado na chegada, com o número da chegada em cima: resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de rolagens possível: 3 estrelas; com até metade a mais de rolagens: 2 estrelas; senão, 1.
