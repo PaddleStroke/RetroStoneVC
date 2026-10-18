@@ -107,7 +107,8 @@ static void paint_scene(uint8_t *o, int w, int h, int f, int n, float d)
     for (int y = (int)(foot + 0.62f * d); y < (int)(foot + 0.82f * d) && y < h - f; y++)   /* its shadow */
         for (int x = (int)(f + 0.2f * d); x < (int)(w - f - 0.05f * d); x++) {
             uint8_t *p = o + 4 * (y * w + x);
-            float k = 0.72f + 0.28f * (y - foot - 0.62f * d) / (0.2f * d);
+            float e = fminf(x - f - 0.2f * d, w - f - 0.05f * d - x) / (0.5f * d);   /* its ends fade */
+            float k = 1 - 0.28f * (1 - (y - foot - 0.62f * d) / (0.2f * d)) * clampf(e, 0, 1);
             for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
         }
     for (int i = 0; i < 3; i++) {
@@ -118,8 +119,9 @@ static void paint_scene(uint8_t *o, int w, int h, int f, int n, float d)
                 uint8_t *p = o + 4 * (y * w + x);
                 float in = dy >= 0 ? clampf(1 - fabsf(dx) * pw / 2 + pw / 2 - 0.5f, 0, 1)
                                    : clampf((pw / 2 - hypotf(dx * pw / 2, dy)) + 0.5f, 0, 1);
-                if (dx > 1 && dy > -pw / 4) {   /* the shadow on the plank, to the right */
-                    float k = 1 - 0.22f * clampf(1 - (dx - 1) / 1.2f, 0, 1);
+                if (dx > 1 && dy > -pw / 4) {   /* the shadow on the plank, to the right, soft at its top */
+                    float k = 1 - 0.22f * clampf(1 - (dx - 1) / 1.2f, 0, 1)
+                                      * clampf((dy + pw / 4) / (1.5f * pw), 0, 1);
                     for (int c = 0; c < 3; c++) p[c] = (uint8_t)(p[c] * k);
                     continue;
                 }
@@ -290,6 +292,9 @@ static void disc_at(int s, float x, float y, float alpha)
     SDL_Texture *t = t_disc[s];
     if (!t) return;
     float w = disc_w(G.n, s, pitch), h = 0.96f * dh;
+    float up = clampf((slot_y(0) - y) / (4 * dh), 0, 1);   /* its soft shadow, further off the higher it is */
+    ui_shadow_flat(x + (0.06f + 0.3f * up) * dh, y + (0.47f + 0.15f * up) * dh, 1.02f * w, (0.34f + 0.2f * up) * dh,
+                   alpha * (0.34f - 0.14f * up));
     SDL_SetTextureAlphaMod(t, (Uint8)(255 * alpha));
     ui_put_c(t, x, y, w, h);
     SDL_SetTextureAlphaMod(t, 255);
