@@ -19,7 +19,7 @@
  *   (clear N tiles, or N tiles of one colour) and a fixed tray sequence (dealt three at a time in its order, from its
  *   start again past its end). The goal reached: solved; the board full first: failed. The par: the stacks the
  *   rules' own player (hx_best: the hint) places to reach the goal; the levels' tool keeps a level only when that
- *   player and most players playing a little worse win it with room to spare.
+ *   player wins it with room to spare and players choosing by chance mostly lose it.
  * - Endless (the random tab): a board of the variant's size, the stacks by chance (the game's own seeded numbers,
  *   puzrand.h, kept with each position: undo brings back the same tray), more colours as the tiles cleared grow. The
  *   score: the tiles cleared; it ends when the board is full. The best score is kept by the UI.

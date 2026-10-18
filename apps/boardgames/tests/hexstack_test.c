@@ -149,7 +149,7 @@ int main(void)
         CHECK(won && k == L->par && room >= 2);
         if (!won || k != L->par) printf("hexstack: level %d, won %d in %d, par %d\n", lv + 1, won, k, L->par);
         int ch = lv / per;
-        if (ch == 0) CHECK(L->colours == 3 && L->goal == HX_TILES);
+        if (ch == 0) CHECK(L->colours <= 5 && L->goal == HX_TILES);
         if (ch >= 2) {
             int stones = 0, locks = 0;
             hx_level(&t, lv);

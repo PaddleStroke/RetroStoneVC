@@ -4,452 +4,452 @@
 const hx_level_def hx_levels[HX_LEVELS] = {
     {HX_TILES, 0, 3, 1, 10, /* 1: 1.00 */
      "..ooo..|.oSSo..|.oSoSo.|.oSSo..|..ooo..", "BBBBBB",
-     "BEJKbCgKbEIfCEcKbICGbKaAgAgGbAkCkGaIgKaBeKeFiKKBGAGcEKbKKJCGkCKgICfGbKEkBkCBIgAKeKBJKIGjCkJg"},
-    {HX_TILES, 1, 3, 2, 10, /* 2: 1.00 */
-     "..ooo..|.oooo..|..SoS..|.SooS..", "EbEbJfJf",
-     "CCgFCGIJFFjCfGBBJBFJfJAGAJgBjKGFIGkBkKgEcGkJAgFBjKcBfEBJKeIbKeKGCgJcFcEBjEEjBfKfGcFiFFKg"},
-    {HX_TILES, 1, 3, 4, 10, /* 3: 1.00 */
-     "..SoS..|.oSSo..|..SoS..", "FkFkGGBfBf",
-     "GbKKcAkAgEFkFkFbJbKgFbJeCJbFcCFbJaKCjKaAkIcBICfGKCKCFiFbCkJKgAiAkABJaJgCGCGIEJbGKJgKJcGcAJKcGc"},
-    {HX_TILES, 1, 3, 5, 10, /* 4: 1.00 */
-     "..oSo..|.oooo..|..SSS..", "FiKEK",
-     "GCCAiJIgEkBAFjFEcEJAFKcAgIfGkIgAIfJKAkFaBkCfCeFKgAkCBgFKGGFFCgGjJfJIfEFCkFbKfGkGCkIfFFjBBeI"},
-    {HX_TILES, 1, 3, 2, 10, /* 5: 1.00 */
-     "..ooo..|.SooS..|..ooo..|.oSSo..|..ooo..|.SooS..|..ooo..", "GkGkKfKfKfKf",
-     "JfGGkBBIgCKeCgFGaEIeCGiGEKIKBgBCjCfFFkGbKGcKEbBkCfFFcGFiJeCFbCjFcJgGJBFEFjCkECCGbKGKKBB"},
-    {HX_TILES, 0, 3, 4, 20, /* 6: 1.00 */
-     "..SoS..|.oooo..|..ooo..|.oooo..", "BgBg",
-     "EbEcGAAJfKaJCiGcBGjIeBCJGcFCjIeEBjEjGaEBJgKgFIGEIaKBAJeEAGbIgKKaGkBkCiFaBkAgCkCgJKeFFkBgKKCBf"},
-    {HX_TILES, 1, 3, 6, 20, /* 7: 1.00 */
-     "..SoS..|.SooS..|..ooo..", "GjGjEE",
-     "AiEaECkFjFGIcKaFbKcCkKaEbGAGcFaGCGIGjBjFCkBIgJKeGCfBkKFcKbKgBgEAfCkBgEiJFJJFJcKbGEEKcIfKECJJf"},
-    {HX_TILES, 2, 3, 4, 20, /* 8: 1.00 */
-     "..ooo..|.oooo..|.oSSSo.|.oooo..|..SoS..", "AEkAJfJf",
-     "CjBgFkJGiFjKGjKKBeABfAeBBFcCkAkEIJEkEkCCAGjGbCgKAGbIJaIfCiGIfBkAgBfJJaKcGjGFbGBkAfEjCkFbGGkICjJAk"},
-    {HX_TILES, 2, 3, 7, 10, /* 9: 1.00 */
-     "..ooo..|.oooo..|..SoS..|.oooo..", "CkCk",
-     "CiCAJfFFCBkIfCGjGkFCCBjJIgIcGiIgJgBkGFaJeGcAkAEaBGiIACGCiGbCGIGAkKfFjCGcBKGaFbBkJcBEjJFaKCEi"},
-    {HX_TILES, 0, 3, 6, 10, /* 10: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|..ooo..", "",
-     "GBgEkBJcCgEkFcGkKbKgEJJJcKeCBgGBGkAKbGcBkAkIBKFEaEkCGCkJfEcKGiEGAJFEGCkJcGbGjBkBiFGkCeKcKgBiGFi"},
-    {HX_TILES, 1, 3, 7, 10, /* 11: 1.00 */
-     "..SSS..|.oooo..|.ooooo.|.SooS..|..ooo..", "EGEBB",
-     "BjFKFbIaIGkGKfEiIeIcKcCiGbCfFcAkCBIfCiKFcBkJcABeCiJgIcGKcGIgJFKEFkCFkBkIbBjEAEFFjGJJgKcFiBfBAEAk"},
-    {HX_TILES, 0, 3, 6, 20, /* 12: 1.00 */
-     "..ooo..|.SooS..|.ooooo.|.SooS..|..ooo..", "JeJeFF",
-     "CAGjIgJFkJaKbAfBJJgGbKFjIcKBgJbEKcKfCgCAEFbEbJaFAeAkGJfKBkCGcKFKfEAeBkJcJEiIgCiJbAfKcAEjGaGjEIJgJ"},
-    {HX_TILES, 1, 3, 9, 20, /* 13: 1.00 */
-     "..ooo..|.oooo..|..oSo..", "Ia",
-     "EFkAkFbKbFjECjKcCfJgBkKGkFaBgCkJCgEjJKgKCGiIKgFcCCiKaCjCfAjFbJKIFbCFcCkICKcGiEiEjIbEbCfCfCIaKgBGkKbCkG"},
-    {HX_TILES, 2, 3, 7, 10, /* 14: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oooo..|..ooo..|.oooo..|..ooo..", "",
-     "KgFaICgCkIJcJeJGbKgBBJcKCkAeEJfGCkIKKfEIgGbGkBkCkCJfFbGFbFJcAeJGKfGbKAiAgJKCjFaFkAeFiAiGcJfFkGIAAg"},
-    {HX_TILES, 1, 3, 8, 20, /* 15: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|..ooo..", "",
-     "JCiFGcJgBJaJgKBjEkKaACCkJaAeJJGcGiCjCgJeKCkEkGbIgGcFCIbKeCCJKeKfCKaGJaBfIGaFiEbBeKCJJbKBKgAkIfIGj"},
-    {HX_TILES, 2, 3, 7, 40, /* 16: 1.00 */
-     "..SoS..|.oooo..|..ooo..|.SSSS..", "BfBfJeKfKfJe",
-     "GICgCgAjFbKJGkEkIgKfKAGjEkGbAkAJaKFbFkJaJbJcAFcFkGGcBKcBeBJbECjKAiJKIFIbAJgCCgCCgIKgBKKcFiFiGiFc"},
-    {HX_TILES, 2, 3, 11, 20, /* 17: 1.00 */
+     "BEJKbCgKbEIfCEcKbICGbKaAgAgGbAkCkGaIgKaBeKeFiKKBGAGcEKbKKJCGkCKgICfGbKEkBkCBIgAKeKBJKIGjCkJgIbJKcEkBkGiFcAKgAfAkBIKFaJeCJgKeE"},
+    {HX_TILES, 3, 4, 19, 50, /* 2: 1.00 */
+     "..ooo..|.oooo..|..ooo..|.oSSo..", "KojKoj",
+     "BogCFGaCFAjNJbCCJecMfFoIeNGaNkFjIOcKgkGaNeJEKeKEkIJGObCkFKCokOFbeFboBojBoFnMfFNkCjJFKoGGIbBeFoaCAkCokBIgiFnKmNgNNGcJgaJofJBfFOkBFoFoOeAJKC"},
+    {HX_TILES, 1, 4, 17, 60, /* 3: 1.00 */
+     "..SoS..|.oooo..|.So.oS.|.oooo..|..SoS..", "FFAoAoKbKb",
+     "EkcFFACMGJfICCngNjIfAfMjaNbNKocCIAnJFncFKoIBNkOkgCJfCOfoNKJbOjeGoGEIfMFbNfImIcEKokCCEcOcCifJOCgcBGcFoMBEkCkKaJmOjJKeGIcGEJFBCejFjBfGcnO"},
+    {HX_TILES, 0, 5, 13, 50, /* 4: 0.94 */
+     "..SoS..|.oSSo..|..ooo..|.SooS..", "ScnScnFcFcRgqRgq",
+     "BsoKnJsCrMasOgmGsFrSiSoCArEOQcRcJQbkJIqIrECMGNKIfKsGSMBMfAgKrSbSJCBiaFsCCfAfQcGiSKfBfoNNrKCKSjFIsQjMIcJmFrGqJGmFGCgsIAqSIBjGnGrNOAfOj"},
+    {HX_TILES, 2, 4, 23, 70, /* 5: 0.88 */
+     "..ooo..|.oSSo..|..oSo..", "BjBjC",
+     "KAJOcKoGCoBBJJIoNafBBAGEcCokMCFGoCkGmkMiEmkJIFKJCCBmOgkCfBfICjNcOOkIaCFnjCoGjOkFNafMNOKfOBKmFbEGAfMjAIbEKEcBIJfGNkBGCocJnjMIgkM"},
+    {HX_TILES, 1, 5, 19, 50, /* 6: 0.88 */
+     "...o...|..oo...|..ooo..|.oooo..|..SoS..|..oo...|...o...", "BfBf",
+     "OReCAQkGkKRakNqJrQGaCsBnCeCIEsEEbRoaFJBOIROrNjKEjoBgQaSbOaBqBsFEMSkbGMsSogRfjQgARoJscOesSGoOiOABrMGQBNBjKObFBQkIrgARgjJOjNNEFmQkoKgOaN"},
+    {HX_TILES, 4, 5, 17, 60, /* 7: 0.69 */
+     "..ooo..|.oSSo..|..SSS..|.oooo..", "KsKsBSB",
+     "FFJCqGSMjgJoCfCkCBEjNbMbAQoKArbQnsFkoCRCNBsKRKgnGmeNSbjCGEneJgESiAeAmBnIeKbSReRMNqQkAKgGBeiEceNfMOkMiSRbOGEKJQcKrFKeEaFqkMcOOkSCgKFqeEkbF"},
+    {HX_TILES, 0, 5, 13, 50, /* 8: 0.75 */
+     "..ooo..|.oSSo..|.oo.oo.|.oSSo..|..ooo..", "AjsAjsEcEc",
+     "GbFkIgNRoSgOgnKmGSGIbRJejJrKMAOKrImNEGbeBsRSJRnqOEInBArEsScrCAsJecNOfkCqRkrQIsmFcEsRGbGbiNfSnCgAoBCsEJfMMSkbNaKmJgScNIOcOgaNecAmIsEEsEsBKcqABIg"},
+    {HX_TILES, 0, 4, 26, 80, /* 9: 0.75 */
+     "..oSo..|.oSSo..|..ooo..", "EkmBmaBma",
+     "NKJoCkIEiGmFkEcMFOgjOfEGaNANMFkGkMknGbjIgGAEcIJEncFFAmBgcAnEkBOcoKNjNEjnFcAJGiFEJcnKJGnKmGanGBOenFJeAGOjJOGnGaoKnJfOAncBfJGkEaBmEkKCoMC"},
+    {HX_TILES, 0, 5, 17, 60, /* 10: 0.62 */
+     "..oSo..|.oooo..|.oo.oo.|.oooo..|..SoS..", "GmjRR",
+     "GcNSKBgOjFnrIosBebKSSOJqkOeGCKcOfOCeOkOKQFnRGjInSibOcQAFFngSaGIMGRbOgJoCEqJSiAgEoAKSfRjGqmQkcRRiGOgcObJEjSjeAjNcmQiFINKcOGOkNrgMKqRgoQBB"},
+    {HX_TILES, 1, 4, 20, 80, /* 11: 0.62 */
+     "..oSo..|.oSSo..|..SoS..", "GmOcoOcoMM",
+     "EcKBMGOjbJfEbGFoMbnCoJoNfNGcCiGoiJcEbeNjOfJKnKMiNOgcAoJbEoJeKCIGoIKGkMfNgBjFAjCfBfbKaIoBBjcOfbBmJGCOgEIAjGnNbgEBenOcIKokOIcoGoFECjOBiIMGICKf"},
+    {HX_TILES, 1, 5, 19, 60, /* 12: 0.75 */
+     "..ooo..|.oooo..|..ooo..|.oooo..", "",
+     "FnCJrOFSkGEoCorJGsNbsOsJOSkSfqFmBGGqQKMfsJQCiQJbCfSjKnKmSQQRfNqKKNQoKnNJBCOFrMOaBfGAqeBrnMcMaSiBgRinSCoMBkErIGcRGqbIrkRbgESojJfkAKoGJcEC"},
+    {HX_TILES, 1, 4, 28, 70, /* 13: 0.81 */
      "..ooo..|.oooo..|..ooo..", "",
-     "GaFABgBAIFkFiKCfKJeBkKbIIKJIfIbAGjGaCKgABJFbFcGkIeIgJcECKIcKJFjBiCBjGbGbACkAjKeKBGcGAkFBjKbG"},
-    {HX_TILES, 1, 3, 10, 30, /* 18: 1.00 */
-     "..ooo..|.oooo..|..ooo..", "",
-     "IAiAkEJcKgJeGbGjCIfGAFaIABiKBeJeBjCkBGiFaBjAiCfFJbJbAFBGEJBCCKcKGcIKAgFiGcKaEbKCkCgGbBEiKCJC"},
-    {HX_TILES, 1, 3, 7, 40, /* 19: 1.00 */
-     "..ooo..|.oooo..|.oSoSo.|.SSSS..|..ooo..", "FjFjIgKgKgIg",
-     "GkBkBAjJKcGbFcAGCjIGFaGcBeGjFIaJbCjGJaAFcFkKEkEcCiFGbCkCKJKcIGKFJKgJfCiCkCgFcAkCjBfCJGEBAGaGjJg"},
-    {HX_TILES, 0, 3, 9, 20, /* 20: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oooo..|..oSo..|.oooo..|..ooo..", "Fk",
-     "AgAKFFcBKaJbBgCkGJaFCeCJCfJcGGJgKEkJfCgCjIaJCgKeIcIfBJKCBgFEaAfBFEFbBjGGaGJIFcAeCfFjBiEKGKA"},
-    {HX_TILES, 0, 3, 10, 30, /* 21: 1.00 */
+     "NECnMOaEJKKOCFBkCoGoGFNfMjIgMBFCoKbCigJeOEGbOeFogMcNNfAgOeFbBAgCBekCCAKGcoJOfBoBIcNciGICCNKbAOkJeNGBnCGnNckACocFEcCkMkMCfAkoCnNiaNc"},
+    {HX_TILES, 0, 5, 19, 50, /* 14: 0.62 */
+     "..oSo..|.oooo..|.oo.oo.|.oooo..|..ooo..", "G",
+     "OIocENbOKbGsNJBgjRGnEaKImCOgJreQFGnBJgCmbMSfBCGGArEbBrIBGIBQcSjIJsfEoQncSRSRbnFoIcGGsFsBqRKqRAsgSRcQiMsFQjGIaNCMOkaMioGaKOfaNrNACNjQn"},
+    {HX_TILES, 1, 4, 25, 90, /* 15: 0.50 */
+     "..ooo..|.oSSo..|..ooo..", "KK",
+     "IJeNkGCeFjmJoFmkCCeKcFoCmcNjBfOICJbGoGjJJJnjFKMjgCJfNkGFoCJmFKaNNgcFnMbGiONEKOfoNkeKcGoNKObEoCJOBioGjNkOfbMNIAiBjFbkNEAkGNNfnGCMiAmfGGFkBo"},
+    {HX_TILES, 3, 5, 23, 70, /* 16: 0.62 */
+     "...o...|..oo...|..ooo..|.SooS..|..ooo..|..oo...|...o...", "SfSf",
+     "KbKfMkCABnKsQMOAsgNCKasOfsNicBniORgrJEnBqOBgKRCBrKrSIgBnCmiENQkrCiOiOiOqRoEJEKnEkCoNbFcJCnOrKQNcJcEjNsSanImGaOqGCCFIQeCkKmgFojQjKGbESCOSJ"},
+    {HX_TILES, 2, 5, 28, 80, /* 17: 0.69 */
+     "..ooo..|.oooo..|..ooo..|.oooo..", "",
+     "NOCnRkJfFsBIGqKfGSSjRaGKfQcQgJFaFjFFGoKgcQjbAobCKMkoKNeBBrFRkNBNgOscFGAgNgKGIaSjASFBkrSKEnSSIcQQEEBNbOcRoIBOcBkAJqkCsgKgCjgGnfORNR"},
+    {HX_TILES, 1, 5, 28, 90, /* 18: 0.69 */
+     "...o...|..SS...|..SoS..|.oSSo..|..ooo..|..oo...|...o...", "CqjCqjCfCfGG",
+     "RBeRjrNrKajIcGQcACNarBGCrmAmFcCMgiROSoJBqGKIbOOejFbIgArMcMekKrNbQaICSbCiKbrScjESiQaBGsEobJMSgbRgAFObFJEKAoEsNscJsEoSRcoNEKnjGoKqGakOFkKJnGsMFFa"},
+    {HX_TILES, 0, 5, 20, 40, /* 19: 0.50 */
+     "..ooo..|.oooo..|.oo.oo.|.SooS..|..SoS..", "RRKaKa",
+     "NcEreRkoObMANfJJBekQEoaNiAOIOcCoiQieKcKNNSaFBJSOKrBfMaMrRoJBAoqQOfBgaObnFifKfbFNgGaBqFJfcNIFsCerGjORojKmAGNeGosAfIMcOkRaOAeGBJbgRBOeArKqOcrBrQCk"},
+    {HX_TILES, 3, 5, 28, 70, /* 20: 0.62 */
+     "...o...|..oo...|..ooo..|.SooS..|..ooo..|..SS...|...o...", "GGCC",
+     "CAIsCNaGaqMgqCfKOsRkgOFEnEaOSFaJKISNOMSKONJqJcEsQBeEEROMbNOcQSCIaJqGoBrBFkBnjOgaSkKQKgKaQcArjFsSoJIaCfKrmBkSbAfiKKgFrcEniSCiJoqFoASbFJo"},
+    {HX_TILES, 4, 5, 22, 50, /* 21: 0.50 */
+     "..ooo..|.oooo..|.oo.oo.|.oooo..|..ooo..", "",
+     "IcBeJNsKSSaeGCKeCEOrGoNrCsSEkqNIqeMqFSgFQRogMFGoRmMGSnSemFoGIOfJGmrJJeNCiSckKFkOFIqMCrOjRIsKAKEJnNQbQgqFFokRKqEqCnKofMOAgMkRoNEEFogO"},
+    {HX_TILES, 3, 5, 30, 90, /* 22: 0.69 */
+     "...o...|..oo...|..SSS..|.oooo..|..ooo..|..oo...|...S...", "IOsIGb",
+     "CnMNcOOGnBIqmOfrEOSGmCRnGsbSfJmfRAGIbOfjJGFsOkAfbQKCnIcjRkMAkRSGcGOfKRjSEmCjoJnEEsRnBSGsGSBJoFAGjGiNfJgRIfMOGqGrEnEkGceSorEiMBiOgEkoAeqNQc"},
+    {HX_TILES, 1, 5, 26, 80, /* 23: 0.50 */
+     "..SSS..|.SooS..|..ooo..|.oooo..", "SIsSBB",
+     "GKRkBBsNsCSmKbGkJsBmGRCGQkbINKbBgGRaIAoSQkIGsNsIsjJrGAmsIRQgBfrSicOkRJcCfAocNgCKQbRCkmQcFirSRNskSmCoCjCOqEmBFiCnMkSeReKgsQJsMCgKECOeSoaGGkO"},
+    {HX_TILES, 4, 5, 28, 80, /* 24: 0.50 */
+     "..ooo..|.oooo..|.oS.So.|.oSSo..|..ooo..", "SSQcQc",
+     "AsCGrBMiMiFCeJOrfNsKbMjCgSbQBeJmjCFKKbOOfrSBjFJeFcJSbEiScGOigGsOaRaGoaCnsOqoKQkgNKcKbOimKOEGaCoSArFEInGnQbqOqAiCRCFGkFEiGaAjfBrOAKFMgABgiCK"},
+    {HX_TILES, 3, 5, 30, 80, /* 25: 0.50 */
+     "..SoS..|.oSSo..|..ooo..|.oooo..", "BBCeCe",
+     "NaMcEKbAQEmFIBfSbAgGiSAniBAAAKBCIcSEoNsgNOGsjOgoSjIERoJQCFSnEmFCGaOrjFONbeKoKncOfICgOBIoJRCkSBSeKBrkRoAroEicKNIIgqAiINsFcOeKSjNfJB"},
+    {HX_TILES, 2, 4, 26, 100, /* 26: 0.94 */
+     "..ooo..|.oooo..|..oSo..|.oooo..", "Nf",
+     "JaCoMfJgiGiNiFibBFkoCncKCAECFCNanFjBnkCmOgEobGkCfAmFoKfcJmCnbKOecCGGbMgFkeBkKoNAFjOekCjfEKBeKoJbfKOcfMNNKaiFoiFMfOBNeKIgbNcfNfGnIcCnkIJmcNcoMfOBjKamJcOaKMcO"},
+    {HX_TILES, 2, 4, 30, 120, /* 27: 1.00 */
+     "...o...|..oo...|..SoS..|.oooo..|..ooo..|..SS...|...S...", "BnBnOamOamJn",
+     "KoEoFbFanBAFjCnONkcNaNCgCMNcCnjFceIOfbOfGBoFjBgoCJGjCoIOicJoiENkJcFokOejKoBIeACgEEIOgJcBOgbNbgCnjEafNbEmOgEkOKaCnJoAiMeJBkgAifOkMcFkgBJeEGCgJCmFOeNJK"},
+    {HX_TILES, 0, 5, 15, 60, /* 28: 0.75 */
+     "..SoS..|.oSSo..|.oo.oo.|.oSSo..|..ooo..", "NNGGKrKr",
+     "AsJsBKBjOscIcsOqAKmRGRckGKsbNOEnScSmjCmqEBImFGrCRCmSbjRRMcJaGEiAkgSRcgMJKeEsIeaMKKsaEKcCIrJsCGMqMjNrFRBsOgGNfMsSjGoGQjsRaQFoNCORcsSQJgKeBgb"},
+    {HX_TILES, 1, 5, 22, 80, /* 29: 0.75 */
+     "...o...|..oo...|..ooo..|.oooo..|..oSo..|..oo...|...o...", "Ks",
+     "RGcnCjaGsIfGbkOSFGsoCNsOjsGBRSoNGiSMFaCIFniCGmRnOfaFSBfEoRBsNsgJoqKroFObSJMeGjbEjAfQiBGMJOkIoCkMkImASokGJgCeMrBgrQcGsfJOckBECrKMEbNimFsMBjCkEsGjm"},
+    {HX_TILES, 0, 5, 31, 120, /* 30: 0.88 */
+     "..ooo..|.oooo..|.SoooS.|.SooS..|..SoS..", "ObObQfQfNN",
+     "MbFIMrKRnQQQerCeoRisKqRoGOKSGkSNSfaRCnbOcCrCJoEoFSnAgGckKSmGigNcrQckIsMMfiOOfNGJfjOqGJONfKOSNGncOIISiOARRcEkmSfIKmJBoFaFEsARcFOAJRBf"},
+    {HX_TILES, 0, 5, 28, 80, /* 31: 0.88 */
+     "...o...|..SS...|..ooo..|.oooo..|..ooo..|..SS...|...o...", "CfaCfaOqOq",
+     "RoCseAjBRisEcOeOcKenMgGSkKFSROACOONjfNeKJARgaCEmSgGsGOrOfGOKMCkmJcnEsSInKcQOrkCiqFjgBgbNgBFOfnBsMSejNQFnRcoRBsRFksCCmbRbRgEjoKgrAgGNeQRMMeSasGEj"},
+    {HX_COLOUR, 2, 4, 40, 40, /* 32: 0.88 */
+     "..SoS..|.oSSo..|..ooo..|.SooS..", "GoGoMgMgAioAio",
+     "NkeFbGjJNGjBkOgcKgCnNImAgGnMkoCNfIMgBCkFmfFcBoEGMbEnJcOgICmGoKNjFjKngBiOkAgBkGjJgnNjOOaNMicAgJKOGGmMcJNKngAfKaiMbJfJoOkbFcGOMgoBAoGiFKNejAFCFjcOKcf"},
+    {HX_COLOUR, 1, 5, 38, 40, /* 33: 0.81 */
+     "..SoS..|.oSSo..|.ooooo.|.oooo..|..ooo..", "FFSaSa",
+     "RcCBKcCOcSoNfOgbOIbQbGjgGcBiaNjaMAjnMqkACgaCGoFEsBmaRgKfkFogImiCkCGkIGkOQfSfMqKaSkGQoBSNkJOKOkFsKJOANIeoQmrOFkEOasNgaQOMfSOCesGbNkgEMrbGIrIIGEIm"},
+    {HX_TILES, 1, 5, 38, 140, /* 34: 0.88 */
+     "..oSo..|.oSSo..|..ooo..|.oooo..|..ooo..|.oooo..|..ooo..", "EoQbmQbm",
+     "RKRmQkEmEqORKcsCqGksCQnAjeNbgRcrECqGjEofRgBgCBskQjOgKEMMcoFOFnSRJeKOGcJrJSofJcNArSOsFkbOsjCEjNKrINgBGsEbnCiFkABJfsSAOOfAqSjJJNqObOjJAQOeGrC"},
+    {HX_TILES, 1, 5, 31, 110, /* 35: 0.75 */
+     "..ooo..|.oSSo..|.ooooo.|.oooo..|..ooo..", "RR",
+     "OMQoFjNciIEqKoGOscOibRbjKsMrnOagOECoKaOeaCrSFjeFrIgCIriJBosNbGsmOiCFjSjGAREsAosMcSaKnQgqGoCrcGABkSfOsOgRnOrMGbBGMiEGsFRibSmJoJgoGCAinIgScInCmQgrENOsKgNsQc"},
+    {HX_TILES, 2, 5, 34, 90, /* 36: 0.81 */
+     "...o...|..oo...|..oSo..|.oooo..|..ooo..|..oo...|...o...", "Bk",
+     "QSeJmRQgFrSErERFkFSRIcRNcgAGkFqcCjJcNraOBjnSaNInjFjRbnOCFGKOrcCfAJSKoIgJsKbfFkQjJIbRfqScsNiNJEKejJbBjBJJaoRSofSfSmkScCeREQGbeSeCfOrnJbfEaCCOcSnM"},
+    {HX_COLOUR, 3, 5, 40, 40, /* 37: 0.81 */
+     "..SSS..|.oooo..|..ooo..|.oooo..|..ooo..|.oSSo..|..ooo..", "RoaSRoaOO",
+     "CfNQknOsGGBGkcQJKFMkFrFGokCQGIcCBgkNGjGkNrnGkGroNBMsInNCBGReGkObKOCfGnAkBoaCNiEaAfnIaBosBRQkFkEaFaEcSIsgBARCfBgkAoAsGSKbQjEasFNJnSncKEcNE"},
+    {HX_TILES, 2, 5, 29, 90, /* 38: 0.69 */
+     "...o...|..oo...|..SoS..|.oSSo..|..ooo..|..oo...|...o...", "NNSS",
+     "MKJnRoQKgrAGOjmFKbRcOQkgNFcnAeCogGscKfNOJKobKsEbBfaKSIcKFrnQceKbFNeAgFQMfOscOjIbmQkfGbKrOJnNcBnKOMQbiEoNfkQbJbAgEIoABEcCqIgQcmRciNsScGNcSCfGoCRNaRmgEj"},
+    {HX_TILES, 1, 5, 17, 60, /* 39: 0.62 */
+     "..oSo..|.SooS..|.oS.So.|.oooo..|..ooo..", "OBfkBfkSS",
+     "JOqBgBoMbCBkIaqJJnCsRfkGrKosJogQaRfQiCjEFRCOfkInRcNSOMCrkEQRfbQCfNKsnMiCsgBORjAEJGcjArOCerGKmcKSNGsAgNfSFnEBsGcIGigRcKrFRIMJnNkCgKsiOeEaqGqeIobM"},
+    {HX_TILES, 0, 5, 37, 120, /* 40: 0.62 */
+     "..ooo..|.oooo..|..SoS..|.oSSo..|..ooo..|.oooo..|..oSo..", "CsCsRRJq",
+     "GSeCAAfsKrCSRoeMsAsiBgFAKscAkgBQiNriEaMRjQenIaGaCkJIqObJCFkCANiEOisQjAFnFmBGCjJQkNfNcGcJGbNKaKsFrMjGkSGkgCsgEjEAArGnGAgnBrJRorNkNQoAsoImqISEkgBAj"},
+    {HX_TILES, 3, 5, 35, 110, /* 41: 0.75 */
+     "..ooo..|.oooo..|.SoooS.|.oooo..|..ooo..", "GjGj",
+     "BirKfQaQCSeKqgEJfGqRoBsMIEJfNAiKcGsOjcRiOreQGBorFkeBqNbJGNBIoAnjAgcKAKbfRnOJKeaBmNeOjaOgQEboQANbQiEFbnGmBsfMJENFnNGmjJNcsRGEbrAiBBQoOSBkSKoKeCj"},
+    {HX_TILES, 3, 5, 32, 100, /* 42: 0.62 */
+     "...o...|..oo...|..oSo..|.oooo..|..ooo..|..oo...|...S...", "OjrS",
+     "KfBncJOcGcEnFnCABgnORSaSmArSSOskRCnGiBKnFJSncJmfGoBBsGnbGcCIErjCsbJGkCsQgCgSIOjcRkSnAojCSGSbOISbSocCSgbMsiKmNanBiQbMRfsNFQnCQJcqCkNrGKrbOfcSoAAJrM"},
+    {HX_COLOUR, 4, 5, 38, 30, /* 43: 0.69 */
      "..ooo..|.oooo..|.ooooo.|.oooo..|..ooo..", "",
-     "BCfKcKcEJGFcJKaBGECCiEABgIEiBBGkKaAjIBACkGJfFbBEbGaFjFAEFICiKcFjJfFKGJAGCkFaFkIIeGjIbGkBg"},
-    {HX_TILES, 2, 3, 10, 20, /* 22: 1.00 */
-     "..SoS..|.oooo..|..SoS..|.SooS..|..ooo..|.oooo..|..ooo..", "BeBeCCAkAk",
-     "JCgEjGjABBFCKbECCkKeJfIcJbGKFCFjIJCkCCfGJEcBiEBgBCIgBGkFbBKFIfEcBfAGBFcCkKCeKBIgKcCjCgCKg"},
-    {HX_TILES, 2, 3, 10, 30, /* 23: 1.00 */
-     "..ooo..|.oooo..|..SoS..|.oSSo..|..ooo..|.oooo..|..ooo..", "JgJgGG",
-     "FGKAjGBfGCgFbKKcGcCjFaEaBICKBfAkAkGbKaKfKeJFcJgKAEbBgEbIcFIFcIcBEGFcBEBAjIfKbFIAeGFkFcAKcCkKB"},
-    {HX_TILES, 2, 3, 11, 40, /* 24: 1.00 */
-     "..ooo..|.oSSo..|..ooo..|.SooS..|..ooo..|.oSSo..|..ooo..", "JJEcEcFF",
-     "IcEjCEGaJAIgGaGcBgFkJgFkKbEkBAJbKeEJKgBFCgGCBfJcAgKgJcFjGEJJbCCKKAgBCgEjGjBIIfEKCKfKeGcAgAFjC"},
-    {HX_TILES, 2, 3, 10, 40, /* 25: 1.00 */
-     "..oSo..|.oooo..|..ooo..|.oooo..|..ooo..|.oSSo..|..SoS..", "GjFbFbGG",
-     "FiEFcKcEkJGjFcBBjGAfJfBkGkCfKFJEbKEkCKbAkKbKGaBjCgGjCkAjGkJGCeFAeGbFAgACGaEkAKEFJaJgKgFjJcICCCF"},
-    {HX_TILES, 2, 4, 7, 20, /* 26: 1.00 */
-     ".ooSoo.|ooSSoo.|.ooooo.|oooooo.|.SoooS.", "NCCJJ",
-     "KBfIKcoBOkeOioBeCkAFKOibEoKJfONejONCBjJoaFaJEoMNjGbBfEKJmJcGMjCofKBFJbAgNJoKfGnINkKJFjImFcAeoGEMBEkCm"},
-    {HX_TILES, 2, 4, 8, 20, /* 27: 1.00 */
-     "..ooo..|.oooo..|..oSo..|.oSSo..|..ooo..|.SooS..|..ooo..", "NNfjNfjGG",
-     "ENbnJbFGmcOkMIEFnEiCGKfJanACfbEnAokNjJoJgGkeBkaJfnAfNKAeCOgoAkNaKCkNGBKbMgJfGNgICjBfcCkoEBiOjfGKmgJGGbnOIbnBfbAJ"},
-    {HX_TILES, 2, 4, 10, 20, /* 28: 1.00 */
-     "..oSo..|.oSSo..|.ooooo.|.oooo..|..ooo..", "NkMM",
-     "KnfOFmaCBEmAKaOkFjmGakICjIekGAjEAioOIbeMCNAgKoMJFknIKCgbBnFkNEKaKgcEEaBocNNJFmCnMiEnCjEKfKgJaAenObmJJaKmGGJo"},
-    {HX_COLOUR, 2, 4, 10, 10, /* 29: 1.00 */
-     "..ooo..|.oooo..|.ooSoo.|.oooo..|.ooooo.|.oSSo..|..ooo..", "FFnFn",
-     "OOjCoJmbCiJMeEkoMEneIcJOanEnkJNkcAgGGFbNfjKafOKbAmBnEObkNGJgEmEcKcENKJnGENeIgAgaBknJbkBKfGbMKmCiFcKaFaKKGcNbjGaImk"},
-    {HX_COLOUR, 0, 4, 14, 10, /* 30: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oSSo..", "GG",
-     "KgGjOMecBjeNiJBNkBMaJfAjEafKaoIgOckFcGjKneGcBgaOgMBFbAJmBgkCABmCfoEEkNFbgNeFGjcJNbgGbIaFjJgEGEBgiOenBjNaAnKgKcOiMeOjaKo"},
-    {HX_TILES, 3, 4, 10, 20, /* 31: 1.00 */
-     ".ooooo.|oooooo.|.ooooo.|SooooS.|.ooSoo.", "EEBf",
-     "CjnJNACiAkaImAEKcgGcIgkMGjMgjNcGoFjAkGokAoOaGEEcAJnFMjcMAjEkMKfCFCiIMbNgOOfNbMKMgbEcBioGkgBmCncGjEMgmKBkOjAnKcnCoj"},
-    {HX_TILES, 3, 4, 11, 20, /* 32: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oooo..|..ooo..|.oooo..|..SoS..", "JgcJgc",
-     "NfiOboNEnEjFOCneNAfaOiKcIMJemIBigEGkGcJcoBOAjIgKciGBjNAOiAoeKbNbAGBCmGaObCnkJmGkbMBGBeNgGAMkOeEcNGoAkeJcGkBeCnj"},
-    {HX_COLOUR, 3, 4, 14, 10, /* 33: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.SooS..|..ooo..", "GG",
-     "AfAEBnMifGmjJMFNaNeEGioGBocNBNAoGogJcjEEokGjbCNcFicBfJmKEnFJcKGMicGmgAEGMOcGnGkoNBkBojEJMgJCjCKnBNIEbnCnEc"},
-    {HX_TILES, 3, 4, 12, 30, /* 34: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|..ooo..", "",
-     "IaIgBioKcEobKJcoEKIaKfoONaMGFjOEOiBMkGkEcoMeAoNMGkMfjNkfBnbCfEBEJmMGKofEoaNNjoAoGiGKFobOgNaKfKJJCkoFKGkNiBnFcg"},
-    {HX_COLOUR, 2, 4, 16, 10, /* 35: 1.00 */
-     "..ooo..|.oooo..|..SoS..|.oooo..", "MiMi",
-     "JmCeJnBmIcIJGaBIMgNBjBfjCmOjMckNkGoBjEocEGBoFmfOfoIAgGEkINcCkcOEboIcCGcJcFceBOOBNKOEOKoKFjbAoeOGMgKgOGO"},
-    {HX_TILES, 0, 4, 13, 20, /* 36: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oooo..|..ooo..|.oooo..|..ooo..", "",
-     "IMkgIoIbKcKMOimNNMgKgGKfcBAfkCfJeJFoAAoObNAiFjCkmOjOjfOgBeEKIOKfGBeoCKbfFkgKEmJgNaMFEcgFjJmJceNCmgInKGjOkEnkKN"},
-    {HX_TILES, 3, 4, 12, 30, /* 37: 1.00 */
-     "..ooo..|.oSSo..|.ooooo.|.oooo..|.ooooo.|.oooo..|..ooo..", "JnJn",
-     "KBnGMaOgkFcEBnJFJoGiKfNiFoCkbGoGjgGAMjKgFOfoACJJcGkaCjAkbBGoNioEJnCIenBnNENcCfFJIIboOcOBiCfbNfNgaGkoKMgBIOB"},
-    {HX_TILES, 1, 4, 12, 40, /* 38: 1.00 */
-     "..ooo..|.SooS..|..oSo..|.oooo..|..ooo..|.oooo..|..ooo..", "IIIf",
-     "CKOMcFoBKFmFnFmFkbJoBfABeNiMGjBgnKBjJcgCBfACOEGjIgFBOeNInGagKKaOCofKFceCnOJgMBfJCoMNjOaIciGcmOGimJocJagOcCj"},
-    {HX_TILES, 2, 4, 14, 40, /* 39: 1.00 */
-     "..ooo..|.oooo..|.ooSoo.|.oooo..|..oSo..", "AK",
-     "GMcFkCniJGOFCgbGoNjFjJgMNaMBIcIoNFiFnBFkFcAgGNOMgoOiKcjNbEjcKKFocGoAkBNCmCMiGjBeoIfOgnObFbGIIFcEBEkNfnGI"},
-    {HX_TILES, 2, 4, 13, 50, /* 40: 1.00 */
-     "..ooo..|.SooS..|.ooSoo.|.oooo..|..ooo..", "OOGkc",
-     "KcNbEkmMGbNjKekJOcoNBiAfNBACofBIJbiInKJfiFJNjeGJIgnNjMOFFnFbkAgnJCkKNEbfIKciCFbNbkOOCnBOJfcKnONbnNkBeKKgEMi"},
-    {HX_TILES, 2, 4, 13, 40, /* 41: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.SooS..|..ooo..", "CC",
-     "GbAfCfCiJakObgFEOfjBgMFGaBKbKcCKEjMFcJoiFokMCCCkbGkfNjEoBJokOaOaGbCgCJbkJfOENGNiaOkMAAnAfGnCACAgcEcAkNKFiEm"},
-    {HX_TILES, 2, 4, 16, 50, /* 42: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.SooS..", "IcIc",
-     "BeKNfEnKJgCnfImFbFngIecJJcOjoKnFaOcKnNBgcKCImBoBGFGciOgaKKnFNjCjeFmaNkcBfbGCgOGNJCgKoGjAnCkCCkoAigGbEkNEoJgMibEKnNj"},
-    {HX_TILES, 1, 4, 17, 50, /* 43: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oSSo..", "AfAf",
-     "JCgcGEibNkJgGNjcMEbGjnMFkBBkCjKocGJfbCCACoiMFoBmFcgNibJmkGnkNebCnjFagJACNAifCkJfOCiAiJmJcKGoNgNNbCKFoGkKgmKnNaCFnMc"},
-    {HX_COLOUR, 1, 4, 16, 10, /* 44: 0.88 */
-     "..ooo..|.SooS..|.ooooo.|.oooo..|..ooo..", "NN",
-     "BBjOObGOIgIOceIcInJcIcKFGkBemAjMNeCoNbEniBJKcJgJbBfmGoIBJGFmfOOaMaINEbgBJgkMeJGkCfOEmBBojNNFjCOiOGbABec"},
-    {HX_TILES, 3, 4, 13, 60, /* 45: 1.00 */
-     ".ooooo.|SooooS.|.SSoSS.|oooooo.|.ooooo.", "JJFcCkCkFc",
-     "GAkKCkGcJIJONgFnkEcmJnGIOAMNcGkOkBCeBBgOcIcjNkgOOgCiIaBFnGkaJMejJeIEbBBgiJaKMejIKIKfAgaIgaCoBKaeFkKMkNgGmgCo"},
-    {HX_TILES, 0, 4, 16, 40, /* 46: 1.00 */
-     ".oSoSo.|ooSSoo.|.oSoSo.|oooooo.|.ooooo.", "CCEkmEkmNjNj",
-     "NcgMeNfAMcMfCkoFbMBANgKgKCFoJKmNBoOgFkBjbFkBoFnBkbBBnaKbKcCFkfMfcJncOakFjIoGNJojKCnOjKoBKgBEOjfONkFjFoFAmgGOJgjO"},
-    {HX_TILES, 2, 4, 16, 50, /* 47: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.oooo..|..ooo..|.oooo..|..oSo..", "J",
-     "OaImkGJMckKcEFKbiBkAoMgJcGcAjgNCBfNJnkFBCokGbNMGjBFjNBFnAMjgOeKckBIBNaGbBEoEnECoJmAJeGjFkmKaGNfJCGciCGOj"},
-    {HX_TILES, 3, 4, 16, 40, /* 48: 0.88 */
-     "..ooo..|.oooo..|..ooo..|.SooS..", "CfCf",
-     "EFaNaNOkaNKfNboCGIoJfiMEkEcOjIGcKCeMOejGIaMfjEkCANcfAKGICoKFanMCNGJGaeMbKGbGokAnObBoJMGjMebFjnOgJmCkBmCjFmj"},
-    {HX_TILES, 3, 4, 16, 60, /* 49: 1.00 */
-     "..ooo..|.oooo..|.SoooS.|.oooo..|.oSoSo.|.oooo..|..ooo..", "GbGbOO",
-     "IcnCeFkoKaNiGboBmOKgKEbBoOkMOagEBMCMOKFOieEjOibGbFNgEoaMfOigCnfKoFcKBfIcMMGnMCKoIANBKfAkJakEoFFifOiIboCgNOIak"},
-    {HX_TILES, 3, 4, 16, 60, /* 50: 1.00 */
-     ".ooSoo.|oooooo.|.ooooo.|ooSSoo.|.oSoSo.", "BGbGbAjcAjc",
-     "NCOkGogJoeIoAKNkOkJaMIMCOjININgKmiKgcAgINgGnFKmcEaNBOMAMjJbGOjoGoMOfKBKBnJmKIOAeOaKoOkOOgKgInEcKfcJo"},
-    {HX_TILES, 0, 4, 11, 30, /* 51: 1.00 */
-     ".ooooo.|.#oo#..|.ooooo.|.o##o..|.ooooo.|.oooo..|.o#o#o.", "",
-     "ImFCBeOfCEOcgCnNjECiKngFCkMOiKgBnKfNGbONjgMeBBkKaGjnKgoBFBfKOEnAnJocFcNIOgKoKnOCoMgoBNejEcFkKaKfCjEbkKFkBGkB"},
-    {HX_TILES, 3, 4, 14, 40, /* 52: 1.00 */
-     "..ooo..|.oooo..|.#SoS#.|.oooo..|..ooo..", "CmCm",
-     "CiaAnNNaFjJgoGKfmCocMbFIBJfcBGGkBCobMkoKnkAjNBjCgoKbgOfEoFMfObfGJoiIfOkCoKnJcBiBogJbkFanIaKaABnGiGGkOgkCkGkCoGKboMjOfEcGjoOkb"},
-    {HX_TILES, 2, 4, 13, 40, /* 53: 1.00 */
-     ".ooooo.|oooooo.|.o#o#o.|#o##o#.|.ooooo.", "",
-     "JbGcCoBgNfoOfkFoMgBCfjBoNgiAkoKmfEnONFKaKoIoCnGAnNOABnGnIgOeEoNKobEkeJaFcmOcnJKneAkeOkKnOjGoMfKEIENKbGnkACkcKaEcFcEojMgk"},
-    {HX_TILES, 2, 4, 13, 40, /* 54: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|.SoSoS.|.o##o..|..ooo..", "NeoCNeo",
-     "GiAfEcmKcoNcnOjcMceMaNaNgAkNkgNbgAicMkmNGkFMMcJmImgJFncBoIoGJmEbIJoBgiMENOAfcKoFmgNBOkeMBAOinGcFiJKBfNGFkfCAAkfAjoKF"},
-    {HX_TILES, 0, 4, 11, 30, /* 55: 0.88 */
-     "..ooo..|.oooo..|..###..|.S##S..|..ooo..|.oooo..|..SoS..", "CeCeAA",
-     "GcJgnBncCjfNNjoNbImjOjOboMCkaCemNfmEbJogKeCAGnbMbFJEcnEGckNKgJFBgJMgaOJgMBjBkJaoGABocCEGKfBekBFIgjOcOjKgMcMiCKgkFcGcOg"},
-    {HX_TILES, 3, 4, 13, 50, /* 56: 1.00 */
-     "..#o#..|.oooo..|.ooooo.|.oooo..|.#ooo#.|.oooo..|..ooo..", "",
-     "CgEIejCnOckAKnNcfMcGcMFkJcoNjgNbFoOOboNkeMBnMckOfbNAkBgNiKgIoMJoGmOanFiOBjGFGCkKgGJJmKBCjbBkGnGanKECAeObmBgCgNjOfMe"},
-    {HX_TILES, 1, 4, 10, 40, /* 57: 0.88 */
-     ".o#S#o.|oo##oo.|.oSoSo.|##oo##.|.ooooo.", "MgoGbGb",
-     "IbNaEjnEcgCoKnBfkEjBoIfEmKocAgcMgNkKcEaNfbNeCCgEcJFGcmCfkGkAoeEjgKbAjMKckGoJekOkcOCiInaMaMNiCfNBicImAjEbjObIAKgnAInFCimMCgEaJa"},
-    {HX_TILES, 0, 4, 17, 30, /* 58: 1.00 */
-     "..ooo..|.oooo..|.o#o#o.|.oooo..|.ooooo.|.oooo..|..ooo..", "",
-     "CekAGbOfJmMamCfcFjmFiGkKnNOfJcAAniBmCjGoAeFBnMiCifFkoCCNkJfIGcgMBnBgaKofNfaMNkbAgEkfIfOgoONjKECmcBjBkOgCjcJGiaIoEKoGnkKoKgiJn"},
-    {HX_COLOUR, 0, 4, 18, 20, /* 59: 1.00 */
-     ".oSoSo.|.#oo#..|.o#o#o.|.oooo..|.ooooo.|.oooo..|.oo#oo.", "OgoOgo",
-     "JEaeBIfBoGjEkCIgKagGafGcCimCgFnCIBInKaGcgBnkGiCjnJfbMcoOcJgCjEckAjgAgnNiaAFbOkKbFmNMbfBOgcMgKaiGjGcGGkBfJOCfmNjmOgOKnaGaGjJmcM"},
-    {HX_TILES, 1, 4, 16, 40, /* 60: 1.00 */
-     ".#ooo#.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.o###o.", "",
-     "KnJcKbJBGJajObnKGOCfcMIfCmbKckEcfNbIfAMjJGAgbNgFafJobBniOcJciEmJnEjbCEkCAoJcJbeCkeCoIanCicMCnaFAjINaJnkIEckEmcKgJcOGaOcObJ"},
-    {HX_COLOUR, 2, 4, 22, 20, /* 61: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.S##S..|..SoS..", "JJJgJg",
-     "MinKIgmOajJfcCNfMcEEcFNCFjcFBnkJnMeJoMkeKfKcgGnOkbFMkgKOCJbNkoAEOObFaKcFoICjoJNGcBmGiOIenKoCAeBoiKbnFjEGIojKGOiGm"},
-    {HX_TILES, 3, 4, 19, 40, /* 62: 1.00 */
-     "..#o#..|.o##o..|..o#o..|.#oo#..|..ooo..|.oooo..|..ooo..", "",
-     "KaGCFjJcKcKgNfOCkICFCfMecGmJNKbObgNkgAoEkBgKCJCgbGJgEaeMaEnkFbeBfOCmFKgbAeOjcFiJBmiJojEKoiNeiEboMgJgbCoJJbJeMkOGiEjoCk"},
-    {HX_TILES, 0, 4, 16, 50, /* 63: 1.00 */
-     ".oSoSo.|.#oo#..|.ooooo.|.oooo..|.o#o#o.|.oooo..|.oo#oo.", "EmEm",
-     "KoBgEoFkcIEofFoOgaKKecBogOkgCOemACFjgGKoiOKciBGKmOceEbiNcMakCgKIgImNbkCgInCkaFCimAIgoNBGoaFkBnOecIGkEbgFkfCgcGkFobMkJBiKAfKcGa"},
-    {HX_TILES, 0, 4, 16, 60, /* 64: 1.00 */
-     "..o#o..|.#SS#..|.#ooo#.|.oSSo..|.ooooo.|.oooo..|..ooo..", "BfBfKcKc",
-     "KfiAIMGmFJoJCkmEcgOiFojNkEcnAoJbBkoGBFMbBoJfIeEaeGnjCgGmNjBJmJnFoNibKMOFbFFObjCofANBimJfcCkoAGnCEBeJgCKJnfGmgABkOkm"},
-    {HX_TILES, 3, 4, 13, 50, /* 65: 0.88 */
-     ".o#o#o.|#SSSS#.|.ooooo.|oo##oo.|.#ooo#.", "OgIoeIoeOg",
-     "JgoCjgOcJNeIofJnOkFcoMeFbNgjAfcAEmfOJniKmfGbiNiAgGKFicOFoFEofKcKcgJaOaCFcOaeIcMfGokMiCkNJFbAkgCfKocENgGncGoFCiaJnNMfbEiKAjCfJ"},
-    {HX_TILES, 2, 4, 16, 70, /* 66: 1.00 */
-     "..o#o..|.oooo..|.oSoSo.|.oSSo..|.oo#oo.|.#oo#..|..ooo..", "BBKoeKoe",
-     "OeMbBfNkOfAnCeMkBnfOFnNEkJgKgKcABgMjNecFGaiIAnkJfnOjbBnCFFOaOFKFcCGnCMjnKnEAoCioCinJbkMaEcoJniFmJaGjcJOMjoGNgnKCoaBgoOam"},
-    {HX_COLOUR, 3, 4, 17, 20, /* 67: 0.88 */
-     ".SoooS.|.oooo..|.ooooo.|.#oo#..|.o#o#o.|.oooo..|.o#o#o.", "EaeEae",
-     "BjgCnIciJgnInjFcOfbAnNboINeAgGcKcGmaIokNjBeFanMKnCJmEcOBfAobBmiGcCnCokCMbNIfkOgiMfoKgOaGcNOiBFogKgnKgKgcJfBINifKGcmJgbGoKCnfBfGkgEco"},
-    {HX_TILES, 1, 4, 20, 50, /* 68: 1.00 */
-     ".ooooo.|##oo##.|.#ooo#.|oooooo.|.ooooo.", "",
-     "FEkMFiKfOcgFncFaNbIfjENFAfCoCmGigEmfBoCoAfGjKOcgBfJEMkgAkBeCiKogJCCfOFkOFNjCCgGjnFEFInGJcONeEnkBkAnGkaFcAmJNkJ"},
-    {HX_COLOUR, 3, 4, 22, 30, /* 69: 1.00 */
-     ".oSoSo.|.oooo..|.ooooo.|.#oo#..|.o#o#o.|.oooo..|.##o##.", "CjcCjc",
-     "GjfGcNjMgbObgOCfCekKNjKoCgiFbnOcnIfoAkOjoOibJoCMafGoBjfAiKeJojFiJBoAjEajCgnOAiAMcMiACKfkKEaoJMebIebBjnCeInkNaKcFcoCjoKcCjFkfOiEinCOfN"},
-    {HX_TILES, 3, 4, 19, 70, /* 70: 1.00 */
-     ".ooooo.|oSooSo.|.ooooo.|oo##oo.|.ooooo.", "BekBek",
-     "MciFknImgCnMkcOagJEbeOgNKMjnKmfJafBjCINkMeMaAkoMjEObJoeGcnBAgkImMkKaKnjIfaCfJcmKBNeaJcFBnFjKgcBJcGieOFNfNBKagMjbKfcNgIofGFjaKbnC"},
-    {HX_TILES, 1, 4, 22, 50, /* 71: 1.00 */
-     ".ooooo.|oooooo.|.ooooo.|SooooS.|.o#o#o.", "JJ",
-     "KbAmAeNMBoFAnBBKnGcGkMkEkaOakJofIfcOfnCmgAIbkFaOakCAEakBnFbfFjnFCoCfBfFjJmCFaOkcIgFFFbnEIKoGbGJbJgkCoNbKboGOfkNbEjAMfOic"},
-    {HX_TILES, 0, 4, 21, 70, /* 72: 1.00 */
-     ".ooooo.|.oooo..|.#ooo#.|.#oo#..|.#ooo#.|.#oo#..|.ooooo.", "",
-     "IbmBnFFKbmBkoOeMCIaGckJnFCmBmcKmfGGbkEnjIfkOjGckBkIgOafNcoAkJogAogJKafFBkFbGGjJaMaEBFbjGocCoFiCmFCngOcINJBeGMfFJmcCCkCF"},
-    {HX_TILES, 0, 4, 19, 50, /* 73: 0.75 */
-     "..#o#..|.oooo..|.ooooo.|.#oo#..|..###..", "",
-     "FEGAjBgoFjOjJaeCmGjBgoGaeIcEIJIcfKgnFbiMjBmcCNfEcNgjGcoObBkaNjCjNJcOciNeFoGnbCkaEafEkOgCeInFofCeoNfcEoeAkBGbGocJmFboCOceKnJJGmfNGc"},
-    {HX_TILES, 1, 4, 22, 70, /* 74: 0.88 */
-     "..ooo..|.oooo..|..#o#..|.oooo..|..ooo..|.oooo..|..ooo..", "",
-     "NjNcAJbgFOfmCKcMcfAgFkIcgKnAfJJeoGmeFnJeCfoCJCmgAmGiOBjIcgNGocIcMfMMJaFnbBJncOKeFkCjNGoNgKocOIKFGFnkOgOaoCfMgoNiGjmAK"},
-    {HX_TILES, 0, 4, 19, 70, /* 75: 0.88 */
-     ".ooooo.|.oooo..|.ooooo.|.####..|.oSoSo.|.oooo..|.o#o#o.", "NcfNcf",
-     "KcJgMkBimOGjOEmjGkoKJCBinJMKGAkJgNkfBfcFOfAoiKKeaBeAgkEMgMjnNGJFoiMGOceGciGbmKEoJgoCiOfcMBgNfbKfbFMbCoMkBeCFjJObgAeGb"},
-    {HX_COLOUR, 3, 4, 19, 20, /* 76: 1.00 */
-     ".ooooo.|oooooo.|.1ooo1.|SoSSoS.|.ooooo.", "OcoKbKbOco",
-     "GFcnCfIekCBnjNfKecKFaMaBkoAjcJmCNOkCfbMgoJmNAGngOgBmCobACmeCgmJfcFiEckMNkgNkJeIJoCfnBfCieCEjIGAgCCiGaoCfkEjgBjJnNjCfFmcOcnBCfkE"},
-    {HX_TILES, 2, 4, 17, 50, /* 77: 1.00 */
-     "..ooo..|.oooo..|..ooo..|.o##o..|..3o3..|.oooo..|..ooo..", "",
-     "CjeEbCCgFnOeBMgFbnKGNkoBNkgMGboFoONOBoIgcCfJbKmiKnbBInkGioJcgKIMfCIgFafNebOgbBkbCoNfJejAmOjnOKcfIMAAoeFmfKgKMekBjCkAfNgmMO"},
-    {HX_TILES, 0, 4, 18, 50, /* 78: 1.00 */
-     ".2ooo2.|oooooo.|.2ooo2.|oooooo.|.ooooo.", "",
-     "AnJEmAokKIOciOKgaCeJmcAneNBeCjgKfoIcOiKeoECfkICogGCmKcJoInBmaCgiMcfAnFkIgcBmGobKbGjKFnBocEaoJBJbJnEbEOcBknAfCOeBjBfjOiCibNbGckI"},
-    {HX_TILES, 2, 4, 19, 50, /* 79: 1.00 */
-     ".ooooo.|oooooo.|.5oSo5.|oooooo.|.1ooo1.", "Ob",
-     "BkCfOiCiOJfnBFjcGoKmMbfIfiGmgEJoGFkGicMgOOMbImfJNkaKgFkeCOBNBjOfOObAimNciJgjFAONjgNkFIgbFokNjOckFnFkKbgAJCkFbkMKoCkKoFnb"},
-    {HX_TILES, 2, 4, 18, 50, /* 80: 1.00 */
-     ".1ooo1.|.oooo..|.ooooo.|.#oo#..|.ooooo.|.oooo..|.ooooo.", "",
-     "JokEFmkCngGmgNIcnNeBeOfjNIaiFkGaOCKKnOgJaoNjEmNbEaGJaCmAJbFcgNfBgnKOGamMeGmAkNcjJcOaNcFMbAibNbeOiBgFjBjCKoaIABknIcFcBjKGkb"},
-    {HX_TILES, 1, 4, 18, 70, /* 81: 1.00 */
-     ".2ooo2.|oooooo.|.So2oS.|oooooo.|.o#o#o.", "OicOic",
-     "KmgGmbJfKEoOcfFjFoBIcOcjEkbFOjMCjOeOBmNkGinCgiBnFbCgcIenBOknFkBkgAjMkGoBkOeBnjAmaACnGoKobGoaAinJKmCkoMOcFkIJGjfOgbNeIbAGaNGbMan"},
-    {HX_TILES, 1, 5, 17, 50, /* 82: 1.00 */
-     ".ooooo.|.5oo5..|.SoooS.|.oooo..|.o3o3o.|.oooo..|.ooooo.", "GsGs",
-     "OagBrcCsCnsGkQKfSamRnSRiGcfEoCkAisFqkFsCsjJsBjrEqgGKcGmRgrJbGinOkFcmOcgJaMskNsMgrGJsgKAiEcnRNroRjfGmCjqKebSkrOcRKesMCqGsKoGscMajNgAjNcBIak"},
-    {HX_TILES, 3, 4, 23, 50, /* 83: 1.00 */
-     ".o4o4o.|#oooo#.|.o#o#o.|oooooo.|.ooooo.", "",
-     "KOanBgFIcCnJoJobJcjFkOMcKgCnBkOCngCGbOgaFaBnAnkOjJOcfMNBekFknCkgBinCoeCBkFkNgCnBfbCjMFFofBjMbjKEoOMGkENceGanKcMbJnIFNjO"},
-    {HX_TILES, 2, 4, 21, 70, /* 84: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|.o5o5o.|.o11o..|..o#o..", "",
-     "BkJOicKFFcNfaOkOjfMGckOfFcJgFjJmIgAecAoEFOcjIcBMejCgoCOjmKeOCIeAigBkmKnBkNObkAgMBojCOBkoAokCiIeGmgFncJamFGnIfkEGbiKmBAoOkoI"},
-    {HX_TILES, 0, 4, 22, 60, /* 85: 1.00 */
-     ".ooooo.|.oooo..|.4o3o4.|.oooo..|.SSoSS.|.o##o..|.ooooo.", "IFFI",
-     "CfmNGjCjEFbiBMFAgGaKobCfEjBoaBnGmFoaNIboIgkABeaIfcCjBngNafCOeFOgmOiIocBBoGkOceNjKKgNkGogAoMfCJGcFobOGCoBknMkFbfIneMBBEbeO"},
-    {HX_TILES, 1, 4, 25, 50, /* 86: 1.00 */
-     "..ooo..|.1##1..|.ooooo.|.oooo..|.ooSoo.|.oooo..|..SoS..", "OKcnKcn",
-     "JocJJJMCfKgcCiFAGcnKmAGmjFCMBIneInKeEjgNFkBnjImBJgAfAknGcCkoFcIEbfEjmMcGjNcEbgGcEnjGojBeoEoNeNgKcCnOkbMkmKgjFoIEbgEibKfJocGkGj"},
-    {HX_TILES, 3, 4, 22, 70, /* 87: 1.00 */
-     ".o#5#o.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.o1o1o.", "",
-     "MFFjoCCKfJekKKoIfKgNcfNeBjFiCkoBiOiAnbEofFibAkNkObjInKgJbOFmCifFaEbEkbCnAioMKGiOagOgcIgiCnbEnkBimMkoEcAeGkeEmFFGBnOkoEiGjbNgjJeAjcGig"},
-    {HX_COLOUR, 3, 4, 28, 30, /* 88: 1.00 */
-     ".ooooo.|.oooo..|.ooooo.|.#oo#..|.oSoSo.|.o33o..|.S#o#S.", "FcFcNN",
-     "BgOaCGiFmgCocBngKKboCGcOgMaoBncEcfBkaGobGiCjCjMaOBONjbNecFkfOOaeEkCkGKEjgIgOgJcKmbCgoGACgkFEnEaJfjIogKfcJckEjACgJmNKgiBBgmNNanOjo"},
-    {HX_TILES, 1, 4, 22, 90, /* 89: 1.00 */
-     "..ooo..|.oooo..|.3ooo3.|.oooo..|.o2o2o.|.SooS..|..S#S..", "BBGobGob",
-     "MOcjNboOibOiJEBgGmbCoaKKnGOibEcIojMNbBmFcoNkoNKmiGFmCeaCOcCkoOFcMjmAoaGcGnIfAmkCjMeBjKKbgFbFkIKcNKgkKnCfoEboNGnKAkeGnEbFONc"},
-    {HX_TILES, 3, 4, 18, 60, /* 90: 0.75 */
-     "..ooo..|.oooo..|..4S4..|.1##1..|..#o#..|.oooo..|..ooo..", "Ok",
-     "NgEiNiaEmcOgoGAjfFoeJeiGjeEkImOekBoaCKfEniMkBNfJEbGnCocCoIfFoeCojKbCgbObGNIeGknIOaOgNcKmbIfCIoCmeIcEOckKcFnEafNFocCgGnJncIgIoaGbGngGo"},
-    {HX_TILES, 1, 4, 25, 90, /* 91: 1.00 */
-     "..SoS..|.oooo..|..o#o..|.oooo..|..SoS..|.o33o..|..ooo..", "JmiJmiGG",
-     "CfmNgFkFJGFoOBfaMgoOeGmCngCnBnkEaNiNeFcFFjFnJnjNJOjoJNjEcIeJGCoCenCenNInkObEkKmfGaJJaKokGcCjObFoGIcEkgIbIckKmaAekGoObOCfI"},
-    {HX_TILES, 3, 5, 22, 80, /* 92: 1.00 */
-     "..ooo..|.oooo..|.oSoSo.|.oooo..|.oo5oo.|.oooo..|..1o1..", "MM",
-     "JcAeaJneNSArOgcCejNgGmKorBfRkRgrFobMeAgmBgEjnGjnArnKKGcqJsQoJgGbmRogKqeFcnNkFEcGmRgJKAsGjqNkBrjMfReoKNesOiKbKOqCMcKeaBBJgMGoKcgAe"},
-    {HX_TILES, 3, 4, 25, 90, /* 93: 1.00 */
-     ".ooooo.|.oooo..|.SSoSS.|.oooo..|.2ooo2.|.oooo..|.ooooo.", "BMcMcB",
-     "FAmJbOfBoJfAFGNkbKfOeKcNiKEjAKoKfFiKKoKaJaGmkFFOcoEkNeGBjGJcgGaIbkAGbIfnCFiNMJOgBfJbFCnMjfKGciKNbMgnBoaAgOGokJn"},
-    {HX_COLOUR, 4, 5, 22, 20, /* 94: 0.75 */
-     ".4o4o4.|oooooo.|.oo#oo.|#oooo#.|.ooooo.", "",
-     "QoiAqbNcIgKGkQgSbmQiRkEbeSkrEbkCsAsfSbNFcAsgERgrNcoIsIojSnjFsAqeBoScFoCgCqSboQagOkrQoMqKbKoCIqbIgAkfRoGmAjAgCqoJmRkOckFnKCejQGsAokMbkJgGrk"},
-    {HX_TILES, 0, 5, 26, 70, /* 95: 1.00 */
-     ".ooooo.|.oooo..|.ooooo.|.oooo..|.o3o3o.|.oooo..|.ooooo.", "",
-     "ResIfCJokNGsbBQfkSjbOKrQiCAekEQnMcsSasBjSjCoNimSkMgOkSgFResQoFoSJSceNrSnQisEbmBCscCoNscKnsREiOaBoQOgsSobBBscSgJBgaGcSiKeBqcJcC"},
-    {HX_TILES, 4, 5, 23, 80, /* 96: 0.88 */
-     ".o#o#o.|oooooo.|.oSoSo.|oooooo.|.31o13.", "EE",
-     "JocOGrMaRbJIbeEqaSnGkRcSmFqgOcBsKrkOGmBmgJgkJaObCKKbRbrGkbIcScCjIgFqBkFneFbkCkOeMCgFsGseSnsJoRCjeNAgSgOKcCnaJQcKaSaeJoGbSbkFsgNjf"},
-    {HX_TILES, 2, 4, 25, 70, /* 97: 0.75 */
-     "..ooo..|.#oo#..|.o#S#o.|.oooo..|.o4o4o.|.oooo..|..5o5..", "Gjb",
-     "MgCoJMcGmfKcEkoNboOcMkBjKFmBoFBKaEkgCgJoKmCgMJbGoIbICnaKaNecCkeKOkGkgFImgCioCfBnCiAjFAeGcOGkBkgAiFbnGoJbgOfoCmcAMkMfOjNBoBm"},
-    {HX_COLOUR, 4, 5, 28, 30, /* 98: 0.75 */
-     ".ooooo.|o2oo2o.|.oS3So.|oooooo.|.ooooo.", "QgsQgs",
-     "QgoKrnRnrBmjECJecFbkRosSisSgnNbMMiAFKQjsFboCfJoIGoQoSmBgkJrQIOcqNMfArArRRfmOigEJbRRcqMjRcNKnjBSagRiRfkQCfSQmcRkIBjfRgKaKbsSgc"},
-    {HX_COLOUR, 2, 5, 28, 30, /* 99: 0.62 */
-     "..ooo..|.oooo..|.ooooo.|.o##o..|.o5o5o.|.oooo..|..ooo..", "",
-     "JGqgSKqOgkKrQOrJqCgbNNjJoeGAogJOReFscNqeKgQJmiNjmQkqBsQfBioKCfImkCGsCeIocOgsSSiEosQaOcjKemFaGinSAqnJNafOsJbIoAoNamMcSBkCgOrgOS"},
-    {HX_TILES, 1, 5, 28, 80, /* 100: 0.88 */
-     ".ooooo.|.oooo..|.o#o#o.|.oooo..|.SoooS.|.oooo..|.o2S2o.", "EcEcF",
-     "IajKKMjOaeMsgGscEkAsmGRgaNbmOfAgsSgMiEKqmQmJnSJgcQoAfBgbOgBQnSaJbKCgjRoScQbGnJckBNagSBmEAoGojMrKbRMfIsRcgEciFBsCkOFMsJgbBmrMb"},
-    {HX_TILES, 1, 5, 19, 60, /* 101: 1.00 */
-     ".ooooo.|.oooo..|.SoooS.|.oSSo..|.4ooo4.|.oooo..|.ooooo.", "JcJcOigOig",
-     "EkqJsfQoGmRGRiScrFkbKnRjmBnNaCIrcOseKeJFJmIgIsQaNgcIfsRocCKoEnkEoRIsmIoSjmEMcCSMObmQcEcFRogNjEjEbQioCjCkCqnGjGKnNesQfqSjRogFqGm"},
-    {HX_TILES, 1, 5, 20, 50, /* 102: 1.00 */
-     "..ooo..|.SooS..|.o#o#o.|.oooo..|.#ooo#.|.4oo4..|.oSoSo.|.oooo..|..ooo..", "AoAoSS",
-     "NcSaOaRkNFaNSOrbEcRerOknNgKaGbGnRnFsKKQaArBjOkKcAjKqCqoGnIceQmeGrcJgsOifGjsQjbSgIgkMbAESjNScnJcjMgBeGjgBrNbGKbIoFncEsEkCqSKcrFq"},
-    {HX_TILES, 1, 5, 17, 80, /* 103: 1.00 */
-     "..ooo..|.oSSo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.o22o..|..SoS..", "KsKsFF",
-     "CfmCoKcKfNrGcRniFjoBmcBrKrkJInFskCfRfbAfkQnJJfiRkSeOkrRnRjsQneJcjNcEOekISCrgArOcMroBRcSigJaJaQiRcnAoKeiKrOeFbiFoCfQfIsSiGKNMbgGqoCgA"},
-    {HX_TILES, 4, 5, 21, 70, /* 104: 1.00 */
-     ".ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.3oo3..|.ooooo.", "",
-     "JfSkgKJqgFjJfArAIrJeSjoBrKgnBnOiKobCeoKgRkRcoGBeoQbMcjNsBKsArNbQjmGngFamSfsJceJfJnqIcSgnJnRnBinGnkKorSciIeGksCOKmMiBsaBksKrMgcSfbAnfNfNqgMjoKc"},
-    {HX_TILES, 0, 5, 22, 60, /* 105: 1.00 */
-     "..ooo..|.oSSo..|.ooooo.|.oooo..|.1ooo1.|.oooo..|.1SoS1.|.o##o..|..ooo..", "BoiBoiKK",
-     "KFkqGECrKnEJbBnJmGiqNkGkoQoaGsFrGieMsOgkBrAjMaRkeSbKrkKgCkqQJcFsFaOkeOakRNSOsIsNbiNQbmFnbSkqRjeKcoSgSaCmIasRbNrAqbCmJgrFjSnAnjOgjSmqBf"},
-    {HX_TILES, 2, 5, 22, 80, /* 106: 1.00 */
-     ".ooooo.|.#oo#..|.ooooo.|.oSSo..|.So#oS.|.oooo..|.4ooo4.", "QajQajGkfGkf",
-     "SiFiQjgCosRoqMeGqIbjBmkFoOseMaEoCjnMbmGEofKKAjoQeJcgBfoIAnsJmCqKeABsJsaEqoAsOiMsCnaScgRnOgGoIogCejKIbJsfMEcoFojFmBGkRQCmrNebSemJCgoSocJ"},
-    {HX_TILES, 4, 5, 23, 80, /* 107: 1.00 */
-     ".ooooo.|.oSSo..|.ooooo.|.1oo1..|.ooSoo.|.oooo..|.oo4oo.", "SSOaf",
-     "SnkGrfBneOskRSBfJbkReNsfGsNbeRnGcrGnBfEQgKniJaeEnFmJfImBkQfsSgQcSECrNjNecGcRbOaoBjSbrNkbQmAfjFBqRafFReiNaSmRnSSnMfQfbRkErFjBgrJesQbqGk"},
-    {HX_TILES, 0, 5, 23, 80, /* 108: 1.00 */
-     ".......|.oooo..|.o1o1o.|#oooo#.|SoooooS|oooooo.|.SoooS.|.oooo..", "AgAgBkqBkq",
-     "InaMqGisJbrEjCRmfMrkKJckCseJcGiEnCscBfkFQaJfaOgrEoSOASaKaNjfOeCgsMNsnGmBFAjoIrKakBECNrmCkqBoJmKfFmrMbnNGOgRgcFbmSnkORgQfCocCCoS"},
-    {HX_TILES, 3, 5, 23, 90, /* 109: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.5oo5..|.ooooo.|.oooo..|..ooo..", "",
-     "NajRocNfkGsObCkgCkaRnOksGsiMjNsoRbeBQbOjGofAeFnKGobJbsBCqCmgFiKsaCqQakOfGceNScNgKMgRjEQnSerMgkMkSNkQoaBskJbfBoCMJBkSbKFiNROqkMekNfn"},
-    {HX_COLOUR, 4, 5, 31, 30, /* 110: 1.00 */
-     "..ooo..|.S66S..|.4ooo4.|.oooo..|.ooooo.|.oooo..|.ooooo.|.S##S..|..ooo..", "FojFojNriNri",
-     "MKbqRfsGjrEcoOqnEkcKJanCfGCinSgGsSFRfMqcICmSfsSogCOKFkqGiArMsoJeOgmIgRkqBqnRfkErCsgCgKqjKgsQnRnkSSBkFoBASimSkJoAnOqkBjNfBreQnsJgCgI"},
-    {HX_TILES, 1, 5, 25, 80, /* 111: 1.00 */
-     "..4o4..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.#oo#..|..#3#..", "",
-     "QojJeNsOjfEKMcOjBnOsiEbEbeJoGnkGNiSbrCejJKfsGMGcnBsNgjBqOCgSQEjAFjgQcsGjMkIsCsgBqmBqoEkgIrNeJqKoEaoKcsGkmMbjScjEOKmeSaoAkfKnkNibFRfsC"},
-    {HX_TILES, 2, 5, 16, 60, /* 112: 0.62 */
-     "..SoS..|.SooS..|.#oSo#.|.o##o..|.o161o.|.oooo..|..ooo..", "CigCigQaqQaqSos",
-     "SmFEnEoOjCrfRmOgjSoKbQbsMebBoFsScFnQcQQgnRmcEcjJbBCfGjoGaGmCkCqOsGcCnCRkgIcBgaFncGOCiNgkFJcRisSknIbQkfCskSKaBqJmGkBfGcrBqNcfMbSfSb"},
-    {HX_TILES, 4, 5, 25, 110, /* 113: 1.00 */
-     ".5ooo5.|.SSSS..|.1SoS1.|.oooo..|.ooooo.|.oooo..|.ooooo.", "McsKqiKqiMcsFcrFcr",
-     "IIoCobEAnIqiBqjMjIBoKBkORGkgOkmSgGkOcGbqObGogRnsQnEcrMieOeRfrFcsCsBQbAkKObjGAkrFsaMgQCfKenOfsCsMNgKaOboJgaKmkJsKnBOjGsMbjRFOkbEme"},
-    {HX_TILES, 2, 5, 28, 80, /* 114: 1.00 */
-     ".......|.oooo..|.ooooo.|oooooo.|2o4S4o2|oooooo.|.o#o#o.|.oooo..", "Cos",
-     "ObBfnMjeCknRiQgiRkoAmrArmSfsGrfEmICKRnrOgrOfNbqBsBosCeSfsMcsOimFImMaRbSfaRkOrNCmBQSkqKsKgQaCnrEmkEaSgEmOcNgBgGcJsfNckMCeSocOeOkSEnqCmrBkr"},
-    {HX_TILES, 3, 5, 28, 90, /* 115: 1.00 */
-     "..ooo..|.oooo..|.ooooo.|.SooS..|.o2o2o.|.#oo#..|.ooooo.|.#oo#..|..ooo..", "QkQk",
-     "NkFSaEBgoKnSjRnCjFnESoqISfkCkFjEsSOqSmsIRfOEjGjFGkJnSnFnkGBfBoSesNimJcCsObEsgNrKMgSfNEboGbkQcMcoSnkQgJorQeCqmNrEniSbKsCkfBsjRm"},
-    {HX_TILES, 3, 5, 28, 110, /* 116: 1.00 */
-     ".ooooo.|.o11o..|.o2o2o.|.oSSo..|.ooooo.|.oSSo..|.ooooo.", "MMNseNse",
-     "SNsOfIBgoNgJokBrGrjCsFsmQeJbnNcQSeaBqCsJqOieIeGmrBnrIoBsmSbEjfAocEBOsQbfObrIgCRmrGcCofGnsFGqjBjcFFMEsAAesOcRJcqGnQcMbjMjFrIsNbRosRi"},
-    {HX_TILES, 0, 5, 29, 100, /* 117: 1.00 */
-     "..o2o..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.So#oS.|.o##o..|..ooo..", "EkgEkg",
-     "JmJMMgnKeBkoSbSkQiGBfsRnsIFkgMKBkBOafEsMsCKsBnKboOfkGCmEoGrCiOgSeCknRkSCkgKfCorCmEiGrnOMarSfRnAjmBekCAjrIrgEsFksIJBIQNgO"},
-    {HX_TILES, 2, 5, 32, 90, /* 118: 1.00 */
-     ".2ooo2.|.oooo..|.ooooo.|.oooo..|.ooooo.|.#oo#..|.ooooo.", "",
-     "MIRosJmNCkEsjMrfEsSfQfrFNbsKfoENCiGcsORnIeAiSJfaGqmOSgGsOfRknRSbSecGosJgOKcNirJqQbrCjRkcJbJfmNqoKBReOcjBosMfNgcJeQmsJcrNesMBORo"},
-    {HX_TILES, 0, 5, 32, 90, /* 119: 1.00 */
-     ".......|.5oo5..|.ooooo.|oooooo.|o#ooo#o|oooooo.|.ooooo.|.oooo..", "",
-     "KaFSgNecAEAJICmBqjSKoCFskKfKogGaiOgOkBBeaOgcEnqNrnBmsJagMfJnfSkSgSniSOCsMbGCskAsoJgFciIfRobSaKgJqjJBqQSncNgOaSfnEocQofEkcBsAIQck"},
-    {HX_COLOUR, 2, 5, 32, 30, /* 120: 0.75 */
-     ".ooooo.|.oooo..|.ooooo.|.4oo4..|.ooooo.|.oooo..|.o#o#o.", "",
-     "OgkIbsOqQoOKKIfBfNskBirCkqBerQoGkqQeCqMceKQinIeRJbrSaFbqOfsRbsOiCqEjfFiBeNkOjbRfiKofNGkNaSobKcBsFkaCsnAOsSjBrgKmcArKFinEcGBkbEiFmaIocBsCsj"},
-    {HX_TILES, 3, 5, 30, 100, /* 121: 0.88 */
-     "..ooo..|.oSSo..|.ooooo.|.oooo..|.o2o2o.|.oooo..|..ooo..", "RinRin",
-     "OcOfcQgrNaSimFqIBnaBqFrMrGsJmbOjrGicFCoeRogRCCeaSoRnNMEqeNcgAJbRcKaGCqnRgNeoBoFGFBnkGcGcKnrBsEcKQoGjqOfkNkfFcJNrJAoQKoQiOgmJrk"},
-    {HX_TILES, 1, 5, 23, 90, /* 122: 0.62 */
-     "..SoS..|.SooS..|.SoooS.|.oooo..|.o6o6o.|.oooo..|..ooo..", "KbKbScmScmBnBn",
-     "RorGrCiBmNkfNgRbKcAkbGjgGcfSerFFjcMsNeGakOifNqBEoNjBqjQoBQfFskBmsJskFsMcgCsmMgmCnFbfBrFMaKoScGbjQbKfSfcKgiEaIoKsfNgSbQocKBQgkBsmKreOgKenNKn"},
-    {HX_TILES, 3, 5, 30, 90, /* 123: 0.75 */
-     "..ooo..|.oooo..|.6ooo6.|.5oo5..|.#ooo#.|.oooo..|..ooo..", "",
-     "NagQcgQGFbSagNknAnSkmMbFnOjJOgjSbfManBNiGobNbSKMbsJfmFbSeEObsIEbqGIcsKmrMSjOrcBjqBsKKNaiJfRckJeISgNrIRokAkAsfGJOiFIFoIfjMkEjs"},
-    {HX_TILES, 0, 5, 31, 90, /* 124: 0.62 */
-     "..ooo..|.oooo..|.o4o4o.|.oooo..|.o#o#o.|.oooo..|.ooooo.|.oooo..|..#o#..", "",
-     "IRnaKcqOqaQKaONqkNjaJmjAoJArmBNirERIfjKsBsnFcFmGjsCMgaGoERifKrnQgnSbmSJmOgqGsOroMjmQoSFjoBfmFGsfJnaQnfOGoKafJeaArfNgMMaECqJojCqOsoJObn"},
-    {HX_TILES, 1, 5, 32, 100, /* 125: 0.62 */
-     ".oSoSo.|.oooo..|.36#63.|.#oo#..|.SoooS.|.SooS..|.ooooo.", "SofSofRmsRmsKgKg",
-     "NsoGmcIqOkJONfKOqgCicEcoNREIgOMenRCiqJqMBABrGArgCnRbMAgACnjJmcSjFOcfQNjqGoSeEkSfoEFiqCfGaKcKcKnIbqEoNrcSFnFmKGcnFBSo"},
-    {HX_TILES, 0, 5, 22, 90, /* 126: 1.00 */
-     "..ooo..|.#oo#..|.7ooo7.|.oooo..|.ooooo.|.2oo2..|.ooooo.|.oooo..|..SoS..", "CgCg",
-     "FsRAgrJfsBfnAoBGAsCrBobInjKnsGFckJgsAsoNjQogIncBnQjCncMqoAnNbkOceJcMjNfkBsgOskSfRmKqGkQbOgoCscEoObSfcNgjFSmbJmaEMqgSeiInkGraCosEbCsmKoBnkIaSgOrEsb"},
-    {HX_TILES, 1, 6, 22, 80, /* 127: 1.00 */
-     ".......|.oSSo..|.SoooS.|oooooo.|ooooooo|oooooo.|.oo1oo.|.o55o..", "IbIbOjmOjm",
-     "GbmGBvFoIqkIsJoKvaWjvVgKsuEKgAwJfcKvbWkfJaoMkuOsCJwKbvVjEkWqkAsuFjwOOkEiMRkWcvIWanRcBkcUirBsnRkgNsIcgGvSwCvsSvRoCevGKcmWfScKqwJoVfuAqEuJqJw"},
-    {HX_TILES, 0, 5, 26, 90, /* 128: 1.00 */
-     ".......|.oooo..|.oSoSo.|3oooo3.|o#ooo#o|oooooo.|.oSoSo.|.5225..", "KoKoFF",
-     "JgcFosCqiFAnMCkbBkNrKceKmESfNiKoKrgNaKaMkSnrGcgEsgGnSnfSkqNrFojGifCkGiSneCoFjoQiRGsjObeGKcgKcSkcOaKSojCkbSbrBkrFcKsGaoMcoNfnOcsGcKgMBqjBnCjgKmf"},
-    {HX_TILES, 3, 5, 23, 120, /* 129: 1.00 */
-     ".......|.oooo..|.ooooo.|SooooS.|o2SoS2o|SooooS.|.ooooo.|.oooo..", "GjfGjfJnJnJJ",
-     "BncOrcBfCirSogFnrEigOcrJceSgjKcoGnRcsNrGmGaKCAojBfaBrGsgGobFoNrCCofKnsIGnrCsKeGsbKRicMfGSJqkMRojSNcfKrbAimNkaFnABkbCsQfBeAsNiAnGjQbAkaBRna"},
-    {HX_TILES, 0, 5, 25, 110, /* 130: 1.00 */
-     "..ooo..|.oooo..|.o2o2o.|.oooo..|.3SoS3.|.4oo4..|.ooooo.|.oSSo..|..ooo..", "BkBkFqfFqf",
-     "QcgCnNKbgMbnKriGciRorAnJcAoScjJScKrMckFngMcAiNerGcnAogJsCorOqfNcsBsBgmSbKoaACIeMcgMjrOjaBmSbgRoaGkbOgbSanJgsFbIfRmOgmNsgEqoJceCjRokFcmMNbNsAneNCkFja"},
-    {HX_TILES, 4, 5, 27, 110, /* 131: 1.00 */
-     ".......|.oooo..|.oSoSo.|oooooo.|ooooooo|oo44oo.|.#SoS#.|.o55o..", "IrmIrmRgnRgn",
-     "BIrnOcIfkEFCrGokFniJfrGjcRmaCnFSgsIsmIqcFnRjnGrcJmaAeCrkGcQkrKcEcfJeRfkSfQkEaCocOKfOsgEOecCgOeNgmQaEjbGrFsNsbSbCAjnCoNcjGnkBgaArAOkBgjRoGbjNr"},
-    {HX_TILES, 4, 5, 25, 90, /* 132: 0.88 */
-     "..ooo..|.oooo..|.#o#o#.|.SooS..|.4ooo4.|.o22o..|.ooooo.|.#SS#..|..ooo..", "QeQeFngFng",
-     "SSkCkfKoIsJsNrIoRmkRbSjoBkIcoBnfEaCmcFcORBImbJoGreMkeBqFjGosRgCofSkSoGrkQbQfCfjMJmrNfKBfcKIoQbSaOAoNsOekJfCRbgNrjOCqkKfiQfbRMaGRke"},
-    {HX_TILES, 4, 6, 25, 70, /* 133: 0.88 */
-     "..ooo..|.oooo..|.ooooo.|.3113..|.ooooo.|.oooo..|.ooooo.|.oooo..|..5o5..", "",
-     "EqCvjRkwGwFoiMFuVCjmVkQwrSivONasAivEovJqnSwGjuKnrCqwGugJmsNicEroJcWjFJeUoObEAuoJmCvfVoWrNqMrfQFcEGicCscSnwQcIsgRcqIgsBkGvoRnKocIgrAoIrwOsgEvjAnGq"},
-    {HX_COLOUR, 1, 5, 35, 30, /* 134: 0.88 */
-     ".......|.1oo1..|.ooooo.|#SooS#.|oo6o6oo|SooooS.|.#7o7#.|.o##o..", "SoSoNcjNcj",
-     "BicSOkmQkmCjgJqoCmaOcJoAKcoJaeKgkBmfBecOrObnNsmGkNkCqFNgsQnjAjJgnBecKoBrfAgkAnBesGsFaSgsGcgNGmrRKfsCoCjOrbSfmQCnrOgnOqJaQKcQcfSjoCqRcfSfNkBjsEQf"},
-    {HX_TILES, 4, 5, 26, 70, /* 135: 0.75 */
-     ".......|.SooS..|.ooooo.|o#oo#o.|oSoooSo|So##oS.|.3ooo3.|.oooo..", "QQKmKmOjOj",
-     "OagOrnJSbfOkONkCfmCRoMsSkRemGojQnGkbFmjKEbJeEIeiQEmKRiKqkCnScoAqEaRMjrIbGaIrCoGnkFjBkJqnSnjRjJgNcmFmqFkfJEjRjKskGbeKgKajRoGogQemQjSiqE"},
-    {HX_COLOUR, 0, 5, 27, 30, /* 136: 0.62 */
-     "..ooo..|.o##o..|.3ooo3.|.oooo..|.oSoSo.|.#55#..|.SoooS.|.oooo..|..SoS..", "CgCgOkeOkeQinQin",
-     "MsAigBgBscBibOGOqfGjFifGjRbeKmRecGjrObrKSkBJrkGnkBIqNrOcmAobBeJgCnrMsmKckOafBjgBqCseMrKriQgMsaMreAnJoBncOamIrCoCCmOkOceMjGkqJaJskGkcBrAsKbiBAgn"},
-    {HX_TILES, 5, 6, 28, 80, /* 137: 0.88 */
-     "..ooo..|.o33o..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.5oo5..|..oSo..", "Jwj",
-     "InvIrnWgGUmErGAksWgkEvcMkGkRRkgVgoMvFnViAfwUiuEnrAnCwGksKrBvsCfbGcgUbNkmFoIqCgsSibWgbEciFbnKoGvNWqIvaWnBfVfnEwWgAsGaiMqJvcRfqRvgMuUbsNIGkbOfwN"},
-    {HX_TILES, 4, 6, 26, 100, /* 138: 0.88 */
-     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.2oo2..|..ooo..", "",
-     "MaSjgBsvFksQcGwJwKmCsjUksGrAvjKsNfbOwViCknVOcgVgkCnKmJvnBrjEnvNwnOjKwrSBovVFieUiuGjWcnOwWojMgsFSuCgwWcAirGbJwGaiVsmICknMigOvNGmBkvQcgCqfGisCwMwEcj"},
-    {HX_TILES, 2, 6, 25, 80, /* 139: 0.75 */
-     ".SoooS.|.2SS2..|.ooooo.|.oooo..|.ooooo.|.oooo..|.oSoSo.", "EkEkGkwGkwRkRk",
-     "NreWkcFuFvsMwVkEkCfsGNbUBifJQkOjuJviSusNkoCeMkqSAfwBqEoeSeBwnJmFnUgiAGqOwGjnKucEBkrVneAfmFujCfcJbsJmVkGubGjNsbMJcwEvEoqFnNkbCfbQigCrFmkKbFsaUqeSw"},
-    {HX_TILES, 2, 5, 34, 130, /* 140: 1.00 */
-     ".ooooo.|.oooo..|.o5o5o.|.oooo..|.So7oS.|.oooo..|.oSoSo.", "MsjMsjFofFof",
-     "JaQbGrfFbRckSIMKgGnCnGOfaBjKrbEqaOIekRnIsGrOJsgBkJrAjEbKJqcSmgIgAkqOkeJnEckScMsCfOqfKoQcNErBemCjbRoObKcFqMJgmMgGakKbQoQkaSosKoSgmSbk"},
-    {HX_TILES, 0, 5, 32, 100, /* 141: 0.88 */
-     ".......|.4oo4..|.ooooo.|oo##oo.|ooooooo|#oooo#.|.ooooo.|.o11o..", "",
-     "MrcKbRieBrFakFagCqOfBkSkJenEjeJBgSebIfjCsjCsjAerGbgAmBsoSbmKsEkJcmRfSkgQobScgNboBmsAqCkIGjfScjCjKamAJSkOKgiOqfMFFinOKAjAqReBkGjEjmCfiGmJfKei"},
-    {HX_TILES, 0, 6, 24, 70, /* 142: 0.62 */
-     ".ooooo.|.oooo..|.oo6oo.|.SooS..|.ooooo.|.oSSo..|.S6o6S.", "NgNgGcGcRgRg",
-     "UqRkSekWnCfVcmWqJcMrFoeRfoFbJcmQaeIbeBfrIUbuBfaOfjFrGoOqGnWcJfiFnScEqnIvsAWsuNvcWbmUWscObqNcBgaBvCrjAAwGFsbCfrFkFowJFwMUncGocFmOgoRkQwjOwAsuKsu"},
-    {HX_TILES, 4, 6, 32, 90, /* 143: 0.88 */
-     ".......|.6oo6..|.ooooo.|o####o.|5ooooo5|ooSSoo.|.o1o1o.|.oooo..", "RwrRwr",
-     "FFJebVIvSiRkoBfmAwNgUaKeBqBsMeAvrWsSWbSbGocVfvKwbVagEsNcjSewGjgQBgMgoOIAGjQcgFqjMqCiKcJwnCmsCkGcoJeJgrGjcAuaAiEQoCJuGswEsgFvGumOjSfSa"},
-    {HX_TILES, 0, 5, 34, 120, /* 144: 0.88 */
-     ".......|.oSSo..|.ooooo.|oooooo.|o#ooo#o|o7777o.|.6o#o6.|.oooo..", "JqJq",
-     "KsjAjoNasJcgMiCscCkoKskAnQeqNsoSnkQbkNfQbqObgMbFcsIsiQoaMsFinFOroFbkIqmRfqKmfOcjNbJgCosNfoORokQjaRbQjnQmgAgcEoGGsGkgCrOqEaNiIOCiOrFicMeAmjKrNsbFArgE"},
-    {HX_TILES, 0, 5, 32, 120, /* 145: 0.75 */
-     ".ooooo.|.oooo..|.o#o#o.|.oooo..|.oSoSo.|.#oo#..|.1ooo1.", "NqmNqm",
-     "BkCqoKscKCjFcsBfBrbOAgFbjOsNbOCGokKsEsaGiJcjBksKfQcBfGcoKoqGiSgjNrQKRnkEasRorSBkMEraGsQAkSafGRSafIcSkoBoeGkBniKnFoqIsgQbsMbOqcGbQekGkcQo"},
-    {HX_TILES, 3, 6, 32, 100, /* 146: 0.75 */
-     "..ooo..|.oooo..|.oSoSo.|.oooo..|.ooooo.|.oooo..|.4ooo4.|.oooo..|..ooo..", "JvJv",
-     "QbNCnNjsSoAjeWnKagNweNaAORCiVrCjBkNuGnWaAvFuSkoQkfUcEoRkIfqWqgRJuWoUBqoGwqGvmFiWsmUjCfkRbkIEbjKwrIbAJGCnsWbSvkKgSaeUoQvcCGvEvAmMbq"},
-    {HX_TILES, 0, 5, 34, 130, /* 147: 0.75 */
-     "..ooo..|.#oo#..|.o#o#o.|.oooo..|.S4o4S.|.oooo..|.oSoSo.|.5SS5..|..ooo..", "BrgBrgQnQnBqBq",
-     "SjQSfNieRbmFOsaGsKbeOaIsnEckMiSaGaiCqOkeOjbBrQkJcjJRcAnJqFbSbFkrSbOioMfJgqSoMjgErIOrGkrQgcNBkCsGngQmjQgFncSeRcCnMbOqoNiOgSbmFjoMiObgNskQkInk"},
-    {HX_TILES, 0, 5, 34, 120, /* 148: 0.62 */
-     ".......|.oooo..|.##o##.|oooooo.|o#ooo#o|ooSSoo.|.6SoS6.|.oSSo..", "EnkEnkSnqSnqJeJe",
-     "KQesBgmIgkOjsIqaRnRcfQjEkImJmEoRamCjEKeOeCNKaMQngJfINbOqaGsnFirEjsOeiGcgAGnJfGoSnbGKnJgsJbGniSMsIFsjAoGaAnGmQirOjKJmsRjKoiOcGsJqjIgc"},
-    {HX_TILES, 4, 6, 37, 120, /* 149: 0.62 */
-     ".......|.oooo..|.ooooo.|1#oo#1.|ooooooo|oooooo.|.SoooS.|.oooo..", "SfSf",
-     "GcfCrbEvRnQvCEmiGsuCmgMgvFKcjKoWBoRbrKBnvIcvNraIsGVcJeoEmKCuVgnIgcUsmUswJrRvbFqvOesJgqFOgBJugQwKUAJrjNACJbiMjNrWfbMSoBIcOkJcWjKus"},
-    {HX_TILES, 1, 6, 33, 130, /* 150: 0.50 */
-     "..SoS..|.oooo..|.2SoS2.|.oooo..|.ooooo.|.oooo..|.#ooo#.|.oSSo..|..#o#..", "FFJJFbFb",
-     "VqEimJwGsGcsOjRkWciAguBkbFrfMNgbQvBkuFsFjUgOisFkRbvQngJaCsiGmKmvIrvNrWnCiuOkFjRkwQmUkuSnaWsCjgJwNbgKsSnWcNgJwUjUcJwmQniEaObFcoBrwFwmNgoAucKruKsKqgQfv"},
+     "SkcAKrjOfSSgbRoJEsjKbFnfJcKqGbObJKCnRgnBgNKKScQiQcGsCrcOCOCkBoFqGBfCnbSGbrIsfGqMgCjbKFFcsBiRkRcoQjGsGoJAKnNsFmQScsBkJoJBSeOckCSSJokEbmKmMOjAsGJNjaQgCIc"},
+    {HX_COLOUR, 2, 5, 29, 30, /* 44: 0.50 */
+     "..ooo..|.oooo..|..ooo..|.oSSo..", "NN",
+     "QGFnsKCksOQbKcoEGnFsSgkFKKSnOgBgISmGKbKbOOkNcORkJCiEsIaJsOBBKOaeJEajIaOqkJnGQQgcJeoKeBSKgjNebOafSnQMQoJGkFoEJCNRoRorKCoInJroNcCfCJrGjGRCjKbB"},
+    {HX_TILES, 4, 5, 31, 120, /* 45: 0.56 */
+     "...o...|..oo...|..ooo..|.oSSo..|..ooo..|..oo...|...o...", "GaoGao",
+     "GskGrOjFbfCeJSoCfqOrQFnFnBkOrcNebFCOsoRBiOCgObEFJNejCfcEkgSkqQcKSkrOFokOOObgJJGJJKsoFSbsRbESEmgGGqMFjBeoErFBOqNKcGaFcRekMcJReJOqkJcSJAiaFkEqcOkNCIosBrn"},
+    {HX_TILES, 0, 5, 36, 100, /* 46: 0.62 */
+     "..ooo..|.oooo..|..ooo..|.oooo..", "",
+     "QnAIKsSBgQJsGMskGNMqnIEGqRamIOknSAgRcJSaqQkgRcNsNIbrBqKQJfRaGsSSkSkbIfKERFkaGKaFQeIrjGnqGofOsmQRnAeoKsbNcQQmQgNSknFasKKOcBfIniOJqoOAJIgCoGBAMkFO"},
+    {HX_TILES, 0, 5, 38, 100, /* 47: 0.56 */
+     "...S...|..oo...|..ooo..|.SooS..|..ooo..|..oo...|...o...", "KnII",
+     "MCRbRCnsIgJNCOGNcKNfGnjAkJJgBfAEnEqaNeScfFMfMCsQQFQAMjFMQARIsCFKnQeBSoRcCioAOEjNCmaQjOBJoJJJnjEbSkGjcKmEsRGkQkSeNOCroCIgRoiAIfCIsI"},
+    {HX_TILES, 2, 5, 39, 150, /* 48: 0.62 */
+     "..ooo..|.oSSo..|.oo.oo.|.oooo..|..ooo..", "SjSj",
+     "OfcCoGojSbkRfBorAfbCGOSbOkFBkInGKCmCfKFncFFKsjFKOeBjSCBNjOMjNkfRkrJGKQiMiRbCkbOcfFrQaKRObBerGAoCmjFKosEoCmrMkbIJEmjCsErGorEkSniNbFOcfFAFmgFsICiRKJrnCN"},
+    {HX_TILES, 1, 5, 37, 120, /* 49: 0.56 */
+     "..SoS..|.SooS..|..ooo..|.oSSo..", "ScScSkSkEE",
+     "NICGqMsBkSEafIGnjOeNKmSCoMkFmeMgjFcSJFcrKgaIFsRAGjNJcJgEisGcNJeSONCNbnEoiJsBAkGMaGaNgCnGrSgSoEKcsKoMiGokJrfAsGkEcKcsJOjFBqBCkGRasMKmCnIgICOsGcCOrb"},
+    {HX_COLOUR, 3, 5, 40, 30, /* 50: 0.56 */
+     "..ooo..|.oooo..|.SoooS.|.oooo..|..ooo..", "SgnSgn",
+     "SNjBgmIrOqoNebCeRGiRnKKBeGjInsBKqmFnNjcGRkJEosQkoSoKgjCkfBfSiECkNcIoRAArjRbCsCkmBrCmsMsSoQmsBgOOinCGOkrGQOkAosEsgNaiJmIBncBmSGKnkCsIaQAfCmSAoOcMMgbGnsBFiSaKgaIaOr"},
+    {HX_TILES, 2, 5, 25, 80, /* 51: 0.88 */
+     "..S#S..|.oooo..|..ooo..|.oSSo..|..ooo..|.oooo..|..ooo..", "KcKcCjgCjg",
+     "OsKOcRbjAFqMqmGogMCneNEiKKFaFsgMCqbGoKfCjOckOFEcIqAsjKgKnGoqSjcCoFbsRobGqSjEqCmRaCmqOjAkBiAkSjCrOscQnNgIqeKgOeIbBseKoOiNgFaGcCkOeEKqIbASFsGrmCJaeNasKQgMcIgFGRbjEjQk"},
+    {HX_TILES, 1, 5, 32, 80, /* 52: 0.88 */
+     "..ooo..|.o##o..|.oo#oo.|.oooo..|.SoooS.|.oooo..|..ooo..", "GjGj",
+     "KoBMroECrNsCjoSjfCgoACgOgaCBrGkCnfGcfONJsIqBrmFOekQbiJBerIoiOqMcGOSGScCCgsScJKEoGKQgoGmBocCFqSanInJqECNkgAfkJoASoqOgkFqBsnIrRmRkEcEnqSgaCQnsSmBGKakBeBNRmqGrSGo"},
+    {HX_TILES, 1, 5, 29, 110, /* 53: 0.81 */
+     "..ooo..|.#oo#..|..ooo..|.oooo..|..ooo..|.oooo..|..ooo..", "",
+     "CgNRaQiGKcSkbGjBCsmJrMMrEQcJbiNfEknOjGnqOrMjbSkcCgcSCGIsmKBoBirFnOkIoFScCmbMCfCgQokSJEsGsSfIOMBsMskCsGsgAfOqQceMCfGFCKbrEAgoOcFmGqiMkbEosRnCiNEMsGkOgmJEjKBke"},
+    {HX_TILES, 0, 5, 36, 120, /* 54: 0.88 */
+     ".#ooo#.|.oSSo..|.o#o#o.|.oooo..|.oSoSo.|.oooo..|.ooooo.", "BieBieOcOc",
+     "NkINjRnRnrQCsnCoAqCsaMSaJcSGGmJaMJciOiErAKsnOjMQObqAqmBioRaNcGmKnjSJORneMcSjEksCjCnJcOsGNbQEaeKqOgsGBenNCrjCkcSirOeRbmGOSgMsoBGjJfkJgMicMcNcScKAoiKCGcFinEroJnNM"},
+    {HX_TILES, 1, 5, 35, 110, /* 55: 0.88 */
+     ".SoooS.|oooooo.|.oSoSo.|o#oo#o.|.oo#oo.", "FnFnKK",
+     "GcjGoBnSgbCOBncBNkKMqnEmASbgKgIFroRJmSAOsFcoOsKsjFnFoKaGagEkaGiEnFGjaQnRfoNcMRSMqGsGFkAROqcJBkOrMckEbSnCqiMboAeRbsBmEmaScKnsRKGEiBiICjnKSeCkRocKfBCgkKqkCkFqKsmRg"},
+    {HX_TILES, 2, 5, 34, 90, /* 56: 0.81 */
+     "..ooo..|.oooo..|.ooooo.|.#oo#..|.ooooo.|.#oo#..|..#o#..", "",
+     "IbgJeiAqfEmJNsOcMKGMknBkBkFkQjJAsBsQfRgFGsBnfQgaKcAkmEArBGoErRfFnNCeCfcJSFkoEImjEcjMMcSmaOgnQcJaNJKgGiGnbENeSCNKIbkCNcrKKseRbrMGkSfJbgMaqNIqgKbeBKbKIRciKcIbk"},
+    {HX_TILES, 4, 5, 34, 130, /* 57: 0.81 */
+     ".o#o#o.|oooooo.|.oSoSo.|#SooS#.|.ooooo.", "SfoSfoKK",
+     "CCjGaNKnsReRkKrOOkcSOEoCmcCskSEsOGjOqkQnSfcJbmInqCCjAnsCmaBscGKmAiSocNMibGArmOrBkSbeAfEbNFneNcjBgCrEqgSoKnbKaRisJKeCoeSeaBobGkMiRocCOrgKbErcJaCRKbBmKCsfEkReEBIrSCkCjnQb"},
+    {HX_TILES, 0, 5, 31, 90, /* 58: 0.69 */
+     ".ooooo.|.#SS#..|.ooooo.|.oooo..|.o#o#o.|.oooo..|.ooooo.", "EE",
+     "KfKqkEbgMcKGnFbjBnRmRnjBFISkImSjsNjgNRnGGrRSCojSSaSIfEifIoAkrBRKaFqiOFkCCqCIBkOgOqFkFjSKgKbAnEqBJAgEoMkIsBrKFsQQSioSfBSnOgSOfGaNeFcSMsoFosJrnMsRjInJr"},
+    {HX_TILES, 1, 5, 26, 90, /* 59: 0.50 */
+     "..ooo..|.#oo#..|.ooSoo.|.SooS..|..#o#..", "QeGcGc",
+     "JgoJFkoBEGrGroRKQcsKorGnbKqoKnFifIOkRCoAioBgCkGOiOcInCqoOQcOqjRSbQAqIgCrNAmQEjNcrOSNsaNKmNgqEsfKcsFcNsbBoeJrNkOjoJFBnrSaGJESSOfsGcOKqbRosRmEiOBrJgrBrgImsQbFkgIeB"},
+    {HX_TILES, 0, 5, 45, 160, /* 60: 0.75 */
+     ".oSoSo.|oooooo.|.ooooo.|oooooo.|.#o#o#.", "OgoOgo",
+     "KErSMksGjScFjKIGmGnQkGjKgJamRjJcMcIciEjQeRFcGnQkEsABmFoGbiMfMqJFsRgbKfGkFbOagSkQOkSgFrIrfGsQoEakQeInJCjnJrKJOCIoAOgOfScFroOcSjaRcrMemRboCFmfSMcsNBeiIbkKGbRfkREj"},
+    {HX_TILES, 3, 5, 26, 80, /* 61: 0.56 */
+     "..ooo..|.oooo..|..ooo..|.oooo..|..S#S..|.o##o..|..#o#..", "BB",
+     "NroNscFkrIMjeGnbAOaeCjGbjGQAebAgNfkAgOjrCiKreGagIQSgsSgKfnJnrKmjKeNbqKamFkSfBsCkKSoOSkqNgBnsKJgGcoGcFoQOfbNGSQiARkoJImfNgjABinOaCkfBkEkEkJqAFIoIqoEksNiGmJcoAGogJmInRnrOaoCifFoj"},
+    {HX_TILES, 0, 5, 24, 80, /* 62: 0.44 */
+     ".#ooo#.|.o##o..|.oS#So.|.o##o..|.ooooo.|.oooo..|.ooooo.", "II",
+     "GcgSASRJcsIgOfJsnSFsjNqIbEbIanSbNcIsoJfbOcBgMrcNsjGnAoKgaQkFnSgSbJeGmJBerBsnBGoGcgJcBrQSBnkJaGBniGaKbjSgCeSkrGoeSbKanKcrMRaJScQkrEjgJoIQncKSkEsBkgRfMcEcKBQbiRQRmFFrAk"},
+    {HX_TILES, 2, 5, 37, 110, /* 63: 0.69 */
+     "..ooo..|.#oo#..|..#o#..|.oooo..|..ooo..|.oooo..|..ooo..", "",
+     "OgJJeKqjCFCjGbeFagNrOQfGCGsfNgqAkKnbKRJaKCieSgbKsiOOgGorFAmkGQaoEmFmbOQiGsKoSejKscMfIrKfOjsOeKJfbKcNgCfCiGkQjOBRSMqmRnRmrJCnkCeAnkSKbSCqgGiFrGaSaBIGBnRgcJJfoJo"},
+    {HX_TILES, 0, 5, 35, 120, /* 64: 0.69 */
+     "..SoS..|.o##o..|.o#o#o.|.oSSo..|.ooooo.|.oooo..|..#o#..", "NqbNqbBoBo",
+     "QcmCjoEoOejFmgKbJbNgCogGoMrfScKsmMeoCBfoCgsGrmFBfQeKmOCMgkKSOMarRQfMErkSNeGSBoFnAKnMQbgEcMQnaCsBqnRAsOasKnQkEknQcCgOkGkMeqKbkIcrGSbgNIbOaKIbGRgCniIGIOgJfKmgSgJNc"},
+    {HX_TILES, 1, 5, 25, 80, /* 65: 0.44 */
+     "..ooo..|.#oo#..|..ooo..|.#SS#..|..o#o..|.oooo..|..ooo..", "JJ",
+     "IFjCrgMcGkKIgERgiGOBgaOkCkCkoIMcNQKoJsfORaCgRbFbkCAsQcGjFKgiBJOIsKokJqCkqBFsJcmFobBiImRfsMkeRRogGsiQOjrJIskJcAmGQoIocOsoBgcFcoFoKnSiCeoOeJemGcNOBgGQAgcFqRNsfOqbA"},
+    {HX_TILES, 2, 5, 41, 110, /* 66: 0.69 */
+     ".SoooS.|o#oo#o.|.ooooo.|#oooo#.|.SoooS.", "NNRmRm",
+     "KACknEJOrKfAGosKenFanEOfJJBnSfCjcBmkMQeaOjOSCjgIeCsCkMSksQaARngFbJnKqbBksJSbiMfnEJobAAJgImcKJKbrFSaCQgiOCqFncNEcSOqgIoSibRFinGknNfiEjrRkGArgCjaKOsAkOSkBKGM"},
+    {HX_TILES, 3, 5, 44, 160, /* 67: 0.69 */
+     ".oo#oo.|.oSSo..|.ooooo.|.oooo..|.oo#oo.|.#oo#..|.ooooo.", "FjFj",
+     "OkSoBoCfaEoMfOfsBqkGFJJFOkfOGaAnjEKqBogEcIQGFjGsgFrnGoBCRkcEbEnOaAgJcSgoFrbSgGCrGKmcSasKmeBifNBiCkNbGamBGnCeCnIobQjQbrAqIngBgQjNgjJgsBrSnjQgrSFmIgIsoMbnNsKJeANSeGcoAgo"},
+    {HX_TILES, 0, 5, 43, 150, /* 68: 0.69 */
+     "..ooo..|.oooo..|.ooooo.|.SooS..|.S#o#S.|.oooo..|..#o#..", "RbRbFF",
+     "BfkMKsjNbjKKNqGcoGbEbMIcKrfQSgmGkgFocJnMgiMjcAmbOjAsEanJejICKoAfFjObNsCkREkfBIfQGciBNcoOsKrBfbGaSgEiRcFRoMcSOeoJRnCrFnBsjKoRokJmCgFbjGkKcnQOJIraBgAjaOQgRnSKKaACN"},
+    {HX_TILES, 4, 5, 34, 90, /* 69: 0.50 */
+     ".#SoS#.|oo##oo.|.ooooo.|oooooo.|.ooooo.", "FmrFmr",
+     "OgnSicCfFrKEoMkCkJscMEmAAogQkFskCRmQnCrKfqIfnRcABmGjsJnsBsImSQSciFrkOgnFoCoCgMqfQcMQnIsQbCsBnJqeJseRIfJOIrSigKfjCskGcSAFsaQIOkREjnSAQmjAgbKrJcAScSfNGSObmRfMgGiMe"},
+    {HX_TILES, 3, 5, 43, 130, /* 70: 0.62 */
+     "..#o#..|.SooS..|.#ooo#.|.oooo..|.oo#oo.|.oooo..|..ooo..", "BoBo",
+     "GNrMrNsAnSfCkNkAJgKNjFoOsMJGMkfKeGciRicECrjBiaAGkJqRjqOgiFAmQbRFrBnNkIcOrbFOAiNcoGNgSfCMioCqbIGbfEbGFjaCiBfGnsBqCMsIaRobJGarSkgFcoQANqQkRfbBsNOAnBmNMrMIrkFos"},
+    {HX_TILES, 2, 5, 40, 150, /* 71: 0.50 */
+     "..ooo..|.#oo#..|..SoS..|.oSSo..|..ooo..|.o##o..|..ooo..", "SjSjBgBg",
+     "KMrmAgbErQGrSgJqgJqCnMKQJRRkAgJrKEqoJcjJOrfBKckCsFmfEnFiRjSkoGGKeNAgRnOebBoSfsAiQkRmgNkoKcCGBJoORmkObnEmOgqGkbSCkGasSgsOfnQnaRSGoOMAgAorBsOkAosGkgRfAsSmkEkgJbfBmiQF"},
+    {HX_TILES, 4, 5, 43, 160, /* 72: 0.50 */
+     "..ooo..|.oooo..|.ooSoo.|.oooo..|..#o#..", "Aj",
+     "CgGsaSCsbFGjsGJrJSkMqQBsgECEbkMqKrJNsnOrMjGcmIaFbgSicOicReGrgEkIakOCkoINcOrkNigOfCngSoFIsKOcMjOiRkeCqkSkBiRieKrQoSNGQkCkNOfcGaNAIrfSgiFIMKgiEAfiFmsGrNiAQABkoBQc"},
+    {HX_TILES, 0, 5, 40, 110, /* 73: 0.56 */
+     ".o#o#o.|o#SS#o.|.ooooo.|oooooo.|.o#o#o.", "FojFoj",
+     "OkIRQciErcKecRcfKQmEAgBkcSeREnaAiMgRJcIIFIfSgObCrBfoQgSoRoJCMQbFcqRgiKeSkoMrFcjEqgJrKnSKsgGCsGiCIqBgBiNgBGoCocSeKCCjFMOBjFMkCJSmSkoOAfJeCnaQoBoOsfSgnKrS"},
+    {HX_TILES, 1, 5, 43, 130, /* 74: 0.44 */
+     "..###..|.o##o..|..S#S..|.oooo..|..ooo..|.oooo..|..ooo..", "JbnJbn",
+     "JNeIIoROcoMJeMrBiGjCibKmFIQmSCrnGsFcGKAOeIaInMQfjRGaFoKEcfCBsCeJnqRcfFcQReQoNGBmFAjQcNrcFcAokBifGMsaCqMcNsgFsgOfbIgGOgaOBfoBmqSjnOkKgGJrbSkeSaCmRfFiGjNeGqSOj"},
+    {HX_TILES, 0, 5, 43, 140, /* 75: 0.50 */
+     ".ooooo.|.oooo..|.o#o#o.|.#oo#..|.ooooo.|.SooS..|.ooSoo.", "OOO",
+     "GcSkbGEIoMkcScJbQgOsiQnrEcJnqOfRgcGorGmRReKMfrFjEjJqIoOafEjIcmAgBejGFrQmKGiROsAGbqNsoQkfFSaRgmMgQfaQknAoCoOaRIEJJnrBsMRRfCSoCGmaGjEEkSgCKcJcGckEFsgGSoNsBgQoCimS"},
+    {HX_TILES, 4, 5, 32, 150, /* 76: 1.00 */
+     ".ooooo.|.oooo..|.S4o4S.|.oooo..|.2ooo2.|.oooo..|.ooSoo.", "JcJcEns",
+     "NsOboCrcAmiSkOrSfBmCmbSboOaEskBOkaGoSoRciNCfoJgEsmQjGboARoOcsCnFkFsaSeOgsCfFnEmEsgFjQAQbIbIKeKbsOrjEObjNqGrIRBkNgbQIbfFkMqFsGFOfRMsJqJebOfBfqFmEKsOfJqGniFbOgkKeOfBgJRaoCn"},
+    {HX_TILES, 0, 5, 28, 100, /* 77: 0.88 */
+     ".4ooo4.|ooSSoo.|.oo1oo.|#SooS#.|.ooooo.", "SnSnGG",
+     "EanAokRBeiFnbFoKRmgAkNCsAjAorObeBfoOqmErRkFEmNciEkbJocNeiBGnCqcNfRSgCroIgFifFobEafFqbBKrJrGSeqEOrfQfbOkgRksSmKoGsoBoRoOrErKqGcKrbCogFnFAgAkfRcQIKmKbESosCrBfmIfqKBgqNsGSjCrScmFknJrc"},
+    {HX_TILES, 2, 5, 28, 100, /* 78: 0.69 */
+     "..5o5..|.o33o..|..ooo..|.SooS..|..ooo..|.oooo..|..SoS..", "SSJJ",
+     "GJocMcKqaMjQbGimFnEarCsGaoSmBCJIqaFksCfCsNqkKcOiKeSRAkMkSCGrNjSmrAsAmNfbROgOrjSjNjAneSoJgGrfObjNaGOgAjNeJsCiJafMgbRGbjFnrIgEsjFbrBmMKQiKasAmbNfoJEoSfOgbOcGqAoCiMkEcoMgEoOb"},
+    {HX_TILES, 1, 5, 30, 120, /* 79: 0.69 */
+     ".So5oS.|oooooo.|.ooooo.|5#oo#5.|.oSoSo.", "BsBsGbGb",
+     "GnkCNkJRcRbFkmArBosNcBgBAgQfKsaFjRbrBOFsKqASkFJNeKcGkrNgRjErnEqRnNsRmBsRcKmJeQjKfnAsSkfNeBjcAnrGneCgaCScSgGckIsiOqFnEbNjeMqkKqCraSmGseAoCIEcKcOAmInMjQcFskMrJIoaFsMiCekCoa"},
+    {HX_TILES, 4, 5, 43, 160, /* 80: 0.81 */
+     ".ooooo.|.o##o..|.ooooo.|.oSSo..|.#ooo#.|.oooo..|.3ooo3.", "NejNej",
+     "RgsKmCorOcRagGsmKgIsaFnCkqRecScgQkGFboGsGboGmaKsSEiCorOsKFRBsQkSfmJeCQkaKgkNgIaEcRJocJCQgnObSaECknNRkbKbfAsaOgkCeKemORiFrKcMcSbICfBesSorSbKgSKMkcNceOfoOqeRjSfcQKeiNGJMaJsfCem"},
+    {HX_TILES, 2, 5, 34, 120, /* 81: 0.56 */
+     ".ooooo.|oooooo.|.#ooo#.|oo55oo.|.ooooo.", "",
+     "NbGqGqbAfkGjKsSmKfcGarCsfOSSiqOrOqOfkKcjMeqOqKFRnOjQcmOCsfSOCgsIgQfoSioQogFbNaOqJoKfbCCgaMcBGiBsfJEnAosRaoCiFoOFasOcBFmcBBfBnFboGkRgmObnRfKrMaJSbEkCAQbeSFNjEOiGmeKKoIs"},
+    {HX_TILES, 3, 5, 43, 170, /* 82: 0.75 */
+     "..ooo..|.oooo..|.2ooo2.|.#SS#..|.#ooo#.|.SooS..|..ooo..", "GGAA",
+     "OgKsKsBmSJskKoAieNsCoRenEGkNfNeqCkaBebRjNRfJFrGiMfQirIbmKgAsaKnBibSgQgAeIskMMNrgKnJNsEroJmsSkmOrBfKfaEokQkQGaSoNknMiIKKesKnbOaOeMjcOKqGGcsNKgrQjBqgSIriEaoEKakBiBrNJcqJqoJG"},
+    {HX_TILES, 1, 6, 36, 100, /* 83: 0.69 */
+     ".ooooo.|.#oo#..|.ooooo.|.1oo1..|.ooooo.|.oooo..|.o#o#o.", "",
+     "WisUCowOsEWUgjJJwObKwaSoNfMjaIEJNwkSoBwCruQkCkNkSmFcrKWRRkvNwoCwrKOArREnRbSbKnsCjqOFaQfbEWSjuEwBIoNgAvNrBIvoRgjNfoIOriAoRgCWbvJrkUjeIsoASofIbiSaoCwIQvCrfUjbKwaJarNEC"},
+    {HX_TILES, 0, 5, 37, 130, /* 84: 0.56 */
+     "..ooo..|.oooo..|..o4o..|.oooo..|..ooo..|.oooo..|..#o#..", "",
+     "CnSKKscFqKgKoBsRogSgoNqGJIrNgoSGaIqcGjQfkKbFjnKbBkSfSfNkIGkBJQcjGCNBsoJarGnkCknMbAmiNcGrGoAgArnInbSFcBoNgOqBmCqfQisFiFKsQeoQOqInGaKoOIeEbgBrCrkSJaGBsiObJqjKfKenFCiKnk"},
+    {HX_TILES, 0, 6, 34, 100, /* 85: 0.50 */
+     ".ooooo.|.oooo..|.ooooo.|.5oo5..|.ooSoo.|.oooo..|.o4o4o.", "C",
+     "RjcVevUOquWgAuUnFWrGcFovBEbwGviMcwWmNvNkqGocKoEFNvNQBkOwRncWifCfkWoKuOkUoAjOSeqBuJcFNwBjwSkKeRoJokCEBMjbRgjNbMcMrOrcFjFwfWgsWkVgOivJWcoKuImfWmQeSisGCusKwnGrGuRafNRoMvMjcNWjo"},
+    {HX_TILES, 2, 5, 35, 100, /* 86: 0.56 */
+     "..o3o..|.oooo..|.o2o2o.|.o##o..|.oo#oo.|.oooo..|..ooo..", "",
+     "GsjRgEkcNsjOCiFCmkIgINsKOcNfsQcGkKQiGcOjAKsCiCCsiMkQIgsSbfGaGcKKOkmBjKocScSGmcNjsMscRkNiqRimSkqFbsScjOgKskFscOQSgQjGFCQiFMbFGokRgbRisBnbBCkaSjBkOqfIeoKckCCofIeOqeNscEqIsiK"},
+    {HX_TILES, 3, 5, 47, 160, /* 87: 0.75 */
+     ".ooSoo.|.oooo..|.oo#oo.|.oooo..|.#4o4#.|.SooS..|.ooooo.", "FMcMc",
+     "BCqOcnMRfsJgMIGFqCGkFjnIorNCgOfGmBmRjgKgqCIanKaEsmCjQofMQJFscBrGkfQBrgKrNcFFriIaGrCeCkaJnqEaCrJqfFcKbBfEasJcFneKosKnNrIqaKObFsJcKrfFRaQOiErSjBGcIRoMcNIBfsGNcqNgRj"},
+    {HX_TILES, 0, 5, 29, 100, /* 88: 0.38 */
+     "..ooo..|.SooS..|..ooo..|.S##S..|..1#1..|.oooo..|..ooo..", "CgCgCoCo",
+     "QnOsgQfqFoiKrCSnMfkQCobOcgMAsBqKmgRGkCNCfnNACNcnRbFjgMSbrGifCmErjEKnsNiJqOfRbMfSiGqCeqJsQgCnsKcgGBgiMiQckOkNbSmNfBoQjEoqNAsFSjmQQkJQokNsfAofSgRFnaNcMsoNcKfEjgKCjGcoFrSeKg"},
+    {HX_TILES, 3, 6, 36, 120, /* 89: 0.50 */
+     ".5ooo5.|.oooo..|.ooooo.|.oooo..|.SoooS.|.S33S..|.oo#oo.", "AsAsKnvKnv",
+     "MuKNcnNwNbSouVaGnkBqoKmMJuMrKrNjsGsgSeMcuJrCngSknRgwWsvWjeFrfGrnJQwfBKeoJBeUcjCuOjQwkFrjCeKGuAeoSowObNiSfMMumVEakQVbfFwMgGanCkuBfwUocRfMfFkGKciJqfOBvUceQkWqNsAwRboNsjAfWsBRjEjInEnVc"},
+    {HX_TILES, 4, 5, 49, 190, /* 90: 0.62 */
+     ".ooooo.|ooSSoo.|.ooooo.|oo##oo.|.S5o5S.", "QQJbqJbq",
+     "AsKBsBCOfFBmgIaArKsJbCoFoiSgRaOioQFbrIOjMgkQMjaFBkgIOebArNSgcKokBenImsKrSOfsScNcCmbQjKnRoFrJeNFcMgQNfoSfiEkmKAsnAojEMsfNBAeKakGoJgsKGoJnfSeSMbnKrICkbRgMbKfFmRoQcKrR"},
+    {HX_TILES, 3, 5, 46, 150, /* 91: 0.50 */
+     ".SoooS.|.S##S..|.o#o#o.|.oooo..|.ooooo.|.oooo..|.1ooo1.", "CgoCgoBrBr",
+     "JCnjJcNbAmFnfRmKmSfbRmArCnOscSoMqMFbNsAfKoKqCqFroGmCgJCeFBsiAnCmsFBiKfFafCEGmkEbiOfEcoKfFcnFSmsCABeOjCfCiRkKScGcrSaMNsnFkQkcORoKaQnaGicCgRgAMfSgGSBfBoKbgKcRnbGmQSgb"},
+    {HX_TILES, 2, 6, 48, 190, /* 92: 0.50 */
+     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|..o1o..", "",
+     "NwRbgWOjnWgSjWfOfnQmEqgUkwEwnQIsgMScWQwgWAMgMaWbAkVkKcGNkCjCjrVgWAoVsVsNenWesCfwVKgnGvWbJvWeCkOKnjBVOwkSwOIcOgsOFkVBqSMavKRFJSkcKvOvbWrCRmJCocGruRQGKrnNEmkQ"},
+    {HX_TILES, 4, 5, 47, 160, /* 93: 0.50 */
+     ".ooooo.|.#oo#..|.ooooo.|.#55#..|.ooooo.|.oooo..|.ooooo.", "",
+     "JEkJqjSoOfrMSCjBnBgoGbBrEcjRbqOkGbAkeFnEkmJEKfQkOsbFsjNcgMfRibRcOsNfbGOfIGoSSjKBSaNRkqJCScnIogCiKGsKsSJfsIgFcCqOaMBiJanKfQgmRkgRkCsBifNOsjCANkrCfbGSfKIgFEbsQFsRb"},
+    {HX_TILES, 1, 6, 39, 130, /* 94: 0.44 */
+     ".ooooo.|oo11oo.|.ooooo.|oooooo.|.o#o#o.", "",
+     "OskJbfGcoRbsUgoSwWrvCeBBNuBncCqWkQRfwCrWmBBukSgSVbMBgcOOjRevKoBmEwQkKnNOrUOBmrRWARQOwqVckCkmSimGaCIqeKONrWsVoWEsOGUckEsBRJniSgbWVcNgnVjFbEogVmcOBqfKMBsgCeGovWnj"},
+    {HX_TILES, 1, 6, 40, 120, /* 95: 0.44 */
+     "..ooo..|.oSSo..|.ooooo.|.oooo..|.#oSo#.|.1oo1..|..ooo..", "FviFviU",
+     "NIFAqoQcqVjrWmFcgIuQcjFqKuqFAewSiJQiGbGvKSwmIMQgWKnEqOOaNgVFsvOsWfmQoFSboIoJfmRIAiWcgGQnVosVKsWjoGGueOvCmgCqmJsgGkGmRjKrBmGnAkWsRbqFoIKCfVfCunIRgQWokCwAkGcuAsnRCm"},
+    {HX_TILES, 2, 5, 47, 190, /* 96: 0.44 */
+     "..o#o..|.oooo..|..o5o..|.#SS#..|..ooo..|.o22o..|..ooo..", "JmJm",
+     "GkFsSJnaREsKfsFkSoiKbSnFkSeEkJqBQkEosReOKqaGNsBkCjKFRcJaQnNrfSgsQGkGsfJrCksNGjGGRosCgrBBifSnMgBskSnbKNqKerQjBrKEFoKqkNgFjcRkgKONfSaBrbGmIbNaFaBrBnNesQjgNgmSgSocINjOc"},
+    {HX_TILES, 4, 5, 50, 190, /* 97: 0.44 */
+     ".o4o4o.|.oooo..|.oo#oo.|.#SS#..|.ooooo.|.oooo..|.2ooo2.", "FciFci",
+     "OriOSoKfJoKrBenFmiIbOkCJfGjAgrCoIGkBsnGNagBgRmKsRocEsJGjGCjrKqmAkOrROjQfSiJsIKskCgCECqmBKnJmObOkRbeJcGnObFIaRjnScsOfMBFsFMgoIgrEcqCmcRgjBfmCAFcSjcEocJgFNGsRkSjcBnGof"},
+    {HX_TILES, 5, 6, 44, 180, /* 98: 0.38 */
+     "..ooo..|.oooo..|.4ooo4.|.oooo..|.ooooo.|.oooo..|..ooo..", "",
+     "FuAknSjvEkFkeGqwSmiABjwWWSmkOewRoKmfMVfvOkQVrbNugGswEbIGnNujBroUnrKasGiqJouWbUoBWnVnRgaCwWkvGbMKmGsUfkOanVIwrEiUbqKroJKcwScmJcrMNjNkQOVrjKbsQfaUjvASJWcsIeuRfwSBAUfGMuFnRisBofNbEi"},
+    {HX_TILES, 2, 6, 41, 120, /* 99: 0.38 */
+     ".ooooo.|.oooo..|.o5o5o.|.oooo..|.#ooo#.|.oooo..|.ooooo.", "",
+     "CRoSeUiBeNqwUgkCUfRnqSjQWmGEsnBkgKBgGmfSkRfoWjwOqKuCgFAmsQvmIWIAAEWfrKAmcCngUsOseRfiUscRbqIouUesAjFoBRwGcWBqJfSEUGcGoeIruKcgJoeVknEoKsBnBVogNCwmSWbRFbjSnQoWmGjqWbBjRgm"},
+    {HX_TILES, 1, 6, 46, 170, /* 100: 0.38 */
+     ".SoooS.|.oooo..|.ooooo.|.oooo..|.2ooo2.|.oooo..|.o#o#o.", "NesNes",
+     "FqEnGciEvBNwcWCrGvVgnCKoKnKesEnOejSucKcgSbvQVoOCWbkJvJncBMckKRuNqwMswBWqGquAjaSneARnWcOqmIgwKqkCiFaJOcBgEjWgNceACubGcjRwrNNQFwRgBKwjEwNkvRokEmfQewFWawWsSgCgkUscBmeGujBjSerQSkVkg"},
+    {HX_TILES, 0, 6, 28, 120, /* 101: 0.94 */
+     ".......|.o66o..|.oSoSo.|3oooo3.|SoooooS|oooooo.|.SoooS.|.oooo..", "OgsOgsWkWkIbIb",
+     "GkIwrKfrSveFvcQKFnSjMGcBJcmBkaVfRBwsKrmWKmBgSkcMUngWkCiMbmOfkWbQvVjNGrfBgCvkCwRvGEVCkCoVQbgSgVgSGqwKbIgIQnqFrwUcwVgmNjfWbwUNeIoKwgOaWsUcGkFjsBkQnOcnRfoGVmjAwFrjWcgMKvoWseNNsi"},
+    {HX_TILES, 2, 6, 35, 130, /* 102: 0.88 */
+     ".......|.3oo3..|.o2o2o.|oooooo.|ooooooo|oooooo.|.ooooo.|.oooo..", "",
+     "EcrEIfkFqgNroOrNbAwUjmFqoWgmBWsWkwJfCiwSfAnUjeJFmgQfjGbkEWeiBsgBjcVriKasEwFuNcoVeVgcAfmKNJFaRoFnsWfSuRguNsoNknRaVsGKreEksSnBnScEvjCAFkNjoCBeRaCeFukEvQifWeIfOBnVcjKSmWfGOsOIgQuA"},
+    {HX_TILES, 4, 6, 34, 130, /* 103: 0.75 */
+     "..ooo..|.oooo..|.SoooS.|.oSSo..|.ooooo.|.oooo..|..4o4..", "WnWnJaJa",
+     "IEcgRvbBucNgbOEoaVGBVbOjrCwMgFnqUgKGkCiKWovSnMjVbgOjwSvkGkmKgSavWVfVnuCgiAwKusOjnBgrCkKeaBuVgwFjsWnSJeOqKsiWocRfcKfRfqUQSaSowWawFvnRjnCswFcQMwMfNcCRvGseCrwWjgAjQwkCiNrfMkUcJcWOOjSwb"},
+    {HX_TILES, 1, 6, 43, 160, /* 104: 0.75 */
+     "..SoS..|.4oo4..|.o5S5o.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|..ooo..", "FcwFcwEkb",
+     "QkQkaRnUaqBoScoWfWnuSwrFqfOwEckVnrJwKesOGouBgAerGoEcGqeOcNJVrbJwFFwaJcnAkSmKqvOAwfIaIoQgwCwiGcRRgGUUQgcOwSvoUcwKEsvJbfSuiObMuoVkFoOOsuBwFmUkwSckNivCfbOjBqBufKIwnGuFwAvSNqVgGcBgWeoC"},
+    {HX_TILES, 3, 6, 34, 120, /* 105: 0.56 */
+     ".......|.oooo..|.SoooS.|65oo56.|ooSoSoo|oooooo.|.ooooo.|.oSSo..", "ReReFaFaIaIa",
+     "QuJbSvBvcSckKbAvjNsRifKrAvnCwrNqvQgOarQKcCgFcwRkoUbOaBofMbBnsFvWgFobQecRbkFcnKWNqRbBkcBSjnNaIcnOekKVsmSkcQnIcRKfQbCwSmeBsCFjsQnAvcBqAkIGvJgRmbOanEqAqcIuoRoCnCnuBvfGkmCnkSEWCNavScNwU"},
+    {HX_TILES, 5, 6, 43, 180, /* 106: 0.56 */
+     "..3o3..|.1SS1..|.ooSoo.|.oooo..|.ooooo.|.oooo..|..ooo..", "RwrRwrAem",
+     "VokFwKcuSkrGnwIcQkSwWCsSkVbOciKorGOjSgkSkBjgKsGrIrIvnOaiKGjoWmSogRcjGiWjRkeRfGnEbGkRFnSgGIRbkRbCgIJcCNQaMjSQAvBwSwSvQWorVbAgFwfMgoSnNgoKnIeIoMusMbSaFcWjGcBkoKeoOJeOvoQuAj"},
+    {HX_TILES, 5, 6, 46, 190, /* 107: 0.69 */
+     ".......|.4##4..|.ooooo.|oSSSSo.|oSoooSo|oooooo.|.ooooo.|.oooo..", "GkWWGkSjSj",
+     "KeGkuJbfVoGubRwnGjrFjnJurJemRoFFsfGjsUBgGUjcGjuMFNkCUbuSuOIbqRSnAvbAQofJorRnbMkaAgJfGwmWfNwRcgNKEoiRnvCiMkqGwFKgsAnvWcQvbVgCkOckOEofVSgUQneGwEnVSuoNjMWIgUafNKocJfrSeUbRfiEorGnNsw"},
+    {HX_TILES, 2, 6, 46, 180, /* 108: 0.69 */
+     "..SoS..|.o66o..|.ooooo.|.oSSo..|.ooooo.|.oooo..|.ooooo.|.oooo..|..ooo..", "MwMwGaGa",
+     "JfbGWakSgrOBjgAkIroWVnfCvrSgiNrwKbfSJbmCenCueArcJIgcWbMkSbWjNuCQfrVSbVMjwReVfGSEqIeArkWeKgFwQoUmcGImKrNfvKvgIgkRcOrkQBoaBwjKgGjrVVqwVcBoeCoAnOeMvjIqoIeWEwRjqSgArfGrCgnUgnCokFwjBWrOq"},
+    {HX_TILES, 0, 6, 37, 150, /* 109: 0.44 */
+     ".ooooo.|.SooS..|.ooooo.|.oooo..|.3ooo3.|.oooo..|.ooooo.", "FjbFjb",
+     "MNqOuoIfOvgRosWnCoCruAjVWEoCoWboAfjEnFkfKaGigBSvnJrIvFqGsmNgSwMkvFjsAUBFOjFOqWBsvArfBibIqNJmvKcvCsgBsvOrFAvsRcsRjnOrAiVisBirAkrOcvKbQvOuWnrAebRevQwsWfaVeOvcBoEkIgjOgQUgAqFqoWknGoUeC"},
+    {HX_TILES, 3, 6, 34, 130, /* 110: 0.38 */
+     "..ooo..|.oooo..|.ooooo.|.#11#..|.ooooo.|.SooS..|.ooooo.|.o66o..|..ooo..", "SfsSfs",
+     "CBnKuiAnrWjBOujSSOcwBeVbrGweFasBKCeKseAvcWoJaKbwQvMRcAwWkcKqvVrOejQNrSMceNgcEnQbmEnSoqQjcJmAseUIKqRvUeQakSMvVOcfKoGsJnNvNuGOsIgCjFjJnFinVNqUcvWquQbvJvNkGsvWqfGWoaCowIaKGieGbn"},
+    {HX_TILES, 0, 6, 37, 170, /* 111: 0.38 */
+     "..oSo..|.3oo3..|.ooooo.|.oooo..|.ooooo.|.1oo1..|..oSo..", "OsE",
+     "WawFrWiaFnBkcKgaCfsIcFvWfKEveKoWnwWRoBjbSavSoGWeGnJcQcwQmgUosEqvSasSwWrfQbVAgAmkGwjCifCMcjFnvMsvSnCsiVojVBfOcOOjNfbSkeKvmSeWovFueWqfEwKfoKwrGqCNcBuJMbWeOscUiWfRbjArNgGkgKNbMjCfJoCkmOaOj"},
+    {HX_TILES, 2, 6, 44, 190, /* 112: 0.50 */
+     "..#o#..|.oooo..|.oSoSo.|.oooo..|.6oSo6.|.oooo..|.ooooo.|.oooo..|..o5o..", "KcKcOa",
+     "NucRkoIoSmCjNkSoScsGSkvNfrBosQwRQuoUbWjGnkJbNNQeIsiMOwnRwqMcvAsCsfNfvUnBoWmvVUrGOQbnOkfKSicCnOjbOEquMsRVjmCruMbSvSgvQnOkbVgaCwsFiKbvMukJaGcWbrBiWaoKavJrmCmSjMsAVJfQeWrRnkFsKusIasEiqVsb"},
+    {HX_TILES, 4, 6, 40, 120, /* 113: 0.50 */
+     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.o11o..|..ooo..", "",
+     "UcNvGImuBunWKoOsgEkaBFanWOSwMBnqGCWeWfoSnbJvUmjQeOiBsuIcwIswQavKRMriJRofSjuCSmkGwrSgKnaMRfjScRcCoqWcsQjsGbGSGbGigUNqKcWgjKcuKWeaAmEwbVeWrgBoiUsbOviSEuQiNrjBmUaJokMgWoSCwsRgOaO"},
+    {HX_TILES, 4, 6, 52, 200, /* 114: 0.69 */
+     "..ooo..|.3oo3..|.o#o#o.|.4oo4..|.ooooo.|.oooo..|.ooooo.|.oooo..|..ooo..", "",
+     "RiVkoCqcBGFkSfMbSWGucCjKCnvCnsMibOiWVkWqCjwWncJnOOkCuGwiCosOkSOeCMcqNWBsFnfNvbKmEjFwGjSkCruRckWWWoWgwJCgoEcWbsJoAncEmNbvOqcKquRfBgoQfoGuJvjGcKakRwCqoFGoGnFamMiQoEvBJanRceWaNsf"},
+    {HX_TILES, 3, 6, 40, 160, /* 115: 0.44 */
+     "..5o5..|.oooo..|.ooooo.|.oSSo..|.o3o3o.|.SSSS..|..ooo..", "KcwKcwSOgjOgjS",
+     "UqNeOecJvRjKvFcoCeoKMwWgQjoCmkMcIuKqVmfJvWnUiuFFoAVqBfmGokRwCKngEbWqIrOvEMckGnIokCMfkKruSucSNarIbwGnfSgvWqcNeaMruFrgFkfKukKwRorJaGUjwWgbWbnMeUeQWkOvEnvKeOwrCqJrjFaMcjGwGJugKcfOMBgOibOku"},
+    {HX_TILES, 1, 6, 46, 160, /* 116: 0.50 */
+     "..ooo..|.o##o..|.oo#oo.|.o33o..|.ooooo.|.oooo..|.ooooo.|.oooo..|..1o1..", "",
+     "KCqGwfMjvGsoKoRgbCnWokOrOwFoWKveAOcoInsOgsWokKgSbiERobFInjImsWEWqiSkONeoVkUaKuCeJqUqgFwWaCqmInOKOanUkWkeCuOCjAvIBrBowGoJcGVJqbRwbBjmCqRnBreKumNqCKnwWkUaqUjAnOcwFsiKasMuSnwUjgQvkCg"},
+    {HX_TILES, 5, 6, 43, 150, /* 117: 0.38 */
+     ".......|.oooo..|.ooooo.|ooSSoo.|4ooooo4|oooooo.|.o#o#o.|.SooS..", "VcrVcrRkRk",
+     "RBsAocVrNIwOsgUbCsUraWeKwrUgJcvKnMwKnFFuVkSaqKgNeCnNueCMeSKqAgrKRWSmWKwSaCFrWJfKucVeoQeKskRfvGwcNGNugBjSwSvcKKnjSoRvkGwgWfwFsnSivBjvSuoCkSfKsfGnvAkuCkmIGmEwOKOgGjqJwoQUnwK"},
+    {HX_TILES, 4, 6, 50, 180, /* 118: 0.50 */
+     "..#o#..|.oooo..|.ooooo.|.o##o..|.ooooo.|.oooo..|.ooSoo.|.oooo..|..2o2..", "Cv",
+     "BrVknCrMjFrWecWOkIMqQmKvkObQfUfcSoNruOiCsgKrEagGcwBsOuOsvVNwgNioUVrcEQocNeGuBmKgCnAnWkFKVgcNicUgsCwaCwmIwmBnCNsKqWGrwMcQoKNkcSmkEcOjmFsWgrFsMGvmBinFsNaBnBsOeiOwgJBFkKfjVeGroWekIwb"},
+    {HX_TILES, 4, 6, 52, 180, /* 119: 0.56 */
+     ".ooooo.|.5oo5..|.o3o3o.|.oooo..|.ooooo.|.oooo..|.ooooo.", "",
+     "FjrJfoFiWfCgKbVbmQjGigOcJuJOqjSwmOAgvKrbSnOiAseOBwoWSokFuCnwBvaSjVSusRuMfmMsBwcRnRgMwEbCwqSvgRkABwMaVnfGniVObsIvsQcKeJcrKbGjcWfcSfVqiGoKbvCqOGkIeAsCvcRJMWmOrCKAwRmwNcmFBfwSojNEo"},
+    {HX_TILES, 4, 6, 40, 150, /* 120: 0.31 */
+     "..ooo..|.S44S..|.ooooo.|.oSSo..|.o#o#o.|.oooo..|.#SoS#.|.oooo..|..ooo..", "CiCiQbfQbfIskIsk",
+     "QCuKoKJbnVfGcgGcjGviBmJnBgAkwBrOOMgsNgvQwbSWcFwObeFaRjeGrAkKNjGscKvWgjCnCkeSmjJaNeiVgsAsiNJqwWRuKcVsoWgiUjvKgcRbUkOjuBkcBgMeWkWgqMsgJqfGnWojIsjCuVsMbjVNSfoIsEsKmAqQcrJrvWVoWfKokIGkQk"},
+    {HX_TILES, 3, 6, 46, 190, /* 121: 0.38 */
+     ".ooooo.|.SooS..|.ooooo.|.oooo..|.ooooo.|.oooo..|.oo4oo.", "CfCf",
+     "NaqRgJvArWiFVcfOsRfoRFnrAwSgIuoOeSjWiWcOufIUrGokOgkWcwCrnGkoIVnkWjRvcEbgKbJcfFWsNrGrJaNguBoJajEkcGrwWivWqEOuObQwROrRgCnSvaRewIseCejSveMOcAeqJwsSknRaCvfBfvCogMcIrcEwVgcNRSgJcCjnWnJrAvVr"},
+    {HX_TILES, 2, 6, 55, 210, /* 122: 0.44 */
+     "..S6S..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.o2o2o.|.SooS..|..SoS..", "IrIrAgAgRavRav",
+     "GvoQwQObuRfOgnRfEwgECjvGqcWivNKrWmkBjJeFcUJwVivSoMsbWeSnvAfbUokGiCCVbWofJboSwcEobFcGaCveSCBoqJrbOeWWkSemOunRweWsOfnAUmjMbuKqRfmGCoRgSbRbrOwbEiFskFuUjsObgGakJcvKJnJJSGjKsKGaCjReQj"},
+    {HX_TILES, 1, 6, 52, 220, /* 123: 0.31 */
+     "..3o3..|.oooo..|.ooooo.|.oSSo..|.o2o2o.|.oooo..|..ooo..", "QwQw",
+     "OSgcIuJKebOswQjrSRfcGscRnOinGwfRvrAwaVcRaBsfNkIruVcSEriRUcoJqMNKfGucEcWFrbSuaKgEaNCnfNRfqEWbkReAUcsJoReGjuNgiIekWgaOrmUoWbNkOvRUgvSRgGIcuBgSjuRucFkRAqFmvKfGwnKsCFneUcVWbKwnUboMc"},
+    {HX_TILES, 3, 6, 52, 200, /* 124: 0.31 */
+     ".......|.oooo..|.1SoS1.|oooooo.|ooooooo|oo##oo.|.ooooo.|.1oo1..", "WiWi",
+     "FjKwSGuMukGmFkvJaqOEreEnbBoKGnGqgVfWjBMugUsUanNseOuoOgsJSofEJFuQSmcFCfvSMFIgkNwrWfFNrmVeNcsBvoJuAvSfuSfGckVjoOQwWnCEwEjbRoNwoSeAnVnErfGjKeJwaOinEUgbCnCeaCsWbiJFsnIwOfjVeiNjbSinEa"},
+    {HX_TILES, 4, 6, 52, 210, /* 125: 0.31 */
+     ".......|.oooo..|.ooooo.|5oooo5.|o#ooo#o|ooSSoo.|.ooooo.|.SooS..", "WgWgOgnOgn",
+     "JmCsoBfjSfRnwNvFoSgjCFnCjnOrcKoSwJqBgFroJscUgKAnUoEvmRuRQofFoBwrSojBrfSEqbQmgVbRifMwBoeIGAojUNFwgIsRwsNaObSfcOvFwNckOfVjVbSbSgjFusEOafGQJUswUiOjeBekOrAngVRokJoBsoCjgVAjeCoSvcOjNjqB"},
+    {HX_TILES, 4, 6, 44, 180, /* 126: 0.81 */
+     ".......|.6oo6..|.oSoSo.|oooooo.|ooooooo|SSooSS.|.ooooo.|.oooo..", "VjVjCuQksQksCu",
+     "GngBjnOqcKswVaCgVeCgWcgBsuSoFMOfkUfcMgVgmVsWioIrRgcUovOFKqOrGvoWgwSWBiSkRkvFmrJrgNurCAGjSWAovObKwnImqEvoGowGkoBgMqwWkWkBrwJFsSmkFuKekAiaRgWmFEvkOfqOvkOfNbFbsVrSmcBmrGVoeQvRbJwJsnVsOskKq"},
+    {HX_TILES, 4, 6, 43, 170, /* 127: 0.81 */
+     ".......|.oooo..|.SoooS.|oooooo.|oo5o5oo|oooooo.|.oSoSo.|.oooo..", "VnvVnvVmVm",
+     "GsvMwNWjVJEcKsSkGkWjOgwIsnGoOjWgSaOwBEmgGcSmsSaBiMcsFqBgBiEkOufWfsFwNkeOqAoJoWAogGwoRcoRjKGvcVoScQnuBiSvoMebAveJGGbSAnfFwWncFcuBibRoWjeVaCkVkAvCkBjQcgAowFqoGuBKfjFoaCkBeqROrcRwfGmu"},
+    {HX_TILES, 0, 6, 34, 160, /* 128: 0.56 */
+     ".ooooo.|.oooo..|.4ooo4.|.oooo..|.3ooo3.|.oSSo..|.o1o1o.", "AA",
+     "SmrGafJwnRaFjnRksGrSOgGrkOwOiWnFvGjwUcwWcVraUbnJcjNsgWcgCroVGcFcoOErEjwNisSkvAwRagKfrJwIckUnVsMjUjcOicKbvWMAGrWcmIwfEqGwgRmNagFuIgRjfNVcSgBwBfkNsRkGjuFnaWgqSjKrGbvCqcBWjbJfNiAsNkKQbAjmMfbQi"},
+    {HX_TILES, 2, 6, 35, 160, /* 129: 0.38 */
+     "..ooo..|.SooS..|.SoooS.|.o##o..|.ooooo.|.SooS..|.ooooo.|.1331..|..ooo..", "WmsWmsCqCqOjeOje",
+     "AvbIUJscSjrNjcGnfJbBsuFocOrQfCkfOwfCvGEowEnKsJuOgaASbsKecEbGvrFFvCUbnMemKaIfJwcOIcCurMkfCoWiFVofKrOgEieMwrFIfbVcUgqOBjgSoNrKcBgqVNcUrNrvFjFcrUaWfrGqwBeqIsSWrnSocBsoBqvFukMjeOjGjfRcqKvIvbRmb"},
+    {HX_TILES, 3, 6, 52, 220, /* 130: 0.56 */
+     ".ooooo.|.SooS..|.ooooo.|.oooo..|.ooooo.|.oSSo..|.6ooo6.", "BgcBgcWnWn",
+     "CwUgOjbIfvOOjoOSiaOkoEcBkWbOjAvrFBeOvoEuAgOquFwKvbOObrOcsVsMeIeOrWobFcrSbmOweGbRisJgCsCgwQkEcQmjUaOemUNcIesBkQeGqoIgvQuFvVAnWnGjFVcsVEcnGaRujCfnAfcSiQbeJsSkgASmjOkEwoVocRfFcVWkKcgRksFjc"},
+    {HX_TILES, 5, 6, 35, 170, /* 131: 0.31 */
+     "..ooo..|.SooS..|.o5o5o.|.S##S..|.4ooo4.|.oooo..|.oo3oo.|.o##o..|..oSo..", "ReReGwGwNin",
+     "GbEIgjRoCsNenWiAwgRgIgwKOfOeCgcWGkgWCorSbwUgrNjgMwKfmWrvVkgVfcAsoKgjOSkcGweVigRwNkVkqNgEwsNwVWfvMksCfrNbwKcEmSjOfqVmNvmKOgAgjNboWgbVCuCobGcuNwaWiuRkmRocRfjQujUkWsgSnCrAeRjsUJveUbAjaUoCksVcIoWVg"},
+    {HX_TILES, 3, 6, 43, 170, /* 132: 0.31 */
+     ".2#o#2.|.2oo2..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.", "",
+     "BnGbuNcOboJmQNimGsvJcJsNfWqkQkgGwkJavVbNjsVgSveRwWevKnSmvEcGwaSeBvQcWnfNeOiFcrVmaCWOwGvjJgFwsGbOiuIvJuJvBwUfmReEsJmNaQerEwBquOrcNswVGujFkwOiKgEoqFqKmrIwGNwIaEnKnBJwSVbnWcGogWaWbOioRcfNj"},
+    {HX_TILES, 4, 6, 46, 170, /* 133: 0.44 */
+     "..ooo..|.oSSo..|.ooooo.|.oooo..|.ooooo.|.#oo#..|.oo5oo.|.####..|..ooo..", "NsNs",
+     "OfmCRkKofVfcOcBkCrGNVcFmvKgoSfcJnuRvVmRCrOwSucFbCWmOWNviIgqAguSOwUnjAsOfMriOkcKJWboEwjOafMCvKmGkOqANfMuCiWqCvgFosUqGcrNwVrvUneUkEsWfKagGoeMjQuqOcgGubSvkSokVsBmuJcfWamKrVnUfJamFkfOFi"},
+    {HX_TILES, 3, 6, 58, 220, /* 134: 0.56 */
+     ".......|.5oo5..|.ooooo.|oSooSo.|ooooooo|oo11oo.|.o1o1o.|.oSSo..", "WjgWjgFjwFjw",
+     "NfSeQoUiRgjUUsJguUWbRgANUbFvMMcvOaEjcVniKbBGRkqMgKoVmgEmcEqbSJwFjwQeqAuFmJmvCGweMuJvoOfIBebKgcMsaJnNVeVKoMkcINFrFbrAnwVOfkGbJsfRuOaiGkMwKoVcRoOrWosKoQwjEqfGjGMsQgsWbBruEWqg"},
+    {HX_TILES, 4, 6, 55, 220, /* 135: 0.50 */
+     ".oo6oo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.", "",
+     "KsvEiSaqSjIniKSvQiMgsCrAvqCncGanVoKugFsNcrNrcKsiQmMgRjFrSgjVoiKsnNqmGqJnsKvkRfqGrKosJOwGkCoJucCmqIosSjKcrEjwBumUcgMVngUfNqUoRkuGkVaAjcUqWgwNuSnJcGrBvoScgVcrOwiOjBgkUfkJbrSRjWSgMwoQkQjbKnNvbMwCejRo"},
+    {HX_TILES, 2, 6, 53, 220, /* 136: 0.56 */
+     "..ooo..|.oooo..|.oSoSo.|.oooo..|.SoooS.|.#oo#..|.oo3oo.|.oooo..|..o5o..", "GGSjSj",
+     "EskSuAsRniVsUoVfcFoRkFoIbIwKuBruCgCieKvkCwoFcmJGwoEnRgbWnwMsbOkFowOsjQkGwiSoNsbBvRwgGwnIckKrKrAqjArcKeQeKFiKsgKoRcWneNGFjIqEbmBokORceGrAigBvMsoGkwAiqFoEqiKsUrCsCGjNgjNiWocIoSwSkMwBFaIscIbr"},
+    {HX_TILES, 2, 6, 49, 180, /* 137: 0.38 */
+     ".......|.o##o..|.#ooo#.|#5oo5#.|oo1o1oo|oooooo.|.ooooo.|.oooo..", "",
+     "UewKrRisJwrSvsVrBuKFbkVaqVKsFrSoCwGjuBnsVFucRobAfnRGvcWWQgrBfOjWgoCqjIgWofMUgoENawSReOsQcwMgoNioWkrSfjJvoCNwoCvRkOqcBqUqGrWecNrJbRcIgnGrNbsBvfIqoEavRBrbAkqIfRkQuiCjCuSksGjQbjNeJbeCkeVmqWjsSnc"},
+    {HX_TILES, 1, 6, 46, 180, /* 138: 0.25 */
+     ".oo3oo.|.5SS5..|.ooooo.|.oSSo..|.o#o#o.|.o##o..|.S#5#S.", "WsWsCCGbGb",
+     "CrwRFkBksKfNioBvIoGokNgoGjgWqCoaKcgUkcIasWcCiRwSnNcGsIOcMcSCqwCqUkOivOawRjBjoWcoCnGunUJfaVrFEvBFUKanSbsKqVEuqUasSWoFwQowSuaMrwAIFqUgIvUkCAjCvfBSmqRkWrbESGRbKgmEwfOraAfQbBrvOwg"},
+    {HX_TILES, 5, 6, 55, 220, /* 139: 0.50 */
+     ".......|.o##o..|.oo#oo.|S6oo6S.|ooSoSoo|oooooo.|.oSoSo.|.oooo..", "FkFkRRVjVj",
+     "WbNBiUcOwkNwfOajGoAfCqOvNkaKgoInvQvrSuBfSkmFnkKvNcgOjbQerRnRgWnsRogFieSucJbvJsUqjAqbQCUmsOuSVbAeiImGvGbBrOaoVkwAujQiOSjmCJrvJwKcUbgQKofCjeAnRCvrMVcfRuiFKfaVgbFmFBubNjAiWQbVrKfoWcUgGbFnf"},
+    {HX_TILES, 0, 6, 55, 210, /* 140: 0.38 */
+     "..ooo..|.o11o..|.ooooo.|.o22o..|.ooooo.|.oooo..|.o3o3o.|.oooo..|..ooo..", "",
+     "AqeCArkWeiIbQouGoOkGiSmNcRcqMqkFrBkOkOjvGjmUknJbjUnrMkwNsWgmRksFcGmsKnAewKbCmrNAukQJcnEvrJoWoUgsQwBkqWiMkIbUsuObUfmUinEsoCgmCgAgKsWbnGuMjsRfWeNfWbWrkFBvGusCjFmMcBsVqeFKnNIofFmkRbiJnaVokAwWeFof"},
+    {HX_TILES, 2, 6, 61, 250, /* 141: 0.50 */
+     ".......|.oooo..|.5ooo5.|oooooo.|ooooooo|#oooo#.|.ooooo.|.SSSS..", "JrmIuIuJrm",
+     "WrKcnOcwBqoGGOkwJcAJbmAsGiaAisUboVfjJsfGmsVBCroGjuWfwSkqCwOgUibEbnNGwqFiFiwGwiEqRKqNfVGvImCkCkQnsJfbNSwfBfoBfbMqVowEkCfNfGvFmGoRoSmFsfFnaFwKbRbkIeNWgcFkvRcnRjnWfwIKfkUgQamJweOVeGwNveVebCfw"},
+    {HX_TILES, 2, 6, 59, 270, /* 142: 0.38 */
+     "..ooo..|.oooo..|.o5o5o.|.oooo..|.ooooo.|.oooo..|.SoooS.|.oooo..|..SoS..", "BvkBvkAvfAvf",
+     "VfbJcfSmbKmrJnsJobCsRSfaRwoUnvUgoAfwFsmWKouUebOasIbJwiIcKIaeGsBoKaBuRgSkgBgUorFmEOgwJnvWBvkCokIbFcsVqSfJrGuRoqJWokVRcnJvVIQmsCqCrNgsOqBjwQgObBnUgIrRmcGbvAkVkaQWnQBqiSaFoKowJogOevArKbnJfMvo"},
+    {HX_TILES, 5, 6, 56, 230, /* 143: 0.38 */
+     ".ooooo.|.oooo..|.1ooo1.|.oooo..|.ooooo.|.o77o..|.#4o4#.", "",
+     "UguUgCgoWkVosNgoWfoQibUaNcvNwSuqVfFwQceSvKGrbIcOwIcNQjgGSkIwkWmbOjSmWmfWfuGkcSvScsJNcGrCfIcjAicOgrJvCiKasBwMsFjqFbEbFswNCJrmRoIamWOawMgqSoGmsSKoOMgmGObRFbBsmOMruSOveJroNbeWsCioGScAwk"},
+    {HX_TILES, 3, 6, 61, 240, /* 144: 0.44 */
+     ".......|.3oo3..|.ooooo.|#oooo#.|#ooooo#|oo11oo.|.ooooo.|.7oo7..", "",
+     "WkbIsFvQRnsBCjIsfVswCgBeWirMsfKgErCkEBgmRkOFckAjvKJgqIrKcsFoaSWnsAiEcwIoAigSwsMbuWMjaSkMinMrmIsREaFsRfIMaBFjeOksSngQkfOiJsUfwKmNusKsFbIoqCmiAgoWjvVruGoCBuBOwCjbEcwEaiSemImiOceBJrjMgjNicJ"},
+    {HX_TILES, 5, 6, 52, 180, /* 145: 0.25 */
+     ".ooooo.|.oooo..|.o6o6o.|.oooo..|.ooooo.|.oooo..|.ooooo.", "",
+     "AmgSbKeBwcWmVnsOvgVbfCGuFwKFMQbuWeaMgUgcQwFOcwIaBuBsJqMwkVkQkuCfvNgrEsiWsgCrIgbIunUOsiSnAwfIqCgoUgoEImFkBgjSmkIfWrJnQbVbkFawSfiUkGjEbKckNveCOrbKsaAwkKwAkrSwCjrBsNseGorJeSmAsbGnrJbwUgJQkrBnRko"},
+    {HX_TILES, 5, 6, 55, 250, /* 146: 0.25 */
+     "..ooo..|.#oo#..|.ooooo.|.SooS..|.oSoSo.|.o33o..|.ooooo.|.oooo..|..ooo..", "GmkGmkQjcQjc",
+     "UCkvCoUbQeOeaKniQNajKwgBmkOsmSuKGCkgUroGisUoiWqVjwQarEoGMbVkGrUeaKvbWAvMujOrGoSusCfwKroNbCnvGWgrEocRoQcIgRfIIfOweJgFieNjMrfQmRfkAvRjKgcGuEcWjqIbwCeaWrWnqSumVqkNrBrCgFbRoAoEuqMESjWcoCrSc"},
+    {HX_TILES, 5, 6, 61, 200, /* 147: 0.38 */
+     ".......|.oooo..|.o#o#o.|#oooo#.|ooooooo|oooooo.|.3ooo3.|.oooo..", "",
+     "FqRuBgAsaBsFswBvCgsCsSgWrKJKnGOswKvKwoVarNaCrFjBovOcBQnKrvGvoBeCecMugSaWiKJnAnuOuKcmUjCnAvaSjfWmjOurWIrFrcGnjAouSeMuRgwNjbGakSweQjmIreRniKoOsQcNJwjQAScjBvViuVswSfjBkEusJvVCjKeFmFRkRvf"},
+    {HX_TILES, 4, 6, 58, 250, /* 148: 0.25 */
+     ".5oSo5.|.oooo..|.ooooo.|.oooo..|.ooooo.|.SooS..|.SoooS.", "NuKcwKcwEE",
+     "JgjJJsgFcvRvkEoMRMkgJuoVkKskRwcJumIwjKqnCkBngVfNanNfwGmMkbROiBmsBvoEujEcBwWmJuOcWaAfiAwiMGsvCgmFjwCgiIqfRRnvMgwSAAfWkaCeGcIvnFmuWRiFUjqOkWeFvKcrAjqWEuUsbUajBkeMgJscCfEqJSavNVSCmIeBrW"},
+    {HX_TILES, 3, 6, 64, 270, /* 149: 0.38 */
+     "..ooo..|.oooo..|.ooooo.|.o77o..|.SoooS.|.6336..|.ooooo.|.oooo..|..ooo..", "NvjNvj",
+     "VNcGsnEwGskJUkoKeoSnIoWfKagSEwBroOJwkBGoNfNuKcQcoNCjFcKosNkqRbkGsvEiSgcRBsCqInOgnCmCeWVoAWkGqfFwNEovMrcOKvkEaRkVgjRbKnaOweUnsJwgUaJsQgvOjEVrWgvIwFrnENeGiJsfBmGbqCfrJmUsVbkKuKQ"},
+    {HX_TILES, 4, 6, 62, 270, /* 150: 0.31 */
+     "..#o#..|.4oo4..|.ooooo.|.oooo..|.4SoS4.|.oSSo..|.ooooo.|.S##S..|..5o5..", "RafRafQceQceEjEj",
+     "MOesUogWOImEkVarGuGjsOsOvaGrgUofBSCvnWfwKCqjQfNRcoCjnJUskKsVkoFcfCRoOksCniMueJukBGmCgwVbEjuKsKOKugNkoUgEbJRcrQkoFcAuSjWoeNgbCIrCBwfWbqIgbRovNwkUnsUiMekKnvSfwMFjSorWjVmiUmBoeNjfKCouVgOra"},
 };

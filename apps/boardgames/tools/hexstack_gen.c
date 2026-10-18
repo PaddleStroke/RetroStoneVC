@@ -1,16 +1,20 @@
 /*
  * Hex Stacks' levels: src/games/hexstack_levels.h. Our own levels: no published or commercial set is used. Each
- * chapter has its kind of board (small boards of three colours; four colours and goals of one colour; stones on the
- * board; locked cells; larger boards of five colours with stacks already there; the largest, everything) and makes
- * many candidates from fixed seeds: a board shape of the chapter, its stones, locks and stacks laid mirrored about the
+ * chapter has its kind of board (small boards of four or five colours; goals of one colour; stones on the board;
+ * locked cells; larger boards of six colours with stacks already there; the largest, everything) and makes many
+ * candidates from fixed seeds: a board shape of the chapter, its stones, locks and stacks laid mirrored about the
  * board's middle, a goal, a tray sequence made by the rules' own chance (hx_chance_stack). A candidate is kept when
  * the rules' player (hx_best, the hint) reaches the goal with at least two cells to spare all the way (its placements:
- * the par), and when most of a set of players choosing worse (noise added to every value) win it too: the chapter's
- * share at least. The difficulty: the share of those players lost, the par, the colours. Each chapter keeps 25 spread
- * over its difficulties (the first level of the first chapter drawn by hand: one stack makes a chain), its last one,
- * the showpiece, the largest of its hardest few. Deterministic (fixed seeds).
+ * the par), when a naive player (a stack and a cell by chance) mostly loses it, and when the share of players choosing
+ * worse (noise added to every value) that win is within the chapter's range: easy chapters forgive more. The
+ * difficulty: those shares, the par, the colours, the size. Each chapter opens with two looser levels (its new idea;
+ * the first chapter's first level drawn by hand: one stack makes a chain), then 22 spread over the rest by difficulty
+ * (no two boards of one shape in a row when it can help), its last one, the showpiece, the largest of its hardest
+ * few. The per-level table and the chapters' summary go to stderr. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/hxgen apps/boardgames/tools/hexstack_gen.c -lm && \
  *       /tmp/hxgen > apps/boardgames/src/games/hexstack_levels.h
+ * The same table for the levels already in hexstack_levels.h (nothing written):
+ *   gcc -O2 -DREPORT -Iapps/boardgames/src -o /tmp/hxrep apps/boardgames/tools/hexstack_gen.c -lm && /tmp/hxrep
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define HX_GEN
@@ -23,14 +27,15 @@
 
 #define PER (HX_LEVELS / HX_CHAPTERS)
 #define TRIES 150                               /* candidates kept a chapter, at most */
-#define PLAYERS 8                               /* the worse players tried on each */
+#define PLAYERS 16                              /* the worse players tried on each */
 #define NOISE 3000                              /* how much worse they choose */
-#define SEQ 60                                  /* the stacks of a level's sequence */
+#define SEQ 80                                  /* the stacks of a level's sequence */
 
 typedef struct {
     char board[96], pre[256], seq[3 * SEQ * 2 + 8];
     int goal, colour, target, colours, par;
-    double diff, win, size;
+    double diff, win, size, hard, rnd;
+    int shape;
 } cand;
 
 /* the shapes (symmetric about the middle of the 7 columns) */
@@ -44,23 +49,30 @@ static const char *const SHAPE[] = {
     ".ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.",          /* 6: 32 */
     ".......|.oooo..|.ooooo.|oooooo.|ooooooo|oooooo.|.ooooo.|.oooo..",  /* 7: 37, a hexagon */
     "..ooo..|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|.ooooo.|.oooo..|..ooo..",   /* 8: 37, tall */
+    "..ooo..|.oooo..|.oo.oo.|.oooo..|..ooo..",                          /* 9: 18, a ring */
+    "...o...|..oo...|..ooo..|.oooo..|..ooo..|..oo...|...o...",          /* 10: 16, a diamond */
 };
 
 /* a chapter: its shapes, colours (lo..hi), the deals' press, the goal (HX_TILES or HX_COLOUR or -1 either), the
- * target (lo..hi), stones and locks (pairs, at most), stacks there at the start (pairs, at most), the share of worse
- * players that must win */
+ * target (lo..hi), stones and locks (pairs, at most), stacks there at the start (pairs, at most), the par (lo..hi);
+ * then the share of worse players (noise NOISE) that must win (lo..hi), the share of naive players (a stack and a cell
+ * by chance) that may win at most, and the share of much worse ones (noise HARD) at most. The chapter's first two
+ * levels (its new idea) may be looser: naive players up to INTRO_RND, worse ones at least INTRO_WIN. */
 typedef struct {
     int shapes[6], nshapes, c0, c1, press, goal, t0, t1, stones, locks, pre, p0, p1;
-    double share;
+    double wlo, whi, rmax, hmax;
 } chapter;
 
+#define INTRO_RND 0.7
+#define INTRO_WIN 0.8
+
 static const chapter CH[HX_CHAPTERS] = {
-    {{0, 1, 2, 3}, 4, 3, 3, 0, HX_TILES, 10, 40, 0, 0, 3, 1, 12, 0.9},
-    {{1, 2, 3, 4, 5}, 5, 4, 4, 1, -1, 20, 60, 0, 0, 3, 6, 18, 0.75},
-    {{2, 3, 4, 5, 6}, 5, 4, 4, 3, -1, 30, 70, 3, 0, 2, 8, 22, 0.65},
-    {{3, 4, 5, 6}, 4, 4, 5, 4, -1, 40, 90, 2, 2, 2, 12, 28, 0.6},
-    {{4, 6, 7, 8}, 4, 5, 5, 5, -1, 50, 110, 2, 2, 3, 16, 34, 0.55},
-    {{6, 7, 8}, 3, 5, 6, 6, -1, 60, 130, 3, 3, 3, 20, 40, 0.5},
+    {{0, 1, 9, 10}, 4, 4, 5, 0, HX_TILES, 40, 120, 0, 0, 3, 4, 30, 0.5, 0.95, 0.3, 1.0},
+    {{1, 2, 3, 9, 10}, 5, 4, 5, 1, -1, 60, 160, 0, 0, 3, 8, 40, 0.45, 0.9, 0.2, 0.9},
+    {{2, 3, 4, 5, 6}, 5, 5, 5, 3, -1, 80, 180, 3, 0, 2, 10, 45, 0.4, 0.9, 0.12, 0.8},
+    {{3, 4, 5, 6}, 4, 5, 6, 4, -1, 100, 200, 2, 2, 2, 14, 50, 0.35, 0.85, 0.06, 0.7},
+    {{4, 6, 7, 8}, 4, 6, 6, 5, -1, 120, 220, 2, 2, 3, 18, 55, 0.3, 0.75, 0.03, 0.55},
+    {{6, 7, 8}, 3, 6, 6, 6, -1, 160, 280, 3, 3, 3, 22, 65, 0.2, 0.6, 0.0, 0.35},
 };
 
 /* the cell across the board's middle (columns: the doubled x of a cell, 2 col + odd row, mirrored about 6) */
@@ -101,15 +113,74 @@ static int judge(cand *c, uint32_t seed)
         hx_load(&g, c->board, c->pre, c->seq, c->goal, c->colour, c->target, c->colours);
         hx_play_out(&g, NOISE, seed * 31 + (uint32_t)k, 200, &won, &room);
         wins += won;
-        if (k == 3 && wins < 3) return 0;      /* (lost early: not worth the rest) */
     }
     c->win = wins / (double)PLAYERS;
     return 1;
 }
 
+/* a naive player: a tray stack and an empty cell by chance; 1 won */
+static int random_play(const cand *c, uint32_t seed)
+{
+    static hx_game g;
+    hx_load(&g, c->board, c->pre, c->seq, c->goal, c->colour, c->target, c->colours);
+    uint32_t r = pr_seed(seed);
+    for (int k = 0; k < 200 && !hx_over(&g); k++) {
+        int sl[HX_TRAY], ns = 0, ce[HX_CELLS], nc = 0;
+        for (int s = 0; s < HX_TRAY; s++)
+            if (g.p.tray[s].n) sl[ns++] = s;
+        for (int i = 0; i < HX_CELLS; i++)
+            if (g.p.kind[i] == HX_OPEN && !g.p.n[i]) ce[nc++] = i;
+        if (!ns || !nc || !hx_place(&g, sl[pr_below(&r, ns)], ce[pr_below(&r, nc)])) break;
+    }
+    return hx_solved(&g);
+}
+
+/* the difficulty metrics past judge(): the share of naive players (a stack and a cell by chance) and of much worse
+ * players (noise HARD) that win, MEASURE each */
+#define MEASURE 16
+#define HARD 9000
+static void measure(cand *c)
+{
+    static hx_game g;
+    int a = 0, b = 0, won, room;
+    for (int k = 0; k < MEASURE; k++) {
+        a += random_play(c, 77u + (uint32_t)k);
+        hx_load(&g, c->board, c->pre, c->seq, c->goal, c->colour, c->target, c->colours);
+        hx_play_out(&g, HARD, 991u + (uint32_t)k, 200, &won, &room);
+        b += won;
+    }
+    c->rnd = a / (double)MEASURE;
+    c->hard = b / (double)MEASURE;
+}
+
+static void table_row(int l, const cand *c)
+{
+    fprintf(stderr, "%4d %3d %3d %4d %4d %5.2f %5.2f %5.2f %6.2f\n", l + 1, (int)c->size, c->colours, c->target, c->par,
+            c->win, c->hard, c->rnd, c->diff);
+}
+
+static void table(const cand *lv, int n, int per)
+{
+    fprintf(stderr, "lvl size col tgt  par   win  hard  rand   diff\n");
+    for (int l = 0; l < n; l++) table_row(l, &lv[l]);
+    fprintf(stderr, "chapter: par mean, win (noise %d) mean, hard (noise %d) mean, rand mean; trivial (rand >= 0.5)\n",
+            NOISE, HARD);
+    for (int ch = 0; ch * per < n; ch++) {
+        double p = 0, w = 0, h = 0, r = 0;
+        int t = 0, k = 0;
+        for (int l = ch * per; l < n && l < (ch + 1) * per; l++, k++) {
+            p += lv[l].par, w += lv[l].win, h += lv[l].hard, r += lv[l].rnd;
+            t += lv[l].rnd >= 0.5;
+        }
+        fprintf(stderr, "  %d: par %5.1f  win %.2f  hard %.2f  rand %.2f  trivial %d/%d\n", ch + 1, p / k, w / k, h / k,
+                r / k, t, k);
+    }
+}
+
 static int make(const chapter *C, int ch, uint32_t *r, cand *c)
 {
     int sh = C->shapes[pr_below(r, C->nshapes)], rows = 1;
+    c->shape = sh;
     char grid[HX_CELLS + 1];
     memset(grid, '.', HX_CELLS);
     grid[HX_CELLS] = 0;
@@ -173,9 +244,35 @@ static int make(const chapter *C, int ch, uint32_t *r, cand *c)
     return 1;
 }
 
+#ifdef REPORT                                   /* -DREPORT: the metrics of the levels in hexstack_levels.h, no output */
+#include "games/hexstack_levels.h"
+static int report(void)
+{
+    static cand lv[HX_LEVELS];
+    for (int l = 0; l < HX_LEVELS; l++) {
+        const hx_level_def *d = &hx_levels[l];
+        cand *c = &lv[l];
+        snprintf(c->board, sizeof c->board, "%s", d->board);
+        snprintf(c->pre, sizeof c->pre, "%s", d->pre);
+        snprintf(c->seq, sizeof c->seq, "%s", d->seq);
+        c->goal = d->goal, c->colour = d->colour, c->target = d->target, c->colours = d->colours;
+        c->size = 0;
+        for (const char *s = d->board; *s; s++) c->size += *s != '.' && *s != '|' && *s != '#';
+        if (!judge(c, (uint32_t)l + 7u)) fprintf(stderr, "level %d: not won\n", l + 1);
+        measure(c);
+        c->diff = 0;
+    }
+    table(lv, HX_LEVELS, PER);
+    return 0;
+}
+#endif
+
 int main(void)
 {
-    static cand pool[TRIES], out[HX_LEVELS];
+#ifdef REPORT
+    return report();
+#endif
+    static cand pool[TRIES], out[HX_LEVELS], first;
     printf("/* Hex Stacks' levels: made by tools/hexstack_gen.c (our own boards and sequences, each won by the rules'\n"
            " * player in `par` stacks, and by most players choosing worse; do not edit). Each: the goal, its colour, the "
            "colours\n * dealt, the par, the target, the board, the stacks already there, the tray's sequence "
@@ -185,7 +282,7 @@ int main(void)
         uint32_t r = pr_seed(9100u + (uint32_t)ch);
         int n = 0;
         if (ch == 0) {                          /* the first level: a ring of red round the middle, red to come */
-            cand *c = &pool[n];
+            cand *c = &first;
             strcpy(c->board, "..ooo..|.oSSo..|.oSoSo.|.oSSo..|..ooo..");
             strcpy(c->pre, "BBBBBB");
             strcpy(c->seq, "BEJ");
@@ -198,39 +295,74 @@ int main(void)
             }
             c->goal = HX_TILES, c->colour = 0, c->target = 10, c->colours = 3, c->size = 19;
             if (!judge(c, 1)) { fprintf(stderr, "the first level fails\n"); return 1; }
+            measure(c);
             c->diff = -1;
-            n++;
+            c->shape = 2;
         }
-        for (int k = 0; k < 60 * TRIES && n < TRIES; k++) {
-            cand *c = &pool[n];
+        static cand intro[TRIES];
+        int ni = 0, want_intro = 2;
+        int why[6] = {0};
+        for (int k = 0; k < 400 * TRIES && (n < TRIES || (ni < want_intro && k < 150 * TRIES)); k++) {
+            static cand tmp;
+            cand *c = &tmp;
             make(C, ch, &r, c);
-            if (!judge(c, (uint32_t)k + 7u) || c->win < C->share || c->par < C->p0 || c->par > C->p1) continue;
-            int dup = 0;
-            for (int i = 0; i < n && !dup; i++) dup = !strcmp(pool[i].board, c->board) && !strcmp(pool[i].pre, c->pre);
+            int rw = 0;                         /* the naive players first: cheap */
+            for (int i = 0; i < MEASURE; i++) rw += random_play(c, 77u + (uint32_t)i);
+            c->rnd = rw / (double)MEASURE;
+            if (c->rnd > INTRO_RND) { why[0]++; continue; }
+            int is_intro = c->rnd > C->rmax;
+            if (is_intro && ni >= 3 * want_intro) continue;
+            if (!is_intro && n >= TRIES) continue;
+            if (!judge(c, (uint32_t)k + 7u)) { why[1]++; continue; }
+            if (c->par < C->p0 || c->par > C->p1) { why[2]++; continue; }
+            measure(c);
+            if (is_intro ? c->win < INTRO_WIN : c->win < C->wlo) { why[3]++; continue; }
+            if (!is_intro && (c->win > C->whi || c->hard > C->hmax)) { why[4]++; continue; }
+            cand *lst = is_intro ? intro : pool;
+            int m = is_intro ? ni : n, dup = 0;
+            for (int i = 0; i < m && !dup; i++) dup = !strcmp(lst[i].board, c->board) && !strcmp(lst[i].pre, c->pre);
             if (dup && c->pre[0]) continue;
-            c->diff = (1 - c->win) * 4 + c->par / 10.0 + c->colours * 0.4 + c->target / 80.0 + c->size / 40.0;
-            n++;
+            c->diff = (1 - c->win) * 3 + (1 - c->hard) * 1.5 + (1 - c->rnd) * 1.5 + c->par / 15.0 + c->colours * 0.2 +
+                      c->size / 60.0;
+            if (is_intro)
+                intro[ni++] = *c;
+            else
+                pool[n++] = *c;
         }
-        if (n < PER) { fprintf(stderr, "chapter %d: only %d levels\n", ch + 1, n); return 1; }
+        fprintf(stderr, "chapter %d: naive won %d, lost by the hint %d, par %d, worse lost %d, too easy %d\n", ch + 1,
+                why[0], why[1], why[2], why[3], why[4]);
+        if (n < PER) {
+            fprintf(stderr, "chapter %d: only %d levels, %d intro\n", ch + 1, n, ni);
+            return 1;
+        }
         qsort(pool, (size_t)n, sizeof *pool, by_diff);
-        int lo = ch == 0 ? 0 : n / 10;
-        double step = (double)(n - 2 - lo) / (PER - 2);
+        qsort(intro, (size_t)ni, sizeof *intro, by_diff);
+        if (ni > want_intro) ni = want_intro;   /* (too few: the pool's easiest instead) */
+        int base = ch * PER, at = 0;
+        if (ch == 0) out[base + at++] = first;
+        for (int i = 0; i < ni; i++) out[base + at++] = intro[i];
+        int rest = PER - at - 1;                /* spread over the pool; the showpiece last */
+        double step = (double)(n - 7) / (rest - 1);
         int used[TRIES] = {0};
-        for (int k = 0; k < PER - 1; k++) {
-            int i = lo + (int)(k * step + 0.5);
+        for (int k = 0; k < rest; k++) {
+            int i = (int)(k * step + 0.5);
             while (used[i]) i++;
+            /* not the same board shape as the level before, when a near one differs */
+            for (int j = i; j < n && j < i + 8; j++)
+                if (!used[j] && pool[j].shape != out[base + at - 1].shape) { i = j; break; }
             used[i] = 1;
-            out[ch * PER + k] = pool[i];
+            out[base + at++] = pool[i];
         }
         int show = -1;                          /* the showpiece: the largest of the hardest few */
         for (int i = n - 1; i >= n - 6 && i >= 0; i--)
             if (!used[i] && (show < 0 || pool[i].size + strlen(pool[i].pre) * 0.5 > pool[show].size +
                                                                                    strlen(pool[show].pre) * 0.5))
                 show = i;
-        out[ch * PER + PER - 1] = pool[show];
-        fprintf(stderr, "chapter %d: %d candidates, pars %d .. %d, the share won %.2f .. %.2f\n", ch + 1, n,
-                out[ch * PER].par, out[ch * PER + PER - 1].par, out[ch * PER].win, out[ch * PER + PER - 1].win);
+        out[base + at++] = pool[show];
+        fprintf(stderr, "chapter %d: %d candidates (%d intro), pars %d .. %d\n", ch + 1, n, ni, out[base].par,
+                out[base + PER - 1].par);
     }
+    table(out, HX_LEVELS, PER);
     printf("const hx_level_def hx_levels[HX_LEVELS] = {\n");
     static const char *const GOAL[] = {"HX_ENDLESS", "HX_TILES", "HX_COLOUR"};
     for (int l = 0; l < HX_LEVELS; l++) {
