@@ -212,14 +212,32 @@ static void calm(void)
 static int busy(void) { return ct_busy(&M); }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
+/* the pack the last game began with (belote/pack in the store), if it is one: each card of the pack once */
+static int pack_kept(uint8_t *pack)
+{
+    uint8_t b[32], ref[CARDS_MAX];
+    if (ui_save_get("belote/pack", b, 32) != 32 || cards_pack(PACK_32, ref) != 32) return 0;
+    for (int i = 0; i < 32; i++) {
+        int k = 0;
+        for (int j = 0; j < 32; j++) k += b[j] == ref[i];
+        if (k != 1) return 0;
+    }
+    memcpy(pack, b, 32);
+    return 1;
+}
+
 /* no shuffle between games either: a new game goes on from the cards of the last one, gathered as they lie (kept in
- * memory for the session, whichever the variant); the session's first game, from an unseen warm-up deal */
+ * memory for the session, whichever the variant); the session's first game, from the pack the last game began with
+ * (kept in the store: a game in progress played again from the shell's record, the app closed, deals the same
+ * cards), else from an unseen warm-up deal */
 static void start(int v)
 {
     variant = v == BEL_COINCHE ? BEL_COINCHE : BEL_CLASSIC;
     uint8_t pack[32];
+    uint32_t warm = (uint32_t)ui_random(1 << 30);   /* (drawn whichever pack: the cut and deal after it the same) */
     if (G.pos.dealt) bel_gather(&G.pos, pack);
-    else bel_warmup(pack, variant, (uint32_t)ui_random(1 << 30));
+    else if (!pack_kept(pack)) bel_warmup(pack, variant, warm);
+    ui_save_set("belote/pack", pack, 32);
     bel_start(&G, variant, (uint32_t)ui_random(1 << 30), pack);
     calm();
     dealing = 1;

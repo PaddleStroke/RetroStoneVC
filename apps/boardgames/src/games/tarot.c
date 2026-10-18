@@ -480,14 +480,32 @@ static void animate(const tpos *b, int act)
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
+/* the pack the last game began with (tarot/pack in the store), if it is one: each card of the pack once */
+static int pack_kept(uint8_t *pack)
+{
+    uint8_t b[78], ref[CARDS_MAX];
+    if (ui_save_get("tarot/pack", b, 78) != 78 || cards_pack(PACK_TAROT, ref) != 78) return 0;
+    for (int i = 0; i < 78; i++) {
+        int k = 0;
+        for (int j = 0; j < 78; j++) k += b[j] == ref[i];
+        if (k != 1) return 0;
+    }
+    memcpy(pack, b, 78);
+    return 1;
+}
+
 /* no shuffle between games either: a new game goes on from the cards of the last one, gathered as they lie (kept in
- * memory for the session); the session's first game, from an unseen warm-up deal */
+ * memory for the session); the session's first game, from the pack the last game began with (kept in the store: a
+ * game in progress played again from the shell's record, the app closed, deals the same cards), else from an unseen
+ * warm-up deal */
 static void start(int v)
 {
     (void)v;
     uint8_t pack[78];
+    uint32_t warm = (uint32_t)ui_random(1 << 30);   /* (drawn whichever pack: the cut and deal after it the same) */
     if (G.players) tarot_gather(&G.pos, pack);
-    else tarot_warmup(pack, ui.players, (uint32_t)ui_random(1 << 30));
+    else if (!pack_kept(pack)) tarot_warmup(pack, ui.players, warm);
+    ui_save_set("tarot/pack", pack, 78);
     tarot_start(&G, ui.players, (uint32_t)ui_random(1 << 30), pack);
     calm();
     mark = 0;
