@@ -1118,14 +1118,16 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI; one of another
+ * height (the phone turned: house_tall.h ht_shape_reset, the UI layer shown again): the same */
 void draw_state_loaded(void)
 {
+    int shape = ht_shape_reset();
     /* (a tall screen: the ring's slots are not saved, so they are all written again) */
     for (int p = 0; p < MAX_PLAYERS; p++)
         for (int s = 0; s < 64; s++) slot_tall[p][s] = -32768;
     int mh = tall() && map_nreg <= 1 ? 128 : 32;
-    if (drawn_width == rs_screen_width() && rs_bg_map_w(RS_BG2) == map_mw && rs_bg_map_h(RS_BG4) == mh) return;
+    if (!shape && drawn_width == rs_screen_width() && rs_bg_map_w(RS_BG2) == map_mw && rs_bg_map_h(RS_BG4) == mh) return;
     maps_setup(map_nreg ? map_nreg : 1);
 }
 
