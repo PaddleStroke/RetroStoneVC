@@ -208,8 +208,10 @@ the track above and below the camera**. The world's streamed map (BG3) and the U
 - **The HUD at the screen's top** in every race: the lap and the standings (BG1's top 64 lines pinned with
   `rs_bg_pin`, the standings' icons at `rs_screen_top()` + the same line), in the columns shown: at screen line 22
   for one player (under the frontend's back and pause buttons), 4 for 2-4 players.
-- **Fill or fit**: the title, the panels and 2-4 players show every column (`rs_screen_fill(0)`): the race zone is
-  still the 320 x 240 stage, two dashed lines (the same cream and navy) mark its top and bottom.
+- **One view throughout**: the title, the race results and the panels keep the zoomed view (the logo on two lines,
+  the lines wrapped, the results in 22 columns, a banner too wide on two lines: src/tall_ui.h). Only 2-4 players
+  racing show every column (`rs_screen_fill(0)`): the race zone is still the 320 x 240 stage, two dashed lines (the
+  same cream and navy) mark its top and bottom.
 - Touches are taken to stage coordinates. A 240-line screen is unchanged (the same pixels in landscape and 4:3).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)

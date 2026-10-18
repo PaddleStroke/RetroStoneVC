@@ -16,6 +16,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "tall_ui.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -541,35 +542,43 @@ static void results_screen(const world *w, int st_t, const run_info *ri, int key
 {
     char s[64], nm[32];
     int out = w->humans == 1 && ri->out;        /* 1 player out: the note in the panel too (readable over any track) */
+    int narrow = tu_on(), retry = 23;            /* zoomed: the note may take two lines */
+    if (out) {
+        char l[2][TU_LINE];
+        retry = 25 + (narrow && tu_wrap(TR(OUT), 20, 0, l, 2) > 1 ? 1 + hu_tall(l[1]) : 0);
+    }
     if (key != shown_key) {
         hu_clear();
-        hu_banner(2, TR(RESULTS));
+        tu_banner(2, TR(RESULTS));
         track_title(w, s, sizeof s);
-        hu_text(hu_center(s, 0), 7, s);
-        hu_panel(6, 9, 28, out ? 18 : 16);      /* the rows 3 apart, each with the row above it free (accents) */
+        if (narrow) tu_text(7, s, 0, 0, 0);
+        else hu_text(hu_center(s, 0), 7, s);
+        if (narrow) hu_panel(9, 9, 22, retry - 7);  /* (zoomed: 22 columns, the points right-aligned) */
+        else hu_panel(6, 9, 28, out ? 18 : 16); /* the rows 3 apart, each with the row above it free (accents) */
         static const int rk[4] = {HS_RANK_1, HS_RANK_2, HS_RANK_3, HS_RANK_4};
         for (int k = 0; k < RACERS; k++) {
             int i = result_car(w, k), y = 11 + k * 3, p = w->final_place[i];
-            hu_box_text(8, y, hu_str(rk[p >= 1 && p <= 4 ? p - 1 : 3]));
+            hu_box_text(8 + 2 * narrow, y, hu_str(rk[p >= 1 && p <= 4 ? p - 1 : 3]));
             racer_name(w, i, nm, sizeof nm);
-            hu_box_text(15, y, nm);
+            hu_box_text(15 + narrow, y, nm);
             snprintf(s, sizeof s, "+%d", w->c[i].points);
-            hu_box_text(25, y, s);
+            hu_box_text(narrow ? 27 - hu_width(s, 0) : 25, y, s);
             snprintf(s, sizeof s, "%d", ri->total[i]);
-            hu_box_text(32 - hu_width(s, 0), y, s);
+            hu_box_text(32 - 2 * narrow - hu_width(s, 0), y, s);
         }
-        if (out) hu_box_text(hu_center(TR(OUT), 0), 23, TR(OUT));
+        if (out) tu_text(23, TR(OUT), narrow ? 20 : 40, 1, 0);
         shown_key = key;
     }
     const char *line = ri->out || ri->race + 1 >= ri->races ? TR(GO_ON) : TR(NEXT);
-    hu_retry_line_at(out ? 25 : 23, st_t, RESULTS_LOCK, line);
+    hu_retry_line_at(retry, st_t, RESULTS_LOCK, line);
 }
 
 static void results_icons(const world *w, int slide)
 {
     for (int k = 0; k < RACERS; k++) {
         int i = result_car(w, k);
-        bug_at(13 * 8 + 4 + hu_ui_x(), (11 + k * 3) * 8 + 4 + slide, 768, 0, racer_pal(w->c[i].colour), 3);
+        int x = tu_on() ? 14 * 8 : 13 * 8 + 4;  /* (zoomed: the 22 columns' icon) */
+        bug_at(x + hu_ui_x(), (11 + k * 3) * 8 + 4 + slide, 768, 0, racer_pal(w->c[i].colour), 3);
     }
 }
 
@@ -589,9 +598,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     stream_world(w, v.x0 - v.sh_x, v.y0 - v.sh_y);
 
     /* a zoomed tall screen (see hud_on): one player racing fills the display's height, panned after the ladybug; the
-     * title, the panels and 2-4 players (the race zone: the whole stage) show every column */
+     * title, the results and the panels the same view (laid out in the columns shown: tall_ui.h); only 2-4 players
+     * racing (the race zone: the whole stage) show every column */
     int solo = (state == ST_PLAY || state == ST_DEAD) && w->humans <= 1;
-    rs_screen_fill(solo);
+    rs_screen_fill(solo || !(state == ST_PLAY || state == ST_DEAD));
     hud_on = tall() && (state == ST_PLAY || state == ST_DEAD);
     hud_y = solo ? HUD_PIN_Y : HUD_PIN_FIT;
     pan = 0;
@@ -636,23 +646,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (key != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
             hu_clear();
             shown_text = 0;
-            if (state == ST_TITLE) hu_logo("LADYBUG LAPS", title_ramps, 2, 2, 0);
+            if (state == ST_TITLE) tu_logo("LADYBUG LAPS", title_ramps, 2, 2, 0);   /* (portrait: on two lines) */
             if (state == ST_OVER) {
                 if (w->humans <= 1) {
                     char s[64];
-                    hu_banner(4, HTR(GAME_OVER));
+                    tu_banner(4, HTR(GAME_OVER));
                     hu_gameover_panel(1, new_best, ri->score[0], 0);
                     if (ri->champion) snprintf(s, sizeof s, "%s", TR(CHAMPION));
                     else rs_strf(s, sizeof s, TR(REACHED), ri->race + 1, ri->races);
                     hu_gameover_note(s);
                 } else {
-                    hu_results_panel(&rs, NULL);
+                    tu_results_panel(&rs, NULL);
                 }
             }
             shown_key = key;
             shown_best = best;
         }
-        if (state == ST_TITLE) hu_title_draw(st_t, best);
+        if (state == ST_TITLE && tu_on()) tu_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, 0);
+        else if (state == ST_TITLE) hu_title_draw(st_t, best);
         if (state == ST_OVER) {
             if (w->humans <= 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
             else hu_retry_line_at(hu_results_retry_row(&rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
@@ -661,7 +672,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     rs_bg_scroll(RS_BG1, -pan, -slide);
     rs_bg_pin(RS_BG1, 0, hud_on ? HUD_LINES : 0, hud_y);
-    hu_pause(paused, 13);
+    tu_pause(paused, 13);
 
     /* the sprites, front to back */
     rs_oam_clear();
@@ -683,7 +694,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             }
         }
     } else {
-        hu_title_sprites(st_t, slot_icon, NULL);
+        if (tu_on()) tu_title_sprites(st_t, MAX_PLAYERS, 0, slot_icon, NULL);
+        else hu_title_sprites(st_t, slot_icon, NULL);
     }
     draw_leaves(w, &v);
     draw_cars(w, &v, t);
