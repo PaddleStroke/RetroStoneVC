@@ -105,8 +105,12 @@ static void maps_setup(void){
  laid_w=rs_screen_width();
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
- * width's up (every frame draws the UI and the marbles again). Same width: nothing. */
-void draw_relayout(void){if(laid_w!=rs_screen_width())maps_setup();}
+ * width's up (every frame draws the UI and the marbles again). Same width: nothing. One of another height (the phone
+ * turned: house_tall.h ht_shape_reset) brings the other screen's mine layer: a tall screen's again, or none; and from
+ * a 320-column screen, no timbers: drawn again. */
+void draw_relayout(void){int shape=ht_shape_reset();
+ if(shape||laid_w!=rs_screen_width()){maps_setup();if(rs_screen_width()>RS_SCREEN_W)timber_init();}
+ if(shape){if(rs_screen_height()>RS_SCREEN_H)tall_init();else rs_bg_enable(RS_BG4,0);}}
 void draw_init(void){
  rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px arena centred, the cavern wider */
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
