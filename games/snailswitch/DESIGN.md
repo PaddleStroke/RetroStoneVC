@@ -93,7 +93,17 @@ lines of the stage are the same pixels; a 240-line screen (landscape, 4:3, wide)
 - **The columns shown end at the stage's right edge** (`rs_screen_focus_x(320)`): the hazards and fruits come in
   there as at 4:3, so every snail sees exactly as far ahead (the warning is the same); only the forest behind the
   snails is cropped. When the last snail would not fit with 8 px behind it (2 players on a 9:21 phone, 3-4 players),
-  the play shows every column (`rs_screen_fill(0)`); so do the title and the panels.
+  the play shows every column (`rs_screen_fill(0)`): panning instead would cut the warning ahead below that of 4:3
+  (the rule above), so that shared screen is the one exception.
+- **One look: the title and the panels stay zoomed** (the owner, on his phone: "when in menu the view is different from
+  when in game"). They keep the play's view (the same 560 lines, the columns ending at the stage's right edge; the
+  title pans left only as far as needed to show every joined snail) and are laid out in the columns shown with
+  games/common/src/house_tall.h when fewer than 320 show (`ht_narrow`): the logo on two lines (SNAIL over SWITCH, the
+  kit's logo tiles moved to centre each word; draw.c title_logo) with the hint wrapped under it, BG1's rows 0..13+ pinned
+  over the canopy (`rs_bg_pin`), clear of the vine; the slots under the snails, then the prompt, BEST, the join line
+  and the credits stacked to the stage's bottom; the game-over panel narrower (each value under its label, the panel as
+  wide as the retry line), the 2-4 player ranking, and PAUSED centred in the columns shown. Every language fits at
+  1080x2520 (240 columns), 1080x2340 and 720x1440; landscape and 4:3 are the same pixels as before.
 - **The HUD at the screen's top**: 1-2 players, the scores' digits centred in the columns shown, over the canopy; 3-4
   players, P1 / P2 on a first row and P3 / P4 under them (`hu_score_tags(players, 20)`, BG1's top 32 lines pinned
   there: `rs_bg_pin`).
@@ -102,6 +112,6 @@ lines of the stage are the same pixels; a 240-line screen (landscape, 4:3, wide)
   a forest pool**: the forest and the vine, its leaves, fruits and hazards mirrored in still water (BG3 and BG2 read
   upward from the stage's last line, their palettes tinted toward a deep teal, a one-pixel ripple drifting down; the
   224 lines never repeat a line).
-- The raster draws these lines; the UI is hidden there (window 1) but in the HUD's band, the sprites below the stage
+- The raster draws these lines; the UI is hidden there (window 1) but in the HUD's band (the title: the logo's), the sprites below the stage
   (a falling snail leaves at the stage's bottom, as before). Line 0 puts the stage's windows and palettes back on
   every screen (a state saved on a tall screen may hold the margins' settings), BG2's and BG3's scroll on a tall one.
