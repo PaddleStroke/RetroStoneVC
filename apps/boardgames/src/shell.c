@@ -151,7 +151,9 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"drawguess", SEC_GUESS}, {"carrom", SEC_STRATEGY}, {"pool", SEC_STRATEGY}, {"mapquiz", SEC_GUESS},
     /* the puzzles: the casual ones first (a move or two to learn, satisfying at once), the problems of chess, go and
      * shogi last */
-    {"rollblock", SEC_PUZZLE}, {"diceroll", SEC_PUZZLE}, {"paintroller", SEC_PUZZLE}, {"untangle", SEC_PUZZLE},
+    {"rollblock", SEC_PUZZLE}, {"diceroll", SEC_PUZZLE}, {"paintroller", SEC_PUZZLE},
+    {"arrowescape", SEC_PUZZLE}, {"loopclose", SEC_PUZZLE}, {"hexstack", SEC_PUZZLE}, {"pins", SEC_PUZZLE},
+    {"gears", SEC_PUZZLE}, {"colourmix", SEC_PUZZLE}, {"rings", SEC_PUZZLE}, {"untangle", SEC_PUZZLE},
     {"pipes", SEC_PUZZLE}, {"watersort", SEC_PUZZLE}, {"ballsort", SEC_PUZZLE}, {"iceslide", SEC_PUZZLE},
     {"twinwalk", SEC_PUZZLE}, {"tiltmaze", SEC_PUZZLE}, {"paperfold", SEC_PUZZLE}, {"dominochain", SEC_PUZZLE},
     {"trains", SEC_PUZZLE}, {"parking", SEC_PUZZLE}, {"klotski", SEC_PUZZLE}, {"taquin", SEC_PUZZLE},
