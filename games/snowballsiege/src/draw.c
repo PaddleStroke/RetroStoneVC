@@ -47,10 +47,8 @@ static const rs_color title_ramps[2][3] = {
 #define BANNER_ROW_TALL 7               /* ... the turn's banner (under the HUD's badges), the big messages */
 #define BIG_ROW_TALL 9
 #define CLOUD_END 64                    /* a tall screen: the clouds (BG4) down to this stage line */
-#define TITLE_LOGO_TALL 1               /* a zoomed screen (ht_narrow): the title's logo on two lines from this row, */
-#define TITLE_TEAMS_TALL 108            /* ... the four teams under it (stage y), the player slots' row (house_tall.h) */
-#define TITLE_SLOTS_TALL 17
-#define UI_PIN_Y 96                     /* ... and a zoomed title's or panel's UI raised to this screen line (BG1 pinned) */
+#define TITLE_SLOTS_TALL 15             /* a zoomed title (ht_narrow, house_tall.h): the player slots' row (the standard one), */
+#define TITLE_TEAMS_TALL (-6)           /* ... the four teams above the logo (stage y; the standard rows keep 2..29) */
 
 static rs_color line_col[RS_SCREEN_H];
 static uint16_t cell_map[FROWS][FCOLS];       /* the BG2 entry of each field cell */
@@ -91,6 +89,8 @@ static void raster_out(int line)
         rs_bg_window(RS_BG4, line < 0 ? 0 : RS_WIN2);               /* the clouds: in the sky only */
     }
     if (pin_on && line == top + pin_on) rs_bg_window(RS_BG1, 0);    /* BG1's pinned texts (rs_bg_pin) */
+    if (pin_on && top + pin_on == 0 && line == RS_SCREEN_H) rs_bg_window(RS_BG1, 0);   /* (pinned in place: rows 30-31, */
+    if (pin_on && top + pin_on == 0 && line == 32 * 8) rs_bg_window(RS_BG1, RS_WIN2);  /* ... not the map wrapped round) */
     if (line < 0) {
         int k = top < 0 ? line * 80 / top : 0;              /* 0 at the stage's top .. 80 at the screen's */
         rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));          /* (no 4-line dither: no stripes up there) */
@@ -757,39 +757,6 @@ static void big_text(const char *s, int y)
     hu_text(hu_center(s, 0), y + 1, s);
 }
 
-/* a zoomed title (ht_narrow): the logo on two lines (as house_tall.h ht_logo), each word in its own ramp: the second
- * one drawn as " SIEGE " (the kit gives a word its ramp by its place in the line; the spaces keep it centred) */
-static void title_logo_tall(void)
-{
-    hu_config *c = (hu_config *)hu_cfg();       /* the second word's tiles after the first's (the kit's logo area) */
-    int base = c->logo_tile;
-    c->logo_tile = base + hu_logo("SNOWBALL", title_ramps, 2, TITLE_LOGO_TALL, 0);
-    hu_logo(" SIEGE ", title_ramps, 2, TITLE_LOGO_TALL + 6, 0);
-    c->logo_tile = base;
-}
-
-/* a zoomed title's or game-over screen's UI (BG1, pinned from screen line UI_PIN_Y) and its sprites: raised this many
- * lines above their stage place: the logo and the panels high in the sky, the field's hills free under them, the
- * tallest panels clear of the stage's bottom (0: not raised) */
-static int ui_dy(void)
-{
-    int d = rs_screen_origin_y() - UI_PIN_Y;
-    return d > 0 ? d : 0;
-}
-
-/* a zoomed screen's game-over panel (house_tall.h ht_gameover_panel), wide enough for the retry line too (ht_over_w
- * leaves it out: a long one would run over the panel's sides); the labels each over its value, the note under them */
-static void over_panel(int new_best, const char *note, const char *retry)
-{
-    int w = ht_over_w(new_best, note), rw = hu_width(retry, 0) + 2, cols = ht_ncols(), r = ht_gameover_retry_row(note);
-    if (rw > w) w = rw > cols ? cols : rw;
-    int x = ht_center_w(w), bottom = r + ht_text_rows(retry, 1) + 1;
-    hu_panel(x, 9, w, bottom - 9 + 1);
-    const char *lab[3] = {hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
-    for (int i = 0; i < 3; i++) hu_box_text(ht_center(lab[i], 0), ht_over_label_row(i), lab[i]);
-    ht_text(ht_over_label_row(2) + 5, note, 1);
-}
-
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
     uint32_t key = text_key(w, state, st_t, best);
@@ -801,7 +768,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (key != shown_key) {
         hu_clear();
         if (state == ST_TITLE) {
-            if (narrow) title_logo_tall();
+            if (narrow) ht_logo("SNOWBALL SIEGE", title_ramps, 2, 2, 0);   /* SNOWBALL over SIEGE */
             else hu_logo("SNOWBALL SIEGE", title_ramps, 2, 2, 0);
         }
         if (state == ST_PLAY || state == ST_DEAD) {
@@ -861,7 +828,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == ST_OVER) {
             if (w->players == 1 && narrow) {
                 ht_banner(4, HTR(GAME_OVER));
-                over_panel(new_best, note, HTR(BACK_TITLE));
+                ht_gameover_panel(new_best, note, HTR(BACK_TITLE));
             } else if (w->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->s[0].score, 0);
@@ -911,48 +878,45 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
     int play = state == ST_PLAY || state == ST_DEAD, narrow = ht_narrow();
     rs_screen_fill(1);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    /* BG1 pinned: the play's texts in the sky under the HUD; a zoomed title's or panel's whole UI (the map's 32 rows)
-     * raised by ui_dy(), its slide moving the pinned line (the map not scrolled: no wrapped rows above the panel) */
-    int udy = narrow && (state == ST_TITLE || state == ST_OVER) ? ui_dy() : 0;
-    pin_on = tall() && play ? PIN_Y : udy ? rs_screen_origin_y() - udy + slide : 0;
-    rs_bg_pin(RS_BG1, 0, !pin_on ? 0 : udy ? 32 * 8 : PIN_LINES, pin_on);
+    /* BG1 pinned: the play's texts in the sky under the HUD; a zoomed game over: the layer in its own place, its 32
+     * rows (the tallest panels, with accents or Japanese, end on rows 30-31, under the stage's 240 lines) */
+    int over_rows = narrow && state == ST_OVER;
+    pin_on = tall() && play ? PIN_Y : over_rows ? rs_screen_origin_y() : 0;
+    rs_bg_pin(RS_BG1, 0, !pin_on ? 0 : over_rows ? 32 * 8 : PIN_LINES, pin_on);
     screen_text(w, state, st_t, best, new_best, &rs);
-    rs_bg_scroll(RS_BG1, 0, udy ? 0 : -slide);
-    hu_pause(paused, 13);
+    rs_bg_scroll(RS_BG1, 0, -slide);
+    ht_pause(paused, 13);                       /* (house_tall.h: the small letters when 2x does not fit) */
 
     rs_oam_clear();
     /* front to back: the UI, the HUD and the map, the touch button, the aim, the throw, the critters, effects,
      * the snowflakes, the trees */
     if (state == ST_OVER) {
         if (w->players == 1 && narrow) {
-            ht_gameover_sprites(w->s[0].score, best, hu_medal_of(w->s[0].score, medals), st_t, slide - udy);
+            ht_gameover_sprites(w->s[0].score, best, hu_medal_of(w->s[0].score, medals), st_t, slide);
         } else if (w->players == 1) {
             hu_gameover_sprites(1, w->s[0].score, 0, best, hu_medal_of(w->s[0].score, medals), st_t, slide);
         } else {
-            if (narrow) ht_results_sprites(&rs, st_t, slide - udy);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
             else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
                 if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
                 else hu_results_icon_pos(&rs, i, &cx, &cy);
-                spr(crit_spr(w->s[rs.order[i]].species, P_ICON), cx - 8, cy - 8 + slide - udy, 3, 0);
+                spr(crit_spr(w->s[rs.order[i]].species, P_ICON), cx - 8, cy - 8 + slide, 3, 0);
             }
         }
     }
     if (state == ST_TITLE) {
         if (narrow) {                              /* (house_tall.h: the slots closer, the glyph by the wrapped prompt) */
             ht_title cfg = {TR(VERB), MAX_PLAYERS, TITLE_SLOTS_TALL, 0};
-            ht_title_out o = title_out;            /* raised with the UI layer (pinned) */
-            o.glyph_y -= udy;
-            o.slot_cy -= udy;
-            ht_title_sprites(&cfg, &o, st_t, slot_icon, NULL);
+            ht_title_sprites(&cfg, &title_out, st_t, slot_icon, NULL);
         } else {
             hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         }
         for (int i = 0; i < 4; i++) {              /* the four teams under the logo, throwing in turn */
             int th = ((st_t / 40) & 3) == i && (st_t % 40) < 16;
             spr(crit_spr(i, th ? P_THROW : P_IDLE0 + ((st_t / 32 + i) & 1)), 160 - 46 + i * 24,
-                (narrow ? TITLE_TEAMS_TALL - udy : 86) + hu_bob(st_t + i * 16, 64, 2), 2, i >= 2 ? RS_SPR_HFLIP : 0);
+                (narrow ? TITLE_TEAMS_TALL : 86) + hu_bob(st_t + i * 16, 64, 2), 2, i >= 2 ? RS_SPR_HFLIP : 0);
         }
     }
     if (play) {

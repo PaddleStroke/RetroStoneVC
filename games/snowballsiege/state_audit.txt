@@ -7,5 +7,5 @@ draw.speck_tab      draw_init(): the snow's fixed sprinkle of specks, made the s
 draw.px_buf         scratch: one field tile's pixels while it is drawn
 draw.bg2_sx         a tall screen: BG2's scroll, set by draw_frame before every picture (restored at line 0)
 draw.bg2_sy         ... the same
-draw.pin_on         a tall screen: the screen line of BG1's pinned texts, set by draw_frame before every picture (rs_bg_pin)
+draw.pin_on         a tall screen: the screen line of BG1's pinned rows (play: the texts; game over: in place), set by draw_frame before every picture
 draw.title_out      a zoomed title's glyph and slots (house_tall.h): set by screen_text every title frame before the sprites

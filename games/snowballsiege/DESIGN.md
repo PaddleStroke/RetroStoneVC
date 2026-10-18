@@ -142,15 +142,14 @@ above it for the throws' arcs, TALL_BELOW = 40 of frozen ground below).
   rules and hashes at every size.
 - **One view**: every screen keeps the play's zoomed view (`rs_screen_fill(1)`, never the letterboxed full width; set
   each frame in main.c `view_cols`, before the touches and the camera, and draw_frame). The hot-seat matches share
-  one field: no split. When the columns shown are fewer than 320 (`ht_narrow`), the title and the panels are laid
-  out in them with the house kit's games/common/src/house_tall.h: the logo on two lines (draw.c `title_logo_tall`:
-  SIEGE drawn as " SIEGE " so it keeps its red ramp), the four teams under it, the slots closer, the prompt, BEST,
-  the join line (wrapped) and the credits stacked; GAME OVER narrower over a panel with each value under its label
-  (draw.c `over_panel`: wide enough for the retry line), the note and the retry line wrapped; the 2-4 player ranking
-  in the columns shown. Their whole UI layer (BG1's 32 rows) is pinned from screen line UI_PIN_Y (96: `ui_dy()`
-  lines higher than the stage, the sprites raised the same), so the logo and the panels sit in the sky, the field's
-  hills under them and the tallest panels (French, Japanese, Finnish) clear of the stage's bottom; the panel's slide
-  moves the pinned line instead of scrolling the layer. The taps (anywhere: start, back to the title) are unchanged.
+  one field: no split. When the columns shown are fewer than 320 (`ht_narrow`), the title, the banners, the game
+  over, the results and the pause use only the house kit's standard calls (games/common/src/house_tall.h, the same
+  UI as the other games, their default rows): `ht_logo` (SNOWBALL over SIEGE, from row 2), `ht_title_draw` /
+  `ht_title_sprites` (the slots on row 15), `ht_banner`, `ht_gameover_panel` / `ht_gameover_sprites`, `ht_results_*`,
+  `ht_retry_line_at`, `ht_pause`. Scene only: the four teams stand above the logo (stage y TITLE_TEAMS_TALL), clear
+  of the standard rows; on the game over, BG1 shows its rows 30-31 under the stage's 240 lines too (pinned in place,
+  the raster hiding it again from line 256), where the tallest panels (French, Japanese, Finnish) end. The taps
+  (anywhere: start, back to the title) are unchanged.
 - **The HUD at the screen's top**: the windsock between the frontend's back and pause buttons, the badges (team and
   timer, throwable) and the score just under them, in the columns shown; BG1's rows 0..26 (the stock's "X2", the
   turn's banner, the big messages, the hint, the pause) are pinned from screen line PIN_Y (`rs_bg_pin`), so the texts
