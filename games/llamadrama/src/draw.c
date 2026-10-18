@@ -90,11 +90,13 @@ static void raster_out(int line)
     }
 }
 
+static int ui_pin;                        /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster(int line, void *user)
 {
     (void)user;
     if (line < 0 || line >= RS_SCREEN_H) {
         raster_out(line);
+        if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);     /* the pinned UI */
         return;
     }
     if (rs_screen_height() > RS_SCREEN_H) {
@@ -396,6 +398,26 @@ static void title_place(const world *w, int p, int *dx, int *dy)
     int glyph = hu_title_glyph(&gx, NULL) >= 0 ? ui + gx - 2 : 1 << 20;     /* the prompt's glyph, UI x -> stage */
     int d;
     *dy = 0;
+    if (ht_narrow()) {                     /* zoomed (the title centred, its text pinned above the meadow): the whole herd moved
+                                            * in from the stage's left edge to the columns shown, its spacing kept */
+        int vl = rs_screen_visible_x0() - rs_screen_origin_x() + 4, m = 1 << 20, top = 1 << 20, feet = -(1 << 20);
+        for (int q = 0; q < w->players; q++) {
+            int32_t qx, qy, ax, ay, bx, by;
+            llama_head(q, AIM_START, &qx, &qy);
+            llama_neck(q, AIM_START, &ax, &ay, &bx, &by);
+            if (px(qx) - TITLE_HEAD_L < m) m = px(qx) - TITLE_HEAD_L;
+            if (px(ax) - TITLE_BODY_L < m) m = px(ax) - TITLE_BODY_L;      /* (the body behind the shoulder) */
+            if (px(qy) - TITLE_HEAD_L < top) top = px(qy) - TITLE_HEAD_L;
+            if (px(ay) + TITLE_FEET > feet) feet = px(ay) + TITLE_FEET;
+        }
+        int under = RS_SCREEN_H + ht_pin_dy(HT_PIN_TITLE) + 4 - top;    /* the heads under the credits ... */
+        int room = rs_screen_bottom() - 2 - feet;                     /* ... as far as the feet stay in view */
+        *dx = vl - m;
+        *dy = under < 0 ? 0 : under < room ? under : room > 0 ? room : 0;
+        (void)right;
+        (void)glyph;
+        return;
+    }
     if (w->players == 1) {
         d = -TITLE_SOLO_DX;
         if (px(qsx) + TITLE_CHEST_R + d > glyph) d = glyph - px(qsx) - TITLE_CHEST_R;   /* the chest */
@@ -650,6 +672,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* the UI centred on the screen (widescreen), on the columns shown (zoomed) */
     rs_bg_scroll(RS_BG1, -hu_ui_x() + (zoom && play ? STAGE_W / 2 - (x0 + x1) / 2 : 0), -slide);
     ht_pause_dx(paused, 13, zoom && play ? (x0 + x1) / 2 - STAGE_W / 2 : 0);   /* (PAUSED on the columns shown) */
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                     /* the title and the panels at the same place on every game's screen */
     /* the hornets, the spit, their effects and the aim dots: in play over the text too (priority 3: the new hornets'
      * names, the hint, the corner tags never hide one); paused or under the game-over panel, behind the UI (2) */
     int play_prio = (state == ST_PLAY || state == ST_DEAD) && !paused ? 3 : 2;

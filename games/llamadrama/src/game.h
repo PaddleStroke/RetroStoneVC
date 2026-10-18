@@ -136,6 +136,8 @@
 #define TITLE_HEAD_L  11        /* the head's extent from its centre (the ears ... the snout), its chest's from the */
 #define TITLE_HEAD_R  15        /* shoulder */
 #define TITLE_CHEST_R 10
+#define TITLE_BODY_L  50        /* the body's extent left of the shoulder, and its feet below it (a zoomed title: the */
+#define TITLE_FEET    38        /* herd whole in view) */
 #define TITLE_LOGO_X  37
 #define TITLE_SLOT_X  30
 #define TITLE_SLOT_ROW 9        /* the player slots' row on the title (under the logo, over the herd's heads) */
