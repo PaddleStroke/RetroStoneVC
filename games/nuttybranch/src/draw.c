@@ -63,7 +63,7 @@ static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 static int16_t tl_row[ZOOM_H], tl_a[ZOOM_H], tl_tcx[ZOOM_H], tl_wl[ZOOM_H], tl_wr[ZOOM_H], tl_hofs[ZOOM_H];
 static uint8_t tl_sel[ZOOM_H];
 static rs_color tl_sky[ZOOM_H];
-static int tl_top, tl_shy, tl_bg3x, tl_bg4x, tl_ui0, tl_ui1, tl_hud;
+static int tl_top, tl_shy, tl_bg3x, tl_bg4x, tl_ui0, tl_ui1;
 /* the OAM entries only a tall screen shows (past the stage's lines, or a thing the stage's lines would hide): the bot
  * does not see them, so it plays as on a 4:3 screen (saved: the bot reads it before the next frame is drawn) */
 static uint8_t oam_tall[RS_OAM_MAX];
@@ -1261,8 +1261,8 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         /* a tall screen (DESIGN.md "Tall screen"): running, the HUD's lines pinned at the screen's top; the title's
          * 30 rows from the screen's top (its own layout: title_tall); the panels where the kit puts them (the stage) */
         int run = state == ST_PLAY || state == ST_DEAD;
-        tl_hud = run ? (w->players >= 3 ? TALL_HUD + 24 : TALL_HUD) : 0;
-        rs_bg_pin(RS_BG1, 0, tl_hud, 0);
+        int hud = run ? (w->players >= 3 ? TALL_HUD + 24 : TALL_HUD) : 0;
+        rs_bg_pin(RS_BG1, 0, hud, 0);
         tl_ui0 = run || state == ST_TITLE ? tl_top : 0;
         tl_ui1 = state == ST_TITLE ? tl_top + RS_SCREEN_H : RS_SCREEN_H + slide;
         if (state == ST_TITLE) rs_bg_scroll(RS_BG1, 0, -tl_top);
