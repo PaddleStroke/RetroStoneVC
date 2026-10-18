@@ -53,6 +53,7 @@ void draw_state(void);
 void draw_relayout(void);
 /* a phone held upright (DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom) */
 #define ZOOM_H 480
+#define TITLE_TALL_DY 2                 /* ... the title's spider and flowers lower there (the logo on two lines) */
 enum { SFX_JUMP,SFX_FLOWER,SFX_COUNT=SFX_FLOWER+FLOWER_TYPES };
 #define SFX_HOUSE SFX_COUNT
 #endif

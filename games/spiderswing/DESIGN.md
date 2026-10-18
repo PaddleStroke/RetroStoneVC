@@ -126,8 +126,10 @@ holds a 320 x 720 screen.
   fit, the bees' outer lane shows most of the time and whenever the spider swings toward it. **The HUD at the
   screen's top**: the score, the hint and the dew line (BG1's top 64 lines pinned at screen line 14 with `rs_bg_pin`,
   the score at `rs_screen_top()` + 22), in the columns shown: a line wider than them goes on two rows.
-- **Fill or fit**: the title, the panels and the split screens (2-4 players) show every column (`rs_screen_fill(0)`):
-  the panes as tall as the screen (4 players: four 160 x 240 quarters at the full zoom).
+- **One view throughout**: the title and the panels keep the zoomed view (the logo on two lines from the top, the
+  spider and its flowers 2 px lower, the lines wrapped, a banner too wide on two lines: src/tall_ui.h). Only the
+  split screens (2-4 players) show every column (`rs_screen_fill(0)`): the panes as tall as the screen (4 players:
+  four 160 x 240 quarters at the full zoom).
 - Landscape and 4:3: the same pixels as before.
 
 Build: make spiderswing-check / spiderswing-windows / spiderswing-screenshots.
