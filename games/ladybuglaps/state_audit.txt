@@ -8,3 +8,4 @@ draw.hud_on         a zoomed tall screen: the HUD pinned at the top in a race, s
 draw.pan            a zoomed tall screen: the display's pan after the ladybug, set by draw_frame before every picture
 draw.hud_y          a zoomed tall screen: the screen line of the pinned HUD, set by draw_frame before every picture
 draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)

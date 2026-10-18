@@ -58,6 +58,7 @@ static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 #define HUD_LINES 64
 #define PAN_MARGIN 52               /* px the ladybug keeps from the edges of the columns shown */
 static int hud_on, hud_y, pan;
+static int ui_pin;              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 
 void view_cols(int *left, int *width)
@@ -585,7 +586,7 @@ static void results_icons(const world *w, int slide)
     for (int k = 0; k < RACERS; k++) {
         int i = result_car(w, k);
         int x = ht_narrow() ? 14 * 8 : 13 * 8 + 4;  /* (zoomed: the 22 columns' icon) */
-        bug_at(x + hu_ui_x(), (11 + k * 3) * 8 + 4 + slide, 768, 0, racer_pal(w->c[i].colour), 3);
+        bug_at(x + hu_ui_x(), (11 + k * 3) * 8 + 4 + slide + ht_pin_dy(ui_pin), 768, 0, racer_pal(w->c[i].colour), 3);
     }
 }
 
@@ -692,6 +693,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     rs_bg_scroll(RS_BG1, -pan, -slide);
     rs_bg_pin(RS_BG1, 0, hud_on ? HUD_LINES : 0, hud_y);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER || state == ST_RESULTS ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     ht_pause(paused, 13);
 
     /* the sprites, front to back */
