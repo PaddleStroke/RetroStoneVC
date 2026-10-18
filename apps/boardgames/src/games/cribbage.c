@@ -751,7 +751,7 @@ static void draw_stage(const cpos *p, int k)
         nx += 0.5f * ui.unit;
     }
     if (sum > 0) ct_plus(nx + 0.55f * ui.unit, hy, 0.5f * ui.unit, sum);
-    else ui_number(nx + 0.3f * ui.unit, hy, 0.5f * ui.unit, 0, 1);
+    else ui_number_ex(nx + 0.3f * ui.unit, hy, 0.5f * ui.unit, 0, ct_ink(), 255, 0);   /* cream; the light table: ink */
     if (!busy() && p->phase == CP_SHOW) {       /* tap to go on: a play sign */
         float px = T.b.x + T.b.w - 0.5f * ui.unit;
         ui_put_c(t_disc, px, hy, 0.8f * ui.unit, 0.8f * ui.unit);
