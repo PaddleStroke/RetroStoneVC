@@ -1,0 +1,13 @@
+Mélange de couleurs
+# Le but
+Mélange de la peinture dans le pot blanc jusqu'à obtenir la couleur de la carte.
+# Les peintures
+Chaque touche sur un tube ajoute une goutte. Les peintures se mélangent comme de vraies peintures, pas comme la lumière : le rouge et le jaune donnent de l'orange, le jaune et le bleu du vert, le rouge et le bleu du violet.
+- Le blanc éclaircit une couleur ; le noir la fonce, et un peu de noir suffit.
+- Seules comptent les proportions entre les peintures : une goutte de rouge et une de jaune donnent le même orange que deux de chaque.
+- Certains pots contiennent déjà de la peinture, et certains tubes n'ont que quelques gouttes : le badge du tube indique combien il en reste.
+La jauge sous le pot se remplit à mesure que la couleur se rapproche.
+# La fin de la partie
+Quand la couleur du pot est celle de la carte, le casse-tête est résolu.
+# Niveaux et étoiles
+Résolu avec le moins de gouttes possible : 3 étoiles ; jusqu'à moitié plus de gouttes : 2 étoiles ; sinon 1.

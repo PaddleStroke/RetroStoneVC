@@ -1,0 +1,13 @@
+Mescola colori
+# Lo scopo
+Mescola la pittura nel vasetto bianco finché non ha il colore della carta.
+# Le pitture
+Ogni tocco su un tubetto aggiunge una goccia. Le pitture si mescolano come pitture vere, non come la luce: rosso e giallo danno arancione, giallo e blu verde, rosso e blu viola.
+- Il bianco schiarisce un colore; il nero lo scurisce, e basta poco nero.
+- Conta solo la proporzione tra le pitture: una goccia di rosso e una di giallo danno lo stesso arancione di due di ciascuno.
+- Alcuni vasetti contengono già pittura, e alcuni tubetti hanno solo poche gocce: la targhetta sul tubetto mostra quante ne restano.
+L'indicatore sotto il vasetto si riempie man mano che il colore si avvicina.
+# La fine della partita
+Quando il colore del vasetto è quello della carta, il rompicapo è risolto.
+# Livelli e stelle
+Risolto con il minor numero di gocce possibile: 3 stelle; con fino a metà gocce in più: 2 stelle; altrimenti 1.

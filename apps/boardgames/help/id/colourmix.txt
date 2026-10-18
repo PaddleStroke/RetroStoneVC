@@ -1,0 +1,13 @@
+Campur Warna
+# Tujuan
+Campur cat di pot putih sampai warnanya sama dengan warna kartu.
+# Cat
+Setiap ketukan pada tabung menambah satu tetes. Cat bercampur seperti cat sungguhan, bukan seperti cahaya: merah dan kuning menjadi jingga, kuning dan biru menjadi hijau, merah dan biru menjadi ungu.
+- Putih membuat warna lebih terang; hitam membuatnya lebih gelap, dan sedikit hitam sudah sangat terasa.
+- Yang dihitung hanya perbandingan antarcat: satu tetes merah dan satu tetes kuning memberi jingga yang sama dengan dua tetes masing-masing.
+- Beberapa pot sudah berisi cat, dan beberapa tabung hanya berisi sedikit tetes: lencana di tabung menunjukkan sisa tetesnya.
+Pengukur di bawah pot terisi saat warnanya makin dekat.
+# Akhir permainan
+Jika warna di pot sama dengan kartu, teka-teki terpecahkan.
+# Level dan bintang
+Selesai dengan tetes sesedikit mungkin: 3 bintang; dengan tambahan tetes paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.

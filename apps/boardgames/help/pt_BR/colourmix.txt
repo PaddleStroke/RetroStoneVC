@@ -1,0 +1,13 @@
+Mistura de cores
+# O objetivo
+Misture tinta no pote branco até ele ficar com a cor do cartão.
+# As tintas
+Cada toque num tubo acrescenta uma gota. As tintas se misturam como tintas de verdade, não como a luz: vermelho e amarelo dão laranja, amarelo e azul verde, vermelho e azul violeta.
+- O branco clareia uma cor; o preto a escurece, e um pouco de preto já basta.
+- Só conta a proporção entre as tintas: uma gota de vermelho e uma de amarelo dão o mesmo laranja que duas de cada.
+- Alguns potes já têm tinta, e alguns tubos têm só algumas gotas: a plaquinha do tubo mostra quantas restam.
+O medidor embaixo do pote se enche à medida que a cor se aproxima.
+# O fim da partida
+Quando a cor do pote é a do cartão, o quebra-cabeça está resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de gotas possível: 3 estrelas; com até metade a mais de gotas: 2 estrelas; senão, 1.

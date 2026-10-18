@@ -1,0 +1,13 @@
+Míchání barev
+# Cíl hry
+Míchej barvu v bílém hrnku, dokud nebude mít barvu kartičky.
+# Barvy
+Každé klepnutí na tubu přidá jednu kapku. Barvy se míchají jako skutečné malířské barvy, ne jako světlo: červená a žlutá dají oranžovou, žlutá a modrá zelenou, červená a modrá fialovou.
+- Bílá barvu zesvětlí; černá ji ztmaví, a stačí jí málo.
+- Počítá se jen poměr barev mezi sebou: kapka červené a kapka žluté dají stejnou oranžovou jako dvě od každé.
+- Některé hrnky už barvu obsahují a některé tuby mají jen pár kapek: štítek na tubě ukazuje, kolik jich zbývá.
+Ukazatel pod hrnkem se plní, jak se barva přibližuje.
+# Konec hry
+Když má barva v hrnku barvu kartičky, hádanka je vyřešená.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem kapek: 3 hvězdy; nejvýš o polovinu víc kapek: 2 hvězdy; jinak 1.

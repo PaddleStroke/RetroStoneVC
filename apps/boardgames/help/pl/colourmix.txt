@@ -1,0 +1,13 @@
+Mieszanie kolorów
+# Cel gry
+Mieszaj farbę w białym kubku, aż będzie miała kolor karty.
+# Farby
+Każde stuknięcie w tubkę dodaje jedną kroplę. Farby mieszają się jak prawdziwe farby, a nie jak światło: czerwona i żółta dają pomarańczową, żółta i niebieska zieloną, czerwona i niebieska fioletową.
+- Biała rozjaśnia kolor; czarna go przyciemnia, a odrobina czarnej wystarczy.
+- Liczą się tylko proporcje farb: kropla czerwonej i kropla żółtej dają ten sam pomarańczowy co po dwie.
+- Niektóre kubki mają już w sobie farbę, a niektóre tubki tylko kilka kropli: plakietka na tubce pokazuje, ile zostało.
+Wskaźnik pod kubkiem napełnia się, gdy kolor się zbliża.
+# Koniec gry
+Gdy kolor w kubku jest taki jak na karcie, zagadka jest rozwiązana.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą kropli: 3 gwiazdki; najwyżej o połowę większą: 2 gwiazdki; inaczej 1.

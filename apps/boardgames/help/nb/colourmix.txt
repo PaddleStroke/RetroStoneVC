@@ -1,0 +1,13 @@
+Fargeblanding
+# Målet
+Bland maling i den hvite krukken til den har fargen på kortet.
+# Malingen
+Hvert trykk på en tube tilsetter én dråpe. Malingen blandes som ekte maling, ikke som lys: rødt og gult gir oransje, gult og blått gir grønt, rødt og blått gir fiolett.
+- Hvitt gjør en farge lysere; svart gjør den mørkere, og litt svart rekker langt.
+- Bare forholdet mellom fargene teller: én dråpe rødt og én gult gir samme oransje som to av hver.
+- Noen krukker har allerede maling i seg, og noen tuber har bare noen få dråper: skiltet på tuben viser hvor mange som er igjen.
+Måleren under krukken fylles jo nærmere fargen kommer.
+# Slutten på spillet
+Når fargen i krukken er lik kortet, er oppgaven løst.
+# Nivåer og stjerner
+Løst med færrest mulig dråper: 3 stjerner; med opptil halvparten så mange dråper til: 2 stjerner; ellers 1.

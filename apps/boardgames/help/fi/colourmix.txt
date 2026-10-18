@@ -1,0 +1,13 @@
+Värien sekoitus
+# Tavoite
+Sekoita maalia valkoisessa purkissa, kunnes se on kortin värinen.
+# Maalit
+Jokainen napautus tuubiin lisää yhden pisaran. Maalit sekoittuvat kuin oikeat maalit, eivät kuin valo: punainen ja keltainen antavat oranssin, keltainen ja sininen vihreän, punainen ja sininen violetin.
+- Valkoinen vaalentaa väriä; musta tummentaa sitä, ja vähän mustaa riittää pitkälle.
+- Vain maalien keskinäinen suhde ratkaisee: pisara punaista ja pisara keltaista antavat saman oranssin kuin kaksi kumpaakin.
+- Joissakin purkeissa on jo maalia, ja joissakin tuubeissa on vain muutama pisara: tuubin merkki näyttää, montako on jäljellä.
+Purkin alla oleva mittari täyttyy sitä mukaa kuin väri lähestyy.
+# Pelin loppu
+Kun purkin väri on kortin väri, tehtävä on ratkaistu.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella määrällä pisaroita: 3 tähteä; enintään puolet enemmän pisaroita: 2 tähteä; muuten 1.

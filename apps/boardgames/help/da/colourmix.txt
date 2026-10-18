@@ -1,0 +1,13 @@
+Farveblanding
+# Målet
+Bland maling i den hvide krukke, til den har kortets farve.
+# Malingen
+Hvert tryk på en tube tilføjer én dråbe. Malingen blandes som rigtig maling, ikke som lys: rød og gul giver orange, gul og blå giver grøn, rød og blå giver violet.
+- Hvid gør en farve lysere; sort gør den mørkere, og lidt sort rækker langt.
+- Kun forholdet mellem farverne tæller: én dråbe rød og én gul giver samme orange som to af hver.
+- Nogle krukker har allerede maling i, og nogle tuber har kun få dråber: skiltet på tuben viser, hvor mange der er tilbage.
+Måleren under krukken fyldes, jo tættere farven kommer på.
+# Spillets afslutning
+Når krukkens farve passer til kortet, er opgaven løst.
+# Baner og stjerner
+Løst med færrest mulige dråber: 3 stjerner; med op til halvt så mange dråber mere: 2 stjerner; ellers 1.

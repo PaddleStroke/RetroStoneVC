@@ -1,0 +1,13 @@
+Kleuren mengen
+# Het doel
+Meng verf in de witte pot tot die de kleur van de kaart heeft.
+# De verf
+Elke tik op een tube voegt een druppel toe. De verf mengt zoals echte verf, niet zoals licht: rood en geel geven oranje, geel en blauw groen, rood en blauw paars.
+- Wit maakt een kleur lichter; zwart maakt hem donkerder, en een beetje zwart is al veel.
+- Alleen de verhouding tussen de verven telt: een druppel rood en een druppel geel geven hetzelfde oranje als twee van elk.
+- Sommige potten bevatten al verf, en sommige tubes hebben maar een paar druppels: het plaatje op de tube toont hoeveel er nog over zijn.
+De meter onder de pot vult zich naarmate de kleur dichterbij komt.
+# Het einde van het spel
+Als de kleur in de pot gelijk is aan de kaart, is de puzzel opgelost.
+# Levels en sterren
+Opgelost met zo weinig mogelijk druppels: 3 sterren; met tot de helft meer druppels: 2 sterren; anders 1.

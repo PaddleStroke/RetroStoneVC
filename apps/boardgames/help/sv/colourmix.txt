@@ -1,0 +1,13 @@
+Färgblandning
+# Målet
+Blanda färg i den vita burken tills den har kortets färg.
+# Färgerna
+Varje tryck på en tub tillsätter en droppe. Färgerna blandas som riktig målarfärg, inte som ljus: rött och gult ger orange, gult och blått ger grönt, rött och blått ger violett.
+- Vitt gör en färg ljusare; svart gör den mörkare, och lite svart räcker långt.
+- Bara förhållandet mellan färgerna räknas: en droppe rött och en gult ger samma orange som två av varje.
+- Vissa burkar har redan färg i sig, och vissa tuber har bara några få droppar: skylten på tuben visar hur många som är kvar.
+Mätaren under burken fylls ju närmare färgen kommer.
+# Partiets slut
+När burkens färg är kortets färg är pusslet löst.
+# Banor och stjärnor
+Löst med så få droppar som möjligt: 3 stjärnor; med upp till hälften så många droppar till: 2 stjärnor; annars 1.

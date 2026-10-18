@@ -1,0 +1,13 @@
+Mezcla de colores
+# El objetivo
+Mezcla pintura en el bote blanco hasta que tenga el color de la tarjeta.
+# Las pinturas
+Cada toque en un tubo añade una gota. Las pinturas se mezclan como pinturas de verdad, no como la luz: rojo y amarillo dan naranja, amarillo y azul verde, rojo y azul violeta.
+- El blanco aclara un color; el negro lo oscurece, y un poco de negro basta.
+- Solo cuenta la proporción entre las pinturas: una gota de rojo y una de amarillo dan el mismo naranja que dos de cada.
+- Algunos botes ya tienen pintura, y algunos tubos solo tienen unas pocas gotas: la placa del tubo muestra cuántas quedan.
+El indicador bajo el bote se llena a medida que el color se acerca.
+# El final de la partida
+Cuando el color del bote es el de la tarjeta, el rompecabezas está resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de gotas posible: 3 estrellas; con hasta la mitad más de gotas: 2 estrellas; si no, 1.

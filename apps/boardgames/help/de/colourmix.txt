@@ -1,0 +1,13 @@
+Farbmischer
+# Das Ziel
+Mische Farbe im weißen Topf, bis sie die Farbe der Karte hat.
+# Die Farben
+Jedes Tippen auf eine Tube gibt einen Tropfen dazu. Die Farben mischen sich wie echte Malfarben, nicht wie Licht: Rot und Gelb ergeben Orange, Gelb und Blau Grün, Rot und Blau Violett.
+- Weiß hellt eine Farbe auf; Schwarz dunkelt sie ab, und schon wenig Schwarz wirkt stark.
+- Es zählt nur das Verhältnis der Farben zueinander: ein Tropfen Rot und einer Gelb ergeben dasselbe Orange wie je zwei.
+- Manche Töpfe enthalten schon Farbe, und manche Tuben haben nur wenige Tropfen: Die Plakette auf der Tube zeigt, wie viele übrig sind.
+Die Anzeige unter dem Topf füllt sich, je näher die Farbe kommt.
+# Das Ende der Partie
+Wenn die Farbe im Topf der Karte entspricht, ist das Rätsel gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Tropfen: 3 Sterne; mit bis zu halb so vielen Tropfen mehr: 2 Sterne; sonst 1.

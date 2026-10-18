@@ -1,0 +1,13 @@
+Renk Karıştırma
+# Amaç
+Beyaz kaptaki boyayı, karttaki renge gelene kadar karıştır.
+# Boyalar
+Bir tüpe her dokunuş bir damla ekler. Boyalar ışık gibi değil, gerçek boyalar gibi karışır: kırmızı ile sarı turuncu, sarı ile mavi yeşil, kırmızı ile mavi mor verir.
+- Beyaz bir rengi açar; siyah koyulaştırır ve biraz siyah çok iş görür.
+- Yalnızca boyaların birbirine oranı önemlidir: bir damla kırmızı ile bir damla sarı, ikişer damlayla aynı turuncuyu verir.
+- Bazı kaplarda zaten boya vardır, bazı tüplerde de yalnızca birkaç damla: tüpün üstündeki rozet kaç damla kaldığını gösterir.
+Kabın altındaki gösterge, renk yaklaştıkça dolar.
+# Oyunun sonu
+Kabın rengi karttakiyle aynı olunca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az damlayla çözülürse 3 yıldız; en az sayının en fazla yarısı kadar fazlasıyla 2 yıldız; yoksa 1.

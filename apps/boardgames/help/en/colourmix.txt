@@ -1,0 +1,13 @@
+Colour Mixer
+# The aim
+Mix paint in the white pot until it is the colour on the card.
+# The paints
+Each tap on a tube adds one drop. Paints mix like real paints, not like light: red and yellow make orange, yellow and blue make green, red and blue make violet.
+- White makes a colour lighter; black makes it darker, and a little black goes a long way.
+- Only how much of each paint there is compared with the others counts: one drop of red and one of yellow give the same orange as two of each.
+- Some pots already hold paint, and some tubes hold only a few drops: the badge on the tube shows how many are left.
+The meter under the pot fills as the colour gets closer.
+# The end of the game
+When the pot's colour matches the card, the puzzle is solved.
+# Levels and stars
+Solved with the fewest drops possible: 3 stars; with up to half as many drops again: 2 stars; otherwise 1.
