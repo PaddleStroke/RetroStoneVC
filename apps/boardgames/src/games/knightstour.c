@@ -238,8 +238,8 @@ static void draw(void)
         x = drag.x - B.sq / 2.0f;
         y = drag.y - 0.62f * B.sq;
     }
-    /* in the air, its shadow drawn above: 254, all but opaque, draws the piece alone (bpz_piece_at) */
-    bpz_piece_at(&B, KNIGHT, WHITE, x, y, drag.on && drag.moved ? 1.12f : 1, anim.on && !(drag.on && drag.moved) ? 254 : 255);
+    /* in the air its shadow is drawn above: the piece alone */
+    bpz_piece_at(&B, KNIGHT, WHITE, x, y, drag.on && drag.moved ? 1.12f : 1, 255, !anim.on || (drag.on && drag.moved));
     ui_tool(0, ICON_HINT, (hint.sq >= 0 ? UI_ON : 0) | (kt_done(&G) || kt_stuck(&G) ? UI_DIM : 0));   /* the lamp */
 }
 

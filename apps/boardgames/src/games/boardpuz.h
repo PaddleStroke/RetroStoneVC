@@ -181,15 +181,17 @@ static inline int bpz_light_on(const bpz_board *b, int file, int rank)
     return !((c + r) & 1);
 }
 
-/* a standing piece at (x, y), a square's size (scaled by k), with its shadow; faded by alpha (0..255) */
-static inline void bpz_piece_at(const bpz_board *b, int type, int color, float x, float y, float k, Uint8 alpha)
+/* a standing piece at (x, y), a square's size (scaled by k), faded by alpha (0..255); shadow: its shadow under it
+ * (an opaque piece's only; 0: none, the piece in the air whose shadow the game draws itself) */
+static inline void bpz_piece_at(const bpz_board *b, int type, int color, float x, float y, float k, Uint8 alpha,
+                                int shadow)
 {
     SDL_Texture *t = b->piece[color][type];
     if (!t) return;
     float s = b->sq * k;
     x += (b->sq - s) / 2;
     y += (b->sq - s) / 2;
-    if (alpha == 255) ui_shadow(x, y, s);
+    if (shadow && alpha == 255) ui_shadow(x, y, s);
     SDL_SetTextureAlphaMod(t, alpha);
     ui_put(t, x, y, s, s);
     SDL_SetTextureAlphaMod(t, 255);

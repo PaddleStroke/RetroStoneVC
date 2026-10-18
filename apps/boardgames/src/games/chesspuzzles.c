@@ -307,7 +307,7 @@ static void draw(void)
         if (wrong.on && wt > 0.5f && s == wrong.to) continue;   /* the piece it would take, gone meanwhile */
         float x, y;
         sq_xy(s, &x, &y);
-        bpz_piece_at(&B, TYPE(pc), COLOR(pc), x, y, 1, 255);
+        bpz_piece_at(&B, TYPE(pc), COLOR(pc), x, y, 1, 255, 1);
     }
     if (calm_now && sel >= 0)                   /* where the selected piece can go */
         for (int i = 0; i < nlegal; i++) {
@@ -333,7 +333,7 @@ static void draw(void)
         sq_xy(G.played[k].from, &x0, &y0);
         sq_xy(moving, &x1, &y1);
         int pc = p->sq[moving];
-        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1, 255);
+        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1, 255, 1);
         ui_animate();
     } else if (f < 0) ui_animate();
     if (wrong.on && wt >= 0) {
@@ -341,12 +341,12 @@ static void draw(void)
         sq_xy(wrong.from, &x0, &y0);
         sq_xy(wrong.to, &x1, &y1);
         int pc = p->sq[wrong.from];
-        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1, 255);
+        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 1, 255, 1);
         ui_animate();
     }
     if (drag.on && drag.moved) {
         int pc = p->sq[drag.from];
-        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), drag.x - B.sq / 2.0f, drag.y - 0.62f * B.sq, 1.12f, 255);
+        if (pc) bpz_piece_at(&B, TYPE(pc), COLOR(pc), drag.x - B.sq / 2.0f, drag.y - 0.62f * B.sq, 1.12f, 255, 1);
     }
     ui_tool(0, ICON_HINT, (G.hint_level > 0 ? UI_ON : 0) | (G.hint_level >= 2 || cpz_solved(&G) ? UI_DIM : 0));
 }

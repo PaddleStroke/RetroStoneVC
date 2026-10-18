@@ -187,7 +187,7 @@ static void draw(void)
                 ui_animate();
             }
         }
-        bpz_piece_at(&B, QUEEN, G.fixed[s] ? BLACK : WHITE, x, y, k, s == hint.sq && hint.remove ? 120 : 255);
+        bpz_piece_at(&B, QUEEN, G.fixed[s] ? BLACK : WHITE, x, y, k, s == hint.sq && hint.remove ? 120 : 255, 1);
     }
     int solved = qn_solved(&G);                 /* the tools: the lamp, the queens' lines */
     ui_tool(0, ICON_HINT, (hint.sq >= 0 ? UI_ON : 0) | (solved ? UI_DIM : 0));
