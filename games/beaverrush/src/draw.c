@@ -213,6 +213,9 @@ void draw_init(void)
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OPAL_KIT;
     hc.box_glyphs = " SCOREBESTNWMDALPYIG1234!:-RKH";   /* the panels' letters only (VRAM) */
+    /* the glyphs beyond ASCII (translated text): the kit's default pool (640..767) holds the timer bar here (BAR_TILE
+     * 700..719: its tiles were overwritten by the PAUSED text in ja, el, ru...); the free tiles after it instead */
+    hc.ext_tile = 768;
     hu_init(&hc);
     bar_tiles();
     rs_bg_setup(RS_BG1, map_w(), 32, VR_BG1);
