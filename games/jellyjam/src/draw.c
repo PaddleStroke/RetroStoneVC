@@ -83,6 +83,7 @@ static int bg3_rows(void) { return tall() ? 64 : 32; }
 static int portrait(void) { return rs_screen_height() >= PL_MIN_H; }
 static int pl_pin;              /* the HUD's band is pinned this frame (the raster shows BG1 there) */
 static int pl_on;               /* portrait this frame (the raster: the sprites everywhere) */
+static int ui_pin;              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 
 static void raster(int line, void *user)
 {
@@ -101,6 +102,7 @@ static void raster(int line, void *user)
             rs_bg_window(RS_BG1, 0);
             rs_bg_window(RS_BG2, 0);
         }
+        if (ui_pin && (line < 0 || line >= RS_SCREEN_H)) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);
         return;
     }
     if ((line < 0 && line == rs_screen_top()) || line == RS_SCREEN_H) {
@@ -113,6 +115,7 @@ static void raster(int line, void *user)
         rs_bg_window(RS_BG2, 0);
         rs_obj_window(0);
     }
+    if (ui_pin && (line < 0 || line >= RS_SCREEN_H)) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);   /* the pinned UI */
 }
 
 /* ---- set-up ------------------------------------------------------------------------------------------------------------ */
@@ -744,7 +747,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_best = best;
     }
     if (state == ST_TITLE && narrow) {
-        ht_title cfg = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
+        ht_title cfg = {TR(VERB), MAX_PLAYERS, HT_ROW_SLOTS, 0};
         ht_title_draw(&cfg, st_t, best, &title_out);
     } else if (state == ST_TITLE) {
         hu_title_draw(st_t, best);
@@ -866,6 +869,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         rs_screen_fill(!(pl && playing && w->nf > 2));
         if (pl) rs_screen_origin_v(PL_ABOVE);
         rs_bg_pin(RS_BG1, 0, pl_pin ? PL_PIN_N : 0, PL_PIN_SY);
+        ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+        if (ui_pin) ht_pin(ui_pin);             /* the title and the panels at the same place on every game's screen */
     }
     hu_standing rs;
     standing(w, &rs);
@@ -904,7 +909,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_oam_clear();
     if (state == ST_TITLE) {
         if (ht_narrow()) {                         /* (house_tall.h: the slots closer, the glyph by the wrapped prompt) */
-            ht_title cfg = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
+            ht_title cfg = {TR(VERB), MAX_PLAYERS, HT_ROW_SLOTS, 0};
             ht_title_sprites(&cfg, &title_out, st_t, slot_icon, NULL);
         } else {
             hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */

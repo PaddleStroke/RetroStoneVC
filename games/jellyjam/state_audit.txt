@@ -15,3 +15,4 @@ draw.clip_y         painting scratch (set for each field)
 draw.pic_w          painting scratch (set for each field)
 draw.pic_h          painting scratch (set for each field)
 draw.drops_left     the droplets' sprite budget: scratch, set every frame
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
