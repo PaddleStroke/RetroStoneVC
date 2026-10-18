@@ -1013,14 +1013,14 @@ static void draw_chef(view *v, int p, int t, int players)
 }
 
 /* ---- the UI on a tall screen: the house's uniform portrait UI (house_tall.h, its default rows) ------------------------ */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
 static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
-#define NARROW_CHEF_Y 380       /* the slots' chefs: their feet on the kitchen's floor, under the house rows (stage y) */
 static void title_chef(int p, int cx, int cy, int t, void *user);
-/* a slot's chef (ht_title_sprites): under his slot, in the kitchen (popping in as the slot's icon would) */
+/* a slot's chef (ht_title_sprites): right under his slot and its tag, his feet on the prompt's line (ht_title_out
+ * gap_y1), popping in as the slot's icon would */
 static void narrow_chef(int p, int cx, int cy, int t, void *user)
 {
-    title_chef(p, cx, cy - narrow_out.slot_cy + NARROW_CHEF_Y, t, user);
+    title_chef(p, cx, cy - narrow_out.slot_cy + narrow_out.gap_y1, t, user);
 }
 
 /* ---- the UI (the house kit) ------------------------------------------------------------------------------------- */
@@ -1169,10 +1169,13 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
     int shx = hu_shake_x(), shy = hu_shake_y();
 
     rs_oam_clear();
+    /* the title and the panels at the same place on every game's screen (house_tall.h ht_pin_dy): BG1's 64 rows
+     * scrolled down to there (nothing to hide past its 30 rows), the views' alike */
+    int ui_dy = ht_pin_dy(state == DS_TITLE ? HT_PIN_TITLE : state == DS_OVER ? HT_PIN_PANEL : HT_PIN_OFF);
     if (m->players == 1) {
         view *v = &V[0];
         rs_viewports(0, NULL, 0);
-        rs_bg_scroll(RS_BG1, 0, -slide);
+        rs_bg_scroll(RS_BG1, 0, -slide - ui_dy);
         int pm = px_mask();
         r_bg2_x = wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), r_bg2_y = (-v->cam - v->h - shy) & pm;
         r_far_low = (-far_base(v) - v->h) & pm, r_far_up = (-far_base(v) - v->h - far_up(v)) & pm, r_far_line = far_line(v);
@@ -1187,7 +1190,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
             else hu_gameover_sprites(1, m->tw[0].score, 0, best, 0, st_t, slide);
             if (narrow) {
                 ht_gameover_pos(2, &mcx, &my);
-                mrow = my / 8 + 1;
+                mrow = (my - ui_dy) / 8 + 1;              /* (the UI's own row: my is on the screen) */
             }
             int medal = fork_medal_tier(m->tw[0].score);
             if (medal && !medals_loaded) {
@@ -1219,7 +1222,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         vp->objs = 1;
         int pm = px_mask();
         if (tall()) vp->y = 0, vp->h = (int16_t)v->h;   /* a tall screen: the panes its whole height */
-        vp->sx[0] = vp->x, vp->sy[0] = (int16_t)-slide;
+        vp->sx[0] = vp->x, vp->sy[0] = (int16_t)(-slide - ui_dy);
         vp->sx[1] = (int16_t)wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & pm);
         vp->sx[2] = (int16_t)wrap_x(RS_BG3, v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & pm);
         int far_x = is_wide() ? wide_block(m->players) * 4 - v->sx0 : m->players > 2 ? (128 - v->w) / 2 : 48;   /* the far px at the pane centre: 128 (64), or the middle of the block */
