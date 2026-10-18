@@ -140,7 +140,7 @@ static void go(int s) { st = s; st_t = 0; }
 static void new_run(int state)
 {
     uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
-    world_init(&W, hu_players(), seed);
+    world_init_layout(&W, hu_players(), seed, draw_tall());    /* a phone held upright: the portrait playfield */
     if (opt_wave > 1) {
         world_start_wave(&W, opt_wave);
         W.phase = PH_READY;
@@ -311,9 +311,22 @@ static void game_update(void)
 
 static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, paused); }
 
+/* after a state was loaded: a state saved with the other playfield (the phone turned: the app restarts the game from a
+ * state at the new size) cannot go on, its run had the other walls and formation: back to the title, the same players */
+static void game_state_loaded(void)
+{
+    draw_state_loaded();
+    if (W.tall != draw_tall()) {
+        rs_log("a state of the %s playfield: back to the title", W.tall ? "portrait" : "landscape");
+        paused = 0;
+        start_press = 0;
+        new_run(ST_TITLE);
+    }
+}
+
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);            /* a phone held upright: more space above, the moon below (draw.c) */
+    rs_screen_zoom(ZOOM_H);                     /* a phone held upright: zoomed, the portrait playfield (game.h) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
@@ -369,7 +382,7 @@ const rs_game *rs_game_main(void)
 {
     /* max_width: the game draws any width up to 560 (widescreen: DESIGN.md) */
     static const rs_game g = {"Hamster Havoc", "hamsterhavoc", "0.1.0", game_init, game_update, game_draw,
-                              game_shutdown, gm_assets, game_state, draw_state_loaded, 1, RS_SCREEN_W_MAX,
+                              game_shutdown, gm_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX,
                               0 /* touch_native off: the app's halves and drawn A buttons (apps/launcher/games.cfg;
                                  * the owner's choice: as Mole Marbles) */};
     return &g;

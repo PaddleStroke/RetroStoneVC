@@ -3,7 +3,8 @@
 #   make hamsterhavoc                host builds: hamsterhavoc (SDL2), hamsterhavoc_headless, hamsterhavoc_libretro.so
 #   make hamsterhavoc-check          all its tests (the rules alone, libretro loader, smoke + bot + determinism, touch,
 #                                    UI screens, save states and their audit, the 22 languages), at 320 and at each
-#                                    widescreen width of WIDTHS (427 520), and save states across widths
+#                                    widescreen width of WIDTHS (427 520), and save states across widths; the portrait
+#                                    playfield (a 1080x2520 phone: tests/tall_test.sh)
 #   make hamsterhavoc-dist           dist/windows/HamsterHavoc.exe, dist/libretro/hamsterhavoc_libretro.so (+ .armhf.so)
 #   make hamsterhavoc-windows        only the Windows exe
 #   make hamsterhavoc-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -60,6 +61,7 @@ hamsterhavoc-check:
 	        --any-width | grep -q "all passed" || { echo "FAIL a state saved at $$w does not load at $$o"; exit 1; }; done; \
 	    echo "  ok   a state saved at $$w loads at the other widths"; \
 	done
+	sh $(HAMSTERHAVOC_DIR)/tests/tall_test.sh build/host/hamsterhavoc_headless build
 	bash tools/i18n_test.sh build/host/hamsterhavoc_headless hamsterhavoc build/hamsterhavoc-i18n 320 $(WIDTHS)
 
 hamsterhavoc-screenshots:

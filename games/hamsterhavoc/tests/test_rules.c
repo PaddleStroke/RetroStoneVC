@@ -439,6 +439,119 @@ static void test_determinism_and_bot(void)
     CHECK(w.wave >= 4 && w.h[0].state == SH_PLAY, "the bot reaches wave %d unhit", w.wave);
 }
 
+/* the frames the formation of wave 1 takes to land, nobody firing (the mice's shots off) */
+static int landing_frames(int tall)
+{
+    world w;
+    world_init_layout(&w, 1, 77, tall);
+    idle();
+    in[0].fire = 1;
+    world_step(&w, in);
+    idle();
+    int t = 0, lo = 999, hi = -999;
+    while (w.phase != PH_OVER && t < 200000) {
+        w.bomb_t = 1 << 30;
+        w.saucer_t = 1 << 30;
+        world_step(&w, in);
+        if (w.phase == PH_PLAY) {
+            const geo *g = world_geo(&w);
+            if (mouse_x(&w, 0) < lo) lo = mouse_x(&w, 0);
+            if (mouse_x(&w, g->cols - 1) + 16 > hi) hi = mouse_x(&w, g->cols - 1) + 16;
+        }
+        t++;
+    }
+    const geo *g = world_geo(&w);
+    CHECK(w.landed && lo >= g->band_l && hi <= g->band_r, "%s: the formation marches between the walls %d..%d "
+          "(%d..%d) and lands", tall ? "portrait" : "landscape", g->band_l, g->band_r, lo, hi);
+    return t;
+}
+
+/* the portrait playfield (a phone held upright): inside the 188 columns a 1080x2520 phone shows (66..253), a
+ * formation of 7 x 8, three shelters, the same game otherwise */
+static void test_portrait(void)
+{
+    static const int counts[3] = {56, 53, 48};
+    world w;
+    for (int wave = 1; wave <= 3; wave++) {
+        world_init_layout(&w, 1, 9, 1);
+        if (wave > 1) world_start_wave(&w, wave);
+        CHECK(w.tall && w.alive_n == counts[wave - 1], "portrait wave %d: %d mice (%d)", wave, counts[wave - 1],
+              w.alive_n);
+    }
+    world_init(&w, 1, 9);
+    CHECK(!w.tall && w.alive_n == 55, "world_init: the landscape playfield");
+    world_init_layout(&w, 1, 9, 1);
+    const geo *g = world_geo(&w);
+    CHECK(g->band_l >= 66 && g->band_r <= 254 && g->ship_min_x - 16 >= 66 && g->ship_max_x + 16 <= 254 &&
+          g->boss_min_x - 32 >= g->band_l && g->boss_max_x + 32 <= g->band_r,
+          "the walls, the ships' and the mothership's range inside the columns shown");
+    CHECK(g->form_x0 - g->band_l == g->band_r - (g->form_x0 + (g->cols - 1) * COL_W + 16), "the formation centred");
+    /* the shelters: three, whole, inside the walls, the cheese where it should be */
+    int bits = 0;
+    for (int s = 0; s < SHELTERS; s++)
+        for (int y = 0; y < SHELTER_H; y++) bits += w.shelter[s][y] != 0;
+    CHECK(bits == 3 * SHELTER_H && shelter_solid(&w, g->shelter_x[1] + 2, SHELTER_Y + 12) &&
+          !shelter_solid(&w, 40, SHELTER_Y + 12) && g->shelter_x[0] >= g->band_l &&
+          g->shelter_x[2] + SHELTER_W <= g->band_r, "three shelters between the walls");
+    /* the ship stops at the walls */
+    idle();
+    in[0].fire = 1;
+    world_step(&w, in);
+    idle();
+    in[0].dir = 1;
+    for (int t = 0; t < 200; t++) {
+        w.bomb_t = 1 << 30;
+        world_step(&w, in);
+    }
+    CHECK(w.h[0].x == g->ship_max_x << 16, "the ship stops at the right wall (%d)", w.h[0].x >> 16);
+    in[0].dir = -1;
+    for (int t = 0; t < 200; t++) {
+        w.bomb_t = 1 << 30;
+        world_step(&w, in);
+    }
+    CHECK(w.h[0].x == g->ship_min_x << 16, "... and at the left one (%d)", w.h[0].x >> 16);
+    /* the saucer crosses between the visible edges, at its line */
+    world_init_layout(&w, 1, 1234, 1);
+    idle();
+    in[0].fire = 1;
+    world_step(&w, in);
+    idle();
+    while (w.phase != PH_PLAY) world_step(&w, in);
+    w.saucer_t = 1;
+    int seen = 0, lo = 999, hi = -999;
+    for (int t = 0; t < 400; t++) {
+        w.bomb_t = 1 << 30;
+        world_step(&w, in);
+        if (w.saucer_on) {
+            seen++;
+            if (w.saucer_x >> 16 < lo) lo = w.saucer_x >> 16;
+            if (w.saucer_x >> 16 > hi) hi = w.saucer_x >> 16;
+        }
+    }
+    CHECK(seen > 200 && lo >= g->saucer_x0 && hi <= g->saucer_x1 && lo - 16 < 66 && hi + 16 > 254,
+          "the saucer crosses from edge to edge (%d..%d)", lo, hi);
+    /* the descent: a taller one, about as long as the landscape's */
+    int fl = landing_frames(0), ft = landing_frames(1);
+    printf("  portrait: the unhurt formation lands after %d frames (landscape %d)\n", ft, fl);
+    CHECK(ft * 100 >= fl * 80 && ft * 100 <= fl * 125, "the mice land after %d frames (landscape %d)", ft, fl);
+    /* the bot plays it: waves cleared unhit, the same run twice */
+    world a, b;
+    world_init_layout(&a, 1, 5, 1);
+    world_init_layout(&b, 1, 5, 1);
+    for (int t = 0; t < 9000; t++) {
+        pin ia[MAX_PLAYERS], ib[MAX_PLAYERS];
+        memcpy(ia, NONE, sizeof ia);
+        memcpy(ib, NONE, sizeof ib);
+        ia[0] = bot_decide(&a, 0, 0);
+        ib[0] = bot_decide(&b, 0, 0);
+        world_step(&a, ia);
+        world_step(&b, ib);
+    }
+    printf("  portrait: the bot at wave %d after 9000 frames, score %d\n", a.wave, a.h[0].score);
+    CHECK(a.wave >= 4 && a.h[0].state == SH_PLAY, "portrait: the bot reaches wave %d unhit", a.wave);
+    CHECK(!memcmp(&a, &b, sizeof a), "portrait: the same seed, the same run");
+}
+
 int main(void)
 {
     test_start();
@@ -452,6 +565,7 @@ int main(void)
     test_boss();
     test_touch();
     test_determinism_and_bot();
+    test_portrait();
     printf("hamsterhavoc rules: %d checks, %d failed\n", checks, fails);
     return fails ? 1 : 0;
 }

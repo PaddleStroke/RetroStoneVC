@@ -14,18 +14,39 @@
 
 /* the formation layouts: a bit per column (bit c = column c), a row each, top to bottom */
 #define FULL 0x7FF
-static const uint16_t LAYOUTS[][ROWS] = {
+static const uint16_t LAYOUTS[][ROWS_MAX] = {
     {FULL, FULL, FULL, FULL, FULL},             /* the full block: 55 mice */
     {0x555, FULL, FULL, FULL, FULL},            /* the castle (battlements on top): 50 */
     {0x78F, 0x78F, 0x78F, 0x78F, 0x78F},        /* two wings (columns 4-6 empty): 40 */
     {0x070, 0x0F8, 0x1FC, 0x3FE, FULL},         /* the arrowhead: 35 */
     {0x555, 0x2AA, 0x555, 0x2AA, 0x555},        /* the checkerboard: 28 */
 };
+/* the same five in the portrait playfield's 7 columns of 8 rows */
+#define TFULL 0x7F
+static const uint16_t LAYOUTS_TALL[][ROWS_MAX] = {
+    {TFULL, TFULL, TFULL, TFULL, TFULL, TFULL, TFULL, TFULL},     /* the full block: 56 */
+    {0x55, TFULL, TFULL, TFULL, TFULL, TFULL, TFULL, TFULL},      /* the castle: 53 */
+    {0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77},             /* two wings (the middle column empty): 48 */
+    {0x08, 0x1C, 0x1C, 0x3E, 0x3E, TFULL, TFULL, TFULL},          /* the arrowhead: 38 */
+    {0x55, 0x2A, 0x55, 0x2A, 0x55, 0x2A, 0x55, 0x2A},             /* the checkerboard: 28 */
+};
 /* the layouts of the waves between the motherships, in turn */
 static const uint8_t WAVE_LAYOUT[] = {0, 1, 2, 0, 3, 1, 4, 2, 0};
 #define WAVE_LAYOUTS ((int)(sizeof WAVE_LAYOUT / sizeof WAVE_LAYOUT[0]))
 
-static const int SHELTER_X[SHELTERS] = SHELTER_XS;
+/* the two playfields: landscape (the stage's 320 columns) and portrait (game.h "the portrait playfield") */
+static const geo GEO[2] = {
+    {ROWS, COLS, FORM_X0, FORM_Y0, BAND_L, BAND_R, SHIP_MIN_X, SHIP_MAX_X, SEED_TOP, SAUCER_Y, -24, 344,
+     SHELTERS, BOSS_Y, BOSS_MIN_X, BOSS_MAX_X, 7, MARCH_FULL, 100, SEED_SPEED, BOSS_SPREAD, SHELTER_XS, ROW_POINTS},
+    {TALL_ROWS, TALL_COLS, TALL_FORM_X0, TALL_FORM_Y0, TALL_BAND_L, TALL_BAND_R, TALL_SHIP_MIN_X, TALL_SHIP_MAX_X,
+     TALL_SEED_TOP, TALL_SAUCER_Y, TALL_SAUCER_X0, TALL_SAUCER_X1, TALL_SHELTERS, TALL_BOSS_Y, TALL_BOSS_MIN_X,
+     TALL_BOSS_MAX_X, 3, TALL_MARCH_FULL, TALL_BOMB_PCT, TALL_SEED_SPEED, TALL_BOSS_SPREAD, TALL_SHELTER_XS,
+     TALL_ROW_POINTS},
+};
+const geo *world_geo(const world *w) { return &GEO[w->tall != 0]; }
+#define G (world_geo(w))
+#define ROWS_ (G->rows)
+#define COLS_ (G->cols)
 
 static int imin(int a, int b) { return a < b ? a : b; }
 static int iabs(int a) { return a < 0 ? -a : a; }
@@ -37,6 +58,7 @@ int mouse_points(int row)
     static const int pts[ROWS] = ROW_POINTS;
     return pts[row];
 }
+int mouse_points_of(const world *w, int row) { return G->row_points[row]; }
 int world_is_boss(const world *w) { return w->wave % BOSS_EVERY == 0; }
 
 int bomb_speed(const world *w, int kind)
@@ -48,7 +70,7 @@ int bomb_speed(const world *w, int kind)
 int boss_y(const world *w)
 {
     static const int bob[6] = {0, 1, 2, 3, 2, 1};
-    return BOSS_Y + bob[(w->boss_t / 10) % 6];
+    return G->boss_y + bob[(w->boss_t / 10) % 6];
 }
 
 /* ---- the shelters: a cheese wedge, 24x16, its top sloping up to the right, a mouse hole under it ---------------- */
@@ -61,7 +83,7 @@ static int wedge(int x, int y)
 
 static void shelters_reset(world *w)
 {
-    for (int s = 0; s < SHELTERS; s++)
+    for (int s = 0; s < G->shelters; s++)
         for (int y = 0; y < SHELTER_H; y++) {
             uint32_t row = 0;
             for (int x = 0; x < SHELTER_W; x++)
@@ -70,25 +92,25 @@ static void shelters_reset(world *w)
         }
 }
 
-static int shelter_at(int x)
+static int shelter_at(const world *w, int x)
 {
-    for (int s = 0; s < SHELTERS; s++)
-        if (x >= SHELTER_X[s] && x < SHELTER_X[s] + SHELTER_W) return s;
+    for (int s = 0; s < G->shelters; s++)
+        if (x >= G->shelter_x[s] && x < G->shelter_x[s] + SHELTER_W) return s;
     return -1;
 }
 
 int shelter_solid(const world *w, int x, int y)
 {
     if (y < SHELTER_Y || y >= SHELTER_Y + SHELTER_H) return 0;
-    int s = shelter_at(x);
-    return s >= 0 && (w->shelter[s][y - SHELTER_Y] >> (x - SHELTER_X[s]) & 1);
+    int s = shelter_at(w, x);
+    return s >= 0 && (w->shelter[s][y - SHELTER_Y] >> (x - G->shelter_x[s]) & 1);
 }
 
 static void clear_px(world *w, int x, int y)
 {
     if (y < SHELTER_Y || y >= SHELTER_Y + SHELTER_H) return;
-    int s = shelter_at(x);
-    if (s >= 0) w->shelter[s][y - SHELTER_Y] &= ~(1u << (x - SHELTER_X[s]));
+    int s = shelter_at(w, x);
+    if (s >= 0) w->shelter[s][y - SHELTER_Y] &= ~(1u << (x - G->shelter_x[s]));
 }
 
 /* a shot bites a round crater and two nibbles around it (where, from the frame: deterministic) */
@@ -106,9 +128,9 @@ static void crater(world *w, int x, int y)
 /* the mice nibble the cheese they march over */
 static void nibble(world *w)
 {
-    if (mouse_y(w, ROWS - 1) + 14 < SHELTER_Y) return;
-    for (int r = 0; r < ROWS; r++)
-        for (int c = 0; c < COLS; c++) {
+    if (mouse_y(w, ROWS_ - 1) + 14 < SHELTER_Y) return;
+    for (int r = 0; r < ROWS_; r++)
+        for (int c = 0; c < COLS_; c++) {
             if (!w->alive[r][c]) continue;
             int x0 = mouse_x(w, c) + 2, y0 = mouse_y(w, r) + 3;
             if (y0 + 11 < SHELTER_Y || y0 >= SHELTER_Y + SHELTER_H) continue;
@@ -165,8 +187,8 @@ void world_start_wave(world *w, int wave)
     w->fstep_t = 0;
     w->fframe = 0;
     w->beat = 0;
-    w->fx = FORM_X0;
-    w->fy = FORM_Y0 + imin((wave - 1) * WAVE_LOWER, WAVE_LOWER_MAX);
+    w->fx = G->form_x0;
+    w->fy = G->form_y0 + imin((wave - 1) * WAVE_LOWER, WAVE_LOWER_MAX);
     w->bomb_t = BOMB_RELOAD;
     w->bomb_k = 0;
     shelters_reset(w);
@@ -183,9 +205,9 @@ void world_start_wave(world *w, int wave)
     } else {
         int normal = wave - 1 - (wave - 1) / BOSS_EVERY;     /* the waves before this one that had a formation */
         w->layout = WAVE_LAYOUT[normal % WAVE_LAYOUTS];
-        for (int r = 0; r < ROWS; r++)
-            for (int c = 0; c < COLS; c++)
-                if (LAYOUTS[w->layout][r] >> c & 1) {
+        for (int r = 0; r < ROWS_; r++)
+            for (int c = 0; c < COLS_; c++)
+                if ((w->tall ? LAYOUTS_TALL : LAYOUTS)[w->layout][r] >> c & 1) {
                     w->alive[r][c] = 1;
                     w->alive_n++;
                 }
@@ -196,10 +218,13 @@ void world_start_wave(world *w, int wave)
     w->wevents |= WEV_WAVE;
 }
 
-void world_init(world *w, int players, uint32_t seed)
+void world_init(world *w, int players, uint32_t seed) { world_init_layout(w, players, seed, 0); }
+
+void world_init_layout(world *w, int players, uint32_t seed, int tall)
 {
     memset(w, 0, sizeof *w);
     w->seed = seed;
+    w->tall = tall != 0;
     rs_rng_seed(&w->rng, seed ? seed : 1);
     w->players = players < 1 ? 1 : players > MAX_PLAYERS ? MAX_PLAYERS : players;
     for (int p = 0; p < MAX_PLAYERS; p++) {
@@ -217,7 +242,7 @@ void world_init(world *w, int players, uint32_t seed)
 int march_interval(const world *w)
 {
     if (w->alive_n <= 1) return 1;
-    int full = MARCH_FULL * (100 - MARCH_WAVE * imin(w->wave - 1, MARCH_WAVE_MAX)) / 100;
+    int full = G->march_full * (100 - MARCH_WAVE * imin(w->wave - 1, MARCH_WAVE_MAX)) / 100;
     int n = w->count0 > 1 ? w->count0 - 1 : 1;
     return MARCH_MIN + (full - MARCH_MIN) * (w->alive_n - 1) / n;
 }
@@ -258,15 +283,15 @@ static void try_fire(world *w, int p)
     int n = seeds_out(w, p), x = h->x >> 16;
     if (h->power == PW_DOUBLE) {
         if (n) return;
-        spawn_seed(w, p, x - DOUBLE_DX, SEED_SPEED);
-        spawn_seed(w, p, x + DOUBLE_DX, SEED_SPEED);
+        spawn_seed(w, p, x - DOUBLE_DX, G->seed_speed);
+        spawn_seed(w, p, x + DOUBLE_DX, G->seed_speed);
     } else if (h->power == PW_RAPID) {
         if (n >= MAX_SEEDS || h->gap) return;
         spawn_seed(w, p, x, RAPID_SPEED);
         h->gap = RAPID_GAP;
     } else {
         if (n) return;
-        spawn_seed(w, p, x, SEED_SPEED);
+        spawn_seed(w, p, x, G->seed_speed);
     }
     h->shots++;
     h->fire_t = 0;
@@ -322,8 +347,8 @@ static void step_heroes(world *w, const pin in[MAX_PLAYERS])
                 d = in[p].dir < 0 ? -SHIP_SPEED : in[p].dir > 0 ? SHIP_SPEED : 0;
             }
             h->x += d;
-            if (h->x < (SHIP_MIN_X << 16)) h->x = SHIP_MIN_X << 16;
-            if (h->x > (SHIP_MAX_X << 16)) h->x = SHIP_MAX_X << 16;
+            if (h->x < (G->ship_min_x << 16)) h->x = G->ship_min_x << 16;
+            if (h->x > (G->ship_max_x << 16)) h->x = G->ship_max_x << 16;
             h->move = d > 0 ? 1 : d < 0 ? -1 : 0;
             if (h->move) h->face = h->move;
             if (h->power_t && --h->power_t == 0) h->power = PW_NONE;
@@ -351,14 +376,14 @@ static int pop_mouse(world *w, int p, int x, int ytop, int ybot)
     int rel = x - w->fx;
     if (rel < 0) return 0;
     int c = rel / COL_W, off = rel % COL_W;
-    if (c >= COLS || off < 2 || off > 13) return 0;
-    for (int r = ROWS - 1; r >= 0; r--) {
+    if (c >= COLS_ || off < 2 || off > 13) return 0;
+    for (int r = ROWS_ - 1; r >= 0; r--) {
         if (!w->alive[r][c]) continue;
         int my = mouse_y(w, r);
         if (ybot >= my + 3 && ytop <= my + 14) {
             w->alive[r][c] = 0;
             w->alive_n--;
-            add_score(w, p, mouse_points(r));
+            add_score(w, p, mouse_points_of(w, r));
             add_fx(w, FX_POP, mouse_x(w, c), my, r);
             w->events[p] |= EV_POP;
             w->h[p].pops++;
@@ -375,8 +400,8 @@ static void shoot_saucer(world *w, int p)
     while (k < 3 && r >= odds[k]) r -= odds[k++];
     int sx = w->saucer_x >> 16;
     add_score(w, p, pts[k]);
-    add_fx(w, FX_POINTS, sx, SAUCER_Y + 4, pts[k]);
-    add_fx(w, FX_BIGPOP, sx, SAUCER_Y + 8, 0);
+    add_fx(w, FX_POINTS, sx, G->saucer_y + 4, pts[k]);
+    add_fx(w, FX_BIGPOP, sx, G->saucer_y + 8, 0);
     w->events[p] |= EV_SAUCER;
     w->saucer_on = 0;
     w->saucer_t = SAUCER_EVERY;
@@ -384,7 +409,7 @@ static void shoot_saucer(world *w, int p)
         w->power_on = 1;
         w->power_kind = rs_rng_range(&w->rng, 100) < SHIELD_ODDS ? PW_SHIELD : 1 + rs_rng_range(&w->rng, 2);
         w->power_x = (int32_t)sx << 16;
-        w->power_y = (int32_t)(SAUCER_Y + 4) << 16;
+        w->power_y = (int32_t)(G->saucer_y + 4) << 16;
     }
 }
 
@@ -435,7 +460,8 @@ static void step_seeds(world *w)
                 s->on = 0;
                 continue;
             }
-            if (w->saucer_on && iabs((w->saucer_x >> 16) - x) <= 12 && y1 <= SAUCER_Y + 13 && y0 + 6 >= SAUCER_Y + 3) {
+            int say = G->saucer_y;
+            if (w->saucer_on && iabs((w->saucer_x >> 16) - x) <= 12 && y1 <= say + 13 && y0 + 6 >= say + 3) {
                 shoot_saucer(w, p);
                 s->on = 0;
                 continue;
@@ -448,7 +474,7 @@ static void step_seeds(world *w)
                     continue;
                 }
             }
-            if (y1 < SEED_TOP) s->on = 0;
+            if (y1 < G->seed_top) s->on = 0;
         }
 }
 
@@ -517,7 +543,7 @@ static void step_bombs(world *w)
 /* the bottom mouse of a column (-1: empty) */
 static int column_bottom(const world *w, int c)
 {
-    for (int r = ROWS - 1; r >= 0; r--)
+    for (int r = ROWS_ - 1; r >= 0; r--)
         if (w->alive[r][c]) return r;
     return -1;
 }
@@ -526,10 +552,10 @@ static int column_bottom(const world *w, int c)
 static int nearest_column(const world *w, int c)
 {
     if (c < 0) c = 0;
-    if (c >= COLS) c = COLS - 1;
-    for (int d = 0; d < COLS; d++) {
+    if (c >= COLS_) c = COLS_ - 1;
+    for (int d = 0; d < COLS_; d++) {
         if (c - d >= 0 && column_bottom(w, c - d) >= 0) return c - d;
-        if (c + d < COLS && column_bottom(w, c + d) >= 0) return c + d;
+        if (c + d < COLS_ && column_bottom(w, c + d) >= 0) return c + d;
     }
     return -1;
 }
@@ -554,18 +580,18 @@ static void drop_bombs(world *w)
 {
     if (--w->bomb_t > 0) return;
     int reload = BOMB_RELOAD - BOMB_RELOAD_WAVE * (w->wave - 1);
-    w->bomb_t = reload < BOMB_RELOAD_MIN ? BOMB_RELOAD_MIN : reload;
+    w->bomb_t = (reload < BOMB_RELOAD_MIN ? BOMB_RELOAD_MIN : reload) * G->bomb_pct / 100;
     if (bombs_out(w) >= BOMB_LIMIT + w->players - 1) return;
     int kind = w->bomb_k % BK_KINDS, c;
     w->bomb_k++;
     if (kind == BK_CRUMB) {                                     /* the crumb: from above a ship */
         int p = aim_player(w, w->bomb_k / BK_KINDS);
         int rel = p < 0 ? 0 : (w->h[p].x >> 16) - w->fx - 8 + COL_W / 2;
-        c = nearest_column(w, p < 0 ? COLS / 2 : rel < 0 ? 0 : rel / COL_W);
+        c = nearest_column(w, p < 0 ? COLS_ / 2 : rel < 0 ? 0 : rel / COL_W);
     } else if (kind == BK_PEA) {                                /* the pea: any column */
-        c = nearest_column(w, rs_rng_range(&w->rng, COLS));
+        c = nearest_column(w, rs_rng_range(&w->rng, COLS_));
     } else {                                                    /* the jelly: the columns in a fixed round */
-        w->jelly_col = (w->jelly_col + 7) % COLS;
+        w->jelly_col = (w->jelly_col + G->jelly_step) % COLS_;
         c = nearest_column(w, w->jelly_col);
     }
     if (c < 0) return;
@@ -595,16 +621,16 @@ static void march(world *w)
 {
     if (!w->alive_n || ++w->fstep_t < march_interval(w)) return;
     w->fstep_t = 0;
-    int dx = w->alive_n == 1 ? MARCH_LAST_DX : MARCH_DX, cmin = COLS, cmax = -1, rmax = 0;
-    for (int r = 0; r < ROWS; r++)
-        for (int c = 0; c < COLS; c++)
+    int dx = w->alive_n == 1 ? MARCH_LAST_DX : MARCH_DX, cmin = COLS_, cmax = -1, rmax = 0;
+    for (int r = 0; r < ROWS_; r++)
+        for (int c = 0; c < COLS_; c++)
             if (w->alive[r][c]) {
                 if (c < cmin) cmin = c;
                 if (c > cmax) cmax = c;
                 rmax = r;
             }
     int lx = mouse_x(w, cmin), rx = mouse_x(w, cmax) + 16;
-    if ((w->fdir > 0 && rx + dx > BAND_R) || (w->fdir < 0 && lx - dx < BAND_L)) {
+    if ((w->fdir > 0 && rx + dx > G->band_r) || (w->fdir < 0 && lx - dx < G->band_l)) {
         w->fy += MARCH_DY;
         w->fdir = -w->fdir;
     } else {
@@ -626,13 +652,14 @@ static void step_saucer(world *w)
         w->saucer_on = 1;
         w->saucer_dir = (w->saucer_n & 1) ? -1 : 1;
         w->saucer_n++;
-        w->saucer_x = (int32_t)(w->saucer_dir > 0 ? -24 : 344) * Q16_ONE;   /* not << (negative: undefined) */
+        /* (not <<: negative, undefined) */
+        w->saucer_x = (int32_t)(w->saucer_dir > 0 ? G->saucer_x0 : G->saucer_x1) * Q16_ONE;
         w->wevents |= WEV_SAUCER;
         return;
     }
     w->saucer_x += w->saucer_dir * SAUCER_SPEED;
     int x = w->saucer_x >> 16;
-    if ((w->saucer_dir > 0 && x > 344) || (w->saucer_dir < 0 && x < -24)) {
+    if ((w->saucer_dir > 0 && x > G->saucer_x1) || (w->saucer_dir < 0 && x < G->saucer_x0)) {
         w->saucer_on = 0;
         w->saucer_t = SAUCER_EVERY;
     }
@@ -662,12 +689,12 @@ static void step_boss(world *w)
     if (w->boss_flash) w->boss_flash--;
     w->boss_t++;
     w->boss_x += w->boss_dir * BOSS_SPEED;
-    if (w->boss_x > (BOSS_MAX_X << 16)) w->boss_dir = -1;
-    if (w->boss_x < (BOSS_MIN_X << 16)) w->boss_dir = 1;
+    if (w->boss_x > (G->boss_max_x << 16)) w->boss_dir = -1;
+    if (w->boss_x < (G->boss_min_x << 16)) w->boss_dir = 1;
     if (--w->boss_fire_t > 0) return;
     int angry = w->boss_hp * 2 < w->boss_hp0, x = w->boss_x >> 16, y = boss_y(w) + 26;
     w->boss_fire_t = angry ? BOSS_FIRE_ANGRY : BOSS_FIRE;
-    for (int k = -1; k <= 1; k++) spawn_bomb(w, BK_PEA, x + 14 * k, y, k * BOSS_SPREAD, BOSS_BOMB_VY);
+    for (int k = -1; k <= 1; k++) spawn_bomb(w, BK_PEA, x + 14 * k, y, k * G->boss_spread, BOSS_BOMB_VY);
     if (angry && (w->boss_volley & 1)) {                        /* an aimed crumb at a ship, in turn */
         int p = aim_player(w, w->boss_volley / 2);
         if (p >= 0) {
@@ -797,42 +824,42 @@ static int aim_value(const world *w, int p, int x, int ta)
 {
     for (int y = SHELTER_Y; y < SHELTER_Y + SHELTER_H; y++)
         if (shelter_solid(w, x, y)) return -1;
-    int speed = (w->h[p].power == PW_RAPID ? RAPID_SPEED : SEED_SPEED) >> 16, best = 0;
+    int speed = (w->h[p].power == PW_RAPID ? RAPID_SPEED : G->seed_speed) >> 16, best = 0;
     if (w->alive_n && w->phase == PH_PLAY) {
         int rmax = 0;
-        for (int r = 0; r < ROWS; r++)
-            for (int c = 0; c < COLS; c++)
+        for (int r = 0; r < ROWS_; r++)
+            for (int c = 0; c < COLS_; c++)
                 if (w->alive[r][c]) rmax = r;
         int flight = (SHIP_Y - mouse_y(w, rmax) - 14) / speed, iv = march_interval(w);
         int steps = (w->fstep_t + ta + flight) / iv;
         int dx = w->alive_n == 1 ? MARCH_LAST_DX : MARCH_DX, fx = w->fx + w->fdir * dx * steps;
-        int lx = fx, rx = fx + (COLS - 1) * COL_W + 16, cmin = COLS, cmax = -1;
-        for (int c = 0; c < COLS; c++)
+        int lx = fx, rx = fx + (COLS_ - 1) * COL_W + 16, cmin = COLS_, cmax = -1;
+        for (int c = 0; c < COLS_; c++)
             if (column_bottom(w, c) >= 0) {
                 if (c < cmin) cmin = c;
                 if (c > cmax) cmax = c;
             }
         lx = fx + cmin * COL_W;
         rx = fx + cmax * COL_W + 16;
-        if (lx < BAND_L || rx > BAND_R) fx = w->fx;            /* it turns meanwhile: aim where it is */
+        if (lx < G->band_l || rx > G->band_r) fx = w->fx;            /* it turns meanwhile: aim where it is */
         int rel = x - fx;
         if (rel >= 0) {
             int c = rel / COL_W, off = rel % COL_W;
-            if (c < COLS && off >= 4 && off <= 11) {
+            if (c < COLS_ && off >= 4 && off <= 11) {
                 int r = column_bottom(w, c);
-                if (r >= 0) best = mouse_points(r) + 6 * r;
+                if (r >= 0) best = mouse_points_of(w, r) + 6 * r;
             }
         }
     }
     if (w->saucer_on) {
-        int flight = (SHIP_Y - SAUCER_Y - 8) / speed;
+        int flight = (SHIP_Y - G->saucer_y - 8) / speed;
         int sx = (w->saucer_x + w->saucer_dir * SAUCER_SPEED * (ta + flight)) >> 16;
         if (iabs(sx - x) <= 8 && best < 80) best = 80;
     }
     if (w->boss_on && w->phase == PH_PLAY) {
         int flight = (SHIP_Y - boss_y(w) - 20) / speed;
         int32_t bx = w->boss_x + w->boss_dir * BOSS_SPEED * (ta + flight);
-        if (bx > (BOSS_MAX_X << 16) || bx < (BOSS_MIN_X << 16)) bx = w->boss_x;
+        if (bx > (G->boss_max_x << 16) || bx < (G->boss_min_x << 16)) bx = w->boss_x;
         if (iabs((bx >> 16) - x) <= 20 && best < 40) best = 40;
     }
     return best;
@@ -858,8 +885,8 @@ pin bot_decide(const world *w, int p, int skill)
     int err = 0;
     if (skill) err = (int)(bhash((uint32_t)(w->t / 40), (uint32_t)p * 7919u + w->seed) % (uint32_t)(2 * skill + 1)) - skill;
     int lane = 160 + (2 * p - (w->players - 1)) * 40, best = x, bestv = INT_MIN;
-    for (int k = -1; k <= (SHIP_MAX_X - SHIP_MIN_X) / 3; k++) {
-        int cx = k < 0 ? x : SHIP_MIN_X + 3 * k;
+    for (int k = -1; k <= (G->ship_max_x - G->ship_min_x) / 3; k++) {
+        int cx = k < 0 ? x : G->ship_min_x + 3 * k;
         if (!path_safe(w, p, cx, look, margin, stop)) continue;
         int ta = iabs(cx - x) * 2 / 3, v = aim_value(w, p, cx + err, ta);
         int score = (v > 0 ? v * 4 : v < 0 ? -20 : 0) - iabs(cx - x) / 3;
@@ -880,8 +907,8 @@ pin bot_decide(const world *w, int p, int skill)
                 nd = iabs((w->bombs[i].x >> 16) - x);
                 o.dir = (w->bombs[i].x >> 16) <= x ? 1 : -1;
             }
-        if (x <= SHIP_MIN_X + 2) o.dir = 1;
-        if (x >= SHIP_MAX_X - 2) o.dir = -1;
+        if (x <= G->ship_min_x + 2) o.dir = 1;
+        if (x >= G->ship_max_x - 2) o.dir = -1;
     } else {
         o.target = best;
     }

@@ -111,6 +111,48 @@
 #define MSG_FRAMES    120       /* the power-ups' names */
 #define MEDAL_SCORES  {500, 1500, 3000, 6000}    /* bronze, silver, gold, pearl (1 player; tuned with botskill) */
 
+/* ---- the portrait playfield (DESIGN.md "Tall screen"): a phone held upright zooms (rs_screen_zoom(ZOOM_H)) and
+ * shows the middle 188-220 columns, so the play is laid out again for them: a narrower, taller formation (7 columns
+ * of 8 rows: 56 mice, as the 55), the walls at the narrowest phone's visible edges, three shelters, the saucer and
+ * the mothership inside, the formation starting higher (the extra lines give it a taller descent). A separate
+ * layout, chosen when the run starts (world.tall); the landscape numbers above are unchanged. */
+#define ZOOM_H        440       /* the zoomed screen's lines: 188 columns shown on a 1080x2520 phone, 202 at 1080x2340 */
+#define TALL_ORIGIN_V 104       /* the stage's line 0 on the screen: stage y -104 at the top, the moon's foot above
+                                 * the app's shoot buttons (the bottom 45% of the display's width) */
+#define TALL_ROWS     8
+#define TALL_COLS     7
+#define TALL_BAND_L   70        /* the walls: 4 px inside the 188 columns shown (66..253) */
+#define TALL_BAND_R   250
+#define TALL_SHIP_MIN_X 82      /* the ship's sprite inside the 188 columns */
+#define TALL_SHIP_MAX_X 238
+#define TALL_FORM_X0  92        /* 7 columns = 136 px, centred */
+#define TALL_FORM_Y0  (-44)     /* its top row at wave 1, under the saucer */
+#define TALL_SEED_TOP (-74)     /* under the HUD's band */
+#define TALL_SAUCER_Y (-66)
+#define TALL_SAUCER_X0 36       /* the saucer's centre comes in and goes out just past the visible edges */
+#define TALL_SAUCER_X1 284
+#define TALL_SHELTERS 3
+#define TALL_SHELTER_XS {92, 148, 204, 0}        /* left edges (4 px off the 8-px tiles: the moon's layer shifted) */
+#define TALL_BOSS_Y   (-30)
+#define TALL_BOSS_MIN_X 102     /* the mothership sails between the walls */
+#define TALL_BOSS_MAX_X 218
+#define TALL_BOSS_SPREAD 26214  /* Q16 (0.4): its side peas fall longer, they drift less */
+#define TALL_MARCH_FULL 38       /* frames between two steps (32): half the travel to the walls, as long a descent */
+#define TALL_BOMB_PCT 168       /* % of the reload between two drops: the same shots in 180 columns, not 304, would be
+                                 * 1.7 times as thick */
+#define TALL_SEED_SPEED 393216  /* Q16 (6): the mice are further up, a seed takes about as long to reach them */
+#define TALL_ROW_POINTS {30, 30, 20, 20, 20, 10, 10, 10}
+#define ROWS_MAX      8         /* the arrays: the larger of the two layouts */
+#define COLS_MAX      11
+typedef struct geo {
+    int rows, cols, form_x0, form_y0, band_l, band_r, ship_min_x, ship_max_x, seed_top, saucer_y, saucer_x0, saucer_x1;
+    int shelters, boss_y, boss_min_x, boss_max_x, jelly_step, march_full, bomb_pct;
+    int32_t seed_speed;
+    int32_t boss_spread;
+    int shelter_x[SHELTERS];
+    int row_points[ROWS_MAX];
+} geo;
+
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
 enum hero_state { SH_READY, SH_PLAY, SH_POP, SH_DOWN, SH_OFF };
 enum { PW_NONE, PW_DOUBLE, PW_RAPID, PW_SHIELD, PW_KINDS };
@@ -137,7 +179,7 @@ enum { PH_READY, PH_INTRO, PH_PLAY, PH_CLEAR, PH_OVER };
 enum { MSG_NONE, MSG_DOUBLE, MSG_RAPID, MSG_SHIELD };
 typedef struct world {
     /* the formation */
-    uint8_t alive[ROWS][COLS];
+    uint8_t alive[ROWS_MAX][COLS_MAX];      /* rows x cols of the layout (world_geo) */
     int fx, fy, fdir, fstep_t, fframe, count0, alive_n, layout, beat;
     /* the shelters: bit x (0..23) of row y */
     uint32_t shelter[SHELTERS][SHELTER_H];
@@ -160,6 +202,7 @@ typedef struct world {
     uint32_t seed;
     hero h[MAX_PLAYERS];
     int players, t, started;
+    int tall;                   /* the portrait playfield (world_geo); fixed for the run */
     int msg, msg_t, msg_player;
     int events[MAX_PLAYERS];    /* EV_* of the last step */
     int wevents;                /* WEV_* of the last step */
@@ -169,7 +212,10 @@ enum { EV_FIRE = 1, EV_POP = 2, EV_HIT = 4, EV_DOWN = 8, EV_POWER = 32, EV_SAUCE
 enum { WEV_BEAT = 1, WEV_BOMB = 2, WEV_SAUCER = 4, WEV_WAVE = 8, WEV_CLEAR = 16, WEV_LANDED = 32, WEV_SPLAT = 64,
        WEV_SHELTER = 128, WEV_BOSS_FIRE = 256 };
 
-void world_init(world *w, int players, uint32_t seed);
+void world_init(world *w, int players, uint32_t seed);              /* the landscape playfield */
+void world_init_layout(world *w, int players, uint32_t seed, int tall);   /* tall: the portrait one */
+const geo *world_geo(const world *w);           /* the playfield's numbers */
+int  mouse_points_of(const world *w, int row);  /* a row's points in w's layout (mouse_points: landscape) */
 void world_start_wave(world *w, int wave);      /* tests, --opt wave=N */
 void world_step(world *w, const pin in[MAX_PLAYERS]);
 int  world_running(const world *w);             /* someone still plays */
@@ -190,7 +236,8 @@ enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title 
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_state(void);
-void draw_state_loaded(void);       /* widescreen: after a state saved at another width */
+void draw_state_loaded(void);       /* widescreen: after a state saved at another width (or the other playfield) */
+int  draw_tall(void);               /* the screen is the portrait playfield's (a zoomed tall screen: ZOOM_H lines) */
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */
 enum { SFX_SEED, SFX_POP, SFX_HIT, SFX_BEAT, SFX_BOMB, SFX_SAUCER, SFX_SAUCER_POP, SFX_POWER, SFX_SHIELD, SFX_SPLAT,

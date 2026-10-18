@@ -103,19 +103,41 @@ purple planet on the left, a comet and a moonlet further out. The moon and the d
 from stage x -128) so no width shows them twice; the stars repeat every 512 px. The saucer comes in from the margins.
 A state saved at one width loads at another.
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`, so the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are
-the same pixels; the stage sits low (`rs_screen_origin_v`: two thirds of the extra lines above it). The raster
-(draw.c `raster_out`) draws the lines past it: above, more space (the sky deeper toward the top, the stars again, the
-ringed planet of the wide screen's margin); below, the moon's deep cheese going down, darker with depth. The UI, the
-moon's rows, the shelters and the sprites are hidden there (window 1); line 0 puts the stage's settings back, so a
-240-line screen is unchanged. During a run the HUD is at the screen's top, not mid-screen: the score chips (sprites
-at `rs_screen_top()`; 3-4 players in two rows, P3 and P4 under P1 and P2 instead of at the moon's foot) and the
-players' tags (BG1's top 32 lines, `rs_bg_pin`).
-Why not the zoomed screen (v2): the play spans the whole stage width (the ships slide over 4..316, the formation
-marches from wall to wall, the saucer crosses it all), and a zoom crops the sides to 188-236 columns on today's
-phones: a third of the play would be hidden, or a camera would have to follow the ship and hide the mice and the
-shots on the other side. The full width at the display's width it stays.
+**Tall screen** (docs/spec.md "Tall screen", the zoomed recipe): a phone held upright. `rs_screen_zoom(ZOOM_H)`
+(440 lines) first in `game_init`: the app fills the display's height with them and shows the middle 188 (1080x2520),
+202 (1080x2340) or 220 (720x1440) columns, so the hamster, the mice and the shots are big. The owner chose to adapt
+the game to the orientation, so a phone held upright plays **the portrait playfield** (game.h, `world.tall`, chosen
+when the run starts), laid out for the narrowest phone's 188 columns:
+- the walls at x 70..250 (4 px inside the columns shown), the ships' centres in 82..238;
+- a narrower, taller formation: 7 columns of 8 rows (56 mice, as the 55; 30 points for the top two rows, 20 for the
+  next three, 10 for the last three, about the same per wave), the same five patterns redrawn for 7 columns;
+- the extra height for a taller descent: the formation starts at stage y -44 (above the stage, under the saucer); with
+  half the travel to the walls (two drops as often) it steps every 38 frames at the start (not 32), so an unhurt
+  formation lands after about as many frames as in landscape (11907 against 12345; the rules test checks 80-125%);
+  the waves start 6 px lower each, as in landscape;
+- three shelters (x 92, 148, 204: the moon's layer drawn 4 px to the right so that they sit on its tiles), the saucer
+  crossing from just past one visible edge to the other at y -66, the mothership sailing between the walls at y -30
+  (its side peas drift 0.4 px a frame, not 0.5: they fall further);
+- the difficulty kept: a seed flies at 6 px a frame (not 5: the mice are further up), and the mice drop their shots
+  1.68 times less often (the same shots in 180 columns, not 304, would be 1.7 times as thick). The human-like bot
+  (`botskill=5`, 20 seeds) scores 2973 on average and reaches wave 3.5 (landscape: 2813, wave 3.5), so the medals stay.
+  Everything else (the power-ups, the points, the mothership's hits, the bot) as in landscape.
+
+The screen shows stage y -104..335 (`rs_screen_origin_v(TALL_ORIGIN_V)`): the moon's foot above the band of the app's
+shoot buttons (the bottom 45% of the display's width). Above the stage the play goes on (the sprites shown), over the
+sky going deeper toward the top (8-bit steps, dithered: no seam), the stars shifted sideways and the ringed planet
+behind the saucer's lane (draw.c `raster_tall`); the UI and the moon's layers are hidden there. The HUD is sprites at
+the screen's top: the score centred; 2 players in the two halves of the middle; 3-4 in two rows, each with its
+player's head, clear of the app's back and pause buttons in the corners. The title and the panels stay in the same
+zoomed view, laid out again in 22 columns (x 72..247): the logo's two words stacked and pinned at the screen's top
+(`rs_bg_pin`), a row of mice and the ship between it and the slots (5 columns apart), the prompt and the join line
+wrapped, the credits on two lines; the game-over panel with its values right-aligned; the ranking's narrower panel;
+banners that do not fit in big letters are small and wrapped. (games/common may get shared narrow-view helpers: these
+are the game's own until then.)
+A save state holds its playfield: a state of the other one (the phone turned, the app restarts the game from a state
+at the new size) goes back to the title, the same players. A display less tall than 320x440 (a tablet) gets a shorter
+screen and every column: the landscape playfield, the stage low, the lines past it drawn as before (`raster_out`).
+Landscape and 4:3 are the same pixels as before.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, the hamster's ship bobbing between two marching mice, a seed flying up, the player slots, PRESS A TO
