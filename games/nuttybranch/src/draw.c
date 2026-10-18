@@ -977,7 +977,7 @@ static hu_chip tall_chip(int players, int p)
 }
 
 /* a tall screen: the title and the panels are the house's uniform portrait UI (house_tall.h, its default rows) */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (the verb: TR(VERB)) */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0, NULL};   /* (the verb: TR(VERB)) */
 static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
 
 /* a tall screen's game-over panel (house_tall.h): its note, the nuts collected (NUTS 20) */
@@ -1146,6 +1146,12 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         rs_bg_pin(RS_BG1, 0, hud, 0);
         tl_ui0 = run ? tl_top : 0;
         tl_ui1 = RS_SCREEN_H + slide;
+        int pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+        if (pin) {                              /* the title and the panels at the same place on every game's screen */
+            ht_pin(pin);
+            tl_ui0 = ht_pin_dy(pin);
+            tl_ui1 = tl_ui0 + RS_SCREEN_H;
+        }
     }
     if (ht_narrow()) ht_pause(paused, 13);
     else hu_pause(paused, 13);
