@@ -646,6 +646,54 @@ void gea_variant(int v, gea_spec *sp)
     *sp = V[v < 0 || v >= GEA_VARIANTS ? 0 : v];
 }
 
+/* a naive player builds at random: any gear of the tray on any peg where it meshes with the train and jams nothing
+ * (a placement that solves it taken at once), GEA_NAIVE times; the share that solve it (*near: within par + 1 gears) */
+double gea_naive(const gea_map *m, int par, uint32_t seed, double *near)
+{
+    uint32_t r = pr_seed(seed);
+    int w = 0, w2 = 0;
+    for (int k = 0; k < GEA_NAIVE; k++) {
+        gea_state s;
+        gea_fresh(m, &s);
+        for (int step = 0; step < 40 && !gea_solved(m, &s); step++) {
+            int cp[GEA_PEGS * GEA_SIZES], cs[GEA_PEGS * GEA_SIZES], nc = 0, win = -1;
+            for (int i = 0; i < m->n; i++)
+                for (int z = 1; z <= GEA_SIZES; z++) {
+                    if (!(m->sizes >> z & 1) || s.g[i] || gea_fixed(m, i) || gea_fits(m, &s, i, z) != GEA_OK) continue;
+                    gea_state t = s;
+                    t.g[i] = (uint8_t)z;
+                    gea_eval_t e;
+                    gea_eval(m, &t, &e);
+                    if (!e.train[i] || e.jam) continue;
+                    if (e.solved && win < 0) win = nc;
+                    cp[nc] = i, cs[nc] = z, nc++;
+                }
+            if (!nc) break;
+            int pick = win >= 0 ? win : pr_below(&r, nc);
+            s.g[cp[pick]] = (uint8_t)cs[pick];
+        }
+        if (gea_solved(m, &s)) w++, w2 += gea_count(m, &s) <= par + 1;
+    }
+    if (near) *near = w2 / (double)GEA_NAIVE;
+    return w / (double)GEA_NAIVE;
+}
+
+/* the chapters: the first, its idea alone, only a short start (one size of gear: any train that reaches the target
+ * turns it the one way it can) */
+static const int GEA_FIRST[GEA_CHAPTERS + 1] = {0, 3, 32, 61, 90, 120, GEA_LEVELS};
+
+int gea_chapter_of(int level)
+{
+    int c = 0;
+    while (c < GEA_CHAPTERS - 1 && level >= GEA_FIRST[c + 1]) c++;
+    return c;
+}
+
+int gea_chapter_start(int chapter)
+{
+    return GEA_FIRST[chapter < 0 ? 0 : chapter > GEA_CHAPTERS ? GEA_CHAPTERS : chapter];
+}
+
 #ifndef GEA_GEN                                 /* not in the levels' tool (tools/gears_gen.c): it makes them */
 #include "games/gears_levels.h"
 
@@ -663,16 +711,25 @@ void gea_random(gea_game *g, int variant, uint32_t seed)
     gea_spec sp;
     gea_variant(variant, &sp);
     uint32_t r = pr_seed(seed);
-    for (int k = 0; k < 40; k++) {
+    gea_map best;
+    int bpar = -1, got = 0;
+    double bn = 2;
+    /* of a few boards in range, the one naive players solve least (enough: a quarter of them) */
+    for (int k = 0; k < 40 && got < 6 && bn > 0.25; k++) {
         int par;
-        if (k && k % 10 == 0 && sp.lo > 1) sp.lo--;   /* none in range so far: a little easier */
+        if (k && k % 10 == 0 && sp.lo > 1 && bpar < 0) sp.lo--;   /* none in range so far: a little easier */
         gea_make(&g->m, &sp, pr_next(&r), &par);
-        if (par >= 1) {
-            gea_begin(g);
-            g->par = par;
-            return;
-        }
+        if (par < 1) continue;
+        got++;
+        double nv = gea_naive(&g->m, par, pr_next(&r), NULL);
+        if (nv < bn) bn = nv, best = g->m, bpar = par;
     }
-    gea_level(g, 0);
+    if (bpar < 1) {
+        gea_level(g, 0);
+        return;
+    }
+    g->m = best;
+    gea_begin(g);
+    g->par = bpar;
 }
 #endif

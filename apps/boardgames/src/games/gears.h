@@ -107,6 +107,12 @@ int  gea_script(gea_game *g, const char *moves);
 typedef struct { const char *text; uint8_t par; } gea_level_t;
 extern const gea_level_t gea_levels[GEA_LEVELS];
 int  gea_level(gea_game *g, int level);         /* 0: none */
+#define GEA_NAIVE 32
+/* a naive player building at random (any gear meshing with the train, jamming nothing; a winning one at once), GEA_NAIVE
+ * times: the share that solve it, *near (may be NULL) the share within par + 1 gears */
+double gea_naive(const gea_map *m, int par, uint32_t seed, double *near);
+int  gea_chapter_of(int level);                 /* the chapters, uneven: a level's */
+int  gea_chapter_start(int chapter);            /* its first level (GEA_CHAPTERS: GEA_LEVELS) */
 void gea_variant(int variant, gea_spec *spec);
 void gea_random(gea_game *g, int variant, uint32_t seed);
 

@@ -2,6 +2,7 @@
  * Gears' rules: meshing, hitting, the board's edge; the train's ways round and a jam on an odd loop; targets and
  * shafts; put, take off, move, undo; boards as text both ways; every level's par found again by the search and its
  * solution checked by the rules, with the fewest gears; the hint's steps from the start reaching the end in the par;
+ * levels past their chapter's opening not solved by building at random, the chapters uneven;
  * boards made at random (their par in range, the same from the same seed, the time they take); whole games from a
  * seed (random gears put and taken off, then hints to the end).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -118,6 +119,13 @@ int main(void)
         if (steps != g.par) printf("level %d: the hints took %d steps for par %d\n", l + 1, steps, g.par);
         CHECK(steps == g.par);
         CHECK(gea_count(&g.m, &g.s) == g.par);
+        int c = gea_chapter_of(l), at = l - gea_chapter_start(c), opening = c == 0 ? 3 : c == 1 ? 1 : 2;
+        CHECK(c >= 0 && c < GEA_CHAPTERS && (l == 0 || c >= gea_chapter_of(l - 1)));
+        if (at >= opening) {                    /* past a chapter's opening: not solved by building at random */
+            double nv = gea_naive(&g.m, g.par, 77u + (uint32_t)l, NULL);
+            if (nv >= 0.5) printf("level %d: naive players solve %.2f\n", l + 1, nv);
+            CHECK(nv < 0.5 && g.par >= 3);
+        }
         for (int k = 0; k < l; k++) CHECK(strcmp(gea_levels[k].text, gea_levels[l].text));
     }
     printf("gears: %d levels solved at par, the hints the slowest %d ms\n", GEA_LEVELS, worst_hint);

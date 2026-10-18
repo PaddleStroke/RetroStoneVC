@@ -1087,7 +1087,7 @@ static const game gears_game = {
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw_all,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1,
-    .levels = GEA_LEVELS, .chapters = GEA_CHAPTERS, .start_random = start_random, .chapter_icon = chapter_icon,
+    .levels = GEA_LEVELS, .chapter_of = gea_chapter_of, .start_random = start_random, .chapter_icon = chapter_icon,
     .level_thumb = level_thumb, .level_stars = level_stars, .score = score, .par = par, .fill = 1,
     .tools = T_SIZE + GEA_SIZES,
 };
