@@ -1023,10 +1023,12 @@ int draw_ground_y(int map_x)
  * A state saved at another width brings the maps of that width (64 or 128 tiles; the far layer's 4:3 or wider range):
  * set them up for this one, the playfield and the mid-ground streamed again now (the bot reads the playfield and its
  * scroll before the next frame is drawn: they are as a run at this width would have them), the UI redrawn as it was
- * on the next frame (PAUSED too, if it shows). Same width class: nothing (the streaming follows the screen's edge). */
+ * on the next frame (PAUSED too, if it shows). Same width class: nothing (the streaming follows the screen's edge).
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset, the layers' windows as set up): the same. */
 void draw_state_loaded(const world *w)
 {
-    if (rs_bg_map_w(RS_BG2) == maps_w() && rs_bg_map_w(RS_BG1) == maps_w()) return;
+    int shape = ht_shape_reset();
+    if (!shape && rs_bg_map_w(RS_BG2) == maps_w() && rs_bg_map_w(RS_BG1) == maps_w()) return;
     maps_setup();
     far_setup();
     /* the scroll register for this map's width: camx - shake (|shake| <= 4) was saved modulo the other width's */
