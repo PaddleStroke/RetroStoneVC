@@ -1280,12 +1280,17 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
  * width by itself: the branch, the props and the forest are drawn in stage coordinates every frame. */
 void draw_relayout(void)
 {
+    /* a state of another height (the phone turned: house_tall.h ht_shape_reset): the layers the other screen's raster
+     * left shown again, the branch's window as draw_init sets it, and the rest as for a state of another width */
+    int shape = ht_shape_reset();
+    if (shape) rs_bg_window(RS_BG2, RS_WIN1_OUT);
     if (tall()) shown_state = -1;                  /* a tall screen: its own title layout (the height is not saved) */
-    if (laid_w == rs_screen_width()) return;      /* a state of this width: nothing to do (it saves the same bytes) */
+    if (!shape && laid_w == rs_screen_width()) return;    /* a state of this screen: nothing to do (the same bytes) */
     laid_w = rs_screen_width();
     if (rs_bg_map_w(RS_BG1) != ui_map_w()) rs_bg_setup(RS_BG1, ui_map_w(), 32, VR_BG1);
     forest_maps();
     shown_state = -1;
+    hu_pause(0, 13);                               /* ... and PAUSED, if it shows (draw_frame: hu_pause(paused)) */
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
