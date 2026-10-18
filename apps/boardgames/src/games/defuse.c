@@ -920,7 +920,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static SDL_Texture *t_casing, *t_pcb, *t_chip, *t_gate[LG_KINDS][2][2], *t_plate[2], *t_lever, *t_button[2],
     *t_battery, *t_latch[2], *t_led[2][4][2], *t_plug[2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_power[2], *t_digit[11],
     *t_emblem[DF_CHAPTERS], *t_bar_sw, *t_bar_star;
-static int made_room = -1, made_parts = -1, made_shared = -1, made_digits = -1, made_bar = -1;
+static long long made_room = -1;
+static int made_parts = -1, made_shared = -1, made_digits = -1, made_bar = -1;
 static float pw, ph, sw_w, sw_h, tg_w, tg_h, lamp_w, lamp_h, post_d, cable_t, gate_w[2], gate_h, dig_w, dig_h;
 static puz_font font;
 
@@ -1045,7 +1046,7 @@ static void shared_textures(void)
 /* ---- the layout ------------------------------------------------------------------------------------------------- */
 static void room_textures(void)
 {
-    int key = ((int)CS.w * 4096 + (int)CS.h) * 4096 + (int)PB.w;
+    long long key = ((long long)CS.w * 4096 + (int)CS.h) * 4096 + (int)PB.w;
     if (made_room == key) return;
     made_room = key;
     int W = (int)CS.w, H = (int)CS.h;
