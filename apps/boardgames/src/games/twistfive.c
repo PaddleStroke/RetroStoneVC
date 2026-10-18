@@ -160,20 +160,26 @@ static int hole_at(float x, float y)
 }
 
 /* the arrows: by each plate's outer corner, one on the rim across (k 0), one on the rim down the side (k 1); the
- * one across turns the plate's edge towards the tray's middle. Its place, and which way it turns. */
-static void arrow_at(int sq, int k, float *x, float *y, int *dir)
+ * one across turns the plate's edge towards the tray's middle, the one down the side the other way. Its place,
+ * which way it turns (as seen), and its picture (painter kind: the rim's side, ART_UP..., * 2 + the way). */
+enum { OUT_UP, OUT_DOWN, OUT_LEFT, OUT_RIGHT };
+static void arrow_at(int sq, int k, float *x, float *y, int *dir, int *kind)
 {
     int col = sq & 1, row = sq >> 1;            /* the plate as seen on the screen */
     float corner = 0.78f * cell, r = rim / 2.0f;
+    int out;
     if (k == 0) {
         *x = col ? bx + inner - corner : bx + corner;
         *y = row ? by + inner + r : by - r;
         *dir = col == row ? TV_CW : TV_CCW;
+        out = row ? OUT_DOWN : OUT_UP;
     } else {
         *x = col ? bx + inner + r : bx - r;
         *y = row ? by + inner - corner : by + corner;
         *dir = col == row ? TV_CCW : TV_CW;
+        out = col ? OUT_RIGHT : OUT_LEFT;
     }
+    *kind = out * 2 + *dir;
 }
 
 static int rules_quarter(int sq) { return ui.flipped ? 3 - sq : sq; }
@@ -244,20 +250,54 @@ static void layout(box b)
     }
 }
 
-/* the round arrow on a button: white (tinted by the shell), kind TV_CW or TV_CCW */
+/* the curved arrow on a button: white (tinted by the shell), kind = the rim's side (OUT_*) * 2 + the way (TV_CW,
+ * TV_CCW). An arc of 140 degrees bulging out over the rim, as the plate's edge there moves, a round tail and a
+ * filled head along its tangent at the end; the coverage worked out exactly at each pixel (no blur, any size) */
+static float seg_side(float px, float py, float ax, float ay, float bx_, float by_)   /* signed, inside > 0 */
+{
+    float ex = bx_ - ax, ey = by_ - ay, l = hypotf(ex, ey);
+    return ((px - ax) * ey - (py - ay) * ex) / (l > 0 ? l : 1);
+}
+
 static void paint_turn(int kind, int size, uint8_t *o)
 {
-    memset(o, 0, (size_t)size * size * 4);
-    art_fig *f = art_fig_new();
-    if (kind == TV_CW) {
-        art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.36f, -150, 70);
-        art_head(f, ART_PART, 0.5f + 0.3f * cosf(70 * ART_PI / 180), 0.5f + 0.3f * sinf(70 * ART_PI / 180), 160, 0.3f);
-    } else {
-        art_arc(f, ART_PART, 0.5f, 0.5f, 0.24f, 0.36f, 110, 330);
-        art_head(f, ART_PART, 0.5f + 0.3f * cosf(110 * ART_PI / 180), 0.5f + 0.3f * sinf(110 * ART_PI / 180), 20, 0.3f);
-    }
-    static const uint8_t WHITE[3] = {255, 255, 255};
-    art_fig_paint(o, size, f, WHITE, NULL, 0, 0);
+    static const float OUT[4] = {-90, 90, 180, 0};   /* screen degrees, y down: OUT_UP, DOWN, LEFT, RIGHT */
+    int dir = kind & 1;
+    float s = (float)size, r = 0.3f * s, w = 0.09f * s, d2r = ART_PI / 180;
+    float mid = OUT[(kind >> 1) & 3], sgn = dir == TV_CW ? 1 : -1;
+    /* the circle's middle set back from the bulge, so that the arrow sits in the middle of the disc */
+    float cx = s / 2 - 0.14f * s * cosf(mid * d2r), cy = s / 2 - 0.14f * s * sinf(mid * d2r);
+    float a0 = (mid - sgn * 62) * d2r, a1 = (mid + sgn * 38) * d2r;   /* the head adds about 40 degrees */
+    /* the head: its tip ahead of the arc's end along the tangent, its base across the arc */
+    float tx = cosf(a1 + sgn * ART_PI / 2), ty = sinf(a1 + sgn * ART_PI / 2);   /* the tangent, the way it turns */
+    float hx = cx + r * cosf(a1), hy = cy + r * sinf(a1), hl = 0.2f * s, hw = 0.13f * s;
+    float bx0 = hx - tx * 0.02f * s, by0 = hy - ty * 0.02f * s;
+    float tipx = bx0 + tx * hl, tipy = by0 + ty * hl;
+    float px1 = bx0 - ty * hw, py1 = by0 + tx * hw, px2 = bx0 + ty * hw, py2 = by0 - tx * hw;
+    float lo = fminf(a0, a1), span = fabsf(a1 - a0);
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float px = x + 0.5f, py = y + 0.5f, dx = px - cx, dy = py - cy;
+            float a = atan2f(dy, dx);
+            while (a < lo) a += 2 * ART_PI;
+            while (a > lo + 2 * ART_PI) a -= 2 * ART_PI;
+            float db;                           /* the band's distance (round ends) */
+            if (a - lo <= span) db = fabsf(hypotf(dx, dy) - r) - w / 2;
+            else {
+                float e0 = hypotf(px - (cx + r * cosf(a0)), py - (cy + r * sinf(a0)));
+                float e1 = hypotf(px - (cx + r * cosf(a1)), py - (cy + r * sinf(a1)));
+                db = fminf(e0, e1) - w / 2;
+            }
+            /* the head's triangle: inside where all three sides agree (same winding either way) */
+            float s1 = seg_side(px, py, px1, py1, tipx, tipy), s2 = seg_side(px, py, tipx, tipy, px2, py2),
+                  s3 = seg_side(px, py, px2, py2, px1, py1);
+            float wind = seg_side(px2, py2, px1, py1, tipx, tipy) >= 0 ? 1 : -1;
+            float dh = -fminf(fminf(s1 * wind, s2 * wind), s3 * wind);
+            float cov = clampf(0.5f - fminf(db, dh), 0, 1);
+            uint8_t *p = o + 4 * (y * size + x);
+            p[0] = p[1] = p[2] = 255;
+            p[3] = (uint8_t)(255 * cov + 0.5f);
+        }
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
@@ -348,9 +388,9 @@ static void draw(void)
     if (!anim.on && pending < 0 && p->winner < 0 && p->stage == TV_TWIST && !(ui_bot_seats() >> p->side & 1))
         for (int sq = 0; sq < 4; sq++)           /* the arrows */
             for (int k = 0; k < 2; k++) {
-                int dir;
-                arrow_at(sq, k, &x, &y, &dir);
-                ui_button_paint(x, y, 0.92f * cell, paint_turn, dir, 0.8f, UI_LIT | UI_TINT);
+                int dir, kind;
+                arrow_at(sq, k, &x, &y, &dir, &kind);
+                ui_button_paint(x, y, 0.92f * cell, paint_turn, kind, 0.9f, UI_LIT | UI_TINT);
             }
 }
 
@@ -362,9 +402,9 @@ static void press(float x, float y)
     if (p->stage == TV_TWIST) {
         for (int sq = 0; sq < 4; sq++)
             for (int k = 0; k < 2; k++) {
-                int dir;
+                int dir, kind;
                 float ax, ay;
-                arrow_at(sq, k, &ax, &ay, &dir);
+                arrow_at(sq, k, &ax, &ay, &dir, &kind);
                 if (ui_button_hit(ax, ay, 0.92f * cell, x, y)) { twist(rules_quarter(sq), dir); return; }
             }
         ui_sound(SND_DENY);
