@@ -2858,6 +2858,7 @@ static struct jrec {
     uint32_t rng;                               /* the random state after the last event */
     int w, h, flipped, f2f;                     /* the screen as last recorded */
     int kept;                                   /* the pieces in the store */
+    int swept;                                  /* the store swept of a past run's pieces past the record's end */
 } J[MAX_GAMES];
 static int jr_quiet;                            /* 1 while a record plays again: nothing recorded */
 static int jr_dirty = -1;                       /* the game whose record changed since it was last kept (-1: none) */
@@ -2908,10 +2909,14 @@ static void jr_keep(int g)
         int len = r->n - i * JR_PIECE < JR_PIECE ? r->n - i * JR_PIECE : JR_PIECE;
         ui_save_set(k, r->b + i * JR_PIECE, len);
     }
-    for (int i = pieces; i < r->kept || i == pieces; i++) {   /* the pieces no longer needed (one more: a past run's) */
+    /* the pieces no longer needed (one more: a past run's); once a run, every one past the end (a past run's longer
+     * record, left by a new game begun instead of it) */
+    int all = !r->swept;
+    r->swept = 1;
+    for (int i = pieces; i < JR_PIECES && (all || i < r->kept || i == pieces); i++) {
         jr_key(g, i, k, sizeof k);
-        if (!ui_save_get(k, NULL, 0)) break;
-        ui_save_set(k, NULL, 0);
+        if (ui_save_get(k, NULL, 0)) ui_save_set(k, NULL, 0);
+        else if (!all) break;
     }
     r->kept = pieces;
 }
