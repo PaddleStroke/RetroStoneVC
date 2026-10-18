@@ -44,7 +44,7 @@ typedef struct game {
     void (*press)(float x, float y);            /* the pointer (mouse or a finger), pixels */
     void (*motion)(float x, float y);
     void (*release)(float x, float y);
-    int  (*undo)(void);                         /* 0: nothing to undo */
+    int  (*undo)(void);                         /* 0: nothing to undo (NULL: a game without undo, no undo button) */
     int  (*turn)(void);                         /* the player to move */
     int  (*status)(void);                       /* GS_* */
     /* optional (NULL) */

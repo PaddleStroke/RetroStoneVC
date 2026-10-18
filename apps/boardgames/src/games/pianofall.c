@@ -677,7 +677,6 @@ static int status(void)
 }
 
 static int turn(void) { return 0; }
-static int undo(void) { return 0; }
 static int busy(void) { return win.on && ui_ms() - win.t0 < (Uint32)(W * WAVE_STEP + WAVE_LEN); }
 static int level_stars(void) { return practice ? 0 : pfl_stars(pfl_accuracy(&G)); }
 static int score(void) { return pfl_accuracy(&G); }
@@ -804,7 +803,7 @@ static void token(int player, int size, uint8_t *rgba)   /* an ivory disc, a not
 static const game pianofall_game = {
     .id = "pianofall", .order = 450, .variants = PFL_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = TOOLS,
     .levels = PFL_LEVEL_COUNT, .chapters = PFL_CHAPTER_COUNT, .start_random = start_random,
     .chapter_icon = chapter_icon, .level_stars = level_stars, .score = score, .finger = finger,

@@ -428,7 +428,6 @@ static void finished(void)
 
 static int status(void) { return loaded >= 0 && mq_done(&Q) ? GS_WIN0 : GS_PLAY; }
 static int turn(void) { return 0; }
-static int undo(void) { return 0; }
 static int level_stars(void) { return mq_stars(&Q, elapsed()); }
 static int busy(void) { return found_r >= 0 && ui_ms() < found_t0 + FILL_MS; }
 
@@ -1199,7 +1198,7 @@ static void token(int player, int size, uint8_t *rgba)
 static const game mapquiz_game = {
     .id = "mapquiz", .order = 396, .variants = MQ_VARIANTS,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .key = key, .finger = finger,
     .levels = MQ_LEVELS, .chapters = MQ_CHAPTERS, .chapter_of = mq_chapter_of, .start_random = start_random,
     .chapter_icon = chapter_icon, .level_stars = level_stars, .levels_open = 5,

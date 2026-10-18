@@ -1543,11 +1543,12 @@ static SDL_Texture *big_tok(int p)
 }
 
 /* ---- layout ------------------------------------------------------------------------------------------------------ */
-/* the buttons shown at the bottom: undo, and flip and face to face for two people or more on a board (home, new game
- * and the rules: the header's back and i) */
+/* the buttons shown at the bottom: undo (a game with an undo()), and flip and face to face for two people or more on a
+ * board (home, new game and the rules: the header's back and i) */
 static int shown(int i)
 {
     if (i == B_HOME || i == B_NEW || i == B_HELP) return 0;
+    if (i == B_UNDO && (cur < 0 || !games[cur]->undo)) return 0;
     return (humans() > 1 && !is_view()) || (i != B_FLIP && i != B_F2F);
 }
 
@@ -3414,6 +3415,7 @@ static int undo_human(void)
 {
     const game *g = games[cur];
     bot_stop();
+    if (!g->undo) return 0;                     /* (a game without undo) */
     struct jrec *jr = jr_event(EV_UNDO);
     int done = g->undo();
     for (int k = 0; done && k < 256 && elsewhere() && humans() && g->status() == GS_PLAY &&
