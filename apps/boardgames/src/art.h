@@ -62,8 +62,10 @@ float art_hash(int a, int b);
 
 enum { COUNTER_DISC, COUNTER_STONE, COUNTER_MAN, COUNTER_KING };
 /* a round piece of a player, seen from above, size x size: DISC a flat counter with a rim (reversi, four in a row,
- * morris), STONE a glossy go stone, MAN a draughts man (rings), KING a man with a crown */
+ * morris), STONE a glossy go stone (a lit sphere), MAN a draughts man (rings), KING a man with a crown */
 void art_counter(int kind, int player, int size, uint8_t *rgba);
+/* the same stone in any colour (rgb), size x size: a lit sphere, no shadow */
+void art_stone(const uint8_t rgb[3], int size, uint8_t *rgba);
 
 /* the shadow of a flat piece lying on the wood (discs, stones, men): as wide as the piece, its edge soft; the shell's
  * ui_shadow_flat() draws it, a game's thumbnail can blend it */

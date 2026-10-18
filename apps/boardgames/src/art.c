@@ -976,28 +976,73 @@ void art_piece_style(int type, const art_style *style, int size, uint8_t *rgba)
     art_fig_free(f);
 }
 
+/* a stone of colour rgb, size x size: a lit sphere (radius 0.45 of the square, in its middle), the light from the upper
+ * left (a soft diffuse light, a sharp glint and a broad sheen), a little of the table's light from below, its edge
+ * darkened over its last pixels; 3 x 3 samples a pixel. Kept (art_render's memo) when small. */
+static void paint_stone(const uint8_t rgb[3], int size, uint8_t *o)
+{
+    if (size <= 0) return;
+    uint64_t key = 0;
+    if (size * size <= MEMO_MAX) {
+        const int tag[2] = {0x570e, size};
+        key = hash_add(hash_add(0xcbf29ce484222325ull, tag, sizeof tag), rgb, 3);
+        if (memo_get(key, size, size, o)) return;
+    }
+    float base[3] = {rgb[0], rgb[1], rgb[2]}, lum = 0.3f * base[0] + 0.59f * base[1] + 0.11f * base[2];
+    float t = clampf((lum - 70) / 150, 0, 1);       /* 0 ebony .. 1 ivory: the dark ones take more light */
+    float amb = 0.32f + 0.28f * t, dif = 0.85f - 0.3f * t, rimk = 0.7f - 0.2f * t;
+    float R = 0.45f * size, m = 0.5f * size, L[3] = {-0.45f, -0.6f, 0.66f}, H[3] = {-0.45f, -0.6f, 1.66f};
+    float ln = sqrtf(L[0] * L[0] + L[1] * L[1] + L[2] * L[2]), hn = sqrtf(H[0] * H[0] + H[1] * H[1] + H[2] * H[2]);
+    for (int i = 0; i < 3; i++) L[i] /= ln, H[i] /= hn;
+    float edge = fmaxf(1.0f, fminf(1.6f, 0.04f * size));   /* the darkened edge, pixels */
+    for (int py = 0; py < size; py++)
+        for (int px = 0; px < size; px++) {
+            float col[3] = {0, 0, 0}, cov = 0;
+            for (int sy = 0; sy < 3; sy++)
+                for (int sx = 0; sx < 3; sx++) {
+                    float x = (px + (sx + 0.5f) / 3 - m) / R, y = (py + (sy + 0.5f) / 3 - m) / R, r2 = x * x + y * y;
+                    if (r2 >= 1) continue;
+                    float z = sqrtf(1 - r2), nl = x * L[0] + y * L[1] + z * L[2], nh = x * H[0] + y * H[1] + z * H[2];
+                    float k = amb + dif * fmaxf(0, nl) + 0.1f * fmaxf(0, y);   /* the light, and the table's below */
+                    float sp = 0.9f * powf(fmaxf(0, nh), 70) + 0.14f * powf(fmaxf(0, nh), 6);
+                    float rim = clampf((sqrtf(r2) - 1) * R / edge + 1, 0, 1) * rimk;
+                    for (int j = 0; j < 3; j++) {
+                        float v = clampf(base[j] * k, 0, 255);
+                        v += (255 - v) * sp;
+                        col[j] += v * (1 - rim) + base[j] * 0.4f * rim;
+                    }
+                    cov += 1;
+                }
+            uint8_t *p = o + 4 * ((size_t)py * size + px);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(cov > 0 ? clampf(col[j] / cov + 0.5f, 0, 255) : 0);
+            p[3] = (uint8_t)(255 * cov / 9 + 0.5f);
+        }
+    if (key) memo_put(key, size, size, o);
+}
+
+void art_stone(const uint8_t rgb[3], int size, uint8_t *rgba) { paint_stone(rgb, size, rgba); }
+
 void art_counter(int kind, int player, int size, uint8_t *rgba)
 {
+    if (kind == COUNTER_STONE) {                    /* glossy: a lit sphere (ivory and ebony a little deeper) */
+        static const uint8_t IVORY[3] = {240, 230, 208}, EBONY[3] = {58, 52, 49};
+        int p = player_index(player);
+        uint8_t c[3];
+        for (int i = 0; i < 3; i++) c[i] = (uint8_t)art_player[p].fill[i];
+        paint_stone(p == 0 ? IVORY : p == 1 ? EBONY : c, size, rgba);
+        return;
+    }
     art_style st = art_player[player_index(player)];
     st.line = fmaxf(0.022f, 1.3f / size);
     art_fig *f = art_fig_new();
-    if (kind == COUNTER_STONE) {                    /* glossy, a highlight towards the light */
-        st.light = art_player_dark(player) ? 0.55f : 0.28f;
-        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.45f, 0.45f);
-        static const float hi[2][3] = {{255, 255, 250}, {150, 144, 140}};
-        if (player == 0 || player == 1) memcpy(st.mark, hi[player], sizeof st.mark);
-        else for (int i = 0; i < 3; i++) st.mark[i] = fminf(255, st.fill[i] * 0.5f + 140);
-        art_ellipse(f, ART_MARK, 0.36f, 0.33f, 0.09f, 0.06f);
-    } else {
-        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.44f, 0.44f);
-        float top = kind == COUNTER_DISC ? 0.32f : 0.34f;
-        art_ellipse(f, ART_PART, 0.5f, 0.5f, top, top);
-        if (kind != COUNTER_DISC) art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.21f, 0.21f);
-        if (kind == COUNTER_KING) {                 /* a crown on the man */
-            const float crown[] = {0.36f, 0.60f, 0.64f, 0.60f, 0.68f, 0.40f, 0.585f, 0.49f, 0.50f, 0.36f,
-                                   0.415f, 0.49f, 0.32f, 0.40f};
-            art_poly(f, ART_MARK, crown, 7);
-        }
+    art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.44f, 0.44f);
+    float top = kind == COUNTER_DISC ? 0.32f : 0.34f;
+    art_ellipse(f, ART_PART, 0.5f, 0.5f, top, top);
+    if (kind != COUNTER_DISC) art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.21f, 0.21f);
+    if (kind == COUNTER_KING) {                     /* a crown on the man */
+        const float crown[] = {0.36f, 0.60f, 0.64f, 0.60f, 0.68f, 0.40f, 0.585f, 0.49f, 0.50f, 0.36f,
+                               0.415f, 0.49f, 0.32f, 0.40f};
+        art_poly(f, ART_MARK, crown, 7);
     }
     art_render(f, &st, size, size, (float)size, 0, 0, rgba);
     art_fig_free(f);
