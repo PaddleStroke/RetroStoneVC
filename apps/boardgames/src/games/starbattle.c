@@ -77,10 +77,64 @@ static void region_tones(const sbx_puz *p, int *tone)
     }
 }
 
+/* a wall into the walls' mask: each pixel's coverage, the most of the walls over it (so a joint is inked once, with
+ * no darker knot where two walls overlap) */
+static void wall_rect(float *m, int S, float x0, float y0, float x1, float y1)
+{
+    for (int y = (int)floorf(y0); y < (int)ceilf(y1); y++)
+        for (int x = (int)floorf(x0); x < (int)ceilf(x1); x++) {
+            if (x < 0 || y < 0 || x >= S || y >= S) continue;
+            float k = (fminf(x + 1, x1) - fmaxf(x, x0)) * (fminf(y + 1, y1) - fmaxf(y, y0));
+            float *v = m + (size_t)y * S + x;
+            if (k > *v) *v = k;
+        }
+}
+
+/* a box blur of a mask, r pixels each way, along rows (dx 1) or columns (dx S): a running sum */
+static void blur_line(const float *src, float *dst, int S, int along_rows, int r)
+{
+    for (int l = 0; l < S; l++) {
+        const float *s = along_rows ? src + (size_t)l * S : src + l;
+        float *d = along_rows ? dst + (size_t)l * S : dst + l;
+        size_t st = along_rows ? 1 : (size_t)S;
+        float sum = 0;
+        for (int i = -r; i <= r; i++) sum += i >= 0 && i < S ? s[i * st] : 0;
+        for (int i = 0; i < S; i++) {
+            d[i * st] = sum / (2 * r + 1);
+            int a = i + r + 1, b = i - r;
+            sum += (a < S ? s[a * st] : 0) - (b >= 0 ? s[b * st] : 0);
+        }
+    }
+}
+
+/* the walls inked from their mask, each casting a soft shadow down and to the right into the cells beside it */
+static void ink_walls(uint8_t *o, int S, float *m, float q)
+{
+    float *a = calloc((size_t)S * S, sizeof *a), *b = calloc((size_t)S * S, sizeof *b);
+    if (a && b) {
+        int d = (int)fmaxf(1, 0.05f * q), r = (int)fmaxf(1, 0.06f * q);
+        for (int y = 0; y < S; y++)             /* the mask moved down and right, then softened */
+            for (int x = 0; x < S; x++) a[(size_t)y * S + x] = x >= d && y >= d ? m[(size_t)(y - d) * S + x - d] : 0;
+        blur_line(a, b, S, 1, r);
+        blur_line(b, a, S, 0, r);
+        for (size_t i = 0; i < (size_t)S * S; i++) {
+            float k = 1 - 0.32f * a[i] * (1 - m[i]);
+            for (int c = 0; c < 3; c++) o[4 * i + c] = (uint8_t)(o[4 * i + c] * k);
+        }
+    }
+    free(a);
+    free(b);
+    for (size_t i = 0; i < (size_t)S * S; i++)
+        if (m[i] > 0)
+            for (int c = 0; c < 3; c++) o[4 * i + c] = (uint8_t)(o[4 * i + c] + (PUZ_INK[c] - o[4 * i + c]) * 0.9f * m[i]);
+}
+
 /* the board: the plank, each region tinted, fine lines between cells, thick ink between regions and round the grid */
 static void paint_board(uint8_t *o, int S, int f, const sbx_puz *p, float q, float ox, float oy)
 {
     int n = p->n, tone[SBX_MAX];
+    float *m = calloc((size_t)S * S, sizeof *m);
+    if (!m) return;
     bench_plank(o, S, S, f);
     region_tones(p, tone);
     for (int y = (int)oy; y < (int)ceilf(oy + n * q); y++)
@@ -107,15 +161,17 @@ static void paint_board(uint8_t *o, int S, int f, const sbx_puz *p, float q, flo
             if (i == 0 || i == n || p->region[j * n + i - 1] != p->region[j * n + i]) {
                 if (i == 0) lo = a, hi = a + thick;
                 if (i == n) lo = a - thick, hi = a;
-                puz_ink_rect(o, S, S, lo, b - thick / 2 * (j > 0), hi, b + q + thick / 2 * (j < n - 1), PUZ_INK, 0.9f);
+                wall_rect(m, S, lo, b - thick / 2 * (j > 0), hi, b + q + thick / 2 * (j < n - 1));
             }
             a = ox + j * q, b = oy + i * q, lo = b - thick / 2, hi = b + thick / 2;
             if (i == 0 || i == n || p->region[(i - 1) * n + j] != p->region[i * n + j]) {
                 if (i == 0) lo = b, hi = b + thick;
                 if (i == n) lo = b - thick, hi = b;
-                puz_ink_rect(o, S, S, a - thick / 2 * (j > 0), lo, a + q + thick / 2 * (j < n - 1), hi, PUZ_INK, 0.9f);
+                wall_rect(m, S, a - thick / 2 * (j > 0), lo, a + q + thick / 2 * (j < n - 1), hi);
             }
         }
+    ink_walls(o, S, m, q);
+    free(m);
 }
 
 /* the token: a gold star on a small tile */
