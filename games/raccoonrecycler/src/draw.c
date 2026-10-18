@@ -40,12 +40,14 @@ static rs_color sky_line(int y){
  for(int i=0;i<3;i++)c[i]=(lo[i]*(256-k)+hi[i]*k)/256;
  return k?RS_RGB8(c[0]+2*d,c[1]+2*d,c[2]+2*d):RS_RGB8(lo[0],lo[1],lo[2]);
 }
+static int ui_pin;   /* the UI layer pinned on the screen (house_tall.h ht_pin; set by draw_frame) */
 static void raster(int y,void*user){(void)user;
  if(!tall()||y>0)return;
  if(y==0){rs_bg_window(RS_BG1,0);rs_bg_window(RS_BG2,0);rs_bg_window(RS_BG3,0);rs_bg_scroll(RS_BG3,0,0);rs_pal_set(0,stage_back);return;}
  int top=rs_screen_top();
  if(y==top){rs_window(0,rs_screen_left(),rs_screen_right());rs_window(1,BELT_X0,BELT_X1);rs_bg_window(RS_BG2,RS_WIN1);rs_bg_window(RS_BG3,RS_WIN2_OUT);}
- rs_bg_window(RS_BG1,hud_pinned&&y>=top+HUD_PIN_Y&&y<top+HUD_PIN_Y+HUD_LINES?0:RS_WIN1);
+ if(ui_pin)rs_bg_window(RS_BG1,ht_pin_line(ui_pin,y)?0:RS_WIN1);   /* the pinned UI (the title, the panels) */
+ else rs_bg_window(RS_BG1,hud_pinned&&y>=top+HUD_PIN_Y&&y<top+HUD_PIN_Y+HUD_LINES?0:RS_WIN1);
  rs_bg_scroll(RS_BG3,0,((y%8)+8)%8-y);                 /* map lines 0..7: the sky and the belt */
  rs_pal_set(0,sky_line(y));
 }
@@ -113,9 +115,8 @@ int draw_route_at(int x){
  for(int b=1;b<3;b++)if(abs(x-(BIN_X(b)+16))<abs(x-(BIN_X(best)+16)))best=b;
  return route[best];
 }
-/* a narrow tall screen's title (house_tall.h): the slots under the raccoons, from row TITLE_SLOTS */
-#define TITLE_SLOTS 20
-static const ht_title title_cfg={NULL,MAX_PLAYERS,TITLE_SLOTS,0};
+/* a narrow tall screen's title (house_tall.h, its standard rows): the raccoons at the slots' columns */
+static const ht_title title_cfg={NULL,MAX_PLAYERS,HT_ROW_SLOTS,0};
 /* a raccoon's x on screen: zoomed in play (one player) kept on the columns shown; zoomed on the panels, the stations
  * moved in from the sides to the edges shown, so that every raccoon shows (the title: at its slot) */
 static int hx(int x,int clamp,int vx0,int vx1){
@@ -131,10 +132,17 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   * players show every column; the HUD at the screen's top in play (BG1's tags pinned, the digits at the top) */
  int play=state==ST_PLAY||state==ST_DEAD,zoom=!play||w->players==1,top=rs_screen_top();   /* 2-4 players play on every column */
  hud_pinned=tall()&&play;rs_screen_fill(zoom);rs_bg_pin(RS_BG1,0,hud_pinned?HUD_LINES:0,HUD_PIN_Y);
+ ui_pin=!ht_narrow()?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  int hy=hud_pinned?top+HUD_PIN_Y:0,vx0=rs_screen_visible_x0()-rs_screen_origin_x(),vx1=rs_screen_visible_x1()-rs_screen_origin_x();
  int narrow=ht_narrow();   /* the title and the panels laid out in the columns shown (house_tall.h) */
  ht_title_out slots;ht_slots(&title_cfg,&slots);
  if(tall())rs_bg_scroll(RS_BG4,(-(int)rs_frame_count()/6)&511,(-top)&255);   /* the clouds drift */
+ /* a narrow tall screen's panels (house_tall.h) first: their digits and medals the first OAM slots, in front of the belt */
+ if(state==ST_OVER&&narrow){
+  if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(score[0],best,hu_medal_of(score[0],medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;ht_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}ht_retry_line_at(ht_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+ }
  /* Foreground signs and HUD get the first OAM slots, above all moving objects. */
  if(state==ST_PLAY||state==ST_DEAD)for(int p=0;p<w->players;p++){
   char label[32];const hero*h=&w->h[p];int cx=(p*2+1)*160/w->players;
@@ -170,9 +178,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int y0=-12+(w->scroll/256%12);while(y0>top-12)y0-=12;      /* (a tall screen: up to its top) */
  for(int yy=y0;yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,146,yy,1,-1);
  for(int yy=y0;yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,166,yy,1,-1);
- if(state==ST_TITLE&&narrow){   /* the house_tall.h title: the logo on two lines, the hint under it */
-  ht_title c=title_cfg;ht_title_out o;c.verb=TR(VERB);
-  ht_logo("RACCOON RECYCLER",title_ramps,2,1,0);ht_text(14,TR(HINT),0);
+ if(state==ST_TITLE&&narrow){   /* the house_tall.h title: the logo on two lines, the hint above the prompt */
+  ht_title c=title_cfg;ht_title_out o;c.verb=TR(VERB);c.hint=TR(HINT);
+  ht_logo("RACCOON RECYCLER",title_ramps,2,HT_ROW_LOGO,0);
   ht_title_draw(&c,st_t,best,&o);ht_title_sprites(&c,&o,st_t,NULL,NULL);
  }else if(state==ST_TITLE){
   hu_logo("RACCOON RECYCLER",title_ramps,2,2,0);hu_text(hu_center(TR(HINT),0),8,TR(HINT));
@@ -185,10 +193,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   hu_text(hu_center(join,0),22,join);int glyph=hu_prompt(10,prompt,st_t);if(hu_blink(st_t))hu_glyph(HU_BTN_A,glyph,77,3,0);hu_copyright(29);
   /* BEST on the top row; text with accents or tall glyphs one row lower (they take the row above) */
   if(best){char b[64];rs_strf(b,sizeof b,HTR(BEST_N),best);int row=0;for(const char *c=b;*c;c++)if((unsigned char)*c>=0x80)row=1;hu_text(hu_center(b,0),row,b);}
- }else if(state==ST_OVER){
-  if(w->players==1&&narrow){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(score[0],best,hu_medal_of(score[0],medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
-  else if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
-  else if(narrow){ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;ht_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+ }else if(state==ST_OVER&&!narrow){
+  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
   else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;hu_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
  }
  ht_pause(paused,13);
