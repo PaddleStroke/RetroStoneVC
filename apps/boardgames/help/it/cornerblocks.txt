@@ -1,0 +1,11 @@
+Blocchi d'angolo
+# Lo scopo
+Metti sul tavoliere quanti più quadretti dei tuoi blocchi puoi. Ogni giocatore ha gli stessi 21 blocchi.
+# Un turno
+Metti uno dei tuoi blocchi dove c'è posto.
+- Il tuo primo blocco copre la tua casella di partenza, segnata con il tuo colore.
+- Ogni blocco successivo deve toccare almeno uno dei tuoi blocchi angolo contro angolo, e mai lungo un lato. I blocchi degli altri possono toccarlo in qualsiasi modo.
+- I blocchi si possono ruotare e capovolgere. Una volta messi, non si muovono più.
+- Chi non può mettere alcun blocco è fuori fino alla fine della partita.
+# La fine della partita
+La partita finisce quando nessuno può più mettere un blocco. Ogni quadretto messo vale 1 punto. Mettere tutti i propri blocchi vale 15 punti in più, e altri 5 se l'ultimo era il quadretto singolo. Vince il punteggio più alto.

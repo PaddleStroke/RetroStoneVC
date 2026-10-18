@@ -1,0 +1,11 @@
+Hjørneklodser
+# Målet
+Læg så mange felter af dine klodser på brættet som muligt. Alle spillere har de samme 21 klodser.
+# En tur
+Læg én af dine klodser, hvor den kan være.
+- Din første klods dækker dit startfelt, mærket med din farve.
+- Hver ny klods skal røre mindst én af dine egne klodser hjørne mod hjørne og aldrig langs en kant. De andre spilleres klodser må røre den på enhver måde.
+- Klodserne må drejes og vendes. Når de er lagt, flytter de sig aldrig.
+- En spiller, der ikke kan lægge en klods, er ude resten af spillet.
+# Spillets afslutning
+Spillet slutter, når ingen kan lægge en klods. Hvert lagt felt giver 1 point. At lægge alle sine klodser giver 15 point mere, og 5 til, hvis den sidste var den enkelte firkant. Den højeste score vinder.

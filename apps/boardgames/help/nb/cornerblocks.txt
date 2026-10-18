@@ -1,0 +1,11 @@
+Hjørneklosser
+# Målet
+Legg så mange ruter av klossene dine på brettet som du kan. Alle spillerne har de samme 21 klossene.
+# En tur
+Legg én av klossene dine der den får plass.
+- Den første klossen din dekker startruten din, merket med fargen din.
+- Hver neste kloss må berøre minst én av dine egne klosser hjørne mot hjørne, og aldri langs en kant. De andres klosser kan berøre den på alle måter.
+- Klossene kan dreies og snus. Når de er lagt, flyttes de aldri.
+- En spiller som ikke kan legge en kloss, er ute resten av spillet.
+# Slutten på spillet
+Spillet slutter når ingen kan legge en kloss. Hver lagt rute gir 1 poeng. Å legge alle klossene gir 15 poeng til, og 5 til hvis den siste var den enkle ruten. Høyest poengsum vinner.

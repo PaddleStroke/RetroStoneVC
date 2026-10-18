@@ -1,0 +1,11 @@
+Hörnblock
+# Målet
+Lägg så många rutor av dina block som möjligt på brädet. Alla spelare har samma 21 block.
+# En tur
+Lägg ett av dina block där det får plats.
+- Ditt första block täcker din startruta, märkt med din färg.
+- Varje nytt block måste röra minst ett av dina egna block hörn mot hörn, och aldrig längs en kant. De andras block får röra det hur som helst.
+- Blocken får vridas och vändas. När de väl ligger flyttas de aldrig.
+- En spelare som inte kan lägga ett block är ute resten av partiet.
+# Partiets slut
+Partiet slutar när ingen kan lägga ett block. Varje lagd ruta ger 1 poäng. Att lägga alla sina block ger 15 poäng till, och 5 till om det sista var den ensamma rutan. Högst poäng vinner.

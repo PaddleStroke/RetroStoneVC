@@ -1,0 +1,11 @@
+Blocs en coin
+# Le but
+Poser sur le plateau le plus possible de cases de tes blocs. Chaque joueur a les mêmes 21 blocs.
+# Un tour
+Pose un de tes blocs là où il tient.
+- Ton premier bloc couvre ta case de départ, marquée de ta couleur.
+- Chaque bloc suivant doit toucher au moins un de tes blocs coin contre coin, et jamais par un côté. Les blocs des autres joueurs peuvent le toucher n'importe comment.
+- Les blocs peuvent être tournés et retournés. Une fois posés, ils ne bougent plus.
+- Un joueur qui ne peut plus poser de bloc est éliminé jusqu'à la fin de la partie.
+# La fin de la partie
+La partie s'arrête quand plus personne ne peut poser de bloc. Chaque case posée rapporte 1 point. Poser tous ses blocs rapporte 15 points de plus, et encore 5 si le dernier était le carré seul. Le meilleur score gagne.

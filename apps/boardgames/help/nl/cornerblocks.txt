@@ -1,0 +1,11 @@
+Hoekblokken
+# Het doel
+Leg zoveel mogelijk vakjes van je blokken op het bord. Elke speler heeft dezelfde 21 blokken.
+# Een beurt
+Leg een van je blokken waar het past.
+- Je eerste blok bedekt je startvakje, gemarkeerd in jouw kleur.
+- Elk volgend blok moet minstens een van je eigen blokken hoek aan hoek raken, en nooit langs een zijde. De blokken van de anderen mogen het op elke manier raken.
+- Blokken mogen gedraaid en omgekeerd worden. Eenmaal gelegd bewegen ze nooit meer.
+- Een speler die geen blok kan leggen, ligt eruit tot het einde van de partij.
+# Het einde van de partij
+De partij eindigt als niemand nog een blok kan leggen. Elk gelegd vakje is 1 punt waard. Wie al zijn blokken legt, krijgt er 15 bij, en nog 5 als het laatste het losse vierkantje was. De hoogste score wint.

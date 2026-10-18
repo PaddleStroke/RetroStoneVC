@@ -1,0 +1,11 @@
+Balok Sudut
+# Tujuan
+Letakkan sebanyak mungkin kotak dari balokmu di papan. Setiap pemain punya 21 balok yang sama.
+# Satu giliran
+Letakkan salah satu balokmu di mana saja balok itu muat.
+- Balok pertamamu menutupi petak awalmu, yang ditandai dengan warnamu.
+- Setiap balok berikutnya harus menyentuh paling sedikit satu balokmu sendiri sudut ke sudut, dan tidak pernah lewat sisi. Balok pemain lain boleh menyentuhnya dengan cara apa pun.
+- Balok boleh diputar dan dibalik. Setelah diletakkan, balok tidak pernah berpindah.
+- Pemain yang tidak bisa meletakkan balok keluar sampai akhir permainan.
+# Akhir permainan
+Permainan selesai saat tidak ada lagi yang bisa meletakkan balok. Setiap kotak yang diletakkan bernilai 1 poin. Meletakkan semua balok memberi 15 poin lagi, dan 5 lagi jika yang terakhir adalah kotak tunggal. Skor tertinggi menang.

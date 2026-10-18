@@ -1,0 +1,11 @@
+Eckblöcke
+# Das Ziel
+Lege so viele Felder deiner Blöcke wie möglich auf das Brett. Jeder Spieler hat dieselben 21 Blöcke.
+# Ein Zug
+Lege einen deiner Blöcke, wo er hinpasst.
+- Dein erster Block bedeckt dein Startfeld, das in deiner Farbe markiert ist.
+- Jeder weitere Block muss mindestens einen deiner eigenen Blöcke an einer Ecke berühren und nie an einer Kante. Die Blöcke der anderen dürfen ihn beliebig berühren.
+- Blöcke dürfen gedreht und gewendet werden. Einmal gelegt, bewegen sie sich nie mehr.
+- Wer keinen Block legen kann, scheidet für den Rest der Partie aus.
+# Das Ende der Partie
+Die Partie endet, wenn niemand mehr einen Block legen kann. Jedes gelegte Feld zählt 1 Punkt. Wer alle Blöcke legt, erhält 15 Punkte dazu, und noch 5, wenn der letzte das einzelne Quadrat war. Die höchste Punktzahl gewinnt.

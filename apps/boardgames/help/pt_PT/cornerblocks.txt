@@ -1,0 +1,11 @@
+Blocos de canto
+# O objetivo
+Coloca no tabuleiro o maior número possível de quadrados dos teus blocos. Todos os jogadores têm os mesmos 21 blocos.
+# A tua vez
+Coloca um dos teus blocos onde ele couber.
+- O teu primeiro bloco cobre a tua casa de partida, marcada com a tua cor.
+- Cada bloco seguinte tem de tocar pelo menos um dos teus blocos canto com canto, e nunca por um lado. Os blocos dos outros jogadores podem tocá-lo de qualquer maneira.
+- Os blocos podem ser rodados e virados. Depois de colocados, nunca se mexem.
+- Quem não conseguir colocar um bloco fica de fora até ao fim do jogo.
+# O fim do jogo
+O jogo acaba quando ninguém consegue colocar um bloco. Cada quadrado colocado vale 1 ponto. Colocar todos os teus blocos vale mais 15, e mais 5 se o último foi o quadrado sozinho. Ganha a pontuação mais alta.

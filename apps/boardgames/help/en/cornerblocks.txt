@@ -1,0 +1,11 @@
+Corner Blocks
+# The aim
+Lay as many squares of your blocks on the board as you can. Every player has the same 21 blocks.
+# A turn
+Lay one of your blocks wherever it fits.
+- Your first block covers your start square, marked in your colour.
+- Each next block must touch at least one of your own blocks corner to corner, and never along an edge. Other players' blocks may touch it in any way.
+- Blocks may be turned and turned over. Once laid, they never move.
+- A player who cannot lay a block is out for the rest of the game.
+# The end of the game
+The game ends when nobody can lay a block. Each square laid scores 1 point. Laying all your blocks scores 15 more, and 5 more again if the last one was the single square. The highest score wins.

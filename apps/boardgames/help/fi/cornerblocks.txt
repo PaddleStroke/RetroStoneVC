@@ -1,0 +1,11 @@
+Kulmapalat
+# Tavoite
+Aseta laudalle palojesi ruutuja niin monta kuin pystyt. Jokaisella pelaajalla on samat 21 palaa.
+# Vuoro
+Aseta yksi paloistasi mihin se mahtuu.
+- Ensimmäinen palasi peittää aloitusruutusi, joka on merkitty värilläsi.
+- Jokaisen seuraavan palan on kosketettava vähintään yhtä omaa palaasi kulmittain eikä koskaan sivulla. Muiden palat saavat koskettaa sitä miten tahansa.
+- Paloja saa kääntää ja kääntää ympäri. Asetettuina ne eivät enää liiku.
+- Pelaaja, joka ei voi asettaa palaa, on pois pelistä loppuun asti.
+# Pelin loppu
+Peli päättyy, kun kukaan ei voi asettaa palaa. Jokainen asetettu ruutu antaa 1 pisteen. Kaikkien palojen asettamisesta saa 15 pistettä lisää ja vielä 5, jos viimeinen oli yksittäinen ruutu. Suurin pistemäärä voittaa.

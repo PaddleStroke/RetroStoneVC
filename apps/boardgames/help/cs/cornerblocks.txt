@@ -1,0 +1,11 @@
+Rohové kostky
+# Cíl hry
+Polož na desku co nejvíc čtverečků svých dílků. Každý hráč má stejných 21 dílků.
+# Tah
+Polož jeden ze svých dílků, kamkoli se vejde.
+- Tvůj první dílek zakryje tvé startovní pole označené tvou barvou.
+- Každý další dílek se musí aspoň jednoho tvého dílku dotýkat rohem a nikdy ne hranou. Dílky ostatních hráčů se ho mohou dotýkat jakkoli.
+- Dílky lze otáčet i obracet. Položené se už nikdy nepohnou.
+- Hráč, který nemůže položit žádný dílek, je až do konce hry mimo.
+# Konec hry
+Hra končí, když už nikdo nemůže položit dílek. Každý položený čtvereček má 1 bod. Za položení všech dílků je 15 bodů navíc a dalších 5, pokud byl posledním dílkem samotný čtvereček. Vyhrává nejvyšší skóre.

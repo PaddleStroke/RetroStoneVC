@@ -1,0 +1,11 @@
+Bloques de esquina
+# El objetivo
+Coloca en el tablero tantos cuadrados de tus bloques como puedas. Todos los jugadores tienen los mismos 21 bloques.
+# Un turno
+Coloca uno de tus bloques donde quepa.
+- Tu primer bloque cubre tu casilla de salida, marcada con tu color.
+- Cada bloque siguiente debe tocar al menos uno de tus bloques esquina con esquina, y nunca por un lado. Los bloques de los demás pueden tocarlo de cualquier forma.
+- Los bloques se pueden girar y dar la vuelta. Una vez colocados, no se mueven nunca.
+- Quien no puede colocar ningún bloque queda fuera hasta el final de la partida.
+# El final de la partida
+La partida termina cuando nadie puede colocar un bloque. Cada cuadrado colocado vale 1 punto. Colocar todos tus bloques suma 15 más, y otros 5 si el último fue el cuadrado suelto. Gana la puntuación más alta.

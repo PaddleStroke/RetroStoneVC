@@ -1,0 +1,11 @@
+Klocki narożne
+# Cel gry
+Połóż na planszy jak najwięcej kwadratów swoich klocków. Każdy gracz ma te same 21 klocków.
+# Tura
+Połóż jeden ze swoich klocków tam, gdzie się mieści.
+- Twój pierwszy klocek zakrywa twoje pole startowe, oznaczone twoim kolorem.
+- Każdy kolejny klocek musi dotykać co najmniej jednego twojego klocka rogiem, a nigdy bokiem. Klocki innych graczy mogą go dotykać w dowolny sposób.
+- Klocki można obracać i odwracać. Raz położone nigdy się nie przesuwają.
+- Gracz, który nie może położyć klocka, odpada do końca gry.
+# Koniec gry
+Gra kończy się, gdy nikt nie może położyć klocka. Każdy położony kwadrat to 1 punkt. Położenie wszystkich klocków daje 15 punktów więcej i jeszcze 5, jeśli ostatnim był pojedynczy kwadrat. Wygrywa najwyższy wynik.

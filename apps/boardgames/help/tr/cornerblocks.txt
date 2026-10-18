@@ -1,0 +1,11 @@
+Köşe Blokları
+# Amaç
+Bloklarının karelerinden olabildiğince çoğunu tahtaya yerleştir. Her oyuncunun aynı 21 bloğu vardır.
+# Bir tur
+Bloklarından birini sığdığı herhangi bir yere koy.
+- İlk bloğun, senin renginle işaretli başlangıç kareni örter.
+- Sonraki her blok kendi bloklarından en az birine köşeden köşeye değmeli, asla kenardan değmemelidir. Diğer oyuncuların blokları ona istediği gibi değebilir.
+- Bloklar döndürülebilir ve ters çevrilebilir. Konduktan sonra asla yer değiştirmez.
+- Blok koyamayan oyuncu oyunun sonuna kadar dışarıda kalır.
+# Oyunun sonu
+Kimse blok koyamadığında oyun biter. Konan her kare 1 puandır. Bütün bloklarını koyan 15 puan daha alır; son konan tek kare ise 5 puan daha. En yüksek puan kazanır.
