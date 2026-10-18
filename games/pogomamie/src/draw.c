@@ -9,6 +9,7 @@
 #include "pm.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include <string.h>
 
 /* ---- the look of each district (and the night): sky top, horizon, the foreground tint, the far ink ---------------- */
@@ -55,6 +56,7 @@ static int view_y;                              /* transient: the world y of the
 static int view_cam_y;                          /* transient: the camera y of this picture (the shake included) */
 static int hud_lines;                           /* transient: the UI layer's lines pinned at the screen's top */
 static int ui_dx;                               /* transient: the UI's shift to the middle of the columns shown */
+static int title_slots;                        /* transient: a zoomed title: the family at the slots (house_tall.h) */
 static int mid_a3;                              /* transient: the mid-ground's virtual y at the screen's top */
 static int pan_x0 = -1;                         /* a zoomed screen: the first column shown (-1: none yet; saved) */
 int draw_ui_dx(void) { return ui_dx; }
@@ -657,6 +659,12 @@ static void draw_player(const world *w, int p)
     int x = (int)(m->x >> 16), feet = (int)(m->y >> 16);
     int f = mamie_frame(m, w->t), flip = m->face < 0 ? RS_SPR_HFLIP : 0;
     int sx = x - 12 - camx_i, sy = feet - 32 - camy_i;
+    if (title_slots) {                              /* a zoomed title: each at its slot, under its tag (the columns shown) */
+        ht_title c = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};
+        ht_title_out o;
+        ht_slots(&c, &o);
+        sx = o.slot_cx[p] + hu_ui_x() - 12;
+    }
     if (m->state == MS_DOWN && m->t > 12) {
         spr_at(SPR_CURSE + (m->t / 12) % 2, sx - 4, sy - 16, -1, 0);
     }
@@ -920,6 +928,7 @@ void draw_frame(const world *w, int state, int st_t, int paused, int best_m)
     camx_i = camx;
     camy_i = camy;
     if (tall()) tall_frame(w, state);
+    title_slots = state == DS_TITLE && ht_narrow();
     look_update(w, 0);
     sky_lines(camy);
     stream_bg2(w, camx, camy);

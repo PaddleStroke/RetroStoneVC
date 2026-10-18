@@ -7,5 +7,6 @@ draw.view_y         transient: a tall screen's view (the world y of its top), se
 draw.view_cam_y     transient: the camera y of that picture (the raster's world top), set by draw_frame
 draw.hud_lines      transient: the UI lines pinned at a tall screen's top, set by draw_frame before each picture
 draw.ui_dx          transient: the UI's shift to the middle of the zoomed columns shown, set by draw_frame
+draw.title_slots    transient: a zoomed title draws the family at the house_tall.h slots, set by draw_frame
 draw.mid_a3         transient: the mid-ground's virtual y at a tall screen's top (the raster's shading), set by draw_frame
 ui.shown_narrow     the text was laid out for a narrow tall screen (house_tall.h ht_narrow): a setting of the frontend; a change lays it out again
