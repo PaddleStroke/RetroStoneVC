@@ -5,12 +5,16 @@
  * a symmetry, then walls, holes and marbles changed one at a time while the fewest tilts grow; each one aimed at a
  * par spread over the chapter's range). A tray is kept when its special tiles all matter (tlm_make checks it) and
  * when it was not met before (nor its mirror). The look, for a hand-laid feel: walls in a mirror or half-turn
- * symmetry (a few trays left free), neither too few nor too many, the marbles and the holes spread over the tray; of
- * the trays near each place on the curve the best-looking one is kept, the chapter's last tray (its showpiece) the
- * best-looking of its hardest few. The difficulty: the fewest tilts, and a little for the states the search went
- * through. Chapter 1 starts from the very easiest (a first look). Deterministic (fixed seeds).
+ * symmetry (a few trays left free), neither too few nor too many, the marbles and the holes spread over the tray.
+ * The difficulty is measured (measure()): the fewest tilts, the share of mistaken tilts along the way, and how many
+ * naive players (tilting at random, mostly sinking a marble when they can) finish it. Each chapter keeps 25: one to
+ * three easy ones first (chapter 1 from the very easiest) that show its new tiles, then trays no naive player
+ * finishes, spread from the chapter's floor to its hardest; of the trays near each place on the curve the
+ * best-looking one is kept (another size than the level before when it can), the chapter's last tray (its showpiece)
+ * the best-looking of its hardest few. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/tlmgen apps/boardgames/tools/tiltmaze_gen.c -lm && \
  *       /tmp/tlmgen > apps/boardgames/src/games/tiltmaze_levels.h
+ * The levels' difficulty table: the same with -DTLM_TABLE, run with no output file.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define TLM_GEN
@@ -25,26 +29,33 @@
 #define TEXT (3 * TLM_CELLS)
 #define MAXC 1000
 
+typedef struct { int par, states; double trap, first, naive, score; } metric;   /* measure() */
+
 typedef struct {
     char text[TEXT];
-    int par, states;
+    int par, states, w, h;
     double diff, look;
+    metric m;
 } cand;
 
 /* a chapter: its sizes (w x h, up to grow more each way), walls, blocks, marbles a colour (a second set drawn now and
- * then: alt), special tiles; lo..hi the pars aimed at */
+ * then: alt), special tiles; lo..hi the pars aimed at; intro: its first levels, easy ones that show its new tiles
+ * (chapter 1 from the very easiest); floor: the least score (measure()) of the others */
 typedef struct {
     int w, h, grow, walls, blocks, marbles[TLM_COLOURS], alt[TLM_COLOURS], gates, oneway, lids, lo, hi, iters, makes;
+    int intro, from_easiest;
+    double floor;
 } chapter;
 
 static const chapter CH[TLM_CHAPTERS] = {
-    {5, 5, 1, 18, 1, {1, 0, 0, 0}, {2, 0, 0, 0}, 0, 0, 0, 2, 9, 80, 400},          /* one colour */
-    {6, 6, 1, 18, 1, {1, 1, 0, 0}, {2, 1, 0, 0}, 0, 0, 0, 6, 13, 100, 360},        /* two colours */
-    {6, 7, 1, 16, 1, {1, 1, 0, 0}, {2, 1, 0, 0}, 2, 0, 0, 7, 14, 100, 360},        /* gates */
-    {6, 7, 1, 16, 1, {1, 1, 0, 0}, {1, 1, 1, 0}, 0, 3, 0, 7, 15, 100, 360},        /* one-way tiles */
-    {6, 7, 1, 16, 1, {2, 1, 0, 0}, {2, 2, 0, 0}, 0, 0, 1, 8, 16, 100, 360},        /* lidded holes */
-    {7, 8, 1, 16, 2, {2, 1, 1, 0}, {1, 1, 1, 1}, 1, 2, 1, 10, 20, 100, 360},       /* all of them */
+    {5, 5, 1, 18, 1, {1, 0, 0, 0}, {2, 0, 0, 0}, 0, 0, 0, 2, 11, 80, 520, 3, 1, 8}, /* one colour */
+    {6, 6, 1, 18, 1, {1, 1, 0, 0}, {2, 1, 0, 0}, 0, 0, 0, 7, 15, 100, 420, 1, 0, 13}, /* two colours */
+    {6, 7, 1, 16, 1, {1, 1, 0, 0}, {2, 1, 0, 0}, 2, 0, 0, 7, 16, 100, 420, 2, 0, 15}, /* gates */
+    {6, 7, 1, 16, 1, {1, 1, 0, 0}, {1, 1, 1, 0}, 0, 3, 0, 8, 17, 100, 420, 2, 0, 16}, /* one-way tiles */
+    {6, 7, 1, 16, 1, {2, 1, 0, 0}, {2, 2, 0, 0}, 0, 0, 1, 9, 18, 100, 420, 2, 0, 17}, /* lidded holes */
+    {7, 8, 1, 16, 2, {2, 1, 1, 0}, {1, 1, 1, 1}, 1, 2, 1, 12, 22, 100, 420, 1, 0, 23}, /* all of them */
 };
+#define NAIVE_MAX 0.05                          /* the most naive players a hard level may let win */
 
 static int by_diff(const void *a, const void *b)
 {
@@ -123,6 +134,137 @@ static double look_of(const tlm_map *m)
     return look;
 }
 
+/* ---- how hard a tray is, measured -------------------------------------------------------------------------------
+ * trap: along a shortest way, the share of the tilts that are mistakes (they do not bring the end a tilt nearer, or
+ * lose it); first: the same for the first tilt; naive: the share of 300 naive players who finish it within one and a
+ * half times its par (each tilt at random among those that sink no marble in a wrong hole, but three times in four
+ * one that sinks a marble when there is one) */
+static int sunk(const tlm_state *s) { return __builtin_popcount(s->in); }
+
+static void measure(const tlm_map *m, metric *mt)
+{
+    tlm_game g;
+    g.m = *m;
+    tlm_begin(&g);
+    tlm_state s = g.s;
+    mt->par = tlm_solve(m, &s, NULL, &mt->states);
+    int legal = 0, bad = 0, legal0 = 0, bad0 = 0;
+    tlm_state c = s;
+    for (int left = mt->par; left > 0; left--) {
+        int dir = -1;
+        tlm_solve(m, &c, &dir, NULL);
+        for (int k = 0; k < 4; k++) {
+            tlm_state n;
+            if (!tlm_try(m, &c, k, &n, NULL)) continue;
+            int mis = tlm_dead(&n) || tlm_solve(m, &n, NULL, NULL) != left - 1;
+            legal++;
+            bad += mis;
+            if (left == mt->par) { legal0++; bad0 += mis; }
+        }
+        tlm_try(m, &c, dir, &c, NULL);
+    }
+    mt->trap = legal ? (double)bad / legal : 0;
+    mt->first = legal0 ? (double)bad0 / legal0 : 0;
+    uint32_t r = pr_seed(77);
+    int wins = 0;
+    for (int t = 0; t < 300; t++) {
+        tlm_state p = s;
+        for (int k = 0; k < mt->par + mt->par / 2 + 1 && !tlm_solved(m, &p); k++) {
+            int ok[4], nok = 0, good[4], ngood = 0;
+            tlm_state n[4];
+            for (int d = 0; d < 4; d++) {
+                if (!tlm_try(m, &p, d, &n[d], NULL) || tlm_dead(&n[d])) continue;
+                ok[nok++] = d;
+                if (sunk(&n[d]) > sunk(&p)) good[ngood++] = d;
+            }
+            if (!nok) break;
+            p = n[ngood && pr_below(&r, 4) ? good[pr_below(&r, ngood)] : ok[pr_below(&r, nok)]];
+        }
+        wins += tlm_solved(m, &p);
+    }
+    mt->naive = wins / 300.0;
+    /* the score: the tilts, worth more where the mistakes are many and the naive players fail */
+    mt->score = mt->par * (0.6 + mt->trap) * (1.2 - mt->naive) + 0.3 * log((double)mt->states + 1);
+}
+
+#ifdef TLM_TABLE                                /* the shipped levels' table: -DTLM_TABLE */
+#include "games/tiltmaze_levels.h"
+int main(void)
+{
+    (void)CH, (void)by_diff, (void)look_of, (void)met;
+    double sum[TLM_CHAPTERS][5] = {{0}};
+    int trivial = 0;
+    printf("lvl par states trap first naive score  tray\n");
+    for (int lv = 0; lv < TLM_LEVELS; lv++) {
+        tlm_map m;
+        metric mt;
+        tlm_parse(&m, tlm_levels[lv]);
+        measure(&m, &mt);
+        printf("%4d %3d %6d %5.2f %5.2f %5.2f %6.2f  %s\n", lv + 1, mt.par, mt.states, mt.trap, mt.first, mt.naive,
+               mt.score, tlm_levels[lv]);
+        int triv = mt.naive > 0.1 || mt.par <= 3;
+        double *s = sum[lv / PER];
+        s[0] += mt.par; s[1] += mt.trap; s[2] += mt.naive; s[3] += mt.score; s[4] += triv;
+        trivial += lv >= 3 && triv;
+    }
+    printf("\nchapter  par  trap naive score trivial\n");
+    for (int c = 0; c < TLM_CHAPTERS; c++)
+        printf("%7d %5.1f %5.2f %5.2f %5.1f %4.0f\n", c + 1, sum[c][0] / PER, sum[c][1] / PER, sum[c][2] / PER,
+               sum[c][3] / PER, sum[c][4]);
+    printf("trivial levels from level 4 (naive > 0.1 or par <= 3): %d\n", trivial);
+    return 0;
+}
+#else
+/* a chapter's levels from its trays (sorted by score): its first `intro` from the easy end (the chapter's new tiles
+ * shown plainly), the others spread from `floor` to the hardest over the trays no naive player solves, the last of
+ * the hardest few; of the trays near each place on the curve the best looking, another size than the last level's
+ * when it can */
+static int pick(const cand *pool, int n, const chapter *C, int *chosen)
+{
+    static int hard[MAXC];
+    int nh = 0, used[MAXC] = {0};
+    for (int i = 0; i < n; i++)
+        if (pool[i].m.naive <= NAIVE_MAX && pool[i].m.score >= C->floor) hard[nh++] = i;
+    fprintf(stderr, "  %d hard trays\n", nh);
+    if (nh < PER - C->intro + 2) return 0;
+    int lw = 0, lh = 0, last = -1;
+    for (int k = 0; k < C->intro; k++) {
+        int span = n / 5 > C->intro ? n / 5 : C->intro, i = -1;
+        int a = k * span / C->intro, b = (k + 1) * span / C->intro - 1;
+        if (C->from_easiest && k == 0) b = a + 1;
+        if (a <= last) a = last + 1;
+        if (b < a) b = a;
+        for (int j = a; j <= b && j < n; j++)       /* short ones: a long easy way is a dull one */
+            if (i < 0 || (pool[j].par <= C->lo + 5 && (pool[i].par > C->lo + 5 || pool[j].look > pool[i].look))) i = j;
+        used[i] = 1;
+        last = i;
+        chosen[k] = i;
+        lw = pool[i].w, lh = pool[i].h;
+    }
+    double step = (double)(nh - 1) / (PER - C->intro - 1);
+    last = -1;
+    for (int k = 0; k < PER - C->intro; k++) {
+        int mid = (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
+        if (k == PER - C->intro - 1) a = nh - 1 - nh / 25 - 2, b = nh - 1;   /* the showpiece: of the hardest few */
+        if (a <= last) a = last + 1;
+        if (b > nh - 1) b = nh - 1;
+        if (b < a) b = a;
+        double best = -1e9;
+        for (int j = a; j <= b; j++) {
+            const cand *c = &pool[hard[j]];
+            double v = c->look - (c->w == lw && c->h == lh ? 0.6 : 0);
+            if (!used[hard[j]] && (i < 0 || v > best)) { best = v; i = j; }
+        }
+        if (i < 0) i = a;
+        last = i;
+        used[hard[i]] = 1;
+        chosen[C->intro + k] = hard[i];
+        lw = pool[hard[i]].w, lh = pool[hard[i]].h;
+    }
+    return 1;
+}
+
+
 int main(void)
 {
     kept = malloc(sizeof *kept * 6000);
@@ -156,31 +298,20 @@ int main(void)
             if (met(&m, x->text)) continue;
             x->par = par;
             x->states = states;
-            x->diff = par + 0.5 * log((double)states + 1);
+            measure(&m, &x->m);
+            x->diff = x->m.score;
+            x->w = m.w;
+            x->h = m.h;
             x->look = look_of(&m);
             if (++n >= MAXC) break;
         }
         qsort(c, (size_t)n, sizeof *c, by_diff);
         fprintf(stderr, "chapter %d: %d trays, par %d..%d\n", ch + 1, n, n ? c[0].par : 0, n ? c[n - 1].par : 0);
-        if (n < PER) { fprintf(stderr, "too few\n"); return 1; }
-        int used[MAXC] = {0}, prev = -1;
+        int chosen[PER];
+        if (n < PER || !pick(c, n, C, chosen)) { fprintf(stderr, "too few\n"); return 1; }
         for (int i = 0; i < PER; i++) {
-            int at = ch == 0 && i == 0 ? 0 : (int)((double)i * (n - 1) / (PER - 1) + 0.5), pick = -1;
-            int win = ch == 0 && i < 3 ? 1 : n / (PER * 2) + 1;
-            if (i == PER - 1) { at = n - 1; win = n / 8 + 1; }
-            double best = -1e9;
-            for (int j = at - win; j <= at + win; j++) {
-                if (j <= prev || j < 0 || j >= n || used[j]) continue;
-                if (c[j].look > best) { best = c[j].look; pick = j; }
-            }
-            if (pick < 0)
-                for (int j = prev + 1; j < n && pick < 0; j++)
-                    if (!used[j]) pick = j;
-            if (pick < 0) { fprintf(stderr, "chapter %d: ran out\n", ch + 1); return 1; }
-            used[pick] = 1;
-            prev = pick;
-            strcpy(out[ch * PER + i], c[pick].text);
-            outpar[ch * PER + i] = c[pick].par;
+            strcpy(out[ch * PER + i], c[chosen[i]].text);
+            outpar[ch * PER + i] = c[chosen[i]].par;
         }
     }
     printf("const char *const tlm_levels[TLM_LEVELS] = {\n");
@@ -197,3 +328,4 @@ int main(void)
     free(c);
     return 0;
 }
+#endif

@@ -590,7 +590,7 @@ int tlm_make(tlm_map *out, const tlm_spec *sp, uint32_t seed)
 void tlm_variant(int variant, tlm_spec *sp)
 {
     static const tlm_spec V[TLM_VARIANTS] = {
-        {5, 6, -1, 18, 1, {1, 1, 0, 0}, 0, 0, 0, 4, 8, 60, 0},
+        {5, 6, -1, 18, 1, {1, 1, 0, 0}, 0, 0, 0, 6, 9, 60, 0},
         {6, 7, -1, 18, 2, {2, 1, 0, 0}, 1, 0, 0, 6, 11, 60, 0},
         {6, 7, -1, 18, 2, {2, 1, 0, 0}, 1, 2, 1, 6, 12, 100, 0},
     };
