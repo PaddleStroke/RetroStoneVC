@@ -113,8 +113,9 @@ int  rs_screen_bottom(void);    /* the stage y just past its last line (height -
 
 /* Zoom (docs/spec.md "Tall screen", the zoomed recipe): instead of rs_screen_tall(), FIRST in init(). The game draws a
  * screen of a moderate height (RS_SCREEN_H..RS_SCREEN_H_MAX, e.g. 400..520 lines) at 320 columns, and a tall frontend
- * scales it to FILL the display's height, cropping its sides equally (fill, not fit): the taller the screen asked
- * for, the more lines and the fewer columns shown. A display less tall than that gives a shorter screen and every
+ * scales it to FILL the display's height, cropping its sides equally (fill, not fit): about height x the display's
+ * width / its height columns are shown, so the taller the screen asked for, the more lines AND the more columns
+ * shown (the less zoom). A display less tall than that gives a shorter screen and every
  * column (as rs_screen_tall does). Returns rs_screen_height(); the stage (240 lines) is centred, as with
  * rs_screen_tall (rs_screen_origin_v moves it). Landscape, 4:3 and the frontends without a tall screen: 240 lines,
  * every column, unchanged. */

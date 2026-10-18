@@ -80,8 +80,9 @@ display's height, its sides cropped, so the game is big. **The plain tall screen
   `rs_screen_visible_x0()` .. `rs_screen_visible_x1()` - 1 are the screen columns shown (an even count, rounded down:
   the frontend may show a column more on each side): 202 at H 440 on a 1080x2340 phone (9:19.5), 188 on a 1080x2520
   one (9:21), 246 on a 16:9 one, every column on a display less tall than 320 x H (it then gets a shorter screen, as
-  with `rs_screen_tall`). The taller H, the more lines and the fewer columns. Landscape, 4:3 and the frontends without
-  a tall screen: 240 lines and every column, the same pixels as before.
+  with `rs_screen_tall`). The columns shown are about H x the display's width / its height: **the taller H, the more
+  lines and the more columns** (the less zoom); a shorter H is a bigger picture with fewer columns. Landscape, 4:3 and
+  the frontends without a tall screen: 240 lines and every column, the same pixels as before.
   - **Pan**: `rs_screen_focus_x(x)` centres the display on screen column x (clamped so that the columns shown stay
     inside the screen; -1: the middle, the default). **Fill or fit**: `rs_screen_fill(0)` shows every column for a
     while (the frontend fits the width, the blurred bands above and below), `rs_screen_fill(1)` zooms again: for a
