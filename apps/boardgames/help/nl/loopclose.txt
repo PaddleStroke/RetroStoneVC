@@ -1,0 +1,9 @@
+Lussen sluiten
+# Het doel
+Elk vak heeft een tegel met een stukje lijn: een eind, een rechte, een hoek, een T of een kruis. Draai de tegels tot elke lijn op een andere aansluit en de lijnen zich tot vormen sluiten. Geen lijn mag open blijven of tegen de rand van het bord lopen.
+# Een zet
+Tik op een tegel om hem een kwartslag met de klok mee te draaien.
+# Het einde van het spel
+Als alle lijnen gesloten zijn, vullen de vormen zich met kleur. Elke manier om ze te sluiten wint.
+# Levels en sterren
+Elke puzzel heeft een par: het kleinste aantal kwartslagen waarmee hij op te lossen is. Opgelost op par: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1. Een hint beperkt de puzzel tot 2 sterren, meer dan twee hints tot 1.

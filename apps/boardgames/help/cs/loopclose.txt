@@ -1,0 +1,9 @@
+Uzavři smyčky
+# Cíl hry
+Na každém poli leží destička s kouskem čáry: konec, rovinka, roh, T nebo kříž. Otáčej destičkami, dokud se každá čára nesetká s jinou a čáry se neuzavřou do tvarů. Žádná čára nesmí zůstat otevřená ani narážet na okraj desky.
+# Tah
+Klepnutím otočíš destičku o čtvrt otáčky po směru hodinových ručiček.
+# Konec hry
+Když jsou všechny čáry uzavřené, tvary se vyplní barvou. Vyhrává jakékoli uzavření.
+# Úrovně a hvězdy
+Každý hlavolam má par: nejmenší počet čtvrtotáček, který ho vyřeší. Vyřešeno na par: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1. Nápověda omezí hlavolam na 2 hvězdy, víc než dvě nápovědy na 1.

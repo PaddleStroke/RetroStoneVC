@@ -1,0 +1,9 @@
+Feche os laços
+# O objetivo
+Cada casa tem uma peça com um pedaço de linha: uma ponta, uma reta, uma curva, um T ou uma cruz. Gire as peças até que cada linha encontre outra e as linhas se fechem em formas. Nenhuma linha pode ficar aberta nem bater na borda do tabuleiro.
+# Uma jogada
+Toque numa peça para girá-la um quarto de volta no sentido horário.
+# O fim da partida
+Quando todas as linhas estão fechadas, as formas se enchem de cor. Qualquer jeito de fechá-las vence.
+# Níveis e estrelas
+Cada quebra-cabeça tem um par: o mínimo de quartos de volta que o resolvem. Resolvido no par: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1. Uma dica limita o quebra-cabeça a 2 estrelas, mais de duas dicas a 1.

@@ -1,0 +1,9 @@
+Fecha os laços
+# O objetivo
+Cada casa tem uma peça com um pedaço de linha: uma ponta, uma reta, uma curva, um T ou uma cruz. Roda as peças até cada linha encontrar outra e as linhas se fecharem em formas. Nenhuma linha pode ficar aberta nem bater na borda do tabuleiro.
+# Uma jogada
+Toca numa peça para a rodar um quarto de volta no sentido dos ponteiros do relógio.
+# O fim do jogo
+Quando todas as linhas estão fechadas, as formas enchem-se de cor. Qualquer maneira de as fechar ganha.
+# Níveis e estrelas
+Cada quebra-cabeças tem um par: o mínimo de quartos de volta que o resolvem. Resolvido no par: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1. Uma pista limita o quebra-cabeças a 2 estrelas, mais de duas pistas a 1.

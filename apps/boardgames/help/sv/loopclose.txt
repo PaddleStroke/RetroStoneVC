@@ -1,0 +1,9 @@
+Stäng slingorna
+# Målet
+Varje ruta har en bricka med en bit linje: en ände, en rak, ett hörn, ett T eller ett kors. Vrid brickorna tills varje linje möter en annan och linjerna sluter sig till former. Ingen linje får stå öppen eller löpa ut i brädets kant.
+# Ett drag
+Tryck på en bricka för att vrida den ett kvarts varv medurs.
+# Partiets slut
+När alla linjer är slutna fylls formerna med färg. Varje sätt att sluta dem vinner.
+# Banor och stjärnor
+Varje pussel har ett par: det minsta antalet kvartsvarv som löser det. Löst på par: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1. En ledtråd ger högst 2 stjärnor, fler än två ledtrådar högst 1.

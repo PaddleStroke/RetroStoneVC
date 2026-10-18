@@ -1,0 +1,9 @@
+Halkaları kapat
+# Amaç
+Her karede üzerinde çizgi parçası olan bir taş vardır: bir uç, bir düz, bir köşe, bir T ya da bir artı. Her çizgi başka biriyle buluşup çizgiler şekiller halinde kapanana kadar taşları döndür. Hiçbir çizgi açık kalamaz ya da tahtanın kenarına dayanamaz.
+# Bir hamle
+Bir kareye dokunarak onu saat yönünde çeyrek tur döndür.
+# Oyunun sonu
+Bütün çizgiler kapanınca şekiller renkle dolar. Onları kapatmanın her yolu kazandırır.
+# Seviyeler ve yıldızlar
+Her bulmacanın bir par değeri vardır: onu çözen en az çeyrek dönüş sayısı. Par ile çözülürse 3 yıldız; par değerinin en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1. Bir ipucu bulmacayı en fazla 2 yıldızla, ikiden fazla ipucu 1 yıldızla sınırlar.

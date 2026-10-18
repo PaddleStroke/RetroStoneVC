@@ -1,0 +1,9 @@
+Close the Loops
+# The aim
+Every square holds a tile with a piece of line: an end, a straight, a corner, a tee or a cross. Turn the tiles until every line meets another one, so the lines close into shapes. No line may stay open or run into the edge of the board.
+# A move
+Tap a tile to turn it a quarter turn clockwise.
+# The end of the game
+When every line is closed, the shapes fill with colour. Any way of closing them wins.
+# Levels and stars
+Each puzzle has a par: the fewest quarter turns that solve it. Solved at par: 3 stars; with up to half as many moves again: 2 stars; otherwise 1. A hint keeps the puzzle to 2 stars, and more than two hints to 1.

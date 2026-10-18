@@ -1,0 +1,9 @@
+Schleifen schließen
+# Das Ziel
+Jedes Feld trägt eine Kachel mit einem Stück Linie: ein Ende, eine Gerade, eine Ecke, ein T oder ein Kreuz. Drehe die Kacheln, bis jede Linie auf eine andere trifft und sich die Linien zu Formen schließen. Keine Linie darf offen bleiben oder an den Rand des Bretts stoßen.
+# Ein Zug
+Tippe auf eine Kachel, um sie eine Vierteldrehung im Uhrzeigersinn zu drehen.
+# Das Ende der Partie
+Wenn alle Linien geschlossen sind, füllen sich die Formen mit Farbe. Jede Art, sie zu schließen, gewinnt.
+# Level und Sterne
+Jedes Rätsel hat ein Par: die wenigsten Vierteldrehungen, mit denen es sich lösen lässt. Gelöst mit Par: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1. Ein Tipp begrenzt das Rätsel auf 2 Sterne, mehr als zwei Tipps auf 1.

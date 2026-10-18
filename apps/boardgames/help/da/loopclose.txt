@@ -1,0 +1,9 @@
+Luk løkkerne
+# Målet
+Hvert felt har en brik med et stykke streg: en ende, en lige, et hjørne, et T eller et kryds. Drej brikkerne, til hver streg møder en anden, så stregerne lukker sig til figurer. Ingen streg må stå åben eller løbe ud i brættets kant.
+# Et træk
+Tryk på en brik for at dreje den en kvart omgang med uret.
+# Spillets afslutning
+Når alle streger er lukket, fyldes figurerne med farve. Enhver måde at lukke dem på vinder.
+# Baner og stjerner
+Hver opgave har et par: det mindste antal kvarte omdrejninger, der løser den. Løst på par: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1. Et tip giver højst 2 stjerner, mere end to tip højst 1.

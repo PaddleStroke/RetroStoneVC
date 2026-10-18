@@ -1,0 +1,9 @@
+Zamknij pętle
+# Cel gry
+Na każdym polu leży kafelek z kawałkiem linii: końcem, prostą, rogiem, literą T albo krzyżem. Obracaj kafelki, aż każda linia spotka inną, a linie zamkną się w kształty. Żadna linia nie może zostać otwarta ani wchodzić na krawędź planszy.
+# Ruch
+Dotknij kafelka, aby obrócić go o ćwierć obrotu zgodnie z ruchem wskazówek zegara.
+# Koniec gry
+Gdy wszystkie linie są zamknięte, kształty wypełniają się kolorem. Wygrywa każdy sposób ich zamknięcia.
+# Poziomy i gwiazdki
+Każda łamigłówka ma par: najmniejszą liczbę ćwierćobrotów, która ją rozwiązuje. Rozwiązana w par: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1. Podpowiedź ogranicza łamigłówkę do 2 gwiazdek, więcej niż dwie podpowiedzi do 1.

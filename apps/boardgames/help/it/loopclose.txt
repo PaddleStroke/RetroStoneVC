@@ -1,0 +1,9 @@
+Chiudi gli anelli
+# Lo scopo
+Ogni casella ha una tessera con un pezzo di linea: una fine, un rettilineo, un angolo, una T o una croce. Ruota le tessere finché ogni linea non ne incontra un'altra e le linee si chiudono in figure. Nessuna linea può restare aperta o finire contro il bordo del tavoliere.
+# Una mossa
+Tocca una tessera per ruotarla di un quarto di giro in senso orario.
+# La fine della partita
+Quando tutte le linee sono chiuse, le figure si riempiono di colore. Qualsiasi modo di chiuderle vince.
+# Livelli e stelle
+Ogni rompicapo ha un par: il minimo di quarti di giro che lo risolvono. Risolto al par: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1. Un suggerimento limita il rompicapo a 2 stelle, più di due suggerimenti a 1.

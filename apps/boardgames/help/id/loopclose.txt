@@ -1,0 +1,9 @@
+Tutup Lingkaran
+# Tujuan
+Setiap kotak berisi ubin dengan sepotong garis: ujung, lurus, sudut, T, atau silang. Putar ubin-ubin itu sampai setiap garis bertemu garis lain, sehingga garis-garis menutup menjadi bentuk. Tidak boleh ada garis yang terbuka atau mengarah ke tepi papan.
+# Satu langkah
+Ketuk ubin untuk memutarnya seperempat putaran searah jarum jam.
+# Akhir permainan
+Saat semua garis tertutup, bentuk-bentuknya terisi warna. Cara apa pun untuk menutupnya menang.
+# Level dan bintang
+Setiap teka-teki punya par, jumlah putaran seperempat paling sedikit untuk menyelesaikannya. Selesai tepat par: 3 bintang; dengan tambahan langkah paling banyak setengah dari par: 2 bintang; selain itu 1. Petunjuk membatasi teka-teki paling banyak 2 bintang, lebih dari dua petunjuk 1 bintang.

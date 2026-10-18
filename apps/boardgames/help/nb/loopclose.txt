@@ -1,0 +1,9 @@
+Lukk løkkene
+# Målet
+Hver rute har en brikke med en bit strek: en ende, en rett, et hjørne, en T eller et kryss. Drei brikkene til hver strek møter en annen, så strekene lukker seg til figurer. Ingen strek kan stå åpen eller løpe ut i kanten av brettet.
+# Et trekk
+Trykk på en brikke for å dreie den en kvart omdreining med klokken.
+# Slutten på spillet
+Når alle strekene er lukket, fylles figurene med farge. Enhver måte å lukke dem på vinner.
+# Nivåer og stjerner
+Hver oppgave har en par: færrest kvarte omdreininger som løser den. Løst på par: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1. Et hint gir høyst 2 stjerner, mer enn to hint høyst 1.

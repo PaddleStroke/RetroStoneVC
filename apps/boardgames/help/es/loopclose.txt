@@ -1,0 +1,9 @@
+Cierra los lazos
+# El objetivo
+Cada casilla tiene una ficha con un trozo de línea: un extremo, una recta, una esquina, una T o una cruz. Gira las fichas hasta que cada línea se una con otra y las líneas se cierren en formas. Ninguna línea puede quedar abierta ni chocar con el borde del tablero.
+# Una jugada
+Toca una ficha para girarla un cuarto de vuelta en el sentido de las agujas del reloj.
+# El final de la partida
+Cuando todas las líneas están cerradas, las formas se llenan de color. Cualquier forma de cerrarlas gana.
+# Niveles y estrellas
+Cada rompecabezas tiene un par: el mínimo de cuartos de vuelta que lo resuelven. Resuelto en el par: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1. Una pista deja el rompecabezas en 2 estrellas como máximo, y más de dos pistas en 1.
