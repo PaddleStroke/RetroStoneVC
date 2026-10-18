@@ -48,7 +48,7 @@ static box tb;                                  /* the table */
 static const uint8_t BTN[4] = {54, 80, 68, 240}, BTN_ON[4] = {214, 168, 66, 255}, BTN_PASS[4] = {44, 118, 70, 255},
                      BTN_X[4] = {172, 48, 40, 255}, BTN_XX[4] = {46, 86, 164, 255};
 /* the light theme: what lies straight on its ivory table (the auction, the bidding box, the contract) in soft beige
- * and ink, not the dark table's green and cream; the panels (ct_panel) stay dark in both */
+ * and ink, not the dark table's green and cream; the summary's panel (ct_panel) white, its marks in ink (ui_ink_dark) */
 static const uint8_t LT_BTN[4] = {228, 216, 192, 255}, INK[3] = {46, 40, 30};
 static const uint8_t *btn(void) { return TH.dark ? BTN : LT_BTN; }
 
@@ -726,7 +726,9 @@ static void draw_sheet(void)
             break;
         }
         case ROW_LINE:                          /* the line: below it the trick points */
-            ui_fill(x0 + 0.2f * u, cy - fmaxf(1, 0.03f * u), pw - 0.4f * u, fmaxf(2, 0.06f * u), 246, 238, 220, 170);
+            if (ui_ink_dark()) ui_fill(x0 + 0.2f * u, cy - fmaxf(1, 0.03f * u), pw - 0.4f * u, fmaxf(2, 0.06f * u), INK[0],
+                                       INK[1], INK[2], 150);   /* (the light theme's white panel: of its ink) */
+            else ui_fill(x0 + 0.2f * u, cy - fmaxf(1, 0.03f * u), pw - 0.4f * u, fmaxf(2, 0.06f * u), 246, 238, 220, 170);
             break;
         case ROW_GAME:
             ct_rule(c_k, cy, pw - (c_k - x0) - 0.2f * u);
@@ -745,7 +747,8 @@ static void draw_sheet(void)
             else x = x0 + 0.25f * u;
             x += contract_at(d->declarer, d->level, d->strain, d->dbl, x, cy, h, 1) + 0.25f * h;
             int res = d->taken - 6 - d->level;
-            if (res == 0) ct_pic(CT_TICK, x + 0.4f * h, cy, 0.8f * h, 0, 246, 238, 220, 255);
+            if (res == 0 && ui_ink_dark()) ct_pic(CT_TICK, x + 0.4f * h, cy, 0.8f * h, 0, INK[0], INK[1], INK[2], 255);
+            else if (res == 0) ct_pic(CT_TICK, x + 0.4f * h, cy, 0.8f * h, 0, 246, 238, 220, 255);
             else ui_number_signed(x + ct_number_w(res, 0.7f * h, 1) / 2, cy, 0.7f * h, res, 1, 1);
             for (int k = 0; k < 2; k++) {
                 int side = k ? they : we;

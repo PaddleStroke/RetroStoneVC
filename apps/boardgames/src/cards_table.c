@@ -566,10 +566,18 @@ float ct_number_w(int v, float h, int plus)
     return (0.74f * (digits - 1) + 0.62f + (v < 0 || (plus && v > 0) ? 0.56f : 0)) * h;
 }
 
-void ct_rule(float x, float y, float w) { ui_fill(x, y, w, fmaxf(1, 0.02f * ui.unit), 246, 238, 220, 40); }
+void ct_rule(float x, float y, float w)
+{
+    if (ui_ink_dark()) ui_fill(x, y, w, fmaxf(1, 0.02f * ui.unit), CT_INK[0], CT_INK[1], CT_INK[2], 36);   /* (white) */
+    else ui_fill(x, y, w, fmaxf(1, 0.02f * ui.unit), 246, 238, 220, 40);
+}
 
 void ct_panel(float x, float y, float w, float h, int alpha)
 {
+    if (alpha == 255 && !TH.dark) {             /* the light theme's opaque panel: white, as the end card */
+        ui_light_panel(x, y, w, h);
+        return;
+    }
     const uint8_t c[4] = {28, 34, 32, (uint8_t)alpha};
     ui_put(ct_round((int)w, (int)h, 0.4f * ui.unit, c), x, y, w, h);
 }
@@ -582,6 +590,7 @@ static void plus_at(float cx, float cy, float h, int value, int light)   /* ligh
     int sw = (int)roundf(0.46f * ih);
     if ((sw - t) & 1) sw++;
     float digits = 0.74f * ih * (n - 1) + 0.62f * ih, gap = roundf(0.1f * ih);
+    if (ui_ink_dark()) light = 0;               /* (on the light theme's white panel) */
     int x = (int)floorf(cx - (sw + gap + digits) / 2), y = (int)floorf(cy);
     Uint8 r = light ? 246 : 40, g = light ? 238 : 34, b = light ? 220 : 30;
     ui_fill((float)x, (float)(y - t / 2), (float)sw, (float)t, r, g, b, 255);

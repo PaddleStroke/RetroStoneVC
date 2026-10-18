@@ -387,6 +387,14 @@ int  ui_bot_moving(void);                      /* in a game's play() of a bot's 
 int  ui_over(void);
 box  ui_end_room(float w, float h);
 
+/* the light theme's end card and summary panels are white (the dark theme's: dark, as they always were). On one (after
+ * ui_end_room, or ui_light_panel, to the end of draw()) ui_ink_dark() is 1: the shell's light digits, signs and words
+ * (ui_number, ui_number_signed, ui_number_ex's light colours, ui_word's) come out in the theme's dark ink; a game's own
+ * light marks there should follow it. ui_light_panel(): such a panel at x, y, w x h (the dark theme: nothing drawn);
+ * ct_panel() draws it for an opaque panel. */
+int  ui_ink_dark(void);
+void ui_light_panel(float x, float y, float w, float h);
+
 /* what the app keeps between two runs, on the device only (save.c: one small file, written whole then renamed, a
  * checksum; a damaged file is ignored): small values under a key, namespaced by the game ("logicgates/best"; the
  * shell's own: "shell/..."). Keys: 1..63 printable ASCII characters, no spaces; values up to 4096 bytes, kept as

@@ -547,8 +547,9 @@ void ui_mark_gold_a(float cx, float cy, float d, float a)
  * The chrome follows the theme: the table round the board, the header, the bars, the round buttons, the menu's cards
  * and tabs, the pickers, the level screen. Dark: the green table, cream ink (as it always was, to the pixel). Light: a
  * warm ivory, white discs and cards in a hairline rim, dark ink, the gold accent. The boards, cards and pieces stay as
- * they are; the end card and the hand-off cover stay dark overlays (over_dark while they are drawn). */
-static int over_dark;                           /* drawing on a dark overlay (the end card): the dark theme's look */
+ * they are; the hand-off cover stays a dark overlay (over_dark while it is drawn); the end card is white, its light
+ * digits and words dark (light_panel, card_ink). */
+static int over_dark;                           /* drawing on a dark overlay (the cover): the dark theme's look */
 #define LIGHT_UI (!TH.dark && !over_dark)
 static const uint8_t INK[3] = {46, 40, 30};     /* the light theme's ink (TH.text) */
 static const uint8_t LT_DISC[3] = {255, 253, 248}, LT_RIM[3] = {220, 208, 184}, LT_GOLD[3] = {212, 166, 68};
@@ -581,6 +582,39 @@ static void light_card(int w, int h, float rad, const uint8_t fill[3], uint8_t *
     int e = w >= 160 ? 2 : 1;
     art_roundrect(w, h, rad, rim, o);
     art_roundrect_put(o, w, h, e, e, w - 2 * e, h - 2 * e, fmaxf(0, rad - e), fill, 1);
+}
+
+/* the light theme's end card (the stars card, the end card, the summary panels): white in a hairline rim, lifted by a
+ * soft warm shadow (three faint layers, each wider and lower); kept by its size (a few) */
+static void light_panel(float x, float y, float w, float h, float rad)
+{
+    enum { KEEP = 4 };
+    static struct { SDL_Texture *t, *s; int w, h, r; } k[KEEP];
+    static int next;
+    int iw = (int)w, ih = (int)h, ir = (int)(rad * 4), i;
+    if (iw < 2 || ih < 2) return;
+    for (i = 0; i < KEEP && !(k[i].t && k[i].w == iw && k[i].h == ih && k[i].r == ir); i++) {}
+    if (i == KEEP) {
+        static const uint8_t shade[4] = {70, 50, 20, 255};
+        i = next++ % KEEP;
+        ui_free(&k[i].t);
+        ui_free(&k[i].s);
+        art_roundrect(iw, ih, rad, shade, ui_buf(iw, ih));
+        k[i].s = ui_tex(iw, ih, ui_buf(iw, ih));
+        light_card(iw, ih, rad, LT_DISC, ui_buf(iw, ih));
+        k[i].t = ui_tex(iw, ih, ui_buf(iw, ih));
+        k[i].w = iw, k[i].h = ih, k[i].r = ir;
+    }
+    static const float grow[3] = {2.4f, 1.4f, 0.6f}, drop[3] = {3, 2, 1};
+    static const Uint8 alpha[3] = {8, 12, 18};
+    float e = fmaxf(1, 0.05f * ui.unit);
+    for (int j = 0; j < 3 && k[i].s; j++) {
+        float g = grow[j] * e;
+        SDL_SetTextureAlphaMod(k[i].s, alpha[j]);
+        ui_put(k[i].s, x - g, y - g + drop[j] * e, w + 2 * g, h + 2 * g);
+    }
+    if (k[i].s) SDL_SetTextureAlphaMod(k[i].s, 255);
+    ui_put(k[i].t, x, y, w, h);
 }
 
 /* a button's disc: the shell's dark green, or its gold (kind bit 0); an ivory medallion inside the rim (bit 1); bit 2:
@@ -731,11 +765,12 @@ void ui_button_pic(uint8_t *o, int w, int h, float cx, float cy, int d, ui_paint
 }
 
 /* ---- stars and the level screen's tiles -------------------------------------------------------------------------- */
-/* a star: 0 gold, 1 a faint dark hollow (on wood, on gold), 2 a faint light one (on the dark end card) */
+/* a star: 0 gold, 1 a faint dark hollow (on wood, on gold), 2 a faint light one (on the dark end card), 3 a soft beige
+ * one (on the light theme's white end card) */
 static void paint_star(int kind, int size, uint8_t *o)
 {
     static const uint8_t gold[3] = {255, 200, 80}, ink[3] = {150, 102, 28}, dark[3] = {0, 0, 0},
-                         light[3] = {246, 238, 220};
+                         light[3] = {246, 238, 220}, beige[3] = {150, 128, 96};
     art_fig *f = art_fig_new();
     if (!f) return;
     art_star(f, ART_PART, 0.5f, 0.53f, 0.46f);
@@ -743,8 +778,9 @@ static void paint_star(int kind, int size, uint8_t *o)
         art_fig_paint(o, size, f, gold, ink, 0.045f, 0.5f);
         return;
     }
-    art_fig_paint(o, size, f, kind == 1 ? dark : light, NULL, 0, 0);
-    for (int i = 0; i < size * size; i++) o[4 * i + 3] = (uint8_t)(o[4 * i + 3] * (kind == 1 ? 0.3f : 0.2f));
+    art_fig_paint(o, size, f, kind == 1 ? dark : kind == 2 ? light : beige, NULL, 0, 0);
+    float k = kind == 1 ? 0.3f : kind == 2 ? 0.2f : 0.35f;
+    for (int i = 0; i < size * size; i++) o[4 * i + 3] = (uint8_t)(o[4 * i + 3] * k);
 }
 
 static void star_at(float cx, float cy, float d, int kind)
@@ -994,7 +1030,17 @@ static void digits_at(float cx, float cy, float h, int value, const uint8_t rgb[
 /* a game's light digits in its bars are drawn on the table: the light theme's table is ivory, so they are dark there
  * (elsewhere they may be on a dark panel or badge: as they are) */
 static int in_bar;                              /* drawing a player's bar (bar_content) */
-static int table_ink(void) { return LIGHT_UI && screen == SCR_GAME && in_bar; }
+static int card_ink;                            /* drawing on the light theme's white end card or summary panel */
+static int table_ink(void) { return LIGHT_UI && ((screen == SCR_GAME && in_bar) || card_ink); }
+
+int ui_ink_dark(void) { return table_ink(); }
+
+void ui_light_panel(float x, float y, float w, float h)
+{
+    if (TH.dark) return;
+    light_panel(x, y, w, h, 0.4f * ui.unit);
+    card_ink = 1;                               /* (to the end of the game's draw()) */
+}
 
 static void number(float cx, float cy, float h, int value, int light, double deg)
 {
@@ -1010,6 +1056,7 @@ void ui_number_rot(float cx, float cy, float h, int value, int light, double deg
 
 void ui_number_ex(float cx, float cy, float h, int value, const uint8_t rgb[3], Uint8 alpha, int how)
 {
+    if (card_ink && LIGHT_UI && rgb[0] + rgb[1] + rgb[2] > 600) rgb = INK;   /* light digits: dark on the white card */
     digits_at(cx, cy, h, value, rgb, alpha, how, 0);
 }
 
@@ -3596,7 +3643,7 @@ static void draw_solved(float cx, float cy, float u)
         float t = (float)(ui_ms() - card_t0);
         for (int k = 0; k < 3; k++) {
             float x = cx + (k - 1) * 1.2f * u, y = top - (k == 1 ? 0.14f * u : 0), d = (k == 1 ? 1.1f : 0.92f) * u;
-            star_at(x, y, d, 2);
+            star_at(x, y, d, TH.dark ? 2 : 3);  /* (the light theme's white card: a soft beige hollow) */
             if (k >= s) continue;
             float e = (t - 150 - 170 * k) / 240;   /* 0..1: it swells past its size, then settles */
             if (e <= 0) {
@@ -3622,7 +3669,8 @@ static void draw_solved(float cx, float cy, float u)
             SDL_Texture *flag = btn_tex(paint_btn_icon, ICON_PAR, (int)(fd + 0.5f));
             x += mw + gap;
             if (flag) {
-                SDL_SetTextureColorMod(flag, 255, 200, 80);
+                if (TH.dark) SDL_SetTextureColorMod(flag, 255, 200, 80);
+                else SDL_SetTextureColorMod(flag, 196, 140, 40);   /* (a deeper gold on the white) */
                 ui_put_c(flag, x + fd / 2, y, fd, fd);
                 SDL_SetTextureColorMod(flag, 255, 255, 255);
             }
@@ -3687,8 +3735,9 @@ static void draw_result(float cx, float cy, float u)
         float k = 2.0f * u;
         ui_put_c(big_tok(0), cx - 1.7f * u, cy, k, k);
         ui_put_c(big_tok(1), cx + 1.7f * u, cy, k, k);
-        ui_fill(cx - 0.32f * u, cy - 0.22f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
-        ui_fill(cx - 0.32f * u, cy + 0.09f * u, 0.64f * u, 0.13f * u, 246, 238, 220, 255);
+        const uint8_t *c = TH.dark ? NUM_LIGHT : INK;
+        ui_fill(cx - 0.32f * u, cy - 0.22f * u, 0.64f * u, 0.13f * u, c[0], c[1], c[2], 255);
+        ui_fill(cx - 0.32f * u, cy + 0.09f * u, 0.64f * u, 0.13f * u, c[0], c[1], c[2], 255);
     } else {                                    /* the winner in gold light, the loser lower, dimmed */
         int w = gs_winner(st) == 1;
         ui_put_c(t_gold, cx - 1.0f * u, cy, big * 1.25f, big * 1.25f);
@@ -3747,6 +3796,14 @@ box ui_end_room(float w, float h)
     E.k = k;
     E.room = 1;
     end_veil(b, 120);                           /* the table veiled, the card opaque */
+    if (!TH.dark) {                             /* the light theme: a white card, the game's light ink dark on it */
+        light_panel(x, y, cw, ch, 0.4f * u);
+        card_ink = 1;
+        float t = fmaxf(1, floorf(0.03f * u));
+        if (side) ui_fill(x + pad + hw + pad / 2 - t / 2, y + pad, t, ch - 2 * pad, INK[0], INK[1], INK[2], 36);
+        else ui_fill(x + pad, y + hh - t, cw - 2 * pad, t, INK[0], INK[1], INK[2], 36);
+        return E.r;
+    }
     if (endcard_w != (int)cw || endcard_h != (int)ch || !t_endcard) {
         static const uint8_t c[4] = {28, 34, 32, 255};
         endcard_w = (int)cw;
@@ -3806,9 +3863,9 @@ static float link_draw(int i, float x, float cy, float px, float maxw, int measu
 {
     int icon, word, w = 0, h = 0;
     const uint8_t *col;
-    static const uint8_t quiet[3] = {200, 196, 182};
+    static const uint8_t quiet[3] = {200, 196, 182}, quiet_lt[3] = {104, 94, 78};   /* (on the light theme's white) */
     if (!pages_link(i, &icon, &col, &word)) return 0;
-    SDL_Texture *t = ui_word("_ui", word, px, maxw - 1.6f * px, quiet, &w, &h);
+    SDL_Texture *t = ui_word("_ui", word, px, maxw - 1.6f * px, TH.dark ? quiet : quiet_lt, &w, &h);
     float d = floorf(1.25f * px), all = d + 0.35f * px + w;
     if (measure) return all;
     SDL_Texture *ic = btn_tex(paint_btn_icon, icon, (int)d);
@@ -3840,7 +3897,11 @@ static void draw_links(float cx, float ty, float by, float w, float q)
     }
     float x = cx - all / 2;
     if (a > 0) link_draw(PAGES_LINK_REVIEW, x, ty, px, maxw, 0, &link_box[PAGES_LINK_REVIEW]);
-    if (a > 0 && c > 0) ui_fill(floorf(x + a + gap), floorf(ty - 0.55f * px), 1, floorf(1.1f * px), 200, 196, 182, 90);
+    if (a > 0 && c > 0) {                       /* the bar between them (on the light theme's white: of its ink) */
+        float bx = floorf(x + a + gap), by = floorf(ty - 0.55f * px), bh = floorf(1.1f * px);
+        if (TH.dark) ui_fill(bx, by, 1, bh, 200, 196, 182, 90);
+        else ui_fill(bx, by, 1, bh, INK[0], INK[1], INK[2], 60);
+    }
     if (c > 0) link_draw(PAGES_LINK_REPORT, x + (a > 0 ? a + 2 * gap : 0), ty, px, maxw, 0, &link_box[PAGES_LINK_REPORT]);
     float s = link_draw(PAGES_LINK_SUPPORT, 0, 0, px, 0.8f * w, 1, &b);
     if (s > 0) link_draw(PAGES_LINK_SUPPORT, cx - s / 2, by, px, 0.8f * w, 0, &link_box[PAGES_LINK_SUPPORT]);
@@ -3859,7 +3920,8 @@ static void draw_over(void)
         static const uint8_t card_c[4] = {28, 34, 32, 255};   /* over the board: opaque, nothing shows through */
         float w, h, q;
         solved_place(&cx, &cy, &w, &h, &q);
-        ui_put(rounded((int)w, (int)h, 0.36f * q, card_c), cx - w / 2, cy - h / 2, w, h);
+        if (TH.dark) ui_put(rounded((int)w, (int)h, 0.36f * q, card_c), cx - w / 2, cy - h / 2, w, h);
+        else light_panel(cx - w / 2, cy - h / 2, w, h, 0.36f * q);   /* the light theme: white */
         int top = links_top(), bot = links_bottom();
         draw_result(cx, cy + (top - bot) * LINK_ROW / 2 * q, q);   /* the result in the middle of the rest */
         draw_links(cx, cy - h / 2 + 0.5f * LINK_ROW * q, cy + h / 2 - 0.5f * LINK_ROW * q, w, q);
@@ -3871,7 +3933,8 @@ static void draw_over(void)
         SDL_FRect d = {b.x, b.y, b.w, b.h};
         SDL_RenderCopyF(ui.r, t_bg, &src, &d);
     } else end_veil(b, 90);
-    ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
+    if (TH.dark) ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
+    else light_panel(cx - 3.4f * u, cy - 1.9f * u, 6.8f * u, 3.8f * u, 0.4f * u);
     draw_result(cx, cy, u);
 }
 
@@ -4021,8 +4084,10 @@ static void draw_game(void)
     }
     card_was = E.due;
     game_textures();
+    card_ink = 0;
     g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
-    game_textures();                            /* again: the game may have changed its tokens while drawing */
+    card_ink = 0;                               /* (a white panel's ink: to the end of draw()) */
+    game_textures();                           /* again: the game may have changed its tokens while drawing */
     for (int p = 0; p < ui.players; p++) draw_bar(p);
     if (armed && SDL_GetTicks() - armed > 2500) armed = 0;
     if (TL.dirty) tools_place();                /* (the buttons' row follows the tools shown) */
@@ -4040,9 +4105,9 @@ static void draw_game(void)
         over_dark = 0;
         return;
     }
-    over_dark = 1;
+    card_ink = !TH.dark;                        /* the end card: dark (the light theme: white, its ink dark) */
     if (E.due) draw_over();
-    over_dark = 0;
+    card_ink = 0;
 }
 
 /* ---- the menu's pictures, painted on a thread of their own ---------------------------------------------------------

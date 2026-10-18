@@ -120,9 +120,10 @@ void ct_pass_badge(float cx, float cy, float d);     /* the pass icon in a dark 
 /* a choice (a suit, a game): its picture on the button, raised in gold light when chosen, faint when it cannot be */
 void ct_choice(SDL_Texture *pic, float cx, float cy, float d, int chosen, int enabled);
 float ct_number_w(int v, float h, int plus);    /* the width of ui_number_signed(v, plus) at height h */
-void ct_rule(float x, float y, float w);        /* a faint cream line across a panel */
-void ct_panel(float x, float y, float w, float h, int alpha);   /* a dark panel: 255 opaque (a summary), less: a veil */
-void ct_plus(float cx, float cy, float h, int value);   /* points scored: a plus and the digits, cream */
+void ct_rule(float x, float y, float w);        /* a faint cream line across a panel (ui_ink_dark: of the ink) */
+/* a dark panel: 255 opaque (a summary; the light theme: white, its light ink dark: shell.h ui_ink_dark), less: a veil */
+void ct_panel(float x, float y, float w, float h, int alpha);
+void ct_plus(float cx, float cy, float h, int value);   /* points scored: a plus and the digits, cream (or the ink) */
 
 /* ---- points rising: a dark pill, a badge's number or an icon, a plus and the digits; they rise and fade ------- */
 #define CT_FLOATS 48
