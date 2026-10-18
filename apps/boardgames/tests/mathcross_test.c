@@ -1,8 +1,8 @@
 /*
  * Cross Math's rules: the arithmetic (the usual order, exact divisions, nothing below zero), the 150 designed levels
  * (each read back, every equation true, solved by reasoning alone, one solution by a full count, the operations of
- * its chapter), puzzles made from many seeds for every variant (the same, made fast), a puzzle by hand, the player's
- * tiles, the mistakes, hints and undo, and whole games from a seed.
+ * its chapter, past its opening a step past the plain ones), puzzles made from many seeds for every variant (the
+ * same, made fast), a puzzle by hand, the player's tiles, the mistakes, hints and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -81,6 +81,7 @@ static void test_levels(void)
         CHECK(mcr_reason(&p, &medium));
         CHECK(mcr_count(&p, 2) == 1);
         mediums += medium > 0;
+        if (i % 25 >= (i < 25 ? 3 : 2)) CHECK(medium >= 1);   /* past a chapter's opening: more than plain sums */
         unsigned ops = ops_of(&p, &three);
         int ch = i / 25;
         if (ch == 0) CHECK(ops == 1u << MCR_ADD);   /* plus alone first, sums to ten */
