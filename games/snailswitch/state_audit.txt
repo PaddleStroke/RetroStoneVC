@@ -10,3 +10,5 @@ draw.tall_fx        a tall screen: BG2's scroll x for the pool's lines and line 
 draw.tall_fy        a tall screen: BG2's scroll y (the shake) for line 0, set by draw_frame before every picture
 draw.hud_lines      a tall screen: the HUD's band of BG1 pinned at the top (3-4 players), set by draw_frame every picture
 draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite was last drawn, written every frame
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
+draw.hint           scratch: the zoomed title's hint (its two sentences joined), written before ht_title_draw every title frame

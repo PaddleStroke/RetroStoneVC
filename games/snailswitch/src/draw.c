@@ -36,6 +36,7 @@ static const rs_color ground_pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX
  RS_HEX(0xffc6a7),RS_HEX(0x805034),RS_HEX(0xc08038),RS_HEX(0xf2ba50),
  RS_HEX(0xfbf0c6),RS_HEX(0x384d44),RS_HEX(0x63856a)};
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
+static int ui_pin;   /* the UI layer pinned on the screen (house_tall.h ht_pin; set by draw_frame) */
 static void raster_out(int y){
  int top=rs_screen_top();
  if(y==top||y==RS_SCREEN_H){
@@ -44,6 +45,7 @@ static void raster_out(int y){
   rs_obj_window(y==top?0:RS_WIN1);
  }
  if(hud_lines&&(y==top+HUD_Y||y==top+HUD_Y+hud_lines))rs_bg_window(RS_BG1,y==top+HUD_Y?0:RS_WIN1);   /* the HUD band */
+ if(ui_pin)rs_bg_window(RS_BG1,ht_pin_line(ui_pin,y)?0:RS_WIN1);   /* the pinned UI (the title, the panels) */
  if(y<0){   /* the canopy: the band read down, up, down... (no seam), darker toward the screen's top every 8 lines */
   int d=-1-y,ph=d%(2*TALL_CANOPY),k=top<0?d*TALL_SHADE/-top:0;
   rs_bg_scroll(RS_BG3,tall_sx,TALL_CANOPY_Y+(ph<TALL_CANOPY?ph:2*TALL_CANOPY-1-ph)-y);
@@ -232,16 +234,15 @@ static void draw_heroes(const world*w,int t,int sx,int sy){
 static void slot_icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8,2,player_pal(p));}
 static void standing(const world*w,hu_standing*s){int a[4];for(int p=0;p<w->players;p++)a[p]=w->h[p].score;hu_rank(s,w->players,a,a);}
 /* A zoomed tall screen showing fewer than 320 columns (house_tall.h ht_narrow): the title and the panels laid out in
- * the columns shown by the house's standard calls (DESIGN.md "Tall screen"): ht_logo (SNAIL over SWITCH), the hint
- * under it, ht_title_draw; ht_banner, ht_gameover_panel, ht_results_*. */
-#define LOGO_TY 0               /* the logo's first row (as Unicorn Hop): the hint ends above the snails' vine */
+ * the columns shown by the house's standard calls and rows (DESIGN.md "Tall screen"): ht_logo (SNAIL over SWITCH),
+ * ht_title_draw (the hint above the prompt); ht_banner, ht_gameover_panel, ht_results_*. */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs,
                         ht_title *tc, ht_title_out *to)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state, narrow = ht_narrow(), x0 = rs_screen_visible_x0();
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || x0 != shown_x0) {
         hu_clear();
-        if (state == ST_TITLE && narrow) ht_logo("SNAIL SWITCH", title_ramps, 2, LOGO_TY, 0);
+        if (state == ST_TITLE && narrow) ht_logo("SNAIL SWITCH", title_ramps, 2, HT_ROW_LOGO, 0);
         else if (state == ST_TITLE) hu_logo("SNAIL SWITCH", title_ramps, 2, 2, 0);
         if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, tall() ? HUD_LOW_Y : 0);    /* P1..P4 by the corner chips */
         if (state == ST_OVER && narrow) {
@@ -264,13 +265,12 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_x0 = x0;
     }
     if (state == ST_TITLE && narrow) {
-        /* the hint's two lines under the logo, then the slots, the prompt, BEST, the join line, the credits */
-        const char *goal = TR(HINT_GOAL);
-        int r = ht_text(LOGO_TY + 12 + (hu_tall(TR(HINT_MOVE)) ? 1 : 0), TR(HINT_MOVE), 0) + 1;   /* (accents: a row lower) */
-        if (hu_tall(goal)) r++;
-        r = ht_text(r, goal, 0);
-        tc->verb = HTR(PLAY); tc->max_players = MAX_PLAYERS; tc->top = r + 2 > HU_ROW_SLOTS ? r + 2 : HU_ROW_SLOTS;   /* the kit's slot row: under the snails */
+        /* the standard rows: the slots, the hint (its two sentences) above the prompt, BEST, the join line, the credits */
+        static char hint[192];
+        snprintf(hint, sizeof hint, "%s - %s", TR(HINT_MOVE), TR(HINT_GOAL));
+        tc->verb = HTR(PLAY); tc->max_players = MAX_PLAYERS; tc->top = HT_ROW_SLOTS;
         tc->prompt_row = 0;
+        tc->hint = hint;
         ht_title_draw(tc, st_t, best, to);
         return;
     }
@@ -333,9 +333,11 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  tall_fx=rs_screen_origin_x()-sx;tall_fy=-sy;
  int play=state==ST_PLAY||state==ST_DEAD;
  if(play)tall_hud(w);else{hud_lines=0;rs_bg_pin(RS_BG1,0,0,0);}
+ ui_pin=!narrow?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  if(state==ST_TITLE&&narrow)ht_title_sprites(&tc,&to,st_t,slot_icon,NULL);
  else if(state==ST_TITLE)hu_title_sprites(st_t,slot_icon,NULL);
- if(state!=ST_OVER)draw_heroes(w,w->t,sx,sy);
+ if(state!=ST_OVER && !(state==ST_TITLE && narrow))draw_heroes(w,w->t,sx,sy);   /* (the zoomed title: the snails at its slots, the vine clear) */
  if(state==ST_OVER&&narrow){
  if(w->players==1)ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
  else{ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,player_pal(rank.order[i]));}}
