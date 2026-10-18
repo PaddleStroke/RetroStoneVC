@@ -220,6 +220,15 @@ void ui_animate(void);                          /* draw the next frame too (an a
 Uint32 ui_ms(void);                             /* the clock for animations: use it, not SDL_GetTicks (the picture
                                                  * mode has a clock of its own: still, moved on past each gesture's
                                                  * animations, or to --at ms after the last one) */
+/* 1 while a game kept from the last run is played again from its record (the app opened again: its input, its bots'
+ * moves and its clock replayed silently, nothing shown). A setting the game turns as it is played (a view, a choice)
+ * is already as the record left it: don't turn it again (ui_save_set writes nothing meanwhile). The replay draws its
+ * frames where the record says the last frame before each event was, and every 50 ms while busy(): input gating must
+ * use ui_ms() arithmetic (an animation's end time), not a flag cleared in draw(). */
+int  ui_replaying(void);
+/* the real time, ms (a gap of more than a frame or so between two frames drawn: the game was away, its clock waits):
+ * use it, not SDL_GetTicks, the replay jumps it where the game was off the screen */
+Uint32 ui_real_ms(void);
 
 /* the shared marks, made for the board's size by the shell (a square of side `size`) */
 void ui_mark_last(float x, float y, float w, float h);   /* the last move's squares (a warm tint) */
@@ -426,6 +435,7 @@ extern int snd_muted;
 /* save.c (the shell's side of ui_save_*): open the store in a folder (NULL: the device's, SDL_GetPrefPath; the
  * picture mode opens none: memory only), write it out when something changed */
 void save_open(const char *dir);
+int  save_try(const char *key, const void *data, int size);   /* ui_save_set's: 0 not kept (no room) */
 void save_flush(void);
 const char *save_path(void);                    /* the file (NULL: memory only) */
 

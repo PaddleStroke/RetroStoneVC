@@ -13,7 +13,10 @@
  *             0..4096), the value.
  * Written whole to board.sav.tmp, then renamed over board.sav: a crash leaves the old file or the new one, never half
  * of one. A file that does not read back exactly so (a wrong magic, version, length or checksum, a record running
- * past the end) is ignored: the app starts with nothing kept, and the next change writes a good file over it.
+ * past the end) is ignored, kept aside as board.sav.bad: the app starts with nothing kept, and the next change writes
+ * a good file. Never written past FILE_MAX: a change that would grow it past is refused (save_try), and the games in
+ * progress (shell/run/...) have half of it at most, so a long game is the only thing ever not kept. A file from before
+ * that cap, too full, is read whole and its games in progress dropped.
  * The picture mode keeps its values in memory only (unless --save DIR): its pictures never depend on a past run.
  */
 #if !defined(_WIN32) && !defined(_POSIX_C_SOURCE)
@@ -39,7 +42,14 @@
 #define KEY_MAX 63
 #define VALUE_MAX 4096
 #define ENTRIES_MAX 1024
-#define FILE_MAX (1 << 22)                      /* larger: not ours */
+#define FILE_MAX (1 << 22)                      /* never written larger (a change that would grow it past: refused) */
+#define READ_MAX (HEAD + ENTRIES_MAX * (3 + KEY_MAX + VALUE_MAX))   /* read up to (a file written before the cap) */
+/* the games in progress (the shell's records: shell/run/...) together: at most half the file and half the entries;
+ * past that a game's record is refused (that game alone not resumed), never the progress, the stats, the settings */
+#define RUN_KEY "shell/run/"
+#define RUN_MAX (FILE_MAX / 2)
+#define RUN_ENTRIES (ENTRIES_MAX / 2)
+#define HEAD 20
 
 static struct entry { char key[KEY_MAX + 1]; int n; uint8_t *v; } *ent;
 static int nent, cap;
@@ -115,17 +125,49 @@ int ui_save_get(const char *key, void *buf, int size)
     return n;
 }
 
-void ui_save_set(const char *key, const void *data, int size)
+static int is_run(const char *key) { return !strncmp(key, RUN_KEY, sizeof RUN_KEY - 1); }
+
+/* the file's length with every value as it is (run: the games in progress' records only), and their count */
+static size_t stored(int run, int *count)
+{
+    size_t len = 0;
+    int k = 0;
+    for (int i = 0; i < nent; i++)
+        if (!run || is_run(ent[i].key)) len += 3 + strlen(ent[i].key) + (size_t)ent[i].n, k++;
+    if (count) *count = k;
+    return len;
+}
+
+/* ui_save_set's, saying whether it was kept: 0 refused (the file would grow past FILE_MAX, the games in progress
+ * past their share; nothing else changes) */
+int save_try(const char *key, const void *data, int size)
 {
     if (!key_ok(key) || size > VALUE_MAX) {
         fprintf(stderr, "save: %s not kept (a key of 1..%d printable characters, a value of at most %d bytes)\n",
                 key ? key : "(null)", KEY_MAX, VALUE_MAX);
-        return;
+        return 0;
     }
     if (!data) size = 0;
     const struct entry *e = find(key);
-    if (size <= 0 ? !e : e && e->n == size && !memcmp(e->v, data, (size_t)size)) return;   /* the same: no write */
-    if (put(key, data, size)) dirty = 1;
+    if (size <= 0 ? !e : e && e->n == size && !memcmp(e->v, data, (size_t)size)) return 1;   /* the same: no write */
+    if (size > 0 && (!e || size > e->n)) {      /* it grows: room for it? */
+        size_t more = (size_t)size - (e ? (size_t)e->n : 0) + (e ? 0 : 3 + strlen(key));
+        int runs = 0;
+        if (HEAD + stored(0, NULL) + more > FILE_MAX) return 0;
+        if (is_run(key) && (stored(1, &runs) + more > RUN_MAX || (!e && runs >= RUN_ENTRIES))) return 0;
+    }
+    if (!put(key, data, size)) return 0;
+    dirty = 1;
+    return 1;
+}
+
+/* a kept game played again (shell.c, ui_replaying): what it writes was written when it was played (a setting it
+ * turns, a best), so nothing changes */
+void ui_save_set(const char *key, const void *data, int size)
+{
+    if (ui_replaying()) return;
+    if (!save_try(key, data, size) && key_ok(key) && size <= VALUE_MAX)
+        fprintf(stderr, "save: %s not kept (the store is full)\n", key);
 }
 
 /* ---- the file ------------------------------------------------------------------------------------------------ */
@@ -173,8 +215,6 @@ static int replace_file(const char *from, const char *to)
 #endif
 }
 
-
-#define HEAD 20
 
 /* the file's records into the store; 0 (the store left empty): not a good file, *why says how */
 static int parse(const uint8_t *b, size_t n, const char **why)
@@ -232,16 +272,30 @@ void save_open(const char *dir)
     if (!path) return;
     FILE *f = open_file(path, "rb");
     if (!f) return;                             /* none yet */
-    uint8_t *b = malloc(FILE_MAX + 1);
-    size_t got = b ? fread(b, 1, FILE_MAX + 1, f) : 0;
+    uint8_t *b = malloc(READ_MAX + 1);
+    size_t got = b ? fread(b, 1, READ_MAX + 1, f) : 0;
     fclose(f);
     const char *why = "too long";
-    if (b && got <= FILE_MAX && parse(b, got, &why)) {
+    if (b && got <= READ_MAX && parse(b, got, &why)) {
         free(b);
+        int runs;
+        if (HEAD + stored(0, NULL) > FILE_MAX || stored(1, &runs) > RUN_MAX || runs > RUN_ENTRIES) {
+            for (int i = nent - 1; i >= 0; i--)   /* (from before the cap): the games in progress go, the rest stays */
+                if (is_run(ent[i].key)) put(ent[i].key, NULL, 0);
+            fprintf(stderr, "save: %s too full: the games in progress not kept\n", path);
+            dirty = 1;
+        }
         return;
     }
     free(b);
     fprintf(stderr, "save: %s ignored (%s): starting afresh\n", path, why);
+    size_t pn = strlen(path) + 5;               /* kept aside as board.sav.bad (the next change writes a new file) */
+    char *bad = malloc(pn);
+    if (bad) {
+        snprintf(bad, pn, "%s.bad", path);
+        replace_file(path, bad);
+        free(bad);
+    }
 }
 
 void save_flush(void)
@@ -250,6 +304,10 @@ void save_flush(void)
     dirty = 0;
     size_t len = 0;
     for (int i = 0; i < nent; i++) len += 1 + strlen(ent[i].key) + 2 + (size_t)ent[i].n;
+    if (HEAD + len > FILE_MAX) {                /* (save_try keeps it smaller: never a file that would not read back) */
+        fprintf(stderr, "save: %s not written (too long)\n", path);
+        return;
+    }
     uint8_t *b = malloc(HEAD + len), *p = b ? b + HEAD : NULL;
     if (!b) return;
     for (int i = 0; i < nent; i++) {
