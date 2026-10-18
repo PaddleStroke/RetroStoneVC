@@ -9,9 +9,11 @@
  * sides and the corners the shapes are made of. A tap plays on an empty cell; where the cells are small for a finger
  * the first tap shows a ghost stone and a second tap plays it, the shell's loupe showing the cells under the finger.
  * The swap: ebony taps ivory's first stone, a ghost shows it turned, a second tap swaps. Keys: the arrows move the
- * ghost, Return or Space plays it. At the end the winner's shape is lit in gold. Script: "f6 e7 swap" (havannah.h).
+ * ghost, Return or Space plays it. At the end the winner's shape lights up in gold, stone by stone from the last one,
+ * before the end card (busy() holds it). Script: "f6 e7 swap" (havannah.h).
  */
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "games/havannah.h"
@@ -24,6 +26,7 @@
 #define TURN 1.08f                              /* turned a quarter when that makes the cells this much bigger */
 #define PLACE_MS 150
 #define SWAP_MS 340
+#define SHINE_MS 1600                           /* the shape lit before the end card (then the shell's pause) */
 #define GHOST_A 150
 #define LOUPE_CELLS 4.2f
 #define H 0.8660254f
@@ -41,6 +44,7 @@ static box room;
 static struct { float x, y, dx, dy; } fing;
 static struct { int on, cell, down, armed, moved; } ghost;
 static struct { int on, cell, swap; Uint32 t0; } anim;
+static struct { int on; Uint32 t0; } shine;     /* the winning shape lighting up, stone by stone from the last */
 
 static const float COLOUR[4][3] = {{0, 0, 0}, {34, 24, 16}, {84, 52, 30}, {96, 60, 34}};
 
@@ -52,6 +56,7 @@ static void calm(void)
     ghost.on = ghost.down = 0;
     ghost.cell = -1;
     anim.on = 0;
+    shine.on = 0;
 }
 
 static void start(int variant)
@@ -80,6 +85,7 @@ static void play(int cell)
     anim.cell = cell;
     anim.t0 = ui_ms();
     ui_sound(SND_PLACE);
+    if (G.winner == 0 || G.winner == 1) shine.on = 1, shine.t0 = anim.t0 + (swap ? SWAP_MS : PLACE_MS);
 }
 
 const hvgame *havannah_live(void) { return &G; }
@@ -106,7 +112,8 @@ static int script(const char *s)
     return hv_script(&G, s);
 }
 
-static int busy(void) { return anim.on; }
+/* the end waits for the winning stone to land and its shape to light up */
+static int busy(void) { return anim.on || (shine.on && (Sint32)(ui_ms() - shine.t0) < SHINE_MS); }
 
 /* ---- the geometry: cells (q, r) from the middle, the hexagon of "radius" c = n - 1 ------------------------------ */
 static void at(const view *v, float q, float r, float *x, float *y)
@@ -344,10 +351,24 @@ static void draw_board(const view *v, float px, float py, float k, float t)
         stone_at(G.cell[i] - 1, x, y, s, swap_ghost && i == ghost.cell ? 0.45f : 1);
     }
     if (G.winner >= 0 && G.winner != HV_DRAW && !anim.on) {   /* the winning shape in gold, once its stone is down */
-        int cells[HV_SQ], kc = hv_shape_cells(&G, cells);
+        int cells[HV_SQ], kc = hv_shape_cells(&G, cells), last = hv_last(&G), far[HV_SQ], top = 1;
+        for (int i = 0; i < kc; i++) {          /* each stone's distance from the last one: the light runs from it */
+            int dq = cells[i] % HV_W - last % HV_W, dr = cells[i] / HV_W - last / HV_W, ds = -dq - dr;
+            far[i] = (abs(dq) + abs(dr) + abs(ds)) / 2;
+            top = far[i] > top ? far[i] : top;
+        }
+        float t = 1;
+        if (shine.on) {
+            t = (Sint32)(ui_ms() - shine.t0) / (float)SHINE_MS;
+            if (t < 1) ui_animate();
+            t = clampf(t, 0, 1);
+        }
         for (int i = 0; i < kc; i++) {
+            float a = clampf((0.65f * t - 0.5f * far[i] / top) / 0.15f, 0, 1);   /* each stone lit in turn */
+            if (a <= 0) continue;
             cell_in(v, cells[i], &x, &y);
-            ui_mark_gold(x, y, 1.15f * s);
+            float pulse = t < 1 ? 0.25f * sinf(ART_PI * clampf(t * 1.5f - far[i] / (float)top, 0, 1)) : 0;
+            ui_mark_gold_a(x, y, (1.15f + pulse) * s, a);
         }
     }
     if (anim.on) {
