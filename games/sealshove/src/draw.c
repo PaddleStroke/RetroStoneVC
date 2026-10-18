@@ -18,6 +18,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"     /* a phone held upright: the title and the panels in the columns shown */
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -606,6 +607,18 @@ static void play_texts(const world *w, int st_t, const touch_view *tv)
     if (h == shown_text) return;
     shown_text = h;
     hu_clear();
+    if (ht_narrow()) {                          /* zoomed (house_tall.h): the same texts in the columns shown, wrapped */
+        if (big[0]) ht_big(13, big, HU_BIG_FREE);
+        if (line[0]) {
+            int pw = hu_width(line, 0) + 4, cols = ht_ncols();
+            if (pw > cols) pw = cols;
+            hu_panel(ht_center_w(pw), prow, pw, 4 + ht_text_rows(line, 1));
+            ht_text(prow + 2, line, 1);
+        }
+        if (top[0]) ht_text(5, top, 0);
+        if (hint[0]) { int k = 30 - ht_text_rows(hint, 0); ht_text(k < 28 ? k : 28, hint, 0); }
+        return;
+    }
     /* ROUND n and GO! in the middle of the ring of seals: between the top one's feet and the side ones' caps */
     if (big[0]) hu_big(hu_center(big, 1), 13, big, HU_BIG_FREE);
     if (line[0]) {
@@ -617,10 +630,48 @@ static void play_texts(const world *w, int st_t, const touch_view *tv)
     if (hint[0]) hu_text(hu_center(hint, 0), 28, hint);
 }
 
-/* the BG screens of the title and the panels */
-static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
+/* ---- a zoomed tall screen: the title and the panels in the columns shown (house_tall.h, its standard rows) */
+static ht_title tall_title(void)
 {
-    int screen = state == ST_DEAD ? ST_PLAY : state;
+    ht_title c = {TR(VERB), MAX_PLAYERS, 15, 0};
+    return c;
+}
+#define TALL_SEAL_Y 252     /* the title's big seal (decor): in the sea under the title's lines */
+
+/* the BG screens of the title and the panels (to: where a zoomed title's glyph and slots went) */
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs, ht_title_out *to)
+{
+    int screen = state == ST_DEAD ? ST_PLAY : state, narrow = ht_narrow();
+    char note[64], bot_title[48] = "";
+    rs_strf(note, sizeof note, TRN(MATCHES_WON, w->s[0].matches), w->s[0].matches);
+    if (w->humans > 1 && w->match_winner >= 0 && w->match_winner < SEALS && !w->s[w->match_winner].human)
+        rs_strf(bot_title, sizeof bot_title, TR(NAME_WINS), bot_names[w->match_winner]);
+    if (narrow && (screen != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best)) {
+        hu_clear();
+        shown_text = 0;
+        if (state == ST_TITLE) {
+            ht_logo("SEAL SHOVE", title_ramps, 2, 2, 0);   /* SEAL over SHOVE when it does not fit on one line */
+            canvas_gen = -1;                    /* the logo's tiles are the floe's: paint it again later */
+        }
+        if (state == ST_OVER && w->humans == 1) {
+            ht_banner(4, HTR(GAME_OVER));
+            ht_gameover_panel(new_best, note, HTR(BACK_TITLE));
+        } else if (state == ST_OVER) {
+            ht_results_panel(rs, bot_title[0] ? bot_title : NULL);
+        }
+        shown_key = screen;
+        shown_best = best;
+    }
+    if (narrow) {
+        if (state == ST_TITLE) {
+            ht_title c = tall_title();
+            ht_title_draw(&c, st_t, best, to);
+        }
+        if (state == ST_OVER)
+            ht_retry_line_at(w->humans == 1 ? ht_gameover_retry_row(note) : hu_results_retry_row(rs), st_t, RETRY_LOCK,
+                             HTR(BACK_TITLE));
+        return;
+    }
     if (screen != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         shown_text = 0;
@@ -661,7 +712,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (drawn_width != rs_screen_width()) maps_setup();
     int t = (int)rs_frame_count(), sx = hu_shake_x(), sy = hu_shake_y();
     int playing = state == ST_PLAY || state == ST_DEAD;
-    rs_screen_fill(playing);                    /* a tall screen: the title and the panels show every column */
+    rs_screen_fill(playing || tall_screen());   /* a tall screen: one view, the play's (the UI in the columns shown) */
+    int narrow = ht_narrow();
+    ht_title_out to;                            /* a zoomed title: where its glyph and slots went (screen_text) */
+    memset(&to, 0, sizeof to);
     hu_standing rs;
     standing(w, &rs);
     if (!paused) {
@@ -683,7 +737,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
         if (!paused) play_texts(w, st_t, tv);
     } else {
-        screen_text(w, state, st_t, best, new_best, &rs);
+        screen_text(w, state, st_t, best, new_best, &rs, &to);
     }
     int show_floe = state != ST_TITLE;
     rs_bg_enable(RS_BG2, show_floe);
@@ -697,25 +751,35 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     tall_sea_x = (sea_scroll() - sx) & (sea_w() * 8 - 1);
     tall_sea_y = -sy;
     rs_bg_scroll(RS_BG3, tall_sea_x, tall_sea_y);
-    hu_pause(paused, 13);
+    ht_pause(paused, 13);                       /* (hu_pause; zoomed: 1x when PAUSED does not fit at 2x) */
 
     rs_oam_clear();
     /* front to back: the UI, the touch controls, the HUD, the seals and their overlays, the props, the decor */
     if (state == ST_OVER) {
-        if (w->humans == 1) {
+        if (w->humans == 1 && narrow) {
+            ht_gameover_sprites(w->s[0].score, best, hu_medal_of(w->s[0].score, medals), st_t, slide);
+        } else if (w->humans == 1) {
             hu_gameover_sprites(1, w->s[0].score, 0, best, hu_medal_of(w->s[0].score, medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_SEAL_ICON, cx - 8 + hu_ui_x(), cy - 8 + slide, 3, hu_player_pal(rs.order[i]), 0);
             }
         }
     }
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
-        spr(SPR_SEAL_BIG0 + ((st_t % 150) > 140), RS_SCREEN_W / 2 - 16, 98 + hu_bob(st_t, 64, 4), 2, -1, 0);
+        if (narrow) {                           /* (house_tall.h: the slots closer, the glyph by the wrapped prompt) */
+            ht_title c = tall_title();
+            ht_title_sprites(&c, &to, st_t, slot_icon, NULL);
+        } else {
+            hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        }
+        spr(SPR_SEAL_BIG0 + ((st_t % 150) > 140), RS_SCREEN_W / 2 - 16, (narrow ? TALL_SEAL_Y : 98) + hu_bob(st_t, 64, 4),
+            2, -1, 0);
         draw_penguins(t);
         return;
     }

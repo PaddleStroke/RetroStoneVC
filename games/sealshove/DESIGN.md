@@ -154,8 +154,14 @@ game.h) first in `game_init`: the app scales the 520 lines to the display's heig
   into the columns shown: above, the boat on the left and the lone penguin's iceberg under the score; below (from line
   256), the three penguins' iceberg on the left, the DASH button on the right. Their penguins are drawn with them (and
   cheer with the others). The UI and the floe are hidden there; line 0 puts the stage's settings back.
-- **Fill or fit**: the matches fill the display's height; the title and the game-over panels show every column
-  (`rs_screen_fill(0)`).
+- **One view**: the title, the panels and the pause stay in the zoomed view of the play (`rs_screen_fill(1)` on every
+  screen, never the letterboxed full width), laid out in the columns shown with the kit's games/common/src/house_tall.h
+  (`ht_narrow()`: a tall screen showing fewer than 320 columns), its standard calls and rows as in the other games:
+  `ht_logo` (SEAL over SHOVE when it does not fit on one line), `ht_title_draw` (the slots on row 15), `ht_banner`,
+  `ht_gameover_panel`, `ht_results_*`, `ht_retry_line_at`, `ht_pause`. The title's big seal (decor) bobs in the sea
+  under the title's lines. In play, ROUND n, the winner's panel, the messages and the hint are wrapped in the columns
+  shown (`ht_big`, `ht_text`). The 4 seals share one floe: no split screen. The taps (start, back to the title) count
+  anywhere on the screen.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240).
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
