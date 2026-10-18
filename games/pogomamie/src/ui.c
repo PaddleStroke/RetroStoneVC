@@ -113,7 +113,7 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
         shown_players = w->players;
     }
     if (state == DS_TITLE && narrow) {
-        ht_title c = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
+        ht_title c = {TR(VERB), MAX_PLAYERS, HT_ROW_SLOTS, 0};
         ht_title_out o;
         ht_title_draw(&c, st_t, best_m, &o);
     } else if (state == DS_TITLE) {
@@ -215,7 +215,7 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
         }
     }
     if (state == DS_TITLE && ht_narrow()) {
-        ht_title c = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
+        ht_title c = {TR(VERB), MAX_PLAYERS, HT_ROW_SLOTS, 0};
         ht_title_out o;
         ht_title_draw(&c, st_t, best_m, &o);    /* (the glyph's place; ui_frame draws the same text after) */
         ht_title_sprites(&c, &o, st_t, NULL, NULL);

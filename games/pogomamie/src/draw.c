@@ -55,6 +55,7 @@ static int fdiv(int v, int d) { return v >= 0 ? v / d : -((d - 1 - v) / d); }   
 static int view_y;                              /* transient: the world y of the screen's top line (state_audit.txt) */
 static int view_cam_y;                          /* transient: the camera y of this picture (the shake included) */
 static int hud_lines;                           /* transient: the UI layer's lines pinned at the screen's top */
+static int ui_pin;                              /* transient: the UI layer pinned on the screen (house_tall.h ht_pin) */
 static int ui_dx;                               /* transient: the UI's shift to the middle of the columns shown */
 static int title_slots;                        /* transient: a zoomed title: the family at the slots (house_tall.h) */
 static int mid_a3;                              /* transient: the mid-ground's virtual y at the screen's top */
@@ -156,6 +157,7 @@ static void raster_tall(int line)
     if (line == -view_cam_y) rs_bg_enable(RS_BG2, 1);   /* the world's top */
     if (line == 0) rs_bg_enable(RS_BG1, 1);
     if (line == RS_SCREEN_H) rs_bg_enable(RS_BG1, 0);
+    if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));   /* the pinned UI (the title, the panels) */
     /* the city below the mid-ground's roofs (its last row, repeated): darker with depth, not a flat band */
     int below = mid_a3 + sl - (MID_Y + 16 + MID_H) * 8;
     if (line == top || below >= 0) {
@@ -660,7 +662,7 @@ static void draw_player(const world *w, int p)
     int f = mamie_frame(m, w->t), flip = m->face < 0 ? RS_SPR_HFLIP : 0;
     int sx = x - 12 - camx_i, sy = feet - 32 - camy_i;
     if (title_slots) {                              /* a zoomed title: each at its slot, under its tag (the columns shown) */
-        ht_title c = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};
+        ht_title c = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0, NULL};
         ht_title_out o;
         ht_slots(&c, &o);
         sx = o.slot_cx[p] + hu_ui_x() - 12;
@@ -904,6 +906,8 @@ static void tall_frame(const world *w, int state)
     rs_screen_fill(!play || w->players == 1);   /* zoomed but for 2-4 racing (they spread over every column) */
     hud_lines = play ? HUD_LINES : 0;
     rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == DS_TITLE ? HT_PIN_TITLE : state == DS_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     int v = rs_screen_visible_x1() - rs_screen_visible_x0();
     if (one) {
         int lx = (int)(w->m[w->leader].x >> 16) - camx_i;
